@@ -139,18 +139,6 @@ public final class JdbcStuff {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `JdbcParametersHandler` has only 'static' members, and lacks a 'private' constructor
-in `dekaf-jdbc/src/impl/JdbcParametersHandler.java`
-#### Snippet
-```java
- * @author Leonid Bushuev from JetBrains
- */
-class JdbcParametersHandler {
-
-  static void assignValueByItsType(@NotNull final PreparedStatement stmt,
-```
-
-### UtilityClassWithoutPrivateConstructor
 Class `JdbcRowsCollectors` has only 'static' members, and lacks a 'private' constructor
 in `dekaf-jdbc/src/impl/JdbcRowsCollectors.java`
 #### Snippet
@@ -160,6 +148,18 @@ in `dekaf-jdbc/src/impl/JdbcRowsCollectors.java`
 public class JdbcRowsCollectors {
 
 
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `JdbcParametersHandler` has only 'static' members, and lacks a 'private' constructor
+in `dekaf-jdbc/src/impl/JdbcParametersHandler.java`
+#### Snippet
+```java
+ * @author Leonid Bushuev from JetBrains
+ */
+class JdbcParametersHandler {
+
+  static void assignValueByItsType(@NotNull final PreparedStatement stmt,
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -255,30 +255,6 @@ in `dekaf-main/src/queries/Layouts.kt`
 #### Snippet
 ```java
 
-fun<R:Any, B> layTableStreamOf(rowLayout: RowLayout<R,B>): QueryLayout<Stream<R>> =
-        QueryTableLayout(StreamTableLayout<R,B>(), rowLayout)
-
-fun<R:Any, B> layTableIteratorOf(rowLayout: RowLayout<R,B>): QueryLayout<Iterator<R>> =
-```
-
-### RemoveExplicitTypeArguments
-Remove explicit type arguments
-in `dekaf-main/src/queries/Layouts.kt`
-#### Snippet
-```java
-
-fun<R:Any, B> layTableArrayOf(rowLayout: RowLayout<R,B>): QueryLayout<Array<R>> =
-        QueryTableLayout(ArrayTableLayout<R,B>(), rowLayout)
-
-fun<R:Any, B> layTableStreamOf(rowLayout: RowLayout<R,B>): QueryLayout<Stream<R>> =
-```
-
-### RemoveExplicitTypeArguments
-Remove explicit type arguments
-in `dekaf-main/src/queries/Layouts.kt`
-#### Snippet
-```java
-
 fun<R:Any, B> layTableListOf(rowLayout: RowLayout<R,B>): QueryLayout<List<R>> =
         QueryTableLayout(ListTableLayout<R,B>(), rowLayout)
 
@@ -295,6 +271,30 @@ fun<R:Any, B> layTableIteratorOf(rowLayout: RowLayout<R,B>): QueryLayout<Iterato
         QueryTableLayout(IterateTableLayout<R,B>(), rowLayout)
 
 
+```
+
+### RemoveExplicitTypeArguments
+Remove explicit type arguments
+in `dekaf-main/src/queries/Layouts.kt`
+#### Snippet
+```java
+
+fun<R:Any, B> layTableStreamOf(rowLayout: RowLayout<R,B>): QueryLayout<Stream<R>> =
+        QueryTableLayout(StreamTableLayout<R,B>(), rowLayout)
+
+fun<R:Any, B> layTableIteratorOf(rowLayout: RowLayout<R,B>): QueryLayout<Iterator<R>> =
+```
+
+### RemoveExplicitTypeArguments
+Remove explicit type arguments
+in `dekaf-main/src/queries/Layouts.kt`
+#### Snippet
+```java
+
+fun<R:Any, B> layTableArrayOf(rowLayout: RowLayout<R,B>): QueryLayout<Array<R>> =
+        QueryTableLayout(ArrayTableLayout<R,B>(), rowLayout)
+
+fun<R:Any, B> layTableStreamOf(rowLayout: RowLayout<R,B>): QueryLayout<Stream<R>> =
 ```
 
 ### RemoveExplicitTypeArguments
@@ -419,26 +419,14 @@ in `dekaf-inter-test/tests/utils/SimpleStringConvertTest.kt`
 ```
 
 ### FunctionName
-Function name `importStringList_lines_trim` should not contain underscores
+Function name `importStringList_combineCommasAndLines` should not contain underscores
 in `dekaf-inter-test/tests/utils/SimpleStringConvertTest.kt`
 #### Snippet
 ```java
 
     @Test
-    fun importStringList_lines_trim() {
-        val text = "einz  \n   zwei \n drei \n  vier"
-        val list = importStringList(text)
-```
-
-### FunctionName
-Function name `importStringList_lines_doubleLineBreaks` should not contain underscores
-in `dekaf-inter-test/tests/utils/SimpleStringConvertTest.kt`
-#### Snippet
-```java
-
-    @Test
-    fun importStringList_lines_doubleLineBreaks() {
-        val text = "einz  \n \n   zwei \n drei \n \n vier"
+    fun importStringList_combineCommasAndLines() {
+        val text = "einz, zwei, drei\n vier, fünf\n "
         val list = importStringList(text)
 ```
 
@@ -455,18 +443,6 @@ in `dekaf-inter-test/tests/utils/SimpleStringConvertTest.kt`
 ```
 
 ### FunctionName
-Function name `importStringList_CSV_basic` should not contain underscores
-in `dekaf-inter-test/tests/utils/SimpleStringConvertTest.kt`
-#### Snippet
-```java
-
-    @Test
-    fun importStringList_CSV_basic() {
-        val text = "einz,zwei,drei,vier"
-        val list = importStringList(text)
-```
-
-### FunctionName
 Function name `escapeJavaString_basic` should not contain underscores
 in `dekaf-inter-test/tests/utils/SimpleStringConvertTest.kt`
 #### Snippet
@@ -479,14 +455,50 @@ in `dekaf-inter-test/tests/utils/SimpleStringConvertTest.kt`
 ```
 
 ### FunctionName
-Function name `importStringList_combineCommasAndLines` should not contain underscores
+Function name `importStringList_CSV_trim` should not contain underscores
 in `dekaf-inter-test/tests/utils/SimpleStringConvertTest.kt`
 #### Snippet
 ```java
 
     @Test
-    fun importStringList_combineCommasAndLines() {
-        val text = "einz, zwei, drei\n vier, fünf\n "
+    fun importStringList_CSV_trim() {
+        val text = "  einz , \t zwei , drei , vier  "
+        val list = importStringList(text)
+```
+
+### FunctionName
+Function name `importStringList_lines_doubleLineBreaks` should not contain underscores
+in `dekaf-inter-test/tests/utils/SimpleStringConvertTest.kt`
+#### Snippet
+```java
+
+    @Test
+    fun importStringList_lines_doubleLineBreaks() {
+        val text = "einz  \n \n   zwei \n drei \n \n vier"
+        val list = importStringList(text)
+```
+
+### FunctionName
+Function name `importStringList_lines_trim` should not contain underscores
+in `dekaf-inter-test/tests/utils/SimpleStringConvertTest.kt`
+#### Snippet
+```java
+
+    @Test
+    fun importStringList_lines_trim() {
+        val text = "einz  \n   zwei \n drei \n  vier"
+        val list = importStringList(text)
+```
+
+### FunctionName
+Function name `importStringList_CSV_basic` should not contain underscores
+in `dekaf-inter-test/tests/utils/SimpleStringConvertTest.kt`
+#### Snippet
+```java
+
+    @Test
+    fun importStringList_CSV_basic() {
+        val text = "einz,zwei,drei,vier"
         val list = importStringList(text)
 ```
 
@@ -503,18 +515,6 @@ in `dekaf-inter-test/tests/utils/SimpleStringConvertTest.kt`
 ```
 
 ### FunctionName
-Function name `importStringList_CSV_trim` should not contain underscores
-in `dekaf-inter-test/tests/utils/SimpleStringConvertTest.kt`
-#### Snippet
-```java
-
-    @Test
-    fun importStringList_CSV_trim() {
-        val text = "  einz , \t zwei , drei , vier  "
-        val list = importStringList(text)
-```
-
-### FunctionName
 Function name `get_byIndex` should not contain underscores
 in `dekaf-inter-test/tests/settings/SettingsTest.kt`
 #### Snippet
@@ -522,54 +522,6 @@ in `dekaf-inter-test/tests/settings/SettingsTest.kt`
 
     @Test
     fun get_byIndex() {
-        val settings = Settings(Setting("name1", "value A"),
-                                Setting("name2", "value B"),
-```
-
-### FunctionName
-Function name `toText_nested` should not contain underscores
-in `dekaf-inter-test/tests/settings/SettingsTest.kt`
-#### Snippet
-```java
-
-    @Test
-    fun toText_nested() {
-        val settings2 = Settings.of("name1", "value A",
-                                    "name2", "value B",
-```
-
-### FunctionName
-Function name `toText_plain` should not contain underscores
-in `dekaf-inter-test/tests/settings/SettingsTest.kt`
-#### Snippet
-```java
-
-    @Test
-    fun toText_plain() {
-        val settings = Settings.of("name1", "value A",
-                                   "name2", "value B",
-```
-
-### FunctionName
-Function name `get_byName_44` should not contain underscores
-in `dekaf-inter-test/tests/settings/SettingsTest.kt`
-#### Snippet
-```java
-
-    @Test
-    fun get_byName_44() {
-        doTestByName(44)
-    }
-```
-
-### FunctionName
-Function name `get_byName_3` should not contain underscores
-in `dekaf-inter-test/tests/settings/SettingsTest.kt`
-#### Snippet
-```java
-
-    @Test
-    fun get_byName_3() {
         val settings = Settings(Setting("name1", "value A"),
                                 Setting("name2", "value B"),
 ```
@@ -587,6 +539,42 @@ in `dekaf-inter-test/tests/settings/SettingsTest.kt`
 ```
 
 ### FunctionName
+Function name `get_byName_3` should not contain underscores
+in `dekaf-inter-test/tests/settings/SettingsTest.kt`
+#### Snippet
+```java
+
+    @Test
+    fun get_byName_3() {
+        val settings = Settings(Setting("name1", "value A"),
+                                Setting("name2", "value B"),
+```
+
+### FunctionName
+Function name `get_byName_44` should not contain underscores
+in `dekaf-inter-test/tests/settings/SettingsTest.kt`
+#### Snippet
+```java
+
+    @Test
+    fun get_byName_44() {
+        doTestByName(44)
+    }
+```
+
+### FunctionName
+Function name `toText_plain` should not contain underscores
+in `dekaf-inter-test/tests/settings/SettingsTest.kt`
+#### Snippet
+```java
+
+    @Test
+    fun toText_plain() {
+        val settings = Settings.of("name1", "value A",
+                                   "name2", "value B",
+```
+
+### FunctionName
 Function name `get_byName_12` should not contain underscores
 in `dekaf-inter-test/tests/settings/SettingsTest.kt`
 #### Snippet
@@ -596,6 +584,18 @@ in `dekaf-inter-test/tests/settings/SettingsTest.kt`
     fun get_byName_12() {
         doTestByName(12)
     }
+```
+
+### FunctionName
+Function name `toText_nested` should not contain underscores
+in `dekaf-inter-test/tests/settings/SettingsTest.kt`
+#### Snippet
+```java
+
+    @Test
+    fun toText_nested() {
+        val settings2 = Settings.of("name1", "value A",
+                                    "name2", "value B",
 ```
 
 ### FunctionName
@@ -623,18 +623,6 @@ in `dekaf-jdbc-test/tests/impl/JdbcSessionTest.kt`
 ```
 
 ### FunctionName
-Function name `tran_beginAndCommit` should not contain underscores
-in `dekaf-jdbc-test/tests/impl/JdbcSessionTest.kt`
-#### Snippet
-```java
-
-    @Test
-    fun tran_beginAndCommit() {
-        expect that session.isInTransaction equalsTo false
-
-```
-
-### FunctionName
 Function name `autocommit_byDefault` should not contain underscores
 in `dekaf-jdbc-test/tests/impl/JdbcSessionTest.kt`
 #### Snippet
@@ -644,6 +632,18 @@ in `dekaf-jdbc-test/tests/impl/JdbcSessionTest.kt`
     fun autocommit_byDefault() {
         val ses = facade.openSession()
         try {
+```
+
+### FunctionName
+Function name `tran_beginAndCommit` should not contain underscores
+in `dekaf-jdbc-test/tests/impl/JdbcSessionTest.kt`
+#### Snippet
+```java
+
+    @Test
+    fun tran_beginAndCommit() {
+        expect that session.isInTransaction equalsTo false
+
 ```
 
 ### FunctionName
@@ -659,15 +659,15 @@ in `dekaf-jdbc-test/tests/impl/JdbcSessionTest.kt`
 ```
 
 ### FunctionName
-Function name `affectedRows_3` should not contain underscores
+Function name `basic_insert_3` should not contain underscores
 in `dekaf-jdbc-test/tests/impl/JdbcSeanceTest.kt`
 #### Snippet
 ```java
 
-    @Test @Order(12)
-    fun affectedRows_3() {
-        val text = "insert into Basic_Table (B,C,V) values (1,'A','Aa'), (2,'B','Bb'), (3,'C','Cc')"
-        var affectedRows = -1
+    @Test @Order(3)
+    fun basic_insert_3() {
+        val stmtText = "insert into Basic_Table (B,C,V) values (?,?,?)"
+        session.openSeance().use { seance ->
 ```
 
 ### FunctionName
@@ -679,18 +679,6 @@ in `dekaf-jdbc-test/tests/impl/JdbcSeanceTest.kt`
     @Test @Order(11)
     fun affectedRows_1() {
         val text = "insert into Basic_Table (B,C,V) values (1,'A','Aa')"
-        var affectedRows = -1
-```
-
-### FunctionName
-Function name `affectedRows_0` should not contain underscores
-in `dekaf-jdbc-test/tests/impl/JdbcSeanceTest.kt`
-#### Snippet
-```java
-
-    @Test @Order(10)
-    fun affectedRows_0() {
-        val text = "update Basic_Table set B = -99 where 1 is null"
         var affectedRows = -1
 ```
 
@@ -707,15 +695,39 @@ in `dekaf-jdbc-test/tests/impl/JdbcSeanceTest.kt`
 ```
 
 ### FunctionName
-Function name `basic_insert_3` should not contain underscores
+Function name `affectedRows_3` should not contain underscores
 in `dekaf-jdbc-test/tests/impl/JdbcSeanceTest.kt`
 #### Snippet
 ```java
 
-    @Test @Order(3)
-    fun basic_insert_3() {
-        val stmtText = "insert into Basic_Table (B,C,V) values (?,?,?)"
-        session.openSeance().use { seance ->
+    @Test @Order(12)
+    fun affectedRows_3() {
+        val text = "insert into Basic_Table (B,C,V) values (1,'A','Aa'), (2,'B','Bb'), (3,'C','Cc')"
+        var affectedRows = -1
+```
+
+### FunctionName
+Function name `affectedRows_0` should not contain underscores
+in `dekaf-jdbc-test/tests/impl/JdbcSeanceTest.kt`
+#### Snippet
+```java
+
+    @Test @Order(10)
+    fun affectedRows_0() {
+        val text = "update Basic_Table set B = -99 where 1 is null"
+        var affectedRows = -1
+```
+
+### FunctionName
+Function name `basic_ping` should not contain underscores
+in `dekaf-main-test/src/base/BaseSessionTest.kt`
+#### Snippet
+```java
+
+    @Test @Order(1)
+    fun basic_ping() {
+        dbf.inSession { session ->
+            session.ping()
 ```
 
 ### FunctionName
@@ -740,18 +752,6 @@ in `dekaf-main-test/src/base/BaseSessionTest.kt`
     fun basic_perform_inTransaction() {
         dbf.inTransaction { transaction ->
             transaction.perform("call 2*2")
-```
-
-### FunctionName
-Function name `basic_ping` should not contain underscores
-in `dekaf-main-test/src/base/BaseSessionTest.kt`
-#### Snippet
-```java
-
-    @Test @Order(1)
-    fun basic_ping() {
-        dbf.inSession { session ->
-            session.ping()
 ```
 
 ### FunctionName
@@ -803,6 +803,18 @@ in `dekaf-main-test/src/base/FactoryLoaderTest.kt`
 ```
 
 ### FunctionName
+Function name `basic_session_open_ping_close` should not contain underscores
+in `dekaf-main-test/src/base/BaseFacadeTest.kt`
+#### Snippet
+```java
+
+    @Test @Order(1)
+    fun basic_session_open_ping_close() {
+        expect that dbf.countActiveSessions() iz zero
+
+```
+
+### FunctionName
 Function name `mass_session_open_ping_close` should not contain underscores
 in `dekaf-main-test/src/base/BaseFacadeTest.kt`
 #### Snippet
@@ -815,14 +827,98 @@ in `dekaf-main-test/src/base/BaseFacadeTest.kt`
 ```
 
 ### FunctionName
-Function name `basic_session_open_ping_close` should not contain underscores
-in `dekaf-main-test/src/base/BaseFacadeTest.kt`
+Function name `borrowAndRelease_massThrottlingRotating` should not contain underscores
+in `dekaf-main-test/src/pool/ServicePoolTest.kt`
 #### Snippet
 ```java
 
-    @Test @Order(1)
-    fun basic_session_open_ping_close() {
-        expect that dbf.countActiveSessions() iz zero
+    @Test
+    fun borrowAndRelease_massThrottlingRotating() {
+        val pool = TestPool()
+        pool.setup(maxServices = 5, rotating = true)
+```
+
+### FunctionName
+Function name `populate_inChaos` should not contain underscores
+in `dekaf-main-test/src/pool/ServicePoolTest.kt`
+#### Snippet
+```java
+
+    @Test
+    fun populate_inChaos() {
+        val pool = TestPool()
+        pool.setup(minServices = 5, maxServices = 10, rotating = false)
+```
+
+### FunctionName
+Function name `releaseBroken_replacement` should not contain underscores
+in `dekaf-main-test/src/pool/ServicePoolTest.kt`
+#### Snippet
+```java
+
+    @Test
+    fun releaseBroken_replacement() {
+        val pool = TestPool()
+        pool.setup(minServices = 1, maxServices = 1, waitingTime = 10_000L)
+```
+
+### FunctionName
+Function name `borrowAndRelease_basic` should not contain underscores
+in `dekaf-main-test/src/pool/ServicePoolTest.kt`
+#### Snippet
+```java
+
+    @Test
+    fun borrowAndRelease_basic() {
+        val pool = TestPool()
+
+```
+
+### FunctionName
+Function name `populate_exact` should not contain underscores
+in `dekaf-main-test/src/pool/ServicePoolTest.kt`
+#### Snippet
+```java
+
+    @Test
+    fun populate_exact() {
+        val pool = TestPool()
+        pool.setup(minServices = 3, maxServices = 3)
+```
+
+### FunctionName
+Function name `borrowAndRelease_mass` should not contain underscores
+in `dekaf-main-test/src/pool/ServicePoolTest.kt`
+#### Snippet
+```java
+
+    @Test
+    fun borrowAndRelease_mass() {
+        val pool = TestPool()
+
+```
+
+### FunctionName
+Function name `populate_basic` should not contain underscores
+in `dekaf-main-test/src/pool/ServicePoolTest.kt`
+#### Snippet
+```java
+
+    @Test
+    fun populate_basic() {
+        val pool = TestPool()
+        pool.setup(minServices = 3, maxServices = 10)
+```
+
+### FunctionName
+Function name `releaseBroken_basic` should not contain underscores
+in `dekaf-main-test/src/pool/ServicePoolTest.kt`
+#### Snippet
+```java
+
+    @Test
+    fun releaseBroken_basic() {
+        val pool = TestPool()
 
 ```
 
@@ -839,174 +935,6 @@ in `dekaf-main-test/src/pool/ServicePoolTest.kt`
 ```
 
 ### FunctionName
-Function name `borrowAndRelease_basic` should not contain underscores
-in `dekaf-main-test/src/pool/ServicePoolTest.kt`
-#### Snippet
-```java
-
-    @Test
-    fun borrowAndRelease_basic() {
-        val pool = TestPool()
-
-```
-
-### FunctionName
-Function name `releaseBroken_basic` should not contain underscores
-in `dekaf-main-test/src/pool/ServicePoolTest.kt`
-#### Snippet
-```java
-
-    @Test
-    fun releaseBroken_basic() {
-        val pool = TestPool()
-
-```
-
-### FunctionName
-Function name `releaseBroken_replacement` should not contain underscores
-in `dekaf-main-test/src/pool/ServicePoolTest.kt`
-#### Snippet
-```java
-
-    @Test
-    fun releaseBroken_replacement() {
-        val pool = TestPool()
-        pool.setup(minServices = 1, maxServices = 1, waitingTime = 10_000L)
-```
-
-### FunctionName
-Function name `populate_exact` should not contain underscores
-in `dekaf-main-test/src/pool/ServicePoolTest.kt`
-#### Snippet
-```java
-
-    @Test
-    fun populate_exact() {
-        val pool = TestPool()
-        pool.setup(minServices = 3, maxServices = 3)
-```
-
-### FunctionName
-Function name `populate_basic` should not contain underscores
-in `dekaf-main-test/src/pool/ServicePoolTest.kt`
-#### Snippet
-```java
-
-    @Test
-    fun populate_basic() {
-        val pool = TestPool()
-        pool.setup(minServices = 3, maxServices = 10)
-```
-
-### FunctionName
-Function name `borrowAndRelease_mass` should not contain underscores
-in `dekaf-main-test/src/pool/ServicePoolTest.kt`
-#### Snippet
-```java
-
-    @Test
-    fun borrowAndRelease_mass() {
-        val pool = TestPool()
-
-```
-
-### FunctionName
-Function name `populate_inChaos` should not contain underscores
-in `dekaf-main-test/src/pool/ServicePoolTest.kt`
-#### Snippet
-```java
-
-    @Test
-    fun populate_inChaos() {
-        val pool = TestPool()
-        pool.setup(minServices = 5, maxServices = 10, rotating = false)
-```
-
-### FunctionName
-Function name `borrowAndRelease_massThrottlingRotating` should not contain underscores
-in `dekaf-main-test/src/pool/ServicePoolTest.kt`
-#### Snippet
-```java
-
-    @Test
-    fun borrowAndRelease_massThrottlingRotating() {
-        val pool = TestPool()
-        pool.setup(maxServices = 5, rotating = true)
-```
-
-### FunctionName
-Function name `queryArrayOfArrayOfMandatoryNumber_empty` should not contain underscores
-in `dekaf-main-test/src/queries/QueryLayoutTest.kt`
-#### Snippet
-```java
-
-    @Test @Order(3)
-    fun queryArrayOfArrayOfMandatoryNumber_empty() {
-        val queryText = "$query4x4\nwhere 1 is null"
-        val query: Query<Array<Array<out Number>>> =
-```
-
-### FunctionName
-Function name `nestSettingsBuilder_basic` should not contain underscores
-in `dekaf-main-test/src/settings/SettingsBuilderTest.kt`
-#### Snippet
-```java
-
-    @Test
-    fun nestSettingsBuilder_basic() {
-        val inner = SettingsBuilder()
-        inner.put("B11" to 11)
-```
-
-### FunctionName
-Function name `get_basic2` should not contain underscores
-in `dekaf-main-test/src/settings/SettingsBuilderTest.kt`
-#### Snippet
-```java
-
-    @Test
-    fun get_basic2() {
-        val b = SettingsBuilder()
-        b.put("First" to 11L)
-```
-
-### FunctionName
-Function name `empty_afterRemove` should not contain underscores
-in `dekaf-main-test/src/settings/SettingsBuilderTest.kt`
-#### Snippet
-```java
-
-    @Test
-    fun empty_afterRemove() {
-        val b = SettingsBuilder()
-        b.put("First" to 1)
-```
-
-### FunctionName
-Function name `get_byPath_3` should not contain underscores
-in `dekaf-main-test/src/settings/SettingsBuilderTest.kt`
-#### Snippet
-```java
-
-    @Test
-    fun get_byPath_3() {
-        val inner = SettingsBuilder()
-        inner["second"] = Settings(Setting("third", "theSuperValue"))
-```
-
-### FunctionName
-Function name `get_byPath_2_innerIsSettings` should not contain underscores
-in `dekaf-main-test/src/settings/SettingsBuilderTest.kt`
-#### Snippet
-```java
-
-    @Test
-    fun get_byPath_2_innerIsSettings() {
-        val b = SettingsBuilder()
-        b["first"] = Settings(Setting("second", "theValue"))
-```
-
-### FunctionName
 Function name `nestSettings_basic` should not contain underscores
 in `dekaf-main-test/src/settings/SettingsBuilderTest.kt`
 #### Snippet
@@ -1016,30 +944,6 @@ in `dekaf-main-test/src/settings/SettingsBuilderTest.kt`
     fun nestSettings_basic() {
         val b = SettingsBuilder()
         b.put("A" to 1)
-```
-
-### FunctionName
-Function name `set_byPath_2` should not contain underscores
-in `dekaf-main-test/src/settings/SettingsBuilderTest.kt`
-#### Snippet
-```java
-
-    @Test
-    fun set_byPath_2() {
-        val b = SettingsBuilder()
-        val path1 = arrayOf("animal", "cat")
-```
-
-### FunctionName
-Function name `get_byPath_2_innerIsSettingsBuilder` should not contain underscores
-in `dekaf-main-test/src/settings/SettingsBuilderTest.kt`
-#### Snippet
-```java
-
-    @Test
-    fun get_byPath_2_innerIsSettingsBuilder() {
-        val inner = SettingsBuilder()
-        inner["second"] = "theValue"
 ```
 
 ### FunctionName
@@ -1055,6 +959,30 @@ in `dekaf-main-test/src/settings/SettingsBuilderTest.kt`
 ```
 
 ### FunctionName
+Function name `set_byPath_1` should not contain underscores
+in `dekaf-main-test/src/settings/SettingsBuilderTest.kt`
+#### Snippet
+```java
+
+    @Test
+    fun set_byPath_1() {
+        val b = SettingsBuilder()
+        val path = arrayOf("name")
+```
+
+### FunctionName
+Function name `get_byPath_3` should not contain underscores
+in `dekaf-main-test/src/settings/SettingsBuilderTest.kt`
+#### Snippet
+```java
+
+    @Test
+    fun get_byPath_3() {
+        val inner = SettingsBuilder()
+        inner["second"] = Settings(Setting("third", "theSuperValue"))
+```
+
+### FunctionName
 Function name `get_basic1` should not contain underscores
 in `dekaf-main-test/src/settings/SettingsBuilderTest.kt`
 #### Snippet
@@ -1067,15 +995,99 @@ in `dekaf-main-test/src/settings/SettingsBuilderTest.kt`
 ```
 
 ### FunctionName
-Function name `set_byPath_1` should not contain underscores
+Function name `nestSettingsBuilder_basic` should not contain underscores
 in `dekaf-main-test/src/settings/SettingsBuilderTest.kt`
 #### Snippet
 ```java
 
     @Test
-    fun set_byPath_1() {
+    fun nestSettingsBuilder_basic() {
+        val inner = SettingsBuilder()
+        inner.put("B11" to 11)
+```
+
+### FunctionName
+Function name `set_byPath_2` should not contain underscores
+in `dekaf-main-test/src/settings/SettingsBuilderTest.kt`
+#### Snippet
+```java
+
+    @Test
+    fun set_byPath_2() {
         val b = SettingsBuilder()
-        val path = arrayOf("name")
+        val path1 = arrayOf("animal", "cat")
+```
+
+### FunctionName
+Function name `get_byPath_2_innerIsSettings` should not contain underscores
+in `dekaf-main-test/src/settings/SettingsBuilderTest.kt`
+#### Snippet
+```java
+
+    @Test
+    fun get_byPath_2_innerIsSettings() {
+        val b = SettingsBuilder()
+        b["first"] = Settings(Setting("second", "theValue"))
+```
+
+### FunctionName
+Function name `get_byPath_2_innerIsSettingsBuilder` should not contain underscores
+in `dekaf-main-test/src/settings/SettingsBuilderTest.kt`
+#### Snippet
+```java
+
+    @Test
+    fun get_byPath_2_innerIsSettingsBuilder() {
+        val inner = SettingsBuilder()
+        inner["second"] = "theValue"
+```
+
+### FunctionName
+Function name `empty_afterRemove` should not contain underscores
+in `dekaf-main-test/src/settings/SettingsBuilderTest.kt`
+#### Snippet
+```java
+
+    @Test
+    fun empty_afterRemove() {
+        val b = SettingsBuilder()
+        b.put("First" to 1)
+```
+
+### FunctionName
+Function name `get_basic2` should not contain underscores
+in `dekaf-main-test/src/settings/SettingsBuilderTest.kt`
+#### Snippet
+```java
+
+    @Test
+    fun get_basic2() {
+        val b = SettingsBuilder()
+        b.put("First" to 11L)
+```
+
+### FunctionName
+Function name `queryArrayOfArrayOfMandatoryNumber_empty` should not contain underscores
+in `dekaf-main-test/src/queries/QueryLayoutTest.kt`
+#### Snippet
+```java
+
+    @Test @Order(3)
+    fun queryArrayOfArrayOfMandatoryNumber_empty() {
+        val queryText = "$query4x4\nwhere 1 is null"
+        val query: Query<Array<Array<out Number>>> =
+```
+
+### FunctionName
+Function name `nest_path_path` should not contain underscores
+in `dekaf-main-test/src/settings/SettingsLoaderTest.kt`
+#### Snippet
+```java
+
+    @Test
+    fun nest_path_path() {
+        val text =
+                """|live.animal:
 ```
 
 ### FunctionName
@@ -1091,30 +1103,6 @@ in `dekaf-main-test/src/settings/SettingsLoaderTest.kt`
 ```
 
 ### FunctionName
-Function name `nest_repeat` should not contain underscores
-in `dekaf-main-test/src/settings/SettingsLoaderTest.kt`
-#### Snippet
-```java
-
-    @Test
-    fun nest_repeat() {
-        val text =
-                """|animal:
-```
-
-### FunctionName
-Function name `simple_level2` should not contain underscores
-in `dekaf-main-test/src/settings/SettingsLoaderTest.kt`
-#### Snippet
-```java
-
-    @Test
-    fun simple_level2() {
-        val text =
-                """|animal.cat = meow   
-```
-
-### FunctionName
 Function name `plain_commentsAtEnd` should not contain underscores
 in `dekaf-main-test/src/settings/SettingsLoaderTest.kt`
 #### Snippet
@@ -1127,18 +1115,6 @@ in `dekaf-main-test/src/settings/SettingsLoaderTest.kt`
 ```
 
 ### FunctionName
-Function name `quotes_baisc` should not contain underscores
-in `dekaf-main-test/src/settings/SettingsLoaderTest.kt`
-#### Snippet
-```java
-
-    @Test
-    fun quotes_baisc() {
-        val text =
-                """|single = ' in single quotes '
-```
-
-### FunctionName
 Function name `quotes_escapeSpecialCharacters` should not contain underscores
 in `dekaf-main-test/src/settings/SettingsLoaderTest.kt`
 #### Snippet
@@ -1148,6 +1124,30 @@ in `dekaf-main-test/src/settings/SettingsLoaderTest.kt`
     fun quotes_escapeSpecialCharacters() {
         val text =
                 """|name = " text with \t and \r\n "
+```
+
+### FunctionName
+Function name `quotes_escapeQuotes` should not contain underscores
+in `dekaf-main-test/src/settings/SettingsLoaderTest.kt`
+#### Snippet
+```java
+
+    @Test
+    fun quotes_escapeQuotes() {
+        val text =
+                """|single = ' in \'single\' quotes '
+```
+
+### FunctionName
+Function name `quotes_baisc` should not contain underscores
+in `dekaf-main-test/src/settings/SettingsLoaderTest.kt`
+#### Snippet
+```java
+
+    @Test
+    fun quotes_baisc() {
+        val text =
+                """|single = ' in single quotes '
 ```
 
 ### FunctionName
@@ -1175,27 +1175,27 @@ in `dekaf-main-test/src/settings/SettingsLoaderTest.kt`
 ```
 
 ### FunctionName
-Function name `nest_path_path` should not contain underscores
+Function name `nest_repeat` should not contain underscores
 in `dekaf-main-test/src/settings/SettingsLoaderTest.kt`
 #### Snippet
 ```java
 
     @Test
-    fun nest_path_path() {
+    fun nest_repeat() {
         val text =
-                """|live.animal:
+                """|animal:
 ```
 
 ### FunctionName
-Function name `quotes_escapeQuotes` should not contain underscores
+Function name `simple_level2` should not contain underscores
 in `dekaf-main-test/src/settings/SettingsLoaderTest.kt`
 #### Snippet
 ```java
 
     @Test
-    fun quotes_escapeQuotes() {
+    fun simple_level2() {
         val text =
-                """|single = ' in \'single\' quotes '
+                """|animal.cat = meow   
 ```
 
 ## RuleId[ruleID=KotlinAnnotator]
@@ -1272,6 +1272,18 @@ in `dekaf-inter-test/tests/settings/SettingTest.kt`
 ```
 
 ### KotlinAnnotator
+Unresolved reference: arrayClass
+in `dekaf-inter-test/tests/utils/ArrayHacksTest.kt`
+#### Snippet
+```java
+    fun arrayClass_basic() {
+        val a: Array<String> = arrayOf("S")
+        val c = arrayClass(a)
+        expect that c.isArray equalsTo true
+        expect that c.componentType equalsTo java.lang.String::class.java
+```
+
+### KotlinAnnotator
 Unresolved reference: inter
 in `dekaf-inter-test/tests/utils/ArrayHacksTest.kt`
 #### Snippet
@@ -1308,18 +1320,6 @@ in `dekaf-inter-test/tests/utils/ArrayHacksTest.kt`
 ```
 
 ### KotlinAnnotator
-Unresolved reference: arrayClass
-in `dekaf-inter-test/tests/utils/ArrayHacksTest.kt`
-#### Snippet
-```java
-    fun arrayClass_basic() {
-        val a: Array<String> = arrayOf("S")
-        val c = arrayClass(a)
-        expect that c.isArray equalsTo true
-        expect that c.componentType equalsTo java.lang.String::class.java
-```
-
-### KotlinAnnotator
 Unresolved reference: importStringList
 in `dekaf-inter-test/tests/utils/SimpleStringConvertTest.kt`
 #### Snippet
@@ -1339,6 +1339,138 @@ in `dekaf-inter-test/tests/utils/SimpleStringConvertTest.kt`
     fun importStringList_empty() {
         val list = importStringList(" \t \n  ")
         expect that list iz empty
+    }
+
+```
+
+### KotlinAnnotator
+Unresolved reference: importStringList
+in `dekaf-inter-test/tests/utils/SimpleStringConvertTest.kt`
+#### Snippet
+```java
+    fun importStringList_combineCommasAndLines() {
+        val text = "einz, zwei, drei\n vier, fünf\n "
+        val list = importStringList(text)
+        expect that list containsExactly listOf("einz", "zwei", "drei", "vier", "fünf")
+    }
+```
+
+### KotlinAnnotator
+Overload resolution ambiguity: public final inline infix fun that(x: NavigableSet?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: SortedSet?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: DoubleStream?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: IntStream?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: LongStream?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Stream?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Array?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: ByteArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: CharArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: DoubleArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: FloatArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: IntArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: LongArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: ShortArray?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Collection?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Iterable?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: List?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Set?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Sequence?): Subject\> defined in lb.yaka.gears.Expect
+in `dekaf-inter-test/tests/utils/SimpleStringConvertTest.kt`
+#### Snippet
+```java
+        val text = "einz, zwei, drei\n vier, fünf\n "
+        val list = importStringList(text)
+        expect that list containsExactly listOf("einz", "zwei", "drei", "vier", "fünf")
+    }
+
+```
+
+### KotlinAnnotator
+Unresolved reference: escapeJavaString
+in `dekaf-inter-test/tests/utils/SimpleStringConvertTest.kt`
+#### Snippet
+```java
+    fun escapeJavaString_dontChangeGoodString() {
+        val goodString = "Just a good string"
+        expect that escapeJavaString(goodString) sameAs goodString
+    }
+
+```
+
+### KotlinAnnotator
+Unresolved reference: escapeJavaString
+in `dekaf-inter-test/tests/utils/SimpleStringConvertTest.kt`
+#### Snippet
+```java
+    @Test
+    fun escapeJavaString_basic() {
+        expect that escapeJavaString("x\ny\nz") equalsTo """x\ny\nz"""
+        expect that escapeJavaString("x\ny\nz") equalsTo """x\ny\nz"""
+        expect that escapeJavaString("x\r\ny\r\nz") equalsTo """x\r\ny\r\nz"""
+```
+
+### KotlinAnnotator
+Unresolved reference: escapeJavaString
+in `dekaf-inter-test/tests/utils/SimpleStringConvertTest.kt`
+#### Snippet
+```java
+    fun escapeJavaString_basic() {
+        expect that escapeJavaString("x\ny\nz") equalsTo """x\ny\nz"""
+        expect that escapeJavaString("x\ny\nz") equalsTo """x\ny\nz"""
+        expect that escapeJavaString("x\r\ny\r\nz") equalsTo """x\r\ny\r\nz"""
+        expect that escapeJavaString("x\ty\bz") equalsTo """x\ty\bz"""
+```
+
+### KotlinAnnotator
+Unresolved reference: escapeJavaString
+in `dekaf-inter-test/tests/utils/SimpleStringConvertTest.kt`
+#### Snippet
+```java
+        expect that escapeJavaString("x\ny\nz") equalsTo """x\ny\nz"""
+        expect that escapeJavaString("x\ny\nz") equalsTo """x\ny\nz"""
+        expect that escapeJavaString("x\r\ny\r\nz") equalsTo """x\r\ny\r\nz"""
+        expect that escapeJavaString("x\ty\bz") equalsTo """x\ty\bz"""
+    }
+```
+
+### KotlinAnnotator
+Unresolved reference: escapeJavaString
+in `dekaf-inter-test/tests/utils/SimpleStringConvertTest.kt`
+#### Snippet
+```java
+        expect that escapeJavaString("x\ny\nz") equalsTo """x\ny\nz"""
+        expect that escapeJavaString("x\r\ny\r\nz") equalsTo """x\r\ny\r\nz"""
+        expect that escapeJavaString("x\ty\bz") equalsTo """x\ty\bz"""
+    }
+
+```
+
+### KotlinAnnotator
+Unresolved reference: importStringList
+in `dekaf-inter-test/tests/utils/SimpleStringConvertTest.kt`
+#### Snippet
+```java
+    fun importStringList_CSV_trim() {
+        val text = "  einz , \t zwei , drei , vier  "
+        val list = importStringList(text)
+        expect that list containsExactly listOf("einz", "zwei", "drei", "vier")
+    }
+```
+
+### KotlinAnnotator
+Overload resolution ambiguity: public final inline infix fun that(x: NavigableSet?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: SortedSet?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: DoubleStream?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: IntStream?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: LongStream?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Stream?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Array?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: ByteArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: CharArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: DoubleArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: FloatArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: IntArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: LongArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: ShortArray?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Collection?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Iterable?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: List?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Set?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Sequence?): Subject\> defined in lb.yaka.gears.Expect
+in `dekaf-inter-test/tests/utils/SimpleStringConvertTest.kt`
+#### Snippet
+```java
+        val text = "  einz , \t zwei , drei , vier  "
+        val list = importStringList(text)
+        expect that list containsExactly listOf("einz", "zwei", "drei", "vier")
+    }
+
+```
+
+### KotlinAnnotator
+Unresolved reference: importStringList
+in `dekaf-inter-test/tests/utils/SimpleStringConvertTest.kt`
+#### Snippet
+```java
+    fun importStringList_lines_doubleLineBreaks() {
+        val text = "einz  \n \n   zwei \n drei \n \n vier"
+        val list = importStringList(text)
+        expect that list containsExactly listOf("einz", "zwei", "drei", "vier")
+    }
+```
+
+### KotlinAnnotator
+Overload resolution ambiguity: public final inline infix fun that(x: NavigableSet?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: SortedSet?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: DoubleStream?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: IntStream?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: LongStream?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Stream?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Array?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: ByteArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: CharArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: DoubleArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: FloatArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: IntArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: LongArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: ShortArray?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Collection?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Iterable?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: List?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Set?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Sequence?): Subject\> defined in lb.yaka.gears.Expect
+in `dekaf-inter-test/tests/utils/SimpleStringConvertTest.kt`
+#### Snippet
+```java
+        val text = "einz  \n \n   zwei \n drei \n \n vier"
+        val list = importStringList(text)
+        expect that list containsExactly listOf("einz", "zwei", "drei", "vier")
     }
 
 ```
@@ -1372,42 +1504,6 @@ Unresolved reference: importStringList
 in `dekaf-inter-test/tests/utils/SimpleStringConvertTest.kt`
 #### Snippet
 ```java
-    fun importStringList_lines_doubleLineBreaks() {
-        val text = "einz  \n \n   zwei \n drei \n \n vier"
-        val list = importStringList(text)
-        expect that list containsExactly listOf("einz", "zwei", "drei", "vier")
-    }
-```
-
-### KotlinAnnotator
-Overload resolution ambiguity: public final inline infix fun that(x: NavigableSet?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: SortedSet?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: DoubleStream?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: IntStream?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: LongStream?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Stream?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Array?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: ByteArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: CharArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: DoubleArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: FloatArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: IntArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: LongArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: ShortArray?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Collection?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Iterable?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: List?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Set?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Sequence?): Subject\> defined in lb.yaka.gears.Expect
-in `dekaf-inter-test/tests/utils/SimpleStringConvertTest.kt`
-#### Snippet
-```java
-        val text = "einz  \n \n   zwei \n drei \n \n vier"
-        val list = importStringList(text)
-        expect that list containsExactly listOf("einz", "zwei", "drei", "vier")
-    }
-
-```
-
-### KotlinAnnotator
-Unresolved reference: escapeJavaString
-in `dekaf-inter-test/tests/utils/SimpleStringConvertTest.kt`
-#### Snippet
-```java
-    fun escapeJavaString_dontChangeGoodString() {
-        val goodString = "Just a good string"
-        expect that escapeJavaString(goodString) sameAs goodString
-    }
-
-```
-
-### KotlinAnnotator
-Unresolved reference: importStringList
-in `dekaf-inter-test/tests/utils/SimpleStringConvertTest.kt`
-#### Snippet
-```java
     fun importStringList_CSV_basic() {
         val text = "einz,zwei,drei,vier"
         val list = importStringList(text)
@@ -1428,75 +1524,15 @@ in `dekaf-inter-test/tests/utils/SimpleStringConvertTest.kt`
 ```
 
 ### KotlinAnnotator
-Unresolved reference: escapeJavaString
+Unresolved reference: inter
 in `dekaf-inter-test/tests/utils/SimpleStringConvertTest.kt`
 #### Snippet
 ```java
-    @Test
-    fun escapeJavaString_basic() {
-        expect that escapeJavaString("x\ny\nz") equalsTo """x\ny\nz"""
-        expect that escapeJavaString("x\ny\nz") equalsTo """x\ny\nz"""
-        expect that escapeJavaString("x\r\ny\r\nz") equalsTo """x\r\ny\r\nz"""
-```
-
-### KotlinAnnotator
-Unresolved reference: escapeJavaString
-in `dekaf-inter-test/tests/utils/SimpleStringConvertTest.kt`
-#### Snippet
-```java
-    fun escapeJavaString_basic() {
-        expect that escapeJavaString("x\ny\nz") equalsTo """x\ny\nz"""
-        expect that escapeJavaString("x\ny\nz") equalsTo """x\ny\nz"""
-        expect that escapeJavaString("x\r\ny\r\nz") equalsTo """x\r\ny\r\nz"""
-        expect that escapeJavaString("x\ty\bz") equalsTo """x\ty\bz"""
-```
-
-### KotlinAnnotator
-Unresolved reference: escapeJavaString
-in `dekaf-inter-test/tests/utils/SimpleStringConvertTest.kt`
-#### Snippet
-```java
-        expect that escapeJavaString("x\ny\nz") equalsTo """x\ny\nz"""
-        expect that escapeJavaString("x\ny\nz") equalsTo """x\ny\nz"""
-        expect that escapeJavaString("x\r\ny\r\nz") equalsTo """x\r\ny\r\nz"""
-        expect that escapeJavaString("x\ty\bz") equalsTo """x\ty\bz"""
-    }
-```
-
-### KotlinAnnotator
-Unresolved reference: escapeJavaString
-in `dekaf-inter-test/tests/utils/SimpleStringConvertTest.kt`
-#### Snippet
-```java
-        expect that escapeJavaString("x\ny\nz") equalsTo """x\ny\nz"""
-        expect that escapeJavaString("x\r\ny\r\nz") equalsTo """x\r\ny\r\nz"""
-        expect that escapeJavaString("x\ty\bz") equalsTo """x\ty\bz"""
-    }
-
-```
-
-### KotlinAnnotator
-Unresolved reference: importStringList
-in `dekaf-inter-test/tests/utils/SimpleStringConvertTest.kt`
-#### Snippet
-```java
-    fun importStringList_combineCommasAndLines() {
-        val text = "einz, zwei, drei\n vier, fünf\n "
-        val list = importStringList(text)
-        expect that list containsExactly listOf("einz", "zwei", "drei", "vier", "fünf")
-    }
-```
-
-### KotlinAnnotator
-Overload resolution ambiguity: public final inline infix fun that(x: NavigableSet?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: SortedSet?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: DoubleStream?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: IntStream?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: LongStream?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Stream?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Array?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: ByteArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: CharArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: DoubleArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: FloatArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: IntArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: LongArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: ShortArray?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Collection?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Iterable?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: List?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Set?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Sequence?): Subject\> defined in lb.yaka.gears.Expect
-in `dekaf-inter-test/tests/utils/SimpleStringConvertTest.kt`
-#### Snippet
-```java
-        val text = "einz, zwei, drei\n vier, fünf\n "
-        val list = importStringList(text)
-        expect that list containsExactly listOf("einz", "zwei", "drei", "vier", "fünf")
-    }
-
+import lb.yaka.gears.empty
+import lb.yaka.gears.expect
+import org.jetbrains.dekaf.inter.utils.SimpleStringConvert.*
+import org.jetbrains.dekaf.test.utils.UnitTest
+import org.junit.jupiter.api.Test
 ```
 
 ### KotlinAnnotator
@@ -1524,39 +1560,87 @@ in `dekaf-inter-test/tests/utils/SimpleStringConvertTest.kt`
 ```
 
 ### KotlinAnnotator
-Unresolved reference: importStringList
-in `dekaf-inter-test/tests/utils/SimpleStringConvertTest.kt`
+Unresolved reference: Settings
+in `dekaf-inter-test/tests/settings/SettingsTest.kt`
 #### Snippet
 ```java
-    fun importStringList_CSV_trim() {
-        val text = "  einz , \t zwei , drei , vier  "
-        val list = importStringList(text)
-        expect that list containsExactly listOf("einz", "zwei", "drei", "vier")
-    }
+    @Test
+    fun get_byIndex() {
+        val settings = Settings(Setting("name1", "value A"),
+                                Setting("name2", "value B"),
+                                Setting("name3", "value C"))
 ```
 
 ### KotlinAnnotator
-Overload resolution ambiguity: public final inline infix fun that(x: NavigableSet?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: SortedSet?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: DoubleStream?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: IntStream?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: LongStream?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Stream?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Array?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: ByteArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: CharArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: DoubleArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: FloatArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: IntArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: LongArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: ShortArray?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Collection?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Iterable?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: List?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Set?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Sequence?): Subject\> defined in lb.yaka.gears.Expect
-in `dekaf-inter-test/tests/utils/SimpleStringConvertTest.kt`
+Unresolved reference: Setting
+in `dekaf-inter-test/tests/settings/SettingsTest.kt`
 #### Snippet
 ```java
-        val text = "  einz , \t zwei , drei , vier  "
-        val list = importStringList(text)
-        expect that list containsExactly listOf("einz", "zwei", "drei", "vier")
-    }
-
+    @Test
+    fun get_byIndex() {
+        val settings = Settings(Setting("name1", "value A"),
+                                Setting("name2", "value B"),
+                                Setting("name3", "value C"))
 ```
 
 ### KotlinAnnotator
-Unresolved reference: inter
-in `dekaf-inter-test/tests/utils/SimpleStringConvertTest.kt`
+Unresolved reference: Setting
+in `dekaf-inter-test/tests/settings/SettingsTest.kt`
 #### Snippet
 ```java
-import lb.yaka.gears.empty
-import lb.yaka.gears.expect
-import org.jetbrains.dekaf.inter.utils.SimpleStringConvert.*
-import org.jetbrains.dekaf.test.utils.UnitTest
-import org.junit.jupiter.api.Test
+    fun get_byIndex() {
+        val settings = Settings(Setting("name1", "value A"),
+                                Setting("name2", "value B"),
+                                Setting("name3", "value C"))
+        expect that settings.getEntry(0) equalsTo Setting("name1", "value A")
+```
+
+### KotlinAnnotator
+Unresolved reference: Setting
+in `dekaf-inter-test/tests/settings/SettingsTest.kt`
+#### Snippet
+```java
+        val settings = Settings(Setting("name1", "value A"),
+                                Setting("name2", "value B"),
+                                Setting("name3", "value C"))
+        expect that settings.getEntry(0) equalsTo Setting("name1", "value A")
+        expect that settings.getEntry(1) equalsTo Setting("name2", "value B")
+```
+
+### KotlinAnnotator
+Unresolved reference: Setting
+in `dekaf-inter-test/tests/settings/SettingsTest.kt`
+#### Snippet
+```java
+                                Setting("name2", "value B"),
+                                Setting("name3", "value C"))
+        expect that settings.getEntry(0) equalsTo Setting("name1", "value A")
+        expect that settings.getEntry(1) equalsTo Setting("name2", "value B")
+        expect that settings.getEntry(2) equalsTo Setting("name3", "value C")
+```
+
+### KotlinAnnotator
+Unresolved reference: Setting
+in `dekaf-inter-test/tests/settings/SettingsTest.kt`
+#### Snippet
+```java
+                                Setting("name3", "value C"))
+        expect that settings.getEntry(0) equalsTo Setting("name1", "value A")
+        expect that settings.getEntry(1) equalsTo Setting("name2", "value B")
+        expect that settings.getEntry(2) equalsTo Setting("name3", "value C")
+        expect that settings.size equalsTo 3
+```
+
+### KotlinAnnotator
+Unresolved reference: Setting
+in `dekaf-inter-test/tests/settings/SettingsTest.kt`
+#### Snippet
+```java
+        expect that settings.getEntry(0) equalsTo Setting("name1", "value A")
+        expect that settings.getEntry(1) equalsTo Setting("name2", "value B")
+        expect that settings.getEntry(2) equalsTo Setting("name3", "value C")
+        expect that settings.size equalsTo 3
+    }
 ```
 
 ### KotlinAnnotator
@@ -1581,258 +1665,6 @@ in `dekaf-inter-test/tests/settings/SettingsTest.kt`
         val settings = Settings(*entries)
         for (i in 0 until n) {
             expect that settings.getEntry("name$i") sameAs entries[i]
-```
-
-### KotlinAnnotator
-Unresolved reference: Settings
-in `dekaf-inter-test/tests/settings/SettingsTest.kt`
-#### Snippet
-```java
-    @Test
-    fun get_byIndex() {
-        val settings = Settings(Setting("name1", "value A"),
-                                Setting("name2", "value B"),
-                                Setting("name3", "value C"))
-```
-
-### KotlinAnnotator
-Unresolved reference: Setting
-in `dekaf-inter-test/tests/settings/SettingsTest.kt`
-#### Snippet
-```java
-    @Test
-    fun get_byIndex() {
-        val settings = Settings(Setting("name1", "value A"),
-                                Setting("name2", "value B"),
-                                Setting("name3", "value C"))
-```
-
-### KotlinAnnotator
-Unresolved reference: Setting
-in `dekaf-inter-test/tests/settings/SettingsTest.kt`
-#### Snippet
-```java
-    fun get_byIndex() {
-        val settings = Settings(Setting("name1", "value A"),
-                                Setting("name2", "value B"),
-                                Setting("name3", "value C"))
-        expect that settings.getEntry(0) equalsTo Setting("name1", "value A")
-```
-
-### KotlinAnnotator
-Unresolved reference: Setting
-in `dekaf-inter-test/tests/settings/SettingsTest.kt`
-#### Snippet
-```java
-        val settings = Settings(Setting("name1", "value A"),
-                                Setting("name2", "value B"),
-                                Setting("name3", "value C"))
-        expect that settings.getEntry(0) equalsTo Setting("name1", "value A")
-        expect that settings.getEntry(1) equalsTo Setting("name2", "value B")
-```
-
-### KotlinAnnotator
-Unresolved reference: Setting
-in `dekaf-inter-test/tests/settings/SettingsTest.kt`
-#### Snippet
-```java
-                                Setting("name2", "value B"),
-                                Setting("name3", "value C"))
-        expect that settings.getEntry(0) equalsTo Setting("name1", "value A")
-        expect that settings.getEntry(1) equalsTo Setting("name2", "value B")
-        expect that settings.getEntry(2) equalsTo Setting("name3", "value C")
-```
-
-### KotlinAnnotator
-Unresolved reference: Setting
-in `dekaf-inter-test/tests/settings/SettingsTest.kt`
-#### Snippet
-```java
-                                Setting("name3", "value C"))
-        expect that settings.getEntry(0) equalsTo Setting("name1", "value A")
-        expect that settings.getEntry(1) equalsTo Setting("name2", "value B")
-        expect that settings.getEntry(2) equalsTo Setting("name3", "value C")
-        expect that settings.size equalsTo 3
-```
-
-### KotlinAnnotator
-Unresolved reference: Setting
-in `dekaf-inter-test/tests/settings/SettingsTest.kt`
-#### Snippet
-```java
-        expect that settings.getEntry(0) equalsTo Setting("name1", "value A")
-        expect that settings.getEntry(1) equalsTo Setting("name2", "value B")
-        expect that settings.getEntry(2) equalsTo Setting("name3", "value C")
-        expect that settings.size equalsTo 3
-    }
-```
-
-### KotlinAnnotator
-Unresolved reference: inter
-in `dekaf-inter-test/tests/settings/SettingsTest.kt`
-#### Snippet
-```java
-import lb.yaka.expectations.*
-import lb.yaka.gears.*
-import org.jetbrains.dekaf.inter.settings.Setting
-import org.jetbrains.dekaf.inter.settings.Settings
-import org.jetbrains.dekaf.test.utils.UnitTest
-```
-
-### KotlinAnnotator
-Unresolved reference: inter
-in `dekaf-inter-test/tests/settings/SettingsTest.kt`
-#### Snippet
-```java
-import lb.yaka.gears.*
-import org.jetbrains.dekaf.inter.settings.Setting
-import org.jetbrains.dekaf.inter.settings.Settings
-import org.jetbrains.dekaf.test.utils.UnitTest
-import org.junit.jupiter.api.Test
-```
-
-### KotlinAnnotator
-Unresolved reference: Settings
-in `dekaf-inter-test/tests/settings/SettingsTest.kt`
-#### Snippet
-```java
-    @Test
-    fun toText_nested() {
-        val settings2 = Settings.of("name1", "value A",
-                                    "name2", "value B",
-                                    "name3", "value C")
-```
-
-### KotlinAnnotator
-Unresolved reference: Settings
-in `dekaf-inter-test/tests/settings/SettingsTest.kt`
-#### Snippet
-```java
-                                    "name2", "value B",
-                                    "name3", "value C")
-        val settings1 = Settings.of("x", settings2,
-                                    "y", "another value")
-        val text = settings1.toText().toString()
-```
-
-### KotlinAnnotator
-Overload resolution ambiguity: public final inline infix fun that(x: NavigableSet?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: SortedSet?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: DoubleStream?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: IntStream?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: LongStream?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Stream?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Array?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: ByteArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: CharArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: DoubleArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: FloatArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: IntArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: LongArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: ShortArray?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Collection?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Iterable?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: List?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Set?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Sequence?): Subject\> defined in lb.yaka.gears.Expect
-in `dekaf-inter-test/tests/settings/SettingsTest.kt`
-#### Snippet
-```java
-                              |y = another value
-                           """.trimMargin() + '\n'
-        expect that text equalsTo expectedText
-    }
-
-```
-
-### KotlinAnnotator
-Unresolved reference: Settings
-in `dekaf-inter-test/tests/settings/SettingsTest.kt`
-#### Snippet
-```java
-    @Test
-    fun toText_plain() {
-        val settings = Settings.of("name1", "value A",
-                                   "name2", "value B",
-                                   "name3", "value C")
-```
-
-### KotlinAnnotator
-Overload resolution ambiguity: public final inline infix fun that(x: NavigableSet?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: SortedSet?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: DoubleStream?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: IntStream?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: LongStream?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Stream?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Array?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: ByteArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: CharArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: DoubleArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: FloatArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: IntArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: LongArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: ShortArray?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Collection?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Iterable?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: List?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Set?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Sequence?): Subject\> defined in lb.yaka.gears.Expect
-in `dekaf-inter-test/tests/settings/SettingsTest.kt`
-#### Snippet
-```java
-                              |name3 = value C
-                           """.trimMargin() + '\n'
-        expect that text equalsTo expectedText
-    }
-
-```
-
-### KotlinAnnotator
-Unresolved reference: Settings
-in `dekaf-inter-test/tests/settings/SettingsTest.kt`
-#### Snippet
-```java
-    @Test
-    fun get_byName_3() {
-        val settings = Settings(Setting("name1", "value A"),
-                                Setting("name2", "value B"),
-                                Setting("name3", "value C"))
-```
-
-### KotlinAnnotator
-Unresolved reference: Setting
-in `dekaf-inter-test/tests/settings/SettingsTest.kt`
-#### Snippet
-```java
-    @Test
-    fun get_byName_3() {
-        val settings = Settings(Setting("name1", "value A"),
-                                Setting("name2", "value B"),
-                                Setting("name3", "value C"))
-```
-
-### KotlinAnnotator
-Unresolved reference: Setting
-in `dekaf-inter-test/tests/settings/SettingsTest.kt`
-#### Snippet
-```java
-    fun get_byName_3() {
-        val settings = Settings(Setting("name1", "value A"),
-                                Setting("name2", "value B"),
-                                Setting("name3", "value C"))
-        expect that settings.getEntry("name1") equalsTo Setting("name1", "value A")
-```
-
-### KotlinAnnotator
-Unresolved reference: Setting
-in `dekaf-inter-test/tests/settings/SettingsTest.kt`
-#### Snippet
-```java
-        val settings = Settings(Setting("name1", "value A"),
-                                Setting("name2", "value B"),
-                                Setting("name3", "value C"))
-        expect that settings.getEntry("name1") equalsTo Setting("name1", "value A")
-        expect that settings.getEntry("name2") equalsTo Setting("name2", "value B")
-```
-
-### KotlinAnnotator
-Unresolved reference: Setting
-in `dekaf-inter-test/tests/settings/SettingsTest.kt`
-#### Snippet
-```java
-                                Setting("name2", "value B"),
-                                Setting("name3", "value C"))
-        expect that settings.getEntry("name1") equalsTo Setting("name1", "value A")
-        expect that settings.getEntry("name2") equalsTo Setting("name2", "value B")
-        expect that settings.getEntry("name3") equalsTo Setting("name3", "value C")
-```
-
-### KotlinAnnotator
-Unresolved reference: Setting
-in `dekaf-inter-test/tests/settings/SettingsTest.kt`
-#### Snippet
-```java
-                                Setting("name3", "value C"))
-        expect that settings.getEntry("name1") equalsTo Setting("name1", "value A")
-        expect that settings.getEntry("name2") equalsTo Setting("name2", "value B")
-        expect that settings.getEntry("name3") equalsTo Setting("name3", "value C")
-    }
-```
-
-### KotlinAnnotator
-Unresolved reference: Setting
-in `dekaf-inter-test/tests/settings/SettingsTest.kt`
-#### Snippet
-```java
-        expect that settings.getEntry("name1") equalsTo Setting("name1", "value A")
-        expect that settings.getEntry("name2") equalsTo Setting("name2", "value B")
-        expect that settings.getEntry("name3") equalsTo Setting("name3", "value C")
-    }
-
 ```
 
 ### KotlinAnnotator
@@ -1881,6 +1713,174 @@ in `dekaf-inter-test/tests/settings/SettingsTest.kt`
         val settings = Settings(s1, s2, s3)
         val it = settings.iterator()
         expect that it.next() sameAs s1
+```
+
+### KotlinAnnotator
+Unresolved reference: Settings
+in `dekaf-inter-test/tests/settings/SettingsTest.kt`
+#### Snippet
+```java
+    @Test
+    fun get_byName_3() {
+        val settings = Settings(Setting("name1", "value A"),
+                                Setting("name2", "value B"),
+                                Setting("name3", "value C"))
+```
+
+### KotlinAnnotator
+Unresolved reference: Setting
+in `dekaf-inter-test/tests/settings/SettingsTest.kt`
+#### Snippet
+```java
+    @Test
+    fun get_byName_3() {
+        val settings = Settings(Setting("name1", "value A"),
+                                Setting("name2", "value B"),
+                                Setting("name3", "value C"))
+```
+
+### KotlinAnnotator
+Unresolved reference: Setting
+in `dekaf-inter-test/tests/settings/SettingsTest.kt`
+#### Snippet
+```java
+    fun get_byName_3() {
+        val settings = Settings(Setting("name1", "value A"),
+                                Setting("name2", "value B"),
+                                Setting("name3", "value C"))
+        expect that settings.getEntry("name1") equalsTo Setting("name1", "value A")
+```
+
+### KotlinAnnotator
+Unresolved reference: Setting
+in `dekaf-inter-test/tests/settings/SettingsTest.kt`
+#### Snippet
+```java
+        val settings = Settings(Setting("name1", "value A"),
+                                Setting("name2", "value B"),
+                                Setting("name3", "value C"))
+        expect that settings.getEntry("name1") equalsTo Setting("name1", "value A")
+        expect that settings.getEntry("name2") equalsTo Setting("name2", "value B")
+```
+
+### KotlinAnnotator
+Unresolved reference: Setting
+in `dekaf-inter-test/tests/settings/SettingsTest.kt`
+#### Snippet
+```java
+                                Setting("name2", "value B"),
+                                Setting("name3", "value C"))
+        expect that settings.getEntry("name1") equalsTo Setting("name1", "value A")
+        expect that settings.getEntry("name2") equalsTo Setting("name2", "value B")
+        expect that settings.getEntry("name3") equalsTo Setting("name3", "value C")
+```
+
+### KotlinAnnotator
+Unresolved reference: Setting
+in `dekaf-inter-test/tests/settings/SettingsTest.kt`
+#### Snippet
+```java
+                                Setting("name3", "value C"))
+        expect that settings.getEntry("name1") equalsTo Setting("name1", "value A")
+        expect that settings.getEntry("name2") equalsTo Setting("name2", "value B")
+        expect that settings.getEntry("name3") equalsTo Setting("name3", "value C")
+    }
+```
+
+### KotlinAnnotator
+Unresolved reference: Setting
+in `dekaf-inter-test/tests/settings/SettingsTest.kt`
+#### Snippet
+```java
+        expect that settings.getEntry("name1") equalsTo Setting("name1", "value A")
+        expect that settings.getEntry("name2") equalsTo Setting("name2", "value B")
+        expect that settings.getEntry("name3") equalsTo Setting("name3", "value C")
+    }
+
+```
+
+### KotlinAnnotator
+Unresolved reference: Settings
+in `dekaf-inter-test/tests/settings/SettingsTest.kt`
+#### Snippet
+```java
+    @Test
+    fun toText_plain() {
+        val settings = Settings.of("name1", "value A",
+                                   "name2", "value B",
+                                   "name3", "value C")
+```
+
+### KotlinAnnotator
+Overload resolution ambiguity: public final inline infix fun that(x: NavigableSet?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: SortedSet?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: DoubleStream?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: IntStream?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: LongStream?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Stream?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Array?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: ByteArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: CharArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: DoubleArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: FloatArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: IntArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: LongArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: ShortArray?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Collection?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Iterable?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: List?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Set?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Sequence?): Subject\> defined in lb.yaka.gears.Expect
+in `dekaf-inter-test/tests/settings/SettingsTest.kt`
+#### Snippet
+```java
+                              |name3 = value C
+                           """.trimMargin() + '\n'
+        expect that text equalsTo expectedText
+    }
+
+```
+
+### KotlinAnnotator
+Unresolved reference: Settings
+in `dekaf-inter-test/tests/settings/SettingsTest.kt`
+#### Snippet
+```java
+    @Test
+    fun toText_nested() {
+        val settings2 = Settings.of("name1", "value A",
+                                    "name2", "value B",
+                                    "name3", "value C")
+```
+
+### KotlinAnnotator
+Unresolved reference: Settings
+in `dekaf-inter-test/tests/settings/SettingsTest.kt`
+#### Snippet
+```java
+                                    "name2", "value B",
+                                    "name3", "value C")
+        val settings1 = Settings.of("x", settings2,
+                                    "y", "another value")
+        val text = settings1.toText().toString()
+```
+
+### KotlinAnnotator
+Overload resolution ambiguity: public final inline infix fun that(x: NavigableSet?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: SortedSet?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: DoubleStream?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: IntStream?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: LongStream?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Stream?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Array?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: ByteArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: CharArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: DoubleArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: FloatArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: IntArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: LongArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: ShortArray?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Collection?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Iterable?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: List?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Set?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Sequence?): Subject\> defined in lb.yaka.gears.Expect
+in `dekaf-inter-test/tests/settings/SettingsTest.kt`
+#### Snippet
+```java
+                              |y = another value
+                           """.trimMargin() + '\n'
+        expect that text equalsTo expectedText
+    }
+
+```
+
+### KotlinAnnotator
+Unresolved reference: inter
+in `dekaf-inter-test/tests/settings/SettingsTest.kt`
+#### Snippet
+```java
+import lb.yaka.expectations.*
+import lb.yaka.gears.*
+import org.jetbrains.dekaf.inter.settings.Setting
+import org.jetbrains.dekaf.inter.settings.Settings
+import org.jetbrains.dekaf.test.utils.UnitTest
+```
+
+### KotlinAnnotator
+Unresolved reference: inter
+in `dekaf-inter-test/tests/settings/SettingsTest.kt`
+#### Snippet
+```java
+import lb.yaka.gears.*
+import org.jetbrains.dekaf.inter.settings.Setting
+import org.jetbrains.dekaf.inter.settings.Settings
+import org.jetbrains.dekaf.test.utils.UnitTest
+import org.junit.jupiter.api.Test
 ```
 
 ### KotlinAnnotator
@@ -2040,15 +2040,27 @@ import org.junit.jupiter.api.MethodOrderer
 ```
 
 ### KotlinAnnotator
-Unresolved reference: inter
+Cannot infer a type for this parameter. Please specify it explicitly.
 in `dekaf-jdbc-test/tests/impl/JdbcSeanceTest.kt`
 #### Snippet
 ```java
-import lb.yaka.expectations.zero
-import lb.yaka.gears.expect
-import org.jetbrains.dekaf.inter.common.StatementCategory.stmtUpdate
-import org.jetbrains.dekaf.test.utils.*
-import org.junit.jupiter.api.*
+    fun basic_insert_3() {
+        val stmtText = "insert into Basic_Table (B,C,V) values (?,?,?)"
+        session.openSeance().use { seance ->
+            seance.prepare(stmtText, stmtUpdate, null)
+            seance.execute(listOf(`7`, 'X', "Row X"))
+```
+
+### KotlinAnnotator
+Unresolved reference: stmtUpdate
+in `dekaf-jdbc-test/tests/impl/JdbcSeanceTest.kt`
+#### Snippet
+```java
+        val stmtText = "insert into Basic_Table (B,C,V) values (?,?,?)"
+        session.openSeance().use { seance ->
+            seance.prepare(stmtText, stmtUpdate, null)
+            seance.execute(listOf(`7`, 'X', "Row X"))
+            seance.execute(listOf(`8`, 'Y', "Row Y"))
 ```
 
 ### KotlinAnnotator
@@ -2056,7 +2068,7 @@ Cannot infer a type for this parameter. Please specify it explicitly.
 in `dekaf-jdbc-test/tests/impl/JdbcSeanceTest.kt`
 #### Snippet
 ```java
-        val text = "insert into Basic_Table (B,C,V) values (1,'A','Aa'), (2,'B','Bb'), (3,'C','Cc')"
+        val text = "insert into Basic_Table (B,C,V) values (1,'A','Aa')"
         var affectedRows = -1
         session.openSeance().use { seance ->
             seance.prepare(text, stmtUpdate, null)
@@ -2080,7 +2092,43 @@ Cannot infer a type for this parameter. Please specify it explicitly.
 in `dekaf-jdbc-test/tests/impl/JdbcSeanceTest.kt`
 #### Snippet
 ```java
-        val text = "insert into Basic_Table (B,C,V) values (1,'A','Aa')"
+    fun basic_insert_1() {
+        val stmtText = "insert into Basic_Table (B,C,V) values (?,?,?)"
+        session.openSeance().use { seance ->
+            seance.prepare(stmtText, stmtUpdate, null)
+            seance.execute(listOf(`1`, 'C', "The First Row"))
+```
+
+### KotlinAnnotator
+Unresolved reference: stmtUpdate
+in `dekaf-jdbc-test/tests/impl/JdbcSeanceTest.kt`
+#### Snippet
+```java
+        val stmtText = "insert into Basic_Table (B,C,V) values (?,?,?)"
+        session.openSeance().use { seance ->
+            seance.prepare(stmtText, stmtUpdate, null)
+            seance.execute(listOf(`1`, 'C', "The First Row"))
+        }
+```
+
+### KotlinAnnotator
+Unresolved reference: inter
+in `dekaf-jdbc-test/tests/impl/JdbcSeanceTest.kt`
+#### Snippet
+```java
+import lb.yaka.expectations.zero
+import lb.yaka.gears.expect
+import org.jetbrains.dekaf.inter.common.StatementCategory.stmtUpdate
+import org.jetbrains.dekaf.test.utils.*
+import org.junit.jupiter.api.*
+```
+
+### KotlinAnnotator
+Cannot infer a type for this parameter. Please specify it explicitly.
+in `dekaf-jdbc-test/tests/impl/JdbcSeanceTest.kt`
+#### Snippet
+```java
+        val text = "insert into Basic_Table (B,C,V) values (1,'A','Aa'), (2,'B','Bb'), (3,'C','Cc')"
         var affectedRows = -1
         session.openSeance().use { seance ->
             seance.prepare(text, stmtUpdate, null)
@@ -2125,50 +2173,554 @@ in `dekaf-jdbc-test/tests/impl/JdbcSeanceTest.kt`
 
 ### KotlinAnnotator
 Cannot infer a type for this parameter. Please specify it explicitly.
-in `dekaf-jdbc-test/tests/impl/JdbcSeanceTest.kt`
+in `dekaf-jdbc-test/tests/impl/JdbcLongsCursorTest.kt`
 #### Snippet
 ```java
-    fun basic_insert_1() {
-        val stmtText = "insert into Basic_Table (B,C,V) values (?,?,?)"
-        session.openSeance().use { seance ->
-            seance.prepare(stmtText, stmtUpdate, null)
-            seance.execute(listOf(`1`, 'C', "The First Row"))
+    fun fetchPortion() {
+        val text = "select * from values (1000001, 'a'), (2000002, 'b'), (3000003, 'c')"
+        val column = session.openSeance().use { seance ->
+            seance.prepare(text, stmtQuery, null)
+            seance.execute(null)
 ```
 
 ### KotlinAnnotator
-Unresolved reference: stmtUpdate
-in `dekaf-jdbc-test/tests/impl/JdbcSeanceTest.kt`
+Unresolved reference: stmtQuery
+in `dekaf-jdbc-test/tests/impl/JdbcLongsCursorTest.kt`
 #### Snippet
 ```java
-        val stmtText = "insert into Basic_Table (B,C,V) values (?,?,?)"
-        session.openSeance().use { seance ->
-            seance.prepare(stmtText, stmtUpdate, null)
-            seance.execute(listOf(`1`, 'C', "The First Row"))
+        val text = "select * from values (1000001, 'a'), (2000002, 'b'), (3000003, 'c')"
+        val column = session.openSeance().use { seance ->
+            seance.prepare(text, stmtQuery, null)
+            seance.execute(null)
+            val cursor = seance.makeLongsCursor(0)
+```
+
+### KotlinAnnotator
+Overload resolution ambiguity: public final inline infix fun that(x: NavigableSet?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: SortedSet?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: DoubleStream?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: IntStream?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: LongStream?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Stream?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Array?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: ByteArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: CharArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: DoubleArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: FloatArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: IntArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: LongArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: ShortArray?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Collection?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Iterable?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: List?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Set?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Sequence?): Subject\> defined in lb.yaka.gears.Expect
+in `dekaf-jdbc-test/tests/impl/JdbcLongsCursorTest.kt`
+#### Snippet
+```java
         }
+
+        expect that column iz notNull; column!!
+        expect that column hasSize 3
+
+```
+
+### KotlinAnnotator
+Overload resolution ambiguity: public final inline infix fun that(x: NavigableSet?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: SortedSet?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: DoubleStream?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: IntStream?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: LongStream?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Stream?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Array?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: ByteArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: CharArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: DoubleArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: FloatArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: IntArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: LongArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: ShortArray?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Collection?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Iterable?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: List?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Set?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Sequence?): Subject\> defined in lb.yaka.gears.Expect
+in `dekaf-jdbc-test/tests/impl/JdbcLongsCursorTest.kt`
+#### Snippet
+```java
+
+        expect that column iz notNull; column!!
+        expect that column hasSize 3
+
+        expect that column[0] equalsTo 1000001L
+```
+
+### KotlinAnnotator
+Unresolved reference: inter
+in `dekaf-jdbc-test/tests/impl/JdbcLongsCursorTest.kt`
+#### Snippet
+```java
+import lb.yaka.expectations.*
+import lb.yaka.gears.*
+import org.jetbrains.dekaf.inter.common.StatementCategory.stmtQuery
+import org.jetbrains.dekaf.jdbc.impl.JdbcColumnCursor
+import org.junit.jupiter.api.MethodOrderer
+```
+
+### KotlinAnnotator
+Unresolved reference: jdbc
+in `dekaf-jdbc-test/tests/impl/JdbcLongsCursorTest.kt`
+#### Snippet
+```java
+import lb.yaka.gears.*
+import org.jetbrains.dekaf.inter.common.StatementCategory.stmtQuery
+import org.jetbrains.dekaf.jdbc.impl.JdbcColumnCursor
+import org.junit.jupiter.api.MethodOrderer
+import org.junit.jupiter.api.Order
 ```
 
 ### KotlinAnnotator
 Cannot infer a type for this parameter. Please specify it explicitly.
-in `dekaf-jdbc-test/tests/impl/JdbcSeanceTest.kt`
+in `dekaf-jdbc-test/tests/impl/JdbcLongsCursorTest.kt`
 #### Snippet
 ```java
-    fun basic_insert_3() {
-        val stmtText = "insert into Basic_Table (B,C,V) values (?,?,?)"
+    fun closeAtTheEnd() {
+        val text = "select value from table(value int = (1,2,3,4,5,6,7))"
         session.openSeance().use { seance ->
-            seance.prepare(stmtText, stmtUpdate, null)
-            seance.execute(listOf(`7`, 'X', "Row X"))
+            seance.setPortionSize(5)
+            seance.prepare(text, stmtQuery, null)
 ```
 
 ### KotlinAnnotator
-Unresolved reference: stmtUpdate
-in `dekaf-jdbc-test/tests/impl/JdbcSeanceTest.kt`
+Unresolved reference: stmtQuery
+in `dekaf-jdbc-test/tests/impl/JdbcLongsCursorTest.kt`
 #### Snippet
 ```java
-        val stmtText = "insert into Basic_Table (B,C,V) values (?,?,?)"
         session.openSeance().use { seance ->
-            seance.prepare(stmtText, stmtUpdate, null)
-            seance.execute(listOf(`7`, 'X', "Row X"))
-            seance.execute(listOf(`8`, 'Y', "Row Y"))
+            seance.setPortionSize(5)
+            seance.prepare(text, stmtQuery, null)
+            seance.execute(null)
+            val cursor: JdbcColumnCursor<java.lang.Integer> = seance.makeColumnCursor(0, java.lang.Integer::class.java)
+```
+
+### KotlinAnnotator
+Unresolved reference: JdbcColumnCursor
+in `dekaf-jdbc-test/tests/impl/JdbcLongsCursorTest.kt`
+#### Snippet
+```java
+            seance.prepare(text, stmtQuery, null)
+            seance.execute(null)
+            val cursor: JdbcColumnCursor<java.lang.Integer> = seance.makeColumnCursor(0, java.lang.Integer::class.java)
+            cursor.prepare()
+
+```
+
+### KotlinAnnotator
+Cannot infer a type for this parameter. Please specify it explicitly.
+in `dekaf-jdbc-test/tests/impl/JdbcLongsCursorTest.kt`
+#### Snippet
+```java
+    fun portions() {
+        val text = "select value from table(value int = (1,2,3,4,5,6,7,8,9,10,11,12))"
+        session.openSeance().use { seance ->
+            seance.setPortionSize(5)
+            seance.prepare(text, stmtQuery, null)
+```
+
+### KotlinAnnotator
+Unresolved reference: stmtQuery
+in `dekaf-jdbc-test/tests/impl/JdbcLongsCursorTest.kt`
+#### Snippet
+```java
+        session.openSeance().use { seance ->
+            seance.setPortionSize(5)
+            seance.prepare(text, stmtQuery, null)
+            seance.execute(null)
+            val cursor = seance.makeLongsCursor(0)
+```
+
+### KotlinAnnotator
+Overload resolution ambiguity: public final inline infix fun that(x: NavigableSet?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: SortedSet?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: DoubleStream?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: IntStream?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: LongStream?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Stream?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Array?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: ByteArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: CharArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: DoubleArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: FloatArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: IntArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: LongArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: ShortArray?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Collection?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Iterable?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: List?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Set?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Sequence?): Subject\> defined in lb.yaka.gears.Expect
+in `dekaf-jdbc-test/tests/impl/JdbcLongsCursorTest.kt`
+#### Snippet
+```java
+            val m1 = cursor.fetchPortion()
+
+            expect that m1 iz notNull; m1!!
+            expect that m1 hasSize 5
+
+```
+
+### KotlinAnnotator
+Cannot infer a type for this parameter. Please specify it explicitly.
+in `dekaf-jdbc-test/tests/impl/JdbcColumnCursorTest.kt`
+#### Snippet
+```java
+    fun fetchSingleEmpty() {
+        val text = "select * from values (1) where 1 is null"
+        val r: Array<JavaLong?>? = session.openSeance().use { seance ->
+            seance.prepare(text, stmtQuery, null)
+            seance.execute(null)
+```
+
+### KotlinAnnotator
+Unresolved reference: stmtQuery
+in `dekaf-jdbc-test/tests/impl/JdbcColumnCursorTest.kt`
+#### Snippet
+```java
+        val text = "select * from values (1) where 1 is null"
+        val r: Array<JavaLong?>? = session.openSeance().use { seance ->
+            seance.prepare(text, stmtQuery, null)
+            seance.execute(null)
+            val cursor: JdbcColumnCursor<JavaLong> = seance.makeColumnCursor(0, JavaLong::class.java)
+```
+
+### KotlinAnnotator
+Unresolved reference: JdbcColumnCursor
+in `dekaf-jdbc-test/tests/impl/JdbcColumnCursorTest.kt`
+#### Snippet
+```java
+            seance.prepare(text, stmtQuery, null)
+            seance.execute(null)
+            val cursor: JdbcColumnCursor<JavaLong> = seance.makeColumnCursor(0, JavaLong::class.java)
+            cursor.prepare()
+            cursor.fetchRow()
+```
+
+### KotlinAnnotator
+Cannot infer a type for this parameter. Please specify it explicitly.
+in `dekaf-jdbc-test/tests/impl/JdbcColumnCursorTest.kt`
+#### Snippet
+```java
+    fun fetchSingleValue() {
+        val text = "select * from values (1000001, 'labuda')"
+        val r: Array<JavaLong?>? = session.openSeance().use { seance ->
+            seance.prepare(text, stmtQuery, null)
+            seance.execute(null)
+```
+
+### KotlinAnnotator
+Unresolved reference: stmtQuery
+in `dekaf-jdbc-test/tests/impl/JdbcColumnCursorTest.kt`
+#### Snippet
+```java
+        val text = "select * from values (1000001, 'labuda')"
+        val r: Array<JavaLong?>? = session.openSeance().use { seance ->
+            seance.prepare(text, stmtQuery, null)
+            seance.execute(null)
+            val cursor: JdbcColumnCursor<JavaLong> = seance.makeColumnCursor(0, JavaLong::class.java)
+```
+
+### KotlinAnnotator
+Unresolved reference: JdbcColumnCursor
+in `dekaf-jdbc-test/tests/impl/JdbcColumnCursorTest.kt`
+#### Snippet
+```java
+            seance.prepare(text, stmtQuery, null)
+            seance.execute(null)
+            val cursor: JdbcColumnCursor<JavaLong> = seance.makeColumnCursor(0, JavaLong::class.java)
+            cursor.prepare()
+            cursor.fetchRow()
+```
+
+### KotlinAnnotator
+Overload resolution ambiguity: public final inline infix fun that(x: NavigableSet?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: SortedSet?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: DoubleStream?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: IntStream?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: LongStream?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Stream?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Array?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: ByteArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: CharArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: DoubleArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: FloatArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: IntArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: LongArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: ShortArray?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Collection?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Iterable?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: List?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Set?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Sequence?): Subject\> defined in lb.yaka.gears.Expect
+in `dekaf-jdbc-test/tests/impl/JdbcLongsCursorTest.kt`
+#### Snippet
+```java
+
+            expect that m1 iz notNull; m1!!
+            expect that m1 hasSize 5
+
+            expect that m1[0] equalsTo 1L
+```
+
+### KotlinAnnotator
+Cannot infer a type for this parameter. Please specify it explicitly.
+in `dekaf-jdbc-test/tests/impl/JdbcColumnCursorTest.kt`
+#### Snippet
+```java
+    fun fetchSingleNull() {
+        val text = "select cast(null as bigint) as V"
+        val r: Array<JavaLong?>? = session.openSeance().use { seance ->
+            seance.prepare(text, stmtQuery, null)
+            seance.execute(null)
+```
+
+### KotlinAnnotator
+Unresolved reference: stmtQuery
+in `dekaf-jdbc-test/tests/impl/JdbcColumnCursorTest.kt`
+#### Snippet
+```java
+        val text = "select cast(null as bigint) as V"
+        val r: Array<JavaLong?>? = session.openSeance().use { seance ->
+            seance.prepare(text, stmtQuery, null)
+            seance.execute(null)
+            val cursor: JdbcColumnCursor<JavaLong> = seance.makeColumnCursor(0, JavaLong::class.java)
+```
+
+### KotlinAnnotator
+Unresolved reference: JdbcColumnCursor
+in `dekaf-jdbc-test/tests/impl/JdbcColumnCursorTest.kt`
+#### Snippet
+```java
+            seance.prepare(text, stmtQuery, null)
+            seance.execute(null)
+            val cursor: JdbcColumnCursor<JavaLong> = seance.makeColumnCursor(0, JavaLong::class.java)
+            cursor.prepare()
+            cursor.fetchRow()
+```
+
+### KotlinAnnotator
+Cannot infer a type for this parameter. Please specify it explicitly.
+in `dekaf-jdbc-test/tests/impl/JdbcColumnCursorTest.kt`
+#### Snippet
+```java
+    fun closeAtTheEnd() {
+        val text = "select value from table(value int = (1,2,3,4,5,6,7))"
+        session.openSeance().use { seance ->
+            seance.setPortionSize(5)
+            seance.prepare(text, stmtQuery, null)
+```
+
+### KotlinAnnotator
+Unresolved reference: stmtQuery
+in `dekaf-jdbc-test/tests/impl/JdbcColumnCursorTest.kt`
+#### Snippet
+```java
+        session.openSeance().use { seance ->
+            seance.setPortionSize(5)
+            seance.prepare(text, stmtQuery, null)
+            seance.execute(null)
+            val cursor: JdbcColumnCursor<java.lang.Integer> = seance.makeColumnCursor(0, java.lang.Integer::class.java)
+```
+
+### KotlinAnnotator
+Unresolved reference: JdbcColumnCursor
+in `dekaf-jdbc-test/tests/impl/JdbcColumnCursorTest.kt`
+#### Snippet
+```java
+            seance.prepare(text, stmtQuery, null)
+            seance.execute(null)
+            val cursor: JdbcColumnCursor<java.lang.Integer> = seance.makeColumnCursor(0, java.lang.Integer::class.java)
+            cursor.prepare()
+
+```
+
+### KotlinAnnotator
+Overload resolution ambiguity: public final inline infix fun that(x: NavigableSet?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: SortedSet?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: DoubleStream?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: IntStream?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: LongStream?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Stream?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Array?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: ByteArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: CharArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: DoubleArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: FloatArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: IntArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: LongArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: ShortArray?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Collection?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Iterable?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: List?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Set?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Sequence?): Subject\> defined in lb.yaka.gears.Expect
+in `dekaf-jdbc-test/tests/impl/JdbcLongsCursorTest.kt`
+#### Snippet
+```java
+            val m2 = cursor.fetchPortion()
+
+            expect that m2 iz notNull; m2!!
+            expect that m2 hasSize 5
+
+```
+
+### KotlinAnnotator
+Cannot infer a type for this parameter. Please specify it explicitly.
+in `dekaf-jdbc-test/tests/impl/JdbcColumnCursorTest.kt`
+#### Snippet
+```java
+    fun portions() {
+        val text = "select value from table(value int = (1,2,3,4,5,6,7,8,9,10,11,12))"
+        session.openSeance().use { seance ->
+            seance.setPortionSize(5)
+            seance.prepare(text, stmtQuery, null)
+```
+
+### KotlinAnnotator
+Unresolved reference: stmtQuery
+in `dekaf-jdbc-test/tests/impl/JdbcColumnCursorTest.kt`
+#### Snippet
+```java
+        session.openSeance().use { seance ->
+            seance.setPortionSize(5)
+            seance.prepare(text, stmtQuery, null)
+            seance.execute(null)
+            val cursor: JdbcColumnCursor<java.lang.Integer> = seance.makeColumnCursor(0, java.lang.Integer::class.java)
+```
+
+### KotlinAnnotator
+Unresolved reference: JdbcColumnCursor
+in `dekaf-jdbc-test/tests/impl/JdbcColumnCursorTest.kt`
+#### Snippet
+```java
+            seance.prepare(text, stmtQuery, null)
+            seance.execute(null)
+            val cursor: JdbcColumnCursor<java.lang.Integer> = seance.makeColumnCursor(0, java.lang.Integer::class.java)
+            cursor.prepare()
+
+```
+
+### KotlinAnnotator
+Overload resolution ambiguity: public final inline infix fun that(x: NavigableSet?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: SortedSet?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: DoubleStream?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: IntStream?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: LongStream?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Stream?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Array?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: ByteArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: CharArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: DoubleArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: FloatArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: IntArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: LongArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: ShortArray?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Collection?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Iterable?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: List?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Set?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Sequence?): Subject\> defined in lb.yaka.gears.Expect
+in `dekaf-jdbc-test/tests/impl/JdbcLongsCursorTest.kt`
+#### Snippet
+```java
+
+            expect that m2 iz notNull; m2!!
+            expect that m2 hasSize 5
+
+            expect that m2[0] equalsTo 6L
+```
+
+### KotlinAnnotator
+Overload resolution ambiguity: public final inline infix fun that(x: NavigableSet?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: SortedSet?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: DoubleStream?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: IntStream?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: LongStream?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Stream?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Array?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: ByteArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: CharArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: DoubleArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: FloatArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: IntArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: LongArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: ShortArray?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Collection?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Iterable?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: List?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Set?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Sequence?): Subject\> defined in lb.yaka.gears.Expect
+in `dekaf-jdbc-test/tests/impl/JdbcColumnCursorTest.kt`
+#### Snippet
+```java
+            val m1 = cursor.fetchPortion()
+
+            expect that m1 iz notNull; m1!!
+            expect that m1 hasSize 5
+
+```
+
+### KotlinAnnotator
+Overload resolution ambiguity: public final inline infix fun that(x: NavigableSet?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: SortedSet?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: DoubleStream?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: IntStream?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: LongStream?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Stream?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Array?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: ByteArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: CharArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: DoubleArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: FloatArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: IntArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: LongArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: ShortArray?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Collection?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Iterable?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: List?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Set?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Sequence?): Subject\> defined in lb.yaka.gears.Expect
+in `dekaf-jdbc-test/tests/impl/JdbcLongsCursorTest.kt`
+#### Snippet
+```java
+            val m3 = cursor.fetchPortion()
+
+            expect that m3 iz notNull; m3!!
+            expect that m3 hasSize 2
+
+```
+
+### KotlinAnnotator
+Overload resolution ambiguity: public final inline infix fun that(x: NavigableSet?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: SortedSet?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: DoubleStream?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: IntStream?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: LongStream?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Stream?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Array?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: ByteArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: CharArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: DoubleArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: FloatArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: IntArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: LongArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: ShortArray?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Collection?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Iterable?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: List?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Set?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Sequence?): Subject\> defined in lb.yaka.gears.Expect
+in `dekaf-jdbc-test/tests/impl/JdbcColumnCursorTest.kt`
+#### Snippet
+```java
+
+            expect that m1 iz notNull; m1!!
+            expect that m1 hasSize 5
+
+            expect that m1[0] equalsTo 1
+```
+
+### KotlinAnnotator
+Overload resolution ambiguity: public final inline infix fun that(x: NavigableSet?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: SortedSet?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: DoubleStream?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: IntStream?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: LongStream?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Stream?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Array?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: ByteArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: CharArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: DoubleArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: FloatArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: IntArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: LongArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: ShortArray?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Collection?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Iterable?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: List?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Set?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Sequence?): Subject\> defined in lb.yaka.gears.Expect
+in `dekaf-jdbc-test/tests/impl/JdbcColumnCursorTest.kt`
+#### Snippet
+```java
+            val m2 = cursor.fetchPortion()
+
+            expect that m2 iz notNull; m2!!
+            expect that m2 hasSize 5
+
+```
+
+### KotlinAnnotator
+Overload resolution ambiguity: public final inline infix fun that(x: NavigableSet?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: SortedSet?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: DoubleStream?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: IntStream?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: LongStream?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Stream?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Array?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: ByteArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: CharArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: DoubleArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: FloatArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: IntArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: LongArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: ShortArray?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Collection?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Iterable?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: List?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Set?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Sequence?): Subject\> defined in lb.yaka.gears.Expect
+in `dekaf-jdbc-test/tests/impl/JdbcLongsCursorTest.kt`
+#### Snippet
+```java
+
+            expect that m3 iz notNull; m3!!
+            expect that m3 hasSize 2
+
+            expect that m3[0] equalsTo 11L
+```
+
+### KotlinAnnotator
+Overload resolution ambiguity: public final inline infix fun that(x: NavigableSet?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: SortedSet?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: DoubleStream?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: IntStream?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: LongStream?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Stream?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Array?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: ByteArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: CharArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: DoubleArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: FloatArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: IntArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: LongArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: ShortArray?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Collection?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Iterable?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: List?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Set?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Sequence?): Subject\> defined in lb.yaka.gears.Expect
+in `dekaf-jdbc-test/tests/impl/JdbcColumnCursorTest.kt`
+#### Snippet
+```java
+
+            expect that m2 iz notNull; m2!!
+            expect that m2 hasSize 5
+
+            expect that m2[0] equalsTo 6
+```
+
+### KotlinAnnotator
+Overload resolution ambiguity: public final inline infix fun that(x: NavigableSet?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: SortedSet?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: DoubleStream?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: IntStream?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: LongStream?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Stream?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Array?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: ByteArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: CharArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: DoubleArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: FloatArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: IntArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: LongArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: ShortArray?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Collection?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Iterable?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: List?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Set?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Sequence?): Subject\> defined in lb.yaka.gears.Expect
+in `dekaf-jdbc-test/tests/impl/JdbcLongsCursorTest.kt`
+#### Snippet
+```java
+            val m4 = cursor.fetchPortion()
+
+            expect that m4 iz Null
+        }
+    }
+```
+
+### KotlinAnnotator
+Cannot infer a type for this parameter. Please specify it explicitly.
+in `dekaf-jdbc-test/tests/impl/JdbcLongsCursorTest.kt`
+#### Snippet
+```java
+    fun fetchSingleValue() {
+        val text = "select * from values (1000001, 'labuda')"
+        val r: LongArray? = session.openSeance().use { seance ->
+            seance.prepare(text, stmtQuery, null)
+            seance.execute(null)
+```
+
+### KotlinAnnotator
+Unresolved reference: stmtQuery
+in `dekaf-jdbc-test/tests/impl/JdbcLongsCursorTest.kt`
+#### Snippet
+```java
+        val text = "select * from values (1000001, 'labuda')"
+        val r: LongArray? = session.openSeance().use { seance ->
+            seance.prepare(text, stmtQuery, null)
+            seance.execute(null)
+            val cursor = seance.makeLongsCursor(0)
+```
+
+### KotlinAnnotator
+Cannot infer a type for this parameter. Please specify it explicitly.
+in `dekaf-jdbc-test/tests/impl/JdbcLongsCursorTest.kt`
+#### Snippet
+```java
+    fun fetchSingleEmpty() {
+        val text = "select * from values (1) where 1 is null"
+        val r: LongArray? = session.openSeance().use { seance ->
+            seance.prepare(text, stmtQuery, null)
+            seance.execute(null)
+```
+
+### KotlinAnnotator
+Overload resolution ambiguity: public final inline infix fun that(x: NavigableSet?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: SortedSet?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: DoubleStream?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: IntStream?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: LongStream?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Stream?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Array?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: ByteArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: CharArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: DoubleArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: FloatArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: IntArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: LongArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: ShortArray?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Collection?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Iterable?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: List?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Set?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Sequence?): Subject\> defined in lb.yaka.gears.Expect
+in `dekaf-jdbc-test/tests/impl/JdbcColumnCursorTest.kt`
+#### Snippet
+```java
+            val m3 = cursor.fetchPortion()
+
+            expect that m3 iz notNull; m3!!
+            expect that m3 hasSize 2
+
+```
+
+### KotlinAnnotator
+Unresolved reference: stmtQuery
+in `dekaf-jdbc-test/tests/impl/JdbcLongsCursorTest.kt`
+#### Snippet
+```java
+        val text = "select * from values (1) where 1 is null"
+        val r: LongArray? = session.openSeance().use { seance ->
+            seance.prepare(text, stmtQuery, null)
+            seance.execute(null)
+            val cursor = seance.makeLongsCursor(0)
+```
+
+### KotlinAnnotator
+Cannot infer a type for this parameter. Please specify it explicitly.
+in `dekaf-jdbc-test/tests/impl/JdbcLongsCursorTest.kt`
+#### Snippet
+```java
+    fun fetchSingleNull() {
+        val text = "select cast(null as bigint) as V"
+        val r: LongArray? = session.openSeance().use { seance ->
+            seance.prepare(text, stmtQuery, null)
+            seance.execute(null)
+```
+
+### KotlinAnnotator
+Unresolved reference: stmtQuery
+in `dekaf-jdbc-test/tests/impl/JdbcLongsCursorTest.kt`
+#### Snippet
+```java
+        val text = "select cast(null as bigint) as V"
+        val r: LongArray? = session.openSeance().use { seance ->
+            seance.prepare(text, stmtQuery, null)
+            seance.execute(null)
+            val cursor = seance.makeLongsCursor(0)
+```
+
+### KotlinAnnotator
+Overload resolution ambiguity: public final inline infix fun that(x: NavigableSet?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: SortedSet?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: DoubleStream?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: IntStream?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: LongStream?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Stream?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Array?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: ByteArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: CharArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: DoubleArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: FloatArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: IntArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: LongArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: ShortArray?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Collection?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Iterable?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: List?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Set?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Sequence?): Subject\> defined in lb.yaka.gears.Expect
+in `dekaf-jdbc-test/tests/impl/JdbcColumnCursorTest.kt`
+#### Snippet
+```java
+
+            expect that m3 iz notNull; m3!!
+            expect that m3 hasSize 2
+
+            expect that m3[0] equalsTo 11
+```
+
+### KotlinAnnotator
+Overload resolution ambiguity: public final inline infix fun that(x: NavigableSet?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: SortedSet?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: DoubleStream?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: IntStream?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: LongStream?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Stream?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Array?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: ByteArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: CharArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: DoubleArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: FloatArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: IntArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: LongArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: ShortArray?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Collection?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Iterable?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: List?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Set?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Sequence?): Subject\> defined in lb.yaka.gears.Expect
+in `dekaf-jdbc-test/tests/impl/JdbcColumnCursorTest.kt`
+#### Snippet
+```java
+            val m4 = cursor.fetchPortion()
+
+            expect that m4 iz Null
+        }
+    }
 ```
 
 ### KotlinAnnotator
@@ -2232,198 +2784,6 @@ in `dekaf-jdbc-test/tests/impl/JdbcColumnCursorTest.kt`
 ```
 
 ### KotlinAnnotator
-Cannot infer a type for this parameter. Please specify it explicitly.
-in `dekaf-jdbc-test/tests/impl/JdbcColumnCursorTest.kt`
-#### Snippet
-```java
-    fun portions() {
-        val text = "select value from table(value int = (1,2,3,4,5,6,7,8,9,10,11,12))"
-        session.openSeance().use { seance ->
-            seance.setPortionSize(5)
-            seance.prepare(text, stmtQuery, null)
-```
-
-### KotlinAnnotator
-Unresolved reference: stmtQuery
-in `dekaf-jdbc-test/tests/impl/JdbcColumnCursorTest.kt`
-#### Snippet
-```java
-        session.openSeance().use { seance ->
-            seance.setPortionSize(5)
-            seance.prepare(text, stmtQuery, null)
-            seance.execute(null)
-            val cursor: JdbcColumnCursor<java.lang.Integer> = seance.makeColumnCursor(0, java.lang.Integer::class.java)
-```
-
-### KotlinAnnotator
-Unresolved reference: JdbcColumnCursor
-in `dekaf-jdbc-test/tests/impl/JdbcColumnCursorTest.kt`
-#### Snippet
-```java
-            seance.prepare(text, stmtQuery, null)
-            seance.execute(null)
-            val cursor: JdbcColumnCursor<java.lang.Integer> = seance.makeColumnCursor(0, java.lang.Integer::class.java)
-            cursor.prepare()
-
-```
-
-### KotlinAnnotator
-Overload resolution ambiguity: public final inline infix fun that(x: NavigableSet?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: SortedSet?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: DoubleStream?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: IntStream?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: LongStream?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Stream?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Array?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: ByteArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: CharArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: DoubleArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: FloatArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: IntArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: LongArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: ShortArray?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Collection?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Iterable?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: List?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Set?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Sequence?): Subject\> defined in lb.yaka.gears.Expect
-in `dekaf-jdbc-test/tests/impl/JdbcColumnCursorTest.kt`
-#### Snippet
-```java
-            val m1 = cursor.fetchPortion()
-
-            expect that m1 iz notNull; m1!!
-            expect that m1 hasSize 5
-
-```
-
-### KotlinAnnotator
-Overload resolution ambiguity: public final inline infix fun that(x: NavigableSet?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: SortedSet?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: DoubleStream?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: IntStream?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: LongStream?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Stream?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Array?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: ByteArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: CharArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: DoubleArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: FloatArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: IntArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: LongArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: ShortArray?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Collection?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Iterable?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: List?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Set?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Sequence?): Subject\> defined in lb.yaka.gears.Expect
-in `dekaf-jdbc-test/tests/impl/JdbcColumnCursorTest.kt`
-#### Snippet
-```java
-
-            expect that m1 iz notNull; m1!!
-            expect that m1 hasSize 5
-
-            expect that m1[0] equalsTo 1
-```
-
-### KotlinAnnotator
-Overload resolution ambiguity: public final inline infix fun that(x: NavigableSet?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: SortedSet?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: DoubleStream?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: IntStream?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: LongStream?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Stream?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Array?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: ByteArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: CharArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: DoubleArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: FloatArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: IntArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: LongArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: ShortArray?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Collection?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Iterable?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: List?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Set?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Sequence?): Subject\> defined in lb.yaka.gears.Expect
-in `dekaf-jdbc-test/tests/impl/JdbcColumnCursorTest.kt`
-#### Snippet
-```java
-            val m2 = cursor.fetchPortion()
-
-            expect that m2 iz notNull; m2!!
-            expect that m2 hasSize 5
-
-```
-
-### KotlinAnnotator
-Overload resolution ambiguity: public final inline infix fun that(x: NavigableSet?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: SortedSet?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: DoubleStream?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: IntStream?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: LongStream?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Stream?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Array?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: ByteArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: CharArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: DoubleArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: FloatArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: IntArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: LongArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: ShortArray?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Collection?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Iterable?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: List?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Set?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Sequence?): Subject\> defined in lb.yaka.gears.Expect
-in `dekaf-jdbc-test/tests/impl/JdbcColumnCursorTest.kt`
-#### Snippet
-```java
-
-            expect that m2 iz notNull; m2!!
-            expect that m2 hasSize 5
-
-            expect that m2[0] equalsTo 6
-```
-
-### KotlinAnnotator
-Overload resolution ambiguity: public final inline infix fun that(x: NavigableSet?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: SortedSet?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: DoubleStream?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: IntStream?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: LongStream?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Stream?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Array?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: ByteArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: CharArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: DoubleArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: FloatArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: IntArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: LongArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: ShortArray?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Collection?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Iterable?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: List?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Set?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Sequence?): Subject\> defined in lb.yaka.gears.Expect
-in `dekaf-jdbc-test/tests/impl/JdbcColumnCursorTest.kt`
-#### Snippet
-```java
-            val m3 = cursor.fetchPortion()
-
-            expect that m3 iz notNull; m3!!
-            expect that m3 hasSize 2
-
-```
-
-### KotlinAnnotator
-Overload resolution ambiguity: public final inline infix fun that(x: NavigableSet?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: SortedSet?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: DoubleStream?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: IntStream?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: LongStream?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Stream?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Array?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: ByteArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: CharArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: DoubleArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: FloatArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: IntArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: LongArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: ShortArray?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Collection?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Iterable?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: List?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Set?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Sequence?): Subject\> defined in lb.yaka.gears.Expect
-in `dekaf-jdbc-test/tests/impl/JdbcColumnCursorTest.kt`
-#### Snippet
-```java
-
-            expect that m3 iz notNull; m3!!
-            expect that m3 hasSize 2
-
-            expect that m3[0] equalsTo 11
-```
-
-### KotlinAnnotator
-Overload resolution ambiguity: public final inline infix fun that(x: NavigableSet?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: SortedSet?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: DoubleStream?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: IntStream?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: LongStream?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Stream?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Array?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: ByteArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: CharArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: DoubleArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: FloatArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: IntArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: LongArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: ShortArray?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Collection?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Iterable?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: List?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Set?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Sequence?): Subject\> defined in lb.yaka.gears.Expect
-in `dekaf-jdbc-test/tests/impl/JdbcColumnCursorTest.kt`
-#### Snippet
-```java
-            val m4 = cursor.fetchPortion()
-
-            expect that m4 iz Null
-        }
-    }
-```
-
-### KotlinAnnotator
-Cannot infer a type for this parameter. Please specify it explicitly.
-in `dekaf-jdbc-test/tests/impl/JdbcColumnCursorTest.kt`
-#### Snippet
-```java
-    fun closeAtTheEnd() {
-        val text = "select value from table(value int = (1,2,3,4,5,6,7))"
-        session.openSeance().use { seance ->
-            seance.setPortionSize(5)
-            seance.prepare(text, stmtQuery, null)
-```
-
-### KotlinAnnotator
-Unresolved reference: stmtQuery
-in `dekaf-jdbc-test/tests/impl/JdbcColumnCursorTest.kt`
-#### Snippet
-```java
-        session.openSeance().use { seance ->
-            seance.setPortionSize(5)
-            seance.prepare(text, stmtQuery, null)
-            seance.execute(null)
-            val cursor: JdbcColumnCursor<java.lang.Integer> = seance.makeColumnCursor(0, java.lang.Integer::class.java)
-```
-
-### KotlinAnnotator
-Unresolved reference: JdbcColumnCursor
-in `dekaf-jdbc-test/tests/impl/JdbcColumnCursorTest.kt`
-#### Snippet
-```java
-            seance.prepare(text, stmtQuery, null)
-            seance.execute(null)
-            val cursor: JdbcColumnCursor<java.lang.Integer> = seance.makeColumnCursor(0, java.lang.Integer::class.java)
-            cursor.prepare()
-
-```
-
-### KotlinAnnotator
-Cannot infer a type for this parameter. Please specify it explicitly.
-in `dekaf-jdbc-test/tests/impl/JdbcColumnCursorTest.kt`
-#### Snippet
-```java
-    fun fetchSingleValue() {
-        val text = "select * from values (1000001, 'labuda')"
-        val r: Array<JavaLong?>? = session.openSeance().use { seance ->
-            seance.prepare(text, stmtQuery, null)
-            seance.execute(null)
-```
-
-### KotlinAnnotator
-Unresolved reference: stmtQuery
-in `dekaf-jdbc-test/tests/impl/JdbcColumnCursorTest.kt`
-#### Snippet
-```java
-        val text = "select * from values (1000001, 'labuda')"
-        val r: Array<JavaLong?>? = session.openSeance().use { seance ->
-            seance.prepare(text, stmtQuery, null)
-            seance.execute(null)
-            val cursor: JdbcColumnCursor<JavaLong> = seance.makeColumnCursor(0, JavaLong::class.java)
-```
-
-### KotlinAnnotator
-Unresolved reference: JdbcColumnCursor
-in `dekaf-jdbc-test/tests/impl/JdbcColumnCursorTest.kt`
-#### Snippet
-```java
-            seance.prepare(text, stmtQuery, null)
-            seance.execute(null)
-            val cursor: JdbcColumnCursor<JavaLong> = seance.makeColumnCursor(0, JavaLong::class.java)
-            cursor.prepare()
-            cursor.fetchRow()
-```
-
-### KotlinAnnotator
 Unresolved reference: inter
 in `dekaf-jdbc-test/tests/impl/JdbcColumnCursorTest.kt`
 #### Snippet
@@ -2445,390 +2805,6 @@ import org.jetbrains.dekaf.inter.common.StatementCategory.stmtQuery
 import org.jetbrains.dekaf.jdbc.impl.JdbcColumnCursor
 import org.jetbrains.dekaf.jdbcTest.JavaLong
 import org.junit.jupiter.api.MethodOrderer
-```
-
-### KotlinAnnotator
-Cannot infer a type for this parameter. Please specify it explicitly.
-in `dekaf-jdbc-test/tests/impl/JdbcColumnCursorTest.kt`
-#### Snippet
-```java
-    fun fetchSingleNull() {
-        val text = "select cast(null as bigint) as V"
-        val r: Array<JavaLong?>? = session.openSeance().use { seance ->
-            seance.prepare(text, stmtQuery, null)
-            seance.execute(null)
-```
-
-### KotlinAnnotator
-Unresolved reference: stmtQuery
-in `dekaf-jdbc-test/tests/impl/JdbcColumnCursorTest.kt`
-#### Snippet
-```java
-        val text = "select cast(null as bigint) as V"
-        val r: Array<JavaLong?>? = session.openSeance().use { seance ->
-            seance.prepare(text, stmtQuery, null)
-            seance.execute(null)
-            val cursor: JdbcColumnCursor<JavaLong> = seance.makeColumnCursor(0, JavaLong::class.java)
-```
-
-### KotlinAnnotator
-Unresolved reference: JdbcColumnCursor
-in `dekaf-jdbc-test/tests/impl/JdbcColumnCursorTest.kt`
-#### Snippet
-```java
-            seance.prepare(text, stmtQuery, null)
-            seance.execute(null)
-            val cursor: JdbcColumnCursor<JavaLong> = seance.makeColumnCursor(0, JavaLong::class.java)
-            cursor.prepare()
-            cursor.fetchRow()
-```
-
-### KotlinAnnotator
-Cannot infer a type for this parameter. Please specify it explicitly.
-in `dekaf-jdbc-test/tests/impl/JdbcColumnCursorTest.kt`
-#### Snippet
-```java
-    fun fetchSingleEmpty() {
-        val text = "select * from values (1) where 1 is null"
-        val r: Array<JavaLong?>? = session.openSeance().use { seance ->
-            seance.prepare(text, stmtQuery, null)
-            seance.execute(null)
-```
-
-### KotlinAnnotator
-Unresolved reference: stmtQuery
-in `dekaf-jdbc-test/tests/impl/JdbcColumnCursorTest.kt`
-#### Snippet
-```java
-        val text = "select * from values (1) where 1 is null"
-        val r: Array<JavaLong?>? = session.openSeance().use { seance ->
-            seance.prepare(text, stmtQuery, null)
-            seance.execute(null)
-            val cursor: JdbcColumnCursor<JavaLong> = seance.makeColumnCursor(0, JavaLong::class.java)
-```
-
-### KotlinAnnotator
-Unresolved reference: JdbcColumnCursor
-in `dekaf-jdbc-test/tests/impl/JdbcColumnCursorTest.kt`
-#### Snippet
-```java
-            seance.prepare(text, stmtQuery, null)
-            seance.execute(null)
-            val cursor: JdbcColumnCursor<JavaLong> = seance.makeColumnCursor(0, JavaLong::class.java)
-            cursor.prepare()
-            cursor.fetchRow()
-```
-
-### KotlinAnnotator
-Cannot infer a type for this parameter. Please specify it explicitly.
-in `dekaf-jdbc-test/tests/impl/JdbcLongsCursorTest.kt`
-#### Snippet
-```java
-    fun fetchSingleNull() {
-        val text = "select cast(null as bigint) as V"
-        val r: LongArray? = session.openSeance().use { seance ->
-            seance.prepare(text, stmtQuery, null)
-            seance.execute(null)
-```
-
-### KotlinAnnotator
-Unresolved reference: stmtQuery
-in `dekaf-jdbc-test/tests/impl/JdbcLongsCursorTest.kt`
-#### Snippet
-```java
-        val text = "select cast(null as bigint) as V"
-        val r: LongArray? = session.openSeance().use { seance ->
-            seance.prepare(text, stmtQuery, null)
-            seance.execute(null)
-            val cursor = seance.makeLongsCursor(0)
-```
-
-### KotlinAnnotator
-Cannot infer a type for this parameter. Please specify it explicitly.
-in `dekaf-jdbc-test/tests/impl/JdbcLongsCursorTest.kt`
-#### Snippet
-```java
-    fun fetchSingleEmpty() {
-        val text = "select * from values (1) where 1 is null"
-        val r: LongArray? = session.openSeance().use { seance ->
-            seance.prepare(text, stmtQuery, null)
-            seance.execute(null)
-```
-
-### KotlinAnnotator
-Unresolved reference: stmtQuery
-in `dekaf-jdbc-test/tests/impl/JdbcLongsCursorTest.kt`
-#### Snippet
-```java
-        val text = "select * from values (1) where 1 is null"
-        val r: LongArray? = session.openSeance().use { seance ->
-            seance.prepare(text, stmtQuery, null)
-            seance.execute(null)
-            val cursor = seance.makeLongsCursor(0)
-```
-
-### KotlinAnnotator
-Cannot infer a type for this parameter. Please specify it explicitly.
-in `dekaf-jdbc-test/tests/impl/JdbcLongsCursorTest.kt`
-#### Snippet
-```java
-    fun fetchSingleValue() {
-        val text = "select * from values (1000001, 'labuda')"
-        val r: LongArray? = session.openSeance().use { seance ->
-            seance.prepare(text, stmtQuery, null)
-            seance.execute(null)
-```
-
-### KotlinAnnotator
-Unresolved reference: stmtQuery
-in `dekaf-jdbc-test/tests/impl/JdbcLongsCursorTest.kt`
-#### Snippet
-```java
-        val text = "select * from values (1000001, 'labuda')"
-        val r: LongArray? = session.openSeance().use { seance ->
-            seance.prepare(text, stmtQuery, null)
-            seance.execute(null)
-            val cursor = seance.makeLongsCursor(0)
-```
-
-### KotlinAnnotator
-Cannot infer a type for this parameter. Please specify it explicitly.
-in `dekaf-jdbc-test/tests/impl/JdbcLongsCursorTest.kt`
-#### Snippet
-```java
-    fun closeAtTheEnd() {
-        val text = "select value from table(value int = (1,2,3,4,5,6,7))"
-        session.openSeance().use { seance ->
-            seance.setPortionSize(5)
-            seance.prepare(text, stmtQuery, null)
-```
-
-### KotlinAnnotator
-Unresolved reference: stmtQuery
-in `dekaf-jdbc-test/tests/impl/JdbcLongsCursorTest.kt`
-#### Snippet
-```java
-        session.openSeance().use { seance ->
-            seance.setPortionSize(5)
-            seance.prepare(text, stmtQuery, null)
-            seance.execute(null)
-            val cursor: JdbcColumnCursor<java.lang.Integer> = seance.makeColumnCursor(0, java.lang.Integer::class.java)
-```
-
-### KotlinAnnotator
-Unresolved reference: JdbcColumnCursor
-in `dekaf-jdbc-test/tests/impl/JdbcLongsCursorTest.kt`
-#### Snippet
-```java
-            seance.prepare(text, stmtQuery, null)
-            seance.execute(null)
-            val cursor: JdbcColumnCursor<java.lang.Integer> = seance.makeColumnCursor(0, java.lang.Integer::class.java)
-            cursor.prepare()
-
-```
-
-### KotlinAnnotator
-Unresolved reference: inter
-in `dekaf-jdbc-test/tests/impl/JdbcLongsCursorTest.kt`
-#### Snippet
-```java
-import lb.yaka.expectations.*
-import lb.yaka.gears.*
-import org.jetbrains.dekaf.inter.common.StatementCategory.stmtQuery
-import org.jetbrains.dekaf.jdbc.impl.JdbcColumnCursor
-import org.junit.jupiter.api.MethodOrderer
-```
-
-### KotlinAnnotator
-Unresolved reference: jdbc
-in `dekaf-jdbc-test/tests/impl/JdbcLongsCursorTest.kt`
-#### Snippet
-```java
-import lb.yaka.gears.*
-import org.jetbrains.dekaf.inter.common.StatementCategory.stmtQuery
-import org.jetbrains.dekaf.jdbc.impl.JdbcColumnCursor
-import org.junit.jupiter.api.MethodOrderer
-import org.junit.jupiter.api.Order
-```
-
-### KotlinAnnotator
-Cannot infer a type for this parameter. Please specify it explicitly.
-in `dekaf-jdbc-test/tests/impl/JdbcLongsCursorTest.kt`
-#### Snippet
-```java
-    fun portions() {
-        val text = "select value from table(value int = (1,2,3,4,5,6,7,8,9,10,11,12))"
-        session.openSeance().use { seance ->
-            seance.setPortionSize(5)
-            seance.prepare(text, stmtQuery, null)
-```
-
-### KotlinAnnotator
-Unresolved reference: stmtQuery
-in `dekaf-jdbc-test/tests/impl/JdbcLongsCursorTest.kt`
-#### Snippet
-```java
-        session.openSeance().use { seance ->
-            seance.setPortionSize(5)
-            seance.prepare(text, stmtQuery, null)
-            seance.execute(null)
-            val cursor = seance.makeLongsCursor(0)
-```
-
-### KotlinAnnotator
-Overload resolution ambiguity: public final inline infix fun that(x: NavigableSet?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: SortedSet?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: DoubleStream?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: IntStream?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: LongStream?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Stream?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Array?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: ByteArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: CharArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: DoubleArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: FloatArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: IntArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: LongArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: ShortArray?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Collection?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Iterable?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: List?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Set?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Sequence?): Subject\> defined in lb.yaka.gears.Expect
-in `dekaf-jdbc-test/tests/impl/JdbcLongsCursorTest.kt`
-#### Snippet
-```java
-            val m1 = cursor.fetchPortion()
-
-            expect that m1 iz notNull; m1!!
-            expect that m1 hasSize 5
-
-```
-
-### KotlinAnnotator
-Overload resolution ambiguity: public final inline infix fun that(x: NavigableSet?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: SortedSet?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: DoubleStream?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: IntStream?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: LongStream?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Stream?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Array?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: ByteArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: CharArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: DoubleArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: FloatArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: IntArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: LongArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: ShortArray?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Collection?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Iterable?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: List?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Set?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Sequence?): Subject\> defined in lb.yaka.gears.Expect
-in `dekaf-jdbc-test/tests/impl/JdbcLongsCursorTest.kt`
-#### Snippet
-```java
-
-            expect that m1 iz notNull; m1!!
-            expect that m1 hasSize 5
-
-            expect that m1[0] equalsTo 1L
-```
-
-### KotlinAnnotator
-Overload resolution ambiguity: public final inline infix fun that(x: NavigableSet?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: SortedSet?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: DoubleStream?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: IntStream?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: LongStream?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Stream?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Array?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: ByteArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: CharArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: DoubleArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: FloatArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: IntArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: LongArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: ShortArray?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Collection?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Iterable?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: List?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Set?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Sequence?): Subject\> defined in lb.yaka.gears.Expect
-in `dekaf-jdbc-test/tests/impl/JdbcLongsCursorTest.kt`
-#### Snippet
-```java
-            val m2 = cursor.fetchPortion()
-
-            expect that m2 iz notNull; m2!!
-            expect that m2 hasSize 5
-
-```
-
-### KotlinAnnotator
-Overload resolution ambiguity: public final inline infix fun that(x: NavigableSet?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: SortedSet?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: DoubleStream?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: IntStream?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: LongStream?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Stream?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Array?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: ByteArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: CharArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: DoubleArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: FloatArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: IntArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: LongArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: ShortArray?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Collection?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Iterable?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: List?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Set?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Sequence?): Subject\> defined in lb.yaka.gears.Expect
-in `dekaf-jdbc-test/tests/impl/JdbcLongsCursorTest.kt`
-#### Snippet
-```java
-
-            expect that m2 iz notNull; m2!!
-            expect that m2 hasSize 5
-
-            expect that m2[0] equalsTo 6L
-```
-
-### KotlinAnnotator
-Overload resolution ambiguity: public final inline infix fun that(x: NavigableSet?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: SortedSet?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: DoubleStream?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: IntStream?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: LongStream?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Stream?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Array?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: ByteArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: CharArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: DoubleArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: FloatArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: IntArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: LongArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: ShortArray?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Collection?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Iterable?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: List?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Set?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Sequence?): Subject\> defined in lb.yaka.gears.Expect
-in `dekaf-jdbc-test/tests/impl/JdbcLongsCursorTest.kt`
-#### Snippet
-```java
-            val m3 = cursor.fetchPortion()
-
-            expect that m3 iz notNull; m3!!
-            expect that m3 hasSize 2
-
-```
-
-### KotlinAnnotator
-Overload resolution ambiguity: public final inline infix fun that(x: NavigableSet?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: SortedSet?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: DoubleStream?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: IntStream?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: LongStream?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Stream?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Array?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: ByteArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: CharArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: DoubleArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: FloatArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: IntArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: LongArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: ShortArray?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Collection?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Iterable?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: List?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Set?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Sequence?): Subject\> defined in lb.yaka.gears.Expect
-in `dekaf-jdbc-test/tests/impl/JdbcLongsCursorTest.kt`
-#### Snippet
-```java
-
-            expect that m3 iz notNull; m3!!
-            expect that m3 hasSize 2
-
-            expect that m3[0] equalsTo 11L
-```
-
-### KotlinAnnotator
-Overload resolution ambiguity: public final inline infix fun that(x: NavigableSet?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: SortedSet?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: DoubleStream?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: IntStream?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: LongStream?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Stream?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Array?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: ByteArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: CharArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: DoubleArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: FloatArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: IntArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: LongArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: ShortArray?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Collection?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Iterable?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: List?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Set?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Sequence?): Subject\> defined in lb.yaka.gears.Expect
-in `dekaf-jdbc-test/tests/impl/JdbcLongsCursorTest.kt`
-#### Snippet
-```java
-            val m4 = cursor.fetchPortion()
-
-            expect that m4 iz Null
-        }
-    }
-```
-
-### KotlinAnnotator
-Cannot infer a type for this parameter. Please specify it explicitly.
-in `dekaf-jdbc-test/tests/impl/JdbcLongsCursorTest.kt`
-#### Snippet
-```java
-    fun fetchPortion() {
-        val text = "select * from values (1000001, 'a'), (2000002, 'b'), (3000003, 'c')"
-        val column = session.openSeance().use { seance ->
-            seance.prepare(text, stmtQuery, null)
-            seance.execute(null)
-```
-
-### KotlinAnnotator
-Unresolved reference: stmtQuery
-in `dekaf-jdbc-test/tests/impl/JdbcLongsCursorTest.kt`
-#### Snippet
-```java
-        val text = "select * from values (1000001, 'a'), (2000002, 'b'), (3000003, 'c')"
-        val column = session.openSeance().use { seance ->
-            seance.prepare(text, stmtQuery, null)
-            seance.execute(null)
-            val cursor = seance.makeLongsCursor(0)
-```
-
-### KotlinAnnotator
-Overload resolution ambiguity: public final inline infix fun that(x: NavigableSet?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: SortedSet?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: DoubleStream?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: IntStream?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: LongStream?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Stream?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Array?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: ByteArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: CharArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: DoubleArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: FloatArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: IntArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: LongArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: ShortArray?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Collection?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Iterable?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: List?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Set?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Sequence?): Subject\> defined in lb.yaka.gears.Expect
-in `dekaf-jdbc-test/tests/impl/JdbcLongsCursorTest.kt`
-#### Snippet
-```java
-        }
-
-        expect that column iz notNull; column!!
-        expect that column hasSize 3
-
-```
-
-### KotlinAnnotator
-Overload resolution ambiguity: public final inline infix fun that(x: NavigableSet?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: SortedSet?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: DoubleStream?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: IntStream?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: LongStream?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Stream?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Array?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: ByteArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: CharArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: DoubleArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: FloatArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: IntArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: LongArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: ShortArray?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Collection?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Iterable?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: List?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Set?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Sequence?): Subject\> defined in lb.yaka.gears.Expect
-in `dekaf-jdbc-test/tests/impl/JdbcLongsCursorTest.kt`
-#### Snippet
-```java
-
-        expect that column iz notNull; column!!
-        expect that column hasSize 3
-
-        expect that column[0] equalsTo 1000001L
-```
-
-### KotlinAnnotator
-Unresolved reference: inter
-in `dekaf-jdbc-test/tests/impl/JdbcMatrixCursorTest.kt`
-#### Snippet
-```java
-import lb.yaka.expectations.*
-import lb.yaka.gears.*
-import org.jetbrains.dekaf.inter.common.StatementCategory.stmtQuery
-import org.jetbrains.dekaf.jdbc.impl.JdbcMatrixCursor
-import org.jetbrains.dekaf.jdbcTest.JavaByte
-```
-
-### KotlinAnnotator
-Unresolved reference: jdbc
-in `dekaf-jdbc-test/tests/impl/JdbcMatrixCursorTest.kt`
-#### Snippet
-```java
-import lb.yaka.gears.*
-import org.jetbrains.dekaf.inter.common.StatementCategory.stmtQuery
-import org.jetbrains.dekaf.jdbc.impl.JdbcMatrixCursor
-import org.jetbrains.dekaf.jdbcTest.JavaByte
-import org.jetbrains.dekaf.jdbcTest.JavaInt
 ```
 
 ### KotlinAnnotator
@@ -2865,102 +2841,6 @@ in `dekaf-jdbc-test/tests/impl/JdbcMatrixCursorTest.kt`
             val cursor: JdbcMatrixCursor<Number> = seance.makeMatrixCursor(0, Number::class.java)
             cursor.prepare(arrayOf<Class<out Number>>(JavaByte::class.java, JavaShort::class.java, JavaLong::class.java))
             cursor.fetchRow()
-```
-
-### KotlinAnnotator
-Cannot infer a type for this parameter. Please specify it explicitly.
-in `dekaf-jdbc-test/tests/impl/JdbcMatrixCursorTest.kt`
-#### Snippet
-```java
-    fun closeAtTheEnd() {
-        val text = "select value from table(value int = (1,2,3,4,5,6,7))"
-        session.openSeance().use { seance ->
-            seance.setPortionSize(5)
-            seance.prepare(text, stmtQuery, null)
-```
-
-### KotlinAnnotator
-Unresolved reference: stmtQuery
-in `dekaf-jdbc-test/tests/impl/JdbcMatrixCursorTest.kt`
-#### Snippet
-```java
-        session.openSeance().use { seance ->
-            seance.setPortionSize(5)
-            seance.prepare(text, stmtQuery, null)
-            seance.execute(null)
-            val cursor: JdbcMatrixCursor<JavaInt> = seance.makeMatrixCursor(0, JavaInt::class.java)
-```
-
-### KotlinAnnotator
-Unresolved reference: JdbcMatrixCursor
-in `dekaf-jdbc-test/tests/impl/JdbcMatrixCursorTest.kt`
-#### Snippet
-```java
-            seance.prepare(text, stmtQuery, null)
-            seance.execute(null)
-            val cursor: JdbcMatrixCursor<JavaInt> = seance.makeMatrixCursor(0, JavaInt::class.java)
-            cursor.prepare(arrayOf(JavaInt::class.java))
-
-```
-
-### KotlinAnnotator
-Cannot infer a type for this parameter. Please specify it explicitly.
-in `dekaf-jdbc-test/tests/impl/JdbcMatrixCursorTest.kt`
-#### Snippet
-```java
-    fun fetchPortion() {
-        val text = "select * from values (1, 1001, 1000001), (2, 2002, 2000002), (3, 3003, 3000003)"
-        val m = session.openSeance().use { seance ->
-            seance.prepare(text, stmtQuery, null)
-            seance.execute(null)
-```
-
-### KotlinAnnotator
-Unresolved reference: stmtQuery
-in `dekaf-jdbc-test/tests/impl/JdbcMatrixCursorTest.kt`
-#### Snippet
-```java
-        val text = "select * from values (1, 1001, 1000001), (2, 2002, 2000002), (3, 3003, 3000003)"
-        val m = session.openSeance().use { seance ->
-            seance.prepare(text, stmtQuery, null)
-            seance.execute(null)
-            val cursor: JdbcMatrixCursor<Number> = seance.makeMatrixCursor(0, Number::class.java)
-```
-
-### KotlinAnnotator
-Unresolved reference: JdbcMatrixCursor
-in `dekaf-jdbc-test/tests/impl/JdbcMatrixCursorTest.kt`
-#### Snippet
-```java
-            seance.prepare(text, stmtQuery, null)
-            seance.execute(null)
-            val cursor: JdbcMatrixCursor<Number> = seance.makeMatrixCursor(0, Number::class.java)
-            cursor.prepare(arrayOf<Class<out Number>>(JavaByte::class.java, JavaShort::class.java, JavaLong::class.java))
-            cursor.fetchPortion()
-```
-
-### KotlinAnnotator
-Overload resolution ambiguity: public final inline infix fun that(x: NavigableSet?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: SortedSet?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: DoubleStream?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: IntStream?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: LongStream?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Stream?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Array?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: ByteArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: CharArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: DoubleArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: FloatArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: IntArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: LongArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: ShortArray?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Collection?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Iterable?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: List?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Set?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Sequence?): Subject\> defined in lb.yaka.gears.Expect
-in `dekaf-jdbc-test/tests/impl/JdbcMatrixCursorTest.kt`
-#### Snippet
-```java
-        }
-
-        expect that m iz notNull; m!!
-        expect that m hasSize 3
-        expect that m[0] hasSize 3
-```
-
-### KotlinAnnotator
-Overload resolution ambiguity: public final inline infix fun that(x: NavigableSet?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: SortedSet?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: DoubleStream?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: IntStream?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: LongStream?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Stream?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Array?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: ByteArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: CharArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: DoubleArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: FloatArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: IntArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: LongArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: ShortArray?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Collection?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Iterable?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: List?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Set?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Sequence?): Subject\> defined in lb.yaka.gears.Expect
-in `dekaf-jdbc-test/tests/impl/JdbcMatrixCursorTest.kt`
-#### Snippet
-```java
-
-        expect that m iz notNull; m!!
-        expect that m hasSize 3
-        expect that m[0] hasSize 3
-
 ```
 
 ### KotlinAnnotator
@@ -3060,6 +2940,42 @@ in `dekaf-jdbc-test/tests/impl/JdbcMatrixCursorTest.kt`
 ```
 
 ### KotlinAnnotator
+Cannot infer a type for this parameter. Please specify it explicitly.
+in `dekaf-jdbc-test/tests/impl/JdbcIntsCursorTest.kt`
+#### Snippet
+```java
+    fun fetchSingleNull() {
+        val text = "select cast(null as bigint) as V"
+        val r: IntArray? = session.openSeance().use { seance ->
+            seance.prepare(text, stmtQuery, null)
+            seance.execute(null)
+```
+
+### KotlinAnnotator
+Unresolved reference: stmtQuery
+in `dekaf-jdbc-test/tests/impl/JdbcIntsCursorTest.kt`
+#### Snippet
+```java
+        val text = "select cast(null as bigint) as V"
+        val r: IntArray? = session.openSeance().use { seance ->
+            seance.prepare(text, stmtQuery, null)
+            seance.execute(null)
+            val cursor = seance.makeIntsCursor(0)
+```
+
+### KotlinAnnotator
+Cannot infer a type for this parameter. Please specify it explicitly.
+in `dekaf-jdbc-test/tests/impl/JdbcIntsCursorTest.kt`
+#### Snippet
+```java
+    fun closeAtTheEnd() {
+        val text = "select value from table(value int = (1,2,3,4,5,6,7))"
+        session.openSeance().use { seance ->
+            seance.setPortionSize(5)
+            seance.prepare(text, stmtQuery, null)
+```
+
+### KotlinAnnotator
 Overload resolution ambiguity: public final inline infix fun that(x: NavigableSet?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: SortedSet?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: DoubleStream?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: IntStream?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: LongStream?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Stream?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Array?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: ByteArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: CharArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: DoubleArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: FloatArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: IntArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: LongArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: ShortArray?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Collection?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Iterable?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: List?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Set?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Sequence?): Subject\> defined in lb.yaka.gears.Expect
 in `dekaf-jdbc-test/tests/impl/JdbcMatrixCursorTest.kt`
 #### Snippet
@@ -3072,63 +2988,27 @@ in `dekaf-jdbc-test/tests/impl/JdbcMatrixCursorTest.kt`
 ```
 
 ### KotlinAnnotator
-Overload resolution ambiguity: public final inline infix fun that(x: NavigableSet?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: SortedSet?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: DoubleStream?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: IntStream?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: LongStream?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Stream?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Array?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: ByteArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: CharArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: DoubleArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: FloatArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: IntArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: LongArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: ShortArray?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Collection?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Iterable?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: List?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Set?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Sequence?): Subject\> defined in lb.yaka.gears.Expect
-in `dekaf-jdbc-test/tests/impl/JdbcMatrixCursorTest.kt`
-#### Snippet
-```java
-            val m4 = cursor.fetchPortion()
-
-            expect that m4 iz Null
-        }
-    }
-```
-
-### KotlinAnnotator
-Cannot infer a type for this parameter. Please specify it explicitly.
-in `dekaf-jdbc-test/tests/impl/JdbcIntsCursorTest.kt`
-#### Snippet
-```java
-    fun fetchPortion() {
-        val text = "select * from values (1000001, 'a'), (2000002, 'b'), (3000003, 'c')"
-        val column = session.openSeance().use { seance ->
-            seance.prepare(text, stmtQuery, null)
-            seance.execute(null)
-```
-
-### KotlinAnnotator
 Unresolved reference: stmtQuery
 in `dekaf-jdbc-test/tests/impl/JdbcIntsCursorTest.kt`
 #### Snippet
 ```java
-        val text = "select * from values (1000001, 'a'), (2000002, 'b'), (3000003, 'c')"
-        val column = session.openSeance().use { seance ->
+        session.openSeance().use { seance ->
+            seance.setPortionSize(5)
             seance.prepare(text, stmtQuery, null)
             seance.execute(null)
-            val cursor = seance.makeIntsCursor(0)
+            val cursor: JdbcColumnCursor<java.lang.Integer> = seance.makeColumnCursor(0, java.lang.Integer::class.java)
 ```
 
 ### KotlinAnnotator
-Overload resolution ambiguity: public final inline infix fun that(x: NavigableSet?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: SortedSet?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: DoubleStream?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: IntStream?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: LongStream?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Stream?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Array?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: ByteArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: CharArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: DoubleArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: FloatArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: IntArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: LongArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: ShortArray?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Collection?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Iterable?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: List?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Set?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Sequence?): Subject\> defined in lb.yaka.gears.Expect
+Unresolved reference: JdbcColumnCursor
 in `dekaf-jdbc-test/tests/impl/JdbcIntsCursorTest.kt`
 #### Snippet
 ```java
-        }
+            seance.prepare(text, stmtQuery, null)
+            seance.execute(null)
+            val cursor: JdbcColumnCursor<java.lang.Integer> = seance.makeColumnCursor(0, java.lang.Integer::class.java)
+            cursor.prepare()
 
-        expect that column iz notNull; column!!
-        expect that column hasSize 3
-
-```
-
-### KotlinAnnotator
-Overload resolution ambiguity: public final inline infix fun that(x: NavigableSet?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: SortedSet?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: DoubleStream?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: IntStream?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: LongStream?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Stream?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Array?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: ByteArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: CharArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: DoubleArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: FloatArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: IntArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: LongArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: ShortArray?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Collection?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Iterable?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: List?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Set?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Sequence?): Subject\> defined in lb.yaka.gears.Expect
-in `dekaf-jdbc-test/tests/impl/JdbcIntsCursorTest.kt`
-#### Snippet
-```java
-
-        expect that column iz notNull; column!!
-        expect that column hasSize 3
-
-        expect that column[0] equalsTo 1000001
 ```
 
 ### KotlinAnnotator
@@ -3168,6 +3048,18 @@ in `dekaf-jdbc-test/tests/impl/JdbcIntsCursorTest.kt`
 ```
 
 ### KotlinAnnotator
+Overload resolution ambiguity: public final inline infix fun that(x: NavigableSet?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: SortedSet?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: DoubleStream?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: IntStream?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: LongStream?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Stream?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Array?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: ByteArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: CharArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: DoubleArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: FloatArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: IntArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: LongArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: ShortArray?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Collection?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Iterable?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: List?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Set?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Sequence?): Subject\> defined in lb.yaka.gears.Expect
+in `dekaf-jdbc-test/tests/impl/JdbcMatrixCursorTest.kt`
+#### Snippet
+```java
+            val m4 = cursor.fetchPortion()
+
+            expect that m4 iz Null
+        }
+    }
+```
+
+### KotlinAnnotator
 Unresolved reference: stmtQuery
 in `dekaf-jdbc-test/tests/impl/JdbcIntsCursorTest.kt`
 #### Snippet
@@ -3177,6 +3069,78 @@ in `dekaf-jdbc-test/tests/impl/JdbcIntsCursorTest.kt`
             seance.prepare(text, stmtQuery, null)
             seance.execute(null)
             val cursor = seance.makeIntsCursor(0)
+```
+
+### KotlinAnnotator
+Cannot infer a type for this parameter. Please specify it explicitly.
+in `dekaf-jdbc-test/tests/impl/JdbcMatrixCursorTest.kt`
+#### Snippet
+```java
+    fun closeAtTheEnd() {
+        val text = "select value from table(value int = (1,2,3,4,5,6,7))"
+        session.openSeance().use { seance ->
+            seance.setPortionSize(5)
+            seance.prepare(text, stmtQuery, null)
+```
+
+### KotlinAnnotator
+Unresolved reference: stmtQuery
+in `dekaf-jdbc-test/tests/impl/JdbcMatrixCursorTest.kt`
+#### Snippet
+```java
+        session.openSeance().use { seance ->
+            seance.setPortionSize(5)
+            seance.prepare(text, stmtQuery, null)
+            seance.execute(null)
+            val cursor: JdbcMatrixCursor<JavaInt> = seance.makeMatrixCursor(0, JavaInt::class.java)
+```
+
+### KotlinAnnotator
+Unresolved reference: JdbcMatrixCursor
+in `dekaf-jdbc-test/tests/impl/JdbcMatrixCursorTest.kt`
+#### Snippet
+```java
+            seance.prepare(text, stmtQuery, null)
+            seance.execute(null)
+            val cursor: JdbcMatrixCursor<JavaInt> = seance.makeMatrixCursor(0, JavaInt::class.java)
+            cursor.prepare(arrayOf(JavaInt::class.java))
+
+```
+
+### KotlinAnnotator
+Cannot infer a type for this parameter. Please specify it explicitly.
+in `dekaf-jdbc-test/tests/impl/JdbcMatrixCursorTest.kt`
+#### Snippet
+```java
+    fun fetchPortion() {
+        val text = "select * from values (1, 1001, 1000001), (2, 2002, 2000002), (3, 3003, 3000003)"
+        val m = session.openSeance().use { seance ->
+            seance.prepare(text, stmtQuery, null)
+            seance.execute(null)
+```
+
+### KotlinAnnotator
+Unresolved reference: stmtQuery
+in `dekaf-jdbc-test/tests/impl/JdbcMatrixCursorTest.kt`
+#### Snippet
+```java
+        val text = "select * from values (1, 1001, 1000001), (2, 2002, 2000002), (3, 3003, 3000003)"
+        val m = session.openSeance().use { seance ->
+            seance.prepare(text, stmtQuery, null)
+            seance.execute(null)
+            val cursor: JdbcMatrixCursor<Number> = seance.makeMatrixCursor(0, Number::class.java)
+```
+
+### KotlinAnnotator
+Unresolved reference: JdbcMatrixCursor
+in `dekaf-jdbc-test/tests/impl/JdbcMatrixCursorTest.kt`
+#### Snippet
+```java
+            seance.prepare(text, stmtQuery, null)
+            seance.execute(null)
+            val cursor: JdbcMatrixCursor<Number> = seance.makeMatrixCursor(0, Number::class.java)
+            cursor.prepare(arrayOf<Class<out Number>>(JavaByte::class.java, JavaShort::class.java, JavaLong::class.java))
+            cursor.fetchPortion()
 ```
 
 ### KotlinAnnotator
@@ -3193,6 +3157,18 @@ in `dekaf-jdbc-test/tests/impl/JdbcIntsCursorTest.kt`
 
 ### KotlinAnnotator
 Overload resolution ambiguity: public final inline infix fun that(x: NavigableSet?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: SortedSet?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: DoubleStream?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: IntStream?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: LongStream?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Stream?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Array?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: ByteArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: CharArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: DoubleArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: FloatArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: IntArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: LongArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: ShortArray?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Collection?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Iterable?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: List?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Set?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Sequence?): Subject\> defined in lb.yaka.gears.Expect
+in `dekaf-jdbc-test/tests/impl/JdbcMatrixCursorTest.kt`
+#### Snippet
+```java
+        }
+
+        expect that m iz notNull; m!!
+        expect that m hasSize 3
+        expect that m[0] hasSize 3
+```
+
+### KotlinAnnotator
+Overload resolution ambiguity: public final inline infix fun that(x: NavigableSet?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: SortedSet?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: DoubleStream?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: IntStream?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: LongStream?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Stream?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Array?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: ByteArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: CharArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: DoubleArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: FloatArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: IntArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: LongArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: ShortArray?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Collection?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Iterable?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: List?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Set?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Sequence?): Subject\> defined in lb.yaka.gears.Expect
 in `dekaf-jdbc-test/tests/impl/JdbcIntsCursorTest.kt`
 #### Snippet
 ```java
@@ -3201,6 +3177,42 @@ in `dekaf-jdbc-test/tests/impl/JdbcIntsCursorTest.kt`
             expect that m1 hasSize 5
 
             expect that m1[0] equalsTo 1
+```
+
+### KotlinAnnotator
+Overload resolution ambiguity: public final inline infix fun that(x: NavigableSet?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: SortedSet?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: DoubleStream?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: IntStream?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: LongStream?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Stream?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Array?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: ByteArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: CharArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: DoubleArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: FloatArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: IntArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: LongArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: ShortArray?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Collection?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Iterable?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: List?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Set?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Sequence?): Subject\> defined in lb.yaka.gears.Expect
+in `dekaf-jdbc-test/tests/impl/JdbcMatrixCursorTest.kt`
+#### Snippet
+```java
+
+        expect that m iz notNull; m!!
+        expect that m hasSize 3
+        expect that m[0] hasSize 3
+
+```
+
+### KotlinAnnotator
+Unresolved reference: inter
+in `dekaf-jdbc-test/tests/impl/JdbcMatrixCursorTest.kt`
+#### Snippet
+```java
+import lb.yaka.expectations.*
+import lb.yaka.gears.*
+import org.jetbrains.dekaf.inter.common.StatementCategory.stmtQuery
+import org.jetbrains.dekaf.jdbc.impl.JdbcMatrixCursor
+import org.jetbrains.dekaf.jdbcTest.JavaByte
+```
+
+### KotlinAnnotator
+Unresolved reference: jdbc
+in `dekaf-jdbc-test/tests/impl/JdbcMatrixCursorTest.kt`
+#### Snippet
+```java
+import lb.yaka.gears.*
+import org.jetbrains.dekaf.inter.common.StatementCategory.stmtQuery
+import org.jetbrains.dekaf.jdbc.impl.JdbcMatrixCursor
+import org.jetbrains.dekaf.jdbcTest.JavaByte
+import org.jetbrains.dekaf.jdbcTest.JavaInt
 ```
 
 ### KotlinAnnotator
@@ -3268,8 +3280,8 @@ Cannot infer a type for this parameter. Please specify it explicitly.
 in `dekaf-jdbc-test/tests/impl/JdbcIntsCursorTest.kt`
 #### Snippet
 ```java
-    fun fetchSingleNull() {
-        val text = "select cast(null as bigint) as V"
+    fun fetchSingleEmpty() {
+        val text = "select * from values (1) where 1 is null"
         val r: IntArray? = session.openSeance().use { seance ->
             seance.prepare(text, stmtQuery, null)
             seance.execute(null)
@@ -3280,47 +3292,11 @@ Unresolved reference: stmtQuery
 in `dekaf-jdbc-test/tests/impl/JdbcIntsCursorTest.kt`
 #### Snippet
 ```java
-        val text = "select cast(null as bigint) as V"
+        val text = "select * from values (1) where 1 is null"
         val r: IntArray? = session.openSeance().use { seance ->
             seance.prepare(text, stmtQuery, null)
             seance.execute(null)
             val cursor = seance.makeIntsCursor(0)
-```
-
-### KotlinAnnotator
-Cannot infer a type for this parameter. Please specify it explicitly.
-in `dekaf-jdbc-test/tests/impl/JdbcIntsCursorTest.kt`
-#### Snippet
-```java
-    fun closeAtTheEnd() {
-        val text = "select value from table(value int = (1,2,3,4,5,6,7))"
-        session.openSeance().use { seance ->
-            seance.setPortionSize(5)
-            seance.prepare(text, stmtQuery, null)
-```
-
-### KotlinAnnotator
-Unresolved reference: stmtQuery
-in `dekaf-jdbc-test/tests/impl/JdbcIntsCursorTest.kt`
-#### Snippet
-```java
-        session.openSeance().use { seance ->
-            seance.setPortionSize(5)
-            seance.prepare(text, stmtQuery, null)
-            seance.execute(null)
-            val cursor: JdbcColumnCursor<java.lang.Integer> = seance.makeColumnCursor(0, java.lang.Integer::class.java)
-```
-
-### KotlinAnnotator
-Unresolved reference: JdbcColumnCursor
-in `dekaf-jdbc-test/tests/impl/JdbcIntsCursorTest.kt`
-#### Snippet
-```java
-            seance.prepare(text, stmtQuery, null)
-            seance.execute(null)
-            val cursor: JdbcColumnCursor<java.lang.Integer> = seance.makeColumnCursor(0, java.lang.Integer::class.java)
-            cursor.prepare()
-
 ```
 
 ### KotlinAnnotator
@@ -3352,9 +3328,9 @@ Cannot infer a type for this parameter. Please specify it explicitly.
 in `dekaf-jdbc-test/tests/impl/JdbcIntsCursorTest.kt`
 #### Snippet
 ```java
-    fun fetchSingleEmpty() {
-        val text = "select * from values (1) where 1 is null"
-        val r: IntArray? = session.openSeance().use { seance ->
+    fun fetchPortion() {
+        val text = "select * from values (1000001, 'a'), (2000002, 'b'), (3000003, 'c')"
+        val column = session.openSeance().use { seance ->
             seance.prepare(text, stmtQuery, null)
             seance.execute(null)
 ```
@@ -3364,47 +3340,143 @@ Unresolved reference: stmtQuery
 in `dekaf-jdbc-test/tests/impl/JdbcIntsCursorTest.kt`
 #### Snippet
 ```java
-        val text = "select * from values (1) where 1 is null"
-        val r: IntArray? = session.openSeance().use { seance ->
+        val text = "select * from values (1000001, 'a'), (2000002, 'b'), (3000003, 'c')"
+        val column = session.openSeance().use { seance ->
             seance.prepare(text, stmtQuery, null)
             seance.execute(null)
             val cursor = seance.makeIntsCursor(0)
 ```
 
 ### KotlinAnnotator
-Unresolved reference: inter
-in `dekaf-main/src/DbMaster.kt`
+Overload resolution ambiguity: public final inline infix fun that(x: NavigableSet?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: SortedSet?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: DoubleStream?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: IntStream?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: LongStream?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Stream?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Array?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: ByteArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: CharArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: DoubleArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: FloatArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: IntArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: LongArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: ShortArray?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Collection?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Iterable?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: List?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Set?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Sequence?): Subject\> defined in lb.yaka.gears.Expect
+in `dekaf-jdbc-test/tests/impl/JdbcIntsCursorTest.kt`
 #### Snippet
 ```java
-package org.jetbrains.dekaf.main
+        }
 
-import org.jetbrains.dekaf.inter.intf.InterFacade
-import org.jetbrains.dekaf.inter.settings.Settings
-import org.jetbrains.dekaf.main.base.BaseFacade
+        expect that column iz notNull; column!!
+        expect that column hasSize 3
+
+```
+
+### KotlinAnnotator
+Overload resolution ambiguity: public final inline infix fun that(x: NavigableSet?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: SortedSet?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: DoubleStream?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: IntStream?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: LongStream?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Stream?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Array?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: ByteArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: CharArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: DoubleArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: FloatArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: IntArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: LongArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: ShortArray?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Collection?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Iterable?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: List?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Set?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Sequence?): Subject\> defined in lb.yaka.gears.Expect
+in `dekaf-jdbc-test/tests/impl/JdbcIntsCursorTest.kt`
+#### Snippet
+```java
+
+        expect that column iz notNull; column!!
+        expect that column hasSize 3
+
+        expect that column[0] equalsTo 1000001
+```
+
+### KotlinAnnotator
+Unresolved reference: InterSession
+in `dekaf-main/src/base/BaseSession.kt`
+#### Snippet
+```java
+
+
+    constructor(facade: BaseFacade, interSession: InterSession) : this(facade) {
+        this.interSession = interSession
+
 ```
 
 ### KotlinAnnotator
 Unresolved reference: inter
-in `dekaf-main/src/DbMaster.kt`
+in `dekaf-main/src/base/BaseSession.kt`
+#### Snippet
+```java
+package org.jetbrains.dekaf.main.base
+
+import org.jetbrains.dekaf.inter.intf.InterSession
+import org.jetbrains.dekaf.main.db.DbQueryRunner
+import org.jetbrains.dekaf.main.db.DbSession
+```
+
+### KotlinAnnotator
+Unresolved reference: InterSession
+in `dekaf-main/src/base/BaseSession.kt`
+#### Snippet
+```java
+    }
+
+    private fun detachInterSession(): InterSession? {
+        val s = interSession
+        interSession = null
+```
+
+### KotlinAnnotator
+Unresolved reference: InterSession
+in `dekaf-main/src/base/BaseSession.kt`
 #### Snippet
 ```java
 
-import org.jetbrains.dekaf.inter.intf.InterFacade
-import org.jetbrains.dekaf.inter.settings.Settings
-import org.jetbrains.dekaf.main.base.BaseFacade
-import org.jetbrains.dekaf.main.base.FactoryLoader
+
+    internal fun ensureInterSession(): InterSession {
+        val s = interSession
+        if (closed || s == null || s.isClosed)
+```
+
+### KotlinAnnotator
+Unresolved reference: InterSession
+in `dekaf-main/src/base/BaseSession.kt`
+#### Snippet
+```java
+class BaseSession (private val facade: BaseFacade) : DbSession {
+
+    private var interSession: InterSession? = null
+
+    private var activeTransactionPerformer: InTransactionPerformer? = null
+```
+
+### KotlinAnnotator
+Unresolved reference: InterSession
+in `dekaf-main/src/base/BaseFacade.kt`
+#### Snippet
+```java
+    }
+
+    private fun closeInterSession(session: InterSession, wasBroken: Boolean) {
+        session.rollback()
+        session.close()
 ```
 
 ### KotlinAnnotator
 Unresolved reference: Settings
-in `dekaf-main/src/DbMaster.kt`
+in `dekaf-main/src/base/BaseFacade.kt`
 #### Snippet
 ```java
+    private var interFacade: InterFacade? = null
 
-    @JvmStatic
-    fun open(settings: Settings, connect: Boolean = false): DbFacade {
-        // inter
-        val interFactory = FactoryLoader.selectInterServiceFactory(settings)
+    private var settings: Settings = Settings.empty
+
+    private var connected: Boolean = false
+```
+
+### KotlinAnnotator
+Unresolved reference: Settings
+in `dekaf-main/src/base/BaseFacade.kt`
+#### Snippet
+```java
+    private var interFacade: InterFacade? = null
+
+    private var settings: Settings = Settings.empty
+
+    private var connected: Boolean = false
+```
+
+### KotlinAnnotator
+Unresolved reference: InterSession
+in `dekaf-main/src/base/BaseFacade.kt`
+#### Snippet
+```java
+    }
+
+    internal fun releaseInterSessionBack(interSession: InterSession) {
+        pool.release(interSession)
+    }
 ```
 
 ### KotlinAnnotator
@@ -3424,22 +3496,94 @@ Unresolved reference: InterSession
 in `dekaf-main/src/base/BaseFacade.kt`
 #### Snippet
 ```java
+    }
 
-
-    private fun openInterSession(): InterSession {
-        val f = interFacade ?: throw IllegalStateException("Facade is not set up")
-        return f.openSession()
+    internal fun releaseInterSessionBroken(interSession: InterSession) {
+        pool.releaseBroken(interSession)
+    }
 ```
 
 ### KotlinAnnotator
-Unresolved reference: openSession
+Unresolved reference: Settings
+in `dekaf-main/src/DbMaster.kt`
+#### Snippet
+```java
+
+    @JvmStatic
+    fun open(settings: Settings, connect: Boolean = false): DbFacade {
+        // inter
+        val interFactory = FactoryLoader.selectInterServiceFactory(settings)
+```
+
+### KotlinAnnotator
+Unresolved reference: inter
+in `dekaf-main/src/DbMaster.kt`
+#### Snippet
+```java
+package org.jetbrains.dekaf.main
+
+import org.jetbrains.dekaf.inter.intf.InterFacade
+import org.jetbrains.dekaf.inter.settings.Settings
+import org.jetbrains.dekaf.main.base.BaseFacade
+```
+
+### KotlinAnnotator
+Unresolved reference: InterSession
 in `dekaf-main/src/base/BaseFacade.kt`
 #### Snippet
 ```java
-    private fun openInterSession(): InterSession {
-        val f = interFacade ?: throw IllegalStateException("Facade is not set up")
-        return f.openSession()
+    private inner class Pool : ServicePool<InterSession>() {
+        override fun openService(): InterSession = openInterSession()
+        override fun closeService(service: InterSession, wasBroken: Boolean) = closeInterSession(service, wasBroken)
     }
+
+```
+
+### KotlinAnnotator
+Unresolved reference: inter
+in `dekaf-main/src/DbMaster.kt`
+#### Snippet
+```java
+
+import org.jetbrains.dekaf.inter.intf.InterFacade
+import org.jetbrains.dekaf.inter.settings.Settings
+import org.jetbrains.dekaf.main.base.BaseFacade
+import org.jetbrains.dekaf.main.base.FactoryLoader
+```
+
+### KotlinAnnotator
+Unresolved reference: InterFacade
+in `dekaf-main/src/base/BaseFacade.kt`
+#### Snippet
+```java
+class BaseFacade : DbFacade {
+
+    private var interFacade: InterFacade? = null
+
+    private var settings: Settings = Settings.empty
+```
+
+### KotlinAnnotator
+Unresolved reference: InterFacade
+in `dekaf-main/src/base/BaseFacade.kt`
+#### Snippet
+```java
+
+
+    fun setup(interFacade: InterFacade, settings: Settings) {
+        if (this.interFacade != null) throw IllegalStateException("The facade is already initialized")
+
+```
+
+### KotlinAnnotator
+Unresolved reference: Settings
+in `dekaf-main/src/base/BaseFacade.kt`
+#### Snippet
+```java
+
+
+    fun setup(interFacade: InterFacade, settings: Settings) {
+        if (this.interFacade != null) throw IllegalStateException("The facade is already initialized")
 
 ```
 
@@ -3496,35 +3640,47 @@ Unresolved reference: InterSession
 in `dekaf-main/src/base/BaseFacade.kt`
 #### Snippet
 ```java
+
+
+    private fun openInterSession(): InterSession {
+        val f = interFacade ?: throw IllegalStateException("Facade is not set up")
+        return f.openSession()
+```
+
+### KotlinAnnotator
+Unresolved reference: openSession
+in `dekaf-main/src/base/BaseFacade.kt`
+#### Snippet
+```java
+    private fun openInterSession(): InterSession {
+        val f = interFacade ?: throw IllegalStateException("Facade is not set up")
+        return f.openSession()
     }
 
-    internal fun releaseInterSessionBack(interSession: InterSession) {
-        pool.release(interSession)
+```
+
+### KotlinAnnotator
+Unresolved reference: InterSession
+in `dekaf-main/src/base/BaseFacade.kt`
+#### Snippet
+```java
+
+    private inner class Pool : ServicePool<InterSession>() {
+        override fun openService(): InterSession = openInterSession()
+        override fun closeService(service: InterSession, wasBroken: Boolean) = closeInterSession(service, wasBroken)
     }
 ```
 
 ### KotlinAnnotator
-Unresolved reference: Settings
+Unresolved reference: InterSession
 in `dekaf-main/src/base/BaseFacade.kt`
 #### Snippet
 ```java
-    private var interFacade: InterFacade? = null
 
-    private var settings: Settings = Settings.empty
 
-    private var connected: Boolean = false
-```
-
-### KotlinAnnotator
-Unresolved reference: Settings
-in `dekaf-main/src/base/BaseFacade.kt`
-#### Snippet
-```java
-    private var interFacade: InterFacade? = null
-
-    private var settings: Settings = Settings.empty
-
-    private var connected: Boolean = false
+    private inner class Pool : ServicePool<InterSession>() {
+        override fun openService(): InterSession = openInterSession()
+        override fun closeService(service: InterSession, wasBroken: Boolean) = closeInterSession(service, wasBroken)
 ```
 
 ### KotlinAnnotator
@@ -3564,267 +3720,27 @@ import org.jetbrains.dekaf.main.pool.ServicePool
 ```
 
 ### KotlinAnnotator
-Unresolved reference: InterFacade
-in `dekaf-main/src/base/BaseFacade.kt`
+Unresolved reference: StatementCategory
+in `dekaf-main/src/base/BaseQueryRunner.kt`
 #### Snippet
 ```java
-class BaseFacade : DbFacade {
-
-    private var interFacade: InterFacade? = null
-
-    private var settings: Settings = Settings.empty
+    override fun run(vararg paramValues: Any?): T {
+        val params: List<Any?>? = if (paramValues.isNotEmpty()) Arrays.asList(*paramValues) else null
+        seance.prepare(queryText, StatementCategory.stmtQuery, null)
+        seance.execute(params)
+        val collector: ResultCollector<T> = layout.makeResultCollector()
 ```
 
 ### KotlinAnnotator
-Unresolved reference: InterSession
-in `dekaf-main/src/base/BaseFacade.kt`
-#### Snippet
-```java
-
-    private inner class Pool : ServicePool<InterSession>() {
-        override fun openService(): InterSession = openInterSession()
-        override fun closeService(service: InterSession, wasBroken: Boolean) = closeInterSession(service, wasBroken)
-    }
-```
-
-### KotlinAnnotator
-Unresolved reference: InterSession
-in `dekaf-main/src/base/BaseFacade.kt`
-#### Snippet
-```java
-    }
-
-    internal fun releaseInterSessionBroken(interSession: InterSession) {
-        pool.releaseBroken(interSession)
-    }
-```
-
-### KotlinAnnotator
-Unresolved reference: InterSession
-in `dekaf-main/src/base/BaseFacade.kt`
-#### Snippet
-```java
-    private inner class Pool : ServicePool<InterSession>() {
-        override fun openService(): InterSession = openInterSession()
-        override fun closeService(service: InterSession, wasBroken: Boolean) = closeInterSession(service, wasBroken)
-    }
-
-```
-
-### KotlinAnnotator
-Unresolved reference: InterSession
-in `dekaf-main/src/base/BaseFacade.kt`
+Unresolved reference: InterSeance
+in `dekaf-main/src/base/BaseQueryRunner.kt`
 #### Snippet
 ```java
 
 
-    private inner class Pool : ServicePool<InterSession>() {
-        override fun openService(): InterSession = openInterSession()
-        override fun closeService(service: InterSession, wasBroken: Boolean) = closeInterSession(service, wasBroken)
-```
-
-### KotlinAnnotator
-Unresolved reference: InterSession
-in `dekaf-main/src/base/BaseFacade.kt`
-#### Snippet
-```java
-    }
-
-    private fun closeInterSession(session: InterSession, wasBroken: Boolean) {
-        session.rollback()
-        session.close()
-```
-
-### KotlinAnnotator
-Unresolved reference: InterFacade
-in `dekaf-main/src/base/BaseFacade.kt`
-#### Snippet
-```java
-
-
-    fun setup(interFacade: InterFacade, settings: Settings) {
-        if (this.interFacade != null) throw IllegalStateException("The facade is already initialized")
-
-```
-
-### KotlinAnnotator
-Unresolved reference: Settings
-in `dekaf-main/src/base/BaseFacade.kt`
-#### Snippet
-```java
-
-
-    fun setup(interFacade: InterFacade, settings: Settings) {
-        if (this.interFacade != null) throw IllegalStateException("The facade is already initialized")
-
-```
-
-### KotlinAnnotator
-Unresolved reference: JdbcFacade
-in `dekaf-jdbc-test/tests/impl/H2ConnectedTest.kt`
-#### Snippet
-```java
-    }
-
-    protected lateinit var facade:  JdbcFacade
-    protected lateinit var session: JdbcSession
-
-```
-
-### KotlinAnnotator
-Unresolved reference: closeIt
-in `dekaf-jdbc-test/tests/impl/H2ConnectedTest.kt`
-#### Snippet
-```java
-        }
-        finally {
-            closeIt(stmt)
-        }
-    }
-```
-
-### KotlinAnnotator
-Unresolved reference: JdbcServiceFactory
-in `dekaf-jdbc-test/tests/impl/H2ConnectedTest.kt`
-#### Snippet
-```java
-                        "jdbc", Settings.of("connection-string", "jdbc:h2:mem:test")
-                )
-        val factory = JdbcServiceFactory()
-    }
-
-```
-
-### KotlinAnnotator
-Unresolved reference: inter
-in `dekaf-jdbc-test/tests/impl/H2ConnectedTest.kt`
-#### Snippet
-```java
-package org.jetbrains.dekaf.jdbcTest.impl
-
-import org.jetbrains.dekaf.inter.settings.Settings
-import org.jetbrains.dekaf.jdbc.impl.JdbcFacade
-import org.jetbrains.dekaf.jdbc.impl.JdbcServiceFactory
-```
-
-### KotlinAnnotator
-Unresolved reference: jdbc
-in `dekaf-jdbc-test/tests/impl/H2ConnectedTest.kt`
-#### Snippet
-```java
-
-import org.jetbrains.dekaf.inter.settings.Settings
-import org.jetbrains.dekaf.jdbc.impl.JdbcFacade
-import org.jetbrains.dekaf.jdbc.impl.JdbcServiceFactory
-import org.jetbrains.dekaf.jdbc.impl.JdbcSession
-```
-
-### KotlinAnnotator
-Unresolved reference: jdbc
-in `dekaf-jdbc-test/tests/impl/H2ConnectedTest.kt`
-#### Snippet
-```java
-import org.jetbrains.dekaf.inter.settings.Settings
-import org.jetbrains.dekaf.jdbc.impl.JdbcFacade
-import org.jetbrains.dekaf.jdbc.impl.JdbcServiceFactory
-import org.jetbrains.dekaf.jdbc.impl.JdbcSession
-import org.jetbrains.dekaf.jdbc.impl.JdbcStuff.closeIt
-```
-
-### KotlinAnnotator
-Unresolved reference: jdbc
-in `dekaf-jdbc-test/tests/impl/H2ConnectedTest.kt`
-#### Snippet
-```java
-import org.jetbrains.dekaf.jdbc.impl.JdbcFacade
-import org.jetbrains.dekaf.jdbc.impl.JdbcServiceFactory
-import org.jetbrains.dekaf.jdbc.impl.JdbcSession
-import org.jetbrains.dekaf.jdbc.impl.JdbcStuff.closeIt
-import org.jetbrains.dekaf.test.utils.UnitTest
-```
-
-### KotlinAnnotator
-Unresolved reference: jdbc
-in `dekaf-jdbc-test/tests/impl/H2ConnectedTest.kt`
-#### Snippet
-```java
-import org.jetbrains.dekaf.jdbc.impl.JdbcServiceFactory
-import org.jetbrains.dekaf.jdbc.impl.JdbcSession
-import org.jetbrains.dekaf.jdbc.impl.JdbcStuff.closeIt
-import org.jetbrains.dekaf.test.utils.UnitTest
-import org.junit.jupiter.api.AfterAll
-```
-
-### KotlinAnnotator
-Unresolved reference: JdbcSession
-in `dekaf-jdbc-test/tests/impl/H2ConnectedTest.kt`
-#### Snippet
-```java
-
-    protected lateinit var facade:  JdbcFacade
-    protected lateinit var session: JdbcSession
-
-
-```
-
-### KotlinAnnotator
-Unresolved reference: Settings
-in `dekaf-jdbc-test/tests/impl/H2ConnectedTest.kt`
-#### Snippet
-```java
-    companion object {
-        val memH2Settings =
-                Settings.of(
-                        "driver", Settings.of("class", "org.h2.Driver"),
-                        "jdbc", Settings.of("connection-string", "jdbc:h2:mem:test")
-```
-
-### KotlinAnnotator
-Unresolved reference: Settings
-in `dekaf-jdbc-test/tests/impl/H2ConnectedTest.kt`
-#### Snippet
-```java
-        val memH2Settings =
-                Settings.of(
-                        "driver", Settings.of("class", "org.h2.Driver"),
-                        "jdbc", Settings.of("connection-string", "jdbc:h2:mem:test")
-                )
-```
-
-### KotlinAnnotator
-Unresolved reference: Settings
-in `dekaf-jdbc-test/tests/impl/H2ConnectedTest.kt`
-#### Snippet
-```java
-                Settings.of(
-                        "driver", Settings.of("class", "org.h2.Driver"),
-                        "jdbc", Settings.of("connection-string", "jdbc:h2:mem:test")
-                )
-        val factory = JdbcServiceFactory()
-```
-
-### KotlinAnnotator
-Unresolved reference: inter
-in `dekaf-main/src/base/BasePerformer.kt`
-#### Snippet
-```java
-package org.jetbrains.dekaf.main.base
-
-import org.jetbrains.dekaf.inter.intf.InterSession
-import org.jetbrains.dekaf.main.db.DbInsideTransaction
-import org.jetbrains.dekaf.main.db.DbQueryRunner
-```
-
-### KotlinAnnotator
-Unresolved reference: InterSession
-in `dekaf-main/src/base/BasePerformer.kt`
-#### Snippet
-```java
-
-    internal val baseSession: BaseSession
-    internal val interSession: InterSession
-
-
+    constructor(session: BaseSession, seance: InterSeance, queryText: String, layout: QueryLayout<T>) {
+        this.session = session
+        this.seance = seance
 ```
 
 ### KotlinAnnotator
@@ -3852,18 +3768,6 @@ import org.jetbrains.dekaf.main.queries.QueryLayout
 ```
 
 ### KotlinAnnotator
-Unresolved reference: StatementCategory
-in `dekaf-main/src/base/BaseQueryRunner.kt`
-#### Snippet
-```java
-    override fun run(vararg paramValues: Any?): T {
-        val params: List<Any?>? = if (paramValues.isNotEmpty()) Arrays.asList(*paramValues) else null
-        seance.prepare(queryText, StatementCategory.stmtQuery, null)
-        seance.execute(params)
-        val collector: ResultCollector<T> = layout.makeResultCollector()
-```
-
-### KotlinAnnotator
 Unresolved reference: InterSeance
 in `dekaf-main/src/base/BaseQueryRunner.kt`
 #### Snippet
@@ -3876,26 +3780,26 @@ in `dekaf-main/src/base/BaseQueryRunner.kt`
 ```
 
 ### KotlinAnnotator
-Unresolved reference: InterSeance
-in `dekaf-main/src/base/BaseQueryRunner.kt`
+Unresolved reference: inter
+in `dekaf-main/src/base/BasePerformer.kt`
 #### Snippet
 ```java
+package org.jetbrains.dekaf.main.base
 
-
-    constructor(session: BaseSession, seance: InterSeance, queryText: String, layout: QueryLayout<T>) {
-        this.session = session
-        this.seance = seance
+import org.jetbrains.dekaf.inter.intf.InterSession
+import org.jetbrains.dekaf.main.db.DbInsideTransaction
+import org.jetbrains.dekaf.main.db.DbQueryRunner
 ```
 
 ### KotlinAnnotator
-Unresolved reference: ArrayHacks
-in `dekaf-main/src/queries/impl/RowArrayNHandler.kt`
+Unresolved reference: InterSession
+in `dekaf-main/src/base/BasePerformer.kt`
 #### Snippet
 ```java
-        this.baseClass = baseClass
-        this.columnCount = columnCount
-        rowClass = ArrayHacks.createEmptyArray(baseClass).javaClass
-    }
+
+    internal val baseSession: BaseSession
+    internal val interSession: InterSession
+
 
 ```
 
@@ -3933,6 +3837,18 @@ in `dekaf-main/src/queries/impl/RowArrayNHandler.kt`
     override fun prepare(seance: InterSeance, position: Int): InterMatrixCursor<E?> {
         val cursor = seance.makeMatrixCursor(position, baseClass)
         cursor.prepare()
+```
+
+### KotlinAnnotator
+Unresolved reference: ArrayHacks
+in `dekaf-main/src/queries/impl/RowArrayNHandler.kt`
+#### Snippet
+```java
+        this.baseClass = baseClass
+        this.columnCount = columnCount
+        rowClass = ArrayHacks.createEmptyArray(baseClass).javaClass
+    }
+
 ```
 
 ### KotlinAnnotator
@@ -4068,63 +3984,27 @@ import org.jetbrains.dekaf.main.util.isInstanceOf
 ```
 
 ### KotlinAnnotator
-Unresolved reference: InterSession
-in `dekaf-main/src/base/BaseSession.kt`
-#### Snippet
-```java
-class BaseSession (private val facade: BaseFacade) : DbSession {
-
-    private var interSession: InterSession? = null
-
-    private var activeTransactionPerformer: InTransactionPerformer? = null
-```
-
-### KotlinAnnotator
-Unresolved reference: InterSession
-in `dekaf-main/src/base/BaseSession.kt`
-#### Snippet
-```java
-
-
-    constructor(facade: BaseFacade, interSession: InterSession) : this(facade) {
-        this.interSession = interSession
-
-```
-
-### KotlinAnnotator
-Unresolved reference: InterSession
-in `dekaf-main/src/base/BaseSession.kt`
+Unresolved reference: InterSeance
+in `dekaf-main/src/queries/impl/RowArrayMHandler.kt`
 #### Snippet
 ```java
     }
 
-    private fun detachInterSession(): InterSession? {
-        val s = interSession
-        interSession = null
+    override fun prepare(seance: InterSeance, position: Int): InterMatrixCursor<E> {
+        val cursor = seance.makeMatrixCursor(position, baseClass)
+        cursor.prepare()
 ```
 
 ### KotlinAnnotator
-Unresolved reference: InterSession
-in `dekaf-main/src/base/BaseSession.kt`
+Unresolved reference: InterMatrixCursor
+in `dekaf-main/src/queries/impl/RowArrayMHandler.kt`
 #### Snippet
 ```java
+    }
 
-
-    internal fun ensureInterSession(): InterSession {
-        val s = interSession
-        if (closed || s == null || s.isClosed)
-```
-
-### KotlinAnnotator
-Unresolved reference: inter
-in `dekaf-main/src/base/BaseSession.kt`
-#### Snippet
-```java
-package org.jetbrains.dekaf.main.base
-
-import org.jetbrains.dekaf.inter.intf.InterSession
-import org.jetbrains.dekaf.main.db.DbQueryRunner
-import org.jetbrains.dekaf.main.db.DbSession
+    override fun prepare(seance: InterSeance, position: Int): InterMatrixCursor<E> {
+        val cursor = seance.makeMatrixCursor(position, baseClass)
+        cursor.prepare()
 ```
 
 ### KotlinAnnotator
@@ -4164,30 +4044,6 @@ import org.jetbrains.dekaf.inter.utils.ArrayHacks
 ```
 
 ### KotlinAnnotator
-Unresolved reference: InterSeance
-in `dekaf-main/src/queries/impl/RowArrayMHandler.kt`
-#### Snippet
-```java
-    }
-
-    override fun prepare(seance: InterSeance, position: Int): InterMatrixCursor<E> {
-        val cursor = seance.makeMatrixCursor(position, baseClass)
-        cursor.prepare()
-```
-
-### KotlinAnnotator
-Unresolved reference: InterMatrixCursor
-in `dekaf-main/src/queries/impl/RowArrayMHandler.kt`
-#### Snippet
-```java
-    }
-
-    override fun prepare(seance: InterSeance, position: Int): InterMatrixCursor<E> {
-        val cursor = seance.makeMatrixCursor(position, baseClass)
-        cursor.prepare()
-```
-
-### KotlinAnnotator
 Unresolved reference: ArrayHacks
 in `dekaf-main/src/queries/impl/RowArrayMHandler.kt`
 #### Snippet
@@ -4212,6 +4068,54 @@ in `dekaf-main/src/queries/impl/RowArrayMHandler.kt`
 ```
 
 ### KotlinAnnotator
+Unresolved reference: InterSeance
+in `dekaf-main/src/queries/impl/RowHandler.kt`
+#### Snippet
+```java
+interface RowHandler<R, B> {
+
+    fun prepare(seance: InterSeance, position: Int): InterMatrixCursor<B>
+
+    fun handleRow(values: Array<out B>): R
+```
+
+### KotlinAnnotator
+Unresolved reference: InterMatrixCursor
+in `dekaf-main/src/queries/impl/RowHandler.kt`
+#### Snippet
+```java
+interface RowHandler<R, B> {
+
+    fun prepare(seance: InterSeance, position: Int): InterMatrixCursor<B>
+
+    fun handleRow(values: Array<out B>): R
+```
+
+### KotlinAnnotator
+Unresolved reference: inter
+in `dekaf-main/src/queries/impl/RowHandler.kt`
+#### Snippet
+```java
+package org.jetbrains.dekaf.main.queries.impl
+
+import org.jetbrains.dekaf.inter.intf.InterMatrixCursor
+import org.jetbrains.dekaf.inter.intf.InterSeance
+
+```
+
+### KotlinAnnotator
+Unresolved reference: inter
+in `dekaf-main/src/queries/impl/RowHandler.kt`
+#### Snippet
+```java
+
+import org.jetbrains.dekaf.inter.intf.InterMatrixCursor
+import org.jetbrains.dekaf.inter.intf.InterSeance
+
+
+```
+
+### KotlinAnnotator
 Unresolved reference: Settings
 in `dekaf-main/src/base/FactoryLoader.kt`
 #### Snippet
@@ -4221,6 +4125,30 @@ in `dekaf-main/src/base/FactoryLoader.kt`
     fun selectInterServiceFactory(settings: Settings): InterServiceFactory {
         val factories = InterFactories.factories
         if (factories.isEmpty()) throw DBFactoryException("No instances of InterServiceFactory")
+```
+
+### KotlinAnnotator
+Unresolved reference: JdbcServiceFactory
+in `dekaf-jdbc-test/tests/impl/H2ConnectedTest.kt`
+#### Snippet
+```java
+                        "jdbc", Settings.of("connection-string", "jdbc:h2:mem:test")
+                )
+        val factory = JdbcServiceFactory()
+    }
+
+```
+
+### KotlinAnnotator
+Unresolved reference: closeIt
+in `dekaf-jdbc-test/tests/impl/H2ConnectedTest.kt`
+#### Snippet
+```java
+        }
+        finally {
+            closeIt(stmt)
+        }
+    }
 ```
 
 ### KotlinAnnotator
@@ -4236,6 +4164,18 @@ in `dekaf-main/src/base/FactoryLoader.kt`
 ```
 
 ### KotlinAnnotator
+Unresolved reference: Settings
+in `dekaf-jdbc-test/tests/impl/H2ConnectedTest.kt`
+#### Snippet
+```java
+    companion object {
+        val memH2Settings =
+                Settings.of(
+                        "driver", Settings.of("class", "org.h2.Driver"),
+                        "jdbc", Settings.of("connection-string", "jdbc:h2:mem:test")
+```
+
+### KotlinAnnotator
 Unresolved reference: DBFactoryException
 in `dekaf-main/src/base/FactoryLoader.kt`
 #### Snippet
@@ -4245,6 +4185,18 @@ in `dekaf-main/src/base/FactoryLoader.kt`
         if (factories.isEmpty()) throw DBFactoryException("No instances of InterServiceFactory")
         var f = factories.firstOrNull { it.javaClass.name == baseInterServiceFactoryName }
         f ?: throw DBFactoryException("No base instance of InterServiceFactory")
+```
+
+### KotlinAnnotator
+Unresolved reference: Settings
+in `dekaf-jdbc-test/tests/impl/H2ConnectedTest.kt`
+#### Snippet
+```java
+        val memH2Settings =
+                Settings.of(
+                        "driver", Settings.of("class", "org.h2.Driver"),
+                        "jdbc", Settings.of("connection-string", "jdbc:h2:mem:test")
+                )
 ```
 
 ### KotlinAnnotator
@@ -4260,15 +4212,39 @@ in `dekaf-main/src/base/FactoryLoader.kt`
 ```
 
 ### KotlinAnnotator
-Unresolved reference: InterServiceFactory
+Unresolved reference: inter
 in `dekaf-main/src/base/FactoryLoader.kt`
 #### Snippet
 ```java
-    private object InterFactories {
+package org.jetbrains.dekaf.main.base
 
-        val factories: Collection<InterServiceFactory>
+import org.jetbrains.dekaf.inter.exceptions.DBFactoryException
+import org.jetbrains.dekaf.inter.intf.InterServiceFactory
+import org.jetbrains.dekaf.inter.settings.Settings
+```
 
+### KotlinAnnotator
+Unresolved reference: inter
+in `dekaf-main/src/base/FactoryLoader.kt`
+#### Snippet
+```java
 
+import org.jetbrains.dekaf.inter.exceptions.DBFactoryException
+import org.jetbrains.dekaf.inter.intf.InterServiceFactory
+import org.jetbrains.dekaf.inter.settings.Settings
+import java.util.*
+```
+
+### KotlinAnnotator
+Unresolved reference: inter
+in `dekaf-main/src/base/FactoryLoader.kt`
+#### Snippet
+```java
+import org.jetbrains.dekaf.inter.exceptions.DBFactoryException
+import org.jetbrains.dekaf.inter.intf.InterServiceFactory
+import org.jetbrains.dekaf.inter.settings.Settings
+import java.util.*
+import java.util.stream.Collectors
 ```
 
 ### KotlinAnnotator
@@ -4320,50 +4296,110 @@ in `dekaf-main/src/base/FactoryLoader.kt`
 ```
 
 ### KotlinAnnotator
-Unresolved reference: inter
+Unresolved reference: InterServiceFactory
 in `dekaf-main/src/base/FactoryLoader.kt`
 #### Snippet
 ```java
-package org.jetbrains.dekaf.main.base
+    private object InterFactories {
 
-import org.jetbrains.dekaf.inter.exceptions.DBFactoryException
-import org.jetbrains.dekaf.inter.intf.InterServiceFactory
-import org.jetbrains.dekaf.inter.settings.Settings
+        val factories: Collection<InterServiceFactory>
+
+
+```
+
+### KotlinAnnotator
+Unresolved reference: Settings
+in `dekaf-jdbc-test/tests/impl/H2ConnectedTest.kt`
+#### Snippet
+```java
+                Settings.of(
+                        "driver", Settings.of("class", "org.h2.Driver"),
+                        "jdbc", Settings.of("connection-string", "jdbc:h2:mem:test")
+                )
+        val factory = JdbcServiceFactory()
 ```
 
 ### KotlinAnnotator
 Unresolved reference: inter
-in `dekaf-main/src/base/FactoryLoader.kt`
+in `dekaf-jdbc-test/tests/impl/H2ConnectedTest.kt`
 #### Snippet
 ```java
+package org.jetbrains.dekaf.jdbcTest.impl
 
-import org.jetbrains.dekaf.inter.exceptions.DBFactoryException
-import org.jetbrains.dekaf.inter.intf.InterServiceFactory
 import org.jetbrains.dekaf.inter.settings.Settings
-import java.util.*
+import org.jetbrains.dekaf.jdbc.impl.JdbcFacade
+import org.jetbrains.dekaf.jdbc.impl.JdbcServiceFactory
 ```
 
 ### KotlinAnnotator
-Unresolved reference: inter
-in `dekaf-main/src/base/FactoryLoader.kt`
+Unresolved reference: jdbc
+in `dekaf-jdbc-test/tests/impl/H2ConnectedTest.kt`
 #### Snippet
 ```java
-import org.jetbrains.dekaf.inter.exceptions.DBFactoryException
-import org.jetbrains.dekaf.inter.intf.InterServiceFactory
+
 import org.jetbrains.dekaf.inter.settings.Settings
-import java.util.*
-import java.util.stream.Collectors
+import org.jetbrains.dekaf.jdbc.impl.JdbcFacade
+import org.jetbrains.dekaf.jdbc.impl.JdbcServiceFactory
+import org.jetbrains.dekaf.jdbc.impl.JdbcSession
 ```
 
 ### KotlinAnnotator
-Unresolved reference: inter
-in `dekaf-main/src/queries/impl/ResultCollector.kt`
+Unresolved reference: jdbc
+in `dekaf-jdbc-test/tests/impl/H2ConnectedTest.kt`
 #### Snippet
 ```java
-package org.jetbrains.dekaf.main.queries.impl
+import org.jetbrains.dekaf.inter.settings.Settings
+import org.jetbrains.dekaf.jdbc.impl.JdbcFacade
+import org.jetbrains.dekaf.jdbc.impl.JdbcServiceFactory
+import org.jetbrains.dekaf.jdbc.impl.JdbcSession
+import org.jetbrains.dekaf.jdbc.impl.JdbcStuff.closeIt
+```
 
-import org.jetbrains.dekaf.inter.intf.InterSeance
+### KotlinAnnotator
+Unresolved reference: jdbc
+in `dekaf-jdbc-test/tests/impl/H2ConnectedTest.kt`
+#### Snippet
+```java
+import org.jetbrains.dekaf.jdbc.impl.JdbcFacade
+import org.jetbrains.dekaf.jdbc.impl.JdbcServiceFactory
+import org.jetbrains.dekaf.jdbc.impl.JdbcSession
+import org.jetbrains.dekaf.jdbc.impl.JdbcStuff.closeIt
+import org.jetbrains.dekaf.test.utils.UnitTest
+```
 
+### KotlinAnnotator
+Unresolved reference: jdbc
+in `dekaf-jdbc-test/tests/impl/H2ConnectedTest.kt`
+#### Snippet
+```java
+import org.jetbrains.dekaf.jdbc.impl.JdbcServiceFactory
+import org.jetbrains.dekaf.jdbc.impl.JdbcSession
+import org.jetbrains.dekaf.jdbc.impl.JdbcStuff.closeIt
+import org.jetbrains.dekaf.test.utils.UnitTest
+import org.junit.jupiter.api.AfterAll
+```
+
+### KotlinAnnotator
+Unresolved reference: JdbcSession
+in `dekaf-jdbc-test/tests/impl/H2ConnectedTest.kt`
+#### Snippet
+```java
+
+    protected lateinit var facade:  JdbcFacade
+    protected lateinit var session: JdbcSession
+
+
+```
+
+### KotlinAnnotator
+Unresolved reference: JdbcFacade
+in `dekaf-jdbc-test/tests/impl/H2ConnectedTest.kt`
+#### Snippet
+```java
+    }
+
+    protected lateinit var facade:  JdbcFacade
+    protected lateinit var session: JdbcSession
 
 ```
 
@@ -4380,15 +4416,15 @@ interface ResultCollector<T> : AutoCloseable {
 ```
 
 ### KotlinAnnotator
-Unresolved reference: ArrayHacks
-in `dekaf-main/src/queries/impl/TableArrayResultCollector.kt`
+Unresolved reference: inter
+in `dekaf-main/src/queries/impl/ResultCollector.kt`
 #### Snippet
 ```java
-    override fun retrieve(): Array<R> {
-        val list = retrieveIntoArrayList()
-        val emptyArray: Array<R> = ArrayHacks.createEmptyArray(handler.rowClass)
-        val n = list.size
-        if (n == 0) return emptyArray
+package org.jetbrains.dekaf.main.queries.impl
+
+import org.jetbrains.dekaf.inter.intf.InterSeance
+
+
 ```
 
 ### KotlinAnnotator
@@ -4401,6 +4437,18 @@ package org.jetbrains.dekaf.main.queries.impl
 import org.jetbrains.dekaf.inter.utils.ArrayHacks
 
 
+```
+
+### KotlinAnnotator
+Unresolved reference: ArrayHacks
+in `dekaf-main/src/queries/impl/TableArrayResultCollector.kt`
+#### Snippet
+```java
+    override fun retrieve(): Array<R> {
+        val list = retrieveIntoArrayList()
+        val emptyArray: Array<R> = ArrayHacks.createEmptyArray(handler.rowClass)
+        val n = list.size
+        if (n == 0) return emptyArray
 ```
 
 ### KotlinAnnotator
@@ -4464,6 +4512,18 @@ in `dekaf-main/src/settings/SettingsFun.kt`
 ```
 
 ### KotlinAnnotator
+Unresolved reference: Setting
+in `dekaf-main/src/settings/SettingsFun.kt`
+#### Snippet
+```java
+
+
+val Setting.pair: Pair<String, Serializable>
+    inline get() = Pair(name, value)
+
+```
+
+### KotlinAnnotator
 Unresolved reference: inter
 in `dekaf-main/src/settings/SettingsFun.kt`
 #### Snippet
@@ -4485,30 +4545,6 @@ import org.jetbrains.dekaf.inter.settings.Setting
 import org.jetbrains.dekaf.inter.settings.Settings
 import java.io.Serializable
 
-```
-
-### KotlinAnnotator
-Unresolved reference: Setting
-in `dekaf-main/src/settings/SettingsFun.kt`
-#### Snippet
-```java
-
-
-val Setting.pair: Pair<String, Serializable>
-    inline get() = Pair(name, value)
-
-```
-
-### KotlinAnnotator
-Unresolved reference: Settings
-in `dekaf-main-test/src/base/FactoryLoaderTest.kt`
-#### Snippet
-```java
-    @Test
-    fun interFactory_exists() {
-        val f = FactoryLoader.selectInterServiceFactory(Settings.empty)
-        expect that f.javaClass.name equalsTo "org.jetbrains.dekaf.jdbc.impl.JdbcServiceFactory"
-    }
 ```
 
 ### KotlinAnnotator
@@ -4525,14 +4561,14 @@ import org.jetbrains.dekaf.test.utils.UnitTest
 
 ### KotlinAnnotator
 Unresolved reference: Settings
-in `dekaf-main/src/settings/SettingsLoader.kt`
+in `dekaf-main-test/src/base/FactoryLoaderTest.kt`
 #### Snippet
 ```java
+    @Test
+    fun interFactory_exists() {
+        val f = FactoryLoader.selectInterServiceFactory(Settings.empty)
+        expect that f.javaClass.name equalsTo "org.jetbrains.dekaf.jdbc.impl.JdbcServiceFactory"
     }
-
-    fun load(file: Path): Settings {
-        val builder = SettingsBuilder()
-        val simReader = SimplextFileReader<SettingsBuilder?>(builder, ::handleLine)
 ```
 
 ### KotlinAnnotator
@@ -4545,6 +4581,18 @@ package org.jetbrains.dekaf.main.settings
 import org.jetbrains.dekaf.inter.settings.Settings
 import org.jetbrains.dekaf.main.simplext.SimplextFileReader
 import org.jetbrains.dekaf.main.simplext.SimplextLine
+```
+
+### KotlinAnnotator
+Unresolved reference: Settings
+in `dekaf-main/src/settings/SettingsLoader.kt`
+#### Snippet
+```java
+    }
+
+    fun load(file: Path): Settings {
+        val builder = SettingsBuilder()
+        val simReader = SimplextFileReader<SettingsBuilder?>(builder, ::handleLine)
 ```
 
 ### KotlinAnnotator
@@ -4576,11 +4624,23 @@ Unresolved reference: Setting
 in `dekaf-main/src/settings/SettingsBuilder.kt`
 #### Snippet
 ```java
-        val index = indexOf(name)
-        if (index < 0) throw NoSuchSettingException("Attempting to replace a setting name '$name' but no setting")
-        val newEntry = Setting(name, newValue)
-        entries[index] = newEntry
+
+
+    override fun iterator(): Iterator<Setting> {
+        return Collections.unmodifiableCollection(entries).iterator()
     }
+```
+
+### KotlinAnnotator
+Not enough information to infer type variable T
+in `dekaf-main/src/settings/SettingsBuilder.kt`
+#### Snippet
+```java
+
+    override fun iterator(): Iterator<Setting> {
+        return Collections.unmodifiableCollection(entries).iterator()
+    }
+
 ```
 
 ### KotlinAnnotator
@@ -4628,66 +4688,6 @@ in `dekaf-main/src/settings/SettingsBuilder.kt`
 
         return if (obj is Setting) obj.value else obj
     }
-
-```
-
-### KotlinAnnotator
-Unresolved reference: Setting
-in `dekaf-main/src/settings/SettingsBuilder.kt`
-#### Snippet
-```java
-
-
-    override fun iterator(): Iterator<Setting> {
-        return Collections.unmodifiableCollection(entries).iterator()
-    }
-```
-
-### KotlinAnnotator
-Not enough information to infer type variable T
-in `dekaf-main/src/settings/SettingsBuilder.kt`
-#### Snippet
-```java
-
-    override fun iterator(): Iterator<Setting> {
-        return Collections.unmodifiableCollection(entries).iterator()
-    }
-
-```
-
-### KotlinAnnotator
-Unresolved reference: inter
-in `dekaf-main/src/settings/SettingsBuilder.kt`
-#### Snippet
-```java
-package org.jetbrains.dekaf.main.settings
-
-import org.jetbrains.dekaf.inter.settings.Setting
-import org.jetbrains.dekaf.inter.settings.Settings
-import java.io.Serializable
-```
-
-### KotlinAnnotator
-Unresolved reference: inter
-in `dekaf-main/src/settings/SettingsBuilder.kt`
-#### Snippet
-```java
-
-import org.jetbrains.dekaf.inter.settings.Setting
-import org.jetbrains.dekaf.inter.settings.Settings
-import java.io.Serializable
-import java.util.*
-```
-
-### KotlinAnnotator
-Unresolved reference: Setting
-in `dekaf-main/src/settings/SettingsBuilder.kt`
-#### Snippet
-```java
- *
- */
-class SettingsBuilder : Iterable<Setting>, Serializable {
-
 
 ```
 
@@ -4812,6 +4812,54 @@ in `dekaf-main/src/settings/SettingsBuilder.kt`
 ```
 
 ### KotlinAnnotator
+Unresolved reference: inter
+in `dekaf-main/src/settings/SettingsBuilder.kt`
+#### Snippet
+```java
+package org.jetbrains.dekaf.main.settings
+
+import org.jetbrains.dekaf.inter.settings.Setting
+import org.jetbrains.dekaf.inter.settings.Settings
+import java.io.Serializable
+```
+
+### KotlinAnnotator
+Unresolved reference: inter
+in `dekaf-main/src/settings/SettingsBuilder.kt`
+#### Snippet
+```java
+
+import org.jetbrains.dekaf.inter.settings.Setting
+import org.jetbrains.dekaf.inter.settings.Settings
+import java.io.Serializable
+import java.util.*
+```
+
+### KotlinAnnotator
+Unresolved reference: Setting
+in `dekaf-main/src/settings/SettingsBuilder.kt`
+#### Snippet
+```java
+        val index = indexOf(name)
+        if (index < 0) throw NoSuchSettingException("Attempting to replace a setting name '$name' but no setting")
+        val newEntry = Setting(name, newValue)
+        entries[index] = newEntry
+    }
+```
+
+### KotlinAnnotator
+Unresolved reference: Setting
+in `dekaf-main/src/settings/SettingsBuilder.kt`
+#### Snippet
+```java
+
+    private fun addNewEntry(name: String, value: Serializable) {
+        val entry = Setting(name, value)
+        val n = entries.size
+        entries.add(entry)
+```
+
+### KotlinAnnotator
 Unresolved reference: Setting
 in `dekaf-main/src/settings/SettingsBuilder.kt`
 #### Snippet
@@ -4852,18 +4900,6 @@ Unresolved reference: Setting
 in `dekaf-main/src/settings/SettingsBuilder.kt`
 #### Snippet
 ```java
-
-    private fun addNewEntry(name: String, value: Serializable) {
-        val entry = Setting(name, value)
-        val n = entries.size
-        entries.add(entry)
-```
-
-### KotlinAnnotator
-Unresolved reference: Setting
-in `dekaf-main/src/settings/SettingsBuilder.kt`
-#### Snippet
-```java
      * @param index zero-based index.
      */
     operator fun get(index: Int): Setting {
@@ -4872,11 +4908,71 @@ in `dekaf-main/src/settings/SettingsBuilder.kt`
 ```
 
 ### KotlinAnnotator
+Unresolved reference: Setting
+in `dekaf-main/src/settings/SettingsBuilder.kt`
+#### Snippet
+```java
+ *
+ */
+class SettingsBuilder : Iterable<Setting>, Serializable {
+
+
+```
+
+### KotlinAnnotator
+Unresolved reference: Settings
+in `dekaf-main-test/src/util/H2Util.kt`
+#### Snippet
+```java
+
+val H2memSettings =
+        Settings.of(
+                "driver", Settings.of("class", "org.h2.Driver"),
+                "jdbc", Settings.of("connection-string", "jdbc:h2:mem:test")
+```
+
+### KotlinAnnotator
+Unresolved reference: Settings
+in `dekaf-main-test/src/util/H2Util.kt`
+#### Snippet
+```java
+val H2memSettings =
+        Settings.of(
+                "driver", Settings.of("class", "org.h2.Driver"),
+                "jdbc", Settings.of("connection-string", "jdbc:h2:mem:test")
+        )
+```
+
+### KotlinAnnotator
+Unresolved reference: Settings
+in `dekaf-main-test/src/util/H2Util.kt`
+#### Snippet
+```java
+        Settings.of(
+                "driver", Settings.of("class", "org.h2.Driver"),
+                "jdbc", Settings.of("connection-string", "jdbc:h2:mem:test")
+        )
+
+```
+
+### KotlinAnnotator
+Unresolved reference: inter
+in `dekaf-main-test/src/util/H2Util.kt`
+#### Snippet
+```java
+package org.jetbrains.dekaf.mainTest.util
+
+import org.jetbrains.dekaf.inter.settings.Settings
+
+
+```
+
+### KotlinAnnotator
 Overload resolution ambiguity: public final inline infix fun that(x: NavigableSet?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: SortedSet?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: DoubleStream?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: IntStream?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: LongStream?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Stream?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Array?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: ByteArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: CharArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: DoubleArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: FloatArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: IntArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: LongArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: ShortArray?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Collection?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Iterable?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: List?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Set?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Sequence?): Subject\> defined in lb.yaka.gears.Expect
 in `dekaf-main-test/src/settings/SettingsBuilderTest.kt`
 #### Snippet
 ```java
-        val s = outer.build()
+        val s = b.build()
 
         expect that s hasSize 3
         expect that s.getEntry(1).name equalsTo "B"
@@ -4908,15 +5004,63 @@ in `dekaf-main-test/src/settings/SettingsBuilderTest.kt`
 ```
 
 ### KotlinAnnotator
-Unresolved reference: Settings
+Unresolved reference: inter
 in `dekaf-main-test/src/settings/SettingsBuilderTest.kt`
 #### Snippet
 ```java
+import lb.yaka.expectations.*
+import lb.yaka.gears.*
+import org.jetbrains.dekaf.inter.settings.Setting
+import org.jetbrains.dekaf.inter.settings.Settings
+import org.jetbrains.dekaf.main.settings.SettingsBuilder
+```
+
+### KotlinAnnotator
+Unresolved reference: inter
+in `dekaf-main-test/src/settings/SettingsBuilderTest.kt`
+#### Snippet
+```java
+import lb.yaka.gears.*
+import org.jetbrains.dekaf.inter.settings.Setting
+import org.jetbrains.dekaf.inter.settings.Settings
+import org.jetbrains.dekaf.main.settings.SettingsBuilder
+import org.jetbrains.dekaf.main.settings.pair
+```
+
+### KotlinAnnotator
+Unresolved reference. None of the following candidates is applicable because of receiver type mismatch: public infix fun \> Subject.hasSize(size: Int): Subject defined in lb.yaka.expectations public infix fun \> Subject.hasSize(size: Int): Subject defined in lb.yaka.expectations
+in `dekaf-main-test/src/settings/SettingsBuilderTest.kt`
+#### Snippet
+```java
+
+        expect that b aka "builder" complies {
+            hasSize(1)
+            at(0) equalsTo Setting("name", "value")
         }
+```
 
-        b.build() aka "Built Instance" sameAs Settings.empty
+### KotlinAnnotator
+Unresolved reference. None of the following candidates is applicable because of receiver type mismatch: public infix fun \> Subject.at(index: Int): Subject defined in lb.yaka.expectations public infix fun \> Subject.at(index: Int): Subject defined in lb.yaka.expectations
+in `dekaf-main-test/src/settings/SettingsBuilderTest.kt`
+#### Snippet
+```java
+        expect that b aka "builder" complies {
+            hasSize(1)
+            at(0) equalsTo Setting("name", "value")
+        }
     }
+```
 
+### KotlinAnnotator
+Unresolved reference: Setting
+in `dekaf-main-test/src/settings/SettingsBuilderTest.kt`
+#### Snippet
+```java
+        expect that b aka "builder" complies {
+            hasSize(1)
+            at(0) equalsTo Setting("name", "value")
+        }
+    }
 ```
 
 ### KotlinAnnotator
@@ -4941,30 +5085,6 @@ in `dekaf-main-test/src/settings/SettingsBuilderTest.kt`
         inner["second"] = Settings(Setting("third", "theSuperValue"))
 
         val outer = SettingsBuilder()
-```
-
-### KotlinAnnotator
-Unresolved reference: Settings
-in `dekaf-main-test/src/settings/SettingsBuilderTest.kt`
-#### Snippet
-```java
-    fun get_byPath_2_innerIsSettings() {
-        val b = SettingsBuilder()
-        b["first"] = Settings(Setting("second", "theValue"))
-
-        val path = arrayOf("first", "second")
-```
-
-### KotlinAnnotator
-Unresolved reference: Setting
-in `dekaf-main-test/src/settings/SettingsBuilderTest.kt`
-#### Snippet
-```java
-    fun get_byPath_2_innerIsSettings() {
-        val b = SettingsBuilder()
-        b["first"] = Settings(Setting("second", "theValue"))
-
-        val path = arrayOf("first", "second")
 ```
 
 ### KotlinAnnotator
@@ -4972,7 +5092,7 @@ Overload resolution ambiguity: public final inline infix fun that(x: NavigableSe
 in `dekaf-main-test/src/settings/SettingsBuilderTest.kt`
 #### Snippet
 ```java
-        val s = b.build()
+        val s = outer.build()
 
         expect that s hasSize 3
         expect that s.getEntry(1).name equalsTo "B"
@@ -5016,27 +5136,39 @@ in `dekaf-main-test/src/settings/SettingsBuilderTest.kt`
 ```
 
 ### KotlinAnnotator
-Unresolved reference: inter
+Unresolved reference: Settings
 in `dekaf-main-test/src/settings/SettingsBuilderTest.kt`
 #### Snippet
 ```java
-import lb.yaka.expectations.*
-import lb.yaka.gears.*
-import org.jetbrains.dekaf.inter.settings.Setting
-import org.jetbrains.dekaf.inter.settings.Settings
-import org.jetbrains.dekaf.main.settings.SettingsBuilder
+    fun get_byPath_2_innerIsSettings() {
+        val b = SettingsBuilder()
+        b["first"] = Settings(Setting("second", "theValue"))
+
+        val path = arrayOf("first", "second")
 ```
 
 ### KotlinAnnotator
-Unresolved reference: inter
+Unresolved reference: Setting
 in `dekaf-main-test/src/settings/SettingsBuilderTest.kt`
 #### Snippet
 ```java
-import lb.yaka.gears.*
-import org.jetbrains.dekaf.inter.settings.Setting
-import org.jetbrains.dekaf.inter.settings.Settings
-import org.jetbrains.dekaf.main.settings.SettingsBuilder
-import org.jetbrains.dekaf.main.settings.pair
+    fun get_byPath_2_innerIsSettings() {
+        val b = SettingsBuilder()
+        b["first"] = Settings(Setting("second", "theValue"))
+
+        val path = arrayOf("first", "second")
+```
+
+### KotlinAnnotator
+Unresolved reference: Settings
+in `dekaf-main-test/src/settings/SettingsBuilderTest.kt`
+#### Snippet
+```java
+        }
+
+        b.build() aka "Built Instance" sameAs Settings.empty
+    }
+
 ```
 
 ### KotlinAnnotator
@@ -5184,267 +5316,51 @@ in `dekaf-main-test/src/settings/SettingsBuilderTest.kt`
 ```
 
 ### KotlinAnnotator
-Unresolved reference. None of the following candidates is applicable because of receiver type mismatch: public infix fun \> Subject.hasSize(size: Int): Subject defined in lb.yaka.expectations public infix fun \> Subject.hasSize(size: Int): Subject defined in lb.yaka.expectations
-in `dekaf-main-test/src/settings/SettingsBuilderTest.kt`
+Unresolved reference: InterMatrixCursor
+in `dekaf-main/src/queries/impl/TableResultCollector.kt`
 #### Snippet
 ```java
+    protected val handler: RowHandler<R, B>
 
-        expect that b aka "builder" complies {
-            hasSize(1)
-            at(0) equalsTo Setting("name", "value")
-        }
+    protected lateinit var cursor: InterMatrixCursor<B>
+
+
 ```
 
 ### KotlinAnnotator
-Unresolved reference. None of the following candidates is applicable because of receiver type mismatch: public infix fun \> Subject.at(index: Int): Subject defined in lb.yaka.expectations public infix fun \> Subject.at(index: Int): Subject defined in lb.yaka.expectations
-in `dekaf-main-test/src/settings/SettingsBuilderTest.kt`
+Unresolved reference: InterSeance
+in `dekaf-main/src/queries/impl/TableResultCollector.kt`
 #### Snippet
 ```java
-        expect that b aka "builder" complies {
-            hasSize(1)
-            at(0) equalsTo Setting("name", "value")
-        }
-    }
-```
 
-### KotlinAnnotator
-Unresolved reference: Setting
-in `dekaf-main-test/src/settings/SettingsBuilderTest.kt`
-#### Snippet
-```java
-        expect that b aka "builder" complies {
-            hasSize(1)
-            at(0) equalsTo Setting("name", "value")
-        }
+
+    override fun prepare(seance: InterSeance, positionIndex: Int) {
+        cursor = handler.prepare(seance, positionIndex)
     }
 ```
 
 ### KotlinAnnotator
 Unresolved reference: inter
-in `dekaf-main-test/src/util/H2Util.kt`
+in `dekaf-main/src/queries/impl/TableResultCollector.kt`
 #### Snippet
 ```java
-package org.jetbrains.dekaf.mainTest.util
+package org.jetbrains.dekaf.main.queries.impl
 
-import org.jetbrains.dekaf.inter.settings.Settings
+import org.jetbrains.dekaf.inter.intf.InterMatrixCursor
+import org.jetbrains.dekaf.inter.intf.InterSeance
 
-
-```
-
-### KotlinAnnotator
-Unresolved reference: Settings
-in `dekaf-main-test/src/util/H2Util.kt`
-#### Snippet
-```java
-
-val H2memSettings =
-        Settings.of(
-                "driver", Settings.of("class", "org.h2.Driver"),
-                "jdbc", Settings.of("connection-string", "jdbc:h2:mem:test")
-```
-
-### KotlinAnnotator
-Unresolved reference: Settings
-in `dekaf-main-test/src/util/H2Util.kt`
-#### Snippet
-```java
-val H2memSettings =
-        Settings.of(
-                "driver", Settings.of("class", "org.h2.Driver"),
-                "jdbc", Settings.of("connection-string", "jdbc:h2:mem:test")
-        )
-```
-
-### KotlinAnnotator
-Unresolved reference: Settings
-in `dekaf-main-test/src/util/H2Util.kt`
-#### Snippet
-```java
-        Settings.of(
-                "driver", Settings.of("class", "org.h2.Driver"),
-                "jdbc", Settings.of("connection-string", "jdbc:h2:mem:test")
-        )
-
-```
-
-### KotlinAnnotator
-Overload resolution ambiguity: public final inline infix fun that(x: NavigableSet?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: SortedSet?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: DoubleStream?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: IntStream?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: LongStream?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Stream?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Array?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: ByteArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: CharArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: DoubleArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: FloatArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: IntArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: LongArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: ShortArray?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Collection?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Iterable?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: List?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Set?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Sequence?): Subject\> defined in lb.yaka.gears.Expect
-in `dekaf-main-test/src/settings/SettingsLoaderTest.kt`
-#### Snippet
-```java
-                """.trimMargin()
-        val settings = makeSettings(text)
-        expect that settings hasSize 3
-        expect that settings["cat"] equalsTo "meow"
-        expect that settings["dog"] equalsTo "bark"
-```
-
-### KotlinAnnotator
-Overload resolution ambiguity: public final inline infix fun that(x: NavigableSet?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: SortedSet?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: DoubleStream?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: IntStream?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: LongStream?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Stream?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Array?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: ByteArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: CharArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: DoubleArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: FloatArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: IntArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: LongArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: ShortArray?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Collection?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Iterable?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: List?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Set?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Sequence?): Subject\> defined in lb.yaka.gears.Expect
-in `dekaf-main-test/src/settings/SettingsLoaderTest.kt`
-#### Snippet
-```java
-                """.trimMargin()
-        val settings = makeSettings(text)
-        expect that settings hasSize 3
-        expect that settings["cat"] equalsTo "meow"
-        expect that settings["dog"] equalsTo "bark"
-```
-
-### KotlinAnnotator
-Overload resolution ambiguity: public final inline infix fun that(x: NavigableSet?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: SortedSet?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: DoubleStream?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: IntStream?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: LongStream?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Stream?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Array?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: ByteArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: CharArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: DoubleArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: FloatArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: IntArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: LongArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: ShortArray?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Collection?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Iterable?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: List?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Set?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Sequence?): Subject\> defined in lb.yaka.gears.Expect
-in `dekaf-main-test/src/settings/SettingsLoaderTest.kt`
-#### Snippet
-```java
-        val settings = makeSettings(text)
-
-        expect that settings hasSize 1
-
-        val inner = settings["animal"] as Settings
-```
-
-### KotlinAnnotator
-Unresolved reference: Settings
-in `dekaf-main-test/src/settings/SettingsLoaderTest.kt`
-#### Snippet
-```java
-        expect that settings hasSize 1
-
-        val inner = settings["animal"] as Settings
-        expect that inner hasSize 3
-        expect that inner["cat"] equalsTo "meow"
-```
-
-### KotlinAnnotator
-Overload resolution ambiguity: public final inline infix fun that(x: NavigableSet?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: SortedSet?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: DoubleStream?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: IntStream?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: LongStream?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Stream?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Array?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: ByteArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: CharArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: DoubleArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: FloatArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: IntArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: LongArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: ShortArray?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Collection?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Iterable?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: List?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Set?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Sequence?): Subject\> defined in lb.yaka.gears.Expect
-in `dekaf-main-test/src/settings/SettingsLoaderTest.kt`
-#### Snippet
-```java
-
-        val inner = settings["animal"] as Settings
-        expect that inner hasSize 3
-        expect that inner["cat"] equalsTo "meow"
-        expect that inner["dog"] equalsTo "bark"
-```
-
-### KotlinAnnotator
-Overload resolution ambiguity: public final inline infix fun that(x: NavigableSet?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: SortedSet?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: DoubleStream?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: IntStream?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: LongStream?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Stream?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Array?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: ByteArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: CharArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: DoubleArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: FloatArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: IntArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: LongArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: ShortArray?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Collection?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Iterable?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: List?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Set?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Sequence?): Subject\> defined in lb.yaka.gears.Expect
-in `dekaf-main-test/src/settings/SettingsLoaderTest.kt`
-#### Snippet
-```java
-        val settings = makeSettings(text)
-
-        expect that settings aka "Settings" complies {
-            hasSize(1)
-            at(0) equalsTo Setting("theName", "theValue")
-```
-
-### KotlinAnnotator
-Unresolved reference. None of the following candidates is applicable because of receiver type mismatch: public infix fun \> Subject.hasSize(size: Int): Subject defined in lb.yaka.expectations public infix fun \> Subject.hasSize(size: Int): Subject defined in lb.yaka.expectations
-in `dekaf-main-test/src/settings/SettingsLoaderTest.kt`
-#### Snippet
-```java
-
-        expect that settings aka "Settings" complies {
-            hasSize(1)
-            at(0) equalsTo Setting("theName", "theValue")
-        }
-```
-
-### KotlinAnnotator
-Unresolved reference. None of the following candidates is applicable because of receiver type mismatch: public infix fun \> Subject.at(index: Int): Subject defined in lb.yaka.expectations public infix fun \> Subject.at(index: Int): Subject defined in lb.yaka.expectations
-in `dekaf-main-test/src/settings/SettingsLoaderTest.kt`
-#### Snippet
-```java
-        expect that settings aka "Settings" complies {
-            hasSize(1)
-            at(0) equalsTo Setting("theName", "theValue")
-        }
-    }
-```
-
-### KotlinAnnotator
-Unresolved reference: Setting
-in `dekaf-main-test/src/settings/SettingsLoaderTest.kt`
-#### Snippet
-```java
-        expect that settings aka "Settings" complies {
-            hasSize(1)
-            at(0) equalsTo Setting("theName", "theValue")
-        }
-    }
-```
-
-### KotlinAnnotator
-Overload resolution ambiguity: public final inline infix fun that(x: NavigableSet?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: SortedSet?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: DoubleStream?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: IntStream?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: LongStream?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Stream?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Array?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: ByteArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: CharArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: DoubleArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: FloatArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: IntArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: LongArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: ShortArray?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Collection?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Iterable?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: List?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Set?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Sequence?): Subject\> defined in lb.yaka.gears.Expect
-in `dekaf-main-test/src/settings/SettingsLoaderTest.kt`
-#### Snippet
-```java
-        val settings = makeSettings(text)
-
-        expect that settings aka "Settings" complies {
-            hasSize(1)
-            at(0) equalsTo Setting("theName", "theValue")
-```
-
-### KotlinAnnotator
-Unresolved reference. None of the following candidates is applicable because of receiver type mismatch: public infix fun \> Subject.hasSize(size: Int): Subject defined in lb.yaka.expectations public infix fun \> Subject.hasSize(size: Int): Subject defined in lb.yaka.expectations
-in `dekaf-main-test/src/settings/SettingsLoaderTest.kt`
-#### Snippet
-```java
-
-        expect that settings aka "Settings" complies {
-            hasSize(1)
-            at(0) equalsTo Setting("theName", "theValue")
-        }
-```
-
-### KotlinAnnotator
-Unresolved reference. None of the following candidates is applicable because of receiver type mismatch: public infix fun \> Subject.at(index: Int): Subject defined in lb.yaka.expectations public infix fun \> Subject.at(index: Int): Subject defined in lb.yaka.expectations
-in `dekaf-main-test/src/settings/SettingsLoaderTest.kt`
-#### Snippet
-```java
-        expect that settings aka "Settings" complies {
-            hasSize(1)
-            at(0) equalsTo Setting("theName", "theValue")
-        }
-    }
-```
-
-### KotlinAnnotator
-Unresolved reference: Setting
-in `dekaf-main-test/src/settings/SettingsLoaderTest.kt`
-#### Snippet
-```java
-        expect that settings aka "Settings" complies {
-            hasSize(1)
-            at(0) equalsTo Setting("theName", "theValue")
-        }
-    }
 ```
 
 ### KotlinAnnotator
 Unresolved reference: inter
-in `dekaf-main-test/src/settings/SettingsLoaderTest.kt`
+in `dekaf-main/src/queries/impl/TableResultCollector.kt`
 #### Snippet
 ```java
-import lb.yaka.expectations.*
-import lb.yaka.gears.*
-import org.jetbrains.dekaf.inter.settings.Setting
-import org.jetbrains.dekaf.inter.settings.Settings
-import org.jetbrains.dekaf.main.settings.SettingsLoader
-```
 
-### KotlinAnnotator
-Unresolved reference: inter
-in `dekaf-main-test/src/settings/SettingsLoaderTest.kt`
-#### Snippet
-```java
-import lb.yaka.gears.*
-import org.jetbrains.dekaf.inter.settings.Setting
-import org.jetbrains.dekaf.inter.settings.Settings
-import org.jetbrains.dekaf.main.settings.SettingsLoader
-import org.jetbrains.dekaf.test.utils.SystemTestWithTempDir
+import org.jetbrains.dekaf.inter.intf.InterMatrixCursor
+import org.jetbrains.dekaf.inter.intf.InterSeance
+
+
 ```
 
 ### KotlinAnnotator
@@ -5491,7 +5407,7 @@ in `dekaf-main-test/src/settings/SettingsLoaderTest.kt`
         expect that inner1 hasSize 1
 
         val inner2 = inner1["animal"] as Settings
-        expect that inner2 hasSize 3
+        expect that inner2 hasSize 2
 
 ```
 
@@ -5502,7 +5418,7 @@ in `dekaf-main-test/src/settings/SettingsLoaderTest.kt`
 ```java
 
         val inner2 = inner1["animal"] as Settings
-        expect that inner2 hasSize 3
+        expect that inner2 hasSize 2
 
         val catSettings = inner2["cat"] as Settings
 ```
@@ -5512,7 +5428,7 @@ Unresolved reference: Settings
 in `dekaf-main-test/src/settings/SettingsLoaderTest.kt`
 #### Snippet
 ```java
-        expect that inner2 hasSize 3
+        expect that inner2 hasSize 2
 
         val catSettings = inner2["cat"] as Settings
         expect that catSettings["voice"] equalsTo "meow"
@@ -5528,54 +5444,6 @@ in `dekaf-main-test/src/settings/SettingsLoaderTest.kt`
 
         val dogSettings = inner2["dog"] as Settings
         expect that dogSettings["voice"] equalsTo "bark"
-    }
-```
-
-### KotlinAnnotator
-Overload resolution ambiguity: public final inline infix fun that(x: NavigableSet?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: SortedSet?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: DoubleStream?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: IntStream?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: LongStream?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Stream?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Array?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: ByteArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: CharArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: DoubleArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: FloatArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: IntArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: LongArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: ShortArray?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Collection?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Iterable?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: List?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Set?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Sequence?): Subject\> defined in lb.yaka.gears.Expect
-in `dekaf-main-test/src/settings/SettingsLoaderTest.kt`
-#### Snippet
-```java
-        val settings = makeSettings(text)
-
-        expect that settings aka "Settings" complies {
-            hasSize(1)
-            at(0) equalsTo Setting("theName", "theValue")
-```
-
-### KotlinAnnotator
-Unresolved reference. None of the following candidates is applicable because of receiver type mismatch: public infix fun \> Subject.hasSize(size: Int): Subject defined in lb.yaka.expectations public infix fun \> Subject.hasSize(size: Int): Subject defined in lb.yaka.expectations
-in `dekaf-main-test/src/settings/SettingsLoaderTest.kt`
-#### Snippet
-```java
-
-        expect that settings aka "Settings" complies {
-            hasSize(1)
-            at(0) equalsTo Setting("theName", "theValue")
-        }
-```
-
-### KotlinAnnotator
-Unresolved reference. None of the following candidates is applicable because of receiver type mismatch: public infix fun \> Subject.at(index: Int): Subject defined in lb.yaka.expectations public infix fun \> Subject.at(index: Int): Subject defined in lb.yaka.expectations
-in `dekaf-main-test/src/settings/SettingsLoaderTest.kt`
-#### Snippet
-```java
-        expect that settings aka "Settings" complies {
-            hasSize(1)
-            at(0) equalsTo Setting("theName", "theValue")
-        }
-    }
-```
-
-### KotlinAnnotator
-Unresolved reference: Setting
-in `dekaf-main-test/src/settings/SettingsLoaderTest.kt`
-#### Snippet
-```java
-        expect that settings aka "Settings" complies {
-            hasSize(1)
-            at(0) equalsTo Setting("theName", "theValue")
-        }
     }
 ```
 
@@ -5640,18 +5508,6 @@ in `dekaf-main-test/src/settings/SettingsLoaderTest.kt`
 ```
 
 ### KotlinAnnotator
-Unresolved reference: Settings
-in `dekaf-main-test/src/settings/SettingsLoaderTest.kt`
-#### Snippet
-```java
-    }
-
-    override fun makeSettings(text: CharSequence): Settings {
-        val fileName = "File" + (++counter) + ".txt"
-        val file = dir.resolve(fileName)
-```
-
-### KotlinAnnotator
 Overload resolution ambiguity: public final inline infix fun that(x: NavigableSet?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: SortedSet?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: DoubleStream?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: IntStream?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: LongStream?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Stream?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Array?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: ByteArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: CharArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: DoubleArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: FloatArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: IntArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: LongArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: ShortArray?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Collection?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Iterable?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: List?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Set?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Sequence?): Subject\> defined in lb.yaka.gears.Expect
 in `dekaf-main-test/src/settings/SettingsLoaderTest.kt`
 #### Snippet
@@ -5692,23 +5548,11 @@ Overload resolution ambiguity: public final inline infix fun that(x: NavigableSe
 in `dekaf-main-test/src/settings/SettingsLoaderTest.kt`
 #### Snippet
 ```java
+                """.trimMargin()
         val settings = makeSettings(text)
-
-        expect that settings hasSize 1
-        
-        val inner = settings["animal"] as Settings
-```
-
-### KotlinAnnotator
-Unresolved reference: Settings
-in `dekaf-main-test/src/settings/SettingsLoaderTest.kt`
-#### Snippet
-```java
-        expect that settings hasSize 1
-        
-        val inner = settings["animal"] as Settings
-        expect that inner hasSize 3
-        expect that inner["cat"] equalsTo "meow"
+        expect that settings hasSize 3
+        expect that settings["cat"] equalsTo "meow"
+        expect that settings["dog"] equalsTo "bark"
 ```
 
 ### KotlinAnnotator
@@ -5716,23 +5560,11 @@ Overload resolution ambiguity: public final inline infix fun that(x: NavigableSe
 in `dekaf-main-test/src/settings/SettingsLoaderTest.kt`
 #### Snippet
 ```java
-        
-        val inner = settings["animal"] as Settings
-        expect that inner hasSize 3
-        expect that inner["cat"] equalsTo "meow"
-        expect that inner["dog"] equalsTo "bark"
-```
-
-### KotlinAnnotator
-Unresolved reference: Settings
-in `dekaf-main-test/src/settings/SettingsLoaderTest.kt`
-#### Snippet
-```java
-class SettingsTextLoaderTest : SettingsLoaderTest(), UnitTest {
-
-    override fun makeSettings(text: CharSequence): Settings {
-        val loader = SettingsLoader()
-        return loader.load(text)
+                """.trimMargin()
+        val settings = makeSettings(text)
+        expect that settings hasSize 3
+        expect that settings["cat"] equalsTo "meow"
+        expect that settings["dog"] equalsTo "bark"
 ```
 
 ### KotlinAnnotator
@@ -5779,7 +5611,7 @@ in `dekaf-main-test/src/settings/SettingsLoaderTest.kt`
         expect that inner1 hasSize 1
 
         val inner2 = inner1["animal"] as Settings
-        expect that inner2 hasSize 2
+        expect that inner2 hasSize 3
 
 ```
 
@@ -5790,7 +5622,7 @@ in `dekaf-main-test/src/settings/SettingsLoaderTest.kt`
 ```java
 
         val inner2 = inner1["animal"] as Settings
-        expect that inner2 hasSize 2
+        expect that inner2 hasSize 3
 
         val catSettings = inner2["cat"] as Settings
 ```
@@ -5800,7 +5632,7 @@ Unresolved reference: Settings
 in `dekaf-main-test/src/settings/SettingsLoaderTest.kt`
 #### Snippet
 ```java
-        expect that inner2 hasSize 2
+        expect that inner2 hasSize 3
 
         val catSettings = inner2["cat"] as Settings
         expect that catSettings["voice"] equalsTo "meow"
@@ -5820,6 +5652,246 @@ in `dekaf-main-test/src/settings/SettingsLoaderTest.kt`
 ```
 
 ### KotlinAnnotator
+Overload resolution ambiguity: public final inline infix fun that(x: NavigableSet?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: SortedSet?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: DoubleStream?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: IntStream?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: LongStream?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Stream?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Array?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: ByteArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: CharArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: DoubleArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: FloatArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: IntArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: LongArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: ShortArray?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Collection?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Iterable?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: List?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Set?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Sequence?): Subject\> defined in lb.yaka.gears.Expect
+in `dekaf-main-test/src/settings/SettingsLoaderTest.kt`
+#### Snippet
+```java
+        val settings = makeSettings(text)
+
+        expect that settings aka "Settings" complies {
+            hasSize(1)
+            at(0) equalsTo Setting("theName", "theValue")
+```
+
+### KotlinAnnotator
+Unresolved reference. None of the following candidates is applicable because of receiver type mismatch: public infix fun \> Subject.hasSize(size: Int): Subject defined in lb.yaka.expectations public infix fun \> Subject.hasSize(size: Int): Subject defined in lb.yaka.expectations
+in `dekaf-main-test/src/settings/SettingsLoaderTest.kt`
+#### Snippet
+```java
+
+        expect that settings aka "Settings" complies {
+            hasSize(1)
+            at(0) equalsTo Setting("theName", "theValue")
+        }
+```
+
+### KotlinAnnotator
+Unresolved reference. None of the following candidates is applicable because of receiver type mismatch: public infix fun \> Subject.at(index: Int): Subject defined in lb.yaka.expectations public infix fun \> Subject.at(index: Int): Subject defined in lb.yaka.expectations
+in `dekaf-main-test/src/settings/SettingsLoaderTest.kt`
+#### Snippet
+```java
+        expect that settings aka "Settings" complies {
+            hasSize(1)
+            at(0) equalsTo Setting("theName", "theValue")
+        }
+    }
+```
+
+### KotlinAnnotator
+Unresolved reference: Setting
+in `dekaf-main-test/src/settings/SettingsLoaderTest.kt`
+#### Snippet
+```java
+        expect that settings aka "Settings" complies {
+            hasSize(1)
+            at(0) equalsTo Setting("theName", "theValue")
+        }
+    }
+```
+
+### KotlinAnnotator
+Overload resolution ambiguity: public final inline infix fun that(x: NavigableSet?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: SortedSet?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: DoubleStream?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: IntStream?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: LongStream?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Stream?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Array?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: ByteArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: CharArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: DoubleArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: FloatArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: IntArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: LongArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: ShortArray?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Collection?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Iterable?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: List?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Set?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Sequence?): Subject\> defined in lb.yaka.gears.Expect
+in `dekaf-main-test/src/settings/SettingsLoaderTest.kt`
+#### Snippet
+```java
+                """.trimMargin()
+        val settings = makeSettings(text)
+        expect that settings hasSize 3
+        expect that settings["cat"] equalsTo "meow"
+        expect that settings["dog"] equalsTo "bark"
+```
+
+### KotlinAnnotator
+Unresolved reference: Settings
+in `dekaf-main-test/src/settings/SettingsLoaderTest.kt`
+#### Snippet
+```java
+    }
+
+    override fun makeSettings(text: CharSequence): Settings {
+        val fileName = "File" + (++counter) + ".txt"
+        val file = dir.resolve(fileName)
+```
+
+### KotlinAnnotator
+Unresolved reference: inter
+in `dekaf-main-test/src/settings/SettingsLoaderTest.kt`
+#### Snippet
+```java
+import lb.yaka.expectations.*
+import lb.yaka.gears.*
+import org.jetbrains.dekaf.inter.settings.Setting
+import org.jetbrains.dekaf.inter.settings.Settings
+import org.jetbrains.dekaf.main.settings.SettingsLoader
+```
+
+### KotlinAnnotator
+Unresolved reference: inter
+in `dekaf-main-test/src/settings/SettingsLoaderTest.kt`
+#### Snippet
+```java
+import lb.yaka.gears.*
+import org.jetbrains.dekaf.inter.settings.Setting
+import org.jetbrains.dekaf.inter.settings.Settings
+import org.jetbrains.dekaf.main.settings.SettingsLoader
+import org.jetbrains.dekaf.test.utils.SystemTestWithTempDir
+```
+
+### KotlinAnnotator
+Overload resolution ambiguity: public final inline infix fun that(x: NavigableSet?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: SortedSet?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: DoubleStream?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: IntStream?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: LongStream?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Stream?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Array?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: ByteArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: CharArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: DoubleArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: FloatArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: IntArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: LongArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: ShortArray?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Collection?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Iterable?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: List?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Set?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Sequence?): Subject\> defined in lb.yaka.gears.Expect
+in `dekaf-main-test/src/settings/SettingsLoaderTest.kt`
+#### Snippet
+```java
+        val settings = makeSettings(text)
+
+        expect that settings hasSize 1
+
+        val inner = settings["animal"] as Settings
+```
+
+### KotlinAnnotator
+Unresolved reference: Settings
+in `dekaf-main-test/src/settings/SettingsLoaderTest.kt`
+#### Snippet
+```java
+        expect that settings hasSize 1
+
+        val inner = settings["animal"] as Settings
+        expect that inner hasSize 3
+        expect that inner["cat"] equalsTo "meow"
+```
+
+### KotlinAnnotator
+Overload resolution ambiguity: public final inline infix fun that(x: NavigableSet?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: SortedSet?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: DoubleStream?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: IntStream?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: LongStream?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Stream?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Array?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: ByteArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: CharArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: DoubleArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: FloatArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: IntArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: LongArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: ShortArray?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Collection?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Iterable?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: List?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Set?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Sequence?): Subject\> defined in lb.yaka.gears.Expect
+in `dekaf-main-test/src/settings/SettingsLoaderTest.kt`
+#### Snippet
+```java
+
+        val inner = settings["animal"] as Settings
+        expect that inner hasSize 3
+        expect that inner["cat"] equalsTo "meow"
+        expect that inner["dog"] equalsTo "bark"
+```
+
+### KotlinAnnotator
+Overload resolution ambiguity: public final inline infix fun that(x: NavigableSet?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: SortedSet?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: DoubleStream?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: IntStream?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: LongStream?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Stream?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Array?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: ByteArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: CharArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: DoubleArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: FloatArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: IntArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: LongArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: ShortArray?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Collection?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Iterable?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: List?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Set?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Sequence?): Subject\> defined in lb.yaka.gears.Expect
+in `dekaf-main-test/src/settings/SettingsLoaderTest.kt`
+#### Snippet
+```java
+        val settings = makeSettings(text)
+
+        expect that settings aka "Settings" complies {
+            hasSize(1)
+            at(0) equalsTo Setting("theName", "theValue")
+```
+
+### KotlinAnnotator
+Unresolved reference. None of the following candidates is applicable because of receiver type mismatch: public infix fun \> Subject.hasSize(size: Int): Subject defined in lb.yaka.expectations public infix fun \> Subject.hasSize(size: Int): Subject defined in lb.yaka.expectations
+in `dekaf-main-test/src/settings/SettingsLoaderTest.kt`
+#### Snippet
+```java
+
+        expect that settings aka "Settings" complies {
+            hasSize(1)
+            at(0) equalsTo Setting("theName", "theValue")
+        }
+```
+
+### KotlinAnnotator
+Unresolved reference. None of the following candidates is applicable because of receiver type mismatch: public infix fun \> Subject.at(index: Int): Subject defined in lb.yaka.expectations public infix fun \> Subject.at(index: Int): Subject defined in lb.yaka.expectations
+in `dekaf-main-test/src/settings/SettingsLoaderTest.kt`
+#### Snippet
+```java
+        expect that settings aka "Settings" complies {
+            hasSize(1)
+            at(0) equalsTo Setting("theName", "theValue")
+        }
+    }
+```
+
+### KotlinAnnotator
+Unresolved reference: Setting
+in `dekaf-main-test/src/settings/SettingsLoaderTest.kt`
+#### Snippet
+```java
+        expect that settings aka "Settings" complies {
+            hasSize(1)
+            at(0) equalsTo Setting("theName", "theValue")
+        }
+    }
+```
+
+### KotlinAnnotator
+Overload resolution ambiguity: public final inline infix fun that(x: NavigableSet?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: SortedSet?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: DoubleStream?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: IntStream?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: LongStream?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Stream?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Array?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: ByteArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: CharArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: DoubleArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: FloatArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: IntArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: LongArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: ShortArray?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Collection?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Iterable?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: List?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Set?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Sequence?): Subject\> defined in lb.yaka.gears.Expect
+in `dekaf-main-test/src/settings/SettingsLoaderTest.kt`
+#### Snippet
+```java
+        val settings = makeSettings(text)
+
+        expect that settings aka "Settings" complies {
+            hasSize(1)
+            at(0) equalsTo Setting("theName", "theValue")
+```
+
+### KotlinAnnotator
+Unresolved reference. None of the following candidates is applicable because of receiver type mismatch: public infix fun \> Subject.hasSize(size: Int): Subject defined in lb.yaka.expectations public infix fun \> Subject.hasSize(size: Int): Subject defined in lb.yaka.expectations
+in `dekaf-main-test/src/settings/SettingsLoaderTest.kt`
+#### Snippet
+```java
+
+        expect that settings aka "Settings" complies {
+            hasSize(1)
+            at(0) equalsTo Setting("theName", "theValue")
+        }
+```
+
+### KotlinAnnotator
+Unresolved reference. None of the following candidates is applicable because of receiver type mismatch: public infix fun \> Subject.at(index: Int): Subject defined in lb.yaka.expectations public infix fun \> Subject.at(index: Int): Subject defined in lb.yaka.expectations
+in `dekaf-main-test/src/settings/SettingsLoaderTest.kt`
+#### Snippet
+```java
+        expect that settings aka "Settings" complies {
+            hasSize(1)
+            at(0) equalsTo Setting("theName", "theValue")
+        }
+    }
+```
+
+### KotlinAnnotator
+Unresolved reference: Setting
+in `dekaf-main-test/src/settings/SettingsLoaderTest.kt`
+#### Snippet
+```java
+        expect that settings aka "Settings" complies {
+            hasSize(1)
+            at(0) equalsTo Setting("theName", "theValue")
+        }
+    }
+```
+
+### KotlinAnnotator
+Unresolved reference: Settings
+in `dekaf-main-test/src/settings/SettingsLoaderTest.kt`
+#### Snippet
+```java
+class SettingsTextLoaderTest : SettingsLoaderTest(), UnitTest {
+
+    override fun makeSettings(text: CharSequence): Settings {
+        val loader = SettingsLoader()
+        return loader.load(text)
+```
+
+### KotlinAnnotator
 Unresolved reference: Settings
 in `dekaf-main-test/src/settings/SettingsLoaderTest.kt`
 #### Snippet
@@ -5836,110 +5908,50 @@ Overload resolution ambiguity: public final inline infix fun that(x: NavigableSe
 in `dekaf-main-test/src/settings/SettingsLoaderTest.kt`
 #### Snippet
 ```java
-                """.trimMargin()
         val settings = makeSettings(text)
-        expect that settings hasSize 3
-        expect that settings["cat"] equalsTo "meow"
-        expect that settings["dog"] equalsTo "bark"
+
+        expect that settings hasSize 1
+        
+        val inner = settings["animal"] as Settings
 ```
 
 ### KotlinAnnotator
-Unresolved reference: inter
-in `dekaf-main/src/queries/impl/RowHandler.kt`
+Unresolved reference: Settings
+in `dekaf-main-test/src/settings/SettingsLoaderTest.kt`
 #### Snippet
 ```java
-package org.jetbrains.dekaf.main.queries.impl
-
-import org.jetbrains.dekaf.inter.intf.InterMatrixCursor
-import org.jetbrains.dekaf.inter.intf.InterSeance
-
+        expect that settings hasSize 1
+        
+        val inner = settings["animal"] as Settings
+        expect that inner hasSize 3
+        expect that inner["cat"] equalsTo "meow"
 ```
 
 ### KotlinAnnotator
-Unresolved reference: inter
-in `dekaf-main/src/queries/impl/RowHandler.kt`
+Overload resolution ambiguity: public final inline infix fun that(x: NavigableSet?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: SortedSet?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: DoubleStream?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: IntStream?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: LongStream?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Stream?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Array?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: ByteArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: CharArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: DoubleArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: FloatArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: IntArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: LongArray?): Subject\> defined in lb.yaka.gears.Expect public final infix fun that(x: ShortArray?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Collection?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Iterable?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: List?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Set?): Subject\> defined in lb.yaka.gears.Expect public final inline infix fun that(x: Sequence?): Subject\> defined in lb.yaka.gears.Expect
+in `dekaf-main-test/src/settings/SettingsLoaderTest.kt`
 #### Snippet
 ```java
-
-import org.jetbrains.dekaf.inter.intf.InterMatrixCursor
-import org.jetbrains.dekaf.inter.intf.InterSeance
-
-
-```
-
-### KotlinAnnotator
-Unresolved reference: InterSeance
-in `dekaf-main/src/queries/impl/RowHandler.kt`
-#### Snippet
-```java
-interface RowHandler<R, B> {
-
-    fun prepare(seance: InterSeance, position: Int): InterMatrixCursor<B>
-
-    fun handleRow(values: Array<out B>): R
-```
-
-### KotlinAnnotator
-Unresolved reference: InterMatrixCursor
-in `dekaf-main/src/queries/impl/RowHandler.kt`
-#### Snippet
-```java
-interface RowHandler<R, B> {
-
-    fun prepare(seance: InterSeance, position: Int): InterMatrixCursor<B>
-
-    fun handleRow(values: Array<out B>): R
-```
-
-### KotlinAnnotator
-Unresolved reference: inter
-in `dekaf-main/src/queries/impl/TableResultCollector.kt`
-#### Snippet
-```java
-package org.jetbrains.dekaf.main.queries.impl
-
-import org.jetbrains.dekaf.inter.intf.InterMatrixCursor
-import org.jetbrains.dekaf.inter.intf.InterSeance
-
-```
-
-### KotlinAnnotator
-Unresolved reference: inter
-in `dekaf-main/src/queries/impl/TableResultCollector.kt`
-#### Snippet
-```java
-
-import org.jetbrains.dekaf.inter.intf.InterMatrixCursor
-import org.jetbrains.dekaf.inter.intf.InterSeance
-
-
-```
-
-### KotlinAnnotator
-Unresolved reference: InterSeance
-in `dekaf-main/src/queries/impl/TableResultCollector.kt`
-#### Snippet
-```java
-
-
-    override fun prepare(seance: InterSeance, positionIndex: Int) {
-        cursor = handler.prepare(seance, positionIndex)
-    }
-```
-
-### KotlinAnnotator
-Unresolved reference: InterMatrixCursor
-in `dekaf-main/src/queries/impl/TableResultCollector.kt`
-#### Snippet
-```java
-    protected val handler: RowHandler<R, B>
-
-    protected lateinit var cursor: InterMatrixCursor<B>
-
-
+        
+        val inner = settings["animal"] as Settings
+        expect that inner hasSize 3
+        expect that inner["cat"] equalsTo "meow"
+        expect that inner["dog"] equalsTo "bark"
 ```
 
 ## RuleId[ruleID=ConvertSecondaryConstructorToPrimary]
+### ConvertSecondaryConstructorToPrimary
+Secondary constructor should be converted to a primary one
+in `dekaf-main/src/base/BaseQueryRunner.kt`
+#### Snippet
+```java
+
+
+    constructor(session: BaseSession, seance: InterSeance, queryText: String, layout: QueryLayout<T>) {
+        this.session = session
+        this.seance = seance
+```
+
 ### ConvertSecondaryConstructorToPrimary
 Secondary constructor should be converted to a primary one
 in `dekaf-main/src/base/BasePerformer.kt`
@@ -5957,18 +5969,6 @@ Secondary constructor should be converted to a primary one
 in `dekaf-main/src/base/BasePerformer.kt`
 #### Snippet
 ```java
-class BeyondTransactionPerformer : BasePerformer {
-
-    constructor(session: BaseSession) : super(session)
-
-}
-```
-
-### ConvertSecondaryConstructorToPrimary
-Secondary constructor should be converted to a primary one
-in `dekaf-main/src/base/BasePerformer.kt`
-#### Snippet
-```java
     private var ended: Boolean = false
 
     constructor(session: BaseSession) : super(session) {
@@ -5978,14 +5978,14 @@ in `dekaf-main/src/base/BasePerformer.kt`
 
 ### ConvertSecondaryConstructorToPrimary
 Secondary constructor should be converted to a primary one
-in `dekaf-main/src/base/BaseQueryRunner.kt`
+in `dekaf-main/src/base/BasePerformer.kt`
 #### Snippet
 ```java
+class BeyondTransactionPerformer : BasePerformer {
 
+    constructor(session: BaseSession) : super(session)
 
-    constructor(session: BaseSession, seance: InterSeance, queryText: String, layout: QueryLayout<T>) {
-        this.session = session
-        this.seance = seance
+}
 ```
 
 ### ConvertSecondaryConstructorToPrimary
@@ -6017,11 +6017,11 @@ Secondary constructor should be converted to a primary one
 in `dekaf-main/src/queries/impl/RowFunHandler.kt`
 #### Snippet
 ```java
-    private val function: (C1?,C2?,C3?) -> R
+    protected lateinit var cursor: InterMatrixCursor<Any?>
 
-    constructor(rowClass: Class<R>,
-                class1: Class<C1>,
-                class2: Class<C2>,
+    constructor(rowClass: Class<R>) {
+        this.rowClass = rowClass
+    }
 ```
 
 ### ConvertSecondaryConstructorToPrimary
@@ -6029,11 +6029,11 @@ Secondary constructor should be converted to a primary one
 in `dekaf-main/src/queries/impl/RowFunHandler.kt`
 #### Snippet
 ```java
-    protected lateinit var cursor: InterMatrixCursor<Any?>
+    private val function: (C1?,C2?,C3?) -> R
 
-    constructor(rowClass: Class<R>) {
-        this.rowClass = rowClass
-    }
+    constructor(rowClass: Class<R>,
+                class1: Class<C1>,
+                class2: Class<C2>,
 ```
 
 ### ConvertSecondaryConstructorToPrimary
@@ -6062,18 +6062,6 @@ in `dekaf-main/src/queries/impl/RowArrayMHandler.kt`
 
 ### ConvertSecondaryConstructorToPrimary
 Secondary constructor should be converted to a primary one
-in `dekaf-main/src/queries/impl/TableIteratorResultCollector.kt`
-#### Snippet
-```java
-
-
-    constructor(handler: RowHandler<R, B>) : super(handler)
-
-
-```
-
-### ConvertSecondaryConstructorToPrimary
-Secondary constructor should be converted to a primary one
 in `dekaf-main/src/queries/impl/TableStreamResultCollector.kt`
 #### Snippet
 ```java
@@ -6082,6 +6070,18 @@ class TableStreamResultCollector<R, B>: TableResultCollector<Stream<R>, R, B> {
     constructor(handler: RowHandler<R, B>) : super(handler)
 
     override fun retrieve(): Stream<R> {
+```
+
+### ConvertSecondaryConstructorToPrimary
+Secondary constructor should be converted to a primary one
+in `dekaf-main/src/queries/impl/TableIteratorResultCollector.kt`
+#### Snippet
+```java
+
+
+    constructor(handler: RowHandler<R, B>) : super(handler)
+
+
 ```
 
 ### ConvertSecondaryConstructorToPrimary
@@ -6284,12 +6284,12 @@ public abstract class Numbers {
 ## RuleId[ruleID=WrongPackageStatement]
 ### WrongPackageStatement
 Package name 'org.jetbrains.dekaf.inter.intf' does not correspond to the file path 'intf'
-in `dekaf-inter/src/intf/InterFacade.java`
+in `dekaf-inter/src/intf/InterColumnCursor.java`
 #### Snippet
 ```java
 package org.jetbrains.dekaf.inter.intf;
 
-import org.jetbrains.annotations.ApiStatus;
+import org.jetbrains.annotations.Nullable;
 ```
 
 ### WrongPackageStatement
@@ -6300,16 +6300,6 @@ in `dekaf-inter/src/intf/InterSession.java`
 package org.jetbrains.dekaf.inter.intf;
 
 
-```
-
-### WrongPackageStatement
-Package name 'org.jetbrains.dekaf.inter.intf' does not correspond to the file path 'intf'
-in `dekaf-inter/src/intf/InterColumnCursor.java`
-#### Snippet
-```java
-package org.jetbrains.dekaf.inter.intf;
-
-import org.jetbrains.annotations.Nullable;
 ```
 
 ### WrongPackageStatement
@@ -6334,7 +6324,27 @@ public interface InterCursor extends AutoCloseable {
 
 ### WrongPackageStatement
 Package name 'org.jetbrains.dekaf.inter.intf' does not correspond to the file path 'intf'
+in `dekaf-inter/src/intf/InterFacade.java`
+#### Snippet
+```java
+package org.jetbrains.dekaf.inter.intf;
+
+import org.jetbrains.annotations.ApiStatus;
+```
+
+### WrongPackageStatement
+Package name 'org.jetbrains.dekaf.inter.intf' does not correspond to the file path 'intf'
 in `dekaf-inter/src/intf/InterIntsCursor.java`
+#### Snippet
+```java
+package org.jetbrains.dekaf.inter.intf;
+
+import org.jetbrains.annotations.Nullable;
+```
+
+### WrongPackageStatement
+Package name 'org.jetbrains.dekaf.inter.intf' does not correspond to the file path 'intf'
+in `dekaf-inter/src/intf/InterLongsCursor.java`
 #### Snippet
 ```java
 package org.jetbrains.dekaf.inter.intf;
@@ -6353,23 +6363,13 @@ package org.jetbrains.dekaf.inter.intf;
 ```
 
 ### WrongPackageStatement
-Package name 'org.jetbrains.dekaf.inter.intf' does not correspond to the file path 'intf'
-in `dekaf-inter/src/intf/InterLongsCursor.java`
+Package name 'org.jetbrains.dekaf.inter' does not correspond to the file path ''
+in `dekaf-inter/src/DekafInfo.java`
 #### Snippet
 ```java
-package org.jetbrains.dekaf.inter.intf;
+package org.jetbrains.dekaf.inter;
 
-import org.jetbrains.annotations.Nullable;
-```
-
-### WrongPackageStatement
-Package name 'org.jetbrains.dekaf.inter.common' does not correspond to the file path 'common'
-in `dekaf-inter/src/common/StatementCategory.java`
-#### Snippet
-```java
-package org.jetbrains.dekaf.inter.common;
-
-public enum StatementCategory {
+import org.jetbrains.dekaf.inter.utils.Version;
 ```
 
 ### WrongPackageStatement
@@ -6393,23 +6393,13 @@ import org.jetbrains.annotations.NotNull;
 ```
 
 ### WrongPackageStatement
-Package name 'org.jetbrains.dekaf.inter' does not correspond to the file path ''
-in `dekaf-inter/src/DekafInfo.java`
-#### Snippet
-```java
-package org.jetbrains.dekaf.inter;
-
-import org.jetbrains.dekaf.inter.utils.Version;
-```
-
-### WrongPackageStatement
 Package name 'org.jetbrains.dekaf.inter.common' does not correspond to the file path 'common'
-in `dekaf-inter/src/common/ParamDirection.java`
+in `dekaf-inter/src/common/StatementCategory.java`
 #### Snippet
 ```java
 package org.jetbrains.dekaf.inter.common;
 
-public enum ParamDirection {
+public enum StatementCategory {
 ```
 
 ### WrongPackageStatement
@@ -6420,6 +6410,16 @@ in `dekaf-inter/src/utils/EmptyIterator.java`
 package org.jetbrains.dekaf.inter.utils;
 
 import java.util.Iterator;
+```
+
+### WrongPackageStatement
+Package name 'org.jetbrains.dekaf.inter.common' does not correspond to the file path 'common'
+in `dekaf-inter/src/common/ParamDirection.java`
+#### Snippet
+```java
+package org.jetbrains.dekaf.inter.common;
+
+public enum ParamDirection {
 ```
 
 ### WrongPackageStatement
@@ -6444,6 +6444,16 @@ import org.jetbrains.annotations.NotNull;
 
 ### WrongPackageStatement
 Package name 'org.jetbrains.dekaf.inter.exceptions' does not correspond to the file path 'exceptions'
+in `dekaf-inter/src/exceptions/DBConnectionException.java`
+#### Snippet
+```java
+package org.jetbrains.dekaf.inter.exceptions;
+
+import org.jetbrains.annotations.NotNull;
+```
+
+### WrongPackageStatement
+Package name 'org.jetbrains.dekaf.inter.exceptions' does not correspond to the file path 'exceptions'
 in `dekaf-inter/src/exceptions/StrippedSQLException.java`
 #### Snippet
 ```java
@@ -6454,7 +6464,7 @@ import org.jetbrains.annotations.NotNull;
 
 ### WrongPackageStatement
 Package name 'org.jetbrains.dekaf.inter.exceptions' does not correspond to the file path 'exceptions'
-in `dekaf-inter/src/exceptions/DBConnectionException.java`
+in `dekaf-inter/src/exceptions/DBAccessDeniedException.java`
 #### Snippet
 ```java
 package org.jetbrains.dekaf.inter.exceptions;
@@ -6473,48 +6483,8 @@ import org.jetbrains.annotations.NotNull;
 ```
 
 ### WrongPackageStatement
-Package name 'org.jetbrains.dekaf.inter.common' does not correspond to the file path 'common'
-in `dekaf-inter/src/common/ParamDef.java`
-#### Snippet
-```java
-package org.jetbrains.dekaf.inter.common;
-
-import org.jetbrains.annotations.NotNull;
-```
-
-### WrongPackageStatement
-Package name 'org.jetbrains.dekaf.inter.exceptions' does not correspond to the file path 'exceptions'
-in `dekaf-inter/src/exceptions/DBAccessDeniedException.java`
-#### Snippet
-```java
-package org.jetbrains.dekaf.inter.exceptions;
-
-import org.jetbrains.annotations.NotNull;
-```
-
-### WrongPackageStatement
-Package name 'org.jetbrains.dekaf.inter.utils' does not correspond to the file path 'utils'
-in `dekaf-inter/src/utils/ArrayHacks.java`
-#### Snippet
-```java
-package org.jetbrains.dekaf.inter.utils;
-
-import org.jetbrains.annotations.NotNull;
-```
-
-### WrongPackageStatement
 Package name 'org.jetbrains.dekaf.inter.exceptions' does not correspond to the file path 'exceptions'
 in `dekaf-inter/src/exceptions/DuplicateKeyException.java`
-#### Snippet
-```java
-package org.jetbrains.dekaf.inter.exceptions;
-
-import org.jetbrains.annotations.NotNull;
-```
-
-### WrongPackageStatement
-Package name 'org.jetbrains.dekaf.inter.exceptions' does not correspond to the file path 'exceptions'
-in `dekaf-inter/src/exceptions/DBFactoryException.java`
 #### Snippet
 ```java
 package org.jetbrains.dekaf.inter.exceptions;
@@ -6533,8 +6503,38 @@ import org.jetbrains.annotations.NotNull;
 ```
 
 ### WrongPackageStatement
+Package name 'org.jetbrains.dekaf.inter.utils' does not correspond to the file path 'utils'
+in `dekaf-inter/src/utils/ArrayHacks.java`
+#### Snippet
+```java
+package org.jetbrains.dekaf.inter.utils;
+
+import org.jetbrains.annotations.NotNull;
+```
+
+### WrongPackageStatement
+Package name 'org.jetbrains.dekaf.inter.common' does not correspond to the file path 'common'
+in `dekaf-inter/src/common/ParamDef.java`
+#### Snippet
+```java
+package org.jetbrains.dekaf.inter.common;
+
+import org.jetbrains.annotations.NotNull;
+```
+
+### WrongPackageStatement
+Package name 'org.jetbrains.dekaf.inter.settings' does not correspond to the file path 'settings'
+in `dekaf-inter/src/settings/Setting.java`
+#### Snippet
+```java
+package org.jetbrains.dekaf.inter.settings;
+
+import org.jetbrains.annotations.NotNull;
+```
+
+### WrongPackageStatement
 Package name 'org.jetbrains.dekaf.inter.exceptions' does not correspond to the file path 'exceptions'
-in `dekaf-inter/src/exceptions/DBSessionIsClosedException.java`
+in `dekaf-inter/src/exceptions/DBFactoryException.java`
 #### Snippet
 ```java
 package org.jetbrains.dekaf.inter.exceptions;
@@ -6544,7 +6544,7 @@ import org.jetbrains.annotations.NotNull;
 
 ### WrongPackageStatement
 Package name 'org.jetbrains.dekaf.inter.exceptions' does not correspond to the file path 'exceptions'
-in `dekaf-inter/src/exceptions/DBParameterHandlingException.java`
+in `dekaf-inter/src/exceptions/DBDriverException.java`
 #### Snippet
 ```java
 package org.jetbrains.dekaf.inter.exceptions;
@@ -6574,7 +6574,7 @@ import org.jetbrains.annotations.NotNull;
 
 ### WrongPackageStatement
 Package name 'org.jetbrains.dekaf.inter.exceptions' does not correspond to the file path 'exceptions'
-in `dekaf-inter/src/exceptions/DBDriverException.java`
+in `dekaf-inter/src/exceptions/DBSessionIsClosedException.java`
 #### Snippet
 ```java
 package org.jetbrains.dekaf.inter.exceptions;
@@ -6584,77 +6584,7 @@ import org.jetbrains.annotations.NotNull;
 
 ### WrongPackageStatement
 Package name 'org.jetbrains.dekaf.inter.exceptions' does not correspond to the file path 'exceptions'
-in `dekaf-inter/src/exceptions/DBSchemaAccessDeniedException.java`
-#### Snippet
-```java
-package org.jetbrains.dekaf.inter.exceptions;
-
-import org.jetbrains.annotations.NotNull;
-```
-
-### WrongPackageStatement
-Package name 'org.jetbrains.dekaf.inter.settings' does not correspond to the file path 'settings'
-in `dekaf-inter/src/settings/Setting.java`
-#### Snippet
-```java
-package org.jetbrains.dekaf.inter.settings;
-
-import org.jetbrains.annotations.NotNull;
-```
-
-### WrongPackageStatement
-Package name 'org.jetbrains.dekaf.inter.exceptions' does not correspond to the file path 'exceptions'
-in `dekaf-inter/src/exceptions/DBFetchingException.java`
-#### Snippet
-```java
-package org.jetbrains.dekaf.inter.exceptions;
-
-import org.jetbrains.annotations.NotNull;
-```
-
-### WrongPackageStatement
-Package name 'org.jetbrains.dekaf.inter.exceptions' does not correspond to the file path 'exceptions'
-in `dekaf-inter/src/exceptions/DBColumnAccessDeniedException.java`
-#### Snippet
-```java
-package org.jetbrains.dekaf.inter.exceptions;
-
-import org.jetbrains.annotations.NotNull;
-```
-
-### WrongPackageStatement
-Package name 'org.jetbrains.dekaf.inter.exceptions' does not correspond to the file path 'exceptions'
-in `dekaf-inter/src/exceptions/DBPerformingException.java`
-#### Snippet
-```java
-package org.jetbrains.dekaf.inter.exceptions;
-
-import org.jetbrains.annotations.NotNull;
-```
-
-### WrongPackageStatement
-Package name 'org.jetbrains.dekaf.inter.exceptions' does not correspond to the file path 'exceptions'
-in `dekaf-inter/src/exceptions/StrippedUnknownException.java`
-#### Snippet
-```java
-package org.jetbrains.dekaf.inter.exceptions;
-
-import org.jetbrains.annotations.NotNull;
-```
-
-### WrongPackageStatement
-Package name 'org.jetbrains.dekaf.inter.exceptions' does not correspond to the file path 'exceptions'
-in `dekaf-inter/src/exceptions/DBLoginFailedException.java`
-#### Snippet
-```java
-package org.jetbrains.dekaf.inter.exceptions;
-
-import org.jetbrains.annotations.NotNull;
-```
-
-### WrongPackageStatement
-Package name 'org.jetbrains.dekaf.inter.exceptions' does not correspond to the file path 'exceptions'
-in `dekaf-inter/src/exceptions/UnknownDBException.java`
+in `dekaf-inter/src/exceptions/DBParameterHandlingException.java`
 #### Snippet
 ```java
 package org.jetbrains.dekaf.inter.exceptions;
@@ -6674,7 +6604,7 @@ import org.jetbrains.annotations.NotNull;
 
 ### WrongPackageStatement
 Package name 'org.jetbrains.dekaf.inter.exceptions' does not correspond to the file path 'exceptions'
-in `dekaf-inter/src/exceptions/UnexpectedDBException.java`
+in `dekaf-inter/src/exceptions/DBSchemaAccessDeniedException.java`
 #### Snippet
 ```java
 package org.jetbrains.dekaf.inter.exceptions;
@@ -6684,7 +6614,37 @@ import org.jetbrains.annotations.NotNull;
 
 ### WrongPackageStatement
 Package name 'org.jetbrains.dekaf.inter.exceptions' does not correspond to the file path 'exceptions'
-in `dekaf-inter/src/exceptions/DBIsNotConnected.java`
+in `dekaf-inter/src/exceptions/DBColumnAccessDeniedException.java`
+#### Snippet
+```java
+package org.jetbrains.dekaf.inter.exceptions;
+
+import org.jetbrains.annotations.NotNull;
+```
+
+### WrongPackageStatement
+Package name 'org.jetbrains.dekaf.inter.exceptions' does not correspond to the file path 'exceptions'
+in `dekaf-inter/src/exceptions/DBFetchingException.java`
+#### Snippet
+```java
+package org.jetbrains.dekaf.inter.exceptions;
+
+import org.jetbrains.annotations.NotNull;
+```
+
+### WrongPackageStatement
+Package name 'org.jetbrains.dekaf.inter.exceptions' does not correspond to the file path 'exceptions'
+in `dekaf-inter/src/exceptions/DBPerformingException.java`
+#### Snippet
+```java
+package org.jetbrains.dekaf.inter.exceptions;
+
+import org.jetbrains.annotations.NotNull;
+```
+
+### WrongPackageStatement
+Package name 'org.jetbrains.dekaf.inter.exceptions' does not correspond to the file path 'exceptions'
+in `dekaf-inter/src/exceptions/DBLoginFailedException.java`
 #### Snippet
 ```java
 package org.jetbrains.dekaf.inter.exceptions;
@@ -6704,7 +6664,7 @@ import org.jetbrains.annotations.Contract;
 
 ### WrongPackageStatement
 Package name 'org.jetbrains.dekaf.inter.exceptions' does not correspond to the file path 'exceptions'
-in `dekaf-inter/src/exceptions/DBServiceIsNotActiveException.java`
+in `dekaf-inter/src/exceptions/UnknownDBException.java`
 #### Snippet
 ```java
 package org.jetbrains.dekaf.inter.exceptions;
@@ -6724,6 +6684,46 @@ import org.jetbrains.annotations.NotNull;
 
 ### WrongPackageStatement
 Package name 'org.jetbrains.dekaf.inter.exceptions' does not correspond to the file path 'exceptions'
+in `dekaf-inter/src/exceptions/DbmsUnsupportedFeatureException.java`
+#### Snippet
+```java
+package org.jetbrains.dekaf.inter.exceptions;
+
+import org.jetbrains.annotations.NotNull;
+```
+
+### WrongPackageStatement
+Package name 'org.jetbrains.dekaf.inter.exceptions' does not correspond to the file path 'exceptions'
+in `dekaf-inter/src/exceptions/StrippedUnknownException.java`
+#### Snippet
+```java
+package org.jetbrains.dekaf.inter.exceptions;
+
+import org.jetbrains.annotations.NotNull;
+```
+
+### WrongPackageStatement
+Package name 'org.jetbrains.dekaf.inter.exceptions' does not correspond to the file path 'exceptions'
+in `dekaf-inter/src/exceptions/DBIsNotConnected.java`
+#### Snippet
+```java
+package org.jetbrains.dekaf.inter.exceptions;
+
+import org.jetbrains.annotations.NotNull;
+```
+
+### WrongPackageStatement
+Package name 'org.jetbrains.dekaf.inter.exceptions' does not correspond to the file path 'exceptions'
+in `dekaf-inter/src/exceptions/DBServiceIsNotActiveException.java`
+#### Snippet
+```java
+package org.jetbrains.dekaf.inter.exceptions;
+
+import org.jetbrains.annotations.NotNull;
+```
+
+### WrongPackageStatement
+Package name 'org.jetbrains.dekaf.inter.exceptions' does not correspond to the file path 'exceptions'
 in `dekaf-inter/src/exceptions/NoTableOrViewException.java`
 #### Snippet
 ```java
@@ -6734,20 +6734,10 @@ import org.jetbrains.annotations.NotNull;
 
 ### WrongPackageStatement
 Package name 'org.jetbrains.dekaf.inter.exceptions' does not correspond to the file path 'exceptions'
-in `dekaf-inter/src/exceptions/DbmsUnsupportedFeatureException.java`
+in `dekaf-inter/src/exceptions/UnexpectedDBException.java`
 #### Snippet
 ```java
 package org.jetbrains.dekaf.inter.exceptions;
-
-import org.jetbrains.annotations.NotNull;
-```
-
-### WrongPackageStatement
-Package name 'org.jetbrains.dekaf.inter.utils' does not correspond to the file path 'utils'
-in `dekaf-inter/src/utils/SimpleStringConvert.java`
-#### Snippet
-```java
-package org.jetbrains.dekaf.inter.utils;
 
 import org.jetbrains.annotations.NotNull;
 ```
@@ -6773,16 +6763,6 @@ package org.jetbrains.dekaf.inter.settings;
 ```
 
 ### WrongPackageStatement
-Package name 'org.jetbrains.dekaf.jdbc.impl' does not correspond to the file path 'impl'
-in `dekaf-jdbc/src/impl/JdbcIntsCursor.java`
-#### Snippet
-```java
-package org.jetbrains.dekaf.jdbc.impl;
-
-import org.jetbrains.annotations.NotNull;
-```
-
-### WrongPackageStatement
 Package name 'org.jetbrains.dekaf.inter.utils' does not correspond to the file path 'utils'
 in `dekaf-inter/src/utils/Version.java`
 #### Snippet
@@ -6793,8 +6773,18 @@ import org.jetbrains.annotations.NotNull;
 ```
 
 ### WrongPackageStatement
+Package name 'org.jetbrains.dekaf.inter.utils' does not correspond to the file path 'utils'
+in `dekaf-inter/src/utils/SimpleStringConvert.java`
+#### Snippet
+```java
+package org.jetbrains.dekaf.inter.utils;
+
+import org.jetbrains.annotations.NotNull;
+```
+
+### WrongPackageStatement
 Package name 'org.jetbrains.dekaf.jdbc.impl' does not correspond to the file path 'impl'
-in `dekaf-jdbc/src/impl/JdbcStuff.java`
+in `dekaf-jdbc/src/impl/JdbcIntsCursor.java`
 #### Snippet
 ```java
 package org.jetbrains.dekaf.jdbc.impl;
@@ -6804,17 +6794,7 @@ import org.jetbrains.annotations.NotNull;
 
 ### WrongPackageStatement
 Package name 'org.jetbrains.dekaf.jdbc.impl' does not correspond to the file path 'impl'
-in `dekaf-jdbc/src/impl/JdbcSession.java`
-#### Snippet
-```java
-package org.jetbrains.dekaf.jdbc.impl;
-
-import org.jetbrains.annotations.ApiStatus;
-```
-
-### WrongPackageStatement
-Package name 'org.jetbrains.dekaf.jdbc.impl' does not correspond to the file path 'impl'
-in `dekaf-jdbc/src/impl/JdbcSeance.java`
+in `dekaf-jdbc/src/impl/JdbcStuff.java`
 #### Snippet
 ```java
 package org.jetbrains.dekaf.jdbc.impl;
@@ -6834,7 +6814,7 @@ import org.jetbrains.annotations.NotNull;
 
 ### WrongPackageStatement
 Package name 'org.jetbrains.dekaf.jdbc.impl' does not correspond to the file path 'impl'
-in `dekaf-jdbc/src/impl/JdbcBaseCursor.java`
+in `dekaf-jdbc/src/impl/JdbcSeance.java`
 #### Snippet
 ```java
 package org.jetbrains.dekaf.jdbc.impl;
@@ -6854,12 +6834,12 @@ import org.jetbrains.annotations.NotNull;
 
 ### WrongPackageStatement
 Package name 'org.jetbrains.dekaf.jdbc.impl' does not correspond to the file path 'impl'
-in `dekaf-jdbc/src/impl/JdbcFacade.java`
+in `dekaf-jdbc/src/impl/JdbcBaseCursor.java`
 #### Snippet
 ```java
 package org.jetbrains.dekaf.jdbc.impl;
 
-import org.jetbrains.annotations.ApiStatus;
+import org.jetbrains.annotations.NotNull;
 ```
 
 ### WrongPackageStatement
@@ -6874,7 +6854,27 @@ import org.jetbrains.annotations.NotNull;
 
 ### WrongPackageStatement
 Package name 'org.jetbrains.dekaf.jdbc.impl' does not correspond to the file path 'impl'
-in `dekaf-jdbc/src/impl/JdbcLongsCursor.java`
+in `dekaf-jdbc/src/impl/JdbcSession.java`
+#### Snippet
+```java
+package org.jetbrains.dekaf.jdbc.impl;
+
+import org.jetbrains.annotations.ApiStatus;
+```
+
+### WrongPackageStatement
+Package name 'org.jetbrains.dekaf.jdbc.impl' does not correspond to the file path 'impl'
+in `dekaf-jdbc/src/impl/JdbcFacade.java`
+#### Snippet
+```java
+package org.jetbrains.dekaf.jdbc.impl;
+
+import org.jetbrains.annotations.ApiStatus;
+```
+
+### WrongPackageStatement
+Package name 'org.jetbrains.dekaf.jdbc.impl' does not correspond to the file path 'impl'
+in `dekaf-jdbc/src/impl/JdbcRowsCollectors.java`
 #### Snippet
 ```java
 package org.jetbrains.dekaf.jdbc.impl;
@@ -6884,7 +6884,7 @@ import org.jetbrains.annotations.NotNull;
 
 ### WrongPackageStatement
 Package name 'org.jetbrains.dekaf.jdbc.impl' does not correspond to the file path 'impl'
-in `dekaf-jdbc/src/impl/JdbcUtil.java`
+in `dekaf-jdbc/src/impl/JdbcLongsCursor.java`
 #### Snippet
 ```java
 package org.jetbrains.dekaf.jdbc.impl;
@@ -6904,7 +6904,7 @@ import org.jetbrains.annotations.NotNull;
 
 ### WrongPackageStatement
 Package name 'org.jetbrains.dekaf.jdbc.impl' does not correspond to the file path 'impl'
-in `dekaf-jdbc/src/impl/JdbcColumnCursor.java`
+in `dekaf-jdbc/src/impl/JdbcParametersHandler.java`
 #### Snippet
 ```java
 package org.jetbrains.dekaf.jdbc.impl;
@@ -6914,7 +6914,17 @@ import org.jetbrains.annotations.NotNull;
 
 ### WrongPackageStatement
 Package name 'org.jetbrains.dekaf.jdbc.impl' does not correspond to the file path 'impl'
-in `dekaf-jdbc/src/impl/JdbcParametersHandler.java`
+in `dekaf-jdbc/src/impl/JdbcUtil.java`
+#### Snippet
+```java
+package org.jetbrains.dekaf.jdbc.impl;
+
+import org.jetbrains.annotations.NotNull;
+```
+
+### WrongPackageStatement
+Package name 'org.jetbrains.dekaf.jdbc.impl' does not correspond to the file path 'impl'
+in `dekaf-jdbc/src/impl/JdbcColumnCursor.java`
 #### Snippet
 ```java
 package org.jetbrains.dekaf.jdbc.impl;
@@ -6940,16 +6950,6 @@ in `dekaf-jdbc/src/utils/Objects.java`
 package org.jetbrains.dekaf.jdbc.utils;
 
 import org.jetbrains.annotations.Contract;
-```
-
-### WrongPackageStatement
-Package name 'org.jetbrains.dekaf.jdbc.impl' does not correspond to the file path 'impl'
-in `dekaf-jdbc/src/impl/JdbcRowsCollectors.java`
-#### Snippet
-```java
-package org.jetbrains.dekaf.jdbc.impl;
-
-import org.jetbrains.annotations.NotNull;
 ```
 
 ### WrongPackageStatement
@@ -7009,14 +7009,14 @@ in `dekaf-main/src/util/TextFun.kt`
 
 ### ReplaceJavaStaticMethodWithKotlinAnalog
 Should be replaced with Kotlin function
-in `dekaf-main-test/src/queries/QueryLayoutTest.kt`
+in `dekaf-main/src/simplext/SimplextReader.kt`
 #### Snippet
 ```java
-        expect that array[3] hasSize 4
-        
-        val list: List<Array<out Number>> = Arrays.asList(*array)
-        checkList4x4(list)
-    }
+    protected fun processLine(buffer: CharSequence, from: Int, till: Int) {
+        lastLine++
+        val n = min(buffer.length, till)
+        var p = from
+        if (p >= n) return
 ```
 
 ### ReplaceJavaStaticMethodWithKotlinAnalog
@@ -7081,14 +7081,14 @@ fun halt(errorCode: Int): Nothing {
 
 ### ReplaceJavaStaticMethodWithKotlinAnalog
 Should be replaced with Kotlin function
-in `dekaf-main/src/simplext/SimplextReader.kt`
+in `dekaf-main-test/src/queries/QueryLayoutTest.kt`
 #### Snippet
 ```java
-    protected fun processLine(buffer: CharSequence, from: Int, till: Int) {
-        lastLine++
-        val n = min(buffer.length, till)
-        var p = from
-        if (p >= n) return
+        expect that array[3] hasSize 4
+        
+        val list: List<Array<out Number>> = Arrays.asList(*array)
+        checkList4x4(list)
+    }
 ```
 
 ## RuleId[ruleID=MissortedModifiers]
@@ -7123,31 +7123,7 @@ in `dekaf-jdbc/src/impl/JdbcValueGetters.java`
 ```java
 
 
-    final static FloatGetter INSTANCE = new FloatGetter();
-  }
-
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `dekaf-jdbc/src/impl/JdbcValueGetters.java`
-#### Snippet
-```java
-
-    private final static Byte _1_ = Byte.valueOf((byte)1);
-    private final static Byte _0_ = Byte.valueOf((byte)0);
-
-    final static BoolByteGetter INSTANCE = new BoolByteGetter();
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `dekaf-jdbc/src/impl/JdbcValueGetters.java`
-#### Snippet
-```java
-
-
-    final static DateGetter INSTANCE = new DateGetter();
+    final static BigDecimalGetter INSTANCE = new BigDecimalGetter();
   }
 
 ```
@@ -7171,7 +7147,7 @@ in `dekaf-jdbc/src/impl/JdbcValueGetters.java`
 ```java
 
 
-    final static DoubleGetter INSTANCE = new DoubleGetter();
+    final static ShortGetter INSTANCE = new ShortGetter();
   }
 
 ```
@@ -7193,21 +7169,9 @@ Missorted modifiers `final static`
 in `dekaf-jdbc/src/impl/JdbcValueGetters.java`
 #### Snippet
 ```java
-    }
-
-    private final static Integer _1_ = Integer.valueOf((int)1);
-    private final static Integer _0_ = Integer.valueOf((int)0);
-
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `dekaf-jdbc/src/impl/JdbcValueGetters.java`
-#### Snippet
-```java
 
 
-    final static TimeGetter INSTANCE = new TimeGetter();
+    final static LongGetter INSTANCE = new LongGetter();
   }
 
 ```
@@ -7231,91 +7195,7 @@ in `dekaf-jdbc/src/impl/JdbcValueGetters.java`
 ```java
 
 
-    final static JavaDateGetter INSTANCE = new JavaDateGetter();
-  }
-
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `dekaf-jdbc/src/impl/JdbcValueGetters.java`
-#### Snippet
-```java
-
-
-    final static GenericNumberGetter INSTANCE = new GenericNumberGetter();
-  }
-
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `dekaf-jdbc/src/impl/JdbcValueGetters.java`
-#### Snippet
-```java
-    }
-
-    private final static Short _1_ = Short.valueOf((short)1);
-    private final static Short _0_ = Short.valueOf((short)0);
-
-```
-
-### MissortedModifiers
-Missorted modifiers `static abstract`
-in `dekaf-jdbc/src/impl/JdbcValueGetters.java`
-#### Snippet
-```java
-
-
-  static abstract class AbstractArrayGetter<A> extends JdbcValueGetter<A> {
-    @Nullable
-    @Override
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `dekaf-jdbc/src/impl/JdbcValueGetters.java`
-#### Snippet
-```java
-
-
-    final static ShortGetter INSTANCE = new ShortGetter();
-  }
-
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `dekaf-jdbc/src/impl/JdbcValueGetters.java`
-#### Snippet
-```java
-
-
     final static ByteGetter INSTANCE = new ByteGetter();
-  }
-
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `dekaf-jdbc/src/impl/JdbcValueGetters.java`
-#### Snippet
-```java
-
-
-    final static CharGetter INSTANCE = new CharGetter();
-  }
-
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `dekaf-jdbc/src/impl/JdbcValueGetters.java`
-#### Snippet
-```java
-
-
-    final static BigDecimalGetter INSTANCE = new BigDecimalGetter();
   }
 
 ```
@@ -7339,7 +7219,139 @@ in `dekaf-jdbc/src/impl/JdbcValueGetters.java`
 ```java
 
 
-    final static LongGetter INSTANCE = new LongGetter();
+    final static JavaDateGetter INSTANCE = new JavaDateGetter();
+  }
+
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `dekaf-jdbc/src/impl/JdbcValueGetters.java`
+#### Snippet
+```java
+    private final static Integer _0_ = Integer.valueOf((int)0);
+
+    final static BoolIntGetter INSTANCE = new BoolIntGetter();
+  }
+
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `dekaf-jdbc/src/impl/JdbcValueGetters.java`
+#### Snippet
+```java
+
+
+    final static BigDecimalGetter INSTANCE = new BigDecimalGetter();
+  }
+
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `dekaf-jdbc/src/impl/JdbcValueGetters.java`
+#### Snippet
+```java
+
+
+    final static GenericNumberGetter INSTANCE = new GenericNumberGetter();
+  }
+
+```
+
+### MissortedModifiers
+Missorted modifiers `static abstract`
+in `dekaf-jdbc/src/impl/JdbcValueGetters.java`
+#### Snippet
+```java
+
+
+  static abstract class AbstractArrayGetter<A> extends JdbcValueGetter<A> {
+    @Nullable
+    @Override
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `dekaf-jdbc/src/impl/JdbcValueGetters.java`
+#### Snippet
+```java
+
+
+    final static DateGetter INSTANCE = new DateGetter();
+  }
+
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `dekaf-jdbc/src/impl/JdbcValueGetters.java`
+#### Snippet
+```java
+
+    private final static Short _1_ = Short.valueOf((short)1);
+    private final static Short _0_ = Short.valueOf((short)0);
+
+    final static BoolShortGetter INSTANCE = new BoolShortGetter();
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `dekaf-jdbc/src/impl/JdbcValueGetters.java`
+#### Snippet
+```java
+
+
+    final static TimeGetter INSTANCE = new TimeGetter();
+  }
+
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `dekaf-jdbc/src/impl/JdbcValueGetters.java`
+#### Snippet
+```java
+    }
+
+    private final static Short _1_ = Short.valueOf((short)1);
+    private final static Short _0_ = Short.valueOf((short)0);
+
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `dekaf-jdbc/src/impl/JdbcValueGetters.java`
+#### Snippet
+```java
+
+
+    final static CharGetter INSTANCE = new CharGetter();
+  }
+
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `dekaf-jdbc/src/impl/JdbcValueGetters.java`
+#### Snippet
+```java
+
+    private final static Byte _1_ = Byte.valueOf((byte)1);
+    private final static Byte _0_ = Byte.valueOf((byte)0);
+
+    final static BoolByteGetter INSTANCE = new BoolByteGetter();
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `dekaf-jdbc/src/impl/JdbcValueGetters.java`
+#### Snippet
+```java
+
+
+    final static DoubleGetter INSTANCE = new DoubleGetter();
   }
 
 ```
@@ -7363,7 +7375,7 @@ in `dekaf-jdbc/src/impl/JdbcValueGetters.java`
 ```java
 
 
-    final static BigDecimalGetter INSTANCE = new BigDecimalGetter();
+    final static FloatGetter INSTANCE = new FloatGetter();
   }
 
 ```
@@ -7373,26 +7385,26 @@ Missorted modifiers `final static`
 in `dekaf-jdbc/src/impl/JdbcValueGetters.java`
 #### Snippet
 ```java
+    }
+
+    private final static Integer _1_ = Integer.valueOf((int)1);
     private final static Integer _0_ = Integer.valueOf((int)0);
 
-    final static BoolIntGetter INSTANCE = new BoolIntGetter();
-  }
-
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `dekaf-jdbc/src/impl/JdbcValueGetters.java`
-#### Snippet
-```java
-
-    private final static Short _1_ = Short.valueOf((short)1);
-    private final static Short _0_ = Short.valueOf((short)0);
-
-    final static BoolShortGetter INSTANCE = new BoolShortGetter();
 ```
 
 ## RuleId[ruleID=NullableProblems]
+### NullableProblems
+Primitive type members cannot be annotated
+in `dekaf-inter/src/intf/InterLongsCursor.java`
+#### Snippet
+```java
+    void setDefaultValue(long defaultValue);
+
+    @Nullable
+    long[] fetchPortion();
+
+```
+
 ### NullableProblems
 Primitive type members cannot be annotated
 in `dekaf-inter/src/intf/InterIntsCursor.java`
@@ -7402,18 +7414,6 @@ in `dekaf-inter/src/intf/InterIntsCursor.java`
 
     @Nullable
     int[] fetchRow();
-
-```
-
-### NullableProblems
-Primitive type members cannot be annotated
-in `dekaf-inter/src/intf/InterLongsCursor.java`
-#### Snippet
-```java
-    long[] fetchPortion();
-
-    @Nullable
-    long[] fetchRow();
 
 ```
 
@@ -7434,10 +7434,58 @@ Primitive type members cannot be annotated
 in `dekaf-inter/src/intf/InterLongsCursor.java`
 #### Snippet
 ```java
-    void setDefaultValue(long defaultValue);
+    long[] fetchPortion();
 
     @Nullable
-    long[] fetchPortion();
+    long[] fetchRow();
+
+```
+
+### NullableProblems
+Primitive type members cannot be annotated
+in `dekaf-inter/src/utils/Version.java`
+#### Snippet
+```java
+
+
+  private Version(@NotNull final int[] elements) {
+    this.elements = elements; // already copied
+  }
+```
+
+### NullableProblems
+Primitive type members cannot be annotated
+in `dekaf-inter/src/utils/Version.java`
+#### Snippet
+```java
+   * @return         the version.
+   */
+  public static Version of(@NotNull final int... elements) {
+    int n = elements.length;
+    while (n > 0 && elements[n-1] == 0) n--;
+```
+
+### NullableProblems
+Primitive type members cannot be annotated
+in `dekaf-inter/src/utils/Version.java`
+#### Snippet
+```java
+   * @return array of elements, may be an empty array but never null.
+   */
+  @NotNull
+  public int[] toArray() {
+    final int n = elements.length;
+```
+
+### NullableProblems
+Primitive type members cannot be annotated
+in `dekaf-inter/src/utils/Version.java`
+#### Snippet
+```java
+
+
+  @NotNull
+  private final int[] elements;
 
 ```
 
@@ -7467,50 +7515,14 @@ in `dekaf-jdbc/src/impl/JdbcIntsCursor.java`
 
 ### NullableProblems
 Primitive type members cannot be annotated
-in `dekaf-inter/src/utils/Version.java`
+in `dekaf-jdbc/src/impl/JdbcLongsCursor.java`
 #### Snippet
 ```java
+    }
 
-
-  @NotNull
-  private final int[] elements;
-
-```
-
-### NullableProblems
-Primitive type members cannot be annotated
-in `dekaf-inter/src/utils/Version.java`
-#### Snippet
-```java
-   * @return array of elements, may be an empty array but never null.
-   */
-  @NotNull
-  public int[] toArray() {
-    final int n = elements.length;
-```
-
-### NullableProblems
-Primitive type members cannot be annotated
-in `dekaf-inter/src/utils/Version.java`
-#### Snippet
-```java
-   * @return         the version.
-   */
-  public static Version of(@NotNull final int... elements) {
-    int n = elements.length;
-    while (n > 0 && elements[n-1] == 0) n--;
-```
-
-### NullableProblems
-Primitive type members cannot be annotated
-in `dekaf-inter/src/utils/Version.java`
-#### Snippet
-```java
-
-
-  private Version(@NotNull final int[] elements) {
-    this.elements = elements; // already copied
-  }
+    @Override @Nullable
+    public long[] fetchPortion() {
+        if (end) return null;
 ```
 
 ### NullableProblems
@@ -7523,18 +7535,6 @@ in `dekaf-jdbc/src/impl/JdbcLongsCursor.java`
     @Nullable
     @Override
     public long[] fetchRow() {
-```
-
-### NullableProblems
-Primitive type members cannot be annotated
-in `dekaf-jdbc/src/impl/JdbcLongsCursor.java`
-#### Snippet
-```java
-    }
-
-    @Override @Nullable
-    public long[] fetchPortion() {
-        if (end) return null;
 ```
 
 ### NullableProblems
@@ -8088,18 +8088,6 @@ in `dekaf-main/src/pool/ServicePool.kt`
 ```java
         }
 
-        internal fun updateTime() {
-            last = now()
-        }
-```
-
-### RedundantVisibilityModifier
-Redundant visibility modifier
-in `dekaf-main/src/pool/ServicePool.kt`
-#### Snippet
-```java
-        }
-
         internal fun passivate() {
             active = false
             activeServices.decrementAndGet()
@@ -8115,6 +8103,18 @@ in `dekaf-main/src/pool/ServicePool.kt`
         internal fun activate(): S {
             active = true
             activeServices.incrementAndGet()
+```
+
+### RedundantVisibilityModifier
+Redundant visibility modifier
+in `dekaf-main/src/pool/ServicePool.kt`
+#### Snippet
+```java
+        }
+
+        internal fun updateTime() {
+            last = now()
+        }
 ```
 
 ## RuleId[ruleID=SortModifiers]
@@ -8209,47 +8209,11 @@ in `dekaf-jdbc/src/impl/JdbcUtil.java`
 ## RuleId[ruleID=RedundantNullableReturnType]
 ### RedundantNullableReturnType
 'r' is always non-null type
-in `dekaf-jdbc-test/tests/impl/JdbcColumnCursorTest.kt`
+in `dekaf-jdbc-test/tests/impl/JdbcLongsCursorTest.kt`
 #### Snippet
 ```java
     fun fetchSingleValue() {
         val text = "select * from values (1000001, 'labuda')"
-        val r: Array<JavaLong?>? = session.openSeance().use { seance ->
-            seance.prepare(text, stmtQuery, null)
-            seance.execute(null)
-```
-
-### RedundantNullableReturnType
-'r' is always non-null type
-in `dekaf-jdbc-test/tests/impl/JdbcColumnCursorTest.kt`
-#### Snippet
-```java
-    fun fetchSingleNull() {
-        val text = "select cast(null as bigint) as V"
-        val r: Array<JavaLong?>? = session.openSeance().use { seance ->
-            seance.prepare(text, stmtQuery, null)
-            seance.execute(null)
-```
-
-### RedundantNullableReturnType
-'r' is always non-null type
-in `dekaf-jdbc-test/tests/impl/JdbcColumnCursorTest.kt`
-#### Snippet
-```java
-    fun fetchSingleEmpty() {
-        val text = "select * from values (1) where 1 is null"
-        val r: Array<JavaLong?>? = session.openSeance().use { seance ->
-            seance.prepare(text, stmtQuery, null)
-            seance.execute(null)
-```
-
-### RedundantNullableReturnType
-'r' is always non-null type
-in `dekaf-jdbc-test/tests/impl/JdbcLongsCursorTest.kt`
-#### Snippet
-```java
-    fun fetchSingleNull() {
-        val text = "select cast(null as bigint) as V"
         val r: LongArray? = session.openSeance().use { seance ->
             seance.prepare(text, stmtQuery, null)
             seance.execute(null)
@@ -8272,9 +8236,45 @@ in `dekaf-jdbc-test/tests/impl/JdbcLongsCursorTest.kt`
 in `dekaf-jdbc-test/tests/impl/JdbcLongsCursorTest.kt`
 #### Snippet
 ```java
+    fun fetchSingleNull() {
+        val text = "select cast(null as bigint) as V"
+        val r: LongArray? = session.openSeance().use { seance ->
+            seance.prepare(text, stmtQuery, null)
+            seance.execute(null)
+```
+
+### RedundantNullableReturnType
+'r' is always non-null type
+in `dekaf-jdbc-test/tests/impl/JdbcColumnCursorTest.kt`
+#### Snippet
+```java
+    fun fetchSingleEmpty() {
+        val text = "select * from values (1) where 1 is null"
+        val r: Array<JavaLong?>? = session.openSeance().use { seance ->
+            seance.prepare(text, stmtQuery, null)
+            seance.execute(null)
+```
+
+### RedundantNullableReturnType
+'r' is always non-null type
+in `dekaf-jdbc-test/tests/impl/JdbcColumnCursorTest.kt`
+#### Snippet
+```java
     fun fetchSingleValue() {
         val text = "select * from values (1000001, 'labuda')"
-        val r: LongArray? = session.openSeance().use { seance ->
+        val r: Array<JavaLong?>? = session.openSeance().use { seance ->
+            seance.prepare(text, stmtQuery, null)
+            seance.execute(null)
+```
+
+### RedundantNullableReturnType
+'r' is always non-null type
+in `dekaf-jdbc-test/tests/impl/JdbcColumnCursorTest.kt`
+#### Snippet
+```java
+    fun fetchSingleNull() {
+        val text = "select cast(null as bigint) as V"
+        val r: Array<JavaLong?>? = session.openSeance().use { seance ->
             seance.prepare(text, stmtQuery, null)
             seance.execute(null)
 ```
@@ -8296,8 +8296,8 @@ in `dekaf-jdbc-test/tests/impl/JdbcMatrixCursorTest.kt`
 in `dekaf-jdbc-test/tests/impl/JdbcIntsCursorTest.kt`
 #### Snippet
 ```java
-    fun fetchSingleValue() {
-        val text = "select * from values (1000001, 'labuda')"
+    fun fetchSingleNull() {
+        val text = "select cast(null as bigint) as V"
         val r: IntArray? = session.openSeance().use { seance ->
             seance.prepare(text, stmtQuery, null)
             seance.execute(null)
@@ -8308,8 +8308,8 @@ in `dekaf-jdbc-test/tests/impl/JdbcIntsCursorTest.kt`
 in `dekaf-jdbc-test/tests/impl/JdbcIntsCursorTest.kt`
 #### Snippet
 ```java
-    fun fetchSingleNull() {
-        val text = "select cast(null as bigint) as V"
+    fun fetchSingleValue() {
+        val text = "select * from values (1000001, 'labuda')"
         val r: IntArray? = session.openSeance().use { seance ->
             seance.prepare(text, stmtQuery, null)
             seance.execute(null)
@@ -8418,6 +8418,18 @@ Qualifier `java.sql` is unnecessary and can be removed
 in `dekaf-jdbc/src/impl/JdbcValueGetters.java`
 #### Snippet
 ```java
+
+
+  static final class TimeGetter extends JdbcValueGetter<java.sql.Time> {
+    @Override
+    @Nullable
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.sql` is unnecessary and can be removed
+in `dekaf-jdbc/src/impl/JdbcValueGetters.java`
+#### Snippet
+```java
     @Override
     @Nullable
     java.sql.Date getValue(@NotNull final ResultSet rset, final int index) throws SQLException {
@@ -8442,42 +8454,6 @@ Qualifier `java.sql` is unnecessary and can be removed
 in `dekaf-jdbc/src/impl/JdbcValueGetters.java`
 #### Snippet
 ```java
-
-
-  static final class DateGetter extends JdbcValueGetter<java.sql.Date> {
-    @Override
-    @Nullable
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.sql` is unnecessary and can be removed
-in `dekaf-jdbc/src/impl/JdbcValueGetters.java`
-#### Snippet
-```java
-
-
-  static final class TimeGetter extends JdbcValueGetter<java.sql.Time> {
-    @Override
-    @Nullable
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.sql` is unnecessary and can be removed
-in `dekaf-jdbc/src/impl/JdbcValueGetters.java`
-#### Snippet
-```java
-    @Override
-    @Nullable
-    java.sql.Time getValue(@NotNull final ResultSet rset, final int index) throws SQLException {
-      final Time time = rset.getTime(index);
-      return time != null ? new Time(time.getTime()) : null;
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.sql` is unnecessary and can be removed
-in `dekaf-jdbc/src/impl/JdbcValueGetters.java`
-#### Snippet
-```java
     NORMAL_GETTERS.put(Character.class, CharGetter.INSTANCE);
     NORMAL_GETTERS.put(java.util.Date.class, JavaDateGetter.INSTANCE);
     NORMAL_GETTERS.put(java.sql.Date.class, DateGetter.INSTANCE);
@@ -8495,6 +8471,30 @@ in `dekaf-jdbc/src/impl/JdbcValueGetters.java`
     NORMAL_GETTERS.put(java.sql.Time.class, TimeGetter.INSTANCE);
     NORMAL_GETTERS.put(Object.class, ObjectGetter.INSTANCE);
     NORMAL_GETTERS.put(byte[].class, ArrayOfByteGetter.INSTANCE);
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.sql` is unnecessary and can be removed
+in `dekaf-jdbc/src/impl/JdbcValueGetters.java`
+#### Snippet
+```java
+
+
+  static final class DateGetter extends JdbcValueGetter<java.sql.Date> {
+    @Override
+    @Nullable
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.sql` is unnecessary and can be removed
+in `dekaf-jdbc/src/impl/JdbcValueGetters.java`
+#### Snippet
+```java
+    @Override
+    @Nullable
+    java.sql.Time getValue(@NotNull final ResultSet rset, final int index) throws SQLException {
+      final Time time = rset.getTime(index);
+      return time != null ? new Time(time.getTime()) : null;
 ```
 
 ## RuleId[ruleID=NestedAssignment]
@@ -8537,18 +8537,6 @@ in `dekaf-main/src/simplext/SimplextFileReader.kt`
 ```
 
 ### MemberVisibilityCanBePrivate
-Property 'fileName' could be private
-in `dekaf-main/src/settings/SettingsLoader.kt`
-#### Snippet
-```java
-    var tabWidth = 8
-
-    var fileName: String? = null
-
-    var errorHandler: (Error) -> Unit = ::defaultErrorHandler
-```
-
-### MemberVisibilityCanBePrivate
 Property 'tabWidth' could be private
 in `dekaf-main/src/settings/SettingsLoader.kt`
 #### Snippet
@@ -8561,27 +8549,15 @@ class SettingsLoader {
 ```
 
 ### MemberVisibilityCanBePrivate
-Property 'pos' could be private
-in `dekaf-main/src/simplext/SimplextLine.kt`
+Property 'fileName' could be private
+in `dekaf-main/src/settings/SettingsLoader.kt`
 #### Snippet
 ```java
-     * Position in the line of the first non-space character, starting from 1.
-     */
-    val pos: Int
-        get() = indent + 1
+    var tabWidth = 8
 
-```
+    var fileName: String? = null
 
-### MemberVisibilityCanBePrivate
-Property 'offset' could be private
-in `dekaf-main/src/simplext/SimplextLine.kt`
-#### Snippet
-```java
-        val line: Int,
-        val indent: Int,
-        val offset: Int,
-        val text: CharSequence
-
+    var errorHandler: (Error) -> Unit = ::defaultErrorHandler
 ```
 
 ### MemberVisibilityCanBePrivate
@@ -8609,6 +8585,42 @@ in `dekaf-main/src/settings/SettingsBuilder.kt`
 ```
 
 ### MemberVisibilityCanBePrivate
+Property 'rootNode' could be private
+in `dekaf-main/src/simplext/SimplextReader.kt`
+#### Snippet
+```java
+         * Root node.
+         */
+        val rootNode: N,
+
+        /**
+```
+
+### MemberVisibilityCanBePrivate
+Property 'pos' could be private
+in `dekaf-main/src/simplext/SimplextLine.kt`
+#### Snippet
+```java
+     * Position in the line of the first non-space character, starting from 1.
+     */
+    val pos: Int
+        get() = indent + 1
+
+```
+
+### MemberVisibilityCanBePrivate
+Property 'offset' could be private
+in `dekaf-main/src/simplext/SimplextLine.kt`
+#### Snippet
+```java
+        val line: Int,
+        val indent: Int,
+        val offset: Int,
+        val text: CharSequence
+
+```
+
+### MemberVisibilityCanBePrivate
 Property 'rootTempDir' could be private
 in `test-utils/src/SystemTest.kt`
 #### Snippet
@@ -8630,18 +8642,6 @@ in `test-utils/src/teamcity/TeamCityListener.kt`
     val <T> Optional<T>.value: T? get() = if (isPresent) get() else null
 
 }
-```
-
-### MemberVisibilityCanBePrivate
-Function 'printConsumer' could be private
-in `test-utils/src/teamcity/TeamCityMessages.kt`
-#### Snippet
-```java
-
-    
-    fun printConsumer(message: String) {
-        println(message)
-    }
 ```
 
 ### MemberVisibilityCanBePrivate
@@ -8669,30 +8669,18 @@ in `test-utils/src/teamcity/TeamCityMessages.kt`
 ```
 
 ### MemberVisibilityCanBePrivate
-Property 'rootNode' could be private
-in `dekaf-main/src/simplext/SimplextReader.kt`
+Function 'printConsumer' could be private
+in `test-utils/src/teamcity/TeamCityMessages.kt`
 #### Snippet
 ```java
-         * Root node.
-         */
-        val rootNode: N,
 
-        /**
-```
-
-## RuleId[ruleID=ConvertTryFinallyToUseCall]
-### ConvertTryFinallyToUseCall
-try-finally can be replaced with 'use()'
-in `dekaf-main/src/db/DbFacade.kt`
-#### Snippet
-```java
-fun<X> DbFacade.inSession(block: (DbSession) -> X): X {
-    val session = openSession()
-    try {
-        return block(session)
+    
+    fun printConsumer(message: String) {
+        println(message)
     }
 ```
 
+## RuleId[ruleID=ConvertTryFinallyToUseCall]
 ### ConvertTryFinallyToUseCall
 try-finally can be replaced with 'use()'
 in `dekaf-main/src/db/DbSession.kt`
@@ -8703,6 +8691,18 @@ fun<X> DbSession.inTransaction(block: (DbTransaction) -> X): X {
     try {
         val result = block(transaction)
         transaction.commit()
+```
+
+### ConvertTryFinallyToUseCall
+try-finally can be replaced with 'use()'
+in `dekaf-main/src/db/DbFacade.kt`
+#### Snippet
+```java
+fun<X> DbFacade.inSession(block: (DbSession) -> X): X {
+    val session = openSession()
+    try {
+        return block(session)
+    }
 ```
 
 ## RuleId[ruleID=NonProtectedConstructorInAbstractClass]
@@ -8848,50 +8848,14 @@ public class JdbcIntsCursor extends JdbcBaseCursor implements InterIntsCursor {
 
 ### RedundantFieldInitialization
 Field initialization to `false` is redundant
-in `dekaf-jdbc/src/impl/JdbcSession.java`
-#### Snippet
-```java
-    private Connection connection;
-
-    private boolean autoCommit = false;
-    private boolean inTransaction = false;
-    private boolean closed = false;
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `dekaf-jdbc/src/impl/JdbcSession.java`
-#### Snippet
-```java
-    private boolean autoCommit = false;
-    private boolean inTransaction = false;
-    private boolean closed = false;
-
-
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `dekaf-jdbc/src/impl/JdbcSession.java`
-#### Snippet
-```java
-
-    private boolean autoCommit = false;
-    private boolean inTransaction = false;
-    private boolean closed = false;
-
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
 in `dekaf-jdbc/src/impl/JdbcSeance.java`
 #### Snippet
 ```java
+    protected ResultSet rset;
 
-    @Nullable
-    protected ParamDef[] paramsDefs = null;
+    private boolean closed = false;
 
-    protected boolean hasInParams  = false;
+    private final Collection<JdbcBaseCursor> cursors = new ArrayList<>();
 ```
 
 ### RedundantFieldInitialization
@@ -8911,11 +8875,11 @@ Field initialization to `0` is redundant
 in `dekaf-jdbc/src/impl/JdbcSeance.java`
 #### Snippet
 ```java
-    protected boolean hasInParams  = false;
-    protected boolean hasOutParams = false;
     protected int     paramCount   = 0;
 
     protected int affectedRows = 0;
+
+    @Nullable
 ```
 
 ### RedundantFieldInitialization
@@ -8935,35 +8899,23 @@ Field initialization to `0` is redundant
 in `dekaf-jdbc/src/impl/JdbcSeance.java`
 #### Snippet
 ```java
-    protected int     paramCount   = 0;
-
-    protected int affectedRows = 0;
-
-    @Nullable
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `dekaf-jdbc/src/impl/JdbcSeance.java`
-#### Snippet
-```java
-    protected ResultSet rset;
-
-    private boolean closed = false;
-
-    private final Collection<JdbcBaseCursor> cursors = new ArrayList<>();
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `dekaf-jdbc/src/impl/JdbcSeance.java`
-#### Snippet
-```java
-    protected ParamDef[] paramsDefs = null;
-
     protected boolean hasInParams  = false;
     protected boolean hasOutParams = false;
     protected int     paramCount   = 0;
+
+    protected int affectedRows = 0;
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `dekaf-jdbc/src/impl/JdbcSeance.java`
+#### Snippet
+```java
+
+    @Nullable
+    protected ParamDef[] paramsDefs = null;
+
+    protected boolean hasInParams  = false;
 ```
 
 ### RedundantFieldInitialization
@@ -8980,14 +8932,14 @@ in `dekaf-jdbc/src/impl/JdbcSeance.java`
 
 ### RedundantFieldInitialization
 Field initialization to `false` is redundant
-in `dekaf-jdbc/src/impl/JdbcBaseCursor.java`
+in `dekaf-jdbc/src/impl/JdbcSeance.java`
 #### Snippet
 ```java
-    protected final ResultSet rset;
+    protected ParamDef[] paramsDefs = null;
 
-    protected boolean end = false;
-    private boolean closed = false;
-
+    protected boolean hasInParams  = false;
+    protected boolean hasOutParams = false;
+    protected int     paramCount   = 0;
 ```
 
 ### RedundantFieldInitialization
@@ -9003,6 +8955,66 @@ in `dekaf-jdbc/src/impl/JdbcBaseCursor.java`
 ```
 
 ### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `dekaf-jdbc/src/impl/JdbcBaseCursor.java`
+#### Snippet
+```java
+    protected final ResultSet rset;
+
+    protected boolean end = false;
+    private boolean closed = false;
+
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `dekaf-jdbc/src/impl/JdbcSession.java`
+#### Snippet
+```java
+    private boolean autoCommit = false;
+    private boolean inTransaction = false;
+    private boolean closed = false;
+
+
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `dekaf-jdbc/src/impl/JdbcSession.java`
+#### Snippet
+```java
+
+    private boolean autoCommit = false;
+    private boolean inTransaction = false;
+    private boolean closed = false;
+
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `dekaf-jdbc/src/impl/JdbcSession.java`
+#### Snippet
+```java
+    private Connection connection;
+
+    private boolean autoCommit = false;
+    private boolean inTransaction = false;
+    private boolean closed = false;
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `dekaf-jdbc/src/impl/JdbcFacade.java`
+#### Snippet
+```java
+
+    @Nullable
+    private String[] driverJars = null;
+
+    @Nullable
+```
+
+### RedundantFieldInitialization
 Field initialization to `null` is redundant
 in `dekaf-jdbc/src/impl/JdbcFacade.java`
 #### Snippet
@@ -9010,6 +9022,18 @@ in `dekaf-jdbc/src/impl/JdbcFacade.java`
 
     @Nullable
     private String jdbcConnectionString = null;
+
+    @Nullable
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `dekaf-jdbc/src/impl/JdbcFacade.java`
+#### Snippet
+```java
+
+    @Nullable
+    private String driverClassName = null;
 
     @Nullable
 ```
@@ -9036,30 +9060,6 @@ in `dekaf-jdbc/src/impl/JdbcFacade.java`
     private Settings jdbcParameters = null;
 
 
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `dekaf-jdbc/src/impl/JdbcFacade.java`
-#### Snippet
-```java
-
-    @Nullable
-    private String driverClassName = null;
-
-    @Nullable
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `dekaf-jdbc/src/impl/JdbcFacade.java`
-#### Snippet
-```java
-
-    @Nullable
-    private String[] driverJars = null;
-
-    @Nullable
 ```
 
 ### RedundantFieldInitialization
@@ -9099,18 +9099,6 @@ in `dekaf-jdbc/src/impl/JdbcColumnCursor.java`
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `dekaf-jdbc/src/impl/JdbcMatrixCursor.java`
-#### Snippet
-```java
-    private final Class<? extends B> baseClass;
-
-    private int columnCount = 0;
-
-    @Nullable
-```
-
-### RedundantFieldInitialization
 Field initialization to `null` is redundant
 in `dekaf-jdbc/src/impl/JdbcMatrixCursor.java`
 #### Snippet
@@ -9120,6 +9108,18 @@ in `dekaf-jdbc/src/impl/JdbcMatrixCursor.java`
     private JdbcValueGetter<? extends B>[] getters = null;
 
     private B defaultValue;
+```
+
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `dekaf-jdbc/src/impl/JdbcMatrixCursor.java`
+#### Snippet
+```java
+    private final Class<? extends B> baseClass;
+
+    private int columnCount = 0;
+
+    @Nullable
 ```
 
 ## RuleId[ruleID=UnnecessaryVariable]
@@ -9225,30 +9225,6 @@ Return of `null`
 in `dekaf-jdbc/src/impl/JdbcLongsCursor.java`
 #### Snippet
 ```java
-    @Override
-    public long[] fetchRow() {
-        if (end) return null;
-
-        try {
-```
-
-### ReturnNull
-Return of `null`
-in `dekaf-jdbc/src/impl/JdbcLongsCursor.java`
-#### Snippet
-```java
-            }
-            else {
-                return null;
-            }
-        }
-```
-
-### ReturnNull
-Return of `null`
-in `dekaf-jdbc/src/impl/JdbcLongsCursor.java`
-#### Snippet
-```java
     @Override @Nullable
     public long[] fetchPortion() {
         if (end) return null;
@@ -9266,6 +9242,30 @@ in `dekaf-jdbc/src/impl/JdbcLongsCursor.java`
             return null;
         }
         else if (k < portionSize) {
+```
+
+### ReturnNull
+Return of `null`
+in `dekaf-jdbc/src/impl/JdbcLongsCursor.java`
+#### Snippet
+```java
+    @Override
+    public long[] fetchRow() {
+        if (end) return null;
+
+        try {
+```
+
+### ReturnNull
+Return of `null`
+in `dekaf-jdbc/src/impl/JdbcLongsCursor.java`
+#### Snippet
+```java
+            }
+            else {
+                return null;
+            }
+        }
 ```
 
 ### ReturnNull
@@ -9322,7 +9322,7 @@ in `dekaf-jdbc/src/impl/JdbcMatrixCursor.java`
 #### Snippet
 ```java
     @Override
-    public B[] fetchRow() {
+    public B[][] fetchPortion() {
         if (end) return null;
         checkPrepared();
 
@@ -9333,8 +9333,20 @@ Return of `null`
 in `dekaf-jdbc/src/impl/JdbcMatrixCursor.java`
 #### Snippet
 ```java
+            end = true;
+            close();
+            return null;
+        }
+        else if (k < portionSize) {
+```
+
+### ReturnNull
+Return of `null`
+in `dekaf-jdbc/src/impl/JdbcMatrixCursor.java`
+#### Snippet
+```java
     @Override
-    public B[][] fetchPortion() {
+    public B[] fetchRow() {
         if (end) return null;
         checkPrepared();
 
@@ -9350,18 +9362,6 @@ in `dekaf-jdbc/src/utils/Objects.java`
       return null;
     }
   }
-```
-
-### ReturnNull
-Return of `null`
-in `dekaf-jdbc/src/impl/JdbcMatrixCursor.java`
-#### Snippet
-```java
-            end = true;
-            close();
-            return null;
-        }
-        else if (k < portionSize) {
 ```
 
 ### ReturnNull
@@ -9488,18 +9488,6 @@ public class DBConnectionException extends DBException {
 ```
 
 ### NonExceptionNameEndsWithException
-Non-exception class name `DBParameterSettingException` ends with 'Exception'
-in `dekaf-inter/src/exceptions/DBParameterSettingException.java`
-#### Snippet
-```java
- * @author Leonid Bushuev from JetBrains
- */
-public class DBParameterSettingException extends DBParameterHandlingException {
-
-  public DBParameterSettingException(final @NotNull String message,
-```
-
-### NonExceptionNameEndsWithException
 Non-exception class name `DBAccessDeniedException` ends with 'Exception'
 in `dekaf-inter/src/exceptions/DBAccessDeniedException.java`
 #### Snippet
@@ -9509,6 +9497,18 @@ in `dekaf-inter/src/exceptions/DBAccessDeniedException.java`
 public class DBAccessDeniedException extends DBException {
 
   public DBAccessDeniedException(@NotNull final SQLException sqlException,
+```
+
+### NonExceptionNameEndsWithException
+Non-exception class name `DBParameterSettingException` ends with 'Exception'
+in `dekaf-inter/src/exceptions/DBParameterSettingException.java`
+#### Snippet
+```java
+ * @author Leonid Bushuev from JetBrains
+ */
+public class DBParameterSettingException extends DBParameterHandlingException {
+
+  public DBParameterSettingException(final @NotNull String message,
 ```
 
 ### NonExceptionNameEndsWithException
@@ -9524,18 +9524,6 @@ public class DuplicateKeyException extends DBException {
 ```
 
 ### NonExceptionNameEndsWithException
-Non-exception class name `DBFactoryException` ends with 'Exception'
-in `dekaf-inter/src/exceptions/DBFactoryException.java`
-#### Snippet
-```java
- * @author Leonid Bushuev from JetBrains
- */
-public class DBFactoryException extends DBException {
-
-  public DBFactoryException(@NotNull String message, @NotNull Exception exception) {
-```
-
-### NonExceptionNameEndsWithException
 Non-exception class name `DBPreparingException` ends with 'Exception'
 in `dekaf-inter/src/exceptions/DBPreparingException.java`
 #### Snippet
@@ -9548,27 +9536,27 @@ public class DBPreparingException extends DBException {
 ```
 
 ### NonExceptionNameEndsWithException
-Non-exception class name `DBSessionIsClosedException` ends with 'Exception'
-in `dekaf-inter/src/exceptions/DBSessionIsClosedException.java`
+Non-exception class name `DBFactoryException` ends with 'Exception'
+in `dekaf-inter/src/exceptions/DBFactoryException.java`
 #### Snippet
 ```java
  * @author Leonid Bushuev from JetBrains
  */
-public class DBSessionIsClosedException extends DBServiceIsNotActiveException {
-  public DBSessionIsClosedException(@NotNull final String message) {
-    super(message);
+public class DBFactoryException extends DBException {
+
+  public DBFactoryException(@NotNull String message, @NotNull Exception exception) {
 ```
 
 ### NonExceptionNameEndsWithException
-Non-exception class name `DBParameterHandlingException` ends with 'Exception'
-in `dekaf-inter/src/exceptions/DBParameterHandlingException.java`
+Non-exception class name `DBDriverException` ends with 'Exception'
+in `dekaf-inter/src/exceptions/DBDriverException.java`
 #### Snippet
 ```java
  * @author Leonid Bushuev from JetBrains
  */
-public abstract class DBParameterHandlingException extends DBException {
+public class DBDriverException extends DBException {
 
-  protected DBParameterHandlingException(final @NotNull String message,
+  public DBDriverException(@NotNull String message, @NotNull Exception exception) {
 ```
 
 ### NonExceptionNameEndsWithException
@@ -9596,15 +9584,39 @@ public class DBTransactionIsAlreadyStartedException extends DBTransactionExcepti
 ```
 
 ### NonExceptionNameEndsWithException
-Non-exception class name `DBDriverException` ends with 'Exception'
-in `dekaf-inter/src/exceptions/DBDriverException.java`
+Non-exception class name `DBSessionIsClosedException` ends with 'Exception'
+in `dekaf-inter/src/exceptions/DBSessionIsClosedException.java`
 #### Snippet
 ```java
  * @author Leonid Bushuev from JetBrains
  */
-public class DBDriverException extends DBException {
+public class DBSessionIsClosedException extends DBServiceIsNotActiveException {
+  public DBSessionIsClosedException(@NotNull final String message) {
+    super(message);
+```
 
-  public DBDriverException(@NotNull String message, @NotNull Exception exception) {
+### NonExceptionNameEndsWithException
+Non-exception class name `DBParameterHandlingException` ends with 'Exception'
+in `dekaf-inter/src/exceptions/DBParameterHandlingException.java`
+#### Snippet
+```java
+ * @author Leonid Bushuev from JetBrains
+ */
+public abstract class DBParameterHandlingException extends DBException {
+
+  protected DBParameterHandlingException(final @NotNull String message,
+```
+
+### NonExceptionNameEndsWithException
+Non-exception class name `DBInitializationException` ends with 'Exception'
+in `dekaf-inter/src/exceptions/DBInitializationException.java`
+#### Snippet
+```java
+ * @author Leonid Bushuev from JetBrains
+ */
+public class DBInitializationException extends DBException {
+
+  public DBInitializationException(@NotNull final String message,
 ```
 
 ### NonExceptionNameEndsWithException
@@ -9620,18 +9632,6 @@ public class DBSchemaAccessDeniedException extends DBAccessDeniedException {
 ```
 
 ### NonExceptionNameEndsWithException
-Non-exception class name `DBFetchingException` ends with 'Exception'
-in `dekaf-inter/src/exceptions/DBFetchingException.java`
-#### Snippet
-```java
- * @author Leonid Bushuev from JetBrains
- */
-public class DBFetchingException extends DBException {
-  public DBFetchingException(@NotNull final SQLException sqlException,
-                             @Nullable String statementText) {
-```
-
-### NonExceptionNameEndsWithException
 Non-exception class name `DBColumnAccessDeniedException` ends with 'Exception'
 in `dekaf-inter/src/exceptions/DBColumnAccessDeniedException.java`
 #### Snippet
@@ -9641,6 +9641,18 @@ in `dekaf-inter/src/exceptions/DBColumnAccessDeniedException.java`
 public class DBColumnAccessDeniedException extends DBAccessDeniedException {
 
   public DBColumnAccessDeniedException(@NotNull final SQLException sqlException,
+```
+
+### NonExceptionNameEndsWithException
+Non-exception class name `DBFetchingException` ends with 'Exception'
+in `dekaf-inter/src/exceptions/DBFetchingException.java`
+#### Snippet
+```java
+ * @author Leonid Bushuev from JetBrains
+ */
+public class DBFetchingException extends DBException {
+  public DBFetchingException(@NotNull final SQLException sqlException,
+                             @Nullable String statementText) {
 ```
 
 ### NonExceptionNameEndsWithException
@@ -9680,27 +9692,27 @@ public final class UnknownDBException extends DBException {
 ```
 
 ### NonExceptionNameEndsWithException
-Non-exception class name `DBInitializationException` ends with 'Exception'
-in `dekaf-inter/src/exceptions/DBInitializationException.java`
+Non-exception class name `DBTransactionException` ends with 'Exception'
+in `dekaf-inter/src/exceptions/DBTransactionException.java`
 #### Snippet
 ```java
- * @author Leonid Bushuev from JetBrains
- */
-public class DBInitializationException extends DBException {
 
-  public DBInitializationException(@NotNull final String message,
+
+public class DBTransactionException extends DBException {
+
+    public DBTransactionException(final @NotNull String message,
 ```
 
 ### NonExceptionNameEndsWithException
-Non-exception class name `UnexpectedDBException` ends with 'Exception'
-in `dekaf-inter/src/exceptions/UnexpectedDBException.java`
+Non-exception class name `DbmsUnsupportedFeatureException` ends with 'Exception'
+in `dekaf-inter/src/exceptions/DbmsUnsupportedFeatureException.java`
 #### Snippet
 ```java
- * Unknown database error.
  */
-public final class UnexpectedDBException extends DBException {
 
-  public UnexpectedDBException(@NotNull final SQLException sqlException,
+public class DbmsUnsupportedFeatureException extends DBException {
+
+  public DbmsUnsupportedFeatureException(@NotNull final String message,
 ```
 
 ### NonExceptionNameEndsWithException
@@ -9716,18 +9728,6 @@ public class DBServiceIsNotActiveException extends DBException {
 ```
 
 ### NonExceptionNameEndsWithException
-Non-exception class name `DBTransactionException` ends with 'Exception'
-in `dekaf-inter/src/exceptions/DBTransactionException.java`
-#### Snippet
-```java
-
-
-public class DBTransactionException extends DBException {
-
-    public DBTransactionException(final @NotNull String message,
-```
-
-### NonExceptionNameEndsWithException
 Non-exception class name `NoTableOrViewException` ends with 'Exception'
 in `dekaf-inter/src/exceptions/NoTableOrViewException.java`
 #### Snippet
@@ -9740,15 +9740,15 @@ public class NoTableOrViewException extends DBException {
 ```
 
 ### NonExceptionNameEndsWithException
-Non-exception class name `DbmsUnsupportedFeatureException` ends with 'Exception'
-in `dekaf-inter/src/exceptions/DbmsUnsupportedFeatureException.java`
+Non-exception class name `UnexpectedDBException` ends with 'Exception'
+in `dekaf-inter/src/exceptions/UnexpectedDBException.java`
 #### Snippet
 ```java
+ * Unknown database error.
  */
+public final class UnexpectedDBException extends DBException {
 
-public class DbmsUnsupportedFeatureException extends DBException {
-
-  public DbmsUnsupportedFeatureException(@NotNull final String message,
+  public UnexpectedDBException(@NotNull final SQLException sqlException,
 ```
 
 ## RuleId[ruleID=ConstantValue]
@@ -9802,25 +9802,13 @@ inline fun<reified E:Any> layRowArrayOf(columnCount: Int = 0): RowLayout<Array<o
 ```
 
 ### UnusedSymbol
-Property "pair" is never used
-in `dekaf-main/src/settings/SettingsFun.kt`
-#### Snippet
-```java
-
-
-val Setting.pair: Pair<String, Serializable>
-    inline get() = Pair(name, value)
-
-```
-
-### UnusedSymbol
-Class "FieldByPositionRowLayout" is never used
+Class "FieldByNameRowLayout" is never used
 in `dekaf-main/src/queries/QueryLayout.kt`
 #### Snippet
 ```java
 }
 
-class FieldByPositionRowLayout<F:Any> (val fieldClass: Class<F>, val position: Int) : RowLayout<F, F>() {
+class FieldByNameRowLayout<F:Any> (val fieldClass: Class<F>, val name: String) : RowLayout<F, F>() {
     override fun makeRowHandler(): RowHandler<F, F> {
         TODO("not implemented yet")
 ```
@@ -9874,15 +9862,27 @@ class FieldByPositionRowLayout<F:Any> (val fieldClass: Class<F>, val position: I
 ```
 
 ### UnusedSymbol
-Class "FieldByNameRowLayout" is never used
+Class "FieldByPositionRowLayout" is never used
 in `dekaf-main/src/queries/QueryLayout.kt`
 #### Snippet
 ```java
 }
 
-class FieldByNameRowLayout<F:Any> (val fieldClass: Class<F>, val name: String) : RowLayout<F, F>() {
+class FieldByPositionRowLayout<F:Any> (val fieldClass: Class<F>, val position: Int) : RowLayout<F, F>() {
     override fun makeRowHandler(): RowHandler<F, F> {
         TODO("not implemented yet")
+```
+
+### UnusedSymbol
+Property "pair" is never used
+in `dekaf-main/src/settings/SettingsFun.kt`
+#### Snippet
+```java
+
+
+val Setting.pair: Pair<String, Serializable>
+    inline get() = Pair(name, value)
+
 ```
 
 ### UnusedSymbol
@@ -9931,6 +9931,54 @@ fun Path.isFile() = Files.isRegularFile(this)
 fun Path.isReadable() = Files.isReadable(this)
 
 
+```
+
+### UnusedSymbol
+Property "4" is never used
+in `test-utils/src/NumberConsts.kt`
+#### Snippet
+```java
+const val `2`: Byte = 2
+const val `3`: Byte = 3
+const val `4`: Byte = 4
+const val `5`: Byte = 5
+const val `6`: Byte = 6
+```
+
+### UnusedSymbol
+Property "0" is never used
+in `test-utils/src/NumberConsts.kt`
+#### Snippet
+```java
+
+
+const val `0`: Byte = 0
+const val `1`: Byte = 1
+const val `2`: Byte = 2
+```
+
+### UnusedSymbol
+Property "5" is never used
+in `test-utils/src/NumberConsts.kt`
+#### Snippet
+```java
+const val `3`: Byte = 3
+const val `4`: Byte = 4
+const val `5`: Byte = 5
+const val `6`: Byte = 6
+const val `7`: Byte = 7
+```
+
+### UnusedSymbol
+Property "6" is never used
+in `test-utils/src/NumberConsts.kt`
+#### Snippet
+```java
+const val `4`: Byte = 4
+const val `5`: Byte = 5
+const val `6`: Byte = 6
+const val `7`: Byte = 7
+const val `8`: Byte = 8
 ```
 
 ### UnusedSymbol
@@ -9991,54 +10039,6 @@ in `test-utils/src/teamcity/TeamCityMessages.kt`
     fun reportSuiteStarted(suiteName: String?) {
         if (suiteName == null) return
         if (underTeamCity)
-```
-
-### UnusedSymbol
-Property "5" is never used
-in `test-utils/src/NumberConsts.kt`
-#### Snippet
-```java
-const val `3`: Byte = 3
-const val `4`: Byte = 4
-const val `5`: Byte = 5
-const val `6`: Byte = 6
-const val `7`: Byte = 7
-```
-
-### UnusedSymbol
-Property "6" is never used
-in `test-utils/src/NumberConsts.kt`
-#### Snippet
-```java
-const val `4`: Byte = 4
-const val `5`: Byte = 5
-const val `6`: Byte = 6
-const val `7`: Byte = 7
-const val `8`: Byte = 8
-```
-
-### UnusedSymbol
-Property "4" is never used
-in `test-utils/src/NumberConsts.kt`
-#### Snippet
-```java
-const val `2`: Byte = 2
-const val `3`: Byte = 3
-const val `4`: Byte = 4
-const val `5`: Byte = 5
-const val `6`: Byte = 6
-```
-
-### UnusedSymbol
-Property "0" is never used
-in `test-utils/src/NumberConsts.kt`
-#### Snippet
-```java
-
-
-const val `0`: Byte = 0
-const val `1`: Byte = 1
-const val `2`: Byte = 2
 ```
 
 ## RuleId[ruleID=CanBeVal]
