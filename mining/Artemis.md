@@ -1,7 +1,7 @@
 # Artemis 
  
 # Bad smells
-I found 1432 bad smells with 74 repairable:
+I found 1432 bad smells with 78 repairable:
 | ruleID | number | fixable |
 | --- | --- | --- |
 | BoundedWildcard | 312 | false |
@@ -35,7 +35,7 @@ I found 1432 bad smells with 74 repairable:
 | ConstantValue | 5 | false |
 | OptionalIsPresent | 5 | false |
 | MethodOverloadsParentMethod | 5 | false |
-| UnnecessaryStringEscape | 4 | false |
+| UnnecessaryStringEscape | 4 | true |
 | KeySetIterationMayUseEntrySet | 4 | false |
 | ClassNameSameAsAncestorName | 4 | false |
 | NonSerializableFieldInSerializableClass | 4 | false |
@@ -237,11 +237,11 @@ Redundant character escape `\\.` in RegExp
 in `src/main/java/de/tum/in/www1/artemis/service/FileService.java`
 #### Snippet
 ```java
+     */
+    public String removeIllegalCharacters(String string) {
+        return string.replaceAll("[^a-zA-Z0-9\\.\\-]", "_");
+    }
 
-        // sanitize the filename and replace all invalid characters with with an underscore
-        filename = filename.replaceAll("[^a-zA-Z\\d\\.\\-]", "_");
-
-        // Check the allowed file extensions
 ```
 
 ### RegExpRedundantEscape
@@ -249,11 +249,11 @@ Redundant character escape `\\.` in RegExp
 in `src/main/java/de/tum/in/www1/artemis/service/FileService.java`
 #### Snippet
 ```java
-     */
-    public String removeIllegalCharacters(String string) {
-        return string.replaceAll("[^a-zA-Z0-9\\.\\-]", "_");
-    }
 
+        // sanitize the filename and replace all invalid characters with with an underscore
+        filename = filename.replaceAll("[^a-zA-Z\\d\\.\\-]", "_");
+
+        // Check the allowed file extensions
 ```
 
 ### RegExpRedundantEscape
@@ -357,6 +357,56 @@ in `src/main/java/de/tum/in/www1/artemis/service/scheduled/cache/quiz/QuizSchedu
 ## RuleId[ruleID=KotlinAnnotator]
 ### KotlinAnnotator
 Conflicting overloads: public fun \`\`(): Unit defined in root package in file QuickSort.kt, public fun \`\`(): Unit defined in root package in file Policy.kt, public fun \`\`(): Unit defined in root package in file MergeSort.kt, public fun \`\`(): Unit defined in root package in file Context.kt, public fun \`\`(): Unit defined in root package in file SortStrategy.kt, public fun \`\`(): Unit defined in root package in file Main.kt, public fun \`\`(): Unit defined in root package in file Client.kt, public fun \`\`(): Unit defined in root package in file QuickSort.kt, public fun \`\`(): Unit defined in root package in file Policy.kt, public fun \`\`(): Unit defined in root package in file MergeSort.kt, public fun \`\`(): Unit defined in root package in file Context.kt, public fun \`\`(): Unit defined in root package in file SortStrategy.kt, public fun \`\`(): Unit defined in root package in file Main.kt, public fun \`\`(): Unit defined in root package in file Client.kt
+in `src/main/resources/templates/kotlin/exercise/src/${packageNameFolder}/Main.kt`
+#### Snippet
+```java
+package ${packageName}
+
+
+```
+
+### KotlinAnnotator
+Function declaration must have a name
+in `src/main/resources/templates/kotlin/exercise/src/${packageNameFolder}/Main.kt`
+#### Snippet
+```java
+package ${packageName}
+
+
+```
+
+### KotlinAnnotator
+Unresolved reference: packageName
+in `src/main/resources/templates/kotlin/exercise/src/${packageNameFolder}/Main.kt`
+#### Snippet
+```java
+package ${packageName}
+
+
+```
+
+### KotlinAnnotator
+Conflicting overloads: public fun \`\`(): Unit defined in root package in file QuickSort.kt, public fun \`\`(): Unit defined in root package in file Policy.kt, public fun \`\`(): Unit defined in root package in file MergeSort.kt, public fun \`\`(): Unit defined in root package in file Context.kt, public fun \`\`(): Unit defined in root package in file SortStrategy.kt, public fun \`\`(): Unit defined in root package in file Main.kt, public fun \`\`(): Unit defined in root package in file Client.kt, public fun \`\`(): Unit defined in root package in file QuickSort.kt, public fun \`\`(): Unit defined in root package in file Policy.kt, public fun \`\`(): Unit defined in root package in file MergeSort.kt, public fun \`\`(): Unit defined in root package in file Context.kt, public fun \`\`(): Unit defined in root package in file SortStrategy.kt, public fun \`\`(): Unit defined in root package in file Main.kt, public fun \`\`(): Unit defined in root package in file Client.kt
+in `src/main/resources/templates/kotlin/exercise/src/${packageNameFolder}/SortStrategy.kt`
+#### Snippet
+```java
+package ${packageName}
+
+//TODO: declare strategy interface
+```
+
+### KotlinAnnotator
+Function declaration must have a name
+in `src/main/resources/templates/kotlin/exercise/src/${packageNameFolder}/SortStrategy.kt`
+#### Snippet
+```java
+package ${packageName}
+
+//TODO: declare strategy interface
+```
+
+### KotlinAnnotator
+Unresolved reference: packageName
 in `src/main/resources/templates/kotlin/exercise/src/${packageNameFolder}/SortStrategy.kt`
 #### Snippet
 ```java
@@ -408,56 +458,6 @@ class Context {
 ```
 
 ### KotlinAnnotator
-Function declaration must have a name
-in `src/main/resources/templates/kotlin/exercise/src/${packageNameFolder}/SortStrategy.kt`
-#### Snippet
-```java
-package ${packageName}
-
-//TODO: declare strategy interface
-```
-
-### KotlinAnnotator
-Unresolved reference: packageName
-in `src/main/resources/templates/kotlin/exercise/src/${packageNameFolder}/SortStrategy.kt`
-#### Snippet
-```java
-package ${packageName}
-
-//TODO: declare strategy interface
-```
-
-### KotlinAnnotator
-Conflicting overloads: public fun \`\`(): Unit defined in root package in file QuickSort.kt, public fun \`\`(): Unit defined in root package in file Policy.kt, public fun \`\`(): Unit defined in root package in file MergeSort.kt, public fun \`\`(): Unit defined in root package in file Context.kt, public fun \`\`(): Unit defined in root package in file SortStrategy.kt, public fun \`\`(): Unit defined in root package in file Main.kt, public fun \`\`(): Unit defined in root package in file Client.kt, public fun \`\`(): Unit defined in root package in file QuickSort.kt, public fun \`\`(): Unit defined in root package in file Policy.kt, public fun \`\`(): Unit defined in root package in file MergeSort.kt, public fun \`\`(): Unit defined in root package in file Context.kt, public fun \`\`(): Unit defined in root package in file SortStrategy.kt, public fun \`\`(): Unit defined in root package in file Main.kt, public fun \`\`(): Unit defined in root package in file Client.kt
-in `src/main/resources/templates/kotlin/exercise/src/${packageNameFolder}/Main.kt`
-#### Snippet
-```java
-package ${packageName}
-
-
-```
-
-### KotlinAnnotator
-Function declaration must have a name
-in `src/main/resources/templates/kotlin/exercise/src/${packageNameFolder}/Main.kt`
-#### Snippet
-```java
-package ${packageName}
-
-
-```
-
-### KotlinAnnotator
-Unresolved reference: packageName
-in `src/main/resources/templates/kotlin/exercise/src/${packageNameFolder}/Main.kt`
-#### Snippet
-```java
-package ${packageName}
-
-
-```
-
-### KotlinAnnotator
 Conflicting overloads: public fun \`\`(): Unit defined in root package in file QuickSort.kt, public fun \`\`(): Unit defined in root package in file Policy.kt, public fun \`\`(): Unit defined in root package in file MergeSort.kt, public fun \`\`(): Unit defined in root package in file Context.kt, public fun \`\`(): Unit defined in root package in file SortStrategy.kt, public fun \`\`(): Unit defined in root package in file Main.kt, public fun \`\`(): Unit defined in root package in file Client.kt, public fun \`\`(): Unit defined in root package in file QuickSort.kt, public fun \`\`(): Unit defined in root package in file Policy.kt, public fun \`\`(): Unit defined in root package in file MergeSort.kt, public fun \`\`(): Unit defined in root package in file Context.kt, public fun \`\`(): Unit defined in root package in file SortStrategy.kt, public fun \`\`(): Unit defined in root package in file Main.kt, public fun \`\`(): Unit defined in root package in file Client.kt
 in `src/main/resources/templates/kotlin/exercise/src/${packageNameFolder}/Policy.kt`
 #### Snippet
@@ -497,90 +497,6 @@ in `src/main/resources/templates/kotlin/exercise/src/${packageNameFolder}/Policy
 class Policy {
 
     //TODO: add `configure` method which accepts two boolean parameters
-```
-
-### KotlinAnnotator
-Redeclaration: Policy
-in `src/main/resources/templates/kotlin/solution/src/${packageNameFolder}/Policy.kt`
-#### Snippet
-```java
-package ${packageName}
-
-class Policy(private val context: Context) {
-
-    fun configure(timeIsImportant: Boolean, spaceIsImportant: Boolean) {
-```
-
-### KotlinAnnotator
-Conflicting overloads: public fun \`\`(): Unit defined in root package in file QuickSort.kt, public fun \`\`(): Unit defined in root package in file Policy.kt, public fun \`\`(): Unit defined in root package in file MergeSort.kt, public fun \`\`(): Unit defined in root package in file Context.kt, public fun \`\`(): Unit defined in root package in file SortStrategy.kt, public fun \`\`(): Unit defined in root package in file Main.kt, public fun \`\`(): Unit defined in root package in file Client.kt, public fun \`\`(): Unit defined in root package in file QuickSort.kt, public fun \`\`(): Unit defined in root package in file Policy.kt, public fun \`\`(): Unit defined in root package in file MergeSort.kt, public fun \`\`(): Unit defined in root package in file Context.kt, public fun \`\`(): Unit defined in root package in file SortStrategy.kt, public fun \`\`(): Unit defined in root package in file Main.kt, public fun \`\`(): Unit defined in root package in file Client.kt
-in `src/main/resources/templates/kotlin/exercise/src/${packageNameFolder}/QuickSort.kt`
-#### Snippet
-```java
-package ${packageName}
-
-//TODO: add the missing inheritance
-```
-
-### KotlinAnnotator
-Conflicting overloads: public fun \`\`(): Unit defined in root package in file QuickSort.kt, public fun \`\`(): Unit defined in root package in file Policy.kt, public fun \`\`(): Unit defined in root package in file MergeSort.kt, public fun \`\`(): Unit defined in root package in file Context.kt, public fun \`\`(): Unit defined in root package in file SortStrategy.kt, public fun \`\`(): Unit defined in root package in file Main.kt, public fun \`\`(): Unit defined in root package in file Client.kt, public fun \`\`(): Unit defined in root package in file QuickSort.kt, public fun \`\`(): Unit defined in root package in file Policy.kt, public fun \`\`(): Unit defined in root package in file MergeSort.kt, public fun \`\`(): Unit defined in root package in file Context.kt, public fun \`\`(): Unit defined in root package in file SortStrategy.kt, public fun \`\`(): Unit defined in root package in file Main.kt, public fun \`\`(): Unit defined in root package in file Client.kt
-in `src/main/resources/templates/kotlin/solution/src/${packageNameFolder}/Policy.kt`
-#### Snippet
-```java
-package ${packageName}
-
-class Policy(private val context: Context) {
-```
-
-### KotlinAnnotator
-Function declaration must have a name
-in `src/main/resources/templates/kotlin/exercise/src/${packageNameFolder}/QuickSort.kt`
-#### Snippet
-```java
-package ${packageName}
-
-//TODO: add the missing inheritance
-```
-
-### KotlinAnnotator
-Unresolved reference: packageName
-in `src/main/resources/templates/kotlin/exercise/src/${packageNameFolder}/QuickSort.kt`
-#### Snippet
-```java
-package ${packageName}
-
-//TODO: add the missing inheritance
-```
-
-### KotlinAnnotator
-Redeclaration: QuickSort
-in `src/main/resources/templates/kotlin/exercise/src/${packageNameFolder}/QuickSort.kt`
-#### Snippet
-```java
-
-//TODO: add the missing inheritance
-class QuickSort {
-
-    private lateinit var a: Array<Int>
-```
-
-### KotlinAnnotator
-Function declaration must have a name
-in `src/main/resources/templates/kotlin/solution/src/${packageNameFolder}/Policy.kt`
-#### Snippet
-```java
-package ${packageName}
-
-class Policy(private val context: Context) {
-```
-
-### KotlinAnnotator
-Unresolved reference: packageName
-in `src/main/resources/templates/kotlin/solution/src/${packageNameFolder}/Policy.kt`
-#### Snippet
-```java
-package ${packageName}
-
-class Policy(private val context: Context) {
 ```
 
 ### KotlinAnnotator
@@ -632,37 +548,61 @@ in `src/main/resources/templates/kotlin/solution/src/${packageNameFolder}/Policy
 ```
 
 ### KotlinAnnotator
-Conflicting overloads: public fun \`\`(): Unit defined in root package in file QuickSort.kt, public fun \`\`(): Unit defined in root package in file Policy.kt, public fun \`\`(): Unit defined in root package in file MergeSort.kt, public fun \`\`(): Unit defined in root package in file Context.kt, public fun \`\`(): Unit defined in root package in file SortStrategy.kt, public fun \`\`(): Unit defined in root package in file Main.kt, public fun \`\`(): Unit defined in root package in file Client.kt, public fun \`\`(): Unit defined in root package in file QuickSort.kt, public fun \`\`(): Unit defined in root package in file Policy.kt, public fun \`\`(): Unit defined in root package in file MergeSort.kt, public fun \`\`(): Unit defined in root package in file Context.kt, public fun \`\`(): Unit defined in root package in file SortStrategy.kt, public fun \`\`(): Unit defined in root package in file Main.kt, public fun \`\`(): Unit defined in root package in file Client.kt
-in `src/main/resources/templates/kotlin/solution/src/${packageNameFolder}/SortStrategy.kt`
+Redeclaration: Policy
+in `src/main/resources/templates/kotlin/solution/src/${packageNameFolder}/Policy.kt`
 #### Snippet
 ```java
 package ${packageName}
 
-interface SortStrategy {
-```
+class Policy(private val context: Context) {
 
-### KotlinAnnotator
-Function declaration must have a name
-in `src/main/resources/templates/kotlin/solution/src/${packageNameFolder}/SortStrategy.kt`
-#### Snippet
-```java
-package ${packageName}
-
-interface SortStrategy {
-```
-
-### KotlinAnnotator
-Unresolved reference: packageName
-in `src/main/resources/templates/kotlin/solution/src/${packageNameFolder}/SortStrategy.kt`
-#### Snippet
-```java
-package ${packageName}
-
-interface SortStrategy {
+    fun configure(timeIsImportant: Boolean, spaceIsImportant: Boolean) {
 ```
 
 ### KotlinAnnotator
 Conflicting overloads: public fun \`\`(): Unit defined in root package in file QuickSort.kt, public fun \`\`(): Unit defined in root package in file Policy.kt, public fun \`\`(): Unit defined in root package in file MergeSort.kt, public fun \`\`(): Unit defined in root package in file Context.kt, public fun \`\`(): Unit defined in root package in file SortStrategy.kt, public fun \`\`(): Unit defined in root package in file Main.kt, public fun \`\`(): Unit defined in root package in file Client.kt, public fun \`\`(): Unit defined in root package in file QuickSort.kt, public fun \`\`(): Unit defined in root package in file Policy.kt, public fun \`\`(): Unit defined in root package in file MergeSort.kt, public fun \`\`(): Unit defined in root package in file Context.kt, public fun \`\`(): Unit defined in root package in file SortStrategy.kt, public fun \`\`(): Unit defined in root package in file Main.kt, public fun \`\`(): Unit defined in root package in file Client.kt
+in `src/main/resources/templates/kotlin/solution/src/${packageNameFolder}/Policy.kt`
+#### Snippet
+```java
+package ${packageName}
+
+class Policy(private val context: Context) {
+```
+
+### KotlinAnnotator
+Function declaration must have a name
+in `src/main/resources/templates/kotlin/solution/src/${packageNameFolder}/Policy.kt`
+#### Snippet
+```java
+package ${packageName}
+
+class Policy(private val context: Context) {
+```
+
+### KotlinAnnotator
+Unresolved reference: packageName
+in `src/main/resources/templates/kotlin/solution/src/${packageNameFolder}/Policy.kt`
+#### Snippet
+```java
+package ${packageName}
+
+class Policy(private val context: Context) {
+```
+
+### KotlinAnnotator
+Redeclaration: QuickSort
+in `src/main/resources/templates/kotlin/exercise/src/${packageNameFolder}/QuickSort.kt`
+#### Snippet
+```java
+
+//TODO: add the missing inheritance
+class QuickSort {
+
+    private lateinit var a: Array<Int>
+```
+
+### KotlinAnnotator
+Conflicting overloads: public fun \`\`(): Unit defined in root package in file QuickSort.kt, public fun \`\`(): Unit defined in root package in file Policy.kt, public fun \`\`(): Unit defined in root package in file MergeSort.kt, public fun \`\`(): Unit defined in root package in file Context.kt, public fun \`\`(): Unit defined in root package in file SortStrategy.kt, public fun \`\`(): Unit defined in root package in file Main.kt, public fun \`\`(): Unit defined in root package in file Client.kt, public fun \`\`(): Unit defined in root package in file QuickSort.kt, public fun \`\`(): Unit defined in root package in file Policy.kt, public fun \`\`(): Unit defined in root package in file MergeSort.kt, public fun \`\`(): Unit defined in root package in file Context.kt, public fun \`\`(): Unit defined in root package in file SortStrategy.kt, public fun \`\`(): Unit defined in root package in file Main.kt, public fun \`\`(): Unit defined in root package in file Client.kt
 in `src/main/resources/templates/kotlin/solution/src/${packageNameFolder}/QuickSort.kt`
 #### Snippet
 ```java
@@ -689,6 +629,16 @@ in `src/main/resources/templates/kotlin/solution/src/${packageNameFolder}/QuickS
 package ${packageName}
 
 class QuickSort : SortStrategy {
+```
+
+### KotlinAnnotator
+Conflicting overloads: public fun \`\`(): Unit defined in root package in file QuickSort.kt, public fun \`\`(): Unit defined in root package in file Policy.kt, public fun \`\`(): Unit defined in root package in file MergeSort.kt, public fun \`\`(): Unit defined in root package in file Context.kt, public fun \`\`(): Unit defined in root package in file SortStrategy.kt, public fun \`\`(): Unit defined in root package in file Main.kt, public fun \`\`(): Unit defined in root package in file Client.kt, public fun \`\`(): Unit defined in root package in file QuickSort.kt, public fun \`\`(): Unit defined in root package in file Policy.kt, public fun \`\`(): Unit defined in root package in file MergeSort.kt, public fun \`\`(): Unit defined in root package in file Context.kt, public fun \`\`(): Unit defined in root package in file SortStrategy.kt, public fun \`\`(): Unit defined in root package in file Main.kt, public fun \`\`(): Unit defined in root package in file Client.kt
+in `src/main/resources/templates/kotlin/exercise/src/${packageNameFolder}/QuickSort.kt`
+#### Snippet
+```java
+package ${packageName}
+
+//TODO: add the missing inheritance
 ```
 
 ### KotlinAnnotator
@@ -701,6 +651,122 @@ package ${packageName}
 class QuickSort : SortStrategy {
 
     private lateinit var a: Array<Int>
+```
+
+### KotlinAnnotator
+Function declaration must have a name
+in `src/main/resources/templates/kotlin/exercise/src/${packageNameFolder}/QuickSort.kt`
+#### Snippet
+```java
+package ${packageName}
+
+//TODO: add the missing inheritance
+```
+
+### KotlinAnnotator
+Unresolved reference: packageName
+in `src/main/resources/templates/kotlin/exercise/src/${packageNameFolder}/QuickSort.kt`
+#### Snippet
+```java
+package ${packageName}
+
+//TODO: add the missing inheritance
+```
+
+### KotlinAnnotator
+Conflicting overloads: public fun \`\`(): Unit defined in root package in file QuickSort.kt, public fun \`\`(): Unit defined in root package in file Policy.kt, public fun \`\`(): Unit defined in root package in file MergeSort.kt, public fun \`\`(): Unit defined in root package in file Context.kt, public fun \`\`(): Unit defined in root package in file SortStrategy.kt, public fun \`\`(): Unit defined in root package in file Main.kt, public fun \`\`(): Unit defined in root package in file Client.kt, public fun \`\`(): Unit defined in root package in file QuickSort.kt, public fun \`\`(): Unit defined in root package in file Policy.kt, public fun \`\`(): Unit defined in root package in file MergeSort.kt, public fun \`\`(): Unit defined in root package in file Context.kt, public fun \`\`(): Unit defined in root package in file SortStrategy.kt, public fun \`\`(): Unit defined in root package in file Main.kt, public fun \`\`(): Unit defined in root package in file Client.kt
+in `src/main/resources/templates/kotlin/solution/src/${packageNameFolder}/SortStrategy.kt`
+#### Snippet
+```java
+package ${packageName}
+
+interface SortStrategy {
+```
+
+### KotlinAnnotator
+Function declaration must have a name
+in `src/main/resources/templates/kotlin/solution/src/${packageNameFolder}/SortStrategy.kt`
+#### Snippet
+```java
+package ${packageName}
+
+interface SortStrategy {
+```
+
+### KotlinAnnotator
+Unresolved reference: packageName
+in `src/main/resources/templates/kotlin/solution/src/${packageNameFolder}/SortStrategy.kt`
+#### Snippet
+```java
+package ${packageName}
+
+interface SortStrategy {
+```
+
+### KotlinAnnotator
+Unresolved reference: until
+in `src/main/resources/templates/kotlin/exercise/src/${packageNameFolder}/MergeSort.kt`
+#### Snippet
+```java
+        var i = lo
+        var j = mid
+        for (k in lo until hi) {
+            when {
+                i == mid -> aux[k] = a[j++]
+```
+
+### KotlinAnnotator
+Unresolved reference: until
+in `src/main/resources/templates/kotlin/exercise/src/${packageNameFolder}/MergeSort.kt`
+#### Snippet
+```java
+
+        // copy back
+        for (k in lo until hi)
+            a[k] = aux[k]
+    }
+```
+
+### KotlinAnnotator
+Conflicting overloads: public fun \`\`(): Unit defined in root package in file QuickSort.kt, public fun \`\`(): Unit defined in root package in file Policy.kt, public fun \`\`(): Unit defined in root package in file MergeSort.kt, public fun \`\`(): Unit defined in root package in file Context.kt, public fun \`\`(): Unit defined in root package in file SortStrategy.kt, public fun \`\`(): Unit defined in root package in file Main.kt, public fun \`\`(): Unit defined in root package in file Client.kt, public fun \`\`(): Unit defined in root package in file QuickSort.kt, public fun \`\`(): Unit defined in root package in file Policy.kt, public fun \`\`(): Unit defined in root package in file MergeSort.kt, public fun \`\`(): Unit defined in root package in file Context.kt, public fun \`\`(): Unit defined in root package in file SortStrategy.kt, public fun \`\`(): Unit defined in root package in file Main.kt, public fun \`\`(): Unit defined in root package in file Client.kt
+in `src/main/resources/templates/kotlin/exercise/src/${packageNameFolder}/MergeSort.kt`
+#### Snippet
+```java
+package ${packageName}
+
+//TODO: add the missing inheritance
+```
+
+### KotlinAnnotator
+Function declaration must have a name
+in `src/main/resources/templates/kotlin/exercise/src/${packageNameFolder}/MergeSort.kt`
+#### Snippet
+```java
+package ${packageName}
+
+//TODO: add the missing inheritance
+```
+
+### KotlinAnnotator
+Unresolved reference: packageName
+in `src/main/resources/templates/kotlin/exercise/src/${packageNameFolder}/MergeSort.kt`
+#### Snippet
+```java
+package ${packageName}
+
+//TODO: add the missing inheritance
+```
+
+### KotlinAnnotator
+Redeclaration: MergeSort
+in `src/main/resources/templates/kotlin/exercise/src/${packageNameFolder}/MergeSort.kt`
+#### Snippet
+```java
+
+//TODO: add the missing inheritance
+class MergeSort {
+
+    /***********************************************************************
 ```
 
 ### KotlinAnnotator
@@ -770,99 +836,165 @@ in `src/main/resources/templates/kotlin/solution/src/${packageNameFolder}/Contex
 ```
 
 ### KotlinAnnotator
-Unresolved reference: until
-in `src/main/resources/templates/kotlin/exercise/src/${packageNameFolder}/MergeSort.kt`
+Unresolved reference: Random
+in `src/main/resources/templates/kotlin/solution/src/${packageNameFolder}/Client.kt`
 #### Snippet
 ```java
-        var i = lo
-        var j = mid
-        for (k in lo until hi) {
-            when {
-                i == mid -> aux[k] = a[j++]
+
+    fun createIntegerArray(size: Int = 30): Array<Int> {
+        return Array(size) { Random.nextInt(0, 100) }
+    }
+
 ```
 
 ### KotlinAnnotator
-Unresolved reference: until
-in `src/main/resources/templates/kotlin/exercise/src/${packageNameFolder}/MergeSort.kt`
+Unresolved reference: random
+in `src/main/resources/templates/kotlin/solution/src/${packageNameFolder}/Client.kt`
+#### Snippet
+```java
+package ${packageName}
+
+import kotlin.random.Random
+
+object Client {
+```
+
+### KotlinAnnotator
+Conflicting overloads: public fun \`\`(): Unit defined in root package in file QuickSort.kt, public fun \`\`(): Unit defined in root package in file Policy.kt, public fun \`\`(): Unit defined in root package in file MergeSort.kt, public fun \`\`(): Unit defined in root package in file Context.kt, public fun \`\`(): Unit defined in root package in file SortStrategy.kt, public fun \`\`(): Unit defined in root package in file Main.kt, public fun \`\`(): Unit defined in root package in file Client.kt, public fun \`\`(): Unit defined in root package in file QuickSort.kt, public fun \`\`(): Unit defined in root package in file Policy.kt, public fun \`\`(): Unit defined in root package in file MergeSort.kt, public fun \`\`(): Unit defined in root package in file Context.kt, public fun \`\`(): Unit defined in root package in file SortStrategy.kt, public fun \`\`(): Unit defined in root package in file Main.kt, public fun \`\`(): Unit defined in root package in file Client.kt
+in `src/main/resources/templates/kotlin/solution/src/${packageNameFolder}/Client.kt`
+#### Snippet
+```java
+package ${packageName}
+
+import kotlin.random.Random
+```
+
+### KotlinAnnotator
+Function declaration must have a name
+in `src/main/resources/templates/kotlin/solution/src/${packageNameFolder}/Client.kt`
+#### Snippet
+```java
+package ${packageName}
+
+import kotlin.random.Random
+```
+
+### KotlinAnnotator
+Unresolved reference: packageName
+in `src/main/resources/templates/kotlin/solution/src/${packageNameFolder}/Client.kt`
+#### Snippet
+```java
+package ${packageName}
+
+import kotlin.random.Random
+```
+
+### KotlinAnnotator
+Unresolved reference: Random
+in `src/main/resources/templates/kotlin/solution/src/${packageNameFolder}/Client.kt`
 #### Snippet
 ```java
 
-        // copy back
-        for (k in lo until hi)
-            a[k] = aux[k]
+    fun simulateRuntimeConfigurationChange(sortPolicy: Policy) {
+        if (Random.nextBoolean()) {
+            println("Time is important!")
+            sortPolicy.configure(timeIsImportant = true, spaceIsImportant = false)
+```
+
+### KotlinAnnotator
+Unresolved reference: println
+in `src/main/resources/templates/kotlin/solution/src/${packageNameFolder}/Client.kt`
+#### Snippet
+```java
+    fun simulateRuntimeConfigurationChange(sortPolicy: Policy) {
+        if (Random.nextBoolean()) {
+            println("Time is important!")
+            sortPolicy.configure(timeIsImportant = true, spaceIsImportant = false)
+        } else {
+```
+
+### KotlinAnnotator
+Unresolved reference: configure
+in `src/main/resources/templates/kotlin/solution/src/${packageNameFolder}/Client.kt`
+#### Snippet
+```java
+        if (Random.nextBoolean()) {
+            println("Time is important!")
+            sortPolicy.configure(timeIsImportant = true, spaceIsImportant = false)
+        } else {
+            println("Time and space are important!")
+```
+
+### KotlinAnnotator
+Unresolved reference: println
+in `src/main/resources/templates/kotlin/solution/src/${packageNameFolder}/Client.kt`
+#### Snippet
+```java
+            sortPolicy.configure(timeIsImportant = true, spaceIsImportant = false)
+        } else {
+            println("Time and space are important!")
+            sortPolicy.configure(timeIsImportant = true, spaceIsImportant = true)
+        }
+```
+
+### KotlinAnnotator
+Unresolved reference: configure
+in `src/main/resources/templates/kotlin/solution/src/${packageNameFolder}/Client.kt`
+#### Snippet
+```java
+        } else {
+            println("Time and space are important!")
+            sortPolicy.configure(timeIsImportant = true, spaceIsImportant = true)
+        }
     }
 ```
 
 ### KotlinAnnotator
-Redeclaration: MergeSort
-in `src/main/resources/templates/kotlin/exercise/src/${packageNameFolder}/MergeSort.kt`
+Unresolved reference: println
+in `src/main/resources/templates/kotlin/solution/src/${packageNameFolder}/Client.kt`
 #### Snippet
 ```java
 
-//TODO: add the missing inheritance
-class MergeSort {
+    fun printIntegerArray(a: Array<Int>) {
+        println(a.joinToString(prefix = "[", postfix = "]"))
+    }
 
-    /***********************************************************************
 ```
 
 ### KotlinAnnotator
-Conflicting overloads: public fun \`\`(): Unit defined in root package in file QuickSort.kt, public fun \`\`(): Unit defined in root package in file Policy.kt, public fun \`\`(): Unit defined in root package in file MergeSort.kt, public fun \`\`(): Unit defined in root package in file Context.kt, public fun \`\`(): Unit defined in root package in file SortStrategy.kt, public fun \`\`(): Unit defined in root package in file Main.kt, public fun \`\`(): Unit defined in root package in file Client.kt, public fun \`\`(): Unit defined in root package in file QuickSort.kt, public fun \`\`(): Unit defined in root package in file Policy.kt, public fun \`\`(): Unit defined in root package in file MergeSort.kt, public fun \`\`(): Unit defined in root package in file Context.kt, public fun \`\`(): Unit defined in root package in file SortStrategy.kt, public fun \`\`(): Unit defined in root package in file Main.kt, public fun \`\`(): Unit defined in root package in file Client.kt
-in `src/main/resources/templates/kotlin/exercise/src/${packageNameFolder}/MergeSort.kt`
+Unresolved reference: joinToString
+in `src/main/resources/templates/kotlin/solution/src/${packageNameFolder}/Client.kt`
 #### Snippet
 ```java
-package ${packageName}
 
-//TODO: add the missing inheritance
+    fun printIntegerArray(a: Array<Int>) {
+        println(a.joinToString(prefix = "[", postfix = "]"))
+    }
+
 ```
 
 ### KotlinAnnotator
-Function declaration must have a name
-in `src/main/resources/templates/kotlin/exercise/src/${packageNameFolder}/MergeSort.kt`
+Unresolved reference: toList
+in `src/main/resources/templates/kotlin/solution/src/${packageNameFolder}/Client.kt`
 #### Snippet
 ```java
-package ${packageName}
 
-//TODO: add the missing inheritance
+    fun scrambleArray(array: Array<Int>): Array<Int> {
+        return array.toList().shuffled().toTypedArray()
+    }
+
 ```
 
 ### KotlinAnnotator
-Unresolved reference: packageName
-in `src/main/resources/templates/kotlin/exercise/src/${packageNameFolder}/MergeSort.kt`
+Redeclaration: Client
+in `src/main/resources/templates/kotlin/solution/src/${packageNameFolder}/Client.kt`
 #### Snippet
 ```java
-package ${packageName}
+import kotlin.random.Random
 
-//TODO: add the missing inheritance
-```
+object Client {
 
-### KotlinAnnotator
-Conflicting overloads: public fun \`\`(): Unit defined in root package in file QuickSort.kt, public fun \`\`(): Unit defined in root package in file Policy.kt, public fun \`\`(): Unit defined in root package in file MergeSort.kt, public fun \`\`(): Unit defined in root package in file Context.kt, public fun \`\`(): Unit defined in root package in file SortStrategy.kt, public fun \`\`(): Unit defined in root package in file Main.kt, public fun \`\`(): Unit defined in root package in file Client.kt, public fun \`\`(): Unit defined in root package in file QuickSort.kt, public fun \`\`(): Unit defined in root package in file Policy.kt, public fun \`\`(): Unit defined in root package in file MergeSort.kt, public fun \`\`(): Unit defined in root package in file Context.kt, public fun \`\`(): Unit defined in root package in file SortStrategy.kt, public fun \`\`(): Unit defined in root package in file Main.kt, public fun \`\`(): Unit defined in root package in file Client.kt
-in `src/main/resources/templates/kotlin/solution/src/${packageNameFolder}/Main.kt`
-#### Snippet
-```java
-package ${packageName}
-
-fun main() {
-```
-
-### KotlinAnnotator
-Function declaration must have a name
-in `src/main/resources/templates/kotlin/solution/src/${packageNameFolder}/Main.kt`
-#### Snippet
-```java
-package ${packageName}
-
-fun main() {
-```
-
-### KotlinAnnotator
-Unresolved reference: packageName
-in `src/main/resources/templates/kotlin/solution/src/${packageNameFolder}/Main.kt`
-#### Snippet
-```java
-package ${packageName}
-
-fun main() {
+    fun createIntegerArray(size: Int = 30): Array<Int> {
 ```
 
 ### KotlinAnnotator
@@ -926,177 +1058,33 @@ in `src/main/resources/templates/kotlin/solution/src/${packageNameFolder}/Main.k
 ```
 
 ### KotlinAnnotator
-Unresolved reference: toList
-in `src/main/resources/templates/kotlin/solution/src/${packageNameFolder}/Client.kt`
-#### Snippet
-```java
-
-    fun scrambleArray(array: Array<Int>): Array<Int> {
-        return array.toList().shuffled().toTypedArray()
-    }
-
-```
-
-### KotlinAnnotator
-Unresolved reference: random
-in `src/main/resources/templates/kotlin/solution/src/${packageNameFolder}/Client.kt`
-#### Snippet
-```java
-package ${packageName}
-
-import kotlin.random.Random
-
-object Client {
-```
-
-### KotlinAnnotator
-Unresolved reference: println
-in `src/main/resources/templates/kotlin/solution/src/${packageNameFolder}/Client.kt`
-#### Snippet
-```java
-
-    fun printIntegerArray(a: Array<Int>) {
-        println(a.joinToString(prefix = "[", postfix = "]"))
-    }
-
-```
-
-### KotlinAnnotator
-Unresolved reference: joinToString
-in `src/main/resources/templates/kotlin/solution/src/${packageNameFolder}/Client.kt`
-#### Snippet
-```java
-
-    fun printIntegerArray(a: Array<Int>) {
-        println(a.joinToString(prefix = "[", postfix = "]"))
-    }
-
-```
-
-### KotlinAnnotator
-Unresolved reference: Random
-in `src/main/resources/templates/kotlin/solution/src/${packageNameFolder}/Client.kt`
-#### Snippet
-```java
-
-    fun simulateRuntimeConfigurationChange(sortPolicy: Policy) {
-        if (Random.nextBoolean()) {
-            println("Time is important!")
-            sortPolicy.configure(timeIsImportant = true, spaceIsImportant = false)
-```
-
-### KotlinAnnotator
-Unresolved reference: println
-in `src/main/resources/templates/kotlin/solution/src/${packageNameFolder}/Client.kt`
-#### Snippet
-```java
-    fun simulateRuntimeConfigurationChange(sortPolicy: Policy) {
-        if (Random.nextBoolean()) {
-            println("Time is important!")
-            sortPolicy.configure(timeIsImportant = true, spaceIsImportant = false)
-        } else {
-```
-
-### KotlinAnnotator
-Unresolved reference: configure
-in `src/main/resources/templates/kotlin/solution/src/${packageNameFolder}/Client.kt`
-#### Snippet
-```java
-        if (Random.nextBoolean()) {
-            println("Time is important!")
-            sortPolicy.configure(timeIsImportant = true, spaceIsImportant = false)
-        } else {
-            println("Time and space are important!")
-```
-
-### KotlinAnnotator
-Unresolved reference: println
-in `src/main/resources/templates/kotlin/solution/src/${packageNameFolder}/Client.kt`
-#### Snippet
-```java
-            sortPolicy.configure(timeIsImportant = true, spaceIsImportant = false)
-        } else {
-            println("Time and space are important!")
-            sortPolicy.configure(timeIsImportant = true, spaceIsImportant = true)
-        }
-```
-
-### KotlinAnnotator
-Unresolved reference: configure
-in `src/main/resources/templates/kotlin/solution/src/${packageNameFolder}/Client.kt`
-#### Snippet
-```java
-        } else {
-            println("Time and space are important!")
-            sortPolicy.configure(timeIsImportant = true, spaceIsImportant = true)
-        }
-    }
-```
-
-### KotlinAnnotator
 Conflicting overloads: public fun \`\`(): Unit defined in root package in file QuickSort.kt, public fun \`\`(): Unit defined in root package in file Policy.kt, public fun \`\`(): Unit defined in root package in file MergeSort.kt, public fun \`\`(): Unit defined in root package in file Context.kt, public fun \`\`(): Unit defined in root package in file SortStrategy.kt, public fun \`\`(): Unit defined in root package in file Main.kt, public fun \`\`(): Unit defined in root package in file Client.kt, public fun \`\`(): Unit defined in root package in file QuickSort.kt, public fun \`\`(): Unit defined in root package in file Policy.kt, public fun \`\`(): Unit defined in root package in file MergeSort.kt, public fun \`\`(): Unit defined in root package in file Context.kt, public fun \`\`(): Unit defined in root package in file SortStrategy.kt, public fun \`\`(): Unit defined in root package in file Main.kt, public fun \`\`(): Unit defined in root package in file Client.kt
-in `src/main/resources/templates/kotlin/solution/src/${packageNameFolder}/Client.kt`
+in `src/main/resources/templates/kotlin/solution/src/${packageNameFolder}/Main.kt`
 #### Snippet
 ```java
 package ${packageName}
 
-import kotlin.random.Random
+fun main() {
 ```
 
 ### KotlinAnnotator
 Function declaration must have a name
-in `src/main/resources/templates/kotlin/solution/src/${packageNameFolder}/Client.kt`
+in `src/main/resources/templates/kotlin/solution/src/${packageNameFolder}/Main.kt`
 #### Snippet
 ```java
 package ${packageName}
 
-import kotlin.random.Random
+fun main() {
 ```
 
 ### KotlinAnnotator
 Unresolved reference: packageName
-in `src/main/resources/templates/kotlin/solution/src/${packageNameFolder}/Client.kt`
+in `src/main/resources/templates/kotlin/solution/src/${packageNameFolder}/Main.kt`
 #### Snippet
 ```java
 package ${packageName}
 
-import kotlin.random.Random
-```
-
-### KotlinAnnotator
-Unresolved reference: Random
-in `src/main/resources/templates/kotlin/solution/src/${packageNameFolder}/Client.kt`
-#### Snippet
-```java
-
-    fun createIntegerArray(size: Int = 30): Array<Int> {
-        return Array(size) { Random.nextInt(0, 100) }
-    }
-
-```
-
-### KotlinAnnotator
-Redeclaration: Client
-in `src/main/resources/templates/kotlin/solution/src/${packageNameFolder}/Client.kt`
-#### Snippet
-```java
-import kotlin.random.Random
-
-object Client {
-
-    fun createIntegerArray(size: Int = 30): Array<Int> {
-```
-
-### KotlinAnnotator
-Redeclaration: MergeSort
-in `src/main/resources/templates/kotlin/solution/src/${packageNameFolder}/MergeSort.kt`
-#### Snippet
-```java
-package ${packageName}
-
-class MergeSort : SortStrategy {
-
-    /***********************************************************************
+fun main() {
 ```
 
 ### KotlinAnnotator
@@ -1154,39 +1142,39 @@ class MergeSort : SortStrategy {
 ```
 
 ### KotlinAnnotator
+Redeclaration: MergeSort
+in `src/main/resources/templates/kotlin/solution/src/${packageNameFolder}/MergeSort.kt`
+#### Snippet
+```java
+package ${packageName}
+
+class MergeSort : SortStrategy {
+
+    /***********************************************************************
+```
+
+### KotlinAnnotator
 Unresolved reference: Random
 in `src/main/resources/templates/kotlin/exercise/src/${packageNameFolder}/Client.kt`
 #### Snippet
 ```java
 
-    fun simulateRuntimeConfigurationChange(sortPolicy: Policy) {
-        if (Random.nextBoolean()) {
-            println("Time is important!")
-            //TODO: configure policy
-```
-
-### KotlinAnnotator
-Unresolved reference: println
-in `src/main/resources/templates/kotlin/exercise/src/${packageNameFolder}/Client.kt`
-#### Snippet
-```java
-    fun simulateRuntimeConfigurationChange(sortPolicy: Policy) {
-        if (Random.nextBoolean()) {
-            println("Time is important!")
-            //TODO: configure policy
+    fun createIntegerArray(size: Int = 30): Array<Int> {
+        return Array(size) { Random.nextInt(0, 100) }
+    }
 
 ```
 
 ### KotlinAnnotator
-Unresolved reference: println
+Redeclaration: Client
 in `src/main/resources/templates/kotlin/exercise/src/${packageNameFolder}/Client.kt`
 #### Snippet
 ```java
+import kotlin.random.Random
 
-        } else {
-            println("Time and space are important!")
-            //TODO: configure policy
+object Client {
 
+    fun createIntegerArray(size: Int = 30): Array<Int> {
 ```
 
 ### KotlinAnnotator
@@ -1232,18 +1220,6 @@ in `src/main/resources/templates/kotlin/exercise/src/${packageNameFolder}/Client
 ```
 
 ### KotlinAnnotator
-Redeclaration: Client
-in `src/main/resources/templates/kotlin/exercise/src/${packageNameFolder}/Client.kt`
-#### Snippet
-```java
-import kotlin.random.Random
-
-object Client {
-
-    fun createIntegerArray(size: Int = 30): Array<Int> {
-```
-
-### KotlinAnnotator
 Unresolved reference: random
 in `src/main/resources/templates/kotlin/exercise/src/${packageNameFolder}/Client.kt`
 #### Snippet
@@ -1253,6 +1229,42 @@ package ${packageName}
 import kotlin.random.Random
 
 object Client {
+```
+
+### KotlinAnnotator
+Unresolved reference: Random
+in `src/main/resources/templates/kotlin/exercise/src/${packageNameFolder}/Client.kt`
+#### Snippet
+```java
+
+    fun simulateRuntimeConfigurationChange(sortPolicy: Policy) {
+        if (Random.nextBoolean()) {
+            println("Time is important!")
+            //TODO: configure policy
+```
+
+### KotlinAnnotator
+Unresolved reference: println
+in `src/main/resources/templates/kotlin/exercise/src/${packageNameFolder}/Client.kt`
+#### Snippet
+```java
+    fun simulateRuntimeConfigurationChange(sortPolicy: Policy) {
+        if (Random.nextBoolean()) {
+            println("Time is important!")
+            //TODO: configure policy
+
+```
+
+### KotlinAnnotator
+Unresolved reference: println
+in `src/main/resources/templates/kotlin/exercise/src/${packageNameFolder}/Client.kt`
+#### Snippet
+```java
+
+        } else {
+            println("Time and space are important!")
+            //TODO: configure policy
+
 ```
 
 ### KotlinAnnotator
@@ -1275,18 +1287,6 @@ in `src/main/resources/templates/kotlin/exercise/src/${packageNameFolder}/Client
 
     fun printIntegerArray(a: Array<Int>) {
         println(a.joinToString(prefix = "[", postfix = "]"))
-    }
-
-```
-
-### KotlinAnnotator
-Unresolved reference: Random
-in `src/main/resources/templates/kotlin/exercise/src/${packageNameFolder}/Client.kt`
-#### Snippet
-```java
-
-    fun createIntegerArray(size: Int = 30): Array<Int> {
-        return Array(size) { Random.nextInt(0, 100) }
     }
 
 ```
@@ -1404,18 +1404,6 @@ in `src/main/java/de/tum/in/www1/artemis/service/tutorialgroups/TutorialGroupSer
 
 ## RuleId[ruleID=BoundedWildcard]
 ### BoundedWildcard
-Can generalize to `? extends SAML2Service`
-in `src/main/java/de/tum/in/www1/artemis/web/rest/UserJWTController.java`
-#### Snippet
-```java
-    private final Optional<SAML2Service> saml2Service;
-
-    public UserJWTController(JWTCookieService jwtCookieService, AuthenticationManagerBuilder authenticationManagerBuilder, Optional<SAML2Service> saml2Service) {
-        this.jwtCookieService = jwtCookieService;
-        this.authenticationManagerBuilder = authenticationManagerBuilder;
-```
-
-### BoundedWildcard
 Can generalize to `? extends StaticCodeAnalysisCategory`
 in `src/main/java/de/tum/in/www1/artemis/web/rest/StaticCodeAnalysisResource.java`
 #### Snippet
@@ -1425,30 +1413,6 @@ in `src/main/java/de/tum/in/www1/artemis/web/rest/StaticCodeAnalysisResource.jav
     private void validateCategories(Set<StaticCodeAnalysisCategory> categories, Long exerciseId) {
         for (var category : categories) {
             // Each category must have an id
-```
-
-### BoundedWildcard
-Can generalize to `? extends StudentExam`
-in `src/main/java/de/tum/in/www1/artemis/web/rest/ExamResource.java`
-#### Snippet
-```java
-    }
-
-    private static void breakCyclesForSerialization(List<StudentExam> studentExams) {
-        for (StudentExam studentExam : studentExams) {
-            studentExam.getExam().setRegisteredUsers(null);
-```
-
-### BoundedWildcard
-Can generalize to `? extends Complaint`
-in `src/main/java/de/tum/in/www1/artemis/web/rest/ComplaintResource.java`
-#### Snippet
-```java
-    }
-
-    private void filterOutUselessDataFromComplaints(List<Complaint> complaints, boolean filterOutStudentFromComplaints) {
-        if (filterOutStudentFromComplaints) {
-            complaints.forEach(this::filterOutStudentFromComplaint);
 ```
 
 ### BoundedWildcard
@@ -1464,27 +1428,15 @@ in `src/main/java/de/tum/in/www1/artemis/web/rest/ComplaintResource.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends AtheneScheduleService`
-in `src/main/java/de/tum/in/www1/artemis/web/rest/TextSubmissionResource.java`
+Can generalize to `? extends Complaint`
+in `src/main/java/de/tum/in/www1/artemis/web/rest/ComplaintResource.java`
 #### Snippet
 ```java
-            ExerciseRepository exerciseRepository, TextExerciseRepository textExerciseRepository, AuthorizationCheckService authCheckService,
-            TextSubmissionService textSubmissionService, UserRepository userRepository, StudentParticipationRepository studentParticipationRepository,
-            GradingCriterionRepository gradingCriterionRepository, TextAssessmentService textAssessmentService, Optional<AtheneScheduleService> atheneScheduleService,
-            ExamSubmissionService examSubmissionService, PlagiarismService plagiarismService, Optional<AtheneTrackingTokenProvider> atheneTrackingTokenProvider) {
-        super(submissionRepository, resultService, authCheckService, userRepository, exerciseRepository, textSubmissionService, studentParticipationRepository);
-```
+    }
 
-### BoundedWildcard
-Can generalize to `? extends AtheneTrackingTokenProvider`
-in `src/main/java/de/tum/in/www1/artemis/web/rest/TextSubmissionResource.java`
-#### Snippet
-```java
-            TextSubmissionService textSubmissionService, UserRepository userRepository, StudentParticipationRepository studentParticipationRepository,
-            GradingCriterionRepository gradingCriterionRepository, TextAssessmentService textAssessmentService, Optional<AtheneScheduleService> atheneScheduleService,
-            ExamSubmissionService examSubmissionService, PlagiarismService plagiarismService, Optional<AtheneTrackingTokenProvider> atheneTrackingTokenProvider) {
-        super(submissionRepository, resultService, authCheckService, userRepository, exerciseRepository, textSubmissionService, studentParticipationRepository);
-        this.textSubmissionRepository = textSubmissionRepository;
+    private void filterOutUselessDataFromComplaints(List<Complaint> complaints, boolean filterOutStudentFromComplaints) {
+        if (filterOutStudentFromComplaints) {
+            complaints.forEach(this::filterOutStudentFromComplaint);
 ```
 
 ### BoundedWildcard
@@ -1512,6 +1464,54 @@ in `src/main/java/de/tum/in/www1/artemis/web/rest/ProgrammingSubmissionResource.
 ```
 
 ### BoundedWildcard
+Can generalize to `? extends Team`
+in `src/main/java/de/tum/in/www1/artemis/web/rest/TeamResource.java`
+#### Snippet
+```java
+     * @param teams    Teams of exercise
+     */
+    private void sendTeamAssignmentUpdates(Exercise exercise, List<Team> teams) {
+        // Get participation to given exercise into a map which participation identifiers as key and a lists of all participation with that identifier as value
+        Map<String, List<StudentParticipation>> participationsMap = studentParticipationRepository
+```
+
+### BoundedWildcard
+Can generalize to `? extends SAML2Service`
+in `src/main/java/de/tum/in/www1/artemis/web/rest/UserJWTController.java`
+#### Snippet
+```java
+    private final Optional<SAML2Service> saml2Service;
+
+    public UserJWTController(JWTCookieService jwtCookieService, AuthenticationManagerBuilder authenticationManagerBuilder, Optional<SAML2Service> saml2Service) {
+        this.jwtCookieService = jwtCookieService;
+        this.authenticationManagerBuilder = authenticationManagerBuilder;
+```
+
+### BoundedWildcard
+Can generalize to `? extends AtheneScheduleService`
+in `src/main/java/de/tum/in/www1/artemis/web/rest/TextSubmissionResource.java`
+#### Snippet
+```java
+            ExerciseRepository exerciseRepository, TextExerciseRepository textExerciseRepository, AuthorizationCheckService authCheckService,
+            TextSubmissionService textSubmissionService, UserRepository userRepository, StudentParticipationRepository studentParticipationRepository,
+            GradingCriterionRepository gradingCriterionRepository, TextAssessmentService textAssessmentService, Optional<AtheneScheduleService> atheneScheduleService,
+            ExamSubmissionService examSubmissionService, PlagiarismService plagiarismService, Optional<AtheneTrackingTokenProvider> atheneTrackingTokenProvider) {
+        super(submissionRepository, resultService, authCheckService, userRepository, exerciseRepository, textSubmissionService, studentParticipationRepository);
+```
+
+### BoundedWildcard
+Can generalize to `? extends AtheneTrackingTokenProvider`
+in `src/main/java/de/tum/in/www1/artemis/web/rest/TextSubmissionResource.java`
+#### Snippet
+```java
+            TextSubmissionService textSubmissionService, UserRepository userRepository, StudentParticipationRepository studentParticipationRepository,
+            GradingCriterionRepository gradingCriterionRepository, TextAssessmentService textAssessmentService, Optional<AtheneScheduleService> atheneScheduleService,
+            ExamSubmissionService examSubmissionService, PlagiarismService plagiarismService, Optional<AtheneTrackingTokenProvider> atheneTrackingTokenProvider) {
+        super(submissionRepository, resultService, authCheckService, userRepository, exerciseRepository, textSubmissionService, studentParticipationRepository);
+        this.textSubmissionRepository = textSubmissionRepository;
+```
+
+### BoundedWildcard
 Can generalize to `? extends File`
 in `src/main/java/de/tum/in/www1/artemis/web/rest/ProgrammingExerciseExportImportResource.java`
 #### Snippet
@@ -1533,6 +1533,18 @@ in `src/main/java/de/tum/in/www1/artemis/web/rest/ProgrammingExerciseExportImpor
             ProgrammingExerciseExportService programmingExerciseExportService, Optional<ProgrammingLanguageFeatureService> programmingLanguageFeatureService,
             AuxiliaryRepositoryRepository auxiliaryRepositoryRepository, SubmissionPolicyService submissionPolicyService,
             ProgrammingExerciseTaskRepository programmingExerciseTaskRepository, ExamAccessService examAccessService) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends StudentExam`
+in `src/main/java/de/tum/in/www1/artemis/web/rest/ExamResource.java`
+#### Snippet
+```java
+    }
+
+    private static void breakCyclesForSerialization(List<StudentExam> studentExams) {
+        for (StudentExam studentExam : studentExams) {
+            studentExam.getExam().setRegisteredUsers(null);
 ```
 
 ### BoundedWildcard
@@ -1620,15 +1632,39 @@ in `src/main/java/de/tum/in/www1/artemis/web/rest/ExerciseScoresChartResource.ja
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends Team`
-in `src/main/java/de/tum/in/www1/artemis/web/rest/TeamResource.java`
+Can generalize to `? extends ContinuousIntegrationService`
+in `src/main/java/de/tum/in/www1/artemis/web/rest/ProgrammingExerciseResource.java`
 #### Snippet
 ```java
-     * @param teams    Teams of exercise
-     */
-    private void sendTeamAssignmentUpdates(Exercise exercise, List<Team> teams) {
-        // Get participation to given exercise into a map which participation identifiers as key and a lists of all participation with that identifier as value
-        Map<String, List<StudentParticipation>> participationsMap = studentParticipationRepository
+    public ProgrammingExerciseResource(ProgrammingExerciseRepository programmingExerciseRepository, ProgrammingExerciseTestCaseRepository programmingExerciseTestCaseRepository,
+            UserRepository userRepository, AuthorizationCheckService authCheckService, CourseService courseService,
+            Optional<ContinuousIntegrationService> continuousIntegrationService, Optional<VersionControlService> versionControlService, ExerciseService exerciseService,
+            ExerciseDeletionService exerciseDeletionService, ProgrammingExerciseService programmingExerciseService, StudentParticipationRepository studentParticipationRepository,
+            StaticCodeAnalysisService staticCodeAnalysisService, GradingCriterionRepository gradingCriterionRepository,
+```
+
+### BoundedWildcard
+Can generalize to `? extends VersionControlService`
+in `src/main/java/de/tum/in/www1/artemis/web/rest/ProgrammingExerciseResource.java`
+#### Snippet
+```java
+    public ProgrammingExerciseResource(ProgrammingExerciseRepository programmingExerciseRepository, ProgrammingExerciseTestCaseRepository programmingExerciseTestCaseRepository,
+            UserRepository userRepository, AuthorizationCheckService authCheckService, CourseService courseService,
+            Optional<ContinuousIntegrationService> continuousIntegrationService, Optional<VersionControlService> versionControlService, ExerciseService exerciseService,
+            ExerciseDeletionService exerciseDeletionService, ProgrammingExerciseService programmingExerciseService, StudentParticipationRepository studentParticipationRepository,
+            StaticCodeAnalysisService staticCodeAnalysisService, GradingCriterionRepository gradingCriterionRepository,
+```
+
+### BoundedWildcard
+Can generalize to `? extends ProgrammingLanguageFeatureService`
+in `src/main/java/de/tum/in/www1/artemis/web/rest/ProgrammingExerciseResource.java`
+#### Snippet
+```java
+            ExerciseDeletionService exerciseDeletionService, ProgrammingExerciseService programmingExerciseService, StudentParticipationRepository studentParticipationRepository,
+            StaticCodeAnalysisService staticCodeAnalysisService, GradingCriterionRepository gradingCriterionRepository,
+            Optional<ProgrammingLanguageFeatureService> programmingLanguageFeatureService, CourseRepository courseRepository, GitService gitService,
+            AuxiliaryRepositoryService auxiliaryRepositoryService, SubmissionPolicyService submissionPolicyService,
+            SolutionProgrammingExerciseParticipationRepository solutionProgrammingExerciseParticipationRepository,
 ```
 
 ### BoundedWildcard
@@ -1680,39 +1716,15 @@ in `src/main/java/de/tum/in/www1/artemis/web/rest/ParticipationResource.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends ContinuousIntegrationService`
-in `src/main/java/de/tum/in/www1/artemis/web/rest/ProgrammingExerciseResource.java`
+Can generalize to `? extends User`
+in `src/main/java/de/tum/in/www1/artemis/web/rest/errors/StudentsAppearMultipleTimesException.java`
 #### Snippet
 ```java
-    public ProgrammingExerciseResource(ProgrammingExerciseRepository programmingExerciseRepository, ProgrammingExerciseTestCaseRepository programmingExerciseTestCaseRepository,
-            UserRepository userRepository, AuthorizationCheckService authCheckService, CourseService courseService,
-            Optional<ContinuousIntegrationService> continuousIntegrationService, Optional<VersionControlService> versionControlService, ExerciseService exerciseService,
-            ExerciseDeletionService exerciseDeletionService, ProgrammingExerciseService programmingExerciseService, StudentParticipationRepository studentParticipationRepository,
-            StaticCodeAnalysisService staticCodeAnalysisService, GradingCriterionRepository gradingCriterionRepository,
-```
+    }
 
-### BoundedWildcard
-Can generalize to `? extends VersionControlService`
-in `src/main/java/de/tum/in/www1/artemis/web/rest/ProgrammingExerciseResource.java`
-#### Snippet
-```java
-    public ProgrammingExerciseResource(ProgrammingExerciseRepository programmingExerciseRepository, ProgrammingExerciseTestCaseRepository programmingExerciseTestCaseRepository,
-            UserRepository userRepository, AuthorizationCheckService authCheckService, CourseService courseService,
-            Optional<ContinuousIntegrationService> continuousIntegrationService, Optional<VersionControlService> versionControlService, ExerciseService exerciseService,
-            ExerciseDeletionService exerciseDeletionService, ProgrammingExerciseService programmingExerciseService, StudentParticipationRepository studentParticipationRepository,
-            StaticCodeAnalysisService staticCodeAnalysisService, GradingCriterionRepository gradingCriterionRepository,
-```
-
-### BoundedWildcard
-Can generalize to `? extends ProgrammingLanguageFeatureService`
-in `src/main/java/de/tum/in/www1/artemis/web/rest/ProgrammingExerciseResource.java`
-#### Snippet
-```java
-            ExerciseDeletionService exerciseDeletionService, ProgrammingExerciseService programmingExerciseService, StudentParticipationRepository studentParticipationRepository,
-            StaticCodeAnalysisService staticCodeAnalysisService, GradingCriterionRepository gradingCriterionRepository,
-            Optional<ProgrammingLanguageFeatureService> programmingLanguageFeatureService, CourseRepository courseRepository, GitService gitService,
-            AuxiliaryRepositoryService auxiliaryRepositoryService, SubmissionPolicyService submissionPolicyService,
-            SolutionProgrammingExerciseParticipationRepository solutionProgrammingExerciseParticipationRepository,
+    private static Map<String, Object> getParameters(List<User> students) {
+        Map<String, List<Pair<String, String>>> params = new HashMap<>();
+        params.put("students", students.stream().map(student -> Pair.of(student.getLogin(), student.getRegistrationNumber())).toList());
 ```
 
 ### BoundedWildcard
@@ -1740,15 +1752,15 @@ in `src/main/java/de/tum/in/www1/artemis/web/rest/errors/StudentsAlreadyAssigned
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends User`
-in `src/main/java/de/tum/in/www1/artemis/web/rest/errors/StudentsAppearMultipleTimesException.java`
+Can generalize to `? extends FileSubmission`
+in `src/main/java/de/tum/in/www1/artemis/web/rest/repository/RepositoryResource.java`
 #### Snippet
 ```java
-    }
-
-    private static Map<String, Object> getParameters(List<User> students) {
-        Map<String, List<Pair<String, String>>> params = new HashMap<>();
-        params.put("students", students.stream().map(student -> Pair.of(student.getLogin(), student.getRegistrationNumber())).toList());
+     * @return a map of <filename, error | null>
+     */
+    protected Map<String, String> saveFileSubmissions(List<FileSubmission> submissions, Repository repository) {
+        // If updating the file fails due to an IOException, we send an error message for the specific file and try to update the rest
+        Map<String, String> fileSaveResult = new HashMap<>();
 ```
 
 ### BoundedWildcard
@@ -1776,18 +1788,6 @@ in `src/main/java/de/tum/in/www1/artemis/web/rest/tutorialgroups/errors/SessionO
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends FileSubmission`
-in `src/main/java/de/tum/in/www1/artemis/web/rest/repository/RepositoryResource.java`
-#### Snippet
-```java
-     * @return a map of <filename, error | null>
-     */
-    protected Map<String, String> saveFileSubmissions(List<FileSubmission> submissions, Repository repository) {
-        // If updating the file fails due to an IOException, we send an error message for the specific file and try to update the rest
-        Map<String, String> fileSaveResult = new HashMap<>();
-```
-
-### BoundedWildcard
 Can generalize to `? extends HealthContributor`
 in `src/main/java/de/tum/in/www1/artemis/config/MetricsBean.java`
 #### Snippet
@@ -1797,30 +1797,6 @@ in `src/main/java/de/tum/in/www1/artemis/config/MetricsBean.java`
     private void registerHealthContributors(List<HealthContributor> healthContributors) {
         // Publish the health status for each HealthContributor one Gauge with name ARTEMIS_HEALTH_NAME that has several values (one for each HealthIndicator),
         // using different values for the ARTEMIS_HEALTH_TAG tag
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `src/main/java/de/tum/in/www1/artemis/web/websocket/team/ParticipationTeamWebsocketService.java`
-#### Snippet
-```java
-    }
-
-    private void updateValue(Map<String, Instant> map, long participationId, String username) {
-        map.put(participationId + "-" + username, Instant.now());
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? super Instant`
-in `src/main/java/de/tum/in/www1/artemis/web/websocket/team/ParticipationTeamWebsocketService.java`
-#### Snippet
-```java
-    }
-
-    private void updateValue(Map<String, Instant> map, long participationId, String username) {
-        map.put(participationId + "-" + username, Instant.now());
-    }
 ```
 
 ### BoundedWildcard
@@ -1848,6 +1824,30 @@ in `src/main/java/de/tum/in/www1/artemis/config/LiquibaseConfiguration.java`
 ```
 
 ### BoundedWildcard
+Can generalize to `? super String`
+in `src/main/java/de/tum/in/www1/artemis/web/websocket/team/ParticipationTeamWebsocketService.java`
+#### Snippet
+```java
+    }
+
+    private void updateValue(Map<String, Instant> map, long participationId, String username) {
+        map.put(participationId + "-" + username, Instant.now());
+    }
+```
+
+### BoundedWildcard
+Can generalize to `? super Instant`
+in `src/main/java/de/tum/in/www1/artemis/web/websocket/team/ParticipationTeamWebsocketService.java`
+#### Snippet
+```java
+    }
+
+    private void updateValue(Map<String, Instant> map, long participationId, String username) {
+        map.put(participationId + "-" + username, Instant.now());
+    }
+```
+
+### BoundedWildcard
 Can generalize to `? extends AuthenticationProvider`
 in `src/main/java/de/tum/in/www1/artemis/config/SecurityConfiguration.java`
 #### Snippet
@@ -1860,15 +1860,27 @@ in `src/main/java/de/tum/in/www1/artemis/config/SecurityConfiguration.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends PersistentAuditEvent`
-in `src/main/java/de/tum/in/www1/artemis/config/audit/AuditEventConverter.java`
+Can generalize to `? super Saml2X509Credential`
+in `src/main/java/de/tum/in/www1/artemis/config/SAML2Configuration.java`
 #### Snippet
 ```java
-     * @return the converted list.
-     */
-    public List<AuditEvent> convertToAuditEvent(Iterable<PersistentAuditEvent> persistentAuditEvents) {
-        if (persistentAuditEvents == null) {
-            return Collections.emptyList();
+    }
+
+    private void addDecryptionInformation(Collection<Saml2X509Credential> credentialsSink, SAML2Properties.RelyingPartyProperties config) {
+        if (!this.checkFiles(config)) {
+            return;
+```
+
+### BoundedWildcard
+Can generalize to `? super Saml2X509Credential`
+in `src/main/java/de/tum/in/www1/artemis/config/SAML2Configuration.java`
+#### Snippet
+```java
+
+
+    private void addSigningInformation(Collection<Saml2X509Credential> credentialsSink, SAML2Properties.RelyingPartyProperties config) {
+        if (!this.checkFiles(config)) {
+            return;
 ```
 
 ### BoundedWildcard
@@ -1896,39 +1908,15 @@ in `src/main/java/de/tum/in/www1/artemis/config/ProgrammingLanguageConfiguration
 ```
 
 ### BoundedWildcard
-Can generalize to `? super Saml2X509Credential`
-in `src/main/java/de/tum/in/www1/artemis/config/SAML2Configuration.java`
+Can generalize to `? extends PersistentAuditEvent`
+in `src/main/java/de/tum/in/www1/artemis/config/audit/AuditEventConverter.java`
 #### Snippet
 ```java
-
-
-    private void addSigningInformation(Collection<Saml2X509Credential> credentialsSink, SAML2Properties.RelyingPartyProperties config) {
-        if (!this.checkFiles(config)) {
-            return;
-```
-
-### BoundedWildcard
-Can generalize to `? super Saml2X509Credential`
-in `src/main/java/de/tum/in/www1/artemis/config/SAML2Configuration.java`
-#### Snippet
-```java
-    }
-
-    private void addDecryptionInformation(Collection<Saml2X509Credential> credentialsSink, SAML2Properties.RelyingPartyProperties config) {
-        if (!this.checkFiles(config)) {
-            return;
-```
-
-### BoundedWildcard
-Can generalize to `? extends Feedback`
-in `src/main/java/de/tum/in/www1/artemis/domain/Result.java`
-#### Snippet
-```java
-    }
-
-    public void addFeedbacks(List<Feedback> feedbacks) {
-        feedbacks.forEach(this::addFeedback);
-    }
+     * @return the converted list.
+     */
+    public List<AuditEvent> convertToAuditEvent(Iterable<PersistentAuditEvent> persistentAuditEvents) {
+        if (persistentAuditEvents == null) {
+            return Collections.emptyList();
 ```
 
 ### BoundedWildcard
@@ -1941,6 +1929,18 @@ in `src/main/java/de/tum/in/www1/artemis/domain/Result.java`
     public void updateAllFeedbackItems(List<Feedback> feedbacks, boolean skipAutomaticResults) {
         for (Feedback feedback : feedbacks) {
             if (skipAutomaticResults && feedback.getType() == FeedbackType.AUTOMATIC) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends Feedback`
+in `src/main/java/de/tum/in/www1/artemis/domain/Result.java`
+#### Snippet
+```java
+    }
+
+    public void addFeedbacks(List<Feedback> feedbacks) {
+        feedbacks.forEach(this::addFeedback);
+    }
 ```
 
 ### BoundedWildcard
@@ -1992,18 +1992,6 @@ in `src/main/java/de/tum/in/www1/artemis/domain/ProgrammingExercise.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends Submission`
-in `src/main/java/de/tum/in/www1/artemis/domain/Exercise.java`
-#### Snippet
-```java
-     * @return filtered submission
-     */
-    public Submission findAppropriateSubmissionByResults(Set<Submission> submissions) {
-        List<Submission> submissionsWithRatedResult = new ArrayList<>();
-        List<Submission> submissionsWithUnratedResult = new ArrayList<>();
-```
-
-### BoundedWildcard
 Can generalize to `? extends StudentParticipation`
 in `src/main/java/de/tum/in/www1/artemis/domain/Exercise.java`
 #### Snippet
@@ -2013,6 +2001,18 @@ in `src/main/java/de/tum/in/www1/artemis/domain/Exercise.java`
     public StudentParticipation findRelevantParticipation(List<StudentParticipation> participations) {
         StudentParticipation relevantParticipation = null;
         for (StudentParticipation participation : participations) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends Submission`
+in `src/main/java/de/tum/in/www1/artemis/domain/Exercise.java`
+#### Snippet
+```java
+     * @return filtered submission
+     */
+    public Submission findAppropriateSubmissionByResults(Set<Submission> submissions) {
+        List<Submission> submissionsWithRatedResult = new ArrayList<>();
+        List<Submission> submissionsWithUnratedResult = new ArrayList<>();
 ```
 
 ### BoundedWildcard
@@ -2100,6 +2100,30 @@ in `src/main/java/de/tum/in/www1/artemis/service/StatisticsService.java`
 ```
 
 ### BoundedWildcard
+Can generalize to `? extends VersionControlService`
+in `src/main/java/de/tum/in/www1/artemis/service/ConsistencyCheckService.java`
+#### Snippet
+```java
+    private final ProgrammingExerciseRepository programmingExerciseRepository;
+
+    public ConsistencyCheckService(Optional<VersionControlService> versionControlService, Optional<ContinuousIntegrationService> continuousIntegrationService,
+            ProgrammingExerciseRepository programmingExerciseRepository) {
+        this.versionControlService = versionControlService;
+```
+
+### BoundedWildcard
+Can generalize to `? extends ContinuousIntegrationService`
+in `src/main/java/de/tum/in/www1/artemis/service/ConsistencyCheckService.java`
+#### Snippet
+```java
+    private final ProgrammingExerciseRepository programmingExerciseRepository;
+
+    public ConsistencyCheckService(Optional<VersionControlService> versionControlService, Optional<ContinuousIntegrationService> continuousIntegrationService,
+            ProgrammingExerciseRepository programmingExerciseRepository) {
+        this.versionControlService = versionControlService;
+```
+
+### BoundedWildcard
 Can generalize to `? extends Exercise`
 in `src/main/java/de/tum/in/www1/artemis/service/ParticipantScoreService.java`
 #### Snippet
@@ -2128,18 +2152,6 @@ Can generalize to `? extends Exercise`
 in `src/main/java/de/tum/in/www1/artemis/service/ParticipantScoreService.java`
 #### Snippet
 ```java
-     * @return an unmodifiable list of DTOs containing the statistics for every user / team
-     */
-    public List<ParticipantScoreAverageDTO> getParticipantScoreAverageDTOs(Set<Exercise> exercises) {
-        Set<Exercise> individualExercises = exercises.stream().filter(exercise -> exercise.getMode().equals(ExerciseMode.INDIVIDUAL)).collect(Collectors.toSet());
-        Set<Exercise> teamExercises = exercises.stream().filter(exercise -> exercise.getMode().equals(ExerciseMode.TEAM)).collect(Collectors.toSet());
-```
-
-### BoundedWildcard
-Can generalize to `? extends Exercise`
-in `src/main/java/de/tum/in/www1/artemis/service/ParticipantScoreService.java`
-#### Snippet
-```java
      * @return an unmodifiable list of all participant scores of the exercises converted to DTOs
      */
     public List<ParticipantScoreDTO> getParticipantScoreDTOs(Pageable pageable, Set<Exercise> exercises) {
@@ -2148,27 +2160,15 @@ in `src/main/java/de/tum/in/www1/artemis/service/ParticipantScoreService.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends VersionControlService`
-in `src/main/java/de/tum/in/www1/artemis/service/ConsistencyCheckService.java`
+Can generalize to `? extends Exercise`
+in `src/main/java/de/tum/in/www1/artemis/service/ParticipantScoreService.java`
 #### Snippet
 ```java
-    private final ProgrammingExerciseRepository programmingExerciseRepository;
-
-    public ConsistencyCheckService(Optional<VersionControlService> versionControlService, Optional<ContinuousIntegrationService> continuousIntegrationService,
-            ProgrammingExerciseRepository programmingExerciseRepository) {
-        this.versionControlService = versionControlService;
-```
-
-### BoundedWildcard
-Can generalize to `? extends ContinuousIntegrationService`
-in `src/main/java/de/tum/in/www1/artemis/service/ConsistencyCheckService.java`
-#### Snippet
-```java
-    private final ProgrammingExerciseRepository programmingExerciseRepository;
-
-    public ConsistencyCheckService(Optional<VersionControlService> versionControlService, Optional<ContinuousIntegrationService> continuousIntegrationService,
-            ProgrammingExerciseRepository programmingExerciseRepository) {
-        this.versionControlService = versionControlService;
+     * @return an unmodifiable list of DTOs containing the statistics for every user / team
+     */
+    public List<ParticipantScoreAverageDTO> getParticipantScoreAverageDTOs(Set<Exercise> exercises) {
+        Set<Exercise> individualExercises = exercises.stream().filter(exercise -> exercise.getMode().equals(ExerciseMode.INDIVIDUAL)).collect(Collectors.toSet());
+        Set<Exercise> teamExercises = exercises.stream().filter(exercise -> exercise.getMode().equals(ExerciseMode.TEAM)).collect(Collectors.toSet());
 ```
 
 ### BoundedWildcard
@@ -2208,18 +2208,6 @@ in `src/main/java/de/tum/in/www1/artemis/service/ExerciseScoresChartService.java
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends Exercise`
-in `src/main/java/de/tum/in/www1/artemis/service/ComplaintService.java`
-#### Snippet
-```java
-     * @param exercises the exercises for which the numbers of unevaluated complaints should be calculated
-     */
-    public void calculateNrOfOpenComplaints(Set<Exercise> exercises, boolean examMode) {
-        final List<ExerciseMapEntry> numberOfComplaintsOfExercise;
-        final List<ExerciseMapEntry> numberOfComplaintResponsesOfExercise;
-```
-
-### BoundedWildcard
 Can generalize to `? extends TextSubmission`
 in `src/main/java/de/tum/in/www1/artemis/service/TextAssessmentQueueService.java`
 #### Snippet
@@ -2241,18 +2229,6 @@ in `src/main/java/de/tum/in/www1/artemis/service/TextAssessmentQueueService.java
     public void setAddedDistances(List<TextBlock> textBlockList, TextCluster textCluster) {
         textBlockList.forEach(textBlock -> {
             double addedDistance = calculateAddedDistance(textBlock, textCluster);
-```
-
-### BoundedWildcard
-Can generalize to `? extends VersionControlService`
-in `src/main/java/de/tum/in/www1/artemis/service/TeamService.java`
-#### Snippet
-```java
-    private final ParticipationService participationService;
-
-    public TeamService(TeamRepository teamRepository, UserRepository userRepository, Optional<VersionControlService> versionControlService,
-            ProgrammingExerciseStudentParticipationRepository programmingExerciseStudentParticipationRepository, ParticipationService participationService) {
-        this.teamRepository = teamRepository;
 ```
 
 ### BoundedWildcard
@@ -2292,15 +2268,27 @@ in `src/main/java/de/tum/in/www1/artemis/service/TeamService.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends GradingInstruction`
-in `src/main/java/de/tum/in/www1/artemis/service/ExerciseService.java`
+Can generalize to `? extends VersionControlService`
+in `src/main/java/de/tum/in/www1/artemis/service/TeamService.java`
 #### Snippet
 ```java
-     * @return list including Feedback entries that have to be deleted due to updated grading instructions
+    private final ParticipationService participationService;
+
+    public TeamService(TeamRepository teamRepository, UserRepository userRepository, Optional<VersionControlService> versionControlService,
+            ProgrammingExerciseStudentParticipationRepository programmingExerciseStudentParticipationRepository, ParticipationService participationService) {
+        this.teamRepository = teamRepository;
+```
+
+### BoundedWildcard
+Can generalize to `? extends Exercise`
+in `src/main/java/de/tum/in/www1/artemis/service/ComplaintService.java`
+#### Snippet
+```java
+     * @param exercises the exercises for which the numbers of unevaluated complaints should be calculated
      */
-    public List<Feedback> getFeedbackToBeDeletedAfterGradingInstructionUpdate(boolean deleteFeedbackAfterGradingInstructionUpdate, List<GradingInstruction> gradingInstructions,
-            Exercise exercise) {
-        List<Feedback> feedbackToBeDeleted = new ArrayList<>();
+    public void calculateNrOfOpenComplaints(Set<Exercise> exercises, boolean examMode) {
+        final List<ExerciseMapEntry> numberOfComplaintsOfExercise;
+        final List<ExerciseMapEntry> numberOfComplaintResponsesOfExercise;
 ```
 
 ### BoundedWildcard
@@ -2316,15 +2304,15 @@ in `src/main/java/de/tum/in/www1/artemis/service/ExerciseService.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends Feedback`
-in `src/main/java/de/tum/in/www1/artemis/service/SubmissionService.java`
+Can generalize to `? extends GradingInstruction`
+in `src/main/java/de/tum/in/www1/artemis/service/ExerciseService.java`
 #### Snippet
 ```java
-     * @param feedbacks the feedbacks which are copied
+     * @return list including Feedback entries that have to be deleted due to updated grading instructions
      */
-    private void copyFeedbackToResult(Result result, List<Feedback> feedbacks) {
-        feedbacks.forEach(feedback -> {
-            Feedback newFeedback = feedback.copyFeedback();
+    public List<Feedback> getFeedbackToBeDeletedAfterGradingInstructionUpdate(boolean deleteFeedbackAfterGradingInstructionUpdate, List<GradingInstruction> gradingInstructions,
+            Exercise exercise) {
+        List<Feedback> feedbackToBeDeleted = new ArrayList<>();
 ```
 
 ### BoundedWildcard
@@ -2349,6 +2337,102 @@ in `src/main/java/de/tum/in/www1/artemis/service/SubmissionService.java`
     private List<SubmissionWithComplaintDTO> getSubmissionsWithComplaintsFromComplaints(List<Complaint> complaints) {
         List<SubmissionWithComplaintDTO> submissionWithComplaintDTOs = new ArrayList<>();
 
+```
+
+### BoundedWildcard
+Can generalize to `? extends Feedback`
+in `src/main/java/de/tum/in/www1/artemis/service/SubmissionService.java`
+#### Snippet
+```java
+     * @param feedbacks the feedbacks which are copied
+     */
+    private void copyFeedbackToResult(Result result, List<Feedback> feedbacks) {
+        feedbacks.forEach(feedback -> {
+            Feedback newFeedback = feedback.copyFeedback();
+```
+
+### BoundedWildcard
+Can generalize to `? extends Exercise`
+in `src/main/java/de/tum/in/www1/artemis/service/AssessmentDashboardService.java`
+#### Snippet
+```java
+     * @param examMode                      - if the exercises are part of an exam
+     */
+    private void calculateNumberOfSubmissions(Set<Exercise> programmingExercises, Set<Exercise> nonProgrammingExercises, boolean examMode) {
+        final List<ExerciseMapEntry> programmingSubmissionsCounts;
+        final List<ExerciseMapEntry> submissionCounts;
+```
+
+### BoundedWildcard
+Can generalize to `? extends Exercise`
+in `src/main/java/de/tum/in/www1/artemis/service/AssessmentDashboardService.java`
+#### Snippet
+```java
+     * @param examMode                      - if the exercises are part of an exam
+     */
+    private void calculateNumberOfSubmissions(Set<Exercise> programmingExercises, Set<Exercise> nonProgrammingExercises, boolean examMode) {
+        final List<ExerciseMapEntry> programmingSubmissionsCounts;
+        final List<ExerciseMapEntry> submissionCounts;
+```
+
+### BoundedWildcard
+Can generalize to `? extends User`
+in `src/main/java/de/tum/in/www1/artemis/service/EmailSummaryService.java`
+#### Snippet
+```java
+     * @param users the users to prepare email summaries for
+     */
+    public void prepareEmailSummariesForUsers(Set<User> users) {
+        checkSecurityUtils();
+        // More elements that should be displayed in weekly summaries can be extracted here
+```
+
+### BoundedWildcard
+Can generalize to `? extends Exercise`
+in `src/main/java/de/tum/in/www1/artemis/service/EmailSummaryService.java`
+#### Snippet
+```java
+     * @param allPossiblyRelevantExercisesForSummary are used to find the relevant exercises for this concrete user
+     */
+    private void prepareEmailSummaryForUser(User user, Set<Exercise> allPossiblyRelevantExercisesForSummary) {
+        // Get all courses with exercises, lectures and exams (filtered for given user)
+        List<Course> courses = courseService.findAllActiveForUser(user);
+```
+
+### BoundedWildcard
+Can generalize to `? extends List`
+in `src/main/java/de/tum/in/www1/artemis/service/StaticCodeAnalysisService.java`
+#### Snippet
+```java
+
+    public StaticCodeAnalysisService(StaticCodeAnalysisCategoryRepository staticCodeAnalysisCategoryRepository,
+            Map<ProgrammingLanguage, List<StaticCodeAnalysisDefaultCategory>> staticCodeAnalysisDefaultConfigurations, ProgrammingTriggerService programmingTriggerService) {
+        this.staticCodeAnalysisCategoryRepository = staticCodeAnalysisCategoryRepository;
+        this.staticCodeAnalysisDefaultConfigurations = staticCodeAnalysisDefaultConfigurations;
+```
+
+### BoundedWildcard
+Can generalize to `? extends Feedback`
+in `src/main/java/de/tum/in/www1/artemis/service/StaticCodeAnalysisService.java`
+#### Snippet
+```java
+     * @return The filtered list of feedback objects
+     */
+    public List<Feedback> categorizeScaFeedback(Result result, List<Feedback> staticCodeAnalysisFeedback, ProgrammingExercise programmingExercise) {
+        var categoryPairs = getCategoriesWithMappingForExercise(programmingExercise);
+
+```
+
+### BoundedWildcard
+Can generalize to `? extends TextBlock`
+in `src/main/java/de/tum/in/www1/artemis/service/TextBlockService.java`
+#### Snippet
+```java
+     * @param textBlocks Iterable of TextBlocks.
+     */
+    public void saveAll(Iterable<TextBlock> textBlocks) {
+        textBlockRepository.saveAll(textBlocks);
+    }
 ```
 
 ### BoundedWildcard
@@ -2388,87 +2472,15 @@ in `src/main/java/de/tum/in/www1/artemis/service/SubmissionExportService.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends Exercise`
-in `src/main/java/de/tum/in/www1/artemis/service/AssessmentDashboardService.java`
+Can generalize to `? extends AutomaticTextFeedbackService`
+in `src/main/java/de/tum/in/www1/artemis/service/TextAssessmentService.java`
 #### Snippet
 ```java
-     * @param examMode                      - if the exercises are part of an exam
-     */
-    private void calculateNumberOfSubmissions(Set<Exercise> programmingExercises, Set<Exercise> nonProgrammingExercises, boolean examMode) {
-        final List<ExerciseMapEntry> programmingSubmissionsCounts;
-        final List<ExerciseMapEntry> submissionCounts;
-```
-
-### BoundedWildcard
-Can generalize to `? extends Exercise`
-in `src/main/java/de/tum/in/www1/artemis/service/AssessmentDashboardService.java`
-#### Snippet
-```java
-     * @param examMode                      - if the exercises are part of an exam
-     */
-    private void calculateNumberOfSubmissions(Set<Exercise> programmingExercises, Set<Exercise> nonProgrammingExercises, boolean examMode) {
-        final List<ExerciseMapEntry> programmingSubmissionsCounts;
-        final List<ExerciseMapEntry> submissionCounts;
-```
-
-### BoundedWildcard
-Can generalize to `? extends TextBlock`
-in `src/main/java/de/tum/in/www1/artemis/service/TextBlockService.java`
-#### Snippet
-```java
-     * @param textBlocks Iterable of TextBlocks.
-     */
-    public void saveAll(Iterable<TextBlock> textBlocks) {
-        textBlockRepository.saveAll(textBlocks);
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? extends List`
-in `src/main/java/de/tum/in/www1/artemis/service/StaticCodeAnalysisService.java`
-#### Snippet
-```java
-
-    public StaticCodeAnalysisService(StaticCodeAnalysisCategoryRepository staticCodeAnalysisCategoryRepository,
-            Map<ProgrammingLanguage, List<StaticCodeAnalysisDefaultCategory>> staticCodeAnalysisDefaultConfigurations, ProgrammingTriggerService programmingTriggerService) {
-        this.staticCodeAnalysisCategoryRepository = staticCodeAnalysisCategoryRepository;
-        this.staticCodeAnalysisDefaultConfigurations = staticCodeAnalysisDefaultConfigurations;
-```
-
-### BoundedWildcard
-Can generalize to `? extends Feedback`
-in `src/main/java/de/tum/in/www1/artemis/service/StaticCodeAnalysisService.java`
-#### Snippet
-```java
-     * @return The filtered list of feedback objects
-     */
-    public List<Feedback> categorizeScaFeedback(Result result, List<Feedback> staticCodeAnalysisFeedback, ProgrammingExercise programmingExercise) {
-        var categoryPairs = getCategoriesWithMappingForExercise(programmingExercise);
-
-```
-
-### BoundedWildcard
-Can generalize to `? extends User`
-in `src/main/java/de/tum/in/www1/artemis/service/EmailSummaryService.java`
-#### Snippet
-```java
-     * @param users the users to prepare email summaries for
-     */
-    public void prepareEmailSummariesForUsers(Set<User> users) {
-        checkSecurityUtils();
-        // More elements that should be displayed in weekly summaries can be extracted here
-```
-
-### BoundedWildcard
-Can generalize to `? extends Exercise`
-in `src/main/java/de/tum/in/www1/artemis/service/EmailSummaryService.java`
-#### Snippet
-```java
-     * @param allPossiblyRelevantExercisesForSummary are used to find the relevant exercises for this concrete user
-     */
-    private void prepareEmailSummaryForUser(User user, Set<Exercise> allPossiblyRelevantExercisesForSummary) {
-        // Get all courses with exercises, lectures and exams (filtered for given user)
-        List<Course> courses = courseService.findAllActiveForUser(user);
+    public TextAssessmentService(UserRepository userRepository, ComplaintResponseService complaintResponseService, ComplaintRepository complaintRepository,
+            FeedbackRepository feedbackRepository, ResultRepository resultRepository, StudentParticipationRepository studentParticipationRepository, ResultService resultService,
+            SubmissionRepository submissionRepository, TextBlockService textBlockService, Optional<AutomaticTextFeedbackService> automaticTextFeedbackService,
+            ExamDateService examDateService, FeedbackConflictRepository feedbackConflictRepository, GradingCriterionRepository gradingCriterionRepository,
+            SubmissionService submissionService, LtiNewResultService ltiNewResultService) {
 ```
 
 ### BoundedWildcard
@@ -2484,30 +2496,6 @@ in `src/main/java/de/tum/in/www1/artemis/service/ResultService.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends AutomaticTextFeedbackService`
-in `src/main/java/de/tum/in/www1/artemis/service/TextAssessmentService.java`
-#### Snippet
-```java
-    public TextAssessmentService(UserRepository userRepository, ComplaintResponseService complaintResponseService, ComplaintRepository complaintRepository,
-            FeedbackRepository feedbackRepository, ResultRepository resultRepository, StudentParticipationRepository studentParticipationRepository, ResultService resultService,
-            SubmissionRepository submissionRepository, TextBlockService textBlockService, Optional<AutomaticTextFeedbackService> automaticTextFeedbackService,
-            ExamDateService examDateService, FeedbackConflictRepository feedbackConflictRepository, GradingCriterionRepository gradingCriterionRepository,
-            SubmissionService submissionService, LtiNewResultService ltiNewResultService) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends TextBlock`
-in `src/main/java/de/tum/in/www1/artemis/service/TextExerciseImportService.java`
-#### Snippet
-```java
-     * @return the cloned list of text blocks
-     */
-    private Set<TextBlock> copyTextBlocks(Set<TextBlock> originalTextBlocks, TextSubmission newSubmission) {
-        log.debug("Copying the TextBlocks to new TextSubmission: {}", newSubmission);
-        var newTextBlocks = new HashSet<TextBlock>();
-```
-
-### BoundedWildcard
 Can generalize to `? extends TextBlock`
 in `src/main/java/de/tum/in/www1/artemis/service/TextExerciseImportService.java`
 #### Snippet
@@ -2520,63 +2508,15 @@ in `src/main/java/de/tum/in/www1/artemis/service/TextExerciseImportService.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends StatisticsEntry`
-in `src/main/java/de/tum/in/www1/artemis/service/CourseService.java`
+Can generalize to `? extends TextBlock`
+in `src/main/java/de/tum/in/www1/artemis/service/TextExerciseImportService.java`
 #### Snippet
 ```java
+     * @return the cloned list of text blocks
      */
-
-    private List<StatisticsEntry> removeDuplicateActiveUserRows(List<StatisticsEntry> activeUserRows, ZonedDateTime startDate) {
-        int startIndex = statisticsRepository.getWeekOfDate(startDate);
-        Map<Integer, List<String>> usersByDate = new HashMap<>();
-```
-
-### BoundedWildcard
-Can generalize to `? extends StudentDTO`
-in `src/main/java/de/tum/in/www1/artemis/service/CourseService.java`
-#### Snippet
-```java
-     * @return the list of students who could not be registered for the course, because they could NOT be found in the Artemis database and could NOT be found in the TUM LDAP
-     */
-    public List<StudentDTO> registerUsersForCourseGroup(Long courseId, List<StudentDTO> studentDTOs, String courseGroup) {
-        var course = courseRepository.findByIdElseThrow(courseId);
-        String courseGroupName = course.defineCourseGroupName(courseGroup);
-```
-
-### BoundedWildcard
-Can generalize to `? extends User`
-in `src/main/java/de/tum/in/www1/artemis/service/CourseService.java`
-#### Snippet
-```java
-     * @param usersInGroup  user whose variables are removed
-     */
-    private void removeUserVariables(List<User> usersInGroup) {
-        usersInGroup.forEach(user -> {
-            user.setLastNotificationRead(null);
-```
-
-### BoundedWildcard
-Can generalize to `? extends Course`
-in `src/main/java/de/tum/in/www1/artemis/service/CourseService.java`
-#### Snippet
-```java
-     * @param startTimeInMillis start time for logging purposes
-     */
-    public void fetchParticipationsWithSubmissionsAndResultsForCourses(List<Course> courses, User user, long startTimeInMillis) {
-        Set<Exercise> exercises = courses.stream().flatMap(course -> course.getExercises().stream()).collect(Collectors.toSet());
-        List<StudentParticipation> participationsOfUserInExercises = studentParticipationRepository.getAllParticipationsOfUserInExercises(user, exercises);
-```
-
-### BoundedWildcard
-Can generalize to `? extends BuildLogEntry`
-in `src/main/java/de/tum/in/www1/artemis/service/BuildLogEntryService.java`
-#### Snippet
-```java
-     * @return filtered build logs
-     */
-    private List<BuildLogEntry> removeUnnecessaryLogs(List<BuildLogEntry> buildLogEntries, ProgrammingLanguage programmingLanguage) {
-        List<BuildLogEntry> filteredLogs = new ArrayList<>();
-        for (BuildLogEntry buildLog : buildLogEntries) {
+    private Set<TextBlock> copyTextBlocks(Set<TextBlock> originalTextBlocks, TextSubmission newSubmission) {
+        log.debug("Copying the TextBlocks to new TextSubmission: {}", newSubmission);
+        var newTextBlocks = new HashSet<TextBlock>();
 ```
 
 ### BoundedWildcard
@@ -2596,23 +2536,23 @@ Can generalize to `? extends BuildLogEntry`
 in `src/main/java/de/tum/in/www1/artemis/service/BuildLogEntryService.java`
 #### Snippet
 ```java
+     * @return filtered build logs
+     */
+    private List<BuildLogEntry> removeUnnecessaryLogs(List<BuildLogEntry> buildLogEntries, ProgrammingLanguage programmingLanguage) {
+        List<BuildLogEntry> filteredLogs = new ArrayList<>();
+        for (BuildLogEntry buildLog : buildLogEntries) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends BuildLogEntry`
+in `src/main/java/de/tum/in/www1/artemis/service/BuildLogEntryService.java`
+#### Snippet
+```java
      * @return the saved build logs
      */
     public List<BuildLogEntry> saveBuildLogs(List<BuildLogEntry> buildLogs, ProgrammingSubmission programmingSubmission) {
         return buildLogs.stream().map(buildLogEntry -> {
             // Truncate the log so that it fits into the database
-```
-
-### BoundedWildcard
-Can generalize to `? extends Result`
-in `src/main/java/de/tum/in/www1/artemis/service/QuizStatisticService.java`
-#### Snippet
-```java
-     * @param quiz    the quizExercise with Questions where the results should contain to
-     */
-    public void updateStatistics(Set<Result> results, QuizExercise quiz) {
-
-        if (results != null && quiz != null && quiz.getQuizQuestions() != null) {
 ```
 
 ### BoundedWildcard
@@ -2640,75 +2580,99 @@ in `src/main/java/de/tum/in/www1/artemis/service/ExerciseImportService.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends Exercise`
-in `src/main/java/de/tum/in/www1/artemis/service/LearningGoalService.java`
+Can generalize to `? extends Course`
+in `src/main/java/de/tum/in/www1/artemis/service/CourseService.java`
 #### Snippet
 ```java
-    }
-
-    private void fillInScoreAchievedByStudentUsingParticipationsSubmissionsResults(User user, Map<Exercise, IndividualLectureUnitProgress> exerciseToLectureUnitProgress,
-            List<Exercise> individualExercises, List<Exercise> teamExercises) {
-        // for all relevant exercises the participations with submissions and results will be batch-loaded
-```
-
-### BoundedWildcard
-Can generalize to `? extends IndividualLectureUnitProgress`
-in `src/main/java/de/tum/in/www1/artemis/service/LearningGoalService.java`
-#### Snippet
-```java
-    }
-
-    private void fillInScoreAchievedByStudentUsingParticipationsSubmissionsResults(User user, Map<Exercise, IndividualLectureUnitProgress> exerciseToLectureUnitProgress,
-            List<Exercise> individualExercises, List<Exercise> teamExercises) {
-        // for all relevant exercises the participations with submissions and results will be batch-loaded
-```
-
-### BoundedWildcard
-Can generalize to `? extends IndividualLectureUnitProgress`
-in `src/main/java/de/tum/in/www1/artemis/service/LearningGoalService.java`
-#### Snippet
-```java
-    }
-
-    private void fillInScoreAchievedByStudentUsingParticipantScores(User user, Map<Exercise, IndividualLectureUnitProgress> exerciseToLectureUnitProgress,
-            List<Exercise> individualExercises, List<Exercise> teamExercises) {
-        for (Exercise exercise : individualExercises) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends Exercise`
-in `src/main/java/de/tum/in/www1/artemis/service/LearningGoalService.java`
-#### Snippet
-```java
-
-    private void fillInScoreAchievedByStudentUsingParticipantScores(User user, Map<Exercise, IndividualLectureUnitProgress> exerciseToLectureUnitProgress,
-            List<Exercise> individualExercises, List<Exercise> teamExercises) {
-        for (Exercise exercise : individualExercises) {
-            Optional<StudentScore> studentScoreOptional = studentScoreRepository.findStudentScoreByExerciseAndUserLazy(exercise, user);
-```
-
-### BoundedWildcard
-Can generalize to `? extends Exercise`
-in `src/main/java/de/tum/in/www1/artemis/service/LearningGoalService.java`
-#### Snippet
-```java
-
-    private void fillInScoreAchievedByStudentUsingParticipantScores(User user, Map<Exercise, IndividualLectureUnitProgress> exerciseToLectureUnitProgress,
-            List<Exercise> individualExercises, List<Exercise> teamExercises) {
-        for (Exercise exercise : individualExercises) {
-            Optional<StudentScore> studentScoreOptional = studentScoreRepository.findStudentScoreByExerciseAndUserLazy(exercise, user);
-```
-
-### BoundedWildcard
-Can generalize to `? extends ExerciseUnit`
-in `src/main/java/de/tum/in/www1/artemis/service/LearningGoalService.java`
-#### Snippet
-```java
-     * @return progress of the user in the exercise units
+     * @param startTimeInMillis start time for logging purposes
      */
-    public Set<IndividualLectureUnitProgress> calculateExerciseUnitsProgress(Set<ExerciseUnit> exerciseUnits, User user, boolean useParticipantScoreTable) {
-        // for each exercise unit, the exercise will be mapped to a freshly created lecture unit progress.
-        Map<Exercise, IndividualLectureUnitProgress> exerciseToLectureUnitProgress = exerciseUnits.stream()
+    public void fetchParticipationsWithSubmissionsAndResultsForCourses(List<Course> courses, User user, long startTimeInMillis) {
+        Set<Exercise> exercises = courses.stream().flatMap(course -> course.getExercises().stream()).collect(Collectors.toSet());
+        List<StudentParticipation> participationsOfUserInExercises = studentParticipationRepository.getAllParticipationsOfUserInExercises(user, exercises);
+```
+
+### BoundedWildcard
+Can generalize to `? extends StudentDTO`
+in `src/main/java/de/tum/in/www1/artemis/service/CourseService.java`
+#### Snippet
+```java
+     * @return the list of students who could not be registered for the course, because they could NOT be found in the Artemis database and could NOT be found in the TUM LDAP
+     */
+    public List<StudentDTO> registerUsersForCourseGroup(Long courseId, List<StudentDTO> studentDTOs, String courseGroup) {
+        var course = courseRepository.findByIdElseThrow(courseId);
+        String courseGroupName = course.defineCourseGroupName(courseGroup);
+```
+
+### BoundedWildcard
+Can generalize to `? extends User`
+in `src/main/java/de/tum/in/www1/artemis/service/CourseService.java`
+#### Snippet
+```java
+     * @param usersInGroup  user whose variables are removed
+     */
+    private void removeUserVariables(List<User> usersInGroup) {
+        usersInGroup.forEach(user -> {
+            user.setLastNotificationRead(null);
+```
+
+### BoundedWildcard
+Can generalize to `? extends StatisticsEntry`
+in `src/main/java/de/tum/in/www1/artemis/service/CourseService.java`
+#### Snippet
+```java
+     */
+
+    private List<StatisticsEntry> removeDuplicateActiveUserRows(List<StatisticsEntry> activeUserRows, ZonedDateTime startDate) {
+        int startIndex = statisticsRepository.getWeekOfDate(startDate);
+        Map<Integer, List<String>> usersByDate = new HashMap<>();
+```
+
+### BoundedWildcard
+Can generalize to `? extends Result`
+in `src/main/java/de/tum/in/www1/artemis/service/QuizStatisticService.java`
+#### Snippet
+```java
+     * @param quiz    the quizExercise with Questions where the results should contain to
+     */
+    public void updateStatistics(Set<Result> results, QuizExercise quiz) {
+
+        if (results != null && quiz != null && quiz.getQuizQuestions() != null) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends ArchivalReportEntry`
+in `src/main/java/de/tum/in/www1/artemis/service/CourseExamExportService.java`
+#### Snippet
+```java
+     * @throws IOException if any error occurs
+     */
+    private Path writeReport(List<ArchivalReportEntry> data, Path outputDir) throws IOException {
+        List<String> lines = data.stream().map(ArchivalReportEntry::toString).collect(Collectors.toCollection(ArrayList::new));
+        lines.add(0, ArchivalReportEntry.getHeadline());
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `src/main/java/de/tum/in/www1/artemis/service/CourseExamExportService.java`
+#### Snippet
+```java
+    }
+
+    private void logMessageAndAppendToList(String message, List<String> messageList, Exception ex) {
+        log.error(message, ex);
+        messageList.add(message);
+```
+
+### BoundedWildcard
+Can generalize to `? extends Exercise`
+in `src/main/java/de/tum/in/www1/artemis/service/CourseExamExportService.java`
+#### Snippet
+```java
+     * @return                      List of paths of the exported exercises
+     */
+    private List<Path> exportExercises(String notificationTopic, Set<Exercise> exercises, Path outputDir, int progress, int totalExerciseCount, List<String> exportErrors,
+            List<ArchivalReportEntry> reportData) {
+        List<Path> exportedExercises = new ArrayList<>();
 ```
 
 ### BoundedWildcard
@@ -2760,66 +2724,6 @@ in `src/main/java/de/tum/in/www1/artemis/service/TutorEffortService.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends TextAssessmentQueueService`
-in `src/main/java/de/tum/in/www1/artemis/service/TextSubmissionService.java`
-#### Snippet
-```java
-    public TextSubmissionService(TextSubmissionRepository textSubmissionRepository, SubmissionRepository submissionRepository,
-            StudentParticipationRepository studentParticipationRepository, ParticipationService participationService, ResultRepository resultRepository,
-            UserRepository userRepository, Optional<TextAssessmentQueueService> textAssessmentQueueService, AuthorizationCheckService authCheckService,
-            SubmissionVersionService submissionVersionService, FeedbackRepository feedbackRepository, ExamDateService examDateService, ExerciseDateService exerciseDateService,
-            CourseRepository courseRepository, ParticipationRepository participationRepository, ComplaintRepository complaintRepository) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends ArchivalReportEntry`
-in `src/main/java/de/tum/in/www1/artemis/service/CourseExamExportService.java`
-#### Snippet
-```java
-     * @throws IOException if any error occurs
-     */
-    private Path writeReport(List<ArchivalReportEntry> data, Path outputDir) throws IOException {
-        List<String> lines = data.stream().map(ArchivalReportEntry::toString).collect(Collectors.toCollection(ArrayList::new));
-        lines.add(0, ArchivalReportEntry.getHeadline());
-```
-
-### BoundedWildcard
-Can generalize to `? extends Exercise`
-in `src/main/java/de/tum/in/www1/artemis/service/CourseExamExportService.java`
-#### Snippet
-```java
-     * @return                      List of paths of the exported exercises
-     */
-    private List<Path> exportExercises(String notificationTopic, Set<Exercise> exercises, Path outputDir, int progress, int totalExerciseCount, List<String> exportErrors,
-            List<ArchivalReportEntry> reportData) {
-        List<Path> exportedExercises = new ArrayList<>();
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `src/main/java/de/tum/in/www1/artemis/service/CourseExamExportService.java`
-#### Snippet
-```java
-    }
-
-    private void logMessageAndAppendToList(String message, List<String> messageList, Exception ex) {
-        log.error(message, ex);
-        messageList.add(message);
-```
-
-### BoundedWildcard
-Can generalize to `? extends StudentParticipation`
-in `src/main/java/de/tum/in/www1/artemis/service/ParticipationService.java`
-#### Snippet
-```java
-     * @return all participations where the individual due date actually changed.
-     */
-    public List<StudentParticipation> updateIndividualDueDates(final Exercise exercise, final List<StudentParticipation> participations) {
-        final List<StudentParticipation> changedParticipations = new ArrayList<>();
-
-```
-
-### BoundedWildcard
 Can generalize to `? extends ContinuousIntegrationService`
 in `src/main/java/de/tum/in/www1/artemis/service/ParticipationService.java`
 #### Snippet
@@ -2844,27 +2748,99 @@ in `src/main/java/de/tum/in/www1/artemis/service/ParticipationService.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends PlagiarismCase`
-in `src/main/java/de/tum/in/www1/artemis/service/CourseScoreCalculationService.java`
+Can generalize to `? extends StudentParticipation`
+in `src/main/java/de/tum/in/www1/artemis/service/ParticipationService.java`
+#### Snippet
+```java
+     * @return all participations where the individual due date actually changed.
+     */
+    public List<StudentParticipation> updateIndividualDueDates(final Exercise exercise, final List<StudentParticipation> participations) {
+        final List<StudentParticipation> changedParticipations = new ArrayList<>();
+
+```
+
+### BoundedWildcard
+Can generalize to `? extends TextAssessmentQueueService`
+in `src/main/java/de/tum/in/www1/artemis/service/TextSubmissionService.java`
+#### Snippet
+```java
+    public TextSubmissionService(TextSubmissionRepository textSubmissionRepository, SubmissionRepository submissionRepository,
+            StudentParticipationRepository studentParticipationRepository, ParticipationService participationService, ResultRepository resultRepository,
+            UserRepository userRepository, Optional<TextAssessmentQueueService> textAssessmentQueueService, AuthorizationCheckService authCheckService,
+            SubmissionVersionService submissionVersionService, FeedbackRepository feedbackRepository, ExamDateService examDateService, ExerciseDateService exerciseDateService,
+            CourseRepository courseRepository, ParticipationRepository participationRepository, ComplaintRepository complaintRepository) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends ExerciseUnit`
+in `src/main/java/de/tum/in/www1/artemis/service/LearningGoalService.java`
+#### Snippet
+```java
+     * @return progress of the user in the exercise units
+     */
+    public Set<IndividualLectureUnitProgress> calculateExerciseUnitsProgress(Set<ExerciseUnit> exerciseUnits, User user, boolean useParticipantScoreTable) {
+        // for each exercise unit, the exercise will be mapped to a freshly created lecture unit progress.
+        Map<Exercise, IndividualLectureUnitProgress> exerciseToLectureUnitProgress = exerciseUnits.stream()
+```
+
+### BoundedWildcard
+Can generalize to `? extends Exercise`
+in `src/main/java/de/tum/in/www1/artemis/service/LearningGoalService.java`
 #### Snippet
 ```java
     }
 
-    private PlagiarismVerdict findMostServerePlagiarismVerdict(Collection<PlagiarismCase> plagiarismCasesForSingleStudent) {
-        if (plagiarismCasesForSingleStudent.isEmpty()) {
-            return null;
+    private void fillInScoreAchievedByStudentUsingParticipationsSubmissionsResults(User user, Map<Exercise, IndividualLectureUnitProgress> exerciseToLectureUnitProgress,
+            List<Exercise> individualExercises, List<Exercise> teamExercises) {
+        // for all relevant exercises the participations with submissions and results will be batch-loaded
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends StudentParticipation`
-in `src/main/java/de/tum/in/www1/artemis/service/CourseScoreCalculationService.java`
+Can generalize to `? extends IndividualLectureUnitProgress`
+in `src/main/java/de/tum/in/www1/artemis/service/LearningGoalService.java`
 #### Snippet
 ```java
-     * @return a StudentScore instance with the presentation score, relative and absolute points achieved by the given student and the most severe plagiarism verdict
-     */
-    public CourseScoresDTO.StudentScore calculateCourseScoreForStudent(Long studentId, List<StudentParticipation> participationsOfStudent, double maxPointsInCourse,
-            double reachableMaxPointsInCourse, PlagiarismMapping plagiarismMapping) {
+    }
 
+    private void fillInScoreAchievedByStudentUsingParticipationsSubmissionsResults(User user, Map<Exercise, IndividualLectureUnitProgress> exerciseToLectureUnitProgress,
+            List<Exercise> individualExercises, List<Exercise> teamExercises) {
+        // for all relevant exercises the participations with submissions and results will be batch-loaded
+```
+
+### BoundedWildcard
+Can generalize to `? extends IndividualLectureUnitProgress`
+in `src/main/java/de/tum/in/www1/artemis/service/LearningGoalService.java`
+#### Snippet
+```java
+    }
+
+    private void fillInScoreAchievedByStudentUsingParticipantScores(User user, Map<Exercise, IndividualLectureUnitProgress> exerciseToLectureUnitProgress,
+            List<Exercise> individualExercises, List<Exercise> teamExercises) {
+        for (Exercise exercise : individualExercises) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends Exercise`
+in `src/main/java/de/tum/in/www1/artemis/service/LearningGoalService.java`
+#### Snippet
+```java
+
+    private void fillInScoreAchievedByStudentUsingParticipantScores(User user, Map<Exercise, IndividualLectureUnitProgress> exerciseToLectureUnitProgress,
+            List<Exercise> individualExercises, List<Exercise> teamExercises) {
+        for (Exercise exercise : individualExercises) {
+            Optional<StudentScore> studentScoreOptional = studentScoreRepository.findStudentScoreByExerciseAndUserLazy(exercise, user);
+```
+
+### BoundedWildcard
+Can generalize to `? extends Exercise`
+in `src/main/java/de/tum/in/www1/artemis/service/LearningGoalService.java`
+#### Snippet
+```java
+
+    private void fillInScoreAchievedByStudentUsingParticipantScores(User user, Map<Exercise, IndividualLectureUnitProgress> exerciseToLectureUnitProgress,
+            List<Exercise> individualExercises, List<Exercise> teamExercises) {
+        for (Exercise exercise : individualExercises) {
+            Optional<StudentScore> studentScoreOptional = studentScoreRepository.findStudentScoreByExerciseAndUserLazy(exercise, user);
 ```
 
 ### BoundedWildcard
@@ -2880,39 +2856,27 @@ in `src/main/java/de/tum/in/www1/artemis/service/TutorLeaderboardService.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends User`
-in `src/main/java/de/tum/in/www1/artemis/service/MailService.java`
+Can generalize to `? extends StudentParticipation`
+in `src/main/java/de/tum/in/www1/artemis/service/CourseScoreCalculationService.java`
 #### Snippet
 ```java
-
-    @Async
-    public void sendNotificationEmailForMultipleUsers(Notification notification, List<User> users, Object notificationSubject) {
-        users.forEach(user -> sendNotificationEmail(notification, user, notificationSubject));
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? extends StudentDTO`
-in `src/main/java/de/tum/in/www1/artemis/service/exam/ExamRegistrationService.java`
-#### Snippet
-```java
-     * @return the list of students who could not be registered for the exam, because they could NOT be found in the Artemis database and could NOT be found in the TUM LDAP
+     * @return a StudentScore instance with the presentation score, relative and absolute points achieved by the given student and the most severe plagiarism verdict
      */
-    public List<StudentDTO> registerStudentsForExam(Long courseId, Long examId, List<StudentDTO> studentDTOs) {
-        var course = courseRepository.findByIdElseThrow(courseId);
-        var exam = examRepository.findWithRegisteredUsersById(examId).orElseThrow(() -> new EntityNotFoundException("Exam", examId));
+    public CourseScoresDTO.StudentScore calculateCourseScoreForStudent(Long studentId, List<StudentParticipation> participationsOfStudent, double maxPointsInCourse,
+            double reachableMaxPointsInCourse, PlagiarismMapping plagiarismMapping) {
+
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends Authority`
-in `src/main/java/de/tum/in/www1/artemis/service/dto/UserDTO.java`
+Can generalize to `? extends PlagiarismCase`
+in `src/main/java/de/tum/in/www1/artemis/service/CourseScoreCalculationService.java`
 #### Snippet
 ```java
-    public UserDTO(Long id, String login, String name, String firstName, String lastName, String email, String visibleRegistrationNumber, boolean activated, String imageUrl,
-            String langKey, boolean isInternal, String createdBy, Instant createdDate, String lastModifiedBy, Instant lastModifiedDate, ZonedDateTime lastNotificationRead,
-            Set<Authority> authorities, Set<String> groups, Set<GuidedTourSetting> guidedTourSettings, Set<Organization> organizations, String accessToken) {
+    }
 
-        this.id = id;
+    private PlagiarismVerdict findMostServerePlagiarismVerdict(Collection<PlagiarismCase> plagiarismCasesForSingleStudent) {
+        if (plagiarismCasesForSingleStudent.isEmpty()) {
+            return null;
 ```
 
 ### BoundedWildcard
@@ -2964,6 +2928,42 @@ in `src/main/java/de/tum/in/www1/artemis/service/AutomaticTextAssessmentConflict
 ```
 
 ### BoundedWildcard
+Can generalize to `? extends User`
+in `src/main/java/de/tum/in/www1/artemis/service/MailService.java`
+#### Snippet
+```java
+
+    @Async
+    public void sendNotificationEmailForMultipleUsers(Notification notification, List<User> users, Object notificationSubject) {
+        users.forEach(user -> sendNotificationEmail(notification, user, notificationSubject));
+    }
+```
+
+### BoundedWildcard
+Can generalize to `? extends StudentDTO`
+in `src/main/java/de/tum/in/www1/artemis/service/exam/ExamRegistrationService.java`
+#### Snippet
+```java
+     * @return the list of students who could not be registered for the exam, because they could NOT be found in the Artemis database and could NOT be found in the TUM LDAP
+     */
+    public List<StudentDTO> registerStudentsForExam(Long courseId, Long examId, List<StudentDTO> studentDTOs) {
+        var course = courseRepository.findByIdElseThrow(courseId);
+        var exam = examRepository.findWithRegisteredUsersById(examId).orElseThrow(() -> new EntityNotFoundException("Exam", examId));
+```
+
+### BoundedWildcard
+Can generalize to `? extends Authority`
+in `src/main/java/de/tum/in/www1/artemis/service/dto/UserDTO.java`
+#### Snippet
+```java
+    public UserDTO(Long id, String login, String name, String firstName, String lastName, String email, String visibleRegistrationNumber, boolean activated, String imageUrl,
+            String langKey, boolean isInternal, String createdBy, Instant createdDate, String lastModifiedBy, Instant lastModifiedDate, ZonedDateTime lastNotificationRead,
+            Set<Authority> authorities, Set<String> groups, Set<GuidedTourSetting> guidedTourSettings, Set<Organization> organizations, String accessToken) {
+
+        this.id = id;
+```
+
+### BoundedWildcard
 Can generalize to `? extends Team`
 in `src/main/java/de/tum/in/www1/artemis/service/team/TeamImportStrategy.java`
 #### Snippet
@@ -2973,78 +2973,6 @@ in `src/main/java/de/tum/in/www1/artemis/service/team/TeamImportStrategy.java`
     protected void cloneTeamsIntoDestinationExercise(List<Team> originalTeams, Exercise destinationExercise) {
         List<Team> clonedTeams = originalTeams.stream().map(Team::new).map(team -> team.exercise(destinationExercise)).toList();
         teamRepository.saveAll(clonedTeams);
-```
-
-### BoundedWildcard
-Can generalize to `? extends Team`
-in `src/main/java/de/tum/in/www1/artemis/service/team/strategies/CreateOnlyStrategy.java`
-#### Snippet
-```java
-     * @return an unmodifiable list of those source teams that have no conflicts
-     */
-    private List<Team> getConflictFreeTeams(List<Team> existingTeams, List<Team> newTeams) {
-        Set<String> existingTeamShortNames = existingTeams.stream().map(Team::getShortName).collect(Collectors.toSet());
-        Set<User> existingTeamStudents = existingTeams.stream().flatMap(team -> team.getStudents().stream()).collect(Collectors.toSet());
-```
-
-### BoundedWildcard
-Can generalize to `? super JavaClass`
-in `src/main/java/de/tum/in/www1/artemis/service/util/structureoraclegenerator/JavaClassDiff.java`
-#### Snippet
-```java
-    }
-
-    private boolean isValueDifferent(Function<JavaClass, Boolean> valueGetter) {
-        return templateClass == null ? valueGetter.apply(solutionClass) : (valueGetter.apply(solutionClass) && !valueGetter.apply(templateClass));
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? extends JavaAnnotation`
-in `src/main/java/de/tum/in/www1/artemis/service/util/structureoraclegenerator/JavaClassDiff.java`
-#### Snippet
-```java
-    }
-
-    private boolean annotationsAreEqual(List<JavaAnnotation> solutionAnnotations, List<JavaAnnotation> templateAnnotations) {
-        return checkListEquality(solutionAnnotations.stream().map(annotation -> annotation.getType().getSimpleName()).toList(),
-                templateAnnotations.stream().map(annotation -> annotation.getType().getSimpleName()).toList());
-```
-
-### BoundedWildcard
-Can generalize to `? extends JavaAnnotation`
-in `src/main/java/de/tum/in/www1/artemis/service/util/structureoraclegenerator/JavaClassDiff.java`
-#### Snippet
-```java
-    }
-
-    private boolean annotationsAreEqual(List<JavaAnnotation> solutionAnnotations, List<JavaAnnotation> templateAnnotations) {
-        return checkListEquality(solutionAnnotations.stream().map(annotation -> annotation.getType().getSimpleName()).toList(),
-                templateAnnotations.stream().map(annotation -> annotation.getType().getSimpleName()).toList());
-```
-
-### BoundedWildcard
-Can generalize to `? extends JavaField`
-in `src/main/java/de/tum/in/www1/artemis/service/util/structureoraclegenerator/JavaClassDiff.java`
-#### Snippet
-```java
-    }
-
-    private void removeTemplateElements(List<JavaField> fieldDiff) {
-        // If the template is non-existent, then the enum/attributes diff consists of all the attributes of the solution type.
-        if (templateClass != null) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends Path`
-in `src/main/java/de/tum/in/www1/artemis/service/util/structureoraclegenerator/OracleGenerator.java`
-#### Snippet
-```java
-    }
-
-    private static Collection<JavaClass> getClassesFromFiles(List<Path> javaSourceFiles) {
-        JavaProjectBuilder builder = new JavaProjectBuilder();
-        try {
 ```
 
 ### BoundedWildcard
@@ -3072,15 +3000,27 @@ in `src/main/java/de/tum/in/www1/artemis/service/user/UserCreationService.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends JavaAnnotation`
-in `src/main/java/de/tum/in/www1/artemis/service/util/structureoraclegenerator/SerializerUtil.java`
+Can generalize to `? extends Team`
+in `src/main/java/de/tum/in/www1/artemis/service/team/strategies/CreateOnlyStrategy.java`
 #### Snippet
 ```java
-     * @param annotations List of annotations to filter
+     * @return an unmodifiable list of those source teams that have no conflicts
      */
-    private static void filterAnnotations(List<JavaAnnotation> annotations) {
-        annotations.removeIf(javaAnnotation -> javaAnnotation.getType().isA(Override.class.getName()));
+    private List<Team> getConflictFreeTeams(List<Team> existingTeams, List<Team> newTeams) {
+        Set<String> existingTeamShortNames = existingTeams.stream().map(Team::getShortName).collect(Collectors.toSet());
+        Set<User> existingTeamStudents = existingTeams.stream().flatMap(team -> team.getStudents().stream()).collect(Collectors.toSet());
+```
+
+### BoundedWildcard
+Can generalize to `? extends Path`
+in `src/main/java/de/tum/in/www1/artemis/service/util/structureoraclegenerator/OracleGenerator.java`
+#### Snippet
+```java
     }
+
+    private static Collection<JavaClass> getClassesFromFiles(List<Path> javaSourceFiles) {
+        JavaProjectBuilder builder = new JavaProjectBuilder();
+        try {
 ```
 
 ### BoundedWildcard
@@ -3093,6 +3033,66 @@ in `src/main/java/de/tum/in/www1/artemis/service/util/structureoraclegenerator/S
     static JsonArray serializeParameters(List<JavaParameter> parameters) {
         JsonArray parametersArray = new JsonArray();
         for (JavaParameter parameter : parameters) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends JavaAnnotation`
+in `src/main/java/de/tum/in/www1/artemis/service/util/structureoraclegenerator/SerializerUtil.java`
+#### Snippet
+```java
+     * @param annotations List of annotations to filter
+     */
+    private static void filterAnnotations(List<JavaAnnotation> annotations) {
+        annotations.removeIf(javaAnnotation -> javaAnnotation.getType().isA(Override.class.getName()));
+    }
+```
+
+### BoundedWildcard
+Can generalize to `? extends JavaField`
+in `src/main/java/de/tum/in/www1/artemis/service/util/structureoraclegenerator/JavaClassDiff.java`
+#### Snippet
+```java
+    }
+
+    private void removeTemplateElements(List<JavaField> fieldDiff) {
+        // If the template is non-existent, then the enum/attributes diff consists of all the attributes of the solution type.
+        if (templateClass != null) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends JavaAnnotation`
+in `src/main/java/de/tum/in/www1/artemis/service/util/structureoraclegenerator/JavaClassDiff.java`
+#### Snippet
+```java
+    }
+
+    private boolean annotationsAreEqual(List<JavaAnnotation> solutionAnnotations, List<JavaAnnotation> templateAnnotations) {
+        return checkListEquality(solutionAnnotations.stream().map(annotation -> annotation.getType().getSimpleName()).toList(),
+                templateAnnotations.stream().map(annotation -> annotation.getType().getSimpleName()).toList());
+```
+
+### BoundedWildcard
+Can generalize to `? extends JavaAnnotation`
+in `src/main/java/de/tum/in/www1/artemis/service/util/structureoraclegenerator/JavaClassDiff.java`
+#### Snippet
+```java
+    }
+
+    private boolean annotationsAreEqual(List<JavaAnnotation> solutionAnnotations, List<JavaAnnotation> templateAnnotations) {
+        return checkListEquality(solutionAnnotations.stream().map(annotation -> annotation.getType().getSimpleName()).toList(),
+                templateAnnotations.stream().map(annotation -> annotation.getType().getSimpleName()).toList());
+```
+
+### BoundedWildcard
+Can generalize to `? super JavaClass`
+in `src/main/java/de/tum/in/www1/artemis/service/util/structureoraclegenerator/JavaClassDiff.java`
+#### Snippet
+```java
+    }
+
+    private boolean isValueDifferent(Function<JavaClass, Boolean> valueGetter) {
+        return templateClass == null ? valueGetter.apply(solutionClass) : (valueGetter.apply(solutionClass) && !valueGetter.apply(templateClass));
+    }
 ```
 
 ### BoundedWildcard
@@ -3156,15 +3156,15 @@ in `src/main/java/de/tum/in/www1/artemis/service/user/UserService.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends User`
-in `src/main/java/de/tum/in/www1/artemis/service/metis/conversation/ChannelService.java`
+Can generalize to `? extends Path`
+in `src/main/java/de/tum/in/www1/artemis/service/FileService.java`
 #### Snippet
 ```java
-     * @param usersToGrant the users to grant the channel moderator role
+     * @param filePaths A list of all paths to the files that should be deleted
      */
-    public void grantChannelModeratorRole(Channel channel, Set<User> usersToGrant) {
-        var matchingParticipants = conversationParticipantRepository.findConversationParticipantsByConversationIdAndUserIds(channel.getId(),
-                usersToGrant.stream().map(User::getId).collect(Collectors.toSet()));
+    public void deleteFiles(List<Path> filePaths) {
+        for (Path filePath : filePaths) {
+            try {
 ```
 
 ### BoundedWildcard
@@ -3181,6 +3181,18 @@ in `src/main/java/de/tum/in/www1/artemis/service/metis/conversation/ChannelServi
 
 ### BoundedWildcard
 Can generalize to `? extends User`
+in `src/main/java/de/tum/in/www1/artemis/service/metis/conversation/ChannelService.java`
+#### Snippet
+```java
+     * @param usersToGrant the users to grant the channel moderator role
+     */
+    public void grantChannelModeratorRole(Channel channel, Set<User> usersToGrant) {
+        var matchingParticipants = conversationParticipantRepository.findConversationParticipantsByConversationIdAndUserIds(channel.getId(),
+                usersToGrant.stream().map(User::getId).collect(Collectors.toSet()));
+```
+
+### BoundedWildcard
+Can generalize to `? extends User`
 in `src/main/java/de/tum/in/www1/artemis/service/metis/conversation/GroupChatService.java`
 #### Snippet
 ```java
@@ -3189,42 +3201,6 @@ in `src/main/java/de/tum/in/www1/artemis/service/metis/conversation/GroupChatSer
     public GroupChat startGroupChat(Course course, Set<User> startingMembers) {
         var requestingUser = userRepository.getUserWithGroupsAndAuthorities();
         var groupChat = new GroupChat();
-```
-
-### BoundedWildcard
-Can generalize to `? extends ConversationParticipant`
-in `src/main/java/de/tum/in/www1/artemis/service/metis/conversation/ConversationDTOService.java`
-#### Snippet
-```java
-
-    @NotNull
-    private Set<ConversationUserDTO> getChatParticipantDTOs(User requestingUser, Course course, Set<ConversationParticipant> conversationParticipants) {
-        return conversationParticipants.stream().map(ConversationParticipant::getUser).map(user -> {
-            var userDTO = new ConversationUserDTO(user);
-```
-
-### BoundedWildcard
-Can generalize to `? extends ConversationParticipant`
-in `src/main/java/de/tum/in/www1/artemis/service/metis/conversation/ConversationDTOService.java`
-#### Snippet
-```java
-    }
-
-    private void setDTOPropertiesBasedOnParticipant(ConversationDTO conversationDTO, Optional<ConversationParticipant> participantOptional) {
-        conversationDTO.setIsMember(participantOptional.isPresent());
-        participantOptional.ifPresent(participant -> {
-```
-
-### BoundedWildcard
-Can generalize to `? extends StudentExam`
-in `src/main/java/de/tum/in/www1/artemis/service/exam/StudentExamService.java`
-#### Snippet
-```java
-     * @return a map of the User as key, and a list of the users exercises as value
-     */
-    public Map<User, List<Exercise>> getExercisesOfUserMap(Set<StudentExam> studentExams) {
-        return studentExams.stream().collect(
-                Collectors.toMap(StudentExam::getUser, studentExam -> studentExam.getExercises().stream().filter(exercise -> !(exercise instanceof QuizExercise)).toList()));
 ```
 
 ### BoundedWildcard
@@ -3252,6 +3228,42 @@ in `src/main/java/de/tum/in/www1/artemis/service/exam/StudentExamService.java`
 ```
 
 ### BoundedWildcard
+Can generalize to `? extends StudentExam`
+in `src/main/java/de/tum/in/www1/artemis/service/exam/StudentExamService.java`
+#### Snippet
+```java
+     * @return a map of the User as key, and a list of the users exercises as value
+     */
+    public Map<User, List<Exercise>> getExercisesOfUserMap(Set<StudentExam> studentExams) {
+        return studentExams.stream().collect(
+                Collectors.toMap(StudentExam::getUser, studentExam -> studentExam.getExercises().stream().filter(exercise -> !(exercise instanceof QuizExercise)).toList()));
+```
+
+### BoundedWildcard
+Can generalize to `? extends ConversationParticipant`
+in `src/main/java/de/tum/in/www1/artemis/service/metis/conversation/ConversationDTOService.java`
+#### Snippet
+```java
+    }
+
+    private void setDTOPropertiesBasedOnParticipant(ConversationDTO conversationDTO, Optional<ConversationParticipant> participantOptional) {
+        conversationDTO.setIsMember(participantOptional.isPresent());
+        participantOptional.ifPresent(participant -> {
+```
+
+### BoundedWildcard
+Can generalize to `? extends ConversationParticipant`
+in `src/main/java/de/tum/in/www1/artemis/service/metis/conversation/ConversationDTOService.java`
+#### Snippet
+```java
+
+    @NotNull
+    private Set<ConversationUserDTO> getChatParticipantDTOs(User requestingUser, Course course, Set<ConversationParticipant> conversationParticipants) {
+        return conversationParticipants.stream().map(ConversationParticipant::getUser).map(user -> {
+            var userDTO = new ConversationUserDTO(user);
+```
+
+### BoundedWildcard
 Can generalize to `? extends User`
 in `src/main/java/de/tum/in/www1/artemis/service/metis/conversation/ConversationService.java`
 #### Snippet
@@ -3261,18 +3273,6 @@ in `src/main/java/de/tum/in/www1/artemis/service/metis/conversation/Conversation
     public void broadcastOnConversationMembershipChannel(Course course, MetisCrudAction metisCrudAction, Conversation conversation, Set<User> usersToMessage) {
         String conversationParticipantTopicName = getConversationParticipantTopicName(course.getId());
         usersToMessage.forEach(user -> sendToConversationMembershipChannel(metisCrudAction, conversation, user, conversationParticipantTopicName));
-```
-
-### BoundedWildcard
-Can generalize to `? extends Path`
-in `src/main/java/de/tum/in/www1/artemis/service/FileService.java`
-#### Snippet
-```java
-     * @param filePaths A list of all paths to the files that should be deleted
-     */
-    public void deleteFiles(List<Path> filePaths) {
-        for (Path filePath : filePaths) {
-            try {
 ```
 
 ### BoundedWildcard
@@ -3312,18 +3312,6 @@ in `src/main/java/de/tum/in/www1/artemis/service/hestia/behavioral/GroupedFile.j
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends TestwiseCoverageReportDTO`
-in `src/main/java/de/tum/in/www1/artemis/service/hestia/TestwiseCoverageService.java`
-#### Snippet
-```java
-     * @return coverage file reports mapped by the test case name
-     */
-    public Map<String, Set<CoverageFileReport>> createTestwiseCoverageFileReportsWithoutTestsByTestCaseName(List<TestwiseCoverageReportDTO> coverageReports) {
-        Map<String, Set<CoverageFileReport>> fileReportsByTestName = new HashMap<>();
-        coverageReports.forEach(coveragePerTestDTO -> {
-```
-
-### BoundedWildcard
 Can generalize to `? extends Set`
 in `src/main/java/de/tum/in/www1/artemis/service/hestia/TestwiseCoverageService.java`
 #### Snippet
@@ -3336,99 +3324,15 @@ in `src/main/java/de/tum/in/www1/artemis/service/hestia/TestwiseCoverageService.
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends Exercise`
-in `src/main/java/de/tum/in/www1/artemis/service/exam/ExamService.java`
+Can generalize to `? extends TestwiseCoverageReportDTO`
+in `src/main/java/de/tum/in/www1/artemis/service/hestia/TestwiseCoverageService.java`
 #### Snippet
 ```java
-     * @return sum of rounded max points if exercises are given, else 0.0
+     * @return coverage file reports mapped by the test case name
      */
-    private double calculateMaxPointsSum(List<Exercise> exercises, Course course) {
-        if (exercises != null) {
-            var exercisesIncluded = exercises.stream().filter(exercise -> exercise.getIncludedInOverallScore() == IncludedInOverallScore.INCLUDED_COMPLETELY);
-```
-
-### BoundedWildcard
-Can generalize to `? extends Exercise`
-in `src/main/java/de/tum/in/www1/artemis/service/exam/ExamService.java`
-#### Snippet
-```java
-     * @return sum of rounded max bonus points if exercises are given, else 0.0
-     */
-    private double calculateMaxBonusPointsSum(List<Exercise> exercises, Course course) {
-        if (exercises != null) {
-            return roundScoreSpecifiedByCourseSettings(exercises.stream().map(this::calculateMaxBonusPoints).reduce(0.0, Double::sum), course);
-```
-
-### BoundedWildcard
-Can generalize to `? extends Submission`
-in `src/main/java/de/tum/in/www1/artemis/service/exam/ExamService.java`
-#### Snippet
-```java
-     * @return true if at least one submission is not empty else false
-     */
-    private boolean hasNonEmptySubmission(Set<Submission> submissions, Exercise exercise) {
-        if (exercise instanceof ProgrammingExercise) {
-            return submissions.stream().anyMatch(submission -> submission.getType() == SubmissionType.MANUAL);
-```
-
-### BoundedWildcard
-Can generalize to `? extends GradingScale`
-in `src/main/java/de/tum/in/www1/artemis/service/exam/ExamService.java`
-#### Snippet
-```java
-
-    @Nullable
-    private ExamBonusCalculator createExamBonusCalculator(Optional<GradingScale> gradingScale, Collection<Long> studentIds) {
-        if (gradingScale.isEmpty() || gradingScale.get().getBonusFrom().isEmpty()) {
-            return null;
-```
-
-### BoundedWildcard
-Can generalize to `? extends StudentParticipation`
-in `src/main/java/de/tum/in/www1/artemis/service/exam/ExamService.java`
-#### Snippet
-```java
-    }
-
-    private Map<Long, Double> calculateAchievedPointsForExercises(List<StudentParticipation> participationsOfStudent, Course course, PlagiarismMapping plagiarismMapping) {
-        return participationsOfStudent.stream().collect(Collectors.toMap(participation -> participation.getExercise().getId(), participation -> {
-            PlagiarismCase plagiarismCase = plagiarismMapping.getPlagiarismCase(participation.getStudent().get().getId(), participation.getExercise().getId());
-```
-
-### BoundedWildcard
-Can generalize to `? extends StudentParticipation`
-in `src/main/java/de/tum/in/www1/artemis/service/exam/ExamService.java`
-#### Snippet
-```java
-     * @return exam result for a student who participated in the exam
-     */
-    private ExamScoresDTO.StudentResult calculateStudentResultWithGrade(StudentExam studentExam, List<StudentParticipation> participationsOfStudent, Exam exam,
-            Optional<GradingScale> gradingScale, boolean calculateFirstCorrectionPoints, List<QuizSubmittedAnswerCount> quizSubmittedAnswerCounts,
-            PlagiarismMapping plagiarismMapping, ExamBonusCalculator examBonusCalculator) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends GradingScale`
-in `src/main/java/de/tum/in/www1/artemis/service/exam/ExamService.java`
-#### Snippet
-```java
-     */
-    private ExamScoresDTO.StudentResult calculateStudentResultWithGrade(StudentExam studentExam, List<StudentParticipation> participationsOfStudent, Exam exam,
-            Optional<GradingScale> gradingScale, boolean calculateFirstCorrectionPoints, List<QuizSubmittedAnswerCount> quizSubmittedAnswerCounts,
-            PlagiarismMapping plagiarismMapping, ExamBonusCalculator examBonusCalculator) {
-        User user = studentExam.getUser();
-```
-
-### BoundedWildcard
-Can generalize to `? extends JavaTypeVariable`
-in `src/main/java/de/tum/in/www1/artemis/service/hestia/structural/StructuralElement.java`
-#### Snippet
-```java
-     * @return The String representation
-     */
-    default String getGenericTypesString(List<JavaTypeVariable<JavaGenericDeclaration>> typeParameters) {
-        return "<" + typeParameters.stream().map(JavaType::getGenericValue).map(type -> type.substring(1, type.length() - 1)).collect(Collectors.joining(", ")) + ">";
-    }
+    public Map<String, Set<CoverageFileReport>> createTestwiseCoverageFileReportsWithoutTestsByTestCaseName(List<TestwiseCoverageReportDTO> coverageReports) {
+        Map<String, Set<CoverageFileReport>> fileReportsByTestName = new HashMap<>();
+        coverageReports.forEach(coveragePerTestDTO -> {
 ```
 
 ### BoundedWildcard
@@ -3453,6 +3357,18 @@ in `src/main/java/de/tum/in/www1/artemis/service/hestia/structural/StructuralEle
     default boolean doParametersMatch(List<String> parameters, List<JavaParameter> solutionParameters, List<JavaTypeVariable<JavaGenericDeclaration>> genericDeclarations) {
         if (parameters == null) {
             return solutionParameters.isEmpty();
+```
+
+### BoundedWildcard
+Can generalize to `? extends JavaTypeVariable`
+in `src/main/java/de/tum/in/www1/artemis/service/hestia/structural/StructuralElement.java`
+#### Snippet
+```java
+     * @return The String representation
+     */
+    default String getGenericTypesString(List<JavaTypeVariable<JavaGenericDeclaration>> typeParameters) {
+        return "<" + typeParameters.stream().map(JavaType::getGenericValue).map(type -> type.substring(1, type.length() - 1)).collect(Collectors.joining(", ")) + ">";
+    }
 ```
 
 ### BoundedWildcard
@@ -3489,6 +3405,18 @@ in `src/main/java/de/tum/in/www1/artemis/service/compass/umlmodel/parsers/PetriN
     private static Optional<PetriNetArc> parsePetriNetArc(JsonObject relationshipJson, Map<String, UMLElement> allSyntaxTreeElements) throws IOException {
         String multiplicity = relationshipJson.get(ELEMENT_NAME).getAsString();
         UMLElement source = UMLModelParser.findElement(relationshipJson, allSyntaxTreeElements, RELATIONSHIP_SOURCE);
+```
+
+### BoundedWildcard
+Can generalize to `? extends UMLElement`
+in `src/main/java/de/tum/in/www1/artemis/service/compass/umlmodel/parsers/ComponentDiagramParser.java`
+#### Snippet
+```java
+     * @return the UMLComponentInterface object parsed from the JSON object
+     */
+    protected static Optional<UMLComponentRelationship> parseComponentRelationship(JsonObject relationshipJson, Map<String, UMLElement> allUmlElementsMap) throws IOException {
+
+        String relationshipType = relationshipJson.get(RELATIONSHIP_TYPE).getAsString();
 ```
 
 ### BoundedWildcard
@@ -3540,15 +3468,87 @@ in `src/main/java/de/tum/in/www1/artemis/service/compass/umlmodel/parsers/Compon
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends UMLElement`
-in `src/main/java/de/tum/in/www1/artemis/service/compass/umlmodel/parsers/ComponentDiagramParser.java`
+Can generalize to `? extends Submission`
+in `src/main/java/de/tum/in/www1/artemis/service/exam/ExamService.java`
 #### Snippet
 ```java
-     * @return the UMLComponentInterface object parsed from the JSON object
+     * @return true if at least one submission is not empty else false
      */
-    protected static Optional<UMLComponentRelationship> parseComponentRelationship(JsonObject relationshipJson, Map<String, UMLElement> allUmlElementsMap) throws IOException {
+    private boolean hasNonEmptySubmission(Set<Submission> submissions, Exercise exercise) {
+        if (exercise instanceof ProgrammingExercise) {
+            return submissions.stream().anyMatch(submission -> submission.getType() == SubmissionType.MANUAL);
+```
 
-        String relationshipType = relationshipJson.get(RELATIONSHIP_TYPE).getAsString();
+### BoundedWildcard
+Can generalize to `? extends Exercise`
+in `src/main/java/de/tum/in/www1/artemis/service/exam/ExamService.java`
+#### Snippet
+```java
+     * @return sum of rounded max bonus points if exercises are given, else 0.0
+     */
+    private double calculateMaxBonusPointsSum(List<Exercise> exercises, Course course) {
+        if (exercises != null) {
+            return roundScoreSpecifiedByCourseSettings(exercises.stream().map(this::calculateMaxBonusPoints).reduce(0.0, Double::sum), course);
+```
+
+### BoundedWildcard
+Can generalize to `? extends Exercise`
+in `src/main/java/de/tum/in/www1/artemis/service/exam/ExamService.java`
+#### Snippet
+```java
+     * @return sum of rounded max points if exercises are given, else 0.0
+     */
+    private double calculateMaxPointsSum(List<Exercise> exercises, Course course) {
+        if (exercises != null) {
+            var exercisesIncluded = exercises.stream().filter(exercise -> exercise.getIncludedInOverallScore() == IncludedInOverallScore.INCLUDED_COMPLETELY);
+```
+
+### BoundedWildcard
+Can generalize to `? extends StudentParticipation`
+in `src/main/java/de/tum/in/www1/artemis/service/exam/ExamService.java`
+#### Snippet
+```java
+    }
+
+    private Map<Long, Double> calculateAchievedPointsForExercises(List<StudentParticipation> participationsOfStudent, Course course, PlagiarismMapping plagiarismMapping) {
+        return participationsOfStudent.stream().collect(Collectors.toMap(participation -> participation.getExercise().getId(), participation -> {
+            PlagiarismCase plagiarismCase = plagiarismMapping.getPlagiarismCase(participation.getStudent().get().getId(), participation.getExercise().getId());
+```
+
+### BoundedWildcard
+Can generalize to `? extends StudentParticipation`
+in `src/main/java/de/tum/in/www1/artemis/service/exam/ExamService.java`
+#### Snippet
+```java
+     * @return exam result for a student who participated in the exam
+     */
+    private ExamScoresDTO.StudentResult calculateStudentResultWithGrade(StudentExam studentExam, List<StudentParticipation> participationsOfStudent, Exam exam,
+            Optional<GradingScale> gradingScale, boolean calculateFirstCorrectionPoints, List<QuizSubmittedAnswerCount> quizSubmittedAnswerCounts,
+            PlagiarismMapping plagiarismMapping, ExamBonusCalculator examBonusCalculator) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends GradingScale`
+in `src/main/java/de/tum/in/www1/artemis/service/exam/ExamService.java`
+#### Snippet
+```java
+     */
+    private ExamScoresDTO.StudentResult calculateStudentResultWithGrade(StudentExam studentExam, List<StudentParticipation> participationsOfStudent, Exam exam,
+            Optional<GradingScale> gradingScale, boolean calculateFirstCorrectionPoints, List<QuizSubmittedAnswerCount> quizSubmittedAnswerCounts,
+            PlagiarismMapping plagiarismMapping, ExamBonusCalculator examBonusCalculator) {
+        User user = studentExam.getUser();
+```
+
+### BoundedWildcard
+Can generalize to `? extends GradingScale`
+in `src/main/java/de/tum/in/www1/artemis/service/exam/ExamService.java`
+#### Snippet
+```java
+
+    @Nullable
+    private ExamBonusCalculator createExamBonusCalculator(Optional<GradingScale> gradingScale, Collection<Long> studentIds) {
+        if (gradingScale.isEmpty() || gradingScale.get().getBonusFrom().isEmpty()) {
+            return null;
 ```
 
 ### BoundedWildcard
@@ -3601,18 +3601,6 @@ in `src/main/java/de/tum/in/www1/artemis/service/compass/umlmodel/parsers/Object
 
 ### BoundedWildcard
 Can generalize to `? extends UMLElement`
-in `src/main/java/de/tum/in/www1/artemis/service/compass/umlmodel/parsers/UseCaseDiagramParser.java`
-#### Snippet
-```java
-     * @throws IOException when no object could be found in the allUmlElementsMap for the source and target ID in the JSON object
-     */
-    private static Optional<UMLUseCaseAssociation> parseUseCaseAssociation(JsonObject relationshipJson, Map<String, UMLElement> allUmlElementsMap) throws IOException {
-
-        String relationshipType = relationshipJson.get(RELATIONSHIP_TYPE).getAsString();
-```
-
-### BoundedWildcard
-Can generalize to `? extends UMLElement`
 in `src/main/java/de/tum/in/www1/artemis/service/compass/umlmodel/parsers/FlowchartParser.java`
 #### Snippet
 ```java
@@ -3621,6 +3609,18 @@ in `src/main/java/de/tum/in/www1/artemis/service/compass/umlmodel/parsers/Flowch
     private static Optional<FlowchartFlowline> parseFlowchartFlowline(JsonObject relationshipJson, Map<String, UMLElement> allFlowchartElements) throws IOException {
         UMLElement source = UMLModelParser.findElement(relationshipJson, allFlowchartElements, RELATIONSHIP_SOURCE);
         UMLElement target = UMLModelParser.findElement(relationshipJson, allFlowchartElements, RELATIONSHIP_TARGET);
+```
+
+### BoundedWildcard
+Can generalize to `? extends UMLElement`
+in `src/main/java/de/tum/in/www1/artemis/service/compass/umlmodel/parsers/UseCaseDiagramParser.java`
+#### Snippet
+```java
+     * @throws IOException when no object could be found in the allUmlElementsMap for the source and target ID in the JSON object
+     */
+    private static Optional<UMLUseCaseAssociation> parseUseCaseAssociation(JsonObject relationshipJson, Map<String, UMLElement> allUmlElementsMap) throws IOException {
+
+        String relationshipType = relationshipJson.get(RELATIONSHIP_TYPE).getAsString();
 ```
 
 ### BoundedWildcard
@@ -3648,15 +3648,15 @@ in `src/main/java/de/tum/in/www1/artemis/service/compass/umlmodel/parsers/ClassD
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends ProgrammingExerciseTestCase`
+Can generalize to `? extends JavaClass`
 in `src/main/java/de/tum/in/www1/artemis/service/hestia/structural/StructuralTestCaseService.java`
 #### Snippet
 ```java
-     * @return A SolutionEntry if testCase is present otherwise null
      */
-    private ProgrammingExerciseSolutionEntry createSolutionEntry(String filePath, String code, Optional<ProgrammingExerciseTestCase> testCase) {
-        return testCase.map(actualTestCase -> {
-            var solutionEntry = new ProgrammingExerciseSolutionEntry();
+    private List<ProgrammingExerciseSolutionEntry> generateStructuralSolutionEntries(Set<ProgrammingExerciseTestCase> testCases, Repository solutionRepository,
+            StructuralClassElements[] classElements, Map<String, JavaClass> solutionClasses) {
+        return Arrays.stream(classElements).flatMap(classElement -> {
+            var packageName = classElement.getStructuralClass().getPackageName();
 ```
 
 ### BoundedWildcard
@@ -3672,15 +3672,15 @@ in `src/main/java/de/tum/in/www1/artemis/service/hestia/structural/StructuralTes
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends JavaClass`
+Can generalize to `? extends ProgrammingExerciseTestCase`
 in `src/main/java/de/tum/in/www1/artemis/service/hestia/structural/StructuralTestCaseService.java`
 #### Snippet
 ```java
+     * @return A SolutionEntry if testCase is present otherwise null
      */
-    private List<ProgrammingExerciseSolutionEntry> generateStructuralSolutionEntries(Set<ProgrammingExerciseTestCase> testCases, Repository solutionRepository,
-            StructuralClassElements[] classElements, Map<String, JavaClass> solutionClasses) {
-        return Arrays.stream(classElements).flatMap(classElement -> {
-            var packageName = classElement.getStructuralClass().getPackageName();
+    private ProgrammingExerciseSolutionEntry createSolutionEntry(String filePath, String code, Optional<ProgrammingExerciseTestCase> testCase) {
+        return testCase.map(actualTestCase -> {
+            var solutionEntry = new ProgrammingExerciseSolutionEntry();
 ```
 
 ### BoundedWildcard
@@ -3696,15 +3696,15 @@ in `src/main/java/de/tum/in/www1/artemis/service/compass/umlmodel/communication/
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends Feedback`
-in `src/main/java/de/tum/in/www1/artemis/service/compass/controller/FeedbackSelector.java`
+Can generalize to `? extends UMLElement`
+in `src/main/java/de/tum/in/www1/artemis/service/compass/controller/ModelClusterFactory.java`
 #### Snippet
 ```java
-     * @return the feedback that is selected for suggestion
+     * @param elements the model containing the model elements for which the context should be set
      */
-    public static Feedback selectFeedback(ModelElement modelElement, List<Feedback> feedbackList, Result result) {
-        if (feedbackList == null || feedbackList.isEmpty()) {
-            return null;
+    private static void setContextOfModelElements(List<UMLElement> elements) {
+        Context context;
+
 ```
 
 ### BoundedWildcard
@@ -3720,18 +3720,6 @@ in `src/main/java/de/tum/in/www1/artemis/service/compass/controller/ModelCluster
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends UMLElement`
-in `src/main/java/de/tum/in/www1/artemis/service/compass/controller/ModelClusterFactory.java`
-#### Snippet
-```java
-     * @param elements the model containing the model elements for which the context should be set
-     */
-    private static void setContextOfModelElements(List<UMLElement> elements) {
-        Context context;
-
-```
-
-### BoundedWildcard
 Can generalize to `? super Integer`
 in `src/main/java/de/tum/in/www1/artemis/service/compass/controller/ModelClusterFactory.java`
 #### Snippet
@@ -3741,6 +3729,18 @@ in `src/main/java/de/tum/in/www1/artemis/service/compass/controller/ModelCluster
     private void selectCluster(UMLElement element, Set<UMLElement> uniqueModelElements, Map<Integer, ModelCluster> clusters, ModelingExercise exercise,
             ModelingSubmission submission) {
 
+```
+
+### BoundedWildcard
+Can generalize to `? extends Feedback`
+in `src/main/java/de/tum/in/www1/artemis/service/compass/controller/FeedbackSelector.java`
+#### Snippet
+```java
+     * @return the feedback that is selected for suggestion
+     */
+    public static Feedback selectFeedback(ModelElement modelElement, List<Feedback> feedbackList, Result result) {
+        if (feedbackList == null || feedbackList.isEmpty()) {
+            return null;
 ```
 
 ### BoundedWildcard
@@ -3772,11 +3772,11 @@ Can generalize to `? super ProgrammingExerciseStudentParticipation`
 in `src/main/java/de/tum/in/www1/artemis/service/scheduled/AutomaticProgrammingExerciseCleanupService.java`
 #### Snippet
 ```java
-    }
-
-    private void checkLastResults(ProgrammingExerciseStudentParticipation participation, Set<ProgrammingExerciseStudentParticipation> participationsWithBuildPlanToDelete,
-            AtomicLong countNoResult, AtomicLong countSuccessfulLatestResult, AtomicLong countUnsuccessfulLatestResult) {
-        Result result = participation.findLatestResult();
+    // returns false if the participation should be cleaned after the criteria checked in this method
+    private boolean checkBuildAndTestExercises(ProgrammingExercise programmingExercise, ProgrammingExerciseStudentParticipation participation,
+            Set<ProgrammingExerciseStudentParticipation> participationsWithBuildPlanToDelete, AtomicLong countAfterBuildAndTestDate) {
+        if (programmingExercise.getBuildAndTestStudentSubmissionsAfterDueDate() != null) {
+            if (programmingExercise.getBuildAndTestStudentSubmissionsAfterDueDate().isAfter(now())) {
 ```
 
 ### BoundedWildcard
@@ -3784,11 +3784,11 @@ Can generalize to `? super ProgrammingExerciseStudentParticipation`
 in `src/main/java/de/tum/in/www1/artemis/service/scheduled/AutomaticProgrammingExerciseCleanupService.java`
 #### Snippet
 ```java
-    // returns false if the participation should be cleaned after the criteria checked in this method
-    private boolean checkBuildAndTestExercises(ProgrammingExercise programmingExercise, ProgrammingExerciseStudentParticipation participation,
-            Set<ProgrammingExerciseStudentParticipation> participationsWithBuildPlanToDelete, AtomicLong countAfterBuildAndTestDate) {
-        if (programmingExercise.getBuildAndTestStudentSubmissionsAfterDueDate() != null) {
-            if (programmingExercise.getBuildAndTestStudentSubmissionsAfterDueDate().isAfter(now())) {
+    }
+
+    private void checkLastResults(ProgrammingExerciseStudentParticipation participation, Set<ProgrammingExerciseStudentParticipation> participationsWithBuildPlanToDelete,
+            AtomicLong countNoResult, AtomicLong countSuccessfulLatestResult, AtomicLong countUnsuccessfulLatestResult) {
+        Result result = participation.findLatestResult();
 ```
 
 ### BoundedWildcard
@@ -3800,6 +3800,18 @@ in `src/main/java/de/tum/in/www1/artemis/service/connectors/ContinuousIntegratio
 
     public ContinuousIntegrationServerHealthIndicator(Optional<ContinuousIntegrationService> continuousIntegrationService) {
         this.continuousIntegrationService = continuousIntegrationService;
+    }
+```
+
+### BoundedWildcard
+Can generalize to `? extends VersionControlService`
+in `src/main/java/de/tum/in/www1/artemis/service/connectors/VersionControlServerHealthIndicator.java`
+#### Snippet
+```java
+    private final Optional<VersionControlService> versionControlService;
+
+    public VersionControlServerHealthIndicator(Optional<VersionControlService> versionControlService) {
+        this.versionControlService = versionControlService;
     }
 ```
 
@@ -3816,15 +3828,27 @@ in `src/main/java/de/tum/in/www1/artemis/service/connectors/SAML2Service.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends VersionControlService`
-in `src/main/java/de/tum/in/www1/artemis/service/connectors/VersionControlServerHealthIndicator.java`
+Can generalize to `? extends BambooRepositoryDTO`
+in `src/main/java/de/tum/in/www1/artemis/service/connectors/BitbucketBambooUpdateService.java`
 #### Snippet
 ```java
-    private final Optional<VersionControlService> versionControlService;
-
-    public VersionControlServerHealthIndicator(Optional<VersionControlService> versionControlService) {
-        this.versionControlService = versionControlService;
     }
+
+    private BambooRepositoryDTO lookupRepository(String name, List<BambooRepositoryDTO> list) {
+        var repository = list.stream().filter(repo -> name.equals(repo.getName())).findFirst();
+        if (repository.isPresent()) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends List`
+in `src/main/java/de/tum/in/www1/artemis/service/connectors/BitbucketBambooUpdateService.java`
+#### Snippet
+```java
+    @Override
+    public void updatePlanRepository(String bambooProjectKey, String buildPlanKey, String bambooRepositoryName, String bitbucketProjectKey, String bitbucketRepositoryName,
+            String branchName, Optional<List<String>> optionalTriggeredByRepositories) {
+        try {
+            log.debug("Update plan repository for build plan {}", buildPlanKey);
 ```
 
 ### BoundedWildcard
@@ -3864,39 +3888,15 @@ in `src/main/java/de/tum/in/www1/artemis/service/scheduled/ProgrammingExerciseSc
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends BambooRepositoryDTO`
-in `src/main/java/de/tum/in/www1/artemis/service/connectors/BitbucketBambooUpdateService.java`
+Can generalize to `? extends BuildLogEntry`
+in `src/main/java/de/tum/in/www1/artemis/service/connectors/AbstractContinuousIntegrationService.java`
 #### Snippet
 ```java
+     * @return the number of matching log entries
+     */
+    protected Integer countMatchingLogs(List<BuildLogEntry> buildLogEntries, String searchString) {
+        return Math.toIntExact(buildLogEntries.stream().filter(buildLogEntry -> buildLogEntry.getLog().contains(searchString)).count());
     }
-
-    private BambooRepositoryDTO lookupRepository(String name, List<BambooRepositoryDTO> list) {
-        var repository = list.stream().filter(repo -> name.equals(repo.getName())).findFirst();
-        if (repository.isPresent()) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends List`
-in `src/main/java/de/tum/in/www1/artemis/service/connectors/BitbucketBambooUpdateService.java`
-#### Snippet
-```java
-    @Override
-    public void updatePlanRepository(String bambooProjectKey, String buildPlanKey, String bambooRepositoryName, String bitbucketProjectKey, String bitbucketRepositoryName,
-            String branchName, Optional<List<String>> optionalTriggeredByRepositories) {
-        try {
-            log.debug("Update plan repository for build plan {}", buildPlanKey);
-```
-
-### BoundedWildcard
-Can generalize to `? extends LdapUserService`
-in `src/main/java/de/tum/in/www1/artemis/service/connectors/jira/JiraAuthenticationProvider.java`
-#### Snippet
-```java
-
-    public JiraAuthenticationProvider(UserRepository userRepository, @Qualifier("jiraRestTemplate") RestTemplate restTemplate,
-            @Qualifier("shortTimeoutJiraRestTemplate") RestTemplate shortTimeoutRestTemplate, Optional<LdapUserService> ldapUserService, PasswordService passwordService,
-            AuthorityService authorityService, UserCreationService userCreationService) {
-        super(userRepository, passwordService, userCreationService);
 ```
 
 ### BoundedWildcard
@@ -3924,27 +3924,15 @@ in `src/main/java/de/tum/in/www1/artemis/service/connectors/AbstractContinuousIn
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends BuildLogEntry`
-in `src/main/java/de/tum/in/www1/artemis/service/connectors/AbstractContinuousIntegrationService.java`
+Can generalize to `? extends LdapUserService`
+in `src/main/java/de/tum/in/www1/artemis/service/connectors/jira/JiraAuthenticationProvider.java`
 #### Snippet
 ```java
-     * @return the number of matching log entries
-     */
-    protected Integer countMatchingLogs(List<BuildLogEntry> buildLogEntries, String searchString) {
-        return Math.toIntExact(buildLogEntries.stream().filter(buildLogEntry -> buildLogEntry.getLog().contains(searchString)).count());
-    }
-```
 
-### BoundedWildcard
-Can generalize to `? extends TextBlock`
-in `src/main/java/de/tum/in/www1/artemis/service/connectors/athene/AtheneService.java`
-#### Snippet
-```java
-     * @param exerciseId   The exerciseId of the exercise the blocks belong to
-     */
-    public void processClusters(List<TextCluster> textClusters, Map<String, TextBlock> textBlockMap, Long exerciseId) {
-
-        final List<TextCluster> savedClusters = textClusterRepository.saveAll(textClusters);
+    public JiraAuthenticationProvider(UserRepository userRepository, @Qualifier("jiraRestTemplate") RestTemplate restTemplate,
+            @Qualifier("shortTimeoutJiraRestTemplate") RestTemplate shortTimeoutRestTemplate, Optional<LdapUserService> ldapUserService, PasswordService passwordService,
+            AuthorityService authorityService, UserCreationService userCreationService) {
+        super(userRepository, passwordService, userCreationService);
 ```
 
 ### BoundedWildcard
@@ -3960,39 +3948,15 @@ in `src/main/java/de/tum/in/www1/artemis/service/connectors/athene/AtheneService
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends User`
-in `src/main/java/de/tum/in/www1/artemis/service/connectors/gitlab/GitLabService.java`
+Can generalize to `? extends TextBlock`
+in `src/main/java/de/tum/in/www1/artemis/service/connectors/athene/AtheneService.java`
 #### Snippet
 ```java
-
-    @Override
-    public void setRepositoryPermissionsToReadOnly(VcsRepositoryUrl repositoryUrl, String projectKey, Set<User> users) {
-        users.forEach(user -> updateMemberPermissionInRepository(repositoryUrl, user.getLogin(), REPORTER));
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? extends User`
-in `src/main/java/de/tum/in/www1/artemis/service/connectors/gitlab/GitLabService.java`
-#### Snippet
-```java
-     * @param accessLevel the access level to give
+     * @param exerciseId   The exerciseId of the exercise the blocks belong to
      */
-    private void addUsersToExerciseGroup(List<User> users, ProgrammingExercise exercise, AccessLevel accessLevel) {
-        for (final var user : users) {
-            try {
-```
+    public void processClusters(List<TextCluster> textClusters, Map<String, TextBlock> textBlockMap, Long exerciseId) {
 
-### BoundedWildcard
-Can generalize to `? extends Submission`
-in `src/main/java/de/tum/in/www1/artemis/service/connectors/GitService.java`
-#### Snippet
-```java
-
-    @Transactional(readOnly = true) // TODO: remove transactional
-    public void filterLateSubmissions(Repository repository, Optional<Submission> lastValidSubmission, ZonedDateTime filterLateSubmissionsDate) {
-        if (filterLateSubmissionsDate == null) {
-            // No date set in client and exercise has no due date
+        final List<TextCluster> savedClusters = textClusterRepository.saveAll(textClusters);
 ```
 
 ### BoundedWildcard
@@ -4032,6 +3996,30 @@ in `src/main/java/de/tum/in/www1/artemis/service/scheduled/cache/quiz/QuizSchedu
 ```
 
 ### BoundedWildcard
+Can generalize to `? extends User`
+in `src/main/java/de/tum/in/www1/artemis/service/connectors/gitlab/GitLabService.java`
+#### Snippet
+```java
+
+    @Override
+    public void setRepositoryPermissionsToReadOnly(VcsRepositoryUrl repositoryUrl, String projectKey, Set<User> users) {
+        users.forEach(user -> updateMemberPermissionInRepository(repositoryUrl, user.getLogin(), REPORTER));
+    }
+```
+
+### BoundedWildcard
+Can generalize to `? extends User`
+in `src/main/java/de/tum/in/www1/artemis/service/connectors/gitlab/GitLabService.java`
+#### Snippet
+```java
+     * @param accessLevel the access level to give
+     */
+    private void addUsersToExerciseGroup(List<User> users, ProgrammingExercise exercise, AccessLevel accessLevel) {
+        for (final var user : users) {
+            try {
+```
+
+### BoundedWildcard
 Can generalize to `? extends ContinuousIntegrationUpdateService`
 in `src/main/java/de/tum/in/www1/artemis/service/connectors/bamboo/BambooService.java`
 #### Snippet
@@ -4044,27 +4032,27 @@ in `src/main/java/de/tum/in/www1/artemis/service/connectors/bamboo/BambooService
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends ProgrammingExercise`
-in `src/main/java/de/tum/in/www1/artemis/service/connectors/jenkins/JenkinsUserManagementService.java`
+Can generalize to `? extends Submission`
+in `src/main/java/de/tum/in/www1/artemis/service/connectors/GitService.java`
 #### Snippet
 ```java
-     * @param programmingExercises list of programmingExercises for which the permissions should be changed
-     */
-    private void assignPermissionsToInstructorAndEditorAndTAsForCourse(Course course, List<ProgrammingExercise> programmingExercises) {
-        var instructors = userRepository.findAllInGroupWithAuthorities(course.getInstructorGroupName()).stream().map(User::getLogin).collect(Collectors.toSet());
-        var editors = userRepository.findAllInGroupWithAuthorities(course.getEditorGroupName()).stream().map(User::getLogin).collect(Collectors.toSet());
+
+    @Transactional(readOnly = true) // TODO: remove transactional
+    public void filterLateSubmissions(Repository repository, Optional<Submission> lastValidSubmission, ZonedDateTime filterLateSubmissionsDate) {
+        if (filterLateSubmissionsDate == null) {
+            // No date set in client and exercise has no due date
 ```
 
 ### BoundedWildcard
 Can generalize to `? extends ProgrammingExercise`
-in `src/main/java/de/tum/in/www1/artemis/service/connectors/jenkins/JenkinsUserManagementService.java`
+in `src/main/java/de/tum/in/www1/artemis/service/connectors/gitlab/GitLabUserManagementService.java`
 #### Snippet
 ```java
+     * @param accessLevel           access level that shall be set for a user
      */
-    private void removePermissionsFromInstructorsAndEditorsAndTAsForCourse(String instructorGroup, String editorGroup, String teachingAssistantGroup, Course course,
-            List<ProgrammingExercise> programmingExercises) {
-        // Fetch all instructors and editors and teaching assistants belonging to the group that was removed from the course.
-        var oldInstructors = userRepository.findAllInGroupWithAuthorities(instructorGroup);
+    private void updateMemberExercisePermissions(List<ProgrammingExercise> programmingExercises, Long gitlabUserId, AccessLevel accessLevel) {
+        programmingExercises.forEach(exercise -> {
+            try {
 ```
 
 ### BoundedWildcard
@@ -4077,18 +4065,6 @@ in `src/main/java/de/tum/in/www1/artemis/service/connectors/gitlab/GitLabUserMan
     public void addUserToGroupsOfExercises(Long userId, List<ProgrammingExercise> exercises, AccessLevel accessLevel) throws GitLabException {
         for (final var exercise : exercises) {
             addUserToGroup(exercise.getProjectKey(), userId, accessLevel);
-```
-
-### BoundedWildcard
-Can generalize to `? extends User`
-in `src/main/java/de/tum/in/www1/artemis/service/connectors/gitlab/GitLabUserManagementService.java`
-#### Snippet
-```java
-     * @param updatedCourse         course with updated groups
-     */
-    private void setPermissionsForNewGroupMembers(List<ProgrammingExercise> programmingExercises, Set<User> newUsers, Course updatedCourse) {
-        final var userApi = gitlabApi.getUserApi();
-
 ```
 
 ### BoundedWildcard
@@ -4116,15 +4092,39 @@ in `src/main/java/de/tum/in/www1/artemis/service/connectors/gitlab/GitLabUserMan
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends ProgrammingExercise`
+Can generalize to `? extends User`
 in `src/main/java/de/tum/in/www1/artemis/service/connectors/gitlab/GitLabUserManagementService.java`
 #### Snippet
 ```java
-     * @param accessLevel           access level that shall be set for a user
+     * @param updatedCourse         course with updated groups
      */
-    private void updateMemberExercisePermissions(List<ProgrammingExercise> programmingExercises, Long gitlabUserId, AccessLevel accessLevel) {
-        programmingExercises.forEach(exercise -> {
-            try {
+    private void setPermissionsForNewGroupMembers(List<ProgrammingExercise> programmingExercises, Set<User> newUsers, Course updatedCourse) {
+        final var userApi = gitlabApi.getUserApi();
+
+```
+
+### BoundedWildcard
+Can generalize to `? extends ProgrammingExercise`
+in `src/main/java/de/tum/in/www1/artemis/service/connectors/jenkins/JenkinsUserManagementService.java`
+#### Snippet
+```java
+     * @param programmingExercises list of programmingExercises for which the permissions should be changed
+     */
+    private void assignPermissionsToInstructorAndEditorAndTAsForCourse(Course course, List<ProgrammingExercise> programmingExercises) {
+        var instructors = userRepository.findAllInGroupWithAuthorities(course.getInstructorGroupName()).stream().map(User::getLogin).collect(Collectors.toSet());
+        var editors = userRepository.findAllInGroupWithAuthorities(course.getEditorGroupName()).stream().map(User::getLogin).collect(Collectors.toSet());
+```
+
+### BoundedWildcard
+Can generalize to `? extends ProgrammingExercise`
+in `src/main/java/de/tum/in/www1/artemis/service/connectors/jenkins/JenkinsUserManagementService.java`
+#### Snippet
+```java
+     */
+    private void removePermissionsFromInstructorsAndEditorsAndTAsForCourse(String instructorGroup, String editorGroup, String teachingAssistantGroup, Course course,
+            List<ProgrammingExercise> programmingExercises) {
+        // Fetch all instructors and editors and teaching assistants belonging to the group that was removed from the course.
+        var oldInstructors = userRepository.findAllInGroupWithAuthorities(instructorGroup);
 ```
 
 ### BoundedWildcard
@@ -4140,27 +4140,111 @@ in `src/main/java/de/tum/in/www1/artemis/service/plagiarism/PlagiarismCaseServic
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends User`
-in `src/main/java/de/tum/in/www1/artemis/service/connectors/bitbucket/BitbucketService.java`
+Can generalize to `? super Task`
+in `src/main/java/de/tum/in/www1/artemis/service/connectors/bamboo/BambooBuildPlanService.java`
 #### Snippet
 ```java
+     * @param artifacts the list containing all artifacts for the build plan to be created
+     */
+    private void modifyBuildConfigurationForStaticCodeAnalysisForJavaAndKotlinExercise(boolean isMavenProject, List<Task<?, ?>> finalTasks, List<Artifact> artifacts) {
+        // Create artifacts and a final task for the execution of static code analysis
+        List<StaticCodeAnalysisTool> staticCodeAnalysisTools = StaticCodeAnalysisTool.getToolsForProgrammingLanguage(ProgrammingLanguage.JAVA);
+```
 
-    @Override
-    public void setRepositoryPermissionsToReadOnly(VcsRepositoryUrl repositoryUrl, String projectKey, Set<User> users) throws BitbucketException {
-        users.forEach(user -> setStudentRepositoryPermission(repositoryUrl, projectKey, user.getLogin(), VersionControlRepositoryPermission.REPO_READ));
-    }
+### BoundedWildcard
+Can generalize to `? super Artifact`
+in `src/main/java/de/tum/in/www1/artemis/service/connectors/bamboo/BambooBuildPlanService.java`
+#### Snippet
+```java
+     * @param artifacts the list containing all artifacts for the build plan to be created
+     */
+    private void modifyBuildConfigurationForStaticCodeAnalysisForJavaAndKotlinExercise(boolean isMavenProject, List<Task<?, ?>> finalTasks, List<Artifact> artifacts) {
+        // Create artifacts and a final task for the execution of static code analysis
+        List<StaticCodeAnalysisTool> staticCodeAnalysisTools = StaticCodeAnalysisTool.getToolsForProgrammingLanguage(ProgrammingLanguage.JAVA);
 ```
 
 ### BoundedWildcard
 Can generalize to `? extends VersionControlService`
-in `src/main/java/de/tum/in/www1/artemis/service/programming/ProgrammingExerciseParticipationService.java`
+in `src/main/java/de/tum/in/www1/artemis/service/connectors/bamboo/BambooBuildPlanService.java`
 #### Snippet
 ```java
-    public ProgrammingExerciseParticipationService(SolutionProgrammingExerciseParticipationRepository solutionParticipationRepository,
-            ProgrammingExerciseStudentParticipationRepository studentParticipationRepository, ParticipationRepository participationRepository, TeamRepository teamRepository,
-            TemplateProgrammingExerciseParticipationRepository templateParticipationRepository, Optional<VersionControlService> versionControlService,
-            UserRepository userRepository, AuthorizationCheckService authCheckService, GitService gitService, ProgrammingExerciseRepository programmingExerciseRepository) {
-        this.studentParticipationRepository = studentParticipationRepository;
+    private final Optional<VersionControlService> versionControlService;
+
+    public BambooBuildPlanService(ResourceLoaderService resourceLoaderService, BambooServer bambooServer, Environment env, Optional<VersionControlService> versionControlService,
+            ProgrammingLanguageConfiguration programmingLanguageConfiguration) {
+        this.resourceLoaderService = resourceLoaderService;
+```
+
+### BoundedWildcard
+Can generalize to `? extends AuxiliaryRepository`
+in `src/main/java/de/tum/in/www1/artemis/service/connectors/bamboo/BambooBuildPlanService.java`
+#### Snippet
+```java
+    }
+
+    private VcsCheckoutTask createCheckoutTask(String assignmentPath, String testPath, Optional<String> solutionPath, List<AuxiliaryRepository> auxiliaryRepositories) {
+        List<CheckoutItem> checkoutItems = new ArrayList<>();
+        checkoutItems.add(new CheckoutItem().repository(new VcsRepositoryIdentifier().name(TEST_REPO_NAME)).path(testPath));
+```
+
+### BoundedWildcard
+Can generalize to `? super Task`
+in `src/main/java/de/tum/in/www1/artemis/service/connectors/bamboo/BambooBuildPlanService.java`
+#### Snippet
+```java
+     * @param finalTasks the list containing the final tasks for the build plan to be created
+     */
+    private void modifyBuildConfigurationForSequentialTestsForJavaAndKotlinExercise(boolean isMavenProject, List<Task<?, ?>> defaultTasks, List<Task<?, ?>> finalTasks) {
+        if (isMavenProject) {
+            defaultTasks
+```
+
+### BoundedWildcard
+Can generalize to `? super Task`
+in `src/main/java/de/tum/in/www1/artemis/service/connectors/bamboo/BambooBuildPlanService.java`
+#### Snippet
+```java
+     * @param finalTasks the list containing the final tasks for the build plan to be created
+     */
+    private void modifyBuildConfigurationForSequentialTestsForJavaAndKotlinExercise(boolean isMavenProject, List<Task<?, ?>> defaultTasks, List<Task<?, ?>> finalTasks) {
+        if (isMavenProject) {
+            defaultTasks
+```
+
+### BoundedWildcard
+Can generalize to `? super Task`
+in `src/main/java/de/tum/in/www1/artemis/service/connectors/bamboo/BambooBuildPlanService.java`
+#### Snippet
+```java
+     * @param artifacts the list containing all artifacts for the build plan to be created
+     */
+    private void modifyBuildConfigurationForRegularTestsForJavaAndKotlinExercise(boolean isMavenProject, boolean recordTestwiseCoverage, List<Task<?, ?>> defaultTasks,
+            List<Task<?, ?>> finalTasks, List<Artifact> artifacts) {
+        if (isMavenProject) {
+```
+
+### BoundedWildcard
+Can generalize to `? super Task`
+in `src/main/java/de/tum/in/www1/artemis/service/connectors/bamboo/BambooBuildPlanService.java`
+#### Snippet
+```java
+     */
+    private void modifyBuildConfigurationForRegularTestsForJavaAndKotlinExercise(boolean isMavenProject, boolean recordTestwiseCoverage, List<Task<?, ?>> defaultTasks,
+            List<Task<?, ?>> finalTasks, List<Artifact> artifacts) {
+        if (isMavenProject) {
+            String goals = "clean test";
+```
+
+### BoundedWildcard
+Can generalize to `? super Artifact`
+in `src/main/java/de/tum/in/www1/artemis/service/connectors/bamboo/BambooBuildPlanService.java`
+#### Snippet
+```java
+     */
+    private void modifyBuildConfigurationForRegularTestsForJavaAndKotlinExercise(boolean isMavenProject, boolean recordTestwiseCoverage, List<Task<?, ?>> defaultTasks,
+            List<Task<?, ?>> finalTasks, List<Artifact> artifacts) {
+        if (isMavenProject) {
+            String goals = "clean test";
 ```
 
 ### BoundedWildcard
@@ -4212,6 +4296,18 @@ in `src/main/java/de/tum/in/www1/artemis/service/plagiarism/ModelingPlagiarismDe
 ```
 
 ### BoundedWildcard
+Can generalize to `? extends VersionControlService`
+in `src/main/java/de/tum/in/www1/artemis/service/programming/ProgrammingExerciseParticipationService.java`
+#### Snippet
+```java
+    public ProgrammingExerciseParticipationService(SolutionProgrammingExerciseParticipationRepository solutionParticipationRepository,
+            ProgrammingExerciseStudentParticipationRepository studentParticipationRepository, ParticipationRepository participationRepository, TeamRepository teamRepository,
+            TemplateProgrammingExerciseParticipationRepository templateParticipationRepository, Optional<VersionControlService> versionControlService,
+            UserRepository userRepository, AuthorizationCheckService authCheckService, GitService gitService, ProgrammingExerciseRepository programmingExerciseRepository) {
+        this.studentParticipationRepository = studentParticipationRepository;
+```
+
+### BoundedWildcard
 Can generalize to `? extends ProgrammingExerciseStudentParticipation`
 in `src/main/java/de/tum/in/www1/artemis/service/programming/ProgrammingTriggerService.java`
 #### Snippet
@@ -4236,171 +4332,27 @@ in `src/main/java/de/tum/in/www1/artemis/service/programming/ProgrammingTriggerS
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends AuxiliaryRepository`
-in `src/main/java/de/tum/in/www1/artemis/service/programming/AuxiliaryRepositoryService.java`
+Can generalize to `? extends User`
+in `src/main/java/de/tum/in/www1/artemis/service/connectors/bitbucket/BitbucketService.java`
 #### Snippet
 ```java
+
+    @Override
+    public void setRepositoryPermissionsToReadOnly(VcsRepositoryUrl repositoryUrl, String projectKey, Set<User> users) throws BitbucketException {
+        users.forEach(user -> setStudentRepositoryPermission(repositoryUrl, projectKey, user.getLogin(), VersionControlRepositoryPermission.REPO_READ));
     }
-
-    private void validateAuxiliaryRepositoryCheckoutDirectoryDuplication(AuxiliaryRepository auxiliaryRepository, List<AuxiliaryRepository> otherRepositories) {
-        for (AuxiliaryRepository repo : otherRepositories) {
-            if (repo.getCheckoutDirectory() != null && repo.getCheckoutDirectory().equals(auxiliaryRepository.getCheckoutDirectory())) {
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends AuxiliaryRepository`
-in `src/main/java/de/tum/in/www1/artemis/service/programming/AuxiliaryRepositoryService.java`
+Can generalize to `? extends ProgrammingExerciseTestCase`
+in `src/main/java/de/tum/in/www1/artemis/service/programming/ProgrammingExerciseTestCaseService.java`
 #### Snippet
 ```java
-    }
-
-    private void validateAuxiliaryRepositoryNameDuplication(AuxiliaryRepository auxiliaryRepository, List<AuxiliaryRepository> otherRepositories) {
-        for (AuxiliaryRepository existingRepository : otherRepositories) {
-            if (existingRepository.getName().equals(auxiliaryRepository.getName())) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends AuxiliaryRepository`
-in `src/main/java/de/tum/in/www1/artemis/service/programming/AuxiliaryRepositoryService.java`
-#### Snippet
-```java
-
-    private void validateAndUpdateExistingAuxiliaryRepositoriesOfProgrammingExercise(ProgrammingExercise programmingExercise,
-            List<AuxiliaryRepository> updatedAuxiliaryRepositories, ProgrammingExercise updatedExercise) {
-        // Get all repositories that are unchanged and are still present in the updated exercise
-        List<AuxiliaryRepository> auxiliaryRepositories = new ArrayList<>(
-```
-
-### BoundedWildcard
-Can generalize to `? extends AuxiliaryRepository`
-in `src/main/java/de/tum/in/www1/artemis/service/programming/AuxiliaryRepositoryService.java`
-#### Snippet
-```java
-     * @param newAuxiliaryRepositories The newly added auxiliary repositories
+     * @param programmingLanguage the programming language of the exercise
      */
-    public void validateAndAddAuxiliaryRepositoriesOfProgrammingExercise(ProgrammingExercise programmingExercise, List<AuxiliaryRepository> newAuxiliaryRepositories) {
-        List<AuxiliaryRepository> auxiliaryRepositories = new ArrayList<>(Objects
-                .requireNonNullElse(programmingExercise.getAuxiliaryRepositories(), new ArrayList<AuxiliaryRepository>()).stream().filter(repo -> repo.getId() != null).toList());
-```
-
-### BoundedWildcard
-Can generalize to `? super Task`
-in `src/main/java/de/tum/in/www1/artemis/service/connectors/bamboo/BambooBuildPlanService.java`
-#### Snippet
-```java
-     * @param finalTasks the list containing the final tasks for the build plan to be created
-     */
-    private void modifyBuildConfigurationForSequentialTestsForJavaAndKotlinExercise(boolean isMavenProject, List<Task<?, ?>> defaultTasks, List<Task<?, ?>> finalTasks) {
-        if (isMavenProject) {
-            defaultTasks
-```
-
-### BoundedWildcard
-Can generalize to `? super Task`
-in `src/main/java/de/tum/in/www1/artemis/service/connectors/bamboo/BambooBuildPlanService.java`
-#### Snippet
-```java
-     * @param finalTasks the list containing the final tasks for the build plan to be created
-     */
-    private void modifyBuildConfigurationForSequentialTestsForJavaAndKotlinExercise(boolean isMavenProject, List<Task<?, ?>> defaultTasks, List<Task<?, ?>> finalTasks) {
-        if (isMavenProject) {
-            defaultTasks
-```
-
-### BoundedWildcard
-Can generalize to `? extends VersionControlService`
-in `src/main/java/de/tum/in/www1/artemis/service/connectors/bamboo/BambooBuildPlanService.java`
-#### Snippet
-```java
-    private final Optional<VersionControlService> versionControlService;
-
-    public BambooBuildPlanService(ResourceLoaderService resourceLoaderService, BambooServer bambooServer, Environment env, Optional<VersionControlService> versionControlService,
-            ProgrammingLanguageConfiguration programmingLanguageConfiguration) {
-        this.resourceLoaderService = resourceLoaderService;
-```
-
-### BoundedWildcard
-Can generalize to `? extends AuxiliaryRepository`
-in `src/main/java/de/tum/in/www1/artemis/service/connectors/bamboo/BambooBuildPlanService.java`
-#### Snippet
-```java
-    }
-
-    private VcsCheckoutTask createCheckoutTask(String assignmentPath, String testPath, Optional<String> solutionPath, List<AuxiliaryRepository> auxiliaryRepositories) {
-        List<CheckoutItem> checkoutItems = new ArrayList<>();
-        checkoutItems.add(new CheckoutItem().repository(new VcsRepositoryIdentifier().name(TEST_REPO_NAME)).path(testPath));
-```
-
-### BoundedWildcard
-Can generalize to `? super Task`
-in `src/main/java/de/tum/in/www1/artemis/service/connectors/bamboo/BambooBuildPlanService.java`
-#### Snippet
-```java
-     * @param artifacts the list containing all artifacts for the build plan to be created
-     */
-    private void modifyBuildConfigurationForRegularTestsForJavaAndKotlinExercise(boolean isMavenProject, boolean recordTestwiseCoverage, List<Task<?, ?>> defaultTasks,
-            List<Task<?, ?>> finalTasks, List<Artifact> artifacts) {
-        if (isMavenProject) {
-```
-
-### BoundedWildcard
-Can generalize to `? super Task`
-in `src/main/java/de/tum/in/www1/artemis/service/connectors/bamboo/BambooBuildPlanService.java`
-#### Snippet
-```java
-     */
-    private void modifyBuildConfigurationForRegularTestsForJavaAndKotlinExercise(boolean isMavenProject, boolean recordTestwiseCoverage, List<Task<?, ?>> defaultTasks,
-            List<Task<?, ?>> finalTasks, List<Artifact> artifacts) {
-        if (isMavenProject) {
-            String goals = "clean test";
-```
-
-### BoundedWildcard
-Can generalize to `? super Artifact`
-in `src/main/java/de/tum/in/www1/artemis/service/connectors/bamboo/BambooBuildPlanService.java`
-#### Snippet
-```java
-     */
-    private void modifyBuildConfigurationForRegularTestsForJavaAndKotlinExercise(boolean isMavenProject, boolean recordTestwiseCoverage, List<Task<?, ?>> defaultTasks,
-            List<Task<?, ?>> finalTasks, List<Artifact> artifacts) {
-        if (isMavenProject) {
-            String goals = "clean test";
-```
-
-### BoundedWildcard
-Can generalize to `? super Task`
-in `src/main/java/de/tum/in/www1/artemis/service/connectors/bamboo/BambooBuildPlanService.java`
-#### Snippet
-```java
-     * @param artifacts the list containing all artifacts for the build plan to be created
-     */
-    private void modifyBuildConfigurationForStaticCodeAnalysisForJavaAndKotlinExercise(boolean isMavenProject, List<Task<?, ?>> finalTasks, List<Artifact> artifacts) {
-        // Create artifacts and a final task for the execution of static code analysis
-        List<StaticCodeAnalysisTool> staticCodeAnalysisTools = StaticCodeAnalysisTool.getToolsForProgrammingLanguage(ProgrammingLanguage.JAVA);
-```
-
-### BoundedWildcard
-Can generalize to `? super Artifact`
-in `src/main/java/de/tum/in/www1/artemis/service/connectors/bamboo/BambooBuildPlanService.java`
-#### Snippet
-```java
-     * @param artifacts the list containing all artifacts for the build plan to be created
-     */
-    private void modifyBuildConfigurationForStaticCodeAnalysisForJavaAndKotlinExercise(boolean isMavenProject, List<Task<?, ?>> finalTasks, List<Artifact> artifacts) {
-        // Create artifacts and a final task for the execution of static code analysis
-        List<StaticCodeAnalysisTool> staticCodeAnalysisTools = StaticCodeAnalysisTool.getToolsForProgrammingLanguage(ProgrammingLanguage.JAVA);
-```
-
-### BoundedWildcard
-Can generalize to `? extends VersionControlService`
-in `src/main/java/de/tum/in/www1/artemis/service/programming/ProgrammingExerciseImportBasicService.java`
-#### Snippet
-```java
-
-    public ProgrammingExerciseImportBasicService(ExerciseHintService exerciseHintService, ExerciseHintRepository exerciseHintRepository,
-            Optional<VersionControlService> versionControlService, ProgrammingExerciseParticipationService programmingExerciseParticipationService,
-            ProgrammingExerciseTestCaseRepository programmingExerciseTestCaseRepository, StaticCodeAnalysisCategoryRepository staticCodeAnalysisCategoryRepository,
-            ProgrammingExerciseRepository programmingExerciseRepository, ProgrammingExerciseService programmingExerciseService, StaticCodeAnalysisService staticCodeAnalysisService,
+    public void setTestCaseType(Set<ProgrammingExerciseTestCase> testCases, ProgrammingLanguage programmingLanguage) {
+        if (programmingLanguage != ProgrammingLanguage.JAVA) {
+            testCases.forEach(testCase -> testCase.setType(ProgrammingExerciseTestCaseType.DEFAULT));
 ```
 
 ### BoundedWildcard
@@ -4452,15 +4404,51 @@ in `src/main/java/de/tum/in/www1/artemis/service/programming/ProgrammingExercise
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends ProgrammingExerciseTestCase`
-in `src/main/java/de/tum/in/www1/artemis/service/programming/ProgrammingExerciseTestCaseService.java`
+Can generalize to `? extends AuxiliaryRepository`
+in `src/main/java/de/tum/in/www1/artemis/service/programming/AuxiliaryRepositoryService.java`
 #### Snippet
 ```java
-     * @param programmingLanguage the programming language of the exercise
+     * @param newAuxiliaryRepositories The newly added auxiliary repositories
      */
-    public void setTestCaseType(Set<ProgrammingExerciseTestCase> testCases, ProgrammingLanguage programmingLanguage) {
-        if (programmingLanguage != ProgrammingLanguage.JAVA) {
-            testCases.forEach(testCase -> testCase.setType(ProgrammingExerciseTestCaseType.DEFAULT));
+    public void validateAndAddAuxiliaryRepositoriesOfProgrammingExercise(ProgrammingExercise programmingExercise, List<AuxiliaryRepository> newAuxiliaryRepositories) {
+        List<AuxiliaryRepository> auxiliaryRepositories = new ArrayList<>(Objects
+                .requireNonNullElse(programmingExercise.getAuxiliaryRepositories(), new ArrayList<AuxiliaryRepository>()).stream().filter(repo -> repo.getId() != null).toList());
+```
+
+### BoundedWildcard
+Can generalize to `? extends AuxiliaryRepository`
+in `src/main/java/de/tum/in/www1/artemis/service/programming/AuxiliaryRepositoryService.java`
+#### Snippet
+```java
+
+    private void validateAndUpdateExistingAuxiliaryRepositoriesOfProgrammingExercise(ProgrammingExercise programmingExercise,
+            List<AuxiliaryRepository> updatedAuxiliaryRepositories, ProgrammingExercise updatedExercise) {
+        // Get all repositories that are unchanged and are still present in the updated exercise
+        List<AuxiliaryRepository> auxiliaryRepositories = new ArrayList<>(
+```
+
+### BoundedWildcard
+Can generalize to `? extends AuxiliaryRepository`
+in `src/main/java/de/tum/in/www1/artemis/service/programming/AuxiliaryRepositoryService.java`
+#### Snippet
+```java
+    }
+
+    private void validateAuxiliaryRepositoryCheckoutDirectoryDuplication(AuxiliaryRepository auxiliaryRepository, List<AuxiliaryRepository> otherRepositories) {
+        for (AuxiliaryRepository repo : otherRepositories) {
+            if (repo.getCheckoutDirectory() != null && repo.getCheckoutDirectory().equals(auxiliaryRepository.getCheckoutDirectory())) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends AuxiliaryRepository`
+in `src/main/java/de/tum/in/www1/artemis/service/programming/AuxiliaryRepositoryService.java`
+#### Snippet
+```java
+    }
+
+    private void validateAuxiliaryRepositoryNameDuplication(AuxiliaryRepository auxiliaryRepository, List<AuxiliaryRepository> otherRepositories) {
+        for (AuxiliaryRepository existingRepository : otherRepositories) {
+            if (existingRepository.getName().equals(auxiliaryRepository.getName())) {
 ```
 
 ### BoundedWildcard
@@ -4488,6 +4476,30 @@ in `src/main/java/de/tum/in/www1/artemis/service/programming/ProgrammingSubmissi
 ```
 
 ### BoundedWildcard
+Can generalize to `? extends AuxiliaryRepository`
+in `src/main/java/de/tum/in/www1/artemis/service/programming/ProgrammingExerciseImportService.java`
+#### Snippet
+```java
+    }
+
+    private void updateAuxiliaryRepositoriesForNewExercise(List<AuxiliaryRepository> newRepositories, List<AuxiliaryRepository> oldRepositories,
+            AbstractBaseProgrammingExerciseParticipation participation, String targetExerciseProjectKey, ProgrammingExercise newExercise) {
+        for (int i = 0; i < newRepositories.size(); i++) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends AuxiliaryRepository`
+in `src/main/java/de/tum/in/www1/artemis/service/programming/ProgrammingExerciseImportService.java`
+#### Snippet
+```java
+    }
+
+    private void updateAuxiliaryRepositoriesForNewExercise(List<AuxiliaryRepository> newRepositories, List<AuxiliaryRepository> oldRepositories,
+            AbstractBaseProgrammingExerciseParticipation participation, String targetExerciseProjectKey, ProgrammingExercise newExercise) {
+        for (int i = 0; i < newRepositories.size(); i++) {
+```
+
+### BoundedWildcard
 Can generalize to `? extends VersionControlService`
 in `src/main/java/de/tum/in/www1/artemis/service/programming/ProgrammingExerciseImportService.java`
 #### Snippet
@@ -4512,39 +4524,15 @@ in `src/main/java/de/tum/in/www1/artemis/service/programming/ProgrammingExercise
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends AuxiliaryRepository`
-in `src/main/java/de/tum/in/www1/artemis/service/programming/ProgrammingExerciseImportService.java`
+Can generalize to `? extends VersionControlService`
+in `src/main/java/de/tum/in/www1/artemis/service/programming/ProgrammingExerciseImportBasicService.java`
 #### Snippet
 ```java
-    }
 
-    private void updateAuxiliaryRepositoriesForNewExercise(List<AuxiliaryRepository> newRepositories, List<AuxiliaryRepository> oldRepositories,
-            AbstractBaseProgrammingExerciseParticipation participation, String targetExerciseProjectKey, ProgrammingExercise newExercise) {
-        for (int i = 0; i < newRepositories.size(); i++) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends AuxiliaryRepository`
-in `src/main/java/de/tum/in/www1/artemis/service/programming/ProgrammingExerciseImportService.java`
-#### Snippet
-```java
-    }
-
-    private void updateAuxiliaryRepositoriesForNewExercise(List<AuxiliaryRepository> newRepositories, List<AuxiliaryRepository> oldRepositories,
-            AbstractBaseProgrammingExerciseParticipation participation, String targetExerciseProjectKey, ProgrammingExercise newExercise) {
-        for (int i = 0; i < newRepositories.size(); i++) {
-```
-
-### BoundedWildcard
-Can generalize to `? super JWK`
-in `src/main/java/de/tum/in/www1/artemis/security/OAuth2JWKSService.java`
-#### Snippet
-```java
-    }
-
-    private void generateAndAddKey(ClientRegistration clientRegistration, List<JWK> keys) {
-        if (clientRegistration == null) {
-            return;
+    public ProgrammingExerciseImportBasicService(ExerciseHintService exerciseHintService, ExerciseHintRepository exerciseHintRepository,
+            Optional<VersionControlService> versionControlService, ProgrammingExerciseParticipationService programmingExerciseParticipationService,
+            ProgrammingExerciseTestCaseRepository programmingExerciseTestCaseRepository, StaticCodeAnalysisCategoryRepository staticCodeAnalysisCategoryRepository,
+            ProgrammingExerciseRepository programmingExerciseRepository, ProgrammingExerciseService programmingExerciseService, StaticCodeAnalysisService staticCodeAnalysisService,
 ```
 
 ### BoundedWildcard
@@ -4608,6 +4596,18 @@ in `src/main/java/de/tum/in/www1/artemis/service/notifications/NotificationSetti
 ```
 
 ### BoundedWildcard
+Can generalize to `? super JWK`
+in `src/main/java/de/tum/in/www1/artemis/security/OAuth2JWKSService.java`
+#### Snippet
+```java
+    }
+
+    private void generateAndAddKey(ClientRegistration clientRegistration, List<JWK> keys) {
+        if (clientRegistration == null) {
+            return;
+```
+
+### BoundedWildcard
 Can generalize to `? extends StudentParticipation`
 in `src/main/java/de/tum/in/www1/artemis/repository/SubmittedAnswerRepository.java`
 #### Snippet
@@ -4656,15 +4656,15 @@ in `src/main/java/de/tum/in/www1/artemis/service/programming/ProgrammingExercise
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends Exercise`
-in `src/main/java/de/tum/in/www1/artemis/repository/StudentParticipationRepository.java`
+Can generalize to `? super TutorialGroupRegistrationImportDTO`
+in `src/main/java/de/tum/in/www1/artemis/service/tutorialgroups/TutorialGroupService.java`
 #### Snippet
 ```java
-     * @return an unmodifiable list of participations of the user in the exercises
-     */
-    default List<StudentParticipation> getAllParticipationsOfUserInExercises(User user, Set<Exercise> exercises) {
-        Map<ExerciseMode, List<Exercise>> exercisesGroupedByExerciseMode = exercises.stream().collect(Collectors.groupingBy(Exercise::getMode));
-        List<Exercise> individualExercises = Objects.requireNonNullElse(exercisesGroupedByExerciseMode.get(ExerciseMode.INDIVIDUAL), List.of());
+
+    private Set<TutorialGroupRegistrationImportDTO> filterOutWithoutTitle(Set<TutorialGroupRegistrationImportDTO> registrations,
+            Set<TutorialGroupRegistrationImportDTO> failedRegistrations) {
+        var registrationsWithTitle = new HashSet<TutorialGroupRegistrationImportDTO>();
+        var registrationsWithoutTitle = new HashSet<TutorialGroupRegistrationImportDTO>();
 ```
 
 ### BoundedWildcard
@@ -4689,18 +4689,6 @@ in `src/main/java/de/tum/in/www1/artemis/service/tutorialgroups/TutorialGroupSer
             Set<TutorialGroupRegistrationImportDTO> failedRegistrations) {
 
         // reverse the map
-```
-
-### BoundedWildcard
-Can generalize to `? super TutorialGroupRegistrationImportDTO`
-in `src/main/java/de/tum/in/www1/artemis/service/tutorialgroups/TutorialGroupService.java`
-#### Snippet
-```java
-
-    private Set<TutorialGroupRegistrationImportDTO> filterOutWithoutTitle(Set<TutorialGroupRegistrationImportDTO> registrations,
-            Set<TutorialGroupRegistrationImportDTO> failedRegistrations) {
-        var registrationsWithTitle = new HashSet<TutorialGroupRegistrationImportDTO>();
-        var registrationsWithoutTitle = new HashSet<TutorialGroupRegistrationImportDTO>();
 ```
 
 ### BoundedWildcard
@@ -4764,15 +4752,27 @@ in `src/main/java/de/tum/in/www1/artemis/repository/ResultRepository.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends User`
-in `src/main/java/de/tum/in/www1/artemis/repository/StudentExamRepository.java`
+Can generalize to `? extends Exercise`
+in `src/main/java/de/tum/in/www1/artemis/repository/StudentParticipationRepository.java`
 #### Snippet
 ```java
-     * @return List of StudentExams generated for the given users
+     * @return an unmodifiable list of participations of the user in the exercises
      */
-    default List<StudentExam> createRandomStudentExams(Exam exam, Set<User> users) {
-        List<StudentExam> studentExams = new ArrayList<>();
-        SecureRandom random = new SecureRandom();
+    default List<StudentParticipation> getAllParticipationsOfUserInExercises(User user, Set<Exercise> exercises) {
+        Map<ExerciseMode, List<Exercise>> exercisesGroupedByExerciseMode = exercises.stream().collect(Collectors.groupingBy(Exercise::getMode));
+        List<Exercise> individualExercises = Objects.requireNonNullElse(exercisesGroupedByExerciseMode.get(ExerciseMode.INDIVIDUAL), List.of());
+```
+
+### BoundedWildcard
+Can generalize to `? extends StatisticsEntry`
+in `src/main/java/de/tum/in/www1/artemis/repository/StatisticsRepository.java`
+#### Snippet
+```java
+     * @param startDate the startDate of the result list
+     */
+    default void sortDataIntoDays(List<StatisticsEntry> outcome, List<Integer> result, ZonedDateTime startDate) {
+        for (StatisticsEntry entry : outcome) {
+            ZonedDateTime date = (ZonedDateTime) entry.getDay();
 ```
 
 ### BoundedWildcard
@@ -4816,35 +4816,11 @@ Can generalize to `? extends StatisticsEntry`
 in `src/main/java/de/tum/in/www1/artemis/repository/StatisticsRepository.java`
 #### Snippet
 ```java
-     * @param startDate the startDate of the result list
-     */
-    default void sortDataIntoDays(List<StatisticsEntry> outcome, List<Integer> result, ZonedDateTime startDate) {
-        for (StatisticsEntry entry : outcome) {
-            ZonedDateTime date = (ZonedDateTime) entry.getDay();
-```
-
-### BoundedWildcard
-Can generalize to `? extends StatisticsEntry`
-in `src/main/java/de/tum/in/www1/artemis/repository/StatisticsRepository.java`
-#### Snippet
-```java
      * @return A List<StatisticsData> with only distinct users per timeslot
      */
     private List<StatisticsEntry> filterDuplicatedUsers(SpanType span, List<StatisticsEntry> result, ZonedDateTime startDate, GraphType graphType) {
         Map<Integer, List<String>> users = new HashMap<>();
         for (StatisticsEntry listElement : result) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends StatisticsEntry`
-in `src/main/java/de/tum/in/www1/artemis/repository/StatisticsRepository.java`
-#### Snippet
-```java
-     * @param startDate the startDate of the result list
-     */
-    default void sortDataIntoWeeks(List<StatisticsEntry> outcome, List<Integer> result, ZonedDateTime startDate) {
-        for (StatisticsEntry entry : outcome) {
-            ZonedDateTime date = (ZonedDateTime) entry.getDay();
 ```
 
 ### BoundedWildcard
@@ -4860,15 +4836,39 @@ in `src/main/java/de/tum/in/www1/artemis/repository/StatisticsRepository.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends GradingCriterion`
-in `src/main/java/de/tum/in/www1/artemis/repository/FeedbackRepository.java`
+Can generalize to `? extends StatisticsEntry`
+in `src/main/java/de/tum/in/www1/artemis/repository/StatisticsRepository.java`
 #### Snippet
 ```java
-     * @return list including feedback entries which are associated with the grading instructions
+     * @param startDate the startDate of the result list
      */
-    default List<Feedback> findFeedbackByExerciseGradingCriteria(List<GradingCriterion> gradingCriteria) {
-        List<Long> gradingInstructionsIds = gradingCriteria.stream().flatMap(gradingCriterion -> gradingCriterion.getStructuredGradingInstructions().stream())
-                .map(GradingInstruction::getId).toList();
+    default void sortDataIntoWeeks(List<StatisticsEntry> outcome, List<Integer> result, ZonedDateTime startDate) {
+        for (StatisticsEntry entry : outcome) {
+            ZonedDateTime date = (ZonedDateTime) entry.getDay();
+```
+
+### BoundedWildcard
+Can generalize to `? extends User`
+in `src/main/java/de/tum/in/www1/artemis/repository/StudentExamRepository.java`
+#### Snippet
+```java
+     * @return List of StudentExams generated for the given users
+     */
+    default List<StudentExam> createRandomStudentExams(Exam exam, Set<User> users) {
+        List<StudentExam> studentExams = new ArrayList<>();
+        SecureRandom random = new SecureRandom();
+```
+
+### BoundedWildcard
+Can generalize to `? extends Exercise`
+in `src/main/java/de/tum/in/www1/artemis/repository/CourseRepository.java`
+#### Snippet
+```java
+     * @return the filtered and relevant exercises for manual assessment
+     */
+    default Set<Exercise> getInterestingExercisesForAssessmentDashboards(Set<Exercise> exercises) {
+        return exercises.stream()
+                .filter(exercise -> exercise instanceof TextExercise || exercise instanceof ModelingExercise || exercise instanceof FileUploadExercise
 ```
 
 ### BoundedWildcard
@@ -4896,27 +4896,15 @@ in `src/main/java/de/tum/in/www1/artemis/repository/FeedbackRepository.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends Exercise`
-in `src/main/java/de/tum/in/www1/artemis/repository/CourseRepository.java`
+Can generalize to `? extends GradingCriterion`
+in `src/main/java/de/tum/in/www1/artemis/repository/FeedbackRepository.java`
 #### Snippet
 ```java
-     * @return the filtered and relevant exercises for manual assessment
+     * @return list including feedback entries which are associated with the grading instructions
      */
-    default Set<Exercise> getInterestingExercisesForAssessmentDashboards(Set<Exercise> exercises) {
-        return exercises.stream()
-                .filter(exercise -> exercise instanceof TextExercise || exercise instanceof ModelingExercise || exercise instanceof FileUploadExercise
-```
-
-### BoundedWildcard
-Can generalize to `? extends User`
-in `src/main/java/de/tum/in/www1/artemis/repository/UserRepository.java`
-#### Snippet
-```java
-     * @return A list of filtered users
-     */
-    default List<User> findAllUserInGroupAndNotIn(String groupName, Collection<User> excludedUsers) {
-        // For an empty list, we have to use another query, because Hibernate builds an invalid query with empty lists
-        if (!excludedUsers.isEmpty()) {
+    default List<Feedback> findFeedbackByExerciseGradingCriteria(List<GradingCriterion> gradingCriteria) {
+        List<Long> gradingInstructionsIds = gradingCriteria.stream().flatMap(gradingCriterion -> gradingCriterion.getStructuredGradingInstructions().stream())
+                .map(GradingInstruction::getId).toList();
 ```
 
 ### BoundedWildcard
@@ -4929,6 +4917,18 @@ in `src/main/java/de/tum/in/www1/artemis/repository/UserRepository.java`
     private User unwrapOptionalUser(Optional<User> optionalUser, String currentUserLogin) {
         return optionalUser.orElseThrow(() -> new EntityNotFoundException("No user found with login: " + currentUserLogin));
     }
+```
+
+### BoundedWildcard
+Can generalize to `? extends User`
+in `src/main/java/de/tum/in/www1/artemis/repository/UserRepository.java`
+#### Snippet
+```java
+     * @return A list of filtered users
+     */
+    default List<User> findAllUserInGroupAndNotIn(String groupName, Collection<User> excludedUsers) {
+        // For an empty list, we have to use another query, because Hibernate builds an invalid query with empty lists
+        if (!excludedUsers.isEmpty()) {
 ```
 
 ### BoundedWildcard
@@ -4948,11 +4948,11 @@ Can generalize to `? super String`
 in `src/main/java/de/tum/in/www1/artemis/service/programming/ProgrammingExerciseExportService.java`
 #### Snippet
 ```java
-    }
 
-    private Optional<ProgrammingExercise> loadExerciseForRepoExport(long exerciseId, List<String> exportErrors) {
-        var exerciseOrEmpty = programmingExerciseRepository.findWithTemplateAndSolutionParticipationAndAuxiliaryRepositoriesById(exerciseId);
-        if (exerciseOrEmpty.isEmpty()) {
+    private Optional<File> exportRepository(VcsRepositoryUrl repositoryUrl, String repositoryName, String zippedRepoName, ProgrammingExercise exercise, Path outputDir,
+            @Nullable Predicate<Path> contentFilter, List<String> exportErrors) {
+        try {
+            // It's not guaranteed that the repository url is defined (old courses).
 ```
 
 ### BoundedWildcard
@@ -4960,11 +4960,11 @@ Can generalize to `? super String`
 in `src/main/java/de/tum/in/www1/artemis/service/programming/ProgrammingExerciseExportService.java`
 #### Snippet
 ```java
+    }
 
-    private Optional<File> exportRepository(VcsRepositoryUrl repositoryUrl, String repositoryName, String zippedRepoName, ProgrammingExercise exercise, Path outputDir,
-            @Nullable Predicate<Path> contentFilter, List<String> exportErrors) {
-        try {
-            // It's not guaranteed that the repository url is defined (old courses).
+    private Optional<ProgrammingExercise> loadExerciseForRepoExport(long exerciseId, List<String> exportErrors) {
+        var exerciseOrEmpty = programmingExerciseRepository.findWithTemplateAndSolutionParticipationAndAuxiliaryRepositoriesById(exerciseId);
+        if (exerciseOrEmpty.isEmpty()) {
 ```
 
 ### BoundedWildcard
@@ -5004,39 +5004,63 @@ in `src/main/java/de/tum/in/www1/artemis/service/programming/ProgrammingExercise
 ```
 
 ### BoundedWildcard
+Can generalize to `? super String`
+in `src/main/java/de/tum/in/www1/artemis/service/programming/ProgrammingExerciseGradingService.java`
+#### Snippet
+```java
+     * @param issuesSingleStudent The issues map for one student
+     */
+    private void mergeCategoryIssuesMap(final Map<String, Map<Integer, Integer>> issuesAllStudents, final Map<String, Integer> issuesSingleStudent) {
+        for (var entry : issuesSingleStudent.entrySet()) {
+            final String category = entry.getKey();
+```
+
+### BoundedWildcard
 Can generalize to `? extends ProgrammingExerciseTestCase`
 in `src/main/java/de/tum/in/www1/artemis/service/programming/ProgrammingExerciseGradingService.java`
 #### Snippet
 ```java
-     * @return a set of test cases that are visible to the student.
+     * @param allTests of the given programming exercise.
      */
-    private Set<ProgrammingExerciseTestCase> filterTestCasesForStudents(final Set<ProgrammingExerciseTestCase> testCases, boolean isBeforeDueDate) {
-        return testCases.stream().filter(testCase -> !testCase.isInvisible()).filter(testCase -> !(isBeforeDueDate && testCase.isAfterDueDate())).collect(Collectors.toSet());
-    }
+    private void setVisibilityForFeedbacksWithTestCase(Result result, final Set<ProgrammingExerciseTestCase> allTests) {
+        for (Feedback feedback : result.getFeedbacks()) {
+            allTests.stream().filter(testCase -> testCase.getTestName().equalsIgnoreCase(feedback.getText())).findFirst()
 ```
 
 ### BoundedWildcard
-Can generalize to `? super String`
+Can generalize to `? extends ProgrammingExerciseTestCase`
 in `src/main/java/de/tum/in/www1/artemis/service/programming/ProgrammingExerciseGradingService.java`
 #### Snippet
 ```java
-     * @param feedback The given feedback object
+     * @return the final total score that should be given to the result.
      */
-    private void addFeedbackToStatistics(final Map<String, Integer> categoryIssuesMap, final Map<String, ProgrammingExerciseGradingStatisticsDTO.TestCaseStats> testCaseStatsMap,
-            final Feedback feedback) {
-        if (feedback.isStaticCodeAnalysisFeedback()) {
+    private double calculateScore(final ProgrammingExercise programmingExercise, final Set<ProgrammingExerciseTestCase> allTests, final Result result,
+            final Set<ProgrammingExerciseTestCase> successfulTestCases, final List<Feedback> staticCodeAnalysisFeedback, boolean applySubmissionPolicy) {
+        if (successfulTestCases.isEmpty()) {
 ```
 
 ### BoundedWildcard
-Can generalize to `? super String`
+Can generalize to `? extends ProgrammingExerciseTestCase`
 in `src/main/java/de/tum/in/www1/artemis/service/programming/ProgrammingExerciseGradingService.java`
 #### Snippet
 ```java
-     * @param feedback The given feedback object
+     * @param allTests of the given programming exercise.
      */
-    private void addFeedbackToStatistics(final Map<String, Integer> categoryIssuesMap, final Map<String, ProgrammingExerciseGradingStatisticsDTO.TestCaseStats> testCaseStatsMap,
-            final Feedback feedback) {
-        if (feedback.isStaticCodeAnalysisFeedback()) {
+    private void createFeedbackForNotExecutedTests(Result result, Set<ProgrammingExerciseTestCase> allTests) {
+        List<Feedback> feedbacksForNotExecutedTestCases = allTests.stream().filter(wasNotExecuted(result))
+                .map(testCase -> new Feedback().type(FeedbackType.AUTOMATIC).text(testCase.getTestName()).detailText("Test was not executed.")).toList();
+```
+
+### BoundedWildcard
+Can generalize to `? extends ProgrammingExerciseTestCase`
+in `src/main/java/de/tum/in/www1/artemis/service/programming/ProgrammingExerciseGradingService.java`
+#### Snippet
+```java
+     * @param testCases of the programming exercise.
+     */
+    private void retainAutomaticFeedbacksWithTestCase(Result result, final Set<ProgrammingExerciseTestCase> testCases) {
+        // Remove automatic feedbacks not associated with test cases
+        result.getFeedbacks().removeIf(feedback -> feedback.getType() == FeedbackType.AUTOMATIC && !feedback.isStaticCodeAnalysisFeedback()
 ```
 
 ### BoundedWildcard
@@ -5064,27 +5088,15 @@ in `src/main/java/de/tum/in/www1/artemis/service/programming/ProgrammingExercise
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends ProgrammingExerciseTestCase`
+Can generalize to `? super String`
 in `src/main/java/de/tum/in/www1/artemis/service/programming/ProgrammingExerciseGradingService.java`
 #### Snippet
 ```java
-     * @param testCases of the programming exercise.
+     * @param feedback The given feedback object
      */
-    private void retainAutomaticFeedbacksWithTestCase(Result result, final Set<ProgrammingExerciseTestCase> testCases) {
-        // Remove automatic feedbacks not associated with test cases
-        result.getFeedbacks().removeIf(feedback -> feedback.getType() == FeedbackType.AUTOMATIC && !feedback.isStaticCodeAnalysisFeedback()
-```
-
-### BoundedWildcard
-Can generalize to `? extends StudentParticipation`
-in `src/main/java/de/tum/in/www1/artemis/service/programming/ProgrammingExerciseGradingService.java`
-#### Snippet
-```java
-     * @return all results that have been updated.
-     */
-    private Stream<Result> updateResults(final ProgrammingExercise exercise, final Set<ProgrammingExerciseTestCase> allTestCases, final List<StudentParticipation> participations) {
-        final Set<ProgrammingExerciseTestCase> testCasesBeforeDueDate = filterTestCasesForStudents(allTestCases, true);
-        final Set<ProgrammingExerciseTestCase> testCasesAfterDueDate = filterTestCasesForStudents(allTestCases, false);
+    private void addFeedbackToStatistics(final Map<String, Integer> categoryIssuesMap, final Map<String, ProgrammingExerciseGradingStatisticsDTO.TestCaseStats> testCaseStatsMap,
+            final Feedback feedback) {
+        if (feedback.isStaticCodeAnalysisFeedback()) {
 ```
 
 ### BoundedWildcard
@@ -5092,11 +5104,11 @@ Can generalize to `? super String`
 in `src/main/java/de/tum/in/www1/artemis/service/programming/ProgrammingExerciseGradingService.java`
 #### Snippet
 ```java
-     * @param issuesSingleStudent The issues map for one student
+     * @param feedback The given feedback object
      */
-    private void mergeCategoryIssuesMap(final Map<String, Map<Integer, Integer>> issuesAllStudents, final Map<String, Integer> issuesSingleStudent) {
-        for (var entry : issuesSingleStudent.entrySet()) {
-            final String category = entry.getKey();
+    private void addFeedbackToStatistics(final Map<String, Integer> categoryIssuesMap, final Map<String, ProgrammingExerciseGradingStatisticsDTO.TestCaseStats> testCaseStatsMap,
+            final Feedback feedback) {
+        if (feedback.isStaticCodeAnalysisFeedback()) {
 ```
 
 ### BoundedWildcard
@@ -5104,23 +5116,11 @@ Can generalize to `? extends ProgrammingExerciseTestCase`
 in `src/main/java/de/tum/in/www1/artemis/service/programming/ProgrammingExerciseGradingService.java`
 #### Snippet
 ```java
-     * @param allTests of the given programming exercise.
+     * @return a set of test cases that are visible to the student.
      */
-    private void createFeedbackForNotExecutedTests(Result result, Set<ProgrammingExerciseTestCase> allTests) {
-        List<Feedback> feedbacksForNotExecutedTestCases = allTests.stream().filter(wasNotExecuted(result))
-                .map(testCase -> new Feedback().type(FeedbackType.AUTOMATIC).text(testCase.getTestName()).detailText("Test was not executed.")).toList();
-```
-
-### BoundedWildcard
-Can generalize to `? extends ProgrammingExerciseTestCase`
-in `src/main/java/de/tum/in/www1/artemis/service/programming/ProgrammingExerciseGradingService.java`
-#### Snippet
-```java
-     * @param allTests of the given programming exercise.
-     */
-    private void setVisibilityForFeedbacksWithTestCase(Result result, final Set<ProgrammingExerciseTestCase> allTests) {
-        for (Feedback feedback : result.getFeedbacks()) {
-            allTests.stream().filter(testCase -> testCase.getTestName().equalsIgnoreCase(feedback.getText())).findFirst()
+    private Set<ProgrammingExerciseTestCase> filterTestCasesForStudents(final Set<ProgrammingExerciseTestCase> testCases, boolean isBeforeDueDate) {
+        return testCases.stream().filter(testCase -> !testCase.isInvisible()).filter(testCase -> !(isBeforeDueDate && testCase.isAfterDueDate())).collect(Collectors.toSet());
+    }
 ```
 
 ### BoundedWildcard
@@ -5136,30 +5136,18 @@ in `src/main/java/de/tum/in/www1/artemis/service/programming/ProgrammingExercise
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends ProgrammingExerciseTestCase`
+Can generalize to `? extends StudentParticipation`
 in `src/main/java/de/tum/in/www1/artemis/service/programming/ProgrammingExerciseGradingService.java`
 #### Snippet
 ```java
-     * @return the final total score that should be given to the result.
+     * @return all results that have been updated.
      */
-    private double calculateScore(final ProgrammingExercise programmingExercise, final Set<ProgrammingExerciseTestCase> allTests, final Result result,
-            final Set<ProgrammingExerciseTestCase> successfulTestCases, final List<Feedback> staticCodeAnalysisFeedback, boolean applySubmissionPolicy) {
-        if (successfulTestCases.isEmpty()) {
+    private Stream<Result> updateResults(final ProgrammingExercise exercise, final Set<ProgrammingExerciseTestCase> allTestCases, final List<StudentParticipation> participations) {
+        final Set<ProgrammingExerciseTestCase> testCasesBeforeDueDate = filterTestCasesForStudents(allTestCases, true);
+        final Set<ProgrammingExerciseTestCase> testCasesAfterDueDate = filterTestCasesForStudents(allTestCases, false);
 ```
 
 ## RuleId[ruleID=NullableProblems]
-### NullableProblems
-Getter for @Nullable field might be annotated @Nullable itself
-in `src/main/java/de/tum/in/www1/artemis/domain/User.java`
-#### Snippet
-```java
-    }
-
-    public ZonedDateTime getHideNotificationsUntil() {
-        return hideNotificationsUntil;
-    }
-```
-
 ### NullableProblems
 Setter parameter for @Nullable field might be annotated @Nullable itself
 in `src/main/java/de/tum/in/www1/artemis/domain/User.java`
@@ -5169,6 +5157,18 @@ in `src/main/java/de/tum/in/www1/artemis/domain/User.java`
 
     public void setHideNotificationsUntil(ZonedDateTime hideNotificationsUntil) {
         this.hideNotificationsUntil = hideNotificationsUntil;
+    }
+```
+
+### NullableProblems
+Getter for @Nullable field might be annotated @Nullable itself
+in `src/main/java/de/tum/in/www1/artemis/domain/User.java`
+#### Snippet
+```java
+    }
+
+    public ZonedDateTime getHideNotificationsUntil() {
+        return hideNotificationsUntil;
     }
 ```
 
@@ -5271,18 +5271,6 @@ public class File extends java.io.File {
 ```
 
 ### ClassNameSameAsAncestorName
-Class name `Repository` is the same as one of its superclass' names
-in `src/main/java/de/tum/in/www1/artemis/domain/Repository.java`
-#### Snippet
-```java
-import de.tum.in.www1.artemis.domain.participation.ProgrammingExerciseParticipation;
-
-public class Repository extends org.eclipse.jgit.internal.storage.file.FileRepository {
-
-    private ProgrammingExerciseParticipation participation;
-```
-
-### ClassNameSameAsAncestorName
 Class name `Claims` is the same as one of its superclass' names
 in `src/main/java/de/tum/in/www1/artemis/domain/lti/Claims.java`
 #### Snippet
@@ -5292,6 +5280,18 @@ package de.tum.in.www1.artemis.domain.lti;
 public class Claims extends uk.ac.ox.ctl.lti13.lti.Claims {
 
     public static final String AGS_CLAIM = "https://purl.imsglobal.org/spec/lti-ags/claim/endpoint";
+```
+
+### ClassNameSameAsAncestorName
+Class name `Repository` is the same as one of its superclass' names
+in `src/main/java/de/tum/in/www1/artemis/domain/Repository.java`
+#### Snippet
+```java
+import de.tum.in.www1.artemis.domain.participation.ProgrammingExerciseParticipation;
+
+public class Repository extends org.eclipse.jgit.internal.storage.file.FileRepository {
+
+    private ProgrammingExerciseParticipation participation;
 ```
 
 ## RuleId[ruleID=IfStatementWithIdenticalBranches]
@@ -5374,11 +5374,11 @@ Qualifier `super` is unnecessary in this context
 in `src/main/java/de/tum/in/www1/artemis/web/rest/TextAssessmentResource.java`
 #### Snippet
 ```java
+            authCheckService.checkHasAtLeastRoleForExerciseElseThrow(Role.EDITOR, textExercise, null);
         }
-        authCheckService.checkHasAtLeastRoleForExerciseElseThrow(Role.TEACHING_ASSISTANT, submission.getParticipation().getExercise(), null);
-        return super.cancelAssessment(submissionId);
-    }
-
+        final var response = super.saveExampleAssessment(exampleSubmissionId, textAssessment.getFeedbacks());
+        if (response.getStatusCode().is2xxSuccessful()) {
+            final Submission submission = response.getBody().getSubmission();
 ```
 
 ### UnnecessarySuperQualifier
@@ -5410,11 +5410,23 @@ Qualifier `super` is unnecessary in this context
 in `src/main/java/de/tum/in/www1/artemis/web/rest/TextAssessmentResource.java`
 #### Snippet
 ```java
-            authCheckService.checkHasAtLeastRoleForExerciseElseThrow(Role.EDITOR, textExercise, null);
         }
-        final var response = super.saveExampleAssessment(exampleSubmissionId, textAssessment.getFeedbacks());
-        if (response.getStatusCode().is2xxSuccessful()) {
-            final Submission submission = response.getBody().getSubmission();
+        authCheckService.checkHasAtLeastRoleForExerciseElseThrow(Role.TEACHING_ASSISTANT, submission.getParticipation().getExercise(), null);
+        return super.cancelAssessment(submissionId);
+    }
+
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `src/main/java/de/tum/in/www1/artemis/web/rest/ModelingAssessmentResource.java`
+#### Snippet
+```java
+    public ResponseEntity<Result> getModelingExampleAssessment(@PathVariable long exerciseId, @PathVariable long submissionId) {
+        log.debug("REST request to get example assessment for tutors text assessment: {}", submissionId);
+        return super.getExampleAssessment(exerciseId, submissionId);
+    }
+
 ```
 
 ### UnnecessarySuperQualifier
@@ -5439,42 +5451,6 @@ in `src/main/java/de/tum/in/www1/artemis/web/rest/ModelingAssessmentResource.jav
         return super.saveExampleAssessment(exampleSubmissionId, feedbacks);
     }
 
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `src/main/java/de/tum/in/www1/artemis/web/rest/ModelingAssessmentResource.java`
-#### Snippet
-```java
-    public ResponseEntity<Result> getModelingExampleAssessment(@PathVariable long exerciseId, @PathVariable long submissionId) {
-        log.debug("REST request to get example assessment for tutors text assessment: {}", submissionId);
-        return super.getExampleAssessment(exerciseId, submissionId);
-    }
-
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `src/main/java/de/tum/in/www1/artemis/web/rest/repository/RepositoryProgrammingExerciseParticipationResource.java`
-#### Snippet
-```java
-    @PreAuthorize("hasRole('TA')")
-    public ResponseEntity<Map<String, String>> getFilesWithContent(@PathVariable Long participationId) {
-        return super.executeAndCheckForExceptions(() -> {
-            Repository repository = getRepository(participationId, RepositoryActionType.READ, true);
-            var filesWithContent = super.repositoryService.getFilesWithContent(repository);
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `src/main/java/de/tum/in/www1/artemis/web/rest/repository/RepositoryProgrammingExerciseParticipationResource.java`
-#### Snippet
-```java
-        return super.executeAndCheckForExceptions(() -> {
-            Repository repository = getRepository(participationId, RepositoryActionType.READ, true);
-            var filesWithContent = super.repositoryService.getFilesWithContent(repository);
-            return new ResponseEntity<>(filesWithContent, HttpStatus.OK);
-        });
 ```
 
 ### UnnecessarySuperQualifier
@@ -5522,6 +5498,30 @@ in `src/main/java/de/tum/in/www1/artemis/web/rest/repository/RepositoryProgrammi
             Repository templateRepository = getRepository(exercise.getTemplateParticipation().getId(), RepositoryActionType.READ, true);
             var filesWithInformationAboutChange = super.repositoryService.getFilesWithInformationAboutChange(repository, templateRepository);
             return new ResponseEntity<>(filesWithInformationAboutChange, HttpStatus.OK);
+        });
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `src/main/java/de/tum/in/www1/artemis/web/rest/repository/RepositoryProgrammingExerciseParticipationResource.java`
+#### Snippet
+```java
+    @PreAuthorize("hasRole('TA')")
+    public ResponseEntity<Map<String, String>> getFilesWithContent(@PathVariable Long participationId) {
+        return super.executeAndCheckForExceptions(() -> {
+            Repository repository = getRepository(participationId, RepositoryActionType.READ, true);
+            var filesWithContent = super.repositoryService.getFilesWithContent(repository);
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `src/main/java/de/tum/in/www1/artemis/web/rest/repository/RepositoryProgrammingExerciseParticipationResource.java`
+#### Snippet
+```java
+        return super.executeAndCheckForExceptions(() -> {
+            Repository repository = getRepository(participationId, RepositoryActionType.READ, true);
+            var filesWithContent = super.repositoryService.getFilesWithContent(repository);
+            return new ResponseEntity<>(filesWithContent, HttpStatus.OK);
         });
 ```
 
@@ -6007,16 +6007,6 @@ package ${packageName}
 
 ### PackageDirectoryMismatch
 Package directive does not match the file location
-in `src/main/resources/templates/kotlin/exercise/src/${packageNameFolder}/Context.kt`
-#### Snippet
-```java
-package ${packageName}
-
-class Context {
-```
-
-### PackageDirectoryMismatch
-Package directive does not match the file location
 in `src/main/resources/templates/kotlin/exercise/src/${packageNameFolder}/Policy.kt`
 #### Snippet
 ```java
@@ -6027,12 +6017,12 @@ package ${packageName}
 
 ### PackageDirectoryMismatch
 Package directive does not match the file location
-in `src/main/resources/templates/kotlin/exercise/src/${packageNameFolder}/QuickSort.kt`
+in `src/main/resources/templates/kotlin/exercise/src/${packageNameFolder}/Context.kt`
 #### Snippet
 ```java
 package ${packageName}
 
-//TODO: add the missing inheritance
+class Context {
 ```
 
 ### PackageDirectoryMismatch
@@ -6047,16 +6037,6 @@ class Policy(private val context: Context) {
 
 ### PackageDirectoryMismatch
 Package directive does not match the file location
-in `src/main/resources/templates/kotlin/solution/src/${packageNameFolder}/SortStrategy.kt`
-#### Snippet
-```java
-package ${packageName}
-
-interface SortStrategy {
-```
-
-### PackageDirectoryMismatch
-Package directive does not match the file location
 in `src/main/resources/templates/kotlin/solution/src/${packageNameFolder}/QuickSort.kt`
 #### Snippet
 ```java
@@ -6067,12 +6047,22 @@ class QuickSort : SortStrategy {
 
 ### PackageDirectoryMismatch
 Package directive does not match the file location
-in `src/main/resources/templates/kotlin/solution/src/${packageNameFolder}/Context.kt`
+in `src/main/resources/templates/kotlin/exercise/src/${packageNameFolder}/QuickSort.kt`
 #### Snippet
 ```java
 package ${packageName}
 
-class Context {
+//TODO: add the missing inheritance
+```
+
+### PackageDirectoryMismatch
+Package directive does not match the file location
+in `src/main/resources/templates/kotlin/solution/src/${packageNameFolder}/SortStrategy.kt`
+#### Snippet
+```java
+package ${packageName}
+
+interface SortStrategy {
 ```
 
 ### PackageDirectoryMismatch
@@ -6087,12 +6077,12 @@ package ${packageName}
 
 ### PackageDirectoryMismatch
 Package directive does not match the file location
-in `src/main/resources/templates/kotlin/solution/src/${packageNameFolder}/Main.kt`
+in `src/main/resources/templates/kotlin/solution/src/${packageNameFolder}/Context.kt`
 #### Snippet
 ```java
 package ${packageName}
 
-fun main() {
+class Context {
 ```
 
 ### PackageDirectoryMismatch
@@ -6103,6 +6093,16 @@ in `src/main/resources/templates/kotlin/solution/src/${packageNameFolder}/Client
 package ${packageName}
 
 import kotlin.random.Random
+```
+
+### PackageDirectoryMismatch
+Package directive does not match the file location
+in `src/main/resources/templates/kotlin/solution/src/${packageNameFolder}/Main.kt`
+#### Snippet
+```java
+package ${packageName}
+
+fun main() {
 ```
 
 ### PackageDirectoryMismatch
@@ -6296,27 +6296,15 @@ in `src/main/java/de/tum/in/www1/artemis/domain/TextBlock.java`
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `src/main/java/de/tum/in/www1/artemis/domain/NotificationSetting.java`
-#### Snippet
-```java
-
-    @Column(name = "email", columnDefinition = "boolean default false", nullable = false)
-    private boolean email = false;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-```
-
-### RedundantFieldInitialization
 Field initialization to `null` is redundant
 in `src/main/java/de/tum/in/www1/artemis/domain/User.java`
 #### Snippet
 ```java
     @Nullable
-    @Column(name = "hide_notifications_until")
-    private ZonedDateTime hideNotificationsUntil = null;
+    @Column(name = "vcs_access_token")
+    private String vcsAccessToken = null;
 
-    @Column(name = "is_internal", nullable = false)
+    /**
 ```
 
 ### RedundantFieldInitialization
@@ -6336,11 +6324,11 @@ Field initialization to `null` is redundant
 in `src/main/java/de/tum/in/www1/artemis/domain/User.java`
 #### Snippet
 ```java
+    // currently this is only the case for the course scores page and its csv export, and also for the individual student exam detail
+    @Transient
+    private String visibleRegistrationNumberTransient = null;
 
-    @Column(name = "reset_date")
-    private Instant resetDate = null;
-
-    @Column(name = "last_notification_read")
+    @Email
 ```
 
 ### RedundantFieldInitialization
@@ -6349,10 +6337,10 @@ in `src/main/java/de/tum/in/www1/artemis/domain/User.java`
 #### Snippet
 ```java
     @Nullable
-    @Column(name = "vcs_access_token")
-    private String vcsAccessToken = null;
+    @Column(name = "hide_notifications_until")
+    private ZonedDateTime hideNotificationsUntil = null;
 
-    /**
+    @Column(name = "is_internal", nullable = false)
 ```
 
 ### RedundantFieldInitialization
@@ -6360,11 +6348,11 @@ Field initialization to `null` is redundant
 in `src/main/java/de/tum/in/www1/artemis/domain/User.java`
 #### Snippet
 ```java
-    // currently this is only the case for the course scores page and its csv export, and also for the individual student exam detail
-    @Transient
-    private String visibleRegistrationNumberTransient = null;
 
-    @Email
+    @Column(name = "reset_date")
+    private Instant resetDate = null;
+
+    @Column(name = "last_notification_read")
 ```
 
 ### RedundantFieldInitialization
@@ -6381,6 +6369,18 @@ in `src/main/java/de/tum/in/www1/artemis/domain/User.java`
 
 ### RedundantFieldInitialization
 Field initialization to `false` is redundant
+in `src/main/java/de/tum/in/www1/artemis/domain/NotificationSetting.java`
+#### Snippet
+```java
+
+    @Column(name = "email", columnDefinition = "boolean default false", nullable = false)
+    private boolean email = false;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
 in `src/main/java/de/tum/in/www1/artemis/domain/GradeStep.java`
 #### Snippet
 ```java
@@ -6393,18 +6393,6 @@ in `src/main/java/de/tum/in/www1/artemis/domain/GradeStep.java`
 
 ### RedundantFieldInitialization
 Field initialization to `false` is redundant
-in `src/main/java/de/tum/in/www1/artemis/domain/Course.java`
-#### Snippet
-```java
-    @Column(name = "test_course", nullable = false)
-    @JsonView({ QuizView.Before.class })
-    private boolean testCourse = false;
-
-    @Enumerated(EnumType.STRING)
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
 in `src/main/java/de/tum/in/www1/artemis/domain/quiz/MultipleChoiceQuestion.java`
 #### Snippet
 ```java
@@ -6413,6 +6401,18 @@ in `src/main/java/de/tum/in/www1/artemis/domain/quiz/MultipleChoiceQuestion.java
     private boolean singleChoice = false;
 
     public List<AnswerOption> getAnswerOptions() {
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `src/main/java/de/tum/in/www1/artemis/domain/Course.java`
+#### Snippet
+```java
+    @Column(name = "test_course", nullable = false)
+    @JsonView({ QuizView.Before.class })
+    private boolean testCourse = false;
+
+    @Enumerated(EnumType.STRING)
 ```
 
 ### RedundantFieldInitialization
@@ -6434,7 +6434,7 @@ in `src/main/java/de/tum/in/www1/artemis/domain/Exercise.java`
 ```java
 
     @Transient
-    private boolean studentAssignedTeamIdComputedTransient = false; // set to true if studentAssignedTeamIdTransient was computed for the exercise
+    private boolean isGradingInstructionFeedbackUsedTransient = false;
 
     @Transient
 ```
@@ -6446,7 +6446,7 @@ in `src/main/java/de/tum/in/www1/artemis/domain/Exercise.java`
 ```java
 
     @Transient
-    private boolean isGradingInstructionFeedbackUsedTransient = false;
+    private boolean studentAssignedTeamIdComputedTransient = false; // set to true if studentAssignedTeamIdTransient was computed for the exercise
 
     @Transient
 ```
@@ -6586,14 +6586,14 @@ public class UMLSystemBoundary extends UMLContainerElement {
 
 ### EqualsAndHashcode
 Class has `equals()` defined but does not define `hashCode()`
-in `src/main/java/de/tum/in/www1/artemis/service/compass/umlmodel/activity/UMLActivity.java`
+in `src/main/java/de/tum/in/www1/artemis/service/compass/umlmodel/activity/UMLActivityElement.java`
 #### Snippet
 ```java
 import de.tum.in.www1.artemis.service.compass.umlmodel.UMLElement;
 
-public class UMLActivity extends UMLActivityElement implements Serializable {
+public abstract class UMLActivityElement extends UMLElement implements Serializable {
 
-    public static final String UML_ACTIVITY_TYPE = "Activity";
+    // TODO: use UML Container Element instead
 ```
 
 ### EqualsAndHashcode
@@ -6610,14 +6610,14 @@ public class UMLControlFlow extends UMLElement implements Serializable {
 
 ### EqualsAndHashcode
 Class has `equals()` defined but does not define `hashCode()`
-in `src/main/java/de/tum/in/www1/artemis/service/compass/umlmodel/activity/UMLActivityElement.java`
+in `src/main/java/de/tum/in/www1/artemis/service/compass/umlmodel/activity/UMLActivity.java`
 #### Snippet
 ```java
 import de.tum.in.www1.artemis.service.compass.umlmodel.UMLElement;
 
-public abstract class UMLActivityElement extends UMLElement implements Serializable {
+public class UMLActivity extends UMLActivityElement implements Serializable {
 
-    // TODO: use UML Container Element instead
+    public static final String UML_ACTIVITY_TYPE = "Activity";
 ```
 
 ### EqualsAndHashcode
@@ -6670,18 +6670,6 @@ public class UMLComponentRelationship extends UMLElement {
 
 ### EqualsAndHashcode
 Class has `equals()` defined but does not define `hashCode()`
-in `src/main/java/de/tum/in/www1/artemis/service/compass/umlmodel/deployment/UMLArtifact.java`
-#### Snippet
-```java
-import de.tum.in.www1.artemis.service.compass.utils.SimilarityUtils;
-
-public class UMLArtifact extends UMLElement {
-
-    public static final String UML_ARTIFACT_TYPE = "DeploymentArtifact";
-```
-
-### EqualsAndHashcode
-Class has `equals()` defined but does not define `hashCode()`
 in `src/main/java/de/tum/in/www1/artemis/service/compass/umlmodel/flowchart/FlowchartFlowline.java`
 #### Snippet
 ```java
@@ -6702,6 +6690,18 @@ import de.tum.in.www1.artemis.service.compass.utils.SimilarityUtils;
 public class UMLNode extends UMLContainerElement {
 
     public static final String UML_NODE_TYPE = "DeploymentNode";
+```
+
+### EqualsAndHashcode
+Class has `equals()` defined but does not define `hashCode()`
+in `src/main/java/de/tum/in/www1/artemis/service/compass/umlmodel/deployment/UMLArtifact.java`
+#### Snippet
+```java
+import de.tum.in.www1.artemis.service.compass.utils.SimilarityUtils;
+
+public class UMLArtifact extends UMLElement {
+
+    public static final String UML_ARTIFACT_TYPE = "DeploymentArtifact";
 ```
 
 ### EqualsAndHashcode
@@ -6766,18 +6766,6 @@ public class UMLRelationship extends UMLElement implements Serializable {
 
 ### EqualsAndHashcode
 Class has `equals()` defined but does not define `hashCode()`
-in `src/main/java/de/tum/in/www1/artemis/service/compass/umlmodel/classdiagram/UMLClass.java`
-#### Snippet
-```java
-import de.tum.in.www1.artemis.service.compass.utils.CompassConfiguration;
-
-public class UMLClass extends UMLElement implements Serializable {
-
-    public enum UMLClassType {
-```
-
-### EqualsAndHashcode
-Class has `equals()` defined but does not define `hashCode()`
 in `src/main/java/de/tum/in/www1/artemis/service/compass/umlmodel/communication/UMLCommunicationLink.java`
 #### Snippet
 ```java
@@ -6786,6 +6774,18 @@ import de.tum.in.www1.artemis.service.compass.utils.CompassConfiguration;
 public class UMLCommunicationLink extends UMLElement {
 
     public static final String UML_COMMUNICATION_LINK_TYPE = "CommunicationLink";
+```
+
+### EqualsAndHashcode
+Class has `equals()` defined but does not define `hashCode()`
+in `src/main/java/de/tum/in/www1/artemis/service/compass/umlmodel/classdiagram/UMLClass.java`
+#### Snippet
+```java
+import de.tum.in.www1.artemis.service.compass.utils.CompassConfiguration;
+
+public class UMLClass extends UMLElement implements Serializable {
+
+    public enum UMLClassType {
 ```
 
 ## RuleId[ruleID=RedundantImplements]
@@ -6827,14 +6827,14 @@ public abstract class UMLContainerElement extends UMLElement implements Serializ
 
 ### RedundantImplements
 Redundant interface declaration `Serializable`
-in `src/main/java/de/tum/in/www1/artemis/service/compass/umlmodel/activity/UMLActivity.java`
+in `src/main/java/de/tum/in/www1/artemis/service/compass/umlmodel/activity/UMLActivityElement.java`
 #### Snippet
 ```java
 import de.tum.in.www1.artemis.service.compass.umlmodel.UMLElement;
 
-public class UMLActivity extends UMLActivityElement implements Serializable {
+public abstract class UMLActivityElement extends UMLElement implements Serializable {
 
-    public static final String UML_ACTIVITY_TYPE = "Activity";
+    // TODO: use UML Container Element instead
 ```
 
 ### RedundantImplements
@@ -6851,14 +6851,14 @@ public class UMLControlFlow extends UMLElement implements Serializable {
 
 ### RedundantImplements
 Redundant interface declaration `Serializable`
-in `src/main/java/de/tum/in/www1/artemis/service/compass/umlmodel/activity/UMLActivityElement.java`
+in `src/main/java/de/tum/in/www1/artemis/service/compass/umlmodel/activity/UMLActivity.java`
 #### Snippet
 ```java
 import de.tum.in.www1.artemis.service.compass.umlmodel.UMLElement;
 
-public abstract class UMLActivityElement extends UMLElement implements Serializable {
+public class UMLActivity extends UMLActivityElement implements Serializable {
 
-    // TODO: use UML Container Element instead
+    public static final String UML_ACTIVITY_TYPE = "Activity";
 ```
 
 ### RedundantImplements
@@ -6911,6 +6911,18 @@ public class UMLAttribute extends UMLElement implements Serializable {
 
 ### RedundantImplements
 Redundant interface declaration `Serializable`
+in `src/main/java/de/tum/in/www1/artemis/service/compass/umlmodel/classdiagram/UMLClassDiagram.java`
+#### Snippet
+```java
+import de.tum.in.www1.artemis.service.compass.umlmodel.UMLElement;
+
+public class UMLClassDiagram extends UMLDiagram implements Serializable {
+
+    private final List<UMLClass> classList;
+```
+
+### RedundantImplements
+Redundant interface declaration `Serializable`
 in `src/main/java/de/tum/in/www1/artemis/service/compass/umlmodel/classdiagram/UMLMethod.java`
 #### Snippet
 ```java
@@ -6943,18 +6955,6 @@ import de.tum.in.www1.artemis.service.compass.utils.CompassConfiguration;
 public class UMLClass extends UMLElement implements Serializable {
 
     public enum UMLClassType {
-```
-
-### RedundantImplements
-Redundant interface declaration `Serializable`
-in `src/main/java/de/tum/in/www1/artemis/service/compass/umlmodel/classdiagram/UMLClassDiagram.java`
-#### Snippet
-```java
-import de.tum.in.www1.artemis.service.compass.umlmodel.UMLElement;
-
-public class UMLClassDiagram extends UMLDiagram implements Serializable {
-
-    private final List<UMLClass> classList;
 ```
 
 ### RedundantImplements
@@ -7083,18 +7083,6 @@ in `src/main/java/de/tum/in/www1/artemis/service/compass/umlmodel/parsers/ClassD
 
 ### ZeroLengthArrayInitialization
 Allocation of zero length array
-in `src/main/java/de/tum/in/www1/artemis/service/plagiarism/ProgrammingPlagiarismDetectionService.java`
-#### Snippet
-```java
-                TextPlagiarismResult textPlagiarismResult = new TextPlagiarismResult();
-                textPlagiarismResult.setExercise(programmingExercise);
-                textPlagiarismResult.setSimilarityDistribution(new int[0]);
-
-                log.info("Finished programmingExerciseExportService.checkPlagiarism call for {} comparisons in {}", textPlagiarismResult.getComparisons().size(),
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
 in `src/main/java/de/tum/in/www1/artemis/service/connectors/bamboo/BambooBuildPlanService.java`
 #### Snippet
 ```java
@@ -7203,6 +7191,18 @@ in `src/main/java/de/tum/in/www1/artemis/service/connectors/bamboo/BambooBuildPl
 
 ### ZeroLengthArrayInitialization
 Allocation of zero length array
+in `src/main/java/de/tum/in/www1/artemis/service/plagiarism/ProgrammingPlagiarismDetectionService.java`
+#### Snippet
+```java
+                TextPlagiarismResult textPlagiarismResult = new TextPlagiarismResult();
+                textPlagiarismResult.setExercise(programmingExercise);
+                textPlagiarismResult.setSimilarityDistribution(new int[0]);
+
+                log.info("Finished programmingExerciseExportService.checkPlagiarism call for {} comparisons in {}", textPlagiarismResult.getComparisons().size(),
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
 in `src/main/java/de/tum/in/www1/artemis/service/notifications/NotificationSettingsService.java`
 #### Snippet
 ```java
@@ -7253,18 +7253,6 @@ in `src/main/java/de/tum/in/www1/artemis/web/rest/ResultResource.java`
 
 ## RuleId[ruleID=NonExceptionNameEndsWithException]
 ### NonExceptionNameEndsWithException
-Non-exception class name `QuizJoinException` ends with 'Exception'
-in `src/main/java/de/tum/in/www1/artemis/exception/QuizJoinException.java`
-#### Snippet
-```java
-package de.tum.in.www1.artemis.exception;
-
-public class QuizJoinException extends Throwable {
-
-    private String error;
-```
-
-### NonExceptionNameEndsWithException
 Non-exception class name `QuizSubmissionException` ends with 'Exception'
 in `src/main/java/de/tum/in/www1/artemis/exception/QuizSubmissionException.java`
 #### Snippet
@@ -7274,6 +7262,18 @@ package de.tum.in.www1.artemis.exception;
 public class QuizSubmissionException extends Throwable {
 
     public QuizSubmissionException(String error) {
+```
+
+### NonExceptionNameEndsWithException
+Non-exception class name `QuizJoinException` ends with 'Exception'
+in `src/main/java/de/tum/in/www1/artemis/exception/QuizJoinException.java`
+#### Snippet
+```java
+package de.tum.in.www1.artemis.exception;
+
+public class QuizJoinException extends Throwable {
+
+    private String error;
 ```
 
 ## RuleId[ruleID=UnusedAssignment]
@@ -7351,18 +7351,6 @@ in `src/main/java/de/tum/in/www1/artemis/service/scheduled/ParticipantScoreSched
 ```
 
 ### ConstantValue
-Value `vcsRepositoryUrl` is always 'null'
-in `src/main/java/de/tum/in/www1/artemis/service/connectors/jenkins/JenkinsInternalUrlService.java`
-#### Snippet
-```java
-        if (vcsRepositoryUrl == null) {
-            log.warn("Cannot replace url to internal url {} because the url is null.", internalVcsUrl);
-            return vcsRepositoryUrl;
-        }
-
-```
-
-### ConstantValue
 Condition `buildPlan.isBuilding()` is always `true` when reached
 in `src/main/java/de/tum/in/www1/artemis/service/connectors/bamboo/BambooService.java`
 #### Snippet
@@ -7372,6 +7360,18 @@ in `src/main/java/de/tum/in/www1/artemis/service/connectors/bamboo/BambooService
         else if (buildPlan.isActive() && buildPlan.isBuilding()) {
             return BuildStatus.BUILDING;
         }
+```
+
+### ConstantValue
+Value `vcsRepositoryUrl` is always 'null'
+in `src/main/java/de/tum/in/www1/artemis/service/connectors/jenkins/JenkinsInternalUrlService.java`
+#### Snippet
+```java
+        if (vcsRepositoryUrl == null) {
+            log.warn("Cannot replace url to internal url {} because the url is null.", internalVcsUrl);
+            return vcsRepositoryUrl;
+        }
+
 ```
 
 ### ConstantValue
@@ -7509,26 +7509,26 @@ in `src/main/java/de/tum/in/www1/artemis/web/rest/ProgrammingAssessmentResource.
 
 ### OptionalGetWithoutIsPresent
 `Optional.get()` without 'isPresent()' check
-in `src/main/java/de/tum/in/www1/artemis/web/rest/ParticipationResource.java`
+in `src/main/java/de/tum/in/www1/artemis/web/rest/ProgrammingExerciseResource.java`
 #### Snippet
 ```java
-        checkAccessPermissionOwner(participation, user);
-
-        return continuousIntegrationService.get().retrieveLatestArtifact(participation);
-    }
+    public ResponseEntity<BuildLogStatisticsDTO> getBuildLogStatistics(@PathVariable Long exerciseId) {
+        log.debug("REST request to get build log statistics for ProgrammingExercise with id : {}", exerciseId);
+        ProgrammingExercise programmingExercise = programmingExerciseRepository.findWithTemplateAndSolutionParticipationById(exerciseId).get();
+        authCheckService.checkHasAtLeastRoleForExerciseElseThrow(Role.EDITOR, programmingExercise, null);
 
 ```
 
 ### OptionalGetWithoutIsPresent
 `Optional.get()` without 'isPresent()' check
-in `src/main/java/de/tum/in/www1/artemis/web/rest/ParticipationResource.java`
+in `src/main/java/de/tum/in/www1/artemis/web/rest/ProgrammingExerciseResource.java`
 #### Snippet
 ```java
-        participation = participationService.resumeProgrammingExercise(participation);
-        // Note: in this case we might need an empty commit to make sure the build plan works correctly for subsequent student commits
-        continuousIntegrationService.get().performEmptySetupCommit(participation);
-        addLatestResultToParticipation(participation);
-        participation.getExercise().filterSensitiveInformation();
+        User user = userRepository.getUserWithGroupsAndAuthorities();
+        authCheckService.checkHasAtLeastRoleForExerciseElseThrow(Role.EDITOR, programmingExercise, user);
+        continuousIntegrationService.get().recreateBuildPlansForExercise(programmingExercise);
+        return ResponseEntity.ok().build();
+    }
 ```
 
 ### OptionalGetWithoutIsPresent
@@ -7560,18 +7560,6 @@ in `src/main/java/de/tum/in/www1/artemis/web/rest/ProgrammingExerciseResource.ja
 in `src/main/java/de/tum/in/www1/artemis/web/rest/ProgrammingExerciseResource.java`
 #### Snippet
 ```java
-        submissionPolicyService.validateSubmissionPolicyCreation(programmingExercise);
-
-        ProgrammingLanguageFeature programmingLanguageFeature = programmingLanguageFeatureService.get()
-                .getProgrammingLanguageFeatures(programmingExercise.getProgrammingLanguage());
-
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `src/main/java/de/tum/in/www1/artemis/web/rest/ProgrammingExerciseResource.java`
-#### Snippet
-```java
      */
     private void validateStaticCodeAnalysisSettings(ProgrammingExercise programmingExercise) {
         ProgrammingLanguageFeature programmingLanguageFeature = programmingLanguageFeatureService.get()
@@ -7584,23 +7572,35 @@ in `src/main/java/de/tum/in/www1/artemis/web/rest/ProgrammingExerciseResource.ja
 in `src/main/java/de/tum/in/www1/artemis/web/rest/ProgrammingExerciseResource.java`
 #### Snippet
 ```java
-        User user = userRepository.getUserWithGroupsAndAuthorities();
-        authCheckService.checkHasAtLeastRoleForExerciseElseThrow(Role.EDITOR, programmingExercise, user);
-        continuousIntegrationService.get().recreateBuildPlansForExercise(programmingExercise);
-        return ResponseEntity.ok().build();
-    }
+        submissionPolicyService.validateSubmissionPolicyCreation(programmingExercise);
+
+        ProgrammingLanguageFeature programmingLanguageFeature = programmingLanguageFeatureService.get()
+                .getProgrammingLanguageFeatures(programmingExercise.getProgrammingLanguage());
+
 ```
 
 ### OptionalGetWithoutIsPresent
 `Optional.get()` without 'isPresent()' check
-in `src/main/java/de/tum/in/www1/artemis/web/rest/ProgrammingExerciseResource.java`
+in `src/main/java/de/tum/in/www1/artemis/web/rest/ParticipationResource.java`
 #### Snippet
 ```java
-    public ResponseEntity<BuildLogStatisticsDTO> getBuildLogStatistics(@PathVariable Long exerciseId) {
-        log.debug("REST request to get build log statistics for ProgrammingExercise with id : {}", exerciseId);
-        ProgrammingExercise programmingExercise = programmingExerciseRepository.findWithTemplateAndSolutionParticipationById(exerciseId).get();
-        authCheckService.checkHasAtLeastRoleForExerciseElseThrow(Role.EDITOR, programmingExercise, null);
+        checkAccessPermissionOwner(participation, user);
 
+        return continuousIntegrationService.get().retrieveLatestArtifact(participation);
+    }
+
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `src/main/java/de/tum/in/www1/artemis/web/rest/ParticipationResource.java`
+#### Snippet
+```java
+        participation = participationService.resumeProgrammingExercise(participation);
+        // Note: in this case we might need an empty commit to make sure the build plan works correctly for subsequent student commits
+        continuousIntegrationService.get().performEmptySetupCommit(participation);
+        addLatestResultToParticipation(participation);
+        participation.getExercise().filterSensitiveInformation();
 ```
 
 ### OptionalGetWithoutIsPresent
@@ -7689,14 +7689,14 @@ in `src/main/java/de/tum/in/www1/artemis/domain/Lecture.java`
 
 ### OptionalGetWithoutIsPresent
 `Optional.get()` without 'isPresent()' check
-in `src/main/java/de/tum/in/www1/artemis/service/ParticipantScoreService.java`
+in `src/main/java/de/tum/in/www1/artemis/service/ConsistencyCheckService.java`
 #### Snippet
 ```java
-        Set<Exercise> teamExercises = exercises.stream().filter(Exercise::isTeamMode).collect(Collectors.toSet());
+        List<ConsistencyErrorDTO> result = new ArrayList<>();
 
-        Course course = exercises.stream().findAny().get().getCourseViaExerciseGroupOrCourseMember();
-
-        // For every student we want to calculate the score
+        if (!continuousIntegrationService.get().checkIfBuildPlanExists(programmingExercise.getProjectKey(), programmingExercise.getTemplateBuildPlanId())) {
+            result.add(new ConsistencyErrorDTO(programmingExercise, ConsistencyErrorDTO.ErrorType.TEMPLATE_BUILD_PLAN_MISSING));
+        }
 ```
 
 ### OptionalGetWithoutIsPresent
@@ -7713,14 +7713,14 @@ in `src/main/java/de/tum/in/www1/artemis/service/ConsistencyCheckService.java`
 
 ### OptionalGetWithoutIsPresent
 `Optional.get()` without 'isPresent()' check
-in `src/main/java/de/tum/in/www1/artemis/service/ConsistencyCheckService.java`
+in `src/main/java/de/tum/in/www1/artemis/service/ParticipantScoreService.java`
 #### Snippet
 ```java
-        List<ConsistencyErrorDTO> result = new ArrayList<>();
+        Set<Exercise> teamExercises = exercises.stream().filter(Exercise::isTeamMode).collect(Collectors.toSet());
 
-        if (!continuousIntegrationService.get().checkIfBuildPlanExists(programmingExercise.getProjectKey(), programmingExercise.getTemplateBuildPlanId())) {
-            result.add(new ConsistencyErrorDTO(programmingExercise, ConsistencyErrorDTO.ErrorType.TEMPLATE_BUILD_PLAN_MISSING));
-        }
+        Course course = exercises.stream().findAny().get().getCourseViaExerciseGroupOrCourseMember();
+
+        // For every student we want to calculate the score
 ```
 
 ### OptionalGetWithoutIsPresent
@@ -7773,86 +7773,14 @@ in `src/main/java/de/tum/in/www1/artemis/service/AuthorizationCheckService.java`
 
 ### OptionalGetWithoutIsPresent
 `Optional.get()` without 'isPresent()' check
-in `src/main/java/de/tum/in/www1/artemis/service/TextSubmissionService.java`
-#### Snippet
-```java
-
-    public TextSubmission findOneWithEagerResultFeedbackAndTextBlocks(Long submissionId) {
-        return textSubmissionRepository.findWithEagerResultsAndFeedbackAndTextBlocksById(submissionId).get();
-    }
-}
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
 in `src/main/java/de/tum/in/www1/artemis/service/ParticipationService.java`
 #### Snippet
 ```java
-            // NOTE: we have to get the repository slug of the template participation here, because not all exercises (in particular old ones) follow the naming conventions
-            final var templateRepoName = urlService.getRepositorySlugFromRepositoryUrl(sourceURL);
-            String templateBranch = versionControlService.get().getOrRetrieveBranchOfExercise(programmingExercise);
-            // the next action includes recovery, which means if the repository has already been copied, we simply retrieve the repository url and do not copy it again
-            var newRepoUrl = versionControlService.get().copyRepository(projectKey, templateRepoName, templateBranch, projectKey, repoName);
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `src/main/java/de/tum/in/www1/artemis/service/ParticipationService.java`
-#### Snippet
-```java
-    private ProgrammingExerciseStudentParticipation configureRepositoryWebHook(ProgrammingExerciseStudentParticipation participation) {
-        if (!participation.getInitializationState().hasCompletedState(InitializationState.INITIALIZED)) {
-            versionControlService.get().addWebHookForParticipation(participation);
-        }
-        return participation;
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `src/main/java/de/tum/in/www1/artemis/service/ParticipationService.java`
-#### Snippet
-```java
-        if (optionalStudentParticipation.isEmpty()) {
-            // create a new participation only if no participation can be found
-            participation = new ProgrammingExerciseStudentParticipation(versionControlService.get().getDefaultBranchOfArtemis());
-            participation.setInitializationState(UNINITIALIZED);
-            participation.setExercise(exercise);
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `src/main/java/de/tum/in/www1/artemis/service/ParticipationService.java`
-#### Snippet
-```java
-            if (deleteBuildPlan && buildPlanId != null) {
-                final var projectKey = programmingExerciseParticipation.getProgrammingExercise().getProjectKey();
-                continuousIntegrationService.get().deleteBuildPlan(projectKey, buildPlanId);
-            }
-            if (deleteRepository && programmingExerciseParticipation.getRepositoryUrl() != null) {
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `src/main/java/de/tum/in/www1/artemis/service/ParticipationService.java`
-#### Snippet
-```java
-            if (deleteRepository && programmingExerciseParticipation.getRepositoryUrl() != null) {
-                try {
-                    versionControlService.get().deleteRepository(repositoryUrl);
-                }
-                catch (Exception ex) {
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `src/main/java/de/tum/in/www1/artemis/service/ParticipationService.java`
-#### Snippet
-```java
-        if (participation.getBuildPlanId() != null) {
-            final var projectKey = ((ProgrammingExercise) participation.getExercise()).getProjectKey();
-            continuousIntegrationService.get().deleteBuildPlan(projectKey, participation.getBuildPlanId());
-            participation.setInitializationState(INACTIVE);
-            participation.setBuildPlanId(null);
+            // do not allow the student to access the repository if this is an exam exercise that has not started yet
+            boolean allowAccess = !exercise.isExamExercise() || ZonedDateTime.now().isAfter(exercise.getParticipationStartDate());
+            versionControlService.get().configureRepository(exercise, participation, allowAccess);
+            participation.setInitializationState(InitializationState.REPO_CONFIGURED);
+            return programmingExerciseStudentParticipationRepository.saveAndFlush(participation);
 ```
 
 ### OptionalGetWithoutIsPresent
@@ -7884,6 +7812,126 @@ in `src/main/java/de/tum/in/www1/artemis/service/ParticipationService.java`
 in `src/main/java/de/tum/in/www1/artemis/service/ParticipationService.java`
 #### Snippet
 ```java
+            if (deleteBuildPlan && buildPlanId != null) {
+                final var projectKey = programmingExerciseParticipation.getProgrammingExercise().getProjectKey();
+                continuousIntegrationService.get().deleteBuildPlan(projectKey, buildPlanId);
+            }
+            if (deleteRepository && programmingExerciseParticipation.getRepositoryUrl() != null) {
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `src/main/java/de/tum/in/www1/artemis/service/ParticipationService.java`
+#### Snippet
+```java
+            if (deleteRepository && programmingExerciseParticipation.getRepositoryUrl() != null) {
+                try {
+                    versionControlService.get().deleteRepository(repositoryUrl);
+                }
+                catch (Exception ex) {
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `src/main/java/de/tum/in/www1/artemis/service/ParticipationService.java`
+#### Snippet
+```java
+    private ProgrammingExerciseStudentParticipation configureRepositoryWebHook(ProgrammingExerciseStudentParticipation participation) {
+        if (!participation.getInitializationState().hasCompletedState(InitializationState.INITIALIZED)) {
+            versionControlService.get().addWebHookForParticipation(participation);
+        }
+        return participation;
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `src/main/java/de/tum/in/www1/artemis/service/ParticipationService.java`
+#### Snippet
+```java
+            final var targetPlanName = participation.addPracticePrefixIfTestRun(username.toUpperCase());
+            // the next action includes recovery, which means if the build plan has already been copied, we simply retrieve the build plan id and do not copy it again
+            final var buildPlanId = continuousIntegrationService.get().copyBuildPlan(projectKey, planName, projectKey, buildProjectName, targetPlanName, true);
+            participation.setBuildPlanId(buildPlanId);
+            participation.setInitializationState(InitializationState.BUILD_PLAN_COPIED);
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `src/main/java/de/tum/in/www1/artemis/service/ParticipationService.java`
+#### Snippet
+```java
+        if (participation.getBuildPlanId() != null) {
+            final var projectKey = ((ProgrammingExercise) participation.getExercise()).getProjectKey();
+            continuousIntegrationService.get().deleteBuildPlan(projectKey, participation.getBuildPlanId());
+            participation.setInitializationState(INACTIVE);
+            participation.setBuildPlanId(null);
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `src/main/java/de/tum/in/www1/artemis/service/ParticipationService.java`
+#### Snippet
+```java
+        // create a new participation only if no participation can be found
+        if (exercise instanceof ProgrammingExercise) {
+            participation = new ProgrammingExerciseStudentParticipation(versionControlService.get().getDefaultBranchOfArtemis());
+        }
+        else {
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `src/main/java/de/tum/in/www1/artemis/service/ParticipationService.java`
+#### Snippet
+```java
+        if (optionalStudentParticipation.isEmpty()) {
+            // create a new participation only if no participation can be found
+            participation = new ProgrammingExerciseStudentParticipation(versionControlService.get().getDefaultBranchOfArtemis());
+            participation.setInitializationState(UNINITIALIZED);
+            participation.setExercise(exercise);
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `src/main/java/de/tum/in/www1/artemis/service/ParticipationService.java`
+#### Snippet
+```java
+        // Step 2c) we might need to perform an empty commit (as a workaround, depending on the CI system) here, because it should not trigger a new programming submission
+        // (when the web hook was already initialized, see below)
+        continuousIntegrationService.get().performEmptySetupCommit(participation);
+        // Note: we configure the repository webhook last, so that the potential empty commit does not trigger a new programming submission (see empty-commit-necessary)
+        // Step 3) configure the web hook of the student repository
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `src/main/java/de/tum/in/www1/artemis/service/ParticipationService.java`
+#### Snippet
+```java
+        // ignore participations without repository URL
+        if (participation.getRepositoryUrl() != null) {
+            versionControlService.get().deleteRepository(participation.getVcsRepositoryUrl());
+            gitService.deleteLocalRepository(participation.getVcsRepositoryUrl());
+            participation.setRepositoryUrl(null);
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `src/main/java/de/tum/in/www1/artemis/service/ParticipationService.java`
+#### Snippet
+```java
+            // NOTE: we have to get the repository slug of the template participation here, because not all exercises (in particular old ones) follow the naming conventions
+            final var templateRepoName = urlService.getRepositorySlugFromRepositoryUrl(sourceURL);
+            String templateBranch = versionControlService.get().getOrRetrieveBranchOfExercise(programmingExercise);
+            // the next action includes recovery, which means if the repository has already been copied, we simply retrieve the repository url and do not copy it again
+            var newRepoUrl = versionControlService.get().copyRepository(projectKey, templateRepoName, templateBranch, projectKey, repoName);
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `src/main/java/de/tum/in/www1/artemis/service/ParticipationService.java`
+#### Snippet
+```java
         if (!participation.getInitializationState().hasCompletedState(InitializationState.BUILD_PLAN_CONFIGURED)) {
             try {
                 String branch = versionControlService.get().getOrRetrieveBranchOfStudentParticipation(participation);
@@ -7905,62 +7953,14 @@ in `src/main/java/de/tum/in/www1/artemis/service/ParticipationService.java`
 
 ### OptionalGetWithoutIsPresent
 `Optional.get()` without 'isPresent()' check
-in `src/main/java/de/tum/in/www1/artemis/service/ParticipationService.java`
+in `src/main/java/de/tum/in/www1/artemis/service/TextSubmissionService.java`
 #### Snippet
 ```java
-        // ignore participations without repository URL
-        if (participation.getRepositoryUrl() != null) {
-            versionControlService.get().deleteRepository(participation.getVcsRepositoryUrl());
-            gitService.deleteLocalRepository(participation.getVcsRepositoryUrl());
-            participation.setRepositoryUrl(null);
-```
 
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `src/main/java/de/tum/in/www1/artemis/service/ParticipationService.java`
-#### Snippet
-```java
-        // Step 2c) we might need to perform an empty commit (as a workaround, depending on the CI system) here, because it should not trigger a new programming submission
-        // (when the web hook was already initialized, see below)
-        continuousIntegrationService.get().performEmptySetupCommit(participation);
-        // Note: we configure the repository webhook last, so that the potential empty commit does not trigger a new programming submission (see empty-commit-necessary)
-        // Step 3) configure the web hook of the student repository
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `src/main/java/de/tum/in/www1/artemis/service/ParticipationService.java`
-#### Snippet
-```java
-            // do not allow the student to access the repository if this is an exam exercise that has not started yet
-            boolean allowAccess = !exercise.isExamExercise() || ZonedDateTime.now().isAfter(exercise.getParticipationStartDate());
-            versionControlService.get().configureRepository(exercise, participation, allowAccess);
-            participation.setInitializationState(InitializationState.REPO_CONFIGURED);
-            return programmingExerciseStudentParticipationRepository.saveAndFlush(participation);
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `src/main/java/de/tum/in/www1/artemis/service/ParticipationService.java`
-#### Snippet
-```java
-            final var targetPlanName = participation.addPracticePrefixIfTestRun(username.toUpperCase());
-            // the next action includes recovery, which means if the build plan has already been copied, we simply retrieve the build plan id and do not copy it again
-            final var buildPlanId = continuousIntegrationService.get().copyBuildPlan(projectKey, planName, projectKey, buildProjectName, targetPlanName, true);
-            participation.setBuildPlanId(buildPlanId);
-            participation.setInitializationState(InitializationState.BUILD_PLAN_COPIED);
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `src/main/java/de/tum/in/www1/artemis/service/ParticipationService.java`
-#### Snippet
-```java
-        // create a new participation only if no participation can be found
-        if (exercise instanceof ProgrammingExercise) {
-            participation = new ProgrammingExerciseStudentParticipation(versionControlService.get().getDefaultBranchOfArtemis());
-        }
-        else {
+    public TextSubmission findOneWithEagerResultFeedbackAndTextBlocks(Long submissionId) {
+        return textSubmissionRepository.findWithEagerResultsAndFeedbackAndTextBlocksById(submissionId).get();
+    }
+}
 ```
 
 ### OptionalGetWithoutIsPresent
@@ -8004,6 +8004,18 @@ in `src/main/java/de/tum/in/www1/artemis/service/exam/StudentExamService.java`
 in `src/main/java/de/tum/in/www1/artemis/service/metis/conversation/auth/ChannelAuthorizationService.java`
 #### Snippet
 ```java
+        var isJoinRequest = userLoginsToCheck.size() == 1 && userLoginsToCheck.get(0).equals(userToCheck.getLogin());
+        var channelFromDb = channelRepository.findById(channel.getId());
+        var isAtLeastInstructor = authorizationCheckService.isAtLeastInstructorInCourse(channelFromDb.get().getCourse(), userToCheck);
+        var isChannelModerator = isChannelModerator(channel.getId(), userToCheck.getId());
+
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `src/main/java/de/tum/in/www1/artemis/service/metis/conversation/auth/ChannelAuthorizationService.java`
+#### Snippet
+```java
         var userToCheck = getUserIfNecessary(user);
         var channel = channelRepository.findById(channelId);
         return isChannelModerator(channelId, userToCheck.getId()) || authorizationCheckService.isAtLeastInstructorInCourse(channel.get().getCourse(), userToCheck);
@@ -8013,14 +8025,14 @@ in `src/main/java/de/tum/in/www1/artemis/service/metis/conversation/auth/Channel
 
 ### OptionalGetWithoutIsPresent
 `Optional.get()` without 'isPresent()' check
-in `src/main/java/de/tum/in/www1/artemis/service/metis/conversation/auth/ChannelAuthorizationService.java`
+in `src/main/java/de/tum/in/www1/artemis/service/exam/ExamService.java`
 #### Snippet
 ```java
-        var isJoinRequest = userLoginsToCheck.size() == 1 && userLoginsToCheck.get(0).equals(userToCheck.getLogin());
-        var channelFromDb = channelRepository.findById(channel.getId());
-        var isAtLeastInstructor = authorizationCheckService.isAtLeastInstructorInCourse(channelFromDb.get().getCourse(), userToCheck);
-        var isChannelModerator = isChannelModerator(channel.getId(), userToCheck.getId());
-
+            // Adding student results information to DTO
+            List<StudentParticipation> participationsOfStudent = studentParticipations.stream()
+                    .filter(studentParticipation -> studentParticipation.getStudent().get().getId().equals(studentExam.getUser().getId())).toList();
+            var studentResult = calculateStudentResultWithGrade(studentExam, participationsOfStudent, exam, gradingScale, true, submittedAnswerCounts, plagiarismMapping,
+                    examBonusCalculator);
 ```
 
 ### OptionalGetWithoutIsPresent
@@ -8045,18 +8057,6 @@ in `src/main/java/de/tum/in/www1/artemis/service/exam/ExamService.java`
             Exercise groupRepresentativeExercise = exerciseGroup.getExercises().stream().findAny().get();
             if (groupRepresentativeExercise.getIncludedInOverallScore().equals(IncludedInOverallScore.INCLUDED_COMPLETELY)) {
                 pointsReachable += groupRepresentativeExercise.getMaxPoints();
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `src/main/java/de/tum/in/www1/artemis/service/exam/ExamService.java`
-#### Snippet
-```java
-            // Adding student results information to DTO
-            List<StudentParticipation> participationsOfStudent = studentParticipations.stream()
-                    .filter(studentParticipation -> studentParticipation.getStudent().get().getId().equals(studentExam.getUser().getId())).toList();
-            var studentResult = calculateStudentResultWithGrade(studentExam, participationsOfStudent, exam, gradingScale, true, submittedAnswerCounts, plagiarismMapping,
-                    examBonusCalculator);
 ```
 
 ### OptionalGetWithoutIsPresent
@@ -8097,6 +8097,18 @@ in `src/main/java/de/tum/in/www1/artemis/service/connectors/jenkins/JenkinsBuild
 
 ### OptionalGetWithoutIsPresent
 `Optional.get()` without 'isPresent()' check
+in `src/main/java/de/tum/in/www1/artemis/service/connectors/bamboo/BambooService.java`
+#### Snippet
+```java
+            String newBranch, Optional<List<String>> optionalTriggeredByRepositories) throws BambooException {
+        final var vcsRepoName = urlService.getRepositorySlugFromRepositoryUrlString(newRepoUrl);
+        continuousIntegrationUpdateService.get().updatePlanRepository(buildProjectKey, buildPlanKey, ciRepoName, repoProjectKey, vcsRepoName, newBranch,
+                optionalTriggeredByRepositories);
+    }
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
 in `src/main/java/de/tum/in/www1/artemis/service/connectors/GitService.java`
 #### Snippet
 ```java
@@ -8105,18 +8117,6 @@ in `src/main/java/de/tum/in/www1/artemis/service/connectors/GitService.java`
         }).setSshDirectory(new java.io.File(gitSshPrivateKeyPath.get())).setHomeDirectory(new java.io.File(System.getProperty("user.home"))).build(new JGitKeyCache());
 
         sshCallback = transport -> {
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `src/main/java/de/tum/in/www1/artemis/service/connectors/GitService.java`
-#### Snippet
-```java
-                // Example: /Users/artemis/.ssh/artemis/id_rsa contains /Users/artemis/.ssh/artemis
-                if (gitSshPrivateKeyPath.isPresent() && uri.getPath().contains(gitSshPrivateKeyPath.get())) {
-                    return gitSshPrivateKeyPassphrase.get().toCharArray();
-                }
-                else {
 ```
 
 ### OptionalGetWithoutIsPresent
@@ -8133,26 +8133,26 @@ in `src/main/java/de/tum/in/www1/artemis/service/connectors/GitService.java`
 
 ### OptionalGetWithoutIsPresent
 `Optional.get()` without 'isPresent()' check
-in `src/main/java/de/tum/in/www1/artemis/service/connectors/bamboo/BambooService.java`
+in `src/main/java/de/tum/in/www1/artemis/service/connectors/GitService.java`
 #### Snippet
 ```java
-            String newBranch, Optional<List<String>> optionalTriggeredByRepositories) throws BambooException {
-        final var vcsRepoName = urlService.getRepositorySlugFromRepositoryUrlString(newRepoUrl);
-        continuousIntegrationUpdateService.get().updatePlanRepository(buildProjectKey, buildPlanKey, ciRepoName, repoProjectKey, vcsRepoName, newBranch,
-                optionalTriggeredByRepositories);
-    }
+                // Example: /Users/artemis/.ssh/artemis/id_rsa contains /Users/artemis/.ssh/artemis
+                if (gitSshPrivateKeyPath.isPresent() && uri.getPath().contains(gitSshPrivateKeyPath.get())) {
+                    return gitSshPrivateKeyPassphrase.get().toCharArray();
+                }
+                else {
 ```
 
 ### OptionalGetWithoutIsPresent
 `Optional.get()` without 'isPresent()' check
-in `src/main/java/de/tum/in/www1/artemis/service/programming/ProgrammingExerciseParticipationService.java`
+in `src/main/java/de/tum/in/www1/artemis/service/connectors/bamboo/BambooBuildPlanService.java`
 #### Snippet
 ```java
-    public void lockStudentRepository(ProgrammingExercise programmingExercise, ProgrammingExerciseStudentParticipation participation) {
-        if (participation.getInitializationState().hasCompletedState(InitializationState.REPO_CONFIGURED)) {
-            versionControlService.get().setRepositoryPermissionsToReadOnly(participation.getVcsRepositoryUrl(), programmingExercise.getProjectKey(), participation.getStudents());
-        }
-        else {
+        List<VcsRepository<?, ?>> planRepositories = new ArrayList<>();
+        planRepositories.add(
+                createBuildPlanRepository(ASSIGNMENT_REPO_NAME, projectKey, repositoryName, versionControlService.get().getDefaultBranchOfRepository(projectKey, repositoryName)));
+        planRepositories.add(createBuildPlanRepository(TEST_REPO_NAME, projectKey, vcsTestRepositorySlug,
+                versionControlService.get().getDefaultBranchOfRepository(projectKey, vcsTestRepositorySlug)));
 ```
 
 ### OptionalGetWithoutIsPresent
@@ -8165,6 +8165,18 @@ in `src/main/java/de/tum/in/www1/artemis/service/programming/ProgrammingExercise
         templateParticipation.setRepositoryUrl(versionControlService.get().getCloneRepositoryUrl(newExercise.getProjectKey(), exerciseRepoName).toString());
         templateParticipation.setProgrammingExercise(newExercise);
         newExercise.setTemplateParticipation(templateParticipation);
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `src/main/java/de/tum/in/www1/artemis/service/programming/ProgrammingExerciseParticipationService.java`
+#### Snippet
+```java
+    public void lockStudentRepository(ProgrammingExercise programmingExercise, ProgrammingExerciseStudentParticipation participation) {
+        if (participation.getInitializationState().hasCompletedState(InitializationState.REPO_CONFIGURED)) {
+            versionControlService.get().setRepositoryPermissionsToReadOnly(participation.getVcsRepositoryUrl(), programmingExercise.getProjectKey(), participation.getStudents());
+        }
+        else {
 ```
 
 ### OptionalGetWithoutIsPresent
@@ -8253,42 +8265,6 @@ in `src/main/java/de/tum/in/www1/artemis/service/programming/ProgrammingTriggerS
 
 ### OptionalGetWithoutIsPresent
 `Optional.get()` without 'isPresent()' check
-in `src/main/java/de/tum/in/www1/artemis/service/connectors/bamboo/BambooBuildPlanService.java`
-#### Snippet
-```java
-        List<VcsRepository<?, ?>> planRepositories = new ArrayList<>();
-        planRepositories.add(
-                createBuildPlanRepository(ASSIGNMENT_REPO_NAME, projectKey, repositoryName, versionControlService.get().getDefaultBranchOfRepository(projectKey, repositoryName)));
-        planRepositories.add(createBuildPlanRepository(TEST_REPO_NAME, projectKey, vcsTestRepositorySlug,
-                versionControlService.get().getDefaultBranchOfRepository(projectKey, vcsTestRepositorySlug)));
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `src/main/java/de/tum/in/www1/artemis/service/programming/ProgrammingExerciseImportBasicService.java`
-#### Snippet
-```java
-        // Set values we don't want to copy to null
-        setupExerciseForImport(newExercise);
-        newExercise.setBranch(versionControlService.get().getDefaultBranchOfArtemis());
-
-        // Note: same order as when creating an exercise
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `src/main/java/de/tum/in/www1/artemis/service/programming/ProgrammingExerciseImportBasicService.java`
-#### Snippet
-```java
-    private void setupTestRepository(ProgrammingExercise newExercise) {
-        final var testRepoName = newExercise.generateRepositoryName(RepositoryType.TESTS);
-        newExercise.setTestRepositoryUrl(versionControlService.get().getCloneRepositoryUrl(newExercise.getProjectKey(), testRepoName).toString());
-    }
-
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
 in `src/main/java/de/tum/in/www1/artemis/service/programming/ProgrammingSubmissionService.java`
 #### Snippet
 ```java
@@ -8309,42 +8285,6 @@ in `src/main/java/de/tum/in/www1/artemis/service/programming/ProgrammingSubmissi
                 continuousIntegrationService.get().triggerBuild(programmingExerciseParticipation);
             }
             catch (ContinuousIntegrationException ex) {
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `src/main/java/de/tum/in/www1/artemis/service/programming/ProgrammingExerciseImportService.java`
-#### Snippet
-```java
-
-        try {
-            continuousIntegrationService.get().triggerBuild(templateParticipation);
-            continuousIntegrationService.get().triggerBuild(solutionParticipation);
-        }
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `src/main/java/de/tum/in/www1/artemis/service/programming/ProgrammingExerciseImportService.java`
-#### Snippet
-```java
-
-        // First, create a new project for our imported exercise
-        versionControlService.get().createProjectForExercise(newExercise);
-        // Copy all repositories
-        String templateRepoName = urlService.getRepositorySlugFromRepositoryUrlString(templateExercise.getTemplateRepositoryUrl());
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `src/main/java/de/tum/in/www1/artemis/service/programming/ProgrammingExerciseImportService.java`
-#### Snippet
-```java
-     */
-    private void adjustProjectName(Map<String, String> replacements, String projectKey, String repositoryName, User user) throws GitAPIException, IOException {
-        final var repositoryUrl = versionControlService.get().getCloneRepositoryUrl(projectKey, repositoryName);
-        Repository repository = gitService.getOrCheckoutRepository(repositoryUrl, true);
-        fileService.replaceVariablesInFileRecursive(repository.getLocalPath().toAbsolutePath().toString(), replacements, List.of("gradle-wrapper.jar"));
 ```
 
 ### OptionalGetWithoutIsPresent
@@ -8400,6 +8340,30 @@ in `src/main/java/de/tum/in/www1/artemis/service/programming/ProgrammingExercise
 in `src/main/java/de/tum/in/www1/artemis/service/programming/ProgrammingExerciseImportService.java`
 #### Snippet
 ```java
+
+        try {
+            continuousIntegrationService.get().triggerBuild(templateParticipation);
+            continuousIntegrationService.get().triggerBuild(solutionParticipation);
+        }
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `src/main/java/de/tum/in/www1/artemis/service/programming/ProgrammingExerciseImportService.java`
+#### Snippet
+```java
+
+        // First, create a new project for our imported exercise
+        versionControlService.get().createProjectForExercise(newExercise);
+        // Copy all repositories
+        String templateRepoName = urlService.getRepositorySlugFromRepositoryUrlString(templateExercise.getTemplateRepositoryUrl());
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `src/main/java/de/tum/in/www1/artemis/service/programming/ProgrammingExerciseImportService.java`
+#### Snippet
+```java
         final var targetKey = newExercise.getProjectKey();
         final var targetName = newExercise.getCourseViaExerciseGroupOrCourseMember().getShortName().toUpperCase() + " " + newExercise.getTitle();
         continuousIntegrationService.get().createProjectForExercise(newExercise);
@@ -8409,38 +8373,38 @@ in `src/main/java/de/tum/in/www1/artemis/service/programming/ProgrammingExercise
 
 ### OptionalGetWithoutIsPresent
 `Optional.get()` without 'isPresent()' check
-in `src/main/java/de/tum/in/www1/artemis/service/programming/ProgrammingExerciseService.java`
+in `src/main/java/de/tum/in/www1/artemis/service/programming/ProgrammingExerciseImportService.java`
 #### Snippet
 ```java
-    private void setURLsForAuxiliaryRepositoriesOfExercise(ProgrammingExercise programmingExercise) {
-        programmingExercise.getAuxiliaryRepositories().forEach(repo -> repo.setRepositoryUrl(
-                versionControlService.get().getCloneRepositoryUrl(programmingExercise.getProjectKey(), programmingExercise.generateRepositoryName(repo.getName())).toString()));
+     */
+    private void adjustProjectName(Map<String, String> replacements, String projectKey, String repositoryName, User user) throws GitAPIException, IOException {
+        final var repositoryUrl = versionControlService.get().getCloneRepositoryUrl(projectKey, repositoryName);
+        Repository repository = gitService.getOrCheckoutRepository(repositoryUrl, true);
+        fileService.replaceVariablesInFileRecursive(repository.getLocalPath().toAbsolutePath().toString(), replacements, List.of("gradle-wrapper.jar"));
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `src/main/java/de/tum/in/www1/artemis/service/programming/ProgrammingExerciseImportBasicService.java`
+#### Snippet
+```java
+        // Set values we don't want to copy to null
+        setupExerciseForImport(newExercise);
+        newExercise.setBranch(versionControlService.get().getDefaultBranchOfArtemis());
+
+        // Note: same order as when creating an exercise
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `src/main/java/de/tum/in/www1/artemis/service/programming/ProgrammingExerciseImportBasicService.java`
+#### Snippet
+```java
+    private void setupTestRepository(ProgrammingExercise newExercise) {
+        final var testRepoName = newExercise.generateRepositoryName(RepositoryType.TESTS);
+        newExercise.setTestRepositoryUrl(versionControlService.get().getCloneRepositoryUrl(newExercise.getProjectKey(), testRepoName).toString());
     }
 
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `src/main/java/de/tum/in/www1/artemis/service/programming/ProgrammingExerciseService.java`
-#### Snippet
-```java
-        log.debug("Project Key: {}", projectKey);
-        log.debug("Project Name: {}", projectName);
-        boolean projectExists = versionControlService.get().checkIfProjectExists(projectKey, projectName);
-        if (projectExists) {
-            return true;
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `src/main/java/de/tum/in/www1/artemis/service/programming/ProgrammingExerciseService.java`
-#### Snippet
-```java
-            return true;
-        }
-        String errorMessageCis = continuousIntegrationService.get().checkIfProjectExists(projectKey, projectName);
-        return errorMessageCis != null;
-        // means the project does not exist in version control server and does not exist in continuous integration server
 ```
 
 ### OptionalGetWithoutIsPresent
@@ -8472,10 +8436,10 @@ in `src/main/java/de/tum/in/www1/artemis/service/programming/ProgrammingExercise
 in `src/main/java/de/tum/in/www1/artemis/service/programming/ProgrammingExerciseService.java`
 #### Snippet
 ```java
-            // The template repo can be re-written, so we can unprotect the default branch.
-            var templateVcsRepositoryUrl = programmingExercise.getVcsTemplateRepositoryUrl();
-            String templateBranch = versionControlService.get().getOrRetrieveBranchOfExercise(programmingExercise);
-            versionControlService.get().unprotectBranch(templateVcsRepositoryUrl, templateBranch);
+    private void setURLsForAuxiliaryRepositoriesOfExercise(ProgrammingExercise programmingExercise) {
+        programmingExercise.getAuxiliaryRepositories().forEach(repo -> repo.setRepositoryUrl(
+                versionControlService.get().getCloneRepositoryUrl(programmingExercise.getProjectKey(), programmingExercise.generateRepositoryName(repo.getName())).toString()));
+    }
 
 ```
 
@@ -8489,6 +8453,30 @@ in `src/main/java/de/tum/in/www1/artemis/service/programming/ProgrammingExercise
             versionControlService.get().createRepository(projectKey, repositoryName, null);
             repo.setRepositoryUrl(versionControlService.get().getCloneRepositoryUrl(programmingExercise.getProjectKey(), repositoryName).toString());
             Repository vcsRepository = gitService.getOrCheckoutRepository(repo.getVcsRepositoryUrl(), true);
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `src/main/java/de/tum/in/www1/artemis/service/programming/ProgrammingExerciseService.java`
+#### Snippet
+```java
+        log.debug("Project Key: {}", projectKey);
+        log.debug("Project Name: {}", projectName);
+        boolean projectExists = versionControlService.get().checkIfProjectExists(projectKey, projectName);
+        if (projectExists) {
+            return true;
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `src/main/java/de/tum/in/www1/artemis/service/programming/ProgrammingExerciseService.java`
+#### Snippet
+```java
+            return true;
+        }
+        String errorMessageCis = continuousIntegrationService.get().checkIfProjectExists(projectKey, projectName);
+        return errorMessageCis != null;
+        // means the project does not exist in version control server and does not exist in continuous integration server
 ```
 
 ### OptionalGetWithoutIsPresent
@@ -8513,30 +8501,6 @@ in `src/main/java/de/tum/in/www1/artemis/service/programming/ProgrammingExercise
         programmingExercise.setBranch(versionControlService.get().getDefaultBranchOfArtemis());
         createRepositoriesForNewExercise(programmingExercise);
         initParticipations(programmingExercise);
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `src/main/java/de/tum/in/www1/artemis/service/programming/ProgrammingExerciseService.java`
-#### Snippet
-```java
-    private void createRepositoriesForNewExercise(ProgrammingExercise programmingExercise) throws GitAPIException {
-        final String projectKey = programmingExercise.getProjectKey();
-        versionControlService.get().createProjectForExercise(programmingExercise); // Create project
-        versionControlService.get().createRepository(projectKey, programmingExercise.generateRepositoryName(RepositoryType.TEMPLATE), null); // Create template repository
-        versionControlService.get().createRepository(projectKey, programmingExercise.generateRepositoryName(RepositoryType.TESTS), null); // Create tests repository
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `src/main/java/de/tum/in/www1/artemis/service/programming/ProgrammingExerciseService.java`
-#### Snippet
-```java
-        var solutionRepoUrl = programmingExercise.getVcsSolutionRepositoryUrl();
-
-        continuousIntegrationService.get().createProjectForExercise(programmingExercise);
-        // template build plan
-        continuousIntegrationService.get().createBuildPlanForExercise(programmingExercise, TEMPLATE.getName(), exerciseRepoUrl, testsRepoUrl, solutionRepoUrl);
 ```
 
 ### OptionalGetWithoutIsPresent
@@ -8649,6 +8613,42 @@ in `src/main/java/de/tum/in/www1/artemis/service/programming/ProgrammingExercise
 
 ### OptionalGetWithoutIsPresent
 `Optional.get()` without 'isPresent()' check
+in `src/main/java/de/tum/in/www1/artemis/service/programming/ProgrammingExerciseService.java`
+#### Snippet
+```java
+    private void createRepositoriesForNewExercise(ProgrammingExercise programmingExercise) throws GitAPIException {
+        final String projectKey = programmingExercise.getProjectKey();
+        versionControlService.get().createProjectForExercise(programmingExercise); // Create project
+        versionControlService.get().createRepository(projectKey, programmingExercise.generateRepositoryName(RepositoryType.TEMPLATE), null); // Create template repository
+        versionControlService.get().createRepository(projectKey, programmingExercise.generateRepositoryName(RepositoryType.TESTS), null); // Create tests repository
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `src/main/java/de/tum/in/www1/artemis/service/programming/ProgrammingExerciseService.java`
+#### Snippet
+```java
+            // The template repo can be re-written, so we can unprotect the default branch.
+            var templateVcsRepositoryUrl = programmingExercise.getVcsTemplateRepositoryUrl();
+            String templateBranch = versionControlService.get().getOrRetrieveBranchOfExercise(programmingExercise);
+            versionControlService.get().unprotectBranch(templateVcsRepositoryUrl, templateBranch);
+
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `src/main/java/de/tum/in/www1/artemis/service/programming/ProgrammingExerciseService.java`
+#### Snippet
+```java
+        var solutionRepoUrl = programmingExercise.getVcsSolutionRepositoryUrl();
+
+        continuousIntegrationService.get().createProjectForExercise(programmingExercise);
+        // template build plan
+        continuousIntegrationService.get().createBuildPlanForExercise(programmingExercise, TEMPLATE.getName(), exerciseRepoUrl, testsRepoUrl, solutionRepoUrl);
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
 in `src/main/java/de/tum/in/www1/artemis/service/programming/ProgrammingExerciseExportService.java`
 #### Snippet
 ```java
@@ -8657,6 +8657,42 @@ in `src/main/java/de/tum/in/www1/artemis/service/programming/ProgrammingExercise
                 .get();
 
         Path outputDir = fileService.getUniquePath(repoDownloadClonePath);
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `src/main/java/de/tum/in/www1/artemis/service/programming/ProgrammingExerciseGradingService.java`
+#### Snippet
+```java
+            }
+            if (Strings.isNullOrEmpty(participationDefaultBranch)) {
+                participationDefaultBranch = versionControlService.get().getOrRetrieveBranchOfExercise(participation.getProgrammingExercise());
+            }
+
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `src/main/java/de/tum/in/www1/artemis/service/programming/ProgrammingExerciseGradingService.java`
+#### Snippet
+```java
+        Result newResult = null;
+        try {
+            var buildResult = continuousIntegrationService.get().convertBuildResult(requestBody);
+            checkCorrectBranchElseThrow(participation, buildResult);
+
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `src/main/java/de/tum/in/www1/artemis/service/programming/ProgrammingExerciseGradingService.java`
+#### Snippet
+```java
+    private Result updateLatestSemiAutomaticResultWithNewAutomaticFeedback(long lastSemiAutomaticResultId, Result newAutomaticResult) {
+        // Note: fetch the semi-automatic result with feedback and assessor again from the database
+        var latestSemiAutomaticResult = resultRepository.findByIdWithEagerFeedbacksAndAssessor(lastSemiAutomaticResultId).get();
+        // this makes it the most recent result, but optionally keeps the draft state of an unfinished manual result
+        latestSemiAutomaticResult.setCompletionDate(latestSemiAutomaticResult.getCompletionDate() != null ? newAutomaticResult.getCompletionDate() : null);
 ```
 
 ### OptionalGetWithoutIsPresent
@@ -8683,42 +8719,6 @@ in `src/main/java/de/tum/in/www1/artemis/service/programming/ProgrammingExercise
                 submissionPolicyService.handleLockRepositoryPolicy(processedResult, (Participation) participation, policy);
 ```
 
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `src/main/java/de/tum/in/www1/artemis/service/programming/ProgrammingExerciseGradingService.java`
-#### Snippet
-```java
-            }
-            if (Strings.isNullOrEmpty(participationDefaultBranch)) {
-                participationDefaultBranch = versionControlService.get().getOrRetrieveBranchOfExercise(participation.getProgrammingExercise());
-            }
-
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `src/main/java/de/tum/in/www1/artemis/service/programming/ProgrammingExerciseGradingService.java`
-#### Snippet
-```java
-    private Result updateLatestSemiAutomaticResultWithNewAutomaticFeedback(long lastSemiAutomaticResultId, Result newAutomaticResult) {
-        // Note: fetch the semi-automatic result with feedback and assessor again from the database
-        var latestSemiAutomaticResult = resultRepository.findByIdWithEagerFeedbacksAndAssessor(lastSemiAutomaticResultId).get();
-        // this makes it the most recent result, but optionally keeps the draft state of an unfinished manual result
-        latestSemiAutomaticResult.setCompletionDate(latestSemiAutomaticResult.getCompletionDate() != null ? newAutomaticResult.getCompletionDate() : null);
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `src/main/java/de/tum/in/www1/artemis/service/programming/ProgrammingExerciseGradingService.java`
-#### Snippet
-```java
-        Result newResult = null;
-        try {
-            var buildResult = continuousIntegrationService.get().convertBuildResult(requestBody);
-            checkCorrectBranchElseThrow(participation, buildResult);
-
-```
-
 ## RuleId[ruleID=IOResource]
 ### IOResource
 'OutputStreamWriter' should be opened in front of a 'try' block and closed in the corresponding 'finally' block
@@ -8739,8 +8739,8 @@ in `src/main/java/de/tum/in/www1/artemis/web/rest/hestia/CoverageReportResource.
 #### Snippet
 ```java
 
-        var optionalReportWithoutFileReports = testwiseCoverageService.getCoverageReportForLatestSolutionSubmissionFromProgrammingExercise(exercise);
-        if (optionalReportWithoutFileReports.isEmpty()) {
+        var optionalReportWithFileReports = testwiseCoverageService.getFullCoverageReportForLatestSolutionSubmissionFromProgrammingExercise(exercise);
+        if (optionalReportWithFileReports.isEmpty()) {
             return ResponseEntity.notFound().build();
         }
 ```
@@ -8751,8 +8751,8 @@ in `src/main/java/de/tum/in/www1/artemis/web/rest/hestia/CoverageReportResource.
 #### Snippet
 ```java
 
-        var optionalReportWithFileReports = testwiseCoverageService.getFullCoverageReportForLatestSolutionSubmissionFromProgrammingExercise(exercise);
-        if (optionalReportWithFileReports.isEmpty()) {
+        var optionalReportWithoutFileReports = testwiseCoverageService.getCoverageReportForLatestSolutionSubmissionFromProgrammingExercise(exercise);
+        if (optionalReportWithoutFileReports.isEmpty()) {
             return ResponseEntity.notFound().build();
         }
 ```
@@ -8807,18 +8807,6 @@ in `src/main/java/de/tum/in/www1/artemis/web/websocket/team/TeamWebsocketService
 ```
 
 ### FieldMayBeStatic
-Field `newAnnouncementEN` may be 'static'
-in `src/main/java/de/tum/in/www1/artemis/service/MailService.java`
-#### Snippet
-```java
-
-    // Translation that can not be done via i18n Resource Bundle (for Thymeleaf) but has to be set in this service via Java
-    private final String newAnnouncementEN = "New announcement \"%s\" in course \"%s\"";
-
-    private final String newAnnouncementDE = "Neue Ankündigung \"%s\" im Kurs \"%s\"";
-```
-
-### FieldMayBeStatic
 Field `newAnnouncementDE` may be 'static'
 in `src/main/java/de/tum/in/www1/artemis/service/MailService.java`
 #### Snippet
@@ -8828,6 +8816,18 @@ in `src/main/java/de/tum/in/www1/artemis/service/MailService.java`
     private final String newAnnouncementDE = "Neue Ankündigung \"%s\" im Kurs \"%s\"";
 
     // time related variables
+```
+
+### FieldMayBeStatic
+Field `newAnnouncementEN` may be 'static'
+in `src/main/java/de/tum/in/www1/artemis/service/MailService.java`
+#### Snippet
+```java
+
+    // Translation that can not be done via i18n Resource Bundle (for Thymeleaf) but has to be set in this service via Java
+    private final String newAnnouncementEN = "New announcement \"%s\" in course \"%s\"";
+
+    private final String newAnnouncementDE = "Neue Ankündigung \"%s\" im Kurs \"%s\"";
 ```
 
 ## RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
@@ -8904,18 +8904,6 @@ public class TutorialGroupNotificationFactory {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `NotificationTargetFactory` has only 'static' members, and lacks a 'private' constructor
-in `src/main/java/de/tum/in/www1/artemis/domain/notification/NotificationTargetFactory.java`
-#### Snippet
-```java
-import de.tum.in.www1.artemis.domain.tutorialgroups.TutorialGroup;
-
-public class NotificationTargetFactory {
-
-    // shared constants
-```
-
-### UtilityClassWithoutPrivateConstructor
 Class `NotificationTitleTypeConstants` has only 'static' members, and lacks a 'private' constructor
 in `src/main/java/de/tum/in/www1/artemis/domain/notification/NotificationTitleTypeConstants.java`
 #### Snippet
@@ -8925,6 +8913,18 @@ import de.tum.in.www1.artemis.domain.enumeration.NotificationType;
 public class NotificationTitleTypeConstants {
 
     public static final String LIVE_EXAM_EXERCISE_UPDATE_NOTIFICATION_TITLE = "Live Exam Exercise Update";
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `NotificationTargetFactory` has only 'static' members, and lacks a 'private' constructor
+in `src/main/java/de/tum/in/www1/artemis/domain/notification/NotificationTargetFactory.java`
+#### Snippet
+```java
+import de.tum.in.www1.artemis.domain.tutorialgroups.TutorialGroup;
+
+public class NotificationTargetFactory {
+
+    // shared constants
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -9036,6 +9036,18 @@ class SerializerUtil {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
+Class `SimilarityUtils` has only 'static' members, and lacks a 'private' constructor
+in `src/main/java/de/tum/in/www1/artemis/service/compass/utils/SimilarityUtils.java`
+#### Snippet
+```java
+import de.tum.in.www1.artemis.service.compass.umlmodel.UMLElement;
+
+public class SimilarityUtils {
+
+    /**
+```
+
+### UtilityClassWithoutPrivateConstructor
 Class `CompassConfiguration` has only 'static' members, and lacks a 'private' constructor
 in `src/main/java/de/tum/in/www1/artemis/service/compass/utils/CompassConfiguration.java`
 #### Snippet
@@ -9048,13 +9060,13 @@ public class CompassConfiguration {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `SimilarityUtils` has only 'static' members, and lacks a 'private' constructor
-in `src/main/java/de/tum/in/www1/artemis/service/compass/utils/SimilarityUtils.java`
+Class `NameSimilarity` has only 'static' members, and lacks a 'private' constructor
+in `src/main/java/de/tum/in/www1/artemis/service/compass/strategy/NameSimilarity.java`
 #### Snippet
 ```java
-import de.tum.in.www1.artemis.service.compass.umlmodel.UMLElement;
+import me.xdrop.fuzzywuzzy.FuzzySearch;
 
-public class SimilarityUtils {
+public class NameSimilarity {
 
     /**
 ```
@@ -9069,18 +9081,6 @@ in `src/main/java/de/tum/in/www1/artemis/service/compass/utils/JSONMapping.java`
 public class JSONMapping {
 
     // general
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `NameSimilarity` has only 'static' members, and lacks a 'private' constructor
-in `src/main/java/de/tum/in/www1/artemis/service/compass/strategy/NameSimilarity.java`
-#### Snippet
-```java
-import me.xdrop.fuzzywuzzy.FuzzySearch;
-
-public class NameSimilarity {
-
-    /**
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -9115,6 +9115,18 @@ in `src/main/java/de/tum/in/www1/artemis/service/compass/umlmodel/parsers/Syntax
 import de.tum.in.www1.artemis.service.compass.umlmodel.syntaxtree.SyntaxTreeTerminal;
 
 public class SyntaxTreeParser {
+
+    /**
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `DeploymentDiagramParser` has only 'static' members, and lacks a 'private' constructor
+in `src/main/java/de/tum/in/www1/artemis/service/compass/umlmodel/parsers/DeploymentDiagramParser.java`
+#### Snippet
+```java
+import de.tum.in.www1.artemis.service.compass.umlmodel.deployment.*;
+
+public class DeploymentDiagramParser {
 
     /**
 ```
@@ -9156,18 +9168,6 @@ public class ActivityDiagramParser {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `DeploymentDiagramParser` has only 'static' members, and lacks a 'private' constructor
-in `src/main/java/de/tum/in/www1/artemis/service/compass/umlmodel/parsers/DeploymentDiagramParser.java`
-#### Snippet
-```java
-import de.tum.in.www1.artemis.service.compass.umlmodel.deployment.*;
-
-public class DeploymentDiagramParser {
-
-    /**
-```
-
-### UtilityClassWithoutPrivateConstructor
 Class `ObjectDiagramParser` has only 'static' members, and lacks a 'private' constructor
 in `src/main/java/de/tum/in/www1/artemis/service/compass/umlmodel/parsers/ObjectDiagramParser.java`
 #### Snippet
@@ -9180,18 +9180,6 @@ public class ObjectDiagramParser {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `UseCaseDiagramParser` has only 'static' members, and lacks a 'private' constructor
-in `src/main/java/de/tum/in/www1/artemis/service/compass/umlmodel/parsers/UseCaseDiagramParser.java`
-#### Snippet
-```java
-import de.tum.in.www1.artemis.service.compass.umlmodel.usecase.*;
-
-public class UseCaseDiagramParser {
-
-    /**
-```
-
-### UtilityClassWithoutPrivateConstructor
 Class `FlowchartParser` has only 'static' members, and lacks a 'private' constructor
 in `src/main/java/de/tum/in/www1/artemis/service/compass/umlmodel/parsers/FlowchartParser.java`
 #### Snippet
@@ -9199,6 +9187,18 @@ in `src/main/java/de/tum/in/www1/artemis/service/compass/umlmodel/parsers/Flowch
 import de.tum.in.www1.artemis.service.compass.umlmodel.flowchart.*;
 
 public class FlowchartParser {
+
+    /**
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `UseCaseDiagramParser` has only 'static' members, and lacks a 'private' constructor
+in `src/main/java/de/tum/in/www1/artemis/service/compass/umlmodel/parsers/UseCaseDiagramParser.java`
+#### Snippet
+```java
+import de.tum.in.www1.artemis.service.compass.umlmodel.usecase.*;
+
+public class UseCaseDiagramParser {
 
     /**
 ```
@@ -9264,18 +9264,6 @@ public class MessageSpecs {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `PostSpecs` has only 'static' members, and lacks a 'private' constructor
-in `src/main/java/de/tum/in/www1/artemis/repository/specs/PostSpecs.java`
-#### Snippet
-```java
-import de.tum.in.www1.artemis.domain.metis.*;
-
-public class PostSpecs {
-
-    /**
-```
-
-### UtilityClassWithoutPrivateConstructor
 Class `InetSocketAddressValidator` has only 'static' members, and lacks a 'private' constructor
 in `src/main/java/de/tum/in/www1/artemis/validation/InetSocketAddressValidator.java`
 #### Snippet
@@ -9283,6 +9271,18 @@ in `src/main/java/de/tum/in/www1/artemis/validation/InetSocketAddressValidator.j
 import java.util.Optional;
 
 public class InetSocketAddressValidator {
+
+    /**
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `PostSpecs` has only 'static' members, and lacks a 'private' constructor
+in `src/main/java/de/tum/in/www1/artemis/repository/specs/PostSpecs.java`
+#### Snippet
+```java
+import de.tum.in.www1.artemis.domain.metis.*;
+
+public class PostSpecs {
 
     /**
 ```
@@ -9330,6 +9330,18 @@ Method invocation `evict` may produce `NullPointerException`
 in `src/main/java/de/tum/in/www1/artemis/web/rest/AttachmentResource.java`
 #### Snippet
 ```java
+
+        Attachment result = attachmentRepository.save(attachment);
+        this.cacheManager.getCache("files").evict(fileService.actualPathForPublicPath(result.getLink()));
+        if (notificationText != null) {
+            groupNotificationService.notifyStudentGroupAboutAttachmentChange(result, notificationText);
+```
+
+### DataFlowIssue
+Method invocation `evict` may produce `NullPointerException`
+in `src/main/java/de/tum/in/www1/artemis/web/rest/AttachmentResource.java`
+#### Snippet
+```java
             relatedEntity = "lecture " + attachment.getLecture().getTitle();
             try {
                 this.cacheManager.getCache("files").evict(fileService.actualPathForPublicPath(attachment.getLink()));
@@ -9350,18 +9362,6 @@ in `src/main/java/de/tum/in/www1/artemis/web/rest/AttachmentResource.java`
 ```
 
 ### DataFlowIssue
-Method invocation `evict` may produce `NullPointerException`
-in `src/main/java/de/tum/in/www1/artemis/web/rest/AttachmentResource.java`
-#### Snippet
-```java
-
-        Attachment result = attachmentRepository.save(attachment);
-        this.cacheManager.getCache("files").evict(fileService.actualPathForPublicPath(result.getLink()));
-        if (notificationText != null) {
-            groupNotificationService.notifyStudentGroupAboutAttachmentChange(result, notificationText);
-```
-
-### DataFlowIssue
 Method invocation `split` may produce `NullPointerException`
 in `src/main/java/de/tum/in/www1/artemis/web/rest/FileUploadSubmissionResource.java`
 #### Snippet
@@ -9371,6 +9371,18 @@ in `src/main/java/de/tum/in/www1/artemis/web/rest/FileUploadSubmissionResource.j
         final String[] splittedFileName = file.getOriginalFilename().split("\\.");
         final String fileSuffix = splittedFileName[splittedFileName.length - 1].toLowerCase();
         final String filePattern = String.join("|", exercise.getFilePattern().toLowerCase().replaceAll("\\s", "").split(","));
+```
+
+### DataFlowIssue
+Method invocation `getSubmission` may produce `NullPointerException`
+in `src/main/java/de/tum/in/www1/artemis/web/rest/TextAssessmentResource.java`
+#### Snippet
+```java
+        final var response = super.saveExampleAssessment(exampleSubmissionId, textAssessment.getFeedbacks());
+        if (response.getStatusCode().is2xxSuccessful()) {
+            final Submission submission = response.getBody().getSubmission();
+            final var textSubmission = textSubmissionService.findOneWithEagerResultFeedbackAndTextBlocks(submission.getId());
+            saveTextBlocks(textAssessment.getTextBlocks(), textSubmission, textExerciseRepository.findByIdElseThrow(exerciseId), response.getBody().getFeedbacks());
 ```
 
 ### DataFlowIssue
@@ -9407,18 +9419,6 @@ in `src/main/java/de/tum/in/www1/artemis/web/rest/TextAssessmentResource.java`
             saveTextBlocks(textAssessment.getTextBlocks(), textSubmission, (TextExercise) result.getParticipation().getExercise(), response.getBody().getFeedbacks());
         }
 
-```
-
-### DataFlowIssue
-Method invocation `getSubmission` may produce `NullPointerException`
-in `src/main/java/de/tum/in/www1/artemis/web/rest/TextAssessmentResource.java`
-#### Snippet
-```java
-        final var response = super.saveExampleAssessment(exampleSubmissionId, textAssessment.getFeedbacks());
-        if (response.getStatusCode().is2xxSuccessful()) {
-            final Submission submission = response.getBody().getSubmission();
-            final var textSubmission = textSubmissionService.findOneWithEagerResultFeedbackAndTextBlocks(submission.getId());
-            saveTextBlocks(textAssessment.getTextBlocks(), textSubmission, textExerciseRepository.findByIdElseThrow(exerciseId), response.getBody().getFeedbacks());
 ```
 
 ### DataFlowIssue
@@ -9474,6 +9474,18 @@ Passing a non-null argument to `Optional`
 in `src/main/java/de/tum/in/www1/artemis/web/rest/tutorialgroups/TutorialGroupResource.java`
 #### Snippet
 ```java
+        var responsibleUser = userRepository.getUserWithGroupsAndAuthorities();
+        authorizationCheckService.checkHasAtLeastRoleInCourseElseThrow(Role.INSTRUCTOR, tutorialGroupFromDatabase.getCourse(), responsibleUser);
+        checkEntityIdMatchesPathIds(tutorialGroupFromDatabase, Optional.ofNullable(courseId), Optional.ofNullable(tutorialGroupId));
+        Set<StudentDTO> notFoundStudentDtos = tutorialGroupService.registerMultipleStudents(tutorialGroupFromDatabase, studentDtos,
+                TutorialGroupRegistrationType.INSTRUCTOR_REGISTRATION, responsibleUser);
+```
+
+### DataFlowIssue
+Passing a non-null argument to `Optional`
+in `src/main/java/de/tum/in/www1/artemis/web/rest/tutorialgroups/TutorialGroupResource.java`
+#### Snippet
+```java
         var oldTutorialGroup = this.tutorialGroupRepository.findByIdWithTeachingAssistantAndRegistrationsElseThrow(tutorialGroupId);
         updatedTutorialGroup.setCourse(oldTutorialGroup.getCourse());
         checkEntityIdMatchesPathIds(oldTutorialGroup, Optional.ofNullable(courseId), Optional.ofNullable(tutorialGroupId));
@@ -9491,18 +9503,6 @@ in `src/main/java/de/tum/in/www1/artemis/web/rest/tutorialgroups/TutorialGroupRe
         var sortedRegistrations = registrations.stream().sorted(Comparator.comparing(TutorialGroupRegistrationImportDTO::title)).toList();
         return ResponseEntity.ok().body(sortedRegistrations);
     }
-```
-
-### DataFlowIssue
-Passing a non-null argument to `Optional`
-in `src/main/java/de/tum/in/www1/artemis/web/rest/tutorialgroups/TutorialGroupResource.java`
-#### Snippet
-```java
-        var responsibleUser = userRepository.getUserWithGroupsAndAuthorities();
-        authorizationCheckService.checkHasAtLeastRoleInCourseElseThrow(Role.INSTRUCTOR, tutorialGroupFromDatabase.getCourse(), responsibleUser);
-        checkEntityIdMatchesPathIds(tutorialGroupFromDatabase, Optional.ofNullable(courseId), Optional.ofNullable(tutorialGroupId));
-        Set<StudentDTO> notFoundStudentDtos = tutorialGroupService.registerMultipleStudents(tutorialGroupFromDatabase, studentDtos,
-                TutorialGroupRegistrationType.INSTRUCTOR_REGISTRATION, responsibleUser);
 ```
 
 ### DataFlowIssue
@@ -9554,18 +9554,6 @@ in `src/main/java/de/tum/in/www1/artemis/service/AttachmentUnitService.java`
 ```
 
 ### DataFlowIssue
-Method invocation `setSubmission` may produce `NullPointerException`
-in `src/main/java/de/tum/in/www1/artemis/service/SubmissionService.java`
-#### Snippet
-```java
-        }
-
-        submissions.forEach(submission -> submission.getLatestResult().setSubmission(null));
-        return submissions;
-    }
-```
-
-### DataFlowIssue
 Method invocation `getAssessor` may produce `NullPointerException`
 in `src/main/java/de/tum/in/www1/artemis/service/SubmissionService.java`
 #### Snippet
@@ -9575,6 +9563,18 @@ in `src/main/java/de/tum/in/www1/artemis/service/SubmissionService.java`
                     .filter(submission -> !submission.getResultForCorrectionRound(correctionRound - 1).getAssessor().equals(userRepository.getUser())).toList();
         }
 
+```
+
+### DataFlowIssue
+Method invocation `setSubmission` may produce `NullPointerException`
+in `src/main/java/de/tum/in/www1/artemis/service/SubmissionService.java`
+#### Snippet
+```java
+        }
+
+        submissions.forEach(submission -> submission.getLatestResult().setSubmission(null));
+        return submissions;
+    }
 ```
 
 ### DataFlowIssue
@@ -9662,30 +9662,6 @@ in `src/main/java/de/tum/in/www1/artemis/service/exam/StudentExamService.java`
 ```
 
 ### DataFlowIssue
-Method invocation `getName` may produce `NullPointerException`
-in `src/main/java/de/tum/in/www1/artemis/service/compass/umlmodel/classdiagram/UMLAttribute.java`
-#### Snippet
-```java
-        UMLAttribute otherAttribute = (UMLAttribute) obj;
-
-        return Objects.equals(otherAttribute.getAttributeType(), getAttributeType()) && Objects.equals(otherAttribute.getParentElement().getName(), getParentElement().getName());
-    }
-}
-```
-
-### DataFlowIssue
-Method invocation `getName` may produce `NullPointerException`
-in `src/main/java/de/tum/in/www1/artemis/service/compass/umlmodel/classdiagram/UMLAttribute.java`
-#### Snippet
-```java
-        UMLAttribute otherAttribute = (UMLAttribute) obj;
-
-        return Objects.equals(otherAttribute.getAttributeType(), getAttributeType()) && Objects.equals(otherAttribute.getParentElement().getName(), getParentElement().getName());
-    }
-}
-```
-
-### DataFlowIssue
 Method invocation `getSimilarityID` may produce `NullPointerException`
 in `src/main/java/de/tum/in/www1/artemis/service/compass/umlmodel/classdiagram/UMLAttribute.java`
 #### Snippet
@@ -9695,6 +9671,30 @@ in `src/main/java/de/tum/in/www1/artemis/service/compass/umlmodel/classdiagram/U
         if (parentElement.getSimilarityID() != -1 && referenceAttribute.getParentElement().getSimilarityID() != -1) {
             return parentElement.getSimilarityID() == referenceAttribute.getParentElement().getSimilarityID();
         }
+```
+
+### DataFlowIssue
+Method invocation `getName` may produce `NullPointerException`
+in `src/main/java/de/tum/in/www1/artemis/service/compass/umlmodel/classdiagram/UMLAttribute.java`
+#### Snippet
+```java
+        UMLAttribute otherAttribute = (UMLAttribute) obj;
+
+        return Objects.equals(otherAttribute.getAttributeType(), getAttributeType()) && Objects.equals(otherAttribute.getParentElement().getName(), getParentElement().getName());
+    }
+}
+```
+
+### DataFlowIssue
+Method invocation `getName` may produce `NullPointerException`
+in `src/main/java/de/tum/in/www1/artemis/service/compass/umlmodel/classdiagram/UMLAttribute.java`
+#### Snippet
+```java
+        UMLAttribute otherAttribute = (UMLAttribute) obj;
+
+        return Objects.equals(otherAttribute.getAttributeType(), getAttributeType()) && Objects.equals(otherAttribute.getParentElement().getName(), getParentElement().getName());
+    }
+}
 ```
 
 ### DataFlowIssue
@@ -9807,30 +9807,6 @@ in `src/main/java/de/tum/in/www1/artemis/service/connectors/gitlab/GitLabService
 
 ### DataFlowIssue
 Method invocation `get` may produce `NullPointerException`
-in `src/main/java/de/tum/in/www1/artemis/service/connectors/jenkins/JenkinsAuthorizationInterceptor.java`
-#### Snippet
-```java
-        try {
-            final var response = restTemplate.exchange(jenkinsURL.toString() + "/crumbIssuer/api/json", HttpMethod.GET, entity, JsonNode.class);
-            final var sessionId = response.getHeaders().get("Set-Cookie").get(0);
-            headersToAuthenticate.add("Jenkins-Crumb", response.getBody().get("crumb").asText());
-            headersToAuthenticate.add("Cookie", sessionId);
-```
-
-### DataFlowIssue
-Method invocation `get` may produce `NullPointerException`
-in `src/main/java/de/tum/in/www1/artemis/service/connectors/jenkins/JenkinsAuthorizationInterceptor.java`
-#### Snippet
-```java
-            final var response = restTemplate.exchange(jenkinsURL.toString() + "/crumbIssuer/api/json", HttpMethod.GET, entity, JsonNode.class);
-            final var sessionId = response.getHeaders().get("Set-Cookie").get(0);
-            headersToAuthenticate.add("Jenkins-Crumb", response.getBody().get("crumb").asText());
-            headersToAuthenticate.add("Cookie", sessionId);
-        }
-```
-
-### DataFlowIssue
-Method invocation `get` may produce `NullPointerException`
 in `src/main/java/de/tum/in/www1/artemis/service/connectors/bamboo/BambooService.java`
 #### Snippet
 ```java
@@ -9867,14 +9843,38 @@ in `src/main/java/de/tum/in/www1/artemis/service/connectors/bamboo/BambooService
 
 ### DataFlowIssue
 Method invocation `get` may produce `NullPointerException`
-in `src/main/java/de/tum/in/www1/artemis/service/connectors/bitbucket/BitbucketService.java`
+in `src/main/java/de/tum/in/www1/artemis/service/connectors/jenkins/JenkinsAuthorizationInterceptor.java`
 #### Snippet
 ```java
         try {
-            final var status = shortTimeoutRestTemplate.getForObject(bitbucketServerUrl + "/status", JsonNode.class);
-            health = status.get("state").asText().equals("RUNNING") ? new ConnectorHealth(true) : new ConnectorHealth(false);
+            final var response = restTemplate.exchange(jenkinsURL.toString() + "/crumbIssuer/api/json", HttpMethod.GET, entity, JsonNode.class);
+            final var sessionId = response.getHeaders().get("Set-Cookie").get(0);
+            headersToAuthenticate.add("Jenkins-Crumb", response.getBody().get("crumb").asText());
+            headersToAuthenticate.add("Cookie", sessionId);
+```
+
+### DataFlowIssue
+Method invocation `get` may produce `NullPointerException`
+in `src/main/java/de/tum/in/www1/artemis/service/connectors/jenkins/JenkinsAuthorizationInterceptor.java`
+#### Snippet
+```java
+            final var response = restTemplate.exchange(jenkinsURL.toString() + "/crumbIssuer/api/json", HttpMethod.GET, entity, JsonNode.class);
+            final var sessionId = response.getHeaders().get("Set-Cookie").get(0);
+            headersToAuthenticate.add("Jenkins-Crumb", response.getBody().get("crumb").asText());
+            headersToAuthenticate.add("Cookie", sessionId);
         }
-        catch (Exception emAll) {
+```
+
+### DataFlowIssue
+Method invocation `name` may produce `NullPointerException`
+in `src/main/java/de/tum/in/www1/artemis/service/connectors/bamboo/BambooBuildPlanService.java`
+#### Snippet
+```java
+            case C -> {
+                // Default tasks:
+                var tasks = readScriptTasksFromTemplate(programmingLanguage, File.separator + projectType.name().toLowerCase(), sequentialBuildRuns, false, null);
+                tasks.add(0, checkoutTask);
+                defaultJob.tasks(tasks.toArray(new Task[0]));
 ```
 
 ### DataFlowIssue
@@ -9902,15 +9902,15 @@ in `src/main/java/de/tum/in/www1/artemis/service/programming/ProgrammingExercise
 ```
 
 ### DataFlowIssue
-Method invocation `name` may produce `NullPointerException`
-in `src/main/java/de/tum/in/www1/artemis/service/connectors/bamboo/BambooBuildPlanService.java`
+Method invocation `get` may produce `NullPointerException`
+in `src/main/java/de/tum/in/www1/artemis/service/connectors/bitbucket/BitbucketService.java`
 #### Snippet
 ```java
-            case C -> {
-                // Default tasks:
-                var tasks = readScriptTasksFromTemplate(programmingLanguage, File.separator + projectType.name().toLowerCase(), sequentialBuildRuns, false, null);
-                tasks.add(0, checkoutTask);
-                defaultJob.tasks(tasks.toArray(new Task[0]));
+        try {
+            final var status = shortTimeoutRestTemplate.getForObject(bitbucketServerUrl + "/status", JsonNode.class);
+            health = status.get("state").asText().equals("RUNNING") ? new ConnectorHealth(true) : new ConnectorHealth(false);
+        }
+        catch (Exception emAll) {
 ```
 
 ### DataFlowIssue
@@ -9991,10 +9991,10 @@ in `src/main/java/de/tum/in/www1/artemis/web/rest/FileUploadAssessmentResource.j
 
 ### MethodOverloadsParentMethod
 Method `cancelAssessment()` overloads a compatible method of a superclass, when overriding might have been intended
-in `src/main/java/de/tum/in/www1/artemis/web/rest/ModelingAssessmentResource.java`
+in `src/main/java/de/tum/in/www1/artemis/web/rest/ProgrammingAssessmentResource.java`
 #### Snippet
 ```java
-    @PutMapping("/modeling-submissions/{submissionId}/cancel-assessment")
+    @PutMapping("/programming-submissions/{submissionId}/cancel-assessment")
     @PreAuthorize("hasRole('TA')")
     public ResponseEntity<Void> cancelAssessment(@PathVariable Long submissionId) {
         return super.cancelAssessment(submissionId);
@@ -10003,10 +10003,10 @@ in `src/main/java/de/tum/in/www1/artemis/web/rest/ModelingAssessmentResource.jav
 
 ### MethodOverloadsParentMethod
 Method `cancelAssessment()` overloads a compatible method of a superclass, when overriding might have been intended
-in `src/main/java/de/tum/in/www1/artemis/web/rest/ProgrammingAssessmentResource.java`
+in `src/main/java/de/tum/in/www1/artemis/web/rest/ModelingAssessmentResource.java`
 #### Snippet
 ```java
-    @PutMapping("/programming-submissions/{submissionId}/cancel-assessment")
+    @PutMapping("/modeling-submissions/{submissionId}/cancel-assessment")
     @PreAuthorize("hasRole('TA')")
     public ResponseEntity<Void> cancelAssessment(@PathVariable Long submissionId) {
         return super.cancelAssessment(submissionId);
@@ -10100,18 +10100,6 @@ in `src/main/java/de/tum/in/www1/artemis/service/connectors/BitbucketBambooUpdat
 
 ### OptionalContainsCollection
 'Optional' contains collection `List`
-in `src/main/java/de/tum/in/www1/artemis/service/connectors/jenkins/JenkinsService.java`
-#### Snippet
-```java
-    @Override
-    public void updatePlanRepository(String buildProjectKey, String buildPlanKey, String ciRepoName, String repoProjectKey, String newRepoUrl, String existingRepoUrl,
-            String newDefaultBranch, Optional<List<String>> optionalTriggeredByRepositories) {
-        jenkinsBuildPlanService.updateBuildPlanRepositories(buildProjectKey, buildPlanKey, newRepoUrl, existingRepoUrl);
-    }
-```
-
-### OptionalContainsCollection
-'Optional' contains collection `List`
 in `src/main/java/de/tum/in/www1/artemis/service/connectors/bamboo/BambooService.java`
 #### Snippet
 ```java
@@ -10120,6 +10108,18 @@ in `src/main/java/de/tum/in/www1/artemis/service/connectors/bamboo/BambooService
             String newBranch, Optional<List<String>> optionalTriggeredByRepositories) throws BambooException {
         final var vcsRepoName = urlService.getRepositorySlugFromRepositoryUrlString(newRepoUrl);
         continuousIntegrationUpdateService.get().updatePlanRepository(buildProjectKey, buildPlanKey, ciRepoName, repoProjectKey, vcsRepoName, newBranch,
+```
+
+### OptionalContainsCollection
+'Optional' contains collection `List`
+in `src/main/java/de/tum/in/www1/artemis/service/connectors/jenkins/JenkinsService.java`
+#### Snippet
+```java
+    @Override
+    public void updatePlanRepository(String buildProjectKey, String buildPlanKey, String ciRepoName, String repoProjectKey, String newRepoUrl, String existingRepoUrl,
+            String newDefaultBranch, Optional<List<String>> optionalTriggeredByRepositories) {
+        jenkinsBuildPlanService.updateBuildPlanRepositories(buildProjectKey, buildPlanKey, newRepoUrl, existingRepoUrl);
+    }
 ```
 
 ### OptionalContainsCollection
@@ -10135,18 +10135,6 @@ public interface TextBlockRepository extends JpaRepository<TextBlock, String> {
 ```
 
 ### OptionalContainsCollection
-'Optional' contains collection `Set`>
-in `src/main/java/de/tum/in/www1/artemis/repository/plagiarism/PlagiarismComparisonRepository.java`
-#### Snippet
-```java
-
-    @EntityGraph(type = LOAD, attributePaths = { "submissionA", "submissionA.plagiarismCase", "submissionB", "submissionB.plagiarismCase" })
-    Optional<Set<PlagiarismComparison<?>>> findBySubmissionA_SubmissionIdOrSubmissionB_SubmissionId(long submissionA_submissionId, long submissionB_submissionId);
-
-    @Modifying
-```
-
-### OptionalContainsCollection
 'Optional' contains collection `Set`
 in `src/main/java/de/tum/in/www1/artemis/repository/hestia/ProgrammingExerciseTaskRepository.java`
 #### Snippet
@@ -10158,19 +10146,19 @@ in `src/main/java/de/tum/in/www1/artemis/repository/hestia/ProgrammingExerciseTa
     /**
 ```
 
-## RuleId[ruleID=Convert2MethodRef]
-### Convert2MethodRef
-Lambda can be replaced with method reference
-in `src/main/java/de/tum/in/www1/artemis/service/metis/AnswerPostService.java`
+### OptionalContainsCollection
+'Optional' contains collection `Set`>
+in `src/main/java/de/tum/in/www1/artemis/repository/plagiarism/PlagiarismComparisonRepository.java`
 #### Snippet
 ```java
 
-        // sets the post as resolved if there exists any resolving answer
-        post.setResolved(post.getAnswers().stream().anyMatch(answerPost1 -> answerPost1.doesResolvePost()));
-        // deletes the answerPost from database and persists updates on the post properties
-        postRepository.save(post);
+    @EntityGraph(type = LOAD, attributePaths = { "submissionA", "submissionA.plagiarismCase", "submissionB", "submissionB.plagiarismCase" })
+    Optional<Set<PlagiarismComparison<?>>> findBySubmissionA_SubmissionIdOrSubmissionB_SubmissionId(long submissionA_submissionId, long submissionB_submissionId);
+
+    @Modifying
 ```
 
+## RuleId[ruleID=Convert2MethodRef]
 ### Convert2MethodRef
 Lambda can be replaced with method reference
 in `src/main/java/de/tum/in/www1/artemis/service/metis/AnswerPostService.java`
@@ -10181,6 +10169,18 @@ in `src/main/java/de/tum/in/www1/artemis/service/metis/AnswerPostService.java`
             existingAnswerPost.getPost().setResolved(existingAnswerPost.getPost().getAnswers().stream().anyMatch(answer -> answer.doesResolvePost()));
             postRepository.save(existingAnswerPost.getPost());
         }
+```
+
+### Convert2MethodRef
+Lambda can be replaced with method reference
+in `src/main/java/de/tum/in/www1/artemis/service/metis/AnswerPostService.java`
+#### Snippet
+```java
+
+        // sets the post as resolved if there exists any resolving answer
+        post.setResolved(post.getAnswers().stream().anyMatch(answerPost1 -> answerPost1.doesResolvePost()));
+        // deletes the answerPost from database and persists updates on the post properties
+        postRepository.save(post);
 ```
 
 ### Convert2MethodRef
@@ -10209,6 +10209,18 @@ public class File extends java.io.File {
 ```
 
 ### NonSerializableFieldInSerializableClass
+Non-serializable field 'totalNumberOfAssessmentsTransient' in a Serializable class
+in `src/main/java/de/tum/in/www1/artemis/domain/Exercise.java`
+#### Snippet
+```java
+
+    @Transient
+    private DueDateStat totalNumberOfAssessmentsTransient;
+
+    @Transient
+```
+
+### NonSerializableFieldInSerializableClass
 Non-serializable field 'numberOfAssessmentsOfCorrectionRoundsTransient' in a Serializable class
 in `src/main/java/de/tum/in/www1/artemis/domain/Exercise.java`
 #### Snippet
@@ -10228,18 +10240,6 @@ in `src/main/java/de/tum/in/www1/artemis/domain/Exercise.java`
     // NOTE: Helpers variable names must be different from Getter name, so that Jackson ignores the @Transient annotation, but Hibernate still respects it
     @Transient
     private DueDateStat numberOfSubmissionsTransient;
-
-    @Transient
-```
-
-### NonSerializableFieldInSerializableClass
-Non-serializable field 'totalNumberOfAssessmentsTransient' in a Serializable class
-in `src/main/java/de/tum/in/www1/artemis/domain/Exercise.java`
-#### Snippet
-```java
-
-    @Transient
-    private DueDateStat totalNumberOfAssessmentsTransient;
 
     @Transient
 ```
@@ -10342,18 +10342,6 @@ in `src/main/java/de/tum/in/www1/artemis/repository/ExerciseRepository.java`
 ```
 
 ### MismatchedJavadocCode
-Method is specified to return number but the return type is list
-in `src/main/java/de/tum/in/www1/artemis/repository/ProgrammingExerciseRepository.java`
-#### Snippet
-```java
-     *
-     * @param exerciseIds the exercise ids we are interested in
-     * @return the number of distinct submissions belonging to the exercise id
-     */
-    @Query("""
-```
-
-### MismatchedJavadocCode
 Method is specified to return list but the return type is set
 in `src/main/java/de/tum/in/www1/artemis/repository/AttachmentUnitRepository.java`
 #### Snippet
@@ -10363,6 +10351,18 @@ in `src/main/java/de/tum/in/www1/artemis/repository/AttachmentUnitRepository.jav
      * @return the list of all attachment units with the given lecture id and attachment type
      * @throws EntityNotFoundException if no results are found
      */
+```
+
+### MismatchedJavadocCode
+Method is specified to return number but the return type is list
+in `src/main/java/de/tum/in/www1/artemis/repository/ProgrammingExerciseRepository.java`
+#### Snippet
+```java
+     *
+     * @param exerciseIds the exercise ids we are interested in
+     * @return the number of distinct submissions belonging to the exercise id
+     */
+    @Query("""
 ```
 
 ### MismatchedJavadocCode
@@ -10526,78 +10526,6 @@ in `src/main/java/de/tum/in/www1/artemis/service/hestia/ProgrammingExerciseTaskS
 
 ## RuleId[ruleID=OptionalUsedAsFieldOrParameterType]
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'saml2Service'
-in `src/main/java/de/tum/in/www1/artemis/web/rest/UserJWTController.java`
-#### Snippet
-```java
-    private final AuthenticationManagerBuilder authenticationManagerBuilder;
-
-    private final Optional<SAML2Service> saml2Service;
-
-    public UserJWTController(JWTCookieService jwtCookieService, AuthenticationManagerBuilder authenticationManagerBuilder, Optional<SAML2Service> saml2Service) {
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'saml2Service'
-in `src/main/java/de/tum/in/www1/artemis/web/rest/UserJWTController.java`
-#### Snippet
-```java
-    private final Optional<SAML2Service> saml2Service;
-
-    public UserJWTController(JWTCookieService jwtCookieService, AuthenticationManagerBuilder authenticationManagerBuilder, Optional<SAML2Service> saml2Service) {
-        this.jwtCookieService = jwtCookieService;
-        this.authenticationManagerBuilder = authenticationManagerBuilder;
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'atheneScheduleService'
-in `src/main/java/de/tum/in/www1/artemis/web/rest/TextSubmissionResource.java`
-#### Snippet
-```java
-    private final GradingCriterionRepository gradingCriterionRepository;
-
-    private final Optional<AtheneScheduleService> atheneScheduleService;
-
-    private final ExamSubmissionService examSubmissionService;
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'atheneTrackingTokenProvider'
-in `src/main/java/de/tum/in/www1/artemis/web/rest/TextSubmissionResource.java`
-#### Snippet
-```java
-    private final PlagiarismService plagiarismService;
-
-    private final Optional<AtheneTrackingTokenProvider> atheneTrackingTokenProvider;
-
-    public TextSubmissionResource(SubmissionRepository submissionRepository, ResultService resultService, TextSubmissionRepository textSubmissionRepository,
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'atheneScheduleService'
-in `src/main/java/de/tum/in/www1/artemis/web/rest/TextSubmissionResource.java`
-#### Snippet
-```java
-            ExerciseRepository exerciseRepository, TextExerciseRepository textExerciseRepository, AuthorizationCheckService authCheckService,
-            TextSubmissionService textSubmissionService, UserRepository userRepository, StudentParticipationRepository studentParticipationRepository,
-            GradingCriterionRepository gradingCriterionRepository, TextAssessmentService textAssessmentService, Optional<AtheneScheduleService> atheneScheduleService,
-            ExamSubmissionService examSubmissionService, PlagiarismService plagiarismService, Optional<AtheneTrackingTokenProvider> atheneTrackingTokenProvider) {
-        super(submissionRepository, resultService, authCheckService, userRepository, exerciseRepository, textSubmissionService, studentParticipationRepository);
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'atheneTrackingTokenProvider'
-in `src/main/java/de/tum/in/www1/artemis/web/rest/TextSubmissionResource.java`
-#### Snippet
-```java
-            TextSubmissionService textSubmissionService, UserRepository userRepository, StudentParticipationRepository studentParticipationRepository,
-            GradingCriterionRepository gradingCriterionRepository, TextAssessmentService textAssessmentService, Optional<AtheneScheduleService> atheneScheduleService,
-            ExamSubmissionService examSubmissionService, PlagiarismService plagiarismService, Optional<AtheneTrackingTokenProvider> atheneTrackingTokenProvider) {
-        super(submissionRepository, resultService, authCheckService, userRepository, exerciseRepository, textSubmissionService, studentParticipationRepository);
-        this.textSubmissionRepository = textSubmissionRepository;
-```
-
-### OptionalUsedAsFieldOrParameterType
 `Optional` used as type for field 'continuousIntegrationService'
 in `src/main/java/de/tum/in/www1/artemis/web/rest/ProgrammingSubmissionResource.java`
 #### Snippet
@@ -10646,15 +10574,75 @@ in `src/main/java/de/tum/in/www1/artemis/web/rest/ProgrammingSubmissionResource.
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'programmingLanguageFeatureService'
-in `src/main/java/de/tum/in/www1/artemis/web/rest/ProgrammingExerciseExportImportResource.java`
+`Optional` used as type for parameter 'saml2Service'
+in `src/main/java/de/tum/in/www1/artemis/web/rest/UserJWTController.java`
 #### Snippet
 ```java
-    private final ProgrammingExerciseExportService programmingExerciseExportService;
+    private final Optional<SAML2Service> saml2Service;
 
-    private final Optional<ProgrammingLanguageFeatureService> programmingLanguageFeatureService;
+    public UserJWTController(JWTCookieService jwtCookieService, AuthenticationManagerBuilder authenticationManagerBuilder, Optional<SAML2Service> saml2Service) {
+        this.jwtCookieService = jwtCookieService;
+        this.authenticationManagerBuilder = authenticationManagerBuilder;
+```
 
-    private final AuxiliaryRepositoryRepository auxiliaryRepositoryRepository;
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for field 'saml2Service'
+in `src/main/java/de/tum/in/www1/artemis/web/rest/UserJWTController.java`
+#### Snippet
+```java
+    private final AuthenticationManagerBuilder authenticationManagerBuilder;
+
+    private final Optional<SAML2Service> saml2Service;
+
+    public UserJWTController(JWTCookieService jwtCookieService, AuthenticationManagerBuilder authenticationManagerBuilder, Optional<SAML2Service> saml2Service) {
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'atheneScheduleService'
+in `src/main/java/de/tum/in/www1/artemis/web/rest/TextSubmissionResource.java`
+#### Snippet
+```java
+            ExerciseRepository exerciseRepository, TextExerciseRepository textExerciseRepository, AuthorizationCheckService authCheckService,
+            TextSubmissionService textSubmissionService, UserRepository userRepository, StudentParticipationRepository studentParticipationRepository,
+            GradingCriterionRepository gradingCriterionRepository, TextAssessmentService textAssessmentService, Optional<AtheneScheduleService> atheneScheduleService,
+            ExamSubmissionService examSubmissionService, PlagiarismService plagiarismService, Optional<AtheneTrackingTokenProvider> atheneTrackingTokenProvider) {
+        super(submissionRepository, resultService, authCheckService, userRepository, exerciseRepository, textSubmissionService, studentParticipationRepository);
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'atheneTrackingTokenProvider'
+in `src/main/java/de/tum/in/www1/artemis/web/rest/TextSubmissionResource.java`
+#### Snippet
+```java
+            TextSubmissionService textSubmissionService, UserRepository userRepository, StudentParticipationRepository studentParticipationRepository,
+            GradingCriterionRepository gradingCriterionRepository, TextAssessmentService textAssessmentService, Optional<AtheneScheduleService> atheneScheduleService,
+            ExamSubmissionService examSubmissionService, PlagiarismService plagiarismService, Optional<AtheneTrackingTokenProvider> atheneTrackingTokenProvider) {
+        super(submissionRepository, resultService, authCheckService, userRepository, exerciseRepository, textSubmissionService, studentParticipationRepository);
+        this.textSubmissionRepository = textSubmissionRepository;
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for field 'atheneTrackingTokenProvider'
+in `src/main/java/de/tum/in/www1/artemis/web/rest/TextSubmissionResource.java`
+#### Snippet
+```java
+    private final PlagiarismService plagiarismService;
+
+    private final Optional<AtheneTrackingTokenProvider> atheneTrackingTokenProvider;
+
+    public TextSubmissionResource(SubmissionRepository submissionRepository, ResultService resultService, TextSubmissionRepository textSubmissionRepository,
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for field 'atheneScheduleService'
+in `src/main/java/de/tum/in/www1/artemis/web/rest/TextSubmissionResource.java`
+#### Snippet
+```java
+    private final GradingCriterionRepository gradingCriterionRepository;
+
+    private final Optional<AtheneScheduleService> atheneScheduleService;
+
+    private final ExamSubmissionService examSubmissionService;
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -10670,6 +10658,18 @@ in `src/main/java/de/tum/in/www1/artemis/web/rest/ProgrammingExerciseExportImpor
 ```
 
 ### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for field 'programmingLanguageFeatureService'
+in `src/main/java/de/tum/in/www1/artemis/web/rest/ProgrammingExerciseExportImportResource.java`
+#### Snippet
+```java
+    private final ProgrammingExerciseExportService programmingExerciseExportService;
+
+    private final Optional<ProgrammingLanguageFeatureService> programmingLanguageFeatureService;
+
+    private final AuxiliaryRepositoryRepository auxiliaryRepositoryRepository;
+```
+
+### OptionalUsedAsFieldOrParameterType
 `Optional` used as type for parameter 'programmingLanguageFeatureService'
 in `src/main/java/de/tum/in/www1/artemis/web/rest/ProgrammingExerciseExportImportResource.java`
 #### Snippet
@@ -10679,6 +10679,42 @@ in `src/main/java/de/tum/in/www1/artemis/web/rest/ProgrammingExerciseExportImpor
             ProgrammingExerciseExportService programmingExerciseExportService, Optional<ProgrammingLanguageFeatureService> programmingLanguageFeatureService,
             AuxiliaryRepositoryRepository auxiliaryRepositoryRepository, SubmissionPolicyService submissionPolicyService,
             ProgrammingExerciseTaskRepository programmingExerciseTaskRepository, ExamAccessService examAccessService) {
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for field 'allowedEmailPattern'
+in `src/main/java/de/tum/in/www1/artemis/web/rest/AccountResource.java`
+#### Snippet
+```java
+
+    @Value("${artemis.user-management.registration.allowed-email-pattern:#{null}}")
+    private Optional<Pattern> allowedEmailPattern;
+
+    private final Logger log = LoggerFactory.getLogger(AccountResource.class);
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for field 'registrationEnabled'
+in `src/main/java/de/tum/in/www1/artemis/web/rest/AccountResource.java`
+#### Snippet
+```java
+
+    @Value("${artemis.user-management.registration.enabled:#{null}}")
+    private Optional<Boolean> registrationEnabled;
+
+    @Value("${artemis.user-management.registration.allowed-email-pattern:#{null}}")
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'existingGradingScale'
+in `src/main/java/de/tum/in/www1/artemis/web/rest/GradingScaleResource.java`
+#### Snippet
+```java
+    }
+
+    private void validateGradingScale(Optional<GradingScale> existingGradingScale, GradingScale gradingScale) {
+        if (existingGradingScale.isPresent()) {
+            throw new BadRequestAlertException("A grading scale already exists", ENTITY_NAME, "gradingScaleAlreadyExists");
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -10703,42 +10739,6 @@ in `src/main/java/de/tum/in/www1/artemis/web/rest/ResultResource.java`
     private final Optional<ContinuousIntegrationService> continuousIntegrationService;
 
     private final ProgrammingExerciseParticipationService programmingExerciseParticipationService;
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'registrationEnabled'
-in `src/main/java/de/tum/in/www1/artemis/web/rest/AccountResource.java`
-#### Snippet
-```java
-
-    @Value("${artemis.user-management.registration.enabled:#{null}}")
-    private Optional<Boolean> registrationEnabled;
-
-    @Value("${artemis.user-management.registration.allowed-email-pattern:#{null}}")
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'allowedEmailPattern'
-in `src/main/java/de/tum/in/www1/artemis/web/rest/AccountResource.java`
-#### Snippet
-```java
-
-    @Value("${artemis.user-management.registration.allowed-email-pattern:#{null}}")
-    private Optional<Pattern> allowedEmailPattern;
-
-    private final Logger log = LoggerFactory.getLogger(AccountResource.class);
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'existingGradingScale'
-in `src/main/java/de/tum/in/www1/artemis/web/rest/GradingScaleResource.java`
-#### Snippet
-```java
-    }
-
-    private void validateGradingScale(Optional<GradingScale> existingGradingScale, GradingScale gradingScale) {
-        if (existingGradingScale.isPresent()) {
-            throw new BadRequestAlertException("A grading scale already exists", ENTITY_NAME, "gradingScaleAlreadyExists");
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -10778,30 +10778,6 @@ in `src/main/java/de/tum/in/www1/artemis/web/rest/ComplaintResponseResource.java
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'atheneTrackingTokenProvider'
-in `src/main/java/de/tum/in/www1/artemis/web/rest/TextAssessmentResource.java`
-#### Snippet
-```java
-            TextExerciseRepository textExerciseRepository, TextSubmissionRepository textSubmissionRepository, UserRepository userRepository,
-            TextSubmissionService textSubmissionService, WebsocketMessagingService messagingService, ExerciseRepository exerciseRepository, ResultRepository resultRepository,
-            GradingCriterionRepository gradingCriterionRepository, Optional<AtheneTrackingTokenProvider> atheneTrackingTokenProvider, ExamService examService,
-            Optional<AutomaticTextAssessmentConflictService> automaticTextAssessmentConflictService, FeedbackConflictRepository feedbackConflictRepository,
-            ExampleSubmissionRepository exampleSubmissionRepository, SubmissionRepository submissionRepository, FeedbackRepository feedbackRepository,
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'automaticTextAssessmentConflictService'
-in `src/main/java/de/tum/in/www1/artemis/web/rest/TextAssessmentResource.java`
-#### Snippet
-```java
-            TextSubmissionService textSubmissionService, WebsocketMessagingService messagingService, ExerciseRepository exerciseRepository, ResultRepository resultRepository,
-            GradingCriterionRepository gradingCriterionRepository, Optional<AtheneTrackingTokenProvider> atheneTrackingTokenProvider, ExamService examService,
-            Optional<AutomaticTextAssessmentConflictService> automaticTextAssessmentConflictService, FeedbackConflictRepository feedbackConflictRepository,
-            ExampleSubmissionRepository exampleSubmissionRepository, SubmissionRepository submissionRepository, FeedbackRepository feedbackRepository,
-            SingleUserNotificationService singleUserNotificationService, ResultService resultService) {
-```
-
-### OptionalUsedAsFieldOrParameterType
 `Optional` used as type for field 'automaticTextAssessmentConflictService'
 in `src/main/java/de/tum/in/www1/artemis/web/rest/TextAssessmentResource.java`
 #### Snippet
@@ -10823,6 +10799,30 @@ in `src/main/java/de/tum/in/www1/artemis/web/rest/TextAssessmentResource.java`
     private final Optional<AtheneTrackingTokenProvider> atheneTrackingTokenProvider;
 
     private final Optional<AutomaticTextAssessmentConflictService> automaticTextAssessmentConflictService;
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'atheneTrackingTokenProvider'
+in `src/main/java/de/tum/in/www1/artemis/web/rest/TextAssessmentResource.java`
+#### Snippet
+```java
+            TextExerciseRepository textExerciseRepository, TextSubmissionRepository textSubmissionRepository, UserRepository userRepository,
+            TextSubmissionService textSubmissionService, WebsocketMessagingService messagingService, ExerciseRepository exerciseRepository, ResultRepository resultRepository,
+            GradingCriterionRepository gradingCriterionRepository, Optional<AtheneTrackingTokenProvider> atheneTrackingTokenProvider, ExamService examService,
+            Optional<AutomaticTextAssessmentConflictService> automaticTextAssessmentConflictService, FeedbackConflictRepository feedbackConflictRepository,
+            ExampleSubmissionRepository exampleSubmissionRepository, SubmissionRepository submissionRepository, FeedbackRepository feedbackRepository,
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'automaticTextAssessmentConflictService'
+in `src/main/java/de/tum/in/www1/artemis/web/rest/TextAssessmentResource.java`
+#### Snippet
+```java
+            TextSubmissionService textSubmissionService, WebsocketMessagingService messagingService, ExerciseRepository exerciseRepository, ResultRepository resultRepository,
+            GradingCriterionRepository gradingCriterionRepository, Optional<AtheneTrackingTokenProvider> atheneTrackingTokenProvider, ExamService examService,
+            Optional<AutomaticTextAssessmentConflictService> automaticTextAssessmentConflictService, FeedbackConflictRepository feedbackConflictRepository,
+            ExampleSubmissionRepository exampleSubmissionRepository, SubmissionRepository submissionRepository, FeedbackRepository feedbackRepository,
+            SingleUserNotificationService singleUserNotificationService, ResultService resultService) {
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -10862,135 +10862,39 @@ in `src/main/java/de/tum/in/www1/artemis/web/rest/FileResource.java`
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'optionalVcsUserManagementService'
-in `src/main/java/de/tum/in/www1/artemis/web/rest/CourseResource.java`
-#### Snippet
-```java
-    public CourseResource(UserRepository userRepository, CourseService courseService, CourseRepository courseRepository, ExerciseService exerciseService,
-            OAuth2JWKSService oAuth2JWKSService, OnlineCourseConfigurationService onlineCourseConfigurationService, AuthorizationCheckService authCheckService,
-            TutorParticipationRepository tutorParticipationRepository, SubmissionService submissionService, Optional<VcsUserManagementService> optionalVcsUserManagementService,
-            AssessmentDashboardService assessmentDashboardService, ExerciseRepository exerciseRepository, Optional<CIUserManagementService> optionalCiUserManagementService,
-            FileService fileService, TutorialGroupsConfigurationService tutorialGroupsConfigurationService) {
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'optionalCiUserManagementService'
-in `src/main/java/de/tum/in/www1/artemis/web/rest/CourseResource.java`
-#### Snippet
-```java
-            OAuth2JWKSService oAuth2JWKSService, OnlineCourseConfigurationService onlineCourseConfigurationService, AuthorizationCheckService authCheckService,
-            TutorParticipationRepository tutorParticipationRepository, SubmissionService submissionService, Optional<VcsUserManagementService> optionalVcsUserManagementService,
-            AssessmentDashboardService assessmentDashboardService, ExerciseRepository exerciseRepository, Optional<CIUserManagementService> optionalCiUserManagementService,
-            FileService fileService, TutorialGroupsConfigurationService tutorialGroupsConfigurationService) {
-        this.courseService = courseService;
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'optionalVcsUserManagementService'
-in `src/main/java/de/tum/in/www1/artemis/web/rest/CourseResource.java`
-#### Snippet
-```java
-    private final AssessmentDashboardService assessmentDashboardService;
-
-    private final Optional<VcsUserManagementService> optionalVcsUserManagementService;
-
-    private final Optional<CIUserManagementService> optionalCiUserManagementService;
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'allowedCourseRegistrationUsernamePattern'
-in `src/main/java/de/tum/in/www1/artemis/web/rest/CourseResource.java`
-#### Snippet
-```java
-
-    @Value("${artemis.user-management.course-registration.allowed-username-pattern:#{null}}")
-    private Optional<Pattern> allowedCourseRegistrationUsernamePattern;
-
-    @Value("${artemis.course-archives-path}")
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'optionalCiUserManagementService'
-in `src/main/java/de/tum/in/www1/artemis/web/rest/CourseResource.java`
-#### Snippet
-```java
-    private final Optional<VcsUserManagementService> optionalVcsUserManagementService;
-
-    private final Optional<CIUserManagementService> optionalCiUserManagementService;
-
-    private final ExerciseRepository exerciseRepository;
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'ldapUserService'
-in `src/main/java/de/tum/in/www1/artemis/web/rest/admin/AdminUserResource.java`
-#### Snippet
-```java
-    private final AuthorityRepository authorityRepository;
-
-    private final Optional<LdapUserService> ldapUserService;
-
-    public AdminUserResource(UserRepository userRepository, UserService userService, UserCreationService userCreationService,
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'ldapUserService'
-in `src/main/java/de/tum/in/www1/artemis/web/rest/admin/AdminUserResource.java`
-#### Snippet
-```java
-
-    public AdminUserResource(UserRepository userRepository, UserService userService, UserCreationService userCreationService,
-            ArtemisAuthenticationProvider artemisAuthenticationProvider, AuthorityRepository authorityRepository, Optional<LdapUserService> ldapUserService) {
-        this.userRepository = userRepository;
-        this.userService = userService;
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'continuousIntegrationService'
-in `src/main/java/de/tum/in/www1/artemis/web/rest/ParticipationResource.java`
-#### Snippet
-```java
-            CourseRepository courseRepository, QuizExerciseRepository quizExerciseRepository, ExerciseRepository exerciseRepository,
-            ProgrammingExerciseRepository programmingExerciseRepository, AuthorizationCheckService authCheckService,
-            Optional<ContinuousIntegrationService> continuousIntegrationService, UserRepository userRepository, StudentParticipationRepository studentParticipationRepository,
-            AuditEventRepository auditEventRepository, GuidedTourConfiguration guidedTourConfiguration, TeamRepository teamRepository, FeatureToggleService featureToggleService,
-            ProgrammingExerciseStudentParticipationRepository programmingExerciseStudentParticipationRepository, SubmissionRepository submissionRepository,
-```
-
-### OptionalUsedAsFieldOrParameterType
 `Optional` used as type for field 'continuousIntegrationService'
-in `src/main/java/de/tum/in/www1/artemis/web/rest/ParticipationResource.java`
+in `src/main/java/de/tum/in/www1/artemis/web/rest/ProgrammingExerciseResource.java`
 #### Snippet
 ```java
     private final AuthorizationCheckService authCheckService;
 
     private final Optional<ContinuousIntegrationService> continuousIntegrationService;
 
-    private final UserRepository userRepository;
+    private final Optional<VersionControlService> versionControlService;
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'courseId'
-in `src/main/java/de/tum/in/www1/artemis/web/rest/metis/conversation/ConversationResource.java`
+`Optional` used as type for field 'programmingLanguageFeatureService'
+in `src/main/java/de/tum/in/www1/artemis/web/rest/ProgrammingExerciseResource.java`
 #### Snippet
 ```java
-    }
+    private final GradingCriterionRepository gradingCriterionRepository;
 
-    private void checkEntityIdMatchesPathIds(Conversation conversation, Optional<Long> courseId, Optional<Long> conversationId) {
-        courseId.ifPresent(courseIdValue -> {
-            if (!conversation.getCourse().getId().equals(courseIdValue)) {
+    private final Optional<ProgrammingLanguageFeatureService> programmingLanguageFeatureService;
+
+    private final CourseRepository courseRepository;
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'conversationId'
-in `src/main/java/de/tum/in/www1/artemis/web/rest/metis/conversation/ConversationResource.java`
+`Optional` used as type for field 'versionControlService'
+in `src/main/java/de/tum/in/www1/artemis/web/rest/ProgrammingExerciseResource.java`
 #### Snippet
 ```java
-    }
+    private final Optional<ContinuousIntegrationService> continuousIntegrationService;
 
-    private void checkEntityIdMatchesPathIds(Conversation conversation, Optional<Long> courseId, Optional<Long> conversationId) {
-        courseId.ifPresent(courseIdValue -> {
-            if (!conversation.getCourse().getId().equals(courseIdValue)) {
+    private final Optional<VersionControlService> versionControlService;
+
+    private final ExerciseService exerciseService;
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -11030,39 +10934,111 @@ in `src/main/java/de/tum/in/www1/artemis/web/rest/ProgrammingExerciseResource.ja
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'continuousIntegrationService'
-in `src/main/java/de/tum/in/www1/artemis/web/rest/ProgrammingExerciseResource.java`
+`Optional` used as type for parameter 'optionalVcsUserManagementService'
+in `src/main/java/de/tum/in/www1/artemis/web/rest/CourseResource.java`
 #### Snippet
 ```java
-    private final AuthorizationCheckService authCheckService;
-
-    private final Optional<ContinuousIntegrationService> continuousIntegrationService;
-
-    private final Optional<VersionControlService> versionControlService;
+    public CourseResource(UserRepository userRepository, CourseService courseService, CourseRepository courseRepository, ExerciseService exerciseService,
+            OAuth2JWKSService oAuth2JWKSService, OnlineCourseConfigurationService onlineCourseConfigurationService, AuthorizationCheckService authCheckService,
+            TutorParticipationRepository tutorParticipationRepository, SubmissionService submissionService, Optional<VcsUserManagementService> optionalVcsUserManagementService,
+            AssessmentDashboardService assessmentDashboardService, ExerciseRepository exerciseRepository, Optional<CIUserManagementService> optionalCiUserManagementService,
+            FileService fileService, TutorialGroupsConfigurationService tutorialGroupsConfigurationService) {
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'versionControlService'
-in `src/main/java/de/tum/in/www1/artemis/web/rest/ProgrammingExerciseResource.java`
+`Optional` used as type for parameter 'optionalCiUserManagementService'
+in `src/main/java/de/tum/in/www1/artemis/web/rest/CourseResource.java`
 #### Snippet
 ```java
-    private final Optional<ContinuousIntegrationService> continuousIntegrationService;
-
-    private final Optional<VersionControlService> versionControlService;
-
-    private final ExerciseService exerciseService;
+            OAuth2JWKSService oAuth2JWKSService, OnlineCourseConfigurationService onlineCourseConfigurationService, AuthorizationCheckService authCheckService,
+            TutorParticipationRepository tutorParticipationRepository, SubmissionService submissionService, Optional<VcsUserManagementService> optionalVcsUserManagementService,
+            AssessmentDashboardService assessmentDashboardService, ExerciseRepository exerciseRepository, Optional<CIUserManagementService> optionalCiUserManagementService,
+            FileService fileService, TutorialGroupsConfigurationService tutorialGroupsConfigurationService) {
+        this.courseService = courseService;
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'programmingLanguageFeatureService'
-in `src/main/java/de/tum/in/www1/artemis/web/rest/ProgrammingExerciseResource.java`
+`Optional` used as type for field 'optionalVcsUserManagementService'
+in `src/main/java/de/tum/in/www1/artemis/web/rest/CourseResource.java`
 #### Snippet
 ```java
-    private final GradingCriterionRepository gradingCriterionRepository;
+    private final AssessmentDashboardService assessmentDashboardService;
 
-    private final Optional<ProgrammingLanguageFeatureService> programmingLanguageFeatureService;
+    private final Optional<VcsUserManagementService> optionalVcsUserManagementService;
 
-    private final CourseRepository courseRepository;
+    private final Optional<CIUserManagementService> optionalCiUserManagementService;
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for field 'optionalCiUserManagementService'
+in `src/main/java/de/tum/in/www1/artemis/web/rest/CourseResource.java`
+#### Snippet
+```java
+    private final Optional<VcsUserManagementService> optionalVcsUserManagementService;
+
+    private final Optional<CIUserManagementService> optionalCiUserManagementService;
+
+    private final ExerciseRepository exerciseRepository;
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for field 'allowedCourseRegistrationUsernamePattern'
+in `src/main/java/de/tum/in/www1/artemis/web/rest/CourseResource.java`
+#### Snippet
+```java
+
+    @Value("${artemis.user-management.course-registration.allowed-username-pattern:#{null}}")
+    private Optional<Pattern> allowedCourseRegistrationUsernamePattern;
+
+    @Value("${artemis.course-archives-path}")
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for field 'ldapUserService'
+in `src/main/java/de/tum/in/www1/artemis/web/rest/admin/AdminUserResource.java`
+#### Snippet
+```java
+    private final AuthorityRepository authorityRepository;
+
+    private final Optional<LdapUserService> ldapUserService;
+
+    public AdminUserResource(UserRepository userRepository, UserService userService, UserCreationService userCreationService,
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'ldapUserService'
+in `src/main/java/de/tum/in/www1/artemis/web/rest/admin/AdminUserResource.java`
+#### Snippet
+```java
+
+    public AdminUserResource(UserRepository userRepository, UserService userService, UserCreationService userCreationService,
+            ArtemisAuthenticationProvider artemisAuthenticationProvider, AuthorityRepository authorityRepository, Optional<LdapUserService> ldapUserService) {
+        this.userRepository = userRepository;
+        this.userService = userService;
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'courseId'
+in `src/main/java/de/tum/in/www1/artemis/web/rest/metis/conversation/ConversationResource.java`
+#### Snippet
+```java
+    }
+
+    private void checkEntityIdMatchesPathIds(Conversation conversation, Optional<Long> courseId, Optional<Long> conversationId) {
+        courseId.ifPresent(courseIdValue -> {
+            if (!conversation.getCourse().getId().equals(courseIdValue)) {
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'conversationId'
+in `src/main/java/de/tum/in/www1/artemis/web/rest/metis/conversation/ConversationResource.java`
+#### Snippet
+```java
+    }
+
+    private void checkEntityIdMatchesPathIds(Conversation conversation, Optional<Long> courseId, Optional<Long> conversationId) {
+        courseId.ifPresent(courseIdValue -> {
+            if (!conversation.getCourse().getId().equals(courseIdValue)) {
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -11087,6 +11063,30 @@ in `src/main/java/de/tum/in/www1/artemis/web/rest/metis/conversation/GroupChatRe
     private void checkEntityIdMatchesPathIds(GroupChat groupChat, Optional<Long> courseId, Optional<Long> conversationId) {
         courseId.ifPresent(courseIdValue -> {
             if (!groupChat.getCourse().getId().equals(courseIdValue)) {
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for field 'continuousIntegrationService'
+in `src/main/java/de/tum/in/www1/artemis/web/rest/ParticipationResource.java`
+#### Snippet
+```java
+    private final AuthorizationCheckService authCheckService;
+
+    private final Optional<ContinuousIntegrationService> continuousIntegrationService;
+
+    private final UserRepository userRepository;
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'continuousIntegrationService'
+in `src/main/java/de/tum/in/www1/artemis/web/rest/ParticipationResource.java`
+#### Snippet
+```java
+            CourseRepository courseRepository, QuizExerciseRepository quizExerciseRepository, ExerciseRepository exerciseRepository,
+            ProgrammingExerciseRepository programmingExerciseRepository, AuthorizationCheckService authCheckService,
+            Optional<ContinuousIntegrationService> continuousIntegrationService, UserRepository userRepository, StudentParticipationRepository studentParticipationRepository,
+            AuditEventRepository auditEventRepository, GuidedTourConfiguration guidedTourConfiguration, TeamRepository teamRepository, FeatureToggleService featureToggleService,
+            ProgrammingExerciseStudentParticipationRepository programmingExerciseStudentParticipationRepository, SubmissionRepository submissionRepository,
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -11138,39 +11138,15 @@ in `src/main/java/de/tum/in/www1/artemis/web/rest/tutorialgroups/TutorialGroupsC
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'courseId'
-in `src/main/java/de/tum/in/www1/artemis/web/rest/tutorialgroups/TutorialGroupSessionResource.java`
+`Optional` used as type for field 'versionControlService'
+in `src/main/java/de/tum/in/www1/artemis/web/rest/repository/RepositoryResource.java`
 #### Snippet
 ```java
-    }
+    protected final ProgrammingExerciseRepository programmingExerciseRepository;
 
-    private void checkEntityIdMatchesPathIds(TutorialGroupSession tutorialGroupSession, Optional<Long> courseId, Optional<Long> tutorialGroupId, Optional<Long> sessionId) {
-        sessionId.ifPresent(sessionIdValue -> {
-            if (!tutorialGroupSession.getId().equals(sessionIdValue)) {
-```
+    protected final Optional<VersionControlService> versionControlService;
 
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'tutorialGroupId'
-in `src/main/java/de/tum/in/www1/artemis/web/rest/tutorialgroups/TutorialGroupSessionResource.java`
-#### Snippet
-```java
-    }
-
-    private void checkEntityIdMatchesPathIds(TutorialGroupSession tutorialGroupSession, Optional<Long> courseId, Optional<Long> tutorialGroupId, Optional<Long> sessionId) {
-        sessionId.ifPresent(sessionIdValue -> {
-            if (!tutorialGroupSession.getId().equals(sessionIdValue)) {
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'sessionId'
-in `src/main/java/de/tum/in/www1/artemis/web/rest/tutorialgroups/TutorialGroupSessionResource.java`
-#### Snippet
-```java
-    }
-
-    private void checkEntityIdMatchesPathIds(TutorialGroupSession tutorialGroupSession, Optional<Long> courseId, Optional<Long> tutorialGroupId, Optional<Long> sessionId) {
-        sessionId.ifPresent(sessionIdValue -> {
-            if (!tutorialGroupSession.getId().equals(sessionIdValue)) {
+    public RepositoryResource(UserRepository userRepository, AuthorizationCheckService authCheckService, GitService gitService,
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -11210,15 +11186,15 @@ in `src/main/java/de/tum/in/www1/artemis/web/rest/repository/RepositoryResource.
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'versionControlService'
-in `src/main/java/de/tum/in/www1/artemis/web/rest/repository/RepositoryResource.java`
+`Optional` used as type for parameter 'continuousIntegrationService'
+in `src/main/java/de/tum/in/www1/artemis/web/rest/repository/TestRepositoryResource.java`
 #### Snippet
 ```java
-    protected final ProgrammingExerciseRepository programmingExerciseRepository;
 
-    protected final Optional<VersionControlService> versionControlService;
-
-    public RepositoryResource(UserRepository userRepository, AuthorizationCheckService authCheckService, GitService gitService,
+    public TestRepositoryResource(UserRepository userRepository, AuthorizationCheckService authCheckService, GitService gitService,
+            Optional<ContinuousIntegrationService> continuousIntegrationService, RepositoryService repositoryService, Optional<VersionControlService> versionControlService,
+            ProgrammingExerciseRepository programmingExerciseRepository) {
+        super(userRepository, authCheckService, gitService, continuousIntegrationService, repositoryService, versionControlService, programmingExerciseRepository);
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -11246,7 +11222,7 @@ in `src/main/java/de/tum/in/www1/artemis/web/rest/tutorialgroups/TutorialGroupFr
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'continuousIntegrationService'
+`Optional` used as type for parameter 'versionControlService'
 in `src/main/java/de/tum/in/www1/artemis/web/rest/repository/TestRepositoryResource.java`
 #### Snippet
 ```java
@@ -11258,15 +11234,39 @@ in `src/main/java/de/tum/in/www1/artemis/web/rest/repository/TestRepositoryResou
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'versionControlService'
-in `src/main/java/de/tum/in/www1/artemis/web/rest/repository/TestRepositoryResource.java`
+`Optional` used as type for parameter 'courseId'
+in `src/main/java/de/tum/in/www1/artemis/web/rest/tutorialgroups/TutorialGroupSessionResource.java`
 #### Snippet
 ```java
+    }
 
-    public TestRepositoryResource(UserRepository userRepository, AuthorizationCheckService authCheckService, GitService gitService,
-            Optional<ContinuousIntegrationService> continuousIntegrationService, RepositoryService repositoryService, Optional<VersionControlService> versionControlService,
-            ProgrammingExerciseRepository programmingExerciseRepository) {
-        super(userRepository, authCheckService, gitService, continuousIntegrationService, repositoryService, versionControlService, programmingExerciseRepository);
+    private void checkEntityIdMatchesPathIds(TutorialGroupSession tutorialGroupSession, Optional<Long> courseId, Optional<Long> tutorialGroupId, Optional<Long> sessionId) {
+        sessionId.ifPresent(sessionIdValue -> {
+            if (!tutorialGroupSession.getId().equals(sessionIdValue)) {
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'tutorialGroupId'
+in `src/main/java/de/tum/in/www1/artemis/web/rest/tutorialgroups/TutorialGroupSessionResource.java`
+#### Snippet
+```java
+    }
+
+    private void checkEntityIdMatchesPathIds(TutorialGroupSession tutorialGroupSession, Optional<Long> courseId, Optional<Long> tutorialGroupId, Optional<Long> sessionId) {
+        sessionId.ifPresent(sessionIdValue -> {
+            if (!tutorialGroupSession.getId().equals(sessionIdValue)) {
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'sessionId'
+in `src/main/java/de/tum/in/www1/artemis/web/rest/tutorialgroups/TutorialGroupSessionResource.java`
+#### Snippet
+```java
+    }
+
+    private void checkEntityIdMatchesPathIds(TutorialGroupSession tutorialGroupSession, Optional<Long> courseId, Optional<Long> tutorialGroupId, Optional<Long> sessionId) {
+        sessionId.ifPresent(sessionIdValue -> {
+            if (!tutorialGroupSession.getId().equals(sessionIdValue)) {
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -11282,18 +11282,6 @@ in `src/main/java/de/tum/in/www1/artemis/config/MetricsBean.java`
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'resultId'
-in `src/main/java/de/tum/in/www1/artemis/web/rest/repository/RepositoryProgrammingExerciseParticipationResource.java`
-#### Snippet
-```java
-     */
-    @GetMapping(value = "/repository/{participationId}/buildlogs", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<BuildLogEntry>> getBuildLogs(@PathVariable Long participationId, @RequestParam(name = "resultId") Optional<Long> resultId) {
-        log.debug("REST request to get build log : {}", participationId);
-
-```
-
-### OptionalUsedAsFieldOrParameterType
 `Optional` used as type for parameter 'continuousIntegrationService'
 in `src/main/java/de/tum/in/www1/artemis/web/rest/repository/RepositoryProgrammingExerciseParticipationResource.java`
 #### Snippet
@@ -11315,6 +11303,42 @@ in `src/main/java/de/tum/in/www1/artemis/web/rest/repository/RepositoryProgrammi
             Optional<ContinuousIntegrationService> continuousIntegrationService, Optional<VersionControlService> versionControlService, RepositoryService repositoryService,
             ProgrammingExerciseParticipationService participationService, ProgrammingExerciseRepository programmingExerciseRepository,
             ParticipationRepository participationRepository, ExamSubmissionService examSubmissionService, BuildLogEntryService buildLogService,
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'resultId'
+in `src/main/java/de/tum/in/www1/artemis/web/rest/repository/RepositoryProgrammingExerciseParticipationResource.java`
+#### Snippet
+```java
+     */
+    @GetMapping(value = "/repository/{participationId}/buildlogs", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<BuildLogEntry>> getBuildLogs(@PathVariable Long participationId, @RequestParam(name = "resultId") Optional<Long> resultId) {
+        log.debug("REST request to get build log : {}", participationId);
+
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'courseId'
+in `src/main/java/de/tum/in/www1/artemis/web/rest/tutorialgroups/TutorialGroupResource.java`
+#### Snippet
+```java
+    }
+
+    private void checkEntityIdMatchesPathIds(TutorialGroup tutorialGroup, Optional<Long> courseId, Optional<Long> tutorialGroupId) {
+        courseId.ifPresent(courseIdValue -> {
+            if (!tutorialGroup.getCourse().getId().equals(courseIdValue)) {
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'tutorialGroupId'
+in `src/main/java/de/tum/in/www1/artemis/web/rest/tutorialgroups/TutorialGroupResource.java`
+#### Snippet
+```java
+    }
+
+    private void checkEntityIdMatchesPathIds(TutorialGroup tutorialGroup, Optional<Long> courseId, Optional<Long> tutorialGroupId) {
+        courseId.ifPresent(courseIdValue -> {
+            if (!tutorialGroup.getCourse().getId().equals(courseIdValue)) {
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -11351,30 +11375,6 @@ in `src/main/java/de/tum/in/www1/artemis/config/SecurityConfiguration.java`
     private Optional<String> monitoringIpAddress;
 
     public SecurityConfiguration(AuthenticationManagerBuilder authenticationManagerBuilder, UserDetailsService userDetailsService, TokenProvider tokenProvider,
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'courseId'
-in `src/main/java/de/tum/in/www1/artemis/web/rest/tutorialgroups/TutorialGroupResource.java`
-#### Snippet
-```java
-    }
-
-    private void checkEntityIdMatchesPathIds(TutorialGroup tutorialGroup, Optional<Long> courseId, Optional<Long> tutorialGroupId) {
-        courseId.ifPresent(courseIdValue -> {
-            if (!tutorialGroup.getCourse().getId().equals(courseIdValue)) {
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'tutorialGroupId'
-in `src/main/java/de/tum/in/www1/artemis/web/rest/tutorialgroups/TutorialGroupResource.java`
-#### Snippet
-```java
-    }
-
-    private void checkEntityIdMatchesPathIds(TutorialGroup tutorialGroup, Optional<Long> courseId, Optional<Long> tutorialGroupId) {
-        courseId.ifPresent(courseIdValue -> {
-            if (!tutorialGroup.getCourse().getId().equals(courseIdValue)) {
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -11426,18 +11426,6 @@ in `src/main/java/de/tum/in/www1/artemis/service/ResourceLoaderService.java`
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'continuousIntegrationService'
-in `src/main/java/de/tum/in/www1/artemis/service/ConsistencyCheckService.java`
-#### Snippet
-```java
-    private final Optional<VersionControlService> versionControlService;
-
-    private final Optional<ContinuousIntegrationService> continuousIntegrationService;
-
-    private final ProgrammingExerciseRepository programmingExerciseRepository;
-```
-
-### OptionalUsedAsFieldOrParameterType
 `Optional` used as type for parameter 'versionControlService'
 in `src/main/java/de/tum/in/www1/artemis/service/ConsistencyCheckService.java`
 #### Snippet
@@ -11462,6 +11450,18 @@ in `src/main/java/de/tum/in/www1/artemis/service/ConsistencyCheckService.java`
 ```
 
 ### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for field 'continuousIntegrationService'
+in `src/main/java/de/tum/in/www1/artemis/service/ConsistencyCheckService.java`
+#### Snippet
+```java
+    private final Optional<VersionControlService> versionControlService;
+
+    private final Optional<ContinuousIntegrationService> continuousIntegrationService;
+
+    private final ProgrammingExerciseRepository programmingExerciseRepository;
+```
+
+### OptionalUsedAsFieldOrParameterType
 `Optional` used as type for field 'versionControlService'
 in `src/main/java/de/tum/in/www1/artemis/service/ConsistencyCheckService.java`
 #### Snippet
@@ -11471,18 +11471,6 @@ public class ConsistencyCheckService {
     private final Optional<VersionControlService> versionControlService;
 
     private final Optional<ContinuousIntegrationService> continuousIntegrationService;
-```
-
-### OptionalUsedAsFieldOrParameterType
-`OptionalLong` used as type for parameter 'examId'
-in `src/main/java/de/tum/in/www1/artemis/service/ComplaintService.java`
-#### Snippet
-```java
-     * @return the saved complaint
-     */
-    public Complaint createComplaint(Complaint complaint, OptionalLong examId, Principal principal) {
-        Result originalResult = resultRepository.findByIdWithEagerFeedbacksAndAssessor(complaint.getResult().getId())
-                .orElseThrow(() -> new BadRequestAlertException("The result you are referring to does not exist", ENTITY_NAME, "resultnotfound"));
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -11510,15 +11498,15 @@ in `src/main/java/de/tum/in/www1/artemis/service/TeamService.java`
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'automaticTextFeedbackService'
-in `src/main/java/de/tum/in/www1/artemis/service/TextAssessmentService.java`
+`OptionalLong` used as type for parameter 'examId'
+in `src/main/java/de/tum/in/www1/artemis/service/ComplaintService.java`
 #### Snippet
 ```java
-    public TextAssessmentService(UserRepository userRepository, ComplaintResponseService complaintResponseService, ComplaintRepository complaintRepository,
-            FeedbackRepository feedbackRepository, ResultRepository resultRepository, StudentParticipationRepository studentParticipationRepository, ResultService resultService,
-            SubmissionRepository submissionRepository, TextBlockService textBlockService, Optional<AutomaticTextFeedbackService> automaticTextFeedbackService,
-            ExamDateService examDateService, FeedbackConflictRepository feedbackConflictRepository, GradingCriterionRepository gradingCriterionRepository,
-            SubmissionService submissionService, LtiNewResultService ltiNewResultService) {
+     * @return the saved complaint
+     */
+    public Complaint createComplaint(Complaint complaint, OptionalLong examId, Principal principal) {
+        Result originalResult = resultRepository.findByIdWithEagerFeedbacksAndAssessor(complaint.getResult().getId())
+                .orElseThrow(() -> new BadRequestAlertException("The result you are referring to does not exist", ENTITY_NAME, "resultnotfound"));
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -11534,6 +11522,18 @@ in `src/main/java/de/tum/in/www1/artemis/service/TextAssessmentService.java`
 ```
 
 ### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'automaticTextFeedbackService'
+in `src/main/java/de/tum/in/www1/artemis/service/TextAssessmentService.java`
+#### Snippet
+```java
+    public TextAssessmentService(UserRepository userRepository, ComplaintResponseService complaintResponseService, ComplaintRepository complaintRepository,
+            FeedbackRepository feedbackRepository, ResultRepository resultRepository, StudentParticipationRepository studentParticipationRepository, ResultService resultService,
+            SubmissionRepository submissionRepository, TextBlockService textBlockService, Optional<AutomaticTextFeedbackService> automaticTextFeedbackService,
+            ExamDateService examDateService, FeedbackConflictRepository feedbackConflictRepository, GradingCriterionRepository gradingCriterionRepository,
+            SubmissionService submissionService, LtiNewResultService ltiNewResultService) {
+```
+
+### OptionalUsedAsFieldOrParameterType
 `Optional` used as type for parameter 'exercise'
 in `src/main/java/de/tum/in/www1/artemis/service/AuthorizationCheckService.java`
 #### Snippet
@@ -11543,42 +11543,6 @@ in `src/main/java/de/tum/in/www1/artemis/service/AuthorizationCheckService.java`
     public <T extends Exercise> boolean isAtLeastTeachingAssistantForExercise(Optional<T> exercise) {
         return exercise.filter(this::isAtLeastTeachingAssistantForExercise).isPresent();
     }
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'textAssessmentQueueService'
-in `src/main/java/de/tum/in/www1/artemis/service/TextSubmissionService.java`
-#### Snippet
-```java
-    private final TextSubmissionRepository textSubmissionRepository;
-
-    private final Optional<TextAssessmentQueueService> textAssessmentQueueService;
-
-    private final SubmissionVersionService submissionVersionService;
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'textAssessmentQueueService'
-in `src/main/java/de/tum/in/www1/artemis/service/TextSubmissionService.java`
-#### Snippet
-```java
-    public TextSubmissionService(TextSubmissionRepository textSubmissionRepository, SubmissionRepository submissionRepository,
-            StudentParticipationRepository studentParticipationRepository, ParticipationService participationService, ResultRepository resultRepository,
-            UserRepository userRepository, Optional<TextAssessmentQueueService> textAssessmentQueueService, AuthorizationCheckService authCheckService,
-            SubmissionVersionService submissionVersionService, FeedbackRepository feedbackRepository, ExamDateService examDateService, ExerciseDateService exerciseDateService,
-            CourseRepository courseRepository, ParticipationRepository participationRepository, ComplaintRepository complaintRepository) {
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'optionalGradedStudentParticipation'
-in `src/main/java/de/tum/in/www1/artemis/service/ParticipationService.java`
-#### Snippet
-```java
-     * @return the participation connecting the given exercise and user
-     */
-    public StudentParticipation startPracticeMode(Exercise exercise, Participant participant, Optional<StudentParticipation> optionalGradedStudentParticipation,
-            boolean useGradedParticipation) {
-        if (!(exercise instanceof ProgrammingExercise programmingExercise)) {
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -11618,6 +11582,18 @@ in `src/main/java/de/tum/in/www1/artemis/service/ParticipationService.java`
 ```
 
 ### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'optionalGradedStudentParticipation'
+in `src/main/java/de/tum/in/www1/artemis/service/ParticipationService.java`
+#### Snippet
+```java
+     * @return the participation connecting the given exercise and user
+     */
+    public StudentParticipation startPracticeMode(Exercise exercise, Participant participant, Optional<StudentParticipation> optionalGradedStudentParticipation,
+            boolean useGradedParticipation) {
+        if (!(exercise instanceof ProgrammingExercise programmingExercise)) {
+```
+
+### OptionalUsedAsFieldOrParameterType
 `Optional` used as type for field 'versionControlService'
 in `src/main/java/de/tum/in/www1/artemis/service/ParticipationService.java`
 #### Snippet
@@ -11642,15 +11618,27 @@ in `src/main/java/de/tum/in/www1/artemis/service/ParticipationService.java`
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'adminGroupName'
-in `src/main/java/de/tum/in/www1/artemis/service/user/AuthorityService.java`
+`Optional` used as type for field 'textAssessmentQueueService'
+in `src/main/java/de/tum/in/www1/artemis/service/TextSubmissionService.java`
 #### Snippet
 ```java
+    private final TextSubmissionRepository textSubmissionRepository;
 
-    @Value("${artemis.user-management.external.admin-group-name:#{null}}")
-    private Optional<String> adminGroupName;
+    private final Optional<TextAssessmentQueueService> textAssessmentQueueService;
 
-    private final CourseRepository courseRepository;
+    private final SubmissionVersionService submissionVersionService;
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'textAssessmentQueueService'
+in `src/main/java/de/tum/in/www1/artemis/service/TextSubmissionService.java`
+#### Snippet
+```java
+    public TextSubmissionService(TextSubmissionRepository textSubmissionRepository, SubmissionRepository submissionRepository,
+            StudentParticipationRepository studentParticipationRepository, ParticipationService participationService, ResultRepository resultRepository,
+            UserRepository userRepository, Optional<TextAssessmentQueueService> textAssessmentQueueService, AuthorizationCheckService authCheckService,
+            SubmissionVersionService submissionVersionService, FeedbackRepository feedbackRepository, ExamDateService examDateService, ExerciseDateService exerciseDateService,
+            CourseRepository courseRepository, ParticipationRepository participationRepository, ComplaintRepository complaintRepository) {
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -11666,39 +11654,15 @@ in `src/main/java/de/tum/in/www1/artemis/service/ldap/LdapUserService.java`
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'allowedLdapUsernamePattern'
-in `src/main/java/de/tum/in/www1/artemis/service/user/UserManagementInfoContributor.java`
+`Optional` used as type for field 'adminGroupName'
+in `src/main/java/de/tum/in/www1/artemis/service/user/AuthorityService.java`
 #### Snippet
 ```java
 
-    @Value("${artemis.user-management.ldap.allowed-username-pattern:#{null}}")
-    private Optional<Pattern> allowedLdapUsernamePattern;
+    @Value("${artemis.user-management.external.admin-group-name:#{null}}")
+    private Optional<String> adminGroupName;
 
-    @Value("${artemis.user-management.course-registration.allowed-username-pattern:#{null}}")
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'registrationEnabled'
-in `src/main/java/de/tum/in/www1/artemis/service/user/UserManagementInfoContributor.java`
-#### Snippet
-```java
-
-    @Value("${artemis.user-management.registration.enabled:#{null}}")
-    private Optional<Boolean> registrationEnabled;
-
-    @Value("${artemis.user-management.registration.allowed-email-pattern:#{null}}")
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'allowedEmailPattern'
-in `src/main/java/de/tum/in/www1/artemis/service/user/UserManagementInfoContributor.java`
-#### Snippet
-```java
-
-    @Value("${artemis.user-management.registration.allowed-email-pattern:#{null}}")
-    private Optional<Pattern> allowedEmailPattern;
-
-    @Value("${artemis.user-management.registration.allowed-email-pattern-readable:#{null}}")
+    private final CourseRepository courseRepository;
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -11726,15 +11690,15 @@ in `src/main/java/de/tum/in/www1/artemis/service/user/UserManagementInfoContribu
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'allowedCourseRegistrationUsernamePattern'
+`Optional` used as type for field 'registrationEnabled'
 in `src/main/java/de/tum/in/www1/artemis/service/user/UserManagementInfoContributor.java`
 #### Snippet
 ```java
 
-    @Value("${artemis.user-management.course-registration.allowed-username-pattern:#{null}}")
-    private Optional<Pattern> allowedCourseRegistrationUsernamePattern;
+    @Value("${artemis.user-management.registration.enabled:#{null}}")
+    private Optional<Boolean> registrationEnabled;
 
-    @Value("${artemis.user-management.login.account-name:#{null}}")
+    @Value("${artemis.user-management.registration.allowed-email-pattern:#{null}}")
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -11750,27 +11714,39 @@ in `src/main/java/de/tum/in/www1/artemis/service/user/UserManagementInfoContribu
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'optionalVcsUserManagementService'
-in `src/main/java/de/tum/in/www1/artemis/service/user/UserCreationService.java`
+`Optional` used as type for field 'allowedLdapUsernamePattern'
+in `src/main/java/de/tum/in/www1/artemis/service/user/UserManagementInfoContributor.java`
 #### Snippet
 ```java
 
-    public UserCreationService(UserRepository userRepository, PasswordService passwordService, AuthorityRepository authorityRepository, CourseRepository courseRepository,
-            Optional<VcsUserManagementService> optionalVcsUserManagementService, Optional<CIUserManagementService> optionalCIUserManagementService, CacheManager cacheManager,
-            OrganizationRepository organizationRepository) {
-        this.userRepository = userRepository;
+    @Value("${artemis.user-management.ldap.allowed-username-pattern:#{null}}")
+    private Optional<Pattern> allowedLdapUsernamePattern;
+
+    @Value("${artemis.user-management.course-registration.allowed-username-pattern:#{null}}")
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'optionalCIUserManagementService'
-in `src/main/java/de/tum/in/www1/artemis/service/user/UserCreationService.java`
+`Optional` used as type for field 'allowedCourseRegistrationUsernamePattern'
+in `src/main/java/de/tum/in/www1/artemis/service/user/UserManagementInfoContributor.java`
 #### Snippet
 ```java
 
-    public UserCreationService(UserRepository userRepository, PasswordService passwordService, AuthorityRepository authorityRepository, CourseRepository courseRepository,
-            Optional<VcsUserManagementService> optionalVcsUserManagementService, Optional<CIUserManagementService> optionalCIUserManagementService, CacheManager cacheManager,
-            OrganizationRepository organizationRepository) {
-        this.userRepository = userRepository;
+    @Value("${artemis.user-management.course-registration.allowed-username-pattern:#{null}}")
+    private Optional<Pattern> allowedCourseRegistrationUsernamePattern;
+
+    @Value("${artemis.user-management.login.account-name:#{null}}")
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for field 'allowedEmailPattern'
+in `src/main/java/de/tum/in/www1/artemis/service/user/UserManagementInfoContributor.java`
+#### Snippet
+```java
+
+    @Value("${artemis.user-management.registration.allowed-email-pattern:#{null}}")
+    private Optional<Pattern> allowedEmailPattern;
+
+    @Value("${artemis.user-management.registration.allowed-email-pattern-readable:#{null}}")
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -11798,6 +11774,54 @@ in `src/main/java/de/tum/in/www1/artemis/service/user/UserCreationService.java`
 ```
 
 ### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for field 'optionalVcsUserManagementService'
+in `src/main/java/de/tum/in/www1/artemis/service/user/UserCreationService.java`
+#### Snippet
+```java
+    private final OrganizationRepository organizationRepository;
+
+    private final Optional<VcsUserManagementService> optionalVcsUserManagementService;
+
+    private final Optional<CIUserManagementService> optionalCIUserManagementService;
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'optionalVcsUserManagementService'
+in `src/main/java/de/tum/in/www1/artemis/service/user/UserCreationService.java`
+#### Snippet
+```java
+
+    public UserCreationService(UserRepository userRepository, PasswordService passwordService, AuthorityRepository authorityRepository, CourseRepository courseRepository,
+            Optional<VcsUserManagementService> optionalVcsUserManagementService, Optional<CIUserManagementService> optionalCIUserManagementService, CacheManager cacheManager,
+            OrganizationRepository organizationRepository) {
+        this.userRepository = userRepository;
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'optionalCIUserManagementService'
+in `src/main/java/de/tum/in/www1/artemis/service/user/UserCreationService.java`
+#### Snippet
+```java
+
+    public UserCreationService(UserRepository userRepository, PasswordService passwordService, AuthorityRepository authorityRepository, CourseRepository courseRepository,
+            Optional<VcsUserManagementService> optionalVcsUserManagementService, Optional<CIUserManagementService> optionalCIUserManagementService, CacheManager cacheManager,
+            OrganizationRepository organizationRepository) {
+        this.userRepository = userRepository;
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for field 'optionalCIUserManagementService'
+in `src/main/java/de/tum/in/www1/artemis/service/user/UserCreationService.java`
+#### Snippet
+```java
+    private final Optional<VcsUserManagementService> optionalVcsUserManagementService;
+
+    private final Optional<CIUserManagementService> optionalCIUserManagementService;
+
+    private final CacheManager cacheManager;
+```
+
+### OptionalUsedAsFieldOrParameterType
 `Optional` used as type for field 'tutorialGroupTutors'
 in `src/main/java/de/tum/in/www1/artemis/service/user/UserCreationService.java`
 #### Snippet
@@ -11819,42 +11843,6 @@ in `src/main/java/de/tum/in/www1/artemis/service/user/UserCreationService.java`
     private Optional<String> tutorialGroupStudents;
 
     @Value("${info.guided-tour.course-group-tutors:#{null}}")
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'optionalVcsUserManagementService'
-in `src/main/java/de/tum/in/www1/artemis/service/user/UserCreationService.java`
-#### Snippet
-```java
-    private final OrganizationRepository organizationRepository;
-
-    private final Optional<VcsUserManagementService> optionalVcsUserManagementService;
-
-    private final Optional<CIUserManagementService> optionalCIUserManagementService;
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'optionalCIUserManagementService'
-in `src/main/java/de/tum/in/www1/artemis/service/user/UserCreationService.java`
-#### Snippet
-```java
-    private final Optional<VcsUserManagementService> optionalVcsUserManagementService;
-
-    private final Optional<CIUserManagementService> optionalCIUserManagementService;
-
-    private final CacheManager cacheManager;
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'artemisInternalAdminPassword'
-in `src/main/java/de/tum/in/www1/artemis/service/user/UserService.java`
-#### Snippet
-```java
-
-    @Value("${artemis.user-management.internal-admin.password:#{null}}")
-    private Optional<String> artemisInternalAdminPassword;
-
-    private final UserCreationService userCreationService;
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -11906,15 +11894,15 @@ in `src/main/java/de/tum/in/www1/artemis/service/user/UserService.java`
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'optionalCIUserManagementService'
+`Optional` used as type for field 'artemisInternalAdminUsername'
 in `src/main/java/de/tum/in/www1/artemis/service/user/UserService.java`
 #### Snippet
 ```java
-    private final Optional<VcsUserManagementService> optionalVcsUserManagementService;
 
-    private final Optional<CIUserManagementService> optionalCIUserManagementService;
+    @Value("${artemis.user-management.internal-admin.username:#{null}}")
+    private Optional<String> artemisInternalAdminUsername;
 
-    private final ArtemisAuthenticationProvider artemisAuthenticationProvider;
+    @Value("${artemis.user-management.internal-admin.password:#{null}}")
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -11930,27 +11918,27 @@ in `src/main/java/de/tum/in/www1/artemis/service/user/UserService.java`
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'artemisInternalAdminUsername'
+`Optional` used as type for field 'optionalCIUserManagementService'
+in `src/main/java/de/tum/in/www1/artemis/service/user/UserService.java`
+#### Snippet
+```java
+    private final Optional<VcsUserManagementService> optionalVcsUserManagementService;
+
+    private final Optional<CIUserManagementService> optionalCIUserManagementService;
+
+    private final ArtemisAuthenticationProvider artemisAuthenticationProvider;
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for field 'artemisInternalAdminPassword'
 in `src/main/java/de/tum/in/www1/artemis/service/user/UserService.java`
 #### Snippet
 ```java
 
-    @Value("${artemis.user-management.internal-admin.username:#{null}}")
-    private Optional<String> artemisInternalAdminUsername;
-
     @Value("${artemis.user-management.internal-admin.password:#{null}}")
-```
+    private Optional<String> artemisInternalAdminPassword;
 
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'participantOptional'
-in `src/main/java/de/tum/in/www1/artemis/service/metis/conversation/ConversationDTOService.java`
-#### Snippet
-```java
-    }
-
-    private void setDTOPropertiesBasedOnParticipant(ConversationDTO conversationDTO, Optional<ConversationParticipant> participantOptional) {
-        conversationDTO.setIsMember(participantOptional.isPresent());
-        participantOptional.ifPresent(participant -> {
+    private final UserCreationService userCreationService;
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -11963,6 +11951,18 @@ in `src/main/java/de/tum/in/www1/artemis/service/exam/StudentExamService.java`
     public Optional<Submission> prepareProgrammingSubmission(Optional<Submission> latestSubmission, StudentParticipation studentParticipation) {
         if (latestSubmission.isEmpty() && studentParticipation.getExercise() instanceof ProgrammingExercise
                 && ((ProgrammingExercise) studentParticipation.getExercise()).areManualResultsAllowed()) {
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'participantOptional'
+in `src/main/java/de/tum/in/www1/artemis/service/metis/conversation/ConversationDTOService.java`
+#### Snippet
+```java
+    }
+
+    private void setDTOPropertiesBasedOnParticipant(ConversationDTO conversationDTO, Optional<ConversationParticipant> participantOptional) {
+        conversationDTO.setIsMember(participantOptional.isPresent());
+        participantOptional.ifPresent(participant -> {
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -12006,11 +12006,11 @@ in `src/main/java/de/tum/in/www1/artemis/service/hestia/ExerciseHintService.java
 in `src/main/java/de/tum/in/www1/artemis/service/exam/ExamService.java`
 #### Snippet
 ```java
-
-    @Nullable
-    private ExamBonusCalculator createExamBonusCalculator(Optional<GradingScale> gradingScale, Collection<Long> studentIds) {
-        if (gradingScale.isEmpty() || gradingScale.get().getBonusFrom().isEmpty()) {
-            return null;
+     */
+    private ExamScoresDTO.StudentResult calculateStudentResultWithGrade(StudentExam studentExam, List<StudentParticipation> participationsOfStudent, Exam exam,
+            Optional<GradingScale> gradingScale, boolean calculateFirstCorrectionPoints, List<QuizSubmittedAnswerCount> quizSubmittedAnswerCounts,
+            PlagiarismMapping plagiarismMapping, ExamBonusCalculator examBonusCalculator) {
+        User user = studentExam.getUser();
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -12018,11 +12018,11 @@ in `src/main/java/de/tum/in/www1/artemis/service/exam/ExamService.java`
 in `src/main/java/de/tum/in/www1/artemis/service/exam/ExamService.java`
 #### Snippet
 ```java
-     */
-    private ExamScoresDTO.StudentResult calculateStudentResultWithGrade(StudentExam studentExam, List<StudentParticipation> participationsOfStudent, Exam exam,
-            Optional<GradingScale> gradingScale, boolean calculateFirstCorrectionPoints, List<QuizSubmittedAnswerCount> quizSubmittedAnswerCounts,
-            PlagiarismMapping plagiarismMapping, ExamBonusCalculator examBonusCalculator) {
-        User user = studentExam.getUser();
+
+    @Nullable
+    private ExamBonusCalculator createExamBonusCalculator(Optional<GradingScale> gradingScale, Collection<Long> studentIds) {
+        if (gradingScale.isEmpty() || gradingScale.get().getBonusFrom().isEmpty()) {
+            return null;
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -12122,18 +12122,6 @@ in `src/main/java/de/tum/in/www1/artemis/service/connectors/ContinuousIntegratio
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'continuousIntegrationService'
-in `src/main/java/de/tum/in/www1/artemis/service/connectors/ContinuousIntegrationServerHealthIndicator.java`
-#### Snippet
-```java
-public class ContinuousIntegrationServerHealthIndicator implements HealthIndicator {
-
-    private final Optional<ContinuousIntegrationService> continuousIntegrationService;
-
-    public ContinuousIntegrationServerHealthIndicator(Optional<ContinuousIntegrationService> continuousIntegrationService) {
-```
-
-### OptionalUsedAsFieldOrParameterType
 `Optional` used as type for parameter 'continuousIntegrationService'
 in `src/main/java/de/tum/in/www1/artemis/service/connectors/ContinuousIntegrationServerHealthIndicator.java`
 #### Snippet
@@ -12146,15 +12134,15 @@ in `src/main/java/de/tum/in/www1/artemis/service/connectors/ContinuousIntegratio
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'saml2EnablePassword'
-in `src/main/java/de/tum/in/www1/artemis/service/connectors/SAML2Service.java`
+`Optional` used as type for field 'continuousIntegrationService'
+in `src/main/java/de/tum/in/www1/artemis/service/connectors/ContinuousIntegrationServerHealthIndicator.java`
 #### Snippet
 ```java
+public class ContinuousIntegrationServerHealthIndicator implements HealthIndicator {
 
-    @Value("${info.saml2.enable-password:#{null}}")
-    private Optional<Boolean> saml2EnablePassword;
+    private final Optional<ContinuousIntegrationService> continuousIntegrationService;
 
-    private final Logger log = LoggerFactory.getLogger(SAML2Service.class);
+    public ContinuousIntegrationServerHealthIndicator(Optional<ContinuousIntegrationService> continuousIntegrationService) {
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -12182,15 +12170,15 @@ public class VersionControlServerHealthIndicator implements HealthIndicator {
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'ldapUserService'
-in `src/main/java/de/tum/in/www1/artemis/service/connectors/jira/JiraAuthenticationProvider.java`
+`Optional` used as type for field 'saml2EnablePassword'
+in `src/main/java/de/tum/in/www1/artemis/service/connectors/SAML2Service.java`
 #### Snippet
 ```java
 
-    public JiraAuthenticationProvider(UserRepository userRepository, @Qualifier("jiraRestTemplate") RestTemplate restTemplate,
-            @Qualifier("shortTimeoutJiraRestTemplate") RestTemplate shortTimeoutRestTemplate, Optional<LdapUserService> ldapUserService, PasswordService passwordService,
-            AuthorityService authorityService, UserCreationService userCreationService) {
-        super(userRepository, passwordService, userCreationService);
+    @Value("${info.saml2.enable-password:#{null}}")
+    private Optional<Boolean> saml2EnablePassword;
+
+    private final Logger log = LoggerFactory.getLogger(SAML2Service.class);
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -12203,6 +12191,18 @@ in `src/main/java/de/tum/in/www1/artemis/service/connectors/jira/JiraAuthenticat
     private final Optional<LdapUserService> ldapUserService;
 
     private final AuthorityService authorityService;
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'ldapUserService'
+in `src/main/java/de/tum/in/www1/artemis/service/connectors/jira/JiraAuthenticationProvider.java`
+#### Snippet
+```java
+
+    public JiraAuthenticationProvider(UserRepository userRepository, @Qualifier("jiraRestTemplate") RestTemplate restTemplate,
+            @Qualifier("shortTimeoutJiraRestTemplate") RestTemplate shortTimeoutRestTemplate, Optional<LdapUserService> ldapUserService, PasswordService passwordService,
+            AuthorityService authorityService, UserCreationService userCreationService) {
+        super(userRepository, passwordService, userCreationService);
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -12242,90 +12242,6 @@ in `src/main/java/de/tum/in/www1/artemis/service/connectors/jenkins/JenkinsXmlCo
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'lastValidSubmission'
-in `src/main/java/de/tum/in/www1/artemis/service/connectors/GitService.java`
-#### Snippet
-```java
-
-    @Transactional(readOnly = true) // TODO: remove transactional
-    public void filterLateSubmissions(Repository repository, Optional<Submission> lastValidSubmission, ZonedDateTime filterLateSubmissionsDate) {
-        if (filterLateSubmissionsDate == null) {
-            // No date set in client and exercise has no due date
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'sshUrlTemplate'
-in `src/main/java/de/tum/in/www1/artemis/service/connectors/GitService.java`
-#### Snippet
-```java
-
-    @Value("${artemis.version-control.ssh-template-clone-url:#{null}}")
-    private Optional<String> sshUrlTemplate;
-
-    @Value("${artemis.version-control.default-branch:main}")
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'gitToken'
-in `src/main/java/de/tum/in/www1/artemis/service/connectors/GitService.java`
-#### Snippet
-```java
-
-    @Value("${artemis.version-control.token:#{null}}")
-    private Optional<String> gitToken;
-
-    @Value("${artemis.version-control.ssh-private-key-folder-path:#{null}}")
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'gitSshPrivateKeyPassphrase'
-in `src/main/java/de/tum/in/www1/artemis/service/connectors/GitService.java`
-#### Snippet
-```java
-
-    @Value("${artemis.version-control.ssh-private-key-password:#{null}}")
-    private Optional<String> gitSshPrivateKeyPassphrase;
-
-    @Value("${artemis.version-control.ssh-template-clone-url:#{null}}")
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'gitSshPrivateKeyPath'
-in `src/main/java/de/tum/in/www1/artemis/service/connectors/GitService.java`
-#### Snippet
-```java
-
-    @Value("${artemis.version-control.ssh-private-key-folder-path:#{null}}")
-    private Optional<String> gitSshPrivateKeyPath;
-
-    @Value("${artemis.version-control.ssh-private-key-password:#{null}}")
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'internalVcsUrl'
-in `src/main/java/de/tum/in/www1/artemis/service/connectors/jenkins/JenkinsInternalUrlService.java`
-#### Snippet
-```java
-
-    @Value("${jenkins.internal-urls.vcs-url:#{null}}")
-    private Optional<URL> internalVcsUrl;
-
-    private static final Logger log = LoggerFactory.getLogger(JenkinsInternalUrlService.class);
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'internalCiUrl'
-in `src/main/java/de/tum/in/www1/artemis/service/connectors/jenkins/JenkinsInternalUrlService.java`
-#### Snippet
-```java
-
-    @Value("${jenkins.internal-urls.ci-url:#{null}}")
-    private Optional<URL> internalCiUrl;
-
-    @Value("${jenkins.internal-urls.vcs-url:#{null}}")
-```
-
-### OptionalUsedAsFieldOrParameterType
 `Optional` used as type for parameter 'continuousIntegrationUpdateService'
 in `src/main/java/de/tum/in/www1/artemis/service/connectors/bamboo/BambooService.java`
 #### Snippet
@@ -12350,15 +12266,87 @@ in `src/main/java/de/tum/in/www1/artemis/service/connectors/bamboo/BambooService
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'bitbucketSshUrlTemplate'
-in `src/main/java/de/tum/in/www1/artemis/service/connectors/bitbucket/BitbucketInfoContributor.java`
+`Optional` used as type for field 'sshUrlTemplate'
+in `src/main/java/de/tum/in/www1/artemis/service/connectors/GitService.java`
 #### Snippet
 ```java
 
     @Value("${artemis.version-control.ssh-template-clone-url:#{null}}")
-    private Optional<String> bitbucketSshUrlTemplate;
+    private Optional<String> sshUrlTemplate;
 
-    @Value("${artemis.version-control.ssh-keys-url-path:#{null}}")
+    @Value("${artemis.version-control.default-branch:main}")
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for field 'gitSshPrivateKeyPath'
+in `src/main/java/de/tum/in/www1/artemis/service/connectors/GitService.java`
+#### Snippet
+```java
+
+    @Value("${artemis.version-control.ssh-private-key-folder-path:#{null}}")
+    private Optional<String> gitSshPrivateKeyPath;
+
+    @Value("${artemis.version-control.ssh-private-key-password:#{null}}")
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for field 'gitToken'
+in `src/main/java/de/tum/in/www1/artemis/service/connectors/GitService.java`
+#### Snippet
+```java
+
+    @Value("${artemis.version-control.token:#{null}}")
+    private Optional<String> gitToken;
+
+    @Value("${artemis.version-control.ssh-private-key-folder-path:#{null}}")
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'lastValidSubmission'
+in `src/main/java/de/tum/in/www1/artemis/service/connectors/GitService.java`
+#### Snippet
+```java
+
+    @Transactional(readOnly = true) // TODO: remove transactional
+    public void filterLateSubmissions(Repository repository, Optional<Submission> lastValidSubmission, ZonedDateTime filterLateSubmissionsDate) {
+        if (filterLateSubmissionsDate == null) {
+            // No date set in client and exercise has no due date
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for field 'gitSshPrivateKeyPassphrase'
+in `src/main/java/de/tum/in/www1/artemis/service/connectors/GitService.java`
+#### Snippet
+```java
+
+    @Value("${artemis.version-control.ssh-private-key-password:#{null}}")
+    private Optional<String> gitSshPrivateKeyPassphrase;
+
+    @Value("${artemis.version-control.ssh-template-clone-url:#{null}}")
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for field 'internalCiUrl'
+in `src/main/java/de/tum/in/www1/artemis/service/connectors/jenkins/JenkinsInternalUrlService.java`
+#### Snippet
+```java
+
+    @Value("${jenkins.internal-urls.ci-url:#{null}}")
+    private Optional<URL> internalCiUrl;
+
+    @Value("${jenkins.internal-urls.vcs-url:#{null}}")
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for field 'internalVcsUrl'
+in `src/main/java/de/tum/in/www1/artemis/service/connectors/jenkins/JenkinsInternalUrlService.java`
+#### Snippet
+```java
+
+    @Value("${jenkins.internal-urls.vcs-url:#{null}}")
+    private Optional<URL> internalVcsUrl;
+
+    private static final Logger log = LoggerFactory.getLogger(JenkinsInternalUrlService.class);
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -12371,6 +12359,18 @@ in `src/main/java/de/tum/in/www1/artemis/service/connectors/bitbucket/BitbucketI
     private Optional<String> bitbucketSshKeysUrlPath;
 
     @Override
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for field 'bitbucketSshUrlTemplate'
+in `src/main/java/de/tum/in/www1/artemis/service/connectors/bitbucket/BitbucketInfoContributor.java`
+#### Snippet
+```java
+
+    @Value("${artemis.version-control.ssh-template-clone-url:#{null}}")
+    private Optional<String> bitbucketSshUrlTemplate;
+
+    @Value("${artemis.version-control.ssh-keys-url-path:#{null}}")
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -12395,6 +12395,18 @@ in `src/main/java/de/tum/in/www1/artemis/service/connectors/jenkins/JenkinsBuild
     private String createStaticCodeAnalysisScript(ProgrammingLanguage programmingLanguage, Optional<ProjectType> optionalProjectType) {
         StringBuilder script = new StringBuilder();
         String lineEnding = "&#xd;";
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'projectType'
+in `src/main/java/de/tum/in/www1/artemis/service/connectors/jenkins/JenkinsBuildPlanCreator.java`
+#### Snippet
+```java
+    }
+
+    private Map<String, String> getReplacements(ProgrammingLanguage programmingLanguage, Optional<ProjectType> projectType, InternalVcsRepositoryURLs internalVcsRepositoryURLs,
+            boolean isStaticCodeAnalysisEnabled, boolean isTestwiseCoverageAnalysisEnabled) {
+        Map<String, String> replacements = new HashMap<>();
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -12435,62 +12447,14 @@ in `src/main/java/de/tum/in/www1/artemis/service/connectors/jenkins/JenkinsBuild
 
 ### OptionalUsedAsFieldOrParameterType
 `Optional` used as type for parameter 'projectType'
-in `src/main/java/de/tum/in/www1/artemis/service/connectors/jenkins/JenkinsBuildPlanCreator.java`
+in `src/main/java/de/tum/in/www1/artemis/service/connectors/bamboo/BambooBuildPlanService.java`
 #### Snippet
 ```java
-    }
+     * @return bamboo docker configuration
+     */
+    private DockerConfiguration dockerConfigurationFor(ProgrammingLanguage programmingLanguage, Optional<ProjectType> projectType) {
+        var dockerConfiguration = new DockerConfiguration();
 
-    private Map<String, String> getReplacements(ProgrammingLanguage programmingLanguage, Optional<ProjectType> projectType, InternalVcsRepositoryURLs internalVcsRepositoryURLs,
-            boolean isStaticCodeAnalysisEnabled, boolean isTestwiseCoverageAnalysisEnabled) {
-        Map<String, String> replacements = new HashMap<>();
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'versionControlService'
-in `src/main/java/de/tum/in/www1/artemis/service/programming/ProgrammingExerciseParticipationService.java`
-#### Snippet
-```java
-    private final TeamRepository teamRepository;
-
-    private final Optional<VersionControlService> versionControlService;
-
-    private final AuthorizationCheckService authCheckService;
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'versionControlService'
-in `src/main/java/de/tum/in/www1/artemis/service/programming/ProgrammingExerciseParticipationService.java`
-#### Snippet
-```java
-    public ProgrammingExerciseParticipationService(SolutionProgrammingExerciseParticipationRepository solutionParticipationRepository,
-            ProgrammingExerciseStudentParticipationRepository studentParticipationRepository, ParticipationRepository participationRepository, TeamRepository teamRepository,
-            TemplateProgrammingExerciseParticipationRepository templateParticipationRepository, Optional<VersionControlService> versionControlService,
-            UserRepository userRepository, AuthorizationCheckService authCheckService, GitService gitService, ProgrammingExerciseRepository programmingExerciseRepository) {
-        this.studentParticipationRepository = studentParticipationRepository;
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'continuousIntegrationService'
-in `src/main/java/de/tum/in/www1/artemis/service/programming/ProgrammingTriggerService.java`
-#### Snippet
-```java
-
-    public ProgrammingTriggerService(ProgrammingSubmissionRepository programmingSubmissionRepository, ProgrammingExerciseRepository programmingExerciseRepository,
-            Optional<ContinuousIntegrationService> continuousIntegrationService, ParticipationService participationService,
-            ProgrammingExerciseParticipationService programmingExerciseParticipationService, AuditEventRepository auditEventRepository, ResultRepository resultRepository,
-            ProgrammingExerciseStudentParticipationRepository programmingExerciseStudentParticipationRepository, ProgrammingMessagingService programmingMessagingService) {
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'continuousIntegrationService'
-in `src/main/java/de/tum/in/www1/artemis/service/programming/ProgrammingTriggerService.java`
-#### Snippet
-```java
-    private final ProgrammingExerciseParticipationService programmingExerciseParticipationService;
-
-    private final Optional<ContinuousIntegrationService> continuousIntegrationService;
-
-    private final AuditEventRepository auditEventRepository;
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -12503,18 +12467,6 @@ in `src/main/java/de/tum/in/www1/artemis/service/connectors/bamboo/BambooBuildPl
     public BambooBuildPlanService(ResourceLoaderService resourceLoaderService, BambooServer bambooServer, Environment env, Optional<VersionControlService> versionControlService,
             ProgrammingLanguageConfiguration programmingLanguageConfiguration) {
         this.resourceLoaderService = resourceLoaderService;
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'projectType'
-in `src/main/java/de/tum/in/www1/artemis/service/connectors/bamboo/BambooBuildPlanService.java`
-#### Snippet
-```java
-     * @return bamboo docker configuration
-     */
-    private DockerConfiguration dockerConfigurationFor(ProgrammingLanguage programmingLanguage, Optional<ProjectType> projectType) {
-        var dockerConfiguration = new DockerConfiguration();
-
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -12543,50 +12495,50 @@ in `src/main/java/de/tum/in/www1/artemis/service/connectors/bamboo/BambooBuildPl
 
 ### OptionalUsedAsFieldOrParameterType
 `Optional` used as type for parameter 'versionControlService'
-in `src/main/java/de/tum/in/www1/artemis/service/programming/ProgrammingExerciseImportBasicService.java`
+in `src/main/java/de/tum/in/www1/artemis/service/programming/ProgrammingExerciseParticipationService.java`
 #### Snippet
 ```java
-
-    public ProgrammingExerciseImportBasicService(ExerciseHintService exerciseHintService, ExerciseHintRepository exerciseHintRepository,
-            Optional<VersionControlService> versionControlService, ProgrammingExerciseParticipationService programmingExerciseParticipationService,
-            ProgrammingExerciseTestCaseRepository programmingExerciseTestCaseRepository, StaticCodeAnalysisCategoryRepository staticCodeAnalysisCategoryRepository,
-            ProgrammingExerciseRepository programmingExerciseRepository, ProgrammingExerciseService programmingExerciseService, StaticCodeAnalysisService staticCodeAnalysisService,
+    public ProgrammingExerciseParticipationService(SolutionProgrammingExerciseParticipationRepository solutionParticipationRepository,
+            ProgrammingExerciseStudentParticipationRepository studentParticipationRepository, ParticipationRepository participationRepository, TeamRepository teamRepository,
+            TemplateProgrammingExerciseParticipationRepository templateParticipationRepository, Optional<VersionControlService> versionControlService,
+            UserRepository userRepository, AuthorizationCheckService authCheckService, GitService gitService, ProgrammingExerciseRepository programmingExerciseRepository) {
+        this.studentParticipationRepository = studentParticipationRepository;
 ```
 
 ### OptionalUsedAsFieldOrParameterType
 `Optional` used as type for field 'versionControlService'
-in `src/main/java/de/tum/in/www1/artemis/service/programming/ProgrammingExerciseImportBasicService.java`
+in `src/main/java/de/tum/in/www1/artemis/service/programming/ProgrammingExerciseParticipationService.java`
 #### Snippet
 ```java
-    private final ExerciseHintRepository exerciseHintRepository;
+    private final TeamRepository teamRepository;
 
     private final Optional<VersionControlService> versionControlService;
 
-    private final ProgrammingExerciseParticipationService programmingExerciseParticipationService;
+    private final AuthorizationCheckService authCheckService;
 ```
 
 ### OptionalUsedAsFieldOrParameterType
 `Optional` used as type for field 'continuousIntegrationService'
-in `src/main/java/de/tum/in/www1/artemis/service/programming/ProgrammingSubmissionService.java`
+in `src/main/java/de/tum/in/www1/artemis/service/programming/ProgrammingTriggerService.java`
 #### Snippet
 ```java
-    private final Optional<VersionControlService> versionControlService;
+    private final ProgrammingExerciseParticipationService programmingExerciseParticipationService;
 
     private final Optional<ContinuousIntegrationService> continuousIntegrationService;
 
-    private final GitService gitService;
+    private final AuditEventRepository auditEventRepository;
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'versionControlService'
-in `src/main/java/de/tum/in/www1/artemis/service/programming/ProgrammingSubmissionService.java`
+`Optional` used as type for parameter 'continuousIntegrationService'
+in `src/main/java/de/tum/in/www1/artemis/service/programming/ProgrammingTriggerService.java`
 #### Snippet
 ```java
-    private final ExamSubmissionService examSubmissionService;
 
-    private final Optional<VersionControlService> versionControlService;
-
-    private final Optional<ContinuousIntegrationService> continuousIntegrationService;
+    public ProgrammingTriggerService(ProgrammingSubmissionRepository programmingSubmissionRepository, ProgrammingExerciseRepository programmingExerciseRepository,
+            Optional<ContinuousIntegrationService> continuousIntegrationService, ParticipationService participationService,
+            ProgrammingExerciseParticipationService programmingExerciseParticipationService, AuditEventRepository auditEventRepository, ResultRepository resultRepository,
+            ProgrammingExerciseStudentParticipationRepository programmingExerciseStudentParticipationRepository, ProgrammingMessagingService programmingMessagingService) {
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -12611,6 +12563,30 @@ in `src/main/java/de/tum/in/www1/artemis/service/programming/ProgrammingSubmissi
             Optional<ContinuousIntegrationService> continuousIntegrationService, ParticipationService participationService,
             ProgrammingExerciseParticipationService programmingExerciseParticipationService, ExamSubmissionService examSubmissionService, GitService gitService,
             StudentParticipationRepository studentParticipationRepository, FeedbackRepository feedbackRepository, ExamDateService examDateService,
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for field 'continuousIntegrationService'
+in `src/main/java/de/tum/in/www1/artemis/service/programming/ProgrammingSubmissionService.java`
+#### Snippet
+```java
+    private final Optional<VersionControlService> versionControlService;
+
+    private final Optional<ContinuousIntegrationService> continuousIntegrationService;
+
+    private final GitService gitService;
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for field 'versionControlService'
+in `src/main/java/de/tum/in/www1/artemis/service/programming/ProgrammingSubmissionService.java`
+#### Snippet
+```java
+    private final ExamSubmissionService examSubmissionService;
+
+    private final Optional<VersionControlService> versionControlService;
+
+    private final Optional<ContinuousIntegrationService> continuousIntegrationService;
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -12659,6 +12635,30 @@ in `src/main/java/de/tum/in/www1/artemis/service/programming/ProgrammingExercise
     private final Optional<VersionControlService> versionControlService;
 
     private final Optional<ContinuousIntegrationService> continuousIntegrationService;
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'versionControlService'
+in `src/main/java/de/tum/in/www1/artemis/service/programming/ProgrammingExerciseImportBasicService.java`
+#### Snippet
+```java
+
+    public ProgrammingExerciseImportBasicService(ExerciseHintService exerciseHintService, ExerciseHintRepository exerciseHintRepository,
+            Optional<VersionControlService> versionControlService, ProgrammingExerciseParticipationService programmingExerciseParticipationService,
+            ProgrammingExerciseTestCaseRepository programmingExerciseTestCaseRepository, StaticCodeAnalysisCategoryRepository staticCodeAnalysisCategoryRepository,
+            ProgrammingExerciseRepository programmingExerciseRepository, ProgrammingExerciseService programmingExerciseService, StaticCodeAnalysisService staticCodeAnalysisService,
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for field 'versionControlService'
+in `src/main/java/de/tum/in/www1/artemis/service/programming/ProgrammingExerciseImportBasicService.java`
+#### Snippet
+```java
+    private final ExerciseHintRepository exerciseHintRepository;
+
+    private final Optional<VersionControlService> versionControlService;
+
+    private final ProgrammingExerciseParticipationService programmingExerciseParticipationService;
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -12758,6 +12758,18 @@ in `src/main/java/de/tum/in/www1/artemis/repository/UserRepository.java`
 ```
 
 ### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for field 'continuousIntegrationService'
+in `src/main/java/de/tum/in/www1/artemis/service/programming/ProgrammingExerciseGradingService.java`
+#### Snippet
+```java
+    private final Logger log = LoggerFactory.getLogger(ProgrammingExerciseGradingService.class);
+
+    private final Optional<ContinuousIntegrationService> continuousIntegrationService;
+
+    private final Optional<VersionControlService> versionControlService;
+```
+
+### OptionalUsedAsFieldOrParameterType
 `Optional` used as type for parameter 'continuousIntegrationService'
 in `src/main/java/de/tum/in/www1/artemis/service/programming/ProgrammingExerciseGradingService.java`
 #### Snippet
@@ -12793,19 +12805,19 @@ in `src/main/java/de/tum/in/www1/artemis/service/programming/ProgrammingExercise
     private final ProgrammingExerciseTestCaseService testCaseService;
 ```
 
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'continuousIntegrationService'
-in `src/main/java/de/tum/in/www1/artemis/service/programming/ProgrammingExerciseGradingService.java`
+## RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
+### DynamicRegexReplaceableByCompiledPattern
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `src/main/java/de/tum/in/www1/artemis/web/rest/TeamResource.java`
 #### Snippet
 ```java
-    private final Logger log = LoggerFactory.getLogger(ProgrammingExerciseGradingService.class);
-
-    private final Optional<ContinuousIntegrationService> continuousIntegrationService;
-
-    private final Optional<VersionControlService> versionControlService;
+        }
+        // Remove all special characters and check if the resulting shortname is valid
+        var shortName = team.getShortName().replaceAll("[^0-9a-z]", "").toLowerCase();
+        Matcher shortNameMatcher = SHORT_NAME_PATTERN.matcher(shortName);
+        if (!shortNameMatcher.matches()) {
 ```
 
-## RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
 ### DynamicRegexReplaceableByCompiledPattern
 `replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
 in `src/main/java/de/tum/in/www1/artemis/web/rest/FileUploadExerciseResource.java`
@@ -12852,18 +12864,6 @@ in `src/main/java/de/tum/in/www1/artemis/web/rest/FileUploadSubmissionResource.j
         final String filePattern = String.join("|", exercise.getFilePattern().toLowerCase().replaceAll("\\s", "").split(","));
         if (!fileSuffix.matches(filePattern)) {
             throw new BadRequestAlertException("The uploaded file has the wrong type!", ENTITY_NAME, "fileUploadSubmissionIllegalFileType");
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/de/tum/in/www1/artemis/web/rest/TeamResource.java`
-#### Snippet
-```java
-        }
-        // Remove all special characters and check if the resulting shortname is valid
-        var shortName = team.getShortName().replaceAll("[^0-9a-z]", "").toLowerCase();
-        Matcher shortNameMatcher = SHORT_NAME_PATTERN.matcher(shortName);
-        if (!shortNameMatcher.matches()) {
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
@@ -13035,6 +13035,78 @@ in `src/main/java/de/tum/in/www1/artemis/service/util/UrlUtils.java`
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `src/main/java/de/tum/in/www1/artemis/service/FileService.java`
+#### Snippet
+```java
+     */
+    public String removeIllegalCharacters(String string) {
+        return string.replaceAll("[^a-zA-Z0-9\\.\\-]", "_");
+    }
+
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `src/main/java/de/tum/in/www1/artemis/service/FileService.java`
+#### Snippet
+```java
+            }
+            else {
+                filename = filenameBase + ZonedDateTime.now().toString().substring(0, 23).replaceAll("[:.]", "-") + "_" + UUID.randomUUID().toString().substring(0, 8) + "."
+                        + fileExtension;
+            }
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `src/main/java/de/tum/in/www1/artemis/service/FileService.java`
+#### Snippet
+```java
+
+        // sanitize the filename and replace all invalid characters with with an underscore
+        filename = filename.replaceAll("[^a-zA-Z\\d\\.\\-]", "_");
+
+        // Check the allowed file extensions
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `src/main/java/de/tum/in/www1/artemis/service/FileService.java`
+#### Snippet
+```java
+            if (!keepFileName) {
+                // append a timestamp and some randomness to the filename to avoid conflicts
+                newFilename = fileNameAddition + ZonedDateTime.now().toString().substring(0, 23).replaceAll(":|\\.", "-") + "_" + UUID.randomUUID().toString().substring(0, 8) + "."
+                        + fileExtension;
+            }
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `src/main/java/de/tum/in/www1/artemis/service/FileService.java`
+#### Snippet
+```java
+        for (Resource resource : resources) {
+            // Replace windows separator with "/"
+            String fileUrl = java.net.URLDecoder.decode(resource.getURL().toString(), StandardCharsets.UTF_8).replaceAll("\\\\", "/");
+            // cut the prefix (e.g. 'exercise', 'solution', 'test') from the actual path
+            int index = fileUrl.indexOf(prefix);
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `src/main/java/de/tum/in/www1/artemis/service/FileService.java`
+#### Snippet
+```java
+
+        String fileContent = Files.readString(replaceFilePath, charset);
+        fileContent = fileContent.replaceAll("\\r\\n?", "\n");
+        Files.writeString(replaceFilePath, fileContent, charset);
+    }
+```
+
+### DynamicRegexReplaceableByCompiledPattern
 `matches()` could be replaced with compiled 'java.util.regex.Pattern' construct
 in `src/main/java/de/tum/in/www1/artemis/service/metis/conversation/ChannelService.java`
 #### Snippet
@@ -13056,78 +13128,6 @@ in `src/main/java/de/tum/in/www1/artemis/service/metis/conversation/GroupChatSer
         if (groupChat.getName() != null && !groupChat.getName().matches(GROUP_NAME_REGEX)) {
             throw new BadRequestAlertException("Group names can only contain lowercase letters, numbers, and dashes.", GROUP_CHAT_ENTITY_NAME, "namePatternInvalid");
         }
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/de/tum/in/www1/artemis/service/FileService.java`
-#### Snippet
-```java
-     */
-    public String removeIllegalCharacters(String string) {
-        return string.replaceAll("[^a-zA-Z0-9\\.\\-]", "_");
-    }
-
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/de/tum/in/www1/artemis/service/FileService.java`
-#### Snippet
-```java
-        for (Resource resource : resources) {
-            // Replace windows separator with "/"
-            String fileUrl = java.net.URLDecoder.decode(resource.getURL().toString(), StandardCharsets.UTF_8).replaceAll("\\\\", "/");
-            // cut the prefix (e.g. 'exercise', 'solution', 'test') from the actual path
-            int index = fileUrl.indexOf(prefix);
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/de/tum/in/www1/artemis/service/FileService.java`
-#### Snippet
-```java
-
-        // sanitize the filename and replace all invalid characters with with an underscore
-        filename = filename.replaceAll("[^a-zA-Z\\d\\.\\-]", "_");
-
-        // Check the allowed file extensions
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/de/tum/in/www1/artemis/service/FileService.java`
-#### Snippet
-```java
-            }
-            else {
-                filename = filenameBase + ZonedDateTime.now().toString().substring(0, 23).replaceAll("[:.]", "-") + "_" + UUID.randomUUID().toString().substring(0, 8) + "."
-                        + fileExtension;
-            }
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/de/tum/in/www1/artemis/service/FileService.java`
-#### Snippet
-```java
-            if (!keepFileName) {
-                // append a timestamp and some randomness to the filename to avoid conflicts
-                newFilename = fileNameAddition + ZonedDateTime.now().toString().substring(0, 23).replaceAll(":|\\.", "-") + "_" + UUID.randomUUID().toString().substring(0, 8) + "."
-                        + fileExtension;
-            }
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/de/tum/in/www1/artemis/service/FileService.java`
-#### Snippet
-```java
-
-        String fileContent = Files.readString(replaceFilePath, charset);
-        fileContent = fileContent.replaceAll("\\r\\n?", "\n");
-        Files.writeString(replaceFilePath, fileContent, charset);
-    }
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
@@ -13228,6 +13228,18 @@ in `src/main/java/de/tum/in/www1/artemis/service/connectors/gitlab/GitLabService
 
 ### DynamicRegexReplaceableByCompiledPattern
 `replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `src/main/java/de/tum/in/www1/artemis/service/connectors/bamboo/BambooService.java`
+#### Snippet
+```java
+
+    private String getCleanPlanName(String name) {
+        return name.toUpperCase().replaceAll("[^A-Z0-9]", "");
+    }
+}
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
 in `src/main/java/de/tum/in/www1/artemis/service/connectors/GitService.java`
 #### Snippet
 ```java
@@ -13260,18 +13272,6 @@ in `src/main/java/de/tum/in/www1/artemis/service/connectors/jenkins/JenkinsBuild
         return log.replaceAll("[\\r\\n]", "");
     }
 
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/de/tum/in/www1/artemis/service/connectors/bamboo/BambooService.java`
-#### Snippet
-```java
-
-    private String getCleanPlanName(String name) {
-        return name.toUpperCase().replaceAll("[^A-Z0-9]", "");
-    }
-}
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
@@ -13472,18 +13472,6 @@ Qualifier `de.tum.in.www1.artemis.domain.enumeration` is unnecessary and can be 
 in `src/main/java/de/tum/in/www1/artemis/web/rest/ParticipantScoreResource.java`
 #### Snippet
 ```java
-     * GET /exams/:examId/participant-scores/average-participant  gets the average scores of the participants in the exam
-     * <p>
-     * Important: Exercises with {@link de.tum.in.www1.artemis.domain.enumeration.IncludedInOverallScore#NOT_INCLUDED} will be not taken into account!
-     *
-     * @param examId the id of the exam for which to get the average scores of the participants
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `de.tum.in.www1.artemis.domain.enumeration` is unnecessary and can be removed
-in `src/main/java/de/tum/in/www1/artemis/web/rest/ParticipantScoreResource.java`
-#### Snippet
-```java
      * GET /courses/:courseId/participant-scores/average  gets the average score of the course
      * <p>
      * Important: Exercises with {@link de.tum.in.www1.artemis.domain.enumeration.IncludedInOverallScore#NOT_INCLUDED} will be not taken into account!
@@ -13504,6 +13492,18 @@ in `src/main/java/de/tum/in/www1/artemis/web/rest/ParticipantScoreResource.java`
 ```
 
 ### UnnecessaryFullyQualifiedName
+Qualifier `de.tum.in.www1.artemis.domain.enumeration` is unnecessary and can be removed
+in `src/main/java/de/tum/in/www1/artemis/web/rest/ParticipantScoreResource.java`
+#### Snippet
+```java
+     * GET /exams/:examId/participant-scores/average-participant  gets the average scores of the participants in the exam
+     * <p>
+     * Important: Exercises with {@link de.tum.in.www1.artemis.domain.enumeration.IncludedInOverallScore#NOT_INCLUDED} will be not taken into account!
+     *
+     * @param examId the id of the exam for which to get the average scores of the participants
+```
+
+### UnnecessaryFullyQualifiedName
 Qualifier `java.util` is unnecessary, and can be replaced with an import
 in `src/main/java/de/tum/in/www1/artemis/web/rest/admin/AdminUserResource.java`
 #### Snippet
@@ -13516,18 +13516,6 @@ in `src/main/java/de/tum/in/www1/artemis/web/rest/admin/AdminUserResource.java`
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `de.tum.in.www1.artemis.exception` is unnecessary, and can be replaced with an import
-in `src/main/java/de/tum/in/www1/artemis/web/rest/errors/ExceptionTranslator.java`
-#### Snippet
-```java
-
-    @ExceptionHandler
-    public ResponseEntity<Problem> handleUsernameAlreadyUsedException(de.tum.in.www1.artemis.exception.UsernameAlreadyUsedException ex, NativeWebRequest request) {
-        LoginAlreadyUsedException problem = new LoginAlreadyUsedException();
-        return create(problem, request, HeaderUtil.createFailureAlert(applicationName, true, problem.getEntityName(), problem.getErrorKey(), problem.getMessage()));
-```
-
-### UnnecessaryFullyQualifiedName
 Qualifier `de.tum.in.www1.artemis.domain.hestia` is unnecessary and can be removed
 in `src/main/java/de/tum/in/www1/artemis/web/rest/hestia/ProgrammingExerciseTaskResource.java`
 #### Snippet
@@ -13537,6 +13525,18 @@ in `src/main/java/de/tum/in/www1/artemis/web/rest/hestia/ProgrammingExerciseTask
  * REST controller for managing {@link de.tum.in.www1.artemis.domain.hestia.ProgrammingExerciseTask}.
  */
 @RestController
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `de.tum.in.www1.artemis.exception` is unnecessary, and can be replaced with an import
+in `src/main/java/de/tum/in/www1/artemis/web/rest/errors/ExceptionTranslator.java`
+#### Snippet
+```java
+
+    @ExceptionHandler
+    public ResponseEntity<Problem> handleUsernameAlreadyUsedException(de.tum.in.www1.artemis.exception.UsernameAlreadyUsedException ex, NativeWebRequest request) {
+        LoginAlreadyUsedException problem = new LoginAlreadyUsedException();
+        return create(problem, request, HeaderUtil.createFailureAlert(applicationName, true, problem.getEntityName(), problem.getErrorKey(), problem.getMessage()));
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -13903,42 +13903,6 @@ in `src/main/java/de/tum/in/www1/artemis/service/hestia/behavioral/knowledgesour
 ```
 
 ### NonProtectedConstructorInAbstractClass
-Constructor `UMLContainerElement()` of an abstract class should not be declared 'public'
-in `src/main/java/de/tum/in/www1/artemis/service/compass/umlmodel/UMLContainerElement.java`
-#### Snippet
-```java
-    }
-
-    public UMLContainerElement(String jsonElementID) {
-        super(jsonElementID);
-    }
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `UMLContainerElement()` of an abstract class should not be declared 'public'
-in `src/main/java/de/tum/in/www1/artemis/service/compass/umlmodel/UMLContainerElement.java`
-#### Snippet
-```java
-     * empty constructor used to make mockito happy
-     */
-    public UMLContainerElement() {
-        super();
-    }
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `UMLContainerElement()` of an abstract class should not be declared 'public'
-in `src/main/java/de/tum/in/www1/artemis/service/compass/umlmodel/UMLContainerElement.java`
-#### Snippet
-```java
-    }
-
-    public UMLContainerElement(String jsonElementID, List<UMLElement> subElements) {
-        super(jsonElementID);
-        this.subElements = subElements;
-```
-
-### NonProtectedConstructorInAbstractClass
 Constructor `UMLElement()` of an abstract class should not be declared 'public'
 in `src/main/java/de/tum/in/www1/artemis/service/compass/umlmodel/UMLElement.java`
 #### Snippet
@@ -13960,6 +13924,42 @@ in `src/main/java/de/tum/in/www1/artemis/service/compass/umlmodel/UMLElement.jav
     public UMLElement() {
     }
 
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `UMLContainerElement()` of an abstract class should not be declared 'public'
+in `src/main/java/de/tum/in/www1/artemis/service/compass/umlmodel/UMLContainerElement.java`
+#### Snippet
+```java
+    }
+
+    public UMLContainerElement(String jsonElementID, List<UMLElement> subElements) {
+        super(jsonElementID);
+        this.subElements = subElements;
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `UMLContainerElement()` of an abstract class should not be declared 'public'
+in `src/main/java/de/tum/in/www1/artemis/service/compass/umlmodel/UMLContainerElement.java`
+#### Snippet
+```java
+    }
+
+    public UMLContainerElement(String jsonElementID) {
+        super(jsonElementID);
+    }
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `UMLContainerElement()` of an abstract class should not be declared 'public'
+in `src/main/java/de/tum/in/www1/artemis/service/compass/umlmodel/UMLContainerElement.java`
+#### Snippet
+```java
+     * empty constructor used to make mockito happy
+     */
+    public UMLContainerElement() {
+        super();
+    }
 ```
 
 ### NonProtectedConstructorInAbstractClass
@@ -13991,11 +13991,11 @@ Constructor `UMLActivityElement()` of an abstract class should not be declared '
 in `src/main/java/de/tum/in/www1/artemis/service/compass/umlmodel/activity/UMLActivityElement.java`
 #### Snippet
 ```java
+     * to make mockito happy
+     */
+    public UMLActivityElement() {
     }
 
-    public UMLActivityElement(String name, String jsonElementID) {
-        super(jsonElementID);
-        this.name = name;
 ```
 
 ### NonProtectedConstructorInAbstractClass
@@ -14003,11 +14003,11 @@ Constructor `UMLActivityElement()` of an abstract class should not be declared '
 in `src/main/java/de/tum/in/www1/artemis/service/compass/umlmodel/activity/UMLActivityElement.java`
 #### Snippet
 ```java
-     * to make mockito happy
-     */
-    public UMLActivityElement() {
     }
 
+    public UMLActivityElement(String name, String jsonElementID) {
+        super(jsonElementID);
+        this.name = name;
 ```
 
 ### NonProtectedConstructorInAbstractClass
@@ -14047,30 +14047,6 @@ in `src/main/java/de/tum/in/www1/artemis/security/ArtemisAuthenticationProviderI
 ```
 
 ## RuleId[ruleID=AssignmentToMethodParameter]
-### AssignmentToMethodParameter
-Assignment to method parameter `quizSubmission`
-in `src/main/java/de/tum/in/www1/artemis/web/rest/QuizSubmissionResource.java`
-#### Snippet
-```java
-
-        // Prevent multiple submissions (currently only for exam submissions)
-        quizSubmission = (QuizSubmission) examSubmissionService.preventMultipleSubmissions(quizExercise, quizSubmission, user);
-
-        QuizSubmission updatedQuizSubmission = quizSubmissionService.saveSubmissionForExamMode(quizExercise, quizSubmission, user);
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `lecture`
-in `src/main/java/de/tum/in/www1/artemis/web/rest/LectureResource.java`
-#### Snippet
-```java
-
-    private Lecture filterLectureContentForUser(Lecture lecture, User user) {
-        lecture = lectureService.filterActiveAttachments(lecture, user);
-
-        // The Objects::nonNull is needed here because the relationship lecture -> lecture units is ordered and
-```
-
 ### AssignmentToMethodParameter
 Assignment to method parameter `modelingSubmission`
 in `src/main/java/de/tum/in/www1/artemis/web/rest/ModelingSubmissionResource.java`
@@ -14120,6 +14096,18 @@ in `src/main/java/de/tum/in/www1/artemis/web/rest/ComplaintResource.java`
 ```
 
 ### AssignmentToMethodParameter
+Assignment to method parameter `quizSubmission`
+in `src/main/java/de/tum/in/www1/artemis/web/rest/QuizSubmissionResource.java`
+#### Snippet
+```java
+
+        // Prevent multiple submissions (currently only for exam submissions)
+        quizSubmission = (QuizSubmission) examSubmissionService.preventMultipleSubmissions(quizExercise, quizSubmission, user);
+
+        QuizSubmission updatedQuizSubmission = quizSubmissionService.saveSubmissionForExamMode(quizExercise, quizSubmission, user);
+```
+
+### AssignmentToMethodParameter
 Assignment to method parameter `textSubmission`
 in `src/main/java/de/tum/in/www1/artemis/web/rest/TextSubmissionResource.java`
 #### Snippet
@@ -14141,6 +14129,18 @@ in `src/main/java/de/tum/in/www1/artemis/web/rest/TextSubmissionResource.java`
         textSubmission = textSubmissionService.handleTextSubmission(textSubmission, exercise, user);
         textSubmissionService.hideDetails(textSubmission, user);
         long end = System.currentTimeMillis();
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `lecture`
+in `src/main/java/de/tum/in/www1/artemis/web/rest/LectureResource.java`
+#### Snippet
+```java
+
+    private Lecture filterLectureContentForUser(Lecture lecture, User user) {
+        lecture = lectureService.filterActiveAttachments(lecture, user);
+
+        // The Objects::nonNull is needed here because the relationship lecture -> lecture units is ordered and
 ```
 
 ### AssignmentToMethodParameter
@@ -14240,6 +14240,18 @@ in `src/main/java/de/tum/in/www1/artemis/web/rest/ProgrammingAssessmentResource.
 ```
 
 ### AssignmentToMethodParameter
+Assignment to method parameter `updatedProgrammingExercise`
+in `src/main/java/de/tum/in/www1/artemis/web/rest/ProgrammingExerciseResource.java`
+#### Snippet
+```java
+        var user = userRepository.getUserWithGroupsAndAuthorities();
+        authCheckService.checkHasAtLeastRoleForExerciseElseThrow(Role.EDITOR, existingProgrammingExercise, user);
+        updatedProgrammingExercise = programmingExerciseService.updateTimeline(updatedProgrammingExercise, notificationText);
+        exerciseService.logUpdate(updatedProgrammingExercise, updatedProgrammingExercise.getCourseViaExerciseGroupOrCourseMember(), user);
+        return ResponseEntity.ok().headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, updatedProgrammingExercise.getTitle()))
+```
+
+### AssignmentToMethodParameter
 Assignment to method parameter `participation`
 in `src/main/java/de/tum/in/www1/artemis/web/rest/ParticipationResource.java`
 #### Snippet
@@ -14276,15 +14288,15 @@ in `src/main/java/de/tum/in/www1/artemis/web/rest/ParticipationResource.java`
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `updatedProgrammingExercise`
-in `src/main/java/de/tum/in/www1/artemis/web/rest/ProgrammingExerciseResource.java`
+Assignment to method parameter `videoUnit`
+in `src/main/java/de/tum/in/www1/artemis/web/rest/lecture/VideoUnitResource.java`
 #### Snippet
 ```java
-        var user = userRepository.getUserWithGroupsAndAuthorities();
-        authCheckService.checkHasAtLeastRoleForExerciseElseThrow(Role.EDITOR, existingProgrammingExercise, user);
-        updatedProgrammingExercise = programmingExerciseService.updateTimeline(updatedProgrammingExercise, notificationText);
-        exerciseService.logUpdate(updatedProgrammingExercise, updatedProgrammingExercise.getCourseViaExerciseGroupOrCourseMember(), user);
-        return ResponseEntity.ok().headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, updatedProgrammingExercise.getTitle()))
+        // persist lecture unit before lecture to prevent "null index column for collection" error
+        videoUnit.setLecture(null);
+        videoUnit = videoUnitRepository.saveAndFlush(videoUnit);
+        videoUnit.setLecture(lecture);
+        lecture.addLectureUnit(videoUnit);
 ```
 
 ### AssignmentToMethodParameter
@@ -14297,18 +14309,6 @@ in `src/main/java/de/tum/in/www1/artemis/web/rest/lecture/TextUnitResource.java`
         textUnit = textUnitRepository.saveAndFlush(textUnit);
         textUnit.setLecture(lecture);
         lecture.addLectureUnit(textUnit);
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `videoUnit`
-in `src/main/java/de/tum/in/www1/artemis/web/rest/lecture/VideoUnitResource.java`
-#### Snippet
-```java
-        // persist lecture unit before lecture to prevent "null index column for collection" error
-        videoUnit.setLecture(null);
-        videoUnit = videoUnitRepository.saveAndFlush(videoUnit);
-        videoUnit.setLecture(lecture);
-        lecture.addLectureUnit(videoUnit);
 ```
 
 ### AssignmentToMethodParameter
@@ -14352,18 +14352,6 @@ Assignment to method parameter `modelingSubmission`
 in `src/main/java/de/tum/in/www1/artemis/service/ModelingSubmissionService.java`
 #### Snippet
 ```java
-        // remove result from submission (in the unlikely case it is passed here), so that students cannot inject a result
-        modelingSubmission.setResults(new ArrayList<>());
-        modelingSubmission = modelingSubmissionRepository.save(modelingSubmission);
-
-        // versioning of submission
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `modelingSubmission`
-in `src/main/java/de/tum/in/www1/artemis/service/ModelingSubmissionService.java`
-#### Snippet
-```java
             modelingSubmission.setSubmitted(true);
         }
         modelingSubmission = save(modelingSubmission, exercise, user, participation);
@@ -14381,6 +14369,42 @@ in `src/main/java/de/tum/in/www1/artemis/service/ModelingSubmissionService.java`
             modelingSubmission = modelingSubmissionRepository.save(modelingSubmission);
         }
         return modelingSubmission;
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `modelingSubmission`
+in `src/main/java/de/tum/in/www1/artemis/service/ModelingSubmissionService.java`
+#### Snippet
+```java
+        // remove result from submission (in the unlikely case it is passed here), so that students cannot inject a result
+        modelingSubmission.setResults(new ArrayList<>());
+        modelingSubmission = modelingSubmissionRepository.save(modelingSubmission);
+
+        // versioning of submission
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `newPolicy`
+in `src/main/java/de/tum/in/www1/artemis/service/SubmissionPolicyService.java`
+#### Snippet
+```java
+        else {
+            removeSubmissionPolicyFromProgrammingExercise(programmingExercise);
+            newPolicy = addSubmissionPolicyToProgrammingExercise(newPolicy, programmingExercise);
+            return enableSubmissionPolicy(newPolicy);
+        }
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `participation`
+in `src/main/java/de/tum/in/www1/artemis/service/SubmissionPolicyService.java`
+#### Snippet
+```java
+        final Long participationId = participation.getId();
+        int submissionCompensation = 0;
+        participation = participationRepository.findByIdWithLatestSubmissionAndResult(participationId)
+                .orElseThrow(() -> new EntityNotFoundException("Participation", participationId));
+        var submissions = participation.getSubmissions();
 ```
 
 ### AssignmentToMethodParameter
@@ -14417,30 +14441,6 @@ in `src/main/java/de/tum/in/www1/artemis/service/QuizExerciseService.java`
         quizExercise = quizExerciseRepository.saveAndFlush(quizExercise);
 
         // fix references in all drag and drop questions and short answer questions (step 2/2)
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `newPolicy`
-in `src/main/java/de/tum/in/www1/artemis/service/SubmissionPolicyService.java`
-#### Snippet
-```java
-        else {
-            removeSubmissionPolicyFromProgrammingExercise(programmingExercise);
-            newPolicy = addSubmissionPolicyToProgrammingExercise(newPolicy, programmingExercise);
-            return enableSubmissionPolicy(newPolicy);
-        }
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `participation`
-in `src/main/java/de/tum/in/www1/artemis/service/SubmissionPolicyService.java`
-#### Snippet
-```java
-        final Long participationId = participation.getId();
-        int submissionCompensation = 0;
-        participation = participationRepository.findByIdWithLatestSubmissionAndResult(participationId)
-                .orElseThrow(() -> new EntityNotFoundException("Participation", participationId));
-        var submissions = participation.getSubmissions();
 ```
 
 ### AssignmentToMethodParameter
@@ -14484,11 +14484,11 @@ Assignment to method parameter `fileUploadSubmission`
 in `src/main/java/de/tum/in/www1/artemis/service/FileUploadSubmissionService.java`
 #### Snippet
 ```java
+        // We need to set id for newly created submissions
+        if (fileUploadSubmission.getId() == null) {
+            fileUploadSubmission = fileUploadSubmissionRepository.save(fileUploadSubmission);
         }
-
-        fileUploadSubmission = save(fileUploadSubmission, file, participation, exercise);
-        return fileUploadSubmission;
-    }
+        final var newLocalFilePath = saveFileForSubmission(file, fileUploadSubmission, exercise);
 ```
 
 ### AssignmentToMethodParameter
@@ -14520,82 +14520,10 @@ Assignment to method parameter `fileUploadSubmission`
 in `src/main/java/de/tum/in/www1/artemis/service/FileUploadSubmissionService.java`
 #### Snippet
 ```java
-        // We need to set id for newly created submissions
-        if (fileUploadSubmission.getId() == null) {
-            fileUploadSubmission = fileUploadSubmissionRepository.save(fileUploadSubmission);
         }
-        final var newLocalFilePath = saveFileForSubmission(file, fileUploadSubmission, exercise);
-```
 
-### AssignmentToMethodParameter
-Assignment to method parameter `user`
-in `src/main/java/de/tum/in/www1/artemis/service/AuthorizationCheckService.java`
-#### Snippet
-```java
-     */
-    public boolean isAtLeastEditorInCourse(@NotNull Course course, @Nullable User user) {
-        user = loadUserIfNeeded(user);
-        return isEditorInCourse(course, user) || isInstructorInCourse(course, user) || isAdmin(user);
-    }
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `user`
-in `src/main/java/de/tum/in/www1/artemis/service/AuthorizationCheckService.java`
-#### Snippet
-```java
-     */
-    public boolean isOwnerOfParticipation(@NotNull StudentParticipation participation, @Nullable User user) {
-        user = loadUserIfNeeded(user);
-        if (participation.getParticipant() == null) {
-            return false;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `user`
-in `src/main/java/de/tum/in/www1/artemis/service/AuthorizationCheckService.java`
-#### Snippet
-```java
-     */
-    public boolean isTeachingAssistantInCourse(@NotNull Course course, @Nullable User user) {
-        user = loadUserIfNeeded(user);
-        return user.getGroups().contains(course.getTeachingAssistantGroupName());
-    }
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `user`
-in `src/main/java/de/tum/in/www1/artemis/service/AuthorizationCheckService.java`
-#### Snippet
-```java
-     */
-    public boolean isStudentInCourse(@NotNull Course course, @Nullable User user) {
-        user = loadUserIfNeeded(user);
-        return user.getGroups().contains(course.getStudentGroupName());
-    }
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `user`
-in `src/main/java/de/tum/in/www1/artemis/service/AuthorizationCheckService.java`
-#### Snippet
-```java
-     */
-    public boolean isInstructorInCourse(@NotNull Course course, @Nullable User user) {
-        user = loadUserIfNeeded(user);
-        return user.getGroups().contains(course.getInstructorGroupName());
-    }
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `user`
-in `src/main/java/de/tum/in/www1/artemis/service/AuthorizationCheckService.java`
-#### Snippet
-```java
-     */
-    public boolean isAtLeastTeachingAssistantForExercise(@NotNull Exercise exercise, @Nullable User user) {
-        user = loadUserIfNeeded(user);
-        return isAtLeastTeachingAssistantInCourse(exercise.getCourseViaExerciseGroupOrCourseMember(), user);
+        fileUploadSubmission = save(fileUploadSubmission, file, participation, exercise);
+        return fileUploadSubmission;
     }
 ```
 
@@ -14629,6 +14557,42 @@ in `src/main/java/de/tum/in/www1/artemis/service/AuthorizationCheckService.java`
 #### Snippet
 ```java
      */
+    public boolean isAtLeastStudentForExercise(@NotNull Exercise exercise, @Nullable User user) {
+        user = loadUserIfNeeded(user);
+        return isStudentInCourse(exercise.getCourseViaExerciseGroupOrCourseMember(), user) || isAtLeastTeachingAssistantForExercise(exercise, user);
+    }
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `user`
+in `src/main/java/de/tum/in/www1/artemis/service/AuthorizationCheckService.java`
+#### Snippet
+```java
+     */
+    public boolean isStudentInCourse(@NotNull Course course, @Nullable User user) {
+        user = loadUserIfNeeded(user);
+        return user.getGroups().contains(course.getStudentGroupName());
+    }
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `user`
+in `src/main/java/de/tum/in/www1/artemis/service/AuthorizationCheckService.java`
+#### Snippet
+```java
+     */
+    public boolean isInstructorInCourse(@NotNull Course course, @Nullable User user) {
+        user = loadUserIfNeeded(user);
+        return user.getGroups().contains(course.getInstructorGroupName());
+    }
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `user`
+in `src/main/java/de/tum/in/www1/artemis/service/AuthorizationCheckService.java`
+#### Snippet
+```java
+     */
     public boolean isAllowedToSeeLectureUnit(@NotNull LectureUnit lectureUnit, @Nullable User user) {
         user = loadUserIfNeeded(user);
         if (isAdmin(user)) {
@@ -14641,22 +14605,10 @@ in `src/main/java/de/tum/in/www1/artemis/service/AuthorizationCheckService.java`
 #### Snippet
 ```java
      */
-    public boolean isAllowedToSeeExercise(@NotNull Exercise exercise, @Nullable User user) {
+    public boolean isAtLeastTeachingAssistantForExercise(@NotNull Exercise exercise, @Nullable User user) {
         user = loadUserIfNeeded(user);
-        if (isAdmin(user)) {
-            return true;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `user`
-in `src/main/java/de/tum/in/www1/artemis/service/AuthorizationCheckService.java`
-#### Snippet
-```java
-     */
-    public boolean isAtLeastStudentInCourse(@NotNull Course course, @Nullable User user) {
-        user = loadUserIfNeeded(user);
-        return isStudentInCourse(course, user) || isTeachingAssistantInCourse(course, user) || isEditorInCourse(course, user) || isInstructorInCourse(course, user)
-                || isAdmin(user);
+        return isAtLeastTeachingAssistantInCourse(exercise.getCourseViaExerciseGroupOrCourseMember(), user);
+    }
 ```
 
 ### AssignmentToMethodParameter
@@ -14701,10 +14653,22 @@ in `src/main/java/de/tum/in/www1/artemis/service/AuthorizationCheckService.java`
 #### Snippet
 ```java
      */
-    public boolean isAtLeastStudentForExercise(@NotNull Exercise exercise, @Nullable User user) {
+    public boolean isTeachingAssistantInCourse(@NotNull Course course, @Nullable User user) {
         user = loadUserIfNeeded(user);
-        return isStudentInCourse(exercise.getCourseViaExerciseGroupOrCourseMember(), user) || isAtLeastTeachingAssistantForExercise(exercise, user);
+        return user.getGroups().contains(course.getTeachingAssistantGroupName());
     }
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `user`
+in `src/main/java/de/tum/in/www1/artemis/service/AuthorizationCheckService.java`
+#### Snippet
+```java
+     */
+    public boolean isOwnerOfParticipation(@NotNull StudentParticipation participation, @Nullable User user) {
+        user = loadUserIfNeeded(user);
+        if (participation.getParticipant() == null) {
+            return false;
 ```
 
 ### AssignmentToMethodParameter
@@ -14720,27 +14684,39 @@ in `src/main/java/de/tum/in/www1/artemis/service/AuthorizationCheckService.java`
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `textSubmission`
-in `src/main/java/de/tum/in/www1/artemis/service/TextSubmissionService.java`
+Assignment to method parameter `user`
+in `src/main/java/de/tum/in/www1/artemis/service/AuthorizationCheckService.java`
 #### Snippet
 ```java
-            textSubmission.setSubmitted(true);
-        }
-        textSubmission = save(textSubmission, participation, exercise, user);
-        return textSubmission;
-    }
+     */
+    public boolean isAllowedToSeeExercise(@NotNull Exercise exercise, @Nullable User user) {
+        user = loadUserIfNeeded(user);
+        if (isAdmin(user)) {
+            return true;
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `textSubmission`
-in `src/main/java/de/tum/in/www1/artemis/service/TextSubmissionService.java`
+Assignment to method parameter `user`
+in `src/main/java/de/tum/in/www1/artemis/service/AuthorizationCheckService.java`
 #### Snippet
 ```java
-        // remove result from submission (in the unlikely case it is passed here), so that students cannot inject a result
-        textSubmission.setResults(new ArrayList<>());
-        textSubmission = textSubmissionRepository.save(textSubmission);
+     */
+    public boolean isAtLeastStudentInCourse(@NotNull Course course, @Nullable User user) {
+        user = loadUserIfNeeded(user);
+        return isStudentInCourse(course, user) || isTeachingAssistantInCourse(course, user) || isEditorInCourse(course, user) || isInstructorInCourse(course, user)
+                || isAdmin(user);
+```
 
-        // versioning of submission
+### AssignmentToMethodParameter
+Assignment to method parameter `user`
+in `src/main/java/de/tum/in/www1/artemis/service/AuthorizationCheckService.java`
+#### Snippet
+```java
+     */
+    public boolean isAtLeastEditorInCourse(@NotNull Course course, @Nullable User user) {
+        user = loadUserIfNeeded(user);
+        return isEditorInCourse(course, user) || isInstructorInCourse(course, user) || isAdmin(user);
+    }
 ```
 
 ### AssignmentToMethodParameter
@@ -14861,6 +14837,30 @@ in `src/main/java/de/tum/in/www1/artemis/service/ParticipationService.java`
         participation = programmingExerciseStudentParticipationRepository.saveAndFlush(participation);
         if (participation.getInitializationDate() == null) {
             // only set the date if it was not set before (which should NOT be the case)
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `textSubmission`
+in `src/main/java/de/tum/in/www1/artemis/service/TextSubmissionService.java`
+#### Snippet
+```java
+            textSubmission.setSubmitted(true);
+        }
+        textSubmission = save(textSubmission, participation, exercise, user);
+        return textSubmission;
+    }
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `textSubmission`
+in `src/main/java/de/tum/in/www1/artemis/service/TextSubmissionService.java`
+#### Snippet
+```java
+        // remove result from submission (in the unlikely case it is passed here), so that students cannot inject a result
+        textSubmission.setResults(new ArrayList<>());
+        textSubmission = textSubmissionRepository.save(textSubmission);
+
+        // versioning of submission
 ```
 
 ### AssignmentToMethodParameter
@@ -15049,18 +15049,6 @@ Return of `null`
 in `src/main/java/de/tum/in/www1/artemis/web/rest/errors/ExceptionTranslator.java`
 #### Snippet
 ```java
-    public ResponseEntity<Problem> process(@Nullable ResponseEntity<Problem> entity, @NotNull NativeWebRequest request) {
-        if (entity == null) {
-            return null;
-        }
-        Problem problem = entity.getBody();
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/de/tum/in/www1/artemis/web/rest/errors/ExceptionTranslator.java`
-#### Snippet
-```java
             log.info("Broken pipe IOException occurred: {}", e.getMessage());
             // socket is closed, cannot return any response
             return null;
@@ -15070,14 +15058,14 @@ in `src/main/java/de/tum/in/www1/artemis/web/rest/errors/ExceptionTranslator.jav
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/de/tum/in/www1/artemis/web/websocket/team/ParticipationTeamWebsocketService.java`
+in `src/main/java/de/tum/in/www1/artemis/web/rest/errors/ExceptionTranslator.java`
 #### Snippet
 ```java
-        Pattern pattern = Pattern.compile("^" + getDestination("(\\d*)"));
-        Matcher matcher = pattern.matcher(destination);
-        return matcher.find() ? Long.parseLong(matcher.group(1)) : null;
-    }
-
+    public ResponseEntity<Problem> process(@Nullable ResponseEntity<Problem> entity, @NotNull NativeWebRequest request) {
+        if (entity == null) {
+            return null;
+        }
+        Problem problem = entity.getBody();
 ```
 
 ### ReturnNull
@@ -15090,6 +15078,18 @@ in `src/main/java/de/tum/in/www1/artemis/config/LiquibaseConfiguration.java`
                 return null;
             }
             log.error(error);
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/de/tum/in/www1/artemis/web/websocket/team/ParticipationTeamWebsocketService.java`
+#### Snippet
+```java
+        Pattern pattern = Pattern.compile("^" + getDestination("(\\d*)"));
+        Matcher matcher = pattern.matcher(destination);
+        return matcher.find() ? Long.parseLong(matcher.group(1)) : null;
+    }
+
 ```
 
 ### ReturnNull
@@ -15130,13 +15130,13 @@ in `src/main/java/de/tum/in/www1/artemis/domain/AuxiliaryRepository.java`
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/de/tum/in/www1/artemis/domain/Submission.java`
+in `src/main/java/de/tum/in/www1/artemis/config/websocket/WebsocketConfiguration.java`
 #### Snippet
 ```java
-    public Long getDurationInMinutes() {
-        if (this.participation == null || this.participation.getInitializationDate() == null || this.submissionDate == null) {
-            return null;
+            return new ReactorNettyTcpClient<>(client -> client.remoteAddress(addressIterator::next), new StompReactorNettyCodec());
         }
+        return null;
+    }
 
 ```
 
@@ -15154,13 +15154,13 @@ in `src/main/java/de/tum/in/www1/artemis/domain/TextCluster.java`
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/de/tum/in/www1/artemis/domain/LearningGoalRelation.java`
+in `src/main/java/de/tum/in/www1/artemis/domain/Submission.java`
 #### Snippet
 ```java
-        public String convertToDatabaseColumn(RelationType type) {
-            if (type == null) {
-                return null;
-            }
+    public Long getDurationInMinutes() {
+        if (this.participation == null || this.participation.getInitializationDate() == null || this.submissionDate == null) {
+            return null;
+        }
 
 ```
 
@@ -15178,13 +15178,13 @@ in `src/main/java/de/tum/in/www1/artemis/domain/LearningGoalRelation.java`
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/de/tum/in/www1/artemis/config/websocket/WebsocketConfiguration.java`
+in `src/main/java/de/tum/in/www1/artemis/domain/LearningGoalRelation.java`
 #### Snippet
 ```java
-            return new ReactorNettyTcpClient<>(client -> client.remoteAddress(addressIterator::next), new StompReactorNettyCodec());
-        }
-        return null;
-    }
+        public String convertToDatabaseColumn(RelationType type) {
+            if (type == null) {
+                return null;
+            }
 
 ```
 
@@ -15205,8 +15205,8 @@ Return of `null`
 in `src/main/java/de/tum/in/www1/artemis/domain/LearningGoalTaxonomy.java`
 #### Snippet
 ```java
-        public String convertToDatabaseColumn(LearningGoalTaxonomy taxonomy) {
-            if (taxonomy == null) {
+        public LearningGoalTaxonomy convertToEntityAttribute(String value) {
+            if (value == null) {
                 return null;
             }
 
@@ -15217,8 +15217,8 @@ Return of `null`
 in `src/main/java/de/tum/in/www1/artemis/domain/LearningGoalTaxonomy.java`
 #### Snippet
 ```java
-        public LearningGoalTaxonomy convertToEntityAttribute(String value) {
-            if (value == null) {
+        public String convertToDatabaseColumn(LearningGoalTaxonomy taxonomy) {
+            if (taxonomy == null) {
                 return null;
             }
 
@@ -15257,7 +15257,7 @@ in `src/main/java/de/tum/in/www1/artemis/domain/exam/StudentExam.java`
             if (this.startedDate == null) {
                 return null;
             }
-            return this.startedDate.plusSeconds(workingTime);
+            return this.startedDate.plusSeconds(workingTime + gracePeriodInSeconds);
 ```
 
 ### ReturnNull
@@ -15269,7 +15269,7 @@ in `src/main/java/de/tum/in/www1/artemis/domain/exam/StudentExam.java`
             if (this.startedDate == null) {
                 return null;
             }
-            return this.startedDate.plusSeconds(workingTime + gracePeriodInSeconds);
+            return this.startedDate.plusSeconds(workingTime);
 ```
 
 ### ReturnNull
@@ -15282,42 +15282,6 @@ in `src/main/java/de/tum/in/www1/artemis/domain/exam/StudentExam.java`
             return null;
         }
         if (Boolean.TRUE.equals(testRun)) {
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/de/tum/in/www1/artemis/domain/exam/Exam.java`
-#### Snippet
-```java
-    public Boolean isVisibleToStudents() {
-        if (visibleDate == null) {  // no visible date means the exam is configured wrongly and should not be visible!
-            return null;
-        }
-        return visibleDate.isBefore(ZonedDateTime.now());
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/de/tum/in/www1/artemis/domain/exam/Exam.java`
-#### Snippet
-```java
-    public Boolean isStarted() {
-        if (startDate == null) {   // no start date means the exam is configured wrongly and we cannot answer the question!
-            return null;
-        }
-        return startDate.isBefore(ZonedDateTime.now());
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/de/tum/in/www1/artemis/domain/Course.java`
-#### Snippet
-```java
-
-    public OnlineCourseConfiguration getOnlineCourseConfiguration() {
-        return Hibernate.isInitialized(onlineCourseConfiguration) ? onlineCourseConfiguration : null;
-    }
-
 ```
 
 ### ReturnNull
@@ -15338,6 +15302,102 @@ in `src/main/java/de/tum/in/www1/artemis/domain/quiz/MultipleChoiceQuestion.java
 #### Snippet
 ```java
             }
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/de/tum/in/www1/artemis/domain/Course.java`
+#### Snippet
+```java
+
+    public OnlineCourseConfiguration getOnlineCourseConfiguration() {
+        return Hibernate.isInitialized(onlineCourseConfiguration) ? onlineCourseConfiguration : null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/de/tum/in/www1/artemis/domain/quiz/ShortAnswerSubmittedAnswer.java`
+#### Snippet
+```java
+            }
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/de/tum/in/www1/artemis/domain/exam/Exam.java`
+#### Snippet
+```java
+    public Boolean isStarted() {
+        if (startDate == null) {   // no start date means the exam is configured wrongly and we cannot answer the question!
+            return null;
+        }
+        return startDate.isBefore(ZonedDateTime.now());
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/de/tum/in/www1/artemis/domain/exam/Exam.java`
+#### Snippet
+```java
+    public Boolean isVisibleToStudents() {
+        if (visibleDate == null) {  // no visible date means the exam is configured wrongly and should not be visible!
+            return null;
+        }
+        return visibleDate.isBefore(ZonedDateTime.now());
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/de/tum/in/www1/artemis/domain/ProgrammingExercise.java`
+#### Snippet
+```java
+            return templateParticipation.getRepositoryUrl();
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/de/tum/in/www1/artemis/domain/ProgrammingExercise.java`
+#### Snippet
+```java
+            return solutionParticipation.getBuildPlanId();
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/de/tum/in/www1/artemis/domain/ProgrammingExercise.java`
+#### Snippet
+```java
+            return templateParticipation.getBuildPlanId();
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/de/tum/in/www1/artemis/domain/ProgrammingExercise.java`
+#### Snippet
+```java
+            return solutionParticipation.getRepositoryUrl();
         }
         return null;
     }
@@ -15373,10 +15433,10 @@ Return of `null`
 in `src/main/java/de/tum/in/www1/artemis/domain/ProgrammingExercise.java`
 #### Snippet
 ```java
-            return templateParticipation.getRepositoryUrl();
+        var solutionRepositoryUrl = getSolutionRepositoryUrl();
+        if (solutionRepositoryUrl == null || solutionRepositoryUrl.isEmpty()) {
+            return null;
         }
-        return null;
-    }
 
 ```
 
@@ -15385,7 +15445,7 @@ Return of `null`
 in `src/main/java/de/tum/in/www1/artemis/domain/ProgrammingExercise.java`
 #### Snippet
 ```java
-            return templateParticipation.getBuildPlanId();
+            e.printStackTrace();
         }
         return null;
     }
@@ -15418,46 +15478,10 @@ in `src/main/java/de/tum/in/www1/artemis/domain/ProgrammingExercise.java`
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/de/tum/in/www1/artemis/domain/ProgrammingExercise.java`
+in `src/main/java/de/tum/in/www1/artemis/domain/quiz/QuizSubmission.java`
 #### Snippet
 ```java
-            return solutionParticipation.getBuildPlanId();
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/de/tum/in/www1/artemis/domain/ProgrammingExercise.java`
-#### Snippet
-```java
-            return solutionParticipation.getRepositoryUrl();
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/de/tum/in/www1/artemis/domain/ProgrammingExercise.java`
-#### Snippet
-```java
-        var solutionRepositoryUrl = getSolutionRepositoryUrl();
-        if (solutionRepositoryUrl == null || solutionRepositoryUrl.isEmpty()) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/de/tum/in/www1/artemis/domain/ProgrammingExercise.java`
-#### Snippet
-```java
-            e.printStackTrace();
+            }
         }
         return null;
     }
@@ -15514,31 +15538,7 @@ in `src/main/java/de/tum/in/www1/artemis/domain/Exercise.java`
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/de/tum/in/www1/artemis/domain/quiz/ShortAnswerSubmittedAnswer.java`
-#### Snippet
-```java
-            }
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
 in `src/main/java/de/tum/in/www1/artemis/domain/quiz/DragAndDropSubmittedAnswer.java`
-#### Snippet
-```java
-            }
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/de/tum/in/www1/artemis/domain/quiz/QuizSubmission.java`
 #### Snippet
 ```java
             }
@@ -15638,8 +15638,8 @@ in `src/main/java/de/tum/in/www1/artemis/domain/lecture/ExerciseUnit.java`
 #### Snippet
 ```java
     @Override
-    public String getName() {
-        return exercise == null ? null : exercise.getTitle();
+    public ZonedDateTime getReleaseDate() {
+        return exercise == null ? null : exercise.getReleaseDate();
     }
 
 ```
@@ -15650,8 +15650,8 @@ in `src/main/java/de/tum/in/www1/artemis/domain/lecture/ExerciseUnit.java`
 #### Snippet
 ```java
     @Override
-    public ZonedDateTime getReleaseDate() {
-        return exercise == null ? null : exercise.getReleaseDate();
+    public String getName() {
+        return exercise == null ? null : exercise.getTitle();
     }
 
 ```
@@ -15673,7 +15673,7 @@ Return of `null`
 in `src/main/java/de/tum/in/www1/artemis/domain/quiz/QuizExercise.java`
 #### Snippet
 ```java
-            return getOverallQuizPoints();
+            }
         }
         return null;
     }
@@ -15685,7 +15685,7 @@ Return of `null`
 in `src/main/java/de/tum/in/www1/artemis/domain/quiz/QuizExercise.java`
 #### Snippet
 ```java
-            }
+            return getOverallQuizPoints();
         }
         return null;
     }
@@ -15817,11 +15817,11 @@ Return of `null`
 in `src/main/java/de/tum/in/www1/artemis/service/CourseScoreCalculationService.java`
 #### Snippet
 ```java
-    private PlagiarismVerdict findMostServerePlagiarismVerdict(Collection<PlagiarismCase> plagiarismCasesForSingleStudent) {
-        if (plagiarismCasesForSingleStudent.isEmpty()) {
+        Set<Exercise> courseExercises = exerciseRepository.findAllExercisesByCourseId(courseId);
+        if (courseExercises.isEmpty()) {
             return null;
         }
-        var studentVerdictsFromExercises = plagiarismCasesForSingleStudent.stream().map(PlagiarismCase::getVerdict).toList();
+
 ```
 
 ### ReturnNull
@@ -15829,11 +15829,11 @@ Return of `null`
 in `src/main/java/de/tum/in/www1/artemis/service/CourseScoreCalculationService.java`
 #### Snippet
 ```java
-        Set<Exercise> courseExercises = exerciseRepository.findAllExercisesByCourseId(courseId);
-        if (courseExercises.isEmpty()) {
+    private PlagiarismVerdict findMostServerePlagiarismVerdict(Collection<PlagiarismCase> plagiarismCasesForSingleStudent) {
+        if (plagiarismCasesForSingleStudent.isEmpty()) {
             return null;
         }
-
+        var studentVerdictsFromExercises = plagiarismCasesForSingleStudent.stream().map(PlagiarismCase::getVerdict).toList();
 ```
 
 ### ReturnNull
@@ -16078,6 +16078,18 @@ in `src/main/java/de/tum/in/www1/artemis/service/compass/CompassService.java`
 
 ### ReturnNull
 Return of `null`
+in `src/main/java/de/tum/in/www1/artemis/service/compass/umlmodel/object/UMLObjectDiagram.java`
+#### Snippet
+```java
+        }
+
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
 in `src/main/java/de/tum/in/www1/artemis/service/exam/ExamService.java`
 #### Snippet
 ```java
@@ -16098,18 +16110,6 @@ in `src/main/java/de/tum/in/www1/artemis/service/exam/ExamService.java`
             return null;
         }
     }
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/de/tum/in/www1/artemis/service/compass/umlmodel/object/UMLObjectDiagram.java`
-#### Snippet
-```java
-        }
-
-        return null;
-    }
-
 ```
 
 ### ReturnNull
@@ -16174,19 +16174,7 @@ in `src/main/java/de/tum/in/www1/artemis/service/compass/umlmodel/syntaxtree/Syn
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/de/tum/in/www1/artemis/service/compass/umlmodel/communication/UMLCommunicationDiagram.java`
-#### Snippet
-```java
-        }
-
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/de/tum/in/www1/artemis/service/compass/umlmodel/classdiagram/UMLClass.java`
+in `src/main/java/de/tum/in/www1/artemis/service/compass/umlmodel/classdiagram/UMLClassDiagram.java`
 #### Snippet
 ```java
         }
@@ -16210,7 +16198,7 @@ in `src/main/java/de/tum/in/www1/artemis/service/compass/umlmodel/flowchart/Flow
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/de/tum/in/www1/artemis/service/compass/umlmodel/classdiagram/UMLClassDiagram.java`
+in `src/main/java/de/tum/in/www1/artemis/service/compass/umlmodel/deployment/UMLDeploymentDiagram.java`
 #### Snippet
 ```java
         }
@@ -16222,11 +16210,35 @@ in `src/main/java/de/tum/in/www1/artemis/service/compass/umlmodel/classdiagram/U
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/de/tum/in/www1/artemis/service/compass/umlmodel/deployment/UMLDeploymentDiagram.java`
+in `src/main/java/de/tum/in/www1/artemis/service/compass/umlmodel/classdiagram/UMLClass.java`
 #### Snippet
 ```java
         }
 
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/de/tum/in/www1/artemis/service/compass/umlmodel/communication/UMLCommunicationDiagram.java`
+#### Snippet
+```java
+        }
+
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/de/tum/in/www1/artemis/service/compass/controller/ModelClusterFactory.java`
+#### Snippet
+```java
+            }
+        }
         return null;
     }
 
@@ -16253,18 +16265,6 @@ in `src/main/java/de/tum/in/www1/artemis/service/compass/controller/FeedbackSele
         if (confidence < CompassConfiguration.ELEMENT_CONFIDENCE_THRESHOLD) {
             return null;
         }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/de/tum/in/www1/artemis/service/compass/controller/ModelClusterFactory.java`
-#### Snippet
-```java
-            }
-        }
-        return null;
-    }
 
 ```
 
@@ -16345,10 +16345,10 @@ Return of `null`
 in `src/main/java/de/tum/in/www1/artemis/service/connectors/jira/JiraAuthenticationProvider.java`
 #### Snippet
 ```java
-        if (optionalUser.isPresent() && optionalUser.get().isInternal()) {
-            // User found but is internal. Skip external authentication.
-            return null;
+            return new UsernamePasswordAuthenticationToken(user.getLogin(), user.getPassword(), user.getGrantedAuthorities());
         }
+        return null;
+    }
 
 ```
 
@@ -16357,10 +16357,10 @@ Return of `null`
 in `src/main/java/de/tum/in/www1/artemis/service/connectors/jira/JiraAuthenticationProvider.java`
 #### Snippet
 ```java
-            return new UsernamePasswordAuthenticationToken(user.getLogin(), user.getPassword(), user.getGrantedAuthorities());
+        if (optionalUser.isPresent() && optionalUser.get().isInternal()) {
+            // User found but is internal. Skip external authentication.
+            return null;
         }
-        return null;
-    }
 
 ```
 
@@ -16378,146 +16378,14 @@ in `src/main/java/de/tum/in/www1/artemis/service/connectors/apollon/ApollonConve
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/de/tum/in/www1/artemis/service/connectors/jenkins/JenkinsService.java`
+in `src/main/java/de/tum/in/www1/artemis/service/scheduled/cache/quiz/QuizScheduleService.java`
 #### Snippet
 ```java
-        if (participation.getBuildPlanId() == null) {
-            // The build plan does not exist, the build status cannot be retrieved
+    public QuizSubmission getQuizSubmission(Long quizExerciseId, String username) {
+        if (quizExerciseId == null || username == null) {
             return null;
         }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/de/tum/in/www1/artemis/service/connectors/jenkins/JenkinsService.java`
-#### Snippet
-```java
-            if (job == null) {
-                // means the project does not exist
-                return null;
-            }
-            else if (job.getUrl() == null || job.getUrl().isEmpty()) {
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/de/tum/in/www1/artemis/service/connectors/jenkins/JenkinsService.java`
-#### Snippet
-```java
-            }
-            else if (job.getUrl() == null || job.getUrl().isEmpty()) {
-                return null;
-            }
-            else {
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/de/tum/in/www1/artemis/service/connectors/jenkins/JenkinsService.java`
-#### Snippet
-```java
-    public ResponseEntity<byte[]> retrieveLatestArtifact(ProgrammingExerciseParticipation participation) {
-        // TODO, not necessary for the core functionality
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/de/tum/in/www1/artemis/service/connectors/GitService.java`
-#### Snippet
-```java
-    public ObjectId getLastCommitHash(VcsRepositoryUrl repoUrl) throws EntityNotFoundException {
-        if (repoUrl == null || repoUrl.getURI() == null) {
-            return null;
-        }
-        // Get HEAD ref of repo without cloning it locally
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/de/tum/in/www1/artemis/service/connectors/GitService.java`
-#### Snippet
-```java
-
-            if (headRef == null) {
-                return null;
-            }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/de/tum/in/www1/artemis/service/connectors/GitService.java`
-#### Snippet
-```java
-        // Empty Git repos don't have HEAD
-        if (originHeadRef == null) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/de/tum/in/www1/artemis/service/connectors/GitService.java`
-#### Snippet
-```java
-                // In this case we should remove the repository if cached, because it can't exist anymore.
-                cachedRepositories.remove(localPath);
-                return null;
-            }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/de/tum/in/www1/artemis/service/connectors/GitService.java`
-#### Snippet
-```java
-        catch (IOException | InvalidRefNameException ex) {
-            log.warn("Cannot get existing checkout out repository by local path: {}", ex.getMessage());
-            return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/de/tum/in/www1/artemis/service/connectors/GitService.java`
-#### Snippet
-```java
-                }
-                else {
-                    return null;
-                }
-            }
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/de/tum/in/www1/artemis/service/connectors/GitService.java`
-#### Snippet
-```java
-                    @Override
-                    public String getValue(String key) {
-                        return null;
-                    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/de/tum/in/www1/artemis/service/connectors/GitService.java`
-#### Snippet
-```java
-    public Path getLocalPathOfRepo(String targetPath, VcsRepositoryUrl targetUrl) {
-        if (targetUrl == null) {
-            return null;
-        }
-        return Path.of(targetPath.replaceAll("^\\." + Pattern.quote(java.io.File.separator), ""), targetUrl.folderNameForRepositoryUrl());
+        QuizSubmission quizSubmission = ((QuizExerciseCache) quizCache.getReadCacheFor(quizExerciseId)).getSubmissions().get(username);
 ```
 
 ### ReturnNull
@@ -16530,18 +16398,6 @@ in `src/main/java/de/tum/in/www1/artemis/service/scheduled/cache/quiz/QuizSchedu
             return null;
         }
         QuizExercise quizExercise = ((QuizExerciseCache) quizCache.getReadCacheFor(quizExerciseId)).getExercise();
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/de/tum/in/www1/artemis/service/scheduled/cache/quiz/QuizScheduleService.java`
-#### Snippet
-```java
-    public QuizSubmission getQuizSubmission(Long quizExerciseId, String username) {
-        if (quizExerciseId == null || username == null) {
-            return null;
-        }
-        QuizSubmission quizSubmission = ((QuizExerciseCache) quizCache.getReadCacheFor(quizExerciseId)).getSubmissions().get(username);
 ```
 
 ### ReturnNull
@@ -16609,18 +16465,6 @@ Return of `null`
 in `src/main/java/de/tum/in/www1/artemis/service/connectors/bamboo/BambooService.java`
 #### Snippet
 ```java
-            log.warn("Cannot get the build status, because the build plan for the participation {} was cleaned up already!", participation);
-            // The build plan does not exist, the build status cannot be retrieved
-            return null;
-        }
-        final var buildPlan = getBuildPlan(participation.getBuildPlanId(), false, true);
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/de/tum/in/www1/artemis/service/connectors/bamboo/BambooService.java`
-#### Snippet
-```java
                 }
 
                 return null;
@@ -16630,14 +16474,158 @@ in `src/main/java/de/tum/in/www1/artemis/service/connectors/bamboo/BambooService
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/de/tum/in/www1/artemis/service/connectors/jenkins/jobs/JenkinsJobService.java`
+in `src/main/java/de/tum/in/www1/artemis/service/connectors/bamboo/BambooService.java`
 #### Snippet
 ```java
-        var job = jenkinsServer.getJob(folderName);
-        if (job == null) {
+            log.warn("Cannot get the build status, because the build plan for the participation {} was cleaned up already!", participation);
+            // The build plan does not exist, the build status cannot be retrieved
+            return null;
+        }
+        final var buildPlan = getBuildPlan(participation.getBuildPlanId(), false, true);
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/de/tum/in/www1/artemis/service/connectors/GitService.java`
+#### Snippet
+```java
+                // In this case we should remove the repository if cached, because it can't exist anymore.
+                cachedRepositories.remove(localPath);
+                return null;
+            }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/de/tum/in/www1/artemis/service/connectors/GitService.java`
+#### Snippet
+```java
+        catch (IOException | InvalidRefNameException ex) {
+            log.warn("Cannot get existing checkout out repository by local path: {}", ex.getMessage());
+            return null;
+        }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/de/tum/in/www1/artemis/service/connectors/GitService.java`
+#### Snippet
+```java
+                    @Override
+                    public String getValue(String key) {
+                        return null;
+                    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/de/tum/in/www1/artemis/service/connectors/GitService.java`
+#### Snippet
+```java
+        // Empty Git repos don't have HEAD
+        if (originHeadRef == null) {
             return null;
         }
 
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/de/tum/in/www1/artemis/service/connectors/GitService.java`
+#### Snippet
+```java
+    public ObjectId getLastCommitHash(VcsRepositoryUrl repoUrl) throws EntityNotFoundException {
+        if (repoUrl == null || repoUrl.getURI() == null) {
+            return null;
+        }
+        // Get HEAD ref of repo without cloning it locally
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/de/tum/in/www1/artemis/service/connectors/GitService.java`
+#### Snippet
+```java
+
+            if (headRef == null) {
+                return null;
+            }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/de/tum/in/www1/artemis/service/connectors/GitService.java`
+#### Snippet
+```java
+    public Path getLocalPathOfRepo(String targetPath, VcsRepositoryUrl targetUrl) {
+        if (targetUrl == null) {
+            return null;
+        }
+        return Path.of(targetPath.replaceAll("^\\." + Pattern.quote(java.io.File.separator), ""), targetUrl.folderNameForRepositoryUrl());
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/de/tum/in/www1/artemis/service/connectors/GitService.java`
+#### Snippet
+```java
+                }
+                else {
+                    return null;
+                }
+            }
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/de/tum/in/www1/artemis/service/connectors/jenkins/JenkinsService.java`
+#### Snippet
+```java
+    public ResponseEntity<byte[]> retrieveLatestArtifact(ProgrammingExerciseParticipation participation) {
+        // TODO, not necessary for the core functionality
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/de/tum/in/www1/artemis/service/connectors/jenkins/JenkinsService.java`
+#### Snippet
+```java
+        if (participation.getBuildPlanId() == null) {
+            // The build plan does not exist, the build status cannot be retrieved
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/de/tum/in/www1/artemis/service/connectors/jenkins/JenkinsService.java`
+#### Snippet
+```java
+            if (job == null) {
+                // means the project does not exist
+                return null;
+            }
+            else if (job.getUrl() == null || job.getUrl().isEmpty()) {
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/de/tum/in/www1/artemis/service/connectors/jenkins/JenkinsService.java`
+#### Snippet
+```java
+            }
+            else if (job.getUrl() == null || job.getUrl().isEmpty()) {
+                return null;
+            }
+            else {
 ```
 
 ### ReturnNull
@@ -16669,18 +16657,6 @@ Return of `null`
 in `src/main/java/de/tum/in/www1/artemis/service/connectors/jenkins/jobs/JenkinsJobService.java`
 #### Snippet
 ```java
-    public Document getFolderConfig(String folderName) throws IOException {
-        if (jenkinsServer.getJob(folderName) == null) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/de/tum/in/www1/artemis/service/connectors/jenkins/jobs/JenkinsJobService.java`
-#### Snippet
-```java
         if (folderJobName == null || jobName == null) {
             log.warn("Cannot get the job, because projectKey {} or jobName {} is null", folderJobName, jobName);
             return null;
@@ -16702,13 +16678,25 @@ in `src/main/java/de/tum/in/www1/artemis/service/connectors/jenkins/jobs/Jenkins
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/de/tum/in/www1/artemis/service/connectors/jenkins/JenkinsUserManagementService.java`
+in `src/main/java/de/tum/in/www1/artemis/service/connectors/jenkins/jobs/JenkinsJobService.java`
 #### Snippet
 ```java
-        catch (HttpClientErrorException e) {
-            if (e.getStatusCode().equals(HttpStatus.NOT_FOUND)) {
-                return null;
-            }
+        var job = jenkinsServer.getJob(folderName);
+        if (job == null) {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/de/tum/in/www1/artemis/service/connectors/jenkins/jobs/JenkinsJobService.java`
+#### Snippet
+```java
+    public Document getFolderConfig(String folderName) throws IOException {
+        if (jenkinsServer.getJob(folderName) == null) {
+            return null;
+        }
 
 ```
 
@@ -16750,6 +16738,18 @@ in `src/main/java/de/tum/in/www1/artemis/service/connectors/bitbucket/dto/Bitbuc
 
 ### ReturnNull
 Return of `null`
+in `src/main/java/de/tum/in/www1/artemis/service/connectors/jenkins/JenkinsUserManagementService.java`
+#### Snippet
+```java
+        catch (HttpClientErrorException e) {
+            if (e.getStatusCode().equals(HttpStatus.NOT_FOUND)) {
+                return null;
+            }
+
+```
+
+### ReturnNull
+Return of `null`
 in `src/main/java/de/tum/in/www1/artemis/service/plagiarism/PlagiarismCaseService.java`
 #### Snippet
 ```java
@@ -16769,6 +16769,30 @@ in `src/main/java/de/tum/in/www1/artemis/service/plagiarism/ProgrammingPlagiaris
             log.error("Cannot generate JPlag report because directories couldn't be created: {}", reportFolder);
             return null;
         }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/de/tum/in/www1/artemis/security/SecurityUtils.java`
+#### Snippet
+```java
+            @Override
+            public String getName() {
+                return null;
+            }
+        };
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/de/tum/in/www1/artemis/security/SecurityUtils.java`
+#### Snippet
+```java
+            @Override
+            public Object getCredentials() {
+                return null;
+            }
 
 ```
 
@@ -16802,31 +16826,7 @@ in `src/main/java/de/tum/in/www1/artemis/security/SecurityUtils.java`
 #### Snippet
 ```java
             @Override
-            public String getName() {
-                return null;
-            }
-        };
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/de/tum/in/www1/artemis/security/SecurityUtils.java`
-#### Snippet
-```java
-            @Override
             public Object getDetails() {
-                return null;
-            }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/de/tum/in/www1/artemis/security/SecurityUtils.java`
-#### Snippet
-```java
-            @Override
-            public Object getCredentials() {
                 return null;
             }
 
@@ -16909,11 +16909,47 @@ Return of `null`
 in `src/main/java/de/tum/in/www1/artemis/service/programming/ProgrammingExerciseExportService.java`
 #### Snippet
 ```java
-        catch (IOException ex) {
-            log.error("Creating zip file for programming exercise {} did not work correctly: {} ", programmingExercise.getTitle(), ex.getMessage());
+        if (pathsToZippedRepos.isEmpty()) {
+            log.warn("The zip file could not be created. Ignoring the request to export repositories for exercise {}", programmingExercise.getTitle());
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/de/tum/in/www1/artemis/service/programming/ProgrammingExerciseExportService.java`
+#### Snippet
+```java
+            log.info(error);
+            exportErrors.add(error);
             return null;
         }
         finally {
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/de/tum/in/www1/artemis/service/programming/ProgrammingExerciseExportService.java`
+#### Snippet
+```java
+                log.info(info);
+                exportErrors.add(info);
+                return null;
+            }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/de/tum/in/www1/artemis/service/programming/ProgrammingExerciseExportService.java`
+#### Snippet
+```java
+            log.info(error);
+            exportErrors.add(error);
+            return null;
+        }
+    }
 ```
 
 ### ReturnNull
@@ -16957,71 +16993,11 @@ Return of `null`
 in `src/main/java/de/tum/in/www1/artemis/service/programming/ProgrammingExerciseExportService.java`
 #### Snippet
 ```java
-            log.info(error);
-            exportErrors.add(error);
+        catch (IOException ex) {
+            log.error("Creating zip file for programming exercise {} did not work correctly: {} ", programmingExercise.getTitle(), ex.getMessage());
             return null;
         }
         finally {
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/de/tum/in/www1/artemis/service/programming/ProgrammingExerciseExportService.java`
-#### Snippet
-```java
-        if (pathsToZippedRepos.isEmpty()) {
-            log.warn("The zip file could not be created. Ignoring the request to export repositories for exercise {}", programmingExercise.getTitle());
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/de/tum/in/www1/artemis/service/programming/ProgrammingExerciseExportService.java`
-#### Snippet
-```java
-                log.info(info);
-                exportErrors.add(info);
-                return null;
-            }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/de/tum/in/www1/artemis/service/programming/ProgrammingExerciseExportService.java`
-#### Snippet
-```java
-            log.info(error);
-            exportErrors.add(error);
-            return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/de/tum/in/www1/artemis/repository/specs/UserSpecs.java`
-#### Snippet
-```java
-            return getAllUsersMatchingCourses(courseIds);
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/de/tum/in/www1/artemis/repository/specs/UserSpecs.java`
-#### Snippet
-```java
-            return getAllUsersMatchingAuthorities(authorities);
-        }
-        return null;
-    }
-
 ```
 
 ### ReturnNull
@@ -17053,11 +17029,35 @@ Return of `null`
 in `src/main/java/de/tum/in/www1/artemis/repository/specs/UserSpecs.java`
 #### Snippet
 ```java
+            return getAllUsersMatchingAuthorities(authorities);
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/de/tum/in/www1/artemis/repository/specs/UserSpecs.java`
+#### Snippet
+```java
     public static Specification<User> getInternalOrExternalSpecification(boolean internal, boolean external) {
         if (!internal && !external) {
             return null;
         }
         else {
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/de/tum/in/www1/artemis/repository/specs/UserSpecs.java`
+#### Snippet
+```java
+            return getAllUsersMatchingCourses(courseIds);
+        }
+        return null;
+    }
+
 ```
 
 ## RuleId[ruleID=AssignmentToLambdaParameter]
@@ -17198,26 +17198,14 @@ public class TextFeedbackConflictRequestDTO {
 
 ## RuleId[ruleID=UnusedSymbol]
 ### UnusedSymbol
-Function "scrambleArray" is never used
+Function "createIntegerArray" is never used
 in `src/main/resources/templates/kotlin/solution/src/${packageNameFolder}/Client.kt`
 #### Snippet
 ```java
-    }
+object Client {
 
-    fun scrambleArray(array: Array<Int>): Array<Int> {
-        return array.toList().shuffled().toTypedArray()
-    }
-```
-
-### UnusedSymbol
-Function "printIntegerArray" is never used
-in `src/main/resources/templates/kotlin/solution/src/${packageNameFolder}/Client.kt`
-#### Snippet
-```java
-    }
-
-    fun printIntegerArray(a: Array<Int>) {
-        println(a.joinToString(prefix = "[", postfix = "]"))
+    fun createIntegerArray(size: Int = 30): Array<Int> {
+        return Array(size) { Random.nextInt(0, 100) }
     }
 ```
 
@@ -17234,14 +17222,26 @@ in `src/main/resources/templates/kotlin/solution/src/${packageNameFolder}/Client
 ```
 
 ### UnusedSymbol
-Function "createIntegerArray" is never used
+Function "printIntegerArray" is never used
 in `src/main/resources/templates/kotlin/solution/src/${packageNameFolder}/Client.kt`
 #### Snippet
 ```java
-object Client {
+    }
 
-    fun createIntegerArray(size: Int = 30): Array<Int> {
-        return Array(size) { Random.nextInt(0, 100) }
+    fun printIntegerArray(a: Array<Int>) {
+        println(a.joinToString(prefix = "[", postfix = "]"))
+    }
+```
+
+### UnusedSymbol
+Function "scrambleArray" is never used
+in `src/main/resources/templates/kotlin/solution/src/${packageNameFolder}/Client.kt`
+#### Snippet
+```java
+    }
+
+    fun scrambleArray(array: Array<Int>): Array<Int> {
+        return array.toList().shuffled().toTypedArray()
     }
 ```
 
