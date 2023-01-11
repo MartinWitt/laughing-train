@@ -53,6 +53,30 @@ in `src/main/java/com/palantir/gradle/versions/GetVersionPlugin.java`
 ```
 
 ### DataFlowIssue
+Method invocation `getName` may produce `NullPointerException`
+in `src/main/java/com/palantir/gradle/versions/VersionsLockPlugin.java`
+#### Snippet
+```java
+        public void execute(CompatibilityCheckDetails<Usage> details) {
+            if (ConsistentVersionsPlugin.CONSISTENT_VERSIONS_USAGE.equals(
+                            details.getProducerValue().getName())
+                    // This shouldn't be necessary, because we never resolve configurations with this usage.
+                    // However, 5.3 tests fail without it
+```
+
+### DataFlowIssue
+Method invocation `getName` may produce `NullPointerException`
+in `src/main/java/com/palantir/gradle/versions/VersionsLockPlugin.java`
+#### Snippet
+```java
+                    // However, 5.3 tests fail without it
+                    || ConsistentVersionsPlugin.CONSISTENT_VERSIONS_USAGE.equals(
+                            details.getConsumerValue().getName())) {
+                details.compatible();
+            }
+```
+
+### DataFlowIssue
 Argument `component.getModuleVersion()` might be null
 in `src/main/java/com/palantir/gradle/versions/VersionsLockPlugin.java`
 #### Snippet
@@ -86,30 +110,6 @@ in `src/main/java/com/palantir/gradle/versions/VersionsLockPlugin.java`
                     if (container.getStrategy() == RecommendationStrategies.OverrideTransitives) {
                         throw new GradleException("Must not use strategy OverrideTransitives for "
                                 + sub
-```
-
-### DataFlowIssue
-Method invocation `getName` may produce `NullPointerException`
-in `src/main/java/com/palantir/gradle/versions/VersionsLockPlugin.java`
-#### Snippet
-```java
-        public void execute(CompatibilityCheckDetails<Usage> details) {
-            if (ConsistentVersionsPlugin.CONSISTENT_VERSIONS_USAGE.equals(
-                            details.getProducerValue().getName())
-                    // This shouldn't be necessary, because we never resolve configurations with this usage.
-                    // However, 5.3 tests fail without it
-```
-
-### DataFlowIssue
-Method invocation `getName` may produce `NullPointerException`
-in `src/main/java/com/palantir/gradle/versions/VersionsLockPlugin.java`
-#### Snippet
-```java
-                    // However, 5.3 tests fail without it
-                    || ConsistentVersionsPlugin.CONSISTENT_VERSIONS_USAGE.equals(
-                            details.getConsumerValue().getName())) {
-                details.compatible();
-            }
 ```
 
 ## RuleId[ruleID=UnnecessaryFullyQualifiedName]
@@ -225,18 +225,6 @@ in `src/main/java/com/palantir/gradle/versions/GradleComparators.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? super ScopeConfigurer`
-in `src/main/java/com/palantir/gradle/versions/VersionsLockExtension.java`
-#### Snippet
-```java
-    }
-
-    public final void production(Action<ScopeConfigurer> action) {
-        action.execute(productionConfigurer);
-    }
-```
-
-### BoundedWildcard
 Can generalize to `? super String`
 in `src/main/java/com/palantir/gradle/versions/VersionsLockExtension.java`
 #### Snippet
@@ -255,9 +243,45 @@ in `src/main/java/com/palantir/gradle/versions/VersionsLockExtension.java`
 ```java
     }
 
+    public final void production(Action<ScopeConfigurer> action) {
+        action.execute(productionConfigurer);
+    }
+```
+
+### BoundedWildcard
+Can generalize to `? super ScopeConfigurer`
+in `src/main/java/com/palantir/gradle/versions/VersionsLockExtension.java`
+#### Snippet
+```java
+    }
+
     public final void test(Action<ScopeConfigurer> action) {
         action.execute(testConfigurer);
     }
+```
+
+### BoundedWildcard
+Can generalize to `? extends FullLockState`
+in `src/main/java/com/palantir/gradle/versions/WhyDependencyTask.java`
+#### Snippet
+```java
+    }
+
+    public final void fullLockState(Provider<FullLockState> provider) {
+        this.fullLockState.set(provider);
+    }
+```
+
+### BoundedWildcard
+Can generalize to `? extends ValueDifference`
+in `src/main/java/com/palantir/gradle/versions/VerifyLocksTask.java`
+#### Snippet
+```java
+    }
+
+    private static String formatDependencyDifferences(Map<MyModuleIdentifier, ValueDifference<Line>> differing) {
+        return differing.entrySet().stream()
+                .map(diff -> String.format(
 ```
 
 ### BoundedWildcard
@@ -285,30 +309,6 @@ in `src/main/java/com/palantir/gradle/versions/VerifyLocksTask.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends ValueDifference`
-in `src/main/java/com/palantir/gradle/versions/VerifyLocksTask.java`
-#### Snippet
-```java
-    }
-
-    private static String formatDependencyDifferences(Map<MyModuleIdentifier, ValueDifference<Line>> differing) {
-        return differing.entrySet().stream()
-                .map(diff -> String.format(
-```
-
-### BoundedWildcard
-Can generalize to `? extends FullLockState`
-in `src/main/java/com/palantir/gradle/versions/WhyDependencyTask.java`
-#### Snippet
-```java
-    }
-
-    public final void fullLockState(Provider<FullLockState> provider) {
-        this.fullLockState.set(provider);
-    }
-```
-
-### BoundedWildcard
 Can generalize to `? extends MyModuleVersionIdentifier`
 in `src/main/java/com/palantir/gradle/versions/lockstate/LockStates.java`
 #### Snippet
@@ -330,6 +330,18 @@ in `src/main/java/com/palantir/gradle/versions/lockstate/LockStates.java`
     public static Stream<Line> computeLines(Map<MyModuleVersionIdentifier, Dependents> deps) {
         return deps.entrySet().stream().map(entry -> componentWithDependentsToLine(entry.getKey(), entry.getValue()));
     }
+```
+
+### BoundedWildcard
+Can generalize to `? super Configuration`
+in `src/main/java/com/palantir/gradle/versions/VersionsLockPlugin.java`
+#### Snippet
+```java
+            Project currentProject,
+            DependencySet dependencySet,
+            Map<Configuration, String> copiedConfigurationsCache,
+            DirectDependencyScopes.Builder dependencyScopes,
+            GcvScope scope) {
 ```
 
 ### BoundedWildcard
@@ -357,15 +369,15 @@ in `src/main/java/com/palantir/gradle/versions/VersionsLockPlugin.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? super Configuration`
+Can generalize to `? super ResolvedComponentResult`
 in `src/main/java/com/palantir/gradle/versions/VersionsLockPlugin.java`
 #### Snippet
 ```java
-            Project currentProject,
-            DependencySet dependencySet,
-            Map<Configuration, String> copiedConfigurationsCache,
-            DirectDependencyScopes.Builder dependencyScopes,
-            GcvScope scope) {
+    private static GcvScope getScope(
+            ResolvedComponentResult component,
+            Map<ResolvedComponentResult, GcvScope> scopeCache,
+            DirectDependencyScopes directDependencyScopes) {
+        Optional<GcvScope> cached = Optional.ofNullable(scopeCache.get(component));
 ```
 
 ### BoundedWildcard
@@ -378,18 +390,6 @@ in `src/main/java/com/palantir/gradle/versions/VersionsLockPlugin.java`
             Project project, Configuration fromConf, Set<Configuration> toConfs) {
         toConfs.forEach(toConf -> fromConf.getDependencies().add(createConfigurationDependency(project, toConf)));
     }
-```
-
-### BoundedWildcard
-Can generalize to `? super ResolvedComponentResult`
-in `src/main/java/com/palantir/gradle/versions/VersionsLockPlugin.java`
-#### Snippet
-```java
-    private static GcvScope getScope(
-            ResolvedComponentResult component,
-            Map<ResolvedComponentResult, GcvScope> scopeCache,
-            DirectDependencyScopes directDependencyScopes) {
-        Optional<GcvScope> cached = Optional.ofNullable(scopeCache.get(component));
 ```
 
 ## RuleId[ruleID=AbstractClassNeverImplemented]
@@ -432,14 +432,26 @@ public abstract class MyModuleIdentifier implements ModuleIdentifier {
 ## RuleId[ruleID=CodeBlock2Expr]
 ### CodeBlock2Expr
 Statement lambda can be replaced with expression lambda
-in `src/main/java/com/palantir/gradle/versions/VersionsPropsPlugin.java`
+in `src/main/java/com/palantir/gradle/versions/ConsistentVersionsPlugin.java`
 #### Snippet
 ```java
-                });
+        project.getPluginManager().apply(GetVersionPlugin.class);
 
-        project.getConfigurations().configureEach(conf -> {
-            setupConfiguration(project, extension, rootConfiguration.get(), versionsProps, conf);
-        });
+        project.allprojects(proj -> {
+            proj.getPluginManager().withPlugin("java", _plugin -> {
+                proj.getPluginManager().apply(FixLegacyJavaConfigurationsPlugin.class);
+```
+
+### CodeBlock2Expr
+Statement lambda can be replaced with expression lambda
+in `src/main/java/com/palantir/gradle/versions/ConsistentVersionsPlugin.java`
+#### Snippet
+```java
+
+        project.allprojects(proj -> {
+            proj.getPluginManager().withPlugin("java", _plugin -> {
+                proj.getPluginManager().apply(FixLegacyJavaConfigurationsPlugin.class);
+            });
 ```
 
 ### CodeBlock2Expr
@@ -468,26 +480,14 @@ in `src/main/java/com/palantir/gradle/versions/VersionsPropsPlugin.java`
 
 ### CodeBlock2Expr
 Statement lambda can be replaced with expression lambda
-in `src/main/java/com/palantir/gradle/versions/ConsistentVersionsPlugin.java`
+in `src/main/java/com/palantir/gradle/versions/VersionsPropsPlugin.java`
 #### Snippet
 ```java
-        project.getPluginManager().apply(GetVersionPlugin.class);
+                });
 
-        project.allprojects(proj -> {
-            proj.getPluginManager().withPlugin("java", _plugin -> {
-                proj.getPluginManager().apply(FixLegacyJavaConfigurationsPlugin.class);
-```
-
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
-in `src/main/java/com/palantir/gradle/versions/ConsistentVersionsPlugin.java`
-#### Snippet
-```java
-
-        project.allprojects(proj -> {
-            proj.getPluginManager().withPlugin("java", _plugin -> {
-                proj.getPluginManager().apply(FixLegacyJavaConfigurationsPlugin.class);
-            });
+        project.getConfigurations().configureEach(conf -> {
+            setupConfiguration(project, extension, rootConfiguration.get(), versionsProps, conf);
+        });
 ```
 
 ### CodeBlock2Expr
@@ -519,59 +519,23 @@ Statement lambda can be replaced with expression lambda
 in `src/main/java/com/palantir/gradle/versions/VersionsLockPlugin.java`
 #### Snippet
 ```java
-        // Parallel 'resolveConfigurations' sometimes breaks unless we force the root one to run first.
-        if (rootProject != project) {
-            project.getPluginManager().withPlugin("com.palantir.configuration-resolver", _plugin -> {
-                project.getTasks().named("resolveConfigurations", task -> task.mustRunAfter(":resolveConfigurations"));
-            });
-```
-
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
-in `src/main/java/com/palantir/gradle/versions/VersionsLockPlugin.java`
-#### Snippet
-```java
-        Multimap<String, Project> coordinateDuplicates = LinkedHashMultimap.create();
-        Set<Project> subprojectsLeft = new HashSet<>(project.getSubprojects());
-        project.subprojects(subproject -> {
-            subproject.afterEvaluate(sub -> {
-                if (haveSameGroupAndName(project, sub)) {
-```
-
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
-in `src/main/java/com/palantir/gradle/versions/VersionsLockPlugin.java`
-#### Snippet
-```java
-        });
-
-        project.subprojects(subproject -> {
-            subproject.afterEvaluate(sub -> {
-                sub.getPluginManager().withPlugin("nebula.dependency-recommender", _plugin -> {
-```
-
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
-in `src/main/java/com/palantir/gradle/versions/VersionsLockPlugin.java`
-#### Snippet
-```java
-
-        project.subprojects(subproject -> {
-            subproject.afterEvaluate(sub -> {
-                sub.getPluginManager().withPlugin("nebula.dependency-recommender", _plugin -> {
-                    RecommendationProviderContainer container =
-```
-
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
-in `src/main/java/com/palantir/gradle/versions/VersionsLockPlugin.java`
-#### Snippet
-```java
         // apiElements etc. (Their constraints get published so we don't want to start publishing strictly locked
         // constraints)
         result.allConfigurations().forEach(conf -> {
             Preconditions.checkArgument(
                     !conf.isCanBeConsumed() && conf.isCanBeResolved(),
+```
+
+### CodeBlock2Expr
+Statement lambda can be replaced with expression lambda
+in `src/main/java/com/palantir/gradle/versions/VersionsLockPlugin.java`
+#### Snippet
+```java
+        // Parallel 'resolveConfigurations' sometimes breaks unless we force the root one to run first.
+        if (rootProject != project) {
+            project.getPluginManager().withPlugin("com.palantir.configuration-resolver", _plugin -> {
+                project.getTasks().named("resolveConfigurations", task -> task.mustRunAfter(":resolveConfigurations"));
+            });
 ```
 
 ### CodeBlock2Expr
@@ -620,6 +584,42 @@ in `src/main/java/com/palantir/gradle/versions/VersionsLockPlugin.java`
             gcvLocksConfiguration.configure(conf -> {
                 conf.getDependencyConstraints()
                         .addAll(constructConstraintsFromLockFile(
+```
+
+### CodeBlock2Expr
+Statement lambda can be replaced with expression lambda
+in `src/main/java/com/palantir/gradle/versions/VersionsLockPlugin.java`
+#### Snippet
+```java
+        Multimap<String, Project> coordinateDuplicates = LinkedHashMultimap.create();
+        Set<Project> subprojectsLeft = new HashSet<>(project.getSubprojects());
+        project.subprojects(subproject -> {
+            subproject.afterEvaluate(sub -> {
+                if (haveSameGroupAndName(project, sub)) {
+```
+
+### CodeBlock2Expr
+Statement lambda can be replaced with expression lambda
+in `src/main/java/com/palantir/gradle/versions/VersionsLockPlugin.java`
+#### Snippet
+```java
+        });
+
+        project.subprojects(subproject -> {
+            subproject.afterEvaluate(sub -> {
+                sub.getPluginManager().withPlugin("nebula.dependency-recommender", _plugin -> {
+```
+
+### CodeBlock2Expr
+Statement lambda can be replaced with expression lambda
+in `src/main/java/com/palantir/gradle/versions/VersionsLockPlugin.java`
+#### Snippet
+```java
+
+        project.subprojects(subproject -> {
+            subproject.afterEvaluate(sub -> {
+                sub.getPluginManager().withPlugin("nebula.dependency-recommender", _plugin -> {
+                    RecommendationProviderContainer container =
 ```
 
 ## RuleId[ruleID=RegExpRedundantEscape]
@@ -713,11 +713,11 @@ in `src/main/java/com/palantir/gradle/versions/lockstate/LockStates.java`
 in `src/main/java/com/palantir/gradle/versions/VersionsLockPlugin.java`
 #### Snippet
 ```java
-    private static Map<Project, LockedConfigurations> wireUpLockedConfigurationsByProject(Project rootProject) {
-        return rootProject.getAllprojects().stream().collect(Collectors.toMap(Functions.identity(), subproject -> {
-            if (rootProject.getGradle().getStartParameter().isConfigureOnDemand()
-                    && !subproject.getState().getExecuted()) {
-                return ImmutableLockedConfigurations.builder().build();
+                        unifiedClasspath.getIncoming().getResolutionResult();
+                // Throw if there are dependencies that are not present in the lock state.
+                if (startParameter.isConfigureOnDemand()
+                        && project.getAllprojects().stream()
+                                .anyMatch(subproject -> !subproject.getState().getExecuted())) {
 ```
 
 ### UnstableApiUsage
@@ -725,10 +725,10 @@ in `src/main/java/com/palantir/gradle/versions/VersionsLockPlugin.java`
 in `src/main/java/com/palantir/gradle/versions/VersionsLockPlugin.java`
 #### Snippet
 ```java
-                        unifiedClasspath.getIncoming().getResolutionResult();
-                // Throw if there are dependencies that are not present in the lock state.
-                if (startParameter.isConfigureOnDemand()
-                        && project.getAllprojects().stream()
-                                .anyMatch(subproject -> !subproject.getState().getExecuted())) {
+    private static Map<Project, LockedConfigurations> wireUpLockedConfigurationsByProject(Project rootProject) {
+        return rootProject.getAllprojects().stream().collect(Collectors.toMap(Functions.identity(), subproject -> {
+            if (rootProject.getGradle().getStartParameter().isConfigureOnDemand()
+                    && !subproject.getState().getExecuted()) {
+                return ImmutableLockedConfigurations.builder().build();
 ```
 
