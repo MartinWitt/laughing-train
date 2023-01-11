@@ -159,9 +159,9 @@ Modifier `public` is redundant for interface members
 in `src/jetbrains/buildServer/server/rest/model/files/FileApiUrlBuilder.java`
 #### Snippet
 ```java
-public interface FileApiUrlBuilder {
+
   @NotNull
-  public String getMetadataHref(@Nullable Element element);
+  public String getChildrenHref(@Nullable Element element);
 
   @NotNull
 ```
@@ -171,9 +171,9 @@ Modifier `public` is redundant for interface members
 in `src/jetbrains/buildServer/server/rest/model/files/FileApiUrlBuilder.java`
 #### Snippet
 ```java
-
+public interface FileApiUrlBuilder {
   @NotNull
-  public String getChildrenHref(@Nullable Element element);
+  public String getMetadataHref(@Nullable Element element);
 
   @NotNull
 ```
@@ -243,35 +243,11 @@ Modifier `public` is redundant for interface members
 in `src/jetbrains/buildServer/server/rest/request/FeatureSubResource.java`
 #### Snippet
 ```java
-     */
-    @NotNull
-    public String add(final @NotNull S entityToAdd, final @NotNull ServiceLocator serviceLocator);
 
     @NotNull
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `src/jetbrains/buildServer/server/rest/request/FeatureSubResource.java`
-#### Snippet
-```java
-
-    @NotNull
-    public S getSingle(final @NotNull String featureLocator, final @NotNull Fields fields, final @NotNull BeanContext beanContext);
-
-    public void delete(final @NotNull String featureLocator, final @NotNull ServiceLocator serviceLocator);
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `src/jetbrains/buildServer/server/rest/request/FeatureSubResource.java`
-#### Snippet
-```java
     public M get(final @Nullable String locator, final @NotNull Fields fields, final @NotNull BeanContext beanContext);
 
     public void replaceAll(final @NotNull M newEntities, final @NotNull ServiceLocator serviceLocator);
-
-    ParametersPersistableEntity getParametersHolder(final @NotNull String featureLocator);
 ```
 
 ### UnnecessaryModifier
@@ -303,11 +279,35 @@ Modifier `public` is redundant for interface members
 in `src/jetbrains/buildServer/server/rest/request/FeatureSubResource.java`
 #### Snippet
 ```java
-
-    @NotNull
     public M get(final @Nullable String locator, final @NotNull Fields fields, final @NotNull BeanContext beanContext);
 
     public void replaceAll(final @NotNull M newEntities, final @NotNull ServiceLocator serviceLocator);
+
+    ParametersPersistableEntity getParametersHolder(final @NotNull String featureLocator);
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `src/jetbrains/buildServer/server/rest/request/FeatureSubResource.java`
+#### Snippet
+```java
+     */
+    @NotNull
+    public String add(final @NotNull S entityToAdd, final @NotNull ServiceLocator serviceLocator);
+
+    @NotNull
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `src/jetbrains/buildServer/server/rest/request/FeatureSubResource.java`
+#### Snippet
+```java
+
+    @NotNull
+    public S getSingle(final @NotNull String featureLocator, final @NotNull Fields fields, final @NotNull BeanContext beanContext);
+
+    public void delete(final @NotNull String featureLocator, final @NotNull ServiceLocator serviceLocator);
 ```
 
 ### UnnecessaryModifier
@@ -315,11 +315,11 @@ Modifier `public` is redundant for interface members
 in `src/jetbrains/buildServer/server/graphql/model/connections/PaginationArguments.java`
 #### Snippet
 ```java
+public interface PaginationArguments {
+  @Nullable
+  public String getAfter();
 
-  @NotNull
-  public Direction getDirection();
-
-  static PaginationArguments everything() {
+  public int getCount();
 ```
 
 ### UnnecessaryModifier
@@ -339,11 +339,11 @@ Modifier `public` is redundant for interface members
 in `src/jetbrains/buildServer/server/graphql/model/connections/PaginationArguments.java`
 #### Snippet
 ```java
-public interface PaginationArguments {
-  @Nullable
-  public String getAfter();
 
-  public int getCount();
+  @NotNull
+  public Direction getDirection();
+
+  static PaginationArguments everything() {
 ```
 
 ### UnnecessaryModifier
@@ -421,6 +421,18 @@ in `src/jetbrains/buildServer/server/rest/model/project/PropEntityProjectFeature
 ```
 
 ### StaticCallOnSubclass
+Static method `getSetting()` declared in class 'jetbrains.buildServer.server.rest.model.buildType.PropEntity' but referenced via subclass 'jetbrains.buildServer.server.rest.model.buildType.PropEntityStep'
+in `src/jetbrains/buildServer/server/rest/request/BuildTypeRequest.java`
+#### Snippet
+```java
+      throw new BadRequestException("Could not get field of a requirement which does not have id");
+    }
+    return PropEntityStep.getSetting(buildType.get(), id, name);
+  }
+
+```
+
+### StaticCallOnSubclass
 Static method `setSetting()` declared in class 'jetbrains.buildServer.server.rest.model.buildType.PropEntity' but referenced via subclass 'jetbrains.buildServer.server.rest.model.buildType.PropEntityStep'
 in `src/jetbrains/buildServer/server/rest/request/BuildTypeRequest.java`
 #### Snippet
@@ -469,18 +481,6 @@ in `src/jetbrains/buildServer/server/rest/request/BuildTypeRequest.java`
 ```
 
 ### StaticCallOnSubclass
-Static method `getSetting()` declared in class 'jetbrains.buildServer.server.rest.model.buildType.PropEntity' but referenced via subclass 'jetbrains.buildServer.server.rest.model.buildType.PropEntityStep'
-in `src/jetbrains/buildServer/server/rest/request/BuildTypeRequest.java`
-#### Snippet
-```java
-      throw new BadRequestException("Could not get field of a requirement which does not have id");
-    }
-    return PropEntityStep.getSetting(buildType.get(), id, name);
-  }
-
-```
-
-### StaticCallOnSubclass
 Static method `getSetting()` declared in class 'jetbrains.buildServer.server.rest.model.buildType.PropEntity' but referenced via subclass 'jetbrains.buildServer.server.rest.model.buildType.PropEntityArtifactDep'
 in `src/jetbrains/buildServer/server/rest/request/BuildTypeRequest.java`
 #### Snippet
@@ -498,6 +498,18 @@ in `src/jetbrains/buildServer/server/rest/request/BuildTypeRequest.java`
 in `src/jetbrains/buildServer/server/rest/request/ProjectRequest.java`
 #### Snippet
 ```java
+      agentPoolManager.dissociateProjectsFromPool(agentPoolId, singleton(project.getProjectId()));
+    } catch (NoSuchAgentPoolException e) {
+      throw new BadRequestException("Agent pool with id \'" + agentPoolId + "' is not found.");
+    }
+  }
+```
+
+### UnnecessaryStringEscape
+`\'` is unnecessarily escaped
+in `src/jetbrains/buildServer/server/rest/request/ProjectRequest.java`
+#### Snippet
+```java
       agentPoolManager.associateProjectsWithPool(agentPoolId, singleton(project.getProjectId()));
     } catch (NoSuchAgentPoolException e) {
       throw new BadRequestException("Agent pool with id \'" + agentPoolId + "' is not found.");
@@ -507,14 +519,50 @@ in `src/jetbrains/buildServer/server/rest/request/ProjectRequest.java`
 
 ### UnnecessaryStringEscape
 `\'` is unnecessarily escaped
-in `src/jetbrains/buildServer/server/rest/request/ProjectRequest.java`
+in `src/jetbrains/buildServer/server/rest/request/AgentPoolRequest.java`
 #### Snippet
 ```java
-      agentPoolManager.dissociateProjectsFromPool(agentPoolId, singleton(project.getProjectId()));
+      agentPoolManager.dissociateProjectsFromPool(agentPoolId, agentPoolManager.getPoolProjects(agentPoolId));
     } catch (NoSuchAgentPoolException e) {
       throw new BadRequestException("Agent pool with id \'" + agentPoolId + "' is not found.");
     }
   }
+```
+
+### UnnecessaryStringEscape
+`\'` is unnecessarily escaped
+in `src/jetbrains/buildServer/server/rest/request/AgentPoolRequest.java`
+#### Snippet
+```java
+      agentPoolManager.associateProjectsWithPool(agentPoolId, Collections.singleton(postedProject.getProjectId()));
+    } catch (NoSuchAgentPoolException e) {
+      throw new BadRequestException("Agent pool with id \'" + agentPoolId + "' is not found.");
+    }
+    return new Project(postedProject, Fields.LONG, myBeanContext);
+```
+
+### UnnecessaryStringEscape
+`\'` is unnecessarily escaped
+in `src/jetbrains/buildServer/server/rest/request/AgentPoolRequest.java`
+#### Snippet
+```java
+      agentPoolManager.associateProjectsWithPool(agentPoolId, projectIds);
+    } catch (NoSuchAgentPoolException e) {
+      throw new BadRequestException("Agent pool with id \'" + agentPoolId + "' is not found.");
+    }
+    return new Projects(myAgentPoolFinder.getPoolProjects(agentPool), null, Fields.LONG, myBeanContext);
+```
+
+### UnnecessaryStringEscape
+`\'` is unnecessarily escaped
+in `src/jetbrains/buildServer/server/rest/request/AgentPoolRequest.java`
+#### Snippet
+```java
+      newAgentPool = myServiceLocator.getSingletonService(AgentPoolManager.class).createNewAgentPool(agentPool.name, agentDetails);
+    } catch (AgentPoolCannotBeRenamedException e) {
+      throw new BadRequestException("Agent pool with name \'" + agentPool.name + "' already exists.");
+    }
+    if (agentPool.projects != null){
 ```
 
 ### UnnecessaryStringEscape
@@ -551,54 +599,6 @@ in `src/jetbrains/buildServer/server/rest/request/AgentPoolRequest.java`
       throw new BadRequestException("Cannot delete agent pool with id \'" + agentPool.getAgentPoolId() + "'.", e);
     }
   }
-```
-
-### UnnecessaryStringEscape
-`\'` is unnecessarily escaped
-in `src/jetbrains/buildServer/server/rest/request/AgentPoolRequest.java`
-#### Snippet
-```java
-      agentPoolManager.associateProjectsWithPool(agentPoolId, projectIds);
-    } catch (NoSuchAgentPoolException e) {
-      throw new BadRequestException("Agent pool with id \'" + agentPoolId + "' is not found.");
-    }
-    return new Projects(myAgentPoolFinder.getPoolProjects(agentPool), null, Fields.LONG, myBeanContext);
-```
-
-### UnnecessaryStringEscape
-`\'` is unnecessarily escaped
-in `src/jetbrains/buildServer/server/rest/request/AgentPoolRequest.java`
-#### Snippet
-```java
-      agentPoolManager.dissociateProjectsFromPool(agentPoolId, agentPoolManager.getPoolProjects(agentPoolId));
-    } catch (NoSuchAgentPoolException e) {
-      throw new BadRequestException("Agent pool with id \'" + agentPoolId + "' is not found.");
-    }
-  }
-```
-
-### UnnecessaryStringEscape
-`\'` is unnecessarily escaped
-in `src/jetbrains/buildServer/server/rest/request/AgentPoolRequest.java`
-#### Snippet
-```java
-      newAgentPool = myServiceLocator.getSingletonService(AgentPoolManager.class).createNewAgentPool(agentPool.name, agentDetails);
-    } catch (AgentPoolCannotBeRenamedException e) {
-      throw new BadRequestException("Agent pool with name \'" + agentPool.name + "' already exists.");
-    }
-    if (agentPool.projects != null){
-```
-
-### UnnecessaryStringEscape
-`\'` is unnecessarily escaped
-in `src/jetbrains/buildServer/server/rest/request/AgentPoolRequest.java`
-#### Snippet
-```java
-      agentPoolManager.associateProjectsWithPool(agentPoolId, Collections.singleton(postedProject.getProjectId()));
-    } catch (NoSuchAgentPoolException e) {
-      throw new BadRequestException("Agent pool with id \'" + agentPoolId + "' is not found.");
-    }
-    return new Project(postedProject, Fields.LONG, myBeanContext);
 ```
 
 ### UnnecessaryStringEscape
@@ -689,6 +689,18 @@ in `src/jetbrains/buildServer/server/rest/data/BuildPromotionFinder.java`
 ```
 
 ### CommentedOutCode
+Commented out code (11 lines)
+in `src/jetbrains/buildServer/server/rest/request/MuteRequest.java`
+#### Snippet
+```java
+  }
+
+  /*
+  public static String getHref(@NotNull final ProblemWrapper problem) {
+    return getHref(MuteFinder.getLocator(problem));
+```
+
+### CommentedOutCode
 Commented out code (2 lines)
 in `src/jetbrains/buildServer/server/rest/model/change/VcsRoot.java`
 #### Snippet
@@ -701,15 +713,15 @@ in `src/jetbrains/buildServer/server/rest/model/change/VcsRoot.java`
 ```
 
 ### CommentedOutCode
-Commented out code (11 lines)
-in `src/jetbrains/buildServer/server/rest/request/MuteRequest.java`
+Commented out code (2 lines)
+in `src/jetbrains/buildServer/server/rest/jersey/JacksonObjectMapperResolver.java`
 #### Snippet
 ```java
-  }
+    LOG.debug("Using own customized ObjectMapper for class '" + type.getCanonicalName() + "'");
 
-  /*
-  public static String getHref(@NotNull final ProblemWrapper problem) {
-    return getHref(MuteFinder.getLocator(problem));
+//    final String name = type.getPackage().getName();
+//    return name.startsWith("jetbrains.buildServer.server.rest") ? myMapper : null;
+
 ```
 
 ### CommentedOutCode
@@ -737,18 +749,6 @@ in `src/jetbrains/buildServer/server/rest/data/mutes/MuteFinder.java`
 ```
 
 ### CommentedOutCode
-Commented out code (2 lines)
-in `src/jetbrains/buildServer/server/rest/jersey/JacksonObjectMapperResolver.java`
-#### Snippet
-```java
-    LOG.debug("Using own customized ObjectMapper for class '" + type.getCanonicalName() + "'");
-
-//    final String name = type.getPackage().getName();
-//    return name.startsWith("jetbrains.buildServer.server.rest") ? myMapper : null;
-
-```
-
-### CommentedOutCode
 Commented out code (3 lines)
 in `contrib/src/jetbrains/buildServer/server/restcontrib/cctray/model/Project.java`
 #### Snippet
@@ -773,15 +773,15 @@ in `src/jetbrains/buildServer/server/rest/model/buildType/BuildTypeUtil.java`
 ```
 
 ### CommentedOutCode
-Commented out code (5 lines)
-in `src/jetbrains/buildServer/server/rest/model/agent/AgentPool.java`
+Commented out code (9 lines)
+in `src/jetbrains/buildServer/server/rest/request/ProjectRequest.java`
 #### Snippet
 ```java
-      resultLocator.setDimension(AgentPoolFinder.ID.name, String.valueOf(id));
-    }
-    /*
-    //todo: implement this in finder!
-    if (name != null) {
+        }
+
+        //@Override
+        //public String setSetting(@NotNull final String featureLocator, @NotNull final String settingName, @Nullable final String newValue) {
+        //  return null;
 ```
 
 ### CommentedOutCode
@@ -797,15 +797,15 @@ in `src/jetbrains/buildServer/server/rest/request/ProjectRequest.java`
 ```
 
 ### CommentedOutCode
-Commented out code (9 lines)
-in `src/jetbrains/buildServer/server/rest/request/ProjectRequest.java`
+Commented out code (5 lines)
+in `src/jetbrains/buildServer/server/rest/model/agent/AgentPool.java`
 #### Snippet
 ```java
-        }
-
-        //@Override
-        //public String setSetting(@NotNull final String featureLocator, @NotNull final String settingName, @Nullable final String newValue) {
-        //  return null;
+      resultLocator.setDimension(AgentPoolFinder.ID.name, String.valueOf(id));
+    }
+    /*
+    //todo: implement this in finder!
+    if (name != null) {
 ```
 
 ### CommentedOutCode
@@ -1071,11 +1071,11 @@ Not-null fields must be initialized
 in `src/jetbrains/buildServer/server/rest/model/issue/IssueUsages.java`
 #### Snippet
 ```java
-  @Nullable private Collection<Issue> myIssues;
   @NotNull private SBuild myBuild;
   @NotNull private Fields myFields;
   @NotNull private BeanContext myBeanContext;
 
+  public IssueUsages() {
 ```
 
 ### NotNullFieldNotInitialized
@@ -1083,11 +1083,11 @@ Not-null fields must be initialized
 in `src/jetbrains/buildServer/server/rest/model/issue/IssueUsages.java`
 #### Snippet
 ```java
+  @Nullable private Collection<Issue> myIssues;
   @NotNull private SBuild myBuild;
   @NotNull private Fields myFields;
   @NotNull private BeanContext myBeanContext;
 
-  public IssueUsages() {
 ```
 
 ### NotNullFieldNotInitialized
@@ -1116,13 +1116,49 @@ in `src/jetbrains/buildServer/server/rest/model/issue/IssueUsage.java`
 
 ### NotNullFieldNotInitialized
 Not-null fields must be initialized
-in `src/jetbrains/buildServer/server/graphql/GraphQLProvider.java`
+in `src/jetbrains/buildServer/server/graphql/resolver/CloudImageResolver.java`
 #### Snippet
 ```java
 
   @Autowired
   @NotNull
-  private AgentTypeResolver myAgentTypeResolver;
+  private AgentPoolManager myAgentPoolManager;
+
+```
+
+### NotNullFieldNotInitialized
+Not-null fields must be initialized
+in `src/jetbrains/buildServer/server/graphql/resolver/CloudImageResolver.java`
+#### Snippet
+```java
+
+  @Autowired
+  @NotNull
+  private AgentTypeFinder myAgentTypeFinder;
+
+```
+
+### NotNullFieldNotInitialized
+Not-null fields must be initialized
+in `src/jetbrains/buildServer/server/graphql/resolver/CloudImageResolver.java`
+#### Snippet
+```java
+
+  @Autowired
+  @NotNull
+  private AgentTypeManager myAgentTypeManager;
+
+```
+
+### NotNullFieldNotInitialized
+Not-null fields must be initialized
+in `src/jetbrains/buildServer/server/graphql/resolver/CloudImageResolver.java`
+#### Snippet
+```java
+
+  @Autowired
+  @NotNull
+  private ProjectManager myProjectManager;
 
 ```
 
@@ -1134,7 +1170,19 @@ in `src/jetbrains/buildServer/server/graphql/GraphQLProvider.java`
 
   @Autowired
   @NotNull
-  private ProjectAgentPoolResolver myProjectAgentPoolResolver;
+  private AgentBuildTypeEdgeResolver myAgentBuildTypeEdgeResolver;
+
+```
+
+### NotNullFieldNotInitialized
+Not-null fields must be initialized
+in `src/jetbrains/buildServer/server/graphql/GraphQLProvider.java`
+#### Snippet
+```java
+
+  @Autowired
+  @NotNull
+  private CloudImageResolver myCloudImageResolver;
 
 ```
 
@@ -1170,7 +1218,7 @@ in `src/jetbrains/buildServer/server/graphql/GraphQLProvider.java`
 
   @Autowired
   @NotNull
-  private AgentBuildTypeEdgeResolver myAgentBuildTypeEdgeResolver;
+  private Query myQuery;
 
 ```
 
@@ -1182,7 +1230,31 @@ in `src/jetbrains/buildServer/server/graphql/GraphQLProvider.java`
 
   @Autowired
   @NotNull
-  private ResolverExceptionHandler myExceptionHandler;
+  private AgentTypeResolver myAgentTypeResolver;
+
+```
+
+### NotNullFieldNotInitialized
+Not-null fields must be initialized
+in `src/jetbrains/buildServer/server/graphql/GraphQLProvider.java`
+#### Snippet
+```java
+
+  @Autowired
+  @NotNull
+  private Mutation myMutation;
+
+```
+
+### NotNullFieldNotInitialized
+Not-null fields must be initialized
+in `src/jetbrains/buildServer/server/graphql/GraphQLProvider.java`
+#### Snippet
+```java
+
+  @Autowired
+  @NotNull
+  private ProjectAgentPoolResolver myProjectAgentPoolResolver;
 
 ```
 
@@ -1206,18 +1278,6 @@ in `src/jetbrains/buildServer/server/graphql/GraphQLProvider.java`
 
   @Autowired
   @NotNull
-  private CloudImageResolver myCloudImageResolver;
-
-```
-
-### NotNullFieldNotInitialized
-Not-null fields must be initialized
-in `src/jetbrains/buildServer/server/graphql/GraphQLProvider.java`
-#### Snippet
-```java
-
-  @Autowired
-  @NotNull
   private AgentResolver myAgentResolver;
 
 ```
@@ -1230,7 +1290,7 @@ in `src/jetbrains/buildServer/server/graphql/GraphQLProvider.java`
 
   @Autowired
   @NotNull
-  private Query myQuery;
+  private ResolverExceptionHandler myExceptionHandler;
 
 ```
 
@@ -1248,74 +1308,14 @@ in `src/jetbrains/buildServer/server/graphql/GraphQLProvider.java`
 
 ### NotNullFieldNotInitialized
 Not-null fields must be initialized
-in `src/jetbrains/buildServer/server/graphql/GraphQLProvider.java`
-#### Snippet
-```java
-
-  @Autowired
-  @NotNull
-  private Mutation myMutation;
-
-```
-
-### NotNullFieldNotInitialized
-Not-null fields must be initialized
-in `src/jetbrains/buildServer/server/graphql/resolver/CloudImageResolver.java`
-#### Snippet
-```java
-
-  @Autowired
-  @NotNull
-  private ProjectManager myProjectManager;
-
-```
-
-### NotNullFieldNotInitialized
-Not-null fields must be initialized
-in `src/jetbrains/buildServer/server/graphql/resolver/CloudImageResolver.java`
-#### Snippet
-```java
-
-  @Autowired
-  @NotNull
-  private AgentTypeFinder myAgentTypeFinder;
-
-```
-
-### NotNullFieldNotInitialized
-Not-null fields must be initialized
-in `src/jetbrains/buildServer/server/graphql/resolver/CloudImageResolver.java`
-#### Snippet
-```java
-
-  @Autowired
-  @NotNull
-  private AgentPoolManager myAgentPoolManager;
-
-```
-
-### NotNullFieldNotInitialized
-Not-null fields must be initialized
-in `src/jetbrains/buildServer/server/graphql/resolver/CloudImageResolver.java`
-#### Snippet
-```java
-
-  @Autowired
-  @NotNull
-  private AgentTypeManager myAgentTypeManager;
-
-```
-
-### NotNullFieldNotInitialized
-Not-null fields must be initialized
 in `src/jetbrains/buildServer/server/rest/model/build/approval/UserApprovalRuleStatus.java`
 #### Snippet
 ```java
-@XmlRootElement(name = "userApprovalRule")
-public class UserApprovalRuleStatus {
-  @NotNull protected BuildPromotionEx myBuildPromotionEx;
   @NotNull protected ApprovalRule myApprovalRule;
   @NotNull protected Fields myFields;
+  @NotNull protected BeanContext myBeanContext;
+  @NotNull protected ApprovableBuildManager myApprovableBuildManager;
+
 ```
 
 ### NotNullFieldNotInitialized
@@ -1347,11 +1347,11 @@ Not-null fields must be initialized
 in `src/jetbrains/buildServer/server/rest/model/build/approval/UserApprovalRuleStatus.java`
 #### Snippet
 ```java
+@XmlRootElement(name = "userApprovalRule")
+public class UserApprovalRuleStatus {
   @NotNull protected BuildPromotionEx myBuildPromotionEx;
   @NotNull protected ApprovalRule myApprovalRule;
   @NotNull protected Fields myFields;
-  @NotNull protected BeanContext myBeanContext;
-  @NotNull protected ApprovableBuildManager myApprovableBuildManager;
 ```
 
 ### NotNullFieldNotInitialized
@@ -1359,35 +1359,11 @@ Not-null fields must be initialized
 in `src/jetbrains/buildServer/server/rest/model/build/approval/UserApprovalRuleStatus.java`
 #### Snippet
 ```java
+  @NotNull protected BuildPromotionEx myBuildPromotionEx;
   @NotNull protected ApprovalRule myApprovalRule;
   @NotNull protected Fields myFields;
   @NotNull protected BeanContext myBeanContext;
   @NotNull protected ApprovableBuildManager myApprovableBuildManager;
-
-```
-
-### NotNullFieldNotInitialized
-Not-null fields must be initialized
-in `src/jetbrains/buildServer/server/graphql/resolver/AgentResolver.java`
-#### Snippet
-```java
-
-  @Autowired
-  @NotNull
-  private ProjectFinder myProjectFinder;
-
-```
-
-### NotNullFieldNotInitialized
-Not-null fields must be initialized
-in `src/jetbrains/buildServer/server/graphql/resolver/AgentResolver.java`
-#### Snippet
-```java
-
-  @Autowired
-  @NotNull
-  private AbstractAgentPoolFactory myPoolFactory;
-
 ```
 
 ### NotNullFieldNotInitialized
@@ -1410,7 +1386,7 @@ in `src/jetbrains/buildServer/server/graphql/resolver/AgentResolver.java`
 
   @Autowired
   @NotNull
-  private AgentPoolFinder myAgentPoolFinder;
+  private ProjectFinder myProjectFinder;
 
 ```
 
@@ -1436,6 +1412,42 @@ in `src/jetbrains/buildServer/server/graphql/resolver/AgentResolver.java`
   @NotNull
   private BuildTypeFinder myBuildTypeFinder;
 
+```
+
+### NotNullFieldNotInitialized
+Not-null fields must be initialized
+in `src/jetbrains/buildServer/server/graphql/resolver/AgentResolver.java`
+#### Snippet
+```java
+
+  @Autowired
+  @NotNull
+  private AbstractAgentPoolFactory myPoolFactory;
+
+```
+
+### NotNullFieldNotInitialized
+Not-null fields must be initialized
+in `src/jetbrains/buildServer/server/graphql/resolver/AgentResolver.java`
+#### Snippet
+```java
+
+  @Autowired
+  @NotNull
+  private AgentPoolFinder myAgentPoolFinder;
+
+```
+
+### NotNullFieldNotInitialized
+Not-null fields must be initialized
+in `src/jetbrains/buildServer/server/rest/RequestPathTransformInfo.java`
+#### Snippet
+```java
+ */
+public class RequestPathTransformInfo implements PathTransformator {
+  @NotNull private Map<String, String> myPathMapping;
+
+  public RequestPathTransformInfo() {
 ```
 
 ### NotNullFieldNotInitialized
@@ -1464,14 +1476,14 @@ in `src/jetbrains/buildServer/server/rest/model/change/Changes.java`
 
 ### NotNullFieldNotInitialized
 Not-null fields must be initialized
-in `src/jetbrains/buildServer/server/rest/RequestPathTransformInfo.java`
+in `src/jetbrains/buildServer/server/graphql/resolver/AgentBuildTypeEdgeResolver.java`
 #### Snippet
 ```java
- */
-public class RequestPathTransformInfo implements PathTransformator {
-  @NotNull private Map<String, String> myPathMapping;
+public class AgentBuildTypeEdgeResolver implements GraphQLResolver<AgentBuildTypeEdge> {
+  @Autowired
+  @NotNull
+  private BuildTypeFinder myBuildTypeFinder;
 
-  public RequestPathTransformInfo() {
 ```
 
 ### NotNullFieldNotInitialized
@@ -1488,18 +1500,6 @@ in `src/jetbrains/buildServer/server/graphql/resolver/AgentBuildTypeEdgeResolver
 
 ### NotNullFieldNotInitialized
 Not-null fields must be initialized
-in `src/jetbrains/buildServer/server/graphql/resolver/AgentBuildTypeEdgeResolver.java`
-#### Snippet
-```java
-public class AgentBuildTypeEdgeResolver implements GraphQLResolver<AgentBuildTypeEdge> {
-  @Autowired
-  @NotNull
-  private BuildTypeFinder myBuildTypeFinder;
-
-```
-
-### NotNullFieldNotInitialized
-Not-null fields must be initialized
 in `src/jetbrains/buildServer/server/graphql/resolver/agentPool/AgentPoolActionsAccessCheckerImpl.java`
 #### Snippet
 ```java
@@ -1508,18 +1508,6 @@ in `src/jetbrains/buildServer/server/graphql/resolver/agentPool/AgentPoolActions
   @NotNull private ProjectManagerEx myProjectManager;
   @NotNull private AgentPoolManager myAgentPoolManager;
 
-```
-
-### NotNullFieldNotInitialized
-Not-null fields must be initialized
-in `src/jetbrains/buildServer/server/graphql/resolver/agentPool/AgentPoolActionsAccessCheckerImpl.java`
-#### Snippet
-```java
-
-  private final SecurityContextEx mySecurityContext;
-  @NotNull private AgentTypeStorage myAgentTypeStorage;
-  @NotNull private ProjectManagerEx myProjectManager;
-  @NotNull private AgentPoolManager myAgentPoolManager;
 ```
 
 ### NotNullFieldNotInitialized
@@ -1536,26 +1524,14 @@ in `src/jetbrains/buildServer/server/graphql/resolver/agentPool/AgentPoolActions
 
 ### NotNullFieldNotInitialized
 Not-null fields must be initialized
-in `src/jetbrains/buildServer/server/rest/model/change/Change.java`
+in `src/jetbrains/buildServer/server/graphql/resolver/agentPool/AgentPoolActionsAccessCheckerImpl.java`
 #### Snippet
 ```java
-  protected WebLinks myWebLinks;
-  @NotNull private Fields myFields;
-  @NotNull private BeanContext myBeanContext;
-  /**
-   * These are used only when posting a link to the change
-```
 
-### NotNullFieldNotInitialized
-Not-null fields must be initialized
-in `src/jetbrains/buildServer/server/rest/model/change/Change.java`
-#### Snippet
-```java
-  protected ApiUrlBuilder myApiUrlBuilder;
-  protected WebLinks myWebLinks;
-  @NotNull private Fields myFields;
-  @NotNull private BeanContext myBeanContext;
-  /**
+  private final SecurityContextEx mySecurityContext;
+  @NotNull private AgentTypeStorage myAgentTypeStorage;
+  @NotNull private ProjectManagerEx myProjectManager;
+  @NotNull private AgentPoolManager myAgentPoolManager;
 ```
 
 ### NotNullFieldNotInitialized
@@ -1572,6 +1548,30 @@ in `src/jetbrains/buildServer/server/graphql/model/mutation/UnassignBuildTypeFro
 
 ### NotNullFieldNotInitialized
 Not-null fields must be initialized
+in `src/jetbrains/buildServer/server/rest/model/change/Change.java`
+#### Snippet
+```java
+  protected ApiUrlBuilder myApiUrlBuilder;
+  protected WebLinks myWebLinks;
+  @NotNull private Fields myFields;
+  @NotNull private BeanContext myBeanContext;
+  /**
+```
+
+### NotNullFieldNotInitialized
+Not-null fields must be initialized
+in `src/jetbrains/buildServer/server/rest/model/change/Change.java`
+#### Snippet
+```java
+  protected WebLinks myWebLinks;
+  @NotNull private Fields myFields;
+  @NotNull private BeanContext myBeanContext;
+  /**
+   * These are used only when posting a link to the change
+```
+
+### NotNullFieldNotInitialized
+Not-null fields must be initialized
 in `src/jetbrains/buildServer/server/graphql/resolver/BuildTypeResolver.java`
 #### Snippet
 ```java
@@ -1580,30 +1580,6 @@ public class BuildTypeResolver extends ModelResolver<BuildType> {
   @NotNull
   private BuildTypeFinder myBuildTypeFinder;
 
-```
-
-### NotNullFieldNotInitialized
-Not-null fields must be initialized
-in `src/jetbrains/buildServer/server/rest/model/buildType/BuildType.java`
-#### Snippet
-```java
-  @Nullable
-  protected BuildTypeOrTemplate myBuildType;
-  @NotNull private String myExternalId;
-  @Nullable private String myInternalId;
-  @Nullable private final Boolean myInherited;
-```
-
-### NotNullFieldNotInitialized
-Not-null fields must be initialized
-in `src/jetbrains/buildServer/server/rest/model/buildType/BuildType.java`
-#### Snippet
-```java
-
-  private Fields myFields = Fields.LONG;
-  @NotNull private BeanContext myBeanContext;
-
-  public BuildType() {
 ```
 
 ### NotNullFieldNotInitialized
@@ -1632,78 +1608,6 @@ public class TwoFactorRequest {
 
 ### NotNullFieldNotInitialized
 Not-null fields must be initialized
-in `src/jetbrains/buildServer/server/rest/request/CloudRequest.java`
-#### Snippet
-```java
-  @Context @NotNull private CloudProfileFinder myCloudProfileFinder;
-  @Context @NotNull private ServiceLocator myServiceLocator;
-  @Context @NotNull private BeanContext myBeanContext;
-
-  public static final String API_CLOUD_URL = Constants.API_URL + "/cloud";
-```
-
-### NotNullFieldNotInitialized
-Not-null fields must be initialized
-in `src/jetbrains/buildServer/server/rest/request/CloudRequest.java`
-#### Snippet
-```java
-  @Context @NotNull private CloudImageFinder myCloudImageFinder;
-  @Context @NotNull private CloudProfileFinder myCloudProfileFinder;
-  @Context @NotNull private ServiceLocator myServiceLocator;
-  @Context @NotNull private BeanContext myBeanContext;
-
-```
-
-### NotNullFieldNotInitialized
-Not-null fields must be initialized
-in `src/jetbrains/buildServer/server/rest/request/CloudRequest.java`
-#### Snippet
-```java
-  @Context private ApiUrlBuilder myApiUrlBuilder;
-  @Context @NotNull private CloudInstanceFinder myCloudInstanceFinder;
-  @Context @NotNull private CloudImageFinder myCloudImageFinder;
-  @Context @NotNull private CloudProfileFinder myCloudProfileFinder;
-  @Context @NotNull private ServiceLocator myServiceLocator;
-```
-
-### NotNullFieldNotInitialized
-Not-null fields must be initialized
-in `src/jetbrains/buildServer/server/rest/request/CloudRequest.java`
-#### Snippet
-```java
-public class CloudRequest {
-  @Context private ApiUrlBuilder myApiUrlBuilder;
-  @Context @NotNull private CloudInstanceFinder myCloudInstanceFinder;
-  @Context @NotNull private CloudImageFinder myCloudImageFinder;
-  @Context @NotNull private CloudProfileFinder myCloudProfileFinder;
-```
-
-### NotNullFieldNotInitialized
-Not-null fields must be initialized
-in `src/jetbrains/buildServer/server/rest/request/CloudRequest.java`
-#### Snippet
-```java
-  @Context @NotNull private CloudInstanceFinder myCloudInstanceFinder;
-  @Context @NotNull private CloudImageFinder myCloudImageFinder;
-  @Context @NotNull private CloudProfileFinder myCloudProfileFinder;
-  @Context @NotNull private ServiceLocator myServiceLocator;
-  @Context @NotNull private BeanContext myBeanContext;
-```
-
-### NotNullFieldNotInitialized
-Not-null fields must be initialized
-in `src/jetbrains/buildServer/server/rest/model/build/approval/ApprovalInfo.java`
-#### Snippet
-```java
-  @NotNull private Fields myFields;
-  @NotNull private BeanContext myBeanContext;
-  @NotNull private ApprovableBuildManager myApprovableBuildManager;
-  @NotNull private Boolean myApprovalFeatureEnabled;
-  @Nullable private ApprovalBuildFeatureConfiguration myConfiguration;
-```
-
-### NotNullFieldNotInitialized
-Not-null fields must be initialized
 in `src/jetbrains/buildServer/server/rest/model/build/approval/ApprovalInfo.java`
 #### Snippet
 ```java
@@ -1712,18 +1616,6 @@ in `src/jetbrains/buildServer/server/rest/model/build/approval/ApprovalInfo.java
   @NotNull private BeanContext myBeanContext;
   @NotNull private ApprovableBuildManager myApprovableBuildManager;
   @NotNull private Boolean myApprovalFeatureEnabled;
-```
-
-### NotNullFieldNotInitialized
-Not-null fields must be initialized
-in `src/jetbrains/buildServer/server/rest/model/build/approval/ApprovalInfo.java`
-#### Snippet
-```java
-public class ApprovalInfo {
-  @NotNull private BuildPromotionEx myBuildPromotionEx;
-  @NotNull private Fields myFields;
-  @NotNull private BeanContext myBeanContext;
-  @NotNull private ApprovableBuildManager myApprovableBuildManager;
 ```
 
 ### NotNullFieldNotInitialized
@@ -1752,14 +1644,86 @@ in `src/jetbrains/buildServer/server/rest/model/build/approval/ApprovalInfo.java
 
 ### NotNullFieldNotInitialized
 Not-null fields must be initialized
-in `src/jetbrains/buildServer/server/rest/request/TestOccurrenceRequest.java`
+in `src/jetbrains/buildServer/server/rest/model/build/approval/ApprovalInfo.java`
 #### Snippet
 ```java
-  @Context @NotNull private BeanContext myBeanContext;
-  @Context @NotNull private ServiceLocator myServiceLocator;
-  @Context @NotNull private TestOccurrenceFinder myTestOccurrenceFinder;
-  @Context @NotNull private ApiUrlBuilder myApiUrlBuilder;
+public class ApprovalInfo {
+  @NotNull private BuildPromotionEx myBuildPromotionEx;
+  @NotNull private Fields myFields;
+  @NotNull private BeanContext myBeanContext;
+  @NotNull private ApprovableBuildManager myApprovableBuildManager;
+```
 
+### NotNullFieldNotInitialized
+Not-null fields must be initialized
+in `src/jetbrains/buildServer/server/rest/model/build/approval/ApprovalInfo.java`
+#### Snippet
+```java
+  @NotNull private Fields myFields;
+  @NotNull private BeanContext myBeanContext;
+  @NotNull private ApprovableBuildManager myApprovableBuildManager;
+  @NotNull private Boolean myApprovalFeatureEnabled;
+  @Nullable private ApprovalBuildFeatureConfiguration myConfiguration;
+```
+
+### NotNullFieldNotInitialized
+Not-null fields must be initialized
+in `src/jetbrains/buildServer/server/rest/request/CloudRequest.java`
+#### Snippet
+```java
+  @Context @NotNull private CloudInstanceFinder myCloudInstanceFinder;
+  @Context @NotNull private CloudImageFinder myCloudImageFinder;
+  @Context @NotNull private CloudProfileFinder myCloudProfileFinder;
+  @Context @NotNull private ServiceLocator myServiceLocator;
+  @Context @NotNull private BeanContext myBeanContext;
+```
+
+### NotNullFieldNotInitialized
+Not-null fields must be initialized
+in `src/jetbrains/buildServer/server/rest/request/CloudRequest.java`
+#### Snippet
+```java
+  @Context @NotNull private CloudImageFinder myCloudImageFinder;
+  @Context @NotNull private CloudProfileFinder myCloudProfileFinder;
+  @Context @NotNull private ServiceLocator myServiceLocator;
+  @Context @NotNull private BeanContext myBeanContext;
+
+```
+
+### NotNullFieldNotInitialized
+Not-null fields must be initialized
+in `src/jetbrains/buildServer/server/rest/request/CloudRequest.java`
+#### Snippet
+```java
+  @Context private ApiUrlBuilder myApiUrlBuilder;
+  @Context @NotNull private CloudInstanceFinder myCloudInstanceFinder;
+  @Context @NotNull private CloudImageFinder myCloudImageFinder;
+  @Context @NotNull private CloudProfileFinder myCloudProfileFinder;
+  @Context @NotNull private ServiceLocator myServiceLocator;
+```
+
+### NotNullFieldNotInitialized
+Not-null fields must be initialized
+in `src/jetbrains/buildServer/server/rest/request/CloudRequest.java`
+#### Snippet
+```java
+  @Context @NotNull private CloudProfileFinder myCloudProfileFinder;
+  @Context @NotNull private ServiceLocator myServiceLocator;
+  @Context @NotNull private BeanContext myBeanContext;
+
+  public static final String API_CLOUD_URL = Constants.API_URL + "/cloud";
+```
+
+### NotNullFieldNotInitialized
+Not-null fields must be initialized
+in `src/jetbrains/buildServer/server/rest/request/CloudRequest.java`
+#### Snippet
+```java
+public class CloudRequest {
+  @Context private ApiUrlBuilder myApiUrlBuilder;
+  @Context @NotNull private CloudInstanceFinder myCloudInstanceFinder;
+  @Context @NotNull private CloudImageFinder myCloudImageFinder;
+  @Context @NotNull private CloudProfileFinder myCloudProfileFinder;
 ```
 
 ### NotNullFieldNotInitialized
@@ -1791,6 +1755,18 @@ Not-null fields must be initialized
 in `src/jetbrains/buildServer/server/rest/request/TestOccurrenceRequest.java`
 #### Snippet
 ```java
+  @Context @NotNull private BeanContext myBeanContext;
+  @Context @NotNull private ServiceLocator myServiceLocator;
+  @Context @NotNull private TestOccurrenceFinder myTestOccurrenceFinder;
+  @Context @NotNull private ApiUrlBuilder myApiUrlBuilder;
+
+```
+
+### NotNullFieldNotInitialized
+Not-null fields must be initialized
+in `src/jetbrains/buildServer/server/rest/request/TestOccurrenceRequest.java`
+#### Snippet
+```java
   @Context @NotNull private ServiceLocator myServiceLocator;
   @Context @NotNull private TestOccurrenceFinder myTestOccurrenceFinder;
   @Context @NotNull private ApiUrlBuilder myApiUrlBuilder;
@@ -1803,42 +1779,6 @@ Not-null fields must be initialized
 in `src/jetbrains/buildServer/server/rest/request/ChangeRequest.java`
 #### Snippet
 ```java
-  @Context @NotNull private ServiceLocator myServiceLocator;
-  @Context @NotNull private BeanContext myBeanContext;
-  @Context @NotNull private ChangeFinder myChangeFinder;
-  @Context @NotNull private BuildTypeFinder myBuildTypeFinder;
-  @Context @NotNull private TestScopeTreeCollector myTestScopeTreeCollector;
-```
-
-### NotNullFieldNotInitialized
-Not-null fields must be initialized
-in `src/jetbrains/buildServer/server/rest/request/ChangeRequest.java`
-#### Snippet
-```java
-
-  private static final String DEFAULT_CHANGES_LOOKUP_LIMIT_FOR_COMMITERS = "1000";
-  @Context @NotNull private ServiceLocator myServiceLocator;
-  @Context @NotNull private BeanContext myBeanContext;
-  @Context @NotNull private ChangeFinder myChangeFinder;
-```
-
-### NotNullFieldNotInitialized
-Not-null fields must be initialized
-in `src/jetbrains/buildServer/server/rest/request/ChangeRequest.java`
-#### Snippet
-```java
-  @Context @NotNull private ChangeFinder myChangeFinder;
-  @Context @NotNull private BuildTypeFinder myBuildTypeFinder;
-  @Context @NotNull private TestScopeTreeCollector myTestScopeTreeCollector;
-  @Context @NotNull private ProblemOccurrencesTreeCollector myProblemOccurrencesTreeCollector;
-
-```
-
-### NotNullFieldNotInitialized
-Not-null fields must be initialized
-in `src/jetbrains/buildServer/server/rest/request/ChangeRequest.java`
-#### Snippet
-```java
   private static final String DEFAULT_CHANGES_LOOKUP_LIMIT_FOR_COMMITERS = "1000";
   @Context @NotNull private ServiceLocator myServiceLocator;
   @Context @NotNull private BeanContext myBeanContext;
@@ -1856,6 +1796,30 @@ in `src/jetbrains/buildServer/server/rest/request/ChangeRequest.java`
   @Context @NotNull private BuildTypeFinder myBuildTypeFinder;
   @Context @NotNull private TestScopeTreeCollector myTestScopeTreeCollector;
   @Context @NotNull private ProblemOccurrencesTreeCollector myProblemOccurrencesTreeCollector;
+```
+
+### NotNullFieldNotInitialized
+Not-null fields must be initialized
+in `src/jetbrains/buildServer/server/rest/request/ChangeRequest.java`
+#### Snippet
+```java
+  @Context @NotNull private ServiceLocator myServiceLocator;
+  @Context @NotNull private BeanContext myBeanContext;
+  @Context @NotNull private ChangeFinder myChangeFinder;
+  @Context @NotNull private BuildTypeFinder myBuildTypeFinder;
+  @Context @NotNull private TestScopeTreeCollector myTestScopeTreeCollector;
+```
+
+### NotNullFieldNotInitialized
+Not-null fields must be initialized
+in `src/jetbrains/buildServer/server/rest/request/ChangeRequest.java`
+#### Snippet
+```java
+
+  private static final String DEFAULT_CHANGES_LOOKUP_LIMIT_FOR_COMMITERS = "1000";
+  @Context @NotNull private ServiceLocator myServiceLocator;
+  @Context @NotNull private BeanContext myBeanContext;
+  @Context @NotNull private ChangeFinder myChangeFinder;
 ```
 
 ### NotNullFieldNotInitialized
@@ -1868,6 +1832,42 @@ in `src/jetbrains/buildServer/server/rest/request/ChangeRequest.java`
   @Context @NotNull private ProblemOccurrencesTreeCollector myProblemOccurrencesTreeCollector;
 
   public static String getChangeHref(SVcsModification modification) {
+```
+
+### NotNullFieldNotInitialized
+Not-null fields must be initialized
+in `src/jetbrains/buildServer/server/rest/request/ChangeRequest.java`
+#### Snippet
+```java
+  @Context @NotNull private ChangeFinder myChangeFinder;
+  @Context @NotNull private BuildTypeFinder myBuildTypeFinder;
+  @Context @NotNull private TestScopeTreeCollector myTestScopeTreeCollector;
+  @Context @NotNull private ProblemOccurrencesTreeCollector myProblemOccurrencesTreeCollector;
+
+```
+
+### NotNullFieldNotInitialized
+Not-null fields must be initialized
+in `src/jetbrains/buildServer/server/rest/model/buildType/BuildType.java`
+#### Snippet
+```java
+  @Nullable
+  protected BuildTypeOrTemplate myBuildType;
+  @NotNull private String myExternalId;
+  @Nullable private String myInternalId;
+  @Nullable private final Boolean myInherited;
+```
+
+### NotNullFieldNotInitialized
+Not-null fields must be initialized
+in `src/jetbrains/buildServer/server/rest/model/buildType/BuildType.java`
+#### Snippet
+```java
+
+  private Fields myFields = Fields.LONG;
+  @NotNull private BeanContext myBeanContext;
+
+  public BuildType() {
 ```
 
 ### NotNullFieldNotInitialized
@@ -1911,11 +1911,11 @@ Not-null fields must be initialized
 in `src/jetbrains/buildServer/server/rest/request/MuteRequest.java`
 #### Snippet
 ```java
+@Api("Mute")
+public class MuteRequest {
   @Context @NotNull private ServiceLocator myServiceLocator;
   @Context @NotNull private MuteFinder myMuteFinder;
   @Context @NotNull private ApiUrlBuilder myApiUrlBuilder;
-  @Context @NotNull private BeanContext myBeanContext;
-
 ```
 
 ### NotNullFieldNotInitialized
@@ -1923,11 +1923,23 @@ Not-null fields must be initialized
 in `src/jetbrains/buildServer/server/rest/request/MuteRequest.java`
 #### Snippet
 ```java
-@Api("Mute")
 public class MuteRequest {
   @Context @NotNull private ServiceLocator myServiceLocator;
   @Context @NotNull private MuteFinder myMuteFinder;
   @Context @NotNull private ApiUrlBuilder myApiUrlBuilder;
+  @Context @NotNull private BeanContext myBeanContext;
+```
+
+### NotNullFieldNotInitialized
+Not-null fields must be initialized
+in `src/jetbrains/buildServer/server/rest/request/MuteRequest.java`
+#### Snippet
+```java
+  @Context @NotNull private ServiceLocator myServiceLocator;
+  @Context @NotNull private MuteFinder myMuteFinder;
+  @Context @NotNull private ApiUrlBuilder myApiUrlBuilder;
+  @Context @NotNull private BeanContext myBeanContext;
+
 ```
 
 ### NotNullFieldNotInitialized
@@ -1944,14 +1956,26 @@ in `src/jetbrains/buildServer/server/rest/request/MuteRequest.java`
 
 ### NotNullFieldNotInitialized
 Not-null fields must be initialized
-in `src/jetbrains/buildServer/server/rest/request/MuteRequest.java`
+in `src/jetbrains/buildServer/server/rest/request/DebugRequest.java`
 #### Snippet
 ```java
-public class MuteRequest {
+
+  @Context @NotNull private DataProvider myDataProvider;
+  @Context @NotNull private VcsRootInstanceFinder myVcsRootInstanceFinder;
   @Context @NotNull private ServiceLocator myServiceLocator;
-  @Context @NotNull private MuteFinder myMuteFinder;
-  @Context @NotNull private ApiUrlBuilder myApiUrlBuilder;
-  @Context @NotNull private BeanContext myBeanContext;
+  @Context @NotNull private PermissionChecker myPermissionChecker;
+```
+
+### NotNullFieldNotInitialized
+Not-null fields must be initialized
+in `src/jetbrains/buildServer/server/rest/request/DebugRequest.java`
+#### Snippet
+```java
+  public static final String REST_VALID_QUERY_PROPERTY_NAME = "rest.debug.database.allow.query.prefixes";
+
+  @Context @NotNull private DataProvider myDataProvider;
+  @Context @NotNull private VcsRootInstanceFinder myVcsRootInstanceFinder;
+  @Context @NotNull private ServiceLocator myServiceLocator;
 ```
 
 ### NotNullFieldNotInitialized
@@ -1971,18 +1995,6 @@ Not-null fields must be initialized
 in `src/jetbrains/buildServer/server/rest/request/DebugRequest.java`
 #### Snippet
 ```java
-
-  @Context @NotNull private DataProvider myDataProvider;
-  @Context @NotNull private VcsRootInstanceFinder myVcsRootInstanceFinder;
-  @Context @NotNull private ServiceLocator myServiceLocator;
-  @Context @NotNull private PermissionChecker myPermissionChecker;
-```
-
-### NotNullFieldNotInitialized
-Not-null fields must be initialized
-in `src/jetbrains/buildServer/server/rest/request/DebugRequest.java`
-#### Snippet
-```java
   @Context @NotNull private VcsRootInstanceFinder myVcsRootInstanceFinder;
   @Context @NotNull private ServiceLocator myServiceLocator;
   @Context @NotNull private PermissionChecker myPermissionChecker;
@@ -2004,14 +2016,38 @@ in `src/jetbrains/buildServer/server/rest/request/DebugRequest.java`
 
 ### NotNullFieldNotInitialized
 Not-null fields must be initialized
-in `src/jetbrains/buildServer/server/rest/request/DebugRequest.java`
+in `src/jetbrains/buildServer/server/rest/request/TestScopesRequest.java`
 #### Snippet
 ```java
-  public static final String REST_VALID_QUERY_PROPERTY_NAME = "rest.debug.database.allow.query.prefixes";
-
-  @Context @NotNull private DataProvider myDataProvider;
-  @Context @NotNull private VcsRootInstanceFinder myVcsRootInstanceFinder;
   @Context @NotNull private ServiceLocator myServiceLocator;
+  @Context @NotNull private ApiUrlBuilder myApiUrlBuilder;
+  @Context @NotNull private TestScopesCollector myTestScopesCollector;
+  @Context @NotNull private TestScopeTreeCollector myTestScopeTreeCollector;
+
+```
+
+### NotNullFieldNotInitialized
+Not-null fields must be initialized
+in `src/jetbrains/buildServer/server/rest/request/TestScopesRequest.java`
+#### Snippet
+```java
+  public static final String API_SUB_URL = Constants.API_URL + "/testScopes";
+  @Context @NotNull private BeanContext myBeanContext;
+  @Context @NotNull private ServiceLocator myServiceLocator;
+  @Context @NotNull private ApiUrlBuilder myApiUrlBuilder;
+  @Context @NotNull private TestScopesCollector myTestScopesCollector;
+```
+
+### NotNullFieldNotInitialized
+Not-null fields must be initialized
+in `src/jetbrains/buildServer/server/rest/request/TestScopesRequest.java`
+#### Snippet
+```java
+  @Context @NotNull private BeanContext myBeanContext;
+  @Context @NotNull private ServiceLocator myServiceLocator;
+  @Context @NotNull private ApiUrlBuilder myApiUrlBuilder;
+  @Context @NotNull private TestScopesCollector myTestScopesCollector;
+  @Context @NotNull private TestScopeTreeCollector myTestScopeTreeCollector;
 ```
 
 ### NotNullFieldNotInitialized
@@ -2040,37 +2076,49 @@ in `src/jetbrains/buildServer/server/rest/request/TestScopesRequest.java`
 
 ### NotNullFieldNotInitialized
 Not-null fields must be initialized
-in `src/jetbrains/buildServer/server/rest/request/TestScopesRequest.java`
+in `src/jetbrains/buildServer/server/rest/request/TestRequest.java`
 #### Snippet
 ```java
-  @Context @NotNull private BeanContext myBeanContext;
-  @Context @NotNull private ServiceLocator myServiceLocator;
+  @Context @NotNull private TestFinder myTestFinder;
   @Context @NotNull private ApiUrlBuilder myApiUrlBuilder;
-  @Context @NotNull private TestScopesCollector myTestScopesCollector;
-  @Context @NotNull private TestScopeTreeCollector myTestScopeTreeCollector;
+  @Context @NotNull private BeanFactory myBeanFactory;
+
+  public static final String API_SUB_URL = Constants.API_URL + "/tests";
 ```
 
 ### NotNullFieldNotInitialized
 Not-null fields must be initialized
-in `src/jetbrains/buildServer/server/rest/request/TestScopesRequest.java`
+in `src/jetbrains/buildServer/server/rest/request/TestRequest.java`
 #### Snippet
 ```java
-  public static final String API_SUB_URL = Constants.API_URL + "/testScopes";
-  @Context @NotNull private BeanContext myBeanContext;
+public class TestRequest {
   @Context @NotNull private ServiceLocator myServiceLocator;
+  @Context @NotNull private TestFinder myTestFinder;
   @Context @NotNull private ApiUrlBuilder myApiUrlBuilder;
-  @Context @NotNull private TestScopesCollector myTestScopesCollector;
+  @Context @NotNull private BeanFactory myBeanFactory;
 ```
 
 ### NotNullFieldNotInitialized
 Not-null fields must be initialized
-in `src/jetbrains/buildServer/server/rest/request/TestScopesRequest.java`
+in `src/jetbrains/buildServer/server/rest/request/TestRequest.java`
+#### Snippet
+```java
+@Api("Test")
+public class TestRequest {
+  @Context @NotNull private ServiceLocator myServiceLocator;
+  @Context @NotNull private TestFinder myTestFinder;
+  @Context @NotNull private ApiUrlBuilder myApiUrlBuilder;
+```
+
+### NotNullFieldNotInitialized
+Not-null fields must be initialized
+in `src/jetbrains/buildServer/server/rest/request/TestRequest.java`
 #### Snippet
 ```java
   @Context @NotNull private ServiceLocator myServiceLocator;
+  @Context @NotNull private TestFinder myTestFinder;
   @Context @NotNull private ApiUrlBuilder myApiUrlBuilder;
-  @Context @NotNull private TestScopesCollector myTestScopesCollector;
-  @Context @NotNull private TestScopeTreeCollector myTestScopeTreeCollector;
+  @Context @NotNull private BeanFactory myBeanFactory;
 
 ```
 
@@ -2091,11 +2139,11 @@ Not-null fields must be initialized
 in `src/jetbrains/buildServer/server/rest/request/GroupRequest.java`
 #### Snippet
 ```java
-  @Context @NotNull private DataProvider myDataProvider;
   @Context @NotNull private UserGroupFinder myUserGroupFinder;
   @Context @NotNull private UserFinder myUserFinder;
   @Context @NotNull private DataUpdater myDataUpdater;
   @Context @NotNull private BeanContext myBeanContext;
+
 ```
 
 ### NotNullFieldNotInitialized
@@ -2108,6 +2156,18 @@ public class GroupRequest {
   @Context @NotNull private UserGroupFinder myUserGroupFinder;
   @Context @NotNull private UserFinder myUserFinder;
   @Context @NotNull private DataUpdater myDataUpdater;
+```
+
+### NotNullFieldNotInitialized
+Not-null fields must be initialized
+in `src/jetbrains/buildServer/server/rest/request/GroupRequest.java`
+#### Snippet
+```java
+  @Context @NotNull private DataProvider myDataProvider;
+  @Context @NotNull private UserGroupFinder myUserGroupFinder;
+  @Context @NotNull private UserFinder myUserFinder;
+  @Context @NotNull private DataUpdater myDataUpdater;
+  @Context @NotNull private BeanContext myBeanContext;
 ```
 
 ### NotNullFieldNotInitialized
@@ -2124,66 +2184,6 @@ public class GroupRequest {
 
 ### NotNullFieldNotInitialized
 Not-null fields must be initialized
-in `src/jetbrains/buildServer/server/rest/request/GroupRequest.java`
-#### Snippet
-```java
-  @Context @NotNull private UserGroupFinder myUserGroupFinder;
-  @Context @NotNull private UserFinder myUserFinder;
-  @Context @NotNull private DataUpdater myDataUpdater;
-  @Context @NotNull private BeanContext myBeanContext;
-
-```
-
-### NotNullFieldNotInitialized
-Not-null fields must be initialized
-in `src/jetbrains/buildServer/server/rest/request/TestRequest.java`
-#### Snippet
-```java
-public class TestRequest {
-  @Context @NotNull private ServiceLocator myServiceLocator;
-  @Context @NotNull private TestFinder myTestFinder;
-  @Context @NotNull private ApiUrlBuilder myApiUrlBuilder;
-  @Context @NotNull private BeanFactory myBeanFactory;
-```
-
-### NotNullFieldNotInitialized
-Not-null fields must be initialized
-in `src/jetbrains/buildServer/server/rest/request/TestRequest.java`
-#### Snippet
-```java
-  @Context @NotNull private TestFinder myTestFinder;
-  @Context @NotNull private ApiUrlBuilder myApiUrlBuilder;
-  @Context @NotNull private BeanFactory myBeanFactory;
-
-  public static final String API_SUB_URL = Constants.API_URL + "/tests";
-```
-
-### NotNullFieldNotInitialized
-Not-null fields must be initialized
-in `src/jetbrains/buildServer/server/rest/request/TestRequest.java`
-#### Snippet
-```java
-  @Context @NotNull private ServiceLocator myServiceLocator;
-  @Context @NotNull private TestFinder myTestFinder;
-  @Context @NotNull private ApiUrlBuilder myApiUrlBuilder;
-  @Context @NotNull private BeanFactory myBeanFactory;
-
-```
-
-### NotNullFieldNotInitialized
-Not-null fields must be initialized
-in `src/jetbrains/buildServer/server/rest/request/TestRequest.java`
-#### Snippet
-```java
-@Api("Test")
-public class TestRequest {
-  @Context @NotNull private ServiceLocator myServiceLocator;
-  @Context @NotNull private TestFinder myTestFinder;
-  @Context @NotNull private ApiUrlBuilder myApiUrlBuilder;
-```
-
-### NotNullFieldNotInitialized
-Not-null fields must be initialized
 in `src/jetbrains/buildServer/server/graphql/model/mutation/agentPool/CreateAgentPoolInput.java`
 #### Snippet
 ```java
@@ -2192,30 +2192,6 @@ public class CreateAgentPoolInput {
   @NotNull
   private String myName;
   @Nullable
-```
-
-### NotNullFieldNotInitialized
-Not-null fields must be initialized
-in `src/jetbrains/buildServer/server/rest/request/ProblemRequest.java`
-#### Snippet
-```java
-  @Context @NotNull private ServiceLocator myServiceLocator;
-  @Context @NotNull private ProblemFinder myProblemFinder;
-  @Context @NotNull private ApiUrlBuilder myApiUrlBuilder;
-  @Context @NotNull private BeanContext myBeanContext;
-
-```
-
-### NotNullFieldNotInitialized
-Not-null fields must be initialized
-in `src/jetbrains/buildServer/server/rest/request/ProblemRequest.java`
-#### Snippet
-```java
-  @Context @NotNull private ProblemFinder myProblemFinder;
-  @Context @NotNull private ApiUrlBuilder myApiUrlBuilder;
-  @Context @NotNull private BeanContext myBeanContext;
-
-  public static final String API_SUB_URL = Constants.API_URL + "/problems";
 ```
 
 ### NotNullFieldNotInitialized
@@ -2244,26 +2220,26 @@ public class ProblemRequest {
 
 ### NotNullFieldNotInitialized
 Not-null fields must be initialized
-in `src/jetbrains/buildServer/server/rest/request/BuildQueueRequest.java`
+in `src/jetbrains/buildServer/server/rest/request/ProblemRequest.java`
 #### Snippet
 ```java
-  @Context @NotNull private AgentFinder myAgentFinder;
-
+  @Context @NotNull private ProblemFinder myProblemFinder;
   @Context @NotNull private ApiUrlBuilder myApiUrlBuilder;
-  @Context @NotNull private ServiceLocator myServiceLocator;
   @Context @NotNull private BeanContext myBeanContext;
+
+  public static final String API_SUB_URL = Constants.API_URL + "/problems";
 ```
 
 ### NotNullFieldNotInitialized
 Not-null fields must be initialized
-in `src/jetbrains/buildServer/server/rest/request/BuildQueueRequest.java`
+in `src/jetbrains/buildServer/server/rest/request/ProblemRequest.java`
 #### Snippet
 ```java
-  @Context @NotNull private ApiUrlBuilder myApiUrlBuilder;
   @Context @NotNull private ServiceLocator myServiceLocator;
+  @Context @NotNull private ProblemFinder myProblemFinder;
+  @Context @NotNull private ApiUrlBuilder myApiUrlBuilder;
   @Context @NotNull private BeanContext myBeanContext;
 
-  @NotNull
 ```
 
 ### NotNullFieldNotInitialized
@@ -2295,6 +2271,18 @@ Not-null fields must be initialized
 in `src/jetbrains/buildServer/server/rest/request/BuildQueueRequest.java`
 #### Snippet
 ```java
+  @Context @NotNull private AgentFinder myAgentFinder;
+
+  @Context @NotNull private ApiUrlBuilder myApiUrlBuilder;
+  @Context @NotNull private ServiceLocator myServiceLocator;
+  @Context @NotNull private BeanContext myBeanContext;
+```
+
+### NotNullFieldNotInitialized
+Not-null fields must be initialized
+in `src/jetbrains/buildServer/server/rest/request/BuildQueueRequest.java`
+#### Snippet
+```java
   public static final String COMPATIBLE_AGENTS = "/compatibleAgents";
   @Context @NotNull private QueuedBuildFinder myQueuedBuildFinder;
   @Context @NotNull private BuildPromotionFinder myBuildPromotionFinder;
@@ -2307,10 +2295,58 @@ Not-null fields must be initialized
 in `src/jetbrains/buildServer/server/rest/request/BuildQueueRequest.java`
 #### Snippet
 ```java
+  @Context @NotNull private ApiUrlBuilder myApiUrlBuilder;
+  @Context @NotNull private ServiceLocator myServiceLocator;
+  @Context @NotNull private BeanContext myBeanContext;
+
+  @NotNull
+```
+
+### NotNullFieldNotInitialized
+Not-null fields must be initialized
+in `src/jetbrains/buildServer/server/rest/request/BuildQueueRequest.java`
+#### Snippet
+```java
 
   @Context @NotNull private ApiUrlBuilder myApiUrlBuilder;
   @Context @NotNull private ServiceLocator myServiceLocator;
   @Context @NotNull private BeanContext myBeanContext;
+
+```
+
+### NotNullFieldNotInitialized
+Not-null fields must be initialized
+in `src/jetbrains/buildServer/server/rest/model/problem/TestOccurrence.java`
+#### Snippet
+```java
+  private static final Logger LOG = Logger.getInstance(TestOccurrence.class.getName());
+
+  @NotNull private BeanContext myBeanContext;
+  @NotNull private Fields myFields;
+  @NotNull private STestRun myTestRun;
+```
+
+### NotNullFieldNotInitialized
+Not-null fields must be initialized
+in `src/jetbrains/buildServer/server/rest/model/problem/TestOccurrence.java`
+#### Snippet
+```java
+
+  @NotNull private BeanContext myBeanContext;
+  @NotNull private Fields myFields;
+  @NotNull private STestRun myTestRun;
+  private final FieldInclusionChecker myChecker = FieldInclusionChecker.getForClass(TestOccurrence.class);
+```
+
+### NotNullFieldNotInitialized
+Not-null fields must be initialized
+in `src/jetbrains/buildServer/server/rest/model/problem/TestOccurrence.java`
+#### Snippet
+```java
+  @NotNull private BeanContext myBeanContext;
+  @NotNull private Fields myFields;
+  @NotNull private STestRun myTestRun;
+  private final FieldInclusionChecker myChecker = FieldInclusionChecker.getForClass(TestOccurrence.class);
 
 ```
 
@@ -2340,38 +2376,14 @@ public class CCTrayRequest {
 
 ### NotNullFieldNotInitialized
 Not-null fields must be initialized
-in `src/jetbrains/buildServer/server/rest/model/problem/TestOccurrence.java`
+in `src/jetbrains/buildServer/server/rest/request/ProjectRequest.java`
 #### Snippet
 ```java
-  @NotNull private BeanContext myBeanContext;
-  @NotNull private Fields myFields;
-  @NotNull private STestRun myTestRun;
-  private final FieldInclusionChecker myChecker = FieldInclusionChecker.getForClass(TestOccurrence.class);
-
-```
-
-### NotNullFieldNotInitialized
-Not-null fields must be initialized
-in `src/jetbrains/buildServer/server/rest/model/problem/TestOccurrence.java`
-#### Snippet
-```java
-
-  @NotNull private BeanContext myBeanContext;
-  @NotNull private Fields myFields;
-  @NotNull private STestRun myTestRun;
-  private final FieldInclusionChecker myChecker = FieldInclusionChecker.getForClass(TestOccurrence.class);
-```
-
-### NotNullFieldNotInitialized
-Not-null fields must be initialized
-in `src/jetbrains/buildServer/server/rest/model/problem/TestOccurrence.java`
-#### Snippet
-```java
-  private static final Logger LOG = Logger.getInstance(TestOccurrence.class.getName());
-
-  @NotNull private BeanContext myBeanContext;
-  @NotNull private Fields myFields;
-  @NotNull private STestRun myTestRun;
+  @Context @NotNull private DataProvider myDataProvider;
+  @Context @NotNull private BuildFinder myBuildFinder;
+  @Context @NotNull private BuildTypeFinder myBuildTypeFinder;
+  @Context @NotNull private ProjectFinder myProjectFinder;
+  @Context @NotNull private AgentPoolFinder myAgentPoolFinder;
 ```
 
 ### NotNullFieldNotInitialized
@@ -2396,6 +2408,42 @@ in `src/jetbrains/buildServer/server/rest/request/ProjectRequest.java`
   @Context @NotNull private ProjectFinder myProjectFinder;
   @Context @NotNull private AgentPoolFinder myAgentPoolFinder;
   @Context @NotNull private BranchFinder myBranchFinder;
+```
+
+### NotNullFieldNotInitialized
+Not-null fields must be initialized
+in `src/jetbrains/buildServer/server/rest/request/ProjectRequest.java`
+#### Snippet
+```java
+  @Context @NotNull private BeanContext myBeanContext;
+  @Context @NotNull private DataProvider myDataProvider;
+  @Context @NotNull private BuildFinder myBuildFinder;
+  @Context @NotNull private BuildTypeFinder myBuildTypeFinder;
+  @Context @NotNull private ProjectFinder myProjectFinder;
+```
+
+### NotNullFieldNotInitialized
+Not-null fields must be initialized
+in `src/jetbrains/buildServer/server/rest/request/ProjectRequest.java`
+#### Snippet
+```java
+  @Context @NotNull private ProjectFinder myProjectFinder;
+  @Context @NotNull private AgentPoolFinder myAgentPoolFinder;
+  @Context @NotNull private BranchFinder myBranchFinder;
+  @Context @NotNull private ApiUrlBuilder myApiUrlBuilder;
+
+```
+
+### NotNullFieldNotInitialized
+Not-null fields must be initialized
+in `src/jetbrains/buildServer/server/rest/request/ProjectRequest.java`
+#### Snippet
+```java
+  @Context @NotNull private BuildTypeFinder myBuildTypeFinder;
+  @Context @NotNull private ProjectFinder myProjectFinder;
+  @Context @NotNull private AgentPoolFinder myAgentPoolFinder;
+  @Context @NotNull private BranchFinder myBranchFinder;
+  @Context @NotNull private ApiUrlBuilder myApiUrlBuilder;
 ```
 
 ### NotNullFieldNotInitialized
@@ -2415,66 +2463,6 @@ Not-null fields must be initialized
 in `src/jetbrains/buildServer/server/rest/request/ProjectRequest.java`
 #### Snippet
 ```java
-  @Context @NotNull private BeanContext myBeanContext;
-  @Context @NotNull private DataProvider myDataProvider;
-  @Context @NotNull private BuildFinder myBuildFinder;
-  @Context @NotNull private BuildTypeFinder myBuildTypeFinder;
-  @Context @NotNull private ProjectFinder myProjectFinder;
-```
-
-### NotNullFieldNotInitialized
-Not-null fields must be initialized
-in `src/jetbrains/buildServer/server/rest/request/ProjectRequest.java`
-#### Snippet
-```java
-  @Context @NotNull private ProjectFinder myProjectFinder;
-  @Context @NotNull private AgentPoolFinder myAgentPoolFinder;
-  @Context @NotNull private BranchFinder myBranchFinder;
-  @Context @NotNull private ApiUrlBuilder myApiUrlBuilder;
-
-```
-
-### NotNullFieldNotInitialized
-Not-null fields must be initialized
-in `src/jetbrains/buildServer/server/rest/request/ProjectRequest.java`
-#### Snippet
-```java
-  @Context @NotNull private BuildTypeFinder myBuildTypeFinder;
-  @Context @NotNull private ProjectFinder myProjectFinder;
-  @Context @NotNull private AgentPoolFinder myAgentPoolFinder;
-  @Context @NotNull private BranchFinder myBranchFinder;
-  @Context @NotNull private ApiUrlBuilder myApiUrlBuilder;
-```
-
-### NotNullFieldNotInitialized
-Not-null fields must be initialized
-in `src/jetbrains/buildServer/server/rest/request/ProjectRequest.java`
-#### Snippet
-```java
-  @Context @NotNull private DataProvider myDataProvider;
-  @Context @NotNull private BuildFinder myBuildFinder;
-  @Context @NotNull private BuildTypeFinder myBuildTypeFinder;
-  @Context @NotNull private ProjectFinder myProjectFinder;
-  @Context @NotNull private AgentPoolFinder myAgentPoolFinder;
-```
-
-### NotNullFieldNotInitialized
-Not-null fields must be initialized
-in `src/jetbrains/buildServer/server/rest/request/ProjectRequest.java`
-#### Snippet
-```java
-
-  @Context @NotNull private BeanContext myBeanContext;
-  @Context @NotNull private DataProvider myDataProvider;
-  @Context @NotNull private BuildFinder myBuildFinder;
-  @Context @NotNull private BuildTypeFinder myBuildTypeFinder;
-```
-
-### NotNullFieldNotInitialized
-Not-null fields must be initialized
-in `src/jetbrains/buildServer/server/rest/request/ProjectRequest.java`
-#### Snippet
-```java
   @NotNull private ServerSshKeyManager myServerSshKeyManager;
 
   @Context @NotNull private BeanContext myBeanContext;
@@ -2484,98 +2472,14 @@ in `src/jetbrains/buildServer/server/rest/request/ProjectRequest.java`
 
 ### NotNullFieldNotInitialized
 Not-null fields must be initialized
-in `src/jetbrains/buildServer/server/rest/request/VcsRootRequest.java`
+in `src/jetbrains/buildServer/server/rest/request/ProjectRequest.java`
 #### Snippet
 ```java
-  @Context @NotNull private ProjectFinder myProjectFinder;
-  @Context @NotNull private VcsRootFinder myVcsRootFinder;
-  @Context @NotNull private VcsRootInstanceFinder myVcsRootInstanceFinder;
-  @Context @NotNull private ApiUrlBuilder myApiUrlBuilder;
-  @Context @NotNull private ServiceLocator myServiceLocator;
-```
 
-### NotNullFieldNotInitialized
-Not-null fields must be initialized
-in `src/jetbrains/buildServer/server/rest/request/VcsRootRequest.java`
-#### Snippet
-```java
-public class VcsRootRequest {
+  @Context @NotNull private BeanContext myBeanContext;
   @Context @NotNull private DataProvider myDataProvider;
-  @Context @NotNull private ProjectFinder myProjectFinder;
-  @Context @NotNull private VcsRootFinder myVcsRootFinder;
-  @Context @NotNull private VcsRootInstanceFinder myVcsRootInstanceFinder;
-```
-
-### NotNullFieldNotInitialized
-Not-null fields must be initialized
-in `src/jetbrains/buildServer/server/rest/request/VcsRootRequest.java`
-#### Snippet
-```java
-  @Context @NotNull private ServiceLocator myServiceLocator;
-  @Context @NotNull private BeanContext myBeanContext;
-  @Context @NotNull public PermissionChecker myPermissionChecker;
-
-  public static final String API_VCS_ROOTS_URL = Constants.API_URL + "/vcs-roots";
-```
-
-### NotNullFieldNotInitialized
-Not-null fields must be initialized
-in `src/jetbrains/buildServer/server/rest/request/VcsRootRequest.java`
-#### Snippet
-```java
-  @Context @NotNull private VcsRootInstanceFinder myVcsRootInstanceFinder;
-  @Context @NotNull private ApiUrlBuilder myApiUrlBuilder;
-  @Context @NotNull private ServiceLocator myServiceLocator;
-  @Context @NotNull private BeanContext myBeanContext;
-  @Context @NotNull public PermissionChecker myPermissionChecker;
-```
-
-### NotNullFieldNotInitialized
-Not-null fields must be initialized
-in `src/jetbrains/buildServer/server/rest/request/VcsRootRequest.java`
-#### Snippet
-```java
-  @Context @NotNull private DataProvider myDataProvider;
-  @Context @NotNull private ProjectFinder myProjectFinder;
-  @Context @NotNull private VcsRootFinder myVcsRootFinder;
-  @Context @NotNull private VcsRootInstanceFinder myVcsRootInstanceFinder;
-  @Context @NotNull private ApiUrlBuilder myApiUrlBuilder;
-```
-
-### NotNullFieldNotInitialized
-Not-null fields must be initialized
-in `src/jetbrains/buildServer/server/rest/request/VcsRootRequest.java`
-#### Snippet
-```java
-  @Context @NotNull private ApiUrlBuilder myApiUrlBuilder;
-  @Context @NotNull private ServiceLocator myServiceLocator;
-  @Context @NotNull private BeanContext myBeanContext;
-  @Context @NotNull public PermissionChecker myPermissionChecker;
-
-```
-
-### NotNullFieldNotInitialized
-Not-null fields must be initialized
-in `src/jetbrains/buildServer/server/rest/request/VcsRootRequest.java`
-#### Snippet
-```java
-  @Context @NotNull private VcsRootFinder myVcsRootFinder;
-  @Context @NotNull private VcsRootInstanceFinder myVcsRootInstanceFinder;
-  @Context @NotNull private ApiUrlBuilder myApiUrlBuilder;
-  @Context @NotNull private ServiceLocator myServiceLocator;
-  @Context @NotNull private BeanContext myBeanContext;
-```
-
-### NotNullFieldNotInitialized
-Not-null fields must be initialized
-in `src/jetbrains/buildServer/server/rest/request/VcsRootRequest.java`
-#### Snippet
-```java
-@Api("VcsRoot")
-public class VcsRootRequest {
-  @Context @NotNull private DataProvider myDataProvider;
-  @Context @NotNull private ProjectFinder myProjectFinder;
-  @Context @NotNull private VcsRootFinder myVcsRootFinder;
+  @Context @NotNull private BuildFinder myBuildFinder;
+  @Context @NotNull private BuildTypeFinder myBuildTypeFinder;
 ```
 
 ### NotNullFieldNotInitialized
@@ -2616,6 +2520,66 @@ in `src/jetbrains/buildServer/server/rest/request/AuditRequest.java`
 
 ### NotNullFieldNotInitialized
 Not-null fields must be initialized
+in `src/jetbrains/buildServer/server/rest/request/VcsRootRequest.java`
+#### Snippet
+```java
+public class VcsRootRequest {
+  @Context @NotNull private DataProvider myDataProvider;
+  @Context @NotNull private ProjectFinder myProjectFinder;
+  @Context @NotNull private VcsRootFinder myVcsRootFinder;
+  @Context @NotNull private VcsRootInstanceFinder myVcsRootInstanceFinder;
+```
+
+### NotNullFieldNotInitialized
+Not-null fields must be initialized
+in `src/jetbrains/buildServer/server/rest/request/VcsRootRequest.java`
+#### Snippet
+```java
+@Api("VcsRoot")
+public class VcsRootRequest {
+  @Context @NotNull private DataProvider myDataProvider;
+  @Context @NotNull private ProjectFinder myProjectFinder;
+  @Context @NotNull private VcsRootFinder myVcsRootFinder;
+```
+
+### NotNullFieldNotInitialized
+Not-null fields must be initialized
+in `src/jetbrains/buildServer/server/rest/request/VcsRootRequest.java`
+#### Snippet
+```java
+  @Context @NotNull private ServiceLocator myServiceLocator;
+  @Context @NotNull private BeanContext myBeanContext;
+  @Context @NotNull public PermissionChecker myPermissionChecker;
+
+  public static final String API_VCS_ROOTS_URL = Constants.API_URL + "/vcs-roots";
+```
+
+### NotNullFieldNotInitialized
+Not-null fields must be initialized
+in `src/jetbrains/buildServer/server/rest/request/VcsRootRequest.java`
+#### Snippet
+```java
+  @Context @NotNull private DataProvider myDataProvider;
+  @Context @NotNull private ProjectFinder myProjectFinder;
+  @Context @NotNull private VcsRootFinder myVcsRootFinder;
+  @Context @NotNull private VcsRootInstanceFinder myVcsRootInstanceFinder;
+  @Context @NotNull private ApiUrlBuilder myApiUrlBuilder;
+```
+
+### NotNullFieldNotInitialized
+Not-null fields must be initialized
+in `src/jetbrains/buildServer/server/rest/request/AgentPoolRequest.java`
+#### Snippet
+```java
+  @Context @NotNull private ServiceLocator myServiceLocator;
+  @Context @NotNull private BeanContext myBeanContext;
+  @Context @NotNull private AgentPoolFinder myAgentPoolFinder;
+  @Context @NotNull private ProjectFinder myProjectFinder;
+  @Context @NotNull private AgentFinder myAgentFinder;
+```
+
+### NotNullFieldNotInitialized
+Not-null fields must be initialized
 in `src/jetbrains/buildServer/server/rest/request/AgentPoolRequest.java`
 #### Snippet
 ```java
@@ -2624,18 +2588,6 @@ in `src/jetbrains/buildServer/server/rest/request/AgentPoolRequest.java`
   @Context @NotNull private AgentFinder myAgentFinder;
 
   public static final String API_AGENT_POOLS_URL = Constants.API_URL + "/agentPools";
-```
-
-### NotNullFieldNotInitialized
-Not-null fields must be initialized
-in `src/jetbrains/buildServer/server/rest/request/AgentPoolRequest.java`
-#### Snippet
-```java
-  @Context @NotNull private BeanContext myBeanContext;
-  @Context @NotNull private AgentPoolFinder myAgentPoolFinder;
-  @Context @NotNull private ProjectFinder myProjectFinder;
-  @Context @NotNull private AgentFinder myAgentFinder;
-
 ```
 
 ### NotNullFieldNotInitialized
@@ -2655,6 +2607,18 @@ Not-null fields must be initialized
 in `src/jetbrains/buildServer/server/rest/request/AgentPoolRequest.java`
 #### Snippet
 ```java
+public class AgentPoolRequest {
+  @Context @NotNull private DataProvider myDataProvider;
+  @Context @NotNull private ApiUrlBuilder myApiUrlBuilder;
+  @Context @NotNull private ServiceLocator myServiceLocator;
+  @Context @NotNull private BeanContext myBeanContext;
+```
+
+### NotNullFieldNotInitialized
+Not-null fields must be initialized
+in `src/jetbrains/buildServer/server/rest/request/AgentPoolRequest.java`
+#### Snippet
+```java
   @Context @NotNull private ApiUrlBuilder myApiUrlBuilder;
   @Context @NotNull private ServiceLocator myServiceLocator;
   @Context @NotNull private BeanContext myBeanContext;
@@ -2667,11 +2631,11 @@ Not-null fields must be initialized
 in `src/jetbrains/buildServer/server/rest/request/AgentPoolRequest.java`
 #### Snippet
 ```java
-  @Context @NotNull private ServiceLocator myServiceLocator;
   @Context @NotNull private BeanContext myBeanContext;
   @Context @NotNull private AgentPoolFinder myAgentPoolFinder;
   @Context @NotNull private ProjectFinder myProjectFinder;
   @Context @NotNull private AgentFinder myAgentFinder;
+
 ```
 
 ### NotNullFieldNotInitialized
@@ -2688,14 +2652,170 @@ public class AgentPoolRequest {
 
 ### NotNullFieldNotInitialized
 Not-null fields must be initialized
-in `src/jetbrains/buildServer/server/rest/request/AgentPoolRequest.java`
+in `src/jetbrains/buildServer/server/rest/request/VcsRootRequest.java`
 #### Snippet
 ```java
-public class AgentPoolRequest {
-  @Context @NotNull private DataProvider myDataProvider;
+  @Context @NotNull private VcsRootInstanceFinder myVcsRootInstanceFinder;
   @Context @NotNull private ApiUrlBuilder myApiUrlBuilder;
   @Context @NotNull private ServiceLocator myServiceLocator;
   @Context @NotNull private BeanContext myBeanContext;
+  @Context @NotNull public PermissionChecker myPermissionChecker;
+```
+
+### NotNullFieldNotInitialized
+Not-null fields must be initialized
+in `src/jetbrains/buildServer/server/rest/request/VcsRootRequest.java`
+#### Snippet
+```java
+  @Context @NotNull private VcsRootFinder myVcsRootFinder;
+  @Context @NotNull private VcsRootInstanceFinder myVcsRootInstanceFinder;
+  @Context @NotNull private ApiUrlBuilder myApiUrlBuilder;
+  @Context @NotNull private ServiceLocator myServiceLocator;
+  @Context @NotNull private BeanContext myBeanContext;
+```
+
+### NotNullFieldNotInitialized
+Not-null fields must be initialized
+in `src/jetbrains/buildServer/server/rest/request/VcsRootRequest.java`
+#### Snippet
+```java
+  @Context @NotNull private ProjectFinder myProjectFinder;
+  @Context @NotNull private VcsRootFinder myVcsRootFinder;
+  @Context @NotNull private VcsRootInstanceFinder myVcsRootInstanceFinder;
+  @Context @NotNull private ApiUrlBuilder myApiUrlBuilder;
+  @Context @NotNull private ServiceLocator myServiceLocator;
+```
+
+### NotNullFieldNotInitialized
+Not-null fields must be initialized
+in `src/jetbrains/buildServer/server/rest/request/VcsRootRequest.java`
+#### Snippet
+```java
+  @Context @NotNull private ApiUrlBuilder myApiUrlBuilder;
+  @Context @NotNull private ServiceLocator myServiceLocator;
+  @Context @NotNull private BeanContext myBeanContext;
+  @Context @NotNull public PermissionChecker myPermissionChecker;
+
+```
+
+### NotNullFieldNotInitialized
+Not-null fields must be initialized
+in `src/jetbrains/buildServer/server/rest/request/BuildTypeRequest.java`
+#### Snippet
+```java
+
+  @Context @NotNull private ApiUrlBuilder myApiUrlBuilder;
+  @Context @NotNull private ServiceLocator myServiceLocator;
+  @Context @NotNull private BeanFactory myFactory;
+  @Context @NotNull private BeanContext myBeanContext;
+```
+
+### NotNullFieldNotInitialized
+Not-null fields must be initialized
+in `src/jetbrains/buildServer/server/rest/request/BuildTypeRequest.java`
+#### Snippet
+```java
+  @Context @NotNull private VcsRootFinder myVcsRootFinder;
+  @Context @NotNull private InvestigationFinder myInvestigationFinder;
+  @Context @NotNull private BranchFinder myBranchFinder;
+
+  @Context @NotNull private ApiUrlBuilder myApiUrlBuilder;
+```
+
+### NotNullFieldNotInitialized
+Not-null fields must be initialized
+in `src/jetbrains/buildServer/server/rest/request/BuildTypeRequest.java`
+#### Snippet
+```java
+  @Context @NotNull private ApiUrlBuilder myApiUrlBuilder;
+  @Context @NotNull private ServiceLocator myServiceLocator;
+  @Context @NotNull private BeanFactory myFactory;
+  @Context @NotNull private BeanContext myBeanContext;
+  @Context @NotNull public PermissionChecker myPermissionChecker;
+```
+
+### NotNullFieldNotInitialized
+Not-null fields must be initialized
+in `src/jetbrains/buildServer/server/rest/request/BuildTypeRequest.java`
+#### Snippet
+```java
+  @Context @NotNull private BranchFinder myBranchFinder;
+
+  @Context @NotNull private ApiUrlBuilder myApiUrlBuilder;
+  @Context @NotNull private ServiceLocator myServiceLocator;
+  @Context @NotNull private BeanFactory myFactory;
+```
+
+### NotNullFieldNotInitialized
+Not-null fields must be initialized
+in `src/jetbrains/buildServer/server/rest/request/BuildTypeRequest.java`
+#### Snippet
+```java
+  @Context @NotNull private BeanFactory myFactory;
+  @Context @NotNull private BeanContext myBeanContext;
+  @Context @NotNull public PermissionChecker myPermissionChecker;
+
+  public static final String API_BUILD_TYPES_URL = Constants.API_URL + "/buildTypes";
+```
+
+### NotNullFieldNotInitialized
+Not-null fields must be initialized
+in `src/jetbrains/buildServer/server/rest/request/BuildTypeRequest.java`
+#### Snippet
+```java
+
+  @Context @NotNull private BuildFinder myBuildFinder;
+  @Context @NotNull private BuildTypeFinder myBuildTypeFinder;
+  @Context @NotNull private VcsRootFinder myVcsRootFinder;
+  @Context @NotNull private InvestigationFinder myInvestigationFinder;
+```
+
+### NotNullFieldNotInitialized
+Not-null fields must be initialized
+in `src/jetbrains/buildServer/server/rest/request/BuildTypeRequest.java`
+#### Snippet
+```java
+  @Context @NotNull private ServiceLocator myServiceLocator;
+  @Context @NotNull private BeanFactory myFactory;
+  @Context @NotNull private BeanContext myBeanContext;
+  @Context @NotNull public PermissionChecker myPermissionChecker;
+
+```
+
+### NotNullFieldNotInitialized
+Not-null fields must be initialized
+in `src/jetbrains/buildServer/server/rest/request/BuildTypeRequest.java`
+#### Snippet
+```java
+  private static final Pattern NON_ALPHA_NUM_PATTERN = Pattern.compile("[^a-zA-Z0-9-#.]+");
+
+  @Context @NotNull private BuildFinder myBuildFinder;
+  @Context @NotNull private BuildTypeFinder myBuildTypeFinder;
+  @Context @NotNull private VcsRootFinder myVcsRootFinder;
+```
+
+### NotNullFieldNotInitialized
+Not-null fields must be initialized
+in `src/jetbrains/buildServer/server/rest/request/BuildTypeRequest.java`
+#### Snippet
+```java
+  @Context @NotNull private BuildTypeFinder myBuildTypeFinder;
+  @Context @NotNull private VcsRootFinder myVcsRootFinder;
+  @Context @NotNull private InvestigationFinder myInvestigationFinder;
+  @Context @NotNull private BranchFinder myBranchFinder;
+
+```
+
+### NotNullFieldNotInitialized
+Not-null fields must be initialized
+in `src/jetbrains/buildServer/server/rest/request/BuildTypeRequest.java`
+#### Snippet
+```java
+  @Context @NotNull private BuildFinder myBuildFinder;
+  @Context @NotNull private BuildTypeFinder myBuildTypeFinder;
+  @Context @NotNull private VcsRootFinder myVcsRootFinder;
+  @Context @NotNull private InvestigationFinder myInvestigationFinder;
+  @Context @NotNull private BranchFinder myBranchFinder;
 ```
 
 ### NotNullFieldNotInitialized
@@ -2751,18 +2871,6 @@ Not-null fields must be initialized
 in `src/jetbrains/buildServer/server/rest/request/AgentRequest.java`
 #### Snippet
 ```java
-  private AgentPoolFinder myAgentPoolFinder;
-  @Context
-  @NotNull
-  private AgentFinder myAgentFinder;
-  @Context
-```
-
-### NotNullFieldNotInitialized
-Not-null fields must be initialized
-in `src/jetbrains/buildServer/server/rest/request/AgentRequest.java`
-#### Snippet
-```java
   private ServiceLocator myServiceLocator;
   @Context
   @NotNull
@@ -2784,134 +2892,14 @@ in `src/jetbrains/buildServer/server/rest/request/AgentRequest.java`
 
 ### NotNullFieldNotInitialized
 Not-null fields must be initialized
-in `src/jetbrains/buildServer/server/rest/request/BuildTypeRequest.java`
+in `src/jetbrains/buildServer/server/rest/request/AgentRequest.java`
 #### Snippet
 ```java
-
-  @Context @NotNull private BuildFinder myBuildFinder;
-  @Context @NotNull private BuildTypeFinder myBuildTypeFinder;
-  @Context @NotNull private VcsRootFinder myVcsRootFinder;
-  @Context @NotNull private InvestigationFinder myInvestigationFinder;
-```
-
-### NotNullFieldNotInitialized
-Not-null fields must be initialized
-in `src/jetbrains/buildServer/server/rest/request/BuildTypeRequest.java`
-#### Snippet
-```java
-  @Context @NotNull private BeanFactory myFactory;
-  @Context @NotNull private BeanContext myBeanContext;
-  @Context @NotNull public PermissionChecker myPermissionChecker;
-
-  public static final String API_BUILD_TYPES_URL = Constants.API_URL + "/buildTypes";
-```
-
-### NotNullFieldNotInitialized
-Not-null fields must be initialized
-in `src/jetbrains/buildServer/server/rest/request/BuildTypeRequest.java`
-#### Snippet
-```java
-
-  @Context @NotNull private ApiUrlBuilder myApiUrlBuilder;
-  @Context @NotNull private ServiceLocator myServiceLocator;
-  @Context @NotNull private BeanFactory myFactory;
-  @Context @NotNull private BeanContext myBeanContext;
-```
-
-### NotNullFieldNotInitialized
-Not-null fields must be initialized
-in `src/jetbrains/buildServer/server/rest/request/BuildTypeRequest.java`
-#### Snippet
-```java
-  @Context @NotNull private BranchFinder myBranchFinder;
-
-  @Context @NotNull private ApiUrlBuilder myApiUrlBuilder;
-  @Context @NotNull private ServiceLocator myServiceLocator;
-  @Context @NotNull private BeanFactory myFactory;
-```
-
-### NotNullFieldNotInitialized
-Not-null fields must be initialized
-in `src/jetbrains/buildServer/server/rest/request/BuildTypeRequest.java`
-#### Snippet
-```java
-  @Context @NotNull private ApiUrlBuilder myApiUrlBuilder;
-  @Context @NotNull private ServiceLocator myServiceLocator;
-  @Context @NotNull private BeanFactory myFactory;
-  @Context @NotNull private BeanContext myBeanContext;
-  @Context @NotNull public PermissionChecker myPermissionChecker;
-```
-
-### NotNullFieldNotInitialized
-Not-null fields must be initialized
-in `src/jetbrains/buildServer/server/rest/request/BuildTypeRequest.java`
-#### Snippet
-```java
-  @Context @NotNull private VcsRootFinder myVcsRootFinder;
-  @Context @NotNull private InvestigationFinder myInvestigationFinder;
-  @Context @NotNull private BranchFinder myBranchFinder;
-
-  @Context @NotNull private ApiUrlBuilder myApiUrlBuilder;
-```
-
-### NotNullFieldNotInitialized
-Not-null fields must be initialized
-in `src/jetbrains/buildServer/server/rest/request/BuildTypeRequest.java`
-#### Snippet
-```java
-  private static final Pattern NON_ALPHA_NUM_PATTERN = Pattern.compile("[^a-zA-Z0-9-#.]+");
-
-  @Context @NotNull private BuildFinder myBuildFinder;
-  @Context @NotNull private BuildTypeFinder myBuildTypeFinder;
-  @Context @NotNull private VcsRootFinder myVcsRootFinder;
-```
-
-### NotNullFieldNotInitialized
-Not-null fields must be initialized
-in `src/jetbrains/buildServer/server/rest/request/BuildTypeRequest.java`
-#### Snippet
-```java
-  @Context @NotNull private BuildTypeFinder myBuildTypeFinder;
-  @Context @NotNull private VcsRootFinder myVcsRootFinder;
-  @Context @NotNull private InvestigationFinder myInvestigationFinder;
-  @Context @NotNull private BranchFinder myBranchFinder;
-
-```
-
-### NotNullFieldNotInitialized
-Not-null fields must be initialized
-in `src/jetbrains/buildServer/server/rest/request/BuildTypeRequest.java`
-#### Snippet
-```java
-  @Context @NotNull private BuildFinder myBuildFinder;
-  @Context @NotNull private BuildTypeFinder myBuildTypeFinder;
-  @Context @NotNull private VcsRootFinder myVcsRootFinder;
-  @Context @NotNull private InvestigationFinder myInvestigationFinder;
-  @Context @NotNull private BranchFinder myBranchFinder;
-```
-
-### NotNullFieldNotInitialized
-Not-null fields must be initialized
-in `src/jetbrains/buildServer/server/rest/request/BuildTypeRequest.java`
-#### Snippet
-```java
-  @Context @NotNull private ServiceLocator myServiceLocator;
-  @Context @NotNull private BeanFactory myFactory;
-  @Context @NotNull private BeanContext myBeanContext;
-  @Context @NotNull public PermissionChecker myPermissionChecker;
-
-```
-
-### NotNullFieldNotInitialized
-Not-null fields must be initialized
-in `src/jetbrains/buildServer/server/rest/request/AvatarRequest.java`
-#### Snippet
-```java
-  private static final int MAX_AVATAR_SIZE = 300;
-
-  @Context @NotNull private UserFinder myUserFinder;
-  @Context @NotNull private UserAvatarsManager myUserAvatarsManager;
-
+  private AgentPoolFinder myAgentPoolFinder;
+  @Context
+  @NotNull
+  private AgentFinder myAgentFinder;
+  @Context
 ```
 
 ### NotNullFieldNotInitialized
@@ -2928,74 +2916,14 @@ in `src/jetbrains/buildServer/server/rest/request/AvatarRequest.java`
 
 ### NotNullFieldNotInitialized
 Not-null fields must be initialized
-in `src/jetbrains/buildServer/server/rest/model/build/RunningBuildInfo.java`
+in `src/jetbrains/buildServer/server/rest/request/AvatarRequest.java`
 #### Snippet
 ```java
-@ModelDescription("Represents a progress estimate of this build.")
-public class RunningBuildInfo {
-  @NotNull
-  private SRunningBuild myBuild;
-  @NotNull private Fields myFields;
-```
+  private static final int MAX_AVATAR_SIZE = 300;
 
-### NotNullFieldNotInitialized
-Not-null fields must be initialized
-in `src/jetbrains/buildServer/server/rest/model/build/RunningBuildInfo.java`
-#### Snippet
-```java
-  @NotNull
-  private SRunningBuild myBuild;
-  @NotNull private Fields myFields;
-  @NotNull private BeanContext myBeanContext;
+  @Context @NotNull private UserFinder myUserFinder;
+  @Context @NotNull private UserAvatarsManager myUserAvatarsManager;
 
-```
-
-### NotNullFieldNotInitialized
-Not-null fields must be initialized
-in `src/jetbrains/buildServer/server/rest/model/build/RunningBuildInfo.java`
-#### Snippet
-```java
-  private SRunningBuild myBuild;
-  @NotNull private Fields myFields;
-  @NotNull private BeanContext myBeanContext;
-
-  public RunningBuildInfo() {
-```
-
-### NotNullFieldNotInitialized
-Not-null fields must be initialized
-in `src/jetbrains/buildServer/server/graphql/model/mutation/agentPool/AssignProjectWithAgentPoolInput.java`
-#### Snippet
-```java
-
-public class AssignProjectWithAgentPoolInput {
-  @NotNull
-  private String myProjectRawId;
-  private int myAgentPoolRawId;
-```
-
-### NotNullFieldNotInitialized
-Not-null fields must be initialized
-in `src/jetbrains/buildServer/server/rest/request/VcsRootInstanceRequest.java`
-#### Snippet
-```java
-  @Context @NotNull private DataProvider myDataProvider;
-  @Context @NotNull private BeanContext myBeanContext;
-  @Context @NotNull private VcsRootInstanceFinder myVcsRootInstanceFinder;
-  @Context @NotNull private ApiUrlBuilder myApiUrlBuilder;
-
-```
-
-### NotNullFieldNotInitialized
-Not-null fields must be initialized
-in `src/jetbrains/buildServer/server/rest/request/VcsRootInstanceRequest.java`
-#### Snippet
-```java
-  @Context @NotNull private BeanContext myBeanContext;
-  @Context @NotNull private VcsRootInstanceFinder myVcsRootInstanceFinder;
-  @Context @NotNull private ApiUrlBuilder myApiUrlBuilder;
-
-  public static final String API_VCS_ROOT_INSTANCES_URL = Constants.API_URL + "/vcs-root-instances";
 ```
 
 ### NotNullFieldNotInitialized
@@ -3024,6 +2952,78 @@ public class VcsRootInstanceRequest {
 
 ### NotNullFieldNotInitialized
 Not-null fields must be initialized
+in `src/jetbrains/buildServer/server/rest/request/VcsRootInstanceRequest.java`
+#### Snippet
+```java
+  @Context @NotNull private BeanContext myBeanContext;
+  @Context @NotNull private VcsRootInstanceFinder myVcsRootInstanceFinder;
+  @Context @NotNull private ApiUrlBuilder myApiUrlBuilder;
+
+  public static final String API_VCS_ROOT_INSTANCES_URL = Constants.API_URL + "/vcs-root-instances";
+```
+
+### NotNullFieldNotInitialized
+Not-null fields must be initialized
+in `src/jetbrains/buildServer/server/rest/request/VcsRootInstanceRequest.java`
+#### Snippet
+```java
+  @Context @NotNull private DataProvider myDataProvider;
+  @Context @NotNull private BeanContext myBeanContext;
+  @Context @NotNull private VcsRootInstanceFinder myVcsRootInstanceFinder;
+  @Context @NotNull private ApiUrlBuilder myApiUrlBuilder;
+
+```
+
+### NotNullFieldNotInitialized
+Not-null fields must be initialized
+in `src/jetbrains/buildServer/server/rest/model/build/RunningBuildInfo.java`
+#### Snippet
+```java
+@ModelDescription("Represents a progress estimate of this build.")
+public class RunningBuildInfo {
+  @NotNull
+  private SRunningBuild myBuild;
+  @NotNull private Fields myFields;
+```
+
+### NotNullFieldNotInitialized
+Not-null fields must be initialized
+in `src/jetbrains/buildServer/server/rest/model/build/RunningBuildInfo.java`
+#### Snippet
+```java
+  private SRunningBuild myBuild;
+  @NotNull private Fields myFields;
+  @NotNull private BeanContext myBeanContext;
+
+  public RunningBuildInfo() {
+```
+
+### NotNullFieldNotInitialized
+Not-null fields must be initialized
+in `src/jetbrains/buildServer/server/rest/model/build/RunningBuildInfo.java`
+#### Snippet
+```java
+  @NotNull
+  private SRunningBuild myBuild;
+  @NotNull private Fields myFields;
+  @NotNull private BeanContext myBeanContext;
+
+```
+
+### NotNullFieldNotInitialized
+Not-null fields must be initialized
+in `src/jetbrains/buildServer/server/graphql/model/mutation/agentPool/AssignProjectWithAgentPoolInput.java`
+#### Snippet
+```java
+
+public class AssignProjectWithAgentPoolInput {
+  @NotNull
+  private String myProjectRawId;
+  private int myAgentPoolRawId;
+```
+
+### NotNullFieldNotInitialized
+Not-null fields must be initialized
 in `src/jetbrains/buildServer/server/rest/request/InvestigationRequest.java`
 #### Snippet
 ```java
@@ -3032,18 +3032,6 @@ public class InvestigationRequest {
   @Context @NotNull private InvestigationFinder myInvestigationFinder;
   @Context @NotNull private ApiUrlBuilder myApiUrlBuilder;
   @Context @NotNull private BeanContext myBeanContext;
-```
-
-### NotNullFieldNotInitialized
-Not-null fields must be initialized
-in `src/jetbrains/buildServer/server/rest/request/InvestigationRequest.java`
-#### Snippet
-```java
-  @Context @NotNull private ServiceLocator myServiceLocator;
-  @Context @NotNull private InvestigationFinder myInvestigationFinder;
-  @Context @NotNull private ApiUrlBuilder myApiUrlBuilder;
-  @Context @NotNull private BeanContext myBeanContext;
-
 ```
 
 ### NotNullFieldNotInitialized
@@ -3068,6 +3056,18 @@ in `src/jetbrains/buildServer/server/rest/request/InvestigationRequest.java`
   @Context @NotNull private BeanContext myBeanContext;
 
   public static final String API_SUB_URL = Constants.API_URL + "/investigations";
+```
+
+### NotNullFieldNotInitialized
+Not-null fields must be initialized
+in `src/jetbrains/buildServer/server/rest/request/InvestigationRequest.java`
+#### Snippet
+```java
+  @Context @NotNull private ServiceLocator myServiceLocator;
+  @Context @NotNull private InvestigationFinder myInvestigationFinder;
+  @Context @NotNull private ApiUrlBuilder myApiUrlBuilder;
+  @Context @NotNull private BeanContext myBeanContext;
+
 ```
 
 ### NotNullFieldNotInitialized
@@ -3099,30 +3099,6 @@ Not-null fields must be initialized
 in `src/jetbrains/buildServer/server/rest/request/UserRequest.java`
 #### Snippet
 ```java
-  @Context @NotNull private UserFinder myUserFinder;
-  @Context @NotNull private DataUpdater myDataUpdater;
-  @Context @NotNull private ApiUrlBuilder myApiUrlBuilder;
-  @Context @NotNull private BeanContext myBeanContext;
-
-```
-
-### NotNullFieldNotInitialized
-Not-null fields must be initialized
-in `src/jetbrains/buildServer/server/rest/request/UserRequest.java`
-#### Snippet
-```java
-  public static final String API_USERS_URL = Constants.API_URL + "/users";
-  @Context @NotNull private DataProvider myDataProvider;
-  @Context @NotNull private UserFinder myUserFinder;
-  @Context @NotNull private DataUpdater myDataUpdater;
-  @Context @NotNull private ApiUrlBuilder myApiUrlBuilder;
-```
-
-### NotNullFieldNotInitialized
-Not-null fields must be initialized
-in `src/jetbrains/buildServer/server/rest/request/UserRequest.java`
-#### Snippet
-```java
   @Context @NotNull private DataUpdater myDataUpdater;
   @Context @NotNull private ApiUrlBuilder myApiUrlBuilder;
   @Context @NotNull private BeanContext myBeanContext;
@@ -3144,13 +3120,37 @@ in `src/jetbrains/buildServer/server/rest/request/UserRequest.java`
 
 ### NotNullFieldNotInitialized
 Not-null fields must be initialized
+in `src/jetbrains/buildServer/server/rest/request/UserRequest.java`
+#### Snippet
+```java
+  public static final String API_USERS_URL = Constants.API_URL + "/users";
+  @Context @NotNull private DataProvider myDataProvider;
+  @Context @NotNull private UserFinder myUserFinder;
+  @Context @NotNull private DataUpdater myDataUpdater;
+  @Context @NotNull private ApiUrlBuilder myApiUrlBuilder;
+```
+
+### NotNullFieldNotInitialized
+Not-null fields must be initialized
+in `src/jetbrains/buildServer/server/rest/request/UserRequest.java`
+#### Snippet
+```java
+  @Context @NotNull private UserFinder myUserFinder;
+  @Context @NotNull private DataUpdater myDataUpdater;
+  @Context @NotNull private ApiUrlBuilder myApiUrlBuilder;
+  @Context @NotNull private BeanContext myBeanContext;
+
+```
+
+### NotNullFieldNotInitialized
+Not-null fields must be initialized
 in `src/jetbrains/buildServer/server/rest/model/build/VcsLabel.java`
 #### Snippet
 ```java
+)
+public class VcsLabel {
   @NotNull
   private jetbrains.buildServer.serverSide.vcs.VcsLabel myRealLabel;
-  @NotNull
-  private Fields myFields;
   @NotNull
 ```
 
@@ -3171,11 +3171,47 @@ Not-null fields must be initialized
 in `src/jetbrains/buildServer/server/rest/model/build/VcsLabel.java`
 #### Snippet
 ```java
-)
-public class VcsLabel {
   @NotNull
   private jetbrains.buildServer.serverSide.vcs.VcsLabel myRealLabel;
   @NotNull
+  private Fields myFields;
+  @NotNull
+```
+
+### NotNullFieldNotInitialized
+Not-null fields must be initialized
+in `src/jetbrains/buildServer/server/rest/request/ProblemOccurrenceRequest.java`
+#### Snippet
+```java
+  @Context @NotNull private BeanContext myBeanContext;
+  @Context @NotNull private ProblemOccurrenceFinder myProblemOccurrenceFinder;
+  @Context @NotNull private ProblemOccurrencesTreeCollector myProblemOccurrencesTreeCollector;
+  @Context @NotNull private ApiUrlBuilder myApiUrlBuilder;
+  @Context @NotNull private BeanFactory myFactory;
+```
+
+### NotNullFieldNotInitialized
+Not-null fields must be initialized
+in `src/jetbrains/buildServer/server/rest/request/ProblemOccurrenceRequest.java`
+#### Snippet
+```java
+  @Context @NotNull private ServiceLocator myServiceLocator;
+  @Context @NotNull private BeanContext myBeanContext;
+  @Context @NotNull private ProblemOccurrenceFinder myProblemOccurrenceFinder;
+  @Context @NotNull private ProblemOccurrencesTreeCollector myProblemOccurrencesTreeCollector;
+  @Context @NotNull private ApiUrlBuilder myApiUrlBuilder;
+```
+
+### NotNullFieldNotInitialized
+Not-null fields must be initialized
+in `src/jetbrains/buildServer/server/rest/request/ProblemOccurrenceRequest.java`
+#### Snippet
+```java
+  @Context @NotNull private ProblemOccurrenceFinder myProblemOccurrenceFinder;
+  @Context @NotNull private ProblemOccurrencesTreeCollector myProblemOccurrencesTreeCollector;
+  @Context @NotNull private ApiUrlBuilder myApiUrlBuilder;
+  @Context @NotNull private BeanFactory myFactory;
+
 ```
 
 ### NotNullFieldNotInitialized
@@ -3195,47 +3231,11 @@ Not-null fields must be initialized
 in `src/jetbrains/buildServer/server/rest/request/ProblemOccurrenceRequest.java`
 #### Snippet
 ```java
-  @Context @NotNull private BeanContext myBeanContext;
-  @Context @NotNull private ProblemOccurrenceFinder myProblemOccurrenceFinder;
-  @Context @NotNull private ProblemOccurrencesTreeCollector myProblemOccurrencesTreeCollector;
-  @Context @NotNull private ApiUrlBuilder myApiUrlBuilder;
-  @Context @NotNull private BeanFactory myFactory;
-```
-
-### NotNullFieldNotInitialized
-Not-null fields must be initialized
-in `src/jetbrains/buildServer/server/rest/request/ProblemOccurrenceRequest.java`
-#### Snippet
-```java
 public class ProblemOccurrenceRequest {
   @Context @NotNull private ServiceLocator myServiceLocator;
   @Context @NotNull private BeanContext myBeanContext;
   @Context @NotNull private ProblemOccurrenceFinder myProblemOccurrenceFinder;
   @Context @NotNull private ProblemOccurrencesTreeCollector myProblemOccurrencesTreeCollector;
-```
-
-### NotNullFieldNotInitialized
-Not-null fields must be initialized
-in `src/jetbrains/buildServer/server/rest/request/ProblemOccurrenceRequest.java`
-#### Snippet
-```java
-  @Context @NotNull private ProblemOccurrenceFinder myProblemOccurrenceFinder;
-  @Context @NotNull private ProblemOccurrencesTreeCollector myProblemOccurrencesTreeCollector;
-  @Context @NotNull private ApiUrlBuilder myApiUrlBuilder;
-  @Context @NotNull private BeanFactory myFactory;
-
-```
-
-### NotNullFieldNotInitialized
-Not-null fields must be initialized
-in `src/jetbrains/buildServer/server/rest/request/ProblemOccurrenceRequest.java`
-#### Snippet
-```java
-  @Context @NotNull private ServiceLocator myServiceLocator;
-  @Context @NotNull private BeanContext myBeanContext;
-  @Context @NotNull private ProblemOccurrenceFinder myProblemOccurrenceFinder;
-  @Context @NotNull private ProblemOccurrencesTreeCollector myProblemOccurrencesTreeCollector;
-  @Context @NotNull private ApiUrlBuilder myApiUrlBuilder;
 ```
 
 ### NotNullFieldNotInitialized
@@ -3258,31 +3258,7 @@ in `src/jetbrains/buildServer/server/graphql/resolver/Query.java`
 
   @Autowired
   @NotNull
-  private AbstractAgentPoolFactory myPoolFactory;
-
-```
-
-### NotNullFieldNotInitialized
-Not-null fields must be initialized
-in `src/jetbrains/buildServer/server/graphql/resolver/Query.java`
-#### Snippet
-```java
-
-  @Autowired
-  @NotNull
   private AgentPoolManager myAgentPoolManager;
-
-```
-
-### NotNullFieldNotInitialized
-Not-null fields must be initialized
-in `src/jetbrains/buildServer/server/graphql/resolver/Query.java`
-#### Snippet
-```java
-
-  @Autowired
-  @NotNull
-  private PaginationArgumentsProvider myPaginationArgumentsProvider;
 
 ```
 
@@ -3312,13 +3288,25 @@ in `src/jetbrains/buildServer/server/graphql/resolver/Query.java`
 
 ### NotNullFieldNotInitialized
 Not-null fields must be initialized
-in `src/jetbrains/buildServer/server/graphql/resolver/Mutation.java`
+in `src/jetbrains/buildServer/server/graphql/resolver/Query.java`
 #### Snippet
 ```java
 
   @Autowired
   @NotNull
-  private ProjectFinder myProjectFinder;
+  private AbstractAgentPoolFactory myPoolFactory;
+
+```
+
+### NotNullFieldNotInitialized
+Not-null fields must be initialized
+in `src/jetbrains/buildServer/server/graphql/resolver/Query.java`
+#### Snippet
+```java
+
+  @Autowired
+  @NotNull
+  private PaginationArgumentsProvider myPaginationArgumentsProvider;
 
 ```
 
@@ -3330,19 +3318,7 @@ in `src/jetbrains/buildServer/server/graphql/resolver/Mutation.java`
 
   @Autowired
   @NotNull
-  private AgentPoolManager myAgentPoolManager;
-
-```
-
-### NotNullFieldNotInitialized
-Not-null fields must be initialized
-in `src/jetbrains/buildServer/server/graphql/resolver/Mutation.java`
-#### Snippet
-```java
-
-  @Autowired
-  @NotNull
-  private AgentTypeManager myAgentTypeManager;
+  private AbstractAgentPoolFactory myAgentPoolFactory;
 
 ```
 
@@ -3366,6 +3342,18 @@ in `src/jetbrains/buildServer/server/graphql/resolver/Mutation.java`
 
   @Autowired
   @NotNull
+  private AgentTypeManager myAgentTypeManager;
+
+```
+
+### NotNullFieldNotInitialized
+Not-null fields must be initialized
+in `src/jetbrains/buildServer/server/graphql/resolver/Mutation.java`
+#### Snippet
+```java
+
+  @Autowired
+  @NotNull
   private BuildTypeFinder myBuildTypeFinder;
 
 ```
@@ -3378,7 +3366,19 @@ in `src/jetbrains/buildServer/server/graphql/resolver/Mutation.java`
 
   @Autowired
   @NotNull
-  private AbstractAgentPoolFactory myAgentPoolFactory;
+  private ProjectFinder myProjectFinder;
+
+```
+
+### NotNullFieldNotInitialized
+Not-null fields must be initialized
+in `src/jetbrains/buildServer/server/graphql/resolver/Mutation.java`
+#### Snippet
+```java
+
+  @Autowired
+  @NotNull
+  private AgentPoolManager myAgentPoolManager;
 
 ```
 
@@ -3411,11 +3411,11 @@ Not-null fields must be initialized
 in `src/jetbrains/buildServer/server/rest/request/RootApiRequest.java`
 #### Snippet
 ```java
+  public static final String VERSION = "/version";
+  @Context @NotNull private DataProvider myDataProvider;
+  @Context @NotNull private BuildFinder myBuildFinder;
   @Context @NotNull private BuildTypeFinder myBuildTypeFinder;
   @Context @NotNull private ProjectFinder myProjectFinder;
-  @Context @NotNull private ApiUrlBuilder myApiUrlBuilder;
-  @Context @NotNull public BeanContext myBeanContext;
-
 ```
 
 ### NotNullFieldNotInitialized
@@ -3423,11 +3423,11 @@ Not-null fields must be initialized
 in `src/jetbrains/buildServer/server/rest/request/RootApiRequest.java`
 #### Snippet
 ```java
-  public static final String VERSION = "/version";
-  @Context @NotNull private DataProvider myDataProvider;
   @Context @NotNull private BuildFinder myBuildFinder;
   @Context @NotNull private BuildTypeFinder myBuildTypeFinder;
   @Context @NotNull private ProjectFinder myProjectFinder;
+  @Context @NotNull private ApiUrlBuilder myApiUrlBuilder;
+  @Context @NotNull public BeanContext myBeanContext;
 ```
 
 ### NotNullFieldNotInitialized
@@ -3447,11 +3447,11 @@ Not-null fields must be initialized
 in `src/jetbrains/buildServer/server/rest/request/RootApiRequest.java`
 #### Snippet
 ```java
-  @Context @NotNull private BuildFinder myBuildFinder;
   @Context @NotNull private BuildTypeFinder myBuildTypeFinder;
   @Context @NotNull private ProjectFinder myProjectFinder;
   @Context @NotNull private ApiUrlBuilder myApiUrlBuilder;
   @Context @NotNull public BeanContext myBeanContext;
+
 ```
 
 ### NotNullFieldNotInitialized
@@ -3468,14 +3468,38 @@ in `src/jetbrains/buildServer/server/rest/request/RootApiRequest.java`
 
 ### NotNullFieldNotInitialized
 Not-null fields must be initialized
+in `src/jetbrains/buildServer/server/rest/request/ServerRequest.java`
+#### Snippet
+```java
+  private BeanFactory myFactory;
+
+  @SuppressWarnings("NullableProblems") @Context @NotNull
+  private BeanContext myBeanContext;
+
+```
+
+### NotNullFieldNotInitialized
+Not-null fields must be initialized
+in `src/jetbrains/buildServer/server/rest/request/ServerRequest.java`
+#### Snippet
+```java
+  private BeanContext myBeanContext;
+
+  @SuppressWarnings("NullableProblems") @Context @NotNull
+  private PermissionChecker myPermissionChecker;
+
+```
+
+### NotNullFieldNotInitialized
+Not-null fields must be initialized
 in `src/jetbrains/buildServer/server/rest/model/build/approval/GroupApprovalRuleStatus.java`
 #### Snippet
 ```java
+  @NotNull protected BuildPromotionEx myBuildPromotionEx;
   @NotNull protected ApprovalRule myApprovalRule;
   @NotNull protected Fields myFields;
   @NotNull protected BeanContext myBeanContext;
   @NotNull protected ApprovableBuildManager myApprovableBuildManager;
-
 ```
 
 ### NotNullFieldNotInitialized
@@ -3488,6 +3512,18 @@ public class GroupApprovalRuleStatus {
   @NotNull protected ApprovalRule myApprovalRule;
   @NotNull protected Fields myFields;
   @NotNull protected BeanContext myBeanContext;
+```
+
+### NotNullFieldNotInitialized
+Not-null fields must be initialized
+in `src/jetbrains/buildServer/server/rest/model/build/approval/GroupApprovalRuleStatus.java`
+#### Snippet
+```java
+  @NotNull protected Fields myFields;
+  @NotNull protected BeanContext myBeanContext;
+  @NotNull protected ApprovableBuildManager myApprovableBuildManager;
+
+  public GroupApprovalRuleStatus(
 ```
 
 ### NotNullFieldNotInitialized
@@ -3507,46 +3543,46 @@ Not-null fields must be initialized
 in `src/jetbrains/buildServer/server/rest/model/build/approval/GroupApprovalRuleStatus.java`
 #### Snippet
 ```java
-  @NotNull protected BuildPromotionEx myBuildPromotionEx;
   @NotNull protected ApprovalRule myApprovalRule;
   @NotNull protected Fields myFields;
   @NotNull protected BeanContext myBeanContext;
   @NotNull protected ApprovableBuildManager myApprovableBuildManager;
-```
-
-### NotNullFieldNotInitialized
-Not-null fields must be initialized
-in `src/jetbrains/buildServer/server/rest/model/build/approval/GroupApprovalRuleStatus.java`
-#### Snippet
-```java
-  @NotNull protected Fields myFields;
-  @NotNull protected BeanContext myBeanContext;
-  @NotNull protected ApprovableBuildManager myApprovableBuildManager;
-
-  public GroupApprovalRuleStatus(
-```
-
-### NotNullFieldNotInitialized
-Not-null fields must be initialized
-in `src/jetbrains/buildServer/server/rest/request/ServerRequest.java`
-#### Snippet
-```java
-  private BeanContext myBeanContext;
-
-  @SuppressWarnings("NullableProblems") @Context @NotNull
-  private PermissionChecker myPermissionChecker;
 
 ```
 
 ### NotNullFieldNotInitialized
 Not-null fields must be initialized
-in `src/jetbrains/buildServer/server/rest/request/ServerRequest.java`
+in `src/jetbrains/buildServer/server/rest/request/BuildRequest.java`
 #### Snippet
 ```java
-  private BeanFactory myFactory;
+  @Context @NotNull public BuildFinder myBuildFinder;
+  @Context @NotNull public BuildPromotionFinder myBuildPromotionFinder;
+  @Context @NotNull public BuildTypeFinder myBuildTypeFinder;
+  @Context @NotNull public PermissionChecker myPermissionChecker;
+  @Context @NotNull public BeanContext myBeanContext;
+```
 
-  @SuppressWarnings("NullableProblems") @Context @NotNull
-  private BeanContext myBeanContext;
+### NotNullFieldNotInitialized
+Not-null fields must be initialized
+in `src/jetbrains/buildServer/server/rest/request/BuildRequest.java`
+#### Snippet
+```java
+
+  @Context @NotNull public BuildFinder myBuildFinder;
+  @Context @NotNull public BuildPromotionFinder myBuildPromotionFinder;
+  @Context @NotNull public BuildTypeFinder myBuildTypeFinder;
+  @Context @NotNull public PermissionChecker myPermissionChecker;
+```
+
+### NotNullFieldNotInitialized
+Not-null fields must be initialized
+in `src/jetbrains/buildServer/server/rest/request/BuildRequest.java`
+#### Snippet
+```java
+  @Context @NotNull public BuildPromotionFinder myBuildPromotionFinder;
+  @Context @NotNull public BuildTypeFinder myBuildTypeFinder;
+  @Context @NotNull public PermissionChecker myPermissionChecker;
+  @Context @NotNull public BeanContext myBeanContext;
 
 ```
 
@@ -3560,42 +3596,6 @@ in `src/jetbrains/buildServer/server/rest/request/BuildRequest.java`
   @Context @NotNull public BuildFinder myBuildFinder;
   @Context @NotNull public BuildPromotionFinder myBuildPromotionFinder;
   @Context @NotNull public BuildTypeFinder myBuildTypeFinder;
-```
-
-### NotNullFieldNotInitialized
-Not-null fields must be initialized
-in `src/jetbrains/buildServer/server/rest/request/BuildRequest.java`
-#### Snippet
-```java
-
-  @Context @NotNull public BuildFinder myBuildFinder;
-  @Context @NotNull public BuildPromotionFinder myBuildPromotionFinder;
-  @Context @NotNull public BuildTypeFinder myBuildTypeFinder;
-  @Context @NotNull public PermissionChecker myPermissionChecker;
-```
-
-### NotNullFieldNotInitialized
-Not-null fields must be initialized
-in `src/jetbrains/buildServer/server/rest/request/BuildRequest.java`
-#### Snippet
-```java
-  @Context @NotNull public BuildPromotionFinder myBuildPromotionFinder;
-  @Context @NotNull public BuildTypeFinder myBuildTypeFinder;
-  @Context @NotNull public PermissionChecker myPermissionChecker;
-  @Context @NotNull public BeanContext myBeanContext;
-
-```
-
-### NotNullFieldNotInitialized
-Not-null fields must be initialized
-in `src/jetbrains/buildServer/server/rest/request/BuildRequest.java`
-#### Snippet
-```java
-  @Context @NotNull public BuildFinder myBuildFinder;
-  @Context @NotNull public BuildPromotionFinder myBuildPromotionFinder;
-  @Context @NotNull public BuildTypeFinder myBuildTypeFinder;
-  @Context @NotNull public PermissionChecker myPermissionChecker;
-  @Context @NotNull public BeanContext myBeanContext;
 ```
 
 ### NotNullFieldNotInitialized
@@ -3710,18 +3710,6 @@ in `src/jetbrains/buildServer/server/rest/errors/PartialUpdateError.java`
 ```
 
 ### SizeReplaceableByIsEmpty
-`agents.size() > 0` can be replaced with '!agents.isEmpty()'
-in `src/jetbrains/buildServer/server/rest/data/CloudInstanceData.java`
-#### Snippet
-```java
-    if (profileId == null) return null;
-    Collection<SBuildAgent> agents = myServiceLocator.getSingletonService(CloudManager.class).findAgentByInstance(profileId, myInstance.getInstanceId());
-    return agents.size() > 0 ? agents.iterator().next() : null;
-  }
-
-```
-
-### SizeReplaceableByIsEmpty
 `new PropEntityProjectFeature.ProjectFeatureFinder(item).getItems(featureDimension).getEntries().size...` can be replaced with '!new PropEntityProjectFeature.ProjectFeatureFinder(item).getItems(featureDimension).getEntries().isEmpty()'
 in `src/jetbrains/buildServer/server/rest/data/ProjectFinder.java`
 #### Snippet
@@ -3743,6 +3731,18 @@ in `src/jetbrains/buildServer/server/graphql/resolver/CloudImageResolver.java`
       if(agent.size() == 0) return;
       if(agent.size() > 1) {
         LOG.info(String.format(
+```
+
+### SizeReplaceableByIsEmpty
+`agents.size() > 0` can be replaced with '!agents.isEmpty()'
+in `src/jetbrains/buildServer/server/rest/data/CloudInstanceData.java`
+#### Snippet
+```java
+    if (profileId == null) return null;
+    Collection<SBuildAgent> agents = myServiceLocator.getSingletonService(CloudManager.class).findAgentByInstance(profileId, myInstance.getInstanceId());
+    return agents.size() > 0 ? agents.iterator().next() : null;
+  }
+
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -3830,6 +3830,18 @@ in `src/jetbrains/buildServer/server/rest/data/problem/scope/ProblemOccurrencesT
 ```
 
 ### SizeReplaceableByIsEmpty
+`tagsList.size() > 0` can be replaced with '!tagsList.isEmpty()'
+in `src/jetbrains/buildServer/server/rest/data/BuildPromotionFinder.java`
+#### Snippet
+```java
+    if (tags != null) {
+      final List<String> tagsList = Arrays.asList(tags.split(","));
+      if (tagsList.size() > 0) {
+        result.add(item -> item.getTags().containsAll(tagsList));
+      }
+```
+
+### SizeReplaceableByIsEmpty
 `buildTags.size() != 0` can be replaced with '!buildTags.isEmpty()'
 in `src/jetbrains/buildServer/server/rest/data/BuildPromotionFinder.java`
 #### Snippet
@@ -3850,18 +3862,6 @@ in `src/jetbrains/buildServer/server/rest/data/BuildPromotionFinder.java`
     if (tagsMatchPattern == null) {
       if ((present && buildTags.size() != 0) || (!present && (buildTags.size() == 0))) {
         return true;
-      }
-```
-
-### SizeReplaceableByIsEmpty
-`tagsList.size() > 0` can be replaced with '!tagsList.isEmpty()'
-in `src/jetbrains/buildServer/server/rest/data/BuildPromotionFinder.java`
-#### Snippet
-```java
-    if (tags != null) {
-      final List<String> tagsList = Arrays.asList(tags.split(","));
-      if (tagsList.size() > 0) {
-        result.add(item -> item.getTags().containsAll(tagsList));
       }
 ```
 
@@ -3890,18 +3890,6 @@ in `src/jetbrains/buildServer/server/rest/data/DataUpdater.java`
 ```
 
 ### SizeReplaceableByIsEmpty
-`found.size() > 0` can be replaced with '!found.isEmpty()'
-in `src/jetbrains/buildServer/server/rest/data/FinderSearchMatcher.java`
-#### Snippet
-```java
-    }
-    if (myMatch == null) {
-      return found.size() > 0; // found anything when "match" is empty
-    }
-
-```
-
-### SizeReplaceableByIsEmpty
 `node.getData().size() > 0` can be replaced with '!node.getData().isEmpty()'
 in `src/jetbrains/buildServer/server/rest/model/problem/scope/AbstractScopeTree.java`
 #### Snippet
@@ -3911,6 +3899,18 @@ in `src/jetbrains/buildServer/server/rest/model/problem/scope/AbstractScopeTree.
                   .filter(node -> node.getData().size() > 0)
                   .map(node -> buildLeaf(node, leafFields, myContext))
                   .collect(Collectors.toList());
+```
+
+### SizeReplaceableByIsEmpty
+`found.size() > 0` can be replaced with '!found.isEmpty()'
+in `src/jetbrains/buildServer/server/rest/data/FinderSearchMatcher.java`
+#### Snippet
+```java
+    }
+    if (myMatch == null) {
+      return found.size() > 0; // found anything when "match" is empty
+    }
+
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -3926,18 +3926,6 @@ in `src/jetbrains/buildServer/server/rest/APIController.java`
 ```
 
 ### SizeReplaceableByIsEmpty
-`usedDimensions.size() > 0` can be replaced with '!usedDimensions.isEmpty()'
-in `src/jetbrains/buildServer/server/rest/data/Locator.java`
-#### Snippet
-```java
-    if (mySupportedDimensions != null) usedDimensions.removeAll(Arrays.asList(mySupportedDimensions));
-    usedDimensions.removeAll(myHiddenSupportedDimensions);
-    if (usedDimensions.size() > 0) {
-      //found used dimensions which are not declared as used.
-
-```
-
-### SizeReplaceableByIsEmpty
 `runningBuilds.size() > 0` can be replaced with '!runningBuilds.isEmpty()'
 in `contrib/src/jetbrains/buildServer/server/restcontrib/cctray/model/Project.java`
 #### Snippet
@@ -3947,6 +3935,18 @@ in `contrib/src/jetbrains/buildServer/server/restcontrib/cctray/model/Project.ja
         if (runningBuilds.size() > 0) {
             return "Building";
         }
+```
+
+### SizeReplaceableByIsEmpty
+`usedDimensions.size() > 0` can be replaced with '!usedDimensions.isEmpty()'
+in `src/jetbrains/buildServer/server/rest/data/Locator.java`
+#### Snippet
+```java
+    if (mySupportedDimensions != null) usedDimensions.removeAll(Arrays.asList(mySupportedDimensions));
+    usedDimensions.removeAll(myHiddenSupportedDimensions);
+    if (usedDimensions.size() > 0) {
+      //found used dimensions which are not declared as used.
+
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -3974,6 +3974,18 @@ in `src/jetbrains/buildServer/server/rest/request/BuildQueueRequest.java`
 ```
 
 ### SizeReplaceableByIsEmpty
+`map.size() > 0` can be replaced with '!map.isEmpty()'
+in `src/jetbrains/buildServer/server/rest/request/ProjectRequest.java`
+#### Snippet
+```java
+  @Nullable
+  private static Map<String, String> getNullOrCollection(final @NotNull Map<String, String> map) {
+    return map.size() > 0 ? map : null;
+  }
+
+```
+
+### SizeReplaceableByIsEmpty
 `new TagFinder(userFinder, item).getItems(singleTag, getDefaultLocator()).myEntries.size() > 0` can be replaced with '!new TagFinder(userFinder, item).getItems(singleTag, getDefaultLocator()).myEntries.isEmpty()'
 in `src/jetbrains/buildServer/server/rest/data/build/TagFinder.java`
 #### Snippet
@@ -3983,6 +3995,30 @@ in `src/jetbrains/buildServer/server/rest/data/build/TagFinder.java`
     return new TagFinder(userFinder, item).getItems(singleTag, getDefaultLocator()).myEntries.size() > 0; //the code should correspond to locator.isSingleValue() case processing in getFilter method
   }
 
+```
+
+### SizeReplaceableByIsEmpty
+`buildTags.size() != 0` can be replaced with '!buildTags.isEmpty()'
+in `src/jetbrains/buildServer/server/rest/data/build/GenericBuildsFilter.java`
+#### Snippet
+```java
+    }
+    if (tagsMatchPattern == null) {
+      if ((present && buildTags.size() != 0) || (!present && (buildTags.size() == 0))) {
+        return true;
+      }
+```
+
+### SizeReplaceableByIsEmpty
+`buildTags.size() == 0` can be replaced with 'buildTags.isEmpty()'
+in `src/jetbrains/buildServer/server/rest/data/build/GenericBuildsFilter.java`
+#### Snippet
+```java
+    }
+    if (tagsMatchPattern == null) {
+      if ((present && buildTags.size() != 0) || (!present && (buildTags.size() == 0))) {
+        return true;
+      }
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -4022,42 +4058,6 @@ in `src/jetbrains/buildServer/server/rest/data/build/GenericBuildsFilter.java`
 ```
 
 ### SizeReplaceableByIsEmpty
-`buildTags.size() != 0` can be replaced with '!buildTags.isEmpty()'
-in `src/jetbrains/buildServer/server/rest/data/build/GenericBuildsFilter.java`
-#### Snippet
-```java
-    }
-    if (tagsMatchPattern == null) {
-      if ((present && buildTags.size() != 0) || (!present && (buildTags.size() == 0))) {
-        return true;
-      }
-```
-
-### SizeReplaceableByIsEmpty
-`buildTags.size() == 0` can be replaced with 'buildTags.isEmpty()'
-in `src/jetbrains/buildServer/server/rest/data/build/GenericBuildsFilter.java`
-#### Snippet
-```java
-    }
-    if (tagsMatchPattern == null) {
-      if ((present && buildTags.size() != 0) || (!present && (buildTags.size() == 0))) {
-        return true;
-      }
-```
-
-### SizeReplaceableByIsEmpty
-`map.size() > 0` can be replaced with '!map.isEmpty()'
-in `src/jetbrains/buildServer/server/rest/request/ProjectRequest.java`
-#### Snippet
-```java
-  @Nullable
-  private static Map<String, String> getNullOrCollection(final @NotNull Map<String, String> map) {
-    return map.size() > 0 ? map : null;
-  }
-
-```
-
-### SizeReplaceableByIsEmpty
 `filteredBuilds.size() == 0` can be replaced with 'filteredBuilds.isEmpty()'
 in `src/jetbrains/buildServer/server/rest/data/BuildFinder.java`
 #### Snippet
@@ -4066,6 +4066,18 @@ in `src/jetbrains/buildServer/server/rest/data/BuildFinder.java`
     final List<SBuild> filteredBuilds = getBuilds(buildsFilter);
     if (filteredBuilds.size() == 0){
       throw new NotFoundException("No build found by filter: " + buildsFilter.toString() + ".");
+    }
+```
+
+### SizeReplaceableByIsEmpty
+`dupliactes.size() > 0` can be replaced with '!dupliactes.isEmpty()'
+in `src/jetbrains/buildServer/server/rest/data/ChangeFinder.java`
+#### Snippet
+```java
+  private Stream<SVcsModification> modificationWithDuplicates(@NotNull SVcsModification m) {
+    Collection<SVcsModification> dupliactes = m.getDuplicates();
+    if (dupliactes.size() > 0) {
+      return Stream.concat(Stream.of(m), m.getDuplicates().stream());
     }
 ```
 
@@ -4091,18 +4103,6 @@ in `src/jetbrains/buildServer/server/rest/model/build/Build.java`
                                             if (problemOccurrences.size() == 0) return null;
 
                                             int newProblemsCount = 0;
-```
-
-### SizeReplaceableByIsEmpty
-`dupliactes.size() > 0` can be replaced with '!dupliactes.isEmpty()'
-in `src/jetbrains/buildServer/server/rest/data/ChangeFinder.java`
-#### Snippet
-```java
-  private Stream<SVcsModification> modificationWithDuplicates(@NotNull SVcsModification m) {
-    Collection<SVcsModification> dupliactes = m.getDuplicates();
-    if (dupliactes.size() > 0) {
-      return Stream.concat(Stream.of(m), m.getDuplicates().stream());
-    }
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -4317,18 +4317,6 @@ Can generalize to `? extends List`
 in `src/jetbrains/buildServer/server/rest/model/change/Changes.java`
 #### Snippet
 ```java
-                 @NotNull Fields fields,
-                 @NotNull final BeanContext beanContext,
-                 @Nullable final CachingValue<List<SVcsModificationOrChangeDescriptor>> modifications) {
-    myModifications = modifications;
-    myPagerData = pagerData;
-```
-
-### BoundedWildcard
-Can generalize to `? extends List`
-in `src/jetbrains/buildServer/server/rest/model/change/Changes.java`
-#### Snippet
-```java
   }
 
   public static Changes fromSVcsModificationsSupplier(@NotNull final Supplier<List<SVcsModification>> modifications,
@@ -4337,27 +4325,15 @@ in `src/jetbrains/buildServer/server/rest/model/change/Changes.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends T`
-in `src/jetbrains/buildServer/server/rest/util/ValueWithDefault.java`
+Can generalize to `? extends List`
+in `src/jetbrains/buildServer/server/rest/model/change/Changes.java`
 #### Snippet
 ```java
-
-  @Nullable
-  public static <T> T decide(@Nullable Boolean decision, @Nullable Supplier<T> trueValue, @Nullable Supplier<T> falseValue, boolean defaultDecision) {
-    boolean actualDecision;
-    if (decision == null) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
-in `src/jetbrains/buildServer/server/rest/util/ValueWithDefault.java`
-#### Snippet
-```java
-
-  @Nullable
-  public static <T> T decide(@Nullable Boolean decision, @Nullable Supplier<T> trueValue, @Nullable Supplier<T> falseValue, boolean defaultDecision) {
-    boolean actualDecision;
-    if (decision == null) {
+                 @NotNull Fields fields,
+                 @NotNull final BeanContext beanContext,
+                 @Nullable final CachingValue<List<SVcsModificationOrChangeDescriptor>> modifications) {
+    myModifications = modifications;
+    myPagerData = pagerData;
 ```
 
 ### BoundedWildcard
@@ -4382,6 +4358,30 @@ in `src/jetbrains/buildServer/server/rest/util/ValueWithDefault.java`
   public static <T> T decideDefault(@Nullable Boolean include, @Nullable Supplier<T> value, @NotNull Predicate<T> isDefault) {
     if (value == null) {
       return null;
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
+in `src/jetbrains/buildServer/server/rest/util/ValueWithDefault.java`
+#### Snippet
+```java
+
+  @Nullable
+  public static <T> T decide(@Nullable Boolean decision, @Nullable Supplier<T> trueValue, @Nullable Supplier<T> falseValue, boolean defaultDecision) {
+    boolean actualDecision;
+    if (decision == null) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
+in `src/jetbrains/buildServer/server/rest/util/ValueWithDefault.java`
+#### Snippet
+```java
+
+  @Nullable
+  public static <T> T decide(@Nullable Boolean decision, @Nullable Supplier<T> trueValue, @Nullable Supplier<T> falseValue, boolean defaultDecision) {
+    boolean actualDecision;
+    if (decision == null) {
 ```
 
 ### BoundedWildcard
@@ -4469,63 +4469,39 @@ in `src/jetbrains/buildServer/server/rest/model/Util.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends ScopeTree.Node`
-in `src/jetbrains/buildServer/server/rest/model/problem/scope/AbstractScopeTree.java`
+Can generalize to `? extends DATA`
+in `src/jetbrains/buildServer/server/rest/data/problem/tree/ScopeTree.java`
 #### Snippet
 ```java
-  public AbstractScopeTree() { }
-
-  public AbstractScopeTree(@NotNull List<ScopeTree.Node<DATA, COUNTERS>> sourceNodes, @NotNull Fields fields, @NotNull BeanContext context) {
-    myNodes = sourceNodes;
-    myFields = fields;
-```
-
-### BoundedWildcard
-Can generalize to `? extends List`
-in `src/jetbrains/buildServer/server/rest/model/cloud/CloudImages.java`
-#### Snippet
-```java
-  public CloudImages(
-    @NotNull
-    CachingValue<List<jetbrains.buildServer.clouds.CloudImage>> items,
-    @Nullable
-    PagerData pagerData,
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `src/jetbrains/buildServer/server/rest/APIController.java`
-#### Snippet
-```java
-  }
-
-  private static void addEntries(final Map<String, String> map, final List<String> keys, final String value) {
-    for (String key : keys) {
-      map.put(key, value);
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `src/jetbrains/buildServer/server/rest/APIController.java`
-#### Snippet
-```java
-  }
-
-  private static void addEntries(final Map<String, String> map, final List<String> keys, final String value) {
-    for (String key : keys) {
-      map.put(key, value);
+    Node (@NotNull String id,
+          @NotNull Scope scope,
+          @NotNull Collection<DATA> sTestRuns,
+          @NotNull COUNTERS counters,
+          @Nullable Node<DATA, COUNTERS> parent) {
 ```
 
 ### BoundedWildcard
 Can generalize to `? super DATA`
-in `src/jetbrains/buildServer/server/graphql/model/connections/LazyEdge.java`
+in `src/jetbrains/buildServer/server/rest/data/problem/tree/ScopeTree.java`
 #### Snippet
 ```java
-  }
+   * <b>Important:</b> modifies parent, replacing <code>node</code> with a new sliced one.
+   */
+  private Node<DATA, COUNTERS> sliceLeaf(@NotNull Node<DATA, COUNTERS> node, @NotNull TreeSlicingOptions<DATA, COUNTERS> slicingOptions) {
+    // Actually, it shouldn't be the root node, so there should always be a parent, but just to be safe.
+    if(!node.getScope().isLeaf() || node.getParent() == null) {
+```
 
-  public LazyEdge(@NotNull DATA data, @NotNull Function<DATA, MODEL> transformer, @NotNull Function<DATA, ?> dataTransformer) {
-    myData = data;
-    myTransformer = transformer;
+### BoundedWildcard
+Can generalize to `? super Node`
+in `src/jetbrains/buildServer/server/rest/data/problem/tree/ScopeTree.java`
+#### Snippet
+```java
+   */
+  @NotNull
+  public List<Node<DATA, COUNTERS>> getFullTree(@Nullable Comparator<Node<DATA, COUNTERS>> nodeComparator) {
+    List<Node<DATA, COUNTERS>> result = new ArrayList<>(myIdToNodesMap.size());
+
 ```
 
 ### BoundedWildcard
@@ -4553,39 +4529,63 @@ in `src/jetbrains/buildServer/server/rest/data/problem/tree/ScopeTree.java`
 ```
 
 ### BoundedWildcard
+Can generalize to `? extends ScopeTree.Node`
+in `src/jetbrains/buildServer/server/rest/model/problem/scope/AbstractScopeTree.java`
+#### Snippet
+```java
+  public AbstractScopeTree() { }
+
+  public AbstractScopeTree(@NotNull List<ScopeTree.Node<DATA, COUNTERS>> sourceNodes, @NotNull Fields fields, @NotNull BeanContext context) {
+    myNodes = sourceNodes;
+    myFields = fields;
+```
+
+### BoundedWildcard
+Can generalize to `? extends List`
+in `src/jetbrains/buildServer/server/rest/model/cloud/CloudImages.java`
+#### Snippet
+```java
+  public CloudImages(
+    @NotNull
+    CachingValue<List<jetbrains.buildServer.clouds.CloudImage>> items,
+    @Nullable
+    PagerData pagerData,
+```
+
+### BoundedWildcard
 Can generalize to `? super DATA`
-in `src/jetbrains/buildServer/server/rest/data/problem/tree/ScopeTree.java`
+in `src/jetbrains/buildServer/server/graphql/model/connections/LazyEdge.java`
 #### Snippet
 ```java
-   * <b>Important:</b> modifies parent, replacing <code>node</code> with a new sliced one.
-   */
-  private Node<DATA, COUNTERS> sliceLeaf(@NotNull Node<DATA, COUNTERS> node, @NotNull TreeSlicingOptions<DATA, COUNTERS> slicingOptions) {
-    // Actually, it shouldn't be the root node, so there should always be a parent, but just to be safe.
-    if(!node.getScope().isLeaf() || node.getParent() == null) {
+  }
+
+  public LazyEdge(@NotNull DATA data, @NotNull Function<DATA, MODEL> transformer, @NotNull Function<DATA, ?> dataTransformer) {
+    myData = data;
+    myTransformer = transformer;
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends DATA`
-in `src/jetbrains/buildServer/server/rest/data/problem/tree/ScopeTree.java`
+Can generalize to `? super String`
+in `src/jetbrains/buildServer/server/rest/APIController.java`
 #### Snippet
 ```java
-    Node (@NotNull String id,
-          @NotNull Scope scope,
-          @NotNull Collection<DATA> sTestRuns,
-          @NotNull COUNTERS counters,
-          @Nullable Node<DATA, COUNTERS> parent) {
+  }
+
+  private static void addEntries(final Map<String, String> map, final List<String> keys, final String value) {
+    for (String key : keys) {
+      map.put(key, value);
 ```
 
 ### BoundedWildcard
-Can generalize to `? super Node`
-in `src/jetbrains/buildServer/server/rest/data/problem/tree/ScopeTree.java`
+Can generalize to `? super String`
+in `src/jetbrains/buildServer/server/rest/APIController.java`
 #### Snippet
 ```java
-   */
-  @NotNull
-  public List<Node<DATA, COUNTERS>> getFullTree(@Nullable Comparator<Node<DATA, COUNTERS>> nodeComparator) {
-    List<Node<DATA, COUNTERS>> result = new ArrayList<>(myIdToNodesMap.size());
+  }
 
+  private static void addEntries(final Map<String, String> map, final List<String> keys, final String value) {
+    for (String key : keys) {
+      map.put(key, value);
 ```
 
 ### BoundedWildcard
@@ -4637,6 +4637,18 @@ in `src/jetbrains/buildServer/server/rest/model/buildType/BuildTypeUtil.java`
 ```
 
 ### BoundedWildcard
+Can generalize to `? super T`
+in `src/jetbrains/buildServer/server/rest/data/FilterItemProcessor.java`
+#### Snippet
+```java
+  private final ArrayList<T> myList = new ArrayList<T>();
+
+  public FilterItemProcessor(final PagingItemFilter<T> filter) {
+    myFilter = filter;
+  }
+```
+
+### BoundedWildcard
 Can generalize to `? super ITEM`
 in `src/jetbrains/buildServer/server/rest/data/util/KeyDuplicateChecker.java`
 #### Snippet
@@ -4657,18 +4669,6 @@ in `src/jetbrains/buildServer/server/rest/data/util/KeyDuplicateChecker.java`
 
   public KeyDuplicateChecker(@NotNull Function<ITEM, KEY> keyExtractor) {
     myKeyExtractor = keyExtractor;
-  }
-```
-
-### BoundedWildcard
-Can generalize to `? super T`
-in `src/jetbrains/buildServer/server/rest/data/FilterItemProcessor.java`
-#### Snippet
-```java
-  private final ArrayList<T> myList = new ArrayList<T>();
-
-  public FilterItemProcessor(final PagingItemFilter<T> filter) {
-    myFilter = filter;
   }
 ```
 
@@ -4745,6 +4745,18 @@ in `src/jetbrains/buildServer/server/rest/model/build/Branches.java`
 ```
 
 ### BoundedWildcard
+Can generalize to `? extends CommiterData`
+in `src/jetbrains/buildServer/server/rest/model/change/Commiters.java`
+#### Snippet
+```java
+  public Commiters() { }
+
+  public Commiters(@NotNull List<CommiterData> commiters,
+                   @NotNull Fields fields,
+                   @NotNull final BeanContext beanContext) {
+```
+
+### BoundedWildcard
 Can generalize to `? extends K`
 in `src/jetbrains/buildServer/server/rest/swagger/SwaggerUtil.java`
 #### Snippet
@@ -4769,18 +4781,6 @@ in `src/jetbrains/buildServer/server/rest/swagger/SwaggerUtil.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends CommiterData`
-in `src/jetbrains/buildServer/server/rest/model/change/Commiters.java`
-#### Snippet
-```java
-  public Commiters() { }
-
-  public Commiters(@NotNull List<CommiterData> commiters,
-                   @NotNull Fields fields,
-                   @NotNull final BeanContext beanContext) {
-```
-
-### BoundedWildcard
 Can generalize to `? super T`
 in `src/jetbrains/buildServer/server/rest/model/MultipleOperationResult.java`
 #### Snippet
@@ -4793,27 +4793,15 @@ in `src/jetbrains/buildServer/server/rest/model/MultipleOperationResult.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends TYPE_FOR_FILTER`
+Can generalize to `? extends Finder`
 in `src/jetbrains/buildServer/server/rest/data/TypedFinderBuilder.java`
 #### Snippet
 ```java
-
-    @NotNull
-    public TypedFinderDimensionWithDefaultChecker<ITEM, TYPE, TYPE_FOR_FILTER> valueForDefaultFilter(@NotNull TypeFromItem<TYPE_FOR_FILTER, ITEM> retriever) {
-      TypedFinderBuilder.this.filter(myOriginal.getDimension(), (value, item) -> {
-        TYPE_FOR_FILTER valueForFilter = retriever.get(item);
-```
-
-### BoundedWildcard
-Can generalize to `? super ITEM`
-in `src/jetbrains/buildServer/server/rest/data/TypedFinderBuilder.java`
-#### Snippet
-```java
-
-    @NotNull
-    public TypedFinderDimensionWithDefaultChecker<ITEM, TYPE, TYPE_FOR_FILTER> valueForDefaultFilter(@NotNull TypeFromItem<TYPE_FOR_FILTER, ITEM> retriever) {
-      TypedFinderBuilder.this.filter(myOriginal.getDimension(), (value, item) -> {
-        TYPE_FOR_FILTER valueForFilter = retriever.get(item);
+  public <FINDER_TYPE> TypedFinderDimensionWithDefaultChecker<ITEM, List<FINDER_TYPE>, Set<FINDER_TYPE>> dimensionWithFinder(
+    @NotNull final Dimension<List<FINDER_TYPE>> dimension,
+    @NotNull final Supplier<Finder<FINDER_TYPE>> finderValue,
+    @NotNull String typeDescription
+  ) {
 ```
 
 ### BoundedWildcard
@@ -4841,6 +4829,90 @@ in `src/jetbrains/buildServer/server/rest/data/TypedFinderBuilder.java`
 ```
 
 ### BoundedWildcard
+Can generalize to `? extends Set`
+in `src/jetbrains/buildServer/server/rest/data/TypedFinderBuilder.java`
+#### Snippet
+```java
+
+  @Nullable
+  public static <T> Set<T> getIntersected(@Nullable List<Set<T>> dimensions) {
+    if (dimensions == null || dimensions.size() == 0) {
+      return null;
+```
+
+### BoundedWildcard
+Can generalize to `? extends DuplicateChecker`
+in `src/jetbrains/buildServer/server/rest/data/TypedFinderBuilder.java`
+#### Snippet
+```java
+
+  @NotNull
+  public TypedFinderBuilder<ITEM> duplicateCheckerSupplier(@NotNull Supplier<DuplicateChecker<ITEM>> duplicateCheckerSupplier) {
+    myDuplicateCheckerSupplier = duplicateCheckerSupplier;
+    return this;
+```
+
+### BoundedWildcard
+Can generalize to `? super ITEM`
+in `src/jetbrains/buildServer/server/rest/data/TypedFinderBuilder.java`
+#### Snippet
+```java
+
+  @NotNull
+  public TypedFinderBuilder<ITEM> locatorProvider(@NotNull LocatorProvider<ITEM> locatorProvider) {
+    myLocatorProvider = locatorProvider;
+    return this;
+```
+
+### BoundedWildcard
+Can generalize to `? extends TYPE_FOR_FILTER`
+in `src/jetbrains/buildServer/server/rest/data/TypedFinderBuilder.java`
+#### Snippet
+```java
+
+    @NotNull
+    public TypedFinderDimensionWithDefaultChecker<ITEM, TYPE, TYPE_FOR_FILTER> valueForDefaultFilter(@NotNull TypeFromItem<TYPE_FOR_FILTER, ITEM> retriever) {
+      TypedFinderBuilder.this.filter(myOriginal.getDimension(), (value, item) -> {
+        TYPE_FOR_FILTER valueForFilter = retriever.get(item);
+```
+
+### BoundedWildcard
+Can generalize to `? super ITEM`
+in `src/jetbrains/buildServer/server/rest/data/TypedFinderBuilder.java`
+#### Snippet
+```java
+
+    @NotNull
+    public TypedFinderDimensionWithDefaultChecker<ITEM, TYPE, TYPE_FOR_FILTER> valueForDefaultFilter(@NotNull TypeFromItem<TYPE_FOR_FILTER, ITEM> retriever) {
+      TypedFinderBuilder.this.filter(myOriginal.getDimension(), (value, item) -> {
+        TYPE_FOR_FILTER valueForFilter = retriever.get(item);
+```
+
+### BoundedWildcard
+Can generalize to `? super TYPE`
+in `src/jetbrains/buildServer/server/rest/data/TypedFinderBuilder.java`
+#### Snippet
+```java
+  //============================= helper methods =============================
+
+  private <TYPE> TypedFinderBuilder<ITEM> filter(@NotNull final Dimension<TYPE> dimension, @NotNull final Filter<TYPE, ITEM> filteringMapper) {
+    DimensionCondition condition;
+    if (Locator.LOCATOR_SINGLE_VALUE_UNUSED_NAME.equals(dimension.name)) {
+```
+
+### BoundedWildcard
+Can generalize to `? super ITEM`
+in `src/jetbrains/buildServer/server/rest/data/TypedFinderBuilder.java`
+#### Snippet
+```java
+  //============================= helper methods =============================
+
+  private <TYPE> TypedFinderBuilder<ITEM> filter(@NotNull final Dimension<TYPE> dimension, @NotNull final Filter<TYPE, ITEM> filteringMapper) {
+    DimensionCondition condition;
+    if (Locator.LOCATOR_SINGLE_VALUE_UNUSED_NAME.equals(dimension.name)) {
+```
+
+### BoundedWildcard
 Can generalize to `? super TYPE`
 in `src/jetbrains/buildServer/server/rest/data/TypedFinderBuilder.java`
 #### Snippet
@@ -4864,91 +4936,7 @@ in `src/jetbrains/buildServer/server/rest/data/TypedFinderBuilder.java`
       myDefaultChecker = defaultChecker;
 ```
 
-### BoundedWildcard
-Can generalize to `? extends DuplicateChecker`
-in `src/jetbrains/buildServer/server/rest/data/TypedFinderBuilder.java`
-#### Snippet
-```java
-
-  @NotNull
-  public TypedFinderBuilder<ITEM> duplicateCheckerSupplier(@NotNull Supplier<DuplicateChecker<ITEM>> duplicateCheckerSupplier) {
-    myDuplicateCheckerSupplier = duplicateCheckerSupplier;
-    return this;
-```
-
-### BoundedWildcard
-Can generalize to `? extends Set`
-in `src/jetbrains/buildServer/server/rest/data/TypedFinderBuilder.java`
-#### Snippet
-```java
-
-  @Nullable
-  public static <T> Set<T> getIntersected(@Nullable List<Set<T>> dimensions) {
-    if (dimensions == null || dimensions.size() == 0) {
-      return null;
-```
-
-### BoundedWildcard
-Can generalize to `? super TYPE`
-in `src/jetbrains/buildServer/server/rest/data/TypedFinderBuilder.java`
-#### Snippet
-```java
-  //============================= helper methods =============================
-
-  private <TYPE> TypedFinderBuilder<ITEM> filter(@NotNull final Dimension<TYPE> dimension, @NotNull final Filter<TYPE, ITEM> filteringMapper) {
-    DimensionCondition condition;
-    if (Locator.LOCATOR_SINGLE_VALUE_UNUSED_NAME.equals(dimension.name)) {
-```
-
-### BoundedWildcard
-Can generalize to `? super ITEM`
-in `src/jetbrains/buildServer/server/rest/data/TypedFinderBuilder.java`
-#### Snippet
-```java
-  //============================= helper methods =============================
-
-  private <TYPE> TypedFinderBuilder<ITEM> filter(@NotNull final Dimension<TYPE> dimension, @NotNull final Filter<TYPE, ITEM> filteringMapper) {
-    DimensionCondition condition;
-    if (Locator.LOCATOR_SINGLE_VALUE_UNUSED_NAME.equals(dimension.name)) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends Finder`
-in `src/jetbrains/buildServer/server/rest/data/TypedFinderBuilder.java`
-#### Snippet
-```java
-  public <FINDER_TYPE> TypedFinderDimensionWithDefaultChecker<ITEM, List<FINDER_TYPE>, Set<FINDER_TYPE>> dimensionWithFinder(
-    @NotNull final Dimension<List<FINDER_TYPE>> dimension,
-    @NotNull final Supplier<Finder<FINDER_TYPE>> finderValue,
-    @NotNull String typeDescription
-  ) {
-```
-
-### BoundedWildcard
-Can generalize to `? super ITEM`
-in `src/jetbrains/buildServer/server/rest/data/TypedFinderBuilder.java`
-#### Snippet
-```java
-
-  @NotNull
-  public TypedFinderBuilder<ITEM> locatorProvider(@NotNull LocatorProvider<ITEM> locatorProvider) {
-    myLocatorProvider = locatorProvider;
-    return this;
-```
-
 ## RuleId[ruleID=NullableProblems]
-### NullableProblems
-Primitive type members cannot be annotated
-in `src/jetbrains/buildServer/server/rest/jersey/ExceptionMapperBase.java`
-#### Snippet
-```java
-
-  public static class ResponseData {
-    @NotNull private final int responseStatusCode;
-    @Nullable private final String message;
-
-```
-
 ### NullableProblems
 Primitive type members cannot be annotated
 in `src/jetbrains/buildServer/server/rest/jersey/ExceptionMapperBase.java`
@@ -4959,6 +4947,18 @@ in `src/jetbrains/buildServer/server/rest/jersey/ExceptionMapperBase.java`
     @NotNull public int getResponseStatus() { return responseStatusCode;}
     @Nullable public String getMessage() { return message;}
   }
+```
+
+### NullableProblems
+Primitive type members cannot be annotated
+in `src/jetbrains/buildServer/server/rest/jersey/ExceptionMapperBase.java`
+#### Snippet
+```java
+
+  public static class ResponseData {
+    @NotNull private final int responseStatusCode;
+    @Nullable private final String message;
+
 ```
 
 ### NullableProblems
@@ -5035,6 +5035,18 @@ in `src/jetbrains/buildServer/server/rest/util/AggregatedBuildArtifactsElementBu
 ```
 
 ### MissortedModifiers
+Missorted modifiers `final @NotNull`
+in `src/jetbrains/buildServer/server/rest/data/VcsRootFinder.java`
+#### Snippet
+```java
+                       @NotNull ProjectManager projectManager,
+                       @NotNull VcsRootIdentifiersManager vcsRootIdentifiersManager,
+                       final @NotNull PermissionChecker permissionChecker) {
+    super(DIMENSION_ID, NAME, TYPE, PROJECT, AFFECTED_PROJECT, PROPERTY, REPOSITORY_ID_STRING, INTERNAL_ID, UUID,
+      Locator.LOCATOR_SINGLE_VALUE_UNUSED_NAME);
+```
+
+### MissortedModifiers
 Missorted modifiers `static abstract`
 in `src/jetbrains/buildServer/server/rest/model/files/Files.java`
 #### Snippet
@@ -5044,6 +5056,42 @@ in `src/jetbrains/buildServer/server/rest/model/files/Files.java`
   public static abstract class DefaultFilesProvider implements FilesProvider {
     @NotNull private final FileApiUrlBuilder myBuilder;
     @NotNull private final BeanContext myBeanContext;
+```
+
+### MissortedModifiers
+Missorted modifiers `final @NotNull`
+in `src/jetbrains/buildServer/server/rest/model/files/Files.java`
+#### Snippet
+```java
+
+  @NotNull
+  static List<File> toFiles(final List<? extends Element> source, final @NotNull FileApiUrlBuilder builder, final @NotNull Fields fields, final @NotNull BeanContext beanContext) {
+    return CollectionsUtil.convertCollection(source, new Converter<File, Element>() {
+      public File createFrom(@NotNull final Element source) {
+```
+
+### MissortedModifiers
+Missorted modifiers `final @NotNull`
+in `src/jetbrains/buildServer/server/rest/model/files/Files.java`
+#### Snippet
+```java
+
+  @NotNull
+  static List<File> toFiles(final List<? extends Element> source, final @NotNull FileApiUrlBuilder builder, final @NotNull Fields fields, final @NotNull BeanContext beanContext) {
+    return CollectionsUtil.convertCollection(source, new Converter<File, Element>() {
+      public File createFrom(@NotNull final Element source) {
+```
+
+### MissortedModifiers
+Missorted modifiers `final @NotNull`
+in `src/jetbrains/buildServer/server/rest/model/files/Files.java`
+#### Snippet
+```java
+
+  @NotNull
+  static List<File> toFiles(final List<? extends Element> source, final @NotNull FileApiUrlBuilder builder, final @NotNull Fields fields, final @NotNull BeanContext beanContext) {
+    return CollectionsUtil.convertCollection(source, new Converter<File, Element>() {
+      public File createFrom(@NotNull final Element source) {
 ```
 
 ### MissortedModifiers
@@ -5059,42 +5107,6 @@ in `src/jetbrains/buildServer/server/rest/model/files/Files.java`
 ```
 
 ### MissortedModifiers
-Missorted modifiers `final @NotNull`
-in `src/jetbrains/buildServer/server/rest/model/files/Files.java`
-#### Snippet
-```java
-
-  @NotNull
-  static List<File> toFiles(final List<? extends Element> source, final @NotNull FileApiUrlBuilder builder, final @NotNull Fields fields, final @NotNull BeanContext beanContext) {
-    return CollectionsUtil.convertCollection(source, new Converter<File, Element>() {
-      public File createFrom(@NotNull final Element source) {
-```
-
-### MissortedModifiers
-Missorted modifiers `final @NotNull`
-in `src/jetbrains/buildServer/server/rest/model/files/Files.java`
-#### Snippet
-```java
-
-  @NotNull
-  static List<File> toFiles(final List<? extends Element> source, final @NotNull FileApiUrlBuilder builder, final @NotNull Fields fields, final @NotNull BeanContext beanContext) {
-    return CollectionsUtil.convertCollection(source, new Converter<File, Element>() {
-      public File createFrom(@NotNull final Element source) {
-```
-
-### MissortedModifiers
-Missorted modifiers `final @NotNull`
-in `src/jetbrains/buildServer/server/rest/model/files/Files.java`
-#### Snippet
-```java
-
-  @NotNull
-  static List<File> toFiles(final List<? extends Element> source, final @NotNull FileApiUrlBuilder builder, final @NotNull Fields fields, final @NotNull BeanContext beanContext) {
-    return CollectionsUtil.convertCollection(source, new Converter<File, Element>() {
-      public File createFrom(@NotNull final Element source) {
-```
-
-### MissortedModifiers
 Missorted modifiers `final @Nullable`
 in `src/jetbrains/buildServer/server/rest/data/UserFinder.java`
 #### Snippet
@@ -5107,66 +5119,6 @@ in `src/jetbrains/buildServer/server/rest/data/UserFinder.java`
 ```
 
 ### MissortedModifiers
-Missorted modifiers `final @NotNull`
-in `src/jetbrains/buildServer/server/rest/data/VcsRootFinder.java`
-#### Snippet
-```java
-                       @NotNull ProjectManager projectManager,
-                       @NotNull VcsRootIdentifiersManager vcsRootIdentifiersManager,
-                       final @NotNull PermissionChecker permissionChecker) {
-    super(DIMENSION_ID, NAME, TYPE, PROJECT, AFFECTED_PROJECT, PROPERTY, REPOSITORY_ID_STRING, INTERNAL_ID, UUID,
-      Locator.LOCATOR_SINGLE_VALUE_UNUSED_NAME);
-```
-
-### MissortedModifiers
-Missorted modifiers `final @NotNull`
-in `src/jetbrains/buildServer/server/rest/model/debug/Sessions.java`
-#### Snippet
-```java
-
-  @Nullable
-  private String getUserKeySessionAttribute(final @NotNull MBeanServer serverBean, final @NotNull ObjectName managerBean, final String sessionId)
-    throws InstanceNotFoundException, MBeanException, ReflectionException {
-    return (String)serverBean.invoke(managerBean, "getSessionAttribute", new Object[]{sessionId, SESSION_USER_KEY_ATTRIBUTE_NAME}, SIGNATURE_SESSION_ATTRIBUTE);
-```
-
-### MissortedModifiers
-Missorted modifiers `final @NotNull`
-in `src/jetbrains/buildServer/server/rest/model/debug/Sessions.java`
-#### Snippet
-```java
-
-  @Nullable
-  private String getUserKeySessionAttribute(final @NotNull MBeanServer serverBean, final @NotNull ObjectName managerBean, final String sessionId)
-    throws InstanceNotFoundException, MBeanException, ReflectionException {
-    return (String)serverBean.invoke(managerBean, "getSessionAttribute", new Object[]{sessionId, SESSION_USER_KEY_ATTRIBUTE_NAME}, SIGNATURE_SESSION_ATTRIBUTE);
-```
-
-### MissortedModifiers
-Missorted modifiers `final @NotNull`
-in `src/jetbrains/buildServer/server/rest/model/debug/Sessions.java`
-#### Snippet
-```java
-  }
-
-  private long getSessionUserId(final @NotNull MBeanServer serverBean, final @NotNull ObjectName managerBean, final String sessionId) throws Exception {
-    final String userKeyAttribute = getUserKeySessionAttribute(serverBean, managerBean, sessionId);
-    // parsing UserImpl.toString to get user id
-```
-
-### MissortedModifiers
-Missorted modifiers `final @NotNull`
-in `src/jetbrains/buildServer/server/rest/model/debug/Sessions.java`
-#### Snippet
-```java
-  }
-
-  private long getSessionUserId(final @NotNull MBeanServer serverBean, final @NotNull ObjectName managerBean, final String sessionId) throws Exception {
-    final String userKeyAttribute = getUserKeySessionAttribute(serverBean, managerBean, sessionId);
-    // parsing UserImpl.toString to get user id
-```
-
-### MissortedModifiers
 Missorted modifiers `final public`
 in `src/jetbrains/buildServer/server/rest/util/CachingValue.java`
 #### Snippet
@@ -5176,6 +5128,54 @@ in `src/jetbrains/buildServer/server/rest/util/CachingValue.java`
   final public S get() {
     if (myValue == null) {
       myValue = doGet();
+```
+
+### MissortedModifiers
+Missorted modifiers `final @NotNull`
+in `src/jetbrains/buildServer/server/rest/model/debug/Sessions.java`
+#### Snippet
+```java
+  }
+
+  private long getSessionUserId(final @NotNull MBeanServer serverBean, final @NotNull ObjectName managerBean, final String sessionId) throws Exception {
+    final String userKeyAttribute = getUserKeySessionAttribute(serverBean, managerBean, sessionId);
+    // parsing UserImpl.toString to get user id
+```
+
+### MissortedModifiers
+Missorted modifiers `final @NotNull`
+in `src/jetbrains/buildServer/server/rest/model/debug/Sessions.java`
+#### Snippet
+```java
+  }
+
+  private long getSessionUserId(final @NotNull MBeanServer serverBean, final @NotNull ObjectName managerBean, final String sessionId) throws Exception {
+    final String userKeyAttribute = getUserKeySessionAttribute(serverBean, managerBean, sessionId);
+    // parsing UserImpl.toString to get user id
+```
+
+### MissortedModifiers
+Missorted modifiers `final @NotNull`
+in `src/jetbrains/buildServer/server/rest/model/debug/Sessions.java`
+#### Snippet
+```java
+
+  @Nullable
+  private String getUserKeySessionAttribute(final @NotNull MBeanServer serverBean, final @NotNull ObjectName managerBean, final String sessionId)
+    throws InstanceNotFoundException, MBeanException, ReflectionException {
+    return (String)serverBean.invoke(managerBean, "getSessionAttribute", new Object[]{sessionId, SESSION_USER_KEY_ATTRIBUTE_NAME}, SIGNATURE_SESSION_ATTRIBUTE);
+```
+
+### MissortedModifiers
+Missorted modifiers `final @NotNull`
+in `src/jetbrains/buildServer/server/rest/model/debug/Sessions.java`
+#### Snippet
+```java
+
+  @Nullable
+  private String getUserKeySessionAttribute(final @NotNull MBeanServer serverBean, final @NotNull ObjectName managerBean, final String sessionId)
+    throws InstanceNotFoundException, MBeanException, ReflectionException {
+    return (String)serverBean.invoke(managerBean, "getSessionAttribute", new Object[]{sessionId, SESSION_USER_KEY_ATTRIBUTE_NAME}, SIGNATURE_SESSION_ATTRIBUTE);
 ```
 
 ### MissortedModifiers
@@ -5324,18 +5324,6 @@ in `src/jetbrains/buildServer/server/rest/model/buildType/PropEntitiesTrigger.ja
 
 ### MissortedModifiers
 Missorted modifiers `final @NotNull`
-in `src/jetbrains/buildServer/server/rest/model/change/VcsStatus.java`
-#### Snippet
-```java
-  }
-
-  public VcsStatus(@NotNull final VcsRootInstanceEx vcsRoot, final @NotNull Fields fields, @NotNull final BeanContext beanContext) {
-    current = ValueWithDefault.decideDefault(fields.isIncluded("current", true),
-                                             new VcsCheckStatus(vcsRoot.getStatus(), vcsRoot.getLastRequestor(), fields.getNestedField("current", Fields.LONG, Fields.LONG)));
-```
-
-### MissortedModifiers
-Missorted modifiers `final @NotNull`
 in `src/jetbrains/buildServer/server/rest/model/nodes/EnabledResponsibilities.java`
 #### Snippet
 ```java
@@ -5344,6 +5332,18 @@ in `src/jetbrains/buildServer/server/rest/model/nodes/EnabledResponsibilities.ja
   private Function<NodeResponsibility, Responsibility> toResponsibility(final @NotNull Fields fields) {
     return r -> new Responsibility(r, fields.getNestedField("responsibility", Fields.SHORT, Fields.LONG));
   }
+```
+
+### MissortedModifiers
+Missorted modifiers `final @NotNull`
+in `src/jetbrains/buildServer/server/rest/model/change/VcsStatus.java`
+#### Snippet
+```java
+  }
+
+  public VcsStatus(@NotNull final VcsRootInstanceEx vcsRoot, final @NotNull Fields fields, @NotNull final BeanContext beanContext) {
+    current = ValueWithDefault.decideDefault(fields.isIncluded("current", true),
+                                             new VcsCheckStatus(vcsRoot.getStatus(), vcsRoot.getLastRequestor(), fields.getNestedField("current", Fields.LONG, Fields.LONG)));
 ```
 
 ### MissortedModifiers
@@ -5377,9 +5377,9 @@ in `src/jetbrains/buildServer/server/rest/model/change/Change.java`
 ```java
   }
 
-  public Change(SVcsModificationOrChangeDescriptor modificationOrDescriptor, final @NotNull Fields fields, @NotNull final BeanContext beanContext) {
-    myDescriptor = modificationOrDescriptor.getChangeDescriptor();
-    myModification = modificationOrDescriptor.getSVcsModification();
+  public Change(@NotNull SVcsModification modification, final @NotNull Fields fields, @NotNull final BeanContext beanContext) {
+    this(new SVcsModificationOrChangeDescriptor(modification), fields, beanContext);
+  }
 ```
 
 ### MissortedModifiers
@@ -5389,117 +5389,9 @@ in `src/jetbrains/buildServer/server/rest/model/change/Change.java`
 ```java
   }
 
-  public Change(@NotNull SVcsModification modification, final @NotNull Fields fields, @NotNull final BeanContext beanContext) {
-    this(new SVcsModificationOrChangeDescriptor(modification), fields, beanContext);
-  }
-```
-
-### MissortedModifiers
-Missorted modifiers `final @NotNull`
-in `src/jetbrains/buildServer/server/rest/data/BuildArtifactsFinder.java`
-#### Snippet
-```java
-
-  @NotNull
-  private static String removeLeading(final @NotNull String result, final String prefix) {
-    return result.startsWith(prefix) ? result.substring(prefix.length()) : result;
-  }
-```
-
-### MissortedModifiers
-Missorted modifiers `final @NotNull`
-in `src/jetbrains/buildServer/server/rest/data/BuildArtifactsFinder.java`
-#### Snippet
-```java
-  }
-  @NotNull
-  public static Element getArtifactElementToServeContent(@NotNull final BuildPromotion buildPromotion, @NotNull final String path, final @NotNull ServiceLocator serviceLocator) {
-    final BuildPromotionEx buildPromotionEx = (BuildPromotionEx)buildPromotion;
-    boolean analyzeDownloadPath = TeamCityProperties.getBooleanOrTrue("teamcity.rest.artifactContent.analyzePath");
-```
-
-### MissortedModifiers
-Missorted modifiers `final @NotNull`
-in `src/jetbrains/buildServer/server/rest/data/BuildArtifactsFinder.java`
-#### Snippet
-```java
-
-  @NotNull
-  public static Element getArtifactElement(@NotNull final BuildPromotion buildPromotion, @NotNull final String path, final @NotNull ServiceLocator serviceLocator) {
-    final BuildPromotionEx buildPromotionEx = (BuildPromotionEx)buildPromotion;
-    final BuildArtifacts artifacts = buildPromotionEx.getArtifacts(BuildArtifactsViewMode.VIEW_ALL_WITH_ARCHIVES_CONTENT);
-```
-
-### MissortedModifiers
-Missorted modifiers `final @Nullable`
-in `src/jetbrains/buildServer/server/rest/data/BuildArtifactsFinder.java`
-#### Snippet
-```java
-  @NotNull
-  public static List<ArtifactTreeElement> getItems(@NotNull final Element initialElement,
-                                                   final @Nullable String basePath,
-                                                   final @Nullable String filesLocator,
-                                                   final @Nullable FileApiUrlBuilder urlBuilder,
-```
-
-### MissortedModifiers
-Missorted modifiers `final @Nullable`
-in `src/jetbrains/buildServer/server/rest/data/BuildArtifactsFinder.java`
-#### Snippet
-```java
-  public static List<ArtifactTreeElement> getItems(@NotNull final Element initialElement,
-                                                   final @Nullable String basePath,
-                                                   final @Nullable String filesLocator,
-                                                   final @Nullable FileApiUrlBuilder urlBuilder,
-                                                   final @NotNull ServiceLocator serviceLocator) {
-```
-
-### MissortedModifiers
-Missorted modifiers `final @Nullable`
-in `src/jetbrains/buildServer/server/rest/data/BuildArtifactsFinder.java`
-#### Snippet
-```java
-                                                   final @Nullable String basePath,
-                                                   final @Nullable String filesLocator,
-                                                   final @Nullable FileApiUrlBuilder urlBuilder,
-                                                   final @NotNull ServiceLocator serviceLocator) {
-    return makeRelativeToBasePath(BuildArtifactsFinder.getItems(initialElement, filesLocator, urlBuilder, serviceLocator), basePath);
-```
-
-### MissortedModifiers
-Missorted modifiers `final @NotNull`
-in `src/jetbrains/buildServer/server/rest/data/BuildArtifactsFinder.java`
-#### Snippet
-```java
-                                                   final @Nullable String filesLocator,
-                                                   final @Nullable FileApiUrlBuilder urlBuilder,
-                                                   final @NotNull ServiceLocator serviceLocator) {
-    return makeRelativeToBasePath(BuildArtifactsFinder.getItems(initialElement, filesLocator, urlBuilder, serviceLocator), basePath);
-  }
-```
-
-### MissortedModifiers
-Missorted modifiers `final @NotNull`
-in `src/jetbrains/buildServer/server/rest/data/BuildArtifactsFinder.java`
-#### Snippet
-```java
-  @NotNull
-  public static ArtifactTreeElement getItem(@NotNull final java.io.File rootPath, @NotNull final String path, @NotNull final String where,
-                                            final @NotNull ServiceLocator serviceLocator) {
-    // does not work for archives so far...
-    // return getItem(new ZipAwareBrowser(new FileSystemBrowser(rootPath)), path, "");
-```
-
-### MissortedModifiers
-Missorted modifiers `final @NotNull`
-in `src/jetbrains/buildServer/server/rest/data/BuildArtifactsFinder.java`
-#### Snippet
-```java
-  }
-
-  static boolean isHiddenDir(final @NotNull Element data) {
-    final String fullName = data.getFullName();
-    return fullName.equals(ArtifactsConstants.TEAMCITY_ARTIFACTS_DIR) ||
+  public Change(SVcsModificationOrChangeDescriptor modificationOrDescriptor, final @NotNull Fields fields, @NotNull final BeanContext beanContext) {
+    myDescriptor = modificationOrDescriptor.getChangeDescriptor();
+    myModification = modificationOrDescriptor.getSVcsModification();
 ```
 
 ### MissortedModifiers
@@ -5555,6 +5447,114 @@ Missorted modifiers `final @NotNull`
 in `src/jetbrains/buildServer/server/rest/data/BuildArtifactsFinder.java`
 #### Snippet
 ```java
+  @NotNull
+  public static ArtifactTreeElement getItem(@NotNull final java.io.File rootPath, @NotNull final String path, @NotNull final String where,
+                                            final @NotNull ServiceLocator serviceLocator) {
+    // does not work for archives so far...
+    // return getItem(new ZipAwareBrowser(new FileSystemBrowser(rootPath)), path, "");
+```
+
+### MissortedModifiers
+Missorted modifiers `final @NotNull`
+in `src/jetbrains/buildServer/server/rest/data/BuildArtifactsFinder.java`
+#### Snippet
+```java
+  }
+
+  static boolean isHiddenDir(final @NotNull Element data) {
+    final String fullName = data.getFullName();
+    return fullName.equals(ArtifactsConstants.TEAMCITY_ARTIFACTS_DIR) ||
+```
+
+### MissortedModifiers
+Missorted modifiers `final @NotNull`
+in `src/jetbrains/buildServer/server/rest/data/BuildArtifactsFinder.java`
+#### Snippet
+```java
+
+  @NotNull
+  private static String removeLeading(final @NotNull String result, final String prefix) {
+    return result.startsWith(prefix) ? result.substring(prefix.length()) : result;
+  }
+```
+
+### MissortedModifiers
+Missorted modifiers `final @NotNull`
+in `src/jetbrains/buildServer/server/rest/data/BuildArtifactsFinder.java`
+#### Snippet
+```java
+  }
+
+  static boolean isWithinHidden(final @NotNull Element data) {
+    final String fullName = data.getFullName();
+    return fullName.equals(ArtifactsConstants.TEAMCITY_ARTIFACTS_DIR) ||
+```
+
+### MissortedModifiers
+Missorted modifiers `final @NotNull`
+in `src/jetbrains/buildServer/server/rest/data/BuildArtifactsFinder.java`
+#### Snippet
+```java
+  }
+  @NotNull
+  public static Element getArtifactElementToServeContent(@NotNull final BuildPromotion buildPromotion, @NotNull final String path, final @NotNull ServiceLocator serviceLocator) {
+    final BuildPromotionEx buildPromotionEx = (BuildPromotionEx)buildPromotion;
+    boolean analyzeDownloadPath = TeamCityProperties.getBooleanOrTrue("teamcity.rest.artifactContent.analyzePath");
+```
+
+### MissortedModifiers
+Missorted modifiers `final @Nullable`
+in `src/jetbrains/buildServer/server/rest/data/BuildArtifactsFinder.java`
+#### Snippet
+```java
+  @NotNull
+  public static List<ArtifactTreeElement> getItems(@NotNull final Element initialElement,
+                                                   final @Nullable String basePath,
+                                                   final @Nullable String filesLocator,
+                                                   final @Nullable FileApiUrlBuilder urlBuilder,
+```
+
+### MissortedModifiers
+Missorted modifiers `final @Nullable`
+in `src/jetbrains/buildServer/server/rest/data/BuildArtifactsFinder.java`
+#### Snippet
+```java
+  public static List<ArtifactTreeElement> getItems(@NotNull final Element initialElement,
+                                                   final @Nullable String basePath,
+                                                   final @Nullable String filesLocator,
+                                                   final @Nullable FileApiUrlBuilder urlBuilder,
+                                                   final @NotNull ServiceLocator serviceLocator) {
+```
+
+### MissortedModifiers
+Missorted modifiers `final @Nullable`
+in `src/jetbrains/buildServer/server/rest/data/BuildArtifactsFinder.java`
+#### Snippet
+```java
+                                                   final @Nullable String basePath,
+                                                   final @Nullable String filesLocator,
+                                                   final @Nullable FileApiUrlBuilder urlBuilder,
+                                                   final @NotNull ServiceLocator serviceLocator) {
+    return makeRelativeToBasePath(BuildArtifactsFinder.getItems(initialElement, filesLocator, urlBuilder, serviceLocator), basePath);
+```
+
+### MissortedModifiers
+Missorted modifiers `final @NotNull`
+in `src/jetbrains/buildServer/server/rest/data/BuildArtifactsFinder.java`
+#### Snippet
+```java
+                                                   final @Nullable String filesLocator,
+                                                   final @Nullable FileApiUrlBuilder urlBuilder,
+                                                   final @NotNull ServiceLocator serviceLocator) {
+    return makeRelativeToBasePath(BuildArtifactsFinder.getItems(initialElement, filesLocator, urlBuilder, serviceLocator), basePath);
+  }
+```
+
+### MissortedModifiers
+Missorted modifiers `final @NotNull`
+in `src/jetbrains/buildServer/server/rest/data/BuildArtifactsFinder.java`
+#### Snippet
+```java
 
   @Nullable
   private static Element getSingleItemByPatternPath(final @NotNull String pathWithPatterns, final @NotNull Element root, final @NotNull Browser browser,
@@ -5603,11 +5603,11 @@ Missorted modifiers `final @NotNull`
 in `src/jetbrains/buildServer/server/rest/data/BuildArtifactsFinder.java`
 #### Snippet
 ```java
-  }
 
-  static boolean isWithinHidden(final @NotNull Element data) {
-    final String fullName = data.getFullName();
-    return fullName.equals(ArtifactsConstants.TEAMCITY_ARTIFACTS_DIR) ||
+  @NotNull
+  public static Element getArtifactElement(@NotNull final BuildPromotion buildPromotion, @NotNull final String path, final @NotNull ServiceLocator serviceLocator) {
+    final BuildPromotionEx buildPromotionEx = (BuildPromotionEx)buildPromotion;
+    final BuildArtifacts artifacts = buildPromotionEx.getArtifacts(BuildArtifactsViewMode.VIEW_ALL_WITH_ARCHIVES_CONTENT);
 ```
 
 ### MissortedModifiers
@@ -5708,86 +5708,134 @@ in `src/jetbrains/buildServer/server/rest/model/build/Tag.java`
 
 ### MissortedModifiers
 Missorted modifiers `final @NotNull`
-in `src/jetbrains/buildServer/server/rest/model/buildType/BuildType.java`
-#### Snippet
-```java
-   * @return true if there were modification attempts
-   */
-  private boolean fillBuildTypeOrTemplate(final @NotNull BuildTypeOrTemplatePatcher buildTypeOrTemplatePatcher, final @NotNull ServiceLocator serviceLocator) {
-    boolean result = false;
-    SubmitedParameters submittedParams = mySubmitted.get();
-```
-
-### MissortedModifiers
-Missorted modifiers `final @NotNull`
-in `src/jetbrains/buildServer/server/rest/model/buildType/BuildType.java`
-#### Snippet
-```java
-   * @return true if there were modification attempts
-   */
-  private boolean fillBuildTypeOrTemplate(final @NotNull BuildTypeOrTemplatePatcher buildTypeOrTemplatePatcher, final @NotNull ServiceLocator serviceLocator) {
-    boolean result = false;
-    SubmitedParameters submittedParams = mySubmitted.get();
-```
-
-### MissortedModifiers
-Missorted modifiers `final @NotNull`
-in `src/jetbrains/buildServer/server/rest/model/buildType/BuildType.java`
-#### Snippet
-```java
-
-  @NotNull
-  private BuildTypeOrTemplate createEmptyBuildTypeOrTemplate(final @NotNull ServiceLocator serviceLocator, final @NotNull SProject project, final @NotNull String name) {
-    SubmitedParameters submittedParams = mySubmitted.get();
-    if (submittedParams.templateFlag == null || !submittedParams.templateFlag) {
-```
-
-### MissortedModifiers
-Missorted modifiers `final @NotNull`
-in `src/jetbrains/buildServer/server/rest/model/buildType/BuildType.java`
-#### Snippet
-```java
-
-  @NotNull
-  private BuildTypeOrTemplate createEmptyBuildTypeOrTemplate(final @NotNull ServiceLocator serviceLocator, final @NotNull SProject project, final @NotNull String name) {
-    SubmitedParameters submittedParams = mySubmitted.get();
-    if (submittedParams.templateFlag == null || !submittedParams.templateFlag) {
-```
-
-### MissortedModifiers
-Missorted modifiers `final @NotNull`
-in `src/jetbrains/buildServer/server/rest/model/buildType/BuildType.java`
-#### Snippet
-```java
-
-  @NotNull
-  private BuildTypeOrTemplate createEmptyBuildTypeOrTemplate(final @NotNull ServiceLocator serviceLocator, final @NotNull SProject project, final @NotNull String name) {
-    SubmitedParameters submittedParams = mySubmitted.get();
-    if (submittedParams.templateFlag == null || !submittedParams.templateFlag) {
-```
-
-### MissortedModifiers
-Missorted modifiers `final @NotNull`
-in `src/jetbrains/buildServer/server/rest/model/buildType/BuildType.java`
+in `src/jetbrains/buildServer/server/rest/model/server/CleanupSettings.java`
 #### Snippet
 ```java
   }
 
-  public static boolean shouldRestrictSettingsViewing(final @NotNull BuildTypeSettings buildType, final @NotNull PermissionChecker permissionChecker) {
-    if (TeamCityProperties.getBooleanOrTrue("rest.beans.buildType.checkPermissions")) {
-      return !permissionChecker.isPermissionGranted(Permission.VIEW_BUILD_CONFIGURATION_SETTINGS, buildType.getProject().getProjectId());
+  public CleanupSettings(final @NotNull ServerCleanupManager serverCleanupManager) {
+    enabled = serverCleanupManager.isCleanupEnabled();
+    maxCleanupDuration = serverCleanupManager.getMaxCleanupDuration();
 ```
 
 ### MissortedModifiers
 Missorted modifiers `final @NotNull`
-in `src/jetbrains/buildServer/server/rest/model/buildType/BuildType.java`
+in `src/jetbrains/buildServer/server/rest/model/change/RepositoryState.java`
 #### Snippet
 ```java
   }
 
-  public static boolean shouldRestrictSettingsViewing(final @NotNull BuildTypeSettings buildType, final @NotNull PermissionChecker permissionChecker) {
-    if (TeamCityProperties.getBooleanOrTrue("rest.beans.buildType.checkPermissions")) {
-      return !permissionChecker.isPermissionGranted(Permission.VIEW_BUILD_CONFIGURATION_SETTINGS, buildType.getProject().getProjectId());
+  public RepositoryState(@NotNull final jetbrains.buildServer.vcs.RepositoryState repositoryState, final @NotNull Fields fields, @NotNull final BeanContext beanContext) {
+    this.timestamp = ValueWithDefault.decideDefault(fields.isIncluded("timestamp"), Util.formatTime(repositoryState.getCreateTimestamp()));
+
+```
+
+### MissortedModifiers
+Missorted modifiers `final @NotNull`
+in `src/jetbrains/buildServer/server/rest/request/TestOccurrenceRequest.java`
+#### Snippet
+```java
+  }
+
+  public static String getHref(final @NotNull STestRun testRun) {
+    return API_SUB_URL + "/" + TestOccurrenceFinder.getTestRunLocator(testRun);
+  }
+```
+
+### MissortedModifiers
+Missorted modifiers `final @NotNull`
+in `src/jetbrains/buildServer/server/rest/request/TestOccurrenceRequest.java`
+#### Snippet
+```java
+  }
+
+  public static String getHref(final @NotNull STest test) {
+    return API_SUB_URL + "?locator=" + TestOccurrenceFinder.getTestRunLocator(test);
+  }
+```
+
+### MissortedModifiers
+Missorted modifiers `final @NotNull`
+in `src/jetbrains/buildServer/server/rest/request/TestOccurrenceRequest.java`
+#### Snippet
+```java
+  }
+
+  public static String getHref(final @NotNull SBuild build) {
+    return API_SUB_URL + "?locator=" + TestOccurrenceFinder.getTestRunLocator(build);
+  }
+```
+
+### MissortedModifiers
+Missorted modifiers `final @NotNull`
+in `src/jetbrains/buildServer/server/rest/model/build/Tags.java`
+#### Snippet
+```java
+
+  @NotNull
+  public List<TagData> getFromPosted(final @NotNull UserFinder userFinder) {
+    if (tags == null) {
+      return new ArrayList<TagData>();
+```
+
+### MissortedModifiers
+Missorted modifiers `final @NotNull`
+in `src/jetbrains/buildServer/server/rest/model/build/Tags.java`
+#### Snippet
+```java
+  }
+
+  public Tags(final @NotNull List <TagData> tagData, final @NotNull Fields fields, final @NotNull BeanContext beanContext) {
+    tags = ValueWithDefault.decideDefault(fields.isIncluded("tag", false), new ValueWithDefault.Value<List<Tag>>() {
+      @Nullable
+```
+
+### MissortedModifiers
+Missorted modifiers `final @NotNull`
+in `src/jetbrains/buildServer/server/rest/model/build/Tags.java`
+#### Snippet
+```java
+  }
+
+  public Tags(final @NotNull List <TagData> tagData, final @NotNull Fields fields, final @NotNull BeanContext beanContext) {
+    tags = ValueWithDefault.decideDefault(fields.isIncluded("tag", false), new ValueWithDefault.Value<List<Tag>>() {
+      @Nullable
+```
+
+### MissortedModifiers
+Missorted modifiers `final @NotNull`
+in `src/jetbrains/buildServer/server/rest/model/build/Tags.java`
+#### Snippet
+```java
+  }
+
+  public Tags(final @NotNull List <TagData> tagData, final @NotNull Fields fields, final @NotNull BeanContext beanContext) {
+    tags = ValueWithDefault.decideDefault(fields.isIncluded("tag", false), new ValueWithDefault.Value<List<Tag>>() {
+      @Nullable
+```
+
+### MissortedModifiers
+Missorted modifiers `final @NotNull`
+in `src/jetbrains/buildServer/server/rest/model/buildType/PropEntitiesSnapshotDep.java`
+#### Snippet
+```java
+   * @return true if buildTypeSettings is modified
+   */
+  public boolean setToBuildType(final @NotNull BuildTypeSettingsEx buildTypeSettings, final @NotNull ServiceLocator serviceLocator) {
+    final List<Dependency> originalDependencies = buildTypeSettings.getDependencies();
+    try {
+```
+
+### MissortedModifiers
+Missorted modifiers `final @NotNull`
+in `src/jetbrains/buildServer/server/rest/model/buildType/PropEntitiesSnapshotDep.java`
+#### Snippet
+```java
+   * @return true if buildTypeSettings is modified
+   */
+  public boolean setToBuildType(final @NotNull BuildTypeSettingsEx buildTypeSettings, final @NotNull ServiceLocator serviceLocator) {
+    final List<Dependency> originalDependencies = buildTypeSettings.getDependencies();
+    try {
 ```
 
 ### MissortedModifiers
@@ -5836,6 +5884,90 @@ in `src/jetbrains/buildServer/server/rest/model/buildType/BuildType.java`
   private boolean initForIds(final @NotNull String externalId, final @Nullable String internalId, final @NotNull Fields fields, final @NotNull BeanContext beanContext) {
     final boolean canViewSettings;
     myBuildType = null;
+```
+
+### MissortedModifiers
+Missorted modifiers `final @NotNull`
+in `src/jetbrains/buildServer/server/rest/model/buildType/BuildType.java`
+#### Snippet
+```java
+  }
+
+  public static boolean shouldRestrictSettingsViewing(final @NotNull BuildTypeSettings buildType, final @NotNull PermissionChecker permissionChecker) {
+    if (TeamCityProperties.getBooleanOrTrue("rest.beans.buildType.checkPermissions")) {
+      return !permissionChecker.isPermissionGranted(Permission.VIEW_BUILD_CONFIGURATION_SETTINGS, buildType.getProject().getProjectId());
+```
+
+### MissortedModifiers
+Missorted modifiers `final @NotNull`
+in `src/jetbrains/buildServer/server/rest/model/buildType/BuildType.java`
+#### Snippet
+```java
+  }
+
+  public static boolean shouldRestrictSettingsViewing(final @NotNull BuildTypeSettings buildType, final @NotNull PermissionChecker permissionChecker) {
+    if (TeamCityProperties.getBooleanOrTrue("rest.beans.buildType.checkPermissions")) {
+      return !permissionChecker.isPermissionGranted(Permission.VIEW_BUILD_CONFIGURATION_SETTINGS, buildType.getProject().getProjectId());
+```
+
+### MissortedModifiers
+Missorted modifiers `final @NotNull`
+in `src/jetbrains/buildServer/server/rest/model/buildType/BuildType.java`
+#### Snippet
+```java
+
+  @NotNull
+  private BuildTypeOrTemplate createEmptyBuildTypeOrTemplate(final @NotNull ServiceLocator serviceLocator, final @NotNull SProject project, final @NotNull String name) {
+    SubmitedParameters submittedParams = mySubmitted.get();
+    if (submittedParams.templateFlag == null || !submittedParams.templateFlag) {
+```
+
+### MissortedModifiers
+Missorted modifiers `final @NotNull`
+in `src/jetbrains/buildServer/server/rest/model/buildType/BuildType.java`
+#### Snippet
+```java
+
+  @NotNull
+  private BuildTypeOrTemplate createEmptyBuildTypeOrTemplate(final @NotNull ServiceLocator serviceLocator, final @NotNull SProject project, final @NotNull String name) {
+    SubmitedParameters submittedParams = mySubmitted.get();
+    if (submittedParams.templateFlag == null || !submittedParams.templateFlag) {
+```
+
+### MissortedModifiers
+Missorted modifiers `final @NotNull`
+in `src/jetbrains/buildServer/server/rest/model/buildType/BuildType.java`
+#### Snippet
+```java
+
+  @NotNull
+  private BuildTypeOrTemplate createEmptyBuildTypeOrTemplate(final @NotNull ServiceLocator serviceLocator, final @NotNull SProject project, final @NotNull String name) {
+    SubmitedParameters submittedParams = mySubmitted.get();
+    if (submittedParams.templateFlag == null || !submittedParams.templateFlag) {
+```
+
+### MissortedModifiers
+Missorted modifiers `final @NotNull`
+in `src/jetbrains/buildServer/server/rest/model/buildType/BuildType.java`
+#### Snippet
+```java
+   * @return true if there were modification attempts
+   */
+  private boolean fillBuildTypeOrTemplate(final @NotNull BuildTypeOrTemplatePatcher buildTypeOrTemplatePatcher, final @NotNull ServiceLocator serviceLocator) {
+    boolean result = false;
+    SubmitedParameters submittedParams = mySubmitted.get();
+```
+
+### MissortedModifiers
+Missorted modifiers `final @NotNull`
+in `src/jetbrains/buildServer/server/rest/model/buildType/BuildType.java`
+#### Snippet
+```java
+   * @return true if there were modification attempts
+   */
+  private boolean fillBuildTypeOrTemplate(final @NotNull BuildTypeOrTemplatePatcher buildTypeOrTemplatePatcher, final @NotNull ServiceLocator serviceLocator) {
+    boolean result = false;
+    SubmitedParameters submittedParams = mySubmitted.get();
 ```
 
 ### MissortedModifiers
@@ -5875,18 +6007,6 @@ in `src/jetbrains/buildServer/server/rest/data/BuildPromotionFinder.java`
 ```
 
 ### MissortedModifiers
-Missorted modifiers `final @Nullable`
-in `src/jetbrains/buildServer/server/rest/data/BuildPromotionFinder.java`
-#### Snippet
-```java
-
-  @NotNull
-  public BuildPromotion getBuildPromotion(final @Nullable SBuildType buildType, @Nullable final String locatorText) {
-    if (buildType == null) {
-      return getItem(locatorText);
-```
-
-### MissortedModifiers
 Missorted modifiers `final @NotNull`
 in `src/jetbrains/buildServer/server/rest/data/BuildPromotionFinder.java`
 #### Snippet
@@ -5899,111 +6019,15 @@ in `src/jetbrains/buildServer/server/rest/data/BuildPromotionFinder.java`
 ```
 
 ### MissortedModifiers
-Missorted modifiers `final @NotNull`
-in `src/jetbrains/buildServer/server/rest/model/server/CleanupSettings.java`
-#### Snippet
-```java
-  }
-
-  public CleanupSettings(final @NotNull ServerCleanupManager serverCleanupManager) {
-    enabled = serverCleanupManager.isCleanupEnabled();
-    maxCleanupDuration = serverCleanupManager.getMaxCleanupDuration();
-```
-
-### MissortedModifiers
-Missorted modifiers `final @NotNull`
-in `src/jetbrains/buildServer/server/rest/model/change/RepositoryState.java`
-#### Snippet
-```java
-  }
-
-  public RepositoryState(@NotNull final jetbrains.buildServer.vcs.RepositoryState repositoryState, final @NotNull Fields fields, @NotNull final BeanContext beanContext) {
-    this.timestamp = ValueWithDefault.decideDefault(fields.isIncluded("timestamp"), Util.formatTime(repositoryState.getCreateTimestamp()));
-
-```
-
-### MissortedModifiers
-Missorted modifiers `final @NotNull`
-in `src/jetbrains/buildServer/server/rest/request/TestOccurrenceRequest.java`
-#### Snippet
-```java
-  }
-
-  public static String getHref(final @NotNull STestRun testRun) {
-    return API_SUB_URL + "/" + TestOccurrenceFinder.getTestRunLocator(testRun);
-  }
-```
-
-### MissortedModifiers
-Missorted modifiers `final @NotNull`
-in `src/jetbrains/buildServer/server/rest/model/build/Tags.java`
+Missorted modifiers `final @Nullable`
+in `src/jetbrains/buildServer/server/rest/data/BuildPromotionFinder.java`
 #### Snippet
 ```java
 
   @NotNull
-  public List<TagData> getFromPosted(final @NotNull UserFinder userFinder) {
-    if (tags == null) {
-      return new ArrayList<TagData>();
-```
-
-### MissortedModifiers
-Missorted modifiers `final @NotNull`
-in `src/jetbrains/buildServer/server/rest/request/TestOccurrenceRequest.java`
-#### Snippet
-```java
-  }
-
-  public static String getHref(final @NotNull STest test) {
-    return API_SUB_URL + "?locator=" + TestOccurrenceFinder.getTestRunLocator(test);
-  }
-```
-
-### MissortedModifiers
-Missorted modifiers `final @NotNull`
-in `src/jetbrains/buildServer/server/rest/model/build/Tags.java`
-#### Snippet
-```java
-  }
-
-  public Tags(final @NotNull List <TagData> tagData, final @NotNull Fields fields, final @NotNull BeanContext beanContext) {
-    tags = ValueWithDefault.decideDefault(fields.isIncluded("tag", false), new ValueWithDefault.Value<List<Tag>>() {
-      @Nullable
-```
-
-### MissortedModifiers
-Missorted modifiers `final @NotNull`
-in `src/jetbrains/buildServer/server/rest/model/build/Tags.java`
-#### Snippet
-```java
-  }
-
-  public Tags(final @NotNull List <TagData> tagData, final @NotNull Fields fields, final @NotNull BeanContext beanContext) {
-    tags = ValueWithDefault.decideDefault(fields.isIncluded("tag", false), new ValueWithDefault.Value<List<Tag>>() {
-      @Nullable
-```
-
-### MissortedModifiers
-Missorted modifiers `final @NotNull`
-in `src/jetbrains/buildServer/server/rest/request/TestOccurrenceRequest.java`
-#### Snippet
-```java
-  }
-
-  public static String getHref(final @NotNull SBuild build) {
-    return API_SUB_URL + "?locator=" + TestOccurrenceFinder.getTestRunLocator(build);
-  }
-```
-
-### MissortedModifiers
-Missorted modifiers `final @NotNull`
-in `src/jetbrains/buildServer/server/rest/model/build/Tags.java`
-#### Snippet
-```java
-  }
-
-  public Tags(final @NotNull List <TagData> tagData, final @NotNull Fields fields, final @NotNull BeanContext beanContext) {
-    tags = ValueWithDefault.decideDefault(fields.isIncluded("tag", false), new ValueWithDefault.Value<List<Tag>>() {
-      @Nullable
+  public BuildPromotion getBuildPromotion(final @Nullable SBuildType buildType, @Nullable final String locatorText) {
+    if (buildType == null) {
+      return getItem(locatorText);
 ```
 
 ### MissortedModifiers
@@ -6020,30 +6044,6 @@ in `src/jetbrains/buildServer/server/rest/model/change/BuildChange.java`
 
 ### MissortedModifiers
 Missorted modifiers `final @NotNull`
-in `src/jetbrains/buildServer/server/rest/model/buildType/PropEntitiesSnapshotDep.java`
-#### Snippet
-```java
-   * @return true if buildTypeSettings is modified
-   */
-  public boolean setToBuildType(final @NotNull BuildTypeSettingsEx buildTypeSettings, final @NotNull ServiceLocator serviceLocator) {
-    final List<Dependency> originalDependencies = buildTypeSettings.getDependencies();
-    try {
-```
-
-### MissortedModifiers
-Missorted modifiers `final @NotNull`
-in `src/jetbrains/buildServer/server/rest/model/buildType/PropEntitiesSnapshotDep.java`
-#### Snippet
-```java
-   * @return true if buildTypeSettings is modified
-   */
-  public boolean setToBuildType(final @NotNull BuildTypeSettingsEx buildTypeSettings, final @NotNull ServiceLocator serviceLocator) {
-    final List<Dependency> originalDependencies = buildTypeSettings.getDependencies();
-    try {
-```
-
-### MissortedModifiers
-Missorted modifiers `final @NotNull`
 in `src/jetbrains/buildServer/server/rest/model/project/PropEntityProjectFeature.java`
 #### Snippet
 ```java
@@ -6052,6 +6052,42 @@ in `src/jetbrains/buildServer/server/rest/model/project/PropEntityProjectFeature
   public static SProjectFeatureDescriptor getFeatureByLocator(@NotNull final SProject project, final @NotNull String featureLocator) {
     return new ProjectFeatureFinder(project).getItem(featureLocator);
   }
+```
+
+### MissortedModifiers
+Missorted modifiers `final @NotNull`
+in `src/jetbrains/buildServer/server/rest/model/project/Projects.java`
+#### Snippet
+```java
+  }
+
+  public Projects(@NotNull final List<SProject> projectObjects, @Nullable final PagerData pagerData, final @NotNull Fields fields, @NotNull final BeanContext beanContext) {
+    if (fields.isIncluded("project", false, true)) {
+      projects = ValueWithDefault.decideDefault(fields.isIncluded("project"), new ValueWithDefault.Value<List<Project>>() {
+```
+
+### MissortedModifiers
+Missorted modifiers `final @NotNull`
+in `src/jetbrains/buildServer/server/rest/model/RelatedEntities.java`
+#### Snippet
+```java
+  }
+
+  public RelatedEntities(final @NotNull List<RelatedEntity.Entity> items, @NotNull final Fields fields, @NotNull final BeanContext context) {
+    entities = ValueWithDefault.decideDefault(fields.isIncluded("entity", false, true),
+                                                 () -> items.stream().map(i -> new RelatedEntity(i, fields.getNestedField("entity", Fields.NONE, Fields.LONG), context)).collect(Collectors.toList()));
+```
+
+### MissortedModifiers
+Missorted modifiers `final @NotNull`
+in `src/jetbrains/buildServer/server/rest/model/Entry.java`
+#### Snippet
+```java
+  }
+
+  public Entry(@Nullable String name, @Nullable String value, final @NotNull Fields fields) {
+    this.name =  ValueWithDefault.decideIncludeByDefault(fields.isIncluded("name", true, true), name);
+    this.value = ValueWithDefault.decideIncludeByDefault(fields.isIncluded("value", true, true), value);
 ```
 
 ### MissortedModifiers
@@ -6088,66 +6124,6 @@ in `src/jetbrains/buildServer/server/rest/data/VcsRootInstanceFinder.java`
                                final @NotNull PermissionChecker permissionChecker,
                                @NotNull final ServiceLocator serviceLocator) {
     super(DIMENSION_ID, TYPE, PROJECT, AFFECTED_PROJECT, PROPERTY, REPOSITORY_ID_STRING,
-```
-
-### MissortedModifiers
-Missorted modifiers `final @NotNull`
-in `src/jetbrains/buildServer/server/rest/model/project/Projects.java`
-#### Snippet
-```java
-  }
-
-  public Projects(@NotNull final List<SProject> projectObjects, @Nullable final PagerData pagerData, final @NotNull Fields fields, @NotNull final BeanContext beanContext) {
-    if (fields.isIncluded("project", false, true)) {
-      projects = ValueWithDefault.decideDefault(fields.isIncluded("project"), new ValueWithDefault.Value<List<Project>>() {
-```
-
-### MissortedModifiers
-Missorted modifiers `final @NotNull`
-in `src/jetbrains/buildServer/server/rest/model/RelatedEntities.java`
-#### Snippet
-```java
-  }
-
-  public RelatedEntities(final @NotNull List<RelatedEntity.Entity> items, @NotNull final Fields fields, @NotNull final BeanContext context) {
-    entities = ValueWithDefault.decideDefault(fields.isIncluded("entity", false, true),
-                                                 () -> items.stream().map(i -> new RelatedEntity(i, fields.getNestedField("entity", Fields.NONE, Fields.LONG), context)).collect(Collectors.toList()));
-```
-
-### MissortedModifiers
-Missorted modifiers `final @NotNull`
-in `src/jetbrains/buildServer/server/rest/data/problem/scope/TestScopeTreeCollector.java`
-#### Snippet
-```java
-    .add("childrenCount", Comparator.comparing(node -> node.getChildren().size()));
-
-  public TestScopeTreeCollector(final @NotNull TestScopesCollector scopesCollector, final @NotNull TestOccurrenceFinder testOccurrenceFinder) {
-    myScopeCollector = scopesCollector;
-    myTestOccurrenceFinder = testOccurrenceFinder;
-```
-
-### MissortedModifiers
-Missorted modifiers `final @NotNull`
-in `src/jetbrains/buildServer/server/rest/data/problem/scope/TestScopeTreeCollector.java`
-#### Snippet
-```java
-    .add("childrenCount", Comparator.comparing(node -> node.getChildren().size()));
-
-  public TestScopeTreeCollector(final @NotNull TestScopesCollector scopesCollector, final @NotNull TestOccurrenceFinder testOccurrenceFinder) {
-    myScopeCollector = scopesCollector;
-    myTestOccurrenceFinder = testOccurrenceFinder;
-```
-
-### MissortedModifiers
-Missorted modifiers `final @NotNull`
-in `src/jetbrains/buildServer/server/rest/model/Entry.java`
-#### Snippet
-```java
-  }
-
-  public Entry(@Nullable String name, @Nullable String value, final @NotNull Fields fields) {
-    this.name =  ValueWithDefault.decideIncludeByDefault(fields.isIncluded("name", true, true), name);
-    this.value = ValueWithDefault.decideIncludeByDefault(fields.isIncluded("value", true, true), value);
 ```
 
 ### MissortedModifiers
@@ -6200,14 +6176,26 @@ in `src/jetbrains/buildServer/server/rest/model/Property.java`
 
 ### MissortedModifiers
 Missorted modifiers `final @NotNull`
-in `src/jetbrains/buildServer/server/rest/model/change/VcsRoot.java`
+in `src/jetbrains/buildServer/server/rest/data/problem/scope/TestScopeTreeCollector.java`
 #### Snippet
 ```java
-  }
+    .add("childrenCount", Comparator.comparing(node -> node.getChildren().size()));
 
-  public static boolean shouldRestrictSettingsViewing(final @NotNull SVcsRoot root, final @NotNull PermissionChecker permissionChecker) {
-    //see also jetbrains.buildServer.server.rest.data.VcsRootFinder.checkPermission
-    if (TeamCityProperties.getBooleanOrTrue("rest.beans.vcsRoot.checkPermissions")) {
+  public TestScopeTreeCollector(final @NotNull TestScopesCollector scopesCollector, final @NotNull TestOccurrenceFinder testOccurrenceFinder) {
+    myScopeCollector = scopesCollector;
+    myTestOccurrenceFinder = testOccurrenceFinder;
+```
+
+### MissortedModifiers
+Missorted modifiers `final @NotNull`
+in `src/jetbrains/buildServer/server/rest/data/problem/scope/TestScopeTreeCollector.java`
+#### Snippet
+```java
+    .add("childrenCount", Comparator.comparing(node -> node.getChildren().size()));
+
+  public TestScopeTreeCollector(final @NotNull TestScopesCollector scopesCollector, final @NotNull TestOccurrenceFinder testOccurrenceFinder) {
+    myScopeCollector = scopesCollector;
+    myTestOccurrenceFinder = testOccurrenceFinder;
 ```
 
 ### MissortedModifiers
@@ -6224,26 +6212,14 @@ in `src/jetbrains/buildServer/server/rest/model/change/VcsRoot.java`
 
 ### MissortedModifiers
 Missorted modifiers `final @NotNull`
-in `src/jetbrains/buildServer/server/rest/data/mutes/MuteFinder.java`
+in `src/jetbrains/buildServer/server/rest/model/change/VcsRoot.java`
 #### Snippet
 ```java
+  }
 
-  @NotNull
-  private Stream<MuteInfo> getProblemsMutes(final @NotNull SProject project) {
-    /* this returns the original mutes state, so does not work (TW-53393)
-    return myProblemMutingService.getBuildProblemsCurrentMuteInfo(project).values().stream().flatMap(currentMute -> getMutes(currentMute)).distinct();  //check is distinct can be reimplemented to be more effective here
-```
-
-### MissortedModifiers
-Missorted modifiers `final @NotNull`
-in `src/jetbrains/buildServer/server/rest/data/mutes/MuteFinder.java`
-#### Snippet
-```java
-
-  @NotNull
-  private Stream<MuteInfo> getTestsMutes(final @NotNull SProject project) {
-    /* this returns the original mutes state, so does not work (TW-53393)
-    return myProblemMutingService.getTestsCurrentMuteInfo(project).values().stream().flatMap(currentMute -> getMutes(currentMute)).distinct(); //check is distinct can be reimplemented to be more effective here
+  public static boolean shouldRestrictSettingsViewing(final @NotNull SVcsRoot root, final @NotNull PermissionChecker permissionChecker) {
+    //see also jetbrains.buildServer.server.rest.data.VcsRootFinder.checkPermission
+    if (TeamCityProperties.getBooleanOrTrue("rest.beans.vcsRoot.checkPermissions")) {
 ```
 
 ### MissortedModifiers
@@ -6292,6 +6268,30 @@ public class JacksonObjectMapperResolver implements ContextResolver<ObjectMapper
   final static Logger LOG = Logger.getInstance(JacksonObjectMapperResolver.class.getName());
 
   private final ObjectMapper myMapper;
+```
+
+### MissortedModifiers
+Missorted modifiers `final @NotNull`
+in `src/jetbrains/buildServer/server/rest/data/mutes/MuteFinder.java`
+#### Snippet
+```java
+
+  @NotNull
+  private Stream<MuteInfo> getProblemsMutes(final @NotNull SProject project) {
+    /* this returns the original mutes state, so does not work (TW-53393)
+    return myProblemMutingService.getBuildProblemsCurrentMuteInfo(project).values().stream().flatMap(currentMute -> getMutes(currentMute)).distinct();  //check is distinct can be reimplemented to be more effective here
+```
+
+### MissortedModifiers
+Missorted modifiers `final @NotNull`
+in `src/jetbrains/buildServer/server/rest/data/mutes/MuteFinder.java`
+#### Snippet
+```java
+
+  @NotNull
+  private Stream<MuteInfo> getTestsMutes(final @NotNull SProject project) {
+    /* this returns the original mutes state, so does not work (TW-53393)
+    return myProblemMutingService.getTestsCurrentMuteInfo(project).values().stream().flatMap(currentMute -> getMutes(currentMute)).distinct(); //check is distinct can be reimplemented to be more effective here
 ```
 
 ### MissortedModifiers
@@ -6344,26 +6344,14 @@ in `src/jetbrains/buildServer/server/rest/model/agent/Agents.java`
 
 ### MissortedModifiers
 Missorted modifiers `final @NotNull`
-in `src/jetbrains/buildServer/server/rest/data/Locator.java`
+in `src/jetbrains/buildServer/server/rest/model/buildType/PropEntitiesAgentRequirement.java`
 #### Snippet
 ```java
-  }
+    }
 
-  private boolean hasDimensions(final @NotNull String locatorText) {
-    if (locatorText.contains(DIMENSION_NAME_VALUE_DELIMITER)) {
-      return true;
-```
-
-### MissortedModifiers
-Missorted modifiers `final @NotNull`
-in `src/jetbrains/buildServer/server/rest/data/Locator.java`
-#### Snippet
-```java
-
-  @Nullable
-  private static String getBase64UnescapedSingleValue(final @NotNull String text, final boolean extendedMode) {
-    if (!TeamCityProperties.getBooleanOrTrue("rest.locator.allowBase64")) return null;
-    if (!text.startsWith(BASE64_ESCAPE_FAKE_DIMENSION + DIMENSION_NAME_VALUE_DELIMITER)) {
+    public void apply(final @NotNull BuildTypeSettings buildTypeSettings) {
+      removeAll(buildTypeSettings);
+      for (Requirement item : deps) {
 ```
 
 ### MissortedModifiers
@@ -6388,18 +6376,6 @@ in `src/jetbrains/buildServer/server/rest/model/buildType/PropEntitiesAgentRequi
     public Storage(final @NotNull BuildTypeSettings buildTypeSettings) {
       for (Requirement item : buildTypeSettings.getRequirements()) {
         deps.add(item);
-```
-
-### MissortedModifiers
-Missorted modifiers `final @NotNull`
-in `src/jetbrains/buildServer/server/rest/model/buildType/PropEntitiesAgentRequirement.java`
-#### Snippet
-```java
-    }
-
-    public void apply(final @NotNull BuildTypeSettings buildTypeSettings) {
-      removeAll(buildTypeSettings);
-      for (Requirement item : deps) {
 ```
 
 ### MissortedModifiers
@@ -6436,6 +6412,30 @@ in `src/jetbrains/buildServer/server/rest/model/buildType/Investigation.java`
                        final @NotNull BeanContext beanContext) {
     final ResponsibilityEntry.State stateOjbect = investigation.getState();
     state = ValueWithDefault.decideDefault(fields.isIncluded("state"), stateOjbect.name());
+```
+
+### MissortedModifiers
+Missorted modifiers `final @NotNull`
+in `src/jetbrains/buildServer/server/rest/data/Locator.java`
+#### Snippet
+```java
+  }
+
+  private boolean hasDimensions(final @NotNull String locatorText) {
+    if (locatorText.contains(DIMENSION_NAME_VALUE_DELIMITER)) {
+      return true;
+```
+
+### MissortedModifiers
+Missorted modifiers `final @NotNull`
+in `src/jetbrains/buildServer/server/rest/data/Locator.java`
+#### Snippet
+```java
+
+  @Nullable
+  private static String getBase64UnescapedSingleValue(final @NotNull String text, final boolean extendedMode) {
+    if (!TeamCityProperties.getBooleanOrTrue("rest.locator.allowBase64")) return null;
+    if (!text.startsWith(BASE64_ESCAPE_FAKE_DIMENSION + DIMENSION_NAME_VALUE_DELIMITER)) {
 ```
 
 ### MissortedModifiers
@@ -6583,18 +6583,6 @@ in `src/jetbrains/buildServer/server/rest/model/problem/Mute.java`
 ```
 
 ### MissortedModifiers
-Missorted modifiers `final @PathParam("queuePosition")`
-in `src/jetbrains/buildServer/server/rest/request/BuildQueueRequest.java`
-#### Snippet
-```java
-  }
-
-  private int getQueuePositionNumber(final @PathParam("queuePosition") String queuePosition) {
-    try {
-      if ("first".equals(queuePosition)) return 1;
-```
-
-### MissortedModifiers
 Missorted modifiers `final @NotNull`
 in `src/jetbrains/buildServer/server/rest/model/problem/Test.java`
 #### Snippet
@@ -6616,6 +6604,18 @@ in `src/jetbrains/buildServer/server/rest/model/problem/Test.java`
   public Test(final @NotNull STest test, final @NotNull BeanContext beanContext, @NotNull final Fields fields) {
     id = ValueWithDefault.decideDefault(fields.isIncluded("id"), String.valueOf(test.getTestNameId()));
     name = ValueWithDefault.decideDefault(fields.isIncluded("name"), test.getName().getAsString());
+```
+
+### MissortedModifiers
+Missorted modifiers `final private`
+in `src/jetbrains/buildServer/server/rest/data/util/FlatteningItemHolder.java`
+#### Snippet
+```java
+ */
+public class FlatteningItemHolder<P> implements FinderDataBinding.ItemHolder<P> {
+  @NotNull final private List<FinderDataBinding.ItemHolder<P>> myItemHolders = new ArrayList<>();
+
+  public void add(FinderDataBinding.ItemHolder<P> holder) {
 ```
 
 ### MissortedModifiers
@@ -6643,15 +6643,15 @@ in `src/jetbrains/buildServer/server/rest/model/problem/ProblemOccurrence.java`
 ```
 
 ### MissortedModifiers
-Missorted modifiers `final private`
-in `src/jetbrains/buildServer/server/rest/data/util/FlatteningItemHolder.java`
+Missorted modifiers `final @PathParam("queuePosition")`
+in `src/jetbrains/buildServer/server/rest/request/BuildQueueRequest.java`
 #### Snippet
 ```java
- */
-public class FlatteningItemHolder<P> implements FinderDataBinding.ItemHolder<P> {
-  @NotNull final private List<FinderDataBinding.ItemHolder<P>> myItemHolders = new ArrayList<>();
+  }
 
-  public void add(FinderDataBinding.ItemHolder<P> holder) {
+  private int getQueuePositionNumber(final @PathParam("queuePosition") String queuePosition) {
+    try {
+      if ("first".equals(queuePosition)) return 1;
 ```
 
 ### MissortedModifiers
@@ -6692,25 +6692,49 @@ in `src/jetbrains/buildServer/server/rest/model/problem/Problem.java`
 
 ### MissortedModifiers
 Missorted modifiers `final @NotNull`
-in `src/jetbrains/buildServer/server/rest/data/build/TagFinder.java`
+in `src/jetbrains/buildServer/server/rest/model/problem/TestOccurrence.java`
 #### Snippet
 ```java
-  private final BuildPromotion myBuildPromotion;
+  public TestOccurrence() { }
 
-  public TagFinder(final @NotNull UserFinder userFinder, final @NotNull BuildPromotion buildPromotion) {
-    this(userFinder, buildPromotion, true);
-  }
+  public TestOccurrence(final @NotNull STestRun testRun, final @NotNull BeanContext beanContext, @NotNull final Fields fields) {
+    myTestRun = testRun;
+    myBeanContext = beanContext;
 ```
 
 ### MissortedModifiers
 Missorted modifiers `final @NotNull`
-in `src/jetbrains/buildServer/server/rest/data/build/TagFinder.java`
+in `src/jetbrains/buildServer/server/rest/model/problem/TestOccurrence.java`
 #### Snippet
 ```java
-  private final BuildPromotion myBuildPromotion;
+  public TestOccurrence() { }
 
-  public TagFinder(final @NotNull UserFinder userFinder, final @NotNull BuildPromotion buildPromotion) {
-    this(userFinder, buildPromotion, true);
+  public TestOccurrence(final @NotNull STestRun testRun, final @NotNull BeanContext beanContext, @NotNull final Fields fields) {
+    myTestRun = testRun;
+    myBeanContext = beanContext;
+```
+
+### MissortedModifiers
+Missorted modifiers `final @NotNull`
+in `src/jetbrains/buildServer/server/rest/request/ProjectRequest.java`
+#### Snippet
+```java
+        @NotNull
+        @Override
+        public String replace(@NotNull final String featureLocator, final @NotNull PropEntityProjectFeature newFeature, @NotNull final ServiceLocator serviceLocator) {
+          return newFeature.replaceIn(project, PropEntityProjectFeature.getFeatureByLocator(project, featureLocator), serviceLocator).getId(); //todo: return id form the method!
+        }
+```
+
+### MissortedModifiers
+Missorted modifiers `final @NotNull`
+in `src/jetbrains/buildServer/server/rest/request/ProjectRequest.java`
+#### Snippet
+```java
+
+  @Nullable
+  private static Map<String, String> getNullOrCollection(final @NotNull Map<String, String> map) {
+    return map.size() > 0 ? map : null;
   }
 ```
 
@@ -6728,26 +6752,26 @@ in `src/jetbrains/buildServer/server/rest/data/build/TagFinder.java`
 
 ### MissortedModifiers
 Missorted modifiers `final @NotNull`
-in `src/jetbrains/buildServer/server/rest/model/problem/TestOccurrence.java`
+in `src/jetbrains/buildServer/server/rest/data/build/TagFinder.java`
 #### Snippet
 ```java
-  public TestOccurrence() { }
+  private final BuildPromotion myBuildPromotion;
 
-  public TestOccurrence(final @NotNull STestRun testRun, final @NotNull BeanContext beanContext, @NotNull final Fields fields) {
-    myTestRun = testRun;
-    myBeanContext = beanContext;
+  public TagFinder(final @NotNull UserFinder userFinder, final @NotNull BuildPromotion buildPromotion) {
+    this(userFinder, buildPromotion, true);
+  }
 ```
 
 ### MissortedModifiers
 Missorted modifiers `final @NotNull`
-in `src/jetbrains/buildServer/server/rest/model/problem/TestOccurrence.java`
+in `src/jetbrains/buildServer/server/rest/data/build/TagFinder.java`
 #### Snippet
 ```java
-  public TestOccurrence() { }
+  private final BuildPromotion myBuildPromotion;
 
-  public TestOccurrence(final @NotNull STestRun testRun, final @NotNull BeanContext beanContext, @NotNull final Fields fields) {
-    myTestRun = testRun;
-    myBeanContext = beanContext;
+  public TagFinder(final @NotNull UserFinder userFinder, final @NotNull BuildPromotion buildPromotion) {
+    this(userFinder, buildPromotion, true);
+  }
 ```
 
 ### MissortedModifiers
@@ -6800,38 +6824,14 @@ public class GenericBuildsFilter implements BuildsFilter {
 
 ### MissortedModifiers
 Missorted modifiers `final @NotNull`
-in `src/jetbrains/buildServer/server/rest/model/user/PermissionAssignment.java`
+in `src/jetbrains/buildServer/server/rest/model/agent/AgentPool.java`
 #### Snippet
 ```java
+  }
 
-  @NotNull
-  private Project getProject(final @NotNull String internalProjectId, final @NotNull Fields field, final @NotNull BeanContext beanContext) {
-    ProjectManager projectManager = beanContext.getSingletonService(ProjectManager.class);
-    try {
-```
-
-### MissortedModifiers
-Missorted modifiers `final @NotNull`
-in `src/jetbrains/buildServer/server/rest/model/user/PermissionAssignment.java`
-#### Snippet
-```java
-
-  @NotNull
-  private Project getProject(final @NotNull String internalProjectId, final @NotNull Fields field, final @NotNull BeanContext beanContext) {
-    ProjectManager projectManager = beanContext.getSingletonService(ProjectManager.class);
-    try {
-```
-
-### MissortedModifiers
-Missorted modifiers `final @NotNull`
-in `src/jetbrains/buildServer/server/rest/model/user/PermissionAssignment.java`
-#### Snippet
-```java
-
-  @NotNull
-  private Project getProject(final @NotNull String internalProjectId, final @NotNull Fields field, final @NotNull BeanContext beanContext) {
-    ProjectManager projectManager = beanContext.getSingletonService(ProjectManager.class);
-    try {
+  public AgentPool(@NotNull final jetbrains.buildServer.serverSide.agentPools.AgentPool agentPool, final @NotNull Fields fields, @NotNull final BeanContext beanContext) {
+    id = ValueWithDefault.decideIncludeByDefault(fields.isIncluded("id"), agentPool.getAgentPoolId());
+    name = ValueWithDefault.decideIncludeByDefault(fields.isIncluded("name"), agentPool.getName());
 ```
 
 ### MissortedModifiers
@@ -6848,14 +6848,38 @@ in `src/jetbrains/buildServer/server/rest/model/agent/AgentPool.java`
 
 ### MissortedModifiers
 Missorted modifiers `final @NotNull`
-in `src/jetbrains/buildServer/server/rest/model/agent/AgentPool.java`
+in `src/jetbrains/buildServer/server/rest/model/user/PermissionAssignment.java`
 #### Snippet
 ```java
-  }
 
-  public AgentPool(@NotNull final jetbrains.buildServer.serverSide.agentPools.AgentPool agentPool, final @NotNull Fields fields, @NotNull final BeanContext beanContext) {
-    id = ValueWithDefault.decideIncludeByDefault(fields.isIncluded("id"), agentPool.getAgentPoolId());
-    name = ValueWithDefault.decideIncludeByDefault(fields.isIncluded("name"), agentPool.getName());
+  @NotNull
+  private Project getProject(final @NotNull String internalProjectId, final @NotNull Fields field, final @NotNull BeanContext beanContext) {
+    ProjectManager projectManager = beanContext.getSingletonService(ProjectManager.class);
+    try {
+```
+
+### MissortedModifiers
+Missorted modifiers `final @NotNull`
+in `src/jetbrains/buildServer/server/rest/model/user/PermissionAssignment.java`
+#### Snippet
+```java
+
+  @NotNull
+  private Project getProject(final @NotNull String internalProjectId, final @NotNull Fields field, final @NotNull BeanContext beanContext) {
+    ProjectManager projectManager = beanContext.getSingletonService(ProjectManager.class);
+    try {
+```
+
+### MissortedModifiers
+Missorted modifiers `final @NotNull`
+in `src/jetbrains/buildServer/server/rest/model/user/PermissionAssignment.java`
+#### Snippet
+```java
+
+  @NotNull
+  private Project getProject(final @NotNull String internalProjectId, final @NotNull Fields field, final @NotNull BeanContext beanContext) {
+    ProjectManager projectManager = beanContext.getSingletonService(ProjectManager.class);
+    try {
 ```
 
 ### MissortedModifiers
@@ -6872,26 +6896,14 @@ in `src/jetbrains/buildServer/server/rest/model/agent/Environment.java`
 
 ### MissortedModifiers
 Missorted modifiers `final @NotNull`
-in `src/jetbrains/buildServer/server/rest/request/ProjectRequest.java`
+in `src/jetbrains/buildServer/server/rest/model/problem/Resolution.java`
 #### Snippet
 ```java
+    }
 
-  @Nullable
-  private static Map<String, String> getNullOrCollection(final @NotNull Map<String, String> map) {
-    return map.size() > 0 ? map : null;
-  }
-```
-
-### MissortedModifiers
-Missorted modifiers `final @NotNull`
-in `src/jetbrains/buildServer/server/rest/request/ProjectRequest.java`
-#### Snippet
-```java
-        @NotNull
-        @Override
-        public String replace(@NotNull final String featureLocator, final @NotNull PropEntityProjectFeature newFeature, @NotNull final ServiceLocator serviceLocator) {
-          return newFeature.replaceIn(project, PropEntityProjectFeature.getFeatureByLocator(project, featureLocator), serviceLocator).getId(); //todo: return id form the method!
-        }
+    public static ResolutionType getType(final @NotNull UnmuteOptions unmuteOptions) {
+      if (unmuteOptions.isUnmuteManually()) {
+        return ResolutionType.manually;
 ```
 
 ### MissortedModifiers
@@ -6908,18 +6920,6 @@ public class BuildsFilterProcessor {
 
 ### MissortedModifiers
 Missorted modifiers `final @NotNull`
-in `src/jetbrains/buildServer/server/rest/model/problem/Resolution.java`
-#### Snippet
-```java
-    }
-
-    public static ResolutionType getType(final @NotNull UnmuteOptions unmuteOptions) {
-      if (unmuteOptions.isUnmuteManually()) {
-        return ResolutionType.manually;
-```
-
-### MissortedModifiers
-Missorted modifiers `final @NotNull`
 in `src/jetbrains/buildServer/server/rest/request/FeatureSubResource.java`
 #### Snippet
 ```java
@@ -6952,6 +6952,114 @@ in `src/jetbrains/buildServer/server/rest/request/FeatureSubResource.java`
     public String replace(final @NotNull String featureLocator, final @NotNull S newFeature, final @NotNull ServiceLocator serviceLocator);
 
     /**
+```
+
+### MissortedModifiers
+Missorted modifiers `final @NotNull`
+in `src/jetbrains/buildServer/server/rest/request/FeatureSubResource.java`
+#### Snippet
+```java
+  }
+
+  public FeatureSubResource(final @NotNull BeanContext beanContext, final @NotNull Entity<M, S> entity) {
+    myEntity = entity;
+    myBeanContext = beanContext;
+```
+
+### MissortedModifiers
+Missorted modifiers `final @NotNull`
+in `src/jetbrains/buildServer/server/rest/request/FeatureSubResource.java`
+#### Snippet
+```java
+  }
+
+  public FeatureSubResource(final @NotNull BeanContext beanContext, final @NotNull Entity<M, S> entity) {
+    myEntity = entity;
+    myBeanContext = beanContext;
+```
+
+### MissortedModifiers
+Missorted modifiers `final @Nullable`
+in `src/jetbrains/buildServer/server/rest/request/FeatureSubResource.java`
+#### Snippet
+```java
+
+    @NotNull
+    public M get(final @Nullable String locator, final @NotNull Fields fields, final @NotNull BeanContext beanContext);
+
+    public void replaceAll(final @NotNull M newEntities, final @NotNull ServiceLocator serviceLocator);
+```
+
+### MissortedModifiers
+Missorted modifiers `final @NotNull`
+in `src/jetbrains/buildServer/server/rest/request/FeatureSubResource.java`
+#### Snippet
+```java
+
+    @NotNull
+    public M get(final @Nullable String locator, final @NotNull Fields fields, final @NotNull BeanContext beanContext);
+
+    public void replaceAll(final @NotNull M newEntities, final @NotNull ServiceLocator serviceLocator);
+```
+
+### MissortedModifiers
+Missorted modifiers `final @NotNull`
+in `src/jetbrains/buildServer/server/rest/request/FeatureSubResource.java`
+#### Snippet
+```java
+
+    @NotNull
+    public M get(final @Nullable String locator, final @NotNull Fields fields, final @NotNull BeanContext beanContext);
+
+    public void replaceAll(final @NotNull M newEntities, final @NotNull ServiceLocator serviceLocator);
+```
+
+### MissortedModifiers
+Missorted modifiers `final @NotNull`
+in `src/jetbrains/buildServer/server/rest/request/FeatureSubResource.java`
+#### Snippet
+```java
+    public S getSingle(final @NotNull String featureLocator, final @NotNull Fields fields, final @NotNull BeanContext beanContext);
+
+    public void delete(final @NotNull String featureLocator, final @NotNull ServiceLocator serviceLocator);
+
+    /**
+```
+
+### MissortedModifiers
+Missorted modifiers `final @NotNull`
+in `src/jetbrains/buildServer/server/rest/request/FeatureSubResource.java`
+#### Snippet
+```java
+    public S getSingle(final @NotNull String featureLocator, final @NotNull Fields fields, final @NotNull BeanContext beanContext);
+
+    public void delete(final @NotNull String featureLocator, final @NotNull ServiceLocator serviceLocator);
+
+    /**
+```
+
+### MissortedModifiers
+Missorted modifiers `final @NotNull`
+in `src/jetbrains/buildServer/server/rest/request/FeatureSubResource.java`
+#### Snippet
+```java
+    public M get(final @Nullable String locator, final @NotNull Fields fields, final @NotNull BeanContext beanContext);
+
+    public void replaceAll(final @NotNull M newEntities, final @NotNull ServiceLocator serviceLocator);
+
+    ParametersPersistableEntity getParametersHolder(final @NotNull String featureLocator);
+```
+
+### MissortedModifiers
+Missorted modifiers `final @NotNull`
+in `src/jetbrains/buildServer/server/rest/request/FeatureSubResource.java`
+#### Snippet
+```java
+    public M get(final @Nullable String locator, final @NotNull Fields fields, final @NotNull BeanContext beanContext);
+
+    public void replaceAll(final @NotNull M newEntities, final @NotNull ServiceLocator serviceLocator);
+
+    ParametersPersistableEntity getParametersHolder(final @NotNull String featureLocator);
 ```
 
 ### MissortedModifiers
@@ -7028,134 +7136,26 @@ in `src/jetbrains/buildServer/server/rest/request/FeatureSubResource.java`
 
 ### MissortedModifiers
 Missorted modifiers `final @NotNull`
-in `src/jetbrains/buildServer/server/rest/request/FeatureSubResource.java`
+in `src/jetbrains/buildServer/server/rest/data/BranchData.java`
 #### Snippet
 ```java
-    public M get(final @Nullable String locator, final @NotNull Fields fields, final @NotNull BeanContext beanContext);
 
-    public void replaceAll(final @NotNull M newEntities, final @NotNull ServiceLocator serviceLocator);
-
-    ParametersPersistableEntity getParametersHolder(final @NotNull String featureLocator);
+  @NotNull
+  private static String getMergeConflictMessage(final @NotNull BranchData b1, final @NotNull BranchData b2, @NotNull final String details) {
+    return "While merging branches, found branches " + details + ". Please report to JetBrains." +
+           " 1: " + b1.getName() + "/" + b1.getDisplayName() + "/" + b1.isDefaultBranch() +
 ```
 
 ### MissortedModifiers
 Missorted modifiers `final @NotNull`
-in `src/jetbrains/buildServer/server/rest/request/FeatureSubResource.java`
-#### Snippet
-```java
-    public M get(final @Nullable String locator, final @NotNull Fields fields, final @NotNull BeanContext beanContext);
-
-    public void replaceAll(final @NotNull M newEntities, final @NotNull ServiceLocator serviceLocator);
-
-    ParametersPersistableEntity getParametersHolder(final @NotNull String featureLocator);
-```
-
-### MissortedModifiers
-Missorted modifiers `final @NotNull`
-in `src/jetbrains/buildServer/server/rest/request/FeatureSubResource.java`
-#### Snippet
-```java
-  }
-
-  public FeatureSubResource(final @NotNull BeanContext beanContext, final @NotNull Entity<M, S> entity) {
-    myEntity = entity;
-    myBeanContext = beanContext;
-```
-
-### MissortedModifiers
-Missorted modifiers `final @NotNull`
-in `src/jetbrains/buildServer/server/rest/request/FeatureSubResource.java`
-#### Snippet
-```java
-  }
-
-  public FeatureSubResource(final @NotNull BeanContext beanContext, final @NotNull Entity<M, S> entity) {
-    myEntity = entity;
-    myBeanContext = beanContext;
-```
-
-### MissortedModifiers
-Missorted modifiers `final @NotNull`
-in `src/jetbrains/buildServer/server/rest/request/FeatureSubResource.java`
-#### Snippet
-```java
-    public S getSingle(final @NotNull String featureLocator, final @NotNull Fields fields, final @NotNull BeanContext beanContext);
-
-    public void delete(final @NotNull String featureLocator, final @NotNull ServiceLocator serviceLocator);
-
-    /**
-```
-
-### MissortedModifiers
-Missorted modifiers `final @NotNull`
-in `src/jetbrains/buildServer/server/rest/request/FeatureSubResource.java`
-#### Snippet
-```java
-    public S getSingle(final @NotNull String featureLocator, final @NotNull Fields fields, final @NotNull BeanContext beanContext);
-
-    public void delete(final @NotNull String featureLocator, final @NotNull ServiceLocator serviceLocator);
-
-    /**
-```
-
-### MissortedModifiers
-Missorted modifiers `final @Nullable`
-in `src/jetbrains/buildServer/server/rest/request/FeatureSubResource.java`
+in `src/jetbrains/buildServer/server/rest/data/BranchData.java`
 #### Snippet
 ```java
 
-    @NotNull
-    public M get(final @Nullable String locator, final @NotNull Fields fields, final @NotNull BeanContext beanContext);
-
-    public void replaceAll(final @NotNull M newEntities, final @NotNull ServiceLocator serviceLocator);
-```
-
-### MissortedModifiers
-Missorted modifiers `final @NotNull`
-in `src/jetbrains/buildServer/server/rest/request/FeatureSubResource.java`
-#### Snippet
-```java
-
-    @NotNull
-    public M get(final @Nullable String locator, final @NotNull Fields fields, final @NotNull BeanContext beanContext);
-
-    public void replaceAll(final @NotNull M newEntities, final @NotNull ServiceLocator serviceLocator);
-```
-
-### MissortedModifiers
-Missorted modifiers `final @NotNull`
-in `src/jetbrains/buildServer/server/rest/request/FeatureSubResource.java`
-#### Snippet
-```java
-
-    @NotNull
-    public M get(final @Nullable String locator, final @NotNull Fields fields, final @NotNull BeanContext beanContext);
-
-    public void replaceAll(final @NotNull M newEntities, final @NotNull ServiceLocator serviceLocator);
-```
-
-### MissortedModifiers
-Missorted modifiers `final @NotNull`
-in `src/jetbrains/buildServer/server/rest/model/project/PropEntitiesProjectFeature.java`
-#### Snippet
-```java
-    private final Collection<SProjectFeatureDescriptor> myFeatures;
-
-    public Storage(final @NotNull SProject project) {
-      myFeatures = project.getOwnFeatures();
-    }
-```
-
-### MissortedModifiers
-Missorted modifiers `final @NotNull`
-in `src/jetbrains/buildServer/server/rest/model/project/PropEntitiesProjectFeature.java`
-#### Snippet
-```java
-    }
-
-    public void apply(final @NotNull SProject project){
-      removeAll(project);
-      for (SProjectFeatureDescriptor entry : myFeatures) {
+  @NotNull
+  private static String getMergeConflictMessage(final @NotNull BranchData b1, final @NotNull BranchData b2, @NotNull final String details) {
+    return "While merging branches, found branches " + details + ". Please report to JetBrains." +
+           " 1: " + b1.getName() + "/" + b1.getDisplayName() + "/" + b1.isDefaultBranch() +
 ```
 
 ### MissortedModifiers
@@ -7172,26 +7172,62 @@ in `src/jetbrains/buildServer/server/rest/data/BranchData.java`
 
 ### MissortedModifiers
 Missorted modifiers `final @NotNull`
-in `src/jetbrains/buildServer/server/rest/data/BranchData.java`
+in `src/jetbrains/buildServer/server/rest/model/project/PropEntitiesProjectFeature.java`
 #### Snippet
 ```java
+    }
 
-  @NotNull
-  private static String getMergeConflictMessage(final @NotNull BranchData b1, final @NotNull BranchData b2, @NotNull final String details) {
-    return "While merging branches, found branches " + details + ". Please report to JetBrains." +
-           " 1: " + b1.getName() + "/" + b1.getDisplayName() + "/" + b1.isDefaultBranch() +
+    public void apply(final @NotNull SProject project){
+      removeAll(project);
+      for (SProjectFeatureDescriptor entry : myFeatures) {
 ```
 
 ### MissortedModifiers
 Missorted modifiers `final @NotNull`
-in `src/jetbrains/buildServer/server/rest/data/BranchData.java`
+in `src/jetbrains/buildServer/server/rest/model/project/PropEntitiesProjectFeature.java`
+#### Snippet
+```java
+    private final Collection<SProjectFeatureDescriptor> myFeatures;
+
+    public Storage(final @NotNull SProject project) {
+      myFeatures = project.getOwnFeatures();
+    }
+```
+
+### MissortedModifiers
+Missorted modifiers `final @NotNull`
+in `src/jetbrains/buildServer/server/rest/model/project/Project.java`
 #### Snippet
 ```java
 
-  @NotNull
-  private static String getMergeConflictMessage(final @NotNull BranchData b1, final @NotNull BranchData b2, @NotNull final String details) {
-    return "While merging branches, found branches " + details + ". Please report to JetBrains." +
-           " 1: " + b1.getName() + "/" + b1.getDisplayName() + "/" + b1.isDefaultBranch() +
+  @Nullable
+  private Links getLinks(@NotNull final SProject project, final @NotNull Fields fields, @NotNull final BeanContext beanContext) {
+    return ValueWithDefault.decideDefault(fields.isIncluded("links", false, false), new ValueWithDefault.Value<Links>() {
+      @Nullable
+```
+
+### MissortedModifiers
+Missorted modifiers `final @NotNull`
+in `src/jetbrains/buildServer/server/rest/model/project/Project.java`
+#### Snippet
+```java
+  }
+
+  public static boolean shouldRestrictSettingsViewing(final @NotNull BuildProject project, final @NotNull PermissionChecker permissionChecker) {
+    if (TeamCityProperties.getBooleanOrTrue("rest.beans.project.checkPermissions")) {
+      return !permissionChecker.isPermissionGranted(Permission.VIEW_BUILD_CONFIGURATION_SETTINGS, project.getProjectId());
+```
+
+### MissortedModifiers
+Missorted modifiers `final @NotNull`
+in `src/jetbrains/buildServer/server/rest/model/project/Project.java`
+#### Snippet
+```java
+  }
+
+  public static boolean shouldRestrictSettingsViewing(final @NotNull BuildProject project, final @NotNull PermissionChecker permissionChecker) {
+    if (TeamCityProperties.getBooleanOrTrue("rest.beans.project.checkPermissions")) {
+      return !permissionChecker.isPermissionGranted(Permission.VIEW_BUILD_CONFIGURATION_SETTINGS, project.getProjectId());
 ```
 
 ### MissortedModifiers
@@ -7211,71 +7247,71 @@ Missorted modifiers `final @NotNull`
 in `src/jetbrains/buildServer/server/rest/model/project/Project.java`
 #### Snippet
 ```java
+
+  @Nullable
+  public static BuildType getDefaultTemplate(final @NotNull SProject project, final @NotNull Fields fields, final @NotNull BeanContext beanContext) {
+    BuildTypeTemplate defaultTemplate = project.getDefaultTemplate();
+    if (defaultTemplate == null) return null;
+```
+
+### MissortedModifiers
+Missorted modifiers `final @NotNull`
+in `src/jetbrains/buildServer/server/rest/model/project/Project.java`
+#### Snippet
+```java
+
+  @Nullable
+  public static BuildType getDefaultTemplate(final @NotNull SProject project, final @NotNull Fields fields, final @NotNull BeanContext beanContext) {
+    BuildTypeTemplate defaultTemplate = project.getDefaultTemplate();
+    if (defaultTemplate == null) return null;
+```
+
+### MissortedModifiers
+Missorted modifiers `final @NotNull`
+in `src/jetbrains/buildServer/server/rest/model/project/Project.java`
+#### Snippet
+```java
+
+  @Nullable
+  public static BuildType getDefaultTemplate(final @NotNull SProject project, final @NotNull Fields fields, final @NotNull BeanContext beanContext) {
+    BuildTypeTemplate defaultTemplate = project.getDefaultTemplate();
+    if (defaultTemplate == null) return null;
+```
+
+### MissortedModifiers
+Missorted modifiers `final @NotNull`
+in `src/jetbrains/buildServer/server/rest/request/BuildTypeRequest.java`
+#### Snippet
+```java
   }
 
-  public static boolean shouldRestrictSettingsViewing(final @NotNull BuildProject project, final @NotNull PermissionChecker permissionChecker) {
-    if (TeamCityProperties.getBooleanOrTrue("rest.beans.project.checkPermissions")) {
-      return !permissionChecker.isPermissionGranted(Permission.VIEW_BUILD_CONFIGURATION_SETTINGS, project.getProjectId());
-```
-
-### MissortedModifiers
-Missorted modifiers `final @NotNull`
-in `src/jetbrains/buildServer/server/rest/model/project/Project.java`
-#### Snippet
-```java
+  private String replaceNonAlphaNum(final @NotNull String path) {
+    return NON_ALPHA_NUM_PATTERN.matcher(path).replaceAll("_");
   }
-
-  public static boolean shouldRestrictSettingsViewing(final @NotNull BuildProject project, final @NotNull PermissionChecker permissionChecker) {
-    if (TeamCityProperties.getBooleanOrTrue("rest.beans.project.checkPermissions")) {
-      return !permissionChecker.isPermissionGranted(Permission.VIEW_BUILD_CONFIGURATION_SETTINGS, project.getProjectId());
 ```
 
 ### MissortedModifiers
 Missorted modifiers `final @NotNull`
-in `src/jetbrains/buildServer/server/rest/model/project/Project.java`
+in `src/jetbrains/buildServer/server/rest/data/problem/TestFinder.java`
 #### Snippet
 ```java
 
   @Nullable
-  public static BuildType getDefaultTemplate(final @NotNull SProject project, final @NotNull Fields fields, final @NotNull BeanContext beanContext) {
-    BuildTypeTemplate defaultTemplate = project.getDefaultTemplate();
-    if (defaultTemplate == null) return null;
+  public STest findTest(final @NotNull Long testNameId) {
+    return myTestManager.findTest(testNameId, myProjectFinder.getRootProject().getProjectId()); //STest in root project should have all the data across entire server
+  }
 ```
 
 ### MissortedModifiers
 Missorted modifiers `final @NotNull`
-in `src/jetbrains/buildServer/server/rest/model/project/Project.java`
+in `src/jetbrains/buildServer/server/rest/data/problem/TestFinder.java`
 #### Snippet
 ```java
 
-  @Nullable
-  public static BuildType getDefaultTemplate(final @NotNull SProject project, final @NotNull Fields fields, final @NotNull BeanContext beanContext) {
-    BuildTypeTemplate defaultTemplate = project.getDefaultTemplate();
-    if (defaultTemplate == null) return null;
-```
-
-### MissortedModifiers
-Missorted modifiers `final @NotNull`
-in `src/jetbrains/buildServer/server/rest/model/project/Project.java`
-#### Snippet
-```java
-
-  @Nullable
-  public static BuildType getDefaultTemplate(final @NotNull SProject project, final @NotNull Fields fields, final @NotNull BeanContext beanContext) {
-    BuildTypeTemplate defaultTemplate = project.getDefaultTemplate();
-    if (defaultTemplate == null) return null;
-```
-
-### MissortedModifiers
-Missorted modifiers `final @NotNull`
-in `src/jetbrains/buildServer/server/rest/model/project/Project.java`
-#### Snippet
-```java
-
-  @Nullable
-  private Links getLinks(@NotNull final SProject project, final @NotNull Fields fields, @NotNull final BeanContext beanContext) {
-    return ValueWithDefault.decideDefault(fields.isIncluded("links", false, false), new ValueWithDefault.Value<Links>() {
-      @Nullable
+  @NotNull
+  public static String getTestLocator(final @NotNull STest test) {
+    return getTestLocator(test.getTestNameId());
+  }
 ```
 
 ### MissortedModifiers
@@ -7364,25 +7400,13 @@ in `src/jetbrains/buildServer/server/rest/data/problem/TestFinder.java`
 
 ### MissortedModifiers
 Missorted modifiers `final @NotNull`
-in `src/jetbrains/buildServer/server/rest/data/problem/TestFinder.java`
+in `src/jetbrains/buildServer/server/rest/model/agent/Agent.java`
 #### Snippet
 ```java
-
-  @NotNull
-  public static String getTestLocator(final @NotNull STest test) {
-    return getTestLocator(test.getTestNameId());
-  }
-```
-
-### MissortedModifiers
-Missorted modifiers `final @NotNull`
-in `src/jetbrains/buildServer/server/rest/data/problem/TestFinder.java`
-#### Snippet
-```java
-
-  @Nullable
-  public STest findTest(final @NotNull Long testNameId) {
-    return myTestManager.findTest(testNameId, myProjectFinder.getRootProject().getProjectId()); //STest in root project should have all the data across entire server
+   */
+  @SuppressWarnings("unused")
+  public Agent(@NotNull final SAgentType agentType, final @NotNull Fields fields, @NotNull final BeanContext beanContext) {
+    typeId = ValueWithDefault.decideDefault(fields.isIncluded("typeId", true), agentType.getAgentTypeId());
   }
 ```
 
@@ -7403,11 +7427,11 @@ Missorted modifiers `final @NotNull`
 in `src/jetbrains/buildServer/server/rest/model/agent/Agent.java`
 #### Snippet
 ```java
-   */
-  @SuppressWarnings("unused")
-  public Agent(@NotNull final SAgentType agentType, final @NotNull Fields fields, @NotNull final BeanContext beanContext) {
-    typeId = ValueWithDefault.decideDefault(fields.isIncluded("typeId", true), agentType.getAgentTypeId());
-  }
+
+  @NotNull
+  private static AgentProtocol getAgentProtocol(final @NotNull SBuildAgent agent) {
+    final String protocolType = agent.getCommunicationProtocolType();
+    if (PollingRemoteAgentConnection.TYPE.equals(protocolType)) return AgentProtocol.unidirectional;
 ```
 
 ### MissortedModifiers
@@ -7427,18 +7451,6 @@ Missorted modifiers `final @NotNull`
 in `src/jetbrains/buildServer/server/rest/model/agent/Agent.java`
 #### Snippet
 ```java
-
-  @NotNull
-  private static AgentProtocol getAgentProtocol(final @NotNull SBuildAgent agent) {
-    final String protocolType = agent.getCommunicationProtocolType();
-    if (PollingRemoteAgentConnection.TYPE.equals(protocolType)) return AgentProtocol.unidirectional;
-```
-
-### MissortedModifiers
-Missorted modifiers `final @NotNull`
-in `src/jetbrains/buildServer/server/rest/model/agent/Agent.java`
-#### Snippet
-```java
    * Used only for build triggering
    */
   public Agent(@NotNull final jetbrains.buildServer.serverSide.agentPools.AgentPool agentPool, final @NotNull Fields fields, @NotNull final BeanContext beanContext) {
@@ -7447,15 +7459,15 @@ in `src/jetbrains/buildServer/server/rest/model/agent/Agent.java`
 ```
 
 ### MissortedModifiers
-Missorted modifiers `final @NotNull`
-in `src/jetbrains/buildServer/server/rest/request/BuildTypeRequest.java`
+Missorted modifiers `final static`
+in `src/jetbrains/buildServer/server/rest/data/RestContext.java`
 #### Snippet
 ```java
-  }
+ */
+public class RestContext {
+  private final static ThreadLocal<RestContext> ourThreadLocalInstance = new ThreadLocal<>();
 
-  private String replaceNonAlphaNum(final @NotNull String path) {
-    return NON_ALPHA_NUM_PATTERN.matcher(path).replaceAll("_");
-  }
+  private final Function<String, Object> myFunction;
 ```
 
 ### MissortedModifiers
@@ -7537,6 +7549,54 @@ in `src/jetbrains/buildServer/server/rest/data/AgentFinder.java`
 ```java
   }
 
+  private static Compatibility.AgentCompatibilityData getCompatibilityData(final @NotNull SBuildAgent agent, final @NotNull SBuildType buildType) {
+    if (!getAgentType(agent).getPolicy().isBuildTypeAllowed(buildType.getBuildTypeId())) {
+      return new Compatibility.BasicAgentCompatibilityData(agent, buildType, false, "Restricted by agent policy");
+```
+
+### MissortedModifiers
+Missorted modifiers `final @NotNull`
+in `src/jetbrains/buildServer/server/rest/data/AgentFinder.java`
+#### Snippet
+```java
+  }
+
+  private static Compatibility.AgentCompatibilityData getCompatibilityData(final @NotNull SBuildAgent agent, final @NotNull SBuildType buildType) {
+    if (!getAgentType(agent).getPolicy().isBuildTypeAllowed(buildType.getBuildTypeId())) {
+      return new Compatibility.BasicAgentCompatibilityData(agent, buildType, false, "Restricted by agent policy");
+```
+
+### MissortedModifiers
+Missorted modifiers `final @NotNull`
+in `src/jetbrains/buildServer/server/rest/data/AgentFinder.java`
+#### Snippet
+```java
+  }
+
+  private static boolean isAgentRestrictorAllowed(final @NotNull SBuildAgent agent, final @NotNull SQueuedBuild queuedBuild) {
+    AgentRestrictor agentRestrictor = queuedBuild.getAgentRestrictor();
+    if (agentRestrictor == null) {
+```
+
+### MissortedModifiers
+Missorted modifiers `final @NotNull`
+in `src/jetbrains/buildServer/server/rest/data/AgentFinder.java`
+#### Snippet
+```java
+  }
+
+  private static boolean isAgentRestrictorAllowed(final @NotNull SBuildAgent agent, final @NotNull SQueuedBuild queuedBuild) {
+    AgentRestrictor agentRestrictor = queuedBuild.getAgentRestrictor();
+    if (agentRestrictor == null) {
+```
+
+### MissortedModifiers
+Missorted modifiers `final @NotNull`
+in `src/jetbrains/buildServer/server/rest/data/AgentFinder.java`
+#### Snippet
+```java
+  }
+
   private boolean isCompatibleWithAllBuild(final @NotNull SBuildAgent agent, final List<BuildPromotion> buildPromotions) {
     for (BuildPromotion buildPromotion : buildPromotions) {
       if (!canActuallyRun(agent, buildPromotion)) return false;
@@ -7549,9 +7609,9 @@ in `src/jetbrains/buildServer/server/rest/data/AgentFinder.java`
 ```java
   }
 
-  private boolean isCompatibleWithAnyBuild(final @NotNull SBuildAgent agent, final List<BuildPromotion> buildPromotions) {
-    for (BuildPromotion buildPromotion : buildPromotions) {
-      if (canActuallyRun(agent, buildPromotion)) return true;
+  private Iterable<SBuildAgent> calculateCanActuallyRunAgents(@NotNull final List<BuildPromotion> builds, final @NotNull ServiceLocator serviceLocator) {
+    TreeSet<SBuildAgent> result = new TreeSet<>(AGENT_COMPARATOR);
+    for (BuildPromotion build : builds) {
 ```
 
 ### MissortedModifiers
@@ -7573,33 +7633,9 @@ in `src/jetbrains/buildServer/server/rest/data/AgentFinder.java`
 ```java
   }
 
-  private static boolean isAgentRestrictorAllowed(final @NotNull SBuildAgent agent, final @NotNull SQueuedBuild queuedBuild) {
-    AgentRestrictor agentRestrictor = queuedBuild.getAgentRestrictor();
-    if (agentRestrictor == null) {
-```
-
-### MissortedModifiers
-Missorted modifiers `final @NotNull`
-in `src/jetbrains/buildServer/server/rest/data/AgentFinder.java`
-#### Snippet
-```java
-  }
-
-  private static boolean isAgentRestrictorAllowed(final @NotNull SBuildAgent agent, final @NotNull SQueuedBuild queuedBuild) {
-    AgentRestrictor agentRestrictor = queuedBuild.getAgentRestrictor();
-    if (agentRestrictor == null) {
-```
-
-### MissortedModifiers
-Missorted modifiers `final @NotNull`
-in `src/jetbrains/buildServer/server/rest/data/AgentFinder.java`
-#### Snippet
-```java
-  }
-
-  private Iterable<SBuildAgent> calculateCanActuallyRunAgents(@NotNull final List<BuildPromotion> builds, final @NotNull ServiceLocator serviceLocator) {
-    TreeSet<SBuildAgent> result = new TreeSet<>(AGENT_COMPARATOR);
-    for (BuildPromotion build : builds) {
+  private boolean isCompatibleWithAnyBuild(final @NotNull SBuildAgent agent, final List<BuildPromotion> buildPromotions) {
+    for (BuildPromotion buildPromotion : buildPromotions) {
+      if (canActuallyRun(agent, buildPromotion)) return true;
 ```
 
 ### MissortedModifiers
@@ -7636,42 +7672,6 @@ in `src/jetbrains/buildServer/server/rest/data/AgentFinder.java`
                                                                            final @NotNull ServiceLocator serviceLocator) {
     ArrayList<Compatibility.AgentCompatibilityData> result = new ArrayList<>();
     List<SBuildType> buildTypesToProcess = buildTypes != null ? buildTypes : serviceLocator.getSingletonService(ProjectManager.class).getAllBuildTypes();
-```
-
-### MissortedModifiers
-Missorted modifiers `final @NotNull`
-in `src/jetbrains/buildServer/server/rest/data/AgentFinder.java`
-#### Snippet
-```java
-  }
-
-  private static Compatibility.AgentCompatibilityData getCompatibilityData(final @NotNull SBuildAgent agent, final @NotNull SBuildType buildType) {
-    if (!getAgentType(agent).getPolicy().isBuildTypeAllowed(buildType.getBuildTypeId())) {
-      return new Compatibility.BasicAgentCompatibilityData(agent, buildType, false, "Restricted by agent policy");
-```
-
-### MissortedModifiers
-Missorted modifiers `final @NotNull`
-in `src/jetbrains/buildServer/server/rest/data/AgentFinder.java`
-#### Snippet
-```java
-  }
-
-  private static Compatibility.AgentCompatibilityData getCompatibilityData(final @NotNull SBuildAgent agent, final @NotNull SBuildType buildType) {
-    if (!getAgentType(agent).getPolicy().isBuildTypeAllowed(buildType.getBuildTypeId())) {
-      return new Compatibility.BasicAgentCompatibilityData(agent, buildType, false, "Restricted by agent policy");
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `src/jetbrains/buildServer/server/rest/data/RestContext.java`
-#### Snippet
-```java
- */
-public class RestContext {
-  private final static ThreadLocal<RestContext> ourThreadLocalInstance = new ThreadLocal<>();
-
-  private final Function<String, Object> myFunction;
 ```
 
 ### MissortedModifiers
@@ -7772,18 +7772,6 @@ in `src/jetbrains/buildServer/server/rest/request/ProblemOccurrenceRequest.java`
 
 ### MissortedModifiers
 Missorted modifiers `final @NotNull`
-in `src/jetbrains/buildServer/server/rest/model/audit/AuditEvents.java`
-#### Snippet
-```java
-  public AuditEvents() {}
-
-  public AuditEvents(final @NotNull List<AuditLogAction> items, final PagerData pagerData, @NotNull final Fields fields, @NotNull final BeanContext context) {
-    auditEvents = ValueWithDefault.decideDefault(fields.isIncluded("auditEvent", false, true),
-                                                 () -> items.stream().map(i -> new AuditEvent(i, fields.getNestedField("auditEvent", Fields.SHORT, Fields.LONG), context)).collect(Collectors.toList()));
-```
-
-### MissortedModifiers
-Missorted modifiers `final @NotNull`
 in `src/jetbrains/buildServer/server/rest/model/agent/Compatibilities.java`
 #### Snippet
 ```java
@@ -7792,6 +7780,18 @@ in `src/jetbrains/buildServer/server/rest/model/agent/Compatibilities.java`
                          @NotNull final Fields fields, final @NotNull BeanContext beanContext) {
     compatibilities =
       compatibilitiesP == null ? null : ValueWithDefault.decideDefault(fields.isIncluded("compatibility", true, true), new ValueWithDefault.Value<List<Compatibility>>() {
+```
+
+### MissortedModifiers
+Missorted modifiers `final @NotNull`
+in `src/jetbrains/buildServer/server/rest/model/audit/AuditEvents.java`
+#### Snippet
+```java
+  public AuditEvents() {}
+
+  public AuditEvents(final @NotNull List<AuditLogAction> items, final PagerData pagerData, @NotNull final Fields fields, @NotNull final BeanContext context) {
+    auditEvents = ValueWithDefault.decideDefault(fields.isIncluded("auditEvent", false, true),
+                                                 () -> items.stream().map(i -> new AuditEvent(i, fields.getNestedField("auditEvent", Fields.SHORT, Fields.LONG), context)).collect(Collectors.toList()));
 ```
 
 ### MissortedModifiers
@@ -7811,6 +7811,30 @@ Missorted modifiers `final @NotNull`
 in `src/jetbrains/buildServer/server/rest/model/buildType/PropEntitiesArtifactDep.java`
 #### Snippet
 ```java
+   * @return true if buildTypeSettings is modified
+   */
+  public boolean setToBuildType(final @NotNull BuildTypeSettingsEx buildTypeSettings, final @NotNull ServiceLocator serviceLocator) {
+    PropEntitiesArtifactDep.Storage original = new PropEntitiesArtifactDep.Storage(buildTypeSettings);
+    try {
+```
+
+### MissortedModifiers
+Missorted modifiers `final @NotNull`
+in `src/jetbrains/buildServer/server/rest/model/buildType/PropEntitiesArtifactDep.java`
+#### Snippet
+```java
+   * @return true if buildTypeSettings is modified
+   */
+  public boolean setToBuildType(final @NotNull BuildTypeSettingsEx buildTypeSettings, final @NotNull ServiceLocator serviceLocator) {
+    PropEntitiesArtifactDep.Storage original = new PropEntitiesArtifactDep.Storage(buildTypeSettings);
+    try {
+```
+
+### MissortedModifiers
+Missorted modifiers `final @NotNull`
+in `src/jetbrains/buildServer/server/rest/model/buildType/PropEntitiesArtifactDep.java`
+#### Snippet
+```java
     }
 
     public void apply(final @NotNull BuildTypeSettings buildTypeSettings){
@@ -7823,35 +7847,71 @@ Missorted modifiers `final @NotNull`
 in `src/jetbrains/buildServer/server/rest/model/buildType/PropEntitiesArtifactDep.java`
 #### Snippet
 ```java
-   * @return true if buildTypeSettings is modified
-   */
-  public boolean setToBuildType(final @NotNull BuildTypeSettingsEx buildTypeSettings, final @NotNull ServiceLocator serviceLocator) {
-    PropEntitiesArtifactDep.Storage original = new PropEntitiesArtifactDep.Storage(buildTypeSettings);
-    try {
-```
-
-### MissortedModifiers
-Missorted modifiers `final @NotNull`
-in `src/jetbrains/buildServer/server/rest/model/buildType/PropEntitiesArtifactDep.java`
-#### Snippet
-```java
-   * @return true if buildTypeSettings is modified
-   */
-  public boolean setToBuildType(final @NotNull BuildTypeSettingsEx buildTypeSettings, final @NotNull ServiceLocator serviceLocator) {
-    PropEntitiesArtifactDep.Storage original = new PropEntitiesArtifactDep.Storage(buildTypeSettings);
-    try {
-```
-
-### MissortedModifiers
-Missorted modifiers `final @NotNull`
-in `src/jetbrains/buildServer/server/rest/model/buildType/PropEntitiesArtifactDep.java`
-#### Snippet
-```java
     public final Map<String, Boolean> enabledData = new HashMap<>();
 
     public Storage(final @NotNull BuildTypeSettings buildTypeSettings) {
       for (SArtifactDependency dependency : buildTypeSettings.getArtifactDependencies()) {
         deps.add(dependency);
+```
+
+### MissortedModifiers
+Missorted modifiers `final @NotNull`
+in `src/jetbrains/buildServer/server/rest/data/BuildTypeFinder.java`
+#### Snippet
+```java
+
+  @NotNull
+  private List<BuildTypeOrTemplate> getSelectedByUser(final @NotNull Locator locator, @NotNull final String selectedForUserLocator) {
+    Locator selectedByUserLocator = new Locator(selectedForUserLocator, "user", "mode");
+    String userLocator = selectedByUserLocator.getSingleDimensionValue("user");
+```
+
+### MissortedModifiers
+Missorted modifiers `final @Nullable`
+in `src/jetbrains/buildServer/server/rest/data/BuildTypeFinder.java`
+#### Snippet
+```java
+
+  @Nullable
+  public static String patchLocator(final @Nullable String buildTypeLocator, final @Nullable SProject project) {
+    if (project == null) return buildTypeLocator;
+    return Locator.setDimensionIfNotPresent(buildTypeLocator, DIMENSION_PROJECT, ProjectFinder.getLocator(project));
+```
+
+### MissortedModifiers
+Missorted modifiers `final @Nullable`
+in `src/jetbrains/buildServer/server/rest/data/BuildTypeFinder.java`
+#### Snippet
+```java
+
+  @Nullable
+  public static String patchLocator(final @Nullable String buildTypeLocator, final @Nullable SProject project) {
+    if (project == null) return buildTypeLocator;
+    return Locator.setDimensionIfNotPresent(buildTypeLocator, DIMENSION_PROJECT, ProjectFinder.getLocator(project));
+```
+
+### MissortedModifiers
+Missorted modifiers `final @Nullable`
+in `src/jetbrains/buildServer/server/rest/data/BuildTypeFinder.java`
+#### Snippet
+```java
+
+  @NotNull
+  public PagedSearchResult<BuildTypeOrTemplate> getBuildTypesPaged(final @Nullable SProject project, final @Nullable String buildTypeLocator, final boolean buildType) {
+    if (buildTypeLocator != null && (new Locator(buildTypeLocator)).isSingleValue()){
+      return getItems(buildTypeLocator);
+```
+
+### MissortedModifiers
+Missorted modifiers `final @Nullable`
+in `src/jetbrains/buildServer/server/rest/data/BuildTypeFinder.java`
+#### Snippet
+```java
+
+  @NotNull
+  public PagedSearchResult<BuildTypeOrTemplate> getBuildTypesPaged(final @Nullable SProject project, final @Nullable String buildTypeLocator, final boolean buildType) {
+    if (buildTypeLocator != null && (new Locator(buildTypeLocator)).isSingleValue()){
+      return getItems(buildTypeLocator);
 ```
 
 ### MissortedModifiers
@@ -7900,78 +7960,6 @@ in `src/jetbrains/buildServer/server/rest/model/metrics/MetricTags.java`
   public MetricTags(@NotNull Map<String, String> tagsMap, final @NotNull Fields fields) {
     tags = ValueWithDefault.decideDefault(
       fields.isIncluded("tag", true),
-```
-
-### MissortedModifiers
-Missorted modifiers `final @NotNull`
-in `src/jetbrains/buildServer/server/rest/data/BuildTypeFinder.java`
-#### Snippet
-```java
-
-  @NotNull
-  private List<BuildTypeOrTemplate> getSelectedByUser(final @NotNull Locator locator, @NotNull final String selectedForUserLocator) {
-    Locator selectedByUserLocator = new Locator(selectedForUserLocator, "user", "mode");
-    String userLocator = selectedByUserLocator.getSingleDimensionValue("user");
-```
-
-### MissortedModifiers
-Missorted modifiers `final @Nullable`
-in `src/jetbrains/buildServer/server/rest/data/BuildTypeFinder.java`
-#### Snippet
-```java
-
-  @NotNull
-  public PagedSearchResult<BuildTypeOrTemplate> getBuildTypesPaged(final @Nullable SProject project, final @Nullable String buildTypeLocator, final boolean buildType) {
-    if (buildTypeLocator != null && (new Locator(buildTypeLocator)).isSingleValue()){
-      return getItems(buildTypeLocator);
-```
-
-### MissortedModifiers
-Missorted modifiers `final @Nullable`
-in `src/jetbrains/buildServer/server/rest/data/BuildTypeFinder.java`
-#### Snippet
-```java
-
-  @NotNull
-  public PagedSearchResult<BuildTypeOrTemplate> getBuildTypesPaged(final @Nullable SProject project, final @Nullable String buildTypeLocator, final boolean buildType) {
-    if (buildTypeLocator != null && (new Locator(buildTypeLocator)).isSingleValue()){
-      return getItems(buildTypeLocator);
-```
-
-### MissortedModifiers
-Missorted modifiers `final @Nullable`
-in `src/jetbrains/buildServer/server/rest/data/BuildTypeFinder.java`
-#### Snippet
-```java
-
-  @Nullable
-  public static String patchLocator(final @Nullable String buildTypeLocator, final @Nullable SProject project) {
-    if (project == null) return buildTypeLocator;
-    return Locator.setDimensionIfNotPresent(buildTypeLocator, DIMENSION_PROJECT, ProjectFinder.getLocator(project));
-```
-
-### MissortedModifiers
-Missorted modifiers `final @Nullable`
-in `src/jetbrains/buildServer/server/rest/data/BuildTypeFinder.java`
-#### Snippet
-```java
-
-  @Nullable
-  public static String patchLocator(final @Nullable String buildTypeLocator, final @Nullable SProject project) {
-    if (project == null) return buildTypeLocator;
-    return Locator.setDimensionIfNotPresent(buildTypeLocator, DIMENSION_PROJECT, ProjectFinder.getLocator(project));
-```
-
-### MissortedModifiers
-Missorted modifiers `final @NotNull`
-in `src/jetbrains/buildServer/server/rest/model/Entries.java`
-#### Snippet
-```java
-  }
-
-  public Entries(@NotNull final java.util.Map<String, String> propertiesP, final @NotNull Fields fields) {
-    this.count = ValueWithDefault.decideIncludeByDefault(fields.isIncluded("count"), propertiesP.size());
-    Fields entryFields = fields.getNestedField("entry");
 ```
 
 ### MissortedModifiers
@@ -8029,6 +8017,42 @@ in `src/jetbrains/buildServer/server/rest/request/FilesSubResource.java`
 ```java
   }
 
+  static boolean getSetContentDisposition(final @NotNull Element element, final @NotNull HttpServletRequest request, final @NotNull HttpServletResponse response) {
+    String contentDisposition = getSetting("rest.files.contentResponseBuilder.contentDisposition", "attachment", "contentDisposition", request.getParameter("contentDisposition"),
+      false,
+```
+
+### MissortedModifiers
+Missorted modifiers `final @NotNull`
+in `src/jetbrains/buildServer/server/rest/request/FilesSubResource.java`
+#### Snippet
+```java
+  }
+
+  static boolean getSetContentDisposition(final @NotNull Element element, final @NotNull HttpServletRequest request, final @NotNull HttpServletResponse response) {
+    String contentDisposition = getSetting("rest.files.contentResponseBuilder.contentDisposition", "attachment", "contentDisposition", request.getParameter("contentDisposition"),
+      false,
+```
+
+### MissortedModifiers
+Missorted modifiers `final @NotNull`
+in `src/jetbrains/buildServer/server/rest/request/FilesSubResource.java`
+#### Snippet
+```java
+  }
+
+  static boolean getSetContentDisposition(final @NotNull Element element, final @NotNull HttpServletRequest request, final @NotNull HttpServletResponse response) {
+    String contentDisposition = getSetting("rest.files.contentResponseBuilder.contentDisposition", "attachment", "contentDisposition", request.getParameter("contentDisposition"),
+      false,
+```
+
+### MissortedModifiers
+Missorted modifiers `final @NotNull`
+in `src/jetbrains/buildServer/server/rest/request/FilesSubResource.java`
+#### Snippet
+```java
+  }
+
   private static long getLastModified(final @NotNull Element element) {
     if (element instanceof ArtifactElement) {
       Long lastModified = ((ArtifactElement)element).getLastModified();
@@ -8036,50 +8060,14 @@ in `src/jetbrains/buildServer/server/rest/request/FilesSubResource.java`
 
 ### MissortedModifiers
 Missorted modifiers `final @NotNull`
-in `src/jetbrains/buildServer/server/rest/request/FilesSubResource.java`
+in `src/jetbrains/buildServer/server/rest/model/Entries.java`
 #### Snippet
 ```java
   }
 
-  static boolean getSetContentDisposition(final @NotNull Element element, final @NotNull HttpServletRequest request, final @NotNull HttpServletResponse response) {
-    String contentDisposition = getSetting("rest.files.contentResponseBuilder.contentDisposition", "attachment", "contentDisposition", request.getParameter("contentDisposition"),
-      false,
-```
-
-### MissortedModifiers
-Missorted modifiers `final @NotNull`
-in `src/jetbrains/buildServer/server/rest/request/FilesSubResource.java`
-#### Snippet
-```java
-  }
-
-  static boolean getSetContentDisposition(final @NotNull Element element, final @NotNull HttpServletRequest request, final @NotNull HttpServletResponse response) {
-    String contentDisposition = getSetting("rest.files.contentResponseBuilder.contentDisposition", "attachment", "contentDisposition", request.getParameter("contentDisposition"),
-      false,
-```
-
-### MissortedModifiers
-Missorted modifiers `final @NotNull`
-in `src/jetbrains/buildServer/server/rest/request/FilesSubResource.java`
-#### Snippet
-```java
-  }
-
-  static boolean getSetContentDisposition(final @NotNull Element element, final @NotNull HttpServletRequest request, final @NotNull HttpServletResponse response) {
-    String contentDisposition = getSetting("rest.files.contentResponseBuilder.contentDisposition", "attachment", "contentDisposition", request.getParameter("contentDisposition"),
-      false,
-```
-
-### MissortedModifiers
-Missorted modifiers `final @NotNull`
-in `src/jetbrains/buildServer/server/rest/model/buildType/PropEntitiesStep.java`
-#### Snippet
-```java
-    public final Map<SBuildRunnerDescriptor, Boolean> deps = new LinkedHashMap<>();
-
-    public Storage(final @NotNull BuildTypeSettings buildTypeSettings) {
-      for (SBuildRunnerDescriptor entity : buildTypeSettings.getBuildRunners()) {
-        deps.put(entity, buildTypeSettings.isEnabled(entity.getId()));
+  public Entries(@NotNull final java.util.Map<String, String> propertiesP, final @NotNull Fields fields) {
+    this.count = ValueWithDefault.decideIncludeByDefault(fields.isIncluded("count"), propertiesP.size());
+    Fields entryFields = fields.getNestedField("entry");
 ```
 
 ### MissortedModifiers
@@ -8096,14 +8084,14 @@ in `src/jetbrains/buildServer/server/rest/model/buildType/PropEntitiesStep.java`
 
 ### MissortedModifiers
 Missorted modifiers `final @NotNull`
-in `src/jetbrains/buildServer/server/rest/data/ParameterCondition.java`
+in `src/jetbrains/buildServer/server/rest/model/buildType/PropEntitiesStep.java`
 #### Snippet
 ```java
-   */
-  @NotNull
-  public Stream<Parameter> filterAllMatchingParameters(final @NotNull ParametersProvider parametersProvider) {
-    // It is unclear what to do in a case when myNameCheckShouldMatchAll is true and some parameters do not pass this check.
-    if (myNameCheckShouldMatchAll) {
+    public final Map<SBuildRunnerDescriptor, Boolean> deps = new LinkedHashMap<>();
+
+    public Storage(final @NotNull BuildTypeSettings buildTypeSettings) {
+      for (SBuildRunnerDescriptor entity : buildTypeSettings.getBuildRunners()) {
+        deps.put(entity, buildTypeSettings.isEnabled(entity.getId()));
 ```
 
 ### MissortedModifiers
@@ -8120,14 +8108,14 @@ in `src/jetbrains/buildServer/server/rest/data/ParameterCondition.java`
 
 ### MissortedModifiers
 Missorted modifiers `final @NotNull`
-in `src/jetbrains/buildServer/server/rest/model/federation/FederationServers.java`
+in `src/jetbrains/buildServer/server/rest/data/ParameterCondition.java`
 #### Snippet
 ```java
-
+   */
   @NotNull
-  private Function<TeamCityServer, FederationServer> toFederationServer(final @NotNull Fields fields) {
-    return server -> new FederationServer(server, fields.getNestedField("server", Fields.SHORT, Fields.LONG));
-  }
+  public Stream<Parameter> filterAllMatchingParameters(final @NotNull ParametersProvider parametersProvider) {
+    // It is unclear what to do in a case when myNameCheckShouldMatchAll is true and some parameters do not pass this check.
+    if (myNameCheckShouldMatchAll) {
 ```
 
 ### MissortedModifiers
@@ -8155,27 +8143,15 @@ in `src/jetbrains/buildServer/server/rest/request/ServerRequest.java`
 ```
 
 ### MissortedModifiers
-Missorted modifiers `final @Nullable`
-in `src/jetbrains/buildServer/server/rest/data/BuildFinder.java`
+Missorted modifiers `final @NotNull`
+in `src/jetbrains/buildServer/server/rest/model/federation/FederationServers.java`
 #### Snippet
 ```java
-  //todo: get rid of most usages of this, use getBuildPromotion instead (but there are some TeamCity API issue)
-  @NotNull
-  public SBuild getBuild(final @Nullable SBuildType buildType, final @Nullable String buildLocator) {
-    final BuildPromotion promotion = getBuildPromotion(buildType, buildLocator);
-    final SBuild associatedBuild = promotion.getAssociatedBuild();
-```
 
-### MissortedModifiers
-Missorted modifiers `final @Nullable`
-in `src/jetbrains/buildServer/server/rest/data/BuildFinder.java`
-#### Snippet
-```java
-  //todo: get rid of most usages of this, use getBuildPromotion instead (but there are some TeamCity API issue)
   @NotNull
-  public SBuild getBuild(final @Nullable SBuildType buildType, final @Nullable String buildLocator) {
-    final BuildPromotion promotion = getBuildPromotion(buildType, buildLocator);
-    final SBuild associatedBuild = promotion.getAssociatedBuild();
+  private Function<TeamCityServer, FederationServer> toFederationServer(final @NotNull Fields fields) {
+    return server -> new FederationServer(server, fields.getNestedField("server", Fields.SHORT, Fields.LONG));
+  }
 ```
 
 ### MissortedModifiers
@@ -8255,6 +8231,30 @@ Missorted modifiers `final @Nullable`
 in `src/jetbrains/buildServer/server/rest/data/BuildFinder.java`
 #### Snippet
 ```java
+  //todo: get rid of most usages of this, use getBuildPromotion instead (but there are some TeamCity API issue)
+  @NotNull
+  public SBuild getBuild(final @Nullable SBuildType buildType, final @Nullable String buildLocator) {
+    final BuildPromotion promotion = getBuildPromotion(buildType, buildLocator);
+    final SBuild associatedBuild = promotion.getAssociatedBuild();
+```
+
+### MissortedModifiers
+Missorted modifiers `final @Nullable`
+in `src/jetbrains/buildServer/server/rest/data/BuildFinder.java`
+#### Snippet
+```java
+  //todo: get rid of most usages of this, use getBuildPromotion instead (but there are some TeamCity API issue)
+  @NotNull
+  public SBuild getBuild(final @Nullable SBuildType buildType, final @Nullable String buildLocator) {
+    final BuildPromotion promotion = getBuildPromotion(buildType, buildLocator);
+    final SBuild associatedBuild = promotion.getAssociatedBuild();
+```
+
+### MissortedModifiers
+Missorted modifiers `final @Nullable`
+in `src/jetbrains/buildServer/server/rest/data/BuildFinder.java`
+#### Snippet
+```java
 
   @NotNull
   private BuildPromotion getBuildPromotionInternal(final @Nullable SBuildType buildType, @Nullable final String buildLocator) {
@@ -8299,18 +8299,6 @@ in `src/jetbrains/buildServer/server/rest/request/BuildRequest.java`
 ```
 
 ### MissortedModifiers
-Missorted modifiers `final @Context`
-in `src/jetbrains/buildServer/server/rest/request/BuildRequest.java`
-#### Snippet
-```java
-  }
-
-  private Response processIconRequest(final String stateName, final String suffix, final @Context HttpServletRequest request) {
-    final String iconFileName = IMG_STATUS_WIDGET_ROOT_DIRECTORY + "/" + stateName + (StringUtil.isEmpty(suffix) ? IMG_STATUS_WIDGET_DEFAULT_SUFFIX : suffix);
-    final String resultIconFileName;
-```
-
-### MissortedModifiers
 Missorted modifiers `final @NotNull`
 in `src/jetbrains/buildServer/server/rest/request/BuildRequest.java`
 #### Snippet
@@ -8320,6 +8308,18 @@ in `src/jetbrains/buildServer/server/rest/request/BuildRequest.java`
   public static String getBuildArtifactsHref(final @NotNull BuildPromotion build) {
     return Util.concatenatePath(BuildRequest.getBuildHref(build), ARTIFACTS);
   }
+```
+
+### MissortedModifiers
+Missorted modifiers `final @Context`
+in `src/jetbrains/buildServer/server/rest/request/BuildRequest.java`
+#### Snippet
+```java
+  }
+
+  private Response processIconRequest(final String stateName, final String suffix, final @Context HttpServletRequest request) {
+    final String iconFileName = IMG_STATUS_WIDGET_ROOT_DIRECTORY + "/" + stateName + (StringUtil.isEmpty(suffix) ? IMG_STATUS_WIDGET_DEFAULT_SUFFIX : suffix);
+    final String resultIconFileName;
 ```
 
 ### MissortedModifiers
@@ -8339,6 +8339,18 @@ Missorted modifiers `final @NotNull`
 in `src/jetbrains/buildServer/server/rest/data/TypedFinderBuilder.java`
 #### Snippet
 ```java
+      @NotNull private final DimensionObjects myDimensionObjects;
+
+      public DimensionObjectsWrapper(final @NotNull DimensionObjects dimensionObjects) {
+        myDimensionObjects = dimensionObjects;
+      }
+```
+
+### MissortedModifiers
+Missorted modifiers `final @NotNull`
+in `src/jetbrains/buildServer/server/rest/data/TypedFinderBuilder.java`
+#### Snippet
+```java
     }
 
     private <TYPE> TYPE getByDimensionValue(final @NotNull TypedFinderDimensionImpl<TYPE> typedDimension, final String dimensionValue) {
@@ -8351,11 +8363,11 @@ Missorted modifiers `final @NotNull`
 in `src/jetbrains/buildServer/server/rest/data/TypedFinderBuilder.java`
 #### Snippet
 ```java
-    @NotNull private final Filter<TYPE, TYPE_FOR_FILTER> myDefaultChecker;
+  }
 
-    private TypedFinderDimensionWithDefaultCheckerImpl(final @NotNull TypedFinderDimensionImpl<TYPE> original,
-                                                       final @NotNull Filter<TYPE, TYPE_FOR_FILTER> defaultChecker) {
-      myOriginal = original;
+  private void patchWithDefaultValues(final @NotNull Locator locator) {
+    if (!locator.isSingleValue()) {
+      for (Map.Entry<DimensionCondition, NameValuePairs> entry : myDefaultDimensionsConditions.entrySet()) {
 ```
 
 ### MissortedModifiers
@@ -8364,10 +8376,22 @@ in `src/jetbrains/buildServer/server/rest/data/TypedFinderBuilder.java`
 #### Snippet
 ```java
 
-    private TypedFinderDimensionWithDefaultCheckerImpl(final @NotNull TypedFinderDimensionImpl<TYPE> original,
-                                                       final @NotNull Filter<TYPE, TYPE_FOR_FILTER> defaultChecker) {
-      myOriginal = original;
-      myDefaultChecker = defaultChecker;
+  @NotNull
+  private <FINDER_TYPE> List<FINDER_TYPE> getNotEmptyItems(final @NotNull Finder<FINDER_TYPE> finder, final @NotNull String dimensionValue) {
+    List<FINDER_TYPE> result = finder.getItems(dimensionValue).getEntries();
+    if (result.isEmpty()) throw new LocatorProcessException("Nothing found by locator '" + dimensionValue + "'");
+```
+
+### MissortedModifiers
+Missorted modifiers `final @NotNull`
+in `src/jetbrains/buildServer/server/rest/data/TypedFinderBuilder.java`
+#### Snippet
+```java
+
+  @NotNull
+  private <FINDER_TYPE> List<FINDER_TYPE> getNotEmptyItems(final @NotNull Finder<FINDER_TYPE> finder, final @NotNull String dimensionValue) {
+    List<FINDER_TYPE> result = finder.getItems(dimensionValue).getEntries();
+    if (result.isEmpty()) throw new LocatorProcessException("Nothing found by locator '" + dimensionValue + "'");
 ```
 
 ### MissortedModifiers
@@ -8399,11 +8423,11 @@ Missorted modifiers `final @NotNull`
 in `src/jetbrains/buildServer/server/rest/data/TypedFinderBuilder.java`
 #### Snippet
 ```java
-      @NotNull private final DimensionObjects myDimensionObjects;
+    @NotNull private final Filter<TYPE, TYPE_FOR_FILTER> myDefaultChecker;
 
-      public DimensionObjectsWrapper(final @NotNull DimensionObjects dimensionObjects) {
-        myDimensionObjects = dimensionObjects;
-      }
+    private TypedFinderDimensionWithDefaultCheckerImpl(final @NotNull TypedFinderDimensionImpl<TYPE> original,
+                                                       final @NotNull Filter<TYPE, TYPE_FOR_FILTER> defaultChecker) {
+      myOriginal = original;
 ```
 
 ### MissortedModifiers
@@ -8412,34 +8436,10 @@ in `src/jetbrains/buildServer/server/rest/data/TypedFinderBuilder.java`
 #### Snippet
 ```java
 
-  @NotNull
-  private <FINDER_TYPE> List<FINDER_TYPE> getNotEmptyItems(final @NotNull Finder<FINDER_TYPE> finder, final @NotNull String dimensionValue) {
-    List<FINDER_TYPE> result = finder.getItems(dimensionValue).getEntries();
-    if (result.isEmpty()) throw new LocatorProcessException("Nothing found by locator '" + dimensionValue + "'");
-```
-
-### MissortedModifiers
-Missorted modifiers `final @NotNull`
-in `src/jetbrains/buildServer/server/rest/data/TypedFinderBuilder.java`
-#### Snippet
-```java
-
-  @NotNull
-  private <FINDER_TYPE> List<FINDER_TYPE> getNotEmptyItems(final @NotNull Finder<FINDER_TYPE> finder, final @NotNull String dimensionValue) {
-    List<FINDER_TYPE> result = finder.getItems(dimensionValue).getEntries();
-    if (result.isEmpty()) throw new LocatorProcessException("Nothing found by locator '" + dimensionValue + "'");
-```
-
-### MissortedModifiers
-Missorted modifiers `final @NotNull`
-in `src/jetbrains/buildServer/server/rest/data/TypedFinderBuilder.java`
-#### Snippet
-```java
-  }
-
-  private void patchWithDefaultValues(final @NotNull Locator locator) {
-    if (!locator.isSingleValue()) {
-      for (Map.Entry<DimensionCondition, NameValuePairs> entry : myDefaultDimensionsConditions.entrySet()) {
+    private TypedFinderDimensionWithDefaultCheckerImpl(final @NotNull TypedFinderDimensionImpl<TYPE> original,
+                                                       final @NotNull Filter<TYPE, TYPE_FOR_FILTER> defaultChecker) {
+      myOriginal = original;
+      myDefaultChecker = defaultChecker;
 ```
 
 ## RuleId[ruleID=EqualsBetweenInconvertibleTypes]
@@ -8585,18 +8585,6 @@ Redundant default parameter value assignment
 in `src/jetbrains/buildServer/server/rest/model/cloud/CloudProfiles.java`
 #### Snippet
 ```java
-  @XmlAttribute(required = false) @Nullable public String nextHref;
-  @XmlAttribute(required = false) @Nullable public String prevHref;
-  @XmlAttribute(required = false) @Nullable public String href;
-
-  public CloudProfiles() {}
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `src/jetbrains/buildServer/server/rest/model/cloud/CloudProfiles.java`
-#### Snippet
-```java
   public Integer count;
 
   @XmlAttribute(required = false) @Nullable public String nextHref;
@@ -8618,14 +8606,14 @@ in `src/jetbrains/buildServer/server/rest/model/cloud/CloudProfiles.java`
 
 ### DefaultAnnotationParam
 Redundant default parameter value assignment
-in `src/jetbrains/buildServer/server/rest/model/buildType/Investigations.java`
+in `src/jetbrains/buildServer/server/rest/model/cloud/CloudProfiles.java`
 #### Snippet
 ```java
-  @XmlAttribute public Integer count;
   @XmlAttribute(required = false) @Nullable public String nextHref;
   @XmlAttribute(required = false) @Nullable public String prevHref;
-  @XmlAttribute(name = "href") public String href;
+  @XmlAttribute(required = false) @Nullable public String href;
 
+  public CloudProfiles() {}
 ```
 
 ### DefaultAnnotationParam
@@ -8642,6 +8630,18 @@ public class Investigations implements DefaultValueAware {
 
 ### DefaultAnnotationParam
 Redundant default parameter value assignment
+in `src/jetbrains/buildServer/server/rest/model/buildType/Investigations.java`
+#### Snippet
+```java
+  @XmlAttribute public Integer count;
+  @XmlAttribute(required = false) @Nullable public String nextHref;
+  @XmlAttribute(required = false) @Nullable public String prevHref;
+  @XmlAttribute(name = "href") public String href;
+
+```
+
+### DefaultAnnotationParam
+Redundant default parameter value assignment
 in `src/jetbrains/buildServer/server/rest/model/buildType/PropEntity.java`
 #### Snippet
 ```java
@@ -8650,6 +8650,18 @@ in `src/jetbrains/buildServer/server/rest/model/buildType/PropEntity.java`
   @XmlAttribute(required = false)
   @Nullable
   public String href;
+```
+
+### DefaultAnnotationParam
+Redundant default parameter value assignment
+in `src/jetbrains/buildServer/server/rest/model/change/Changes.java`
+#### Snippet
+```java
+  }
+
+  @XmlAttribute(required = false)
+  @Nullable
+  public String getNextHref() {
 ```
 
 ### DefaultAnnotationParam
@@ -8678,26 +8690,14 @@ in `src/jetbrains/buildServer/server/rest/model/change/Changes.java`
 
 ### DefaultAnnotationParam
 Redundant default parameter value assignment
-in `src/jetbrains/buildServer/server/rest/model/change/Changes.java`
-#### Snippet
-```java
-  }
-
-  @XmlAttribute(required = false)
-  @Nullable
-  public String getNextHref() {
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
 in `src/jetbrains/buildServer/server/rest/model/cloud/CloudInstances.java`
 #### Snippet
 ```java
-
   @XmlAttribute(required = false) @Nullable public String nextHref;
   @XmlAttribute(required = false) @Nullable public String prevHref;
   @XmlAttribute(required = false) @Nullable public String href;
 
+  public CloudInstances() {}
 ```
 
 ### DefaultAnnotationParam
@@ -8717,11 +8717,11 @@ Redundant default parameter value assignment
 in `src/jetbrains/buildServer/server/rest/model/cloud/CloudInstances.java`
 #### Snippet
 ```java
+
   @XmlAttribute(required = false) @Nullable public String nextHref;
   @XmlAttribute(required = false) @Nullable public String prevHref;
   @XmlAttribute(required = false) @Nullable public String href;
 
-  public CloudInstances() {}
 ```
 
 ### DefaultAnnotationParam
@@ -8757,7 +8757,7 @@ in `src/jetbrains/buildServer/server/rest/model/build/Builds.java`
 
   @XmlAttribute(required = false)
   @Nullable
-  public String getHref() {
+  public String getNextHref() {
 ```
 
 ### DefaultAnnotationParam
@@ -8781,19 +8781,7 @@ in `src/jetbrains/buildServer/server/rest/model/build/Builds.java`
 
   @XmlAttribute(required = false)
   @Nullable
-  public String getNextHref() {
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `src/jetbrains/buildServer/server/rest/model/project/Projects.java`
-#### Snippet
-```java
-  public String href;
-
-  @XmlAttribute(required = false)
-  @Nullable
-  public String nextHref;
+  public String getHref() {
 ```
 
 ### DefaultAnnotationParam
@@ -8806,6 +8794,18 @@ in `src/jetbrains/buildServer/server/rest/model/project/Projects.java`
   @XmlAttribute(required = false)
   @Nullable
   public String prevHref;
+```
+
+### DefaultAnnotationParam
+Redundant default parameter value assignment
+in `src/jetbrains/buildServer/server/rest/model/project/Projects.java`
+#### Snippet
+```java
+  public String href;
+
+  @XmlAttribute(required = false)
+  @Nullable
+  public String nextHref;
 ```
 
 ### DefaultAnnotationParam
@@ -8861,18 +8861,6 @@ Redundant default parameter value assignment
 in `src/jetbrains/buildServer/server/rest/model/agent/Agents.java`
 #### Snippet
 ```java
-  public String prevHref;
-
-  @XmlAttribute(required = false)
-  @Nullable
-  public String href;
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `src/jetbrains/buildServer/server/rest/model/agent/Agents.java`
-#### Snippet
-```java
   public List<Agent> agents;
 
   @XmlAttribute(required = false)
@@ -8885,11 +8873,47 @@ Redundant default parameter value assignment
 in `src/jetbrains/buildServer/server/rest/model/agent/Agents.java`
 #### Snippet
 ```java
+  public String prevHref;
+
+  @XmlAttribute(required = false)
+  @Nullable
+  public String href;
+```
+
+### DefaultAnnotationParam
+Redundant default parameter value assignment
+in `src/jetbrains/buildServer/server/rest/model/agent/Agents.java`
+#### Snippet
+```java
   public String nextHref;
 
   @XmlAttribute(required = false)
   @Nullable
   public String prevHref;
+```
+
+### DefaultAnnotationParam
+Redundant default parameter value assignment
+in `src/jetbrains/buildServer/server/rest/model/problem/Problems.java`
+#### Snippet
+```java
+  @XmlElement(name = "problem") public List<Problem> items;
+  @XmlAttribute public Integer count;
+  @XmlAttribute(required = false) @Nullable public String nextHref;
+  @XmlAttribute(required = false) @Nullable public String prevHref;
+
+```
+
+### DefaultAnnotationParam
+Redundant default parameter value assignment
+in `src/jetbrains/buildServer/server/rest/model/problem/Problems.java`
+#### Snippet
+```java
+  @XmlAttribute public Integer count;
+  @XmlAttribute(required = false) @Nullable public String nextHref;
+  @XmlAttribute(required = false) @Nullable public String prevHref;
+
+  public Problems() {
 ```
 
 ### DefaultAnnotationParam
@@ -8914,30 +8938,6 @@ in `src/jetbrains/buildServer/server/rest/model/problem/ProblemOccurrences.java`
   @XmlAttribute(required = false) @Nullable public String prevHref;
 
   private boolean isDefault;
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `src/jetbrains/buildServer/server/rest/model/problem/Problems.java`
-#### Snippet
-```java
-  @XmlAttribute public Integer count;
-  @XmlAttribute(required = false) @Nullable public String nextHref;
-  @XmlAttribute(required = false) @Nullable public String prevHref;
-
-  public Problems() {
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `src/jetbrains/buildServer/server/rest/model/problem/Problems.java`
-#### Snippet
-```java
-  @XmlElement(name = "problem") public List<Problem> items;
-  @XmlAttribute public Integer count;
-  @XmlAttribute(required = false) @Nullable public String nextHref;
-  @XmlAttribute(required = false) @Nullable public String prevHref;
-
 ```
 
 ### DefaultAnnotationParam
@@ -9005,6 +9005,18 @@ Redundant default parameter value assignment
 in `src/jetbrains/buildServer/server/rest/model/problem/Tests.java`
 #### Snippet
 ```java
+  @XmlAttribute public Integer count;
+  @XmlElement public TestCounters myTestCounters;
+  @XmlAttribute(required = false) @Nullable public String nextHref;
+  @XmlAttribute(required = false) @Nullable public String prevHref;
+
+```
+
+### DefaultAnnotationParam
+Redundant default parameter value assignment
+in `src/jetbrains/buildServer/server/rest/model/problem/Tests.java`
+#### Snippet
+```java
   @XmlElement public TestCounters myTestCounters;
   @XmlAttribute(required = false) @Nullable public String nextHref;
   @XmlAttribute(required = false) @Nullable public String prevHref;
@@ -9014,14 +9026,38 @@ in `src/jetbrains/buildServer/server/rest/model/problem/Tests.java`
 
 ### DefaultAnnotationParam
 Redundant default parameter value assignment
-in `src/jetbrains/buildServer/server/rest/model/problem/Tests.java`
+in `src/jetbrains/buildServer/server/rest/model/buildType/VcsRoots.java`
 #### Snippet
 ```java
-  @XmlAttribute public Integer count;
-  @XmlElement public TestCounters myTestCounters;
-  @XmlAttribute(required = false) @Nullable public String nextHref;
-  @XmlAttribute(required = false) @Nullable public String prevHref;
+  public String nextHref;
 
+  @XmlAttribute(required = false)
+  @Nullable
+  public String prevHref;
+```
+
+### DefaultAnnotationParam
+Redundant default parameter value assignment
+in `src/jetbrains/buildServer/server/rest/model/buildType/VcsRoots.java`
+#### Snippet
+```java
+  public String href;
+
+  @XmlAttribute(required = false)
+  @Nullable
+  public String nextHref;
+```
+
+### DefaultAnnotationParam
+Redundant default parameter value assignment
+in `src/jetbrains/buildServer/server/rest/model/buildType/VcsRoots.java`
+#### Snippet
+```java
+  public Integer count;
+
+  @XmlAttribute(required = false)
+  @Nullable
+  public String href;
 ```
 
 ### DefaultAnnotationParam
@@ -9038,7 +9074,7 @@ in `src/jetbrains/buildServer/server/rest/model/build/Branches.java`
 
 ### DefaultAnnotationParam
 Redundant default parameter value assignment
-in `src/jetbrains/buildServer/server/rest/model/buildType/VcsRoots.java`
+in `src/jetbrains/buildServer/server/rest/model/buildType/VcsRootInstances.java`
 #### Snippet
 ```java
   public String href;
@@ -9050,7 +9086,19 @@ in `src/jetbrains/buildServer/server/rest/model/buildType/VcsRoots.java`
 
 ### DefaultAnnotationParam
 Redundant default parameter value assignment
-in `src/jetbrains/buildServer/server/rest/model/buildType/VcsRoots.java`
+in `src/jetbrains/buildServer/server/rest/model/buildType/VcsRootInstances.java`
+#### Snippet
+```java
+  public String nextHref;
+
+  @XmlAttribute(required = false)
+  @Nullable
+  public String prevHref;
+```
+
+### DefaultAnnotationParam
+Redundant default parameter value assignment
+in `src/jetbrains/buildServer/server/rest/model/Properties.java`
 #### Snippet
 ```java
   public Integer count;
@@ -9058,54 +9106,6 @@ in `src/jetbrains/buildServer/server/rest/model/buildType/VcsRoots.java`
   @XmlAttribute(required = false)
   @Nullable
   public String href;
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `src/jetbrains/buildServer/server/rest/model/buildType/VcsRoots.java`
-#### Snippet
-```java
-  public String nextHref;
-
-  @XmlAttribute(required = false)
-  @Nullable
-  public String prevHref;
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `src/jetbrains/buildServer/server/rest/model/buildType/VcsRootInstances.java`
-#### Snippet
-```java
-  public String href;
-
-  @XmlAttribute(required = false)
-  @Nullable
-  public String nextHref;
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `src/jetbrains/buildServer/server/rest/model/buildType/VcsRootInstances.java`
-#### Snippet
-```java
-  public String nextHref;
-
-  @XmlAttribute(required = false)
-  @Nullable
-  public String prevHref;
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `src/jetbrains/buildServer/server/rest/model/audit/AuditEvents.java`
-#### Snippet
-```java
-
-  @XmlAttribute(required = false) @Nullable public String nextHref;
-  @XmlAttribute(required = false) @Nullable public String prevHref;
-  @XmlAttribute(required = false) @Nullable public String href;
-
 ```
 
 ### DefaultAnnotationParam
@@ -9134,14 +9134,14 @@ in `src/jetbrains/buildServer/server/rest/model/audit/AuditEvents.java`
 
 ### DefaultAnnotationParam
 Redundant default parameter value assignment
-in `src/jetbrains/buildServer/server/rest/model/Properties.java`
+in `src/jetbrains/buildServer/server/rest/model/audit/AuditEvents.java`
 #### Snippet
 ```java
-  public Integer count;
 
-  @XmlAttribute(required = false)
-  @Nullable
-  public String href;
+  @XmlAttribute(required = false) @Nullable public String nextHref;
+  @XmlAttribute(required = false) @Nullable public String prevHref;
+  @XmlAttribute(required = false) @Nullable public String href;
+
 ```
 
 ### DefaultAnnotationParam
@@ -9162,10 +9162,10 @@ in `src/jetbrains/buildServer/server/rest/request/FilesSubResource.java`
 #### Snippet
 ```java
   @GET
-  @Path("files" + "{path:(/.*)?}")
+  @Path(FilesSubResource.CONTENT + "{path:(/.*)?}")
   @Produces({MediaType.WILDCARD})
-  @ApiOperation(value = "Download specific file.", nickname = "downloadFile")
-  public Response getContentAlias(@PathParam("path") @DefaultValue("") final String path, @Context HttpServletRequest request, @Context HttpServletResponse response) {
+  @ApiOperation(value = "getContent", hidden = true)
+  public Response getContent(@PathParam("path") final String path,
 ```
 
 ### DefaultAnnotationParam
@@ -9174,10 +9174,10 @@ in `src/jetbrains/buildServer/server/rest/request/FilesSubResource.java`
 #### Snippet
 ```java
   @GET
-  @Path(FilesSubResource.CONTENT + "{path:(/.*)?}")
+  @Path("files" + "{path:(/.*)?}")
   @Produces({MediaType.WILDCARD})
-  @ApiOperation(value = "getContent", hidden = true)
-  public Response getContent(@PathParam("path") final String path,
+  @ApiOperation(value = "Download specific file.", nickname = "downloadFile")
+  public Response getContentAlias(@PathParam("path") @DefaultValue("") final String path, @Context HttpServletRequest request, @Context HttpServletResponse response) {
 ```
 
 ## RuleId[ruleID=IntegerMultiplicationImplicitCastToLong]
@@ -10351,6 +10351,18 @@ in `src/jetbrains/buildServer/server/rest/data/Locator.java`
 ```
 
 ### ReplaceAssignmentWithOperatorAssignment
+`i = i + 2` could be simplified to 'i += 2'
+in `src/jetbrains/buildServer/server/rest/data/Locator.java`
+#### Snippet
+```java
+      throw new IllegalArgumentException("The number of parameters should be even");
+    }
+    for (int i = 0; i < strings.length; i = i + 2) {
+      result.setDimension(strings[i], strings[i + 1]);
+    }
+```
+
+### ReplaceAssignmentWithOperatorAssignment
 `pos = pos + DIMENSION_COMPLEX_VALUE_START_DELIMITER.length()` could be simplified to 'pos += DIMENSION_COMPLEX_VALUE_START_DELIMITER.length()'
 in `src/jetbrains/buildServer/server/rest/data/Locator.java`
 #### Snippet
@@ -10372,18 +10384,6 @@ in `src/jetbrains/buildServer/server/rest/data/Locator.java`
         pos = pos + DIMENSION_COMPLEX_VALUE_END_DELIMITER.length();
         if (nesting == 0 && stopText == null) return pos;
       } else if (nesting == 0 && stopText != null && text.startsWith(stopText, pos)) {
-```
-
-### ReplaceAssignmentWithOperatorAssignment
-`i = i + 2` could be simplified to 'i += 2'
-in `src/jetbrains/buildServer/server/rest/data/Locator.java`
-#### Snippet
-```java
-      throw new IllegalArgumentException("The number of parameters should be even");
-    }
-    for (int i = 0; i < strings.length; i = i + 2) {
-      result.setDimension(strings[i], strings[i + 1]);
-    }
 ```
 
 ## RuleId[ruleID=SimplifiableBooleanExpression]
@@ -10513,18 +10513,6 @@ Statement lambda can be replaced with expression lambda
 in `src/jetbrains/buildServer/server/rest/model/buildType/BuildType.java`
 #### Snippet
 ```java
-  public PropEntitiesStep getSteps() {
-    return myBuildType == null ? null : ValueWithDefault.decideIncludeByDefault(myFields.isIncluded("steps", false), check(() -> {
-        return new PropEntitiesStep(myBuildType.getSettingsEx(), myFields.getNestedField("steps", Fields.NONE, Fields.LONG), myBeanContext);
-    }));
-  }
-```
-
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
-in `src/jetbrains/buildServer/server/rest/model/buildType/BuildType.java`
-#### Snippet
-```java
   public PropEntitiesTrigger getTriggers() {
     return myBuildType == null ? null : ValueWithDefault.decideIncludeByDefault(myFields.isIncluded("triggers", false), check(() -> {
         return new PropEntitiesTrigger(myBuildType.getSettingsEx(), myFields.getNestedField("triggers", Fields.NONE, Fields.LONG), myBeanContext);
@@ -10540,6 +10528,18 @@ in `src/jetbrains/buildServer/server/rest/model/buildType/BuildType.java`
   public PropEntitiesFeature getFeatures() {
     return myBuildType == null ? null : ValueWithDefault.decideIncludeByDefault(myFields.isIncluded("features", false), check(() -> {
         return new PropEntitiesFeature(myBuildType.getSettingsEx(), myFields.getNestedField("features", Fields.NONE, Fields.LONG), myBeanContext);
+    }));
+  }
+```
+
+### CodeBlock2Expr
+Statement lambda can be replaced with expression lambda
+in `src/jetbrains/buildServer/server/rest/model/buildType/BuildType.java`
+#### Snippet
+```java
+  public PropEntitiesStep getSteps() {
+    return myBuildType == null ? null : ValueWithDefault.decideIncludeByDefault(myFields.isIncluded("steps", false), check(() -> {
+        return new PropEntitiesStep(myBuildType.getSettingsEx(), myFields.getNestedField("steps", Fields.NONE, Fields.LONG), myBeanContext);
     }));
   }
 ```
@@ -10642,30 +10642,6 @@ in `src/jetbrains/buildServer/server/rest/model/metrics/MetricValue.java`
 
 ### CodeBlock2Expr
 Statement lambda can be replaced with expression lambda
-in `src/jetbrains/buildServer/server/rest/model/problem/scope/ProblemOccurrencesTree.java`
-#### Snippet
-```java
-        myFields.isIncluded("name"),
-        () -> {
-          return myNode.getData().get(0).getTypeDescription();
-        }
-      );
-```
-
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
-in `src/jetbrains/buildServer/server/rest/model/project/Project.java`
-#### Snippet
-```java
-    return ValueWithDefault.decideDefault(
-      myFields.isIncluded("uuid", false, false), () -> {
-        return myBeanContext
-                 .getSingletonService(PermissionChecker.class)
-                 .isPermissionGranted(Permission.EDIT_PROJECT, myProject.getProjectId())
-```
-
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
 in `src/jetbrains/buildServer/server/rest/data/BranchFinder.java`
 #### Snippet
 ```java
@@ -10686,6 +10662,30 @@ in `src/jetbrains/buildServer/server/rest/data/BranchFinder.java`
       return ComparisonChain.start()
                             .compareTrueFirst(branchData1.isDefaultBranch(), branchData2.isDefaultBranch())
                             .compare(branchData1.getName(), branchData2.getName())
+```
+
+### CodeBlock2Expr
+Statement lambda can be replaced with expression lambda
+in `src/jetbrains/buildServer/server/rest/model/project/Project.java`
+#### Snippet
+```java
+    return ValueWithDefault.decideDefault(
+      myFields.isIncluded("uuid", false, false), () -> {
+        return myBeanContext
+                 .getSingletonService(PermissionChecker.class)
+                 .isPermissionGranted(Permission.EDIT_PROJECT, myProject.getProjectId())
+```
+
+### CodeBlock2Expr
+Statement lambda can be replaced with expression lambda
+in `src/jetbrains/buildServer/server/rest/model/problem/scope/ProblemOccurrencesTree.java`
+#### Snippet
+```java
+        myFields.isIncluded("name"),
+        () -> {
+          return myNode.getData().get(0).getTypeDescription();
+        }
+      );
 ```
 
 ### CodeBlock2Expr
@@ -10937,11 +10937,11 @@ Field initialization to `null` is redundant
 in `src/jetbrains/buildServer/server/rest/data/UserFinder.java`
 #### Snippet
 ```java
-    }
 
     private Permissions globalPermissions = null;
     private Map<String, Permissions> projectsPermissions = null;
 
+    /**
 ```
 
 ### RedundantFieldInitialization
@@ -10949,11 +10949,11 @@ Field initialization to `null` is redundant
 in `src/jetbrains/buildServer/server/rest/data/UserFinder.java`
 #### Snippet
 ```java
+    }
 
     private Permissions globalPermissions = null;
     private Map<String, Permissions> projectsPermissions = null;
 
-    /**
 ```
 
 ### RedundantFieldInitialization
@@ -10969,18 +10969,6 @@ in `src/jetbrains/buildServer/server/rest/data/parameters/ParametersProviderBack
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `src/jetbrains/buildServer/server/rest/model/change/ChangeStatus.java`
-#### Snippet
-```java
-  private class BuildsCollector implements ItemsProviders.ItemsRetriever<BuildPromotion> {
-    private int myCount = 0;
-    private List<BuildPromotion> myPromotions = null;
-
-    BuildsCollector(@NotNull Fields fields) {
-```
-
-### RedundantFieldInitialization
 Field initialization to `0` is redundant
 in `src/jetbrains/buildServer/server/rest/model/change/ChangeStatus.java`
 #### Snippet
@@ -10990,6 +10978,18 @@ in `src/jetbrains/buildServer/server/rest/model/change/ChangeStatus.java`
     private int myCount = 0;
     private List<BuildPromotion> myPromotions = null;
 
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `src/jetbrains/buildServer/server/rest/model/change/ChangeStatus.java`
+#### Snippet
+```java
+  private class BuildsCollector implements ItemsProviders.ItemsRetriever<BuildPromotion> {
+    private int myCount = 0;
+    private List<BuildPromotion> myPromotions = null;
+
+    BuildsCollector(@NotNull Fields fields) {
 ```
 
 ### RedundantFieldInitialization
@@ -11018,14 +11018,14 @@ in `src/jetbrains/buildServer/server/rest/data/BuildArtifactsFinder.java`
 
 ### RedundantFieldInitialization
 Field initialization to `null` is redundant
-in `src/jetbrains/buildServer/server/rest/model/buildType/BuildType.java`
+in `src/jetbrains/buildServer/server/rest/data/problem/tree/TreeSlicingOptions.java`
 #### Snippet
 ```java
+  private Comparator<ScopeTree.Node<DATA, COUNTERS>> myNodeComparator = null;
+  @Nullable
+  private Integer myMaxTotalNodes = null;
 
-    final BuildTypeOrTemplatePatcher buildTypeOrTemplatePatcher = new BuildTypeOrTemplatePatcher() {
-      private BuildTypeOrTemplate myCached = null;
-
-      @Override
+  public TreeSlicingOptions(int maxChildren,
 ```
 
 ### RedundantFieldInitialization
@@ -11041,27 +11041,15 @@ in `src/jetbrains/buildServer/server/rest/data/problem/tree/TreeSlicingOptions.j
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `src/jetbrains/buildServer/server/rest/data/problem/tree/TreeSlicingOptions.java`
+Field initialization to `false` is redundant
+in `src/jetbrains/buildServer/server/rest/data/PagingItemFilter.java`
 #### Snippet
 ```java
-  private Comparator<ScopeTree.Node<DATA, COUNTERS>> myNodeComparator = null;
-  @Nullable
-  private Integer myMaxTotalNodes = null;
+  @Nullable private final Long myLookupLimit;
+  private final long myActualStart;
+  private boolean myLookupLimitReached = false;
+  @Nullable private T myLastProcessedItem = null;
 
-  public TreeSlicingOptions(int maxChildren,
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `src/jetbrains/buildServer/server/rest/data/BuildPromotionFinder.java`
-#### Snippet
-```java
-    final Date sinceStartDateFinal = sinceStartDate;
-    return new ItemFilter<BuildPromotion>() {
-      private long currentLookAheadCount = 0;
-
-      public boolean isIncluded(@NotNull final BuildPromotion item) {
 ```
 
 ### RedundantFieldInitialization
@@ -11077,15 +11065,27 @@ in `src/jetbrains/buildServer/server/rest/data/PagingItemFilter.java`
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `src/jetbrains/buildServer/server/rest/data/PagingItemFilter.java`
+Field initialization to `null` is redundant
+in `src/jetbrains/buildServer/server/rest/model/buildType/BuildType.java`
 #### Snippet
 ```java
-  @Nullable private final Long myLookupLimit;
-  private final long myActualStart;
-  private boolean myLookupLimitReached = false;
-  @Nullable private T myLastProcessedItem = null;
 
+    final BuildTypeOrTemplatePatcher buildTypeOrTemplatePatcher = new BuildTypeOrTemplatePatcher() {
+      private BuildTypeOrTemplate myCached = null;
+
+      @Override
+```
+
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `src/jetbrains/buildServer/server/rest/data/BuildPromotionFinder.java`
+#### Snippet
+```java
+    final Date sinceStartDateFinal = sinceStartDate;
+    return new ItemFilter<BuildPromotion>() {
+      private long currentLookAheadCount = 0;
+
+      public boolean isIncluded(@NotNull final BuildPromotion item) {
 ```
 
 ### RedundantFieldInitialization
@@ -11129,23 +11129,23 @@ Field initialization to `0` is redundant
 in `src/jetbrains/buildServer/server/rest/data/Locator.java`
 #### Snippet
 ```java
+  private static class LevelData {
+    private int myMaxLevel = 0;
+    private int myMinLevel = 0;
+    private int myCurrentLevel = 0;
+
+```
+
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `src/jetbrains/buildServer/server/rest/data/Locator.java`
+#### Snippet
+```java
 
   private static class LevelData {
     private int myMaxLevel = 0;
     private int myMinLevel = 0;
     private int myCurrentLevel = 0;
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `src/jetbrains/buildServer/server/rest/data/Locator.java`
-#### Snippet
-```java
-  private final String myRawValue;
-  @NotNull private final Metadata myMetadata;
-  private boolean modified = false;
-  private final Map<String, List<String>> myDimensions;
-  private final String mySingleValue;
 ```
 
 ### RedundantFieldInitialization
@@ -11161,15 +11161,15 @@ in `src/jetbrains/buildServer/server/rest/data/Locator.java`
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `0` is redundant
+Field initialization to `false` is redundant
 in `src/jetbrains/buildServer/server/rest/data/Locator.java`
 #### Snippet
 ```java
-  private static class LevelData {
-    private int myMaxLevel = 0;
-    private int myMinLevel = 0;
-    private int myCurrentLevel = 0;
-
+  private final String myRawValue;
+  @NotNull private final Metadata myMetadata;
+  private boolean modified = false;
+  private final Map<String, List<String>> myDimensions;
+  private final String mySingleValue;
 ```
 
 ### RedundantFieldInitialization
@@ -11201,6 +11201,18 @@ Field initialization to `false` is redundant
 in `src/jetbrains/buildServer/server/rest/data/BranchFinder.java`
 #### Snippet
 ```java
+    private String branchName; // name or display name of the branch, if set. Even if set, there might be other conditions set
+    private boolean matchesAllBranches = false;
+    private boolean matchesDefaultBranchOrNotBranched = false;
+    private boolean unspecified = false;
+
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `src/jetbrains/buildServer/server/rest/data/BranchFinder.java`
+#### Snippet
+```java
     private boolean matchesAllBranches = false;
     private boolean matchesDefaultBranchOrNotBranched = false;
     private boolean unspecified = false;
@@ -11218,18 +11230,6 @@ in `src/jetbrains/buildServer/server/rest/data/BranchFinder.java`
     private boolean matchesAllBranches = false;
     private boolean matchesDefaultBranchOrNotBranched = false;
     private boolean unspecified = false;
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `src/jetbrains/buildServer/server/rest/data/BranchFinder.java`
-#### Snippet
-```java
-    private String branchName; // name or display name of the branch, if set. Even if set, there might be other conditions set
-    private boolean matchesAllBranches = false;
-    private boolean matchesDefaultBranchOrNotBranched = false;
-    private boolean unspecified = false;
-
 ```
 
 ### RedundantFieldInitialization
@@ -11332,7 +11332,7 @@ public class RequestWrapper extends HttpServletRequestWrapper {
 ## RuleId[ruleID=HtmlWrongAttributeValue]
 ### HtmlWrongAttributeValue
 Wrong attribute value
-in `log/indexing-diagnostic/rest-api.f6f2b48a/diagnostic-2023-01-11-11-39-45.329.html`
+in `log/indexing-diagnostic/rest-api.f6f2b48a/diagnostic-2023-01-11-12-08-15.620.html`
 #### Snippet
 ```java
               <td>0</td>
@@ -11357,18 +11357,6 @@ public class PartialUpdateError extends RuntimeException {
 
 ## RuleId[ruleID=StringBufferReplaceableByStringBuilder]
 ### StringBufferReplaceableByStringBuilder
-`StringBuffer sb` may be declared as 'StringBuilder'
-in `src/jetbrains/buildServer/server/rest/model/PagerDataImpl.java`
-#### Snippet
-```java
-    String path = uri.getRawPath();
-    assert path != null;
-    StringBuffer sb = new StringBuffer();
-
-    if (pathPrefixToExclude != null && path.startsWith(pathPrefixToExclude)) {
-```
-
-### StringBufferReplaceableByStringBuilder
 `StringBuffer result` may be declared as 'StringBuilder'
 in `src/jetbrains/buildServer/server/rest/request/DebugRequest.java`
 #### Snippet
@@ -11378,6 +11366,18 @@ in `src/jetbrains/buildServer/server/rest/request/DebugRequest.java`
     StringBuffer result = new StringBuffer();
     result.append("StdOut:").append(execResult.getStdout()).append("\n");
     result.append("StdErr: ").append(execResult.getStderr()).append("\n");
+```
+
+### StringBufferReplaceableByStringBuilder
+`StringBuffer sb` may be declared as 'StringBuilder'
+in `src/jetbrains/buildServer/server/rest/model/PagerDataImpl.java`
+#### Snippet
+```java
+    String path = uri.getRawPath();
+    assert path != null;
+    StringBuffer sb = new StringBuffer();
+
+    if (pathPrefixToExclude != null && path.startsWith(pathPrefixToExclude)) {
 ```
 
 ### StringBufferReplaceableByStringBuilder
@@ -11420,18 +11420,6 @@ in `src/jetbrains/buildServer/server/rest/data/BuildArtifactsFinder.java`
 
 ### ZeroLengthArrayInitialization
 Allocation of zero length array
-in `src/jetbrains/buildServer/server/rest/data/BuildPromotionFinder.java`
-#### Snippet
-```java
-      for (Locator partialLocator : partialLocators) {
-        partialLocator.setDimensionIfNotPresent(PagerData.COUNT, "1");  //limit to single item per strob item by default
-        final String finalBuildLocator = Locator.createLocator(strobBuildLocator, partialLocator, new String[]{}).getStringRepresentation();
-        strobResult.add(getItemHolder(getItems(finalBuildLocator).myEntries));
-      }
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
 in `src/jetbrains/buildServer/server/rest/data/problem/Orders.java`
 #### Snippet
 ```java
@@ -11444,14 +11432,14 @@ in `src/jetbrains/buildServer/server/rest/data/problem/Orders.java`
 
 ### ZeroLengthArrayInitialization
 Allocation of zero length array
-in `src/jetbrains/buildServer/server/rest/data/AbstractFinder.java`
+in `src/jetbrains/buildServer/server/rest/data/BuildPromotionFinder.java`
 #### Snippet
 ```java
-
-  private final String[] myKnownDimensions;
-  private String[] myHiddenDimensions = new String[]{};
-
-  public AbstractFinder(@NotNull final String... knownDimensions) {
+      for (Locator partialLocator : partialLocators) {
+        partialLocator.setDimensionIfNotPresent(PagerData.COUNT, "1");  //limit to single item per strob item by default
+        final String finalBuildLocator = Locator.createLocator(strobBuildLocator, partialLocator, new String[]{}).getStringRepresentation();
+        strobResult.add(getItemHolder(getItems(finalBuildLocator).myEntries));
+      }
 ```
 
 ### ZeroLengthArrayInitialization
@@ -11476,6 +11464,18 @@ in `src/jetbrains/buildServer/server/graphql/resolver/Mutation.java`
         String[] bts = project.getBuildTypes().stream().map(bt -> bt.getInternalId()).collect(Collectors.toSet()).toArray(new String[0]);
         myAgentTypeManager.includeRunConfigurationsToAllowed(agent.getAgentTypeId(), bts);
 
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `src/jetbrains/buildServer/server/rest/data/AbstractFinder.java`
+#### Snippet
+```java
+
+  private final String[] myKnownDimensions;
+  private String[] myHiddenDimensions = new String[]{};
+
+  public AbstractFinder(@NotNull final String... knownDimensions) {
 ```
 
 ### ZeroLengthArrayInitialization
@@ -11614,18 +11614,6 @@ public class TreeSlicingOptions<DATA, COUNTERS extends TreeCounters<COUNTERS>> {
 ```
 
 ### UnusedAssignment
-Variable `myNodeComparator` initializer `null` is redundant
-in `src/jetbrains/buildServer/server/rest/data/problem/tree/TreeSlicingOptions.java`
-#### Snippet
-```java
-  private final Comparator<DATA> myDataComparator;
-  @Nullable
-  private Comparator<ScopeTree.Node<DATA, COUNTERS>> myNodeComparator = null;
-  @Nullable
-  private Integer myMaxTotalNodes = null;
-```
-
-### UnusedAssignment
 Variable `myMaxTotalNodes` initializer `null` is redundant
 in `src/jetbrains/buildServer/server/rest/data/problem/tree/TreeSlicingOptions.java`
 #### Snippet
@@ -11635,6 +11623,18 @@ in `src/jetbrains/buildServer/server/rest/data/problem/tree/TreeSlicingOptions.j
   private Integer myMaxTotalNodes = null;
 
   public TreeSlicingOptions(int maxChildren,
+```
+
+### UnusedAssignment
+Variable `myNodeComparator` initializer `null` is redundant
+in `src/jetbrains/buildServer/server/rest/data/problem/tree/TreeSlicingOptions.java`
+#### Snippet
+```java
+  private final Comparator<DATA> myDataComparator;
+  @Nullable
+  private Comparator<ScopeTree.Node<DATA, COUNTERS>> myNodeComparator = null;
+  @Nullable
+  private Integer myMaxTotalNodes = null;
 ```
 
 ### UnusedAssignment
@@ -11650,18 +11650,6 @@ in `src/jetbrains/buildServer/server/rest/model/change/VcsRoot.java`
 ```
 
 ### UnusedAssignment
-Variable `LOG` initializer `Logger.getInstance(ExtensionHolderProviderFactory.class.getName())` is redundant
-in `src/jetbrains/buildServer/server/rest/jersey/ExtensionHolderProviderFactory.java`
-#### Snippet
-```java
- */
-public class ExtensionHolderProviderFactory implements IoCComponentProviderFactory {
-  private Logger LOG = Logger.getInstance(ExtensionHolderProviderFactory.class.getName());
-
-  private final ExtensionHolder myExtensionHolder;
-```
-
-### UnusedAssignment
 Variable `memoryHog` initializer `null` is redundant
 in `src/jetbrains/buildServer/server/rest/request/DebugRequest.java`
 #### Snippet
@@ -11671,6 +11659,18 @@ in `src/jetbrains/buildServer/server/rest/request/DebugRequest.java`
     List<byte[]> memoryHog = null;
     if (memoryToAllocateBytes != null) {
       memoryHog = new ArrayList<>(memoryChunksCount);
+```
+
+### UnusedAssignment
+Variable `LOG` initializer `Logger.getInstance(ExtensionHolderProviderFactory.class.getName())` is redundant
+in `src/jetbrains/buildServer/server/rest/jersey/ExtensionHolderProviderFactory.java`
+#### Snippet
+```java
+ */
+public class ExtensionHolderProviderFactory implements IoCComponentProviderFactory {
+  private Logger LOG = Logger.getInstance(ExtensionHolderProviderFactory.class.getName());
+
+  private final ExtensionHolder myExtensionHolder;
 ```
 
 ### UnusedAssignment
@@ -11946,6 +11946,18 @@ in `src/jetbrains/buildServer/server/rest/model/problem/TestOccurrence.java`
 ```
 
 ### ConstantValue
+Condition `experimental == null` is always `false`
+in `src/jetbrains/buildServer/server/rest/model/metrics/Metrics.java`
+#### Snippet
+```java
+
+    final Boolean experimental = fields.isIncluded("experimental", false, false);
+    final List<MetricValue> metricValues = metricsReader.queryBuilder().withExperimental(experimental == null || experimental).build();
+    
+    metrics = ValueWithDefault.decideDefault(fields.isIncluded("metric", true, true), () -> {
+```
+
+### ConstantValue
 Condition `build != null && !(build instanceof DummyBuild)` is always `false`
 in `src/jetbrains/buildServer/server/rest/data/change/ChangeUtil.java`
 #### Snippet
@@ -11970,15 +11982,15 @@ in `src/jetbrains/buildServer/server/rest/data/change/ChangeUtil.java`
 ```
 
 ### ConstantValue
-Condition `experimental == null` is always `false`
-in `src/jetbrains/buildServer/server/rest/model/metrics/Metrics.java`
+Condition `agentPool == null` is always `false`
+in `src/jetbrains/buildServer/server/rest/request/AgentRequest.java`
 #### Snippet
 ```java
+    final SBuildAgent agent = myAgentFinder.getItem(agentLocator);
+    final jetbrains.buildServer.serverSide.agentPools.AgentPool agentPool = myAgentPoolFinder.getAgentPool(agent);
+    return agentPool == null ? null : new AgentPool(agentPool, new Fields(fields), myBeanContext);
+  }
 
-    final Boolean experimental = fields.isIncluded("experimental", false, false);
-    final List<MetricValue> metricValues = metricsReader.queryBuilder().withExperimental(experimental == null || experimental).build();
-    
-    metrics = ValueWithDefault.decideDefault(fields.isIncluded("metric", true, true), () -> {
 ```
 
 ### ConstantValue
@@ -12003,18 +12015,6 @@ in `src/jetbrains/buildServer/server/rest/model/agent/Agent.java`
     if (id != null) locatorText += (!locatorText.isEmpty() ? "," : "") + AgentFinder.DIMENSION_ID + ":" + id;
     if (locatorText.isEmpty()) {
       locatorText = locator;
-```
-
-### ConstantValue
-Condition `agentPool == null` is always `false`
-in `src/jetbrains/buildServer/server/rest/request/AgentRequest.java`
-#### Snippet
-```java
-    final SBuildAgent agent = myAgentFinder.getItem(agentLocator);
-    final jetbrains.buildServer.serverSide.agentPools.AgentPool agentPool = myAgentPoolFinder.getAgentPool(agent);
-    return agentPool == null ? null : new AgentPool(agentPool, new Fields(fields), myBeanContext);
-  }
-
 ```
 
 ### ConstantValue
@@ -12166,10 +12166,10 @@ Condition `!(build instanceof RunningBuildEx)` is always `false` when reached
 in `src/jetbrains/buildServer/server/rest/request/BuildRequest.java`
 #### Snippet
 ```java
-  private void logMessage(@NotNull final SBuild build, final String lines) {
-//    build.getBuildLog().message(lines, Status.NORMAL, MessageAttrs.attrs());
+      throw new NotFoundException("Build with id " + buildPromotion.getId() + " is not in the running or finished state");
+    }
     if (build.isFinished() || !(build instanceof RunningBuildEx)) {
-      throw new NotFoundException("Build with id " + build.getBuildId() + " is already finished");
+      throw new NotFoundException("Build with id " + buildPromotion.getId() + " is already finished");
     }
 ```
 
@@ -12178,10 +12178,10 @@ Condition `!(build instanceof RunningBuildEx)` is always `false` when reached
 in `src/jetbrains/buildServer/server/rest/request/BuildRequest.java`
 #### Snippet
 ```java
-      throw new NotFoundException("Build with id " + buildPromotion.getId() + " is not in the running or finished state");
-    }
+  private void logMessage(@NotNull final SBuild build, final String lines) {
+//    build.getBuildLog().message(lines, Status.NORMAL, MessageAttrs.attrs());
     if (build.isFinished() || !(build instanceof RunningBuildEx)) {
-      throw new NotFoundException("Build with id " + buildPromotion.getId() + " is already finished");
+      throw new NotFoundException("Build with id " + build.getBuildId() + " is already finished");
     }
 ```
 
@@ -12591,18 +12591,6 @@ in `src/jetbrains/buildServer/server/rest/model/buildType/PropEntitiesArtifactDe
 in `src/jetbrains/buildServer/server/rest/model/issue/IssueUsages.java`
 #### Snippet
 ```java
-  public List<IssueUsage> getIssueUsages() {
-    return ValueWithDefault.decideDefault(myFields.isIncluded("issueUsage", false), new ValueWithDefault.Value<List<IssueUsage>>() {
-             @Nullable
-             public List<IssueUsage> get() {
-               Collection<Issue> issues = getRelatedIssues();
-```
-
-### DataFlowIssue
-@Nullable method 'get' always returns a non-null value
-in `src/jetbrains/buildServer/server/rest/model/issue/IssueUsages.java`
-#### Snippet
-```java
   public Integer getCount() {
     return ValueWithDefault.decideDefault(myFields.isIncluded("count", false), new ValueWithDefault.Value<Integer>() {
       @Nullable
@@ -12612,26 +12600,14 @@ in `src/jetbrains/buildServer/server/rest/model/issue/IssueUsages.java`
 
 ### DataFlowIssue
 @Nullable method 'get' always returns a non-null value
-in `src/jetbrains/buildServer/server/rest/model/files/File.java`
+in `src/jetbrains/buildServer/server/rest/model/issue/IssueUsages.java`
 #### Snippet
 ```java
-  public File getParent() {
-    return parent == null ? null : ValueWithDefault.decideDefault(myFields.isIncluded("parent", false), new ValueWithDefault.Value<File>() {
-      @Nullable
-      public File get() {
-        return new File(parent, null, fileApiUrlBuilder, myFields.getNestedField("parent",Fields.SHORT, Fields.SHORT), myBeanContext);
-```
-
-### DataFlowIssue
-Argument `fileApiUrlBuilder` might be null
-in `src/jetbrains/buildServer/server/rest/model/files/File.java`
-#### Snippet
-```java
-      @Nullable
-      public File get() {
-        return new File(parent, null, fileApiUrlBuilder, myFields.getNestedField("parent",Fields.SHORT, Fields.SHORT), myBeanContext);
-      }
-    });
+  public List<IssueUsage> getIssueUsages() {
+    return ValueWithDefault.decideDefault(myFields.isIncluded("issueUsage", false), new ValueWithDefault.Value<List<IssueUsage>>() {
+             @Nullable
+             public List<IssueUsage> get() {
+               Collection<Issue> issues = getRelatedIssues();
 ```
 
 ### DataFlowIssue
@@ -12660,14 +12636,26 @@ in `src/jetbrains/buildServer/server/rest/model/files/File.java`
 
 ### DataFlowIssue
 @Nullable method 'get' always returns a non-null value
-in `src/jetbrains/buildServer/server/rest/model/debug/Sessions.java`
+in `src/jetbrains/buildServer/server/rest/model/files/File.java`
 #### Snippet
 ```java
-
-    sessions = ValueWithDefault.decideDefault(fields.isIncluded("session", true), new ValueWithDefault.Value<Collection<Session>>() {
+  public File getParent() {
+    return parent == null ? null : ValueWithDefault.decideDefault(myFields.isIncluded("parent", false), new ValueWithDefault.Value<File>() {
       @Nullable
-      @Override
-      public Collection<Session> get() {
+      public File get() {
+        return new File(parent, null, fileApiUrlBuilder, myFields.getNestedField("parent",Fields.SHORT, Fields.SHORT), myBeanContext);
+```
+
+### DataFlowIssue
+Argument `fileApiUrlBuilder` might be null
+in `src/jetbrains/buildServer/server/rest/model/files/File.java`
+#### Snippet
+```java
+      @Nullable
+      public File get() {
+        return new File(parent, null, fileApiUrlBuilder, myFields.getNestedField("parent",Fields.SHORT, Fields.SHORT), myBeanContext);
+      }
+    });
 ```
 
 ### DataFlowIssue
@@ -12680,6 +12668,18 @@ in `src/jetbrains/buildServer/server/rest/model/debug/Sessions.java`
     final int index = userKeyAttribute.lastIndexOf("{id=");
     if (!userKeyAttribute.endsWith("}") || index < 0) {
       throw new Exception("Unparsable attribute value '" + userKeyAttribute + "'");
+```
+
+### DataFlowIssue
+@Nullable method 'get' always returns a non-null value
+in `src/jetbrains/buildServer/server/rest/model/debug/Sessions.java`
+#### Snippet
+```java
+
+    sessions = ValueWithDefault.decideDefault(fields.isIncluded("session", true), new ValueWithDefault.Value<Collection<Session>>() {
+      @Nullable
+      @Override
+      public Collection<Session> get() {
 ```
 
 ### DataFlowIssue
@@ -12755,18 +12755,6 @@ in `src/jetbrains/buildServer/server/graphql/resolver/AgentBuildTypeEdgeResolver
 ```
 
 ### DataFlowIssue
-Argument `basePath` might be null
-in `src/jetbrains/buildServer/server/rest/data/BuildArtifactsFinder.java`
-#### Snippet
-```java
-
-    final String normalizedName = removeLeadingDelimeters(name);
-    if (!normalizedName.startsWith(removeLeadingDelimeters(basePath))) {
-      return name;
-    }
-```
-
-### DataFlowIssue
 Variable is already assigned to this value
 in `src/jetbrains/buildServer/server/rest/data/BuildArtifactsFinder.java`
 #### Snippet
@@ -12788,6 +12776,18 @@ in `src/jetbrains/buildServer/server/rest/data/BuildArtifactsFinder.java`
           archiveChildrenNestingLevel = 0;
         }
       } else {
+```
+
+### DataFlowIssue
+Argument `basePath` might be null
+in `src/jetbrains/buildServer/server/rest/data/BuildArtifactsFinder.java`
+#### Snippet
+```java
+
+    final String normalizedName = removeLeadingDelimeters(name);
+    if (!normalizedName.startsWith(removeLeadingDelimeters(basePath))) {
+      return name;
+    }
 ```
 
 ### DataFlowIssue
@@ -12851,27 +12851,39 @@ in `src/jetbrains/buildServer/server/rest/model/build/Tag.java`
 ```
 
 ### DataFlowIssue
-Argument `submittedParams.name` might be null
-in `src/jetbrains/buildServer/server/rest/model/buildType/BuildType.java`
+Method invocation `getId` may produce `NullPointerException`
+in `src/jetbrains/buildServer/server/rest/data/problem/scope/ProblemOccurrencesTreeCollector.java`
 #### Snippet
 ```java
+  private static final Comparator<BuildProblem> NEW_FAILED_FIRST_THEN_BY_ID = (bp1, bp2) -> {
+    if(!(bp1 instanceof BuildProblemImpl) || !(bp2 instanceof BuildProblemImpl)) {
+      return Integer.compare(bp1.getId(), bp2.getId());
     }
 
-    final BuildTypeOrTemplate resultingBuildType = createEmptyBuildTypeOrTemplate(serviceLocator, project, submittedParams.name);
-
-    try {
 ```
 
 ### DataFlowIssue
-@Nullable method 'get' always returns a non-null value
-in `src/jetbrains/buildServer/server/rest/model/NamedDatas.java`
+Method invocation `getId` may produce `NullPointerException`
+in `src/jetbrains/buildServer/server/rest/data/problem/scope/ProblemOccurrencesTreeCollector.java`
 #### Snippet
 ```java
-    count = ValueWithDefault.decideIncludeByDefault(fields.isIncluded("count"), properties.size());
-    entries = ValueWithDefault.decideIncludeByDefault(fields.isIncluded("data"), new ValueWithDefault.Value<List<NamedData>>() {
-      @Nullable
-      @Override
-      public List<NamedData> get() {
+  private static final Comparator<BuildProblem> NEW_FAILED_FIRST_THEN_BY_ID = (bp1, bp2) -> {
+    if(!(bp1 instanceof BuildProblemImpl) || !(bp2 instanceof BuildProblemImpl)) {
+      return Integer.compare(bp1.getId(), bp2.getId());
+    }
+
+```
+
+### DataFlowIssue
+Argument `user` might be null
+in `src/jetbrains/buildServer/server/rest/request/TwoFactorRequest.java`
+#### Snippet
+```java
+  public TwoFactorCredentials setupTwoFactor() {
+    final SUser user = myUserFinder.getCurrentUser();
+    if (myKeysUpdater.hasEnabled2FA(user)) {
+      throw new AccessDeniedException(user, "You already have enabled 2FA");
+    }
 ```
 
 ### DataFlowIssue
@@ -12899,39 +12911,63 @@ in `src/jetbrains/buildServer/server/rest/request/TwoFactorRequest.java`
 ```
 
 ### DataFlowIssue
-Argument `user` might be null
-in `src/jetbrains/buildServer/server/rest/request/TwoFactorRequest.java`
+@Nullable method 'get' always returns a non-null value
+in `src/jetbrains/buildServer/server/rest/model/NamedDatas.java`
 #### Snippet
 ```java
-  public TwoFactorCredentials setupTwoFactor() {
-    final SUser user = myUserFinder.getCurrentUser();
-    if (myKeysUpdater.hasEnabled2FA(user)) {
-      throw new AccessDeniedException(user, "You already have enabled 2FA");
-    }
+    count = ValueWithDefault.decideIncludeByDefault(fields.isIncluded("count"), properties.size());
+    entries = ValueWithDefault.decideIncludeByDefault(fields.isIncluded("data"), new ValueWithDefault.Value<List<NamedData>>() {
+      @Nullable
+      @Override
+      public List<NamedData> get() {
 ```
 
 ### DataFlowIssue
-Method invocation `getId` may produce `NullPointerException`
-in `src/jetbrains/buildServer/server/rest/data/problem/scope/ProblemOccurrencesTreeCollector.java`
+Method invocation `getApprovalRules` may produce `NullPointerException`
+in `src/jetbrains/buildServer/server/rest/model/build/approval/ApprovalInfo.java`
 #### Snippet
 ```java
-  private static final Comparator<BuildProblem> NEW_FAILED_FIRST_THEN_BY_ID = (bp1, bp2) -> {
-    if(!(bp1 instanceof BuildProblemImpl) || !(bp2 instanceof BuildProblemImpl)) {
-      return Integer.compare(bp1.getId(), bp2.getId());
-    }
-
+      try {
+        List<ApprovalRule> groupRules = myConfiguration
+          .getApprovalRules() // asserted by myApprovalFeatureEnabled
+          .stream()
+          .filter(rule -> rule instanceof GroupApprovalRule)
 ```
 
 ### DataFlowIssue
-Method invocation `getId` may produce `NullPointerException`
-in `src/jetbrains/buildServer/server/rest/data/problem/scope/ProblemOccurrencesTreeCollector.java`
+Method invocation `getApprovalRules` may produce `NullPointerException`
+in `src/jetbrains/buildServer/server/rest/model/build/approval/ApprovalInfo.java`
 #### Snippet
 ```java
-  private static final Comparator<BuildProblem> NEW_FAILED_FIRST_THEN_BY_ID = (bp1, bp2) -> {
-    if(!(bp1 instanceof BuildProblemImpl) || !(bp2 instanceof BuildProblemImpl)) {
-      return Integer.compare(bp1.getId(), bp2.getId());
+      try {
+        List<ApprovalRule> userRules = myConfiguration
+          .getApprovalRules() // asserted by myApprovalFeatureEnabled
+          .stream()
+          .filter(rule -> rule instanceof UserApprovalRule)
+```
+
+### DataFlowIssue
+Argument `submittedParams.name` might be null
+in `src/jetbrains/buildServer/server/rest/model/buildType/BuildType.java`
+#### Snippet
+```java
     }
 
+    final BuildTypeOrTemplate resultingBuildType = createEmptyBuildTypeOrTemplate(serviceLocator, project, submittedParams.name);
+
+    try {
+```
+
+### DataFlowIssue
+Argument `locator.getSingleValueAsLong()` might be null
+in `src/jetbrains/buildServer/server/rest/data/BuildPromotionFinder.java`
+#### Snippet
+```java
+    if (locator.isSingleValue()) {
+      try {
+        long foundPromotionId = getBuildPromotionByIdOrByBuildId(locator.getSingleValueAsLong()).getId();
+        result.add(item -> foundPromotionId == item.getId());
+      } catch (NotFoundException e) {
 ```
 
 ### DataFlowIssue
@@ -12956,42 +12992,6 @@ in `src/jetbrains/buildServer/server/rest/data/BuildPromotionFinder.java`
         return Long.parseLong(text);
       } catch (NumberFormatException e) {
         return null;
-```
-
-### DataFlowIssue
-Argument `locator.getSingleValueAsLong()` might be null
-in `src/jetbrains/buildServer/server/rest/data/BuildPromotionFinder.java`
-#### Snippet
-```java
-    if (locator.isSingleValue()) {
-      try {
-        long foundPromotionId = getBuildPromotionByIdOrByBuildId(locator.getSingleValueAsLong()).getId();
-        result.add(item -> foundPromotionId == item.getId());
-      } catch (NotFoundException e) {
-```
-
-### DataFlowIssue
-Method invocation `getApprovalRules` may produce `NullPointerException`
-in `src/jetbrains/buildServer/server/rest/model/build/approval/ApprovalInfo.java`
-#### Snippet
-```java
-      try {
-        List<ApprovalRule> userRules = myConfiguration
-          .getApprovalRules() // asserted by myApprovalFeatureEnabled
-          .stream()
-          .filter(rule -> rule instanceof UserApprovalRule)
-```
-
-### DataFlowIssue
-Method invocation `getApprovalRules` may produce `NullPointerException`
-in `src/jetbrains/buildServer/server/rest/model/build/approval/ApprovalInfo.java`
-#### Snippet
-```java
-      try {
-        List<ApprovalRule> groupRules = myConfiguration
-          .getApprovalRules() // asserted by myApprovalFeatureEnabled
-          .stream()
-          .filter(rule -> rule instanceof GroupApprovalRule)
 ```
 
 ### DataFlowIssue
@@ -13031,6 +13031,18 @@ in `src/jetbrains/buildServer/server/rest/model/change/VcsRoot.java`
 ```
 
 ### DataFlowIssue
+Method invocation `toUpperCase` may produce `NullPointerException`
+in `src/jetbrains/buildServer/server/rest/request/DebugRequest.java`
+#### Snippet
+```java
+    //TeamCity API: ideally, should be possible to pass custom value as requestor to allow debugging the origin of the request
+    if (StringUtil.isEmpty(requestorText)) return OperationRequestor.COMMIT_HOOK; //todo: seems like should be unknown or user by default
+    return OperationRequestor.valueOf(requestorText.toUpperCase());
+  }
+
+```
+
+### DataFlowIssue
 @Nullable method 'getBuildTypeIds' always returns a non-null value
 in `src/jetbrains/buildServer/server/rest/data/mutes/MuteFinder.java`
 #### Snippet
@@ -13052,18 +13064,6 @@ in `src/jetbrains/buildServer/server/rest/APIController.java`
         myParsedValues = currentValue.split(StringUtil.isEmpty(delimiter) ? "," : delimiter);
         for (int i = 0; i < myParsedValues.length; i++) {
           myParsedValues[i] = myParsedValues[i].trim();
-```
-
-### DataFlowIssue
-Method invocation `length` may produce `NullPointerException`
-in `src/jetbrains/buildServer/server/rest/data/Locator.java`
-#### Snippet
-```java
-                                     final boolean extendedMode) {
-    if ((supportedDimensions == null || !Arrays.asList(supportedDimensions).contains(name)) && !hiddenSupportedDimensions.contains(name)) {
-      for (int i = 0; i < name.length(); i++) {
-        if (!Character.isLetter(name.charAt(i)) && !Character.isDigit(name.charAt(i)) && !(name.charAt(i) == '-' && extendedMode)) return false;
-      }
 ```
 
 ### DataFlowIssue
@@ -13091,15 +13091,15 @@ in `src/jetbrains/buildServer/server/rest/data/Locator.java`
 ```
 
 ### DataFlowIssue
-Method invocation `toUpperCase` may produce `NullPointerException`
-in `src/jetbrains/buildServer/server/rest/request/DebugRequest.java`
+Method invocation `length` may produce `NullPointerException`
+in `src/jetbrains/buildServer/server/rest/data/Locator.java`
 #### Snippet
 ```java
-    //TeamCity API: ideally, should be possible to pass custom value as requestor to allow debugging the origin of the request
-    if (StringUtil.isEmpty(requestorText)) return OperationRequestor.COMMIT_HOOK; //todo: seems like should be unknown or user by default
-    return OperationRequestor.valueOf(requestorText.toUpperCase());
-  }
-
+                                     final boolean extendedMode) {
+    if ((supportedDimensions == null || !Arrays.asList(supportedDimensions).contains(name)) && !hiddenSupportedDimensions.contains(name)) {
+      for (int i = 0; i < name.length(); i++) {
+        if (!Character.isLetter(name.charAt(i)) && !Character.isDigit(name.charAt(i)) && !(name.charAt(i) == '-' && extendedMode)) return false;
+      }
 ```
 
 ### DataFlowIssue
@@ -13119,11 +13119,11 @@ in `src/jetbrains/buildServer/server/rest/model/problem/ProblemOccurrences.java`
 in `src/jetbrains/buildServer/server/rest/model/agent/Compatibility.java`
 #### Snippet
 ```java
-    unmetRequirements = compatibility.isCompatible() ? null : ValueWithDefault.decideIncludeByDefault(fields.isIncluded("unmetRequirements", true, true),
-                                                                                                      new ValueWithDefault.Value<Requirements>() {
+    final boolean sameAgent = contextAgent != null && compatibility.getAgent().getId() == contextAgent.getId();
+    agent = ValueWithDefault.decideIncludeByDefault(fields.isIncluded("agent", !sameAgent, !sameAgent), new ValueWithDefault.Value<Agent>() {
       @Nullable
-      public Requirements get() {
-        return new Requirements(compatibility.getDescription(), fields.getNestedField("unmetRequirements", Fields.LONG, Fields.LONG), context);
+      public Agent get() {
+        return new Agent(compatibility.getAgent(), fields.getNestedField("agent", Fields.SHORT, Fields.SHORT), context);
 ```
 
 ### DataFlowIssue
@@ -13143,35 +13143,11 @@ in `src/jetbrains/buildServer/server/rest/model/agent/Compatibility.java`
 in `src/jetbrains/buildServer/server/rest/model/agent/Compatibility.java`
 #### Snippet
 ```java
-    final boolean sameAgent = contextAgent != null && compatibility.getAgent().getId() == contextAgent.getId();
-    agent = ValueWithDefault.decideIncludeByDefault(fields.isIncluded("agent", !sameAgent, !sameAgent), new ValueWithDefault.Value<Agent>() {
+    unmetRequirements = compatibility.isCompatible() ? null : ValueWithDefault.decideIncludeByDefault(fields.isIncluded("unmetRequirements", true, true),
+                                                                                                      new ValueWithDefault.Value<Requirements>() {
       @Nullable
-      public Agent get() {
-        return new Agent(compatibility.getAgent(), fields.getNestedField("agent", Fields.SHORT, Fields.SHORT), context);
-```
-
-### DataFlowIssue
-Argument `parameterName` might be null
-in `src/jetbrains/buildServer/server/rest/model/buildType/BuildTypeUtil.java`
-#### Snippet
-```java
-    }
-
-    Parameter parameter = parametrizedEntity.getParameter(parameterName);
-    if (parameter != null) {
-      final ControlDescription typeSpec = parameter.getControlDescription();
-```
-
-### DataFlowIssue
-Argument `parameterName` might be null
-in `src/jetbrains/buildServer/server/rest/model/buildType/BuildTypeUtil.java`
-#### Snippet
-```java
-      throw new BadRequestException(nameItProperty ? "Property" : "Parameter" + " name cannot be empty.");
-    }
-    Parameter parameter = parametrizedEntity.getParameter(parameterName);
-    if (parameter == null) {
-      throw new NotFoundException((nameItProperty ? "No property" : "No parameter") + " with name '" + parameterName + "' is found.");
+      public Requirements get() {
+        return new Requirements(compatibility.getDescription(), fields.getNestedField("unmetRequirements", Fields.LONG, Fields.LONG), context);
 ```
 
 ### DataFlowIssue
@@ -13215,23 +13191,35 @@ Argument `parameterName` might be null
 in `src/jetbrains/buildServer/server/rest/model/buildType/BuildTypeUtil.java`
 #### Snippet
 ```java
+    }
+
+    Parameter parameter = parametrizedEntity.getParameter(parameterName);
+    if (parameter != null) {
+      final ControlDescription typeSpec = parameter.getControlDescription();
+```
+
+### DataFlowIssue
+Argument `parameterName` might be null
+in `src/jetbrains/buildServer/server/rest/model/buildType/BuildTypeUtil.java`
+#### Snippet
+```java
+      throw new BadRequestException(nameItProperty ? "Property" : "Parameter" + " name cannot be empty.");
+    }
+    Parameter parameter = parametrizedEntity.getParameter(parameterName);
+    if (parameter == null) {
+      throw new NotFoundException((nameItProperty ? "No property" : "No parameter") + " with name '" + parameterName + "' is found.");
+```
+
+### DataFlowIssue
+Argument `parameterName` might be null
+in `src/jetbrains/buildServer/server/rest/model/buildType/BuildTypeUtil.java`
+#### Snippet
+```java
     if (parameters.containsKey(parameterName)) { // this processes stored "null" values duly, but this might not be necessary...
       String value = parameters.get(parameterName);
       if (!checkSecure || !Property.isPropertyToExclude(parameterName, value, serviceLocator) || Property.includeSecureProperties(serviceLocator)) {
         return value;
       } else {
-```
-
-### DataFlowIssue
-@Nullable method 'get' always returns a non-null value
-in `src/jetbrains/buildServer/server/rest/model/agent/AgentPool.java`
-#### Snippet
-```java
-
-    projects = ValueWithDefault.decideDefault(fields.isIncluded("projects", false), new ValueWithDefault.Value<Projects>() {
-      @Nullable
-      public Projects get() {
-        return new Projects(agentPoolFinder.getPoolProjects(agentPool), null, fields.getNestedField("projects", Fields.NONE, Fields.LONG), beanContext);
 ```
 
 ### DataFlowIssue
@@ -13259,15 +13247,15 @@ in `src/jetbrains/buildServer/server/rest/model/agent/AgentPool.java`
 ```
 
 ### DataFlowIssue
-Expression `submittedComment` might evaluate to null but is returned by the method declared as @NotNull
-in `src/jetbrains/buildServer/server/rest/model/agent/Agent.java`
+@Nullable method 'get' always returns a non-null value
+in `src/jetbrains/buildServer/server/rest/model/agent/AgentPool.java`
 #### Snippet
 ```java
-  @NotNull
-  public static String getActualActionComment(final @Nullable String submittedComment) {
-    return StringUtil.isEmpty(submittedComment) ? TeamCityProperties.getProperty("rest.defaultActionComment") : submittedComment;
-  }
 
+    projects = ValueWithDefault.decideDefault(fields.isIncluded("projects", false), new ValueWithDefault.Value<Projects>() {
+      @Nullable
+      public Projects get() {
+        return new Projects(agentPoolFinder.getPoolProjects(agentPool), null, fields.getNestedField("projects", Fields.NONE, Fields.LONG), beanContext);
 ```
 
 ### DataFlowIssue
@@ -13275,23 +13263,23 @@ Method invocation `equals` may produce `NullPointerException`
 in `src/jetbrains/buildServer/server/rest/request/BuildTypeRequest.java`
 #### Snippet
 ```java
-
-    for (SArtifactDependency dep : buildType.get().getArtifactDependencies()) {
-      if (artifactDepId.equals(dep.getId())) {
-        return dep;
+    for (Requirement requirement : buildType.get().getRequirements()) {
+      String id = requirement.getId();
+      if (requirementId.equals(id != null ? id : requirement.getPropertyName())) {
+        return requirement;
       }
 ```
 
 ### DataFlowIssue
-Argument `artifactDepId` might be null
+Method invocation `equals` may produce `NullPointerException`
 in `src/jetbrains/buildServer/server/rest/request/BuildTypeRequest.java`
 #### Snippet
 ```java
-
-    try {
-      final Integer orderNumber = Integer.parseInt(artifactDepId);
-      try {
-        SArtifactDependency result = buildType.get().getArtifactDependencies().get(orderNumber);
+    //may be it is a property name: use obsolete pre-TeamCity 10 logic
+    for (Requirement requirement : buildType.get().getRequirements()) {
+      if (requirementId.equals(requirement.getPropertyName())) {
+        LOG.debug("Found agent requirement by parameter name '" + requirementId + "' instead of id." +
+                  (requirement.getId() != null ? " This behavior is obsolete, use id (" + requirement.getId() + ") instead of parameter name." : ""));
 ```
 
 ### DataFlowIssue
@@ -13323,23 +13311,35 @@ Method invocation `equals` may produce `NullPointerException`
 in `src/jetbrains/buildServer/server/rest/request/BuildTypeRequest.java`
 #### Snippet
 ```java
-    for (Requirement requirement : buildType.get().getRequirements()) {
-      String id = requirement.getId();
-      if (requirementId.equals(id != null ? id : requirement.getPropertyName())) {
-        return requirement;
+
+    for (SArtifactDependency dep : buildType.get().getArtifactDependencies()) {
+      if (artifactDepId.equals(dep.getId())) {
+        return dep;
       }
 ```
 
 ### DataFlowIssue
-Method invocation `equals` may produce `NullPointerException`
+Argument `artifactDepId` might be null
 in `src/jetbrains/buildServer/server/rest/request/BuildTypeRequest.java`
 #### Snippet
 ```java
-    //may be it is a property name: use obsolete pre-TeamCity 10 logic
-    for (Requirement requirement : buildType.get().getRequirements()) {
-      if (requirementId.equals(requirement.getPropertyName())) {
-        LOG.debug("Found agent requirement by parameter name '" + requirementId + "' instead of id." +
-                  (requirement.getId() != null ? " This behavior is obsolete, use id (" + requirement.getId() + ") instead of parameter name." : ""));
+
+    try {
+      final Integer orderNumber = Integer.parseInt(artifactDepId);
+      try {
+        SArtifactDependency result = buildType.get().getArtifactDependencies().get(orderNumber);
+```
+
+### DataFlowIssue
+Expression `submittedComment` might evaluate to null but is returned by the method declared as @NotNull
+in `src/jetbrains/buildServer/server/rest/model/agent/Agent.java`
+#### Snippet
+```java
+  @NotNull
+  public static String getActualActionComment(final @Nullable String submittedComment) {
+    return StringUtil.isEmpty(submittedComment) ? TeamCityProperties.getProperty("rest.defaultActionComment") : submittedComment;
+  }
+
 ```
 
 ### DataFlowIssue
@@ -13355,18 +13355,6 @@ in `src/jetbrains/buildServer/server/rest/model/buildType/PropEntitySnapshotDep.
 ```
 
 ### DataFlowIssue
-Method invocation `getClass` will produce `NullPointerException`
-in `src/jetbrains/buildServer/server/rest/data/AgentFinder.java`
-#### Snippet
-```java
-      return ((BuildAgentEx)agentDescription).getAgentType();
-    }
-    throw new OperationException("Unsupported agent details of type: " + agentDescription.getClass());
-  }
-
-```
-
-### DataFlowIssue
 Argument `requestorText` might be null
 in `src/jetbrains/buildServer/server/rest/request/VcsRootInstanceRequest.java`
 #### Snippet
@@ -13374,6 +13362,18 @@ in `src/jetbrains/buildServer/server/rest/request/VcsRootInstanceRequest.java`
     //TeamCity API: ideally, should be possible to pass custom value as requestor to allow debugging the origin of the request
     if (StringUtil.isEmpty(requestorText)) return OperationRequestor.USER;
     return TypedFinderBuilder.getEnumValue(requestorText, OperationRequestor.class);
+  }
+
+```
+
+### DataFlowIssue
+Method invocation `getClass` will produce `NullPointerException`
+in `src/jetbrains/buildServer/server/rest/data/AgentFinder.java`
+#### Snippet
+```java
+      return ((BuildAgentEx)agentDescription).getAgentType();
+    }
+    throw new OperationException("Unsupported agent details of type: " + agentDescription.getClass());
   }
 
 ```
@@ -13419,11 +13419,11 @@ in `src/jetbrains/buildServer/server/rest/data/problem/TestOccurrenceFinder.java
 in `src/jetbrains/buildServer/server/rest/model/buildType/VcsRootInstances.java`
 #### Snippet
 ```java
-                          @NotNull final BeanContext beanContext) {
-    vcsRoots = ValueWithDefault.decideDefault(fields.isIncluded("vcs-root-instance", false), new ValueWithDefault.Value<List<VcsRootInstance>>() {
+    });
+    count = ValueWithDefault.decideIncludeByDefault(fields.isIncluded("count", false), new ValueWithDefault.Value<Integer>() {
       @Nullable
-      public List<VcsRootInstance> get() {
-        final Collection<jetbrains.buildServer.vcs.VcsRootInstance> value = serverVcsRoots.get();
+      public Integer get() {
+        return serverVcsRoots.get().size();
 ```
 
 ### DataFlowIssue
@@ -13431,11 +13431,11 @@ in `src/jetbrains/buildServer/server/rest/model/buildType/VcsRootInstances.java`
 in `src/jetbrains/buildServer/server/rest/model/buildType/VcsRootInstances.java`
 #### Snippet
 ```java
-    });
-    count = ValueWithDefault.decideIncludeByDefault(fields.isIncluded("count", false), new ValueWithDefault.Value<Integer>() {
+                          @NotNull final BeanContext beanContext) {
+    vcsRoots = ValueWithDefault.decideDefault(fields.isIncluded("vcs-root-instance", false), new ValueWithDefault.Value<List<VcsRootInstance>>() {
       @Nullable
-      public Integer get() {
-        return serverVcsRoots.get().size();
+      public List<VcsRootInstance> get() {
+        final Collection<jetbrains.buildServer.vcs.VcsRootInstance> value = serverVcsRoots.get();
 ```
 
 ### DataFlowIssue
@@ -13475,30 +13475,6 @@ in `src/jetbrains/buildServer/server/rest/model/buildType/PropEntitiesArtifactDe
 ```
 
 ### DataFlowIssue
-Unboxing of `t.isInherited()` may produce `NullPointerException`
-in `src/jetbrains/buildServer/server/rest/util/BuildTypeOrTemplate.java`
-#### Snippet
-```java
-
-  public static void setTemplates(@NotNull final SBuildType buildType, @NotNull final List<BuildTypeOrTemplate> buildTypeOrTemplates, final boolean optimizeSetting) {
-    List<BuildTypeTemplate> newTemplates = buildTypeOrTemplates.stream().filter(t -> t.isInherited() == null || !t.isInherited()).map(bt -> {
-      BuildTypeTemplate result = bt.getTemplate();
-      if (result == null) {
-```
-
-### DataFlowIssue
-`null` is assigned to a variable that is annotated with @NotNull
-in `src/jetbrains/buildServer/server/rest/util/BuildTypeOrTemplate.java`
-#### Snippet
-```java
-    myBuildType = null;
-    myTemplate = null;
-    myBuildTypeIdentity = null;
-  }
-
-```
-
-### DataFlowIssue
 Argument `buildLocator` might be null
 in `src/jetbrains/buildServer/server/rest/model/build/downloadedArtifacts/DownloadedArtifacts.java`
 #### Snippet
@@ -13508,18 +13484,6 @@ in `src/jetbrains/buildServer/server/rest/model/build/downloadedArtifacts/Downlo
       buildFilter = myBeanContext.getSingletonService(BuildPromotionFinder.class).getFilter(buildLocator);
       buildLocator.checkLocatorFullyProcessed();
     } else {
-```
-
-### DataFlowIssue
-Method invocation `getBuildProblemInfo` may produce `NullPointerException`
-in `src/jetbrains/buildServer/server/rest/data/investigations/InvestigationFinder.java`
-#### Snippet
-```java
-    }
-    @SuppressWarnings("ConstantConditions") @NotNull final BuildProblemResponsibilityEntry problemRE = item.getProblemRE();
-    return problemRE.getBuildProblemInfo().getId() == problem.getId();
-  }
-
 ```
 
 ### DataFlowIssue
@@ -13559,15 +13523,39 @@ in `src/jetbrains/buildServer/server/rest/data/BuildTypeFinder.java`
 ```
 
 ### DataFlowIssue
-Expression `value` might evaluate to null but is returned by the method declared as @NotNull
-in `src/jetbrains/buildServer/server/rest/request/BuildRequest.java`
+Unboxing of `t.isInherited()` may produce `NullPointerException`
+in `src/jetbrains/buildServer/server/rest/util/BuildTypeOrTemplate.java`
 #### Snippet
 ```java
-      if (!resolveResult.isModified() && resolveResult.isFullyResolved()) {
-        //no references found
-        return value;
-      }
-      //report original error
+
+  public static void setTemplates(@NotNull final SBuildType buildType, @NotNull final List<BuildTypeOrTemplate> buildTypeOrTemplates, final boolean optimizeSetting) {
+    List<BuildTypeTemplate> newTemplates = buildTypeOrTemplates.stream().filter(t -> t.isInherited() == null || !t.isInherited()).map(bt -> {
+      BuildTypeTemplate result = bt.getTemplate();
+      if (result == null) {
+```
+
+### DataFlowIssue
+`null` is assigned to a variable that is annotated with @NotNull
+in `src/jetbrains/buildServer/server/rest/util/BuildTypeOrTemplate.java`
+#### Snippet
+```java
+    myBuildType = null;
+    myTemplate = null;
+    myBuildTypeIdentity = null;
+  }
+
+```
+
+### DataFlowIssue
+Method invocation `getBuildProblemInfo` may produce `NullPointerException`
+in `src/jetbrains/buildServer/server/rest/data/investigations/InvestigationFinder.java`
+#### Snippet
+```java
+    }
+    @SuppressWarnings("ConstantConditions") @NotNull final BuildProblemResponsibilityEntry problemRE = item.getProblemRE();
+    return problemRE.getBuildProblemInfo().getId() == problem.getId();
+  }
+
 ```
 
 ### DataFlowIssue
@@ -13580,6 +13568,18 @@ in `src/jetbrains/buildServer/server/rest/request/BuildRequest.java`
       @Nullable
       @Override
       public Parameter getParameter(@NotNull final String paramName) {
+```
+
+### DataFlowIssue
+Expression `value` might evaluate to null but is returned by the method declared as @NotNull
+in `src/jetbrains/buildServer/server/rest/request/BuildRequest.java`
+#### Snippet
+```java
+      if (!resolveResult.isModified() && resolveResult.isFullyResolved()) {
+        //no references found
+        return value;
+      }
+      //report original error
 ```
 
 ### DataFlowIssue
@@ -13722,6 +13722,18 @@ Lambda can be replaced with method reference
 in `src/jetbrains/buildServer/server/rest/data/UserFinder.java`
 #### Snippet
 ```java
+      builder.dimensionEnum(PERMISSION, Permission.class).description("permission to check, should be present");
+      builder.filter(locator -> locator.lookupSingleDimensionValue(PERMISSION.name) != null && locator.lookupDimensionValue(PROJECT.name).size() <= 1,
+                     dimensions -> new UserPermissionFilter(dimensions));
+      myFinder = builder.build();
+    }
+```
+
+### Convert2MethodRef
+Lambda can be replaced with method reference
+in `src/jetbrains/buildServer/server/rest/data/UserFinder.java`
+#### Snippet
+```java
                                               });
 
       dimensionParameterCondition(PROPERTY).description("user's property").valueForDefaultFilter(item -> getUserPropertiesProvider(item));
@@ -13763,18 +13775,6 @@ in `src/jetbrains/buildServer/server/rest/data/UserFinder.java`
         .filter((type, item) -> type.isIncluded(item));
 
       multipleConvertToItemHolder(DimensionCondition.ALWAYS, dimensions -> {
-```
-
-### Convert2MethodRef
-Lambda can be replaced with method reference
-in `src/jetbrains/buildServer/server/rest/data/UserFinder.java`
-#### Snippet
-```java
-      builder.dimensionEnum(PERMISSION, Permission.class).description("permission to check, should be present");
-      builder.filter(locator -> locator.lookupSingleDimensionValue(PERMISSION.name) != null && locator.lookupDimensionValue(PROJECT.name).size() <= 1,
-                     dimensions -> new UserPermissionFilter(dimensions));
-      myFinder = builder.build();
-    }
 ```
 
 ### Convert2MethodRef
@@ -13839,18 +13839,6 @@ in `src/jetbrains/buildServer/server/rest/data/CloudInstanceFinder.java`
 
 ### Convert2MethodRef
 Lambda can be replaced with method reference
-in `src/jetbrains/buildServer/server/rest/data/problem/scope/TestScopesCollector.java`
-#### Snippet
-```java
-  private static final List<String> SUPPORTED_SCOPES = Arrays.asList("suite", "package", "class");
-  private static final Orders<TestScope> SUPPORTED_ORDERS = new Orders<TestScope>()
-    .add("name",     Comparator.comparing(scope -> scope.getName()))
-    .add("duration", Comparator.comparing(scope -> scope.getOrCalcCountersData().getDuration()))
-    .add("count",    Comparator.comparing(scope -> scope.getOrCalcCountersData().getCount()));
-```
-
-### Convert2MethodRef
-Lambda can be replaced with method reference
 in `src/jetbrains/buildServer/server/rest/model/buildType/BuildTypes.java`
 #### Snippet
 ```java
@@ -13859,6 +13847,18 @@ in `src/jetbrains/buildServer/server/rest/model/buildType/BuildTypes.java`
     if (buildTypes != null) buildTypes.forEach(bt -> bt.initializeSubmittedFromUsual());
     return this;
   }
+```
+
+### Convert2MethodRef
+Lambda can be replaced with method reference
+in `src/jetbrains/buildServer/server/rest/data/problem/scope/TestScopesCollector.java`
+#### Snippet
+```java
+  private static final List<String> SUPPORTED_SCOPES = Arrays.asList("suite", "package", "class");
+  private static final Orders<TestScope> SUPPORTED_ORDERS = new Orders<TestScope>()
+    .add("name",     Comparator.comparing(scope -> scope.getName()))
+    .add("duration", Comparator.comparing(scope -> scope.getOrCalcCountersData().getDuration()))
+    .add("count",    Comparator.comparing(scope -> scope.getOrCalcCountersData().getCount()));
 ```
 
 ### Convert2MethodRef
@@ -13878,11 +13878,11 @@ Lambda can be replaced with method reference
 in `src/jetbrains/buildServer/server/rest/data/BuildPromotionFinder.java`
 #### Snippet
 ```java
-            int[] max = new int[1];
-            max[0] = -1;
-            boolean exceedsCount = itemDimension.stream().map(l -> getCheapCount(l)).anyMatch(cheapCount -> {
-              if (cheapCount == null) {
-                max[0] = -2; //there is not cheap count
+        }
+        if (!branchFilterDetails.isAnyBranch()) {
+          result.add(item -> branchFilterDetails.isIncluded(item));
+        }
+      }
 ```
 
 ### Convert2MethodRef
@@ -13890,11 +13890,11 @@ Lambda can be replaced with method reference
 in `src/jetbrains/buildServer/server/rest/data/BuildPromotionFinder.java`
 #### Snippet
 ```java
-        }
-        if (!branchFilterDetails.isAnyBranch()) {
-          result.add(item -> branchFilterDetails.isIncluded(item));
-        }
-      }
+            int[] max = new int[1];
+            max[0] = -1;
+            boolean exceedsCount = itemDimension.stream().map(l -> getCheapCount(l)).anyMatch(cheapCount -> {
+              if (cheapCount == null) {
+                max[0] = -2; //there is not cheap count
 ```
 
 ### Convert2MethodRef
@@ -13911,18 +13911,6 @@ in `src/jetbrains/buildServer/server/rest/model/project/PropEntityProjectFeature
 
 ### Convert2MethodRef
 Lambda can be replaced with method reference
-in `src/jetbrains/buildServer/server/rest/data/VcsRootInstanceFinder.java`
-#### Snippet
-```java
-
-    TimeCondition.FilterAndLimitingDate<VcsRootInstance> finishFiltering =
-      myTimeCondition.processTimeConditions(FINISH_VCS_CHECKING_FOR_CHANGES, locator, (vcsRootInstance) -> getFinishCheckingForChanges(vcsRootInstance), null);
-    if (finishFiltering != null) result.add(finishFiltering.getFilter());
-
-```
-
-### Convert2MethodRef
-Lambda can be replaced with method reference
 in `src/jetbrains/buildServer/server/rest/model/RelatedEntities.java`
 #### Snippet
 ```java
@@ -13931,6 +13919,18 @@ in `src/jetbrains/buildServer/server/rest/model/RelatedEntities.java`
     count = ValueWithDefault.decideIncludeByDefault(fields.isIncluded("count"), () -> items.size());
   }
 }
+```
+
+### Convert2MethodRef
+Lambda can be replaced with method reference
+in `src/jetbrains/buildServer/server/rest/data/VcsRootInstanceFinder.java`
+#### Snippet
+```java
+
+    TimeCondition.FilterAndLimitingDate<VcsRootInstance> finishFiltering =
+      myTimeCondition.processTimeConditions(FINISH_VCS_CHECKING_FOR_CHANGES, locator, (vcsRootInstance) -> getFinishCheckingForChanges(vcsRootInstance), null);
+    if (finishFiltering != null) result.add(finishFiltering.getFilter());
+
 ```
 
 ### Convert2MethodRef
@@ -13998,18 +13998,6 @@ Lambda can be replaced with method reference
 in `src/jetbrains/buildServer/server/rest/data/PermissionAssignmentFinder.java`
 #### Snippet
 ```java
-
-    builder.dimensionEnum(PERMISSION, Permission.class).description("id of the permission to filter the results by")
-           .valueForDefaultFilter(p -> p.getPermission());
-
-    builder.multipleConvertToItemHolder(
-```
-
-### Convert2MethodRef
-Lambda can be replaced with method reference
-in `src/jetbrains/buildServer/server/rest/data/PermissionAssignmentFinder.java`
-#### Snippet
-```java
     if (projects == null) {
       if (global == null || global) {
         result = Stream.concat(result, permissions.stream().filter(p -> authorityHolder.isPermissionGrantedGlobally(p)).map(p -> new PermissionAssignmentData(p)));
@@ -14031,6 +14019,18 @@ in `src/jetbrains/buildServer/server/rest/data/PermissionAssignmentFinder.java`
 
 ### Convert2MethodRef
 Lambda can be replaced with method reference
+in `src/jetbrains/buildServer/server/rest/data/PermissionAssignmentFinder.java`
+#### Snippet
+```java
+
+    builder.dimensionEnum(PERMISSION, Permission.class).description("id of the permission to filter the results by")
+           .valueForDefaultFilter(p -> p.getPermission());
+
+    builder.multipleConvertToItemHolder(
+```
+
+### Convert2MethodRef
+Lambda can be replaced with method reference
 in `src/jetbrains/buildServer/server/rest/model/buildType/BuildTypeUtil.java`
 #### Snippet
 ```java
@@ -14039,6 +14039,18 @@ in `src/jetbrains/buildServer/server/rest/model/buildType/BuildTypeUtil.java`
       HashSet<Option> optionsFromTemplates = templates.stream().flatMap(t -> t.getOwnOptions().stream()).collect(HashSet::new, Collection::add, (t1, t2) -> t1.addAll(t2));
       properties.putAll(getOptionsAsMap(buildType.get(), optionsFromTemplates));
     }
+```
+
+### Convert2MethodRef
+Lambda can be replaced with method reference
+in `src/jetbrains/buildServer/server/rest/data/BranchData.java`
+#### Snippet
+```java
+    // At this point we don't care that these branches may come from different repositories, as we only need this info to show branch labels in the UI.
+    Map<MergingBranchData.MergeKey, BranchData> mergedBranchData = unmergeBranches.collect(
+      Collectors.groupingBy(branchData -> new MergingBranchData.MergeKey(branchData), Collectors.reducing(null, (left, right) -> left == null ? right : left))
+    );
+
 ```
 
 ### Convert2MethodRef
@@ -14063,18 +14075,6 @@ in `src/jetbrains/buildServer/server/rest/data/CloudImageFinder.java`
         .toItems(profileAndId -> findImageByProfileAndId(profileAndId));
 
       dimensionValueCondition(NAME)
-```
-
-### Convert2MethodRef
-Lambda can be replaced with method reference
-in `src/jetbrains/buildServer/server/rest/data/BranchData.java`
-#### Snippet
-```java
-    // At this point we don't care that these branches may come from different repositories, as we only need this info to show branch labels in the UI.
-    Map<MergingBranchData.MergeKey, BranchData> mergedBranchData = unmergeBranches.collect(
-      Collectors.groupingBy(branchData -> new MergingBranchData.MergeKey(branchData), Collectors.reducing(null, (left, right) -> left == null ? right : left))
-    );
-
 ```
 
 ### Convert2MethodRef
@@ -14115,18 +14115,6 @@ in `src/jetbrains/buildServer/server/rest/data/AgentPoolFinder.java`
 
 ### Convert2MethodRef
 Lambda can be replaced with method reference
-in `src/jetbrains/buildServer/server/rest/data/investigations/InvestigationFinder.java`
-#### Snippet
-```java
-    final String typeDimension = locator.getSingleDimensionValue(TYPE);
-    if (typeDimension != null) {
-      if (ProblemTarget.getKnownTypesForInvestigation().stream().noneMatch(s -> typeDimension.equalsIgnoreCase(s))) {
-        throw new BadRequestException("Error in dimension '" + TYPE + "': unknown value '" + typeDimension + "'. Known values: " +
-                                      StringUtil.join(ProblemTarget.getKnownTypesForInvestigation(), ", "));
-```
-
-### Convert2MethodRef
-Lambda can be replaced with method reference
 in `src/jetbrains/buildServer/server/rest/data/BuildTypeFinder.java`
 #### Snippet
 ```java
@@ -14147,6 +14135,18 @@ in `src/jetbrains/buildServer/server/rest/data/BuildTypeFinder.java`
         result.add(item -> filterSet.contains(item));
       }
     }
+```
+
+### Convert2MethodRef
+Lambda can be replaced with method reference
+in `src/jetbrains/buildServer/server/rest/data/investigations/InvestigationFinder.java`
+#### Snippet
+```java
+    final String typeDimension = locator.getSingleDimensionValue(TYPE);
+    if (typeDimension != null) {
+      if (ProblemTarget.getKnownTypesForInvestigation().stream().noneMatch(s -> typeDimension.equalsIgnoreCase(s))) {
+        throw new BadRequestException("Error in dimension '" + TYPE + "': unknown value '" + typeDimension + "'. Known values: " +
+                                      StringUtil.join(ProblemTarget.getKnownTypesForInvestigation(), ", "));
 ```
 
 ### Convert2MethodRef
@@ -14290,18 +14290,6 @@ Class member declared `protected` in 'final' class
 in `src/jetbrains/buildServer/server/graphql/model/agentPool/AgentPoolPermissions.java`
 #### Snippet
 ```java
-    myManageAgents = new Lazy<Boolean>() {
-      @Override
-      protected Boolean createValue() {
-        return manageAgents.getAsBoolean();
-      }
-```
-
-### ProtectedMemberInFinalClass
-Class member declared `protected` in 'final' class
-in `src/jetbrains/buildServer/server/graphql/model/agentPool/AgentPoolPermissions.java`
-#### Snippet
-```java
     myManageProjects = new Lazy<Boolean>() {
       @Override
       protected Boolean createValue() {
@@ -14318,6 +14306,18 @@ in `src/jetbrains/buildServer/server/graphql/model/agentPool/AgentPoolPermission
       @Override
       protected Boolean createValue() {
         return enableAgents.getAsBoolean();
+      }
+```
+
+### ProtectedMemberInFinalClass
+Class member declared `protected` in 'final' class
+in `src/jetbrains/buildServer/server/graphql/model/agentPool/AgentPoolPermissions.java`
+#### Snippet
+```java
+    myManageAgents = new Lazy<Boolean>() {
+      @Override
+      protected Boolean createValue() {
+        return manageAgents.getAsBoolean();
       }
 ```
 
@@ -14543,11 +14543,11 @@ Unnecessary `toString()` call
 in `src/jetbrains/buildServer/server/rest/data/BuildArtifactsFinder.java`
 #### Snippet
 ```java
-    @Override
-    public String toString() {
-      return myElement.toString() + " unified";
-    }
-  }
+        @Override
+        public String toString() {
+          return myElement.toString() + " with children concealed";
+        }
+      };
 ```
 
 ### UnnecessaryToStringCall
@@ -14555,11 +14555,11 @@ Unnecessary `toString()` call
 in `src/jetbrains/buildServer/server/rest/data/BuildArtifactsFinder.java`
 #### Snippet
 ```java
-        @Override
-        public String toString() {
-          return myElement.toString() + " with children concealed";
-        }
-      };
+    @Override
+    public String toString() {
+      return myElement.toString() + " unified";
+    }
+  }
 ```
 
 ### UnnecessaryToStringCall
@@ -14612,18 +14612,6 @@ in `src/jetbrains/buildServer/server/rest/model/Property.java`
 
 ### UnnecessaryToStringCall
 Unnecessary `toString()` call
-in `src/jetbrains/buildServer/server/rest/jersey/ExtensionHolderProviderFactory.java`
-#### Snippet
-```java
-    final Object o = myExtensionHolder.findSingletonService(c);
-    if (o != null) {
-      LOG.debug("Request for class: " + c + " as extension, found: " + o.toString());
-      return new IoCManagedComponentProvider() {
-        public Object getInstance() {
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
 in `src/jetbrains/buildServer/server/rest/request/DebugRequest.java`
 #### Snippet
 ```java
@@ -14632,6 +14620,18 @@ in `src/jetbrains/buildServer/server/rest/request/DebugRequest.java`
       throw new OperationException("Could not get sessions data: " + e.toString(), e);
     }
   }
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `src/jetbrains/buildServer/server/rest/jersey/ExtensionHolderProviderFactory.java`
+#### Snippet
+```java
+    final Object o = myExtensionHolder.findSingletonService(c);
+    if (o != null) {
+      LOG.debug("Request for class: " + c + " as extension, found: " + o.toString());
+      return new IoCManagedComponentProvider() {
+        public Object getInstance() {
 ```
 
 ### UnnecessaryToStringCall
@@ -14735,11 +14735,11 @@ Unnecessary `toString()` call
 in `src/jetbrains/buildServer/server/rest/data/FinderImpl.java`
 #### Snippet
 ```java
-      result.append(", context: ");
-      result.append(contextVars.stream().map(s -> s + "=" + Optional.ofNullable(getContextItems(s)).map(
-                                 v -> v.stream().map(vElem -> (vElem == null ? "<null>" : "'" + vElem.toString() + "'")).collect(Collectors.joining(", ", "{", "}"))).orElse("<null>"))
-                               .collect(Collectors.joining(", ", "{", "}")));
-      //vElem.toString() might produce not due presentation
+          throw new BadRequestException("Invalid filter for found single item, try omitting extra dimensions: " + e.getMessage(), e);
+        } catch (Exception e) {
+          throw new BadRequestException("Invalid filter for found single item, try omitting extra dimensions: " + e.toString(), e);
+        }
+        locator.markUsed(DIMENSION_UNIQUE); //mark as used as it has no influence on single item
 ```
 
 ### UnnecessaryToStringCall
@@ -14747,11 +14747,11 @@ Unnecessary `toString()` call
 in `src/jetbrains/buildServer/server/rest/data/FinderImpl.java`
 #### Snippet
 ```java
-          throw new BadRequestException("Invalid filter for found single item, try omitting extra dimensions: " + e.getMessage(), e);
-        } catch (Exception e) {
-          throw new BadRequestException("Invalid filter for found single item, try omitting extra dimensions: " + e.toString(), e);
-        }
-        locator.markUsed(DIMENSION_UNIQUE); //mark as used as it has no influence on single item
+      result.append(", context: ");
+      result.append(contextVars.stream().map(s -> s + "=" + Optional.ofNullable(getContextItems(s)).map(
+                                 v -> v.stream().map(vElem -> (vElem == null ? "<null>" : "'" + vElem.toString() + "'")).collect(Collectors.joining(", ", "{", "}"))).orElse("<null>"))
+                               .collect(Collectors.joining(", ", "{", "}")));
+      //vElem.toString() might produce not due presentation
 ```
 
 ### UnnecessaryToStringCall
@@ -14783,35 +14783,35 @@ Unnecessary `toString()` call
 in `src/jetbrains/buildServer/server/rest/data/TypedFinderBuilder.java`
 #### Snippet
 ```java
-      @Override
-      public String toString() {
-        return dimension.toString() + " -> " + conditionBasedOnValue.toString();
-      }
-    }
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `src/jetbrains/buildServer/server/rest/data/TypedFinderBuilder.java`
-#### Snippet
-```java
-      @Override
-      public String toString() {
-        return dimension.toString() + " -> " + conditionBasedOnValue.toString();
-      }
-    }
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `src/jetbrains/buildServer/server/rest/data/TypedFinderBuilder.java`
-#### Snippet
-```java
   public TypedFinderBuilder<ITEM> filter(@NotNull final DimensionCondition conditions, @NotNull final ItemFilterFromDimensions<ITEM> parsedObjectsIfConditionsMatched) {
     ItemFilterFromDimensions<ITEM> previous = myFiltersConditions.put(conditions, parsedObjectsIfConditionsMatched);
     if (previous != null) throw new OperationException("Overriding dimension condition '" + conditions.toString() + "'");
     return this;
   }
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `src/jetbrains/buildServer/server/rest/data/TypedFinderBuilder.java`
+#### Snippet
+```java
+      @Override
+      public String toString() {
+        return dimension.toString() + " -> " + conditionBasedOnValue.toString();
+      }
+    }
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `src/jetbrains/buildServer/server/rest/data/TypedFinderBuilder.java`
+#### Snippet
+```java
+      @Override
+      public String toString() {
+        return dimension.toString() + " -> " + conditionBasedOnValue.toString();
+      }
+    }
 ```
 
 ## RuleId[ruleID=SuspiciousMethodCalls]
@@ -14901,15 +14901,15 @@ in `src/jetbrains/buildServer/server/rest/model/change/ChangeStatus.java`
 ```
 
 ### InnerClassMayBeStatic
-Inner class `AgentPoolAgentsConnectionEdge` may be 'static'
-in `src/jetbrains/buildServer/server/graphql/model/connections/agentPool/AgentPoolAgentsConnection.java`
+Inner class `ParsedTimeCondition` may be 'static'
+in `src/jetbrains/buildServer/server/rest/data/TimeCondition.java`
 #### Snippet
 ```java
   }
 
-  public class AgentPoolAgentsConnectionEdge extends LazyEdge<SBuildAgent, Agent> {
-    public AgentPoolAgentsConnectionEdge(@NotNull SBuildAgent data) {
-      super(data, Agent::new);
+  public class ParsedTimeCondition implements Matcher<Date> {
+    @Nullable private final TimeWithPrecision myLimitingSinceDate;
+    @NotNull private final TimeWithPrecision myLimitingDate;
 ```
 
 ### InnerClassMayBeStatic
@@ -14925,15 +14925,15 @@ in `src/jetbrains/buildServer/server/graphql/resolver/AgentTypeResolver.java`
 ```
 
 ### InnerClassMayBeStatic
-Inner class `ParsedTimeCondition` may be 'static'
-in `src/jetbrains/buildServer/server/rest/data/TimeCondition.java`
+Inner class `AgentPoolAgentsConnectionEdge` may be 'static'
+in `src/jetbrains/buildServer/server/graphql/model/connections/agentPool/AgentPoolAgentsConnection.java`
 #### Snippet
 ```java
   }
 
-  public class ParsedTimeCondition implements Matcher<Date> {
-    @Nullable private final TimeWithPrecision myLimitingSinceDate;
-    @NotNull private final TimeWithPrecision myLimitingDate;
+  public class AgentPoolAgentsConnectionEdge extends LazyEdge<SBuildAgent, Agent> {
+    public AgentPoolAgentsConnectionEdge(@NotNull SBuildAgent data) {
+      super(data, Agent::new);
 ```
 
 ### InnerClassMayBeStatic
@@ -16042,23 +16042,11 @@ Redundant boxing, `Long.parseLong()` call can be used instead
 in `src/jetbrains/buildServer/server/rest/request/DebugRequest.java`
 #### Snippet
 ```java
-    if (totalTime != null) {
-      try {
-        totalTimeMs = Long.valueOf(totalTime);
-      } catch (NumberFormatException e) {
-        totalTimeMs = TimeWithPrecision.getMsFromRelativeTime(totalTime);
-```
-
-### UnnecessaryBoxing
-Redundant boxing, `Boolean.parseBoolean()` call can be used instead
-in `src/jetbrains/buildServer/server/rest/request/DebugRequest.java`
-#### Snippet
-```java
-    myDataProvider.checkGlobalPermission(Permission.MANAGE_SERVER_INSTALLATION);
-    checkQuery(query);
-    final boolean treatAsDataRetrieveQuery = dataRetrieveQuery != null ? Boolean.valueOf(dataRetrieveQuery) : isDataRetrieveQuery(query);
-    DumpResultSetProcessor processor;
-    if (treatAsDataRetrieveQuery) {
+    Date limitingDate;
+    try {
+      limitingDate = new Date(Long.valueOf(dateLocator));
+    } catch (NumberFormatException e) {
+      limitingDate = myServiceLocator.getSingletonService(TimeCondition.class).getTimeCondition(dateLocator).getLimitingSinceDate();
 ```
 
 ### UnnecessaryBoxing
@@ -16078,11 +16066,23 @@ Redundant boxing, `Long.parseLong()` call can be used instead
 in `src/jetbrains/buildServer/server/rest/request/DebugRequest.java`
 #### Snippet
 ```java
-    Date limitingDate;
-    try {
-      limitingDate = new Date(Long.valueOf(dateLocator));
-    } catch (NumberFormatException e) {
-      limitingDate = myServiceLocator.getSingletonService(TimeCondition.class).getTimeCondition(dateLocator).getLimitingSinceDate();
+    if (totalTime != null) {
+      try {
+        totalTimeMs = Long.valueOf(totalTime);
+      } catch (NumberFormatException e) {
+        totalTimeMs = TimeWithPrecision.getMsFromRelativeTime(totalTime);
+```
+
+### UnnecessaryBoxing
+Redundant boxing, `Boolean.parseBoolean()` call can be used instead
+in `src/jetbrains/buildServer/server/rest/request/DebugRequest.java`
+#### Snippet
+```java
+    myDataProvider.checkGlobalPermission(Permission.MANAGE_SERVER_INSTALLATION);
+    checkQuery(query);
+    final boolean treatAsDataRetrieveQuery = dataRetrieveQuery != null ? Boolean.valueOf(dataRetrieveQuery) : isDataRetrieveQuery(query);
+    DumpResultSetProcessor processor;
+    if (treatAsDataRetrieveQuery) {
 ```
 
 ### UnnecessaryBoxing
@@ -16111,6 +16111,18 @@ in `src/jetbrains/buildServer/server/rest/data/BuildPromotionFinder.java`
 ```
 
 ### ConditionCoveredByFurtherCondition
+Condition 'build != null' covered by subsequent condition 'build instanceof BaseBuild'
+in `src/jetbrains/buildServer/server/rest/model/build/Build.java`
+#### Snippet
+```java
+  public static ParametersProvider getBuildResultingParameters(@NotNull BuildPromotion buildPromotion, @NotNull ServiceLocator serviceLocator) {
+    SBuild build = buildPromotion.getAssociatedBuild();
+    if (build != null && build instanceof BaseBuild) {
+      try {
+        Map<String, String> parameters = ((BaseBuild)build).getBuildFinishParameters();
+```
+
+### ConditionCoveredByFurtherCondition
 Condition 'agent == null' covered by subsequent condition '!(agent instanceof SBuildAgent)'
 in `src/jetbrains/buildServer/server/rest/model/build/Build.java`
 #### Snippet
@@ -16134,18 +16146,6 @@ in `src/jetbrains/buildServer/server/rest/model/build/Build.java`
     final jetbrains.buildServer.serverSide.comments.Comment pinComment = finishedBuild.getPinComment();
 ```
 
-### ConditionCoveredByFurtherCondition
-Condition 'build != null' covered by subsequent condition 'build instanceof BaseBuild'
-in `src/jetbrains/buildServer/server/rest/model/build/Build.java`
-#### Snippet
-```java
-  public static ParametersProvider getBuildResultingParameters(@NotNull BuildPromotion buildPromotion, @NotNull ServiceLocator serviceLocator) {
-    SBuild build = buildPromotion.getAssociatedBuild();
-    if (build != null && build instanceof BaseBuild) {
-      try {
-        Map<String, String> parameters = ((BaseBuild)build).getBuildFinishParameters();
-```
-
 ## RuleId[ruleID=MissingDeprecatedAnnotation]
 ### MissingDeprecatedAnnotation
 Missing '@Deprecated' annotation
@@ -16165,10 +16165,10 @@ in `src/jetbrains/buildServer/server/rest/model/change/Change.java`
 #### Snippet
 ```java
    */
-  @XmlElement(name = "user")
-  public User getUser() {
-    return ValueWithDefault.decideDefault(myFields.isIncluded("user", false), () -> {
-      final Collection<SUser> users = myModification.getCommitters();
+  @XmlAttribute
+  public String getUsername() {
+    return ValueWithDefault.decideDefault(myFields.isIncluded("username"), myModification.getUserName());
+  }
 ```
 
 ### MissingDeprecatedAnnotation
@@ -16177,10 +16177,10 @@ in `src/jetbrains/buildServer/server/rest/model/change/Change.java`
 #### Snippet
 ```java
    */
-  @XmlAttribute
-  public String getUsername() {
-    return ValueWithDefault.decideDefault(myFields.isIncluded("username"), myModification.getUserName());
-  }
+  @XmlElement(name = "user")
+  public User getUser() {
+    return ValueWithDefault.decideDefault(myFields.isIncluded("user", false), () -> {
+      final Collection<SUser> users = myModification.getCommitters();
 ```
 
 ### MissingDeprecatedAnnotation
@@ -16209,18 +16209,6 @@ in `src/jetbrains/buildServer/server/rest/model/buildType/ProblemScope.java`
 
 ### MissingDeprecatedAnnotation
 Missing '@Deprecated' annotation
-in `src/jetbrains/buildServer/server/rest/model/buildType/Investigation.java`
-#### Snippet
-```java
-   * @deprecated
-   */
-  @XmlElement public User responsible;
-
-  public Investigation() {
-```
-
-### MissingDeprecatedAnnotation
-Missing '@Deprecated' annotation
 in `src/jetbrains/buildServer/server/rest/request/DebugRequest.java`
 #### Snippet
 ```java
@@ -16229,6 +16217,18 @@ in `src/jetbrains/buildServer/server/rest/request/DebugRequest.java`
   public VcsRootInstances scheduleCheckingForChanges(@QueryParam("locator") final String vcsRootInstancesLocator,
                                                      @QueryParam("requestor") final String requestor,
                                                      @QueryParam("fields") final String fields,
+```
+
+### MissingDeprecatedAnnotation
+Missing '@Deprecated' annotation
+in `src/jetbrains/buildServer/server/rest/model/buildType/Investigation.java`
+#### Snippet
+```java
+   * @deprecated
+   */
+  @XmlElement public User responsible;
+
+  public Investigation() {
 ```
 
 ### MissingDeprecatedAnnotation
@@ -16332,18 +16332,6 @@ Missing '@Deprecated' annotation
 in `src/jetbrains/buildServer/server/rest/request/BuildRequest.java`
 #### Snippet
 ```java
-  @Path("/{buildLocator}/related-issues")
-  @Produces({"application/xml", "application/json"})
-  public IssueUsages serveBuildRelatedIssuesOld(@ApiParam(format = LocatorName.BUILD) @PathParam("buildLocator") String buildLocator,
-                                                @QueryParam("fields") String fields) {
-    return serveBuildRelatedIssues(buildLocator, fields);
-```
-
-### MissingDeprecatedAnnotation
-Missing '@Deprecated' annotation
-in `src/jetbrains/buildServer/server/rest/request/BuildRequest.java`
-#### Snippet
-```java
   @Path("/{buildLocator}/pin/")
   @Consumes({"text/plain"})
   public void pinBuild(@ApiParam(format = LocatorName.BUILD) @PathParam("buildLocator") String buildLocator,
@@ -16368,6 +16356,18 @@ Missing '@Deprecated' annotation
 in `src/jetbrains/buildServer/server/rest/request/BuildRequest.java`
 #### Snippet
 ```java
+  @Path("/{buildLocator}/related-issues")
+  @Produces({"application/xml", "application/json"})
+  public IssueUsages serveBuildRelatedIssuesOld(@ApiParam(format = LocatorName.BUILD) @PathParam("buildLocator") String buildLocator,
+                                                @QueryParam("fields") String fields) {
+    return serveBuildRelatedIssues(buildLocator, fields);
+```
+
+### MissingDeprecatedAnnotation
+Missing '@Deprecated' annotation
+in `src/jetbrains/buildServer/server/rest/request/BuildRequest.java`
+#### Snippet
+```java
   @ApiOperation(value = "deleteBuilds", hidden = true)
   @Produces({"application/xml", "application/json"})
   public void deleteBuilds(@ApiParam(format = LocatorName.BUILD) @QueryParam("locator") String locator,
@@ -16376,18 +16376,6 @@ in `src/jetbrains/buildServer/server/rest/request/BuildRequest.java`
 ```
 
 ## RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
-### DynamicRegexReplaceableByCompiledPattern
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/jetbrains/buildServer/server/rest/swagger/ExtensionModelResolver.java`
-#### Snippet
-```java
-    if (fullyQualifiedName.startsWith(MODEL_PACKAGE)) {
-      String packageName = fullyQualifiedName.
-          replace(MODEL_PACKAGE, "").
-          replace(shortName, "");
-      StringUtils.strip(packageName, "."); // remove leading and trailing dots
-```
-
 ### DynamicRegexReplaceableByCompiledPattern
 `replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
 in `src/jetbrains/buildServer/server/rest/model/Util.java`
@@ -16446,6 +16434,18 @@ in `src/jetbrains/buildServer/server/rest/model/Util.java`
                    .replace("%2C", ",");
     return result;
   }
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `src/jetbrains/buildServer/server/rest/swagger/ExtensionModelResolver.java`
+#### Snippet
+```java
+    if (fullyQualifiedName.startsWith(MODEL_PACKAGE)) {
+      String packageName = fullyQualifiedName.
+          replace(MODEL_PACKAGE, "").
+          replace(shortName, "");
+      StringUtils.strip(packageName, "."); // remove leading and trailing dots
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
@@ -16690,18 +16690,6 @@ in `src/jetbrains/buildServer/server/rest/data/BuildArtifactsFinder.java`
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `src/jetbrains/buildServer/server/rest/model/buildType/BuildType.java`
-#### Snippet
-```java
-          property.addTo(new BuildTypeRequest.BuildTypeSettingsEntityWithParams(buildTypeOrTemplatePatcher.getBuildTypeOrTemplate()), serviceLocator);
-          result = true;
-        } catch (java.lang.UnsupportedOperationException e) {  //can be thrown from EditableBuildTypeCopy
-          LOG.debug("Error setting property '" + property.name + "' to value '" + property.value + "': " + e.getMessage());
-        }
-```
-
-### UnnecessaryFullyQualifiedName
 Qualifier `java.util` is unnecessary and can be removed
 in `src/jetbrains/buildServer/server/rest/model/NamedDatas.java`
 #### Snippet
@@ -16710,6 +16698,18 @@ in `src/jetbrains/buildServer/server/rest/model/NamedDatas.java`
         Fields dataFields = fields.getNestedField("data");
         for (java.util.Map.Entry<String, Map<String, String>> prop : properties.entrySet()) {
           result.add(new NamedData(prop.getKey(), prop.getValue(), dataFields));
+        }
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.lang` is unnecessary and can be removed
+in `src/jetbrains/buildServer/server/rest/model/buildType/BuildType.java`
+#### Snippet
+```java
+          property.addTo(new BuildTypeRequest.BuildTypeSettingsEntityWithParams(buildTypeOrTemplatePatcher.getBuildTypeOrTemplate()), serviceLocator);
+          result = true;
+        } catch (java.lang.UnsupportedOperationException e) {  //can be thrown from EditableBuildTypeCopy
+          LOG.debug("Error setting property '" + property.name + "' to value '" + property.value + "': " + e.getMessage());
         }
 ```
 
@@ -16816,25 +16816,51 @@ package jetbrains.buildServer.server.rest.model.federation;
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `javax.xml.bind.annotation` is unnecessary, and can be replaced with an import
-in `src/jetbrains/buildServer/server/rest/model/user/package-info.java`
+Qualifier `jetbrains.buildServer.server.graphql.model.agentPool` is unnecessary, and can be replaced with an import
+in `src/jetbrains/buildServer/server/graphql/resolver/agentPool/AgentPoolMutation.java`
 #### Snippet
 ```java
- */
-
-@javax.xml.bind.annotation.XmlAccessorType(javax.xml.bind.annotation.XmlAccessType.NONE)
-package jetbrains.buildServer.server.rest.model.user;
+    return result.data(new UnassignProjectFromAgentPoolPayload(
+      new Project(project),
+      new jetbrains.buildServer.server.graphql.model.agentPool.AgentPool(agentPool)
+    )).build();
+  }
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `javax.xml.bind.annotation` is unnecessary, and can be replaced with an import
-in `src/jetbrains/buildServer/server/rest/model/user/package-info.java`
+Qualifier `jetbrains.buildServer.server.graphql.model.agentPool` is unnecessary, and can be replaced with an import
+in `src/jetbrains/buildServer/server/graphql/resolver/agentPool/AgentPoolMutation.java`
 #### Snippet
 ```java
- */
+    }
 
-@javax.xml.bind.annotation.XmlAccessorType(javax.xml.bind.annotation.XmlAccessType.NONE)
-package jetbrains.buildServer.server.rest.model.user;
+    return result.data(new BulkAssignProjectWithAgentPoolPayload(new jetbrains.buildServer.server.graphql.model.agentPool.AgentPool(agentPool))).build();
+  }
+
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `jetbrains.buildServer.server.graphql.model.agentPool` is unnecessary, and can be replaced with an import
+in `src/jetbrains/buildServer/server/graphql/resolver/agentPool/AgentPoolMutation.java`
+#### Snippet
+```java
+    return result.data(new AssignProjectWithAgentPoolPayload(
+      new Project(project),
+      new jetbrains.buildServer.server.graphql.model.agentPool.AgentPool(agentPool)
+    )).build();
+  }
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `jetbrains.buildServer.server.graphql.model.agentPool` is unnecessary, and can be replaced with an import
+in `src/jetbrains/buildServer/server/graphql/resolver/agentPool/AgentPoolMutation.java`
+#### Snippet
+```java
+      }
+
+      result.data(new CreateAgentPoolPayload(new jetbrains.buildServer.server.graphql.model.agentPool.AgentPool(resultPool)));
+    } catch (AgentPoolCannotBeRenamedException e) {
+      LOG.debug(e);
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -16866,9 +16892,21 @@ Qualifier `jetbrains.buildServer.server.graphql.model.agentPool` is unnecessary,
 in `src/jetbrains/buildServer/server/graphql/resolver/agentPool/AgentPoolMutation.java`
 #### Snippet
 ```java
-    return result.data(new AssignProjectWithAgentPoolPayload(
-      new Project(project),
-      new jetbrains.buildServer.server.graphql.model.agentPool.AgentPool(agentPool)
+    return result.data(new MoveAgentToAgentPoolPayload(
+      new Agent(agent),
+      sourcePool == null ? null : new jetbrains.buildServer.server.graphql.model.agentPool.AgentPool(sourcePool),
+      targetPool == null ? null : new jetbrains.buildServer.server.graphql.model.agentPool.AgentPool(targetPool)
+    )).build();
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `jetbrains.buildServer.server.graphql.model.agentPool` is unnecessary, and can be replaced with an import
+in `src/jetbrains/buildServer/server/graphql/resolver/agentPool/AgentPoolMutation.java`
+#### Snippet
+```java
+      new Agent(agent),
+      sourcePool == null ? null : new jetbrains.buildServer.server.graphql.model.agentPool.AgentPool(sourcePool),
+      targetPool == null ? null : new jetbrains.buildServer.server.graphql.model.agentPool.AgentPool(targetPool)
     )).build();
   }
 ```
@@ -16878,23 +16916,11 @@ Qualifier `jetbrains.buildServer.server.graphql.model.agentPool` is unnecessary,
 in `src/jetbrains/buildServer/server/graphql/resolver/agentPool/AgentPoolMutation.java`
 #### Snippet
 ```java
-    });
 
-    return result.data(new BulkMoveCloudImagesToAgentPoolPayload(cloudImages, new jetbrains.buildServer.server.graphql.model.agentPool.AgentPool(targetPool)))
-                 .build();
+    AgentPool updatedTargetPool = myAgentPoolManager.findAgentPoolById(input.getTargetAgentPoolRawId()); // should not be null at this stage
+    BulkMoveAgentToAgentsPoolPayload payload = new BulkMoveAgentToAgentsPoolPayload(agents, new jetbrains.buildServer.server.graphql.model.agentPool.AgentPool(updatedTargetPool));
+    return result.data(payload).build();
   }
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `jetbrains.buildServer.server.graphql.model.agentPool` is unnecessary, and can be replaced with an import
-in `src/jetbrains/buildServer/server/graphql/resolver/agentPool/AgentPoolMutation.java`
-#### Snippet
-```java
-    }
-
-    return result.data(new BulkAssignProjectWithAgentPoolPayload(new jetbrains.buildServer.server.graphql.model.agentPool.AgentPool(agentPool))).build();
-  }
-
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -16926,59 +16952,33 @@ Qualifier `jetbrains.buildServer.server.graphql.model.agentPool` is unnecessary,
 in `src/jetbrains/buildServer/server/graphql/resolver/agentPool/AgentPoolMutation.java`
 #### Snippet
 ```java
-    return result.data(new UnassignProjectFromAgentPoolPayload(
-      new Project(project),
-      new jetbrains.buildServer.server.graphql.model.agentPool.AgentPool(agentPool)
-    )).build();
+    });
+
+    return result.data(new BulkMoveCloudImagesToAgentPoolPayload(cloudImages, new jetbrains.buildServer.server.graphql.model.agentPool.AgentPool(targetPool)))
+                 .build();
   }
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `jetbrains.buildServer.server.graphql.model.agentPool` is unnecessary, and can be replaced with an import
-in `src/jetbrains/buildServer/server/graphql/resolver/agentPool/AgentPoolMutation.java`
+Qualifier `javax.xml.bind.annotation` is unnecessary, and can be replaced with an import
+in `src/jetbrains/buildServer/server/rest/model/user/package-info.java`
 #### Snippet
 ```java
-      }
+ */
 
-      result.data(new CreateAgentPoolPayload(new jetbrains.buildServer.server.graphql.model.agentPool.AgentPool(resultPool)));
-    } catch (AgentPoolCannotBeRenamedException e) {
-      LOG.debug(e);
+@javax.xml.bind.annotation.XmlAccessorType(javax.xml.bind.annotation.XmlAccessType.NONE)
+package jetbrains.buildServer.server.rest.model.user;
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `jetbrains.buildServer.server.graphql.model.agentPool` is unnecessary, and can be replaced with an import
-in `src/jetbrains/buildServer/server/graphql/resolver/agentPool/AgentPoolMutation.java`
+Qualifier `javax.xml.bind.annotation` is unnecessary, and can be replaced with an import
+in `src/jetbrains/buildServer/server/rest/model/user/package-info.java`
 #### Snippet
 ```java
+ */
 
-    AgentPool updatedTargetPool = myAgentPoolManager.findAgentPoolById(input.getTargetAgentPoolRawId()); // should not be null at this stage
-    BulkMoveAgentToAgentsPoolPayload payload = new BulkMoveAgentToAgentsPoolPayload(agents, new jetbrains.buildServer.server.graphql.model.agentPool.AgentPool(updatedTargetPool));
-    return result.data(payload).build();
-  }
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `jetbrains.buildServer.server.graphql.model.agentPool` is unnecessary, and can be replaced with an import
-in `src/jetbrains/buildServer/server/graphql/resolver/agentPool/AgentPoolMutation.java`
-#### Snippet
-```java
-    return result.data(new MoveAgentToAgentPoolPayload(
-      new Agent(agent),
-      sourcePool == null ? null : new jetbrains.buildServer.server.graphql.model.agentPool.AgentPool(sourcePool),
-      targetPool == null ? null : new jetbrains.buildServer.server.graphql.model.agentPool.AgentPool(targetPool)
-    )).build();
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `jetbrains.buildServer.server.graphql.model.agentPool` is unnecessary, and can be replaced with an import
-in `src/jetbrains/buildServer/server/graphql/resolver/agentPool/AgentPoolMutation.java`
-#### Snippet
-```java
-      new Agent(agent),
-      sourcePool == null ? null : new jetbrains.buildServer.server.graphql.model.agentPool.AgentPool(sourcePool),
-      targetPool == null ? null : new jetbrains.buildServer.server.graphql.model.agentPool.AgentPool(targetPool)
-    )).build();
-  }
+@javax.xml.bind.annotation.XmlAccessorType(javax.xml.bind.annotation.XmlAccessType.NONE)
+package jetbrains.buildServer.server.rest.model.user;
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -16986,11 +16986,11 @@ Qualifier `jetbrains.buildServer.server.rest.model.plugin` is unnecessary and ca
 in `src/jetbrains/buildServer/server/rest/model/plugin/PluginInfos.java`
 #### Snippet
 ```java
-
-  public PluginInfos(final Collection<ServerPluginInfo> pluginInfos, @NotNull final Fields fields, @NotNull final BeanContext beanContext) {
     plugins = ValueWithDefault.decideDefault(fields.isIncluded("plugin", true), new ValueWithDefault.Value<List<jetbrains.buildServer.server.rest.model.plugin.PluginInfo>>() {
       @Nullable
       public List<jetbrains.buildServer.server.rest.model.plugin.PluginInfo> get() {
+        return CollectionsUtil.convertCollection(pluginInfos, new Converter<PluginInfo, ServerPluginInfo>() {
+          public PluginInfo createFrom(@NotNull final ServerPluginInfo source) {
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -17010,11 +17010,11 @@ Qualifier `jetbrains.buildServer.server.rest.model.plugin` is unnecessary and ca
 in `src/jetbrains/buildServer/server/rest/model/plugin/PluginInfos.java`
 #### Snippet
 ```java
+
+  public PluginInfos(final Collection<ServerPluginInfo> pluginInfos, @NotNull final Fields fields, @NotNull final BeanContext beanContext) {
     plugins = ValueWithDefault.decideDefault(fields.isIncluded("plugin", true), new ValueWithDefault.Value<List<jetbrains.buildServer.server.rest.model.plugin.PluginInfo>>() {
       @Nullable
       public List<jetbrains.buildServer.server.rest.model.plugin.PluginInfo> get() {
-        return CollectionsUtil.convertCollection(pluginInfos, new Converter<PluginInfo, ServerPluginInfo>() {
-          public PluginInfo createFrom(@NotNull final ServerPluginInfo source) {
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -17042,27 +17042,27 @@ public interface RESTControllerExtension extends ServerExtension {
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `jetbrains.buildServer.server.rest.errors` is unnecessary and can be removed
-in `src/jetbrains/buildServer/server/rest/data/Locator.java`
+Qualifier `jetbrains.buildServer.server.rest.model.problem.scope` is unnecessary, and can be replaced with an import
+in `src/jetbrains/buildServer/server/rest/request/TestScopesRequest.java`
 #### Snippet
 ```java
-   *
-   * @param dimensionName the name of the dimension to extract value.   @return empty collection if no such dimension is found, values of the dimension otherwise.
-   * @throws jetbrains.buildServer.server.rest.errors.LocatorProcessException if there are more then a single dimension definition for a 'dimensionName' name or the dimension has no value specified.
-   */
-  @NotNull
+  @Produces({"application/xml", "application/json"})
+  @ApiOperation(hidden = true, value = "highly experimental")
+  public jetbrains.buildServer.server.rest.model.problem.scope.TestScopeTree serveScopesTree(@QueryParam("locator") String locatorText,
+                                    @QueryParam("fields") String fields) {
+    List<ScopeTree.Node<STestRun, TestCountersData>> treeNodes = myTestScopeTreeCollector.getSlicedTree(Locator.locator(locatorText));
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `jetbrains.buildServer.server.rest.errors` is unnecessary and can be removed
-in `src/jetbrains/buildServer/server/rest/data/Locator.java`
+Qualifier `jetbrains.buildServer.server.rest.model.problem.scope` is unnecessary, and can be replaced with an import
+in `src/jetbrains/buildServer/server/rest/request/TestScopesRequest.java`
 #### Snippet
 ```java
-   *
-   * @param dimensionName the name of the dimension to extract value.   @return 'null' if no such dimension is found, value of the dimension otherwise.
-   * @throws jetbrains.buildServer.server.rest.errors.LocatorProcessException if there are more then a single dimension definition for a 'dimensionName' name or the dimension has no value specified.
-   */
-  @Nullable
+    List<ScopeTree.Node<STestRun, TestCountersData>> treeNodes = myTestScopeTreeCollector.getSlicedTree(Locator.locator(locatorText));
+
+    return new jetbrains.buildServer.server.rest.model.problem.scope.TestScopeTree(treeNodes, new Fields(fields), myBeanContext);
+  }
+
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -17090,27 +17090,27 @@ in `src/jetbrains/buildServer/server/rest/request/TestScopesRequest.java`
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `jetbrains.buildServer.server.rest.model.problem.scope` is unnecessary, and can be replaced with an import
-in `src/jetbrains/buildServer/server/rest/request/TestScopesRequest.java`
+Qualifier `jetbrains.buildServer.server.rest.errors` is unnecessary and can be removed
+in `src/jetbrains/buildServer/server/rest/data/Locator.java`
 #### Snippet
 ```java
-  @Produces({"application/xml", "application/json"})
-  @ApiOperation(hidden = true, value = "highly experimental")
-  public jetbrains.buildServer.server.rest.model.problem.scope.TestScopeTree serveScopesTree(@QueryParam("locator") String locatorText,
-                                    @QueryParam("fields") String fields) {
-    List<ScopeTree.Node<STestRun, TestCountersData>> treeNodes = myTestScopeTreeCollector.getSlicedTree(Locator.locator(locatorText));
+   *
+   * @param dimensionName the name of the dimension to extract value.   @return 'null' if no such dimension is found, value of the dimension otherwise.
+   * @throws jetbrains.buildServer.server.rest.errors.LocatorProcessException if there are more then a single dimension definition for a 'dimensionName' name or the dimension has no value specified.
+   */
+  @Nullable
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `jetbrains.buildServer.server.rest.model.problem.scope` is unnecessary, and can be replaced with an import
-in `src/jetbrains/buildServer/server/rest/request/TestScopesRequest.java`
+Qualifier `jetbrains.buildServer.server.rest.errors` is unnecessary and can be removed
+in `src/jetbrains/buildServer/server/rest/data/Locator.java`
 #### Snippet
 ```java
-    List<ScopeTree.Node<STestRun, TestCountersData>> treeNodes = myTestScopeTreeCollector.getSlicedTree(Locator.locator(locatorText));
-
-    return new jetbrains.buildServer.server.rest.model.problem.scope.TestScopeTree(treeNodes, new Fields(fields), myBeanContext);
-  }
-
+   *
+   * @param dimensionName the name of the dimension to extract value.   @return empty collection if no such dimension is found, values of the dimension otherwise.
+   * @throws jetbrains.buildServer.server.rest.errors.LocatorProcessException if there are more then a single dimension definition for a 'dimensionName' name or the dimension has no value specified.
+   */
+  @NotNull
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -17372,6 +17372,28 @@ package jetbrains.buildServer.server.rest.model.server;
 ```
 
 ### UnnecessaryFullyQualifiedName
+Qualifier `javax.xml.bind.annotation` is unnecessary, and can be replaced with an import
+in `src/jetbrains/buildServer/server/rest/model/cloud/package-info.java`
+#### Snippet
+```java
+ */
+
+@javax.xml.bind.annotation.XmlAccessorType(javax.xml.bind.annotation.XmlAccessType.NONE)
+package jetbrains.buildServer.server.rest.model.cloud;
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `javax.xml.bind.annotation` is unnecessary, and can be replaced with an import
+in `src/jetbrains/buildServer/server/rest/model/cloud/package-info.java`
+#### Snippet
+```java
+ */
+
+@javax.xml.bind.annotation.XmlAccessorType(javax.xml.bind.annotation.XmlAccessType.NONE)
+package jetbrains.buildServer.server.rest.model.cloud;
+```
+
+### UnnecessaryFullyQualifiedName
 Qualifier `jetbrains.buildServer.server.rest.model.problem.scope` is unnecessary and can be removed
 in `src/jetbrains/buildServer/server/rest/request/ProblemOccurrenceRequest.java`
 #### Snippet
@@ -17385,28 +17407,6 @@ in `src/jetbrains/buildServer/server/rest/request/ProblemOccurrenceRequest.java`
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `javax.xml.bind.annotation` is unnecessary, and can be replaced with an import
-in `src/jetbrains/buildServer/server/rest/model/cloud/package-info.java`
-#### Snippet
-```java
- */
-
-@javax.xml.bind.annotation.XmlAccessorType(javax.xml.bind.annotation.XmlAccessType.NONE)
-package jetbrains.buildServer.server.rest.model.cloud;
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.xml.bind.annotation` is unnecessary, and can be replaced with an import
-in `src/jetbrains/buildServer/server/rest/model/cloud/package-info.java`
-#### Snippet
-```java
- */
-
-@javax.xml.bind.annotation.XmlAccessorType(javax.xml.bind.annotation.XmlAccessType.NONE)
-package jetbrains.buildServer.server.rest.model.cloud;
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.xml.bind.annotation` is unnecessary, and can be replaced with an import
 in `src/jetbrains/buildServer/server/rest/model/project/package-info.java`
 #### Snippet
 ```java
@@ -17447,6 +17447,30 @@ in `contrib/src/jetbrains/buildServer/server/restcontrib/cctray/model/package-in
 
 @javax.xml.bind.annotation.XmlAccessorType(javax.xml.bind.annotation.XmlAccessType.NONE)
 package jetbrains.buildServer.server.restcontrib.cctray.model;
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `jetbrains.buildServer.server.rest.model.files` is unnecessary, and can be replaced with an import
+in `src/jetbrains/buildServer/server/rest/request/FilesSubResource.java`
+#### Snippet
+```java
+  @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+  @ApiOperation(value = "Get metadata of specific file.", nickname = "getFileMetadata")
+  public jetbrains.buildServer.server.rest.model.files.File getMetadata(@PathParam("path") final String path,
+                                                                        @QueryParam("fields") String fields,
+                                                                        @Context HttpServletRequest request) {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `jetbrains.buildServer.server.rest.model.files` is unnecessary, and can be replaced with an import
+in `src/jetbrains/buildServer/server/rest/request/FilesSubResource.java`
+#### Snippet
+```java
+                                                                        @Context HttpServletRequest request) {
+    final Element element = myProvider.getElement(myProvider.preprocess(StringUtil.removeLeadingSlash(path)));
+    return new jetbrains.buildServer.server.rest.model.files.File(element, getParent(element), fileApiUrlBuilder(null, myUrlPrefix), new Fields(fields), myBeanContext);
+  }
+
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -17486,30 +17510,6 @@ in `src/jetbrains/buildServer/server/rest/model/Entries.java`
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `jetbrains.buildServer.server.rest.model.files` is unnecessary, and can be replaced with an import
-in `src/jetbrains/buildServer/server/rest/request/FilesSubResource.java`
-#### Snippet
-```java
-  @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-  @ApiOperation(value = "Get metadata of specific file.", nickname = "getFileMetadata")
-  public jetbrains.buildServer.server.rest.model.files.File getMetadata(@PathParam("path") final String path,
-                                                                        @QueryParam("fields") String fields,
-                                                                        @Context HttpServletRequest request) {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `jetbrains.buildServer.server.rest.model.files` is unnecessary, and can be replaced with an import
-in `src/jetbrains/buildServer/server/rest/request/FilesSubResource.java`
-#### Snippet
-```java
-                                                                        @Context HttpServletRequest request) {
-    final Element element = myProvider.getElement(myProvider.preprocess(StringUtil.removeLeadingSlash(path)));
-    return new jetbrains.buildServer.server.rest.model.files.File(element, getParent(element), fileApiUrlBuilder(null, myUrlPrefix), new Fields(fields), myBeanContext);
-  }
-
-```
-
-### UnnecessaryFullyQualifiedName
 Qualifier `javax.xml.bind.annotation` is unnecessary, and can be replaced with an import
 in `src/jetbrains/buildServer/server/rest/model/debug/package-info.java`
 #### Snippet
@@ -17529,6 +17529,18 @@ in `src/jetbrains/buildServer/server/rest/model/debug/package-info.java`
 
 @javax.xml.bind.annotation.XmlAccessorType(javax.xml.bind.annotation.XmlAccessType.NONE)
 package jetbrains.buildServer.server.rest.model.debug;
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `jetbrains.buildServer.server.rest.request` is unnecessary, and can be replaced with an import
+in `src/jetbrains/buildServer/server/rest/data/BuildFinder.java`
+#### Snippet
+```java
+      buildsFilter.setCount(c != -1 ? c : null);
+    } else {
+      buildsFilter.setCount(jetbrains.buildServer.server.rest.request.Constants.getDefaultPageItemsCount());
+    }
+
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -17541,18 +17553,6 @@ in `src/jetbrains/buildServer/server/rest/data/BuildFinder.java`
       buildsFilter.setCount(jetbrains.buildServer.server.rest.request.Constants.getDefaultPageItemsCount());
     }
     return buildsFilter;
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `jetbrains.buildServer.server.rest.request` is unnecessary, and can be replaced with an import
-in `src/jetbrains/buildServer/server/rest/data/BuildFinder.java`
-#### Snippet
-```java
-      buildsFilter.setCount(c != -1 ? c : null);
-    } else {
-      buildsFilter.setCount(jetbrains.buildServer.server.rest.request.Constants.getDefaultPageItemsCount());
-    }
-
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -17670,11 +17670,11 @@ Constructor `AbstractLeaf()` of an abstract class should not be declared 'public
 in `src/jetbrains/buildServer/server/rest/model/problem/scope/AbstractLeaf.java`
 #### Snippet
 ```java
-  protected ScopeTree.Node<DATA, COUNTERS> myNode;
-
-  public AbstractLeaf() {
   }
 
+  public AbstractLeaf(@NotNull ScopeTree.Node<DATA, COUNTERS> node, @NotNull Fields fields, @NotNull BeanContext beanContext) {
+    myNode = node;
+    myFields = fields;
 ```
 
 ### NonProtectedConstructorInAbstractClass
@@ -17682,11 +17682,11 @@ Constructor `AbstractLeaf()` of an abstract class should not be declared 'public
 in `src/jetbrains/buildServer/server/rest/model/problem/scope/AbstractLeaf.java`
 #### Snippet
 ```java
+  protected ScopeTree.Node<DATA, COUNTERS> myNode;
+
+  public AbstractLeaf() {
   }
 
-  public AbstractLeaf(@NotNull ScopeTree.Node<DATA, COUNTERS> node, @NotNull Fields fields, @NotNull BeanContext beanContext) {
-    myNode = node;
-    myFields = fields;
 ```
 
 ### NonProtectedConstructorInAbstractClass
@@ -17874,18 +17874,6 @@ in `src/jetbrains/buildServer/server/rest/data/BuildPromotionFinder.java`
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `loadPercentage`
-in `src/jetbrains/buildServer/server/rest/request/DebugRequest.java`
-#### Snippet
-```java
-      }
-    }
-    if (loadPercentage == null) loadPercentage = 0;
-    long loadMsInSecond = Math.round((Math.max(Math.min(loadPercentage, 100), 0) / 100.0) * 1000);
-
-```
-
-### AssignmentToMethodParameter
 Assignment to method parameter `format`
 in `src/jetbrains/buildServer/server/rest/request/DebugRequest.java`
 #### Snippet
@@ -17895,6 +17883,18 @@ in `src/jetbrains/buildServer/server/rest/request/DebugRequest.java`
         format = jetbrains.buildServer.server.rest.model.Constants.TIME_FORMAT;
       }
       DateTimeFormatter formatter = DateTimeFormat.forPattern(format).withLocale(Locale.ENGLISH);
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `loadPercentage`
+in `src/jetbrains/buildServer/server/rest/request/DebugRequest.java`
+#### Snippet
+```java
+      }
+    }
+    if (loadPercentage == null) loadPercentage = 0;
+    long loadMsInSecond = Math.round((Math.max(Math.min(loadPercentage, 100), 0) / 100.0) * 1000);
+
 ```
 
 ### AssignmentToMethodParameter
@@ -18047,30 +18047,6 @@ Return of `null`
 in `src/jetbrains/buildServer/server/rest/model/debug/Sessions.java`
 #### Snippet
 ```java
-    @Override
-    public Comparable apply(final Session input) {
-      return input.lastAccessedDate != null ? input.lastAccessedDate : null;
-    }
-  })).compound(Ordering.natural().nullsLast().onResultOf(new Function<Session, Comparable>() {
-```
-
-### ReturnNull
-Return of `null`
-in `src/jetbrains/buildServer/server/rest/model/debug/Sessions.java`
-#### Snippet
-```java
-    @Override
-    public String apply(Session input) {
-      return input.user != null ? input.user.getUsername() : null;
-    }
-  }).compound(Ordering.natural().nullsLast().onResultOf(new Function<Session, Comparable>() {
-```
-
-### ReturnNull
-Return of `null`
-in `src/jetbrains/buildServer/server/rest/model/debug/Sessions.java`
-#### Snippet
-```java
       return serverBean.invoke(managerBean, operationName, new Object[]{sessionId}, new String[]{String.class.getName()});
     } catch (Exception e) {
       return null;
@@ -18097,6 +18073,18 @@ in `src/jetbrains/buildServer/server/rest/model/debug/Sessions.java`
 ```java
     @Override
     public Comparable apply(final Session input) {
+      return input.lastAccessedDate != null ? input.lastAccessedDate : null;
+    }
+  })).compound(Ordering.natural().nullsLast().onResultOf(new Function<Session, Comparable>() {
+```
+
+### ReturnNull
+Return of `null`
+in `src/jetbrains/buildServer/server/rest/model/debug/Sessions.java`
+#### Snippet
+```java
+    @Override
+    public Comparable apply(final Session input) {
       return input.creationDate != null ? input.creationDate : null;
     }
   }));
@@ -18104,14 +18092,14 @@ in `src/jetbrains/buildServer/server/rest/model/debug/Sessions.java`
 
 ### ReturnNull
 Return of `null`
-in `src/jetbrains/buildServer/server/rest/model/change/Commiter.java`
+in `src/jetbrains/buildServer/server/rest/model/debug/Sessions.java`
 #### Snippet
 ```java
-      return myVCSUsername;
+    @Override
+    public String apply(Session input) {
+      return input.user != null ? input.user.getUsername() : null;
     }
-    return null;
-  }
-
+  }).compound(Ordering.natural().nullsLast().onResultOf(new Function<Session, Comparable>() {
 ```
 
 ### ReturnNull
@@ -18124,6 +18112,18 @@ in `src/jetbrains/buildServer/server/rest/model/change/Commiter.java`
     return null;
   }
 }
+```
+
+### ReturnNull
+Return of `null`
+in `src/jetbrains/buildServer/server/rest/model/change/Commiter.java`
+#### Snippet
+```java
+      return myVCSUsername;
+    }
+    return null;
+  }
+
 ```
 
 ### ReturnNull
@@ -18148,30 +18148,6 @@ in `src/jetbrains/buildServer/server/graphql/resolver/agentPool/ProjectAgentPool
     return null;
   }
 }
-```
-
-### ReturnNull
-Return of `null`
-in `src/jetbrains/buildServer/server/rest/model/build/approval/UserApprovalRuleStatus.java`
-#### Snippet
-```java
-      );
-    }
-    return null;
-  }
-}
-```
-
-### ReturnNull
-Return of `null`
-in `src/jetbrains/buildServer/server/rest/model/build/approval/UserApprovalRuleStatus.java`
-#### Snippet
-```java
-      );
-    }
-    return null;
-  }
-
 ```
 
 ### ReturnNull
@@ -18212,6 +18188,30 @@ in `src/jetbrains/buildServer/server/graphql/resolver/AgentTypeResolver.java`
 
 ### ReturnNull
 Return of `null`
+in `src/jetbrains/buildServer/server/rest/model/build/approval/UserApprovalRuleStatus.java`
+#### Snippet
+```java
+      );
+    }
+    return null;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/jetbrains/buildServer/server/rest/model/build/approval/UserApprovalRuleStatus.java`
+#### Snippet
+```java
+      );
+    }
+    return null;
+  }
+}
+```
+
+### ReturnNull
+Return of `null`
 in `src/jetbrains/buildServer/server/graphql/resolver/AgentResolver.java`
 #### Snippet
 ```java
@@ -18220,6 +18220,18 @@ in `src/jetbrains/buildServer/server/graphql/resolver/AgentResolver.java`
     return null;
   }
 }
+```
+
+### ReturnNull
+Return of `null`
+in `src/jetbrains/buildServer/server/rest/model/cloud/CloudImage.java`
+#### Snippet
+```java
+  @XmlAttribute
+  public String getLocator() {
+    return null;
+  }
+
 ```
 
 ### ReturnNull
@@ -18248,14 +18260,14 @@ in `src/jetbrains/buildServer/server/rest/model/change/Changes.java`
 
 ### ReturnNull
 Return of `null`
-in `src/jetbrains/buildServer/server/rest/model/cloud/CloudImage.java`
+in `src/jetbrains/buildServer/server/rest/model/change/Change.java`
 #### Snippet
 ```java
-  @XmlAttribute
-  public String getLocator() {
-    return null;
-  }
-
+      final Collection<SUser> users = myModification.getCommitters();
+      if (users.size() != 1) {
+        return null;
+      }
+      return new User(users.iterator().next(), myFields.getNestedField("user"), myBeanContext);
 ```
 
 ### ReturnNull
@@ -18263,11 +18275,11 @@ Return of `null`
 in `src/jetbrains/buildServer/server/rest/model/change/Change.java`
 #### Snippet
 ```java
-    return ValueWithDefault.decideDefault(myFields.isIncluded("snapshotDependencyLink", false), () -> {
-      if(myDescriptor == null)
-        return null;
+  @XmlAttribute
+  public String getLocator() {
+    return null;
+  }
 
-      return ChangeUtil.getSnapshotDependencyLink(myDescriptor, myFields.getNestedField("snapshotDependencyLink"), myBeanContext);
 ```
 
 ### ReturnNull
@@ -18287,23 +18299,11 @@ Return of `null`
 in `src/jetbrains/buildServer/server/rest/model/change/Change.java`
 #### Snippet
 ```java
-  @XmlAttribute
-  public String getLocator() {
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/jetbrains/buildServer/server/rest/model/change/Change.java`
-#### Snippet
-```java
-      final Collection<SUser> users = myModification.getCommitters();
-      if (users.size() != 1) {
+    return ValueWithDefault.decideDefault(myFields.isIncluded("snapshotDependencyLink", false), () -> {
+      if(myDescriptor == null)
         return null;
-      }
-      return new User(users.iterator().next(), myFields.getNestedField("user"), myBeanContext);
+
+      return ChangeUtil.getSnapshotDependencyLink(myDescriptor, myFields.getNestedField("snapshotDependencyLink"), myBeanContext);
 ```
 
 ### ReturnNull
@@ -18404,482 +18404,14 @@ in `src/jetbrains/buildServer/server/rest/model/change/SnapshotDependencyLink.ja
 
 ### ReturnNull
 Return of `null`
-in `src/jetbrains/buildServer/server/rest/model/buildType/BuildType.java`
-#### Snippet
-```java
-        return new Comment(pauseComment, myFields.getNestedField("pauseComment"), myBeanContext);
-      } else {
-        return null;
-      }
-    });
-```
-
-### ReturnNull
-Return of `null`
-in `src/jetbrains/buildServer/server/rest/model/buildType/BuildType.java`
-#### Snippet
-```java
-  public PropEntitiesAgentRequirement getAgentRequirements() {
-    if (myBuildType == null) {
-      return null;
-    }
-    return ValueWithDefault.decideIncludeByDefault(
-```
-
-### ReturnNull
-Return of `null`
-in `src/jetbrains/buildServer/server/rest/model/buildType/BuildType.java`
-#### Snippet
-```java
-  @XmlElement(name = "builds")
-  public Builds getBuilds() {
-    if (myBuildType == null || !myBuildType.isBuildType()) return null;
-    if (!myFields.isIncluded("builds", false, true)){
-      return null;
-```
-
-### ReturnNull
-Return of `null`
-in `src/jetbrains/buildServer/server/rest/model/buildType/BuildType.java`
-#### Snippet
-```java
-    if (myBuildType == null || !myBuildType.isBuildType()) return null;
-    if (!myFields.isIncluded("builds", false, true)){
-      return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/jetbrains/buildServer/server/rest/model/buildType/BuildType.java`
-#### Snippet
-```java
-  @XmlElement
-  public Links getLinks() {
-    return myBuildType == null ? null : ValueWithDefault.decideDefault(myFields.isIncluded("links", false, false), () -> {
-        WebLinks webLinks = myBeanContext.getSingletonService(WebLinks.class);
-        RelativeWebLinks relativeWebLinks = new RelativeWebLinks();
-```
-
-### ReturnNull
-Return of `null`
-in `src/jetbrains/buildServer/server/rest/model/buildType/BuildType.java`
-#### Snippet
-```java
-    final boolean includeProperty = TeamCityProperties.getBoolean(APIController.INCLUDE_INTERNAL_ID_PROPERTY_NAME);
-    return myBuildType == null
-           ? null
-           : ValueWithDefault.decideDefault(myFields.isIncluded("projectInternalId", includeProperty, includeProperty), () -> myBuildType.getProject().getProjectId());
-  }
-```
-
-### ReturnNull
-Return of `null`
-in `src/jetbrains/buildServer/server/rest/model/buildType/BuildType.java`
-#### Snippet
-```java
-  @XmlAttribute
-  public String getHref() {
-    return myBuildType == null ? null : ValueWithDefault.decideDefault(myFields.isIncluded("href"), () -> myBeanContext.getApiUrlBuilder().getHref(myBuildType));
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/jetbrains/buildServer/server/rest/model/buildType/BuildType.java`
-#### Snippet
-```java
-  public Agents getCompatibleAgents() {
-    if (myBuildType == null || myBuildType.getBuildType() == null) {
-      return null;
-    }
-    return ValueWithDefault.decideDefault(myFields.isIncluded("compatibleAgents", false, true), () -> {
-```
-
-### ReturnNull
-Return of `null`
-in `src/jetbrains/buildServer/server/rest/model/buildType/BuildType.java`
-#### Snippet
-```java
-  public BuildTypes getTemplates() {
-    if (myBuildType == null || myBuildType.getBuildType() == null){
-      return null;
-    }
-    return ValueWithDefault.decideDefault(myFields.isIncluded("templates", false), check(() -> {
-```
-
-### ReturnNull
-Return of `null`
-in `src/jetbrains/buildServer/server/rest/model/buildType/BuildType.java`
-#### Snippet
-```java
-  @XmlElement(name="settings")
-  public Properties getSettings() {
-    return myBuildType == null ? null : ValueWithDefault.decideDefault(myFields.isIncluded("settings", false), check(() -> {
-        Fields nestedField = myFields.getNestedField("settings", Fields.NONE, Fields.LONG);
-        Locator locator = nestedField.getLocator() == null ? null : new Locator(nestedField.getLocator());
-```
-
-### ReturnNull
-Return of `null`
-in `src/jetbrains/buildServer/server/rest/model/buildType/BuildType.java`
-#### Snippet
-```java
-    //template has no user link
-    if (myBuildType == null || myBuildType.getBuildType() == null) {
-      return null;
-    }
-    return ValueWithDefault.decideDefault(myFields.isIncluded("webUrl"), () -> myBeanContext.getSingletonService(WebLinks.class).getConfigurationHomePageUrl(myBuildType.getBuildType()));
-```
-
-### ReturnNull
-Return of `null`
-in `src/jetbrains/buildServer/server/rest/model/buildType/BuildType.java`
-#### Snippet
-```java
-  public Project getProject() {
-    return ValueWithDefault.decideDefault(myFields.isIncluded("project", false),
-        () -> myBuildType == null ? null : new Project(myBuildType.getProject(), myFields.getNestedField("project"), myBeanContext)
-    );
-  }
-```
-
-### ReturnNull
-Return of `null`
-in `src/jetbrains/buildServer/server/rest/model/buildType/BuildType.java`
-#### Snippet
-```java
-  @XmlAttribute
-  public String getLocator() {
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/jetbrains/buildServer/server/rest/model/buildType/BuildType.java`
-#### Snippet
-```java
-  public VcsRootEntries getVcsRootEntries() {
-    return ValueWithDefault.decideIncludeByDefault(myFields.isIncluded("vcs-root-entries", false),
-        check(() -> myBuildType == null ? null : new VcsRootEntries(myBuildType, myFields.getNestedField("vcs-root-entries"), myBeanContext))
-    );
-  }
-```
-
-### ReturnNull
-Return of `null`
-in `src/jetbrains/buildServer/server/rest/model/buildType/BuildType.java`
-#### Snippet
-```java
-  @XmlAttribute
-  public Boolean isPaused() {
-    return myBuildType == null ? null : ValueWithDefault.decideDefault(myFields.isIncluded("paused"), () -> myBuildType.isPaused());
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/jetbrains/buildServer/server/rest/model/buildType/BuildType.java`
-#### Snippet
-```java
-  @XmlElement
-  public Properties getParameters() {
-    return myBuildType == null ? null : ValueWithDefault
-        .decideIncludeByDefault(myFields.isIncluded("parameters", false),
-            check(() -> new Properties(
-```
-
-### ReturnNull
-Return of `null`
-in `src/jetbrains/buildServer/server/rest/model/buildType/BuildType.java`
-#### Snippet
-```java
-        return ((BuildTypeIdentityEx)myBuildType.getIdentity()).getEntityId().getConfigId();
-      } else {
-        return null;
-      }
-    } else {
-```
-
-### ReturnNull
-Return of `null`
-in `src/jetbrains/buildServer/server/rest/model/buildType/BuildType.java`
-#### Snippet
-```java
-      }
-    } else {
-      return null;
-    }
-  }
-```
-
-### ReturnNull
-Return of `null`
-in `src/jetbrains/buildServer/server/rest/model/buildType/BuildType.java`
-#### Snippet
-```java
-  @Deprecated
-  public String getProjectName() {
-    return myBuildType == null ? null : ValueWithDefault.decideDefault(myFields.isIncluded("projectName"), () -> myBuildType.getProject().getFullName());
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/jetbrains/buildServer/server/rest/model/buildType/BuildType.java`
-#### Snippet
-```java
-  @XmlAttribute (name = "templateFlag")
-  public Boolean getTemplateFlag() {
-    return myBuildType == null ? null : ValueWithDefault.decideDefault(myFields.isIncluded("templateFlag"), () -> !myBuildType.isBuildType());
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/jetbrains/buildServer/server/rest/model/buildType/BuildType.java`
-#### Snippet
-```java
-  public String getType() {
-    if(myBuildType == null) {
-      return null;
-    }
-    return ValueWithDefault.decideDefault(
-```
-
-### ReturnNull
-Return of `null`
-in `src/jetbrains/buildServer/server/rest/model/buildType/BuildType.java`
-#### Snippet
-```java
-        templateInternalIds.stream().map(id -> {
-          BuildTypeTemplate template = projectManager.findBuildTypeTemplateById(id);
-          if (template == null) return null;
-          return new BuildTypeOrTemplate.IdsOnly(template.getExternalId(), id);
-        }).collect(Collectors.toList()));
-```
-
-### ReturnNull
-Return of `null`
-in `src/jetbrains/buildServer/server/rest/model/buildType/BuildType.java`
-#### Snippet
-```java
-  public PropEntitiesArtifactDep getArtifactDependencies() {
-    if (myBuildType == null) {
-      return null;
-    } else {
-      ValueWithDefault.Value<PropEntitiesArtifactDep> value = new ValueWithDefault.Value<PropEntitiesArtifactDep>() {
-```
-
-### ReturnNull
-Return of `null`
-in `src/jetbrains/buildServer/server/rest/model/buildType/BuildType.java`
-#### Snippet
-```java
-  @XmlAttribute
-  public String getProjectId() {
-    return myBuildType == null ? null : ValueWithDefault.decideDefault(myFields.isIncluded("projectId"), () -> myBuildType.getProject().getExternalId());
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/jetbrains/buildServer/server/rest/model/buildType/BuildType.java`
-#### Snippet
-```java
-  @XmlAttribute
-  public String getName() {
-    return myBuildType == null ? null : ValueWithDefault.decideDefault(myFields.isIncluded("name"), () -> myBuildType.getName());
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/jetbrains/buildServer/server/rest/model/buildType/BuildType.java`
-#### Snippet
-```java
-  public BuildType getTemplate() {
-    if (myBuildType == null || myBuildType.getBuildType() == null){
-      return null;
-    }
-    return ValueWithDefault.decideDefault(myFields.isIncluded("template", false, false), check(() -> {
-```
-
-### ReturnNull
-Return of `null`
-in `src/jetbrains/buildServer/server/rest/model/buildType/BuildType.java`
-#### Snippet
-```java
-        try {
-          final BuildTypeTemplate template = myBuildType.getBuildType().getTemplate();
-          return template == null ? null : new BuildType(new BuildTypeOrTemplate(template), myFields.getNestedField("template"), myBeanContext);
-        } catch (RuntimeException e) {
-          LOG.debug("Error retrieving template for build configuration " + LogUtil.describe(myBuildType.getBuildType()) + ": " + e, e);
-```
-
-### ReturnNull
-Return of `null`
-in `src/jetbrains/buildServer/server/rest/model/buildType/BuildType.java`
-#### Snippet
-```java
-          //still including external id since the user has permission to view settings of the current build configuration
-          String templateExternalId = getTemplateExternalId(myBuildType.getBuildType());
-          return templateId == null || templateExternalId == null ? null : new BuildType(templateExternalId, templateId, myFields.getNestedField("template"), myBeanContext);
-        }
-    }));
-```
-
-### ReturnNull
-Return of `null`
-in `src/jetbrains/buildServer/server/rest/model/buildType/BuildType.java`
-#### Snippet
-```java
-  @XmlElement(name = "steps")
-  public PropEntitiesStep getSteps() {
-    return myBuildType == null ? null : ValueWithDefault.decideIncludeByDefault(myFields.isIncluded("steps", false), check(() -> {
-        return new PropEntitiesStep(myBuildType.getSettingsEx(), myFields.getNestedField("steps", Fields.NONE, Fields.LONG), myBeanContext);
-    }));
-```
-
-### ReturnNull
-Return of `null`
-in `src/jetbrains/buildServer/server/rest/model/buildType/BuildType.java`
-#### Snippet
-```java
-  public VcsRootInstances getVcsRootInstances() {
-    return ValueWithDefault.decideIncludeByDefault(myFields.isIncluded("vcsRootInstances", false, false)
-      , check(() -> myBuildType == null || myBuildType.getBuildType() == null ? null :
-                    new VcsRootInstances(CachingValue.simple(myBuildType.getBuildType().getVcsRootInstances()), null, myFields.getNestedField("vcsRootInstances"), myBeanContext)));
-  }
-```
-
-### ReturnNull
-Return of `null`
-in `src/jetbrains/buildServer/server/rest/model/buildType/BuildType.java`
-#### Snippet
-```java
-  public String getDescription() {
-    if (myBuildType == null) {
-      return null;
-    }
-    return ValueWithDefault.decideDefault(myFields.isIncluded("description"), () -> {
-```
-
-### ReturnNull
-Return of `null`
-in `src/jetbrains/buildServer/server/rest/model/buildType/BuildType.java`
-#### Snippet
-```java
-    return ValueWithDefault.decideDefault(myFields.isIncluded("description"), () -> {
-      String description = myBuildType.getDescription();
-      return StringUtil.isEmpty(description) ? null : description;
-    });
-  }
-```
-
-### ReturnNull
-Return of `null`
-in `src/jetbrains/buildServer/server/rest/model/buildType/BuildType.java`
-#### Snippet
-```java
-  public Investigations getInvestigations() {
-    if (myBuildType == null || myBuildType.getBuildType() == null) {
-      return null;
-    }
-    return ValueWithDefault.decideDefault(myFields.isIncluded("investigations", false, true), () -> {
-```
-
-### ReturnNull
-Return of `null`
-in `src/jetbrains/buildServer/server/rest/model/buildType/BuildType.java`
-#### Snippet
-```java
-  @XmlElement(name = "features")
-  public PropEntitiesFeature getFeatures() {
-    return myBuildType == null ? null : ValueWithDefault.decideIncludeByDefault(myFields.isIncluded("features", false), check(() -> {
-        return new PropEntitiesFeature(myBuildType.getSettingsEx(), myFields.getNestedField("features", Fields.NONE, Fields.LONG), myBeanContext);
-    }));
-```
-
-### ReturnNull
-Return of `null`
-in `src/jetbrains/buildServer/server/rest/model/buildType/BuildType.java`
-#### Snippet
-```java
-  @XmlElement(name = "snapshot-dependencies")
-  public PropEntitiesSnapshotDep getSnapshotDependencies() {
-    return myBuildType == null ? null :
-           ValueWithDefault.decideIncludeByDefault(
-               myFields.isIncluded("snapshot-dependencies", false),
-```
-
-### ReturnNull
-Return of `null`
-in `src/jetbrains/buildServer/server/rest/model/buildType/BuildType.java`
-#### Snippet
-```java
-  @XmlElement(name = "branches")
-  public Branches getBranches() {
-    if (myBuildType == null || myBuildType.getBuildType() == null) return null;
-    return ValueWithDefault.decideDefault(myFields.isIncluded("branches", false, false), // do not include until asked as should only include for branched build types
-      () -> {
-```
-
-### ReturnNull
-Return of `null`
-in `src/jetbrains/buildServer/server/rest/model/buildType/BuildType.java`
-#### Snippet
-```java
-  @XmlElement(name = "triggers")
-  public PropEntitiesTrigger getTriggers() {
-    return myBuildType == null ? null : ValueWithDefault.decideIncludeByDefault(myFields.isIncluded("triggers", false), check(() -> {
-        return new PropEntitiesTrigger(myBuildType.getSettingsEx(), myFields.getNestedField("triggers", Fields.NONE, Fields.LONG), myBeanContext);
-    }));
-```
-
-### ReturnNull
-Return of `null`
-in `src/jetbrains/buildServer/server/rest/model/buildType/BuildType.java`
-#### Snippet
-```java
-  @SuppressWarnings("unused")
-  public Boolean isExternalStatusAllowed() {
-    return myBuildType == null ? null : ValueWithDefault.decideDefault(myFields.isIncluded("externalStatusAllowed", false, false), () -> myBuildType.getSettingsEx().getOption(BuildTypeOptions.BT_ALLOW_EXTERNAL_STATUS));
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/jetbrains/buildServer/server/rest/data/BuildPromotionFinder.java`
-#### Snippet
-```java
-    }
-
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
 in `src/jetbrains/buildServer/server/rest/model/build/Builds.java`
 #### Snippet
 ```java
         PagerData pager = myBuildDataRetriever.getPagerData();
-        if(pager == null) {
+        if(pager == null || pager.getNextHref() == null) {
           return null;
         }
-        return myBeanContext.getApiUrlBuilder().transformRelativePath(pager.getHref());
+        return myBeanContext.getApiUrlBuilder().transformRelativePath(pager.getNextHref());
 ```
 
 ### ReturnNull
@@ -18900,58 +18432,10 @@ in `src/jetbrains/buildServer/server/rest/model/build/Builds.java`
 #### Snippet
 ```java
         PagerData pager = myBuildDataRetriever.getPagerData();
-        if(pager == null || pager.getNextHref() == null) {
+        if(pager == null) {
           return null;
         }
-        return myBeanContext.getApiUrlBuilder().transformRelativePath(pager.getNextHref());
-```
-
-### ReturnNull
-Return of `null`
-in `src/jetbrains/buildServer/server/rest/model/build/approval/ApprovalInfo.java`
-#### Snippet
-```java
-    if (myFields.isIncluded("userApprovals", true, true)) {
-      if (!myApprovalFeatureEnabled) {
-        return null;
-      }
-      try { // return empty list of rule statuses if user is not entitled to see build configuration settings
-```
-
-### ReturnNull
-Return of `null`
-in `src/jetbrains/buildServer/server/rest/model/build/approval/ApprovalInfo.java`
-#### Snippet
-```java
-                     .checkProjectPermission(Permission.VIEW_BUILD_CONFIGURATION_SETTINGS, myBuildPromotionEx.getProjectId());
-      } catch (AuthorizationFailedException e) {
-        return null;
-      }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/jetbrains/buildServer/server/rest/model/build/approval/ApprovalInfo.java`
-#### Snippet
-```java
-        );
-      } catch (InvalidApprovalRuleException e) {
-        return null; // act as if there are no rules at all
-      }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/jetbrains/buildServer/server/rest/model/build/approval/ApprovalInfo.java`
-#### Snippet
-```java
-
-    }
-    return null;
-  }
-
+        return myBeanContext.getApiUrlBuilder().transformRelativePath(pager.getHref());
 ```
 
 ### ReturnNull
@@ -18971,10 +18455,10 @@ Return of `null`
 in `src/jetbrains/buildServer/server/rest/model/build/approval/ApprovalInfo.java`
 #### Snippet
 ```java
-  public ApprovalStatus getStatus() {
-    if (!myFields.isIncluded("status", true, true)) {
-      return null;
+      return false;
     }
+    return null;
+  }
 
 ```
 
@@ -18983,10 +18467,10 @@ Return of `null`
 in `src/jetbrains/buildServer/server/rest/model/build/approval/ApprovalInfo.java`
 #### Snippet
 ```java
-      return false;
+  public ApprovalStatus getStatus() {
+    if (!myFields.isIncluded("status", true, true)) {
+      return null;
     }
-    return null;
-  }
 
 ```
 
@@ -19040,6 +18524,522 @@ in `src/jetbrains/buildServer/server/rest/model/build/approval/ApprovalInfo.java
 
 ### ReturnNull
 Return of `null`
+in `src/jetbrains/buildServer/server/rest/model/build/approval/ApprovalInfo.java`
+#### Snippet
+```java
+    if (myFields.isIncluded("userApprovals", true, true)) {
+      if (!myApprovalFeatureEnabled) {
+        return null;
+      }
+      try { // return empty list of rule statuses if user is not entitled to see build configuration settings
+```
+
+### ReturnNull
+Return of `null`
+in `src/jetbrains/buildServer/server/rest/model/build/approval/ApprovalInfo.java`
+#### Snippet
+```java
+                     .checkProjectPermission(Permission.VIEW_BUILD_CONFIGURATION_SETTINGS, myBuildPromotionEx.getProjectId());
+      } catch (AuthorizationFailedException e) {
+        return null;
+      }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/jetbrains/buildServer/server/rest/model/build/approval/ApprovalInfo.java`
+#### Snippet
+```java
+        );
+      } catch (InvalidApprovalRuleException e) {
+        return null; // act as if there are no rules at all
+      }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/jetbrains/buildServer/server/rest/model/build/approval/ApprovalInfo.java`
+#### Snippet
+```java
+
+    }
+    return null;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/jetbrains/buildServer/server/rest/model/buildType/BuildType.java`
+#### Snippet
+```java
+    final boolean includeProperty = TeamCityProperties.getBoolean(APIController.INCLUDE_INTERNAL_ID_PROPERTY_NAME);
+    return myBuildType == null
+           ? null
+           : ValueWithDefault.decideDefault(myFields.isIncluded("projectInternalId", includeProperty, includeProperty), () -> myBuildType.getProject().getProjectId());
+  }
+```
+
+### ReturnNull
+Return of `null`
+in `src/jetbrains/buildServer/server/rest/model/buildType/BuildType.java`
+#### Snippet
+```java
+  public PropEntitiesArtifactDep getArtifactDependencies() {
+    if (myBuildType == null) {
+      return null;
+    } else {
+      ValueWithDefault.Value<PropEntitiesArtifactDep> value = new ValueWithDefault.Value<PropEntitiesArtifactDep>() {
+```
+
+### ReturnNull
+Return of `null`
+in `src/jetbrains/buildServer/server/rest/model/buildType/BuildType.java`
+#### Snippet
+```java
+  @XmlElement(name = "triggers")
+  public PropEntitiesTrigger getTriggers() {
+    return myBuildType == null ? null : ValueWithDefault.decideIncludeByDefault(myFields.isIncluded("triggers", false), check(() -> {
+        return new PropEntitiesTrigger(myBuildType.getSettingsEx(), myFields.getNestedField("triggers", Fields.NONE, Fields.LONG), myBeanContext);
+    }));
+```
+
+### ReturnNull
+Return of `null`
+in `src/jetbrains/buildServer/server/rest/model/buildType/BuildType.java`
+#### Snippet
+```java
+  @XmlElement(name = "features")
+  public PropEntitiesFeature getFeatures() {
+    return myBuildType == null ? null : ValueWithDefault.decideIncludeByDefault(myFields.isIncluded("features", false), check(() -> {
+        return new PropEntitiesFeature(myBuildType.getSettingsEx(), myFields.getNestedField("features", Fields.NONE, Fields.LONG), myBeanContext);
+    }));
+```
+
+### ReturnNull
+Return of `null`
+in `src/jetbrains/buildServer/server/rest/model/buildType/BuildType.java`
+#### Snippet
+```java
+  @XmlAttribute
+  public String getName() {
+    return myBuildType == null ? null : ValueWithDefault.decideDefault(myFields.isIncluded("name"), () -> myBuildType.getName());
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/jetbrains/buildServer/server/rest/model/buildType/BuildType.java`
+#### Snippet
+```java
+  @SuppressWarnings("unused")
+  public Boolean isExternalStatusAllowed() {
+    return myBuildType == null ? null : ValueWithDefault.decideDefault(myFields.isIncluded("externalStatusAllowed", false, false), () -> myBuildType.getSettingsEx().getOption(BuildTypeOptions.BT_ALLOW_EXTERNAL_STATUS));
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/jetbrains/buildServer/server/rest/model/buildType/BuildType.java`
+#### Snippet
+```java
+  @XmlElement
+  public Links getLinks() {
+    return myBuildType == null ? null : ValueWithDefault.decideDefault(myFields.isIncluded("links", false, false), () -> {
+        WebLinks webLinks = myBeanContext.getSingletonService(WebLinks.class);
+        RelativeWebLinks relativeWebLinks = new RelativeWebLinks();
+```
+
+### ReturnNull
+Return of `null`
+in `src/jetbrains/buildServer/server/rest/model/buildType/BuildType.java`
+#### Snippet
+```java
+  public Investigations getInvestigations() {
+    if (myBuildType == null || myBuildType.getBuildType() == null) {
+      return null;
+    }
+    return ValueWithDefault.decideDefault(myFields.isIncluded("investigations", false, true), () -> {
+```
+
+### ReturnNull
+Return of `null`
+in `src/jetbrains/buildServer/server/rest/model/buildType/BuildType.java`
+#### Snippet
+```java
+  @XmlElement
+  public Properties getParameters() {
+    return myBuildType == null ? null : ValueWithDefault
+        .decideIncludeByDefault(myFields.isIncluded("parameters", false),
+            check(() -> new Properties(
+```
+
+### ReturnNull
+Return of `null`
+in `src/jetbrains/buildServer/server/rest/model/buildType/BuildType.java`
+#### Snippet
+```java
+  public BuildTypes getTemplates() {
+    if (myBuildType == null || myBuildType.getBuildType() == null){
+      return null;
+    }
+    return ValueWithDefault.decideDefault(myFields.isIncluded("templates", false), check(() -> {
+```
+
+### ReturnNull
+Return of `null`
+in `src/jetbrains/buildServer/server/rest/model/buildType/BuildType.java`
+#### Snippet
+```java
+  @XmlElement(name = "builds")
+  public Builds getBuilds() {
+    if (myBuildType == null || !myBuildType.isBuildType()) return null;
+    if (!myFields.isIncluded("builds", false, true)){
+      return null;
+```
+
+### ReturnNull
+Return of `null`
+in `src/jetbrains/buildServer/server/rest/model/buildType/BuildType.java`
+#### Snippet
+```java
+    if (myBuildType == null || !myBuildType.isBuildType()) return null;
+    if (!myFields.isIncluded("builds", false, true)){
+      return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/jetbrains/buildServer/server/rest/model/buildType/BuildType.java`
+#### Snippet
+```java
+  public BuildType getTemplate() {
+    if (myBuildType == null || myBuildType.getBuildType() == null){
+      return null;
+    }
+    return ValueWithDefault.decideDefault(myFields.isIncluded("template", false, false), check(() -> {
+```
+
+### ReturnNull
+Return of `null`
+in `src/jetbrains/buildServer/server/rest/model/buildType/BuildType.java`
+#### Snippet
+```java
+        try {
+          final BuildTypeTemplate template = myBuildType.getBuildType().getTemplate();
+          return template == null ? null : new BuildType(new BuildTypeOrTemplate(template), myFields.getNestedField("template"), myBeanContext);
+        } catch (RuntimeException e) {
+          LOG.debug("Error retrieving template for build configuration " + LogUtil.describe(myBuildType.getBuildType()) + ": " + e, e);
+```
+
+### ReturnNull
+Return of `null`
+in `src/jetbrains/buildServer/server/rest/model/buildType/BuildType.java`
+#### Snippet
+```java
+          //still including external id since the user has permission to view settings of the current build configuration
+          String templateExternalId = getTemplateExternalId(myBuildType.getBuildType());
+          return templateId == null || templateExternalId == null ? null : new BuildType(templateExternalId, templateId, myFields.getNestedField("template"), myBeanContext);
+        }
+    }));
+```
+
+### ReturnNull
+Return of `null`
+in `src/jetbrains/buildServer/server/rest/model/buildType/BuildType.java`
+#### Snippet
+```java
+        return new Comment(pauseComment, myFields.getNestedField("pauseComment"), myBeanContext);
+      } else {
+        return null;
+      }
+    });
+```
+
+### ReturnNull
+Return of `null`
+in `src/jetbrains/buildServer/server/rest/model/buildType/BuildType.java`
+#### Snippet
+```java
+  public Agents getCompatibleAgents() {
+    if (myBuildType == null || myBuildType.getBuildType() == null) {
+      return null;
+    }
+    return ValueWithDefault.decideDefault(myFields.isIncluded("compatibleAgents", false, true), () -> {
+```
+
+### ReturnNull
+Return of `null`
+in `src/jetbrains/buildServer/server/rest/model/buildType/BuildType.java`
+#### Snippet
+```java
+  @XmlElement(name = "snapshot-dependencies")
+  public PropEntitiesSnapshotDep getSnapshotDependencies() {
+    return myBuildType == null ? null :
+           ValueWithDefault.decideIncludeByDefault(
+               myFields.isIncluded("snapshot-dependencies", false),
+```
+
+### ReturnNull
+Return of `null`
+in `src/jetbrains/buildServer/server/rest/model/buildType/BuildType.java`
+#### Snippet
+```java
+  public String getType() {
+    if(myBuildType == null) {
+      return null;
+    }
+    return ValueWithDefault.decideDefault(
+```
+
+### ReturnNull
+Return of `null`
+in `src/jetbrains/buildServer/server/rest/model/buildType/BuildType.java`
+#### Snippet
+```java
+  @XmlAttribute (name = "templateFlag")
+  public Boolean getTemplateFlag() {
+    return myBuildType == null ? null : ValueWithDefault.decideDefault(myFields.isIncluded("templateFlag"), () -> !myBuildType.isBuildType());
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/jetbrains/buildServer/server/rest/model/buildType/BuildType.java`
+#### Snippet
+```java
+  @XmlElement(name = "branches")
+  public Branches getBranches() {
+    if (myBuildType == null || myBuildType.getBuildType() == null) return null;
+    return ValueWithDefault.decideDefault(myFields.isIncluded("branches", false, false), // do not include until asked as should only include for branched build types
+      () -> {
+```
+
+### ReturnNull
+Return of `null`
+in `src/jetbrains/buildServer/server/rest/model/buildType/BuildType.java`
+#### Snippet
+```java
+  public VcsRootInstances getVcsRootInstances() {
+    return ValueWithDefault.decideIncludeByDefault(myFields.isIncluded("vcsRootInstances", false, false)
+      , check(() -> myBuildType == null || myBuildType.getBuildType() == null ? null :
+                    new VcsRootInstances(CachingValue.simple(myBuildType.getBuildType().getVcsRootInstances()), null, myFields.getNestedField("vcsRootInstances"), myBeanContext)));
+  }
+```
+
+### ReturnNull
+Return of `null`
+in `src/jetbrains/buildServer/server/rest/model/buildType/BuildType.java`
+#### Snippet
+```java
+        templateInternalIds.stream().map(id -> {
+          BuildTypeTemplate template = projectManager.findBuildTypeTemplateById(id);
+          if (template == null) return null;
+          return new BuildTypeOrTemplate.IdsOnly(template.getExternalId(), id);
+        }).collect(Collectors.toList()));
+```
+
+### ReturnNull
+Return of `null`
+in `src/jetbrains/buildServer/server/rest/model/buildType/BuildType.java`
+#### Snippet
+```java
+  public Project getProject() {
+    return ValueWithDefault.decideDefault(myFields.isIncluded("project", false),
+        () -> myBuildType == null ? null : new Project(myBuildType.getProject(), myFields.getNestedField("project"), myBeanContext)
+    );
+  }
+```
+
+### ReturnNull
+Return of `null`
+in `src/jetbrains/buildServer/server/rest/model/buildType/BuildType.java`
+#### Snippet
+```java
+  @XmlElement(name="settings")
+  public Properties getSettings() {
+    return myBuildType == null ? null : ValueWithDefault.decideDefault(myFields.isIncluded("settings", false), check(() -> {
+        Fields nestedField = myFields.getNestedField("settings", Fields.NONE, Fields.LONG);
+        Locator locator = nestedField.getLocator() == null ? null : new Locator(nestedField.getLocator());
+```
+
+### ReturnNull
+Return of `null`
+in `src/jetbrains/buildServer/server/rest/model/buildType/BuildType.java`
+#### Snippet
+```java
+        return ((BuildTypeIdentityEx)myBuildType.getIdentity()).getEntityId().getConfigId();
+      } else {
+        return null;
+      }
+    } else {
+```
+
+### ReturnNull
+Return of `null`
+in `src/jetbrains/buildServer/server/rest/model/buildType/BuildType.java`
+#### Snippet
+```java
+      }
+    } else {
+      return null;
+    }
+  }
+```
+
+### ReturnNull
+Return of `null`
+in `src/jetbrains/buildServer/server/rest/model/buildType/BuildType.java`
+#### Snippet
+```java
+  @Deprecated
+  public String getProjectName() {
+    return myBuildType == null ? null : ValueWithDefault.decideDefault(myFields.isIncluded("projectName"), () -> myBuildType.getProject().getFullName());
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/jetbrains/buildServer/server/rest/model/buildType/BuildType.java`
+#### Snippet
+```java
+  public VcsRootEntries getVcsRootEntries() {
+    return ValueWithDefault.decideIncludeByDefault(myFields.isIncluded("vcs-root-entries", false),
+        check(() -> myBuildType == null ? null : new VcsRootEntries(myBuildType, myFields.getNestedField("vcs-root-entries"), myBeanContext))
+    );
+  }
+```
+
+### ReturnNull
+Return of `null`
+in `src/jetbrains/buildServer/server/rest/model/buildType/BuildType.java`
+#### Snippet
+```java
+    //template has no user link
+    if (myBuildType == null || myBuildType.getBuildType() == null) {
+      return null;
+    }
+    return ValueWithDefault.decideDefault(myFields.isIncluded("webUrl"), () -> myBeanContext.getSingletonService(WebLinks.class).getConfigurationHomePageUrl(myBuildType.getBuildType()));
+```
+
+### ReturnNull
+Return of `null`
+in `src/jetbrains/buildServer/server/rest/model/buildType/BuildType.java`
+#### Snippet
+```java
+  public String getDescription() {
+    if (myBuildType == null) {
+      return null;
+    }
+    return ValueWithDefault.decideDefault(myFields.isIncluded("description"), () -> {
+```
+
+### ReturnNull
+Return of `null`
+in `src/jetbrains/buildServer/server/rest/model/buildType/BuildType.java`
+#### Snippet
+```java
+    return ValueWithDefault.decideDefault(myFields.isIncluded("description"), () -> {
+      String description = myBuildType.getDescription();
+      return StringUtil.isEmpty(description) ? null : description;
+    });
+  }
+```
+
+### ReturnNull
+Return of `null`
+in `src/jetbrains/buildServer/server/rest/model/buildType/BuildType.java`
+#### Snippet
+```java
+  @XmlAttribute
+  public String getHref() {
+    return myBuildType == null ? null : ValueWithDefault.decideDefault(myFields.isIncluded("href"), () -> myBeanContext.getApiUrlBuilder().getHref(myBuildType));
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/jetbrains/buildServer/server/rest/model/buildType/BuildType.java`
+#### Snippet
+```java
+  public PropEntitiesAgentRequirement getAgentRequirements() {
+    if (myBuildType == null) {
+      return null;
+    }
+    return ValueWithDefault.decideIncludeByDefault(
+```
+
+### ReturnNull
+Return of `null`
+in `src/jetbrains/buildServer/server/rest/model/buildType/BuildType.java`
+#### Snippet
+```java
+  @XmlAttribute
+  public String getProjectId() {
+    return myBuildType == null ? null : ValueWithDefault.decideDefault(myFields.isIncluded("projectId"), () -> myBuildType.getProject().getExternalId());
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/jetbrains/buildServer/server/rest/model/buildType/BuildType.java`
+#### Snippet
+```java
+  @XmlElement(name = "steps")
+  public PropEntitiesStep getSteps() {
+    return myBuildType == null ? null : ValueWithDefault.decideIncludeByDefault(myFields.isIncluded("steps", false), check(() -> {
+        return new PropEntitiesStep(myBuildType.getSettingsEx(), myFields.getNestedField("steps", Fields.NONE, Fields.LONG), myBeanContext);
+    }));
+```
+
+### ReturnNull
+Return of `null`
+in `src/jetbrains/buildServer/server/rest/model/buildType/BuildType.java`
+#### Snippet
+```java
+  @XmlAttribute
+  public Boolean isPaused() {
+    return myBuildType == null ? null : ValueWithDefault.decideDefault(myFields.isIncluded("paused"), () -> myBuildType.isPaused());
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/jetbrains/buildServer/server/rest/model/buildType/BuildType.java`
+#### Snippet
+```java
+  @XmlAttribute
+  public String getLocator() {
+    return null;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/jetbrains/buildServer/server/rest/data/BuildPromotionFinder.java`
+#### Snippet
+```java
+    }
+
+    return null;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
 in `src/jetbrains/buildServer/server/rest/model/buildType/ProblemScope.java`
 #### Snippet
 ```java
@@ -19052,14 +19052,14 @@ in `src/jetbrains/buildServer/server/rest/model/buildType/ProblemScope.java`
 
 ### ReturnNull
 Return of `null`
-in `src/jetbrains/buildServer/server/rest/swagger/SwaggerConfigImpl.java`
+in `src/jetbrains/buildServer/server/rest/data/DataUpdater.java`
 #### Snippet
 ```java
 
-  public String getFilterClass() {
-    return null;
-  }
-
+  private Map<PropertyKey, String> convertToUserProperties(@Nullable Properties properties) {
+    if (properties == null) return null;
+    Map<PropertyKey, String> convertedProperties = new HashMap<PropertyKey, String>(properties.properties.size());
+    for (Property listItem : properties.properties) {
 ```
 
 ### ReturnNull
@@ -19076,14 +19076,14 @@ in `src/jetbrains/buildServer/server/rest/swagger/SwaggerConfigImpl.java`
 
 ### ReturnNull
 Return of `null`
-in `src/jetbrains/buildServer/server/rest/data/DataUpdater.java`
+in `src/jetbrains/buildServer/server/rest/swagger/SwaggerConfigImpl.java`
 #### Snippet
 ```java
 
-  private Map<PropertyKey, String> convertToUserProperties(@Nullable Properties properties) {
-    if (properties == null) return null;
-    Map<PropertyKey, String> convertedProperties = new HashMap<PropertyKey, String>(properties.properties.size());
-    for (Property listItem : properties.properties) {
+  public String getFilterClass() {
+    return null;
+  }
+
 ```
 
 ### ReturnNull
@@ -19103,8 +19103,8 @@ Return of `null`
 in `src/jetbrains/buildServer/server/rest/model/problem/scope/AbstractScopeTree.java`
 #### Snippet
 ```java
-  public List<N> getNodes() {
-    if(BooleanUtils.isNotTrue(myFields.isIncluded("node"))) {
+  public List<L> getLeafs() {
+    if(BooleanUtils.isNotTrue(myFields.isIncluded("leaf"))) {
       return null;
     }
 
@@ -19115,11 +19115,23 @@ Return of `null`
 in `src/jetbrains/buildServer/server/rest/model/problem/scope/AbstractScopeTree.java`
 #### Snippet
 ```java
-  public List<L> getLeafs() {
-    if(BooleanUtils.isNotTrue(myFields.isIncluded("leaf"))) {
+  public List<N> getNodes() {
+    if(BooleanUtils.isNotTrue(myFields.isIncluded("node"))) {
       return null;
     }
 
+```
+
+### ReturnNull
+Return of `null`
+in `src/jetbrains/buildServer/server/rest/jersey/ExtensionHolderProviderFactory.java`
+#### Snippet
+```java
+    }
+    LOG.debug("Request for class: " + c + " as extension, nothing found.");
+    return null;
+  }
+}
 ```
 
 ### ReturnNull
@@ -19220,26 +19232,14 @@ in `src/jetbrains/buildServer/server/rest/APIController.java`
 
 ### ReturnNull
 Return of `null`
-in `src/jetbrains/buildServer/server/rest/jersey/ExtensionHolderProviderFactory.java`
-#### Snippet
-```java
-    }
-    LOG.debug("Request for class: " + c + " as extension, nothing found.");
-    return null;
-  }
-}
-```
-
-### ReturnNull
-Return of `null`
 in `contrib/src/jetbrains/buildServer/server/restcontrib/cctray/model/Project.java`
 #### Snippet
 ```java
+        if (lastBuild == null) {
+            // is this OK?
+            return null;
         }
-        //todo: get next VCS checking/scheduled time
-        return null;
-    }
-
+        return getFormattedTime(lastBuild.getStartDate());
 ```
 
 ### ReturnNull
@@ -19259,11 +19259,11 @@ Return of `null`
 in `contrib/src/jetbrains/buildServer/server/restcontrib/cctray/model/Project.java`
 #### Snippet
 ```java
-        if (lastBuild == null) {
-            // is this OK?
-            return null;
         }
-        return getFormattedTime(lastBuild.getStartDate());
+        //todo: get next VCS checking/scheduled time
+        return null;
+    }
+
 ```
 
 ### ReturnNull
@@ -19307,66 +19307,6 @@ Return of `null`
 in `src/jetbrains/buildServer/server/rest/model/user/User.java`
 #### Snippet
 ```java
-  @XmlAttribute
-  public String getEmail() {
-    return myUser == null ? null : ValueWithDefault.decideDefaultIgnoringAccessDenied(myFields.isIncluded("email", false), () -> {
-      checkCanViewUserDetails();
-      return StringUtil.isEmpty(myUser.getEmail()) ? null : myUser.getEmail();
-```
-
-### ReturnNull
-Return of `null`
-in `src/jetbrains/buildServer/server/rest/model/user/User.java`
-#### Snippet
-```java
-    return myUser == null ? null : ValueWithDefault.decideDefaultIgnoringAccessDenied(myFields.isIncluded("email", false), () -> {
-      checkCanViewUserDetails();
-      return StringUtil.isEmpty(myUser.getEmail()) ? null : myUser.getEmail();
-    });
-  }
-```
-
-### ReturnNull
-Return of `null`
-in `src/jetbrains/buildServer/server/rest/model/user/User.java`
-#### Snippet
-```java
-  @XmlAttribute
-  public String getUsername() {
-    return myUser == null ? null : ValueWithDefault.decideDefault(myFields.isIncluded("username"), () -> {
-      return myUser.getUsername();
-    });
-```
-
-### ReturnNull
-Return of `null`
-in `src/jetbrains/buildServer/server/rest/model/user/User.java`
-#### Snippet
-```java
-  @XmlAttribute
-  public String getHref() {
-    return myUser == null ? null : ValueWithDefault.decideDefault(myFields.isIncluded("href"), myContext.getContextService(ApiUrlBuilder.class).getHref(myUser));
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/jetbrains/buildServer/server/rest/model/user/User.java`
-#### Snippet
-```java
-  @XmlAttribute
-  public String getName() {
-    return myUser == null ? null : ValueWithDefault.decideDefault(myFields.isIncluded("name"), () -> {
-      return StringUtil.isEmpty(myUser.getName()) ? null : myUser.getName();
-    });
-```
-
-### ReturnNull
-Return of `null`
-in `src/jetbrains/buildServer/server/rest/model/user/User.java`
-#### Snippet
-```java
   @XmlElement(name = "avatars")
   public UserAvatars getAvatars() {
     return myUser == null ? null : ValueWithDefault.decideDefaultIgnoringAccessDenied(myFields.isIncluded("avatars", false), () -> {
@@ -19392,6 +19332,54 @@ in `src/jetbrains/buildServer/server/rest/model/user/User.java`
 #### Snippet
 ```java
   @XmlAttribute
+  public String getName() {
+    return myUser == null ? null : ValueWithDefault.decideDefault(myFields.isIncluded("name"), () -> {
+      return StringUtil.isEmpty(myUser.getName()) ? null : myUser.getName();
+    });
+```
+
+### ReturnNull
+Return of `null`
+in `src/jetbrains/buildServer/server/rest/model/user/User.java`
+#### Snippet
+```java
+  @XmlAttribute
+  public String getEmail() {
+    return myUser == null ? null : ValueWithDefault.decideDefaultIgnoringAccessDenied(myFields.isIncluded("email", false), () -> {
+      checkCanViewUserDetails();
+      return StringUtil.isEmpty(myUser.getEmail()) ? null : myUser.getEmail();
+```
+
+### ReturnNull
+Return of `null`
+in `src/jetbrains/buildServer/server/rest/model/user/User.java`
+#### Snippet
+```java
+    return myUser == null ? null : ValueWithDefault.decideDefaultIgnoringAccessDenied(myFields.isIncluded("email", false), () -> {
+      checkCanViewUserDetails();
+      return StringUtil.isEmpty(myUser.getEmail()) ? null : myUser.getEmail();
+    });
+  }
+```
+
+### ReturnNull
+Return of `null`
+in `src/jetbrains/buildServer/server/rest/model/user/User.java`
+#### Snippet
+```java
+  @XmlAttribute
+  public String getPassword() {
+    return null;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/jetbrains/buildServer/server/rest/model/user/User.java`
+#### Snippet
+```java
+  @XmlAttribute
   public Boolean getHasPassword() {
     return myUser == null ? null : ValueWithDefault.decideDefaultIgnoringAccessDenied(myFields.isIncluded("hasPassword", false, false), () -> {
       checkCanViewUserDetails();
@@ -19406,42 +19394,6 @@ in `src/jetbrains/buildServer/server/rest/model/user/User.java`
   @XmlAttribute
   public String getRealm() {
     return myUser == null ? null : ValueWithDefault.decideDefault(myFields.isIncluded("realm", false), myUser.getRealm());
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/jetbrains/buildServer/server/rest/model/user/User.java`
-#### Snippet
-```java
-  @XmlElement(name = "properties")
-  public Properties getProperties() {
-    return myUser == null ? null : ValueWithDefault.decideDefaultIgnoringAccessDenied(myFields.isIncluded("properties", false), () -> {
-      checkCanViewUserDetails();
-      return new Properties(getProperties(myUser), UserRequest.getPropertiesHref(myUser),myFields.getNestedField("properties", Fields.NONE, Fields.LONG), myContext);
-```
-
-### ReturnNull
-Return of `null`
-in `src/jetbrains/buildServer/server/rest/model/user/User.java`
-#### Snippet
-```java
-  @XmlElement(name = "groups")
-  public Groups getGroups() {
-    return myUser == null ? null : ValueWithDefault.decideDefaultIgnoringAccessDenied(myFields.isIncluded("groups", false), () -> {
-      checkCanViewUserDetails();
-      return new Groups(myUser.getUserGroups(), myFields.getNestedField("groups", Fields.NONE, Fields.LONG), myContext);
-```
-
-### ReturnNull
-Return of `null`
-in `src/jetbrains/buildServer/server/rest/model/user/User.java`
-#### Snippet
-```java
-  @XmlAttribute
-  public String getPassword() {
-    return null;
   }
 
 ```
@@ -19499,6 +19451,42 @@ Return of `null`
 in `src/jetbrains/buildServer/server/rest/model/user/User.java`
 #### Snippet
 ```java
+  @XmlElement(name = "groups")
+  public Groups getGroups() {
+    return myUser == null ? null : ValueWithDefault.decideDefaultIgnoringAccessDenied(myFields.isIncluded("groups", false), () -> {
+      checkCanViewUserDetails();
+      return new Groups(myUser.getUserGroups(), myFields.getNestedField("groups", Fields.NONE, Fields.LONG), myContext);
+```
+
+### ReturnNull
+Return of `null`
+in `src/jetbrains/buildServer/server/rest/model/user/User.java`
+#### Snippet
+```java
+  @XmlAttribute
+  public String getUsername() {
+    return myUser == null ? null : ValueWithDefault.decideDefault(myFields.isIncluded("username"), () -> {
+      return myUser.getUsername();
+    });
+```
+
+### ReturnNull
+Return of `null`
+in `src/jetbrains/buildServer/server/rest/model/user/User.java`
+#### Snippet
+```java
+  @XmlElement(name = "properties")
+  public Properties getProperties() {
+    return myUser == null ? null : ValueWithDefault.decideDefaultIgnoringAccessDenied(myFields.isIncluded("properties", false), () -> {
+      checkCanViewUserDetails();
+      return new Properties(getProperties(myUser), UserRequest.getPropertiesHref(myUser),myFields.getNestedField("properties", Fields.NONE, Fields.LONG), myContext);
+```
+
+### ReturnNull
+Return of `null`
+in `src/jetbrains/buildServer/server/rest/model/user/User.java`
+#### Snippet
+```java
   @XmlElement(name = "roles")
   public RoleAssignments getRoles() {
     return myUser == null ? null : ValueWithDefault.decideDefaultIgnoringAccessDenied(myFields.isIncluded("roles", false), () -> {
@@ -19508,13 +19496,13 @@ in `src/jetbrains/buildServer/server/rest/model/user/User.java`
 
 ### ReturnNull
 Return of `null`
-in `src/jetbrains/buildServer/server/rest/request/BuildQueueRequest.java`
+in `src/jetbrains/buildServer/server/rest/model/user/User.java`
 #### Snippet
 ```java
-
-    if (QueueWebUtil.processLargeQueueCase(request, response, myServiceLocator.getSingletonService(BuildQueue.class))) {
-      return null;
-    }
+  @XmlAttribute
+  public String getHref() {
+    return myUser == null ? null : ValueWithDefault.decideDefault(myFields.isIncluded("href"), myContext.getContextService(ApiUrlBuilder.class).getHref(myUser));
+  }
 
 ```
 
@@ -19544,14 +19532,14 @@ in `src/jetbrains/buildServer/server/rest/model/problem/ProblemOccurrence.java`
 
 ### ReturnNull
 Return of `null`
-in `src/jetbrains/buildServer/server/rest/model/problem/scope/TestScope.java`
+in `src/jetbrains/buildServer/server/rest/request/BuildQueueRequest.java`
 #### Snippet
 ```java
-  public BuildType getBuildType() {
-    if(myRealTestScope.getBuildType() == null)
-      return null;
 
-    return ValueWithDefault.decideDefault(
+    if (QueueWebUtil.processLargeQueueCase(request, response, myServiceLocator.getSingletonService(BuildQueue.class))) {
+      return null;
+    }
+
 ```
 
 ### ReturnNull
@@ -19616,14 +19604,14 @@ in `src/jetbrains/buildServer/server/rest/model/problem/TestOccurrence.java`
 
 ### ReturnNull
 Return of `null`
-in `src/jetbrains/buildServer/server/rest/model/agent/AgentPool.java`
+in `src/jetbrains/buildServer/server/rest/model/problem/scope/TestScope.java`
 #### Snippet
 ```java
-                    AgentPoolFinder.PontentiallyInaccessibleProject project = agentPoolFinder.getPoolOwnerProject(agentPool);
-                    if (project == null) { //not existing project
-                      return null;
-                    }
-                    if (project.getProject() == null) { //inaccessible project
+  public BuildType getBuildType() {
+    if(myRealTestScope.getBuildType() == null)
+      return null;
+
+    return ValueWithDefault.decideDefault(
 ```
 
 ### ReturnNull
@@ -19640,14 +19628,26 @@ in `src/jetbrains/buildServer/server/rest/request/ProjectRequest.java`
 
 ### ReturnNull
 Return of `null`
-in `src/jetbrains/buildServer/server/rest/model/problem/scope/AbstractLeaf.java`
+in `src/jetbrains/buildServer/server/rest/model/agent/AgentPool.java`
 #### Snippet
 ```java
-  public String getNodeId() {
-    if (BooleanUtils.isNotTrue(myFields.isIncluded("nodeId"))) {
+                    AgentPoolFinder.PontentiallyInaccessibleProject project = agentPoolFinder.getPoolOwnerProject(agentPool);
+                    if (project == null) { //not existing project
+                      return null;
+                    }
+                    if (project.getProject() == null) { //inaccessible project
+```
+
+### ReturnNull
+Return of `null`
+in `src/jetbrains/buildServer/server/rest/model/problem/Resolution.java`
+#### Snippet
+```java
+        }
+      }
       return null;
     }
-
+  }
 ```
 
 ### ReturnNull
@@ -19664,14 +19664,14 @@ in `src/jetbrains/buildServer/server/rest/request/AgentPoolRequest.java`
 
 ### ReturnNull
 Return of `null`
-in `src/jetbrains/buildServer/server/rest/model/problem/Resolution.java`
+in `src/jetbrains/buildServer/server/rest/model/problem/scope/AbstractLeaf.java`
 #### Snippet
 ```java
-        }
-      }
+  public String getNodeId() {
+    if (BooleanUtils.isNotTrue(myFields.isIncluded("nodeId"))) {
       return null;
     }
-  }
+
 ```
 
 ### ReturnNull
@@ -19703,7 +19703,7 @@ Return of `null`
 in `src/jetbrains/buildServer/server/rest/model/project/Project.java`
 #### Snippet
 ```java
-  public Boolean isVirtual() {
+  public String getUuid() {
     if (myProject == null || myBeanContext == null) {
       return null;
     }
@@ -19716,18 +19716,6 @@ in `src/jetbrains/buildServer/server/rest/model/project/Project.java`
 #### Snippet
 ```java
   public Projects getAncestorProjects() {
-    if (myProject == null || myBeanContext == null) {
-      return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/jetbrains/buildServer/server/rest/model/project/Project.java`
-#### Snippet
-```java
-  public String getUuid() {
     if (myProject == null || myBeanContext == null) {
       return null;
     }
@@ -19796,14 +19784,14 @@ in `src/jetbrains/buildServer/server/rest/model/project/Project.java`
 
 ### ReturnNull
 Return of `null`
-in `src/jetbrains/buildServer/server/rest/model/server/Server.java`
+in `src/jetbrains/buildServer/server/rest/model/project/Project.java`
 #### Snippet
 ```java
-      return ValueWithDefault.decideIncludeByDefault(myFields.isIncluded("startTime"), Util.formatTime(startupContext.getServerStartupTimestamp()));
-    } catch (Exception e) {
+  public Boolean isVirtual() {
+    if (myProject == null || myBeanContext == null) {
       return null;
     }
-  }
+
 ```
 
 ### ReturnNull
@@ -19816,6 +19804,66 @@ in `src/jetbrains/buildServer/server/rest/model/problem/scope/AbstractNode.java`
       return null;
     }
 
+```
+
+### ReturnNull
+Return of `null`
+in `src/jetbrains/buildServer/server/rest/model/server/Server.java`
+#### Snippet
+```java
+      return ValueWithDefault.decideIncludeByDefault(myFields.isIncluded("startTime"), Util.formatTime(startupContext.getServerStartupTimestamp()));
+    } catch (Exception e) {
+      return null;
+    }
+  }
+```
+
+### ReturnNull
+Return of `null`
+in `src/jetbrains/buildServer/server/rest/model/server/LicenseKeyEntity.java`
+#### Snippet
+```java
+      return Integer.valueOf(numberOfAgents);
+    } catch (NumberFormatException e) {
+      return null;
+    }
+  }
+```
+
+### ReturnNull
+Return of `null`
+in `src/jetbrains/buildServer/server/rest/request/AgentRequest.java`
+#### Snippet
+```java
+    final SBuildAgent agent = myAgentFinder.getItem(agentLocator);
+    final jetbrains.buildServer.serverSide.agentPools.AgentPool agentPool = myAgentPoolFinder.getAgentPool(agent);
+    return agentPool == null ? null : new AgentPool(agentPool, new Fields(fields), myBeanContext);
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/jetbrains/buildServer/server/rest/model/agent/Agent.java`
+#### Snippet
+```java
+    }
+    OSKind os = OSKind.guessByName(osName);
+    if (os == null) return null;
+    switch (os) {
+      case WINDOWS:
+```
+
+### ReturnNull
+Return of `null`
+in `src/jetbrains/buildServer/server/rest/model/agent/Agent.java`
+#### Snippet
+```java
+        return "Unix";
+      default:
+        return null;
+    }
+  }
 ```
 
 ### ReturnNull
@@ -19888,54 +19936,6 @@ in `src/jetbrains/buildServer/server/rest/model/agent/Agent.java`
               return null;
             }
           });
-```
-
-### ReturnNull
-Return of `null`
-in `src/jetbrains/buildServer/server/rest/model/agent/Agent.java`
-#### Snippet
-```java
-    }
-    OSKind os = OSKind.guessByName(osName);
-    if (os == null) return null;
-    switch (os) {
-      case WINDOWS:
-```
-
-### ReturnNull
-Return of `null`
-in `src/jetbrains/buildServer/server/rest/model/agent/Agent.java`
-#### Snippet
-```java
-        return "Unix";
-      default:
-        return null;
-    }
-  }
-```
-
-### ReturnNull
-Return of `null`
-in `src/jetbrains/buildServer/server/rest/request/AgentRequest.java`
-#### Snippet
-```java
-    final SBuildAgent agent = myAgentFinder.getItem(agentLocator);
-    final jetbrains.buildServer.serverSide.agentPools.AgentPool agentPool = myAgentPoolFinder.getAgentPool(agent);
-    return agentPool == null ? null : new AgentPool(agentPool, new Fields(fields), myBeanContext);
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/jetbrains/buildServer/server/rest/model/server/LicenseKeyEntity.java`
-#### Snippet
-```java
-      return Integer.valueOf(numberOfAgents);
-    } catch (NumberFormatException e) {
-      return null;
-    }
-  }
 ```
 
 ### ReturnNull
@@ -20024,6 +20024,18 @@ in `src/jetbrains/buildServer/server/rest/model/buildType/PropEntityTrigger.java
 
 ### ReturnNull
 Return of `null`
+in `src/jetbrains/buildServer/server/rest/model/build/Branch.java`
+#### Snippet
+```java
+          buildsHref = BuildRequest.getBuildsHref(myBranch, null);
+        }
+        if (builds == null && buildsHref == null) return null;
+        return Builds.createFromPrefilteredBuildPromotions(builds == null ? null : builds.getEntries(), buildsHref == null ? null : new PagerDataImpl(buildsHref), buildsFields, myBeanContext);
+      });
+```
+
+### ReturnNull
+Return of `null`
 in `src/jetbrains/buildServer/server/rest/model/health/HealthItems.java`
 #### Snippet
 ```java
@@ -20048,14 +20060,26 @@ in `src/jetbrains/buildServer/server/rest/model/health/HealthItems.java`
 
 ### ReturnNull
 Return of `null`
-in `src/jetbrains/buildServer/server/rest/model/build/Branch.java`
+in `src/jetbrains/buildServer/server/rest/model/change/Commiters.java`
 #### Snippet
 ```java
-          buildsHref = BuildRequest.getBuildsHref(myBranch, null);
-        }
-        if (builds == null && buildsHref == null) return null;
-        return Builds.createFromPrefilteredBuildPromotions(builds == null ? null : builds.getEntries(), buildsHref == null ? null : new PagerDataImpl(buildsHref), buildsFields, myBeanContext);
-      });
+  public List<Commiter> getCommiters() {
+    if(!myFields.isIncluded("commiter", false, true))
+      return null;
+
+    Fields commiterFields = myFields.getNestedField("commiter");
+```
+
+### ReturnNull
+Return of `null`
+in `src/jetbrains/buildServer/server/rest/model/change/Commiters.java`
+#### Snippet
+```java
+  public Integer getCount() {
+    if(!myFields.isIncluded("count", true, true))
+      return null;
+    return myCommiters.size();
+  }
 ```
 
 ### ReturnNull
@@ -20080,30 +20104,6 @@ in `src/jetbrains/buildServer/server/rest/swagger/SwaggerUtil.java`
     return null;
   }
 }
-```
-
-### ReturnNull
-Return of `null`
-in `src/jetbrains/buildServer/server/rest/model/change/Commiters.java`
-#### Snippet
-```java
-  public List<Commiter> getCommiters() {
-    if(!myFields.isIncluded("commiter", false, true))
-      return null;
-
-    Fields commiterFields = myFields.getNestedField("commiter");
-```
-
-### ReturnNull
-Return of `null`
-in `src/jetbrains/buildServer/server/rest/model/change/Commiters.java`
-#### Snippet
-```java
-  public Integer getCount() {
-    if(!myFields.isIncluded("count", true, true))
-      return null;
-    return myCommiters.size();
-  }
 ```
 
 ### ReturnNull
@@ -20172,10 +20172,10 @@ in `src/jetbrains/buildServer/server/graphql/model/connections/agentPool/AgentPo
 #### Snippet
 ```java
   @Override
-  public ConnectionCursor getCursor() {
+  public Project getNode() {
     return null;
   }
-}
+
 ```
 
 ### ReturnNull
@@ -20184,10 +20184,10 @@ in `src/jetbrains/buildServer/server/graphql/model/connections/agentPool/AgentPo
 #### Snippet
 ```java
   @Override
-  public Project getNode() {
+  public ConnectionCursor getCursor() {
     return null;
   }
-
+}
 ```
 
 ### ReturnNull
@@ -20255,11 +20255,107 @@ Return of `null`
 in `src/jetbrains/buildServer/server/rest/model/build/Build.java`
 #### Snippet
 ```java
-        result = myQueuedBuild.getWhenQueued();
+  public IssueUsages getIssues() {
+    return myBuild == null
+           ? null
+           : ValueWithDefault.decideDefault(myFields.isIncluded("relatedIssues", false), () -> {
+             final boolean includeAllInline = TeamCityProperties.getBoolean("rest.beans.build.inlineRelatedIssues");
+```
+
+### ReturnNull
+Return of `null`
+in `src/jetbrains/buildServer/server/rest/model/build/Build.java`
+#### Snippet
+```java
+        return new ApprovalInfo(buildPromotionEx, myFields.getNestedField("approvalInfo"), myBeanContext);
       }
-      return result == null ? null : Util.formatTime(result);
+      return null;
     });
   }
+```
+
+### ReturnNull
+Return of `null`
+in `src/jetbrains/buildServer/server/rest/model/build/Build.java`
+#### Snippet
+```java
+  public Agents getCompatibleAgents() {
+    if (myQueuedBuild == null) {
+      return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/jetbrains/buildServer/server/rest/model/build/Build.java`
+#### Snippet
+```java
+  @XmlElement(name = CANCELED_INFO)
+  public Comment getCanceledInfo() {  //TeamCity API: is only available for running or finished build, while isCanceled is available for queued
+    return myBuild == null ? null : ValueWithDefault.decideDefault(myFields.isIncluded(CANCELED_INFO, false),
+                                                                   () -> getCanceledComment(myBuild, myFields.getNestedField(CANCELED_INFO, Fields.NONE, Fields.LONG), myBeanContext));
+  }
+```
+
+### ReturnNull
+Return of `null`
+in `src/jetbrains/buildServer/server/rest/model/build/Build.java`
+#### Snippet
+```java
+  @XmlElement(name = "testOccurrences")
+  public TestOccurrences getTestOccurrences() {
+    if (myBuild == null) return null;
+    return ValueWithDefault.decideDefault(myFields.isIncluded("testOccurrences", false),
+                                          () -> {
+```
+
+### ReturnNull
+Return of `null`
+in `src/jetbrains/buildServer/server/rest/model/build/Build.java`
+#### Snippet
+```java
+                                            final ShortStatistics statistics = fullStatistics != null ? fullStatistics : myBuild.getShortStatistics();
+                                            if (statistics.getAllTestCount() == 0) {
+                                              return null;
+                                            }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/jetbrains/buildServer/server/rest/model/build/Build.java`
+#### Snippet
+```java
+                                            if (myBuild.getBuildType() == null) {
+                                              //workaround for http://youtrack.jetbrains.com/issue/TW-34734
+                                              return null;
+                                            }
+                                            final List<STestRun> tests = ValueWithDefault.decideDefault(
+```
+
+### ReturnNull
+Return of `null`
+in `src/jetbrains/buildServer/server/rest/model/build/Build.java`
+#### Snippet
+```java
+  public Comment getPinInfo() {
+    if (myBuild == null || !myBuild.isPinned()) {
+      return null;
+    }
+    return ValueWithDefault.decideDefault(myFields.isIncluded("pinInfo", false), () -> {
+```
+
+### ReturnNull
+Return of `null`
+in `src/jetbrains/buildServer/server/rest/model/build/Build.java`
+#### Snippet
+```java
+    return ValueWithDefault.decideDefault(myFields.isIncluded("pinInfo", false), () -> {
+      final jetbrains.buildServer.serverSide.comments.Comment pinComment = getPinComment(myBuild);
+      if (pinComment == null) return null;
+      return new Comment(pinComment, myFields.getNestedField("pinInfo", Fields.NONE, Fields.LONG), myBeanContext);
+    });
 ```
 
 ### ReturnNull
@@ -20279,23 +20375,11 @@ Return of `null`
 in `src/jetbrains/buildServer/server/rest/model/build/Build.java`
 #### Snippet
 ```java
-  public String getStatus() {
-    //todo: consider getting details from full statistics is that is required for the node as otherwise the text and test counts will be not in sync
-    return myBuild == null ? null : ValueWithDefault.decideDefault(myFields.isIncluded("status", true), () -> myBuild.getBuildStatus().getText());
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/jetbrains/buildServer/server/rest/model/build/Build.java`
-#### Snippet
-```java
-  public Changes getChanges() {
-    if (!myFields.isIncluded("changes", false, true)) {
+  public BuildState getState() {
+    if (!myFields.isIncluded("state", true, true)) {
       return null;
     }
-    return ValueWithDefault.decide(myFields.isIncluded("changes", false), () -> {
+    if (myQueuedBuild != null) return BuildState.queued;
 ```
 
 ### ReturnNull
@@ -20303,11 +20387,23 @@ Return of `null`
 in `src/jetbrains/buildServer/server/rest/model/build/Build.java`
 #### Snippet
 ```java
-      () -> {
-        if(myBuild == null) {
-          return null;
-        }
+  public NamedDatas getMetadata() {
+    if (myBuild == null) {
+      return null;
+    } else {
+      return ValueWithDefault.decideDefaultIgnoringAccessDenied(myFields.isIncluded("metadata", false, false), () -> {
+```
 
+### ReturnNull
+Return of `null`
+in `src/jetbrains/buildServer/server/rest/model/build/Build.java`
+#### Snippet
+```java
+    if (myBuild == null) {
+      //todo: support serving artifact dependencies for queued build, may be rename the node
+      return null;
+    }
+    return ValueWithDefault.decideDefault(myFields.isIncluded("artifact-dependencies", false), () -> {
 ```
 
 ### ReturnNull
@@ -20375,70 +20471,10 @@ Return of `null`
 in `src/jetbrains/buildServer/server/rest/model/build/Build.java`
 #### Snippet
 ```java
-  @XmlElement(name = "testOccurrences")
-  public TestOccurrences getTestOccurrences() {
-    if (myBuild == null) return null;
-    return ValueWithDefault.decideDefault(myFields.isIncluded("testOccurrences", false),
-                                          () -> {
-```
-
-### ReturnNull
-Return of `null`
-in `src/jetbrains/buildServer/server/rest/model/build/Build.java`
-#### Snippet
-```java
-                                            final ShortStatistics statistics = fullStatistics != null ? fullStatistics : myBuild.getShortStatistics();
-                                            if (statistics.getAllTestCount() == 0) {
-                                              return null;
-                                            }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/jetbrains/buildServer/server/rest/model/build/Build.java`
-#### Snippet
-```java
-                                            if (myBuild.getBuildType() == null) {
-                                              //workaround for http://youtrack.jetbrains.com/issue/TW-34734
-                                              return null;
-                                            }
-                                            final List<STestRun> tests = ValueWithDefault.decideDefault(
-```
-
-### ReturnNull
-Return of `null`
-in `src/jetbrains/buildServer/server/rest/model/build/Build.java`
-#### Snippet
-```java
-    if (myBuild == null) {
-      //todo: support serving artifact dependencies for queued build, may be rename the node
-      return null;
-    }
-    return ValueWithDefault.decideDefault(myFields.isIncluded("artifact-dependencies", false), () -> {
-```
-
-### ReturnNull
-Return of `null`
-in `src/jetbrains/buildServer/server/rest/model/build/Build.java`
-#### Snippet
-```java
-        return new ApprovalInfo(buildPromotionEx, myFields.getNestedField("approvalInfo"), myBeanContext);
-      }
-      return null;
-    });
+  @XmlAttribute
+  public Boolean isPinned() {
+    return myBuild == null ? null : ValueWithDefault.decideDefault(myFields.isIncluded("pinned"), () -> myBuild.isPinned());
   }
-```
-
-### ReturnNull
-Return of `null`
-in `src/jetbrains/buildServer/server/rest/model/build/Build.java`
-#### Snippet
-```java
-        SBuildAgent agent = getEstimatedAgent();
-        if(agent == null) {
-          return null;
-        }
 
 ```
 
@@ -20447,11 +20483,47 @@ Return of `null`
 in `src/jetbrains/buildServer/server/rest/model/build/Build.java`
 #### Snippet
 ```java
-        SRunningBuild delayer = agent.getRunningBuild();
-        if(delayer == null) {
-          return null;
-        }
+  @XmlElement
+  public String getFinishDate() {
+    return myBuild == null ? null : ValueWithDefault.decideDefault(myFields.isIncluded("finishDate", false), () -> Util.formatTime(myBuild.getFinishDate()));
+  }
 
+```
+
+### ReturnNull
+Return of `null`
+in `src/jetbrains/buildServer/server/rest/model/build/Build.java`
+#### Snippet
+```java
+  @XmlElement
+  public BuildTriggeringOptions getTriggeringOptions() {
+    return null;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/jetbrains/buildServer/server/rest/model/build/Build.java`
+#### Snippet
+```java
+  @XmlAttribute
+  public String getLocator() {
+    return null;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/jetbrains/buildServer/server/rest/model/build/Build.java`
+#### Snippet
+```java
+                                          () -> {
+                                            final List<BuildProblem> problemOccurrences = ProblemOccurrenceFinder.getProblemOccurrences(myBuildPromotion);
+                                            if (problemOccurrences.size() == 0) return null;
+
+                                            int newProblemsCount = 0;
 ```
 
 ### ReturnNull
@@ -20483,11 +20555,11 @@ Return of `null`
 in `src/jetbrains/buildServer/server/rest/model/build/Build.java`
 #### Snippet
 ```java
-        SBuildAgent agent = getEstimatedAgent();
-        if(agent == null) {
-          return null;
-        }
+  public static Comment getCanceledComment(@NotNull final SBuild build, @NotNull final Fields fields, @NotNull final BeanContext context) {
+    final CanceledInfo canceledInfo = build.getCanceledInfo();
+    if (canceledInfo == null) return null;
 
+    jetbrains.buildServer.users.User user = null;
 ```
 
 ### ReturnNull
@@ -20495,23 +20567,23 @@ Return of `null`
 in `src/jetbrains/buildServer/server/rest/model/build/Build.java`
 #### Snippet
 ```java
-  @XmlElement(name = CANCELED_INFO)
-  public Comment getCanceledInfo() {  //TeamCity API: is only available for running or finished build, while isCanceled is available for queued
-    return myBuild == null ? null : ValueWithDefault.decideDefault(myFields.isIncluded(CANCELED_INFO, false),
-                                                                   () -> getCanceledComment(myBuild, myFields.getNestedField(CANCELED_INFO, Fields.NONE, Fields.LONG), myBeanContext));
-  }
-```
-
-### ReturnNull
-Return of `null`
-in `src/jetbrains/buildServer/server/rest/model/build/Build.java`
-#### Snippet
-```java
-        triggeredBy = myQueuedBuild.getTriggeredBy();
-      }
-      return triggeredBy == null ? null : new TriggeredBy(triggeredBy, myFields.getNestedField("triggered", Fields.NONE, Fields.LONG), myBeanContext);
+    return ValueWithDefault.decideDefault(myFields.isIncluded("running-info", false), () -> {
+      SRunningBuild runningBuild = getRunningBuild(myBuildPromotion, myServiceLocator);
+      if (runningBuild == null) return null;
+      return new RunningBuildInfo(runningBuild, myFields.getNestedField("running-info"), myBeanContext);
     });
-  }
+```
+
+### ReturnNull
+Return of `null`
+in `src/jetbrains/buildServer/server/rest/model/build/Build.java`
+#### Snippet
+```java
+  public Changes getChanges() {
+    if (!myFields.isIncluded("changes", false, true)) {
+      return null;
+    }
+    return ValueWithDefault.decide(myFields.isIncluded("changes", false), () -> {
 ```
 
 ### ReturnNull
@@ -20522,6 +20594,18 @@ in `src/jetbrains/buildServer/server/rest/model/build/Build.java`
   @XmlElement
   public String getStartDate() { // consider adding myBuild.getServerStartDate()
     return myBuild == null ? null : ValueWithDefault.decideDefault(myFields.isIncluded("startDate", false), () -> Util.formatTime(myBuild.getStartDate()));
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/jetbrains/buildServer/server/rest/model/build/Build.java`
+#### Snippet
+```java
+  public String getStatus() {
+    //todo: consider getting details from full statistics is that is required for the node as otherwise the text and test counts will be not in sync
+    return myBuild == null ? null : ValueWithDefault.decideDefault(myFields.isIncluded("status", true), () -> myBuild.getBuildStatus().getText());
   }
 
 ```
@@ -20543,107 +20627,11 @@ Return of `null`
 in `src/jetbrains/buildServer/server/rest/model/build/Build.java`
 #### Snippet
 ```java
-        return buildTypeExternalId;
-      } else {
-        return null;
-      }
-    });
-```
-
-### ReturnNull
-Return of `null`
-in `src/jetbrains/buildServer/server/rest/model/build/Build.java`
-#### Snippet
-```java
-        SBuild sequenceBuild = ((BuildPromotionEx) myBuildPromotion).getSequenceBuild();
-        if(sequenceBuild == null || sequenceBuild.getBuildPromotion().equals(myBuildPromotion)) {
+      () -> {
+        if(myBuild == null) {
           return null;
         }
 
-```
-
-### ReturnNull
-Return of `null`
-in `src/jetbrains/buildServer/server/rest/model/build/Build.java`
-#### Snippet
-```java
-    return ValueWithDefault.decideDefault(myFields.isIncluded("user", false), () -> {
-      final SUser owner = myBuildPromotion.getOwner();
-      return owner == null ? null : new User(owner, myFields.getNestedField("user"), myBeanContext);
-    });
-  }
-```
-
-### ReturnNull
-Return of `null`
-in `src/jetbrains/buildServer/server/rest/model/build/Build.java`
-#### Snippet
-```java
-      //can improve the code by requesting only 1 item
-      final List<AuditLogAction> logActions = ((BuildPromotionEx)myBuildPromotion).getAuditLogActions(new ActionTypesFilter(ActionType.BUILD_MARKED_AS_FAILED, ActionType.BUILD_MARKED_AS_SUCCESSFUL));
-      if (logActions.isEmpty()) return null;
-      AuditLogAction action = logActions.get(0); //the most recent action
-      return new Comment(action.getComment(), myFields.getNestedField("statusChangeComment", Fields.NONE, Fields.LONG), myBeanContext);
-```
-
-### ReturnNull
-Return of `null`
-in `src/jetbrains/buildServer/server/rest/model/build/Build.java`
-#### Snippet
-```java
-  @XmlElement
-  public BuildTriggeringOptions getTriggeringOptions() {
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/jetbrains/buildServer/server/rest/model/build/Build.java`
-#### Snippet
-```java
-                                            SBuild prevBuild = (SBuild)associatedData.get(ArtifactDependencyChangesProvider.OLD_BUILD_ATTR);
-                                            SBuild nextBuild = (SBuild)associatedData.get(ArtifactDependencyChangesProvider.NEW_BUILD_ATTR);
-                                            if (prevBuild == null && nextBuild == null) return null;
-                                            return new BuildChangeData(Util.resolveNull(prevBuild, (b) -> b.getBuildPromotion()),
-                                                                       Util.resolveNull(nextBuild, (b) -> b.getBuildPromotion()));
-```
-
-### ReturnNull
-Return of `null`
-in `src/jetbrains/buildServer/server/rest/model/build/Build.java`
-#### Snippet
-```java
-  public Changes getLastChanges() {
-    if (!myFields.isIncluded("lastChanges", false, true)) {
-      return null;
-    }
-    return ValueWithDefault.decideDefault(myFields.isIncluded("lastChanges", false), () -> {
-```
-
-### ReturnNull
-Return of `null`
-in `src/jetbrains/buildServer/server/rest/model/build/Build.java`
-#### Snippet
-```java
-        return modifications;
-      }, null, myFields.getNestedField("lastChanges", Fields.NONE, Fields.LONG), myBeanContext);
-      return result.isDefault() ? null : result;
-    });
-  }
-```
-
-### ReturnNull
-Return of `null`
-in `src/jetbrains/buildServer/server/rest/model/build/Build.java`
-#### Snippet
-```java
-    return ValueWithDefault.decideDefault(myFields.isIncluded("buildType", false), () -> {
-      final SBuildType buildType = myBuildPromotion.getParentBuildType();
-      return buildType == null ? null : new BuildType(new BuildTypeOrTemplate(buildType), myFields.getNestedField("buildType"), myBeanContext);
-    });
-  }
 ```
 
 ### ReturnNull
@@ -20663,11 +20651,47 @@ Return of `null`
 in `src/jetbrains/buildServer/server/rest/model/build/Build.java`
 #### Snippet
 ```java
-  public Builds getBuildDependencies() {
-    if (!myFields.isIncluded("snapshot-dependencies", false, true)) {
-      return null;
-    }
-    return ValueWithDefault.decideDefault(
+        result = myQueuedBuild.getWhenQueued();
+      }
+      return result == null ? null : Util.formatTime(result);
+    });
+  }
+```
+
+### ReturnNull
+Return of `null`
+in `src/jetbrains/buildServer/server/rest/model/build/Build.java`
+#### Snippet
+```java
+        return buildTypeExternalId;
+      } else {
+        return null;
+      }
+    });
+```
+
+### ReturnNull
+Return of `null`
+in `src/jetbrains/buildServer/server/rest/model/build/Build.java`
+#### Snippet
+```java
+                                            SBuild prevBuild = (SBuild)associatedData.get(ArtifactDependencyChangesProvider.OLD_BUILD_ATTR);
+                                            SBuild nextBuild = (SBuild)associatedData.get(ArtifactDependencyChangesProvider.NEW_BUILD_ATTR);
+                                            if (prevBuild == null && nextBuild == null) return null;
+                                            return new BuildChangeData(Util.resolveNull(prevBuild, (b) -> b.getBuildPromotion()),
+                                                                       Util.resolveNull(nextBuild, (b) -> b.getBuildPromotion()));
+```
+
+### ReturnNull
+Return of `null`
+in `src/jetbrains/buildServer/server/rest/model/build/Build.java`
+#### Snippet
+```java
+        triggeredBy = myQueuedBuild.getTriggeredBy();
+      }
+      return triggeredBy == null ? null : new TriggeredBy(triggeredBy, myFields.getNestedField("triggered", Fields.NONE, Fields.LONG), myBeanContext);
+    });
+  }
 ```
 
 ### ReturnNull
@@ -20676,9 +20700,21 @@ in `src/jetbrains/buildServer/server/rest/model/build/Build.java`
 #### Snippet
 ```java
   @XmlElement
-  public String getFinishDate() {
-    return myBuild == null ? null : ValueWithDefault.decideDefault(myFields.isIncluded("finishDate", false), () -> Util.formatTime(myBuild.getFinishDate()));
+  public String getStatusText() {
+    return myBuild == null ? null : ValueWithDefault.decideDefault(myFields.isIncluded("statusText", false, true), () -> myBuild.getStatusDescriptor().getText());
   }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/jetbrains/buildServer/server/rest/model/build/Build.java`
+#### Snippet
+```java
+        SBuild sequenceBuild = ((BuildPromotionEx) myBuildPromotion).getSequenceBuild();
+        if(sequenceBuild == null || sequenceBuild.getBuildPromotion().equals(myBuildPromotion)) {
+          return null;
+        }
 
 ```
 
@@ -20735,71 +20771,11 @@ Return of `null`
 in `src/jetbrains/buildServer/server/rest/model/build/Build.java`
 #### Snippet
 ```java
-  public NamedDatas getMetadata() {
-    if (myBuild == null) {
-      return null;
-    } else {
-      return ValueWithDefault.decideDefaultIgnoringAccessDenied(myFields.isIncluded("metadata", false, false), () -> {
-```
-
-### ReturnNull
-Return of `null`
-in `src/jetbrains/buildServer/server/rest/model/build/Build.java`
-#### Snippet
-```java
-  public Properties getStatistics() {
-    if (myBuild == null) {
-      return null;
-    } else {
-      final String statisticsHref = myBeanContext.getApiUrlBuilder().getHref(myBuild) + BuildRequest.STATISTICS;
-```
-
-### ReturnNull
-Return of `null`
-in `src/jetbrains/buildServer/server/rest/model/build/Build.java`
-#### Snippet
-```java
-  @XmlElement
-  public String getStatusText() {
-    return myBuild == null ? null : ValueWithDefault.decideDefault(myFields.isIncluded("statusText", false, true), () -> myBuild.getStatusDescriptor().getText());
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/jetbrains/buildServer/server/rest/model/build/Build.java`
-#### Snippet
-```java
-                                          () -> {
-                                            final List<BuildProblem> problemOccurrences = ProblemOccurrenceFinder.getProblemOccurrences(myBuildPromotion);
-                                            if (problemOccurrences.size() == 0) return null;
-
-                                            int newProblemsCount = 0;
-```
-
-### ReturnNull
-Return of `null`
-in `src/jetbrains/buildServer/server/rest/model/build/Build.java`
-#### Snippet
-```java
-  @XmlAttribute
-  public Boolean isPinned() {
-    return myBuild == null ? null : ValueWithDefault.decideDefault(myFields.isIncluded("pinned"), () -> myBuild.isPinned());
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/jetbrains/buildServer/server/rest/model/build/Build.java`
-#### Snippet
-```java
-  public Agents getCompatibleAgents() {
-    if (myQueuedBuild == null) {
+  public Changes getLastChanges() {
+    if (!myFields.isIncluded("lastChanges", false, true)) {
       return null;
     }
-
+    return ValueWithDefault.decideDefault(myFields.isIncluded("lastChanges", false), () -> {
 ```
 
 ### ReturnNull
@@ -20807,23 +20783,11 @@ Return of `null`
 in `src/jetbrains/buildServer/server/rest/model/build/Build.java`
 #### Snippet
 ```java
-  public BuildState getState() {
-    if (!myFields.isIncluded("state", true, true)) {
-      return null;
-    }
-    if (myQueuedBuild != null) return BuildState.queued;
-```
-
-### ReturnNull
-Return of `null`
-in `src/jetbrains/buildServer/server/rest/model/build/Build.java`
-#### Snippet
-```java
-  @XmlElement(name = "finishOnAgentDate")
-  public String getFinishOnAgentDate() {
-    return ValueWithDefault.decideDefault(myFields.isIncluded("finishOnAgentDate"), () -> myBuild != null ? Util.formatTime(myBuild.getFinishOnAgentDate()) : null);
+        return modifications;
+      }, null, myFields.getNestedField("lastChanges", Fields.NONE, Fields.LONG), myBeanContext);
+      return result.isDefault() ? null : result;
+    });
   }
-
 ```
 
 ### ReturnNull
@@ -20843,35 +20807,11 @@ Return of `null`
 in `src/jetbrains/buildServer/server/rest/model/build/Build.java`
 #### Snippet
 ```java
-  public static Comment getCanceledComment(@NotNull final SBuild build, @NotNull final Fields fields, @NotNull final BeanContext context) {
-    final CanceledInfo canceledInfo = build.getCanceledInfo();
-    if (canceledInfo == null) return null;
-
-    jetbrains.buildServer.users.User user = null;
-```
-
-### ReturnNull
-Return of `null`
-in `src/jetbrains/buildServer/server/rest/model/build/Build.java`
-#### Snippet
-```java
-  public IssueUsages getIssues() {
-    return myBuild == null
-           ? null
-           : ValueWithDefault.decideDefault(myFields.isIncluded("relatedIssues", false), () -> {
-             final boolean includeAllInline = TeamCityProperties.getBoolean("rest.beans.build.inlineRelatedIssues");
-```
-
-### ReturnNull
-Return of `null`
-in `src/jetbrains/buildServer/server/rest/model/build/Build.java`
-#### Snippet
-```java
-  public Comment getPinInfo() {
-    if (myBuild == null || !myBuild.isPinned()) {
+  public Builds getBuildDependencies() {
+    if (!myFields.isIncluded("snapshot-dependencies", false, true)) {
       return null;
     }
-    return ValueWithDefault.decideDefault(myFields.isIncluded("pinInfo", false), () -> {
+    return ValueWithDefault.decideDefault(
 ```
 
 ### ReturnNull
@@ -20879,11 +20819,11 @@ Return of `null`
 in `src/jetbrains/buildServer/server/rest/model/build/Build.java`
 #### Snippet
 ```java
-    return ValueWithDefault.decideDefault(myFields.isIncluded("pinInfo", false), () -> {
-      final jetbrains.buildServer.serverSide.comments.Comment pinComment = getPinComment(myBuild);
-      if (pinComment == null) return null;
-      return new Comment(pinComment, myFields.getNestedField("pinInfo", Fields.NONE, Fields.LONG), myBeanContext);
-    });
+  public Properties getStatistics() {
+    if (myBuild == null) {
+      return null;
+    } else {
+      final String statisticsHref = myBeanContext.getApiUrlBuilder().getHref(myBuild) + BuildRequest.STATISTICS;
 ```
 
 ### ReturnNull
@@ -20891,9 +20831,9 @@ Return of `null`
 in `src/jetbrains/buildServer/server/rest/model/build/Build.java`
 #### Snippet
 ```java
-  @XmlAttribute
-  public String getLocator() {
-    return null;
+  @XmlElement(name = "finishOnAgentDate")
+  public String getFinishOnAgentDate() {
+    return ValueWithDefault.decideDefault(myFields.isIncluded("finishOnAgentDate"), () -> myBuild != null ? Util.formatTime(myBuild.getFinishOnAgentDate()) : null);
   }
 
 ```
@@ -20903,11 +20843,71 @@ Return of `null`
 in `src/jetbrains/buildServer/server/rest/model/build/Build.java`
 #### Snippet
 ```java
-    return ValueWithDefault.decideDefault(myFields.isIncluded("running-info", false), () -> {
-      SRunningBuild runningBuild = getRunningBuild(myBuildPromotion, myServiceLocator);
-      if (runningBuild == null) return null;
-      return new RunningBuildInfo(runningBuild, myFields.getNestedField("running-info"), myBeanContext);
+    return ValueWithDefault.decideDefault(myFields.isIncluded("buildType", false), () -> {
+      final SBuildType buildType = myBuildPromotion.getParentBuildType();
+      return buildType == null ? null : new BuildType(new BuildTypeOrTemplate(buildType), myFields.getNestedField("buildType"), myBeanContext);
     });
+  }
+```
+
+### ReturnNull
+Return of `null`
+in `src/jetbrains/buildServer/server/rest/model/build/Build.java`
+#### Snippet
+```java
+    return ValueWithDefault.decideDefault(myFields.isIncluded("user", false), () -> {
+      final SUser owner = myBuildPromotion.getOwner();
+      return owner == null ? null : new User(owner, myFields.getNestedField("user"), myBeanContext);
+    });
+  }
+```
+
+### ReturnNull
+Return of `null`
+in `src/jetbrains/buildServer/server/rest/model/build/Build.java`
+#### Snippet
+```java
+        SBuildAgent agent = getEstimatedAgent();
+        if(agent == null) {
+          return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/jetbrains/buildServer/server/rest/model/build/Build.java`
+#### Snippet
+```java
+        SBuildAgent agent = getEstimatedAgent();
+        if(agent == null) {
+          return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/jetbrains/buildServer/server/rest/model/build/Build.java`
+#### Snippet
+```java
+        SRunningBuild delayer = agent.getRunningBuild();
+        if(delayer == null) {
+          return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/jetbrains/buildServer/server/rest/model/build/Build.java`
+#### Snippet
+```java
+      //can improve the code by requesting only 1 item
+      final List<AuditLogAction> logActions = ((BuildPromotionEx)myBuildPromotion).getAuditLogActions(new ActionTypesFilter(ActionType.BUILD_MARKED_AS_FAILED, ActionType.BUILD_MARKED_AS_SUCCESSFUL));
+      if (logActions.isEmpty()) return null;
+      AuditLogAction action = logActions.get(0); //the most recent action
+      return new Comment(action.getComment(), myFields.getNestedField("statusChangeComment", Fields.NONE, Fields.LONG), myBeanContext);
 ```
 
 ### ReturnNull
@@ -20927,11 +20927,11 @@ Return of `null`
 in `src/jetbrains/buildServer/server/rest/request/BuildRequest.java`
 #### Snippet
 ```java
-    final SBuild associatedBuild = build.getAssociatedBuild();
-    if (associatedBuild == null) {
-      return null;
-    }
-    return new Build(associatedBuild, new Fields(fields), myBeanContext);
+  public String getBuildNumber(@ApiParam(format = LocatorName.BUILD) @PathParam("buildLocator") String buildLocator) {
+    SBuild build = getBuild(myBuildFinder.getBuildPromotion(null, buildLocator));
+    return build == null ? null : build.getBuildNumber();
+  }
+
 ```
 
 ### ReturnNull
@@ -20939,11 +20939,11 @@ Return of `null`
 in `src/jetbrains/buildServer/server/rest/request/BuildRequest.java`
 #### Snippet
 ```java
-  public String getBuildNumber(@ApiParam(format = LocatorName.BUILD) @PathParam("buildLocator") String buildLocator) {
-    SBuild build = getBuild(myBuildFinder.getBuildPromotion(null, buildLocator));
-    return build == null ? null : build.getBuildNumber();
-  }
-
+    final SBuild associatedBuild = build.getAssociatedBuild();
+    if (associatedBuild == null) {
+      return null;
+    }
+    return new Build(associatedBuild, new Fields(fields), myBeanContext);
 ```
 
 ### ReturnNull
@@ -20971,6 +20971,19 @@ in `src/jetbrains/buildServer/server/rest/SwaggerUIUtil.java`
     }
 ```
 
+## RuleId[ruleID=CopyConstructorMissesField]
+### CopyConstructorMissesField
+Copy constructor does not copy field 'myDescriptionProvider'
+in `src/jetbrains/buildServer/server/rest/data/Locator.java`
+#### Snippet
+```java
+   * @param locator
+   */
+  public Locator(@NotNull final Locator locator) {
+    myRawValue = locator.myRawValue;
+    modified = locator.modified;
+```
+
 ## RuleId[ruleID=BusyWait]
 ### BusyWait
 Call to `Thread.sleep()` in a loop, probably busy-waiting
@@ -20994,19 +21007,6 @@ in `src/jetbrains/buildServer/server/rest/request/DebugRequest.java`
           Thread.sleep(totalTimeMs - (System.currentTimeMillis() - startTime));
         }
       }
-```
-
-## RuleId[ruleID=CopyConstructorMissesField]
-### CopyConstructorMissesField
-Copy constructor does not copy field 'myDescriptionProvider'
-in `src/jetbrains/buildServer/server/rest/data/Locator.java`
-#### Snippet
-```java
-   * @param locator
-   */
-  public Locator(@NotNull final Locator locator) {
-    myRawValue = locator.myRawValue;
-    modified = locator.modified;
 ```
 
 ## RuleId[ruleID=NumericOverflow]
