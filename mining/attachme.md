@@ -153,18 +153,6 @@ in `agent/src/main/java/com/attachme/agent/AttachmeServer.java`
 
 ### SystemOutErr
 Uses of `System.err` should probably be replaced with more robust logging
-in `agent/src/main/java/com/attachme/agent/AttachmeClient.java`
-#### Snippet
-```java
-    ObjectOutputStream stream = new ObjectOutputStream(sock.getOutputStream());
-    stream.writeObject(msg);
-    System.err.println("[attachme] Successfully notified attachme listener");
-  }
-
-```
-
-### SystemOutErr
-Uses of `System.err` should probably be replaced with more robust logging
 in `agent/src/main/java/com/attachme/agent/CommandPortResolver.java`
 #### Snippet
 ```java
@@ -185,6 +173,18 @@ in `agent/src/main/java/com/attachme/agent/CommandPortResolver.java`
       System.err.println("[attachme] Command " + command + " could not find open ports");
     }
     return ans;
+```
+
+### SystemOutErr
+Uses of `System.err` should probably be replaced with more robust logging
+in `agent/src/main/java/com/attachme/agent/AttachmeClient.java`
+#### Snippet
+```java
+    ObjectOutputStream stream = new ObjectOutputStream(sock.getOutputStream());
+    stream.writeObject(msg);
+    System.err.println("[attachme] Successfully notified attachme listener");
+  }
+
 ```
 
 ### SystemOutErr
@@ -299,18 +299,6 @@ in `plugin/src/main/java/com/attachme/plugin/AttachmeDebugger.java`
 ## RuleId[ruleID=ReturnNull]
 ### ReturnNull
 Return of `null`
-in `plugin/src/main/java/com/attachme/plugin/AttachmeDebugger.java`
-#### Snippet
-```java
-    @Override
-    public Icon getIcon() {
-      return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
 in `agent/src/main/java/com/attachme/agent/PortResolver.java`
 #### Snippet
 ```java
@@ -319,6 +307,18 @@ in `agent/src/main/java/com/attachme/agent/PortResolver.java`
       return null;
     }
   }
+```
+
+### ReturnNull
+Return of `null`
+in `plugin/src/main/java/com/attachme/plugin/AttachmeDebugger.java`
+#### Snippet
+```java
+    @Override
+    public Icon getIcon() {
+      return null;
+    }
+
 ```
 
 ## RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
