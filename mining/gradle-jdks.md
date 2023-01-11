@@ -125,30 +125,6 @@ in `gradle-jdks/src/main/java/com/palantir/gradle/jdks/JdksExtension.java`
 ## RuleId[ruleID=CodeBlock2Expr]
 ### CodeBlock2Expr
 Statement lambda can be replaced with expression lambda
-in `gradle-jdks/src/main/java/com/palantir/gradle/jdks/JdksPlugin.java`
-#### Snippet
-```java
-                                () -> new File(System.getProperty("user.home"), ".gradle/gradle-jdks"))));
-
-        Arrays.stream(JdkDistributionName.values()).forEach(jdkDistributionName -> {
-            jdksExtension.jdkDistribution(jdkDistributionName, jdkDistributionExtension -> {
-                jdkDistributionExtension
-```
-
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
-in `gradle-jdks/src/main/java/com/palantir/gradle/jdks/JdksPlugin.java`
-#### Snippet
-```java
-
-        Arrays.stream(JdkDistributionName.values()).forEach(jdkDistributionName -> {
-            jdksExtension.jdkDistribution(jdkDistributionName, jdkDistributionExtension -> {
-                jdkDistributionExtension
-                        .getBaseUrl()
-```
-
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
 in `gradle-jdks/src/main/java/com/palantir/gradle/jdks/CaCerts.java`
 #### Snippet
 ```java
@@ -173,6 +149,30 @@ in `gradle-jdks/src/main/java/com/palantir/gradle/jdks/JdkDownloader.java`
 
 ### CodeBlock2Expr
 Statement lambda can be replaced with expression lambda
+in `gradle-jdks/src/main/java/com/palantir/gradle/jdks/JdksPlugin.java`
+#### Snippet
+```java
+                                () -> new File(System.getProperty("user.home"), ".gradle/gradle-jdks"))));
+
+        Arrays.stream(JdkDistributionName.values()).forEach(jdkDistributionName -> {
+            jdksExtension.jdkDistribution(jdkDistributionName, jdkDistributionExtension -> {
+                jdkDistributionExtension
+```
+
+### CodeBlock2Expr
+Statement lambda can be replaced with expression lambda
+in `gradle-jdks/src/main/java/com/palantir/gradle/jdks/JdksPlugin.java`
+#### Snippet
+```java
+
+        Arrays.stream(JdkDistributionName.values()).forEach(jdkDistributionName -> {
+            jdksExtension.jdkDistribution(jdkDistributionName, jdkDistributionExtension -> {
+                jdkDistributionExtension
+                        .getBaseUrl()
+```
+
+### CodeBlock2Expr
+Statement lambda can be replaced with expression lambda
 in `gradle-jdks/src/main/java/com/palantir/gradle/jdks/JdkManager.java`
 #### Snippet
 ```java
@@ -184,18 +184,6 @@ in `gradle-jdks/src/main/java/com/palantir/gradle/jdks/JdkManager.java`
 ```
 
 ## RuleId[ruleID=UnstableApiUsage]
-### UnstableApiUsage
-'com.google.common.io.Closer' is marked unstable with @Beta
-in `gradle-jdks/src/main/java/com/palantir/gradle/jdks/JdkManager.java`
-#### Snippet
-```java
-    private static final class PathLock implements Closeable {
-        private static final Striped<Lock> JVM_LOCKS = Striped.lock(16);
-        private final Closer closer;
-
-        PathLock(Path path) throws IOException {
-```
-
 ### UnstableApiUsage
 'com.google.common.util.concurrent.Striped' is marked unstable with @Beta
 in `gradle-jdks/src/main/java/com/palantir/gradle/jdks/JdkManager.java`
@@ -242,6 +230,18 @@ in `gradle-jdks/src/main/java/com/palantir/gradle/jdks/JdkManager.java`
             closer.close();
         }
     }
+```
+
+### UnstableApiUsage
+'com.google.common.io.Closer' is marked unstable with @Beta
+in `gradle-jdks/src/main/java/com/palantir/gradle/jdks/JdkManager.java`
+#### Snippet
+```java
+    private static final class PathLock implements Closeable {
+        private static final Striped<Lock> JVM_LOCKS = Striped.lock(16);
+        private final Closer closer;
+
+        PathLock(Path path) throws IOException {
 ```
 
 ### UnstableApiUsage
