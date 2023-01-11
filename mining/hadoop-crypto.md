@@ -82,7 +82,7 @@ in `crypto-keys/src/main/java/com/palantir/crypto2/keys/serialization/KeyMateria
 
 ### IOResource
 'DataInputStream' should be opened in front of a 'try' block and closed in the corresponding 'finally' block
-in `crypto-keys/src/main/java/com/palantir/crypto2/keys/serialization/KeySerializerV1.java`
+in `crypto-keys/src/main/java/com/palantir/crypto2/keys/serialization/KeySerializerV2.java`
 #### Snippet
 ```java
     @Override
@@ -106,7 +106,7 @@ in `crypto-keys/src/main/java/com/palantir/crypto2/keys/serialization/CipherSymm
 
 ### IOResource
 'DataInputStream' should be opened in front of a 'try' block and closed in the corresponding 'finally' block
-in `crypto-keys/src/main/java/com/palantir/crypto2/keys/serialization/KeySerializerV2.java`
+in `crypto-keys/src/main/java/com/palantir/crypto2/keys/serialization/KeySerializerV1.java`
 #### Snippet
 ```java
     @Override
@@ -126,18 +126,6 @@ in `hadoop-crypto/src/main/java/com/palantir/crypto2/hadoop/EncryptedFileSystem.
     @Override
     public void initialize(URI name, Configuration conf) throws IOException {
         super.initialize(name, conf);
-    }
-```
-
-### RedundantMethodOverride
-Method `read()` only delegates to its super method
-in `crypto-core/src/main/java/com/palantir/crypto2/io/ApacheCtrDecryptingSeekableInput.java`
-#### Snippet
-```java
-
-    @Override
-    public int read(byte[] bytes, int off, int len) throws IOException {
-        return super.read(bytes, off, len);
     }
 ```
 
@@ -162,6 +150,18 @@ in `crypto-core/src/main/java/com/palantir/crypto2/io/ApacheCtrDecryptingSeekabl
     @Override
     public void seek(long offset) throws IOException {
         super.seek(offset);
+    }
+```
+
+### RedundantMethodOverride
+Method `read()` only delegates to its super method
+in `crypto-core/src/main/java/com/palantir/crypto2/io/ApacheCtrDecryptingSeekableInput.java`
+#### Snippet
+```java
+
+    @Override
+    public int read(byte[] bytes, int off, int len) throws IOException {
+        return super.read(bytes, off, len);
     }
 ```
 
@@ -205,30 +205,6 @@ in `hadoop-crypto/src/main/java/com/palantir/crypto2/hadoop/EncryptedFileSystem.
 
 ## RuleId[ruleID=DeprecatedIsStillUsed]
 ### DeprecatedIsStillUsed
-Deprecated member 'FsCipherOutputStream' is still used
-in `hadoop-crypto/src/main/java/com/palantir/crypto2/hadoop/cipher/FsCipherOutputStream.java`
-#### Snippet
-```java
- */
-@Deprecated
-public final class FsCipherOutputStream extends FilterOutputStream {
-
-    public FsCipherOutputStream(FSDataOutputStream delegate, SeekableCipher cipher) {
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'KeySerializerV1' is still used
-in `crypto-keys/src/main/java/com/palantir/crypto2/keys/serialization/KeySerializerV1.java`
-#### Snippet
-```java
- */
-@Deprecated
-enum KeySerializerV1 implements KeySerializer {
-    INSTANCE;
-
-```
-
-### DeprecatedIsStillUsed
 Deprecated member 'SymmetricKeySerializerV3' is still used
 in `crypto-keys/src/main/java/com/palantir/crypto2/keys/serialization/SymmetricKeySerializerV3.java`
 #### Snippet
@@ -238,6 +214,18 @@ in `crypto-keys/src/main/java/com/palantir/crypto2/keys/serialization/SymmetricK
 enum SymmetricKeySerializerV3 implements SymmetricKeySerializer {
     INSTANCE;
 
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'FsCipherOutputStream' is still used
+in `hadoop-crypto/src/main/java/com/palantir/crypto2/hadoop/cipher/FsCipherOutputStream.java`
+#### Snippet
+```java
+ */
+@Deprecated
+public final class FsCipherOutputStream extends FilterOutputStream {
+
+    public FsCipherOutputStream(FSDataOutputStream delegate, SeekableCipher cipher) {
 ```
 
 ### DeprecatedIsStillUsed
@@ -262,6 +250,18 @@ in `crypto-core/src/main/java/com/palantir/crypto2/cipher/SeekableCipherFactory.
     public static SeekableCipher getCipher(String cipherAlgorithm) {
         switch (cipherAlgorithm) {
             case AesCtrCipher.ALGORITHM:
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'KeySerializerV1' is still used
+in `crypto-keys/src/main/java/com/palantir/crypto2/keys/serialization/KeySerializerV1.java`
+#### Snippet
+```java
+ */
+@Deprecated
+enum KeySerializerV1 implements KeySerializer {
+    INSTANCE;
+
 ```
 
 ## RuleId[ruleID=Convert2Lambda]
