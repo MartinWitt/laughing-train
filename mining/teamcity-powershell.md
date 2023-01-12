@@ -26,15 +26,15 @@ in `powershell-agent/src/main/java/jetbrains/buildServer/powershell/agent/detect
 
 ## RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
 ### UtilityClassWithoutPrivateConstructor
-Class `PowerShellConstants` has only 'static' members, and lacks a 'private' constructor
-in `powershell-common/src/main/java/jetbrains/buildServer/powershell/common/PowerShellConstants.java`
+Class `LegacyKeys` has only 'static' members, and lacks a 'private' constructor
+in `powershell-agent/src/main/java/jetbrains/buildServer/powershell/agent/LegacyKeys.java`
 #### Snippet
 ```java
- *         03.12.10 15:53
+ * @author Oleg Rybak (oleg.rybak@jetbrains.com)
  */
-public class PowerShellConstants {
+class LegacyKeys {
 
-  public static final String PLUGIN_NAME = "powershell-runner";
+  private static String getVersionKey(@NotNull final PowerShellBitness bitness) {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -50,15 +50,15 @@ public class Loggers {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `LegacyKeys` has only 'static' members, and lacks a 'private' constructor
-in `powershell-agent/src/main/java/jetbrains/buildServer/powershell/agent/LegacyKeys.java`
+Class `PowerShellConstants` has only 'static' members, and lacks a 'private' constructor
+in `powershell-common/src/main/java/jetbrains/buildServer/powershell/common/PowerShellConstants.java`
 #### Snippet
 ```java
- * @author Oleg Rybak (oleg.rybak@jetbrains.com)
+ *         03.12.10 15:53
  */
-class LegacyKeys {
+public class PowerShellConstants {
 
-  private static String getVersionKey(@NotNull final PowerShellBitness bitness) {
+  public static final String PLUGIN_NAME = "powershell-runner";
 ```
 
 ## RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
@@ -164,11 +164,11 @@ Static method `isEmptyOrSpaces()` declared in class 'com.intellij.openapi.util.t
 in `powershell-agent/src/main/java/jetbrains/buildServer/powershell/agent/PowerShellCommandLineProvider.java`
 #### Snippet
 ```java
-    if (isExplicitVersionSupported(info)) {
-      final String minVersion = runnerParams.get(RUNNER_MIN_VERSION);
-      if (!StringUtil.isEmptyOrSpaces(minVersion)) {
-        list.add("-Version");
-        list.add(minVersion);
+    }
+    addVersion(result, runnerParams, info); // version must be the 1st arg after executable path
+    if (!StringUtil.isEmptyOrSpaces(runnerParams.get(RUNNER_NO_PROFILE))) {
+      result.add("-NoProfile");
+    }
 ```
 
 ### StaticCallOnSubclass
@@ -176,11 +176,11 @@ Static method `isEmptyOrSpaces()` declared in class 'com.intellij.openapi.util.t
 in `powershell-agent/src/main/java/jetbrains/buildServer/powershell/agent/PowerShellCommandLineProvider.java`
 #### Snippet
 ```java
-    }
-    addVersion(result, runnerParams, info); // version must be the 1st arg after executable path
-    if (!StringUtil.isEmptyOrSpaces(runnerParams.get(RUNNER_NO_PROFILE))) {
-      result.add("-NoProfile");
-    }
+    if (isExplicitVersionSupported(info)) {
+      final String minVersion = runnerParams.get(RUNNER_MIN_VERSION);
+      if (!StringUtil.isEmptyOrSpaces(minVersion)) {
+        list.add("-Version");
+        list.add(minVersion);
 ```
 
 ### StaticCallOnSubclass
@@ -212,11 +212,11 @@ Static method `join()` declared in class 'com.intellij.openapi.util.text.StringU
 in `powershell-agent/src/main/java/jetbrains/buildServer/powershell/agent/detect/cmd/CommandLinePowerShellDetector.java`
 #### Snippet
 ```java
-    final List<String> pathsToCheck = myDetectionPaths.getPaths(detectionContext);
-    if (LOG.isDebugEnabled()) {
-      LOG.debug("Will be detecting PowerShell in the following locations: [\n" + StringUtil.join(pathsToCheck, "\n") + "\n");
-    }
-
+        final List<String> outputLines = myRunner.runDetectionScript(executablePath, scriptPath, additionalParameters);
+        if (LOG.isDebugEnabled()) {
+          LOG.debug("Detection script output at " + executablePath + "\n" + StringUtil.join(outputLines, "\n"));
+        }
+        if (outputLines.size() == 3) {
 ```
 
 ### StaticCallOnSubclass
@@ -224,11 +224,11 @@ Static method `join()` declared in class 'com.intellij.openapi.util.text.StringU
 in `powershell-agent/src/main/java/jetbrains/buildServer/powershell/agent/detect/cmd/CommandLinePowerShellDetector.java`
 #### Snippet
 ```java
-        final List<String> outputLines = myRunner.runDetectionScript(executablePath, scriptPath, additionalParameters);
-        if (LOG.isDebugEnabled()) {
-          LOG.debug("Detection script output at " + executablePath + "\n" + StringUtil.join(outputLines, "\n"));
-        }
-        if (outputLines.size() == 3) {
+    final List<String> pathsToCheck = myDetectionPaths.getPaths(detectionContext);
+    if (LOG.isDebugEnabled()) {
+      LOG.debug("Will be detecting PowerShell in the following locations: [\n" + StringUtil.join(pathsToCheck, "\n") + "\n");
+    }
+
 ```
 
 ## RuleId[ruleID=UNUSED_IMPORT]
@@ -276,9 +276,9 @@ in `powershell-agent/src/main/java/jetbrains/buildServer/powershell/agent/detect
 ```java
   }
 
-  private void checkPathAndAdd(@NotNull final Set<String> paths, String path) {
-    if (!isEmptyOrSpaces(path)) {
-      File base = new File(path, "PowerShell");
+  private void addGlobalToolsPath(@NotNull final List<String> result) {
+    File toolsPath;
+    if (SystemInfo.isWindows) {
 ```
 
 ### BoundedWildcard
@@ -288,9 +288,9 @@ in `powershell-agent/src/main/java/jetbrains/buildServer/powershell/agent/detect
 ```java
   }
 
-  private void addGlobalToolsPath(@NotNull final List<String> result) {
-    File toolsPath;
-    if (SystemInfo.isWindows) {
+  private void checkPathAndAdd(@NotNull final Set<String> paths, String path) {
+    if (!isEmptyOrSpaces(path)) {
+      File base = new File(path, "PowerShell");
 ```
 
 ### BoundedWildcard
@@ -315,6 +315,30 @@ in `powershell-agent/src/main/java/jetbrains/buildServer/powershell/agent/detect
   public void saveInfo(@NotNull final Map<String, String> agentParameters) {
     if (!myVirtual) {
       Map<String, String> parameters = toConfigurationParameters();
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `powershell-agent/src/main/java/jetbrains/buildServer/powershell/agent/PowerShellInfoProvider.java`
+#### Snippet
+```java
+   * Helps with agent requirements
+   */
+  private void provideMaxVersions(Map<String, String> parameters) {
+    for (PowerShellBitness bitness : PowerShellBitness.values()) {
+      for (PowerShellEdition edition : PowerShellEdition.values()) {
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `powershell-agent/src/main/java/jetbrains/buildServer/powershell/agent/PowerShellInfoProvider.java`
+#### Snippet
+```java
+   * Helps with agent requirements
+   */
+  private void provideMaxVersions(Map<String, String> parameters) {
+    for (PowerShellBitness bitness : PowerShellBitness.values()) {
+      for (PowerShellEdition edition : PowerShellEdition.values()) {
 ```
 
 ### BoundedWildcard
@@ -327,30 +351,6 @@ in `powershell-agent/src/main/java/jetbrains/buildServer/powershell/agent/PowerS
   private void registerDetectedPowerShells(@NotNull final List<PowerShellDetector> detectors,
                                            @NotNull final DetectionContext detectionContext,
                                            Map<String, String> parameters) {
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `powershell-agent/src/main/java/jetbrains/buildServer/powershell/agent/PowerShellInfoProvider.java`
-#### Snippet
-```java
-   * Helps with agent requirements
-   */
-  private void provideMaxVersions(Map<String, String> parameters) {
-    for (PowerShellBitness bitness : PowerShellBitness.values()) {
-      for (PowerShellEdition edition : PowerShellEdition.values()) {
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `powershell-agent/src/main/java/jetbrains/buildServer/powershell/agent/PowerShellInfoProvider.java`
-#### Snippet
-```java
-   * Helps with agent requirements
-   */
-  private void provideMaxVersions(Map<String, String> parameters) {
-    for (PowerShellBitness bitness : PowerShellBitness.values()) {
-      for (PowerShellEdition edition : PowerShellEdition.values()) {
 ```
 
 ### BoundedWildcard
