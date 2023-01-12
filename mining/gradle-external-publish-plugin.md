@@ -62,18 +62,6 @@ in `src/main/java/com/palantir/gradle/externalpublish/ExternalPublishBasePlugin.
 
 ## RuleId[ruleID=AbstractClassNeverImplemented]
 ### AbstractClassNeverImplemented
-Abstract class `CheckVersionTask` has no concrete subclass
-in `src/main/java/com/palantir/gradle/externalpublish/CheckVersionTask.java`
-#### Snippet
-```java
-import org.gradle.api.tasks.TaskAction;
-
-public abstract class CheckVersionTask extends DefaultTask {
-    @TaskAction
-    public final void checkVersion() {
-```
-
-### AbstractClassNeverImplemented
 Abstract class `CheckSigningKeyTask` has no concrete subclass
 in `src/main/java/com/palantir/gradle/externalpublish/CheckSigningKeyTask.java`
 #### Snippet
@@ -85,29 +73,29 @@ public abstract class CheckSigningKeyTask extends DefaultTask {
     public final void checkSigningKey() {
 ```
 
+### AbstractClassNeverImplemented
+Abstract class `CheckVersionTask` has no concrete subclass
+in `src/main/java/com/palantir/gradle/externalpublish/CheckVersionTask.java`
+#### Snippet
+```java
+import org.gradle.api.tasks.TaskAction;
+
+public abstract class CheckVersionTask extends DefaultTask {
+    @TaskAction
+    public final void checkVersion() {
+```
+
 ## RuleId[ruleID=CodeBlock2Expr]
 ### CodeBlock2Expr
 Statement lambda can be replaced with expression lambda
-in `src/main/java/com/palantir/gradle/externalpublish/ExternalPublishJarPlugin.java`
+in `src/main/java/com/palantir/gradle/externalpublish/ExternalPublishGradlePluginPlugin.java`
 #### Snippet
 ```java
-        project.getPluginManager().apply(JavaLibraryPlugin.class);
+        project.getTasks().named("publish").configure(publish -> publish.dependsOn(publishPluginsTask));
 
-        project.getTasks().withType(Jar.class).named("jar").configure(jar -> {
-            jar.getManifest().attributes(Collections.singletonMap("Implementation-Version", project.getVersion()));
+        publishPluginsTask.configure(publishPlugins -> {
+            publishPlugins.onlyIf(_ignored -> EnvironmentVariables.isTagBuild(project));
         });
-```
-
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
-in `src/main/java/com/palantir/gradle/externalpublish/CircleCiContextDeadlineAvoidance.java`
-#### Snippet
-```java
-            public void execute(Task _ignored) {
-                spammerTask.set(CIRCLE_CI_OUTPUT_SPAMMER.scheduleWithFixedDelay(
-                        () -> {
-                            task.getLogger().lifecycle("Printing output to avoid hitting Circle context deadline");
-                        },
 ```
 
 ### CodeBlock2Expr
@@ -124,6 +112,18 @@ in `src/main/java/com/palantir/gradle/externalpublish/ExternalPublishDistPlugin.
 
 ### CodeBlock2Expr
 Statement lambda can be replaced with expression lambda
+in `src/main/java/com/palantir/gradle/externalpublish/CircleCiContextDeadlineAvoidance.java`
+#### Snippet
+```java
+            public void execute(Task _ignored) {
+                spammerTask.set(CIRCLE_CI_OUTPUT_SPAMMER.scheduleWithFixedDelay(
+                        () -> {
+                            task.getLogger().lifecycle("Printing output to avoid hitting Circle context deadline");
+                        },
+```
+
+### CodeBlock2Expr
+Statement lambda can be replaced with expression lambda
 in `src/main/java/com/palantir/gradle/externalpublish/ExternalPublishRootPlugin.java`
 #### Snippet
 ```java
@@ -136,13 +136,25 @@ in `src/main/java/com/palantir/gradle/externalpublish/ExternalPublishRootPlugin.
 
 ### CodeBlock2Expr
 Statement lambda can be replaced with expression lambda
-in `src/main/java/com/palantir/gradle/externalpublish/ExternalPublishGradlePluginPlugin.java`
+in `src/main/java/com/palantir/gradle/externalpublish/ExternalPublishApplicationDistPlugin.java`
 #### Snippet
 ```java
-        project.getTasks().named("publish").configure(publish -> publish.dependsOn(publishPluginsTask));
+                .configure(distTar -> distTar.setCompression(Compression.GZIP));
 
-        publishPluginsTask.configure(publishPlugins -> {
-            publishPlugins.onlyIf(_ignored -> EnvironmentVariables.isTagBuild(project));
+        project.getTasks().withType(CreateStartScripts.class).configureEach(createStartScripts -> {
+            createStartScripts.doLast(new FixWindowsStartScripts());
+        });
+```
+
+### CodeBlock2Expr
+Statement lambda can be replaced with expression lambda
+in `src/main/java/com/palantir/gradle/externalpublish/ExternalPublishJarPlugin.java`
+#### Snippet
+```java
+        project.getPluginManager().apply(JavaLibraryPlugin.class);
+
+        project.getTasks().withType(Jar.class).named("jar").configure(jar -> {
+            jar.getManifest().attributes(Collections.singletonMap("Implementation-Version", project.getVersion()));
         });
 ```
 
@@ -156,30 +168,6 @@ in `src/main/java/com/palantir/gradle/externalpublish/ExternalPublishBasePlugin.
         project.getTasks().withType(PublishToMavenRepository.class).configureEach(publishTask -> {
             publishTask.onlyIf(_ignored -> {
                 if (publishTask.getRepository().getName().equals("sonatype")) {
-```
-
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
-in `src/main/java/com/palantir/gradle/externalpublish/ExternalPublishBasePlugin.java`
-#### Snippet
-```java
-            publicationConfiguration.execute(mavenPublication);
-            mavenPublication.pom(pom -> {
-                pom.licenses(licenses -> {
-                    licenses.license(license -> {
-                        license.getName().set("The Apache License, Version 2.0");
-```
-
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
-in `src/main/java/com/palantir/gradle/externalpublish/ExternalPublishBasePlugin.java`
-#### Snippet
-```java
-                    });
-                });
-                pom.developers(developers -> {
-                    developers.developer(developer -> {
-                        developer.getId().set("palantir");
 ```
 
 ### CodeBlock2Expr
@@ -208,13 +196,25 @@ in `src/main/java/com/palantir/gradle/externalpublish/ExternalPublishBasePlugin.
 
 ### CodeBlock2Expr
 Statement lambda can be replaced with expression lambda
-in `src/main/java/com/palantir/gradle/externalpublish/ExternalPublishApplicationDistPlugin.java`
+in `src/main/java/com/palantir/gradle/externalpublish/ExternalPublishBasePlugin.java`
 #### Snippet
 ```java
-                .configure(distTar -> distTar.setCompression(Compression.GZIP));
+            publicationConfiguration.execute(mavenPublication);
+            mavenPublication.pom(pom -> {
+                pom.licenses(licenses -> {
+                    licenses.license(license -> {
+                        license.getName().set("The Apache License, Version 2.0");
+```
 
-        project.getTasks().withType(CreateStartScripts.class).configureEach(createStartScripts -> {
-            createStartScripts.doLast(new FixWindowsStartScripts());
-        });
+### CodeBlock2Expr
+Statement lambda can be replaced with expression lambda
+in `src/main/java/com/palantir/gradle/externalpublish/ExternalPublishBasePlugin.java`
+#### Snippet
+```java
+                    });
+                });
+                pom.developers(developers -> {
+                    developers.developer(developer -> {
+                        developer.getId().set("palantir");
 ```
 
