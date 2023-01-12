@@ -10,8 +10,8 @@ I found 16 bad smells with 4 repairable:
 | RedundantFieldInitialization | 1 | false |
 | RegExpSimplifiable | 1 | false |
 | UNUSED_IMPORT | 1 | false |
-| RegExpUnnecessaryNonCapturingGroup | 1 | false |
 | DoubleBraceInitialization | 1 | false |
+| RegExpUnnecessaryNonCapturingGroup | 1 | false |
 | RedundantSuppression | 1 | false |
 ## RuleId[ruleID=RedundantFieldInitialization]
 ### RedundantFieldInitialization
@@ -41,18 +41,6 @@ in `TeamCity.GitHubIssues-server/src/main/java/jetbrains/buildServer/issueTracke
 
 ## RuleId[ruleID=StaticCallOnSubclass]
 ### StaticCallOnSubclass
-Static method `isEmptyOrSpaces()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
-in `TeamCity.GitHubIssues-server/src/main/java/jetbrains/buildServer/issueTracker/github/GitHubIssueProvider.java`
-#### Snippet
-```java
-  private void patchPropertiesWithToken() {
-    final String token = myProperties.get(PARAM_ACCESS_TOKEN);
-    if (!StringUtil.isEmptyOrSpaces(token)) {
-      if (token.startsWith(TOKEN_PREFIX_OAUTH)) {
-        // oauth token
-```
-
-### StaticCallOnSubclass
 Static method `join()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
 in `TeamCity.GitHubIssues-server/src/main/java/jetbrains/buildServer/issueTracker/github/health/PasswordAuthReport.java`
 #### Snippet
@@ -62,6 +50,18 @@ in `TeamCity.GitHubIssues-server/src/main/java/jetbrains/buildServer/issueTracke
         return PasswordAuthReport.GITHUB_PASS_AUTH_CATEGORY.getId() + "_" + StringUtil.join(parts, "").hashCode();
     }
 }
+```
+
+### StaticCallOnSubclass
+Static method `isEmptyOrSpaces()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
+in `TeamCity.GitHubIssues-server/src/main/java/jetbrains/buildServer/issueTracker/github/GitHubIssueProvider.java`
+#### Snippet
+```java
+  private void patchPropertiesWithToken() {
+    final String token = myProperties.get(PARAM_ACCESS_TOKEN);
+    if (!StringUtil.isEmptyOrSpaces(token)) {
+      if (token.startsWith(TOKEN_PREFIX_OAUTH)) {
+        // oauth token
 ```
 
 ## RuleId[ruleID=UNUSED_IMPORT]
@@ -75,19 +75,6 @@ import com.intellij.openapi.util.text.StringUtil;
 import jetbrains.buildServer.issueTracker.BasicIssueFetcherAuthenticator;
 import jetbrains.buildServer.issueTracker.IssueFetcherAuthenticator;
 import jetbrains.buildServer.util.HTTPRequestBuilder;
-```
-
-## RuleId[ruleID=RegExpUnnecessaryNonCapturingGroup]
-### RegExpUnnecessaryNonCapturingGroup
-Unnecessary non-capturing group `(?:\\.git)`
-in `TeamCity.GitHubIssues-server/src/main/java/jetbrains/buildServer/issueTracker/github/health/IssueTrackerSuggestion.java`
-#### Snippet
-```java
-
-  /* Matches github ssh urls of format git@github.com:owner/repo.git */
-  private static final Pattern sshPattern = Pattern.compile("git@github\\.com:(.+)/(.+)(?:\\.git)");
-
-  /* Matches github http and https urls of format https://github.com/owner/repo.git */
 ```
 
 ## RuleId[ruleID=UnnecessaryToStringCall]
@@ -150,6 +137,19 @@ in `TeamCity.GitHubIssues-server/src/main/java/jetbrains/buildServer/issueTracke
     return new HashMap<String, String>() {{
       put(PARAM_AUTH_TYPE, AUTH_ANONYMOUS);
       put(PARAM_PATTERN, DEFAULT_ISSUE_PATTERN);
+```
+
+## RuleId[ruleID=RegExpUnnecessaryNonCapturingGroup]
+### RegExpUnnecessaryNonCapturingGroup
+Unnecessary non-capturing group `(?:\\.git)`
+in `TeamCity.GitHubIssues-server/src/main/java/jetbrains/buildServer/issueTracker/github/health/IssueTrackerSuggestion.java`
+#### Snippet
+```java
+
+  /* Matches github ssh urls of format git@github.com:owner/repo.git */
+  private static final Pattern sshPattern = Pattern.compile("git@github\\.com:(.+)/(.+)(?:\\.git)");
+
+  /* Matches github http and https urls of format https://github.com/owner/repo.git */
 ```
 
 ## RuleId[ruleID=BoundedWildcard]
