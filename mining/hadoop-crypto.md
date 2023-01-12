@@ -70,18 +70,6 @@ in `hadoop-crypto/src/main/java/com/palantir/crypto2/hadoop/FileKeyStorageStrate
 ## RuleId[ruleID=IOResource]
 ### IOResource
 'DataInputStream' should be opened in front of a 'try' block and closed in the corresponding 'finally' block
-in `crypto-keys/src/main/java/com/palantir/crypto2/keys/serialization/KeyMaterials.java`
-#### Snippet
-```java
-    private static int version(byte[] wrappedKeyMaterial) {
-        try {
-            DataInputStream stream = new DataInputStream(new ByteArrayInputStream(wrappedKeyMaterial));
-            return stream.read();
-        } catch (IOException e) {
-```
-
-### IOResource
-'DataInputStream' should be opened in front of a 'try' block and closed in the corresponding 'finally' block
 in `crypto-keys/src/main/java/com/palantir/crypto2/keys/serialization/KeySerializerV2.java`
 #### Snippet
 ```java
@@ -102,6 +90,18 @@ in `crypto-keys/src/main/java/com/palantir/crypto2/keys/serialization/CipherSymm
         DataInputStream stream = new DataInputStream(new ByteArrayInputStream(wrappedKeyMaterial));
 
         try {
+```
+
+### IOResource
+'DataInputStream' should be opened in front of a 'try' block and closed in the corresponding 'finally' block
+in `crypto-keys/src/main/java/com/palantir/crypto2/keys/serialization/KeyMaterials.java`
+#### Snippet
+```java
+    private static int version(byte[] wrappedKeyMaterial) {
+        try {
+            DataInputStream stream = new DataInputStream(new ByteArrayInputStream(wrappedKeyMaterial));
+            return stream.read();
+        } catch (IOException e) {
 ```
 
 ### IOResource
@@ -130,18 +130,6 @@ in `hadoop-crypto/src/main/java/com/palantir/crypto2/hadoop/EncryptedFileSystem.
 ```
 
 ### RedundantMethodOverride
-Method `close()` only delegates to its super method
-in `crypto-core/src/main/java/com/palantir/crypto2/io/ApacheCtrDecryptingSeekableInput.java`
-#### Snippet
-```java
-
-    @Override
-    public void close() throws IOException {
-        super.close();
-    }
-```
-
-### RedundantMethodOverride
 Method `seek()` only delegates to its super method
 in `crypto-core/src/main/java/com/palantir/crypto2/io/ApacheCtrDecryptingSeekableInput.java`
 #### Snippet
@@ -162,6 +150,18 @@ in `crypto-core/src/main/java/com/palantir/crypto2/io/ApacheCtrDecryptingSeekabl
     @Override
     public int read(byte[] bytes, int off, int len) throws IOException {
         return super.read(bytes, off, len);
+    }
+```
+
+### RedundantMethodOverride
+Method `close()` only delegates to its super method
+in `crypto-core/src/main/java/com/palantir/crypto2/io/ApacheCtrDecryptingSeekableInput.java`
+#### Snippet
+```java
+
+    @Override
+    public void close() throws IOException {
+        super.close();
     }
 ```
 
@@ -205,6 +205,18 @@ in `hadoop-crypto/src/main/java/com/palantir/crypto2/hadoop/EncryptedFileSystem.
 
 ## RuleId[ruleID=DeprecatedIsStillUsed]
 ### DeprecatedIsStillUsed
+Deprecated member 'getCipher' is still used
+in `crypto-core/src/main/java/com/palantir/crypto2/cipher/SeekableCipherFactory.java`
+#### Snippet
+```java
+     */
+    @Deprecated
+    public static SeekableCipher getCipher(String cipherAlgorithm) {
+        switch (cipherAlgorithm) {
+            case AesCtrCipher.ALGORITHM:
+```
+
+### DeprecatedIsStillUsed
 Deprecated member 'SymmetricKeySerializerV3' is still used
 in `crypto-keys/src/main/java/com/palantir/crypto2/keys/serialization/SymmetricKeySerializerV3.java`
 #### Snippet
@@ -238,18 +250,6 @@ in `hadoop-crypto/src/main/java/com/palantir/crypto2/hadoop/EncryptedFileSystem.
     public static final String DEPRECATED_CIPHER_ALGORITHM_KEY = "fs.cipher";
 
     public static final String CIPHER_ALGORITHM_KEY = "fs.efs.cipher";
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'getCipher' is still used
-in `crypto-core/src/main/java/com/palantir/crypto2/cipher/SeekableCipherFactory.java`
-#### Snippet
-```java
-     */
-    @Deprecated
-    public static SeekableCipher getCipher(String cipherAlgorithm) {
-        switch (cipherAlgorithm) {
-            case AesCtrCipher.ALGORITHM:
 ```
 
 ### DeprecatedIsStillUsed
