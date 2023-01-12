@@ -62,6 +62,18 @@ in `gradle-jdks/src/main/java/com/palantir/gradle/jdks/JdkManager.java`
 
 ## RuleId[ruleID=AbstractClassNeverImplemented]
 ### AbstractClassNeverImplemented
+Abstract class `JdkExtension` has no concrete subclass
+in `gradle-jdks/src/main/java/com/palantir/gradle/jdks/JdkExtension.java`
+#### Snippet
+```java
+import org.gradle.api.provider.Property;
+
+public abstract class JdkExtension {
+    // Not called `version` to avoid being interfered with by `Project#setVersion`!
+    public abstract Property<String> getJdkVersion();
+```
+
+### AbstractClassNeverImplemented
 Abstract class `JdkDistributionExtension` has no concrete subclass
 in `gradle-jdks/src/main/java/com/palantir/gradle/jdks/JdkDistributionExtension.java`
 #### Snippet
@@ -83,18 +95,6 @@ in `gradle-jdks/src/main/java/com/palantir/gradle/jdks/GradleJdksJavaInstallatio
 abstract class GradleJdksJavaInstallationMetadata implements JavaInstallationMetadata {
     protected abstract Provider<Directory> installationPathProvider();
 
-```
-
-### AbstractClassNeverImplemented
-Abstract class `JdkExtension` has no concrete subclass
-in `gradle-jdks/src/main/java/com/palantir/gradle/jdks/JdkExtension.java`
-#### Snippet
-```java
-import org.gradle.api.provider.Property;
-
-public abstract class JdkExtension {
-    // Not called `version` to avoid being interfered with by `Project#setVersion`!
-    public abstract Property<String> getJdkVersion();
 ```
 
 ### AbstractClassNeverImplemented
@@ -221,18 +221,6 @@ in `gradle-jdks/src/main/java/com/palantir/gradle/jdks/JdkManager.java`
 ```
 
 ### UnstableApiUsage
-'close()' is declared in unstable class 'com.google.common.io.Closer' marked with @Beta
-in `gradle-jdks/src/main/java/com/palantir/gradle/jdks/JdkManager.java`
-#### Snippet
-```java
-        @Override
-        public void close() throws IOException {
-            closer.close();
-        }
-    }
-```
-
-### UnstableApiUsage
 'com.google.common.io.Closer' is marked unstable with @Beta
 in `gradle-jdks/src/main/java/com/palantir/gradle/jdks/JdkManager.java`
 #### Snippet
@@ -242,6 +230,18 @@ in `gradle-jdks/src/main/java/com/palantir/gradle/jdks/JdkManager.java`
         private final Closer closer;
 
         PathLock(Path path) throws IOException {
+```
+
+### UnstableApiUsage
+'close()' is declared in unstable class 'com.google.common.io.Closer' marked with @Beta
+in `gradle-jdks/src/main/java/com/palantir/gradle/jdks/JdkManager.java`
+#### Snippet
+```java
+        @Override
+        public void close() throws IOException {
+            closer.close();
+        }
+    }
 ```
 
 ### UnstableApiUsage
