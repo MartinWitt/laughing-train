@@ -58,18 +58,6 @@ public class FunctionUtils {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `GradleProjectUtils` has only 'static' members, and lacks a 'private' constructor
-in `azure-functions-gradle-plugin/src/main/java/com/microsoft/azure/plugin/functions/gradle/util/GradleProjectUtils.java`
-#### Snippet
-```java
- * Convert a Gradle project to a common project
- */
-public class GradleProjectUtils {
-    private static final String MAIN_SOURCE_SET_NAME = "main";
-
-```
-
-### UtilityClassWithoutPrivateConstructor
 Class `GradleAuthHelper` has only 'static' members, and lacks a 'private' constructor
 in `azure-gradle-plugins-common/src/main/java/com/microsoft/azure/gradle/auth/GradleAuthHelper.java`
 #### Snippet
@@ -79,6 +67,18 @@ import java.util.stream.Collectors;
 public class GradleAuthHelper {
     protected static final String SUBSCRIPTION_TEMPLATE = "Subscription: %s(%s)";
     private static final String USING_AZURE_ENVIRONMENT = "Using Azure environment: %s.";
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `GradleProjectUtils` has only 'static' members, and lacks a 'private' constructor
+in `azure-functions-gradle-plugin/src/main/java/com/microsoft/azure/plugin/functions/gradle/util/GradleProjectUtils.java`
+#### Snippet
+```java
+ * Convert a Gradle project to a common project
+ */
+public class GradleProjectUtils {
+    private static final String MAIN_SOURCE_SET_NAME = "main";
+
 ```
 
 ## RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
@@ -617,11 +617,11 @@ Return of `null`
 in `azure-functions-gradle-plugin/src/main/java/com/microsoft/azure/plugin/functions/gradle/handler/DeployHandler.java`
 #### Snippet
 ```java
-
-    private JavaVersion javaVersion() {
-        return Objects.isNull(ctx.getRuntime()) ? null : JavaVersion.fromString(ctx.getRuntime().javaVersion());
-    }
-
+        final GradleRuntimeConfig runtime = ctx.getRuntime();
+        if (runtime == null) {
+            return null;
+        }
+        final OperatingSystem os = Optional.ofNullable(runtime.os()).map(OperatingSystem::fromString).orElse(null);
 ```
 
 ### ReturnNull
@@ -641,11 +641,11 @@ Return of `null`
 in `azure-functions-gradle-plugin/src/main/java/com/microsoft/azure/plugin/functions/gradle/handler/DeployHandler.java`
 #### Snippet
 ```java
-        final GradleRuntimeConfig runtime = ctx.getRuntime();
-        if (runtime == null) {
-            return null;
-        }
-        final OperatingSystem os = Optional.ofNullable(runtime.os()).map(OperatingSystem::fromString).orElse(null);
+
+    private JavaVersion javaVersion() {
+        return Objects.isNull(ctx.getRuntime()) ? null : JavaVersion.fromString(ctx.getRuntime().javaVersion());
+    }
+
 ```
 
 ### ReturnNull
@@ -661,6 +661,18 @@ in `azure-functions-gradle-plugin/src/main/java/com/microsoft/azure/plugin/funct
 ```
 
 ## RuleId[ruleID=SizeReplaceableByIsEmpty]
+### SizeReplaceableByIsEmpty
+`configMap.size() == 0` can be replaced with 'configMap.isEmpty()'
+in `azure-functions-gradle-plugin/src/main/java/com/microsoft/azure/plugin/functions/gradle/handler/PackageHandler.java`
+#### Snippet
+```java
+                                        final Map<String, FunctionConfiguration> configMap) throws IOException {
+        AzureMessager.getMessager().info(LINE_FEED + SAVE_FUNCTION_JSONS);
+        if (configMap.size() == 0) {
+            AzureMessager.getMessager().info(SAVE_SKIP);
+        } else {
+```
+
 ### SizeReplaceableByIsEmpty
 `configMap.size() == 0` can be replaced with 'configMap.isEmpty()'
 in `azure-functions-gradle-plugin/src/main/java/com/microsoft/azure/plugin/functions/gradle/handler/PackageHandler.java`
@@ -683,18 +695,6 @@ in `azure-functions-gradle-plugin/src/main/java/com/microsoft/azure/plugin/funct
         if (methods.size() == 0) {
             throw new AzureExecutionException(NO_FUNCTIONS);
         }
-```
-
-### SizeReplaceableByIsEmpty
-`configMap.size() == 0` can be replaced with 'configMap.isEmpty()'
-in `azure-functions-gradle-plugin/src/main/java/com/microsoft/azure/plugin/functions/gradle/handler/PackageHandler.java`
-#### Snippet
-```java
-                                        final Map<String, FunctionConfiguration> configMap) throws IOException {
-        AzureMessager.getMessager().info(LINE_FEED + SAVE_FUNCTION_JSONS);
-        if (configMap.size() == 0) {
-            AzureMessager.getMessager().info(SAVE_SKIP);
-        } else {
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -779,9 +779,9 @@ in `azure-functions-gradle-plugin/src/main/java/com/microsoft/azure/plugin/funct
 ```java
     }
 
-    private void trackFunctionProperties(Map<String, FunctionConfiguration> configMap) {
-        final List<String> bindingTypeSet = configMap.values().stream().flatMap(configuration -> configuration.getBindings().stream())
-                .map(Binding::getType)
+    private Set<BindingEnum> getFunctionBindingEnums(Map<String, FunctionConfiguration> configMap) {
+        final Set<BindingEnum> result = new HashSet<>();
+        configMap.values().forEach(
 ```
 
 ### BoundedWildcard
@@ -791,9 +791,9 @@ in `azure-functions-gradle-plugin/src/main/java/com/microsoft/azure/plugin/funct
 ```java
     }
 
-    private Set<BindingEnum> getFunctionBindingEnums(Map<String, FunctionConfiguration> configMap) {
-        final Set<BindingEnum> result = new HashSet<>();
-        configMap.values().forEach(
+    private void trackFunctionProperties(Map<String, FunctionConfiguration> configMap) {
+        final List<String> bindingTypeSet = configMap.values().stream().flatMap(configuration -> configuration.getBindings().stream())
+                .map(Binding::getType)
 ```
 
 ## RuleId[ruleID=NonExceptionNameEndsWithException]
@@ -817,6 +817,54 @@ in `azure-functions-gradle-plugin/src/main/java/com/microsoft/azure/plugin/funct
 ```java
     @Input
     @Optional
+    public String getAppServicePlanResourceGroup() {
+        return appServicePlanResourceGroup;
+    }
+```
+
+### NullableProblems
+Getter for @Nullable field might be annotated @Nullable itself
+in `azure-functions-gradle-plugin/src/main/java/com/microsoft/azure/plugin/functions/gradle/AzureFunctionsExtension.java`
+#### Snippet
+```java
+    @Input
+    @Optional
+    public String getRegion() {
+        return region;
+    }
+```
+
+### NullableProblems
+Getter for @Nullable field might be annotated @Nullable itself
+in `azure-functions-gradle-plugin/src/main/java/com/microsoft/azure/plugin/functions/gradle/AzureFunctionsExtension.java`
+#### Snippet
+```java
+    @Input
+    @Optional
+    public String getAppInsightsKey() {
+        return appInsightsKey;
+    }
+```
+
+### NullableProblems
+Setter parameter for @Nullable field might be annotated @Nullable itself
+in `azure-functions-gradle-plugin/src/main/java/com/microsoft/azure/plugin/functions/gradle/AzureFunctionsExtension.java`
+#### Snippet
+```java
+    }
+
+    public void setResourceGroup(String resourceGroup) {
+        this.resourceGroup = resourceGroup;
+    }
+```
+
+### NullableProblems
+Getter for @Nullable field might be annotated @Nullable itself
+in `azure-functions-gradle-plugin/src/main/java/com/microsoft/azure/plugin/functions/gradle/AzureFunctionsExtension.java`
+#### Snippet
+```java
+    @Input
+    @Optional
     public String getPricingTier() {
         return pricingTier;
     }
@@ -829,8 +877,8 @@ in `azure-functions-gradle-plugin/src/main/java/com/microsoft/azure/plugin/funct
 ```java
     @Input
     @Optional
-    public Deployment getDeployment() {
-        return deployment;
+    public Boolean getAllowTelemetry() {
+        return allowTelemetry;
     }
 ```
 
@@ -853,20 +901,32 @@ in `azure-functions-gradle-plugin/src/main/java/com/microsoft/azure/plugin/funct
 ```java
     @Input
     @Optional
-    public Boolean getAllowTelemetry() {
-        return allowTelemetry;
+    public String getResourceGroup() {
+        return resourceGroup;
     }
 ```
 
 ### NullableProblems
-Getter for @Nullable field might be annotated @Nullable itself
+Setter parameter for @Nullable field might be annotated @Nullable itself
 in `azure-functions-gradle-plugin/src/main/java/com/microsoft/azure/plugin/functions/gradle/AzureFunctionsExtension.java`
 #### Snippet
 ```java
-    @Input
-    @Optional
-    public String getResourceGroup() {
-        return resourceGroup;
+    }
+
+    public void setLocalDebug(String localDebug) {
+        this.localDebug = localDebug;
+    }
+```
+
+### NullableProblems
+Setter parameter for @Nullable field might be annotated @Nullable itself
+in `azure-functions-gradle-plugin/src/main/java/com/microsoft/azure/plugin/functions/gradle/AzureFunctionsExtension.java`
+#### Snippet
+```java
+    }
+
+    public void setAppServicePlanName(String appServicePlanName) {
+        this.appServicePlanName = appServicePlanName;
     }
 ```
 
@@ -901,8 +961,8 @@ in `azure-functions-gradle-plugin/src/main/java/com/microsoft/azure/plugin/funct
 ```java
     @Input
     @Optional
-    public String getAppServicePlanName() {
-        return appServicePlanName;
+    public Deployment getDeployment() {
+        return deployment;
     }
 ```
 
@@ -913,116 +973,8 @@ in `azure-functions-gradle-plugin/src/main/java/com/microsoft/azure/plugin/funct
 ```java
     @Input
     @Optional
-    public String getAppServicePlanResourceGroup() {
-        return appServicePlanResourceGroup;
-    }
-```
-
-### NullableProblems
-Setter parameter for @Nullable field might be annotated @Nullable itself
-in `azure-functions-gradle-plugin/src/main/java/com/microsoft/azure/plugin/functions/gradle/AzureFunctionsExtension.java`
-#### Snippet
-```java
-    }
-
-    public void setResourceGroup(String resourceGroup) {
-        this.resourceGroup = resourceGroup;
-    }
-```
-
-### NullableProblems
-Getter for @Nullable field might be annotated @Nullable itself
-in `azure-functions-gradle-plugin/src/main/java/com/microsoft/azure/plugin/functions/gradle/AzureFunctionsExtension.java`
-#### Snippet
-```java
-    @Input
-    @Optional
-    public String getAppInsightsKey() {
-        return appInsightsKey;
-    }
-```
-
-### NullableProblems
-Getter for @Nullable field might be annotated @Nullable itself
-in `azure-functions-gradle-plugin/src/main/java/com/microsoft/azure/plugin/functions/gradle/AzureFunctionsExtension.java`
-#### Snippet
-```java
-    @Input
-    @Optional
-    public String getLocalDebug() {
-        return this.localDebug;
-    }
-```
-
-### NullableProblems
-Setter parameter for @Nullable field might be annotated @Nullable itself
-in `azure-functions-gradle-plugin/src/main/java/com/microsoft/azure/plugin/functions/gradle/AzureFunctionsExtension.java`
-#### Snippet
-```java
-    }
-
-    public void setAllowTelemetry(Boolean allowTelemetry) {
-        this.allowTelemetry = allowTelemetry;
-    }
-```
-
-### NullableProblems
-Getter for @Nullable field might be annotated @Nullable itself
-in `azure-functions-gradle-plugin/src/main/java/com/microsoft/azure/plugin/functions/gradle/AzureFunctionsExtension.java`
-#### Snippet
-```java
-    @Input
-    @Optional
-    public GradleAuthConfig getAuth() {
-        return auth;
-    }
-```
-
-### NullableProblems
-Setter parameter for @Nullable field might be annotated @Nullable itself
-in `azure-functions-gradle-plugin/src/main/java/com/microsoft/azure/plugin/functions/gradle/AzureFunctionsExtension.java`
-#### Snippet
-```java
-    }
-
-    public void setAppServicePlanName(String appServicePlanName) {
-        this.appServicePlanName = appServicePlanName;
-    }
-```
-
-### NullableProblems
-Getter for @Nullable field might be annotated @Nullable itself
-in `azure-functions-gradle-plugin/src/main/java/com/microsoft/azure/plugin/functions/gradle/AzureFunctionsExtension.java`
-#### Snippet
-```java
-    @Input
-    @Optional
-    public String getRegion() {
-        return region;
-    }
-```
-
-### NullableProblems
-Setter parameter for @Nullable field might be annotated @Nullable itself
-in `azure-functions-gradle-plugin/src/main/java/com/microsoft/azure/plugin/functions/gradle/AzureFunctionsExtension.java`
-#### Snippet
-```java
-    }
-
-    public void setSubscription(String subscription) {
-        this.subscription = subscription;
-    }
-```
-
-### NullableProblems
-Setter parameter for @Nullable field might be annotated @Nullable itself
-in `azure-functions-gradle-plugin/src/main/java/com/microsoft/azure/plugin/functions/gradle/AzureFunctionsExtension.java`
-#### Snippet
-```java
-    }
-
-    public void setPricingTier(String pricingTier) {
-        this.pricingTier = pricingTier;
+    public String getAppInsightsInstance() {
+        return appInsightsInstance;
     }
 ```
 
@@ -1045,20 +997,8 @@ in `azure-functions-gradle-plugin/src/main/java/com/microsoft/azure/plugin/funct
 ```java
     }
 
-    public void setAppServicePlanResourceGroup(String appServicePlanResourceGroup) {
-        this.appServicePlanResourceGroup = appServicePlanResourceGroup;
-    }
-```
-
-### NullableProblems
-Getter for @Nullable field might be annotated @Nullable itself
-in `azure-functions-gradle-plugin/src/main/java/com/microsoft/azure/plugin/functions/gradle/AzureFunctionsExtension.java`
-#### Snippet
-```java
-    @Input
-    @Optional
-    public String getAppInsightsInstance() {
-        return appInsightsInstance;
+    public void setSubscription(String subscription) {
+        this.subscription = subscription;
     }
 ```
 
@@ -1069,8 +1009,68 @@ in `azure-functions-gradle-plugin/src/main/java/com/microsoft/azure/plugin/funct
 ```java
     }
 
-    public void setLocalDebug(String localDebug) {
-        this.localDebug = localDebug;
+    public void setAllowTelemetry(Boolean allowTelemetry) {
+        this.allowTelemetry = allowTelemetry;
+    }
+```
+
+### NullableProblems
+Getter for @Nullable field might be annotated @Nullable itself
+in `azure-functions-gradle-plugin/src/main/java/com/microsoft/azure/plugin/functions/gradle/AzureFunctionsExtension.java`
+#### Snippet
+```java
+    @Input
+    @Optional
+    public String getLocalDebug() {
+        return this.localDebug;
+    }
+```
+
+### NullableProblems
+Getter for @Nullable field might be annotated @Nullable itself
+in `azure-functions-gradle-plugin/src/main/java/com/microsoft/azure/plugin/functions/gradle/AzureFunctionsExtension.java`
+#### Snippet
+```java
+    @Input
+    @Optional
+    public String getAppServicePlanName() {
+        return appServicePlanName;
+    }
+```
+
+### NullableProblems
+Getter for @Nullable field might be annotated @Nullable itself
+in `azure-functions-gradle-plugin/src/main/java/com/microsoft/azure/plugin/functions/gradle/AzureFunctionsExtension.java`
+#### Snippet
+```java
+    @Input
+    @Optional
+    public GradleAuthConfig getAuth() {
+        return auth;
+    }
+```
+
+### NullableProblems
+Setter parameter for @Nullable field might be annotated @Nullable itself
+in `azure-functions-gradle-plugin/src/main/java/com/microsoft/azure/plugin/functions/gradle/AzureFunctionsExtension.java`
+#### Snippet
+```java
+    }
+
+    public void setAppServicePlanResourceGroup(String appServicePlanResourceGroup) {
+        this.appServicePlanResourceGroup = appServicePlanResourceGroup;
+    }
+```
+
+### NullableProblems
+Setter parameter for @Nullable field might be annotated @Nullable itself
+in `azure-functions-gradle-plugin/src/main/java/com/microsoft/azure/plugin/functions/gradle/AzureFunctionsExtension.java`
+#### Snippet
+```java
+    }
+
+    public void setPricingTier(String pricingTier) {
+        this.pricingTier = pricingTier;
     }
 ```
 
@@ -1102,18 +1102,6 @@ in `azure-functions-gradle-plugin/src/main/java/com/microsoft/azure/plugin/funct
 
 ### IgnoreResultOfCall
 Result of `File.mkdirs()` is ignored
-in `azure-functions-gradle-plugin/src/main/java/com/microsoft/azure/plugin/functions/gradle/GradleFunctionContext.java`
-#### Snippet
-```java
-                    // If staging directory doesn't exist, create one and delete it on exit
-                    if (!stagingDirectory.exists()) {
-                        stagingDirectory.mkdirs();
-                    }
-                }
-```
-
-### IgnoreResultOfCall
-Result of `File.mkdirs()` is ignored
 in `azure-gradle-plugins-common/src/main/java/com/microsoft/azure/gradle/temeletry/TelemetryAgent.java`
 #### Snippet
 ```java
@@ -1134,6 +1122,18 @@ in `azure-gradle-plugins-common/src/main/java/com/microsoft/azure/gradle/temelet
                 configurationFile.createNewFile();
             }
         } catch (Exception e) {
+```
+
+### IgnoreResultOfCall
+Result of `File.mkdirs()` is ignored
+in `azure-functions-gradle-plugin/src/main/java/com/microsoft/azure/plugin/functions/gradle/GradleFunctionContext.java`
+#### Snippet
+```java
+                    // If staging directory doesn't exist, create one and delete it on exit
+                    if (!stagingDirectory.exists()) {
+                        stagingDirectory.mkdirs();
+                    }
+                }
 ```
 
 ### IgnoreResultOfCall
