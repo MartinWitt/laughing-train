@@ -142,15 +142,15 @@ in `gradle-runner-server/src/main/java/jetbrains/buildServer/gradle/server/Gradl
 ```
 
 ### StaticCallOnSubclass
-Static method `isNotEmpty()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
-in `gradle-runner-agent/src/main/java/jetbrains/buildServer/gradle/agent/GradleRunnerService.java`
+Static method `isEmptyOrSpaces()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
+in `gradle-runner-agent/src/main/java/jetbrains/buildServer/gradle/agent/GradleLoggingListener.java`
 #### Snippet
 ```java
+      }
 
-    String path = getRunnerParameters().get(GradleRunnerConstants.PATH_TO_BUILD_FILE);
-    if (StringUtil.isNotEmpty(path)) {
-      params.add("-b");
-      params.add(path);
+      if (StringUtil.isEmptyOrSpaces(text)) {
+        myLastLineState = LastLine.EMPTY_ERROR;
+      }
 ```
 
 ### StaticCallOnSubclass
@@ -178,15 +178,15 @@ in `gradle-runner-agent/src/main/java/jetbrains/buildServer/gradle/agent/GradleR
 ```
 
 ### StaticCallOnSubclass
-Static method `isEmptyOrSpaces()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
-in `gradle-runner-agent/src/main/java/jetbrains/buildServer/gradle/agent/GradleLoggingListener.java`
+Static method `isNotEmpty()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
+in `gradle-runner-agent/src/main/java/jetbrains/buildServer/gradle/agent/GradleRunnerService.java`
 #### Snippet
 ```java
-      }
 
-      if (StringUtil.isEmptyOrSpaces(text)) {
-        myLastLineState = LastLine.EMPTY_ERROR;
-      }
+    String path = getRunnerParameters().get(GradleRunnerConstants.PATH_TO_BUILD_FILE);
+    if (StringUtil.isNotEmpty(path)) {
+      params.add("-b");
+      params.add(path);
 ```
 
 ## RuleId[ruleID=NonShortCircuitBoolean]
@@ -331,11 +331,11 @@ Missorted modifiers `public static @NotNull`
 in `gradle-runner-agent/src/main/java/jetbrains/buildServer/gradle/agent/ConfigurationParamsUtil.java`
 #### Snippet
 ```java
-  }
-
-  public static @NotNull String getGradleTasks(Map<String, String> runParameters)
+public class ConfigurationParamsUtil
+{
+  public static @NotNull String getGradleHome(Map<String, String> runParameters)
   {
-    return emptyIfNull(runParameters.get(GradleRunnerConstants.GRADLE_TASKS));
+    return emptyIfNull(runParameters.get(GradleRunnerConstants.GRADLE_HOME));
 ```
 
 ### MissortedModifiers
@@ -343,11 +343,11 @@ Missorted modifiers `public static @NotNull`
 in `gradle-runner-agent/src/main/java/jetbrains/buildServer/gradle/agent/ConfigurationParamsUtil.java`
 #### Snippet
 ```java
-public class ConfigurationParamsUtil
-{
-  public static @NotNull String getGradleHome(Map<String, String> runParameters)
+  }
+
+  public static @NotNull String getGradleTasks(Map<String, String> runParameters)
   {
-    return emptyIfNull(runParameters.get(GradleRunnerConstants.GRADLE_HOME));
+    return emptyIfNull(runParameters.get(GradleRunnerConstants.GRADLE_TASKS));
 ```
 
 ## RuleId[ruleID=Convert2MethodRef]
