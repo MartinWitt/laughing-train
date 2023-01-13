@@ -106,18 +106,6 @@ I found 966 bad smells with 93 repairable:
 | EqualsWhichDoesntCheckParameterClass | 1 | false |
 ## RuleId[ruleID=ToArrayCallWithZeroLengthArrayArgument]
 ### ToArrayCallWithZeroLengthArrayArgument
-Call to `toArray()` with pre-sized array argument 'new ObjectNode\[children.size()\]'
-in `JediTerm/src/main/java/com/intellij/openapi/util/objectTree/ObjectNode.java`
-#### Snippet
-```java
-    List<ObjectNode<T>> children = myChildren;
-    if (children == null || children.isEmpty()) return EMPTY_ARRAY;
-    return children.toArray(new ObjectNode[children.size()]);
-  }
-
-```
-
-### ToArrayCallWithZeroLengthArrayArgument
 Call to `toArray()` with pre-sized array argument 'new Object\[collection.size()\]'
 in `JediTerm/src/main/java/com/intellij/util/ArrayUtil.java`
 #### Snippet
@@ -125,6 +113,18 @@ in `JediTerm/src/main/java/com/intellij/util/ArrayUtil.java`
     if (collection.isEmpty()) return EMPTY_OBJECT_ARRAY;
     //noinspection SSBasedInspection
     return collection.toArray(new Object[collection.size()]);
+  }
+
+```
+
+### ToArrayCallWithZeroLengthArrayArgument
+Call to `toArray()` with pre-sized array argument 'new ObjectNode\[children.size()\]'
+in `JediTerm/src/main/java/com/intellij/openapi/util/objectTree/ObjectNode.java`
+#### Snippet
+```java
+    List<ObjectNode<T>> children = myChildren;
+    if (children == null || children.isEmpty()) return EMPTY_ARRAY;
+    return children.toArray(new ObjectNode[children.size()]);
   }
 
 ```
@@ -171,11 +171,11 @@ in `terminal/src/com/jediterm/terminal/util/Util.java`
 in `JediTerm/src/main/java/com/intellij/util/ReflectionUtil.java`
 #### Snippet
 ```java
-
-
-  private static class MySecurityManager extends SecurityManager {
     private static final MySecurityManager INSTANCE = new MySecurityManager();
     public Class[] getStack() {
+      return getClassContext();
+    }
+  }
 ```
 
 ### MarkedForRemoval
@@ -183,11 +183,11 @@ in `JediTerm/src/main/java/com/intellij/util/ReflectionUtil.java`
 in `JediTerm/src/main/java/com/intellij/util/ReflectionUtil.java`
 #### Snippet
 ```java
+
+
+  private static class MySecurityManager extends SecurityManager {
     private static final MySecurityManager INSTANCE = new MySecurityManager();
     public Class[] getStack() {
-      return getClassContext();
-    }
-  }
 ```
 
 ### MarkedForRemoval
@@ -281,10 +281,10 @@ in `JediTerm/src/main/java/com/intellij/util/concurrency/AppScheduledExecutorSer
 #### Snippet
 ```java
     @Override
-    protected void beforeExecute(Thread t, Runnable r) {
+    protected void afterExecute(Runnable r, Throwable t) {
       if (LOG.isTraceEnabled()) {
       }
-    }
+
 ```
 
 ### EmptyStatementBody
@@ -293,10 +293,10 @@ in `JediTerm/src/main/java/com/intellij/util/concurrency/AppScheduledExecutorSer
 #### Snippet
 ```java
     @Override
-    protected void afterExecute(Runnable r, Throwable t) {
+    protected void beforeExecute(Thread t, Runnable r) {
       if (LOG.isTraceEnabled()) {
       }
-
+    }
 ```
 
 ### EmptyStatementBody
@@ -325,18 +325,6 @@ in `JediTerm/src/main/java/com/intellij/openapi/util/text/StringUtil.java`
 
 ## RuleId[ruleID=StaticInitializerReferencesSubClass]
 ### StaticInitializerReferencesSubClass
-Referencing subclass Done from superclass ActionCallback initializer might lead to class loading deadlock
-in `JediTerm/src/main/java/com/intellij/openapi/util/ActionCallback.java`
-#### Snippet
-```java
-
-public class ActionCallback  {
-  public static final ActionCallback DONE = new Done();
-  public static final ActionCallback REJECTED = new Rejected();
-
-```
-
-### StaticInitializerReferencesSubClass
 Referencing subclass Rejected from superclass ActionCallback initializer might lead to class loading deadlock
 in `JediTerm/src/main/java/com/intellij/openapi/util/ActionCallback.java`
 #### Snippet
@@ -346,6 +334,18 @@ public class ActionCallback  {
   public static final ActionCallback REJECTED = new Rejected();
 
   private final ExecutionCallback myDone;
+```
+
+### StaticInitializerReferencesSubClass
+Referencing subclass Done from superclass ActionCallback initializer might lead to class loading deadlock
+in `JediTerm/src/main/java/com/intellij/openapi/util/ActionCallback.java`
+#### Snippet
+```java
+
+public class ActionCallback  {
+  public static final ActionCallback DONE = new Done();
+  public static final ActionCallback REJECTED = new Rejected();
+
 ```
 
 ## RuleId[ruleID=CommentedOutCode]
@@ -386,6 +386,18 @@ in `JediTerm/src/main/java/com/intellij/ui/tabs/impl/table/TableLayout.java`
 ```
 
 ### CommentedOutCode
+Commented out code (25 lines)
+in `JediTerm/src/main/java/com/intellij/util/ui/Gray.java`
+#### Snippet
+```java
+  public static final Color TRANSPARENT = new Color(0,0,0,0);
+
+  //public static void main(String[] args) {
+  //  for (int i = 0; i < 256; i++) {
+  //    System.out.println("public static final Gray _" + i + " = new Gray("+ i + ");");
+```
+
+### CommentedOutCode
 Commented out code (3 lines)
 in `JediTerm/src/main/java/com/intellij/util/ui/DrawUtil.java`
 #### Snippet
@@ -410,18 +422,6 @@ in `JediTerm/src/main/java/com/intellij/ui/tabs/impl/JBEditorTabs.java`
 ```
 
 ### CommentedOutCode
-Commented out code (25 lines)
-in `JediTerm/src/main/java/com/intellij/util/ui/Gray.java`
-#### Snippet
-```java
-  public static final Color TRANSPARENT = new Color(0,0,0,0);
-
-  //public static void main(String[] args) {
-  //  for (int i = 0; i < 256; i++) {
-  //    System.out.println("public static final Gray _" + i + " = new Gray("+ i + ");");
-```
-
-### CommentedOutCode
 Commented out code (3 lines)
 in `JediTerm/src/main/java/com/intellij/ui/tabs/impl/TabsSideSplitter.java`
 #### Snippet
@@ -431,6 +431,18 @@ in `JediTerm/src/main/java/com/intellij/ui/tabs/impl/TabsSideSplitter.java`
 //    Integer limit = UIUtil.getClientProperty(myTabs, JBTabsImpl.SIDE_TABS_SIZE_LIMIT_KEY);
 //    if (limit == null) limit = JBTabsImpl.DEFAULT_MAX_TAB_WIDTH;
 //    setSideTabsLimit(limit);
+```
+
+### CommentedOutCode
+Commented out code (3 lines)
+in `JediTerm/src/main/java/com/intellij/util/ui/UIUtil.java`
+#### Snippet
+```java
+    }
+
+    //public static boolean isMacRetina(Graphics2D g) {
+    //  return DetectRetinaKit.isMacRetina(g);
+    //}
 ```
 
 ### CommentedOutCode
@@ -467,18 +479,6 @@ in `terminal/src/com/jediterm/terminal/model/JediTerminal.java`
       //myGraphicSetState.designateGraphicSet(0, CharacterSet.ASCII);//Maps the ASCII character set into GL
       //mapCharsetToGL(0);
       //myGraphicSetState.designateGraphicSet(1, CharacterSet.DEC_SUPPLEMENTAL);
-```
-
-### CommentedOutCode
-Commented out code (3 lines)
-in `JediTerm/src/main/java/com/intellij/util/ui/UIUtil.java`
-#### Snippet
-```java
-    }
-
-    //public static boolean isMacRetina(Graphics2D g) {
-    //  return DetectRetinaKit.isMacRetina(g);
-    //}
 ```
 
 ### CommentedOutCode
@@ -571,6 +571,54 @@ Redundant character escape `\\.` in RegExp
 in `JediTerm/src/main/java/com/intellij/openapi/util/text/StringUtil.java`
 #### Snippet
 ```java
+    }
+
+    String[] part1 = v1.split("[\\.\\_\\-]");
+    String[] part2 = v2.split("[\\.\\_\\-]");
+
+```
+
+### RegExpRedundantEscape
+Redundant character escape `\\_` in RegExp
+in `JediTerm/src/main/java/com/intellij/openapi/util/text/StringUtil.java`
+#### Snippet
+```java
+    }
+
+    String[] part1 = v1.split("[\\.\\_\\-]");
+    String[] part2 = v2.split("[\\.\\_\\-]");
+
+```
+
+### RegExpRedundantEscape
+Redundant character escape `\\.` in RegExp
+in `JediTerm/src/main/java/com/intellij/openapi/util/text/StringUtil.java`
+#### Snippet
+```java
+
+    String[] part1 = v1.split("[\\.\\_\\-]");
+    String[] part2 = v2.split("[\\.\\_\\-]");
+
+    int idx = 0;
+```
+
+### RegExpRedundantEscape
+Redundant character escape `\\_` in RegExp
+in `JediTerm/src/main/java/com/intellij/openapi/util/text/StringUtil.java`
+#### Snippet
+```java
+
+    String[] part1 = v1.split("[\\.\\_\\-]");
+    String[] part2 = v2.split("[\\.\\_\\-]");
+
+    int idx = 0;
+```
+
+### RegExpRedundantEscape
+Redundant character escape `\\.` in RegExp
+in `JediTerm/src/main/java/com/intellij/openapi/util/text/StringUtil.java`
+#### Snippet
+```java
   @Contract(pure = true)
   public static String formatLinks(@NotNull String message) {
     Pattern linkPattern = Pattern.compile("http://[a-zA-Z0-9\\./\\-\\+]+");
@@ -588,54 +636,6 @@ in `JediTerm/src/main/java/com/intellij/openapi/util/text/StringUtil.java`
     Pattern linkPattern = Pattern.compile("http://[a-zA-Z0-9\\./\\-\\+]+");
     StringBuffer result = new StringBuffer();
     Matcher m = linkPattern.matcher(message);
-```
-
-### RegExpRedundantEscape
-Redundant character escape `\\.` in RegExp
-in `JediTerm/src/main/java/com/intellij/openapi/util/text/StringUtil.java`
-#### Snippet
-```java
-    }
-
-    String[] part1 = v1.split("[\\.\\_\\-]");
-    String[] part2 = v2.split("[\\.\\_\\-]");
-
-```
-
-### RegExpRedundantEscape
-Redundant character escape `\\_` in RegExp
-in `JediTerm/src/main/java/com/intellij/openapi/util/text/StringUtil.java`
-#### Snippet
-```java
-    }
-
-    String[] part1 = v1.split("[\\.\\_\\-]");
-    String[] part2 = v2.split("[\\.\\_\\-]");
-
-```
-
-### RegExpRedundantEscape
-Redundant character escape `\\.` in RegExp
-in `JediTerm/src/main/java/com/intellij/openapi/util/text/StringUtil.java`
-#### Snippet
-```java
-
-    String[] part1 = v1.split("[\\.\\_\\-]");
-    String[] part2 = v2.split("[\\.\\_\\-]");
-
-    int idx = 0;
-```
-
-### RegExpRedundantEscape
-Redundant character escape `\\_` in RegExp
-in `JediTerm/src/main/java/com/intellij/openapi/util/text/StringUtil.java`
-#### Snippet
-```java
-
-    String[] part1 = v1.split("[\\.\\_\\-]");
-    String[] part2 = v2.split("[\\.\\_\\-]");
-
-    int idx = 0;
 ```
 
 ## RuleId[ruleID=UnnecessaryQualifierForThis]
@@ -773,18 +773,6 @@ in `terminal/src/com/jediterm/terminal/ui/PreConnectHandler.java`
 ```
 
 ### SizeReplaceableByIsEmpty
-`myTokens.size() == 0` can be replaced with 'myTokens.isEmpty()'
-in `terminal/src/com/jediterm/terminal/SubstringFinder.java`
-#### Snippet
-```java
-
-  public void nextChar(int x, int y, CharBuffer characters, int index) {
-    if (myTokens.size() == 0 || myTokens.get(myTokens.size() - 1).buf != characters) {
-      myTokens.add(new TextToken(x, y, characters));
-    }
-```
-
-### SizeReplaceableByIsEmpty
 `myLastSingRowLayout.myVisibleInfos.size() == 0` can be replaced with 'myLastSingRowLayout.myVisibleInfos.isEmpty()'
 in `JediTerm/src/main/java/com/intellij/ui/tabs/impl/singleRow/SingleRowLayout.java`
 #### Snippet
@@ -794,18 +782,6 @@ in `JediTerm/src/main/java/com/intellij/ui/tabs/impl/singleRow/SingleRowLayout.j
         if (myLastSingRowLayout.myVisibleInfos.size() == 0) {
           result = 0;
         } else {
-```
-
-### SizeReplaceableByIsEmpty
-`data.toLayout.size() == 0` can be replaced with 'data.toLayout.isEmpty()'
-in `JediTerm/src/main/java/com/intellij/ui/tabs/impl/singleRow/SingleRowLayout.java`
-#### Snippet
-```java
-    while (true) {
-      if (data.requiredLength <= data.toFitLength - data.position) break;
-      if (data.toLayout.size() == 0) break;
-
-      final TabInfo first = data.toLayout.get(0);
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -821,6 +797,18 @@ in `JediTerm/src/main/java/com/intellij/ui/tabs/impl/singleRow/SingleRowLayout.j
 ```
 
 ### SizeReplaceableByIsEmpty
+`data.toLayout.size() == 0` can be replaced with 'data.toLayout.isEmpty()'
+in `JediTerm/src/main/java/com/intellij/ui/tabs/impl/singleRow/SingleRowLayout.java`
+#### Snippet
+```java
+    while (true) {
+      if (data.requiredLength <= data.toFitLength - data.position) break;
+      if (data.toLayout.size() == 0) break;
+
+      final TabInfo first = data.toLayout.get(0);
+```
+
+### SizeReplaceableByIsEmpty
 `data.toLayout.size() > 0` can be replaced with '!data.toLayout.isEmpty()'
 in `JediTerm/src/main/java/com/intellij/ui/tabs/impl/singleRow/SingleRowLayout.java`
 #### Snippet
@@ -830,6 +818,18 @@ in `JediTerm/src/main/java/com/intellij/ui/tabs/impl/singleRow/SingleRowLayout.j
     if (data.toLayout.size() > 0) {
       final TabLabel firstLabel = myTabs.myInfo2Label.get(data.toLayout.get(0));
       final TabLabel lastLabel = findLastVisibleLabel(data);
+```
+
+### SizeReplaceableByIsEmpty
+`myTokens.size() == 0` can be replaced with 'myTokens.isEmpty()'
+in `terminal/src/com/jediterm/terminal/SubstringFinder.java`
+#### Snippet
+```java
+
+  public void nextChar(int x, int y, CharBuffer characters, int index) {
+    if (myTokens.size() == 0 || myTokens.get(myTokens.size() - 1).buf != characters) {
+      myTokens.add(new TextToken(x, y, characters));
+    }
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -857,39 +857,15 @@ in `JediTerm/src/main/java/com/intellij/ui/tabs/impl/JBTabsImpl.java`
 ```
 
 ### SizeReplaceableByIsEmpty
-`result.length() == 0` can be replaced with 'result.isEmpty()'
+`cs.length() == 0` can be replaced with 'cs.isEmpty()'
 in `JediTerm/src/main/java/com/intellij/openapi/util/text/StringUtil.java`
 #### Snippet
 ```java
-      final char ch = name.charAt(i);
-      if (Character.isJavaIdentifierPart(ch)) {
-        if (result.length() == 0 && !Character.isJavaIdentifierStart(ch)) {
-          result.append("_");
-        }
-```
+  @Contract(value = "null -> true",pure = true)
+  public static boolean isEmpty(@Nullable CharSequence cs) {
+    return cs == null || cs.length() == 0;
+  }
 
-### SizeReplaceableByIsEmpty
-`out.length() > 0` can be replaced with '!out.isEmpty()'
-in `JediTerm/src/main/java/com/intellij/openapi/util/text/StringUtil.java`
-#### Snippet
-```java
-    while (tokenizer.hasMoreTokens()) {
-      final String word = tokenizer.nextToken();
-      if (!leaveOriginalDelims && out.length() > 0) {
-        out.append(' ');
-      }
-```
-
-### SizeReplaceableByIsEmpty
-`result.length() != 0` can be replaced with '!result.isEmpty()'
-in `JediTerm/src/main/java/com/intellij/openapi/util/text/StringUtil.java`
-#### Snippet
-```java
-      String string = f.fun(item);
-      if (string != null && !string.isEmpty()) {
-        if (result.length() != 0) result.append(separator);
-        result.append(string);
-      }
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -917,18 +893,6 @@ in `JediTerm/src/main/java/com/intellij/openapi/util/text/StringUtil.java`
 ```
 
 ### SizeReplaceableByIsEmpty
-`result.length() > 0` can be replaced with '!result.isEmpty()'
-in `JediTerm/src/main/java/com/intellij/openapi/util/text/StringUtil.java`
-#### Snippet
-```java
-      result.append(item).append(separator);
-    }
-    if (result.length() > 0) {
-      result.setLength(result.length() - separator.length());
-    }
-```
-
-### SizeReplaceableByIsEmpty
 `sb.length() > 0` can be replaced with '!sb.isEmpty()'
 in `JediTerm/src/main/java/com/intellij/openapi/util/text/StringUtil.java`
 #### Snippet
@@ -941,39 +905,27 @@ in `JediTerm/src/main/java/com/intellij/openapi/util/text/StringUtil.java`
 ```
 
 ### SizeReplaceableByIsEmpty
-`s.length() != 0` can be replaced with '!s.isEmpty()'
+`result.length() != 0` can be replaced with '!result.isEmpty()'
 in `JediTerm/src/main/java/com/intellij/openapi/util/text/StringUtil.java`
 #### Snippet
 ```java
-  @Contract(pure = true)
-  public static boolean startsWithChar(@Nullable CharSequence s, char prefix) {
-    return s != null && s.length() != 0 && s.charAt(0) == prefix;
-  }
-
-```
-
-### SizeReplaceableByIsEmpty
-`cs.length() == 0` can be replaced with 'cs.isEmpty()'
-in `JediTerm/src/main/java/com/intellij/openapi/util/text/StringUtil.java`
-#### Snippet
-```java
-  @Contract(value = "null -> true",pure = true)
-  public static boolean isEmpty(@Nullable CharSequence cs) {
-    return cs == null || cs.length() == 0;
-  }
-
-```
-
-### SizeReplaceableByIsEmpty
-`myBuffer.length() > 0` can be replaced with '!myBuffer.isEmpty()'
-in `JediTerm/src/main/java/com/intellij/openapi/util/text/StringUtil.java`
-#### Snippet
-```java
-
-    private void handleTag(HTML.Tag tag) {
-      if (tag.breaksFlow() && myBuffer.length() > 0) {
-        myBuffer.append(SystemProperties.getLineSeparator());
+      String string = f.fun(item);
+      if (string != null && !string.isEmpty()) {
+        if (result.length() != 0) result.append(separator);
+        result.append(string);
       }
+```
+
+### SizeReplaceableByIsEmpty
+`result.length() > 0` can be replaced with '!result.isEmpty()'
+in `JediTerm/src/main/java/com/intellij/openapi/util/text/StringUtil.java`
+#### Snippet
+```java
+      result.append(item).append(separator);
+    }
+    if (result.length() > 0) {
+      result.setLength(result.length() - separator.length());
+    }
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -1001,15 +953,63 @@ in `JediTerm/src/main/java/com/intellij/openapi/util/text/StringUtil.java`
 ```
 
 ### SizeReplaceableByIsEmpty
-`selectionText.length() != 0` can be replaced with '!selectionText.isEmpty()'
+`out.length() > 0` can be replaced with '!out.isEmpty()'
+in `JediTerm/src/main/java/com/intellij/openapi/util/text/StringUtil.java`
+#### Snippet
+```java
+    while (tokenizer.hasMoreTokens()) {
+      final String word = tokenizer.nextToken();
+      if (!leaveOriginalDelims && out.length() > 0) {
+        out.append(' ');
+      }
+```
+
+### SizeReplaceableByIsEmpty
+`myBuffer.length() > 0` can be replaced with '!myBuffer.isEmpty()'
+in `JediTerm/src/main/java/com/intellij/openapi/util/text/StringUtil.java`
+#### Snippet
+```java
+
+    private void handleTag(HTML.Tag tag) {
+      if (tag.breaksFlow() && myBuffer.length() > 0) {
+        myBuffer.append(SystemProperties.getLineSeparator());
+      }
+```
+
+### SizeReplaceableByIsEmpty
+`s.length() != 0` can be replaced with '!s.isEmpty()'
+in `JediTerm/src/main/java/com/intellij/openapi/util/text/StringUtil.java`
+#### Snippet
+```java
+  @Contract(pure = true)
+  public static boolean startsWithChar(@Nullable CharSequence s, char prefix) {
+    return s != null && s.length() != 0 && s.charAt(0) == prefix;
+  }
+
+```
+
+### SizeReplaceableByIsEmpty
+`result.length() == 0` can be replaced with 'result.isEmpty()'
+in `JediTerm/src/main/java/com/intellij/openapi/util/text/StringUtil.java`
+#### Snippet
+```java
+      final char ch = name.charAt(i);
+      if (Character.isJavaIdentifierPart(ch)) {
+        if (result.length() == 0 && !Character.isJavaIdentifierStart(ch)) {
+          result.append("_");
+        }
+```
+
+### SizeReplaceableByIsEmpty
+`myInputMethodUncommittedChars.length() > 0` can be replaced with '!myInputMethodUncommittedChars.isEmpty()'
 in `terminal/src/com/jediterm/terminal/ui/TerminalPanel.java`
 #### Snippet
 ```java
-    }
-    String selectionText = SelectionUtil.getSelectionText(selectionStart, selectionEnd, myTerminalTextBuffer);
-    if (selectionText.length() != 0) {
-      myCopyPasteHandler.setContents(selectionText, useSystemSelectionClipboardIfAvailable);
-    }
+
+  private boolean hasUncommittedChars() {
+    return myInputMethodUncommittedChars != null && myInputMethodUncommittedChars.length() > 0;
+  }
+
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -1025,15 +1025,15 @@ in `terminal/src/com/jediterm/terminal/ui/TerminalPanel.java`
 ```
 
 ### SizeReplaceableByIsEmpty
-`myInputMethodUncommittedChars.length() > 0` can be replaced with '!myInputMethodUncommittedChars.isEmpty()'
+`selectionText.length() != 0` can be replaced with '!selectionText.isEmpty()'
 in `terminal/src/com/jediterm/terminal/ui/TerminalPanel.java`
 #### Snippet
 ```java
-
-  private boolean hasUncommittedChars() {
-    return myInputMethodUncommittedChars != null && myInputMethodUncommittedChars.length() > 0;
-  }
-
+    }
+    String selectionText = SelectionUtil.getSelectionText(selectionStart, selectionEnd, myTerminalTextBuffer);
+    if (selectionText.length() != 0) {
+      myCopyPasteHandler.setContents(selectionText, useSystemSelectionClipboardIfAvailable);
+    }
 ```
 
 ## RuleId[ruleID=TrivialStringConcatenation]
@@ -1115,30 +1115,6 @@ Overridden method parameters are not annotated
 in `terminal/src/com/jediterm/terminal/StyledTextConsumer.java`
 #### Snippet
 ```java
-  void consume(int x, int y, @NotNull TextStyle style, @NotNull CharBuffer characters, int startRow);
-
-  void consumeNul(int x, int y, int nulIndex, @NotNull TextStyle style, @NotNull CharBuffer characters, int startRow);
-
-  void consumeQueue(int x, int y, int nulIndex, int startRow);
-```
-
-### NullableProblems
-Overridden method parameters are not annotated
-in `terminal/src/com/jediterm/terminal/StyledTextConsumer.java`
-#### Snippet
-```java
-  void consume(int x, int y, @NotNull TextStyle style, @NotNull CharBuffer characters, int startRow);
-
-  void consumeNul(int x, int y, int nulIndex, @NotNull TextStyle style, @NotNull CharBuffer characters, int startRow);
-
-  void consumeQueue(int x, int y, int nulIndex, int startRow);
-```
-
-### NullableProblems
-Overridden method parameters are not annotated
-in `terminal/src/com/jediterm/terminal/StyledTextConsumer.java`
-#### Snippet
-```java
    *                 It can be different for different buffers, e.g. backBuffer starts from 0, textBuffer and scrollBuffer from -count
    */
   void consume(int x, int y, @NotNull TextStyle style, @NotNull CharBuffer characters, int startRow);
@@ -1156,6 +1132,30 @@ in `terminal/src/com/jediterm/terminal/StyledTextConsumer.java`
   void consume(int x, int y, @NotNull TextStyle style, @NotNull CharBuffer characters, int startRow);
 
   void consumeNul(int x, int y, int nulIndex, @NotNull TextStyle style, @NotNull CharBuffer characters, int startRow);
+```
+
+### NullableProblems
+Overridden method parameters are not annotated
+in `terminal/src/com/jediterm/terminal/StyledTextConsumer.java`
+#### Snippet
+```java
+  void consume(int x, int y, @NotNull TextStyle style, @NotNull CharBuffer characters, int startRow);
+
+  void consumeNul(int x, int y, int nulIndex, @NotNull TextStyle style, @NotNull CharBuffer characters, int startRow);
+
+  void consumeQueue(int x, int y, int nulIndex, int startRow);
+```
+
+### NullableProblems
+Overridden method parameters are not annotated
+in `terminal/src/com/jediterm/terminal/StyledTextConsumer.java`
+#### Snippet
+```java
+  void consume(int x, int y, @NotNull TextStyle style, @NotNull CharBuffer characters, int startRow);
+
+  void consumeNul(int x, int y, int nulIndex, @NotNull TextStyle style, @NotNull CharBuffer characters, int startRow);
+
+  void consumeQueue(int x, int y, int nulIndex, int startRow);
 ```
 
 ## RuleId[ruleID=UnnecessaryUnboxing]
@@ -1245,7 +1245,7 @@ in `JediTerm/src/main/java/com/intellij/util/ui/DrawUtil.java`
 
 ### UnnecessaryUnboxing
 Unnecessary unboxing
-in `JediTerm/src/main/java/com/intellij/ui/ColorUtil.java`
+in `JediTerm/src/main/java/com/intellij/util/ui/ColorUtil.java`
 #### Snippet
 ```java
     if (str.length() == 3) {
@@ -1257,7 +1257,7 @@ in `JediTerm/src/main/java/com/intellij/ui/ColorUtil.java`
 
 ### UnnecessaryUnboxing
 Unnecessary unboxing
-in `JediTerm/src/main/java/com/intellij/ui/ColorUtil.java`
+in `JediTerm/src/main/java/com/intellij/util/ui/ColorUtil.java`
 #### Snippet
 ```java
       return new Color(
@@ -1269,7 +1269,7 @@ in `JediTerm/src/main/java/com/intellij/ui/ColorUtil.java`
 
 ### UnnecessaryUnboxing
 Unnecessary unboxing
-in `JediTerm/src/main/java/com/intellij/ui/ColorUtil.java`
+in `JediTerm/src/main/java/com/intellij/util/ui/ColorUtil.java`
 #### Snippet
 ```java
         17 * Integer.valueOf(String.valueOf(str.charAt(0)), 16).intValue(),
@@ -1281,7 +1281,7 @@ in `JediTerm/src/main/java/com/intellij/ui/ColorUtil.java`
 
 ### UnnecessaryUnboxing
 Unnecessary unboxing
-in `JediTerm/src/main/java/com/intellij/util/ui/ColorUtil.java`
+in `JediTerm/src/main/java/com/intellij/ui/ColorUtil.java`
 #### Snippet
 ```java
     if (str.length() == 3) {
@@ -1293,7 +1293,7 @@ in `JediTerm/src/main/java/com/intellij/util/ui/ColorUtil.java`
 
 ### UnnecessaryUnboxing
 Unnecessary unboxing
-in `JediTerm/src/main/java/com/intellij/util/ui/ColorUtil.java`
+in `JediTerm/src/main/java/com/intellij/ui/ColorUtil.java`
 #### Snippet
 ```java
       return new Color(
@@ -1305,7 +1305,7 @@ in `JediTerm/src/main/java/com/intellij/util/ui/ColorUtil.java`
 
 ### UnnecessaryUnboxing
 Unnecessary unboxing
-in `JediTerm/src/main/java/com/intellij/util/ui/ColorUtil.java`
+in `JediTerm/src/main/java/com/intellij/ui/ColorUtil.java`
 #### Snippet
 ```java
         17 * Integer.valueOf(String.valueOf(str.charAt(0)), 16).intValue(),
@@ -1344,6 +1344,18 @@ Unnecessary unboxing
 in `JediTerm/src/main/java/com/intellij/ui/tabs/impl/JBTabsImpl.java`
 #### Snippet
 ```java
+            updateColor(tabInfo);
+        } else if (TabInfo.ALERT_STATUS.equals(evt.getPropertyName())) {
+            boolean start = ((Boolean) evt.getNewValue()).booleanValue();
+            updateAttraction(tabInfo, start);
+        } else if (TabInfo.TAB_ACTION_GROUP.equals(evt.getPropertyName())) {
+```
+
+### UnnecessaryUnboxing
+Unnecessary unboxing
+in `JediTerm/src/main/java/com/intellij/ui/tabs/impl/JBTabsImpl.java`
+#### Snippet
+```java
         }
 
         if (index.intValue() < 0) {
@@ -1361,18 +1373,6 @@ in `JediTerm/src/main/java/com/intellij/ui/tabs/impl/JBTabsImpl.java`
         return index.intValue();
     }
 
-```
-
-### UnnecessaryUnboxing
-Unnecessary unboxing
-in `JediTerm/src/main/java/com/intellij/ui/tabs/impl/JBTabsImpl.java`
-#### Snippet
-```java
-            updateColor(tabInfo);
-        } else if (TabInfo.ALERT_STATUS.equals(evt.getPropertyName())) {
-            boolean start = ((Boolean) evt.getNewValue()).booleanValue();
-            updateAttraction(tabInfo, start);
-        } else if (TabInfo.TAB_ACTION_GROUP.equals(evt.getPropertyName())) {
 ```
 
 ### UnnecessaryUnboxing
@@ -1438,18 +1438,6 @@ in `JediTerm/src/main/java/com/intellij/ui/components/OnOffButton.java`
 ```
 
 ### RedundantMethodOverride
-Method `createSingleRowLayout()` only delegates to its super method
-in `JediTerm/src/main/java/com/intellij/ui/tabs/impl/JBEditorTabs.java`
-#### Snippet
-```java
-
-  @Override
-  protected SingleRowLayout createSingleRowLayout() {
-    return super.createSingleRowLayout();
-  }
-```
-
-### RedundantMethodOverride
 Method `useSmallLabels()` is identical to its super method
 in `JediTerm/src/main/java/com/intellij/ui/tabs/impl/JBEditorTabs.java`
 #### Snippet
@@ -1459,6 +1447,18 @@ in `JediTerm/src/main/java/com/intellij/ui/tabs/impl/JBEditorTabs.java`
   public boolean useSmallLabels() {
     return false;
 //    return UISettings.getInstance().USE_SMALL_LABELS_ON_TABS;
+```
+
+### RedundantMethodOverride
+Method `createSingleRowLayout()` only delegates to its super method
+in `JediTerm/src/main/java/com/intellij/ui/tabs/impl/JBEditorTabs.java`
+#### Snippet
+```java
+
+  @Override
+  protected SingleRowLayout createSingleRowLayout() {
+    return super.createSingleRowLayout();
+  }
 ```
 
 ### RedundantMethodOverride
@@ -1610,43 +1610,6 @@ in `JediTerm/src/main/java/com/intellij/util/SmartList.java`
 
 ### NestedAssignment
 Result of assignment expression used
-in `terminal/src/com/jediterm/terminal/debug/ControlSequenceVisualizer.java`
-#### Snippet
-```java
-    String lastNum = null;
-    String line;
-    while ((line = in.readLine()) != null) {
-      if (!line.startsWith("&") && !line.startsWith("\"")) {
-        lastNum = String.format("%3d ", i++);
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `JediTerm/src/main/java/com/intellij/util/ReflectionUtil.java`
-#### Snippet
-```java
-    Type type;
-    Class current = aClass;
-    while ((type = resolveVariable(variable, current, false)) == null) {
-      current = current.getSuperclass();
-      if (current == null) {
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `JediTerm/src/main/java/com/intellij/ui/tabs/TabInfo.java`
-#### Snippet
-```java
-    SimpleTextAttributes attributes = myDefaultAttributes;
-    if (attributes == null) {
-      myDefaultAttributes = attributes = new SimpleTextAttributes(myDefaultStyle != -1 ? myDefaultStyle : SimpleTextAttributes.STYLE_PLAIN,
-                                                     myDefaultForeground, myDefaultWaveColor);
-
-    }
-```
-
-### NestedAssignment
-Result of assignment expression used
 in `JediTerm/src/main/java/com/intellij/util/ui/UIUtil.java`
 #### Snippet
 ```java
@@ -1667,6 +1630,43 @@ in `JediTerm/src/main/java/com/intellij/util/ui/UIUtil.java`
         return systemLaFClassName = UIManager.getSystemLookAndFeelClassName();
     }
 
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `terminal/src/com/jediterm/terminal/debug/ControlSequenceVisualizer.java`
+#### Snippet
+```java
+    String lastNum = null;
+    String line;
+    while ((line = in.readLine()) != null) {
+      if (!line.startsWith("&") && !line.startsWith("\"")) {
+        lastNum = String.format("%3d ", i++);
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `JediTerm/src/main/java/com/intellij/ui/tabs/TabInfo.java`
+#### Snippet
+```java
+    SimpleTextAttributes attributes = myDefaultAttributes;
+    if (attributes == null) {
+      myDefaultAttributes = attributes = new SimpleTextAttributes(myDefaultStyle != -1 ? myDefaultStyle : SimpleTextAttributes.STYLE_PLAIN,
+                                                     myDefaultForeground, myDefaultWaveColor);
+
+    }
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `JediTerm/src/main/java/com/intellij/util/ReflectionUtil.java`
+#### Snippet
+```java
+    Type type;
+    Class current = aClass;
+    while ((type = resolveVariable(variable, current, false)) == null) {
+      current = current.getSuperclass();
+      if (current == null) {
 ```
 
 ### NestedAssignment
@@ -2183,13 +2183,49 @@ in `terminal/src/com/jediterm/terminal/ui/TerminalPanel.java`
 
 ## RuleId[ruleID=SuspiciousNameCombination]
 ### SuspiciousNameCombination
-'x' should probably not be returned from method 'getMaxY'
+'left' should probably not be passed as parameter 'top'
 in `JediTerm/src/main/java/com/intellij/ui/tabs/impl/ShapeTransform.java`
 #### Snippet
 ```java
+    @Override
+    public Insets transformInsets(Insets insets) {
+      return new Insets(insets.left, insets.top, insets.right, insets.bottom);
+    }
 
-    public int getMaxY() {
-      return getShapeRect().x;
+```
+
+### SuspiciousNameCombination
+'top' should probably not be passed as parameter 'left'
+in `JediTerm/src/main/java/com/intellij/ui/tabs/impl/ShapeTransform.java`
+#### Snippet
+```java
+    @Override
+    public Insets transformInsets(Insets insets) {
+      return new Insets(insets.left, insets.top, insets.right, insets.bottom);
+    }
+
+```
+
+### SuspiciousNameCombination
+'right' should probably not be passed as parameter 'bottom'
+in `JediTerm/src/main/java/com/intellij/ui/tabs/impl/ShapeTransform.java`
+#### Snippet
+```java
+    @Override
+    public Insets transformInsets(Insets insets) {
+      return new Insets(insets.left, insets.top, insets.right, insets.bottom);
+    }
+
+```
+
+### SuspiciousNameCombination
+'bottom' should probably not be passed as parameter 'right'
+in `JediTerm/src/main/java/com/intellij/ui/tabs/impl/ShapeTransform.java`
+#### Snippet
+```java
+    @Override
+    public Insets transformInsets(Insets insets) {
+      return new Insets(insets.left, insets.top, insets.right, insets.bottom);
     }
 
 ```
@@ -2202,114 +2238,6 @@ in `JediTerm/src/main/java/com/intellij/ui/tabs/impl/ShapeTransform.java`
 
     public int getY() {
       return getShapeRect().x;
-    }
-
-```
-
-### SuspiciousNameCombination
-'y' should probably not be returned from method 'getX'
-in `JediTerm/src/main/java/com/intellij/ui/tabs/impl/ShapeTransform.java`
-#### Snippet
-```java
-
-    public int getX() {
-      return getShapeRect().y;
-    }
-
-```
-
-### SuspiciousNameCombination
-'y1' should probably not be passed as parameter 'x1'
-in `JediTerm/src/main/java/com/intellij/ui/tabs/impl/ShapeTransform.java`
-#### Snippet
-```java
-
-    public Line2D.Float transformLine(int x1, int y1, int x2, int y2) {
-      return new Line2D.Float(y1, x1, y2, x2);
-    }
-  }
-```
-
-### SuspiciousNameCombination
-'x1' should probably not be passed as parameter 'y1'
-in `JediTerm/src/main/java/com/intellij/ui/tabs/impl/ShapeTransform.java`
-#### Snippet
-```java
-
-    public Line2D.Float transformLine(int x1, int y1, int x2, int y2) {
-      return new Line2D.Float(y1, x1, y2, x2);
-    }
-  }
-```
-
-### SuspiciousNameCombination
-'y2' should probably not be passed as parameter 'x2'
-in `JediTerm/src/main/java/com/intellij/ui/tabs/impl/ShapeTransform.java`
-#### Snippet
-```java
-
-    public Line2D.Float transformLine(int x1, int y1, int x2, int y2) {
-      return new Line2D.Float(y1, x1, y2, x2);
-    }
-  }
-```
-
-### SuspiciousNameCombination
-'x2' should probably not be passed as parameter 'y2'
-in `JediTerm/src/main/java/com/intellij/ui/tabs/impl/ShapeTransform.java`
-#### Snippet
-```java
-
-    public Line2D.Float transformLine(int x1, int y1, int x2, int y2) {
-      return new Line2D.Float(y1, x1, y2, x2);
-    }
-  }
-```
-
-### SuspiciousNameCombination
-'y1' should probably not be passed as parameter 'x1'
-in `JediTerm/src/main/java/com/intellij/ui/tabs/impl/ShapeTransform.java`
-#### Snippet
-```java
-    @Override
-    public Line2D.Float transformLine(int x1, int y1, int x2, int y2) {
-      return new Line2D.Float(y1, x1, y2, x2);
-    }
-
-```
-
-### SuspiciousNameCombination
-'x1' should probably not be passed as parameter 'y1'
-in `JediTerm/src/main/java/com/intellij/ui/tabs/impl/ShapeTransform.java`
-#### Snippet
-```java
-    @Override
-    public Line2D.Float transformLine(int x1, int y1, int x2, int y2) {
-      return new Line2D.Float(y1, x1, y2, x2);
-    }
-
-```
-
-### SuspiciousNameCombination
-'y2' should probably not be passed as parameter 'x2'
-in `JediTerm/src/main/java/com/intellij/ui/tabs/impl/ShapeTransform.java`
-#### Snippet
-```java
-    @Override
-    public Line2D.Float transformLine(int x1, int y1, int x2, int y2) {
-      return new Line2D.Float(y1, x1, y2, x2);
-    }
-
-```
-
-### SuspiciousNameCombination
-'x2' should probably not be passed as parameter 'y2'
-in `JediTerm/src/main/java/com/intellij/ui/tabs/impl/ShapeTransform.java`
-#### Snippet
-```java
-    @Override
-    public Line2D.Float transformLine(int x1, int y1, int x2, int y2) {
-      return new Line2D.Float(y1, x1, y2, x2);
     }
 
 ```
@@ -2375,51 +2303,123 @@ in `JediTerm/src/main/java/com/intellij/ui/tabs/impl/ShapeTransform.java`
 ```
 
 ### SuspiciousNameCombination
-'left' should probably not be passed as parameter 'top'
+'x' should probably not be returned from method 'getMaxY'
 in `JediTerm/src/main/java/com/intellij/ui/tabs/impl/ShapeTransform.java`
 #### Snippet
 ```java
-    @Override
-    public Insets transformInsets(Insets insets) {
-      return new Insets(insets.left, insets.top, insets.right, insets.bottom);
+
+    public int getMaxY() {
+      return getShapeRect().x;
     }
 
 ```
 
 ### SuspiciousNameCombination
-'top' should probably not be passed as parameter 'left'
+'y1' should probably not be passed as parameter 'x1'
 in `JediTerm/src/main/java/com/intellij/ui/tabs/impl/ShapeTransform.java`
 #### Snippet
 ```java
     @Override
-    public Insets transformInsets(Insets insets) {
-      return new Insets(insets.left, insets.top, insets.right, insets.bottom);
+    public Line2D.Float transformLine(int x1, int y1, int x2, int y2) {
+      return new Line2D.Float(y1, x1, y2, x2);
     }
 
 ```
 
 ### SuspiciousNameCombination
-'right' should probably not be passed as parameter 'bottom'
+'x1' should probably not be passed as parameter 'y1'
 in `JediTerm/src/main/java/com/intellij/ui/tabs/impl/ShapeTransform.java`
 #### Snippet
 ```java
     @Override
-    public Insets transformInsets(Insets insets) {
-      return new Insets(insets.left, insets.top, insets.right, insets.bottom);
+    public Line2D.Float transformLine(int x1, int y1, int x2, int y2) {
+      return new Line2D.Float(y1, x1, y2, x2);
     }
 
 ```
 
 ### SuspiciousNameCombination
-'bottom' should probably not be passed as parameter 'right'
+'y2' should probably not be passed as parameter 'x2'
 in `JediTerm/src/main/java/com/intellij/ui/tabs/impl/ShapeTransform.java`
 #### Snippet
 ```java
     @Override
-    public Insets transformInsets(Insets insets) {
-      return new Insets(insets.left, insets.top, insets.right, insets.bottom);
+    public Line2D.Float transformLine(int x1, int y1, int x2, int y2) {
+      return new Line2D.Float(y1, x1, y2, x2);
     }
 
+```
+
+### SuspiciousNameCombination
+'x2' should probably not be passed as parameter 'y2'
+in `JediTerm/src/main/java/com/intellij/ui/tabs/impl/ShapeTransform.java`
+#### Snippet
+```java
+    @Override
+    public Line2D.Float transformLine(int x1, int y1, int x2, int y2) {
+      return new Line2D.Float(y1, x1, y2, x2);
+    }
+
+```
+
+### SuspiciousNameCombination
+'y' should probably not be returned from method 'getX'
+in `JediTerm/src/main/java/com/intellij/ui/tabs/impl/ShapeTransform.java`
+#### Snippet
+```java
+
+    public int getX() {
+      return getShapeRect().y;
+    }
+
+```
+
+### SuspiciousNameCombination
+'y1' should probably not be passed as parameter 'x1'
+in `JediTerm/src/main/java/com/intellij/ui/tabs/impl/ShapeTransform.java`
+#### Snippet
+```java
+
+    public Line2D.Float transformLine(int x1, int y1, int x2, int y2) {
+      return new Line2D.Float(y1, x1, y2, x2);
+    }
+  }
+```
+
+### SuspiciousNameCombination
+'x1' should probably not be passed as parameter 'y1'
+in `JediTerm/src/main/java/com/intellij/ui/tabs/impl/ShapeTransform.java`
+#### Snippet
+```java
+
+    public Line2D.Float transformLine(int x1, int y1, int x2, int y2) {
+      return new Line2D.Float(y1, x1, y2, x2);
+    }
+  }
+```
+
+### SuspiciousNameCombination
+'y2' should probably not be passed as parameter 'x2'
+in `JediTerm/src/main/java/com/intellij/ui/tabs/impl/ShapeTransform.java`
+#### Snippet
+```java
+
+    public Line2D.Float transformLine(int x1, int y1, int x2, int y2) {
+      return new Line2D.Float(y1, x1, y2, x2);
+    }
+  }
+```
+
+### SuspiciousNameCombination
+'x2' should probably not be passed as parameter 'y2'
+in `JediTerm/src/main/java/com/intellij/ui/tabs/impl/ShapeTransform.java`
+#### Snippet
+```java
+
+    public Line2D.Float transformLine(int x1, int y1, int x2, int y2) {
+      return new Line2D.Float(y1, x1, y2, x2);
+    }
+  }
 ```
 
 ## RuleId[ruleID=UnnecessarySemicolon]
@@ -2461,18 +2461,6 @@ in `terminal/src/com/jediterm/terminal/ui/TerminalPanel.java`
 
 ## RuleId[ruleID=StringOperationCanBeSimplified]
 ### StringOperationCanBeSimplified
-Unnecessary string length argument
-in `JediTerm/src/main/java/com/intellij/openapi/util/text/StringUtil.java`
-#### Snippet
-```java
-  @Contract(pure = true)
-  public static String tail(@NotNull String s, final int idx) {
-    return idx >= s.length() ? "" : s.substring(idx, s.length());
-  }
-
-```
-
-### StringOperationCanBeSimplified
 Call to `substring()` is redundant
 in `JediTerm/src/main/java/com/intellij/openapi/util/text/StringUtil.java`
 #### Snippet
@@ -2494,6 +2482,18 @@ in `JediTerm/src/main/java/com/intellij/openapi/util/text/StringUtil.java`
     sb.append(text.substring(lastEnd, text.length()));
     return sb.toString();
   }
+```
+
+### StringOperationCanBeSimplified
+Unnecessary string length argument
+in `JediTerm/src/main/java/com/intellij/openapi/util/text/StringUtil.java`
+#### Snippet
+```java
+  @Contract(pure = true)
+  public static String tail(@NotNull String s, final int idx) {
+    return idx >= s.length() ? "" : s.substring(idx, s.length());
+  }
+
 ```
 
 ## RuleId[ruleID=NonSynchronizedMethodOverridesSynchronizedMethod]
@@ -3275,11 +3275,11 @@ StandardCharsets.UTF_8 can be used instead
 in `ssh/src/com/jediterm/ssh/jsch/JSchTtyConnector.java`
 #### Snippet
 ```java
-      myInputStream = myChannelShell.getInputStream();
-      myOutputStream = myChannelShell.getOutputStream();
-      myInputStreamReader = new InputStreamReader(myInputStream, "utf-8");
-      myChannelShell.connect();
-      resizeImmediately();
+  @Override
+  public void write(String string) throws IOException {
+    write(string.getBytes("utf-8")); //TODO: fix
+  }
+
 ```
 
 ### CharsetObjectCanBeUsed
@@ -3287,11 +3287,11 @@ StandardCharsets.UTF_8 can be used instead
 in `ssh/src/com/jediterm/ssh/jsch/JSchTtyConnector.java`
 #### Snippet
 ```java
-  @Override
-  public void write(String string) throws IOException {
-    write(string.getBytes("utf-8")); //TODO: fix
-  }
-
+      myInputStream = myChannelShell.getInputStream();
+      myOutputStream = myChannelShell.getOutputStream();
+      myInputStreamReader = new InputStreamReader(myInputStream, "utf-8");
+      myChannelShell.connect();
+      resizeImmediately();
 ```
 
 ### CharsetObjectCanBeUsed
@@ -3506,7 +3506,7 @@ Constructor `Animator()` of an abstract class should not be declared 'public'
 in `JediTerm/src/main/java/com/intellij/util/ui/Animator.java`
 #### Snippet
 ```java
-  private volatile boolean myDisposed;
+  }
 
   public Animator(@NonNls final String name,
                   final int totalFrames,
@@ -3518,7 +3518,7 @@ Constructor `Animator()` of an abstract class should not be declared 'public'
 in `JediTerm/src/main/java/com/intellij/util/ui/Animator.java`
 #### Snippet
 ```java
-  }
+  private volatile boolean myDisposed;
 
   public Animator(@NonNls final String name,
                   final int totalFrames,
@@ -3554,18 +3554,6 @@ Constructor `ProcessTtyConnector()` of an abstract class should not be declared 
 in `terminal/src/com/jediterm/terminal/ProcessTtyConnector.java`
 #### Snippet
 ```java
-  }
-
-  public ProcessTtyConnector(@NotNull Process process, @NotNull Charset charset, @Nullable List<String> commandLine) {
-    myOutputStream = process.getOutputStream();
-    myCharset = charset;
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `ProcessTtyConnector()` of an abstract class should not be declared 'public'
-in `terminal/src/com/jediterm/terminal/ProcessTtyConnector.java`
-#### Snippet
-```java
   private final @Nullable List<String> myCommandLine;
 
   public ProcessTtyConnector(@NotNull Process process, @NotNull Charset charset) {
@@ -3574,14 +3562,26 @@ in `terminal/src/com/jediterm/terminal/ProcessTtyConnector.java`
 ```
 
 ### NonProtectedConstructorInAbstractClass
-Constructor `JSchTtyConnector()` of an abstract class should not be declared 'public'
-in `ssh/src/com/jediterm/ssh/jsch/JSchTtyConnector.java`
+Constructor `ProcessTtyConnector()` of an abstract class should not be declared 'public'
+in `terminal/src/com/jediterm/terminal/ProcessTtyConnector.java`
 #### Snippet
 ```java
   }
 
-  public JSchTtyConnector(String host, String user, String password) {
-    this(host, DEFAULT_PORT, user, password);
+  public ProcessTtyConnector(@NotNull Process process, @NotNull Charset charset, @Nullable List<String> commandLine) {
+    myOutputStream = process.getOutputStream();
+    myCharset = charset;
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `JSchTtyConnector()` of an abstract class should not be declared 'public'
+in `ssh/src/com/jediterm/ssh/jsch/JSchTtyConnector.java`
+#### Snippet
+```java
+  private OutputStreamWriter myOutputStreamWriter;
+
+  public JSchTtyConnector() {
+
   }
 ```
 
@@ -3602,10 +3602,10 @@ Constructor `JSchTtyConnector()` of an abstract class should not be declared 'pu
 in `ssh/src/com/jediterm/ssh/jsch/JSchTtyConnector.java`
 #### Snippet
 ```java
-  private OutputStreamWriter myOutputStreamWriter;
+  }
 
-  public JSchTtyConnector() {
-
+  public JSchTtyConnector(String host, String user, String password) {
+    this(host, DEFAULT_PORT, user, password);
   }
 ```
 
@@ -3731,6 +3731,18 @@ in `JediTerm/src/main/java/com/intellij/openapi/util/text/StringUtilRt.java`
 ```
 
 ### AssignmentToMethodParameter
+Assignment to method parameter `msg`
+in `terminal/src/com/jediterm/terminal/emulator/JediEmulator.java`
+#### Snippet
+```java
+      if (logThrottlerCounter % (logThrottlerLimit / logThrottlerRatio) == 0) {
+        if (logThrottlerLimit / logThrottlerRatio > 1) {
+          msg += " and " + (logThrottlerLimit / logThrottlerRatio) + " more...";
+        }
+        LOG.warn(msg);
+```
+
+### AssignmentToMethodParameter
 Assignment to method parameter `length`
 in `JediTerm/src/main/java/com/intellij/ui/tabs/impl/singleRow/ScrollableSingleRowLayout.java`
 #### Snippet
@@ -3791,18 +3803,6 @@ in `JediTerm/src/main/java/com/intellij/ui/components/ScrollPainter.java`
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `msg`
-in `terminal/src/com/jediterm/terminal/emulator/JediEmulator.java`
-#### Snippet
-```java
-      if (logThrottlerCounter % (logThrottlerLimit / logThrottlerRatio) == 0) {
-        if (logThrottlerLimit / logThrottlerRatio > 1) {
-          msg += " and " + (logThrottlerLimit / logThrottlerRatio) + " more...";
-        }
-        LOG.warn(msg);
-```
-
-### AssignmentToMethodParameter
 Assignment to method parameter `height`
 in `JediTerm/src/main/java/com/intellij/util/ui/DrawUtil.java`
 #### Snippet
@@ -3840,7 +3840,7 @@ in `terminal/src/com/jediterm/terminal/util/Util.java`
 
 ### AssignmentToMethodParameter
 Assignment to method parameter `balance`
-in `JediTerm/src/main/java/com/intellij/ui/ColorUtil.java`
+in `JediTerm/src/main/java/com/intellij/util/ui/ColorUtil.java`
 #### Snippet
 ```java
   @NotNull
@@ -3848,18 +3848,6 @@ in `JediTerm/src/main/java/com/intellij/ui/ColorUtil.java`
     balance = Math.min(1, Math.max(0, balance));
     return new Color((int)((1 - balance) * c1.getRed() + c2.getRed() * balance + .5),
                      (int)((1 - balance) * c1.getGreen() + c2.getGreen() * balance + .5),
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `str`
-in `JediTerm/src/main/java/com/intellij/ui/ColorUtil.java`
-#### Snippet
-```java
-   */
-  public static Color fromHex(String str) {
-    str = StringUtil.trimStart(str, "#");
-    if (str.length() == 3) {
-      return new Color(
 ```
 
 ### AssignmentToMethodParameter
@@ -3872,18 +3860,6 @@ in `JediTerm/src/main/java/com/intellij/util/ui/ColorUtil.java`
     str = StringUtil.trimStart(str, "#");
     if (str.length() == 3) {
       return new Color(
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `balance`
-in `JediTerm/src/main/java/com/intellij/util/ui/ColorUtil.java`
-#### Snippet
-```java
-  @NotNull
-  public static Color mix(@NotNull Color c1, @NotNull Color c2, double balance) {
-    balance = Math.min(1, Math.max(0, balance));
-    return new Color((int)((1 - balance) * c1.getRed() + c2.getRed() * balance + .5),
-                     (int)((1 - balance) * c1.getGreen() + c2.getGreen() * balance + .5),
 ```
 
 ### AssignmentToMethodParameter
@@ -3923,6 +3899,30 @@ in `JediTerm/src/main/java/com/intellij/openapi/diagnostic/DefaultLogger.java`
 ```
 
 ### AssignmentToMethodParameter
+Assignment to method parameter `balance`
+in `JediTerm/src/main/java/com/intellij/ui/ColorUtil.java`
+#### Snippet
+```java
+  @NotNull
+  public static Color mix(@NotNull Color c1, @NotNull Color c2, double balance) {
+    balance = Math.min(1, Math.max(0, balance));
+    return new Color((int)((1 - balance) * c1.getRed() + c2.getRed() * balance + .5),
+                     (int)((1 - balance) * c1.getGreen() + c2.getGreen() * balance + .5),
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `str`
+in `JediTerm/src/main/java/com/intellij/ui/ColorUtil.java`
+#### Snippet
+```java
+   */
+  public static Color fromHex(String str) {
+    str = StringUtil.trimStart(str, "#");
+    if (str.length() == 3) {
+      return new Color(
+```
+
+### AssignmentToMethodParameter
 Assignment to method parameter `maximalLinesToProcess`
 in `terminal/src/com/jediterm/terminal/model/TerminalTextBuffer.java`
 #### Snippet
@@ -3940,10 +3940,10 @@ in `terminal/src/com/jediterm/terminal/model/LinesBuffer.java`
 #### Snippet
 ```java
 
-  public synchronized void moveBottomLinesTo(int count, final @NotNull LinesBuffer buffer) {
+  public synchronized void moveTopLinesTo(int count, final @NotNull LinesBuffer buffer) {
     count = Math.min(count, getLineCount());
-    buffer.addLinesFirst(myLines.subList(getLineCount() - count, getLineCount()));
-
+    buffer.addLines(myLines.subList(0, count));
+    removeTopLines(count);
 ```
 
 ### AssignmentToMethodParameter
@@ -3964,10 +3964,166 @@ in `terminal/src/com/jediterm/terminal/model/LinesBuffer.java`
 #### Snippet
 ```java
 
-  public synchronized void moveTopLinesTo(int count, final @NotNull LinesBuffer buffer) {
+  public synchronized void moveBottomLinesTo(int count, final @NotNull LinesBuffer buffer) {
     count = Math.min(count, getLineCount());
-    buffer.addLines(myLines.subList(0, count));
-    removeTopLines(count);
+    buffer.addLinesFirst(myLines.subList(getLineCount() - count, getLineCount()));
+
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `component`
+in `JediTerm/src/main/java/com/intellij/util/ui/UIUtil.java`
+#### Snippet
+```java
+                return (T) component;
+            }
+            component = component.getParent();
+        }
+        return null;
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `text`
+in `JediTerm/src/main/java/com/intellij/util/ui/UIUtil.java`
+#### Snippet
+```java
+        assignMnemonic(text, action);
+
+        text = text.replaceAll("&", "");
+        action.putValue(Action.NAME, text);
+    }
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `html`
+in `JediTerm/src/main/java/com/intellij/util/ui/UIUtil.java`
+#### Snippet
+```java
+    @NonNls
+    public static String toHtml(String html, final int hPadding) {
+        html = CLOSE_TAG_PATTERN.matcher(html).replaceAll("<$1$2></$1>");
+        Font font = getLabelFont();
+        @NonNls String family = font != null ? font.getFamily() : "Tahoma";
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `border`
+in `JediTerm/src/main/java/com/intellij/util/ui/UIUtil.java`
+#### Snippet
+```java
+            Border old = component.getBorder();
+            if (old != null) {
+                border = BorderFactory.createCompoundBorder(border, old);
+            }
+            component.setBorder(border);
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `base`
+in `JediTerm/src/main/java/com/intellij/util/ui/UIUtil.java`
+#### Snippet
+```java
+    @NotNull
+    public static Font getFont(@NotNull FontSize size, @Nullable Font base) {
+        if (base == null) base = getLabelFont();
+
+        return base.deriveFont(getFontSize(size));
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `descendant`
+in `JediTerm/src/main/java/com/intellij/util/ui/UIUtil.java`
+#### Snippet
+```java
+                return true;
+            }
+            descendant = descendant.getParent();
+        }
+        return false;
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `child`
+in `JediTerm/src/main/java/com/intellij/util/ui/UIUtil.java`
+#### Snippet
+```java
+    public static boolean isDescendingFrom(@Nullable Component child, @NotNull Component parent) {
+        while (child != null && child != parent) {
+            child = child instanceof JPopupMenu ? ((JPopupMenu) child).getInvoker()
+                    : child.getParent();
+        }
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `result`
+in `JediTerm/src/main/java/com/intellij/util/ExceptionUtil.java`
+#### Snippet
+```java
+  private static String extractMessage(@NotNull String result, @NotNull String errorPattern) {
+    if (result.lastIndexOf(errorPattern) >= 0) {
+      result = result.substring(result.lastIndexOf(errorPattern) + errorPattern.length());
+    }
+    return result;
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `e`
+in `JediTerm/src/main/java/com/intellij/util/ExceptionUtil.java`
+#### Snippet
+```java
+
+    while ((result == null || result.contains(exceptionPattern) || result.contains(errorPattern)) && e.getCause() != null) {
+      e = e.getCause();
+      result = e.getMessage();
+    }
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `e`
+in `JediTerm/src/main/java/com/intellij/util/ExceptionUtil.java`
+#### Snippet
+```java
+  public static <T> T findCause(Throwable e, Class<T> klass) {
+    while (e != null && !klass.isInstance(e)) {
+      e = e.getCause();
+    }
+    @SuppressWarnings("unchecked") T t = (T)e;
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `e`
+in `JediTerm/src/main/java/com/intellij/util/ExceptionUtil.java`
+#### Snippet
+```java
+    while (true) {
+      if (e.getCause() == null) return e;
+      e = e.getCause();
+    }
+  }
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `delay`
+in `JediTerm/src/main/java/com/intellij/util/concurrency/SchedulingWrapper.java`
+#### Snippet
+```java
+      long headDelay = head.getDelay(TimeUnit.NANOSECONDS);
+      if (headDelay < 0 && delay - headDelay < 0) {
+        delay = Long.MAX_VALUE + headDelay;
+      }
+    }
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `characters`
+in `terminal/src/com/jediterm/terminal/model/JediTerminal.java`
+#### Snippet
+```java
+        if (characters instanceof SubCharBuffer) {
+          SubCharBuffer subCharBuffer = (SubCharBuffer) characters;
+          characters = subCharBuffer.getParent();
+          offset = subCharBuffer.getOffset();
+        }
 ```
 
 ### AssignmentToMethodParameter
@@ -4004,78 +4160,6 @@ in `terminal/src/com/jediterm/terminal/model/JediTerminal.java`
       cb |= MouseButtonModifierFlags.MOUSE_BUTTON_META_FLAG;
     }
     return cb;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `characters`
-in `terminal/src/com/jediterm/terminal/model/JediTerminal.java`
-#### Snippet
-```java
-        if (characters instanceof SubCharBuffer) {
-          SubCharBuffer subCharBuffer = (SubCharBuffer) characters;
-          characters = subCharBuffer.getParent();
-          offset = subCharBuffer.getOffset();
-        }
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `delay`
-in `JediTerm/src/main/java/com/intellij/util/concurrency/SchedulingWrapper.java`
-#### Snippet
-```java
-      long headDelay = head.getDelay(TimeUnit.NANOSECONDS);
-      if (headDelay < 0 && delay - headDelay < 0) {
-        delay = Long.MAX_VALUE + headDelay;
-      }
-    }
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `e`
-in `JediTerm/src/main/java/com/intellij/util/ExceptionUtil.java`
-#### Snippet
-```java
-
-    while ((result == null || result.contains(exceptionPattern) || result.contains(errorPattern)) && e.getCause() != null) {
-      e = e.getCause();
-      result = e.getMessage();
-    }
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `result`
-in `JediTerm/src/main/java/com/intellij/util/ExceptionUtil.java`
-#### Snippet
-```java
-  private static String extractMessage(@NotNull String result, @NotNull String errorPattern) {
-    if (result.lastIndexOf(errorPattern) >= 0) {
-      result = result.substring(result.lastIndexOf(errorPattern) + errorPattern.length());
-    }
-    return result;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `e`
-in `JediTerm/src/main/java/com/intellij/util/ExceptionUtil.java`
-#### Snippet
-```java
-  public static <T> T findCause(Throwable e, Class<T> klass) {
-    while (e != null && !klass.isInstance(e)) {
-      e = e.getCause();
-    }
-    @SuppressWarnings("unchecked") T t = (T)e;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `e`
-in `JediTerm/src/main/java/com/intellij/util/ExceptionUtil.java`
-#### Snippet
-```java
-    while (true) {
-      if (e.getCause() == null) return e;
-      e = e.getCause();
-    }
-  }
 ```
 
 ### AssignmentToMethodParameter
@@ -4139,90 +4223,6 @@ in `terminal/src/com/jediterm/terminal/model/TerminalLine.java`
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `border`
-in `JediTerm/src/main/java/com/intellij/util/ui/UIUtil.java`
-#### Snippet
-```java
-            Border old = component.getBorder();
-            if (old != null) {
-                border = BorderFactory.createCompoundBorder(border, old);
-            }
-            component.setBorder(border);
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `base`
-in `JediTerm/src/main/java/com/intellij/util/ui/UIUtil.java`
-#### Snippet
-```java
-    @NotNull
-    public static Font getFont(@NotNull FontSize size, @Nullable Font base) {
-        if (base == null) base = getLabelFont();
-
-        return base.deriveFont(getFontSize(size));
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `child`
-in `JediTerm/src/main/java/com/intellij/util/ui/UIUtil.java`
-#### Snippet
-```java
-    public static boolean isDescendingFrom(@Nullable Component child, @NotNull Component parent) {
-        while (child != null && child != parent) {
-            child = child instanceof JPopupMenu ? ((JPopupMenu) child).getInvoker()
-                    : child.getParent();
-        }
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `text`
-in `JediTerm/src/main/java/com/intellij/util/ui/UIUtil.java`
-#### Snippet
-```java
-        assignMnemonic(text, action);
-
-        text = text.replaceAll("&", "");
-        action.putValue(Action.NAME, text);
-    }
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `descendant`
-in `JediTerm/src/main/java/com/intellij/util/ui/UIUtil.java`
-#### Snippet
-```java
-                return true;
-            }
-            descendant = descendant.getParent();
-        }
-        return false;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `html`
-in `JediTerm/src/main/java/com/intellij/util/ui/UIUtil.java`
-#### Snippet
-```java
-    @NonNls
-    public static String toHtml(String html, final int hPadding) {
-        html = CLOSE_TAG_PATTERN.matcher(html).replaceAll("<$1$2></$1>");
-        Font font = getLabelFont();
-        @NonNls String family = font != null ? font.getFamily() : "Tahoma";
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `component`
-in `JediTerm/src/main/java/com/intellij/util/ui/UIUtil.java`
-#### Snippet
-```java
-                return (T) component;
-            }
-            component = component.getParent();
-        }
-        return null;
-```
-
-### AssignmentToMethodParameter
 Assignment to method parameter `proportion`
 in `JediTerm/src/main/java/com/intellij/openapi/ui/Splitter.java`
 #### Snippet
@@ -4256,18 +4256,6 @@ in `terminal/src/com/jediterm/terminal/model/hyperlinks/TextProcessing.java`
         buffer = myTerminalTextBuffer.getHistoryBuffer();
       }
       int startLineInd = updatedLineInd;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `font`
-in `JediTerm/src/main/java/com/intellij/ui/SimpleColoredComponent.java`
-#### Snippet
-```java
-      boolean isSmaller = attributes.isSmaller();
-      if (font.getStyle() != attributes.getFontStyle() || isSmaller != wasSmaller) { // derive font only if it is necessary
-        font = font.deriveFont(attributes.getFontStyle(), isSmaller ? UIUtil.getFontSize(UIUtil.FontSize.SMALL) : baseSize);
-      }
-      wasSmaller = isSmaller;
 ```
 
 ### AssignmentToMethodParameter
@@ -4331,87 +4319,15 @@ in `JediTerm/src/main/java/com/intellij/ui/SimpleColoredComponent.java`
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `end`
-in `JediTerm/src/main/java/com/intellij/openapi/util/text/StringUtil.java`
+Assignment to method parameter `font`
+in `JediTerm/src/main/java/com/intellij/ui/SimpleColoredComponent.java`
 #### Snippet
 ```java
-  @Contract(pure = true)
-  public static int indexOf(@NotNull CharSequence s, char c, int start, int end, boolean caseSensitive) {
-    end = min(end, s.length());
-    for (int i = max(start, 0); i < end; i++) {
-      if (charsMatch(s.charAt(i), c, !caseSensitive)) return i;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `end`
-in `JediTerm/src/main/java/com/intellij/openapi/util/text/StringUtil.java`
-#### Snippet
-```java
-  @Contract(pure = true)
-  public static int indexOfAny(@NotNull final CharSequence s, @NotNull final String chars, final int start, int end) {
-    end = min(end, s.length());
-    for (int i = max(start, 0); i < end; i++) {
-      if (containsChar(chars, s.charAt(i))) return i;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `fromIndex`
-in `JediTerm/src/main/java/com/intellij/openapi/util/text/StringUtil.java`
-#### Snippet
-```java
-
-    if (fromIndex < 0) {
-      fromIndex = 0;
-    }
-
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `end`
-in `JediTerm/src/main/java/com/intellij/openapi/util/text/StringUtil.java`
-#### Snippet
-```java
-  @Contract(pure = true)
-  public static int indexOf(@NotNull CharSequence s, char c, int start, int end) {
-    end = min(end, s.length());
-    for (int i = max(start, 0); i < end; i++) {
-      if (s.charAt(i) == c) return i;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `html`
-in `JediTerm/src/main/java/com/intellij/openapi/util/text/StringUtil.java`
-#### Snippet
-```java
-  public static String stripHtml(@NotNull String html, boolean convertBreaks) {
-    if (convertBreaks) {
-      html = html.replaceAll("<br/?>", "\n\n");
-    }
-
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `end`
-in `JediTerm/src/main/java/com/intellij/openapi/util/text/StringUtil.java`
-#### Snippet
-```java
-  @Contract(pure = true)
-  public static int indexOf(@NotNull char[] s, char c, int start, int end, boolean caseSensitive) {
-    end = min(end, s.length);
-    for (int i = max(start, 0); i < end; i++) {
-      if (charsMatch(s[i], c, !caseSensitive)) return i;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `style`
-in `terminal/src/com/jediterm/terminal/ui/TerminalPanel.java`
-#### Snippet
-```java
-
-        // substitute text style with the hyperlink highlight style if applicable
-        style = hyperlinkStyle.getHighlightStyle();
+      boolean isSmaller = attributes.isSmaller();
+      if (font.getStyle() != attributes.getFontStyle() || isSmaller != wasSmaller) { // derive font only if it is necessary
+        font = font.deriveFont(attributes.getFontStyle(), isSmaller ? UIUtil.getFontSize(UIUtil.FontSize.SMALL) : baseSize);
       }
-    }
+      wasSmaller = isSmaller;
 ```
 
 ### AssignmentToMethodParameter
@@ -4420,7 +4336,7 @@ in `JediTerm/src/main/java/com/intellij/util/ArrayUtil.java`
 #### Snippet
 ```java
   @Contract(pure=true)
-  public static int[] append(@NotNull int[] array, int value) {
+  public static byte[] append(@NotNull byte[] array, byte value) {
     array = realloc(array, array.length + 1);
     array[array.length - 1] = value;
     return array;
@@ -4444,7 +4360,7 @@ in `JediTerm/src/main/java/com/intellij/util/ArrayUtil.java`
 #### Snippet
 ```java
   @Contract(pure=true)
-  public static byte[] append(@NotNull byte[] array, byte value) {
+  public static long[] append(@NotNull long[] array, long value) {
     array = realloc(array, array.length + 1);
     array[array.length - 1] = value;
     return array;
@@ -4456,44 +4372,92 @@ in `JediTerm/src/main/java/com/intellij/util/ArrayUtil.java`
 #### Snippet
 ```java
   @Contract(pure=true)
-  public static long[] append(@NotNull long[] array, long value) {
+  public static int[] append(@NotNull int[] array, int value) {
     array = realloc(array, array.length + 1);
     array[array.length - 1] = value;
     return array;
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `y`
-in `JediTerm/src/main/java/com/intellij/ui/paint/EffectPainter.java`
+Assignment to method parameter `end`
+in `JediTerm/src/main/java/com/intellij/openapi/util/text/StringUtil.java`
 #### Snippet
 ```java
-    if (height > 3) {
-      int max = getMaxHeight(height);
-      y += height - max;
-      height = max;
-      if (thickness > 1 && height > 3) {
+  @Contract(pure = true)
+  public static int indexOfAny(@NotNull final CharSequence s, @NotNull final String chars, final int start, int end) {
+    end = min(end, s.length());
+    for (int i = max(start, 0); i < end; i++) {
+      if (containsChar(chars, s.charAt(i))) return i;
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `height`
-in `JediTerm/src/main/java/com/intellij/ui/paint/EffectPainter.java`
+Assignment to method parameter `end`
+in `JediTerm/src/main/java/com/intellij/openapi/util/text/StringUtil.java`
 #### Snippet
 ```java
-      int max = getMaxHeight(height);
-      y += height - max;
-      height = max;
-      if (thickness > 1 && height > 3) {
-        thickness = JBUI.scale(thickness);
+  @Contract(pure = true)
+  public static int indexOf(@NotNull CharSequence s, char c, int start, int end, boolean caseSensitive) {
+    end = min(end, s.length());
+    for (int i = max(start, 0); i < end; i++) {
+      if (charsMatch(s.charAt(i), c, !caseSensitive)) return i;
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `thickness`
-in `JediTerm/src/main/java/com/intellij/ui/paint/EffectPainter.java`
+Assignment to method parameter `end`
+in `JediTerm/src/main/java/com/intellij/openapi/util/text/StringUtil.java`
 #### Snippet
 ```java
-      height = max;
-      if (thickness > 1 && height > 3) {
-        thickness = JBUI.scale(thickness);
+  @Contract(pure = true)
+  public static int indexOf(@NotNull char[] s, char c, int start, int end, boolean caseSensitive) {
+    end = min(end, s.length);
+    for (int i = max(start, 0); i < end; i++) {
+      if (charsMatch(s[i], c, !caseSensitive)) return i;
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `end`
+in `JediTerm/src/main/java/com/intellij/openapi/util/text/StringUtil.java`
+#### Snippet
+```java
+  @Contract(pure = true)
+  public static int indexOf(@NotNull CharSequence s, char c, int start, int end) {
+    end = min(end, s.length());
+    for (int i = max(start, 0); i < end; i++) {
+      if (s.charAt(i) == c) return i;
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `fromIndex`
+in `JediTerm/src/main/java/com/intellij/openapi/util/text/StringUtil.java`
+#### Snippet
+```java
+
+    if (fromIndex < 0) {
+      fromIndex = 0;
+    }
+
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `html`
+in `JediTerm/src/main/java/com/intellij/openapi/util/text/StringUtil.java`
+#### Snippet
+```java
+  public static String stripHtml(@NotNull String html, boolean convertBreaks) {
+    if (convertBreaks) {
+      html = html.replaceAll("<br/?>", "\n\n");
+    }
+
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `style`
+in `terminal/src/com/jediterm/terminal/ui/TerminalPanel.java`
+#### Snippet
+```java
+
+        // substitute text style with the hyperlink highlight style if applicable
+        style = hyperlinkStyle.getHighlightStyle();
       }
     }
 ```
@@ -4547,6 +4511,42 @@ in `JediTerm/src/main/java/com/intellij/ui/paint/EffectPainter.java`
 ```
 
 ### AssignmentToMethodParameter
+Assignment to method parameter `y`
+in `JediTerm/src/main/java/com/intellij/ui/paint/EffectPainter.java`
+#### Snippet
+```java
+    if (height > 3) {
+      int max = getMaxHeight(height);
+      y += height - max;
+      height = max;
+      if (thickness > 1 && height > 3) {
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `height`
+in `JediTerm/src/main/java/com/intellij/ui/paint/EffectPainter.java`
+#### Snippet
+```java
+      int max = getMaxHeight(height);
+      y += height - max;
+      height = max;
+      if (thickness > 1 && height > 3) {
+        thickness = JBUI.scale(thickness);
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `thickness`
+in `JediTerm/src/main/java/com/intellij/ui/paint/EffectPainter.java`
+#### Snippet
+```java
+      height = max;
+      if (thickness > 1 && height > 3) {
+        thickness = JBUI.scale(thickness);
+      }
+    }
+```
+
+### AssignmentToMethodParameter
 Assignment to method parameter `errorText`
 in `JediTerm/src/main/java/com/intellij/ui/components/panels/ValidatingComponent.java`
 #### Snippet
@@ -4571,18 +4571,6 @@ in `JediTerm/src/main/java/com/intellij/util/containers/ContainerUtil.java`
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `to`
-in `JediTerm/src/main/java/com/intellij/util/containers/ContainerUtil.java`
-#### Snippet
-```java
-    if (to.length < from.length) {
-      @SuppressWarnings("unchecked") V[] array = (V[])Array.newInstance(to.getClass().getComponentType(), from.length);
-      to = array;
-    }
-    for (int i = 0; i < from.length; i++) {
-```
-
-### AssignmentToMethodParameter
 Assignment to method parameter `a`
 in `JediTerm/src/main/java/com/intellij/util/containers/ContainerUtil.java`
 #### Snippet
@@ -4604,6 +4592,18 @@ in `JediTerm/src/main/java/com/intellij/util/containers/ContainerUtil.java`
     for (int i = 0; i < n; i++, a++, b++) {
       swapElements(x, a, b);
     }
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `to`
+in `JediTerm/src/main/java/com/intellij/util/containers/ContainerUtil.java`
+#### Snippet
+```java
+    if (to.length < from.length) {
+      @SuppressWarnings("unchecked") V[] array = (V[])Array.newInstance(to.getClass().getComponentType(), from.length);
+      to = array;
+    }
+    for (int i = 0; i < from.length; i++) {
 ```
 
 ## RuleId[ruleID=ReturnNull]
@@ -4661,8 +4661,8 @@ in `JediTerm/src/main/java/com/intellij/openapi/util/Pair.java`
 #### Snippet
 ```java
 
-  public static <T> T getSecond(@Nullable Pair<?, T> pair) {
-    return pair != null ? pair.second : null;
+  public static <T> T getFirst(@Nullable Pair<T, ?> pair) {
+    return pair != null ? pair.first : null;
   }
 
 ```
@@ -4673,8 +4673,8 @@ in `JediTerm/src/main/java/com/intellij/openapi/util/Pair.java`
 #### Snippet
 ```java
 
-  public static <T> T getFirst(@Nullable Pair<T, ?> pair) {
-    return pair != null ? pair.first : null;
+  public static <T> T getSecond(@Nullable Pair<?, T> pair) {
+    return pair != null ? pair.second : null;
   }
 
 ```
@@ -4693,14 +4693,14 @@ in `JediTerm/src/main/java/com/intellij/ui/components/panels/StatelessCardLayout
 
 ### ReturnNull
 Return of `null`
-in `terminal/src/com/jediterm/terminal/SubstringFinder.java`
+in `JediTerm/src/main/java/com/intellij/ui/tabs/impl/singleRow/SingleRowLayout.java`
 #### Snippet
 ```java
-    public FindItem nextFindItem() {
-      if (items.isEmpty()) {
-        return null;
-      }
-      currentFindItem--;
+    }
+
+    return null;
+  }
+
 ```
 
 ### ReturnNull
@@ -4720,155 +4720,23 @@ Return of `null`
 in `terminal/src/com/jediterm/terminal/SubstringFinder.java`
 #### Snippet
 ```java
+    public FindItem nextFindItem() {
+      if (items.isEmpty()) {
+        return null;
+      }
+      currentFindItem--;
+```
+
+### ReturnNull
+Return of `null`
+in `terminal/src/com/jediterm/terminal/SubstringFinder.java`
+#### Snippet
+```java
           return filtered;
         }
         return null;
       }
       return ranges.get(characters);
-```
-
-### ReturnNull
-Return of `null`
-in `JediTerm/src/main/java/com/intellij/ui/tabs/impl/singleRow/SingleRowLayout.java`
-#### Snippet
-```java
-    }
-
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `JediTerm/src/main/java/com/jediterm/example/BasicTerminalExample.java`
-#### Snippet
-```java
-    @Override
-    public String getName() {
-      return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `JediTerm/src/main/java/com/intellij/ui/mac/foundation/MacUtil.java`
-#### Snippet
-```java
-      return activity;
-    }
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `terminal/src/com/jediterm/terminal/model/JediTerminal.java`
-#### Snippet
-```java
-  public SubstringFinder.FindResult searchInTerminalTextBuffer(final String pattern, boolean ignoreCase) {
-    if (pattern.length() == 0) {
-      return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `JediTerm/src/main/java/com/intellij/util/NullableFunction.java`
-#### Snippet
-```java
-  NullableFunction NULL = new NullableFunction() {
-    public Object fun(final Object o) {
-      return null;
-    }
-  };
-```
-
-### ReturnNull
-Return of `null`
-in `JediTerm/src/main/java/com/intellij/util/ReflectionUtil.java`
-#### Snippet
-```java
-    catch (NoSuchFieldException e) {
-      LOG.debug(e);
-      return null;
-    }
-    catch (IllegalAccessException e) {
-```
-
-### ReturnNull
-Return of `null`
-in `JediTerm/src/main/java/com/intellij/util/ReflectionUtil.java`
-#### Snippet
-```java
-    catch (IllegalAccessException e) {
-      LOG.debug(e);
-      return null;
-    }
-  }
-```
-
-### ReturnNull
-Return of `null`
-in `JediTerm/src/main/java/com/intellij/util/ReflectionUtil.java`
-#### Snippet
-```java
-      if (result != null) return result;
-    }
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `JediTerm/src/main/java/com/intellij/util/ReflectionUtil.java`
-#### Snippet
-```java
-      current = current.getSuperclass();
-      if (current == null) {
-        return null;
-      }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `JediTerm/src/main/java/com/intellij/util/ReflectionUtil.java`
-#### Snippet
-```java
-    catch (NoSuchFieldException e) {
-      LOG.debug(e);
-      return null;
-    }
-    catch (IllegalAccessException e) {
-```
-
-### ReturnNull
-Return of `null`
-in `JediTerm/src/main/java/com/intellij/util/ReflectionUtil.java`
-#### Snippet
-```java
-    catch (IllegalAccessException e) {
-      LOG.debug(e);
-      return null;
-    }
-  }
-```
-
-### ReturnNull
-Return of `null`
-in `JediTerm/src/main/java/com/intellij/util/ReflectionUtil.java`
-#### Snippet
-```java
-    }
-    assert false : type;
-    return null;
-  }
-
 ```
 
 ### ReturnNull
@@ -4921,6 +4789,162 @@ in `JediTerm/src/main/java/com/intellij/util/ui/UIUtil.java`
 
 ### ReturnNull
 Return of `null`
+in `JediTerm/src/main/java/com/jediterm/example/BasicTerminalExample.java`
+#### Snippet
+```java
+    @Override
+    public String getName() {
+      return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `JediTerm/src/main/java/com/intellij/ui/mac/foundation/MacUtil.java`
+#### Snippet
+```java
+      return activity;
+    }
+    return null;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `JediTerm/src/main/java/com/intellij/util/NullableFunction.java`
+#### Snippet
+```java
+  NullableFunction NULL = new NullableFunction() {
+    public Object fun(final Object o) {
+      return null;
+    }
+  };
+```
+
+### ReturnNull
+Return of `null`
+in `terminal/src/com/jediterm/terminal/model/JediTerminal.java`
+#### Snippet
+```java
+  public SubstringFinder.FindResult searchInTerminalTextBuffer(final String pattern, boolean ignoreCase) {
+    if (pattern.length() == 0) {
+      return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `JediTerm/src/main/java/com/intellij/util/ReflectionUtil.java`
+#### Snippet
+```java
+    catch (NoSuchFieldException e) {
+      LOG.debug(e);
+      return null;
+    }
+    catch (IllegalAccessException e) {
+```
+
+### ReturnNull
+Return of `null`
+in `JediTerm/src/main/java/com/intellij/util/ReflectionUtil.java`
+#### Snippet
+```java
+    catch (IllegalAccessException e) {
+      LOG.debug(e);
+      return null;
+    }
+  }
+```
+
+### ReturnNull
+Return of `null`
+in `JediTerm/src/main/java/com/intellij/util/ReflectionUtil.java`
+#### Snippet
+```java
+    catch (NoSuchFieldException e) {
+      LOG.debug(e);
+      return null;
+    }
+    catch (IllegalAccessException e) {
+```
+
+### ReturnNull
+Return of `null`
+in `JediTerm/src/main/java/com/intellij/util/ReflectionUtil.java`
+#### Snippet
+```java
+    catch (IllegalAccessException e) {
+      LOG.debug(e);
+      return null;
+    }
+  }
+```
+
+### ReturnNull
+Return of `null`
+in `JediTerm/src/main/java/com/intellij/util/ReflectionUtil.java`
+#### Snippet
+```java
+    }
+    assert false : type;
+    return null;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `JediTerm/src/main/java/com/intellij/util/ReflectionUtil.java`
+#### Snippet
+```java
+      if (result != null) return result;
+    }
+    return null;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `JediTerm/src/main/java/com/intellij/util/ReflectionUtil.java`
+#### Snippet
+```java
+      current = current.getSuperclass();
+      if (current == null) {
+        return null;
+      }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `ssh/src/com/jediterm/ssh/jsch/SwingUserInfo.java`
+#### Snippet
+```java
+    }
+    else {
+      return null; // cancel
+    }
+  }
+```
+
+### ReturnNull
+Return of `null`
+in `terminal/src/com/jediterm/terminal/ui/TerminalActionProviderBase.java`
+#### Snippet
+```java
+  @Override
+  public TerminalActionProvider getNextProvider() {
+    return null;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
 in `JediTerm/src/main/java/com/intellij/ui/tabs/impl/JBTabsImpl.java`
 #### Snippet
 ```java
@@ -4929,6 +4953,18 @@ in `JediTerm/src/main/java/com/intellij/ui/tabs/impl/JBTabsImpl.java`
                 return null;
 
             return "Activate";
+```
+
+### ReturnNull
+Return of `null`
+in `JediTerm/src/main/java/com/intellij/ui/tabs/impl/JBTabsImpl.java`
+#### Snippet
+```java
+                return (Accessible) myComponent;
+            } else {
+                return null;
+            }
+        }
 ```
 
 ### ReturnNull
@@ -4969,36 +5005,24 @@ in `JediTerm/src/main/java/com/intellij/ui/tabs/impl/JBTabsImpl.java`
 
 ### ReturnNull
 Return of `null`
-in `JediTerm/src/main/java/com/intellij/ui/tabs/impl/JBTabsImpl.java`
+in `JediTerm/src/main/java/com/intellij/openapi/util/text/StringUtil.java`
 #### Snippet
 ```java
-                return (Accessible) myComponent;
-            } else {
-                return null;
-            }
-        }
+
+  public static String replaceUnicodeEscapeSequences(String text) {
+    if (text == null) return null;
+
+    final Matcher matcher = UNICODE_CHAR.matcher(text);
 ```
 
 ### ReturnNull
 Return of `null`
-in `ssh/src/com/jediterm/ssh/jsch/SwingUserInfo.java`
+in `JediTerm/src/main/java/com/intellij/openapi/util/text/StringUtil.java`
 #### Snippet
 ```java
-    }
-    else {
-      return null; // cancel
-    }
-  }
-```
-
-### ReturnNull
-Return of `null`
-in `terminal/src/com/jediterm/terminal/ui/TerminalActionProviderBase.java`
-#### Snippet
-```java
-  @Override
-  public TerminalActionProvider getNextProvider() {
-    return null;
+  @Contract(value = "null -> null; !null -> !null", pure = true)
+  public static String toUpperCase(String a) {
+    return a == null ? null : StringUtilRt.toUpperCase(a).toString();
   }
 
 ```
@@ -5009,9 +5033,9 @@ in `JediTerm/src/main/java/com/intellij/openapi/util/text/StringUtil.java`
 #### Snippet
 ```java
   @Contract(value = "null -> null; !null -> !null",pure = true)
-  public static String escapeXml(@Nullable final String text) {
+  public static String unescapeXml(@Nullable final String text) {
     if (text == null) return null;
-    return replace(text, REPLACES_DISP, REPLACES_REFS);
+    return replace(text, REPLACES_REFS, REPLACES_DISP);
   }
 ```
 
@@ -5044,21 +5068,9 @@ Return of `null`
 in `JediTerm/src/main/java/com/intellij/openapi/util/text/StringUtil.java`
 #### Snippet
 ```java
-  @Contract(value = "null -> null; !null -> !null", pure = true)
-  public static String escapeMnemonics(@Nullable String text) {
-    if (text == null) return null;
-    return replace(text, MN_CHARS, MN_QUOTED);
-  }
-```
-
-### ReturnNull
-Return of `null`
-in `JediTerm/src/main/java/com/intellij/openapi/util/text/StringUtil.java`
-#### Snippet
-```java
-  @Contract(value = "null -> null; !null -> !null", pure = true)
-  public static String toUpperCase(String a) {
-    return a == null ? null : StringUtilRt.toUpperCase(a).toString();
+  public static String toLowerCase(@Nullable final String str) {
+    //noinspection ConstantConditions
+    return str == null ? null : str.toLowerCase();
   }
 
 ```
@@ -5069,9 +5081,9 @@ in `JediTerm/src/main/java/com/intellij/openapi/util/text/StringUtil.java`
 #### Snippet
 ```java
   @Contract(value = "null -> null; !null -> !null",pure = true)
-  public static String unescapeXml(@Nullable final String text) {
+  public static String escapeXml(@Nullable final String text) {
     if (text == null) return null;
-    return replace(text, REPLACES_REFS, REPLACES_DISP);
+    return replace(text, REPLACES_DISP, REPLACES_REFS);
   }
 ```
 
@@ -5080,23 +5092,11 @@ Return of `null`
 in `JediTerm/src/main/java/com/intellij/openapi/util/text/StringUtil.java`
 #### Snippet
 ```java
-
-  public static String replaceUnicodeEscapeSequences(String text) {
+  @Contract(value = "null -> null; !null -> !null", pure = true)
+  public static String escapeMnemonics(@Nullable String text) {
     if (text == null) return null;
-
-    final Matcher matcher = UNICODE_CHAR.matcher(text);
-```
-
-### ReturnNull
-Return of `null`
-in `JediTerm/src/main/java/com/intellij/openapi/util/text/StringUtil.java`
-#### Snippet
-```java
-  public static String toLowerCase(@Nullable final String str) {
-    //noinspection ConstantConditions
-    return str == null ? null : str.toLowerCase();
+    return replace(text, MN_CHARS, MN_QUOTED);
   }
-
 ```
 
 ### ReturnNull
@@ -5247,6 +5247,18 @@ in `ssh/src/com/jediterm/ssh/jsch/JSchTtyConnector.java`
 
 ## RuleId[ruleID=UseCompareMethod]
 ### UseCompareMethod
+Expression can be replaced with 'Byte.compare'
+in `JediTerm/src/main/java/com/intellij/openapi/util/Comparing.java`
+#### Snippet
+```java
+
+  public static int compare(byte o1, byte o2) {
+    return o1 < o2 ? -1 : o1 == o2 ? 0 : 1;
+  }
+
+```
+
+### UseCompareMethod
 Expression can be replaced with 'Double.compare'
 in `JediTerm/src/main/java/com/intellij/openapi/util/Comparing.java`
 #### Snippet
@@ -5277,18 +5289,6 @@ in `JediTerm/src/main/java/com/intellij/openapi/util/Comparing.java`
 ```java
 
   public static int compare(int o1, int o2) {
-    return o1 < o2 ? -1 : o1 == o2 ? 0 : 1;
-  }
-
-```
-
-### UseCompareMethod
-Expression can be replaced with 'Byte.compare'
-in `JediTerm/src/main/java/com/intellij/openapi/util/Comparing.java`
-#### Snippet
-```java
-
-  public static int compare(byte o1, byte o2) {
     return o1 < o2 ? -1 : o1 == o2 ? 0 : 1;
   }
 
@@ -5635,7 +5635,7 @@ in `JediTerm/src/main/java/com/intellij/ui/tabs/impl/singleRow/SingleRowLayoutSt
 
 ### ManualMinMaxCalculation
 Can be replaced with 'Math.max()' call
-in `JediTerm/src/main/java/com/intellij/ui/ColorUtil.java`
+in `JediTerm/src/main/java/com/intellij/util/ui/ColorUtil.java`
 #### Snippet
 ```java
   private static int shift(int colorComponent, double d) {
@@ -5647,7 +5647,7 @@ in `JediTerm/src/main/java/com/intellij/ui/ColorUtil.java`
 
 ### ManualMinMaxCalculation
 Can be replaced with 'Math.max()' call
-in `JediTerm/src/main/java/com/intellij/util/ui/ColorUtil.java`
+in `JediTerm/src/main/java/com/intellij/ui/ColorUtil.java`
 #### Snippet
 ```java
   private static int shift(int colorComponent, double d) {
@@ -5780,18 +5780,6 @@ public abstract class ValidatingComponent<T extends JComponent> extends NonOpaqu
 
 ## RuleId[ruleID=BoundedWildcard]
 ### BoundedWildcard
-Can generalize to `? super ScrollbarStyleListener`
-in `JediTerm/src/main/java/com/intellij/util/ui/NSScrollerHelper.java`
-#### Snippet
-```java
-  }
-
-  private static void processReferences(ScrollbarStyleListener toAdd, ScrollbarStyleListener toRemove, List<ScrollbarStyleListener> list) {
-    synchronized (ourStyleListeners) {
-      Iterator<Reference<ScrollbarStyleListener>> iterator = ourStyleListeners.iterator();
-```
-
-### BoundedWildcard
 Can generalize to `? super Key`
 in `JediTerm/src/main/java/com/intellij/openapi/util/Key.java`
 #### Snippet
@@ -5801,6 +5789,18 @@ in `JediTerm/src/main/java/com/intellij/openapi/util/Key.java`
   public void set(@Nullable Map<Key, Object> holder, T value) {
     if (holder != null) {
       holder.put(this, value);
+```
+
+### BoundedWildcard
+Can generalize to `? super ScrollbarStyleListener`
+in `JediTerm/src/main/java/com/intellij/util/ui/NSScrollerHelper.java`
+#### Snippet
+```java
+  }
+
+  private static void processReferences(ScrollbarStyleListener toAdd, ScrollbarStyleListener toRemove, List<ScrollbarStyleListener> list) {
+    synchronized (ourStyleListeners) {
+      Iterator<Reference<ScrollbarStyleListener>> iterator = ourStyleListeners.iterator();
 ```
 
 ### BoundedWildcard
@@ -5816,18 +5816,6 @@ in `JediTerm/src/main/java/com/intellij/openapi/util/ActionCallback.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? super Float`
-in `JediTerm/src/main/java/com/intellij/ui/components/ScrollPainter.java`
-#### Snippet
-```java
-    private RegionPainter<Float> myFallback;
-
-    private Protected(RegionPainter<Float> painter, RegionPainter<Float> fallback) {
-      myPainter = painter;
-      myFallback = fallback;
-```
-
-### BoundedWildcard
 Can generalize to `? super Long`
 in `terminal/src/com/jediterm/terminal/emulator/JediEmulator.java`
 #### Snippet
@@ -5837,6 +5825,18 @@ in `terminal/src/com/jediterm/terminal/emulator/JediEmulator.java`
   public @NotNull CompletableFuture<?> getPromptUpdatedAfterResizeFuture(@NotNull BiConsumer<Long, Runnable> taskScheduler) {
     CompletableFuture<Void> resizeFuture = new CompletableFuture<>();
     taskScheduler.accept(100L, this::completeResize);
+```
+
+### BoundedWildcard
+Can generalize to `? super Float`
+in `JediTerm/src/main/java/com/intellij/ui/components/ScrollPainter.java`
+#### Snippet
+```java
+    private RegionPainter<Float> myFallback;
+
+    private Protected(RegionPainter<Float> painter, RegionPainter<Float> fallback) {
+      myPainter = painter;
+      myFallback = fallback;
 ```
 
 ### BoundedWildcard
@@ -5918,9 +5918,9 @@ in `JediTerm/src/main/java/com/intellij/ui/components/panels/VerticalLayout.java
 ```java
   }
 
-  private Dimension getPreferredSize(ArrayList<Component> list) {
-    Dimension result = null;
+  private int layout(ArrayList<Component> list, int y, int width, Insets insets) {
     for (Component component : list) {
+      if (component.isVisible()) {
 ```
 
 ### BoundedWildcard
@@ -5930,9 +5930,9 @@ in `JediTerm/src/main/java/com/intellij/ui/components/panels/VerticalLayout.java
 ```java
   }
 
-  private int layout(ArrayList<Component> list, int y, int width, Insets insets) {
+  private Dimension getPreferredSize(ArrayList<Component> list) {
+    Dimension result = null;
     for (Component component : list) {
-      if (component.isVisible()) {
 ```
 
 ### BoundedWildcard
@@ -5984,6 +5984,30 @@ in `JediTerm/src/main/java/com/intellij/openapi/util/objectTree/ObjectTree.java`
 ```
 
 ### BoundedWildcard
+Can generalize to `? super Component`
+in `JediTerm/src/main/java/com/intellij/util/ui/UIUtil.java`
+#### Snippet
+```java
+
+    @Nullable
+    public static Component findParentByCondition(@NotNull Component c, Condition<Component> condition) {
+        Component eachParent = c;
+        while (eachParent != null) {
+```
+
+### BoundedWildcard
+Can generalize to `? super T`
+in `JediTerm/src/main/java/com/intellij/util/ui/UIUtil.java`
+#### Snippet
+```java
+    }
+
+    private static <T extends JComponent> void findComponentsOfType(JComponent parent, Class<T> cls, ArrayList<T> result) {
+        if (parent == null) return;
+        if (cls.isAssignableFrom(parent.getClass())) {
+```
+
+### BoundedWildcard
 Can generalize to `? super T`
 in `JediTerm/src/main/java/com/intellij/util/ObjectUtils.java`
 #### Snippet
@@ -6032,30 +6056,6 @@ in `terminal/src/com/jediterm/terminal/TerminalColor.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? super Field`
-in `JediTerm/src/main/java/com/intellij/util/ReflectionUtil.java`
-#### Snippet
-```java
-  }
-
-  private static void collectFields(@NotNull Class clazz, @NotNull List<Field> result) {
-    final List<Field> fields = getClassDeclaredFields(clazz);
-    result.addAll(fields);
-```
-
-### BoundedWildcard
-Can generalize to `? super Field`
-in `JediTerm/src/main/java/com/intellij/util/ReflectionUtil.java`
-#### Snippet
-```java
-  }
-
-  private static Field processFields(@NotNull Class clazz, @NotNull Condition<Field> checker) {
-    for (Field field : clazz.getDeclaredFields()) {
-      if (checker.value(field)) {
-```
-
-### BoundedWildcard
 Can generalize to `? extends T`
 in `JediTerm/src/main/java/com/intellij/openapi/Suppliers.java`
 #### Snippet
@@ -6080,27 +6080,27 @@ in `terminal/src/com/jediterm/terminal/model/TerminalLine.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? super T`
-in `JediTerm/src/main/java/com/intellij/util/ui/UIUtil.java`
+Can generalize to `? super Field`
+in `JediTerm/src/main/java/com/intellij/util/ReflectionUtil.java`
 #### Snippet
 ```java
-    }
+  }
 
-    private static <T extends JComponent> void findComponentsOfType(JComponent parent, Class<T> cls, ArrayList<T> result) {
-        if (parent == null) return;
-        if (cls.isAssignableFrom(parent.getClass())) {
+  private static Field processFields(@NotNull Class clazz, @NotNull Condition<Field> checker) {
+    for (Field field : clazz.getDeclaredFields()) {
+      if (checker.value(field)) {
 ```
 
 ### BoundedWildcard
-Can generalize to `? super Component`
-in `JediTerm/src/main/java/com/intellij/util/ui/UIUtil.java`
+Can generalize to `? super Field`
+in `JediTerm/src/main/java/com/intellij/util/ReflectionUtil.java`
 #### Snippet
 ```java
+  }
 
-    @Nullable
-    public static Component findParentByCondition(@NotNull Component c, Condition<Component> condition) {
-        Component eachParent = c;
-        while (eachParent != null) {
+  private static void collectFields(@NotNull Class clazz, @NotNull List<Field> result) {
+    final List<Field> fields = getClassDeclaredFields(clazz);
+    result.addAll(fields);
 ```
 
 ### BoundedWildcard
@@ -6140,6 +6140,18 @@ in `JediTerm/src/main/java/com/intellij/util/containers/Stack.java`
 ```
 
 ### BoundedWildcard
+Can generalize to `? super TabInfo`
+in `JediTerm/src/main/java/com/intellij/ui/tabs/impl/JBTabsImpl.java`
+#### Snippet
+```java
+    }
+
+    public void sortTabs(Comparator<TabInfo> comparator) {
+        Collections.sort(myVisibleInfos, comparator);
+
+```
+
+### BoundedWildcard
 Can generalize to `? super JComponent`
 in `JediTerm/src/main/java/com/intellij/ui/tabs/impl/JBTabsImpl.java`
 #### Snippet
@@ -6164,90 +6176,6 @@ in `JediTerm/src/main/java/com/intellij/ui/tabs/impl/JBTabsImpl.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? super TabInfo`
-in `JediTerm/src/main/java/com/intellij/ui/tabs/impl/JBTabsImpl.java`
-#### Snippet
-```java
-    }
-
-    public void sortTabs(Comparator<TabInfo> comparator) {
-        Collections.sort(myVisibleInfos, comparator);
-
-```
-
-### BoundedWildcard
-Can generalize to `? super T`
-in `JediTerm/src/main/java/com/intellij/openapi/util/text/StringUtil.java`
-#### Snippet
-```java
-  @NotNull
-  @Contract(pure = true)
-  public static <T> String join(@NotNull T[] items, @NotNull Function<T, String> f, @NotNull @NonNls String separator) {
-    return join(Arrays.asList(items), f, separator);
-  }
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
-in `JediTerm/src/main/java/com/intellij/util/ArrayUtil.java`
-#### Snippet
-```java
-  @NotNull
-  @Contract(pure=true)
-  public static <T> T[] append(@NotNull final T[] src, final T element, @NotNull ArrayFactory<T> factory) {
-    int length = src.length;
-    T[] result = factory.create(length + 1);
-```
-
-### BoundedWildcard
-Can generalize to `? super T`
-in `JediTerm/src/main/java/com/intellij/util/ArrayUtil.java`
-#### Snippet
-```java
-
-  @Contract(pure=true)
-  public static <T> int indexOf(@NotNull T[] objects, T object, @NotNull Equality<T> comparator) {
-    for (int i = 0; i < objects.length; i++) {
-      if (comparator.equals(objects[i], object)) return i;
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
-in `JediTerm/src/main/java/com/intellij/util/ArrayUtil.java`
-#### Snippet
-```java
-  @NotNull
-  @Contract(pure=true)
-  public static <T> T[] prepend(final T element, @NotNull final T[] src, @NotNull ArrayFactory<T> factory) {
-    int length = src.length;
-    T[] result = factory.create(length + 1);
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
-in `JediTerm/src/main/java/com/intellij/util/ArrayUtil.java`
-#### Snippet
-```java
-  @NotNull
-  @Contract(pure=true)
-  public static <T> T[] mergeCollections(@NotNull Collection<? extends T> c1, @NotNull Collection<? extends T> c2, @NotNull ArrayFactory<T> factory) {
-    T[] res = factory.create(c1.size() + c2.size());
-
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
-in `JediTerm/src/main/java/com/intellij/util/ArrayUtil.java`
-#### Snippet
-```java
-  @NotNull
-  @Contract(pure=true)
-  public static <T> T[] realloc(@NotNull T[] array, final int newSize, @NotNull ArrayFactory<T> factory) {
-    final int oldSize = array.length;
-    if (oldSize == newSize) {
-```
-
-### BoundedWildcard
 Can generalize to `? extends T`
 in `JediTerm/src/main/java/com/intellij/util/ArrayUtil.java`
 #### Snippet
@@ -6257,6 +6185,18 @@ in `JediTerm/src/main/java/com/intellij/util/ArrayUtil.java`
   public static <T> T[] mergeArrays(@NotNull T[] a1, @NotNull T[] a2, @NotNull ArrayFactory<T> factory) {
     if (a1.length == 0) {
       return a2;
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
+in `JediTerm/src/main/java/com/intellij/util/ArrayUtil.java`
+#### Snippet
+```java
+
+  @Contract(pure=true)
+  public static <T> int lastIndexOf(@NotNull List<T> src, final T obj, @NotNull Equality<? super T> comparator) {
+    for (int i = src.size() - 1; i >= 0; i--) {
+      final T o = src.get(i);
 ```
 
 ### BoundedWildcard
@@ -6300,6 +6240,30 @@ Can generalize to `? extends T`
 in `JediTerm/src/main/java/com/intellij/util/ArrayUtil.java`
 #### Snippet
 ```java
+  @NotNull
+  @Contract(pure=true)
+  public static <T> T[] append(@NotNull final T[] src, final T element, @NotNull ArrayFactory<T> factory) {
+    int length = src.length;
+    T[] result = factory.create(length + 1);
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
+in `JediTerm/src/main/java/com/intellij/util/ArrayUtil.java`
+#### Snippet
+```java
+  @NotNull
+  @Contract(pure=true)
+  public static <T> T[] realloc(@NotNull T[] array, final int newSize, @NotNull ArrayFactory<T> factory) {
+    final int oldSize = array.length;
+    if (oldSize == newSize) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
+in `JediTerm/src/main/java/com/intellij/util/ArrayUtil.java`
+#### Snippet
+```java
 
   @Contract(pure=true)
   public static <T> int indexOf(@NotNull List<T> objects, T object, @NotNull Comparator<T> comparator) {
@@ -6320,15 +6284,39 @@ in `JediTerm/src/main/java/com/intellij/util/ArrayUtil.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends T`
+Can generalize to `? super T`
 in `JediTerm/src/main/java/com/intellij/util/ArrayUtil.java`
 #### Snippet
 ```java
 
   @Contract(pure=true)
-  public static <T> int lastIndexOf(@NotNull List<T> src, final T obj, @NotNull Equality<? super T> comparator) {
-    for (int i = src.size() - 1; i >= 0; i--) {
-      final T o = src.get(i);
+  public static <T> int indexOf(@NotNull T[] objects, T object, @NotNull Equality<T> comparator) {
+    for (int i = 0; i < objects.length; i++) {
+      if (comparator.equals(objects[i], object)) return i;
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
+in `JediTerm/src/main/java/com/intellij/util/ArrayUtil.java`
+#### Snippet
+```java
+  @NotNull
+  @Contract(pure=true)
+  public static <T> T[] mergeCollections(@NotNull Collection<? extends T> c1, @NotNull Collection<? extends T> c2, @NotNull ArrayFactory<T> factory) {
+    T[] res = factory.create(c1.size() + c2.size());
+
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
+in `JediTerm/src/main/java/com/intellij/util/ArrayUtil.java`
+#### Snippet
+```java
+  @NotNull
+  @Contract(pure=true)
+  public static <T> T[] prepend(final T element, @NotNull final T[] src, @NotNull ArrayFactory<T> factory) {
+    int length = src.length;
+    T[] result = factory.create(length + 1);
 ```
 
 ### BoundedWildcard
@@ -6344,6 +6332,18 @@ in `JediTerm/src/main/java/com/intellij/util/ArrayUtil.java`
 ```
 
 ### BoundedWildcard
+Can generalize to `? super T`
+in `JediTerm/src/main/java/com/intellij/openapi/util/text/StringUtil.java`
+#### Snippet
+```java
+  @NotNull
+  @Contract(pure = true)
+  public static <T> String join(@NotNull T[] items, @NotNull Function<T, String> f, @NotNull @NonNls String separator) {
+    return join(Arrays.asList(items), f, separator);
+  }
+```
+
+### BoundedWildcard
 Can generalize to `? super Integer`
 in `JediTerm/src/main/java/com/intellij/ui/tabs/impl/TabLabel.java`
 #### Snippet
@@ -6365,150 +6365,6 @@ in `JediTerm/src/main/java/com/intellij/ui/tabs/impl/TabLabel.java`
     public void doTranslate(PairConsumer<Integer, Integer> consumer) {
         final JBTabsPosition pos = myTabs.getTabsPosition();
 
-```
-
-### BoundedWildcard
-Can generalize to `? super T`
-in `JediTerm/src/main/java/com/jediterm/ui/AbstractTabbedTerminalWidget.java`
-#### Snippet
-```java
-    }
-
-    private TabComponent(final @NotNull AbstractTabs<T> tabs, final T terminal) {
-      super(new FlowLayout(FlowLayout.LEFT, 0, 0));
-      myTerminal = terminal;
-```
-
-### BoundedWildcard
-Can generalize to `? extends K`
-in `JediTerm/src/main/java/com/intellij/util/containers/ContainerUtilRt.java`
-#### Snippet
-```java
-  @NotNull
-  @Contract(pure=true)
-  public static <K extends Comparable, V> TreeMap<K, V> newTreeMap(@NotNull Map<K, V> map) {
-    return new TreeMap<K, V>(map);
-  }
-```
-
-### BoundedWildcard
-Can generalize to `? extends V`
-in `JediTerm/src/main/java/com/intellij/util/containers/ContainerUtilRt.java`
-#### Snippet
-```java
-  @NotNull
-  @Contract(pure=true)
-  public static <K extends Comparable, V> TreeMap<K, V> newTreeMap(@NotNull Map<K, V> map) {
-    return new TreeMap<K, V>(map);
-  }
-```
-
-### BoundedWildcard
-Can generalize to `? super T`
-in `JediTerm/src/main/java/com/intellij/util/containers/ContainerUtilRt.java`
-#### Snippet
-```java
-  @NotNull
-  @Contract(pure=true)
-  public static <T, V> Set<V> map2Set(@NotNull T[] collection, @NotNull Function<T, V> mapper) {
-    return map2Set(Arrays.asList(collection), mapper);
-  }
-```
-
-### BoundedWildcard
-Can generalize to `? extends K`
-in `JediTerm/src/main/java/com/intellij/util/containers/ContainerUtilRt.java`
-#### Snippet
-```java
-  @NotNull
-  @Contract(pure=true)
-  public static <K, V> LinkedHashMap<K,V> newLinkedHashMap(@NotNull Pair<K, V> first, @NotNull Pair<K, V>[] entries) {
-    LinkedHashMap<K, V> map = newLinkedHashMap();
-    map.put(first.getFirst(), first.getSecond());
-```
-
-### BoundedWildcard
-Can generalize to `? extends V`
-in `JediTerm/src/main/java/com/intellij/util/containers/ContainerUtilRt.java`
-#### Snippet
-```java
-  @NotNull
-  @Contract(pure=true)
-  public static <K, V> LinkedHashMap<K,V> newLinkedHashMap(@NotNull Pair<K, V> first, @NotNull Pair<K, V>[] entries) {
-    LinkedHashMap<K, V> map = newLinkedHashMap();
-    map.put(first.getFirst(), first.getSecond());
-```
-
-### BoundedWildcard
-Can generalize to `? extends K`
-in `JediTerm/src/main/java/com/intellij/util/containers/ContainerUtilRt.java`
-#### Snippet
-```java
-  @NotNull
-  @Contract(pure=true)
-  public static <K, V> Map<K, V> newHashMap(@NotNull Pair<K, ? extends V> first, @NotNull Pair<K, ? extends V>... entries) {
-    Map<K, V> map = newHashMap(entries.length + 1);
-    map.put(first.getFirst(), first.getSecond());
-```
-
-### BoundedWildcard
-Can generalize to `? extends K`
-in `JediTerm/src/main/java/com/intellij/util/containers/ContainerUtilRt.java`
-#### Snippet
-```java
-  @NotNull
-  @Contract(pure=true)
-  public static <K, V> Map<K, V> newHashMap(@NotNull List<K> keys, @NotNull List<V> values) {
-    if (keys.size() != values.size()) {
-      throw new IllegalArgumentException(keys + " should have same length as " + values);
-```
-
-### BoundedWildcard
-Can generalize to `? extends V`
-in `JediTerm/src/main/java/com/intellij/util/containers/ContainerUtilRt.java`
-#### Snippet
-```java
-  @NotNull
-  @Contract(pure=true)
-  public static <K, V> Map<K, V> newHashMap(@NotNull List<K> keys, @NotNull List<V> values) {
-    if (keys.size() != values.size()) {
-      throw new IllegalArgumentException(keys + " should have same length as " + values);
-```
-
-### BoundedWildcard
-Can generalize to `? extends K`
-in `JediTerm/src/main/java/com/intellij/util/containers/ContainerUtilRt.java`
-#### Snippet
-```java
-  @NotNull
-  @Contract(pure=true)
-  public static <K, V> LinkedHashMap<K, V> newLinkedHashMap(@NotNull Map<K, V> map) {
-    return new com.intellij.util.containers.LinkedHashMap<K, V>(map);
-  }
-```
-
-### BoundedWildcard
-Can generalize to `? extends V`
-in `JediTerm/src/main/java/com/intellij/util/containers/ContainerUtilRt.java`
-#### Snippet
-```java
-  @NotNull
-  @Contract(pure=true)
-  public static <K, V> LinkedHashMap<K, V> newLinkedHashMap(@NotNull Map<K, V> map) {
-    return new com.intellij.util.containers.LinkedHashMap<K, V>(map);
-  }
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
-in `JediTerm/src/main/java/com/intellij/util/containers/ContainerUtilRt.java`
-#### Snippet
-```java
-
-  @NotNull
-  public static <T> T[] toArray(@NotNull List<T> collection, @NotNull T[] array) {
-    final int length = array.length;
-    if (length < ARRAY_COPY_THRESHOLD && array.length >= collection.size()) {
 ```
 
 ### BoundedWildcard
@@ -6520,6 +6376,90 @@ in `JediTerm/src/main/java/com/intellij/util/containers/ContainerUtilRt.java`
   @Contract(pure=true)
   public static <T, V> List<V> map2List(@NotNull T[] array, @NotNull Function<T, V> mapper) {
     return map2List(Arrays.asList(array), mapper);
+  }
+```
+
+### BoundedWildcard
+Can generalize to `? extends K`
+in `JediTerm/src/main/java/com/intellij/util/containers/ContainerUtilRt.java`
+#### Snippet
+```java
+  @NotNull
+  @Contract(pure=true)
+  public static <K, V> Map<K, V> newHashMap(@NotNull List<K> keys, @NotNull List<V> values) {
+    if (keys.size() != values.size()) {
+      throw new IllegalArgumentException(keys + " should have same length as " + values);
+```
+
+### BoundedWildcard
+Can generalize to `? extends V`
+in `JediTerm/src/main/java/com/intellij/util/containers/ContainerUtilRt.java`
+#### Snippet
+```java
+  @NotNull
+  @Contract(pure=true)
+  public static <K, V> Map<K, V> newHashMap(@NotNull List<K> keys, @NotNull List<V> values) {
+    if (keys.size() != values.size()) {
+      throw new IllegalArgumentException(keys + " should have same length as " + values);
+```
+
+### BoundedWildcard
+Can generalize to `? extends V`
+in `JediTerm/src/main/java/com/intellij/util/containers/ContainerUtilRt.java`
+#### Snippet
+```java
+  @NotNull
+  @Contract(pure=true)
+  public static <T, V> List<V> map2List(@NotNull Collection<? extends T> collection, @NotNull Function<T, V> mapper) {
+    if (collection.isEmpty()) return emptyList();
+    List<V> list = new ArrayList<V>(collection.size());
+```
+
+### BoundedWildcard
+Can generalize to `? extends K`
+in `JediTerm/src/main/java/com/intellij/util/containers/ContainerUtilRt.java`
+#### Snippet
+```java
+  @NotNull
+  @Contract(pure=true)
+  public static <K, V> LinkedHashMap<K,V> newLinkedHashMap(@NotNull Pair<K, V> first, @NotNull Pair<K, V>[] entries) {
+    LinkedHashMap<K, V> map = newLinkedHashMap();
+    map.put(first.getFirst(), first.getSecond());
+```
+
+### BoundedWildcard
+Can generalize to `? extends V`
+in `JediTerm/src/main/java/com/intellij/util/containers/ContainerUtilRt.java`
+#### Snippet
+```java
+  @NotNull
+  @Contract(pure=true)
+  public static <K, V> LinkedHashMap<K,V> newLinkedHashMap(@NotNull Pair<K, V> first, @NotNull Pair<K, V>[] entries) {
+    LinkedHashMap<K, V> map = newLinkedHashMap();
+    map.put(first.getFirst(), first.getSecond());
+```
+
+### BoundedWildcard
+Can generalize to `? extends K`
+in `JediTerm/src/main/java/com/intellij/util/containers/ContainerUtilRt.java`
+#### Snippet
+```java
+  @NotNull
+  @Contract(pure=true)
+  public static <K extends Comparable, V> TreeMap<K, V> newTreeMap(@NotNull Map<K, V> map) {
+    return new TreeMap<K, V>(map);
+  }
+```
+
+### BoundedWildcard
+Can generalize to `? extends V`
+in `JediTerm/src/main/java/com/intellij/util/containers/ContainerUtilRt.java`
+#### Snippet
+```java
+  @NotNull
+  @Contract(pure=true)
+  public static <K extends Comparable, V> TreeMap<K, V> newTreeMap(@NotNull Map<K, V> map) {
+    return new TreeMap<K, V>(map);
   }
 ```
 
@@ -6536,15 +6476,39 @@ in `JediTerm/src/main/java/com/intellij/util/containers/ContainerUtilRt.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends V`
+Can generalize to `? super T`
 in `JediTerm/src/main/java/com/intellij/util/containers/ContainerUtilRt.java`
 #### Snippet
 ```java
   @NotNull
   @Contract(pure=true)
-  public static <T, V> List<V> map2List(@NotNull Collection<? extends T> collection, @NotNull Function<T, V> mapper) {
-    if (collection.isEmpty()) return emptyList();
-    List<V> list = new ArrayList<V>(collection.size());
+  public static <T, V> Set<V> map2Set(@NotNull T[] collection, @NotNull Function<T, V> mapper) {
+    return map2Set(Arrays.asList(collection), mapper);
+  }
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
+in `JediTerm/src/main/java/com/intellij/util/containers/ContainerUtilRt.java`
+#### Snippet
+```java
+
+  @NotNull
+  public static <T> T[] toArray(@NotNull List<T> collection, @NotNull T[] array) {
+    final int length = array.length;
+    if (length < ARRAY_COPY_THRESHOLD && array.length >= collection.size()) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends K`
+in `JediTerm/src/main/java/com/intellij/util/containers/ContainerUtilRt.java`
+#### Snippet
+```java
+  @NotNull
+  @Contract(pure=true)
+  public static <K, V> Map<K, V> newHashMap(@NotNull Pair<K, ? extends V> first, @NotNull Pair<K, ? extends V>... entries) {
+    Map<K, V> map = newHashMap(entries.length + 1);
+    map.put(first.getFirst(), first.getSecond());
 ```
 
 ### BoundedWildcard
@@ -6560,183 +6524,39 @@ in `JediTerm/src/main/java/com/intellij/util/containers/ContainerUtilRt.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? super T`
-in `JediTerm/src/main/java/com/intellij/util/containers/ContainerUtil.java`
+Can generalize to `? extends K`
+in `JediTerm/src/main/java/com/intellij/util/containers/ContainerUtilRt.java`
 #### Snippet
 ```java
   @NotNull
   @Contract(pure=true)
-  public static <T> List<T> unfold(@Nullable T t, @NotNull NullableFunction<T, T> next) {
-    if (t == null) return emptyList();
-
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
-in `JediTerm/src/main/java/com/intellij/util/containers/ContainerUtil.java`
-#### Snippet
-```java
-  @NotNull
-  @Contract(pure=true)
-  public static <T> List<T> unfold(@Nullable T t, @NotNull NullableFunction<T, T> next) {
-    if (t == null) return emptyList();
-
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
-in `JediTerm/src/main/java/com/intellij/util/containers/ContainerUtil.java`
-#### Snippet
-```java
-  @NotNull
-  @Contract(pure=true)
-  public static <T> List<T> sorted(@NotNull Iterable<T> list, @NotNull Comparator<? super T> comparator) {
-    List<T> sorted = newArrayList(list);
-    sort(sorted, comparator);
-```
-
-### BoundedWildcard
-Can generalize to `? extends Pair`
-in `JediTerm/src/main/java/com/intellij/util/containers/ContainerUtil.java`
-#### Snippet
-```java
-  @NotNull
-  @Contract(pure=true)
-  public static <KEY, VALUE> Map<KEY, VALUE> map2Map(@NotNull Collection<Pair<KEY, VALUE>> collection) {
-    final Map<KEY, VALUE> result = new THashMap<KEY, VALUE>(collection.size());
-    for (Pair<KEY, VALUE> pair : collection) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends Pair`
-in `JediTerm/src/main/java/com/intellij/util/containers/ContainerUtil.java`
-#### Snippet
-```java
-  @Contract(pure = true)
-  public static <T, KEY, VALUE> Map<KEY, VALUE> map2MapNotNull(@NotNull Collection<? extends T> collection,
-                                                               @NotNull Function<T, Pair<KEY, VALUE>> mapper) {
-    final Map<KEY, VALUE> set = new THashMap<KEY, VALUE>(collection.size());
-    for (T t : collection) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends V`
-in `JediTerm/src/main/java/com/intellij/util/containers/ContainerUtil.java`
-#### Snippet
-```java
-  @NotNull
-  @Contract(pure=true)
-  public static <T,V> List<V> map(@NotNull Collection<? extends T> iterable, @NotNull Function<T, V> mapping) {
-    if (iterable.isEmpty()) return emptyList();
-    List<V> result = new ArrayList<V>(iterable.size());
-```
-
-### BoundedWildcard
-Can generalize to `? super T`
-in `JediTerm/src/main/java/com/intellij/util/containers/ContainerUtil.java`
-#### Snippet
-```java
-  @NotNull
-  @Contract(pure=true)
-  public static <T, V> V[] mapNotNull(@NotNull T[] array, @NotNull Function<T, V> mapping, @NotNull V[] emptyArray) {
-    List<V> result = new ArrayList<V>(array.length);
-    for (T t : array) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends V`
-in `JediTerm/src/main/java/com/intellij/util/containers/ContainerUtil.java`
-#### Snippet
-```java
-  @NotNull
-  @Contract(pure=true)
-  public static <T, V> V[] mapNotNull(@NotNull T[] array, @NotNull Function<T, V> mapping, @NotNull V[] emptyArray) {
-    List<V> result = new ArrayList<V>(array.length);
-    for (T t : array) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
-in `JediTerm/src/main/java/com/intellij/util/containers/ContainerUtil.java`
-#### Snippet
-```java
-
-  @NotNull
-  public static <T> List<T> collect(@NotNull Iterator<T> iterator) {
-    if (!iterator.hasNext()) return emptyList();
-    List<T> list = new ArrayList<T>();
-```
-
-### BoundedWildcard
-Can generalize to `? extends V`
-in `JediTerm/src/main/java/com/intellij/util/containers/ContainerUtil.java`
-#### Snippet
-```java
-  @NotNull
-  @Contract(pure=true)
-  public static <T,V> List<V> map(@NotNull Iterable<? extends T> iterable, @NotNull Function<T, V> mapping) {
-    List<V> result = new ArrayList<V>();
-    for (T t : iterable) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
-in `JediTerm/src/main/java/com/intellij/util/containers/ContainerUtil.java`
-#### Snippet
-```java
-
-  @Contract(pure=true)
-  public static <T> boolean containsIdentity(@NotNull Iterable<T> list, T element) {
-    for (T t : list) {
-      if (t == element) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
-in `JediTerm/src/main/java/com/intellij/util/containers/ContainerUtil.java`
-#### Snippet
-```java
-
-  @Contract(pure = true)
-  public static <T> T getOrElse(@NotNull List<T> elements, int i, T defaultValue) {
-    return elements.size() > i ? elements.get(i) : defaultValue;
-  }
-```
-
-### BoundedWildcard
-Can generalize to `? super T`
-in `JediTerm/src/main/java/com/intellij/util/containers/ContainerUtil.java`
-#### Snippet
-```java
-  @NotNull
-  @Contract(pure=true)
-  public static <T, V> V[] map2Array(@NotNull T[] array, @NotNull Class<? super V> aClass, @NotNull Function<T, V> mapper) {
-    return map2Array(Arrays.asList(array), aClass, mapper);
+  public static <K, V> LinkedHashMap<K, V> newLinkedHashMap(@NotNull Map<K, V> map) {
+    return new com.intellij.util.containers.LinkedHashMap<K, V>(map);
   }
 ```
 
 ### BoundedWildcard
 Can generalize to `? extends V`
-in `JediTerm/src/main/java/com/intellij/util/containers/ContainerUtil.java`
+in `JediTerm/src/main/java/com/intellij/util/containers/ContainerUtilRt.java`
 #### Snippet
 ```java
   @NotNull
   @Contract(pure=true)
-  public static <T, V> V[] map2Array(@NotNull T[] array, @NotNull Class<? super V> aClass, @NotNull Function<T, V> mapper) {
-    return map2Array(Arrays.asList(array), aClass, mapper);
+  public static <K, V> LinkedHashMap<K, V> newLinkedHashMap(@NotNull Map<K, V> map) {
+    return new com.intellij.util.containers.LinkedHashMap<K, V>(map);
   }
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends Collection`
-in `JediTerm/src/main/java/com/intellij/util/containers/ContainerUtil.java`
+Can generalize to `? super T`
+in `JediTerm/src/main/java/com/jediterm/ui/AbstractTabbedTerminalWidget.java`
 #### Snippet
 ```java
-  @NotNull
-  @Contract(pure=true)
-  public static <T, V> List<T> concat(@NotNull Iterable<? extends V> list, @NotNull Function<V, Collection<? extends T>> listGenerator) {
-    List<T> result = new ArrayList<T>();
-    for (final V v : list) {
+    }
+
+    private TabComponent(final @NotNull AbstractTabs<T> tabs, final T terminal) {
+      super(new FlowLayout(FlowLayout.LEFT, 0, 0));
+      myTerminal = terminal;
 ```
 
 ### BoundedWildcard
@@ -6746,32 +6566,8 @@ in `JediTerm/src/main/java/com/intellij/util/containers/ContainerUtil.java`
 ```java
   @NotNull
   @Contract(pure=true)
-  public static <K> THashSet<K> newIdentityTroveSet(@NotNull Collection<K> collection) {
-    return new THashSet<K>(collection, ContainerUtil.<K>identityStrategy());
-  }
-```
-
-### BoundedWildcard
-Can generalize to `? extends V`
-in `JediTerm/src/main/java/com/intellij/util/containers/ContainerUtil.java`
-#### Snippet
-```java
-  @NotNull
-  @Contract(pure=true)
-  public static <T, V> List<V> mapNotNull(@NotNull Collection<? extends T> iterable, @NotNull Function<T, V> mapping) {
-    if (iterable.isEmpty()) {
-      return emptyList();
-```
-
-### BoundedWildcard
-Can generalize to `? extends K`
-in `JediTerm/src/main/java/com/intellij/util/containers/ContainerUtil.java`
-#### Snippet
-```java
-  @NotNull
-  @Contract(pure=true)
-  public static <K, V> Map<K,Couple<V>> diff(@NotNull Map<K, V> map1, @NotNull Map<K, V> map2) {
-    final Map<K, Couple<V>> res = newHashMap();
+  public static <K, V> Map<K, V> intersection(@NotNull Map<K, V> map1, @NotNull Map<K, V> map2) {
+    final Map<K, V> res = newHashMap();
     final Set<K> keys = newHashSet();
 ```
 
@@ -6782,8 +6578,8 @@ in `JediTerm/src/main/java/com/intellij/util/containers/ContainerUtil.java`
 ```java
   @NotNull
   @Contract(pure=true)
-  public static <K, V> Map<K,Couple<V>> diff(@NotNull Map<K, V> map1, @NotNull Map<K, V> map2) {
-    final Map<K, Couple<V>> res = newHashMap();
+  public static <K, V> Map<K, V> intersection(@NotNull Map<K, V> map1, @NotNull Map<K, V> map2) {
+    final Map<K, V> res = newHashMap();
     final Set<K> keys = newHashSet();
 ```
 
@@ -6794,8 +6590,8 @@ in `JediTerm/src/main/java/com/intellij/util/containers/ContainerUtil.java`
 ```java
   @NotNull
   @Contract(pure=true)
-  public static <K, V> Map<K,Couple<V>> diff(@NotNull Map<K, V> map1, @NotNull Map<K, V> map2) {
-    final Map<K, Couple<V>> res = newHashMap();
+  public static <K, V> Map<K, V> intersection(@NotNull Map<K, V> map1, @NotNull Map<K, V> map2) {
+    final Map<K, V> res = newHashMap();
     final Set<K> keys = newHashSet();
 ```
 
@@ -6806,81 +6602,9 @@ in `JediTerm/src/main/java/com/intellij/util/containers/ContainerUtil.java`
 ```java
   @NotNull
   @Contract(pure=true)
-  public static <K, V> Map<K,Couple<V>> diff(@NotNull Map<K, V> map1, @NotNull Map<K, V> map2) {
-    final Map<K, Couple<V>> res = newHashMap();
+  public static <K, V> Map<K, V> intersection(@NotNull Map<K, V> map1, @NotNull Map<K, V> map2) {
+    final Map<K, V> res = newHashMap();
     final Set<K> keys = newHashSet();
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
-in `JediTerm/src/main/java/com/intellij/util/containers/ContainerUtil.java`
-#### Snippet
-```java
-
-  @Contract(pure=true)
-  public static <T> T getFirstItem(@Nullable final Collection<T> items, @Nullable final T defaultResult) {
-    return items == null || items.isEmpty() ? defaultResult : items.iterator().next();
-  }
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
-in `JediTerm/src/main/java/com/intellij/util/containers/ContainerUtil.java`
-#### Snippet
-```java
-  @NotNull
-  @Contract(pure=true)
-  public static <T> Object[] map2Array(@NotNull Collection<T> array, @NotNull Function<T, Object> mapper) {
-    return map2Array(array, Object.class, mapper);
-  }
-```
-
-### BoundedWildcard
-Can generalize to `? super T`
-in `JediTerm/src/main/java/com/intellij/util/containers/ContainerUtil.java`
-#### Snippet
-```java
-  @NotNull
-  @Contract(pure=true)
-  public static <T> Object[] map2Array(@NotNull Collection<T> array, @NotNull Function<T, Object> mapper) {
-    return map2Array(array, Object.class, mapper);
-  }
-```
-
-### BoundedWildcard
-Can generalize to `? extends V`
-in `JediTerm/src/main/java/com/intellij/util/containers/ContainerUtil.java`
-#### Snippet
-```java
-  @NotNull
-  @Contract(pure=true)
-  public static <T, V> V getOrElse(@NotNull Map<T, V> result, final T key, @NotNull V defValue) {
-    V value = result.get(key);
-    return value == null ? defValue : value;
-```
-
-### BoundedWildcard
-Can generalize to `? extends V`
-in `JediTerm/src/main/java/com/intellij/util/containers/ContainerUtil.java`
-#### Snippet
-```java
-  @NotNull
-  @Contract(pure=true)
-  public static <T, V> List<V> mapNotNull(@NotNull Iterable<? extends T> iterable, @NotNull Function<T, V> mapping) {
-    List<V> result = new ArrayList<V>();
-    for (T t : iterable) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
-in `JediTerm/src/main/java/com/intellij/util/containers/ContainerUtil.java`
-#### Snippet
-```java
-  @NotNull
-  @Contract(pure=true)
-  public static <T> Iterator<T> iterate(@NotNull final Enumeration<T> enumeration) {
-    return new Iterator<T>() {
-      @Override
 ```
 
 ### BoundedWildcard
@@ -6905,114 +6629,6 @@ in `JediTerm/src/main/java/com/intellij/util/containers/ContainerUtil.java`
     private ImmutableListBackedByList(@NotNull List<E> list) {
       myStore = list;
     }
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
-in `JediTerm/src/main/java/com/intellij/util/containers/ContainerUtil.java`
-#### Snippet
-```java
-
-  @Contract(pure=true)
-  public static <T> int indexOf(@NotNull List<T> list, @NotNull final T object) {
-    return indexOf(list, new Condition<T>() {
-      @Override
-```
-
-### BoundedWildcard
-Can generalize to `? super T`
-in `JediTerm/src/main/java/com/intellij/util/containers/ContainerUtil.java`
-#### Snippet
-```java
-  @NotNull
-  @Contract(pure=true)
-  public static <T, V> List<V> map(@NotNull T[] array, @NotNull Function<T, V> mapping) {
-    List<V> result = new ArrayList<V>(array.length);
-    for (T t : array) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends V`
-in `JediTerm/src/main/java/com/intellij/util/containers/ContainerUtil.java`
-#### Snippet
-```java
-  @NotNull
-  @Contract(pure=true)
-  public static <T, V> List<V> map(@NotNull T[] array, @NotNull Function<T, V> mapping) {
-    List<V> result = new ArrayList<V>(array.length);
-    for (T t : array) {
-```
-
-### BoundedWildcard
-Can generalize to `? super T`
-in `JediTerm/src/main/java/com/intellij/util/containers/ContainerUtil.java`
-#### Snippet
-```java
-  @NotNull
-  @Contract(pure=true)
-  public static <T> Object[] map2Array(@NotNull T[] array, @NotNull Function<T, Object> mapper) {
-    return map2Array(array, Object.class, mapper);
-  }
-```
-
-### BoundedWildcard
-Can generalize to `? super T`
-in `JediTerm/src/main/java/com/intellij/util/containers/ContainerUtil.java`
-#### Snippet
-```java
-  @NotNull
-  @Contract(pure=true)
-  public static <T, V> V[] map(@NotNull T[] arr, @NotNull Function<T, V> mapping, @NotNull V[] emptyArray) {
-    if (arr.length==0) {
-      assert emptyArray.length == 0 : "You must pass an empty array";
-```
-
-### BoundedWildcard
-Can generalize to `? extends V`
-in `JediTerm/src/main/java/com/intellij/util/containers/ContainerUtil.java`
-#### Snippet
-```java
-  @NotNull
-  @Contract(pure=true)
-  public static <T, V> V[] map(@NotNull T[] arr, @NotNull Function<T, V> mapping, @NotNull V[] emptyArray) {
-    if (arr.length==0) {
-      assert emptyArray.length == 0 : "You must pass an empty array";
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
-in `JediTerm/src/main/java/com/intellij/util/containers/ContainerUtil.java`
-#### Snippet
-```java
-  @NotNull
-  @Contract(pure=true)
-  public static <T> THashSet<T> newTroveSet(@NotNull TObjectHashingStrategy<T> strategy, @NotNull Collection<T> elements) {
-    return new THashSet<T>(elements, strategy);
-  }
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
-in `JediTerm/src/main/java/com/intellij/util/containers/ContainerUtil.java`
-#### Snippet
-```java
-  @NotNull
-  @Contract(pure=true)
-  public static <T> Set<T> union(@NotNull Set<T> set, @NotNull Set<T> set2) {
-    Set<T> result = new THashSet<T>(set.size() + set2.size());
-    result.addAll(set);
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
-in `JediTerm/src/main/java/com/intellij/util/containers/ContainerUtil.java`
-#### Snippet
-```java
-  @NotNull
-  @Contract(pure=true)
-  public static <T> Set<T> union(@NotNull Set<T> set, @NotNull Set<T> set2) {
-    Set<T> result = new THashSet<T>(set.size() + set2.size());
-    result.addAll(set);
 ```
 
 ### BoundedWildcard
@@ -7052,6 +6668,102 @@ in `JediTerm/src/main/java/com/intellij/util/containers/ContainerUtil.java`
 ```
 
 ### BoundedWildcard
+Can generalize to `? extends Pair`
+in `JediTerm/src/main/java/com/intellij/util/containers/ContainerUtil.java`
+#### Snippet
+```java
+  @Contract(pure = true)
+  public static <T, KEY, VALUE> Map<KEY, VALUE> map2MapNotNull(@NotNull Collection<? extends T> collection,
+                                                               @NotNull Function<T, Pair<KEY, VALUE>> mapper) {
+    final Map<KEY, VALUE> set = new THashMap<KEY, VALUE>(collection.size());
+    for (T t : collection) {
+```
+
+### BoundedWildcard
+Can generalize to `? super T`
+in `JediTerm/src/main/java/com/intellij/util/containers/ContainerUtil.java`
+#### Snippet
+```java
+  @Contract(pure = true)
+  public static <T, KEY, VALUE> Map<KEY, VALUE> map2MapNotNull(@NotNull T[] collection,
+                                                               @NotNull Function<T, Pair<KEY, VALUE>> mapper) {
+    return map2MapNotNull(Arrays.asList(collection), mapper);
+  }
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
+in `JediTerm/src/main/java/com/intellij/util/containers/ContainerUtil.java`
+#### Snippet
+```java
+  @NotNull
+  @Contract(pure=true)
+  public static <T> THashSet<T> newTroveSet(@NotNull Collection<T> elements) {
+    return new THashSet<T>(elements);
+  }
+```
+
+### BoundedWildcard
+Can generalize to `? super T`
+in `JediTerm/src/main/java/com/intellij/util/containers/ContainerUtil.java`
+#### Snippet
+```java
+  @NotNull
+  @Contract(pure=true)
+  public static <T> List<T> unfold(@Nullable T t, @NotNull NullableFunction<T, T> next) {
+    if (t == null) return emptyList();
+
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
+in `JediTerm/src/main/java/com/intellij/util/containers/ContainerUtil.java`
+#### Snippet
+```java
+  @NotNull
+  @Contract(pure=true)
+  public static <T> List<T> unfold(@Nullable T t, @NotNull NullableFunction<T, T> next) {
+    if (t == null) return emptyList();
+
+```
+
+### BoundedWildcard
+Can generalize to `? extends Collection`
+in `JediTerm/src/main/java/com/intellij/util/containers/ContainerUtil.java`
+#### Snippet
+```java
+  @NotNull
+  @Contract(pure=true)
+  public static <T, V> List<T> concat(@NotNull Iterable<? extends V> list, @NotNull Function<V, Collection<? extends T>> listGenerator) {
+    List<T> result = new ArrayList<T>();
+    for (final V v : list) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
+in `JediTerm/src/main/java/com/intellij/util/containers/ContainerUtil.java`
+#### Snippet
+```java
+
+  @Contract(pure=true)
+  public static <T> T getFirstItem(@Nullable final Collection<T> items, @Nullable final T defaultResult) {
+    return items == null || items.isEmpty() ? defaultResult : items.iterator().next();
+  }
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
+in `JediTerm/src/main/java/com/intellij/util/containers/ContainerUtil.java`
+#### Snippet
+```java
+  @NotNull
+  @Contract(pure=true)
+  public static <T> Iterator<T> iterate(@NotNull final Enumeration<T> enumeration) {
+    return new Iterator<T>() {
+      @Override
+```
+
+### BoundedWildcard
 Can generalize to `? extends E`
 in `JediTerm/src/main/java/com/intellij/util/containers/ContainerUtil.java`
 #### Snippet
@@ -7064,39 +6776,15 @@ in `JediTerm/src/main/java/com/intellij/util/containers/ContainerUtil.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? super K`
-in `JediTerm/src/main/java/com/intellij/util/containers/ContainerUtil.java`
-#### Snippet
-```java
-
-  @NotNull
-  public static <K,V> V[] convert(@NotNull K[] from, @NotNull V[] to, @NotNull Function<K,V> fun) {
-    if (to.length < from.length) {
-      @SuppressWarnings("unchecked") V[] array = (V[])Array.newInstance(to.getClass().getComponentType(), from.length);
-```
-
-### BoundedWildcard
-Can generalize to `? extends V`
-in `JediTerm/src/main/java/com/intellij/util/containers/ContainerUtil.java`
-#### Snippet
-```java
-
-  @NotNull
-  public static <K,V> V[] convert(@NotNull K[] from, @NotNull V[] to, @NotNull Function<K,V> fun) {
-    if (to.length < from.length) {
-      @SuppressWarnings("unchecked") V[] array = (V[])Array.newInstance(to.getClass().getComponentType(), from.length);
-```
-
-### BoundedWildcard
-Can generalize to `? extends K`
+Can generalize to `? extends Pair`
 in `JediTerm/src/main/java/com/intellij/util/containers/ContainerUtil.java`
 #### Snippet
 ```java
   @NotNull
   @Contract(pure=true)
-  public static <K, V> Map<K, V> intersection(@NotNull Map<K, V> map1, @NotNull Map<K, V> map2) {
-    final Map<K, V> res = newHashMap();
-    final Set<K> keys = newHashSet();
+  public static <KEY, VALUE> Map<KEY, VALUE> map2Map(@NotNull Collection<Pair<KEY, VALUE>> collection) {
+    final Map<KEY, VALUE> result = new THashMap<KEY, VALUE>(collection.size());
+    for (Pair<KEY, VALUE> pair : collection) {
 ```
 
 ### BoundedWildcard
@@ -7106,21 +6794,21 @@ in `JediTerm/src/main/java/com/intellij/util/containers/ContainerUtil.java`
 ```java
   @NotNull
   @Contract(pure=true)
-  public static <K, V> Map<K, V> intersection(@NotNull Map<K, V> map1, @NotNull Map<K, V> map2) {
-    final Map<K, V> res = newHashMap();
-    final Set<K> keys = newHashSet();
+  public static <T,V> List<V> map(@NotNull Iterable<? extends T> iterable, @NotNull Function<T, V> mapping) {
+    List<V> result = new ArrayList<V>();
+    for (T t : iterable) {
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends K`
+Can generalize to `? super T`
 in `JediTerm/src/main/java/com/intellij/util/containers/ContainerUtil.java`
 #### Snippet
 ```java
   @NotNull
   @Contract(pure=true)
-  public static <K, V> Map<K, V> intersection(@NotNull Map<K, V> map1, @NotNull Map<K, V> map2) {
-    final Map<K, V> res = newHashMap();
-    final Set<K> keys = newHashSet();
+  public static <T, V> V[] mapNotNull(@NotNull T[] array, @NotNull Function<T, V> mapping, @NotNull V[] emptyArray) {
+    List<V> result = new ArrayList<V>(array.length);
+    for (T t : array) {
 ```
 
 ### BoundedWildcard
@@ -7130,9 +6818,105 @@ in `JediTerm/src/main/java/com/intellij/util/containers/ContainerUtil.java`
 ```java
   @NotNull
   @Contract(pure=true)
-  public static <K, V> Map<K, V> intersection(@NotNull Map<K, V> map1, @NotNull Map<K, V> map2) {
-    final Map<K, V> res = newHashMap();
-    final Set<K> keys = newHashSet();
+  public static <T, V> V[] mapNotNull(@NotNull T[] array, @NotNull Function<T, V> mapping, @NotNull V[] emptyArray) {
+    List<V> result = new ArrayList<V>(array.length);
+    for (T t : array) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
+in `JediTerm/src/main/java/com/intellij/util/containers/ContainerUtil.java`
+#### Snippet
+```java
+
+  @Contract(pure=true)
+  public static <T> boolean containsIdentity(@NotNull Iterable<T> list, T element) {
+    for (T t : list) {
+      if (t == element) {
+```
+
+### BoundedWildcard
+Can generalize to `? super T`
+in `JediTerm/src/main/java/com/intellij/util/containers/ContainerUtil.java`
+#### Snippet
+```java
+  }
+
+  public static <T> void sort(@NotNull T[] a, @NotNull Comparator<T> comparator) {
+    int size = a.length;
+
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
+in `JediTerm/src/main/java/com/intellij/util/containers/ContainerUtil.java`
+#### Snippet
+```java
+  @NotNull
+  @Contract(pure=true)
+  public static <T> List<T> sorted(@NotNull Iterable<T> list, @NotNull Comparator<? super T> comparator) {
+    List<T> sorted = newArrayList(list);
+    sort(sorted, comparator);
+```
+
+### BoundedWildcard
+Can generalize to `? extends V`
+in `JediTerm/src/main/java/com/intellij/util/containers/ContainerUtil.java`
+#### Snippet
+```java
+  @NotNull
+  @Contract(pure=true)
+  public static <T, V> List<V> mapNotNull(@NotNull Collection<? extends T> iterable, @NotNull Function<T, V> mapping) {
+    if (iterable.isEmpty()) {
+      return emptyList();
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
+in `JediTerm/src/main/java/com/intellij/util/containers/ContainerUtil.java`
+#### Snippet
+```java
+
+  @NotNull
+  public static <T> List<T> collect(@NotNull Iterator<T> iterator) {
+    if (!iterator.hasNext()) return emptyList();
+    List<T> list = new ArrayList<T>();
+```
+
+### BoundedWildcard
+Can generalize to `? super V`
+in `JediTerm/src/main/java/com/intellij/util/containers/ContainerUtil.java`
+#### Snippet
+```java
+  @NotNull
+  @Contract(pure=true)
+  public static <T, V> List<T> concat(@NotNull V[] array, @NotNull Function<V, Collection<? extends T>> fun) {
+    return concat(Arrays.asList(array), fun);
+  }
+```
+
+### BoundedWildcard
+Can generalize to `? super T`
+in `JediTerm/src/main/java/com/intellij/util/containers/ContainerUtil.java`
+#### Snippet
+```java
+  @NotNull
+  @Contract(pure=true)
+  public static <T, V> V[] map2Array(@NotNull T[] array, @NotNull Class<? super V> aClass, @NotNull Function<T, V> mapper) {
+    return map2Array(Arrays.asList(array), aClass, mapper);
+  }
+```
+
+### BoundedWildcard
+Can generalize to `? extends V`
+in `JediTerm/src/main/java/com/intellij/util/containers/ContainerUtil.java`
+#### Snippet
+```java
+  @NotNull
+  @Contract(pure=true)
+  public static <T, V> V[] map2Array(@NotNull T[] array, @NotNull Class<? super V> aClass, @NotNull Function<T, V> mapper) {
+    return map2Array(Arrays.asList(array), aClass, mapper);
+  }
 ```
 
 ### BoundedWildcard
@@ -7172,15 +6956,15 @@ in `JediTerm/src/main/java/com/intellij/util/containers/ContainerUtil.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends T`
+Can generalize to `? extends V`
 in `JediTerm/src/main/java/com/intellij/util/containers/ContainerUtil.java`
 #### Snippet
 ```java
   @NotNull
   @Contract(pure=true)
-  public static <T> Collection<T> subtract(@NotNull Collection<T> from, @NotNull Collection<T> what) {
-    final Set<T> set = newHashSet(from);
-    set.removeAll(what);
+  public static <T, V> List<V> mapNotNull(@NotNull Iterable<? extends T> iterable, @NotNull Function<T, V> mapping) {
+    List<V> result = new ArrayList<V>();
+    for (T t : iterable) {
 ```
 
 ### BoundedWildcard
@@ -7188,22 +6972,22 @@ Can generalize to `? super T`
 in `JediTerm/src/main/java/com/intellij/util/containers/ContainerUtil.java`
 #### Snippet
 ```java
+  @NotNull
+  @Contract(pure=true)
+  public static <T> Object[] map2Array(@NotNull T[] array, @NotNull Function<T, Object> mapper) {
+    return map2Array(array, Object.class, mapper);
   }
-
-  public static <T> void sort(@NotNull T[] a, @NotNull Comparator<T> comparator) {
-    int size = a.length;
-
 ```
 
 ### BoundedWildcard
-Can generalize to `? super V`
+Can generalize to `? super T`
 in `JediTerm/src/main/java/com/intellij/util/containers/ContainerUtil.java`
 #### Snippet
 ```java
   @NotNull
   @Contract(pure=true)
-  public static <T, V> List<T> concat(@NotNull V[] array, @NotNull Function<V, Collection<? extends T>> fun) {
-    return concat(Arrays.asList(array), fun);
+  public static <T, KEY, VALUE> Map<KEY, VALUE> map2Map(@NotNull T[] collection, @NotNull Function<T, Pair<KEY, VALUE>> mapper) {
+    return map2Map(Arrays.asList(collection), mapper);
   }
 ```
 
@@ -7213,21 +6997,9 @@ in `JediTerm/src/main/java/com/intellij/util/containers/ContainerUtil.java`
 #### Snippet
 ```java
 
-  @NotNull
-  public static <T> Set<T> collectSet(@NotNull Iterator<T> iterator) {
-    if (!iterator.hasNext()) return Collections.emptySet();
-    Set<T> hashSet = newHashSet();
-```
-
-### BoundedWildcard
-Can generalize to `? super T`
-in `JediTerm/src/main/java/com/intellij/util/containers/ContainerUtil.java`
-#### Snippet
-```java
   @Contract(pure = true)
-  public static <T, KEY, VALUE> Map<KEY, VALUE> map2MapNotNull(@NotNull T[] collection,
-                                                               @NotNull Function<T, Pair<KEY, VALUE>> mapper) {
-    return map2MapNotNull(Arrays.asList(collection), mapper);
+  public static <T> T getOrElse(@NotNull List<T> elements, int i, T defaultValue) {
+    return elements.size() > i ? elements.get(i) : defaultValue;
   }
 ```
 
@@ -7238,8 +7010,8 @@ in `JediTerm/src/main/java/com/intellij/util/containers/ContainerUtil.java`
 ```java
   @NotNull
   @Contract(pure=true)
-  public static <T> THashSet<T> newTroveSet(@NotNull Collection<T> elements) {
-    return new THashSet<T>(elements);
+  public static <T> THashSet<T> newTroveSet(@NotNull TObjectHashingStrategy<T> strategy, @NotNull Collection<T> elements) {
+    return new THashSet<T>(elements, strategy);
   }
 ```
 
@@ -7256,15 +7028,243 @@ in `JediTerm/src/main/java/com/intellij/util/containers/ContainerUtil.java`
 ```
 
 ### BoundedWildcard
+Can generalize to `? super K`
+in `JediTerm/src/main/java/com/intellij/util/containers/ContainerUtil.java`
+#### Snippet
+```java
+
+  @NotNull
+  public static <K,V> V[] convert(@NotNull K[] from, @NotNull V[] to, @NotNull Function<K,V> fun) {
+    if (to.length < from.length) {
+      @SuppressWarnings("unchecked") V[] array = (V[])Array.newInstance(to.getClass().getComponentType(), from.length);
+```
+
+### BoundedWildcard
+Can generalize to `? extends V`
+in `JediTerm/src/main/java/com/intellij/util/containers/ContainerUtil.java`
+#### Snippet
+```java
+
+  @NotNull
+  public static <K,V> V[] convert(@NotNull K[] from, @NotNull V[] to, @NotNull Function<K,V> fun) {
+    if (to.length < from.length) {
+      @SuppressWarnings("unchecked") V[] array = (V[])Array.newInstance(to.getClass().getComponentType(), from.length);
+```
+
+### BoundedWildcard
+Can generalize to `? extends V`
+in `JediTerm/src/main/java/com/intellij/util/containers/ContainerUtil.java`
+#### Snippet
+```java
+  @NotNull
+  @Contract(pure=true)
+  public static <T,V> List<V> map(@NotNull Collection<? extends T> iterable, @NotNull Function<T, V> mapping) {
+    if (iterable.isEmpty()) return emptyList();
+    List<V> result = new ArrayList<V>(iterable.size());
+```
+
+### BoundedWildcard
+Can generalize to `? extends K`
+in `JediTerm/src/main/java/com/intellij/util/containers/ContainerUtil.java`
+#### Snippet
+```java
+  @NotNull
+  @Contract(pure=true)
+  public static <K> THashSet<K> newIdentityTroveSet(@NotNull Collection<K> collection) {
+    return new THashSet<K>(collection, ContainerUtil.<K>identityStrategy());
+  }
+```
+
+### BoundedWildcard
 Can generalize to `? super T`
 in `JediTerm/src/main/java/com/intellij/util/containers/ContainerUtil.java`
 #### Snippet
 ```java
   @NotNull
   @Contract(pure=true)
-  public static <T, KEY, VALUE> Map<KEY, VALUE> map2Map(@NotNull T[] collection, @NotNull Function<T, Pair<KEY, VALUE>> mapper) {
-    return map2Map(Arrays.asList(collection), mapper);
+  public static <T, V> V[] map(@NotNull T[] arr, @NotNull Function<T, V> mapping, @NotNull V[] emptyArray) {
+    if (arr.length==0) {
+      assert emptyArray.length == 0 : "You must pass an empty array";
+```
+
+### BoundedWildcard
+Can generalize to `? extends V`
+in `JediTerm/src/main/java/com/intellij/util/containers/ContainerUtil.java`
+#### Snippet
+```java
+  @NotNull
+  @Contract(pure=true)
+  public static <T, V> V[] map(@NotNull T[] arr, @NotNull Function<T, V> mapping, @NotNull V[] emptyArray) {
+    if (arr.length==0) {
+      assert emptyArray.length == 0 : "You must pass an empty array";
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
+in `JediTerm/src/main/java/com/intellij/util/containers/ContainerUtil.java`
+#### Snippet
+```java
+  @NotNull
+  @Contract(pure=true)
+  public static <T> Object[] map2Array(@NotNull Collection<T> array, @NotNull Function<T, Object> mapper) {
+    return map2Array(array, Object.class, mapper);
   }
+```
+
+### BoundedWildcard
+Can generalize to `? super T`
+in `JediTerm/src/main/java/com/intellij/util/containers/ContainerUtil.java`
+#### Snippet
+```java
+  @NotNull
+  @Contract(pure=true)
+  public static <T> Object[] map2Array(@NotNull Collection<T> array, @NotNull Function<T, Object> mapper) {
+    return map2Array(array, Object.class, mapper);
+  }
+```
+
+### BoundedWildcard
+Can generalize to `? extends V`
+in `JediTerm/src/main/java/com/intellij/util/containers/ContainerUtil.java`
+#### Snippet
+```java
+  @NotNull
+  @Contract(pure=true)
+  public static <T, V> V getOrElse(@NotNull Map<T, V> result, final T key, @NotNull V defValue) {
+    V value = result.get(key);
+    return value == null ? defValue : value;
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
+in `JediTerm/src/main/java/com/intellij/util/containers/ContainerUtil.java`
+#### Snippet
+```java
+  @NotNull
+  @Contract(pure=true)
+  public static <T> Collection<T> subtract(@NotNull Collection<T> from, @NotNull Collection<T> what) {
+    final Set<T> set = newHashSet(from);
+    set.removeAll(what);
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
+in `JediTerm/src/main/java/com/intellij/util/containers/ContainerUtil.java`
+#### Snippet
+```java
+
+  @NotNull
+  public static <T> Set<T> collectSet(@NotNull Iterator<T> iterator) {
+    if (!iterator.hasNext()) return Collections.emptySet();
+    Set<T> hashSet = newHashSet();
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
+in `JediTerm/src/main/java/com/intellij/util/containers/ContainerUtil.java`
+#### Snippet
+```java
+
+  @Contract(pure=true)
+  public static <T> int indexOf(@NotNull List<T> list, @NotNull final T object) {
+    return indexOf(list, new Condition<T>() {
+      @Override
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
+in `JediTerm/src/main/java/com/intellij/util/containers/ContainerUtil.java`
+#### Snippet
+```java
+  @NotNull
+  @Contract(pure=true)
+  public static <T> Set<T> union(@NotNull Set<T> set, @NotNull Set<T> set2) {
+    Set<T> result = new THashSet<T>(set.size() + set2.size());
+    result.addAll(set);
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
+in `JediTerm/src/main/java/com/intellij/util/containers/ContainerUtil.java`
+#### Snippet
+```java
+  @NotNull
+  @Contract(pure=true)
+  public static <T> Set<T> union(@NotNull Set<T> set, @NotNull Set<T> set2) {
+    Set<T> result = new THashSet<T>(set.size() + set2.size());
+    result.addAll(set);
+```
+
+### BoundedWildcard
+Can generalize to `? super T`
+in `JediTerm/src/main/java/com/intellij/util/containers/ContainerUtil.java`
+#### Snippet
+```java
+  @NotNull
+  @Contract(pure=true)
+  public static <T, V> List<V> map(@NotNull T[] array, @NotNull Function<T, V> mapping) {
+    List<V> result = new ArrayList<V>(array.length);
+    for (T t : array) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends V`
+in `JediTerm/src/main/java/com/intellij/util/containers/ContainerUtil.java`
+#### Snippet
+```java
+  @NotNull
+  @Contract(pure=true)
+  public static <T, V> List<V> map(@NotNull T[] array, @NotNull Function<T, V> mapping) {
+    List<V> result = new ArrayList<V>(array.length);
+    for (T t : array) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends K`
+in `JediTerm/src/main/java/com/intellij/util/containers/ContainerUtil.java`
+#### Snippet
+```java
+  @NotNull
+  @Contract(pure=true)
+  public static <K, V> Map<K,Couple<V>> diff(@NotNull Map<K, V> map1, @NotNull Map<K, V> map2) {
+    final Map<K, Couple<V>> res = newHashMap();
+    final Set<K> keys = newHashSet();
+```
+
+### BoundedWildcard
+Can generalize to `? extends V`
+in `JediTerm/src/main/java/com/intellij/util/containers/ContainerUtil.java`
+#### Snippet
+```java
+  @NotNull
+  @Contract(pure=true)
+  public static <K, V> Map<K,Couple<V>> diff(@NotNull Map<K, V> map1, @NotNull Map<K, V> map2) {
+    final Map<K, Couple<V>> res = newHashMap();
+    final Set<K> keys = newHashSet();
+```
+
+### BoundedWildcard
+Can generalize to `? extends K`
+in `JediTerm/src/main/java/com/intellij/util/containers/ContainerUtil.java`
+#### Snippet
+```java
+  @NotNull
+  @Contract(pure=true)
+  public static <K, V> Map<K,Couple<V>> diff(@NotNull Map<K, V> map1, @NotNull Map<K, V> map2) {
+    final Map<K, Couple<V>> res = newHashMap();
+    final Set<K> keys = newHashSet();
+```
+
+### BoundedWildcard
+Can generalize to `? extends V`
+in `JediTerm/src/main/java/com/intellij/util/containers/ContainerUtil.java`
+#### Snippet
+```java
+  @NotNull
+  @Contract(pure=true)
+  public static <K, V> Map<K,Couple<V>> diff(@NotNull Map<K, V> map1, @NotNull Map<K, V> map2) {
+    final Map<K, Couple<V>> res = newHashMap();
+    final Set<K> keys = newHashSet();
 ```
 
 ## RuleId[ruleID=MissortedModifiers]
@@ -7309,18 +7309,6 @@ Missorted modifiers `abstract protected`
 in `ssh/src/com/jediterm/ssh/jsch/JSchTtyConnector.java`
 #### Snippet
 ```java
-  abstract protected T openChannel(Session session) throws JSchException;
-
-  abstract protected void configureChannelShell(T channel);
-
-  public boolean init(Questioner q) {
-```
-
-### MissortedModifiers
-Missorted modifiers `abstract protected`
-in `ssh/src/com/jediterm/ssh/jsch/JSchTtyConnector.java`
-#### Snippet
-```java
   }
 
   abstract protected T openChannel(Session session) throws JSchException;
@@ -7338,6 +7326,30 @@ in `ssh/src/com/jediterm/ssh/jsch/JSchTtyConnector.java`
   abstract protected void setPtySize(T channel, int col, int row, int wp, int hp);
 
   private void resizeImmediately() {
+```
+
+### MissortedModifiers
+Missorted modifiers `abstract protected`
+in `ssh/src/com/jediterm/ssh/jsch/JSchTtyConnector.java`
+#### Snippet
+```java
+  abstract protected T openChannel(Session session) throws JSchException;
+
+  abstract protected void configureChannelShell(T channel);
+
+  public boolean init(Questioner q) {
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `terminal/src/com/jediterm/terminal/model/CharBuffer.java`
+#### Snippet
+```java
+public class CharBuffer implements Iterable<Character>, CharSequence {
+
+  public final static CharBuffer EMPTY = new CharBuffer(new char[0], 0, 0);
+
+  private final char[] myBuf;
 ```
 
 ### MissortedModifiers
@@ -7365,15 +7377,15 @@ public class BasicTerminalShellExample {
 ```
 
 ### MissortedModifiers
-Missorted modifiers `final static`
-in `terminal/src/com/jediterm/terminal/model/CharBuffer.java`
+Missorted modifiers `private @Nullable`
+in `JediTerm/src/main/java/com/intellij/ui/tabs/UiDecorator.java`
 #### Snippet
 ```java
-public class CharBuffer implements Iterable<Character>, CharSequence {
+    private @Nullable
+    final Font myLabelFont;
+    private @Nullable
+    final Insets myLabelInsets;
 
-  public final static CharBuffer EMPTY = new CharBuffer(new char[0], 0, 0);
-
-  private final char[] myBuf;
 ```
 
 ### MissortedModifiers
@@ -7386,18 +7398,6 @@ in `JediTerm/src/main/java/com/intellij/ui/tabs/UiDecorator.java`
     private @Nullable
     final Font myLabelFont;
     private @Nullable
-```
-
-### MissortedModifiers
-Missorted modifiers `private @Nullable`
-in `JediTerm/src/main/java/com/intellij/ui/tabs/UiDecorator.java`
-#### Snippet
-```java
-    private @Nullable
-    final Font myLabelFont;
-    private @Nullable
-    final Insets myLabelInsets;
-
 ```
 
 ### MissortedModifiers
@@ -7461,18 +7461,6 @@ in `JediTerm/src/main/java/com/intellij/ui/tabs/impl/JBTabsImpl.java`
 ```
 
 ### MissortedModifiers
-Missorted modifiers `private final @NotNull`
-in `JediTerm/src/main/java/com/intellij/ui/tabs/impl/JBTabsImpl.java`
-#### Snippet
-```java
-            implements Accessible, AccessibleComponent, AccessibleAction {
-
-        private final
-        @NotNull
-        JBTabsImpl myParent;
-```
-
-### MissortedModifiers
 Missorted modifiers `private @NotNull`
 in `JediTerm/src/main/java/com/intellij/ui/tabs/impl/JBTabsImpl.java`
 #### Snippet
@@ -7485,15 +7473,15 @@ in `JediTerm/src/main/java/com/intellij/ui/tabs/impl/JBTabsImpl.java`
 ```
 
 ### MissortedModifiers
-Missorted modifiers `final private`
-in `terminal/src/com/jediterm/terminal/ui/TerminalPanel.java`
+Missorted modifiers `private final @NotNull`
+in `JediTerm/src/main/java/com/intellij/ui/tabs/impl/JBTabsImpl.java`
 #### Snippet
 ```java
-  private final TerminalTextBuffer myTerminalTextBuffer;
+            implements Accessible, AccessibleComponent, AccessibleAction {
 
-  final private StyleState myStyleState;
-
-  /*scroll and cursor*/
+        private final
+        @NotNull
+        JBTabsImpl myParent;
 ```
 
 ### MissortedModifiers
@@ -7506,6 +7494,18 @@ in `terminal/src/com/jediterm/terminal/ui/TerminalPanel.java`
   final private TerminalCursor myCursor = new TerminalCursor();
 
   //we scroll a window [0, terminal_height] in the range [-history_lines_count, terminal_height]
+```
+
+### MissortedModifiers
+Missorted modifiers `final private`
+in `terminal/src/com/jediterm/terminal/ui/TerminalPanel.java`
+#### Snippet
+```java
+  private final TerminalTextBuffer myTerminalTextBuffer;
+
+  final private StyleState myStyleState;
+
+  /*scroll and cursor*/
 ```
 
 ### MissortedModifiers
@@ -7995,6 +7995,18 @@ in `terminal/src/com/jediterm/terminal/TerminalKeyEncoder.java`
 ```
 
 ### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `terminal/src/com/jediterm/terminal/emulator/JediEmulator.java`
+#### Snippet
+```java
+  private static final Logger LOG = LoggerFactory.getLogger(JediEmulator.class);
+
+  private static int logThrottlerCounter = 0;
+  private static int logThrottlerRatio = 100;
+  private static int logThrottlerLimit = logThrottlerRatio;
+```
+
+### RedundantFieldInitialization
 Field initialization to `false` is redundant
 in `JediTerm/src/main/java/com/intellij/ui/tabs/impl/singleRow/ScrollableSingleRowLayout.java`
 #### Snippet
@@ -8016,30 +8028,6 @@ public class ScrollableSingleRowLayout extends SingleRowLayout {
   private int myScrollOffset = 0;
   private boolean myScrollSelectionInViewPending = false;
 
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `terminal/src/com/jediterm/terminal/emulator/JediEmulator.java`
-#### Snippet
-```java
-  private static final Logger LOG = LoggerFactory.getLogger(JediEmulator.class);
-
-  private static int logThrottlerCounter = 0;
-  private static int logThrottlerRatio = 100;
-  private static int logThrottlerLimit = logThrottlerRatio;
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `terminal/src/com/jediterm/terminal/ui/TerminalAction.java`
-#### Snippet
-```java
-  private final Predicate<KeyEvent> myRunnable;
-
-  private Character myMnemonic = null;
-  private Supplier<Boolean> myEnabledSupplier = () -> true;
-  private Integer myMnemonicKey = null;
 ```
 
 ### RedundantFieldInitialization
@@ -8080,6 +8068,18 @@ in `terminal/src/com/jediterm/terminal/ui/TerminalAction.java`
 
 ### RedundantFieldInitialization
 Field initialization to `null` is redundant
+in `terminal/src/com/jediterm/terminal/ui/TerminalAction.java`
+#### Snippet
+```java
+  private final Predicate<KeyEvent> myRunnable;
+
+  private Character myMnemonic = null;
+  private Supplier<Boolean> myEnabledSupplier = () -> true;
+  private Integer myMnemonicKey = null;
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
 in `JediTerm/src/main/java/com/intellij/ui/JBSplitter.java`
 #### Snippet
 ```java
@@ -8103,27 +8103,27 @@ in `JediTerm/src/main/java/com/intellij/util/containers/ImmutableList.java`
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `ssh/src/com/jediterm/ssh/jsch/JSchTtyConnector.java`
+Field initialization to `false` is redundant
+in `terminal/src/com/jediterm/terminal/emulator/ControlSequence.java`
 #### Snippet
 ```java
 
-  private InputStream myInputStream = null;
-  private OutputStream myOutputStream = null;
-  private Session mySession;
-  private T myChannelShell;
+  private boolean myStartsWithQuestionMark = false; // true when CSI ?
+  private boolean myStartsWithMoreMark = false; // true when CSI >
+
+  private final StringBuilder mySequenceString = new StringBuilder();
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `ssh/src/com/jediterm/ssh/jsch/JSchTtyConnector.java`
+Field initialization to `false` is redundant
+in `terminal/src/com/jediterm/terminal/emulator/ControlSequence.java`
 #### Snippet
 ```java
-  public static final int DEFAULT_PORT = 22;
+  private ArrayList<Character> myUnhandledChars;
 
-  private InputStream myInputStream = null;
-  private OutputStream myOutputStream = null;
-  private Session mySession;
+  private boolean myStartsWithQuestionMark = false; // true when CSI ?
+  private boolean myStartsWithMoreMark = false; // true when CSI >
+
 ```
 
 ### RedundantFieldInitialization
@@ -8155,35 +8155,35 @@ Field initialization to `null` is redundant
 in `ssh/src/com/jediterm/ssh/jsch/JSchTtyConnector.java`
 #### Snippet
 ```java
+
+  private InputStream myInputStream = null;
+  private OutputStream myOutputStream = null;
+  private Session mySession;
+  private T myChannelShell;
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `ssh/src/com/jediterm/ssh/jsch/JSchTtyConnector.java`
+#### Snippet
+```java
+  public static final int DEFAULT_PORT = 22;
+
+  private InputStream myInputStream = null;
+  private OutputStream myOutputStream = null;
+  private Session mySession;
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `ssh/src/com/jediterm/ssh/jsch/JSchTtyConnector.java`
+#### Snippet
+```java
   private int myPort = DEFAULT_PORT;
 
   private String myUser = null;
   private String myHost = null;
   private String myPassword = null;
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `terminal/src/com/jediterm/terminal/emulator/ControlSequence.java`
-#### Snippet
-```java
-
-  private boolean myStartsWithQuestionMark = false; // true when CSI ?
-  private boolean myStartsWithMoreMark = false; // true when CSI >
-
-  private final StringBuilder mySequenceString = new StringBuilder();
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `terminal/src/com/jediterm/terminal/emulator/ControlSequence.java`
-#### Snippet
-```java
-  private ArrayList<Character> myUnhandledChars;
-
-  private boolean myStartsWithQuestionMark = false; // true when CSI ?
-  private boolean myStartsWithMoreMark = false; // true when CSI >
-
 ```
 
 ### RedundantFieldInitialization
@@ -8200,14 +8200,26 @@ in `terminal/src/com/jediterm/terminal/model/StyleState.java`
 
 ### RedundantFieldInitialization
 Field initialization to `null` is redundant
-in `terminal/src/com/jediterm/terminal/model/JediTermDebouncerImpl.java`
+in `JediTerm/src/main/java/com/intellij/ui/components/JBLabel.java`
 #### Snippet
 ```java
-  private final long myDelay;
+  private UIUtil.FontColor myFontColor = UIUtil.FontColor.NORMAL;
+  private JComponent myAnchor = null;
+  private JEditorPane myEditorPane = null;
+  private JLabel myIconLabel = null;
+  private boolean myMultiline = false;
+```
 
-  private TimerTask myTimerTask = null;
-
-  public JediTermDebouncerImpl(Runnable runnable, long delay) {
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `JediTerm/src/main/java/com/intellij/ui/components/JBLabel.java`
+#### Snippet
+```java
+  private UIUtil.ComponentStyle myComponentStyle = UIUtil.ComponentStyle.REGULAR;
+  private UIUtil.FontColor myFontColor = UIUtil.FontColor.NORMAL;
+  private JComponent myAnchor = null;
+  private JEditorPane myEditorPane = null;
+  private JLabel myIconLabel = null;
 ```
 
 ### RedundantFieldInitialization
@@ -8236,26 +8248,14 @@ in `JediTerm/src/main/java/com/intellij/ui/components/JBLabel.java`
 
 ### RedundantFieldInitialization
 Field initialization to `null` is redundant
-in `JediTerm/src/main/java/com/intellij/ui/components/JBLabel.java`
+in `terminal/src/com/jediterm/terminal/model/JediTermDebouncerImpl.java`
 #### Snippet
 ```java
-  private UIUtil.FontColor myFontColor = UIUtil.FontColor.NORMAL;
-  private JComponent myAnchor = null;
-  private JEditorPane myEditorPane = null;
-  private JLabel myIconLabel = null;
-  private boolean myMultiline = false;
-```
+  private final long myDelay;
 
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `JediTerm/src/main/java/com/intellij/ui/components/JBLabel.java`
-#### Snippet
-```java
-  private UIUtil.ComponentStyle myComponentStyle = UIUtil.ComponentStyle.REGULAR;
-  private UIUtil.FontColor myFontColor = UIUtil.FontColor.NORMAL;
-  private JComponent myAnchor = null;
-  private JEditorPane myEditorPane = null;
-  private JLabel myIconLabel = null;
+  private TimerTask myTimerTask = null;
+
+  public JediTermDebouncerImpl(Runnable runnable, long delay) {
 ```
 
 ### RedundantFieldInitialization
@@ -8283,18 +8283,6 @@ in `terminal/src/com/jediterm/terminal/SubstringFinder.java`
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `terminal/src/com/jediterm/terminal/model/TerminalTextBuffer.java`
-#### Snippet
-```java
-      final StringBuilder sb = new StringBuilder();
-      myScreenBuffer.processLines(0, myHeight, new StyledTextConsumerAdapter() {
-        int count = 0;
-
-        @Override
-```
-
-### RedundantFieldInitialization
 Field initialization to `false` is redundant
 in `terminal/src/com/jediterm/terminal/model/TerminalTextBuffer.java`
 #### Snippet
@@ -8319,15 +8307,27 @@ in `terminal/src/com/jediterm/terminal/model/TerminalTextBuffer.java`
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `terminal/src/com/jediterm/terminal/model/JediTerminal.java`
+Field initialization to `0` is redundant
+in `terminal/src/com/jediterm/terminal/model/TerminalTextBuffer.java`
 #### Snippet
 ```java
+      final StringBuilder sb = new StringBuilder();
+      myScreenBuffer.processLines(0, myHeight, new StyledTextConsumerAdapter() {
+        int count = 0;
 
-  @Nullable
-  private TerminalOutputStream myTerminalOutput = null;
+        @Override
+```
 
-  private MouseMode myMouseMode = MouseMode.MOUSE_REPORTING_NONE;
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `terminal/src/com/jediterm/terminal/model/TerminalLineIntervalHighlighting.java`
+#### Snippet
+```java
+  private final int myEndOffset;
+  private final TextStyle myStyle;
+  private boolean myDisposed = false;
+
+  TerminalLineIntervalHighlighting(@NotNull TerminalLine line, int startOffset, int length, @NotNull TextStyle style) {
 ```
 
 ### RedundantFieldInitialization
@@ -8347,11 +8347,11 @@ Field initialization to `null` is redundant
 in `terminal/src/com/jediterm/terminal/model/JediTerminal.java`
 #### Snippet
 ```java
-  private final StyleState myStyleState;
 
-  private StoredCursor myStoredCursor = null;
+  @Nullable
+  private TerminalOutputStream myTerminalOutput = null;
 
-  private final EnumSet<TerminalMode> myModes = EnumSet.noneOf(TerminalMode.class);
+  private MouseMode myMouseMode = MouseMode.MOUSE_REPORTING_NONE;
 ```
 
 ### RedundantFieldInitialization
@@ -8367,15 +8367,15 @@ in `terminal/src/com/jediterm/terminal/model/JediTerminal.java`
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `terminal/src/com/jediterm/terminal/model/TerminalLineIntervalHighlighting.java`
+Field initialization to `null` is redundant
+in `terminal/src/com/jediterm/terminal/model/JediTerminal.java`
 #### Snippet
 ```java
-  private final int myEndOffset;
-  private final TextStyle myStyle;
-  private boolean myDisposed = false;
+  private final StyleState myStyleState;
 
-  TerminalLineIntervalHighlighting(@NotNull TerminalLine line, int startOffset, int length, @NotNull TextStyle style) {
+  private StoredCursor myStoredCursor = null;
+
+  private final EnumSet<TerminalMode> myModes = EnumSet.noneOf(TerminalMode.class);
 ```
 
 ### RedundantFieldInitialization
@@ -8388,6 +8388,30 @@ in `JediTerm/src/main/java/com/intellij/ui/mac/foundation/Foundation.java`
   private static long ourCurrentRunnableCount = 0;
   private static final Object RUNNABLE_LOCK = new Object();
 
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `terminal/src/com/jediterm/terminal/model/TerminalLine.java`
+#### Snippet
+```java
+
+  private TextEntries myTextEntries = new TextEntries();
+  private boolean myWrapped = false;
+  private final List<TerminalLineIntervalHighlighting> myCustomHighlightings = new ArrayList<>();
+  TerminalLine myTypeAheadLine;
+```
+
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `terminal/src/com/jediterm/terminal/model/TerminalLine.java`
+#### Snippet
+```java
+    private final List<TextEntry> myTextEntries = new ArrayList<>();
+
+    private int myLength = 0;
+
+    public void add(TextEntry entry) {
 ```
 
 ### RedundantFieldInitialization
@@ -8415,30 +8439,6 @@ in `JediTerm/src/main/java/com/intellij/ui/ClickListener.java`
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `terminal/src/com/jediterm/terminal/model/TerminalLine.java`
-#### Snippet
-```java
-    private final List<TextEntry> myTextEntries = new ArrayList<>();
-
-    private int myLength = 0;
-
-    public void add(TextEntry entry) {
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `terminal/src/com/jediterm/terminal/model/TerminalLine.java`
-#### Snippet
-```java
-
-  private TextEntries myTextEntries = new TextEntries();
-  private boolean myWrapped = false;
-  private final List<TerminalLineIntervalHighlighting> myCustomHighlightings = new ArrayList<>();
-  TerminalLine myTypeAheadLine;
-```
-
-### RedundantFieldInitialization
 Field initialization to `false` is redundant
 in `JediTerm/src/main/java/com/intellij/openapi/ui/Splitter.java`
 #### Snippet
@@ -8448,66 +8448,6 @@ in `JediTerm/src/main/java/com/intellij/openapi/ui/Splitter.java`
   private boolean myHonorMinimumSize = false;
   private final float myMinProp;
   private final float myMaxProp;
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `JediTerm/src/main/java/com/intellij/ui/tabs/impl/JBTabsImpl.java`
-#### Snippet
-```java
-    private boolean myPaintFocus;
-
-    private boolean myHideTabs = false;
-
-    private boolean myRequestFocusOnLastFocusedComponent = false;
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `JediTerm/src/main/java/com/intellij/ui/tabs/impl/JBTabsImpl.java`
-#### Snippet
-```java
-    public boolean myHorizontalSide = true;
-
-    private boolean myStealthTabMode = false;
-
-    private boolean mySideComponentOnTabs = true;
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `JediTerm/src/main/java/com/intellij/ui/tabs/impl/JBTabsImpl.java`
-#### Snippet
-```java
-    boolean myAddNavigationGroup = true;
-
-    private boolean myGhostsAlwaysVisible = false;
-    private boolean myDisposed;
-    private boolean myToDrawBorderIfTabsHidden = true;
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `JediTerm/src/main/java/com/intellij/ui/tabs/impl/JBTabsImpl.java`
-#### Snippet
-```java
-    private boolean myHideTabs = false;
-
-    private boolean myRequestFocusOnLastFocusedComponent = false;
-    private boolean myListenerAdded;
-    final Set<TabInfo> myAttractions = new HashSet<>();
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `ssh/src/com/jediterm/ssh/jsch/SwingUserInfo.java`
-#### Snippet
-```java
-  private String myPassword = null;
-
-  private String myPassphrase = null;
-
-  private JTextField myPasswordField = new JPasswordField(20);
 ```
 
 ### RedundantFieldInitialization
@@ -8524,6 +8464,18 @@ public class SwingUserInfo implements UserInfo, UIKeyboardInteractive {
 
 ### RedundantFieldInitialization
 Field initialization to `null` is redundant
+in `ssh/src/com/jediterm/ssh/jsch/SwingUserInfo.java`
+#### Snippet
+```java
+  private String myPassword = null;
+
+  private String myPassphrase = null;
+
+  private JTextField myPasswordField = new JPasswordField(20);
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
 in `JediTerm/src/main/java/com/intellij/ui/SimpleColoredText.java`
 #### Snippet
 ```java
@@ -8532,42 +8484,6 @@ in `JediTerm/src/main/java/com/intellij/ui/SimpleColoredText.java`
   private String myCachedToString = null;
 
   public SimpleColoredText() {
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `JediTerm/src/main/java/com/intellij/ui/SimpleColoredComponent.java`
-#### Snippet
-```java
-  private boolean myAutoInvalidate = !(this instanceof TreeCellRenderer);
-
-  private boolean myIconOnTheRight = false;
-  private boolean myTransparentIconBackground;
-
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `JediTerm/src/main/java/com/intellij/ui/SimpleColoredComponent.java`
-#### Snippet
-```java
-  private Font myLayoutFont;
-  private final List<SimpleTextAttributes> myAttributes;
-  private List<Object> myFragmentTags = null;
-  private TIntIntHashMap myFragmentAlignment;
-
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `JediTerm/src/main/java/com/intellij/ui/SimpleColoredComponent.java`
-#### Snippet
-```java
-  @JdkConstants.HorizontalAlignment private int myTextAlign = SwingConstants.LEFT;
-
-  private boolean myIconOpaque = false;
-
-  private boolean myAutoInvalidate = !(this instanceof TreeCellRenderer);
 ```
 
 ### RedundantFieldInitialization
@@ -8611,6 +8527,18 @@ Field initialization to `false` is redundant
 in `typeahead/src/com/jediterm/typeahead/TerminalTypeAheadManager.java`
 #### Snippet
 ```java
+  private boolean myIsShowingPredictions = false;
+  // if true, new predictions will only be generated if the user isn't typing for a certain amount of time
+  private volatile boolean myOutOfSyncDetected = false;
+  private long myLastTypedTime;
+  // guards the terminal prompt. All predictions that try to move the cursor beyond leftmost cursor position are tentative
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `typeahead/src/com/jediterm/typeahead/TerminalTypeAheadManager.java`
+#### Snippet
+```java
   // guards the terminal prompt. All predictions that try to move the cursor beyond leftmost cursor position are tentative
   private Integer myLeftMostCursorPosition = null;
   private boolean myIsNotPasswordPrompt = false;
@@ -8631,27 +8559,99 @@ in `typeahead/src/com/jediterm/typeahead/TerminalTypeAheadManager.java`
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `typeahead/src/com/jediterm/typeahead/TerminalTypeAheadManager.java`
+Field initialization to `null` is redundant
+in `JediTerm/src/main/java/com/intellij/ui/SimpleColoredComponent.java`
 #### Snippet
 ```java
-  private boolean myIsShowingPredictions = false;
-  // if true, new predictions will only be generated if the user isn't typing for a certain amount of time
-  private volatile boolean myOutOfSyncDetected = false;
-  private long myLastTypedTime;
-  // guards the terminal prompt. All predictions that try to move the cursor beyond leftmost cursor position are tentative
+  private Font myLayoutFont;
+  private final List<SimpleTextAttributes> myAttributes;
+  private List<Object> myFragmentTags = null;
+  private TIntIntHashMap myFragmentAlignment;
+
 ```
 
 ### RedundantFieldInitialization
 Field initialization to `false` is redundant
-in `terminal/src/com/jediterm/terminal/model/JediTermTypeAheadModel.java`
+in `JediTerm/src/main/java/com/intellij/ui/SimpleColoredComponent.java`
 #### Snippet
 ```java
-  private @NotNull TypeAheadTerminalModel.ShellType myShellType = ShellType.Unknown;
+  private boolean myAutoInvalidate = !(this instanceof TreeCellRenderer);
 
-  private boolean isPredictionsApplied = false;
+  private boolean myIconOnTheRight = false;
+  private boolean myTransparentIconBackground;
 
-  public JediTermTypeAheadModel(@NotNull Terminal terminal,
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `JediTerm/src/main/java/com/intellij/ui/SimpleColoredComponent.java`
+#### Snippet
+```java
+  @JdkConstants.HorizontalAlignment private int myTextAlign = SwingConstants.LEFT;
+
+  private boolean myIconOpaque = false;
+
+  private boolean myAutoInvalidate = !(this instanceof TreeCellRenderer);
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `JediTerm/src/main/java/com/intellij/ui/tabs/impl/JBTabsImpl.java`
+#### Snippet
+```java
+    private boolean myHideTabs = false;
+
+    private boolean myRequestFocusOnLastFocusedComponent = false;
+    private boolean myListenerAdded;
+    final Set<TabInfo> myAttractions = new HashSet<>();
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `JediTerm/src/main/java/com/intellij/ui/tabs/impl/JBTabsImpl.java`
+#### Snippet
+```java
+    public boolean myHorizontalSide = true;
+
+    private boolean myStealthTabMode = false;
+
+    private boolean mySideComponentOnTabs = true;
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `JediTerm/src/main/java/com/intellij/ui/tabs/impl/JBTabsImpl.java`
+#### Snippet
+```java
+    boolean myAddNavigationGroup = true;
+
+    private boolean myGhostsAlwaysVisible = false;
+    private boolean myDisposed;
+    private boolean myToDrawBorderIfTabsHidden = true;
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `JediTerm/src/main/java/com/intellij/ui/tabs/impl/JBTabsImpl.java`
+#### Snippet
+```java
+    private boolean myPaintFocus;
+
+    private boolean myHideTabs = false;
+
+    private boolean myRequestFocusOnLastFocusedComponent = false;
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `terminal/src/com/jediterm/terminal/ui/TerminalPanel.java`
+#### Snippet
+```java
+  private SubstringFinder.FindResult myFindResult;
+
+  private LinkInfo myHoveredHyperlink = null;
+
+  private int myCursorType = Cursor.DEFAULT_CURSOR;
 ```
 
 ### RedundantFieldInitialization
@@ -8664,6 +8664,30 @@ in `terminal/src/com/jediterm/terminal/ui/TerminalPanel.java`
   private boolean myInitialSizeSyncDone = false;
 
   private TerminalStarter myTerminalStarter = null;
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `terminal/src/com/jediterm/terminal/ui/TerminalPanel.java`
+#### Snippet
+```java
+  private boolean myInitialSizeSyncDone = false;
+
+  private TerminalStarter myTerminalStarter = null;
+
+  private MouseMode myMouseMode = MouseMode.MOUSE_REPORTING_NONE;
+```
+
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `terminal/src/com/jediterm/terminal/ui/TerminalPanel.java`
+#### Snippet
+```java
+  private Font myBoldItalicFont;
+  private int myDescent = 0;
+  private int mySpaceBetweenLines = 0;
+  protected Dimension myCharSize = new Dimension();
+  private boolean myMonospaced;
 ```
 
 ### RedundantFieldInitialization
@@ -8691,42 +8715,6 @@ in `terminal/src/com/jediterm/terminal/ui/TerminalPanel.java`
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `terminal/src/com/jediterm/terminal/ui/TerminalPanel.java`
-#### Snippet
-```java
-  private Font myBoldItalicFont;
-  private int myDescent = 0;
-  private int mySpaceBetweenLines = 0;
-  protected Dimension myCharSize = new Dimension();
-  private boolean myMonospaced;
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `terminal/src/com/jediterm/terminal/ui/TerminalPanel.java`
-#### Snippet
-```java
-  private SubstringFinder.FindResult myFindResult;
-
-  private LinkInfo myHoveredHyperlink = null;
-
-  private int myCursorType = Cursor.DEFAULT_CURSOR;
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `terminal/src/com/jediterm/terminal/ui/TerminalPanel.java`
-#### Snippet
-```java
-  private boolean myInitialSizeSyncDone = false;
-
-  private TerminalStarter myTerminalStarter = null;
-
-  private MouseMode myMouseMode = MouseMode.MOUSE_REPORTING_NONE;
-```
-
-### RedundantFieldInitialization
 Field initialization to `null` is redundant
 in `terminal/src/com/jediterm/terminal/ui/TerminalPanel.java`
 #### Snippet
@@ -8736,6 +8724,18 @@ in `terminal/src/com/jediterm/terminal/ui/TerminalPanel.java`
   private Point mySelectionStartPoint = null;
   private TerminalSelection mySelection = null;
 
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `terminal/src/com/jediterm/terminal/model/JediTermTypeAheadModel.java`
+#### Snippet
+```java
+  private @NotNull TypeAheadTerminalModel.ShellType myShellType = ShellType.Unknown;
+
+  private boolean isPredictionsApplied = false;
+
+  public JediTermTypeAheadModel(@NotNull Terminal terminal,
 ```
 
 ### RedundantFieldInitialization
@@ -8855,11 +8855,11 @@ Array objects are compared using `==`, not 'Arrays.equals()'
 in `JediTerm/src/main/java/com/intellij/openapi/util/Comparing.java`
 #### Snippet
 ```java
-
-  public static int compare(@Nullable byte[] o1, @Nullable byte[] o2) {
-    if (o1 == o2) return 0;
-    if (o1 == null) return 1;
-    if (o2 == null) return -1;
+  public static <T> boolean equal(@Nullable T[] arr1, @Nullable T[] arr2) {
+    if (arr1 == null || arr2 == null) {
+      return arr1 == arr2;
+    }
+    return Arrays.equals(arr1, arr2);
 ```
 
 ### ArrayEquality
@@ -8879,23 +8879,11 @@ Array objects are compared using `==`, not 'Arrays.equals()'
 in `JediTerm/src/main/java/com/intellij/openapi/util/Comparing.java`
 #### Snippet
 ```java
-  public static <T> boolean equal(@Nullable T[] arr1, @Nullable T[] arr2) {
-    if (arr1 == null || arr2 == null) {
-      return arr1 == arr2;
-    }
-    return Arrays.equals(arr1, arr2);
-```
 
-### ArrayEquality
-Array objects are compared using `==`, not 'Arrays.equals()'
-in `JediTerm/src/main/java/com/intellij/util/ArrayUtil.java`
-#### Snippet
-```java
-  @Contract(pure=true)
-  public static <E> boolean startsWith(@NotNull E[] array, @NotNull E[] subArray) {
-    if (array == subArray) {
-      return true;
-    }
+  public static int compare(@Nullable byte[] o1, @Nullable byte[] o2) {
+    if (o1 == o2) return 0;
+    if (o1 == null) return 1;
+    if (o2 == null) return -1;
 ```
 
 ### ArrayEquality
@@ -8916,7 +8904,7 @@ in `JediTerm/src/main/java/com/intellij/util/ArrayUtil.java`
 #### Snippet
 ```java
   @Contract(pure=true)
-  public static <T> boolean equals(@NotNull T[] a1, @NotNull T[] a2, @NotNull Comparator<? super T> comparator) {
+  public static <T> boolean equals(@NotNull T[] a1, @NotNull T[] a2, @NotNull Equality<? super T> comparator) {
     if (a1 == a2) {
       return true;
     }
@@ -8928,7 +8916,19 @@ in `JediTerm/src/main/java/com/intellij/util/ArrayUtil.java`
 #### Snippet
 ```java
   @Contract(pure=true)
-  public static <T> boolean equals(@NotNull T[] a1, @NotNull T[] a2, @NotNull Equality<? super T> comparator) {
+  public static <E> boolean startsWith(@NotNull E[] array, @NotNull E[] subArray) {
+    if (array == subArray) {
+      return true;
+    }
+```
+
+### ArrayEquality
+Array objects are compared using `==`, not 'Arrays.equals()'
+in `JediTerm/src/main/java/com/intellij/util/ArrayUtil.java`
+#### Snippet
+```java
+  @Contract(pure=true)
+  public static <T> boolean equals(@NotNull T[] a1, @NotNull T[] a2, @NotNull Comparator<? super T> comparator) {
     if (a1 == a2) {
       return true;
     }
@@ -8966,8 +8966,8 @@ in `JediTerm/src/main/java/com/intellij/openapi/diagnostic/Logger.java`
 #### Snippet
 ```java
 
-  public void error(@NonNls String message, @Nullable Throwable e) {
-    error(message, e, new String[0]);
+  public void error(@NotNull Throwable t) {
+    error(t.getMessage(), t, new String[0]);
   }
 
 ```
@@ -8978,8 +8978,8 @@ in `JediTerm/src/main/java/com/intellij/openapi/diagnostic/Logger.java`
 #### Snippet
 ```java
 
-  public void error(@NotNull Throwable t) {
-    error(t.getMessage(), t, new String[0]);
+  public void error(@NonNls String message, @Nullable Throwable e) {
+    error(message, e, new String[0]);
   }
 
 ```
@@ -9058,6 +9058,18 @@ in `JediTerm/src/main/java/com/intellij/openapi/diagnostic/Logger.java`
 ```
 
 ### ConstantValue
+Condition `lcdContrastValue == 0` is always `true`
+in `JediTerm/src/main/java/com/intellij/util/ui/UIUtil.java`
+#### Snippet
+```java
+
+        // Evaluate the value depending on our current theme
+        if (lcdContrastValue == 0) {
+            if (SystemInfo.isMacIntel64) {
+                lcdContrastValue = isUnderDarcula() ? 140 : 230;
+```
+
+### ConstantValue
 Condition `c > 0x1F` is always `true`
 in `terminal/src/com/jediterm/terminal/util/CharUtils.java`
 #### Snippet
@@ -9094,15 +9106,15 @@ in `JediTerm/src/main/java/com/intellij/openapi/ui/OnePixelDivider.java`
 ```
 
 ### ConstantValue
-Condition `lcdContrastValue == 0` is always `true`
-in `JediTerm/src/main/java/com/intellij/util/ui/UIUtil.java`
+Condition `myShowDividerControls && false` is always `false`
+in `JediTerm/src/main/java/com/intellij/openapi/ui/Splitter.java`
 #### Snippet
 ```java
+                                                       new Insets(0, 0, 0, 0), 0, 0));
 
-        // Evaluate the value depending on our current theme
-        if (lcdContrastValue == 0) {
-            if (SystemInfo.isMacIntel64) {
-                lcdContrastValue = isUnderDarcula() ? 140 : 230;
+      if (myShowDividerControls && false) {
+        int glueFill = isVerticalSplit ? GridBagConstraints.VERTICAL : GridBagConstraints.HORIZONTAL;
+        int xMask = isVerticalSplit ? 1 : 0;
 ```
 
 ### ConstantValue
@@ -9142,15 +9154,15 @@ in `JediTerm/src/main/java/com/intellij/openapi/ui/Splitter.java`
 ```
 
 ### ConstantValue
-Condition `myShowDividerControls && false` is always `false`
-in `JediTerm/src/main/java/com/intellij/openapi/ui/Splitter.java`
+Condition `font != null` is always `true`
+in `JediTerm/src/main/java/com/intellij/ui/SimpleColoredComponent.java`
 #### Snippet
 ```java
-                                                       new Insets(0, 0, 0, 0), 0, 0));
 
-      if (myShowDividerControls && false) {
-        int glueFill = isVerticalSplit ? GridBagConstraints.VERTICAL : GridBagConstraints.HORIZONTAL;
-        int xMask = isVerticalSplit ? 1 : 0;
+    Font font = getBaseFont();
+    LOG.assertTrue(font != null);
+
+    width += computeTextWidth(font, mainTextOnly);
 ```
 
 ### ConstantValue
@@ -9175,18 +9187,6 @@ in `JediTerm/src/main/java/com/intellij/ui/tabs/impl/JBTabsImpl.java`
             if (lastShowing) {
                 shape.lineTo(rightX - shape.deltaX(arc), topY);
                 shape.quadTo(rightX + 1, topY, rightX + 1, topY + shape.deltaY(arc));
-```
-
-### ConstantValue
-Condition `info != null` is always `true`
-in `JediTerm/src/main/java/com/intellij/ui/tabs/impl/JBTabsImpl.java`
-#### Snippet
-```java
-        public void addAccessibleSelection(int i) {
-            TabInfo info = getTabAt(i);
-            if (info != null) {
-                select(info, false);
-            }
 ```
 
 ### ConstantValue
@@ -9226,15 +9226,15 @@ in `JediTerm/src/main/java/com/intellij/ui/tabs/impl/JBTabsImpl.java`
 ```
 
 ### ConstantValue
-Condition `font != null` is always `true`
-in `JediTerm/src/main/java/com/intellij/ui/SimpleColoredComponent.java`
+Condition `info != null` is always `true`
+in `JediTerm/src/main/java/com/intellij/ui/tabs/impl/JBTabsImpl.java`
 #### Snippet
 ```java
-
-    Font font = getBaseFont();
-    LOG.assertTrue(font != null);
-
-    width += computeTextWidth(font, mainTextOnly);
+        public void addAccessibleSelection(int i) {
+            TabInfo info = getTabAt(i);
+            if (info != null) {
+                select(info, false);
+            }
 ```
 
 ## RuleId[ruleID=MethodOverridesStaticMethod]
@@ -9301,18 +9301,6 @@ class NSScrollerHelper {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `Fonts` has only 'static' members, and lacks a 'private' constructor
-in `JediTerm/src/main/java/com/intellij/util/ui/JBUI.java`
-#### Snippet
-```java
-  }
-
-  public static class Fonts {
-    public static JBFont label() {
-      return JBFont.create(UIManager.getFont("Label.font"), false);
-```
-
-### UtilityClassWithoutPrivateConstructor
 Class `Borders` has only 'static' members, and lacks a 'private' constructor
 in `JediTerm/src/main/java/com/intellij/util/ui/JBUI.java`
 #### Snippet
@@ -9322,6 +9310,18 @@ in `JediTerm/src/main/java/com/intellij/util/ui/JBUI.java`
   public static class Borders {
     public static JBEmptyBorder empty(int top, int left, int bottom, int right) {
       return new JBEmptyBorder(top, left, bottom, right);
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `Fonts` has only 'static' members, and lacks a 'private' constructor
+in `JediTerm/src/main/java/com/intellij/util/ui/JBUI.java`
+#### Snippet
+```java
+  }
+
+  public static class Fonts {
+    public static JBFont label() {
+      return JBFont.create(UIManager.getFont("Label.font"), false);
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -9373,15 +9373,15 @@ public class Registry {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `Mac` has only 'static' members, and lacks a 'private' constructor
+Class `Thumb` has only 'static' members, and lacks a 'private' constructor
 in `JediTerm/src/main/java/com/intellij/ui/components/ScrollPainter.java`
 #### Snippet
 ```java
-                                                              new ScrollPainter(0, .25f, .15f, Gray.x80, Gray.x59));
+  }
 
-    static final class Mac {
-      static final RegionPainter<Float> DARCULA = new Round(1, .35f, .20f, Gray.xA6, Gray.x0D);
-      static final RegionPainter<Float> DEFAULT = Thumb.Mac.DEFAULT;
+  static final class Thumb {
+    static final RegionPainter<Float> DARCULA = new ScrollPainter(0, .28f, .07f, Gray.xA6, Gray.x38);
+    static final RegionPainter<Float> DEFAULT = new Protected(new SubtractColor(0, .20f, .08f, Gray.x73, Gray.x91),
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -9409,27 +9409,15 @@ in `JediTerm/src/main/java/com/intellij/ui/components/ScrollPainter.java`
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `Track` has only 'static' members, and lacks a 'private' constructor
+Class `Mac` has only 'static' members, and lacks a 'private' constructor
 in `JediTerm/src/main/java/com/intellij/ui/components/ScrollPainter.java`
 #### Snippet
 ```java
-class ScrollPainter extends RegionPainter.Alpha {
+                                                              new ScrollPainter(0, .25f, .15f, Gray.x80, Gray.x59));
 
-  static final class Track {
-    static final RegionPainter<Float> DARCULA = new ScrollPainter(0, .0f, .1f, Gray.x80, null);
-    static final RegionPainter<Float> DEFAULT = DARCULA;
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `EditorThumb` has only 'static' members, and lacks a 'private' constructor
-in `JediTerm/src/main/java/com/intellij/ui/components/ScrollPainter.java`
-#### Snippet
-```java
-  }
-
-  static final class EditorThumb {
-    static final RegionPainter<Float> DARCULA = new ScrollPainter(0, .33f, .12f, Gray.xA6, Gray.x1A);
-    static final RegionPainter<Float> DEFAULT = new Protected(new SubtractColor(0, .25f, .15f, Gray.x80, Gray.xA6),
+    static final class Mac {
+      static final RegionPainter<Float> DARCULA = new Round(1, .35f, .20f, Gray.xA6, Gray.x0D);
+      static final RegionPainter<Float> DEFAULT = Thumb.Mac.DEFAULT;
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -9445,15 +9433,27 @@ in `JediTerm/src/main/java/com/intellij/ui/components/ScrollPainter.java`
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `Thumb` has only 'static' members, and lacks a 'private' constructor
+Class `EditorThumb` has only 'static' members, and lacks a 'private' constructor
 in `JediTerm/src/main/java/com/intellij/ui/components/ScrollPainter.java`
 #### Snippet
 ```java
   }
 
-  static final class Thumb {
-    static final RegionPainter<Float> DARCULA = new ScrollPainter(0, .28f, .07f, Gray.xA6, Gray.x38);
-    static final RegionPainter<Float> DEFAULT = new Protected(new SubtractColor(0, .20f, .08f, Gray.x73, Gray.x91),
+  static final class EditorThumb {
+    static final RegionPainter<Float> DARCULA = new ScrollPainter(0, .33f, .12f, Gray.xA6, Gray.x1A);
+    static final RegionPainter<Float> DEFAULT = new Protected(new SubtractColor(0, .25f, .15f, Gray.x80, Gray.xA6),
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `Track` has only 'static' members, and lacks a 'private' constructor
+in `JediTerm/src/main/java/com/intellij/ui/components/ScrollPainter.java`
+#### Snippet
+```java
+class ScrollPainter extends RegionPainter.Alpha {
+
+  static final class Track {
+    static final RegionPainter<Float> DARCULA = new ScrollPainter(0, .0f, .1f, Gray.x80, null);
+    static final RegionPainter<Float> DEFAULT = DARCULA;
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -9650,18 +9650,6 @@ in `terminal/src/com/jediterm/terminal/ui/JediTermWidget.java`
 ```
 
 ### DataFlowIssue
-Expression `notNull(t)` might evaluate to null but is returned by the method declared as @NotNull
-in `JediTerm/src/main/java/com/intellij/util/ObjectUtils.java`
-#### Snippet
-```java
-  @NotNull
-  public static <T> T assertNotNull(@Nullable T t) {
-    return notNull(t);
-  }
-
-```
-
-### DataFlowIssue
 Variable is already assigned to this value
 in `JediTerm/src/main/java/com/intellij/util/ui/UIUtil.java`
 #### Snippet
@@ -9671,6 +9659,18 @@ in `JediTerm/src/main/java/com/intellij/util/ui/UIUtil.java`
         if (dpi < 120) scale = 1f;
         else if (dpi < 144) scale = 1.25f;
         else if (dpi < 168) scale = 1.5f;
+```
+
+### DataFlowIssue
+Expression `notNull(t)` might evaluate to null but is returned by the method declared as @NotNull
+in `JediTerm/src/main/java/com/intellij/util/ObjectUtils.java`
+#### Snippet
+```java
+  @NotNull
+  public static <T> T assertNotNull(@Nullable T t) {
+    return notNull(t);
+  }
+
 ```
 
 ### DataFlowIssue
@@ -9702,10 +9702,10 @@ Condition `myLabel instanceof Accessible` is redundant and can be replaced with 
 in `JediTerm/src/main/java/com/intellij/ui/tabs/impl/TabLabel.java`
 #### Snippet
 ```java
-            String name = super.getAccessibleDescription();
+            String name = super.getAccessibleName();
             if (name == null) {
                 if (myLabel instanceof Accessible) {
-                    name = myLabel.getAccessibleContext().getAccessibleDescription();
+                    name = myLabel.getAccessibleContext().getAccessibleName();
                 }
 ```
 
@@ -9714,10 +9714,10 @@ Condition `myLabel instanceof Accessible` is redundant and can be replaced with 
 in `JediTerm/src/main/java/com/intellij/ui/tabs/impl/TabLabel.java`
 #### Snippet
 ```java
-            String name = super.getAccessibleName();
+            String name = super.getAccessibleDescription();
             if (name == null) {
                 if (myLabel instanceof Accessible) {
-                    name = myLabel.getAccessibleContext().getAccessibleName();
+                    name = myLabel.getAccessibleContext().getAccessibleDescription();
                 }
 ```
 
@@ -9750,9 +9750,9 @@ Immutable object is passed where mutable is expected
 in `JediTerm/src/main/java/com/intellij/util/containers/ContainerUtil.java`
 #### Snippet
 ```java
-  @Contract(pure=true)
-  public static <T, V> V[] map2Array(@NotNull Collection<? extends T> collection, @NotNull V[] to, @NotNull Function<T, V> mapper) {
-    return map2List(collection, mapper).toArray(to);
+      return emptyArray;
+    }
+    return result.toArray(emptyArray);
   }
 
 ```
@@ -9762,9 +9762,9 @@ Immutable object is passed where mutable is expected
 in `JediTerm/src/main/java/com/intellij/util/containers/ContainerUtil.java`
 #### Snippet
 ```java
-      return emptyArray;
-    }
-    return result.toArray(emptyArray);
+  @Contract(pure=true)
+  public static <T, V> V[] map2Array(@NotNull Collection<? extends T> collection, @NotNull V[] to, @NotNull Function<T, V> mapper) {
+    return map2List(collection, mapper).toArray(to);
   }
 
 ```
@@ -9796,18 +9796,6 @@ in `JediTerm/src/main/java/com/intellij/util/containers/ContainerUtilRt.java`
 
 ## RuleId[ruleID=DeprecatedIsStillUsed]
 ### DeprecatedIsStillUsed
-Deprecated member 'setPendingTermSize' is still used
-in `terminal/src/com/jediterm/terminal/ProcessTtyConnector.java`
-#### Snippet
-```java
-   */
-  @Deprecated
-  protected void setPendingTermSize(@Nullable Dimension pendingTermSize) {
-    myPendingTermSize = pendingTermSize;
-  }
-```
-
-### DeprecatedIsStillUsed
 Deprecated member 'resizeImmediately' is still used
 in `terminal/src/com/jediterm/terminal/ProcessTtyConnector.java`
 #### Snippet
@@ -9817,6 +9805,18 @@ in `terminal/src/com/jediterm/terminal/ProcessTtyConnector.java`
   protected void resizeImmediately() {}
 
   @Override
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'setPendingTermSize' is still used
+in `terminal/src/com/jediterm/terminal/ProcessTtyConnector.java`
+#### Snippet
+```java
+   */
+  @Deprecated
+  protected void setPendingTermSize(@Nullable Dimension pendingTermSize) {
+    myPendingTermSize = pendingTermSize;
+  }
 ```
 
 ### DeprecatedIsStillUsed
@@ -9863,7 +9863,7 @@ in `JediTerm/src/main/java/com/intellij/util/ui/NSScrollerHelper.java`
 ```java
     @SuppressWarnings("UnusedDeclaration")
     public void callback(ID self, Pointer selector, ID event) {
-      UIUtil.invokeLaterIfNeeded(() -> updateBehaviorPreferences());
+      UIUtil.invokeLaterIfNeeded(() -> fireStyleChanged());
     }
   };
 ```
@@ -9875,7 +9875,7 @@ in `JediTerm/src/main/java/com/intellij/util/ui/NSScrollerHelper.java`
 ```java
     @SuppressWarnings("UnusedDeclaration")
     public void callback(ID self, Pointer selector, ID event) {
-      UIUtil.invokeLaterIfNeeded(() -> fireStyleChanged());
+      UIUtil.invokeLaterIfNeeded(() -> updateBehaviorPreferences());
     }
   };
 ```
@@ -9887,7 +9887,7 @@ in `JediTerm/src/main/java/com/intellij/ui/tabs/impl/JBTabsImpl.java`
 ```java
         }
 
-        return computeSize(component -> component.getMinimumSize(), 1);
+        return computeSize(component -> component.getPreferredSize(), 3);
     }
 
 ```
@@ -9899,7 +9899,7 @@ in `JediTerm/src/main/java/com/intellij/ui/tabs/impl/JBTabsImpl.java`
 ```java
         }
 
-        return computeSize(component -> component.getPreferredSize(), 3);
+        return computeSize(component -> component.getMinimumSize(), 1);
     }
 
 ```
@@ -9990,30 +9990,6 @@ in `JediTerm/src/main/java/com/intellij/ui/tabs/impl/singleRow/SingleRowLayout.j
 ```
 
 ### PatternVariableCanBeUsed
-Variable 'x' can be replaced with pattern variable
-in `JediTerm/src/main/java/com/intellij/util/concurrency/SchedulingWrapper.java`
-#### Snippet
-```java
-      }
-      if (other instanceof MyScheduledFutureTask) {
-        MyScheduledFutureTask<?> x = (MyScheduledFutureTask<?>)other;
-        long diff = time - x.time;
-        if (diff < 0) {
-```
-
-### PatternVariableCanBeUsed
-Variable 'typeVariable' can be replaced with pattern variable
-in `JediTerm/src/main/java/com/intellij/util/ReflectionUtil.java`
-#### Snippet
-```java
-      }
-      if (resolved instanceof TypeVariable) {
-        final TypeVariable typeVariable = (TypeVariable)resolved;
-        index = ArrayUtilRt.find(anInterface.getTypeParameters(), typeVariable);
-        if (index < 0) {
-```
-
-### PatternVariableCanBeUsed
 Variable 'container' can be replaced with pattern variable
 in `JediTerm/src/main/java/com/intellij/util/ui/UIUtil.java`
 #### Snippet
@@ -10023,6 +9999,18 @@ in `JediTerm/src/main/java/com/intellij/util/ui/UIUtil.java`
             Container container = (Container) component;
             for (int i = 0; i < container.getComponentCount(); i++) {
                 if (hasComponentOfType(container.getComponent(i), types)) {
+```
+
+### PatternVariableCanBeUsed
+Variable 'c' can be replaced with pattern variable
+in `JediTerm/src/main/java/com/intellij/util/ui/UIUtil.java`
+#### Snippet
+```java
+        if (!(comp instanceof JComponent)) return;
+
+        JComponent c = (JComponent) comp;
+
+        if (isUnderAquaBasedLookAndFeel()) {
 ```
 
 ### PatternVariableCanBeUsed
@@ -10050,15 +10038,27 @@ in `JediTerm/src/main/java/com/intellij/util/ui/UIUtil.java`
 ```
 
 ### PatternVariableCanBeUsed
-Variable 'c' can be replaced with pattern variable
-in `JediTerm/src/main/java/com/intellij/util/ui/UIUtil.java`
+Variable 'x' can be replaced with pattern variable
+in `JediTerm/src/main/java/com/intellij/util/concurrency/SchedulingWrapper.java`
 #### Snippet
 ```java
-        if (!(comp instanceof JComponent)) return;
+      }
+      if (other instanceof MyScheduledFutureTask) {
+        MyScheduledFutureTask<?> x = (MyScheduledFutureTask<?>)other;
+        long diff = time - x.time;
+        if (diff < 0) {
+```
 
-        JComponent c = (JComponent) comp;
-
-        if (isUnderAquaBasedLookAndFeel()) {
+### PatternVariableCanBeUsed
+Variable 'typeVariable' can be replaced with pattern variable
+in `JediTerm/src/main/java/com/intellij/util/ReflectionUtil.java`
+#### Snippet
+```java
+      }
+      if (resolved instanceof TypeVariable) {
+        final TypeVariable typeVariable = (TypeVariable)resolved;
+        index = ArrayUtilRt.find(anInterface.getTypeParameters(), typeVariable);
+        if (index < 0) {
 ```
 
 ### PatternVariableCanBeUsed
@@ -10112,18 +10112,6 @@ in `JediTerm/src/main/java/com/intellij/util/ExceptionUtil.java`
 
 ## RuleId[ruleID=NonSerializableFieldInSerializableClass]
 ### NonSerializableFieldInSerializableClass
-Non-serializable field 'myEmuThread' in a Serializable class
-in `terminal/src/com/jediterm/terminal/ui/JediTermWidget.java`
-#### Snippet
-```java
-  private TtyConnector myTtyConnector;
-  private TerminalStarter myTerminalStarter;
-  private Thread myEmuThread;
-  protected final SettingsProvider mySettingsProvider;
-  private TerminalActionProvider myNextActionProvider;
-```
-
-### NonSerializableFieldInSerializableClass
 Non-serializable field 'myTextProcessing' in a Serializable class
 in `terminal/src/com/jediterm/terminal/ui/JediTermWidget.java`
 #### Snippet
@@ -10133,18 +10121,6 @@ in `terminal/src/com/jediterm/terminal/ui/JediTermWidget.java`
   private final TextProcessing myTextProcessing;
   private final List<TerminalWidgetListener> myListeners = new CopyOnWriteArrayList<>();
 
-```
-
-### NonSerializableFieldInSerializableClass
-Non-serializable field 'myTerminal' in a Serializable class
-in `terminal/src/com/jediterm/terminal/ui/JediTermWidget.java`
-#### Snippet
-```java
-  protected final TerminalPanel myTerminalPanel;
-  protected final JScrollBar myScrollBar;
-  protected final JediTerminal myTerminal;
-  protected final AtomicBoolean mySessionRunning = new AtomicBoolean();
-  private final JediTermTypeAheadModel myTypeAheadTerminalModel;
 ```
 
 ### NonSerializableFieldInSerializableClass
@@ -10160,15 +10136,27 @@ in `terminal/src/com/jediterm/terminal/ui/JediTermWidget.java`
 ```
 
 ### NonSerializableFieldInSerializableClass
-Non-serializable field 'myPreConnectHandler' in a Serializable class
+Non-serializable field 'myTypeAheadManager' in a Serializable class
 in `terminal/src/com/jediterm/terminal/ui/JediTermWidget.java`
 #### Snippet
 ```java
+  protected final AtomicBoolean mySessionRunning = new AtomicBoolean();
+  private final JediTermTypeAheadModel myTypeAheadTerminalModel;
   private final TerminalTypeAheadManager myTypeAheadManager;
   private SearchComponent myFindComponent;
   private final PreConnectHandler myPreConnectHandler;
-  private TtyConnector myTtyConnector;
-  private TerminalStarter myTerminalStarter;
+```
+
+### NonSerializableFieldInSerializableClass
+Non-serializable field 'myTerminal' in a Serializable class
+in `terminal/src/com/jediterm/terminal/ui/JediTermWidget.java`
+#### Snippet
+```java
+  protected final TerminalPanel myTerminalPanel;
+  protected final JScrollBar myScrollBar;
+  protected final JediTerminal myTerminal;
+  protected final AtomicBoolean mySessionRunning = new AtomicBoolean();
+  private final JediTermTypeAheadModel myTypeAheadTerminalModel;
 ```
 
 ### NonSerializableFieldInSerializableClass
@@ -10184,15 +10172,27 @@ in `terminal/src/com/jediterm/terminal/ui/JediTermWidget.java`
 ```
 
 ### NonSerializableFieldInSerializableClass
-Non-serializable field 'myTypeAheadManager' in a Serializable class
+Non-serializable field 'myPreConnectHandler' in a Serializable class
 in `terminal/src/com/jediterm/terminal/ui/JediTermWidget.java`
 #### Snippet
 ```java
-  protected final AtomicBoolean mySessionRunning = new AtomicBoolean();
-  private final JediTermTypeAheadModel myTypeAheadTerminalModel;
   private final TerminalTypeAheadManager myTypeAheadManager;
   private SearchComponent myFindComponent;
   private final PreConnectHandler myPreConnectHandler;
+  private TtyConnector myTtyConnector;
+  private TerminalStarter myTerminalStarter;
+```
+
+### NonSerializableFieldInSerializableClass
+Non-serializable field 'myEmuThread' in a Serializable class
+in `terminal/src/com/jediterm/terminal/ui/JediTermWidget.java`
+#### Snippet
+```java
+  private TtyConnector myTtyConnector;
+  private TerminalStarter myTerminalStarter;
+  private Thread myEmuThread;
+  protected final SettingsProvider mySettingsProvider;
+  private TerminalActionProvider myNextActionProvider;
 ```
 
 ### NonSerializableFieldInSerializableClass
@@ -10220,66 +10220,6 @@ in `terminal/src/com/jediterm/terminal/debug/BufferPanel.java`
 ```
 
 ### NonSerializableFieldInSerializableClass
-Non-serializable field 'myBorder' in a Serializable class
-in `JediTerm/src/main/java/com/intellij/ui/tabs/impl/JBTabsImpl.java`
-#### Snippet
-```java
-    private JBTabsPosition myPosition = JBTabsPosition.top;
-
-    private final TabsBorder myBorder = new TabsBorder(this);
-
-    private boolean myTabDraggingEnabled;
-```
-
-### NonSerializableFieldInSerializableClass
-Non-serializable field 'myTabActionsAutoHideListener' in a Serializable class
-in `JediTerm/src/main/java/com/intellij/ui/tabs/impl/JBTabsImpl.java`
-#### Snippet
-```java
-    private boolean myTabLabelActionsAutoHide;
-
-    private final TabActionsAutoHideListener myTabActionsAutoHideListener = new TabActionsAutoHideListener();
-    @NonNls
-    private static final String LAYOUT_DONE = "Layout.done";
-```
-
-### NonSerializableFieldInSerializableClass
-Non-serializable field 'myOldSelection' in a Serializable class
-in `JediTerm/src/main/java/com/intellij/ui/tabs/impl/JBTabsImpl.java`
-#### Snippet
-```java
-    protected boolean myShowDropLocation = true;
-
-    private TabInfo myOldSelection;
-    private SelectionChangeHandler mySelectionChangeHandler;
-
-```
-
-### NonSerializableFieldInSerializableClass
-Non-serializable field 'mySingleRowLayout' in a Serializable class
-in `JediTerm/src/main/java/com/intellij/ui/tabs/impl/JBTabsImpl.java`
-#### Snippet
-```java
-    private final WeakHashMap<Component, Component> myDeferredToRemove = new WeakHashMap<>();
-
-    private SingleRowLayout mySingleRowLayout;
-    private final TableLayout myTableLayout = new TableLayout(this);
-    private final TabsSideSplitter mySplitter = new TabsSideSplitter(this);
-```
-
-### NonSerializableFieldInSerializableClass
-Non-serializable field 'myImage' in a Serializable class
-in `JediTerm/src/main/java/com/intellij/ui/tabs/impl/JBTabsImpl.java`
-#### Snippet
-```java
-    private List<TabInfo> myAllTabs;
-    private boolean myPaintBlocked;
-    private BufferedImage myImage;
-    private final boolean myAdjustBorders = true;
-
-```
-
-### NonSerializableFieldInSerializableClass
 Non-serializable field 'myLastPaintedSelection' in a Serializable class
 in `JediTerm/src/main/java/com/intellij/ui/tabs/impl/JBTabsImpl.java`
 #### Snippet
@@ -10289,18 +10229,6 @@ in `JediTerm/src/main/java/com/intellij/ui/tabs/impl/JBTabsImpl.java`
     private TabInfo myLastPaintedSelection;
 
     public boolean myForcedRelayout;
-```
-
-### NonSerializableFieldInSerializableClass
-Non-serializable field 'myTableLayout' in a Serializable class
-in `JediTerm/src/main/java/com/intellij/ui/tabs/impl/JBTabsImpl.java`
-#### Snippet
-```java
-
-    private SingleRowLayout mySingleRowLayout;
-    private final TableLayout myTableLayout = new TableLayout(this);
-    private final TabsSideSplitter mySplitter = new TabsSideSplitter(this);
-
 ```
 
 ### NonSerializableFieldInSerializableClass
@@ -10328,14 +10256,74 @@ in `JediTerm/src/main/java/com/intellij/ui/tabs/impl/JBTabsImpl.java`
 ```
 
 ### NonSerializableFieldInSerializableClass
-Non-serializable field 'mySplitter' in a Serializable class
+Non-serializable field 'myTabActionsAutoHideListener' in a Serializable class
 in `JediTerm/src/main/java/com/intellij/ui/tabs/impl/JBTabsImpl.java`
 #### Snippet
 ```java
+    private boolean myTabLabelActionsAutoHide;
+
+    private final TabActionsAutoHideListener myTabActionsAutoHideListener = new TabActionsAutoHideListener();
+    @NonNls
+    private static final String LAYOUT_DONE = "Layout.done";
+```
+
+### NonSerializableFieldInSerializableClass
+Non-serializable field 'myImage' in a Serializable class
+in `JediTerm/src/main/java/com/intellij/ui/tabs/impl/JBTabsImpl.java`
+#### Snippet
+```java
+    private List<TabInfo> myAllTabs;
+    private boolean myPaintBlocked;
+    private BufferedImage myImage;
+    private final boolean myAdjustBorders = true;
+
+```
+
+### NonSerializableFieldInSerializableClass
+Non-serializable field 'myBorder' in a Serializable class
+in `JediTerm/src/main/java/com/intellij/ui/tabs/impl/JBTabsImpl.java`
+#### Snippet
+```java
+    private JBTabsPosition myPosition = JBTabsPosition.top;
+
+    private final TabsBorder myBorder = new TabsBorder(this);
+
+    private boolean myTabDraggingEnabled;
+```
+
+### NonSerializableFieldInSerializableClass
+Non-serializable field 'myTableLayout' in a Serializable class
+in `JediTerm/src/main/java/com/intellij/ui/tabs/impl/JBTabsImpl.java`
+#### Snippet
+```java
+
     private SingleRowLayout mySingleRowLayout;
     private final TableLayout myTableLayout = new TableLayout(this);
     private final TabsSideSplitter mySplitter = new TabsSideSplitter(this);
 
+```
+
+### NonSerializableFieldInSerializableClass
+Non-serializable field 'mySingleRowLayout' in a Serializable class
+in `JediTerm/src/main/java/com/intellij/ui/tabs/impl/JBTabsImpl.java`
+#### Snippet
+```java
+    private final WeakHashMap<Component, Component> myDeferredToRemove = new WeakHashMap<>();
+
+    private SingleRowLayout mySingleRowLayout;
+    private final TableLayout myTableLayout = new TableLayout(this);
+    private final TabsSideSplitter mySplitter = new TabsSideSplitter(this);
+```
+
+### NonSerializableFieldInSerializableClass
+Non-serializable field 'myOldSelection' in a Serializable class
+in `JediTerm/src/main/java/com/intellij/ui/tabs/impl/JBTabsImpl.java`
+#### Snippet
+```java
+    protected boolean myShowDropLocation = true;
+
+    private TabInfo myOldSelection;
+    private SelectionChangeHandler mySelectionChangeHandler;
 
 ```
 
@@ -10352,87 +10340,15 @@ in `JediTerm/src/main/java/com/intellij/ui/tabs/impl/JBTabsImpl.java`
 ```
 
 ### NonSerializableFieldInSerializableClass
-Non-serializable field 'myTypeAheadManager' in a Serializable class
-in `terminal/src/com/jediterm/terminal/ui/TerminalPanel.java`
+Non-serializable field 'mySplitter' in a Serializable class
+in `JediTerm/src/main/java/com/intellij/ui/tabs/impl/JBTabsImpl.java`
 #### Snippet
 ```java
-  private final TerminalKeyHandler myTerminalKeyHandler = new TerminalKeyHandler();
-  private LinkInfo.HoverConsumer myLinkHoverConsumer;
-  private TerminalTypeAheadManager myTypeAheadManager;
-  private volatile boolean myBracketedPasteMode;
+    private SingleRowLayout mySingleRowLayout;
+    private final TableLayout myTableLayout = new TableLayout(this);
+    private final TabsSideSplitter mySplitter = new TabsSideSplitter(this);
 
-```
 
-### NonSerializableFieldInSerializableClass
-Non-serializable field 'myTerminalTextBuffer' in a Serializable class
-in `terminal/src/com/jediterm/terminal/ui/TerminalPanel.java`
-#### Snippet
-```java
-
-  private final SettingsProvider mySettingsProvider;
-  private final TerminalTextBuffer myTerminalTextBuffer;
-
-  final private StyleState myStyleState;
-```
-
-### NonSerializableFieldInSerializableClass
-Non-serializable field 'myStyleState' in a Serializable class
-in `terminal/src/com/jediterm/terminal/ui/TerminalPanel.java`
-#### Snippet
-```java
-  private final TerminalTextBuffer myTerminalTextBuffer;
-
-  final private StyleState myStyleState;
-
-  /*scroll and cursor*/
-```
-
-### NonSerializableFieldInSerializableClass
-Non-serializable field 'mySelection' in a Serializable class
-in `terminal/src/com/jediterm/terminal/ui/TerminalPanel.java`
-#### Snippet
-```java
-  private MouseMode myMouseMode = MouseMode.MOUSE_REPORTING_NONE;
-  private Point mySelectionStartPoint = null;
-  private TerminalSelection mySelection = null;
-
-  private final TerminalCopyPasteHandler myCopyPasteHandler;
-```
-
-### NonSerializableFieldInSerializableClass
-Non-serializable field 'myCursor' in a Serializable class
-in `terminal/src/com/jediterm/terminal/ui/TerminalPanel.java`
-#### Snippet
-```java
-
-  /*scroll and cursor*/
-  final private TerminalCursor myCursor = new TerminalCursor();
-
-  //we scroll a window [0, terminal_height] in the range [-history_lines_count, terminal_height]
-```
-
-### NonSerializableFieldInSerializableClass
-Non-serializable field 'myFindResult' in a Serializable class
-in `terminal/src/com/jediterm/terminal/ui/TerminalPanel.java`
-#### Snippet
-```java
-  private TerminalCoordinates myCoordsAccessor;
-
-  private SubstringFinder.FindResult myFindResult;
-
-  private LinkInfo myHoveredHyperlink = null;
-```
-
-### NonSerializableFieldInSerializableClass
-Non-serializable field 'myTerminalKeyHandler' in a Serializable class
-in `terminal/src/com/jediterm/terminal/ui/TerminalPanel.java`
-#### Snippet
-```java
-
-  private int myCursorType = Cursor.DEFAULT_CURSOR;
-  private final TerminalKeyHandler myTerminalKeyHandler = new TerminalKeyHandler();
-  private LinkInfo.HoverConsumer myLinkHoverConsumer;
-  private TerminalTypeAheadManager myTypeAheadManager;
 ```
 
 ### NonSerializableFieldInSerializableClass
@@ -10448,6 +10364,18 @@ in `terminal/src/com/jediterm/terminal/ui/TerminalPanel.java`
 ```
 
 ### NonSerializableFieldInSerializableClass
+Non-serializable field 'myCursor' in a Serializable class
+in `terminal/src/com/jediterm/terminal/ui/TerminalPanel.java`
+#### Snippet
+```java
+
+  /*scroll and cursor*/
+  final private TerminalCursor myCursor = new TerminalCursor();
+
+  //we scroll a window [0, terminal_height] in the range [-history_lines_count, terminal_height]
+```
+
+### NonSerializableFieldInSerializableClass
 Non-serializable field 'myTerminalStarter' in a Serializable class
 in `terminal/src/com/jediterm/terminal/ui/TerminalPanel.java`
 #### Snippet
@@ -10460,15 +10388,87 @@ in `terminal/src/com/jediterm/terminal/ui/TerminalPanel.java`
 ```
 
 ### NonSerializableFieldInSerializableClass
-Non-serializable field 'myInfo' in a Serializable class
-in `JediTerm/src/main/java/com/intellij/ui/tabs/impl/TabLabel.java`
+Non-serializable field 'myStyleState' in a Serializable class
+in `terminal/src/com/jediterm/terminal/ui/TerminalPanel.java`
 #### Snippet
 ```java
-    private Icon myOverlayedIcon;
+  private final TerminalTextBuffer myTerminalTextBuffer;
 
-    private final TabInfo myInfo;
+  final private StyleState myStyleState;
 
-    private boolean myCentered;
+  /*scroll and cursor*/
+```
+
+### NonSerializableFieldInSerializableClass
+Non-serializable field 'myTerminalKeyHandler' in a Serializable class
+in `terminal/src/com/jediterm/terminal/ui/TerminalPanel.java`
+#### Snippet
+```java
+
+  private int myCursorType = Cursor.DEFAULT_CURSOR;
+  private final TerminalKeyHandler myTerminalKeyHandler = new TerminalKeyHandler();
+  private LinkInfo.HoverConsumer myLinkHoverConsumer;
+  private TerminalTypeAheadManager myTypeAheadManager;
+```
+
+### NonSerializableFieldInSerializableClass
+Non-serializable field 'myTerminalTextBuffer' in a Serializable class
+in `terminal/src/com/jediterm/terminal/ui/TerminalPanel.java`
+#### Snippet
+```java
+
+  private final SettingsProvider mySettingsProvider;
+  private final TerminalTextBuffer myTerminalTextBuffer;
+
+  final private StyleState myStyleState;
+```
+
+### NonSerializableFieldInSerializableClass
+Non-serializable field 'mySelection' in a Serializable class
+in `terminal/src/com/jediterm/terminal/ui/TerminalPanel.java`
+#### Snippet
+```java
+  private MouseMode myMouseMode = MouseMode.MOUSE_REPORTING_NONE;
+  private Point mySelectionStartPoint = null;
+  private TerminalSelection mySelection = null;
+
+  private final TerminalCopyPasteHandler myCopyPasteHandler;
+```
+
+### NonSerializableFieldInSerializableClass
+Non-serializable field 'myTypeAheadManager' in a Serializable class
+in `terminal/src/com/jediterm/terminal/ui/TerminalPanel.java`
+#### Snippet
+```java
+  private final TerminalKeyHandler myTerminalKeyHandler = new TerminalKeyHandler();
+  private LinkInfo.HoverConsumer myLinkHoverConsumer;
+  private TerminalTypeAheadManager myTypeAheadManager;
+  private volatile boolean myBracketedPasteMode;
+
+```
+
+### NonSerializableFieldInSerializableClass
+Non-serializable field 'myFindResult' in a Serializable class
+in `terminal/src/com/jediterm/terminal/ui/TerminalPanel.java`
+#### Snippet
+```java
+  private TerminalCoordinates myCoordsAccessor;
+
+  private SubstringFinder.FindResult myFindResult;
+
+  private LinkInfo myHoveredHyperlink = null;
+```
+
+### NonSerializableFieldInSerializableClass
+Non-serializable field 'THIN_STROKE' in a Serializable class
+in `JediTerm/src/main/java/com/intellij/ui/paint/EffectPainter.java`
+#### Snippet
+```java
+    },
+    WAVE_UNDERSCORE {
+      private final BasicStroke THIN_STROKE = new BasicStroke(.7f);
+
+      @Override
 ```
 
 ### NonSerializableFieldInSerializableClass
@@ -10484,15 +10484,15 @@ in `JediTerm/src/main/java/com/intellij/ui/tabs/impl/TabLabel.java`
 ```
 
 ### NonSerializableFieldInSerializableClass
-Non-serializable field 'THIN_STROKE' in a Serializable class
-in `JediTerm/src/main/java/com/intellij/ui/paint/EffectPainter.java`
+Non-serializable field 'myInfo' in a Serializable class
+in `JediTerm/src/main/java/com/intellij/ui/tabs/impl/TabLabel.java`
 #### Snippet
 ```java
-    },
-    WAVE_UNDERSCORE {
-      private final BasicStroke THIN_STROKE = new BasicStroke(.7f);
+    private Icon myOverlayedIcon;
 
-      @Override
+    private final TabInfo myInfo;
+
+    private boolean myCentered;
 ```
 
 ### NonSerializableFieldInSerializableClass
@@ -10583,14 +10583,26 @@ in `JediTerm/src/main/java/com/intellij/ui/tabs/impl/singleRow/SingleRowLayout.j
 
 ### EnhancedSwitchMigration
 Switch statement can be replaced with enhanced 'switch'
-in `JediTerm/src/main/java/com/intellij/ui/mac/foundation/Foundation.java`
+in `JediTerm/src/main/java/com/intellij/util/ui/UIUtil.java`
 #### Snippet
 ```java
-    @Override
-    public Object fromNative(Object o, FromNativeContext fromNativeContext) {
-      switch (Native.LONG_SIZE) {
-        case 4:
-          return new CGFloat((Float)o);
+    public static float getFontSize(FontSize size) {
+        int defSize = getLabelFont().getSize();
+        switch (size) {
+            case SMALL:
+                return Math.max(defSize - JBUI.scale(2f), JBUI.scale(11f));
+```
+
+### EnhancedSwitchMigration
+Switch statement can be replaced with enhanced 'switch'
+in `JediTerm/src/main/java/com/intellij/ui/components/panels/HorizontalLayout.java`
+#### Snippet
+```java
+  public HorizontalLayout(int gap, int alignment) {
+    myGap = gap;
+    switch (alignment) {
+      case SwingConstants.TOP:
+      case SwingConstants.BOTTOM:
 ```
 
 ### EnhancedSwitchMigration
@@ -10619,26 +10631,26 @@ in `JediTerm/src/main/java/com/intellij/ui/mac/foundation/Foundation.java`
 
 ### EnhancedSwitchMigration
 Switch statement can be replaced with enhanced 'switch'
-in `JediTerm/src/main/java/com/intellij/ui/components/panels/HorizontalLayout.java`
+in `JediTerm/src/main/java/com/intellij/ui/mac/foundation/Foundation.java`
 #### Snippet
 ```java
-  public HorizontalLayout(int gap, int alignment) {
-    myGap = gap;
-    switch (alignment) {
-      case SwingConstants.TOP:
-      case SwingConstants.BOTTOM:
+    @Override
+    public Object fromNative(Object o, FromNativeContext fromNativeContext) {
+      switch (Native.LONG_SIZE) {
+        case 4:
+          return new CGFloat((Float)o);
 ```
 
 ### EnhancedSwitchMigration
 Switch statement can be replaced with enhanced 'switch'
-in `JediTerm/src/main/java/com/intellij/util/ui/UIUtil.java`
+in `JediTerm/src/main/java/com/intellij/openapi/util/text/StringUtil.java`
 #### Snippet
 ```java
-    public static float getFontSize(FontSize size) {
-        int defSize = getLabelFont().getSize();
-        switch (size) {
-            case SMALL:
-                return Math.max(defSize - JBUI.scale(2f), JBUI.scale(11f));
+    for (int idx = 0; idx < length; idx++) {
+      char ch = str.charAt(idx);
+      switch (ch) {
+        case '\b':
+          buffer.append("\\b");
 ```
 
 ### EnhancedSwitchMigration
@@ -10663,18 +10675,6 @@ in `JediTerm/src/main/java/com/intellij/openapi/util/text/StringUtil.java`
       switch (ch) {
         case ' ':
           if (isKey && i == 0) {
-```
-
-### EnhancedSwitchMigration
-Switch statement can be replaced with enhanced 'switch'
-in `JediTerm/src/main/java/com/intellij/openapi/util/text/StringUtil.java`
-#### Snippet
-```java
-    for (int idx = 0; idx < length; idx++) {
-      char ch = str.charAt(idx);
-      switch (ch) {
-        case '\b':
-          buffer.append("\\b");
 ```
 
 ### EnhancedSwitchMigration
@@ -10731,6 +10731,18 @@ Assignment to for-loop parameter `i`
 in `JediTerm/src/main/java/com/intellij/openapi/util/text/StringUtil.java`
 #### Snippet
 ```java
+      char ch = str.charAt(i);
+      if (ch == '\\' && i != last) {
+        i++;
+        ch = str.charAt(i);
+        if (ch != unescapeChar) buf.append('\\');
+```
+
+### AssignmentToForLoopParameter
+Assignment to for-loop parameter `i`
+in `JediTerm/src/main/java/com/intellij/openapi/util/text/StringUtil.java`
+#### Snippet
+```java
         if (text.regionMatches(i, toReplace, 0, len)) {
           result.append(replaceWith);
           i += len - 1;
@@ -10748,18 +10760,6 @@ in `JediTerm/src/main/java/com/intellij/openapi/util/text/StringUtil.java`
         while (++i <= max && !charsEqualIgnoreCase(where.charAt(i), first)) ;
       }
 
-```
-
-### AssignmentToForLoopParameter
-Assignment to for-loop parameter `i`
-in `JediTerm/src/main/java/com/intellij/openapi/util/text/StringUtil.java`
-#### Snippet
-```java
-      char ch = str.charAt(i);
-      if (ch == '\\' && i != last) {
-        i++;
-        ch = str.charAt(i);
-        if (ch != unescapeChar) buf.append('\\');
 ```
 
 ## RuleId[ruleID=UnnecessaryToStringCall]
@@ -10792,10 +10792,10 @@ Unnecessary `toString()` call
 in `terminal/src/com/jediterm/terminal/emulator/JediEmulator.java`
 #### Snippet
 ```java
-        return true;
-      default:
-        LOG.warn("Setting cursor shape : unsupported parameter " + args.toString());
-        return false;
+      return true;
+    } else {
+      LOG.warn("Sending Device Report Status : unsupported parameter: " + args.toString());
+      return false;
     }
 ```
 
@@ -10804,10 +10804,10 @@ Unnecessary `toString()` call
 in `terminal/src/com/jediterm/terminal/emulator/JediEmulator.java`
 #### Snippet
 ```java
-      return true;
-    } else {
-      LOG.warn("Sending Device Report Status : unsupported parameter: " + args.toString());
-      return false;
+        return true;
+      default:
+        LOG.warn("Setting cursor shape : unsupported parameter " + args.toString());
+        return false;
     }
 ```
 
@@ -10851,6 +10851,54 @@ in `JediTerm/src/main/java/com/intellij/ui/tabs/impl/table/TableLayout.java`
 
 ### UnnecessaryBoxing
 Unnecessary boxing
+in `JediTerm/src/main/java/com/intellij/util/ui/UIUtil.java`
+#### Snippet
+```java
+
+    public static void setSliderIsFilled(final JSlider slider, final boolean value) {
+        slider.putClientProperty("JSlider.isFilled", Boolean.valueOf(value));
+    }
+
+```
+
+### UnnecessaryBoxing
+Unnecessary boxing
+in `JediTerm/src/main/java/com/intellij/util/ui/UIUtil.java`
+#### Snippet
+```java
+            float scale = getScreenScale();
+            if (scale > 1f) {
+                forcedScale = Float.valueOf(scale);
+            }
+            // Or otherwise leave the detected font. It's undetermined if it's scaled or not.
+```
+
+### UnnecessaryBoxing
+Unnecessary boxing
+in `JediTerm/src/main/java/com/intellij/util/ui/UIUtil.java`
+#### Snippet
+```java
+            String mnemoChar = text.substring(mnemoPos + 1, mnemoPos + 2).trim();
+            if (mnemoChar.length() == 1) {
+                action.putValue(Action.MNEMONIC_KEY, Integer.valueOf(mnemoChar.charAt(0)));
+            }
+        }
+```
+
+### UnnecessaryBoxing
+Unnecessary boxing
+in `terminal/src/com/jediterm/terminal/model/JediTerminal.java`
+#### Snippet
+```java
+    @Override
+    public void setTabStop(int position) {
+      myTabStops.add(Integer.valueOf(position));
+    }
+  }
+```
+
+### UnnecessaryBoxing
+Unnecessary boxing
 in `terminal/src/com/jediterm/terminal/model/JediTerminal.java`
 #### Snippet
 ```java
@@ -10871,18 +10919,6 @@ in `terminal/src/com/jediterm/terminal/model/JediTerminal.java`
       SortedSet<Integer> headSet = myTabStops.headSet(Integer.valueOf(position));
       if (!headSet.isEmpty()) {
         tabStop = headSet.last();
-```
-
-### UnnecessaryBoxing
-Unnecessary boxing
-in `terminal/src/com/jediterm/terminal/model/JediTerminal.java`
-#### Snippet
-```java
-    @Override
-    public void setTabStop(int position) {
-      myTabStops.add(Integer.valueOf(position));
-    }
-  }
 ```
 
 ### UnnecessaryBoxing
@@ -10934,39 +10970,15 @@ in `JediTerm/src/main/java/com/intellij/util/ReflectionUtil.java`
 ```
 
 ### UnnecessaryBoxing
-Unnecessary boxing
-in `JediTerm/src/main/java/com/intellij/util/ui/UIUtil.java`
+Redundant boxing, `Integer.parseInt()` call can be used instead
+in `JediTerm/src/main/java/com/intellij/openapi/util/SystemInfo.java`
 #### Snippet
 ```java
-            String mnemoChar = text.substring(mnemoPos + 1, mnemoPos + 2).trim();
-            if (mnemoChar.length() == 1) {
-                action.putValue(Action.MNEMONIC_KEY, Integer.valueOf(mnemoChar.charAt(0)));
-            }
-        }
-```
-
-### UnnecessaryBoxing
-Unnecessary boxing
-in `JediTerm/src/main/java/com/intellij/util/ui/UIUtil.java`
-#### Snippet
-```java
-            float scale = getScreenScale();
-            if (scale > 1f) {
-                forcedScale = Float.valueOf(scale);
-            }
-            // Or otherwise leave the detected font. It's undetermined if it's scaled or not.
-```
-
-### UnnecessaryBoxing
-Unnecessary boxing
-in `JediTerm/src/main/java/com/intellij/util/ui/UIUtil.java`
-#### Snippet
-```java
-
-    public static void setSliderIsFilled(final JSlider slider, final boolean value) {
-        slider.putClientProperty("JSlider.isFilled", Boolean.valueOf(value));
-    }
-
+    private static int toInt(String string) {
+        try {
+            return Integer.valueOf(string);
+        } catch (NumberFormatException e) {
+            return 0;
 ```
 
 ### UnnecessaryBoxing
@@ -10981,31 +10993,7 @@ in `JediTerm/src/main/java/com/intellij/ui/tabs/impl/JBTabsImpl.java`
 
 ```
 
-### UnnecessaryBoxing
-Redundant boxing, `Integer.parseInt()` call can be used instead
-in `JediTerm/src/main/java/com/intellij/openapi/util/SystemInfo.java`
-#### Snippet
-```java
-    private static int toInt(String string) {
-        try {
-            return Integer.valueOf(string);
-        } catch (NumberFormatException e) {
-            return 0;
-```
-
 ## RuleId[ruleID=SynchronizeOnNonFinalField]
-### SynchronizeOnNonFinalField
-Synchronization on a non-final field `mySync`
-in `terminal/src/com/jediterm/terminal/ui/PreConnectHandler.java`
-#### Snippet
-```java
-  public void keyPressed(KeyEvent e) {
-    if (myAnswer == null) return;
-    synchronized (mySync) {
-      boolean release = false;
-
-```
-
 ### SynchronizeOnNonFinalField
 Synchronization on a non-final field `mySync`
 in `terminal/src/com/jediterm/terminal/ui/PreConnectHandler.java`
@@ -11016,6 +11004,18 @@ in `terminal/src/com/jediterm/terminal/ui/PreConnectHandler.java`
     synchronized (mySync) {
       myTerminal.writeUnwrappedString(question);
       myAnswer = new StringBuffer();
+```
+
+### SynchronizeOnNonFinalField
+Synchronization on a non-final field `mySync`
+in `terminal/src/com/jediterm/terminal/ui/PreConnectHandler.java`
+#### Snippet
+```java
+  public void keyPressed(KeyEvent e) {
+    if (myAnswer == null) return;
+    synchronized (mySync) {
+      boolean release = false;
+
 ```
 
 ### SynchronizeOnNonFinalField
@@ -11048,10 +11048,34 @@ Missing '@Deprecated' annotation
 in `JediTerm/src/main/java/com/intellij/util/ui/UIUtil.java`
 #### Snippet
 ```java
-     * @deprecated use com.intellij.util.ui.UIUtil#getPanelBackground() instead
+     * @deprecated use getBorderColor instead
      */
-    public static Color getPanelBackgound() {
-        return getPanelBackground();
+    public static Color getBorderSeparatorColor() {
+        return getBorderColor();
+    }
+```
+
+### MissingDeprecatedAnnotation
+Missing '@Deprecated' annotation
+in `JediTerm/src/main/java/com/intellij/util/ui/UIUtil.java`
+#### Snippet
+```java
+     * @deprecated use getBorderColor instead
+     */
+    public static Color getBorderInactiveColor() {
+        return getBorderColor();
+    }
+```
+
+### MissingDeprecatedAnnotation
+Missing '@Deprecated' annotation
+in `JediTerm/src/main/java/com/intellij/util/ui/UIUtil.java`
+#### Snippet
+```java
+     * @deprecated use com.intellij.util.ui.UIUtil#getInactiveTextColor()
+     */
+    public static Color getTextInactiveTextColor() {
+        return getInactiveTextColor();
     }
 ```
 
@@ -11084,46 +11108,22 @@ Missing '@Deprecated' annotation
 in `JediTerm/src/main/java/com/intellij/util/ui/UIUtil.java`
 #### Snippet
 ```java
-     * @deprecated use com.intellij.util.ui.UIUtil#getInactiveTextColor()
-     */
-    public static Color getTextInactiveTextColor() {
-        return getInactiveTextColor();
-    }
-```
-
-### MissingDeprecatedAnnotation
-Missing '@Deprecated' annotation
-in `JediTerm/src/main/java/com/intellij/util/ui/UIUtil.java`
-#### Snippet
-```java
-     * @deprecated use getBorderColor instead
-     */
-    public static Color getBorderSeparatorColor() {
-        return getBorderColor();
-    }
-```
-
-### MissingDeprecatedAnnotation
-Missing '@Deprecated' annotation
-in `JediTerm/src/main/java/com/intellij/util/ui/UIUtil.java`
-#### Snippet
-```java
-     * @deprecated use getBorderColor instead
-     */
-    public static Color getBorderInactiveColor() {
-        return getBorderColor();
-    }
-```
-
-### MissingDeprecatedAnnotation
-Missing '@Deprecated' annotation
-in `JediTerm/src/main/java/com/intellij/util/ui/UIUtil.java`
-#### Snippet
-```java
      * @deprecated
      */
     public static Color getBorderColor() {
         return isUnderDarcula() ? Gray._50 : BORDER_COLOR;
+    }
+```
+
+### MissingDeprecatedAnnotation
+Missing '@Deprecated' annotation
+in `JediTerm/src/main/java/com/intellij/util/ui/UIUtil.java`
+#### Snippet
+```java
+     * @deprecated use com.intellij.util.ui.UIUtil#getPanelBackground() instead
+     */
+    public static Color getPanelBackgound() {
+        return getPanelBackground();
     }
 ```
 
@@ -11180,6 +11180,18 @@ Qualifier `com.intellij.openapi.util` is unnecessary and can be removed
 in `JediTerm/src/main/java/com/intellij/openapi/util/RecursionGuard.java`
 #### Snippet
 ```java
+     * results. When such non-reliable results exist in the thread's call stack, returns false, otherwise true.
+     * If you use this with {@link RecursionGuard#doPreventingRecursion(Object, Computable)}, then the
+     * {@link com.intellij.openapi.util.RecursionGuard#markStack()}+{@link #mayCacheNow()} should be outside of recursion prevention call. Otherwise
+     * even the outer recursive computation result won't be cached.
+     *
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `com.intellij.openapi.util` is unnecessary and can be removed
+in `JediTerm/src/main/java/com/intellij/openapi/util/RecursionGuard.java`
+#### Snippet
+```java
 
   /**
    * Used in pair with {@link com.intellij.openapi.util.RecursionGuard.StackStamp#mayCacheNow()} to ensure that cached are only the reliable values,
@@ -11197,18 +11209,6 @@ in `JediTerm/src/main/java/com/intellij/openapi/util/RecursionGuard.java`
    * Makes {@link com.intellij.openapi.util.RecursionGuard.StackStamp#mayCacheNow()} return false for all stamps created since a computation with
    * key <code>since</code> began.
    *
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `com.intellij.openapi.util` is unnecessary and can be removed
-in `JediTerm/src/main/java/com/intellij/openapi/util/RecursionGuard.java`
-#### Snippet
-```java
-     * results. When such non-reliable results exist in the thread's call stack, returns false, otherwise true.
-     * If you use this with {@link RecursionGuard#doPreventingRecursion(Object, Computable)}, then the
-     * {@link com.intellij.openapi.util.RecursionGuard#markStack()}+{@link #mayCacheNow()} should be outside of recursion prevention call. Otherwise
-     * even the outer recursive computation result won't be cached.
-     *
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -11407,24 +11407,12 @@ in `JediTerm/src/main/java/com/intellij/openapi/util/ActionCallback.java`
 ```
 
 ### Anonymous2MethodRef
-Anonymous new Runnable() can be replaced with method reference
-in `terminal/src/com/jediterm/terminal/ui/JediTermWidget.java`
-#### Snippet
-```java
-  @Override
-  public boolean requestFocusInWindow() {
-    SwingUtilities.invokeLater(new Runnable() {
-      public void run() {
-        myTerminalPanel.requestFocusInWindow();
-```
-
-### Anonymous2MethodRef
 Anonymous new NotNullProducer() can be replaced with method reference
 in `JediTerm/src/main/java/com/intellij/ui/JBColor.java`
 #### Snippet
 ```java
 
-  public static Color background() {
+  public static Color foreground() {
     return new JBColor(new NotNullProducer<Color>() {
       @NotNull
       @Override
@@ -11448,34 +11436,22 @@ in `JediTerm/src/main/java/com/intellij/ui/JBColor.java`
 #### Snippet
 ```java
 
-  public static Color foreground() {
+  public static Color background() {
     return new JBColor(new NotNullProducer<Color>() {
       @NotNull
       @Override
 ```
 
 ### Anonymous2MethodRef
-Anonymous new Function() can be replaced with method reference
-in `JediTerm/src/main/java/com/intellij/util/Function.java`
-#### Snippet
-```java
-  Function NULL = NullableFunction.NULL;
-
-  Function TO_STRING = new Function() {
-    public Object fun(Object o) {
-      return String.valueOf(o);
-```
-
-### Anonymous2MethodRef
 Anonymous new Runnable() can be replaced with method reference
-in `JediTerm/src/main/java/com/intellij/util/ui/UIUtil.java`
+in `terminal/src/com/jediterm/terminal/ui/JediTermWidget.java`
 #### Snippet
 ```java
-            c.requestFocus();
-        } else {
-            SwingUtilities.invokeLater(new Runnable() {
-                @Override
-                public void run() {
+  @Override
+  public boolean requestFocusInWindow() {
+    SwingUtilities.invokeLater(new Runnable() {
+      public void run() {
+        myTerminalPanel.requestFocusInWindow();
 ```
 
 ### Anonymous2MethodRef
@@ -11491,6 +11467,18 @@ in `JediTerm/src/main/java/com/intellij/util/ui/UIUtil.java`
 ```
 
 ### Anonymous2MethodRef
+Anonymous new Runnable() can be replaced with method reference
+in `JediTerm/src/main/java/com/intellij/util/ui/UIUtil.java`
+#### Snippet
+```java
+            c.requestFocus();
+        } else {
+            SwingUtilities.invokeLater(new Runnable() {
+                @Override
+                public void run() {
+```
+
+### Anonymous2MethodRef
 Anonymous new Condition() can be replaced with method reference
 in `JediTerm/src/main/java/com/intellij/util/ui/UIUtil.java`
 #### Snippet
@@ -11503,15 +11491,15 @@ in `JediTerm/src/main/java/com/intellij/util/ui/UIUtil.java`
 ```
 
 ### Anonymous2MethodRef
-Anonymous new ArrayFactory() can be replaced with method reference
-in `JediTerm/src/main/java/com/intellij/util/ArrayUtil.java`
+Anonymous new Function() can be replaced with method reference
+in `JediTerm/src/main/java/com/intellij/util/Function.java`
 #### Snippet
 ```java
-    }
-  };
-  public static final ArrayFactory<Object> OBJECT_ARRAY_FACTORY = new ArrayFactory<Object>() {
-    @NotNull
-    @Override
+  Function NULL = NullableFunction.NULL;
+
+  Function TO_STRING = new Function() {
+    public Object fun(Object o) {
+      return String.valueOf(o);
 ```
 
 ### Anonymous2MethodRef
@@ -11522,6 +11510,18 @@ in `JediTerm/src/main/java/com/intellij/util/ArrayUtil.java`
   public static final Runnable[] EMPTY_RUNNABLE_ARRAY = ArrayUtilRt.EMPTY_RUNNABLE_ARRAY;
 
   public static final ArrayFactory<String> STRING_ARRAY_FACTORY = new ArrayFactory<String>() {
+    @NotNull
+    @Override
+```
+
+### Anonymous2MethodRef
+Anonymous new ArrayFactory() can be replaced with method reference
+in `JediTerm/src/main/java/com/intellij/util/ArrayUtil.java`
+#### Snippet
+```java
+    }
+  };
+  public static final ArrayFactory<Object> OBJECT_ARRAY_FACTORY = new ArrayFactory<Object>() {
     @NotNull
     @Override
 ```
@@ -11582,32 +11582,8 @@ in `JediTerm/src/main/java/com/intellij/openapi/util/ActionCallback.java`
 #### Snippet
 ```java
   @NotNull
-  public final ActionCallback doWhenRejected(@NotNull final Consumer<String> consumer) {
-    myRejected.doWhenExecuted(new Runnable() {
-      @Override
-      public void run() {
-```
-
-### Convert2Lambda
-Anonymous new Runnable() can be replaced with lambda
-in `JediTerm/src/main/java/com/intellij/openapi/util/ActionCallback.java`
-#### Snippet
-```java
-  @NotNull
   public Runnable createSetDoneRunnable() {
     return new Runnable() {
-      @Override
-      public void run() {
-```
-
-### Convert2Lambda
-Anonymous new Runnable() can be replaced with lambda
-in `JediTerm/src/main/java/com/intellij/openapi/util/ActionCallback.java`
-#### Snippet
-```java
-  @NotNull
-  public final ActionCallback notifyWhenRejected(@NotNull final ActionCallback child) {
-    return doWhenRejected(new Runnable() {
       @Override
       public void run() {
 ```
@@ -11620,6 +11596,30 @@ in `JediTerm/src/main/java/com/intellij/openapi/util/ActionCallback.java`
   @Deprecated
   public Runnable createSetRejectedRunnable() {
     return new Runnable() {
+      @Override
+      public void run() {
+```
+
+### Convert2Lambda
+Anonymous new Runnable() can be replaced with lambda
+in `JediTerm/src/main/java/com/intellij/openapi/util/ActionCallback.java`
+#### Snippet
+```java
+  @NotNull
+  public final ActionCallback doWhenRejected(@NotNull final Consumer<String> consumer) {
+    myRejected.doWhenExecuted(new Runnable() {
+      @Override
+      public void run() {
+```
+
+### Convert2Lambda
+Anonymous new Runnable() can be replaced with lambda
+in `JediTerm/src/main/java/com/intellij/openapi/util/ActionCallback.java`
+#### Snippet
+```java
+  @NotNull
+  public final ActionCallback notifyWhenRejected(@NotNull final ActionCallback child) {
+    return doWhenRejected(new Runnable() {
       @Override
       public void run() {
 ```
@@ -11650,6 +11650,54 @@ in `JediTerm/src/main/java/com/intellij/util/concurrency/AppDelayQueue.java`
 
 ### Convert2Lambda
 Anonymous new Runnable() can be replaced with lambda
+in `JediTerm/src/main/java/com/intellij/util/ui/UIUtil.java`
+#### Snippet
+```java
+
+    public static void scrollListToVisibleIfNeeded(@NotNull final JList list) {
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+```
+
+### Convert2Lambda
+Anonymous new Runnable() can be replaced with lambda
+in `JediTerm/src/main/java/com/intellij/util/ui/UIUtil.java`
+#### Snippet
+```java
+        if (!newSize.equals(size)) {
+            //noinspection SSBasedInspection
+            SwingUtilities.invokeLater(new Runnable() {
+                @Override
+                public void run() {
+```
+
+### Convert2Lambda
+Anonymous new Runnable() can be replaced with lambda
+in `JediTerm/src/main/java/com/intellij/util/ui/UIUtil.java`
+#### Snippet
+```java
+        assert !SwingUtilities.isEventDispatchThread();
+        final BlockingQueue<Object> queue = new LinkedBlockingQueue<Object>();
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+```
+
+### Convert2Lambda
+Anonymous new Runnable() can be replaced with lambda
+in `JediTerm/src/main/java/com/intellij/util/ui/UIUtil.java`
+#### Snippet
+```java
+            c.requestFocus();
+        } else {
+            SwingUtilities.invokeLater(new Runnable() {
+                @Override
+                public void run() {
+```
+
+### Convert2Lambda
+Anonymous new Runnable() can be replaced with lambda
 in `JediTerm/src/main/java/com/intellij/ui/mac/foundation/MacUtil.java`
 #### Snippet
 ```java
@@ -11670,54 +11718,6 @@ in `JediTerm/src/main/java/com/intellij/execution/filters/UrlFilter.java`
       item = new LinkResultItem(textStartOffset + m.start(), textStartOffset + m.end(), new LinkInfo(new Runnable() {
         @Override
         public void run() {
-```
-
-### Convert2Lambda
-Anonymous new Runnable() can be replaced with lambda
-in `JediTerm/src/main/java/com/intellij/util/ui/UIUtil.java`
-#### Snippet
-```java
-            c.requestFocus();
-        } else {
-            SwingUtilities.invokeLater(new Runnable() {
-                @Override
-                public void run() {
-```
-
-### Convert2Lambda
-Anonymous new Runnable() can be replaced with lambda
-in `JediTerm/src/main/java/com/intellij/util/ui/UIUtil.java`
-#### Snippet
-```java
-
-    public static void scrollListToVisibleIfNeeded(@NotNull final JList list) {
-        SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-```
-
-### Convert2Lambda
-Anonymous new Runnable() can be replaced with lambda
-in `JediTerm/src/main/java/com/intellij/util/ui/UIUtil.java`
-#### Snippet
-```java
-        assert !SwingUtilities.isEventDispatchThread();
-        final BlockingQueue<Object> queue = new LinkedBlockingQueue<Object>();
-        SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-```
-
-### Convert2Lambda
-Anonymous new Runnable() can be replaced with lambda
-in `JediTerm/src/main/java/com/intellij/util/ui/UIUtil.java`
-#### Snippet
-```java
-        if (!newSize.equals(size)) {
-            //noinspection SSBasedInspection
-            SwingUtilities.invokeLater(new Runnable() {
-                @Override
-                public void run() {
 ```
 
 ### Convert2Lambda
