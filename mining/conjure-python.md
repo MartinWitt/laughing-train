@@ -107,19 +107,6 @@ in `conjure-python/src/main/java/com/palantir/conjure/python/cli/ConjurePythonCl
         }
 ```
 
-## RuleId[ruleID=BoundedWildcard]
-### BoundedWildcard
-Can generalize to `? extends PackageNameProcessor`
-in `conjure-python-core/src/main/java/com/palantir/conjure/python/processors/packagename/CompoundPackageNameProcessor.java`
-#### Snippet
-```java
-    private final List<PackageNameProcessor> processors;
-
-    public CompoundPackageNameProcessor(List<PackageNameProcessor> processors) {
-        this.processors = processors;
-    }
-```
-
 ## RuleId[ruleID=AbstractClassNeverImplemented]
 ### AbstractClassNeverImplemented
 Abstract class `CliConfiguration` has no concrete subclass
@@ -145,7 +132,44 @@ public abstract class BuildConfiguration {
     private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper(new YAMLFactory());
 ```
 
+## RuleId[ruleID=BoundedWildcard]
+### BoundedWildcard
+Can generalize to `? extends PackageNameProcessor`
+in `conjure-python-core/src/main/java/com/palantir/conjure/python/processors/packagename/CompoundPackageNameProcessor.java`
+#### Snippet
+```java
+    private final List<PackageNameProcessor> processors;
+
+    public CompoundPackageNameProcessor(List<PackageNameProcessor> processors) {
+        this.processors = processors;
+    }
+```
+
 ## RuleId[ruleID=CodeBlock2Expr]
+### CodeBlock2Expr
+Statement lambda can be replaced with expression lambda
+in `conjure-python-core/src/main/java/com/palantir/conjure/python/poet/PythonMetaYaml.java`
+#### Snippet
+```java
+            poetWriter.writeIndentedLine("- python");
+            poetWriter.writeIndentedLine("- setuptools");
+            installDependencies().forEach(dependency -> {
+                poetWriter.writeIndentedLine("- %s", dependency);
+            });
+```
+
+### CodeBlock2Expr
+Statement lambda can be replaced with expression lambda
+in `conjure-python-core/src/main/java/com/palantir/conjure/python/poet/PythonMetaYaml.java`
+#### Snippet
+```java
+            poetWriter.increaseIndent();
+            poetWriter.writeIndentedLine("- python");
+            installDependencies().forEach(dependency -> {
+                poetWriter.writeIndentedLine("- %s", dependency);
+            });
+```
+
 ### CodeBlock2Expr
 Statement lambda can be replaced with expression lambda
 in `conjure-python-core/src/main/java/com/palantir/conjure/python/poet/PythonSetup.java`
@@ -179,30 +203,6 @@ in `conjure-python-core/src/main/java/com/palantir/conjure/python/poet/PythonSet
             poetWriter.increaseIndent();
             installDependencies().forEach(dependency -> {
                 poetWriter.writeIndentedLine("'%s',", dependency);
-            });
-```
-
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
-in `conjure-python-core/src/main/java/com/palantir/conjure/python/poet/PythonMetaYaml.java`
-#### Snippet
-```java
-            poetWriter.writeIndentedLine("- python");
-            poetWriter.writeIndentedLine("- setuptools");
-            installDependencies().forEach(dependency -> {
-                poetWriter.writeIndentedLine("- %s", dependency);
-            });
-```
-
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
-in `conjure-python-core/src/main/java/com/palantir/conjure/python/poet/PythonMetaYaml.java`
-#### Snippet
-```java
-            poetWriter.increaseIndent();
-            poetWriter.writeIndentedLine("- python");
-            installDependencies().forEach(dependency -> {
-                poetWriter.writeIndentedLine("- %s", dependency);
             });
 ```
 
@@ -272,11 +272,11 @@ in `conjure-python-core/src/main/java/com/palantir/conjure/python/ConjurePythonG
 in `conjure-python-core/src/main/java/com/palantir/conjure/python/ConjurePythonGenerator.java`
 #### Snippet
 ```java
-                        .pythonPackage(rootPackage)
-                        .text(String.format(
-                                "__version__ = \"%s\"", config.packageVersion().get()))
-                        .build()));
-        return builder.build();
+    private PythonFile buildPyTypedFile() {
+        return PythonFile.builder()
+                .pythonPackage(PythonPackage.of(config.pythonicPackageName().get()))
+                .fileName("py.typed")
+                .build();
 ```
 
 ### OptionalGetWithoutIsPresent
@@ -284,11 +284,11 @@ in `conjure-python-core/src/main/java/com/palantir/conjure/python/ConjurePythonG
 in `conjure-python-core/src/main/java/com/palantir/conjure/python/ConjurePythonGenerator.java`
 #### Snippet
 ```java
-    private PythonFile buildPyTypedFile() {
-        return PythonFile.builder()
-                .pythonPackage(PythonPackage.of(config.pythonicPackageName().get()))
-                .fileName("py.typed")
-                .build();
+                        .pythonPackage(rootPackage)
+                        .text(String.format(
+                                "__version__ = \"%s\"", config.packageVersion().get()))
+                        .build()));
+        return builder.build();
 ```
 
 ### OptionalGetWithoutIsPresent
