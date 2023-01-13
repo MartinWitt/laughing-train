@@ -20,24 +20,24 @@ dependencies {
 
 ### GroovyUnusedAssignment
 Assignment is not used
-in `msgraph-mail/java/utilities/build.gradle`
-#### Snippet
-```java
-}
-
-archivesBaseName = 'utilities'
-
-dependencies {
-```
-
-### GroovyUnusedAssignment
-Assignment is not used
 in `msgraph-mail/java/app/build.gradle`
 #### Snippet
 ```java
 }
 
 archivesBaseName = 'app'
+
+dependencies {
+```
+
+### GroovyUnusedAssignment
+Assignment is not used
+in `msgraph-mail/java/utilities/build.gradle`
+#### Snippet
+```java
+}
+
+archivesBaseName = 'utilities'
 
 dependencies {
 ```
