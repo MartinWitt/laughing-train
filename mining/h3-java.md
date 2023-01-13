@@ -30,7 +30,7 @@ in `src/main/java/com/uber/h3core/H3CoreLoader.java`
 ## RuleId[ruleID=HtmlWrongAttributeValue]
 ### HtmlWrongAttributeValue
 Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-01-11-07-41-33.792.html`
+in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-01-13-13-41-46.025.html`
 #### Snippet
 ```java
               <td>0</td>
@@ -55,18 +55,6 @@ in `src/main/java/com/uber/h3core/H3Core.java`
 
 ## RuleId[ruleID=UnnecessaryLocalVariable]
 ### UnnecessaryLocalVariable
-Local variable `out` is redundant
-in `src/main/java/com/uber/h3core/H3Core.java`
-#### Snippet
-```java
-    double[] coords = new double[2];
-    h3Api.cellToLatLng(h3, coords);
-    LatLng out = new LatLng(toDegrees(coords[0]), toDegrees(coords[1]));
-    return out;
-  }
-```
-
-### UnnecessaryLocalVariable
 Local variable `result` is redundant
 in `src/main/java/com/uber/h3core/H3Core.java`
 #### Snippet
@@ -76,6 +64,18 @@ in `src/main/java/com/uber/h3core/H3Core.java`
     long result = h3Api.cellToCenterChild(h3, childRes);
 
     return result;
+```
+
+### UnnecessaryLocalVariable
+Local variable `out` is redundant
+in `src/main/java/com/uber/h3core/H3Core.java`
+#### Snippet
+```java
+    double[] coords = new double[2];
+    h3Api.cellToLatLng(h3, coords);
+    LatLng out = new LatLng(toDegrees(coords[0]), toDegrees(coords[1]));
+    return out;
+  }
 ```
 
 ## RuleId[ruleID=ZeroLengthArrayInitialization]
@@ -116,6 +116,19 @@ public class H3Exception extends RuntimeException {
   public H3Exception(int code) {
 ```
 
+## RuleId[ruleID=NestedAssignment]
+### NestedAssignment
+Result of assignment expression used
+in `src/main/java/com/uber/h3core/H3CoreLoader.java`
+#### Snippet
+```java
+
+    int read;
+    while ((read = in.read(buf)) != -1) {
+      out.write(buf, 0, read);
+    }
+```
+
 ## RuleId[ruleID=FinalStaticMethod]
 ### FinalStaticMethod
 'static' method declared `final`
@@ -141,32 +154,7 @@ in `src/main/java/com/uber/h3core/H3CoreLoader.java`
     // https://developer.android.com/reference/java/lang/System.html
 ```
 
-## RuleId[ruleID=NestedAssignment]
-### NestedAssignment
-Result of assignment expression used
-in `src/main/java/com/uber/h3core/H3CoreLoader.java`
-#### Snippet
-```java
-
-    int read;
-    while ((read = in.read(buf)) != -1) {
-      out.write(buf, 0, read);
-    }
-```
-
 ## RuleId[ruleID=BoundedWildcard]
-### BoundedWildcard
-Can generalize to `? extends List`
-in `src/main/java/com/uber/h3core/H3Core.java`
-#### Snippet
-```java
-   * @throws IllegalArgumentException Invalid resolution
-   */
-  public List<Long> polygonToCells(List<LatLng> points, List<List<LatLng>> holes, int res) {
-    checkResolution(res);
-
-```
-
 ### BoundedWildcard
 Can generalize to `? extends LatLng`
 in `src/main/java/com/uber/h3core/H3Core.java`
@@ -176,6 +164,18 @@ in `src/main/java/com/uber/h3core/H3Core.java`
    */
   private static int packGeofenceVertices(double[] arr, List<LatLng> original, int offset) {
     assert arr.length >= (original.size() * 2) + offset;
+
+```
+
+### BoundedWildcard
+Can generalize to `? extends List`
+in `src/main/java/com/uber/h3core/H3Core.java`
+#### Snippet
+```java
+   * @throws IllegalArgumentException Invalid resolution
+   */
+  public List<Long> polygonToCells(List<LatLng> points, List<List<LatLng>> holes, int res) {
+    checkResolution(res);
 
 ```
 
