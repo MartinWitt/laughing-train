@@ -20,18 +20,6 @@ I found 40 bad smells with 6 repairable:
 | ConstantValue | 1 | false |
 ## RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
 ### UtilityClassWithoutPrivateConstructor
-Class `FhirUtil` has only 'static' members, and lacks a 'private' constructor
-in `server/src/main/java/com/google/fhir/proxy/FhirUtil.java`
-#### Snippet
-```java
-import org.slf4j.LoggerFactory;
-
-public class FhirUtil {
-
-  private static final Logger logger = LoggerFactory.getLogger(FhirUtil.class);
-```
-
-### UtilityClassWithoutPrivateConstructor
 Class `ExceptionUtil` has only 'static' members, and lacks a 'private' constructor
 in `server/src/main/java/com/google/fhir/proxy/ExceptionUtil.java`
 #### Snippet
@@ -44,15 +32,27 @@ public class ExceptionUtil {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `MainApp` has only 'static' members, and lacks a 'private' constructor
-in `server/src/main/java/com/google/fhir/proxy/MainApp.java`
+Class `FhirUtil` has only 'static' members, and lacks a 'private' constructor
+in `server/src/main/java/com/google/fhir/proxy/FhirUtil.java`
 #### Snippet
 ```java
-@SpringBootApplication
-@ServletComponentScan
-public class MainApp {
+import org.slf4j.LoggerFactory;
 
-  public static void main(String[] args) {
+public class FhirUtil {
+
+  private static final Logger logger = LoggerFactory.getLogger(FhirUtil.class);
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `ProxyConstants` has only 'static' members, and lacks a 'private' constructor
+in `server/src/main/java/com/google/fhir/proxy/ProxyConstants.java`
+#### Snippet
+```java
+import org.apache.http.entity.ContentType;
+
+public class ProxyConstants {
+
+  // Note we should not set charset here; otherwise GCP FHIR store complains about Content-Type.
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -68,15 +68,15 @@ public class JwtUtil {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `ProxyConstants` has only 'static' members, and lacks a 'private' constructor
-in `server/src/main/java/com/google/fhir/proxy/ProxyConstants.java`
+Class `MainApp` has only 'static' members, and lacks a 'private' constructor
+in `server/src/main/java/com/google/fhir/proxy/MainApp.java`
 #### Snippet
 ```java
-import org.apache.http.entity.ContentType;
+@SpringBootApplication
+@ServletComponentScan
+public class MainApp {
 
-public class ProxyConstants {
-
-  // Note we should not set charset here; otherwise GCP FHIR store complains about Content-Type.
+  public static void main(String[] args) {
 ```
 
 ## RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
@@ -218,18 +218,6 @@ in `server/src/main/java/com/google/fhir/proxy/FhirProxyServer.java`
 
 ## RuleId[ruleID=RedundantFieldInitialization]
 ### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `server/src/main/java/com/google/fhir/proxy/CapabilityPostProcessor.java`
-#### Snippet
-```java
-          + "header containing a JWT access token. This token must have been issued by the "
-          + "authorization server defined by the configured TOKEN_ISSUER.";
-  private static CapabilityPostProcessor instance = null;
-
-  private final FhirContext fhirContext;
-```
-
-### RedundantFieldInitialization
 Field initialization to `false` is redundant
 in `server/src/main/java/com/google/fhir/proxy/BundlePatients.java`
 #### Snippet
@@ -239,6 +227,18 @@ in `server/src/main/java/com/google/fhir/proxy/BundlePatients.java`
     private boolean patientsToCreate = false;
 
     public BundlePatientsBuilder addUpdatePatients(Set<String> patientsToUpdate) {
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `server/src/main/java/com/google/fhir/proxy/CapabilityPostProcessor.java`
+#### Snippet
+```java
+          + "header containing a JWT access token. This token must have been issued by the "
+          + "authorization server defined by the configured TOKEN_ISSUER.";
+  private static CapabilityPostProcessor instance = null;
+
+  private final FhirContext fhirContext;
 ```
 
 ### RedundantFieldInitialization
@@ -278,27 +278,14 @@ in `plugins/src/main/java/com/google/fhir/proxy/plugin/ListAccessChecker.java`
   @Override
 ```
 
-## RuleId[ruleID=HtmlWrongAttributeValue]
-### HtmlWrongAttributeValue
-Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-01-10-23-24-33.587.html`
-#### Snippet
-```java
-              <td>0</td>
-              <td>0</td>
-              <td><textarea rows="10" cols="75" readonly="true" placeholder="empty" style="white-space: pre; border: none">Not collected for refresh</textarea></td>
-            </tr>
-          </tbody>
-```
-
 ## RuleId[ruleID=ReturnNull]
 ### ReturnNull
 Return of `null`
-in `server/src/main/java/com/google/fhir/proxy/HttpUtil.java`
+in `server/src/main/java/com/google/fhir/proxy/interfaces/NoOpAccessDecision.java`
 #### Snippet
 ```java
-          logger, "Error in building URI for resource " + uriString);
-    }
+  @Override
+  public String postProcess(HttpResponse response) {
     return null;
   }
 
@@ -318,11 +305,23 @@ in `server/src/main/java/com/google/fhir/proxy/FhirUtil.java`
 
 ### ReturnNull
 Return of `null`
-in `server/src/main/java/com/google/fhir/proxy/interfaces/NoOpAccessDecision.java`
+in `server/src/main/java/com/google/fhir/proxy/HttpUtil.java`
 #### Snippet
 ```java
-  @Override
-  public String postProcess(HttpResponse response) {
+          logger, "Error in building URI for resource " + uriString);
+    }
+    return null;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `server/src/main/java/com/google/fhir/proxy/BearerAuthorizationInterceptor.java`
+#### Snippet
+```java
+    }
+    // We should never get here, this is to keep the IDE happy!
     return null;
   }
 
@@ -342,14 +341,14 @@ in `server/src/main/java/com/google/fhir/proxy/BearerAuthorizationInterceptor.ja
 
 ### ReturnNull
 Return of `null`
-in `server/src/main/java/com/google/fhir/proxy/BearerAuthorizationInterceptor.java`
+in `server/src/main/java/com/google/fhir/proxy/PatientFinderImp.java`
 #### Snippet
 ```java
+          "Direct resource fetch is only supported for Patient; use search for " + resourceName,
+          InvalidRequestException.class);
+      return null;
     }
-    // We should never get here, this is to keep the IDE happy!
-    return null;
-  }
-
+    Map<String, String[]> queryParams = requestDetails.getParameters();
 ```
 
 ### ReturnNull
@@ -376,16 +375,17 @@ in `server/src/main/java/com/google/fhir/proxy/PatientFinderImp.java`
   }
 ```
 
-### ReturnNull
-Return of `null`
-in `server/src/main/java/com/google/fhir/proxy/PatientFinderImp.java`
+## RuleId[ruleID=HtmlWrongAttributeValue]
+### HtmlWrongAttributeValue
+Wrong attribute value
+in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-01-13-02-13-19.022.html`
 #### Snippet
 ```java
-          "Direct resource fetch is only supported for Patient; use search for " + resourceName,
-          InvalidRequestException.class);
-      return null;
-    }
-    Map<String, String[]> queryParams = requestDetails.getParameters();
+              <td>0</td>
+              <td>0</td>
+              <td><textarea rows="10" cols="75" readonly="true" placeholder="empty" style="white-space: pre; border: none">Not collected for refresh</textarea></td>
+            </tr>
+          </tbody>
 ```
 
 ## RuleId[ruleID=UnnecessaryLocalVariable]
