@@ -68,8 +68,8 @@ I found 1819 bad smells with 411 repairable:
 | InnerClassMayBeStatic | 1 | true |
 | UtilityClassWithPublicConstructor | 1 | false |
 | CharsetObjectCanBeUsed | 1 | false |
-| ComparatorMethodParameterNotUsed | 1 | false |
 | RegExpSingleCharAlternation | 1 | false |
+| ComparatorMethodParameterNotUsed | 1 | false |
 | Convert2Lambda | 1 | false |
 ## RuleId[ruleID=ToArrayCallWithZeroLengthArrayArgument]
 ### ToArrayCallWithZeroLengthArrayArgument
@@ -174,18 +174,6 @@ Type may be primitive
 in `src/main/java/net/coreprotect/database/Rollback.java`
 #### Snippet
 ```java
-
-            StringBuilder modifiedData = new StringBuilder();
-            Integer modifyCount = 0;
-            if (actionList.contains(5)) {
-                modifiedData = modifiedData.append(Phrase.build(Phrase.AMOUNT_ITEM, NumberFormat.getInstance().format(blockCount), (blockCount == 1 ? Selector.FIRST : Selector.SECOND)));
-```
-
-### WrapperTypeMayBePrimitive
-Type may be primitive
-in `src/main/java/net/coreprotect/database/Rollback.java`
-#### Snippet
-```java
                 userString = user.getName();
                 if (verbose && preview == 0 && !actionList.contains(11)) {
                     Integer chunks = chunkList.size();
@@ -205,125 +193,29 @@ in `src/main/java/net/coreprotect/database/Rollback.java`
                 }
 ```
 
+### WrapperTypeMayBePrimitive
+Type may be primitive
+in `src/main/java/net/coreprotect/database/Rollback.java`
+#### Snippet
+```java
+
+            StringBuilder modifiedData = new StringBuilder();
+            Integer modifyCount = 0;
+            if (actionList.contains(5)) {
+                modifiedData = modifiedData.append(Phrase.build(Phrase.AMOUNT_ITEM, NumberFormat.getInstance().format(blockCount), (blockCount == 1 ? Selector.FIRST : Selector.SECOND)));
+```
+
 ## RuleId[ruleID=UnnecessaryModifier]
 ### UnnecessaryModifier
 Modifier `public` is redundant for interface members
 in `src/main/java/net/coreprotect/bukkit/BukkitInterface.java`
 #### Snippet
 ```java
-    public boolean isGlowing(Sign sign);
+    public boolean setEntityMeta(Entity entity, Object value, int count);
 
-    public boolean isInvisible(Material material);
-
-    public int getMinHeight(World world);
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `src/main/java/net/coreprotect/bukkit/BukkitInterface.java`
-#### Snippet
-```java
-    public Material getBucketContents(Material material);
-
-    public Material getFrameType(Entity entity);
-
-    public Material getFrameType(EntityType type);
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `src/main/java/net/coreprotect/bukkit/BukkitInterface.java`
-#### Snippet
-```java
-    public boolean isWall(BlockData blockData);
-
-    public boolean isItemFrame(Material material);
-
-    public boolean isGlowing(Sign sign);
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `src/main/java/net/coreprotect/bukkit/BukkitInterface.java`
-#### Snippet
-```java
-    public boolean isInvisible(Material material);
-
-    public int getMinHeight(World world);
-
-    public int getLegacyBlockId(Material material);
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `src/main/java/net/coreprotect/bukkit/BukkitInterface.java`
-#### Snippet
-```java
-    public Material getFrameType(Entity entity);
-
-    public Material getFrameType(EntityType type);
-
-    public Class<?> getFrameClass(Material material);
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `src/main/java/net/coreprotect/bukkit/BukkitInterface.java`
-#### Snippet
-```java
-    public int getMinHeight(World world);
-
-    public int getLegacyBlockId(Material material);
-
-    public void setGlowing(Sign sign, boolean b);
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `src/main/java/net/coreprotect/bukkit/BukkitInterface.java`
-#### Snippet
-```java
     public boolean getItemMeta(ItemMeta itemMeta, List<Map<String, Object>> list, List<List<Map<String, Object>>> metadata, int slot);
 
     public boolean setItemMeta(Material rowType, ItemStack itemstack, List<Map<String, Object>> map);
-
-    public boolean isAttached(Block block, Block scanBlock, BlockData blockData, int scanMin);
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `src/main/java/net/coreprotect/bukkit/BukkitInterface.java`
-#### Snippet
-```java
-    public ItemStack adjustIngredient(MerchantRecipe recipe, ItemStack itemStack);
-
-    public Material getBucketContents(Material material);
-
-    public Material getFrameType(Entity entity);
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `src/main/java/net/coreprotect/bukkit/BukkitInterface.java`
-#### Snippet
-```java
-    public boolean getEntityMeta(LivingEntity entity, List<Object> info);
-
-    public boolean setEntityMeta(Entity entity, Object value, int count);
-
-    public boolean getItemMeta(ItemMeta itemMeta, List<Map<String, Object>> list, List<List<Map<String, Object>>> metadata, int slot);
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `src/main/java/net/coreprotect/bukkit/BukkitInterface.java`
-#### Snippet
-```java
-    public String parseLegacyName(String name);
-
-    public boolean getEntityMeta(LivingEntity entity, List<Object> info);
-
-    public boolean setEntityMeta(Entity entity, Object value, int count);
 ```
 
 ### UnnecessaryModifier
@@ -343,35 +235,83 @@ Modifier `public` is redundant for interface members
 in `src/main/java/net/coreprotect/bukkit/BukkitInterface.java`
 #### Snippet
 ```java
-    public boolean isItemFrame(Material material);
-
-    public boolean isGlowing(Sign sign);
-
-    public boolean isInvisible(Material material);
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `src/main/java/net/coreprotect/bukkit/BukkitInterface.java`
-#### Snippet
-```java
-    public boolean setEntityMeta(Entity entity, Object value, int count);
-
-    public boolean getItemMeta(ItemMeta itemMeta, List<Map<String, Object>> list, List<List<Map<String, Object>>> metadata, int slot);
-
-    public boolean setItemMeta(Material rowType, ItemStack itemstack, List<Map<String, Object>> map);
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `src/main/java/net/coreprotect/bukkit/BukkitInterface.java`
-#### Snippet
-```java
-    public Material getFrameType(EntityType type);
-
     public Class<?> getFrameClass(Material material);
 
     public String parseLegacyName(String name);
+
+    public boolean getEntityMeta(LivingEntity entity, List<Object> info);
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `src/main/java/net/coreprotect/bukkit/BukkitInterface.java`
+#### Snippet
+```java
+    public Material getFrameType(Entity entity);
+
+    public Material getFrameType(EntityType type);
+
+    public Class<?> getFrameClass(Material material);
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `src/main/java/net/coreprotect/bukkit/BukkitInterface.java`
+#### Snippet
+```java
+    public boolean isWall(BlockData blockData);
+
+    public boolean isItemFrame(Material material);
+
+    public boolean isGlowing(Sign sign);
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `src/main/java/net/coreprotect/bukkit/BukkitInterface.java`
+#### Snippet
+```java
+    public ItemStack adjustIngredient(MerchantRecipe recipe, ItemStack itemStack);
+
+    public Material getBucketContents(Material material);
+
+    public Material getFrameType(Entity entity);
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `src/main/java/net/coreprotect/bukkit/BukkitInterface.java`
+#### Snippet
+```java
+    public boolean getEntityMeta(LivingEntity entity, List<Object> info);
+
+    public boolean setEntityMeta(Entity entity, Object value, int count);
+
+    public boolean getItemMeta(ItemMeta itemMeta, List<Map<String, Object>> list, List<List<Map<String, Object>>> metadata, int slot);
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `src/main/java/net/coreprotect/bukkit/BukkitInterface.java`
+#### Snippet
+```java
+    public String parseLegacyName(String name);
+
+    public boolean getEntityMeta(LivingEntity entity, List<Object> info);
+
+    public boolean setEntityMeta(Entity entity, Object value, int count);
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `src/main/java/net/coreprotect/bukkit/BukkitInterface.java`
+#### Snippet
+```java
+    public boolean isInvisible(Material material);
+
+    public int getMinHeight(World world);
+
+    public int getLegacyBlockId(Material material);
 ```
 
 ### UnnecessaryModifier
@@ -391,11 +331,11 @@ Modifier `public` is redundant for interface members
 in `src/main/java/net/coreprotect/bukkit/BukkitInterface.java`
 #### Snippet
 ```java
-    public Class<?> getFrameClass(Material material);
+    public boolean getItemMeta(ItemMeta itemMeta, List<Map<String, Object>> list, List<List<Map<String, Object>>> metadata, int slot);
 
-    public String parseLegacyName(String name);
+    public boolean setItemMeta(Material rowType, ItemStack itemstack, List<Map<String, Object>> map);
 
-    public boolean getEntityMeta(LivingEntity entity, List<Object> info);
+    public boolean isAttached(Block block, Block scanBlock, BlockData blockData, int scanMin);
 ```
 
 ### UnnecessaryModifier
@@ -403,11 +343,11 @@ Modifier `public` is redundant for interface members
 in `src/main/java/net/coreprotect/bukkit/BukkitInterface.java`
 #### Snippet
 ```java
-    public boolean isAttached(Block block, Block scanBlock, BlockData blockData, int scanMin);
+    public Material getBucketContents(Material material);
 
-    public boolean isWall(BlockData blockData);
+    public Material getFrameType(Entity entity);
 
-    public boolean isItemFrame(Material material);
+    public Material getFrameType(EntityType type);
 ```
 
 ### UnnecessaryModifier
@@ -424,14 +364,62 @@ in `src/main/java/net/coreprotect/bukkit/BukkitInterface.java`
 
 ### UnnecessaryModifier
 Modifier `public` is redundant for interface members
-in `src/main/java/net/coreprotect/paper/PaperInterface.java`
+in `src/main/java/net/coreprotect/bukkit/BukkitInterface.java`
 #### Snippet
 ```java
-    public InventoryHolder getHolder(Inventory holder, boolean useSnapshot);
+    public Material getFrameType(EntityType type);
 
-    public boolean isStopping(Server server);
+    public Class<?> getFrameClass(Material material);
 
-    public String getLine(Sign sign, int line);
+    public String parseLegacyName(String name);
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `src/main/java/net/coreprotect/bukkit/BukkitInterface.java`
+#### Snippet
+```java
+    public boolean isGlowing(Sign sign);
+
+    public boolean isInvisible(Material material);
+
+    public int getMinHeight(World world);
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `src/main/java/net/coreprotect/bukkit/BukkitInterface.java`
+#### Snippet
+```java
+    public int getMinHeight(World world);
+
+    public int getLegacyBlockId(Material material);
+
+    public void setGlowing(Sign sign, boolean b);
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `src/main/java/net/coreprotect/bukkit/BukkitInterface.java`
+#### Snippet
+```java
+    public boolean isItemFrame(Material material);
+
+    public boolean isGlowing(Sign sign);
+
+    public boolean isInvisible(Material material);
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `src/main/java/net/coreprotect/bukkit/BukkitInterface.java`
+#### Snippet
+```java
+    public boolean isAttached(Block block, Block scanBlock, BlockData blockData, int scanMin);
+
+    public boolean isWall(BlockData blockData);
+
+    public boolean isItemFrame(Material material);
 ```
 
 ### UnnecessaryModifier
@@ -451,6 +439,18 @@ Modifier `public` is redundant for interface members
 in `src/main/java/net/coreprotect/paper/PaperInterface.java`
 #### Snippet
 ```java
+    public InventoryHolder getHolder(Inventory holder, boolean useSnapshot);
+
+    public boolean isStopping(Server server);
+
+    public String getLine(Sign sign, int line);
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `src/main/java/net/coreprotect/paper/PaperInterface.java`
+#### Snippet
+```java
     public boolean isStopping(Server server);
 
     public String getLine(Sign sign, int line);
@@ -463,35 +463,35 @@ Modifier `public` is redundant for interface members
 in `src/main/java/net/coreprotect/spigot/SpigotInterface.java`
 #### Snippet
 ```java
-public interface SpigotInterface {
-
-    public void addHoverComponent(Object message, String[] data);
-
-    public void setHoverEvent(Object message, String text);
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `src/main/java/net/coreprotect/spigot/SpigotInterface.java`
-#### Snippet
-```java
-    public void addHoverComponent(Object message, String[] data);
-
-    public void setHoverEvent(Object message, String text);
-
-    public void sendComponent(CommandSender sender, String string, String bypass);
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `src/main/java/net/coreprotect/spigot/SpigotInterface.java`
-#### Snippet
-```java
     public void setHoverEvent(Object message, String text);
 
     public void sendComponent(CommandSender sender, String string, String bypass);
 
 }
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `src/main/java/net/coreprotect/spigot/SpigotInterface.java`
+#### Snippet
+```java
+    public void addHoverComponent(Object message, String[] data);
+
+    public void setHoverEvent(Object message, String text);
+
+    public void sendComponent(CommandSender sender, String string, String bypass);
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `src/main/java/net/coreprotect/spigot/SpigotInterface.java`
+#### Snippet
+```java
+public interface SpigotInterface {
+
+    public void addHoverComponent(Object message, String[] data);
+
+    public void setHoverEvent(Object message, String text);
 ```
 
 ## RuleId[ruleID=WhileCanBeForeach]
@@ -545,18 +545,6 @@ in `src/main/java/net/coreprotect/database/logger/UsernameLogger.java`
 ```
 
 ### CommentedOutCode
-Commented out code (18 lines)
-in `src/main/java/net/coreprotect/listener/player/HopperPullListener.java`
-#### Snippet
-```java
-                    }
-
-                    /*
-                    for (ItemStack itemStack : sourceHolder.getInventory().getContents()) {
-                        if (itemStack != null && Util.getItemStackHashCode(itemStack) == itemHash) {
-```
-
-### CommentedOutCode
 Commented out code (9 lines)
 in `src/main/java/net/coreprotect/listener/player/ArmorStandManipulateListener.java`
 #### Snippet
@@ -569,15 +557,15 @@ in `src/main/java/net/coreprotect/listener/player/ArmorStandManipulateListener.j
 ```
 
 ### CommentedOutCode
-Commented out code (6 lines)
-in `src/main/java/net/coreprotect/listener/player/PlayerCommandListener.java`
+Commented out code (18 lines)
+in `src/main/java/net/coreprotect/listener/player/HopperPullListener.java`
 #### Snippet
 ```java
-    }
+                    }
 
-    /*
-    @EventHandler(priority = EventPriority.MONITOR)
-    public void onServerCommand(ServerCommandEvent event) {
+                    /*
+                    for (ItemStack itemStack : sourceHolder.getInventory().getContents()) {
+                        if (itemStack != null && Util.getItemStackHashCode(itemStack) == itemHash) {
 ```
 
 ### CommentedOutCode
@@ -590,6 +578,18 @@ in `src/main/java/net/coreprotect/listener/player/PlayerCommandListener.java`
         /*
         if (Config.getGlobal().ENTITY_KILLS && player.hasPermission("bukkit.command.kill")) {
             EntityDeathListener.parseEntityKills(event.getMessage());
+```
+
+### CommentedOutCode
+Commented out code (6 lines)
+in `src/main/java/net/coreprotect/listener/player/PlayerCommandListener.java`
+#### Snippet
+```java
+    }
+
+    /*
+    @EventHandler(priority = EventPriority.MONITOR)
+    public void onServerCommand(ServerCommandEvent event) {
 ```
 
 ### CommentedOutCode
@@ -737,18 +737,6 @@ in `src/main/java/net/coreprotect/database/Lookup.java`
 ```
 
 ### CommentedOutCode
-Commented out code (6 lines)
-in `src/main/java/net/coreprotect/database/Rollback.java`
-#### Snippet
-```java
-
-        try {
-            /*
-            if (list instanceof Object[]) {
-                slot = (int) ((Object[]) list)[0];
-```
-
-### CommentedOutCode
 Commented out code (10 lines)
 in `src/main/java/net/coreprotect/database/Rollback.java`
 #### Snippet
@@ -808,6 +796,18 @@ in `src/main/java/net/coreprotect/database/Rollback.java`
                                                 physics = !(blockData instanceof Snow) || block.getY() <= BukkitAdapter.ADAPTER.getMinHeight(block.getWorld()) || (block.getWorld().getBlockAt(block.getX(), block.getY() - 1, block.getZ()).getType().equals(Material.GRASS_BLOCK));
 ```
 
+### CommentedOutCode
+Commented out code (6 lines)
+in `src/main/java/net/coreprotect/database/Rollback.java`
+#### Snippet
+```java
+
+        try {
+            /*
+            if (list instanceof Object[]) {
+                slot = (int) ((Object[]) list)[0];
+```
+
 ## RuleId[ruleID=AssignmentToStaticFieldFromInstanceMethod]
 ### AssignmentToStaticFieldFromInstanceMethod
 Assignment to static field `Consumer.isPaused` from instance context
@@ -858,6 +858,30 @@ in `src/main/java/net/coreprotect/CoreProtect.java`
 ```
 
 ### AssignmentToStaticFieldFromInstanceMethod
+Assignment to static field `BlockPreDispenseListener.useBlockPreDispenseEvent` from instance context
+in `src/main/java/net/coreprotect/listener/ListenerHandler.java`
+#### Snippet
+```java
+        }
+        catch (Exception e) {
+            BlockPreDispenseListener.useBlockPreDispenseEvent = false;
+        }
+
+```
+
+### AssignmentToStaticFieldFromInstanceMethod
+Assignment to static field `patchNotification` from instance context
+in `src/main/java/net/coreprotect/patch/Patch.java`
+#### Snippet
+```java
+                                    Chat.console(Phrase.build(Phrase.PATCH_UPGRADING));
+                                    alertTime = alertTime + 30;
+                                    patchNotification = true;
+                                }
+                                Thread.sleep(1000);
+```
+
+### AssignmentToStaticFieldFromInstanceMethod
 Assignment to static field `ConfigHandler.converterRunning` from instance context
 in `src/main/java/net/coreprotect/patch/Patch.java`
 #### Snippet
@@ -879,54 +903,6 @@ in `src/main/java/net/coreprotect/patch/Patch.java`
                                 Consumer.isPaused = false;
                             }
                             else if (finished == -1) {
-```
-
-### AssignmentToStaticFieldFromInstanceMethod
-Assignment to static field `patchNotification` from instance context
-in `src/main/java/net/coreprotect/patch/Patch.java`
-#### Snippet
-```java
-                                    Chat.console(Phrase.build(Phrase.PATCH_UPGRADING));
-                                    alertTime = alertTime + 30;
-                                    patchNotification = true;
-                                }
-                                Thread.sleep(1000);
-```
-
-### AssignmentToStaticFieldFromInstanceMethod
-Assignment to static field `BlockPreDispenseListener.useBlockPreDispenseEvent` from instance context
-in `src/main/java/net/coreprotect/listener/ListenerHandler.java`
-#### Snippet
-```java
-        }
-        catch (Exception e) {
-            BlockPreDispenseListener.useBlockPreDispenseEvent = false;
-        }
-
-```
-
-### AssignmentToStaticFieldFromInstanceMethod
-Assignment to static field `SpigotHandler.DARK_AQUA` from instance context
-in `src/main/java/net/coreprotect/spigot/Spigot_v1_16.java`
-#### Snippet
-```java
-
-    public Spigot_v1_16() {
-        SpigotHandler.DARK_AQUA = ChatColor.of("#31b0e8");
-        Color.DARK_AQUA = SpigotHandler.DARK_AQUA.toString();
-    }
-```
-
-### AssignmentToStaticFieldFromInstanceMethod
-Assignment to static field `Color.DARK_AQUA` from instance context
-in `src/main/java/net/coreprotect/spigot/Spigot_v1_16.java`
-#### Snippet
-```java
-    public Spigot_v1_16() {
-        SpigotHandler.DARK_AQUA = ChatColor.of("#31b0e8");
-        Color.DARK_AQUA = SpigotHandler.DARK_AQUA.toString();
-    }
-
 ```
 
 ### AssignmentToStaticFieldFromInstanceMethod
@@ -1026,14 +1002,26 @@ in `src/main/java/net/coreprotect/command/PurgeCommand.java`
 ```
 
 ### AssignmentToStaticFieldFromInstanceMethod
-Assignment to static field `materials` from instance context
-in `src/main/java/net/coreprotect/command/TabHandler.java`
+Assignment to static field `SpigotHandler.DARK_AQUA` from instance context
+in `src/main/java/net/coreprotect/spigot/Spigot_v1_16.java`
 #### Snippet
 ```java
-                    }
 
-                    materials = new ArrayList<>(materialList);
-                }
+    public Spigot_v1_16() {
+        SpigotHandler.DARK_AQUA = ChatColor.of("#31b0e8");
+        Color.DARK_AQUA = SpigotHandler.DARK_AQUA.toString();
+    }
+```
+
+### AssignmentToStaticFieldFromInstanceMethod
+Assignment to static field `Color.DARK_AQUA` from instance context
+in `src/main/java/net/coreprotect/spigot/Spigot_v1_16.java`
+#### Snippet
+```java
+    public Spigot_v1_16() {
+        SpigotHandler.DARK_AQUA = ChatColor.of("#31b0e8");
+        Color.DARK_AQUA = SpigotHandler.DARK_AQUA.toString();
+    }
 
 ```
 
@@ -1059,6 +1047,18 @@ in `src/main/java/net/coreprotect/consumer/Consumer.java`
                     currentConsumer = 0;
                 }
                 Thread.sleep(500);
+```
+
+### AssignmentToStaticFieldFromInstanceMethod
+Assignment to static field `materials` from instance context
+in `src/main/java/net/coreprotect/command/TabHandler.java`
+#### Snippet
+```java
+                    }
+
+                    materials = new ArrayList<>(materialList);
+                }
+
 ```
 
 ### AssignmentToStaticFieldFromInstanceMethod
@@ -1609,10 +1609,10 @@ in `src/main/java/net/coreprotect/patch/script/__2_18_0.java`
 #### Snippet
 ```java
         switch (data) {
-            case 2:
-                return BlockFace.NORTH;
-            case 3:
-                return BlockFace.SOUTH;
+            case 0:
+                return Material.WHITE_WOOL;
+            case 1:
+                return Material.ORANGE_WOOL;
 ```
 
 ### DuplicateBranchesInSwitch
@@ -1621,10 +1621,10 @@ in `src/main/java/net/coreprotect/patch/script/__2_18_0.java`
 #### Snippet
 ```java
         switch (data) {
-            case 0:
-                return Material.WHITE_WOOL;
-            case 1:
-                return Material.ORANGE_WOOL;
+            case 2:
+                return BlockFace.NORTH;
+            case 3:
+                return BlockFace.SOUTH;
 ```
 
 ## RuleId[ruleID=DuplicateExpressions]
@@ -1918,18 +1918,6 @@ in `src/main/java/net/coreprotect/listener/block/BlockPlaceListener.java`
 ```
 
 ### SizeReplaceableByIsEmpty
-`ConfigHandler.EDITION_BRANCH.length() == 0` can be replaced with 'ConfigHandler.EDITION_BRANCH.isEmpty()'
-in `src/main/java/net/coreprotect/CoreProtect.java`
-#### Snippet
-```java
-            }
-
-            if (ConfigHandler.EDITION_BRANCH.length() == 0) {
-                Chat.sendConsoleMessage(Color.RED + "[CoreProtect] " + Phrase.build(Phrase.INVALID_BRANCH_1));
-                Chat.sendConsoleMessage(Color.GREY + "[CoreProtect] " + Phrase.build(Phrase.INVALID_BRANCH_2));
-```
-
-### SizeReplaceableByIsEmpty
 `x.length() == 0` can be replaced with 'x.isEmpty()'
 in `src/main/java/net/coreprotect/command/TeleportCommand.java`
 #### Snippet
@@ -1963,6 +1951,66 @@ in `src/main/java/net/coreprotect/command/TeleportCommand.java`
         if ((x.length() == 0 || x.length() >= 12 || x.equals(xValidate)) || (y.length() == 0 || y.length() >= 12 || y.equals(yValidate)) || (z.length() == 0 || z.length() >= 12 || z.equals(zValidate))) {
             Chat.sendMessage(player, Color.DARK_AQUA + "CoreProtect " + Color.WHITE + "- " + Phrase.build(Phrase.MISSING_PARAMETERS, "/co teleport <world> <x> <y> <z>"));
             return;
+```
+
+### SizeReplaceableByIsEmpty
+`ConfigHandler.EDITION_BRANCH.length() == 0` can be replaced with 'ConfigHandler.EDITION_BRANCH.isEmpty()'
+in `src/main/java/net/coreprotect/CoreProtect.java`
+#### Snippet
+```java
+            }
+
+            if (ConfigHandler.EDITION_BRANCH.length() == 0) {
+                Chat.sendConsoleMessage(Color.RED + "[CoreProtect] " + Phrase.build(Phrase.INVALID_BRANCH_1));
+                Chat.sendConsoleMessage(Color.GREY + "[CoreProtect] " + Phrase.build(Phrase.INVALID_BRANCH_2));
+```
+
+### SizeReplaceableByIsEmpty
+`old.size() == 0` can be replaced with 'old.isEmpty()'
+in `src/main/java/net/coreprotect/consumer/process/ContainerTransactionProcess.java`
+#### Snippet
+```java
+                        ContainerLogger.log(preparedStmtContainer, preparedStmtItems, batchCount, user, type, inventory, location);
+                        List<ItemStack[]> old = ConfigHandler.oldContainer.get(loggingChestId);
+                        if (old.size() == 0) {
+                            ConfigHandler.oldContainer.remove(loggingChestId);
+                            ConfigHandler.loggingChest.remove(loggingChestId);
+```
+
+### SizeReplaceableByIsEmpty
+`idList.length() == 0` can be replaced with 'idList.isEmpty()'
+in `src/main/java/net/coreprotect/patch/script/__2_16_0.java`
+#### Snippet
+```java
+                while (resultSet.next()) {
+                    String id = resultSet.getString("id");
+                    if (idList.length() == 0) {
+                        idList = id;
+                    }
+```
+
+### SizeReplaceableByIsEmpty
+`idList.length() > 0` can be replaced with '!idList.isEmpty()'
+in `src/main/java/net/coreprotect/patch/script/__2_16_0.java`
+#### Snippet
+```java
+                resultSet.close();
+
+                if (idList.length() > 0) {
+                    query = "SELECT rowid as id FROM " + ConfigHandler.prefix + "block WHERE type IN(" + idList + ") AND y='0'";
+                    String preparedQueryDelete = "DELETE FROM " + ConfigHandler.prefix + "block WHERE rowid = ?";
+```
+
+### SizeReplaceableByIsEmpty
+`target.length() > 0` can be replaced with '!target.isEmpty()'
+in `src/main/java/net/coreprotect/database/lookup/InteractionLookup.java`
+#### Snippet
+```java
+                String target = resultMaterial.name().toLowerCase(Locale.ROOT);
+                target = Util.nameFilter(target, resultData);
+                if (target.length() > 0) {
+                    target = "minecraft:" + target.toLowerCase(Locale.ROOT) + "";
+                }
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -2014,44 +2062,20 @@ in `src/main/java/net/coreprotect/database/lookup/SignMessageLookup.java`
 ```
 
 ### SizeReplaceableByIsEmpty
-`idList.length() == 0` can be replaced with 'idList.isEmpty()'
-in `src/main/java/net/coreprotect/patch/script/__2_16_0.java`
+`user.length() == 0` can be replaced with 'user.isEmpty()'
+in `src/main/java/net/coreprotect/database/statement/UserStatement.java`
 #### Snippet
 ```java
-                while (resultSet.next()) {
-                    String id = resultSet.getString("id");
-                    if (idList.length() == 0) {
-                        idList = id;
-                    }
-```
+            }
 
-### SizeReplaceableByIsEmpty
-`idList.length() > 0` can be replaced with '!idList.isEmpty()'
-in `src/main/java/net/coreprotect/patch/script/__2_16_0.java`
-#### Snippet
-```java
-                resultSet.close();
-
-                if (idList.length() > 0) {
-                    query = "SELECT rowid as id FROM " + ConfigHandler.prefix + "block WHERE type IN(" + idList + ") AND y='0'";
-                    String preparedQueryDelete = "DELETE FROM " + ConfigHandler.prefix + "block WHERE rowid = ?";
-```
-
-### SizeReplaceableByIsEmpty
-`old.size() == 0` can be replaced with 'old.isEmpty()'
-in `src/main/java/net/coreprotect/consumer/process/ContainerTransactionProcess.java`
-#### Snippet
-```java
-                        ContainerLogger.log(preparedStmtContainer, preparedStmtItems, batchCount, user, type, inventory, location);
-                        List<ItemStack[]> old = ConfigHandler.oldContainer.get(loggingChestId);
-                        if (old.size() == 0) {
-                            ConfigHandler.oldContainer.remove(loggingChestId);
-                            ConfigHandler.loggingChest.remove(loggingChestId);
+            if (user.length() == 0) {
+                return user;
+            }
 ```
 
 ### SizeReplaceableByIsEmpty
 `target.length() > 0` can be replaced with '!target.isEmpty()'
-in `src/main/java/net/coreprotect/database/lookup/InteractionLookup.java`
+in `src/main/java/net/coreprotect/database/lookup/ChestTransactionLookup.java`
 #### Snippet
 ```java
                 String target = resultMaterial.name().toLowerCase(Locale.ROOT);
@@ -2059,6 +2083,54 @@ in `src/main/java/net/coreprotect/database/lookup/InteractionLookup.java`
                 if (target.length() > 0) {
                     target = "minecraft:" + target.toLowerCase(Locale.ROOT) + "";
                 }
+```
+
+### SizeReplaceableByIsEmpty
+`color.length() > 0` can be replaced with '!color.isEmpty()'
+in `src/main/java/net/coreprotect/language/Phrase.java`
+#### Snippet
+```java
+        }
+
+        if (color.length() > 0) {
+            output = output.replaceFirst(split, split + color);
+            output = ChatMessage.parseQuotes(output, color);
+```
+
+### SizeReplaceableByIsEmpty
+`p.length() > 0` can be replaced with '!p.isEmpty()'
+in `src/main/java/net/coreprotect/listener/block/BlockFromToListener.java`
+#### Snippet
+```java
+                if (Config.getConfig(world).LIQUID_TRACKING) {
+                    String p = Lookup.whoPlacedCache(block);
+                    if (p.length() > 0) {
+                        f = p;
+                    }
+```
+
+### SizeReplaceableByIsEmpty
+`columns.length() == 0` can be replaced with 'columns.isEmpty()'
+in `src/main/java/net/coreprotect/command/PurgeCommand.java`
+#### Snippet
+```java
+                            for (int i = 1; i <= columnCount; i++) {
+                                String name = resultSetMetaData.getColumnName(i);
+                                if (columns.length() == 0) {
+                                    columns = name;
+                                }
+```
+
+### SizeReplaceableByIsEmpty
+`removed.length() > 0` can be replaced with '!removed.isEmpty()'
+in `src/main/java/net/coreprotect/consumer/process/NaturalBlockBreakProcess.java`
+#### Snippet
+```java
+                for (BlockState blockState : blockStateList) {
+                    String removed = Lookup.whoRemovedCache(blockState);
+                    if (removed.length() > 0) {
+                        user = removed;
+                    }
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -2182,78 +2254,6 @@ in `src/main/java/net/coreprotect/command/RollbackRestoreCommand.java`
 ```
 
 ### SizeReplaceableByIsEmpty
-`target.length() > 0` can be replaced with '!target.isEmpty()'
-in `src/main/java/net/coreprotect/database/lookup/ChestTransactionLookup.java`
-#### Snippet
-```java
-                String target = resultMaterial.name().toLowerCase(Locale.ROOT);
-                target = Util.nameFilter(target, resultData);
-                if (target.length() > 0) {
-                    target = "minecraft:" + target.toLowerCase(Locale.ROOT) + "";
-                }
-```
-
-### SizeReplaceableByIsEmpty
-`p.length() > 0` can be replaced with '!p.isEmpty()'
-in `src/main/java/net/coreprotect/listener/block/BlockFromToListener.java`
-#### Snippet
-```java
-                if (Config.getConfig(world).LIQUID_TRACKING) {
-                    String p = Lookup.whoPlacedCache(block);
-                    if (p.length() > 0) {
-                        f = p;
-                    }
-```
-
-### SizeReplaceableByIsEmpty
-`color.length() > 0` can be replaced with '!color.isEmpty()'
-in `src/main/java/net/coreprotect/language/Phrase.java`
-#### Snippet
-```java
-        }
-
-        if (color.length() > 0) {
-            output = output.replaceFirst(split, split + color);
-            output = ChatMessage.parseQuotes(output, color);
-```
-
-### SizeReplaceableByIsEmpty
-`user.length() == 0` can be replaced with 'user.isEmpty()'
-in `src/main/java/net/coreprotect/database/statement/UserStatement.java`
-#### Snippet
-```java
-            }
-
-            if (user.length() == 0) {
-                return user;
-            }
-```
-
-### SizeReplaceableByIsEmpty
-`removed.length() > 0` can be replaced with '!removed.isEmpty()'
-in `src/main/java/net/coreprotect/consumer/process/NaturalBlockBreakProcess.java`
-#### Snippet
-```java
-                for (BlockState blockState : blockStateList) {
-                    String removed = Lookup.whoRemovedCache(blockState);
-                    if (removed.length() > 0) {
-                        user = removed;
-                    }
-```
-
-### SizeReplaceableByIsEmpty
-`columns.length() == 0` can be replaced with 'columns.isEmpty()'
-in `src/main/java/net/coreprotect/command/PurgeCommand.java`
-#### Snippet
-```java
-                            for (int i = 1; i <= columnCount; i++) {
-                                String name = resultSetMetaData.getColumnName(i);
-                                if (columns.length() == 0) {
-                                    columns = name;
-                                }
-```
-
-### SizeReplaceableByIsEmpty
 `currentArg.length() > 0` can be replaced with '!currentArg.isEmpty()'
 in `src/main/java/net/coreprotect/command/TabHandler.java`
 #### Snippet
@@ -2290,15 +2290,27 @@ in `src/main/java/net/coreprotect/listener/player/PlayerDeathListener.java`
 ```
 
 ### SizeReplaceableByIsEmpty
-`check.length() > 0` can be replaced with '!check.isEmpty()'
-in `src/main/java/net/coreprotect/command/CommandHandler.java`
+`event.getUser().length() > 0` can be replaced with '!event.getUser().isEmpty()'
+in `src/main/java/net/coreprotect/database/logger/BlockPlaceLogger.java`
 #### Snippet
 ```java
-        List<String> badUsers = Arrays.asList("n", "noisy", "v", "verbose", "#v", "#verbose", "#silent", "#preview", "#preview_cancel", "#count", "#sum");
-        String check = user.replaceAll("[\\s'\"]", "");
-        if (check.equals(user) && check.length() > 0) {
-            if (user.equalsIgnoreCase("#global")) {
-                user = "#global";
+            int time = (int) (System.currentTimeMillis() / 1000L);
+
+            if (event.getUser().length() > 0) {
+                CacheHandler.lookupCache.put("" + x + "." + y + "." + z + "." + wid + "", new Object[] { time, event.getUser(), type });
+            }
+```
+
+### SizeReplaceableByIsEmpty
+`user.length() > 0` can be replaced with '!user.isEmpty()'
+in `src/main/java/net/coreprotect/listener/player/InventoryChangeListener.java`
+#### Snippet
+```java
+    public static boolean inventoryTransaction(String user, Location location, ItemStack[] inventoryData) {
+        if (user != null && location != null) {
+            if (user.length() > 0) {
+                BlockState blockState = location.getBlock().getState();
+                Material type = blockState.getType();
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -2434,162 +2446,6 @@ in `src/main/java/net/coreprotect/command/CommandHandler.java`
 ```
 
 ### SizeReplaceableByIsEmpty
-`i4.length() > 0` can be replaced with '!i4.isEmpty()'
-in `src/main/java/net/coreprotect/command/CommandHandler.java`
-#### Snippet
-```java
-                        if (i3.endsWith("w") && w == 0) {
-                            String i4 = i3.replaceAll("[^0-9.]", "");
-                            if (i4.length() > 0 && i4.replaceAll("[^0-9]", "").length() > 0 && i4.indexOf('.') == i4.lastIndexOf('.')) {
-                                w = Double.parseDouble(i4);
-                            }
-```
-
-### SizeReplaceableByIsEmpty
-`i4.replaceAll("[^0-9]", "").length() > 0` can be replaced with '!i4.replaceAll("\[\^0-9\]", "").isEmpty()'
-in `src/main/java/net/coreprotect/command/CommandHandler.java`
-#### Snippet
-```java
-                        if (i3.endsWith("w") && w == 0) {
-                            String i4 = i3.replaceAll("[^0-9.]", "");
-                            if (i4.length() > 0 && i4.replaceAll("[^0-9]", "").length() > 0 && i4.indexOf('.') == i4.lastIndexOf('.')) {
-                                w = Double.parseDouble(i4);
-                            }
-```
-
-### SizeReplaceableByIsEmpty
-`i4.length() > 0` can be replaced with '!i4.isEmpty()'
-in `src/main/java/net/coreprotect/command/CommandHandler.java`
-#### Snippet
-```java
-                        else if (i3.endsWith("d") && d == 0) {
-                            String i4 = i3.replaceAll("[^0-9.]", "");
-                            if (i4.length() > 0 && i4.replaceAll("[^0-9]", "").length() > 0 && i4.indexOf('.') == i4.lastIndexOf('.')) {
-                                d = Double.parseDouble(i4);
-                            }
-```
-
-### SizeReplaceableByIsEmpty
-`i4.replaceAll("[^0-9]", "").length() > 0` can be replaced with '!i4.replaceAll("\[\^0-9\]", "").isEmpty()'
-in `src/main/java/net/coreprotect/command/CommandHandler.java`
-#### Snippet
-```java
-                        else if (i3.endsWith("d") && d == 0) {
-                            String i4 = i3.replaceAll("[^0-9.]", "");
-                            if (i4.length() > 0 && i4.replaceAll("[^0-9]", "").length() > 0 && i4.indexOf('.') == i4.lastIndexOf('.')) {
-                                d = Double.parseDouble(i4);
-                            }
-```
-
-### SizeReplaceableByIsEmpty
-`i4.length() > 0` can be replaced with '!i4.isEmpty()'
-in `src/main/java/net/coreprotect/command/CommandHandler.java`
-#### Snippet
-```java
-                        else if (i3.endsWith("h") && h == 0) {
-                            String i4 = i3.replaceAll("[^0-9.]", "");
-                            if (i4.length() > 0 && i4.replaceAll("[^0-9]", "").length() > 0 && i4.indexOf('.') == i4.lastIndexOf('.')) {
-                                h = Double.parseDouble(i4);
-                            }
-```
-
-### SizeReplaceableByIsEmpty
-`i4.replaceAll("[^0-9]", "").length() > 0` can be replaced with '!i4.replaceAll("\[\^0-9\]", "").isEmpty()'
-in `src/main/java/net/coreprotect/command/CommandHandler.java`
-#### Snippet
-```java
-                        else if (i3.endsWith("h") && h == 0) {
-                            String i4 = i3.replaceAll("[^0-9.]", "");
-                            if (i4.length() > 0 && i4.replaceAll("[^0-9]", "").length() > 0 && i4.indexOf('.') == i4.lastIndexOf('.')) {
-                                h = Double.parseDouble(i4);
-                            }
-```
-
-### SizeReplaceableByIsEmpty
-`i4.length() > 0` can be replaced with '!i4.isEmpty()'
-in `src/main/java/net/coreprotect/command/CommandHandler.java`
-#### Snippet
-```java
-                        else if (i3.endsWith("m") && m == 0) {
-                            String i4 = i3.replaceAll("[^0-9.]", "");
-                            if (i4.length() > 0 && i4.replaceAll("[^0-9]", "").length() > 0 && i4.indexOf('.') == i4.lastIndexOf('.')) {
-                                m = Double.parseDouble(i4);
-                            }
-```
-
-### SizeReplaceableByIsEmpty
-`i4.replaceAll("[^0-9]", "").length() > 0` can be replaced with '!i4.replaceAll("\[\^0-9\]", "").isEmpty()'
-in `src/main/java/net/coreprotect/command/CommandHandler.java`
-#### Snippet
-```java
-                        else if (i3.endsWith("m") && m == 0) {
-                            String i4 = i3.replaceAll("[^0-9.]", "");
-                            if (i4.length() > 0 && i4.replaceAll("[^0-9]", "").length() > 0 && i4.indexOf('.') == i4.lastIndexOf('.')) {
-                                m = Double.parseDouble(i4);
-                            }
-```
-
-### SizeReplaceableByIsEmpty
-`i4.length() > 0` can be replaced with '!i4.isEmpty()'
-in `src/main/java/net/coreprotect/command/CommandHandler.java`
-#### Snippet
-```java
-                        else if (i3.endsWith("s") && s == 0) {
-                            String i4 = i3.replaceAll("[^0-9.]", "");
-                            if (i4.length() > 0 && i4.replaceAll("[^0-9]", "").length() > 0 && i4.indexOf('.') == i4.lastIndexOf('.')) {
-                                s = Double.parseDouble(i4);
-                            }
-```
-
-### SizeReplaceableByIsEmpty
-`i4.replaceAll("[^0-9]", "").length() > 0` can be replaced with '!i4.replaceAll("\[\^0-9\]", "").isEmpty()'
-in `src/main/java/net/coreprotect/command/CommandHandler.java`
-#### Snippet
-```java
-                        else if (i3.endsWith("s") && s == 0) {
-                            String i4 = i3.replaceAll("[^0-9.]", "");
-                            if (i4.length() > 0 && i4.replaceAll("[^0-9]", "").length() > 0 && i4.indexOf('.') == i4.lastIndexOf('.')) {
-                                s = Double.parseDouble(i4);
-                            }
-```
-
-### SizeReplaceableByIsEmpty
-`i4.length() > 0` can be replaced with '!i4.isEmpty()'
-in `src/main/java/net/coreprotect/command/CommandHandler.java`
-#### Snippet
-```java
-                        for (String value : r_dat) {
-                            String i4 = value.replaceAll("[^0-9.]", "");
-                            if (i4.length() > 0 && i4.length() == value.length() && i4.replaceAll("[^0-9]", "").length() > 0 && i4.indexOf('.') == i4.lastIndexOf('.')) {
-                                double a1 = Double.parseDouble(i4);
-                                if (rcount == 0) { // x
-```
-
-### SizeReplaceableByIsEmpty
-`i4.replaceAll("[^0-9]", "").length() > 0` can be replaced with '!i4.replaceAll("\[\^0-9\]", "").isEmpty()'
-in `src/main/java/net/coreprotect/command/CommandHandler.java`
-#### Snippet
-```java
-                        for (String value : r_dat) {
-                            String i4 = value.replaceAll("[^0-9.]", "");
-                            if (i4.length() > 0 && i4.length() == value.length() && i4.replaceAll("[^0-9]", "").length() > 0 && i4.indexOf('.') == i4.lastIndexOf('.')) {
-                                double a1 = Double.parseDouble(i4);
-                                if (rcount == 0) { // x
-```
-
-### SizeReplaceableByIsEmpty
-`event.getUser().length() > 0` can be replaced with '!event.getUser().isEmpty()'
-in `src/main/java/net/coreprotect/database/logger/BlockPlaceLogger.java`
-#### Snippet
-```java
-            int time = (int) (System.currentTimeMillis() / 1000L);
-
-            if (event.getUser().length() > 0) {
-                CacheHandler.lookupCache.put("" + x + "." + y + "." + z + "." + wid + "", new Object[] { time, event.getUser(), type });
-            }
-```
-
-### SizeReplaceableByIsEmpty
 `coord.length() > 0` can be replaced with '!coord.isEmpty()'
 in `src/main/java/net/coreprotect/command/CommandHandler.java`
 #### Snippet
@@ -2602,27 +2458,159 @@ in `src/main/java/net/coreprotect/command/CommandHandler.java`
 ```
 
 ### SizeReplaceableByIsEmpty
-`user.length() > 0` can be replaced with '!user.isEmpty()'
-in `src/main/java/net/coreprotect/listener/player/InventoryChangeListener.java`
+`i4.length() > 0` can be replaced with '!i4.isEmpty()'
+in `src/main/java/net/coreprotect/command/CommandHandler.java`
 #### Snippet
 ```java
-    public static boolean inventoryTransaction(String user, Location location, ItemStack[] inventoryData) {
-        if (user != null && location != null) {
-            if (user.length() > 0) {
-                BlockState blockState = location.getBlock().getState();
-                Material type = blockState.getType();
+                        if (i3.endsWith("w") && w == 0) {
+                            String i4 = i3.replaceAll("[^0-9.]", "");
+                            if (i4.length() > 0 && i4.replaceAll("[^0-9]", "").length() > 0 && i4.indexOf('.') == i4.lastIndexOf('.')) {
+                                w = Double.parseDouble(i4);
+                            }
 ```
 
 ### SizeReplaceableByIsEmpty
-`removed.length() > 0` can be replaced with '!removed.isEmpty()'
-in `src/main/java/net/coreprotect/listener/entity/HangingBreakListener.java`
+`i4.replaceAll("[^0-9]", "").length() > 0` can be replaced with '!i4.replaceAll("\[\^0-9\]", "").isEmpty()'
+in `src/main/java/net/coreprotect/command/CommandHandler.java`
 #### Snippet
 ```java
-                    attachedBlock = hangingEntity.getLocation().getBlock().getRelative(attached);
-                    String removed = Lookup.whoRemovedCache(attachedBlock.getState());
-                    if (removed.length() > 0) {
-                        causeName = removed;
-                        logDrops = true;
+                        if (i3.endsWith("w") && w == 0) {
+                            String i4 = i3.replaceAll("[^0-9.]", "");
+                            if (i4.length() > 0 && i4.replaceAll("[^0-9]", "").length() > 0 && i4.indexOf('.') == i4.lastIndexOf('.')) {
+                                w = Double.parseDouble(i4);
+                            }
+```
+
+### SizeReplaceableByIsEmpty
+`i4.length() > 0` can be replaced with '!i4.isEmpty()'
+in `src/main/java/net/coreprotect/command/CommandHandler.java`
+#### Snippet
+```java
+                        else if (i3.endsWith("d") && d == 0) {
+                            String i4 = i3.replaceAll("[^0-9.]", "");
+                            if (i4.length() > 0 && i4.replaceAll("[^0-9]", "").length() > 0 && i4.indexOf('.') == i4.lastIndexOf('.')) {
+                                d = Double.parseDouble(i4);
+                            }
+```
+
+### SizeReplaceableByIsEmpty
+`i4.replaceAll("[^0-9]", "").length() > 0` can be replaced with '!i4.replaceAll("\[\^0-9\]", "").isEmpty()'
+in `src/main/java/net/coreprotect/command/CommandHandler.java`
+#### Snippet
+```java
+                        else if (i3.endsWith("d") && d == 0) {
+                            String i4 = i3.replaceAll("[^0-9.]", "");
+                            if (i4.length() > 0 && i4.replaceAll("[^0-9]", "").length() > 0 && i4.indexOf('.') == i4.lastIndexOf('.')) {
+                                d = Double.parseDouble(i4);
+                            }
+```
+
+### SizeReplaceableByIsEmpty
+`i4.length() > 0` can be replaced with '!i4.isEmpty()'
+in `src/main/java/net/coreprotect/command/CommandHandler.java`
+#### Snippet
+```java
+                        else if (i3.endsWith("h") && h == 0) {
+                            String i4 = i3.replaceAll("[^0-9.]", "");
+                            if (i4.length() > 0 && i4.replaceAll("[^0-9]", "").length() > 0 && i4.indexOf('.') == i4.lastIndexOf('.')) {
+                                h = Double.parseDouble(i4);
+                            }
+```
+
+### SizeReplaceableByIsEmpty
+`i4.replaceAll("[^0-9]", "").length() > 0` can be replaced with '!i4.replaceAll("\[\^0-9\]", "").isEmpty()'
+in `src/main/java/net/coreprotect/command/CommandHandler.java`
+#### Snippet
+```java
+                        else if (i3.endsWith("h") && h == 0) {
+                            String i4 = i3.replaceAll("[^0-9.]", "");
+                            if (i4.length() > 0 && i4.replaceAll("[^0-9]", "").length() > 0 && i4.indexOf('.') == i4.lastIndexOf('.')) {
+                                h = Double.parseDouble(i4);
+                            }
+```
+
+### SizeReplaceableByIsEmpty
+`i4.length() > 0` can be replaced with '!i4.isEmpty()'
+in `src/main/java/net/coreprotect/command/CommandHandler.java`
+#### Snippet
+```java
+                        else if (i3.endsWith("m") && m == 0) {
+                            String i4 = i3.replaceAll("[^0-9.]", "");
+                            if (i4.length() > 0 && i4.replaceAll("[^0-9]", "").length() > 0 && i4.indexOf('.') == i4.lastIndexOf('.')) {
+                                m = Double.parseDouble(i4);
+                            }
+```
+
+### SizeReplaceableByIsEmpty
+`i4.replaceAll("[^0-9]", "").length() > 0` can be replaced with '!i4.replaceAll("\[\^0-9\]", "").isEmpty()'
+in `src/main/java/net/coreprotect/command/CommandHandler.java`
+#### Snippet
+```java
+                        else if (i3.endsWith("m") && m == 0) {
+                            String i4 = i3.replaceAll("[^0-9.]", "");
+                            if (i4.length() > 0 && i4.replaceAll("[^0-9]", "").length() > 0 && i4.indexOf('.') == i4.lastIndexOf('.')) {
+                                m = Double.parseDouble(i4);
+                            }
+```
+
+### SizeReplaceableByIsEmpty
+`i4.length() > 0` can be replaced with '!i4.isEmpty()'
+in `src/main/java/net/coreprotect/command/CommandHandler.java`
+#### Snippet
+```java
+                        else if (i3.endsWith("s") && s == 0) {
+                            String i4 = i3.replaceAll("[^0-9.]", "");
+                            if (i4.length() > 0 && i4.replaceAll("[^0-9]", "").length() > 0 && i4.indexOf('.') == i4.lastIndexOf('.')) {
+                                s = Double.parseDouble(i4);
+                            }
+```
+
+### SizeReplaceableByIsEmpty
+`i4.replaceAll("[^0-9]", "").length() > 0` can be replaced with '!i4.replaceAll("\[\^0-9\]", "").isEmpty()'
+in `src/main/java/net/coreprotect/command/CommandHandler.java`
+#### Snippet
+```java
+                        else if (i3.endsWith("s") && s == 0) {
+                            String i4 = i3.replaceAll("[^0-9.]", "");
+                            if (i4.length() > 0 && i4.replaceAll("[^0-9]", "").length() > 0 && i4.indexOf('.') == i4.lastIndexOf('.')) {
+                                s = Double.parseDouble(i4);
+                            }
+```
+
+### SizeReplaceableByIsEmpty
+`i4.length() > 0` can be replaced with '!i4.isEmpty()'
+in `src/main/java/net/coreprotect/command/CommandHandler.java`
+#### Snippet
+```java
+                        for (String value : r_dat) {
+                            String i4 = value.replaceAll("[^0-9.]", "");
+                            if (i4.length() > 0 && i4.length() == value.length() && i4.replaceAll("[^0-9]", "").length() > 0 && i4.indexOf('.') == i4.lastIndexOf('.')) {
+                                double a1 = Double.parseDouble(i4);
+                                if (rcount == 0) { // x
+```
+
+### SizeReplaceableByIsEmpty
+`i4.replaceAll("[^0-9]", "").length() > 0` can be replaced with '!i4.replaceAll("\[\^0-9\]", "").isEmpty()'
+in `src/main/java/net/coreprotect/command/CommandHandler.java`
+#### Snippet
+```java
+                        for (String value : r_dat) {
+                            String i4 = value.replaceAll("[^0-9.]", "");
+                            if (i4.length() > 0 && i4.length() == value.length() && i4.replaceAll("[^0-9]", "").length() > 0 && i4.indexOf('.') == i4.lastIndexOf('.')) {
+                                double a1 = Double.parseDouble(i4);
+                                if (rcount == 0) { // x
+```
+
+### SizeReplaceableByIsEmpty
+`check.length() > 0` can be replaced with '!check.isEmpty()'
+in `src/main/java/net/coreprotect/command/CommandHandler.java`
+#### Snippet
+```java
+        List<String> badUsers = Arrays.asList("n", "noisy", "v", "verbose", "#v", "#verbose", "#silent", "#preview", "#preview_cancel", "#count", "#sum");
+        String check = user.replaceAll("[\\s'\"]", "");
+        if (check.equals(user) && check.length() > 0) {
+            if (user.equalsIgnoreCase("#global")) {
+                user = "#global";
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -2638,6 +2626,18 @@ in `src/main/java/net/coreprotect/config/ConfigHandler.java`
 ```
 
 ### SizeReplaceableByIsEmpty
+`removed.length() > 0` can be replaced with '!removed.isEmpty()'
+in `src/main/java/net/coreprotect/listener/entity/HangingBreakListener.java`
+#### Snippet
+```java
+                    attachedBlock = hangingEntity.getLocation().getBlock().getRelative(attached);
+                    String removed = Lookup.whoRemovedCache(attachedBlock.getState());
+                    if (removed.length() > 0) {
+                        causeName = removed;
+                        logDrops = true;
+```
+
+### SizeReplaceableByIsEmpty
 `blockData.length() > 0` can be replaced with '!blockData.isEmpty()'
 in `src/main/java/net/coreprotect/listener/entity/HangingBreakByEntityListener.java`
 #### Snippet
@@ -2647,6 +2647,18 @@ in `src/main/java/net/coreprotect/listener/entity/HangingBreakByEntityListener.j
                         else if (blockData.length() > 0) {
                             Chat.sendComponent(player, blockData);
                         }
+```
+
+### SizeReplaceableByIsEmpty
+`lines.size() > 0` can be replaced with '!lines.isEmpty()'
+in `src/main/java/net/coreprotect/config/ConfigFile.java`
+#### Snippet
+```java
+            lines.addAll(sort);
+
+            if (lines.size() > 0) {
+                String lastLine = lines.get(lines.size() - 1); // append the final line to prevent a line separator from being added
+                Files.write(path, (lines.remove(lines.size() - 1).isEmpty() ? lines : lines), StandardCharsets.UTF_8);
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -2686,15 +2698,15 @@ in `src/main/java/net/coreprotect/config/ConfigFile.java`
 ```
 
 ### SizeReplaceableByIsEmpty
-`lines.size() > 0` can be replaced with '!lines.isEmpty()'
-in `src/main/java/net/coreprotect/config/ConfigFile.java`
+`faceData.length() > 0` can be replaced with '!faceData.isEmpty()'
+in `src/main/java/net/coreprotect/database/ContainerRollback.java`
 #### Snippet
 ```java
-            lines.addAll(sort);
+                                    itemstack = (ItemStack) populatedStack[2];
 
-            if (lines.size() > 0) {
-                String lastLine = lines.get(lines.size() - 1); // append the final line to prevent a line separator from being added
-                Files.write(path, (lines.remove(lines.size() - 1).isEmpty() ? lines : lines), StandardCharsets.UTF_8);
+                                    if (type == Material.ITEM_FRAME && faceData.length() > 0) {
+                                        BlockFace blockFace = BlockFace.valueOf(faceData);
+                                        ItemFrame itemFrame = (ItemFrame) container;
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -2731,6 +2743,54 @@ in `src/main/java/net/coreprotect/utility/serialize/ItemMetaHandler.java`
         if (modifiers.size() > 0) {
             Map<String, Object> meta = new HashMap<>();
             meta.put("modifiers", modifiers);
+```
+
+### SizeReplaceableByIsEmpty
+`color.length() > 0` can be replaced with '!color.isEmpty()'
+in `src/main/java/net/coreprotect/language/Selector.java`
+#### Snippet
+```java
+            }
+
+            output = output.replace("{" + substring + "}", color + param + (color.length() > 0 ? Color.WHITE : color));
+        }
+
+```
+
+### SizeReplaceableByIsEmpty
+`set.length() > 0` can be replaced with '!set.isEmpty()'
+in `src/main/java/net/coreprotect/utility/entity/EntityUtil.java`
+#### Snippet
+```java
+                        else if (count == 1) {
+                            String set = (String) value;
+                            if (set.length() > 0) {
+                                Player owner = Bukkit.getServer().getPlayer(set);
+                                if (owner == null) {
+```
+
+### SizeReplaceableByIsEmpty
+`dname.length() > 0` can be replaced with '!dname.isEmpty()'
+in `src/main/java/net/coreprotect/command/LookupCommand.java`
+#### Snippet
+```java
+                                                        dname = Util.nameFilter(dname, ddata);
+                                                    }
+                                                    if (dname.length() > 0 && !isPlayer) {
+                                                        dname = "minecraft:" + dname.toLowerCase(Locale.ROOT) + "";
+                                                    }
+```
+
+### SizeReplaceableByIsEmpty
+`finalArgAction.size() == 0` can be replaced with 'finalArgAction.isEmpty()'
+in `src/main/java/net/coreprotect/command/LookupCommand.java`
+#### Snippet
+```java
+                                                    }
+
+                                                    action = (finalArgAction.size() == 0 ? " (" + action + ")" : "");
+                                                    Chat.sendComponent(player2, Color.WHITE + leftPadding + Color.GREY + "^ " + Util.getCoordinates(command.getName(), wid, x, y, z, true, true) + Color.GREY + Color.ITALIC + action);
+                                                }
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -3058,54 +3118,6 @@ in `src/main/java/net/coreprotect/command/LookupCommand.java`
 ```
 
 ### SizeReplaceableByIsEmpty
-`dname.length() > 0` can be replaced with '!dname.isEmpty()'
-in `src/main/java/net/coreprotect/command/LookupCommand.java`
-#### Snippet
-```java
-                                                        dname = Util.nameFilter(dname, ddata);
-                                                    }
-                                                    if (dname.length() > 0 && !isPlayer) {
-                                                        dname = "minecraft:" + dname.toLowerCase(Locale.ROOT) + "";
-                                                    }
-```
-
-### SizeReplaceableByIsEmpty
-`finalArgAction.size() == 0` can be replaced with 'finalArgAction.isEmpty()'
-in `src/main/java/net/coreprotect/command/LookupCommand.java`
-#### Snippet
-```java
-                                                    }
-
-                                                    action = (finalArgAction.size() == 0 ? " (" + action + ")" : "");
-                                                    Chat.sendComponent(player2, Color.WHITE + leftPadding + Color.GREY + "^ " + Util.getCoordinates(command.getName(), wid, x, y, z, true, true) + Color.GREY + Color.ITALIC + action);
-                                                }
-```
-
-### SizeReplaceableByIsEmpty
-`color.length() > 0` can be replaced with '!color.isEmpty()'
-in `src/main/java/net/coreprotect/language/Selector.java`
-#### Snippet
-```java
-            }
-
-            output = output.replace("{" + substring + "}", color + param + (color.length() > 0 ? Color.WHITE : color));
-        }
-
-```
-
-### SizeReplaceableByIsEmpty
-`faceData.length() > 0` can be replaced with '!faceData.isEmpty()'
-in `src/main/java/net/coreprotect/database/ContainerRollback.java`
-#### Snippet
-```java
-                                    itemstack = (ItemStack) populatedStack[2];
-
-                                    if (type == Material.ITEM_FRAME && faceData.length() > 0) {
-                                        BlockFace blockFace = BlockFace.valueOf(faceData);
-                                        ItemFrame itemFrame = (ItemFrame) container;
-```
-
-### SizeReplaceableByIsEmpty
 `builder.length() > 0` can be replaced with '!builder.isEmpty()'
 in `src/main/java/net/coreprotect/spigot/SpigotHandler.java`
 #### Snippet
@@ -3151,18 +3163,6 @@ in `src/main/java/net/coreprotect/listener/entity/EntityChangeBlockListener.java
             if (e.length() > 0) {
                 if (newtype.equals(Material.AIR) || newtype.equals(Material.CAVE_AIR)) {
                     Queue.queueBlockBreak(e, block.getState(), type, block.getBlockData().getAsString(), 0);
-```
-
-### SizeReplaceableByIsEmpty
-`set.length() > 0` can be replaced with '!set.isEmpty()'
-in `src/main/java/net/coreprotect/utility/entity/EntityUtil.java`
-#### Snippet
-```java
-                        else if (count == 1) {
-                            String set = (String) value;
-                            if (set.length() > 0) {
-                                Player owner = Bukkit.getServer().getPlayer(set);
-                                if (owner == null) {
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -3298,54 +3298,6 @@ in `src/main/java/net/coreprotect/listener/world/PortalCreateListener.java`
 ```
 
 ### SizeReplaceableByIsEmpty
-`resultData.length() > 0` can be replaced with '!resultData.isEmpty()'
-in `src/main/java/net/coreprotect/listener/player/PlayerInteractListener.java`
-#### Snippet
-```java
-                                }
-                            }
-                            else if (resultData.length() > 0) {
-                                Chat.sendComponent(player, resultData);
-                            }
-```
-
-### SizeReplaceableByIsEmpty
-`blockData.length() > 0` can be replaced with '!blockData.isEmpty()'
-in `src/main/java/net/coreprotect/listener/player/PlayerInteractListener.java`
-#### Snippet
-```java
-                                                }
-                                            }
-                                            else if (blockData.length() > 0) {
-                                                Chat.sendComponent(finalPlayer, blockData);
-                                            }
-```
-
-### SizeReplaceableByIsEmpty
-`blockData.length() > 0` can be replaced with '!blockData.isEmpty()'
-in `src/main/java/net/coreprotect/listener/player/PlayerInteractListener.java`
-#### Snippet
-```java
-                                                }
-                                            }
-                                            else if (blockData.length() > 0) {
-                                                Chat.sendComponent(finalPlayer, blockData);
-                                            }
-```
-
-### SizeReplaceableByIsEmpty
-`signMessage.length() > 0` can be replaced with '!signMessage.isEmpty()'
-in `src/main/java/net/coreprotect/listener/player/PlayerInteractListener.java`
-#### Snippet
-```java
-                                            }
-
-                                            if (signMessage.length() > 0) {
-                                                Chat.sendComponent(player, signMessage, bypass);
-                                            }
-```
-
-### SizeReplaceableByIsEmpty
 `message.length() == 0` can be replaced with 'message.isEmpty()'
 in `src/main/java/net/coreprotect/utility/Util.java`
 #### Snippet
@@ -3367,66 +3319,6 @@ in `src/main/java/net/coreprotect/utility/Util.java`
         if (message.length() == 0) {
             timeSince = timeSince / 24;
             message.append(Phrase.build(Phrase.LOOKUP_TIME, new DecimalFormat("0.00").format(timeSince) + "/d"));
-```
-
-### SizeReplaceableByIsEmpty
-`result.length() > 0` can be replaced with '!result.isEmpty()'
-in `src/main/java/net/coreprotect/utility/Util.java`
-#### Snippet
-```java
-
-            result = new String(data, StandardCharsets.UTF_8);
-            if (result.length() > 0) {
-                if (result.matches("\\d+")) {
-                    result = result + ",";
-```
-
-### SizeReplaceableByIsEmpty
-`block.length() > 0` can be replaced with '!block.isEmpty()'
-in `src/main/java/net/coreprotect/utility/Util.java`
-#### Snippet
-```java
-                    for (String blockData : blockDataSplit) {
-                        String block = getBlockDataString(Integer.parseInt(blockData));
-                        if (block.length() > 0) {
-                            blockDataArray.add(block);
-                        }
-```
-
-### SizeReplaceableByIsEmpty
-`nameWid.length() > 0` can be replaced with '!nameWid.isEmpty()'
-in `src/main/java/net/coreprotect/utility/Util.java`
-#### Snippet
-```java
-            if (name.startsWith("wid:")) {
-                String nameWid = name.replaceFirst("wid:", "");
-                if (nameWid.length() > 0 && nameWid.equals(nameWid.replaceAll("[^0-9]", ""))) {
-                    nameWid = Util.getWorldName(Integer.parseInt(nameWid));
-                    if (nameWid.length() > 0) {
-```
-
-### SizeReplaceableByIsEmpty
-`nameWid.length() > 0` can be replaced with '!nameWid.isEmpty()'
-in `src/main/java/net/coreprotect/utility/Util.java`
-#### Snippet
-```java
-                if (nameWid.length() > 0 && nameWid.equals(nameWid.replaceAll("[^0-9]", ""))) {
-                    nameWid = Util.getWorldName(Integer.parseInt(nameWid));
-                    if (nameWid.length() > 0) {
-                        name = nameWid;
-                    }
-```
-
-### SizeReplaceableByIsEmpty
-`result.length() > 0` can be replaced with '!result.isEmpty()'
-in `src/main/java/net/coreprotect/utility/Util.java`
-#### Snippet
-```java
-            }
-
-            if (result.length() > 0) {
-                id = getWorldId(result);
-            }
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -3490,18 +3382,6 @@ in `src/main/java/net/coreprotect/utility/Util.java`
 ```
 
 ### SizeReplaceableByIsEmpty
-`builder.length() > 0` can be replaced with '!builder.isEmpty()'
-in `src/main/java/net/coreprotect/utility/Util.java`
-#### Snippet
-```java
-                    substring = substring.substring(0, 1).toUpperCase(Locale.ROOT) + substring.substring(1);
-                }
-                if (builder.length() > 0) {
-                    builder.append(" ");
-                }
-```
-
-### SizeReplaceableByIsEmpty
 `worldEditVersion[0].length() == 0` can be replaced with 'worldEditVersion\[0\].isEmpty()'
 in `src/main/java/net/coreprotect/utility/Util.java`
 #### Snippet
@@ -3538,6 +3418,66 @@ in `src/main/java/net/coreprotect/utility/Util.java`
 ```
 
 ### SizeReplaceableByIsEmpty
+`result.length() > 0` can be replaced with '!result.isEmpty()'
+in `src/main/java/net/coreprotect/utility/Util.java`
+#### Snippet
+```java
+
+            result = new String(data, StandardCharsets.UTF_8);
+            if (result.length() > 0) {
+                if (result.matches("\\d+")) {
+                    result = result + ",";
+```
+
+### SizeReplaceableByIsEmpty
+`block.length() > 0` can be replaced with '!block.isEmpty()'
+in `src/main/java/net/coreprotect/utility/Util.java`
+#### Snippet
+```java
+                    for (String blockData : blockDataSplit) {
+                        String block = getBlockDataString(Integer.parseInt(blockData));
+                        if (block.length() > 0) {
+                            blockDataArray.add(block);
+                        }
+```
+
+### SizeReplaceableByIsEmpty
+`nameWid.length() > 0` can be replaced with '!nameWid.isEmpty()'
+in `src/main/java/net/coreprotect/utility/Util.java`
+#### Snippet
+```java
+            if (name.startsWith("wid:")) {
+                String nameWid = name.replaceFirst("wid:", "");
+                if (nameWid.length() > 0 && nameWid.equals(nameWid.replaceAll("[^0-9]", ""))) {
+                    nameWid = Util.getWorldName(Integer.parseInt(nameWid));
+                    if (nameWid.length() > 0) {
+```
+
+### SizeReplaceableByIsEmpty
+`nameWid.length() > 0` can be replaced with '!nameWid.isEmpty()'
+in `src/main/java/net/coreprotect/utility/Util.java`
+#### Snippet
+```java
+                if (nameWid.length() > 0 && nameWid.equals(nameWid.replaceAll("[^0-9]", ""))) {
+                    nameWid = Util.getWorldName(Integer.parseInt(nameWid));
+                    if (nameWid.length() > 0) {
+                        name = nameWid;
+                    }
+```
+
+### SizeReplaceableByIsEmpty
+`result.length() > 0` can be replaced with '!result.isEmpty()'
+in `src/main/java/net/coreprotect/utility/Util.java`
+#### Snippet
+```java
+            }
+
+            if (result.length() > 0) {
+                id = getWorldId(result);
+            }
+```
+
+### SizeReplaceableByIsEmpty
 `branch.length() > 0` can be replaced with '!branch.isEmpty()'
 in `src/main/java/net/coreprotect/utility/Util.java`
 #### Snippet
@@ -3547,6 +3487,66 @@ in `src/main/java/net/coreprotect/utility/Util.java`
             if (branch.length() > 0) {
                 branch = "-" + branch;
             }
+```
+
+### SizeReplaceableByIsEmpty
+`builder.length() > 0` can be replaced with '!builder.isEmpty()'
+in `src/main/java/net/coreprotect/utility/Util.java`
+#### Snippet
+```java
+                    substring = substring.substring(0, 1).toUpperCase(Locale.ROOT) + substring.substring(1);
+                }
+                if (builder.length() > 0) {
+                    builder.append(" ");
+                }
+```
+
+### SizeReplaceableByIsEmpty
+`resultData.length() > 0` can be replaced with '!resultData.isEmpty()'
+in `src/main/java/net/coreprotect/listener/player/PlayerInteractListener.java`
+#### Snippet
+```java
+                                }
+                            }
+                            else if (resultData.length() > 0) {
+                                Chat.sendComponent(player, resultData);
+                            }
+```
+
+### SizeReplaceableByIsEmpty
+`signMessage.length() > 0` can be replaced with '!signMessage.isEmpty()'
+in `src/main/java/net/coreprotect/listener/player/PlayerInteractListener.java`
+#### Snippet
+```java
+                                            }
+
+                                            if (signMessage.length() > 0) {
+                                                Chat.sendComponent(player, signMessage, bypass);
+                                            }
+```
+
+### SizeReplaceableByIsEmpty
+`blockData.length() > 0` can be replaced with '!blockData.isEmpty()'
+in `src/main/java/net/coreprotect/listener/player/PlayerInteractListener.java`
+#### Snippet
+```java
+                                                }
+                                            }
+                                            else if (blockData.length() > 0) {
+                                                Chat.sendComponent(finalPlayer, blockData);
+                                            }
+```
+
+### SizeReplaceableByIsEmpty
+`blockData.length() > 0` can be replaced with '!blockData.isEmpty()'
+in `src/main/java/net/coreprotect/listener/player/PlayerInteractListener.java`
+#### Snippet
+```java
+                                                }
+                                            }
+                                            else if (blockData.length() > 0) {
+                                                Chat.sendComponent(finalPlayer, blockData);
+                                            }
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -3610,90 +3610,6 @@ in `src/main/java/net/coreprotect/listener/entity/EntityDeathListener.java`
 ```
 
 ### SizeReplaceableByIsEmpty
-`blockData.length() == 0` can be replaced with 'blockData.isEmpty()'
-in `src/main/java/net/coreprotect/CoreProtectAPI.java`
-#### Snippet
-```java
-
-            String blockData = parse[12];
-            if (blockData == null || blockData.length() == 0) {
-                return getType().createBlockData();
-            }
-```
-
-### SizeReplaceableByIsEmpty
-`command.length() > 0` can be replaced with '!command.isEmpty()'
-in `src/main/java/net/coreprotect/CoreProtectAPI.java`
-#### Snippet
-```java
-        if (Config.getGlobal().API_ENABLED && player != null && Config.getConfig(player.getWorld()).PLAYER_COMMANDS) {
-            if (command != null) {
-                if (command.length() > 0 && command.startsWith("/")) {
-                    long timestamp = System.currentTimeMillis() / 1000L;
-
-```
-
-### SizeReplaceableByIsEmpty
-`user.length() > 0` can be replaced with '!user.isEmpty()'
-in `src/main/java/net/coreprotect/CoreProtectAPI.java`
-#### Snippet
-```java
-        if (Config.getGlobal().API_ENABLED) {
-            if (user != null && location != null) {
-                if (user.length() > 0) {
-                    Queue.queueBlockBreak(user, location.getBlock().getState(), type, type.createBlockData().getAsString(), data);
-                    return true;
-```
-
-### SizeReplaceableByIsEmpty
-`user.length() > 0` can be replaced with '!user.isEmpty()'
-in `src/main/java/net/coreprotect/CoreProtectAPI.java`
-#### Snippet
-```java
-        if (Config.getGlobal().API_ENABLED) {
-            if (user != null && location != null) {
-                if (user.length() > 0) {
-                    Queue.queuePlayerInteraction(user, location.getBlock().getState(), location.getBlock().getType());
-                    return true;
-```
-
-### SizeReplaceableByIsEmpty
-`user.length() > 0` can be replaced with '!user.isEmpty()'
-in `src/main/java/net/coreprotect/CoreProtectAPI.java`
-#### Snippet
-```java
-        if (Config.getGlobal().API_ENABLED) {
-            if (user != null && location != null) {
-                if (user.length() > 0) {
-                    Queue.queueBlockPlace(user, location.getBlock().getState(), location.getBlock().getType(), null, type, data, 1, null);
-                    return true;
-```
-
-### SizeReplaceableByIsEmpty
-`user.length() > 0` can be replaced with '!user.isEmpty()'
-in `src/main/java/net/coreprotect/CoreProtectAPI.java`
-#### Snippet
-```java
-        if (Config.getGlobal().API_ENABLED) {
-            if (user != null && location != null) {
-                if (user.length() > 0) {
-                    Block block = location.getBlock();
-                    BlockState blockState = block.getState();
-```
-
-### SizeReplaceableByIsEmpty
-`message.length() > 0` can be replaced with '!message.isEmpty()'
-in `src/main/java/net/coreprotect/CoreProtectAPI.java`
-#### Snippet
-```java
-        if (Config.getGlobal().API_ENABLED && player != null && Config.getConfig(player.getWorld()).PLAYER_MESSAGES) {
-            if (message != null) {
-                if (message.length() > 0 && !message.startsWith("/")) {
-                    long timestamp = System.currentTimeMillis() / 1000L;
-
-```
-
-### SizeReplaceableByIsEmpty
 `actionList.size() == 0` can be replaced with 'actionList.isEmpty()'
 in `src/main/java/net/coreprotect/CoreProtectAPI.java`
 #### Snippet
@@ -3751,6 +3667,90 @@ in `src/main/java/net/coreprotect/CoreProtectAPI.java`
                 if (user.length() > 0) {
                     String blockDataString = null;
 
+```
+
+### SizeReplaceableByIsEmpty
+`message.length() > 0` can be replaced with '!message.isEmpty()'
+in `src/main/java/net/coreprotect/CoreProtectAPI.java`
+#### Snippet
+```java
+        if (Config.getGlobal().API_ENABLED && player != null && Config.getConfig(player.getWorld()).PLAYER_MESSAGES) {
+            if (message != null) {
+                if (message.length() > 0 && !message.startsWith("/")) {
+                    long timestamp = System.currentTimeMillis() / 1000L;
+
+```
+
+### SizeReplaceableByIsEmpty
+`command.length() > 0` can be replaced with '!command.isEmpty()'
+in `src/main/java/net/coreprotect/CoreProtectAPI.java`
+#### Snippet
+```java
+        if (Config.getGlobal().API_ENABLED && player != null && Config.getConfig(player.getWorld()).PLAYER_COMMANDS) {
+            if (command != null) {
+                if (command.length() > 0 && command.startsWith("/")) {
+                    long timestamp = System.currentTimeMillis() / 1000L;
+
+```
+
+### SizeReplaceableByIsEmpty
+`blockData.length() == 0` can be replaced with 'blockData.isEmpty()'
+in `src/main/java/net/coreprotect/CoreProtectAPI.java`
+#### Snippet
+```java
+
+            String blockData = parse[12];
+            if (blockData == null || blockData.length() == 0) {
+                return getType().createBlockData();
+            }
+```
+
+### SizeReplaceableByIsEmpty
+`user.length() > 0` can be replaced with '!user.isEmpty()'
+in `src/main/java/net/coreprotect/CoreProtectAPI.java`
+#### Snippet
+```java
+        if (Config.getGlobal().API_ENABLED) {
+            if (user != null && location != null) {
+                if (user.length() > 0) {
+                    Queue.queueBlockBreak(user, location.getBlock().getState(), type, type.createBlockData().getAsString(), data);
+                    return true;
+```
+
+### SizeReplaceableByIsEmpty
+`user.length() > 0` can be replaced with '!user.isEmpty()'
+in `src/main/java/net/coreprotect/CoreProtectAPI.java`
+#### Snippet
+```java
+        if (Config.getGlobal().API_ENABLED) {
+            if (user != null && location != null) {
+                if (user.length() > 0) {
+                    Queue.queueBlockPlace(user, location.getBlock().getState(), location.getBlock().getType(), null, type, data, 1, null);
+                    return true;
+```
+
+### SizeReplaceableByIsEmpty
+`user.length() > 0` can be replaced with '!user.isEmpty()'
+in `src/main/java/net/coreprotect/CoreProtectAPI.java`
+#### Snippet
+```java
+        if (Config.getGlobal().API_ENABLED) {
+            if (user != null && location != null) {
+                if (user.length() > 0) {
+                    Queue.queuePlayerInteraction(user, location.getBlock().getState(), location.getBlock().getType());
+                    return true;
+```
+
+### SizeReplaceableByIsEmpty
+`user.length() > 0` can be replaced with '!user.isEmpty()'
+in `src/main/java/net/coreprotect/CoreProtectAPI.java`
+#### Snippet
+```java
+        if (Config.getGlobal().API_ENABLED) {
+            if (user != null && location != null) {
+                if (user.length() > 0) {
+                    Block block = location.getBlock();
+                    BlockState blockState = block.getState();
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -4486,102 +4486,6 @@ in `src/main/java/net/coreprotect/database/Lookup.java`
 ```
 
 ### SizeReplaceableByIsEmpty
-`inventory.addItem(itemstack).size() == 0` can be replaced with 'inventory.addItem(itemstack).isEmpty()'
-in `src/main/java/net/coreprotect/database/Rollback.java`
-#### Snippet
-```java
-                            }
-                            if (!addedItem) {
-                                addedItem = (inventory.addItem(itemstack).size() == 0);
-                            }
-                            if (!addedItem && isPlayerInventory) {
-```
-
-### SizeReplaceableByIsEmpty
-`usersBuilder.length() == 0` can be replaced with 'usersBuilder.isEmpty()'
-in `src/main/java/net/coreprotect/database/Rollback.java`
-#### Snippet
-```java
-            StringBuilder usersBuilder = new StringBuilder();
-            for (String value : checkUsers) {
-                if (usersBuilder.length() == 0) {
-                    usersBuilder = usersBuilder.append("" + value + "");
-                }
-```
-
-### SizeReplaceableByIsEmpty
-`restrictList.size() > 0` can be replaced with '!restrictList.isEmpty()'
-in `src/main/java/net/coreprotect/database/Rollback.java`
-#### Snippet
-```java
-            }
-
-            if (restrictList.size() > 0) {
-                StringBuilder restrictTargets = new StringBuilder();
-                boolean material = false;
-```
-
-### SizeReplaceableByIsEmpty
-`excludeList.size() > 0` can be replaced with '!excludeList.isEmpty()'
-in `src/main/java/net/coreprotect/database/Rollback.java`
-#### Snippet
-```java
-            }
-
-            if (excludeList.size() > 0) {
-                StringBuilder excludeTargets = new StringBuilder();
-                boolean material = false;
-```
-
-### SizeReplaceableByIsEmpty
-`excludeUserList.size() > 0` can be replaced with '!excludeUserList.isEmpty()'
-in `src/main/java/net/coreprotect/database/Rollback.java`
-#### Snippet
-```java
-            }
-
-            if (excludeUserList.size() > 0) {
-                StringBuilder excludeUsers = new StringBuilder();
-
-```
-
-### SizeReplaceableByIsEmpty
-`modifiedDataVerbose.length() > 0` can be replaced with '!modifiedDataVerbose.isEmpty()'
-in `src/main/java/net/coreprotect/database/Rollback.java`
-#### Snippet
-```java
-
-            Chat.sendMessage(user, Color.DARK_AQUA + "CoreProtect " + Color.WHITE + "- " + Phrase.build(Phrase.ROLLBACK_MODIFIED, modifiedData.toString(), (preview == 0 ? Selector.FIRST : Selector.SECOND)));
-            if (modifiedDataVerbose.length() > 0) {
-                Chat.sendMessage(user, Color.DARK_AQUA + "CoreProtect " + Color.WHITE + "- " + Phrase.build(Phrase.ROLLBACK_MODIFIED, modifiedDataVerbose.toString(), (preview == 0 ? Selector.FIRST : Selector.SECOND)));
-            }
-```
-
-### SizeReplaceableByIsEmpty
-`metaList.size() > 0` can be replaced with '!metaList.isEmpty()'
-in `src/main/java/net/coreprotect/database/Rollback.java`
-#### Snippet
-```java
-            Material rowType = itemstack.getType();
-            List<Object> metaList = (List<Object>) list;
-            if (metaList.size() > 0 && !(metaList.get(0) instanceof List<?>)) {
-                if (rowType.name().endsWith("_BANNER")) {
-                    BannerMeta meta = (BannerMeta) itemstack.getItemMeta();
-```
-
-### SizeReplaceableByIsEmpty
-`map.size() == 0` can be replaced with 'map.isEmpty()'
-in `src/main/java/net/coreprotect/database/Rollback.java`
-#### Snippet
-```java
-            Builder effectBuilder = FireworkEffect.builder();
-            for (List<Map<String, Object>> map : (List<List<Map<String, Object>>>) list) {
-                if (map.size() == 0) {
-                    if (itemCount == 3 && (rowType == Material.FIREWORK_ROCKET || rowType == Material.FIREWORK_STAR)) {
-                        buildFireworkEffect(effectBuilder, rowType, itemstack);
-```
-
-### SizeReplaceableByIsEmpty
 `actionList.size() == 0` can be replaced with 'actionList.isEmpty()'
 in `src/main/java/net/coreprotect/database/Rollback.java`
 #### Snippet
@@ -4665,6 +4569,102 @@ in `src/main/java/net/coreprotect/database/Rollback.java`
                                                         }
 ```
 
+### SizeReplaceableByIsEmpty
+`metaList.size() > 0` can be replaced with '!metaList.isEmpty()'
+in `src/main/java/net/coreprotect/database/Rollback.java`
+#### Snippet
+```java
+            Material rowType = itemstack.getType();
+            List<Object> metaList = (List<Object>) list;
+            if (metaList.size() > 0 && !(metaList.get(0) instanceof List<?>)) {
+                if (rowType.name().endsWith("_BANNER")) {
+                    BannerMeta meta = (BannerMeta) itemstack.getItemMeta();
+```
+
+### SizeReplaceableByIsEmpty
+`map.size() == 0` can be replaced with 'map.isEmpty()'
+in `src/main/java/net/coreprotect/database/Rollback.java`
+#### Snippet
+```java
+            Builder effectBuilder = FireworkEffect.builder();
+            for (List<Map<String, Object>> map : (List<List<Map<String, Object>>>) list) {
+                if (map.size() == 0) {
+                    if (itemCount == 3 && (rowType == Material.FIREWORK_ROCKET || rowType == Material.FIREWORK_STAR)) {
+                        buildFireworkEffect(effectBuilder, rowType, itemstack);
+```
+
+### SizeReplaceableByIsEmpty
+`inventory.addItem(itemstack).size() == 0` can be replaced with 'inventory.addItem(itemstack).isEmpty()'
+in `src/main/java/net/coreprotect/database/Rollback.java`
+#### Snippet
+```java
+                            }
+                            if (!addedItem) {
+                                addedItem = (inventory.addItem(itemstack).size() == 0);
+                            }
+                            if (!addedItem && isPlayerInventory) {
+```
+
+### SizeReplaceableByIsEmpty
+`usersBuilder.length() == 0` can be replaced with 'usersBuilder.isEmpty()'
+in `src/main/java/net/coreprotect/database/Rollback.java`
+#### Snippet
+```java
+            StringBuilder usersBuilder = new StringBuilder();
+            for (String value : checkUsers) {
+                if (usersBuilder.length() == 0) {
+                    usersBuilder = usersBuilder.append("" + value + "");
+                }
+```
+
+### SizeReplaceableByIsEmpty
+`restrictList.size() > 0` can be replaced with '!restrictList.isEmpty()'
+in `src/main/java/net/coreprotect/database/Rollback.java`
+#### Snippet
+```java
+            }
+
+            if (restrictList.size() > 0) {
+                StringBuilder restrictTargets = new StringBuilder();
+                boolean material = false;
+```
+
+### SizeReplaceableByIsEmpty
+`excludeList.size() > 0` can be replaced with '!excludeList.isEmpty()'
+in `src/main/java/net/coreprotect/database/Rollback.java`
+#### Snippet
+```java
+            }
+
+            if (excludeList.size() > 0) {
+                StringBuilder excludeTargets = new StringBuilder();
+                boolean material = false;
+```
+
+### SizeReplaceableByIsEmpty
+`excludeUserList.size() > 0` can be replaced with '!excludeUserList.isEmpty()'
+in `src/main/java/net/coreprotect/database/Rollback.java`
+#### Snippet
+```java
+            }
+
+            if (excludeUserList.size() > 0) {
+                StringBuilder excludeUsers = new StringBuilder();
+
+```
+
+### SizeReplaceableByIsEmpty
+`modifiedDataVerbose.length() > 0` can be replaced with '!modifiedDataVerbose.isEmpty()'
+in `src/main/java/net/coreprotect/database/Rollback.java`
+#### Snippet
+```java
+
+            Chat.sendMessage(user, Color.DARK_AQUA + "CoreProtect " + Color.WHITE + "- " + Phrase.build(Phrase.ROLLBACK_MODIFIED, modifiedData.toString(), (preview == 0 ? Selector.FIRST : Selector.SECOND)));
+            if (modifiedDataVerbose.length() > 0) {
+                Chat.sendMessage(user, Color.DARK_AQUA + "CoreProtect " + Color.WHITE + "- " + Phrase.build(Phrase.ROLLBACK_MODIFIED, modifiedDataVerbose.toString(), (preview == 0 ? Selector.FIRST : Selector.SECOND)));
+            }
+```
+
 ## RuleId[ruleID=ReadWriteStringCanBeUsed]
 ### ReadWriteStringCanBeUsed
 Can be replaced with 'Files.writeString()'
@@ -4746,7 +4746,7 @@ in `src/main/java/net/coreprotect/spigot/SpigotAdapter.java`
 #### Snippet
 ```java
     @Override
-    public void addHoverComponent(Object message, String[] data) {
+    public void setHoverEvent(Object message, String text) {
         return;
     }
 
@@ -4758,7 +4758,7 @@ in `src/main/java/net/coreprotect/spigot/SpigotAdapter.java`
 #### Snippet
 ```java
     @Override
-    public void setHoverEvent(Object message, String text) {
+    public void addHoverComponent(Object message, String[] data) {
         return;
     }
 
@@ -5032,50 +5032,38 @@ in `src/main/java/net/coreprotect/listener/block/BlockIgniteListener.java`
 
 ### TrivialStringConcatenation
 Empty string used in concatenation
-in `src/main/java/net/coreprotect/listener/block/BlockPistonListener.java`
+in `src/main/java/net/coreprotect/command/HelpCommand.java`
 #### Snippet
 ```java
-                    int z = n.getZ();
-                    Material t = n.getType();
-                    String cords = "" + x + "." + y + "." + z + "." + wid + "." + t.name() + "";
-                    if (CacheHandler.pistonCache.get(cords) == null) {
-                        log = 1;
-```
-
-### TrivialStringConcatenation
-Empty string used in concatenation
-in `src/main/java/net/coreprotect/listener/block/BlockPistonListener.java`
-#### Snippet
-```java
-                    int z = n.getZ();
-                    Material t = n.getType();
-                    String cords = "" + x + "." + y + "." + z + "." + wid + "." + t.name() + "";
-                    if (CacheHandler.pistonCache.get(cords) == null) {
-                        log = 1;
-```
-
-### TrivialStringConcatenation
-Empty string used in concatenation
-in `src/main/java/net/coreprotect/database/lookup/SignMessageLookup.java`
-#### Snippet
-```java
-            int totalPages = (int) Math.ceil(count / (limit + 0.0));
-
-            query = "SELECT time,user,line_1,line_2,line_3,line_4 FROM " + ConfigHandler.prefix + "sign " + Util.getWidIndex("sign") + "WHERE wid = '" + worldId + "' AND x = '" + x + "' AND z = '" + z + "' AND y = '" + y + "' AND action = '1' AND (LENGTH(line_1) > 0 OR LENGTH(line_2) > 0 OR LENGTH(line_3) > 0 OR LENGTH(line_4) > 0) ORDER BY rowid DESC LIMIT " + pageStart + ", " + limit + "";
-            results = statement.executeQuery(query);
-
-```
-
-### TrivialStringConcatenation
-Empty string used in concatenation
-in `src/main/java/net/coreprotect/database/lookup/SignMessageLookup.java`
-#### Snippet
-```java
-
-                if (!found) {
-                    result.add(new StringBuilder(Color.WHITE + "----- " + Color.DARK_AQUA + Phrase.build(Phrase.SIGN_HEADER) + Color.WHITE + " ----- " + Util.getCoordinates(command, worldId, x, y, z, false, false) + "").toString());
+                else if (helpcommand.equals("purge") || helpcommand.equals("purges")) {
+                    Chat.sendMessage(player, Color.DARK_AQUA + "/co purge t:<time> " + Color.WHITE + "- " + Phrase.build(Phrase.HELP_PURGE_1));
+                    Chat.sendMessage(player, Color.GREY + Color.ITALIC + "" + Phrase.build(Phrase.HELP_PURGE_2, "/co purge t:30d"));
                 }
-                found = true;
+                else if (helpcommand.equals("reload")) {
+```
+
+### TrivialStringConcatenation
+Empty string used in concatenation
+in `src/main/java/net/coreprotect/listener/block/BlockPistonListener.java`
+#### Snippet
+```java
+                    int z = n.getZ();
+                    Material t = n.getType();
+                    String cords = "" + x + "." + y + "." + z + "." + wid + "." + t.name() + "";
+                    if (CacheHandler.pistonCache.get(cords) == null) {
+                        log = 1;
+```
+
+### TrivialStringConcatenation
+Empty string used in concatenation
+in `src/main/java/net/coreprotect/listener/block/BlockPistonListener.java`
+#### Snippet
+```java
+                    int z = n.getZ();
+                    Material t = n.getType();
+                    String cords = "" + x + "." + y + "." + z + "." + wid + "." + t.name() + "";
+                    if (CacheHandler.pistonCache.get(cords) == null) {
+                        log = 1;
 ```
 
 ### TrivialStringConcatenation
@@ -5104,38 +5092,50 @@ in `src/main/java/net/coreprotect/database/lookup/InteractionLookup.java`
 
 ### TrivialStringConcatenation
 Empty string used in concatenation
-in `src/main/java/net/coreprotect/command/HelpCommand.java`
+in `src/main/java/net/coreprotect/database/lookup/SignMessageLookup.java`
 #### Snippet
 ```java
-                else if (helpcommand.equals("purge") || helpcommand.equals("purges")) {
-                    Chat.sendMessage(player, Color.DARK_AQUA + "/co purge t:<time> " + Color.WHITE + "- " + Phrase.build(Phrase.HELP_PURGE_1));
-                    Chat.sendMessage(player, Color.GREY + Color.ITALIC + "" + Phrase.build(Phrase.HELP_PURGE_2, "/co purge t:30d"));
+            int totalPages = (int) Math.ceil(count / (limit + 0.0));
+
+            query = "SELECT time,user,line_1,line_2,line_3,line_4 FROM " + ConfigHandler.prefix + "sign " + Util.getWidIndex("sign") + "WHERE wid = '" + worldId + "' AND x = '" + x + "' AND z = '" + z + "' AND y = '" + y + "' AND action = '1' AND (LENGTH(line_1) > 0 OR LENGTH(line_2) > 0 OR LENGTH(line_3) > 0 OR LENGTH(line_4) > 0) ORDER BY rowid DESC LIMIT " + pageStart + ", " + limit + "";
+            results = statement.executeQuery(query);
+
+```
+
+### TrivialStringConcatenation
+Empty string used in concatenation
+in `src/main/java/net/coreprotect/database/lookup/SignMessageLookup.java`
+#### Snippet
+```java
+
+                if (!found) {
+                    result.add(new StringBuilder(Color.WHITE + "----- " + Color.DARK_AQUA + Phrase.build(Phrase.SIGN_HEADER) + Color.WHITE + " ----- " + Util.getCoordinates(command, worldId, x, y, z, false, false) + "").toString());
                 }
-                else if (helpcommand.equals("reload")) {
+                found = true;
 ```
 
 ### TrivialStringConcatenation
 Empty string used in concatenation
-in `src/main/java/net/coreprotect/command/RollbackRestoreCommand.java`
+in `src/main/java/net/coreprotect/database/logger/BlockBreakLogger.java`
 #### Snippet
 ```java
-                                            for (String value : rollbackusers2) {
-                                                if (users.length() == 0) {
-                                                    users = "" + value + "";
-                                                }
-                                                else {
+            int y = location.getBlockY();
+            int z = location.getBlockZ();
+            CacheHandler.breakCache.put("" + x + "." + y + "." + z + "." + wid + "", new Object[] { time, event.getUser(), type });
+            BlockStatement.insert(preparedStmt, batchCount, time, userId, wid, x, y, z, type, data, meta, blockData, 0, 0);
+        }
 ```
 
 ### TrivialStringConcatenation
 Empty string used in concatenation
-in `src/main/java/net/coreprotect/command/RollbackRestoreCommand.java`
+in `src/main/java/net/coreprotect/database/logger/BlockBreakLogger.java`
 #### Snippet
 ```java
-                                            for (String value : rollbackusers2) {
-                                                if (users.length() == 0) {
-                                                    users = "" + value + "";
-                                                }
-                                                else {
+            int y = location.getBlockY();
+            int z = location.getBlockZ();
+            CacheHandler.breakCache.put("" + x + "." + y + "." + z + "." + wid + "", new Object[] { time, event.getUser(), type });
+            BlockStatement.insert(preparedStmt, batchCount, time, userId, wid, x, y, z, type, data, meta, blockData, 0, 0);
+        }
 ```
 
 ### TrivialStringConcatenation
@@ -5172,30 +5172,6 @@ in `src/main/java/net/coreprotect/database/lookup/ChestTransactionLookup.java`
                     target = "minecraft:" + target.toLowerCase(Locale.ROOT) + "";
                 }
 
-```
-
-### TrivialStringConcatenation
-Empty string used in concatenation
-in `src/main/java/net/coreprotect/database/logger/BlockBreakLogger.java`
-#### Snippet
-```java
-            int y = location.getBlockY();
-            int z = location.getBlockZ();
-            CacheHandler.breakCache.put("" + x + "." + y + "." + z + "." + wid + "", new Object[] { time, event.getUser(), type });
-            BlockStatement.insert(preparedStmt, batchCount, time, userId, wid, x, y, z, type, data, meta, blockData, 0, 0);
-        }
-```
-
-### TrivialStringConcatenation
-Empty string used in concatenation
-in `src/main/java/net/coreprotect/database/logger/BlockBreakLogger.java`
-#### Snippet
-```java
-            int y = location.getBlockY();
-            int z = location.getBlockZ();
-            CacheHandler.breakCache.put("" + x + "." + y + "." + z + "." + wid + "", new Object[] { time, event.getUser(), type });
-            BlockStatement.insert(preparedStmt, batchCount, time, userId, wid, x, y, z, type, data, meta, blockData, 0, 0);
-        }
 ```
 
 ### TrivialStringConcatenation
@@ -5248,6 +5224,30 @@ in `src/main/java/net/coreprotect/command/PurgeCommand.java`
 
 ### TrivialStringConcatenation
 Empty string used in concatenation
+in `src/main/java/net/coreprotect/command/RollbackRestoreCommand.java`
+#### Snippet
+```java
+                                            for (String value : rollbackusers2) {
+                                                if (users.length() == 0) {
+                                                    users = "" + value + "";
+                                                }
+                                                else {
+```
+
+### TrivialStringConcatenation
+Empty string used in concatenation
+in `src/main/java/net/coreprotect/command/RollbackRestoreCommand.java`
+#### Snippet
+```java
+                                            for (String value : rollbackusers2) {
+                                                if (users.length() == 0) {
+                                                    users = "" + value + "";
+                                                }
+                                                else {
+```
+
+### TrivialStringConcatenation
+Empty string used in concatenation
 in `src/main/java/net/coreprotect/database/logger/BlockPlaceLogger.java`
 #### Snippet
 ```java
@@ -5279,6 +5279,30 @@ in `src/main/java/net/coreprotect/database/Database.java`
 
                 String database = "jdbc:sqlite:" + ConfigHandler.path + ConfigHandler.sqlite + "";
                 connection = DriverManager.getConnection(database);
+
+```
+
+### TrivialStringConcatenation
+Empty string used in concatenation
+in `src/main/java/net/coreprotect/utility/entity/EntityUtil.java`
+#### Snippet
+```java
+                int unixtimestamp = (int) (System.currentTimeMillis() / 1000L);
+                int wid = Util.getWorldId(block.getWorld().getName());
+                String token = "" + block.getX() + "." + block.getY() + "." + block.getZ() + "." + wid + "." + type.name() + "";
+                CacheHandler.entityCache.put(token, new Object[] { unixtimestamp, entity.getEntityId() });
+
+```
+
+### TrivialStringConcatenation
+Empty string used in concatenation
+in `src/main/java/net/coreprotect/utility/entity/EntityUtil.java`
+#### Snippet
+```java
+                int unixtimestamp = (int) (System.currentTimeMillis() / 1000L);
+                int wid = Util.getWorldId(block.getWorld().getName());
+                String token = "" + block.getX() + "." + block.getY() + "." + block.getZ() + "." + wid + "." + type.name() + "";
+                CacheHandler.entityCache.put(token, new Object[] { unixtimestamp, entity.getEntityId() });
 
 ```
 
@@ -5320,26 +5344,26 @@ in `src/main/java/net/coreprotect/command/LookupCommand.java`
 
 ### TrivialStringConcatenation
 Empty string used in concatenation
-in `src/main/java/net/coreprotect/utility/entity/EntityUtil.java`
+in `src/main/java/net/coreprotect/utility/Util.java`
 #### Snippet
 ```java
-                int unixtimestamp = (int) (System.currentTimeMillis() / 1000L);
-                int wid = Util.getWorldId(block.getWorld().getName());
-                String token = "" + block.getX() + "." + block.getY() + "." + block.getZ() + "." + wid + "." + type.name() + "";
-                CacheHandler.entityCache.put(token, new Object[] { unixtimestamp, entity.getEntityId() });
-
+            int unixtimestamp = (int) (System.currentTimeMillis() / 1000L);
+            int wid = Util.getWorldId(block.getWorld().getName());
+            CacheHandler.lookupCache.put("" + block.getX() + "." + block.getY() + "." + block.getZ() + "." + wid + "", new Object[] { unixtimestamp, user, Material.WATER });
+            return true;
+        }
 ```
 
 ### TrivialStringConcatenation
 Empty string used in concatenation
-in `src/main/java/net/coreprotect/utility/entity/EntityUtil.java`
+in `src/main/java/net/coreprotect/utility/Util.java`
 #### Snippet
 ```java
-                int unixtimestamp = (int) (System.currentTimeMillis() / 1000L);
-                int wid = Util.getWorldId(block.getWorld().getName());
-                String token = "" + block.getX() + "." + block.getY() + "." + block.getZ() + "." + wid + "." + type.name() + "";
-                CacheHandler.entityCache.put(token, new Object[] { unixtimestamp, entity.getEntityId() });
-
+            int unixtimestamp = (int) (System.currentTimeMillis() / 1000L);
+            int wid = Util.getWorldId(block.getWorld().getName());
+            CacheHandler.lookupCache.put("" + block.getX() + "." + block.getY() + "." + block.getZ() + "." + wid + "", new Object[] { unixtimestamp, user, Material.WATER });
+            return true;
+        }
 ```
 
 ### TrivialStringConcatenation
@@ -5363,30 +5387,6 @@ in `src/main/java/net/coreprotect/listener/player/PlayerBucketEmptyListener.java
 
             CacheHandler.lookupCache.put("" + block.getX() + "." + block.getY() + "." + block.getZ() + "." + worldId + "", new Object[] { unixTimestamp, player, type });
             queueBlockPlace(player, block.getState(), block.getType(), blockState, type, 1, 1, null);
-        }
-```
-
-### TrivialStringConcatenation
-Empty string used in concatenation
-in `src/main/java/net/coreprotect/utility/Util.java`
-#### Snippet
-```java
-            int unixtimestamp = (int) (System.currentTimeMillis() / 1000L);
-            int wid = Util.getWorldId(block.getWorld().getName());
-            CacheHandler.lookupCache.put("" + block.getX() + "." + block.getY() + "." + block.getZ() + "." + wid + "", new Object[] { unixtimestamp, user, Material.WATER });
-            return true;
-        }
-```
-
-### TrivialStringConcatenation
-Empty string used in concatenation
-in `src/main/java/net/coreprotect/utility/Util.java`
-#### Snippet
-```java
-            int unixtimestamp = (int) (System.currentTimeMillis() / 1000L);
-            int wid = Util.getWorldId(block.getWorld().getName());
-            CacheHandler.lookupCache.put("" + block.getX() + "." + block.getY() + "." + block.getZ() + "." + wid + "", new Object[] { unixtimestamp, user, Material.WATER });
-            return true;
         }
 ```
 
@@ -5467,6 +5467,30 @@ Empty string used in concatenation
 in `src/main/java/net/coreprotect/database/Lookup.java`
 #### Snippet
 ```java
+            int worldId = Util.getWorldId(block.getWorld().getName());
+
+            String cords = "" + x + "." + y + "." + z + "." + worldId + "";
+            Object[] data = CacheHandler.lookupCache.get(cords);
+
+```
+
+### TrivialStringConcatenation
+Empty string used in concatenation
+in `src/main/java/net/coreprotect/database/Lookup.java`
+#### Snippet
+```java
+            int worldId = Util.getWorldId(block.getWorld().getName());
+
+            String cords = "" + x + "." + y + "." + z + "." + worldId + "";
+            Object[] data = CacheHandler.lookupCache.get(cords);
+
+```
+
+### TrivialStringConcatenation
+Empty string used in concatenation
+in `src/main/java/net/coreprotect/database/Lookup.java`
+#### Snippet
+```java
                 if (result.length() > 0) {
                     Material resultMaterial = Util.getType(resultType);
                     CacheHandler.lookupCache.put("" + x + "." + y + "." + z + "." + worldId + "", new Object[] { time, result, resultMaterial });
@@ -5512,25 +5536,25 @@ in `src/main/java/net/coreprotect/database/Lookup.java`
 
 ### TrivialStringConcatenation
 Empty string used in concatenation
-in `src/main/java/net/coreprotect/database/Lookup.java`
+in `src/main/java/net/coreprotect/database/Rollback.java`
 #### Snippet
 ```java
-            int worldId = Util.getWorldId(block.getWorld().getName());
-
-            String cords = "" + x + "." + y + "." + z + "." + worldId + "";
-            Object[] data = CacheHandler.lookupCache.get(cords);
+                                        int entityId = -1;
+                                        String entityName = Util.getEntityType(oldTypeRaw).name();
+                                        String token = "" + rowX + "." + rowY + "." + rowZ + "." + rowWorldId + "." + entityName + "";
+                                        Object[] cachedEntity = CacheHandler.entityCache.get(token);
 
 ```
 
 ### TrivialStringConcatenation
 Empty string used in concatenation
-in `src/main/java/net/coreprotect/database/Lookup.java`
+in `src/main/java/net/coreprotect/database/Rollback.java`
 #### Snippet
 ```java
-            int worldId = Util.getWorldId(block.getWorld().getName());
-
-            String cords = "" + x + "." + y + "." + z + "." + worldId + "";
-            Object[] data = CacheHandler.lookupCache.get(cords);
+                                        int entityId = -1;
+                                        String entityName = Util.getEntityType(oldTypeRaw).name();
+                                        String token = "" + rowX + "." + rowY + "." + rowZ + "." + rowWorldId + "." + entityName + "";
+                                        Object[] cachedEntity = CacheHandler.entityCache.get(token);
 
 ```
 
@@ -5628,30 +5652,6 @@ in `src/main/java/net/coreprotect/database/Rollback.java`
                         excludeUsers = excludeUsers.append("" + excludeUser + "");
                     }
                     else {
-```
-
-### TrivialStringConcatenation
-Empty string used in concatenation
-in `src/main/java/net/coreprotect/database/Rollback.java`
-#### Snippet
-```java
-                                        int entityId = -1;
-                                        String entityName = Util.getEntityType(oldTypeRaw).name();
-                                        String token = "" + rowX + "." + rowY + "." + rowZ + "." + rowWorldId + "." + entityName + "";
-                                        Object[] cachedEntity = CacheHandler.entityCache.get(token);
-
-```
-
-### TrivialStringConcatenation
-Empty string used in concatenation
-in `src/main/java/net/coreprotect/database/Rollback.java`
-#### Snippet
-```java
-                                        int entityId = -1;
-                                        String entityName = Util.getEntityType(oldTypeRaw).name();
-                                        String token = "" + rowX + "." + rowY + "." + rowZ + "." + rowWorldId + "." + entityName + "";
-                                        Object[] cachedEntity = CacheHandler.entityCache.get(token);
-
 ```
 
 ## RuleId[ruleID=BoundedWildcard]
@@ -5771,7 +5771,7 @@ in `src/main/java/net/coreprotect/worldedit/WorldEditBlockState.java`
 ```java
 
     @Override
-    public List<MetadataValue> getMetadata(String metadataKey) {
+    public Block getBlock() {
         // TODO Auto-generated method stub
         return null;
 ```
@@ -5783,7 +5783,7 @@ in `src/main/java/net/coreprotect/worldedit/WorldEditBlockState.java`
 ```java
 
     @Override
-    public MaterialData getData() {
+    public List<MetadataValue> getMetadata(String metadataKey) {
         // TODO Auto-generated method stub
         return null;
 ```
@@ -5807,24 +5807,12 @@ in `src/main/java/net/coreprotect/worldedit/WorldEditBlockState.java`
 ```java
 
     @Override
-    public Block getBlock() {
+    public MaterialData getData() {
         // TODO Auto-generated method stub
         return null;
 ```
 
 ## RuleId[ruleID=MissortedModifiers]
-### MissortedModifiers
-Missorted modifiers `final private static`
-in `src/main/java/net/coreprotect/language/Phrase.java`
-#### Snippet
-```java
-    final private static Set<Phrase> HEADERS = new HashSet<>(Arrays.asList(Phrase.CONTAINER_HEADER, Phrase.HELP_HEADER, Phrase.INTERACTIONS_HEADER, Phrase.LOOKUP_HEADER, Phrase.SIGN_HEADER, Phrase.UPDATE_HEADER));
-    final private static Set<String> COLORS = new HashSet<>(Arrays.asList(Color.WHITE, Color.DARK_AQUA));
-    final private static String split = ":";
-
-    public String getPhrase() {
-```
-
 ### MissortedModifiers
 Missorted modifiers `final private static`
 in `src/main/java/net/coreprotect/language/Phrase.java`
@@ -5850,6 +5838,18 @@ in `src/main/java/net/coreprotect/language/Phrase.java`
 ```
 
 ### MissortedModifiers
+Missorted modifiers `final private static`
+in `src/main/java/net/coreprotect/language/Phrase.java`
+#### Snippet
+```java
+    final private static Set<Phrase> HEADERS = new HashSet<>(Arrays.asList(Phrase.CONTAINER_HEADER, Phrase.HELP_HEADER, Phrase.INTERACTIONS_HEADER, Phrase.LOOKUP_HEADER, Phrase.SIGN_HEADER, Phrase.UPDATE_HEADER));
+    final private static Set<String> COLORS = new HashSet<>(Arrays.asList(Color.WHITE, Color.DARK_AQUA));
+    final private static String split = ":";
+
+    public String getPhrase() {
+```
+
+### MissortedModifiers
 Missorted modifiers `final public static`
 in `src/main/java/net/coreprotect/language/Selector.java`
 #### Snippet
@@ -5859,30 +5859,6 @@ in `src/main/java/net/coreprotect/language/Selector.java`
     final public static String SECOND = "{2}";
     final public static String THIRD = "{3}";
     final public static String FOURTH = "{4}";
-```
-
-### MissortedModifiers
-Missorted modifiers `final public static`
-in `src/main/java/net/coreprotect/language/Selector.java`
-#### Snippet
-```java
-    final public static String SECOND = "{2}";
-    final public static String THIRD = "{3}";
-    final public static String FOURTH = "{4}";
-
-    final protected static Set<String> SELECTORS = new HashSet<>(Arrays.asList(Selector.FIRST, Selector.SECOND, Selector.THIRD, Selector.FOURTH));
-```
-
-### MissortedModifiers
-Missorted modifiers `final public static`
-in `src/main/java/net/coreprotect/language/Selector.java`
-#### Snippet
-```java
-    final public static String FIRST = "{1}";
-    final public static String SECOND = "{2}";
-    final public static String THIRD = "{3}";
-    final public static String FOURTH = "{4}";
-
 ```
 
 ### MissortedModifiers
@@ -5895,6 +5871,30 @@ in `src/main/java/net/coreprotect/language/Selector.java`
     final protected static Set<String> SELECTORS = new HashSet<>(Arrays.asList(Selector.FIRST, Selector.SECOND, Selector.THIRD, Selector.FOURTH));
 
     private Selector() {
+```
+
+### MissortedModifiers
+Missorted modifiers `final public static`
+in `src/main/java/net/coreprotect/language/Selector.java`
+#### Snippet
+```java
+    final public static String FIRST = "{1}";
+    final public static String SECOND = "{2}";
+    final public static String THIRD = "{3}";
+    final public static String FOURTH = "{4}";
+
+```
+
+### MissortedModifiers
+Missorted modifiers `final public static`
+in `src/main/java/net/coreprotect/language/Selector.java`
+#### Snippet
+```java
+    final public static String SECOND = "{2}";
+    final public static String THIRD = "{3}";
+    final public static String FOURTH = "{4}";
+
+    final protected static Set<String> SELECTORS = new HashSet<>(Arrays.asList(Selector.FIRST, Selector.SECOND, Selector.THIRD, Selector.FOURTH));
 ```
 
 ### MissortedModifiers
@@ -6084,6 +6084,18 @@ in `src/main/java/net/coreprotect/CoreProtect.java`
 ```
 
 ### ReplaceAssignmentWithOperatorAssignment
+`result = result + pageInfo` could be simplified to 'result += pageInfo'
+in `src/main/java/net/coreprotect/database/lookup/InteractionLookup.java`
+#### Snippet
+```java
+                    String pageInfo = Color.WHITE + "-----\n";
+                    pageInfo = pageInfo + Util.getPageNavigation(command, page, totalPages) + "\n";
+                    result = result + pageInfo;
+                }
+            }
+```
+
+### ReplaceAssignmentWithOperatorAssignment
 `removeAmount = removeAmount - itemStack.getAmount()` could be simplified to 'removeAmount -= itemStack.getAmount()'
 in `src/main/java/net/coreprotect/listener/player/HopperPushListener.java`
 #### Snippet
@@ -6096,15 +6108,15 @@ in `src/main/java/net/coreprotect/listener/player/HopperPushListener.java`
 ```
 
 ### ReplaceAssignmentWithOperatorAssignment
-`result = result + pageInfo` could be simplified to 'result += pageInfo'
-in `src/main/java/net/coreprotect/database/lookup/InteractionLookup.java`
+`where = where + " OR uuid = ?"` could be simplified to 'where += " OR uuid = ?"'
+in `src/main/java/net/coreprotect/database/statement/UserStatement.java`
 #### Snippet
 ```java
-                    String pageInfo = Color.WHITE + "-----\n";
-                    pageInfo = pageInfo + Util.getPageNavigation(command, page, totalPages) + "\n";
-                    result = result + pageInfo;
-                }
+            String where = "user = ?" + collate;
+            if (uuid != null) {
+                where = where + " OR uuid = ?";
             }
+
 ```
 
 ### ReplaceAssignmentWithOperatorAssignment
@@ -6144,18 +6156,6 @@ in `src/main/java/net/coreprotect/listener/block/BlockFromToListener.java`
 ```
 
 ### ReplaceAssignmentWithOperatorAssignment
-`where = where + " OR uuid = ?"` could be simplified to 'where += " OR uuid = ?"'
-in `src/main/java/net/coreprotect/database/statement/UserStatement.java`
-#### Snippet
-```java
-            String where = "user = ?" + collate;
-            if (uuid != null) {
-                where = where + " OR uuid = ?";
-            }
-
-```
-
-### ReplaceAssignmentWithOperatorAssignment
 `removed = removed + (oldCount - new_count)` could be simplified to 'removed += (oldCount - new_count)'
 in `src/main/java/net/coreprotect/command/PurgeCommand.java`
 #### Snippet
@@ -6192,18 +6192,6 @@ in `src/main/java/net/coreprotect/command/CommandHandler.java`
 ```
 
 ### ReplaceAssignmentWithOperatorAssignment
-`paintingY = paintingY - 1` could be simplified to 'paintingY -= 1'
-in `src/main/java/net/coreprotect/utility/entity/HangingUtil.java`
-#### Snippet
-```java
-                        if (height > 1) {
-                            if (height != 3) {
-                                paintingY = paintingY - 1;
-                            }
-                        }
-```
-
-### ReplaceAssignmentWithOperatorAssignment
 `modifyCount = modifyCount + rowAmount` could be simplified to 'modifyCount += rowAmount'
 in `src/main/java/net/coreprotect/database/ContainerRollback.java`
 #### Snippet
@@ -6225,6 +6213,18 @@ in `src/main/java/net/coreprotect/database/ContainerRollback.java`
                 sleepTime = sleepTime + 5;
                 Thread.sleep(5);
                 rollbackHashData = ConfigHandler.rollbackHash.get(finalUserString);
+```
+
+### ReplaceAssignmentWithOperatorAssignment
+`paintingY = paintingY - 1` could be simplified to 'paintingY -= 1'
+in `src/main/java/net/coreprotect/utility/entity/HangingUtil.java`
+#### Snippet
+```java
+                        if (height > 1) {
+                            if (height != 3) {
+                                paintingY = paintingY - 1;
+                            }
+                        }
 ```
 
 ### ReplaceAssignmentWithOperatorAssignment
@@ -6507,18 +6507,6 @@ if (System.getenv("BUILD_NUMBER") != null) {
 
 ## RuleId[ruleID=RedundantFieldInitialization]
 ### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `src/main/java/net/coreprotect/patch/Patch.java`
-#### Snippet
-```java
-
-    private static boolean patching = false;
-    private static boolean patchNotification = false;
-    private static Integer[] firstVersion = null;
-
-```
-
-### RedundantFieldInitialization
 Field initialization to `null` is redundant
 in `src/main/java/net/coreprotect/patch/Patch.java`
 #### Snippet
@@ -6528,6 +6516,18 @@ in `src/main/java/net/coreprotect/patch/Patch.java`
     private static Integer[] firstVersion = null;
 
     public static boolean continuePatch() {
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `src/main/java/net/coreprotect/patch/Patch.java`
+#### Snippet
+```java
+
+    private static boolean patching = false;
+    private static boolean patchNotification = false;
+    private static Integer[] firstVersion = null;
+
 ```
 
 ### RedundantFieldInitialization
@@ -6559,18 +6559,6 @@ Field initialization to `0` is redundant
 in `src/main/java/net/coreprotect/consumer/process/Process.java`
 #### Snippet
 ```java
-
-    public static int lastLockUpdate = 0;
-    private static volatile int currentConsumerSize = 0;
-
-    public static int getCurrentConsumerSize() {
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `src/main/java/net/coreprotect/consumer/process/Process.java`
-#### Snippet
-```java
     public static final int BLOCK_INVENTORY_ROLLBACK_UPDATE = 29;
 
     public static int lastLockUpdate = 0;
@@ -6579,15 +6567,15 @@ in `src/main/java/net/coreprotect/consumer/process/Process.java`
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `src/main/java/net/coreprotect/command/TabHandler.java`
+Field initialization to `0` is redundant
+in `src/main/java/net/coreprotect/consumer/process/Process.java`
 #### Snippet
 ```java
-    private static String[] NUMBERS = new String[] { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9" };
-    private static String[] TIMES = new String[] { "w", "d", "h", "m", "s" };
-    private static ArrayList<String> materials = null;
 
-    @Override
+    public static int lastLockUpdate = 0;
+    private static volatile int currentConsumerSize = 0;
+
+    public static int getCurrentConsumerSize() {
 ```
 
 ### RedundantFieldInitialization
@@ -6600,42 +6588,6 @@ in `src/main/java/net/coreprotect/consumer/Consumer.java`
     public static volatile boolean transacting = false;
     public static volatile boolean interrupt = false;
     protected static volatile boolean pausedSuccess = false;
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `src/main/java/net/coreprotect/consumer/Consumer.java`
-#### Snippet
-```java
-    public static volatile boolean transacting = false;
-    public static volatile boolean interrupt = false;
-    protected static volatile boolean pausedSuccess = false;
-
-    public static ConcurrentHashMap<Integer, ArrayList<Object[]>> consumer = new ConcurrentHashMap<>(4, 0.75f, 2);
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `src/main/java/net/coreprotect/consumer/Consumer.java`
-#### Snippet
-```java
-    public static volatile boolean isPaused = false;
-    public static volatile boolean transacting = false;
-    public static volatile boolean interrupt = false;
-    protected static volatile boolean pausedSuccess = false;
-
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `src/main/java/net/coreprotect/consumer/Consumer.java`
-#### Snippet
-```java
-    private static Thread consumerThread = null;
-    public static volatile int currentConsumer = 0;
-    public static volatile boolean isPaused = false;
-    public static volatile boolean transacting = false;
-    public static volatile boolean interrupt = false;
 ```
 
 ### RedundantFieldInitialization
@@ -6664,14 +6616,98 @@ public class Consumer extends Process implements Runnable, Thread.UncaughtExcept
 
 ### RedundantFieldInitialization
 Field initialization to `false` is redundant
+in `src/main/java/net/coreprotect/consumer/Consumer.java`
+#### Snippet
+```java
+    public static volatile boolean isPaused = false;
+    public static volatile boolean transacting = false;
+    public static volatile boolean interrupt = false;
+    protected static volatile boolean pausedSuccess = false;
+
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `src/main/java/net/coreprotect/consumer/Consumer.java`
+#### Snippet
+```java
+    private static Thread consumerThread = null;
+    public static volatile int currentConsumer = 0;
+    public static volatile boolean isPaused = false;
+    public static volatile boolean transacting = false;
+    public static volatile boolean interrupt = false;
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `src/main/java/net/coreprotect/consumer/Consumer.java`
+#### Snippet
+```java
+    public static volatile boolean transacting = false;
+    public static volatile boolean interrupt = false;
+    protected static volatile boolean pausedSuccess = false;
+
+    public static ConcurrentHashMap<Integer, ArrayList<Object[]>> consumer = new ConcurrentHashMap<>(4, 0.75f, 2);
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `src/main/java/net/coreprotect/command/TabHandler.java`
+#### Snippet
+```java
+    private static String[] NUMBERS = new String[] { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9" };
+    private static String[] TIMES = new String[] { "w", "d", "h", "m", "s" };
+    private static ArrayList<String> materials = null;
+
+    @Override
+```
+
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
 in `src/main/java/net/coreprotect/config/ConfigHandler.java`
 #### Snippet
 ```java
+    public static volatile int materialId = 0;
+    public static volatile int blockdataId = 0;
+    public static volatile int entityId = 0;
+    public static volatile int artId = 0;
+
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `src/main/java/net/coreprotect/config/ConfigHandler.java`
+#### Snippet
+```java
+    public static final boolean isPaper = Util.isPaper();
     public static volatile boolean serverRunning = false;
     public static volatile boolean converterRunning = false;
     public static volatile boolean purgeRunning = false;
     public static volatile boolean pauseConsumer = false;
+```
+
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `src/main/java/net/coreprotect/config/ConfigHandler.java`
+#### Snippet
+```java
+    public static volatile boolean databaseReachable = true;
+    public static volatile int worldId = 0;
+    public static volatile int materialId = 0;
+    public static volatile int blockdataId = 0;
+    public static volatile int entityId = 0;
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `src/main/java/net/coreprotect/config/ConfigHandler.java`
+#### Snippet
+```java
+    public static volatile boolean converterRunning = false;
+    public static volatile boolean purgeRunning = false;
+    public static volatile boolean pauseConsumer = false;
     public static volatile boolean worldeditEnabled = false;
+    public static volatile boolean databaseReachable = true;
 ```
 
 ### RedundantFieldInitialization
@@ -6684,6 +6720,18 @@ in `src/main/java/net/coreprotect/config/ConfigHandler.java`
     public static volatile int blockdataId = 0;
     public static volatile int entityId = 0;
     public static volatile int artId = 0;
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `src/main/java/net/coreprotect/config/ConfigHandler.java`
+#### Snippet
+```java
+    public static String password = "";
+    public static String prefix = "co_";
+    public static HikariDataSource hikariDataSource = null;
+    public static final boolean isSpigot = Util.isSpigot();
+    public static final boolean isPaper = Util.isPaper();
 ```
 
 ### RedundantFieldInitialization
@@ -6711,39 +6759,15 @@ in `src/main/java/net/coreprotect/config/ConfigHandler.java`
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `src/main/java/net/coreprotect/config/ConfigHandler.java`
-#### Snippet
-```java
-    public static volatile int materialId = 0;
-    public static volatile int blockdataId = 0;
-    public static volatile int entityId = 0;
-    public static volatile int artId = 0;
-
-```
-
-### RedundantFieldInitialization
 Field initialization to `false` is redundant
 in `src/main/java/net/coreprotect/config/ConfigHandler.java`
 #### Snippet
 ```java
+    public static final boolean isSpigot = Util.isSpigot();
     public static final boolean isPaper = Util.isPaper();
     public static volatile boolean serverRunning = false;
     public static volatile boolean converterRunning = false;
     public static volatile boolean purgeRunning = false;
-    public static volatile boolean pauseConsumer = false;
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `src/main/java/net/coreprotect/config/ConfigHandler.java`
-#### Snippet
-```java
-    public static volatile boolean converterRunning = false;
-    public static volatile boolean purgeRunning = false;
-    public static volatile boolean pauseConsumer = false;
-    public static volatile boolean worldeditEnabled = false;
-    public static volatile boolean databaseReachable = true;
 ```
 
 ### RedundantFieldInitialization
@@ -6759,42 +6783,6 @@ in `src/main/java/net/coreprotect/config/ConfigHandler.java`
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `src/main/java/net/coreprotect/config/ConfigHandler.java`
-#### Snippet
-```java
-    public static String password = "";
-    public static String prefix = "co_";
-    public static HikariDataSource hikariDataSource = null;
-    public static final boolean isSpigot = Util.isSpigot();
-    public static final boolean isPaper = Util.isPaper();
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `src/main/java/net/coreprotect/config/ConfigHandler.java`
-#### Snippet
-```java
-    public static volatile boolean databaseReachable = true;
-    public static volatile int worldId = 0;
-    public static volatile int materialId = 0;
-    public static volatile int blockdataId = 0;
-    public static volatile int entityId = 0;
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `src/main/java/net/coreprotect/config/ConfigHandler.java`
-#### Snippet
-```java
-    public static final boolean isSpigot = Util.isSpigot();
-    public static final boolean isPaper = Util.isPaper();
-    public static volatile boolean serverRunning = false;
-    public static volatile boolean converterRunning = false;
-    public static volatile boolean purgeRunning = false;
-```
-
-### RedundantFieldInitialization
 Field initialization to `false` is redundant
 in `src/main/java/net/coreprotect/config/ConfigHandler.java`
 #### Snippet
@@ -6804,6 +6792,18 @@ in `src/main/java/net/coreprotect/config/ConfigHandler.java`
     public static volatile boolean worldeditEnabled = false;
     public static volatile boolean databaseReachable = true;
     public static volatile int worldId = 0;
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `src/main/java/net/coreprotect/config/ConfigHandler.java`
+#### Snippet
+```java
+    public static volatile boolean serverRunning = false;
+    public static volatile boolean converterRunning = false;
+    public static volatile boolean purgeRunning = false;
+    public static volatile boolean pauseConsumer = false;
+    public static volatile boolean worldeditEnabled = false;
 ```
 
 ### RedundantFieldInitialization
@@ -6831,6 +6831,18 @@ in `src/main/java/net/coreprotect/worldedit/CoreProtectEditSessionEvent.java`
 ```
 
 ### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `src/main/java/net/coreprotect/thread/NetworkHandler.java`
+#### Snippet
+```java
+
+    private boolean startup = true;
+    private boolean background = false;
+    private boolean translate = true;
+    private static String latestVersion = null;
+```
+
+### RedundantFieldInitialization
 Field initialization to `null` is redundant
 in `src/main/java/net/coreprotect/thread/NetworkHandler.java`
 #### Snippet
@@ -6852,18 +6864,6 @@ in `src/main/java/net/coreprotect/thread/NetworkHandler.java`
     private static String donationKey = null;
 
     public NetworkHandler(boolean startup, boolean background) {
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `src/main/java/net/coreprotect/thread/NetworkHandler.java`
-#### Snippet
-```java
-
-    private boolean startup = true;
-    private boolean background = false;
-    private boolean translate = true;
-    private static String latestVersion = null;
 ```
 
 ## RuleId[ruleID=RedundantImplements]
@@ -6991,7 +6991,7 @@ in `src/main/java/net/coreprotect/config/Config.java`
 ## RuleId[ruleID=HtmlWrongAttributeValue]
 ### HtmlWrongAttributeValue
 Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-01-12-15-33-19.305.html`
+in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-01-13-05-17-46.797.html`
 #### Snippet
 ```java
               <td>0</td>
@@ -7077,6 +7077,54 @@ in `src/main/java/net/coreprotect/patch/script/__2_20_0.java`
 ```
 
 ### UnusedAssignment
+Variable `itemStack` initializer `null` is redundant
+in `src/main/java/net/coreprotect/listener/PlayerPickupArrowListener.java`
+#### Snippet
+```java
+
+    public static ItemStack getArrowType(AbstractArrow arrow) {
+        ItemStack itemStack = null;
+        switch (arrow.getType()) {
+            case SPECTRAL_ARROW:
+```
+
+### UnusedAssignment
+The value `null` assigned to `below` is never used
+in `src/main/java/net/coreprotect/listener/block/BlockSpreadListener.java`
+#### Snippet
+```java
+                    below.setY(below.getY() + 1);
+                }
+                below = null;
+
+                Queue.queueBlockPlaceDelayed("#bamboo", sourceBlock.getLocation(), type, null, sourceBlock.getState(), 0);
+```
+
+### UnusedAssignment
+Variable `query` initializer `""` is redundant
+in `src/main/java/net/coreprotect/command/PurgeCommand.java`
+#### Snippet
+```java
+                    Consumer.isPaused = true;
+
+                    String query = "";
+                    PreparedStatement preparedStmt = null;
+                    boolean abort = false;
+```
+
+### UnusedAssignment
+Variable `preparedStmt` initializer `null` is redundant
+in `src/main/java/net/coreprotect/command/PurgeCommand.java`
+#### Snippet
+```java
+
+                    String query = "";
+                    PreparedStatement preparedStmt = null;
+                    boolean abort = false;
+                    String purgePrefix = "tmp_" + ConfigHandler.prefix;
+```
+
+### UnusedAssignment
 Variable `wid` initializer `0` is redundant
 in `src/main/java/net/coreprotect/command/RollbackRestoreCommand.java`
 #### Snippet
@@ -7125,51 +7173,15 @@ in `src/main/java/net/coreprotect/command/RollbackRestoreCommand.java`
 ```
 
 ### UnusedAssignment
-The value `null` assigned to `below` is never used
-in `src/main/java/net/coreprotect/listener/block/BlockSpreadListener.java`
+Variable `blockData` initializer `null` is redundant
+in `src/main/java/net/coreprotect/listener/entity/HangingPlaceListener.java`
 #### Snippet
 ```java
-                    below.setY(below.getY() + 1);
-                }
-                below = null;
-
-                Queue.queueBlockPlaceDelayed("#bamboo", sourceBlock.getLocation(), type, null, sourceBlock.getState(), 0);
-```
-
-### UnusedAssignment
-Variable `itemStack` initializer `null` is redundant
-in `src/main/java/net/coreprotect/listener/PlayerPickupArrowListener.java`
-#### Snippet
-```java
-
-    public static ItemStack getArrowType(AbstractArrow arrow) {
-        ItemStack itemStack = null;
-        switch (arrow.getType()) {
-            case SPECTRAL_ARROW:
-```
-
-### UnusedAssignment
-Variable `query` initializer `""` is redundant
-in `src/main/java/net/coreprotect/command/PurgeCommand.java`
-#### Snippet
-```java
-                    Consumer.isPaused = true;
-
-                    String query = "";
-                    PreparedStatement preparedStmt = null;
-                    boolean abort = false;
-```
-
-### UnusedAssignment
-Variable `preparedStmt` initializer `null` is redundant
-in `src/main/java/net/coreprotect/command/PurgeCommand.java`
-#### Snippet
-```java
-
-                    String query = "";
-                    PreparedStatement preparedStmt = null;
-                    boolean abort = false;
-                    String purgePrefix = "tmp_" + ConfigHandler.prefix;
+        if (entity instanceof ItemFrame || entity instanceof Painting) {
+            Block blockEvent = event.getEntity().getLocation().getBlock();
+            String blockData = null;
+            Material material;
+            int artId;
 ```
 
 ### UnusedAssignment
@@ -7221,39 +7233,15 @@ in `src/main/java/net/coreprotect/command/TabHandler.java`
 ```
 
 ### UnusedAssignment
-Variable `blockData` initializer `null` is redundant
-in `src/main/java/net/coreprotect/listener/entity/HangingPlaceListener.java`
+Variable `enderChest` initializer `false` is redundant
+in `src/main/java/net/coreprotect/listener/player/InventoryChangeListener.java`
 #### Snippet
 ```java
-        if (entity instanceof ItemFrame || entity instanceof Painting) {
-            Block blockEvent = event.getEntity().getLocation().getBlock();
-            String blockData = null;
-            Material material;
-            int artId;
-```
+        }
 
-### UnusedAssignment
-Variable `range` initializer `false` is redundant
-in `src/main/java/net/coreprotect/command/CommandHandler.java`
-#### Snippet
-```java
-        int count = 0;
-        int next = 0;
-        boolean range = false;
-        BigDecimal w = new BigDecimal(0);
-        BigDecimal d = new BigDecimal(0);
-```
-
-### UnusedAssignment
-Variable `range` initializer `false` is redundant
-in `src/main/java/net/coreprotect/command/CommandHandler.java`
-#### Snippet
-```java
-        int count = 0;
-        int next = 0;
-        boolean range = false;
-        double w = 0;
-        double d = 0;
+        boolean enderChest = false;
+        if (inventoryAction != InventoryAction.MOVE_TO_OTHER_INVENTORY && inventoryAction != InventoryAction.COLLECT_TO_CURSOR && inventoryAction != InventoryAction.UNKNOWN) {
+            // Perform this check to prevent triggering onInventoryInteractAsync when a user is just clicking items in their own inventory
 ```
 
 ### UnusedAssignment
@@ -7281,15 +7269,27 @@ in `src/main/java/net/coreprotect/listener/player/InventoryChangeListener.java`
 ```
 
 ### UnusedAssignment
-Variable `enderChest` initializer `false` is redundant
-in `src/main/java/net/coreprotect/listener/player/InventoryChangeListener.java`
+Variable `range` initializer `false` is redundant
+in `src/main/java/net/coreprotect/command/CommandHandler.java`
 #### Snippet
 ```java
-        }
+        int count = 0;
+        int next = 0;
+        boolean range = false;
+        BigDecimal w = new BigDecimal(0);
+        BigDecimal d = new BigDecimal(0);
+```
 
-        boolean enderChest = false;
-        if (inventoryAction != InventoryAction.MOVE_TO_OTHER_INVENTORY && inventoryAction != InventoryAction.COLLECT_TO_CURSOR && inventoryAction != InventoryAction.UNKNOWN) {
-            // Perform this check to prevent triggering onInventoryInteractAsync when a user is just clicking items in their own inventory
+### UnusedAssignment
+Variable `range` initializer `false` is redundant
+in `src/main/java/net/coreprotect/command/CommandHandler.java`
+#### Snippet
+```java
+        int count = 0;
+        int next = 0;
+        boolean range = false;
+        double w = 0;
+        double d = 0;
 ```
 
 ### UnusedAssignment
@@ -7326,18 +7326,6 @@ in `src/main/java/net/coreprotect/listener/entity/HangingBreakByEntityListener.j
             String blockData = null;
             Material material;
             int itemData = 0;
-```
-
-### UnusedAssignment
-Variable `blockdata` initializer `null` is redundant
-in `src/main/java/net/coreprotect/command/LookupCommand.java`
-#### Snippet
-```java
-                            }
-                            else {
-                                String blockdata = null;
-                                if (t == 7) {
-                                    blockdata = InteractionLookup.performLookup(command.getName(), statement, fblock, player2, 0, p2, finalLimit);
 ```
 
 ### UnusedAssignment
@@ -7413,6 +7401,18 @@ in `src/main/java/net/coreprotect/command/LookupCommand.java`
 ```
 
 ### UnusedAssignment
+Variable `blockdata` initializer `null` is redundant
+in `src/main/java/net/coreprotect/command/LookupCommand.java`
+#### Snippet
+```java
+                            }
+                            else {
+                                String blockdata = null;
+                                if (t == 7) {
+                                    blockdata = InteractionLookup.performLookup(command.getName(), statement, fblock, player2, 0, p2, finalLimit);
+```
+
+### UnusedAssignment
 Variable `skullOwner` initializer `""` is redundant
 in `src/main/java/net/coreprotect/database/logger/SkullBreakLogger.java`
 #### Snippet
@@ -7461,15 +7461,15 @@ in `src/main/java/net/coreprotect/command/StatusCommand.java`
 ```
 
 ### UnusedAssignment
-Variable `background` initializer `false` is redundant
+Variable `responseLine` initializer `null` is redundant
 in `src/main/java/net/coreprotect/thread/NetworkHandler.java`
 #### Snippet
 ```java
-
-    private boolean startup = true;
-    private boolean background = false;
-    private boolean translate = true;
-    private static String latestVersion = null;
+                                    BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream(), "utf-8"));
+                                    StringBuilder responseBuilder = new StringBuilder();
+                                    String responseLine = null;
+                                    while ((responseLine = reader.readLine()) != null) {
+                                        responseBuilder.append(responseLine.trim());
 ```
 
 ### UnusedAssignment
@@ -7485,15 +7485,27 @@ public class NetworkHandler extends Language implements Runnable {
 ```
 
 ### UnusedAssignment
-Variable `responseLine` initializer `null` is redundant
+Variable `background` initializer `false` is redundant
 in `src/main/java/net/coreprotect/thread/NetworkHandler.java`
 #### Snippet
 ```java
-                                    BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream(), "utf-8"));
-                                    StringBuilder responseBuilder = new StringBuilder();
-                                    String responseLine = null;
-                                    while ((responseLine = reader.readLine()) != null) {
-                                        responseBuilder.append(responseLine.trim());
+
+    private boolean startup = true;
+    private boolean background = false;
+    private boolean translate = true;
+    private static String latestVersion = null;
+```
+
+### UnusedAssignment
+Variable `minor` initializer `0` is redundant
+in `src/main/java/net/coreprotect/utility/Util.java`
+#### Snippet
+```java
+    public static Integer[] getInternalPluginVersion() {
+        int major = ConfigHandler.EDITION_VERSION;
+        int minor = 0;
+        int revision = 0;
+
 ```
 
 ### UnusedAssignment
@@ -7530,18 +7542,6 @@ in `src/main/java/net/coreprotect/database/logger/SkullPlaceLogger.java`
                 String skullOwner = "";
                 if (skull.hasOwner()) {
                     skullOwner = skull.getOwningPlayer().getUniqueId().toString();
-```
-
-### UnusedAssignment
-Variable `minor` initializer `0` is redundant
-in `src/main/java/net/coreprotect/utility/Util.java`
-#### Snippet
-```java
-    public static Integer[] getInternalPluginVersion() {
-        int major = ConfigHandler.EDITION_VERSION;
-        int minor = 0;
-        int revision = 0;
-
 ```
 
 ### UnusedAssignment
@@ -7653,30 +7653,6 @@ in `src/main/java/net/coreprotect/database/Lookup.java`
 ```
 
 ### UnusedAssignment
-Variable `contents` initializer `null` is redundant
-in `src/main/java/net/coreprotect/database/Rollback.java`
-#### Snippet
-```java
-        int modifiedArmor = -1;
-        try {
-            ItemStack[] contents = null;
-
-            if (type != null && type.equals(Material.ARMOR_STAND)) {
-```
-
-### UnusedAssignment
-The value changed at `modifyCount++` is never used
-in `src/main/java/net/coreprotect/database/Rollback.java`
-#### Snippet
-```java
-                    }
-                    modifiedData.append(Phrase.build(Phrase.AMOUNT_CHUNK, NumberFormat.getInstance().format(chunkCount), (chunkCount == 1 ? Selector.FIRST : Selector.SECOND)));
-                    modifyCount++;
-                }
-                else if (chunkCount > 1) {
-```
-
-### UnusedAssignment
 Variable `list` initializer `new ArrayList<>()` is redundant
 in `src/main/java/net/coreprotect/database/Rollback.java`
 #### Snippet
@@ -7772,6 +7748,30 @@ in `src/main/java/net/coreprotect/database/Rollback.java`
                                         inventoryAction = ((rowAction == ItemLogger.ITEM_PICKUP || rowAction == ItemLogger.ITEM_CREATE || rowAction == ItemLogger.ITEM_BUY) ? 1 : 0);
 ```
 
+### UnusedAssignment
+Variable `contents` initializer `null` is redundant
+in `src/main/java/net/coreprotect/database/Rollback.java`
+#### Snippet
+```java
+        int modifiedArmor = -1;
+        try {
+            ItemStack[] contents = null;
+
+            if (type != null && type.equals(Material.ARMOR_STAND)) {
+```
+
+### UnusedAssignment
+The value changed at `modifyCount++` is never used
+in `src/main/java/net/coreprotect/database/Rollback.java`
+#### Snippet
+```java
+                    }
+                    modifiedData.append(Phrase.build(Phrase.AMOUNT_CHUNK, NumberFormat.getInstance().format(chunkCount), (chunkCount == 1 ? Selector.FIRST : Selector.SECOND)));
+                    modifyCount++;
+                }
+                else if (chunkCount > 1) {
+```
+
 ## RuleId[ruleID=ConstantValue]
 ### ConstantValue
 Condition `log` is always `true`
@@ -7846,6 +7846,42 @@ in `src/main/java/net/coreprotect/listener/player/ArmorStandManipulateListener.j
 ```
 
 ### ConstantValue
+Condition `type.equals(Material.LAVA)` is always `true`
+in `src/main/java/net/coreprotect/listener/block/BlockFromToListener.java`
+#### Snippet
+```java
+                    f = "#water";
+                }
+                else if (type.equals(Material.LAVA)) {
+                    f = "#lava";
+                }
+```
+
+### ConstantValue
+Condition `!supportedActions.contains(action)` is always `true`
+in `src/main/java/net/coreprotect/command/PurgeCommand.java`
+#### Snippet
+```java
+        }
+        for (int action : argAction) {
+            if (!supportedActions.contains(action)) {
+                Chat.sendMessage(player, Color.DARK_AQUA + "CoreProtect " + Color.WHITE + "- " + Phrase.build(Phrase.ACTION_NOT_SUPPORTED));
+                // Functions.sendMessage(player, new ChatMessage("Please specify a valid purge action.").build());
+```
+
+### ConstantValue
+Result of `supportedActions.contains(action)` is always 'false'
+in `src/main/java/net/coreprotect/command/PurgeCommand.java`
+#### Snippet
+```java
+        }
+        for (int action : argAction) {
+            if (!supportedActions.contains(action)) {
+                Chat.sendMessage(player, Color.DARK_AQUA + "CoreProtect " + Color.WHITE + "- " + Phrase.build(Phrase.ACTION_NOT_SUPPORTED));
+                // Functions.sendMessage(player, new ChatMessage("Please specify a valid purge action.").build());
+```
+
+### ConstantValue
 Condition `argExclude == null` is always `false`
 in `src/main/java/net/coreprotect/command/RollbackRestoreCommand.java`
 #### Snippet
@@ -7903,42 +7939,6 @@ in `src/main/java/net/coreprotect/command/RollbackRestoreCommand.java`
                         if (argUsers.contains("#global") || (argUsers.size() == 0 && argRadius == null)) {
                             Chat.sendMessage(player, Color.DARK_AQUA + "CoreProtect " + Color.WHITE + "- " + Phrase.build(Phrase.MISSING_ACTION_USER));
                             return;
-```
-
-### ConstantValue
-Condition `type.equals(Material.LAVA)` is always `true`
-in `src/main/java/net/coreprotect/listener/block/BlockFromToListener.java`
-#### Snippet
-```java
-                    f = "#water";
-                }
-                else if (type.equals(Material.LAVA)) {
-                    f = "#lava";
-                }
-```
-
-### ConstantValue
-Condition `!supportedActions.contains(action)` is always `true`
-in `src/main/java/net/coreprotect/command/PurgeCommand.java`
-#### Snippet
-```java
-        }
-        for (int action : argAction) {
-            if (!supportedActions.contains(action)) {
-                Chat.sendMessage(player, Color.DARK_AQUA + "CoreProtect " + Color.WHITE + "- " + Phrase.build(Phrase.ACTION_NOT_SUPPORTED));
-                // Functions.sendMessage(player, new ChatMessage("Please specify a valid purge action.").build());
-```
-
-### ConstantValue
-Result of `supportedActions.contains(action)` is always 'false'
-in `src/main/java/net/coreprotect/command/PurgeCommand.java`
-#### Snippet
-```java
-        }
-        for (int action : argAction) {
-            if (!supportedActions.contains(action)) {
-                Chat.sendMessage(player, Color.DARK_AQUA + "CoreProtect " + Color.WHITE + "- " + Phrase.build(Phrase.ACTION_NOT_SUPPORTED));
-                // Functions.sendMessage(player, new ChatMessage("Please specify a valid purge action.").build());
 ```
 
 ### ConstantValue
@@ -8002,6 +8002,18 @@ in `src/main/java/net/coreprotect/listener/player/PlayerDeathListener.java`
 ```
 
 ### ConstantValue
+Condition `inventory == null` is always `false`
+in `src/main/java/net/coreprotect/listener/player/InventoryChangeListener.java`
+#### Snippet
+```java
+            // Perform standard inventory holder check on primary inventory
+            Inventory inventory = event.getInventory();
+            if (inventory == null) {
+                return;
+            }
+```
+
+### ConstantValue
 Condition `resultc > -1` is always `true`
 in `src/main/java/net/coreprotect/command/CommandHandler.java`
 #### Snippet
@@ -8035,18 +8047,6 @@ in `src/main/java/net/coreprotect/command/CommandHandler.java`
                 if (!permission) {
                     if (user.hasPermission("coreprotect.rollback") && (corecommand.equals("rollback") || corecommand.equals("rb") || corecommand.equals("ro") || corecommand.equals("apply") || corecommand.equals("cancel"))) {
                         permission = true;
-```
-
-### ConstantValue
-Condition `inventory == null` is always `false`
-in `src/main/java/net/coreprotect/listener/player/InventoryChangeListener.java`
-#### Snippet
-```java
-            // Perform standard inventory holder check on primary inventory
-            Inventory inventory = event.getInventory();
-            if (inventory == null) {
-                return;
-            }
 ```
 
 ### ConstantValue
@@ -8107,6 +8107,18 @@ in `src/main/java/net/coreprotect/worldedit/WorldEditLogger.java`
             else if ((!oldType.equals(Material.AIR) && !oldType.equals(Material.CAVE_AIR)) && (newType.equals(Material.AIR) || newType.equals(Material.CAVE_AIR))) {
                 // removed a block
                 Queue.queueBlockBreak(actor.getName(), oldBlock, oldBlock.getType(), oldBlockDataString, null, oldBlockExtraData, 0);
+```
+
+### ConstantValue
+Condition `offlinePlayer != null` is always `true`
+in `src/main/java/net/coreprotect/utility/entity/EntityUtil.java`
+#### Snippet
+```java
+                                if (owner == null) {
+                                    OfflinePlayer offlinePlayer = Bukkit.getServer().getOfflinePlayer(set);
+                                    if (offlinePlayer != null) {
+                                        tameable.setOwner(offlinePlayer);
+                                    }
 ```
 
 ### ConstantValue
@@ -8326,18 +8338,6 @@ in `src/main/java/net/coreprotect/consumer/Queue.java`
 ```
 
 ### ConstantValue
-Condition `offlinePlayer != null` is always `true`
-in `src/main/java/net/coreprotect/utility/entity/EntityUtil.java`
-#### Snippet
-```java
-                                if (owner == null) {
-                                    OfflinePlayer offlinePlayer = Bukkit.getServer().getOfflinePlayer(set);
-                                    if (offlinePlayer != null) {
-                                        tameable.setOwner(offlinePlayer);
-                                    }
-```
-
-### ConstantValue
 Condition `item != null` is always `true`
 in `src/main/java/net/coreprotect/listener/block/BlockDispenseListener.java`
 #### Snippet
@@ -8347,6 +8347,66 @@ in `src/main/java/net/coreprotect/listener/block/BlockDispenseListener.java`
             if (item != null && blockData instanceof Dispenser) {
                 Dispenser dispenser = (Dispenser) blockData;
                 Material material = item.getType();
+```
+
+### ConstantValue
+Value `update` is always 'false'
+in `src/main/java/net/coreprotect/utility/Util.java`
+#### Snippet
+```java
+
+        if (!update) {
+            setTypeAndData(block, type, blockData, update);
+            map.remove(block);
+        }
+```
+
+### ConstantValue
+Value `result` is always 'null'
+in `src/main/java/net/coreprotect/utility/Util.java`
+#### Snippet
+```java
+            Material material = Util.getType(type);
+            if (material == null) {
+                return result;
+            }
+
+```
+
+### ConstantValue
+Value `result` is always 'null'
+in `src/main/java/net/coreprotect/utility/Util.java`
+#### Snippet
+```java
+                }
+                else {
+                    return result;
+                }
+            }
+```
+
+### ConstantValue
+Value `result` is always 'null'
+in `src/main/java/net/coreprotect/utility/Util.java`
+#### Snippet
+```java
+            }
+            else {
+                return result;
+            }
+
+```
+
+### ConstantValue
+Value `result` is always 'null'
+in `src/main/java/net/coreprotect/utility/Util.java`
+#### Snippet
+```java
+        byte[] result = null;
+        if (data == null) {
+            return result;
+        }
+
 ```
 
 ### ConstantValue
@@ -8419,66 +8479,6 @@ in `src/main/java/net/coreprotect/listener/player/PlayerInteractListener.java`
                 else if (event.getHand().equals(EquipmentSlot.OFF_HAND) && offHand != null && entityBlockTypes.contains(offHand.getType())) {
                     handItem = offHand;
                 }
-```
-
-### ConstantValue
-Value `update` is always 'false'
-in `src/main/java/net/coreprotect/utility/Util.java`
-#### Snippet
-```java
-
-        if (!update) {
-            setTypeAndData(block, type, blockData, update);
-            map.remove(block);
-        }
-```
-
-### ConstantValue
-Value `result` is always 'null'
-in `src/main/java/net/coreprotect/utility/Util.java`
-#### Snippet
-```java
-            Material material = Util.getType(type);
-            if (material == null) {
-                return result;
-            }
-
-```
-
-### ConstantValue
-Value `result` is always 'null'
-in `src/main/java/net/coreprotect/utility/Util.java`
-#### Snippet
-```java
-                }
-                else {
-                    return result;
-                }
-            }
-```
-
-### ConstantValue
-Value `result` is always 'null'
-in `src/main/java/net/coreprotect/utility/Util.java`
-#### Snippet
-```java
-            }
-            else {
-                return result;
-            }
-
-```
-
-### ConstantValue
-Value `result` is always 'null'
-in `src/main/java/net/coreprotect/utility/Util.java`
-#### Snippet
-```java
-        byte[] result = null;
-        if (data == null) {
-            return result;
-        }
-
 ```
 
 ### ConstantValue
@@ -8715,6 +8715,54 @@ String concatenation as argument to `StringBuilder.append()` call
 in `src/main/java/net/coreprotect/utility/Util.java`
 #### Snippet
 ```java
+
+        // tooltip
+        message.append("|" + tooltip + "|");
+
+        // chat output
+```
+
+### StringConcatenationInsideStringBufferAppend
+String concatenation as argument to `StringBuilder.append()` call
+in `src/main/java/net/coreprotect/utility/Util.java`
+#### Snippet
+```java
+        StringBuilder worldDisplay = new StringBuilder();
+        if (displayWorld) {
+            worldDisplay.append("/" + Util.getWorldName(worldId));
+        }
+
+```
+
+### StringConcatenationInsideStringBufferAppend
+String concatenation as argument to `StringBuilder.append()` call
+in `src/main/java/net/coreprotect/utility/Util.java`
+#### Snippet
+```java
+
+        // command
+        message.append("|/" + command + " teleport wid:" + worldId + " " + (x + 0.50) + " " + y + " " + (z + 0.50) + "|");
+
+        // chat output
+```
+
+### StringConcatenationInsideStringBufferAppend
+String concatenation as argument to `StringBuilder.append()` call
+in `src/main/java/net/coreprotect/utility/Util.java`
+#### Snippet
+```java
+
+        // chat output
+        message.append(Color.GREY + (italic ? Color.ITALIC : "") + "(x" + x + "/y" + y + "/z" + z + worldDisplay.toString() + ")");
+
+        return message.append(Chat.COMPONENT_TAG_CLOSE).toString();
+```
+
+### StringConcatenationInsideStringBufferAppend
+String concatenation as argument to `StringBuilder.append()` call
+in `src/main/java/net/coreprotect/utility/Util.java`
+#### Snippet
+```java
         StringBuilder pagination = new StringBuilder();
         if (totalPages > 1) {
             pagination.append(Color.GREY + "(");
@@ -8868,54 +8916,6 @@ in `src/main/java/net/coreprotect/utility/Util.java`
 
 ### StringConcatenationInsideStringBufferAppend
 String concatenation as argument to `StringBuilder.append()` call
-in `src/main/java/net/coreprotect/utility/Util.java`
-#### Snippet
-```java
-
-        // tooltip
-        message.append("|" + tooltip + "|");
-
-        // chat output
-```
-
-### StringConcatenationInsideStringBufferAppend
-String concatenation as argument to `StringBuilder.append()` call
-in `src/main/java/net/coreprotect/utility/Util.java`
-#### Snippet
-```java
-        StringBuilder worldDisplay = new StringBuilder();
-        if (displayWorld) {
-            worldDisplay.append("/" + Util.getWorldName(worldId));
-        }
-
-```
-
-### StringConcatenationInsideStringBufferAppend
-String concatenation as argument to `StringBuilder.append()` call
-in `src/main/java/net/coreprotect/utility/Util.java`
-#### Snippet
-```java
-
-        // command
-        message.append("|/" + command + " teleport wid:" + worldId + " " + (x + 0.50) + " " + y + " " + (z + 0.50) + "|");
-
-        // chat output
-```
-
-### StringConcatenationInsideStringBufferAppend
-String concatenation as argument to `StringBuilder.append()` call
-in `src/main/java/net/coreprotect/utility/Util.java`
-#### Snippet
-```java
-
-        // chat output
-        message.append(Color.GREY + (italic ? Color.ITALIC : "") + "(x" + x + "/y" + y + "/z" + z + worldDisplay.toString() + ")");
-
-        return message.append(Chat.COMPONENT_TAG_CLOSE).toString();
-```
-
-### StringConcatenationInsideStringBufferAppend
-String concatenation as argument to `StringBuilder.append()` call
 in `src/main/java/net/coreprotect/database/lookup/BlockLookup.java`
 #### Snippet
 ```java
@@ -8976,6 +8976,18 @@ in `src/main/java/net/coreprotect/database/Rollback.java`
 
 ## RuleId[ruleID=IOResource]
 ### IOResource
+'DataOutputStream' should be opened in front of a 'try' block and closed in the corresponding 'finally' block
+in `src/main/java/net/coreprotect/listener/channel/PluginChannelHandshakeListener.java`
+#### Snippet
+```java
+    private byte[] sendRegistered() throws IOException {
+        ByteArrayOutputStream msgBytes = new ByteArrayOutputStream();
+        DataOutputStream msgOut = new DataOutputStream(msgBytes);
+        msgOut.writeBoolean(true);
+
+```
+
+### IOResource
 'DataInputStream' should be opened in front of a 'try' block and closed in the corresponding 'finally' block
 in `src/main/java/net/coreprotect/listener/channel/PluginChannelHandshakeListener.java`
 #### Snippet
@@ -8989,18 +9001,6 @@ in `src/main/java/net/coreprotect/listener/channel/PluginChannelHandshakeListene
 
 ### IOResource
 'DataOutputStream' should be opened in front of a 'try' block and closed in the corresponding 'finally' block
-in `src/main/java/net/coreprotect/listener/channel/PluginChannelHandshakeListener.java`
-#### Snippet
-```java
-    private byte[] sendRegistered() throws IOException {
-        ByteArrayOutputStream msgBytes = new ByteArrayOutputStream();
-        DataOutputStream msgOut = new DataOutputStream(msgBytes);
-        msgOut.writeBoolean(true);
-
-```
-
-### IOResource
-'DataOutputStream' should be opened in front of a 'try' block and closed in the corresponding 'finally' block
 in `src/main/java/net/coreprotect/listener/channel/PluginChannelListener.java`
 #### Snippet
 ```java
@@ -9008,7 +9008,7 @@ in `src/main/java/net/coreprotect/listener/channel/PluginChannelListener.java`
         ByteArrayOutputStream msgBytes = new ByteArrayOutputStream();
         DataOutputStream msgOut = new DataOutputStream(msgBytes);
 
-        msgOut.writeInt(2);
+        msgOut.writeInt(3);
 ```
 
 ### IOResource
@@ -9032,7 +9032,7 @@ in `src/main/java/net/coreprotect/listener/channel/PluginChannelListener.java`
         ByteArrayOutputStream msgBytes = new ByteArrayOutputStream();
         DataOutputStream msgOut = new DataOutputStream(msgBytes);
 
-        msgOut.writeInt(4);
+        msgOut.writeInt(2);
 ```
 
 ### IOResource
@@ -9044,7 +9044,7 @@ in `src/main/java/net/coreprotect/listener/channel/PluginChannelListener.java`
         ByteArrayOutputStream msgBytes = new ByteArrayOutputStream();
         DataOutputStream msgOut = new DataOutputStream(msgBytes);
 
-        msgOut.writeInt(3);
+        msgOut.writeInt(4);
 ```
 
 ## RuleId[ruleID=FieldMayBeStatic]
@@ -9074,18 +9074,6 @@ class PlayerCommandProcess {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `BlockUtil` has only 'static' members, and lacks a 'private' constructor
-in `src/main/java/net/coreprotect/listener/block/BlockUtil.java`
-#### Snippet
-```java
-import net.coreprotect.utility.Util;
-
-public class BlockUtil {
-
-    public static final int NONE = 0;
-```
-
-### UtilityClassWithoutPrivateConstructor
 Class `__2_19_0` has only 'static' members, and lacks a 'private' constructor
 in `src/main/java/net/coreprotect/patch/script/__2_19_0.java`
 #### Snippet
@@ -9110,6 +9098,18 @@ public class ReloadCommand {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
+Class `BlockUtil` has only 'static' members, and lacks a 'private' constructor
+in `src/main/java/net/coreprotect/listener/block/BlockUtil.java`
+#### Snippet
+```java
+import net.coreprotect.utility.Util;
+
+public class BlockUtil {
+
+    public static final int NONE = 0;
+```
+
+### UtilityClassWithoutPrivateConstructor
 Class `ApplyCommand` has only 'static' members, and lacks a 'private' constructor
 in `src/main/java/net/coreprotect/command/ApplyCommand.java`
 #### Snippet
@@ -9119,54 +9119,6 @@ import net.coreprotect.utility.Color;
 public class ApplyCommand {
     protected static void runCommand(CommandSender user, Command command, boolean permission, String[] args) {
         try {
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `EntitySpawnProcess` has only 'static' members, and lacks a 'private' constructor
-in `src/main/java/net/coreprotect/consumer/process/EntitySpawnProcess.java`
-#### Snippet
-```java
-import net.coreprotect.utility.entity.EntityUtil;
-
-class EntitySpawnProcess {
-
-    static void process(Statement statement, Object object, int rowId) {
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `PlayerInteractionProcess` has only 'static' members, and lacks a 'private' constructor
-in `src/main/java/net/coreprotect/consumer/process/PlayerInteractionProcess.java`
-#### Snippet
-```java
-import net.coreprotect.database.logger.PlayerInteractLogger;
-
-class PlayerInteractionProcess {
-
-    static void process(PreparedStatement preparedStmt, int batchCount, String user, Object object, Material type) {
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `__2_11_0` has only 'static' members, and lacks a 'private' constructor
-in `src/main/java/net/coreprotect/patch/script/__2_11_0.java`
-#### Snippet
-```java
-import net.coreprotect.config.ConfigHandler;
-
-public class __2_11_0 {
-
-    protected static boolean patch(Statement statement) {
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `HopperPushListener` has only 'static' members, and lacks a 'private' constructor
-in `src/main/java/net/coreprotect/listener/player/HopperPushListener.java`
-#### Snippet
-```java
-import net.coreprotect.utility.Util;
-
-public final class HopperPushListener {
-
-    static void processHopperPush(Location location, InventoryHolder sourceHolder, InventoryHolder destinationHolder, ItemStack item) {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -9206,27 +9158,15 @@ class WorldInsertProcess {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `SignMessageLookup` has only 'static' members, and lacks a 'private' constructor
-in `src/main/java/net/coreprotect/database/lookup/SignMessageLookup.java`
+Class `HelpCommand` has only 'static' members, and lacks a 'private' constructor
+in `src/main/java/net/coreprotect/command/HelpCommand.java`
 #### Snippet
 ```java
-import net.coreprotect.utility.Util;
+import net.coreprotect.utility.Color;
 
-public class SignMessageLookup {
-
-    static Pattern pattern = Pattern.compile("§x(§[a-fA-F0-9]){6}");
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `__2_16_0` has only 'static' members, and lacks a 'private' constructor
-in `src/main/java/net/coreprotect/patch/script/__2_16_0.java`
-#### Snippet
-```java
-import net.coreprotect.patch.Patch;
-
-public class __2_16_0 {
-
-    protected static boolean patch(Statement statement) {
+public class HelpCommand {
+    protected static void runCommand(CommandSender player, boolean permission, String[] args) {
+        int resultc = args.length;
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -9242,25 +9182,13 @@ class ContainerTransactionProcess {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `PlayerLoginProcess` has only 'static' members, and lacks a 'private' constructor
-in `src/main/java/net/coreprotect/consumer/process/PlayerLoginProcess.java`
+Class `__2_16_0` has only 'static' members, and lacks a 'private' constructor
+in `src/main/java/net/coreprotect/patch/script/__2_16_0.java`
 #### Snippet
 ```java
-import net.coreprotect.database.logger.UsernameLogger;
+import net.coreprotect.patch.Patch;
 
-class PlayerLoginProcess {
-
-    static void process(Connection connection, PreparedStatement preparedStmt, int batchCount, int processId, int id, Object object, int configSessions, int configUsernames, int time, String user) {
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `__2_6_0` has only 'static' members, and lacks a 'private' constructor
-in `src/main/java/net/coreprotect/patch/script/__2_6_0.java`
-#### Snippet
-```java
-import net.coreprotect.config.ConfigHandler;
-
-public class __2_6_0 {
+public class __2_16_0 {
 
     protected static boolean patch(Statement statement) {
 ```
@@ -9278,15 +9206,87 @@ public class InteractionLookup {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `HelpCommand` has only 'static' members, and lacks a 'private' constructor
-in `src/main/java/net/coreprotect/command/HelpCommand.java`
+Class `SignMessageLookup` has only 'static' members, and lacks a 'private' constructor
+in `src/main/java/net/coreprotect/database/lookup/SignMessageLookup.java`
 #### Snippet
 ```java
-import net.coreprotect.utility.Color;
+import net.coreprotect.utility.Util;
 
-public class HelpCommand {
-    protected static void runCommand(CommandSender player, boolean permission, String[] args) {
-        int resultc = args.length;
+public class SignMessageLookup {
+
+    static Pattern pattern = Pattern.compile("§x(§[a-fA-F0-9]){6}");
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `EntitySpawnProcess` has only 'static' members, and lacks a 'private' constructor
+in `src/main/java/net/coreprotect/consumer/process/EntitySpawnProcess.java`
+#### Snippet
+```java
+import net.coreprotect.utility.entity.EntityUtil;
+
+class EntitySpawnProcess {
+
+    static void process(Statement statement, Object object, int rowId) {
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `PlayerInteractionProcess` has only 'static' members, and lacks a 'private' constructor
+in `src/main/java/net/coreprotect/consumer/process/PlayerInteractionProcess.java`
+#### Snippet
+```java
+import net.coreprotect.database.logger.PlayerInteractLogger;
+
+class PlayerInteractionProcess {
+
+    static void process(PreparedStatement preparedStmt, int batchCount, String user, Object object, Material type) {
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `__2_6_0` has only 'static' members, and lacks a 'private' constructor
+in `src/main/java/net/coreprotect/patch/script/__2_6_0.java`
+#### Snippet
+```java
+import net.coreprotect.config.ConfigHandler;
+
+public class __2_6_0 {
+
+    protected static boolean patch(Statement statement) {
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `PlayerLoginProcess` has only 'static' members, and lacks a 'private' constructor
+in `src/main/java/net/coreprotect/consumer/process/PlayerLoginProcess.java`
+#### Snippet
+```java
+import net.coreprotect.database.logger.UsernameLogger;
+
+class PlayerLoginProcess {
+
+    static void process(Connection connection, PreparedStatement preparedStmt, int batchCount, int processId, int id, Object object, int configSessions, int configUsernames, int time, String user) {
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `__2_11_0` has only 'static' members, and lacks a 'private' constructor
+in `src/main/java/net/coreprotect/patch/script/__2_11_0.java`
+#### Snippet
+```java
+import net.coreprotect.config.ConfigHandler;
+
+public class __2_11_0 {
+
+    protected static boolean patch(Statement statement) {
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `HopperPushListener` has only 'static' members, and lacks a 'private' constructor
+in `src/main/java/net/coreprotect/listener/player/HopperPushListener.java`
+#### Snippet
+```java
+import net.coreprotect.utility.Util;
+
+public final class HopperPushListener {
+
+    static void processHopperPush(Location location, InventoryHolder sourceHolder, InventoryHolder destinationHolder, ItemStack item) {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -9338,66 +9338,6 @@ public class NetworkDebugCommand {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `RollbackRestoreCommand` has only 'static' members, and lacks a 'private' constructor
-in `src/main/java/net/coreprotect/command/RollbackRestoreCommand.java`
-#### Snippet
-```java
-import net.coreprotect.utility.Util;
-
-public class RollbackRestoreCommand {
-    protected static void runCommand(CommandSender player, Command command, boolean permission, String[] args, Location argLocation, long forceStart, long forceEnd) {
-        Location lo = (argLocation != null ? argLocation : CommandHandler.parseLocation(player, args));
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `__2_18_0` has only 'static' members, and lacks a 'private' constructor
-in `src/main/java/net/coreprotect/patch/script/__2_18_0.java`
-#### Snippet
-```java
-import net.coreprotect.utility.Util;
-
-public class __2_18_0 {
-
-    protected static boolean createIndexes = true;
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `Patch` has only 'static' members, and lacks a 'private' constructor
-in `src/main/java/net/coreprotect/patch/Patch.java`
-#### Snippet
-```java
-import net.coreprotect.utility.Util;
-
-public class Patch {
-
-    private static boolean patching = false;
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `ChestTransactionLookup` has only 'static' members, and lacks a 'private' constructor
-in `src/main/java/net/coreprotect/database/lookup/ChestTransactionLookup.java`
-#### Snippet
-```java
-import net.coreprotect.utility.Util;
-
-public class ChestTransactionLookup {
-
-    public static List<String> performLookup(String command, Statement statement, Location l, CommandSender commandSender, int page, int limit, boolean exact) {
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `RollbackUpdateProcess` has only 'static' members, and lacks a 'private' constructor
-in `src/main/java/net/coreprotect/consumer/process/RollbackUpdateProcess.java`
-#### Snippet
-```java
-import net.coreprotect.utility.Util;
-
-class RollbackUpdateProcess {
-
-    static void process(Statement statement, int processId, int id, int action, int table) {
-```
-
-### UtilityClassWithoutPrivateConstructor
 Class `PlayerLookup` has only 'static' members, and lacks a 'private' constructor
 in `src/main/java/net/coreprotect/database/lookup/PlayerLookup.java`
 #### Snippet
@@ -9434,15 +9374,39 @@ public final class ListenerHandler {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `ContainerBreakProcess` has only 'static' members, and lacks a 'private' constructor
-in `src/main/java/net/coreprotect/consumer/process/ContainerBreakProcess.java`
+Class `ChestTransactionLookup` has only 'static' members, and lacks a 'private' constructor
+in `src/main/java/net/coreprotect/database/lookup/ChestTransactionLookup.java`
 #### Snippet
 ```java
-import net.coreprotect.database.logger.ContainerBreakLogger;
+import net.coreprotect.utility.Util;
 
-class ContainerBreakProcess {
+public class ChestTransactionLookup {
 
-    static void process(PreparedStatement preparedStmt, int batchCount, int processId, int id, Material type, String user, Object object) {
+    public static List<String> performLookup(String command, Statement statement, Location l, CommandSender commandSender, int page, int limit, boolean exact) {
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `Patch` has only 'static' members, and lacks a 'private' constructor
+in `src/main/java/net/coreprotect/patch/Patch.java`
+#### Snippet
+```java
+import net.coreprotect.utility.Util;
+
+public class Patch {
+
+    private static boolean patching = false;
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `RollbackUpdateProcess` has only 'static' members, and lacks a 'private' constructor
+in `src/main/java/net/coreprotect/consumer/process/RollbackUpdateProcess.java`
+#### Snippet
+```java
+import net.coreprotect.utility.Util;
+
+class RollbackUpdateProcess {
+
+    static void process(Statement statement, int processId, int id, int action, int table) {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -9458,6 +9422,18 @@ class NaturalBlockBreakProcess {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
+Class `ContainerBreakProcess` has only 'static' members, and lacks a 'private' constructor
+in `src/main/java/net/coreprotect/consumer/process/ContainerBreakProcess.java`
+#### Snippet
+```java
+import net.coreprotect.database.logger.ContainerBreakLogger;
+
+class ContainerBreakProcess {
+
+    static void process(PreparedStatement preparedStmt, int batchCount, int processId, int id, Material type, String user, Object object) {
+```
+
+### UtilityClassWithoutPrivateConstructor
 Class `__2_15_0` has only 'static' members, and lacks a 'private' constructor
 in `src/main/java/net/coreprotect/patch/script/__2_15_0.java`
 #### Snippet
@@ -9470,15 +9446,15 @@ public class __2_15_0 {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `ArtInsertProcess` has only 'static' members, and lacks a 'private' constructor
-in `src/main/java/net/coreprotect/consumer/process/ArtInsertProcess.java`
+Class `RollbackRestoreCommand` has only 'static' members, and lacks a 'private' constructor
+in `src/main/java/net/coreprotect/command/RollbackRestoreCommand.java`
 #### Snippet
 ```java
-import net.coreprotect.utility.Chat;
+import net.coreprotect.utility.Util;
 
-class ArtInsertProcess {
-
-    static void process(PreparedStatement preparedStmt, Statement statement, int batchCount, Object name, int materialId) {
+public class RollbackRestoreCommand {
+    protected static void runCommand(CommandSender player, Command command, boolean permission, String[] args, Location argLocation, long forceStart, long forceEnd) {
+        Location lo = (argLocation != null ? argLocation : CommandHandler.parseLocation(player, args));
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -9494,6 +9470,18 @@ public class BlockAPI {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
+Class `ArtInsertProcess` has only 'static' members, and lacks a 'private' constructor
+in `src/main/java/net/coreprotect/consumer/process/ArtInsertProcess.java`
+#### Snippet
+```java
+import net.coreprotect.utility.Chat;
+
+class ArtInsertProcess {
+
+    static void process(PreparedStatement preparedStmt, Statement statement, int batchCount, Object name, int materialId) {
+```
+
+### UtilityClassWithoutPrivateConstructor
 Class `SkullUpdateProcess` has only 'static' members, and lacks a 'private' constructor
 in `src/main/java/net/coreprotect/consumer/process/SkullUpdateProcess.java`
 #### Snippet
@@ -9503,6 +9491,18 @@ import net.coreprotect.config.ConfigHandler;
 class SkullUpdateProcess {
 
     static void process(Statement statement, Object object, int rowId) {
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `__2_18_0` has only 'static' members, and lacks a 'private' constructor
+in `src/main/java/net/coreprotect/patch/script/__2_18_0.java`
+#### Snippet
+```java
+import net.coreprotect.utility.Util;
+
+public class __2_18_0 {
+
+    protected static boolean createIndexes = true;
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -9518,18 +9518,6 @@ public class ItemMetaHandler {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `LookupCommand` has only 'static' members, and lacks a 'private' constructor
-in `src/main/java/net/coreprotect/command/LookupCommand.java`
-#### Snippet
-```java
-import net.coreprotect.utility.Util;
-
-public class LookupCommand {
-    protected static void runCommand(CommandSender player, Command command, boolean permission, String[] args) {
-        int resultc = args.length;
-```
-
-### UtilityClassWithoutPrivateConstructor
 Class `SignTextProcess` has only 'static' members, and lacks a 'private' constructor
 in `src/main/java/net/coreprotect/consumer/process/SignTextProcess.java`
 #### Snippet
@@ -9539,6 +9527,18 @@ import net.coreprotect.database.logger.SignTextLogger;
 class SignTextProcess {
 
     static void process(PreparedStatement preparedStmt, int batchCount, int processId, int id, int forceData, String user, Object object, int action, int color) {
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `LookupCommand` has only 'static' members, and lacks a 'private' constructor
+in `src/main/java/net/coreprotect/command/LookupCommand.java`
+#### Snippet
+```java
+import net.coreprotect.utility.Util;
+
+public class LookupCommand {
+    protected static void runCommand(CommandSender player, Command command, boolean permission, String[] args) {
+        int resultc = args.length;
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -9662,6 +9662,18 @@ public class __2_18_1 {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
+Class `BlockLookup` has only 'static' members, and lacks a 'private' constructor
+in `src/main/java/net/coreprotect/database/lookup/BlockLookup.java`
+#### Snippet
+```java
+import net.coreprotect.utility.Util;
+
+public class BlockLookup {
+
+    public static String performLookup(String command, Statement statement, BlockState block, CommandSender commandSender, int offset, int page, int limit) {
+```
+
+### UtilityClassWithoutPrivateConstructor
 Class `PlayerLogoutProcess` has only 'static' members, and lacks a 'private' constructor
 in `src/main/java/net/coreprotect/consumer/process/PlayerLogoutProcess.java`
 #### Snippet
@@ -9686,18 +9698,6 @@ public class __2_10_0 {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `BlockLookup` has only 'static' members, and lacks a 'private' constructor
-in `src/main/java/net/coreprotect/database/lookup/BlockLookup.java`
-#### Snippet
-```java
-import net.coreprotect.utility.Util;
-
-public class BlockLookup {
-
-    public static String performLookup(String command, Statement statement, BlockState block, CommandSender commandSender, int offset, int page, int limit) {
-```
-
-### UtilityClassWithoutPrivateConstructor
 Class `EntityInsertProcess` has only 'static' members, and lacks a 'private' constructor
 in `src/main/java/net/coreprotect/consumer/process/EntityInsertProcess.java`
 #### Snippet
@@ -9710,15 +9710,15 @@ class EntityInsertProcess {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `BlockBreakProcess` has only 'static' members, and lacks a 'private' constructor
-in `src/main/java/net/coreprotect/consumer/process/BlockBreakProcess.java`
+Class `BlockPlaceProcess` has only 'static' members, and lacks a 'private' constructor
+in `src/main/java/net/coreprotect/consumer/process/BlockPlaceProcess.java`
 #### Snippet
 ```java
 import net.coreprotect.utility.Util;
 
-class BlockBreakProcess {
+class BlockPlaceProcess {
 
-    static void process(PreparedStatement preparedStmt, PreparedStatement preparedStmtSkulls, int batchCount, int processId, int id, Material blockType, int blockDataId, Material replaceType, int forceData, String user, Object object, String blockData) {
+    static void process(PreparedStatement preparedStmt, PreparedStatement preparedStmtSkulls, int batchCount, Material blockType, int blockData, Material replaceType, int replaceData, int forceData, String user, Object object, String newBlockData, String replacedBlockData) {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -9734,15 +9734,15 @@ public class __2_5_0 {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `BlockPlaceProcess` has only 'static' members, and lacks a 'private' constructor
-in `src/main/java/net/coreprotect/consumer/process/BlockPlaceProcess.java`
+Class `BlockBreakProcess` has only 'static' members, and lacks a 'private' constructor
+in `src/main/java/net/coreprotect/consumer/process/BlockBreakProcess.java`
 #### Snippet
 ```java
 import net.coreprotect.utility.Util;
 
-class BlockPlaceProcess {
+class BlockBreakProcess {
 
-    static void process(PreparedStatement preparedStmt, PreparedStatement preparedStmtSkulls, int batchCount, Material blockType, int blockData, Material replaceType, int replaceData, int forceData, String user, Object object, String newBlockData, String replacedBlockData) {
+    static void process(PreparedStatement preparedStmt, PreparedStatement preparedStmtSkulls, int batchCount, int processId, int id, Material blockType, int blockDataId, Material replaceType, int forceData, String user, Object object, String blockData) {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -9807,15 +9807,27 @@ in `src/main/java/net/coreprotect/listener/block/BlockPlaceListener.java`
 ```
 
 ### DataFlowIssue
-Dereference of `event_blocks` may produce `NullPointerException`
-in `src/main/java/net/coreprotect/listener/block/BlockPistonListener.java`
+Method invocation `replaceAll` may produce `NullPointerException`
+in `src/main/java/net/coreprotect/command/TeleportCommand.java`
 #### Snippet
 ```java
-            List<Block> blocks = new ArrayList<>();
+        }
 
-            for (Block block : event_blocks) {
-                Block block_relative = block.getRelative(event.getDirection());
-                nblocks.add(block_relative);
+        String xValidate = x.replaceAll("[^.\\-]", "");
+        String yValidate = y.replaceAll("[^.\\-]", "");
+        String zValidate = z.replaceAll("[^.\\-]", "");
+```
+
+### DataFlowIssue
+Method invocation `replaceAll` may produce `NullPointerException`
+in `src/main/java/net/coreprotect/command/TeleportCommand.java`
+#### Snippet
+```java
+        String xValidate = x.replaceAll("[^.\\-]", "");
+        String yValidate = y.replaceAll("[^.\\-]", "");
+        String zValidate = z.replaceAll("[^.\\-]", "");
+
+        if ((x.length() == 0 || x.length() >= 12 || x.equals(xValidate)) || (y.length() == 0 || y.length() >= 12 || y.equals(yValidate)) || (z.length() == 0 || z.length() >= 12 || z.equals(zValidate))) {
 ```
 
 ### DataFlowIssue
@@ -9891,30 +9903,6 @@ in `src/main/java/net/coreprotect/CoreProtect.java`
 ```
 
 ### DataFlowIssue
-Method invocation `replaceAll` may produce `NullPointerException`
-in `src/main/java/net/coreprotect/command/TeleportCommand.java`
-#### Snippet
-```java
-        }
-
-        String xValidate = x.replaceAll("[^.\\-]", "");
-        String yValidate = y.replaceAll("[^.\\-]", "");
-        String zValidate = z.replaceAll("[^.\\-]", "");
-```
-
-### DataFlowIssue
-Method invocation `replaceAll` may produce `NullPointerException`
-in `src/main/java/net/coreprotect/command/TeleportCommand.java`
-#### Snippet
-```java
-        String xValidate = x.replaceAll("[^.\\-]", "");
-        String yValidate = y.replaceAll("[^.\\-]", "");
-        String zValidate = z.replaceAll("[^.\\-]", "");
-
-        if ((x.length() == 0 || x.length() >= 12 || x.equals(xValidate)) || (y.length() == 0 || y.length() >= 12 || y.equals(yValidate)) || (z.length() == 0 || z.length() >= 12 || z.equals(zValidate))) {
-```
-
-### DataFlowIssue
 Method invocation `getColor` may produce `NullPointerException`
 in `src/main/java/net/coreprotect/listener/block/BlockExplodeListener.java`
 #### Snippet
@@ -9924,6 +9912,18 @@ in `src/main/java/net/coreprotect/listener/block/BlockExplodeListener.java`
                     int color = sign.getColor().getColor().asRGB();
                     boolean isGlowing = BukkitAdapter.ADAPTER.isGlowing(sign);
                     Queue.queueSignText(user, location, 0, color, isGlowing, line1, line2, line3, line4, 5);
+```
+
+### DataFlowIssue
+Dereference of `event_blocks` may produce `NullPointerException`
+in `src/main/java/net/coreprotect/listener/block/BlockPistonListener.java`
+#### Snippet
+```java
+            List<Block> blocks = new ArrayList<>();
+
+            for (Block block : event_blocks) {
+                Block block_relative = block.getRelative(event.getDirection());
+                nblocks.add(block_relative);
 ```
 
 ### DataFlowIssue
@@ -9948,18 +9948,6 @@ in `src/main/java/net/coreprotect/patch/script/__2_20_0.java`
                         entityType = EntityType.PIG;
                         break;
                 }
-```
-
-### DataFlowIssue
-Method invocation `isBlock` may produce `NullPointerException`
-in `src/main/java/net/coreprotect/patch/script/__2_18_0.java`
-#### Snippet
-```java
-                            }
-
-                            if (blockBlockData == null && validatedMaterial.isBlock()) {
-                                BlockData newBlockData = null;
-                                try {
 ```
 
 ### DataFlowIssue
@@ -9996,6 +9984,66 @@ in `src/main/java/net/coreprotect/listener/entity/HangingPlaceListener.java`
             if (ConfigHandler.inspecting.get(player.getName()) != null) {
                 if (ConfigHandler.inspecting.get(player.getName())) {
                     inspect = 1;
+```
+
+### DataFlowIssue
+Method invocation `isBlock` may produce `NullPointerException`
+in `src/main/java/net/coreprotect/patch/script/__2_18_0.java`
+#### Snippet
+```java
+                            }
+
+                            if (blockBlockData == null && validatedMaterial.isBlock()) {
+                                BlockData newBlockData = null;
+                                try {
+```
+
+### DataFlowIssue
+Variable is already assigned to this value
+in `src/main/java/net/coreprotect/command/CommandHandler.java`
+#### Snippet
+```java
+                }
+                else {
+                    next = 0;
+                }
+            }
+```
+
+### DataFlowIssue
+Variable is already assigned to this value
+in `src/main/java/net/coreprotect/command/CommandHandler.java`
+#### Snippet
+```java
+                }
+                else {
+                    next = 0;
+                }
+            }
+```
+
+### DataFlowIssue
+Variable is already assigned to this value
+in `src/main/java/net/coreprotect/command/CommandHandler.java`
+#### Snippet
+```java
+                }
+                else {
+                    next = 0;
+                }
+            }
+```
+
+### DataFlowIssue
+Variable is already assigned to this value
+in `src/main/java/net/coreprotect/command/CommandHandler.java`
+#### Snippet
+```java
+                }
+                else {
+                    next = 0;
+                }
+            }
 ```
 
 ### DataFlowIssue
@@ -10143,54 +10191,6 @@ in `src/main/java/net/coreprotect/command/CommandHandler.java`
 ```
 
 ### DataFlowIssue
-Variable is already assigned to this value
-in `src/main/java/net/coreprotect/command/CommandHandler.java`
-#### Snippet
-```java
-                }
-                else {
-                    next = 0;
-                }
-            }
-```
-
-### DataFlowIssue
-Variable is already assigned to this value
-in `src/main/java/net/coreprotect/command/CommandHandler.java`
-#### Snippet
-```java
-                }
-                else {
-                    next = 0;
-                }
-            }
-```
-
-### DataFlowIssue
-Variable is already assigned to this value
-in `src/main/java/net/coreprotect/command/CommandHandler.java`
-#### Snippet
-```java
-                }
-                else {
-                    next = 0;
-                }
-            }
-```
-
-### DataFlowIssue
-Variable is already assigned to this value
-in `src/main/java/net/coreprotect/command/CommandHandler.java`
-#### Snippet
-```java
-                }
-                else {
-                    next = 0;
-                }
-            }
-```
-
-### DataFlowIssue
 Dereference of `configFolder.listFiles((File file) -> file.getName().endsWith(".yml"))` may produce `NullPointerException`
 in `src/main/java/net/coreprotect/config/Config.java`
 #### Snippet
@@ -10215,18 +10215,6 @@ in `src/main/java/net/coreprotect/utility/entity/HangingUtil.java`
 ```
 
 ### DataFlowIssue
-Method invocation `getValue` may produce `NullPointerException`
-in `src/main/java/net/coreprotect/worldedit/WorldEditLogger.java`
-#### Snippet
-```java
-        String mobType = null;
-        try {
-            CompoundTag compoundTag = NBTUtils.getChildTag(fullBlock.getNbtData().getValue(), "SpawnData", CompoundTag.class);
-            mobType = compoundTag.getString("id").toUpperCase(Locale.ROOT);
-            if (mobType.contains("MINECRAFT:")) {
-```
-
-### DataFlowIssue
 Method invocation `getString` may produce `NullPointerException`
 in `src/main/java/net/coreprotect/worldedit/WorldEditLogger.java`
 #### Snippet
@@ -10236,6 +10224,18 @@ in `src/main/java/net/coreprotect/worldedit/WorldEditLogger.java`
                         String line1 = getSignText(compoundTag.getString("Text1"));
                         String line2 = getSignText(compoundTag.getString("Text2"));
                         String line3 = getSignText(compoundTag.getString("Text3"));
+```
+
+### DataFlowIssue
+Method invocation `getValue` may produce `NullPointerException`
+in `src/main/java/net/coreprotect/worldedit/WorldEditLogger.java`
+#### Snippet
+```java
+        String mobType = null;
+        try {
+            CompoundTag compoundTag = NBTUtils.getChildTag(fullBlock.getNbtData().getValue(), "SpawnData", CompoundTag.class);
+            mobType = compoundTag.getString("id").toUpperCase(Locale.ROOT);
+            if (mobType.contains("MINECRAFT:")) {
 ```
 
 ### DataFlowIssue
@@ -10291,6 +10291,18 @@ Variable is already assigned to this value
 in `src/main/java/net/coreprotect/command/LookupCommand.java`
 #### Snippet
 ```java
+                                                        }
+                                                        else {
+                                                            phrase = Phrase.LOOKUP_BLOCK; // {placed|broke}
+                                                            selector = (daction != 0 ? Selector.FIRST : Selector.SECOND);
+                                                            tag = (daction != 0 ? Color.GREEN + "+" : Color.RED + "-");
+```
+
+### DataFlowIssue
+Variable is already assigned to this value
+in `src/main/java/net/coreprotect/command/LookupCommand.java`
+#### Snippet
+```java
     protected static void runCommand(CommandSender player, Command command, boolean permission, String[] args) {
         int resultc = args.length;
         args = CommandHandler.parsePage(args);
@@ -10308,18 +10320,6 @@ in `src/main/java/net/coreprotect/command/LookupCommand.java`
             final Block fblock = Bukkit.getServer().getWorld(world).getBlockAt(x, y, z);// .getLocation();
             final BlockState fblockstate = fblock.getState();
             final CommandSender player2 = player;
-```
-
-### DataFlowIssue
-Variable is already assigned to this value
-in `src/main/java/net/coreprotect/command/LookupCommand.java`
-#### Snippet
-```java
-                                                        }
-                                                        else {
-                                                            phrase = Phrase.LOOKUP_BLOCK; // {placed|broke}
-                                                            selector = (daction != 0 ? Selector.FIRST : Selector.SECOND);
-                                                            tag = (daction != 0 ? Color.GREEN + "+" : Color.RED + "-");
 ```
 
 ### DataFlowIssue
@@ -10356,6 +10356,78 @@ in `src/main/java/net/coreprotect/consumer/Queue.java`
             replaceData = 0;
 
             if ((replaceType == Material.IRON_DOOR || BlockGroup.DOORS.contains(replaceType) || replaceType.equals(Material.SUNFLOWER) || replaceType.equals(Material.LILAC) || replaceType.equals(Material.TALL_GRASS) || replaceType.equals(Material.LARGE_FERN) || replaceType.equals(Material.ROSE_BUSH) || replaceType.equals(Material.PEONY)) && replaceData >= 8) { // Double plant top half
+```
+
+### DataFlowIssue
+Dereference of `contents` may produce `NullPointerException`
+in `src/main/java/net/coreprotect/utility/Util.java`
+#### Snippet
+```java
+                if (type == Material.ARMOR_STAND || type == Material.ITEM_FRAME) {
+                    boolean hasItem = false;
+                    for (ItemStack item : contents) {
+                        if (item != null && !item.getType().equals(Material.AIR)) {
+                            hasItem = true;
+```
+
+### DataFlowIssue
+Method invocation `getAsString` may produce `NullPointerException`
+in `src/main/java/net/coreprotect/utility/Util.java`
+#### Snippet
+```java
+            }
+
+            if (material.isBlock() && !createBlockData(material).getAsString().equals(string) && string.startsWith(NAMESPACE + material.name().toLowerCase(Locale.ROOT) + "[") && string.endsWith("]")) {
+                String substring = string.substring(material.name().length() + 11, string.length() - 1);
+                String[] blockDataSplit = substring.split(",");
+```
+
+### DataFlowIssue
+Method invocation `getDescription` may produce `NullPointerException`
+in `src/main/java/net/coreprotect/utility/Util.java`
+#### Snippet
+```java
+        try {
+            boolean validVersion = true;
+            String version = Bukkit.getServer().getPluginManager().getPlugin("WorldEdit").getDescription().getVersion();
+            if (version.contains(";") || version.contains("+")) {
+                if (version.contains("-beta-")) {
+```
+
+### DataFlowIssue
+Method invocation `getDescription` may produce `NullPointerException`
+in `src/main/java/net/coreprotect/utility/Util.java`
+#### Snippet
+```java
+                Plugin fawe = Bukkit.getServer().getPluginManager().getPlugin("FastAsyncWorldEdit");
+                if (fawe != null) {
+                    String apiVersion = Bukkit.getServer().getPluginManager().getPlugin("WorldEdit").getDescription().getAPIVersion();
+                    String faweVersion = fawe.getDescription().getVersion();
+                    double apiDouble = Double.parseDouble(apiVersion);
+```
+
+### DataFlowIssue
+Argument `apiVersion` might be null
+in `src/main/java/net/coreprotect/utility/Util.java`
+#### Snippet
+```java
+                    String apiVersion = Bukkit.getServer().getPluginManager().getPlugin("WorldEdit").getDescription().getAPIVersion();
+                    String faweVersion = fawe.getDescription().getVersion();
+                    double apiDouble = Double.parseDouble(apiVersion);
+                    double faweDouble = Double.parseDouble(faweVersion);
+                    if (apiDouble >= 1.13 && faweDouble >= 1.0) {
+```
+
+### DataFlowIssue
+Argument `CoreProtect.getInstance().getClass().getResourceAsStream("/plugin.yml")` might be null
+in `src/main/java/net/coreprotect/utility/Util.java`
+#### Snippet
+```java
+        String branch = "";
+        try {
+            InputStreamReader reader = new InputStreamReader(CoreProtect.getInstance().getClass().getResourceAsStream("/plugin.yml"));
+            branch = YamlConfiguration.loadConfiguration(reader).getString("branch");
+            reader.close();
 ```
 
 ### DataFlowIssue
@@ -10527,75 +10599,15 @@ in `src/main/java/net/coreprotect/database/logger/SkullPlaceLogger.java`
 ```
 
 ### DataFlowIssue
-Dereference of `contents` may produce `NullPointerException`
-in `src/main/java/net/coreprotect/utility/Util.java`
+Variable is already assigned to this value
+in `src/main/java/net/coreprotect/database/lookup/BlockLookup.java`
 #### Snippet
 ```java
-                if (type == Material.ARMOR_STAND || type == Material.ITEM_FRAME) {
-                    boolean hasItem = false;
-                    for (ItemStack item : contents) {
-                        if (item != null && !item.getType().equals(Material.AIR)) {
-                            hasItem = true;
-```
-
-### DataFlowIssue
-Method invocation `getAsString` may produce `NullPointerException`
-in `src/main/java/net/coreprotect/utility/Util.java`
-#### Snippet
-```java
-            }
-
-            if (material.isBlock() && !createBlockData(material).getAsString().equals(string) && string.startsWith(NAMESPACE + material.name().toLowerCase(Locale.ROOT) + "[") && string.endsWith("]")) {
-                String substring = string.substring(material.name().length() + 11, string.length() - 1);
-                String[] blockDataSplit = substring.split(",");
-```
-
-### DataFlowIssue
-Method invocation `getDescription` may produce `NullPointerException`
-in `src/main/java/net/coreprotect/utility/Util.java`
-#### Snippet
-```java
-        try {
-            boolean validVersion = true;
-            String version = Bukkit.getServer().getPluginManager().getPlugin("WorldEdit").getDescription().getVersion();
-            if (version.contains(";") || version.contains("+")) {
-                if (version.contains("-beta-")) {
-```
-
-### DataFlowIssue
-Method invocation `getDescription` may produce `NullPointerException`
-in `src/main/java/net/coreprotect/utility/Util.java`
-#### Snippet
-```java
-                Plugin fawe = Bukkit.getServer().getPluginManager().getPlugin("FastAsyncWorldEdit");
-                if (fawe != null) {
-                    String apiVersion = Bukkit.getServer().getPluginManager().getPlugin("WorldEdit").getDescription().getAPIVersion();
-                    String faweVersion = fawe.getDescription().getVersion();
-                    double apiDouble = Double.parseDouble(apiVersion);
-```
-
-### DataFlowIssue
-Argument `apiVersion` might be null
-in `src/main/java/net/coreprotect/utility/Util.java`
-#### Snippet
-```java
-                    String apiVersion = Bukkit.getServer().getPluginManager().getPlugin("WorldEdit").getDescription().getAPIVersion();
-                    String faweVersion = fawe.getDescription().getVersion();
-                    double apiDouble = Double.parseDouble(apiVersion);
-                    double faweDouble = Double.parseDouble(faweVersion);
-                    if (apiDouble >= 1.13 && faweDouble >= 1.0) {
-```
-
-### DataFlowIssue
-Argument `CoreProtect.getInstance().getClass().getResourceAsStream("/plugin.yml")` might be null
-in `src/main/java/net/coreprotect/utility/Util.java`
-#### Snippet
-```java
-        String branch = "";
-        try {
-            InputStreamReader reader = new InputStreamReader(CoreProtect.getInstance().getClass().getResourceAsStream("/plugin.yml"));
-            branch = YamlConfiguration.loadConfiguration(reader).getString("branch");
-            reader.close();
+                }
+                else {
+                    phrase = Phrase.LOOKUP_BLOCK; // {placed|broke}
+                    selector = (resultAction != 0 ? Selector.FIRST : Selector.SECOND);
+                    tag = (resultAction != 0 ? Color.GREEN + "+" : Color.RED + "-");
 ```
 
 ### DataFlowIssue
@@ -10608,18 +10620,6 @@ in `src/main/java/net/coreprotect/listener/block/BlockBreakListener.java`
                         int color = sign.getColor().getColor().asRGB();
                         boolean isGlowing = BukkitAdapter.ADAPTER.isGlowing(sign);
                         Queue.queueSignText(user, location, 0, color, isGlowing, line1, line2, line3, line4, 5);
-```
-
-### DataFlowIssue
-Variable is already assigned to this value
-in `src/main/java/net/coreprotect/database/lookup/BlockLookup.java`
-#### Snippet
-```java
-                }
-                else {
-                    phrase = Phrase.LOOKUP_BLOCK; // {placed|broke}
-                    selector = (resultAction != 0 ? Selector.FIRST : Selector.SECOND);
-                    tag = (resultAction != 0 ? Color.GREEN + "+" : Color.RED + "-");
 ```
 
 ### DataFlowIssue
@@ -10743,6 +10743,18 @@ in `src/main/java/net/coreprotect/database/Lookup.java`
 ```
 
 ### DataFlowIssue
+Method invocation `entries` may produce `NullPointerException`
+in `src/main/java/net/coreprotect/database/Rollback.java`
+#### Snippet
+```java
+                    ItemMeta itemMeta = itemstack.getItemMeta();
+                    if (itemMeta.hasAttributeModifiers()) {
+                        for (Map.Entry<Attribute, AttributeModifier> entry : itemMeta.getAttributeModifiers().entries()) {
+                            itemMeta.removeAttributeModifier(entry.getKey(), entry.getValue());
+                        }
+```
+
+### DataFlowIssue
 Variable is already assigned to this value
 in `src/main/java/net/coreprotect/database/Rollback.java`
 #### Snippet
@@ -10814,18 +10826,6 @@ in `src/main/java/net/coreprotect/database/Rollback.java`
                 }
 ```
 
-### DataFlowIssue
-Method invocation `entries` may produce `NullPointerException`
-in `src/main/java/net/coreprotect/database/Rollback.java`
-#### Snippet
-```java
-                    ItemMeta itemMeta = itemstack.getItemMeta();
-                    if (itemMeta.hasAttributeModifiers()) {
-                        for (Map.Entry<Attribute, AttributeModifier> entry : itemMeta.getAttributeModifiers().entries()) {
-                            itemMeta.removeAttributeModifier(entry.getKey(), entry.getValue());
-                        }
-```
-
 ## RuleId[ruleID=SimplifyStreamApiCallChains]
 ### SimplifyStreamApiCallChains
 'filter()' and 'map()' can be swapped
@@ -10890,15 +10890,15 @@ public class UndoCommand {
 
 ## RuleId[ruleID=DeprecatedIsStillUsed]
 ### DeprecatedIsStillUsed
-Deprecated member 'consumerStrings' is still used
+Deprecated member 'consumerBlockList' is still used
 in `src/main/java/net/coreprotect/consumer/Consumer.java`
 #### Snippet
 ```java
-    public static ConcurrentHashMap<Integer, Map<Integer, String[]>> consumerUsers = new ConcurrentHashMap<>(4, 0.75f, 2);
+    public static ConcurrentHashMap<Integer, Map<Integer, Object>> consumerInventories = new ConcurrentHashMap<>(4, 0.75f, 2);
     @Deprecated
-    public static ConcurrentHashMap<Integer, Map<Integer, String>> consumerStrings = new ConcurrentHashMap<>(4, 0.75f, 2);
+    public static ConcurrentHashMap<Integer, Map<Integer, List<BlockState>>> consumerBlockList = new ConcurrentHashMap<>(4, 0.75f, 2);
     @Deprecated
-    public static ConcurrentHashMap<Integer, Map<Integer, Object[]>> consumerSigns = new ConcurrentHashMap<>(4, 0.75f, 2);
+    public static ConcurrentHashMap<Integer, Map<Integer, List<Object[]>>> consumerObjectArrayList = new ConcurrentHashMap<>(4, 0.75f, 2);
 ```
 
 ### DeprecatedIsStillUsed
@@ -10911,30 +10911,6 @@ in `src/main/java/net/coreprotect/consumer/Consumer.java`
     public static ConcurrentHashMap<Integer, Map<Integer, ItemStack[]>> consumerContainers = new ConcurrentHashMap<>(4, 0.75f, 2);
     @Deprecated
     public static ConcurrentHashMap<Integer, Map<Integer, Object>> consumerInventories = new ConcurrentHashMap<>(4, 0.75f, 2);
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'consumerObjectList' is still used
-in `src/main/java/net/coreprotect/consumer/Consumer.java`
-#### Snippet
-```java
-    public static ConcurrentHashMap<Integer, Map<Integer, List<Object[]>>> consumerObjectArrayList = new ConcurrentHashMap<>(4, 0.75f, 2);
-    @Deprecated
-    public static ConcurrentHashMap<Integer, Map<Integer, List<Object>>> consumerObjectList = new ConcurrentHashMap<>(4, 0.75f, 2);
-
-    public static ConcurrentHashMap<Integer, Map<Integer, Object>> consumerObjects = new ConcurrentHashMap<>(4, 0.75f, 2);
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'consumerBlockList' is still used
-in `src/main/java/net/coreprotect/consumer/Consumer.java`
-#### Snippet
-```java
-    public static ConcurrentHashMap<Integer, Map<Integer, Object>> consumerInventories = new ConcurrentHashMap<>(4, 0.75f, 2);
-    @Deprecated
-    public static ConcurrentHashMap<Integer, Map<Integer, List<BlockState>>> consumerBlockList = new ConcurrentHashMap<>(4, 0.75f, 2);
-    @Deprecated
-    public static ConcurrentHashMap<Integer, Map<Integer, List<Object[]>>> consumerObjectArrayList = new ConcurrentHashMap<>(4, 0.75f, 2);
 ```
 
 ### DeprecatedIsStillUsed
@@ -10974,6 +10950,30 @@ in `src/main/java/net/coreprotect/consumer/Consumer.java`
 ```
 
 ### DeprecatedIsStillUsed
+Deprecated member 'consumerObjectList' is still used
+in `src/main/java/net/coreprotect/consumer/Consumer.java`
+#### Snippet
+```java
+    public static ConcurrentHashMap<Integer, Map<Integer, List<Object[]>>> consumerObjectArrayList = new ConcurrentHashMap<>(4, 0.75f, 2);
+    @Deprecated
+    public static ConcurrentHashMap<Integer, Map<Integer, List<Object>>> consumerObjectList = new ConcurrentHashMap<>(4, 0.75f, 2);
+
+    public static ConcurrentHashMap<Integer, Map<Integer, Object>> consumerObjects = new ConcurrentHashMap<>(4, 0.75f, 2);
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'consumerStrings' is still used
+in `src/main/java/net/coreprotect/consumer/Consumer.java`
+#### Snippet
+```java
+    public static ConcurrentHashMap<Integer, Map<Integer, String[]>> consumerUsers = new ConcurrentHashMap<>(4, 0.75f, 2);
+    @Deprecated
+    public static ConcurrentHashMap<Integer, Map<Integer, String>> consumerStrings = new ConcurrentHashMap<>(4, 0.75f, 2);
+    @Deprecated
+    public static ConcurrentHashMap<Integer, Map<Integer, Object[]>> consumerSigns = new ConcurrentHashMap<>(4, 0.75f, 2);
+```
+
+### DeprecatedIsStillUsed
 Deprecated member 'getData' is still used
 in `src/main/java/net/coreprotect/CoreProtectAPI.java`
 #### Snippet
@@ -10987,18 +10987,6 @@ in `src/main/java/net/coreprotect/CoreProtectAPI.java`
 
 ## RuleId[ruleID=PatternVariableCanBeUsed]
 ### PatternVariableCanBeUsed
-Variable 'data' can be replaced with pattern variable
-in `src/main/java/net/coreprotect/consumer/process/PlayerCommandProcess.java`
-#### Snippet
-```java
-        }
-
-        Object[] data = (Object[]) object;
-        if (data[1] instanceof Location) {
-            Map<Integer, String> strings = Consumer.consumerStrings.get(processId);
-```
-
-### PatternVariableCanBeUsed
 Variable 'location' can be replaced with pattern variable
 in `src/main/java/net/coreprotect/consumer/process/ItemTransactionProcess.java`
 #### Snippet
@@ -11008,6 +10996,18 @@ in `src/main/java/net/coreprotect/consumer/process/ItemTransactionProcess.java`
             Location location = (Location) object;
             String loggingItemId = user.toLowerCase(Locale.ROOT) + "." + location.getBlockX() + "." + location.getBlockY() + "." + location.getBlockZ();
 
+```
+
+### PatternVariableCanBeUsed
+Variable 'data' can be replaced with pattern variable
+in `src/main/java/net/coreprotect/consumer/process/PlayerCommandProcess.java`
+#### Snippet
+```java
+        }
+
+        Object[] data = (Object[]) object;
+        if (data[1] instanceof Location) {
+            Map<Integer, String> strings = Consumer.consumerStrings.get(processId);
 ```
 
 ### PatternVariableCanBeUsed
@@ -11023,15 +11023,15 @@ in `src/main/java/net/coreprotect/listener/block/BlockIgniteListener.java`
 ```
 
 ### PatternVariableCanBeUsed
-Variable 'block' can be replaced with pattern variable
-in `src/main/java/net/coreprotect/consumer/process/PlayerInteractionProcess.java`
+Variable 'location' can be replaced with pattern variable
+in `src/main/java/net/coreprotect/consumer/process/ContainerTransactionProcess.java`
 #### Snippet
 ```java
-    static void process(PreparedStatement preparedStmt, int batchCount, String user, Object object, Material type) {
-        if (object instanceof BlockState) {
-            BlockState block = (BlockState) object;
-            PlayerInteractLogger.log(preparedStmt, batchCount, user, block, type);
-        }
+    static void process(PreparedStatement preparedStmtContainer, PreparedStatement preparedStmtItems, int batchCount, int processId, int id, Material type, int forceData, String user, Object object) {
+        if (object instanceof Location) {
+            Location location = (Location) object;
+            Map<Integer, Object> inventories = Consumer.consumerInventories.get(processId);
+            if (inventories.get(id) != null) {
 ```
 
 ### PatternVariableCanBeUsed
@@ -11047,18 +11047,6 @@ in `src/main/java/net/coreprotect/listener/player/PlayerInteractEntityListener.j
 ```
 
 ### PatternVariableCanBeUsed
-Variable 'location' can be replaced with pattern variable
-in `src/main/java/net/coreprotect/consumer/process/ContainerTransactionProcess.java`
-#### Snippet
-```java
-    static void process(PreparedStatement preparedStmtContainer, PreparedStatement preparedStmtItems, int batchCount, int processId, int id, Material type, int forceData, String user, Object object) {
-        if (object instanceof Location) {
-            Location location = (Location) object;
-            Map<Integer, Object> inventories = Consumer.consumerInventories.get(processId);
-            if (inventories.get(id) != null) {
-```
-
-### PatternVariableCanBeUsed
 Variable 'bisected' can be replaced with pattern variable
 in `src/main/java/net/coreprotect/listener/block/BlockExplodeListener.java`
 #### Snippet
@@ -11068,6 +11056,18 @@ in `src/main/java/net/coreprotect/listener/block/BlockExplodeListener.java`
                                 Bisected bisected = (Bisected) blockData;
                                 Location bisectLocation = location.clone();
                                 if (bisected.getHalf() == Half.TOP) {
+```
+
+### PatternVariableCanBeUsed
+Variable 'block' can be replaced with pattern variable
+in `src/main/java/net/coreprotect/consumer/process/PlayerInteractionProcess.java`
+#### Snippet
+```java
+    static void process(PreparedStatement preparedStmt, int batchCount, String user, Object object, Material type) {
+        if (object instanceof BlockState) {
+            BlockState block = (BlockState) object;
+            PlayerInteractLogger.log(preparedStmt, batchCount, user, block, type);
+        }
 ```
 
 ### PatternVariableCanBeUsed
@@ -11083,27 +11083,15 @@ in `src/main/java/net/coreprotect/listener/player/PlayerBucketFillListener.java`
 ```
 
 ### PatternVariableCanBeUsed
-Variable 'directional' can be replaced with pattern variable
-in `src/main/java/net/coreprotect/patch/script/__2_18_0.java`
+Variable 'arrowEntity' can be replaced with pattern variable
+in `src/main/java/net/coreprotect/listener/PlayerPickupArrowListener.java`
 #### Snippet
 ```java
-                                if (newBlockData != null) {
-                                    if (validatedMaterial == Material.OAK_WALL_SIGN && newBlockData instanceof Directional) {
-                                        Directional directional = (Directional) newBlockData;
-                                        BlockFace newDirection = getLegacyDirection(blockData);
-                                        directional.setFacing(newDirection);
-```
 
-### PatternVariableCanBeUsed
-Variable 'rotatable' can be replaced with pattern variable
-in `src/main/java/net/coreprotect/patch/script/__2_18_0.java`
-#### Snippet
-```java
-                                    }
-                                    if (validatedMaterial == Material.SKELETON_SKULL && newBlockData instanceof Rotatable) {
-                                        Rotatable rotatable = (Rotatable) newBlockData;
-                                        BlockFace newRotation = getLegacyRotation(blockData);
-                                        rotatable.setRotation(newRotation);
+        if (arrow instanceof Arrow) {
+            Arrow arrowEntity = (Arrow) arrow;
+            PotionData data = arrowEntity.getBasePotionData();
+            if (data.getType() != PotionType.UNCRAFTABLE) {
 ```
 
 ### PatternVariableCanBeUsed
@@ -11131,15 +11119,15 @@ in `src/main/java/net/coreprotect/listener/block/BlockFromToListener.java`
 ```
 
 ### PatternVariableCanBeUsed
-Variable 'arrowEntity' can be replaced with pattern variable
-in `src/main/java/net/coreprotect/listener/PlayerPickupArrowListener.java`
+Variable 'block' can be replaced with pattern variable
+in `src/main/java/net/coreprotect/consumer/process/NaturalBlockBreakProcess.java`
 #### Snippet
 ```java
-
-        if (arrow instanceof Arrow) {
-            Arrow arrowEntity = (Arrow) arrow;
-            PotionData data = arrowEntity.getBasePotionData();
-            if (data.getType() != PotionType.UNCRAFTABLE) {
+    static void process(Statement statement, PreparedStatement preparedStmt, int batchCount, int processId, int id, String user, Object object, Material blockType, int blockData, String overrideData) {
+        if (object instanceof BlockState) {
+            BlockState block = (BlockState) object;
+            Map<Integer, List<BlockState>> blockLists = Consumer.consumerBlockList.get(processId);
+            if (blockLists.get(id) != null) {
 ```
 
 ### PatternVariableCanBeUsed
@@ -11152,18 +11140,6 @@ in `src/main/java/net/coreprotect/consumer/process/ContainerBreakProcess.java`
             Location location = (Location) object;
             Map<Integer, ItemStack[]> containers = Consumer.consumerContainers.get(processId);
             if (containers.get(id) != null) {
-```
-
-### PatternVariableCanBeUsed
-Variable 'block' can be replaced with pattern variable
-in `src/main/java/net/coreprotect/consumer/process/NaturalBlockBreakProcess.java`
-#### Snippet
-```java
-    static void process(Statement statement, PreparedStatement preparedStmt, int batchCount, int processId, int id, String user, Object object, Material blockType, int blockData, String overrideData) {
-        if (object instanceof BlockState) {
-            BlockState block = (BlockState) object;
-            Map<Integer, List<BlockState>> blockLists = Consumer.consumerBlockList.get(processId);
-            if (blockLists.get(id) != null) {
 ```
 
 ### PatternVariableCanBeUsed
@@ -11191,15 +11167,15 @@ in `src/main/java/net/coreprotect/listener/entity/HangingPlaceListener.java`
 ```
 
 ### PatternVariableCanBeUsed
-Variable 'block' can be replaced with pattern variable
-in `src/main/java/net/coreprotect/consumer/process/SkullUpdateProcess.java`
+Variable 'inventoryHolder' can be replaced with pattern variable
+in `src/main/java/net/coreprotect/listener/player/InventoryChangeListener.java`
 #### Snippet
 ```java
-         */
-        if (object instanceof BlockState) {
-            BlockState block = (BlockState) object;
-            String query = "SELECT owner FROM " + ConfigHandler.prefix + "skull WHERE rowid='" + rowId + "' LIMIT 0, 1";
-            SkullStatement.getData(statement, block, query);
+
+                if (BlockGroup.CONTAINERS.contains(type) && blockState instanceof InventoryHolder) {
+                    InventoryHolder inventoryHolder = (InventoryHolder) blockState;
+                    return onInventoryInteract(user, inventoryHolder.getInventory(), inventoryData, null, location, false);
+                }
 ```
 
 ### PatternVariableCanBeUsed
@@ -11227,15 +11203,39 @@ in `src/main/java/net/coreprotect/listener/player/InventoryChangeListener.java`
 ```
 
 ### PatternVariableCanBeUsed
-Variable 'inventoryHolder' can be replaced with pattern variable
-in `src/main/java/net/coreprotect/listener/player/InventoryChangeListener.java`
+Variable 'block' can be replaced with pattern variable
+in `src/main/java/net/coreprotect/consumer/process/SkullUpdateProcess.java`
 #### Snippet
 ```java
+         */
+        if (object instanceof BlockState) {
+            BlockState block = (BlockState) object;
+            String query = "SELECT owner FROM " + ConfigHandler.prefix + "skull WHERE rowid='" + rowId + "' LIMIT 0, 1";
+            SkullStatement.getData(statement, block, query);
+```
 
-                if (BlockGroup.CONTAINERS.contains(type) && blockState instanceof InventoryHolder) {
-                    InventoryHolder inventoryHolder = (InventoryHolder) blockState;
-                    return onInventoryInteract(user, inventoryHolder.getInventory(), inventoryData, null, location, false);
-                }
+### PatternVariableCanBeUsed
+Variable 'directional' can be replaced with pattern variable
+in `src/main/java/net/coreprotect/patch/script/__2_18_0.java`
+#### Snippet
+```java
+                                if (newBlockData != null) {
+                                    if (validatedMaterial == Material.OAK_WALL_SIGN && newBlockData instanceof Directional) {
+                                        Directional directional = (Directional) newBlockData;
+                                        BlockFace newDirection = getLegacyDirection(blockData);
+                                        directional.setFacing(newDirection);
+```
+
+### PatternVariableCanBeUsed
+Variable 'rotatable' can be replaced with pattern variable
+in `src/main/java/net/coreprotect/patch/script/__2_18_0.java`
+#### Snippet
+```java
+                                    }
+                                    if (validatedMaterial == Material.SKELETON_SKULL && newBlockData instanceof Rotatable) {
+                                        Rotatable rotatable = (Rotatable) newBlockData;
+                                        BlockFace newRotation = getLegacyRotation(blockData);
+                                        rotatable.setRotation(newRotation);
 ```
 
 ### PatternVariableCanBeUsed
@@ -11327,6 +11327,42 @@ Variable 'frog' can be replaced with pattern variable
 in `src/main/java/net/coreprotect/bukkit/Bukkit_v1_19.java`
 #### Snippet
 ```java
+    public boolean getEntityMeta(LivingEntity entity, List<Object> info) {
+        if (entity instanceof Frog) {
+            Frog frog = (Frog) entity;
+            info.add(frog.getVariant());
+        }
+```
+
+### PatternVariableCanBeUsed
+Variable 'tadpole' can be replaced with pattern variable
+in `src/main/java/net/coreprotect/bukkit/Bukkit_v1_19.java`
+#### Snippet
+```java
+        }
+        else if (entity instanceof Tadpole) {
+            Tadpole tadpole = (Tadpole) entity;
+            info.add(tadpole.getAge());
+        }
+```
+
+### PatternVariableCanBeUsed
+Variable 'goat' can be replaced with pattern variable
+in `src/main/java/net/coreprotect/bukkit/Bukkit_v1_19.java`
+#### Snippet
+```java
+        }
+        else if (entity instanceof Goat) {
+            Goat goat = (Goat) entity;
+            info.add(goat.isScreaming());
+            info.add(goat.hasLeftHorn());
+```
+
+### PatternVariableCanBeUsed
+Variable 'frog' can be replaced with pattern variable
+in `src/main/java/net/coreprotect/bukkit/Bukkit_v1_19.java`
+#### Snippet
+```java
     public boolean setEntityMeta(Entity entity, Object value, int count) {
         if (entity instanceof Frog) {
             Frog frog = (Frog) entity;
@@ -11359,39 +11395,15 @@ in `src/main/java/net/coreprotect/bukkit/Bukkit_v1_19.java`
 ```
 
 ### PatternVariableCanBeUsed
-Variable 'frog' can be replaced with pattern variable
-in `src/main/java/net/coreprotect/bukkit/Bukkit_v1_19.java`
+Variable 'enchantmentStorageEngine' can be replaced with pattern variable
+in `src/main/java/net/coreprotect/utility/serialize/ItemMetaHandler.java`
 #### Snippet
 ```java
-    public boolean getEntityMeta(LivingEntity entity, List<Object> info) {
-        if (entity instanceof Frog) {
-            Frog frog = (Frog) entity;
-            info.add(frog.getVariant());
-        }
-```
 
-### PatternVariableCanBeUsed
-Variable 'tadpole' can be replaced with pattern variable
-in `src/main/java/net/coreprotect/bukkit/Bukkit_v1_19.java`
-#### Snippet
-```java
+        if (itemMeta instanceof EnchantmentStorageMeta) {
+            EnchantmentStorageMeta enchantmentStorageEngine = (EnchantmentStorageMeta) itemMeta;
+            return enchantmentStorageEngine.getStoredEnchants();
         }
-        else if (entity instanceof Tadpole) {
-            Tadpole tadpole = (Tadpole) entity;
-            info.add(tadpole.getAge());
-        }
-```
-
-### PatternVariableCanBeUsed
-Variable 'goat' can be replaced with pattern variable
-in `src/main/java/net/coreprotect/bukkit/Bukkit_v1_19.java`
-#### Snippet
-```java
-        }
-        else if (entity instanceof Goat) {
-            Goat goat = (Goat) entity;
-            info.add(goat.isScreaming());
-            info.add(goat.hasLeftHorn());
 ```
 
 ### PatternVariableCanBeUsed
@@ -11491,18 +11503,6 @@ in `src/main/java/net/coreprotect/utility/serialize/ItemMetaHandler.java`
 ```
 
 ### PatternVariableCanBeUsed
-Variable 'enchantmentStorageEngine' can be replaced with pattern variable
-in `src/main/java/net/coreprotect/utility/serialize/ItemMetaHandler.java`
-#### Snippet
-```java
-
-        if (itemMeta instanceof EnchantmentStorageMeta) {
-            EnchantmentStorageMeta enchantmentStorageEngine = (EnchantmentStorageMeta) itemMeta;
-            return enchantmentStorageEngine.getStoredEnchants();
-        }
-```
-
-### PatternVariableCanBeUsed
 Variable 'location' can be replaced with pattern variable
 in `src/main/java/net/coreprotect/consumer/process/SignTextProcess.java`
 #### Snippet
@@ -11512,30 +11512,6 @@ in `src/main/java/net/coreprotect/consumer/process/SignTextProcess.java`
             Location location = (Location) object;
             Map<Integer, Object[]> signs = Consumer.consumerSigns.get(processId);
             if (signs.get(id) != null) {
-```
-
-### PatternVariableCanBeUsed
-Variable 'piglin' can be replaced with pattern variable
-in `src/main/java/net/coreprotect/bukkit/Bukkit_v1_16.java`
-#### Snippet
-```java
-    public boolean setEntityMeta(Entity entity, Object value, int count) {
-        if (entity instanceof Piglin) {
-            Piglin piglin = (Piglin) entity;
-            if (count == 0) {
-                boolean set = (Boolean) value;
-```
-
-### PatternVariableCanBeUsed
-Variable 'zoglin' can be replaced with pattern variable
-in `src/main/java/net/coreprotect/bukkit/Bukkit_v1_16.java`
-#### Snippet
-```java
-        }
-        else if (entity instanceof Zoglin) {
-            Zoglin zoglin = (Zoglin) entity;
-            if (count == 0) {
-                boolean set = (Boolean) value;
 ```
 
 ### PatternVariableCanBeUsed
@@ -11567,6 +11543,30 @@ Variable 'piglin' can be replaced with pattern variable
 in `src/main/java/net/coreprotect/bukkit/Bukkit_v1_16.java`
 #### Snippet
 ```java
+    public boolean setEntityMeta(Entity entity, Object value, int count) {
+        if (entity instanceof Piglin) {
+            Piglin piglin = (Piglin) entity;
+            if (count == 0) {
+                boolean set = (Boolean) value;
+```
+
+### PatternVariableCanBeUsed
+Variable 'zoglin' can be replaced with pattern variable
+in `src/main/java/net/coreprotect/bukkit/Bukkit_v1_16.java`
+#### Snippet
+```java
+        }
+        else if (entity instanceof Zoglin) {
+            Zoglin zoglin = (Zoglin) entity;
+            if (count == 0) {
+                boolean set = (Boolean) value;
+```
+
+### PatternVariableCanBeUsed
+Variable 'piglin' can be replaced with pattern variable
+in `src/main/java/net/coreprotect/bukkit/Bukkit_v1_16.java`
+#### Snippet
+```java
     public boolean getEntityMeta(LivingEntity entity, List<Object> info) {
         if (entity instanceof Piglin) {
             Piglin piglin = (Piglin) entity;
@@ -11583,90 +11583,6 @@ in `src/main/java/net/coreprotect/bukkit/Bukkit_v1_16.java`
         else if (entity instanceof Zoglin) {
             Zoglin zoglin = (Zoglin) entity;
             info.add(zoglin.isBaby());
-        }
-```
-
-### PatternVariableCanBeUsed
-Variable 'block' can be replaced with pattern variable
-in `src/main/java/net/coreprotect/consumer/process/StructureGrowthProcess.java`
-#### Snippet
-```java
-    static void process(Statement statement, PreparedStatement preparedStmt, int batchCount, int processId, int id, String user, Object object, int replaceBlockCount) {
-        if (object instanceof BlockState) {
-            BlockState block = (BlockState) object;
-            Map<Integer, List<BlockState>> blockLists = Consumer.consumerBlockList.get(processId);
-            if (blockLists.get(id) != null) {
-```
-
-### PatternVariableCanBeUsed
-Variable 'player' can be replaced with pattern variable
-in `src/main/java/net/coreprotect/listener/entity/EntityDamageByEntityListener.java`
-#### Snippet
-```java
-
-                if (damager instanceof Player) {
-                    Player player = (Player) damager;
-                    user = player.getName();
-                    logDrops = player.getGameMode() != GameMode.CREATIVE;
-```
-
-### PatternVariableCanBeUsed
-Variable 'arrow' can be replaced with pattern variable
-in `src/main/java/net/coreprotect/listener/entity/EntityDamageByEntityListener.java`
-#### Snippet
-```java
-                }
-                else if (damager instanceof AbstractArrow) {
-                    AbstractArrow arrow = (AbstractArrow) damager;
-                    ProjectileSource source = arrow.getShooter();
-
-```
-
-### PatternVariableCanBeUsed
-Variable 'player' can be replaced with pattern variable
-in `src/main/java/net/coreprotect/listener/entity/EntityDamageByEntityListener.java`
-#### Snippet
-```java
-
-                    if (source instanceof Player) {
-                        Player player = (Player) source;
-                        user = player.getName();
-                    }
-```
-
-### PatternVariableCanBeUsed
-Variable 'frame' can be replaced with pattern variable
-in `src/main/java/net/coreprotect/listener/entity/EntityDamageByEntityListener.java`
-#### Snippet
-```java
-                if (!event.isCancelled() && !inspecting) {
-                    if (entity instanceof ItemFrame && Config.getConfig(entityLocation.getWorld()).ITEM_TRANSACTIONS) {
-                        ItemFrame frame = (ItemFrame) entity;
-                        if (frame.getItem().getType() != Material.AIR) {
-                            PlayerInteractEntityListener.queueContainerSingleItem(user, Material.ITEM_FRAME, frame, frame.getLocation(), logDrops);
-```
-
-### PatternVariableCanBeUsed
-Variable 'mobSpawner' can be replaced with pattern variable
-in `src/main/java/net/coreprotect/consumer/Queue.java`
-#### Snippet
-```java
-
-        if (type == Material.SPAWNER && blockLocation instanceof CreatureSpawner) { // Mob spawner
-            CreatureSpawner mobSpawner = (CreatureSpawner) blockLocation;
-            data = Util.getSpawnerType(mobSpawner.getSpawnedType());
-            forceData = 1;
-```
-
-### PatternVariableCanBeUsed
-Variable 'mobSpawner' can be replaced with pattern variable
-in `src/main/java/net/coreprotect/consumer/Queue.java`
-#### Snippet
-```java
-    protected static void queueBlockBreak(String user, BlockState block, Material type, String blockData, Material breakType, int extraData, int blockNumber) {
-        if (type == Material.SPAWNER && block instanceof CreatureSpawner) { // Mob spawner
-            CreatureSpawner mobSpawner = (CreatureSpawner) block;
-            extraData = Util.getSpawnerType(mobSpawner.getSpawnedType());
         }
 ```
 
@@ -12068,6 +11984,90 @@ in `src/main/java/net/coreprotect/utility/entity/EntityUtil.java`
 
 ### PatternVariableCanBeUsed
 Variable 'block' can be replaced with pattern variable
+in `src/main/java/net/coreprotect/consumer/process/StructureGrowthProcess.java`
+#### Snippet
+```java
+    static void process(Statement statement, PreparedStatement preparedStmt, int batchCount, int processId, int id, String user, Object object, int replaceBlockCount) {
+        if (object instanceof BlockState) {
+            BlockState block = (BlockState) object;
+            Map<Integer, List<BlockState>> blockLists = Consumer.consumerBlockList.get(processId);
+            if (blockLists.get(id) != null) {
+```
+
+### PatternVariableCanBeUsed
+Variable 'player' can be replaced with pattern variable
+in `src/main/java/net/coreprotect/listener/entity/EntityDamageByEntityListener.java`
+#### Snippet
+```java
+
+                if (damager instanceof Player) {
+                    Player player = (Player) damager;
+                    user = player.getName();
+                    logDrops = player.getGameMode() != GameMode.CREATIVE;
+```
+
+### PatternVariableCanBeUsed
+Variable 'arrow' can be replaced with pattern variable
+in `src/main/java/net/coreprotect/listener/entity/EntityDamageByEntityListener.java`
+#### Snippet
+```java
+                }
+                else if (damager instanceof AbstractArrow) {
+                    AbstractArrow arrow = (AbstractArrow) damager;
+                    ProjectileSource source = arrow.getShooter();
+
+```
+
+### PatternVariableCanBeUsed
+Variable 'player' can be replaced with pattern variable
+in `src/main/java/net/coreprotect/listener/entity/EntityDamageByEntityListener.java`
+#### Snippet
+```java
+
+                    if (source instanceof Player) {
+                        Player player = (Player) source;
+                        user = player.getName();
+                    }
+```
+
+### PatternVariableCanBeUsed
+Variable 'frame' can be replaced with pattern variable
+in `src/main/java/net/coreprotect/listener/entity/EntityDamageByEntityListener.java`
+#### Snippet
+```java
+                if (!event.isCancelled() && !inspecting) {
+                    if (entity instanceof ItemFrame && Config.getConfig(entityLocation.getWorld()).ITEM_TRANSACTIONS) {
+                        ItemFrame frame = (ItemFrame) entity;
+                        if (frame.getItem().getType() != Material.AIR) {
+                            PlayerInteractEntityListener.queueContainerSingleItem(user, Material.ITEM_FRAME, frame, frame.getLocation(), logDrops);
+```
+
+### PatternVariableCanBeUsed
+Variable 'mobSpawner' can be replaced with pattern variable
+in `src/main/java/net/coreprotect/consumer/Queue.java`
+#### Snippet
+```java
+
+        if (type == Material.SPAWNER && blockLocation instanceof CreatureSpawner) { // Mob spawner
+            CreatureSpawner mobSpawner = (CreatureSpawner) blockLocation;
+            data = Util.getSpawnerType(mobSpawner.getSpawnedType());
+            forceData = 1;
+```
+
+### PatternVariableCanBeUsed
+Variable 'mobSpawner' can be replaced with pattern variable
+in `src/main/java/net/coreprotect/consumer/Queue.java`
+#### Snippet
+```java
+    protected static void queueBlockBreak(String user, BlockState block, Material type, String blockData, Material breakType, int extraData, int blockNumber) {
+        if (type == Material.SPAWNER && block instanceof CreatureSpawner) { // Mob spawner
+            CreatureSpawner mobSpawner = (CreatureSpawner) block;
+            extraData = Util.getSpawnerType(mobSpawner.getSpawnedType());
+        }
+```
+
+### PatternVariableCanBeUsed
+Variable 'block' can be replaced with pattern variable
 in `src/main/java/net/coreprotect/consumer/process/SignUpdateProcess.java`
 #### Snippet
 ```java
@@ -12112,6 +12112,42 @@ in `src/main/java/net/coreprotect/database/statement/SignStatement.java`
             Sign sign = (Sign) block;
             ResultSet resultSet = statement.executeQuery(query);
 
+```
+
+### PatternVariableCanBeUsed
+Variable 'commandBlock' can be replaced with pattern variable
+in `src/main/java/net/coreprotect/utility/Util.java`
+#### Snippet
+```java
+        try {
+            if (block instanceof CommandBlock) {
+                CommandBlock commandBlock = (CommandBlock) block;
+                String command = commandBlock.getCommand();
+                if (command.length() > 0) {
+```
+
+### PatternVariableCanBeUsed
+Variable 'banner' can be replaced with pattern variable
+in `src/main/java/net/coreprotect/utility/Util.java`
+#### Snippet
+```java
+            }
+            else if (block instanceof Banner) {
+                Banner banner = (Banner) block;
+                meta.add(banner.getBaseColor());
+                List<Pattern> patterns = banner.getPatterns();
+```
+
+### PatternVariableCanBeUsed
+Variable 'shulkerBox' can be replaced with pattern variable
+in `src/main/java/net/coreprotect/utility/Util.java`
+#### Snippet
+```java
+            }
+            else if (block instanceof ShulkerBox) {
+                ShulkerBox shulkerBox = (ShulkerBox) block;
+                ItemStack[] inventory = shulkerBox.getSnapshotInventory().getStorageContents();
+                int slot = 0;
 ```
 
 ### PatternVariableCanBeUsed
@@ -12187,39 +12223,15 @@ in `src/main/java/net/coreprotect/database/logger/SkullPlaceLogger.java`
 ```
 
 ### PatternVariableCanBeUsed
-Variable 'commandBlock' can be replaced with pattern variable
-in `src/main/java/net/coreprotect/utility/Util.java`
+Variable 'location' can be replaced with pattern variable
+in `src/main/java/net/coreprotect/consumer/process/PlayerLogoutProcess.java`
 #### Snippet
 ```java
-        try {
-            if (block instanceof CommandBlock) {
-                CommandBlock commandBlock = (CommandBlock) block;
-                String command = commandBlock.getCommand();
-                if (command.length() > 0) {
-```
-
-### PatternVariableCanBeUsed
-Variable 'banner' can be replaced with pattern variable
-in `src/main/java/net/coreprotect/utility/Util.java`
-#### Snippet
-```java
-            }
-            else if (block instanceof Banner) {
-                Banner banner = (Banner) block;
-                meta.add(banner.getBaseColor());
-                List<Pattern> patterns = banner.getPatterns();
-```
-
-### PatternVariableCanBeUsed
-Variable 'shulkerBox' can be replaced with pattern variable
-in `src/main/java/net/coreprotect/utility/Util.java`
-#### Snippet
-```java
-            }
-            else if (block instanceof ShulkerBox) {
-                ShulkerBox shulkerBox = (ShulkerBox) block;
-                ItemStack[] inventory = shulkerBox.getSnapshotInventory().getStorageContents();
-                int slot = 0;
+    static void process(PreparedStatement preparedStmt, int batchCount, Object object, int time, String user) {
+        if (object instanceof Location) {
+            Location location = (Location) object;
+            PlayerSessionLogger.log(preparedStmt, batchCount, user, location, time, 0);
+        }
 ```
 
 ### PatternVariableCanBeUsed
@@ -12259,15 +12271,15 @@ in `src/main/java/net/coreprotect/listener/block/BlockBreakListener.java`
 ```
 
 ### PatternVariableCanBeUsed
-Variable 'location' can be replaced with pattern variable
-in `src/main/java/net/coreprotect/consumer/process/PlayerLogoutProcess.java`
+Variable 'block' can be replaced with pattern variable
+in `src/main/java/net/coreprotect/consumer/process/BlockPlaceProcess.java`
 #### Snippet
 ```java
-    static void process(PreparedStatement preparedStmt, int batchCount, Object object, int time, String user) {
-        if (object instanceof Location) {
-            Location location = (Location) object;
-            PlayerSessionLogger.log(preparedStmt, batchCount, user, location, time, 0);
-        }
+    static void process(PreparedStatement preparedStmt, PreparedStatement preparedStmtSkulls, int batchCount, Material blockType, int blockData, Material replaceType, int replaceData, int forceData, String user, Object object, String newBlockData, String replacedBlockData) {
+        if (object instanceof BlockState) {
+            BlockState block = (BlockState) object;
+            List<Object> meta = Util.processMeta(block);
+            if (blockType.equals(Material.SKELETON_SKULL) || blockType.equals(Material.SKELETON_WALL_SKULL) || blockType.equals(Material.WITHER_SKELETON_SKULL) || blockType.equals(Material.WITHER_SKELETON_WALL_SKULL) || blockType.equals(Material.ZOMBIE_HEAD) || blockType.equals(Material.ZOMBIE_WALL_HEAD) || blockType.equals(Material.PLAYER_HEAD) || blockType.equals(Material.PLAYER_WALL_HEAD) || blockType.equals(Material.CREEPER_HEAD) || blockType.equals(Material.CREEPER_WALL_HEAD) || blockType.equals(Material.DRAGON_HEAD) || blockType.equals(Material.DRAGON_WALL_HEAD)) {
 ```
 
 ### PatternVariableCanBeUsed
@@ -12280,18 +12292,6 @@ in `src/main/java/net/coreprotect/consumer/process/BlockBreakProcess.java`
             BlockState block = (BlockState) object;
             List<Object> meta = Util.processMeta(block);
             if (block instanceof Skull) {
-```
-
-### PatternVariableCanBeUsed
-Variable 'block' can be replaced with pattern variable
-in `src/main/java/net/coreprotect/consumer/process/BlockPlaceProcess.java`
-#### Snippet
-```java
-    static void process(PreparedStatement preparedStmt, PreparedStatement preparedStmtSkulls, int batchCount, Material blockType, int blockData, Material replaceType, int replaceData, int forceData, String user, Object object, String newBlockData, String replacedBlockData) {
-        if (object instanceof BlockState) {
-            BlockState block = (BlockState) object;
-            List<Object> meta = Util.processMeta(block);
-            if (blockType.equals(Material.SKELETON_SKULL) || blockType.equals(Material.SKELETON_WALL_SKULL) || blockType.equals(Material.WITHER_SKELETON_SKULL) || blockType.equals(Material.WITHER_SKELETON_WALL_SKULL) || blockType.equals(Material.ZOMBIE_HEAD) || blockType.equals(Material.ZOMBIE_WALL_HEAD) || blockType.equals(Material.PLAYER_HEAD) || blockType.equals(Material.PLAYER_WALL_HEAD) || blockType.equals(Material.CREEPER_HEAD) || blockType.equals(Material.CREEPER_WALL_HEAD) || blockType.equals(Material.DRAGON_HEAD) || blockType.equals(Material.DRAGON_WALL_HEAD)) {
 ```
 
 ### PatternVariableCanBeUsed
@@ -12343,6 +12343,30 @@ in `src/main/java/net/coreprotect/bukkit/Bukkit_v1_17.java`
 ```
 
 ### PatternVariableCanBeUsed
+Variable 'pointedDripstone' can be replaced with pattern variable
+in `src/main/java/net/coreprotect/bukkit/Bukkit_v1_17.java`
+#### Snippet
+```java
+    public boolean isAttached(Block block, Block scanBlock, BlockData blockData, int scanMin) {
+        if (blockData instanceof PointedDripstone) {
+            PointedDripstone pointedDripstone = (PointedDripstone) blockData;
+            BlockFace blockFace = pointedDripstone.getVerticalDirection();
+            boolean adjacent = scanBlock.getRelative(blockFace.getOppositeFace()).getLocation().equals(block.getLocation());
+```
+
+### PatternVariableCanBeUsed
+Variable 'meta' can be replaced with pattern variable
+in `src/main/java/net/coreprotect/bukkit/Bukkit_v1_17.java`
+#### Snippet
+```java
+    public boolean getItemMeta(ItemMeta itemMeta, List<Map<String, Object>> list, List<List<Map<String, Object>>> metadata, int slot) {
+        if (itemMeta instanceof BundleMeta) {
+            BundleMeta meta = (BundleMeta) itemMeta;
+            BundleMeta subMeta = (BundleMeta) meta.clone();
+            meta.setItems(null);
+```
+
+### PatternVariableCanBeUsed
 Variable 'axolotl' can be replaced with pattern variable
 in `src/main/java/net/coreprotect/bukkit/Bukkit_v1_17.java`
 #### Snippet
@@ -12364,30 +12388,6 @@ in `src/main/java/net/coreprotect/bukkit/Bukkit_v1_17.java`
             Goat goat = (Goat) entity;
             if (count == 0) {
                 boolean set = (Boolean) value;
-```
-
-### PatternVariableCanBeUsed
-Variable 'meta' can be replaced with pattern variable
-in `src/main/java/net/coreprotect/bukkit/Bukkit_v1_17.java`
-#### Snippet
-```java
-    public boolean getItemMeta(ItemMeta itemMeta, List<Map<String, Object>> list, List<List<Map<String, Object>>> metadata, int slot) {
-        if (itemMeta instanceof BundleMeta) {
-            BundleMeta meta = (BundleMeta) itemMeta;
-            BundleMeta subMeta = (BundleMeta) meta.clone();
-            meta.setItems(null);
-```
-
-### PatternVariableCanBeUsed
-Variable 'pointedDripstone' can be replaced with pattern variable
-in `src/main/java/net/coreprotect/bukkit/Bukkit_v1_17.java`
-#### Snippet
-```java
-    public boolean isAttached(Block block, Block scanBlock, BlockData blockData, int scanMin) {
-        if (blockData instanceof PointedDripstone) {
-            PointedDripstone pointedDripstone = (PointedDripstone) blockData;
-            BlockFace blockFace = pointedDripstone.getVerticalDirection();
-            boolean adjacent = scanBlock.getRelative(blockFace.getOppositeFace()).getLocation().equals(block.getLocation());
 ```
 
 ### PatternVariableCanBeUsed
@@ -12994,6 +12994,18 @@ in `src/main/java/net/coreprotect/listener/entity/EntityDeathListener.java`
 ## RuleId[ruleID=ProtectedMemberInFinalClass]
 ### ProtectedMemberInFinalClass
 Class member declared `protected` in 'final' class
+in `src/main/java/net/coreprotect/listener/block/BlockFadeListener.java`
+#### Snippet
+```java
+
+    @EventHandler
+    protected void onBlockFade(BlockFadeEvent event) {
+        // snow/ice fading
+        if (event.isCancelled()) {
+```
+
+### ProtectedMemberInFinalClass
+Class member declared `protected` in 'final' class
 in `src/main/java/net/coreprotect/listener/block/BlockFormListener.java`
 #### Snippet
 ```java
@@ -13018,30 +13030,6 @@ in `src/main/java/net/coreprotect/listener/block/BlockBurnListener.java`
 
 ### ProtectedMemberInFinalClass
 Class member declared `protected` in 'final' class
-in `src/main/java/net/coreprotect/listener/block/BlockFadeListener.java`
-#### Snippet
-```java
-
-    @EventHandler
-    protected void onBlockFade(BlockFadeEvent event) {
-        // snow/ice fading
-        if (event.isCancelled()) {
-```
-
-### ProtectedMemberInFinalClass
-Class member declared `protected` in 'final' class
-in `src/main/java/net/coreprotect/listener/block/BlockIgniteListener.java`
-#### Snippet
-```java
-
-    @EventHandler(priority = EventPriority.MONITOR)
-    protected void onBlockIgnite(BlockIgniteEvent event) {
-        World world = event.getBlock().getWorld();
-        if (!event.isCancelled() && Config.getConfig(world).BLOCK_IGNITE) {
-```
-
-### ProtectedMemberInFinalClass
-Class member declared `protected` in 'final' class
 in `src/main/java/net/coreprotect/listener/block/BlockPlaceListener.java`
 #### Snippet
 ```java
@@ -13054,38 +13042,14 @@ in `src/main/java/net/coreprotect/listener/block/BlockPlaceListener.java`
 
 ### ProtectedMemberInFinalClass
 Class member declared `protected` in 'final' class
-in `src/main/java/net/coreprotect/listener/block/BlockPistonListener.java`
+in `src/main/java/net/coreprotect/listener/block/BlockIgniteListener.java`
 #### Snippet
 ```java
 
     @EventHandler(priority = EventPriority.MONITOR)
-    protected void onBlockPistonRetract(BlockPistonRetractEvent event) {
-        onBlockPiston(event);
-    }
-```
-
-### ProtectedMemberInFinalClass
-Class member declared `protected` in 'final' class
-in `src/main/java/net/coreprotect/listener/block/BlockPistonListener.java`
-#### Snippet
-```java
-public final class BlockPistonListener extends Queue implements Listener {
-
-    protected void onBlockPiston(BlockPistonEvent event) {
-        List<Block> event_blocks = null;
-        if (event instanceof BlockPistonExtendEvent) {
-```
-
-### ProtectedMemberInFinalClass
-Class member declared `protected` in 'final' class
-in `src/main/java/net/coreprotect/listener/block/BlockPistonListener.java`
-#### Snippet
-```java
-
-    @EventHandler(priority = EventPriority.MONITOR)
-    protected void onBlockPistonExtend(BlockPistonExtendEvent event) {
-        onBlockPiston(event);
-    }
+    protected void onBlockIgnite(BlockIgniteEvent event) {
+        World world = event.getBlock().getWorld();
+        if (!event.isCancelled() && Config.getConfig(world).BLOCK_IGNITE) {
 ```
 
 ### ProtectedMemberInFinalClass
@@ -13110,6 +13074,42 @@ in `src/main/java/net/coreprotect/listener/block/BlockExplodeListener.java`
     protected void onBlockExplode(BlockExplodeEvent event) {
         Block eventBlock = event.getBlock();
         World world = eventBlock.getLocation().getWorld();
+```
+
+### ProtectedMemberInFinalClass
+Class member declared `protected` in 'final' class
+in `src/main/java/net/coreprotect/listener/block/BlockPistonListener.java`
+#### Snippet
+```java
+
+    @EventHandler(priority = EventPriority.MONITOR)
+    protected void onBlockPistonExtend(BlockPistonExtendEvent event) {
+        onBlockPiston(event);
+    }
+```
+
+### ProtectedMemberInFinalClass
+Class member declared `protected` in 'final' class
+in `src/main/java/net/coreprotect/listener/block/BlockPistonListener.java`
+#### Snippet
+```java
+public final class BlockPistonListener extends Queue implements Listener {
+
+    protected void onBlockPiston(BlockPistonEvent event) {
+        List<Block> event_blocks = null;
+        if (event instanceof BlockPistonExtendEvent) {
+```
+
+### ProtectedMemberInFinalClass
+Class member declared `protected` in 'final' class
+in `src/main/java/net/coreprotect/listener/block/BlockPistonListener.java`
+#### Snippet
+```java
+
+    @EventHandler(priority = EventPriority.MONITOR)
+    protected void onBlockPistonRetract(BlockPistonRetractEvent event) {
+        onBlockPiston(event);
+    }
 ```
 
 ### ProtectedMemberInFinalClass
@@ -13174,26 +13174,14 @@ in `src/main/java/net/coreprotect/listener/player/ArmorStandManipulateListener.j
 
 ### ProtectedMemberInFinalClass
 Class member declared `protected` in 'final' class
-in `src/main/java/net/coreprotect/listener/block/BlockSpreadListener.java`
+in `src/main/java/net/coreprotect/listener/PlayerPickupArrowListener.java`
 #### Snippet
 ```java
 
-    @EventHandler(priority = EventPriority.MONITOR)
-    protected void onBlockSpread(BlockSpreadEvent event) {
-        // mushrooms, fire
-
-```
-
-### ProtectedMemberInFinalClass
-Class member declared `protected` in 'final' class
-in `src/main/java/net/coreprotect/listener/player/CraftItemListener.java`
-#### Snippet
-```java
-    }
-
-    protected static void playerCraftItem(InventoryClickEvent event, boolean isTrade) {
-        if (event.getResult() == Result.DENY || event.getSlotType() != SlotType.RESULT) {
-            return;
+    @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
+    protected void onPlayerPickupArrowEvent(PlayerPickupArrowEvent event) {
+        ItemStack itemStack = getArrowType(event.getArrow());
+        EntityPickupItemListener.onItemPickup(event.getPlayer(), event.getArrow().getLocation(), itemStack);
 ```
 
 ### ProtectedMemberInFinalClass
@@ -13222,6 +13210,18 @@ public final class CraftItemListener extends Queue implements Listener {
 
 ### ProtectedMemberInFinalClass
 Class member declared `protected` in 'final' class
+in `src/main/java/net/coreprotect/listener/player/CraftItemListener.java`
+#### Snippet
+```java
+    }
+
+    protected static void playerCraftItem(InventoryClickEvent event, boolean isTrade) {
+        if (event.getResult() == Result.DENY || event.getSlotType() != SlotType.RESULT) {
+            return;
+```
+
+### ProtectedMemberInFinalClass
+Class member declared `protected` in 'final' class
 in `src/main/java/net/coreprotect/listener/block/BlockFromToListener.java`
 #### Snippet
 ```java
@@ -13234,14 +13234,26 @@ in `src/main/java/net/coreprotect/listener/block/BlockFromToListener.java`
 
 ### ProtectedMemberInFinalClass
 Class member declared `protected` in 'final' class
-in `src/main/java/net/coreprotect/listener/PlayerPickupArrowListener.java`
+in `src/main/java/net/coreprotect/listener/block/BlockSpreadListener.java`
 #### Snippet
 ```java
 
-    @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
-    protected void onPlayerPickupArrowEvent(PlayerPickupArrowEvent event) {
-        ItemStack itemStack = getArrowType(event.getArrow());
-        EntityPickupItemListener.onItemPickup(event.getPlayer(), event.getArrow().getLocation(), itemStack);
+    @EventHandler(priority = EventPriority.MONITOR)
+    protected void onBlockSpread(BlockSpreadEvent event) {
+        // mushrooms, fire
+
+```
+
+### ProtectedMemberInFinalClass
+Class member declared `protected` in 'final' class
+in `src/main/java/net/coreprotect/listener/entity/EntityDamageByBlockListener.java`
+#### Snippet
+```java
+
+    @EventHandler(priority = EventPriority.MONITOR)
+    protected void onEntityDamageByBlock(EntityDamageByBlockEvent event) {
+        Entity entity = event.getEntity();
+        if (!(entity instanceof ItemFrame) && !(entity instanceof ArmorStand) && !(entity instanceof EnderCrystal)) {
 ```
 
 ### ProtectedMemberInFinalClass
@@ -13261,18 +13273,6 @@ Class member declared `protected` in 'final' class
 in `src/main/java/net/coreprotect/listener/player/PlayerItemBreakListener.java`
 #### Snippet
 ```java
-
-    @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
-    protected void onPlayerItemBreak(PlayerItemBreakEvent event) {
-        ItemStack itemStack = event.getBrokenItem();
-        playerBreakItem(event.getPlayer().getLocation(), event.getPlayer().getName(), itemStack);
-```
-
-### ProtectedMemberInFinalClass
-Class member declared `protected` in 'final' class
-in `src/main/java/net/coreprotect/listener/player/PlayerItemBreakListener.java`
-#### Snippet
-```java
 public final class PlayerItemBreakListener extends Queue implements Listener {
 
     protected static void playerBreakItem(Location location, String user, ItemStack itemStack) {
@@ -13282,14 +13282,14 @@ public final class PlayerItemBreakListener extends Queue implements Listener {
 
 ### ProtectedMemberInFinalClass
 Class member declared `protected` in 'final' class
-in `src/main/java/net/coreprotect/listener/entity/EntityDamageByBlockListener.java`
+in `src/main/java/net/coreprotect/listener/player/PlayerItemBreakListener.java`
 #### Snippet
 ```java
 
-    @EventHandler(priority = EventPriority.MONITOR)
-    protected void onEntityDamageByBlock(EntityDamageByBlockEvent event) {
-        Entity entity = event.getEntity();
-        if (!(entity instanceof ItemFrame) && !(entity instanceof ArmorStand) && !(entity instanceof EnderCrystal)) {
+    @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
+    protected void onPlayerItemBreak(PlayerItemBreakEvent event) {
+        ItemStack itemStack = event.getBrokenItem();
+        playerBreakItem(event.getPlayer().getLocation(), event.getPlayer().getName(), itemStack);
 ```
 
 ### ProtectedMemberInFinalClass
@@ -13345,6 +13345,18 @@ Class member declared `protected` in 'final' class
 in `src/main/java/net/coreprotect/listener/player/InventoryChangeListener.java`
 #### Snippet
 ```java
+
+    @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
+    protected void onInventoryMoveItemEvent(InventoryMoveItemEvent event) {
+        if (event.isCancelled()) {
+            return;
+```
+
+### ProtectedMemberInFinalClass
+Class member declared `protected` in 'final' class
+in `src/main/java/net/coreprotect/listener/player/InventoryChangeListener.java`
+#### Snippet
+```java
     protected static AtomicLong tasksCompleted = new AtomicLong();
 
     protected static void checkTasks(long taskStarted) {
@@ -13358,10 +13370,10 @@ in `src/main/java/net/coreprotect/listener/player/InventoryChangeListener.java`
 #### Snippet
 ```java
 
-    @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
-    protected void onInventoryMoveItemEvent(InventoryMoveItemEvent event) {
-        if (event.isCancelled()) {
-            return;
+    @EventHandler(priority = EventPriority.LOWEST)
+    protected void onInventoryClick(InventoryClickEvent event) {
+        InventoryAction inventoryAction = event.getAction();
+        if (inventoryAction == InventoryAction.NOTHING) {
 ```
 
 ### ProtectedMemberInFinalClass
@@ -13370,10 +13382,10 @@ in `src/main/java/net/coreprotect/listener/player/InventoryChangeListener.java`
 #### Snippet
 ```java
 
-    @EventHandler(priority = EventPriority.LOWEST)
-    protected void onInventoryDragEvent(InventoryDragEvent event) {
-        boolean movedItem = false;
-        boolean enderChest = false;
+    protected static AtomicLong tasksStarted = new AtomicLong();
+    protected static AtomicLong tasksCompleted = new AtomicLong();
+
+    protected static void checkTasks(long taskStarted) {
 ```
 
 ### ProtectedMemberInFinalClass
@@ -13394,22 +13406,10 @@ in `src/main/java/net/coreprotect/listener/player/InventoryChangeListener.java`
 #### Snippet
 ```java
 
-    protected static AtomicLong tasksStarted = new AtomicLong();
-    protected static AtomicLong tasksCompleted = new AtomicLong();
-
-    protected static void checkTasks(long taskStarted) {
-```
-
-### ProtectedMemberInFinalClass
-Class member declared `protected` in 'final' class
-in `src/main/java/net/coreprotect/listener/player/InventoryChangeListener.java`
-#### Snippet
-```java
-
     @EventHandler(priority = EventPriority.LOWEST)
-    protected void onInventoryClick(InventoryClickEvent event) {
-        InventoryAction inventoryAction = event.getAction();
-        if (inventoryAction == InventoryAction.NOTHING) {
+    protected void onInventoryDragEvent(InventoryDragEvent event) {
+        boolean movedItem = false;
+        boolean enderChest = false;
 ```
 
 ### ProtectedMemberInFinalClass
@@ -13594,26 +13594,14 @@ in `src/main/java/net/coreprotect/listener/player/PlayerInteractListener.java`
 
 ### ProtectedMemberInFinalClass
 Class member declared `protected` in 'final' class
-in `src/main/java/net/coreprotect/worldedit/WorldEditBlockState.java`
-#### Snippet
-```java
-public final class WorldEditBlockState implements BlockState {
-
-    protected Location location;
-    protected Material material;
-    protected BlockData blockData;
-```
-
-### ProtectedMemberInFinalClass
-Class member declared `protected` in 'final' class
-in `src/main/java/net/coreprotect/worldedit/WorldEditBlockState.java`
+in `src/main/java/net/coreprotect/listener/block/BlockFertilizeListener.java`
 #### Snippet
 ```java
 
-    protected Location location;
-    protected Material material;
-    protected BlockData blockData;
-
+    @EventHandler
+    protected void onBlockFertilize(BlockFertilizeEvent event) {
+        if (event.isCancelled()) {
+            return;
 ```
 
 ### ProtectedMemberInFinalClass
@@ -13630,14 +13618,26 @@ in `src/main/java/net/coreprotect/worldedit/WorldEditBlockState.java`
 
 ### ProtectedMemberInFinalClass
 Class member declared `protected` in 'final' class
-in `src/main/java/net/coreprotect/listener/block/BlockFertilizeListener.java`
+in `src/main/java/net/coreprotect/worldedit/WorldEditBlockState.java`
 #### Snippet
 ```java
 
-    @EventHandler
-    protected void onBlockFertilize(BlockFertilizeEvent event) {
-        if (event.isCancelled()) {
-            return;
+    protected Location location;
+    protected Material material;
+    protected BlockData blockData;
+
+```
+
+### ProtectedMemberInFinalClass
+Class member declared `protected` in 'final' class
+in `src/main/java/net/coreprotect/worldedit/WorldEditBlockState.java`
+#### Snippet
+```java
+public final class WorldEditBlockState implements BlockState {
+
+    protected Location location;
+    protected Material material;
+    protected BlockData blockData;
 ```
 
 ### ProtectedMemberInFinalClass
@@ -13727,26 +13727,26 @@ in `src/main/java/net/coreprotect/patch/script/__2_20_0.java`
 
 ### EnhancedSwitchMigration
 Switch statement can be replaced with enhanced 'switch'
-in `src/main/java/net/coreprotect/patch/script/__2_18_0.java`
+in `src/main/java/net/coreprotect/listener/PlayerPickupArrowListener.java`
 #### Snippet
 ```java
-
-                        boolean legacy = true;
-                        switch (materialName) {
-                            case "minecraft:legacy_wall_sign":
-                                materialName = "minecraft:oak_wall_sign";
+    public static ItemStack getArrowType(AbstractArrow arrow) {
+        ItemStack itemStack = null;
+        switch (arrow.getType()) {
+            case SPECTRAL_ARROW:
+                itemStack = new ItemStack(Material.SPECTRAL_ARROW);
 ```
 
 ### EnhancedSwitchMigration
 Switch statement can be replaced with enhanced 'switch'
-in `src/main/java/net/coreprotect/patch/script/__2_18_0.java`
+in `src/main/java/net/coreprotect/consumer/process/Process.java`
 #### Snippet
 ```java
 
-    private static BlockFace getLegacyDirection(int data) {
-        switch (data) {
-            case 2:
-                return BlockFace.NORTH;
+                        try {
+                            switch (action) {
+                                case Process.BLOCK_BREAK:
+                                    BlockBreakProcess.process(preparedStmtBlocks, preparedStmtSkulls, i, processId, id, blockType, blockData, replaceType, forceData, user, object, (String) data[7]);
 ```
 
 ### EnhancedSwitchMigration
@@ -13775,26 +13775,26 @@ in `src/main/java/net/coreprotect/patch/script/__2_18_0.java`
 
 ### EnhancedSwitchMigration
 Switch statement can be replaced with enhanced 'switch'
-in `src/main/java/net/coreprotect/listener/PlayerPickupArrowListener.java`
+in `src/main/java/net/coreprotect/patch/script/__2_18_0.java`
 #### Snippet
 ```java
-    public static ItemStack getArrowType(AbstractArrow arrow) {
-        ItemStack itemStack = null;
-        switch (arrow.getType()) {
-            case SPECTRAL_ARROW:
-                itemStack = new ItemStack(Material.SPECTRAL_ARROW);
+
+                        boolean legacy = true;
+                        switch (materialName) {
+                            case "minecraft:legacy_wall_sign":
+                                materialName = "minecraft:oak_wall_sign";
 ```
 
 ### EnhancedSwitchMigration
 Switch statement can be replaced with enhanced 'switch'
-in `src/main/java/net/coreprotect/consumer/process/Process.java`
+in `src/main/java/net/coreprotect/patch/script/__2_18_0.java`
 #### Snippet
 ```java
 
-                        try {
-                            switch (action) {
-                                case Process.BLOCK_BREAK:
-                                    BlockBreakProcess.process(preparedStmtBlocks, preparedStmtSkulls, i, processId, id, blockType, blockData, replaceType, forceData, user, object, (String) data[7]);
+    private static BlockFace getLegacyDirection(int data) {
+        switch (data) {
+            case 2:
+                return BlockFace.NORTH;
 ```
 
 ### EnhancedSwitchMigration
@@ -13826,11 +13826,11 @@ Switch statement can be replaced with enhanced 'switch'
 in `src/main/java/net/coreprotect/utility/serialize/ItemMetaHandler.java`
 #### Snippet
 ```java
-        String name = enchantment.getKey().getKey();
 
-        switch (name) {
-            case "vanishing_curse":
-                name = "Curse of Vanishing";
+    private static String getEnchantmentLevel(int level) {
+        switch (level) {
+            case 1:
+                return "I";
 ```
 
 ### EnhancedSwitchMigration
@@ -13838,11 +13838,11 @@ Switch statement can be replaced with enhanced 'switch'
 in `src/main/java/net/coreprotect/utility/serialize/ItemMetaHandler.java`
 #### Snippet
 ```java
+        String name = enchantment.getKey().getKey();
 
-    private static String getEnchantmentLevel(int level) {
-        switch (level) {
-            case 1:
-                return "I";
+        switch (name) {
+            case "vanishing_curse":
+                name = "Curse of Vanishing";
 ```
 
 ### EnhancedSwitchMigration
@@ -13883,18 +13883,6 @@ in `src/main/java/net/coreprotect/bukkit/Bukkit_v1_16.java`
 
 ### EnhancedSwitchMigration
 Switch statement can be replaced with enhanced 'switch'
-in `src/main/java/net/coreprotect/listener/channel/PluginChannelListener.java`
-#### Snippet
-```java
-        boolean sign = true;
-
-        switch (type) {
-            case "2":
-                sendInfoData(commandSender, timeAgo, Phrase.LOOKUP_LOGIN, selector, resultUser, amount, x, y, z, worldId);
-```
-
-### EnhancedSwitchMigration
-Switch statement can be replaced with enhanced 'switch'
 in `src/main/java/net/coreprotect/bukkit/BukkitAdapter.java`
 #### Snippet
 ```java
@@ -13903,6 +13891,18 @@ in `src/main/java/net/coreprotect/bukkit/BukkitAdapter.java`
         switch (ConfigHandler.SERVER_VERSION) {
             case BUKKIT_V1_13:
             case BUKKIT_V1_14:
+```
+
+### EnhancedSwitchMigration
+Switch statement can be replaced with enhanced 'switch'
+in `src/main/java/net/coreprotect/listener/channel/PluginChannelListener.java`
+#### Snippet
+```java
+        boolean sign = true;
+
+        switch (type) {
+            case "2":
+                sendInfoData(commandSender, timeAgo, Phrase.LOOKUP_LOGIN, selector, resultUser, amount, x, y, z, worldId);
 ```
 
 ### EnhancedSwitchMigration
@@ -13934,11 +13934,11 @@ Switch statement can be replaced with enhanced 'switch'
 in `src/main/java/net/coreprotect/utility/Util.java`
 #### Snippet
 ```java
-        }
-        else {
-            switch (queryTable) {
-                case "block":
-                    index = "INDEXED BY block_index ";
+
+    public static int toggleRolledBack(int rolledBack, boolean isInventory) {
+        switch (rolledBack) {
+            case 1: // just block rolled back
+                return isInventory ? 3 : 0;
 ```
 
 ### EnhancedSwitchMigration
@@ -13951,18 +13951,6 @@ in `src/main/java/net/coreprotect/utility/Util.java`
         switch (type) {
             case ARMOR_STAND:
                 return Material.ARMOR_STAND;
-```
-
-### EnhancedSwitchMigration
-Switch statement can be replaced with enhanced 'switch'
-in `src/main/java/net/coreprotect/utility/Util.java`
-#### Snippet
-```java
-
-    public static int toggleRolledBack(int rolledBack, boolean isInventory) {
-        switch (rolledBack) {
-            case 1: // just block rolled back
-                return isInventory ? 3 : 0;
 ```
 
 ### EnhancedSwitchMigration
@@ -14003,6 +13991,18 @@ in `src/main/java/net/coreprotect/utility/Util.java`
 
 ### EnhancedSwitchMigration
 Switch statement can be replaced with enhanced 'switch'
+in `src/main/java/net/coreprotect/utility/Util.java`
+#### Snippet
+```java
+        }
+        else {
+            switch (queryTable) {
+                case "block":
+                    index = "INDEXED BY block_index ";
+```
+
+### EnhancedSwitchMigration
+Switch statement can be replaced with enhanced 'switch'
 in `src/main/java/net/coreprotect/listener/block/BlockBreakListener.java`
 #### Snippet
 ```java
@@ -14031,10 +14031,10 @@ in `src/main/java/net/coreprotect/bukkit/Bukkit_v1_17.java`
 #### Snippet
 ```java
     @Override
-    public int getLegacyBlockId(Material material) {
-        switch (material) {
-            case DIRT_PATH:
-                return Util.getBlockId("GRASS_PATH", false);
+    public Material getFrameType(EntityType type) {
+        switch (type) {
+            case ITEM_FRAME:
+                return Material.ITEM_FRAME;
 ```
 
 ### EnhancedSwitchMigration
@@ -14055,10 +14055,10 @@ in `src/main/java/net/coreprotect/bukkit/Bukkit_v1_17.java`
 #### Snippet
 ```java
     @Override
-    public Material getFrameType(EntityType type) {
-        switch (type) {
-            case ITEM_FRAME:
-                return Material.ITEM_FRAME;
+    public int getLegacyBlockId(Material material) {
+        switch (material) {
+            case DIRT_PATH:
+                return Util.getBlockId("GRASS_PATH", false);
 ```
 
 ### EnhancedSwitchMigration
@@ -14071,18 +14071,6 @@ in `src/main/java/net/coreprotect/CoreProtectAPI.java`
                 switch (actionID) {
                     case 0:
                         return "logout";
-```
-
-### EnhancedSwitchMigration
-Switch statement can be replaced with enhanced 'switch'
-in `src/main/java/net/coreprotect/database/Rollback.java`
-#### Snippet
-```java
-                        ArmorStand armorStand = (ArmorStand) equipment.getHolder();
-                        armorStand.setArms(true);
-                        switch (slot) {
-                            case 4:
-                                equipment.setItemInMainHand(itemstack);
 ```
 
 ### EnhancedSwitchMigration
@@ -14109,6 +14097,18 @@ in `src/main/java/net/coreprotect/database/Rollback.java`
                                                     face = BlockFace.WEST;
 ```
 
+### EnhancedSwitchMigration
+Switch statement can be replaced with enhanced 'switch'
+in `src/main/java/net/coreprotect/database/Rollback.java`
+#### Snippet
+```java
+                        ArmorStand armorStand = (ArmorStand) equipment.getHolder();
+                        armorStand.setArms(true);
+                        switch (slot) {
+                            case 4:
+                                equipment.setItemInMainHand(itemstack);
+```
+
 ## RuleId[ruleID=UnnecessaryToStringCall]
 ### UnnecessaryToStringCall
 Unnecessary `toString()` call
@@ -14124,14 +14124,14 @@ in `src/main/java/net/coreprotect/patch/script/__2_19_0.java`
 
 ### UnnecessaryToStringCall
 Unnecessary `toString()` call
-in `src/main/java/net/coreprotect/listener/player/HopperPushListener.java`
+in `src/main/java/net/coreprotect/consumer/process/ContainerTransactionProcess.java`
 #### Snippet
 ```java
-                }
-
-                List<Object> list = ConfigHandler.transactingChest.get(location.getWorld().getUID().toString() + "." + location.getBlockX() + "." + location.getBlockY() + "." + location.getBlockZ());
-                if (list != null) {
-                    list.add(movedItem);
+            if (inventories.get(id) != null) {
+                Object inventory = inventories.get(id);
+                String transactingChestId = location.getWorld().getUID().toString() + "." + location.getBlockX() + "." + location.getBlockY() + "." + location.getBlockZ();
+                String loggingChestId = user.toLowerCase(Locale.ROOT) + "." + location.getBlockX() + "." + location.getBlockY() + "." + location.getBlockZ();
+                if (ConfigHandler.loggingChest.get(loggingChestId) != null) {
 ```
 
 ### UnnecessaryToStringCall
@@ -14148,14 +14148,26 @@ in `src/main/java/net/coreprotect/listener/player/PlayerInteractEntityListener.j
 
 ### UnnecessaryToStringCall
 Unnecessary `toString()` call
-in `src/main/java/net/coreprotect/consumer/process/ContainerTransactionProcess.java`
+in `src/main/java/net/coreprotect/listener/player/HopperPushListener.java`
 #### Snippet
 ```java
-            if (inventories.get(id) != null) {
-                Object inventory = inventories.get(id);
-                String transactingChestId = location.getWorld().getUID().toString() + "." + location.getBlockX() + "." + location.getBlockY() + "." + location.getBlockZ();
-                String loggingChestId = user.toLowerCase(Locale.ROOT) + "." + location.getBlockX() + "." + location.getBlockY() + "." + location.getBlockZ();
-                if (ConfigHandler.loggingChest.get(loggingChestId) != null) {
+                }
+
+                List<Object> list = ConfigHandler.transactingChest.get(location.getWorld().getUID().toString() + "." + location.getBlockX() + "." + location.getBlockY() + "." + location.getBlockZ());
+                if (list != null) {
+                    list.add(movedItem);
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `src/main/java/net/coreprotect/listener/player/ArmorStandManipulateListener.java`
+#### Snippet
+```java
+        int z = standLocation.getBlockZ();
+
+        String transactingChestId = standLocation.getWorld().getUID().toString() + "." + x + "." + y + "." + z;
+        String loggingChestId = player.getName().toLowerCase(Locale.ROOT) + "." + x + "." + y + "." + z;
+        int chestId = Queue.getChestId(loggingChestId);
 ```
 
 ### UnnecessaryToStringCall
@@ -14184,14 +14196,14 @@ in `src/main/java/net/coreprotect/listener/player/HopperPullListener.java`
 
 ### UnnecessaryToStringCall
 Unnecessary `toString()` call
-in `src/main/java/net/coreprotect/listener/player/ArmorStandManipulateListener.java`
+in `src/main/java/net/coreprotect/listener/player/InventoryChangeListener.java`
 #### Snippet
 ```java
-        int z = standLocation.getBlockZ();
+        }
 
-        String transactingChestId = standLocation.getWorld().getUID().toString() + "." + x + "." + y + "." + z;
-        String loggingChestId = player.getName().toLowerCase(Locale.ROOT) + "." + x + "." + y + "." + z;
-        int chestId = Queue.getChestId(loggingChestId);
+        List<Object> list = ConfigHandler.transactingChest.get(location.getWorld().getUID().toString() + "." + location.getBlockX() + "." + location.getBlockY() + "." + location.getBlockZ());
+        if (list == null) {
+            return;
 ```
 
 ### UnnecessaryToStringCall
@@ -14204,18 +14216,6 @@ in `src/main/java/net/coreprotect/listener/player/InventoryChangeListener.java`
                     String transactingChestId = playerLocation.getWorld().getUID().toString() + "." + x + "." + y + "." + z;
                     String loggingChestId = user.toLowerCase(Locale.ROOT) + "." + x + "." + y + "." + z;
                     for (String loggingChestIdViewer : ConfigHandler.oldContainer.keySet()) {
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `src/main/java/net/coreprotect/listener/player/InventoryChangeListener.java`
-#### Snippet
-```java
-        }
-
-        List<Object> list = ConfigHandler.transactingChest.get(location.getWorld().getUID().toString() + "." + location.getBlockX() + "." + location.getBlockY() + "." + location.getBlockZ());
-        if (list == null) {
-            return;
 ```
 
 ### UnnecessaryToStringCall
@@ -14278,6 +14278,18 @@ in `src/main/java/net/coreprotect/language/Phrase.java`
     final private static Set<Phrase> HEADERS = new HashSet<>(Arrays.asList(Phrase.CONTAINER_HEADER, Phrase.HELP_HEADER, Phrase.INTERACTIONS_HEADER, Phrase.LOOKUP_HEADER, Phrase.SIGN_HEADER, Phrase.UPDATE_HEADER));
     final private static Set<String> COLORS = new HashSet<>(Arrays.asList(Color.WHITE, Color.DARK_AQUA));
     final private static String split = ":";
+```
+
+### SetReplaceableByEnumSet
+`HashSet<>` can be replaced with 'EnumSet'
+in `src/main/java/net/coreprotect/utility/Teleport.java`
+#### Snippet
+```java
+    public static void performSafeTeleport(Player player, Location location, boolean enforceTeleport) {
+        try {
+            Set<Material> unsafeBlocks = new HashSet<>(Arrays.asList(Material.LAVA));
+            unsafeBlocks.addAll(BlockGroup.FIRE);
+
 ```
 
 ### SetReplaceableByEnumSet
@@ -14372,18 +14384,6 @@ OR, Material.JUNGLE_TRAPDOOR, Material.SPRUCE_TRAPDOOR, Material.OAK_TRAPDOOR, M
         BlockGroup.NON_ATTACHABLE = new HashSet<>(Arrays.asList(Material.AIR, Material.CAVE_AIR, Material.BARRIER, Material.CORNFLOWER, Material.LILY_OF_THE_VALLEY, Material.WITHER_ROSE, Material.SWEET_BERRY_BUSH, Material.OAK_SAPLING, Material.SPRUCE_SAPLING, Material.BIRCH_SAPLING, Material.JUNGLE_SAPLING, Material.MANGROVE_PROPAGULE, Material.ACACIA_SAPLING, Material.DARK_OAK_SAPLING, Material.WATER, Material.LAVA, Material.POWERED_RAIL, Material.DETECTOR_RAIL, Material.GRASS, Material.FERN, Material.DEAD_BUSH, Material.DANDELION, Material.POPPY, Material.BLUE_ORCHID, Material.ALLIUM, Material.AZURE_BLUET, Material.RED_TULIP, Material.ORANGE_TULIP, Material.WHITE_TULIP, Material.PINK_TULIP, Material.OXEYE_DAISY, Material.BROWN_MUSHROOM, Material.RED_MUSHROOM, Material.TORCH, Material.WALL_TORCH, Material.REDSTONE_WIRE, Material.LADDER, Material.RAIL, Material.LEVER, Material.REDSTONE_TORCH, Material.REDSTONE_WALL_TORCH, Material.SNOW, Material.SUGAR_CANE, Material.NETHER_PORTAL, Material.REPEATER, Material.KELP, Material.CHORUS_FLOWER, Material.CHORUS_PLANT, Material.SOUL_TORCH, Material.SOUL_WALL_TORCH, Material.LIGHT, Material.SMALL_DRIPLEAF, Material.BIG_DRIPLEAF, Material.BIG_DRIPLEAF_STEM, Material.GLOW_LICHEN, Material.HANGING_ROOTS));
         BlockGroup.SCULK = new HashSet<>(Arrays.asList(Material.SCULK, Material.SCULK_VEIN, Material.SCULK_SENSOR, Material.SCULK_SHRIEKER));
     }
-
-```
-
-### SetReplaceableByEnumSet
-`HashSet<>` can be replaced with 'EnumSet'
-in `src/main/java/net/coreprotect/utility/Teleport.java`
-#### Snippet
-```java
-    public static void performSafeTeleport(Player player, Location location, boolean enforceTeleport) {
-        try {
-            Set<Material> unsafeBlocks = new HashSet<>(Arrays.asList(Material.LAVA));
-            unsafeBlocks.addAll(BlockGroup.FIRE);
 
 ```
 
@@ -14568,324 +14568,6 @@ public final class ProjectileLaunchListener extends Queue implements Listener {
 
 ### SetReplaceableByEnumSet
 `HashSet<>` can be replaced with 'EnumSet'
-in `src/main/java/net/coreprotect/model/BlockGroup.java`
-#### Snippet
-```java
-ED_ANVIL, Material.DAMAGED_ANVIL, Material.ENDER_CHEST, Material.TRAPPED_CHEST, Material.COMPARATOR, Material.HOPPER, Material.DROPPER, Material.SHULKER_BOX, Material.BLACK_SHULKER_BOX, Material.BLUE_SHULKER_BOX, Material.BROWN_SHULKER_BOX, Material.CYAN_SHULKER_BOX, Material.GRAY_SHULKER_BOX, Material.GREEN_SHULKER_BOX, Material.LIGHT_BLUE_SHULKER_BOX, Material.LIME_SHULKER_BOX, Material.MAGENTA_SHULKER_BOX, Material.ORANGE_SHULKER_BOX, Material.PINK_SHULKER_BOX, Material.PURPLE_SHULKER_BOX, Material.RED_SHULKER_BOX, Material.LIGHT_GRAY_SHULKER_BOX, Material.WHITE_SHULKER_BOX, Material.YELLOW_SHULKER_BOX, Material.BARREL, Material.BLAST_FURNACE, Material.GRINDSTONE, Material.LOOM, Material.SMOKER, Material.CRAFTING_TABLE, Material.CARTOGRAPHY_TABLE, Material.ENCHANTING_TABLE, Material.SMITHING_TABLE, Material.STONECUTTER));
-    public static Set<Material> SAFE_INTERACT_BLOCKS = new HashSet<>(Arrays.asList(Material.LEVER, Material.ACACIA_TRAPDOOR, Material.BIRCH_TRAPDOOR, Material.DARK_OAK_TRAPDOOR, Material.JUNGLE_TRAPDOOR, Material.SPRUCE_TRAPDOOR, Material.OAK_TRAPDOOR, Material.OAK_FENCE_GATE, Material.SPRUCE_FENCE_GATE, Material.BIRCH_FENCE_GATE, Material.JUNGLE_FENCE_GATE, Material.DARK_OAK_FENCE_GATE, Material.ACACIA_FENCE_GATE));
-    public static Set<Material> UPDATE_STATE = new HashSet<>(Arrays.asList(Material.TORCH, Material.WALL_TORCH, Material.REDSTONE_WIRE, Material.RAIL, Material.POWERED_RAIL, Material.DETECTOR_RAIL, Material.FURNACE, Material.BLAST_FURNACE, Material.SMOKER, Material.LEVER, Material.REDSTONE_TORCH, Material.REDSTONE_WALL_TORCH, Material.GLOWSTONE, Material.JACK_O_LANTERN, Material.REPEATER, Material.REDSTONE_LAMP, Material.BEACON, Material.COMPARATOR, Material.DAYLIGHT_DETECTOR, Material.REDSTONE_BLOCK, Material.HOPPER, Material.CHEST, Mat
-```
-
-### SetReplaceableByEnumSet
-`HashSet<>` can be replaced with 'EnumSet'
-in `src/main/java/net/coreprotect/model/BlockGroup.java`
-#### Snippet
-```java
-    public static Set<Material> LIGHTABLES = new HashSet<>(Arrays.asList(Material.CAMPFIRE));
-    public static Set<Material> CANDLES = new HashSet<>(Arrays.asList());
-    public static Set<Material> FIRE = new HashSet<>(Arrays.asList(Material.FIRE));
-    public static Set<Material> LANTERNS = new HashSet<>(Arrays.asList(Material.LANTERN));
-    public static Set<Material> SOUL_BLOCKS = new HashSet<>(Arrays.asList(Material.SOUL_SAND));
-```
-
-### SetReplaceableByEnumSet
-`HashSet<>` can be replaced with 'EnumSet'
-in `src/main/java/net/coreprotect/model/BlockGroup.java`
-#### Snippet
-```java
-
-    /* blocks that support vertical scanning */
-    public static Set<Material> VERTICAL_TOP_BOTTOM = new HashSet<>(Arrays.asList());
-    public static Set<Material> VERTICAL_TOP = new HashSet<>(Arrays.asList());
-    public static Set<Material> VERTICAL_BOTTOM = new HashSet<>(Arrays.asList());
-```
-
-### SetReplaceableByEnumSet
-`HashSet<>` can be replaced with 'EnumSet'
-in `src/main/java/net/coreprotect/model/BlockGroup.java`
-#### Snippet
-```java
-    public static Set<Material> AMETHYST = new HashSet<>(Arrays.asList());
-    public static Set<Material> LIGHTABLES = new HashSet<>(Arrays.asList(Material.CAMPFIRE));
-    public static Set<Material> CANDLES = new HashSet<>(Arrays.asList());
-    public static Set<Material> FIRE = new HashSet<>(Arrays.asList(Material.FIRE));
-    public static Set<Material> LANTERNS = new HashSet<>(Arrays.asList(Material.LANTERN));
-```
-
-### SetReplaceableByEnumSet
-`HashSet<>` can be replaced with 'EnumSet'
-in `src/main/java/net/coreprotect/model/BlockGroup.java`
-#### Snippet
-```java
-    public static Set<Material> FIRE = new HashSet<>(Arrays.asList(Material.FIRE));
-    public static Set<Material> LANTERNS = new HashSet<>(Arrays.asList(Material.LANTERN));
-    public static Set<Material> SOUL_BLOCKS = new HashSet<>(Arrays.asList(Material.SOUL_SAND));
-    public static Set<Material> DIRECTIONAL_BLOCKS = new HashSet<>(Arrays.asList(Material.STICKY_PISTON, Material.PISTON, Material.REPEATER, Material.SKELETON_SKULL, Material.SKELETON_WALL_SKULL, Material.WITHER_SKELETON_SKULL, Material.WITHER_SKELETON_WALL_SKULL, Material.ZOMBIE_HEAD, Material.ZOMBIE_WALL_HEAD, Material.PLAYER_HEAD, Material.PLAYER_WALL_HEAD, Material.CREEPER_HEAD, Material.CREEPER_WALL_HEAD, Material.DRAGON_HEAD, Material.DRAGON_WALL_HEAD, Material.COMPARATOR));
-    public static Set<Material> INTERACT_BLOCKS = new HashSet<>(Arrays.asList(Material.SPRUCE_FENCE_GATE, Material.BIRCH_FENCE_GATE, Material.JUNGLE_FENCE_GATE, Material.DARK_OAK_FENCE_GATE, Material.ACACIA_FENCE_GATE, Material.DISPENSER, Material.NOTE_BLOCK, Material.CHEST, Material.FURNACE, Material.LEVER, Material.REPEATER, Material.ACACIA_TRAPDOOR, Material.BIRCH_TRAPDOOR, Material.DARK_OAK_TRAPDOOR, Material.JUNGLE_TRAPDOOR, Material.SPRUCE_TRAPDOOR, Material.OAK_TRAPDOOR, Material.OAK_FENCE_GATE, Material.BREWING_STAND, Material.ANVIL, Material.CHIPPED_ANVIL, Material.DAMAGED_ANVIL, Material.ENDER_CHEST, Material.TRAPPED_CHEST, Material.COMPARATOR, Material.HOPPER, Material.DROPPER, Material.SHULKER_BOX, Material.BLACK_SHULKER_BOX, Material.BLUE_SHULKER_BOX, Material.BROWN_SHULKER_BOX, Material.CYAN_SHULKER_BOX, Material.GRAY_SHULKER_BOX, Material.GREEN_SHULKER_BOX, Material.LIGHT_BLUE_SHULKER_BOX, Material.LIME_SHULKER_BOX, Material.MAGENTA_SHULKER_BOX, Material.ORANGE_SHULKER_BOX, Material.PINK_SHULKER_BOX, Material.PUR
-```
-
-### SetReplaceableByEnumSet
-`HashSet<>` can be replaced with 'EnumSet'
-in `src/main/java/net/coreprotect/model/BlockGroup.java`
-#### Snippet
-```java
-KER_BOX, Material.PURPLE_SHULKER_BOX, Material.RED_SHULKER_BOX, Material.LIGHT_GRAY_SHULKER_BOX, Material.WHITE_SHULKER_BOX, Material.YELLOW_SHULKER_BOX));
-    public static Set<Material> CONTAINERS = new HashSet<>(Arrays.asList(Material.JUKEBOX, Material.DISPENSER, Material.CHEST, Material.FURNACE, Material.BREWING_STAND, Material.TRAPPED_CHEST, Material.HOPPER, Material.DROPPER, Material.ARMOR_STAND, Material.ITEM_FRAME, Material.SHULKER_BOX, Material.BLACK_SHULKER_BOX, Material.BLUE_SHULKER_BOX, Material.BROWN_SHULKER_BOX, Material.CYAN_SHULKER_BOX, Material.GRAY_SHULKER_BOX, Material.GREEN_SHULKER_BOX, Material.LIGHT_BLUE_SHULKER_BOX, Material.LIME_SHULKER_BOX, Material.MAGENTA_SHULKER_BOX, Material.ORANGE_SHULKER_BOX, Material.PINK_SHULKER_BOX, Material.PURPLE_SHULKER_BOX, Material.RED_SHULKER_BOX, Material.LIGHT_GRAY_SHULKER_BOX, Material.WHITE_SHULKER_BOX, Material.YELLOW_SHULKER_BOX, Material.BARREL, Material.BLAST_FURNACE, Material.SMOKER, Material.LECTERN));
-    public static Set<Material> DOORS = new HashSet<>(Arrays.asList(Material.OAK_DOOR, Material.SPRUCE_DOOR, Material.BIRCH_DOOR, Material.JUNGLE_DOOR, Material.ACACIA_DOOR, Material.DARK_OAK_DOOR));
-    public static Set<Material> BUTTONS = new HashSet<>(Arrays.asList(Material.STONE_BUTTON, Material.OAK_BUTTON, Material.ACACIA_BUTTON, Material.BIRCH_BUTTON, Material.DARK_OAK_BUTTON, Material.JUNGLE_BUTTON, Material.SPRUCE_BUTTON));
-    public static Set<Material> PRESSURE_PLATES = new HashSet<>(Arrays.asList(Material.STONE_PRESSURE_PLATE, Material.ACACIA_PRESSURE_PLATE, Material.BIRCH_PRESSURE_PLATE, Material.DARK_OAK_PRESSURE_PLATE, Material.HEAVY_WEIGHTED_PRESSURE_PLATE, Material.JUNGLE_PRESSURE_PLATE, Material.LIGHT_WEIGHTED_PRESSURE_PLATE, Material.OAK_PRESSURE_PLATE, Material.SPRUCE_PRESSURE_PLATE));
-```
-
-### SetReplaceableByEnumSet
-`HashSet<>` can be replaced with 'EnumSet'
-in `src/main/java/net/coreprotect/model/BlockGroup.java`
-#### Snippet
-```java
-
-    public static Set<Material> TRACK_ANY = new HashSet<>(Arrays.asList(Material.PISTON_HEAD, Material.LEVER, Material.BELL));
-    public static Set<Material> TRACK_TOP_BOTTOM = new HashSet<>(Arrays.asList());
-    public static Set<Material> TRACK_TOP = new HashSet<>(Arrays.asList(Material.TORCH, Material.REDSTONE_TORCH, Material.BAMBOO, Material.BAMBOO_SAPLING, Material.CORNFLOWER, Material.LILY_OF_THE_VALLEY, Material.WITHER_ROSE, Material.SWEET_BERRY_BUSH, Material.SCAFFOLDING, Material.OAK_SAPLING, Material.SPRUCE_SAPLING, Material.BIRCH_SAPLING, Material.JUNGLE_SAPLING, Material.ACACIA_SAPLING, Material.DARK_OAK_SAPLING, Material.POWERED_RAIL, Material.DETECTOR_RAIL, Material.GRASS, Material.FERN, Material.DEAD_BUSH, Material.DANDELION, Material.POPPY, Material.BLUE_ORCHID, Material.ALLIUM, Material.AZURE_BLUET, Material.RED_TULIP, Material.ORANGE_TULIP, Material.WHITE_TULIP, Material.PINK_TULIP, Material.OXEYE_DAISY, Material.BROWN_MUSHROOM, Material.RED_MUSHROOM, Material.REDSTONE_WIRE, Material.WHEAT, Material.ACACIA_SIGN, Material.BIRCH_SIGN, Material.DARK_OAK_SIGN, Material.JUNGLE_SIGN, Material.OAK_SIGN, Material.SPRUCE_SIGN, Material.WHITE_BANNER, Material.ORANGE_BANNER, Material.MAGENTA_BANNER, Material.LIGHT_BLUE_BANNER, Material.YELLOW_BANNER, Material.LIME_BANNER, Material.PINK_BANNER, Material.GRAY_BANNER, Material.LIGHT_GRAY_BANNER, Material.CYAN_BANNER, Material.PURPLE_BANNER, Material.BLUE_BANNER, Material.BROWN_BANNER, Material.GREEN_BANNER, Material.RED_BANNER, Material.BLACK_BANNER, Material.RAIL, Material.IRON_DOOR, Material.SNOW, Material.CACTUS, Material.SUGAR_CANE, Material.REPEATER, Material.PUMPKIN_STEM, Material.MELON_STEM, Material.CARROT, Material.POTATO, Material.COMPARATOR, Material.ACTIVATOR_RAIL, Material.SUNFLOWER, Material.LILAC, M
-```
-
-### SetReplaceableByEnumSet
-`HashSet<>` can be replaced with 'EnumSet'
-in `src/main/java/net/coreprotect/model/BlockGroup.java`
-#### Snippet
-```java
-    public static Set<Material> LANTERNS = new HashSet<>(Arrays.asList(Material.LANTERN));
-    public static Set<Material> SOUL_BLOCKS = new HashSet<>(Arrays.asList(Material.SOUL_SAND));
-    public static Set<Material> DIRECTIONAL_BLOCKS = new HashSet<>(Arrays.asList(Material.STICKY_PISTON, Material.PISTON, Material.REPEATER, Material.SKELETON_SKULL, Material.SKELETON_WALL_SKULL, Material.WITHER_SKELETON_SKULL, Material.WITHER_SKELETON_WALL_SKULL, Material.ZOMBIE_HEAD, Material.ZOMBIE_WALL_HEAD, Material.PLAYER_HEAD, Material.PLAYER_WALL_HEAD, Material.CREEPER_HEAD, Material.CREEPER_WALL_HEAD, Material.DRAGON_HEAD, Material.DRAGON_WALL_HEAD, Material.COMPARATOR));
-    public static Set<Material> INTERACT_BLOCKS = new HashSet<>(Arrays.asList(Material.SPRUCE_FENCE_GATE, Material.BIRCH_FENCE_GATE, Material.JUNGLE_FENCE_GATE, Material.DARK_OAK_FENCE_GATE, Material.ACACIA_FENCE_GATE, Material.DISPENSER, Material.NOTE_BLOCK, Material.CHEST, Material.FURNACE, Material.LEVER, Material.REPEATER, Material.ACACIA_TRAPDOOR, Material.BIRCH_TRAPDOOR, Material.DARK_OAK_TRAPDOOR, Material.JUNGLE_TRAPDOOR, Material.SPRUCE_TRAPDOOR, Material.OAK_TRAPDOOR, Material.OAK_FENCE_GATE, Material.BREWING_STAND, Material.ANVIL, Material.CHIPPED_ANVIL, Material.DAMAGED_ANVIL, Material.ENDER_CHEST, Material.TRAPPED_CHEST, Material.COMPARATOR, Material.HOPPER, Material.DROPPER, Material.SHULKER_BOX, Material.BLACK_SHULKER_BOX, Material.BLUE_SHULKER_BOX, Material.BROWN_SHULKER_BOX, Material.CYAN_SHULKER_BOX, Material.GRAY_SHULKER_BOX, Material.GREEN_SHULKER_BOX, Material.LIGHT_BLUE_SHULKER_BOX, Material.LIME_SHULKER_BOX, Material.MAGENTA_SHULKER_BOX, Material.ORANGE_SHULKER_BOX, Material.PINK_SHULKER_BOX, Material.PURPLE_SHULKER_BOX, Material.RED_SHULKER_BOX, Material.LIGHT_GRAY_SHULKER_BOX, Material
-```
-
-### SetReplaceableByEnumSet
-`HashSet<>` can be replaced with 'EnumSet'
-in `src/main/java/net/coreprotect/model/BlockGroup.java`
-#### Snippet
-```java
-.LIGHT_GRAY_BED, Material.CYAN_BED, Material.PURPLE_BED, Material.BLUE_BED, Material.BROWN_BED, Material.GREEN_BED, Material.RED_BED, Material.BLACK_BED, Material.LADDER, Material.ACACIA_WALL_SIGN, Material.BIRCH_WALL_SIGN, Material.DARK_OAK_WALL_SIGN, Material.JUNGLE_WALL_SIGN, Material.OAK_WALL_SIGN, Material.SPRUCE_WALL_SIGN, Material.VINE, Material.COCOA, Material.TRIPWIRE_HOOK, Material.WHITE_WALL_BANNER, Material.ORANGE_WALL_BANNER, Material.MAGENTA_WALL_BANNER, Material.LIGHT_BLUE_WALL_BANNER, Material.YELLOW_WALL_BANNER, Material.LIME_WALL_BANNER, Material.PINK_WALL_BANNER, Material.GRAY_WALL_BANNER, Material.LIGHT_GRAY_WALL_BANNER, Material.CYAN_WALL_BANNER, Material.PURPLE_WALL_BANNER, Material.BLUE_WALL_BANNER, Material.BROWN_WALL_BANNER, Material.GREEN_WALL_BANNER, Material.RED_WALL_BANNER, Material.BLACK_WALL_BANNER));
-    public static Set<Material> SHULKER_BOXES = new HashSet<>(Arrays.asList(Material.SHULKER_BOX, Material.BLACK_SHULKER_BOX, Material.BLUE_SHULKER_BOX, Material.BROWN_SHULKER_BOX, Material.CYAN_SHULKER_BOX, Material.GRAY_SHULKER_BOX, Material.GREEN_SHULKER_BOX, Material.LIGHT_BLUE_SHULKER_BOX, Material.LIME_SHULKER_BOX, Material.MAGENTA_SHULKER_BOX, Material.ORANGE_SHULKER_BOX, Material.PINK_SHULKER_BOX, Material.PURPLE_SHULKER_BOX, Material.RED_SHULKER_BOX, Material.LIGHT_GRAY_SHULKER_BOX, Material.WHITE_SHULKER_BOX, Material.YELLOW_SHULKER_BOX));
-    public static Set<Material> CONTAINERS = new HashSet<>(Arrays.asList(Material.JUKEBOX, Material.DISPENSER, Material.CHEST, Material.FURNACE, Material.BREWING_STAND, Material.TRAPPED_CHEST, Material.HOPPER, Material.DROPPER, Material.ARMOR_STAND, Material.ITEM_FRAME, Material.SHULKER_BOX, Material.BLACK_SHULKER_BOX, Material.BLUE_SHULKER_BOX, Material.BROWN_SHULKER_BOX, Material.CYAN_SHULKER_BOX
-```
-
-### SetReplaceableByEnumSet
-`HashSet<>` can be replaced with 'EnumSet'
-in `src/main/java/net/coreprotect/model/BlockGroup.java`
-#### Snippet
-```java
-    public static Set<Material> DOORS = new HashSet<>(Arrays.asList(Material.OAK_DOOR, Material.SPRUCE_DOOR, Material.BIRCH_DOOR, Material.JUNGLE_DOOR, Material.ACACIA_DOOR, Material.DARK_OAK_DOOR));
-    public static Set<Material> BUTTONS = new HashSet<>(Arrays.asList(Material.STONE_BUTTON, Material.OAK_BUTTON, Material.ACACIA_BUTTON, Material.BIRCH_BUTTON, Material.DARK_OAK_BUTTON, Material.JUNGLE_BUTTON, Material.SPRUCE_BUTTON));
-    public static Set<Material> PRESSURE_PLATES = new HashSet<>(Arrays.asList(Material.STONE_PRESSURE_PLATE, Material.ACACIA_PRESSURE_PLATE, Material.BIRCH_PRESSURE_PLATE, Material.DARK_OAK_PRESSURE_PLATE, Material.HEAVY_WEIGHTED_PRESSURE_PLATE, Material.JUNGLE_PRESSURE_PLATE, Material.LIGHT_WEIGHTED_PRESSURE_PLATE, Material.OAK_PRESSURE_PLATE, Material.SPRUCE_PRESSURE_PLATE));
-    public static Set<Material> VINES = new HashSet<>(Arrays.asList(Material.VINE));
-    public static Set<Material> AMETHYST = new HashSet<>(Arrays.asList());
-```
-
-### SetReplaceableByEnumSet
-`HashSet<>` can be replaced with 'EnumSet'
-in `src/main/java/net/coreprotect/model/BlockGroup.java`
-#### Snippet
-```java
-    // These are blocks that an item frame or painting can't be attached to.
-    // Same as non_solid_entity_blocks? >>Perform testing<<
-    public static Set<Material> NON_ATTACHABLE = new HashSet<>(Arrays.asList(Material.AIR, Material.CAVE_AIR, Material.BARRIER, Material.CORNFLOWER, Material.LILY_OF_THE_VALLEY, Material.WITHER_ROSE, Material.SWEET_BERRY_BUSH, Material.OAK_SAPLING, Material.SPRUCE_SAPLING, Material.BIRCH_SAPLING, Material.JUNGLE_SAPLING, Material.ACACIA_SAPLING, Material.DARK_OAK_SAPLING, Material.WATER, Material.LAVA, Material.POWERED_RAIL, Material.DETECTOR_RAIL, Material.GRASS, Material.FERN, Material.DEAD_BUSH, Material.DANDELION, Material.POPPY, Material.BLUE_ORCHID, Material.ALLIUM, Material.AZURE_BLUET, Material.RED_TULIP, Material.ORANGE_TULIP, Material.WHITE_TULIP, Material.PINK_TULIP, Material.OXEYE_DAISY, Material.BROWN_MUSHROOM, Material.RED_MUSHROOM, Material.TORCH, Material.WALL_TORCH, Material.REDSTONE_WIRE, Material.LADDER, Material.RAIL, Material.LEVER, Material.REDSTONE_TORCH, Material.REDSTONE_WALL_TORCH, Material.SNOW, Material.SUGAR_CANE, Material.NETHER_PORTAL, Material.REPEATER, Material.KELP, Material.CHORUS_FLOWER, Material.CHORUS_PLANT));
-
-    public static void initialize() {
-```
-
-### SetReplaceableByEnumSet
-`HashSet<>` can be replaced with 'EnumSet'
-in `src/main/java/net/coreprotect/model/BlockGroup.java`
-#### Snippet
-```java
-    public static Set<Material> PRESSURE_PLATES = new HashSet<>(Arrays.asList(Material.STONE_PRESSURE_PLATE, Material.ACACIA_PRESSURE_PLATE, Material.BIRCH_PRESSURE_PLATE, Material.DARK_OAK_PRESSURE_PLATE, Material.HEAVY_WEIGHTED_PRESSURE_PLATE, Material.JUNGLE_PRESSURE_PLATE, Material.LIGHT_WEIGHTED_PRESSURE_PLATE, Material.OAK_PRESSURE_PLATE, Material.SPRUCE_PRESSURE_PLATE));
-    public static Set<Material> VINES = new HashSet<>(Arrays.asList(Material.VINE));
-    public static Set<Material> AMETHYST = new HashSet<>(Arrays.asList());
-    public static Set<Material> LIGHTABLES = new HashSet<>(Arrays.asList(Material.CAMPFIRE));
-    public static Set<Material> CANDLES = new HashSet<>(Arrays.asList());
-```
-
-### SetReplaceableByEnumSet
-`HashSet<>` can be replaced with 'EnumSet'
-in `src/main/java/net/coreprotect/model/BlockGroup.java`
-#### Snippet
-```java
-RAPDOOR, Material.JUNGLE_TRAPDOOR, Material.SPRUCE_TRAPDOOR, Material.OAK_TRAPDOOR, Material.OAK_FENCE_GATE, Material.SPRUCE_FENCE_GATE, Material.BIRCH_FENCE_GATE, Material.JUNGLE_FENCE_GATE, Material.DARK_OAK_FENCE_GATE, Material.ACACIA_FENCE_GATE));
-    public static Set<Material> UPDATE_STATE = new HashSet<>(Arrays.asList(Material.TORCH, Material.WALL_TORCH, Material.REDSTONE_WIRE, Material.RAIL, Material.POWERED_RAIL, Material.DETECTOR_RAIL, Material.FURNACE, Material.BLAST_FURNACE, Material.SMOKER, Material.LEVER, Material.REDSTONE_TORCH, Material.REDSTONE_WALL_TORCH, Material.GLOWSTONE, Material.JACK_O_LANTERN, Material.REPEATER, Material.REDSTONE_LAMP, Material.BEACON, Material.COMPARATOR, Material.DAYLIGHT_DETECTOR, Material.REDSTONE_BLOCK, Material.HOPPER, Material.CHEST, Material.TRAPPED_CHEST, Material.ACTIVATOR_RAIL));
-    public static Set<Material> NATURAL_BLOCKS = new HashSet<>(Arrays.asList(Material.STONE, Material.GOLD_ORE, Material.IRON_ORE, Material.COAL_ORE, Material.LAPIS_ORE, Material.SANDSTONE, Material.COBWEB, Material.FERN, Material.DEAD_BUSH, Material.DANDELION, Material.POPPY, Material.BLUE_ORCHID, Material.ALLIUM, Material.AZURE_BLUET, Material.RED_TULIP, Material.ORANGE_TULIP, Material.WHITE_TULIP, Material.PINK_TULIP, Material.OXEYE_DAISY, Material.BROWN_MUSHROOM, Material.RED_MUSHROOM, Material.OBSIDIAN, Material.DIAMOND_ORE, Material.WHEAT, Material.REDSTONE_ORE, Material.SNOW, Material.ICE, Material.CACTUS, Material.CLAY, Material.SUGAR_CANE, Material.PUMPKIN, Material.NETHERRACK, Material.SOUL_SAND, Material.MELON, Material.PUMPKIN_STEM, Material.MELON_STEM, Material.MYCELIUM, Material.LILY_PAD, Material.NETHER_WART, Material.END_STONE, Material.EMERALD_ORE, Material.CARROT, Material.POTATO, Material.KELP, Material.CHORUS_FLOWER, Materia
-```
-
-### SetReplaceableByEnumSet
-`HashSet<>` can be replaced with 'EnumSet'
-in `src/main/java/net/coreprotect/model/BlockGroup.java`
-#### Snippet
-```java
-BANNER, Material.MAGENTA_BANNER, Material.LIGHT_BLUE_BANNER, Material.YELLOW_BANNER, Material.LIME_BANNER, Material.PINK_BANNER, Material.GRAY_BANNER, Material.LIGHT_GRAY_BANNER, Material.CYAN_BANNER, Material.PURPLE_BANNER, Material.BLUE_BANNER, Material.BROWN_BANNER, Material.GREEN_BANNER, Material.RED_BANNER, Material.BLACK_BANNER, Material.RAIL, Material.IRON_DOOR, Material.SNOW, Material.CACTUS, Material.SUGAR_CANE, Material.REPEATER, Material.PUMPKIN_STEM, Material.MELON_STEM, Material.CARROT, Material.POTATO, Material.COMPARATOR, Material.ACTIVATOR_RAIL, Material.SUNFLOWER, Material.LILAC, Material.TALL_GRASS, Material.LARGE_FERN, Material.ROSE_BUSH, Material.PEONY, Material.NETHER_WART, Material.CHORUS_PLANT, Material.CHORUS_FLOWER, Material.KELP));
-    public static Set<Material> TRACK_BOTTOM = new HashSet<>(Arrays.asList());
-    public static Set<Material> TRACK_SIDE = new HashSet<>(Arrays.asList(Material.WALL_TORCH, Material.REDSTONE_WALL_TORCH, Material.RAIL, Material.POWERED_RAIL, Material.DETECTOR_RAIL, Material.ACTIVATOR_RAIL, Material.WHITE_BED, Material.ORANGE_BED, Material.MAGENTA_BED, Material.LIGHT_BLUE_BED, Material.YELLOW_BED, Material.LIME_BED, Material.PINK_BED, Material.GRAY_BED, Material.LIGHT_GRAY_BED, Material.CYAN_BED, Material.PURPLE_BED, Material.BLUE_BED, Material.BROWN_BED, Material.GREEN_BED, Material.RED_BED, Material.BLACK_BED, Material.LADDER, Material.ACACIA_WALL_SIGN, Material.BIRCH_WALL_SIGN, Material.DARK_OAK_WALL_SIGN, Material.JUNGLE_WALL_SIGN, Material.OAK_WALL_SIGN, Material.SPRUCE_WALL_SIGN, Material.VINE, Material.COCOA, Material.TRIPWIRE_HOOK, Material.WHITE_WALL_BANNER, Material.ORANGE_WALL_BANNER, Material.MAGENTA_WALL_BANNER, Material.LIGHT_BLUE_WALL_BANNER, Material.YELLOW_WALL_BANNER, Material.LIME_WALL_BANNER, Materia
-```
-
-### SetReplaceableByEnumSet
-`HashSet<>` can be replaced with 'EnumSet'
-in `src/main/java/net/coreprotect/model/BlockGroup.java`
-#### Snippet
-```java
-    public static Set<Material> BUTTONS = new HashSet<>(Arrays.asList(Material.STONE_BUTTON, Material.OAK_BUTTON, Material.ACACIA_BUTTON, Material.BIRCH_BUTTON, Material.DARK_OAK_BUTTON, Material.JUNGLE_BUTTON, Material.SPRUCE_BUTTON));
-    public static Set<Material> PRESSURE_PLATES = new HashSet<>(Arrays.asList(Material.STONE_PRESSURE_PLATE, Material.ACACIA_PRESSURE_PLATE, Material.BIRCH_PRESSURE_PLATE, Material.DARK_OAK_PRESSURE_PLATE, Material.HEAVY_WEIGHTED_PRESSURE_PLATE, Material.JUNGLE_PRESSURE_PLATE, Material.LIGHT_WEIGHTED_PRESSURE_PLATE, Material.OAK_PRESSURE_PLATE, Material.SPRUCE_PRESSURE_PLATE));
-    public static Set<Material> VINES = new HashSet<>(Arrays.asList(Material.VINE));
-    public static Set<Material> AMETHYST = new HashSet<>(Arrays.asList());
-    public static Set<Material> LIGHTABLES = new HashSet<>(Arrays.asList(Material.CAMPFIRE));
-```
-
-### SetReplaceableByEnumSet
-`HashSet<>` can be replaced with 'EnumSet'
-in `src/main/java/net/coreprotect/model/BlockGroup.java`
-#### Snippet
-```java
-    public static Set<Material> TRACK_ANY = new HashSet<>(Arrays.asList(Material.PISTON_HEAD, Material.LEVER, Material.BELL));
-    public static Set<Material> TRACK_TOP_BOTTOM = new HashSet<>(Arrays.asList());
-    public static Set<Material> TRACK_TOP = new HashSet<>(Arrays.asList(Material.TORCH, Material.REDSTONE_TORCH, Material.BAMBOO, Material.BAMBOO_SAPLING, Material.CORNFLOWER, Material.LILY_OF_THE_VALLEY, Material.WITHER_ROSE, Material.SWEET_BERRY_BUSH, Material.SCAFFOLDING, Material.OAK_SAPLING, Material.SPRUCE_SAPLING, Material.BIRCH_SAPLING, Material.JUNGLE_SAPLING, Material.ACACIA_SAPLING, Material.DARK_OAK_SAPLING, Material.POWERED_RAIL, Material.DETECTOR_RAIL, Material.GRASS, Material.FERN, Material.DEAD_BUSH, Material.DANDELION, Material.POPPY, Material.BLUE_ORCHID, Material.ALLIUM, Material.AZURE_BLUET, Material.RED_TULIP, Material.ORANGE_TULIP, Material.WHITE_TULIP, Material.PINK_TULIP, Material.OXEYE_DAISY, Material.BROWN_MUSHROOM, Material.RED_MUSHROOM, Material.REDSTONE_WIRE, Material.WHEAT, Material.ACACIA_SIGN, Material.BIRCH_SIGN, Material.DARK_OAK_SIGN, Material.JUNGLE_SIGN, Material.OAK_SIGN, Material.SPRUCE_SIGN, Material.WHITE_BANNER, Material.ORANGE_BANNER, Material.MAGENTA_BANNER, Material.LIGHT_BLUE_BANNER, Material.YELLOW_BANNER, Material.LIME_BANNER, Material.PINK_BANNER, Material.GRAY_BANNER, Material.LIGHT_GRAY_BANNER, Material.CYAN_BANNER, Material.PURPLE_BANNER, Material.BLUE_BANNER, Material.BROWN_BANNER, Material.GREEN_BANNER, Material.RED_BANNER, Material.BLACK_BANNER, Material.RAIL, Material.IRON_DOOR, Material.SNOW, Material.CACTUS, Material.SUGAR_CANE, Material.REPEATER, Material.PUMPKIN_STEM, Material.MELON_STEM, Material.CARROT, Material.POTATO, Material.COMPARATOR, Material.ACTIVATOR_RAIL, Material.SUNFLOWER, Material.LILAC, Ma
-```
-
-### SetReplaceableByEnumSet
-`HashSet<>` can be replaced with 'EnumSet'
-in `src/main/java/net/coreprotect/model/BlockGroup.java`
-#### Snippet
-```java
-    /* blocks that support vertical scanning */
-    public static Set<Material> VERTICAL_TOP_BOTTOM = new HashSet<>(Arrays.asList());
-    public static Set<Material> VERTICAL_TOP = new HashSet<>(Arrays.asList());
-    public static Set<Material> VERTICAL_BOTTOM = new HashSet<>(Arrays.asList());
-    public static Set<Material> VERTICAL = new HashSet<>(Arrays.asList());
-```
-
-### SetReplaceableByEnumSet
-`HashSet<>` can be replaced with 'EnumSet'
-in `src/main/java/net/coreprotect/model/BlockGroup.java`
-#### Snippet
-```java
-    public static Set<Material> CANDLES = new HashSet<>(Arrays.asList());
-    public static Set<Material> FIRE = new HashSet<>(Arrays.asList(Material.FIRE));
-    public static Set<Material> LANTERNS = new HashSet<>(Arrays.asList(Material.LANTERN));
-    public static Set<Material> SOUL_BLOCKS = new HashSet<>(Arrays.asList(Material.SOUL_SAND));
-    public static Set<Material> DIRECTIONAL_BLOCKS = new HashSet<>(Arrays.asList(Material.STICKY_PISTON, Material.PISTON, Material.REPEATER, Material.SKELETON_SKULL, Material.SKELETON_WALL_SKULL, Material.WITHER_SKELETON_SKULL, Material.WITHER_SKELETON_WALL_SKULL, Material.ZOMBIE_HEAD, Material.ZOMBIE_WALL_HEAD, Material.PLAYER_HEAD, Material.PLAYER_WALL_HEAD, Material.CREEPER_HEAD, Material.CREEPER_WALL_HEAD, Material.DRAGON_HEAD, Material.DRAGON_WALL_HEAD, Material.COMPARATOR));
-```
-
-### SetReplaceableByEnumSet
-`HashSet<>` can be replaced with 'EnumSet'
-in `src/main/java/net/coreprotect/model/BlockGroup.java`
-#### Snippet
-```java
-    public static Set<Material> VERTICAL_TOP_BOTTOM = new HashSet<>(Arrays.asList());
-    public static Set<Material> VERTICAL_TOP = new HashSet<>(Arrays.asList());
-    public static Set<Material> VERTICAL_BOTTOM = new HashSet<>(Arrays.asList());
-    public static Set<Material> VERTICAL = new HashSet<>(Arrays.asList());
-
-```
-
-### SetReplaceableByEnumSet
-`HashSet<>` can be replaced with 'EnumSet'
-in `src/main/java/net/coreprotect/model/BlockGroup.java`
-#### Snippet
-```java
-Material.ORANGE_SHULKER_BOX, Material.PINK_SHULKER_BOX, Material.PURPLE_SHULKER_BOX, Material.RED_SHULKER_BOX, Material.LIGHT_GRAY_SHULKER_BOX, Material.WHITE_SHULKER_BOX, Material.YELLOW_SHULKER_BOX, Material.BARREL, Material.BLAST_FURNACE, Material.GRINDSTONE, Material.LOOM, Material.SMOKER, Material.CRAFTING_TABLE, Material.CARTOGRAPHY_TABLE, Material.ENCHANTING_TABLE, Material.SMITHING_TABLE, Material.STONECUTTER));
-    public static Set<Material> SAFE_INTERACT_BLOCKS = new HashSet<>(Arrays.asList(Material.LEVER, Material.ACACIA_TRAPDOOR, Material.BIRCH_TRAPDOOR, Material.DARK_OAK_TRAPDOOR, Material.JUNGLE_TRAPDOOR, Material.SPRUCE_TRAPDOOR, Material.OAK_TRAPDOOR, Material.OAK_FENCE_GATE, Material.SPRUCE_FENCE_GATE, Material.BIRCH_FENCE_GATE, Material.JUNGLE_FENCE_GATE, Material.DARK_OAK_FENCE_GATE, Material.ACACIA_FENCE_GATE));
-    public static Set<Material> UPDATE_STATE = new HashSet<>(Arrays.asList(Material.TORCH, Material.WALL_TORCH, Material.REDSTONE_WIRE, Material.RAIL, Material.POWERED_RAIL, Material.DETECTOR_RAIL, Material.FURNACE, Material.BLAST_FURNACE, Material.SMOKER, Material.LEVER, Material.REDSTONE_TORCH, Material.REDSTONE_WALL_TORCH, Material.GLOWSTONE, Material.JACK_O_LANTERN, Material.REPEATER, Material.REDSTONE_LAMP, Material.BEACON, Material.COMPARATOR, Material.DAYLIGHT_DETECTOR, Material.REDSTONE_BLOCK, Material.HOPPER, Material.CHEST, Material.TRAPPED_CHEST, Material.ACTIVATOR_RAIL));
-    public static Set<Material> NATURAL_BLOCKS = new HashSet<>(Arrays.asList(Material.STONE, Material.GOLD_ORE, Material.IRON_ORE, Material.COAL_ORE, Material.LAPIS_ORE, Material.SANDSTONE, Material.COBWEB, Material.FERN, Material.DEAD_BUSH, Material.DANDELION, Material.POPPY, Material.BLUE_ORCHID, Material.ALLIUM, Material.AZURE_BLUET, Material.RED_TULIP, Materi
-```
-
-### SetReplaceableByEnumSet
-`HashSet<>` can be replaced with 'EnumSet'
-in `src/main/java/net/coreprotect/model/BlockGroup.java`
-#### Snippet
-```java
-public final class BlockGroup {
-
-    public static Set<Material> TRACK_ANY = new HashSet<>(Arrays.asList(Material.PISTON_HEAD, Material.LEVER, Material.BELL));
-    public static Set<Material> TRACK_TOP_BOTTOM = new HashSet<>(Arrays.asList());
-    public static Set<Material> TRACK_TOP = new HashSet<>(Arrays.asList(Material.TORCH, Material.REDSTONE_TORCH, Material.BAMBOO, Material.BAMBOO_SAPLING, Material.CORNFLOWER, Material.LILY_OF_THE_VALLEY, Material.WITHER_ROSE, Material.SWEET_BERRY_BUSH, Material.SCAFFOLDING, Material.OAK_SAPLING, Material.SPRUCE_SAPLING, Material.BIRCH_SAPLING, Material.JUNGLE_SAPLING, Material.ACACIA_SAPLING, Material.DARK_OAK_SAPLING, Material.POWERED_RAIL, Material.DETECTOR_RAIL, Material.GRASS, Material.FERN, Material.DEAD_BUSH, Material.DANDELION, Material.POPPY, Material.BLUE_ORCHID, Material.ALLIUM, Material.AZURE_BLUET, Material.RED_TULIP, Material.ORANGE_TULIP, Material.WHITE_TULIP, Material.PINK_TULIP, Material.OXEYE_DAISY, Material.BROWN_MUSHROOM, Material.RED_MUSHROOM, Material.REDSTONE_WIRE, Material.WHEAT, Material.ACACIA_SIGN, Material.BIRCH_SIGN, Material.DARK_OAK_SIGN, Material.JUNGLE_SIGN, Material.OAK_SIGN, Material.SPRUCE_SIGN, Material.WHITE_BANNER, Material.ORANGE_BANNER, Material.MAGENTA_BANNER, Material.LIGHT_BLUE_BANNER, Material.YELLOW_BANNER, Material.LIME_BANNER, Material.PINK_BANNER, Material.GRAY_BANNER, Material.LIGHT_GRAY_BANNER, Material.CYAN_BANNER, Material.PURPLE_BANNER, Material.BLUE_BANNER, Material.BROWN_BANNER, Material.GREEN_BANNER, Material.RED_BANNER, Material.BLACK_BANNER, Material.RAIL, Material.IRON_DOOR, Material.SNOW, Material.CACTUS, Material.SUGAR_CANE, Material.REPEATER, Material.PUMPKIN_STEM, Material.MELON_STEM, Material.CARROT, Material.POTATO, Material.COMPARATOR, Material.ACTIVATOR_RAIL, Mater
-```
-
-### SetReplaceableByEnumSet
-`HashSet<>` can be replaced with 'EnumSet'
-in `src/main/java/net/coreprotect/model/BlockGroup.java`
-#### Snippet
-```java
-    public static Set<Material> VERTICAL_TOP = new HashSet<>(Arrays.asList());
-    public static Set<Material> VERTICAL_BOTTOM = new HashSet<>(Arrays.asList());
-    public static Set<Material> VERTICAL = new HashSet<>(Arrays.asList());
-
-    // These are blocks that an item frame or painting can't be attached to.
-```
-
-### SetReplaceableByEnumSet
-`HashSet<>` can be replaced with 'EnumSet'
-in `src/main/java/net/coreprotect/model/BlockGroup.java`
-#### Snippet
-```java
-    public static Set<Material> SOUL_BLOCKS = new HashSet<>(Arrays.asList(Material.SOUL_SAND));
-    public static Set<Material> DIRECTIONAL_BLOCKS = new HashSet<>(Arrays.asList(Material.STICKY_PISTON, Material.PISTON, Material.REPEATER, Material.SKELETON_SKULL, Material.SKELETON_WALL_SKULL, Material.WITHER_SKELETON_SKULL, Material.WITHER_SKELETON_WALL_SKULL, Material.ZOMBIE_HEAD, Material.ZOMBIE_WALL_HEAD, Material.PLAYER_HEAD, Material.PLAYER_WALL_HEAD, Material.CREEPER_HEAD, Material.CREEPER_WALL_HEAD, Material.DRAGON_HEAD, Material.DRAGON_WALL_HEAD, Material.COMPARATOR));
-    public static Set<Material> INTERACT_BLOCKS = new HashSet<>(Arrays.asList(Material.SPRUCE_FENCE_GATE, Material.BIRCH_FENCE_GATE, Material.JUNGLE_FENCE_GATE, Material.DARK_OAK_FENCE_GATE, Material.ACACIA_FENCE_GATE, Material.DISPENSER, Material.NOTE_BLOCK, Material.CHEST, Material.FURNACE, Material.LEVER, Material.REPEATER, Material.ACACIA_TRAPDOOR, Material.BIRCH_TRAPDOOR, Material.DARK_OAK_TRAPDOOR, Material.JUNGLE_TRAPDOOR, Material.SPRUCE_TRAPDOOR, Material.OAK_TRAPDOOR, Material.OAK_FENCE_GATE, Material.BREWING_STAND, Material.ANVIL, Material.CHIPPED_ANVIL, Material.DAMAGED_ANVIL, Material.ENDER_CHEST, Material.TRAPPED_CHEST, Material.COMPARATOR, Material.HOPPER, Material.DROPPER, Material.SHULKER_BOX, Material.BLACK_SHULKER_BOX, Material.BLUE_SHULKER_BOX, Material.BROWN_SHULKER_BOX, Material.CYAN_SHULKER_BOX, Material.GRAY_SHULKER_BOX, Material.GREEN_SHULKER_BOX, Material.LIGHT_BLUE_SHULKER_BOX, Material.LIME_SHULKER_BOX, Material.MAGENTA_SHULKER_BOX, Material.ORANGE_SHULKER_BOX, Material.PINK_SHULKER_BOX, Material.PURPLE_SHULKER_BOX, Material.RED_SHULKER_BOX, Material.LIGHT_GRAY_SHULKER_BOX, Material.WHITE_SHULKER_BOX, Material.YELLOW_SHULKER_BOX, Material.BARREL, Material.BLAST_FURNACE, M
-```
-
-### SetReplaceableByEnumSet
-`HashSet<>` can be replaced with 'EnumSet'
-in `src/main/java/net/coreprotect/model/BlockGroup.java`
-#### Snippet
-```java
-    public static Set<Material> VINES = new HashSet<>(Arrays.asList(Material.VINE));
-    public static Set<Material> AMETHYST = new HashSet<>(Arrays.asList());
-    public static Set<Material> LIGHTABLES = new HashSet<>(Arrays.asList(Material.CAMPFIRE));
-    public static Set<Material> CANDLES = new HashSet<>(Arrays.asList());
-    public static Set<Material> FIRE = new HashSet<>(Arrays.asList(Material.FIRE));
-```
-
-### SetReplaceableByEnumSet
-`HashSet<>` can be replaced with 'EnumSet'
-in `src/main/java/net/coreprotect/model/BlockGroup.java`
-#### Snippet
-```java
-_BANNER, Material.PINK_WALL_BANNER, Material.GRAY_WALL_BANNER, Material.LIGHT_GRAY_WALL_BANNER, Material.CYAN_WALL_BANNER, Material.PURPLE_WALL_BANNER, Material.BLUE_WALL_BANNER, Material.BROWN_WALL_BANNER, Material.GREEN_WALL_BANNER, Material.RED_WALL_BANNER, Material.BLACK_WALL_BANNER));
-    public static Set<Material> SHULKER_BOXES = new HashSet<>(Arrays.asList(Material.SHULKER_BOX, Material.BLACK_SHULKER_BOX, Material.BLUE_SHULKER_BOX, Material.BROWN_SHULKER_BOX, Material.CYAN_SHULKER_BOX, Material.GRAY_SHULKER_BOX, Material.GREEN_SHULKER_BOX, Material.LIGHT_BLUE_SHULKER_BOX, Material.LIME_SHULKER_BOX, Material.MAGENTA_SHULKER_BOX, Material.ORANGE_SHULKER_BOX, Material.PINK_SHULKER_BOX, Material.PURPLE_SHULKER_BOX, Material.RED_SHULKER_BOX, Material.LIGHT_GRAY_SHULKER_BOX, Material.WHITE_SHULKER_BOX, Material.YELLOW_SHULKER_BOX));
-    public static Set<Material> CONTAINERS = new HashSet<>(Arrays.asList(Material.JUKEBOX, Material.DISPENSER, Material.CHEST, Material.FURNACE, Material.BREWING_STAND, Material.TRAPPED_CHEST, Material.HOPPER, Material.DROPPER, Material.ARMOR_STAND, Material.ITEM_FRAME, Material.SHULKER_BOX, Material.BLACK_SHULKER_BOX, Material.BLUE_SHULKER_BOX, Material.BROWN_SHULKER_BOX, Material.CYAN_SHULKER_BOX, Material.GRAY_SHULKER_BOX, Material.GREEN_SHULKER_BOX, Material.LIGHT_BLUE_SHULKER_BOX, Material.LIME_SHULKER_BOX, Material.MAGENTA_SHULKER_BOX, Material.ORANGE_SHULKER_BOX, Material.PINK_SHULKER_BOX, Material.PURPLE_SHULKER_BOX, Material.RED_SHULKER_BOX, Material.LIGHT_GRAY_SHULKER_BOX, Material.WHITE_SHULKER_BOX, Material.YELLOW_SHULKER_BOX, Material.BARREL, Material.BLAST_FURNACE, Material.SMOKER, Material.LECTERN));
-    public static Set<Material> DOORS = new HashSet<>(Arrays.asList(Material.OAK_DOOR, Material.SPRUCE_DOOR, Material.BIRCH_DOO
-```
-
-### SetReplaceableByEnumSet
-`HashSet<>` can be replaced with 'EnumSet'
-in `src/main/java/net/coreprotect/model/BlockGroup.java`
-#### Snippet
-```java
-    public static Set<Material> CONTAINERS = new HashSet<>(Arrays.asList(Material.JUKEBOX, Material.DISPENSER, Material.CHEST, Material.FURNACE, Material.BREWING_STAND, Material.TRAPPED_CHEST, Material.HOPPER, Material.DROPPER, Material.ARMOR_STAND, Material.ITEM_FRAME, Material.SHULKER_BOX, Material.BLACK_SHULKER_BOX, Material.BLUE_SHULKER_BOX, Material.BROWN_SHULKER_BOX, Material.CYAN_SHULKER_BOX, Material.GRAY_SHULKER_BOX, Material.GREEN_SHULKER_BOX, Material.LIGHT_BLUE_SHULKER_BOX, Material.LIME_SHULKER_BOX, Material.MAGENTA_SHULKER_BOX, Material.ORANGE_SHULKER_BOX, Material.PINK_SHULKER_BOX, Material.PURPLE_SHULKER_BOX, Material.RED_SHULKER_BOX, Material.LIGHT_GRAY_SHULKER_BOX, Material.WHITE_SHULKER_BOX, Material.YELLOW_SHULKER_BOX, Material.BARREL, Material.BLAST_FURNACE, Material.SMOKER, Material.LECTERN));
-    public static Set<Material> DOORS = new HashSet<>(Arrays.asList(Material.OAK_DOOR, Material.SPRUCE_DOOR, Material.BIRCH_DOOR, Material.JUNGLE_DOOR, Material.ACACIA_DOOR, Material.DARK_OAK_DOOR));
-    public static Set<Material> BUTTONS = new HashSet<>(Arrays.asList(Material.STONE_BUTTON, Material.OAK_BUTTON, Material.ACACIA_BUTTON, Material.BIRCH_BUTTON, Material.DARK_OAK_BUTTON, Material.JUNGLE_BUTTON, Material.SPRUCE_BUTTON));
-    public static Set<Material> PRESSURE_PLATES = new HashSet<>(Arrays.asList(Material.STONE_PRESSURE_PLATE, Material.ACACIA_PRESSURE_PLATE, Material.BIRCH_PRESSURE_PLATE, Material.DARK_OAK_PRESSURE_PLATE, Material.HEAVY_WEIGHTED_PRESSURE_PLATE, Material.JUNGLE_PRESSURE_PLATE, Material.LIGHT_WEIGHTED_PRESSURE_PLATE, Material.OAK_PRESSURE_PLATE, Material.SPRUCE_PRESSURE_PLATE));
-    public static Set<Material> VINES = new HashSet<>(Arrays.asList(Material.VINE));
-```
-
-### SetReplaceableByEnumSet
-`HashSet<>` can be replaced with 'EnumSet'
-in `src/main/java/net/coreprotect/model/BlockGroup.java`
-#### Snippet
-```java
-erial.OAK_SIGN, Material.SPRUCE_SIGN, Material.WHITE_BANNER, Material.ORANGE_BANNER, Material.MAGENTA_BANNER, Material.LIGHT_BLUE_BANNER, Material.YELLOW_BANNER, Material.LIME_BANNER, Material.PINK_BANNER, Material.GRAY_BANNER, Material.LIGHT_GRAY_BANNER, Material.CYAN_BANNER, Material.PURPLE_BANNER, Material.BLUE_BANNER, Material.BROWN_BANNER, Material.GREEN_BANNER, Material.RED_BANNER, Material.BLACK_BANNER, Material.RAIL, Material.IRON_DOOR, Material.SNOW, Material.CACTUS, Material.SUGAR_CANE, Material.REPEATER, Material.PUMPKIN_STEM, Material.MELON_STEM, Material.CARROT, Material.POTATO, Material.COMPARATOR, Material.ACTIVATOR_RAIL, Material.SUNFLOWER, Material.LILAC, Material.TALL_GRASS, Material.LARGE_FERN, Material.ROSE_BUSH, Material.PEONY, Material.NETHER_WART, Material.CHORUS_PLANT, Material.CHORUS_FLOWER, Material.KELP));
-    public static Set<Material> TRACK_BOTTOM = new HashSet<>(Arrays.asList());
-    public static Set<Material> TRACK_SIDE = new HashSet<>(Arrays.asList(Material.WALL_TORCH, Material.REDSTONE_WALL_TORCH, Material.RAIL, Material.POWERED_RAIL, Material.DETECTOR_RAIL, Material.ACTIVATOR_RAIL, Material.WHITE_BED, Material.ORANGE_BED, Material.MAGENTA_BED, Material.LIGHT_BLUE_BED, Material.YELLOW_BED, Material.LIME_BED, Material.PINK_BED, Material.GRAY_BED, Material.LIGHT_GRAY_BED, Material.CYAN_BED, Material.PURPLE_BED, Material.BLUE_BED, Material.BROWN_BED, Material.GREEN_BED, Material.RED_BED, Material.BLACK_BED, Material.LADDER, Material.ACACIA_WALL_SIGN, Material.BIRCH_WALL_SIGN, Material.DARK_OAK_WALL_SIGN, Material.JUNGLE_WALL_SIGN, Material.OAK_WALL_SIGN, Material.SPRUCE_WALL_SIGN, Material.VINE, Material.COCOA, Material.TRIPWIRE_HOOK, Material.WHITE_WALL_BANNER, Material.ORANGE_WALL_BANNER, Material.MAGENTA_WALL_BANNER, Material.LIGHT_BLUE
-```
-
-### SetReplaceableByEnumSet
-`HashSet<>` can be replaced with 'EnumSet'
-in `src/main/java/net/coreprotect/model/BlockGroup.java`
-#### Snippet
-```java
-    public static Set<Material> UPDATE_STATE = new HashSet<>(Arrays.asList(Material.TORCH, Material.WALL_TORCH, Material.REDSTONE_WIRE, Material.RAIL, Material.POWERED_RAIL, Material.DETECTOR_RAIL, Material.FURNACE, Material.BLAST_FURNACE, Material.SMOKER, Material.LEVER, Material.REDSTONE_TORCH, Material.REDSTONE_WALL_TORCH, Material.GLOWSTONE, Material.JACK_O_LANTERN, Material.REPEATER, Material.REDSTONE_LAMP, Material.BEACON, Material.COMPARATOR, Material.DAYLIGHT_DETECTOR, Material.REDSTONE_BLOCK, Material.HOPPER, Material.CHEST, Material.TRAPPED_CHEST, Material.ACTIVATOR_RAIL));
-    public static Set<Material> NATURAL_BLOCKS = new HashSet<>(Arrays.asList(Material.STONE, Material.GOLD_ORE, Material.IRON_ORE, Material.COAL_ORE, Material.LAPIS_ORE, Material.SANDSTONE, Material.COBWEB, Material.FERN, Material.DEAD_BUSH, Material.DANDELION, Material.POPPY, Material.BLUE_ORCHID, Material.ALLIUM, Material.AZURE_BLUET, Material.RED_TULIP, Material.ORANGE_TULIP, Material.WHITE_TULIP, Material.PINK_TULIP, Material.OXEYE_DAISY, Material.BROWN_MUSHROOM, Material.RED_MUSHROOM, Material.OBSIDIAN, Material.DIAMOND_ORE, Material.WHEAT, Material.REDSTONE_ORE, Material.SNOW, Material.ICE, Material.CACTUS, Material.CLAY, Material.SUGAR_CANE, Material.PUMPKIN, Material.NETHERRACK, Material.SOUL_SAND, Material.MELON, Material.PUMPKIN_STEM, Material.MELON_STEM, Material.MYCELIUM, Material.LILY_PAD, Material.NETHER_WART, Material.END_STONE, Material.EMERALD_ORE, Material.CARROT, Material.POTATO, Material.KELP, Material.CHORUS_FLOWER, Material.CHORUS_PLANT, Material.CORNFLOWER, Material.LILY_OF_THE_VALLEY, Material.WITHER_ROSE, Material.SWEET_BERRY_BUSH));
-    public static Set<Material> SCULK = new HashSet<>(Arrays.asList());
-
-    /* blocks that support vertical scanning */
-```
-
-### SetReplaceableByEnumSet
-`HashSet<>` can be replaced with 'EnumSet'
 in `src/main/java/net/coreprotect/bukkit/Bukkit_v1_17.java`
 #### Snippet
 ```java
@@ -14994,6 +14676,324 @@ STONE_BLOCK, Material.HOPPER, Material.CHEST, Material.TRAPPED_CHEST, Material.A
 
 ```
 
+### SetReplaceableByEnumSet
+`HashSet<>` can be replaced with 'EnumSet'
+in `src/main/java/net/coreprotect/model/BlockGroup.java`
+#### Snippet
+```java
+    public static Set<Material> TRACK_ANY = new HashSet<>(Arrays.asList(Material.PISTON_HEAD, Material.LEVER, Material.BELL));
+    public static Set<Material> TRACK_TOP_BOTTOM = new HashSet<>(Arrays.asList());
+    public static Set<Material> TRACK_TOP = new HashSet<>(Arrays.asList(Material.TORCH, Material.REDSTONE_TORCH, Material.BAMBOO, Material.BAMBOO_SAPLING, Material.CORNFLOWER, Material.LILY_OF_THE_VALLEY, Material.WITHER_ROSE, Material.SWEET_BERRY_BUSH, Material.SCAFFOLDING, Material.OAK_SAPLING, Material.SPRUCE_SAPLING, Material.BIRCH_SAPLING, Material.JUNGLE_SAPLING, Material.ACACIA_SAPLING, Material.DARK_OAK_SAPLING, Material.POWERED_RAIL, Material.DETECTOR_RAIL, Material.GRASS, Material.FERN, Material.DEAD_BUSH, Material.DANDELION, Material.POPPY, Material.BLUE_ORCHID, Material.ALLIUM, Material.AZURE_BLUET, Material.RED_TULIP, Material.ORANGE_TULIP, Material.WHITE_TULIP, Material.PINK_TULIP, Material.OXEYE_DAISY, Material.BROWN_MUSHROOM, Material.RED_MUSHROOM, Material.REDSTONE_WIRE, Material.WHEAT, Material.ACACIA_SIGN, Material.BIRCH_SIGN, Material.DARK_OAK_SIGN, Material.JUNGLE_SIGN, Material.OAK_SIGN, Material.SPRUCE_SIGN, Material.WHITE_BANNER, Material.ORANGE_BANNER, Material.MAGENTA_BANNER, Material.LIGHT_BLUE_BANNER, Material.YELLOW_BANNER, Material.LIME_BANNER, Material.PINK_BANNER, Material.GRAY_BANNER, Material.LIGHT_GRAY_BANNER, Material.CYAN_BANNER, Material.PURPLE_BANNER, Material.BLUE_BANNER, Material.BROWN_BANNER, Material.GREEN_BANNER, Material.RED_BANNER, Material.BLACK_BANNER, Material.RAIL, Material.IRON_DOOR, Material.SNOW, Material.CACTUS, Material.SUGAR_CANE, Material.REPEATER, Material.PUMPKIN_STEM, Material.MELON_STEM, Material.CARROT, Material.POTATO, Material.COMPARATOR, Material.ACTIVATOR_RAIL, Material.SUNFLOWER, Material.LILAC, Ma
+```
+
+### SetReplaceableByEnumSet
+`HashSet<>` can be replaced with 'EnumSet'
+in `src/main/java/net/coreprotect/model/BlockGroup.java`
+#### Snippet
+```java
+    public static Set<Material> FIRE = new HashSet<>(Arrays.asList(Material.FIRE));
+    public static Set<Material> LANTERNS = new HashSet<>(Arrays.asList(Material.LANTERN));
+    public static Set<Material> SOUL_BLOCKS = new HashSet<>(Arrays.asList(Material.SOUL_SAND));
+    public static Set<Material> DIRECTIONAL_BLOCKS = new HashSet<>(Arrays.asList(Material.STICKY_PISTON, Material.PISTON, Material.REPEATER, Material.SKELETON_SKULL, Material.SKELETON_WALL_SKULL, Material.WITHER_SKELETON_SKULL, Material.WITHER_SKELETON_WALL_SKULL, Material.ZOMBIE_HEAD, Material.ZOMBIE_WALL_HEAD, Material.PLAYER_HEAD, Material.PLAYER_WALL_HEAD, Material.CREEPER_HEAD, Material.CREEPER_WALL_HEAD, Material.DRAGON_HEAD, Material.DRAGON_WALL_HEAD, Material.COMPARATOR));
+    public static Set<Material> INTERACT_BLOCKS = new HashSet<>(Arrays.asList(Material.SPRUCE_FENCE_GATE, Material.BIRCH_FENCE_GATE, Material.JUNGLE_FENCE_GATE, Material.DARK_OAK_FENCE_GATE, Material.ACACIA_FENCE_GATE, Material.DISPENSER, Material.NOTE_BLOCK, Material.CHEST, Material.FURNACE, Material.LEVER, Material.REPEATER, Material.ACACIA_TRAPDOOR, Material.BIRCH_TRAPDOOR, Material.DARK_OAK_TRAPDOOR, Material.JUNGLE_TRAPDOOR, Material.SPRUCE_TRAPDOOR, Material.OAK_TRAPDOOR, Material.OAK_FENCE_GATE, Material.BREWING_STAND, Material.ANVIL, Material.CHIPPED_ANVIL, Material.DAMAGED_ANVIL, Material.ENDER_CHEST, Material.TRAPPED_CHEST, Material.COMPARATOR, Material.HOPPER, Material.DROPPER, Material.SHULKER_BOX, Material.BLACK_SHULKER_BOX, Material.BLUE_SHULKER_BOX, Material.BROWN_SHULKER_BOX, Material.CYAN_SHULKER_BOX, Material.GRAY_SHULKER_BOX, Material.GREEN_SHULKER_BOX, Material.LIGHT_BLUE_SHULKER_BOX, Material.LIME_SHULKER_BOX, Material.MAGENTA_SHULKER_BOX, Material.ORANGE_SHULKER_BOX, Material.PINK_SHULKER_BOX, Material.PUR
+```
+
+### SetReplaceableByEnumSet
+`HashSet<>` can be replaced with 'EnumSet'
+in `src/main/java/net/coreprotect/model/BlockGroup.java`
+#### Snippet
+```java
+    public static Set<Material> SOUL_BLOCKS = new HashSet<>(Arrays.asList(Material.SOUL_SAND));
+    public static Set<Material> DIRECTIONAL_BLOCKS = new HashSet<>(Arrays.asList(Material.STICKY_PISTON, Material.PISTON, Material.REPEATER, Material.SKELETON_SKULL, Material.SKELETON_WALL_SKULL, Material.WITHER_SKELETON_SKULL, Material.WITHER_SKELETON_WALL_SKULL, Material.ZOMBIE_HEAD, Material.ZOMBIE_WALL_HEAD, Material.PLAYER_HEAD, Material.PLAYER_WALL_HEAD, Material.CREEPER_HEAD, Material.CREEPER_WALL_HEAD, Material.DRAGON_HEAD, Material.DRAGON_WALL_HEAD, Material.COMPARATOR));
+    public static Set<Material> INTERACT_BLOCKS = new HashSet<>(Arrays.asList(Material.SPRUCE_FENCE_GATE, Material.BIRCH_FENCE_GATE, Material.JUNGLE_FENCE_GATE, Material.DARK_OAK_FENCE_GATE, Material.ACACIA_FENCE_GATE, Material.DISPENSER, Material.NOTE_BLOCK, Material.CHEST, Material.FURNACE, Material.LEVER, Material.REPEATER, Material.ACACIA_TRAPDOOR, Material.BIRCH_TRAPDOOR, Material.DARK_OAK_TRAPDOOR, Material.JUNGLE_TRAPDOOR, Material.SPRUCE_TRAPDOOR, Material.OAK_TRAPDOOR, Material.OAK_FENCE_GATE, Material.BREWING_STAND, Material.ANVIL, Material.CHIPPED_ANVIL, Material.DAMAGED_ANVIL, Material.ENDER_CHEST, Material.TRAPPED_CHEST, Material.COMPARATOR, Material.HOPPER, Material.DROPPER, Material.SHULKER_BOX, Material.BLACK_SHULKER_BOX, Material.BLUE_SHULKER_BOX, Material.BROWN_SHULKER_BOX, Material.CYAN_SHULKER_BOX, Material.GRAY_SHULKER_BOX, Material.GREEN_SHULKER_BOX, Material.LIGHT_BLUE_SHULKER_BOX, Material.LIME_SHULKER_BOX, Material.MAGENTA_SHULKER_BOX, Material.ORANGE_SHULKER_BOX, Material.PINK_SHULKER_BOX, Material.PURPLE_SHULKER_BOX, Material.RED_SHULKER_BOX, Material.LIGHT_GRAY_SHULKER_BOX, Material.WHITE_SHULKER_BOX, Material.YELLOW_SHULKER_BOX, Material.BARREL, Material.BLAST_FURNACE, M
+```
+
+### SetReplaceableByEnumSet
+`HashSet<>` can be replaced with 'EnumSet'
+in `src/main/java/net/coreprotect/model/BlockGroup.java`
+#### Snippet
+```java
+Material.ORANGE_SHULKER_BOX, Material.PINK_SHULKER_BOX, Material.PURPLE_SHULKER_BOX, Material.RED_SHULKER_BOX, Material.LIGHT_GRAY_SHULKER_BOX, Material.WHITE_SHULKER_BOX, Material.YELLOW_SHULKER_BOX, Material.BARREL, Material.BLAST_FURNACE, Material.GRINDSTONE, Material.LOOM, Material.SMOKER, Material.CRAFTING_TABLE, Material.CARTOGRAPHY_TABLE, Material.ENCHANTING_TABLE, Material.SMITHING_TABLE, Material.STONECUTTER));
+    public static Set<Material> SAFE_INTERACT_BLOCKS = new HashSet<>(Arrays.asList(Material.LEVER, Material.ACACIA_TRAPDOOR, Material.BIRCH_TRAPDOOR, Material.DARK_OAK_TRAPDOOR, Material.JUNGLE_TRAPDOOR, Material.SPRUCE_TRAPDOOR, Material.OAK_TRAPDOOR, Material.OAK_FENCE_GATE, Material.SPRUCE_FENCE_GATE, Material.BIRCH_FENCE_GATE, Material.JUNGLE_FENCE_GATE, Material.DARK_OAK_FENCE_GATE, Material.ACACIA_FENCE_GATE));
+    public static Set<Material> UPDATE_STATE = new HashSet<>(Arrays.asList(Material.TORCH, Material.WALL_TORCH, Material.REDSTONE_WIRE, Material.RAIL, Material.POWERED_RAIL, Material.DETECTOR_RAIL, Material.FURNACE, Material.BLAST_FURNACE, Material.SMOKER, Material.LEVER, Material.REDSTONE_TORCH, Material.REDSTONE_WALL_TORCH, Material.GLOWSTONE, Material.JACK_O_LANTERN, Material.REPEATER, Material.REDSTONE_LAMP, Material.BEACON, Material.COMPARATOR, Material.DAYLIGHT_DETECTOR, Material.REDSTONE_BLOCK, Material.HOPPER, Material.CHEST, Material.TRAPPED_CHEST, Material.ACTIVATOR_RAIL));
+    public static Set<Material> NATURAL_BLOCKS = new HashSet<>(Arrays.asList(Material.STONE, Material.GOLD_ORE, Material.IRON_ORE, Material.COAL_ORE, Material.LAPIS_ORE, Material.SANDSTONE, Material.COBWEB, Material.FERN, Material.DEAD_BUSH, Material.DANDELION, Material.POPPY, Material.BLUE_ORCHID, Material.ALLIUM, Material.AZURE_BLUET, Material.RED_TULIP, Materi
+```
+
+### SetReplaceableByEnumSet
+`HashSet<>` can be replaced with 'EnumSet'
+in `src/main/java/net/coreprotect/model/BlockGroup.java`
+#### Snippet
+```java
+ED_ANVIL, Material.DAMAGED_ANVIL, Material.ENDER_CHEST, Material.TRAPPED_CHEST, Material.COMPARATOR, Material.HOPPER, Material.DROPPER, Material.SHULKER_BOX, Material.BLACK_SHULKER_BOX, Material.BLUE_SHULKER_BOX, Material.BROWN_SHULKER_BOX, Material.CYAN_SHULKER_BOX, Material.GRAY_SHULKER_BOX, Material.GREEN_SHULKER_BOX, Material.LIGHT_BLUE_SHULKER_BOX, Material.LIME_SHULKER_BOX, Material.MAGENTA_SHULKER_BOX, Material.ORANGE_SHULKER_BOX, Material.PINK_SHULKER_BOX, Material.PURPLE_SHULKER_BOX, Material.RED_SHULKER_BOX, Material.LIGHT_GRAY_SHULKER_BOX, Material.WHITE_SHULKER_BOX, Material.YELLOW_SHULKER_BOX, Material.BARREL, Material.BLAST_FURNACE, Material.GRINDSTONE, Material.LOOM, Material.SMOKER, Material.CRAFTING_TABLE, Material.CARTOGRAPHY_TABLE, Material.ENCHANTING_TABLE, Material.SMITHING_TABLE, Material.STONECUTTER));
+    public static Set<Material> SAFE_INTERACT_BLOCKS = new HashSet<>(Arrays.asList(Material.LEVER, Material.ACACIA_TRAPDOOR, Material.BIRCH_TRAPDOOR, Material.DARK_OAK_TRAPDOOR, Material.JUNGLE_TRAPDOOR, Material.SPRUCE_TRAPDOOR, Material.OAK_TRAPDOOR, Material.OAK_FENCE_GATE, Material.SPRUCE_FENCE_GATE, Material.BIRCH_FENCE_GATE, Material.JUNGLE_FENCE_GATE, Material.DARK_OAK_FENCE_GATE, Material.ACACIA_FENCE_GATE));
+    public static Set<Material> UPDATE_STATE = new HashSet<>(Arrays.asList(Material.TORCH, Material.WALL_TORCH, Material.REDSTONE_WIRE, Material.RAIL, Material.POWERED_RAIL, Material.DETECTOR_RAIL, Material.FURNACE, Material.BLAST_FURNACE, Material.SMOKER, Material.LEVER, Material.REDSTONE_TORCH, Material.REDSTONE_WALL_TORCH, Material.GLOWSTONE, Material.JACK_O_LANTERN, Material.REPEATER, Material.REDSTONE_LAMP, Material.BEACON, Material.COMPARATOR, Material.DAYLIGHT_DETECTOR, Material.REDSTONE_BLOCK, Material.HOPPER, Material.CHEST, Mat
+```
+
+### SetReplaceableByEnumSet
+`HashSet<>` can be replaced with 'EnumSet'
+in `src/main/java/net/coreprotect/model/BlockGroup.java`
+#### Snippet
+```java
+    public static Set<Material> UPDATE_STATE = new HashSet<>(Arrays.asList(Material.TORCH, Material.WALL_TORCH, Material.REDSTONE_WIRE, Material.RAIL, Material.POWERED_RAIL, Material.DETECTOR_RAIL, Material.FURNACE, Material.BLAST_FURNACE, Material.SMOKER, Material.LEVER, Material.REDSTONE_TORCH, Material.REDSTONE_WALL_TORCH, Material.GLOWSTONE, Material.JACK_O_LANTERN, Material.REPEATER, Material.REDSTONE_LAMP, Material.BEACON, Material.COMPARATOR, Material.DAYLIGHT_DETECTOR, Material.REDSTONE_BLOCK, Material.HOPPER, Material.CHEST, Material.TRAPPED_CHEST, Material.ACTIVATOR_RAIL));
+    public static Set<Material> NATURAL_BLOCKS = new HashSet<>(Arrays.asList(Material.STONE, Material.GOLD_ORE, Material.IRON_ORE, Material.COAL_ORE, Material.LAPIS_ORE, Material.SANDSTONE, Material.COBWEB, Material.FERN, Material.DEAD_BUSH, Material.DANDELION, Material.POPPY, Material.BLUE_ORCHID, Material.ALLIUM, Material.AZURE_BLUET, Material.RED_TULIP, Material.ORANGE_TULIP, Material.WHITE_TULIP, Material.PINK_TULIP, Material.OXEYE_DAISY, Material.BROWN_MUSHROOM, Material.RED_MUSHROOM, Material.OBSIDIAN, Material.DIAMOND_ORE, Material.WHEAT, Material.REDSTONE_ORE, Material.SNOW, Material.ICE, Material.CACTUS, Material.CLAY, Material.SUGAR_CANE, Material.PUMPKIN, Material.NETHERRACK, Material.SOUL_SAND, Material.MELON, Material.PUMPKIN_STEM, Material.MELON_STEM, Material.MYCELIUM, Material.LILY_PAD, Material.NETHER_WART, Material.END_STONE, Material.EMERALD_ORE, Material.CARROT, Material.POTATO, Material.KELP, Material.CHORUS_FLOWER, Material.CHORUS_PLANT, Material.CORNFLOWER, Material.LILY_OF_THE_VALLEY, Material.WITHER_ROSE, Material.SWEET_BERRY_BUSH));
+    public static Set<Material> SCULK = new HashSet<>(Arrays.asList());
+
+    /* blocks that support vertical scanning */
+```
+
+### SetReplaceableByEnumSet
+`HashSet<>` can be replaced with 'EnumSet'
+in `src/main/java/net/coreprotect/model/BlockGroup.java`
+#### Snippet
+```java
+    public static Set<Material> BUTTONS = new HashSet<>(Arrays.asList(Material.STONE_BUTTON, Material.OAK_BUTTON, Material.ACACIA_BUTTON, Material.BIRCH_BUTTON, Material.DARK_OAK_BUTTON, Material.JUNGLE_BUTTON, Material.SPRUCE_BUTTON));
+    public static Set<Material> PRESSURE_PLATES = new HashSet<>(Arrays.asList(Material.STONE_PRESSURE_PLATE, Material.ACACIA_PRESSURE_PLATE, Material.BIRCH_PRESSURE_PLATE, Material.DARK_OAK_PRESSURE_PLATE, Material.HEAVY_WEIGHTED_PRESSURE_PLATE, Material.JUNGLE_PRESSURE_PLATE, Material.LIGHT_WEIGHTED_PRESSURE_PLATE, Material.OAK_PRESSURE_PLATE, Material.SPRUCE_PRESSURE_PLATE));
+    public static Set<Material> VINES = new HashSet<>(Arrays.asList(Material.VINE));
+    public static Set<Material> AMETHYST = new HashSet<>(Arrays.asList());
+    public static Set<Material> LIGHTABLES = new HashSet<>(Arrays.asList(Material.CAMPFIRE));
+```
+
+### SetReplaceableByEnumSet
+`HashSet<>` can be replaced with 'EnumSet'
+in `src/main/java/net/coreprotect/model/BlockGroup.java`
+#### Snippet
+```java
+.LIGHT_GRAY_BED, Material.CYAN_BED, Material.PURPLE_BED, Material.BLUE_BED, Material.BROWN_BED, Material.GREEN_BED, Material.RED_BED, Material.BLACK_BED, Material.LADDER, Material.ACACIA_WALL_SIGN, Material.BIRCH_WALL_SIGN, Material.DARK_OAK_WALL_SIGN, Material.JUNGLE_WALL_SIGN, Material.OAK_WALL_SIGN, Material.SPRUCE_WALL_SIGN, Material.VINE, Material.COCOA, Material.TRIPWIRE_HOOK, Material.WHITE_WALL_BANNER, Material.ORANGE_WALL_BANNER, Material.MAGENTA_WALL_BANNER, Material.LIGHT_BLUE_WALL_BANNER, Material.YELLOW_WALL_BANNER, Material.LIME_WALL_BANNER, Material.PINK_WALL_BANNER, Material.GRAY_WALL_BANNER, Material.LIGHT_GRAY_WALL_BANNER, Material.CYAN_WALL_BANNER, Material.PURPLE_WALL_BANNER, Material.BLUE_WALL_BANNER, Material.BROWN_WALL_BANNER, Material.GREEN_WALL_BANNER, Material.RED_WALL_BANNER, Material.BLACK_WALL_BANNER));
+    public static Set<Material> SHULKER_BOXES = new HashSet<>(Arrays.asList(Material.SHULKER_BOX, Material.BLACK_SHULKER_BOX, Material.BLUE_SHULKER_BOX, Material.BROWN_SHULKER_BOX, Material.CYAN_SHULKER_BOX, Material.GRAY_SHULKER_BOX, Material.GREEN_SHULKER_BOX, Material.LIGHT_BLUE_SHULKER_BOX, Material.LIME_SHULKER_BOX, Material.MAGENTA_SHULKER_BOX, Material.ORANGE_SHULKER_BOX, Material.PINK_SHULKER_BOX, Material.PURPLE_SHULKER_BOX, Material.RED_SHULKER_BOX, Material.LIGHT_GRAY_SHULKER_BOX, Material.WHITE_SHULKER_BOX, Material.YELLOW_SHULKER_BOX));
+    public static Set<Material> CONTAINERS = new HashSet<>(Arrays.asList(Material.JUKEBOX, Material.DISPENSER, Material.CHEST, Material.FURNACE, Material.BREWING_STAND, Material.TRAPPED_CHEST, Material.HOPPER, Material.DROPPER, Material.ARMOR_STAND, Material.ITEM_FRAME, Material.SHULKER_BOX, Material.BLACK_SHULKER_BOX, Material.BLUE_SHULKER_BOX, Material.BROWN_SHULKER_BOX, Material.CYAN_SHULKER_BOX
+```
+
+### SetReplaceableByEnumSet
+`HashSet<>` can be replaced with 'EnumSet'
+in `src/main/java/net/coreprotect/model/BlockGroup.java`
+#### Snippet
+```java
+    public static Set<Material> VERTICAL_TOP_BOTTOM = new HashSet<>(Arrays.asList());
+    public static Set<Material> VERTICAL_TOP = new HashSet<>(Arrays.asList());
+    public static Set<Material> VERTICAL_BOTTOM = new HashSet<>(Arrays.asList());
+    public static Set<Material> VERTICAL = new HashSet<>(Arrays.asList());
+
+```
+
+### SetReplaceableByEnumSet
+`HashSet<>` can be replaced with 'EnumSet'
+in `src/main/java/net/coreprotect/model/BlockGroup.java`
+#### Snippet
+```java
+    public static Set<Material> LIGHTABLES = new HashSet<>(Arrays.asList(Material.CAMPFIRE));
+    public static Set<Material> CANDLES = new HashSet<>(Arrays.asList());
+    public static Set<Material> FIRE = new HashSet<>(Arrays.asList(Material.FIRE));
+    public static Set<Material> LANTERNS = new HashSet<>(Arrays.asList(Material.LANTERN));
+    public static Set<Material> SOUL_BLOCKS = new HashSet<>(Arrays.asList(Material.SOUL_SAND));
+```
+
+### SetReplaceableByEnumSet
+`HashSet<>` can be replaced with 'EnumSet'
+in `src/main/java/net/coreprotect/model/BlockGroup.java`
+#### Snippet
+```java
+_BANNER, Material.PINK_WALL_BANNER, Material.GRAY_WALL_BANNER, Material.LIGHT_GRAY_WALL_BANNER, Material.CYAN_WALL_BANNER, Material.PURPLE_WALL_BANNER, Material.BLUE_WALL_BANNER, Material.BROWN_WALL_BANNER, Material.GREEN_WALL_BANNER, Material.RED_WALL_BANNER, Material.BLACK_WALL_BANNER));
+    public static Set<Material> SHULKER_BOXES = new HashSet<>(Arrays.asList(Material.SHULKER_BOX, Material.BLACK_SHULKER_BOX, Material.BLUE_SHULKER_BOX, Material.BROWN_SHULKER_BOX, Material.CYAN_SHULKER_BOX, Material.GRAY_SHULKER_BOX, Material.GREEN_SHULKER_BOX, Material.LIGHT_BLUE_SHULKER_BOX, Material.LIME_SHULKER_BOX, Material.MAGENTA_SHULKER_BOX, Material.ORANGE_SHULKER_BOX, Material.PINK_SHULKER_BOX, Material.PURPLE_SHULKER_BOX, Material.RED_SHULKER_BOX, Material.LIGHT_GRAY_SHULKER_BOX, Material.WHITE_SHULKER_BOX, Material.YELLOW_SHULKER_BOX));
+    public static Set<Material> CONTAINERS = new HashSet<>(Arrays.asList(Material.JUKEBOX, Material.DISPENSER, Material.CHEST, Material.FURNACE, Material.BREWING_STAND, Material.TRAPPED_CHEST, Material.HOPPER, Material.DROPPER, Material.ARMOR_STAND, Material.ITEM_FRAME, Material.SHULKER_BOX, Material.BLACK_SHULKER_BOX, Material.BLUE_SHULKER_BOX, Material.BROWN_SHULKER_BOX, Material.CYAN_SHULKER_BOX, Material.GRAY_SHULKER_BOX, Material.GREEN_SHULKER_BOX, Material.LIGHT_BLUE_SHULKER_BOX, Material.LIME_SHULKER_BOX, Material.MAGENTA_SHULKER_BOX, Material.ORANGE_SHULKER_BOX, Material.PINK_SHULKER_BOX, Material.PURPLE_SHULKER_BOX, Material.RED_SHULKER_BOX, Material.LIGHT_GRAY_SHULKER_BOX, Material.WHITE_SHULKER_BOX, Material.YELLOW_SHULKER_BOX, Material.BARREL, Material.BLAST_FURNACE, Material.SMOKER, Material.LECTERN));
+    public static Set<Material> DOORS = new HashSet<>(Arrays.asList(Material.OAK_DOOR, Material.SPRUCE_DOOR, Material.BIRCH_DOO
+```
+
+### SetReplaceableByEnumSet
+`HashSet<>` can be replaced with 'EnumSet'
+in `src/main/java/net/coreprotect/model/BlockGroup.java`
+#### Snippet
+```java
+    public static Set<Material> LANTERNS = new HashSet<>(Arrays.asList(Material.LANTERN));
+    public static Set<Material> SOUL_BLOCKS = new HashSet<>(Arrays.asList(Material.SOUL_SAND));
+    public static Set<Material> DIRECTIONAL_BLOCKS = new HashSet<>(Arrays.asList(Material.STICKY_PISTON, Material.PISTON, Material.REPEATER, Material.SKELETON_SKULL, Material.SKELETON_WALL_SKULL, Material.WITHER_SKELETON_SKULL, Material.WITHER_SKELETON_WALL_SKULL, Material.ZOMBIE_HEAD, Material.ZOMBIE_WALL_HEAD, Material.PLAYER_HEAD, Material.PLAYER_WALL_HEAD, Material.CREEPER_HEAD, Material.CREEPER_WALL_HEAD, Material.DRAGON_HEAD, Material.DRAGON_WALL_HEAD, Material.COMPARATOR));
+    public static Set<Material> INTERACT_BLOCKS = new HashSet<>(Arrays.asList(Material.SPRUCE_FENCE_GATE, Material.BIRCH_FENCE_GATE, Material.JUNGLE_FENCE_GATE, Material.DARK_OAK_FENCE_GATE, Material.ACACIA_FENCE_GATE, Material.DISPENSER, Material.NOTE_BLOCK, Material.CHEST, Material.FURNACE, Material.LEVER, Material.REPEATER, Material.ACACIA_TRAPDOOR, Material.BIRCH_TRAPDOOR, Material.DARK_OAK_TRAPDOOR, Material.JUNGLE_TRAPDOOR, Material.SPRUCE_TRAPDOOR, Material.OAK_TRAPDOOR, Material.OAK_FENCE_GATE, Material.BREWING_STAND, Material.ANVIL, Material.CHIPPED_ANVIL, Material.DAMAGED_ANVIL, Material.ENDER_CHEST, Material.TRAPPED_CHEST, Material.COMPARATOR, Material.HOPPER, Material.DROPPER, Material.SHULKER_BOX, Material.BLACK_SHULKER_BOX, Material.BLUE_SHULKER_BOX, Material.BROWN_SHULKER_BOX, Material.CYAN_SHULKER_BOX, Material.GRAY_SHULKER_BOX, Material.GREEN_SHULKER_BOX, Material.LIGHT_BLUE_SHULKER_BOX, Material.LIME_SHULKER_BOX, Material.MAGENTA_SHULKER_BOX, Material.ORANGE_SHULKER_BOX, Material.PINK_SHULKER_BOX, Material.PURPLE_SHULKER_BOX, Material.RED_SHULKER_BOX, Material.LIGHT_GRAY_SHULKER_BOX, Material
+```
+
+### SetReplaceableByEnumSet
+`HashSet<>` can be replaced with 'EnumSet'
+in `src/main/java/net/coreprotect/model/BlockGroup.java`
+#### Snippet
+```java
+
+    public static Set<Material> TRACK_ANY = new HashSet<>(Arrays.asList(Material.PISTON_HEAD, Material.LEVER, Material.BELL));
+    public static Set<Material> TRACK_TOP_BOTTOM = new HashSet<>(Arrays.asList());
+    public static Set<Material> TRACK_TOP = new HashSet<>(Arrays.asList(Material.TORCH, Material.REDSTONE_TORCH, Material.BAMBOO, Material.BAMBOO_SAPLING, Material.CORNFLOWER, Material.LILY_OF_THE_VALLEY, Material.WITHER_ROSE, Material.SWEET_BERRY_BUSH, Material.SCAFFOLDING, Material.OAK_SAPLING, Material.SPRUCE_SAPLING, Material.BIRCH_SAPLING, Material.JUNGLE_SAPLING, Material.ACACIA_SAPLING, Material.DARK_OAK_SAPLING, Material.POWERED_RAIL, Material.DETECTOR_RAIL, Material.GRASS, Material.FERN, Material.DEAD_BUSH, Material.DANDELION, Material.POPPY, Material.BLUE_ORCHID, Material.ALLIUM, Material.AZURE_BLUET, Material.RED_TULIP, Material.ORANGE_TULIP, Material.WHITE_TULIP, Material.PINK_TULIP, Material.OXEYE_DAISY, Material.BROWN_MUSHROOM, Material.RED_MUSHROOM, Material.REDSTONE_WIRE, Material.WHEAT, Material.ACACIA_SIGN, Material.BIRCH_SIGN, Material.DARK_OAK_SIGN, Material.JUNGLE_SIGN, Material.OAK_SIGN, Material.SPRUCE_SIGN, Material.WHITE_BANNER, Material.ORANGE_BANNER, Material.MAGENTA_BANNER, Material.LIGHT_BLUE_BANNER, Material.YELLOW_BANNER, Material.LIME_BANNER, Material.PINK_BANNER, Material.GRAY_BANNER, Material.LIGHT_GRAY_BANNER, Material.CYAN_BANNER, Material.PURPLE_BANNER, Material.BLUE_BANNER, Material.BROWN_BANNER, Material.GREEN_BANNER, Material.RED_BANNER, Material.BLACK_BANNER, Material.RAIL, Material.IRON_DOOR, Material.SNOW, Material.CACTUS, Material.SUGAR_CANE, Material.REPEATER, Material.PUMPKIN_STEM, Material.MELON_STEM, Material.CARROT, Material.POTATO, Material.COMPARATOR, Material.ACTIVATOR_RAIL, Material.SUNFLOWER, Material.LILAC, M
+```
+
+### SetReplaceableByEnumSet
+`HashSet<>` can be replaced with 'EnumSet'
+in `src/main/java/net/coreprotect/model/BlockGroup.java`
+#### Snippet
+```java
+BANNER, Material.MAGENTA_BANNER, Material.LIGHT_BLUE_BANNER, Material.YELLOW_BANNER, Material.LIME_BANNER, Material.PINK_BANNER, Material.GRAY_BANNER, Material.LIGHT_GRAY_BANNER, Material.CYAN_BANNER, Material.PURPLE_BANNER, Material.BLUE_BANNER, Material.BROWN_BANNER, Material.GREEN_BANNER, Material.RED_BANNER, Material.BLACK_BANNER, Material.RAIL, Material.IRON_DOOR, Material.SNOW, Material.CACTUS, Material.SUGAR_CANE, Material.REPEATER, Material.PUMPKIN_STEM, Material.MELON_STEM, Material.CARROT, Material.POTATO, Material.COMPARATOR, Material.ACTIVATOR_RAIL, Material.SUNFLOWER, Material.LILAC, Material.TALL_GRASS, Material.LARGE_FERN, Material.ROSE_BUSH, Material.PEONY, Material.NETHER_WART, Material.CHORUS_PLANT, Material.CHORUS_FLOWER, Material.KELP));
+    public static Set<Material> TRACK_BOTTOM = new HashSet<>(Arrays.asList());
+    public static Set<Material> TRACK_SIDE = new HashSet<>(Arrays.asList(Material.WALL_TORCH, Material.REDSTONE_WALL_TORCH, Material.RAIL, Material.POWERED_RAIL, Material.DETECTOR_RAIL, Material.ACTIVATOR_RAIL, Material.WHITE_BED, Material.ORANGE_BED, Material.MAGENTA_BED, Material.LIGHT_BLUE_BED, Material.YELLOW_BED, Material.LIME_BED, Material.PINK_BED, Material.GRAY_BED, Material.LIGHT_GRAY_BED, Material.CYAN_BED, Material.PURPLE_BED, Material.BLUE_BED, Material.BROWN_BED, Material.GREEN_BED, Material.RED_BED, Material.BLACK_BED, Material.LADDER, Material.ACACIA_WALL_SIGN, Material.BIRCH_WALL_SIGN, Material.DARK_OAK_WALL_SIGN, Material.JUNGLE_WALL_SIGN, Material.OAK_WALL_SIGN, Material.SPRUCE_WALL_SIGN, Material.VINE, Material.COCOA, Material.TRIPWIRE_HOOK, Material.WHITE_WALL_BANNER, Material.ORANGE_WALL_BANNER, Material.MAGENTA_WALL_BANNER, Material.LIGHT_BLUE_WALL_BANNER, Material.YELLOW_WALL_BANNER, Material.LIME_WALL_BANNER, Materia
+```
+
+### SetReplaceableByEnumSet
+`HashSet<>` can be replaced with 'EnumSet'
+in `src/main/java/net/coreprotect/model/BlockGroup.java`
+#### Snippet
+```java
+    public static Set<Material> CONTAINERS = new HashSet<>(Arrays.asList(Material.JUKEBOX, Material.DISPENSER, Material.CHEST, Material.FURNACE, Material.BREWING_STAND, Material.TRAPPED_CHEST, Material.HOPPER, Material.DROPPER, Material.ARMOR_STAND, Material.ITEM_FRAME, Material.SHULKER_BOX, Material.BLACK_SHULKER_BOX, Material.BLUE_SHULKER_BOX, Material.BROWN_SHULKER_BOX, Material.CYAN_SHULKER_BOX, Material.GRAY_SHULKER_BOX, Material.GREEN_SHULKER_BOX, Material.LIGHT_BLUE_SHULKER_BOX, Material.LIME_SHULKER_BOX, Material.MAGENTA_SHULKER_BOX, Material.ORANGE_SHULKER_BOX, Material.PINK_SHULKER_BOX, Material.PURPLE_SHULKER_BOX, Material.RED_SHULKER_BOX, Material.LIGHT_GRAY_SHULKER_BOX, Material.WHITE_SHULKER_BOX, Material.YELLOW_SHULKER_BOX, Material.BARREL, Material.BLAST_FURNACE, Material.SMOKER, Material.LECTERN));
+    public static Set<Material> DOORS = new HashSet<>(Arrays.asList(Material.OAK_DOOR, Material.SPRUCE_DOOR, Material.BIRCH_DOOR, Material.JUNGLE_DOOR, Material.ACACIA_DOOR, Material.DARK_OAK_DOOR));
+    public static Set<Material> BUTTONS = new HashSet<>(Arrays.asList(Material.STONE_BUTTON, Material.OAK_BUTTON, Material.ACACIA_BUTTON, Material.BIRCH_BUTTON, Material.DARK_OAK_BUTTON, Material.JUNGLE_BUTTON, Material.SPRUCE_BUTTON));
+    public static Set<Material> PRESSURE_PLATES = new HashSet<>(Arrays.asList(Material.STONE_PRESSURE_PLATE, Material.ACACIA_PRESSURE_PLATE, Material.BIRCH_PRESSURE_PLATE, Material.DARK_OAK_PRESSURE_PLATE, Material.HEAVY_WEIGHTED_PRESSURE_PLATE, Material.JUNGLE_PRESSURE_PLATE, Material.LIGHT_WEIGHTED_PRESSURE_PLATE, Material.OAK_PRESSURE_PLATE, Material.SPRUCE_PRESSURE_PLATE));
+    public static Set<Material> VINES = new HashSet<>(Arrays.asList(Material.VINE));
+```
+
+### SetReplaceableByEnumSet
+`HashSet<>` can be replaced with 'EnumSet'
+in `src/main/java/net/coreprotect/model/BlockGroup.java`
+#### Snippet
+```java
+    public static Set<Material> PRESSURE_PLATES = new HashSet<>(Arrays.asList(Material.STONE_PRESSURE_PLATE, Material.ACACIA_PRESSURE_PLATE, Material.BIRCH_PRESSURE_PLATE, Material.DARK_OAK_PRESSURE_PLATE, Material.HEAVY_WEIGHTED_PRESSURE_PLATE, Material.JUNGLE_PRESSURE_PLATE, Material.LIGHT_WEIGHTED_PRESSURE_PLATE, Material.OAK_PRESSURE_PLATE, Material.SPRUCE_PRESSURE_PLATE));
+    public static Set<Material> VINES = new HashSet<>(Arrays.asList(Material.VINE));
+    public static Set<Material> AMETHYST = new HashSet<>(Arrays.asList());
+    public static Set<Material> LIGHTABLES = new HashSet<>(Arrays.asList(Material.CAMPFIRE));
+    public static Set<Material> CANDLES = new HashSet<>(Arrays.asList());
+```
+
+### SetReplaceableByEnumSet
+`HashSet<>` can be replaced with 'EnumSet'
+in `src/main/java/net/coreprotect/model/BlockGroup.java`
+#### Snippet
+```java
+public final class BlockGroup {
+
+    public static Set<Material> TRACK_ANY = new HashSet<>(Arrays.asList(Material.PISTON_HEAD, Material.LEVER, Material.BELL));
+    public static Set<Material> TRACK_TOP_BOTTOM = new HashSet<>(Arrays.asList());
+    public static Set<Material> TRACK_TOP = new HashSet<>(Arrays.asList(Material.TORCH, Material.REDSTONE_TORCH, Material.BAMBOO, Material.BAMBOO_SAPLING, Material.CORNFLOWER, Material.LILY_OF_THE_VALLEY, Material.WITHER_ROSE, Material.SWEET_BERRY_BUSH, Material.SCAFFOLDING, Material.OAK_SAPLING, Material.SPRUCE_SAPLING, Material.BIRCH_SAPLING, Material.JUNGLE_SAPLING, Material.ACACIA_SAPLING, Material.DARK_OAK_SAPLING, Material.POWERED_RAIL, Material.DETECTOR_RAIL, Material.GRASS, Material.FERN, Material.DEAD_BUSH, Material.DANDELION, Material.POPPY, Material.BLUE_ORCHID, Material.ALLIUM, Material.AZURE_BLUET, Material.RED_TULIP, Material.ORANGE_TULIP, Material.WHITE_TULIP, Material.PINK_TULIP, Material.OXEYE_DAISY, Material.BROWN_MUSHROOM, Material.RED_MUSHROOM, Material.REDSTONE_WIRE, Material.WHEAT, Material.ACACIA_SIGN, Material.BIRCH_SIGN, Material.DARK_OAK_SIGN, Material.JUNGLE_SIGN, Material.OAK_SIGN, Material.SPRUCE_SIGN, Material.WHITE_BANNER, Material.ORANGE_BANNER, Material.MAGENTA_BANNER, Material.LIGHT_BLUE_BANNER, Material.YELLOW_BANNER, Material.LIME_BANNER, Material.PINK_BANNER, Material.GRAY_BANNER, Material.LIGHT_GRAY_BANNER, Material.CYAN_BANNER, Material.PURPLE_BANNER, Material.BLUE_BANNER, Material.BROWN_BANNER, Material.GREEN_BANNER, Material.RED_BANNER, Material.BLACK_BANNER, Material.RAIL, Material.IRON_DOOR, Material.SNOW, Material.CACTUS, Material.SUGAR_CANE, Material.REPEATER, Material.PUMPKIN_STEM, Material.MELON_STEM, Material.CARROT, Material.POTATO, Material.COMPARATOR, Material.ACTIVATOR_RAIL, Mater
+```
+
+### SetReplaceableByEnumSet
+`HashSet<>` can be replaced with 'EnumSet'
+in `src/main/java/net/coreprotect/model/BlockGroup.java`
+#### Snippet
+```java
+
+    /* blocks that support vertical scanning */
+    public static Set<Material> VERTICAL_TOP_BOTTOM = new HashSet<>(Arrays.asList());
+    public static Set<Material> VERTICAL_TOP = new HashSet<>(Arrays.asList());
+    public static Set<Material> VERTICAL_BOTTOM = new HashSet<>(Arrays.asList());
+```
+
+### SetReplaceableByEnumSet
+`HashSet<>` can be replaced with 'EnumSet'
+in `src/main/java/net/coreprotect/model/BlockGroup.java`
+#### Snippet
+```java
+    public static Set<Material> AMETHYST = new HashSet<>(Arrays.asList());
+    public static Set<Material> LIGHTABLES = new HashSet<>(Arrays.asList(Material.CAMPFIRE));
+    public static Set<Material> CANDLES = new HashSet<>(Arrays.asList());
+    public static Set<Material> FIRE = new HashSet<>(Arrays.asList(Material.FIRE));
+    public static Set<Material> LANTERNS = new HashSet<>(Arrays.asList(Material.LANTERN));
+```
+
+### SetReplaceableByEnumSet
+`HashSet<>` can be replaced with 'EnumSet'
+in `src/main/java/net/coreprotect/model/BlockGroup.java`
+#### Snippet
+```java
+    public static Set<Material> VINES = new HashSet<>(Arrays.asList(Material.VINE));
+    public static Set<Material> AMETHYST = new HashSet<>(Arrays.asList());
+    public static Set<Material> LIGHTABLES = new HashSet<>(Arrays.asList(Material.CAMPFIRE));
+    public static Set<Material> CANDLES = new HashSet<>(Arrays.asList());
+    public static Set<Material> FIRE = new HashSet<>(Arrays.asList(Material.FIRE));
+```
+
+### SetReplaceableByEnumSet
+`HashSet<>` can be replaced with 'EnumSet'
+in `src/main/java/net/coreprotect/model/BlockGroup.java`
+#### Snippet
+```java
+    // These are blocks that an item frame or painting can't be attached to.
+    // Same as non_solid_entity_blocks? >>Perform testing<<
+    public static Set<Material> NON_ATTACHABLE = new HashSet<>(Arrays.asList(Material.AIR, Material.CAVE_AIR, Material.BARRIER, Material.CORNFLOWER, Material.LILY_OF_THE_VALLEY, Material.WITHER_ROSE, Material.SWEET_BERRY_BUSH, Material.OAK_SAPLING, Material.SPRUCE_SAPLING, Material.BIRCH_SAPLING, Material.JUNGLE_SAPLING, Material.ACACIA_SAPLING, Material.DARK_OAK_SAPLING, Material.WATER, Material.LAVA, Material.POWERED_RAIL, Material.DETECTOR_RAIL, Material.GRASS, Material.FERN, Material.DEAD_BUSH, Material.DANDELION, Material.POPPY, Material.BLUE_ORCHID, Material.ALLIUM, Material.AZURE_BLUET, Material.RED_TULIP, Material.ORANGE_TULIP, Material.WHITE_TULIP, Material.PINK_TULIP, Material.OXEYE_DAISY, Material.BROWN_MUSHROOM, Material.RED_MUSHROOM, Material.TORCH, Material.WALL_TORCH, Material.REDSTONE_WIRE, Material.LADDER, Material.RAIL, Material.LEVER, Material.REDSTONE_TORCH, Material.REDSTONE_WALL_TORCH, Material.SNOW, Material.SUGAR_CANE, Material.NETHER_PORTAL, Material.REPEATER, Material.KELP, Material.CHORUS_FLOWER, Material.CHORUS_PLANT));
+
+    public static void initialize() {
+```
+
+### SetReplaceableByEnumSet
+`HashSet<>` can be replaced with 'EnumSet'
+in `src/main/java/net/coreprotect/model/BlockGroup.java`
+#### Snippet
+```java
+KER_BOX, Material.PURPLE_SHULKER_BOX, Material.RED_SHULKER_BOX, Material.LIGHT_GRAY_SHULKER_BOX, Material.WHITE_SHULKER_BOX, Material.YELLOW_SHULKER_BOX));
+    public static Set<Material> CONTAINERS = new HashSet<>(Arrays.asList(Material.JUKEBOX, Material.DISPENSER, Material.CHEST, Material.FURNACE, Material.BREWING_STAND, Material.TRAPPED_CHEST, Material.HOPPER, Material.DROPPER, Material.ARMOR_STAND, Material.ITEM_FRAME, Material.SHULKER_BOX, Material.BLACK_SHULKER_BOX, Material.BLUE_SHULKER_BOX, Material.BROWN_SHULKER_BOX, Material.CYAN_SHULKER_BOX, Material.GRAY_SHULKER_BOX, Material.GREEN_SHULKER_BOX, Material.LIGHT_BLUE_SHULKER_BOX, Material.LIME_SHULKER_BOX, Material.MAGENTA_SHULKER_BOX, Material.ORANGE_SHULKER_BOX, Material.PINK_SHULKER_BOX, Material.PURPLE_SHULKER_BOX, Material.RED_SHULKER_BOX, Material.LIGHT_GRAY_SHULKER_BOX, Material.WHITE_SHULKER_BOX, Material.YELLOW_SHULKER_BOX, Material.BARREL, Material.BLAST_FURNACE, Material.SMOKER, Material.LECTERN));
+    public static Set<Material> DOORS = new HashSet<>(Arrays.asList(Material.OAK_DOOR, Material.SPRUCE_DOOR, Material.BIRCH_DOOR, Material.JUNGLE_DOOR, Material.ACACIA_DOOR, Material.DARK_OAK_DOOR));
+    public static Set<Material> BUTTONS = new HashSet<>(Arrays.asList(Material.STONE_BUTTON, Material.OAK_BUTTON, Material.ACACIA_BUTTON, Material.BIRCH_BUTTON, Material.DARK_OAK_BUTTON, Material.JUNGLE_BUTTON, Material.SPRUCE_BUTTON));
+    public static Set<Material> PRESSURE_PLATES = new HashSet<>(Arrays.asList(Material.STONE_PRESSURE_PLATE, Material.ACACIA_PRESSURE_PLATE, Material.BIRCH_PRESSURE_PLATE, Material.DARK_OAK_PRESSURE_PLATE, Material.HEAVY_WEIGHTED_PRESSURE_PLATE, Material.JUNGLE_PRESSURE_PLATE, Material.LIGHT_WEIGHTED_PRESSURE_PLATE, Material.OAK_PRESSURE_PLATE, Material.SPRUCE_PRESSURE_PLATE));
+```
+
+### SetReplaceableByEnumSet
+`HashSet<>` can be replaced with 'EnumSet'
+in `src/main/java/net/coreprotect/model/BlockGroup.java`
+#### Snippet
+```java
+    public static Set<Material> CANDLES = new HashSet<>(Arrays.asList());
+    public static Set<Material> FIRE = new HashSet<>(Arrays.asList(Material.FIRE));
+    public static Set<Material> LANTERNS = new HashSet<>(Arrays.asList(Material.LANTERN));
+    public static Set<Material> SOUL_BLOCKS = new HashSet<>(Arrays.asList(Material.SOUL_SAND));
+    public static Set<Material> DIRECTIONAL_BLOCKS = new HashSet<>(Arrays.asList(Material.STICKY_PISTON, Material.PISTON, Material.REPEATER, Material.SKELETON_SKULL, Material.SKELETON_WALL_SKULL, Material.WITHER_SKELETON_SKULL, Material.WITHER_SKELETON_WALL_SKULL, Material.ZOMBIE_HEAD, Material.ZOMBIE_WALL_HEAD, Material.PLAYER_HEAD, Material.PLAYER_WALL_HEAD, Material.CREEPER_HEAD, Material.CREEPER_WALL_HEAD, Material.DRAGON_HEAD, Material.DRAGON_WALL_HEAD, Material.COMPARATOR));
+```
+
+### SetReplaceableByEnumSet
+`HashSet<>` can be replaced with 'EnumSet'
+in `src/main/java/net/coreprotect/model/BlockGroup.java`
+#### Snippet
+```java
+    public static Set<Material> VERTICAL_TOP = new HashSet<>(Arrays.asList());
+    public static Set<Material> VERTICAL_BOTTOM = new HashSet<>(Arrays.asList());
+    public static Set<Material> VERTICAL = new HashSet<>(Arrays.asList());
+
+    // These are blocks that an item frame or painting can't be attached to.
+```
+
+### SetReplaceableByEnumSet
+`HashSet<>` can be replaced with 'EnumSet'
+in `src/main/java/net/coreprotect/model/BlockGroup.java`
+#### Snippet
+```java
+    /* blocks that support vertical scanning */
+    public static Set<Material> VERTICAL_TOP_BOTTOM = new HashSet<>(Arrays.asList());
+    public static Set<Material> VERTICAL_TOP = new HashSet<>(Arrays.asList());
+    public static Set<Material> VERTICAL_BOTTOM = new HashSet<>(Arrays.asList());
+    public static Set<Material> VERTICAL = new HashSet<>(Arrays.asList());
+```
+
+### SetReplaceableByEnumSet
+`HashSet<>` can be replaced with 'EnumSet'
+in `src/main/java/net/coreprotect/model/BlockGroup.java`
+#### Snippet
+```java
+RAPDOOR, Material.JUNGLE_TRAPDOOR, Material.SPRUCE_TRAPDOOR, Material.OAK_TRAPDOOR, Material.OAK_FENCE_GATE, Material.SPRUCE_FENCE_GATE, Material.BIRCH_FENCE_GATE, Material.JUNGLE_FENCE_GATE, Material.DARK_OAK_FENCE_GATE, Material.ACACIA_FENCE_GATE));
+    public static Set<Material> UPDATE_STATE = new HashSet<>(Arrays.asList(Material.TORCH, Material.WALL_TORCH, Material.REDSTONE_WIRE, Material.RAIL, Material.POWERED_RAIL, Material.DETECTOR_RAIL, Material.FURNACE, Material.BLAST_FURNACE, Material.SMOKER, Material.LEVER, Material.REDSTONE_TORCH, Material.REDSTONE_WALL_TORCH, Material.GLOWSTONE, Material.JACK_O_LANTERN, Material.REPEATER, Material.REDSTONE_LAMP, Material.BEACON, Material.COMPARATOR, Material.DAYLIGHT_DETECTOR, Material.REDSTONE_BLOCK, Material.HOPPER, Material.CHEST, Material.TRAPPED_CHEST, Material.ACTIVATOR_RAIL));
+    public static Set<Material> NATURAL_BLOCKS = new HashSet<>(Arrays.asList(Material.STONE, Material.GOLD_ORE, Material.IRON_ORE, Material.COAL_ORE, Material.LAPIS_ORE, Material.SANDSTONE, Material.COBWEB, Material.FERN, Material.DEAD_BUSH, Material.DANDELION, Material.POPPY, Material.BLUE_ORCHID, Material.ALLIUM, Material.AZURE_BLUET, Material.RED_TULIP, Material.ORANGE_TULIP, Material.WHITE_TULIP, Material.PINK_TULIP, Material.OXEYE_DAISY, Material.BROWN_MUSHROOM, Material.RED_MUSHROOM, Material.OBSIDIAN, Material.DIAMOND_ORE, Material.WHEAT, Material.REDSTONE_ORE, Material.SNOW, Material.ICE, Material.CACTUS, Material.CLAY, Material.SUGAR_CANE, Material.PUMPKIN, Material.NETHERRACK, Material.SOUL_SAND, Material.MELON, Material.PUMPKIN_STEM, Material.MELON_STEM, Material.MYCELIUM, Material.LILY_PAD, Material.NETHER_WART, Material.END_STONE, Material.EMERALD_ORE, Material.CARROT, Material.POTATO, Material.KELP, Material.CHORUS_FLOWER, Materia
+```
+
+### SetReplaceableByEnumSet
+`HashSet<>` can be replaced with 'EnumSet'
+in `src/main/java/net/coreprotect/model/BlockGroup.java`
+#### Snippet
+```java
+erial.OAK_SIGN, Material.SPRUCE_SIGN, Material.WHITE_BANNER, Material.ORANGE_BANNER, Material.MAGENTA_BANNER, Material.LIGHT_BLUE_BANNER, Material.YELLOW_BANNER, Material.LIME_BANNER, Material.PINK_BANNER, Material.GRAY_BANNER, Material.LIGHT_GRAY_BANNER, Material.CYAN_BANNER, Material.PURPLE_BANNER, Material.BLUE_BANNER, Material.BROWN_BANNER, Material.GREEN_BANNER, Material.RED_BANNER, Material.BLACK_BANNER, Material.RAIL, Material.IRON_DOOR, Material.SNOW, Material.CACTUS, Material.SUGAR_CANE, Material.REPEATER, Material.PUMPKIN_STEM, Material.MELON_STEM, Material.CARROT, Material.POTATO, Material.COMPARATOR, Material.ACTIVATOR_RAIL, Material.SUNFLOWER, Material.LILAC, Material.TALL_GRASS, Material.LARGE_FERN, Material.ROSE_BUSH, Material.PEONY, Material.NETHER_WART, Material.CHORUS_PLANT, Material.CHORUS_FLOWER, Material.KELP));
+    public static Set<Material> TRACK_BOTTOM = new HashSet<>(Arrays.asList());
+    public static Set<Material> TRACK_SIDE = new HashSet<>(Arrays.asList(Material.WALL_TORCH, Material.REDSTONE_WALL_TORCH, Material.RAIL, Material.POWERED_RAIL, Material.DETECTOR_RAIL, Material.ACTIVATOR_RAIL, Material.WHITE_BED, Material.ORANGE_BED, Material.MAGENTA_BED, Material.LIGHT_BLUE_BED, Material.YELLOW_BED, Material.LIME_BED, Material.PINK_BED, Material.GRAY_BED, Material.LIGHT_GRAY_BED, Material.CYAN_BED, Material.PURPLE_BED, Material.BLUE_BED, Material.BROWN_BED, Material.GREEN_BED, Material.RED_BED, Material.BLACK_BED, Material.LADDER, Material.ACACIA_WALL_SIGN, Material.BIRCH_WALL_SIGN, Material.DARK_OAK_WALL_SIGN, Material.JUNGLE_WALL_SIGN, Material.OAK_WALL_SIGN, Material.SPRUCE_WALL_SIGN, Material.VINE, Material.COCOA, Material.TRIPWIRE_HOOK, Material.WHITE_WALL_BANNER, Material.ORANGE_WALL_BANNER, Material.MAGENTA_WALL_BANNER, Material.LIGHT_BLUE
+```
+
+### SetReplaceableByEnumSet
+`HashSet<>` can be replaced with 'EnumSet'
+in `src/main/java/net/coreprotect/model/BlockGroup.java`
+#### Snippet
+```java
+    public static Set<Material> DOORS = new HashSet<>(Arrays.asList(Material.OAK_DOOR, Material.SPRUCE_DOOR, Material.BIRCH_DOOR, Material.JUNGLE_DOOR, Material.ACACIA_DOOR, Material.DARK_OAK_DOOR));
+    public static Set<Material> BUTTONS = new HashSet<>(Arrays.asList(Material.STONE_BUTTON, Material.OAK_BUTTON, Material.ACACIA_BUTTON, Material.BIRCH_BUTTON, Material.DARK_OAK_BUTTON, Material.JUNGLE_BUTTON, Material.SPRUCE_BUTTON));
+    public static Set<Material> PRESSURE_PLATES = new HashSet<>(Arrays.asList(Material.STONE_PRESSURE_PLATE, Material.ACACIA_PRESSURE_PLATE, Material.BIRCH_PRESSURE_PLATE, Material.DARK_OAK_PRESSURE_PLATE, Material.HEAVY_WEIGHTED_PRESSURE_PLATE, Material.JUNGLE_PRESSURE_PLATE, Material.LIGHT_WEIGHTED_PRESSURE_PLATE, Material.OAK_PRESSURE_PLATE, Material.SPRUCE_PRESSURE_PLATE));
+    public static Set<Material> VINES = new HashSet<>(Arrays.asList(Material.VINE));
+    public static Set<Material> AMETHYST = new HashSet<>(Arrays.asList());
+```
+
 ## RuleId[ruleID=UtilityClassWithPublicConstructor]
 ### UtilityClassWithPublicConstructor
 Class `ListenerHandler` has only 'static' members, and a 'public' constructor
@@ -15072,6 +15072,30 @@ in `src/main/java/net/coreprotect/thread/NetworkHandler.java`
 
 ## RuleId[ruleID=ConditionCoveredByFurtherCondition]
 ### ConditionCoveredByFurtherCondition
+Condition 'inventoryHolder == null' covered by subsequent condition '!(inventoryHolder instanceof BlockInventoryHolder \|\| inventoryHolder instanceof DoubleChest)'
+in `src/main/java/net/coreprotect/listener/player/InventoryChangeListener.java`
+#### Snippet
+```java
+            InventoryHolder inventoryHolder = inventory.getHolder();
+            enderChest = inventory.equals(event.getWhoClicked().getEnderChest());
+            if ((inventoryHolder == null || !(inventoryHolder instanceof BlockInventoryHolder || inventoryHolder instanceof DoubleChest)) && !enderChest) {
+                return;
+            }
+```
+
+### ConditionCoveredByFurtherCondition
+Condition 'inventoryHolder == null' covered by subsequent condition '!(inventoryHolder instanceof BlockInventoryHolder \|\| inventoryHolder instanceof DoubleChest)'
+in `src/main/java/net/coreprotect/listener/player/InventoryChangeListener.java`
+#### Snippet
+```java
+            InventoryHolder inventoryHolder = inventory.getHolder();
+            enderChest = inventory.equals(event.getWhoClicked().getEnderChest());
+            if ((inventoryHolder == null || !(inventoryHolder instanceof BlockInventoryHolder || inventoryHolder instanceof DoubleChest)) && !enderChest) {
+                return;
+            }
+```
+
+### ConditionCoveredByFurtherCondition
 Condition 'inventoryHolder != null' covered by subsequent condition 'inventoryHolder instanceof BlockInventoryHolder \|\| inventoryHolder instanceof DoubleChest'
 in `src/main/java/net/coreprotect/listener/player/InventoryChangeListener.java`
 #### Snippet
@@ -15081,30 +15105,6 @@ in `src/main/java/net/coreprotect/listener/player/InventoryChangeListener.java`
             if ((inventoryHolder != null && (inventoryHolder instanceof BlockInventoryHolder || inventoryHolder instanceof DoubleChest)) || enderChest) {
                 movedItem = true;
                 break;
-```
-
-### ConditionCoveredByFurtherCondition
-Condition 'inventoryHolder == null' covered by subsequent condition '!(inventoryHolder instanceof BlockInventoryHolder \|\| inventoryHolder instanceof DoubleChest)'
-in `src/main/java/net/coreprotect/listener/player/InventoryChangeListener.java`
-#### Snippet
-```java
-            InventoryHolder inventoryHolder = inventory.getHolder();
-            enderChest = inventory.equals(event.getWhoClicked().getEnderChest());
-            if ((inventoryHolder == null || !(inventoryHolder instanceof BlockInventoryHolder || inventoryHolder instanceof DoubleChest)) && !enderChest) {
-                return;
-            }
-```
-
-### ConditionCoveredByFurtherCondition
-Condition 'inventoryHolder == null' covered by subsequent condition '!(inventoryHolder instanceof BlockInventoryHolder \|\| inventoryHolder instanceof DoubleChest)'
-in `src/main/java/net/coreprotect/listener/player/InventoryChangeListener.java`
-#### Snippet
-```java
-            InventoryHolder inventoryHolder = inventory.getHolder();
-            enderChest = inventory.equals(event.getWhoClicked().getEnderChest());
-            if ((inventoryHolder == null || !(inventoryHolder instanceof BlockInventoryHolder || inventoryHolder instanceof DoubleChest)) && !enderChest) {
-                return;
-            }
 ```
 
 ### ConditionCoveredByFurtherCondition
@@ -15166,30 +15166,6 @@ in `src/main/java/net/coreprotect/command/ApplyCommand.java`
                         args[i] = args[i].replaceAll("#preview", "");
                     }
                 }
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`split()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/net/coreprotect/CoreProtect.java`
-#### Snippet
-```java
-    private static boolean performVersionChecks() {
-        try {
-            String[] bukkitVersion = Bukkit.getServer().getBukkitVersion().split("[-.]");
-            if (Util.newVersion(bukkitVersion[0] + "." + bukkitVersion[1], ConfigHandler.SPIGOT_VERSION)) {
-                Chat.console(Phrase.build(Phrase.VERSION_REQUIRED, "Spigot", ConfigHandler.SPIGOT_VERSION));
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/net/coreprotect/CoreProtect.java`
-#### Snippet
-```java
-                return false;
-            }
-            String[] javaVersion = (System.getProperty("java.version").replaceAll("[^0-9.]", "") + ".0").split("\\.");
-            if (Util.newVersion(javaVersion[0] + "." + javaVersion[1], ConfigHandler.JAVA_VERSION)) {
-                Chat.console(Phrase.build(Phrase.VERSION_REQUIRED, "Java", ConfigHandler.JAVA_VERSION));
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
@@ -15265,6 +15241,30 @@ in `src/main/java/net/coreprotect/command/TeleportCommand.java`
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
+`split()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `src/main/java/net/coreprotect/CoreProtect.java`
+#### Snippet
+```java
+    private static boolean performVersionChecks() {
+        try {
+            String[] bukkitVersion = Bukkit.getServer().getBukkitVersion().split("[-.]");
+            if (Util.newVersion(bukkitVersion[0] + "." + bukkitVersion[1], ConfigHandler.SPIGOT_VERSION)) {
+                Chat.console(Phrase.build(Phrase.VERSION_REQUIRED, "Spigot", ConfigHandler.SPIGOT_VERSION));
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `src/main/java/net/coreprotect/CoreProtect.java`
+#### Snippet
+```java
+                return false;
+            }
+            String[] javaVersion = (System.getProperty("java.version").replaceAll("[^0-9.]", "") + ".0").split("\\.");
+            if (Util.newVersion(javaVersion[0] + "." + javaVersion[1], ConfigHandler.JAVA_VERSION)) {
+                Chat.console(Phrase.build(Phrase.VERSION_REQUIRED, "Java", ConfigHandler.JAVA_VERSION));
+```
+
+### DynamicRegexReplaceableByCompiledPattern
 `replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
 in `src/main/java/net/coreprotect/command/HelpCommand.java`
 #### Snippet
@@ -15278,6 +15278,42 @@ in `src/main/java/net/coreprotect/command/HelpCommand.java`
 
 ### DynamicRegexReplaceableByCompiledPattern
 `replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `src/main/java/net/coreprotect/command/CancelCommand.java`
+#### Snippet
+```java
+                    if (args[i].equals("#preview")) {
+                        valid = true;
+                        args[i] = args[i].replaceAll("#preview", "#preview_cancel");
+                    }
+                }
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replaceFirst()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `src/main/java/net/coreprotect/database/logger/BlockBreakLogger.java`
+#### Snippet
+```java
+
+            if (checkType == Material.LECTERN) {
+                blockData = blockData.replaceFirst("has_book=true", "has_book=false");
+            }
+            else if (checkType == Material.PAINTING || BukkitAdapter.ADAPTER.isItemFrame(checkType)) {
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `src/main/java/net/coreprotect/patch/Patch.java`
+#### Snippet
+```java
+                    version = String.format(Locale.ROOT, "%3.2f", version_int / 100.0);
+                }
+                version = version.replaceAll(",", ".");
+                String[] old_version_split = version.split("\\.");
+                if (old_version_split.length > 2) { // #.#.#
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
 in `src/main/java/net/coreprotect/patch/Patch.java`
 #### Snippet
 ```java
@@ -15286,6 +15322,18 @@ in `src/main/java/net/coreprotect/patch/Patch.java`
                         Class<?> patchClass = Class.forName(className.substring(0, className.length() - 6).replaceAll("/", "."));
                         String patchVersion = getClassVersion(patchClass.getName());
                         if (!Util.newVersion(Util.getInternalPluginVersion(), patchVersion)) {
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `src/main/java/net/coreprotect/patch/Patch.java`
+#### Snippet
+```java
+
+                        if (continuePatch()) {
+                            Class<?> patchClass = Class.forName("net.coreprotect.patch.script.__" + patchData.replaceAll("\\.", "_"));
+                            Method patchMethod = patchClass.getDeclaredMethod("patch", Statement.class);
+                            patchMethod.setAccessible(true);
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
@@ -15313,42 +15361,6 @@ in `src/main/java/net/coreprotect/patch/Patch.java`
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/net/coreprotect/patch/Patch.java`
-#### Snippet
-```java
-                    version = String.format(Locale.ROOT, "%3.2f", version_int / 100.0);
-                }
-                version = version.replaceAll(",", ".");
-                String[] old_version_split = version.split("\\.");
-                if (old_version_split.length > 2) { // #.#.#
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/net/coreprotect/patch/Patch.java`
-#### Snippet
-```java
-
-                        if (continuePatch()) {
-                            Class<?> patchClass = Class.forName("net.coreprotect.patch.script.__" + patchData.replaceAll("\\.", "_"));
-                            Method patchMethod = patchClass.getDeclaredMethod("patch", Statement.class);
-                            patchMethod.setAccessible(true);
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replaceFirst()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/net/coreprotect/database/logger/BlockBreakLogger.java`
-#### Snippet
-```java
-
-            if (checkType == Material.LECTERN) {
-                blockData = blockData.replaceFirst("has_book=true", "has_book=false");
-            }
-            else if (checkType == Material.PAINTING || BukkitAdapter.ADAPTER.isItemFrame(checkType)) {
-```
-
-### DynamicRegexReplaceableByCompiledPattern
 `replaceFirst()` could be replaced with compiled 'java.util.regex.Pattern' construct
 in `src/main/java/net/coreprotect/language/Phrase.java`
 #### Snippet
@@ -15362,18 +15374,6 @@ in `src/main/java/net/coreprotect/language/Phrase.java`
 
 ### DynamicRegexReplaceableByCompiledPattern
 `replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/net/coreprotect/command/CancelCommand.java`
-#### Snippet
-```java
-                    if (args[i].equals("#preview")) {
-                        valid = true;
-                        args[i] = args[i].replaceAll("#preview", "#preview_cancel");
-                    }
-                }
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
 in `src/main/java/net/coreprotect/command/PurgeCommand.java`
 #### Snippet
 ```java
@@ -15382,54 +15382,6 @@ in `src/main/java/net/coreprotect/command/PurgeCommand.java`
                         String tableName = table.replaceAll("_", " ");
                         Chat.sendGlobalMessage(player, Phrase.build(Phrase.PURGE_PROCESSING, tableName));
 
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/net/coreprotect/command/CommandHandler.java`
-#### Snippet
-```java
-            if (count > 0) {
-                argument = argument.trim().toLowerCase(Locale.ROOT);
-                argument = argument.replaceAll("\\\\", "");
-                argument = argument.replaceAll("'", "");
-
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/net/coreprotect/command/CommandHandler.java`
-#### Snippet
-```java
-                argument = argument.trim().toLowerCase(Locale.ROOT);
-                argument = argument.replaceAll("\\\\", "");
-                argument = argument.replaceAll("'", "");
-
-                if (argument.equals("r:") || argument.equals("radius:")) {
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/net/coreprotect/command/CommandHandler.java`
-#### Snippet
-```java
-                }
-                else if (next == 2 || argument.startsWith("r:") || argument.startsWith("radius:")) {
-                    argument = argument.replaceAll("radius:", "");
-                    argument = argument.replaceAll("r:", "");
-                    if (argument.equals("#worldedit") || argument.equals("#we")) {
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/net/coreprotect/command/CommandHandler.java`
-#### Snippet
-```java
-                else if (next == 2 || argument.startsWith("r:") || argument.startsWith("radius:")) {
-                    argument = argument.replaceAll("radius:", "");
-                    argument = argument.replaceAll("r:", "");
-                    if (argument.equals("#worldedit") || argument.equals("#we")) {
-                        result = true;
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
@@ -15485,11 +15437,59 @@ in `src/main/java/net/coreprotect/command/CommandHandler.java`
 in `src/main/java/net/coreprotect/command/CommandHandler.java`
 #### Snippet
 ```java
-    private static void validUserCheck(List<String> users, String user) {
-        List<String> badUsers = Arrays.asList("n", "noisy", "v", "verbose", "#v", "#verbose", "#silent", "#preview", "#preview_cancel", "#count", "#sum");
-        String check = user.replaceAll("[\\s'\"]", "");
-        if (check.equals(user) && check.length() > 0) {
-            if (user.equalsIgnoreCase("#global")) {
+            if (count > 0) {
+                argument = argument.trim().toLowerCase(Locale.ROOT);
+                argument = argument.replaceAll("\\\\", "");
+                argument = argument.replaceAll("'", "");
+
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `src/main/java/net/coreprotect/command/CommandHandler.java`
+#### Snippet
+```java
+                argument = argument.trim().toLowerCase(Locale.ROOT);
+                argument = argument.replaceAll("\\\\", "");
+                argument = argument.replaceAll("'", "");
+
+                if (argument.equals("a:") || argument.equals("action:")) {
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `src/main/java/net/coreprotect/command/CommandHandler.java`
+#### Snippet
+```java
+                else if (next == 1 || argument.startsWith("a:") || argument.startsWith("action:")) {
+                    result.clear();
+                    argument = argument.replaceAll("action:", "");
+                    argument = argument.replaceAll("a:", "");
+                    if (argument.startsWith("#")) {
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `src/main/java/net/coreprotect/command/CommandHandler.java`
+#### Snippet
+```java
+                    result.clear();
+                    argument = argument.replaceAll("action:", "");
+                    argument = argument.replaceAll("a:", "");
+                    if (argument.startsWith("#")) {
+                        argument = argument.replaceFirst("#", "");
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replaceFirst()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `src/main/java/net/coreprotect/command/CommandHandler.java`
+#### Snippet
+```java
+                    argument = argument.replaceAll("a:", "");
+                    if (argument.startsWith("#")) {
+                        argument = argument.replaceFirst("#", "");
+                    }
+                    if (argument.equals("broke") || argument.equals("break") || argument.equals("remove") || argument.equals("destroy") || argument.equals("block-break") || argument.equals("block-remove") || argument.equals("-block") || argument.equals("-blocks") || argument.equals("block-")) {
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
@@ -15525,7 +15525,7 @@ in `src/main/java/net/coreprotect/command/CommandHandler.java`
                 else if (next == 2 || argument.startsWith("r:") || argument.startsWith("radius:")) {
                     argument = argument.replaceAll("radius:", "");
                     argument = argument.replaceAll("r:", "");
-                    if (argument.equals("#global") || argument.equals("global") || argument.equals("off") || argument.equals("-1") || argument.equals("none") || argument.equals("false")) {
+                    if (argument.equals("#worldedit") || argument.equals("#we")) {
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
@@ -15536,344 +15536,8 @@ in `src/main/java/net/coreprotect/command/CommandHandler.java`
                 else if (next == 2 || argument.startsWith("r:") || argument.startsWith("radius:")) {
                     argument = argument.replaceAll("radius:", "");
                     argument = argument.replaceAll("r:", "");
-                    if (argument.equals("#global") || argument.equals("global") || argument.equals("off") || argument.equals("-1") || argument.equals("none") || argument.equals("false")) {
+                    if (argument.equals("#worldedit") || argument.equals("#we")) {
                         result = true;
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/net/coreprotect/command/CommandHandler.java`
-#### Snippet
-```java
-            if (count > 0) {
-                argument = argument.trim().toLowerCase(Locale.ROOT);
-                argument = argument.replaceAll("\\\\", "");
-                argument = argument.replaceAll("'", "");
-
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/net/coreprotect/command/CommandHandler.java`
-#### Snippet
-```java
-                argument = argument.trim().toLowerCase(Locale.ROOT);
-                argument = argument.replaceAll("\\\\", "");
-                argument = argument.replaceAll("'", "");
-
-                if (argument.equals("t:") || argument.equals("time:")) {
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/net/coreprotect/command/CommandHandler.java`
-#### Snippet
-```java
-                else if (next == 1 || argument.startsWith("t:") || argument.startsWith("time:")) {
-                    // time arguments
-                    argument = argument.replaceAll("time:", "");
-                    argument = argument.replaceAll("t:", "");
-                    argument = argument.replaceAll("y", "y:");
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/net/coreprotect/command/CommandHandler.java`
-#### Snippet
-```java
-                    // time arguments
-                    argument = argument.replaceAll("time:", "");
-                    argument = argument.replaceAll("t:", "");
-                    argument = argument.replaceAll("y", "y:");
-                    argument = argument.replaceAll("m", "m:");
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/net/coreprotect/command/CommandHandler.java`
-#### Snippet
-```java
-                    argument = argument.replaceAll("time:", "");
-                    argument = argument.replaceAll("t:", "");
-                    argument = argument.replaceAll("y", "y:");
-                    argument = argument.replaceAll("m", "m:");
-                    argument = argument.replaceAll("w", "w:");
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/net/coreprotect/command/CommandHandler.java`
-#### Snippet
-```java
-                    argument = argument.replaceAll("t:", "");
-                    argument = argument.replaceAll("y", "y:");
-                    argument = argument.replaceAll("m", "m:");
-                    argument = argument.replaceAll("w", "w:");
-                    argument = argument.replaceAll("d", "d:");
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/net/coreprotect/command/CommandHandler.java`
-#### Snippet
-```java
-                    argument = argument.replaceAll("y", "y:");
-                    argument = argument.replaceAll("m", "m:");
-                    argument = argument.replaceAll("w", "w:");
-                    argument = argument.replaceAll("d", "d:");
-                    argument = argument.replaceAll("h", "h:");
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/net/coreprotect/command/CommandHandler.java`
-#### Snippet
-```java
-                    argument = argument.replaceAll("m", "m:");
-                    argument = argument.replaceAll("w", "w:");
-                    argument = argument.replaceAll("d", "d:");
-                    argument = argument.replaceAll("h", "h:");
-                    argument = argument.replaceAll("s", "s:");
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/net/coreprotect/command/CommandHandler.java`
-#### Snippet
-```java
-                    argument = argument.replaceAll("w", "w:");
-                    argument = argument.replaceAll("d", "d:");
-                    argument = argument.replaceAll("h", "h:");
-                    argument = argument.replaceAll("s", "s:");
-                    range = argument.contains("-");
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/net/coreprotect/command/CommandHandler.java`
-#### Snippet
-```java
-                    argument = argument.replaceAll("d", "d:");
-                    argument = argument.replaceAll("h", "h:");
-                    argument = argument.replaceAll("s", "s:");
-                    range = argument.contains("-");
-
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/net/coreprotect/command/CommandHandler.java`
-#### Snippet
-```java
-
-                        if (i3.endsWith("w") && w.intValue() == 0) {
-                            String i4 = i3.replaceAll("[^0-9.]", "");
-                            if (i4.length() > 0 && i4.replaceAll("[^0-9]", "").length() > 0 && i4.indexOf('.') == i4.lastIndexOf('.')) {
-                                w = new BigDecimal(i4);
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/net/coreprotect/command/CommandHandler.java`
-#### Snippet
-```java
-                        if (i3.endsWith("w") && w.intValue() == 0) {
-                            String i4 = i3.replaceAll("[^0-9.]", "");
-                            if (i4.length() > 0 && i4.replaceAll("[^0-9]", "").length() > 0 && i4.indexOf('.') == i4.lastIndexOf('.')) {
-                                w = new BigDecimal(i4);
-                                if (range) {
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/net/coreprotect/command/CommandHandler.java`
-#### Snippet
-```java
-                        }
-                        else if (i3.endsWith("d") && d.intValue() == 0) {
-                            String i4 = i3.replaceAll("[^0-9.]", "");
-                            if (i4.length() > 0 && i4.replaceAll("[^0-9]", "").length() > 0 && i4.indexOf('.') == i4.lastIndexOf('.')) {
-                                d = new BigDecimal(i4);
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/net/coreprotect/command/CommandHandler.java`
-#### Snippet
-```java
-                        else if (i3.endsWith("d") && d.intValue() == 0) {
-                            String i4 = i3.replaceAll("[^0-9.]", "");
-                            if (i4.length() > 0 && i4.replaceAll("[^0-9]", "").length() > 0 && i4.indexOf('.') == i4.lastIndexOf('.')) {
-                                d = new BigDecimal(i4);
-                                if (range) {
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/net/coreprotect/command/CommandHandler.java`
-#### Snippet
-```java
-                        }
-                        else if (i3.endsWith("h") && h.intValue() == 0) {
-                            String i4 = i3.replaceAll("[^0-9.]", "");
-                            if (i4.length() > 0 && i4.replaceAll("[^0-9]", "").length() > 0 && i4.indexOf('.') == i4.lastIndexOf('.')) {
-                                h = new BigDecimal(i4);
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/net/coreprotect/command/CommandHandler.java`
-#### Snippet
-```java
-                        else if (i3.endsWith("h") && h.intValue() == 0) {
-                            String i4 = i3.replaceAll("[^0-9.]", "");
-                            if (i4.length() > 0 && i4.replaceAll("[^0-9]", "").length() > 0 && i4.indexOf('.') == i4.lastIndexOf('.')) {
-                                h = new BigDecimal(i4);
-                                if (range) {
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/net/coreprotect/command/CommandHandler.java`
-#### Snippet
-```java
-                        }
-                        else if (i3.endsWith("m") && m.intValue() == 0) {
-                            String i4 = i3.replaceAll("[^0-9.]", "");
-                            if (i4.length() > 0 && i4.replaceAll("[^0-9]", "").length() > 0 && i4.indexOf('.') == i4.lastIndexOf('.')) {
-                                m = new BigDecimal(i4);
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/net/coreprotect/command/CommandHandler.java`
-#### Snippet
-```java
-                        else if (i3.endsWith("m") && m.intValue() == 0) {
-                            String i4 = i3.replaceAll("[^0-9.]", "");
-                            if (i4.length() > 0 && i4.replaceAll("[^0-9]", "").length() > 0 && i4.indexOf('.') == i4.lastIndexOf('.')) {
-                                m = new BigDecimal(i4);
-                                if (range) {
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/net/coreprotect/command/CommandHandler.java`
-#### Snippet
-```java
-                        }
-                        else if (i3.endsWith("s") && s.intValue() == 0) {
-                            String i4 = i3.replaceAll("[^0-9.]", "");
-                            if (i4.length() > 0 && i4.replaceAll("[^0-9]", "").length() > 0 && i4.indexOf('.') == i4.lastIndexOf('.')) {
-                                s = new BigDecimal(i4);
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/net/coreprotect/command/CommandHandler.java`
-#### Snippet
-```java
-                        else if (i3.endsWith("s") && s.intValue() == 0) {
-                            String i4 = i3.replaceAll("[^0-9.]", "");
-                            if (i4.length() > 0 && i4.replaceAll("[^0-9]", "").length() > 0 && i4.indexOf('.') == i4.lastIndexOf('.')) {
-                                s = new BigDecimal(i4);
-                                if (range) {
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/net/coreprotect/command/CommandHandler.java`
-#### Snippet
-```java
-            if (count > 0) {
-                argument = argument.trim().toLowerCase(Locale.ROOT);
-                argument = argument.replaceAll("\\\\", "");
-                argument = argument.replaceAll("'", "");
-
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/net/coreprotect/command/CommandHandler.java`
-#### Snippet
-```java
-                argument = argument.trim().toLowerCase(Locale.ROOT);
-                argument = argument.replaceAll("\\\\", "");
-                argument = argument.replaceAll("'", "");
-
-                if (next == 2) {
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/net/coreprotect/command/CommandHandler.java`
-#### Snippet
-```java
-                }
-                else if (next == 1 || argument.startsWith("p:") || argument.startsWith("user:") || argument.startsWith("users:") || argument.startsWith("u:")) {
-                    argument = argument.replaceAll("user:", "");
-                    argument = argument.replaceAll("users:", "");
-                    argument = argument.replaceAll("p:", "");
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/net/coreprotect/command/CommandHandler.java`
-#### Snippet
-```java
-                else if (next == 1 || argument.startsWith("p:") || argument.startsWith("user:") || argument.startsWith("users:") || argument.startsWith("u:")) {
-                    argument = argument.replaceAll("user:", "");
-                    argument = argument.replaceAll("users:", "");
-                    argument = argument.replaceAll("p:", "");
-                    argument = argument.replaceAll("u:", "");
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/net/coreprotect/command/CommandHandler.java`
-#### Snippet
-```java
-                    argument = argument.replaceAll("user:", "");
-                    argument = argument.replaceAll("users:", "");
-                    argument = argument.replaceAll("p:", "");
-                    argument = argument.replaceAll("u:", "");
-                    if (argument.contains(",")) {
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/net/coreprotect/command/CommandHandler.java`
-#### Snippet
-```java
-                    argument = argument.replaceAll("users:", "");
-                    argument = argument.replaceAll("p:", "");
-                    argument = argument.replaceAll("u:", "");
-                    if (argument.contains(",")) {
-                        String[] i2 = argument.split(",");
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/net/coreprotect/command/CommandHandler.java`
-#### Snippet
-```java
-            if (count > 0) {
-                argument = argument.trim().toLowerCase(Locale.ROOT);
-                argument = argument.replaceAll("\\\\", "");
-                argument = argument.replaceAll("'", "");
-
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/net/coreprotect/command/CommandHandler.java`
-#### Snippet
-```java
-                argument = argument.trim().toLowerCase(Locale.ROOT);
-                argument = argument.replaceAll("\\\\", "");
-                argument = argument.replaceAll("'", "");
-
-                if (argument.equals("n") || argument.equals("noisy") || argument.equals("v") || argument.equals("verbose") || argument.equals("#v") || argument.equals("#verbose")) {
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
@@ -15925,18 +15589,6 @@ in `src/main/java/net/coreprotect/command/CommandHandler.java`
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
-`replaceFirst()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/net/coreprotect/command/CommandHandler.java`
-#### Snippet
-```java
-    protected static String[] parsePage(String[] argumentArray) {
-        if (argumentArray.length == 2) {
-            argumentArray[1] = argumentArray[1].replaceFirst("page:", "");
-        }
-
-```
-
-### DynamicRegexReplaceableByCompiledPattern
 `replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
 in `src/main/java/net/coreprotect/command/CommandHandler.java`
 #### Snippet
@@ -15945,7 +15597,7 @@ in `src/main/java/net/coreprotect/command/CommandHandler.java`
                 argument = argument.trim().toLowerCase(Locale.ROOT);
                 argument = argument.replaceAll("\\\\", "");
                 argument = argument.replaceAll("'", "");
-
+                if (argument.equals("#preview")) {
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
@@ -15956,32 +15608,8 @@ in `src/main/java/net/coreprotect/command/CommandHandler.java`
                 argument = argument.trim().toLowerCase(Locale.ROOT);
                 argument = argument.replaceAll("\\\\", "");
                 argument = argument.replaceAll("'", "");
-
-                if (argument.equals("e:") || argument.equals("exclude:")) {
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/net/coreprotect/command/CommandHandler.java`
-#### Snippet
-```java
-                }
-                else if (next == 5 || argument.startsWith("e:") || argument.startsWith("exclude:")) {
-                    argument = argument.replaceAll("exclude:", "");
-                    argument = argument.replaceAll("e:", "");
-                    if (argument.contains(",")) {
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/net/coreprotect/command/CommandHandler.java`
-#### Snippet
-```java
-                else if (next == 5 || argument.startsWith("e:") || argument.startsWith("exclude:")) {
-                    argument = argument.replaceAll("exclude:", "");
-                    argument = argument.replaceAll("e:", "");
-                    if (argument.contains(",")) {
-                        String[] i2 = argument.split(",");
+                if (argument.equals("#preview")) {
+                    result = 1;
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
@@ -16137,30 +15765,6 @@ in `src/main/java/net/coreprotect/command/CommandHandler.java`
                 argument = argument.trim().toLowerCase(Locale.ROOT);
                 argument = argument.replaceAll("\\\\", "");
                 argument = argument.replaceAll("'", "");
-                if (argument.equals("#preview")) {
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/net/coreprotect/command/CommandHandler.java`
-#### Snippet
-```java
-                argument = argument.trim().toLowerCase(Locale.ROOT);
-                argument = argument.replaceAll("\\\\", "");
-                argument = argument.replaceAll("'", "");
-                if (argument.equals("#preview")) {
-                    result = 1;
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/net/coreprotect/command/CommandHandler.java`
-#### Snippet
-```java
-            if (count > 0) {
-                argument = argument.trim().toLowerCase(Locale.ROOT);
-                argument = argument.replaceAll("\\\\", "");
-                argument = argument.replaceAll("'", "");
 
 ```
 
@@ -16269,6 +15873,78 @@ in `src/main/java/net/coreprotect/command/CommandHandler.java`
                 argument = argument.trim().toLowerCase(Locale.ROOT);
                 argument = argument.replaceAll("\\\\", "");
                 argument = argument.replaceAll("'", "");
+
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `src/main/java/net/coreprotect/command/CommandHandler.java`
+#### Snippet
+```java
+                argument = argument.trim().toLowerCase(Locale.ROOT);
+                argument = argument.replaceAll("\\\\", "");
+                argument = argument.replaceAll("'", "");
+
+                if (argument.equals("r:") || argument.equals("radius:")) {
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `src/main/java/net/coreprotect/command/CommandHandler.java`
+#### Snippet
+```java
+                }
+                else if (next == 2 || argument.startsWith("r:") || argument.startsWith("radius:")) {
+                    argument = argument.replaceAll("radius:", "");
+                    argument = argument.replaceAll("r:", "");
+                    if (argument.equals("#worldedit") || argument.equals("#we")) {
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `src/main/java/net/coreprotect/command/CommandHandler.java`
+#### Snippet
+```java
+                else if (next == 2 || argument.startsWith("r:") || argument.startsWith("radius:")) {
+                    argument = argument.replaceAll("radius:", "");
+                    argument = argument.replaceAll("r:", "");
+                    if (argument.equals("#worldedit") || argument.equals("#we")) {
+                        if (user.getServer().getPluginManager().getPlugin("WorldEdit") != null) {
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `src/main/java/net/coreprotect/command/CommandHandler.java`
+#### Snippet
+```java
+                        }
+                        for (String value : r_dat) {
+                            String i4 = value.replaceAll("[^0-9.]", "");
+                            if (i4.length() > 0 && i4.length() == value.length() && i4.replaceAll("[^0-9]", "").length() > 0 && i4.indexOf('.') == i4.lastIndexOf('.')) {
+                                double a1 = Double.parseDouble(i4);
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `src/main/java/net/coreprotect/command/CommandHandler.java`
+#### Snippet
+```java
+                        for (String value : r_dat) {
+                            String i4 = value.replaceAll("[^0-9.]", "");
+                            if (i4.length() > 0 && i4.length() == value.length() && i4.replaceAll("[^0-9]", "").length() > 0 && i4.indexOf('.') == i4.lastIndexOf('.')) {
+                                double a1 = Double.parseDouble(i4);
+                                if (rcount == 0) { // x
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `src/main/java/net/coreprotect/command/CommandHandler.java`
+#### Snippet
+```java
+            if (count > 0) {
+                argument = argument.trim().toLowerCase(Locale.ROOT);
+                argument = argument.replaceAll("\\\\", "");
+                argument = argument.replaceAll("'", "");
                 if (argument.equals("#count") || argument.equals("#sum")) {
 ```
 
@@ -16282,6 +15958,138 @@ in `src/main/java/net/coreprotect/command/CommandHandler.java`
                 argument = argument.replaceAll("'", "");
                 if (argument.equals("#count") || argument.equals("#sum")) {
                     result = true;
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `src/main/java/net/coreprotect/command/CommandHandler.java`
+#### Snippet
+```java
+    private static void validUserCheck(List<String> users, String user) {
+        List<String> badUsers = Arrays.asList("n", "noisy", "v", "verbose", "#v", "#verbose", "#silent", "#preview", "#preview_cancel", "#count", "#sum");
+        String check = user.replaceAll("[\\s'\"]", "");
+        if (check.equals(user) && check.length() > 0) {
+            if (user.equalsIgnoreCase("#global")) {
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `src/main/java/net/coreprotect/command/CommandHandler.java`
+#### Snippet
+```java
+            if (count > 0) {
+                argument = argument.trim().toLowerCase(Locale.ROOT);
+                argument = argument.replaceAll("\\\\", "");
+                argument = argument.replaceAll("'", "");
+
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `src/main/java/net/coreprotect/command/CommandHandler.java`
+#### Snippet
+```java
+                argument = argument.trim().toLowerCase(Locale.ROOT);
+                argument = argument.replaceAll("\\\\", "");
+                argument = argument.replaceAll("'", "");
+
+                if (argument.equals("r:") || argument.equals("radius:")) {
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `src/main/java/net/coreprotect/command/CommandHandler.java`
+#### Snippet
+```java
+                }
+                else if (next == 2 || argument.startsWith("r:") || argument.startsWith("radius:")) {
+                    argument = argument.replaceAll("radius:", "");
+                    argument = argument.replaceAll("r:", "");
+                    if (argument.equals("#global") || argument.equals("global") || argument.equals("off") || argument.equals("-1") || argument.equals("none") || argument.equals("false")) {
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `src/main/java/net/coreprotect/command/CommandHandler.java`
+#### Snippet
+```java
+                else if (next == 2 || argument.startsWith("r:") || argument.startsWith("radius:")) {
+                    argument = argument.replaceAll("radius:", "");
+                    argument = argument.replaceAll("r:", "");
+                    if (argument.equals("#global") || argument.equals("global") || argument.equals("off") || argument.equals("-1") || argument.equals("none") || argument.equals("false")) {
+                        result = true;
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `src/main/java/net/coreprotect/command/CommandHandler.java`
+#### Snippet
+```java
+            if (count > 0) {
+                argument = argument.trim().toLowerCase(Locale.ROOT);
+                argument = argument.replaceAll("\\\\", "");
+                argument = argument.replaceAll("'", "");
+
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `src/main/java/net/coreprotect/command/CommandHandler.java`
+#### Snippet
+```java
+                argument = argument.trim().toLowerCase(Locale.ROOT);
+                argument = argument.replaceAll("\\\\", "");
+                argument = argument.replaceAll("'", "");
+
+                if (next == 2) {
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `src/main/java/net/coreprotect/command/CommandHandler.java`
+#### Snippet
+```java
+                }
+                else if (next == 1 || argument.startsWith("p:") || argument.startsWith("user:") || argument.startsWith("users:") || argument.startsWith("u:")) {
+                    argument = argument.replaceAll("user:", "");
+                    argument = argument.replaceAll("users:", "");
+                    argument = argument.replaceAll("p:", "");
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `src/main/java/net/coreprotect/command/CommandHandler.java`
+#### Snippet
+```java
+                else if (next == 1 || argument.startsWith("p:") || argument.startsWith("user:") || argument.startsWith("users:") || argument.startsWith("u:")) {
+                    argument = argument.replaceAll("user:", "");
+                    argument = argument.replaceAll("users:", "");
+                    argument = argument.replaceAll("p:", "");
+                    argument = argument.replaceAll("u:", "");
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `src/main/java/net/coreprotect/command/CommandHandler.java`
+#### Snippet
+```java
+                    argument = argument.replaceAll("user:", "");
+                    argument = argument.replaceAll("users:", "");
+                    argument = argument.replaceAll("p:", "");
+                    argument = argument.replaceAll("u:", "");
+                    if (argument.contains(",")) {
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `src/main/java/net/coreprotect/command/CommandHandler.java`
+#### Snippet
+```java
+                    argument = argument.replaceAll("users:", "");
+                    argument = argument.replaceAll("p:", "");
+                    argument = argument.replaceAll("u:", "");
+                    if (argument.contains(",")) {
+                        String[] i2 = argument.split(",");
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
@@ -16350,6 +16158,246 @@ in `src/main/java/net/coreprotect/command/CommandHandler.java`
 #### Snippet
 ```java
             if (count > 0) {
+                argument = argument.trim().toLowerCase(Locale.ROOT);
+                argument = argument.replaceAll("\\\\", "");
+                argument = argument.replaceAll("'", "");
+
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `src/main/java/net/coreprotect/command/CommandHandler.java`
+#### Snippet
+```java
+                argument = argument.trim().toLowerCase(Locale.ROOT);
+                argument = argument.replaceAll("\\\\", "");
+                argument = argument.replaceAll("'", "");
+
+                if (argument.equals("t:") || argument.equals("time:")) {
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `src/main/java/net/coreprotect/command/CommandHandler.java`
+#### Snippet
+```java
+                else if (next == 1 || argument.startsWith("t:") || argument.startsWith("time:")) {
+                    // time arguments
+                    argument = argument.replaceAll("time:", "");
+                    argument = argument.replaceAll("t:", "");
+                    argument = argument.replaceAll("y", "y:");
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `src/main/java/net/coreprotect/command/CommandHandler.java`
+#### Snippet
+```java
+                    // time arguments
+                    argument = argument.replaceAll("time:", "");
+                    argument = argument.replaceAll("t:", "");
+                    argument = argument.replaceAll("y", "y:");
+                    argument = argument.replaceAll("m", "m:");
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `src/main/java/net/coreprotect/command/CommandHandler.java`
+#### Snippet
+```java
+                    argument = argument.replaceAll("time:", "");
+                    argument = argument.replaceAll("t:", "");
+                    argument = argument.replaceAll("y", "y:");
+                    argument = argument.replaceAll("m", "m:");
+                    argument = argument.replaceAll("w", "w:");
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `src/main/java/net/coreprotect/command/CommandHandler.java`
+#### Snippet
+```java
+                    argument = argument.replaceAll("t:", "");
+                    argument = argument.replaceAll("y", "y:");
+                    argument = argument.replaceAll("m", "m:");
+                    argument = argument.replaceAll("w", "w:");
+                    argument = argument.replaceAll("d", "d:");
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `src/main/java/net/coreprotect/command/CommandHandler.java`
+#### Snippet
+```java
+                    argument = argument.replaceAll("y", "y:");
+                    argument = argument.replaceAll("m", "m:");
+                    argument = argument.replaceAll("w", "w:");
+                    argument = argument.replaceAll("d", "d:");
+                    argument = argument.replaceAll("h", "h:");
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `src/main/java/net/coreprotect/command/CommandHandler.java`
+#### Snippet
+```java
+                    argument = argument.replaceAll("m", "m:");
+                    argument = argument.replaceAll("w", "w:");
+                    argument = argument.replaceAll("d", "d:");
+                    argument = argument.replaceAll("h", "h:");
+                    argument = argument.replaceAll("s", "s:");
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `src/main/java/net/coreprotect/command/CommandHandler.java`
+#### Snippet
+```java
+                    argument = argument.replaceAll("w", "w:");
+                    argument = argument.replaceAll("d", "d:");
+                    argument = argument.replaceAll("h", "h:");
+                    argument = argument.replaceAll("s", "s:");
+                    range = argument.contains("-");
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `src/main/java/net/coreprotect/command/CommandHandler.java`
+#### Snippet
+```java
+                    argument = argument.replaceAll("d", "d:");
+                    argument = argument.replaceAll("h", "h:");
+                    argument = argument.replaceAll("s", "s:");
+                    range = argument.contains("-");
+
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `src/main/java/net/coreprotect/command/CommandHandler.java`
+#### Snippet
+```java
+
+                        if (i3.endsWith("w") && w.intValue() == 0) {
+                            String i4 = i3.replaceAll("[^0-9.]", "");
+                            if (i4.length() > 0 && i4.replaceAll("[^0-9]", "").length() > 0 && i4.indexOf('.') == i4.lastIndexOf('.')) {
+                                w = new BigDecimal(i4);
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `src/main/java/net/coreprotect/command/CommandHandler.java`
+#### Snippet
+```java
+                        if (i3.endsWith("w") && w.intValue() == 0) {
+                            String i4 = i3.replaceAll("[^0-9.]", "");
+                            if (i4.length() > 0 && i4.replaceAll("[^0-9]", "").length() > 0 && i4.indexOf('.') == i4.lastIndexOf('.')) {
+                                w = new BigDecimal(i4);
+                                if (range) {
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `src/main/java/net/coreprotect/command/CommandHandler.java`
+#### Snippet
+```java
+                        }
+                        else if (i3.endsWith("d") && d.intValue() == 0) {
+                            String i4 = i3.replaceAll("[^0-9.]", "");
+                            if (i4.length() > 0 && i4.replaceAll("[^0-9]", "").length() > 0 && i4.indexOf('.') == i4.lastIndexOf('.')) {
+                                d = new BigDecimal(i4);
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `src/main/java/net/coreprotect/command/CommandHandler.java`
+#### Snippet
+```java
+                        else if (i3.endsWith("d") && d.intValue() == 0) {
+                            String i4 = i3.replaceAll("[^0-9.]", "");
+                            if (i4.length() > 0 && i4.replaceAll("[^0-9]", "").length() > 0 && i4.indexOf('.') == i4.lastIndexOf('.')) {
+                                d = new BigDecimal(i4);
+                                if (range) {
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `src/main/java/net/coreprotect/command/CommandHandler.java`
+#### Snippet
+```java
+                        }
+                        else if (i3.endsWith("h") && h.intValue() == 0) {
+                            String i4 = i3.replaceAll("[^0-9.]", "");
+                            if (i4.length() > 0 && i4.replaceAll("[^0-9]", "").length() > 0 && i4.indexOf('.') == i4.lastIndexOf('.')) {
+                                h = new BigDecimal(i4);
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `src/main/java/net/coreprotect/command/CommandHandler.java`
+#### Snippet
+```java
+                        else if (i3.endsWith("h") && h.intValue() == 0) {
+                            String i4 = i3.replaceAll("[^0-9.]", "");
+                            if (i4.length() > 0 && i4.replaceAll("[^0-9]", "").length() > 0 && i4.indexOf('.') == i4.lastIndexOf('.')) {
+                                h = new BigDecimal(i4);
+                                if (range) {
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `src/main/java/net/coreprotect/command/CommandHandler.java`
+#### Snippet
+```java
+                        }
+                        else if (i3.endsWith("m") && m.intValue() == 0) {
+                            String i4 = i3.replaceAll("[^0-9.]", "");
+                            if (i4.length() > 0 && i4.replaceAll("[^0-9]", "").length() > 0 && i4.indexOf('.') == i4.lastIndexOf('.')) {
+                                m = new BigDecimal(i4);
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `src/main/java/net/coreprotect/command/CommandHandler.java`
+#### Snippet
+```java
+                        else if (i3.endsWith("m") && m.intValue() == 0) {
+                            String i4 = i3.replaceAll("[^0-9.]", "");
+                            if (i4.length() > 0 && i4.replaceAll("[^0-9]", "").length() > 0 && i4.indexOf('.') == i4.lastIndexOf('.')) {
+                                m = new BigDecimal(i4);
+                                if (range) {
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `src/main/java/net/coreprotect/command/CommandHandler.java`
+#### Snippet
+```java
+                        }
+                        else if (i3.endsWith("s") && s.intValue() == 0) {
+                            String i4 = i3.replaceAll("[^0-9.]", "");
+                            if (i4.length() > 0 && i4.replaceAll("[^0-9]", "").length() > 0 && i4.indexOf('.') == i4.lastIndexOf('.')) {
+                                s = new BigDecimal(i4);
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `src/main/java/net/coreprotect/command/CommandHandler.java`
+#### Snippet
+```java
+                        else if (i3.endsWith("s") && s.intValue() == 0) {
+                            String i4 = i3.replaceAll("[^0-9.]", "");
+                            if (i4.length() > 0 && i4.replaceAll("[^0-9]", "").length() > 0 && i4.indexOf('.') == i4.lastIndexOf('.')) {
+                                s = new BigDecimal(i4);
+                                if (range) {
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `src/main/java/net/coreprotect/command/CommandHandler.java`
+#### Snippet
+```java
+            if (count > 0) {
                 argument = argument.trim();
                 argument = argument.replaceAll("\\\\", "");
                 argument = argument.replaceAll("'", "");
@@ -16402,6 +16450,30 @@ in `src/main/java/net/coreprotect/command/CommandHandler.java`
                             world_id = ConfigHandler.worlds.getOrDefault(argument.replaceFirst("#", ""), -1);
                         }
                     }
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `src/main/java/net/coreprotect/command/CommandHandler.java`
+#### Snippet
+```java
+            if (count > 0) {
+                argument = argument.trim().toLowerCase(Locale.ROOT);
+                argument = argument.replaceAll("\\\\", "");
+                argument = argument.replaceAll("'", "");
+
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `src/main/java/net/coreprotect/command/CommandHandler.java`
+#### Snippet
+```java
+                argument = argument.trim().toLowerCase(Locale.ROOT);
+                argument = argument.replaceAll("\\\\", "");
+                argument = argument.replaceAll("'", "");
+
+                if (argument.equals("n") || argument.equals("noisy") || argument.equals("v") || argument.equals("verbose") || argument.equals("#v") || argument.equals("#verbose")) {
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
@@ -16665,7 +16737,7 @@ in `src/main/java/net/coreprotect/command/CommandHandler.java`
                 argument = argument.replaceAll("\\\\", "");
                 argument = argument.replaceAll("'", "");
 
-                if (argument.equals("r:") || argument.equals("radius:")) {
+                if (argument.equals("e:") || argument.equals("exclude:")) {
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
@@ -16674,10 +16746,10 @@ in `src/main/java/net/coreprotect/command/CommandHandler.java`
 #### Snippet
 ```java
                 }
-                else if (next == 2 || argument.startsWith("r:") || argument.startsWith("radius:")) {
-                    argument = argument.replaceAll("radius:", "");
-                    argument = argument.replaceAll("r:", "");
-                    if (argument.equals("#worldedit") || argument.equals("#we")) {
+                else if (next == 5 || argument.startsWith("e:") || argument.startsWith("exclude:")) {
+                    argument = argument.replaceAll("exclude:", "");
+                    argument = argument.replaceAll("e:", "");
+                    if (argument.contains(",")) {
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
@@ -16685,83 +16757,11 @@ in `src/main/java/net/coreprotect/command/CommandHandler.java`
 in `src/main/java/net/coreprotect/command/CommandHandler.java`
 #### Snippet
 ```java
-                else if (next == 2 || argument.startsWith("r:") || argument.startsWith("radius:")) {
-                    argument = argument.replaceAll("radius:", "");
-                    argument = argument.replaceAll("r:", "");
-                    if (argument.equals("#worldedit") || argument.equals("#we")) {
-                        if (user.getServer().getPluginManager().getPlugin("WorldEdit") != null) {
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/net/coreprotect/command/CommandHandler.java`
-#### Snippet
-```java
-                        }
-                        for (String value : r_dat) {
-                            String i4 = value.replaceAll("[^0-9.]", "");
-                            if (i4.length() > 0 && i4.length() == value.length() && i4.replaceAll("[^0-9]", "").length() > 0 && i4.indexOf('.') == i4.lastIndexOf('.')) {
-                                double a1 = Double.parseDouble(i4);
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/net/coreprotect/command/CommandHandler.java`
-#### Snippet
-```java
-                        for (String value : r_dat) {
-                            String i4 = value.replaceAll("[^0-9.]", "");
-                            if (i4.length() > 0 && i4.length() == value.length() && i4.replaceAll("[^0-9]", "").length() > 0 && i4.indexOf('.') == i4.lastIndexOf('.')) {
-                                double a1 = Double.parseDouble(i4);
-                                if (rcount == 0) { // x
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/net/coreprotect/command/CommandHandler.java`
-#### Snippet
-```java
-            if (count > 0) {
-                argument = argument.trim().toLowerCase(Locale.ROOT);
-                argument = argument.replaceAll("\\\\", "");
-                argument = argument.replaceAll("'", "");
-
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/net/coreprotect/command/CommandHandler.java`
-#### Snippet
-```java
-                argument = argument.trim().toLowerCase(Locale.ROOT);
-                argument = argument.replaceAll("\\\\", "");
-                argument = argument.replaceAll("'", "");
-
-                if (argument.equals("a:") || argument.equals("action:")) {
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/net/coreprotect/command/CommandHandler.java`
-#### Snippet
-```java
-                else if (next == 1 || argument.startsWith("a:") || argument.startsWith("action:")) {
-                    result.clear();
-                    argument = argument.replaceAll("action:", "");
-                    argument = argument.replaceAll("a:", "");
-                    if (argument.startsWith("#")) {
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/net/coreprotect/command/CommandHandler.java`
-#### Snippet
-```java
-                    result.clear();
-                    argument = argument.replaceAll("action:", "");
-                    argument = argument.replaceAll("a:", "");
-                    if (argument.startsWith("#")) {
-                        argument = argument.replaceFirst("#", "");
+                else if (next == 5 || argument.startsWith("e:") || argument.startsWith("exclude:")) {
+                    argument = argument.replaceAll("exclude:", "");
+                    argument = argument.replaceAll("e:", "");
+                    if (argument.contains(",")) {
+                        String[] i2 = argument.split(",");
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
@@ -16769,11 +16769,11 @@ in `src/main/java/net/coreprotect/command/CommandHandler.java`
 in `src/main/java/net/coreprotect/command/CommandHandler.java`
 #### Snippet
 ```java
-                    argument = argument.replaceAll("a:", "");
-                    if (argument.startsWith("#")) {
-                        argument = argument.replaceFirst("#", "");
-                    }
-                    if (argument.equals("broke") || argument.equals("break") || argument.equals("remove") || argument.equals("destroy") || argument.equals("block-break") || argument.equals("block-remove") || argument.equals("-block") || argument.equals("-blocks") || argument.equals("block-")) {
+    protected static String[] parsePage(String[] argumentArray) {
+        if (argumentArray.length == 2) {
+            argumentArray[1] = argumentArray[1].replaceFirst("page:", "");
+        }
+
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
@@ -16786,18 +16786,6 @@ in `src/main/java/net/coreprotect/config/ConfigHandler.java`
                         String blacklistUser = blfile.readLine().replaceAll(" ", "").toLowerCase(Locale.ROOT);
                         if (blacklistUser.length() > 0) {
                             ConfigHandler.blacklist.put(blacklistUser, true);
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/net/coreprotect/config/ConfigFile.java`
-#### Snippet
-```java
-            for (final Entry<String, String> entry : DEFAULT_VALUES.entrySet()) {
-                final String key = entry.getKey();
-                final String defaultValue = entry.getValue().replaceAll("\"", "\\\\\"");
-
-                final String configuredValue = this.lang.get(key);
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
@@ -16826,6 +16814,18 @@ in `src/main/java/net/coreprotect/config/ConfigFile.java`
 
 ### DynamicRegexReplaceableByCompiledPattern
 `replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `src/main/java/net/coreprotect/config/ConfigFile.java`
+#### Snippet
+```java
+            for (final Entry<String, String> entry : DEFAULT_VALUES.entrySet()) {
+                final String key = entry.getKey();
+                final String defaultValue = entry.getValue().replaceAll("\"", "\\\\\"");
+
+                final String configuredValue = this.lang.get(key);
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
 in `src/main/java/net/coreprotect/config/Config.java`
 #### Snippet
 ```java
@@ -16834,6 +16834,42 @@ in `src/main/java/net/coreprotect/config/Config.java`
         configured = configured.replaceAll("[^0-9]", "");
 
         return configured.isEmpty() ? 0 : Integer.parseInt(configured);
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `src/main/java/net/coreprotect/command/LookupCommand.java`
+#### Snippet
+```java
+                                                    int action = Integer.parseInt(data[6]);
+                                                    String timeago = Util.getTimeSince(Integer.parseInt(time), unixtimestamp, true);
+                                                    int timeLength = 50 + (Util.getTimeSince(Integer.parseInt(time), unixtimestamp, false).replaceAll("[^0-9]", "").length() * 6);
+                                                    String leftPadding = Color.BOLD + Strings.padStart("", 10, ' ');
+                                                    if (timeLength % 4 == 0) {
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `src/main/java/net/coreprotect/command/LookupCommand.java`
+#### Snippet
+```java
+                                                    String message = data[6];
+                                                    String timeago = Util.getTimeSince(Integer.parseInt(time), unixtimestamp, true);
+                                                    int timeLength = 50 + (Util.getTimeSince(Integer.parseInt(time), unixtimestamp, false).replaceAll("[^0-9]", "").length() * 6);
+                                                    String leftPadding = Color.BOLD + Strings.padStart("", 10, ' ');
+                                                    if (timeLength % 4 == 0) {
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `src/main/java/net/coreprotect/command/LookupCommand.java`
+#### Snippet
+```java
+
+                                                    String timeago = Util.getTimeSince(Integer.parseInt(time), unixtimestamp, true);
+                                                    int timeLength = 50 + (Util.getTimeSince(Integer.parseInt(time), unixtimestamp, false).replaceAll("[^0-9]", "").length() * 6);
+                                                    String leftPadding = Color.BOLD + Strings.padStart("", 10, ' ');
+                                                    if (timeLength % 4 == 0) {
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
@@ -16958,42 +16994,6 @@ in `src/main/java/net/coreprotect/command/LookupCommand.java`
 
 ### DynamicRegexReplaceableByCompiledPattern
 `replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/net/coreprotect/command/LookupCommand.java`
-#### Snippet
-```java
-                                                    int action = Integer.parseInt(data[6]);
-                                                    String timeago = Util.getTimeSince(Integer.parseInt(time), unixtimestamp, true);
-                                                    int timeLength = 50 + (Util.getTimeSince(Integer.parseInt(time), unixtimestamp, false).replaceAll("[^0-9]", "").length() * 6);
-                                                    String leftPadding = Color.BOLD + Strings.padStart("", 10, ' ');
-                                                    if (timeLength % 4 == 0) {
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/net/coreprotect/command/LookupCommand.java`
-#### Snippet
-```java
-                                                    String message = data[6];
-                                                    String timeago = Util.getTimeSince(Integer.parseInt(time), unixtimestamp, true);
-                                                    int timeLength = 50 + (Util.getTimeSince(Integer.parseInt(time), unixtimestamp, false).replaceAll("[^0-9]", "").length() * 6);
-                                                    String leftPadding = Color.BOLD + Strings.padStart("", 10, ' ');
-                                                    if (timeLength % 4 == 0) {
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/net/coreprotect/command/LookupCommand.java`
-#### Snippet
-```java
-
-                                                    String timeago = Util.getTimeSince(Integer.parseInt(time), unixtimestamp, true);
-                                                    int timeLength = 50 + (Util.getTimeSince(Integer.parseInt(time), unixtimestamp, false).replaceAll("[^0-9]", "").length() * 6);
-                                                    String leftPadding = Color.BOLD + Strings.padStart("", 10, ' ');
-                                                    if (timeLength % 4 == 0) {
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
 in `src/main/java/net/coreprotect/thread/NetworkHandler.java`
 #### Snippet
 ```java
@@ -17050,78 +17050,6 @@ in `src/main/java/net/coreprotect/thread/NetworkHandler.java`
                             String remoteVersion = response.replaceAll("[^0-9.]", "");
                             if (remoteVersion.contains(".")) {
                                 boolean newVersion = Util.newVersion(version, remoteVersion);
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replaceFirst()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/net/coreprotect/listener/player/PlayerInteractListener.java`
-#### Snippet
-```java
-
-                            if (dyeSet.contains(handType)) {
-                                newColor = (DyeColor.valueOf(handType.name().replaceFirst("_DYE", ""))).getColor().asRGB();
-                            }
-                            else {
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`matches()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/net/coreprotect/utility/Util.java`
-#### Snippet
-```java
-            result = new String(data, StandardCharsets.UTF_8);
-            if (result.length() > 0) {
-                if (result.matches("\\d+")) {
-                    result = result + ",";
-                }
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replaceFirst()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/net/coreprotect/utility/Util.java`
-#### Snippet
-```java
-            // Parse wid:# parameter used internally for /co tp click events
-            if (name.startsWith("wid:")) {
-                String nameWid = name.replaceFirst("wid:", "");
-                if (nameWid.length() > 0 && nameWid.equals(nameWid.replaceAll("[^0-9]", ""))) {
-                    nameWid = Util.getWorldName(Integer.parseInt(nameWid));
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/net/coreprotect/utility/Util.java`
-#### Snippet
-```java
-            if (name.startsWith("wid:")) {
-                String nameWid = name.replaceFirst("wid:", "");
-                if (nameWid.length() > 0 && nameWid.equals(nameWid.replaceAll("[^0-9]", ""))) {
-                    nameWid = Util.getWorldName(Integer.parseInt(nameWid));
-                    if (nameWid.length() > 0) {
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replaceFirst()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/net/coreprotect/utility/Util.java`
-#### Snippet
-```java
-            // Determine closest match on world name
-            String result = "";
-            name = name.replaceFirst("#", "").toLowerCase(Locale.ROOT).trim();
-            for (World world : Bukkit.getServer().getWorlds()) {
-                String worldName = world.getName();
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/net/coreprotect/utility/Util.java`
-#### Snippet
-```java
-                    result = world.getName();
-                }
-                else if (worldName.toLowerCase(Locale.ROOT).replaceAll("[^a-zA-Z0-9]", "").endsWith(name)) {
-                    result = world.getName();
-                }
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
@@ -17218,6 +17146,78 @@ in `src/main/java/net/coreprotect/utility/Util.java`
                     worldEditVersion[1] = worldEditVersion[1].replaceAll("[^0-9]", "");
                     if (worldEditVersion[0].length() == 0 || worldEditVersion[1].length() == 0 || Util.newVersion(worldEditVersion[0] + "." + worldEditVersion[1], "7.1")) {
                         validVersion = false;
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`matches()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `src/main/java/net/coreprotect/utility/Util.java`
+#### Snippet
+```java
+            result = new String(data, StandardCharsets.UTF_8);
+            if (result.length() > 0) {
+                if (result.matches("\\d+")) {
+                    result = result + ",";
+                }
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replaceFirst()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `src/main/java/net/coreprotect/utility/Util.java`
+#### Snippet
+```java
+            // Parse wid:# parameter used internally for /co tp click events
+            if (name.startsWith("wid:")) {
+                String nameWid = name.replaceFirst("wid:", "");
+                if (nameWid.length() > 0 && nameWid.equals(nameWid.replaceAll("[^0-9]", ""))) {
+                    nameWid = Util.getWorldName(Integer.parseInt(nameWid));
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `src/main/java/net/coreprotect/utility/Util.java`
+#### Snippet
+```java
+            if (name.startsWith("wid:")) {
+                String nameWid = name.replaceFirst("wid:", "");
+                if (nameWid.length() > 0 && nameWid.equals(nameWid.replaceAll("[^0-9]", ""))) {
+                    nameWid = Util.getWorldName(Integer.parseInt(nameWid));
+                    if (nameWid.length() > 0) {
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replaceFirst()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `src/main/java/net/coreprotect/utility/Util.java`
+#### Snippet
+```java
+            // Determine closest match on world name
+            String result = "";
+            name = name.replaceFirst("#", "").toLowerCase(Locale.ROOT).trim();
+            for (World world : Bukkit.getServer().getWorlds()) {
+                String worldName = world.getName();
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `src/main/java/net/coreprotect/utility/Util.java`
+#### Snippet
+```java
+                    result = world.getName();
+                }
+                else if (worldName.toLowerCase(Locale.ROOT).replaceAll("[^a-zA-Z0-9]", "").endsWith(name)) {
+                    result = world.getName();
+                }
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replaceFirst()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `src/main/java/net/coreprotect/listener/player/PlayerInteractListener.java`
+#### Snippet
+```java
+
+                            if (dyeSet.contains(handType)) {
+                                newColor = (DyeColor.valueOf(handType.name().replaceFirst("_DYE", ""))).getColor().asRGB();
+                            }
+                            else {
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
@@ -17342,42 +17342,6 @@ in `src/main/java/net/coreprotect/bukkit/Bukkit_v1_17.java`
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.bukkit` is unnecessary and can be removed
-in `src/main/java/net/coreprotect/database/Rollback.java`
-#### Snippet
-```java
-                            effectBuilder = FireworkEffect.builder();
-                            for (Map<String, Object> fireworkData : map) {
-                                org.bukkit.FireworkEffect.Type type = (org.bukkit.FireworkEffect.Type) fireworkData.getOrDefault("type", org.bukkit.FireworkEffect.Type.BALL);
-                                boolean hasFlicker = (Boolean) fireworkData.get("flicker");
-                                boolean hasTrail = (Boolean) fireworkData.get("trail");
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.bukkit` is unnecessary and can be removed
-in `src/main/java/net/coreprotect/database/Rollback.java`
-#### Snippet
-```java
-                            effectBuilder = FireworkEffect.builder();
-                            for (Map<String, Object> fireworkData : map) {
-                                org.bukkit.FireworkEffect.Type type = (org.bukkit.FireworkEffect.Type) fireworkData.getOrDefault("type", org.bukkit.FireworkEffect.Type.BALL);
-                                boolean hasFlicker = (Boolean) fireworkData.get("flicker");
-                                boolean hasTrail = (Boolean) fireworkData.get("trail");
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.bukkit` is unnecessary and can be removed
-in `src/main/java/net/coreprotect/database/Rollback.java`
-#### Snippet
-```java
-                            effectBuilder = FireworkEffect.builder();
-                            for (Map<String, Object> fireworkData : map) {
-                                org.bukkit.FireworkEffect.Type type = (org.bukkit.FireworkEffect.Type) fireworkData.getOrDefault("type", org.bukkit.FireworkEffect.Type.BALL);
-                                boolean hasFlicker = (Boolean) fireworkData.get("flicker");
-                                boolean hasTrail = (Boolean) fireworkData.get("trail");
-```
-
-### UnnecessaryFullyQualifiedName
 Qualifier `org.bukkit.block.data.type` is unnecessary and can be removed
 in `src/main/java/net/coreprotect/database/Rollback.java`
 #### Snippet
@@ -17389,17 +17353,40 @@ in `src/main/java/net/coreprotect/database/Rollback.java`
                                             ((Piston) blockData).setFacing(technicalPiston.getFacing());
 ```
 
-## RuleId[ruleID=ComparatorMethodParameterNotUsed]
-### ComparatorMethodParameterNotUsed
-Comparator does not return 0 for equal elements
-in `src/main/java/net/coreprotect/utility/Util.java`
+### UnnecessaryFullyQualifiedName
+Qualifier `org.bukkit` is unnecessary and can be removed
+in `src/main/java/net/coreprotect/database/Rollback.java`
 #### Snippet
 ```java
-        SortedSet<Map.Entry<K, V>> sortedEntries = new TreeSet<>((e1, e2) -> {
-            int res = e1.getValue().compareTo(e2.getValue());
-            return res != 0 ? res : 1;
-        });
-        sortedEntries.addAll(map.entrySet());
+                            effectBuilder = FireworkEffect.builder();
+                            for (Map<String, Object> fireworkData : map) {
+                                org.bukkit.FireworkEffect.Type type = (org.bukkit.FireworkEffect.Type) fireworkData.getOrDefault("type", org.bukkit.FireworkEffect.Type.BALL);
+                                boolean hasFlicker = (Boolean) fireworkData.get("flicker");
+                                boolean hasTrail = (Boolean) fireworkData.get("trail");
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.bukkit` is unnecessary and can be removed
+in `src/main/java/net/coreprotect/database/Rollback.java`
+#### Snippet
+```java
+                            effectBuilder = FireworkEffect.builder();
+                            for (Map<String, Object> fireworkData : map) {
+                                org.bukkit.FireworkEffect.Type type = (org.bukkit.FireworkEffect.Type) fireworkData.getOrDefault("type", org.bukkit.FireworkEffect.Type.BALL);
+                                boolean hasFlicker = (Boolean) fireworkData.get("flicker");
+                                boolean hasTrail = (Boolean) fireworkData.get("trail");
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.bukkit` is unnecessary and can be removed
+in `src/main/java/net/coreprotect/database/Rollback.java`
+#### Snippet
+```java
+                            effectBuilder = FireworkEffect.builder();
+                            for (Map<String, Object> fireworkData : map) {
+                                org.bukkit.FireworkEffect.Type type = (org.bukkit.FireworkEffect.Type) fireworkData.getOrDefault("type", org.bukkit.FireworkEffect.Type.BALL);
+                                boolean hasFlicker = (Boolean) fireworkData.get("flicker");
+                                boolean hasTrail = (Boolean) fireworkData.get("trail");
 ```
 
 ## RuleId[ruleID=RegExpSingleCharAlternation]
@@ -17415,10 +17402,23 @@ in `src/main/java/net/coreprotect/utility/Util.java`
                     worldEditVersion[0] = worldEditVersion[0].replaceAll("[^0-9]", "");
 ```
 
+## RuleId[ruleID=ComparatorMethodParameterNotUsed]
+### ComparatorMethodParameterNotUsed
+Comparator does not return 0 for equal elements
+in `src/main/java/net/coreprotect/utility/Util.java`
+#### Snippet
+```java
+        SortedSet<Map.Entry<K, V>> sortedEntries = new TreeSet<>((e1, e2) -> {
+            int res = e1.getValue().compareTo(e2.getValue());
+            return res != 0 ? res : 1;
+        });
+        sortedEntries.addAll(map.entrySet());
+```
+
 ## RuleId[ruleID=ThrowablePrintStackTrace]
 ### ThrowablePrintStackTrace
 Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/net/coreprotect/database/logger/PlayerInteractLogger.java`
+in `src/main/java/net/coreprotect/database/logger/PlayerSessionLogger.java`
 #### Snippet
 ```java
         }
@@ -17430,7 +17430,7 @@ in `src/main/java/net/coreprotect/database/logger/PlayerInteractLogger.java`
 
 ### ThrowablePrintStackTrace
 Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/net/coreprotect/database/logger/PlayerSessionLogger.java`
+in `src/main/java/net/coreprotect/database/logger/PlayerInteractLogger.java`
 #### Snippet
 ```java
         }
@@ -17478,7 +17478,7 @@ in `src/main/java/net/coreprotect/command/ReloadCommand.java`
 
 ### ThrowablePrintStackTrace
 Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/net/coreprotect/database/logger/EntityKillLogger.java`
+in `src/main/java/net/coreprotect/command/ApplyCommand.java`
 #### Snippet
 ```java
         }
@@ -17502,7 +17502,7 @@ in `src/main/java/net/coreprotect/listener/block/BlockPlaceListener.java`
 
 ### ThrowablePrintStackTrace
 Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/net/coreprotect/command/ApplyCommand.java`
+in `src/main/java/net/coreprotect/database/logger/EntityKillLogger.java`
 #### Snippet
 ```java
         }
@@ -17514,43 +17514,7 @@ in `src/main/java/net/coreprotect/command/ApplyCommand.java`
 
 ### ThrowablePrintStackTrace
 Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/net/coreprotect/database/logger/SignTextLogger.java`
-#### Snippet
-```java
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/net/coreprotect/database/logger/ChatLogger.java`
-#### Snippet
-```java
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/net/coreprotect/patch/script/__2_11_0.java`
-#### Snippet
-```java
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
-
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/net/coreprotect/database/logger/UsernameLogger.java`
+in `src/main/java/net/coreprotect/CoreProtect.java`
 #### Snippet
 ```java
         }
@@ -17598,42 +17562,6 @@ in `src/main/java/net/coreprotect/CoreProtect.java`
 
 ### ThrowablePrintStackTrace
 Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/net/coreprotect/CoreProtect.java`
-#### Snippet
-```java
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/net/coreprotect/listener/player/HopperPushListener.java`
-#### Snippet
-```java
-            }
-            catch (Exception e) {
-                e.printStackTrace();
-            }
-        });
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/net/coreprotect/database/lookup/SignMessageLookup.java`
-#### Snippet
-```java
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
-
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
 in `src/main/java/net/coreprotect/patch/script/__2_16_0.java`
 #### Snippet
 ```java
@@ -17670,14 +17598,14 @@ in `src/main/java/net/coreprotect/listener/block/BlockExplodeListener.java`
 
 ### ThrowablePrintStackTrace
 Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/net/coreprotect/patch/script/__2_6_0.java`
+in `src/main/java/net/coreprotect/database/logger/SignTextLogger.java`
 #### Snippet
 ```java
         }
         catch (Exception e) {
             e.printStackTrace();
         }
-
+    }
 ```
 
 ### ThrowablePrintStackTrace
@@ -17694,6 +17622,78 @@ in `src/main/java/net/coreprotect/database/lookup/InteractionLookup.java`
 
 ### ThrowablePrintStackTrace
 Call to `printStackTrace()` should probably be replaced with more robust logging
+in `src/main/java/net/coreprotect/database/lookup/SignMessageLookup.java`
+#### Snippet
+```java
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `src/main/java/net/coreprotect/database/logger/ChatLogger.java`
+#### Snippet
+```java
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `src/main/java/net/coreprotect/database/logger/UsernameLogger.java`
+#### Snippet
+```java
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `src/main/java/net/coreprotect/patch/script/__2_6_0.java`
+#### Snippet
+```java
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `src/main/java/net/coreprotect/patch/script/__2_11_0.java`
+#### Snippet
+```java
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `src/main/java/net/coreprotect/listener/player/HopperPushListener.java`
+#### Snippet
+```java
+            }
+            catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
 in `src/main/java/net/coreprotect/patch/script/__2_17_0.java`
 #### Snippet
 ```java
@@ -17701,6 +17701,18 @@ in `src/main/java/net/coreprotect/patch/script/__2_17_0.java`
         catch (Exception e) {
             e.printStackTrace();
         }
+
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `src/main/java/net/coreprotect/listener/player/ArmorStandManipulateListener.java`
+#### Snippet
+```java
+                }
+                catch (Exception e) {
+                    e.printStackTrace();
+                }
 
 ```
 
@@ -17730,18 +17742,6 @@ in `src/main/java/net/coreprotect/database/logger/ContainerBreakLogger.java`
 
 ### ThrowablePrintStackTrace
 Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/net/coreprotect/listener/player/ArmorStandManipulateListener.java`
-#### Snippet
-```java
-                }
-                catch (Exception e) {
-                    e.printStackTrace();
-                }
-
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
 in `src/main/java/net/coreprotect/patch/script/__2_20_0.java`
 #### Snippet
 ```java
@@ -17766,67 +17766,7 @@ in `src/main/java/net/coreprotect/command/NetworkDebugCommand.java`
 
 ### ThrowablePrintStackTrace
 Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/net/coreprotect/command/RollbackRestoreCommand.java`
-#### Snippet
-```java
-                    }
-                    catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                }
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/net/coreprotect/command/RollbackRestoreCommand.java`
-#### Snippet
-```java
-                                }
-                                catch (Exception e) {
-                                    e.printStackTrace();
-                                }
-                                if (ConfigHandler.activeRollbacks.get(player2.getName()) != null) {
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/net/coreprotect/patch/script/__2_18_0.java`
-#### Snippet
-```java
-                String error = e.getMessage().toLowerCase();
-                if (!error.contains("duplicate") && !error.contains("error 1060")) {
-                    e.printStackTrace();
-                    return false;
-                }
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/net/coreprotect/patch/script/__2_18_0.java`
-#### Snippet
-```java
-                }
-                catch (Exception e) {
-                    e.printStackTrace();
-                }
-                Database.commitTransaction(statement);
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/net/coreprotect/patch/script/__2_18_0.java`
-#### Snippet
-```java
-                }
-                catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/net/coreprotect/patch/script/__2_18_0.java`
+in `src/main/java/net/coreprotect/database/lookup/PlayerLookup.java`
 #### Snippet
 ```java
         }
@@ -17838,43 +17778,7 @@ in `src/main/java/net/coreprotect/patch/script/__2_18_0.java`
 
 ### ThrowablePrintStackTrace
 Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/net/coreprotect/patch/Patch.java`
-#### Snippet
-```java
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
-
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/net/coreprotect/patch/Patch.java`
-#### Snippet
-```java
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
-
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/net/coreprotect/patch/Patch.java`
-#### Snippet
-```java
-                        }
-                        catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                    }
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/net/coreprotect/patch/Patch.java`
+in `src/main/java/net/coreprotect/command/CancelCommand.java`
 #### Snippet
 ```java
         }
@@ -17886,7 +17790,19 @@ in `src/main/java/net/coreprotect/patch/Patch.java`
 
 ### ThrowablePrintStackTrace
 Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/net/coreprotect/patch/Patch.java`
+in `src/main/java/net/coreprotect/database/statement/UserStatement.java`
+#### Snippet
+```java
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+        return id;
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `src/main/java/net/coreprotect/database/statement/UserStatement.java`
 #### Snippet
 ```java
         }
@@ -17898,19 +17814,7 @@ in `src/main/java/net/coreprotect/patch/Patch.java`
 
 ### ThrowablePrintStackTrace
 Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/net/coreprotect/patch/Patch.java`
-#### Snippet
-```java
-                    }
-                    catch (Exception e) {
-                        e.printStackTrace();
-                    }
-
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/net/coreprotect/patch/Patch.java`
+in `src/main/java/net/coreprotect/database/statement/UserStatement.java`
 #### Snippet
 ```java
         }
@@ -17922,19 +17826,19 @@ in `src/main/java/net/coreprotect/patch/Patch.java`
 
 ### ThrowablePrintStackTrace
 Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/net/coreprotect/patch/Patch.java`
+in `src/main/java/net/coreprotect/database/statement/EntityStatement.java`
 #### Snippet
 ```java
-                        }
-                        catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                    }
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 ```
 
 ### ThrowablePrintStackTrace
 Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/net/coreprotect/database/lookup/ChestTransactionLookup.java`
+in `src/main/java/net/coreprotect/database/statement/EntityStatement.java`
 #### Snippet
 ```java
         }
@@ -17958,7 +17862,7 @@ in `src/main/java/net/coreprotect/database/logger/BlockBreakLogger.java`
 
 ### ThrowablePrintStackTrace
 Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/net/coreprotect/database/lookup/PlayerLookup.java`
+in `src/main/java/net/coreprotect/database/lookup/ChestTransactionLookup.java`
 #### Snippet
 ```java
         }
@@ -17970,55 +17874,7 @@ in `src/main/java/net/coreprotect/database/lookup/PlayerLookup.java`
 
 ### ThrowablePrintStackTrace
 Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/net/coreprotect/database/statement/UserStatement.java`
-#### Snippet
-```java
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
-
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/net/coreprotect/database/statement/UserStatement.java`
-#### Snippet
-```java
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
-
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/net/coreprotect/database/statement/UserStatement.java`
-#### Snippet
-```java
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
-        return id;
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/net/coreprotect/database/statement/EntityStatement.java`
-#### Snippet
-```java
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
-
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/net/coreprotect/database/statement/EntityStatement.java`
+in `src/main/java/net/coreprotect/patch/Patch.java`
 #### Snippet
 ```java
         }
@@ -18030,14 +17886,86 @@ in `src/main/java/net/coreprotect/database/statement/EntityStatement.java`
 
 ### ThrowablePrintStackTrace
 Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/net/coreprotect/command/CancelCommand.java`
+in `src/main/java/net/coreprotect/patch/Patch.java`
 #### Snippet
 ```java
         }
         catch (Exception e) {
             e.printStackTrace();
         }
-    }
+
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `src/main/java/net/coreprotect/patch/Patch.java`
+#### Snippet
+```java
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `src/main/java/net/coreprotect/patch/Patch.java`
+#### Snippet
+```java
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `src/main/java/net/coreprotect/patch/Patch.java`
+#### Snippet
+```java
+                        }
+                        catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `src/main/java/net/coreprotect/patch/Patch.java`
+#### Snippet
+```java
+                    }
+                    catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `src/main/java/net/coreprotect/patch/Patch.java`
+#### Snippet
+```java
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `src/main/java/net/coreprotect/patch/Patch.java`
+#### Snippet
+```java
+                        }
+                        catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
 ```
 
 ### ThrowablePrintStackTrace
@@ -18086,30 +18014,6 @@ in `src/main/java/net/coreprotect/consumer/process/Process.java`
             e.printStackTrace();
         }
     }
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/net/coreprotect/spigot/Spigot_v1_16.java`
-#### Snippet
-```java
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/net/coreprotect/patch/script/__2_15_0.java`
-#### Snippet
-```java
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
-
 ```
 
 ### ThrowablePrintStackTrace
@@ -18234,19 +18138,7 @@ in `src/main/java/net/coreprotect/command/PurgeCommand.java`
 
 ### ThrowablePrintStackTrace
 Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/net/coreprotect/database/logger/PlayerKillLogger.java`
-#### Snippet
-```java
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/net/coreprotect/consumer/Consumer.java`
+in `src/main/java/net/coreprotect/spigot/Spigot_v1_16.java`
 #### Snippet
 ```java
         }
@@ -18277,6 +18169,18 @@ in `src/main/java/net/coreprotect/consumer/Consumer.java`
         catch (Exception e) {
             e.printStackTrace();
         }
+    }
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `src/main/java/net/coreprotect/consumer/Consumer.java`
+#### Snippet
+```java
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
         pausedSuccess = false;
 ```
 
@@ -18290,6 +18194,54 @@ in `src/main/java/net/coreprotect/consumer/Consumer.java`
         e.printStackTrace();
         Bukkit.getPluginManager().disablePlugin(CoreProtect.getInstance());
     }
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `src/main/java/net/coreprotect/patch/script/__2_15_0.java`
+#### Snippet
+```java
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `src/main/java/net/coreprotect/database/logger/PlayerKillLogger.java`
+#### Snippet
+```java
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `src/main/java/net/coreprotect/command/RollbackRestoreCommand.java`
+#### Snippet
+```java
+                    }
+                    catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `src/main/java/net/coreprotect/command/RollbackRestoreCommand.java`
+#### Snippet
+```java
+                                }
+                                catch (Exception e) {
+                                    e.printStackTrace();
+                                }
+                                if (ConfigHandler.activeRollbacks.get(player2.getName()) != null) {
 ```
 
 ### ThrowablePrintStackTrace
@@ -18314,30 +18266,6 @@ in `src/main/java/net/coreprotect/api/BlockAPI.java`
             e.printStackTrace();
         }
 
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/net/coreprotect/database/statement/CommandStatement.java`
-#### Snippet
-```java
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/net/coreprotect/command/CommandHandler.java`
-#### Snippet
-```java
-                            }
-                            catch (Exception e) {
-                                e.printStackTrace();
-                            }
-                        }
 ```
 
 ### ThrowablePrintStackTrace
@@ -18378,6 +18306,66 @@ in `src/main/java/net/coreprotect/listener/player/InventoryChangeListener.java`
 
 ### ThrowablePrintStackTrace
 Call to `printStackTrace()` should probably be replaced with more robust logging
+in `src/main/java/net/coreprotect/patch/script/__2_18_0.java`
+#### Snippet
+```java
+                String error = e.getMessage().toLowerCase();
+                if (!error.contains("duplicate") && !error.contains("error 1060")) {
+                    e.printStackTrace();
+                    return false;
+                }
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `src/main/java/net/coreprotect/patch/script/__2_18_0.java`
+#### Snippet
+```java
+                }
+                catch (Exception e) {
+                    e.printStackTrace();
+                }
+                Database.commitTransaction(statement);
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `src/main/java/net/coreprotect/patch/script/__2_18_0.java`
+#### Snippet
+```java
+                }
+                catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `src/main/java/net/coreprotect/patch/script/__2_18_0.java`
+#### Snippet
+```java
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `src/main/java/net/coreprotect/database/statement/CommandStatement.java`
+#### Snippet
+```java
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
 in `src/main/java/net/coreprotect/api/SessionLookup.java`
 #### Snippet
 ```java
@@ -18386,6 +18374,18 @@ in `src/main/java/net/coreprotect/api/SessionLookup.java`
             e.printStackTrace();
         }
 
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `src/main/java/net/coreprotect/command/CommandHandler.java`
+#### Snippet
+```java
+                            }
+                            catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                        }
 ```
 
 ### ThrowablePrintStackTrace
@@ -18433,18 +18433,6 @@ in `src/main/java/net/coreprotect/config/ConfigHandler.java`
         catch (Exception e) {
             e.printStackTrace();
         }
-    }
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/net/coreprotect/config/ConfigHandler.java`
-#### Snippet
-```java
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
 
 ```
 
@@ -18457,7 +18445,7 @@ in `src/main/java/net/coreprotect/config/ConfigHandler.java`
         catch (Exception e) {
             e.printStackTrace();
         }
-    }
+
 ```
 
 ### ThrowablePrintStackTrace
@@ -18469,7 +18457,7 @@ in `src/main/java/net/coreprotect/config/ConfigHandler.java`
         catch (Exception e) {
             e.printStackTrace();
         }
-    }
+
 ```
 
 ### ThrowablePrintStackTrace
@@ -18493,7 +18481,7 @@ in `src/main/java/net/coreprotect/config/ConfigHandler.java`
         catch (Exception e) {
             e.printStackTrace();
         }
-
+    }
 ```
 
 ### ThrowablePrintStackTrace
@@ -18505,12 +18493,12 @@ in `src/main/java/net/coreprotect/config/ConfigHandler.java`
         catch (Exception e) {
             e.printStackTrace();
         }
-
+    }
 ```
 
 ### ThrowablePrintStackTrace
 Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/net/coreprotect/database/Database.java`
+in `src/main/java/net/coreprotect/config/ConfigHandler.java`
 #### Snippet
 ```java
         }
@@ -18518,30 +18506,6 @@ in `src/main/java/net/coreprotect/database/Database.java`
             e.printStackTrace();
         }
     }
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/net/coreprotect/database/Database.java`
-#### Snippet
-```java
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/net/coreprotect/database/Database.java`
-#### Snippet
-```java
-                }
-                catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
 ```
 
 ### ThrowablePrintStackTrace
@@ -18585,6 +18549,78 @@ Call to `printStackTrace()` should probably be replaced with more robust logging
 in `src/main/java/net/coreprotect/database/Database.java`
 #### Snippet
 ```java
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `src/main/java/net/coreprotect/database/Database.java`
+#### Snippet
+```java
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `src/main/java/net/coreprotect/database/Database.java`
+#### Snippet
+```java
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `src/main/java/net/coreprotect/database/Database.java`
+#### Snippet
+```java
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `src/main/java/net/coreprotect/database/Database.java`
+#### Snippet
+```java
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `src/main/java/net/coreprotect/database/Database.java`
+#### Snippet
+```java
+                }
+                else {
+                    e.printStackTrace();
+                }
+            }
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `src/main/java/net/coreprotect/database/Database.java`
+#### Snippet
+```java
                     ConfigHandler.databaseReachable = false;
                     Chat.sendConsoleMessage(Color.RED + "[CoreProtect] " + Phrase.build(Phrase.MYSQL_UNAVAILABLE));
                     e.printStackTrace();
@@ -18621,32 +18657,8 @@ Call to `printStackTrace()` should probably be replaced with more robust logging
 in `src/main/java/net/coreprotect/database/Database.java`
 #### Snippet
 ```java
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/net/coreprotect/database/Database.java`
-#### Snippet
-```java
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
-
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/net/coreprotect/database/Database.java`
-#### Snippet
-```java
                 }
-                else {
+                catch (Exception e) {
                     e.printStackTrace();
                 }
             }
@@ -18662,18 +18674,6 @@ in `src/main/java/net/coreprotect/database/Database.java`
             e.printStackTrace();
         }
 
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/net/coreprotect/database/Database.java`
-#### Snippet
-```java
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
 ```
 
 ### ThrowablePrintStackTrace
@@ -18726,43 +18726,19 @@ in `src/main/java/net/coreprotect/worldedit/CoreProtectEditSessionEvent.java`
 
 ### ThrowablePrintStackTrace
 Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/net/coreprotect/utility/entity/HangingUtil.java`
+in `src/main/java/net/coreprotect/database/ContainerRollback.java`
 #### Snippet
 ```java
+                    }
+                    catch (Exception e) {
+                        e.printStackTrace();
+                    }
                 }
-                catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
 ```
 
 ### ThrowablePrintStackTrace
 Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/net/coreprotect/utility/entity/HangingUtil.java`
-#### Snippet
-```java
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/net/coreprotect/utility/entity/HangingUtil.java`
-#### Snippet
-```java
-                }
-                catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/net/coreprotect/utility/entity/HangingUtil.java`
+in `src/main/java/net/coreprotect/database/ContainerRollback.java`
 #### Snippet
 ```java
         }
@@ -18786,26 +18762,50 @@ in `src/main/java/net/coreprotect/database/statement/ItemStatement.java`
 
 ### ThrowablePrintStackTrace
 Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/net/coreprotect/worldedit/WorldEditLogger.java`
+in `src/main/java/net/coreprotect/utility/entity/HangingUtil.java`
 #### Snippet
 ```java
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
-
+                }
+                catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
 ```
 
 ### ThrowablePrintStackTrace
 Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/net/coreprotect/worldedit/WorldEditLogger.java`
+in `src/main/java/net/coreprotect/utility/entity/HangingUtil.java`
 #### Snippet
 ```java
         }
         catch (Exception e) {
             e.printStackTrace();
         }
+    }
+```
 
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `src/main/java/net/coreprotect/utility/entity/HangingUtil.java`
+#### Snippet
+```java
+                }
+                catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `src/main/java/net/coreprotect/utility/entity/HangingUtil.java`
+#### Snippet
+```java
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 ```
 
 ### ThrowablePrintStackTrace
@@ -18818,6 +18818,42 @@ in `src/main/java/net/coreprotect/worldedit/WorldEditLogger.java`
                 e.printStackTrace();
             }
 
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `src/main/java/net/coreprotect/worldedit/WorldEditLogger.java`
+#### Snippet
+```java
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `src/main/java/net/coreprotect/worldedit/WorldEditLogger.java`
+#### Snippet
+```java
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `src/main/java/net/coreprotect/utility/Teleport.java`
+#### Snippet
+```java
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 ```
 
 ### ThrowablePrintStackTrace
@@ -18858,67 +18894,7 @@ in `src/main/java/net/coreprotect/database/statement/MaterialStatement.java`
 
 ### ThrowablePrintStackTrace
 Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/net/coreprotect/command/LookupCommand.java`
-#### Snippet
-```java
-                    }
-                    catch (Exception e) {
-                        e.printStackTrace();
-                    }
-
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/net/coreprotect/command/LookupCommand.java`
-#### Snippet
-```java
-                }
-                catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/net/coreprotect/command/LookupCommand.java`
-#### Snippet
-```java
-                    }
-                    catch (Exception e) {
-                        e.printStackTrace();
-                    }
-
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/net/coreprotect/command/LookupCommand.java`
-#### Snippet
-```java
-                            }
-                            catch (Exception e) {
-                                e.printStackTrace();
-                            }
-
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
 in `src/main/java/net/coreprotect/database/statement/SessionStatement.java`
-#### Snippet
-```java
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/net/coreprotect/utility/Teleport.java`
 #### Snippet
 ```java
         }
@@ -18954,30 +18930,6 @@ in `src/main/java/net/coreprotect/database/statement/ChatStatement.java`
 
 ### ThrowablePrintStackTrace
 Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/net/coreprotect/database/ContainerRollback.java`
-#### Snippet
-```java
-                    }
-                    catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                }
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/net/coreprotect/database/ContainerRollback.java`
-#### Snippet
-```java
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
 in `src/main/java/net/coreprotect/utility/ChestTool.java`
 #### Snippet
 ```java
@@ -18990,6 +18942,66 @@ in `src/main/java/net/coreprotect/utility/ChestTool.java`
 
 ### ThrowablePrintStackTrace
 Call to `printStackTrace()` should probably be replaced with more robust logging
+in `src/main/java/net/coreprotect/utility/entity/EntityUtil.java`
+#### Snippet
+```java
+            }
+            catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `src/main/java/net/coreprotect/command/LookupCommand.java`
+#### Snippet
+```java
+                            }
+                            catch (Exception e) {
+                                e.printStackTrace();
+                            }
+
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `src/main/java/net/coreprotect/command/LookupCommand.java`
+#### Snippet
+```java
+                }
+                catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `src/main/java/net/coreprotect/command/LookupCommand.java`
+#### Snippet
+```java
+                    }
+                    catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `src/main/java/net/coreprotect/command/LookupCommand.java`
+#### Snippet
+```java
+                    }
+                    catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
 in `src/main/java/net/coreprotect/database/logger/SkullBreakLogger.java`
 #### Snippet
 ```java
@@ -18998,54 +19010,6 @@ in `src/main/java/net/coreprotect/database/logger/SkullBreakLogger.java`
             e.printStackTrace();
         }
     }
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/net/coreprotect/consumer/Queue.java`
-#### Snippet
-```java
-            }
-            catch (Exception e) {
-                e.printStackTrace();
-            }
-        }, ticks);
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/net/coreprotect/consumer/Queue.java`
-#### Snippet
-```java
-            }
-            catch (Exception e) {
-                e.printStackTrace();
-            }
-        }, ticks);
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/net/coreprotect/consumer/Queue.java`
-#### Snippet
-```java
-            }
-            catch (Exception e) {
-                e.printStackTrace();
-            }
-        }, ticks);
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/net/coreprotect/consumer/Queue.java`
-#### Snippet
-```java
-            }
-            catch (Exception e) {
-                e.printStackTrace();
-            }
-        }, ticks);
 ```
 
 ### ThrowablePrintStackTrace
@@ -19074,14 +19038,50 @@ in `src/main/java/net/coreprotect/patch/script/__2_21_0.java`
 
 ### ThrowablePrintStackTrace
 Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/net/coreprotect/utility/entity/EntityUtil.java`
+in `src/main/java/net/coreprotect/consumer/Queue.java`
 #### Snippet
 ```java
             }
             catch (Exception e) {
                 e.printStackTrace();
             }
-        });
+        }, ticks);
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `src/main/java/net/coreprotect/consumer/Queue.java`
+#### Snippet
+```java
+            }
+            catch (Exception e) {
+                e.printStackTrace();
+            }
+        }, ticks);
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `src/main/java/net/coreprotect/consumer/Queue.java`
+#### Snippet
+```java
+            }
+            catch (Exception e) {
+                e.printStackTrace();
+            }
+        }, ticks);
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `src/main/java/net/coreprotect/consumer/Queue.java`
+#### Snippet
+```java
+            }
+            catch (Exception e) {
+                e.printStackTrace();
+            }
+        }, ticks);
 ```
 
 ### ThrowablePrintStackTrace
@@ -19278,86 +19278,26 @@ in `src/main/java/net/coreprotect/database/statement/SignStatement.java`
 
 ### ThrowablePrintStackTrace
 Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/net/coreprotect/listener/player/PlayerInteractListener.java`
-#### Snippet
-```java
-                    }
-                    catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                }
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/net/coreprotect/listener/player/PlayerInteractListener.java`
-#### Snippet
-```java
-                                }
-                                catch (Exception e) {
-                                    e.printStackTrace();
-                                }
-
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/net/coreprotect/listener/player/PlayerInteractListener.java`
-#### Snippet
-```java
-                                }
-                                catch (Exception e) {
-                                    e.printStackTrace();
-                                }
-
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/net/coreprotect/listener/player/PlayerInteractListener.java`
-#### Snippet
-```java
-                                }
-                                catch (Exception e) {
-                                    e.printStackTrace();
-                                }
-                            });
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/net/coreprotect/listener/player/PlayerInteractListener.java`
-#### Snippet
-```java
-                                }
-                                catch (Exception e) {
-                                    e.printStackTrace();
-                                }
-
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/net/coreprotect/listener/player/PlayerInteractListener.java`
-#### Snippet
-```java
-                                }
-                                catch (Exception e) {
-                                    e.printStackTrace();
-                                }
-
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/net/coreprotect/database/logger/SkullPlaceLogger.java`
+in `src/main/java/net/coreprotect/utility/Util.java`
 #### Snippet
 ```java
         }
         catch (Exception e) {
             e.printStackTrace();
         }
-    }
+
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `src/main/java/net/coreprotect/utility/Util.java`
+#### Snippet
+```java
+            }
+            catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
 ```
 
 ### ThrowablePrintStackTrace
@@ -19369,7 +19309,7 @@ in `src/main/java/net/coreprotect/utility/Util.java`
         catch (Exception e) {
             e.printStackTrace();
         }
-        return id;
+    }
 ```
 
 ### ThrowablePrintStackTrace
@@ -19393,7 +19333,43 @@ in `src/main/java/net/coreprotect/utility/Util.java`
         catch (Exception e) {
             e.printStackTrace();
         }
+        return result;
+```
 
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `src/main/java/net/coreprotect/utility/Util.java`
+#### Snippet
+```java
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `src/main/java/net/coreprotect/utility/Util.java`
+#### Snippet
+```java
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `src/main/java/net/coreprotect/utility/Util.java`
+#### Snippet
+```java
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+        return contents;
 ```
 
 ### ThrowablePrintStackTrace
@@ -19441,55 +19417,7 @@ in `src/main/java/net/coreprotect/utility/Util.java`
         catch (Exception e) {
             e.printStackTrace();
         }
-    }
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/net/coreprotect/utility/Util.java`
-#### Snippet
-```java
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
         return contents;
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/net/coreprotect/utility/Util.java`
-#### Snippet
-```java
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
-        return result;
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/net/coreprotect/utility/Util.java`
-#### Snippet
-```java
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/net/coreprotect/utility/Util.java`
-#### Snippet
-```java
-            }
-            catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
 ```
 
 ### ThrowablePrintStackTrace
@@ -19513,60 +19441,48 @@ in `src/main/java/net/coreprotect/utility/Util.java`
         catch (Exception e) {
             e.printStackTrace();
         }
+
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `src/main/java/net/coreprotect/utility/Util.java`
+#### Snippet
+```java
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+        return id;
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `src/main/java/net/coreprotect/utility/Util.java`
+#### Snippet
+```java
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
         return name;
 ```
 
 ### ThrowablePrintStackTrace
 Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/net/coreprotect/utility/Util.java`
+in `src/main/java/net/coreprotect/listener/player/PlayerInteractListener.java`
 #### Snippet
 ```java
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
-        return contents;
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/net/coreprotect/utility/Util.java`
-#### Snippet
-```java
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
+                                }
+                                catch (Exception e) {
+                                    e.printStackTrace();
+                                }
 
 ```
 
 ### ThrowablePrintStackTrace
 Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/net/coreprotect/utility/Util.java`
-#### Snippet
-```java
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
-
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/net/coreprotect/listener/block/BlockBreakListener.java`
-#### Snippet
-```java
-                }
-                catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/net/coreprotect/listener/block/BlockBreakListener.java`
+in `src/main/java/net/coreprotect/listener/player/PlayerInteractListener.java`
 #### Snippet
 ```java
                     }
@@ -19574,6 +19490,66 @@ in `src/main/java/net/coreprotect/listener/block/BlockBreakListener.java`
                         e.printStackTrace();
                     }
                 }
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `src/main/java/net/coreprotect/listener/player/PlayerInteractListener.java`
+#### Snippet
+```java
+                                }
+                                catch (Exception e) {
+                                    e.printStackTrace();
+                                }
+                            });
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `src/main/java/net/coreprotect/listener/player/PlayerInteractListener.java`
+#### Snippet
+```java
+                                }
+                                catch (Exception e) {
+                                    e.printStackTrace();
+                                }
+
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `src/main/java/net/coreprotect/listener/player/PlayerInteractListener.java`
+#### Snippet
+```java
+                                }
+                                catch (Exception e) {
+                                    e.printStackTrace();
+                                }
+
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `src/main/java/net/coreprotect/listener/player/PlayerInteractListener.java`
+#### Snippet
+```java
+                                }
+                                catch (Exception e) {
+                                    e.printStackTrace();
+                                }
+
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `src/main/java/net/coreprotect/database/logger/SkullPlaceLogger.java`
+#### Snippet
+```java
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 ```
 
 ### ThrowablePrintStackTrace
@@ -19614,26 +19590,26 @@ in `src/main/java/net/coreprotect/patch/script/__2_10_0.java`
 
 ### ThrowablePrintStackTrace
 Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/net/coreprotect/database/logger/ItemLogger.java`
+in `src/main/java/net/coreprotect/listener/block/BlockBreakListener.java`
 #### Snippet
 ```java
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
+                }
+                catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
 ```
 
 ### ThrowablePrintStackTrace
 Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/net/coreprotect/database/logger/ItemLogger.java`
+in `src/main/java/net/coreprotect/listener/block/BlockBreakListener.java`
 #### Snippet
 ```java
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
+                    }
+                    catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
 ```
 
 ### ThrowablePrintStackTrace
@@ -19662,6 +19638,30 @@ in `src/main/java/net/coreprotect/patch/script/__2_5_0.java`
 
 ### ThrowablePrintStackTrace
 Call to `printStackTrace()` should probably be replaced with more robust logging
+in `src/main/java/net/coreprotect/database/logger/ItemLogger.java`
+#### Snippet
+```java
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `src/main/java/net/coreprotect/database/logger/ItemLogger.java`
+#### Snippet
+```java
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
 in `src/main/java/net/coreprotect/api/QueueLookup.java`
 #### Snippet
 ```java
@@ -19675,42 +19675,6 @@ in `src/main/java/net/coreprotect/api/QueueLookup.java`
 ### ThrowablePrintStackTrace
 Call to `printStackTrace()` should probably be replaced with more robust logging
 in `src/main/java/net/coreprotect/CoreProtectAPI.java`
-#### Snippet
-```java
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
-
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/net/coreprotect/database/Lookup.java`
-#### Snippet
-```java
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
-
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/net/coreprotect/database/Lookup.java`
-#### Snippet
-```java
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
-
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/net/coreprotect/database/Lookup.java`
 #### Snippet
 ```java
         }
@@ -19794,7 +19758,7 @@ in `src/main/java/net/coreprotect/database/Lookup.java`
 
 ### ThrowablePrintStackTrace
 Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/net/coreprotect/database/Rollback.java`
+in `src/main/java/net/coreprotect/database/Lookup.java`
 #### Snippet
 ```java
         }
@@ -19806,26 +19770,26 @@ in `src/main/java/net/coreprotect/database/Rollback.java`
 
 ### ThrowablePrintStackTrace
 Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/net/coreprotect/database/Rollback.java`
+in `src/main/java/net/coreprotect/database/Lookup.java`
 #### Snippet
 ```java
         }
         catch (Exception e) {
             e.printStackTrace();
         }
-    }
+
 ```
 
 ### ThrowablePrintStackTrace
 Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/net/coreprotect/database/Rollback.java`
+in `src/main/java/net/coreprotect/database/Lookup.java`
 #### Snippet
 ```java
         }
         catch (Exception e) {
             e.printStackTrace();
         }
-        return new Object[] { slot, faceData, itemstack };
+
 ```
 
 ### ThrowablePrintStackTrace
@@ -19893,11 +19857,47 @@ Call to `printStackTrace()` should probably be replaced with more robust logging
 in `src/main/java/net/coreprotect/database/Rollback.java`
 #### Snippet
 ```java
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+        return new Object[] { slot, faceData, itemstack };
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `src/main/java/net/coreprotect/database/Rollback.java`
+#### Snippet
+```java
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `src/main/java/net/coreprotect/database/Rollback.java`
+#### Snippet
+```java
             }
             catch (Exception e) {
                 e.printStackTrace();
             }
         }
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `src/main/java/net/coreprotect/database/Rollback.java`
+#### Snippet
+```java
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 ```
 
 ## RuleId[ruleID=Convert2Lambda]
@@ -19928,7 +19928,7 @@ in `src/main/java/net/coreprotect/command/ApplyCommand.java`
 
 ### AssignmentToMethodParameter
 Assignment to method parameter `command`
-in `src/main/java/net/coreprotect/database/lookup/SignMessageLookup.java`
+in `src/main/java/net/coreprotect/database/lookup/InteractionLookup.java`
 #### Snippet
 ```java
             if (command == null) {
@@ -19940,7 +19940,7 @@ in `src/main/java/net/coreprotect/database/lookup/SignMessageLookup.java`
 
 ### AssignmentToMethodParameter
 Assignment to method parameter `command`
-in `src/main/java/net/coreprotect/database/lookup/SignMessageLookup.java`
+in `src/main/java/net/coreprotect/database/lookup/InteractionLookup.java`
 #### Snippet
 ```java
                 }
@@ -19952,7 +19952,7 @@ in `src/main/java/net/coreprotect/database/lookup/SignMessageLookup.java`
 
 ### AssignmentToMethodParameter
 Assignment to method parameter `command`
-in `src/main/java/net/coreprotect/database/lookup/SignMessageLookup.java`
+in `src/main/java/net/coreprotect/database/lookup/InteractionLookup.java`
 #### Snippet
 ```java
                 }
@@ -19964,7 +19964,7 @@ in `src/main/java/net/coreprotect/database/lookup/SignMessageLookup.java`
 
 ### AssignmentToMethodParameter
 Assignment to method parameter `command`
-in `src/main/java/net/coreprotect/database/lookup/SignMessageLookup.java`
+in `src/main/java/net/coreprotect/database/lookup/InteractionLookup.java`
 #### Snippet
 ```java
                 }
@@ -19976,7 +19976,7 @@ in `src/main/java/net/coreprotect/database/lookup/SignMessageLookup.java`
 
 ### AssignmentToMethodParameter
 Assignment to method parameter `command`
-in `src/main/java/net/coreprotect/database/lookup/InteractionLookup.java`
+in `src/main/java/net/coreprotect/database/lookup/SignMessageLookup.java`
 #### Snippet
 ```java
             if (command == null) {
@@ -19988,7 +19988,7 @@ in `src/main/java/net/coreprotect/database/lookup/InteractionLookup.java`
 
 ### AssignmentToMethodParameter
 Assignment to method parameter `command`
-in `src/main/java/net/coreprotect/database/lookup/InteractionLookup.java`
+in `src/main/java/net/coreprotect/database/lookup/SignMessageLookup.java`
 #### Snippet
 ```java
                 }
@@ -20000,7 +20000,7 @@ in `src/main/java/net/coreprotect/database/lookup/InteractionLookup.java`
 
 ### AssignmentToMethodParameter
 Assignment to method parameter `command`
-in `src/main/java/net/coreprotect/database/lookup/InteractionLookup.java`
+in `src/main/java/net/coreprotect/database/lookup/SignMessageLookup.java`
 #### Snippet
 ```java
                 }
@@ -20012,7 +20012,7 @@ in `src/main/java/net/coreprotect/database/lookup/InteractionLookup.java`
 
 ### AssignmentToMethodParameter
 Assignment to method parameter `command`
-in `src/main/java/net/coreprotect/database/lookup/InteractionLookup.java`
+in `src/main/java/net/coreprotect/database/lookup/SignMessageLookup.java`
 #### Snippet
 ```java
                 }
@@ -20035,51 +20035,27 @@ in `src/main/java/net/coreprotect/utility/Chat.java`
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `command`
-in `src/main/java/net/coreprotect/database/lookup/ChestTransactionLookup.java`
+Assignment to method parameter `args`
+in `src/main/java/net/coreprotect/command/CancelCommand.java`
 #### Snippet
 ```java
-            if (command == null) {
-                if (commandSender.hasPermission("coreprotect.co")) {
-                    command = "co";
-                }
-                else if (commandSender.hasPermission("coreprotect.core")) {
+                long startTime = (Long) list.get(0);
+                long endTime = (Long) list.get(1);
+                args = (String[]) list.get(2);
+                Location location = (Location) list.get(3);
+                boolean valid = false;
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `command`
-in `src/main/java/net/coreprotect/database/lookup/ChestTransactionLookup.java`
+Assignment to method parameter `uuid`
+in `src/main/java/net/coreprotect/database/statement/UserStatement.java`
 #### Snippet
 ```java
-                }
-                else if (commandSender.hasPermission("coreprotect.core")) {
-                    command = "core";
-                }
-                else if (commandSender.hasPermission("coreprotect.coreprotect")) {
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `command`
-in `src/main/java/net/coreprotect/database/lookup/ChestTransactionLookup.java`
-#### Snippet
-```java
-                }
-                else if (commandSender.hasPermission("coreprotect.coreprotect")) {
-                    command = "coreprotect";
-                }
-                else {
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `command`
-in `src/main/java/net/coreprotect/database/lookup/ChestTransactionLookup.java`
-#### Snippet
-```java
-                }
-                else {
-                    command = "co";
-                }
+            while (resultSet.next()) {
+                id = resultSet.getInt("id");
+                uuid = resultSet.getString("uuid");
             }
+            resultSet.close();
 ```
 
 ### AssignmentToMethodParameter
@@ -20107,27 +20083,51 @@ in `src/main/java/net/coreprotect/database/logger/BlockBreakLogger.java`
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `uuid`
-in `src/main/java/net/coreprotect/database/statement/UserStatement.java`
+Assignment to method parameter `command`
+in `src/main/java/net/coreprotect/database/lookup/ChestTransactionLookup.java`
 #### Snippet
 ```java
-            while (resultSet.next()) {
-                id = resultSet.getInt("id");
-                uuid = resultSet.getString("uuid");
-            }
-            resultSet.close();
+            if (command == null) {
+                if (commandSender.hasPermission("coreprotect.co")) {
+                    command = "co";
+                }
+                else if (commandSender.hasPermission("coreprotect.core")) {
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `args`
-in `src/main/java/net/coreprotect/command/CancelCommand.java`
+Assignment to method parameter `command`
+in `src/main/java/net/coreprotect/database/lookup/ChestTransactionLookup.java`
 #### Snippet
 ```java
-                long startTime = (Long) list.get(0);
-                long endTime = (Long) list.get(1);
-                args = (String[]) list.get(2);
-                Location location = (Location) list.get(3);
-                boolean valid = false;
+                }
+                else if (commandSender.hasPermission("coreprotect.core")) {
+                    command = "core";
+                }
+                else if (commandSender.hasPermission("coreprotect.coreprotect")) {
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `command`
+in `src/main/java/net/coreprotect/database/lookup/ChestTransactionLookup.java`
+#### Snippet
+```java
+                }
+                else if (commandSender.hasPermission("coreprotect.coreprotect")) {
+                    command = "coreprotect";
+                }
+                else {
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `command`
+in `src/main/java/net/coreprotect/database/lookup/ChestTransactionLookup.java`
+#### Snippet
+```java
+                }
+                else {
+                    command = "co";
+                }
+            }
 ```
 
 ### AssignmentToMethodParameter
@@ -20167,15 +20167,15 @@ in `src/main/java/net/coreprotect/database/logger/BlockPlaceLogger.java`
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `user`
-in `src/main/java/net/coreprotect/command/CommandHandler.java`
+Assignment to method parameter `inventoryData`
+in `src/main/java/net/coreprotect/listener/player/InventoryChangeListener.java`
 #### Snippet
 ```java
-        if (check.equals(user) && check.length() > 0) {
-            if (user.equalsIgnoreCase("#global")) {
-                user = "#global";
-            }
-            if (!badUsers.contains(user.toLowerCase(Locale.ROOT))) {
+                if (playerLocation != null) {
+                    if (inventoryData == null) {
+                        inventoryData = inventory.getContents();
+                    }
+
 ```
 
 ### AssignmentToMethodParameter
@@ -20203,15 +20203,15 @@ in `src/main/java/net/coreprotect/command/CommandHandler.java`
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `inventoryData`
-in `src/main/java/net/coreprotect/listener/player/InventoryChangeListener.java`
+Assignment to method parameter `user`
+in `src/main/java/net/coreprotect/command/CommandHandler.java`
 #### Snippet
 ```java
-                if (playerLocation != null) {
-                    if (inventoryData == null) {
-                        inventoryData = inventory.getContents();
-                    }
-
+        if (check.equals(user) && check.length() > 0) {
+            if (user.equalsIgnoreCase("#global")) {
+                user = "#global";
+            }
+            if (!badUsers.contains(user.toLowerCase(Locale.ROOT))) {
 ```
 
 ### AssignmentToMethodParameter
@@ -20224,18 +20224,6 @@ in `src/main/java/net/coreprotect/database/Database.java`
                         contents = Util.getContainerContents(type, container, location);
                     }
                     if (contents != null) {
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `args`
-in `src/main/java/net/coreprotect/command/LookupCommand.java`
-#### Snippet
-```java
-    protected static void runCommand(CommandSender player, Command command, boolean permission, String[] args) {
-        int resultc = args.length;
-        args = CommandHandler.parsePage(args);
-        Location lo = CommandHandler.parseLocation(player, args);
-        // List<String> arg_uuids = new ArrayList<String>();
 ```
 
 ### AssignmentToMethodParameter
@@ -20272,6 +20260,18 @@ in `src/main/java/net/coreprotect/language/Selector.java`
             output = output.replace("{" + substring + "}", color + param + (color.length() > 0 ? Color.WHITE : color));
         }
 
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `args`
+in `src/main/java/net/coreprotect/command/LookupCommand.java`
+#### Snippet
+```java
+    protected static void runCommand(CommandSender player, Command command, boolean permission, String[] args) {
+        int resultc = args.length;
+        args = CommandHandler.parsePage(args);
+        Location lo = CommandHandler.parseLocation(player, args);
+        // List<String> arg_uuids = new ArrayList<String>();
 ```
 
 ### AssignmentToMethodParameter
@@ -20407,6 +20407,222 @@ in `src/main/java/net/coreprotect/command/UndoCommand.java`
 ```
 
 ### AssignmentToMethodParameter
+Assignment to method parameter `container`
+in `src/main/java/net/coreprotect/utility/Util.java`
+#### Snippet
+```java
+                // container may be null if called from within WorldEdit logger
+                if (container == null) {
+                    container = location.getBlock();
+                }
+
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `name`
+in `src/main/java/net/coreprotect/utility/Util.java`
+#### Snippet
+```java
+        // Name entered by user
+        EntityType type = null;
+        name = name.toLowerCase(Locale.ROOT).trim();
+        if (name.contains(NAMESPACE)) {
+            name = (name.split(":"))[1];
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `name`
+in `src/main/java/net/coreprotect/utility/Util.java`
+#### Snippet
+```java
+        name = name.toLowerCase(Locale.ROOT).trim();
+        if (name.contains(NAMESPACE)) {
+            name = (name.split(":"))[1];
+        }
+
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `name`
+in `src/main/java/net/coreprotect/utility/Util.java`
+#### Snippet
+```java
+        // Name entered by user
+        Material material = null;
+        name = name.toUpperCase(Locale.ROOT).trim();
+        if (!name.startsWith("#")) {
+            if (name.contains(NAMESPACE.toUpperCase(Locale.ROOT))) {
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `name`
+in `src/main/java/net/coreprotect/utility/Util.java`
+#### Snippet
+```java
+        if (!name.startsWith("#")) {
+            if (name.contains(NAMESPACE.toUpperCase(Locale.ROOT))) {
+                name = name.split(":")[1];
+            }
+
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `name`
+in `src/main/java/net/coreprotect/utility/Util.java`
+#### Snippet
+```java
+            }
+
+            name = BukkitAdapter.ADAPTER.parseLegacyName(name);
+            material = Material.matchMaterial(name);
+        }
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `material`
+in `src/main/java/net/coreprotect/utility/Util.java`
+#### Snippet
+```java
+    public static int getBlockId(Material material) {
+        if (material == null) {
+            material = Material.AIR;
+        }
+        return getBlockId(material.name(), true);
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `material`
+in `src/main/java/net/coreprotect/utility/Util.java`
+#### Snippet
+```java
+        switch (material) {
+            case WHEAT:
+                material = Material.WHEAT_SEEDS;
+                break;
+            case PUMPKIN_STEM:
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `material`
+in `src/main/java/net/coreprotect/utility/Util.java`
+#### Snippet
+```java
+                break;
+            case PUMPKIN_STEM:
+                material = Material.PUMPKIN_SEEDS;
+                break;
+            case MELON_STEM:
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `material`
+in `src/main/java/net/coreprotect/utility/Util.java`
+#### Snippet
+```java
+                break;
+            case MELON_STEM:
+                material = Material.MELON_SEEDS;
+                break;
+            case BEETROOTS:
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `material`
+in `src/main/java/net/coreprotect/utility/Util.java`
+#### Snippet
+```java
+                break;
+            case BEETROOTS:
+                material = Material.BEETROOT_SEEDS;
+                break;
+            default:
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `material`
+in `src/main/java/net/coreprotect/utility/Util.java`
+#### Snippet
+```java
+
+        if (material.name().contains("WALL_")) {
+            material = Material.valueOf(material.name().replace("WALL_", ""));
+        }
+
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `name`
+in `src/main/java/net/coreprotect/utility/Util.java`
+#### Snippet
+```java
+    public static int getArtId(String name, boolean internal) {
+        int id = -1;
+        name = name.toLowerCase(Locale.ROOT).trim();
+
+        if (ConfigHandler.art.get(name) != null) {
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `name`
+in `src/main/java/net/coreprotect/utility/Util.java`
+#### Snippet
+```java
+                    nameWid = Util.getWorldName(Integer.parseInt(nameWid));
+                    if (nameWid.length() > 0) {
+                        name = nameWid;
+                    }
+                }
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `name`
+in `src/main/java/net/coreprotect/utility/Util.java`
+#### Snippet
+```java
+            // Determine closest match on world name
+            String result = "";
+            name = name.replaceFirst("#", "").toLowerCase(Locale.ROOT).trim();
+            for (World world : Bukkit.getServer().getWorlds()) {
+                String worldName = world.getName();
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `name`
+in `src/main/java/net/coreprotect/utility/Util.java`
+#### Snippet
+```java
+    public static int getEntityId(String name, boolean internal) {
+        int id = -1;
+        name = name.toLowerCase(Locale.ROOT).trim();
+
+        if (ConfigHandler.entities.get(name) != null) {
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `data`
+in `src/main/java/net/coreprotect/utility/Util.java`
+#### Snippet
+```java
+    public static int getBlockdataId(String data, boolean internal) {
+        int id = -1;
+        data = data.toLowerCase(Locale.ROOT).trim();
+
+        if (ConfigHandler.blockdata.get(data) != null) {
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `blockData`
+in `src/main/java/net/coreprotect/utility/Util.java`
+#### Snippet
+```java
+    public static void prepareTypeAndData(Map<Block, BlockData> map, Block block, Material type, BlockData blockData, boolean update) {
+        if (blockData == null) {
+            blockData = createBlockData(type);
+        }
+
+```
+
+### AssignmentToMethodParameter
 Assignment to method parameter `string`
 in `src/main/java/net/coreprotect/utility/Util.java`
 #### Snippet
@@ -20452,66 +20668,6 @@ in `src/main/java/net/coreprotect/utility/Util.java`
             name = NAMESPACE + name;
         }
 
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `name`
-in `src/main/java/net/coreprotect/utility/Util.java`
-#### Snippet
-```java
-                    nameWid = Util.getWorldName(Integer.parseInt(nameWid));
-                    if (nameWid.length() > 0) {
-                        name = nameWid;
-                    }
-                }
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `name`
-in `src/main/java/net/coreprotect/utility/Util.java`
-#### Snippet
-```java
-            // Determine closest match on world name
-            String result = "";
-            name = name.replaceFirst("#", "").toLowerCase(Locale.ROOT).trim();
-            for (World world : Bukkit.getServer().getWorlds()) {
-                String worldName = world.getName();
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `name`
-in `src/main/java/net/coreprotect/utility/Util.java`
-#### Snippet
-```java
-        // Name entered by user
-        EntityType type = null;
-        name = name.toLowerCase(Locale.ROOT).trim();
-        if (name.contains(NAMESPACE)) {
-            name = (name.split(":"))[1];
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `name`
-in `src/main/java/net/coreprotect/utility/Util.java`
-#### Snippet
-```java
-        name = name.toLowerCase(Locale.ROOT).trim();
-        if (name.contains(NAMESPACE)) {
-            name = (name.split(":"))[1];
-        }
-
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `data`
-in `src/main/java/net/coreprotect/utility/Util.java`
-#### Snippet
-```java
-    public static int getBlockdataId(String data, boolean internal) {
-        int id = -1;
-        data = data.toLowerCase(Locale.ROOT).trim();
-
-        if (ConfigHandler.blockdata.get(data) != null) {
 ```
 
 ### AssignmentToMethodParameter
@@ -20599,150 +20755,6 @@ in `src/main/java/net/coreprotect/utility/Util.java`
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `name`
-in `src/main/java/net/coreprotect/utility/Util.java`
-#### Snippet
-```java
-        // Name entered by user
-        Material material = null;
-        name = name.toUpperCase(Locale.ROOT).trim();
-        if (!name.startsWith("#")) {
-            if (name.contains(NAMESPACE.toUpperCase(Locale.ROOT))) {
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `name`
-in `src/main/java/net/coreprotect/utility/Util.java`
-#### Snippet
-```java
-        if (!name.startsWith("#")) {
-            if (name.contains(NAMESPACE.toUpperCase(Locale.ROOT))) {
-                name = name.split(":")[1];
-            }
-
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `name`
-in `src/main/java/net/coreprotect/utility/Util.java`
-#### Snippet
-```java
-            }
-
-            name = BukkitAdapter.ADAPTER.parseLegacyName(name);
-            material = Material.matchMaterial(name);
-        }
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `material`
-in `src/main/java/net/coreprotect/utility/Util.java`
-#### Snippet
-```java
-        switch (material) {
-            case WHEAT:
-                material = Material.WHEAT_SEEDS;
-                break;
-            case PUMPKIN_STEM:
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `material`
-in `src/main/java/net/coreprotect/utility/Util.java`
-#### Snippet
-```java
-                break;
-            case PUMPKIN_STEM:
-                material = Material.PUMPKIN_SEEDS;
-                break;
-            case MELON_STEM:
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `material`
-in `src/main/java/net/coreprotect/utility/Util.java`
-#### Snippet
-```java
-                break;
-            case MELON_STEM:
-                material = Material.MELON_SEEDS;
-                break;
-            case BEETROOTS:
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `material`
-in `src/main/java/net/coreprotect/utility/Util.java`
-#### Snippet
-```java
-                break;
-            case BEETROOTS:
-                material = Material.BEETROOT_SEEDS;
-                break;
-            default:
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `material`
-in `src/main/java/net/coreprotect/utility/Util.java`
-#### Snippet
-```java
-
-        if (material.name().contains("WALL_")) {
-            material = Material.valueOf(material.name().replace("WALL_", ""));
-        }
-
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `blockData`
-in `src/main/java/net/coreprotect/utility/Util.java`
-#### Snippet
-```java
-    public static void prepareTypeAndData(Map<Block, BlockData> map, Block block, Material type, BlockData blockData, boolean update) {
-        if (blockData == null) {
-            blockData = createBlockData(type);
-        }
-
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `name`
-in `src/main/java/net/coreprotect/utility/Util.java`
-#### Snippet
-```java
-    public static int getEntityId(String name, boolean internal) {
-        int id = -1;
-        name = name.toLowerCase(Locale.ROOT).trim();
-
-        if (ConfigHandler.entities.get(name) != null) {
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `container`
-in `src/main/java/net/coreprotect/utility/Util.java`
-#### Snippet
-```java
-                // container may be null if called from within WorldEdit logger
-                if (container == null) {
-                    container = location.getBlock();
-                }
-
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `material`
-in `src/main/java/net/coreprotect/utility/Util.java`
-#### Snippet
-```java
-    public static int getBlockId(Material material) {
-        if (material == null) {
-            material = Material.AIR;
-        }
-        return getBlockId(material.name(), true);
-```
-
-### AssignmentToMethodParameter
 Assignment to method parameter `blockData`
 in `src/main/java/net/coreprotect/utility/Util.java`
 #### Snippet
@@ -20764,18 +20776,6 @@ in `src/main/java/net/coreprotect/utility/Util.java`
         string = string.toLowerCase(Locale.ROOT);
 
         if (allWords) {
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `name`
-in `src/main/java/net/coreprotect/utility/Util.java`
-#### Snippet
-```java
-    public static int getArtId(String name, boolean internal) {
-        int id = -1;
-        name = name.toLowerCase(Locale.ROOT).trim();
-
-        if (ConfigHandler.art.get(name) != null) {
 ```
 
 ### AssignmentToMethodParameter
@@ -20839,18 +20839,6 @@ in `src/main/java/net/coreprotect/listener/player/ProjectileLaunchListener.java`
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `name`
-in `src/main/java/net/coreprotect/bukkit/Bukkit_v1_17.java`
-#### Snippet
-```java
-        switch (name) {
-            case "GRASS_PATH":
-                name = "DIRT_PATH";
-                break;
-            default:
-```
-
-### AssignmentToMethodParameter
 Assignment to method parameter `list`
 in `src/main/java/net/coreprotect/bukkit/Bukkit_v1_17.java`
 #### Snippet
@@ -20863,15 +20851,15 @@ in `src/main/java/net/coreprotect/bukkit/Bukkit_v1_17.java`
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `message`
-in `src/main/java/net/coreprotect/listener/entity/EntityDeathListener.java`
+Assignment to method parameter `name`
+in `src/main/java/net/coreprotect/bukkit/Bukkit_v1_17.java`
 #### Snippet
 ```java
-
-    public static void parseEntityKills(String message) {
-        message = message.trim().toLowerCase(Locale.ROOT);
-        if (!message.contains(" ")) {
-            return;
+        switch (name) {
+            case "GRASS_PATH":
+                name = "DIRT_PATH";
+                break;
+            default:
 ```
 
 ### AssignmentToMethodParameter
@@ -21091,6 +21079,18 @@ in `src/main/java/net/coreprotect/listener/entity/EntityDeathListener.java`
 ```
 
 ### AssignmentToMethodParameter
+Assignment to method parameter `message`
+in `src/main/java/net/coreprotect/listener/entity/EntityDeathListener.java`
+#### Snippet
+```java
+
+    public static void parseEntityKills(String message) {
+        message = message.trim().toLowerCase(Locale.ROOT);
+        if (!message.contains(" ")) {
+            return;
+```
+
+### AssignmentToMethodParameter
 Assignment to method parameter `restrictUsers`
 in `src/main/java/net/coreprotect/CoreProtectAPI.java`
 #### Snippet
@@ -21261,66 +21261,6 @@ in `src/main/java/net/coreprotect/bukkit/BukkitAdapter.java`
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/net/coreprotect/worldedit/WorldEditBlockState.java`
-#### Snippet
-```java
-    public List<MetadataValue> getMetadata(String metadataKey) {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/net/coreprotect/worldedit/WorldEditBlockState.java`
-#### Snippet
-```java
-    public MaterialData getData() {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/net/coreprotect/worldedit/WorldEditBlockState.java`
-#### Snippet
-```java
-    public Chunk getChunk() {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/net/coreprotect/worldedit/WorldEditBlockState.java`
-#### Snippet
-```java
-    public Block getBlock() {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/net/coreprotect/utility/Util.java`
-#### Snippet
-```java
-            }
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
 in `src/main/java/net/coreprotect/utility/Util.java`
 #### Snippet
 ```java
@@ -21345,6 +21285,66 @@ in `src/main/java/net/coreprotect/utility/Util.java`
 
 ### ReturnNull
 Return of `null`
+in `src/main/java/net/coreprotect/utility/Util.java`
+#### Snippet
+```java
+            }
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/net/coreprotect/worldedit/WorldEditBlockState.java`
+#### Snippet
+```java
+    public Block getBlock() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/net/coreprotect/worldedit/WorldEditBlockState.java`
+#### Snippet
+```java
+    public List<MetadataValue> getMetadata(String metadataKey) {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/net/coreprotect/worldedit/WorldEditBlockState.java`
+#### Snippet
+```java
+    public Chunk getChunk() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/net/coreprotect/worldedit/WorldEditBlockState.java`
+#### Snippet
+```java
+    public MaterialData getData() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
 in `src/main/java/net/coreprotect/bukkit/Bukkit_v1_17.java`
 #### Snippet
 ```java
@@ -21353,6 +21353,66 @@ in `src/main/java/net/coreprotect/bukkit/Bukkit_v1_17.java`
                 return null;
         }
     }
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/net/coreprotect/CoreProtectAPI.java`
+#### Snippet
+```java
+
+        if (restrictUsers.contains("#global") && radius == -1) {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/net/coreprotect/CoreProtectAPI.java`
+#### Snippet
+```java
+
+        if (radius > -1 && location == null) {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/net/coreprotect/CoreProtectAPI.java`
+#### Snippet
+```java
+            return processData(time, radius, radiusLocation, parseList(restrictBlocks), parseList(excludeBlocks), restrictUsers, excludeUsers, actionList, 0, 2, -1, -1, false);
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/net/coreprotect/CoreProtectAPI.java`
+#### Snippet
+```java
+            return BlockAPI.performLookup(block, time);
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/net/coreprotect/CoreProtectAPI.java`
+#### Snippet
+```java
+        public Material getType() {
+            if (parse.length < 13) {
+                return null;
+            }
+
 ```
 
 ### ReturnNull
@@ -21384,7 +21444,31 @@ Return of `null`
 in `src/main/java/net/coreprotect/CoreProtectAPI.java`
 #### Snippet
 ```java
-            return processData(time, radius, radiusLocation, parseList(restrictBlocks), parseList(excludeBlocks), restrictUsers, excludeUsers, actionList, 0, 2, -1, -1, false);
+            return processData(time, radius, radiusLocation, parseList(restrictBlocks), parseList(excludeBlocks), restrictUsers, excludeUsers, actionList, 0, 1, limitOffset, limitCount, true);
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/net/coreprotect/CoreProtectAPI.java`
+#### Snippet
+```java
+            return processData(time, radius, radiusLocation, parseList(restrictBlocks), parseList(excludeBlocks), restrictUsers, excludeUsers, actionList, 1, 2, -1, -1, false);
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/net/coreprotect/CoreProtectAPI.java`
+#### Snippet
+```java
+            return processData(user, time, radius, location, parseList(restrict), parseList(exclude), 1, 2, -1, -1, false);
         }
         return null;
     }
@@ -21420,91 +21504,7 @@ Return of `null`
 in `src/main/java/net/coreprotect/CoreProtectAPI.java`
 #### Snippet
 ```java
-        public Material getType() {
-            if (parse.length < 13) {
-                return null;
-            }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/net/coreprotect/CoreProtectAPI.java`
-#### Snippet
-```java
-            return BlockAPI.performLookup(block, time);
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/net/coreprotect/CoreProtectAPI.java`
-#### Snippet
-```java
-
-        if (restrictUsers.contains("#global") && radius == -1) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/net/coreprotect/CoreProtectAPI.java`
-#### Snippet
-```java
-
-        if (radius > -1 && location == null) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/net/coreprotect/CoreProtectAPI.java`
-#### Snippet
-```java
             return processData(user, time, radius, location, parseList(restrict), parseList(exclude), 0, 2, -1, -1, false);
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/net/coreprotect/CoreProtectAPI.java`
-#### Snippet
-```java
-            return processData(time, radius, radiusLocation, parseList(restrictBlocks), parseList(excludeBlocks), restrictUsers, excludeUsers, actionList, 1, 2, -1, -1, false);
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/net/coreprotect/CoreProtectAPI.java`
-#### Snippet
-```java
-            return processData(time, radius, radiusLocation, parseList(restrictBlocks), parseList(excludeBlocks), restrictUsers, excludeUsers, actionList, 0, 1, limitOffset, limitCount, true);
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/net/coreprotect/CoreProtectAPI.java`
-#### Snippet
-```java
-            return processData(user, time, radius, location, parseList(restrict), parseList(exclude), 1, 2, -1, -1, false);
         }
         return null;
     }
@@ -21746,10 +21746,10 @@ Call to `Thread.sleep()` in a loop, probably busy-waiting
 in `src/main/java/net/coreprotect/database/Database.java`
 #### Snippet
 ```java
-                long startTime = System.nanoTime();
-                while (Consumer.isPaused && !force && (Consumer.transacting || !onlyCheckTransacting)) {
-                    Thread.sleep(1);
-                    long pauseTime = (System.nanoTime() - startTime) / 1000000;
+            catch (Exception e) {
+                if (e.getMessage().startsWith("[SQLITE_BUSY]") && count < 30) {
+                    Thread.sleep(1000);
+                    count++;
 
 ```
 
@@ -21758,10 +21758,10 @@ Call to `Thread.sleep()` in a loop, probably busy-waiting
 in `src/main/java/net/coreprotect/database/Database.java`
 #### Snippet
 ```java
-            catch (Exception e) {
-                if (e.getMessage().startsWith("[SQLITE_BUSY]") && count < 30) {
-                    Thread.sleep(1000);
-                    count++;
+                long startTime = System.nanoTime();
+                while (Consumer.isPaused && !force && (Consumer.transacting || !onlyCheckTransacting)) {
+                    Thread.sleep(1);
+                    long pauseTime = (System.nanoTime() - startTime) / 1000000;
 
 ```
 
