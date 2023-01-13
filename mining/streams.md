@@ -102,6 +102,18 @@ in `streams/src/main/java/com/palantir/common/streams/BufferingSpliterator.java`
 ```
 
 ### BoundedWildcard
+Can generalize to `? extends Map.Entry`
+in `streams/src/main/java/com/palantir/common/streams/KeyedStream.java`
+#### Snippet
+```java
+     * Returns a keyed stream of Entries.
+     */
+    static <K, V> KeyedStream<K, V> ofEntries(Stream<Map.Entry<K, V>> entries) {
+        return new KeyedStreamImpl<K, V>(entries.map(entry -> entry));
+    }
+```
+
+### BoundedWildcard
 Can generalize to `? extends V`
 in `streams/src/main/java/com/palantir/common/streams/KeyedStream.java`
 #### Snippet
@@ -138,18 +150,6 @@ in `streams/src/main/java/com/palantir/common/streams/KeyedStream.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends Map.Entry`
-in `streams/src/main/java/com/palantir/common/streams/KeyedStream.java`
-#### Snippet
-```java
-     * Returns a keyed stream of Entries.
-     */
-    static <K, V> KeyedStream<K, V> ofEntries(Stream<Map.Entry<K, V>> entries) {
-        return new KeyedStreamImpl<K, V>(entries.map(entry -> entry));
-    }
-```
-
-### BoundedWildcard
 Can generalize to `? extends U`
 in `streams/src/main/java/com/palantir/common/streams/MoreStreams.java`
 #### Snippet
@@ -181,18 +181,6 @@ in `streams/src/main/java/com/palantir/common/streams/MoreStreams.java`
      */
     public static <U, V> Stream<V> inCompletionOrder(
             Stream<U> arguments, Function<U, V> mapper, Executor executor, int maxParallelism) {
-        return StreamSupport.stream(
-                        new BufferingSpliterator<>(
-```
-
-### BoundedWildcard
-Can generalize to `? extends F`
-in `streams/src/main/java/com/palantir/common/streams/MoreStreams.java`
-#### Snippet
-```java
-    @Deprecated
-    public static <T, F extends ListenableFuture<T>> Stream<F> blockingStreamWithParallelism(
-            Stream<F> futures, int maxParallelism) {
         return StreamSupport.stream(
                         new BufferingSpliterator<>(
 ```
@@ -210,6 +198,18 @@ in `streams/src/main/java/com/palantir/common/streams/MoreStreams.java`
 ```
 
 ### BoundedWildcard
+Can generalize to `? extends F`
+in `streams/src/main/java/com/palantir/common/streams/MoreStreams.java`
+#### Snippet
+```java
+    @Deprecated
+    public static <T, F extends ListenableFuture<T>> Stream<F> blockingStreamWithParallelism(
+            Stream<F> futures, int maxParallelism) {
+        return StreamSupport.stream(
+                        new BufferingSpliterator<>(
+```
+
+### BoundedWildcard
 Can generalize to `? extends U`
 in `streams/src/main/java/com/palantir/common/streams/MoreStreams.java`
 #### Snippet
@@ -246,39 +246,51 @@ in `streams/src/main/java/com/palantir/common/streams/MoreStreams.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? super V`
-in `streams/src/main/java/com/palantir/common/streams/KeyedStreamImpl.java`
+Can generalize to `? super T`
+in `streams/src/main/java/com/palantir/common/streams/MoreCollectors.java`
 #### Snippet
 ```java
-    }
-
-    private static <K, V> void combine(Map<K, V> map, Map<K, V> entries) {
-        Set<K> duplicates = Sets.intersection(map.keySet(), entries.keySet());
-        if (!duplicates.isEmpty()) {
+    @Deprecated
+    public static <T, K, V> Collector<T, ?, Map<K, V>> toImmutableMap(
+            Function<T, K> keyFunction, Function<T, V> valueFunction) {
+        return Collector.of(
+                ImmutableMap::<K, V>builder,
 ```
 
 ### BoundedWildcard
 Can generalize to `? extends K`
-in `streams/src/main/java/com/palantir/common/streams/KeyedStreamImpl.java`
+in `streams/src/main/java/com/palantir/common/streams/MoreCollectors.java`
 #### Snippet
 ```java
-    }
+    @Deprecated
+    public static <T, K, V> Collector<T, ?, Map<K, V>> toImmutableMap(
+            Function<T, K> keyFunction, Function<T, V> valueFunction) {
+        return Collector.of(
+                ImmutableMap::<K, V>builder,
+```
 
-    private static <K, V> void combine(Map<K, V> map, Map<K, V> entries) {
-        Set<K> duplicates = Sets.intersection(map.keySet(), entries.keySet());
-        if (!duplicates.isEmpty()) {
+### BoundedWildcard
+Can generalize to `? super T`
+in `streams/src/main/java/com/palantir/common/streams/MoreCollectors.java`
+#### Snippet
+```java
+    @Deprecated
+    public static <T, K, V> Collector<T, ?, Map<K, V>> toImmutableMap(
+            Function<T, K> keyFunction, Function<T, V> valueFunction) {
+        return Collector.of(
+                ImmutableMap::<K, V>builder,
 ```
 
 ### BoundedWildcard
 Can generalize to `? extends V`
-in `streams/src/main/java/com/palantir/common/streams/KeyedStreamImpl.java`
+in `streams/src/main/java/com/palantir/common/streams/MoreCollectors.java`
 #### Snippet
 ```java
-    }
-
-    private static <K, V> void combine(Map<K, V> map, Map<K, V> entries) {
-        Set<K> duplicates = Sets.intersection(map.keySet(), entries.keySet());
-        if (!duplicates.isEmpty()) {
+    @Deprecated
+    public static <T, K, V> Collector<T, ?, Map<K, V>> toImmutableMap(
+            Function<T, K> keyFunction, Function<T, V> valueFunction) {
+        return Collector.of(
+                ImmutableMap::<K, V>builder,
 ```
 
 ### BoundedWildcard
@@ -330,66 +342,42 @@ in `streams/src/main/java/com/palantir/common/streams/KeyedStreamImpl.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? super T`
-in `streams/src/main/java/com/palantir/common/streams/MoreCollectors.java`
+Can generalize to `? super V`
+in `streams/src/main/java/com/palantir/common/streams/KeyedStreamImpl.java`
 #### Snippet
 ```java
-    @Deprecated
-    public static <T, K, V> Collector<T, ?, Map<K, V>> toImmutableMap(
-            Function<T, K> keyFunction, Function<T, V> valueFunction) {
-        return Collector.of(
-                ImmutableMap::<K, V>builder,
+    }
+
+    private static <K, V> void combine(Map<K, V> map, Map<K, V> entries) {
+        Set<K> duplicates = Sets.intersection(map.keySet(), entries.keySet());
+        if (!duplicates.isEmpty()) {
 ```
 
 ### BoundedWildcard
 Can generalize to `? extends K`
-in `streams/src/main/java/com/palantir/common/streams/MoreCollectors.java`
+in `streams/src/main/java/com/palantir/common/streams/KeyedStreamImpl.java`
 #### Snippet
 ```java
-    @Deprecated
-    public static <T, K, V> Collector<T, ?, Map<K, V>> toImmutableMap(
-            Function<T, K> keyFunction, Function<T, V> valueFunction) {
-        return Collector.of(
-                ImmutableMap::<K, V>builder,
-```
+    }
 
-### BoundedWildcard
-Can generalize to `? super T`
-in `streams/src/main/java/com/palantir/common/streams/MoreCollectors.java`
-#### Snippet
-```java
-    @Deprecated
-    public static <T, K, V> Collector<T, ?, Map<K, V>> toImmutableMap(
-            Function<T, K> keyFunction, Function<T, V> valueFunction) {
-        return Collector.of(
-                ImmutableMap::<K, V>builder,
+    private static <K, V> void combine(Map<K, V> map, Map<K, V> entries) {
+        Set<K> duplicates = Sets.intersection(map.keySet(), entries.keySet());
+        if (!duplicates.isEmpty()) {
 ```
 
 ### BoundedWildcard
 Can generalize to `? extends V`
-in `streams/src/main/java/com/palantir/common/streams/MoreCollectors.java`
+in `streams/src/main/java/com/palantir/common/streams/KeyedStreamImpl.java`
 #### Snippet
 ```java
-    @Deprecated
-    public static <T, K, V> Collector<T, ?, Map<K, V>> toImmutableMap(
-            Function<T, K> keyFunction, Function<T, V> valueFunction) {
-        return Collector.of(
-                ImmutableMap::<K, V>builder,
+    }
+
+    private static <K, V> void combine(Map<K, V> map, Map<K, V> entries) {
+        Set<K> duplicates = Sets.intersection(map.keySet(), entries.keySet());
+        if (!duplicates.isEmpty()) {
 ```
 
 ## RuleId[ruleID=DeprecatedIsStillUsed]
-### DeprecatedIsStillUsed
-Deprecated member 'inCompletionOrder' is still used
-in `streams/src/main/java/com/palantir/common/streams/MoreStreams.java`
-#### Snippet
-```java
-     */
-    @Deprecated
-    public static <T, F extends ListenableFuture<T>> Stream<F> inCompletionOrder(
-            Stream<F> futures, int maxParallelism) {
-        return StreamSupport.stream(
-```
-
 ### DeprecatedIsStillUsed
 Deprecated member 'blockingStreamWithParallelism' is still used
 in `streams/src/main/java/com/palantir/common/streams/MoreStreams.java`
@@ -398,6 +386,18 @@ in `streams/src/main/java/com/palantir/common/streams/MoreStreams.java`
      */
     @Deprecated
     public static <T, F extends ListenableFuture<T>> Stream<F> blockingStreamWithParallelism(
+            Stream<F> futures, int maxParallelism) {
+        return StreamSupport.stream(
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'inCompletionOrder' is still used
+in `streams/src/main/java/com/palantir/common/streams/MoreStreams.java`
+#### Snippet
+```java
+     */
+    @Deprecated
+    public static <T, F extends ListenableFuture<T>> Stream<F> inCompletionOrder(
             Stream<F> futures, int maxParallelism) {
         return StreamSupport.stream(
 ```
@@ -427,18 +427,6 @@ in `streams/src/main/java/com/palantir/common/streams/MoreCollectors.java`
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'toImmutableList' is still used
-in `streams/src/main/java/com/palantir/common/streams/MoreCollectors.java`
-#### Snippet
-```java
-     */
-    @Deprecated
-    public static <T> Collector<T, ?, List<T>> toImmutableList() {
-        return Collector.of(
-                ImmutableList::<T>builder,
-```
-
-### DeprecatedIsStillUsed
 Deprecated member 'toImmutableMap' is still used
 in `streams/src/main/java/com/palantir/common/streams/MoreCollectors.java`
 #### Snippet
@@ -448,6 +436,18 @@ in `streams/src/main/java/com/palantir/common/streams/MoreCollectors.java`
     public static <T, K, V> Collector<T, ?, Map<K, V>> toImmutableMap(
             Function<T, K> keyFunction, Function<T, V> valueFunction) {
         return Collector.of(
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'toImmutableList' is still used
+in `streams/src/main/java/com/palantir/common/streams/MoreCollectors.java`
+#### Snippet
+```java
+     */
+    @Deprecated
+    public static <T> Collector<T, ?, List<T>> toImmutableList() {
+        return Collector.of(
+                ImmutableList::<T>builder,
 ```
 
 ## RuleId[ruleID=RedundantSuppression]
