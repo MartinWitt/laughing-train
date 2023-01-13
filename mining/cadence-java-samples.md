@@ -19,18 +19,6 @@ I found 116 bad smells with 33 repairable:
 | UnstableApiUsage | 1 | false |
 ## RuleId[ruleID=SystemOutErr]
 ### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `src/main/java/com/uber/cadence/samples/calculation/WorkflowStarter.java`
-#### Snippet
-```java
-
-    WorkflowExecution execution = WorkflowClient.start(calculation::calculate, 4L, 5L, 6L);
-    System.out.println("started workflow execution" + execution);
-    System.exit(0);
-  }
-```
-
-### SystemOutErr
 Uses of `System.err` should probably be replaced with more robust logging
 in `src/main/java/com/uber/cadence/samples/common/QueryWorkflowExecution.java`
 #### Snippet
@@ -92,43 +80,19 @@ in `src/main/java/com/uber/cadence/samples/shadowing/ShadowTraffic.java`
 
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
-in `src/main/java/com/uber/cadence/samples/hello/HelloSaga.java`
+in `src/main/java/com/uber/cadence/samples/hello/HelloAsync.java`
 #### Snippet
 ```java
-    @Override
-    public void compensate(int amount) {
-      System.out.println("ActivityCompensationImpl.compensate() is called with amount " + amount);
-    }
+    // Execute a workflow waiting for it to complete.
+    String greeting = workflow.getGreeting("World");
+    System.out.println(greeting);
+    System.exit(0);
   }
 ```
 
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
-in `src/main/java/com/uber/cadence/samples/hello/HelloSaga.java`
-#### Snippet
-```java
-        // to log messages in workflow code.
-        saga.addCompensation(
-            () -> System.out.println("Other compensation logic in main workflow."));
-        throw new RuntimeException("some error");
-
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `src/main/java/com/uber/cadence/samples/hello/HelloSaga.java`
-#### Snippet
-```java
-    @Override
-    public void execute(int amount) {
-      System.out.println("ActivityOperationImpl.execute() is called with amount " + amount);
-    }
-
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `src/main/java/com/uber/cadence/samples/hello/HelloAsync.java`
+in `src/main/java/com/uber/cadence/samples/hello/HelloActivityRetry.java`
 #### Snippet
 ```java
     // Execute a workflow waiting for it to complete.
@@ -176,11 +140,59 @@ in `src/main/java/com/uber/cadence/samples/hello/HelloActivityRetry.java`
 
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
-in `src/main/java/com/uber/cadence/samples/hello/HelloActivityRetry.java`
+in `src/main/java/com/uber/cadence/samples/calculation/WorkflowStarter.java`
+#### Snippet
+```java
+
+    WorkflowExecution execution = WorkflowClient.start(calculation::calculate, 4L, 5L, 6L);
+    System.out.println("started workflow execution" + execution);
+    System.exit(0);
+  }
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `src/main/java/com/uber/cadence/samples/hello/HelloSaga.java`
+#### Snippet
+```java
+    @Override
+    public void execute(int amount) {
+      System.out.println("ActivityOperationImpl.execute() is called with amount " + amount);
+    }
+
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `src/main/java/com/uber/cadence/samples/hello/HelloSaga.java`
+#### Snippet
+```java
+        // to log messages in workflow code.
+        saga.addCompensation(
+            () -> System.out.println("Other compensation logic in main workflow."));
+        throw new RuntimeException("some error");
+
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `src/main/java/com/uber/cadence/samples/hello/HelloSaga.java`
+#### Snippet
+```java
+    @Override
+    public void compensate(int amount) {
+      System.out.println("ActivityCompensationImpl.compensate() is called with amount " + amount);
+    }
+  }
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `src/main/java/com/uber/cadence/samples/hello/HelloDataConverter.java`
 #### Snippet
 ```java
     // Execute a workflow waiting for it to complete.
-    String greeting = workflow.getGreeting("World");
+    String greeting = workflow.getGreeting(new MyStruct(100, "Hello"));
     System.out.println(greeting);
     System.exit(0);
   }
@@ -228,8 +240,32 @@ in `src/main/java/com/uber/cadence/samples/bookingsaga/TripBookingActivitiesImpl
 #### Snippet
 ```java
   @Override
-  public String cancelCar(String reservationID, String name) {
-    System.out.println("cancelling car reservation '" + reservationID + "' for '" + name + "'");
+  public String reserveCar(String name) {
+    System.out.println("reserve car for '" + name + "'");
+    return UUID.randomUUID().toString();
+  }
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `src/main/java/com/uber/cadence/samples/bookingsaga/TripBookingActivitiesImpl.java`
+#### Snippet
+```java
+  @Override
+  public String cancelFlight(String reservationID, String name) {
+    System.out.println("cancelling flight reservation '" + reservationID + "' for '" + name + "'");
+    return UUID.randomUUID().toString();
+  }
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `src/main/java/com/uber/cadence/samples/bookingsaga/TripBookingActivitiesImpl.java`
+#### Snippet
+```java
+  @Override
+  public String bookHotel(String name) {
+    System.out.println("booking hotel for '" + name + "'");
     return UUID.randomUUID().toString();
   }
 ```
@@ -252,20 +288,8 @@ in `src/main/java/com/uber/cadence/samples/bookingsaga/TripBookingActivitiesImpl
 #### Snippet
 ```java
   @Override
-  public String cancelFlight(String reservationID, String name) {
-    System.out.println("cancelling flight reservation '" + reservationID + "' for '" + name + "'");
-    return UUID.randomUUID().toString();
-  }
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `src/main/java/com/uber/cadence/samples/bookingsaga/TripBookingActivitiesImpl.java`
-#### Snippet
-```java
-  @Override
-  public String reserveCar(String name) {
-    System.out.println("reserve car for '" + name + "'");
+  public String cancelCar(String reservationID, String name) {
+    System.out.println("cancelling car reservation '" + reservationID + "' for '" + name + "'");
     return UUID.randomUUID().toString();
   }
 ```
@@ -280,78 +304,6 @@ in `src/main/java/com/uber/cadence/samples/bookingsaga/TripBookingActivitiesImpl
     System.out.println("cancelling hotel reservation '" + reservationID + "' for '" + name + "'");
     return UUID.randomUUID().toString();
   }
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `src/main/java/com/uber/cadence/samples/bookingsaga/TripBookingActivitiesImpl.java`
-#### Snippet
-```java
-  @Override
-  public String bookHotel(String name) {
-    System.out.println("booking hotel for '" + name + "'");
-    return UUID.randomUUID().toString();
-  }
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `src/main/java/com/uber/cadence/samples/hello/HelloDataConverter.java`
-#### Snippet
-```java
-    // Execute a workflow waiting for it to complete.
-    String greeting = workflow.getGreeting(new MyStruct(100, "Hello"));
-    System.out.println(greeting);
-    System.exit(0);
-  }
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `src/main/java/com/uber/cadence/samples/hello/HelloSideEffect.java`
-#### Snippet
-```java
-    workflow.start();
-    // Query and print the set value
-    System.out.println(workflow.get());
-    System.exit(0);
-  }
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `src/main/java/com/uber/cadence/samples/hello/HelloActivity.java`
-#### Snippet
-```java
-    // Execute a workflow waiting for it to complete.
-    String greeting = workflow.getGreeting("World");
-    System.out.println(greeting);
-    System.exit(0);
-  }
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `src/main/java/com/uber/cadence/samples/hello/HelloLocalActivity.java`
-#### Snippet
-```java
-    // Execute a workflow waiting for it to complete.
-    String greeting = workflow.getGreeting("World");
-    System.out.println(greeting);
-    System.exit(0);
-  }
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `src/main/java/com/uber/cadence/samples/bookingsaga/TripBookingSaga.java`
-#### Snippet
-```java
-    // Start all workers created by this factory.
-    factory.start();
-    System.out.println("Worker started for task list: " + TASK_LIST);
-
-    // now we can start running instances of our saga - its state will be persisted
 ```
 
 ### SystemOutErr
@@ -428,50 +380,50 @@ in `src/main/java/com/uber/cadence/samples/hello/HelloSearchAttributes.java`
 
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
-in `src/main/java/com/uber/cadence/samples/fileprocessing/StoreActivitiesImpl.java`
+in `src/main/java/com/uber/cadence/samples/hello/HelloSideEffect.java`
 #### Snippet
 ```java
-    }
-    // Faking upload to simplify sample implementation.
-    System.out.println("upload activity: uploaded from " + localFileName + " to " + url);
+    workflow.start();
+    // Query and print the set value
+    System.out.println(workflow.get());
+    System.exit(0);
   }
-}
 ```
 
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
-in `src/main/java/com/uber/cadence/samples/fileprocessing/StoreActivitiesImpl.java`
+in `src/main/java/com/uber/cadence/samples/hello/HelloActivity.java`
 #### Snippet
 ```java
-  @Override
-  public String process(String sourceFile) {
-    System.out.println("process activity: sourceFile= " + sourceFile);
-    try {
-      String processedName = processFileImpl(sourceFile);
+    // Execute a workflow waiting for it to complete.
+    String greeting = workflow.getGreeting("World");
+    System.out.println(greeting);
+    System.exit(0);
+  }
 ```
 
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
-in `src/main/java/com/uber/cadence/samples/fileprocessing/StoreActivitiesImpl.java`
+in `src/main/java/com/uber/cadence/samples/hello/HelloLocalActivity.java`
 #### Snippet
 ```java
-    try {
-      String processedName = processFileImpl(sourceFile);
-      System.out.println("process activity: processed file: " + processedName);
-      return processedName;
-    } catch (IOException e) {
+    // Execute a workflow waiting for it to complete.
+    String greeting = workflow.getGreeting("World");
+    System.out.println(greeting);
+    System.exit(0);
+  }
 ```
 
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
-in `src/main/java/com/uber/cadence/samples/fileprocessing/StoreActivitiesImpl.java`
+in `src/main/java/com/uber/cadence/samples/hello/HelloPeriodic.java`
 #### Snippet
 ```java
-      File destination = new File(Files.createTempDir(), "downloaded");
-      Files.write(binary, destination);
-      System.out.println(
-          "download activity: downloaded from " + url + " to " + destination.getAbsolutePath());
-      return new TaskListFileNamePair(hostSpecificTaskList, destination.getAbsolutePath());
+    @Override
+    public void greet(String greeting) {
+      System.out.println("From " + Activity.getWorkflowExecution() + ": " + greeting);
+    }
+  }
 ```
 
 ### SystemOutErr
@@ -512,14 +464,50 @@ in `src/main/java/com/uber/cadence/samples/hello/HelloPeriodic.java`
 
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
-in `src/main/java/com/uber/cadence/samples/hello/HelloPeriodic.java`
+in `src/main/java/com/uber/cadence/samples/fileprocessing/StoreActivitiesImpl.java`
 #### Snippet
 ```java
-    @Override
-    public void greet(String greeting) {
-      System.out.println("From " + Activity.getWorkflowExecution() + ": " + greeting);
     }
+    // Faking upload to simplify sample implementation.
+    System.out.println("upload activity: uploaded from " + localFileName + " to " + url);
   }
+}
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `src/main/java/com/uber/cadence/samples/fileprocessing/StoreActivitiesImpl.java`
+#### Snippet
+```java
+      File destination = new File(Files.createTempDir(), "downloaded");
+      Files.write(binary, destination);
+      System.out.println(
+          "download activity: downloaded from " + url + " to " + destination.getAbsolutePath());
+      return new TaskListFileNamePair(hostSpecificTaskList, destination.getAbsolutePath());
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `src/main/java/com/uber/cadence/samples/fileprocessing/StoreActivitiesImpl.java`
+#### Snippet
+```java
+  @Override
+  public String process(String sourceFile) {
+    System.out.println("process activity: sourceFile= " + sourceFile);
+    try {
+      String processedName = processFileImpl(sourceFile);
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `src/main/java/com/uber/cadence/samples/fileprocessing/StoreActivitiesImpl.java`
+#### Snippet
+```java
+    try {
+      String processedName = processFileImpl(sourceFile);
+      System.out.println("process activity: processed file: " + processedName);
+      return processedName;
+    } catch (IOException e) {
 ```
 
 ### SystemOutErr
@@ -544,6 +532,18 @@ in `src/main/java/com/uber/cadence/samples/common/RegisterDomain.java`
       System.out.println("Domain \"" + DOMAIN + "\" is already registered");
     }
     System.exit(0);
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `src/main/java/com/uber/cadence/samples/bookingsaga/TripBookingSaga.java`
+#### Snippet
+```java
+    // Start all workers created by this factory.
+    factory.start();
+    System.out.println("Worker started for task list: " + TASK_LIST);
+
+    // now we can start running instances of our saga - its state will be persisted
 ```
 
 ### SystemOutErr
@@ -596,54 +596,6 @@ in `src/main/java/com/uber/cadence/samples/hello/HelloException.java`
 
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
-in `src/main/java/com/uber/cadence/samples/hello/HelloCancellation.java`
-#### Snippet
-```java
-      client.getResult(String.class);
-    } catch (CancellationException ignored) {
-      System.out.println("workflow cancelled. Cancellation exception thrown");
-    }
-
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `src/main/java/com/uber/cadence/samples/hello/HelloCancellation.java`
-#### Snippet
-```java
-    }
-
-    System.out.println(activities.getInvocations());
-    System.exit(0);
-  }
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `src/main/java/com/uber/cadence/samples/hello/HelloAsyncActivityCompletion.java`
-#### Snippet
-```java
-    CompletableFuture<String> greeting = WorkflowClient.execute(workflow::getGreeting, "World");
-    // Wait for workflow completion.
-    System.out.println(greeting.get());
-    System.exit(0);
-  }
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `src/main/java/com/uber/cadence/samples/hello/HelloChild.java`
-#### Snippet
-```java
-    // Execute a workflow waiting for it to complete.
-    String greeting = workflow.getGreeting("World");
-    System.out.println(greeting);
-    System.exit(0);
-  }
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
 in `src/main/java/com/uber/cadence/samples/fileprocessing/FileProcessingStarter.java`
 #### Snippet
 ```java
@@ -668,24 +620,24 @@ in `src/main/java/com/uber/cadence/samples/fileprocessing/FileProcessingStarter.
 
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
-in `src/main/java/com/uber/cadence/samples/hello/HelloQuery.java`
+in `src/main/java/com/uber/cadence/samples/hello/HelloCancellation.java`
 #### Snippet
 ```java
-    // So we can send a signal to it using workflow stub.
+      client.getResult(String.class);
+    } catch (CancellationException ignored) {
+      System.out.println("workflow cancelled. Cancellation exception thrown");
+    }
 
-    System.out.println(workflow.queryGreeting()); // Should print Hello...
-    // Note that inside a workflow only WorkflowThread.sleep is allowed. Outside
-    // WorkflowThread.sleep is not allowed.
 ```
 
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
-in `src/main/java/com/uber/cadence/samples/hello/HelloQuery.java`
+in `src/main/java/com/uber/cadence/samples/hello/HelloCancellation.java`
 #### Snippet
 ```java
-    // WorkflowThread.sleep is not allowed.
-    Thread.sleep(2500);
-    System.out.println(workflow.queryGreeting()); // Should print Bye ...
+    }
+
+    System.out.println(activities.getInvocations());
     System.exit(0);
   }
 ```
@@ -772,6 +724,54 @@ in `src/main/java/com/uber/cadence/samples/hello/HelloConsistentQuery.java`
     System.out.println(
         workflow.queryWithOptions(
             "GreetingWorkflow::getCounter",
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `src/main/java/com/uber/cadence/samples/hello/HelloChild.java`
+#### Snippet
+```java
+    // Execute a workflow waiting for it to complete.
+    String greeting = workflow.getGreeting("World");
+    System.out.println(greeting);
+    System.exit(0);
+  }
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `src/main/java/com/uber/cadence/samples/hello/HelloAsyncActivityCompletion.java`
+#### Snippet
+```java
+    CompletableFuture<String> greeting = WorkflowClient.execute(workflow::getGreeting, "World");
+    // Wait for workflow completion.
+    System.out.println(greeting.get());
+    System.exit(0);
+  }
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `src/main/java/com/uber/cadence/samples/hello/HelloQuery.java`
+#### Snippet
+```java
+    // So we can send a signal to it using workflow stub.
+
+    System.out.println(workflow.queryGreeting()); // Should print Hello...
+    // Note that inside a workflow only WorkflowThread.sleep is allowed. Outside
+    // WorkflowThread.sleep is not allowed.
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `src/main/java/com/uber/cadence/samples/hello/HelloQuery.java`
+#### Snippet
+```java
+    // WorkflowThread.sleep is not allowed.
+    Thread.sleep(2500);
+    System.out.println(workflow.queryGreeting()); // Should print Bye ...
+    System.exit(0);
+  }
 ```
 
 ### SystemOutErr
@@ -873,18 +873,6 @@ in `src/main/java/com/uber/cadence/samples/hello/HelloPeriodic.java`
 
 ## RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
 ### UtilityClassWithoutPrivateConstructor
-Class `WorkflowStarter` has only 'static' members, and lacks a 'private' constructor
-in `src/main/java/com/uber/cadence/samples/calculation/WorkflowStarter.java`
-#### Snippet
-```java
-import com.uber.cadence.serviceclient.WorkflowServiceTChannel;
-
-public class WorkflowStarter {
-
-  @SuppressWarnings("CatchAndPrintStackTrace")
-```
-
-### UtilityClassWithoutPrivateConstructor
 Class `QueryWorkflowExecution` has only 'static' members, and lacks a 'private' constructor
 in `src/main/java/com/uber/cadence/samples/common/QueryWorkflowExecution.java`
 #### Snippet
@@ -906,18 +894,6 @@ import java.util.concurrent.CountDownLatch;
 public class ShadowTraffic {
   public static void main(String[] args) throws InterruptedException {
     // Get a new client
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `HelloSaga` has only 'static' members, and lacks a 'private' constructor
-in `src/main/java/com/uber/cadence/samples/hello/HelloSaga.java`
-#### Snippet
-```java
-
-/** Demonstrates implementing saga transaction and compensation logic using Cadence. */
-public class HelloSaga {
-  static final String TASK_LIST = "HelloSaga";
-
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -945,6 +921,42 @@ public class HelloActivityRetry {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
+Class `WorkflowStarter` has only 'static' members, and lacks a 'private' constructor
+in `src/main/java/com/uber/cadence/samples/calculation/WorkflowStarter.java`
+#### Snippet
+```java
+import com.uber.cadence.serviceclient.WorkflowServiceTChannel;
+
+public class WorkflowStarter {
+
+  @SuppressWarnings("CatchAndPrintStackTrace")
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `HelloSaga` has only 'static' members, and lacks a 'private' constructor
+in `src/main/java/com/uber/cadence/samples/hello/HelloSaga.java`
+#### Snippet
+```java
+
+/** Demonstrates implementing saga transaction and compensation logic using Cadence. */
+public class HelloSaga {
+  static final String TASK_LIST = "HelloSaga";
+
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `HelloDataConverter` has only 'static' members, and lacks a 'private' constructor
+in `src/main/java/com/uber/cadence/samples/hello/HelloDataConverter.java`
+#### Snippet
+```java
+ * you want to use a different way to serialize/deserialize
+ */
+public class HelloDataConverter {
+
+  /**
+```
+
+### UtilityClassWithoutPrivateConstructor
 Class `FileProcessingWorker` has only 'static' members, and lacks a 'private' constructor
 in `src/main/java/com/uber/cadence/samples/fileprocessing/FileProcessingWorker.java`
 #### Snippet
@@ -969,18 +981,6 @@ public class HelloWorkerSetup {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `HelloDataConverter` has only 'static' members, and lacks a 'private' constructor
-in `src/main/java/com/uber/cadence/samples/hello/HelloDataConverter.java`
-#### Snippet
-```java
- * you want to use a different way to serialize/deserialize
- */
-public class HelloDataConverter {
-
-  /**
-```
-
-### UtilityClassWithoutPrivateConstructor
 Class `SampleConstants` has only 'static' members, and lacks a 'private' constructor
 in `src/main/java/com/uber/cadence/samples/common/SampleConstants.java`
 #### Snippet
@@ -990,6 +990,18 @@ package com.uber.cadence.samples.common;
 public class SampleConstants {
   public static final String DOMAIN = "samples-domain";
 }
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `HelloSearchAttributes` has only 'static' members, and lacks a 'private' constructor
+in `src/main/java/com/uber/cadence/samples/hello/HelloSearchAttributes.java`
+#### Snippet
+```java
+import java.util.UUID;
+
+public class HelloSearchAttributes {
+
+  static final String TASK_LIST = "HelloSearchAttributes";
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -1029,30 +1041,6 @@ public class HelloLocalActivity {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `TripBookingSaga` has only 'static' members, and lacks a 'private' constructor
-in `src/main/java/com/uber/cadence/samples/bookingsaga/TripBookingSaga.java`
-#### Snippet
-```java
-import com.uber.cadence.worker.WorkerFactory;
-
-public class TripBookingSaga {
-
-  static final String TASK_LIST = "TripBooking";
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `HelloSearchAttributes` has only 'static' members, and lacks a 'private' constructor
-in `src/main/java/com/uber/cadence/samples/hello/HelloSearchAttributes.java`
-#### Snippet
-```java
-import java.util.UUID;
-
-public class HelloSearchAttributes {
-
-  static final String TASK_LIST = "HelloSearchAttributes";
-```
-
-### UtilityClassWithoutPrivateConstructor
 Class `HelloPeriodic` has only 'static' members, and lacks a 'private' constructor
 in `src/main/java/com/uber/cadence/samples/hello/HelloPeriodic.java`
 #### Snippet
@@ -1074,6 +1062,18 @@ in `src/main/java/com/uber/cadence/samples/common/RegisterDomain.java`
 public class RegisterDomain {
 
   public static void main(String[] args) throws TException, IOException {
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `TripBookingSaga` has only 'static' members, and lacks a 'private' constructor
+in `src/main/java/com/uber/cadence/samples/bookingsaga/TripBookingSaga.java`
+#### Snippet
+```java
+import com.uber.cadence.worker.WorkerFactory;
+
+public class TripBookingSaga {
+
+  static final String TASK_LIST = "TripBooking";
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -1113,6 +1113,18 @@ public class HelloException {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
+Class `FileProcessingStarter` has only 'static' members, and lacks a 'private' constructor
+in `src/main/java/com/uber/cadence/samples/fileprocessing/FileProcessingStarter.java`
+#### Snippet
+```java
+
+/** Starts a file processing sample workflow. */
+public class FileProcessingStarter {
+
+  public static void main(String[] args) throws Exception {
+```
+
+### UtilityClassWithoutPrivateConstructor
 Class `HelloCancellation` has only 'static' members, and lacks a 'private' constructor
 in `src/main/java/com/uber/cadence/samples/hello/HelloCancellation.java`
 #### Snippet
@@ -1125,15 +1137,15 @@ public class HelloCancellation {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `HelloAsyncActivityCompletion` has only 'static' members, and lacks a 'private' constructor
-in `src/main/java/com/uber/cadence/samples/hello/HelloAsyncActivityCompletion.java`
+Class `HelloConsistentQuery` has only 'static' members, and lacks a 'private' constructor
+in `src/main/java/com/uber/cadence/samples/hello/HelloConsistentQuery.java`
 #### Snippet
 ```java
- * to be running.
+ * >= 0.22.0 to be running.
  */
-public class HelloAsyncActivityCompletion {
+public class HelloConsistentQuery {
 
-  static final String TASK_LIST = "HelloAsyncActivityCompletion";
+  static final String TASK_LIST = "HelloQuery";
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -1149,15 +1161,15 @@ public class HelloChild {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `FileProcessingStarter` has only 'static' members, and lacks a 'private' constructor
-in `src/main/java/com/uber/cadence/samples/fileprocessing/FileProcessingStarter.java`
+Class `HelloAsyncActivityCompletion` has only 'static' members, and lacks a 'private' constructor
+in `src/main/java/com/uber/cadence/samples/hello/HelloAsyncActivityCompletion.java`
 #### Snippet
 ```java
+ * to be running.
+ */
+public class HelloAsyncActivityCompletion {
 
-/** Starts a file processing sample workflow. */
-public class FileProcessingStarter {
-
-  public static void main(String[] args) throws Exception {
+  static final String TASK_LIST = "HelloAsyncActivityCompletion";
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -1168,18 +1180,6 @@ in `src/main/java/com/uber/cadence/samples/hello/HelloQuery.java`
 
 /** Demonstrates query capability. Requires a local instance of Cadence server to be running. */
 public class HelloQuery {
-
-  static final String TASK_LIST = "HelloQuery";
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `HelloConsistentQuery` has only 'static' members, and lacks a 'private' constructor
-in `src/main/java/com/uber/cadence/samples/hello/HelloConsistentQuery.java`
-#### Snippet
-```java
- * >= 0.22.0 to be running.
- */
-public class HelloConsistentQuery {
 
   static final String TASK_LIST = "HelloQuery";
 ```
@@ -1223,6 +1223,18 @@ public class HelloMetric {
 ## RuleId[ruleID=ThrowablePrintStackTrace]
 ### ThrowablePrintStackTrace
 Call to `printStackTrace()` should probably be replaced with more robust logging
+in `src/main/java/com/uber/cadence/samples/hello/HelloPeriodic.java`
+#### Snippet
+```java
+        System.out.println("Still running as " + e.getExecution());
+      } catch (Throwable e) {
+        e.printStackTrace();
+        System.exit(1);
+      }
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
 in `src/main/java/com/uber/cadence/samples/bookingsaga/TripBookingSaga.java`
 #### Snippet
 ```java
@@ -1245,18 +1257,6 @@ in `src/main/java/com/uber/cadence/samples/bookingsaga/TripBookingSaga.java`
 
 ```
 
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/com/uber/cadence/samples/hello/HelloPeriodic.java`
-#### Snippet
-```java
-        System.out.println("Still running as " + e.getExecution());
-      } catch (Throwable e) {
-        e.printStackTrace();
-        System.exit(1);
-      }
-```
-
 ## RuleId[ruleID=CommentedOutCode]
 ### CommentedOutCode
 Commented out code (5 lines)
@@ -1273,18 +1273,6 @@ in `src/main/java/com/uber/cadence/samples/fileprocessing/FileProcessingStarter.
 ## RuleId[ruleID=CodeBlock2Expr]
 ### CodeBlock2Expr
 Statement lambda can be replaced with expression lambda
-in `src/main/java/com/uber/cadence/samples/hello/HelloSideEffect.java`
-#### Snippet
-```java
-              String.class,
-              () -> {
-                return UUID.randomUUID().toString();
-              });
-    }
-```
-
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
 in `src/main/java/com/uber/cadence/samples/hello/HelloSearchAttributes.java`
 #### Snippet
 ```java
@@ -1293,6 +1281,18 @@ in `src/main/java/com/uber/cadence/samples/hello/HelloSearchAttributes.java`
               (k, v) -> {
                 System.out.printf("%s: %s\n", k, getValueForKey(k, searchAttributes));
               });
+```
+
+### CodeBlock2Expr
+Statement lambda can be replaced with expression lambda
+in `src/main/java/com/uber/cadence/samples/hello/HelloSideEffect.java`
+#### Snippet
+```java
+              String.class,
+              () -> {
+                return UUID.randomUUID().toString();
+              });
+    }
 ```
 
 ## RuleId[ruleID=AssignmentToMethodParameter]
