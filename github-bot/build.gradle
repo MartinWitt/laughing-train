@@ -23,7 +23,7 @@ dependencies {
 	implementation("io.quarkus:quarkus-oidc")
 	implementation("io.quarkus:quarkus-keycloak-authorization")
 	implementation("io.quarkus:quarkus-micrometer-registry-prometheus")
-	testImplementation group: 'org.assertj', name: 'assertj-core', version: '3.24.1'
+	testImplementation group: 'org.assertj', name: 'assertj-core', version: '3.24.2'
 	testImplementation 'com.github.javafaker:javafaker:1.0.2'
 	implementation project(":application")
 }
