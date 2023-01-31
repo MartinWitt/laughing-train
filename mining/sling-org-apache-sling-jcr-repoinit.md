@@ -1,25 +1,25 @@
 # sling-org-apache-sling-jcr-repoinit 
  
 # Bad smells
-I found 36 bad smells with 7 repairable:
+I found 39 bad smells with 7 repairable:
 | ruleID | number | fixable |
 | --- | --- | --- |
-| BoundedWildcard | 7 | false |
+| BoundedWildcard | 8 | false |
 | ZeroLengthArrayInitialization | 6 | false |
 | UnnecessaryToStringCall | 4 | true |
 | AssignmentToMethodParameter | 3 | false |
 | DataFlowIssue | 2 | false |
+| UNUSED_IMPORT | 2 | false |
 | MismatchedJavadocCode | 2 | false |
 | SizeReplaceableByIsEmpty | 2 | true |
 | UnusedAssignment | 2 | false |
+| StringEqualsEmptyString | 2 | false |
 | ToArrayCallWithZeroLengthArrayArgument | 1 | true |
 | ImplicitArrayToString | 1 | false |
 | UnnecessaryFullyQualifiedName | 1 | false |
 | RedundantFieldInitialization | 1 | false |
-| HtmlWrongAttributeValue | 1 | false |
 | TrivialStringConcatenation | 1 | false |
 | ConstantValue | 1 | false |
-| StringEqualsEmptyString | 1 | false |
 ## RuleId[ruleID=ToArrayCallWithZeroLengthArrayArgument]
 ### ToArrayCallWithZeroLengthArrayArgument
 Call to `toArray()` with pre-sized array argument 'new String\[privileges.size()\]'
@@ -84,6 +84,31 @@ package org.apache.sling.jcr.repoinit;
 
 ```
 
+## RuleId[ruleID=UNUSED_IMPORT]
+### UNUSED_IMPORT
+Unused import `import java.util.ArrayList;`
+in `src/main/java/org/apache/sling/jcr/repoinit/impl/NodeVisitor.java`
+#### Snippet
+```java
+package org.apache.sling.jcr.repoinit.impl;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+```
+
+### UNUSED_IMPORT
+Unused import `import java.util.Arrays;`
+in `src/main/java/org/apache/sling/jcr/repoinit/impl/NodeVisitor.java`
+#### Snippet
+```java
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+```
+
 ## RuleId[ruleID=RedundantFieldInitialization]
 ### RedundantFieldInitialization
 Field initialization to `0` is redundant
@@ -98,18 +123,6 @@ in `src/main/java/org/apache/sling/jcr/repoinit/impl/RetryableOperation.java`
 ```
 
 ## RuleId[ruleID=AssignmentToMethodParameter]
-### AssignmentToMethodParameter
-Assignment to method parameter `subTreePath`
-in `src/main/java/org/apache/sling/jcr/repoinit/impl/NodePropertiesVisitor.java`
-#### Snippet
-```java
-        } else {
-            if (subTreePath.startsWith("/")) {
-                subTreePath = subTreePath.substring(1);
-            }
-            pRelPath = String.format("%s/%s", subTreePath, name);
-```
-
 ### AssignmentToMethodParameter
 Assignment to method parameter `n`
 in `src/main/java/org/apache/sling/jcr/repoinit/impl/NodePropertiesVisitor.java`
@@ -134,17 +147,16 @@ in `src/main/java/org/apache/sling/jcr/repoinit/impl/NodePropertiesVisitor.java`
         }
 ```
 
-## RuleId[ruleID=HtmlWrongAttributeValue]
-### HtmlWrongAttributeValue
-Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-01-11-09-01-20.096.html`
+### AssignmentToMethodParameter
+Assignment to method parameter `subTreePath`
+in `src/main/java/org/apache/sling/jcr/repoinit/impl/NodePropertiesVisitor.java`
 #### Snippet
 ```java
-              <td>0</td>
-              <td>0</td>
-              <td><textarea rows="10" cols="75" readonly="true" placeholder="empty" style="white-space: pre; border: none">Not collected for refresh</textarea></td>
-            </tr>
-          </tbody>
+        } else {
+            if (subTreePath.startsWith("/")) {
+                subTreePath = subTreePath.substring(1);
+            }
+            pRelPath = String.format("%s/%s", subTreePath, name);
 ```
 
 ## RuleId[ruleID=MismatchedJavadocCode]
@@ -200,6 +212,18 @@ in `src/main/java/org/apache/sling/jcr/repoinit/impl/RepositoryInitializerFactor
 ## RuleId[ruleID=ZeroLengthArrayInitialization]
 ### ZeroLengthArrayInitialization
 Allocation of zero length array
+in `src/main/java/org/apache/sling/jcr/repoinit/impl/PrivilegeVisitor.java`
+#### Snippet
+```java
+            try {
+                ((JackrabbitWorkspace) session.getWorkspace()).getPrivilegeManager()
+                    .registerPrivilege(rp.getPrivilegeName(), rp.isAbstract(), rp.getDeclaredAggregateNames().toArray(new String[0]));
+            } catch (Exception ex) {
+                report(ex, "Unable to register privilege from: " + rp);
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
 in `src/main/java/org/apache/sling/jcr/repoinit/impl/GroupMembershipVisitor.java`
 #### Snippet
 ```java
@@ -220,18 +244,6 @@ in `src/main/java/org/apache/sling/jcr/repoinit/impl/GroupMembershipVisitor.java
                 ((Group) group).removeMembers(members.toArray(new String[0]));
             }
         } catch (RepositoryException e) {
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `src/main/java/org/apache/sling/jcr/repoinit/impl/PrivilegeVisitor.java`
-#### Snippet
-```java
-            try {
-                ((JackrabbitWorkspace) session.getWorkspace()).getPrivilegeManager()
-                    .registerPrivilege(rp.getPrivilegeName(), rp.isAbstract(), rp.getDeclaredAggregateNames().toArray(new String[0]));
-            } catch (Exception ex) {
-                report(ex, "Unable to register privilege from: " + rp);
 ```
 
 ### ZeroLengthArrayInitialization
@@ -301,11 +313,11 @@ Unnecessary `toString()` call
 in `src/main/java/org/apache/sling/jcr/repoinit/impl/AclVisitor.java`
 #### Snippet
 ```java
+                AclUtil.removeEntries(session, principals, paths, require(line, PROP_PRIVILEGES), line.getAction() == AclLine.Action.ALLOW, line.getRestrictions());
+            } catch (Exception e) {
+                report(e,"Failed to remove access control entries (" + e.toString() + ") " + line);
             }
-        } catch (Exception e) {
-            report(e,"Failed to set ACL (" + e.toString() + ") " + line);
         }
-    }
 ```
 
 ### UnnecessaryToStringCall
@@ -313,11 +325,11 @@ Unnecessary `toString()` call
 in `src/main/java/org/apache/sling/jcr/repoinit/impl/AclVisitor.java`
 #### Snippet
 ```java
-                AclUtil.removeEntries(session, principals, paths, require(line, PROP_PRIVILEGES), line.getAction() == AclLine.Action.ALLOW, line.getRestrictions());
-            } catch (Exception e) {
-                report(e,"Failed to remove access control entries (" + e.toString() + ") " + line);
             }
+        } catch (Exception e) {
+            report(e,"Failed to set ACL (" + e.toString() + ") " + line);
         }
+    }
 ```
 
 ### UnnecessaryToStringCall
@@ -334,18 +346,6 @@ in `src/main/java/org/apache/sling/jcr/repoinit/impl/AclVisitor.java`
 
 ## RuleId[ruleID=BoundedWildcard]
 ### BoundedWildcard
-Can generalize to `? extends RetryableOperationResult`
-in `src/main/java/org/apache/sling/jcr/repoinit/impl/RetryableOperation.java`
-#### Snippet
-```java
-     * @return true if the supplier was eventually successful, false if it failed despite all retries
-     */
-    public RetryableOperationResult apply(Supplier<RetryableOperationResult> operation, String logMessage) {
-
-        RetryableOperationResult result = operation.get();
-```
-
-### BoundedWildcard
 Can generalize to `? extends Operation`
 in `src/main/java/org/apache/sling/jcr/repoinit/impl/JcrRepoInitOpsProcessorImpl.java`
 #### Snippet
@@ -355,6 +355,18 @@ in `src/main/java/org/apache/sling/jcr/repoinit/impl/JcrRepoInitOpsProcessorImpl
     public void apply(Session session, List<Operation> ops) {
 
         final OperationVisitor [] visitors = {
+```
+
+### BoundedWildcard
+Can generalize to `? extends RetryableOperationResult`
+in `src/main/java/org/apache/sling/jcr/repoinit/impl/RetryableOperation.java`
+#### Snippet
+```java
+     * @return true if the supplier was eventually successful, false if it failed despite all retries
+     */
+    public RetryableOperationResult apply(Supplier<RetryableOperationResult> operation, String logMessage) {
+
+        RetryableOperationResult result = operation.get();
 ```
 
 ### BoundedWildcard
@@ -382,15 +394,15 @@ in `src/main/java/org/apache/sling/jcr/repoinit/impl/NodePropertiesVisitor.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends AclLine`
-in `src/main/java/org/apache/sling/jcr/repoinit/impl/AclUtil.java`
+Can generalize to `? extends PathSegmentDefinition`
+in `src/main/java/org/apache/sling/jcr/repoinit/impl/NodeVisitor.java`
 #### Snippet
 ```java
     }
 
-    public static void removePrincipalEntries(Session session, String principalName, Collection<AclLine> lines) throws RepositoryException {
-        final JackrabbitAccessControlManager acMgr = getJACM(session);
-        Principal principal = AccessControlUtils.getPrincipal(session, principalName);
+    private void createNodes(List<PathSegmentDefinition> pathSegmentDefinitions, List<PropertyLine> propertyLines, boolean strict) {
+        StringBuilder parentPathBuilder = new StringBuilder();
+        for (PathSegmentDefinition psd : pathSegmentDefinitions) {
 ```
 
 ### BoundedWildcard
@@ -400,7 +412,7 @@ in `src/main/java/org/apache/sling/jcr/repoinit/impl/AclUtil.java`
 ```java
     }
 
-    public static void setPrincipalAcl(Session session, String principalName, Collection<AclLine> lines) throws RepositoryException {
+    public static void removePrincipalEntries(Session session, String principalName, Collection<AclLine> lines) throws RepositoryException {
         final JackrabbitAccessControlManager acMgr = getJACM(session);
         Principal principal = AccessControlUtils.getPrincipal(session, principalName);
 ```
@@ -415,6 +427,18 @@ in `src/main/java/org/apache/sling/jcr/repoinit/impl/AclUtil.java`
     private static boolean removePrincipalEntries(@Nullable PrincipalAccessControlList acl, @NotNull String principalName, @NotNull Predicate<PrincipalAccessControlList.Entry> predicate) throws RepositoryException {
         boolean modified = false;
         if (acl == null) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends AclLine`
+in `src/main/java/org/apache/sling/jcr/repoinit/impl/AclUtil.java`
+#### Snippet
+```java
+    }
+
+    public static void setPrincipalAcl(Session session, String principalName, Collection<AclLine> lines, boolean isStrict) throws RepositoryException {
+        final JackrabbitAccessControlManager acMgr = getJACM(session);
+        Principal principal = AccessControlUtils.getPrincipal(session, principalName);
 ```
 
 ## RuleId[ruleID=UnusedAssignment]
@@ -461,10 +485,22 @@ in `src/main/java/org/apache/sling/jcr/repoinit/impl/AclUtil.java`
 in `src/main/java/org/apache/sling/jcr/repoinit/impl/NodeVisitor.java`
 #### Snippet
 ```java
-                    log.info("Path already exists, nothing to do (and not checking its primary type for now): {}", fullPath);
-                } else {
-                    final Node parent = parentPath.equals("") ? session.getRootNode() : session.getNode(parentPath);
-                    log.info("Creating node {} with primary type {}", fullPath, psd.getPrimaryType());
-                    Node node = addChildNode(parent, psd);
+                        }
+                    } else if (!session.propertyExists(fullPath)) {
+                        final Node parent = parentPath.equals("") ? session.getRootNode() : session.getNode(parentPath);
+                        log.info("Creating node {} with primary type {}", fullPath, psd.getPrimaryType());
+                        node = addChildNode(parent, psd);
+```
+
+### StringEqualsEmptyString
+`equals("")` can be replaced with 'isEmpty()'
+in `src/main/java/org/apache/sling/jcr/repoinit/impl/NodeVisitor.java`
+#### Snippet
+```java
+                        node = null;
+                    } else {
+                        final Node parent = parentPath.equals("") ? session.getRootNode() : session.getNode(parentPath);
+                        log.info("Creating node {} with primary type {}", fullPath, psd.getPrimaryType());
+                        node = addChildNode(parent, psd);
 ```
 
