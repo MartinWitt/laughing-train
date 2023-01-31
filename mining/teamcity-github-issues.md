@@ -10,8 +10,8 @@ I found 16 bad smells with 4 repairable:
 | RedundantFieldInitialization | 1 | false |
 | RegExpSimplifiable | 1 | false |
 | UNUSED_IMPORT | 1 | false |
-| DoubleBraceInitialization | 1 | false |
 | RegExpUnnecessaryNonCapturingGroup | 1 | false |
+| DoubleBraceInitialization | 1 | false |
 | RedundantSuppression | 1 | false |
 ## RuleId[ruleID=RedundantFieldInitialization]
 ### RedundantFieldInitialization
@@ -41,18 +41,6 @@ in `TeamCity.GitHubIssues-server/src/main/java/jetbrains/buildServer/issueTracke
 
 ## RuleId[ruleID=StaticCallOnSubclass]
 ### StaticCallOnSubclass
-Static method `join()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
-in `TeamCity.GitHubIssues-server/src/main/java/jetbrains/buildServer/issueTracker/github/health/PasswordAuthReport.java`
-#### Snippet
-```java
-
-    private static String identity(String... parts) {
-        return PasswordAuthReport.GITHUB_PASS_AUTH_CATEGORY.getId() + "_" + StringUtil.join(parts, "").hashCode();
-    }
-}
-```
-
-### StaticCallOnSubclass
 Static method `isEmptyOrSpaces()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
 in `TeamCity.GitHubIssues-server/src/main/java/jetbrains/buildServer/issueTracker/github/GitHubIssueProvider.java`
 #### Snippet
@@ -62,6 +50,18 @@ in `TeamCity.GitHubIssues-server/src/main/java/jetbrains/buildServer/issueTracke
     if (!StringUtil.isEmptyOrSpaces(token)) {
       if (token.startsWith(TOKEN_PREFIX_OAUTH)) {
         // oauth token
+```
+
+### StaticCallOnSubclass
+Static method `join()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
+in `TeamCity.GitHubIssues-server/src/main/java/jetbrains/buildServer/issueTracker/github/health/PasswordAuthReport.java`
+#### Snippet
+```java
+
+    private static String identity(String... parts) {
+        return PasswordAuthReport.GITHUB_PASS_AUTH_CATEGORY.getId() + "_" + StringUtil.join(parts, "").hashCode();
+    }
+}
 ```
 
 ## RuleId[ruleID=UNUSED_IMPORT]
@@ -77,19 +77,20 @@ import jetbrains.buildServer.issueTracker.IssueFetcherAuthenticator;
 import jetbrains.buildServer.util.HTTPRequestBuilder;
 ```
 
-## RuleId[ruleID=UnnecessaryToStringCall]
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `TeamCity.GitHubIssues-server/src/main/java/jetbrains/buildServer/issueTracker/github/GitHubIssueFetcher.java`
+## RuleId[ruleID=RegExpUnnecessaryNonCapturingGroup]
+### RegExpUnnecessaryNonCapturingGroup
+Unnecessary non-capturing group `(?:\\.git)`
+in `TeamCity.GitHubIssues-server/src/main/java/jetbrains/buildServer/issueTracker/github/health/IssueTrackerSuggestion.java`
 #### Snippet
 ```java
-      final Matcher m = GitHubConstants.OWNER_AND_REPO_PATTERN.matcher(url.getPath());
-      if (!m.matches()) {
-        throw new IllegalArgumentException("URL + [" + url.toString() + "] does not contain owner and repository info");
-      }
-      return getFromCacheOrFetch(issueURL, new MyFetchFunction(url, m.group(1), m.group(2), issueId, credentials,
+
+  /* Matches github ssh urls of format git@github.com:owner/repo.git */
+  private static final Pattern sshPattern = Pattern.compile("git@github\\.com:(.+)/(.+)(?:\\.git)");
+
+  /* Matches github http and https urls of format https://github.com/owner/repo.git */
 ```
 
+## RuleId[ruleID=UnnecessaryToStringCall]
 ### UnnecessaryToStringCall
 Unnecessary `toString()` call
 in `TeamCity.GitHubIssues-server/src/main/java/jetbrains/buildServer/issueTracker/github/GitHubIssueFetcher.java`
@@ -126,6 +127,18 @@ in `TeamCity.GitHubIssues-server/src/main/java/jetbrains/buildServer/issueTracke
         client.setCredentials(cr.getUserName(), cr.getPassword());
 ```
 
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `TeamCity.GitHubIssues-server/src/main/java/jetbrains/buildServer/issueTracker/github/GitHubIssueFetcher.java`
+#### Snippet
+```java
+      final Matcher m = GitHubConstants.OWNER_AND_REPO_PATTERN.matcher(url.getPath());
+      if (!m.matches()) {
+        throw new IllegalArgumentException("URL + [" + url.toString() + "] does not contain owner and repository info");
+      }
+      return getFromCacheOrFetch(issueURL, new MyFetchFunction(url, m.group(1), m.group(2), issueId, credentials,
+```
+
 ## RuleId[ruleID=DoubleBraceInitialization]
 ### DoubleBraceInitialization
 Double brace initialization
@@ -137,19 +150,6 @@ in `TeamCity.GitHubIssues-server/src/main/java/jetbrains/buildServer/issueTracke
     return new HashMap<String, String>() {{
       put(PARAM_AUTH_TYPE, AUTH_ANONYMOUS);
       put(PARAM_PATTERN, DEFAULT_ISSUE_PATTERN);
-```
-
-## RuleId[ruleID=RegExpUnnecessaryNonCapturingGroup]
-### RegExpUnnecessaryNonCapturingGroup
-Unnecessary non-capturing group `(?:\\.git)`
-in `TeamCity.GitHubIssues-server/src/main/java/jetbrains/buildServer/issueTracker/github/health/IssueTrackerSuggestion.java`
-#### Snippet
-```java
-
-  /* Matches github ssh urls of format git@github.com:owner/repo.git */
-  private static final Pattern sshPattern = Pattern.compile("git@github\\.com:(.+)/(.+)(?:\\.git)");
-
-  /* Matches github http and https urls of format https://github.com/owner/repo.git */
 ```
 
 ## RuleId[ruleID=BoundedWildcard]
@@ -166,18 +166,6 @@ in `TeamCity.GitHubIssues-server/src/main/java/jetbrains/buildServer/issueTracke
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends List`
-in `TeamCity.GitHubIssues-server/src/main/java/jetbrains/buildServer/issueTracker/github/health/IssueTrackerSuggestion.java`
-#### Snippet
-```java
-  }
-
-  private Set<String> extractFetchUrls(@NotNull final Stream<List<? extends VcsRoot>> stream) {
-    return stream.flatMap(List::stream)
-                 .filter(it -> GIT_VCS_NAME.equals(it.getVcsName()))
-```
-
-### BoundedWildcard
 Can generalize to `? extends SBuildType`
 in `TeamCity.GitHubIssues-server/src/main/java/jetbrains/buildServer/issueTracker/github/health/IssueTrackerSuggestion.java`
 #### Snippet
@@ -187,6 +175,18 @@ in `TeamCity.GitHubIssues-server/src/main/java/jetbrains/buildServer/issueTracke
   private Set<String> getPathsFromVcsRoots(@NotNull final List<SBuildType> buildTypes) {
     return extractFetchUrls(buildTypes.stream().map(BuildTypeSettings::getVcsRoots));
   }
+```
+
+### BoundedWildcard
+Can generalize to `? extends List`
+in `TeamCity.GitHubIssues-server/src/main/java/jetbrains/buildServer/issueTracker/github/health/IssueTrackerSuggestion.java`
+#### Snippet
+```java
+  }
+
+  private Set<String> extractFetchUrls(@NotNull final Stream<List<? extends VcsRoot>> stream) {
+    return stream.flatMap(List::stream)
+                 .filter(it -> GIT_VCS_NAME.equals(it.getVcsName()))
 ```
 
 ### BoundedWildcard
