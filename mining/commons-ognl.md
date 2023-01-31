@@ -97,30 +97,6 @@ public class OgnlRuntime
 in `src/main/java/org/apache/commons/ognl/ArrayPropertyAccessor.java`
 #### Snippet
 ```java
-                {
-                    case DynamicSubscript.ALL:
-                        System.arraycopy( target, 0, convertedValue, 0, len );
-                        return;
-                    default:
-```
-
-### SuspiciousSystemArraycopy
-`convertedValue` is not of an array type
-in `src/main/java/org/apache/commons/ognl/ArrayPropertyAccessor.java`
-#### Snippet
-```java
-                {
-                    case DynamicSubscript.ALL:
-                        System.arraycopy( target, 0, convertedValue, 0, len );
-                        return;
-                    default:
-```
-
-### SuspiciousSystemArraycopy
-`target` is not of an array type
-in `src/main/java/org/apache/commons/ognl/ArrayPropertyAccessor.java`
-#### Snippet
-```java
                     case DynamicSubscript.ALL:
                         result = Array.newInstance( target.getClass().getComponentType(), len );
                         System.arraycopy( target, 0, result, 0, len );
@@ -138,6 +114,30 @@ in `src/main/java/org/apache/commons/ognl/ArrayPropertyAccessor.java`
                         System.arraycopy( target, 0, result, 0, len );
                         break;
                     case DynamicSubscript.FIRST:
+```
+
+### SuspiciousSystemArraycopy
+`target` is not of an array type
+in `src/main/java/org/apache/commons/ognl/ArrayPropertyAccessor.java`
+#### Snippet
+```java
+                {
+                    case DynamicSubscript.ALL:
+                        System.arraycopy( target, 0, convertedValue, 0, len );
+                        return;
+                    default:
+```
+
+### SuspiciousSystemArraycopy
+`convertedValue` is not of an array type
+in `src/main/java/org/apache/commons/ognl/ArrayPropertyAccessor.java`
+#### Snippet
+```java
+                {
+                    case DynamicSubscript.ALL:
+                        System.arraycopy( target, 0, convertedValue, 0, len );
+                        return;
+                    default:
 ```
 
 ### SuspiciousSystemArraycopy
@@ -304,18 +304,6 @@ in `src/main/java/org/apache/commons/ognl/SimpleNode.java`
 ## RuleId[ruleID=CommentedOutCode]
 ### CommentedOutCode
 Commented out code (2 lines)
-in `src/main/java/org/apache/commons/ognl/ComparisonExpression.java`
-#### Snippet
-```java
-            OgnlRuntime.getChildSource( context, target, children[1] );
-
-            // System.out.println("comparison expression currentType: " + context.getCurrentType() + " previousType: " +
-            // context.getPreviousType());
-
-```
-
-### CommentedOutCode
-Commented out code (2 lines)
 in `src/main/java/org/apache/commons/ognl/OgnlCache.java`
 #### Snippet
 ```java
@@ -324,6 +312,18 @@ in `src/main/java/org/apache/commons/ognl/OgnlCache.java`
 //        _methodCache.setClassInspector( inspector );
 //        _invokePermissionCache.setClassInspector( inspector );
         _fieldCache.setClassInspector( inspector );
+```
+
+### CommentedOutCode
+Commented out code (2 lines)
+in `src/main/java/org/apache/commons/ognl/ComparisonExpression.java`
+#### Snippet
+```java
+            OgnlRuntime.getChildSource( context, target, children[1] );
+
+            // System.out.println("comparison expression currentType: " + context.getCurrentType() + " previousType: " +
+            // context.getPreviousType());
+
 ```
 
 ### CommentedOutCode
@@ -352,14 +352,38 @@ in `src/main/java/org/apache/commons/ognl/ArrayPropertyAccessor.java`
 
 ### CommentedOutCode
 Commented out code (3 lines)
-in `src/main/java/org/apache/commons/ognl/ASTProperty.java`
+in `src/main/java/org/apache/commons/ognl/ASTChain.java`
 #### Snippet
 ```java
-                PropertyAccessor propertyAccessor = OgnlRuntime.getPropertyAccessor( target.getClass() );
 
-                // System.out.println("child value : " + _children[0].getValue(context, context.getCurrentObject())
-                // + " using propaccessor " + p.getClass().getName()
-                // + " and srcString " + srcString + " on target: " + target);
+                    String value = children[i].toSetSourceString( context, context.getCurrentObject() );
+                    // if (value == null || value.trim().isEmpty())
+                    // return "";
+
+```
+
+### CommentedOutCode
+Commented out code (2 lines)
+in `src/main/java/org/apache/commons/ognl/ASTChain.java`
+#### Snippet
+```java
+                    }
+
+                    // System.out.println("Astchain i: " + i + " currentobj : " + context.getCurrentObject() +
+                    // " and root: " + context.getRoot());
+                    if ( !(child instanceof ASTVarRef) && !constructor && !(
+```
+
+### CommentedOutCode
+Commented out code (2 lines)
+in `src/main/java/org/apache/commons/ognl/enhance/ExpressionCompiler.java`
+#### Snippet
+```java
+            String body = format( "{ return %s %s; }", widener, ref.getExpression() ).replaceAll( "\\.\\.", "." );
+
+            // System.out.println("adding method " + ref.getName() + " with body:\n" + body + " and return type: " +
+            // ref.getType());
+
 ```
 
 ### CommentedOutCode
@@ -423,39 +447,15 @@ in `src/main/java/org/apache/commons/ognl/ASTProperty.java`
 ```
 
 ### CommentedOutCode
-Commented out code (2 lines)
-in `src/main/java/org/apache/commons/ognl/enhance/ExpressionCompiler.java`
-#### Snippet
-```java
-            String body = format( "{ return %s %s; }", widener, ref.getExpression() ).replaceAll( "\\.\\.", "." );
-
-            // System.out.println("adding method " + ref.getName() + " with body:\n" + body + " and return type: " +
-            // ref.getType());
-
-```
-
-### CommentedOutCode
 Commented out code (3 lines)
-in `src/main/java/org/apache/commons/ognl/ASTChain.java`
+in `src/main/java/org/apache/commons/ognl/ASTProperty.java`
 #### Snippet
 ```java
+                PropertyAccessor propertyAccessor = OgnlRuntime.getPropertyAccessor( target.getClass() );
 
-                    String value = children[i].toSetSourceString( context, context.getCurrentObject() );
-                    // if (value == null || value.trim().isEmpty())
-                    // return "";
-
-```
-
-### CommentedOutCode
-Commented out code (2 lines)
-in `src/main/java/org/apache/commons/ognl/ASTChain.java`
-#### Snippet
-```java
-                    }
-
-                    // System.out.println("Astchain i: " + i + " currentobj : " + context.getCurrentObject() +
-                    // " and root: " + context.getRoot());
-                    if ( !(child instanceof ASTVarRef) && !constructor && !(
+                // System.out.println("child value : " + _children[0].getValue(context, context.getCurrentObject())
+                // + " using propaccessor " + p.getClass().getName()
+                // + " and srcString " + srcString + " on target: " + target);
 ```
 
 ### CommentedOutCode
@@ -476,30 +476,6 @@ Obsolete collection type `Stack`> used
 in `src/main/java/org/apache/commons/ognl/OgnlContext.java`
 #### Snippet
 ```java
-    }
-
-    private final Stack<Class<?>> typeStack = new Stack<Class<?>>();
-
-    private final Stack<Class<?>> accessorStack = new Stack<Class<?>>();
-```
-
-### ObsoleteCollection
-Obsolete collection type `Stack`> used
-in `src/main/java/org/apache/commons/ognl/OgnlContext.java`
-#### Snippet
-```java
-    }
-
-    private final Stack<Class<?>> typeStack = new Stack<Class<?>>();
-
-    private final Stack<Class<?>> accessorStack = new Stack<Class<?>>();
-```
-
-### ObsoleteCollection
-Obsolete collection type `Stack`> used
-in `src/main/java/org/apache/commons/ognl/OgnlContext.java`
-#### Snippet
-```java
     private final Stack<Class<?>> typeStack = new Stack<Class<?>>();
 
     private final Stack<Class<?>> accessorStack = new Stack<Class<?>>();
@@ -517,6 +493,30 @@ in `src/main/java/org/apache/commons/ognl/OgnlContext.java`
     private final Stack<Class<?>> accessorStack = new Stack<Class<?>>();
 
     private int localReferenceCounter = 0;
+```
+
+### ObsoleteCollection
+Obsolete collection type `Stack`> used
+in `src/main/java/org/apache/commons/ognl/OgnlContext.java`
+#### Snippet
+```java
+    }
+
+    private final Stack<Class<?>> typeStack = new Stack<Class<?>>();
+
+    private final Stack<Class<?>> accessorStack = new Stack<Class<?>>();
+```
+
+### ObsoleteCollection
+Obsolete collection type `Stack`> used
+in `src/main/java/org/apache/commons/ognl/OgnlContext.java`
+#### Snippet
+```java
+    }
+
+    private final Stack<Class<?>> typeStack = new Stack<Class<?>>();
+
+    private final Stack<Class<?>> accessorStack = new Stack<Class<?>>();
 ```
 
 ## RuleId[ruleID=NonSynchronizedMethodOverridesSynchronizedMethod]
@@ -809,11 +809,11 @@ Can generalize to `? super String`
 in `src/main/java/org/apache/commons/ognl/Ognl.java`
 #### Snippet
 ```java
-     * @param classResolver The resolver to use to resolve classes.
+     * @param root The root object.
      */
-    public static void setClassResolver( Map<String, Object> context, ClassResolver classResolver )
+    public static void setRoot( Map<String, Object> context, Object root )
     {
-        context.put( OgnlContext.CLASS_RESOLVER_CONTEXT_KEY, classResolver );
+        context.put( OgnlContext.ROOT_CONTEXT_KEY, root );
 ```
 
 ### BoundedWildcard
@@ -821,11 +821,11 @@ Can generalize to `? super String`
 in `src/main/java/org/apache/commons/ognl/Ognl.java`
 #### Snippet
 ```java
-     * @param converter The converter to use.
+     * @param classResolver The resolver to use to resolve classes.
      */
-    public static void setTypeConverter( Map<String, Object> context, TypeConverter converter )
+    public static void setClassResolver( Map<String, Object> context, ClassResolver classResolver )
     {
-        context.put( OgnlContext.TYPE_CONVERTER_CONTEXT_KEY, converter );
+        context.put( OgnlContext.CLASS_RESOLVER_CONTEXT_KEY, classResolver );
 ```
 
 ### BoundedWildcard
@@ -845,11 +845,11 @@ Can generalize to `? super String`
 in `src/main/java/org/apache/commons/ognl/Ognl.java`
 #### Snippet
 ```java
-     * @param root The root object.
+     * @param converter The converter to use.
      */
-    public static void setRoot( Map<String, Object> context, Object root )
+    public static void setTypeConverter( Map<String, Object> context, TypeConverter converter )
     {
-        context.put( OgnlContext.ROOT_CONTEXT_KEY, root );
+        context.put( OgnlContext.TYPE_CONVERTER_CONTEXT_KEY, converter );
 ```
 
 ## RuleId[ruleID=DuplicateCondition]
@@ -1053,18 +1053,6 @@ in `src/main/java/org/apache/commons/ognl/ExpressionNode.java`
 
 ## RuleId[ruleID=ConditionCoveredByFurtherCondition]
 ### ConditionCoveredByFurtherCondition
-Condition '!(expression instanceof ASTStaticMethod)' covered by subsequent condition '!(expression instanceof ASTStaticMethod)'
-in `src/main/java/org/apache/commons/ognl/enhance/ExpressionCompiler.java`
-#### Snippet
-```java
-
-        if ( ( !(expression instanceof ASTList) && !(expression instanceof ASTVarRef)
-            && !(expression instanceof ASTStaticMethod) && !(expression instanceof ASTStaticField)
-            && !(expression instanceof ASTConst) && !(expression instanceof ExpressionNode)
-            && !(expression instanceof ASTCtor) && !(expression instanceof ASTStaticMethod)
-```
-
-### ConditionCoveredByFurtherCondition
 Condition 'source != null' covered by subsequent condition 'source instanceof Class'
 in `src/main/java/org/apache/commons/ognl/OgnlRuntime.java`
 #### Snippet
@@ -1088,6 +1076,18 @@ in `src/main/java/org/apache/commons/ognl/OgnlRuntime.java`
                 {
 ```
 
+### ConditionCoveredByFurtherCondition
+Condition '!(expression instanceof ASTStaticMethod)' covered by subsequent condition '!(expression instanceof ASTStaticMethod)'
+in `src/main/java/org/apache/commons/ognl/enhance/ExpressionCompiler.java`
+#### Snippet
+```java
+
+        if ( ( !(expression instanceof ASTList) && !(expression instanceof ASTVarRef)
+            && !(expression instanceof ASTStaticMethod) && !(expression instanceof ASTStaticField)
+            && !(expression instanceof ASTConst) && !(expression instanceof ExpressionNode)
+            && !(expression instanceof ASTCtor) && !(expression instanceof ASTStaticMethod)
+```
+
 ## RuleId[ruleID=IfStatementWithIdenticalBranches]
 ### IfStatementWithIdenticalBranches
 'if' statement can be collapsed with side effect extraction
@@ -1102,30 +1102,6 @@ in `src/main/java/org/apache/commons/ognl/ASTAdd.java`
 ```
 
 ## RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
-### DynamicRegexReplaceableByCompiledPattern
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/org/apache/commons/ognl/MapPropertyAccessor.java`
-#### Snippet
-```java
-        if ( index instanceof String && !indexedAccess )
-        {
-            String key = indexStr.replace( "\"", "" );
-
-            if ( "size".equals( key ) )
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/org/apache/commons/ognl/MapPropertyAccessor.java`
-#### Snippet
-```java
-        if (index instanceof String)
-        {
-            String key = indexStr.replace( "\"", "" );
-
-            if ( "size".equals( key ) || "keys".equals( key ) || "keySet".equals( key ) || "values".equals( key )
-```
-
 ### DynamicRegexReplaceableByCompiledPattern
 `replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
 in `src/main/java/org/apache/commons/ognl/ASTAdd.java`
@@ -1163,39 +1139,27 @@ in `src/main/java/org/apache/commons/ognl/ASTAdd.java`
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/org/apache/commons/ognl/enhance/ExpressionCompiler.java`
+`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `src/main/java/org/apache/commons/ognl/MapPropertyAccessor.java`
 #### Snippet
 ```java
-        body = "{" + ( castExpression != null ? castExpression : "" ) + pre + setterCode + ";}";
+        if (index instanceof String)
+        {
+            String key = indexStr.replace( "\"", "" );
 
-        body = body.replaceAll( "\\.\\.", "." );
-
-        // System.out.println("Setter Body: ===================================\n" + body);
+            if ( "size".equals( key ) || "keys".equals( key ) || "keySet".equals( key ) || "values".equals( key )
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/org/apache/commons/ognl/enhance/ExpressionCompiler.java`
+`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `src/main/java/org/apache/commons/ognl/MapPropertyAccessor.java`
 #### Snippet
 ```java
-        }
+        if ( index instanceof String && !indexedAccess )
+        {
+            String key = indexStr.replace( "\"", "" );
 
-        body = body.replaceAll( "\\.\\.", "." );
-
-        // System.out.println("Getter Body: ===================================\n" + body);
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/org/apache/commons/ognl/enhance/ExpressionCompiler.java`
-#### Snippet
-```java
-            String widener = ref.getType().isPrimitive() ? " " : " ($w) ";
-
-            String body = format( "{ return %s %s; }", widener, ref.getExpression() ).replaceAll( "\\.\\.", "." );
-
-            // System.out.println("adding method " + ref.getName() + " with body:\n" + body + " and return type: " +
+            if ( "size".equals( key ) )
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
@@ -1223,6 +1187,42 @@ in `src/main/java/org/apache/commons/ognl/OgnlRuntime.java`
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `src/main/java/org/apache/commons/ognl/enhance/ExpressionCompiler.java`
+#### Snippet
+```java
+        body = "{" + ( castExpression != null ? castExpression : "" ) + pre + setterCode + ";}";
+
+        body = body.replaceAll( "\\.\\.", "." );
+
+        // System.out.println("Setter Body: ===================================\n" + body);
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `src/main/java/org/apache/commons/ognl/enhance/ExpressionCompiler.java`
+#### Snippet
+```java
+            String widener = ref.getType().isPrimitive() ? " " : " ($w) ";
+
+            String body = format( "{ return %s %s; }", widener, ref.getExpression() ).replaceAll( "\\.\\.", "." );
+
+            // System.out.println("adding method " + ref.getName() + " with body:\n" + body + " and return type: " +
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `src/main/java/org/apache/commons/ognl/enhance/ExpressionCompiler.java`
+#### Snippet
+```java
+        }
+
+        body = body.replaceAll( "\\.\\.", "." );
+
+        // System.out.println("Getter Body: ===================================\n" + body);
+```
+
+### DynamicRegexReplaceableByCompiledPattern
 `replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
 in `src/main/java/org/apache/commons/ognl/ListPropertyAccessor.java`
 #### Snippet
@@ -1239,18 +1239,6 @@ in `src/main/java/org/apache/commons/ognl/ListPropertyAccessor.java`
 in `src/main/java/org/apache/commons/ognl/ListPropertyAccessor.java`
 #### Snippet
 ```java
-        if ( index instanceof String )
-        {
-            String key = ( (String) index ).replace( "\"", "" );
-            if ( "size".equals( key ) )
-            {
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/org/apache/commons/ognl/ListPropertyAccessor.java`
-#### Snippet
-```java
     public String getSourceSetter( OgnlContext context, Object target, Object index )
     {
         String indexStr = index.toString().replace( "\"", "" );
@@ -1260,26 +1248,14 @@ in `src/main/java/org/apache/commons/ognl/ListPropertyAccessor.java`
 
 ### DynamicRegexReplaceableByCompiledPattern
 `replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/org/apache/commons/ognl/ObjectPropertyAccessor.java`
+in `src/main/java/org/apache/commons/ognl/ListPropertyAccessor.java`
 #### Snippet
 ```java
+        if ( index instanceof String )
         {
-
-            String methodName = index.toString().replace( "\"", "" );
-            Method m = OgnlRuntime.getReadMethod( target.getClass(), methodName );
-
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/org/apache/commons/ognl/ObjectPropertyAccessor.java`
-#### Snippet
-```java
-                m =
-                    OgnlRuntime.getReadMethod( target.getClass(),
-                                               context.getCurrentObject().toString().replace( "\"", "" ) );
-            }
-            // System.out.println("tried to get read method from target: " + target.getClass() + " with methodName:" +
+            String key = ( (String) index ).replace( "\"", "" );
+            if ( "size".equals( key ) )
+            {
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
@@ -1318,6 +1294,30 @@ in `src/main/java/org/apache/commons/ognl/ObjectPropertyAccessor.java`
 
 ```
 
+### DynamicRegexReplaceableByCompiledPattern
+`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `src/main/java/org/apache/commons/ognl/ObjectPropertyAccessor.java`
+#### Snippet
+```java
+        {
+
+            String methodName = index.toString().replace( "\"", "" );
+            Method m = OgnlRuntime.getReadMethod( target.getClass(), methodName );
+
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `src/main/java/org/apache/commons/ognl/ObjectPropertyAccessor.java`
+#### Snippet
+```java
+                m =
+                    OgnlRuntime.getReadMethod( target.getClass(),
+                                               context.getCurrentObject().toString().replace( "\"", "" ) );
+            }
+            // System.out.println("tried to get read method from target: " + target.getClass() + " with methodName:" +
+```
+
 ## RuleId[ruleID=UnnecessarySuperQualifier]
 ### UnnecessarySuperQualifier
 Qualifier `super` is unnecessary in this context
@@ -1332,6 +1332,66 @@ in `src/main/java/org/apache/commons/ognl/ASTBitNegate.java`
 ```
 
 ## RuleId[ruleID=UnnecessaryFullyQualifiedName]
+### UnnecessaryFullyQualifiedName
+Qualifier `java.beans` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/ognl/OgnlRuntime.java`
+#### Snippet
+```java
+     * @param propertyName a property name.
+     * @return the PropertyDescriptor for the given targetClass and propertyName.
+     * @throws java.beans.IntrospectionException
+     * @throws OgnlException
+     */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.commons.ognl.internal` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/ognl/OgnlRuntime.java`
+#### Snippet
+```java
+     * @param method    The method to find types for.
+     * @return Array of parameter types for the given method.
+     * @throws org.apache.commons.ognl.internal.CacheException
+     */
+    public static Class<?>[] findParameterTypes( Class<?> type, Method method )
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.beans` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/ognl/OgnlRuntime.java`
+#### Snippet
+```java
+     * @param name        Name of property
+     * @return PropertyDescriptor of the named property or null if the class has no property with the given name
+     * @throws java.beans.IntrospectionException
+     * @throws OgnlException
+     */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.commons.ognl.internal` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/ognl/OgnlRuntime.java`
+#### Snippet
+```java
+     * @param constructor
+     * @return
+     * @throws org.apache.commons.ognl.internal.CacheException
+     */
+    public static Class<?>[] getParameterTypes( Constructor<?> constructor )
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.commons.ognl.internal` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/ognl/OgnlRuntime.java`
+#### Snippet
+```java
+     * @param method
+     * @return
+     * @throws org.apache.commons.ognl.internal.CacheException
+     */
+    public static Permission getPermission( Method method )
+```
+
 ### UnnecessaryFullyQualifiedName
 Qualifier `java.io` is unnecessary, and can be replaced with an import
 in `src/main/java/org/apache/commons/ognl/OgnlException.java`
@@ -1357,6 +1417,18 @@ in `src/main/java/org/apache/commons/ognl/OgnlException.java`
 ```
 
 ### UnnecessaryFullyQualifiedName
+Qualifier `javassist` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/ognl/enhance/ExpressionCompiler.java`
+#### Snippet
+```java
+     * @param searchClass The class to load.
+     * @return The javassist class equivalent.
+     * @throws javassist.NotFoundException When the class definition can't be found.
+     */
+    protected CtClass getCtClass( Class<?> searchClass )
+```
+
+### UnnecessaryFullyQualifiedName
 Qualifier `java.lang.reflect` is unnecessary and can be removed
 in `src/main/java/org/apache/commons/ognl/enhance/ExpressionCompiler.java`
 #### Snippet
@@ -1373,18 +1445,6 @@ Qualifier `org.apache.commons.ognl` is unnecessary and can be removed
 in `src/main/java/org/apache/commons/ognl/enhance/ExpressionCompiler.java`
 #### Snippet
 ```java
-     * @param context The current execution context.
-     * @param loader The {@link ClassLoader} instance to use - as returned by
-     *            {@link #getClassLoader(org.apache.commons.ognl.OgnlContext)}.
-     * @return The existing or new {@link ClassPool} instance.
-     */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.commons.ognl` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/ognl/enhance/ExpressionCompiler.java`
-#### Snippet
-```java
 
     /**
      * Used by {@link #getRootExpression(org.apache.commons.ognl.Node, Object, org.apache.commons.ognl.OgnlContext)} to
@@ -1402,18 +1462,6 @@ in `src/main/java/org/apache/commons/ognl/enhance/ExpressionCompiler.java`
      * Used by {@link #getRootExpression(org.apache.commons.ognl.Node, Object, org.apache.commons.ognl.OgnlContext)} to
      * determine if the expression needs to be cast at all.
      *
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `javassist` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/ognl/enhance/ExpressionCompiler.java`
-#### Snippet
-```java
-     * @param searchClass The class to load.
-     * @return The javassist class equivalent.
-     * @throws javassist.NotFoundException When the class definition can't be found.
-     */
-    protected CtClass getCtClass( Class<?> searchClass )
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -1453,15 +1501,39 @@ in `src/main/java/org/apache/commons/ognl/enhance/ExpressionCompiler.java`
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.commons.ognl.internal` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/ognl/OgnlRuntime.java`
+Qualifier `org.apache.commons.ognl` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/ognl/enhance/ExpressionCompiler.java`
 #### Snippet
 ```java
-     * @param method    The method to find types for.
-     * @return Array of parameter types for the given method.
-     * @throws org.apache.commons.ognl.internal.CacheException
+     * @param context The current execution context.
+     * @param loader The {@link ClassLoader} instance to use - as returned by
+     *            {@link #getClassLoader(org.apache.commons.ognl.OgnlContext)}.
+     * @return The existing or new {@link ClassPool} instance.
      */
-    public static Class<?>[] findParameterTypes( Class<?> type, Method method )
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.commons.ognl` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/ognl/enhance/OgnlExpressionCompiler.java`
+#### Snippet
+```java
+    /**
+     * The core method executed to compile a specific expression. It is expected that this expression always return a
+     * {@link Node} with a non null {@link org.apache.commons.ognl.Node#getAccessor()} instance - unless an exception is
+     * thrown by the method or the statement wasn't compilable in this instance because of missing/null objects in the
+     * expression. These instances may in some cases continue to call this compilation method until the expression is
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.lang.reflect` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/ognl/enhance/OgnlExpressionCompiler.java`
+#### Snippet
+```java
+
+    /**
+     * Used in places where the preferred {@link #getSuperOrInterfaceClass(java.lang.reflect.Method, Class)} isn't
+     * possible because the method isn't known for a class. Attempts to upcast the given class to the next available
+     * non-private accessible class so that compiled expressions can reference the interface class of an instance so as
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -1489,75 +1561,15 @@ in `src/main/java/org/apache/commons/ognl/enhance/OgnlExpressionCompiler.java`
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `java.lang.reflect` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/ognl/enhance/OgnlExpressionCompiler.java`
+Qualifier `java.util` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/ognl/Ognl.java`
 #### Snippet
 ```java
 
     /**
-     * Used in places where the preferred {@link #getSuperOrInterfaceClass(java.lang.reflect.Method, Class)} isn't
-     * possible because the method isn't known for a class. Attempts to upcast the given class to the next available
-     * non-private accessible class so that compiled expressions can reference the interface class of an instance so as
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.commons.ognl` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/ognl/enhance/OgnlExpressionCompiler.java`
-#### Snippet
-```java
-    /**
-     * The core method executed to compile a specific expression. It is expected that this expression always return a
-     * {@link Node} with a non null {@link org.apache.commons.ognl.Node#getAccessor()} instance - unless an exception is
-     * thrown by the method or the statement wasn't compilable in this instance because of missing/null objects in the
-     * expression. These instances may in some cases continue to call this compilation method until the expression is
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.commons.ognl.internal` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/ognl/OgnlRuntime.java`
-#### Snippet
-```java
-     * @param method
-     * @return
-     * @throws org.apache.commons.ognl.internal.CacheException
-     */
-    public static Permission getPermission( Method method )
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.beans` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/ognl/OgnlRuntime.java`
-#### Snippet
-```java
-     * @param name        Name of property
-     * @return PropertyDescriptor of the named property or null if the class has no property with the given name
-     * @throws java.beans.IntrospectionException
-     * @throws OgnlException
-     */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.beans` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/ognl/OgnlRuntime.java`
-#### Snippet
-```java
-     * @param propertyName a property name.
-     * @return the PropertyDescriptor for the given targetClass and propertyName.
-     * @throws java.beans.IntrospectionException
-     * @throws OgnlException
-     */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.commons.ognl.internal` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/ognl/OgnlRuntime.java`
-#### Snippet
-```java
-     * @param constructor
-     * @return
-     * @throws org.apache.commons.ognl.internal.CacheException
-     */
-    public static Class<?>[] getParameterTypes( Constructor<?> constructor )
+     * Same as {@link #isConstant(String, java.util.Map)} - only the {@link Map} instance is created for you.
+     *
+     * @param expression The expression to check.
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -1597,15 +1609,15 @@ in `src/main/java/org/apache/commons/ognl/Ognl.java`
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary and can be removed
+Qualifier `org.apache.commons.ognl` is unnecessary and can be removed
 in `src/main/java/org/apache/commons/ognl/Ognl.java`
 #### Snippet
 ```java
-
-    /**
-     * Same as {@link #isConstant(String, java.util.Map)} - only the {@link Map} instance is created for you.
-     *
-     * @param expression The expression to check.
+ * This will parse the expression given and evaluate it against the root object given, returning the result. If there is
+ * an error in the expression, such as the property is not found, the exception is encapsulated into an
+ * {@link org.apache.commons.ognl.OgnlException OgnlException}.
+ * </p>
+ * <p>
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -1618,18 +1630,6 @@ in `src/main/java/org/apache/commons/ognl/Ognl.java`
      * Same as {@link #isConstant(Object, java.util.Map)} - only the {@link Map} context is created for you.
      *
      * @param tree The {@link Node} to check.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.commons.ognl` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/ognl/Ognl.java`
-#### Snippet
-```java
- * This will parse the expression given and evaluate it against the root object given, returning the result. If there is
- * an error in the expression, such as the property is not found, the exception is encapsulated into an
- * {@link org.apache.commons.ognl.OgnlException OgnlException}.
- * </p>
- * <p>
 ```
 
 ## RuleId[ruleID=ThrowablePrintStackTrace]
@@ -1773,23 +1773,11 @@ Result of assignment expression used
 in `src/main/java/org/apache/commons/ognl/OgnlRuntime.java`
 #### Snippet
 ```java
-            throw new OgnlException( "target is null for setProperty(null, \"" + name + "\", " + value + ")" );
-        }
-        if ( ( accessor = getPropertyAccessor( getTargetClass( target ) ) ) == null )
-        {
-            throw new OgnlException( "No property accessor for " + getTargetClass( target ).getName() );
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `src/main/java/org/apache/commons/ognl/OgnlRuntime.java`
-#### Snippet
-```java
+            {
+                actualArgs = new Object[args.length];
+                if ( ( ctor = getConvertedConstructorAndArgs( context, target, constructors, args, actualArgs ) ) == null )
                 {
-                    if ( isTypeCompatible( value, field.getType() ) || (
-                        ( value = getConvertedType( context, target, field, propertyName, value, field.getType() ) ) != null ) )
-                    {
-                        field.set( target, value );
+                    throw new NoSuchMethodException();
 ```
 
 ### NestedAssignment
@@ -1821,18 +1809,6 @@ Result of assignment expression used
 in `src/main/java/org/apache/commons/ognl/OgnlRuntime.java`
 #### Snippet
 ```java
-            {
-                actualArgs = new Object[args.length];
-                if ( ( ctor = getConvertedConstructorAndArgs( context, target, constructors, args, actualArgs ) ) == null )
-                {
-                    throw new NoSuchMethodException();
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `src/main/java/org/apache/commons/ognl/OgnlRuntime.java`
-#### Snippet
-```java
             throw new OgnlException( "source is null for getProperty(null, \"" + name + "\")" );
         }
         if ( ( accessor = getPropertyAccessor( getTargetClass( source ) ) ) == null )
@@ -1840,19 +1816,31 @@ in `src/main/java/org/apache/commons/ognl/OgnlRuntime.java`
             throw new OgnlException( "No property accessor for " + getTargetClass( source ).getName() );
 ```
 
-## RuleId[ruleID=NonProtectedConstructorInAbstractClass]
-### NonProtectedConstructorInAbstractClass
-Constructor `ExpressionNode()` of an abstract class should not be declared 'public'
-in `src/main/java/org/apache/commons/ognl/ExpressionNode.java`
+### NestedAssignment
+Result of assignment expression used
+in `src/main/java/org/apache/commons/ognl/OgnlRuntime.java`
 #### Snippet
 ```java
-    }
-
-    public ExpressionNode( OgnlParser p, int i )
-    {
-        super( p, i );
+                {
+                    if ( isTypeCompatible( value, field.getType() ) || (
+                        ( value = getConvertedType( context, target, field, propertyName, value, field.getType() ) ) != null ) )
+                    {
+                        field.set( target, value );
 ```
 
+### NestedAssignment
+Result of assignment expression used
+in `src/main/java/org/apache/commons/ognl/OgnlRuntime.java`
+#### Snippet
+```java
+            throw new OgnlException( "target is null for setProperty(null, \"" + name + "\", " + value + ")" );
+        }
+        if ( ( accessor = getPropertyAccessor( getTargetClass( target ) ) ) == null )
+        {
+            throw new OgnlException( "No property accessor for " + getTargetClass( target ).getName() );
+```
+
+## RuleId[ruleID=NonProtectedConstructorInAbstractClass]
 ### NonProtectedConstructorInAbstractClass
 Constructor `ExpressionNode()` of an abstract class should not be declared 'public'
 in `src/main/java/org/apache/commons/ognl/ExpressionNode.java`
@@ -1863,6 +1851,18 @@ in `src/main/java/org/apache/commons/ognl/ExpressionNode.java`
     public ExpressionNode( int i )
     {
         super( i );
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `ExpressionNode()` of an abstract class should not be declared 'public'
+in `src/main/java/org/apache/commons/ognl/ExpressionNode.java`
+#### Snippet
+```java
+    }
+
+    public ExpressionNode( OgnlParser p, int i )
+    {
+        super( p, i );
 ```
 
 ### NonProtectedConstructorInAbstractClass
@@ -1894,18 +1894,6 @@ Constructor `BooleanExpression()` of an abstract class should not be declared 'p
 in `src/main/java/org/apache/commons/ognl/BooleanExpression.java`
 #### Snippet
 ```java
-    protected Class<?> getterClass;
-
-    public BooleanExpression( int id )
-    {
-        super( id );
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `BooleanExpression()` of an abstract class should not be declared 'public'
-in `src/main/java/org/apache/commons/ognl/BooleanExpression.java`
-#### Snippet
-```java
     }
 
     public BooleanExpression( OgnlParser p, int id )
@@ -1914,15 +1902,15 @@ in `src/main/java/org/apache/commons/ognl/BooleanExpression.java`
 ```
 
 ### NonProtectedConstructorInAbstractClass
-Constructor `SimpleNode()` of an abstract class should not be declared 'public'
-in `src/main/java/org/apache/commons/ognl/SimpleNode.java`
+Constructor `BooleanExpression()` of an abstract class should not be declared 'public'
+in `src/main/java/org/apache/commons/ognl/BooleanExpression.java`
 #### Snippet
 ```java
-    }
+    protected Class<?> getterClass;
 
-    public SimpleNode( OgnlParser p, int i )
+    public BooleanExpression( int id )
     {
-        this( i );
+        super( id );
 ```
 
 ### NonProtectedConstructorInAbstractClass
@@ -1935,6 +1923,18 @@ in `src/main/java/org/apache/commons/ognl/SimpleNode.java`
     public SimpleNode( int i )
     {
         id = i;
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `SimpleNode()` of an abstract class should not be declared 'public'
+in `src/main/java/org/apache/commons/ognl/SimpleNode.java`
+#### Snippet
+```java
+    }
+
+    public SimpleNode( OgnlParser p, int i )
+    {
+        this( i );
 ```
 
 ### NonProtectedConstructorInAbstractClass
@@ -1989,6 +1989,18 @@ in `src/main/java/org/apache/commons/ognl/ObjectElementsAccessor.java`
 
 ### RedundantFieldInitialization
 Field initialization to `0` is redundant
+in `src/main/java/org/apache/commons/ognl/ArrayElementsAccessor.java`
+#### Snippet
+```java
+            private final int count = Array.getLength( target );
+
+            private int index = 0;
+
+            public boolean hasMoreElements()
+```
+
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
 in `src/main/java/org/apache/commons/ognl/internal/ClassCacheImpl.java`
 #### Snippet
 ```java
@@ -2000,15 +2012,15 @@ in `src/main/java/org/apache/commons/ognl/internal/ClassCacheImpl.java`
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `src/main/java/org/apache/commons/ognl/ArrayElementsAccessor.java`
+Field initialization to `false` is redundant
+in `src/main/java/org/apache/commons/ognl/DefaultMemberAccess.java`
 #### Snippet
 ```java
-            private final int count = Array.getLength( target );
+    private boolean allowProtectedAccess = false;
 
-            private int index = 0;
+    private boolean allowPackageProtectedAccess = false;
 
-            public boolean hasMoreElements()
+    /*
 ```
 
 ### RedundantFieldInitialization
@@ -2036,30 +2048,6 @@ in `src/main/java/org/apache/commons/ognl/DefaultMemberAccess.java`
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `src/main/java/org/apache/commons/ognl/DefaultMemberAccess.java`
-#### Snippet
-```java
-    private boolean allowProtectedAccess = false;
-
-    private boolean allowPackageProtectedAccess = false;
-
-    /*
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `src/main/java/org/apache/commons/ognl/ASTProperty.java`
-#### Snippet
-```java
-    implements NodeType
-{
-    private boolean indexedAccess = false;
-
-    private Class getterClass;
-```
-
-### RedundantFieldInitialization
 Field initialization to `0` is redundant
 in `src/main/java/org/apache/commons/ognl/enhance/ExpressionCompiler.java`
 #### Snippet
@@ -2084,27 +2072,15 @@ in `src/main/java/org/apache/commons/ognl/NumberElementsAccessor.java`
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `src/main/java/org/apache/commons/ognl/OgnlContext.java`
-#### Snippet
-```java
-    private final Stack<Class<?>> accessorStack = new Stack<Class<?>>();
-
-    private int localReferenceCounter = 0;
-
-    private Map<String, LocalReference> localReferenceMap = null;
-```
-
-### RedundantFieldInitialization
 Field initialization to `false` is redundant
-in `src/main/java/org/apache/commons/ognl/OgnlContext.java`
+in `src/main/java/org/apache/commons/ognl/ASTProperty.java`
 #### Snippet
 ```java
-    private static boolean defaultTraceEvaluations = false;
+    implements NodeType
+{
+    private boolean indexedAccess = false;
 
-    private static boolean defaultKeepLastEvaluation = false;
-
-    public static final DefaultClassResolver DEFAULT_CLASS_RESOLVER = new DefaultClassResolver();
+    private Class getterClass;
 ```
 
 ### RedundantFieldInitialization
@@ -2129,6 +2105,30 @@ in `src/main/java/org/apache/commons/ognl/OgnlContext.java`
     private Map<String, LocalReference> localReferenceMap = null;
 
     /**
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `src/main/java/org/apache/commons/ognl/OgnlContext.java`
+#### Snippet
+```java
+    private static boolean defaultTraceEvaluations = false;
+
+    private static boolean defaultKeepLastEvaluation = false;
+
+    public static final DefaultClassResolver DEFAULT_CLASS_RESOLVER = new DefaultClassResolver();
+```
+
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `src/main/java/org/apache/commons/ognl/OgnlContext.java`
+#### Snippet
+```java
+    private final Stack<Class<?>> accessorStack = new Stack<Class<?>>();
+
+    private int localReferenceCounter = 0;
+
+    private Map<String, LocalReference> localReferenceMap = null;
 ```
 
 ## RuleId[ruleID=AssignmentToMethodParameter]
@@ -2205,75 +2205,15 @@ in `src/main/java/org/apache/commons/ognl/ASTMethodUtil.java`
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `target`
-in `src/main/java/org/apache/commons/ognl/ASTProperty.java`
+Assignment to method parameter `object`
+in `src/main/java/org/apache/commons/ognl/OgnlRuntime.java`
 #### Snippet
 ```java
-            String name = ( (ASTConst) child ).getValue().toString();
-
-            target = getTarget( context, target, name );
-
-            PropertyDescriptor pd = OgnlRuntime.getPropertyDescriptor( context.getCurrentObject().getClass(), name );
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `target`
-in `src/main/java/org/apache/commons/ognl/ASTProperty.java`
-#### Snippet
-```java
-            // context.getCurrentObject().getClass().getName());
-
-            target = getTarget( context, target, name );
-
-            PropertyDescriptor pd = OgnlRuntime.getPropertyDescriptor(
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `target`
-in `src/main/java/org/apache/commons/ognl/ASTProperty.java`
-#### Snippet
-```java
-            try
-            {
-                target = getValue( context, context.getCurrentObject() );
+                String className = getClassName( interfaceClass, fullyQualified );
+                stringBuilder.append( className ).append( '^' );
+                object = Proxy.getInvocationHandler( object );
             }
-            catch ( NoSuchPropertyException e )
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `target`
-in `src/main/java/org/apache/commons/ognl/ASTProperty.java`
-#### Snippet
-```java
-                try
-                {
-                    target = getValue( context, context.getRoot() );
-                }
-                catch ( NoSuchPropertyException ex )
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `target`
-in `src/main/java/org/apache/commons/ognl/ASTEval.java`
-#### Snippet
-```java
-        Node node;
-
-        target = children[1].getValue( context, target );
-        node = ( expr instanceof Node ) ? (Node) expr : (Node) Ognl.parseExpression( expr.toString() );
-        try
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `source`
-in `src/main/java/org/apache/commons/ognl/ASTEval.java`
-#### Snippet
-```java
-        Node node;
-
-        source = children[1].getValue( context, source );
-        node = ( expr instanceof Node ) ? (Node) expr : (Node) Ognl.parseExpression( expr.toString() );
-        try
+            String className = getClassName( object, fullyQualified );
 ```
 
 ### AssignmentToMethodParameter
@@ -2284,6 +2224,18 @@ in `src/main/java/org/apache/commons/ognl/OgnlRuntime.java`
         try
         {
             name = name.replace( "\"", "" );
+
+            BeanInfo info = Introspector.getBeanInfo( target );
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `name`
+in `src/main/java/org/apache/commons/ognl/OgnlRuntime.java`
+#### Snippet
+```java
+        try
+        {
+            name = name.replace( "\"", "" ).toLowerCase();
 
             BeanInfo info = Introspector.getBeanInfo( target );
 ```
@@ -2313,39 +2265,99 @@ in `src/main/java/org/apache/commons/ognl/OgnlRuntime.java`
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `name`
-in `src/main/java/org/apache/commons/ognl/OgnlRuntime.java`
+Assignment to method parameter `target`
+in `src/main/java/org/apache/commons/ognl/ASTChain.java`
 #### Snippet
 ```java
-        try
-        {
-            name = name.replace( "\"", "" ).toLowerCase();
-
-            BeanInfo info = Introspector.getBeanInfo( target );
+                        else if ( !handled )
+                        {
+                            target =
+                                OgnlRuntime.getIndexedProperty(
+                                    context,
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `object`
-in `src/main/java/org/apache/commons/ognl/OgnlRuntime.java`
+Assignment to method parameter `target`
+in `src/main/java/org/apache/commons/ognl/ASTChain.java`
 #### Snippet
 ```java
-                String className = getClassName( interfaceClass, fullyQualified );
-                stringBuilder.append( className ).append( '^' );
-                object = Proxy.getInvocationHandler( object );
-            }
-            String className = getClassName( object, fullyQualified );
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `relativeIndex`
-in `src/main/java/org/apache/commons/ognl/OgnlContext.java`
-#### Snippet
-```java
-        {
-            result = currentEvaluation;
-            while ( ( ++relativeIndex < 0 ) && ( result != null ) )
+            if ( !handled )
             {
-                result = result.getParent();
+                target = children[i].getValue( context, target );
+            }
+        }
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `target`
+in `src/main/java/org/apache/commons/ognl/ASTEval.java`
+#### Snippet
+```java
+        Node node;
+
+        target = children[1].getValue( context, target );
+        node = ( expr instanceof Node ) ? (Node) expr : (Node) Ognl.parseExpression( expr.toString() );
+        try
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `source`
+in `src/main/java/org/apache/commons/ognl/ASTEval.java`
+#### Snippet
+```java
+        Node node;
+
+        source = children[1].getValue( context, source );
+        node = ( expr instanceof Node ) ? (Node) expr : (Node) Ognl.parseExpression( expr.toString() );
+        try
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `target`
+in `src/main/java/org/apache/commons/ognl/ASTProperty.java`
+#### Snippet
+```java
+            try
+            {
+                target = getValue( context, context.getCurrentObject() );
+            }
+            catch ( NoSuchPropertyException e )
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `target`
+in `src/main/java/org/apache/commons/ognl/ASTProperty.java`
+#### Snippet
+```java
+                try
+                {
+                    target = getValue( context, context.getRoot() );
+                }
+                catch ( NoSuchPropertyException ex )
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `target`
+in `src/main/java/org/apache/commons/ognl/ASTProperty.java`
+#### Snippet
+```java
+            // context.getCurrentObject().getClass().getName());
+
+            target = getTarget( context, target, name );
+
+            PropertyDescriptor pd = OgnlRuntime.getPropertyDescriptor(
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `target`
+in `src/main/java/org/apache/commons/ognl/ASTProperty.java`
+#### Snippet
+```java
+            String name = ( (ASTConst) child ).getValue().toString();
+
+            target = getTarget( context, target, name );
+
+            PropertyDescriptor pd = OgnlRuntime.getPropertyDescriptor( context.getCurrentObject().getClass(), name );
 ```
 
 ### AssignmentToMethodParameter
@@ -2373,27 +2385,15 @@ in `src/main/java/org/apache/commons/ognl/ListPropertyAccessor.java`
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `target`
-in `src/main/java/org/apache/commons/ognl/ASTChain.java`
+Assignment to method parameter `relativeIndex`
+in `src/main/java/org/apache/commons/ognl/OgnlContext.java`
 #### Snippet
 ```java
-                        else if ( !handled )
-                        {
-                            target =
-                                OgnlRuntime.getIndexedProperty(
-                                    context,
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `target`
-in `src/main/java/org/apache/commons/ognl/ASTChain.java`
-#### Snippet
-```java
-            if ( !handled )
+        {
+            result = currentEvaluation;
+            while ( ( ++relativeIndex < 0 ) && ( result != null ) )
             {
-                target = children[i].getValue( context, target );
-            }
-        }
+                result = result.getParent();
 ```
 
 ### AssignmentToMethodParameter
@@ -2434,6 +2434,18 @@ in `src/main/java/org/apache/commons/ognl/internal/ClassCacheHandler.java`
 ```
 
 ### SynchronizationOnLocalVariableOrMethodParameter
+Synchronization on method parameter `method`
+in `src/main/java/org/apache/commons/ognl/OgnlRuntime.java`
+#### Snippet
+```java
+        {
+            // only synchronize method invocation if it actually requires it
+            synchronized ( method )
+            {
+
+```
+
+### SynchronizationOnLocalVariableOrMethodParameter
 Synchronization on method parameter `s`
 in `src/main/java/org/apache/commons/ognl/OgnlException.java`
 #### Snippet
@@ -2455,18 +2467,6 @@ in `src/main/java/org/apache/commons/ognl/OgnlException.java`
         synchronized ( s )
         {
             super.printStackTrace( s );
-```
-
-### SynchronizationOnLocalVariableOrMethodParameter
-Synchronization on method parameter `method`
-in `src/main/java/org/apache/commons/ognl/OgnlRuntime.java`
-#### Snippet
-```java
-        {
-            // only synchronize method invocation if it actually requires it
-            synchronized ( method )
-            {
-
 ```
 
 ## RuleId[ruleID=RedundantImplements]
@@ -2557,18 +2557,6 @@ in `src/main/java/org/apache/commons/ognl/ASTAnd.java`
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/org/apache/commons/ognl/internal/ClassCacheImpl.java`
-#### Snippet
-```java
-            entry = entry.getNext();
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
 in `src/main/java/org/apache/commons/ognl/BooleanExpression.java`
 #### Snippet
 ```java
@@ -2581,11 +2569,11 @@ in `src/main/java/org/apache/commons/ognl/BooleanExpression.java`
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/org/apache/commons/ognl/ASTKeyValue.java`
+in `src/main/java/org/apache/commons/ognl/internal/ClassCacheImpl.java`
 #### Snippet
 ```java
-        throws OgnlException
-    {
+            entry = entry.getNext();
+        }
         return null;
     }
 
@@ -2605,7 +2593,31 @@ in `src/main/java/org/apache/commons/ognl/ASTKeyValue.java`
 
 ### ReturnNull
 Return of `null`
+in `src/main/java/org/apache/commons/ognl/ASTKeyValue.java`
+#### Snippet
+```java
+        throws OgnlException
+    {
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
 in `src/main/java/org/apache/commons/ognl/ASTIn.java`
+#### Snippet
+```java
+    public Class getSetterClass()
+    {
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/ognl/ASTInstanceof.java`
 #### Snippet
 ```java
     public Class getSetterClass()
@@ -2632,7 +2644,7 @@ Return of `null`
 in `src/main/java/org/apache/commons/ognl/ASTList.java`
 #### Snippet
 ```java
-    public Class getGetterClass()
+    public Class getSetterClass()
     {
         return null;
     }
@@ -2644,19 +2656,7 @@ Return of `null`
 in `src/main/java/org/apache/commons/ognl/ASTList.java`
 #### Snippet
 ```java
-    public Class getSetterClass()
-    {
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/ognl/ASTInstanceof.java`
-#### Snippet
-```java
-    public Class getSetterClass()
+    public Class getGetterClass()
     {
         return null;
     }
@@ -2692,11 +2692,11 @@ Return of `null`
 in `src/main/java/org/apache/commons/ognl/ObjectNullHandler.java`
 #### Snippet
 ```java
-    public Object nullPropertyValue( Map<String, Object> context, Object target, Object property )
+    public Object nullMethodResult( Map<String, Object> context, Object target, String methodName, Object[] args )
     {
         return null;
     }
-}
+
 ```
 
 ### ReturnNull
@@ -2704,11 +2704,11 @@ Return of `null`
 in `src/main/java/org/apache/commons/ognl/ObjectNullHandler.java`
 #### Snippet
 ```java
-    public Object nullMethodResult( Map<String, Object> context, Object target, String methodName, Object[] args )
+    public Object nullPropertyValue( Map<String, Object> context, Object target, Object property )
     {
         return null;
     }
-
+}
 ```
 
 ### ReturnNull
@@ -2761,62 +2761,14 @@ in `src/main/java/org/apache/commons/ognl/NumericExpression.java`
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/org/apache/commons/ognl/ASTProperty.java`
-#### Snippet
-```java
-        }
-
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/ognl/enhance/ExpressionCompiler.java`
-#### Snippet
-```java
-        if ( context.getRoot() == null )
-        {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/ognl/enhance/ExpressionCompiler.java`
-#### Snippet
-```java
-        if ( type == null )
-        {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/ognl/enhance/ExpressionCompiler.java`
-#### Snippet
-```java
-        }
-
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
 in `src/main/java/org/apache/commons/ognl/OgnlRuntime.java`
 #### Snippet
 ```java
+        if ( arg == null )
+        {
+            return null;
         }
-
-        return null;
-    }
-
+        Class<?> clazz = arg.getClass();
 ```
 
 ### ReturnNull
@@ -2827,6 +2779,54 @@ in `src/main/java/org/apache/commons/ognl/OgnlRuntime.java`
     public static String getPackageName( Object object )
     {
         return ( object == null ) ? null : getClassPackageName( object.getClass() );
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/ognl/OgnlRuntime.java`
+#### Snippet
+```java
+    public static Class<?> getTargetClass( Object o )
+    {
+        return ( o == null ) ? null : ( ( o instanceof Class ) ? (Class<?>) o : o.getClass() );
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/ognl/OgnlRuntime.java`
+#### Snippet
+```java
+        if ( targetClass == null )
+        {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/ognl/OgnlRuntime.java`
+#### Snippet
+```java
+        }
+
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/ognl/OgnlRuntime.java`
+#### Snippet
+```java
+        int index = className.lastIndexOf( '.' );
+
+        return ( index < 0 ) ? null : className.substring( 0, index );
     }
 
 ```
@@ -2860,6 +2860,18 @@ Return of `null`
 in `src/main/java/org/apache/commons/ognl/OgnlRuntime.java`
 #### Snippet
 ```java
+        }
+
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/ognl/OgnlRuntime.java`
+#### Snippet
+```java
     public static String getBaseName( Object o )
     {
         return ( o == null ) ? null : getClassBaseName( o.getClass() );
@@ -2872,16 +2884,16 @@ Return of `null`
 in `src/main/java/org/apache/commons/ognl/OgnlRuntime.java`
 #### Snippet
 ```java
-        if ( arg == null )
-        {
-            return null;
         }
-        Class<?> clazz = arg.getClass();
+
+        return null;
+    }
+
 ```
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/org/apache/commons/ognl/OgnlRuntime.java`
+in `src/main/java/org/apache/commons/ognl/enhance/ExpressionCompiler.java`
 #### Snippet
 ```java
         }
@@ -2893,46 +2905,10 @@ in `src/main/java/org/apache/commons/ognl/OgnlRuntime.java`
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/org/apache/commons/ognl/OgnlRuntime.java`
+in `src/main/java/org/apache/commons/ognl/enhance/ExpressionCompiler.java`
 #### Snippet
 ```java
-    public static Class<?> getTargetClass( Object o )
-    {
-        return ( o == null ) ? null : ( ( o instanceof Class ) ? (Class<?>) o : o.getClass() );
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/ognl/OgnlRuntime.java`
-#### Snippet
-```java
-        int index = className.lastIndexOf( '.' );
-
-        return ( index < 0 ) ? null : className.substring( 0, index );
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/ognl/OgnlRuntime.java`
-#### Snippet
-```java
-        }
-
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/ognl/OgnlRuntime.java`
-#### Snippet
-```java
-        if ( targetClass == null )
+        if ( type == null )
         {
             return null;
         }
@@ -2941,10 +2917,10 @@ in `src/main/java/org/apache/commons/ognl/OgnlRuntime.java`
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/org/apache/commons/ognl/OgnlContext.java`
+in `src/main/java/org/apache/commons/ognl/enhance/ExpressionCompiler.java`
 #### Snippet
 ```java
-        if ( typeStack.isEmpty() )
+        if ( context.getRoot() == null )
         {
             return null;
         }
@@ -2953,91 +2929,7 @@ in `src/main/java/org/apache/commons/ognl/OgnlContext.java`
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/org/apache/commons/ognl/OgnlContext.java`
-#### Snippet
-```java
-        if ( accessorStack.isEmpty() )
-        {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/ognl/OgnlContext.java`
-#### Snippet
-```java
-        if ( accessorStack.isEmpty() )
-        {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/ognl/OgnlContext.java`
-#### Snippet
-```java
-        }
-
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/ognl/OgnlContext.java`
-#### Snippet
-```java
-        if ( typeStack.isEmpty() )
-        {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/ognl/OgnlContext.java`
-#### Snippet
-```java
-        }
-
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/ognl/OgnlContext.java`
-#### Snippet
-```java
-        if ( typeStack.isEmpty() )
-        {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/ognl/OgnlContext.java`
-#### Snippet
-```java
-        if ( accessorStack.isEmpty() )
-        {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/ognl/ListPropertyAccessor.java`
+in `src/main/java/org/apache/commons/ognl/ASTProperty.java`
 #### Snippet
 ```java
         }
@@ -3085,6 +2977,114 @@ in `src/main/java/org/apache/commons/ognl/ListPropertyAccessor.java`
 
 ### ReturnNull
 Return of `null`
+in `src/main/java/org/apache/commons/ognl/ListPropertyAccessor.java`
+#### Snippet
+```java
+        }
+
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/ognl/OgnlContext.java`
+#### Snippet
+```java
+        if ( typeStack.isEmpty() )
+        {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/ognl/OgnlContext.java`
+#### Snippet
+```java
+        if ( typeStack.isEmpty() )
+        {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/ognl/OgnlContext.java`
+#### Snippet
+```java
+        if ( typeStack.isEmpty() )
+        {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/ognl/OgnlContext.java`
+#### Snippet
+```java
+        }
+
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/ognl/OgnlContext.java`
+#### Snippet
+```java
+        if ( accessorStack.isEmpty() )
+        {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/ognl/OgnlContext.java`
+#### Snippet
+```java
+        if ( accessorStack.isEmpty() )
+        {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/ognl/OgnlContext.java`
+#### Snippet
+```java
+        if ( accessorStack.isEmpty() )
+        {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/ognl/OgnlContext.java`
+#### Snippet
+```java
+        }
+
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
 in `src/main/java/org/apache/commons/ognl/ObjectPropertyAccessor.java`
 #### Snippet
 ```java
@@ -3122,7 +3122,7 @@ in `src/main/java/org/apache/commons/ognl/OgnlOps.java`
 ## RuleId[ruleID=HtmlWrongAttributeValue]
 ### HtmlWrongAttributeValue
 Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-01-31-13-20-03.873.html`
+in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-01-31-16-24-04.180.html`
 #### Snippet
 ```java
               <td>0</td>
@@ -3130,6 +3130,55 @@ in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-01-31-13-20-03.873.
               <td><textarea rows="10" cols="75" readonly="true" placeholder="empty" style="white-space: pre; border: none">Not collected for refresh</textarea></td>
             </tr>
           </tbody>
+```
+
+## RuleId[ruleID=NonFinalFieldOfException]
+### NonFinalFieldOfException
+Non-final field `initCause` of exception class
+in `src/main/java/org/apache/commons/ognl/OgnlException.java`
+#### Snippet
+```java
+    private static final long serialVersionUID = -842845048743721078L;
+
+    static Method initCause;
+    static
+    {
+```
+
+### NonFinalFieldOfException
+Non-final field `evaluation` of exception class
+in `src/main/java/org/apache/commons/ognl/OgnlException.java`
+#### Snippet
+```java
+     * The root evaluation of the expression when the exception was thrown
+     */
+    private Evaluation evaluation;
+
+    /**
+```
+
+### NonFinalFieldOfException
+Non-final field `name` of exception class
+in `src/main/java/org/apache/commons/ognl/NoSuchPropertyException.java`
+#### Snippet
+```java
+    private Object target;
+
+    private Object name;
+
+    public NoSuchPropertyException( Object target, Object name )
+```
+
+### NonFinalFieldOfException
+Non-final field `target` of exception class
+in `src/main/java/org/apache/commons/ognl/NoSuchPropertyException.java`
+#### Snippet
+```java
+    private static final long serialVersionUID = 2228428181127177178L;
+
+    private Object target;
+
+    private Object name;
 ```
 
 ## RuleId[ruleID=ZeroLengthArrayInitialization]
@@ -3157,55 +3206,6 @@ in `src/main/java/org/apache/commons/ognl/OgnlRuntime.java`
 
 ```
 
-## RuleId[ruleID=NonFinalFieldOfException]
-### NonFinalFieldOfException
-Non-final field `evaluation` of exception class
-in `src/main/java/org/apache/commons/ognl/OgnlException.java`
-#### Snippet
-```java
-     * The root evaluation of the expression when the exception was thrown
-     */
-    private Evaluation evaluation;
-
-    /**
-```
-
-### NonFinalFieldOfException
-Non-final field `initCause` of exception class
-in `src/main/java/org/apache/commons/ognl/OgnlException.java`
-#### Snippet
-```java
-    private static final long serialVersionUID = -842845048743721078L;
-
-    static Method initCause;
-    static
-    {
-```
-
-### NonFinalFieldOfException
-Non-final field `name` of exception class
-in `src/main/java/org/apache/commons/ognl/NoSuchPropertyException.java`
-#### Snippet
-```java
-    private Object target;
-
-    private Object name;
-
-    public NoSuchPropertyException( Object target, Object name )
-```
-
-### NonFinalFieldOfException
-Non-final field `target` of exception class
-in `src/main/java/org/apache/commons/ognl/NoSuchPropertyException.java`
-#### Snippet
-```java
-    private static final long serialVersionUID = 2228428181127177178L;
-
-    private Object target;
-
-    private Object name;
-```
-
 ## RuleId[ruleID=EqualsWhichDoesntCheckParameterClass]
 ### EqualsWhichDoesntCheckParameterClass
 `equals()` should check the class of its parameter
@@ -3220,6 +3220,30 @@ in `src/main/java/org/apache/commons/ognl/OgnlContext.java`
 ```
 
 ## RuleId[ruleID=UnusedAssignment]
+### UnusedAssignment
+Variable `ret` initializer `""` is redundant
+in `src/main/java/org/apache/commons/ognl/ASTInstanceof.java`
+#### Snippet
+```java
+        {
+
+            String ret = "";
+
+            if (children[0] instanceof ASTConst)
+```
+
+### UnusedAssignment
+Variable `allowPackageProtectedAccess` initializer `false` is redundant
+in `src/main/java/org/apache/commons/ognl/DefaultMemberAccess.java`
+#### Snippet
+```java
+    private boolean allowProtectedAccess = false;
+
+    private boolean allowPackageProtectedAccess = false;
+
+    /*
+```
+
 ### UnusedAssignment
 Variable `allowPrivateAccess` initializer `false` is redundant
 in `src/main/java/org/apache/commons/ognl/DefaultMemberAccess.java`
@@ -3245,30 +3269,6 @@ in `src/main/java/org/apache/commons/ognl/DefaultMemberAccess.java`
 ```
 
 ### UnusedAssignment
-Variable `allowPackageProtectedAccess` initializer `false` is redundant
-in `src/main/java/org/apache/commons/ognl/DefaultMemberAccess.java`
-#### Snippet
-```java
-    private boolean allowProtectedAccess = false;
-
-    private boolean allowPackageProtectedAccess = false;
-
-    /*
-```
-
-### UnusedAssignment
-Variable `ret` initializer `""` is redundant
-in `src/main/java/org/apache/commons/ognl/ASTInstanceof.java`
-#### Snippet
-```java
-        {
-
-            String ret = "";
-
-            if (children[0] instanceof ASTConst)
-```
-
-### UnusedAssignment
 Variable `retval` initializer `value` is redundant
 in `src/main/java/org/apache/commons/ognl/ASTConst.java`
 #### Snippet
@@ -3281,15 +3281,15 @@ in `src/main/java/org/apache/commons/ognl/ASTConst.java`
 ```
 
 ### UnusedAssignment
-Variable `result` initializer `""` is redundant
-in `src/main/java/org/apache/commons/ognl/ASTUnsignedShiftRight.java`
+Variable `cause` initializer `null` is redundant
+in `src/main/java/org/apache/commons/ognl/OgnlRuntime.java`
 #### Snippet
 ```java
-    public String toGetSourceString( OgnlContext context, Object target )
+        throws OgnlException
     {
-        String result = "";
+        Throwable cause = null;
+        Object[] actualArgs = args;
 
-        try
 ```
 
 ### UnusedAssignment
@@ -3305,15 +3305,15 @@ in `src/main/java/org/apache/commons/ognl/OgnlRuntime.java`
 ```
 
 ### UnusedAssignment
-Variable `cause` initializer `null` is redundant
-in `src/main/java/org/apache/commons/ognl/OgnlRuntime.java`
+Variable `result` initializer `""` is redundant
+in `src/main/java/org/apache/commons/ognl/ASTUnsignedShiftRight.java`
 #### Snippet
 ```java
-        throws OgnlException
+    public String toGetSourceString( OgnlContext context, Object target )
     {
-        Throwable cause = null;
-        Object[] actualArgs = args;
+        String result = "";
 
+        try
 ```
 
 ### UnusedAssignment
@@ -3474,27 +3474,87 @@ in `src/main/java/org/apache/commons/ognl/ASTConst.java`
 ```
 
 ### ConstantValue
-Condition `child instanceof ASTConst` is always `true`
-in `src/main/java/org/apache/commons/ognl/ASTProperty.java`
+Condition `methods != null` is always `true`
+in `src/main/java/org/apache/commons/ognl/OgnlRuntime.java`
 #### Snippet
 ```java
-                        String srcString = child.toGetSourceString( context, context.getRoot() );
+        List<Method> methods = getDeclaredMethods( targetClass, propertyName, true /* find 'set' methods */ );
 
-                        if ( child instanceof ASTConst && context.getCurrentObject() instanceof String)
-                        {
-                            srcString = "\"" + srcString + "\"";
+        if ( methods != null )
+        {
+            for ( Method method : methods )
 ```
 
 ### ConstantValue
-Condition `child instanceof ASTConst` is always `true`
-in `src/main/java/org/apache/commons/ognl/ASTProperty.java`
+Condition `previousType.isPrimitive()` is always `true`
+in `src/main/java/org/apache/commons/ognl/OgnlRuntime.java`
 #### Snippet
 ```java
-                        String srcString = child.toGetSourceString( context, context.getRoot() );
+        Class<?> previousType = context.getPreviousType();
+        return currentType == null || previousType == null
+            || !( currentType == previousType && currentType.isPrimitive() && previousType.isPrimitive() )
+            && !currentType.isArray() && !previousType.isArray();
+    }
+```
 
-                        if ( child instanceof ASTConst && context.getCurrentObject() instanceof String)
-                        {
-                            srcString = "\"" + srcString + "\"";
+### ConstantValue
+Condition `method.getDeclaringClass().getTypeParameters() == null` is always `false`
+in `src/main/java/org/apache/commons/ognl/OgnlRuntime.java`
+#### Snippet
+```java
+        throws CacheException
+    {
+        if ( type == null || type.getGenericSuperclass() == null || !(type.getGenericSuperclass() instanceof ParameterizedType) || method.getDeclaringClass().getTypeParameters() == null )
+        {
+            return getParameterTypes( method );
+```
+
+### ConstantValue
+Condition `methods != null` is always `true`
+in `src/main/java/org/apache/commons/ognl/OgnlRuntime.java`
+#### Snippet
+```java
+        List<Method> methods = getDeclaredMethods( targetClass, propertyName, false /* find 'get' methods */ );
+
+        if ( methods != null )
+        {
+            for ( Method method : methods )
+```
+
+### ConstantValue
+Condition `i <= ilast` is always `true`
+in `src/main/java/org/apache/commons/ognl/ASTChain.java`
+#### Snippet
+```java
+        for ( int i = 0, ilast = children.length - 2; i <= ilast; ++i )
+        {
+            if ( (i <= ilast) && (children[i] instanceof ASTProperty) )
+            {
+                ASTProperty propertyNode = (ASTProperty) children[i];
+```
+
+### ConstantValue
+Value `prevChain` is always 'null'
+in `src/main/java/org/apache/commons/ognl/ASTChain.java`
+#### Snippet
+```java
+
+        context.put( "_lastChild", prevChild );
+        context.put( "_currentChain", prevChain );
+
+        if ( lastType != null )
+```
+
+### ConstantValue
+Condition `clazz.getInterfaces() != null` is always `true`
+in `src/main/java/org/apache/commons/ognl/enhance/ExpressionCompiler.java`
+#### Snippet
+```java
+    public Class<?> getSuperOrInterfaceClass( Method m, Class<?> clazz )
+    {
+        if ( clazz.getInterfaces() != null && clazz.getInterfaces().length > 0 )
+        {
+            Class<?>[] intfs = clazz.getInterfaces();
 ```
 
 ### ConstantValue
@@ -3594,63 +3654,27 @@ in `src/main/java/org/apache/commons/ognl/enhance/ExpressionCompiler.java`
 ```
 
 ### ConstantValue
-Condition `clazz.getInterfaces() != null` is always `true`
-in `src/main/java/org/apache/commons/ognl/enhance/ExpressionCompiler.java`
+Condition `child instanceof ASTConst` is always `true`
+in `src/main/java/org/apache/commons/ognl/ASTProperty.java`
 #### Snippet
 ```java
-    public Class<?> getSuperOrInterfaceClass( Method m, Class<?> clazz )
-    {
-        if ( clazz.getInterfaces() != null && clazz.getInterfaces().length > 0 )
-        {
-            Class<?>[] intfs = clazz.getInterfaces();
+                        String srcString = child.toGetSourceString( context, context.getRoot() );
+
+                        if ( child instanceof ASTConst && context.getCurrentObject() instanceof String)
+                        {
+                            srcString = "\"" + srcString + "\"";
 ```
 
 ### ConstantValue
-Condition `methods != null` is always `true`
-in `src/main/java/org/apache/commons/ognl/OgnlRuntime.java`
+Condition `child instanceof ASTConst` is always `true`
+in `src/main/java/org/apache/commons/ognl/ASTProperty.java`
 #### Snippet
 ```java
-        List<Method> methods = getDeclaredMethods( targetClass, propertyName, true /* find 'set' methods */ );
+                        String srcString = child.toGetSourceString( context, context.getRoot() );
 
-        if ( methods != null )
-        {
-            for ( Method method : methods )
-```
-
-### ConstantValue
-Condition `method.getDeclaringClass().getTypeParameters() == null` is always `false`
-in `src/main/java/org/apache/commons/ognl/OgnlRuntime.java`
-#### Snippet
-```java
-        throws CacheException
-    {
-        if ( type == null || type.getGenericSuperclass() == null || !(type.getGenericSuperclass() instanceof ParameterizedType) || method.getDeclaringClass().getTypeParameters() == null )
-        {
-            return getParameterTypes( method );
-```
-
-### ConstantValue
-Condition `previousType.isPrimitive()` is always `true`
-in `src/main/java/org/apache/commons/ognl/OgnlRuntime.java`
-#### Snippet
-```java
-        Class<?> previousType = context.getPreviousType();
-        return currentType == null || previousType == null
-            || !( currentType == previousType && currentType.isPrimitive() && previousType.isPrimitive() )
-            && !currentType.isArray() && !previousType.isArray();
-    }
-```
-
-### ConstantValue
-Condition `methods != null` is always `true`
-in `src/main/java/org/apache/commons/ognl/OgnlRuntime.java`
-#### Snippet
-```java
-        List<Method> methods = getDeclaredMethods( targetClass, propertyName, false /* find 'get' methods */ );
-
-        if ( methods != null )
-        {
-            for ( Method method : methods )
+                        if ( child instanceof ASTConst && context.getCurrentObject() instanceof String)
+                        {
+                            srcString = "\"" + srcString + "\"";
 ```
 
 ### ConstantValue
@@ -3690,42 +3714,6 @@ in `src/main/java/org/apache/commons/ognl/ASTMethod.java`
 ```
 
 ### ConstantValue
-Value `prevChain` is always 'null'
-in `src/main/java/org/apache/commons/ognl/ASTChain.java`
-#### Snippet
-```java
-
-        context.put( "_lastChild", prevChild );
-        context.put( "_currentChain", prevChain );
-
-        if ( lastType != null )
-```
-
-### ConstantValue
-Condition `i <= ilast` is always `true`
-in `src/main/java/org/apache/commons/ognl/ASTChain.java`
-#### Snippet
-```java
-        for ( int i = 0, ilast = children.length - 2; i <= ilast; ++i )
-        {
-            if ( (i <= ilast) && (children[i] instanceof ASTProperty) )
-            {
-                ASTProperty propertyNode = (ASTProperty) children[i];
-```
-
-### ConstantValue
-Condition `f != null` is always `true`
-in `src/main/java/org/apache/commons/ognl/ObjectPropertyAccessor.java`
-#### Snippet
-```java
-                        Field f = target.getClass().getField( methodName );
-
-                        if ( f != null )
-                        {
-                            context.setCurrentType( f.getType() );
-```
-
-### ConstantValue
 Condition `f != null` is always `true`
 in `src/main/java/org/apache/commons/ognl/ObjectPropertyAccessor.java`
 #### Snippet
@@ -3750,27 +3738,15 @@ in `src/main/java/org/apache/commons/ognl/ObjectPropertyAccessor.java`
 ```
 
 ### ConstantValue
-Condition `!toTypeIsArray` is always `true` when reached
-in `src/main/java/org/apache/commons/ognl/OgnlOps.java`
+Condition `f != null` is always `true`
+in `src/main/java/org/apache/commons/ognl/ObjectPropertyAccessor.java`
 #### Snippet
 ```java
-                }
-            }
-            else if ( classIsArray && !toTypeIsArray)
-            {
+                        Field f = target.getClass().getField( methodName );
 
-```
-
-### ConstantValue
-Value `toTypeIsArray` is always 'false'
-in `src/main/java/org/apache/commons/ognl/OgnlOps.java`
-#### Snippet
-```java
-                }
-            }
-            else if ( classIsArray && !toTypeIsArray)
-            {
-
+                        if ( f != null )
+                        {
+                            context.setCurrentType( f.getType() );
 ```
 
 ### ConstantValue
@@ -3795,6 +3771,30 @@ in `src/main/java/org/apache/commons/ognl/OgnlOps.java`
         if ( result == null && preventNulls )
         {
             return value;
+```
+
+### ConstantValue
+Condition `!toTypeIsArray` is always `true` when reached
+in `src/main/java/org/apache/commons/ognl/OgnlOps.java`
+#### Snippet
+```java
+                }
+            }
+            else if ( classIsArray && !toTypeIsArray)
+            {
+
+```
+
+### ConstantValue
+Value `toTypeIsArray` is always 'false'
+in `src/main/java/org/apache/commons/ognl/OgnlOps.java`
+#### Snippet
+```java
+                }
+            }
+            else if ( classIsArray && !toTypeIsArray)
+            {
+
 ```
 
 ## RuleId[ruleID=OverwrittenKey]
