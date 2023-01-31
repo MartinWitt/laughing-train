@@ -1,16 +1,16 @@
 # teamcity-aws-core-plugin 
  
 # Bad smells
-I found 98 bad smells with 22 repairable:
+I found 100 bad smells with 22 repairable:
 | ruleID | number | fixable |
 | --- | --- | --- |
 | ReturnNull | 17 | false |
 | UtilityClassWithoutPrivateConstructor | 16 | true |
 | UNUSED_IMPORT | 11 | false |
 | MissortedModifiers | 6 | false |
+| BoundedWildcard | 5 | false |
 | RedundantFieldInitialization | 5 | false |
 | DeprecatedIsStillUsed | 4 | false |
-| BoundedWildcard | 4 | false |
 | InstanceofCatchParameter | 4 | false |
 | NonFinalFieldOfException | 4 | false |
 | Convert2MethodRef | 3 | false |
@@ -22,6 +22,7 @@ I found 98 bad smells with 22 repairable:
 | CodeBlock2Expr | 2 | true |
 | FieldMayBeStatic | 1 | false |
 | UnnecessaryCallToStringValueOf | 1 | false |
+| RedundantCollectionOperation | 1 | false |
 | SizeReplaceableByIsEmpty | 1 | true |
 | ManualMinMaxCalculation | 1 | false |
 | MismatchedStringBuilderQueryUpdate | 1 | false |
@@ -81,18 +82,6 @@ public class AmiConstants {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `StsEndpointParamValidator` has only 'static' members, and lacks a 'private' constructor
-in `aws-core-common/src/main/java/jetbrains/buildServer/clouds/amazon/connector/utils/parameters/StsEndpointParamValidator.java`
-#### Snippet
-```java
-import org.jetbrains.annotations.Nullable;
-
-public class StsEndpointParamValidator {
-  public static final String STS_ENDPOINTS_ALLOWLIST_PROPERTY_NAME = "teamcity.aws.connection.stsEndpointsAllowlist";
-  public static final String REGION_TO_STS_ENDPOINT_FORMAT = "https://sts.%s.amazonaws.com";
-```
-
-### UtilityClassWithoutPrivateConstructor
 Class `AwsCloudConnectorConstants` has only 'static' members, and lacks a 'private' constructor
 in `aws-core-common/src/main/java/jetbrains/buildServer/clouds/amazon/connector/utils/parameters/AwsCloudConnectorConstants.java`
 #### Snippet
@@ -105,27 +94,15 @@ public final class AwsCloudConnectorConstants {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `AwsConnectionUtils` has only 'static' members, and lacks a 'private' constructor
-in `aws-core-server/src/main/java/jetbrains/buildServer/clouds/amazon/connector/utils/AwsConnectionUtils.java`
+Class `StsEndpointParamValidator` has only 'static' members, and lacks a 'private' constructor
+in `aws-core-common/src/main/java/jetbrains/buildServer/clouds/amazon/connector/utils/parameters/StsEndpointParamValidator.java`
 #### Snippet
 ```java
-import org.jetbrains.annotations.Nullable;
+import static jetbrains.buildServer.clouds.amazon.connector.utils.parameters.regions.AWSRegions.isChinaRegion;
 
-public class AwsConnectionUtils {
-  @NotNull
-  public static AWSCredentialsProvider awsCredsProviderFromHolder(@NotNull final AwsCredentialsHolder credentialsHolder) {
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `StsClientBuilder` has only 'static' members, and lacks a 'private' constructor
-in `aws-core-server/src/main/java/jetbrains/buildServer/clouds/amazon/connector/utils/clients/StsClientBuilder.java`
-#### Snippet
-```java
-import static jetbrains.buildServer.clouds.amazon.connector.utils.parameters.AwsCloudConnectorConstants.REGION_NAME_PARAM;
-
-public class StsClientBuilder {
-  public static void addConfiguration(@NotNull AWSSecurityTokenServiceClientBuilder stsBuilder, @NotNull final Map<String, String> properties) {
-    String stsEndpoint = properties.get(STS_ENDPOINT_PARAM);
+public class StsEndpointParamValidator {
+  public static final String STS_ENDPOINTS_ALLOWLIST_PROPERTY_NAME = "teamcity.aws.connection.stsEndpointsAllowlist";
+  public static final String REGION_TO_STS_ENDPOINT_FORMAT = "https://sts.%s.amazonaws.com";
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -138,18 +115,6 @@ import static jetbrains.buildServer.serverSide.TeamCityProperties.getPropertyOrN
 public class ClientConfigurationBuilder {
   public static ClientConfiguration createClientConfigurationEx(@Nullable String suffix){
     if (StringUtil.isEmpty(suffix)){
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `AWSRegions` has only 'static' members, and lacks a 'private' constructor
-in `aws-core-common/src/main/java/jetbrains/buildServer/util/amazon/AWSRegions.java`
-#### Snippet
-```java
- */
-@Deprecated
-public final class AWSRegions {
-  private static final Map<String, String> REGION_NAMES_FOR_WEB;
-
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -177,15 +142,15 @@ public final class AwsExceptionUtils {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `AwsAssumeIamRoleParams` has only 'static' members, and lacks a 'private' constructor
-in `aws-core-common/src/main/java/jetbrains/buildServer/clouds/amazon/connector/utils/parameters/AwsAssumeIamRoleParams.java`
+Class `AWSRegions` has only 'static' members, and lacks a 'private' constructor
+in `aws-core-common/src/main/java/jetbrains/buildServer/util/amazon/AWSRegions.java`
 #### Snippet
 ```java
-import static jetbrains.buildServer.clouds.amazon.connector.utils.parameters.AwsCloudConnectorConstants.AVAIL_AWS_CONNS_JSP_FILE_NAME;
+ */
+@Deprecated
+public final class AWSRegions {
+  private static final Map<String, String> REGION_NAMES_FOR_WEB;
 
-public final class AwsAssumeIamRoleParams {
-
-  public static final String IAM_ROLE_LABEL = "IAM Role";
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -201,6 +166,30 @@ public final class S3Util {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
+Class `AwsAssumeIamRoleParams` has only 'static' members, and lacks a 'private' constructor
+in `aws-core-common/src/main/java/jetbrains/buildServer/clouds/amazon/connector/utils/parameters/AwsAssumeIamRoleParams.java`
+#### Snippet
+```java
+import static jetbrains.buildServer.clouds.amazon.connector.utils.parameters.AwsCloudConnectorConstants.AVAIL_AWS_CONNS_JSP_FILE_NAME;
+
+public final class AwsAssumeIamRoleParams {
+
+  public static final String IAM_ROLE_LABEL = "IAM Role";
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `AwsConnectionUtils` has only 'static' members, and lacks a 'private' constructor
+in `aws-core-server/src/main/java/jetbrains/buildServer/clouds/amazon/connector/utils/AwsConnectionUtils.java`
+#### Snippet
+```java
+import org.jetbrains.annotations.Nullable;
+
+public class AwsConnectionUtils {
+  @NotNull
+  public static AWSCredentialsProvider awsCredsProviderFromHolder(@NotNull final AwsCredentialsHolder credentialsHolder) {
+```
+
+### UtilityClassWithoutPrivateConstructor
 Class `AWSRegions` has only 'static' members, and lacks a 'private' constructor
 in `aws-core-common/src/main/java/jetbrains/buildServer/clouds/amazon/connector/utils/parameters/regions/AWSRegions.java`
 #### Snippet
@@ -209,7 +198,7 @@ in `aws-core-common/src/main/java/jetbrains/buildServer/clouds/amazon/connector/
  */
 public final class AWSRegions {
   private static final Map<String, String> REGION_NAMES_FOR_WEB;
-
+  private static final Map<String, String> CHINA_REGION_NAMES_FOR_WEB;
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -222,6 +211,18 @@ import static jetbrains.buildServer.clouds.amazon.connector.utils.parameters.Aws
 public class ParamUtil {
 
   private final static Pattern validAwsSessionNamePattern = Pattern.compile(VALID_ROLE_SESSION_NAME_REGEX);
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `StsClientBuilder` has only 'static' members, and lacks a 'private' constructor
+in `aws-core-server/src/main/java/jetbrains/buildServer/clouds/amazon/connector/utils/clients/StsClientBuilder.java`
+#### Snippet
+```java
+import static jetbrains.buildServer.clouds.amazon.connector.utils.parameters.AwsCloudConnectorConstants.REGION_NAME_PARAM;
+
+public class StsClientBuilder {
+  public static void addConfiguration(@NotNull AWSSecurityTokenServiceClientBuilder stsBuilder, @NotNull final Map<String, String> properties) {
+    String stsEndpoint = properties.get(STS_ENDPOINT_PARAM);
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -335,6 +336,19 @@ in `aws-core-server/src/main/java/jetbrains/buildServer/clouds/amazon/connector/
 
 ```
 
+## RuleId[ruleID=RedundantCollectionOperation]
+### RedundantCollectionOperation
+`contains` can be replaced with 'Map.containsKey()'
+in `aws-core-common/src/main/java/jetbrains/buildServer/clouds/amazon/connector/utils/parameters/regions/AWSRegions.java`
+#### Snippet
+```java
+      return false;
+
+    return CHINA_REGION_NAMES_FOR_WEB.keySet().contains(regionName);
+  }
+}
+```
+
 ## RuleId[ruleID=SizeReplaceableByIsEmpty]
 ### SizeReplaceableByIsEmpty
 `baseDir.length() > 0` can be replaced with '!baseDir.isEmpty()'
@@ -386,29 +400,30 @@ in `aws-core-common/src/main/java/jetbrains/buildServer/util/amazon/AWSCommonPar
   }
 ```
 
+## RuleId[ruleID=MismatchedStringBuilderQueryUpdate]
+### MismatchedStringBuilderQueryUpdate
+Contents of `StringBuilder errorMessageBuilder` are updated, but never queried
+in `aws-core-server/src/main/java/jetbrains/buildServer/clouds/amazon/connector/impl/AwsConnectorFactoryImpl.java`
+#### Snippet
+```java
+
+    try {
+      StringBuilder errorMessageBuilder = new StringBuilder();
+      errorMessageBuilder.append("This ID is invalid, please, dont use these symbols: ");
+      errorMessageBuilder.append(IdGeneratorRegistry.PROHIBITED_CHARS);
+```
+
 ## RuleId[ruleID=BoundedWildcard]
 ### BoundedWildcard
 Can generalize to `? super String`
-in `aws-core-server/src/main/java/jetbrains/buildServer/clouds/amazon/connector/impl/AwsConnectorFactoryImpl.java`
+in `aws-core-common/src/main/java/jetbrains/buildServer/clouds/amazon/connector/utils/parameters/StsEndpointParamValidator.java`
 #### Snippet
 ```java
   }
 
-  private void putIgnoredDefaultSessionDurationValue(@NotNull Map<String, String> defaultProperties) {
-    defaultProperties.put(AwsSessionCredentialsParams.SESSION_DURATION_PARAM, AwsSessionCredentialsParams.SESSION_DURATION_DEFAULT);
-  }
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `aws-core-server/src/main/java/jetbrains/buildServer/clouds/amazon/connector/impl/AwsConnectorFactoryImpl.java`
-#### Snippet
-```java
-  }
-
-  private void putIgnoredDefaultSessionDurationValue(@NotNull Map<String, String> defaultProperties) {
-    defaultProperties.put(AwsSessionCredentialsParams.SESSION_DURATION_PARAM, AwsSessionCredentialsParams.SESSION_DURATION_DEFAULT);
-  }
+  private static void addAllDefaultAwsStsEndpoints(@NotNull List<String> res) {
+    for (String regionName : AWSRegions.getAllRegions().keySet()) {
+      if (isChinaRegion(regionName)) {
 ```
 
 ### BoundedWildcard
@@ -435,17 +450,28 @@ in `aws-core-common/src/main/java/jetbrains/buildServer/util/amazon/retry/Retrie
   }
 ```
 
-## RuleId[ruleID=MismatchedStringBuilderQueryUpdate]
-### MismatchedStringBuilderQueryUpdate
-Contents of `StringBuilder errorMessageBuilder` are updated, but never queried
+### BoundedWildcard
+Can generalize to `? super String`
 in `aws-core-server/src/main/java/jetbrains/buildServer/clouds/amazon/connector/impl/AwsConnectorFactoryImpl.java`
 #### Snippet
 ```java
+  }
 
-    try {
-      StringBuilder errorMessageBuilder = new StringBuilder();
-      errorMessageBuilder.append("This ID is invalid, please, dont use these symbols: ");
-      errorMessageBuilder.append(IdGeneratorRegistry.PROHIBITED_CHARS);
+  private void putIgnoredDefaultSessionDurationValue(@NotNull Map<String, String> defaultProperties) {
+    defaultProperties.put(AwsSessionCredentialsParams.SESSION_DURATION_PARAM, AwsSessionCredentialsParams.SESSION_DURATION_DEFAULT);
+  }
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `aws-core-server/src/main/java/jetbrains/buildServer/clouds/amazon/connector/impl/AwsConnectorFactoryImpl.java`
+#### Snippet
+```java
+  }
+
+  private void putIgnoredDefaultSessionDurationValue(@NotNull Map<String, String> defaultProperties) {
+    defaultProperties.put(AwsSessionCredentialsParams.SESSION_DURATION_PARAM, AwsSessionCredentialsParams.SESSION_DURATION_DEFAULT);
+  }
 ```
 
 ## RuleId[ruleID=MissortedModifiers]
@@ -454,30 +480,6 @@ Missorted modifiers `final static`
 in `aws-core-server/src/main/java/jetbrains/buildServer/clouds/amazon/connector/connectionId/AwsConnectionIdGenerator.java`
 #### Snippet
 ```java
-  public final static int INITIAL_AWS_CONNECTION_ID = 0;
-
-  private final static Logger LOG = Logger.getInstance(AwsConnectionIdGenerator.class.getName());
-
-
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `aws-core-server/src/main/java/jetbrains/buildServer/clouds/amazon/connector/connectionId/AwsConnectionIdGenerator.java`
-#### Snippet
-```java
-  public final static String ID_GENERATOR_TYPE = AwsConnectionProvider.TYPE;
-  public final static String AWS_CONNECTION_ID_PREFIX = "awsConnection";
-  public final static int INITIAL_AWS_CONNECTION_ID = 0;
-
-  private final static Logger LOG = Logger.getInstance(AwsConnectionIdGenerator.class.getName());
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `aws-core-server/src/main/java/jetbrains/buildServer/clouds/amazon/connector/connectionId/AwsConnectionIdGenerator.java`
-#### Snippet
-```java
 public class AwsConnectionIdGenerator extends BaseExternalIdGenerator implements CachingTypedIdGenerator {
   public final static String ID_GENERATOR_TYPE = AwsConnectionProvider.TYPE;
   public final static String AWS_CONNECTION_ID_PREFIX = "awsConnection";
@@ -495,6 +497,30 @@ public class AwsConnectionIdGenerator extends BaseExternalIdGenerator implements
   public final static String ID_GENERATOR_TYPE = AwsConnectionProvider.TYPE;
   public final static String AWS_CONNECTION_ID_PREFIX = "awsConnection";
   public final static int INITIAL_AWS_CONNECTION_ID = 0;
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `aws-core-server/src/main/java/jetbrains/buildServer/clouds/amazon/connector/connectionId/AwsConnectionIdGenerator.java`
+#### Snippet
+```java
+  public final static String ID_GENERATOR_TYPE = AwsConnectionProvider.TYPE;
+  public final static String AWS_CONNECTION_ID_PREFIX = "awsConnection";
+  public final static int INITIAL_AWS_CONNECTION_ID = 0;
+
+  private final static Logger LOG = Logger.getInstance(AwsConnectionIdGenerator.class.getName());
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `aws-core-server/src/main/java/jetbrains/buildServer/clouds/amazon/connector/connectionId/AwsConnectionIdGenerator.java`
+#### Snippet
+```java
+  public final static int INITIAL_AWS_CONNECTION_ID = 0;
+
+  private final static Logger LOG = Logger.getInstance(AwsConnectionIdGenerator.class.getName());
+
+
 ```
 
 ### MissortedModifiers
@@ -757,18 +783,6 @@ in `aws-core-server/src/main/java/jetbrains/buildServer/serverSide/oauth/aws/con
 ## RuleId[ruleID=CodeBlock2Expr]
 ### CodeBlock2Expr
 Statement lambda can be replaced with expression lambda
-in `aws-core-server/src/main/java/jetbrains/buildServer/clouds/amazon/connector/impl/AwsConnectorFactoryImpl.java`
-#### Snippet
-```java
-    putIgnoredDefaultSessionDurationValue(defaultProperties);
-
-    myCredentialBuilders.forEach((type, builder) -> {
-      defaultProperties.putAll(builder.getDefaultProperties());
-    });
-```
-
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
 in `aws-core-server/src/main/java/jetbrains/buildServer/serverSide/oauth/aws/controllers/AvailableAwsConnsController.java`
 #### Snippet
 ```java
@@ -777,6 +791,18 @@ in `aws-core-server/src/main/java/jetbrains/buildServer/serverSide/oauth/aws/con
         return !connectionDescriptor.getId().equals(principalAwsConnId);
       }).collect(Collectors.toList());
     }
+```
+
+### CodeBlock2Expr
+Statement lambda can be replaced with expression lambda
+in `aws-core-server/src/main/java/jetbrains/buildServer/clouds/amazon/connector/impl/AwsConnectorFactoryImpl.java`
+#### Snippet
+```java
+    putIgnoredDefaultSessionDurationValue(defaultProperties);
+
+    myCredentialBuilders.forEach((type, builder) -> {
+      defaultProperties.putAll(builder.getDefaultProperties());
+    });
 ```
 
 ## RuleId[ruleID=EmptyMethod]
@@ -798,11 +824,11 @@ Field initialization to `false` is redundant
 in `aws-core-common/src/main/java/jetbrains/buildServer/util/amazon/AWSClients.java`
 #### Snippet
 ```java
-  @NotNull private final String myRegion;
-  @NotNull private final ClientConfiguration myClientConfiguration;
   private boolean myDisablePathStyleAccess = false;
 
   private boolean myAccelerateModeEnabled = false;
+
+  private AWSClients(@Nullable AWSCredentials credentials, @NotNull String region) {
 ```
 
 ### RedundantFieldInitialization
@@ -810,11 +836,11 @@ Field initialization to `false` is redundant
 in `aws-core-common/src/main/java/jetbrains/buildServer/util/amazon/AWSClients.java`
 #### Snippet
 ```java
+  @NotNull private final String myRegion;
+  @NotNull private final ClientConfiguration myClientConfiguration;
   private boolean myDisablePathStyleAccess = false;
 
   private boolean myAccelerateModeEnabled = false;
-
-  private AWSClients(@Nullable AWSCredentials credentials, @NotNull String region) {
 ```
 
 ### RedundantFieldInitialization
@@ -890,67 +916,56 @@ in `aws-core-common/src/main/java/jetbrains/buildServer/util/amazon/AWSCommonPar
     final ClientConfiguration config = new ClientConfiguration();
 ```
 
+## RuleId[ruleID=InstanceofCatchParameter]
+### InstanceofCatchParameter
+'instanceof' on 'catch' parameter `e`
+in `aws-core-common/src/main/java/jetbrains/buildServer/util/amazon/retry/impl/NoRetryRetrierImpl.java`
+#### Snippet
+```java
+      return callable.call();
+    } catch (Exception e) {
+      throw e instanceof RuntimeException ? (RuntimeException)e : new RuntimeException(e.getMessage(), e);
+    }
+  }
+```
+
+### InstanceofCatchParameter
+'instanceof' on 'catch' parameter `exception`
+in `aws-core-common/src/main/java/jetbrains/buildServer/util/amazon/retry/impl/RetrierImpl.java`
+#### Snippet
+```java
+        if (!thrownExceptions.compareAndSet(null, exception) && !thrownExceptions.compareAndSet(exception, exception)) {
+          thrownExceptions.get().addSuppressed(exception);
+          if (exception instanceof AbortRetriesException) {
+            retriesAborted.set(true);
+          }
+```
+
+### InstanceofCatchParameter
+'instanceof' on 'catch' parameter `e`
+in `aws-core-common/src/main/java/jetbrains/buildServer/util/amazon/retry/impl/RetrierImpl.java`
+#### Snippet
+```java
+      } catch (Exception e) {
+        if (exception == null) {
+          if (e instanceof RuntimeException) {
+            exception = (RuntimeException)e;
+          } else {
+```
+
+### InstanceofCatchParameter
+'instanceof' on 'catch' parameter `e`
+in `aws-core-common/src/main/java/jetbrains/buildServer/util/amazon/retry/impl/RetrierImpl.java`
+#### Snippet
+```java
+            exception = (RuntimeException)e;
+          } else {
+            if (e instanceof InterruptedException) {
+              exception = new AbortRetriesException(e);
+            } else {
+```
+
 ## RuleId[ruleID=ReturnNull]
-### ReturnNull
-Return of `null`
-in `aws-core-server/src/main/java/jetbrains/buildServer/clouds/amazon/connector/common/impl/AwsConnectionsHolderImpl.java`
-#### Snippet
-```java
-    Map<String, String> dataStorageValues = dataStorage.getValues();
-    if (dataStorageValues == null || !dataStorageValues.containsKey(key)) {
-      return null;
-    }
-    return dataStorageValues.get(key);
-```
-
-### ReturnNull
-Return of `null`
-in `aws-core-common/src/main/java/jetbrains/buildServer/util/amazon/retry/Retrier.java`
-#### Snippet
-```java
-    execute(() -> {
-      runnable.run();
-      return null;
-    });
-  }
-```
-
-### ReturnNull
-Return of `null`
-in `aws-core-server/src/main/java/jetbrains/buildServer/serverSide/oauth/aws/controllers/AvailableAwsConnsController.java`
-#### Snippet
-```java
-    }
-
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `aws-core-server/src/main/java/jetbrains/buildServer/clouds/amazon/connector/impl/staticType/StaticCredentialsHolder.java`
-#### Snippet
-```java
-      @Override
-      public String getSessionToken() {
-        return null;
-      }
-    };
-```
-
-### ReturnNull
-Return of `null`
-in `aws-core-server/src/main/java/jetbrains/buildServer/clouds/amazon/connector/impl/staticType/StaticCredentialsHolder.java`
-#### Snippet
-```java
-  @Override
-  public Date getSessionExpirationDate() {
-    return null;
-  }
-}
-```
-
 ### ReturnNull
 Return of `null`
 in `aws-core-server/src/main/java/jetbrains/buildServer/clouds/amazon/connector/impl/defaultProviderType/DefaultProviderCredentialsHolder.java`
@@ -973,6 +988,42 @@ in `aws-core-server/src/main/java/jetbrains/buildServer/clouds/amazon/connector/
           return null;
         }
       }
+```
+
+### ReturnNull
+Return of `null`
+in `aws-core-server/src/main/java/jetbrains/buildServer/serverSide/oauth/aws/controllers/AvailableAwsConnsController.java`
+#### Snippet
+```java
+    }
+
+    return null;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `aws-core-common/src/main/java/jetbrains/buildServer/util/amazon/retry/Retrier.java`
+#### Snippet
+```java
+    execute(() -> {
+      runnable.run();
+      return null;
+    });
+  }
+```
+
+### ReturnNull
+Return of `null`
+in `aws-core-server/src/main/java/jetbrains/buildServer/clouds/amazon/connector/common/impl/AwsConnectionsHolderImpl.java`
+#### Snippet
+```java
+    Map<String, String> dataStorageValues = dataStorage.getValues();
+    if (dataStorageValues == null || !dataStorageValues.containsKey(key)) {
+      return null;
+    }
+    return dataStorageValues.get(key);
 ```
 
 ### ReturnNull
@@ -1032,7 +1083,7 @@ in `aws-core-server/src/main/java/jetbrains/buildServer/clouds/amazon/connector/
     if (awsConnectionsToExpose.isEmpty()) {
       return null;
     }
-    SBuildFeatureDescriptor configuredAwsConnBuildFeature = awsConnectionsToExpose.iterator().next();
+    return awsConnectionsToExpose.iterator().next();
 ```
 
 ### ReturnNull
@@ -1044,31 +1095,7 @@ in `aws-core-server/src/main/java/jetbrains/buildServer/clouds/amazon/connector/
     if (awsConnectionsToExpose.isEmpty()) {
       return null;
     }
-    return awsConnectionsToExpose.iterator().next();
-```
-
-### ReturnNull
-Return of `null`
-in `aws-core-server/src/main/java/jetbrains/buildServer/serverSide/oauth/aws/controllers/AwsTestConnectionController.java`
-#### Snippet
-```java
-  @Override
-  protected ModelAndView doGet(@NotNull HttpServletRequest request, @NotNull HttpServletResponse response) {
-    return null;
-  }
-}
-```
-
-### ReturnNull
-Return of `null`
-in `aws-core-server/src/main/java/jetbrains/buildServer/serverSide/oauth/aws/controllers/AwsRotateKeysController.java`
-#### Snippet
-```java
-
-    writeAsJson(errors, response);
-    return null;
-  }
-
+    SBuildFeatureDescriptor configuredAwsConnBuildFeature = awsConnectionsToExpose.iterator().next();
 ```
 
 ### ReturnNull
@@ -1085,6 +1112,54 @@ in `aws-core-server/src/main/java/jetbrains/buildServer/serverSide/oauth/aws/con
 
 ### ReturnNull
 Return of `null`
+in `aws-core-server/src/main/java/jetbrains/buildServer/serverSide/oauth/aws/controllers/AwsTestConnectionController.java`
+#### Snippet
+```java
+  @Override
+  protected ModelAndView doGet(@NotNull HttpServletRequest request, @NotNull HttpServletResponse response) {
+    return null;
+  }
+}
+```
+
+### ReturnNull
+Return of `null`
+in `aws-core-server/src/main/java/jetbrains/buildServer/clouds/amazon/connector/impl/staticType/StaticCredentialsHolder.java`
+#### Snippet
+```java
+  @Override
+  public Date getSessionExpirationDate() {
+    return null;
+  }
+}
+```
+
+### ReturnNull
+Return of `null`
+in `aws-core-server/src/main/java/jetbrains/buildServer/clouds/amazon/connector/impl/staticType/StaticCredentialsHolder.java`
+#### Snippet
+```java
+      @Override
+      public String getSessionToken() {
+        return null;
+      }
+    };
+```
+
+### ReturnNull
+Return of `null`
+in `aws-core-server/src/main/java/jetbrains/buildServer/serverSide/oauth/aws/controllers/AwsRotateKeysController.java`
+#### Snippet
+```java
+
+    writeAsJson(errors, response);
+    return null;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
 in `aws-core-common/src/main/java/jetbrains/buildServer/clouds/amazon/connector/utils/parameters/ParamUtil.java`
 #### Snippet
 ```java
@@ -1093,55 +1168,6 @@ in `aws-core-common/src/main/java/jetbrains/buildServer/clouds/amazon/connector/
       return null;
     } catch (IllegalArgumentException e) {
       return e.getMessage();
-```
-
-## RuleId[ruleID=InstanceofCatchParameter]
-### InstanceofCatchParameter
-'instanceof' on 'catch' parameter `e`
-in `aws-core-common/src/main/java/jetbrains/buildServer/util/amazon/retry/impl/NoRetryRetrierImpl.java`
-#### Snippet
-```java
-      return callable.call();
-    } catch (Exception e) {
-      throw e instanceof RuntimeException ? (RuntimeException)e : new RuntimeException(e.getMessage(), e);
-    }
-  }
-```
-
-### InstanceofCatchParameter
-'instanceof' on 'catch' parameter `e`
-in `aws-core-common/src/main/java/jetbrains/buildServer/util/amazon/retry/impl/RetrierImpl.java`
-#### Snippet
-```java
-      } catch (Exception e) {
-        if (exception == null) {
-          if (e instanceof RuntimeException) {
-            exception = (RuntimeException)e;
-          } else {
-```
-
-### InstanceofCatchParameter
-'instanceof' on 'catch' parameter `e`
-in `aws-core-common/src/main/java/jetbrains/buildServer/util/amazon/retry/impl/RetrierImpl.java`
-#### Snippet
-```java
-            exception = (RuntimeException)e;
-          } else {
-            if (e instanceof InterruptedException) {
-              exception = new AbortRetriesException(e);
-            } else {
-```
-
-### InstanceofCatchParameter
-'instanceof' on 'catch' parameter `exception`
-in `aws-core-common/src/main/java/jetbrains/buildServer/util/amazon/retry/impl/RetrierImpl.java`
-#### Snippet
-```java
-        if (!thrownExceptions.compareAndSet(null, exception) && !thrownExceptions.compareAndSet(exception, exception)) {
-          thrownExceptions.get().addSuppressed(exception);
-          if (exception instanceof AbortRetriesException) {
-            retriesAborted.set(true);
-          }
 ```
 
 ## RuleId[ruleID=RedundantStringFormatCall]
@@ -1171,13 +1197,13 @@ in `aws-core-common/src/main/java/jetbrains/buildServer/util/amazon/AWSException
 ```
 
 ### NonFinalFieldOfException
-Non-final field `SERVICE_PROBLEM_TYPE` of exception class
+Non-final field `CLIENT_PROBLEM_TYPE` of exception class
 in `aws-core-common/src/main/java/jetbrains/buildServer/util/amazon/AWSException.java`
 #### Snippet
 ```java
   @Used("CodeDeploy")
   @NotNull
-  public static String SERVICE_PROBLEM_TYPE = "AWS_SERVICE";
+  public static String CLIENT_PROBLEM_TYPE = "AWS_CLIENT";
   @Used("CodeDeploy")
   @NotNull
 ```
@@ -1195,13 +1221,13 @@ in `aws-core-common/src/main/java/jetbrains/buildServer/util/amazon/AWSException
 ```
 
 ### NonFinalFieldOfException
-Non-final field `CLIENT_PROBLEM_TYPE` of exception class
+Non-final field `SERVICE_PROBLEM_TYPE` of exception class
 in `aws-core-common/src/main/java/jetbrains/buildServer/util/amazon/AWSException.java`
 #### Snippet
 ```java
   @Used("CodeDeploy")
   @NotNull
-  public static String CLIENT_PROBLEM_TYPE = "AWS_CLIENT";
+  public static String SERVICE_PROBLEM_TYPE = "AWS_SERVICE";
   @Used("CodeDeploy")
   @NotNull
 ```
