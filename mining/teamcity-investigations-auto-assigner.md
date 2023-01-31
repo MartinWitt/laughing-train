@@ -319,18 +319,6 @@ class Statistics implements Cloneable {
 
 ## RuleId[ruleID=SizeReplaceableByIsEmpty]
 ### SizeReplaceableByIsEmpty
-`committers.size() == 0` can be replaced with 'committers.isEmpty()'
-in `src/main/java/jetbrains/buildServer/investigationsAutoAssigner/processing/ModificationAnalyzerFactory.java`
-#### Snippet
-```java
-    public User getOnlyCommitter(Set<String> usersToIgnore) throws HeuristicNotApplicableException {
-      Collection<SUser> committers = myVcsChange.getCommitters();
-      if (committers.size() == 0) {
-        throw new HeuristicNotApplicableException(
-          "committer \"" + myVcsChange.getUserName() + "\" does not have corresponding TeamCity user");
-```
-
-### SizeReplaceableByIsEmpty
 `withoutExtension.length() == 0` can be replaced with 'withoutExtension.isEmpty()'
 in `src/main/java/jetbrains/buildServer/investigationsAutoAssigner/processing/ModificationAnalyzerFactory.java`
 #### Snippet
@@ -342,7 +330,31 @@ in `src/main/java/jetbrains/buildServer/investigationsAutoAssigner/processing/Mo
     }
 ```
 
+### SizeReplaceableByIsEmpty
+`committers.size() == 0` can be replaced with 'committers.isEmpty()'
+in `src/main/java/jetbrains/buildServer/investigationsAutoAssigner/processing/ModificationAnalyzerFactory.java`
+#### Snippet
+```java
+    public User getOnlyCommitter(Set<String> usersToIgnore) throws HeuristicNotApplicableException {
+      Collection<SUser> committers = myVcsChange.getCommitters();
+      if (committers.size() == 0) {
+        throw new HeuristicNotApplicableException(
+          "committer \"" + myVcsChange.getUserName() + "\" does not have corresponding TeamCity user");
+```
+
 ## RuleId[ruleID=BoundedWildcard]
+### BoundedWildcard
+Can generalize to `? extends STestRun`
+in `src/main/java/jetbrains/buildServer/investigationsAutoAssigner/common/FailedBuildInfo.java`
+#### Snippet
+```java
+  }
+
+  public void addProcessedTestRuns(@NotNull Collection<STestRun> tests) {
+    for (STestRun testRun : tests) {
+      myProcessedTests.add(testRun.getTestRunId());
+```
+
 ### BoundedWildcard
 Can generalize to `? extends BuildProblem`
 in `src/main/java/jetbrains/buildServer/investigationsAutoAssigner/common/FailedBuildInfo.java`
@@ -356,15 +368,15 @@ in `src/main/java/jetbrains/buildServer/investigationsAutoAssigner/common/Failed
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends STestRun`
-in `src/main/java/jetbrains/buildServer/investigationsAutoAssigner/common/FailedBuildInfo.java`
+Can generalize to `? extends BuildProblem`
+in `src/main/java/jetbrains/buildServer/investigationsAutoAssigner/utils/BuildProblemUtils.java`
 #### Snippet
 ```java
   }
 
-  public void addProcessedTestRuns(@NotNull Collection<STestRun> tests) {
-    for (STestRun testRun : tests) {
-      myProcessedTests.add(testRun.getTestRunId());
+  private boolean containsBuildProblem(@Nullable List<BuildProblem> problems,
+                                              @NotNull BuildProblem buildProblem) {
+    if (problems == null) return false;
 ```
 
 ### BoundedWildcard
@@ -380,15 +392,15 @@ in `src/main/java/jetbrains/buildServer/investigationsAutoAssigner/processing/Bu
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends BuildProblem`
-in `src/main/java/jetbrains/buildServer/investigationsAutoAssigner/utils/BuildProblemUtils.java`
+Can generalize to `? extends Heuristic`
+in `src/main/java/jetbrains/buildServer/investigationsAutoAssigner/processing/ResponsibleUserFinder.java`
 #### Snippet
 ```java
-  }
+  private final CustomParameters myCustomParameters;
 
-  private boolean containsBuildProblem(@Nullable List<BuildProblem> problems,
-                                              @NotNull BuildProblem buildProblem) {
-    if (problems == null) return false;
+  public ResponsibleUserFinder(@NotNull final List<Heuristic> orderedHeuristics,
+                               @NotNull final CustomParameters customParameters) {
+    myOrderedHeuristics = orderedHeuristics;
 ```
 
 ### BoundedWildcard
@@ -413,30 +425,6 @@ in `src/main/java/jetbrains/buildServer/investigationsAutoAssigner/processing/Bu
                                         final List<BuildProblem> allBuildProblems) {
     SBuild sBuild = failedBuildInfo.getBuild();
     if (LOGGER.isDebugEnabled()) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends STestRun`
-in `src/main/java/jetbrains/buildServer/investigationsAutoAssigner/persistent/AssignerArtifactDao.java`
-#### Snippet
-```java
-
-  @NotNull
-  private List<ResponsibilityPersistentInfo> getPersistentInfoList(@NotNull final List<STestRun> testRuns,
-                                                                   @NotNull final HeuristicResult heuristicResult) {
-    List<ResponsibilityPersistentInfo> result = new ArrayList<>();
-```
-
-### BoundedWildcard
-Can generalize to `? extends Heuristic`
-in `src/main/java/jetbrains/buildServer/investigationsAutoAssigner/processing/ResponsibleUserFinder.java`
-#### Snippet
-```java
-  private final CustomParameters myCustomParameters;
-
-  public ResponsibleUserFinder(@NotNull final List<Heuristic> orderedHeuristics,
-                               @NotNull final CustomParameters customParameters) {
-    myOrderedHeuristics = orderedHeuristics;
 ```
 
 ### BoundedWildcard
@@ -465,14 +453,14 @@ in `src/main/java/jetbrains/buildServer/investigationsAutoAssigner/utils/Investi
 
 ### BoundedWildcard
 Can generalize to `? extends STestRun`
-in `src/main/java/jetbrains/buildServer/investigationsAutoAssigner/processing/FailedTestFilter.java`
+in `src/main/java/jetbrains/buildServer/investigationsAutoAssigner/persistent/AssignerArtifactDao.java`
 #### Snippet
 ```java
-  List<STestRun> getStillApplicable(@NotNull final FailedBuildInfo failedBuildInfo,
-                                    @NotNull final SProject sProject,
-                                    @NotNull final List<STestRun> testRuns,
-                                    @NotNull final Map<Long, String> notApplicableTestDescription) {
-    SBuild sBuild = failedBuildInfo.getBuild();
+
+  @NotNull
+  private List<ResponsibilityPersistentInfo> getPersistentInfoList(@NotNull final List<STestRun> testRuns,
+                                                                   @NotNull final HeuristicResult heuristicResult) {
+    List<ResponsibilityPersistentInfo> result = new ArrayList<>();
 ```
 
 ### BoundedWildcard
@@ -499,19 +487,19 @@ in `src/main/java/jetbrains/buildServer/investigationsAutoAssigner/processing/Fa
 
 ```
 
-## RuleId[ruleID=MissortedModifiers]
-### MissortedModifiers
-Missorted modifiers `final static`
-in `src/main/java/jetbrains/buildServer/investigationsAutoAssigner/common/Constants.java`
+### BoundedWildcard
+Can generalize to `? extends STestRun`
+in `src/main/java/jetbrains/buildServer/investigationsAutoAssigner/processing/FailedTestFilter.java`
 #### Snippet
 ```java
-  public final static String TEAMCITY_DIRECTORY = ArtifactsConstants.TEAMCITY_ARTIFACTS_DIR;
-  public final static String TEST_RUN_IN_REQUEST = "loadedTestRun";
-  public final static int DEFAULT_TEST_COUNT_THRESHOLD = 100;
-  public final static String ARTIFACT_DIRECTORY = "investigationsAutoAssigner";
-  public static final String PLUGIN_DATA_DIR = ARTIFACT_DIRECTORY;
+  List<STestRun> getStillApplicable(@NotNull final FailedBuildInfo failedBuildInfo,
+                                    @NotNull final SProject sProject,
+                                    @NotNull final List<STestRun> testRuns,
+                                    @NotNull final Map<Long, String> notApplicableTestDescription) {
+    SBuild sBuild = failedBuildInfo.getBuild();
 ```
 
+## RuleId[ruleID=MissortedModifiers]
 ### MissortedModifiers
 Missorted modifiers `final static`
 in `src/main/java/jetbrains/buildServer/investigationsAutoAssigner/common/Constants.java`
@@ -529,6 +517,18 @@ Missorted modifiers `final static`
 in `src/main/java/jetbrains/buildServer/investigationsAutoAssigner/common/Constants.java`
 #### Snippet
 ```java
+  //Constants
+  public final static String TEAMCITY_DIRECTORY = ArtifactsConstants.TEAMCITY_ARTIFACTS_DIR;
+  public final static String TEST_RUN_IN_REQUEST = "loadedTestRun";
+  public final static int DEFAULT_TEST_COUNT_THRESHOLD = 100;
+  public final static String ARTIFACT_DIRECTORY = "investigationsAutoAssigner";
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `src/main/java/jetbrains/buildServer/investigationsAutoAssigner/common/Constants.java`
+#### Snippet
+```java
 
   //Constants
   public final static String TEAMCITY_DIRECTORY = ArtifactsConstants.TEAMCITY_ARTIFACTS_DIR;
@@ -541,23 +541,11 @@ Missorted modifiers `final static`
 in `src/main/java/jetbrains/buildServer/investigationsAutoAssigner/common/Constants.java`
 #### Snippet
 ```java
-  //Constants
   public final static String TEAMCITY_DIRECTORY = ArtifactsConstants.TEAMCITY_ARTIFACTS_DIR;
   public final static String TEST_RUN_IN_REQUEST = "loadedTestRun";
   public final static int DEFAULT_TEST_COUNT_THRESHOLD = 100;
   public final static String ARTIFACT_DIRECTORY = "investigationsAutoAssigner";
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `src/main/java/jetbrains/buildServer/investigationsAutoAssigner/processing/BuildProblemsFilter.java`
-#### Snippet
-```java
-
-  private static final Logger LOGGER = Constants.LOGGER;
-  public final static Set<String> supportedEverywhereTypes = Collections.unmodifiableSet(
-    new HashSet<>(Arrays.asList(BuildProblemTypes.TC_COMPILATION_ERROR_TYPE, BuildProblemTypes.TC_EXIT_CODE_TYPE)));
-  public final static Set<String> notSupportedEverywhereTypes = Collections.unmodifiableSet(
+  public static final String PLUGIN_DATA_DIR = ARTIFACT_DIRECTORY;
 ```
 
 ### MissortedModifiers
@@ -573,15 +561,15 @@ in `src/main/java/jetbrains/buildServer/investigationsAutoAssigner/processing/Bu
 ```
 
 ### MissortedModifiers
-Missorted modifiers `private final @NotNull`
-in `src/main/java/jetbrains/buildServer/investigationsAutoAssigner/utils/TargetProjectFinder.java`
+Missorted modifiers `final static`
+in `src/main/java/jetbrains/buildServer/investigationsAutoAssigner/processing/BuildProblemsFilter.java`
 #### Snippet
 ```java
-public class TargetProjectFinder {
 
-  private final @NotNull ProjectManager myProjectManager;
-
-  public TargetProjectFinder(@NotNull final ProjectManager projectManager) {
+  private static final Logger LOGGER = Constants.LOGGER;
+  public final static Set<String> supportedEverywhereTypes = Collections.unmodifiableSet(
+    new HashSet<>(Arrays.asList(BuildProblemTypes.TC_COMPILATION_ERROR_TYPE, BuildProblemTypes.TC_EXIT_CODE_TYPE)));
+  public final static Set<String> notSupportedEverywhereTypes = Collections.unmodifiableSet(
 ```
 
 ### MissortedModifiers
@@ -594,6 +582,18 @@ in `src/main/java/jetbrains/buildServer/investigationsAutoAssigner/utils/TargetP
   private static boolean hasModifyPermission(final @NotNull SUser user, final SProject project) {
     return user.isPermissionGrantedForProject(project.getProjectId(), Permission.ASSIGN_INVESTIGATION) ||
            user.isPermissionGrantedForProject(project.getProjectId(), Permission.MANAGE_BUILD_PROBLEMS);
+```
+
+### MissortedModifiers
+Missorted modifiers `private final @NotNull`
+in `src/main/java/jetbrains/buildServer/investigationsAutoAssigner/utils/TargetProjectFinder.java`
+#### Snippet
+```java
+public class TargetProjectFinder {
+
+  private final @NotNull ProjectManager myProjectManager;
+
+  public TargetProjectFinder(@NotNull final ProjectManager projectManager) {
 ```
 
 ### MissortedModifiers
