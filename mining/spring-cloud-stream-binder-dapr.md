@@ -41,7 +41,7 @@ in `samples/local-dapr/src/main/java/com/azure/spring/cloud/stream/binder/dapr/s
 ## RuleId[ruleID=HtmlWrongAttributeValue]
 ### HtmlWrongAttributeValue
 Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-01-10-10-06-05.224.html`
+in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-01-31-13-35-06.480.html`
 #### Snippet
 ```java
               <td>0</td>
