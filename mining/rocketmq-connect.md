@@ -59,8 +59,8 @@ I found 701 bad smells with 91 repairable:
 | WaitNotInLoop | 2 | false |
 | ToArrayCallWithZeroLengthArrayArgument | 1 | true |
 | EnumSwitchStatementWhichMissesCases | 1 | false |
-| MagicConstant | 1 | false |
 | PointlessArithmeticExpression | 1 | false |
+| MagicConstant | 1 | false |
 | StaticCallOnSubclass | 1 | false |
 | ManualArrayCopy | 1 | false |
 | NumberEquality | 1 | false |
@@ -178,6 +178,18 @@ Type may be primitive
 in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/stats/ConnectStatsService.java`
 #### Snippet
 ```java
+        public static double getTPS(final CallSnapshot begin, final CallSnapshot end) {
+            long total = end.callTimesTotal - begin.callTimesTotal;
+            Long time = end.timestamp - begin.timestamp;
+
+            double tps = total / time.doubleValue();
+```
+
+### WrapperTypeMayBePrimitive
+Type may be primitive
+in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/stats/ConnectStatsService.java`
+#### Snippet
+```java
     public String toString() {
         final StringBuilder sb = new StringBuilder(1024);
         Long totalTimes = sourceTaskTimesTotal();
@@ -195,18 +207,6 @@ in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/s
         Long sinktotalTimes = sinkTaskTimesTotal();
         if (0 == sinktotalTimes) {
             sinktotalTimes = 1L;
-```
-
-### WrapperTypeMayBePrimitive
-Type may be primitive
-in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/stats/ConnectStatsService.java`
-#### Snippet
-```java
-        public static double getTPS(final CallSnapshot begin, final CallSnapshot end) {
-            long total = end.callTimesTotal - begin.callTimesTotal;
-            Long time = end.timestamp - begin.timestamp;
-
-            double tps = total / time.doubleValue();
 ```
 
 ### WrapperTypeMayBePrimitive
@@ -250,11 +250,11 @@ Type may be primitive
 in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/connectorwrapper/WorkerSinkTaskContext.java`
 #### Snippet
 ```java
-            String brokerName = (String) recordPartition.getPartition().get(BROKER_NAME);
-            String topic = (String) recordPartition.getPartition().get(TOPIC);
-            Integer queueId = Integer.valueOf((String) recordPartition.getPartition().get(QUEUE_ID));
-            if (StringUtils.isEmpty(brokerName) || StringUtils.isEmpty(topic) || null == queueId) {
-                log.warn("brokerName is null or queueId is null or queueName is null, brokerName {}, queueId {} queueId {}", brokerName, queueId, topic);
+            MessageQueue messageQueue = new MessageQueue(topic, brokerName, queueId);
+            RecordOffset recordOffset = entry.getValue();
+            Long offset = Long.valueOf((String) recordOffset.getOffset().get(QUEUE_OFFSET));
+            if (null == offset) {
+                log.warn("resetOffset, offset is null");
 ```
 
 ### WrapperTypeMayBePrimitive
@@ -262,11 +262,11 @@ Type may be primitive
 in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/connectorwrapper/WorkerSinkTaskContext.java`
 #### Snippet
 ```java
-            MessageQueue messageQueue = new MessageQueue(topic, brokerName, queueId);
-            RecordOffset recordOffset = entry.getValue();
-            Long offset = Long.valueOf((String) recordOffset.getOffset().get(QUEUE_OFFSET));
-            if (null == offset) {
-                log.warn("resetOffset, offset is null");
+            String brokerName = (String) recordPartition.getPartition().get(BROKER_NAME);
+            String topic = (String) recordPartition.getPartition().get(TOPIC);
+            Integer queueId = Integer.valueOf((String) recordPartition.getPartition().get(QUEUE_ID));
+            if (StringUtils.isEmpty(brokerName) || StringUtils.isEmpty(topic) || null == queueId) {
+                log.warn("brokerName is null or queueId is null or queueName is null, brokerName {}, queueId {} queueId {}", brokerName, queueId, topic);
 ```
 
 ### WrapperTypeMayBePrimitive
@@ -305,19 +305,6 @@ in `schema-converter/avro-schema-converter/src/main/java/org/apache/rocketmq/sch
                             builder.parameter(CONNECT_AVRO_DECIMAL_PRECISION_PROP, precision.toString());
 ```
 
-## RuleId[ruleID=MagicConstant]
-### MagicConstant
-Should be one of: Pattern.UNIX_LINES, Pattern.CASE_INSENSITIVE, Pattern.COMMENTS, Pattern.MULTILINE, ... or their combination
-in `transforms/src/main/java/org/apache/rocketmq/connect/transforms/PatternRenameConfig.java`
-#### Snippet
-```java
-            patternFlags = patternFlags | flag;
-        }
-        this.pattern = Pattern.compile(pattern, patternFlags);
-        this.replacement = config.getString(FIELD_REPLACEMENT_CONF);
-    }
-```
-
 ## RuleId[ruleID=PointlessArithmeticExpression]
 ### PointlessArithmeticExpression
 `60 * 1` can be replaced with '60'
@@ -329,6 +316,19 @@ in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/s
     private static int printTPSInterval = 60 * 1;
 
     private final ConcurrentMap<String, AtomicLong> sourceTaskTimesTotal =
+```
+
+## RuleId[ruleID=MagicConstant]
+### MagicConstant
+Should be one of: Pattern.UNIX_LINES, Pattern.CASE_INSENSITIVE, Pattern.COMMENTS, Pattern.MULTILINE, ... or their combination
+in `transforms/src/main/java/org/apache/rocketmq/connect/transforms/PatternRenameConfig.java`
+#### Snippet
+```java
+            patternFlags = patternFlags | flag;
+        }
+        this.pattern = Pattern.compile(pattern, patternFlags);
+        this.replacement = config.getString(FIELD_REPLACEMENT_CONF);
+    }
 ```
 
 ## RuleId[ruleID=StaticCallOnSubclass]
@@ -345,6 +345,30 @@ in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/s
 ```
 
 ## RuleId[ruleID=WhileCanBeForeach]
+### WhileCanBeForeach
+`while` loop can be replaced with enhanced 'for'
+in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/utils/ServiceProviderUtil.java`
+#### Snippet
+```java
+        ServiceLoader<ConfigManagementService> configManagementServiceServiceLoader = ServiceLoader.load(ConfigManagementService.class);
+        Iterator<ConfigManagementService> configManagementServiceIterator = configManagementServiceServiceLoader.iterator();
+        while (configManagementServiceIterator.hasNext()) {
+            ConfigManagementService configManagementService1 = configManagementServiceIterator.next();
+            if (configManagementService1.getStagingMode() == stagingMode) {
+```
+
+### WhileCanBeForeach
+`while` loop can be replaced with enhanced 'for'
+in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/utils/ServiceProviderUtil.java`
+#### Snippet
+```java
+        ServiceLoader<StateManagementService> stateManagementServices = ServiceLoader.load(StateManagementService.class);
+        Iterator<StateManagementService> stateManagementServiceIterator = stateManagementServices.iterator();
+        while (stateManagementServiceIterator.hasNext()) {
+            StateManagementService stateManagementService1 = stateManagementServiceIterator.next();
+            if (stateManagementService1.getStagingMode() == stagingMode) {
+```
+
 ### WhileCanBeForeach
 `while` loop can be replaced with enhanced 'for'
 in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/utils/ServiceProviderUtil.java`
@@ -367,30 +391,6 @@ in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/u
         while (positionManagementServiceIterator.hasNext()) {
             PositionManagementService positionManagementService1 = positionManagementServiceIterator.next();
             if (positionManagementService1.getStagingMode() == stagingMode) {
-```
-
-### WhileCanBeForeach
-`while` loop can be replaced with enhanced 'for'
-in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/utils/ServiceProviderUtil.java`
-#### Snippet
-```java
-        ServiceLoader<StateManagementService> stateManagementServices = ServiceLoader.load(StateManagementService.class);
-        Iterator<StateManagementService> stateManagementServiceIterator = stateManagementServices.iterator();
-        while (stateManagementServiceIterator.hasNext()) {
-            StateManagementService stateManagementService1 = stateManagementServiceIterator.next();
-            if (stateManagementService1.getStagingMode() == stagingMode) {
-```
-
-### WhileCanBeForeach
-`while` loop can be replaced with enhanced 'for'
-in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/utils/ServiceProviderUtil.java`
-#### Snippet
-```java
-        ServiceLoader<ConfigManagementService> configManagementServiceServiceLoader = ServiceLoader.load(ConfigManagementService.class);
-        Iterator<ConfigManagementService> configManagementServiceIterator = configManagementServiceServiceLoader.iterator();
-        while (configManagementServiceIterator.hasNext()) {
-            ConfigManagementService configManagementService1 = configManagementServiceIterator.next();
-            if (configManagementService1.getStagingMode() == stagingMode) {
 ```
 
 ### WhileCanBeForeach
@@ -421,14 +421,38 @@ in `rocketmq-connect-cli/src/main/java/org/apache/rocketmq/connect/cli/ConnectAd
 ## RuleId[ruleID=KeySetIterationMayUseEntrySet]
 ### KeySetIterationMayUseEntrySet
 Iteration over `map.keySet()` may be replaced with 'entrySet()' iteration
-in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/store/FileBaseKeyValueStore.java`
+in `rocketmq-connect-cli/src/main/java/org/apache/rocketmq/connect/cli/utils/FileAndPropertyUtil.java`
 #### Snippet
 ```java
-        Map<K, V> resultMap = new HashMap<>();
-        Map<String, String> map = JSON.parseObject(jsonString, Map.class);
+        Map<String, String> map = JSON.parseObject(json, Map.class);
+        ConnectKeyValue keyValue = new ConnectKeyValue();
         for (String key : map.keySet()) {
-            K decodeKey = (K) serdeKey.deserializer().deserialize("", Base64Util.base64Decode(key));
-            V decodeValue = (V) serdeValue.deserializer().deserialize("", Base64Util.base64Decode(map.get(key)));
+            keyValue.put(key, map.get(key));
+        }
+```
+
+### KeySetIterationMayUseEntrySet
+Iteration over `map.keySet()` may be replaced with 'entrySet()' iteration
+in `transforms/src/main/java/org/apache/rocketmq/connect/transforms/PatternFilter.java`
+#### Snippet
+```java
+     */
+    R filter(R record, Map map) {
+        for (Object field : map.keySet()) {
+            if (!this.fields.contains(field)) {
+                continue;
+```
+
+### KeySetIterationMayUseEntrySet
+Iteration over `input.keySet()` may be replaced with 'entrySet()' iteration
+in `transforms/src/main/java/org/apache/rocketmq/connect/transforms/PatternRename.java`
+#### Snippet
+```java
+    protected SchemaAndValue processMap(R record, Map<String, Object> input) {
+        final Map<String, Object> outputMap = new LinkedHashMap<>(input.size());
+        for (final String inputFieldName : input.keySet()) {
+            log.trace("process() - Processing field '{}'", inputFieldName);
+            final Matcher fieldMatcher = this.config.pattern.matcher(inputFieldName);
 ```
 
 ### KeySetIterationMayUseEntrySet
@@ -445,14 +469,14 @@ in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/s
 
 ### KeySetIterationMayUseEntrySet
 Iteration over `map.keySet()` may be replaced with 'entrySet()' iteration
-in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/utils/TransferUtils.java`
+in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/store/FileBaseKeyValueStore.java`
 #### Snippet
 ```java
-        for (Map<String, String> map : list) {
-            ConnectKeyValue keyValue = new ConnectKeyValue();
-            for (String key : map.keySet()) {
-                keyValue.put(key, map.get(key));
-            }
+        Map<K, V> resultMap = new HashMap<>();
+        Map<String, String> map = JSON.parseObject(jsonString, Map.class);
+        for (String key : map.keySet()) {
+            K decodeKey = (K) serdeKey.deserializer().deserialize("", Base64Util.base64Decode(key));
+            V decodeValue = (V) serdeValue.deserializer().deserialize("", Base64Util.base64Decode(map.get(key)));
 ```
 
 ### KeySetIterationMayUseEntrySet
@@ -465,6 +489,18 @@ in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/u
         for (String key : map.keySet()) {
             keyValue.put(key, map.get(key));
         }
+```
+
+### KeySetIterationMayUseEntrySet
+Iteration over `map.keySet()` may be replaced with 'entrySet()' iteration
+in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/utils/TransferUtils.java`
+#### Snippet
+```java
+        for (Map<String, String> map : list) {
+            ConnectKeyValue keyValue = new ConnectKeyValue();
+            for (String key : map.keySet()) {
+                keyValue.put(key, map.get(key));
+            }
 ```
 
 ### KeySetIterationMayUseEntrySet
@@ -552,54 +588,6 @@ in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/s
 ```
 
 ### KeySetIterationMayUseEntrySet
-Iteration over `map.keySet()` may be replaced with 'entrySet()' iteration
-in `rocketmq-connect-cli/src/main/java/org/apache/rocketmq/connect/cli/utils/FileAndPropertyUtil.java`
-#### Snippet
-```java
-        Map<String, String> map = JSON.parseObject(json, Map.class);
-        ConnectKeyValue keyValue = new ConnectKeyValue();
-        for (String key : map.keySet()) {
-            keyValue.put(key, map.get(key));
-        }
-```
-
-### KeySetIterationMayUseEntrySet
-Iteration over `map.keySet()` may be replaced with 'entrySet()' iteration
-in `transforms/src/main/java/org/apache/rocketmq/connect/transforms/PatternFilter.java`
-#### Snippet
-```java
-     */
-    R filter(R record, Map map) {
-        for (Object field : map.keySet()) {
-            if (!this.fields.contains(field)) {
-                continue;
-```
-
-### KeySetIterationMayUseEntrySet
-Iteration over `input.keySet()` may be replaced with 'entrySet()' iteration
-in `transforms/src/main/java/org/apache/rocketmq/connect/transforms/PatternRename.java`
-#### Snippet
-```java
-    protected SchemaAndValue processMap(R record, Map<String, Object> input) {
-        final Map<String, Object> outputMap = new LinkedHashMap<>(input.size());
-        for (final String inputFieldName : input.keySet()) {
-            log.trace("process() - Processing field '{}'", inputFieldName);
-            final Matcher fieldMatcher = this.config.pattern.matcher(inputFieldName);
-```
-
-### KeySetIterationMayUseEntrySet
-Iteration over `newConnectors.keySet()` may be replaced with 'entrySet()' iteration
-in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/connectorwrapper/Worker.java`
-#### Snippet
-```java
-
-        //Step 4: start connectors
-        for (String connectorName : newConnectors.keySet()) {
-            ClassLoader savedLoader = plugin.currentThreadLoader();
-            try {
-```
-
-### KeySetIterationMayUseEntrySet
 Iteration over `taskConfigs.keySet()` may be replaced with 'entrySet()' iteration
 in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/connectorwrapper/Worker.java`
 #### Snippet
@@ -609,6 +597,18 @@ in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/c
         for (String connectorName : taskConfigs.keySet()) {
             for (ConnectKeyValue keyValue : taskConfigs.get(connectorName)) {
                 boolean isNewTask = !isConfigInSet(keyValue, runningTasks) && !isConfigInSet(keyValue, pendingTasks.keySet()) && !isConfigInSet(keyValue, errorTasks);
+```
+
+### KeySetIterationMayUseEntrySet
+Iteration over `assigns.keySet()` may be replaced with 'entrySet()' iteration
+in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/connectorwrapper/Worker.java`
+#### Snippet
+```java
+            return;
+        }
+        for (String connectName : assigns.keySet()) {
+            if (!connectors.containsKey(connectName)) {
+                // new
 ```
 
 ### KeySetIterationMayUseEntrySet
@@ -628,30 +628,6 @@ Iteration over `assigns.keySet()` may be replaced with 'entrySet()' iteration
 in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/connectorwrapper/Worker.java`
 #### Snippet
 ```java
-            return;
-        }
-        for (String connectName : assigns.keySet()) {
-            if (!connectors.containsKey(connectName)) {
-                // new
-```
-
-### KeySetIterationMayUseEntrySet
-Iteration over `assigns.keySet()` may be replaced with 'entrySet()' iteration
-in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/connectorwrapper/Worker.java`
-#### Snippet
-```java
-            return;
-        }
-        for (String connectName : assigns.keySet()) {
-            if (!connectors.containsKey(connectName)) {
-                // new
-```
-
-### KeySetIterationMayUseEntrySet
-Iteration over `assigns.keySet()` may be replaced with 'entrySet()' iteration
-in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/connectorwrapper/Worker.java`
-#### Snippet
-```java
 
         Map<String, ConnectKeyValue> newConnectors = new HashMap<>();
         for (String connectName : assigns.keySet()) {
@@ -659,31 +635,31 @@ in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/c
                 newConnectors.put(connectName, assigns.get(connectName));
 ```
 
+### KeySetIterationMayUseEntrySet
+Iteration over `newConnectors.keySet()` may be replaced with 'entrySet()' iteration
+in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/connectorwrapper/Worker.java`
+#### Snippet
+```java
+
+        //Step 4: start connectors
+        for (String connectorName : newConnectors.keySet()) {
+            ClassLoader savedLoader = plugin.currentThreadLoader();
+            try {
+```
+
+### KeySetIterationMayUseEntrySet
+Iteration over `assigns.keySet()` may be replaced with 'entrySet()' iteration
+in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/connectorwrapper/Worker.java`
+#### Snippet
+```java
+            return;
+        }
+        for (String connectName : assigns.keySet()) {
+            if (!connectors.containsKey(connectName)) {
+                // new
+```
+
 ## RuleId[ruleID=UnnecessaryQualifierForThis]
-### UnnecessaryQualifierForThis
-Qualifier `WorkerSourceTask` on 'this' is unnecessary in this context
-in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/connectorwrapper/WorkerSourceTask.java`
-#### Snippet
-```java
-        Future<Void> flushFuture = positionStorageWriter.doFlush((error, key, result) -> {
-            if (error != null) {
-                log.error("{} Failed to flush offsets to storage: ", WorkerSourceTask.this, error);
-            } else {
-                log.trace("{} Finished flushing offsets to storage", WorkerSourceTask.this);
-```
-
-### UnnecessaryQualifierForThis
-Qualifier `WorkerSourceTask` on 'this' is unnecessary in this context
-in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/connectorwrapper/WorkerSourceTask.java`
-#### Snippet
-```java
-                log.error("{} Failed to flush offsets to storage: ", WorkerSourceTask.this, error);
-            } else {
-                log.trace("{} Finished flushing offsets to storage", WorkerSourceTask.this);
-            }
-        });
-```
-
 ### UnnecessaryQualifierForThis
 Qualifier `WorkerSourceTask` on 'this' is unnecessary in this context
 in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/connectorwrapper/WorkerSourceTask.java`
@@ -720,7 +696,43 @@ in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/c
         }
 ```
 
+### UnnecessaryQualifierForThis
+Qualifier `WorkerSourceTask` on 'this' is unnecessary in this context
+in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/connectorwrapper/WorkerSourceTask.java`
+#### Snippet
+```java
+        Future<Void> flushFuture = positionStorageWriter.doFlush((error, key, result) -> {
+            if (error != null) {
+                log.error("{} Failed to flush offsets to storage: ", WorkerSourceTask.this, error);
+            } else {
+                log.trace("{} Finished flushing offsets to storage", WorkerSourceTask.this);
+```
+
+### UnnecessaryQualifierForThis
+Qualifier `WorkerSourceTask` on 'this' is unnecessary in this context
+in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/connectorwrapper/WorkerSourceTask.java`
+#### Snippet
+```java
+                log.error("{} Failed to flush offsets to storage: ", WorkerSourceTask.this, error);
+            } else {
+                log.trace("{} Finished flushing offsets to storage", WorkerSourceTask.this);
+            }
+        });
+```
+
 ## RuleId[ruleID=ObjectNotify]
+### ObjectNotify
+`notify` should probably be replaced with 'notifyAll()'
+in `rocketmq-connect-sample/src/main/java/org/apache/rocketmq/connect/file/FileSourceTask.java`
+#### Snippet
+```java
+                log.error("Failed to close FileStreamSourceTask stream: ", e);
+            }
+            this.notify();
+        }
+    }
+```
+
 ### ObjectNotify
 `notify` should probably be replaced with 'notifyAll()'
 in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/connectorwrapper/WorkerConnector.java`
@@ -745,19 +757,19 @@ in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/c
 
 ```
 
-### ObjectNotify
-`notify` should probably be replaced with 'notifyAll()'
-in `rocketmq-connect-sample/src/main/java/org/apache/rocketmq/connect/file/FileSourceTask.java`
+## RuleId[ruleID=SizeReplaceableByIsEmpty]
+### SizeReplaceableByIsEmpty
+`decimalFields.size() == 0` can be replaced with 'decimalFields.isEmpty()'
+in `transforms/src/main/java/org/apache/rocketmq/connect/transforms/SetMaximumPrecision.java`
 #### Snippet
 ```java
-                log.error("Failed to close FileStreamSourceTask stream: ", e);
-            }
-            this.notify();
-        }
-    }
+                State result;
+
+                if (decimalFields.size() == 0) {
+                    result = NOOP;
+                } else {
 ```
 
-## RuleId[ruleID=SizeReplaceableByIsEmpty]
 ### SizeReplaceableByIsEmpty
 `jsonString.length() > 0` can be replaced with '!jsonString.isEmpty()'
 in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/store/FileBaseKeyValueStore.java`
@@ -780,6 +792,18 @@ in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/s
             if (null == jsonString || jsonString.length() == 0) {
                 return this.loadBak();
             } else {
+```
+
+### SizeReplaceableByIsEmpty
+`parameters.size() > 0` can be replaced with '!parameters.isEmpty()'
+in `schema-converter/json-schema-converter/src/main/java/org/apache/rocketmq/schema/json/JsonSchemaData.java`
+#### Snippet
+```java
+                        .filter(e -> !e.getKey().startsWith(NAMESPACE))
+                        .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
+                if (parameters.size() > 0) {
+                    unprocessedProps.put(CONNECT_PARAMETERS_PROP, parameters);
+                }
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -860,7 +884,7 @@ in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/c
 #### Snippet
 ```java
     @Override
-    public void pause(List<RecordPartition> recordPartitions) {
+    public void resume(List<RecordPartition> recordPartitions) {
         if (recordPartitions == null || recordPartitions.size() == 0) {
             log.warn("recordPartitions is null or recordPartitions.size() is zero. recordPartitions {}", JSON.toJSONString(recordPartitions));
             return;
@@ -872,7 +896,7 @@ in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/c
 #### Snippet
 ```java
     @Override
-    public void resume(List<RecordPartition> recordPartitions) {
+    public void pause(List<RecordPartition> recordPartitions) {
         if (recordPartitions == null || recordPartitions.size() == 0) {
             log.warn("recordPartitions is null or recordPartitions.size() is zero. recordPartitions {}", JSON.toJSONString(recordPartitions));
             return;
@@ -891,18 +915,6 @@ in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/c
 ```
 
 ### SizeReplaceableByIsEmpty
-`decimalFields.size() == 0` can be replaced with 'decimalFields.isEmpty()'
-in `transforms/src/main/java/org/apache/rocketmq/connect/transforms/SetMaximumPrecision.java`
-#### Snippet
-```java
-                State result;
-
-                if (decimalFields.size() == 0) {
-                    result = NOOP;
-                } else {
-```
-
-### SizeReplaceableByIsEmpty
 `messageQueues.size() == 0` can be replaced with 'messageQueues.isEmpty()'
 in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/connectorwrapper/WorkerSinkTask.java`
 #### Snippet
@@ -914,29 +926,17 @@ in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/c
                     stopPullMsgLatch.await(PULL_MSG_ERROR_BACKOFF_MS, TimeUnit.MILLISECONDS);
 ```
 
-### SizeReplaceableByIsEmpty
-`parameters.size() > 0` can be replaced with '!parameters.isEmpty()'
-in `schema-converter/json-schema-converter/src/main/java/org/apache/rocketmq/schema/json/JsonSchemaData.java`
-#### Snippet
-```java
-                        .filter(e -> !e.getKey().startsWith(NAMESPACE))
-                        .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
-                if (parameters.size() > 0) {
-                    unprocessedProps.put(CONNECT_PARAMETERS_PROP, parameters);
-                }
-```
-
 ## RuleId[ruleID=StringBufferReplaceableByString]
 ### StringBufferReplaceableByString
-`StringBuffer` can be replaced with 'String'
-in `reporter-api/src/main/java/org/apache/rocketmq/connect/metrics/reporter/RocketMQClientUtil.java`
+`StringBuilder sb` can be replaced with 'String'
+in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/rest/entities/ConfigKeyInfo.java`
 #### Snippet
 ```java
-
-    public static String createUniqInstance(String prefix) {
-        return new StringBuffer(prefix).append("-").append(UUID.randomUUID()).toString();
-    }
-
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("[")
+                .append(name)
 ```
 
 ### StringBufferReplaceableByString
@@ -945,10 +945,10 @@ in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/s
 #### Snippet
 ```java
 
-    private String getSourceTaskTps() {
+    private String getTotalTps() {
         StringBuilder sb = new StringBuilder();
 
-        sb.append(this.getSourceTaskTps(10));
+        sb.append(this.getTotalTps(10));
 ```
 
 ### StringBufferReplaceableByString
@@ -969,22 +969,10 @@ in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/s
 #### Snippet
 ```java
 
-    private String getTotalTps() {
+    private String getSourceTaskTps() {
         StringBuilder sb = new StringBuilder();
 
-        sb.append(this.getTotalTps(10));
-```
-
-### StringBufferReplaceableByString
-`StringBuffer` can be replaced with 'String'
-in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/utils/ConnectUtil.java`
-#### Snippet
-```java
-
-    public static String createUniqInstance(String prefix) {
-        return new StringBuffer(prefix).append("-").append(UUID.randomUUID().toString()).toString();
-    }
-
+        sb.append(this.getSourceTaskTps(10));
 ```
 
 ### StringBufferReplaceableByString
@@ -1012,15 +1000,15 @@ in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/u
 ```
 
 ### StringBufferReplaceableByString
-`StringBuilder sb` can be replaced with 'String'
-in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/rest/entities/ConfigKeyInfo.java`
+`StringBuffer` can be replaced with 'String'
+in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/utils/ConnectUtil.java`
 #### Snippet
 ```java
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("[")
-                .append(name)
+
+    public static String createUniqInstance(String prefix) {
+        return new StringBuffer(prefix).append("-").append(UUID.randomUUID().toString()).toString();
+    }
+
 ```
 
 ### StringBufferReplaceableByString
@@ -1035,19 +1023,19 @@ in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/c
                 .append("\nConfigs:" + JSON.toJSONString(keyValue));
 ```
 
-## RuleId[ruleID=TrivialStringConcatenation]
-### TrivialStringConcatenation
-Empty string used in concatenation
-in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/utils/ConnectUtil.java`
+### StringBufferReplaceableByString
+`StringBuffer` can be replaced with 'String'
+in `reporter-api/src/main/java/org/apache/rocketmq/connect/metrics/reporter/RocketMQClientUtil.java`
 #### Snippet
 ```java
-        map.put("topic", topic);
-        map.put("brokerName", brokerName);
-        map.put("queueId", queueId + "");
-        RecordPartition recordPartition = new RecordPartition(map);
-        return recordPartition;
+
+    public static String createUniqInstance(String prefix) {
+        return new StringBuffer(prefix).append("-").append(UUID.randomUUID()).toString();
+    }
+
 ```
 
+## RuleId[ruleID=TrivialStringConcatenation]
 ### TrivialStringConcatenation
 Empty string used in concatenation
 in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/utils/ConnectUtil.java`
@@ -1070,6 +1058,18 @@ in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/u
         offsetMap.put(QUEUE_OFFSET, offset + "");
         RecordOffset recordOffset = new RecordOffset(offsetMap);
         return recordOffset;
+```
+
+### TrivialStringConcatenation
+Empty string used in concatenation
+in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/utils/ConnectUtil.java`
+#### Snippet
+```java
+        map.put("topic", topic);
+        map.put("brokerName", brokerName);
+        map.put("queueId", queueId + "");
+        RecordPartition recordPartition = new RecordPartition(map);
+        return recordPartition;
 ```
 
 ### TrivialStringConcatenation
@@ -1133,7 +1133,56 @@ in `schema-converter/avro-schema-converter/src/main/java/org/apache/rocketmq/sch
                         }
 ```
 
+## RuleId[ruleID=AbstractClassNeverImplemented]
+### AbstractClassNeverImplemented
+Abstract class `RegexRouter` has no concrete subclass
+in `transforms/src/main/java/org/apache/rocketmq/connect/transforms/RegexRouter.java`
+#### Snippet
+```java
+ * @param <R>
+ */
+public abstract class RegexRouter<R extends ConnectRecord> extends BaseTransformation<R> {
+    private static final Logger LOG = LoggerFactory.getLogger(RegexRouter.class);
+    public static final String TOPIC = "topic";
+```
+
+### AbstractClassNeverImplemented
+Abstract class `MetricsReporter` has no concrete subclass
+in `reporter-api/src/main/java/org/apache/rocketmq/connect/metrics/MetricsReporter.java`
+#### Snippet
+```java
+ * rocketmq exporter
+ */
+public abstract class MetricsReporter implements Reporter, MetricRegistryListener, AutoConfiguration, IReporter {
+    private final MetricRegistry registry;
+
+```
+
 ## RuleId[ruleID=BoundedWildcard]
+### BoundedWildcard
+Can generalize to `? extends SchemaRecordDto`
+in `schema-converter/json-schema-converter/src/main/java/org/apache/rocketmq/schema/json/JsonSchemaRegistryClient.java`
+#### Snippet
+```java
+
+    @Override
+    protected SchemaRecordDto compareAndGet(List<SchemaRecordDto> schemaRecordAllVersion, String schemaName, ParsedSchema schema) {
+        JsonSchema currentJsonSchema = (JsonSchema) schema;
+        SchemaRecordDto matchSchemaRecord = null;
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
+in `transforms/src/main/java/org/apache/rocketmq/connect/transforms/util/ExtendKeyValue.java`
+#### Snippet
+```java
+     * @return
+     */
+    public <T> List<T> getList(String s, Class<T> clazz) {
+        List configs = getList(s);
+        List<T> castConfigs = new ArrayList<>();
+```
+
 ### BoundedWildcard
 Can generalize to `? extends PluginWrapper`
 in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/rest/ConnectorPluginsResource.java`
@@ -1183,75 +1232,15 @@ in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/u
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends MetricName`
-in `reporter-api/src/main/java/org/apache/rocketmq/connect/metrics/reporter/RocketMQScheduledReporter.java`
+Can generalize to `? extends Runnable`
+in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/rest/RestHandler.java`
 #### Snippet
 ```java
-     * @param counters
-     */
-    private void reportCounters(SortedMap<MetricName, Long> counters) {
-        counters.forEach((name, value) -> {
-            send(name, Double.parseDouble(value.toString()));
-```
 
-### BoundedWildcard
-Can generalize to `? extends MetricName`
-in `reporter-api/src/main/java/org/apache/rocketmq/connect/metrics/reporter/RocketMQScheduledReporter.java`
-#### Snippet
-```java
-     * @param gauges
-     */
-    private void reportGauges(SortedMap<MetricName, Object> gauges) {
-        gauges.forEach((name, value) -> {
-            send(name, Double.parseDouble(value.toString()));
-```
 
-### BoundedWildcard
-Can generalize to `? extends MetricName`
-in `reporter-api/src/main/java/org/apache/rocketmq/connect/metrics/reporter/RocketMQScheduledReporter.java`
-#### Snippet
-```java
-     * @param histograms
-     */
-    private void reportHistograms(SortedMap<MetricName, Double> histograms) {
-        histograms.forEach((name, value) -> {
-            send(name, value);
-```
-
-### BoundedWildcard
-Can generalize to `? extends MetricName`
-in `reporter-api/src/main/java/org/apache/rocketmq/connect/metrics/reporter/RocketMQScheduledReporter.java`
-#### Snippet
-```java
-     * @param meters
-     */
-    private void reportMeters(SortedMap<MetricName, Double> meters) {
-        meters.forEach((name, value) -> {
-            send(name, value);
-```
-
-### BoundedWildcard
-Can generalize to `? extends MetricName`
-in `reporter-api/src/main/java/org/apache/rocketmq/connect/metrics/reporter/RocketMQScheduledReporter.java`
-#### Snippet
-```java
-     * @param timers
-     */
-    private void reportTimers(SortedMap<MetricName, Timer> timers) {
-        timers.forEach((name, timer) -> {
-            send(name, timer.getMeanRate());
-```
-
-### BoundedWildcard
-Can generalize to `? extends Timer`
-in `reporter-api/src/main/java/org/apache/rocketmq/connect/metrics/reporter/RocketMQScheduledReporter.java`
-#### Snippet
-```java
-     * @param timers
-     */
-    private void reportTimers(SortedMap<MetricName, Timer> timers) {
-        timers.forEach((name, timer) -> {
-            send(name, timer.getMeanRate());
+    private Set<Object> convertWorkerTaskToString(Set<Runnable> tasks) {
+        Set<Object> result = new HashSet<>();
+        for (Runnable task : tasks) {
 ```
 
 ### BoundedWildcard
@@ -1264,18 +1253,6 @@ in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/u
     public static <T> Class<? extends T> loadClass(String klass, Class<T> base) throws ClassNotFoundException {
         return Class.forName(klass, true, Utils.getContextCurrentClassLoader()).asSubclass(base);
     }
-```
-
-### BoundedWildcard
-Can generalize to `? extends Runnable`
-in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/rest/RestHandler.java`
-#### Snippet
-```java
-
-
-    private Set<Object> convertWorkerTaskToString(Set<Runnable> tasks) {
-        Set<Object> result = new HashSet<>();
-        for (Runnable task : tasks) {
 ```
 
 ### BoundedWildcard
@@ -1315,18 +1292,6 @@ in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/u
 ```
 
 ### BoundedWildcard
-Can generalize to `? super T`
-in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/converter/record/NumberConverter.java`
-#### Snippet
-```java
-     * @param deserializer the deserializer; may not be null
-     */
-    protected NumberConverter(String typeName, Schema schema, Serializer<T> serializer, Deserializer<T> deserializer) {
-        this.typeName = typeName;
-        this.schema = schema;
-```
-
-### BoundedWildcard
 Can generalize to `? extends T`
 in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/service/strategy/DefaultAllocateConnAndTaskStrategy.java`
 #### Snippet
@@ -1336,6 +1301,18 @@ in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/s
     private <T> Map<String, T> getSortedMap(Map<String, T> map) {
 
         Map<String, T> sortedMap = new TreeMap<>();
+```
+
+### BoundedWildcard
+Can generalize to `? super T`
+in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/converter/record/NumberConverter.java`
+#### Snippet
+```java
+     * @param deserializer the deserializer; may not be null
+     */
+    protected NumberConverter(String typeName, Schema schema, Serializer<T> serializer, Deserializer<T> deserializer) {
+        this.typeName = typeName;
+        this.schema = schema;
 ```
 
 ### BoundedWildcard
@@ -1388,18 +1365,6 @@ in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/c
 
 ### BoundedWildcard
 Can generalize to `? extends PluginWrapper`
-in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/controller/isolation/DelegatingClassLoader.java`
-#### Snippet
-```java
-    }
-
-    private <T> void addPlugins(Collection<PluginWrapper<T>> plugins, ClassLoader loader) {
-        for (PluginWrapper<T> plugin : plugins) {
-            String pluginClassName = plugin.className();
-```
-
-### BoundedWildcard
-Can generalize to `? extends PluginWrapper`
 in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/controller/isolation/PluginUtils.java`
 #### Snippet
 ```java
@@ -1408,6 +1373,18 @@ in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/c
             Collection<PluginWrapper<U>> plugins
     ) {
         boolean matched = false;
+```
+
+### BoundedWildcard
+Can generalize to `? extends PluginWrapper`
+in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/controller/isolation/DelegatingClassLoader.java`
+#### Snippet
+```java
+    }
+
+    private <T> void addPlugins(Collection<PluginWrapper<T>> plugins, ClassLoader loader) {
+        for (PluginWrapper<T> plugin : plugins) {
+            String pluginClassName = plugin.className();
 ```
 
 ### BoundedWildcard
@@ -1435,6 +1412,18 @@ in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/c
 ```
 
 ### BoundedWildcard
+Can generalize to `? extends SchemaRecordDto`
+in `schema-converter/avro-schema-converter/src/main/java/org/apache/rocketmq/schema/avro/AvroSchemaRegistryClient.java`
+#### Snippet
+```java
+
+    @Override
+    protected SchemaRecordDto compareAndGet(List<SchemaRecordDto> schemaRecordAllVersion, String schemaName, ParsedSchema schema) {
+        AvroSchema currentAvroSchema = (AvroSchema) schema;
+        SchemaRecordDto matchSchemaRecord = null;
+```
+
+### BoundedWildcard
 Can generalize to `? super ConnectorTaskId`
 in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/connectorwrapper/SourceTaskOffsetCommitter.java`
 #### Snippet
@@ -1459,63 +1448,15 @@ in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/c
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends T`
-in `transforms/src/main/java/org/apache/rocketmq/connect/transforms/util/ExtendKeyValue.java`
-#### Snippet
-```java
-     * @return
-     */
-    public <T> List<T> getList(String s, Class<T> clazz) {
-        List configs = getList(s);
-        List<T> castConfigs = new ArrayList<>();
-```
-
-### BoundedWildcard
-Can generalize to `? extends SchemaRecordDto`
-in `schema-converter/avro-schema-converter/src/main/java/org/apache/rocketmq/schema/avro/AvroSchemaRegistryClient.java`
-#### Snippet
-```java
-
-    @Override
-    protected SchemaRecordDto compareAndGet(List<SchemaRecordDto> schemaRecordAllVersion, String schemaName, ParsedSchema schema) {
-        AvroSchema currentAvroSchema = (AvroSchema) schema;
-        SchemaRecordDto matchSchemaRecord = null;
-```
-
-### BoundedWildcard
-Can generalize to `? extends SchemaRecordDto`
-in `schema-converter/json-schema-converter/src/main/java/org/apache/rocketmq/schema/json/JsonSchemaRegistryClient.java`
-#### Snippet
-```java
-
-    @Override
-    protected SchemaRecordDto compareAndGet(List<SchemaRecordDto> schemaRecordAllVersion, String schemaName, ParsedSchema schema) {
-        JsonSchema currentJsonSchema = (JsonSchema) schema;
-        SchemaRecordDto matchSchemaRecord = null;
-```
-
-### BoundedWildcard
-Can generalize to `? extends MessageExt`
-in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/connectorwrapper/WorkerSinkTask.java`
-#### Snippet
-```java
-     * @param messages
-     */
-    private void receiveMessages(List<MessageExt> messages) {
-        if (messageBatch.isEmpty()) {
-            originalOffsets.clear();
-```
-
-### BoundedWildcard
 Can generalize to `? extends MessageQueue`
 in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/connectorwrapper/WorkerSinkTask.java`
 #### Snippet
 ```java
-     * @param committedOffsets
+     * @param taskProvidedOffsets
      */
-    private void onCommitCompleted(Throwable error, long seqno, Map<MessageQueue, Long> committedOffsets) {
-        if (commitSeqno != seqno) {
-            // skip this commit
+    private void compareAndCommit(Map<MessageQueue, Long> offsetsToCommit, Map<MessageQueue, Long> lastCommittedQueuesOffsets, Map<MessageQueue, Long> taskProvidedOffsets) {
+
+        //Get all assign topic message queue
 ```
 
 ### BoundedWildcard
@@ -1535,11 +1476,23 @@ Can generalize to `? extends MessageQueue`
 in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/connectorwrapper/WorkerSinkTask.java`
 #### Snippet
 ```java
-     * @param taskProvidedOffsets
+     * @param committedOffsets
      */
-    private void compareAndCommit(Map<MessageQueue, Long> offsetsToCommit, Map<MessageQueue, Long> lastCommittedQueuesOffsets, Map<MessageQueue, Long> taskProvidedOffsets) {
+    private void onCommitCompleted(Throwable error, long seqno, Map<MessageQueue, Long> committedOffsets) {
+        if (commitSeqno != seqno) {
+            // skip this commit
+```
 
-        //Get all assign topic message queue
+### BoundedWildcard
+Can generalize to `? extends MessageExt`
+in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/connectorwrapper/WorkerSinkTask.java`
+#### Snippet
+```java
+     * @param messages
+     */
+    private void receiveMessages(List<MessageExt> messages) {
+        if (messageBatch.isEmpty()) {
+            originalOffsets.clear();
 ```
 
 ### BoundedWildcard
@@ -1567,6 +1520,78 @@ in `schema-converter/avro-schema-converter/src/main/java/org/apache/rocketmq/sch
 ```
 
 ### BoundedWildcard
+Can generalize to `? extends MetricName`
+in `reporter-api/src/main/java/org/apache/rocketmq/connect/metrics/reporter/RocketMQScheduledReporter.java`
+#### Snippet
+```java
+     * @param counters
+     */
+    private void reportCounters(SortedMap<MetricName, Long> counters) {
+        counters.forEach((name, value) -> {
+            send(name, Double.parseDouble(value.toString()));
+```
+
+### BoundedWildcard
+Can generalize to `? extends MetricName`
+in `reporter-api/src/main/java/org/apache/rocketmq/connect/metrics/reporter/RocketMQScheduledReporter.java`
+#### Snippet
+```java
+     * @param timers
+     */
+    private void reportTimers(SortedMap<MetricName, Timer> timers) {
+        timers.forEach((name, timer) -> {
+            send(name, timer.getMeanRate());
+```
+
+### BoundedWildcard
+Can generalize to `? extends Timer`
+in `reporter-api/src/main/java/org/apache/rocketmq/connect/metrics/reporter/RocketMQScheduledReporter.java`
+#### Snippet
+```java
+     * @param timers
+     */
+    private void reportTimers(SortedMap<MetricName, Timer> timers) {
+        timers.forEach((name, timer) -> {
+            send(name, timer.getMeanRate());
+```
+
+### BoundedWildcard
+Can generalize to `? extends MetricName`
+in `reporter-api/src/main/java/org/apache/rocketmq/connect/metrics/reporter/RocketMQScheduledReporter.java`
+#### Snippet
+```java
+     * @param histograms
+     */
+    private void reportHistograms(SortedMap<MetricName, Double> histograms) {
+        histograms.forEach((name, value) -> {
+            send(name, value);
+```
+
+### BoundedWildcard
+Can generalize to `? extends MetricName`
+in `reporter-api/src/main/java/org/apache/rocketmq/connect/metrics/reporter/RocketMQScheduledReporter.java`
+#### Snippet
+```java
+     * @param gauges
+     */
+    private void reportGauges(SortedMap<MetricName, Object> gauges) {
+        gauges.forEach((name, value) -> {
+            send(name, Double.parseDouble(value.toString()));
+```
+
+### BoundedWildcard
+Can generalize to `? extends MetricName`
+in `reporter-api/src/main/java/org/apache/rocketmq/connect/metrics/reporter/RocketMQScheduledReporter.java`
+#### Snippet
+```java
+     * @param meters
+     */
+    private void reportMeters(SortedMap<MetricName, Double> meters) {
+        meters.forEach((name, value) -> {
+            send(name, value);
+```
+
+### BoundedWildcard
 Can generalize to `? extends List`
 in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/connectorwrapper/Worker.java`
 #### Snippet
@@ -1576,54 +1601,6 @@ in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/c
     private Map<String, List<ConnectKeyValue>> newTasks(Map<String, List<ConnectKeyValue>> taskConfigs) {
         Map<String, List<ConnectKeyValue>> newTasks = new HashMap<>();
         for (String connectorName : taskConfigs.keySet()) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends List`
-in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/connectorwrapper/Worker.java`
-#### Snippet
-```java
-     * @throws Exception
-     */
-    private void startTask(Map<String, List<ConnectKeyValue>> newTasks) throws Exception {
-        for (String connectorName : newTasks.keySet()) {
-            for (ConnectKeyValue keyValue : newTasks.get(connectorName)) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends ConnectKeyValue`
-in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/connectorwrapper/Worker.java`
-#### Snippet
-```java
-     * @param assigns
-     */
-    private void checkAndReconfigureConnectors(Map<String, ConnectKeyValue> assigns) {
-        if (assigns == null || assigns.isEmpty()) {
-            return;
-```
-
-### BoundedWildcard
-Can generalize to `? extends Runnable`
-in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/connectorwrapper/Worker.java`
-#### Snippet
-```java
-    }
-
-    private boolean isConfigInSet(ConnectKeyValue keyValue, Set<Runnable> set) {
-        for (Runnable runnable : set) {
-            ConnectKeyValue taskConfig = null;
-```
-
-### BoundedWildcard
-Can generalize to `? extends ConnectKeyValue`
-in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/connectorwrapper/Worker.java`
-#### Snippet
-```java
-     * @return
-     */
-    private boolean isNeedStop(ConnectKeyValue taskConfig, List<ConnectKeyValue> keyValues) {
-        if (CollectionUtils.isEmpty(keyValues)) {
-            return true;
 ```
 
 ### BoundedWildcard
@@ -1643,11 +1620,47 @@ Can generalize to `? extends ConnectKeyValue`
 in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/connectorwrapper/Worker.java`
 #### Snippet
 ```java
+     * @return
+     */
+    private boolean isNeedStop(ConnectKeyValue taskConfig, List<ConnectKeyValue> keyValues) {
+        if (CollectionUtils.isEmpty(keyValues)) {
+            return true;
+```
+
+### BoundedWildcard
+Can generalize to `? extends ConnectKeyValue`
+in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/connectorwrapper/Worker.java`
+#### Snippet
+```java
      * @param assigns
      */
-    private void checkAndTransitionToConnectors(Map<String, ConnectKeyValue> assigns) {
+    private void checkAndReconfigureConnectors(Map<String, ConnectKeyValue> assigns) {
         if (assigns == null || assigns.isEmpty()) {
             return;
+```
+
+### BoundedWildcard
+Can generalize to `? extends List`
+in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/connectorwrapper/Worker.java`
+#### Snippet
+```java
+     * @throws Exception
+     */
+    private void startTask(Map<String, List<ConnectKeyValue>> newTasks) throws Exception {
+        for (String connectorName : newTasks.keySet()) {
+            for (ConnectKeyValue keyValue : newTasks.get(connectorName)) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends Runnable`
+in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/connectorwrapper/Worker.java`
+#### Snippet
+```java
+    }
+
+    private boolean isConfigInSet(ConnectKeyValue keyValue, Set<Runnable> set) {
+        for (Runnable runnable : set) {
+            ConnectKeyValue taskConfig = null;
 ```
 
 ### BoundedWildcard
@@ -1662,152 +1675,19 @@ in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/c
             return new HashMap<>();
 ```
 
-## RuleId[ruleID=AbstractClassNeverImplemented]
-### AbstractClassNeverImplemented
-Abstract class `MetricsReporter` has no concrete subclass
-in `reporter-api/src/main/java/org/apache/rocketmq/connect/metrics/MetricsReporter.java`
+### BoundedWildcard
+Can generalize to `? extends ConnectKeyValue`
+in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/connectorwrapper/Worker.java`
 #### Snippet
 ```java
- * rocketmq exporter
- */
-public abstract class MetricsReporter implements Reporter, MetricRegistryListener, AutoConfiguration, IReporter {
-    private final MetricRegistry registry;
-
-```
-
-### AbstractClassNeverImplemented
-Abstract class `RegexRouter` has no concrete subclass
-in `transforms/src/main/java/org/apache/rocketmq/connect/transforms/RegexRouter.java`
-#### Snippet
-```java
- * @param <R>
- */
-public abstract class RegexRouter<R extends ConnectRecord> extends BaseTransformation<R> {
-    private static final Logger LOG = LoggerFactory.getLogger(RegexRouter.class);
-    public static final String TOPIC = "topic";
+     * @param assigns
+     */
+    private void checkAndTransitionToConnectors(Map<String, ConnectKeyValue> assigns) {
+        if (assigns == null || assigns.isEmpty()) {
+            return;
 ```
 
 ## RuleId[ruleID=MissortedModifiers]
-### MissortedModifiers
-Missorted modifiers `final static`
-in `reporter-api/src/main/java/org/apache/rocketmq/connect/metrics/MetricUtils.java`
-#### Snippet
-```java
-    private final static String ROCKETMQ_CONNECT = "rocketmq.connect:";
-    private final static String SPLIT_COMMA = ",";
-    private final static String SPLIT_KV = "=";
-
-
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `reporter-api/src/main/java/org/apache/rocketmq/connect/metrics/MetricUtils.java`
-#### Snippet
-```java
-
-    private final static String ROCKETMQ_CONNECT = "rocketmq.connect:";
-    private final static String SPLIT_COMMA = ",";
-    private final static String SPLIT_KV = "=";
-
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `reporter-api/src/main/java/org/apache/rocketmq/connect/metrics/MetricUtils.java`
-#### Snippet
-```java
-public class MetricUtils {
-
-    private final static String ROCKETMQ_CONNECT = "rocketmq.connect:";
-    private final static String SPLIT_COMMA = ",";
-    private final static String SPLIT_KV = "=";
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `reporter-api/src/main/java/org/apache/rocketmq/connect/metrics/reporter/RocketMQScheduledReporter.java`
-#### Snippet
-```java
-    private final static String SECRET_KEY = "secret.key";
-
-    private final static String NAME = "rocketmq-exporter";
-
-    private DefaultMQProducer producer;
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `reporter-api/src/main/java/org/apache/rocketmq/connect/metrics/reporter/RocketMQScheduledReporter.java`
-#### Snippet
-```java
-    private final static String NAMESRV_ADDR = "name.srv.addr";
-    private final static String GROUP_ID = "group.id";
-    private final static String ACL_ENABLED = "acl.enable";
-    private final static String ACCESS_KEY = "access.key";
-    private final static String SECRET_KEY = "secret.key";
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `reporter-api/src/main/java/org/apache/rocketmq/connect/metrics/reporter/RocketMQScheduledReporter.java`
-#### Snippet
-```java
-    private final static String ACL_ENABLED = "acl.enable";
-    private final static String ACCESS_KEY = "access.key";
-    private final static String SECRET_KEY = "secret.key";
-
-    private final static String NAME = "rocketmq-exporter";
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `reporter-api/src/main/java/org/apache/rocketmq/connect/metrics/reporter/RocketMQScheduledReporter.java`
-#### Snippet
-```java
-    private final static String GROUP_ID = "group.id";
-    private final static String ACL_ENABLED = "acl.enable";
-    private final static String ACCESS_KEY = "access.key";
-    private final static String SECRET_KEY = "secret.key";
-
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `reporter-api/src/main/java/org/apache/rocketmq/connect/metrics/reporter/RocketMQScheduledReporter.java`
-#### Snippet
-```java
-
-    private final static String METRICS_TOPIC = "metrics.topic";
-    private final static String NAMESRV_ADDR = "name.srv.addr";
-    private final static String GROUP_ID = "group.id";
-    private final static String ACL_ENABLED = "acl.enable";
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `reporter-api/src/main/java/org/apache/rocketmq/connect/metrics/reporter/RocketMQScheduledReporter.java`
-#### Snippet
-```java
-    private static final Logger log = LoggerFactory.getLogger(RocketMQScheduledReporter.class);
-
-    private final static String METRICS_TOPIC = "metrics.topic";
-    private final static String NAMESRV_ADDR = "name.srv.addr";
-    private final static String GROUP_ID = "group.id";
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `reporter-api/src/main/java/org/apache/rocketmq/connect/metrics/reporter/RocketMQScheduledReporter.java`
-#### Snippet
-```java
-    private final static String METRICS_TOPIC = "metrics.topic";
-    private final static String NAMESRV_ADDR = "name.srv.addr";
-    private final static String GROUP_ID = "group.id";
-    private final static String ACL_ENABLED = "acl.enable";
-    private final static String ACCESS_KEY = "access.key";
-```
-
 ### MissortedModifiers
 Missorted modifiers `final static`
 in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/utils/ConnectUtil.java`
@@ -1849,23 +1729,11 @@ Missorted modifiers `static public`
 in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/serialization/Serdes.java`
 #### Snippet
 ```java
-    }
 
-    static public final class ShortSerde extends WrapperSerde<Short> {
-        public ShortSerde() {
-            super(new ShortSerializer(), new ShortDeserializer());
-```
 
-### MissortedModifiers
-Missorted modifiers `static public`
-in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/serialization/Serdes.java`
-#### Snippet
-```java
-    }
-
-    static public final class DoubleSerde extends WrapperSerde<Double> {
-        public DoubleSerde() {
-            super(new DoubleSerializer(), new DoubleDeserializer());
+    static public final class ByteArraySerde extends WrapperSerde<byte[]> {
+        public ByteArraySerde() {
+            super(new ByteArraySerializer(), new ByteArrayDeserializer());
 ```
 
 ### MissortedModifiers
@@ -1885,22 +1753,10 @@ Missorted modifiers `static public`
 in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/serialization/Serdes.java`
 #### Snippet
 ```java
-public class Serdes {
-
-    static public final class LongSerde extends WrapperSerde<Long> {
-        public LongSerde() {
-            super(new LongSerializer(), new LongDeserializer());
-```
-
-### MissortedModifiers
-Missorted modifiers `static public`
-in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/serialization/Serdes.java`
-#### Snippet
-```java
-     * A serde for nullable {@code Integer} type.
+     * A serde for nullable {@code byte[]} type.
      */
-    static public Serde<Integer> Integer() {
-        return new IntegerSerde();
+    static public Serde<byte[]> ByteArray() {
+        return new ByteArraySerde();
     }
 ```
 
@@ -1921,47 +1777,11 @@ Missorted modifiers `static public`
 in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/serialization/Serdes.java`
 #### Snippet
 ```java
-     * A serde for nullable {@code Long} type.
-     */
-    static public Serde<Long> Long() {
-        return new LongSerde();
-    }
-```
-
-### MissortedModifiers
-Missorted modifiers `static public`
-in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/serialization/Serdes.java`
-#### Snippet
-```java
-     * @return
-     */
-    static public <T> Serde<T> serdeFrom(Class<T> type) {
-        if (String.class.isAssignableFrom(type)) {
-            return (Serde<T>) String();
-```
-
-### MissortedModifiers
-Missorted modifiers `static public`
-in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/serialization/Serdes.java`
-#### Snippet
-```java
-     * A serde for nullable {@code Float} type.
-     */
-    static public Serde<Float> Float() {
-        return new FloatSerde();
-    }
-```
-
-### MissortedModifiers
-Missorted modifiers `static public`
-in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/serialization/Serdes.java`
-#### Snippet
-```java
     }
 
-    static public final class StringSerde extends WrapperSerde<String> {
-        public StringSerde() {
-            super(new StringSerializer(), new StringDeserializer());
+    static public final class ShortSerde extends WrapperSerde<Short> {
+        public ShortSerde() {
+            super(new ShortSerializer(), new ShortDeserializer());
 ```
 
 ### MissortedModifiers
@@ -1974,6 +1794,42 @@ in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/s
     static public final class FloatSerde extends WrapperSerde<Float> {
         public FloatSerde() {
             super(new FloatSerializer(), new FloatDeserializer());
+```
+
+### MissortedModifiers
+Missorted modifiers `static public`
+in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/serialization/Serdes.java`
+#### Snippet
+```java
+     * A serde for nullable {@code Integer} type.
+     */
+    static public Serde<Integer> Integer() {
+        return new IntegerSerde();
+    }
+```
+
+### MissortedModifiers
+Missorted modifiers `static public`
+in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/serialization/Serdes.java`
+#### Snippet
+```java
+    }
+
+    static public final class ByteBufferSerde extends WrapperSerde<ByteBuffer> {
+        public ByteBufferSerde() {
+            super(new ByteBufferSerializer(), new ByteBufferDeserializer());
+```
+
+### MissortedModifiers
+Missorted modifiers `static public`
+in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/serialization/Serdes.java`
+#### Snippet
+```java
+public class Serdes {
+
+    static public final class LongSerde extends WrapperSerde<Long> {
+        public LongSerde() {
+            super(new LongSerializer(), new LongDeserializer());
 ```
 
 ### MissortedModifiers
@@ -1995,9 +1851,45 @@ in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/s
 ```java
     }
 
-    static public final class ByteBufferSerde extends WrapperSerde<ByteBuffer> {
-        public ByteBufferSerde() {
-            super(new ByteBufferSerializer(), new ByteBufferDeserializer());
+    static public final class DoubleSerde extends WrapperSerde<Double> {
+        public DoubleSerde() {
+            super(new DoubleSerializer(), new DoubleDeserializer());
+```
+
+### MissortedModifiers
+Missorted modifiers `static public`
+in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/serialization/Serdes.java`
+#### Snippet
+```java
+     * A serde for nullable {@code Long} type.
+     */
+    static public Serde<Long> Long() {
+        return new LongSerde();
+    }
+```
+
+### MissortedModifiers
+Missorted modifiers `static public`
+in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/serialization/Serdes.java`
+#### Snippet
+```java
+    }
+
+    static public final class IntegerSerde extends WrapperSerde<Integer> {
+        public IntegerSerde() {
+            super(new IntegerSerializer(), new IntegerDeserializer());
+```
+
+### MissortedModifiers
+Missorted modifiers `static public`
+in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/serialization/Serdes.java`
+#### Snippet
+```java
+     * A serde for nullable {@code Float} type.
+     */
+    static public Serde<Float> Float() {
+        return new FloatSerde();
+    }
 ```
 
 ### MissortedModifiers
@@ -2017,11 +1909,23 @@ Missorted modifiers `static public`
 in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/serialization/Serdes.java`
 #### Snippet
 ```java
-     * A serde for nullable {@code byte[]} type.
+     * @return
      */
-    static public Serde<byte[]> ByteArray() {
-        return new ByteArraySerde();
+    static public <T> Serde<T> serdeFrom(Class<T> type) {
+        if (String.class.isAssignableFrom(type)) {
+            return (Serde<T>) String();
+```
+
+### MissortedModifiers
+Missorted modifiers `static public`
+in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/serialization/Serdes.java`
+#### Snippet
+```java
     }
+
+    static public final class StringSerde extends WrapperSerde<String> {
+        public StringSerde() {
+            super(new StringSerializer(), new StringDeserializer());
 ```
 
 ### MissortedModifiers
@@ -2037,27 +1941,123 @@ in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/s
 ```
 
 ### MissortedModifiers
-Missorted modifiers `static public`
-in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/serialization/Serdes.java`
+Missorted modifiers `final static`
+in `reporter-api/src/main/java/org/apache/rocketmq/connect/metrics/MetricUtils.java`
 #### Snippet
 ```java
 
+    private final static String ROCKETMQ_CONNECT = "rocketmq.connect:";
+    private final static String SPLIT_COMMA = ",";
+    private final static String SPLIT_KV = "=";
 
-    static public final class ByteArraySerde extends WrapperSerde<byte[]> {
-        public ByteArraySerde() {
-            super(new ByteArraySerializer(), new ByteArrayDeserializer());
 ```
 
 ### MissortedModifiers
-Missorted modifiers `static public`
-in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/serialization/Serdes.java`
+Missorted modifiers `final static`
+in `reporter-api/src/main/java/org/apache/rocketmq/connect/metrics/MetricUtils.java`
 #### Snippet
 ```java
-    }
+public class MetricUtils {
 
-    static public final class IntegerSerde extends WrapperSerde<Integer> {
-        public IntegerSerde() {
-            super(new IntegerSerializer(), new IntegerDeserializer());
+    private final static String ROCKETMQ_CONNECT = "rocketmq.connect:";
+    private final static String SPLIT_COMMA = ",";
+    private final static String SPLIT_KV = "=";
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `reporter-api/src/main/java/org/apache/rocketmq/connect/metrics/MetricUtils.java`
+#### Snippet
+```java
+    private final static String ROCKETMQ_CONNECT = "rocketmq.connect:";
+    private final static String SPLIT_COMMA = ",";
+    private final static String SPLIT_KV = "=";
+
+
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `reporter-api/src/main/java/org/apache/rocketmq/connect/metrics/reporter/RocketMQScheduledReporter.java`
+#### Snippet
+```java
+    private final static String NAMESRV_ADDR = "name.srv.addr";
+    private final static String GROUP_ID = "group.id";
+    private final static String ACL_ENABLED = "acl.enable";
+    private final static String ACCESS_KEY = "access.key";
+    private final static String SECRET_KEY = "secret.key";
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `reporter-api/src/main/java/org/apache/rocketmq/connect/metrics/reporter/RocketMQScheduledReporter.java`
+#### Snippet
+```java
+    private static final Logger log = LoggerFactory.getLogger(RocketMQScheduledReporter.class);
+
+    private final static String METRICS_TOPIC = "metrics.topic";
+    private final static String NAMESRV_ADDR = "name.srv.addr";
+    private final static String GROUP_ID = "group.id";
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `reporter-api/src/main/java/org/apache/rocketmq/connect/metrics/reporter/RocketMQScheduledReporter.java`
+#### Snippet
+```java
+    private final static String METRICS_TOPIC = "metrics.topic";
+    private final static String NAMESRV_ADDR = "name.srv.addr";
+    private final static String GROUP_ID = "group.id";
+    private final static String ACL_ENABLED = "acl.enable";
+    private final static String ACCESS_KEY = "access.key";
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `reporter-api/src/main/java/org/apache/rocketmq/connect/metrics/reporter/RocketMQScheduledReporter.java`
+#### Snippet
+```java
+    private final static String GROUP_ID = "group.id";
+    private final static String ACL_ENABLED = "acl.enable";
+    private final static String ACCESS_KEY = "access.key";
+    private final static String SECRET_KEY = "secret.key";
+
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `reporter-api/src/main/java/org/apache/rocketmq/connect/metrics/reporter/RocketMQScheduledReporter.java`
+#### Snippet
+```java
+    private final static String ACL_ENABLED = "acl.enable";
+    private final static String ACCESS_KEY = "access.key";
+    private final static String SECRET_KEY = "secret.key";
+
+    private final static String NAME = "rocketmq-exporter";
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `reporter-api/src/main/java/org/apache/rocketmq/connect/metrics/reporter/RocketMQScheduledReporter.java`
+#### Snippet
+```java
+    private final static String SECRET_KEY = "secret.key";
+
+    private final static String NAME = "rocketmq-exporter";
+
+    private DefaultMQProducer producer;
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `reporter-api/src/main/java/org/apache/rocketmq/connect/metrics/reporter/RocketMQScheduledReporter.java`
+#### Snippet
+```java
+
+    private final static String METRICS_TOPIC = "metrics.topic";
+    private final static String NAMESRV_ADDR = "name.srv.addr";
+    private final static String GROUP_ID = "group.id";
+    private final static String ACL_ENABLED = "acl.enable";
 ```
 
 ## RuleId[ruleID=DuplicateCondition]
@@ -2185,18 +2185,6 @@ in `reporter-api/src/main/java/org/apache/rocketmq/connect/metrics/ScheduledMetr
 ```
 
 ### RedundantMethodOverride
-Method `transitionTo()` only delegates to its super method
-in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/connectorwrapper/WorkerSinkTask.java`
-#### Snippet
-```java
-
-    @Override
-    public void transitionTo(TargetState state) {
-        super.transitionTo(state);
-    }
-```
-
-### RedundantMethodOverride
 Method `recordCommitFailure()` only delegates to its super method
 in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/connectorwrapper/WorkerSinkTask.java`
 #### Snippet
@@ -2205,6 +2193,18 @@ in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/c
     @Override
     protected void recordCommitFailure(long duration) {
         super.recordCommitFailure(duration);
+    }
+```
+
+### RedundantMethodOverride
+Method `transitionTo()` only delegates to its super method
+in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/connectorwrapper/WorkerSinkTask.java`
+#### Snippet
+```java
+
+    @Override
+    public void transitionTo(TargetState state) {
+        super.transitionTo(state);
     }
 ```
 
@@ -2234,19 +2234,32 @@ in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/c
 
 ```
 
-## RuleId[ruleID=ReplaceAssignmentWithOperatorAssignment]
-### ReplaceAssignmentWithOperatorAssignment
-`patternFlags = patternFlags | flag` could be simplified to 'patternFlags \|= flag'
-in `transforms/src/main/java/org/apache/rocketmq/connect/transforms/PatternRenameConfig.java`
+## RuleId[ruleID=NestedAssignment]
+### NestedAssignment
+Result of assignment expression used
+in `rocketmq-connect-cli/src/main/java/org/apache/rocketmq/connect/cli/command/CreateConnectorSubCommand.java`
 #### Snippet
 ```java
-        for (final String f : flagList) {
-            final int flag = FLAG_VALUES.get(f);
-            patternFlags = patternFlags | flag;
-        }
-        this.pattern = Pattern.compile(pattern, patternFlags);
+            BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(filePath), StandardCharsets.UTF_8));
+            int index = 0;
+            while ((index = reader.read()) != -1) {
+                sb.append((char) index);
+            }
 ```
 
+### NestedAssignment
+Result of assignment expression used
+in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/errors/DeadLetterQueueReporter.java`
+#### Snippet
+```java
+            headers.put(ERROR_HEADER_EXCEPTION_MESSAGE, error.getMessage());
+            byte[] trace;
+            if ((trace = stacktrace(context.error())) != null) {
+                headers.put(ERROR_HEADER_EXCEPTION_STACK_TRACE, new String(trace));
+            }
+```
+
+## RuleId[ruleID=ReplaceAssignmentWithOperatorAssignment]
 ### ReplaceAssignmentWithOperatorAssignment
 `s = s + ":filter"` could be simplified to 's += ":filter"'
 in `rocketmq-connect-sample/src/main/java/org/apache/rocketmq/connect/file/FilterTransform.java`
@@ -2271,102 +2284,29 @@ in `rocketmq-connect-sample/src/main/java/org/apache/rocketmq/connect/file/FileS
                 streamOffset += newStart;
 ```
 
-## RuleId[ruleID=NestedAssignment]
-### NestedAssignment
-Result of assignment expression used
-in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/errors/DeadLetterQueueReporter.java`
+### ReplaceAssignmentWithOperatorAssignment
+`patternFlags = patternFlags | flag` could be simplified to 'patternFlags \|= flag'
+in `transforms/src/main/java/org/apache/rocketmq/connect/transforms/PatternRenameConfig.java`
 #### Snippet
 ```java
-            headers.put(ERROR_HEADER_EXCEPTION_MESSAGE, error.getMessage());
-            byte[] trace;
-            if ((trace = stacktrace(context.error())) != null) {
-                headers.put(ERROR_HEADER_EXCEPTION_STACK_TRACE, new String(trace));
-            }
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `rocketmq-connect-cli/src/main/java/org/apache/rocketmq/connect/cli/command/CreateConnectorSubCommand.java`
-#### Snippet
-```java
-            BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(filePath), StandardCharsets.UTF_8));
-            int index = 0;
-            while ((index = reader.read()) != -1) {
-                sb.append((char) index);
-            }
+        for (final String f : flagList) {
+            final int flag = FLAG_VALUES.get(f);
+            patternFlags = patternFlags | flag;
+        }
+        this.pattern = Pattern.compile(pattern, patternFlags);
 ```
 
 ## RuleId[ruleID=CodeBlock2Expr]
 ### CodeBlock2Expr
 Statement lambda can be replaced with expression lambda
-in `reporter-api/src/main/java/org/apache/rocketmq/connect/metrics/reporter/RocketMQScheduledReporter.java`
+in `transforms/src/main/java/org/apache/rocketmq/connect/transforms/util/ExtendKeyValue.java`
 #### Snippet
 ```java
-     */
-    private void reportCounters(SortedMap<MetricName, Long> counters) {
-        counters.forEach((name, value) -> {
-            send(name, Double.parseDouble(value.toString()));
+        List configs = getList(s);
+        List<T> castConfigs = new ArrayList<>();
+        configs.forEach(config -> {
+            castConfigs.add(clazz.cast(config));
         });
-```
-
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
-in `reporter-api/src/main/java/org/apache/rocketmq/connect/metrics/reporter/RocketMQScheduledReporter.java`
-#### Snippet
-```java
-     */
-    private void reportGauges(SortedMap<MetricName, Object> gauges) {
-        gauges.forEach((name, value) -> {
-            send(name, Double.parseDouble(value.toString()));
-        });
-```
-
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
-in `reporter-api/src/main/java/org/apache/rocketmq/connect/metrics/reporter/RocketMQScheduledReporter.java`
-#### Snippet
-```java
-     */
-    private void reportHistograms(SortedMap<MetricName, Double> histograms) {
-        histograms.forEach((name, value) -> {
-            send(name, value);
-        });
-```
-
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
-in `reporter-api/src/main/java/org/apache/rocketmq/connect/metrics/reporter/RocketMQScheduledReporter.java`
-#### Snippet
-```java
-     */
-    private void reportMeters(SortedMap<MetricName, Double> meters) {
-        meters.forEach((name, value) -> {
-            send(name, value);
-        });
-```
-
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
-in `reporter-api/src/main/java/org/apache/rocketmq/connect/metrics/reporter/RocketMQScheduledReporter.java`
-#### Snippet
-```java
-     */
-    private void reportTimers(SortedMap<MetricName, Timer> timers) {
-        timers.forEach((name, timer) -> {
-            send(name, timer.getMeanRate());
-        });
-```
-
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
-in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/rest/RestHandler.java`
-#### Snippet
-```java
-        }
-        try {
-            conns.forEach(conn -> {
-                connectController.pauseConnector(conn);
-            });
 ```
 
 ### CodeBlock2Expr
@@ -2378,6 +2318,18 @@ in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/r
         try {
             conns.forEach(conn -> {
                 connectController.resumeConnector(conn);
+            });
+```
+
+### CodeBlock2Expr
+Statement lambda can be replaced with expression lambda
+in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/rest/RestHandler.java`
+#### Snippet
+```java
+        }
+        try {
+            conns.forEach(conn -> {
+                connectController.pauseConnector(conn);
             });
 ```
 
@@ -2398,11 +2350,11 @@ Statement lambda can be replaced with expression lambda
 in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/converter/record/json/JsonConverter.java`
 #### Snippet
 ```java
-                if (schema == null || keySchema.getFieldType() == FieldType.STRING) {
-                    Map<String, Object> fieldIt = (Map<String, Object>) value;
-                    fieldIt.forEach((k, v) -> {
-                        result.put(k, convertToConnect(valueSchema, v));
-                    });
+        if (schemaParams != null) {
+            Map<String, Object> paramsIt = schemaParams.getInnerMap();
+            paramsIt.forEach((k, v) -> {
+                builder.parameter(k, String.valueOf(v));
+            });
 ```
 
 ### CodeBlock2Expr
@@ -2410,11 +2362,11 @@ Statement lambda can be replaced with expression lambda
 in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/converter/record/json/JsonConverter.java`
 #### Snippet
 ```java
-        if (schemaParams != null) {
-            Map<String, Object> paramsIt = schemaParams.getInnerMap();
-            paramsIt.forEach((k, v) -> {
-                builder.parameter(k, String.valueOf(v));
-            });
+                if (schema == null || keySchema.getFieldType() == FieldType.STRING) {
+                    Map<String, Object> fieldIt = (Map<String, Object>) value;
+                    fieldIt.forEach((k, v) -> {
+                        result.put(k, convertToConnect(valueSchema, v));
+                    });
 ```
 
 ### CodeBlock2Expr
@@ -2455,17 +2407,101 @@ in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/c
 
 ### CodeBlock2Expr
 Statement lambda can be replaced with expression lambda
-in `transforms/src/main/java/org/apache/rocketmq/connect/transforms/util/ExtendKeyValue.java`
+in `reporter-api/src/main/java/org/apache/rocketmq/connect/metrics/reporter/RocketMQScheduledReporter.java`
 #### Snippet
 ```java
-        List configs = getList(s);
-        List<T> castConfigs = new ArrayList<>();
-        configs.forEach(config -> {
-            castConfigs.add(clazz.cast(config));
+     */
+    private void reportCounters(SortedMap<MetricName, Long> counters) {
+        counters.forEach((name, value) -> {
+            send(name, Double.parseDouble(value.toString()));
+        });
+```
+
+### CodeBlock2Expr
+Statement lambda can be replaced with expression lambda
+in `reporter-api/src/main/java/org/apache/rocketmq/connect/metrics/reporter/RocketMQScheduledReporter.java`
+#### Snippet
+```java
+     */
+    private void reportTimers(SortedMap<MetricName, Timer> timers) {
+        timers.forEach((name, timer) -> {
+            send(name, timer.getMeanRate());
+        });
+```
+
+### CodeBlock2Expr
+Statement lambda can be replaced with expression lambda
+in `reporter-api/src/main/java/org/apache/rocketmq/connect/metrics/reporter/RocketMQScheduledReporter.java`
+#### Snippet
+```java
+     */
+    private void reportHistograms(SortedMap<MetricName, Double> histograms) {
+        histograms.forEach((name, value) -> {
+            send(name, value);
+        });
+```
+
+### CodeBlock2Expr
+Statement lambda can be replaced with expression lambda
+in `reporter-api/src/main/java/org/apache/rocketmq/connect/metrics/reporter/RocketMQScheduledReporter.java`
+#### Snippet
+```java
+     */
+    private void reportGauges(SortedMap<MetricName, Object> gauges) {
+        gauges.forEach((name, value) -> {
+            send(name, Double.parseDouble(value.toString()));
+        });
+```
+
+### CodeBlock2Expr
+Statement lambda can be replaced with expression lambda
+in `reporter-api/src/main/java/org/apache/rocketmq/connect/metrics/reporter/RocketMQScheduledReporter.java`
+#### Snippet
+```java
+     */
+    private void reportMeters(SortedMap<MetricName, Double> meters) {
+        meters.forEach((name, value) -> {
+            send(name, value);
         });
 ```
 
 ## RuleId[ruleID=FieldAccessedSynchronizedAndUnsynchronized]
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `log` is accessed in both synchronized and unsynchronized contexts
+in `rocketmq-connect-sample/src/main/java/org/apache/rocketmq/connect/file/FileSourceTask.java`
+#### Snippet
+```java
+public class FileSourceTask extends SourceTask {
+
+    private Logger log = LoggerFactory.getLogger(LoggerName.FILE_CONNECTOR);
+
+    private FileConfig fileConfig;
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `stream` is accessed in both synchronized and unsynchronized contexts
+in `rocketmq-connect-sample/src/main/java/org/apache/rocketmq/connect/file/FileSourceTask.java`
+#### Snippet
+```java
+    private FileConfig fileConfig;
+
+    private InputStream stream;
+    private BufferedReader reader = null;
+    private char[] buffer = new char[1024];
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `reader` is accessed in both synchronized and unsynchronized contexts
+in `rocketmq-connect-sample/src/main/java/org/apache/rocketmq/connect/file/FileSourceTask.java`
+#### Snippet
+```java
+
+    private InputStream stream;
+    private BufferedReader reader = null;
+    private char[] buffer = new char[1024];
+    private int offset = 0;
+```
+
 ### FieldAccessedSynchronizedAndUnsynchronized
 Field `toFlush` is accessed in both synchronized and unsynchronized contexts
 in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/store/PositionStorageWriter.java`
@@ -2503,18 +2539,6 @@ in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/s
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
-Field `connectors` is accessed in both synchronized and unsynchronized contexts
-in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/common/ConnAndTaskStatus.java`
-#### Snippet
-```java
-     * connector status
-     */
-    private Map<String, CacheEntry<ConnectorStatus>> connectors;
-
-    public ConnAndTaskStatus() {
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
 Field `tasks` is accessed in both synchronized and unsynchronized contexts
 in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/common/ConnAndTaskStatus.java`
 #### Snippet
@@ -2524,6 +2548,18 @@ in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/c
     private Table<String, Integer, CacheEntry<TaskStatus>> tasks;
     /**
      * connector status
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `connectors` is accessed in both synchronized and unsynchronized contexts
+in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/common/ConnAndTaskStatus.java`
+#### Snippet
+```java
+     * connector status
+     */
+    private Map<String, CacheEntry<ConnectorStatus>> connectors;
+
+    public ConnAndTaskStatus() {
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
@@ -2551,18 +2587,6 @@ in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/e
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
-Field `connectors` is accessed in both synchronized and unsynchronized contexts
-in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/service/memory/MemoryStateManagementServiceImpl.java`
-#### Snippet
-```java
-
-    private Table<String, Integer, TaskStatus> tasks;
-    private Map<String, ConnectorStatus> connectors;
-
-    /**
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
 Field `tasks` is accessed in both synchronized and unsynchronized contexts
 in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/service/memory/MemoryStateManagementServiceImpl.java`
 #### Snippet
@@ -2572,6 +2596,18 @@ in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/s
     private Table<String, Integer, TaskStatus> tasks;
     private Map<String, ConnectorStatus> connectors;
 
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `connectors` is accessed in both synchronized and unsynchronized contexts
+in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/service/memory/MemoryStateManagementServiceImpl.java`
+#### Snippet
+```java
+
+    private Table<String, Integer, TaskStatus> tasks;
+    private Map<String, ConnectorStatus> connectors;
+
+    /**
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
@@ -2587,15 +2623,15 @@ in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/s
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
-Field `keyConverter` is accessed in both synchronized and unsynchronized contexts
+Field `dataSynchronizer` is accessed in both synchronized and unsynchronized contexts
 in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/service/PositionManagementServiceImpl.java`
 #### Snippet
 ```java
-    private final String positionManagePrefix = "PositionManage";
+     * Synchronize data with other workers.
+     */
+    private DataSynchronizer<ByteBuffer, ByteBuffer> dataSynchronizer;
 
-    private RecordConverter keyConverter;
-    private RecordConverter valueConverter;
-
+    /**
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
@@ -2611,15 +2647,15 @@ in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/s
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
-Field `dataSynchronizer` is accessed in both synchronized and unsynchronized contexts
+Field `keyConverter` is accessed in both synchronized and unsynchronized contexts
 in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/service/PositionManagementServiceImpl.java`
 #### Snippet
 ```java
-     * Synchronize data with other workers.
-     */
-    private DataSynchronizer<ByteBuffer, ByteBuffer> dataSynchronizer;
+    private final String positionManagePrefix = "PositionManage";
 
-    /**
+    private RecordConverter keyConverter;
+    private RecordConverter valueConverter;
+
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
@@ -2644,42 +2680,6 @@ in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/c
     private String connectorName;
     /**
      * Instance of a connector implements.
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `reader` is accessed in both synchronized and unsynchronized contexts
-in `rocketmq-connect-sample/src/main/java/org/apache/rocketmq/connect/file/FileSourceTask.java`
-#### Snippet
-```java
-
-    private InputStream stream;
-    private BufferedReader reader = null;
-    private char[] buffer = new char[1024];
-    private int offset = 0;
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `log` is accessed in both synchronized and unsynchronized contexts
-in `rocketmq-connect-sample/src/main/java/org/apache/rocketmq/connect/file/FileSourceTask.java`
-#### Snippet
-```java
-public class FileSourceTask extends SourceTask {
-
-    private Logger log = LoggerFactory.getLogger(LoggerName.FILE_CONNECTOR);
-
-    private FileConfig fileConfig;
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `stream` is accessed in both synchronized and unsynchronized contexts
-in `rocketmq-connect-sample/src/main/java/org/apache/rocketmq/connect/file/FileSourceTask.java`
-#### Snippet
-```java
-    private FileConfig fileConfig;
-
-    private InputStream stream;
-    private BufferedReader reader = null;
-    private char[] buffer = new char[1024];
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
@@ -2769,8 +2769,44 @@ in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/u
 
 ## RuleId[ruleID=RedundantFieldInitialization]
 ### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `rocketmq-connect-sample/src/main/java/org/apache/rocketmq/connect/file/FileSourceTask.java`
+#### Snippet
+```java
+    private BufferedReader reader = null;
+    private char[] buffer = new char[1024];
+    private int offset = 0;
+    private int batchSize = FileSourceConnector.DEFAULT_TASK_BATCH_SIZE;
+
+```
+
+### RedundantFieldInitialization
 Field initialization to `null` is redundant
-in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/StandaloneConnectStartup.java`
+in `rocketmq-connect-sample/src/main/java/org/apache/rocketmq/connect/file/FileSourceTask.java`
+#### Snippet
+```java
+
+    private InputStream stream;
+    private BufferedReader reader = null;
+    private char[] buffer = new char[1024];
+    private int offset = 0;
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `rocketmq-connect-cli/src/main/java/org/apache/rocketmq/connect/cli/ConnectAdminStartup.java`
+#### Snippet
+```java
+    public static String configFile = null;
+
+    public static Properties properties = null;
+
+    public static void main(String[] args) {
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `rocketmq-connect-cli/src/main/java/org/apache/rocketmq/connect/cli/ConnectAdminStartup.java`
 #### Snippet
 ```java
     public static CommandLine commandLine = null;
@@ -2782,14 +2818,26 @@ in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/S
 
 ### RedundantFieldInitialization
 Field initialization to `null` is redundant
-in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/StandaloneConnectStartup.java`
+in `rocketmq-connect-cli/src/main/java/org/apache/rocketmq/connect/cli/ConnectAdminStartup.java`
 #### Snippet
 ```java
-    private static final Logger log = LoggerFactory.getLogger(LoggerName.ROCKETMQ_RUNTIME);
+    protected static List<SubCommand> subCommandList = new ArrayList<SubCommand>();
 
     public static CommandLine commandLine = null;
 
     public static String configFile = null;
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `schema-converter/json-schema-converter/src/main/java/org/apache/rocketmq/schema/json/JsonSchemaConverter.java`
+#### Snippet
+```java
+     * is key
+     */
+    private boolean isKey = false;
+
+    /**
 ```
 
 ### RedundantFieldInitialization
@@ -2809,6 +2857,30 @@ Field initialization to `null` is redundant
 in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/DistributedConnectStartup.java`
 #### Snippet
 ```java
+    private static final Logger log = LoggerFactory.getLogger(LoggerName.ROCKETMQ_RUNTIME);
+
+    public static CommandLine commandLine = null;
+
+    public static String configFile = null;
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/DistributedConnectStartup.java`
+#### Snippet
+```java
+    public static CommandLine commandLine = null;
+
+    public static String configFile = null;
+
+    public static Properties properties = null;
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/DistributedConnectStartup.java`
+#### Snippet
+```java
     public static String configFile = null;
 
     public static Properties properties = null;
@@ -2817,8 +2889,20 @@ in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/D
 ```
 
 ### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/StandaloneConnectStartup.java`
+#### Snippet
+```java
+            // Invoked when shutdown.
+            Runtime.getRuntime().addShutdownHook(new Thread(new Runnable() {
+                private volatile boolean hasShutdown = false;
+                private AtomicInteger shutdownTimes = new AtomicInteger(0);
+
+```
+
+### RedundantFieldInitialization
 Field initialization to `null` is redundant
-in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/DistributedConnectStartup.java`
+in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/StandaloneConnectStartup.java`
 #### Snippet
 ```java
     private static final Logger log = LoggerFactory.getLogger(LoggerName.ROCKETMQ_RUNTIME);
@@ -2842,7 +2926,7 @@ in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/S
 
 ### RedundantFieldInitialization
 Field initialization to `null` is redundant
-in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/DistributedConnectStartup.java`
+in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/StandaloneConnectStartup.java`
 #### Snippet
 ```java
     public static CommandLine commandLine = null;
@@ -2850,18 +2934,6 @@ in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/D
     public static String configFile = null;
 
     public static Properties properties = null;
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/StandaloneConnectStartup.java`
-#### Snippet
-```java
-            // Invoked when shutdown.
-            Runtime.getRuntime().addShutdownHook(new Thread(new Runnable() {
-                private volatile boolean hasShutdown = false;
-                private AtomicInteger shutdownTimes = new AtomicInteger(0);
-
 ```
 
 ### RedundantFieldInitialization
@@ -2914,42 +2986,6 @@ in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/u
 
 ### RedundantFieldInitialization
 Field initialization to `false` is redundant
-in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/config/WorkerConfig.java`
-#### Snippet
-```java
-     * autoCreateGroupEnable = false
-     */
-    private boolean autoCreateGroupEnable = false;
-
-    /**
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/config/WorkerConfig.java`
-#### Snippet
-```java
-
-
-    private boolean openLogMetricReporter = false;
-
-    private String metricsConfigPath;
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/config/WorkerConfig.java`
-#### Snippet
-```java
-     * secretKey = 11111
-     */
-    private boolean aclEnable = false;
-    private String accessKey;
-    private String secretKey;
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
 in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/common/ConnAndTaskStatus.java`
 #### Snippet
 ```java
@@ -2973,6 +3009,42 @@ in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/c
 ```
 
 ### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/config/WorkerConfig.java`
+#### Snippet
+```java
+     * secretKey = 11111
+     */
+    private boolean aclEnable = false;
+    private String accessKey;
+    private String secretKey;
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/config/WorkerConfig.java`
+#### Snippet
+```java
+     * autoCreateGroupEnable = false
+     */
+    private boolean autoCreateGroupEnable = false;
+
+    /**
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/config/WorkerConfig.java`
+#### Snippet
+```java
+
+
+    private boolean openLogMetricReporter = false;
+
+    private String metricsConfigPath;
+```
+
+### RedundantFieldInitialization
 Field initialization to `0` is redundant
 in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/errors/RetryWithToleranceOperator.java`
 #### Snippet
@@ -2982,42 +3054,6 @@ in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/e
     private long totalFailures = 0;
     private ErrorMetricsGroup errorMetricsGroup;
 
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `rocketmq-connect-cli/src/main/java/org/apache/rocketmq/connect/cli/ConnectAdminStartup.java`
-#### Snippet
-```java
-    public static CommandLine commandLine = null;
-
-    public static String configFile = null;
-
-    public static Properties properties = null;
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `rocketmq-connect-cli/src/main/java/org/apache/rocketmq/connect/cli/ConnectAdminStartup.java`
-#### Snippet
-```java
-    protected static List<SubCommand> subCommandList = new ArrayList<SubCommand>();
-
-    public static CommandLine commandLine = null;
-
-    public static String configFile = null;
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `rocketmq-connect-cli/src/main/java/org/apache/rocketmq/connect/cli/ConnectAdminStartup.java`
-#### Snippet
-```java
-    public static String configFile = null;
-
-    public static Properties properties = null;
-
-    public static void main(String[] args) {
 ```
 
 ### RedundantFieldInitialization
@@ -3033,42 +3069,6 @@ in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/c
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `schema-converter/json-schema-converter/src/main/java/org/apache/rocketmq/schema/json/JsonSchemaConverter.java`
-#### Snippet
-```java
-     * is key
-     */
-    private boolean isKey = false;
-
-    /**
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `rocketmq-connect-sample/src/main/java/org/apache/rocketmq/connect/file/FileSourceTask.java`
-#### Snippet
-```java
-    private BufferedReader reader = null;
-    private char[] buffer = new char[1024];
-    private int offset = 0;
-    private int batchSize = FileSourceConnector.DEFAULT_TASK_BATCH_SIZE;
-
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `rocketmq-connect-sample/src/main/java/org/apache/rocketmq/connect/file/FileSourceTask.java`
-#### Snippet
-```java
-
-    private InputStream stream;
-    private BufferedReader reader = null;
-    private char[] buffer = new char[1024];
-    private int offset = 0;
-```
-
-### RedundantFieldInitialization
 Field initialization to `null` is redundant
 in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/connectorwrapper/WorkerSinkTask.java`
 #### Snippet
@@ -3078,6 +3078,19 @@ in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/c
     private MessageQueueListener messageQueueListener = null;
     private WorkerSinkTaskContext sinkTaskContext;
     private WorkerErrorRecordReporter errorRecordReporter;
+```
+
+## RuleId[ruleID=HtmlWrongAttributeValue]
+### HtmlWrongAttributeValue
+Wrong attribute value
+in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-01-31-15-35-16.885.html`
+#### Snippet
+```java
+              <td>0</td>
+              <td>0</td>
+              <td><textarea rows="10" cols="75" readonly="true" placeholder="empty" style="white-space: pre; border: none">Not collected for refresh</textarea></td>
+            </tr>
+          </tbody>
 ```
 
 ## RuleId[ruleID=InstanceofCatchParameter]
@@ -3098,10 +3111,10 @@ in `schema-converter/schema-converter-common/src/main/java/org/apache/rocketmq/s
 in `schema-converter/schema-converter-common/src/main/java/org/apache/rocketmq/schema/common/AbstractLocalSchemaRegistryClient.java`
 #### Snippet
 ```java
-            return Boolean.TRUE;
+            return schemaRegistryClient.getSchemaByRecordId(cluster, namespace, subject, recordId);
         } catch (RestClientException | IOException e) {
             if (e instanceof RestClientException) {
-                return Boolean.FALSE;
+                return null;
             } else {
 ```
 
@@ -3110,27 +3123,26 @@ in `schema-converter/schema-converter-common/src/main/java/org/apache/rocketmq/s
 in `schema-converter/schema-converter-common/src/main/java/org/apache/rocketmq/schema/common/AbstractLocalSchemaRegistryClient.java`
 #### Snippet
 ```java
-            return schemaRegistryClient.getSchemaByRecordId(cluster, namespace, subject, recordId);
+            return Boolean.TRUE;
         } catch (RestClientException | IOException e) {
             if (e instanceof RestClientException) {
-                return null;
+                return Boolean.FALSE;
             } else {
 ```
 
-## RuleId[ruleID=HtmlWrongAttributeValue]
-### HtmlWrongAttributeValue
-Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-01-31-12-52-55.979.html`
+## RuleId[ruleID=ZeroLengthArrayInitialization]
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/serialization/store/RecordPositionMapSerializer.java`
 #### Snippet
 ```java
-              <td>0</td>
-              <td>0</td>
-              <td><textarea rows="10" cols="75" readonly="true" placeholder="empty" style="white-space: pre; border: none">Not collected for refresh</textarea></td>
-            </tr>
-          </tbody>
+            log.error("RecordPositionMapSerializer serialize failed", e);
+        }
+        return new byte[0];
+    }
+}
 ```
 
-## RuleId[ruleID=ZeroLengthArrayInitialization]
 ### ZeroLengthArrayInitialization
 Allocation of zero length array
 in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/serialization/store/RecordOffsetSerializer.java`
@@ -3157,18 +3169,6 @@ in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/s
 
 ### ZeroLengthArrayInitialization
 Allocation of zero length array
-in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/serialization/store/RecordPositionMapSerializer.java`
-#### Snippet
-```java
-            log.error("RecordPositionMapSerializer serialize failed", e);
-        }
-        return new byte[0];
-    }
-}
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
 in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/serialization/store/ConnectKeyValueSerializer.java`
 #### Snippet
 ```java
@@ -3177,6 +3177,18 @@ in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/s
         return new byte[0];
     }
 }
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/controller/isolation/PluginUtils.java`
+#### Snippet
+```java
+                    + " archives");
+        }
+        return Arrays.asList(archives.toArray(new Path[0]));
+    }
+
 ```
 
 ### ZeroLengthArrayInitialization
@@ -3196,18 +3208,6 @@ Allocation of zero length array
 in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/controller/isolation/DelegatingClassLoader.java`
 #### Snippet
 ```java
-                scanUrlsAndAddPlugins(
-                        getParent(),
-                        ClasspathHelper.forJavaClassPath().toArray(new URL[0])
-                );
-            } else {
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/controller/isolation/DelegatingClassLoader.java`
-#### Snippet
-```java
 
     public DelegatingClassLoader(List<String> pluginPaths, ClassLoader parent) {
         super(new URL[0], parent);
@@ -3217,293 +3217,17 @@ in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/c
 
 ### ZeroLengthArrayInitialization
 Allocation of zero length array
-in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/controller/isolation/PluginUtils.java`
+in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/controller/isolation/DelegatingClassLoader.java`
 #### Snippet
 ```java
-                    + " archives");
-        }
-        return Arrays.asList(archives.toArray(new Path[0]));
-    }
-
+                scanUrlsAndAddPlugins(
+                        getParent(),
+                        ClasspathHelper.forJavaClassPath().toArray(new URL[0])
+                );
+            } else {
 ```
 
 ## RuleId[ruleID=SynchronizeOnThis]
-### SynchronizeOnThis
-Lock operations on 'this' may have unforeseen side-effects
-in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/StandaloneConnectStartup.java`
-#### Snippet
-```java
-                @Override
-                public void run() {
-                    synchronized (this) {
-                        log.info("Shutdown hook was invoked, {}", this.shutdownTimes.incrementAndGet());
-                        if (!this.hasShutdown) {
-```
-
-### SynchronizeOnThis
-Lock operations on 'this' may have unforeseen side-effects
-in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/DistributedConnectStartup.java`
-#### Snippet
-```java
-                @Override
-                public void run() {
-                    synchronized (this) {
-                        log.info("Shutdown hook was invoked, {}", this.shutdownTimes.incrementAndGet());
-                        if (!this.hasShutdown) {
-```
-
-### SynchronizeOnThis
-Lock operations on 'this' may have unforeseen side-effects
-in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/rest/ConnectorPluginsResource.java`
-#### Snippet
-```java
-     */
-    public void listConnectorPlugins(Context context) {
-        synchronized (this) {
-            List<PluginInfo> pluginInfos = Collections.unmodifiableList(connectorPlugins.stream()
-                    .filter(p -> PluginType.SINK.equals(p.getType()) || PluginType.SOURCE.equals(p.getType()))
-```
-
-### SynchronizeOnThis
-Lock operations on 'this' may have unforeseen side-effects
-in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/rest/ConnectorPluginsResource.java`
-#### Snippet
-```java
-     */
-    public void listPlugins(Context context) {
-        synchronized (this) {
-            context.json(new HttpResponse<>(context.status(), Collections.unmodifiableList(connectorPlugins)));
-        }
-```
-
-### SynchronizeOnThis
-Lock operations on 'this' may have unforeseen side-effects
-in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/service/StateManagementServiceImpl.java`
-#### Snippet
-```java
-                                                    final ConnAndTaskStatus.CacheEntry<V> entry,
-                                                    final boolean safeWrite) {
-        synchronized (this) {
-            if (safeWrite && !entry.canWrite(status)) {
-                return;
-```
-
-### SynchronizeOnThis
-Lock operations on 'this' may have unforeseen side-effects
-in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/service/StateManagementServiceImpl.java`
-#### Snippet
-```java
-        }
-
-        synchronized (this) {
-            log.trace("Received task {} status update {}", id, status);
-            ConnAndTaskStatus.CacheEntry<TaskStatus> entry = connAndTaskStatus.getOrAdd(id);
-```
-
-### SynchronizeOnThis
-Lock operations on 'this' may have unforeseen side-effects
-in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/service/StateManagementServiceImpl.java`
-#### Snippet
-```java
-            return;
-        }
-        synchronized (this) {
-            log.trace("Received connector {} status update {}", connector, status);
-            ConnAndTaskStatus.CacheEntry<ConnectorStatus> entry = connAndTaskStatus.getOrAdd(connector);
-```
-
-### SynchronizeOnThis
-Lock operations on 'this' may have unforeseen side-effects
-in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/connectorwrapper/WorkerTask.java`
-#### Snippet
-```java
-
-    public void onFailure(Throwable t) {
-        synchronized (this) {
-            state.set(WorkerTaskState.ERROR);
-            // on failure
-```
-
-### SynchronizeOnThis
-Lock operations on 'this' may have unforeseen side-effects
-in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/connectorwrapper/WorkerTask.java`
-#### Snippet
-```java
-     */
-    protected boolean awaitUnpause() throws InterruptedException {
-        synchronized (this) {
-            while (targetState == TargetState.PAUSED) {
-                if (isStopping()) {
-```
-
-### SynchronizeOnThis
-Lock operations on 'this' may have unforeseen side-effects
-in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/connectorwrapper/WorkerTask.java`
-#### Snippet
-```java
-                    return false;
-                }
-                this.wait();
-            }
-            return true;
-```
-
-### SynchronizeOnThis
-Lock operations on 'this' may have unforeseen side-effects
-in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/connectorwrapper/WorkerTask.java`
-#### Snippet
-```java
-    private void doRun() throws InterruptedException {
-        try {
-            synchronized (this) {
-                if (isStopping()) {
-                    return;
-```
-
-### SynchronizeOnThis
-Lock operations on 'this' may have unforeseen side-effects
-in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/connectorwrapper/WorkerTask.java`
-#### Snippet
-```java
-     */
-    public void transitionTo(TargetState state) {
-        synchronized (this) {
-            // ignore the state change if we are stopping
-            if (isStopping()) {
-```
-
-### SynchronizeOnThis
-Lock operations on 'this' may have unforeseen side-effects
-in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/connectorwrapper/WorkerTask.java`
-#### Snippet
-```java
-                this.targetState = state;
-                // notify thread continue run
-                this.notifyAll();
-            }
-        }
-```
-
-### SynchronizeOnThis
-Lock operations on 'this' may have unforeseen side-effects
-in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/connectorwrapper/RecordOffsetManagement.java`
-#### Snippet
-```java
-        // on an instance variable when invoking CountDownLatch::await outside a synchronized block
-        CountDownLatch messageDrainLatch;
-        synchronized (this) {
-            messageDrainLatch = new CountDownLatch(numUnackedMessages.get());
-            this.messageDrainLatch = messageDrainLatch;
-```
-
-### SynchronizeOnThis
-Lock operations on 'this' may have unforeseen side-effects
-in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/connectorwrapper/RecordOffsetManagement.java`
-#### Snippet
-```java
-        records.computeIfAbsent(position.getPartition(), e -> new LinkedList<>()).add(submittedPosition);
-        // ensure thread safety in operation
-        synchronized (this) {
-            numUnackedMessages.incrementAndGet();
-        }
-```
-
-### SynchronizeOnThis
-Lock operations on 'this' may have unforeseen side-effects
-in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/connectorwrapper/WorkerConnector.java`
-#### Snippet
-```java
-        Callback<TargetState> preEmptedStateChangeCallback;
-        TargetState preEmptedState;
-        synchronized (this) {
-            preEmptedStateChangeCallback = this.targetStateChangeCallback.getAndSet(stateChangeCallback);
-            preEmptedState = targetStateChange.getAndSet(targetState);
-```
-
-### SynchronizeOnThis
-Lock operations on 'this' may have unforeseen side-effects
-in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/connectorwrapper/WorkerConnector.java`
-#### Snippet
-```java
-            preEmptedStateChangeCallback = this.targetStateChangeCallback.getAndSet(stateChangeCallback);
-            preEmptedState = targetStateChange.getAndSet(targetState);
-            notify();
-        }
-        if (preEmptedStateChangeCallback != null) {
-```
-
-### SynchronizeOnThis
-Lock operations on 'this' may have unforeseen side-effects
-in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/connectorwrapper/WorkerConnector.java`
-#### Snippet
-```java
-        log.info("Scheduled shutdown for {}", this);
-        stopping = true;
-        notify();
-    }
-
-```
-
-### SynchronizeOnThis
-Lock operations on 'this' may have unforeseen side-effects
-in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/connectorwrapper/WorkerConnector.java`
-#### Snippet
-```java
-            TargetState newTargetState;
-            Callback<TargetState> stateChangeCallback;
-            synchronized (this) {
-                newTargetState = targetStateChange.getAndSet(null);
-                stateChangeCallback = this.targetStateChangeCallback.getAndSet(null);
-```
-
-### SynchronizeOnThis
-Lock operations on 'this' may have unforeseen side-effects
-in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/connectorwrapper/WorkerConnector.java`
-#### Snippet
-```java
-                doTransitionTo(newTargetState, stateChangeCallback);
-            }
-            synchronized (this) {
-                if (targetStateChange.get() != null || stopping) {
-                    continue;
-```
-
-### SynchronizeOnThis
-Lock operations on 'this' may have unforeseen side-effects
-in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/connectorwrapper/WorkerConnector.java`
-#### Snippet
-```java
-                }
-                try {
-                    wait();
-                } catch (InterruptedException e) {
-                }
-```
-
-### SynchronizeOnThis
-Lock operations on 'this' may have unforeseen side-effects
-in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/connectorwrapper/WorkerSourceTask.java`
-#### Snippet
-```java
-    protected void updateCommittableOffsets() {
-        RecordOffsetManagement.CommittableOffsets newOffsets = offsetManagement.committableOffsets();
-        synchronized (this) {
-            this.committableOffsets = this.committableOffsets.updatedWith(newOffsets);
-        }
-```
-
-### SynchronizeOnThis
-Lock operations on 'this' may have unforeseen side-effects
-in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/connectorwrapper/WorkerSourceTask.java`
-#### Snippet
-```java
-
-        RecordOffsetManagement.CommittableOffsets offsetsToCommit;
-        synchronized (this) {
-            offsetsToCommit = this.committableOffsets;
-            this.committableOffsets = RecordOffsetManagement.CommittableOffsets.EMPTY;
-```
-
 ### SynchronizeOnThis
 Lock operations on 'this' may have unforeseen side-effects
 in `rocketmq-connect-sample/src/main/java/org/apache/rocketmq/connect/file/FileSourceTask.java`
@@ -3588,19 +3312,283 @@ in `rocketmq-connect-sample/src/main/java/org/apache/rocketmq/connect/file/FileS
             }
 ```
 
-## RuleId[ruleID=DoubleBraceInitialization]
-### DoubleBraceInitialization
-Double brace initialization
-in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/config/ConnectorConfig.java`
+### SynchronizeOnThis
+Lock operations on 'this' may have unforeseen side-effects
+in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/DistributedConnectStartup.java`
 #### Snippet
 ```java
-     * The required key for all configurations.
-     */
-    public static final Set<String> REQUEST_CONFIG = new HashSet<String>() {
-        {
-            add(CONNECTOR_CLASS);
+                @Override
+                public void run() {
+                    synchronized (this) {
+                        log.info("Shutdown hook was invoked, {}", this.shutdownTimes.incrementAndGet());
+                        if (!this.hasShutdown) {
 ```
 
+### SynchronizeOnThis
+Lock operations on 'this' may have unforeseen side-effects
+in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/StandaloneConnectStartup.java`
+#### Snippet
+```java
+                @Override
+                public void run() {
+                    synchronized (this) {
+                        log.info("Shutdown hook was invoked, {}", this.shutdownTimes.incrementAndGet());
+                        if (!this.hasShutdown) {
+```
+
+### SynchronizeOnThis
+Lock operations on 'this' may have unforeseen side-effects
+in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/rest/ConnectorPluginsResource.java`
+#### Snippet
+```java
+     */
+    public void listPlugins(Context context) {
+        synchronized (this) {
+            context.json(new HttpResponse<>(context.status(), Collections.unmodifiableList(connectorPlugins)));
+        }
+```
+
+### SynchronizeOnThis
+Lock operations on 'this' may have unforeseen side-effects
+in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/rest/ConnectorPluginsResource.java`
+#### Snippet
+```java
+     */
+    public void listConnectorPlugins(Context context) {
+        synchronized (this) {
+            List<PluginInfo> pluginInfos = Collections.unmodifiableList(connectorPlugins.stream()
+                    .filter(p -> PluginType.SINK.equals(p.getType()) || PluginType.SOURCE.equals(p.getType()))
+```
+
+### SynchronizeOnThis
+Lock operations on 'this' may have unforeseen side-effects
+in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/service/StateManagementServiceImpl.java`
+#### Snippet
+```java
+                                                    final ConnAndTaskStatus.CacheEntry<V> entry,
+                                                    final boolean safeWrite) {
+        synchronized (this) {
+            if (safeWrite && !entry.canWrite(status)) {
+                return;
+```
+
+### SynchronizeOnThis
+Lock operations on 'this' may have unforeseen side-effects
+in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/service/StateManagementServiceImpl.java`
+#### Snippet
+```java
+            return;
+        }
+        synchronized (this) {
+            log.trace("Received connector {} status update {}", connector, status);
+            ConnAndTaskStatus.CacheEntry<ConnectorStatus> entry = connAndTaskStatus.getOrAdd(connector);
+```
+
+### SynchronizeOnThis
+Lock operations on 'this' may have unforeseen side-effects
+in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/service/StateManagementServiceImpl.java`
+#### Snippet
+```java
+        }
+
+        synchronized (this) {
+            log.trace("Received task {} status update {}", id, status);
+            ConnAndTaskStatus.CacheEntry<TaskStatus> entry = connAndTaskStatus.getOrAdd(id);
+```
+
+### SynchronizeOnThis
+Lock operations on 'this' may have unforeseen side-effects
+in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/connectorwrapper/WorkerTask.java`
+#### Snippet
+```java
+
+    public void onFailure(Throwable t) {
+        synchronized (this) {
+            state.set(WorkerTaskState.ERROR);
+            // on failure
+```
+
+### SynchronizeOnThis
+Lock operations on 'this' may have unforeseen side-effects
+in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/connectorwrapper/WorkerTask.java`
+#### Snippet
+```java
+    private void doRun() throws InterruptedException {
+        try {
+            synchronized (this) {
+                if (isStopping()) {
+                    return;
+```
+
+### SynchronizeOnThis
+Lock operations on 'this' may have unforeseen side-effects
+in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/connectorwrapper/WorkerTask.java`
+#### Snippet
+```java
+     */
+    public void transitionTo(TargetState state) {
+        synchronized (this) {
+            // ignore the state change if we are stopping
+            if (isStopping()) {
+```
+
+### SynchronizeOnThis
+Lock operations on 'this' may have unforeseen side-effects
+in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/connectorwrapper/WorkerTask.java`
+#### Snippet
+```java
+                this.targetState = state;
+                // notify thread continue run
+                this.notifyAll();
+            }
+        }
+```
+
+### SynchronizeOnThis
+Lock operations on 'this' may have unforeseen side-effects
+in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/connectorwrapper/WorkerTask.java`
+#### Snippet
+```java
+     */
+    protected boolean awaitUnpause() throws InterruptedException {
+        synchronized (this) {
+            while (targetState == TargetState.PAUSED) {
+                if (isStopping()) {
+```
+
+### SynchronizeOnThis
+Lock operations on 'this' may have unforeseen side-effects
+in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/connectorwrapper/WorkerTask.java`
+#### Snippet
+```java
+                    return false;
+                }
+                this.wait();
+            }
+            return true;
+```
+
+### SynchronizeOnThis
+Lock operations on 'this' may have unforeseen side-effects
+in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/connectorwrapper/RecordOffsetManagement.java`
+#### Snippet
+```java
+        // on an instance variable when invoking CountDownLatch::await outside a synchronized block
+        CountDownLatch messageDrainLatch;
+        synchronized (this) {
+            messageDrainLatch = new CountDownLatch(numUnackedMessages.get());
+            this.messageDrainLatch = messageDrainLatch;
+```
+
+### SynchronizeOnThis
+Lock operations on 'this' may have unforeseen side-effects
+in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/connectorwrapper/RecordOffsetManagement.java`
+#### Snippet
+```java
+        records.computeIfAbsent(position.getPartition(), e -> new LinkedList<>()).add(submittedPosition);
+        // ensure thread safety in operation
+        synchronized (this) {
+            numUnackedMessages.incrementAndGet();
+        }
+```
+
+### SynchronizeOnThis
+Lock operations on 'this' may have unforeseen side-effects
+in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/connectorwrapper/WorkerSourceTask.java`
+#### Snippet
+```java
+
+        RecordOffsetManagement.CommittableOffsets offsetsToCommit;
+        synchronized (this) {
+            offsetsToCommit = this.committableOffsets;
+            this.committableOffsets = RecordOffsetManagement.CommittableOffsets.EMPTY;
+```
+
+### SynchronizeOnThis
+Lock operations on 'this' may have unforeseen side-effects
+in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/connectorwrapper/WorkerSourceTask.java`
+#### Snippet
+```java
+    protected void updateCommittableOffsets() {
+        RecordOffsetManagement.CommittableOffsets newOffsets = offsetManagement.committableOffsets();
+        synchronized (this) {
+            this.committableOffsets = this.committableOffsets.updatedWith(newOffsets);
+        }
+```
+
+### SynchronizeOnThis
+Lock operations on 'this' may have unforeseen side-effects
+in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/connectorwrapper/WorkerConnector.java`
+#### Snippet
+```java
+        Callback<TargetState> preEmptedStateChangeCallback;
+        TargetState preEmptedState;
+        synchronized (this) {
+            preEmptedStateChangeCallback = this.targetStateChangeCallback.getAndSet(stateChangeCallback);
+            preEmptedState = targetStateChange.getAndSet(targetState);
+```
+
+### SynchronizeOnThis
+Lock operations on 'this' may have unforeseen side-effects
+in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/connectorwrapper/WorkerConnector.java`
+#### Snippet
+```java
+            preEmptedStateChangeCallback = this.targetStateChangeCallback.getAndSet(stateChangeCallback);
+            preEmptedState = targetStateChange.getAndSet(targetState);
+            notify();
+        }
+        if (preEmptedStateChangeCallback != null) {
+```
+
+### SynchronizeOnThis
+Lock operations on 'this' may have unforeseen side-effects
+in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/connectorwrapper/WorkerConnector.java`
+#### Snippet
+```java
+        log.info("Scheduled shutdown for {}", this);
+        stopping = true;
+        notify();
+    }
+
+```
+
+### SynchronizeOnThis
+Lock operations on 'this' may have unforeseen side-effects
+in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/connectorwrapper/WorkerConnector.java`
+#### Snippet
+```java
+            TargetState newTargetState;
+            Callback<TargetState> stateChangeCallback;
+            synchronized (this) {
+                newTargetState = targetStateChange.getAndSet(null);
+                stateChangeCallback = this.targetStateChangeCallback.getAndSet(null);
+```
+
+### SynchronizeOnThis
+Lock operations on 'this' may have unforeseen side-effects
+in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/connectorwrapper/WorkerConnector.java`
+#### Snippet
+```java
+                doTransitionTo(newTargetState, stateChangeCallback);
+            }
+            synchronized (this) {
+                if (targetStateChange.get() != null || stopping) {
+                    continue;
+```
+
+### SynchronizeOnThis
+Lock operations on 'this' may have unforeseen side-effects
+in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/connectorwrapper/WorkerConnector.java`
+#### Snippet
+```java
+                }
+                try {
+                    wait();
+                } catch (InterruptedException e) {
+                }
+```
+
+## RuleId[ruleID=DoubleBraceInitialization]
 ### DoubleBraceInitialization
 Double brace initialization
 in `rocketmq-connect-sample/src/main/java/org/apache/rocketmq/connect/file/FileConfig.java`
@@ -3611,6 +3599,18 @@ in `rocketmq-connect-sample/src/main/java/org/apache/rocketmq/connect/file/FileC
     public static final Set<String> REQUEST_CONFIG = new HashSet<String>() {
         {
             add(FILE_CONFIG);
+```
+
+### DoubleBraceInitialization
+Double brace initialization
+in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/config/ConnectorConfig.java`
+#### Snippet
+```java
+     * The required key for all configurations.
+     */
+    public static final Set<String> REQUEST_CONFIG = new HashSet<String>() {
+        {
+            add(CONNECTOR_CLASS);
 ```
 
 ### DoubleBraceInitialization
@@ -3627,18 +3627,6 @@ in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/c
 
 ## RuleId[ruleID=UnusedAssignment]
 ### UnusedAssignment
-Variable `arg` initializer `null` is redundant
-in `rocketmq-connect-cli/src/main/java/org/apache/rocketmq/connect/cli/utils/FileAndPropertyUtil.java`
-#### Snippet
-```java
-                        if (pt != null && pt.length > 0) {
-                            String cn = pt[0].getSimpleName();
-                            Object arg = null;
-                            if (cn.equals("int") || cn.equals("Integer")) {
-                                arg = Integer.parseInt(property);
-```
-
-### UnusedAssignment
 Variable `index` initializer `0` is redundant
 in `rocketmq-connect-cli/src/main/java/org/apache/rocketmq/connect/cli/command/CreateConnectorSubCommand.java`
 #### Snippet
@@ -3648,6 +3636,18 @@ in `rocketmq-connect-cli/src/main/java/org/apache/rocketmq/connect/cli/command/C
             int index = 0;
             while ((index = reader.read()) != -1) {
                 sb.append((char) index);
+```
+
+### UnusedAssignment
+Variable `arg` initializer `null` is redundant
+in `rocketmq-connect-cli/src/main/java/org/apache/rocketmq/connect/cli/utils/FileAndPropertyUtil.java`
+#### Snippet
+```java
+                        if (pt != null && pt.length > 0) {
+                            String cn = pt[0].getSimpleName();
+                            Object arg = null;
+                            if (cn.equals("int") || cn.equals("Integer")) {
+                                arg = Integer.parseInt(property);
 ```
 
 ### UnusedAssignment
@@ -3663,15 +3663,15 @@ in `schema-converter/json-schema-converter/src/main/java/org/apache/rocketmq/sch
 ```
 
 ### UnusedAssignment
-Variable `taskProvidedRecordOffsets` initializer `new ConcurrentHashMap<>()` is redundant
-in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/connectorwrapper/WorkerSinkTask.java`
+The value `combinedBuilder` assigned to `builder` is never used
+in `schema-converter/json-schema-converter/src/main/java/org/apache/rocketmq/schema/json/JsonSchemaData.java`
 #### Snippet
 ```java
-
-        Map<MessageQueue, Long> taskProvidedOffsets = new ConcurrentHashMap<>();
-        Map<RecordPartition, RecordOffset> taskProvidedRecordOffsets = new ConcurrentHashMap<>();
-        try {
-            log.info(" Call task.preCommit reset offset : {}", offsetsToCommit);
+                        ));
+                    }
+                    builder = combinedBuilder;
+                } else if (schema.isOptional()) {
+                    CombinedSchema.Builder combinedBuilder = CombinedSchema.builder();
 ```
 
 ### UnusedAssignment
@@ -3687,15 +3687,15 @@ in `schema-converter/json-schema-converter/src/main/java/org/apache/rocketmq/sch
 ```
 
 ### UnusedAssignment
-The value `combinedBuilder` assigned to `builder` is never used
-in `schema-converter/json-schema-converter/src/main/java/org/apache/rocketmq/schema/json/JsonSchemaData.java`
+Variable `taskProvidedRecordOffsets` initializer `new ConcurrentHashMap<>()` is redundant
+in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/connectorwrapper/WorkerSinkTask.java`
 #### Snippet
 ```java
-                        ));
-                    }
-                    builder = combinedBuilder;
-                } else if (schema.isOptional()) {
-                    CombinedSchema.Builder combinedBuilder = CombinedSchema.builder();
+
+        Map<MessageQueue, Long> taskProvidedOffsets = new ConcurrentHashMap<>();
+        Map<RecordPartition, RecordOffset> taskProvidedRecordOffsets = new ConcurrentHashMap<>();
+        try {
+            log.info(" Call task.preCommit reset offset : {}", offsetsToCommit);
 ```
 
 ### UnusedAssignment
@@ -3725,8 +3725,32 @@ in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/c
 
 ## RuleId[ruleID=ConstantValue]
 ### ConstantValue
+Condition `pt != null` is always `true`
+in `rocketmq-connect-sample/src/main/java/org/apache/rocketmq/connect/file/FileUtils.java`
+#### Snippet
+```java
+                    if (property != null) {
+                        Class<?>[] pt = method.getParameterTypes();
+                        if (pt != null && pt.length > 0) {
+                            String cn = pt[0].getSimpleName();
+                            Object arg;
+```
+
+### ConstantValue
+Condition `pt != null` is always `true`
+in `rocketmq-connect-cli/src/main/java/org/apache/rocketmq/connect/cli/utils/FileAndPropertyUtil.java`
+#### Snippet
+```java
+                    if (property != null) {
+                        Class<?>[] pt = method.getParameterTypes();
+                        if (pt != null && pt.length > 0) {
+                            String cn = pt[0].getSimpleName();
+                            Object arg = null;
+```
+
+### ConstantValue
 Condition `file != null` is always `true`
-in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/StandaloneConnectStartup.java`
+in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/DistributedConnectStartup.java`
 #### Snippet
 ```java
             if (commandLine.hasOption('c')) {
@@ -3738,7 +3762,7 @@ in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/S
 
 ### ConstantValue
 Condition `file != null` is always `true`
-in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/DistributedConnectStartup.java`
+in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/StandaloneConnectStartup.java`
 #### Snippet
 ```java
             if (commandLine.hasOption('c')) {
@@ -3773,6 +3797,18 @@ in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/u
 ```
 
 ### ConstantValue
+Condition `converter instanceof RecordConverter` is always `true` when reached
+in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/errors/WorkerErrorRecordReporter.java`
+#### Snippet
+```java
+
+        MessageExt consumerRecord = new MessageExt();
+        if (converter != null && converter instanceof RecordConverter) {
+            byte[] value = converter.fromConnectData(topic, record.getSchema(), record.getData());
+            consumerRecord.setBody(value);
+```
+
+### ConstantValue
 Condition `Objects.isNull(consumer)` is always `true`
 in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/utils/ConnectUtil.java`
 #### Snippet
@@ -3797,18 +3833,6 @@ in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/u
 ```
 
 ### ConstantValue
-Condition `converter instanceof RecordConverter` is always `true` when reached
-in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/errors/WorkerErrorRecordReporter.java`
-#### Snippet
-```java
-
-        MessageExt consumerRecord = new MessageExt();
-        if (converter != null && converter instanceof RecordConverter) {
-            byte[] value = converter.fromConnectData(topic, record.getSchema(), record.getData());
-            consumerRecord.setBody(value);
-```
-
-### ConstantValue
 Condition `partition != null` is always `true`
 in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/service/PositionManagementServiceImpl.java`
 #### Snippet
@@ -3821,15 +3845,39 @@ in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/s
 ```
 
 ### ConstantValue
-Condition `null == queueId` is always `false`
-in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/connectorwrapper/WorkerSinkTaskContext.java`
+Condition `value == null` is always `false`
+in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/converter/record/json/JsonConverter.java`
 #### Snippet
 ```java
-            String topic = (String) recordPartition.getPartition().get(TOPIC);
-            Integer queueId = Integer.valueOf((String) recordPartition.getPartition().get(QUEUE_ID));
-            if (StringUtils.isEmpty(brokerName) || StringUtils.isEmpty(topic) || null == queueId) {
-                log.warn("brokerName is null or queueId is null or queueName is null, brokerName {}, queueId {} queueId {}", brokerName, queueId, topic);
-                continue;
+            LogicalTypeConverter logicalConverter = LOGICAL_CONVERTERS.get(schema.getName());
+            if (logicalConverter != null) {
+                if (value == null) {
+                    return null;
+                } else {
+```
+
+### ConstantValue
+Condition `!(value instanceof JSONArray)` is always `false`
+in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/converter/record/json/JsonConverter.java`
+#### Snippet
+```java
+                    JSONArray array = (JSONArray) value;
+                    for (Object entry : array.stream().toArray()) {
+                        if (!(value instanceof JSONArray)) {
+                            throw new ConnectException("Found invalid map entry instead of array tuple: " + JSON.toJSONString(entry));
+                        }
+```
+
+### ConstantValue
+Condition `value instanceof JSONArray` is always `true`
+in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/converter/record/json/JsonConverter.java`
+#### Snippet
+```java
+                    JSONArray array = (JSONArray) value;
+                    for (Object entry : array.stream().toArray()) {
+                        if (!(value instanceof JSONArray)) {
+                            throw new ConnectException("Found invalid map entry instead of array tuple: " + JSON.toJSONString(entry));
+                        }
 ```
 
 ### ConstantValue
@@ -3873,6 +3921,18 @@ Condition `null == queueId` is always `false`
 in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/connectorwrapper/WorkerSinkTaskContext.java`
 #### Snippet
 ```java
+            String topic = (String) recordPartition.getPartition().get(TOPIC);
+            Integer queueId = Integer.valueOf((String) recordPartition.getPartition().get(QUEUE_ID));
+            if (StringUtils.isEmpty(brokerName) || StringUtils.isEmpty(topic) || null == queueId) {
+                log.warn("brokerName is null or queueId is null or queueName is null, brokerName {}, queueId {} queueId {}", brokerName, queueId, topic);
+                continue;
+```
+
+### ConstantValue
+Condition `null == queueId` is always `false`
+in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/connectorwrapper/WorkerSinkTaskContext.java`
+#### Snippet
+```java
         String topic = (String) recordPartition.getPartition().get(TOPIC);
         Integer queueId = Integer.valueOf((String) recordPartition.getPartition().get(QUEUE_ID));
         if (StringUtils.isEmpty(brokerName) || StringUtils.isEmpty(topic) || null == queueId) {
@@ -3893,63 +3953,15 @@ in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/c
 ```
 
 ### ConstantValue
-Condition `value == null` is always `false`
-in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/converter/record/json/JsonConverter.java`
+Condition `pausedForRetry` is always `false`
+in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/connectorwrapper/WorkerSinkTask.java`
 #### Snippet
 ```java
-            LogicalTypeConverter logicalConverter = LOGICAL_CONVERTERS.get(schema.getName());
-            if (logicalConverter != null) {
-                if (value == null) {
-                    return null;
-                } else {
-```
-
-### ConstantValue
-Condition `!(value instanceof JSONArray)` is always `false`
-in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/converter/record/json/JsonConverter.java`
-#### Snippet
-```java
-                    JSONArray array = (JSONArray) value;
-                    for (Object entry : array.stream().toArray()) {
-                        if (!(value instanceof JSONArray)) {
-                            throw new ConnectException("Found invalid map entry instead of array tuple: " + JSON.toJSONString(entry));
-                        }
-```
-
-### ConstantValue
-Condition `value instanceof JSONArray` is always `true`
-in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/converter/record/json/JsonConverter.java`
-#### Snippet
-```java
-                    JSONArray array = (JSONArray) value;
-                    for (Object entry : array.stream().toArray()) {
-                        if (!(value instanceof JSONArray)) {
-                            throw new ConnectException("Found invalid map entry instead of array tuple: " + JSON.toJSONString(entry));
-                        }
-```
-
-### ConstantValue
-Condition `pt != null` is always `true`
-in `rocketmq-connect-cli/src/main/java/org/apache/rocketmq/connect/cli/utils/FileAndPropertyUtil.java`
-#### Snippet
-```java
-                    if (property != null) {
-                        Class<?>[] pt = method.getParameterTypes();
-                        if (pt != null && pt.length > 0) {
-                            String cn = pt[0].getSimpleName();
-                            Object arg = null;
-```
-
-### ConstantValue
-Condition `pt != null` is always `true`
-in `rocketmq-connect-sample/src/main/java/org/apache/rocketmq/connect/file/FileUtils.java`
-#### Snippet
-```java
-                    if (property != null) {
-                        Class<?>[] pt = method.getParameterTypes();
-                        if (pt != null && pt.length > 0) {
-                            String cn = pt[0].getSimpleName();
-                            Object arg;
+        } else {
+            // Paused for retry. If the data has been written through the plug-in, all queues can be resumed
+            if (pausedForRetry) {
+                resumeAll();
+            }
 ```
 
 ### ConstantValue
@@ -3962,18 +3974,6 @@ in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/c
         if (removeMessageQueues == null || removeMessageQueues.isEmpty()) {
             return;
         }
-```
-
-### ConstantValue
-Condition `pausedForRetry` is always `false`
-in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/connectorwrapper/WorkerSinkTask.java`
-#### Snippet
-```java
-        } else {
-            // Paused for retry. If the data has been written through the plug-in, all queues can be resumed
-            if (pausedForRetry) {
-                resumeAll();
-            }
 ```
 
 ### ConstantValue
@@ -4123,6 +4123,18 @@ in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/c
 
 ## RuleId[ruleID=FieldMayBeStatic]
 ### FieldMayBeStatic
+Field `cluster` may be 'static'
+in `schema-converter/schema-converter-common/src/main/java/org/apache/rocketmq/schema/common/AbstractLocalSchemaRegistryClient.java`
+#### Snippet
+```java
+public abstract class AbstractLocalSchemaRegistryClient {
+
+    protected final String cluster = "Connect";
+    protected final SchemaRegistryClient schemaRegistryClient;
+    protected final boolean autoRegisterSchemas;
+```
+
+### FieldMayBeStatic
 Field `statusManagePrefix` may be 'static'
 in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/service/StateManagementServiceImpl.java`
 #### Snippet
@@ -4135,18 +4147,6 @@ in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/s
 ```
 
 ### FieldMayBeStatic
-Field `configManagePrefix` may be 'static'
-in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/service/ConfigManagementServiceImpl.java`
-#### Snippet
-```java
-    private DataSynchronizer<String, byte[]> dataSynchronizer;
-
-    private final String configManagePrefix = "ConfigManage";
-
-    // store topic
-```
-
-### FieldMayBeStatic
 Field `positionManagePrefix` may be 'static'
 in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/service/PositionManagementServiceImpl.java`
 #### Snippet
@@ -4156,6 +4156,18 @@ in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/s
     private final String positionManagePrefix = "PositionManage";
 
     private RecordConverter keyConverter;
+```
+
+### FieldMayBeStatic
+Field `configManagePrefix` may be 'static'
+in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/service/ConfigManagementServiceImpl.java`
+#### Snippet
+```java
+    private DataSynchronizer<String, byte[]> dataSynchronizer;
+
+    private final String configManagePrefix = "ConfigManage";
+
+    // store topic
 ```
 
 ### FieldMayBeStatic
@@ -4182,53 +4194,137 @@ public class AvroDatumReaderFactory extends AvroSerdeFactory {
     private final Map<String, Schema> readerSchemaCache = new ConcurrentHashMap<>();
 ```
 
-### FieldMayBeStatic
-Field `cluster` may be 'static'
-in `schema-converter/schema-converter-common/src/main/java/org/apache/rocketmq/schema/common/AbstractLocalSchemaRegistryClient.java`
-#### Snippet
-```java
-public abstract class AbstractLocalSchemaRegistryClient {
-
-    protected final String cluster = "Connect";
-    protected final SchemaRegistryClient schemaRegistryClient;
-    protected final boolean autoRegisterSchemas;
-```
-
 ## RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
 ### UtilityClassWithoutPrivateConstructor
-Class `MetricUtils` has only 'static' members, and lacks a 'private' constructor
-in `reporter-api/src/main/java/org/apache/rocketmq/connect/metrics/MetricUtils.java`
+Class `LoggerName` has only 'static' members, and lacks a 'private' constructor
+in `rocketmq-connect-sample/src/main/java/org/apache/rocketmq/connect/file/LoggerName.java`
 #### Snippet
 ```java
- * metric utils
+ * Define all the logger name of the file connector.
  */
-public class MetricUtils {
-
-    private final static String ROCKETMQ_CONNECT = "rocketmq.connect:";
+public class LoggerName {
+    public static final String FILE_CONNECTOR = "FileConnector";
+}
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `RocketMQClientUtil` has only 'static' members, and lacks a 'private' constructor
-in `reporter-api/src/main/java/org/apache/rocketmq/connect/metrics/reporter/RocketMQClientUtil.java`
+Class `FileConstants` has only 'static' members, and lacks a 'private' constructor
+in `rocketmq-connect-sample/src/main/java/org/apache/rocketmq/connect/file/FileConstants.java`
 #### Snippet
 ```java
- * rocket connect util
- */
-public class RocketMQClientUtil {
+package org.apache.rocketmq.connect.file;
 
-    public static String createUniqInstance(String prefix) {
+public class FileConstants {
+
+    public static final String FILENAME_FIELD = "filename";
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `StandaloneConnectStartup` has only 'static' members, and lacks a 'private' constructor
-in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/StandaloneConnectStartup.java`
+Class `TopicNameStrategy` has only 'static' members, and lacks a 'private' constructor
+in `schema-converter/schema-converter-common/src/main/java/org/apache/rocketmq/schema/common/TopicNameStrategy.java`
 #### Snippet
 ```java
- * Startup class of the runtime worker.
+ * subject
  */
-public class StandaloneConnectStartup {
+public class TopicNameStrategy {
 
-    private static final Logger log = LoggerFactory.getLogger(LoggerName.ROCKETMQ_RUNTIME);
+    /**
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `ServerUtil` has only 'static' members, and lacks a 'private' constructor
+in `rocketmq-connect-cli/src/main/java/org/apache/rocketmq/connect/cli/utils/ServerUtil.java`
+#### Snippet
+```java
+import java.util.Properties;
+
+public class ServerUtil {
+
+    public static Options buildCommandlineOptions(final Options options) {
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `CLIConfigDefine` has only 'static' members, and lacks a 'private' constructor
+in `rocketmq-connect-cli/src/main/java/org/apache/rocketmq/connect/cli/commom/CLIConfigDefine.java`
+#### Snippet
+```java
+ * Define all the logger name of the runtime.
+ */
+public class CLIConfigDefine {
+    public static final String PROTOCOL = "http";
+}
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `FileUtils` has only 'static' members, and lacks a 'private' constructor
+in `rocketmq-connect-sample/src/main/java/org/apache/rocketmq/connect/file/FileUtils.java`
+#### Snippet
+```java
+import java.lang.reflect.Method;
+
+public class FileUtils {
+    public static void properties2Object(final KeyValue p, final Object object) {
+        Method[] methods = object.getClass().getMethods();
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `ConnectAdminStartup` has only 'static' members, and lacks a 'private' constructor
+in `rocketmq-connect-cli/src/main/java/org/apache/rocketmq/connect/cli/ConnectAdminStartup.java`
+#### Snippet
+```java
+import java.util.Properties;
+
+public class ConnectAdminStartup {
+
+    protected static List<SubCommand> subCommandList = new ArrayList<SubCommand>();
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `JsonSchemaUtils` has only 'static' members, and lacks a 'private' constructor
+in `schema-converter/json-schema-converter/src/main/java/org/apache/rocketmq/schema/json/util/JsonSchemaUtils.java`
+#### Snippet
+```java
+ * json schema utils
+ */
+public class JsonSchemaUtils {
+    private static final ObjectMapper OBJECT_MAPPER = JacksonMapper.INSTANCE;
+    private static final Object NONE_MARKER = new Object();
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `FileAndPropertyUtil` has only 'static' members, and lacks a 'private' constructor
+in `rocketmq-connect-cli/src/main/java/org/apache/rocketmq/connect/cli/utils/FileAndPropertyUtil.java`
+#### Snippet
+```java
+ * Utils for file and property.
+ */
+public class FileAndPropertyUtil {
+
+    public static String file2String(final String fileName) throws IOException {
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `SchemaUtil` has only 'static' members, and lacks a 'private' constructor
+in `transforms/src/main/java/org/apache/rocketmq/connect/transforms/util/SchemaUtil.java`
+#### Snippet
+```java
+ * schema util
+ */
+public class SchemaUtil {
+    public static final Schema INT8_SCHEMA = SchemaBuilder.int8().build();
+    public static final Schema INT16_SCHEMA = SchemaBuilder.int16().build();
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `SchemaHelper` has only 'static' members, and lacks a 'private' constructor
+in `transforms/src/main/java/org/apache/rocketmq/connect/transforms/util/SchemaHelper.java`
+#### Snippet
+```java
+import java.util.Map;
+
+public class SchemaHelper {
+    static final Map<Class<?>, FieldType> PRIMITIVES;
+
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -4239,6 +4335,18 @@ in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/D
  * Startup class of the runtime worker.
  */
 public class DistributedConnectStartup {
+
+    private static final Logger log = LoggerFactory.getLogger(LoggerName.ROCKETMQ_RUNTIME);
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `StandaloneConnectStartup` has only 'static' members, and lacks a 'private' constructor
+in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/StandaloneConnectStartup.java`
+#### Snippet
+```java
+ * Startup class of the runtime worker.
+ */
+public class StandaloneConnectStartup {
 
     private static final Logger log = LoggerFactory.getLogger(LoggerName.ROCKETMQ_RUNTIME);
 ```
@@ -4256,15 +4364,15 @@ public class ServerUtil {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `TransferUtils` has only 'static' members, and lacks a 'private' constructor
-in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/utils/TransferUtils.java`
+Class `ServiceProviderUtil` has only 'static' members, and lacks a 'private' constructor
+in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/utils/ServiceProviderUtil.java`
 #### Snippet
 ```java
-import java.util.Map;
+import java.util.ServiceLoader;
 
-public class TransferUtils {
+public class ServiceProviderUtil {
 
-    public static String keyValueToString(ConnectKeyValue keyValue) {
+    @NotNull
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -4280,15 +4388,15 @@ public class FilePathConfigUtil {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `ServiceProviderUtil` has only 'static' members, and lacks a 'private' constructor
-in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/utils/ServiceProviderUtil.java`
+Class `TransferUtils` has only 'static' members, and lacks a 'private' constructor
+in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/utils/TransferUtils.java`
 #### Snippet
 ```java
-import java.util.ServiceLoader;
+import java.util.Map;
 
-public class ServiceProviderUtil {
+public class TransferUtils {
 
-    @NotNull
+    public static String keyValueToString(ConnectKeyValue keyValue) {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -4376,18 +4484,6 @@ public class JsonSchema {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `Serdes` has only 'static' members, and lacks a 'private' constructor
-in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/serialization/Serdes.java`
-#### Snippet
-```java
- * Factory for creating serializers / deserializers.
- */
-public class Serdes {
-
-    static public final class LongSerde extends WrapperSerde<Long> {
-```
-
-### UtilityClassWithoutPrivateConstructor
 Class `PluginUtils` has only 'static' members, and lacks a 'private' constructor
 in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/controller/isolation/PluginUtils.java`
 #### Snippet
@@ -4400,111 +4496,15 @@ public class PluginUtils {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `ServerUtil` has only 'static' members, and lacks a 'private' constructor
-in `rocketmq-connect-cli/src/main/java/org/apache/rocketmq/connect/cli/utils/ServerUtil.java`
+Class `Serdes` has only 'static' members, and lacks a 'private' constructor
+in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/serialization/Serdes.java`
 #### Snippet
 ```java
-import java.util.Properties;
-
-public class ServerUtil {
-
-    public static Options buildCommandlineOptions(final Options options) {
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `CLIConfigDefine` has only 'static' members, and lacks a 'private' constructor
-in `rocketmq-connect-cli/src/main/java/org/apache/rocketmq/connect/cli/commom/CLIConfigDefine.java`
-#### Snippet
-```java
- * Define all the logger name of the runtime.
+ * Factory for creating serializers / deserializers.
  */
-public class CLIConfigDefine {
-    public static final String PROTOCOL = "http";
-}
-```
+public class Serdes {
 
-### UtilityClassWithoutPrivateConstructor
-Class `FileAndPropertyUtil` has only 'static' members, and lacks a 'private' constructor
-in `rocketmq-connect-cli/src/main/java/org/apache/rocketmq/connect/cli/utils/FileAndPropertyUtil.java`
-#### Snippet
-```java
- * Utils for file and property.
- */
-public class FileAndPropertyUtil {
-
-    public static String file2String(final String fileName) throws IOException {
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `ConnectAdminStartup` has only 'static' members, and lacks a 'private' constructor
-in `rocketmq-connect-cli/src/main/java/org/apache/rocketmq/connect/cli/ConnectAdminStartup.java`
-#### Snippet
-```java
-import java.util.Properties;
-
-public class ConnectAdminStartup {
-
-    protected static List<SubCommand> subCommandList = new ArrayList<SubCommand>();
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `SchemaUtil` has only 'static' members, and lacks a 'private' constructor
-in `transforms/src/main/java/org/apache/rocketmq/connect/transforms/util/SchemaUtil.java`
-#### Snippet
-```java
- * schema util
- */
-public class SchemaUtil {
-    public static final Schema INT8_SCHEMA = SchemaBuilder.int8().build();
-    public static final Schema INT16_SCHEMA = SchemaBuilder.int16().build();
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `SchemaHelper` has only 'static' members, and lacks a 'private' constructor
-in `transforms/src/main/java/org/apache/rocketmq/connect/transforms/util/SchemaHelper.java`
-#### Snippet
-```java
-import java.util.Map;
-
-public class SchemaHelper {
-    static final Map<Class<?>, FieldType> PRIMITIVES;
-
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `LoggerName` has only 'static' members, and lacks a 'private' constructor
-in `rocketmq-connect-sample/src/main/java/org/apache/rocketmq/connect/file/LoggerName.java`
-#### Snippet
-```java
- * Define all the logger name of the file connector.
- */
-public class LoggerName {
-    public static final String FILE_CONNECTOR = "FileConnector";
-}
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `FileConstants` has only 'static' members, and lacks a 'private' constructor
-in `rocketmq-connect-sample/src/main/java/org/apache/rocketmq/connect/file/FileConstants.java`
-#### Snippet
-```java
-package org.apache.rocketmq.connect.file;
-
-public class FileConstants {
-
-    public static final String FILENAME_FIELD = "filename";
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `FileUtils` has only 'static' members, and lacks a 'private' constructor
-in `rocketmq-connect-sample/src/main/java/org/apache/rocketmq/connect/file/FileUtils.java`
-#### Snippet
-```java
-import java.lang.reflect.Method;
-
-public class FileUtils {
-    public static void properties2Object(final KeyValue p, final Object object) {
-        Method[] methods = object.getClass().getMethods();
+    static public final class LongSerde extends WrapperSerde<Long> {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -4520,52 +4520,40 @@ public class AvroSchemaUtils {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `JsonSchemaUtils` has only 'static' members, and lacks a 'private' constructor
-in `schema-converter/json-schema-converter/src/main/java/org/apache/rocketmq/schema/json/util/JsonSchemaUtils.java`
+Class `MetricUtils` has only 'static' members, and lacks a 'private' constructor
+in `reporter-api/src/main/java/org/apache/rocketmq/connect/metrics/MetricUtils.java`
 #### Snippet
 ```java
- * json schema utils
+ * metric utils
  */
-public class JsonSchemaUtils {
-    private static final ObjectMapper OBJECT_MAPPER = JacksonMapper.INSTANCE;
-    private static final Object NONE_MARKER = new Object();
+public class MetricUtils {
+
+    private final static String ROCKETMQ_CONNECT = "rocketmq.connect:";
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `TopicNameStrategy` has only 'static' members, and lacks a 'private' constructor
-in `schema-converter/schema-converter-common/src/main/java/org/apache/rocketmq/schema/common/TopicNameStrategy.java`
+Class `RocketMQClientUtil` has only 'static' members, and lacks a 'private' constructor
+in `reporter-api/src/main/java/org/apache/rocketmq/connect/metrics/reporter/RocketMQClientUtil.java`
 #### Snippet
 ```java
- * subject
+ * rocket connect util
  */
-public class TopicNameStrategy {
+public class RocketMQClientUtil {
 
-    /**
+    public static String createUniqInstance(String prefix) {
 ```
 
 ## RuleId[ruleID=DataFlowIssue]
 ### DataFlowIssue
-Variable is already assigned to this value
-in `reporter-api/src/main/java/org/apache/rocketmq/connect/metrics/reporter/RocketMQClientUtil.java`
+Casting `input` to `Map` will produce `ClassCastException` for any non-null value
+in `transforms/src/main/java/org/apache/rocketmq/connect/transforms/BaseTransformation.java`
 #### Snippet
 ```java
-            }
-        } catch (Exception e) {
-            foundTopicRouteInfo = false;
-        }
-        return foundTopicRouteInfo;
-```
-
-### DataFlowIssue
-Variable is already assigned to this value
-in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/utils/ConnectUtil.java`
-#### Snippet
-```java
-            }
-        } catch (MQClientException e) {
-            foundTopicRouteInfo = false;
-        } catch (Exception e) {
-            throw new RuntimeException("Get topic route info  failed", e);
+            result = processArray(record, inputSchema, (List<Object>) input);
+        } else if (FieldType.MAP == schemaType) {
+            result = processMap(record, inputSchema, (Map<Object, Object>) input);
+        } else {
+            throw new UnsupportedOperationException(
 ```
 
 ### DataFlowIssue
@@ -4590,6 +4578,18 @@ in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/e
             consumerRecord.setQueueOffset(queueOffset);
         } else {
             byte[] messageBody = JSON.toJSONString(record).getBytes();
+```
+
+### DataFlowIssue
+Variable is already assigned to this value
+in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/utils/ConnectUtil.java`
+#### Snippet
+```java
+            }
+        } catch (MQClientException e) {
+            foundTopicRouteInfo = false;
+        } catch (Exception e) {
+            throw new RuntimeException("Get topic route info  failed", e);
 ```
 
 ### DataFlowIssue
@@ -4641,15 +4641,15 @@ in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/c
 ```
 
 ### DataFlowIssue
-Casting `input` to `Map` will produce `ClassCastException` for any non-null value
-in `transforms/src/main/java/org/apache/rocketmq/connect/transforms/BaseTransformation.java`
+Variable is already assigned to this value
+in `reporter-api/src/main/java/org/apache/rocketmq/connect/metrics/reporter/RocketMQClientUtil.java`
 #### Snippet
 ```java
-            result = processArray(record, inputSchema, (List<Object>) input);
-        } else if (FieldType.MAP == schemaType) {
-            result = processMap(record, inputSchema, (Map<Object, Object>) input);
-        } else {
-            throw new UnsupportedOperationException(
+            }
+        } catch (Exception e) {
+            foundTopicRouteInfo = false;
+        }
+        return foundTopicRouteInfo;
 ```
 
 ### DataFlowIssue
@@ -4689,6 +4689,18 @@ in `schema-converter/avro-schema-converter/src/main/java/org/apache/rocketmq/sch
 ```
 
 ### DataFlowIssue
+Method invocation `cancel` may produce `NullPointerException`
+in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/connectorwrapper/Worker.java`
+#### Snippet
+```java
+                sourceTaskOffsetCommitter.ifPresent(commiter -> commiter.remove(workerTask.id()));
+                workerTask.cleanup();
+                future.cancel(true);
+                taskToFutureMap.remove(runnable);
+                stoppedTasks.remove(runnable);
+```
+
+### DataFlowIssue
 Method invocation `id` will produce `NullPointerException`
 in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/connectorwrapper/Worker.java`
 #### Snippet
@@ -4712,18 +4724,6 @@ in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/c
                 errorTasks.remove(runnable);
 ```
 
-### DataFlowIssue
-Method invocation `cancel` may produce `NullPointerException`
-in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/connectorwrapper/Worker.java`
-#### Snippet
-```java
-                sourceTaskOffsetCommitter.ifPresent(commiter -> commiter.remove(workerTask.id()));
-                workerTask.cleanup();
-                future.cancel(true);
-                taskToFutureMap.remove(runnable);
-                stoppedTasks.remove(runnable);
-```
-
 ## RuleId[ruleID=SimplifyStreamApiCallChains]
 ### SimplifyStreamApiCallChains
 ''stream().forEach()'' can be replaced with 'forEach()'' (may change semantics)
@@ -4738,18 +4738,6 @@ in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/e
 ```
 
 ### SimplifyStreamApiCallChains
-''stream().forEach()'' can be replaced with 'forEach()'' (may change semantics)
-in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/connectorwrapper/TransformChain.java`
-#### Snippet
-```java
-            return;
-        }
-        transformList.stream().forEach(transformStr -> {
-            String transformClassKey = PREFIX + transformStr + ".class";
-            String transformClass = config.getString(transformClassKey);
-```
-
-### SimplifyStreamApiCallChains
 Can be replaced with 'collection.toArray()'
 in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/converter/record/json/JsonConverter.java`
 #### Snippet
@@ -4759,6 +4747,18 @@ in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/c
                     for (Object entry : array.stream().toArray()) {
                         if (!(value instanceof JSONArray)) {
                             throw new ConnectException("Found invalid map entry instead of array tuple: " + JSON.toJSONString(entry));
+```
+
+### SimplifyStreamApiCallChains
+''stream().forEach()'' can be replaced with 'forEach()'' (may change semantics)
+in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/connectorwrapper/TransformChain.java`
+#### Snippet
+```java
+            return;
+        }
+        transformList.stream().forEach(transformStr -> {
+            String transformClassKey = PREFIX + transformStr + ".class";
+            String transformClass = config.getString(transformClassKey);
 ```
 
 ## RuleId[ruleID=StringOperationCanBeSimplified]
@@ -4777,26 +4777,14 @@ in `rocketmq-connect-cli/src/main/java/org/apache/rocketmq/connect/cli/ConnectAd
 ## RuleId[ruleID=Convert2MethodRef]
 ### Convert2MethodRef
 Lambda can be replaced with method reference
-in `reporter-api/src/main/java/org/apache/rocketmq/connect/metrics/reporter/RocketMQScheduledReporter.java`
+in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/rest/RestHandler.java`
 #### Snippet
 ```java
-    private void reportHistograms(SortedMap<MetricName, Double> histograms) {
-        histograms.forEach((name, value) -> {
-            send(name, value);
-        });
-    }
-```
-
-### Convert2MethodRef
-Lambda can be replaced with method reference
-in `reporter-api/src/main/java/org/apache/rocketmq/connect/metrics/reporter/RocketMQScheduledReporter.java`
-#### Snippet
-```java
-    private void reportMeters(SortedMap<MetricName, Double> meters) {
-        meters.forEach((name, value) -> {
-            send(name, value);
-        });
-    }
+        try {
+            conns.forEach(conn -> {
+                connectController.resumeConnector(conn);
+            });
+            context.json(new HttpResponse<>(context.status(), conns.size() + " connectors are resumed"));
 ```
 
 ### Convert2MethodRef
@@ -4809,18 +4797,6 @@ in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/r
                 connectController.pauseConnector(conn);
             });
             context.json(new HttpResponse<>(context.status(), conns.size() + " connectors are suspended"));
-```
-
-### Convert2MethodRef
-Lambda can be replaced with method reference
-in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/rest/RestHandler.java`
-#### Snippet
-```java
-        try {
-            conns.forEach(conn -> {
-                connectController.resumeConnector(conn);
-            });
-            context.json(new HttpResponse<>(context.status(), conns.size() + " connectors are resumed"));
 ```
 
 ### Convert2MethodRef
@@ -4857,6 +4833,30 @@ in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/c
                 submittedPosition.remove();
             });
             log.error("Send message error, error info: {}.", e);
+```
+
+### Convert2MethodRef
+Lambda can be replaced with method reference
+in `reporter-api/src/main/java/org/apache/rocketmq/connect/metrics/reporter/RocketMQScheduledReporter.java`
+#### Snippet
+```java
+    private void reportHistograms(SortedMap<MetricName, Double> histograms) {
+        histograms.forEach((name, value) -> {
+            send(name, value);
+        });
+    }
+```
+
+### Convert2MethodRef
+Lambda can be replaced with method reference
+in `reporter-api/src/main/java/org/apache/rocketmq/connect/metrics/reporter/RocketMQScheduledReporter.java`
+#### Snippet
+```java
+    private void reportMeters(SortedMap<MetricName, Double> meters) {
+        meters.forEach((name, value) -> {
+            send(name, value);
+        });
+    }
 ```
 
 ## RuleId[ruleID=UnnecessaryCallToStringValueOf]
@@ -4898,6 +4898,18 @@ in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/u
 ```
 
 ## RuleId[ruleID=CatchMayIgnoreException]
+### CatchMayIgnoreException
+Empty `catch` block
+in `rocketmq-connect-sample/src/main/java/org/apache/rocketmq/connect/file/FileSourceTask.java`
+#### Snippet
+```java
+
+            return records;
+        } catch (IOException e) {
+        } catch (InterruptedException e) {
+            log.error("Interrupt error .", e);
+```
+
 ### CatchMayIgnoreException
 Empty `catch` block
 in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/stats/ConnectStatsManager.java`
@@ -4948,18 +4960,6 @@ in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/c
 
 ### CatchMayIgnoreException
 Empty `catch` block
-in `rocketmq-connect-sample/src/main/java/org/apache/rocketmq/connect/file/FileSourceTask.java`
-#### Snippet
-```java
-
-            return records;
-        } catch (IOException e) {
-        } catch (InterruptedException e) {
-            log.error("Interrupt error .", e);
-```
-
-### CatchMayIgnoreException
-Empty `catch` block
 in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/connectorwrapper/WorkerSinkTask.java`
 #### Snippet
 ```java
@@ -4998,18 +4998,6 @@ in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/u
 ## RuleId[ruleID=UnnecessaryToStringCall]
 ### UnnecessaryToStringCall
 Unnecessary `toString()` call
-in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/utils/ConnectUtil.java`
-#### Snippet
-```java
-
-    public static String createUniqInstance(String prefix) {
-        return new StringBuffer(prefix).append("-").append(UUID.randomUUID().toString()).toString();
-    }
-
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
 in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/errors/LogReporter.java`
 #### Snippet
 ```java
@@ -5018,6 +5006,18 @@ in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/e
         return String.format("Error encountered in task %s. %s", id.toString(),
                 context.toString(deadLetterQueueConfig.includeRecordDetailsInErrorLog()));
     }
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/utils/ConnectUtil.java`
+#### Snippet
+```java
+
+    public static String createUniqInstance(String prefix) {
+        return new StringBuffer(prefix).append("-").append(UUID.randomUUID().toString()).toString();
+    }
+
 ```
 
 ### UnnecessaryToStringCall
@@ -5112,6 +5112,18 @@ in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/s
 #### Snippet
 ```java
         synchronized (this) {
+            log.trace("Received connector {} status update {}", connector, status);
+            ConnAndTaskStatus.CacheEntry<ConnectorStatus> entry = connAndTaskStatus.getOrAdd(connector);
+            if (entry.get() != null) {
+                if (status.getGeneration() > entry.get().getGeneration()) {
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `connAndTaskStatus` accessed in synchronized context
+in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/service/StateManagementServiceImpl.java`
+#### Snippet
+```java
+        synchronized (this) {
             log.trace("Received task {} status update {}", id, status);
             ConnAndTaskStatus.CacheEntry<TaskStatus> entry = connAndTaskStatus.getOrAdd(id);
             if (entry.get() != null) {
@@ -5140,18 +5152,6 @@ in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/s
         Map<Integer, ConnAndTaskStatus.CacheEntry<TaskStatus>> tasks = connAndTaskStatus.getTasks().remove(connector);
         if (tasks != null) {
             for (ConnAndTaskStatus.CacheEntry<TaskStatus> taskEntry : tasks.values()) {
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `connAndTaskStatus` accessed in synchronized context
-in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/service/StateManagementServiceImpl.java`
-#### Snippet
-```java
-        synchronized (this) {
-            log.trace("Received connector {} status update {}", connector, status);
-            ConnAndTaskStatus.CacheEntry<ConnectorStatus> entry = connAndTaskStatus.getOrAdd(connector);
-            if (entry.get() != null) {
-                if (status.getGeneration() > entry.get().getGeneration()) {
 ```
 
 ### PublicFieldAccessedInSynchronizedContext
@@ -5229,318 +5229,6 @@ public class SchemaHelper {
 
 ## RuleId[ruleID=UnnecessaryBoxing]
 ### UnnecessaryBoxing
-Unnecessary boxing
-in `reporter-api/src/main/java/org/apache/rocketmq/connect/metrics/MetricUtils.java`
-#### Snippet
-```java
-        switch (histogramType) {
-            case Min:
-                return Double.valueOf(histogram.getSnapshot().getMin());
-            case Avg:
-                return Double.valueOf(histogram.getSnapshot().getMean());
-```
-
-### UnnecessaryBoxing
-Unnecessary boxing
-in `reporter-api/src/main/java/org/apache/rocketmq/connect/metrics/MetricUtils.java`
-#### Snippet
-```java
-                return Double.valueOf(histogram.getSnapshot().getMin());
-            case Avg:
-                return Double.valueOf(histogram.getSnapshot().getMean());
-            case Max:
-                return Double.valueOf(histogram.getSnapshot().getMax());
-```
-
-### UnnecessaryBoxing
-Unnecessary boxing
-in `reporter-api/src/main/java/org/apache/rocketmq/connect/metrics/MetricUtils.java`
-#### Snippet
-```java
-                return Double.valueOf(histogram.getSnapshot().getMean());
-            case Max:
-                return Double.valueOf(histogram.getSnapshot().getMax());
-            case Percentile_75th:
-                return histogram.getSnapshot().get75thPercentile();
-```
-
-### UnnecessaryBoxing
-Redundant boxing, `Boolean.parseBoolean()` call can be used instead
-in `reporter-api/src/main/java/org/apache/rocketmq/connect/metrics/reporter/RocketMQScheduledReporter.java`
-#### Snippet
-```java
-        DefaultMQAdminExt defaultMQAdminExt = null;
-        try {
-            defaultMQAdminExt = RocketMQClientUtil.startMQAdminTool(Boolean.valueOf(configs.get(ACL_ENABLED)), configs.get(ACCESS_KEY), configs.get(SECRET_KEY), groupId, configs.get(NAMESRV_ADDR));
-            if (!RocketMQClientUtil.topicExist(defaultMQAdminExt, topic)) {
-                RocketMQClientUtil.createTopic(defaultMQAdminExt, new TopicConfig(topic));
-```
-
-### UnnecessaryBoxing
-Redundant boxing, `Boolean.parseBoolean()` call can be used instead
-in `reporter-api/src/main/java/org/apache/rocketmq/connect/metrics/reporter/RocketMQScheduledReporter.java`
-#### Snippet
-```java
-                RocketMQClientUtil.createSubGroup(defaultMQAdminExt, groupId);
-            }
-            this.producer = RocketMQClientUtil.initDefaultMQProducer(Boolean.valueOf(configs.get(ACL_ENABLED)), configs.get(ACCESS_KEY), configs.get(SECRET_KEY), groupId, configs.get(NAMESRV_ADDR));
-            this.producer.start();
-        } catch (Exception e) {
-```
-
-### UnnecessaryBoxing
-Redundant boxing, `Integer.parseInt()` call can be used instead
-in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/config/SinkConnectorConfig.java`
-#### Snippet
-```java
-            return null;
-        }
-        return new MessageQueue(messageQueueStrList.get(0), messageQueueStrList.get(1), Integer.valueOf(messageQueueStrList.get(2)));
-    }
-
-```
-
-### UnnecessaryBoxing
-Redundant boxing, `Integer.parseInt()` call can be used instead
-in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/common/ConnectKeyValue.java`
-#### Snippet
-```java
-        if (!properties.containsKey(key))
-            return 0;
-        return Integer.valueOf(properties.get(key));
-    }
-
-```
-
-### UnnecessaryBoxing
-Redundant boxing, `Long.parseLong()` call can be used instead
-in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/common/ConnectKeyValue.java`
-#### Snippet
-```java
-        if (!properties.containsKey(key))
-            return 0;
-        return Long.valueOf(properties.get(key));
-    }
-
-```
-
-### UnnecessaryBoxing
-Redundant boxing, `Double.parseDouble()` call can be used instead
-in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/common/ConnectKeyValue.java`
-#### Snippet
-```java
-        if (!properties.containsKey(key))
-            return 0;
-        return Double.valueOf(properties.get(key));
-    }
-
-```
-
-### UnnecessaryBoxing
-Redundant boxing, `Boolean.parseBoolean()` call can be used instead
-in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/errors/DeadLetterQueueConfig.java`
-#### Snippet
-```java
-    public Boolean isDlqContextHeadersEnabled() {
-        return config.getProperties().containsKey(DLQ_CONTEXT_PROPERTIES_ENABLE_CONFIG) ?
-                Boolean.valueOf(config.getProperties().get(DLQ_CONTEXT_PROPERTIES_ENABLE_CONFIG)) : DLQ_CONTEXT_PROPERTIES_ENABLE_DEFAULT;
-    }
-
-```
-
-### UnnecessaryBoxing
-Redundant boxing, `Boolean.parseBoolean()` call can be used instead
-in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/errors/DeadLetterQueueConfig.java`
-#### Snippet
-```java
-    public boolean includeRecordDetailsInErrorLog() {
-        return config.getProperties().containsKey(ERRORS_LOG_INCLUDE_MESSAGES_CONFIG) ?
-                Boolean.valueOf(config.getProperties().get(ERRORS_LOG_INCLUDE_MESSAGES_CONFIG)) : ERRORS_LOG_INCLUDE_MESSAGES_DEFAULT;
-    }
-
-```
-
-### UnnecessaryBoxing
-Redundant boxing, `Boolean.parseBoolean()` call can be used instead
-in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/errors/DeadLetterQueueConfig.java`
-#### Snippet
-```java
-    private boolean enableErrorLog() {
-        return config.getProperties().containsKey(ERRORS_LOG_ENABLE_CONFIG) ?
-                Boolean.valueOf(config.getProperties().get(ERRORS_LOG_ENABLE_CONFIG)) : ERRORS_LOG_ENABLE_DEFAULT;
-
-    }
-```
-
-### UnnecessaryBoxing
-Redundant boxing, `Long.parseLong()` call can be used instead
-in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/converter/record/json/JsonConverter.java`
-#### Snippet
-```java
-            public Object toConnect(final Schema schema, final Object value) {
-                if (value instanceof Number) {
-                    return Timestamp.toLogical(schema, Long.valueOf(value.toString()));
-                }
-                throw new ConnectException("Invalid type for Timestamp, underlying representation should be integral but was " + value);
-```
-
-### UnnecessaryBoxing
-Redundant boxing, `Double.parseDouble()` call can be used instead
-in `rocketmq-connect-cli/src/main/java/org/apache/rocketmq/connect/cli/commom/ConnectKeyValue.java`
-#### Snippet
-```java
-        if (!properties.containsKey(key))
-            return 0;
-        return Double.valueOf(properties.get(key));
-    }
-
-```
-
-### UnnecessaryBoxing
-Redundant boxing, `Integer.parseInt()` call can be used instead
-in `rocketmq-connect-cli/src/main/java/org/apache/rocketmq/connect/cli/commom/ConnectKeyValue.java`
-#### Snippet
-```java
-        if (!properties.containsKey(key))
-            return 0;
-        return Integer.valueOf(properties.get(key));
-    }
-
-```
-
-### UnnecessaryBoxing
-Redundant boxing, `Long.parseLong()` call can be used instead
-in `rocketmq-connect-cli/src/main/java/org/apache/rocketmq/connect/cli/commom/ConnectKeyValue.java`
-#### Snippet
-```java
-        if (!properties.containsKey(key))
-            return 0;
-        return Long.valueOf(properties.get(key));
-    }
-
-```
-
-### UnnecessaryBoxing
-Redundant boxing, `Boolean.parseBoolean()` call can be used instead
-in `schema-converter/avro-schema-converter/src/main/java/org/apache/rocketmq/schema/avro/AvroDataConfig.java`
-#### Snippet
-```java
-    public boolean isConnectMetaData() {
-        return props.containsKey(CONNECT_META_DATA_CONFIG) ?
-                Boolean.valueOf(props.get(CONNECT_META_DATA_CONFIG).toString()) : CONNECT_META_DATA_DEFAULT;
-    }
-
-```
-
-### UnnecessaryBoxing
-Redundant boxing, `Boolean.parseBoolean()` call can be used instead
-in `schema-converter/avro-schema-converter/src/main/java/org/apache/rocketmq/schema/avro/AvroDataConfig.java`
-#### Snippet
-```java
-    public boolean isEnhancedAvroSchemaSupport() {
-        return props.containsKey(ENHANCED_AVRO_SCHEMA_SUPPORT_CONFIG) ?
-                Boolean.valueOf(props.get(ENHANCED_AVRO_SCHEMA_SUPPORT_CONFIG).toString()) : ENHANCED_AVRO_SCHEMA_SUPPORT_DEFAULT;
-    }
-
-```
-
-### UnnecessaryBoxing
-Redundant boxing, `Boolean.parseBoolean()` call can be used instead
-in `schema-converter/avro-schema-converter/src/main/java/org/apache/rocketmq/schema/avro/AvroConverterConfig.java`
-#### Snippet
-```java
-    public boolean useSchemaReflection() {
-        return props.containsKey(SCHEMA_REFLECTION_CONFIG) ?
-                Boolean.valueOf(props.get(SCHEMA_REFLECTION_CONFIG).toString()) : SCHEMA_REFLECTION_DEFAULT;
-    }
-
-```
-
-### UnnecessaryBoxing
-Redundant boxing, `Boolean.parseBoolean()` call can be used instead
-in `schema-converter/avro-schema-converter/src/main/java/org/apache/rocketmq/schema/avro/AvroConverterConfig.java`
-#### Snippet
-```java
-    public boolean avroReflectionAllowNullConfig() {
-        return props.containsKey(AVRO_REFLECTION_ALLOW_NULL_CONFIG) ?
-                Boolean.valueOf(props.get(AVRO_REFLECTION_ALLOW_NULL_CONFIG).toString()) : AVRO_REFLECTION_ALLOW_NULL_DEFAULT;
-
-    }
-```
-
-### UnnecessaryBoxing
-Redundant boxing, `Boolean.parseBoolean()` call can be used instead
-in `schema-converter/avro-schema-converter/src/main/java/org/apache/rocketmq/schema/avro/AvroConverterConfig.java`
-#### Snippet
-```java
-    public boolean specificAvroReaderConfig() {
-        return props.containsKey(SPECIFIC_AVRO_READER_CONFIG) ?
-                Boolean.valueOf(props.get(SPECIFIC_AVRO_READER_CONFIG).toString()) : SPECIFIC_AVRO_READER_DEFAULT;
-
-    }
-```
-
-### UnnecessaryBoxing
-Redundant boxing, `Boolean.parseBoolean()` call can be used instead
-in `schema-converter/avro-schema-converter/src/main/java/org/apache/rocketmq/schema/avro/AvroConverterConfig.java`
-#### Snippet
-```java
-    public boolean avroUseLogicalTypeConverters() {
-        return props.containsKey(AVRO_USE_LOGICAL_TYPE_CONVERTERS_CONFIG) ?
-                Boolean.valueOf(props.get(AVRO_USE_LOGICAL_TYPE_CONVERTERS_CONFIG).toString()) : AVRO_USE_LOGICAL_TYPE_CONVERTERS_DEFAULT;
-    }
-
-```
-
-### UnnecessaryBoxing
-Redundant boxing, `Boolean.parseBoolean()` call can be used instead
-in `schema-converter/json-schema-converter/src/main/java/org/apache/rocketmq/schema/json/JsonSchemaConverterConfig.java`
-#### Snippet
-```java
-    public boolean useOptionalForNonRequiredProperties() {
-        return props.containsKey(USE_OPTIONAL_FOR_NON_REQUIRED_CONFIG) ?
-                Boolean.valueOf(props.get(USE_OPTIONAL_FOR_NON_REQUIRED_CONFIG).toString()) : USE_OPTIONAL_FOR_NON_REQUIRED_DEFAULT;
-    }
-
-```
-
-### UnnecessaryBoxing
-Redundant boxing, `Boolean.parseBoolean()` call can be used instead
-in `schema-converter/json-schema-converter/src/main/java/org/apache/rocketmq/schema/json/JsonSchemaConverterConfig.java`
-#### Snippet
-```java
-    public boolean validate() {
-        return props.containsKey(VALIDATE_ENABLED) ?
-                Boolean.valueOf(props.get(VALIDATE_ENABLED).toString()) : VALIDATE_ENABLED_DEFAULT;
-    }
-
-```
-
-### UnnecessaryBoxing
-Redundant boxing, `Long.parseLong()` call can be used instead
-in `rocketmq-connect-sample/src/main/java/org/apache/rocketmq/connect/file/FileSourceTask.java`
-#### Snippet
-```java
-                    if (lastRecordedOffset != null) {
-                        log.debug("Found previous offset, trying to skip to file offset {}", lastRecordedOffset);
-                        long skipLeft = Long.valueOf(String.valueOf(lastRecordedOffset));
-                        while (skipLeft > 0) {
-                            try {
-```
-
-### UnnecessaryBoxing
-Redundant boxing, `Long.parseLong()` call can be used instead
-in `rocketmq-connect-sample/src/main/java/org/apache/rocketmq/connect/file/FileSourceTask.java`
-#### Snippet
-```java
-                        log.debug("Skipped to offset {}", lastRecordedOffset);
-                    }
-                    streamOffset = (lastRecordedOffset != null) ? Long.valueOf(String.valueOf(lastRecordedOffset)) : 0L;
-                } else {
-                    log.info("positionInfo is null!");
-```
-
-### UnnecessaryBoxing
 Redundant boxing, `Boolean.parseBoolean()` call can be used instead
 in `schema-converter/schema-converter-common/src/main/java/org/apache/rocketmq/schema/common/AbstractConverterConfig.java`
 #### Snippet
@@ -5578,6 +5266,294 @@ in `schema-converter/schema-converter-common/src/main/java/org/apache/rocketmq/s
 
 ### UnnecessaryBoxing
 Redundant boxing, `Long.parseLong()` call can be used instead
+in `rocketmq-connect-sample/src/main/java/org/apache/rocketmq/connect/file/FileSourceTask.java`
+#### Snippet
+```java
+                    if (lastRecordedOffset != null) {
+                        log.debug("Found previous offset, trying to skip to file offset {}", lastRecordedOffset);
+                        long skipLeft = Long.valueOf(String.valueOf(lastRecordedOffset));
+                        while (skipLeft > 0) {
+                            try {
+```
+
+### UnnecessaryBoxing
+Redundant boxing, `Long.parseLong()` call can be used instead
+in `rocketmq-connect-sample/src/main/java/org/apache/rocketmq/connect/file/FileSourceTask.java`
+#### Snippet
+```java
+                        log.debug("Skipped to offset {}", lastRecordedOffset);
+                    }
+                    streamOffset = (lastRecordedOffset != null) ? Long.valueOf(String.valueOf(lastRecordedOffset)) : 0L;
+                } else {
+                    log.info("positionInfo is null!");
+```
+
+### UnnecessaryBoxing
+Redundant boxing, `Long.parseLong()` call can be used instead
+in `rocketmq-connect-cli/src/main/java/org/apache/rocketmq/connect/cli/commom/ConnectKeyValue.java`
+#### Snippet
+```java
+        if (!properties.containsKey(key))
+            return 0;
+        return Long.valueOf(properties.get(key));
+    }
+
+```
+
+### UnnecessaryBoxing
+Redundant boxing, `Double.parseDouble()` call can be used instead
+in `rocketmq-connect-cli/src/main/java/org/apache/rocketmq/connect/cli/commom/ConnectKeyValue.java`
+#### Snippet
+```java
+        if (!properties.containsKey(key))
+            return 0;
+        return Double.valueOf(properties.get(key));
+    }
+
+```
+
+### UnnecessaryBoxing
+Redundant boxing, `Integer.parseInt()` call can be used instead
+in `rocketmq-connect-cli/src/main/java/org/apache/rocketmq/connect/cli/commom/ConnectKeyValue.java`
+#### Snippet
+```java
+        if (!properties.containsKey(key))
+            return 0;
+        return Integer.valueOf(properties.get(key));
+    }
+
+```
+
+### UnnecessaryBoxing
+Redundant boxing, `Boolean.parseBoolean()` call can be used instead
+in `schema-converter/json-schema-converter/src/main/java/org/apache/rocketmq/schema/json/JsonSchemaConverterConfig.java`
+#### Snippet
+```java
+    public boolean useOptionalForNonRequiredProperties() {
+        return props.containsKey(USE_OPTIONAL_FOR_NON_REQUIRED_CONFIG) ?
+                Boolean.valueOf(props.get(USE_OPTIONAL_FOR_NON_REQUIRED_CONFIG).toString()) : USE_OPTIONAL_FOR_NON_REQUIRED_DEFAULT;
+    }
+
+```
+
+### UnnecessaryBoxing
+Redundant boxing, `Boolean.parseBoolean()` call can be used instead
+in `schema-converter/json-schema-converter/src/main/java/org/apache/rocketmq/schema/json/JsonSchemaConverterConfig.java`
+#### Snippet
+```java
+    public boolean validate() {
+        return props.containsKey(VALIDATE_ENABLED) ?
+                Boolean.valueOf(props.get(VALIDATE_ENABLED).toString()) : VALIDATE_ENABLED_DEFAULT;
+    }
+
+```
+
+### UnnecessaryBoxing
+Redundant boxing, `Integer.parseInt()` call can be used instead
+in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/config/SinkConnectorConfig.java`
+#### Snippet
+```java
+            return null;
+        }
+        return new MessageQueue(messageQueueStrList.get(0), messageQueueStrList.get(1), Integer.valueOf(messageQueueStrList.get(2)));
+    }
+
+```
+
+### UnnecessaryBoxing
+Redundant boxing, `Long.parseLong()` call can be used instead
+in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/common/ConnectKeyValue.java`
+#### Snippet
+```java
+        if (!properties.containsKey(key))
+            return 0;
+        return Long.valueOf(properties.get(key));
+    }
+
+```
+
+### UnnecessaryBoxing
+Redundant boxing, `Double.parseDouble()` call can be used instead
+in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/common/ConnectKeyValue.java`
+#### Snippet
+```java
+        if (!properties.containsKey(key))
+            return 0;
+        return Double.valueOf(properties.get(key));
+    }
+
+```
+
+### UnnecessaryBoxing
+Redundant boxing, `Integer.parseInt()` call can be used instead
+in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/common/ConnectKeyValue.java`
+#### Snippet
+```java
+        if (!properties.containsKey(key))
+            return 0;
+        return Integer.valueOf(properties.get(key));
+    }
+
+```
+
+### UnnecessaryBoxing
+Redundant boxing, `Boolean.parseBoolean()` call can be used instead
+in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/errors/DeadLetterQueueConfig.java`
+#### Snippet
+```java
+    public boolean includeRecordDetailsInErrorLog() {
+        return config.getProperties().containsKey(ERRORS_LOG_INCLUDE_MESSAGES_CONFIG) ?
+                Boolean.valueOf(config.getProperties().get(ERRORS_LOG_INCLUDE_MESSAGES_CONFIG)) : ERRORS_LOG_INCLUDE_MESSAGES_DEFAULT;
+    }
+
+```
+
+### UnnecessaryBoxing
+Redundant boxing, `Boolean.parseBoolean()` call can be used instead
+in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/errors/DeadLetterQueueConfig.java`
+#### Snippet
+```java
+    private boolean enableErrorLog() {
+        return config.getProperties().containsKey(ERRORS_LOG_ENABLE_CONFIG) ?
+                Boolean.valueOf(config.getProperties().get(ERRORS_LOG_ENABLE_CONFIG)) : ERRORS_LOG_ENABLE_DEFAULT;
+
+    }
+```
+
+### UnnecessaryBoxing
+Redundant boxing, `Boolean.parseBoolean()` call can be used instead
+in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/errors/DeadLetterQueueConfig.java`
+#### Snippet
+```java
+    public Boolean isDlqContextHeadersEnabled() {
+        return config.getProperties().containsKey(DLQ_CONTEXT_PROPERTIES_ENABLE_CONFIG) ?
+                Boolean.valueOf(config.getProperties().get(DLQ_CONTEXT_PROPERTIES_ENABLE_CONFIG)) : DLQ_CONTEXT_PROPERTIES_ENABLE_DEFAULT;
+    }
+
+```
+
+### UnnecessaryBoxing
+Redundant boxing, `Long.parseLong()` call can be used instead
+in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/converter/record/json/JsonConverter.java`
+#### Snippet
+```java
+            public Object toConnect(final Schema schema, final Object value) {
+                if (value instanceof Number) {
+                    return Timestamp.toLogical(schema, Long.valueOf(value.toString()));
+                }
+                throw new ConnectException("Invalid type for Timestamp, underlying representation should be integral but was " + value);
+```
+
+### UnnecessaryBoxing
+Redundant boxing, `Boolean.parseBoolean()` call can be used instead
+in `schema-converter/avro-schema-converter/src/main/java/org/apache/rocketmq/schema/avro/AvroDataConfig.java`
+#### Snippet
+```java
+    public boolean isConnectMetaData() {
+        return props.containsKey(CONNECT_META_DATA_CONFIG) ?
+                Boolean.valueOf(props.get(CONNECT_META_DATA_CONFIG).toString()) : CONNECT_META_DATA_DEFAULT;
+    }
+
+```
+
+### UnnecessaryBoxing
+Redundant boxing, `Boolean.parseBoolean()` call can be used instead
+in `schema-converter/avro-schema-converter/src/main/java/org/apache/rocketmq/schema/avro/AvroDataConfig.java`
+#### Snippet
+```java
+    public boolean isEnhancedAvroSchemaSupport() {
+        return props.containsKey(ENHANCED_AVRO_SCHEMA_SUPPORT_CONFIG) ?
+                Boolean.valueOf(props.get(ENHANCED_AVRO_SCHEMA_SUPPORT_CONFIG).toString()) : ENHANCED_AVRO_SCHEMA_SUPPORT_DEFAULT;
+    }
+
+```
+
+### UnnecessaryBoxing
+Redundant boxing, `Boolean.parseBoolean()` call can be used instead
+in `schema-converter/avro-schema-converter/src/main/java/org/apache/rocketmq/schema/avro/AvroConverterConfig.java`
+#### Snippet
+```java
+    public boolean specificAvroReaderConfig() {
+        return props.containsKey(SPECIFIC_AVRO_READER_CONFIG) ?
+                Boolean.valueOf(props.get(SPECIFIC_AVRO_READER_CONFIG).toString()) : SPECIFIC_AVRO_READER_DEFAULT;
+
+    }
+```
+
+### UnnecessaryBoxing
+Redundant boxing, `Boolean.parseBoolean()` call can be used instead
+in `schema-converter/avro-schema-converter/src/main/java/org/apache/rocketmq/schema/avro/AvroConverterConfig.java`
+#### Snippet
+```java
+    public boolean avroUseLogicalTypeConverters() {
+        return props.containsKey(AVRO_USE_LOGICAL_TYPE_CONVERTERS_CONFIG) ?
+                Boolean.valueOf(props.get(AVRO_USE_LOGICAL_TYPE_CONVERTERS_CONFIG).toString()) : AVRO_USE_LOGICAL_TYPE_CONVERTERS_DEFAULT;
+    }
+
+```
+
+### UnnecessaryBoxing
+Redundant boxing, `Boolean.parseBoolean()` call can be used instead
+in `schema-converter/avro-schema-converter/src/main/java/org/apache/rocketmq/schema/avro/AvroConverterConfig.java`
+#### Snippet
+```java
+    public boolean avroReflectionAllowNullConfig() {
+        return props.containsKey(AVRO_REFLECTION_ALLOW_NULL_CONFIG) ?
+                Boolean.valueOf(props.get(AVRO_REFLECTION_ALLOW_NULL_CONFIG).toString()) : AVRO_REFLECTION_ALLOW_NULL_DEFAULT;
+
+    }
+```
+
+### UnnecessaryBoxing
+Redundant boxing, `Boolean.parseBoolean()` call can be used instead
+in `schema-converter/avro-schema-converter/src/main/java/org/apache/rocketmq/schema/avro/AvroConverterConfig.java`
+#### Snippet
+```java
+    public boolean useSchemaReflection() {
+        return props.containsKey(SCHEMA_REFLECTION_CONFIG) ?
+                Boolean.valueOf(props.get(SCHEMA_REFLECTION_CONFIG).toString()) : SCHEMA_REFLECTION_DEFAULT;
+    }
+
+```
+
+### UnnecessaryBoxing
+Unnecessary boxing
+in `reporter-api/src/main/java/org/apache/rocketmq/connect/metrics/MetricUtils.java`
+#### Snippet
+```java
+        switch (histogramType) {
+            case Min:
+                return Double.valueOf(histogram.getSnapshot().getMin());
+            case Avg:
+                return Double.valueOf(histogram.getSnapshot().getMean());
+```
+
+### UnnecessaryBoxing
+Unnecessary boxing
+in `reporter-api/src/main/java/org/apache/rocketmq/connect/metrics/MetricUtils.java`
+#### Snippet
+```java
+                return Double.valueOf(histogram.getSnapshot().getMin());
+            case Avg:
+                return Double.valueOf(histogram.getSnapshot().getMean());
+            case Max:
+                return Double.valueOf(histogram.getSnapshot().getMax());
+```
+
+### UnnecessaryBoxing
+Unnecessary boxing
+in `reporter-api/src/main/java/org/apache/rocketmq/connect/metrics/MetricUtils.java`
+#### Snippet
+```java
+                return Double.valueOf(histogram.getSnapshot().getMean());
+            case Max:
+                return Double.valueOf(histogram.getSnapshot().getMax());
+            case Percentile_75th:
+                return histogram.getSnapshot().get75thPercentile();
+```
+
+### UnnecessaryBoxing
+Redundant boxing, `Long.parseLong()` call can be used instead
 in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/connectorwrapper/WorkerSinkTask.java`
 #### Snippet
 ```java
@@ -5586,6 +5562,30 @@ in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/c
         Long timestamp = StringUtils.isNotEmpty(connectTimestamp) ? Long.valueOf(connectTimestamp) : message.getBornTimestamp();
 
         // partition and offset
+```
+
+### UnnecessaryBoxing
+Redundant boxing, `Boolean.parseBoolean()` call can be used instead
+in `reporter-api/src/main/java/org/apache/rocketmq/connect/metrics/reporter/RocketMQScheduledReporter.java`
+#### Snippet
+```java
+        DefaultMQAdminExt defaultMQAdminExt = null;
+        try {
+            defaultMQAdminExt = RocketMQClientUtil.startMQAdminTool(Boolean.valueOf(configs.get(ACL_ENABLED)), configs.get(ACCESS_KEY), configs.get(SECRET_KEY), groupId, configs.get(NAMESRV_ADDR));
+            if (!RocketMQClientUtil.topicExist(defaultMQAdminExt, topic)) {
+                RocketMQClientUtil.createTopic(defaultMQAdminExt, new TopicConfig(topic));
+```
+
+### UnnecessaryBoxing
+Redundant boxing, `Boolean.parseBoolean()` call can be used instead
+in `reporter-api/src/main/java/org/apache/rocketmq/connect/metrics/reporter/RocketMQScheduledReporter.java`
+#### Snippet
+```java
+                RocketMQClientUtil.createSubGroup(defaultMQAdminExt, groupId);
+            }
+            this.producer = RocketMQClientUtil.initDefaultMQProducer(Boolean.valueOf(configs.get(ACL_ENABLED)), configs.get(ACCESS_KEY), configs.get(SECRET_KEY), groupId, configs.get(NAMESRV_ADDR));
+            this.producer.start();
+        } catch (Exception e) {
 ```
 
 ## RuleId[ruleID=SynchronizeOnNonFinalField]
@@ -5653,42 +5653,6 @@ in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/s
 
 ### CharsetObjectCanBeUsed
 StandardCharsets.UTF_8 can be used instead
-in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/serialization/store/RecordOffsetDeserializer.java`
-#### Snippet
-```java
-    public RecordOffset deserialize(String topic, byte[] data) {
-        try {
-            String text = new String(data, "UTF-8");
-            RecordOffset res = JSON.parseObject(text, RecordOffset.class);
-            return res;
-```
-
-### CharsetObjectCanBeUsed
-StandardCharsets.UTF_8 can be used instead
-in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/serialization/store/RecordOffsetSerializer.java`
-#### Snippet
-```java
-        try {
-            String json = JSON.toJSONString(data);
-            return json.getBytes("UTF-8");
-        } catch (Exception e) {
-            log.error("RecordOffsetSerializer serialize failed", e);
-```
-
-### CharsetObjectCanBeUsed
-StandardCharsets.UTF_8 can be used instead
-in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/serialization/store/RecordPartitionSerializer.java`
-#### Snippet
-```java
-        try {
-            String json = JSON.toJSONString(data);
-            return json.getBytes("UTF-8");
-        } catch (Exception e) {
-            log.error("JsonConverter#objectToByte failed", e);
-```
-
-### CharsetObjectCanBeUsed
-StandardCharsets.UTF_8 can be used instead
 in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/serialization/store/RecordPositionMapSerializer.java`
 #### Snippet
 ```java
@@ -5725,6 +5689,30 @@ in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/s
 
 ### CharsetObjectCanBeUsed
 StandardCharsets.UTF_8 can be used instead
+in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/serialization/store/RecordOffsetSerializer.java`
+#### Snippet
+```java
+        try {
+            String json = JSON.toJSONString(data);
+            return json.getBytes("UTF-8");
+        } catch (Exception e) {
+            log.error("RecordOffsetSerializer serialize failed", e);
+```
+
+### CharsetObjectCanBeUsed
+StandardCharsets.UTF_8 can be used instead
+in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/serialization/store/RecordPartitionSerializer.java`
+#### Snippet
+```java
+        try {
+            String json = JSON.toJSONString(data);
+            return json.getBytes("UTF-8");
+        } catch (Exception e) {
+            log.error("JsonConverter#objectToByte failed", e);
+```
+
+### CharsetObjectCanBeUsed
+StandardCharsets.UTF_8 can be used instead
 in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/serialization/store/ConnectKeyValueSerializer.java`
 #### Snippet
 ```java
@@ -5733,6 +5721,18 @@ in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/s
             return JSON.toJSONString(data).getBytes("UTF-8");
         } catch (Exception e) {
             log.error("ConnectKeyValueConverter#objectToByte failed", e);
+```
+
+### CharsetObjectCanBeUsed
+StandardCharsets.UTF_8 can be used instead
+in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/serialization/store/RecordOffsetDeserializer.java`
+#### Snippet
+```java
+    public RecordOffset deserialize(String topic, byte[] data) {
+        try {
+            String text = new String(data, "UTF-8");
+            RecordOffset res = JSON.parseObject(text, RecordOffset.class);
+            return res;
 ```
 
 ### CharsetObjectCanBeUsed
@@ -5749,18 +5749,6 @@ in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/s
 
 ### CharsetObjectCanBeUsed
 StandardCharsets.UTF_8 can be used instead
-in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/serialization/store/RecordPartitionDeserializer.java`
-#### Snippet
-```java
-    public ExtendRecordPartition deserialize(String topic, byte[] data) {
-        try {
-            String text = new String(data, "UTF-8");
-            ExtendRecordPartition res = JSON.parseObject(text, ExtendRecordPartition.class);
-            return res;
-```
-
-### CharsetObjectCanBeUsed
-StandardCharsets.UTF_8 can be used instead
 in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/serialization/store/RecordPositionMapDeserializer.java`
 #### Snippet
 ```java
@@ -5771,77 +5759,65 @@ in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/s
             for (String key : map.keySet()) {
 ```
 
+### CharsetObjectCanBeUsed
+StandardCharsets.UTF_8 can be used instead
+in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/serialization/store/RecordPartitionDeserializer.java`
+#### Snippet
+```java
+    public ExtendRecordPartition deserialize(String topic, byte[] data) {
+        try {
+            String text = new String(data, "UTF-8");
+            ExtendRecordPartition res = JSON.parseObject(text, ExtendRecordPartition.class);
+            return res;
+```
+
 ## RuleId[ruleID=SystemOutErr]
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
-in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/StandaloneConnectStartup.java`
+in `rocketmq-connect-sample/src/main/java/org/apache/rocketmq/connect/file/FileSinkTask.java`
 #### Snippet
 ```java
-            String tip = "The standalone worker boot success.";
-            log.info(tip);
-            System.out.printf("%s%n", tip);
-        } catch (Throwable e) {
-            e.printStackTrace();
+        fileConfig.load(config);
+        if (fileConfig.getFilename() == null || fileConfig.getFilename().isEmpty()) {
+            outputStream = System.out;
+        } else {
+            try {
 ```
 
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
-in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/StandaloneConnectStartup.java`
+in `rocketmq-connect-sample/src/main/java/org/apache/rocketmq/connect/file/FileSinkTask.java`
 #### Snippet
 ```java
 
-            if (null == config.getConnectHome()) {
-                System.out.printf("Please set the %s variable in your environment to match the location of the Connect installation", WorkerConfig.CONNECT_HOME_ENV);
-                System.exit(-2);
-            }
+    @Override public void stop() {
+        if (outputStream != null && outputStream != System.out) {
+            outputStream.close();
+        }
 ```
 
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
-in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/DistributedConnectStartup.java`
+in `rocketmq-connect-cli/src/main/java/org/apache/rocketmq/connect/cli/ConnectAdminStartup.java`
 #### Snippet
 ```java
-            String tip = "The worker [" + controller.getClusterManagementService().getCurrentWorker() + "] boot success.";
-            log.info(tip);
-            System.out.printf("%s%n", tip);
-        } catch (Throwable e) {
-            e.printStackTrace();
+                            }
+                        } else {
+                            System.out.printf("The sub command %s not exist.%n", args[1]);
+                        }
+                        break;
 ```
 
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
-in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/DistributedConnectStartup.java`
+in `rocketmq-connect-cli/src/main/java/org/apache/rocketmq/connect/cli/ConnectAdminStartup.java`
 #### Snippet
 ```java
-
-            if (null == config.getConnectHome()) {
-                System.out.printf("Please set the %s variable in your environment to match the location of the Connect installation", WorkerConfig.CONNECT_HOME_ENV);
-                System.exit(-2);
-            }
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `rocketmq-connect-cli/src/main/java/org/apache/rocketmq/connect/cli/command/GetConfigInfoSubCommand.java`
-#### Snippet
-```java
-            URL url = new URL(CLIConfigDefine.PROTOCOL, config.getHttpAddr(), config.getHttpPort(), request);
-            String result = new RestSender().sendHttpRequest(url.toString(), "");
-            System.out.printf("%s%n", result);
-        } catch (Exception e) {
-            throw new SubCommandException(this.getClass().getSimpleName() + " command failed", e);
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `rocketmq-connect-cli/src/main/java/org/apache/rocketmq/connect/cli/command/StopAllSubCommand.java`
-#### Snippet
-```java
-            URL url = new URL(CLIConfigDefine.PROTOCOL, config.getHttpAddr(), config.getHttpPort(), request);
-            String result = new RestSender().sendHttpRequest(url.toString(), "");
-            System.out.printf("%s%n", result);
-        } catch (Exception e) {
-            throw new SubCommandException(this.getClass().getSimpleName() + " command failed", e);
+                        cmd.execute(commandLine, options);
+                    } else {
+                        System.out.printf("The sub command %s not exist.%n", args[0]);
+                    }
+                    break;
 ```
 
 ### SystemOutErr
@@ -5882,31 +5858,7 @@ in `rocketmq-connect-cli/src/main/java/org/apache/rocketmq/connect/cli/ConnectAd
 
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
-in `rocketmq-connect-cli/src/main/java/org/apache/rocketmq/connect/cli/ConnectAdminStartup.java`
-#### Snippet
-```java
-                            }
-                        } else {
-                            System.out.printf("The sub command %s not exist.%n", args[1]);
-                        }
-                        break;
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `rocketmq-connect-cli/src/main/java/org/apache/rocketmq/connect/cli/ConnectAdminStartup.java`
-#### Snippet
-```java
-                        cmd.execute(commandLine, options);
-                    } else {
-                        System.out.printf("The sub command %s not exist.%n", args[0]);
-                    }
-                    break;
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `rocketmq-connect-cli/src/main/java/org/apache/rocketmq/connect/cli/command/ReloadPluginsSubCommand.java`
+in `rocketmq-connect-cli/src/main/java/org/apache/rocketmq/connect/cli/command/GetConfigInfoSubCommand.java`
 #### Snippet
 ```java
             URL url = new URL(CLIConfigDefine.PROTOCOL, config.getHttpAddr(), config.getHttpPort(), request);
@@ -5918,7 +5870,19 @@ in `rocketmq-connect-cli/src/main/java/org/apache/rocketmq/connect/cli/command/R
 
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
-in `rocketmq-connect-cli/src/main/java/org/apache/rocketmq/connect/cli/command/GetAllocatedInfoCommand.java`
+in `rocketmq-connect-cli/src/main/java/org/apache/rocketmq/connect/cli/command/StopAllSubCommand.java`
+#### Snippet
+```java
+            URL url = new URL(CLIConfigDefine.PROTOCOL, config.getHttpAddr(), config.getHttpPort(), request);
+            String result = new RestSender().sendHttpRequest(url.toString(), "");
+            System.out.printf("%s%n", result);
+        } catch (Exception e) {
+            throw new SubCommandException(this.getClass().getSimpleName() + " command failed", e);
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `rocketmq-connect-cli/src/main/java/org/apache/rocketmq/connect/cli/command/ReloadPluginsSubCommand.java`
 #### Snippet
 ```java
             URL url = new URL(CLIConfigDefine.PROTOCOL, config.getHttpAddr(), config.getHttpPort(), request);
@@ -5954,6 +5918,18 @@ in `rocketmq-connect-cli/src/main/java/org/apache/rocketmq/connect/cli/command/S
 
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
+in `rocketmq-connect-cli/src/main/java/org/apache/rocketmq/connect/cli/command/QueryConnectorConfigSubCommand.java`
+#### Snippet
+```java
+            URL url = new URL(CLIConfigDefine.PROTOCOL, config.getHttpAddr(), config.getHttpPort(), request);
+            String result = new RestSender().sendHttpRequest(url.toString(), "");
+            System.out.printf("%s%n", result);
+        } catch (Exception e) {
+            throw new SubCommandException(this.getClass().getSimpleName() + " command failed", e);
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
 in `rocketmq-connect-cli/src/main/java/org/apache/rocketmq/connect/cli/command/GetClusterInfoSubCommand.java`
 #### Snippet
 ```java
@@ -5972,6 +5948,18 @@ in `rocketmq-connect-cli/src/main/java/org/apache/rocketmq/connect/cli/command/C
             String config = readFile(filePath);
             String result = new RestSender().sendHttpRequest(baseUrl.toString(), config);
             System.out.printf(result + "%n");
+        } catch (Exception e) {
+            throw new SubCommandException(this.getClass().getSimpleName() + " command failed", e);
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `rocketmq-connect-cli/src/main/java/org/apache/rocketmq/connect/cli/command/GetAllocatedInfoCommand.java`
+#### Snippet
+```java
+            URL url = new URL(CLIConfigDefine.PROTOCOL, config.getHttpAddr(), config.getHttpPort(), request);
+            String result = new RestSender().sendHttpRequest(url.toString(), "");
+            System.out.printf("%s%n", result);
         } catch (Exception e) {
             throw new SubCommandException(this.getClass().getSimpleName() + " command failed", e);
 ```
@@ -6002,18 +5990,6 @@ in `rocketmq-connect-cli/src/main/java/org/apache/rocketmq/connect/cli/command/G
 
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
-in `rocketmq-connect-cli/src/main/java/org/apache/rocketmq/connect/cli/command/QueryConnectorConfigSubCommand.java`
-#### Snippet
-```java
-            URL url = new URL(CLIConfigDefine.PROTOCOL, config.getHttpAddr(), config.getHttpPort(), request);
-            String result = new RestSender().sendHttpRequest(url.toString(), "");
-            System.out.printf("%s%n", result);
-        } catch (Exception e) {
-            throw new SubCommandException(this.getClass().getSimpleName() + " command failed", e);
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
 in `rocketmq-connect-cli/src/main/java/org/apache/rocketmq/connect/cli/command/GetAllocatedConnectors.java`
 #### Snippet
 ```java
@@ -6038,26 +6014,50 @@ in `rocketmq-connect-cli/src/main/java/org/apache/rocketmq/connect/cli/command/G
 
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
-in `rocketmq-connect-sample/src/main/java/org/apache/rocketmq/connect/file/FileSinkTask.java`
+in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/DistributedConnectStartup.java`
 #### Snippet
 ```java
-
-    @Override public void stop() {
-        if (outputStream != null && outputStream != System.out) {
-            outputStream.close();
-        }
+            String tip = "The worker [" + controller.getClusterManagementService().getCurrentWorker() + "] boot success.";
+            log.info(tip);
+            System.out.printf("%s%n", tip);
+        } catch (Throwable e) {
+            e.printStackTrace();
 ```
 
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
-in `rocketmq-connect-sample/src/main/java/org/apache/rocketmq/connect/file/FileSinkTask.java`
+in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/DistributedConnectStartup.java`
 #### Snippet
 ```java
-        fileConfig.load(config);
-        if (fileConfig.getFilename() == null || fileConfig.getFilename().isEmpty()) {
-            outputStream = System.out;
-        } else {
-            try {
+
+            if (null == config.getConnectHome()) {
+                System.out.printf("Please set the %s variable in your environment to match the location of the Connect installation", WorkerConfig.CONNECT_HOME_ENV);
+                System.exit(-2);
+            }
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/StandaloneConnectStartup.java`
+#### Snippet
+```java
+
+            if (null == config.getConnectHome()) {
+                System.out.printf("Please set the %s variable in your environment to match the location of the Connect installation", WorkerConfig.CONNECT_HOME_ENV);
+                System.exit(-2);
+            }
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/StandaloneConnectStartup.java`
+#### Snippet
+```java
+            String tip = "The standalone worker boot success.";
+            log.info(tip);
+            System.out.printf("%s%n", tip);
+        } catch (Throwable e) {
+            e.printStackTrace();
 ```
 
 ## RuleId[ruleID=ExcessiveRangeCheck]
@@ -6101,30 +6101,6 @@ in `schema-converter/avro-schema-converter/src/main/java/org/apache/rocketmq/sch
 ## RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
 ### DynamicRegexReplaceableByCompiledPattern
 `replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `reporter-api/src/main/java/org/apache/rocketmq/connect/metrics/MetricUtils.java`
-#### Snippet
-```java
-            throw new IllegalArgumentException("Metric name str is empty");
-        }
-        String[] splits = name.replace(ROCKETMQ_CONNECT, "").replace(SPLIT_KV, SPLIT_COMMA).split(SPLIT_COMMA);
-        return new MetricName(splits[0], splits[1], splits[2], getTags(Arrays.copyOfRange(splits, 3, splits.length))
-        );
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `reporter-api/src/main/java/org/apache/rocketmq/connect/metrics/MetricUtils.java`
-#### Snippet
-```java
-            throw new IllegalArgumentException("Metric name str is empty");
-        }
-        String[] splits = name.replace(ROCKETMQ_CONNECT, "").replace(SPLIT_KV, SPLIT_COMMA).split(SPLIT_COMMA);
-        return new MetricName(splits[0], splits[1], splits[2], getTags(Arrays.copyOfRange(splits, 3, splits.length))
-        );
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
 in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/utils/ConnectUtil.java`
 #### Snippet
 ```java
@@ -6133,6 +6109,30 @@ in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/u
         return sb.toString().replace(".", "-");
     }
 
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `reporter-api/src/main/java/org/apache/rocketmq/connect/metrics/MetricUtils.java`
+#### Snippet
+```java
+            throw new IllegalArgumentException("Metric name str is empty");
+        }
+        String[] splits = name.replace(ROCKETMQ_CONNECT, "").replace(SPLIT_KV, SPLIT_COMMA).split(SPLIT_COMMA);
+        return new MetricName(splits[0], splits[1], splits[2], getTags(Arrays.copyOfRange(splits, 3, splits.length))
+        );
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `reporter-api/src/main/java/org/apache/rocketmq/connect/metrics/MetricUtils.java`
+#### Snippet
+```java
+            throw new IllegalArgumentException("Metric name str is empty");
+        }
+        String[] splits = name.replace(ROCKETMQ_CONNECT, "").replace(SPLIT_KV, SPLIT_COMMA).split(SPLIT_COMMA);
+        return new MetricName(splits[0], splits[1], splits[2], getTags(Arrays.copyOfRange(splits, 3, splits.length))
+        );
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
@@ -6148,6 +6148,42 @@ in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/c
 ```
 
 ## RuleId[ruleID=UnnecessaryFullyQualifiedName]
+### UnnecessaryFullyQualifiedName
+Qualifier `org.everit.json.schema` is unnecessary and can be removed
+in `schema-converter/json-schema-converter/src/main/java/org/apache/rocketmq/schema/json/JsonSchema.java`
+#### Snippet
+```java
+    private final JsonNode jsonNode;
+    private final Integer version;
+    private transient org.everit.json.schema.Schema schemaObj;
+    private transient String canonicalString;
+
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.everit.json.schema` is unnecessary and can be removed
+in `schema-converter/json-schema-converter/src/main/java/org/apache/rocketmq/schema/json/JsonSchema.java`
+#### Snippet
+```java
+    }
+
+    public JsonSchema(org.everit.json.schema.Schema schemaObj, Integer version) {
+        try {
+            this.jsonNode = schemaObj != null ? OBJECT_MAPPER.readTree(schemaObj.toString()) : null;
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.everit.json.schema` is unnecessary and can be removed
+in `schema-converter/json-schema-converter/src/main/java/org/apache/rocketmq/schema/json/JsonSchema.java`
+#### Snippet
+```java
+    }
+
+    public JsonSchema(org.everit.json.schema.Schema schemaObj) {
+        this(schemaObj, null);
+    }
+```
+
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.apache.rocketmq.client.producer` is unnecessary, and can be replaced with an import
 in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/utils/datasync/BrokerBasedLog.java`
@@ -6206,42 +6242,6 @@ in `schema-converter/avro-schema-converter/src/main/java/org/apache/rocketmq/sch
         org.apache.avro.Schema avroSchema = schema.rawSchema();
         try {
             RegisterSchemaRequest registerSchemaRequest = RegisterSchemaRequest.builder()
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.everit.json.schema` is unnecessary and can be removed
-in `schema-converter/json-schema-converter/src/main/java/org/apache/rocketmq/schema/json/JsonSchema.java`
-#### Snippet
-```java
-    }
-
-    public JsonSchema(org.everit.json.schema.Schema schemaObj) {
-        this(schemaObj, null);
-    }
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.everit.json.schema` is unnecessary and can be removed
-in `schema-converter/json-schema-converter/src/main/java/org/apache/rocketmq/schema/json/JsonSchema.java`
-#### Snippet
-```java
-    private final JsonNode jsonNode;
-    private final Integer version;
-    private transient org.everit.json.schema.Schema schemaObj;
-    private transient String canonicalString;
-
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.everit.json.schema` is unnecessary and can be removed
-in `schema-converter/json-schema-converter/src/main/java/org/apache/rocketmq/schema/json/JsonSchema.java`
-#### Snippet
-```java
-    }
-
-    public JsonSchema(org.everit.json.schema.Schema schemaObj, Integer version) {
-        try {
-            this.jsonNode = schemaObj != null ? OBJECT_MAPPER.readTree(schemaObj.toString()) : null;
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -6307,66 +6307,6 @@ in `schema-converter/avro-schema-converter/src/main/java/org/apache/rocketmq/sch
 ## RuleId[ruleID=ThrowablePrintStackTrace]
 ### ThrowablePrintStackTrace
 Call to `printStackTrace()` should probably be replaced with more robust logging
-in `reporter-api/src/main/java/org/apache/rocketmq/connect/metrics/reporter/RocketMQClientUtil.java`
-#### Snippet
-```java
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-            throw new RuntimeException("fetch all topic  failed", e);
-        }
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/DistributedConnectStartup.java`
-#### Snippet
-```java
-            System.out.printf("%s%n", tip);
-        } catch (Throwable e) {
-            e.printStackTrace();
-            System.exit(-1);
-        }
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/DistributedConnectStartup.java`
-#### Snippet
-```java
-
-        } catch (Throwable e) {
-            e.printStackTrace();
-            System.exit(-1);
-        }
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/StandaloneConnectStartup.java`
-#### Snippet
-```java
-            System.out.printf("%s%n", tip);
-        } catch (Throwable e) {
-            e.printStackTrace();
-            System.exit(-1);
-        }
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/StandaloneConnectStartup.java`
-#### Snippet
-```java
-
-        } catch (Throwable e) {
-            e.printStackTrace();
-            System.exit(-1);
-        }
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
 in `rocketmq-connect-cli/src/main/java/org/apache/rocketmq/connect/cli/utils/RestSender.java`
 #### Snippet
 ```java
@@ -6375,18 +6315,6 @@ in `rocketmq-connect-cli/src/main/java/org/apache/rocketmq/connect/cli/utils/Res
             e.printStackTrace();
         }
         return "";
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `rocketmq-connect-cli/src/main/java/org/apache/rocketmq/connect/cli/utils/FileAndPropertyUtil.java`
-#### Snippet
-```java
-                    }
-                } catch (IllegalAccessException | InvocationTargetException e) {
-                    e.printStackTrace();
-                }
-            }
 ```
 
 ### ThrowablePrintStackTrace
@@ -6411,6 +6339,78 @@ in `rocketmq-connect-cli/src/main/java/org/apache/rocketmq/connect/cli/command/C
             e.printStackTrace();
         }
         return sb.toString();
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `rocketmq-connect-cli/src/main/java/org/apache/rocketmq/connect/cli/utils/FileAndPropertyUtil.java`
+#### Snippet
+```java
+                    }
+                } catch (IllegalAccessException | InvocationTargetException e) {
+                    e.printStackTrace();
+                }
+            }
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/DistributedConnectStartup.java`
+#### Snippet
+```java
+            System.out.printf("%s%n", tip);
+        } catch (Throwable e) {
+            e.printStackTrace();
+            System.exit(-1);
+        }
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/DistributedConnectStartup.java`
+#### Snippet
+```java
+
+        } catch (Throwable e) {
+            e.printStackTrace();
+            System.exit(-1);
+        }
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/StandaloneConnectStartup.java`
+#### Snippet
+```java
+
+        } catch (Throwable e) {
+            e.printStackTrace();
+            System.exit(-1);
+        }
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/StandaloneConnectStartup.java`
+#### Snippet
+```java
+            System.out.printf("%s%n", tip);
+        } catch (Throwable e) {
+            e.printStackTrace();
+            System.exit(-1);
+        }
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `reporter-api/src/main/java/org/apache/rocketmq/connect/metrics/reporter/RocketMQClientUtil.java`
+#### Snippet
+```java
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new RuntimeException("fetch all topic  failed", e);
+        }
 ```
 
 ### ThrowablePrintStackTrace
@@ -6463,63 +6463,27 @@ in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/c
 
 ## RuleId[ruleID=NonProtectedConstructorInAbstractClass]
 ### NonProtectedConstructorInAbstractClass
-Constructor `AbstractHistogram()` of an abstract class should not be declared 'public'
-in `reporter-api/src/main/java/org/apache/rocketmq/connect/metrics/stats/AbstractHistogram.java`
+Constructor `AbstractConverterConfig()` of an abstract class should not be declared 'public'
+in `schema-converter/schema-converter-common/src/main/java/org/apache/rocketmq/schema/common/AbstractConverterConfig.java`
 #### Snippet
 ```java
-    }
-
-    public AbstractHistogram(MetricName name, HistogramType type) {
-        name.setType(type.name());
-    }
+     * @param props
+     */
+    public AbstractConverterConfig(Map<String, ?> props) {
+        if (!props.containsKey(SCHEMA_REGISTRY_URL)) {
+            throw new IllegalArgumentException("Config [" + SCHEMA_REGISTRY_URL + "] can not empty");
 ```
 
 ### NonProtectedConstructorInAbstractClass
-Constructor `AbstractHistogram()` of an abstract class should not be declared 'public'
-in `reporter-api/src/main/java/org/apache/rocketmq/connect/metrics/stats/AbstractHistogram.java`
+Constructor `AbstractLocalSchemaRegistryClient()` of an abstract class should not be declared 'public'
+in `schema-converter/schema-converter-common/src/main/java/org/apache/rocketmq/schema/common/AbstractLocalSchemaRegistryClient.java`
 #### Snippet
 ```java
- */
-public abstract class AbstractHistogram implements Stat {
-    public AbstractHistogram(MetricName name) {
-        name.setType(type());
-    }
-```
+            .build();
 
-### NonProtectedConstructorInAbstractClass
-Constructor `MetricsReporter()` of an abstract class should not be declared 'public'
-in `reporter-api/src/main/java/org/apache/rocketmq/connect/metrics/MetricsReporter.java`
-#### Snippet
-```java
-    private final MetricRegistry registry;
-
-    public MetricsReporter(MetricRegistry registry) {
-        this.registry = registry;
-        registry.addListener(this);
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `ScheduledMetricsReporter()` of an abstract class should not be declared 'public'
-in `reporter-api/src/main/java/org/apache/rocketmq/connect/metrics/ScheduledMetricsReporter.java`
-#### Snippet
-```java
-public abstract class ScheduledMetricsReporter extends ScheduledReporter implements AutoConfiguration, IReporter {
-
-    public ScheduledMetricsReporter(MetricRegistry registry) {
-        super(registry, "scheduled-reporter", MetricFilter.ALL, TimeUnit.SECONDS, TimeUnit.MILLISECONDS);
-    }
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `AbstractState()` of an abstract class should not be declared 'public'
-in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/rest/entities/ConnectorStateInfo.java`
-#### Snippet
-```java
-        private String workerId;
-
-        public AbstractState() {
-        }
-
+    public AbstractLocalSchemaRegistryClient(AbstractConverterConfig config) {
+        this.schemaRegistryClient = SchemaRegistryClientFactory.newClient(config.getSchemaRegistryUrl(), null);
+        this.serdeSchemaRegistryId = config.getSerdeSchemaRegistryId();
 ```
 
 ### NonProtectedConstructorInAbstractClass
@@ -6532,6 +6496,18 @@ in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/r
         public AbstractState(String state, String workerId, String trace) {
             this.state = state;
             this.workerId = workerId;
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `AbstractState()` of an abstract class should not be declared 'public'
+in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/rest/entities/ConnectorStateInfo.java`
+#### Snippet
+```java
+        private String workerId;
+
+        public AbstractState() {
+        }
+
 ```
 
 ### NonProtectedConstructorInAbstractClass
@@ -6595,27 +6571,51 @@ in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/c
 ```
 
 ### NonProtectedConstructorInAbstractClass
-Constructor `AbstractConverterConfig()` of an abstract class should not be declared 'public'
-in `schema-converter/schema-converter-common/src/main/java/org/apache/rocketmq/schema/common/AbstractConverterConfig.java`
+Constructor `AbstractHistogram()` of an abstract class should not be declared 'public'
+in `reporter-api/src/main/java/org/apache/rocketmq/connect/metrics/stats/AbstractHistogram.java`
 #### Snippet
 ```java
-     * @param props
-     */
-    public AbstractConverterConfig(Map<String, ?> props) {
-        if (!props.containsKey(SCHEMA_REGISTRY_URL)) {
-            throw new IllegalArgumentException("Config [" + SCHEMA_REGISTRY_URL + "] can not empty");
+    }
+
+    public AbstractHistogram(MetricName name, HistogramType type) {
+        name.setType(type.name());
+    }
 ```
 
 ### NonProtectedConstructorInAbstractClass
-Constructor `AbstractLocalSchemaRegistryClient()` of an abstract class should not be declared 'public'
-in `schema-converter/schema-converter-common/src/main/java/org/apache/rocketmq/schema/common/AbstractLocalSchemaRegistryClient.java`
+Constructor `AbstractHistogram()` of an abstract class should not be declared 'public'
+in `reporter-api/src/main/java/org/apache/rocketmq/connect/metrics/stats/AbstractHistogram.java`
 #### Snippet
 ```java
-            .build();
+ */
+public abstract class AbstractHistogram implements Stat {
+    public AbstractHistogram(MetricName name) {
+        name.setType(type());
+    }
+```
 
-    public AbstractLocalSchemaRegistryClient(AbstractConverterConfig config) {
-        this.schemaRegistryClient = SchemaRegistryClientFactory.newClient(config.getSchemaRegistryUrl(), null);
-        this.serdeSchemaRegistryId = config.getSerdeSchemaRegistryId();
+### NonProtectedConstructorInAbstractClass
+Constructor `ScheduledMetricsReporter()` of an abstract class should not be declared 'public'
+in `reporter-api/src/main/java/org/apache/rocketmq/connect/metrics/ScheduledMetricsReporter.java`
+#### Snippet
+```java
+public abstract class ScheduledMetricsReporter extends ScheduledReporter implements AutoConfiguration, IReporter {
+
+    public ScheduledMetricsReporter(MetricRegistry registry) {
+        super(registry, "scheduled-reporter", MetricFilter.ALL, TimeUnit.SECONDS, TimeUnit.MILLISECONDS);
+    }
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `MetricsReporter()` of an abstract class should not be declared 'public'
+in `reporter-api/src/main/java/org/apache/rocketmq/connect/metrics/MetricsReporter.java`
+#### Snippet
+```java
+    private final MetricRegistry registry;
+
+    public MetricsReporter(MetricRegistry registry) {
+        this.registry = registry;
+        registry.addListener(this);
 ```
 
 ## RuleId[ruleID=Java8MapApi]
@@ -6657,15 +6657,15 @@ in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/c
 
 ## RuleId[ruleID=Convert2Lambda]
 ### Convert2Lambda
-Anonymous new Gauge() can be replaced with lambda
-in `reporter-api/src/main/java/org/apache/rocketmq/connect/metrics/stats/Value.java`
+Anonymous new Function() can be replaced with lambda
+in `transforms/src/main/java/org/apache/rocketmq/connect/transforms/SetMaximumPrecision.java`
 #### Snippet
 ```java
-        this.registry = registry;
-        this.name = name;
-        registry.register(name.toString(), new Gauge() {
+
+    State state(Schema inputSchema) {
+        return this.schemaLookup.computeIfAbsent(inputSchema, new Function<Schema, State>() {
             @Override
-            public Object getValue() {
+            public State apply(Schema schema) {
 ```
 
 ### Convert2Lambda
@@ -6682,15 +6682,15 @@ in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/c
 ```
 
 ### Convert2Lambda
-Anonymous new Function() can be replaced with lambda
-in `transforms/src/main/java/org/apache/rocketmq/connect/transforms/SetMaximumPrecision.java`
+Anonymous new Gauge() can be replaced with lambda
+in `reporter-api/src/main/java/org/apache/rocketmq/connect/metrics/stats/Value.java`
 #### Snippet
 ```java
-
-    State state(Schema inputSchema) {
-        return this.schemaLookup.computeIfAbsent(inputSchema, new Function<Schema, State>() {
+        this.registry = registry;
+        this.name = name;
+        registry.register(name.toString(), new Gauge() {
             @Override
-            public State apply(Schema schema) {
+            public Object getValue() {
 ```
 
 ## RuleId[ruleID=CaughtExceptionImmediatelyRethrown]
@@ -6708,15 +6708,39 @@ in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/u
 
 ## RuleId[ruleID=AssignmentToMethodParameter]
 ### AssignmentToMethodParameter
-Assignment to method parameter `path`
-in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/controller/isolation/DelegatingClassLoader.java`
+Assignment to method parameter `args`
+in `rocketmq-connect-cli/src/main/java/org/apache/rocketmq/connect/cli/ConnectAdminStartup.java`
 #### Snippet
 ```java
-            } else {
-                Path pluginPath = Paths.get(path).toAbsolutePath();
-                path = pluginPath.toString();
-                if (Files.isDirectory(pluginPath)) {
-                    for (Path pluginLocation : PluginUtils.pluginLocations(pluginPath)) {
+
+        String[] configArgs = Arrays.copyOfRange(args, 0, 2);
+        args = Arrays.copyOfRange(args, 2, args.length);
+
+        try {
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `schema`
+in `schema-converter/json-schema-converter/src/main/java/org/apache/rocketmq/schema/json/serde/JsonSchemaSerializer.java`
+#### Snippet
+```java
+            // parse idl
+            if (StringUtils.isNotEmpty(schemaResponse.getIdl())) {
+                schema = new JsonSchema(schemaResponse.getIdl());
+            }
+            // validate json value
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `inputSchema`
+in `transforms/src/main/java/org/apache/rocketmq/connect/transforms/BaseTransformation.java`
+#### Snippet
+```java
+        if (null == inputSchema) {
+            log.trace("process() - Determining schema");
+            inputSchema = SchemaHelper.schema(input);
+        }
+
 ```
 
 ### AssignmentToMethodParameter
@@ -6744,27 +6768,15 @@ in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/c
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `args`
-in `rocketmq-connect-cli/src/main/java/org/apache/rocketmq/connect/cli/ConnectAdminStartup.java`
+Assignment to method parameter `path`
+in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/controller/isolation/DelegatingClassLoader.java`
 #### Snippet
 ```java
-
-        String[] configArgs = Arrays.copyOfRange(args, 0, 2);
-        args = Arrays.copyOfRange(args, 2, args.length);
-
-        try {
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `inputSchema`
-in `transforms/src/main/java/org/apache/rocketmq/connect/transforms/BaseTransformation.java`
-#### Snippet
-```java
-        if (null == inputSchema) {
-            log.trace("process() - Determining schema");
-            inputSchema = SchemaHelper.schema(input);
-        }
-
+            } else {
+                Path pluginPath = Paths.get(path).toAbsolutePath();
+                path = pluginPath.toString();
+                if (Files.isDirectory(pluginPath)) {
+                    for (Path pluginLocation : PluginUtils.pluginLocations(pluginPath)) {
 ```
 
 ### AssignmentToMethodParameter
@@ -6840,18 +6852,6 @@ in `schema-converter/avro-schema-converter/src/main/java/org/apache/rocketmq/sch
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `schema`
-in `schema-converter/json-schema-converter/src/main/java/org/apache/rocketmq/schema/json/serde/JsonSchemaSerializer.java`
-#### Snippet
-```java
-            // parse idl
-            if (StringUtils.isNotEmpty(schemaResponse.getIdl())) {
-                schema = new JsonSchema(schemaResponse.getIdl());
-            }
-            // validate json value
-```
-
-### AssignmentToMethodParameter
 Assignment to method parameter `fieldDefaultVal`
 in `schema-converter/avro-schema-converter/src/main/java/org/apache/rocketmq/schema/avro/AvroData.java`
 #### Snippet
@@ -6866,7 +6866,235 @@ in `schema-converter/avro-schema-converter/src/main/java/org/apache/rocketmq/sch
 ## RuleId[ruleID=ReturnNull]
 ### ReturnNull
 Return of `null`
-in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/StandaloneConnectStartup.java`
+in `rocketmq-connect-cli/src/main/java/org/apache/rocketmq/connect/cli/utils/ServerUtil.java`
+#### Snippet
+```java
+            if (commandLine.hasOption('h')) {
+                hf.printHelp(appName, options, true);
+                return null;
+            }
+        } catch (ParseException e) {
+```
+
+### ReturnNull
+Return of `null`
+in `rocketmq-connect-sample/src/main/java/org/apache/rocketmq/connect/file/FileSourceTask.java`
+#### Snippet
+```java
+                // We need to check for \r\n, so we must skip this if we can't check the next char
+                if (i + 1 >= offset)
+                    return null;
+
+                until = i;
+```
+
+### ReturnNull
+Return of `null`
+in `rocketmq-connect-sample/src/main/java/org/apache/rocketmq/connect/file/FileSourceTask.java`
+#### Snippet
+```java
+            return result;
+        } else {
+            return null;
+        }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `rocketmq-connect-sample/src/main/java/org/apache/rocketmq/connect/file/FileSourceTask.java`
+#### Snippet
+```java
+                    }
+                }
+                return null;
+            } catch (IOException e) {
+                log.error("Error while trying to open file {}: ", fileConfig.getFilename(), e);
+```
+
+### ReturnNull
+Return of `null`
+in `rocketmq-connect-sample/src/main/java/org/apache/rocketmq/connect/file/FileSourceTask.java`
+#### Snippet
+```java
+            }
+            if (readerCopy == null) {
+                return null;
+            }
+
+```
+
+### ReturnNull
+Return of `null`
+in `rocketmq-connect-sample/src/main/java/org/apache/rocketmq/connect/file/FileSourceTask.java`
+#### Snippet
+```java
+            log.error("Interrupt error .", e);
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `rocketmq-connect-cli/src/main/java/org/apache/rocketmq/connect/cli/ConnectAdminStartup.java`
+#### Snippet
+```java
+        }
+
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `rocketmq-connect-cli/src/main/java/org/apache/rocketmq/connect/cli/ConnectAdminStartup.java`
+#### Snippet
+```java
+            return result;
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `schema-converter/json-schema-converter/src/main/java/org/apache/rocketmq/schema/json/JsonSchemaConverter.java`
+#### Snippet
+```java
+    public byte[] fromConnectData(String topic, Schema schema, Object value) {
+        if (schema == null && value == null) {
+            return null;
+        }
+        org.everit.json.schema.Schema jsonSchema = jsonSchemaData.fromJsonSchema(schema);
+```
+
+### ReturnNull
+Return of `null`
+in `schema-converter/schema-converter-common/src/main/java/org/apache/rocketmq/schema/common/AbstractLocalSchemaRegistryClient.java`
+#### Snippet
+```java
+        } catch (RestClientException | IOException e) {
+            if (e instanceof RestClientException) {
+                return null;
+            } else {
+                throw new RuntimeException(e);
+```
+
+### ReturnNull
+Return of `null`
+in `schema-converter/schema-converter-common/src/main/java/org/apache/rocketmq/schema/common/AbstractLocalSchemaRegistryClient.java`
+#### Snippet
+```java
+        } catch (RestClientException | IOException e) {
+            if (e instanceof RestClientException) {
+                return null;
+            } else {
+                throw new RuntimeException(e);
+```
+
+### ReturnNull
+Return of `null`
+in `schema-converter/json-schema-converter/src/main/java/org/apache/rocketmq/schema/json/JsonSchema.java`
+#### Snippet
+```java
+
+    public String getString(String key) {
+        return jsonNode.has(key) ? jsonNode.get(key).asText() : null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `schema-converter/json-schema-converter/src/main/java/org/apache/rocketmq/schema/json/JsonSchema.java`
+#### Snippet
+```java
+    public String idl() {
+        if (jsonNode == null) {
+            return null;
+        }
+        if (canonicalString == null) {
+```
+
+### ReturnNull
+Return of `null`
+in `schema-converter/json-schema-converter/src/main/java/org/apache/rocketmq/schema/json/JsonSchema.java`
+#### Snippet
+```java
+    public Schema rawSchema() {
+        if (jsonNode == null) {
+            return null;
+        }
+        if (schemaObj == null) {
+```
+
+### ReturnNull
+Return of `null`
+in `rocketmq-connect-cli/src/main/java/org/apache/rocketmq/connect/cli/utils/FileAndPropertyUtil.java`
+#### Snippet
+```java
+            }
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `schema-converter/json-schema-converter/src/main/java/org/apache/rocketmq/schema/json/serde/JsonSchemaDeserializer.java`
+#### Snippet
+```java
+    public JsonSchemaAndValue deserialize(String topic, boolean isKey, byte[] payload) {
+        if (payload == null) {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `schema-converter/json-schema-converter/src/main/java/org/apache/rocketmq/schema/json/serde/JsonSchemaSerializer.java`
+#### Snippet
+```java
+    public byte[] serialize(String topic, boolean isKey, JsonSchema schema, Object value) {
+        if (value == null) {
+            return null;
+        }
+        String subjectName = TopicNameStrategy.subjectName(topic, isKey);
+```
+
+### ReturnNull
+Return of `null`
+in `transforms/src/main/java/org/apache/rocketmq/connect/transforms/PatternFilter.java`
+#### Snippet
+```java
+                String input = (String) value;
+                if (this.pattern.matcher(input).matches()) {
+                    return null;
+                }
+            }
+```
+
+### ReturnNull
+Return of `null`
+in `transforms/src/main/java/org/apache/rocketmq/connect/transforms/PatternFilter.java`
+#### Snippet
+```java
+            if (null != input) {
+                if (this.pattern.matcher(input).matches()) {
+                    return null;
+                }
+            }
+```
+
+### ReturnNull
+Return of `null`
+in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/DistributedConnectStartup.java`
 #### Snippet
 ```java
             System.exit(-1);
@@ -6878,7 +7106,7 @@ in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/S
 
 ### ReturnNull
 Return of `null`
-in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/DistributedConnectStartup.java`
+in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/StandaloneConnectStartup.java`
 #### Snippet
 ```java
             System.exit(-1);
@@ -6962,14 +7190,110 @@ in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/u
 
 ### ReturnNull
 Return of `null`
-in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/utils/Base64Util.java`
+in `schema-converter/json-schema-converter/src/main/java/org/apache/rocketmq/schema/json/JsonSchemaData.java`
 #### Snippet
 ```java
-    public static byte[] base64Decode(String in) {
-        if (StringUtils.isEmpty(in)) {
+    private org.everit.json.schema.Schema rawSchemaFromConnectSchema(Schema schema, Integer index, boolean ignoreOptional) {
+        if (schema == null) {
             return null;
         }
-        return Base64.getDecoder().decode(in);
+        org.everit.json.schema.Schema.Builder builder;
+```
+
+### ReturnNull
+Return of `null`
+in `schema-converter/json-schema-converter/src/main/java/org/apache/rocketmq/schema/json/JsonSchemaData.java`
+#### Snippet
+```java
+    private org.everit.json.schema.Schema rawSchemaFromConnectSchema(Schema schema) {
+        if (schema == null) {
+            return null;
+        }
+        org.everit.json.schema.Schema cachedSchema = fromConnectSchemaCache.get(schema);
+```
+
+### ReturnNull
+Return of `null`
+in `schema-converter/json-schema-converter/src/main/java/org/apache/rocketmq/schema/json/JsonSchemaData.java`
+#### Snippet
+```java
+                }
+                if (jsonValue == null || schema.isOptional()) {
+                    return null;
+                }
+                throw new ConnectException("Invalid null value for required " + schemaType + " field");
+```
+
+### ReturnNull
+Return of `null`
+in `schema-converter/json-schema-converter/src/main/java/org/apache/rocketmq/schema/json/JsonSchemaData.java`
+#### Snippet
+```java
+        } else {
+            if (jsonValue == null) {
+                return null;
+            }
+            switch (jsonValue.getNodeType()) {
+```
+
+### ReturnNull
+Return of `null`
+in `schema-converter/json-schema-converter/src/main/java/org/apache/rocketmq/schema/json/JsonSchemaData.java`
+#### Snippet
+```java
+            switch (jsonValue.getNodeType()) {
+                case NULL:
+                    return null;
+                case BOOLEAN:
+                    schemaType = FieldType.BOOLEAN;
+```
+
+### ReturnNull
+Return of `null`
+in `schema-converter/json-schema-converter/src/main/java/org/apache/rocketmq/schema/json/JsonSchemaData.java`
+#### Snippet
+```java
+    private Schema toConnectSchema(org.everit.json.schema.Schema jsonSchema, Integer version, boolean forceOptional) {
+        if (jsonSchema == null) {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `schema-converter/json-schema-converter/src/main/java/org/apache/rocketmq/schema/json/JsonSchemaData.java`
+#### Snippet
+```java
+    public Schema toConnectSchema(org.everit.json.schema.Schema schema, Integer version) {
+        if (schema == null) {
+            return null;
+        }
+        Schema cachedSchema = toConnectSchemaCache.get(schema);
+```
+
+### ReturnNull
+Return of `null`
+in `schema-converter/json-schema-converter/src/main/java/org/apache/rocketmq/schema/json/JsonSchemaData.java`
+#### Snippet
+```java
+            if (schema == null) {
+                // Any schema is valid and we don't have a default, so treat this as an optional schema
+                return null;
+            }
+            if (schema.getDefaultValue() != null) {
+```
+
+### ReturnNull
+Return of `null`
+in `schema-converter/json-schema-converter/src/main/java/org/apache/rocketmq/schema/json/JsonSchemaData.java`
+#### Snippet
+```java
+                return JSON_NODE_FACTORY.nullNode();
+            }
+            return null;
+        }
+
 ```
 
 ### ReturnNull
@@ -6986,6 +7310,18 @@ in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/u
 
 ### ReturnNull
 Return of `null`
+in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/utils/Base64Util.java`
+#### Snippet
+```java
+    public static byte[] base64Decode(String in) {
+        if (StringUtils.isEmpty(in)) {
+            return null;
+        }
+        return Base64.getDecoder().decode(in);
+```
+
+### ReturnNull
+Return of `null`
 in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/utils/FileAndPropertyUtil.java`
 #### Snippet
 ```java
@@ -6994,6 +7330,30 @@ in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/u
         return null;
     }
 
+```
+
+### ReturnNull
+Return of `null`
+in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/config/SinkConnectorConfig.java`
+#### Snippet
+```java
+        String messageQueueStr = this.config.getString(SinkConnectorConfig.CONNECT_TOPICNAMES);
+        if (StringUtils.isBlank(messageQueueStr)) {
+            return null;
+        }
+        List<String> topicList = Splitter.on(SEMICOLON).omitEmptyStrings().trimResults().splitToList(messageQueueStr);
+```
+
+### ReturnNull
+Return of `null`
+in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/config/SinkConnectorConfig.java`
+#### Snippet
+```java
+        List<String> messageQueueStrList = Splitter.on(SEMICOLON).omitEmptyStrings().trimResults().splitToList(messageQueueStr);
+        if (CollectionUtils.isEmpty(messageQueueStrList) || messageQueueStrList.size() != 3) {
+            return null;
+        }
+        return new MessageQueue(messageQueueStrList.get(0), messageQueueStrList.get(1), Integer.valueOf(messageQueueStrList.get(2)));
 ```
 
 ### ReturnNull
@@ -7022,30 +7382,6 @@ in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/u
 
 ### ReturnNull
 Return of `null`
-in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/config/SinkConnectorConfig.java`
-#### Snippet
-```java
-        List<String> messageQueueStrList = Splitter.on(SEMICOLON).omitEmptyStrings().trimResults().splitToList(messageQueueStr);
-        if (CollectionUtils.isEmpty(messageQueueStrList) || messageQueueStrList.size() != 3) {
-            return null;
-        }
-        return new MessageQueue(messageQueueStrList.get(0), messageQueueStrList.get(1), Integer.valueOf(messageQueueStrList.get(2)));
-```
-
-### ReturnNull
-Return of `null`
-in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/config/SinkConnectorConfig.java`
-#### Snippet
-```java
-        String messageQueueStr = this.config.getString(SinkConnectorConfig.CONNECT_TOPICNAMES);
-        if (StringUtils.isBlank(messageQueueStr)) {
-            return null;
-        }
-        List<String> topicList = Splitter.on(SEMICOLON).omitEmptyStrings().trimResults().splitToList(messageQueueStr);
-```
-
-### ReturnNull
-Return of `null`
 in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/errors/ReporterManagerUtil.java`
 #### Snippet
 ```java
@@ -7054,6 +7390,18 @@ in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/e
         return null;
     }
 
+```
+
+### ReturnNull
+Return of `null`
+in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/errors/DeadLetterQueueReporter.java`
+#### Snippet
+```java
+        String dlqTopic = deadLetterQueueConfig.dlqTopicName();
+        if (dlqTopic.isEmpty()) {
+            return null;
+        }
+        if (!ConnectUtil.isTopicExist(workerConfig, dlqTopic)) {
 ```
 
 ### ReturnNull
@@ -7082,14 +7430,26 @@ in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/e
 
 ### ReturnNull
 Return of `null`
-in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/errors/DeadLetterQueueReporter.java`
+in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/errors/RetryWithToleranceOperator.java`
 #### Snippet
 ```java
-        String dlqTopic = deadLetterQueueConfig.dlqTopicName();
-        if (dlqTopic.isEmpty()) {
+            }
+            errorMetricsGroup.recordSkipped();
             return null;
         }
-        if (!ConnectUtil.isTopicExist(workerConfig, dlqTopic)) {
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/errors/RetryWithToleranceOperator.java`
+#### Snippet
+```java
+        if (context.failed()) {
+            log.debug("ProcessingContext is already in failed state. Ignoring requested operation.");
+            return null;
+        }
+
 ```
 
 ### ReturnNull
@@ -7114,30 +7474,6 @@ in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/e
                     return null;
                 }
             } finally {
-```
-
-### ReturnNull
-Return of `null`
-in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/errors/RetryWithToleranceOperator.java`
-#### Snippet
-```java
-            }
-            errorMetricsGroup.recordSkipped();
-            return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/errors/RetryWithToleranceOperator.java`
-#### Snippet
-```java
-        if (context.failed()) {
-            log.debug("ProcessingContext is already in failed state. Ignoring requested operation.");
-            return null;
-        }
-
 ```
 
 ### ReturnNull
@@ -7181,31 +7517,7 @@ Return of `null`
 in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/service/StateManagementServiceImpl.java`
 #### Snippet
 ```java
-            if (!(schemaAndValue.value() instanceof Struct)) {
-                log.error("Invalid connector status type {}", schemaAndValue.value().getClass());
-                return null;
-            }
-            Struct struct = (Struct) schemaAndValue.value();
-```
-
-### ReturnNull
-Return of `null`
-in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/service/StateManagementServiceImpl.java`
-#### Snippet
-```java
-        } catch (Exception e) {
-            log.error("Failed to deserialize connector status", e);
-            return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/service/StateManagementServiceImpl.java`
-#### Snippet
-```java
-        ConnAndTaskStatus.CacheEntry<TaskStatus> cacheEntry = connAndTaskStatus.getTasks().get(id.connector(), id.task());
+        ConnAndTaskStatus.CacheEntry<ConnectorStatus> cacheEntry = connAndTaskStatus.getConnectors().get(connector);
         if (cacheEntry == null) {
             return null;
         }
@@ -7265,11 +7577,35 @@ Return of `null`
 in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/service/StateManagementServiceImpl.java`
 #### Snippet
 ```java
-        ConnAndTaskStatus.CacheEntry<ConnectorStatus> cacheEntry = connAndTaskStatus.getConnectors().get(connector);
+        ConnAndTaskStatus.CacheEntry<TaskStatus> cacheEntry = connAndTaskStatus.getTasks().get(id.connector(), id.task());
         if (cacheEntry == null) {
             return null;
         }
         return cacheEntry.get();
+```
+
+### ReturnNull
+Return of `null`
+in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/service/StateManagementServiceImpl.java`
+#### Snippet
+```java
+            if (!(schemaAndValue.value() instanceof Struct)) {
+                log.error("Invalid connector status type {}", schemaAndValue.value().getClass());
+                return null;
+            }
+            Struct struct = (Struct) schemaAndValue.value();
+```
+
+### ReturnNull
+Return of `null`
+in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/service/StateManagementServiceImpl.java`
+#### Snippet
+```java
+        } catch (Exception e) {
+            log.error("Failed to deserialize connector status", e);
+            return null;
+        }
+    }
 ```
 
 ### ReturnNull
@@ -7310,18 +7646,6 @@ in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/s
 
 ### ReturnNull
 Return of `null`
-in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/serialization/ListDeserializer.java`
-#### Snippet
-```java
-            log.error("ListConverter#byteToObject failed", e);
-        }
-        return null;
-    }
-}
-```
-
-### ReturnNull
-Return of `null`
 in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/serialization/JsonSerializer.java`
 #### Snippet
 ```java
@@ -7334,14 +7658,14 @@ in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/s
 
 ### ReturnNull
 Return of `null`
-in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/serialization/IntegerSerializer.java`
+in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/serialization/ListDeserializer.java`
 #### Snippet
 ```java
-    public byte[] serialize(String topic, Integer data) {
-        if (data == null) {
-            return null;
+            log.error("ListConverter#byteToObject failed", e);
         }
-
+        return null;
+    }
+}
 ```
 
 ### ReturnNull
@@ -7354,6 +7678,18 @@ in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/s
                 return null;
             } else {
                 return data.getBytes(encoding);
+```
+
+### ReturnNull
+Return of `null`
+in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/serialization/IntegerSerializer.java`
+#### Snippet
+```java
+    public byte[] serialize(String topic, Integer data) {
+        if (data == null) {
+            return null;
+        }
+
 ```
 
 ### ReturnNull
@@ -7394,14 +7730,14 @@ in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/s
 
 ### ReturnNull
 Return of `null`
-in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/serialization/ByteBufferSerializer.java`
+in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/serialization/ListSerializer.java`
 #### Snippet
 ```java
-    public byte[] serialize(String topic, ByteBuffer data) {
-        if (data == null) {
-            return null;
+            log.error("ListSerializer serialize failed", e);
         }
-
+        return null;
+    }
+}
 ```
 
 ### ReturnNull
@@ -7418,6 +7754,18 @@ in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/s
 
 ### ReturnNull
 Return of `null`
+in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/serialization/ByteBufferSerializer.java`
+#### Snippet
+```java
+    public byte[] serialize(String topic, ByteBuffer data) {
+        if (data == null) {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
 in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/serialization/LongDeserializer.java`
 #### Snippet
 ```java
@@ -7426,18 +7774,6 @@ in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/s
             return null;
         }
         if (data.length != 8) {
-```
-
-### ReturnNull
-Return of `null`
-in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/serialization/ListSerializer.java`
-#### Snippet
-```java
-            log.error("ListSerializer serialize failed", e);
-        }
-        return null;
-    }
-}
 ```
 
 ### ReturnNull
@@ -7490,18 +7826,6 @@ in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/s
 
 ### ReturnNull
 Return of `null`
-in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/serialization/DoubleSerializer.java`
-#### Snippet
-```java
-    public byte[] serialize(String topic, Double data) {
-        if (data == null) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
 in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/serialization/JsonDeserializer.java`
 #### Snippet
 ```java
@@ -7510,6 +7834,18 @@ in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/s
             return null;
         }
         Object data;
+```
+
+### ReturnNull
+Return of `null`
+in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/serialization/DoubleSerializer.java`
+#### Snippet
+```java
+    public byte[] serialize(String topic, Double data) {
+        if (data == null) {
+            return null;
+        }
+
 ```
 
 ### ReturnNull
@@ -7546,6 +7882,102 @@ in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/s
         return null;
     }
 }
+```
+
+### ReturnNull
+Return of `null`
+in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/converter/record/json/JsonConverter.java`
+#### Snippet
+```java
+                }
+                if (schema.isOptional()) {
+                    return null;
+                }
+                throw new ConnectException("Invalid null value for required " + schemaType + " field");
+```
+
+### ReturnNull
+Return of `null`
+in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/converter/record/json/JsonConverter.java`
+#### Snippet
+```java
+        } else {
+            if (value == null) {
+                return null;
+            } else if (value instanceof String) {
+                schemaType = FieldType.STRING;
+```
+
+### ReturnNull
+Return of `null`
+in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/converter/record/json/JsonConverter.java`
+#### Snippet
+```java
+        // schema null
+        if (jsonSchema == null) {
+            return null;
+        }
+        Schema cached = toConnectSchemaCache.get(jsonSchema);
+```
+
+### ReturnNull
+Return of `null`
+in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/converter/record/json/JsonConverter.java`
+#### Snippet
+```java
+        if (value == null) {
+            if (schema == null) {
+                return null;
+            }
+            if (schema.getDefaultValue() != null) {
+```
+
+### ReturnNull
+Return of `null`
+in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/converter/record/json/JsonConverter.java`
+#### Snippet
+```java
+            }
+            if (schema.isOptional()) {
+                return null;
+            }
+            throw new ConnectException("Conversion error: null value for field that is required and has no default value");
+```
+
+### ReturnNull
+Return of `null`
+in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/converter/record/json/JsonConverter.java`
+#### Snippet
+```java
+            if (logicalConverter != null) {
+                if (value == null) {
+                    return null;
+                } else {
+                    return logicalConverter.toJson(schema, value, converterConfig);
+```
+
+### ReturnNull
+Return of `null`
+in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/converter/record/json/JsonConverter.java`
+#### Snippet
+```java
+    public JSONObject asJsonSchema(Schema schema) {
+        if (schema == null) {
+            return null;
+        }
+        // from cached
+```
+
+### ReturnNull
+Return of `null`
+in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/converter/record/json/JsonConverter.java`
+#### Snippet
+```java
+    public byte[] fromConnectData(String topic, Schema schema, Object value) {
+        if (schema == null && value == null) {
+            return null;
+        }
+        Object jsonValue = converterConfig.schemasEnabled() ? convertToJsonWithEnvelope(schema, value) : convertToJsonWithoutEnvelope(schema, value);
 ```
 
 ### ReturnNull
@@ -7598,102 +8030,6 @@ in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/c
 
 ### ReturnNull
 Return of `null`
-in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/converter/record/json/JsonConverter.java`
-#### Snippet
-```java
-    public JSONObject asJsonSchema(Schema schema) {
-        if (schema == null) {
-            return null;
-        }
-        // from cached
-```
-
-### ReturnNull
-Return of `null`
-in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/converter/record/json/JsonConverter.java`
-#### Snippet
-```java
-        if (value == null) {
-            if (schema == null) {
-                return null;
-            }
-            if (schema.getDefaultValue() != null) {
-```
-
-### ReturnNull
-Return of `null`
-in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/converter/record/json/JsonConverter.java`
-#### Snippet
-```java
-            }
-            if (schema.isOptional()) {
-                return null;
-            }
-            throw new ConnectException("Conversion error: null value for field that is required and has no default value");
-```
-
-### ReturnNull
-Return of `null`
-in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/converter/record/json/JsonConverter.java`
-#### Snippet
-```java
-            if (logicalConverter != null) {
-                if (value == null) {
-                    return null;
-                } else {
-                    return logicalConverter.toJson(schema, value, converterConfig);
-```
-
-### ReturnNull
-Return of `null`
-in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/converter/record/json/JsonConverter.java`
-#### Snippet
-```java
-                }
-                if (schema.isOptional()) {
-                    return null;
-                }
-                throw new ConnectException("Invalid null value for required " + schemaType + " field");
-```
-
-### ReturnNull
-Return of `null`
-in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/converter/record/json/JsonConverter.java`
-#### Snippet
-```java
-        } else {
-            if (value == null) {
-                return null;
-            } else if (value instanceof String) {
-                schemaType = FieldType.STRING;
-```
-
-### ReturnNull
-Return of `null`
-in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/converter/record/json/JsonConverter.java`
-#### Snippet
-```java
-        // schema null
-        if (jsonSchema == null) {
-            return null;
-        }
-        Schema cached = toConnectSchemaCache.get(jsonSchema);
-```
-
-### ReturnNull
-Return of `null`
-in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/converter/record/json/JsonConverter.java`
-#### Snippet
-```java
-    public byte[] fromConnectData(String topic, Schema schema, Object value) {
-        if (schema == null && value == null) {
-            return null;
-        }
-        Object jsonValue = converterConfig.schemasEnabled() ? convertToJsonWithEnvelope(schema, value) : convertToJsonWithoutEnvelope(schema, value);
-```
-
-### ReturnNull
-Return of `null`
 in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/connectorwrapper/WorkerDirectTask.java`
 #### Snippet
 ```java
@@ -7706,18 +8042,6 @@ in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/c
 
 ### ReturnNull
 Return of `null`
-in `rocketmq-connect-cli/src/main/java/org/apache/rocketmq/connect/cli/utils/ServerUtil.java`
-#### Snippet
-```java
-            if (commandLine.hasOption('h')) {
-                hf.printHelp(appName, options, true);
-                return null;
-            }
-        } catch (ParseException e) {
-```
-
-### ReturnNull
-Return of `null`
 in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/connectorwrapper/status/WrapperStatusListener.java`
 #### Snippet
 ```java
@@ -7726,114 +8050,6 @@ in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/c
             return null;
         }
     }
-```
-
-### ReturnNull
-Return of `null`
-in `rocketmq-connect-cli/src/main/java/org/apache/rocketmq/connect/cli/utils/FileAndPropertyUtil.java`
-#### Snippet
-```java
-            }
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `rocketmq-connect-cli/src/main/java/org/apache/rocketmq/connect/cli/ConnectAdminStartup.java`
-#### Snippet
-```java
-        }
-
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `rocketmq-connect-cli/src/main/java/org/apache/rocketmq/connect/cli/ConnectAdminStartup.java`
-#### Snippet
-```java
-            return result;
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/connectorwrapper/WorkerSourceTask.java`
-#### Snippet
-```java
-    protected Message convertTransformedRecord(final String topic, ConnectRecord record) {
-        if (record == null) {
-            return null;
-        }
-        Message sourceMessage = new Message();
-```
-
-### ReturnNull
-Return of `null`
-in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/connectorwrapper/WorkerSourceTask.java`
-#### Snippet
-```java
-        sourceMessage.setBody(value);
-        if (retryWithToleranceOperator.failed()) {
-            return null;
-        }
-        // put extend msg property
-```
-
-### ReturnNull
-Return of `null`
-in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/connectorwrapper/WorkerSourceTask.java`
-#### Snippet
-```java
-            List<ConnectRecord> connectRecords = sourceTask.poll();
-            if (CollectionUtils.isEmpty(connectRecords)) {
-                return null;
-            }
-            return connectRecords;
-```
-
-### ReturnNull
-Return of `null`
-in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/connectorwrapper/WorkerSourceTask.java`
-#### Snippet
-```java
-        } catch (RetriableException e) {
-            log.error("Source task RetriableException exception, taskconfig {}", JSON.toJSONString(taskConfig), e);
-            return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `transforms/src/main/java/org/apache/rocketmq/connect/transforms/PatternFilter.java`
-#### Snippet
-```java
-                String input = (String) value;
-                if (this.pattern.matcher(input).matches()) {
-                    return null;
-                }
-            }
-```
-
-### ReturnNull
-Return of `null`
-in `transforms/src/main/java/org/apache/rocketmq/connect/transforms/PatternFilter.java`
-#### Snippet
-```java
-            if (null != input) {
-                if (this.pattern.matcher(input).matches()) {
-                    return null;
-                }
-            }
 ```
 
 ### ReturnNull
@@ -7886,6 +8102,54 @@ in `schema-converter/avro-schema-converter/src/main/java/org/apache/rocketmq/sch
 
 ### ReturnNull
 Return of `null`
+in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/connectorwrapper/WorkerSourceTask.java`
+#### Snippet
+```java
+    protected Message convertTransformedRecord(final String topic, ConnectRecord record) {
+        if (record == null) {
+            return null;
+        }
+        Message sourceMessage = new Message();
+```
+
+### ReturnNull
+Return of `null`
+in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/connectorwrapper/WorkerSourceTask.java`
+#### Snippet
+```java
+        sourceMessage.setBody(value);
+        if (retryWithToleranceOperator.failed()) {
+            return null;
+        }
+        // put extend msg property
+```
+
+### ReturnNull
+Return of `null`
+in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/connectorwrapper/WorkerSourceTask.java`
+#### Snippet
+```java
+            List<ConnectRecord> connectRecords = sourceTask.poll();
+            if (CollectionUtils.isEmpty(connectRecords)) {
+                return null;
+            }
+            return connectRecords;
+```
+
+### ReturnNull
+Return of `null`
+in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/connectorwrapper/WorkerSourceTask.java`
+#### Snippet
+```java
+        } catch (RetriableException e) {
+            log.error("Source task RetriableException exception, taskconfig {}", JSON.toJSONString(taskConfig), e);
+            return null;
+        }
+    }
+```
+
+### ReturnNull
+Return of `null`
 in `schema-converter/avro-schema-converter/src/main/java/org/apache/rocketmq/schema/avro/serde/AvroSerializer.java`
 #### Snippet
 ```java
@@ -7910,138 +8174,6 @@ in `schema-converter/avro-schema-converter/src/main/java/org/apache/rocketmq/sch
 
 ### ReturnNull
 Return of `null`
-in `schema-converter/json-schema-converter/src/main/java/org/apache/rocketmq/schema/json/JsonSchemaConverter.java`
-#### Snippet
-```java
-    public byte[] fromConnectData(String topic, Schema schema, Object value) {
-        if (schema == null && value == null) {
-            return null;
-        }
-        org.everit.json.schema.Schema jsonSchema = jsonSchemaData.fromJsonSchema(schema);
-```
-
-### ReturnNull
-Return of `null`
-in `schema-converter/json-schema-converter/src/main/java/org/apache/rocketmq/schema/json/JsonSchema.java`
-#### Snippet
-```java
-    public Schema rawSchema() {
-        if (jsonNode == null) {
-            return null;
-        }
-        if (schemaObj == null) {
-```
-
-### ReturnNull
-Return of `null`
-in `schema-converter/json-schema-converter/src/main/java/org/apache/rocketmq/schema/json/JsonSchema.java`
-#### Snippet
-```java
-    public String idl() {
-        if (jsonNode == null) {
-            return null;
-        }
-        if (canonicalString == null) {
-```
-
-### ReturnNull
-Return of `null`
-in `schema-converter/json-schema-converter/src/main/java/org/apache/rocketmq/schema/json/JsonSchema.java`
-#### Snippet
-```java
-
-    public String getString(String key) {
-        return jsonNode.has(key) ? jsonNode.get(key).asText() : null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `schema-converter/json-schema-converter/src/main/java/org/apache/rocketmq/schema/json/serde/JsonSchemaDeserializer.java`
-#### Snippet
-```java
-    public JsonSchemaAndValue deserialize(String topic, boolean isKey, byte[] payload) {
-        if (payload == null) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `schema-converter/json-schema-converter/src/main/java/org/apache/rocketmq/schema/json/serde/JsonSchemaSerializer.java`
-#### Snippet
-```java
-    public byte[] serialize(String topic, boolean isKey, JsonSchema schema, Object value) {
-        if (value == null) {
-            return null;
-        }
-        String subjectName = TopicNameStrategy.subjectName(topic, isKey);
-```
-
-### ReturnNull
-Return of `null`
-in `rocketmq-connect-sample/src/main/java/org/apache/rocketmq/connect/file/FileSourceTask.java`
-#### Snippet
-```java
-                    }
-                }
-                return null;
-            } catch (IOException e) {
-                log.error("Error while trying to open file {}: ", fileConfig.getFilename(), e);
-```
-
-### ReturnNull
-Return of `null`
-in `rocketmq-connect-sample/src/main/java/org/apache/rocketmq/connect/file/FileSourceTask.java`
-#### Snippet
-```java
-            }
-            if (readerCopy == null) {
-                return null;
-            }
-
-```
-
-### ReturnNull
-Return of `null`
-in `rocketmq-connect-sample/src/main/java/org/apache/rocketmq/connect/file/FileSourceTask.java`
-#### Snippet
-```java
-            log.error("Interrupt error .", e);
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `rocketmq-connect-sample/src/main/java/org/apache/rocketmq/connect/file/FileSourceTask.java`
-#### Snippet
-```java
-                // We need to check for \r\n, so we must skip this if we can't check the next char
-                if (i + 1 >= offset)
-                    return null;
-
-                until = i;
-```
-
-### ReturnNull
-Return of `null`
-in `rocketmq-connect-sample/src/main/java/org/apache/rocketmq/connect/file/FileSourceTask.java`
-#### Snippet
-```java
-            return result;
-        } else {
-            return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
 in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/connectorwrapper/WorkerSinkTask.java`
 #### Snippet
 ```java
@@ -8062,6 +8194,54 @@ in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/c
             return null;
         }
 
+```
+
+### ReturnNull
+Return of `null`
+in `schema-converter/avro-schema-converter/src/main/java/org/apache/rocketmq/schema/avro/AvroData.java`
+#### Snippet
+```java
+            return schema.getValueSchema();
+        } else {
+            return null;
+        }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `schema-converter/avro-schema-converter/src/main/java/org/apache/rocketmq/schema/avro/AvroData.java`
+#### Snippet
+```java
+            return schema.getFields();
+        } else {
+            return null;
+        }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `schema-converter/avro-schema-converter/src/main/java/org/apache/rocketmq/schema/avro/AvroData.java`
+#### Snippet
+```java
+    private static FieldType schemaTypeForSchemalessJavaType(Object value) {
+        if (value == null) {
+            return null;
+        } else if (value instanceof Byte) {
+            return FieldType.INT8;
+```
+
+### ReturnNull
+Return of `null`
+in `schema-converter/avro-schema-converter/src/main/java/org/apache/rocketmq/schema/avro/AvroData.java`
+#### Snippet
+```java
+            return schema.getKeySchema();
+        } else {
+            return null;
+        }
+    }
 ```
 
 ### ReturnNull
@@ -8141,42 +8321,6 @@ Return of `null`
 in `schema-converter/avro-schema-converter/src/main/java/org/apache/rocketmq/schema/avro/AvroData.java`
 #### Snippet
 ```java
-                                        Integer version) {
-        if (value == null) {
-            return null;
-        }
-        ToConnectContext toConnectContext = new ToConnectContext();
-```
-
-### ReturnNull
-Return of `null`
-in `schema-converter/avro-schema-converter/src/main/java/org/apache/rocketmq/schema/avro/AvroData.java`
-#### Snippet
-```java
-            return schema.getFields();
-        } else {
-            return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `schema-converter/avro-schema-converter/src/main/java/org/apache/rocketmq/schema/avro/AvroData.java`
-#### Snippet
-```java
-    private static FieldType schemaTypeForSchemalessJavaType(Object value) {
-        if (value == null) {
-            return null;
-        } else if (value instanceof Byte) {
-            return FieldType.INT8;
-```
-
-### ReturnNull
-Return of `null`
-in `schema-converter/avro-schema-converter/src/main/java/org/apache/rocketmq/schema/avro/AvroData.java`
-#### Snippet
-```java
 
         if (value == null) {
             return null;
@@ -8201,30 +8345,6 @@ Return of `null`
 in `schema-converter/avro-schema-converter/src/main/java/org/apache/rocketmq/schema/avro/AvroData.java`
 #### Snippet
 ```java
-            return schema.getValueSchema();
-        } else {
-            return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `schema-converter/avro-schema-converter/src/main/java/org/apache/rocketmq/schema/avro/AvroData.java`
-#### Snippet
-```java
-            return schema.getKeySchema();
-        } else {
-            return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `schema-converter/avro-schema-converter/src/main/java/org/apache/rocketmq/schema/avro/AvroData.java`
-#### Snippet
-```java
                 return new GenericRecordBuilder(ANYTHING_SCHEMA).build();
             } else {
                 return null;
@@ -8246,147 +8366,75 @@ in `schema-converter/avro-schema-converter/src/main/java/org/apache/rocketmq/sch
 
 ### ReturnNull
 Return of `null`
-in `schema-converter/json-schema-converter/src/main/java/org/apache/rocketmq/schema/json/JsonSchemaData.java`
+in `schema-converter/avro-schema-converter/src/main/java/org/apache/rocketmq/schema/avro/AvroData.java`
 #### Snippet
 ```java
-    private Schema toConnectSchema(org.everit.json.schema.Schema jsonSchema, Integer version, boolean forceOptional) {
-        if (jsonSchema == null) {
+                                        Integer version) {
+        if (value == null) {
             return null;
         }
-
-```
-
-### ReturnNull
-Return of `null`
-in `schema-converter/json-schema-converter/src/main/java/org/apache/rocketmq/schema/json/JsonSchemaData.java`
-#### Snippet
-```java
-    private org.everit.json.schema.Schema rawSchemaFromConnectSchema(Schema schema) {
-        if (schema == null) {
-            return null;
-        }
-        org.everit.json.schema.Schema cachedSchema = fromConnectSchemaCache.get(schema);
-```
-
-### ReturnNull
-Return of `null`
-in `schema-converter/json-schema-converter/src/main/java/org/apache/rocketmq/schema/json/JsonSchemaData.java`
-#### Snippet
-```java
-    public Schema toConnectSchema(org.everit.json.schema.Schema schema, Integer version) {
-        if (schema == null) {
-            return null;
-        }
-        Schema cachedSchema = toConnectSchemaCache.get(schema);
-```
-
-### ReturnNull
-Return of `null`
-in `schema-converter/json-schema-converter/src/main/java/org/apache/rocketmq/schema/json/JsonSchemaData.java`
-#### Snippet
-```java
-            if (schema == null) {
-                // Any schema is valid and we don't have a default, so treat this as an optional schema
-                return null;
-            }
-            if (schema.getDefaultValue() != null) {
-```
-
-### ReturnNull
-Return of `null`
-in `schema-converter/json-schema-converter/src/main/java/org/apache/rocketmq/schema/json/JsonSchemaData.java`
-#### Snippet
-```java
-                return JSON_NODE_FACTORY.nullNode();
-            }
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `schema-converter/json-schema-converter/src/main/java/org/apache/rocketmq/schema/json/JsonSchemaData.java`
-#### Snippet
-```java
-    private org.everit.json.schema.Schema rawSchemaFromConnectSchema(Schema schema, Integer index, boolean ignoreOptional) {
-        if (schema == null) {
-            return null;
-        }
-        org.everit.json.schema.Schema.Builder builder;
-```
-
-### ReturnNull
-Return of `null`
-in `schema-converter/json-schema-converter/src/main/java/org/apache/rocketmq/schema/json/JsonSchemaData.java`
-#### Snippet
-```java
-                }
-                if (jsonValue == null || schema.isOptional()) {
-                    return null;
-                }
-                throw new ConnectException("Invalid null value for required " + schemaType + " field");
-```
-
-### ReturnNull
-Return of `null`
-in `schema-converter/json-schema-converter/src/main/java/org/apache/rocketmq/schema/json/JsonSchemaData.java`
-#### Snippet
-```java
-        } else {
-            if (jsonValue == null) {
-                return null;
-            }
-            switch (jsonValue.getNodeType()) {
-```
-
-### ReturnNull
-Return of `null`
-in `schema-converter/json-schema-converter/src/main/java/org/apache/rocketmq/schema/json/JsonSchemaData.java`
-#### Snippet
-```java
-            switch (jsonValue.getNodeType()) {
-                case NULL:
-                    return null;
-                case BOOLEAN:
-                    schemaType = FieldType.BOOLEAN;
-```
-
-### ReturnNull
-Return of `null`
-in `schema-converter/schema-converter-common/src/main/java/org/apache/rocketmq/schema/common/AbstractLocalSchemaRegistryClient.java`
-#### Snippet
-```java
-        } catch (RestClientException | IOException e) {
-            if (e instanceof RestClientException) {
-                return null;
-            } else {
-                throw new RuntimeException(e);
-```
-
-### ReturnNull
-Return of `null`
-in `schema-converter/schema-converter-common/src/main/java/org/apache/rocketmq/schema/common/AbstractLocalSchemaRegistryClient.java`
-#### Snippet
-```java
-        } catch (RestClientException | IOException e) {
-            if (e instanceof RestClientException) {
-                return null;
-            } else {
-                throw new RuntimeException(e);
+        ToConnectContext toConnectContext = new ToConnectContext();
 ```
 
 ## RuleId[ruleID=UnnecessaryLocalVariable]
 ### UnnecessaryLocalVariable
-Local variable `recordPartition` is redundant
-in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/utils/ConnectUtil.java`
+Local variable `result` is redundant
+in `rocketmq-connect-cli/src/main/java/org/apache/rocketmq/connect/cli/utils/RestSender.java`
 #### Snippet
 ```java
-        map.put("brokerName", brokerName);
-        map.put("queueId", queueId + "");
+                response = client.execute(httpGet);
+                HttpEntity entity = response.getEntity();
+                String result = EntityUtils.toString(entity);
+                return result;
+            } finally {
+```
+
+### UnnecessaryLocalVariable
+Local variable `recordOffset` is redundant
+in `rocketmq-connect-sample/src/main/java/org/apache/rocketmq/connect/file/FileSourceTask.java`
+#### Snippet
+```java
+        Map<String, String> map = new HashMap<>();
+        map.put(FileConstants.NEXT_POSITION, String.valueOf(pos));
+        RecordOffset recordOffset = new RecordOffset(map);
+        return recordOffset;
+    }
+```
+
+### UnnecessaryLocalVariable
+Local variable `recordPartition` is redundant
+in `rocketmq-connect-sample/src/main/java/org/apache/rocketmq/connect/file/FileSourceTask.java`
+#### Snippet
+```java
+        Map<String, String> map = new HashMap<>();
+        map.put(FILE_CONFIG, filename);
         RecordPartition recordPartition = new RecordPartition(map);
         return recordPartition;
     }
+```
+
+### UnnecessaryLocalVariable
+Local variable `result` is redundant
+in `schema-converter/json-schema-converter/src/main/java/org/apache/rocketmq/schema/json/JsonSchemaData.java`
+#### Snippet
+```java
+        }
+
+        Schema result = builder.build();
+        return result;
+    }
+```
+
+### UnnecessaryLocalVariable
+Local variable `value` is redundant
+in `schema-converter/json-schema-converter/src/main/java/org/apache/rocketmq/schema/json/JsonSchemaData.java`
+#### Snippet
+```java
+        }
+
+        Object value = logicalValue;
+        if (schema != null && schema.getName() != null) {
+            ConnectToJsonLogicalTypeConverter logicalConverter =
 ```
 
 ### UnnecessaryLocalVariable
@@ -8410,6 +8458,18 @@ in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/u
         offsetMap.put(QUEUE_OFFSET, offset + "");
         RecordOffset recordOffset = new RecordOffset(offsetMap);
         return recordOffset;
+    }
+```
+
+### UnnecessaryLocalVariable
+Local variable `recordPartition` is redundant
+in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/utils/ConnectUtil.java`
+#### Snippet
+```java
+        map.put("brokerName", brokerName);
+        map.put("queueId", queueId + "");
+        RecordPartition recordPartition = new RecordPartition(map);
+        return recordPartition;
     }
 ```
 
@@ -8462,18 +8522,6 @@ in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/c
 ```
 
 ### UnnecessaryLocalVariable
-Local variable `result` is redundant
-in `rocketmq-connect-cli/src/main/java/org/apache/rocketmq/connect/cli/utils/RestSender.java`
-#### Snippet
-```java
-                response = client.execute(httpGet);
-                HttpEntity entity = response.getEntity();
-                String result = EntityUtils.toString(entity);
-                return result;
-            } finally {
-```
-
-### UnnecessaryLocalVariable
 Local variable `object` is redundant
 in `schema-converter/avro-schema-converter/src/main/java/org/apache/rocketmq/schema/avro/util/AvroSchemaUtils.java`
 #### Snippet
@@ -8495,54 +8543,6 @@ in `schema-converter/avro-schema-converter/src/main/java/org/apache/rocketmq/sch
             Object object = reader.read(null,
                     DECODER_FACTORY.jsonDecoder(rawSchema, new ByteArrayInputStream(out.toByteArray()))
             );
-```
-
-### UnnecessaryLocalVariable
-Local variable `recordPartition` is redundant
-in `rocketmq-connect-sample/src/main/java/org/apache/rocketmq/connect/file/FileSourceTask.java`
-#### Snippet
-```java
-        Map<String, String> map = new HashMap<>();
-        map.put(FILE_CONFIG, filename);
-        RecordPartition recordPartition = new RecordPartition(map);
-        return recordPartition;
-    }
-```
-
-### UnnecessaryLocalVariable
-Local variable `recordOffset` is redundant
-in `rocketmq-connect-sample/src/main/java/org/apache/rocketmq/connect/file/FileSourceTask.java`
-#### Snippet
-```java
-        Map<String, String> map = new HashMap<>();
-        map.put(FileConstants.NEXT_POSITION, String.valueOf(pos));
-        RecordOffset recordOffset = new RecordOffset(map);
-        return recordOffset;
-    }
-```
-
-### UnnecessaryLocalVariable
-Local variable `result` is redundant
-in `schema-converter/json-schema-converter/src/main/java/org/apache/rocketmq/schema/json/JsonSchemaData.java`
-#### Snippet
-```java
-        }
-
-        Schema result = builder.build();
-        return result;
-    }
-```
-
-### UnnecessaryLocalVariable
-Local variable `value` is redundant
-in `schema-converter/json-schema-converter/src/main/java/org/apache/rocketmq/schema/json/JsonSchemaData.java`
-#### Snippet
-```java
-        }
-
-        Object value = logicalValue;
-        if (schema != null && schema.getName() != null) {
-            ConnectToJsonLogicalTypeConverter logicalConverter =
 ```
 
 ## RuleId[ruleID=BusyWait]
@@ -8602,11 +8602,11 @@ in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/c
 in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/config/SinkConnectorConfig.java`
 #### Snippet
 ```java
-
-    public static MessageQueue parseMessageQueueList(String messageQueueStr) {
-        List<String> messageQueueStrList = Splitter.on(SEMICOLON).omitEmptyStrings().trimResults().splitToList(messageQueueStr);
-        if (CollectionUtils.isEmpty(messageQueueStrList) || messageQueueStrList.size() != 3) {
             return null;
+        }
+        List<String> topicList = Splitter.on(SEMICOLON).omitEmptyStrings().trimResults().splitToList(messageQueueStr);
+        return new HashSet<>(topicList);
+    }
 ```
 
 ### UnstableApiUsage
@@ -8614,11 +8614,11 @@ in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/c
 in `rocketmq-connect-runtime/src/main/java/org/apache/rocketmq/connect/runtime/config/SinkConnectorConfig.java`
 #### Snippet
 ```java
+
+    public static MessageQueue parseMessageQueueList(String messageQueueStr) {
+        List<String> messageQueueStrList = Splitter.on(SEMICOLON).omitEmptyStrings().trimResults().splitToList(messageQueueStr);
+        if (CollectionUtils.isEmpty(messageQueueStrList) || messageQueueStrList.size() != 3) {
             return null;
-        }
-        List<String> topicList = Splitter.on(SEMICOLON).omitEmptyStrings().trimResults().splitToList(messageQueueStr);
-        return new HashSet<>(topicList);
-    }
 ```
 
 ### UnstableApiUsage
