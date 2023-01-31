@@ -185,19 +185,6 @@ in `samples/src/main/java/io/durabletask/samples/ChainingPattern.java`
             }
 ```
 
-## RuleId[ruleID=UnnecessarySemicolon]
-### UnnecessarySemicolon
-Unnecessary semicolon `;`
-in `client/src/main/java/com/microsoft/durabletask/TaskOrchestratorResult.java`
-#### Snippet
-```java
-
-    public TaskOrchestratorResult(Collection<OrchestratorService.OrchestratorAction> actions, String customStatus) {
-        this.actions = Collections.unmodifiableCollection(actions);;
-        this.customStatus = customStatus;
-    }
-```
-
 ## RuleId[ruleID=DataFlowIssue]
 ### DataFlowIssue
 Method invocation `readOutputAs` may produce `NullPointerException`
@@ -224,18 +211,6 @@ in `client/src/main/java/com/microsoft/durabletask/DurableTaskGrpcClient.java`
 ```
 
 ### DataFlowIssue
-Argument `serializedInput` might be null
-in `client/src/main/java/com/microsoft/durabletask/DurableTaskGrpcClient.java`
-#### Snippet
-```java
-        if (input != null) {
-            String serializedInput = this.dataConverter.serialize(input);
-            builder.setInput(StringValue.of(serializedInput));
-        }
-
-```
-
-### DataFlowIssue
 Argument `serializeOutput` might be null
 in `client/src/main/java/com/microsoft/durabletask/DurableTaskGrpcClient.java`
 #### Snippet
@@ -248,6 +223,18 @@ in `client/src/main/java/com/microsoft/durabletask/DurableTaskGrpcClient.java`
 ```
 
 ### DataFlowIssue
+Argument `serializedInput` might be null
+in `client/src/main/java/com/microsoft/durabletask/DurableTaskGrpcClient.java`
+#### Snippet
+```java
+        if (input != null) {
+            String serializedInput = this.dataConverter.serialize(input);
+            builder.setInput(StringValue.of(serializedInput));
+        }
+
+```
+
+### DataFlowIssue
 Method invocation `readOutputAs` may produce `NullPointerException`
 in `samples/src/main/java/io/durabletask/samples/FanOutFanInPattern.java`
 #### Snippet
@@ -257,6 +244,19 @@ in `samples/src/main/java/io/durabletask/samples/FanOutFanInPattern.java`
         System.out.printf("Output: %d%n", completedInstance.readOutputAs(int.class));
 
         // Shutdown the server and exit
+```
+
+## RuleId[ruleID=UnnecessarySemicolon]
+### UnnecessarySemicolon
+Unnecessary semicolon `;`
+in `client/src/main/java/com/microsoft/durabletask/TaskOrchestratorResult.java`
+#### Snippet
+```java
+
+    public TaskOrchestratorResult(Collection<OrchestratorService.OrchestratorAction> actions, String customStatus) {
+        this.actions = Collections.unmodifiableCollection(actions);;
+        this.customStatus = customStatus;
+    }
 ```
 
 ## RuleId[ruleID=UNUSED_IMPORT]
@@ -287,18 +287,6 @@ in `client/src/main/java/com/microsoft/durabletask/DurableTaskGrpcClient.java`
 
 ## RuleId[ruleID=CommentedOutCode]
 ### CommentedOutCode
-Commented out code (8 lines)
-in `samples/src/main/java/io/durabletask/samples/ChainingPattern.java`
-#### Snippet
-```java
-    }
-
-    // class OrderInfo {}
-
-    // class ServicesAPIs {
-```
-
-### CommentedOutCode
 Commented out code (10 lines)
 in `samples/src/main/java/io/durabletask/samples/ChainingPattern.java`
 #### Snippet
@@ -308,6 +296,18 @@ in `samples/src/main/java/io/durabletask/samples/ChainingPattern.java`
                     // var order = ctx.getInput(OrderInfo.class); // deserialize order info from JSON to an object
                     // var retryPolicy = RetryPolicy.newBuilder()
                     //         .setMaxRetries(100)
+```
+
+### CommentedOutCode
+Commented out code (8 lines)
+in `samples/src/main/java/io/durabletask/samples/ChainingPattern.java`
+#### Snippet
+```java
+    }
+
+    // class OrderInfo {}
+
+    // class ServicesAPIs {
 ```
 
 ### CommentedOutCode
@@ -519,18 +519,6 @@ in `client/src/main/java/com/microsoft/durabletask/DurableTaskGrpcClient.java`
 ```
 
 ### SizeReplaceableByIsEmpty
-`jsonText.length() == 0` can be replaced with 'jsonText.isEmpty()'
-in `client/src/main/java/com/microsoft/durabletask/JacksonDataConverter.java`
-#### Snippet
-```java
-    @Override
-    public <T> T deserialize(String jsonText, Class<T> targetType) {
-        if (jsonText == null || jsonText.length() == 0 || targetType == Void.class) {
-            return null;
-        }
-```
-
-### SizeReplaceableByIsEmpty
 `this.rpcBaseUrl.length() == 0` can be replaced with 'this.rpcBaseUrl.isEmpty()'
 in `azurefunctions/src/main/java/com/microsoft/durabletask/azurefunctions/DurableClientContext.java`
 #### Snippet
@@ -539,6 +527,18 @@ in `azurefunctions/src/main/java/com/microsoft/durabletask/azurefunctions/Durabl
     public DurableTaskClient getClient() {
         if (this.rpcBaseUrl == null || this.rpcBaseUrl.length() == 0) {
             throw new IllegalStateException("The client context wasn't populated with an RPC base URL!");
+        }
+```
+
+### SizeReplaceableByIsEmpty
+`jsonText.length() == 0` can be replaced with 'jsonText.isEmpty()'
+in `client/src/main/java/com/microsoft/durabletask/JacksonDataConverter.java`
+#### Snippet
+```java
+    @Override
+    public <T> T deserialize(String jsonText, Class<T> targetType) {
+        if (jsonText == null || jsonText.length() == 0 || targetType == Void.class) {
+            return null;
         }
 ```
 
@@ -638,6 +638,30 @@ in `client/src/main/java/com/microsoft/durabletask/CompositeTaskFailedException.
 ```java
     }
 
+    CompositeTaskFailedException(List<Exception> exceptions) {
+        this.exceptions = exceptions;
+    }
+```
+
+### BoundedWildcard
+Can generalize to `? extends Exception`
+in `client/src/main/java/com/microsoft/durabletask/CompositeTaskFailedException.java`
+#### Snippet
+```java
+    }
+
+    CompositeTaskFailedException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace, List<Exception> exceptions) {
+        super(message, cause, enableSuppression, writableStackTrace);
+        this.exceptions = exceptions;
+```
+
+### BoundedWildcard
+Can generalize to `? extends Exception`
+in `client/src/main/java/com/microsoft/durabletask/CompositeTaskFailedException.java`
+#### Snippet
+```java
+    }
+
     CompositeTaskFailedException(Throwable cause, List<Exception> exceptions) {
         super(cause);
         this.exceptions = exceptions;
@@ -668,30 +692,6 @@ in `client/src/main/java/com/microsoft/durabletask/CompositeTaskFailedException.
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends Exception`
-in `client/src/main/java/com/microsoft/durabletask/CompositeTaskFailedException.java`
-#### Snippet
-```java
-    }
-
-    CompositeTaskFailedException(List<Exception> exceptions) {
-        this.exceptions = exceptions;
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? extends Exception`
-in `client/src/main/java/com/microsoft/durabletask/CompositeTaskFailedException.java`
-#### Snippet
-```java
-    }
-
-    CompositeTaskFailedException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace, List<Exception> exceptions) {
-        super(message, cause, enableSuppression, writableStackTrace);
-        this.exceptions = exceptions;
-```
-
-### BoundedWildcard
 Can generalize to `? extends TaskActivityFactory`
 in `client/src/main/java/com/microsoft/durabletask/TaskActivityExecutor.java`
 #### Snippet
@@ -710,7 +710,7 @@ in `client/src/main/java/com/microsoft/durabletask/TaskOrchestrationExecutor.jav
 ```java
 
         @Override
-        public <V> Task<List<V>> allOf(List<Task<V>> tasks) {
+        public Task<Task<?>> anyOf(List<Task<?>> tasks) {
             Helpers.throwIfArgumentNull(tasks, "tasks");
 
 ```
@@ -722,7 +722,7 @@ in `client/src/main/java/com/microsoft/durabletask/TaskOrchestrationExecutor.jav
 ```java
 
         @Override
-        public Task<Task<?>> anyOf(List<Task<?>> tasks) {
+        public <V> Task<List<V>> allOf(List<Task<V>> tasks) {
             Helpers.throwIfArgumentNull(tasks, "tasks");
 
 ```
