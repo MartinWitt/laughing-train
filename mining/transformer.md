@@ -112,18 +112,6 @@ in `org.eclipse.transformer/src/main/java/org/eclipse/transformer/action/impl/Ac
 ```
 
 ### StringEquality
-String values are compared using `==`, not 'equals()'
-in `org.eclipse.transformer/src/main/java/org/eclipse/transformer/action/impl/SignatureRuleImpl.java`
-#### Snippet
-```java
-		}
-
-		if (initialText == text) {
-			return null;
-		} else {
-```
-
-### StringEquality
 String values are compared using `!=`, not 'equals()'
 in `org.eclipse.transformer/src/main/java/org/eclipse/transformer/action/impl/SignatureRuleImpl.java`
 #### Snippet
@@ -132,6 +120,18 @@ in `org.eclipse.transformer/src/main/java/org/eclipse/transformer/action/impl/Si
 
 		if (finalValue != initialValue) {
 			return finalValue;
+		} else {
+```
+
+### StringEquality
+String values are compared using `==`, not 'equals()'
+in `org.eclipse.transformer/src/main/java/org/eclipse/transformer/action/impl/SignatureRuleImpl.java`
+#### Snippet
+```java
+		}
+
+		if (initialText == text) {
+			return null;
 		} else {
 ```
 
@@ -199,18 +199,6 @@ in `org.eclipse.transformer/src/main/java/org/eclipse/transformer/Transformer.ja
 
 ## RuleId[ruleID=CommentedOutCode]
 ### CommentedOutCode
-Commented out code (3 lines)
-in `org.eclipse.transformer.cli/src/main/java/org/eclipse/transformer/cli/TransformerCLI.java`
-#### Snippet
-```java
-
-		useSysOut.println(message);
-		// if ( useSysErr != useSysOut ) {
-		// useSysErr.println(message);
-		// }
-```
-
-### CommentedOutCode
 Commented out code (2 lines)
 in `org.eclipse.transformer/src/main/java/org/eclipse/transformer/action/impl/ManifestActionImpl.java`
 #### Snippet
@@ -244,6 +232,18 @@ in `org.eclipse.transformer/src/main/java/org/eclipse/transformer/action/impl/Ma
 		// String oldVersion = packageText.substring(versionBeginIndex,
 		// versionEndIndex+1);
 		// getLogger().debug("old version[{}] new version[{}]", oldVersion,
+```
+
+### CommentedOutCode
+Commented out code (3 lines)
+in `org.eclipse.transformer.cli/src/main/java/org/eclipse/transformer/cli/TransformerCLI.java`
+#### Snippet
+```java
+
+		useSysOut.println(message);
+		// if ( useSysErr != useSysOut ) {
+		// useSysErr.println(message);
+		// }
 ```
 
 ### CommentedOutCode
@@ -355,32 +355,20 @@ in `org.eclipse.transformer/src/main/java/org/eclipse/transformer/action/impl/Ac
 ```java
 	}
 
-	protected String binaryPackagesUpdate(String inputName, String initialValue, List<String> cases) {
-		String finalValue = getSignatureRule().replaceBinaryPackages(initialValue);
-		if (finalValue != null) {
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `org.eclipse.transformer/src/main/java/org/eclipse/transformer/action/impl/ActionImpl.java`
-#### Snippet
-```java
-	}
-
-	protected String descriptorUpdate(String inputName, String initialValue, List<String> cases) {
-		String finalValue = getSignatureRule().transformDescriptor(initialValue);
-		if (finalValue != null) {
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `org.eclipse.transformer/src/main/java/org/eclipse/transformer/action/impl/ActionImpl.java`
-#### Snippet
-```java
-	}
-
 	protected String binaryTypeUpdate(String inputName, String initialValue, List<String> cases) {
 		String finalValue = getSignatureRule().transformBinaryType(initialValue);
+		if (finalValue != null) {
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `org.eclipse.transformer/src/main/java/org/eclipse/transformer/action/impl/ActionImpl.java`
+#### Snippet
+```java
+	}
+
+	protected String textUpdate(String inputName, String initialValue, List<String> cases) {
+		String finalValue = getSignatureRule().replaceText(inputName, initialValue);
 		if (finalValue != null) {
 ```
 
@@ -415,21 +403,21 @@ in `org.eclipse.transformer/src/main/java/org/eclipse/transformer/action/impl/Ac
 ```java
 	}
 
-	protected String textUpdate(String inputName, String initialValue, List<String> cases) {
-		String finalValue = getSignatureRule().replaceText(inputName, initialValue);
+	protected String directGlobalUpdate(String inputName, String initialValue, List<String> cases) {
+		String finalValue = getSignatureRule().replaceTextDirectGlobal(initialValue, inputName);
 		if (finalValue != null) {
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends StringReplacement`
+Can generalize to `? super String`
 in `org.eclipse.transformer/src/main/java/org/eclipse/transformer/action/impl/ActionImpl.java`
 #### Snippet
 ```java
-	protected String updateString(
-		String inputName, String valueCase, String initialValue,
-		List<StringReplacement> replacements) {
+	}
 
-		Logger useLogger = getLogger();
+	protected String descriptorUpdate(String inputName, String initialValue, List<String> cases) {
+		String finalValue = getSignatureRule().transformDescriptor(initialValue);
+		if (finalValue != null) {
 ```
 
 ### BoundedWildcard
@@ -451,9 +439,21 @@ in `org.eclipse.transformer/src/main/java/org/eclipse/transformer/action/impl/Ac
 ```java
 	}
 
-	protected String directGlobalUpdate(String inputName, String initialValue, List<String> cases) {
-		String finalValue = getSignatureRule().replaceTextDirectGlobal(initialValue, inputName);
+	protected String binaryPackagesUpdate(String inputName, String initialValue, List<String> cases) {
+		String finalValue = getSignatureRule().replaceBinaryPackages(initialValue);
 		if (finalValue != null) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends StringReplacement`
+in `org.eclipse.transformer/src/main/java/org/eclipse/transformer/action/impl/ActionImpl.java`
+#### Snippet
+```java
+	protected String updateString(
+		String inputName, String valueCase, String initialValue,
+		List<StringReplacement> replacements) {
+
+		Logger useLogger = getLogger();
 ```
 
 ### BoundedWildcard
@@ -505,18 +505,6 @@ in `org.eclipse.transformer/src/main/java/org/eclipse/transformer/action/impl/Zi
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends ANNOTATIONSATTRIBUTE`
-in `org.eclipse.transformer/src/main/java/org/eclipse/transformer/action/impl/ClassActionImpl.java`
-#### Snippet
-```java
-
-	private <ANNOTATIONSATTRIBUTE extends AnnotationsAttribute> ANNOTATIONSATTRIBUTE transform(
-		ANNOTATIONSATTRIBUTE inputAttribute, AnnotationsAttribute.Constructor<ANNOTATIONSATTRIBUTE> constructor, String inputName) {
-
-		AnnotationInfo[] outputAnnotations = transform(inputAttribute.annotations, inputName);
-```
-
-### BoundedWildcard
 Can generalize to `? extends TYPEANNOTATIONSATTRIBUTE`
 in `org.eclipse.transformer/src/main/java/org/eclipse/transformer/action/impl/ClassActionImpl.java`
 #### Snippet
@@ -541,15 +529,15 @@ in `org.eclipse.transformer/src/main/java/org/eclipse/transformer/action/impl/Cl
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends MEMBERINFO`
+Can generalize to `? extends ANNOTATIONSATTRIBUTE`
 in `org.eclipse.transformer/src/main/java/org/eclipse/transformer/action/impl/ClassActionImpl.java`
 #### Snippet
 ```java
 
-	private <MEMBERINFO extends MemberInfo> MEMBERINFO transform(MEMBERINFO member,
-		MemberInfo.Constructor<MEMBERINFO> constructor, SignatureType signatureType, String inputName) {
+	private <ANNOTATIONSATTRIBUTE extends AnnotationsAttribute> ANNOTATIONSATTRIBUTE transform(
+		ANNOTATIONSATTRIBUTE inputAttribute, AnnotationsAttribute.Constructor<ANNOTATIONSATTRIBUTE> constructor, String inputName) {
 
-		String inputDescriptor = member.descriptor;
+		AnnotationInfo[] outputAnnotations = transform(inputAttribute.annotations, inputName);
 ```
 
 ### BoundedWildcard
@@ -565,15 +553,15 @@ in `org.eclipse.transformer/src/main/java/org/eclipse/transformer/action/impl/Cl
 ```
 
 ### BoundedWildcard
-Can generalize to `? super String`
-in `org.eclipse.transformer/src/main/java/org/eclipse/transformer/Transformer.java`
+Can generalize to `? extends MEMBERINFO`
+in `org.eclipse.transformer/src/main/java/org/eclipse/transformer/action/impl/ClassActionImpl.java`
 #### Snippet
 ```java
-	}
 
-	protected void merge(String sinkName, Map<String, String> sink, String sourceName, Properties source,
-		Set<String> orphanedValues) {
+	private <MEMBERINFO extends MemberInfo> MEMBERINFO transform(MEMBERINFO member,
+		MemberInfo.Constructor<MEMBERINFO> constructor, SignatureType signatureType, String inputName) {
 
+		String inputDescriptor = member.descriptor;
 ```
 
 ### BoundedWildcard
@@ -590,14 +578,14 @@ in `org.eclipse.transformer/src/main/java/org/eclipse/transformer/Transformer.ja
 
 ### BoundedWildcard
 Can generalize to `? super String`
-in `org.eclipse.transformer/src/main/java/org/eclipse/transformer/TransformProperties.java`
+in `org.eclipse.transformer/src/main/java/org/eclipse/transformer/Transformer.java`
 #### Snippet
 ```java
 	}
 
-	public static void addSelection(Map<String, String> included, Map<String, String> excluded, String selection, String charset) {
-		selection = selection.trim();
-		charset = charset.trim();
+	protected void merge(String sinkName, Map<String, String> sink, String sourceName, Properties source,
+		Set<String> orphanedValues) {
+
 ```
 
 ### BoundedWildcard
@@ -634,6 +622,30 @@ in `org.eclipse.transformer/src/main/java/org/eclipse/transformer/TransformPrope
 	public static void addSelection(Map<String, String> included, Map<String, String> excluded, String selection, String charset) {
 		selection = selection.trim();
 		charset = charset.trim();
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `org.eclipse.transformer/src/main/java/org/eclipse/transformer/TransformProperties.java`
+#### Snippet
+```java
+	}
+
+	public static void addSelection(Map<String, String> included, Map<String, String> excluded, String selection, String charset) {
+		selection = selection.trim();
+		charset = charset.trim();
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `org.eclipse.transformer/src/main/java/org/eclipse/transformer/TransformProperties.java`
+#### Snippet
+```java
+	public static String setVersion(
+		String newPackageName, String newVersion,
+		Map<String, String> packageVersions) {
+
+		return packageVersions.put(newPackageName, newVersion);
 ```
 
 ### BoundedWildcard
@@ -670,18 +682,6 @@ in `org.eclipse.transformer/src/main/java/org/eclipse/transformer/TransformPrope
 		Map<String, Map<String, String>> specificPackageVersions) {
 
 		String versionText;
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `org.eclipse.transformer/src/main/java/org/eclipse/transformer/TransformProperties.java`
-#### Snippet
-```java
-	public static String setVersion(
-		String newPackageName, String newVersion,
-		Map<String, String> packageVersions) {
-
-		return packageVersions.put(newPackageName, newVersion);
 ```
 
 ## RuleId[ruleID=MissortedModifiers]
@@ -777,10 +777,10 @@ Redundant default parameter value assignment
 in `maven-plugins/transformer-maven-plugin/src/main/java/org/eclipse/transformer/maven/TransformerRunMojo.java`
 #### Snippet
 ```java
-	private String				rulesRenamesUri;
-
-	@Parameter(property = "transformer-plugin.versions", defaultValue = "")
 	private String				rulesVersionUri;
+
+	@Parameter(property = "transformer-plugin.bundles", defaultValue = "")
+	private String				rulesBundlesUri;
 
 ```
 
@@ -789,10 +789,10 @@ Redundant default parameter value assignment
 in `maven-plugins/transformer-maven-plugin/src/main/java/org/eclipse/transformer/maven/TransformerRunMojo.java`
 #### Snippet
 ```java
-	private String				rulesDirectUri;
+	private String				rulesRenamesUri;
 
-	@Parameter(property = "transformer-plugin.per-class-constant", defaultValue = "")
-	private String rulesPerClassConstantUri;
+	@Parameter(property = "transformer-plugin.versions", defaultValue = "")
+	private String				rulesVersionUri;
 
 ```
 
@@ -813,22 +813,10 @@ Redundant default parameter value assignment
 in `maven-plugins/transformer-maven-plugin/src/main/java/org/eclipse/transformer/maven/TransformerRunMojo.java`
 #### Snippet
 ```java
-	private String				rulesVersionUri;
+	private String				rulesDirectUri;
 
-	@Parameter(property = "transformer-plugin.bundles", defaultValue = "")
-	private String				rulesBundlesUri;
-
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `maven-plugins/transformer-maven-plugin/src/main/java/org/eclipse/transformer/maven/TransformerRunMojo.java`
-#### Snippet
-```java
-	private boolean				attach;
-
-	@Parameter(property = "transformer-plugin.renames", defaultValue = "")
-	private String				rulesRenamesUri;
+	@Parameter(property = "transformer-plugin.per-class-constant", defaultValue = "")
+	private String rulesPerClassConstantUri;
 
 ```
 
@@ -853,6 +841,18 @@ in `maven-plugins/transformer-maven-plugin/src/main/java/org/eclipse/transformer
 
 	@Parameter(property = "transformer-plugin.xml", defaultValue = "")
 	private String				rulesXmlsUri;
+
+```
+
+### DefaultAnnotationParam
+Redundant default parameter value assignment
+in `maven-plugins/transformer-maven-plugin/src/main/java/org/eclipse/transformer/maven/TransformerRunMojo.java`
+#### Snippet
+```java
+	private boolean				attach;
+
+	@Parameter(property = "transformer-plugin.renames", defaultValue = "")
+	private String				rulesRenamesUri;
 
 ```
 
@@ -961,18 +961,6 @@ Result of assignment expression used
 in `org.eclipse.transformer/src/main/java/org/eclipse/transformer/util/FileUtils.java`
 #### Snippet
 ```java
-		long totalBytesRead = 0L;
-
-		for (int bytesRead = 0; (bytesRead = inputStream.read(buffer, 0, buffer.length)) != -1;) {
-			totalBytesRead += bytesRead;
-			outputStream.write(buffer, 0, bytesRead);
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `org.eclipse.transformer/src/main/java/org/eclipse/transformer/util/FileUtils.java`
-#### Snippet
-```java
 			byte[] buf = outputBuffer.array();
 			int bytesRead;
 			while ( (unread > 0) && ((bytesRead = inputStream.read(buf, read, unread)) != -1) ) {
@@ -1006,6 +994,18 @@ in `org.eclipse.transformer/src/main/java/org/eclipse/transformer/util/FileUtils
 
 ### NestedAssignment
 Result of assignment expression used
+in `org.eclipse.transformer/src/main/java/org/eclipse/transformer/util/FileUtils.java`
+#### Snippet
+```java
+		long totalBytesRead = 0L;
+
+		for (int bytesRead = 0; (bytesRead = inputStream.read(buffer, 0, buffer.length)) != -1;) {
+			totalBytesRead += bytesRead;
+			outputStream.write(buffer, 0, bytesRead);
+```
+
+### NestedAssignment
+Result of assignment expression used
 in `org.eclipse.transformer/src/main/java/org/eclipse/transformer/action/impl/ServiceLoaderConfigActionImpl.java`
 #### Snippet
 ```java
@@ -1033,11 +1033,11 @@ Result of assignment expression used
 in `org.eclipse.transformer/src/main/java/org/eclipse/transformer/TransformProperties.java`
 #### Snippet
 ```java
-			Map<String, String> versionsForProperty = specificPackageVersions.get(propertyName);
-			if ( versionsForProperty == null ) {
-				specificPackageVersions.put( propertyName, (versionsForProperty = new HashMap<>()) );
-			}
-			versionsForProperty.put(newPackageName, versionText);
+
+			String line;
+			while ((line = bufferedReader.readLine()) != null) {
+				if (line.length() > 72) {
+					return true;
 ```
 
 ### NestedAssignment
@@ -1045,11 +1045,11 @@ Result of assignment expression used
 in `org.eclipse.transformer/src/main/java/org/eclipse/transformer/TransformProperties.java`
 #### Snippet
 ```java
-
-			String line;
-			while ((line = bufferedReader.readLine()) != null) {
-				if (line.length() > 72) {
-					return true;
+			Map<String, String> versionsForProperty = specificPackageVersions.get(propertyName);
+			if ( versionsForProperty == null ) {
+				specificPackageVersions.put( propertyName, (versionsForProperty = new HashMap<>()) );
+			}
+			versionsForProperty.put(newPackageName, versionText);
 ```
 
 ## RuleId[ruleID=CodeBlock2Expr]
@@ -1070,18 +1070,6 @@ Statement lambda can be replaced with expression lambda
 in `org.eclipse.transformer/src/main/java/org/eclipse/transformer/action/impl/ZipActionImpl.java`
 #### Snippet
 ```java
-
-		ZipEntry outputEntry = createEntry(inputEntry, outputName, outputData);
-		putEntry(zipOutputStream, outputEntry, () -> {
-			outputData.writeTo(zipOutputStream);
-		});
-```
-
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
-in `org.eclipse.transformer/src/main/java/org/eclipse/transformer/action/impl/ZipActionImpl.java`
-#### Snippet
-```java
 									ByteData outputData = zipAction.apply(inputData);
 									ZipEntry outputEntry = createEntry(inputEntry, outputName, outputData);
 									putEntry(zipOutputStream, outputEntry, () -> {
@@ -1089,19 +1077,19 @@ in `org.eclipse.transformer/src/main/java/org/eclipse/transformer/action/impl/Zi
 									});
 ```
 
-## RuleId[ruleID=NonProtectedConstructorInAbstractClass]
-### NonProtectedConstructorInAbstractClass
-Constructor `ChangesImpl()` of an abstract class should not be declared 'public'
-in `org.eclipse.transformer/src/main/java/org/eclipse/transformer/action/impl/ChangesImpl.java`
+### CodeBlock2Expr
+Statement lambda can be replaced with expression lambda
+in `org.eclipse.transformer/src/main/java/org/eclipse/transformer/action/impl/ZipActionImpl.java`
 #### Snippet
 ```java
-public abstract class ChangesImpl implements Changes {
 
-	public ChangesImpl() {
-		// Empty
-	}
+		ZipEntry outputEntry = createEntry(inputEntry, outputName, outputData);
+		putEntry(zipOutputStream, outputEntry, () -> {
+			outputData.writeTo(zipOutputStream);
+		});
 ```
 
+## RuleId[ruleID=NonProtectedConstructorInAbstractClass]
 ### NonProtectedConstructorInAbstractClass
 Constructor `ElementActionImpl()` of an abstract class should not be declared 'public'
 in `org.eclipse.transformer/src/main/java/org/eclipse/transformer/action/impl/ElementActionImpl.java`
@@ -1115,15 +1103,15 @@ public abstract class ElementActionImpl extends ActionImpl implements ElementAct
 ```
 
 ### NonProtectedConstructorInAbstractClass
-Constructor `ContainerActionImpl()` of an abstract class should not be declared 'public'
-in `org.eclipse.transformer/src/main/java/org/eclipse/transformer/action/impl/ContainerActionImpl.java`
+Constructor `ChangesImpl()` of an abstract class should not be declared 'public'
+in `org.eclipse.transformer/src/main/java/org/eclipse/transformer/action/impl/ChangesImpl.java`
 #### Snippet
 ```java
-public abstract class ContainerActionImpl extends ActionImpl implements ContainerAction {
+public abstract class ChangesImpl implements Changes {
 
-	public ContainerActionImpl(ActionContext context, ActionSelector actionSelector) {
-		super(context);
-		this.actionSelector = actionSelector;
+	public ChangesImpl() {
+		// Empty
+	}
 ```
 
 ### NonProtectedConstructorInAbstractClass
@@ -1136,6 +1124,18 @@ in `org.eclipse.transformer/src/main/java/org/eclipse/transformer/action/impl/Co
 	public ContainerActionImpl(ActionContext context) {
 		this(context, new ActionSelectorImpl());
 	}
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `ContainerActionImpl()` of an abstract class should not be declared 'public'
+in `org.eclipse.transformer/src/main/java/org/eclipse/transformer/action/impl/ContainerActionImpl.java`
+#### Snippet
+```java
+public abstract class ContainerActionImpl extends ActionImpl implements ContainerAction {
+
+	public ContainerActionImpl(ActionContext context, ActionSelector actionSelector) {
+		super(context);
+		this.actionSelector = actionSelector;
 ```
 
 ### NonProtectedConstructorInAbstractClass
@@ -1190,18 +1190,6 @@ in `bnd-plugins/org.eclipse.transformer.bnd.analyzer/src/main/java/org/eclipse/t
 
 ## RuleId[ruleID=AssignmentToMethodParameter]
 ### AssignmentToMethodParameter
-Assignment to method parameter `input`
-in `maven-plugins/transformer-maven-plugin/src/main/java/org/eclipse/transformer/maven/TransformerRunMojo.java`
-#### Snippet
-```java
-
-	private String emptyAsNull(String input) {
-		return (Objects.nonNull(input) && !(input = input.trim()).isEmpty()) ? input : null;
-	}
-
-```
-
-### AssignmentToMethodParameter
 Assignment to method parameter `text`
 in `org.eclipse.transformer/src/main/java/org/eclipse/transformer/action/impl/ManifestActionImpl.java`
 #### Snippet
@@ -1211,6 +1199,18 @@ in `org.eclipse.transformer/src/main/java/org/eclipse/transformer/action/impl/Ma
 				text = head + value + tail;
 
 				matchEnd = matchStart + value.length();
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `input`
+in `maven-plugins/transformer-maven-plugin/src/main/java/org/eclipse/transformer/maven/TransformerRunMojo.java`
+#### Snippet
+```java
+
+	private String emptyAsNull(String input) {
+		return (Objects.nonNull(input) && !(input = input.trim()).isEmpty()) ? input : null;
+	}
+
 ```
 
 ### AssignmentToMethodParameter
@@ -1298,6 +1298,18 @@ in `org.eclipse.transformer/src/main/java/org/eclipse/transformer/action/impl/Si
 ```
 
 ### AssignmentToMethodParameter
+Assignment to method parameter `substitutionsRef`
+in `org.eclipse.transformer/src/main/java/org/eclipse/transformer/Transformer.java`
+#### Snippet
+```java
+		}
+
+		substitutionsRef = options.normalize(substitutionsRef);
+
+		Map<String, String> substitutionsMap =
+```
+
+### AssignmentToMethodParameter
 Assignment to method parameter `initialPackageName`
 in `org.eclipse.transformer/src/main/java/org/eclipse/transformer/Transformer.java`
 #### Snippet
@@ -1319,18 +1331,6 @@ in `org.eclipse.transformer/src/main/java/org/eclipse/transformer/Transformer.ja
 			finalPackageName = initialHold;
 		}
 
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `substitutionsRef`
-in `org.eclipse.transformer/src/main/java/org/eclipse/transformer/Transformer.java`
-#### Snippet
-```java
-		}
-
-		substitutionsRef = options.normalize(substitutionsRef);
-
-		Map<String, String> substitutionsMap =
 ```
 
 ### AssignmentToMethodParameter
@@ -1394,176 +1394,7 @@ public class JakartaTransformerVerifierPlugin extends TransformerVerifierPlugin 
 		super();
 ```
 
-## RuleId[ruleID=CallToStringConcatCanBeReplacedByOperator]
-### CallToStringConcatCanBeReplacedByOperator
-Call to `concat()` can be replaced with '+' expression
-in `org.eclipse.transformer/src/main/java/org/eclipse/transformer/action/ActionType.java`
-#### Snippet
-```java
-
-	private boolean matchingUnsupported(String resourceName) {
-		throw new UnsupportedOperationException(getName().concat(" does not support resource name matching"));
-	}
-
-```
-
-### CallToStringConcatCanBeReplacedByOperator
-Call to `concat()` can be replaced with '+' expression
-in `org.eclipse.transformer.cli/src/main/java/org/eclipse/transformer/cli/TransformerLoggerFactory.java`
-#### Snippet
-```java
-			return null;
-		} else {
-			return SIMPLE_LOGGER_PROPERTY_PREFIX.concat(propertyName);
-		}
-	}
-```
-
-### CallToStringConcatCanBeReplacedByOperator
-Call to `concat()` can be replaced with '+' expression
-in `org.eclipse.transformer/src/main/java/org/eclipse/transformer/action/impl/ManifestActionImpl.java`
-#### Snippet
-```java
-				String value = renameEntry.getValue();
-				if (matchEnd < packageEnd) {
-					value = value.concat(text.substring(matchEnd, packageEnd));
-				}
-
-```
-
-### CallToStringConcatCanBeReplacedByOperator
-Call to `concat()` can be replaced with '+' expression
-in `org.eclipse.transformer/src/main/java/org/eclipse/transformer/util/SignatureUtils.java`
-#### Snippet
-```java
-				} else {
-					key = key.substring(0, lastIndex)
-						.concat(wildcard);
-				}
-			} else {
-```
-
-### CallToStringConcatCanBeReplacedByOperator
-Call to `concat()` can be replaced with '+' expression
-in `org.eclipse.transformer/src/main/java/org/eclipse/transformer/util/SignatureUtils.java`
-#### Snippet
-```java
-				}
-			} else {
-				key = key.concat(wildcard);
-			}
-		}
-```
-
-### CallToStringConcatCanBeReplacedByOperator
-Call to `concat()` can be replaced with '+' expression
-in `org.eclipse.transformer/src/main/java/org/eclipse/transformer/util/SignatureUtils.java`
-#### Snippet
-```java
-
-	public static String classNameToResourceName(String className) {
-		String resourceName = putSlashes(className).concat(CLASS_EXTENSION);
-		return resourceName;
-	}
-```
-
-### CallToStringConcatCanBeReplacedByOperator
-Call to `concat()` can be replaced with '+' expression
-in `org.eclipse.transformer/src/main/java/org/eclipse/transformer/util/FileUtils.java`
-#### Snippet
-```java
-		char lastChar = entryName.charAt(entryName.length() - 1);
-		if ((lastChar == '/') || (lastChar == '\\')) {
-			normalized = normalized.concat("/");
-		}
-
-```
-
-### CallToStringConcatCanBeReplacedByOperator
-Call to `concat()` can be replaced with '+' expression
-in `org.eclipse.transformer/src/main/java/org/eclipse/transformer/action/impl/SignatureRuleImpl.java`
-#### Snippet
-```java
-				String name = renames.get(key);
-				if (containsWildcard(key)) {
-					name = name.concat(initialName.substring(key.length() - 2));
-				}
-				return name;
-```
-
-### CallToStringConcatCanBeReplacedByOperator
-Call to `concat()` can be replaced with '+' expression
-in `org.eclipse.transformer/src/main/java/org/eclipse/transformer/action/impl/SignatureRuleImpl.java`
-#### Snippet
-```java
-			String outputName = transformBinaryType(inputName);
-			if (outputName != null) {
-				String outputPath = prefix.isEmpty() ? outputName : prefix.concat(outputName);
-				return outputPath;
-			}
-```
-
-### CallToStringConcatCanBeReplacedByOperator
-Call to `concat()` can be replaced with '+' expression
-in `org.eclipse.transformer/src/main/java/org/eclipse/transformer/action/impl/SignatureRuleImpl.java`
-#### Snippet
-```java
-				String value = renameEntry.getValue();
-				if (matchEnd < packageEnd) {
-					value = value.concat(text.substring(matchEnd, packageEnd));
-				}
-
-```
-
-### CallToStringConcatCanBeReplacedByOperator
-Call to `concat()` can be replaced with '+' expression
-in `org.eclipse.transformer/src/main/java/org/eclipse/transformer/action/impl/ClassActionImpl.java`
-#### Snippet
-```java
-			 (inputPath.charAt(head - 1) == '/') &&
-		     inputPath.regionMatches(head, resourceInputPath, 0, tail) ) {
-			return inputPath.substring(0, head).concat(resourceOutputPath);
-		}
-
-```
-
-### CallToStringConcatCanBeReplacedByOperator
-Call to `concat()` can be replaced with '+' expression
-in `org.eclipse.transformer/src/main/java/org/eclipse/transformer/action/impl/ClassActionImpl.java`
-#### Snippet
-```java
-			outputPath = resourceOutputPath;
-		} else {
-			outputPath = prefix.concat(resourceOutputPath);
-		}
-
-```
-
-### CallToStringConcatCanBeReplacedByOperator
-Call to `concat()` can be replaced with '+' expression
-in `org.eclipse.transformer/src/main/java/org/eclipse/transformer/TransformProperties.java`
-#### Snippet
-```java
-		properties.forEach((key, value) -> {
-			if (containsWildcard(key)) {
-				value = value.concat(key.substring(key.length() - 2));
-				key = stripWildcard(key);
-			}
-```
-
 ## RuleId[ruleID=ReturnNull]
-### ReturnNull
-Return of `null`
-in `bnd-plugins/org.eclipse.transformer.bnd.analyzer/src/main/java/org/eclipse/transformer/bnd/analyzer/TransformerPluginOptions.java`
-#### Snippet
-```java
-		List<String> keys = keys(option);
-		if (keys.isEmpty()) {
-			return null;
-		}
-		String value = keys.stream()
-```
-
 ### ReturnNull
 Return of `null`
 in `bnd-plugins/org.eclipse.transformer.bnd.analyzer/src/main/java/org/eclipse/transformer/bnd/analyzer/TransformerPluginOptions.java`
@@ -1578,74 +1409,14 @@ in `bnd-plugins/org.eclipse.transformer.bnd.analyzer/src/main/java/org/eclipse/t
 
 ### ReturnNull
 Return of `null`
-in `maven-plugins/transformer-maven-plugin/src/main/java/org/eclipse/transformer/maven/TransformerRunMojo.java`
+in `bnd-plugins/org.eclipse.transformer.bnd.analyzer/src/main/java/org/eclipse/transformer/bnd/analyzer/TransformerPluginOptions.java`
 #### Snippet
 ```java
-
-	private String emptyAsNull(String input) {
-		return (Objects.nonNull(input) && !(input = input.trim()).isEmpty()) ? input : null;
-	}
-
-```
-
-### ReturnNull
-Return of `null`
-in `maven-plugins/transformer-maven-plugin/src/main/java/org/eclipse/transformer/maven/TransformerRunMojo.java`
-#### Snippet
-```java
-					return Collections.singletonList(result);
-				}
-				return null;
-			}
-
-```
-
-### ReturnNull
-Return of `null`
-in `maven-plugins/transformer-maven-plugin/src/main/java/org/eclipse/transformer/maven/TransformerRunMojo.java`
-#### Snippet
-```java
-						return emptyAsNull(rulesPerClassConstantUri);
-					default :
-						return null;
-				}
-			}
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.transformer/src/main/java/org/eclipse/transformer/action/impl/SelectionRuleImpl.java`
-#### Snippet
-```java
-				return Maps.entry("*", all);
-			}
+		List<String> keys = keys(option);
+		if (keys.isEmpty()) {
 			return null;
 		}
-	}
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.transformer/src/main/java/org/eclipse/transformer/action/impl/SelectionRuleImpl.java`
-#### Snippet
-```java
-	private MatchSet processSelections(Map<String, String> selections) {
-		if (selections == null) {
-			return null;
-		}
-		Map<String, Charset> exact = new HashMap<>();
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.transformer/src/main/java/org/eclipse/transformer/action/impl/SelectionRuleImpl.java`
-#### Snippet
-```java
-		}
-		if ((all == null) && exact.isEmpty() && head.isEmpty() && tail.isEmpty() && middle.isEmpty()) {
-			return null;
-		}
-		return new MatchSet(exact, head, tail, middle, all);
+		String value = keys.stream()
 ```
 
 ### ReturnNull
@@ -1698,34 +1469,70 @@ in `org.eclipse.transformer.cli/src/main/java/org/eclipse/transformer/cli/Transf
 
 ### ReturnNull
 Return of `null`
+in `org.eclipse.transformer/src/main/java/org/eclipse/transformer/action/impl/ManifestActionImpl.java`
+#### Snippet
+```java
+
+		if (initialText == text) {
+			return null;
+		} else {
+			return text;
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.transformer/src/main/java/org/eclipse/transformer/action/impl/ManifestActionImpl.java`
+#### Snippet
+```java
+
+		if (text == null) {
+			return null;
+		}
+
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.transformer/src/main/java/org/eclipse/transformer/action/impl/SelectionRuleImpl.java`
+#### Snippet
+```java
+				return Maps.entry("*", all);
+			}
+			return null;
+		}
+	}
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.transformer/src/main/java/org/eclipse/transformer/action/impl/SelectionRuleImpl.java`
+#### Snippet
+```java
+	private MatchSet processSelections(Map<String, String> selections) {
+		if (selections == null) {
+			return null;
+		}
+		Map<String, Charset> exact = new HashMap<>();
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.transformer/src/main/java/org/eclipse/transformer/action/impl/SelectionRuleImpl.java`
+#### Snippet
+```java
+		}
+		if ((all == null) && exact.isEmpty() && head.isEmpty() && tail.isEmpty() && middle.isEmpty()) {
+			return null;
+		}
+		return new MatchSet(exact, head, tail, middle, all);
+```
+
+### ReturnNull
+Return of `null`
 in `org.eclipse.transformer.cli/src/main/java/org/eclipse/transformer/cli/TransformerCLI.java`
 #### Snippet
 ```java
 			}
-		}
-		return null;
-	}
-
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.transformer.cli/src/main/java/org/eclipse/transformer/cli/TransformerCLI.java`
-#### Snippet
-```java
-	public String getDefaultValue(AppOption option) {
-		Map<String, String> useDefaults = getOptionDefaults();
-		return (useDefaults == null) ? null : useDefaults.get(option.getLongTag());
-	}
-
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.transformer.cli/src/main/java/org/eclipse/transformer/cli/TransformerCLI.java`
-#### Snippet
-```java
-			return getParsedArgs().getOptionValue(option.getShortTag());
 		}
 		return null;
 	}
@@ -1758,26 +1565,62 @@ in `org.eclipse.transformer.cli/src/main/java/org/eclipse/transformer/cli/Transf
 
 ### ReturnNull
 Return of `null`
-in `org.eclipse.transformer/src/main/java/org/eclipse/transformer/action/impl/ManifestActionImpl.java`
+in `org.eclipse.transformer.cli/src/main/java/org/eclipse/transformer/cli/TransformerCLI.java`
 #### Snippet
 ```java
-
-		if (text == null) {
-			return null;
+			return getParsedArgs().getOptionValue(option.getShortTag());
 		}
+		return null;
+	}
 
 ```
 
 ### ReturnNull
 Return of `null`
-in `org.eclipse.transformer/src/main/java/org/eclipse/transformer/action/impl/ManifestActionImpl.java`
+in `org.eclipse.transformer.cli/src/main/java/org/eclipse/transformer/cli/TransformerCLI.java`
+#### Snippet
+```java
+	public String getDefaultValue(AppOption option) {
+		Map<String, String> useDefaults = getOptionDefaults();
+		return (useDefaults == null) ? null : useDefaults.get(option.getLongTag());
+	}
+
+```
+
+### ReturnNull
+Return of `null`
+in `maven-plugins/transformer-maven-plugin/src/main/java/org/eclipse/transformer/maven/TransformerRunMojo.java`
+#### Snippet
+```java
+						return emptyAsNull(rulesPerClassConstantUri);
+					default :
+						return null;
+				}
+			}
+```
+
+### ReturnNull
+Return of `null`
+in `maven-plugins/transformer-maven-plugin/src/main/java/org/eclipse/transformer/maven/TransformerRunMojo.java`
 #### Snippet
 ```java
 
-		if (initialText == text) {
-			return null;
-		} else {
-			return text;
+	private String emptyAsNull(String input) {
+		return (Objects.nonNull(input) && !(input = input.trim()).isEmpty()) ? input : null;
+	}
+
+```
+
+### ReturnNull
+Return of `null`
+in `maven-plugins/transformer-maven-plugin/src/main/java/org/eclipse/transformer/maven/TransformerRunMojo.java`
+#### Snippet
+```java
+					return Collections.singletonList(result);
+				}
+				return null;
+			}
+
 ```
 
 ### ReturnNull
@@ -1809,6 +1652,18 @@ Return of `null`
 in `org.eclipse.transformer/src/main/java/org/eclipse/transformer/action/impl/ActionImpl.java`
 #### Snippet
 ```java
+			.endsWith(initialExt)) {
+			getLogger().error("Input [ {} ] does not have expected extension [ {} ]", inputName, initialExt);
+			return null;
+		}
+
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.transformer/src/main/java/org/eclipse/transformer/action/impl/ActionImpl.java`
+#### Snippet
+```java
 		if ((initialValue == null) || initialValue.isEmpty()) {
 			useLogger.trace("    String {} {}: {} (empty, unchanged)", inputName, valueCase, initialValue);
 			return null;
@@ -1826,18 +1681,6 @@ in `org.eclipse.transformer/src/main/java/org/eclipse/transformer/action/impl/Ac
 			return null;
 		} else {
 			useLogger.trace("    String {} {}: {} -> {} ({})", inputName, valueCase, initialValue, finalValue, cases);
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.transformer/src/main/java/org/eclipse/transformer/action/impl/ActionImpl.java`
-#### Snippet
-```java
-			.endsWith(initialExt)) {
-			getLogger().error("Input [ {} ] does not have expected extension [ {} ]", inputName, initialExt);
-			return null;
-		}
-
 ```
 
 ### ReturnNull
@@ -1869,9 +1712,9 @@ Return of `null`
 in `org.eclipse.transformer/src/main/java/org/eclipse/transformer/TransformOptions.java`
 #### Snippet
 ```java
-	default String getOptionValue(AppOption option) {
-		List<String> result = getOptionValues(option);
-		return (Objects.nonNull(result) && !result.isEmpty()) ? result.get(0) : null;
+	 */
+	default List<String> getOptionValues(AppOption option) {
+		return null;
 	}
 
 ```
@@ -1893,9 +1736,9 @@ Return of `null`
 in `org.eclipse.transformer/src/main/java/org/eclipse/transformer/TransformOptions.java`
 #### Snippet
 ```java
-	 */
-	default String normalize(String value) {
-		return Objects.nonNull(value) ? value.replace(File.separatorChar, '/') : null;
+	default String getOptionValue(AppOption option) {
+		List<String> result = getOptionValues(option);
+		return (Objects.nonNull(result) && !result.isEmpty()) ? result.get(0) : null;
 	}
 
 ```
@@ -1906,8 +1749,8 @@ in `org.eclipse.transformer/src/main/java/org/eclipse/transformer/TransformOptio
 #### Snippet
 ```java
 	 */
-	default List<String> getOptionValues(AppOption option) {
-		return null;
+	default String normalize(String value) {
+		return Objects.nonNull(value) ? value.replace(File.separatorChar, '/') : null;
 	}
 
 ```
@@ -2013,8 +1856,32 @@ Return of `null`
 in `org.eclipse.transformer/src/main/java/org/eclipse/transformer/action/impl/SignatureRuleImpl.java`
 #### Snippet
 ```java
-	private String basicTransformDescriptor(String inputDescriptor) {
-		if (unchangedDescriptors.contains(inputDescriptor)) {
+		} catch (Throwable th) {
+			getLogger().trace("Failed to parse constant as resource reference [ {} ]", inputConstant, th);
+			return null;
+		}
+	}
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.transformer/src/main/java/org/eclipse/transformer/action/impl/SignatureRuleImpl.java`
+#### Snippet
+```java
+
+		} else {
+			return null;
+		}
+	}
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.transformer/src/main/java/org/eclipse/transformer/action/impl/SignatureRuleImpl.java`
+#### Snippet
+```java
+		}
+		if ((inputComponent instanceof BaseType) || (inputComponent instanceof TypeVariableSignature)) {
 			return null;
 		}
 
@@ -2025,11 +1892,23 @@ Return of `null`
 in `org.eclipse.transformer/src/main/java/org/eclipse/transformer/action/impl/SignatureRuleImpl.java`
 #### Snippet
 ```java
-			useLogger.trace("Manifest attribute {}: Package {} version {} is unchanged", attributeName, packageName,
-				oldVersion);
+		JavaTypeSignature outputComponent = transform((ClassTypeSignature) inputComponent);
+		if (outputComponent == null) {
 			return null;
-		} else if (specificVersion == null) {
-			useLogger.trace("Manifest attribute {}: Generic update of package {} version {} to {}", attributeName,
+		}
+
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.transformer/src/main/java/org/eclipse/transformer/action/impl/SignatureRuleImpl.java`
+#### Snippet
+```java
+			return transform((JavaTypeSignature) type);
+		} else {
+			return null;
+		}
+	}
 ```
 
 ### ReturnNull
@@ -2038,10 +1917,10 @@ in `org.eclipse.transformer/src/main/java/org/eclipse/transformer/action/impl/Si
 #### Snippet
 ```java
 
-		if ((outputPackageSpecifier == null) && (outputClassType == null) && (outputInnerTypes == null)) {
+		if (outputType == null) {
 			return null;
 		} else {
-			return new ClassTypeSignature(inputType.binary,
+			return new FieldSignature(outputType);
 ```
 
 ### ReturnNull
@@ -2049,11 +1928,23 @@ Return of `null`
 in `org.eclipse.transformer/src/main/java/org/eclipse/transformer/action/impl/SignatureRuleImpl.java`
 #### Snippet
 ```java
-			// This is now allowed, because of of the new
-			// substitution cases (direct, package-rename).
-			return null;
+		Map<String, String> directStringsForClass = perClassDirectStrings.get(inputName);
+		if (directStringsForClass == null) {
+			return null; // Nothing specific to do.
 		}
+		return replaceTextDirect(initialValue, inputName, directStringsForClass, "Per-Class");
+```
 
+### ReturnNull
+Return of `null`
+in `org.eclipse.transformer/src/main/java/org/eclipse/transformer/action/impl/SignatureRuleImpl.java`
+#### Snippet
+```java
+		if ((outputTypeParms == null) && (outputParmTypes == null) && (outputResult == null)
+			&& (outputThrows == null)) {
+			return null;
+
+		} else {
 ```
 
 ### ReturnNull
@@ -2073,7 +1964,7 @@ Return of `null`
 in `org.eclipse.transformer/src/main/java/org/eclipse/transformer/action/impl/SignatureRuleImpl.java`
 #### Snippet
 ```java
-
+			return transform((ReferenceTypeSignature) type);
 		} else {
 			return null;
 		}
@@ -2097,6 +1988,18 @@ Return of `null`
 in `org.eclipse.transformer/src/main/java/org/eclipse/transformer/action/impl/SignatureRuleImpl.java`
 #### Snippet
 ```java
+	public String transformSignature(String initialSignature, SignatureType signatureType) {
+		if (unchangedSignatures.contains(initialSignature)) {
+			return null;
+		}
+
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.transformer/src/main/java/org/eclipse/transformer/action/impl/SignatureRuleImpl.java`
+#### Snippet
+```java
 
 		if ((outputClassBound == null) && (outputBounds == null)) {
 			return null;
@@ -2109,107 +2012,11 @@ Return of `null`
 in `org.eclipse.transformer/src/main/java/org/eclipse/transformer/action/impl/SignatureRuleImpl.java`
 #### Snippet
 ```java
-		if ((outputTypeParms == null) && (outputParmTypes == null) && (outputResult == null)
-			&& (outputThrows == null)) {
-			return null;
-
-		} else {
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.transformer/src/main/java/org/eclipse/transformer/action/impl/SignatureRuleImpl.java`
-#### Snippet
-```java
-		ReferenceTypeSignature outputSignature = transform(inputSignature);
-		if (outputSignature == null) {
-			return null;
-		} else {
-			return new TypeArgument(inputArgument.wildcard, outputSignature);
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.transformer/src/main/java/org/eclipse/transformer/action/impl/SignatureRuleImpl.java`
-#### Snippet
-```java
-			return transform((JavaTypeSignature) type);
-		} else {
-			return null;
-		}
-	}
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.transformer/src/main/java/org/eclipse/transformer/action/impl/SignatureRuleImpl.java`
-#### Snippet
-```java
 		} catch (Throwable th) {
 			getLogger().trace("Failed to parse constant as descriptor [ {} ]", inputConstant, th);
 			return null;
 		}
 	}
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.transformer/src/main/java/org/eclipse/transformer/action/impl/SignatureRuleImpl.java`
-#### Snippet
-```java
-		}
-
-		return null;
-	}
-
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.transformer/src/main/java/org/eclipse/transformer/action/impl/SignatureRuleImpl.java`
-#### Snippet
-```java
-		} catch (Throwable th) {
-			getLogger().trace("Failed to parse constant as resource reference [ {} ]", inputConstant, th);
-			return null;
-		}
-	}
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.transformer/src/main/java/org/eclipse/transformer/action/impl/SignatureRuleImpl.java`
-#### Snippet
-```java
-		Map<String, String> directStringsForClass = perClassDirectStrings.get(inputName);
-		if (directStringsForClass == null) {
-			return null; // Nothing specific to do.
-		}
-		return replaceTextDirect(initialValue, inputName, directStringsForClass, "Per-Class");
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.transformer/src/main/java/org/eclipse/transformer/action/impl/SignatureRuleImpl.java`
-#### Snippet
-```java
-			return transform((ReferenceTypeSignature) type);
-		} else {
-			return null;
-		}
-	}
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.transformer/src/main/java/org/eclipse/transformer/action/impl/SignatureRuleImpl.java`
-#### Snippet
-```java
-	public String transformSignature(String initialSignature, SignatureType signatureType) {
-		if (unchangedSignatures.contains(initialSignature)) {
-			return null;
-		}
-
 ```
 
 ### ReturnNull
@@ -2254,34 +2061,10 @@ in `org.eclipse.transformer/src/main/java/org/eclipse/transformer/action/impl/Si
 #### Snippet
 ```java
 
-		if (outputType == null) {
+		if ((outputPackageSpecifier == null) && (outputClassType == null) && (outputInnerTypes == null)) {
 			return null;
 		} else {
-			return new FieldSignature(outputType);
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.transformer/src/main/java/org/eclipse/transformer/action/impl/SignatureRuleImpl.java`
-#### Snippet
-```java
-			return finalValue;
-		} else {
-			return null;
-		}
-	}
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.transformer/src/main/java/org/eclipse/transformer/action/impl/SignatureRuleImpl.java`
-#### Snippet
-```java
-			return transform((ClassTypeSignature) type);
-		} else {
-			return null;
-		}
-	}
+			return new ClassTypeSignature(inputType.binary,
 ```
 
 ### ReturnNull
@@ -2301,35 +2084,95 @@ Return of `null`
 in `org.eclipse.transformer/src/main/java/org/eclipse/transformer/action/impl/SignatureRuleImpl.java`
 #### Snippet
 ```java
+		}
+
+		return null;
+	}
+
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.transformer/src/main/java/org/eclipse/transformer/action/impl/SignatureRuleImpl.java`
+#### Snippet
+```java
+			return transform((ClassTypeSignature) type);
+		} else {
+			return null;
+		}
+	}
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.transformer/src/main/java/org/eclipse/transformer/action/impl/SignatureRuleImpl.java`
+#### Snippet
+```java
+	private String basicTransformDescriptor(String inputDescriptor) {
+		if (unchangedDescriptors.contains(inputDescriptor)) {
+			return null;
+		}
+
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.transformer/src/main/java/org/eclipse/transformer/action/impl/SignatureRuleImpl.java`
+#### Snippet
+```java
+			return finalValue;
+		} else {
+			return null;
+		}
+	}
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.transformer/src/main/java/org/eclipse/transformer/action/impl/SignatureRuleImpl.java`
+#### Snippet
+```java
+			useLogger.trace("Manifest attribute {}: Package {} version {} is unchanged", attributeName, packageName,
+				oldVersion);
+			return null;
+		} else if (specificVersion == null) {
+			useLogger.trace("Manifest attribute {}: Generic update of package {} version {} to {}", attributeName,
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.transformer/src/main/java/org/eclipse/transformer/action/impl/SignatureRuleImpl.java`
+#### Snippet
+```java
+		ReferenceTypeSignature outputSignature = transform(inputSignature);
+		if (outputSignature == null) {
+			return null;
+		} else {
+			return new TypeArgument(inputArgument.wildcard, outputSignature);
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.transformer/src/main/java/org/eclipse/transformer/action/impl/SignatureRuleImpl.java`
+#### Snippet
+```java
+			// This is now allowed, because of of the new
+			// substitution cases (direct, package-rename).
+			return null;
+		}
+
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.transformer/src/main/java/org/eclipse/transformer/action/impl/SignatureRuleImpl.java`
+#### Snippet
+```java
 
 		if (initialText == text) {
 			return null;
 		} else {
 			return text;
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.transformer/src/main/java/org/eclipse/transformer/action/impl/SignatureRuleImpl.java`
-#### Snippet
-```java
-		}
-		if ((inputComponent instanceof BaseType) || (inputComponent instanceof TypeVariableSignature)) {
-			return null;
-		}
-
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.transformer/src/main/java/org/eclipse/transformer/action/impl/SignatureRuleImpl.java`
-#### Snippet
-```java
-		JavaTypeSignature outputComponent = transform((ClassTypeSignature) inputComponent);
-		if (outputComponent == null) {
-			return null;
-		}
-
 ```
 
 ### ReturnNull
@@ -2385,11 +2228,47 @@ Return of `null`
 in `org.eclipse.transformer/src/main/java/org/eclipse/transformer/action/impl/ClassActionImpl.java`
 #### Snippet
 ```java
+		TypeAnnotationInfo[] outputAnnotations = transform(inputAttribute.type_annotations, inputName);
+		if (outputAnnotations == null) {
+			return null;
+		} else {
+			return constructor.init(outputAnnotations);
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.transformer/src/main/java/org/eclipse/transformer/action/impl/ClassActionImpl.java`
+#### Snippet
+```java
+
+		if ((outputType == null) && (outputValues == null)) {
+			return null;
+		} else {
+			return constructor.init(((outputType == null) ? inputType : outputType),
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.transformer/src/main/java/org/eclipse/transformer/action/impl/ClassActionImpl.java`
+#### Snippet
+```java
 		AnnotationInfo[] outputAnnotations = transform(inputAttribute.annotations, inputName);
 
 		return ((outputAnnotations == null) ? null : constructor.init(outputAnnotations));
 	}
 
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.transformer/src/main/java/org/eclipse/transformer/action/impl/ClassActionImpl.java`
+#### Snippet
+```java
+		ParameterAnnotationInfo[] outputParmAnnotations = transform(attribute.parameter_annotations, inputName);
+		if (outputParmAnnotations == null) {
+			return null;
+		} else {
+			return constructor.init(outputParmAnnotations);
 ```
 
 ### ReturnNull
@@ -2589,54 +2468,6 @@ Return of `null`
 in `org.eclipse.transformer/src/main/java/org/eclipse/transformer/action/impl/ClassActionImpl.java`
 #### Snippet
 ```java
-		TypeAnnotationInfo[] outputAnnotations = transform(inputAttribute.type_annotations, inputName);
-		if (outputAnnotations == null) {
-			return null;
-		} else {
-			return constructor.init(outputAnnotations);
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.transformer/src/main/java/org/eclipse/transformer/action/impl/ClassActionImpl.java`
-#### Snippet
-```java
-
-		if ((outputType == null) && (outputValues == null)) {
-			return null;
-		} else {
-			return constructor.init(((outputType == null) ? inputType : outputType),
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.transformer/src/main/java/org/eclipse/transformer/action/impl/ClassActionImpl.java`
-#### Snippet
-```java
-
-		if ((outputDescriptor == null) && (outputAttributes == null)) {
-			return null;
-		}
-
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.transformer/src/main/java/org/eclipse/transformer/action/impl/ClassActionImpl.java`
-#### Snippet
-```java
-		} else {
-			getLogger().trace("    Non-String ConstantValue: {} (unchanged)", inputValue);
-			return null;
-		}
-	}
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.transformer/src/main/java/org/eclipse/transformer/action/impl/ClassActionImpl.java`
-#### Snippet
-```java
 	private VerificationTypeInfo transform(VerificationTypeInfo vti) {
 		if (!(vti instanceof ObjectVariableInfo)) {
 			return null;
@@ -2673,23 +2504,23 @@ Return of `null`
 in `org.eclipse.transformer/src/main/java/org/eclipse/transformer/action/impl/ClassActionImpl.java`
 #### Snippet
 ```java
-		ParameterAnnotationInfo[] outputParmAnnotations = transform(attribute.parameter_annotations, inputName);
-		if (outputParmAnnotations == null) {
+
+		if ((outputDescriptor == null) && (outputAttributes == null)) {
 			return null;
-		} else {
-			return constructor.init(outputParmAnnotations);
+		}
+
 ```
 
 ### ReturnNull
 Return of `null`
-in `org.eclipse.transformer/src/main/java/org/eclipse/transformer/Transformer.java`
+in `org.eclipse.transformer/src/main/java/org/eclipse/transformer/action/impl/ClassActionImpl.java`
 #### Snippet
 ```java
-			return acceptedAction.getLastActiveChanges();
+		} else {
+			getLogger().trace("    Non-String ConstantValue: {} (unchanged)", inputValue);
+			return null;
 		}
-		return null;
 	}
-
 ```
 
 ### ReturnNull
@@ -2721,11 +2552,180 @@ Return of `null`
 in `org.eclipse.transformer/src/main/java/org/eclipse/transformer/Transformer.java`
 #### Snippet
 ```java
+			return acceptedAction.getLastActiveChanges();
+		}
+		return null;
+	}
+
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.transformer/src/main/java/org/eclipse/transformer/Transformer.java`
+#### Snippet
+```java
 			}
 		}
 		return null;
 	}
 
+```
+
+## RuleId[ruleID=CallToStringConcatCanBeReplacedByOperator]
+### CallToStringConcatCanBeReplacedByOperator
+Call to `concat()` can be replaced with '+' expression
+in `org.eclipse.transformer/src/main/java/org/eclipse/transformer/action/ActionType.java`
+#### Snippet
+```java
+
+	private boolean matchingUnsupported(String resourceName) {
+		throw new UnsupportedOperationException(getName().concat(" does not support resource name matching"));
+	}
+
+```
+
+### CallToStringConcatCanBeReplacedByOperator
+Call to `concat()` can be replaced with '+' expression
+in `org.eclipse.transformer.cli/src/main/java/org/eclipse/transformer/cli/TransformerLoggerFactory.java`
+#### Snippet
+```java
+			return null;
+		} else {
+			return SIMPLE_LOGGER_PROPERTY_PREFIX.concat(propertyName);
+		}
+	}
+```
+
+### CallToStringConcatCanBeReplacedByOperator
+Call to `concat()` can be replaced with '+' expression
+in `org.eclipse.transformer/src/main/java/org/eclipse/transformer/action/impl/ManifestActionImpl.java`
+#### Snippet
+```java
+				String value = renameEntry.getValue();
+				if (matchEnd < packageEnd) {
+					value = value.concat(text.substring(matchEnd, packageEnd));
+				}
+
+```
+
+### CallToStringConcatCanBeReplacedByOperator
+Call to `concat()` can be replaced with '+' expression
+in `org.eclipse.transformer/src/main/java/org/eclipse/transformer/util/SignatureUtils.java`
+#### Snippet
+```java
+				} else {
+					key = key.substring(0, lastIndex)
+						.concat(wildcard);
+				}
+			} else {
+```
+
+### CallToStringConcatCanBeReplacedByOperator
+Call to `concat()` can be replaced with '+' expression
+in `org.eclipse.transformer/src/main/java/org/eclipse/transformer/util/SignatureUtils.java`
+#### Snippet
+```java
+				}
+			} else {
+				key = key.concat(wildcard);
+			}
+		}
+```
+
+### CallToStringConcatCanBeReplacedByOperator
+Call to `concat()` can be replaced with '+' expression
+in `org.eclipse.transformer/src/main/java/org/eclipse/transformer/util/SignatureUtils.java`
+#### Snippet
+```java
+
+	public static String classNameToResourceName(String className) {
+		String resourceName = putSlashes(className).concat(CLASS_EXTENSION);
+		return resourceName;
+	}
+```
+
+### CallToStringConcatCanBeReplacedByOperator
+Call to `concat()` can be replaced with '+' expression
+in `org.eclipse.transformer/src/main/java/org/eclipse/transformer/util/FileUtils.java`
+#### Snippet
+```java
+		char lastChar = entryName.charAt(entryName.length() - 1);
+		if ((lastChar == '/') || (lastChar == '\\')) {
+			normalized = normalized.concat("/");
+		}
+
+```
+
+### CallToStringConcatCanBeReplacedByOperator
+Call to `concat()` can be replaced with '+' expression
+in `org.eclipse.transformer/src/main/java/org/eclipse/transformer/action/impl/SignatureRuleImpl.java`
+#### Snippet
+```java
+				String name = renames.get(key);
+				if (containsWildcard(key)) {
+					name = name.concat(initialName.substring(key.length() - 2));
+				}
+				return name;
+```
+
+### CallToStringConcatCanBeReplacedByOperator
+Call to `concat()` can be replaced with '+' expression
+in `org.eclipse.transformer/src/main/java/org/eclipse/transformer/action/impl/SignatureRuleImpl.java`
+#### Snippet
+```java
+			String outputName = transformBinaryType(inputName);
+			if (outputName != null) {
+				String outputPath = prefix.isEmpty() ? outputName : prefix.concat(outputName);
+				return outputPath;
+			}
+```
+
+### CallToStringConcatCanBeReplacedByOperator
+Call to `concat()` can be replaced with '+' expression
+in `org.eclipse.transformer/src/main/java/org/eclipse/transformer/action/impl/SignatureRuleImpl.java`
+#### Snippet
+```java
+				String value = renameEntry.getValue();
+				if (matchEnd < packageEnd) {
+					value = value.concat(text.substring(matchEnd, packageEnd));
+				}
+
+```
+
+### CallToStringConcatCanBeReplacedByOperator
+Call to `concat()` can be replaced with '+' expression
+in `org.eclipse.transformer/src/main/java/org/eclipse/transformer/action/impl/ClassActionImpl.java`
+#### Snippet
+```java
+			 (inputPath.charAt(head - 1) == '/') &&
+		     inputPath.regionMatches(head, resourceInputPath, 0, tail) ) {
+			return inputPath.substring(0, head).concat(resourceOutputPath);
+		}
+
+```
+
+### CallToStringConcatCanBeReplacedByOperator
+Call to `concat()` can be replaced with '+' expression
+in `org.eclipse.transformer/src/main/java/org/eclipse/transformer/action/impl/ClassActionImpl.java`
+#### Snippet
+```java
+			outputPath = resourceOutputPath;
+		} else {
+			outputPath = prefix.concat(resourceOutputPath);
+		}
+
+```
+
+### CallToStringConcatCanBeReplacedByOperator
+Call to `concat()` can be replaced with '+' expression
+in `org.eclipse.transformer/src/main/java/org/eclipse/transformer/TransformProperties.java`
+#### Snippet
+```java
+		properties.forEach((key, value) -> {
+			if (containsWildcard(key)) {
+				value = value.concat(key.substring(key.length() - 2));
+				key = stripWildcard(key);
+			}
 ```
 
 ## RuleId[ruleID=AssignmentToLambdaParameter]
@@ -2755,15 +2755,15 @@ in `org.eclipse.transformer/src/main/java/org/eclipse/transformer/TransformPrope
 
 ## RuleId[ruleID=UnnecessaryLocalVariable]
 ### UnnecessaryLocalVariable
-Local variable `keys` is redundant
+Local variable `values` is redundant
 in `bnd-plugins/org.eclipse.transformer.bnd.analyzer/src/main/java/org/eclipse/transformer/bnd/analyzer/TransformerPluginOptions.java`
 #### Snippet
 ```java
-		String longTag = option.getLongTag();
-		String shortTag = option.getShortTag();
-		List<String> keys = parameters.keySet()
-			.stream()
-			.filter(key -> {
+			return null;
+		}
+		List<String> values = keys.stream()
+			.map(parameters::get)
+			.flatMap(attrs -> attrs.values()
 ```
 
 ### UnnecessaryLocalVariable
@@ -2779,15 +2779,27 @@ in `bnd-plugins/org.eclipse.transformer.bnd.analyzer/src/main/java/org/eclipse/t
 ```
 
 ### UnnecessaryLocalVariable
-Local variable `values` is redundant
+Local variable `keys` is redundant
 in `bnd-plugins/org.eclipse.transformer.bnd.analyzer/src/main/java/org/eclipse/transformer/bnd/analyzer/TransformerPluginOptions.java`
 #### Snippet
 ```java
-			return null;
-		}
-		List<String> values = keys.stream()
-			.map(parameters::get)
-			.flatMap(attrs -> attrs.values()
+		String longTag = option.getLongTag();
+		String shortTag = option.getShortTag();
+		List<String> keys = parameters.keySet()
+			.stream()
+			.filter(key -> {
+```
+
+### UnnecessaryLocalVariable
+Local variable `newText` is redundant
+in `org.eclipse.transformer/src/main/java/org/eclipse/transformer/action/impl/ManifestActionImpl.java`
+#### Snippet
+```java
+		String tail = text.substring(versionEndIndex + 1);
+
+		String newText = head + newVersion + tail;
+		// getLogger().debug("Old [{}] New [{}]", text , newText);
+
 ```
 
 ### UnnecessaryLocalVariable
@@ -2815,18 +2827,6 @@ in `org.eclipse.transformer.cli/src/main/java/org/eclipse/transformer/cli/Transf
 ```
 
 ### UnnecessaryLocalVariable
-Local variable `newText` is redundant
-in `org.eclipse.transformer/src/main/java/org/eclipse/transformer/action/impl/ManifestActionImpl.java`
-#### Snippet
-```java
-		String tail = text.substring(versionEndIndex + 1);
-
-		String newText = head + newVersion + tail;
-		// getLogger().debug("Old [{}] New [{}]", text , newText);
-
-```
-
-### UnnecessaryLocalVariable
 Local variable `resourceName` is redundant
 in `org.eclipse.transformer/src/main/java/org/eclipse/transformer/util/SignatureUtils.java`
 #### Snippet
@@ -2839,14 +2839,14 @@ in `org.eclipse.transformer/src/main/java/org/eclipse/transformer/util/Signature
 ```
 
 ### UnnecessaryLocalVariable
-Local variable `reader` is redundant
+Local variable `writer` is redundant
 in `org.eclipse.transformer/src/main/java/org/eclipse/transformer/util/FileUtils.java`
 #### Snippet
 ```java
-
-	public static Reader reader(ByteBuffer buffer, Charset charset) {
-		Reader reader = new InputStreamReader(new ByteBufferInputStream(buffer), charset);
-		return reader;
+	public static BufferedWriter writer(OutputStream outputStream, Charset charset) {
+		OutputStreamWriter outputWriter = new OutputStreamWriter(outputStream, charset);
+		BufferedWriter writer = new BufferedWriter(outputWriter);
+		return writer;
 	}
 ```
 
@@ -2863,14 +2863,14 @@ in `org.eclipse.transformer/src/main/java/org/eclipse/transformer/util/FileUtils
 ```
 
 ### UnnecessaryLocalVariable
-Local variable `writer` is redundant
+Local variable `reader` is redundant
 in `org.eclipse.transformer/src/main/java/org/eclipse/transformer/util/FileUtils.java`
 #### Snippet
 ```java
-	public static BufferedWriter writer(OutputStream outputStream, Charset charset) {
-		OutputStreamWriter outputWriter = new OutputStreamWriter(outputStream, charset);
-		BufferedWriter writer = new BufferedWriter(outputWriter);
-		return writer;
+
+	public static Reader reader(ByteBuffer buffer, Charset charset) {
+		Reader reader = new InputStreamReader(new ByteBufferInputStream(buffer), charset);
+		return reader;
 	}
 ```
 
@@ -2899,6 +2899,18 @@ in `maven-plugins/transformer-maven-plugin/src/main/java/org/eclipse/transformer
 ```
 
 ### UnnecessaryLocalVariable
+Local variable `outputData` is redundant
+in `org.eclipse.transformer/src/main/java/org/eclipse/transformer/action/impl/ZipActionImpl.java`
+#### Snippet
+```java
+				? outputStream.toByteBuffer()
+				: inputData.buffer();
+			ByteData outputData = new ByteDataImpl(outputPath, outputBuffer, inputData.charset());
+			return outputData;
+		} finally {
+```
+
+### UnnecessaryLocalVariable
 Local variable `finalName` is redundant
 in `org.eclipse.transformer/src/main/java/org/eclipse/transformer/action/impl/SignatureRuleImpl.java`
 #### Snippet
@@ -2920,18 +2932,6 @@ in `org.eclipse.transformer/src/main/java/org/eclipse/transformer/action/impl/Si
 				String outputPath = prefix.isEmpty() ? outputName : prefix.concat(outputName);
 				return outputPath;
 			}
-```
-
-### UnnecessaryLocalVariable
-Local variable `outputData` is redundant
-in `org.eclipse.transformer/src/main/java/org/eclipse/transformer/action/impl/ZipActionImpl.java`
-#### Snippet
-```java
-				? outputStream.toByteBuffer()
-				: inputData.buffer();
-			ByteData outputData = new ByteDataImpl(outputPath, outputBuffer, inputData.charset());
-			return outputData;
-		} finally {
 ```
 
 ### UnnecessaryLocalVariable
@@ -3071,18 +3071,6 @@ in `org.eclipse.transformer/src/main/java/org/eclipse/transformer/action/impl/Ma
 ```
 
 ### UnusedAssignment
-Variable `bytesRead` initializer `0` is redundant
-in `org.eclipse.transformer/src/main/java/org/eclipse/transformer/util/FileUtils.java`
-#### Snippet
-```java
-		long totalBytesRead = 0L;
-
-		for (int bytesRead = 0; (bytesRead = inputStream.read(buffer, 0, buffer.length)) != -1;) {
-			totalBytesRead += bytesRead;
-			outputStream.write(buffer, 0, bytesRead);
-```
-
-### UnusedAssignment
 The value `requested` assigned to `outputCapacity` is never used
 in `org.eclipse.transformer/src/main/java/org/eclipse/transformer/util/FileUtils.java`
 #### Snippet
@@ -3092,6 +3080,18 @@ in `org.eclipse.transformer/src/main/java/org/eclipse/transformer/util/FileUtils
 				outputCapacity = requested;
 			}
 
+```
+
+### UnusedAssignment
+Variable `bytesRead` initializer `0` is redundant
+in `org.eclipse.transformer/src/main/java/org/eclipse/transformer/util/FileUtils.java`
+#### Snippet
+```java
+		long totalBytesRead = 0L;
+
+		for (int bytesRead = 0; (bytesRead = inputStream.read(buffer, 0, buffer.length)) != -1;) {
+			totalBytesRead += bytesRead;
+			outputStream.write(buffer, 0, bytesRead);
 ```
 
 ### UnusedAssignment
