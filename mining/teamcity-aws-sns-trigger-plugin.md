@@ -1,30 +1,17 @@
 # teamcity-aws-sns-trigger-plugin 
  
 # Bad smells
-I found 10 bad smells with 3 repairable:
+I found 7 bad smells with 2 repairable:
 | ruleID | number | fixable |
 | --- | --- | --- |
-| UtilityClassWithoutPrivateConstructor | 2 | true |
-| DynamicRegexReplaceableByCompiledPattern | 2 | false |
+| UtilityClassWithoutPrivateConstructor | 1 | true |
+| DynamicRegexReplaceableByCompiledPattern | 1 | false |
 | DataFlowIssue | 1 | false |
-| DoubleBraceInitialization | 1 | false |
 | BoundedWildcard | 1 | false |
 | AssignmentToStaticFieldFromInstanceMethod | 1 | false |
 | MissortedModifiers | 1 | false |
 | NonProtectedConstructorInAbstractClass | 1 | true |
 ## RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-### UtilityClassWithoutPrivateConstructor
-Class `AwsSnsTriggerConstants` has only 'static' members, and lacks a 'private' constructor
-in `amazon-sns-trigger-server/src/main/java/jetbrains/buildServer/clouds/amazon/sns/trigger/utils/parameters/AwsSnsTriggerConstants.java`
-#### Snippet
-```java
-import java.util.List;
-
-public final class AwsSnsTriggerConstants {
-    // controller specific properties
-    public static final String SNS_CONNECTION_CONTROLLER_URL = "/app/trigger/sns/**";
-```
-
 ### UtilityClassWithoutPrivateConstructor
 Class `AwsSnsMessageDetailsHelper` has only 'static' members, and lacks a 'private' constructor
 in `amazon-sns-trigger-server/src/main/java/jetbrains/buildServer/clouds/amazon/sns/trigger/utils/AwsSnsMessageDetailsHelper.java`
@@ -50,18 +37,6 @@ in `amazon-sns-trigger-server/src/main/java/jetbrains/buildServer/clouds/amazon/
 }
 ```
 
-### DynamicRegexReplaceableByCompiledPattern
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `amazon-sns-trigger-server/src/main/java/jetbrains/buildServer/clouds/amazon/sns/trigger/service/SnsMessageParametersCustomisationService.java`
-#### Snippet
-```java
-                    .forEach(key -> {
-                        String value = getStringValue(triggeredByParams, key);
-                        String newKey = key.replace(
-                                AwsSnsTriggerConstants.SNS_MESSAGE_ATTRIBUTES_PARAMETER_PLACEHOLDER_KEY_PREFIX,
-                                AwsSnsTriggerConstants.SNS_MESSAGE_ATTRIBUTES_PARAMETER_PLACEHOLDER
-```
-
 ## RuleId[ruleID=DataFlowIssue]
 ### DataFlowIssue
 Argument `is` might be null
@@ -73,19 +48,6 @@ in `amazon-sns-trigger-server/src/main/java/jetbrains/buildServer/clouds/amazon/
             Element parsed = FileUtil.parseDocument(is, false);
             List children = parsed.getChildren("description");
 
-```
-
-## RuleId[ruleID=DoubleBraceInitialization]
-### DoubleBraceInitialization
-Double brace initialization
-in `amazon-sns-trigger-server/src/main/java/jetbrains/buildServer/clouds/amazon/sns/trigger/service/SnsMessageParametersCustomisationService.java`
-#### Snippet
-```java
-    public Map<String, String> getParameters(@NotNull SBuild build, boolean emulationMode) {
-        final Map<String, String> triggeredByParams = build.getTriggeredBy().getParameters();
-        return new HashMap<String, String>() {{
-            if (triggeredByParams.containsKey(AwsSnsTriggerConstants.SNS_MESSAGE_SUBJECT_PARAMETER_PLACEHOLDER_KEY) || emulationMode) {
-                put(AwsSnsTriggerConstants.SNS_MESSAGE_SUBJECT_PARAMETER_PLACEHOLDER,
 ```
 
 ## RuleId[ruleID=BoundedWildcard]
