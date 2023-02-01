@@ -1,7 +1,7 @@
 # graphicsfuzz 
  
 # Bad smells
-I found 620 bad smells with 79 repairable:
+I found 621 bad smells with 79 repairable:
 | ruleID | number | fixable |
 | --- | --- | --- |
 | BoundedWildcard | 55 | false |
@@ -61,6 +61,7 @@ I found 620 bad smells with 79 repairable:
 | RedundantFileCreation | 2 | false |
 | RedundantMethodOverride | 1 | false |
 | MismatchedCollectionQueryUpdate | 1 | false |
+| HtmlWrongAttributeValue | 1 | false |
 | InstanceofCatchParameter | 1 | false |
 | StringBufferReplaceableByStringBuilder | 1 | false |
 | DuplicateThrows | 1 | false |
@@ -148,18 +149,6 @@ in `ast/src/main/java/com/graphicsfuzz/common/ast/expr/ArrayIndexExpr.java`
 ```
 
 ### CommentedOutCode
-Commented out code (34 lines)
-in `reducer/src/main/java/com/graphicsfuzz/reducer/filejudge/ValidatorErrorShaderFileJudge.java`
-#### Snippet
-```java
-    throw new RuntimeException();
-
-    /*
-    // 1. Shader file validates.
-
-```
-
-### CommentedOutCode
 Commented out code (38 lines)
 in `reducer/src/main/java/com/graphicsfuzz/reducer/filejudge/FuzzingFileJudge.java`
 #### Snippet
@@ -169,6 +158,18 @@ in `reducer/src/main/java/com/graphicsfuzz/reducer/filejudge/FuzzingFileJudge.ja
     /*
     try {
       ExecResult res = ToolHelper.runValidatorOnShader(ExecHelper.RedirectType.TO_LOG, file);
+```
+
+### CommentedOutCode
+Commented out code (34 lines)
+in `reducer/src/main/java/com/graphicsfuzz/reducer/filejudge/ValidatorErrorShaderFileJudge.java`
+#### Snippet
+```java
+    throw new RuntimeException();
+
+    /*
+    // 1. Shader file validates.
+
 ```
 
 ### CommentedOutCode
@@ -367,6 +368,18 @@ in `ast/src/main/java/com/graphicsfuzz/common/ast/expr/UnOp.java`
 ```
 
 ### DuplicateBranchesInSwitch
+Branch in 'switch' is a duplicate of the default branch
+in `server/src/main/java/com/graphicsfuzz/server/webui/WebUi.java`
+#### Snippet
+```java
+        return "red";
+      case EXCEPTION:
+        return "red";
+      default:
+        return "red";
+```
+
+### DuplicateBranchesInSwitch
 Duplicate branch in 'switch'
 in `reducer/src/main/java/com/graphicsfuzz/reducer/reductionopportunities/FoldConstantReductionOpportunities.java`
 #### Snippet
@@ -379,31 +392,7 @@ in `reducer/src/main/java/com/graphicsfuzz/reducer/reductionopportunities/FoldCo
           return;
 ```
 
-### DuplicateBranchesInSwitch
-Branch in 'switch' is a duplicate of the default branch
-in `server/src/main/java/com/graphicsfuzz/server/webui/WebUi.java`
-#### Snippet
-```java
-        return "red";
-      case EXCEPTION:
-        return "red";
-      default:
-        return "red";
-```
-
 ## RuleId[ruleID=FinalPrivateMethod]
-### FinalPrivateMethod
-'private' method declared `final`
-in `third_party/alphanum-comparator/src/main/java/com/graphicsfuzz/alphanumcomparator/AlphanumComparator.java`
-#### Snippet
-```java
- */
-public class AlphanumComparator implements Comparator<String> {
-  private final boolean isDigit(char ch) {
-    return ((ch >= 48) && (ch <= 57));
-  }
-```
-
 ### FinalPrivateMethod
 'private' method declared `final`
 in `third_party/alphanum-comparator/src/main/java/com/graphicsfuzz/alphanumcomparator/AlphanumComparator.java`
@@ -414,6 +403,18 @@ in `third_party/alphanum-comparator/src/main/java/com/graphicsfuzz/alphanumcompa
   private final String getChunk(String str, int slength, int marker) {
     StringBuilder chunk = new StringBuilder();
     char ch = str.charAt(marker);
+```
+
+### FinalPrivateMethod
+'private' method declared `final`
+in `third_party/alphanum-comparator/src/main/java/com/graphicsfuzz/alphanumcomparator/AlphanumComparator.java`
+#### Snippet
+```java
+ */
+public class AlphanumComparator implements Comparator<String> {
+  private final boolean isDigit(char ch) {
+    return ((ch >= 48) && (ch <= 57));
+  }
 ```
 
 ## RuleId[ruleID=SizeReplaceableByIsEmpty]
@@ -478,18 +479,6 @@ in `server/src/main/java/com/graphicsfuzz/server/webui/WebUi.java`
 ```
 
 ### SizeReplaceableByIsEmpty
-`seed.length() > 0` can be replaced with '!seed.isEmpty()'
-in `server/src/main/java/com/graphicsfuzz/server/webui/WebUi.java`
-#### Snippet
-```java
-    }
-    final String seed = request.getParameter("seed");
-    if (seed != null && seed.length() > 0) {
-      args.add("--seed");
-      args.add(seed);
-```
-
-### SizeReplaceableByIsEmpty
 `shaderFamilies.size() > 0` can be replaced with '!shaderFamilies.isEmpty()'
 in `server/src/main/java/com/graphicsfuzz/server/webui/WebUi.java`
 #### Snippet
@@ -499,6 +488,18 @@ in `server/src/main/java/com/graphicsfuzz/server/webui/WebUi.java`
     if (shaderFamilies.size() > 0) {
       for (File file : shaderFamilies) {
         ShaderFamily shaderFamily = new ShaderFamily(file.getName());
+```
+
+### SizeReplaceableByIsEmpty
+`seed.length() > 0` can be replaced with '!seed.isEmpty()'
+in `server/src/main/java/com/graphicsfuzz/server/webui/WebUi.java`
+#### Snippet
+```java
+    }
+    final String seed = request.getParameter("seed");
+    if (seed != null && seed.length() > 0) {
+      args.add("--seed");
+      args.add(seed);
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -841,18 +842,6 @@ in `ast/src/main/java/com/graphicsfuzz/common/typing/Typer.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? super String`
-in `util/src/main/java/com/graphicsfuzz/util/ExecHelper.java`
-#### Snippet
-```java
-  }
-
-  public static void addToPath(Map<String, String> envVars, String pathToAdd) {
-    if (!envVars.containsKey(pathVar)) {
-      envVars.put(pathVar, pathToAdd);
-```
-
-### BoundedWildcard
 Can generalize to `? extends T`
 in `ast/src/main/java/com/graphicsfuzz/common/ast/visitors/AstBuilder.java`
 #### Snippet
@@ -902,6 +891,18 @@ in `ast/src/main/java/com/graphicsfuzz/common/ast/visitors/AstBuilder.java`
 
 ### BoundedWildcard
 Can generalize to `? super String`
+in `util/src/main/java/com/graphicsfuzz/util/ExecHelper.java`
+#### Snippet
+```java
+  }
+
+  public static void addToPath(Map<String, String> envVars, String pathToAdd) {
+    if (!envVars.containsKey(pathVar)) {
+      envVars.put(pathVar, pathToAdd);
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
 in `common/src/main/java/com/graphicsfuzz/common/util/StripUnusedFunctions.java`
 #### Snippet
 ```java
@@ -910,18 +911,6 @@ in `common/src/main/java/com/graphicsfuzz/common/util/StripUnusedFunctions.java`
   private Set<String> computeCallable(String functionName, Set<String> previouslySeen) {
     if (previouslySeen.contains(functionName)) {
       return new HashSet<>();
-```
-
-### BoundedWildcard
-Can generalize to `? super ThresholdConfiguration`
-in `common/src/main/java/com/graphicsfuzz/common/util/FuzzyImageComparison.java`
-#### Snippet
-```java
-   * @param configurations some default configurations will be added to this list
-   */
-  public static void addDefaultConfigurations(List<ThresholdConfiguration> configurations) {
-    configurations.add(
-        new ThresholdConfiguration(
 ```
 
 ### BoundedWildcard
@@ -937,6 +926,18 @@ in `common/src/main/java/com/graphicsfuzz/common/transformreduce/MergeSet.java`
 ```
 
 ### BoundedWildcard
+Can generalize to `? super ThresholdConfiguration`
+in `common/src/main/java/com/graphicsfuzz/common/util/FuzzyImageComparison.java`
+#### Snippet
+```java
+   * @param configurations some default configurations will be added to this list
+   */
+  public static void addDefaultConfigurations(List<ThresholdConfiguration> configurations) {
+    configurations.add(
+        new ThresholdConfiguration(
+```
+
+### BoundedWildcard
 Can generalize to `? extends UniformValueSupplier`
 in `ast/src/main/java/com/graphicsfuzz/common/tool/PrettyPrinterVisitor.java`
 #### Snippet
@@ -946,18 +947,6 @@ in `ast/src/main/java/com/graphicsfuzz/common/tool/PrettyPrinterVisitor.java`
                               Optional<UniformValueSupplier> uniformValues) {
     this.out = out;
     this.indentationWidth = indentationWidth;
-```
-
-### BoundedWildcard
-Can generalize to `? extends SsboFieldData`
-in `common/src/main/java/com/graphicsfuzz/common/util/PipelineInfo.java`
-#### Snippet
-```java
-  public void addComputeInfo(int numGroupsX, int numGroupsY, int numGroupsZ,
-                             int ssboBinding,
-                             List<SsboFieldData> ssboFields) {
-    assert !dictionary.has(Constants.COMPUTE_DATA_KEY);
-    final JsonObject buffer = new JsonObject();
 ```
 
 ### BoundedWildcard
@@ -973,15 +962,15 @@ in `reducer/src/main/java/com/graphicsfuzz/reducer/CheckAstFeaturesFileJudge.jav
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends Expr`
-in `reducer/src/main/java/com/graphicsfuzz/reducer/reductionopportunities/OutlinedStatementReductionOpportunity.java`
+Can generalize to `? extends SsboFieldData`
+in `common/src/main/java/com/graphicsfuzz/common/util/PipelineInfo.java`
 #### Snippet
 ```java
-   * Returns a subsituted expression, and may mutate the argument expression in the process.
-   */
-  private Expr applySubstitutionDestructive(Expr expr, Map<String, Expr> paramReplacement) {
-    assert !paramReplacement.values().contains(null);
-    if (expr instanceof VariableIdentifierExpr
+  public void addComputeInfo(int numGroupsX, int numGroupsY, int numGroupsZ,
+                             int ssboBinding,
+                             List<SsboFieldData> ssboFields) {
+    assert !dictionary.has(Constants.COMPUTE_DATA_KEY);
+    final JsonObject buffer = new JsonObject();
 ```
 
 ### BoundedWildcard
@@ -997,6 +986,18 @@ in `reducer/src/main/java/com/graphicsfuzz/reducer/glslreducers/SystematicReduct
 ```
 
 ### BoundedWildcard
+Can generalize to `? extends Expr`
+in `reducer/src/main/java/com/graphicsfuzz/reducer/reductionopportunities/OutlinedStatementReductionOpportunity.java`
+#### Snippet
+```java
+   * Returns a subsituted expression, and may mutate the argument expression in the process.
+   */
+  private Expr applySubstitutionDestructive(Expr expr, Map<String, Expr> paramReplacement) {
+    assert !paramReplacement.values().contains(null);
+    if (expr instanceof VariableIdentifierExpr
+```
+
+### BoundedWildcard
 Can generalize to `? super Stmt`
 in `reducer/src/main/java/com/graphicsfuzz/reducer/reductionopportunities/FlattenLoopReductionOpportunity.java`
 #### Snippet
@@ -1006,6 +1007,18 @@ in `reducer/src/main/java/com/graphicsfuzz/reducer/reductionopportunities/Flatte
   void addLoopBody(List<Stmt> newStmts) {
     if (loopStmt.getBody() instanceof BlockStmt) {
       newStmts.addAll(((BlockStmt) loopStmt.getBody()).getStmts());
+```
+
+### BoundedWildcard
+Can generalize to `? extends Initializer`
+in `reducer/src/main/java/com/graphicsfuzz/reducer/reductionopportunities/DestructifyReductionOpportunity.java`
+#### Snippet
+```java
+  private Optional<StructifiedVariableInfo> findOriginalVariableInfo(
+      StructNameType type,
+      Optional<Initializer> initializer) {
+
+    final StructDefinitionType structDefinitionType = tu.getStructDefinition(type);
 ```
 
 ### BoundedWildcard
@@ -1045,15 +1058,27 @@ in `reducer/src/main/java/com/graphicsfuzz/reducer/reductionopportunities/Compat
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends Initializer`
-in `reducer/src/main/java/com/graphicsfuzz/reducer/reductionopportunities/DestructifyReductionOpportunity.java`
+Can generalize to `? super Integer`
+in `reducer/src/main/java/com/graphicsfuzz/reducer/reductionopportunities/FoldConstantReductionOpportunities.java`
 #### Snippet
 ```java
-  private Optional<StructifiedVariableInfo> findOriginalVariableInfo(
-      StructNameType type,
-      Optional<Initializer> initializer) {
 
-    final StructDefinitionType structDefinitionType = tu.getStructDefinition(type);
+  private void findFoldIntBinaryOpportunities(IAstNode parent, Expr child, Expr lhs, Expr rhs,
+                                             BinaryOperator<Integer> op) {
+    if (isIntConstant(lhs) && isIntConstant(rhs)) {
+      addReplaceWithExpr(parent, child, new IntConstantExpr(
+```
+
+### BoundedWildcard
+Can generalize to `? super Float`
+in `reducer/src/main/java/com/graphicsfuzz/reducer/reductionopportunities/FoldConstantReductionOpportunities.java`
+#### Snippet
+```java
+
+  private void findFoldFpBinaryOpportunities(IAstNode parent, Expr child, Expr lhs, Expr rhs,
+                                             BinaryOperator<Float> op) {
+    if (isFpConstant(lhs) && isFpConstant(rhs)) {
+      addReplaceWithExpr(parent, child, new FloatConstantExpr(
 ```
 
 ### BoundedWildcard
@@ -1073,18 +1098,6 @@ Can generalize to `? super Float`
 in `reducer/src/main/java/com/graphicsfuzz/reducer/reductionopportunities/FoldConstantReductionOpportunities.java`
 #### Snippet
 ```java
-
-  private void findFoldFpBinaryOpportunities(IAstNode parent, Expr child, Expr lhs, Expr rhs,
-                                             BinaryOperator<Float> op) {
-    if (isFpConstant(lhs) && isFpConstant(rhs)) {
-      addReplaceWithExpr(parent, child, new FloatConstantExpr(
-```
-
-### BoundedWildcard
-Can generalize to `? super Float`
-in `reducer/src/main/java/com/graphicsfuzz/reducer/reductionopportunities/FoldConstantReductionOpportunities.java`
-#### Snippet
-```java
                                                          Expr lhs,
                                                          Expr rhs,
                                                          BinaryOperator<Float> op) {
@@ -1093,15 +1106,15 @@ in `reducer/src/main/java/com/graphicsfuzz/reducer/reductionopportunities/FoldCo
 ```
 
 ### BoundedWildcard
-Can generalize to `? super Integer`
-in `reducer/src/main/java/com/graphicsfuzz/reducer/reductionopportunities/FoldConstantReductionOpportunities.java`
+Can generalize to `? super String`
+in `ast/src/main/java/com/graphicsfuzz/common/typing/TyperHelper.java`
 #### Snippet
 ```java
+  }
 
-  private void findFoldIntBinaryOpportunities(IAstNode parent, Expr child, Expr lhs, Expr rhs,
-                                             BinaryOperator<Integer> op) {
-    if (isIntConstant(lhs) && isIntConstant(rhs)) {
-      addReplaceWithExpr(parent, child, new IntConstantExpr(
+  private static void addBuiltin(Map<String, List<FunctionPrototype>> builtinsForVersion,
+      String name, Type resultType, Type... args) {
+    if (!builtinsForVersion.containsKey(name)) {
 ```
 
 ### BoundedWildcard
@@ -1141,42 +1154,6 @@ in `generator/src/main/java/com/graphicsfuzz/generator/util/RemoveStatements.jav
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends ConstantExpr`
-in `generator/src/main/java/com/graphicsfuzz/generator/fuzzer/templates/ConstantExprTemplate.java`
-#### Snippet
-```java
-  }
-
-  private Expr makeTypeConstructor(BasicType type, Supplier<ConstantExpr> supplier, int width) {
-    List<Expr> args = new ArrayList<>();
-    for (int i = 0; i < width; i++) {
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `ast/src/main/java/com/graphicsfuzz/common/typing/TyperHelper.java`
-#### Snippet
-```java
-  }
-
-  private static void addBuiltin(Map<String, List<FunctionPrototype>> builtinsForVersion,
-      String name, Type resultType, Type... args) {
-    if (!builtinsForVersion.containsKey(name)) {
-```
-
-### BoundedWildcard
-Can generalize to `? super IRandom`
-in `generator/src/main/java/com/graphicsfuzz/generator/mutateapi/MutationFinder.java`
-#### Snippet
-```java
-   * @return Randomly filtered list of mutations.
-   */
-  default List<MutationT> findMutations(Function<IRandom, Boolean> probabilities,
-                                       IRandom generator) {
-    return findMutations().stream().filter(item -> probabilities.apply(generator))
-```
-
-### BoundedWildcard
 Can generalize to `? extends NodeT`
 in `generator/src/main/java/com/graphicsfuzz/generator/mutateapi/Node2NodeMutation.java`
 #### Snippet
@@ -1189,27 +1166,27 @@ in `generator/src/main/java/com/graphicsfuzz/generator/mutateapi/Node2NodeMutati
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends Type`
-in `generator/src/main/java/com/graphicsfuzz/generator/transformation/donation/DonationContext.java`
+Can generalize to `? extends ConstantExpr`
+in `generator/src/main/java/com/graphicsfuzz/generator/fuzzer/templates/ConstantExprTemplate.java`
 #### Snippet
 ```java
-  private final FunctionDefinition enclosingFunction;
+  }
 
-  public DonationContext(Stmt donorFragment, Map<String, Type> freeVariables,
-      List<StructDefinitionType> availableStructs,
-      FunctionDefinition enclosingFunction) {
+  private Expr makeTypeConstructor(BasicType type, Supplier<ConstantExpr> supplier, int width) {
+    List<Expr> args = new ArrayList<>();
+    for (int i = 0; i < width; i++) {
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends StructDefinitionType`
-in `generator/src/main/java/com/graphicsfuzz/generator/transformation/donation/DonationContext.java`
+Can generalize to `? super IRandom`
+in `generator/src/main/java/com/graphicsfuzz/generator/mutateapi/MutationFinder.java`
 #### Snippet
 ```java
-
-  public DonationContext(Stmt donorFragment, Map<String, Type> freeVariables,
-      List<StructDefinitionType> availableStructs,
-      FunctionDefinition enclosingFunction) {
-    this.donorFragment = donorFragment;
+   * @return Randomly filtered list of mutations.
+   */
+  default List<MutationT> findMutations(Function<IRandom, Boolean> probabilities,
+                                       IRandom generator) {
+    return findMutations().stream().filter(item -> probabilities.apply(generator))
 ```
 
 ### BoundedWildcard
@@ -1238,14 +1215,38 @@ in `generator/src/main/java/com/graphicsfuzz/generator/transformation/injection/
 
 ### BoundedWildcard
 Can generalize to `? extends Type`
-in `generator/src/main/java/com/graphicsfuzz/generator/semanticschanging/InterchangeExprMutationFinder.java`
+in `generator/src/main/java/com/graphicsfuzz/generator/transformation/donation/DonationContext.java`
 #### Snippet
 ```java
-   * of one another.
-   */
-  private boolean compatibleArguments(IExprTemplate template, List<Type> argumentTypes) {
-    if (template.getNumArguments() != argumentTypes.size()) {
-      return false;
+  private final FunctionDefinition enclosingFunction;
+
+  public DonationContext(Stmt donorFragment, Map<String, Type> freeVariables,
+      List<StructDefinitionType> availableStructs,
+      FunctionDefinition enclosingFunction) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends StructDefinitionType`
+in `generator/src/main/java/com/graphicsfuzz/generator/transformation/donation/DonationContext.java`
+#### Snippet
+```java
+
+  public DonationContext(Stmt donorFragment, Map<String, Type> freeVariables,
+      List<StructDefinitionType> availableStructs,
+      FunctionDefinition enclosingFunction) {
+    this.donorFragment = donorFragment;
+```
+
+### BoundedWildcard
+Can generalize to `? super IExprTemplate`
+in `generator/src/main/java/com/graphicsfuzz/generator/fuzzer/Templates.java`
+#### Snippet
+```java
+  }
+
+  private static void addTemplate(List<IExprTemplate> templates, IExprTemplate template) {
+    templates.add(template);
+  }
 ```
 
 ### BoundedWildcard
@@ -1261,15 +1262,15 @@ in `generator/src/main/java/com/graphicsfuzz/generator/semanticschanging/Interch
 ```
 
 ### BoundedWildcard
-Can generalize to `? super IExprTemplate`
-in `generator/src/main/java/com/graphicsfuzz/generator/fuzzer/Templates.java`
+Can generalize to `? extends Type`
+in `generator/src/main/java/com/graphicsfuzz/generator/semanticschanging/InterchangeExprMutationFinder.java`
 #### Snippet
 ```java
-  }
-
-  private static void addTemplate(List<IExprTemplate> templates, IExprTemplate template) {
-    templates.add(template);
-  }
+   * of one another.
+   */
+  private boolean compatibleArguments(IExprTemplate template, List<Type> argumentTypes) {
+    if (template.getNumArguments() != argumentTypes.size()) {
+      return false;
 ```
 
 ### BoundedWildcard
@@ -1509,6 +1510,18 @@ in `ast/src/main/java/com/graphicsfuzz/common/ast/stmt/LoopStmt.java`
 ```
 
 ### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `ast/src/main/java/com/graphicsfuzz/common/ast/inliner/ReturnRemover.java`
+#### Snippet
+```java
+  private int numReturnStmts(Stmt stmt) {
+    return new StandardVisitor() {
+      private int returnCount = 0;
+
+      @Override
+```
+
+### RedundantFieldInitialization
 Field initialization to `null` is redundant
 in `ast/src/main/java/com/graphicsfuzz/common/ast/inliner/Inliner.java`
 #### Snippet
@@ -1522,14 +1535,14 @@ in `ast/src/main/java/com/graphicsfuzz/common/ast/inliner/Inliner.java`
 
 ### RedundantFieldInitialization
 Field initialization to `0` is redundant
-in `ast/src/main/java/com/graphicsfuzz/common/ast/inliner/ReturnRemover.java`
+in `ast/src/main/java/com/graphicsfuzz/common/util/StatsVisitor.java`
 #### Snippet
 ```java
-  private int numReturnStmts(Stmt stmt) {
-    return new StandardVisitor() {
-      private int returnCount = 0;
+public class StatsVisitor extends StandardVisitor {
 
-      @Override
+  private int statements = 0;
+  private int nodes = 0;
+
 ```
 
 ### RedundantFieldInitialization
@@ -1542,18 +1555,6 @@ in `ast/src/main/java/com/graphicsfuzz/common/util/StatsVisitor.java`
   private int nodes = 0;
 
   public StatsVisitor(IAstNode node) {
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `ast/src/main/java/com/graphicsfuzz/common/util/StatsVisitor.java`
-#### Snippet
-```java
-public class StatsVisitor extends StandardVisitor {
-
-  private int statements = 0;
-  private int nodes = 0;
-
 ```
 
 ### RedundantFieldInitialization
@@ -1641,15 +1642,15 @@ in `common/src/main/java/com/graphicsfuzz/common/util/FuzzyImageComparison.java`
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `0` is redundant
+Field initialization to `false` is redundant
 in `ast/src/main/java/com/graphicsfuzz/common/tool/PrettyPrinterVisitor.java`
 #### Snippet
 ```java
-  private final Supplier<String> newLineSupplier;
-  private final int indentationWidth;
-  private int indentationCount = 0;
-  private final PrintStream out;
-  private boolean inFunctionDefinition = false;
+
+  // Allows different formatting of a declaration when part of the header of a for statement.
+  private boolean insideForStatementHeader = false;
+
+  public PrettyPrinterVisitor(PrintStream out) {
 ```
 
 ### RedundantFieldInitialization
@@ -1665,15 +1666,15 @@ in `ast/src/main/java/com/graphicsfuzz/common/tool/PrettyPrinterVisitor.java`
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `false` is redundant
+Field initialization to `0` is redundant
 in `ast/src/main/java/com/graphicsfuzz/common/tool/PrettyPrinterVisitor.java`
 #### Snippet
 ```java
-
-  // Allows different formatting of a declaration when part of the header of a for statement.
-  private boolean insideForStatementHeader = false;
-
-  public PrettyPrinterVisitor(PrintStream out) {
+  private final Supplier<String> newLineSupplier;
+  private final int indentationWidth;
+  private int indentationCount = 0;
+  private final PrintStream out;
+  private boolean inFunctionDefinition = false;
 ```
 
 ### RedundantFieldInitialization
@@ -1689,15 +1690,51 @@ in `reducer/src/main/java/com/graphicsfuzz/reducer/ReductionDriver.java`
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `reducer/src/main/java/com/graphicsfuzz/reducer/reductionopportunities/StmtReductionOpportunity.java`
+Field initialization to `0.0` is redundant
+in `server/src/main/java/com/graphicsfuzz/server/webui/WebUi.java`
 #### Snippet
 ```java
-      private Stmt stmtOfInterest;
-      private boolean inStmtOfInterest = false;
-      private boolean found = false;
+    public ImageDifferenceResult histogram = null;
+    public ImageDifferenceResult fuzzy = null;
+    public double histogramDistance = 0.0;
+  }
 
-      @Override
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `server/src/main/java/com/graphicsfuzz/server/webui/WebUi.java`
+#### Snippet
+```java
+
+  private static final class ImageDifferenceResultSet {
+    public ImageDifferenceResult summary = null;
+    public ImageDifferenceResult histogram = null;
+    public ImageDifferenceResult fuzzy = null;
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `server/src/main/java/com/graphicsfuzz/server/webui/WebUi.java`
+#### Snippet
+```java
+  private static final class ImageDifferenceResultSet {
+    public ImageDifferenceResult summary = null;
+    public ImageDifferenceResult histogram = null;
+    public ImageDifferenceResult fuzzy = null;
+    public double histogramDistance = 0.0;
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `server/src/main/java/com/graphicsfuzz/server/webui/WebUi.java`
+#### Snippet
+```java
+    public ImageDifferenceResult summary = null;
+    public ImageDifferenceResult histogram = null;
+    public ImageDifferenceResult fuzzy = null;
+    public double histogramDistance = 0.0;
+  }
 ```
 
 ### RedundantFieldInitialization
@@ -1710,6 +1747,18 @@ in `reducer/src/main/java/com/graphicsfuzz/reducer/reductionopportunities/StmtRe
       private boolean inStmtOfInterest = false;
       private boolean found = false;
 
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `reducer/src/main/java/com/graphicsfuzz/reducer/reductionopportunities/StmtReductionOpportunity.java`
+#### Snippet
+```java
+      private Stmt stmtOfInterest;
+      private boolean inStmtOfInterest = false;
+      private boolean found = false;
+
+      @Override
 ```
 
 ### RedundantFieldInitialization
@@ -1749,51 +1798,15 @@ in `reducer/src/main/java/com/graphicsfuzz/reducer/reductionopportunities/LiveOu
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `server/src/main/java/com/graphicsfuzz/server/webui/WebUi.java`
+Field initialization to `false` is redundant
+in `reducer/src/main/java/com/graphicsfuzz/reducer/reductionopportunities/VectorizationReductionOpportunity.java`
 #### Snippet
 ```java
-  private static final class ImageDifferenceResultSet {
-    public ImageDifferenceResult summary = null;
-    public ImageDifferenceResult histogram = null;
-    public ImageDifferenceResult fuzzy = null;
-    public double histogramDistance = 0.0;
-```
+  private boolean componentIsUsed() {
+    return new ScopeTrackingVisitor() {
+      private boolean isUsed = false;
 
-### RedundantFieldInitialization
-Field initialization to `0.0` is redundant
-in `server/src/main/java/com/graphicsfuzz/server/webui/WebUi.java`
-#### Snippet
-```java
-    public ImageDifferenceResult histogram = null;
-    public ImageDifferenceResult fuzzy = null;
-    public double histogramDistance = 0.0;
-  }
-
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `server/src/main/java/com/graphicsfuzz/server/webui/WebUi.java`
-#### Snippet
-```java
-
-  private static final class ImageDifferenceResultSet {
-    public ImageDifferenceResult summary = null;
-    public ImageDifferenceResult histogram = null;
-    public ImageDifferenceResult fuzzy = null;
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `server/src/main/java/com/graphicsfuzz/server/webui/WebUi.java`
-#### Snippet
-```java
-    public ImageDifferenceResult summary = null;
-    public ImageDifferenceResult histogram = null;
-    public ImageDifferenceResult fuzzy = null;
-    public double histogramDistance = 0.0;
-  }
+      @Override
 ```
 
 ### RedundantFieldInitialization
@@ -1809,18 +1822,6 @@ in `reducer/src/main/java/com/graphicsfuzz/reducer/reductionopportunities/Vector
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `reducer/src/main/java/com/graphicsfuzz/reducer/reductionopportunities/VectorizationReductionOpportunity.java`
-#### Snippet
-```java
-  private boolean componentIsUsed() {
-    return new ScopeTrackingVisitor() {
-      private boolean isUsed = false;
-
-      @Override
-```
-
-### RedundantFieldInitialization
 Field initialization to `null` is redundant
 in `generator/src/main/java/com/graphicsfuzz/generator/fuzzer/FuzzingContext.java`
 #### Snippet
@@ -1830,6 +1831,18 @@ in `generator/src/main/java/com/graphicsfuzz/generator/fuzzer/FuzzingContext.jav
   private FunctionPrototype enclosingFunction = null;
 
   public FuzzingContext(Scope currentScope) {
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `generator/src/main/java/com/graphicsfuzz/generator/transformation/donation/DonationContext.java`
+#### Snippet
+```java
+    return new ScopeTrackingVisitor() {
+
+      private boolean found = false;
+
+      private int arrayIndexDepth = 0;
 ```
 
 ### RedundantFieldInitialization
@@ -1846,24 +1859,24 @@ in `generator/src/main/java/com/graphicsfuzz/generator/transformation/donation/D
 
 ### RedundantFieldInitialization
 Field initialization to `false` is redundant
-in `generator/src/main/java/com/graphicsfuzz/generator/transformation/donation/DonationContext.java`
-#### Snippet
-```java
-    return new ScopeTrackingVisitor() {
-
-      private boolean found = false;
-
-      private int arrayIndexDepth = 0;
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
 in `generator/src/main/java/com/graphicsfuzz/generator/semanticspreserving/SplitForLoopMutation.java`
 #### Snippet
 ```java
     return new StandardVisitor() {
 
       private boolean foundModification = false;
+
+      @Override
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `generator/src/main/java/com/graphicsfuzz/generator/transformation/DonateCodeTransformation.java`
+#### Snippet
+```java
+      // This gives us access to the base type of the group of variable declarations we are
+      // currently visiting, if any.
+      private VariablesDeclaration currentVariablesDeclaration = null;
 
       @Override
 ```
@@ -1882,18 +1895,6 @@ in `generator/src/main/java/com/graphicsfuzz/generator/semanticspreserving/Vecto
 
 ### RedundantFieldInitialization
 Field initialization to `null` is redundant
-in `generator/src/main/java/com/graphicsfuzz/generator/transformation/DonateCodeTransformation.java`
-#### Snippet
-```java
-      // This gives us access to the base type of the group of variable declarations we are
-      // currently visiting, if any.
-      private VariablesDeclaration currentVariablesDeclaration = null;
-
-      @Override
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
 in `fuzzerserver/src/main/java/com/graphicsfuzz/server/WorkQueue.java`
 #### Snippet
 ```java
@@ -1902,6 +1903,19 @@ in `fuzzerserver/src/main/java/com/graphicsfuzz/server/WorkQueue.java`
   private Future future = null;
   private final int timeLimit = 60;
   private final int consecutiveFailureLimit = 5;
+```
+
+## RuleId[ruleID=HtmlWrongAttributeValue]
+### HtmlWrongAttributeValue
+Wrong attribute value
+in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-02-01-13-02-45.612.html`
+#### Snippet
+```java
+              <td>0</td>
+              <td>0</td>
+              <td><textarea rows="10" cols="75" readonly="true" placeholder="empty" style="white-space: pre; border: none">Not collected for refresh</textarea></td>
+            </tr>
+          </tbody>
 ```
 
 ## RuleId[ruleID=InstanceofCatchParameter]
@@ -2333,6 +2347,18 @@ in `ast/src/main/java/com/graphicsfuzz/common/typing/TyperHelper.java`
 ```
 
 ### ConstantValue
+Condition `elseBranchCanBeTransformed` is always `true` when reached
+in `generator/src/main/java/com/graphicsfuzz/generator/semanticspreserving/AddSwitchMutation.java`
+#### Snippet
+```java
+      return;
+    }
+    assert thenBranchCanBeTransformed && elseBranchCanBeTransformed;
+    while (true) {
+      boolean transformedOne = false;
+```
+
+### ConstantValue
 Value `constContext` is always 'true'
 in `generator/src/main/java/com/graphicsfuzz/generator/fuzzer/OpaqueExpressionGenerator.java`
 #### Snippet
@@ -2414,18 +2440,6 @@ in `generator/src/main/java/com/graphicsfuzz/generator/fuzzer/OpaqueExpressionGe
         matrixConstructorArgs.add(makeOpaqueZero(type, constContext, depth, fuzzer));
       }
     }
-```
-
-### ConstantValue
-Condition `elseBranchCanBeTransformed` is always `true` when reached
-in `generator/src/main/java/com/graphicsfuzz/generator/semanticspreserving/AddSwitchMutation.java`
-#### Snippet
-```java
-      return;
-    }
-    assert thenBranchCanBeTransformed && elseBranchCanBeTransformed;
-    while (true) {
-      boolean transformedOne = false;
 ```
 
 ### ConstantValue
@@ -2544,7 +2558,7 @@ in `ast/src/main/java/com/graphicsfuzz/common/ast/decl/InterfaceBlock.java`
 in `ast/src/main/java/com/graphicsfuzz/common/ast/TranslationUnit.java`
 #### Snippet
 ```java
-        .filter(item -> item.hasStructNameType() && item.getStructNameType().equals(type))
+    return getFunctionDefinitions().filter(TranslationUnit::isMain)
         .findAny()
         .get();
   }
@@ -2568,11 +2582,11 @@ in `ast/src/main/java/com/graphicsfuzz/common/ast/TranslationUnit.java`
 in `ast/src/main/java/com/graphicsfuzz/common/ast/TranslationUnit.java`
 #### Snippet
 ```java
-    return getFunctionDefinitions().filter(TranslationUnit::isMain)
-        .findAny()
-        .get();
-  }
-
+  public ShadingLanguageVersion getShadingLanguageVersion() {
+    if (hasShadingLanguageVersion()) {
+      return shadingLanguageVersion.get();
+    }
+    return ShadingLanguageVersion.ESSL_100;
 ```
 
 ### OptionalGetWithoutIsPresent
@@ -2580,11 +2594,11 @@ in `ast/src/main/java/com/graphicsfuzz/common/ast/TranslationUnit.java`
 in `ast/src/main/java/com/graphicsfuzz/common/ast/TranslationUnit.java`
 #### Snippet
 ```java
-  public ShadingLanguageVersion getShadingLanguageVersion() {
-    if (hasShadingLanguageVersion()) {
-      return shadingLanguageVersion.get();
-    }
-    return ShadingLanguageVersion.ESSL_100;
+        .filter(item -> item.hasStructNameType() && item.getStructNameType().equals(type))
+        .findAny()
+        .get();
+  }
+
 ```
 
 ### OptionalGetWithoutIsPresent
@@ -2605,30 +2619,6 @@ in `ast/src/main/java/com/graphicsfuzz/common/typing/ScopeEntry.java`
 #### Snippet
 ```java
 
-  public InterfaceBlock getInterfaceBlock() {
-    return interfaceBlock.get();
-  }
-
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `ast/src/main/java/com/graphicsfuzz/common/typing/ScopeEntry.java`
-#### Snippet
-```java
-
-  public VariablesDeclaration getVariablesDeclaration() {
-    return variablesDeclaration.get();
-  }
-
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `ast/src/main/java/com/graphicsfuzz/common/typing/ScopeEntry.java`
-#### Snippet
-```java
-
   public ParameterDecl getParameterDecl() {
     return parameterDecl.get();
   }
@@ -2641,8 +2631,32 @@ in `ast/src/main/java/com/graphicsfuzz/common/typing/ScopeEntry.java`
 #### Snippet
 ```java
 
+  public InterfaceBlock getInterfaceBlock() {
+    return interfaceBlock.get();
+  }
+
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `ast/src/main/java/com/graphicsfuzz/common/typing/ScopeEntry.java`
+#### Snippet
+```java
+
   public VariableDeclInfo getVariableDeclInfo() {
     return variableDeclInfo.get();
+  }
+
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `ast/src/main/java/com/graphicsfuzz/common/typing/ScopeEntry.java`
+#### Snippet
+```java
+
+  public VariablesDeclaration getVariablesDeclaration() {
+    return variablesDeclaration.get();
   }
 
 ```
@@ -2709,24 +2723,24 @@ in `reducer/src/main/java/com/graphicsfuzz/reducer/tool/Simplifier.java`
 
 ### OptionalGetWithoutIsPresent
 `Optional.get()` without 'isPresent()' check
-in `reducer/src/main/java/com/graphicsfuzz/reducer/reductionopportunities/LiveOutputVariableWriteReductionOpportunities.java`
-#### Snippet
-```java
-          .findFirst()
-          .map(vdi -> vdi.getVariablesDeclaration().getDeclInfos()
-            .stream().map(item -> item.getName()).findFirst().get());
-  }
-
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
 in `reducer/src/main/java/com/graphicsfuzz/reducer/reductionopportunities/DestructifyReductionOpportunity.java`
 #### Snippet
 ```java
         Optional.ofNullable(declaration.getVariablesDeclaration()
             .getDeclInfo(0).getInitializer()))
         .get();
+  }
+
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `reducer/src/main/java/com/graphicsfuzz/reducer/reductionopportunities/LiveOutputVariableWriteReductionOpportunities.java`
+#### Snippet
+```java
+          .findFirst()
+          .map(vdi -> vdi.getVariablesDeclaration().getDeclInfos()
+            .stream().map(item -> item.getName()).findFirst().get());
   }
 
 ```
@@ -2784,11 +2798,11 @@ in `reducer/src/main/java/com/graphicsfuzz/reducer/reductionopportunities/LiveOu
 in `generator/src/main/java/com/graphicsfuzz/generator/util/RestrictFragmentShaderColors.java`
 #### Snippet
 ```java
-    this.outputVariableName = outputVariableName;
-    this.generationParams = generationParams;
-    this.shadingLanguageVersion = shaderJob.getFragmentShader().get().getShadingLanguageVersion();
-    this.probabilityOfAddingNewWrite = probabilityOfAddingNewWrite;
-  }
+  private boolean adaptExistingWrites() {
+
+    final Typer typer = new Typer(shaderJob.getFragmentShader().get());
+
+    return new ScopeTrackingVisitor() {
 ```
 
 ### OptionalGetWithoutIsPresent
@@ -2796,11 +2810,11 @@ in `generator/src/main/java/com/graphicsfuzz/generator/util/RestrictFragmentShad
 in `generator/src/main/java/com/graphicsfuzz/generator/util/RestrictFragmentShaderColors.java`
 #### Snippet
 ```java
-  private boolean adaptExistingWrites() {
 
-    final Typer typer = new Typer(shaderJob.getFragmentShader().get());
-
-    return new ScopeTrackingVisitor() {
+  private void addInitialWrite() {
+    if (!shaderJob.getFragmentShader().get().hasMainFunction()) {
+      throw new RuntimeException("Fragment shader must have a main function.");
+    }
 ```
 
 ### OptionalGetWithoutIsPresent
@@ -2820,23 +2834,11 @@ in `generator/src/main/java/com/graphicsfuzz/generator/util/RestrictFragmentShad
 in `generator/src/main/java/com/graphicsfuzz/generator/util/RestrictFragmentShaderColors.java`
 #### Snippet
 ```java
-
-  private void addInitialWrite() {
-    if (!shaderJob.getFragmentShader().get().hasMainFunction()) {
-      throw new RuntimeException("Fragment shader must have a main function.");
-    }
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `generator/src/main/java/com/graphicsfuzz/generator/semanticschanging/ReplaceBlockStmtsWithSwitchMutationFinder.java`
-#### Snippet
-```java
-        .forEach(candidateVariables::add);
-    if (candidateVariables.isEmpty()) {
-      return new LiteralFuzzer(generator).fuzz(BasicType.INT).get();
-    }
-    return new VariableIdentifierExpr(candidateVariables.get(
+    this.outputVariableName = outputVariableName;
+    this.generationParams = generationParams;
+    this.shadingLanguageVersion = shaderJob.getFragmentShader().get().getShadingLanguageVersion();
+    this.probabilityOfAddingNewWrite = probabilityOfAddingNewWrite;
+  }
 ```
 
 ### OptionalGetWithoutIsPresent
@@ -2849,6 +2851,18 @@ in `generator/src/main/java/com/graphicsfuzz/generator/semanticschanging/Literal
         args.add(fuzz(((BasicType) type).getElementType()).get());
       }
       return Optional.of(new TypeConstructorExpr(type.toString(), args));
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `generator/src/main/java/com/graphicsfuzz/generator/semanticschanging/ReplaceBlockStmtsWithSwitchMutationFinder.java`
+#### Snippet
+```java
+        .forEach(candidateVariables::add);
+    if (candidateVariables.isEmpty()) {
+      return new LiteralFuzzer(generator).fuzz(BasicType.INT).get();
+    }
+    return new VariableIdentifierExpr(candidateVariables.get(
 ```
 
 ### OptionalGetWithoutIsPresent
@@ -3337,6 +3351,42 @@ in `server/src/main/java/com/graphicsfuzz/server/FuzzerServer.java`
 ```
 
 ### FieldMayBeStatic
+Field `timeLimit` may be 'static'
+in `fuzzerserver/src/main/java/com/graphicsfuzz/server/WorkQueue.java`
+#### Snippet
+```java
+  private boolean running;
+  private Future future = null;
+  private final int timeLimit = 60;
+  private final int consecutiveFailureLimit = 5;
+
+```
+
+### FieldMayBeStatic
+Field `consecutiveFailureLimit` may be 'static'
+in `fuzzerserver/src/main/java/com/graphicsfuzz/server/WorkQueue.java`
+#### Snippet
+```java
+  private Future future = null;
+  private final int timeLimit = 60;
+  private final int consecutiveFailureLimit = 5;
+
+  public WorkQueue(ExecutorService executor, String name) {
+```
+
+### FieldMayBeStatic
+Field `processingDir` may be 'static'
+in `server-public/src/main/java/com/graphicsfuzz/serverpublic/FuzzerServer.java`
+#### Snippet
+```java
+  private final String workingDir = "";
+  private final String shaderSetsDir = "shaderfamilies";
+  private final String processingDir = "processing";
+
+  private final ExecutorService executorService = Executors.newCachedThreadPool();
+```
+
+### FieldMayBeStatic
 Field `shaderSetsDir` may be 'static'
 in `server-public/src/main/java/com/graphicsfuzz/serverpublic/FuzzerServer.java`
 #### Snippet
@@ -3358,42 +3408,6 @@ in `server-public/src/main/java/com/graphicsfuzz/serverpublic/FuzzerServer.java`
   private final String workingDir = "";
   private final String shaderSetsDir = "shaderfamilies";
   private final String processingDir = "processing";
-```
-
-### FieldMayBeStatic
-Field `processingDir` may be 'static'
-in `server-public/src/main/java/com/graphicsfuzz/serverpublic/FuzzerServer.java`
-#### Snippet
-```java
-  private final String workingDir = "";
-  private final String shaderSetsDir = "shaderfamilies";
-  private final String processingDir = "processing";
-
-  private final ExecutorService executorService = Executors.newCachedThreadPool();
-```
-
-### FieldMayBeStatic
-Field `consecutiveFailureLimit` may be 'static'
-in `fuzzerserver/src/main/java/com/graphicsfuzz/server/WorkQueue.java`
-#### Snippet
-```java
-  private Future future = null;
-  private final int timeLimit = 60;
-  private final int consecutiveFailureLimit = 5;
-
-  public WorkQueue(ExecutorService executor, String name) {
-```
-
-### FieldMayBeStatic
-Field `timeLimit` may be 'static'
-in `fuzzerserver/src/main/java/com/graphicsfuzz/server/WorkQueue.java`
-#### Snippet
-```java
-  private boolean running;
-  private Future future = null;
-  private final int timeLimit = 60;
-  private final int consecutiveFailureLimit = 5;
-
 ```
 
 ## RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
@@ -3494,18 +3508,6 @@ public class ToolHelper {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `JsonHelper` has only 'static' members, and lacks a 'private' constructor
-in `common/src/main/java/com/graphicsfuzz/common/util/JsonHelper.java`
-#### Snippet
-```java
-import com.google.gson.JsonObject;
-
-public class JsonHelper {
-
-  public static String jsonToString(JsonObject infoJson) {
-```
-
-### UtilityClassWithoutPrivateConstructor
 Class `ToolPaths` has only 'static' members, and lacks a 'private' constructor
 in `util/src/main/java/com/graphicsfuzz/util/ToolPaths.java`
 #### Snippet
@@ -3518,18 +3520,6 @@ public class ToolPaths {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `ImageColorComponents` has only 'static' members, and lacks a 'private' constructor
-in `common/src/main/java/com/graphicsfuzz/common/util/ImageColorComponents.java`
-#### Snippet
-```java
-import java.util.List;
-
-public class ImageColorComponents {
-
-  public static final int R_OFFSET = 16;
-```
-
-### UtilityClassWithoutPrivateConstructor
 Class `AddInitializers` has only 'static' members, and lacks a 'private' constructor
 in `common/src/main/java/com/graphicsfuzz/common/util/AddInitializers.java`
 #### Snippet
@@ -3539,6 +3529,30 @@ import com.graphicsfuzz.common.typing.ScopeTrackingVisitor;
 public class AddInitializers {
 
   /**
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `JsonHelper` has only 'static' members, and lacks a 'private' constructor
+in `common/src/main/java/com/graphicsfuzz/common/util/JsonHelper.java`
+#### Snippet
+```java
+import com.google.gson.JsonObject;
+
+public class JsonHelper {
+
+  public static String jsonToString(JsonObject infoJson) {
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `ImageColorComponents` has only 'static' members, and lacks a 'private' constructor
+in `common/src/main/java/com/graphicsfuzz/common/util/ImageColorComponents.java`
+#### Snippet
+```java
+import java.util.List;
+
+public class ImageColorComponents {
+
+  public static final int R_OFFSET = 16;
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -3614,18 +3628,6 @@ public class CheckColorComponents {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `ComparePsnr` has only 'static' members, and lacks a 'private' constructor
-in `common/src/main/java/com/graphicsfuzz/imagetools/ComparePsnr.java`
-#### Snippet
-```java
-import net.sourceforge.argparse4j.inf.Namespace;
-
-public class ComparePsnr {
-
-  public static void main(String[] args) throws ArgumentParserException, FileNotFoundException {
-```
-
-### UtilityClassWithoutPrivateConstructor
 Class `CompareHistograms` has only 'static' members, and lacks a 'private' constructor
 in `common/src/main/java/com/graphicsfuzz/imagetools/CompareHistograms.java`
 #### Snippet
@@ -3633,6 +3635,18 @@ in `common/src/main/java/com/graphicsfuzz/imagetools/CompareHistograms.java`
 import net.sourceforge.argparse4j.inf.Namespace;
 
 public class CompareHistograms {
+
+  public static void main(String[] args) throws ArgumentParserException, FileNotFoundException {
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `ComparePsnr` has only 'static' members, and lacks a 'private' constructor
+in `common/src/main/java/com/graphicsfuzz/imagetools/ComparePsnr.java`
+#### Snippet
+```java
+import net.sourceforge.argparse4j.inf.Namespace;
+
+public class ComparePsnr {
 
   public static void main(String[] args) throws ArgumentParserException, FileNotFoundException {
 ```
@@ -3662,18 +3676,6 @@ public class RunShaderFamily {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `Main` has only 'static' members, and lacks a 'private' constructor
-in `server/src/main/java/com/graphicsfuzz/server/Main.java`
-#### Snippet
-```java
-import net.sourceforge.argparse4j.inf.Namespace;
-
-public class Main {
-  public static void main(String[] args) throws Exception {
-    ArgumentParser parser = ArgumentParsers.newArgumentParser("Fuzzer server")
-```
-
-### UtilityClassWithoutPrivateConstructor
 Class `ReductionFilesHelper` has only 'static' members, and lacks a 'private' constructor
 in `server/src/main/java/com/graphicsfuzz/server/webui/ReductionFilesHelper.java`
 #### Snippet
@@ -3686,15 +3688,15 @@ public class ReductionFilesHelper {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `Simplifier` has only 'static' members, and lacks a 'private' constructor
-in `reducer/src/main/java/com/graphicsfuzz/reducer/tool/Simplifier.java`
+Class `Main` has only 'static' members, and lacks a 'private' constructor
+in `server/src/main/java/com/graphicsfuzz/server/Main.java`
 #### Snippet
 ```java
-import org.slf4j.LoggerFactory;
+import net.sourceforge.argparse4j.inf.Namespace;
 
-public class Simplifier {
-
-  private static final Logger LOGGER = LoggerFactory.getLogger(Simplifier.class);
+public class Main {
+  public static void main(String[] args) throws Exception {
+    ArgumentParser parser = ArgumentParsers.newArgumentParser("Fuzzer server")
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -3707,6 +3709,18 @@ import com.graphicsfuzz.reducer.glslreducers.EliminateGraphicsFuzzDefines;
 public class Simplify {
 
   public static TranslationUnit simplify(TranslationUnit tu) {
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `Simplifier` has only 'static' members, and lacks a 'private' constructor
+in `reducer/src/main/java/com/graphicsfuzz/reducer/tool/Simplifier.java`
+#### Snippet
+```java
+import org.slf4j.LoggerFactory;
+
+public class Simplifier {
+
+  private static final Logger LOGGER = LoggerFactory.getLogger(Simplifier.class);
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -3746,18 +3760,6 @@ class Util {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `PrepareReference` has only 'static' members, and lacks a 'private' constructor
-in `generator/src/main/java/com/graphicsfuzz/generator/tool/PrepareReference.java`
-#### Snippet
-```java
-import net.sourceforge.argparse4j.inf.Namespace;
-
-public final class PrepareReference {
-
-  private static Namespace parse(String[] args) throws ArgumentParserException {
-```
-
-### UtilityClassWithoutPrivateConstructor
 Class `GlslGenerate` has only 'static' members, and lacks a 'private' constructor
 in `generator/src/main/java/com/graphicsfuzz/generator/tool/GlslGenerate.java`
 #### Snippet
@@ -3770,15 +3772,15 @@ public class GlslGenerate {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `CustomMutatorServer` has only 'static' members, and lacks a 'private' constructor
-in `generator/src/main/java/com/graphicsfuzz/generator/tool/CustomMutatorServer.java`
+Class `PrepareReference` has only 'static' members, and lacks a 'private' constructor
+in `generator/src/main/java/com/graphicsfuzz/generator/tool/PrepareReference.java`
 #### Snippet
 ```java
- * Server that can accept shaders from a libFuzzer custom mutator and send back a mutated shader.
- */
-public class CustomMutatorServer {
+import net.sourceforge.argparse4j.inf.Namespace;
 
-  private static final Logger LOGGER = LoggerFactory.getLogger(CustomMutatorServer.class);
+public final class PrepareReference {
+
+  private static Namespace parse(String[] args) throws ArgumentParserException {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -3791,6 +3793,18 @@ import org.slf4j.LoggerFactory;
 public class Mutate {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(Mutate.class);
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `CustomMutatorServer` has only 'static' members, and lacks a 'private' constructor
+in `generator/src/main/java/com/graphicsfuzz/generator/tool/CustomMutatorServer.java`
+#### Snippet
+```java
+ * Server that can accept shaders from a libFuzzer custom mutator and send back a mutated shader.
+ */
+public class CustomMutatorServer {
+
+  private static final Logger LOGGER = LoggerFactory.getLogger(CustomMutatorServer.class);
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -3867,18 +3881,6 @@ public class Main {
 
 ## RuleId[ruleID=DataFlowIssue]
 ### DataFlowIssue
-Method invocation `shallowClone` may produce `NullPointerException`
-in `ast/src/main/java/com/graphicsfuzz/common/typing/Scope.java`
-#### Snippet
-```java
-   */
-  public Scope shallowClone() {
-    Scope result = hasParent() ? new Scope(parent.shallowClone()) : new Scope();
-    for (Entry<String, ScopeEntry> entry : variableMapping.entrySet()) {
-      result.variableMapping.put(entry.getKey(), entry.getValue());
-```
-
-### DataFlowIssue
 Method invocation `remove` may produce `NullPointerException`
 in `ast/src/main/java/com/graphicsfuzz/common/typing/Scope.java`
 #### Snippet
@@ -3888,6 +3890,18 @@ in `ast/src/main/java/com/graphicsfuzz/common/typing/Scope.java`
       return parent.remove(name);
     }
     return null;
+```
+
+### DataFlowIssue
+Method invocation `shallowClone` may produce `NullPointerException`
+in `ast/src/main/java/com/graphicsfuzz/common/typing/Scope.java`
+#### Snippet
+```java
+   */
+  public Scope shallowClone() {
+    Scope result = hasParent() ? new Scope(parent.shallowClone()) : new Scope();
+    for (Entry<String, ScopeEntry> entry : variableMapping.entrySet()) {
+      result.variableMapping.put(entry.getKey(), entry.getValue());
 ```
 
 ### DataFlowIssue
@@ -4095,30 +4109,6 @@ in `ast/src/main/java/com/graphicsfuzz/common/ast/visitors/AstBuilder.java`
 ```
 
 ### DataFlowIssue
-Method invocation `add` may produce `NullPointerException`
-in `reducer/src/main/java/com/graphicsfuzz/reducer/reductionopportunities/VariableDeclReductionOpportunities.java`
-#### Snippet
-```java
-  private void addReferencedScopeEntry(ScopeEntry scopeEntry) {
-    assert scopeEntry != null;
-    referencedScopeEntries.peek().add(scopeEntry);
-  }
-
-```
-
-### DataFlowIssue
-Method invocation `contains` may produce `NullPointerException`
-in `reducer/src/main/java/com/graphicsfuzz/reducer/reductionopportunities/VariableDeclReductionOpportunities.java`
-#### Snippet
-```java
-    for (String name : getCurrentScope().keys()) {
-      ScopeEntry entry = getCurrentScope().lookupScopeEntry(name);
-      if (entry.hasVariableDeclInfo() && !referencedScopeEntries.peek().contains(entry)) {
-        if (allowedToReduceLocalDecl(entry.getVariableDeclInfo())) {
-          addOpportunity(
-```
-
-### DataFlowIssue
 Argument `Thread.currentThread().getContextClassLoader().getResourceAsStream("nondet.png")` might be null
 in `common/src/main/java/com/graphicsfuzz/common/util/ShaderJobFileOperations.java`
 #### Snippet
@@ -4128,6 +4118,18 @@ in `common/src/main/java/com/graphicsfuzz/common/util/ShaderJobFileOperations.ja
             Thread.currentThread().getContextClassLoader().getResourceAsStream("nondet.png"));
         BufferedImage img1 = ImageIO.read(
             new ByteArrayInputStream(shaderResult.getPNG()));
+```
+
+### DataFlowIssue
+Dereference of `dir.listFiles()` may produce `NullPointerException`
+in `server/src/main/java/com/graphicsfuzz/server/webui/WebUi.java`
+#### Snippet
+```java
+
+      // Set variant counters
+      for (File file : dir.listFiles()) {
+        if (file.getName().startsWith("variant") && file.getName().endsWith(".info.json")) {
+          nbVariantDone++;
 ```
 
 ### DataFlowIssue
@@ -4143,27 +4145,15 @@ in `server/src/main/java/com/graphicsfuzz/server/webui/WebUi.java`
 ```
 
 ### DataFlowIssue
-Switch label `0` is unreachable
+Argument `is` might be null
 in `server/src/main/java/com/graphicsfuzz/server/webui/WebUi.java`
 #### Snippet
 ```java
-    // Watch out, diff exits with 1 if there is a difference.
-    switch (commandResult.getExitCode()) {
-      case 0:
-        // files are the same! That's suspicious
-        htmlAppendLn("<p>The reduced variant is the same as the reduced reference! ",
-```
-
-### DataFlowIssue
-Switch label `1` is unreachable
-in `server/src/main/java/com/graphicsfuzz/server/webui/WebUi.java`
-#### Snippet
-```java
-            "(diff returns 0)</p>");
-        break;
-      case 1:
-        // files differ
-        htmlAppendLn("<p>Differences in reduced shader:</p>",
+  private String getResourceContent(String resourceName) throws IOException {
+    InputStream is = this.getClass().getResourceAsStream("/private/" + resourceName);
+    java.util.Scanner scanner = new java.util.Scanner(is, "UTF-8").useDelimiter("\\A");
+    return scanner.hasNext() ? scanner.next() : "";
+  }
 ```
 
 ### DataFlowIssue
@@ -4195,35 +4185,11 @@ Argument `shaderFamilies` might be null
 in `server/src/main/java/com/graphicsfuzz/server/webui/WebUi.java`
 #### Snippet
 ```java
-    //Iterate through files in workerDir - get experiment results
-    File[] shaderFamilies = workerDir.listFiles(File::isDirectory);
-    Arrays.sort(shaderFamilies,
-        (f1, f2) -> new AlphanumComparator().compare(f1.getName(), f2.getName()));
-    String[] workers = new String[1];
-```
-
-### DataFlowIssue
-Argument `shaderFamilies` might be null
-in `server/src/main/java/com/graphicsfuzz/server/webui/WebUi.java`
-#### Snippet
-```java
 
     File[] shaderFamilies = workerDir.listFiles(File::isDirectory);
     Arrays.sort(shaderFamilies,
         (f1, f2) -> new AlphanumComparator().compare(f1.getName(), f2.getName()));
     for (File shaderFamilyFile : shaderFamilies) {
-```
-
-### DataFlowIssue
-Dereference of `dir.listFiles()` may produce `NullPointerException`
-in `server/src/main/java/com/graphicsfuzz/server/webui/WebUi.java`
-#### Snippet
-```java
-
-      // Set variant counters
-      for (File file : dir.listFiles()) {
-        if (file.getName().startsWith("variant") && file.getName().endsWith(".info.json")) {
-          nbVariantDone++;
 ```
 
 ### DataFlowIssue
@@ -4239,15 +4205,89 @@ in `server/src/main/java/com/graphicsfuzz/server/webui/WebUi.java`
 ```
 
 ### DataFlowIssue
-Argument `is` might be null
+Switch label `0` is unreachable
 in `server/src/main/java/com/graphicsfuzz/server/webui/WebUi.java`
 #### Snippet
 ```java
-  private String getResourceContent(String resourceName) throws IOException {
-    InputStream is = this.getClass().getResourceAsStream("/private/" + resourceName);
-    java.util.Scanner scanner = new java.util.Scanner(is, "UTF-8").useDelimiter("\\A");
-    return scanner.hasNext() ? scanner.next() : "";
+    // Watch out, diff exits with 1 if there is a difference.
+    switch (commandResult.getExitCode()) {
+      case 0:
+        // files are the same! That's suspicious
+        htmlAppendLn("<p>The reduced variant is the same as the reduced reference! ",
+```
+
+### DataFlowIssue
+Switch label `1` is unreachable
+in `server/src/main/java/com/graphicsfuzz/server/webui/WebUi.java`
+#### Snippet
+```java
+            "(diff returns 0)</p>");
+        break;
+      case 1:
+        // files differ
+        htmlAppendLn("<p>Differences in reduced shader:</p>",
+```
+
+### DataFlowIssue
+Argument `shaderFamilies` might be null
+in `server/src/main/java/com/graphicsfuzz/server/webui/WebUi.java`
+#### Snippet
+```java
+    //Iterate through files in workerDir - get experiment results
+    File[] shaderFamilies = workerDir.listFiles(File::isDirectory);
+    Arrays.sort(shaderFamilies,
+        (f1, f2) -> new AlphanumComparator().compare(f1.getName(), f2.getName()));
+    String[] workers = new String[1];
+```
+
+### DataFlowIssue
+Method invocation `contains` may produce `NullPointerException`
+in `reducer/src/main/java/com/graphicsfuzz/reducer/reductionopportunities/VariableDeclReductionOpportunities.java`
+#### Snippet
+```java
+    for (String name : getCurrentScope().keys()) {
+      ScopeEntry entry = getCurrentScope().lookupScopeEntry(name);
+      if (entry.hasVariableDeclInfo() && !referencedScopeEntries.peek().contains(entry)) {
+        if (allowedToReduceLocalDecl(entry.getVariableDeclInfo())) {
+          addOpportunity(
+```
+
+### DataFlowIssue
+Method invocation `add` may produce `NullPointerException`
+in `reducer/src/main/java/com/graphicsfuzz/reducer/reductionopportunities/VariableDeclReductionOpportunities.java`
+#### Snippet
+```java
+  private void addReferencedScopeEntry(ScopeEntry scopeEntry) {
+    assert scopeEntry != null;
+    referencedScopeEntries.peek().add(scopeEntry);
   }
+
+```
+
+### DataFlowIssue
+Condition `declInfo.getInitializer() instanceof Initializer` is redundant and can be replaced with a null check
+in `generator/src/main/java/com/graphicsfuzz/generator/semanticspreserving/SplitForLoopMutation.java`
+#### Snippet
+```java
+
+    // Now we grab the initial value, which needs to be an integer.
+    if (!(declInfo.getInitializer() instanceof Initializer)) {
+      return Optional.empty();
+    }
+```
+
+### DataFlowIssue
+Argument `donorsDirectory.listFiles( pathname -> pathname.getName().endsWith("." + generat...` might be null
+in `generator/src/main/java/com/graphicsfuzz/generator/transformation/DonateCodeTransformation.java`
+#### Snippet
+```java
+    assert donorsDirectory.exists();
+    this.donorFiles = new ArrayList<>();
+    this.donorFiles.addAll(Arrays.asList(donorsDirectory.listFiles(
+        pathname -> pathname.getName().endsWith("."
+            + generationParams.getShaderKind().getFileExtension()))));
+    this.donorFiles.sort(Comparator.naturalOrder());
+    this.usedDonorFiles = new ArrayList<>();
 ```
 
 ### DataFlowIssue
@@ -4299,32 +4339,6 @@ in `generator/src/main/java/com/graphicsfuzz/generator/fuzzer/OpaqueExpressionGe
 ```
 
 ### DataFlowIssue
-Condition `declInfo.getInitializer() instanceof Initializer` is redundant and can be replaced with a null check
-in `generator/src/main/java/com/graphicsfuzz/generator/semanticspreserving/SplitForLoopMutation.java`
-#### Snippet
-```java
-
-    // Now we grab the initial value, which needs to be an integer.
-    if (!(declInfo.getInitializer() instanceof Initializer)) {
-      return Optional.empty();
-    }
-```
-
-### DataFlowIssue
-Argument `donorsDirectory.listFiles( pathname -> pathname.getName().endsWith("." + generat...` might be null
-in `generator/src/main/java/com/graphicsfuzz/generator/transformation/DonateCodeTransformation.java`
-#### Snippet
-```java
-    assert donorsDirectory.exists();
-    this.donorFiles = new ArrayList<>();
-    this.donorFiles.addAll(Arrays.asList(donorsDirectory.listFiles(
-        pathname -> pathname.getName().endsWith("."
-            + generationParams.getShaderKind().getFileExtension()))));
-    this.donorFiles.sort(Comparator.naturalOrder());
-    this.usedDonorFiles = new ArrayList<>();
-```
-
-### DataFlowIssue
 Method invocation `getQueueAsCommandInfoList` may produce `NullPointerException`
 in `fuzzerserver/src/main/java/com/graphicsfuzz/server/FuzzerServiceManagerImpl.java`
 #### Snippet
@@ -4349,18 +4363,6 @@ in `fuzzerserver/src/main/java/com/graphicsfuzz/server/FuzzerServiceManagerImpl.
 ```
 
 ### DataFlowIssue
-Method invocation `isEmpty` may produce `NullPointerException`
-in `fuzzerserver/src/main/java/com/graphicsfuzz/server/FuzzerServiceImpl.java`
-#### Snippet
-```java
-      oldWorker = oldWorker.trim();
-    }
-    if (oldWorker.isEmpty()) {
-      oldWorker = null;
-    }
-```
-
-### DataFlowIssue
 Method invocation `finishJob` may produce `NullPointerException`
 in `fuzzerserver/src/main/java/com/graphicsfuzz/server/FuzzerServiceImpl.java`
 #### Snippet
@@ -4370,6 +4372,18 @@ in `fuzzerserver/src/main/java/com/graphicsfuzz/server/FuzzerServiceImpl.java`
         boolean remove = serverJob.finishJob(job);
 
         LOGGER.info("Returned from finishJob. Removing job? {}", remove);
+```
+
+### DataFlowIssue
+Method invocation `isEmpty` may produce `NullPointerException`
+in `fuzzerserver/src/main/java/com/graphicsfuzz/server/FuzzerServiceImpl.java`
+#### Snippet
+```java
+      oldWorker = oldWorker.trim();
+    }
+    if (oldWorker.isEmpty()) {
+      oldWorker = null;
+    }
 ```
 
 ## RuleId[ruleID=SimplifyStreamApiCallChains]
@@ -4472,18 +4486,6 @@ in `generator/src/main/java/com/graphicsfuzz/generator/fuzzer/Fuzzer.java`
 
 ### SimplifyStreamApiCallChains
 Can be replaced with 'java.util.ArrayList' constructor
-in `generator/src/main/java/com/graphicsfuzz/generator/semanticspreserving/StructificationMutation.java`
-#### Snippet
-```java
-      Map<String, StructDefinitionType> structFields = getStructFields(currentStruct);
-      if (!structFields.keySet().isEmpty() && generator.nextBoolean()) {
-        String fieldName = structFields.keySet().stream().collect(Collectors.toList())
-              .get(generator.nextInt(structFields.size()));
-        result = new MemberLookupExpr(result, fieldName);
-```
-
-### SimplifyStreamApiCallChains
-Can be replaced with 'java.util.ArrayList' constructor
 in `generator/src/main/java/com/graphicsfuzz/generator/fuzzer/Templates.java`
 #### Snippet
 ```java
@@ -4492,6 +4494,18 @@ in `generator/src/main/java/com/graphicsfuzz/generator/fuzzer/Templates.java`
       List<String> keys = builtins.keySet().stream().collect(Collectors.toList());
       keys.sort(String::compareTo);
       for (String key : keys) {
+```
+
+### SimplifyStreamApiCallChains
+Can be replaced with 'java.util.ArrayList' constructor
+in `generator/src/main/java/com/graphicsfuzz/generator/semanticspreserving/StructificationMutation.java`
+#### Snippet
+```java
+      Map<String, StructDefinitionType> structFields = getStructFields(currentStruct);
+      if (!structFields.keySet().isEmpty() && generator.nextBoolean()) {
+        String fieldName = structFields.keySet().stream().collect(Collectors.toList())
+              .get(generator.nextInt(structFields.size()));
+        result = new MemberLookupExpr(result, fieldName);
 ```
 
 ### SimplifyStreamApiCallChains
@@ -4569,18 +4583,6 @@ in `fuzzerserver/src/main/java/com/graphicsfuzz/server/FuzzerServiceManagerImpl.
 
 ## RuleId[ruleID=DeprecatedIsStillUsed]
 ### DeprecatedIsStillUsed
-Deprecated member 'writeAdditionalInfo' is still used
-in `common/src/main/java/com/graphicsfuzz/common/util/ShaderJobFileOperations.java`
-#### Snippet
-```java
-   * @deprecated Should probably be avoided, but useful for now.
-   */
-  public void writeAdditionalInfo(
-      File shaderJobFile,
-      String outputFileExtension,
-```
-
-### DeprecatedIsStillUsed
 Deprecated member 'getUnderlyingShaderFile' is still used
 in `common/src/main/java/com/graphicsfuzz/common/util/ShaderJobFileOperations.java`
 #### Snippet
@@ -4590,6 +4592,18 @@ in `common/src/main/java/com/graphicsfuzz/common/util/ShaderJobFileOperations.ja
   public File getUnderlyingShaderFile(
       File shaderJobFile,
       ShaderKind shaderKind) {
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'writeAdditionalInfo' is still used
+in `common/src/main/java/com/graphicsfuzz/common/util/ShaderJobFileOperations.java`
+#### Snippet
+```java
+   * @deprecated Should probably be avoided, but useful for now.
+   */
+  public void writeAdditionalInfo(
+      File shaderJobFile,
+      String outputFileExtension,
 ```
 
 ## RuleId[ruleID=OptionalContainsCollection]
@@ -4634,11 +4648,11 @@ in `ast/src/main/java/com/graphicsfuzz/common/tool/PrettyPrinterVisitor.java`
 in `ast/src/main/java/com/graphicsfuzz/common/tool/PrettyPrinterVisitor.java`
 #### Snippet
 ```java
-      // Emit a comment per known uniform.
-      for (VariableDeclInfo knownUniform : knownUniforms) {
-        final Optional<List<String>> values = uniformValues.get().getValues(knownUniform.getName());
-        values.ifPresent(item -> {
-          out.append("// Contents of ")
+
+  private void emitKnownUniformDefines(String knownUniformArrayName, String prefix) {
+    final Optional<List<String>> values =
+        uniformValues.get().getValues(knownUniformArrayName);
+    if (values.isPresent()) {
 ```
 
 ### OptionalContainsCollection
@@ -4646,11 +4660,11 @@ in `ast/src/main/java/com/graphicsfuzz/common/tool/PrettyPrinterVisitor.java`
 in `ast/src/main/java/com/graphicsfuzz/common/tool/PrettyPrinterVisitor.java`
 #### Snippet
 ```java
-
-  private void emitKnownUniformDefines(String knownUniformArrayName, String prefix) {
-    final Optional<List<String>> values =
-        uniformValues.get().getValues(knownUniformArrayName);
-    if (values.isPresent()) {
+      // Emit a comment per known uniform.
+      for (VariableDeclInfo knownUniform : knownUniforms) {
+        final Optional<List<String>> values = uniformValues.get().getValues(knownUniform.getName());
+        values.ifPresent(item -> {
+          out.append("// Contents of ")
 ```
 
 ## RuleId[ruleID=Convert2MethodRef]
@@ -4683,11 +4697,11 @@ Lambda can be replaced with method reference
 in `ast/src/main/java/com/graphicsfuzz/common/ast/AstUtil.java`
 #### Snippet
 ```java
-    // Grab all prototypes associated with function definitions
-    List<FunctionPrototype> result =
-        getFunctionDefinitions(decls).map(x -> x.getPrototype()).collect(Collectors.toList());
-    // Add any additional prototypes
-    // TODO: we only check whether a function definition with a matching name is present;
+
+  private static List<String> getFunctionNames(List<FunctionPrototype> prototypes) {
+    return prototypes.stream().map(y -> y.getName()).collect(Collectors.toList());
+  }
+
 ```
 
 ### Convert2MethodRef
@@ -4695,11 +4709,11 @@ Lambda can be replaced with method reference
 in `ast/src/main/java/com/graphicsfuzz/common/ast/AstUtil.java`
 #### Snippet
 ```java
-
-  private static List<String> getFunctionNames(List<FunctionPrototype> prototypes) {
-    return prototypes.stream().map(y -> y.getName()).collect(Collectors.toList());
-  }
-
+    // Grab all prototypes associated with function definitions
+    List<FunctionPrototype> result =
+        getFunctionDefinitions(decls).map(x -> x.getPrototype()).collect(Collectors.toList());
+    // Add any additional prototypes
+    // TODO: we only check whether a function definition with a matching name is present;
 ```
 
 ### Convert2MethodRef
@@ -4815,11 +4829,11 @@ Lambda can be replaced with method reference
 in `common/src/main/java/com/graphicsfuzz/common/transformreduce/MergeSet.java`
 #### Snippet
 ```java
-            component.getOffset() + "_" + component.getWidth() + "_" + component.getName().length())
-            .collect(Collectors.toList()))
-        + String.join("", components.stream().map(component -> component.getName())
-            .collect(Collectors.toList()));
-  }
+    componentData = componentData.substring(1);
+    List<Integer> componentIntegerData = Arrays.stream(componentData.split("_"))
+        .map(item -> Integer.parseInt(item))
+        .collect(Collectors.toList());
+    String nameData = matcher.group("names");
 ```
 
 ### Convert2MethodRef
@@ -4827,11 +4841,11 @@ Lambda can be replaced with method reference
 in `common/src/main/java/com/graphicsfuzz/common/transformreduce/MergeSet.java`
 #### Snippet
 ```java
-    componentData = componentData.substring(1);
-    List<Integer> componentIntegerData = Arrays.stream(componentData.split("_"))
-        .map(item -> Integer.parseInt(item))
-        .collect(Collectors.toList());
-    String nameData = matcher.group("names");
+            component.getOffset() + "_" + component.getWidth() + "_" + component.getName().length())
+            .collect(Collectors.toList()))
+        + String.join("", components.stream().map(component -> component.getName())
+            .collect(Collectors.toList()));
+  }
 ```
 
 ### Convert2MethodRef
@@ -4896,18 +4910,6 @@ in `reducer/src/main/java/com/graphicsfuzz/reducer/reductionopportunities/Unwrap
 
 ### Convert2MethodRef
 Lambda can be replaced with method reference
-in `reducer/src/main/java/com/graphicsfuzz/reducer/reductionopportunities/LiveOutputVariableWriteReductionOpportunities.java`
-#### Snippet
-```java
-          .findFirst()
-          .map(vdi -> vdi.getVariablesDeclaration().getDeclInfos()
-            .stream().map(item -> item.getName()).findFirst().get());
-  }
-
-```
-
-### Convert2MethodRef
-Lambda can be replaced with method reference
 in `reducer/src/main/java/com/graphicsfuzz/reducer/reductionopportunities/DestructifyReductionOpportunity.java`
 #### Snippet
 ```java
@@ -4928,6 +4930,18 @@ in `reducer/src/main/java/com/graphicsfuzz/reducer/reductionopportunities/Destru
           .map(item -> item.getDeclInfos())
           .reduce(Arrays.asList(), ListConcat::concatenate)
           .stream()
+```
+
+### Convert2MethodRef
+Lambda can be replaced with method reference
+in `reducer/src/main/java/com/graphicsfuzz/reducer/reductionopportunities/LiveOutputVariableWriteReductionOpportunities.java`
+#### Snippet
+```java
+          .findFirst()
+          .map(vdi -> vdi.getVariablesDeclaration().getDeclInfos()
+            .stream().map(item -> item.getName()).findFirst().get());
+  }
+
 ```
 
 ### Convert2MethodRef
@@ -4962,6 +4976,18 @@ in `reducer/src/main/java/com/graphicsfuzz/reducer/reductionopportunities/Vector
           .filter(item -> item instanceof DeclarationStmt)
           .map(item -> (DeclarationStmt) item)
           .map(item -> item.getVariablesDeclaration())
+          .collect(Collectors.toList())) {
+      final Type actualType = variablesDeclaration.getBaseType().getWithoutQualifiers();
+```
+
+### Convert2MethodRef
+Lambda can be replaced with method reference
+in `reducer/src/main/java/com/graphicsfuzz/reducer/reductionopportunities/VectorizationReductionOpportunity.java`
+#### Snippet
+```java
+          .filter(item -> item instanceof DeclarationStmt)
+          .map(item -> (DeclarationStmt) item)
+          .map(item -> item.getVariablesDeclaration())
           .map(item -> item.getDeclInfos())
           .reduce(Arrays.asList(), ListConcat::concatenate);
 ```
@@ -4976,30 +5002,6 @@ in `reducer/src/main/java/com/graphicsfuzz/reducer/reductionopportunities/Vector
           .map(item -> item.getDeclInfos())
           .reduce(Arrays.asList(), ListConcat::concatenate);
   }
-```
-
-### Convert2MethodRef
-Lambda can be replaced with method reference
-in `reducer/src/main/java/com/graphicsfuzz/reducer/reductionopportunities/VectorizationReductionOpportunity.java`
-#### Snippet
-```java
-          .filter(item -> item instanceof DeclarationStmt)
-          .map(item -> (DeclarationStmt) item)
-          .map(item -> item.getVariablesDeclaration())
-          .collect(Collectors.toList())) {
-      final Type actualType = variablesDeclaration.getBaseType().getWithoutQualifiers();
-```
-
-### Convert2MethodRef
-Lambda can be replaced with method reference
-in `generator/src/main/java/com/graphicsfuzz/generator/fuzzer/Fuzzer.java`
-#### Snippet
-```java
-    candidates.addAll(fuzzingContext.getStructDeclarations()
-        .stream()
-        .map(item -> item.getStructNameType())
-        .collect(Collectors.toList()));
-    return candidates.get(generator.nextInt(candidates.size()));
 ```
 
 ### Convert2MethodRef
@@ -5028,14 +5030,14 @@ in `generator/src/main/java/com/graphicsfuzz/generator/fuzzer/Fuzzer.java`
 
 ### Convert2MethodRef
 Lambda can be replaced with method reference
-in `generator/src/main/java/com/graphicsfuzz/generator/semanticschanging/Compound2BodyMutationFinder.java`
+in `generator/src/main/java/com/graphicsfuzz/generator/fuzzer/Fuzzer.java`
 #### Snippet
 ```java
-    super.visitDoStmt(doStmt);
-    addMutation(
-          new Stmt2StmtMutation(parentMap.getParent(doStmt), doStmt, () -> doStmt.getBody()));
-  }
-
+    candidates.addAll(fuzzingContext.getStructDeclarations()
+        .stream()
+        .map(item -> item.getStructNameType())
+        .collect(Collectors.toList()));
+    return candidates.get(generator.nextInt(candidates.size()));
 ```
 
 ### Convert2MethodRef
@@ -5060,6 +5062,18 @@ in `generator/src/main/java/com/graphicsfuzz/generator/semanticschanging/Compoun
           () -> ifStmt.getElseStmt()));
     }
   }
+```
+
+### Convert2MethodRef
+Lambda can be replaced with method reference
+in `generator/src/main/java/com/graphicsfuzz/generator/semanticschanging/Compound2BodyMutationFinder.java`
+#### Snippet
+```java
+    super.visitDoStmt(doStmt);
+    addMutation(
+          new Stmt2StmtMutation(parentMap.getParent(doStmt), doStmt, () -> doStmt.getBody()));
+  }
+
 ```
 
 ### Convert2MethodRef
@@ -5104,18 +5118,6 @@ Unnecessary `String.valueOf()` call
 in `generator/src/main/java/com/graphicsfuzz/generator/fuzzer/templates/ConstantExprTemplate.java`
 #### Snippet
 ```java
-  private UIntConstantExpr randomUintLiteral(IRandom generator) {
-    final int maxValue = 200000;
-    return new UIntConstantExpr(String.valueOf(generator.nextInt(maxValue)) + "u");
-  }
-
-```
-
-### UnnecessaryCallToStringValueOf
-Unnecessary `String.valueOf()` call
-in `generator/src/main/java/com/graphicsfuzz/generator/fuzzer/templates/ConstantExprTemplate.java`
-#### Snippet
-```java
         break;
       }
       sb.append(String.valueOf(candidate));
@@ -5133,6 +5135,18 @@ in `generator/src/main/java/com/graphicsfuzz/generator/fuzzer/templates/Constant
       sb.append(String.valueOf(generator.nextInt(10)));
     }
     return new FloatConstantExpr(sb.toString());
+```
+
+### UnnecessaryCallToStringValueOf
+Unnecessary `String.valueOf()` call
+in `generator/src/main/java/com/graphicsfuzz/generator/fuzzer/templates/ConstantExprTemplate.java`
+#### Snippet
+```java
+  private UIntConstantExpr randomUintLiteral(IRandom generator) {
+    final int maxValue = 200000;
+    return new UIntConstantExpr(String.valueOf(generator.nextInt(maxValue)) + "u");
+  }
+
 ```
 
 ### UnnecessaryCallToStringValueOf
@@ -5186,18 +5200,6 @@ in `reducer/src/main/java/com/graphicsfuzz/reducer/glslreducers/RandomizedReduct
 
 ## RuleId[ruleID=NonSerializableFieldInSerializableClass]
 ### NonSerializableFieldInSerializableClass
-Non-serializable field 'accessFileInfo' in a Serializable class
-in `server/src/main/java/com/graphicsfuzz/server/webui/WebUi.java`
-#### Snippet
-```java
-  private final StringBuilder html;
-  private long startTime;
-  private final AccessFileInfo accessFileInfo;
-
-  private static final String WARNING_CLASS_WRONG_RESULT = "wrongresult";
-```
-
-### NonSerializableFieldInSerializableClass
 Non-serializable field 'fileOps' in a Serializable class
 in `server/src/main/java/com/graphicsfuzz/server/webui/WebUi.java`
 #### Snippet
@@ -5207,6 +5209,18 @@ in `server/src/main/java/com/graphicsfuzz/server/webui/WebUi.java`
   private final ShaderJobFileOperations fileOps;
   private final FuzzerServiceManager.Iface fuzzerServiceManagerProxy;
 
+```
+
+### NonSerializableFieldInSerializableClass
+Non-serializable field 'accessFileInfo' in a Serializable class
+in `server/src/main/java/com/graphicsfuzz/server/webui/WebUi.java`
+#### Snippet
+```java
+  private final StringBuilder html;
+  private long startTime;
+  private final AccessFileInfo accessFileInfo;
+
+  private static final String WARNING_CLASS_WRONG_RESULT = "wrongresult";
 ```
 
 ## RuleId[ruleID=RedundantCollectionOperation]
@@ -5229,10 +5243,10 @@ in `ast/src/main/java/com/graphicsfuzz/common/ast/AstUtil.java`
 #### Snippet
 ```java
    *
-   * @param decls A list of declarations
-   * @return set of prototypes for all functions declared fully or via prototypes in the declaration
-   *         list
+   * @param shader A shader from which function prototypes should be extracted
+   * @return set of prototypes for all functions declared fully or via prototypes in the shader
    */
+  public static List<FunctionPrototype> getFunctionPrototypesFromShader(TranslationUnit shader) {
 ```
 
 ### MismatchedJavadocCode
@@ -5241,10 +5255,10 @@ in `ast/src/main/java/com/graphicsfuzz/common/ast/AstUtil.java`
 #### Snippet
 ```java
    *
-   * @param shader A shader from which function prototypes should be extracted
-   * @return set of prototypes for all functions declared fully or via prototypes in the shader
+   * @param decls A list of declarations
+   * @return set of prototypes for all functions declared fully or via prototypes in the declaration
+   *         list
    */
-  public static List<FunctionPrototype> getFunctionPrototypesFromShader(TranslationUnit shader) {
 ```
 
 ## RuleId[ruleID=AssignmentToForLoopParameter]
@@ -5350,11 +5364,23 @@ Unnecessary `toString()` call
 in `server/src/main/java/com/graphicsfuzz/server/webui/WebUi.java`
 #### Snippet
 ```java
+    } catch (Exception exception) {
       exception.printStackTrace();
-      throw new ServletException(
-          "GET method failed, request was: " + request.toString(),
-          exception);
+      throw new ServletException("POST method failed, request was: " + request.toString());
     }
+  }
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `server/src/main/java/com/graphicsfuzz/server/webui/WebUi.java`
+#### Snippet
+```java
+        msg.append("Shader running on ").append(worker).append("\\n");
+      }
+      javascript += "\nwindow.onload = goBack('" + msg.toString() + "', 2);";
+    } else {
+      javascript += "\nwindow.onload = goBack('Please select a worker', 1);";
 ```
 
 ### UnnecessaryToStringCall
@@ -5374,23 +5400,11 @@ Unnecessary `toString()` call
 in `server/src/main/java/com/graphicsfuzz/server/webui/WebUi.java`
 #### Snippet
 ```java
-    } catch (Exception exception) {
       exception.printStackTrace();
-      throw new ServletException("POST method failed, request was: " + request.toString());
+      throw new ServletException(
+          "GET method failed, request was: " + request.toString(),
+          exception);
     }
-  }
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `server/src/main/java/com/graphicsfuzz/server/webui/WebUi.java`
-#### Snippet
-```java
-        msg.append("Shader running on ").append(worker).append("\\n");
-      }
-      javascript += "\nwindow.onload = goBack('" + msg.toString() + "', 2);";
-    } else {
-      javascript += "\nwindow.onload = goBack('Please select a worker', 1);";
 ```
 
 ### UnnecessaryToStringCall
@@ -5699,6 +5713,18 @@ in `ast/src/main/java/com/graphicsfuzz/common/ast/decl/InterfaceBlock.java`
 ```
 
 ### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'shadingLanguageVersion'
+in `ast/src/main/java/com/graphicsfuzz/common/ast/TranslationUnit.java`
+#### Snippet
+```java
+   */
+  public TranslationUnit(ShaderKind shaderKind,
+                         Optional<ShadingLanguageVersion> shadingLanguageVersion,
+                         List<Declaration> topLevelDeclarations) {
+    this.shaderKind = shaderKind;
+```
+
+### OptionalUsedAsFieldOrParameterType
 `Optional` used as type for field 'shadingLanguageVersion'
 in `ast/src/main/java/com/graphicsfuzz/common/ast/TranslationUnit.java`
 #### Snippet
@@ -5723,18 +5749,6 @@ in `ast/src/main/java/com/graphicsfuzz/common/ast/TranslationUnit.java`
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'shadingLanguageVersion'
-in `ast/src/main/java/com/graphicsfuzz/common/ast/TranslationUnit.java`
-#### Snippet
-```java
-   */
-  public TranslationUnit(ShaderKind shaderKind,
-                         Optional<ShadingLanguageVersion> shadingLanguageVersion,
-                         List<Declaration> topLevelDeclarations) {
-    this.shaderKind = shaderKind;
-```
-
-### OptionalUsedAsFieldOrParameterType
 `Optional` used as type for parameter 'returnVariableName'
 in `ast/src/main/java/com/graphicsfuzz/common/ast/inliner/Inliner.java`
 #### Snippet
@@ -5744,6 +5758,18 @@ in `ast/src/main/java/com/graphicsfuzz/common/ast/inliner/Inliner.java`
         Optional<String> returnVariableName) {
     final List<Stmt> inlinedStmts = new ArrayList<>();
     for (int i = 0; i < functionDefinition.getPrototype().getNumParameters(); i++) {
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for field 'interfaceBlock'
+in `ast/src/main/java/com/graphicsfuzz/common/typing/ScopeEntry.java`
+#### Snippet
+```java
+  // Represents the interface block that this variable is part of, if one exists. If there is no
+  // such object, the optional is empty.
+  private final Optional<InterfaceBlock> interfaceBlock;
+
+  private ScopeEntry(Type type, Optional<ParameterDecl> parameterDecl,
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -5759,15 +5785,15 @@ in `ast/src/main/java/com/graphicsfuzz/common/typing/ScopeEntry.java`
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'variablesDeclaration'
+`Optional` used as type for field 'variableDeclInfo'
 in `ast/src/main/java/com/graphicsfuzz/common/typing/ScopeEntry.java`
 #### Snippet
 ```java
-  // Represents the list of variable declarations that this variable came from, if one exists.
-  // If there is no such object, the optional is empty.
-  private final Optional<VariablesDeclaration> variablesDeclaration;
+  // such object (e.g. because the variable came from a parameter, or was made up for purposes of
+  // fuzzing, or some such, the optional is empty.
+  private final Optional<VariableDeclInfo> variableDeclInfo;
 
-  // Represents the interface block that this variable is part of, if one exists. If there is no
+  // Represents the list of variable declarations that this variable came from, if one exists.
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -5819,51 +5845,15 @@ in `ast/src/main/java/com/graphicsfuzz/common/typing/ScopeEntry.java`
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'interfaceBlock'
+`Optional` used as type for field 'variablesDeclaration'
 in `ast/src/main/java/com/graphicsfuzz/common/typing/ScopeEntry.java`
 #### Snippet
 ```java
-  // Represents the interface block that this variable is part of, if one exists. If there is no
-  // such object, the optional is empty.
-  private final Optional<InterfaceBlock> interfaceBlock;
-
-  private ScopeEntry(Type type, Optional<ParameterDecl> parameterDecl,
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'variableDeclInfo'
-in `ast/src/main/java/com/graphicsfuzz/common/typing/ScopeEntry.java`
-#### Snippet
-```java
-  // such object (e.g. because the variable came from a parameter, or was made up for purposes of
-  // fuzzing, or some such, the optional is empty.
-  private final Optional<VariableDeclInfo> variableDeclInfo;
-
   // Represents the list of variable declarations that this variable came from, if one exists.
-```
+  // If there is no such object, the optional is empty.
+  private final Optional<VariablesDeclaration> variablesDeclaration;
 
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'structNameType'
-in `ast/src/main/java/com/graphicsfuzz/common/ast/type/StructDefinitionType.java`
-#### Snippet
-```java
-  private final List<Type> fieldTypes;
-
-  public StructDefinitionType(Optional<StructNameType> structNameType,
-                               List<String> fieldNames,
-                               List<Type> fieldTypes) {
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'structNameType'
-in `ast/src/main/java/com/graphicsfuzz/common/ast/type/StructDefinitionType.java`
-#### Snippet
-```java
-public class StructDefinitionType extends UnqualifiedType {
-
-  private Optional<StructNameType> structNameType;
-  private final List<String> fieldNames;
-  private final List<Type> fieldTypes;
+  // Represents the interface block that this variable is part of, if one exists. If there is no
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -5879,6 +5869,30 @@ in `ast/src/main/java/com/graphicsfuzz/common/typing/Scope.java`
 ```
 
 ### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for field 'structNameType'
+in `ast/src/main/java/com/graphicsfuzz/common/ast/type/StructDefinitionType.java`
+#### Snippet
+```java
+public class StructDefinitionType extends UnqualifiedType {
+
+  private Optional<StructNameType> structNameType;
+  private final List<String> fieldNames;
+  private final List<Type> fieldTypes;
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'structNameType'
+in `ast/src/main/java/com/graphicsfuzz/common/ast/type/StructDefinitionType.java`
+#### Snippet
+```java
+  private final List<Type> fieldTypes;
+
+  public StructDefinitionType(Optional<StructNameType> structNameType,
+                               List<String> fieldNames,
+                               List<Type> fieldTypes) {
+```
+
+### OptionalUsedAsFieldOrParameterType
 `Optional` used as type for parameter 'structNameType'
 in `ast/src/main/java/com/graphicsfuzz/common/ast/visitors/AstBuilder.java`
 #### Snippet
@@ -5891,18 +5905,6 @@ in `ast/src/main/java/com/graphicsfuzz/common/ast/visitors/AstBuilder.java`
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'enclosingFunction'
-in `common/src/main/java/com/graphicsfuzz/common/util/StripUnusedFunctions.java`
-#### Snippet
-```java
-public class StripUnusedFunctions extends StandardVisitor {
-
-  private Optional<FunctionDefinition> enclosingFunction;
-  private Map<String, Set<String>> callGraphEdges;
-
-```
-
-### OptionalUsedAsFieldOrParameterType
 `Optional` used as type for parameter 'pushConstant'
 in `common/src/main/java/com/graphicsfuzz/common/transformreduce/ShaderJob.java`
 #### Snippet
@@ -5912,6 +5914,18 @@ in `common/src/main/java/com/graphicsfuzz/common/transformreduce/ShaderJob.java`
   void makeUniformBindings(Optional<String> pushConstant);
 
   void removeUniformBindings();
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for field 'enclosingFunction'
+in `common/src/main/java/com/graphicsfuzz/common/util/StripUnusedFunctions.java`
+#### Snippet
+```java
+public class StripUnusedFunctions extends StandardVisitor {
+
+  private Optional<FunctionDefinition> enclosingFunction;
+  private Map<String, Set<String>> callGraphEdges;
+
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -5936,6 +5950,18 @@ in `ast/src/main/java/com/graphicsfuzz/common/tool/PrettyPrinterVisitor.java`
   private final Optional<String> license;
   private final Optional<UniformValueSupplier> uniformValues;
 
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for field 'uniformValues'
+in `ast/src/main/java/com/graphicsfuzz/common/tool/PrettyPrinterVisitor.java`
+#### Snippet
+```java
+  private final boolean emitGraphicsFuzzDefines;
+  private final Optional<String> license;
+  private final Optional<UniformValueSupplier> uniformValues;
+
+  // Allows different formatting of a declaration when part of the header of a for statement.
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -5975,18 +6001,6 @@ in `ast/src/main/java/com/graphicsfuzz/common/tool/PrettyPrinterVisitor.java`
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'uniformValues'
-in `ast/src/main/java/com/graphicsfuzz/common/tool/PrettyPrinterVisitor.java`
-#### Snippet
-```java
-  private final boolean emitGraphicsFuzzDefines;
-  private final Optional<String> license;
-  private final Optional<UniformValueSupplier> uniformValues;
-
-  // Allows different formatting of a declaration when part of the header of a for statement.
-```
-
-### OptionalUsedAsFieldOrParameterType
 `Optional` used as type for parameter 'license'
 in `ast/src/main/java/com/graphicsfuzz/common/tool/PrettyPrinterVisitor.java`
 #### Snippet
@@ -6011,18 +6025,6 @@ in `ast/src/main/java/com/graphicsfuzz/common/tool/PrettyPrinterVisitor.java`
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'arrayCount'
-in `common/src/main/java/com/graphicsfuzz/common/util/PipelineInfo.java`
-#### Snippet
-```java
-   */
-  public void addUniform(String name, BasicType basicType,
-                         Optional<Integer> arrayCount, List<? extends Number> values) {
-    assert isLegalUniformName(name);
-    if (uniformAlreadyExists(name, PipelineInfo.getGlUniformFunctionName(basicType,
-```
-
-### OptionalUsedAsFieldOrParameterType
 `Optional` used as type for field 'triggerFunction'
 in `reducer/src/main/java/com/graphicsfuzz/reducer/CheckAstFeatureVisitor.java`
 #### Snippet
@@ -6035,27 +6037,15 @@ public abstract class CheckAstFeatureVisitor extends ScopeTrackingVisitor {
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'pushConstant'
-in `reducer/src/main/java/com/graphicsfuzz/reducer/ReductionDriver.java`
+`Optional` used as type for parameter 'arrayCount'
+in `common/src/main/java/com/graphicsfuzz/common/util/PipelineInfo.java`
 #### Snippet
 ```java
-  private boolean isInteresting(ShaderJob state,
-                                boolean requiresUniformBindings,
-                                Optional<String> pushConstant,
-                                boolean addGlobalLoopLimiters,
-                                boolean makeArrayAccessesInBounds,
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'successIndicator'
-in `reducer/src/main/java/com/graphicsfuzz/reducer/ReductionDriver.java`
-#### Snippet
-```java
-  public static String getReductionStepShaderJobShortName(String variantPrefix,
-                                                          int currentReductionAttempt,
-                                                          Optional<String> successIndicator) {
-    return variantPrefix + "_reduced_" + String.format("%04d", currentReductionAttempt)
-          + successIndicator
+   */
+  public void addUniform(String name, BasicType basicType,
+                         Optional<Integer> arrayCount, List<? extends Number> values) {
+    assert isLegalUniformName(name);
+    if (uniformAlreadyExists(name, PipelineInfo.getGlUniformFunctionName(basicType,
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -6095,27 +6085,27 @@ in `reducer/src/main/java/com/graphicsfuzz/reducer/ReductionDriver.java`
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'initializer'
-in `reducer/src/main/java/com/graphicsfuzz/reducer/reductionopportunities/StructifiedVariableInfo.java`
+`Optional` used as type for parameter 'pushConstant'
+in `reducer/src/main/java/com/graphicsfuzz/reducer/ReductionDriver.java`
 #### Snippet
 ```java
-  private final String name;
-  private final Type type;
-  private final Optional<Initializer> initializer;
-
-  StructifiedVariableInfo(String name, Type type, Optional<Initializer> initializer) {
+  private boolean isInteresting(ShaderJob state,
+                                boolean requiresUniformBindings,
+                                Optional<String> pushConstant,
+                                boolean addGlobalLoopLimiters,
+                                boolean makeArrayAccessesInBounds,
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'initializer'
-in `reducer/src/main/java/com/graphicsfuzz/reducer/reductionopportunities/StructifiedVariableInfo.java`
+`Optional` used as type for parameter 'successIndicator'
+in `reducer/src/main/java/com/graphicsfuzz/reducer/ReductionDriver.java`
 #### Snippet
 ```java
-  private final Optional<Initializer> initializer;
-
-  StructifiedVariableInfo(String name, Type type, Optional<Initializer> initializer) {
-    this.name = name;
-    this.type = type;
+  public static String getReductionStepShaderJobShortName(String variantPrefix,
+                                                          int currentReductionAttempt,
+                                                          Optional<String> successIndicator) {
+    return variantPrefix + "_reduced_" + String.format("%04d", currentReductionAttempt)
+          + successIndicator
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -6131,18 +6121,6 @@ in `common/src/main/java/com/graphicsfuzz/common/transformreduce/GlslShaderJob.j
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'license'
-in `common/src/main/java/com/graphicsfuzz/common/transformreduce/GlslShaderJob.java`
-#### Snippet
-```java
-  }
-
-  public GlslShaderJob(Optional<String> license,
-                       PipelineInfo pipelineInfo,
-                       TranslationUnit... shaders) {
-```
-
-### OptionalUsedAsFieldOrParameterType
 `Optional` used as type for field 'license'
 in `common/src/main/java/com/graphicsfuzz/common/transformreduce/GlslShaderJob.java`
 #### Snippet
@@ -6155,27 +6133,15 @@ public class GlslShaderJob implements ShaderJob {
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'initializer'
-in `reducer/src/main/java/com/graphicsfuzz/reducer/reductionopportunities/DestructifyReductionOpportunity.java`
+`Optional` used as type for parameter 'license'
+in `common/src/main/java/com/graphicsfuzz/common/transformreduce/GlslShaderJob.java`
 #### Snippet
 ```java
-  private Optional<StructifiedVariableInfo> findOriginalVariableInfo(
-      StructNameType type,
-      Optional<Initializer> initializer) {
+  }
 
-    final StructDefinitionType structDefinitionType = tu.getStructDefinition(type);
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'referenceShaderResultFile'
-in `common/src/main/java/com/graphicsfuzz/common/util/ShaderJobFileOperations.java`
-#### Snippet
-```java
-      ImageJobResult shaderResult,
-      File shaderResultFile,
-      Optional<File> referenceShaderResultFile) throws InterruptedException, IOException {
-
-    writeShaderResultToFileHelper(
+  public GlslShaderJob(Optional<String> license,
+                       PipelineInfo pipelineInfo,
+                       TranslationUnit... shaders) {
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -6203,18 +6169,6 @@ in `common/src/main/java/com/graphicsfuzz/common/util/ShaderJobFileOperations.ja
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'uniformValues'
-in `common/src/main/java/com/graphicsfuzz/common/util/ShaderJobFileOperations.java`
-#### Snippet
-```java
-      final ShaderJob shaderJob,
-      final File outputShaderJobFile,
-      final Optional<UniformValueSupplier> uniformValues) throws FileNotFoundException {
-
-    assertIsShaderJobFile(outputShaderJobFile);
-```
-
-### OptionalUsedAsFieldOrParameterType
 `Optional` used as type for parameter 'referenceImage'
 in `common/src/main/java/com/graphicsfuzz/common/util/ShaderJobFileOperations.java`
 #### Snippet
@@ -6236,6 +6190,66 @@ in `common/src/main/java/com/graphicsfuzz/common/util/ShaderJobFileOperations.ja
       Optional<File> referenceShaderResultFile) throws InterruptedException, IOException {
 
     assertIsShaderJobResultFile(shaderJobResultFile);
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'referenceShaderResultFile'
+in `common/src/main/java/com/graphicsfuzz/common/util/ShaderJobFileOperations.java`
+#### Snippet
+```java
+      ImageJobResult shaderResult,
+      File shaderResultFile,
+      Optional<File> referenceShaderResultFile) throws InterruptedException, IOException {
+
+    writeShaderResultToFileHelper(
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'uniformValues'
+in `common/src/main/java/com/graphicsfuzz/common/util/ShaderJobFileOperations.java`
+#### Snippet
+```java
+      final ShaderJob shaderJob,
+      final File outputShaderJobFile,
+      final Optional<UniformValueSupplier> uniformValues) throws FileNotFoundException {
+
+    assertIsShaderJobFile(outputShaderJobFile);
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for field 'initializer'
+in `reducer/src/main/java/com/graphicsfuzz/reducer/reductionopportunities/StructifiedVariableInfo.java`
+#### Snippet
+```java
+  private final String name;
+  private final Type type;
+  private final Optional<Initializer> initializer;
+
+  StructifiedVariableInfo(String name, Type type, Optional<Initializer> initializer) {
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'initializer'
+in `reducer/src/main/java/com/graphicsfuzz/reducer/reductionopportunities/StructifiedVariableInfo.java`
+#### Snippet
+```java
+  private final Optional<Initializer> initializer;
+
+  StructifiedVariableInfo(String name, Type type, Optional<Initializer> initializer) {
+    this.name = name;
+    this.type = type;
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'initializer'
+in `reducer/src/main/java/com/graphicsfuzz/reducer/reductionopportunities/DestructifyReductionOpportunity.java`
+#### Snippet
+```java
+  private Optional<StructifiedVariableInfo> findOriginalVariableInfo(
+      StructNameType type,
+      Optional<Initializer> initializer) {
+
+    final StructDefinitionType structDefinitionType = tu.getStructDefinition(type);
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -6469,24 +6483,24 @@ in `common/src/main/java/com/graphicsfuzz/imagetools/CheckColorComponents.java`
 
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
-in `common/src/main/java/com/graphicsfuzz/imagetools/ComparePsnr.java`
-#### Snippet
-```java
-    final Namespace ns = parser.parseArgs(args);
-
-    System.out.println(ImageUtil.comparePsnr(ns.get("image1"), ns.get("image2")));
-
-  }
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
 in `common/src/main/java/com/graphicsfuzz/imagetools/CompareHistograms.java`
 #### Snippet
 ```java
     final Namespace ns = parser.parseArgs(args);
 
     System.out.println(ImageUtil.compareHistograms((File) ns.get("image1"), ns.get("image2")));
+
+  }
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `common/src/main/java/com/graphicsfuzz/imagetools/ComparePsnr.java`
+#### Snippet
+```java
+    final Namespace ns = parser.parseArgs(args);
+
+    System.out.println(ImageUtil.comparePsnr(ns.get("image1"), ns.get("image2")));
 
   }
 ```
@@ -6546,11 +6560,11 @@ Missing '@Deprecated' annotation
 in `common/src/main/java/com/graphicsfuzz/common/util/ShaderJobFileOperations.java`
 #### Snippet
 ```java
-   * @deprecated Should probably be avoided, but useful for now.
+   *
    */
-  public void writeAdditionalInfo(
+  public File getUnderlyingShaderFile(
       File shaderJobFile,
-      String outputFileExtension,
+      ShaderKind shaderKind) {
 ```
 
 ### MissingDeprecatedAnnotation
@@ -6558,11 +6572,11 @@ Missing '@Deprecated' annotation
 in `common/src/main/java/com/graphicsfuzz/common/util/ShaderJobFileOperations.java`
 #### Snippet
 ```java
-   *
+   * @deprecated Should probably be avoided, but useful for now.
    */
-  public File getUnderlyingShaderFile(
+  public void writeAdditionalInfo(
       File shaderJobFile,
-      ShaderKind shaderKind) {
+      String outputFileExtension,
 ```
 
 ## RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
@@ -6663,18 +6677,6 @@ in `server/src/main/java/com/graphicsfuzz/server/webui/WebUi.java`
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `server/src/main/java/com/graphicsfuzz/server/webui/WebUi.java`
-#### Snippet
-```java
-        "<pre id='metric_hints' style='font-size: 10px'>Comparison metric hints ",
-        "(from `glsl-reduce -h`):\n\n",
-        GlslReduce.METRICS_HELP_SHARED.replaceAll("\n\n", "\n"),
-        "\n\n",
-        "</pre>",
-```
-
-### DynamicRegexReplaceableByCompiledPattern
 `replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
 in `server/src/main/java/com/graphicsfuzz/server/webui/WebUi.java`
 #### Snippet
@@ -6684,6 +6686,18 @@ in `server/src/main/java/com/graphicsfuzz/server/webui/WebUi.java`
               "'>", refStatus.replace("_", " "), " ",
               "</a>\n");
         }
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `server/src/main/java/com/graphicsfuzz/server/webui/WebUi.java`
+#### Snippet
+```java
+        "<pre id='metric_hints' style='font-size: 10px'>Comparison metric hints ",
+        "(from `glsl-reduce -h`):\n\n",
+        GlslReduce.METRICS_HELP_SHARED.replaceAll("\n\n", "\n"),
+        "\n\n",
+        "</pre>",
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
@@ -6826,11 +6840,11 @@ Call to `printStackTrace()` should probably be replaced with more robust logging
 in `common/src/main/java/com/graphicsfuzz/shadersets/RunShaderFamily.java`
 #### Snippet
 ```java
-      System.exit(1);
-    } catch (Exception ex) {
-      ex.printStackTrace();
-      System.exit(1);
-    }
+        } catch (Exception err) {
+          LOGGER.error("runShader() raise exception on {}", variant);
+          err.printStackTrace();
+        }
+        ++numShadersRun;
 ```
 
 ### ThrowablePrintStackTrace
@@ -6838,11 +6852,11 @@ Call to `printStackTrace()` should probably be replaced with more robust logging
 in `common/src/main/java/com/graphicsfuzz/shadersets/RunShaderFamily.java`
 #### Snippet
 ```java
-        } catch (Exception err) {
-          LOGGER.error("runShader() raise exception on {}", variant);
-          err.printStackTrace();
-        }
-        ++numShadersRun;
+      System.exit(1);
+    } catch (Exception ex) {
+      ex.printStackTrace();
+      System.exit(1);
+    }
 ```
 
 ### ThrowablePrintStackTrace
@@ -6865,8 +6879,8 @@ in `server/src/main/java/com/graphicsfuzz/server/webui/WebUi.java`
       }
     } catch (Exception exception) {
       exception.printStackTrace();
-      throw new ServletException(
-          "GET method failed, request was: " + request.toString(),
+      throw new ServletException("POST method failed, request was: " + request.toString());
+    }
 ```
 
 ### ThrowablePrintStackTrace
@@ -6877,7 +6891,19 @@ in `server/src/main/java/com/graphicsfuzz/server/webui/WebUi.java`
       }
     } catch (Exception exception) {
       exception.printStackTrace();
-      throw new ServletException("POST method failed, request was: " + request.toString());
+      throw new ServletException(
+          "GET method failed, request was: " + request.toString(),
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `generator/src/main/java/com/graphicsfuzz/generator/tool/GlslGenerate.java`
+#### Snippet
+```java
+      System.exit(1);
+    } catch (Throwable ex) {
+      ex.printStackTrace();
+      System.exit(1);
     }
 ```
 
@@ -6895,12 +6921,12 @@ in `generator/src/main/java/com/graphicsfuzz/generator/tool/PrepareReference.jav
 
 ### ThrowablePrintStackTrace
 Call to `printStackTrace()` should probably be replaced with more robust logging
-in `generator/src/main/java/com/graphicsfuzz/generator/tool/GlslGenerate.java`
+in `generator/src/main/java/com/graphicsfuzz/generator/tool/Mutate.java`
 #### Snippet
 ```java
-      System.exit(1);
-    } catch (Throwable ex) {
-      ex.printStackTrace();
+    } catch (IOException | ParseTimeoutException | InterruptedException
+        | GlslParserException exception) {
+      exception.printStackTrace();
       System.exit(1);
     }
 ```
@@ -6915,18 +6941,6 @@ in `generator/src/main/java/com/graphicsfuzz/generator/tool/CustomMutatorServer.
       exception.printStackTrace();
       LOGGER.error("Failed to mutate:\n" + inputShader, exception);
       return null;
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `generator/src/main/java/com/graphicsfuzz/generator/tool/Mutate.java`
-#### Snippet
-```java
-    } catch (IOException | ParseTimeoutException | InterruptedException
-        | GlslParserException exception) {
-      exception.printStackTrace();
-      System.exit(1);
-    }
 ```
 
 ### ThrowablePrintStackTrace
@@ -7179,18 +7193,6 @@ Return of `null`
 in `ast/src/main/java/com/graphicsfuzz/common/ast/type/BasicType.java`
 #### Snippet
 ```java
-        // Should not be reachable.
-        assert false;
-        return null;
-    }
-  }
-```
-
-### ReturnNull
-Return of `null`
-in `ast/src/main/java/com/graphicsfuzz/common/ast/type/BasicType.java`
-#### Snippet
-```java
     // Should not be reachable.
     assert false;
     return null;
@@ -7200,10 +7202,22 @@ in `ast/src/main/java/com/graphicsfuzz/common/ast/type/BasicType.java`
 
 ### ReturnNull
 Return of `null`
+in `ast/src/main/java/com/graphicsfuzz/common/ast/type/BasicType.java`
+#### Snippet
+```java
+        // Should not be reachable.
+        assert false;
+        return null;
+    }
+  }
+```
+
+### ReturnNull
+Return of `null`
 in `ast/src/main/java/com/graphicsfuzz/common/typing/Scope.java`
 #### Snippet
 ```java
-      return getParent().lookupStructName(structName);
+      return parent.remove(name);
     }
     return null;
   }
@@ -7239,7 +7253,7 @@ Return of `null`
 in `ast/src/main/java/com/graphicsfuzz/common/typing/Scope.java`
 #### Snippet
 ```java
-      return parent.remove(name);
+      return getParent().lookupStructName(structName);
     }
     return null;
   }
@@ -7359,11 +7373,11 @@ Return of `null`
 in `fuzzerserver/src/main/java/com/graphicsfuzz/server/FuzzerServiceManagerImpl.java`
 #### Snippet
 ```java
-        }
-      }, jobIdCounter, retryLimit));
-      return null;
-    });
-
+                this,
+                commandDispatcher));
+            return null;
+          });
+    } catch (Exception ex) {
 ```
 
 ### ReturnNull
@@ -7371,11 +7385,11 @@ Return of `null`
 in `fuzzerserver/src/main/java/com/graphicsfuzz/server/FuzzerServiceManagerImpl.java`
 #### Snippet
 ```java
-                this,
-                commandDispatcher));
-            return null;
-          });
-    } catch (Exception ex) {
+        }
+      }, jobIdCounter, retryLimit));
+      return null;
+    });
+
 ```
 
 ### ReturnNull
@@ -7432,10 +7446,10 @@ Local variable `relatedFiles` is redundant
 in `common/src/main/java/com/graphicsfuzz/common/util/ShaderJobFileOperations.java`
 #### Snippet
 ```java
-        FileHelper.removeEnd(shaderResultFile.toString(), ".info.json");
+        FilenameUtils.removeExtension(shaderJobFile.toString());
 
     File[] relatedFiles =
-        Stream.of(".info.json", ".txt", ".png")
+        Stream.of(".json", ".vert", ".frag", ".comp", ".primitives", ".prob", ".license")
             .map(ext -> new File(fileNoExtension + ext))
 ```
 
@@ -7444,10 +7458,10 @@ Local variable `relatedFiles` is redundant
 in `common/src/main/java/com/graphicsfuzz/common/util/ShaderJobFileOperations.java`
 #### Snippet
 ```java
-        FilenameUtils.removeExtension(shaderJobFile.toString());
+        FileHelper.removeEnd(shaderResultFile.toString(), ".info.json");
 
     File[] relatedFiles =
-        Stream.of(".json", ".vert", ".frag", ".comp", ".primitives", ".prob", ".license")
+        Stream.of(".info.json", ".txt", ".png")
             .map(ext -> new File(fileNoExtension + ext))
 ```
 
