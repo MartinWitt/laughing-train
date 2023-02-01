@@ -1,10 +1,10 @@
 # doris 
  
 # Bad smells
-I found 298 bad smells with 0 repairable:
+I found 330 bad smells with 0 repairable:
 | ruleID | number | fixable |
 | --- | --- | --- |
-| GroovyUnusedAssignment | 297 | false |
+| GroovyUnusedAssignment | 329 | false |
 | GroovyUnnecessaryContinue | 1 | false |
 ## RuleId[ruleID=GroovyUnusedAssignment]
 ### GroovyUnusedAssignment
@@ -24,9 +24,9 @@ Assignment is not used
 in `regression-test/conf/regression-conf.groovy`
 #### Snippet
 ```java
-// init cmd like: select @@session.tx_read_only
 // at each time we connect.
-jdbcUrl = "jdbc:mysql://127.0.0.1:9030/?useLocalSessionState=true"
+// add allowLoadLocalInfile so that the jdbc can execute mysql load data from client.
+jdbcUrl = "jdbc:mysql://127.0.0.1:9030/?useLocalSessionState=true&allowLoadLocalInfile=true"
 jdbcUser = "root"
 jdbcPassword = ""
 ```
@@ -36,8 +36,8 @@ Assignment is not used
 in `regression-test/conf/regression-conf.groovy`
 #### Snippet
 ```java
-// at each time we connect.
-jdbcUrl = "jdbc:mysql://127.0.0.1:9030/?useLocalSessionState=true"
+// add allowLoadLocalInfile so that the jdbc can execute mysql load data from client.
+jdbcUrl = "jdbc:mysql://127.0.0.1:9030/?useLocalSessionState=true&allowLoadLocalInfile=true"
 jdbcUser = "root"
 jdbcPassword = ""
 
@@ -48,7 +48,7 @@ Assignment is not used
 in `regression-test/conf/regression-conf.groovy`
 #### Snippet
 ```java
-jdbcUrl = "jdbc:mysql://127.0.0.1:9030/?useLocalSessionState=true"
+jdbcUrl = "jdbc:mysql://127.0.0.1:9030/?useLocalSessionState=true&allowLoadLocalInfile=true"
 jdbcUser = "root"
 jdbcPassword = ""
 
@@ -340,7 +340,7 @@ in `regression-test/conf/regression-conf.groovy`
 enableJdbcTest=false
 mysql_57_port=3316
 pg_14_port=5442
-
+oracle_11_port=1521
 ```
 
 ### GroovyUnusedAssignment
@@ -351,6 +351,30 @@ in `regression-test/conf/regression-conf.groovy`
 enableJdbcTest=false
 mysql_57_port=3316
 pg_14_port=5442
+oracle_11_port=1521
+sqlserver_2022_port=1433
+```
+
+### GroovyUnusedAssignment
+Assignment is not used
+in `regression-test/conf/regression-conf.groovy`
+#### Snippet
+```java
+mysql_57_port=3316
+pg_14_port=5442
+oracle_11_port=1521
+sqlserver_2022_port=1433
+
+```
+
+### GroovyUnusedAssignment
+Assignment is not used
+in `regression-test/conf/regression-conf.groovy`
+#### Snippet
+```java
+pg_14_port=5442
+oracle_11_port=1521
+sqlserver_2022_port=1433
 
 // hive catalog test config
 ```
@@ -750,18 +774,6 @@ suite("thread_action") {
 
 ### GroovyUnusedAssignment
 Assignment is not used
-in `regression-test/suites/load_p0/stream_load/load_json_null_to_nullable.groovy`
-#### Snippet
-```java
-
-    def create_test_table = {
-        def result1 = sql """
-            CREATE TABLE IF NOT EXISTS ${testTable} (
-              `k1` CHAR NULL COMMENT "",
-```
-
-### GroovyUnusedAssignment
-Assignment is not used
 in `regression-test/suites/export/test_array_export.groovy`
 #### Snippet
 ```java
@@ -834,18 +846,6 @@ in `regression-test/suites/export/test_array_export.groovy`
 
 ### GroovyUnusedAssignment
 Assignment is not used
-in `regression-test/suites/load_p0/stream_load/load_json_with_jsonpath.groovy`
-#### Snippet
-```java
-
-    def create_test_table = {
-        def result1 = sql """
-            CREATE TABLE IF NOT EXISTS ${testTable} (
-              `k1` INT NULL COMMENT "",
-```
-
-### GroovyUnusedAssignment
-Assignment is not used
 in `regression-test/suites/load_p0/stream_load/load_json_column_exclude_schema_without_jsonpath.groovy`
 #### Snippet
 ```java
@@ -854,6 +854,30 @@ in `regression-test/suites/load_p0/stream_load/load_json_column_exclude_schema_w
         def result1 = sql """
             CREATE TABLE IF NOT EXISTS ${testTable} (
               k1 TINYINT NULL,
+```
+
+### GroovyUnusedAssignment
+Assignment is not used
+in `regression-test/suites/load_p0/stream_load/load_json_null_to_nullable.groovy`
+#### Snippet
+```java
+
+    def create_test_table = {
+        def result1 = sql """
+            CREATE TABLE IF NOT EXISTS ${testTable} (
+              `k1` CHAR NULL COMMENT "",
+```
+
+### GroovyUnusedAssignment
+Assignment is not used
+in `regression-test/suites/load_p0/stream_load/load_json_with_jsonpath.groovy`
+#### Snippet
+```java
+
+    def create_test_table = {
+        def result1 = sql """
+            CREATE TABLE IF NOT EXISTS ${testTable} (
+              `k1` INT NULL COMMENT "",
 ```
 
 ### GroovyUnusedAssignment
@@ -1050,6 +1074,54 @@ in `regression-test/suites/query_p0/union/test_union.groovy`
 
 ### GroovyUnusedAssignment
 Assignment is not used
+in `regression-test/suites/export_p0/test_outfile_expr.groovy`
+#### Snippet
+```java
+        File[] files = path.listFiles()
+        assert files.length == 1
+        List<String> outLines = Files.readAllLines(Paths.get(files[0].getAbsolutePath()), StandardCharsets.UTF_8);
+        List<String> baseLines = Files.readAllLines(Paths.get("""${context.config.dataPath}/export_p0/test_outfile_expr.out"""), StandardCharsets.UTF_8)
+        for (int j = 0; j < outLines.size(); j ++) {
+```
+
+### GroovyUnusedAssignment
+Assignment is not used
+in `regression-test/suites/export_p0/test_outfile_expr.groovy`
+#### Snippet
+```java
+        assert files.length == 1
+        List<String> outLines = Files.readAllLines(Paths.get(files[0].getAbsolutePath()), StandardCharsets.UTF_8);
+        List<String> baseLines = Files.readAllLines(Paths.get("""${context.config.dataPath}/export_p0/test_outfile_expr.out"""), StandardCharsets.UTF_8)
+        for (int j = 0; j < outLines.size(); j ++) {
+            String[] outLine = outLines.get(j).split("\t")
+```
+
+### GroovyUnusedAssignment
+Assignment is not used
+in `regression-test/suites/export_p0/test_outfile.groovy`
+#### Snippet
+```java
+        File[] files = path.listFiles()
+        assert files.length == 1
+        List<String> outLines = Files.readAllLines(Paths.get(files[0].getAbsolutePath()), StandardCharsets.UTF_8);
+        List<String> baseLines = Files.readAllLines(Paths.get("""${context.config.dataPath}/export_p0/test_outfile.out"""), StandardCharsets.UTF_8)
+        for (int j = 0; j < outLines.size(); j ++) {
+```
+
+### GroovyUnusedAssignment
+Assignment is not used
+in `regression-test/suites/export_p0/test_outfile.groovy`
+#### Snippet
+```java
+        assert files.length == 1
+        List<String> outLines = Files.readAllLines(Paths.get(files[0].getAbsolutePath()), StandardCharsets.UTF_8);
+        List<String> baseLines = Files.readAllLines(Paths.get("""${context.config.dataPath}/export_p0/test_outfile.out"""), StandardCharsets.UTF_8)
+        for (int j = 0; j < outLines.size(); j ++) {
+            String[] outLine = outLines.get(j).split("\t")
+```
+
+### GroovyUnusedAssignment
+Assignment is not used
 in `regression-test/suites/account_p0/test_information_schema.groovy`
 #### Snippet
 ```java
@@ -1074,30 +1146,6 @@ suite("test_information_schema") {
 
 ### GroovyUnusedAssignment
 Assignment is not used
-in `regression-test/suites/export_p0/test_outfile.groovy`
-#### Snippet
-```java
-        File[] files = path.listFiles()
-        assert files.length == 1
-        List<String> outLines = Files.readAllLines(Paths.get(files[0].getAbsolutePath()), StandardCharsets.UTF_8);
-        List<String> baseLines = Files.readAllLines(Paths.get("""${context.config.dataPath}/export_p0/test_outfile.out"""), StandardCharsets.UTF_8)
-        for (int j = 0; j < outLines.size(); j ++) {
-```
-
-### GroovyUnusedAssignment
-Assignment is not used
-in `regression-test/suites/export_p0/test_outfile.groovy`
-#### Snippet
-```java
-        assert files.length == 1
-        List<String> outLines = Files.readAllLines(Paths.get(files[0].getAbsolutePath()), StandardCharsets.UTF_8);
-        List<String> baseLines = Files.readAllLines(Paths.get("""${context.config.dataPath}/export_p0/test_outfile.out"""), StandardCharsets.UTF_8)
-        for (int j = 0; j < outLines.size(); j ++) {
-            String[] outLine = outLines.get(j).split("\t")
-```
-
-### GroovyUnusedAssignment
-Assignment is not used
 in `regression-test/suites/account_p0/test_nereids_authentication.groovy`
 #### Snippet
 ```java
@@ -1118,150 +1166,6 @@ in `regression-test/suites/account_p0/test_nereids_authentication.groovy`
     connect(user=user, password='Doris_123456', url=url) {
         sql "SELECT * FROM ${tableName1}, ${tableName2} WHERE ${tableName1}.`key` = ${tableName2}.`key`"
     }
-```
-
-### GroovyUnusedAssignment
-Assignment is not used
-in `regression-test/suites/export_p0/test_outfile_expr.groovy`
-#### Snippet
-```java
-        File[] files = path.listFiles()
-        assert files.length == 1
-        List<String> outLines = Files.readAllLines(Paths.get(files[0].getAbsolutePath()), StandardCharsets.UTF_8);
-        List<String> baseLines = Files.readAllLines(Paths.get("""${context.config.dataPath}/export_p0/test_outfile_expr.out"""), StandardCharsets.UTF_8)
-        for (int j = 0; j < outLines.size(); j ++) {
-```
-
-### GroovyUnusedAssignment
-Assignment is not used
-in `regression-test/suites/export_p0/test_outfile_expr.groovy`
-#### Snippet
-```java
-        assert files.length == 1
-        List<String> outLines = Files.readAllLines(Paths.get(files[0].getAbsolutePath()), StandardCharsets.UTF_8);
-        List<String> baseLines = Files.readAllLines(Paths.get("""${context.config.dataPath}/export_p0/test_outfile_expr.out"""), StandardCharsets.UTF_8)
-        for (int j = 0; j < outLines.size(); j ++) {
-            String[] outLine = outLines.get(j).split("\t")
-```
-
-### GroovyUnusedAssignment
-Assignment is not used
-in `regression-test/suites/compaction/test_compaction_agg_keys.groovy`
-#### Snippet
-```java
-        // wait for all compactions done
-        for (String[] tablet in tablets) {
-            boolean running = true
-            do {
-                Thread.sleep(1000)
-```
-
-### GroovyUnusedAssignment
-Assignment is not used
-in `regression-test/suites/compaction/test_compaction_agg_keys.groovy`
-#### Snippet
-```java
-        int rowCount = 0
-        for (String[] tablet in tablets) {
-            String tablet_id = tablet[0]
-            StringBuilder sb = new StringBuilder();
-            def compactionStatusUrlIndex = 17
-```
-
-### GroovyUnusedAssignment
-Assignment is not used
-in `regression-test/suites/compaction/test_vertical_compaction_agg_keys.groovy`
-#### Snippet
-```java
-        // wait for all compactions done
-        for (String[] tablet in tablets) {
-            boolean running = true
-            do {
-                Thread.sleep(1000)
-```
-
-### GroovyUnusedAssignment
-Assignment is not used
-in `regression-test/suites/compaction/test_vertical_compaction_agg_keys.groovy`
-#### Snippet
-```java
-        int rowCount = 0
-        for (String[] tablet in tablets) {
-            String tablet_id = tablet[0]
-            StringBuilder sb = new StringBuilder();
-            def compactionStatusUrlIndex = 17
-```
-
-### GroovyUnusedAssignment
-Assignment is not used
-in `regression-test/suites/compaction/test_vertical_compaction_dup_keys.groovy`
-#### Snippet
-```java
-        // wait for all compactions done
-        for (String[] tablet in tablets) {
-            boolean running = true
-            do {
-                Thread.sleep(1000)
-```
-
-### GroovyUnusedAssignment
-Assignment is not used
-in `regression-test/suites/compaction/test_vertical_compaction_dup_keys.groovy`
-#### Snippet
-```java
-        int rowCount = 0
-        for (String[] tablet in tablets) {
-            String tablet_id = tablet[0]
-            StringBuilder sb = new StringBuilder();
-            def compactionStatusUrlIndex = 17
-```
-
-### GroovyUnusedAssignment
-Assignment is not used
-in `regression-test/suites/compaction/test_compaction_uniq_keys.groovy`
-#### Snippet
-```java
-        // wait for all compactions done
-        for (String[] tablet in tablets) {
-            boolean running = true
-            do {
-                Thread.sleep(1000)
-```
-
-### GroovyUnusedAssignment
-Assignment is not used
-in `regression-test/suites/compaction/test_compaction_uniq_keys.groovy`
-#### Snippet
-```java
-        int rowCount = 0
-        for (String[] tablet in tablets) {
-            String tablet_id = tablet[0]
-            StringBuilder sb = new StringBuilder();
-            def compactionStatusUrlIndex = 17
-```
-
-### GroovyUnusedAssignment
-Assignment is not used
-in `regression-test/suites/compaction/test_vertical_compaction_uniq_keys.groovy`
-#### Snippet
-```java
-        // wait for all compactions done
-        for (String[] tablet in tablets) {
-            boolean running = true
-            do {
-                Thread.sleep(1000)
-```
-
-### GroovyUnusedAssignment
-Assignment is not used
-in `regression-test/suites/compaction/test_vertical_compaction_uniq_keys.groovy`
-#### Snippet
-```java
-        int rowCount = 0
-        for (String[] tablet in tablets) {
-            String tablet_id = tablet[0]
-            StringBuilder sb = new StringBuilder();
-            def compactionStatusUrlIndex = 17
 ```
 
 ### GroovyUnusedAssignment
@@ -1290,7 +1194,7 @@ in `regression-test/suites/compaction/test_compaction_uniq_keys_with_delete.groo
 
 ### GroovyUnusedAssignment
 Assignment is not used
-in `regression-test/suites/compaction/test_compaction_dup_keys_with_delete.groovy`
+in `regression-test/suites/compaction/test_compaction_agg_keys.groovy`
 #### Snippet
 ```java
         // wait for all compactions done
@@ -1302,7 +1206,7 @@ in `regression-test/suites/compaction/test_compaction_dup_keys_with_delete.groov
 
 ### GroovyUnusedAssignment
 Assignment is not used
-in `regression-test/suites/compaction/test_compaction_dup_keys_with_delete.groovy`
+in `regression-test/suites/compaction/test_compaction_agg_keys.groovy`
 #### Snippet
 ```java
         int rowCount = 0
@@ -1458,6 +1362,246 @@ in `regression-test/suites/compaction/test_compaction_dup_keys.groovy`
 
 ### GroovyUnusedAssignment
 Assignment is not used
+in `regression-test/suites/compaction/test_compaction_uniq_keys.groovy`
+#### Snippet
+```java
+        // wait for all compactions done
+        for (String[] tablet in tablets) {
+            boolean running = true
+            do {
+                Thread.sleep(1000)
+```
+
+### GroovyUnusedAssignment
+Assignment is not used
+in `regression-test/suites/compaction/test_compaction_uniq_keys.groovy`
+#### Snippet
+```java
+        int rowCount = 0
+        for (String[] tablet in tablets) {
+            String tablet_id = tablet[0]
+            StringBuilder sb = new StringBuilder();
+            def compactionStatusUrlIndex = 17
+```
+
+### GroovyUnusedAssignment
+Assignment is not used
+in `regression-test/suites/compaction/test_vertical_compaction_dup_keys.groovy`
+#### Snippet
+```java
+        // wait for all compactions done
+        for (String[] tablet in tablets) {
+            boolean running = true
+            do {
+                Thread.sleep(1000)
+```
+
+### GroovyUnusedAssignment
+Assignment is not used
+in `regression-test/suites/compaction/test_vertical_compaction_dup_keys.groovy`
+#### Snippet
+```java
+        int rowCount = 0
+        for (String[] tablet in tablets) {
+            String tablet_id = tablet[0]
+            StringBuilder sb = new StringBuilder();
+            def compactionStatusUrlIndex = 17
+```
+
+### GroovyUnusedAssignment
+Assignment is not used
+in `regression-test/suites/compaction/test_compaction_uniq_keys_row_store.groovy`
+#### Snippet
+```java
+            def password = context.config.jdbcPassword
+            def url = context.config.jdbcUrl + "&useServerPrepStmts=true"
+            def result1 = connect(user=user, password=password, url=url) {
+                def stmt = prepareStatement """ SELECT * FROM ${tableName} t where user_id = ? and date = ? and datev2 = ? and datetimev2_1 = ? and datetimev2_2 = ? and city = ? and age = ? and sex = ?; """
+                setPrepareStmtArgs stmt, 1, '2017-10-01', '2017-10-01', '2017-10-01 11:11:11.21', '2017-10-01 11:11:11.11', 'Beijing', 10, 1
+```
+
+### GroovyUnusedAssignment
+Assignment is not used
+in `regression-test/suites/compaction/test_compaction_uniq_keys_row_store.groovy`
+#### Snippet
+```java
+            def password = context.config.jdbcPassword
+            def url = context.config.jdbcUrl + "&useServerPrepStmts=true"
+            def result1 = connect(user=user, password=password, url=url) {
+                def stmt = prepareStatement """ SELECT * FROM ${tableName} t where user_id = ? and date = ? and datev2 = ? and datetimev2_1 = ? and datetimev2_2 = ? and city = ? and age = ? and sex = ?; """
+                setPrepareStmtArgs stmt, 1, '2017-10-01', '2017-10-01', '2017-10-01 11:11:11.21', '2017-10-01 11:11:11.11', 'Beijing', 10, 1
+```
+
+### GroovyUnusedAssignment
+Assignment is not used
+in `regression-test/suites/compaction/test_compaction_uniq_keys_row_store.groovy`
+#### Snippet
+```java
+            def password = context.config.jdbcPassword
+            def url = context.config.jdbcUrl + "&useServerPrepStmts=true"
+            def result1 = connect(user=user, password=password, url=url) {
+                def stmt = prepareStatement """ SELECT * FROM ${tableName} t where user_id = ? and date = ? and datev2 = ? and datetimev2_1 = ? and datetimev2_2 = ? and city = ? and age = ? and sex = ?; """
+                setPrepareStmtArgs stmt, 1, '2017-10-01', '2017-10-01', '2017-10-01 11:11:11.21', '2017-10-01 11:11:11.11', 'Beijing', 10, 1
+```
+
+### GroovyUnusedAssignment
+Assignment is not used
+in `regression-test/suites/compaction/test_compaction_uniq_keys_row_store.groovy`
+#### Snippet
+```java
+            def password = context.config.jdbcPassword
+            def url = context.config.jdbcUrl + "&useServerPrepStmts=true"
+            def result1 = connect(user=user, password=password, url=url) {
+                def stmt = prepareStatement """ SELECT * FROM ${tableName} t where user_id = ? and date = ? and datev2 = ? and datetimev2_1 = ? and datetimev2_2 = ? and city = ? and age = ? and sex = ?; """
+                setPrepareStmtArgs stmt, 1, '2017-10-01', '2017-10-01', '2017-10-01 11:11:11.21', '2017-10-01 11:11:11.11', 'Beijing', 10, 1
+```
+
+### GroovyUnusedAssignment
+Assignment is not used
+in `regression-test/suites/compaction/test_compaction_uniq_keys_row_store.groovy`
+#### Snippet
+```java
+        def url = context.config.jdbcUrl + "&useServerPrepStmts=true"
+        def tablets = null
+        def result1 = connect(user=user, password=password, url=url) {
+
+        sql """ DROP TABLE IF EXISTS ${tableName} """
+```
+
+### GroovyUnusedAssignment
+Assignment is not used
+in `regression-test/suites/compaction/test_compaction_uniq_keys_row_store.groovy`
+#### Snippet
+```java
+        def url = context.config.jdbcUrl + "&useServerPrepStmts=true"
+        def tablets = null
+        def result1 = connect(user=user, password=password, url=url) {
+
+        sql """ DROP TABLE IF EXISTS ${tableName} """
+```
+
+### GroovyUnusedAssignment
+Assignment is not used
+in `regression-test/suites/compaction/test_compaction_uniq_keys_row_store.groovy`
+#### Snippet
+```java
+        def url = context.config.jdbcUrl + "&useServerPrepStmts=true"
+        def tablets = null
+        def result1 = connect(user=user, password=password, url=url) {
+
+        sql """ DROP TABLE IF EXISTS ${tableName} """
+```
+
+### GroovyUnusedAssignment
+Assignment is not used
+in `regression-test/suites/compaction/test_compaction_uniq_keys_row_store.groovy`
+#### Snippet
+```java
+        def url = context.config.jdbcUrl + "&useServerPrepStmts=true"
+        def tablets = null
+        def result1 = connect(user=user, password=password, url=url) {
+
+        sql """ DROP TABLE IF EXISTS ${tableName} """
+```
+
+### GroovyUnusedAssignment
+Assignment is not used
+in `regression-test/suites/compaction/test_compaction_uniq_keys_row_store.groovy`
+#### Snippet
+```java
+        // wait for all compactions done
+        for (String[] tablet in tablets) {
+            boolean running = true
+            do {
+                Thread.sleep(1000)
+```
+
+### GroovyUnusedAssignment
+Assignment is not used
+in `regression-test/suites/compaction/test_compaction_uniq_keys_row_store.groovy`
+#### Snippet
+```java
+        int rowCount = 0
+        for (String[] tablet in tablets) {
+            String tablet_id = tablet[0]
+            StringBuilder sb = new StringBuilder();
+            def compactionStatusUrlIndex = 17
+```
+
+### GroovyUnusedAssignment
+Assignment is not used
+in `regression-test/suites/compaction/test_vertical_compaction_agg_keys.groovy`
+#### Snippet
+```java
+        // wait for all compactions done
+        for (String[] tablet in tablets) {
+            boolean running = true
+            do {
+                Thread.sleep(1000)
+```
+
+### GroovyUnusedAssignment
+Assignment is not used
+in `regression-test/suites/compaction/test_vertical_compaction_agg_keys.groovy`
+#### Snippet
+```java
+        int rowCount = 0
+        for (String[] tablet in tablets) {
+            String tablet_id = tablet[0]
+            StringBuilder sb = new StringBuilder();
+            def compactionStatusUrlIndex = 17
+```
+
+### GroovyUnusedAssignment
+Assignment is not used
+in `regression-test/suites/compaction/test_compaction_dup_keys_with_delete.groovy`
+#### Snippet
+```java
+        // wait for all compactions done
+        for (String[] tablet in tablets) {
+            boolean running = true
+            do {
+                Thread.sleep(1000)
+```
+
+### GroovyUnusedAssignment
+Assignment is not used
+in `regression-test/suites/compaction/test_compaction_dup_keys_with_delete.groovy`
+#### Snippet
+```java
+        int rowCount = 0
+        for (String[] tablet in tablets) {
+            String tablet_id = tablet[0]
+            StringBuilder sb = new StringBuilder();
+            def compactionStatusUrlIndex = 17
+```
+
+### GroovyUnusedAssignment
+Assignment is not used
+in `regression-test/suites/compaction/test_vertical_compaction_uniq_keys.groovy`
+#### Snippet
+```java
+        // wait for all compactions done
+        for (String[] tablet in tablets) {
+            boolean running = true
+            do {
+                Thread.sleep(1000)
+```
+
+### GroovyUnusedAssignment
+Assignment is not used
+in `regression-test/suites/compaction/test_vertical_compaction_uniq_keys.groovy`
+#### Snippet
+```java
+        int rowCount = 0
+        for (String[] tablet in tablets) {
+            String tablet_id = tablet[0]
+            StringBuilder sb = new StringBuilder();
+            def compactionStatusUrlIndex = 17
+```
+
+### GroovyUnusedAssignment
+Assignment is not used
 in `regression-test/suites/compaction/test_compaction_agg_keys_with_delete.groovy`
 #### Snippet
 ```java
@@ -1478,6 +1622,126 @@ in `regression-test/suites/compaction/test_compaction_agg_keys_with_delete.groov
             String tablet_id = tablet[0]
             StringBuilder sb = new StringBuilder();
             def compactionStatusUrlIndex = 17
+```
+
+### GroovyUnusedAssignment
+Assignment is not used
+in `regression-test/suites/nereids_p0/join/test_bitmap_filter.groovy`
+#### Snippet
+```java
+    sql "SET enable_vectorized_engine=true"
+    sql "SET enable_fallback_to_original_planner=false" 
+    def tbl1 = "test_query_db.bigtable"
+    def tbl2 = "bitmap_table"
+    def tbl3 = "test_query_db.baseall"
+```
+
+### GroovyUnusedAssignment
+Assignment is not used
+in `regression-test/suites/nereids_p0/join/test_bitmap_filter.groovy`
+#### Snippet
+```java
+    def tbl1 = "test_query_db.bigtable"
+    def tbl2 = "bitmap_table"
+    def tbl3 = "test_query_db.baseall"
+
+    sql "set runtime_filter_type = 16"
+```
+
+### GroovyUnusedAssignment
+Assignment is not used
+in `regression-test/suites/nereids_p0/aggregate/aggregate_group_by_metric_type.groovy`
+#### Snippet
+```java
+    sql "SET enable_vectorized_engine=true"
+    sql "SET enable_fallback_to_original_planner=false" 
+    def error_msg = "column must use with specific function, and don't support filter or group by"
+    sql "DROP TABLE IF EXISTS test_group_by_hll_and_bitmap"
+
+```
+
+### GroovyUnusedAssignment
+Assignment is not used
+in `regression-test/suites/nereids_p0/union/test_union.groovy`
+#### Snippet
+```java
+    qt_union34 """select "2016-07-01" union (select "2016-07-02") order by 1"""
+    qt_union35 """select cast("2016-07-01" as date) union (select cast("2016-07-02 1:10:0" as date)) order by 1"""
+    def res1 = sql"""select cast(1 as decimal), cast(2 as double) union distinct select 1.0, 2.0 
+             union distinct (select 1.00000000, 2.00000) order by 1, 2"""
+    def res2 = sql"""select cast(1 as decimal), cast(2 as decimal) union distinct select 1.0, 2.0 
+```
+
+### GroovyUnusedAssignment
+Assignment is not used
+in `regression-test/suites/nereids_p0/union/test_union.groovy`
+#### Snippet
+```java
+    def res1 = sql"""select cast(1 as decimal), cast(2 as double) union distinct select 1.0, 2.0 
+             union distinct (select 1.00000000, 2.00000) order by 1, 2"""
+    def res2 = sql"""select cast(1 as decimal), cast(2 as decimal) union distinct select 1.0, 2.0 
+             union distinct (select 1.00000000, 2.00000) order by 1, 2"""
+
+```
+
+### GroovyUnusedAssignment
+Assignment is not used
+in `regression-test/suites/nereids_p0/sql_functions/window_functions/test_window_function.groovy`
+#### Snippet
+```java
+    // test_query_first_value
+    String k1 = fields[3]
+    String k2 = fields[5]
+    String k3 = fields[3]
+    // Nereids does't support window function
+```
+
+### GroovyUnusedAssignment
+Assignment is not used
+in `regression-test/suites/nereids_p0/sql_functions/window_functions/test_window_function.groovy`
+#### Snippet
+```java
+    String k1 = fields[3]
+    String k2 = fields[5]
+    String k3 = fields[3]
+    // Nereids does't support window function
+    // qt_first_value1"""select /*+SET_VAR(parallel_fragment_exec_instance_num=1) */ ${k1}, first_value(${k2}) over (partition by ${k1} order by ${k3}, ${k2})
+```
+
+### GroovyUnusedAssignment
+Assignment is not used
+in `regression-test/suites/nereids_p0/join/test_join.groovy`
+#### Snippet
+```java
+    // def res97 = sql"""select * from (select k1, k2, sum(k2) over (partition by k1) as ss from ${null_table_2})a
+    //    left join ${null_table_1} b on  a.k2=b.k2 and a.k1 >b.k1 order by a.k1, b.k1"""
+    def res98 = sql"""select * from (select k1, k2, k5 from ${null_table_2}) a left join ${null_table_1} b
+      on  a.k2=b.k2 and a.k1 >b.k1 order by a.k1, b.k1"""
+    // Nereids does't support window function
+```
+
+### GroovyUnusedAssignment
+Assignment is not used
+in `regression-test/suites/connector_p0/spark_connector/spark_connector.groovy`
+#### Snippet
+```java
+    sql new File("""${context.file.parent}/ddl/create.sql""").text
+    logger.info("start delete local spark doris demo jar...")
+    def delete_local_spark_jar = "rm -rf spark-doris-demo.jar".execute()
+    logger.info("start download spark doris demo ...")
+    logger.info("getS3Url ==== ${getS3Url()}")
+```
+
+### GroovyUnusedAssignment
+Assignment is not used
+in `regression-test/suites/connector_p0/spark_connector/spark_connector.groovy`
+#### Snippet
+```java
+    logger.info("start download spark doris demo ...")
+    logger.info("getS3Url ==== ${getS3Url()}")
+    def download_spark_jar = "/usr/bin/curl ${getS3Url()}/regression/spark-doris-connector-demo-jar-with-dependencies.jar --output spark-doris-demo.jar".execute().getText()
+    logger.info("finish download spark doris demo ...")
+    def run_cmd = "java -jar spark-doris-demo.jar $context.config.feHttpAddress $context.config.feHttpUser regression_test_connector_p0_spark_connector.$tableName"
 ```
 
 ### GroovyUnusedAssignment
@@ -1633,7 +1897,7 @@ in `regression-test/suites/correctness_p0/table_valued_function/test_hdfs_tvf.gr
             uri = "${defaultFS}" + "/user/doris/preinstalled_data/csv_format_test/array_malformat.csv"
             format = "csv"
             qt_csv_array_malformat """ select * from HDFS(
-                                        "URI" = "${uri}",
+                                        "uri" = "${uri}",
 ```
 
 ### GroovyUnusedAssignment
@@ -1644,12 +1908,84 @@ in `regression-test/suites/correctness_p0/table_valued_function/test_hdfs_tvf.gr
 
             uri = "${defaultFS}" + "/user/doris/preinstalled_data/csv_format_test/array_normal.csv"
             format = "csv"
-            qt_csv_array_normal """ select * from HDFS("URI" = "${uri}",
+            qt_csv_array_normal """ select * from HDFS("uri" = "${uri}",
                                     "fs.defaultFS"= "${defaultFS}",
 ```
 
 ### GroovyUnusedAssignment
 Assignment is not used
+in `regression-test/suites/point_query_p0/test_point_query.groovy`
+#### Snippet
+```java
+    def password = context.config.jdbcPassword
+    def url = context.config.jdbcUrl + "&useServerPrepStmts=true"
+    def result1 = connect(user=user, password=password, url=url) {
+    sql """DROP TABLE IF EXISTS ${tableName}"""
+    sql """
+```
+
+### GroovyUnusedAssignment
+Assignment is not used
+in `regression-test/suites/point_query_p0/test_point_query.groovy`
+#### Snippet
+```java
+    def password = context.config.jdbcPassword
+    def url = context.config.jdbcUrl + "&useServerPrepStmts=true"
+    def result1 = connect(user=user, password=password, url=url) {
+    sql """DROP TABLE IF EXISTS ${tableName}"""
+    sql """
+```
+
+### GroovyUnusedAssignment
+Assignment is not used
+in `regression-test/suites/point_query_p0/test_point_query.groovy`
+#### Snippet
+```java
+    // disable useServerPrepStmts
+    url = context.config.jdbcUrl
+    def result2 = connect(user=user, password=password, url=url) {
+        qt_sql """select * from ${tableName} where k1 = 1231 and k2 = 119291.11 and k3 = 'ddd'"""
+        qt_sql """select * from ${tableName} where k1 = 1237 and k2 = 120939.11130 and k3 = 'a    ddd'"""
+```
+
+### GroovyUnusedAssignment
+Assignment is not used
+in `regression-test/suites/point_query_p0/test_point_query.groovy`
+#### Snippet
+```java
+    // disable useServerPrepStmts
+    url = context.config.jdbcUrl
+    def result2 = connect(user=user, password=password, url=url) {
+        qt_sql """select * from ${tableName} where k1 = 1231 and k2 = 119291.11 and k3 = 'ddd'"""
+        qt_sql """select * from ${tableName} where k1 = 1237 and k2 = 120939.11130 and k3 = 'a    ddd'"""
+```
+
+### GroovyUnusedAssignment
+Assignment is not used
+in `regression-test/suites/point_query_p0/test_point_query.groovy`
+#### Snippet
+```java
+    // disable useServerPrepStmts
+    url = context.config.jdbcUrl
+    def result2 = connect(user=user, password=password, url=url) {
+        qt_sql """select * from ${tableName} where k1 = 1231 and k2 = 119291.11 and k3 = 'ddd'"""
+        qt_sql """select * from ${tableName} where k1 = 1237 and k2 = 120939.11130 and k3 = 'a    ddd'"""
+```
+
+### GroovyUnusedAssignment
+Assignment is not used
+in `regression-test/suites/point_query_p0/test_point_query.groovy`
+#### Snippet
+```java
+    // disable useServerPrepStmts
+    url = context.config.jdbcUrl
+    def result2 = connect(user=user, password=password, url=url) {
+        qt_sql """select * from ${tableName} where k1 = 1231 and k2 = 119291.11 and k3 = 'ddd'"""
+        qt_sql """select * from ${tableName} where k1 = 1237 and k2 = 120939.11130 and k3 = 'a    ddd'"""
+```
+
+### GroovyUnusedAssignment
+Assignment is not used
 in `regression-test/suites/schema_change_p0/test_uniq_vals_schema_change.groovy`
 #### Snippet
 ```java
@@ -1675,78 +2011,6 @@ in `regression-test/suites/schema_change_p0/test_uniq_vals_schema_change.groovy`
 ### GroovyUnusedAssignment
 Assignment is not used
 in `regression-test/suites/schema_change_p0/test_uniq_vals_schema_change.groovy`
-#### Snippet
-```java
-        // wait for all compactions done
-        for (String[] tablet in tablets) {
-                boolean running = true
-                do {
-                    Thread.sleep(100)
-```
-
-### GroovyUnusedAssignment
-Assignment is not used
-in `regression-test/suites/schema_change_p0/test_dup_vals_schema_change.groovy`
-#### Snippet
-```java
-        assert configList instanceof List
-
-        boolean disableAutoCompaction = true
-        for (Object ele in (List) configList) {
-            assert ele instanceof List<String>
-```
-
-### GroovyUnusedAssignment
-Assignment is not used
-in `regression-test/suites/schema_change_p0/test_dup_vals_schema_change.groovy`
-#### Snippet
-```java
-            assert ele instanceof List<String>
-            if (((List<String>) ele)[0] == "disable_auto_compaction") {
-                disableAutoCompaction = Boolean.parseBoolean(((List<String>) ele)[2])
-            }
-        }
-```
-
-### GroovyUnusedAssignment
-Assignment is not used
-in `regression-test/suites/schema_change_p0/test_dup_vals_schema_change.groovy`
-#### Snippet
-```java
-        // wait for all compactions done
-        for (String[] tablet in tablets) {
-                boolean running = true
-                do {
-                    Thread.sleep(100)
-```
-
-### GroovyUnusedAssignment
-Assignment is not used
-in `regression-test/suites/schema_change_p0/test_agg_keys_schema_change.groovy`
-#### Snippet
-```java
-        assert configList instanceof List
-
-        boolean disableAutoCompaction = true
-        for (Object ele in (List) configList) {
-            assert ele instanceof List<String>
-```
-
-### GroovyUnusedAssignment
-Assignment is not used
-in `regression-test/suites/schema_change_p0/test_agg_keys_schema_change.groovy`
-#### Snippet
-```java
-            assert ele instanceof List<String>
-            if (((List<String>) ele)[0] == "disable_auto_compaction") {
-                disableAutoCompaction = Boolean.parseBoolean(((List<String>) ele)[2])
-            }
-        }
-```
-
-### GroovyUnusedAssignment
-Assignment is not used
-in `regression-test/suites/schema_change_p0/test_agg_keys_schema_change.groovy`
 #### Snippet
 ```java
         // wait for all compactions done
@@ -1790,6 +2054,150 @@ in `regression-test/suites/schema_change_p0/test_agg_vals_schema_change.groovy`
             boolean running = true
             do {
                 Thread.sleep(100)
+```
+
+### GroovyUnusedAssignment
+Assignment is not used
+in `regression-test/suites/schema_change_p0/test_uniq_rollup_schema_change.groovy`
+#### Snippet
+```java
+        assert configList instanceof List
+
+        boolean disableAutoCompaction = true
+        for (Object ele in (List) configList) {
+            assert ele instanceof List<String>
+```
+
+### GroovyUnusedAssignment
+Assignment is not used
+in `regression-test/suites/schema_change_p0/test_uniq_rollup_schema_change.groovy`
+#### Snippet
+```java
+            assert ele instanceof List<String>
+            if (((List<String>) ele)[0] == "disable_auto_compaction") {
+                disableAutoCompaction = Boolean.parseBoolean(((List<String>) ele)[2])
+            }
+        }
+```
+
+### GroovyUnusedAssignment
+Assignment is not used
+in `regression-test/suites/schema_change_p0/test_uniq_rollup_schema_change.groovy`
+#### Snippet
+```java
+    // wait for all compactions done
+    for (String[] tablet in tablets) {
+            boolean running = true
+            do {
+                Thread.sleep(100)
+```
+
+### GroovyUnusedAssignment
+Assignment is not used
+in `regression-test/suites/schema_change_p0/test_dup_vals_schema_change.groovy`
+#### Snippet
+```java
+        assert configList instanceof List
+
+        boolean disableAutoCompaction = true
+        for (Object ele in (List) configList) {
+            assert ele instanceof List<String>
+```
+
+### GroovyUnusedAssignment
+Assignment is not used
+in `regression-test/suites/schema_change_p0/test_dup_vals_schema_change.groovy`
+#### Snippet
+```java
+            assert ele instanceof List<String>
+            if (((List<String>) ele)[0] == "disable_auto_compaction") {
+                disableAutoCompaction = Boolean.parseBoolean(((List<String>) ele)[2])
+            }
+        }
+```
+
+### GroovyUnusedAssignment
+Assignment is not used
+in `regression-test/suites/schema_change_p0/test_dup_vals_schema_change.groovy`
+#### Snippet
+```java
+        // wait for all compactions done
+        for (String[] tablet in tablets) {
+                boolean running = true
+                do {
+                    Thread.sleep(100)
+```
+
+### GroovyUnusedAssignment
+Assignment is not used
+in `regression-test/suites/schema_change_p0/test_dup_keys_schema_change.groovy`
+#### Snippet
+```java
+        assert configList instanceof List
+
+        boolean disableAutoCompaction = true
+        for (Object ele in (List) configList) {
+            assert ele instanceof List<String>
+```
+
+### GroovyUnusedAssignment
+Assignment is not used
+in `regression-test/suites/schema_change_p0/test_dup_keys_schema_change.groovy`
+#### Snippet
+```java
+            assert ele instanceof List<String>
+            if (((List<String>) ele)[0] == "disable_auto_compaction") {
+                disableAutoCompaction = Boolean.parseBoolean(((List<String>) ele)[2])
+            }
+        }
+```
+
+### GroovyUnusedAssignment
+Assignment is not used
+in `regression-test/suites/schema_change_p0/test_dup_keys_schema_change.groovy`
+#### Snippet
+```java
+        // wait for all compactions done
+        for (String[] tablet in tablets) {
+                boolean running = true
+                do {
+                    Thread.sleep(100)
+```
+
+### GroovyUnusedAssignment
+Assignment is not used
+in `regression-test/suites/schema_change_p0/test_agg_keys_schema_change.groovy`
+#### Snippet
+```java
+        assert configList instanceof List
+
+        boolean disableAutoCompaction = true
+        for (Object ele in (List) configList) {
+            assert ele instanceof List<String>
+```
+
+### GroovyUnusedAssignment
+Assignment is not used
+in `regression-test/suites/schema_change_p0/test_agg_keys_schema_change.groovy`
+#### Snippet
+```java
+            assert ele instanceof List<String>
+            if (((List<String>) ele)[0] == "disable_auto_compaction") {
+                disableAutoCompaction = Boolean.parseBoolean(((List<String>) ele)[2])
+            }
+        }
+```
+
+### GroovyUnusedAssignment
+Assignment is not used
+in `regression-test/suites/schema_change_p0/test_agg_keys_schema_change.groovy`
+#### Snippet
+```java
+        // wait for all compactions done
+        for (String[] tablet in tablets) {
+                boolean running = true
+                do {
+                    Thread.sleep(100)
 ```
 
 ### GroovyUnusedAssignment
@@ -1866,7 +2274,7 @@ in `regression-test/suites/schema_change_p0/test_dup_mv_schema_change.groovy`
 
 ### GroovyUnusedAssignment
 Assignment is not used
-in `regression-test/suites/schema_change_p0/test_dup_keys_schema_change.groovy`
+in `regression-test/suites/schema_change_p0/test_agg_rollup_schema_change.groovy`
 #### Snippet
 ```java
         assert configList instanceof List
@@ -1878,7 +2286,7 @@ in `regression-test/suites/schema_change_p0/test_dup_keys_schema_change.groovy`
 
 ### GroovyUnusedAssignment
 Assignment is not used
-in `regression-test/suites/schema_change_p0/test_dup_keys_schema_change.groovy`
+in `regression-test/suites/schema_change_p0/test_agg_rollup_schema_change.groovy`
 #### Snippet
 ```java
             assert ele instanceof List<String>
@@ -1890,7 +2298,7 @@ in `regression-test/suites/schema_change_p0/test_dup_keys_schema_change.groovy`
 
 ### GroovyUnusedAssignment
 Assignment is not used
-in `regression-test/suites/schema_change_p0/test_dup_keys_schema_change.groovy`
+in `regression-test/suites/schema_change_p0/test_agg_rollup_schema_change.groovy`
 #### Snippet
 ```java
         // wait for all compactions done
@@ -1902,7 +2310,7 @@ in `regression-test/suites/schema_change_p0/test_dup_keys_schema_change.groovy`
 
 ### GroovyUnusedAssignment
 Assignment is not used
-in `regression-test/suites/schema_change_p0/test_uniq_rollup_schema_change.groovy`
+in `regression-test/suites/schema_change_p0/test_dup_rollup_schema_change.groovy`
 #### Snippet
 ```java
         assert configList instanceof List
@@ -1914,7 +2322,7 @@ in `regression-test/suites/schema_change_p0/test_uniq_rollup_schema_change.groov
 
 ### GroovyUnusedAssignment
 Assignment is not used
-in `regression-test/suites/schema_change_p0/test_uniq_rollup_schema_change.groovy`
+in `regression-test/suites/schema_change_p0/test_dup_rollup_schema_change.groovy`
 #### Snippet
 ```java
             assert ele instanceof List<String>
@@ -1926,43 +2334,7 @@ in `regression-test/suites/schema_change_p0/test_uniq_rollup_schema_change.groov
 
 ### GroovyUnusedAssignment
 Assignment is not used
-in `regression-test/suites/schema_change_p0/test_uniq_rollup_schema_change.groovy`
-#### Snippet
-```java
-    // wait for all compactions done
-    for (String[] tablet in tablets) {
-            boolean running = true
-            do {
-                Thread.sleep(100)
-```
-
-### GroovyUnusedAssignment
-Assignment is not used
-in `regression-test/suites/schema_change_p0/test_agg_rollup_schema_change.groovy`
-#### Snippet
-```java
-        assert configList instanceof List
-
-        boolean disableAutoCompaction = true
-        for (Object ele in (List) configList) {
-            assert ele instanceof List<String>
-```
-
-### GroovyUnusedAssignment
-Assignment is not used
-in `regression-test/suites/schema_change_p0/test_agg_rollup_schema_change.groovy`
-#### Snippet
-```java
-            assert ele instanceof List<String>
-            if (((List<String>) ele)[0] == "disable_auto_compaction") {
-                disableAutoCompaction = Boolean.parseBoolean(((List<String>) ele)[2])
-            }
-        }
-```
-
-### GroovyUnusedAssignment
-Assignment is not used
-in `regression-test/suites/schema_change_p0/test_agg_rollup_schema_change.groovy`
+in `regression-test/suites/schema_change_p0/test_dup_rollup_schema_change.groovy`
 #### Snippet
 ```java
         // wait for all compactions done
@@ -2058,42 +2430,6 @@ in `regression-test/suites/schema_change_p0/decimalv3/test_agg_keys_schema_chang
 
 ### GroovyUnusedAssignment
 Assignment is not used
-in `regression-test/suites/schema_change_p0/test_dup_rollup_schema_change.groovy`
-#### Snippet
-```java
-        assert configList instanceof List
-
-        boolean disableAutoCompaction = true
-        for (Object ele in (List) configList) {
-            assert ele instanceof List<String>
-```
-
-### GroovyUnusedAssignment
-Assignment is not used
-in `regression-test/suites/schema_change_p0/test_dup_rollup_schema_change.groovy`
-#### Snippet
-```java
-            assert ele instanceof List<String>
-            if (((List<String>) ele)[0] == "disable_auto_compaction") {
-                disableAutoCompaction = Boolean.parseBoolean(((List<String>) ele)[2])
-            }
-        }
-```
-
-### GroovyUnusedAssignment
-Assignment is not used
-in `regression-test/suites/schema_change_p0/test_dup_rollup_schema_change.groovy`
-#### Snippet
-```java
-        // wait for all compactions done
-        for (String[] tablet in tablets) {
-                boolean running = true
-                do {
-                    Thread.sleep(100)
-```
-
-### GroovyUnusedAssignment
-Assignment is not used
 in `regression-test/suites/schema_change_p0/datev2/test_dup_keys_schema_change_datev2.groovy`
 #### Snippet
 ```java
@@ -2170,7 +2506,7 @@ in `regression-test/suites/cold_heat_separation/policy/show.groovy`
 #### Snippet
 ```java
 
-    if (!storage_exist.call("showPolicy_1_policy")){
+    if (get_storage_policy.call("showPolicy_1_policy").isEmpty()){
         def create_s3_resource = try_sql """
             CREATE RESOURCE "showPolicy_1_resource"
             PROPERTIES(
@@ -2190,6 +2526,18 @@ in `regression-test/suites/cold_heat_separation/policy/show.groovy`
 
 ### GroovyUnusedAssignment
 Assignment is not used
+in `regression-test/suites/cold_heat_separation/policy/show.groovy`
+#### Snippet
+```java
+        """
+    }
+    def show_result = sql """
+        SHOW STORAGE POLICY;
+    """
+```
+
+### GroovyUnusedAssignment
+Assignment is not used
 in `regression-test/suites/cold_heat_separation/policy/drop.groovy`
 #### Snippet
 ```java
@@ -2198,6 +2546,114 @@ in `regression-test/suites/cold_heat_separation/policy/drop.groovy`
         def create_succ_1 = try_sql """
             CREATE STORAGE POLICY drop_policy_test
             PROPERTIES(
+```
+
+### GroovyUnusedAssignment
+Assignment is not used
+in `regression-test/suites/cold_heat_separation/use_policy/create_table_use_partition_policy.groovy`
+#### Snippet
+```java
+
+    if (!storage_exist.call("test_create_table_partition_use_policy_1")) {
+        def create_s3_resource = try_sql """
+            CREATE RESOURCE "test_create_table_partition_use_resource_1"
+            PROPERTIES(
+```
+
+### GroovyUnusedAssignment
+Assignment is not used
+in `regression-test/suites/cold_heat_separation/use_policy/create_table_use_partition_policy.groovy`
+#### Snippet
+```java
+            );
+        """
+        def create_succ_1 = try_sql """
+            CREATE STORAGE POLICY test_create_table_partition_use_policy_1
+            PROPERTIES(
+```
+
+### GroovyUnusedAssignment
+Assignment is not used
+in `regression-test/suites/cold_heat_separation/use_policy/create_table_use_partition_policy.groovy`
+#### Snippet
+```java
+
+    if (!storage_exist.call("test_create_table_partition_use_policy_2")) {
+        def create_s3_resource = try_sql """
+            CREATE RESOURCE "test_create_table_partition_use_resource_2"
+            PROPERTIES(
+```
+
+### GroovyUnusedAssignment
+Assignment is not used
+in `regression-test/suites/cold_heat_separation/use_policy/create_table_use_partition_policy.groovy`
+#### Snippet
+```java
+            );
+        """
+        def create_succ_1 = try_sql """
+            CREATE STORAGE POLICY test_create_table_partition_use_policy_2
+            PROPERTIES(
+```
+
+### GroovyUnusedAssignment
+Assignment is not used
+in `regression-test/suites/cold_heat_separation/use_policy/create_table_use_policy.groovy`
+#### Snippet
+```java
+    }
+
+    def create_s3_resource = try_sql """
+        CREATE RESOURCE IF NOT EXISTS "test_create_table_use_resource"
+        PROPERTIES(
+```
+
+### GroovyUnusedAssignment
+Assignment is not used
+in `regression-test/suites/cold_heat_separation/use_policy/create_table_use_policy.groovy`
+#### Snippet
+```java
+        );
+    """
+    def create_succ_1 = try_sql """
+        CREATE STORAGE POLICY IF NOT EXISTS test_create_table_use_policy
+        PROPERTIES(
+```
+
+### GroovyUnusedAssignment
+Assignment is not used
+in `regression-test/suites/cold_heat_separation/use_policy/use_default_storage_policy.groovy`
+#### Snippet
+```java
+        assertEquals(create_table_use_default_policy_but_not_set_default_policy_result, null);
+
+        def create_s3_resource = try_sql """
+            CREATE RESOURCE "default_s3_resource"
+            PROPERTIES(
+```
+
+### GroovyUnusedAssignment
+Assignment is not used
+in `regression-test/suites/cold_heat_separation/use_policy/use_default_storage_policy.groovy`
+#### Snippet
+```java
+            );
+        """
+        def create_succ_1 = try_sql """
+            ALTER STORAGE POLICY default_storage_policy PROPERTIES(
+                "storage_resource" = "default_s3_resource",
+```
+
+### GroovyUnusedAssignment
+Assignment is not used
+in `regression-test/suites/cold_heat_separation/use_policy/use_default_storage_policy.groovy`
+#### Snippet
+```java
+    // you can change default_storage_policy's policy property, such as ak、sk,
+    // so table create_table_not_have_policy will use AWS_ACCESS_KEY = "has_been_changed"
+    def modify_storage_policy_property_result_1 = try_sql """
+        ALTER RESOURCE "default_s3_resource" PROPERTIES("AWS_ACCESS_KEY" = "has_been_changed");
+    """
 ```
 
 ### GroovyUnusedAssignment
@@ -2370,62 +2826,98 @@ in `regression-test/suites/cold_heat_separation/policy/alter.groovy`
 
 ### GroovyUnusedAssignment
 Assignment is not used
-in `regression-test/suites/cold_heat_separation/use_policy/create_table_use_policy.groovy`
+in `regression-test/suites/cold_heat_separation/use_policy/alter_table_add_policy.groovy`
 #### Snippet
 ```java
-    }
 
-    def create_s3_resource = try_sql """
-        CREATE RESOURCE IF NOT EXISTS "test_create_table_use_resource"
-        PROPERTIES(
-```
-
-### GroovyUnusedAssignment
-Assignment is not used
-in `regression-test/suites/cold_heat_separation/use_policy/create_table_use_policy.groovy`
-#### Snippet
-```java
-        );
-    """
-    def create_succ_1 = try_sql """
-        CREATE STORAGE POLICY IF NOT EXISTS test_create_table_use_policy
-        PROPERTIES(
-```
-
-### GroovyUnusedAssignment
-Assignment is not used
-in `regression-test/suites/cold_heat_separation/use_policy/use_default_storage_policy.groovy`
-#### Snippet
-```java
-        assertEquals(create_table_use_default_policy_but_not_set_default_policy_result, null);
-
+    if (!storage_exist.call("created_create_table_alter_policy")) {
         def create_s3_resource = try_sql """
-            CREATE RESOURCE "default_s3_resource"
+            CREATE RESOURCE "test_create_alter_table_use_resource"
             PROPERTIES(
 ```
 
 ### GroovyUnusedAssignment
 Assignment is not used
-in `regression-test/suites/cold_heat_separation/use_policy/use_default_storage_policy.groovy`
+in `regression-test/suites/cold_heat_separation/use_policy/alter_table_add_policy.groovy`
 #### Snippet
 ```java
             );
         """
         def create_succ_1 = try_sql """
-            ALTER STORAGE POLICY default_storage_policy PROPERTIES(
-                "storage_resource" = "default_s3_resource",
+            CREATE STORAGE POLICY created_create_table_alter_policy
+            PROPERTIES(
 ```
 
 ### GroovyUnusedAssignment
 Assignment is not used
-in `regression-test/suites/cold_heat_separation/use_policy/use_default_storage_policy.groovy`
+in `regression-test/suites/cold_heat_separation/use_policy/alter_table_add_policy.groovy`
 #### Snippet
 ```java
-    // you can change default_storage_policy's policy property, such as ak、sk,
-    // so table create_table_not_have_policy will use AWS_ACCESS_KEY = "has_been_changed"
-    def modify_storage_policy_property_result_1 = try_sql """
-        ALTER RESOURCE "default_s3_resource" PROPERTIES("AWS_ACCESS_KEY" = "has_been_changed");
+
+    if (!storage_exist.call("created_create_table_alter_policy_1")) {
+        def create_s3_resource = try_sql """
+            CREATE RESOURCE "test_create_alter_table_use_resource_1"
+            PROPERTIES(
+```
+
+### GroovyUnusedAssignment
+Assignment is not used
+in `regression-test/suites/cold_heat_separation/use_policy/alter_table_add_policy.groovy`
+#### Snippet
+```java
+            );
+        """
+        def create_succ_1 = try_sql """
+            CREATE STORAGE POLICY created_create_table_alter_policy_1
+            PROPERTIES(
+```
+
+### GroovyUnusedAssignment
+Assignment is not used
+in `regression-test/suites/cold_heat_separation/use_policy/alter_table_add_policy.groovy`
+#### Snippet
+```java
+    // you can change created_create_table_alter_policy's policy cooldown time, cooldown ttl property,
+    // by alter storage policy
+    def modify_storage_policy_property_result = try_sql """
+        ALTER STORAGE POLICY "created_create_table_alter_policy_1" PROPERTIES("cooldown_datetime" = "2026-06-08 00:00:00");
     """
+```
+
+### GroovyUnusedAssignment
+Assignment is not used
+in `regression-test/suites/cold_heat_separation/use_policy/alter_table_add_policy.groovy`
+#### Snippet
+```java
+    """
+    // change s3 resource, ak、sk by alter resource
+    def modify_storage_policy_property_result_1 = try_sql """
+        ALTER RESOURCE "test_create_alter_table_use_resource_1" PROPERTIES("AWS_ACCESS_KEY" = "has_been_changed");
+    """
+```
+
+### GroovyUnusedAssignment
+Assignment is not used
+in `regression-test/suites/cold_heat_separation/use_policy/modify_partition_add_policy.groovy`
+#### Snippet
+```java
+    }
+
+    def create_s3_resource = try_sql """
+        CREATE RESOURCE IF NOT EXISTS "test_modify_partition_table_use_resource"
+        PROPERTIES(
+```
+
+### GroovyUnusedAssignment
+Assignment is not used
+in `regression-test/suites/cold_heat_separation/use_policy/modify_partition_add_policy.groovy`
+#### Snippet
+```java
+        );
+    """
+    def create_succ_1 = try_sql """
+        CREATE STORAGE POLICY IF NOT EXISTS created_create_table_partition_alter_policy
+        PROPERTIES(
 ```
 
 ### GroovyUnusedAssignment
@@ -2562,150 +3054,6 @@ in `regression-test/suites/cold_heat_separation/policy/create.groovy`
 
 ### GroovyUnusedAssignment
 Assignment is not used
-in `regression-test/suites/cold_heat_separation/use_policy/alter_table_add_policy.groovy`
-#### Snippet
-```java
-
-    if (!storage_exist.call("created_create_table_alter_policy")) {
-        def create_s3_resource = try_sql """
-            CREATE RESOURCE "test_create_alter_table_use_resource"
-            PROPERTIES(
-```
-
-### GroovyUnusedAssignment
-Assignment is not used
-in `regression-test/suites/cold_heat_separation/use_policy/alter_table_add_policy.groovy`
-#### Snippet
-```java
-            );
-        """
-        def create_succ_1 = try_sql """
-            CREATE STORAGE POLICY created_create_table_alter_policy
-            PROPERTIES(
-```
-
-### GroovyUnusedAssignment
-Assignment is not used
-in `regression-test/suites/cold_heat_separation/use_policy/alter_table_add_policy.groovy`
-#### Snippet
-```java
-
-    if (!storage_exist.call("created_create_table_alter_policy_1")) {
-        def create_s3_resource = try_sql """
-            CREATE RESOURCE "test_create_alter_table_use_resource_1"
-            PROPERTIES(
-```
-
-### GroovyUnusedAssignment
-Assignment is not used
-in `regression-test/suites/cold_heat_separation/use_policy/alter_table_add_policy.groovy`
-#### Snippet
-```java
-            );
-        """
-        def create_succ_1 = try_sql """
-            CREATE STORAGE POLICY created_create_table_alter_policy_1
-            PROPERTIES(
-```
-
-### GroovyUnusedAssignment
-Assignment is not used
-in `regression-test/suites/cold_heat_separation/use_policy/alter_table_add_policy.groovy`
-#### Snippet
-```java
-    // you can change created_create_table_alter_policy's policy cooldown time, cooldown ttl property,
-    // by alter storage policy
-    def modify_storage_policy_property_result = try_sql """
-        ALTER STORAGE POLICY "created_create_table_alter_policy_1" PROPERTIES("cooldown_datetime" = "2026-06-08 00:00:00");
-    """
-```
-
-### GroovyUnusedAssignment
-Assignment is not used
-in `regression-test/suites/cold_heat_separation/use_policy/alter_table_add_policy.groovy`
-#### Snippet
-```java
-    """
-    // change s3 resource, ak、sk by alter resource
-    def modify_storage_policy_property_result_1 = try_sql """
-        ALTER RESOURCE "test_create_alter_table_use_resource_1" PROPERTIES("AWS_ACCESS_KEY" = "has_been_changed");
-    """
-```
-
-### GroovyUnusedAssignment
-Assignment is not used
-in `regression-test/suites/cold_heat_separation/use_policy/modify_partition_add_policy.groovy`
-#### Snippet
-```java
-    }
-
-    def create_s3_resource = try_sql """
-        CREATE RESOURCE IF NOT EXISTS "test_modify_partition_table_use_resource"
-        PROPERTIES(
-```
-
-### GroovyUnusedAssignment
-Assignment is not used
-in `regression-test/suites/cold_heat_separation/use_policy/modify_partition_add_policy.groovy`
-#### Snippet
-```java
-        );
-    """
-    def create_succ_1 = try_sql """
-        CREATE STORAGE POLICY IF NOT EXISTS created_create_table_partition_alter_policy
-        PROPERTIES(
-```
-
-### GroovyUnusedAssignment
-Assignment is not used
-in `regression-test/suites/cold_heat_separation/use_policy/create_table_use_partition_policy.groovy`
-#### Snippet
-```java
-
-    if (!storage_exist.call("test_create_table_partition_use_policy_1")) {
-        def create_s3_resource = try_sql """
-            CREATE RESOURCE "test_create_table_partition_use_resource_1"
-            PROPERTIES(
-```
-
-### GroovyUnusedAssignment
-Assignment is not used
-in `regression-test/suites/cold_heat_separation/use_policy/create_table_use_partition_policy.groovy`
-#### Snippet
-```java
-            );
-        """
-        def create_succ_1 = try_sql """
-            CREATE STORAGE POLICY test_create_table_partition_use_policy_1
-            PROPERTIES(
-```
-
-### GroovyUnusedAssignment
-Assignment is not used
-in `regression-test/suites/cold_heat_separation/use_policy/create_table_use_partition_policy.groovy`
-#### Snippet
-```java
-
-    if (!storage_exist.call("test_create_table_partition_use_policy_2")) {
-        def create_s3_resource = try_sql """
-            CREATE RESOURCE "test_create_table_partition_use_resource_2"
-            PROPERTIES(
-```
-
-### GroovyUnusedAssignment
-Assignment is not used
-in `regression-test/suites/cold_heat_separation/use_policy/create_table_use_partition_policy.groovy`
-#### Snippet
-```java
-            );
-        """
-        def create_succ_1 = try_sql """
-            CREATE STORAGE POLICY test_create_table_partition_use_policy_2
-            PROPERTIES(
-```
-
-### GroovyUnusedAssignment
-Assignment is not used
 in `regression-test/suites/external_table_emr_p2/mysql/test_external_catalog_mysql.groovy`
 #### Snippet
 ```java
@@ -2725,7 +3073,7 @@ in `regression-test/pipeline/p1/conf/regression-conf.groovy`
 // **Note**: default db will be create if not exist
 defaultDb = "regression_test"
 
-jdbcUrl = "jdbc:mysql://172.19.0.2:9132/?useLocalSessionState=true"
+jdbcUrl = "jdbc:mysql://172.19.0.2:9132/?useLocalSessionState=true&allowLoadLocalInfile=true"
 ```
 
 ### GroovyUnusedAssignment
@@ -2735,7 +3083,7 @@ in `regression-test/pipeline/p1/conf/regression-conf.groovy`
 ```java
 defaultDb = "regression_test"
 
-jdbcUrl = "jdbc:mysql://172.19.0.2:9132/?useLocalSessionState=true"
+jdbcUrl = "jdbc:mysql://172.19.0.2:9132/?useLocalSessionState=true&allowLoadLocalInfile=true"
 jdbcUser = "root"
 jdbcPassword = ""
 ```
@@ -2746,7 +3094,7 @@ in `regression-test/pipeline/p1/conf/regression-conf.groovy`
 #### Snippet
 ```java
 
-jdbcUrl = "jdbc:mysql://172.19.0.2:9132/?useLocalSessionState=true"
+jdbcUrl = "jdbc:mysql://172.19.0.2:9132/?useLocalSessionState=true&allowLoadLocalInfile=true"
 jdbcUser = "root"
 jdbcPassword = ""
 
@@ -2757,7 +3105,7 @@ Assignment is not used
 in `regression-test/pipeline/p1/conf/regression-conf.groovy`
 #### Snippet
 ```java
-jdbcUrl = "jdbc:mysql://172.19.0.2:9132/?useLocalSessionState=true"
+jdbcUrl = "jdbc:mysql://172.19.0.2:9132/?useLocalSessionState=true&allowLoadLocalInfile=true"
 jdbcUser = "root"
 jdbcPassword = ""
 
@@ -2914,7 +3262,7 @@ in `regression-test/pipeline/p0/conf/regression-conf.groovy`
 // **Note**: default db will be create if not exist
 defaultDb = "regression_test"
 
-jdbcUrl = "jdbc:mysql://172.19.0.2:9131/?useLocalSessionState=true"
+jdbcUrl = "jdbc:mysql://172.19.0.2:9131/?useLocalSessionState=true&allowLoadLocalInfile=true"
 ```
 
 ### GroovyUnusedAssignment
@@ -2924,7 +3272,7 @@ in `regression-test/pipeline/p0/conf/regression-conf.groovy`
 ```java
 defaultDb = "regression_test"
 
-jdbcUrl = "jdbc:mysql://172.19.0.2:9131/?useLocalSessionState=true"
+jdbcUrl = "jdbc:mysql://172.19.0.2:9131/?useLocalSessionState=true&allowLoadLocalInfile=true"
 jdbcUser = "root"
 jdbcPassword = ""
 ```
@@ -2935,7 +3283,7 @@ in `regression-test/pipeline/p0/conf/regression-conf.groovy`
 #### Snippet
 ```java
 
-jdbcUrl = "jdbc:mysql://172.19.0.2:9131/?useLocalSessionState=true"
+jdbcUrl = "jdbc:mysql://172.19.0.2:9131/?useLocalSessionState=true&allowLoadLocalInfile=true"
 jdbcUser = "root"
 jdbcPassword = ""
 
@@ -2946,7 +3294,7 @@ Assignment is not used
 in `regression-test/pipeline/p0/conf/regression-conf.groovy`
 #### Snippet
 ```java
-jdbcUrl = "jdbc:mysql://172.19.0.2:9131/?useLocalSessionState=true"
+jdbcUrl = "jdbc:mysql://172.19.0.2:9131/?useLocalSessionState=true&allowLoadLocalInfile=true"
 jdbcUser = "root"
 jdbcPassword = ""
 
@@ -3348,62 +3696,14 @@ in `regression-test/framework/src/main/groovy/org/apache/doris/regression/action
 
 ### GroovyUnusedAssignment
 Assignment is not used
-in `regression-test/framework/src/main/groovy/org/apache/doris/regression/suite/Suite.groovy`
+in `regression-test/framework/src/main/groovy/org/apache/doris/regression/action/BenchmarkAction.groovy`
 #### Snippet
 ```java
-    List<List<Object>> sql(String sqlStr, boolean isOrder = false) {
-        logger.info("Execute ${isOrder ? "order_" : ""}sql: ${sqlStr}".toString())
-        def (result, meta) = JdbcUtils.executeToList(context.getConnection(), sqlStr)
-        if (isOrder) {
-            result = DataUtils.sortByToString(result)
-```
-
-### GroovyUnusedAssignment
-Assignment is not used
-in `regression-test/framework/src/main/groovy/org/apache/doris/regression/suite/Suite.groovy`
-#### Snippet
-```java
-    List<List<String>> sql_meta(String sqlStr, boolean isOrder = false) {
-        logger.info("Execute ${isOrder ? "order_" : ""}sql: ${sqlStr}".toString())
-        def (tmp, rsmd) = JdbcUtils.executeToList(context.getConnection(), sqlStr)
-        int count = rsmd.getColumnCount();
-        List<List<String>> result = new ArrayList<>()
-```
-
-### GroovyUnusedAssignment
-Assignment is not used
-in `regression-test/framework/src/main/groovy/org/apache/doris/regression/suite/Suite.groovy`
-#### Snippet
-```java
-            List<String> item = new ArrayList<>()
-            String columnName = rsmd.getColumnName(i + 1);
-            int columnType = rsmd.getColumnType(i+1);
-            String columnTypeName = rsmd.getColumnTypeName(i+1);
-            item.add(columnName);
-```
-
-### GroovyUnusedAssignment
-Assignment is not used
-in `regression-test/framework/src/main/groovy/org/apache/doris/regression/suite/Suite.groovy`
-#### Snippet
-```java
-
-        if (context.config.generateOutputFile || context.config.forceGenerateOutputFile) {
-            def (result, meta) = JdbcUtils.executeToStringList(context.getConnection(), sql)
-            if (isOrder) {
-                result = sortByToString(result)
-```
-
-### GroovyUnusedAssignment
-Assignment is not used
-in `regression-test/framework/src/main/groovy/org/apache/doris/regression/suite/Suite.groovy`
-#### Snippet
-```java
-            realWriter.write(realResultsIter, tag)
-
-            String errorMsg = null
-            try {
-                errorMsg = OutputUtils.checkOutput(expectCsvResults, realResults.iterator(),
+                for (int times = 1; times <= executeTimes; ++times) {
+                    log.info("Execute sql ${i} for the ${times == 1 ? "first" : times} time${times > 1 ? "s" : ""}".toString())
+                    def (_, elapsed) = SuiteUtils.timer {
+                        JdbcUtils.executeToList(context.getConnection(), sql)
+                    }
 ```
 
 ### GroovyUnusedAssignment
@@ -3516,6 +3816,18 @@ in `regression-test/framework/src/main/groovy/org/apache/doris/regression/action
 
 ### GroovyUnusedAssignment
 Assignment is not used
+in `regression-test/framework/src/main/groovy/org/apache/doris/regression/action/TestAction.groovy`
+#### Snippet
+```java
+                if (this.resultFileUri != null) {
+                    Consumer<InputStream> checkFunc = { InputStream inputStream ->
+                        String errorMsg = null
+                        def lineIt = new LineIterator(new InputStreamReader(inputStream, StandardCharsets.UTF_8))
+                        if (resultTag.is(null)) {
+```
+
+### GroovyUnusedAssignment
+Assignment is not used
 in `regression-test/framework/src/main/groovy/org/apache/doris/regression/action/StreamLoadAction.groovy`
 #### Snippet
 ```java
@@ -3552,14 +3864,86 @@ in `regression-test/framework/src/main/groovy/org/apache/doris/regression/action
 
 ### GroovyUnusedAssignment
 Assignment is not used
-in `regression-test/framework/src/main/groovy/org/apache/doris/regression/action/TestAction.groovy`
+in `regression-test/framework/src/main/groovy/org/apache/doris/regression/suite/Suite.groovy`
 #### Snippet
 ```java
-                if (this.resultFileUri != null) {
-                    Consumer<InputStream> checkFunc = { InputStream inputStream ->
-                        String errorMsg = null
-                        def lineIt = new LineIterator(new InputStreamReader(inputStream, StandardCharsets.UTF_8))
-                        if (resultTag.is(null)) {
+    List<List<Object>> sql(String sqlStr, boolean isOrder = false) {
+        logger.info("Execute ${isOrder ? "order_" : ""}sql: ${sqlStr}".toString())
+        def (result, meta) = JdbcUtils.executeToList(context.getConnection(), sqlStr)
+        if (isOrder) {
+            result = DataUtils.sortByToString(result)
+```
+
+### GroovyUnusedAssignment
+Assignment is not used
+in `regression-test/framework/src/main/groovy/org/apache/doris/regression/suite/Suite.groovy`
+#### Snippet
+```java
+    List<List<String>> sql_meta(String sqlStr, boolean isOrder = false) {
+        logger.info("Execute ${isOrder ? "order_" : ""}sql: ${sqlStr}".toString())
+        def (tmp, rsmd) = JdbcUtils.executeToList(context.getConnection(), sqlStr)
+        int count = rsmd.getColumnCount();
+        List<List<String>> result = new ArrayList<>()
+```
+
+### GroovyUnusedAssignment
+Assignment is not used
+in `regression-test/framework/src/main/groovy/org/apache/doris/regression/suite/Suite.groovy`
+#### Snippet
+```java
+            List<String> item = new ArrayList<>()
+            String columnName = rsmd.getColumnName(i + 1);
+            int columnType = rsmd.getColumnType(i+1);
+            String columnTypeName = rsmd.getColumnTypeName(i+1);
+            item.add(columnName);
+```
+
+### GroovyUnusedAssignment
+Assignment is not used
+in `regression-test/framework/src/main/groovy/org/apache/doris/regression/suite/Suite.groovy`
+#### Snippet
+```java
+    void quickRunTest(String tag, Object arg, boolean isOrder = false) {
+        if (context.config.generateOutputFile || context.config.forceGenerateOutputFile) {
+            Tuple2<List<List<Object>>, ResultSetMetaData> tupleResult = null
+            if (arg instanceof PreparedStatement) {
+                tupleResult = JdbcUtils.executeToStringList(context.getConnection(),  (PreparedStatement) arg)
+```
+
+### GroovyUnusedAssignment
+Assignment is not used
+in `regression-test/framework/src/main/groovy/org/apache/doris/regression/suite/Suite.groovy`
+#### Snippet
+```java
+                tupleResult = JdbcUtils.executeToStringList(context.getConnection(),  (String) arg)
+            }
+            def (result, meta) = tupleResult
+            if (isOrder) {
+                result = sortByToString(result)
+```
+
+### GroovyUnusedAssignment
+Assignment is not used
+in `regression-test/framework/src/main/groovy/org/apache/doris/regression/suite/Suite.groovy`
+#### Snippet
+```java
+
+            OutputUtils.TagBlockIterator expectCsvResults = context.getOutputIterator().next()
+            Tuple2<List<List<Object>>, ResultSetMetaData> tupleResult = null
+            if (arg instanceof PreparedStatement) {
+                tupleResult = JdbcUtils.executeToStringList(context.getConnection(),  (PreparedStatement) arg)
+```
+
+### GroovyUnusedAssignment
+Assignment is not used
+in `regression-test/framework/src/main/groovy/org/apache/doris/regression/suite/Suite.groovy`
+#### Snippet
+```java
+            realWriter.write(realResultsIter, tag)
+
+            String errorMsg = null
+            try {
+                errorMsg = OutputUtils.checkOutput(expectCsvResults, realResults.iterator(),
 ```
 
 ## RuleId[ruleID=GroovyUnnecessaryContinue]
