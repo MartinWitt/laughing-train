@@ -1,13 +1,12 @@
 # spring-cloud-stream-binder-dapr 
  
 # Bad smells
-I found 15 bad smells with 2 repairable:
+I found 14 bad smells with 2 repairable:
 | ruleID | number | fixable |
 | --- | --- | --- |
 | BoundedWildcard | 4 | false |
 | IgnoreResultOfCall | 3 | false |
 | RedundantFieldInitialization | 2 | false |
-| HtmlWrongAttributeValue | 1 | false |
 | UnnecessaryLocalVariable | 1 | true |
 | DataFlowIssue | 1 | false |
 | UnnecessaryFullyQualifiedName | 1 | false |
@@ -36,19 +35,6 @@ in `samples/local-dapr/src/main/java/com/azure/spring/cloud/stream/binder/dapr/s
 	private int i = 0;
 
 	@Bean
-```
-
-## RuleId[ruleID=HtmlWrongAttributeValue]
-### HtmlWrongAttributeValue
-Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-01-31-13-35-06.480.html`
-#### Snippet
-```java
-              <td>0</td>
-              <td>0</td>
-              <td><textarea rows="10" cols="75" readonly="true" placeholder="empty" style="white-space: pre; border: none">Not collected for refresh</textarea></td>
-            </tr>
-          </tbody>
 ```
 
 ## RuleId[ruleID=UnnecessaryLocalVariable]
