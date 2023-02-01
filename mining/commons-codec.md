@@ -53,18 +53,6 @@ in `src/main/java/org/apache/commons/codec/language/DaitchMokotoffSoundex.java`
 
 ## RuleId[ruleID=PointlessArithmeticExpression]
 ### PointlessArithmeticExpression
-`off+0` can be replaced with 'off'
-in `src/main/java/org/apache/commons/codec/digest/PureJavaCrc32C.java`
-#### Snippet
-```java
-
-    while(len > 7) {
-      final int c0 =(b[off+0] ^ localCrc) & 0xff;
-      final int c1 =(b[off+1] ^ (localCrc >>>= 8)) & 0xff;
-      final int c2 =(b[off+2] ^ (localCrc >>>= 8)) & 0xff;
-```
-
-### PointlessArithmeticExpression
 `1 * 256` can be replaced with '256'
 in `src/main/java/org/apache/commons/codec/digest/PureJavaCrc32C.java`
 #### Snippet
@@ -88,6 +76,18 @@ in `src/main/java/org/apache/commons/codec/digest/PureJavaCrc32C.java`
   private static final int T8_2_START = 2 * 256;
 ```
 
+### PointlessArithmeticExpression
+`off+0` can be replaced with 'off'
+in `src/main/java/org/apache/commons/codec/digest/PureJavaCrc32C.java`
+#### Snippet
+```java
+
+    while(len > 7) {
+      final int c0 =(b[off+0] ^ localCrc) & 0xff;
+      final int c1 =(b[off+1] ^ (localCrc >>>= 8)) & 0xff;
+      final int c2 =(b[off+2] ^ (localCrc >>>= 8)) & 0xff;
+```
+
 ## RuleId[ruleID=FieldMayBeStatic]
 ### FieldMayBeStatic
 Field `PAD` may be 'static'
@@ -103,13 +103,13 @@ in `src/main/java/org/apache/commons/codec/binary/BaseNCodec.java`
 
 ## RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
 ### UtilityClassWithoutPrivateConstructor
-Class `Utils` has only 'static' members, and lacks a 'private' constructor
-in `src/main/java/org/apache/commons/codec/net/Utils.java`
+Class `CharEncoding` has only 'static' members, and lacks a 'private' constructor
+in `src/main/java/org/apache/commons/codec/CharEncoding.java`
 #### Snippet
 ```java
  * @since 1.4
  */
-class Utils {
+public class CharEncoding {
 
     /**
 ```
@@ -127,6 +127,18 @@ final class SoundexUtils {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
+Class `Resources` has only 'static' members, and lacks a 'private' constructor
+in `src/main/java/org/apache/commons/codec/Resources.java`
+#### Snippet
+```java
+ * @since 1.12
+ */
+public class Resources {
+
+    /**
+```
+
+### UtilityClassWithoutPrivateConstructor
 Class `UnixCrypt` has only 'static' members, and lacks a 'private' constructor
 in `src/main/java/org/apache/commons/codec/digest/UnixCrypt.java`
 #### Snippet
@@ -139,37 +151,13 @@ public class UnixCrypt {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `ResourceConstants` has only 'static' members, and lacks a 'private' constructor
-in `src/main/java/org/apache/commons/codec/language/bm/ResourceConstants.java`
+Class `Utils` has only 'static' members, and lacks a 'private' constructor
+in `src/main/java/org/apache/commons/codec/net/Utils.java`
 #### Snippet
 ```java
- * @since 1.6
+ * @since 1.4
  */
-class ResourceConstants {
-
-    static final String CMT = "//";
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `B64` has only 'static' members, and lacks a 'private' constructor
-in `src/main/java/org/apache/commons/codec/digest/B64.java`
-#### Snippet
-```java
- * @since 1.7
- */
-class B64 {
-
-    /**
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `Resources` has only 'static' members, and lacks a 'private' constructor
-in `src/main/java/org/apache/commons/codec/Resources.java`
-#### Snippet
-```java
- * @since 1.12
- */
-public class Resources {
+class Utils {
 
     /**
 ```
@@ -187,51 +175,15 @@ public class Charsets {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `StringUtils` has only 'static' members, and lacks a 'private' constructor
-in `src/main/java/org/apache/commons/codec/binary/StringUtils.java`
-#### Snippet
-```java
- * @since 1.4
- */
-public class StringUtils {
-
-    /**
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `CharEncoding` has only 'static' members, and lacks a 'private' constructor
-in `src/main/java/org/apache/commons/codec/CharEncoding.java`
-#### Snippet
-```java
- * @since 1.4
- */
-public class CharEncoding {
-
-    /**
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `CharSequenceUtils` has only 'static' members, and lacks a 'private' constructor
-in `src/main/java/org/apache/commons/codec/binary/CharSequenceUtils.java`
-#### Snippet
-```java
- * @since 1.10
- */
-public class CharSequenceUtils {
-
-    /**
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `Md5Crypt` has only 'static' members, and lacks a 'private' constructor
-in `src/main/java/org/apache/commons/codec/digest/Md5Crypt.java`
+Class `B64` has only 'static' members, and lacks a 'private' constructor
+in `src/main/java/org/apache/commons/codec/digest/B64.java`
 #### Snippet
 ```java
  * @since 1.7
  */
-public class Md5Crypt {
+class B64 {
 
-    /** The Identifier of the Apache variant. */
+    /**
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -256,6 +208,54 @@ in `src/main/java/org/apache/commons/codec/digest/Sha2Crypt.java`
 public class Sha2Crypt {
 
     /** Default number of rounds if not explicitly specified. */
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `CharSequenceUtils` has only 'static' members, and lacks a 'private' constructor
+in `src/main/java/org/apache/commons/codec/binary/CharSequenceUtils.java`
+#### Snippet
+```java
+ * @since 1.10
+ */
+public class CharSequenceUtils {
+
+    /**
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `StringUtils` has only 'static' members, and lacks a 'private' constructor
+in `src/main/java/org/apache/commons/codec/binary/StringUtils.java`
+#### Snippet
+```java
+ * @since 1.4
+ */
+public class StringUtils {
+
+    /**
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `ResourceConstants` has only 'static' members, and lacks a 'private' constructor
+in `src/main/java/org/apache/commons/codec/language/bm/ResourceConstants.java`
+#### Snippet
+```java
+ * @since 1.6
+ */
+class ResourceConstants {
+
+    static final String CMT = "//";
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `Md5Crypt` has only 'static' members, and lacks a 'private' constructor
+in `src/main/java/org/apache/commons/codec/digest/Md5Crypt.java`
+#### Snippet
+```java
+ * @since 1.7
+ */
+public class Md5Crypt {
+
+    /** The Identifier of the Apache variant. */
 ```
 
 ## RuleId[ruleID=DataFlowIssue]
@@ -334,18 +334,6 @@ in `src/main/java/org/apache/commons/codec/net/URLCodec.java`
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'UTF_16BE' is still used
-in `src/main/java/org/apache/commons/codec/Charsets.java`
-#### Snippet
-```java
-     */
-    @Deprecated
-    public static final Charset UTF_16BE = StandardCharsets.UTF_16BE;
-
-    /**
-```
-
-### DeprecatedIsStillUsed
 Deprecated member 'UTF_16LE' is still used
 in `src/main/java/org/apache/commons/codec/Charsets.java`
 #### Snippet
@@ -382,99 +370,231 @@ in `src/main/java/org/apache/commons/codec/Charsets.java`
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'hmacMd5' is still used
-in `src/main/java/org/apache/commons/codec/digest/HmacUtils.java`
+Deprecated member 'UTF_16BE' is still used
+in `src/main/java/org/apache/commons/codec/Charsets.java`
 #### Snippet
 ```java
      */
     @Deprecated
-    public static byte[] hmacMd5(final byte[] key, final InputStream valueToDigest) throws IOException {
-        return new HmacUtils(HmacAlgorithms.HMAC_MD5, key).hmac(valueToDigest);
+    public static final Charset UTF_16BE = StandardCharsets.UTF_16BE;
+
+    /**
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'shaHex' is still used
+in `src/main/java/org/apache/commons/codec/digest/DigestUtils.java`
+#### Snippet
+```java
+     */
+    @Deprecated
+    public static String shaHex(final byte[] data) {
+        return sha1Hex(data);
     }
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'getHmacSha1' is still used
-in `src/main/java/org/apache/commons/codec/digest/HmacUtils.java`
+Deprecated member 'getShaDigest' is still used
+in `src/main/java/org/apache/commons/codec/digest/DigestUtils.java`
 #### Snippet
 ```java
      */
     @Deprecated
-    public static Mac getHmacSha1(final byte[] key) {
-        return getInitializedMac(HmacAlgorithms.HMAC_SHA_1, key);
+    public static MessageDigest getShaDigest() {
+        return getSha1Digest();
     }
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'hmacSha1' is still used
-in `src/main/java/org/apache/commons/codec/digest/HmacUtils.java`
+Deprecated member 'shaHex' is still used
+in `src/main/java/org/apache/commons/codec/digest/DigestUtils.java`
 #### Snippet
 ```java
      */
     @Deprecated
-    public static byte[] hmacSha1(final byte[] key, final byte[] valueToDigest) {
-        return new HmacUtils(HmacAlgorithms.HMAC_SHA_1, key).hmac(valueToDigest);
+    public static String shaHex(final String data) {
+        return sha1Hex(data);
     }
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'hmacSha1Hex' is still used
-in `src/main/java/org/apache/commons/codec/digest/HmacUtils.java`
+Deprecated member 'shaHex' is still used
+in `src/main/java/org/apache/commons/codec/digest/DigestUtils.java`
 #### Snippet
 ```java
      */
     @Deprecated
-    public static String hmacSha1Hex(final byte[] key, final byte[] valueToDigest) {
-        return new HmacUtils(HmacAlgorithms.HMAC_SHA_1, key).hmacHex(valueToDigest);
+    public static String shaHex(final InputStream data) throws IOException {
+        return sha1Hex(data);
     }
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'hmacSha1Hex' is still used
-in `src/main/java/org/apache/commons/codec/digest/HmacUtils.java`
+Deprecated member 'hash32' is still used
+in `src/main/java/org/apache/commons/codec/digest/MurmurHash3.java`
 #### Snippet
 ```java
      */
     @Deprecated
-    public static String hmacSha1Hex(final String key, final String valueToDigest) {
-        return new HmacUtils(HmacAlgorithms.HMAC_SHA_1, key).hmacHex(valueToDigest);
+    public static int hash32(final byte[] data, final int length) {
+        return hash32(data, length, DEFAULT_SEED);
     }
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'hmacSha256' is still used
-in `src/main/java/org/apache/commons/codec/digest/HmacUtils.java`
+Deprecated member 'hash64' is still used
+in `src/main/java/org/apache/commons/codec/digest/MurmurHash3.java`
 #### Snippet
 ```java
      */
     @Deprecated
-    public static byte[] hmacSha256(final byte[] key, final byte[] valueToDigest) {
-        return new HmacUtils(HmacAlgorithms.HMAC_SHA_256, key).hmac(valueToDigest);
+    public static long hash64(final byte[] data, final int offset, final int length) {
+        return hash64(data, offset, length, DEFAULT_SEED);
     }
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'getHmacSha256' is still used
-in `src/main/java/org/apache/commons/codec/digest/HmacUtils.java`
+Deprecated member 'hash32' is still used
+in `src/main/java/org/apache/commons/codec/digest/MurmurHash3.java`
 #### Snippet
 ```java
      */
     @Deprecated
-    public static Mac getHmacSha256(final byte[] key) {
-        return getInitializedMac(HmacAlgorithms.HMAC_SHA_256, key);
+    public static int hash32(final byte[] data, final int length, final int seed) {
+        return hash32(data, 0, length, seed);
     }
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'hmacSha256' is still used
-in `src/main/java/org/apache/commons/codec/digest/HmacUtils.java`
+Deprecated member 'hash64' is still used
+in `src/main/java/org/apache/commons/codec/digest/MurmurHash3.java`
 #### Snippet
 ```java
      */
     @Deprecated
-    public static byte[] hmacSha256(final String key, final String valueToDigest) {
-        return new HmacUtils(HmacAlgorithms.HMAC_SHA_256, key).hmac(valueToDigest);
+    public static long hash64(final long data) {
+        long hash = DEFAULT_SEED;
+        long k = Long.reverseBytes(data);
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'hash64' is still used
+in `src/main/java/org/apache/commons/codec/digest/MurmurHash3.java`
+#### Snippet
+```java
+     */
+    @Deprecated
+    public static long hash64(final byte[] data) {
+        return hash64(data, 0, data.length, DEFAULT_SEED);
     }
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'hash64' is still used
+in `src/main/java/org/apache/commons/codec/digest/MurmurHash3.java`
+#### Snippet
+```java
+     */
+    @Deprecated
+    public static long hash64(final short data) {
+        long hash = DEFAULT_SEED;
+        long k1 = 0;
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'hash64' is still used
+in `src/main/java/org/apache/commons/codec/digest/MurmurHash3.java`
+#### Snippet
+```java
+     */
+    @Deprecated
+    public static long hash64(final int data) {
+        long k1 = Integer.reverseBytes(data) & (-1L >>> 32);
+        long hash = DEFAULT_SEED;
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'IncrementalHash32' is still used
+in `src/main/java/org/apache/commons/codec/digest/MurmurHash3.java`
+#### Snippet
+```java
+     */
+    @Deprecated
+    public static class IncrementalHash32 extends IncrementalHash32x86 {
+
+        /**
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'hash64' is still used
+in `src/main/java/org/apache/commons/codec/digest/MurmurHash3.java`
+#### Snippet
+```java
+     */
+    @Deprecated
+    public static long hash64(final byte[] data, final int offset, final int length, final int seed) {
+        // ************
+        // Note: This fails to apply masking using 0xffffffffL to the seed.
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'hash32' is still used
+in `src/main/java/org/apache/commons/codec/digest/MurmurHash3.java`
+#### Snippet
+```java
+     */
+    @Deprecated
+    public static int hash32(final byte[] data) {
+        return hash32(data, 0, data.length, DEFAULT_SEED);
+    }
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'hash32' is still used
+in `src/main/java/org/apache/commons/codec/digest/MurmurHash3.java`
+#### Snippet
+```java
+     */
+    @Deprecated
+    public static int hash32(final byte[] data, final int offset, final int length, final int seed) {
+        int hash = seed;
+        final int nblocks = length >> 2;
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'hash128' is still used
+in `src/main/java/org/apache/commons/codec/digest/MurmurHash3.java`
+#### Snippet
+```java
+     */
+    @Deprecated
+    public static long[] hash128(final byte[] data, final int offset, final int length, final int seed) {
+        // ************
+        // Note: This deliberately fails to apply masking using 0xffffffffL to the seed
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'hash32' is still used
+in `src/main/java/org/apache/commons/codec/digest/MurmurHash3.java`
+#### Snippet
+```java
+     */
+    @Deprecated
+    public static int hash32(final String data) {
+        final byte[] bytes = StringUtils.getBytesUtf8(data);
+        return hash32(bytes, 0, bytes.length, DEFAULT_SEED);
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'hash128' is still used
+in `src/main/java/org/apache/commons/codec/digest/MurmurHash3.java`
+#### Snippet
+```java
+     */
+    @Deprecated
+    public static long[] hash128(final String data) {
+        final byte[] bytes = StringUtils.getBytesUtf8(data);
+        return hash128(bytes, 0, bytes.length, DEFAULT_SEED);
 ```
 
 ### DeprecatedIsStillUsed
@@ -486,18 +606,6 @@ in `src/main/java/org/apache/commons/codec/digest/HmacUtils.java`
     @Deprecated
     public static byte[] hmacSha512(final byte[] key, final InputStream valueToDigest) throws IOException {
         return new HmacUtils(HmacAlgorithms.HMAC_SHA_512, key).hmac(valueToDigest);
-    }
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'getHmacMd5' is still used
-in `src/main/java/org/apache/commons/codec/digest/HmacUtils.java`
-#### Snippet
-```java
-     */
-    @Deprecated
-    public static Mac getHmacMd5(final byte[] key) {
-        return getInitializedMac(HmacAlgorithms.HMAC_MD5, key);
     }
 ```
 
@@ -514,6 +622,30 @@ in `src/main/java/org/apache/commons/codec/digest/HmacUtils.java`
 ```
 
 ### DeprecatedIsStillUsed
+Deprecated member 'hmacSha384' is still used
+in `src/main/java/org/apache/commons/codec/digest/HmacUtils.java`
+#### Snippet
+```java
+     */
+    @Deprecated
+    public static byte[] hmacSha384(final byte[] key, final InputStream valueToDigest) throws IOException {
+        return new HmacUtils(HmacAlgorithms.HMAC_SHA_384, key).hmac(valueToDigest);
+    }
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'hmacSha256' is still used
+in `src/main/java/org/apache/commons/codec/digest/HmacUtils.java`
+#### Snippet
+```java
+     */
+    @Deprecated
+    public static byte[] hmacSha256(final String key, final String valueToDigest) {
+        return new HmacUtils(HmacAlgorithms.HMAC_SHA_256, key).hmac(valueToDigest);
+    }
+```
+
+### DeprecatedIsStillUsed
 Deprecated member 'hmacMd5Hex' is still used
 in `src/main/java/org/apache/commons/codec/digest/HmacUtils.java`
 #### Snippet
@@ -522,6 +654,186 @@ in `src/main/java/org/apache/commons/codec/digest/HmacUtils.java`
     @Deprecated
     public static String hmacMd5Hex(final String key, final String valueToDigest) {
         return new HmacUtils(HmacAlgorithms.HMAC_MD5, key).hmacHex(valueToDigest);
+    }
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'hmacSha512Hex' is still used
+in `src/main/java/org/apache/commons/codec/digest/HmacUtils.java`
+#### Snippet
+```java
+     */
+    @Deprecated
+    public static String hmacSha512Hex(final String key, final String valueToDigest) {
+        return new HmacUtils(HmacAlgorithms.HMAC_SHA_512, key).hmacHex(valueToDigest);
+    }
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'hmacMd5Hex' is still used
+in `src/main/java/org/apache/commons/codec/digest/HmacUtils.java`
+#### Snippet
+```java
+     */
+    @Deprecated
+    public static String hmacMd5Hex(final byte[] key, final byte[] valueToDigest) {
+        return new HmacUtils(HmacAlgorithms.HMAC_MD5, key).hmacHex(valueToDigest);
+    }
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'hmacSha256Hex' is still used
+in `src/main/java/org/apache/commons/codec/digest/HmacUtils.java`
+#### Snippet
+```java
+     */
+    @Deprecated
+    public static String hmacSha256Hex(final String key, final String valueToDigest) {
+        return new HmacUtils(HmacAlgorithms.HMAC_SHA_256, key).hmacHex(valueToDigest);
+    }
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'hmacSha1' is still used
+in `src/main/java/org/apache/commons/codec/digest/HmacUtils.java`
+#### Snippet
+```java
+     */
+    @Deprecated
+    public static byte[] hmacSha1(final byte[] key, final byte[] valueToDigest) {
+        return new HmacUtils(HmacAlgorithms.HMAC_SHA_1, key).hmac(valueToDigest);
+    }
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'getHmacSha384' is still used
+in `src/main/java/org/apache/commons/codec/digest/HmacUtils.java`
+#### Snippet
+```java
+     */
+    @Deprecated
+    public static Mac getHmacSha384(final byte[] key) {
+        return getInitializedMac(HmacAlgorithms.HMAC_SHA_384, key);
+    }
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'hmacSha512Hex' is still used
+in `src/main/java/org/apache/commons/codec/digest/HmacUtils.java`
+#### Snippet
+```java
+     */
+    @Deprecated
+    public static String hmacSha512Hex(final byte[] key, final InputStream valueToDigest) throws IOException {
+        return new HmacUtils(HmacAlgorithms.HMAC_SHA_512, key).hmacHex(valueToDigest);
+    }
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'hmacSha1Hex' is still used
+in `src/main/java/org/apache/commons/codec/digest/HmacUtils.java`
+#### Snippet
+```java
+     */
+    @Deprecated
+    public static String hmacSha1Hex(final String key, final String valueToDigest) {
+        return new HmacUtils(HmacAlgorithms.HMAC_SHA_1, key).hmacHex(valueToDigest);
+    }
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'hmacSha512' is still used
+in `src/main/java/org/apache/commons/codec/digest/HmacUtils.java`
+#### Snippet
+```java
+     */
+    @Deprecated
+    public static byte[] hmacSha512(final String key, final String valueToDigest) {
+        return new HmacUtils(HmacAlgorithms.HMAC_SHA_512, key).hmac(valueToDigest);
+    }
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'hmacSha512' is still used
+in `src/main/java/org/apache/commons/codec/digest/HmacUtils.java`
+#### Snippet
+```java
+     */
+    @Deprecated
+    public static byte[] hmacSha512(final byte[] key, final byte[] valueToDigest) {
+        return new HmacUtils(HmacAlgorithms.HMAC_SHA_512, key).hmac(valueToDigest);
+    }
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'hmacSha384' is still used
+in `src/main/java/org/apache/commons/codec/digest/HmacUtils.java`
+#### Snippet
+```java
+     */
+    @Deprecated
+    public static byte[] hmacSha384(final String key, final String valueToDigest) {
+        return new HmacUtils(HmacAlgorithms.HMAC_SHA_384, key).hmac(valueToDigest);
+    }
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'getHmacSha512' is still used
+in `src/main/java/org/apache/commons/codec/digest/HmacUtils.java`
+#### Snippet
+```java
+     */
+    @Deprecated
+    public static Mac getHmacSha512(final byte[] key) {
+        return getInitializedMac(HmacAlgorithms.HMAC_SHA_512, key);
+    }
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'getHmacMd5' is still used
+in `src/main/java/org/apache/commons/codec/digest/HmacUtils.java`
+#### Snippet
+```java
+     */
+    @Deprecated
+    public static Mac getHmacMd5(final byte[] key) {
+        return getInitializedMac(HmacAlgorithms.HMAC_MD5, key);
+    }
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'hmacSha1Hex' is still used
+in `src/main/java/org/apache/commons/codec/digest/HmacUtils.java`
+#### Snippet
+```java
+     */
+    @Deprecated
+    public static String hmacSha1Hex(final byte[] key, final byte[] valueToDigest) {
+        return new HmacUtils(HmacAlgorithms.HMAC_SHA_1, key).hmacHex(valueToDigest);
+    }
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'hmacSha256' is still used
+in `src/main/java/org/apache/commons/codec/digest/HmacUtils.java`
+#### Snippet
+```java
+     */
+    @Deprecated
+    public static byte[] hmacSha256(final byte[] key, final InputStream valueToDigest) throws IOException {
+        return new HmacUtils(HmacAlgorithms.HMAC_SHA_256, key).hmac(valueToDigest);
+    }
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'hmacSha384Hex' is still used
+in `src/main/java/org/apache/commons/codec/digest/HmacUtils.java`
+#### Snippet
+```java
+     */
+    @Deprecated
+    public static String hmacSha384Hex(final byte[] key, final byte[] valueToDigest) {
+        return new HmacUtils(HmacAlgorithms.HMAC_SHA_384, key).hmacHex(valueToDigest);
     }
 ```
 
@@ -538,26 +850,62 @@ in `src/main/java/org/apache/commons/codec/digest/HmacUtils.java`
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'hmacSha384' is still used
+Deprecated member 'hmacSha384Hex' is still used
 in `src/main/java/org/apache/commons/codec/digest/HmacUtils.java`
 #### Snippet
 ```java
      */
     @Deprecated
-    public static byte[] hmacSha384(final byte[] key, final InputStream valueToDigest) throws IOException {
-        return new HmacUtils(HmacAlgorithms.HMAC_SHA_384, key).hmac(valueToDigest);
+    public static String hmacSha384Hex(final byte[] key, final InputStream valueToDigest) throws IOException {
+        return new HmacUtils(HmacAlgorithms.HMAC_SHA_384, key).hmacHex(valueToDigest);
     }
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'hmacSha1Hex' is still used
+Deprecated member 'getHmacSha1' is still used
 in `src/main/java/org/apache/commons/codec/digest/HmacUtils.java`
 #### Snippet
 ```java
      */
     @Deprecated
-    public static String hmacSha1Hex(final byte[] key, final InputStream valueToDigest) throws IOException {
-        return new HmacUtils(HmacAlgorithms.HMAC_SHA_1, key).hmacHex(valueToDigest);
+    public static Mac getHmacSha1(final byte[] key) {
+        return getInitializedMac(HmacAlgorithms.HMAC_SHA_1, key);
+    }
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'hmacMd5' is still used
+in `src/main/java/org/apache/commons/codec/digest/HmacUtils.java`
+#### Snippet
+```java
+     */
+    @Deprecated
+    public static byte[] hmacMd5(final String key, final String valueToDigest) {
+        return new HmacUtils(HmacAlgorithms.HMAC_MD5, key).hmac(valueToDigest);
+    }
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'hmacSha1' is still used
+in `src/main/java/org/apache/commons/codec/digest/HmacUtils.java`
+#### Snippet
+```java
+     */
+    @Deprecated
+    public static byte[] hmacSha1(final byte[] key, final InputStream valueToDigest) throws IOException {
+        return new HmacUtils(HmacAlgorithms.HMAC_SHA_1, key).hmac(valueToDigest);
+    }
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'hmacMd5' is still used
+in `src/main/java/org/apache/commons/codec/digest/HmacUtils.java`
+#### Snippet
+```java
+     */
+    @Deprecated
+    public static byte[] hmacMd5(final byte[] key, final InputStream valueToDigest) throws IOException {
+        return new HmacUtils(HmacAlgorithms.HMAC_MD5, key).hmac(valueToDigest);
     }
 ```
 
@@ -598,98 +946,14 @@ in `src/main/java/org/apache/commons/codec/digest/HmacUtils.java`
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'hmacMd5' is still used
-in `src/main/java/org/apache/commons/codec/digest/HmacUtils.java`
-#### Snippet
-```java
-     */
-    @Deprecated
-    public static byte[] hmacMd5(final String key, final String valueToDigest) {
-        return new HmacUtils(HmacAlgorithms.HMAC_MD5, key).hmac(valueToDigest);
-    }
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'hmacSha256Hex' is still used
-in `src/main/java/org/apache/commons/codec/digest/HmacUtils.java`
-#### Snippet
-```java
-     */
-    @Deprecated
-    public static String hmacSha256Hex(final byte[] key, final InputStream valueToDigest) throws IOException {
-        return new HmacUtils(HmacAlgorithms.HMAC_SHA_256, key).hmacHex(valueToDigest);
-    }
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'hmacSha256Hex' is still used
-in `src/main/java/org/apache/commons/codec/digest/HmacUtils.java`
-#### Snippet
-```java
-     */
-    @Deprecated
-    public static String hmacSha256Hex(final String key, final String valueToDigest) {
-        return new HmacUtils(HmacAlgorithms.HMAC_SHA_256, key).hmacHex(valueToDigest);
-    }
-```
-
-### DeprecatedIsStillUsed
 Deprecated member 'hmacSha256' is still used
 in `src/main/java/org/apache/commons/codec/digest/HmacUtils.java`
 #### Snippet
 ```java
      */
     @Deprecated
-    public static byte[] hmacSha256(final byte[] key, final InputStream valueToDigest) throws IOException {
+    public static byte[] hmacSha256(final byte[] key, final byte[] valueToDigest) {
         return new HmacUtils(HmacAlgorithms.HMAC_SHA_256, key).hmac(valueToDigest);
-    }
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'hmacSha384' is still used
-in `src/main/java/org/apache/commons/codec/digest/HmacUtils.java`
-#### Snippet
-```java
-     */
-    @Deprecated
-    public static byte[] hmacSha384(final String key, final String valueToDigest) {
-        return new HmacUtils(HmacAlgorithms.HMAC_SHA_384, key).hmac(valueToDigest);
-    }
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'hmacMd5Hex' is still used
-in `src/main/java/org/apache/commons/codec/digest/HmacUtils.java`
-#### Snippet
-```java
-     */
-    @Deprecated
-    public static String hmacMd5Hex(final byte[] key, final byte[] valueToDigest) {
-        return new HmacUtils(HmacAlgorithms.HMAC_MD5, key).hmacHex(valueToDigest);
-    }
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'hmacSha512Hex' is still used
-in `src/main/java/org/apache/commons/codec/digest/HmacUtils.java`
-#### Snippet
-```java
-     */
-    @Deprecated
-    public static String hmacSha512Hex(final String key, final String valueToDigest) {
-        return new HmacUtils(HmacAlgorithms.HMAC_SHA_512, key).hmacHex(valueToDigest);
-    }
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'hmacSha512Hex' is still used
-in `src/main/java/org/apache/commons/codec/digest/HmacUtils.java`
-#### Snippet
-```java
-     */
-    @Deprecated
-    public static String hmacSha512Hex(final byte[] key, final byte[] valueToDigest) {
-        return new HmacUtils(HmacAlgorithms.HMAC_SHA_512, key).hmacHex(valueToDigest);
     }
 ```
 
@@ -706,330 +970,54 @@ in `src/main/java/org/apache/commons/codec/digest/HmacUtils.java`
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'getHmacSha512' is still used
-in `src/main/java/org/apache/commons/codec/digest/HmacUtils.java`
-#### Snippet
-```java
-     */
-    @Deprecated
-    public static Mac getHmacSha512(final byte[] key) {
-        return getInitializedMac(HmacAlgorithms.HMAC_SHA_512, key);
-    }
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'hmacSha384Hex' is still used
-in `src/main/java/org/apache/commons/codec/digest/HmacUtils.java`
-#### Snippet
-```java
-     */
-    @Deprecated
-    public static String hmacSha384Hex(final byte[] key, final InputStream valueToDigest) throws IOException {
-        return new HmacUtils(HmacAlgorithms.HMAC_SHA_384, key).hmacHex(valueToDigest);
-    }
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'hmacSha512' is still used
-in `src/main/java/org/apache/commons/codec/digest/HmacUtils.java`
-#### Snippet
-```java
-     */
-    @Deprecated
-    public static byte[] hmacSha512(final String key, final String valueToDigest) {
-        return new HmacUtils(HmacAlgorithms.HMAC_SHA_512, key).hmac(valueToDigest);
-    }
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'hmacSha512' is still used
-in `src/main/java/org/apache/commons/codec/digest/HmacUtils.java`
-#### Snippet
-```java
-     */
-    @Deprecated
-    public static byte[] hmacSha512(final byte[] key, final byte[] valueToDigest) {
-        return new HmacUtils(HmacAlgorithms.HMAC_SHA_512, key).hmac(valueToDigest);
-    }
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'hmacSha1' is still used
-in `src/main/java/org/apache/commons/codec/digest/HmacUtils.java`
-#### Snippet
-```java
-     */
-    @Deprecated
-    public static byte[] hmacSha1(final byte[] key, final InputStream valueToDigest) throws IOException {
-        return new HmacUtils(HmacAlgorithms.HMAC_SHA_1, key).hmac(valueToDigest);
-    }
-```
-
-### DeprecatedIsStillUsed
 Deprecated member 'hmacSha512Hex' is still used
 in `src/main/java/org/apache/commons/codec/digest/HmacUtils.java`
 #### Snippet
 ```java
      */
     @Deprecated
-    public static String hmacSha512Hex(final byte[] key, final InputStream valueToDigest) throws IOException {
+    public static String hmacSha512Hex(final byte[] key, final byte[] valueToDigest) {
         return new HmacUtils(HmacAlgorithms.HMAC_SHA_512, key).hmacHex(valueToDigest);
     }
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'hmacSha384Hex' is still used
+Deprecated member 'hmacSha256Hex' is still used
 in `src/main/java/org/apache/commons/codec/digest/HmacUtils.java`
 #### Snippet
 ```java
      */
     @Deprecated
-    public static String hmacSha384Hex(final byte[] key, final byte[] valueToDigest) {
-        return new HmacUtils(HmacAlgorithms.HMAC_SHA_384, key).hmacHex(valueToDigest);
+    public static String hmacSha256Hex(final byte[] key, final InputStream valueToDigest) throws IOException {
+        return new HmacUtils(HmacAlgorithms.HMAC_SHA_256, key).hmacHex(valueToDigest);
     }
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'getHmacSha384' is still used
+Deprecated member 'getHmacSha256' is still used
 in `src/main/java/org/apache/commons/codec/digest/HmacUtils.java`
 #### Snippet
 ```java
      */
     @Deprecated
-    public static Mac getHmacSha384(final byte[] key) {
-        return getInitializedMac(HmacAlgorithms.HMAC_SHA_384, key);
+    public static Mac getHmacSha256(final byte[] key) {
+        return getInitializedMac(HmacAlgorithms.HMAC_SHA_256, key);
     }
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'shaHex' is still used
-in `src/main/java/org/apache/commons/codec/digest/DigestUtils.java`
+Deprecated member 'hmacSha1Hex' is still used
+in `src/main/java/org/apache/commons/codec/digest/HmacUtils.java`
 #### Snippet
 ```java
      */
     @Deprecated
-    public static String shaHex(final String data) {
-        return sha1Hex(data);
+    public static String hmacSha1Hex(final byte[] key, final InputStream valueToDigest) throws IOException {
+        return new HmacUtils(HmacAlgorithms.HMAC_SHA_1, key).hmacHex(valueToDigest);
     }
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'shaHex' is still used
-in `src/main/java/org/apache/commons/codec/digest/DigestUtils.java`
-#### Snippet
-```java
-     */
-    @Deprecated
-    public static String shaHex(final byte[] data) {
-        return sha1Hex(data);
-    }
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'shaHex' is still used
-in `src/main/java/org/apache/commons/codec/digest/DigestUtils.java`
-#### Snippet
-```java
-     */
-    @Deprecated
-    public static String shaHex(final InputStream data) throws IOException {
-        return sha1Hex(data);
-    }
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'getShaDigest' is still used
-in `src/main/java/org/apache/commons/codec/digest/DigestUtils.java`
-#### Snippet
-```java
-     */
-    @Deprecated
-    public static MessageDigest getShaDigest() {
-        return getSha1Digest();
-    }
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'hash128' is still used
-in `src/main/java/org/apache/commons/codec/digest/MurmurHash3.java`
-#### Snippet
-```java
-     */
-    @Deprecated
-    public static long[] hash128(final byte[] data, final int offset, final int length, final int seed) {
-        // ************
-        // Note: This deliberately fails to apply masking using 0xffffffffL to the seed
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'hash128' is still used
-in `src/main/java/org/apache/commons/codec/digest/MurmurHash3.java`
-#### Snippet
-```java
-     */
-    @Deprecated
-    public static long[] hash128(final String data) {
-        final byte[] bytes = StringUtils.getBytesUtf8(data);
-        return hash128(bytes, 0, bytes.length, DEFAULT_SEED);
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'hash32' is still used
-in `src/main/java/org/apache/commons/codec/digest/MurmurHash3.java`
-#### Snippet
-```java
-     */
-    @Deprecated
-    public static int hash32(final byte[] data, final int length, final int seed) {
-        return hash32(data, 0, length, seed);
-    }
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'hash64' is still used
-in `src/main/java/org/apache/commons/codec/digest/MurmurHash3.java`
-#### Snippet
-```java
-     */
-    @Deprecated
-    public static long hash64(final byte[] data) {
-        return hash64(data, 0, data.length, DEFAULT_SEED);
-    }
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'hash64' is still used
-in `src/main/java/org/apache/commons/codec/digest/MurmurHash3.java`
-#### Snippet
-```java
-     */
-    @Deprecated
-    public static long hash64(final long data) {
-        long hash = DEFAULT_SEED;
-        long k = Long.reverseBytes(data);
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'hash64' is still used
-in `src/main/java/org/apache/commons/codec/digest/MurmurHash3.java`
-#### Snippet
-```java
-     */
-    @Deprecated
-    public static long hash64(final int data) {
-        long k1 = Integer.reverseBytes(data) & (-1L >>> 32);
-        long hash = DEFAULT_SEED;
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'hash32' is still used
-in `src/main/java/org/apache/commons/codec/digest/MurmurHash3.java`
-#### Snippet
-```java
-     */
-    @Deprecated
-    public static int hash32(final byte[] data, final int length) {
-        return hash32(data, length, DEFAULT_SEED);
-    }
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'hash32' is still used
-in `src/main/java/org/apache/commons/codec/digest/MurmurHash3.java`
-#### Snippet
-```java
-     */
-    @Deprecated
-    public static int hash32(final String data) {
-        final byte[] bytes = StringUtils.getBytesUtf8(data);
-        return hash32(bytes, 0, bytes.length, DEFAULT_SEED);
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'IncrementalHash32' is still used
-in `src/main/java/org/apache/commons/codec/digest/MurmurHash3.java`
-#### Snippet
-```java
-     */
-    @Deprecated
-    public static class IncrementalHash32 extends IncrementalHash32x86 {
-
-        /**
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'hash64' is still used
-in `src/main/java/org/apache/commons/codec/digest/MurmurHash3.java`
-#### Snippet
-```java
-     */
-    @Deprecated
-    public static long hash64(final byte[] data, final int offset, final int length, final int seed) {
-        // ************
-        // Note: This fails to apply masking using 0xffffffffL to the seed.
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'hash64' is still used
-in `src/main/java/org/apache/commons/codec/digest/MurmurHash3.java`
-#### Snippet
-```java
-     */
-    @Deprecated
-    public static long hash64(final byte[] data, final int offset, final int length) {
-        return hash64(data, offset, length, DEFAULT_SEED);
-    }
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'hash32' is still used
-in `src/main/java/org/apache/commons/codec/digest/MurmurHash3.java`
-#### Snippet
-```java
-     */
-    @Deprecated
-    public static int hash32(final byte[] data, final int offset, final int length, final int seed) {
-        int hash = seed;
-        final int nblocks = length >> 2;
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'hash32' is still used
-in `src/main/java/org/apache/commons/codec/digest/MurmurHash3.java`
-#### Snippet
-```java
-     */
-    @Deprecated
-    public static int hash32(final byte[] data) {
-        return hash32(data, 0, data.length, DEFAULT_SEED);
-    }
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'hash64' is still used
-in `src/main/java/org/apache/commons/codec/digest/MurmurHash3.java`
-#### Snippet
-```java
-     */
-    @Deprecated
-    public static long hash64(final short data) {
-        long hash = DEFAULT_SEED;
-        long k1 = 0;
 ```
 
 ## RuleId[ruleID=Convert2MethodRef]
-### Convert2MethodRef
-Lambda can be replaced with method reference
-in `src/main/java/org/apache/commons/codec/language/bm/Rule.java`
-#### Snippet
-```java
-        final Map<String, List<Rule>> ruleMap = getInstanceMap(nameType, rt, langs);
-        final List<Rule> allRules = new ArrayList<>();
-        ruleMap.values().forEach(rules -> allRules.addAll(rules));
-        return allRules;
-    }
-```
-
 ### Convert2MethodRef
 Lambda can be replaced with method reference
 in `src/main/java/org/apache/commons/codec/language/bm/Languages.java`
@@ -1042,53 +1030,65 @@ in `src/main/java/org/apache/commons/codec/language/bm/Languages.java`
 
 ```
 
+### Convert2MethodRef
+Lambda can be replaced with method reference
+in `src/main/java/org/apache/commons/codec/language/bm/Rule.java`
+#### Snippet
+```java
+        final Map<String, List<Rule>> ruleMap = getInstanceMap(nameType, rt, langs);
+        final List<Rule> allRules = new ArrayList<>();
+        ruleMap.values().forEach(rules -> allRules.addAll(rules));
+        return allRules;
+    }
+```
+
 ## RuleId[ruleID=RegExpRedundantEscape]
 ### RegExpRedundantEscape
 Redundant character escape `\\.` in RegExp
-in `src/main/java/org/apache/commons/codec/digest/Md5Crypt.java`
+in `src/main/java/org/apache/commons/codec/digest/Sha2Crypt.java`
 #### Snippet
 ```java
-            saltString = B64.getRandomSalt(8, random);
-        } else {
-            final Pattern p = Pattern.compile("^" + prefix.replace("$", "\\$") + "([\\.\\/a-zA-Z0-9]{1,8}).*");
-            final Matcher m = p.matcher(salt);
-            if (!m.find()) {
+    /** The pattern to match valid salt values. */
+    private static final Pattern SALT_PATTERN = Pattern
+            .compile("^\\$([56])\\$(rounds=(\\d+)\\$)?([\\.\\/a-zA-Z0-9]{1,16}).*");
+
+    /**
 ```
 
 ### RegExpRedundantEscape
 Redundant character escape `\\/` in RegExp
-in `src/main/java/org/apache/commons/codec/digest/Md5Crypt.java`
+in `src/main/java/org/apache/commons/codec/digest/Sha2Crypt.java`
 #### Snippet
 ```java
-            saltString = B64.getRandomSalt(8, random);
-        } else {
-            final Pattern p = Pattern.compile("^" + prefix.replace("$", "\\$") + "([\\.\\/a-zA-Z0-9]{1,8}).*");
-            final Matcher m = p.matcher(salt);
-            if (!m.find()) {
+    /** The pattern to match valid salt values. */
+    private static final Pattern SALT_PATTERN = Pattern
+            .compile("^\\$([56])\\$(rounds=(\\d+)\\$)?([\\.\\/a-zA-Z0-9]{1,16}).*");
+
+    /**
 ```
 
 ### RegExpRedundantEscape
 Redundant character escape `\\.` in RegExp
-in `src/main/java/org/apache/commons/codec/digest/Sha2Crypt.java`
+in `src/main/java/org/apache/commons/codec/digest/Md5Crypt.java`
 #### Snippet
 ```java
-    /** The pattern to match valid salt values. */
-    private static final Pattern SALT_PATTERN = Pattern
-            .compile("^\\$([56])\\$(rounds=(\\d+)\\$)?([\\.\\/a-zA-Z0-9]{1,16}).*");
-
-    /**
+            saltString = B64.getRandomSalt(8, random);
+        } else {
+            final Pattern p = Pattern.compile("^" + prefix.replace("$", "\\$") + "([\\.\\/a-zA-Z0-9]{1,8}).*");
+            final Matcher m = p.matcher(salt);
+            if (!m.find()) {
 ```
 
 ### RegExpRedundantEscape
 Redundant character escape `\\/` in RegExp
-in `src/main/java/org/apache/commons/codec/digest/Sha2Crypt.java`
+in `src/main/java/org/apache/commons/codec/digest/Md5Crypt.java`
 #### Snippet
 ```java
-    /** The pattern to match valid salt values. */
-    private static final Pattern SALT_PATTERN = Pattern
-            .compile("^\\$([56])\\$(rounds=(\\d+)\\$)?([\\.\\/a-zA-Z0-9]{1,16}).*");
-
-    /**
+            saltString = B64.getRandomSalt(8, random);
+        } else {
+            final Pattern p = Pattern.compile("^" + prefix.replace("$", "\\$") + "([\\.\\/a-zA-Z0-9]{1,8}).*");
+            final Matcher m = p.matcher(salt);
+            if (!m.find()) {
 ```
 
 ## RuleId[ruleID=FinalPrivateMethod]
@@ -1132,18 +1132,6 @@ in `src/main/java/org/apache/commons/codec/language/DaitchMokotoffSoundex.java`
 
 ## RuleId[ruleID=StringBufferReplaceableByString]
 ### StringBufferReplaceableByString
-`StringBuilder sb` can be replaced with 'String'
-in `src/main/java/org/apache/commons/codec/language/bm/Rule.java`
-#### Snippet
-```java
-                            @Override
-                            public String toString() {
-                                final StringBuilder sb = new StringBuilder();
-                                sb.append("Rule");
-                                sb.append("{line=").append(myLine);
-```
-
-### StringBufferReplaceableByString
 `StringBuilder buffer` can be replaced with 'String'
 in `src/main/java/org/apache/commons/codec/net/RFC1522Codec.java`
 #### Snippet
@@ -1153,6 +1141,18 @@ in `src/main/java/org/apache/commons/codec/net/RFC1522Codec.java`
         final StringBuilder buffer = new StringBuilder();
         buffer.append(PREFIX);
         buffer.append(charset);
+```
+
+### StringBufferReplaceableByString
+`StringBuilder sb` can be replaced with 'String'
+in `src/main/java/org/apache/commons/codec/language/bm/Rule.java`
+#### Snippet
+```java
+                            @Override
+                            public String toString() {
+                                final StringBuilder sb = new StringBuilder();
+                                sb.append("Rule");
+                                sb.append("{line=").append(myLine);
 ```
 
 ## RuleId[ruleID=UnnecessaryToStringCall]
@@ -1171,30 +1171,6 @@ in `src/main/java/org/apache/commons/codec/language/DaitchMokotoffSoundex.java`
 ## RuleId[ruleID=FinalStaticMethod]
 ### FinalStaticMethod
 'static' method declared `final`
-in `src/main/java/org/apache/commons/codec/net/URLCodec.java`
-#### Snippet
-```java
-     * @return array of bytes containing URL safe characters
-     */
-    public static final byte[] encodeUrl(BitSet urlsafe, final byte[] bytes) {
-        if (bytes == null) {
-            return null;
-```
-
-### FinalStaticMethod
-'static' method declared `final`
-in `src/main/java/org/apache/commons/codec/net/URLCodec.java`
-#### Snippet
-```java
-     *             Thrown if URL decoding is unsuccessful
-     */
-    public static final byte[] decodeUrl(final byte[] bytes) throws DecoderException {
-        if (bytes == null) {
-            return null;
-```
-
-### FinalStaticMethod
-'static' method declared `final`
 in `src/main/java/org/apache/commons/codec/net/QuotedPrintableCodec.java`
 #### Snippet
 ```java
@@ -1203,18 +1179,6 @@ in `src/main/java/org/apache/commons/codec/net/QuotedPrintableCodec.java`
     public static final byte[] decodeQuotedPrintable(final byte[] bytes) throws DecoderException {
         if (bytes == null) {
             return null;
-```
-
-### FinalStaticMethod
-'static' method declared `final`
-in `src/main/java/org/apache/commons/codec/net/QuotedPrintableCodec.java`
-#### Snippet
-```java
-     * @return The number of bytes written to the {@code buffer}
-     */
-    private static final int encodeQuotedPrintable(final int b, final ByteArrayOutputStream buffer) {
-        buffer.write(ESCAPE_CHAR);
-        final char hex1 = Utils.hexDigit(b >> 4);
 ```
 
 ### FinalStaticMethod
@@ -1241,7 +1205,91 @@ in `src/main/java/org/apache/commons/codec/net/QuotedPrintableCodec.java`
     }
 ```
 
+### FinalStaticMethod
+'static' method declared `final`
+in `src/main/java/org/apache/commons/codec/net/QuotedPrintableCodec.java`
+#### Snippet
+```java
+     * @return The number of bytes written to the {@code buffer}
+     */
+    private static final int encodeQuotedPrintable(final int b, final ByteArrayOutputStream buffer) {
+        buffer.write(ESCAPE_CHAR);
+        final char hex1 = Utils.hexDigit(b >> 4);
+```
+
+### FinalStaticMethod
+'static' method declared `final`
+in `src/main/java/org/apache/commons/codec/net/URLCodec.java`
+#### Snippet
+```java
+     *             Thrown if URL decoding is unsuccessful
+     */
+    public static final byte[] decodeUrl(final byte[] bytes) throws DecoderException {
+        if (bytes == null) {
+            return null;
+```
+
+### FinalStaticMethod
+'static' method declared `final`
+in `src/main/java/org/apache/commons/codec/net/URLCodec.java`
+#### Snippet
+```java
+     * @return array of bytes containing URL safe characters
+     */
+    public static final byte[] encodeUrl(BitSet urlsafe, final byte[] bytes) {
+        if (bytes == null) {
+            return null;
+```
+
 ## RuleId[ruleID=AssignmentToForLoopParameter]
+### AssignmentToForLoopParameter
+Assignment to for-loop parameter `i`
+in `src/main/java/org/apache/commons/codec/net/QuotedPrintableCodec.java`
+#### Snippet
+```java
+                try {
+                    // if the next octet is a CR we have found a soft line break
+                    if (bytes[++i] == CR) {
+                        continue;
+                    }
+```
+
+### AssignmentToForLoopParameter
+Assignment to for-loop parameter `i`
+in `src/main/java/org/apache/commons/codec/net/QuotedPrintableCodec.java`
+#### Snippet
+```java
+                    }
+                    final int u = Utils.digit16(bytes[i]);
+                    final int l = Utils.digit16(bytes[++i]);
+                    buffer.write((char) ((u << 4) + l));
+                } catch (final ArrayIndexOutOfBoundsException e) {
+```
+
+### AssignmentToForLoopParameter
+Assignment to for-loop parameter `i`
+in `src/main/java/org/apache/commons/codec/net/URLCodec.java`
+#### Snippet
+```java
+            } else if (b == ESCAPE_CHAR) {
+                try {
+                    final int u = Utils.digit16(bytes[++i]);
+                    final int l = Utils.digit16(bytes[++i]);
+                    buffer.write((char) ((u << 4) + l));
+```
+
+### AssignmentToForLoopParameter
+Assignment to for-loop parameter `i`
+in `src/main/java/org/apache/commons/codec/net/URLCodec.java`
+#### Snippet
+```java
+                try {
+                    final int u = Utils.digit16(bytes[++i]);
+                    final int l = Utils.digit16(bytes[++i]);
+                    buffer.write((char) ((u << 4) + l));
+                } catch (final ArrayIndexOutOfBoundsException e) {
+```
+
 ### AssignmentToForLoopParameter
 Assignment to for-loop parameter `j`
 in `src/main/java/org/apache/commons/codec/binary/Hex.java`
@@ -1292,42 +1340,6 @@ in `src/main/java/org/apache/commons/codec/binary/Hex.java`
 
 ### AssignmentToForLoopParameter
 Assignment to for-loop parameter `i`
-in `src/main/java/org/apache/commons/codec/net/URLCodec.java`
-#### Snippet
-```java
-            } else if (b == ESCAPE_CHAR) {
-                try {
-                    final int u = Utils.digit16(bytes[++i]);
-                    final int l = Utils.digit16(bytes[++i]);
-                    buffer.write((char) ((u << 4) + l));
-```
-
-### AssignmentToForLoopParameter
-Assignment to for-loop parameter `i`
-in `src/main/java/org/apache/commons/codec/net/URLCodec.java`
-#### Snippet
-```java
-                try {
-                    final int u = Utils.digit16(bytes[++i]);
-                    final int l = Utils.digit16(bytes[++i]);
-                    buffer.write((char) ((u << 4) + l));
-                } catch (final ArrayIndexOutOfBoundsException e) {
-```
-
-### AssignmentToForLoopParameter
-Assignment to for-loop parameter `index`
-in `src/main/java/org/apache/commons/codec/language/DaitchMokotoffSoundex.java`
-#### Snippet
-```java
-                        currentBranches.addAll(nextBranches);
-                    }
-                    index += rule.getPatternLength() - 1;
-                    break;
-                }
-```
-
-### AssignmentToForLoopParameter
-Assignment to for-loop parameter `i`
 in `src/main/java/org/apache/commons/codec/net/PercentCodec.java`
 #### Snippet
 ```java
@@ -1351,27 +1363,15 @@ in `src/main/java/org/apache/commons/codec/net/PercentCodec.java`
 ```
 
 ### AssignmentToForLoopParameter
-Assignment to for-loop parameter `i`
-in `src/main/java/org/apache/commons/codec/net/QuotedPrintableCodec.java`
+Assignment to for-loop parameter `index`
+in `src/main/java/org/apache/commons/codec/language/DaitchMokotoffSoundex.java`
 #### Snippet
 ```java
-                try {
-                    // if the next octet is a CR we have found a soft line break
-                    if (bytes[++i] == CR) {
-                        continue;
+                        currentBranches.addAll(nextBranches);
                     }
-```
-
-### AssignmentToForLoopParameter
-Assignment to for-loop parameter `i`
-in `src/main/java/org/apache/commons/codec/net/QuotedPrintableCodec.java`
-#### Snippet
-```java
-                    }
-                    final int u = Utils.digit16(bytes[i]);
-                    final int l = Utils.digit16(bytes[++i]);
-                    buffer.write((char) ((u << 4) + l));
-                } catch (final ArrayIndexOutOfBoundsException e) {
+                    index += rule.getPatternLength() - 1;
+                    break;
+                }
 ```
 
 ## RuleId[ruleID=TrivialStringConcatenation]
@@ -1389,18 +1389,6 @@ in `src/main/java/org/apache/commons/codec/digest/UnixCrypt.java`
 
 ## RuleId[ruleID=InnerClassMayBeStatic]
 ### InnerClassMayBeStatic
-Inner class `CologneOutputBuffer` may be 'static'
-in `src/main/java/org/apache/commons/codec/language/ColognePhonetic.java`
-#### Snippet
-```java
-    }
-
-    private class CologneOutputBuffer extends CologneBuffer {
-
-        private char lastCode;
-```
-
-### InnerClassMayBeStatic
 Inner class `CologneInputBuffer` may be 'static'
 in `src/main/java/org/apache/commons/codec/language/ColognePhonetic.java`
 #### Snippet
@@ -1410,6 +1398,18 @@ in `src/main/java/org/apache/commons/codec/language/ColognePhonetic.java`
     private class CologneInputBuffer extends CologneBuffer {
 
         public CologneInputBuffer(final char[] data) {
+```
+
+### InnerClassMayBeStatic
+Inner class `CologneOutputBuffer` may be 'static'
+in `src/main/java/org/apache/commons/codec/language/ColognePhonetic.java`
+#### Snippet
+```java
+    }
+
+    private class CologneOutputBuffer extends CologneBuffer {
+
+        private char lastCode;
 ```
 
 ## RuleId[ruleID=BoundedWildcard]
@@ -2223,42 +2223,6 @@ in `src/main/java/org/apache/commons/codec/language/Caverphone2.java`
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/org/apache/commons/codec/language/MatchRatingApproachEncoder.java`
-#### Snippet
-```java
-
-        // Char arrays -> string & remove extraneous space
-        final String strA = new String(name1Char).replaceAll("\\s+", EMPTY);
-        final String strB = new String(name2Char).replaceAll("\\s+", EMPTY);
-
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/org/apache/commons/codec/language/MatchRatingApproachEncoder.java`
-#### Snippet
-```java
-        // Char arrays -> string & remove extraneous space
-        final String strA = new String(name1Char).replaceAll("\\s+", EMPTY);
-        final String strB = new String(name2Char).replaceAll("\\s+", EMPTY);
-
-        // Final bit - subtract the longest string from 6 and return this int value
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/org/apache/commons/codec/language/MatchRatingApproachEncoder.java`
-#### Snippet
-```java
-
-        upperName = removeAccents(upperName);
-        upperName = upperName.replaceAll("\\s+", EMPTY);
-
-        return upperName;
-```
-
-### DynamicRegexReplaceableByCompiledPattern
 `replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
 in `src/main/java/org/apache/commons/codec/language/MatchRatingApproachEncoder.java`
 #### Snippet
@@ -2328,6 +2292,42 @@ in `src/main/java/org/apache/commons/codec/language/MatchRatingApproachEncoder.j
         name = name.replaceAll("\\s{2,}\\b", SPACE);
 
         // return isVowel(firstLetter) ? (firstLetter + name) : name;
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `src/main/java/org/apache/commons/codec/language/MatchRatingApproachEncoder.java`
+#### Snippet
+```java
+
+        // Char arrays -> string & remove extraneous space
+        final String strA = new String(name1Char).replaceAll("\\s+", EMPTY);
+        final String strB = new String(name2Char).replaceAll("\\s+", EMPTY);
+
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `src/main/java/org/apache/commons/codec/language/MatchRatingApproachEncoder.java`
+#### Snippet
+```java
+        // Char arrays -> string & remove extraneous space
+        final String strA = new String(name1Char).replaceAll("\\s+", EMPTY);
+        final String strB = new String(name2Char).replaceAll("\\s+", EMPTY);
+
+        // Final bit - subtract the longest string from 6 and return this int value
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `src/main/java/org/apache/commons/codec/language/MatchRatingApproachEncoder.java`
+#### Snippet
+```java
+
+        upperName = removeAccents(upperName);
+        upperName = upperName.replaceAll("\\s+", EMPTY);
+
+        return upperName;
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
@@ -3015,27 +3015,15 @@ in `src/main/java/org/apache/commons/codec/language/DaitchMokotoffSoundex.java`
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/org/apache/commons/codec/digest/Md5Crypt.java`
-#### Snippet
-```java
-            saltString = B64.getRandomSalt(8, random);
-        } else {
-            final Pattern p = Pattern.compile("^" + prefix.replace("$", "\\$") + "([\\.\\/a-zA-Z0-9]{1,8}).*");
-            final Matcher m = p.matcher(salt);
-            if (!m.find()) {
-```
-
-### DynamicRegexReplaceableByCompiledPattern
 `split()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/org/apache/commons/codec/language/bm/Rule.java`
+in `src/main/java/org/apache/commons/codec/language/bm/PhoneticEngine.java`
 #### Snippet
 ```java
-                } else {
-                    // rule
-                    final String[] parts = line.split("\\s+");
-                    if (parts.length != 4) {
-                        throw new IllegalArgumentException("Malformed rule statement split into " + parts.length +
+        }
+
+        final List<String> words = Arrays.asList(input.split("\\s+"));
+        final List<String> words2 = new ArrayList<>();
+
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
@@ -3055,6 +3043,18 @@ in `src/main/java/org/apache/commons/codec/language/bm/Rule.java`
 in `src/main/java/org/apache/commons/codec/language/bm/Rule.java`
 #### Snippet
 ```java
+                } else {
+                    // rule
+                    final String[] parts = line.split("\\s+");
+                    if (parts.length != 4) {
+                        throw new IllegalArgumentException("Malformed rule statement split into " + parts.length +
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`split()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `src/main/java/org/apache/commons/codec/language/bm/Rule.java`
+#### Snippet
+```java
             final String before = ph.substring(0, open);
             final String in = ph.substring(open + 1, ph.length() - 1);
             final Set<String> langs = new HashSet<>(Arrays.asList(in.split("[+]")));
@@ -3063,40 +3063,28 @@ in `src/main/java/org/apache/commons/codec/language/bm/Rule.java`
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
-`split()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/org/apache/commons/codec/language/bm/PhoneticEngine.java`
+`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `src/main/java/org/apache/commons/codec/digest/Md5Crypt.java`
 #### Snippet
 ```java
-        }
-
-        final List<String> words = Arrays.asList(input.split("\\s+"));
-        final List<String> words2 = new ArrayList<>();
-
+            saltString = B64.getRandomSalt(8, random);
+        } else {
+            final Pattern p = Pattern.compile("^" + prefix.replace("$", "\\$") + "([\\.\\/a-zA-Z0-9]{1,8}).*");
+            final Matcher m = p.matcher(salt);
+            if (!m.find()) {
 ```
 
 ## RuleId[ruleID=UnnecessaryFullyQualifiedName]
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.commons.codec` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/codec/binary/BinaryCodec.java`
+Qualifier `java.util` is unnecessary, and can be replaced with an import
+in `src/main/java/org/apache/commons/codec/language/Caverphone2.java`
 #### Snippet
 ```java
-     *                  the raw binary data to convert
-     * @return an array of 0 and 1 character bytes for each bit of the argument
-     * @see org.apache.commons.codec.BinaryEncoder#encode(byte[])
-     */
-    public static byte[] toAsciiBytes(final byte[] raw) {
-```
 
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.commons.codec` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/codec/binary/BinaryCodec.java`
-#### Snippet
-```java
-     *                  the raw binary data to convert
-     * @return an array of 0 and 1 characters for each bit of the argument
-     * @see org.apache.commons.codec.BinaryEncoder#encode(byte[])
-     */
-    public static char[] toAsciiChars(final byte[] raw) {
+        // 1. Convert to lowercase
+        txt = txt.toLowerCase(java.util.Locale.ENGLISH);
+
+        // 2. Remove anything not A-Z
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -3117,6 +3105,18 @@ in `src/main/java/org/apache/commons/codec/binary/BinaryCodec.java`
 #### Snippet
 ```java
      *                  the raw binary data to convert
+     * @return an array of 0 and 1 characters for each bit of the argument
+     * @see org.apache.commons.codec.BinaryEncoder#encode(byte[])
+     */
+    public static char[] toAsciiChars(final byte[] raw) {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.commons.codec` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/codec/binary/BinaryCodec.java`
+#### Snippet
+```java
+     *                  the raw binary data to convert
      * @return 0 and 1 ASCII character bytes one for each bit of the argument
      * @see org.apache.commons.codec.BinaryEncoder#encode(byte[])
      */
@@ -3124,63 +3124,15 @@ in `src/main/java/org/apache/commons/codec/binary/BinaryCodec.java`
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary, and can be replaced with an import
-in `src/main/java/org/apache/commons/codec/language/Caverphone2.java`
+Qualifier `org.apache.commons.codec` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/codec/binary/BinaryCodec.java`
 #### Snippet
 ```java
-
-        // 1. Convert to lowercase
-        txt = txt.toLowerCase(java.util.Locale.ENGLISH);
-
-        // 2. Remove anything not A-Z
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.commons.codec.binary` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/codec/binary/Base32.java`
-#### Snippet
-```java
-     * </p>
-     * <p>
-     * Output is written to {@link org.apache.commons.codec.binary.BaseNCodec.Context#buffer Context#buffer} as 8-bit
-     * octets, using {@link org.apache.commons.codec.binary.BaseNCodec.Context#pos Context#pos} as the buffer position
-     * </p>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.commons.codec.binary` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/codec/binary/Base32.java`
-#### Snippet
-```java
-     * <p>
-     * Output is written to {@link org.apache.commons.codec.binary.BaseNCodec.Context#buffer Context#buffer} as 8-bit
-     * octets, using {@link org.apache.commons.codec.binary.BaseNCodec.Context#pos Context#pos} as the buffer position
-     * </p>
-     *
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary, and can be replaced with an import
-in `src/main/java/org/apache/commons/codec/language/Metaphone.java`
-#### Snippet
-```java
-        // single character is itself
-        if (txtLength == 1) {
-            return txt.toUpperCase(java.util.Locale.ENGLISH);
-        }
-
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary, and can be replaced with an import
-in `src/main/java/org/apache/commons/codec/language/Metaphone.java`
-#### Snippet
-```java
-        }
-
-        final char[] inwd = txt.toUpperCase(java.util.Locale.ENGLISH).toCharArray();
-
-        final StringBuilder local = new StringBuilder(40); // manipulate
+     *                  the raw binary data to convert
+     * @return an array of 0 and 1 character bytes for each bit of the argument
+     * @see org.apache.commons.codec.BinaryEncoder#encode(byte[])
+     */
+    public static byte[] toAsciiBytes(final byte[] raw) {
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -3208,51 +3160,27 @@ in `src/main/java/org/apache/commons/codec/language/SoundexUtils.java`
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary, and can be replaced with an import
-in `src/main/java/org/apache/commons/codec/language/DoubleMetaphone.java`
-#### Snippet
-```java
-            return null;
-        }
-        return input.toUpperCase(java.util.Locale.ENGLISH);
-    }
-
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary, and can be replaced with an import
-in `src/main/java/org/apache/commons/codec/language/Caverphone1.java`
-#### Snippet
-```java
-
-        // 1. Convert to lowercase
-        txt = txt.toLowerCase(java.util.Locale.ENGLISH);
-
-        // 2. Remove anything not A-Z
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.nio.charset` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/codec/Charsets.java`
+Qualifier `org.apache.commons.codec.binary` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/codec/binary/Base32.java`
 #### Snippet
 ```java
      * </p>
-     *
-     * @deprecated Use {@link java.nio.charset.StandardCharsets#UTF_8} instead.
-     * @see <a href="http://docs.oracle.com/javase/6/docs/api/java/nio/charset/Charset.html">Standard charsets</a>
-     */
+     * <p>
+     * Output is written to {@link org.apache.commons.codec.binary.BaseNCodec.Context#buffer Context#buffer} as 8-bit
+     * octets, using {@link org.apache.commons.codec.binary.BaseNCodec.Context#pos Context#pos} as the buffer position
+     * </p>
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `java.nio.charset` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/codec/Charsets.java`
+Qualifier `org.apache.commons.codec.binary` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/codec/binary/Base32.java`
 #### Snippet
 ```java
+     * <p>
+     * Output is written to {@link org.apache.commons.codec.binary.BaseNCodec.Context#buffer Context#buffer} as 8-bit
+     * octets, using {@link org.apache.commons.codec.binary.BaseNCodec.Context#pos Context#pos} as the buffer position
      * </p>
      *
-     * @deprecated Use {@link java.nio.charset.StandardCharsets#UTF_16BE} instead.
-     * @see <a href="http://docs.oracle.com/javase/6/docs/api/java/nio/charset/Charset.html">Standard charsets</a>
-     */
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -3263,18 +3191,6 @@ in `src/main/java/org/apache/commons/codec/Charsets.java`
      * </p>
      *
      * @deprecated Use {@link java.nio.charset.StandardCharsets#UTF_16LE} instead.
-     * @see <a href="http://docs.oracle.com/javase/6/docs/api/java/nio/charset/Charset.html">Standard charsets</a>
-     */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.nio.charset` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/codec/Charsets.java`
-#### Snippet
-```java
-     * </p>
-     *
-     * @deprecated Use {@link java.nio.charset.StandardCharsets#ISO_8859_1} instead.
      * @see <a href="http://docs.oracle.com/javase/6/docs/api/java/nio/charset/Charset.html">Standard charsets</a>
      */
 ```
@@ -3305,74 +3221,86 @@ in `src/main/java/org/apache/commons/codec/Charsets.java`
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `java.nio.charset` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/codec/binary/StringUtils.java`
+in `src/main/java/org/apache/commons/codec/Charsets.java`
 #### Snippet
 ```java
-     *            The bytes to be decoded into characters, may be {@code null}
-     * @param charsetName
-     *            The name of a required {@link java.nio.charset.Charset}
-     * @return A new {@code String} decoded from the specified array of bytes using the given charset,
-     *         or {@code null} if the input byte array was {@code null}.
+     * </p>
+     *
+     * @deprecated Use {@link java.nio.charset.StandardCharsets#ISO_8859_1} instead.
+     * @see <a href="http://docs.oracle.com/javase/6/docs/api/java/nio/charset/Charset.html">Standard charsets</a>
+     */
 ```
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `java.nio.charset` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/codec/binary/StringUtils.java`
+in `src/main/java/org/apache/commons/codec/Charsets.java`
 #### Snippet
 ```java
-     *            the String to encode, may be {@code null}
-     * @param charsetName
-     *            The name of a required {@link java.nio.charset.Charset}
-     * @return encoded bytes, or {@code null} if the input string was {@code null}
-     * @throws IllegalStateException
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.crypto` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/codec/digest/HmacUtils.java`
-#### Snippet
-```java
-
-/**
- * Simplifies common {@link javax.crypto.Mac} tasks. This class is immutable and thread-safe.
- * However the Mac may not be.
- * <p>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.security` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/codec/digest/Sha2Crypt.java`
-#### Snippet
-```java
-     *             if the salt does not match the allowed pattern
-     * @throws IllegalArgumentException
-     *             when a {@link java.security.NoSuchAlgorithmException} is caught.
+     * </p>
+     *
+     * @deprecated Use {@link java.nio.charset.StandardCharsets#UTF_16BE} instead.
+     * @see <a href="http://docs.oracle.com/javase/6/docs/api/java/nio/charset/Charset.html">Standard charsets</a>
      */
-    public static String sha512Crypt(final byte[] keyBytes, String salt) {
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `java.security` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/codec/digest/Sha2Crypt.java`
+Qualifier `java.nio.charset` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/codec/Charsets.java`
 #### Snippet
 ```java
-     * @return complete hash value
-     * @throws IllegalArgumentException
-     *             when a {@link java.security.NoSuchAlgorithmException} is caught.
+     * </p>
+     *
+     * @deprecated Use {@link java.nio.charset.StandardCharsets#UTF_8} instead.
+     * @see <a href="http://docs.oracle.com/javase/6/docs/api/java/nio/charset/Charset.html">Standard charsets</a>
      */
-    public static String sha256Crypt(final byte[] keyBytes) {
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `java.security` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/codec/digest/Sha2Crypt.java`
+Qualifier `java.util` is unnecessary, and can be replaced with an import
+in `src/main/java/org/apache/commons/codec/language/DoubleMetaphone.java`
 #### Snippet
 ```java
-     *             if the salt does not match the allowed pattern
-     * @throws IllegalArgumentException
-     *             when a {@link java.security.NoSuchAlgorithmException} is caught.
-     * @since 1.12
-     */
+            return null;
+        }
+        return input.toUpperCase(java.util.Locale.ENGLISH);
+    }
+
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.util` is unnecessary, and can be replaced with an import
+in `src/main/java/org/apache/commons/codec/language/Metaphone.java`
+#### Snippet
+```java
+        // single character is itself
+        if (txtLength == 1) {
+            return txt.toUpperCase(java.util.Locale.ENGLISH);
+        }
+
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.util` is unnecessary, and can be replaced with an import
+in `src/main/java/org/apache/commons/codec/language/Metaphone.java`
+#### Snippet
+```java
+        }
+
+        final char[] inwd = txt.toUpperCase(java.util.Locale.ENGLISH).toCharArray();
+
+        final StringBuilder local = new StringBuilder(40); // manipulate
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.util` is unnecessary, and can be replaced with an import
+in `src/main/java/org/apache/commons/codec/language/Caverphone1.java`
+#### Snippet
+```java
+
+        // 1. Convert to lowercase
+        txt = txt.toLowerCase(java.util.Locale.ENGLISH);
+
+        // 2. Remove anything not A-Z
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -3392,11 +3320,23 @@ Qualifier `java.security` is unnecessary and can be removed
 in `src/main/java/org/apache/commons/codec/digest/Sha2Crypt.java`
 #### Snippet
 ```java
-     * @return complete hash value
+     *             if the salt does not match the allowed pattern
+     * @throws IllegalArgumentException
+     *             when a {@link java.security.NoSuchAlgorithmException} is caught.
+     * @since 1.12
+     */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.security` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/codec/digest/Sha2Crypt.java`
+#### Snippet
+```java
+     *             if the salt does not match the allowed pattern
      * @throws IllegalArgumentException
      *             when a {@link java.security.NoSuchAlgorithmException} is caught.
      */
-    public static String sha512Crypt(final byte[] keyBytes) {
+    public static String sha512Crypt(final byte[] keyBytes, String salt) {
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -3413,6 +3353,54 @@ in `src/main/java/org/apache/commons/codec/digest/Sha2Crypt.java`
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `java.security` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/codec/digest/Sha2Crypt.java`
+#### Snippet
+```java
+     * @return complete hash value
+     * @throws IllegalArgumentException
+     *             when a {@link java.security.NoSuchAlgorithmException} is caught.
+     */
+    public static String sha512Crypt(final byte[] keyBytes) {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.security` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/codec/digest/Sha2Crypt.java`
+#### Snippet
+```java
+     * @return complete hash value
+     * @throws IllegalArgumentException
+     *             when a {@link java.security.NoSuchAlgorithmException} is caught.
+     */
+    public static String sha256Crypt(final byte[] keyBytes) {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.nio.charset` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/codec/binary/StringUtils.java`
+#### Snippet
+```java
+     *            the String to encode, may be {@code null}
+     * @param charsetName
+     *            The name of a required {@link java.nio.charset.Charset}
+     * @return encoded bytes, or {@code null} if the input string was {@code null}
+     * @throws IllegalStateException
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.nio.charset` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/codec/binary/StringUtils.java`
+#### Snippet
+```java
+     *            The bytes to be decoded into characters, may be {@code null}
+     * @param charsetName
+     *            The name of a required {@link java.nio.charset.Charset}
+     * @return A new {@code String} decoded from the specified array of bytes using the given charset,
+     *         or {@code null} if the input byte array was {@code null}.
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.security` is unnecessary and can be removed
 in `src/main/java/org/apache/commons/codec/digest/DigestUtils.java`
 #### Snippet
 ```java
@@ -3423,89 +3411,16 @@ in `src/main/java/org/apache/commons/codec/digest/DigestUtils.java`
  * However the MessageDigest instances it creates generally won't be.
 ```
 
-## RuleId[ruleID=NestedAssignment]
-### NestedAssignment
-Result of assignment expression used
-in `src/main/java/org/apache/commons/codec/binary/BaseNCodec.java`
-#### Snippet
-```java
-                // hasData(context) will still return false, and this method will return 0 until
-                // more data is available, or -1 if EOF.
-                context.pos = context.readPos = 0;
-            }
-            return len;
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `src/main/java/org/apache/commons/codec/language/Metaphone.java`
-#### Snippet
-```java
-        boolean hard = false;
-        final int txtLength;
-        if (txt == null || (txtLength = txt.length()) == 0) {
-            return "";
-        }
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `src/main/java/org/apache/commons/codec/digest/PureJavaCrc32C.java`
-#### Snippet
-```java
-    while(len > 7) {
-      final int c0 =(b[off+0] ^ localCrc) & 0xff;
-      final int c1 =(b[off+1] ^ (localCrc >>>= 8)) & 0xff;
-      final int c2 =(b[off+2] ^ (localCrc >>>= 8)) & 0xff;
-      final int c3 =(b[off+3] ^ (localCrc >>>= 8)) & 0xff;
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `src/main/java/org/apache/commons/codec/digest/PureJavaCrc32C.java`
-#### Snippet
-```java
-      final int c0 =(b[off+0] ^ localCrc) & 0xff;
-      final int c1 =(b[off+1] ^ (localCrc >>>= 8)) & 0xff;
-      final int c2 =(b[off+2] ^ (localCrc >>>= 8)) & 0xff;
-      final int c3 =(b[off+3] ^ (localCrc >>>= 8)) & 0xff;
-      localCrc = (T[T8_7_START + c0] ^ T[T8_6_START + c1]) ^
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `src/main/java/org/apache/commons/codec/digest/PureJavaCrc32C.java`
-#### Snippet
-```java
-      final int c1 =(b[off+1] ^ (localCrc >>>= 8)) & 0xff;
-      final int c2 =(b[off+2] ^ (localCrc >>>= 8)) & 0xff;
-      final int c3 =(b[off+3] ^ (localCrc >>>= 8)) & 0xff;
-      localCrc = (T[T8_7_START + c0] ^ T[T8_6_START + c1]) ^
-                 (T[T8_5_START + c2] ^ T[T8_4_START + c3]);
-```
-
-### NestedAssignment
-Result of assignment expression used
+### UnnecessaryFullyQualifiedName
+Qualifier `javax.crypto` is unnecessary and can be removed
 in `src/main/java/org/apache/commons/codec/digest/HmacUtils.java`
 #### Snippet
 ```java
-        int read;
 
-        while ((read = valueToDigest.read(buffer, 0, STREAM_BUFFER_LENGTH) ) > -1) {
-            mac.update(buffer, 0, read);
-        }
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `src/main/java/org/apache/commons/codec/digest/MurmurHash3.java`
-#### Snippet
-```java
-        public final void start(final int seed) {
-            // Reset
-            unprocessedLength = totalLen = 0;
-            this.hash = seed;
-        }
+/**
+ * Simplifies common {@link javax.crypto.Mac} tasks. This class is immutable and thread-safe.
+ * However the Mac may not be.
+ * <p>
 ```
 
 ## RuleId[ruleID=ReplaceAssignmentWithOperatorAssignment]
@@ -3606,6 +3521,18 @@ in `src/main/java/org/apache/commons/codec/language/DoubleMetaphone.java`
 ```
 
 ### ReplaceAssignmentWithOperatorAssignment
+`txt = txt + SIX_1` could be simplified to 'txt += SIX_1'
+in `src/main/java/org/apache/commons/codec/language/Caverphone1.java`
+#### Snippet
+```java
+
+        // 6. put six 1s on the end
+        txt = txt + SIX_1;
+
+        // 7. take the first six characters as the code
+```
+
+### ReplaceAssignmentWithOperatorAssignment
 `f = f | toDigit(data[j], j)` could be simplified to 'f \|= toDigit(data\[j\], j)'
 in `src/main/java/org/apache/commons/codec/binary/Hex.java`
 #### Snippet
@@ -3617,16 +3544,89 @@ in `src/main/java/org/apache/commons/codec/binary/Hex.java`
             out[i] = (byte) (f & 0xFF);
 ```
 
-### ReplaceAssignmentWithOperatorAssignment
-`txt = txt + SIX_1` could be simplified to 'txt += SIX_1'
-in `src/main/java/org/apache/commons/codec/language/Caverphone1.java`
+## RuleId[ruleID=NestedAssignment]
+### NestedAssignment
+Result of assignment expression used
+in `src/main/java/org/apache/commons/codec/binary/BaseNCodec.java`
 #### Snippet
 ```java
+                // hasData(context) will still return false, and this method will return 0 until
+                // more data is available, or -1 if EOF.
+                context.pos = context.readPos = 0;
+            }
+            return len;
+```
 
-        // 6. put six 1s on the end
-        txt = txt + SIX_1;
+### NestedAssignment
+Result of assignment expression used
+in `src/main/java/org/apache/commons/codec/digest/PureJavaCrc32C.java`
+#### Snippet
+```java
+    while(len > 7) {
+      final int c0 =(b[off+0] ^ localCrc) & 0xff;
+      final int c1 =(b[off+1] ^ (localCrc >>>= 8)) & 0xff;
+      final int c2 =(b[off+2] ^ (localCrc >>>= 8)) & 0xff;
+      final int c3 =(b[off+3] ^ (localCrc >>>= 8)) & 0xff;
+```
 
-        // 7. take the first six characters as the code
+### NestedAssignment
+Result of assignment expression used
+in `src/main/java/org/apache/commons/codec/digest/PureJavaCrc32C.java`
+#### Snippet
+```java
+      final int c0 =(b[off+0] ^ localCrc) & 0xff;
+      final int c1 =(b[off+1] ^ (localCrc >>>= 8)) & 0xff;
+      final int c2 =(b[off+2] ^ (localCrc >>>= 8)) & 0xff;
+      final int c3 =(b[off+3] ^ (localCrc >>>= 8)) & 0xff;
+      localCrc = (T[T8_7_START + c0] ^ T[T8_6_START + c1]) ^
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `src/main/java/org/apache/commons/codec/digest/PureJavaCrc32C.java`
+#### Snippet
+```java
+      final int c1 =(b[off+1] ^ (localCrc >>>= 8)) & 0xff;
+      final int c2 =(b[off+2] ^ (localCrc >>>= 8)) & 0xff;
+      final int c3 =(b[off+3] ^ (localCrc >>>= 8)) & 0xff;
+      localCrc = (T[T8_7_START + c0] ^ T[T8_6_START + c1]) ^
+                 (T[T8_5_START + c2] ^ T[T8_4_START + c3]);
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `src/main/java/org/apache/commons/codec/language/Metaphone.java`
+#### Snippet
+```java
+        boolean hard = false;
+        final int txtLength;
+        if (txt == null || (txtLength = txt.length()) == 0) {
+            return "";
+        }
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `src/main/java/org/apache/commons/codec/digest/MurmurHash3.java`
+#### Snippet
+```java
+        public final void start(final int seed) {
+            // Reset
+            unprocessedLength = totalLen = 0;
+            this.hash = seed;
+        }
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `src/main/java/org/apache/commons/codec/digest/HmacUtils.java`
+#### Snippet
+```java
+        int read;
+
+        while ((read = valueToDigest.read(buffer, 0, STREAM_BUFFER_LENGTH) ) > -1) {
+            mac.update(buffer, 0, read);
+        }
 ```
 
 ## RuleId[ruleID=NonProtectedConstructorInAbstractClass]
@@ -3656,18 +3656,6 @@ in `src/main/java/org/apache/commons/codec/language/ColognePhonetic.java`
 
 ## RuleId[ruleID=RedundantFieldInitialization]
 ### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `src/main/java/org/apache/commons/codec/net/QCodec.java`
-#### Snippet
-```java
-    private static final byte UNDERSCORE = 95;
-
-    private boolean encodeBlanks = false;
-
-    /**
-```
-
-### RedundantFieldInitialization
 Field initialization to `0` is redundant
 in `src/main/java/org/apache/commons/codec/language/ColognePhonetic.java`
 #### Snippet
@@ -3679,19 +3667,19 @@ in `src/main/java/org/apache/commons/codec/language/ColognePhonetic.java`
         public CologneBuffer(final char[] data) {
 ```
 
-## RuleId[ruleID=AssignmentToMethodParameter]
-### AssignmentToMethodParameter
-Assignment to method parameter `str`
-in `src/main/java/org/apache/commons/codec/language/Soundex.java`
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `src/main/java/org/apache/commons/codec/net/QCodec.java`
 #### Snippet
 ```java
-            return null;
-        }
-        str = SoundexUtils.clean(str);
-        if (str.isEmpty()) {
-            return str;
+    private static final byte UNDERSCORE = 95;
+
+    private boolean encodeBlanks = false;
+
+    /**
 ```
 
+## RuleId[ruleID=AssignmentToMethodParameter]
 ### AssignmentToMethodParameter
 Assignment to method parameter `str`
 in `src/main/java/org/apache/commons/codec/language/Nysiis.java`
@@ -3789,75 +3777,39 @@ in `src/main/java/org/apache/commons/codec/language/Nysiis.java`
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `name`
-in `src/main/java/org/apache/commons/codec/language/MatchRatingApproachEncoder.java`
+Assignment to method parameter `offset`
+in `src/main/java/org/apache/commons/codec/binary/Base16.java`
 #### Snippet
 ```java
-        final String firstLetter = name.substring(0, 1);
+            // we have 1/2 byte from previous invocation to decode
+            result = (context.ibitWorkArea - 1) << BITS_PER_ENCODED_BYTE;
+            result |= decodeOctet(data[offset++]);
 
-        name = name.replace("A", EMPTY);
-        name = name.replace("E", EMPTY);
-        name = name.replace("I", EMPTY);
+            buffer[context.pos++] = (byte)result;
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `name`
-in `src/main/java/org/apache/commons/codec/language/MatchRatingApproachEncoder.java`
+Assignment to method parameter `offset`
+in `src/main/java/org/apache/commons/codec/binary/Base16.java`
 #### Snippet
 ```java
-
-        name = name.replace("A", EMPTY);
-        name = name.replace("E", EMPTY);
-        name = name.replace("I", EMPTY);
-        name = name.replace("O", EMPTY);
+        final int loopEnd = end - 1;
+        while (offset < loopEnd) {
+            result = decodeOctet(data[offset++]) << BITS_PER_ENCODED_BYTE;
+            result |= decodeOctet(data[offset++]);
+            buffer[context.pos++] = (byte)result;
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `name`
-in `src/main/java/org/apache/commons/codec/language/MatchRatingApproachEncoder.java`
+Assignment to method parameter `offset`
+in `src/main/java/org/apache/commons/codec/binary/Base16.java`
 #### Snippet
 ```java
-        name = name.replace("A", EMPTY);
-        name = name.replace("E", EMPTY);
-        name = name.replace("I", EMPTY);
-        name = name.replace("O", EMPTY);
-        name = name.replace("U", EMPTY);
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `name`
-in `src/main/java/org/apache/commons/codec/language/MatchRatingApproachEncoder.java`
-#### Snippet
-```java
-        name = name.replace("E", EMPTY);
-        name = name.replace("I", EMPTY);
-        name = name.replace("O", EMPTY);
-        name = name.replace("U", EMPTY);
-
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `name`
-in `src/main/java/org/apache/commons/codec/language/MatchRatingApproachEncoder.java`
-#### Snippet
-```java
-        name = name.replace("I", EMPTY);
-        name = name.replace("O", EMPTY);
-        name = name.replace("U", EMPTY);
-
-        name = name.replaceAll("\\s{2,}\\b", SPACE);
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `name`
-in `src/main/java/org/apache/commons/codec/language/MatchRatingApproachEncoder.java`
-#### Snippet
-```java
-        name = name.replace("U", EMPTY);
-
-        name = name.replaceAll("\\s{2,}\\b", SPACE);
-
-        // return isVowel(firstLetter) ? (firstLetter + name) : name;
+        while (offset < loopEnd) {
+            result = decodeOctet(data[offset++]) << BITS_PER_ENCODED_BYTE;
+            result |= decodeOctet(data[offset++]);
+            buffer[context.pos++] = (byte)result;
+        }
 ```
 
 ### AssignmentToMethodParameter
@@ -3961,6 +3913,78 @@ Assignment to method parameter `name`
 in `src/main/java/org/apache/commons/codec/language/MatchRatingApproachEncoder.java`
 #### Snippet
 ```java
+        final String firstLetter = name.substring(0, 1);
+
+        name = name.replace("A", EMPTY);
+        name = name.replace("E", EMPTY);
+        name = name.replace("I", EMPTY);
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `name`
+in `src/main/java/org/apache/commons/codec/language/MatchRatingApproachEncoder.java`
+#### Snippet
+```java
+
+        name = name.replace("A", EMPTY);
+        name = name.replace("E", EMPTY);
+        name = name.replace("I", EMPTY);
+        name = name.replace("O", EMPTY);
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `name`
+in `src/main/java/org/apache/commons/codec/language/MatchRatingApproachEncoder.java`
+#### Snippet
+```java
+        name = name.replace("A", EMPTY);
+        name = name.replace("E", EMPTY);
+        name = name.replace("I", EMPTY);
+        name = name.replace("O", EMPTY);
+        name = name.replace("U", EMPTY);
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `name`
+in `src/main/java/org/apache/commons/codec/language/MatchRatingApproachEncoder.java`
+#### Snippet
+```java
+        name = name.replace("E", EMPTY);
+        name = name.replace("I", EMPTY);
+        name = name.replace("O", EMPTY);
+        name = name.replace("U", EMPTY);
+
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `name`
+in `src/main/java/org/apache/commons/codec/language/MatchRatingApproachEncoder.java`
+#### Snippet
+```java
+        name = name.replace("I", EMPTY);
+        name = name.replace("O", EMPTY);
+        name = name.replace("U", EMPTY);
+
+        name = name.replaceAll("\\s{2,}\\b", SPACE);
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `name`
+in `src/main/java/org/apache/commons/codec/language/MatchRatingApproachEncoder.java`
+#### Snippet
+```java
+        name = name.replace("U", EMPTY);
+
+        name = name.replaceAll("\\s{2,}\\b", SPACE);
+
+        // return isVowel(firstLetter) ? (firstLetter + name) : name;
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `name`
+in `src/main/java/org/apache/commons/codec/language/MatchRatingApproachEncoder.java`
+#### Snippet
+```java
 
         // Preprocessing
         name = cleanName(name);
@@ -4005,75 +4029,15 @@ in `src/main/java/org/apache/commons/codec/language/MatchRatingApproachEncoder.j
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `length`
-in `src/main/java/org/apache/commons/codec/digest/Blake3.java`
+Assignment to method parameter `inPos`
+in `src/main/java/org/apache/commons/codec/binary/Base32.java`
 #### Snippet
 ```java
-            while (length > 0) {
-                int chunkLength = Math.min(OUT_LEN * 2, length);
-                length -= chunkLength;
-                final int[] words =
-                        compress(inputChainingValue, blockWords, blockLength, outputBlockCounter++, flags | ROOT);
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `offset`
-in `src/main/java/org/apache/commons/codec/digest/Blake3.java`
-#### Snippet
-```java
-                    final int wordLength = Math.min(INT_BYTES, chunkLength);
-                    packInt(words[wordCounter++], out, offset, wordLength);
-                    offset += wordLength;
-                    chunkLength -= wordLength;
-                }
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `offset`
-in `src/main/java/org/apache/commons/codec/digest/Blake3.java`
-#### Snippet
-```java
-                final int take = Math.min(want, length);
-                state.update(in, offset, take);
-                offset += take;
-                length -= take;
-            }
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `length`
-in `src/main/java/org/apache/commons/codec/digest/Blake3.java`
-#### Snippet
-```java
-                state.update(in, offset, take);
-                offset += take;
-                length -= take;
-            }
-        }
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `offset`
-in `src/main/java/org/apache/commons/codec/digest/Blake3.java`
-#### Snippet
-```java
-                System.arraycopy(input, offset, block, blockLength, take);
-                blockLength += take;
-                offset += take;
-                length -= take;
-            }
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `length`
-in `src/main/java/org/apache/commons/codec/digest/Blake3.java`
-#### Snippet
-```java
-                blockLength += take;
-                offset += take;
-                length -= take;
-            }
-        }
+                final byte[] buffer = ensureBufferSize(encodeSize, context);
+                context.modulus = (context.modulus+1) % BYTES_PER_UNENCODED_BLOCK;
+                int b = input[inPos++];
+                if (b < 0) {
+                    b += 256;
 ```
 
 ### AssignmentToMethodParameter
@@ -4089,15 +4053,171 @@ in `src/main/java/org/apache/commons/codec/binary/Base32.java`
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `inPos`
-in `src/main/java/org/apache/commons/codec/binary/Base32.java`
+Assignment to method parameter `offset`
+in `src/main/java/org/apache/commons/codec/digest/UnixCrypt.java`
 #### Snippet
 ```java
-                final byte[] buffer = ensureBufferSize(encodeSize, context);
-                context.modulus = (context.modulus+1) % BYTES_PER_UNENCODED_BLOCK;
-                int b = input[inPos++];
-                if (b < 0) {
-                    b += 256;
+
+    private static void intToFourBytes(final int iValue, final byte[] b, int offset) {
+        b[offset++] = (byte) (iValue & 0xff);
+        b[offset++] = (byte) (iValue >>> 8 & 0xff);
+        b[offset++] = (byte) (iValue >>> 16 & 0xff);
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `offset`
+in `src/main/java/org/apache/commons/codec/digest/UnixCrypt.java`
+#### Snippet
+```java
+    private static void intToFourBytes(final int iValue, final byte[] b, int offset) {
+        b[offset++] = (byte) (iValue & 0xff);
+        b[offset++] = (byte) (iValue >>> 8 & 0xff);
+        b[offset++] = (byte) (iValue >>> 16 & 0xff);
+        b[offset++] = (byte) (iValue >>> 24 & 0xff);
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `offset`
+in `src/main/java/org/apache/commons/codec/digest/UnixCrypt.java`
+#### Snippet
+```java
+        b[offset++] = (byte) (iValue & 0xff);
+        b[offset++] = (byte) (iValue >>> 8 & 0xff);
+        b[offset++] = (byte) (iValue >>> 16 & 0xff);
+        b[offset++] = (byte) (iValue >>> 24 & 0xff);
+    }
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `offset`
+in `src/main/java/org/apache/commons/codec/digest/UnixCrypt.java`
+#### Snippet
+```java
+        b[offset++] = (byte) (iValue >>> 8 & 0xff);
+        b[offset++] = (byte) (iValue >>> 16 & 0xff);
+        b[offset++] = (byte) (iValue >>> 24 & 0xff);
+    }
+
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `offset`
+in `src/main/java/org/apache/commons/codec/digest/UnixCrypt.java`
+#### Snippet
+```java
+
+    private static int fourBytesToInt(final byte[] b, int offset) {
+        int value = byteToUnsigned(b[offset++]);
+        value |= byteToUnsigned(b[offset++]) << 8;
+        value |= byteToUnsigned(b[offset++]) << 16;
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `offset`
+in `src/main/java/org/apache/commons/codec/digest/UnixCrypt.java`
+#### Snippet
+```java
+    private static int fourBytesToInt(final byte[] b, int offset) {
+        int value = byteToUnsigned(b[offset++]);
+        value |= byteToUnsigned(b[offset++]) << 8;
+        value |= byteToUnsigned(b[offset++]) << 16;
+        value |= byteToUnsigned(b[offset++]) << 24;
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `offset`
+in `src/main/java/org/apache/commons/codec/digest/UnixCrypt.java`
+#### Snippet
+```java
+        int value = byteToUnsigned(b[offset++]);
+        value |= byteToUnsigned(b[offset++]) << 8;
+        value |= byteToUnsigned(b[offset++]) << 16;
+        value |= byteToUnsigned(b[offset++]) << 24;
+        return value;
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `offset`
+in `src/main/java/org/apache/commons/codec/digest/UnixCrypt.java`
+#### Snippet
+```java
+        value |= byteToUnsigned(b[offset++]) << 8;
+        value |= byteToUnsigned(b[offset++]) << 16;
+        value |= byteToUnsigned(b[offset++]) << 24;
+        return value;
+    }
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `a`
+in `src/main/java/org/apache/commons/codec/digest/UnixCrypt.java`
+#### Snippet
+```java
+    private static void permOp(int a, int b, final int n, final int m, final int[] results) {
+        final int t = (a >>> n ^ b) & m;
+        a ^= t << n;
+        b ^= t;
+        results[0] = a;
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `b`
+in `src/main/java/org/apache/commons/codec/digest/UnixCrypt.java`
+#### Snippet
+```java
+        final int t = (a >>> n ^ b) & m;
+        a ^= t << n;
+        b ^= t;
+        results[0] = a;
+        results[1] = b;
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `el`
+in `src/main/java/org/apache/commons/codec/digest/UnixCrypt.java`
+#### Snippet
+```java
+        int t = v ^ v << 16 ^ r ^ sArr[s + 1];
+        t = t >>> 4 | t << 28;
+        el ^= SPTRANS[1][t & 0x3f] | SPTRANS[3][t >>> 8 & 0x3f] | SPTRANS[5][t >>> 16 & 0x3f] |
+                SPTRANS[7][t >>> 24 & 0x3f] | SPTRANS[0][u & 0x3f] | SPTRANS[2][u >>> 8 & 0x3f] |
+                SPTRANS[4][u >>> 16 & 0x3f] | SPTRANS[6][u >>> 24 & 0x3f];
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `salt`
+in `src/main/java/org/apache/commons/codec/digest/UnixCrypt.java`
+#### Snippet
+```java
+            final ThreadLocalRandom randomGenerator = ThreadLocalRandom.current();
+            final int numSaltChars = SALT_CHARS.length;
+            salt = "" + SALT_CHARS[randomGenerator.nextInt(numSaltChars)] +
+                    SALT_CHARS[randomGenerator.nextInt(numSaltChars)];
+        } else if (!salt.matches("^[" + B64.B64T_STRING + "]{2,}$")) {
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `a`
+in `src/main/java/org/apache/commons/codec/digest/UnixCrypt.java`
+#### Snippet
+```java
+    private static int hPermOp(int a, final int n, final int m) {
+        final int t = (a << 16 - n ^ a) & m;
+        a = a ^ t ^ t >>> 16 - n;
+        return a;
+    }
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `str`
+in `src/main/java/org/apache/commons/codec/language/RefinedSoundex.java`
+#### Snippet
+```java
+            return null;
+        }
+        str = SoundexUtils.clean(str);
+        if (str.isEmpty()) {
+            return str;
 ```
 
 ### AssignmentToMethodParameter
@@ -4122,6 +4242,30 @@ in `src/main/java/org/apache/commons/codec/binary/Base64.java`
             final byte b = input[inPos++];
             if (b == pad) {
                 // We're done.
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `printable`
+in `src/main/java/org/apache/commons/codec/net/QuotedPrintableCodec.java`
+#### Snippet
+```java
+        }
+        if (printable == null) {
+            printable = PRINTABLE_CHARS;
+        }
+        final ByteArrayOutputStream buffer = new ByteArrayOutputStream();
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `urlsafe`
+in `src/main/java/org/apache/commons/codec/net/URLCodec.java`
+#### Snippet
+```java
+        }
+        if (urlsafe == null) {
+            urlsafe = WWW_FORM_URL_SAFE;
+        }
+
 ```
 
 ### AssignmentToMethodParameter
@@ -4233,159 +4377,15 @@ in `src/main/java/org/apache/commons/codec/digest/PureJavaCrc32C.java`
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `offset`
-in `src/main/java/org/apache/commons/codec/digest/UnixCrypt.java`
+Assignment to method parameter `index`
+in `src/main/java/org/apache/commons/codec/language/DoubleMetaphone.java`
 #### Snippet
 ```java
-
-    private static int fourBytesToInt(final byte[] b, int offset) {
-        int value = byteToUnsigned(b[offset++]);
-        value |= byteToUnsigned(b[offset++]) << 8;
-        value |= byteToUnsigned(b[offset++]) << 16;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `offset`
-in `src/main/java/org/apache/commons/codec/digest/UnixCrypt.java`
-#### Snippet
-```java
-    private static int fourBytesToInt(final byte[] b, int offset) {
-        int value = byteToUnsigned(b[offset++]);
-        value |= byteToUnsigned(b[offset++]) << 8;
-        value |= byteToUnsigned(b[offset++]) << 16;
-        value |= byteToUnsigned(b[offset++]) << 24;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `offset`
-in `src/main/java/org/apache/commons/codec/digest/UnixCrypt.java`
-#### Snippet
-```java
-        int value = byteToUnsigned(b[offset++]);
-        value |= byteToUnsigned(b[offset++]) << 8;
-        value |= byteToUnsigned(b[offset++]) << 16;
-        value |= byteToUnsigned(b[offset++]) << 24;
-        return value;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `offset`
-in `src/main/java/org/apache/commons/codec/digest/UnixCrypt.java`
-#### Snippet
-```java
-        value |= byteToUnsigned(b[offset++]) << 8;
-        value |= byteToUnsigned(b[offset++]) << 16;
-        value |= byteToUnsigned(b[offset++]) << 24;
-        return value;
-    }
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `offset`
-in `src/main/java/org/apache/commons/codec/digest/UnixCrypt.java`
-#### Snippet
-```java
-
-    private static void intToFourBytes(final int iValue, final byte[] b, int offset) {
-        b[offset++] = (byte) (iValue & 0xff);
-        b[offset++] = (byte) (iValue >>> 8 & 0xff);
-        b[offset++] = (byte) (iValue >>> 16 & 0xff);
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `offset`
-in `src/main/java/org/apache/commons/codec/digest/UnixCrypt.java`
-#### Snippet
-```java
-    private static void intToFourBytes(final int iValue, final byte[] b, int offset) {
-        b[offset++] = (byte) (iValue & 0xff);
-        b[offset++] = (byte) (iValue >>> 8 & 0xff);
-        b[offset++] = (byte) (iValue >>> 16 & 0xff);
-        b[offset++] = (byte) (iValue >>> 24 & 0xff);
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `offset`
-in `src/main/java/org/apache/commons/codec/digest/UnixCrypt.java`
-#### Snippet
-```java
-        b[offset++] = (byte) (iValue & 0xff);
-        b[offset++] = (byte) (iValue >>> 8 & 0xff);
-        b[offset++] = (byte) (iValue >>> 16 & 0xff);
-        b[offset++] = (byte) (iValue >>> 24 & 0xff);
-    }
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `offset`
-in `src/main/java/org/apache/commons/codec/digest/UnixCrypt.java`
-#### Snippet
-```java
-        b[offset++] = (byte) (iValue >>> 8 & 0xff);
-        b[offset++] = (byte) (iValue >>> 16 & 0xff);
-        b[offset++] = (byte) (iValue >>> 24 & 0xff);
-    }
-
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `a`
-in `src/main/java/org/apache/commons/codec/digest/UnixCrypt.java`
-#### Snippet
-```java
-    private static int hPermOp(int a, final int n, final int m) {
-        final int t = (a << 16 - n ^ a) & m;
-        a = a ^ t ^ t >>> 16 - n;
-        return a;
-    }
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `salt`
-in `src/main/java/org/apache/commons/codec/digest/UnixCrypt.java`
-#### Snippet
-```java
-            final ThreadLocalRandom randomGenerator = ThreadLocalRandom.current();
-            final int numSaltChars = SALT_CHARS.length;
-            salt = "" + SALT_CHARS[randomGenerator.nextInt(numSaltChars)] +
-                    SALT_CHARS[randomGenerator.nextInt(numSaltChars)];
-        } else if (!salt.matches("^[" + B64.B64T_STRING + "]{2,}$")) {
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `el`
-in `src/main/java/org/apache/commons/codec/digest/UnixCrypt.java`
-#### Snippet
-```java
-        int t = v ^ v << 16 ^ r ^ sArr[s + 1];
-        t = t >>> 4 | t << 28;
-        el ^= SPTRANS[1][t & 0x3f] | SPTRANS[3][t >>> 8 & 0x3f] | SPTRANS[5][t >>> 16 & 0x3f] |
-                SPTRANS[7][t >>> 24 & 0x3f] | SPTRANS[0][u & 0x3f] | SPTRANS[2][u >>> 8 & 0x3f] |
-                SPTRANS[4][u >>> 16 & 0x3f] | SPTRANS[6][u >>> 24 & 0x3f];
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `a`
-in `src/main/java/org/apache/commons/codec/digest/UnixCrypt.java`
-#### Snippet
-```java
-    private static void permOp(int a, int b, final int n, final int m, final int[] results) {
-        final int t = (a >>> n ^ b) & m;
-        a ^= t << n;
-        b ^= t;
-        results[0] = a;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `b`
-in `src/main/java/org/apache/commons/codec/digest/UnixCrypt.java`
-#### Snippet
-```java
-        final int t = (a >>> n ^ b) & m;
-        a ^= t << n;
-        b ^= t;
-        results[0] = a;
-        results[1] = b;
+        if (index == 0) {
+            result.append('S');
+            index++;
+        } else {
+            if (!((index == value.length() - 1) &&
 ```
 
 ### AssignmentToMethodParameter
@@ -4393,69 +4393,9 @@ Assignment to method parameter `index`
 in `src/main/java/org/apache/commons/codec/language/DoubleMetaphone.java`
 #### Snippet
 ```java
-        if (contains(value, index, 4, "TION")) {
-            result.append('X');
-            index += 3;
-        } else if (contains(value, index, 3, "TIA", "TCH")) {
-            result.append('X');
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `index`
-in `src/main/java/org/apache/commons/codec/language/DoubleMetaphone.java`
-#### Snippet
-```java
-        } else if (contains(value, index, 3, "TIA", "TCH")) {
-            result.append('X');
-            index += 3;
-        } else if (contains(value, index, 2, "TH") || contains(value, index, 3, "TTH")) {
-            if (contains(value, index + 2, 2, "OM", "AM") ||
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `index`
-in `src/main/java/org/apache/commons/codec/language/DoubleMetaphone.java`
-#### Snippet
-```java
-                result.append('0', 'T');
+                result.append("KS");
             }
-            index += 2;
-        } else {
-            result.append('T');
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `index`
-in `src/main/java/org/apache/commons/codec/language/DoubleMetaphone.java`
-#### Snippet
-```java
-        } else {
-            result.append('T');
-            index = contains(value, index + 1, 1, "T", "D") ? index + 2 : index + 1;
-        }
-        return index;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `index`
-in `src/main/java/org/apache/commons/codec/language/DoubleMetaphone.java`
-#### Snippet
-```java
-        if (charAt(value, index + 1) == 'H') {
-            result.append('F');
-            index += 2;
-        } else {
-            result.append('P');
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `index`
-in `src/main/java/org/apache/commons/codec/language/DoubleMetaphone.java`
-#### Snippet
-```java
-        } else {
-            result.append('P');
-            index = contains(value, index + 1, 1, "P", "B") ? index + 2 : index + 1;
+            index = contains(value, index + 1, 1, "C", "X") ? index + 2 : index + 1;
         }
         return index;
 ```
@@ -4557,6 +4497,30 @@ in `src/main/java/org/apache/commons/codec/language/DoubleMetaphone.java`
 ```
 
 ### AssignmentToMethodParameter
+Assignment to method parameter `index`
+in `src/main/java/org/apache/commons/codec/language/DoubleMetaphone.java`
+#### Snippet
+```java
+            isVowel(charAt(value, index + 1))) {
+            result.append('H');
+            index += 2;
+            //-- also takes car of "HH" --//
+        } else {
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `index`
+in `src/main/java/org/apache/commons/codec/language/DoubleMetaphone.java`
+#### Snippet
+```java
+            //-- also takes car of "HH" --//
+        } else {
+            index++;
+        }
+        return index;
+```
+
+### AssignmentToMethodParameter
 Assignment to method parameter `input`
 in `src/main/java/org/apache/commons/codec/language/DoubleMetaphone.java`
 #### Snippet
@@ -4566,6 +4530,78 @@ in `src/main/java/org/apache/commons/codec/language/DoubleMetaphone.java`
         input = input.trim();
         if (input.isEmpty()) {
             return null;
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `index`
+in `src/main/java/org/apache/commons/codec/language/DoubleMetaphone.java`
+#### Snippet
+```java
+                result.append('L');
+            }
+            index += 2;
+        } else {
+            index++;
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `index`
+in `src/main/java/org/apache/commons/codec/language/DoubleMetaphone.java`
+#### Snippet
+```java
+            index += 2;
+        } else {
+            index++;
+            result.append('L');
+        }
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `index`
+in `src/main/java/org/apache/commons/codec/language/DoubleMetaphone.java`
+#### Snippet
+```java
+        if (contains(value, index, 4, "TION")) {
+            result.append('X');
+            index += 3;
+        } else if (contains(value, index, 3, "TIA", "TCH")) {
+            result.append('X');
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `index`
+in `src/main/java/org/apache/commons/codec/language/DoubleMetaphone.java`
+#### Snippet
+```java
+        } else if (contains(value, index, 3, "TIA", "TCH")) {
+            result.append('X');
+            index += 3;
+        } else if (contains(value, index, 2, "TH") || contains(value, index, 3, "TTH")) {
+            if (contains(value, index + 2, 2, "OM", "AM") ||
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `index`
+in `src/main/java/org/apache/commons/codec/language/DoubleMetaphone.java`
+#### Snippet
+```java
+                result.append('0', 'T');
+            }
+            index += 2;
+        } else {
+            result.append('T');
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `index`
+in `src/main/java/org/apache/commons/codec/language/DoubleMetaphone.java`
+#### Snippet
+```java
+        } else {
+            result.append('T');
+            index = contains(value, index + 1, 1, "T", "D") ? index + 2 : index + 1;
+        }
+        return index;
 ```
 
 ### AssignmentToMethodParameter
@@ -4657,6 +4693,102 @@ Assignment to method parameter `index`
 in `src/main/java/org/apache/commons/codec/language/DoubleMetaphone.java`
 #### Snippet
 ```java
+            //-- can also be in middle of word --//
+            result.append('R');
+            index += 2;
+        } else if (index == 0 && (isVowel(charAt(value, index + 1)) ||
+                           contains(value, index, 2, "WH"))) {
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `index`
+in `src/main/java/org/apache/commons/codec/language/DoubleMetaphone.java`
+#### Snippet
+```java
+                result.append('A');
+            }
+            index++;
+        } else if ((index == value.length() - 1 && isVowel(charAt(value, index - 1))) ||
+                   contains(value, index - 1, 5, "EWSKI", "EWSKY", "OWSKI", "OWSKY") ||
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `index`
+in `src/main/java/org/apache/commons/codec/language/DoubleMetaphone.java`
+#### Snippet
+```java
+            //-- Arnow should match Arnoff --//
+            result.appendAlternate('F');
+            index++;
+        } else if (contains(value, index, 4, "WICZ", "WITZ")) {
+            //-- Polish e.g. "filipowicz" --//
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `index`
+in `src/main/java/org/apache/commons/codec/language/DoubleMetaphone.java`
+#### Snippet
+```java
+            //-- Polish e.g. "filipowicz" --//
+            result.append("TS", "FX");
+            index += 4;
+        } else {
+            index++;
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `index`
+in `src/main/java/org/apache/commons/codec/language/DoubleMetaphone.java`
+#### Snippet
+```java
+            index += 4;
+        } else {
+            index++;
+        }
+        return index;
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `index`
+in `src/main/java/org/apache/commons/codec/language/DoubleMetaphone.java`
+#### Snippet
+```java
+                result.append('X');
+            }
+            index += 3;
+        } else {    // Pierce's rule
+            result.append('K');
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `index`
+in `src/main/java/org/apache/commons/codec/language/DoubleMetaphone.java`
+#### Snippet
+```java
+        } else {    // Pierce's rule
+            result.append('K');
+            index += 2;
+        }
+
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `value`
+in `src/main/java/org/apache/commons/codec/language/DoubleMetaphone.java`
+#### Snippet
+```java
+     */
+    public String doubleMetaphone(String value, final boolean alternate) {
+        value = cleanInput(value);
+        if (value == null) {
+            return null;
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `index`
+in `src/main/java/org/apache/commons/codec/language/DoubleMetaphone.java`
+#### Snippet
+```java
             if (contains(value, index + 2, 1, "I", "E", "Y")) {
                 result.append('J');
                 index += 3;
@@ -4695,102 +4827,6 @@ in `src/main/java/org/apache/commons/codec/language/DoubleMetaphone.java`
 ```java
         } else {
             result.append('T');
-            index++;
-        }
-        return index;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `index`
-in `src/main/java/org/apache/commons/codec/language/DoubleMetaphone.java`
-#### Snippet
-```java
-            //-- Chinese pinyin e.g. "zhao" or Angelina "Zhang" --//
-            result.append('J');
-            index += 2;
-        } else {
-            if (contains(value, index + 1, 2, "ZO", "ZI", "ZA") ||
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `index`
-in `src/main/java/org/apache/commons/codec/language/DoubleMetaphone.java`
-#### Snippet
-```java
-                result.append('S');
-            }
-            index = charAt(value, index + 1) == 'Z' ? index + 2 : index + 1;
-        }
-        return index;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `index`
-in `src/main/java/org/apache/commons/codec/language/DoubleMetaphone.java`
-#### Snippet
-```java
-                result.append('X');
-            }
-            index += 3;
-        } else {    // Pierce's rule
-            result.append('K');
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `index`
-in `src/main/java/org/apache/commons/codec/language/DoubleMetaphone.java`
-#### Snippet
-```java
-        } else {    // Pierce's rule
-            result.append('K');
-            index += 2;
-        }
-
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `index`
-in `src/main/java/org/apache/commons/codec/language/DoubleMetaphone.java`
-#### Snippet
-```java
-        if (index == 0) {
-            result.append('S');
-            index++;
-        } else {
-            if (!((index == value.length() - 1) &&
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `index`
-in `src/main/java/org/apache/commons/codec/language/DoubleMetaphone.java`
-#### Snippet
-```java
-                result.append("KS");
-            }
-            index = contains(value, index + 1, 1, "C", "X") ? index + 2 : index + 1;
-        }
-        return index;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `index`
-in `src/main/java/org/apache/commons/codec/language/DoubleMetaphone.java`
-#### Snippet
-```java
-            isVowel(charAt(value, index + 1))) {
-            result.append('H');
-            index += 2;
-            //-- also takes car of "HH" --//
-        } else {
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `index`
-in `src/main/java/org/apache/commons/codec/language/DoubleMetaphone.java`
-#### Snippet
-```java
-            //-- also takes car of "HH" --//
-        } else {
             index++;
         }
         return index;
@@ -4917,18 +4953,6 @@ in `src/main/java/org/apache/commons/codec/language/DoubleMetaphone.java`
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `value`
-in `src/main/java/org/apache/commons/codec/language/DoubleMetaphone.java`
-#### Snippet
-```java
-     */
-    public String doubleMetaphone(String value, final boolean alternate) {
-        value = cleanInput(value);
-        if (value == null) {
-            return null;
-```
-
-### AssignmentToMethodParameter
 Assignment to method parameter `index`
 in `src/main/java/org/apache/commons/codec/language/DoubleMetaphone.java`
 #### Snippet
@@ -5017,11 +5041,11 @@ Assignment to method parameter `index`
 in `src/main/java/org/apache/commons/codec/language/DoubleMetaphone.java`
 #### Snippet
 ```java
-            //-- can also be in middle of word --//
-            result.append('R');
+            //-- Chinese pinyin e.g. "zhao" or Angelina "Zhang" --//
+            result.append('J');
             index += 2;
-        } else if (index == 0 && (isVowel(charAt(value, index + 1)) ||
-                           contains(value, index, 2, "WH"))) {
+        } else {
+            if (contains(value, index + 1, 2, "ZO", "ZI", "ZA") ||
 ```
 
 ### AssignmentToMethodParameter
@@ -5029,45 +5053,9 @@ Assignment to method parameter `index`
 in `src/main/java/org/apache/commons/codec/language/DoubleMetaphone.java`
 #### Snippet
 ```java
-                result.append('A');
+                result.append('S');
             }
-            index++;
-        } else if ((index == value.length() - 1 && isVowel(charAt(value, index - 1))) ||
-                   contains(value, index - 1, 5, "EWSKI", "EWSKY", "OWSKI", "OWSKY") ||
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `index`
-in `src/main/java/org/apache/commons/codec/language/DoubleMetaphone.java`
-#### Snippet
-```java
-            //-- Arnow should match Arnoff --//
-            result.appendAlternate('F');
-            index++;
-        } else if (contains(value, index, 4, "WICZ", "WITZ")) {
-            //-- Polish e.g. "filipowicz" --//
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `index`
-in `src/main/java/org/apache/commons/codec/language/DoubleMetaphone.java`
-#### Snippet
-```java
-            //-- Polish e.g. "filipowicz" --//
-            result.append("TS", "FX");
-            index += 4;
-        } else {
-            index++;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `index`
-in `src/main/java/org/apache/commons/codec/language/DoubleMetaphone.java`
-#### Snippet
-```java
-            index += 4;
-        } else {
-            index++;
+            index = charAt(value, index + 1) == 'Z' ? index + 2 : index + 1;
         }
         return index;
 ```
@@ -5077,11 +5065,11 @@ Assignment to method parameter `index`
 in `src/main/java/org/apache/commons/codec/language/DoubleMetaphone.java`
 #### Snippet
 ```java
-                result.append('L');
-            }
+        if (charAt(value, index + 1) == 'H') {
+            result.append('F');
             index += 2;
         } else {
-            index++;
+            result.append('P');
 ```
 
 ### AssignmentToMethodParameter
@@ -5089,10 +5077,82 @@ Assignment to method parameter `index`
 in `src/main/java/org/apache/commons/codec/language/DoubleMetaphone.java`
 #### Snippet
 ```java
-            index += 2;
         } else {
-            index++;
-            result.append('L');
+            result.append('P');
+            index = contains(value, index + 1, 1, "P", "B") ? index + 2 : index + 1;
+        }
+        return index;
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `length`
+in `src/main/java/org/apache/commons/codec/digest/Blake3.java`
+#### Snippet
+```java
+            while (length > 0) {
+                int chunkLength = Math.min(OUT_LEN * 2, length);
+                length -= chunkLength;
+                final int[] words =
+                        compress(inputChainingValue, blockWords, blockLength, outputBlockCounter++, flags | ROOT);
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `offset`
+in `src/main/java/org/apache/commons/codec/digest/Blake3.java`
+#### Snippet
+```java
+                    final int wordLength = Math.min(INT_BYTES, chunkLength);
+                    packInt(words[wordCounter++], out, offset, wordLength);
+                    offset += wordLength;
+                    chunkLength -= wordLength;
+                }
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `offset`
+in `src/main/java/org/apache/commons/codec/digest/Blake3.java`
+#### Snippet
+```java
+                System.arraycopy(input, offset, block, blockLength, take);
+                blockLength += take;
+                offset += take;
+                length -= take;
+            }
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `length`
+in `src/main/java/org/apache/commons/codec/digest/Blake3.java`
+#### Snippet
+```java
+                blockLength += take;
+                offset += take;
+                length -= take;
+            }
+        }
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `offset`
+in `src/main/java/org/apache/commons/codec/digest/Blake3.java`
+#### Snippet
+```java
+                final int take = Math.min(want, length);
+                state.update(in, offset, take);
+                offset += take;
+                length -= take;
+            }
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `length`
+in `src/main/java/org/apache/commons/codec/digest/Blake3.java`
+#### Snippet
+```java
+                state.update(in, offset, take);
+                offset += take;
+                length -= take;
+            }
         }
 ```
 
@@ -5104,18 +5164,6 @@ in `src/main/java/org/apache/commons/codec/digest/XXHash32.java`
             System.arraycopy(b, off, buffer, pos, size);
             process(buffer, 0);
             off += size;
-        }
-
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `urlsafe`
-in `src/main/java/org/apache/commons/codec/net/URLCodec.java`
-#### Snippet
-```java
-        }
-        if (urlsafe == null) {
-            urlsafe = WWW_FORM_URL_SAFE;
         }
 
 ```
@@ -5133,123 +5181,27 @@ in `src/main/java/org/apache/commons/codec/digest/XXHash32.java`
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `offset`
-in `src/main/java/org/apache/commons/codec/binary/Base16.java`
+Assignment to method parameter `salt`
+in `src/main/java/org/apache/commons/codec/digest/Sha2Crypt.java`
 #### Snippet
 ```java
-            // we have 1/2 byte from previous invocation to decode
-            result = (context.ibitWorkArea - 1) << BITS_PER_ENCODED_BYTE;
-            result |= decodeOctet(data[offset++]);
-
-            buffer[context.pos++] = (byte)result;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `offset`
-in `src/main/java/org/apache/commons/codec/binary/Base16.java`
-#### Snippet
-```java
-        final int loopEnd = end - 1;
-        while (offset < loopEnd) {
-            result = decodeOctet(data[offset++]) << BITS_PER_ENCODED_BYTE;
-            result |= decodeOctet(data[offset++]);
-            buffer[context.pos++] = (byte)result;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `offset`
-in `src/main/java/org/apache/commons/codec/binary/Base16.java`
-#### Snippet
-```java
-        while (offset < loopEnd) {
-            result = decodeOctet(data[offset++]) << BITS_PER_ENCODED_BYTE;
-            result |= decodeOctet(data[offset++]);
-            buffer[context.pos++] = (byte)result;
+    public static String sha256Crypt(final byte[] keyBytes, String salt) {
+        if (salt == null) {
+            salt = SHA256_PREFIX + B64.getRandomSalt(8);
         }
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `str`
-in `src/main/java/org/apache/commons/codec/language/DaitchMokotoffSoundex.java`
-#### Snippet
-```java
-    private static String stripQuotes(String str) {
-        if (str.startsWith(DOUBLE_QUOTE)) {
-            str = str.substring(1);
-        }
-
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `str`
-in `src/main/java/org/apache/commons/codec/language/DaitchMokotoffSoundex.java`
-#### Snippet
-```java
-
-        if (str.endsWith(DOUBLE_QUOTE)) {
-            str = str.substring(0, str.length() - 1);
-        }
-
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `printable`
-in `src/main/java/org/apache/commons/codec/net/QuotedPrintableCodec.java`
-#### Snippet
-```java
-        }
-        if (printable == null) {
-            printable = PRINTABLE_CHARS;
-        }
-        final ByteArrayOutputStream buffer = new ByteArrayOutputStream();
+        return sha2Crypt(keyBytes, salt, SHA256_PREFIX, SHA256_BLOCKSIZE, MessageDigestAlgorithms.SHA_256);
 ```
 
 ### AssignmentToMethodParameter
 Assignment to method parameter `salt`
-in `src/main/java/org/apache/commons/codec/digest/Md5Crypt.java`
+in `src/main/java/org/apache/commons/codec/digest/Sha2Crypt.java`
 #### Snippet
 ```java
-        // to make the md5Crypt regex happy
-        if (salt != null && !salt.startsWith(APR1_PREFIX)) {
-            salt = APR1_PREFIX + salt;
+    public static String sha256Crypt(final byte[] keyBytes, String salt, final Random random) {
+        if (salt == null) {
+            salt = SHA256_PREFIX + B64.getRandomSalt(8, random);
         }
-        return Md5Crypt.md5Crypt(keyBytes, salt, APR1_PREFIX);
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `str`
-in `src/main/java/org/apache/commons/codec/language/RefinedSoundex.java`
-#### Snippet
-```java
-            return null;
-        }
-        str = SoundexUtils.clean(str);
-        if (str.isEmpty()) {
-            return str;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `str`
-in `src/main/java/org/apache/commons/codec/language/bm/Rule.java`
-#### Snippet
-```java
-    private static String stripQuotes(String str) {
-        if (str.startsWith(DOUBLE_QUOTE)) {
-            str = str.substring(1);
-        }
-
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `str`
-in `src/main/java/org/apache/commons/codec/language/bm/Rule.java`
-#### Snippet
-```java
-
-        if (str.endsWith(DOUBLE_QUOTE)) {
-            str = str.substring(0, str.length() - 1);
-        }
-
+        return sha2Crypt(keyBytes, salt, SHA256_PREFIX, SHA256_BLOCKSIZE, MessageDigestAlgorithms.SHA_256);
 ```
 
 ### AssignmentToMethodParameter
@@ -5277,27 +5229,27 @@ in `src/main/java/org/apache/commons/codec/digest/Sha2Crypt.java`
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `salt`
-in `src/main/java/org/apache/commons/codec/digest/Sha2Crypt.java`
+Assignment to method parameter `str`
+in `src/main/java/org/apache/commons/codec/language/DaitchMokotoffSoundex.java`
 #### Snippet
 ```java
-    public static String sha256Crypt(final byte[] keyBytes, String salt) {
-        if (salt == null) {
-            salt = SHA256_PREFIX + B64.getRandomSalt(8);
+    private static String stripQuotes(String str) {
+        if (str.startsWith(DOUBLE_QUOTE)) {
+            str = str.substring(1);
         }
-        return sha2Crypt(keyBytes, salt, SHA256_PREFIX, SHA256_BLOCKSIZE, MessageDigestAlgorithms.SHA_256);
+
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `salt`
-in `src/main/java/org/apache/commons/codec/digest/Sha2Crypt.java`
+Assignment to method parameter `str`
+in `src/main/java/org/apache/commons/codec/language/DaitchMokotoffSoundex.java`
 #### Snippet
 ```java
-    public static String sha256Crypt(final byte[] keyBytes, String salt, final Random random) {
-        if (salt == null) {
-            salt = SHA256_PREFIX + B64.getRandomSalt(8, random);
+
+        if (str.endsWith(DOUBLE_QUOTE)) {
+            str = str.substring(0, str.length() - 1);
         }
-        return sha2Crypt(keyBytes, salt, SHA256_PREFIX, SHA256_BLOCKSIZE, MessageDigestAlgorithms.SHA_256);
+
 ```
 
 ### AssignmentToMethodParameter
@@ -5337,6 +5289,54 @@ in `src/main/java/org/apache/commons/codec/language/bm/PhoneticEngine.java`
 ```
 
 ### AssignmentToMethodParameter
+Assignment to method parameter `str`
+in `src/main/java/org/apache/commons/codec/language/bm/Rule.java`
+#### Snippet
+```java
+    private static String stripQuotes(String str) {
+        if (str.startsWith(DOUBLE_QUOTE)) {
+            str = str.substring(1);
+        }
+
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `str`
+in `src/main/java/org/apache/commons/codec/language/bm/Rule.java`
+#### Snippet
+```java
+
+        if (str.endsWith(DOUBLE_QUOTE)) {
+            str = str.substring(0, str.length() - 1);
+        }
+
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `str`
+in `src/main/java/org/apache/commons/codec/language/Soundex.java`
+#### Snippet
+```java
+            return null;
+        }
+        str = SoundexUtils.clean(str);
+        if (str.isEmpty()) {
+            return str;
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `salt`
+in `src/main/java/org/apache/commons/codec/digest/Md5Crypt.java`
+#### Snippet
+```java
+        // to make the md5Crypt regex happy
+        if (salt != null && !salt.startsWith(APR1_PREFIX)) {
+            salt = APR1_PREFIX + salt;
+        }
+        return Md5Crypt.md5Crypt(keyBytes, salt, APR1_PREFIX);
+```
+
+### AssignmentToMethodParameter
 Assignment to method parameter `hash`
 in `src/main/java/org/apache/commons/codec/digest/MurmurHash3.java`
 #### Snippet
@@ -5397,15 +5397,39 @@ in `src/main/java/org/apache/commons/codec/digest/MurmurHash3.java`
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `hash`
+Assignment to method parameter `k`
 in `src/main/java/org/apache/commons/codec/digest/MurmurHash3.java`
 #### Snippet
 ```java
      */
-    private static long fmix64(long hash) {
-        hash ^= (hash >>> 33);
-        hash *= 0xff51afd7ed558ccdL;
-        hash ^= (hash >>> 33);
+    private static int mix32(int k, int hash) {
+        k *= C1_32;
+        k = Integer.rotateLeft(k, R1_32);
+        k *= C2_32;
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `k`
+in `src/main/java/org/apache/commons/codec/digest/MurmurHash3.java`
+#### Snippet
+```java
+    private static int mix32(int k, int hash) {
+        k *= C1_32;
+        k = Integer.rotateLeft(k, R1_32);
+        k *= C2_32;
+        hash ^= k;
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `k`
+in `src/main/java/org/apache/commons/codec/digest/MurmurHash3.java`
+#### Snippet
+```java
+        k *= C1_32;
+        k = Integer.rotateLeft(k, R1_32);
+        k *= C2_32;
+        hash ^= k;
+        return Integer.rotateLeft(hash, R2_32) * M_32 + N_32;
 ```
 
 ### AssignmentToMethodParameter
@@ -5413,83 +5437,23 @@ Assignment to method parameter `hash`
 in `src/main/java/org/apache/commons/codec/digest/MurmurHash3.java`
 #### Snippet
 ```java
-    private static long fmix64(long hash) {
-        hash ^= (hash >>> 33);
-        hash *= 0xff51afd7ed558ccdL;
-        hash ^= (hash >>> 33);
-        hash *= 0xc4ceb9fe1a85ec53L;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `hash`
-in `src/main/java/org/apache/commons/codec/digest/MurmurHash3.java`
-#### Snippet
-```java
-        hash ^= (hash >>> 33);
-        hash *= 0xff51afd7ed558ccdL;
-        hash ^= (hash >>> 33);
-        hash *= 0xc4ceb9fe1a85ec53L;
-        hash ^= (hash >>> 33);
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `hash`
-in `src/main/java/org/apache/commons/codec/digest/MurmurHash3.java`
-#### Snippet
-```java
-        hash *= 0xff51afd7ed558ccdL;
-        hash ^= (hash >>> 33);
-        hash *= 0xc4ceb9fe1a85ec53L;
-        hash ^= (hash >>> 33);
-        return hash;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `hash`
-in `src/main/java/org/apache/commons/codec/digest/MurmurHash3.java`
-#### Snippet
-```java
-        hash ^= (hash >>> 33);
-        hash *= 0xc4ceb9fe1a85ec53L;
-        hash ^= (hash >>> 33);
-        return hash;
+        k = Integer.rotateLeft(k, R1_32);
+        k *= C2_32;
+        hash ^= k;
+        return Integer.rotateLeft(hash, R2_32) * M_32 + N_32;
     }
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `k`
+Assignment to method parameter `hash`
 in `src/main/java/org/apache/commons/codec/digest/MurmurHash3.java`
 #### Snippet
 ```java
      */
-    private static int mix32(int k, int hash) {
-        k *= C1_32;
-        k = Integer.rotateLeft(k, R1_32);
-        k *= C2_32;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `k`
-in `src/main/java/org/apache/commons/codec/digest/MurmurHash3.java`
-#### Snippet
-```java
-    private static int mix32(int k, int hash) {
-        k *= C1_32;
-        k = Integer.rotateLeft(k, R1_32);
-        k *= C2_32;
-        hash ^= k;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `k`
-in `src/main/java/org/apache/commons/codec/digest/MurmurHash3.java`
-#### Snippet
-```java
-        k *= C1_32;
-        k = Integer.rotateLeft(k, R1_32);
-        k *= C2_32;
-        hash ^= k;
-        return Integer.rotateLeft(hash, R2_32) * M_32 + N_32;
+    private static long fmix64(long hash) {
+        hash ^= (hash >>> 33);
+        hash *= 0xff51afd7ed558ccdL;
+        hash ^= (hash >>> 33);
 ```
 
 ### AssignmentToMethodParameter
@@ -5497,26 +5461,50 @@ Assignment to method parameter `hash`
 in `src/main/java/org/apache/commons/codec/digest/MurmurHash3.java`
 #### Snippet
 ```java
-        k = Integer.rotateLeft(k, R1_32);
-        k *= C2_32;
-        hash ^= k;
-        return Integer.rotateLeft(hash, R2_32) * M_32 + N_32;
+    private static long fmix64(long hash) {
+        hash ^= (hash >>> 33);
+        hash *= 0xff51afd7ed558ccdL;
+        hash ^= (hash >>> 33);
+        hash *= 0xc4ceb9fe1a85ec53L;
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `hash`
+in `src/main/java/org/apache/commons/codec/digest/MurmurHash3.java`
+#### Snippet
+```java
+        hash ^= (hash >>> 33);
+        hash *= 0xff51afd7ed558ccdL;
+        hash ^= (hash >>> 33);
+        hash *= 0xc4ceb9fe1a85ec53L;
+        hash ^= (hash >>> 33);
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `hash`
+in `src/main/java/org/apache/commons/codec/digest/MurmurHash3.java`
+#### Snippet
+```java
+        hash *= 0xff51afd7ed558ccdL;
+        hash ^= (hash >>> 33);
+        hash *= 0xc4ceb9fe1a85ec53L;
+        hash ^= (hash >>> 33);
+        return hash;
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `hash`
+in `src/main/java/org/apache/commons/codec/digest/MurmurHash3.java`
+#### Snippet
+```java
+        hash ^= (hash >>> 33);
+        hash *= 0xc4ceb9fe1a85ec53L;
+        hash ^= (hash >>> 33);
+        return hash;
     }
 ```
 
 ## RuleId[ruleID=ReturnNull]
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/codec/language/Soundex.java`
-#### Snippet
-```java
-    public String soundex(String str) {
-        if (str == null) {
-            return null;
-        }
-        str = SoundexUtils.clean(str);
-```
-
 ### ReturnNull
 Return of `null`
 in `src/main/java/org/apache/commons/codec/language/Nysiis.java`
@@ -5527,102 +5515,6 @@ in `src/main/java/org/apache/commons/codec/language/Nysiis.java`
             return null;
         }
 
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/codec/net/BCodec.java`
-#### Snippet
-```java
-    protected byte[] doEncoding(final byte[] bytes) {
-        if (bytes == null) {
-            return null;
-        }
-        return Base64.encodeBase64(bytes);
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/codec/net/BCodec.java`
-#### Snippet
-```java
-    public Object encode(final Object value) throws EncoderException {
-        if (value == null) {
-            return null;
-        }
-        if (value instanceof String) {
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/codec/net/BCodec.java`
-#### Snippet
-```java
-    public Object decode(final Object value) throws DecoderException {
-        if (value == null) {
-            return null;
-        }
-        if (value instanceof String) {
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/codec/net/BCodec.java`
-#### Snippet
-```java
-    public String encode(final String strSource, final String sourceCharset) throws EncoderException {
-        if (strSource == null) {
-            return null;
-        }
-        try {
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/codec/net/BCodec.java`
-#### Snippet
-```java
-    public String encode(final String strSource, final Charset sourceCharset) throws EncoderException {
-        if (strSource == null) {
-            return null;
-        }
-        return encodeText(strSource, sourceCharset);
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/codec/net/BCodec.java`
-#### Snippet
-```java
-    public String decode(final String value) throws DecoderException {
-        if (value == null) {
-            return null;
-        }
-        try {
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/codec/net/BCodec.java`
-#### Snippet
-```java
-    protected byte[] doDecoding(final byte[] bytes) {
-        if (bytes == null) {
-            return null;
-        }
-        return new Base64(0, BaseNCodec.getChunkSeparator(), false, decodingPolicy).decode(bytes);
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/codec/net/BCodec.java`
-#### Snippet
-```java
-    public String encode(final String strSource) throws EncoderException {
-        if (strSource == null) {
-            return null;
-        }
-        return encode(strSource, this.getCharset());
 ```
 
 ### ReturnNull
@@ -5639,362 +5531,14 @@ in `src/main/java/org/apache/commons/codec/language/MatchRatingApproachEncoder.j
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/org/apache/commons/codec/net/QCodec.java`
+in `src/main/java/org/apache/commons/codec/language/RefinedSoundex.java`
 #### Snippet
 ```java
-    public String decode(final String str) throws DecoderException {
+    public String soundex(String str) {
         if (str == null) {
             return null;
         }
-        try {
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/codec/net/QCodec.java`
-#### Snippet
-```java
-    public String encode(final String sourceStr, final Charset sourceCharset) throws EncoderException {
-        if (sourceStr == null) {
-            return null;
-        }
-        return encodeText(sourceStr, sourceCharset);
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/codec/net/QCodec.java`
-#### Snippet
-```java
-    public Object decode(final Object obj) throws DecoderException {
-        if (obj == null) {
-            return null;
-        }
-        if (obj instanceof String) {
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/codec/net/QCodec.java`
-#### Snippet
-```java
-    protected byte[] doDecoding(final byte[] bytes) throws DecoderException {
-        if (bytes == null) {
-            return null;
-        }
-        boolean hasUnderscores = false;
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/codec/net/QCodec.java`
-#### Snippet
-```java
-    public String encode(final String sourceStr, final String sourceCharset) throws EncoderException {
-        if (sourceStr == null) {
-            return null;
-        }
-        try {
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/codec/net/QCodec.java`
-#### Snippet
-```java
-    public Object encode(final Object obj) throws EncoderException {
-        if (obj == null) {
-            return null;
-        }
-        if (obj instanceof String) {
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/codec/net/QCodec.java`
-#### Snippet
-```java
-    protected byte[] doEncoding(final byte[] bytes) {
-        if (bytes == null) {
-            return null;
-        }
-        final byte[] data = QuotedPrintableCodec.encodeQuotedPrintable(PRINTABLE_CHARS, bytes);
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/codec/net/QCodec.java`
-#### Snippet
-```java
-    public String encode(final String sourceStr) throws EncoderException {
-        if (sourceStr == null) {
-            return null;
-        }
-        return encode(sourceStr, getCharset());
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/codec/language/DoubleMetaphone.java`
-#### Snippet
-```java
-    private String cleanInput(String input) {
-        if (input == null) {
-            return null;
-        }
-        input = input.trim();
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/codec/language/DoubleMetaphone.java`
-#### Snippet
-```java
-        input = input.trim();
-        if (input.isEmpty()) {
-            return null;
-        }
-        return input.toUpperCase(java.util.Locale.ENGLISH);
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/codec/language/DoubleMetaphone.java`
-#### Snippet
-```java
-        value = cleanInput(value);
-        if (value == null) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/codec/net/URLCodec.java`
-#### Snippet
-```java
-    public Object decode(final Object obj) throws DecoderException {
-        if (obj == null) {
-            return null;
-        }
-        if (obj instanceof byte[]) {
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/codec/net/URLCodec.java`
-#### Snippet
-```java
-    public static final byte[] encodeUrl(BitSet urlsafe, final byte[] bytes) {
-        if (bytes == null) {
-            return null;
-        }
-        if (urlsafe == null) {
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/codec/net/URLCodec.java`
-#### Snippet
-```java
-    public String decode(final String str) throws DecoderException {
-        if (str == null) {
-            return null;
-        }
-        try {
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/codec/net/URLCodec.java`
-#### Snippet
-```java
-    public String encode(final String str) throws EncoderException {
-        if (str == null) {
-            return null;
-        }
-        try {
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/codec/net/URLCodec.java`
-#### Snippet
-```java
-    public Object encode(final Object obj) throws EncoderException {
-        if (obj == null) {
-            return null;
-        }
-        if (obj instanceof byte[]) {
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/codec/net/URLCodec.java`
-#### Snippet
-```java
-    public String encode(final String str, final String charsetName) throws UnsupportedEncodingException {
-        if (str == null) {
-            return null;
-        }
-        return StringUtils.newStringUsAscii(encode(str.getBytes(charsetName)));
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/codec/net/URLCodec.java`
-#### Snippet
-```java
-    public static final byte[] decodeUrl(final byte[] bytes) throws DecoderException {
-        if (bytes == null) {
-            return null;
-        }
-        final ByteArrayOutputStream buffer = new ByteArrayOutputStream();
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/codec/net/URLCodec.java`
-#### Snippet
-```java
-            throws DecoderException, UnsupportedEncodingException {
-        if (str == null) {
-            return null;
-        }
-        return new String(decode(StringUtils.getBytesUsAscii(str)), charsetName);
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/codec/language/DaitchMokotoffSoundex.java`
-#### Snippet
-```java
-    public String encode(final String source) {
-        if (source == null) {
-            return null;
-        }
-        return soundex(source, false)[0];
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/codec/language/DaitchMokotoffSoundex.java`
-#### Snippet
-```java
-    private String[] soundex(final String source, final boolean branching) {
-        if (source == null) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/codec/binary/StringUtils.java`
-#### Snippet
-```java
-    private static ByteBuffer getByteBuffer(final String string, final Charset charset) {
-        if (string == null) {
-            return null;
-        }
-        return ByteBuffer.wrap(string.getBytes(charset));
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/codec/binary/StringUtils.java`
-#### Snippet
-```java
-    public static String newString(final byte[] bytes, final String charsetName) {
-        if (bytes == null) {
-            return null;
-        }
-        try {
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/codec/binary/StringUtils.java`
-#### Snippet
-```java
-     */
-    private static String newString(final byte[] bytes, final Charset charset) {
-        return bytes == null ? null : new String(bytes, charset);
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/codec/binary/StringUtils.java`
-#### Snippet
-```java
-    public static byte[] getBytesUnchecked(final String string, final String charsetName) {
-        if (string == null) {
-            return null;
-        }
-        try {
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/codec/binary/StringUtils.java`
-#### Snippet
-```java
-     */
-    private static byte[] getBytes(final String string, final Charset charset) {
-        return string == null ? null : string.getBytes(charset);
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/codec/net/PercentCodec.java`
-#### Snippet
-```java
-    public Object decode(final Object obj) throws DecoderException {
-        if (obj == null) {
-            return null;
-        }
-        if (obj instanceof byte[]) {
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/codec/net/PercentCodec.java`
-#### Snippet
-```java
-    public byte[] decode(final byte[] bytes) throws DecoderException {
-        if (bytes == null) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/codec/net/PercentCodec.java`
-#### Snippet
-```java
-    public Object encode(final Object obj) throws EncoderException {
-        if (obj == null) {
-            return null;
-        }
-        if (obj instanceof byte[]) {
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/codec/net/PercentCodec.java`
-#### Snippet
-```java
-    public byte[] encode(final byte[] bytes) throws EncoderException {
-        if (bytes == null) {
-            return null;
-        }
-
+        str = SoundexUtils.clean(str);
 ```
 
 ### ReturnNull
@@ -6007,30 +5551,6 @@ in `src/main/java/org/apache/commons/codec/net/QuotedPrintableCodec.java`
             return null;
         }
         return StringUtils.newStringUsAscii(this.encode(sourceStr.getBytes(sourceCharset)));
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/codec/net/QuotedPrintableCodec.java`
-#### Snippet
-```java
-    public Object decode(final Object obj) throws DecoderException {
-        if (obj == null) {
-            return null;
-        }
-        if (obj instanceof byte[]) {
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/codec/net/QuotedPrintableCodec.java`
-#### Snippet
-```java
-    public static final byte[] decodeQuotedPrintable(final byte[] bytes) throws DecoderException {
-        if (bytes == null) {
-            return null;
-        }
-        final ByteArrayOutputStream buffer = new ByteArrayOutputStream();
 ```
 
 ### ReturnNull
@@ -6062,11 +5582,23 @@ Return of `null`
 in `src/main/java/org/apache/commons/codec/net/QuotedPrintableCodec.java`
 #### Snippet
 ```java
-    public String encode(final String sourceStr, final String sourceCharset) throws UnsupportedEncodingException {
+            throws DecoderException, UnsupportedEncodingException {
         if (sourceStr == null) {
             return null;
         }
-        return StringUtils.newStringUsAscii(encode(sourceStr.getBytes(sourceCharset)));
+        return new String(decode(StringUtils.getBytesUsAscii(sourceStr)), sourceCharset);
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/codec/net/QuotedPrintableCodec.java`
+#### Snippet
+```java
+    public static final byte[] decodeQuotedPrintable(final byte[] bytes) throws DecoderException {
+        if (bytes == null) {
+            return null;
+        }
+        final ByteArrayOutputStream buffer = new ByteArrayOutputStream();
 ```
 
 ### ReturnNull
@@ -6086,23 +5618,203 @@ Return of `null`
 in `src/main/java/org/apache/commons/codec/net/QuotedPrintableCodec.java`
 #### Snippet
 ```java
-            throws DecoderException, UnsupportedEncodingException {
-        if (sourceStr == null) {
+    public Object decode(final Object obj) throws DecoderException {
+        if (obj == null) {
             return null;
         }
-        return new String(decode(StringUtils.getBytesUsAscii(sourceStr)), sourceCharset);
+        if (obj instanceof byte[]) {
 ```
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/org/apache/commons/codec/language/RefinedSoundex.java`
+in `src/main/java/org/apache/commons/codec/net/QuotedPrintableCodec.java`
 #### Snippet
 ```java
-    public String soundex(String str) {
+    public String encode(final String sourceStr, final String sourceCharset) throws UnsupportedEncodingException {
+        if (sourceStr == null) {
+            return null;
+        }
+        return StringUtils.newStringUsAscii(encode(sourceStr.getBytes(sourceCharset)));
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/codec/net/URLCodec.java`
+#### Snippet
+```java
+    public static final byte[] decodeUrl(final byte[] bytes) throws DecoderException {
+        if (bytes == null) {
+            return null;
+        }
+        final ByteArrayOutputStream buffer = new ByteArrayOutputStream();
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/codec/net/URLCodec.java`
+#### Snippet
+```java
+    public Object encode(final Object obj) throws EncoderException {
+        if (obj == null) {
+            return null;
+        }
+        if (obj instanceof byte[]) {
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/codec/net/URLCodec.java`
+#### Snippet
+```java
+            throws DecoderException, UnsupportedEncodingException {
         if (str == null) {
             return null;
         }
-        str = SoundexUtils.clean(str);
+        return new String(decode(StringUtils.getBytesUsAscii(str)), charsetName);
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/codec/net/URLCodec.java`
+#### Snippet
+```java
+    public String encode(final String str, final String charsetName) throws UnsupportedEncodingException {
+        if (str == null) {
+            return null;
+        }
+        return StringUtils.newStringUsAscii(encode(str.getBytes(charsetName)));
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/codec/net/URLCodec.java`
+#### Snippet
+```java
+    public String decode(final String str) throws DecoderException {
+        if (str == null) {
+            return null;
+        }
+        try {
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/codec/net/URLCodec.java`
+#### Snippet
+```java
+    public String encode(final String str) throws EncoderException {
+        if (str == null) {
+            return null;
+        }
+        try {
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/codec/net/URLCodec.java`
+#### Snippet
+```java
+    public Object decode(final Object obj) throws DecoderException {
+        if (obj == null) {
+            return null;
+        }
+        if (obj instanceof byte[]) {
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/codec/net/URLCodec.java`
+#### Snippet
+```java
+    public static final byte[] encodeUrl(BitSet urlsafe, final byte[] bytes) {
+        if (bytes == null) {
+            return null;
+        }
+        if (urlsafe == null) {
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/codec/language/DoubleMetaphone.java`
+#### Snippet
+```java
+        value = cleanInput(value);
+        if (value == null) {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/codec/language/DoubleMetaphone.java`
+#### Snippet
+```java
+    private String cleanInput(String input) {
+        if (input == null) {
+            return null;
+        }
+        input = input.trim();
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/codec/language/DoubleMetaphone.java`
+#### Snippet
+```java
+        input = input.trim();
+        if (input.isEmpty()) {
+            return null;
+        }
+        return input.toUpperCase(java.util.Locale.ENGLISH);
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/codec/net/PercentCodec.java`
+#### Snippet
+```java
+    public Object decode(final Object obj) throws DecoderException {
+        if (obj == null) {
+            return null;
+        }
+        if (obj instanceof byte[]) {
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/codec/net/PercentCodec.java`
+#### Snippet
+```java
+    public byte[] encode(final byte[] bytes) throws EncoderException {
+        if (bytes == null) {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/codec/net/PercentCodec.java`
+#### Snippet
+```java
+    public Object encode(final Object obj) throws EncoderException {
+        if (obj == null) {
+            return null;
+        }
+        if (obj instanceof byte[]) {
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/codec/net/PercentCodec.java`
+#### Snippet
+```java
+    public byte[] decode(final byte[] bytes) throws DecoderException {
+        if (bytes == null) {
+            return null;
+        }
+
 ```
 
 ### ReturnNull
@@ -6155,6 +5867,282 @@ in `src/main/java/org/apache/commons/codec/net/RFC1522Codec.java`
 
 ### ReturnNull
 Return of `null`
+in `src/main/java/org/apache/commons/codec/language/DaitchMokotoffSoundex.java`
+#### Snippet
+```java
+    public String encode(final String source) {
+        if (source == null) {
+            return null;
+        }
+        return soundex(source, false)[0];
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/codec/language/DaitchMokotoffSoundex.java`
+#### Snippet
+```java
+    private String[] soundex(final String source, final boolean branching) {
+        if (source == null) {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/codec/net/QCodec.java`
+#### Snippet
+```java
+    public Object encode(final Object obj) throws EncoderException {
+        if (obj == null) {
+            return null;
+        }
+        if (obj instanceof String) {
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/codec/net/QCodec.java`
+#### Snippet
+```java
+    public String encode(final String sourceStr, final Charset sourceCharset) throws EncoderException {
+        if (sourceStr == null) {
+            return null;
+        }
+        return encodeText(sourceStr, sourceCharset);
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/codec/net/QCodec.java`
+#### Snippet
+```java
+    public String encode(final String sourceStr) throws EncoderException {
+        if (sourceStr == null) {
+            return null;
+        }
+        return encode(sourceStr, getCharset());
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/codec/net/QCodec.java`
+#### Snippet
+```java
+    public String decode(final String str) throws DecoderException {
+        if (str == null) {
+            return null;
+        }
+        try {
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/codec/net/QCodec.java`
+#### Snippet
+```java
+    protected byte[] doDecoding(final byte[] bytes) throws DecoderException {
+        if (bytes == null) {
+            return null;
+        }
+        boolean hasUnderscores = false;
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/codec/net/QCodec.java`
+#### Snippet
+```java
+    public String encode(final String sourceStr, final String sourceCharset) throws EncoderException {
+        if (sourceStr == null) {
+            return null;
+        }
+        try {
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/codec/net/QCodec.java`
+#### Snippet
+```java
+    public Object decode(final Object obj) throws DecoderException {
+        if (obj == null) {
+            return null;
+        }
+        if (obj instanceof String) {
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/codec/net/QCodec.java`
+#### Snippet
+```java
+    protected byte[] doEncoding(final byte[] bytes) {
+        if (bytes == null) {
+            return null;
+        }
+        final byte[] data = QuotedPrintableCodec.encodeQuotedPrintable(PRINTABLE_CHARS, bytes);
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/codec/net/BCodec.java`
+#### Snippet
+```java
+    public String encode(final String strSource, final String sourceCharset) throws EncoderException {
+        if (strSource == null) {
+            return null;
+        }
+        try {
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/codec/net/BCodec.java`
+#### Snippet
+```java
+    public Object decode(final Object value) throws DecoderException {
+        if (value == null) {
+            return null;
+        }
+        if (value instanceof String) {
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/codec/net/BCodec.java`
+#### Snippet
+```java
+    public String encode(final String strSource, final Charset sourceCharset) throws EncoderException {
+        if (strSource == null) {
+            return null;
+        }
+        return encodeText(strSource, sourceCharset);
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/codec/net/BCodec.java`
+#### Snippet
+```java
+    public String decode(final String value) throws DecoderException {
+        if (value == null) {
+            return null;
+        }
+        try {
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/codec/net/BCodec.java`
+#### Snippet
+```java
+    protected byte[] doDecoding(final byte[] bytes) {
+        if (bytes == null) {
+            return null;
+        }
+        return new Base64(0, BaseNCodec.getChunkSeparator(), false, decodingPolicy).decode(bytes);
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/codec/net/BCodec.java`
+#### Snippet
+```java
+    public String encode(final String strSource) throws EncoderException {
+        if (strSource == null) {
+            return null;
+        }
+        return encode(strSource, this.getCharset());
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/codec/net/BCodec.java`
+#### Snippet
+```java
+    public Object encode(final Object value) throws EncoderException {
+        if (value == null) {
+            return null;
+        }
+        if (value instanceof String) {
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/codec/net/BCodec.java`
+#### Snippet
+```java
+    protected byte[] doEncoding(final byte[] bytes) {
+        if (bytes == null) {
+            return null;
+        }
+        return Base64.encodeBase64(bytes);
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/codec/binary/StringUtils.java`
+#### Snippet
+```java
+    public static byte[] getBytesUnchecked(final String string, final String charsetName) {
+        if (string == null) {
+            return null;
+        }
+        try {
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/codec/binary/StringUtils.java`
+#### Snippet
+```java
+    public static String newString(final byte[] bytes, final String charsetName) {
+        if (bytes == null) {
+            return null;
+        }
+        try {
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/codec/binary/StringUtils.java`
+#### Snippet
+```java
+     */
+    private static byte[] getBytes(final String string, final Charset charset) {
+        return string == null ? null : string.getBytes(charset);
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/codec/binary/StringUtils.java`
+#### Snippet
+```java
+    private static ByteBuffer getByteBuffer(final String string, final Charset charset) {
+        if (string == null) {
+            return null;
+        }
+        return ByteBuffer.wrap(string.getBytes(charset));
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/codec/binary/StringUtils.java`
+#### Snippet
+```java
+     */
+    private static String newString(final byte[] bytes, final Charset charset) {
+        return bytes == null ? null : new String(bytes, charset);
+    }
+
+```
+
+### ReturnNull
+Return of `null`
 in `src/main/java/org/apache/commons/codec/language/bm/BeiderMorseEncoder.java`
 #### Snippet
 ```java
@@ -6163,6 +6151,18 @@ in `src/main/java/org/apache/commons/codec/language/bm/BeiderMorseEncoder.java`
             return null;
         }
         return this.engine.encode(source);
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/codec/language/Soundex.java`
+#### Snippet
+```java
+    public String soundex(String str) {
+        if (str == null) {
+            return null;
+        }
+        str = SoundexUtils.clean(str);
 ```
 
 ## RuleId[ruleID=ArrayEquality]
@@ -6264,15 +6264,39 @@ in `src/main/java/org/apache/commons/codec/language/MatchRatingApproachEncoder.j
 ```
 
 ### UnusedAssignment
-Variable `hard` initializer `false` is redundant
-in `src/main/java/org/apache/commons/codec/language/Metaphone.java`
+The value changed at `offset++` is never used
+in `src/main/java/org/apache/commons/codec/digest/UnixCrypt.java`
 #### Snippet
 ```java
-     */
-    public String metaphone(final String txt) {
-        boolean hard = false;
-        final int txtLength;
-        if (txt == null || (txtLength = txt.length()) == 0) {
+        b[offset++] = (byte) (iValue >>> 8 & 0xff);
+        b[offset++] = (byte) (iValue >>> 16 & 0xff);
+        b[offset++] = (byte) (iValue >>> 24 & 0xff);
+    }
+
+```
+
+### UnusedAssignment
+The value changed at `offset++` is never used
+in `src/main/java/org/apache/commons/codec/digest/UnixCrypt.java`
+#### Snippet
+```java
+        value |= byteToUnsigned(b[offset++]) << 8;
+        value |= byteToUnsigned(b[offset++]) << 16;
+        value |= byteToUnsigned(b[offset++]) << 24;
+        return value;
+    }
+```
+
+### UnusedAssignment
+Variable `t` initializer `0` is redundant
+in `src/main/java/org/apache/commons/codec/digest/UnixCrypt.java`
+#### Snippet
+```java
+        int left = 0;
+        int right = 0;
+        int t = 0;
+        for (int j = 0; j < 25; j++) {
+            for (int i = 0; i < 32; i += 4) {
 ```
 
 ### UnusedAssignment
@@ -6312,39 +6336,15 @@ in `src/main/java/org/apache/commons/codec/digest/PureJavaCrc32C.java`
 ```
 
 ### UnusedAssignment
-The value changed at `offset++` is never used
-in `src/main/java/org/apache/commons/codec/digest/UnixCrypt.java`
+Variable `hard` initializer `false` is redundant
+in `src/main/java/org/apache/commons/codec/language/Metaphone.java`
 #### Snippet
 ```java
-        value |= byteToUnsigned(b[offset++]) << 8;
-        value |= byteToUnsigned(b[offset++]) << 16;
-        value |= byteToUnsigned(b[offset++]) << 24;
-        return value;
-    }
-```
-
-### UnusedAssignment
-The value changed at `offset++` is never used
-in `src/main/java/org/apache/commons/codec/digest/UnixCrypt.java`
-#### Snippet
-```java
-        b[offset++] = (byte) (iValue >>> 8 & 0xff);
-        b[offset++] = (byte) (iValue >>> 16 & 0xff);
-        b[offset++] = (byte) (iValue >>> 24 & 0xff);
-    }
-
-```
-
-### UnusedAssignment
-Variable `t` initializer `0` is redundant
-in `src/main/java/org/apache/commons/codec/digest/UnixCrypt.java`
-#### Snippet
-```java
-        int left = 0;
-        int right = 0;
-        int t = 0;
-        for (int j = 0; j < 25; j++) {
-            for (int i = 0; i < 32; i += 4) {
+     */
+    public String metaphone(final String txt) {
+        boolean hard = false;
+        final int txtLength;
+        if (txt == null || (txtLength = txt.length()) == 0) {
 ```
 
 ### UnusedAssignment
