@@ -1,35 +1,35 @@
 # azure-maven-plugins 
  
 # Bad smells
-I found 810 bad smells with 73 repairable:
+I found 797 bad smells with 73 repairable:
 | ruleID | number | fixable |
 | --- | --- | --- |
 | ReturnNull | 133 | false |
-| DataFlowIssue | 98 | false |
+| DataFlowIssue | 93 | false |
 | BoundedWildcard | 60 | false |
 | SystemOutErr | 51 | false |
 | UtilityClassWithoutPrivateConstructor | 46 | true |
 | FieldAccessedSynchronizedAndUnsynchronized | 36 | false |
 | DynamicRegexReplaceableByCompiledPattern | 35 | false |
-| UNUSED_IMPORT | 31 | false |
+| UNUSED_IMPORT | 29 | false |
 | RedundantFieldInitialization | 26 | false |
 | PublicFieldAccessedInSynchronizedContext | 20 | false |
 | ZeroLengthArrayInitialization | 19 | false |
 | AssignmentToMethodParameter | 19 | false |
 | Convert2MethodRef | 17 | false |
-| UnnecessaryFullyQualifiedName | 17 | false |
+| UnnecessaryFullyQualifiedName | 16 | false |
 | UnnecessarySuperQualifier | 15 | false |
 | SizeReplaceableByIsEmpty | 14 | true |
 | EmptyMethod | 12 | false |
 | IgnoreResultOfCall | 10 | false |
 | SynchronizeOnThis | 10 | false |
 | InstanceofCatchParameter | 9 | false |
-| DeprecatedIsStillUsed | 8 | false |
 | UnresolvedPropertyKey | 8 | false |
 | RegExpRedundantEscape | 5 | false |
 | UnnecessaryReturn | 5 | true |
 | RedundantMethodOverride | 5 | false |
 | IndexOfReplaceableByContains | 5 | false |
+| DeprecatedIsStillUsed | 5 | false |
 | UnnecessaryToStringCall | 5 | true |
 | CommentedOutCode | 4 | false |
 | NullableProblems | 4 | false |
@@ -64,7 +64,6 @@ I found 810 bad smells with 73 repairable:
 | IfStatementWithIdenticalBranches | 1 | false |
 | SimplifyOptionalCallChains | 1 | false |
 | Lombok | 1 | false |
-| HtmlWrongAttributeValue | 1 | false |
 | RedundantUnmodifiable | 1 | false |
 | CastConflictsWithInstanceof | 1 | false |
 | NullArgumentToVariableArgMethod | 1 | false |
@@ -73,12 +72,11 @@ I found 810 bad smells with 73 repairable:
 | Java8MapForEach | 1 | false |
 | StringOperationCanBeSimplified | 1 | false |
 | UnnecessaryCallToStringValueOf | 1 | false |
-| RedundantCollectionOperation | 1 | false |
 | NonSynchronizedMethodOverridesSynchronizedMethod | 1 | false |
+| RedundantCollectionOperation | 1 | false |
 | RedundantSuppression | 1 | false |
 | UnnecessaryBoxing | 1 | false |
 | ConditionCoveredByFurtherCondition | 1 | false |
-| RegExpSingleCharAlternation | 1 | false |
 | ThrowablePrintStackTrace | 1 | false |
 | CopyConstructorMissesField | 1 | false |
 | EqualsWhichDoesntCheckParameterClass | 1 | false |
@@ -126,7 +124,7 @@ Commented out code (2 lines)
 in `azure-toolkit-libs/azure-toolkit-springcloud-lib/src/main/java/com/microsoft/azure/toolkit/lib/springcloud/Utils.java`
 #### Snippet
 ```java
-    private static final int POLLING_INTERVAL = 1;
+    private static final int POLLING_INTERVAL = 5;
 
 //    protected static final List<String> DEPLOYMENT_PROCESSING_STATUS =
 //            Arrays.asList(DeploymentResourceStatus.COMPILING.toString(), DeploymentResourceStatus.ALLOCATING.toString(), DeploymentResourceStatus.UPGRADING.toString());
@@ -307,15 +305,51 @@ in `azure-maven-plugin-lib/src/main/java/com/microsoft/azure/maven/prompt/Defaul
 ```
 
 ### SizeReplaceableByIsEmpty
-`methods.size() == 0` can be replaced with 'methods.isEmpty()'
-in `azure-functions-maven-plugin/src/main/java/com/microsoft/azure/maven/function/PackageMojo.java`
+`configMap.size() == 0` can be replaced with 'configMap.isEmpty()'
+in `azure-toolkit-libs/azure-toolkit-appservice-lib/src/main/java/com/microsoft/azure/toolkit/lib/appservice/function/core/AzureFunctionPackager.java`
 #### Snippet
 ```java
-        }
+                                        final Map<String, FunctionConfiguration> configMap) throws IOException {
+        AzureMessager.getMessager().info(LINE_FEED + SAVE_FUNCTION_JSONS);
+        if (configMap.size() == 0) {
+            AzureMessager.getMessager().info(SAVE_SKIP);
+        } else {
+```
 
-        if (methods.size() == 0) {
-            Log.info(NO_FUNCTIONS);
-            return;
+### SizeReplaceableByIsEmpty
+`configMap.size() == 0` can be replaced with 'configMap.isEmpty()'
+in `azure-toolkit-libs/azure-toolkit-appservice-lib/src/main/java/com/microsoft/azure/toolkit/lib/appservice/function/core/AzureFunctionPackager.java`
+#### Snippet
+```java
+        AzureMessager.getMessager().info(LINE_FEED + GENERATE_CONFIG);
+        final Map<String, FunctionConfiguration> configMap = generateConfigurationsInner(project, methods);
+        if (configMap.size() == 0) {
+            AzureMessager.getMessager().info(GENERATE_SKIP);
+        }
+```
+
+### SizeReplaceableByIsEmpty
+`values.size() > 0` can be replaced with '!values.isEmpty()'
+in `azure-webapp-maven-plugin/src/main/java/com/microsoft/azure/maven/webapp/utils/XMLUtils.java`
+#### Snippet
+```java
+    public static void addNotEmptyListElement(Element element, String attribute, String subAttribute,
+                                              List<String> values) {
+        if (values != null && values.size() > 0) {
+            final DOMElement resultNode = new DOMElement(attribute);
+            for (final String value : values) {
+```
+
+### SizeReplaceableByIsEmpty
+`stderr.length() > 0` can be replaced with '!stderr.isEmpty()'
+in `azure-sfmesh-maven-plugin/src/main/java/com/microsoft/azure/maven/servicefabric/Utils.java`
+#### Snippet
+```java
+            final String stdout = IOUtil.toString(p.getInputStream(), "UTF-8");
+            logger.debug(String.format("STDOUT: %s", stdout));
+            if (stderr != null && stderr.length() > 0){
+                if (exitCode != 0){
+                    logger.error(String.format("Process exited with exit code %d", exitCode));
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -343,6 +377,18 @@ in `azure-functions-maven-plugin/src/main/java/com/microsoft/azure/maven/functio
 ```
 
 ### SizeReplaceableByIsEmpty
+`methods.size() == 0` can be replaced with 'methods.isEmpty()'
+in `azure-functions-maven-plugin/src/main/java/com/microsoft/azure/maven/function/PackageMojo.java`
+#### Snippet
+```java
+        }
+
+        if (methods.size() == 0) {
+            Log.info(NO_FUNCTIONS);
+            return;
+```
+
+### SizeReplaceableByIsEmpty
 `configMap.size() == 0` can be replaced with 'configMap.isEmpty()'
 in `azure-functions-maven-plugin/src/main/java/com/microsoft/azure/maven/function/PackageMojo.java`
 #### Snippet
@@ -367,30 +413,6 @@ in `azure-functions-maven-plugin/src/main/java/com/microsoft/azure/maven/functio
 ```
 
 ### SizeReplaceableByIsEmpty
-`configMap.size() == 0` can be replaced with 'configMap.isEmpty()'
-in `azure-toolkit-libs/azure-toolkit-appservice-lib/src/main/java/com/microsoft/azure/toolkit/lib/appservice/function/core/AzureFunctionPackager.java`
-#### Snippet
-```java
-        AzureMessager.getMessager().info(LINE_FEED + GENERATE_CONFIG);
-        final Map<String, FunctionConfiguration> configMap = generateConfigurationsInner(project, methods);
-        if (configMap.size() == 0) {
-            AzureMessager.getMessager().info(GENERATE_SKIP);
-        }
-```
-
-### SizeReplaceableByIsEmpty
-`configMap.size() == 0` can be replaced with 'configMap.isEmpty()'
-in `azure-toolkit-libs/azure-toolkit-appservice-lib/src/main/java/com/microsoft/azure/toolkit/lib/appservice/function/core/AzureFunctionPackager.java`
-#### Snippet
-```java
-                                        final Map<String, FunctionConfiguration> configMap) throws IOException {
-        AzureMessager.getMessager().info(LINE_FEED + SAVE_FUNCTION_JSONS);
-        if (configMap.size() == 0) {
-            AzureMessager.getMessager().info(SAVE_SKIP);
-        } else {
-```
-
-### SizeReplaceableByIsEmpty
 `this.publicProjects.size() > 0` can be replaced with '!this.publicProjects.isEmpty()'
 in `azure-spring-apps-maven-plugin/src/main/java/com/microsoft/azure/maven/springcloud/ConfigMojo.java`
 #### Snippet
@@ -408,9 +430,9 @@ in `azure-spring-apps-maven-plugin/src/main/java/com/microsoft/azure/maven/sprin
 #### Snippet
 ```java
         final Map<String, Object> variables = createVariableTables(templateId);
-        final boolean allowEmpty = TemplateUtils.evalBoolean("allow_empty", variables);
+        final boolean isRequired = TemplateUtils.evalBoolean("required", variables);
         if (options.size() == 0) {
-            if (!allowEmpty) {
+            if (isRequired) {
                 throw new InvalidConfigurationException(TemplateUtils.evalText("message.empty_options", variables));
 ```
 
@@ -420,34 +442,10 @@ in `azure-spring-apps-maven-plugin/src/main/java/com/microsoft/azure/maven/sprin
 #### Snippet
 ```java
         final Map<String, Object> variables = createVariableTables(templateId);
-        final boolean isRequired = TemplateUtils.evalBoolean("required", variables);
+        final boolean allowEmpty = TemplateUtils.evalBoolean("allow_empty", variables);
         if (options.size() == 0) {
-            if (isRequired) {
+            if (!allowEmpty) {
                 throw new InvalidConfigurationException(TemplateUtils.evalText("message.empty_options", variables));
-```
-
-### SizeReplaceableByIsEmpty
-`stderr.length() > 0` can be replaced with '!stderr.isEmpty()'
-in `azure-sfmesh-maven-plugin/src/main/java/com/microsoft/azure/maven/servicefabric/Utils.java`
-#### Snippet
-```java
-            final String stdout = IOUtil.toString(p.getInputStream(), "UTF-8");
-            logger.debug(String.format("STDOUT: %s", stdout));
-            if (stderr != null && stderr.length() > 0){
-                if (exitCode != 0){
-                    logger.error(String.format("Process exited with exit code %d", exitCode));
-```
-
-### SizeReplaceableByIsEmpty
-`values.size() > 0` can be replaced with '!values.isEmpty()'
-in `azure-webapp-maven-plugin/src/main/java/com/microsoft/azure/maven/webapp/utils/XMLUtils.java`
-#### Snippet
-```java
-    public static void addNotEmptyListElement(Element element, String attribute, String subAttribute,
-                                              List<String> values) {
-        if (values != null && values.size() > 0) {
-            final DOMElement resultNode = new DOMElement(attribute);
-            for (final String value : values) {
 ```
 
 ## RuleId[ruleID=StringBufferReplaceableByString]
@@ -664,11 +662,11 @@ Can generalize to `? super String`
 in `azure-maven-plugin-lib/src/main/java/com/microsoft/azure/maven/prompt/DefaultPrompter.java`
 #### Snippet
 ```java
+    private BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
-    private <T> T loopInput(T defaultValue, boolean hasDefaultValue, boolean isRequired, String emptyPromoteMessage, String promoteMessage,
-            Function<String, InputValidateResult<T>> handleInput) throws IOException {
-        while (true) {
-            final String input = reader.readLine();
+    public String promoteString(String message, String defaultValue, Function<String, InputValidateResult<String>> verify, boolean isRequired)
+            throws IOException {
+        final boolean hasDefaultValue = StringUtils.isNotBlank(defaultValue);
 ```
 
 ### BoundedWildcard
@@ -676,11 +674,11 @@ Can generalize to `? extends InputValidateResult`
 in `azure-maven-plugin-lib/src/main/java/com/microsoft/azure/maven/prompt/DefaultPrompter.java`
 #### Snippet
 ```java
+    private BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
-    private <T> T loopInput(T defaultValue, boolean hasDefaultValue, boolean isRequired, String emptyPromoteMessage, String promoteMessage,
-            Function<String, InputValidateResult<T>> handleInput) throws IOException {
-        while (true) {
-            final String input = reader.readLine();
+    public String promoteString(String message, String defaultValue, Function<String, InputValidateResult<String>> verify, boolean isRequired)
+            throws IOException {
+        final boolean hasDefaultValue = StringUtils.isNotBlank(defaultValue);
 ```
 
 ### BoundedWildcard
@@ -688,11 +686,11 @@ Can generalize to `? super String`
 in `azure-maven-plugin-lib/src/main/java/com/microsoft/azure/maven/prompt/DefaultPrompter.java`
 #### Snippet
 ```java
-    private BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
-    public String promoteString(String message, String defaultValue, Function<String, InputValidateResult<String>> verify, boolean isRequired)
-            throws IOException {
-        final boolean hasDefaultValue = StringUtils.isNotBlank(defaultValue);
+    private <T> T loopInput(T defaultValue, boolean hasDefaultValue, boolean isRequired, String emptyPromoteMessage, String promoteMessage,
+            Function<String, InputValidateResult<T>> handleInput) throws IOException {
+        while (true) {
+            final String input = reader.readLine();
 ```
 
 ### BoundedWildcard
@@ -700,11 +698,11 @@ Can generalize to `? extends InputValidateResult`
 in `azure-maven-plugin-lib/src/main/java/com/microsoft/azure/maven/prompt/DefaultPrompter.java`
 #### Snippet
 ```java
-    private BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
-    public String promoteString(String message, String defaultValue, Function<String, InputValidateResult<String>> verify, boolean isRequired)
-            throws IOException {
-        final boolean hasDefaultValue = StringUtils.isNotBlank(defaultValue);
+    private <T> T loopInput(T defaultValue, boolean hasDefaultValue, boolean isRequired, String emptyPromoteMessage, String promoteMessage,
+            Function<String, InputValidateResult<T>> handleInput) throws IOException {
+        while (true) {
+            final String input = reader.readLine();
 ```
 
 ### BoundedWildcard
@@ -720,18 +718,6 @@ in `azure-toolkit-libs/azure-toolkit-common-lib/src/main/java/com/microsoft/azur
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends V`
-in `azure-toolkit-libs/azure-toolkit-common-lib/src/main/java/com/microsoft/azure/toolkit/lib/common/utils/Utils.java`
-#### Snippet
-```java
-    }
-
-    public static <K, V> Map<K, V> groupByIgnoreDuplicate(Collection<V> list, Function<? super V, ? extends K> keyMapper) {
-        return list.stream().collect(Collectors.toMap(keyMapper, item -> item, (item1, item2) -> item1));
-    }
-```
-
-### BoundedWildcard
 Can generalize to `? extends T`
 in `azure-toolkit-libs/azure-toolkit-common-lib/src/main/java/com/microsoft/azure/toolkit/lib/common/utils/Utils.java`
 #### Snippet
@@ -741,6 +727,18 @@ in `azure-toolkit-libs/azure-toolkit-common-lib/src/main/java/com/microsoft/azur
     public static <T> T selectFirstOptionIfCurrentInvalid(String name, List<T> options, T value) {
         if (options.isEmpty()) {
             throw new AzureToolkitRuntimeException(String.format("No %s is available.", name));
+```
+
+### BoundedWildcard
+Can generalize to `? extends V`
+in `azure-toolkit-libs/azure-toolkit-common-lib/src/main/java/com/microsoft/azure/toolkit/lib/common/utils/Utils.java`
+#### Snippet
+```java
+    }
+
+    public static <K, V> Map<K, V> groupByIgnoreDuplicate(Collection<V> list, Function<? super V, ? extends K> keyMapper) {
+        return list.stream().collect(Collectors.toMap(keyMapper, item -> item, (item1, item2) -> item1));
+    }
 ```
 
 ### BoundedWildcard
@@ -792,135 +790,51 @@ in `azure-toolkit-libs/azure-toolkit-common-lib/src/main/java/com/microsoft/azur
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends FunctionConfiguration`
-in `azure-functions-maven-plugin/src/main/java/com/microsoft/azure/maven/function/PackageMojo.java`
+Can generalize to `? super Annotation`
+in `azure-toolkit-libs/azure-toolkit-appservice-lib/src/main/java/com/microsoft/azure/toolkit/lib/legacy/function/handlers/AnnotationHandlerImpl.java`
+#### Snippet
+```java
+
+    protected List<Binding> parseAnnotations(Supplier<Annotation[]> annotationProvider,
+                                             Function<Annotation, Binding> annotationParser) {
+        final List<Binding> bindings = new ArrayList<>();
+
+```
+
+### BoundedWildcard
+Can generalize to `? extends Binding`
+in `azure-toolkit-libs/azure-toolkit-appservice-lib/src/main/java/com/microsoft/azure/toolkit/lib/legacy/function/handlers/AnnotationHandlerImpl.java`
+#### Snippet
+```java
+
+    protected List<Binding> parseAnnotations(Supplier<Annotation[]> annotationProvider,
+                                             Function<Annotation, Binding> annotationParser) {
+        final List<Binding> bindings = new ArrayList<>();
+
+```
+
+### BoundedWildcard
+Can generalize to `? super Binding`
+in `azure-toolkit-libs/azure-toolkit-appservice-lib/src/main/java/com/microsoft/azure/toolkit/lib/legacy/function/handlers/AnnotationHandlerImpl.java`
 #### Snippet
 ```java
     }
 
-    protected void trackFunctionProperties(Map<String, FunctionConfiguration> configMap) {
-        final List<String> bindingTypeSet = configMap.values().stream().flatMap(configuration -> configuration.getBindings().stream())
-                .map(Binding::getType)
+    protected void processParameterAnnotations(final Method method, final List<Binding> bindings) {
+        for (final Parameter param : method.getParameters()) {
+            bindings.addAll(parseAnnotations(param::getAnnotations, this::parseParameterAnnotation));
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends FunctionConfiguration`
-in `azure-functions-maven-plugin/src/main/java/com/microsoft/azure/maven/function/PackageMojo.java`
+Can generalize to `? extends Binding`
+in `azure-toolkit-libs/azure-toolkit-appservice-lib/src/main/java/com/microsoft/azure/toolkit/lib/legacy/function/handlers/AnnotationHandlerImpl.java`
 #### Snippet
 ```java
     }
 
-    protected Set<BindingEnum> getFunctionBindingEnums(Map<String, FunctionConfiguration> configMap) {
-        final Set<BindingEnum> result = new HashSet<>();
-        configMap.values().forEach(configuration -> configuration.getBindings().
-```
-
-### BoundedWildcard
-Can generalize to `? extends FunctionConfiguration`
-in `azure-functions-maven-plugin/src/main/java/com/microsoft/azure/maven/function/PackageMojo.java`
-#### Snippet
-```java
-    //region Validate function configurations
-
-    protected void validateFunctionConfigurations(final Map<String, FunctionConfiguration> configMap) {
-        Log.info("");
-        Log.info(VALIDATE_CONFIG);
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
-in `azure-toolkit-libs/azure-toolkit-springcloud-lib/src/main/java/com/microsoft/azure/toolkit/lib/springcloud/Utils.java`
-#### Snippet
-```java
-     * @return the first resource which fit the predicate or the last result before timeout
-     */
-    public static <T> T pollUntil(Callable<T> callable, @Nonnull Predicate<T> predicate, int timeOutInSeconds, int pollingInterval) {
-        final long timeout = System.currentTimeMillis() + timeOutInSeconds * 1000L;
-        return Observable.interval(pollingInterval, TimeUnit.SECONDS)
-```
-
-### BoundedWildcard
-Can generalize to `? super T`
-in `azure-toolkit-libs/azure-toolkit-springcloud-lib/src/main/java/com/microsoft/azure/toolkit/lib/springcloud/Utils.java`
-#### Snippet
-```java
-     * @return the first resource which fit the predicate or the last result before timeout
-     */
-    public static <T> T pollUntil(Callable<T> callable, @Nonnull Predicate<T> predicate, int timeOutInSeconds, int pollingInterval) {
-        final long timeout = System.currentTimeMillis() + timeOutInSeconds * 1000L;
-        return Observable.interval(pollingInterval, TimeUnit.SECONDS)
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `azure-functions-maven-plugin/src/main/java/com/microsoft/azure/maven/function/AddMojo.java`
-#### Snippet
-```java
-
-    protected void assureInputFromUser(final String prompt, final String initValue,
-                                       final Function<String, Boolean> validator, final String errorMessage,
-                                       final Consumer<String> setter) {
-        if (validator.apply(initValue)) {
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `azure-functions-maven-plugin/src/main/java/com/microsoft/azure/maven/function/AddMojo.java`
-#### Snippet
-```java
-    protected void assureInputFromUser(final String prompt, final String initValue,
-                                       final Function<String, Boolean> validator, final String errorMessage,
-                                       final Consumer<String> setter) {
-        if (validator.apply(initValue)) {
-            Log.info(FOUND_VALID_VALUE);
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `azure-functions-maven-plugin/src/main/java/com/microsoft/azure/maven/function/AddMojo.java`
-#### Snippet
-```java
-    // todo: Support default values for list variables input
-    protected void assureInputFromUser(final String prompt, final String initValue, final List<String> options,
-                                       final Consumer<String> setter) {
-        final String option = findElementInOptions(options, initValue);
-        if (option != null) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends FunctionTemplate`
-in `azure-functions-maven-plugin/src/main/java/com/microsoft/azure/maven/function/AddMojo.java`
-#### Snippet
-```java
-    }
-
-    protected List<String> getTemplateNames(final List<FunctionTemplate> templates) {
-        return templates.stream().map(t -> t.getMetadata().getName()).collect(Collectors.toList());
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `azure-functions-maven-plugin/src/main/java/com/microsoft/azure/maven/function/AddMojo.java`
-#### Snippet
-```java
-    }
-
-    protected void assureInputInBatchMode(final String input, final Function<String, Boolean> validator,
-                                          final Consumer<String> setter, final boolean required)
-            throws MojoFailureException {
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `azure-functions-maven-plugin/src/main/java/com/microsoft/azure/maven/function/AddMojo.java`
-#### Snippet
-```java
-
-    protected void assureInputInBatchMode(final String input, final Function<String, Boolean> validator,
-                                          final Consumer<String> setter, final boolean required)
-            throws MojoFailureException {
-        if (validator.apply(input)) {
+    protected void patchStorageBinding(final Method method, final List<Binding> bindings) {
+        final FunctionMethod functionMethod = DefaultFunctionProject.create(method);
+        final FunctionAnnotation storageAccount = functionMethod.getAnnotation(STORAGE_ACCOUNT);
 ```
 
 ### BoundedWildcard
@@ -1020,15 +934,15 @@ in `azure-toolkit-libs/azure-toolkit-appservice-lib/src/main/java/com/microsoft/
 ```
 
 ### BoundedWildcard
-Can generalize to `? super Binding`
+Can generalize to `? extends Binding`
 in `azure-toolkit-libs/azure-toolkit-appservice-lib/src/main/java/com/microsoft/azure/toolkit/lib/appservice/function/core/AzureFunctionPackagerBase.java`
 #### Snippet
 ```java
     }
 
-    private void processParameterAnnotations(final FunctionMethod method, final List<Binding> bindings) {
-        for (final FunctionAnnotation[] paramAnnotations : method.getParameterAnnotations()) {
-            bindings.addAll(parseAnnotations(Arrays.asList(paramAnnotations), this::parseParameterAnnotation));
+    private void patchStorageBinding(final FunctionMethod method, final List<Binding> bindings) {
+        final Optional<FunctionAnnotation> storageAccount = method.getAnnotations().stream()
+            .filter(annotation -> annotation.isAnnotationType(STORAGE_ACCOUNT))
 ```
 
 ### BoundedWildcard
@@ -1041,6 +955,18 @@ in `azure-toolkit-libs/azure-toolkit-appservice-lib/src/main/java/com/microsoft/
     protected Map<String, FunctionConfiguration> generateConfigurationsInner(FunctionProject project, List<FunctionMethod> methods) {
         final Map<String, FunctionConfiguration> configMap = new HashMap<>();
         for (final FunctionMethod method : methods) {
+```
+
+### BoundedWildcard
+Can generalize to `? super Binding`
+in `azure-toolkit-libs/azure-toolkit-appservice-lib/src/main/java/com/microsoft/azure/toolkit/lib/appservice/function/core/AzureFunctionPackagerBase.java`
+#### Snippet
+```java
+    }
+
+    private void processParameterAnnotations(final FunctionMethod method, final List<Binding> bindings) {
+        for (final FunctionAnnotation[] paramAnnotations : method.getParameterAnnotations()) {
+            bindings.addAll(parseAnnotations(Arrays.asList(paramAnnotations), this::parseParameterAnnotation));
 ```
 
 ### BoundedWildcard
@@ -1080,27 +1006,15 @@ in `azure-toolkit-libs/azure-toolkit-appservice-lib/src/main/java/com/microsoft/
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends Binding`
-in `azure-toolkit-libs/azure-toolkit-appservice-lib/src/main/java/com/microsoft/azure/toolkit/lib/appservice/function/core/AzureFunctionPackagerBase.java`
-#### Snippet
-```java
-    }
-
-    private void patchStorageBinding(final FunctionMethod method, final List<Binding> bindings) {
-        final Optional<FunctionAnnotation> storageAccount = method.getAnnotations().stream()
-            .filter(annotation -> annotation.isAnnotationType(STORAGE_ACCOUNT))
-```
-
-### BoundedWildcard
 Can generalize to `? extends FunctionConfiguration`
 in `azure-toolkit-libs/azure-toolkit-appservice-lib/src/main/java/com/microsoft/azure/toolkit/lib/appservice/function/core/AzureFunctionPackager.java`
 #### Snippet
 ```java
     }
 
-    private Set<BindingEnum> getFunctionBindingEnums(Map<String, FunctionConfiguration> configMap) {
-        final Set<BindingEnum> result = new HashSet<>();
-        configMap.values().forEach(configuration -> configuration.getBindings().
+    private void validateFunctionConfigurations(final Map<String, FunctionConfiguration> configMap) {
+        AzureMessager.getMessager().info(LINE_FEED + VALIDATE_CONFIG);
+        if (configMap.isEmpty()) {
 ```
 
 ### BoundedWildcard
@@ -1122,45 +1036,9 @@ in `azure-toolkit-libs/azure-toolkit-appservice-lib/src/main/java/com/microsoft/
 ```java
     }
 
-    private void validateFunctionConfigurations(final Map<String, FunctionConfiguration> configMap) {
-        AzureMessager.getMessager().info(LINE_FEED + VALIDATE_CONFIG);
-        if (configMap.isEmpty()) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends SecurityRule`
-in `azure-toolkit-libs/azure-toolkit-compute-lib/src/main/java/com/microsoft/azure/toolkit/lib/network/networksecuritygroup/NetworkSecurityGroupDraft.java`
-#### Snippet
-```java
-    }
-
-    private static void applySecurityRule(DefinitionStages.WithCreate withCreate, List<SecurityRule> securityRuleList) {
-        for (int priority = BASE_PRIORITY, count = 0; count < securityRuleList.size(); count++, priority += PRIORITY_STEP) {
-            final SecurityRule securityRule = securityRuleList.get(count);
-```
-
-### BoundedWildcard
-Can generalize to `? extends Document`
-in `azure-toolkit-libs/azure-toolkit-cosmos-lib/src/main/java/com/microsoft/azure/toolkit/lib/cosmos/mongo/MongoDocumentModule.java`
-#### Snippet
-```java
-    }
-
-    private Stream<Document> readDocuments(final MongoCursor<Document> iterator) {
-        if (iterator == null || !iterator.hasNext()) {
-            if (Objects.nonNull(iterator)) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends AzureTask`
-in `azure-spring-apps-maven-plugin/src/main/java/com/microsoft/azure/maven/springcloud/DeployMojo.java`
-#### Snippet
-```java
-    }
-
-    protected boolean confirm(List<AzureTask<?>> tasks) throws MojoFailureException {
-        try (final IPrompter prompter = new DefaultPrompter()) {
-            System.out.println(CONFIRM_PROMPT_START);
+    private Set<BindingEnum> getFunctionBindingEnums(Map<String, FunctionConfiguration> configMap) {
+        final Set<BindingEnum> result = new HashSet<>();
+        configMap.values().forEach(configuration -> configuration.getBindings().
 ```
 
 ### BoundedWildcard
@@ -1176,18 +1054,6 @@ in `azure-webapp-maven-plugin/src/main/java/com/microsoft/azure/maven/webapp/tas
 ```
 
 ### BoundedWildcard
-Can generalize to `? super ValidationMessage`
-in `azure-webapp-maven-plugin/src/main/java/com/microsoft/azure/maven/webapp/AbstractWebAppMojo.java`
-#### Snippet
-```java
-    }
-
-    protected void validateConfiguration(Consumer<ValidationMessage> validationMessageConsumer, boolean failOnError) {
-        final List<ValidationMessage> validate = SchemaValidator.getInstance().validate("WebAppConfiguration", this, "configuration");
-        validate.forEach(message -> validationMessageConsumer.accept(message));
-```
-
-### BoundedWildcard
 Can generalize to `? extends DeploymentResource`
 in `azure-webapp-maven-plugin/src/main/java/com/microsoft/azure/maven/webapp/serializer/ConfigurationSerializer.java`
 #### Snippet
@@ -1200,51 +1066,27 @@ in `azure-webapp-maven-plugin/src/main/java/com/microsoft/azure/maven/webapp/ser
 ```
 
 ### BoundedWildcard
-Can generalize to `? super Binding`
-in `azure-toolkit-libs/azure-toolkit-appservice-lib/src/main/java/com/microsoft/azure/toolkit/lib/legacy/function/handlers/AnnotationHandlerImpl.java`
+Can generalize to `? super ValidationMessage`
+in `azure-webapp-maven-plugin/src/main/java/com/microsoft/azure/maven/webapp/AbstractWebAppMojo.java`
 #### Snippet
 ```java
     }
 
-    protected void processParameterAnnotations(final Method method, final List<Binding> bindings) {
-        for (final Parameter param : method.getParameters()) {
-            bindings.addAll(parseAnnotations(param::getAnnotations, this::parseParameterAnnotation));
+    protected void validateConfiguration(Consumer<ValidationMessage> validationMessageConsumer, boolean failOnError) {
+        final List<ValidationMessage> validate = SchemaValidator.getInstance().validate("WebAppConfiguration", this, "configuration");
+        validate.forEach(message -> validationMessageConsumer.accept(message));
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends Binding`
-in `azure-toolkit-libs/azure-toolkit-appservice-lib/src/main/java/com/microsoft/azure/toolkit/lib/legacy/function/handlers/AnnotationHandlerImpl.java`
+Can generalize to `? extends WebAppOption`
+in `azure-webapp-maven-plugin/src/main/java/com/microsoft/azure/maven/webapp/ConfigMojo.java`
 #### Snippet
 ```java
     }
 
-    protected void patchStorageBinding(final Method method, final List<Binding> bindings) {
-        final FunctionMethod functionMethod = DefaultFunctionProject.create(method);
-        final FunctionAnnotation storageAccount = functionMethod.getAnnotation(STORAGE_ACCOUNT);
-```
-
-### BoundedWildcard
-Can generalize to `? super Annotation`
-in `azure-toolkit-libs/azure-toolkit-appservice-lib/src/main/java/com/microsoft/azure/toolkit/lib/legacy/function/handlers/AnnotationHandlerImpl.java`
-#### Snippet
-```java
-
-    protected List<Binding> parseAnnotations(Supplier<Annotation[]> annotationProvider,
-                                             Function<Annotation, Binding> annotationParser) {
-        final List<Binding> bindings = new ArrayList<>();
-
-```
-
-### BoundedWildcard
-Can generalize to `? extends Binding`
-in `azure-toolkit-libs/azure-toolkit-appservice-lib/src/main/java/com/microsoft/azure/toolkit/lib/legacy/function/handlers/AnnotationHandlerImpl.java`
-#### Snippet
-```java
-
-    protected List<Binding> parseAnnotations(Supplier<Annotation[]> annotationProvider,
-                                             Function<Annotation, Binding> annotationParser) {
-        final List<Binding> bindings = new ArrayList<>();
-
+    private static WebAppOption selectAzureWebApp(List<WebAppOption> javaOrDockerWebapps, String webAppType, Subscription targetSubscription) {
+        final List<WebAppOption> options = new ArrayList<>();
+        // check empty: second time
 ```
 
 ### BoundedWildcard
@@ -1272,15 +1114,171 @@ in `azure-webapp-maven-plugin/src/main/java/com/microsoft/azure/maven/webapp/par
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends WebAppOption`
-in `azure-webapp-maven-plugin/src/main/java/com/microsoft/azure/maven/webapp/ConfigMojo.java`
+Can generalize to `? extends FunctionConfiguration`
+in `azure-functions-maven-plugin/src/main/java/com/microsoft/azure/maven/function/PackageMojo.java`
 #### Snippet
 ```java
     }
 
-    private static WebAppOption selectAzureWebApp(List<WebAppOption> javaOrDockerWebapps, String webAppType, Subscription targetSubscription) {
-        final List<WebAppOption> options = new ArrayList<>();
-        // check empty: second time
+    protected void trackFunctionProperties(Map<String, FunctionConfiguration> configMap) {
+        final List<String> bindingTypeSet = configMap.values().stream().flatMap(configuration -> configuration.getBindings().stream())
+                .map(Binding::getType)
+```
+
+### BoundedWildcard
+Can generalize to `? extends FunctionConfiguration`
+in `azure-functions-maven-plugin/src/main/java/com/microsoft/azure/maven/function/PackageMojo.java`
+#### Snippet
+```java
+    }
+
+    protected Set<BindingEnum> getFunctionBindingEnums(Map<String, FunctionConfiguration> configMap) {
+        final Set<BindingEnum> result = new HashSet<>();
+        configMap.values().forEach(configuration -> configuration.getBindings().
+```
+
+### BoundedWildcard
+Can generalize to `? extends FunctionConfiguration`
+in `azure-functions-maven-plugin/src/main/java/com/microsoft/azure/maven/function/PackageMojo.java`
+#### Snippet
+```java
+    //region Validate function configurations
+
+    protected void validateFunctionConfigurations(final Map<String, FunctionConfiguration> configMap) {
+        Log.info("");
+        Log.info(VALIDATE_CONFIG);
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `azure-functions-maven-plugin/src/main/java/com/microsoft/azure/maven/function/AddMojo.java`
+#### Snippet
+```java
+    }
+
+    protected void assureInputInBatchMode(final String input, final Function<String, Boolean> validator,
+                                          final Consumer<String> setter, final boolean required)
+            throws MojoFailureException {
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `azure-functions-maven-plugin/src/main/java/com/microsoft/azure/maven/function/AddMojo.java`
+#### Snippet
+```java
+
+    protected void assureInputInBatchMode(final String input, final Function<String, Boolean> validator,
+                                          final Consumer<String> setter, final boolean required)
+            throws MojoFailureException {
+        if (validator.apply(input)) {
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `azure-functions-maven-plugin/src/main/java/com/microsoft/azure/maven/function/AddMojo.java`
+#### Snippet
+```java
+
+    protected void assureInputFromUser(final String prompt, final String initValue,
+                                       final Function<String, Boolean> validator, final String errorMessage,
+                                       final Consumer<String> setter) {
+        if (validator.apply(initValue)) {
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `azure-functions-maven-plugin/src/main/java/com/microsoft/azure/maven/function/AddMojo.java`
+#### Snippet
+```java
+    protected void assureInputFromUser(final String prompt, final String initValue,
+                                       final Function<String, Boolean> validator, final String errorMessage,
+                                       final Consumer<String> setter) {
+        if (validator.apply(initValue)) {
+            Log.info(FOUND_VALID_VALUE);
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `azure-functions-maven-plugin/src/main/java/com/microsoft/azure/maven/function/AddMojo.java`
+#### Snippet
+```java
+    // todo: Support default values for list variables input
+    protected void assureInputFromUser(final String prompt, final String initValue, final List<String> options,
+                                       final Consumer<String> setter) {
+        final String option = findElementInOptions(options, initValue);
+        if (option != null) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends FunctionTemplate`
+in `azure-functions-maven-plugin/src/main/java/com/microsoft/azure/maven/function/AddMojo.java`
+#### Snippet
+```java
+    }
+
+    protected List<String> getTemplateNames(final List<FunctionTemplate> templates) {
+        return templates.stream().map(t -> t.getMetadata().getName()).collect(Collectors.toList());
+    }
+```
+
+### BoundedWildcard
+Can generalize to `? extends Document`
+in `azure-toolkit-libs/azure-toolkit-cosmos-lib/src/main/java/com/microsoft/azure/toolkit/lib/cosmos/mongo/MongoDocumentModule.java`
+#### Snippet
+```java
+    }
+
+    private Stream<Document> readDocuments(final MongoCursor<Document> iterator) {
+        if (iterator == null || !iterator.hasNext()) {
+            if (Objects.nonNull(iterator)) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
+in `azure-toolkit-libs/azure-toolkit-springcloud-lib/src/main/java/com/microsoft/azure/toolkit/lib/springcloud/Utils.java`
+#### Snippet
+```java
+     * @return the first resource which fit the predicate or the last result before timeout
+     */
+    public static <T> T pollUntil(Callable<T> callable, @Nonnull Predicate<T> predicate, int timeOutInSeconds, int pollingInterval) {
+        final long timeout = System.currentTimeMillis() + timeOutInSeconds * 1000L;
+        return Observable.interval(pollingInterval, TimeUnit.SECONDS)
+```
+
+### BoundedWildcard
+Can generalize to `? super T`
+in `azure-toolkit-libs/azure-toolkit-springcloud-lib/src/main/java/com/microsoft/azure/toolkit/lib/springcloud/Utils.java`
+#### Snippet
+```java
+     * @return the first resource which fit the predicate or the last result before timeout
+     */
+    public static <T> T pollUntil(Callable<T> callable, @Nonnull Predicate<T> predicate, int timeOutInSeconds, int pollingInterval) {
+        final long timeout = System.currentTimeMillis() + timeOutInSeconds * 1000L;
+        return Observable.interval(pollingInterval, TimeUnit.SECONDS)
+```
+
+### BoundedWildcard
+Can generalize to `? extends AzureTask`
+in `azure-spring-apps-maven-plugin/src/main/java/com/microsoft/azure/maven/springcloud/DeployMojo.java`
+#### Snippet
+```java
+    }
+
+    protected boolean confirm(List<AzureTask<?>> tasks) throws MojoFailureException {
+        try (final IPrompter prompter = new DefaultPrompter()) {
+            System.out.println(CONFIRM_PROMPT_START);
+```
+
+### BoundedWildcard
+Can generalize to `? extends SecurityRule`
+in `azure-toolkit-libs/azure-toolkit-compute-lib/src/main/java/com/microsoft/azure/toolkit/lib/network/networksecuritygroup/NetworkSecurityGroupDraft.java`
+#### Snippet
+```java
+    }
+
+    private static void applySecurityRule(DefinitionStages.WithCreate withCreate, List<SecurityRule> securityRuleList) {
+        for (int priority = BASE_PRIORITY, count = 0; count < securityRuleList.size(); count++, priority += PRIORITY_STEP) {
+            final SecurityRule securityRule = securityRuleList.get(count);
 ```
 
 ## RuleId[ruleID=MissortedModifiers]
@@ -1310,18 +1308,6 @@ in `azure-toolkit-libs/azure-toolkit-cosmos-lib/src/main/java/com/microsoft/azur
 
 ## RuleId[ruleID=NullableProblems]
 ### NullableProblems
-Overridden methods are not annotated
-in `azure-toolkit-libs/azure-toolkit-common-lib/src/main/java/com/microsoft/azure/toolkit/lib/common/model/AbstractAzResourceModule.java`
-#### Snippet
-```java
-    }
-
-    @Nonnull
-    @AzureOperation(name = "azure/resource.load_resources_by_pages.type", params = {"this.getResourceTypeName()"})
-    protected Iterator<? extends ContinuablePage<String, R>> loadResourcePagesFromAzure() {
-```
-
-### NullableProblems
 @Nullable field is always initialized not-null
 in `azure-toolkit-libs/azure-toolkit-common-lib/src/main/java/com/microsoft/azure/toolkit/lib/common/operation/OperationContext.java`
 #### Snippet
@@ -1331,6 +1317,18 @@ in `azure-toolkit-libs/azure-toolkit-common-lib/src/main/java/com/microsoft/azur
     private final Operation operation;
     @Setter
     private IAzureMessager messager = null;
+```
+
+### NullableProblems
+Overridden methods are not annotated
+in `azure-toolkit-libs/azure-toolkit-common-lib/src/main/java/com/microsoft/azure/toolkit/lib/common/model/AbstractAzResourceModule.java`
+#### Snippet
+```java
+    }
+
+    @Nonnull
+    @AzureOperation(name = "azure/resource.load_resources_by_page.type", params = {"this.getResourceTypeName()"})
+    protected Iterator<? extends ContinuablePage<String, R>> loadResourcePagesFromAzure() {
 ```
 
 ### NullableProblems
@@ -1421,42 +1419,6 @@ in `azure-toolkit-libs/azure-toolkit-common-lib/src/main/java/com/microsoft/azur
 
 ### IgnoreResultOfCall
 Result of `File.mkdirs()` is ignored
-in `azure-functions-maven-plugin/src/main/java/com/microsoft/azure/maven/function/PackageMojo.java`
-#### Snippet
-```java
-    protected void writeObjectToFile(final ObjectWriter objectWriter, final Object object, final File targetFile)
-            throws IOException {
-        targetFile.getParentFile().mkdirs();
-        targetFile.createNewFile();
-        objectWriter.writeValue(targetFile, object);
-```
-
-### IgnoreResultOfCall
-Result of `File.createNewFile()` is ignored
-in `azure-functions-maven-plugin/src/main/java/com/microsoft/azure/maven/function/PackageMojo.java`
-#### Snippet
-```java
-            throws IOException {
-        targetFile.getParentFile().mkdirs();
-        targetFile.createNewFile();
-        objectWriter.writeValue(targetFile, object);
-    }
-```
-
-### IgnoreResultOfCall
-Result of `File.mkdirs()` is ignored
-in `azure-functions-maven-plugin/src/main/java/com/microsoft/azure/maven/function/AddMojo.java`
-#### Snippet
-```java
-    protected void createPackageDirIfNotExist(final File packageDir) {
-        if (!packageDir.exists()) {
-            packageDir.mkdirs();
-        }
-    }
-```
-
-### IgnoreResultOfCall
-Result of `File.mkdirs()` is ignored
 in `azure-toolkit-libs/azure-toolkit-appservice-lib/src/main/java/com/microsoft/azure/toolkit/lib/appservice/function/core/AzureFunctionPackager.java`
 #### Snippet
 ```java
@@ -1489,6 +1451,42 @@ in `azure-webapp-maven-plugin/src/main/java/com/microsoft/azure/maven/webapp/Abs
                         stagingDirectory.mkdirs();
                     }
                 }
+```
+
+### IgnoreResultOfCall
+Result of `File.mkdirs()` is ignored
+in `azure-functions-maven-plugin/src/main/java/com/microsoft/azure/maven/function/PackageMojo.java`
+#### Snippet
+```java
+    protected void writeObjectToFile(final ObjectWriter objectWriter, final Object object, final File targetFile)
+            throws IOException {
+        targetFile.getParentFile().mkdirs();
+        targetFile.createNewFile();
+        objectWriter.writeValue(targetFile, object);
+```
+
+### IgnoreResultOfCall
+Result of `File.createNewFile()` is ignored
+in `azure-functions-maven-plugin/src/main/java/com/microsoft/azure/maven/function/PackageMojo.java`
+#### Snippet
+```java
+            throws IOException {
+        targetFile.getParentFile().mkdirs();
+        targetFile.createNewFile();
+        objectWriter.writeValue(targetFile, object);
+    }
+```
+
+### IgnoreResultOfCall
+Result of `File.mkdirs()` is ignored
+in `azure-functions-maven-plugin/src/main/java/com/microsoft/azure/maven/function/AddMojo.java`
+#### Snippet
+```java
+    protected void createPackageDirIfNotExist(final File packageDir) {
+        if (!packageDir.exists()) {
+            packageDir.mkdirs();
+        }
+    }
 ```
 
 ## RuleId[ruleID=FunctionalExpressionCanBeFolded]
@@ -1529,19 +1527,6 @@ in `azure-appservice-maven-plugin-lib/src/main/java/com/microsoft/azure/maven/ap
 
 ```
 
-## RuleId[ruleID=ClassNameSameAsAncestorName]
-### ClassNameSameAsAncestorName
-Class name `Draft` is the same as one of its superclass' names
-in `azure-toolkit-libs/azure-toolkit-storage-lib/src/main/java/com/microsoft/azure/toolkit/lib/storage/model/StorageFile.java`
-#### Snippet
-```java
-    }
-
-    interface Draft<T extends StorageFile, R> extends AzResource.Draft<T, R> {
-        void setDirectory(Boolean directory);
-
-```
-
 ## RuleId[ruleID=RedundantMethodOverride]
 ### RedundantMethodOverride
 Method `setDocumentFactory()` only delegates to its super method
@@ -1564,6 +1549,18 @@ in `azure-toolkit-libs/azure-toolkit-common-lib/src/main/java/com/microsoft/azur
     @Override
     public int hashCode() {
         return super.hashCode();
+    }
+```
+
+### RedundantMethodOverride
+Method `getResourceGroup()` is identical to its super method
+in `azure-webapp-maven-plugin/src/main/java/com/microsoft/azure/maven/webapp/AbstractWebAppMojo.java`
+#### Snippet
+```java
+
+    @Override
+    public String getResourceGroup() {
+        return resourceGroup;
     }
 ```
 
@@ -1591,16 +1588,17 @@ in `azure-webapp-maven-plugin/src/main/java/com/microsoft/azure/maven/webapp/Abs
     }
 ```
 
-### RedundantMethodOverride
-Method `getResourceGroup()` is identical to its super method
-in `azure-webapp-maven-plugin/src/main/java/com/microsoft/azure/maven/webapp/AbstractWebAppMojo.java`
+## RuleId[ruleID=ClassNameSameAsAncestorName]
+### ClassNameSameAsAncestorName
+Class name `Draft` is the same as one of its superclass' names
+in `azure-toolkit-libs/azure-toolkit-storage-lib/src/main/java/com/microsoft/azure/toolkit/lib/storage/model/StorageFile.java`
 #### Snippet
 ```java
-
-    @Override
-    public String getResourceGroup() {
-        return resourceGroup;
     }
+
+    interface Draft<T extends StorageFile, R> extends AzResource.Draft<T, R> {
+        void setDirectory(Boolean directory);
+
 ```
 
 ## RuleId[ruleID=IfStatementWithIdenticalBranches]
@@ -1632,60 +1630,24 @@ in `azure-toolkit-libs/azure-toolkit-appservice-lib/src/main/java/com/microsoft/
 ## RuleId[ruleID=UnnecessarySuperQualifier]
 ### UnnecessarySuperQualifier
 Qualifier `super` is unnecessary in this context
+in `azure-toolkit-libs/azure-toolkit-storage-lib/src/main/java/com/microsoft/azure/toolkit/lib/storage/StorageServiceSubscription.java`
+#### Snippet
+```java
+    @Nonnull
+    public List<Region> listSupportedRegions() {
+        return super.listSupportedRegions(this.storageModule.getName());
+    }
+
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
 in `azure-toolkit-libs/azure-toolkit-common-lib/src/main/java/com/microsoft/azure/toolkit/lib/resource/ResourcesServiceSubscription.java`
 #### Snippet
 ```java
     @Nonnull
     public List<Region> listSupportedRegions() {
         return super.listSupportedRegions(this.groupModule.getName());
-    }
-
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `azure-toolkit-libs/azure-toolkit-applicationinsights-lib/src/main/java/com/microsoft/azure/toolkit/lib/applicationinsights/ApplicationInsightsServiceSubscription.java`
-#### Snippet
-```java
-    @Nonnull
-    public List<Region> listSupportedRegions() {
-        return super.listSupportedRegions(this.applicationInsightsModule.getName());
-    }
-}
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `azure-toolkit-libs/azure-toolkit-redis-lib/src/main/java/com/microsoft/azure/toolkit/redis/RedisServiceSubscription.java`
-#### Snippet
-```java
-    @Nonnull
-    public List<Region> listSupportedRegions() {
-        return super.listSupportedRegions(this.cacheModule.getName());
-    }
-
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `azure-toolkit-libs/azure-toolkit-mysql-single-lib/src/main/java/com/microsoft/azure/toolkit/lib/mysql/single/MySqlServiceSubscription.java`
-#### Snippet
-```java
-    @Nonnull
-    public List<Region> listSupportedRegions() {
-        return super.listSupportedRegions(this.serverModule.getName());
-    }
-
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `azure-toolkit-libs/azure-toolkit-springcloud-lib/src/main/java/com/microsoft/azure/toolkit/lib/springcloud/SpringCloudServiceSubscription.java`
-#### Snippet
-```java
-    @Nonnull
-    public List<Region> listSupportedRegions() {
-        return super.listSupportedRegions(this.clusterModule.getName());
     }
 
 ```
@@ -1740,12 +1702,24 @@ in `azure-toolkit-libs/azure-toolkit-appservice-lib/src/main/java/com/microsoft/
 
 ### UnnecessarySuperQualifier
 Qualifier `super` is unnecessary in this context
-in `azure-toolkit-libs/azure-toolkit-storage-lib/src/main/java/com/microsoft/azure/toolkit/lib/storage/StorageServiceSubscription.java`
+in `azure-toolkit-libs/azure-toolkit-sqlserver-lib/src/main/java/com/microsoft/azure/toolkit/lib/sqlserver/MicrosoftSqlServiceSubscription.java`
 #### Snippet
 ```java
     @Nonnull
     public List<Region> listSupportedRegions() {
-        return super.listSupportedRegions(this.storageModule.getName());
+        return super.listSupportedRegions(this.serverModule.getName());
+    }
+
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `azure-toolkit-libs/azure-toolkit-postgre-lib/src/main/java/com/microsoft/azure/toolkit/lib/postgre/PostgreSqlServiceSubscription.java`
+#### Snippet
+```java
+    @Nonnull
+    public List<Region> listSupportedRegions() {
+        return super.listSupportedRegions(this.serverModule.getName());
     }
 
 ```
@@ -1776,31 +1750,55 @@ in `azure-toolkit-libs/azure-toolkit-cosmos-lib/src/main/java/com/microsoft/azur
 
 ### UnnecessarySuperQualifier
 Qualifier `super` is unnecessary in this context
-in `azure-toolkit-libs/azure-toolkit-postgre-lib/src/main/java/com/microsoft/azure/toolkit/lib/postgre/PostgreSqlServiceSubscription.java`
+in `azure-toolkit-libs/azure-toolkit-redis-lib/src/main/java/com/microsoft/azure/toolkit/redis/RedisServiceSubscription.java`
 #### Snippet
 ```java
     @Nonnull
     public List<Region> listSupportedRegions() {
-        return super.listSupportedRegions(this.serverModule.getName());
+        return super.listSupportedRegions(this.cacheModule.getName());
     }
 
 ```
 
 ### UnnecessarySuperQualifier
 Qualifier `super` is unnecessary in this context
-in `azure-toolkit-libs/azure-toolkit-sqlserver-lib/src/main/java/com/microsoft/azure/toolkit/lib/sqlserver/MicrosoftSqlServiceSubscription.java`
+in `azure-toolkit-libs/azure-toolkit-springcloud-lib/src/main/java/com/microsoft/azure/toolkit/lib/springcloud/SpringCloudServiceSubscription.java`
 #### Snippet
 ```java
     @Nonnull
     public List<Region> listSupportedRegions() {
-        return super.listSupportedRegions(this.serverModule.getName());
+        return super.listSupportedRegions(this.clusterModule.getName());
     }
 
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `azure-toolkit-libs/azure-toolkit-applicationinsights-lib/src/main/java/com/microsoft/azure/toolkit/lib/applicationinsights/ApplicationInsightsServiceSubscription.java`
+#### Snippet
+```java
+    @Nonnull
+    public List<Region> listSupportedRegions() {
+        return super.listSupportedRegions(this.applicationInsightsModule.getName());
+    }
+}
 ```
 
 ### UnnecessarySuperQualifier
 Qualifier `super` is unnecessary in this context
 in `azure-toolkit-libs/azure-toolkit-mysql-lib/src/main/java/com/microsoft/azure/toolkit/lib/mysql/MySqlServiceSubscription.java`
+#### Snippet
+```java
+    @Nonnull
+    public List<Region> listSupportedRegions() {
+        return super.listSupportedRegions(this.serverModule.getName());
+    }
+
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `azure-toolkit-libs/azure-toolkit-mysql-single-lib/src/main/java/com/microsoft/azure/toolkit/lib/mysql/single/MySqlServiceSubscription.java`
 #### Snippet
 ```java
     @Nonnull
@@ -1980,18 +1978,6 @@ import org.apache.commons.lang3.StringUtils;
 ```
 
 ### UNUSED_IMPORT
-Unused import `import javax.annotation.Nullable;`
-in `azure-toolkit-libs/azure-toolkit-common-lib/src/main/java/com/microsoft/azure/toolkit/lib/AzureConfiguration.java`
-#### Snippet
-```java
-import lombok.Setter;
-
-import javax.annotation.Nullable;
-import javax.net.ssl.SSLContext;
-import java.util.ArrayList;
-```
-
-### UNUSED_IMPORT
 Unused import `import com.microsoft.azure.toolkit.lib.common.operation.AzureOperation;`
 in `azure-toolkit-libs/azure-toolkit-common-lib/src/main/java/com/microsoft/azure/toolkit/lib/resource/ResourceGroupModule.java`
 #### Snippet
@@ -2080,11 +2066,11 @@ Unused import `import com.microsoft.azure.toolkit.lib.containerapps.containerapp
 in `azure-toolkit-libs/azure-toolkit-containerapps-lib/src/main/java/com/microsoft/azure/toolkit/lib/containerapps/environment/ContainerAppsEnvironmentDraft.java`
 #### Snippet
 ```java
-import com.microsoft.azure.toolkit.lib.common.model.Subscription;
 import com.microsoft.azure.toolkit.lib.common.operation.AzureOperation;
+import com.microsoft.azure.toolkit.lib.monitor.LogAnalyticsWorkspace;
 import com.microsoft.azure.toolkit.lib.containerapps.containerapp.ContainerApp;
 import com.microsoft.azure.toolkit.lib.resource.ResourceGroup;
-import lombok.Data;
+import com.microsoft.azure.toolkit.lib.monitor.LogAnalyticsWorkspaceDraft;
 ```
 
 ### UNUSED_IMPORT
@@ -2160,18 +2146,6 @@ import com.microsoft.azure.toolkit.lib.springcloud.SpringCloudDeploymentDraft;
 ```
 
 ### UNUSED_IMPORT
-Unused import `import java.util.List;`
-in `azure-toolkit-libs/azure-toolkit-springcloud-lib/src/main/java/com/microsoft/azure/toolkit/lib/springcloud/config/SpringCloudDeploymentConfig.java`
-#### Snippet
-```java
-import javax.annotation.Nullable;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
-```
-
-### UNUSED_IMPORT
 Unused import `import com.microsoft.azure.toolkit.lib.common.operation.AzureOperation;`
 in `azure-toolkit-libs/azure-toolkit-storage-lib/src/main/java/com/microsoft/azure/toolkit/lib/storage/StorageAccountModule.java`
 #### Snippet
@@ -2201,11 +2175,11 @@ Result of assignment expression used
 in `azure-toolkit-libs/azure-toolkit-common-lib/src/main/java/com/microsoft/azure/toolkit/lib/common/utils/NetUtils.java`
 #### Snippet
 ```java
-            final HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
-            BufferedReader in = new BufferedReader(new InputStreamReader(urlConnection.getInputStream(), StandardCharsets.UTF_8));
-            while ((ip = in.readLine()) != null) {
-                if (StringUtils.isNotBlank(ip)) {
-                    final String trimIp = StringUtils.trim(ip);
+                 final BufferedReader br = new BufferedReader(inputStreamReader)) {
+                String tmp;
+                while ((tmp = br.readLine()) != null) {
+                    ret.append(tmp);
+                }
 ```
 
 ### NestedAssignment
@@ -2213,11 +2187,11 @@ Result of assignment expression used
 in `azure-toolkit-libs/azure-toolkit-common-lib/src/main/java/com/microsoft/azure/toolkit/lib/common/utils/NetUtils.java`
 #### Snippet
 ```java
-                 final BufferedReader br = new BufferedReader(inputStreamReader)) {
-                String tmp;
-                while ((tmp = br.readLine()) != null) {
-                    ret.append(tmp);
-                }
+            final HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+            BufferedReader in = new BufferedReader(new InputStreamReader(urlConnection.getInputStream(), StandardCharsets.UTF_8));
+            while ((ip = in.readLine()) != null) {
+                if (StringUtils.isNotBlank(ip)) {
+                    final String trimIp = StringUtils.trim(ip);
 ```
 
 ### NestedAssignment
@@ -2247,6 +2221,78 @@ public class RevisionDraft extends Revision implements AzResource.Draft<Revision
 
 ## RuleId[ruleID=FieldAccessedSynchronizedAndUnsynchronized]
 ### FieldAccessedSynchronizedAndUnsynchronized
+Field `config` is accessed in both synchronized and unsynchronized contexts
+in `azure-toolkit-libs/azure-toolkit-storage-lib/src/main/java/com/microsoft/azure/toolkit/lib/storage/StorageAccountDraft.java`
+#### Snippet
+```java
+    private final StorageAccount origin;
+    @Nullable
+    private Config config;
+
+    StorageAccountDraft(@Nonnull String name, @Nonnull String resourceGroupName, @Nonnull StorageAccountModule module) {
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `client` is accessed in both synchronized and unsynchronized contexts
+in `azure-toolkit-libs/azure-toolkit-storage-lib/src/main/java/com/microsoft/azure/toolkit/lib/storage/blob/BlobContainerModule.java`
+#### Snippet
+```java
+
+    public static final String NAME = "Azure.BlobContainer";
+    private BlobServiceClient client;
+
+    public BlobContainerModule(@Nonnull StorageAccount parent) {
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `client` is accessed in both synchronized and unsynchronized contexts
+in `azure-toolkit-libs/azure-toolkit-storage-lib/src/main/java/com/microsoft/azure/toolkit/lib/storage/queue/QueueModule.java`
+#### Snippet
+```java
+
+    public static final String NAME = "Azure.Queue";
+    private QueueServiceClient client;
+
+    public QueueModule(@Nonnull StorageAccount parent) {
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `client` is accessed in both synchronized and unsynchronized contexts
+in `azure-toolkit-libs/azure-toolkit-storage-lib/src/main/java/com/microsoft/azure/toolkit/lib/storage/share/ShareModule.java`
+#### Snippet
+```java
+
+    public static final String NAME = "Azure.FileShare";
+    private ShareServiceClient client;
+
+    public ShareModule(@Nonnull StorageAccount parent) {
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `client` is accessed in both synchronized and unsynchronized contexts
+in `azure-toolkit-libs/azure-toolkit-storage-lib/src/main/java/com/microsoft/azure/toolkit/lib/storage/table/TableModule.java`
+#### Snippet
+```java
+
+    public static final String NAME = "Azure.Table";
+    private TableServiceClient client;
+
+    public TableModule(@Nonnull StorageAccount parent) {
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `threadId` is accessed in both synchronized and unsynchronized contexts
+in `azure-toolkit-libs/azure-toolkit-common-lib/src/main/java/com/microsoft/azure/toolkit/lib/common/operation/OperationThreadContext.java`
+#### Snippet
+```java
+    private static final ThreadLocal<OperationThreadContext> context = new ThreadLocal<>();
+
+    protected long threadId;
+    @Nullable
+    protected Operation operation;
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
 Field `operation` is accessed in both synchronized and unsynchronized contexts
 in `azure-toolkit-libs/azure-toolkit-common-lib/src/main/java/com/microsoft/azure/toolkit/lib/common/operation/OperationThreadContext.java`
 #### Snippet
@@ -2268,18 +2314,6 @@ in `azure-toolkit-libs/azure-toolkit-common-lib/src/main/java/com/microsoft/azur
     protected OperationThreadContext parent;
 
     private OperationThreadContext(@Nullable final OperationThreadContext parent) {
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `threadId` is accessed in both synchronized and unsynchronized contexts
-in `azure-toolkit-libs/azure-toolkit-common-lib/src/main/java/com/microsoft/azure/toolkit/lib/common/operation/OperationThreadContext.java`
-#### Snippet
-```java
-    private static final ThreadLocal<OperationThreadContext> context = new ThreadLocal<>();
-
-    protected long threadId;
-    @Nullable
-    protected Operation operation;
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
@@ -2316,78 +2350,6 @@ in `azure-toolkit-libs/azure-toolkit-common-lib/src/main/java/com/microsoft/azur
     private Config config;
 
     ResourceGroupDraft(@Nonnull String name, @Nonnull String resourceGroupName, @Nonnull ResourceGroupModule module) {
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `jedisPool` is accessed in both synchronized and unsynchronized contexts
-in `azure-toolkit-libs/azure-toolkit-redis-lib/src/main/java/com/microsoft/azure/toolkit/redis/RedisCache.java`
-#### Snippet
-```java
-    private static final int JEDIS_TIMEOUT = 500;
-
-    private JedisPool jedisPool;
-
-    protected RedisCache(@Nonnull String name, @Nonnull String resourceGroupName, @Nonnull RedisCacheModule module) {
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `config` is accessed in both synchronized and unsynchronized contexts
-in `azure-toolkit-libs/azure-toolkit-redis-lib/src/main/java/com/microsoft/azure/toolkit/redis/RedisCacheDraft.java`
-#### Snippet
-```java
-    private final RedisCache origin;
-    @Nullable
-    private Config config;
-
-    RedisCacheDraft(@Nonnull String name, @Nonnull String resourceGroupName, @Nonnull RedisCacheModule module) {
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `config` is accessed in both synchronized and unsynchronized contexts
-in `azure-toolkit-libs/azure-toolkit-mysql-single-lib/src/main/java/com/microsoft/azure/toolkit/lib/mysql/single/MySqlFirewallRuleDraft.java`
-#### Snippet
-```java
-    private final MySqlFirewallRule origin;
-    @Nullable
-    private Config config;
-
-    MySqlFirewallRuleDraft(@Nonnull String name, @Nonnull MySqlFirewallRuleModule module) {
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `config` is accessed in both synchronized and unsynchronized contexts
-in `azure-toolkit-libs/azure-toolkit-mysql-single-lib/src/main/java/com/microsoft/azure/toolkit/lib/mysql/single/MySqlServerDraft.java`
-#### Snippet
-```java
-    private final MySqlServer origin;
-    @Nullable
-    private Config config;
-
-    MySqlServerDraft(@Nonnull String name, @Nonnull String resourceGroupName, @Nonnull MySqlServerModule module) {
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `config` is accessed in both synchronized and unsynchronized contexts
-in `azure-toolkit-libs/azure-toolkit-springcloud-lib/src/main/java/com/microsoft/azure/toolkit/lib/springcloud/SpringCloudDeploymentDraft.java`
-#### Snippet
-```java
-    private final SpringCloudDeployment origin;
-    @Nullable
-    private Config config;
-
-    protected SpringCloudDeploymentDraft(@Nonnull String name, @Nonnull SpringCloudDeploymentModule module) {
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `config` is accessed in both synchronized and unsynchronized contexts
-in `azure-toolkit-libs/azure-toolkit-springcloud-lib/src/main/java/com/microsoft/azure/toolkit/lib/springcloud/SpringCloudAppDraft.java`
-#### Snippet
-```java
-    private SpringCloudDeployment activeDeployment;
-    @Nullable
-    private Config config;
-
-    SpringCloudAppDraft(@Nonnull String name, @Nonnull SpringCloudAppModule module) {
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
@@ -2451,102 +2413,6 @@ in `azure-toolkit-libs/azure-toolkit-appservice-lib/src/main/java/com/microsoft/
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
-Field `client` is accessed in both synchronized and unsynchronized contexts
-in `azure-toolkit-libs/azure-toolkit-storage-lib/src/main/java/com/microsoft/azure/toolkit/lib/storage/blob/BlobContainerModule.java`
-#### Snippet
-```java
-
-    public static final String NAME = "Azure.BlobContainer";
-    private BlobServiceClient client;
-
-    public BlobContainerModule(@Nonnull StorageAccount parent) {
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `config` is accessed in both synchronized and unsynchronized contexts
-in `azure-toolkit-libs/azure-toolkit-storage-lib/src/main/java/com/microsoft/azure/toolkit/lib/storage/StorageAccountDraft.java`
-#### Snippet
-```java
-    private final StorageAccount origin;
-    @Nullable
-    private Config config;
-
-    StorageAccountDraft(@Nonnull String name, @Nonnull String resourceGroupName, @Nonnull StorageAccountModule module) {
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `client` is accessed in both synchronized and unsynchronized contexts
-in `azure-toolkit-libs/azure-toolkit-storage-lib/src/main/java/com/microsoft/azure/toolkit/lib/storage/queue/QueueModule.java`
-#### Snippet
-```java
-
-    public static final String NAME = "Azure.Queue";
-    private QueueServiceClient client;
-
-    public QueueModule(@Nonnull StorageAccount parent) {
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `client` is accessed in both synchronized and unsynchronized contexts
-in `azure-toolkit-libs/azure-toolkit-storage-lib/src/main/java/com/microsoft/azure/toolkit/lib/storage/share/ShareModule.java`
-#### Snippet
-```java
-
-    public static final String NAME = "Azure.FileShare";
-    private ShareServiceClient client;
-
-    public ShareModule(@Nonnull StorageAccount parent) {
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `client` is accessed in both synchronized and unsynchronized contexts
-in `azure-toolkit-libs/azure-toolkit-storage-lib/src/main/java/com/microsoft/azure/toolkit/lib/storage/table/TableModule.java`
-#### Snippet
-```java
-
-    public static final String NAME = "Azure.Table";
-    private TableServiceClient client;
-
-    public TableModule(@Nonnull StorageAccount parent) {
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `container` is accessed in both synchronized and unsynchronized contexts
-in `azure-toolkit-libs/azure-toolkit-cosmos-lib/src/main/java/com/microsoft/azure/toolkit/lib/cosmos/sql/SqlContainer.java`
-#### Snippet
-```java
-public class SqlContainer extends AbstractAzResource<SqlContainer, SqlDatabase, SqlContainerGetResultsInner>
-        implements Deletable, ICosmosCollection, ICosmosDocumentContainer<SqlDocument> {
-    private CosmosContainer container;
-    private CosmosContainerResponse containerResponse;
-    @Getter
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `containerResponse` is accessed in both synchronized and unsynchronized contexts
-in `azure-toolkit-libs/azure-toolkit-cosmos-lib/src/main/java/com/microsoft/azure/toolkit/lib/cosmos/sql/SqlContainer.java`
-#### Snippet
-```java
-        implements Deletable, ICosmosCollection, ICosmosDocumentContainer<SqlDocument> {
-    private CosmosContainer container;
-    private CosmosContainerResponse containerResponse;
-    @Getter
-    private final SqlDocumentModule documentModule;
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `collection` is accessed in both synchronized and unsynchronized contexts
-in `azure-toolkit-libs/azure-toolkit-cosmos-lib/src/main/java/com/microsoft/azure/toolkit/lib/cosmos/mongo/MongoCollection.java`
-#### Snippet
-```java
-
-    @Getter
-    private com.mongodb.client.MongoCollection<Document> collection;
-    @Getter
-    private final MongoDocumentModule documentModule;
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
 Field `config` is accessed in both synchronized and unsynchronized contexts
 in `azure-toolkit-libs/azure-toolkit-containerservice-lib/src/main/java/com/microsoft/azure/toolkit/lib/containerservice/KubernetesClusterDraft.java`
 #### Snippet
@@ -2556,42 +2422,6 @@ in `azure-toolkit-libs/azure-toolkit-containerservice-lib/src/main/java/com/micr
     private Config config;
 
     protected KubernetesClusterDraft(@Nonnull String name, @Nonnull String resourceGroupName, @Nonnull KubernetesClusterModule module) {
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `accountRef` is accessed in both synchronized and unsynchronized contexts
-in `azure-toolkit-libs/azure-toolkit-auth-lib/src/main/java/com/microsoft/azure/toolkit/lib/auth/AzureAccount.java`
-#### Snippet
-```java
-public class AzureAccount implements IAzureAccount {
-    @Nullable
-    private AtomicReference<Account> accountRef;
-
-    /**
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `config` is accessed in both synchronized and unsynchronized contexts
-in `azure-toolkit-libs/azure-toolkit-postgre-lib/src/main/java/com/microsoft/azure/toolkit/lib/postgre/PostgreSqlFirewallRuleDraft.java`
-#### Snippet
-```java
-    private final PostgreSqlFirewallRule origin;
-    @Nullable
-    private Config config;
-
-    PostgreSqlFirewallRuleDraft(@Nonnull String name, @Nonnull PostgreSqlFirewallRuleModule module) {
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `config` is accessed in both synchronized and unsynchronized contexts
-in `azure-toolkit-libs/azure-toolkit-postgre-lib/src/main/java/com/microsoft/azure/toolkit/lib/postgre/PostgreSqlServerDraft.java`
-#### Snippet
-```java
-    private final PostgreSqlServer origin;
-    @Nullable
-    private Config config;
-
-    PostgreSqlServerDraft(@Nonnull String name, @Nonnull String resourceGroupName, @Nonnull PostgreSqlServerModule module) {
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
@@ -2619,6 +2449,150 @@ in `azure-toolkit-libs/azure-toolkit-sqlserver-lib/src/main/java/com/microsoft/a
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
+Field `stagingDirectory` is accessed in both synchronized and unsynchronized contexts
+in `azure-webapp-maven-plugin/src/main/java/com/microsoft/azure/maven/webapp/AbstractWebAppMojo.java`
+#### Snippet
+```java
+
+    @JsonIgnore
+    protected File stagingDirectory;
+
+    @JsonIgnore
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `config` is accessed in both synchronized and unsynchronized contexts
+in `azure-toolkit-libs/azure-toolkit-postgre-lib/src/main/java/com/microsoft/azure/toolkit/lib/postgre/PostgreSqlFirewallRuleDraft.java`
+#### Snippet
+```java
+    private final PostgreSqlFirewallRule origin;
+    @Nullable
+    private Config config;
+
+    PostgreSqlFirewallRuleDraft(@Nonnull String name, @Nonnull PostgreSqlFirewallRuleModule module) {
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `config` is accessed in both synchronized and unsynchronized contexts
+in `azure-toolkit-libs/azure-toolkit-postgre-lib/src/main/java/com/microsoft/azure/toolkit/lib/postgre/PostgreSqlServerDraft.java`
+#### Snippet
+```java
+    private final PostgreSqlServer origin;
+    @Nullable
+    private Config config;
+
+    PostgreSqlServerDraft(@Nonnull String name, @Nonnull String resourceGroupName, @Nonnull PostgreSqlServerModule module) {
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `containerResponse` is accessed in both synchronized and unsynchronized contexts
+in `azure-toolkit-libs/azure-toolkit-cosmos-lib/src/main/java/com/microsoft/azure/toolkit/lib/cosmos/sql/SqlContainer.java`
+#### Snippet
+```java
+        implements Deletable, ICosmosCollection, ICosmosDocumentContainer<SqlDocument> {
+    private CosmosContainer container;
+    private CosmosContainerResponse containerResponse;
+    @Getter
+    private final SqlDocumentModule documentModule;
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `container` is accessed in both synchronized and unsynchronized contexts
+in `azure-toolkit-libs/azure-toolkit-cosmos-lib/src/main/java/com/microsoft/azure/toolkit/lib/cosmos/sql/SqlContainer.java`
+#### Snippet
+```java
+public class SqlContainer extends AbstractAzResource<SqlContainer, SqlDatabase, SqlContainerGetResultsInner>
+        implements Deletable, ICosmosCollection, ICosmosDocumentContainer<SqlDocument> {
+    private CosmosContainer container;
+    private CosmosContainerResponse containerResponse;
+    @Getter
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `collection` is accessed in both synchronized and unsynchronized contexts
+in `azure-toolkit-libs/azure-toolkit-cosmos-lib/src/main/java/com/microsoft/azure/toolkit/lib/cosmos/mongo/MongoCollection.java`
+#### Snippet
+```java
+
+    @Getter
+    private com.mongodb.client.MongoCollection<Document> collection;
+    @Getter
+    private final MongoDocumentModule documentModule;
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `jedisPool` is accessed in both synchronized and unsynchronized contexts
+in `azure-toolkit-libs/azure-toolkit-redis-lib/src/main/java/com/microsoft/azure/toolkit/redis/RedisCache.java`
+#### Snippet
+```java
+    private static final int JEDIS_TIMEOUT = 500;
+
+    private JedisPool jedisPool;
+
+    protected RedisCache(@Nonnull String name, @Nonnull String resourceGroupName, @Nonnull RedisCacheModule module) {
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `config` is accessed in both synchronized and unsynchronized contexts
+in `azure-toolkit-libs/azure-toolkit-redis-lib/src/main/java/com/microsoft/azure/toolkit/redis/RedisCacheDraft.java`
+#### Snippet
+```java
+    private final RedisCache origin;
+    @Nullable
+    private Config config;
+
+    RedisCacheDraft(@Nonnull String name, @Nonnull String resourceGroupName, @Nonnull RedisCacheModule module) {
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `config` is accessed in both synchronized and unsynchronized contexts
+in `azure-toolkit-libs/azure-toolkit-springcloud-lib/src/main/java/com/microsoft/azure/toolkit/lib/springcloud/SpringCloudDeploymentDraft.java`
+#### Snippet
+```java
+    private final SpringCloudDeployment origin;
+    @Nullable
+    private Config config;
+
+    protected SpringCloudDeploymentDraft(@Nonnull String name, @Nonnull SpringCloudDeploymentModule module) {
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `config` is accessed in both synchronized and unsynchronized contexts
+in `azure-toolkit-libs/azure-toolkit-springcloud-lib/src/main/java/com/microsoft/azure/toolkit/lib/springcloud/SpringCloudAppDraft.java`
+#### Snippet
+```java
+    private SpringCloudDeployment activeDeployment;
+    @Nullable
+    private Config config;
+
+    SpringCloudAppDraft(@Nonnull String name, @Nonnull SpringCloudAppModule module) {
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `config` is accessed in both synchronized and unsynchronized contexts
+in `azure-toolkit-libs/azure-toolkit-containerapps-lib/src/main/java/com/microsoft/azure/toolkit/lib/containerapps/containerapp/ContainerAppDraft.java`
+#### Snippet
+```java
+    @Getter
+    @Setter
+    private Config config;
+
+    protected ContainerAppDraft(@Nonnull String name, @Nonnull String resourceGroupName, @Nonnull ContainerAppModule module) {
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `config` is accessed in both synchronized and unsynchronized contexts
+in `azure-toolkit-libs/azure-toolkit-containerapps-lib/src/main/java/com/microsoft/azure/toolkit/lib/containerapps/environment/ContainerAppsEnvironmentDraft.java`
+#### Snippet
+```java
+    @Setter
+    @Getter
+    private Config config;
+
+    protected ContainerAppsEnvironmentDraft(@Nonnull String name, @Nonnull String resourceGroupName, @Nonnull ContainerAppsEnvironmentModule module) {
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
 Field `config` is accessed in both synchronized and unsynchronized contexts
 in `azure-toolkit-libs/azure-toolkit-mysql-lib/src/main/java/com/microsoft/azure/toolkit/lib/mysql/MySqlFirewallRuleDraft.java`
 #### Snippet
@@ -2643,39 +2617,39 @@ in `azure-toolkit-libs/azure-toolkit-mysql-lib/src/main/java/com/microsoft/azure
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
-Field `config` is accessed in both synchronized and unsynchronized contexts
-in `azure-toolkit-libs/azure-toolkit-containerapps-lib/src/main/java/com/microsoft/azure/toolkit/lib/containerapps/environment/ContainerAppsEnvironmentDraft.java`
+Field `accountRef` is accessed in both synchronized and unsynchronized contexts
+in `azure-toolkit-libs/azure-toolkit-auth-lib/src/main/java/com/microsoft/azure/toolkit/lib/auth/AzureAccount.java`
 #### Snippet
 ```java
-    @Setter
-    @Getter
-    private Config config;
+public class AzureAccount implements IAzureAccount {
+    @Nullable
+    private AtomicReference<Account> accountRef;
 
-    protected ContainerAppsEnvironmentDraft(@Nonnull String name, @Nonnull String resourceGroupName, @Nonnull ContainerAppsEnvironmentModule module) {
+    /**
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
 Field `config` is accessed in both synchronized and unsynchronized contexts
-in `azure-toolkit-libs/azure-toolkit-containerapps-lib/src/main/java/com/microsoft/azure/toolkit/lib/containerapps/containerapp/ContainerAppDraft.java`
+in `azure-toolkit-libs/azure-toolkit-mysql-single-lib/src/main/java/com/microsoft/azure/toolkit/lib/mysql/single/MySqlFirewallRuleDraft.java`
 #### Snippet
 ```java
-    @Getter
-    @Setter
+    private final MySqlFirewallRule origin;
+    @Nullable
     private Config config;
 
-    protected ContainerAppDraft(@Nonnull String name, @Nonnull String resourceGroupName, @Nonnull ContainerAppModule module) {
+    MySqlFirewallRuleDraft(@Nonnull String name, @Nonnull MySqlFirewallRuleModule module) {
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
-Field `stagingDirectory` is accessed in both synchronized and unsynchronized contexts
-in `azure-webapp-maven-plugin/src/main/java/com/microsoft/azure/maven/webapp/AbstractWebAppMojo.java`
+Field `config` is accessed in both synchronized and unsynchronized contexts
+in `azure-toolkit-libs/azure-toolkit-mysql-single-lib/src/main/java/com/microsoft/azure/toolkit/lib/mysql/single/MySqlServerDraft.java`
 #### Snippet
 ```java
+    private final MySqlServer origin;
+    @Nullable
+    private Config config;
 
-    @JsonIgnore
-    protected File stagingDirectory;
-
-    @JsonIgnore
+    MySqlServerDraft(@Nonnull String name, @Nonnull String resourceGroupName, @Nonnull MySqlServerModule module) {
 ```
 
 ## RuleId[ruleID=EmptyMethod]
@@ -2862,30 +2836,6 @@ in `azure-toolkit-libs/azure-toolkit-common-lib/src/main/java/com/microsoft/azur
 
 ### RedundantFieldInitialization
 Field initialization to `null` is redundant
-in `azure-toolkit-libs/azure-toolkit-springcloud-lib/src/main/java/com/microsoft/azure/toolkit/lib/springcloud/SpringCloudApp.java`
-#### Snippet
-```java
-    private final SpringCloudDeploymentModule deploymentModule;
-    @Nullable
-    private SpringCloudDeployment activeDeployment = null;
-
-    protected SpringCloudApp(@Nonnull String name, @Nonnull SpringCloudAppModule module) {
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `azure-toolkit-libs/azure-toolkit-appservice-lib/src/main/java/com/microsoft/azure/toolkit/lib/legacy/function/bindings/Binding.java`
-#### Snippet
-```java
-public class Binding {
-
-    protected BindingEnum bindingEnum = null;
-
-    protected String type = null;
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
 in `azure-toolkit-libs/azure-toolkit-appservice-lib/src/main/java/com/microsoft/azure/toolkit/lib/legacy/function/bindings/Binding.java`
 #### Snippet
 ```java
@@ -2909,27 +2859,15 @@ in `azure-toolkit-libs/azure-toolkit-appservice-lib/src/main/java/com/microsoft/
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `azure-toolkit-libs/azure-toolkit-common-lib/src/main/java/com/microsoft/azure/toolkit/lib/common/task/AzureTask.java`
-#### Snippet
-```java
-
-    public static class DefaultMonitor implements Monitor {
-        private boolean cancelled = false;
-
-        @Override
-```
-
-### RedundantFieldInitialization
 Field initialization to `null` is redundant
-in `azure-toolkit-libs/azure-toolkit-common-lib/src/main/java/com/microsoft/azure/toolkit/lib/common/task/AzureTask.java`
+in `azure-toolkit-libs/azure-toolkit-appservice-lib/src/main/java/com/microsoft/azure/toolkit/lib/legacy/function/bindings/Binding.java`
 #### Snippet
 ```java
-    private boolean backgroundable = true;
-    @Nullable
-    private Boolean backgrounded = null;
-    @Nonnull
-    @Builder.Default
+public class Binding {
+
+    protected BindingEnum bindingEnum = null;
+
+    protected String type = null;
 ```
 
 ### RedundantFieldInitialization
@@ -2961,18 +2899,6 @@ Field initialization to `null` is redundant
 in `azure-toolkit-libs/azure-toolkit-appservice-lib/src/main/java/com/microsoft/azure/toolkit/lib/appservice/webapp/WebAppDraft.java`
 #### Snippet
 ```java
-    private static class Config {
-        private Runtime runtime;
-        private AppServicePlan plan = null;
-        private DiagnosticConfig diagnosticConfig = null;
-        private Set<String> appSettingsToRemove = new HashSet<>();
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `azure-toolkit-libs/azure-toolkit-appservice-lib/src/main/java/com/microsoft/azure/toolkit/lib/appservice/webapp/WebAppDraft.java`
-#### Snippet
-```java
         private DiagnosticConfig diagnosticConfig = null;
         private Set<String> appSettingsToRemove = new HashSet<>();
         private Map<String, String> appSettings = null;
@@ -3002,6 +2928,18 @@ in `azure-toolkit-libs/azure-toolkit-appservice-lib/src/main/java/com/microsoft/
         private DockerConfiguration dockerConfiguration = null;
     }
 }
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `azure-toolkit-libs/azure-toolkit-appservice-lib/src/main/java/com/microsoft/azure/toolkit/lib/appservice/webapp/WebAppDraft.java`
+#### Snippet
+```java
+    private static class Config {
+        private Runtime runtime;
+        private AppServicePlan plan = null;
+        private DiagnosticConfig diagnosticConfig = null;
+        private Set<String> appSettingsToRemove = new HashSet<>();
 ```
 
 ### RedundantFieldInitialization
@@ -3026,6 +2964,90 @@ in `azure-toolkit-libs/azure-toolkit-appservice-lib/src/main/java/com/microsoft/
         private Map<String, String> appSettings = null;
     }
 }
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `azure-toolkit-libs/azure-toolkit-common-lib/src/main/java/com/microsoft/azure/toolkit/lib/common/task/AzureTask.java`
+#### Snippet
+```java
+    private boolean backgroundable = true;
+    @Nullable
+    private Boolean backgrounded = null;
+    @Nonnull
+    @Builder.Default
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `azure-toolkit-libs/azure-toolkit-common-lib/src/main/java/com/microsoft/azure/toolkit/lib/common/task/AzureTask.java`
+#### Snippet
+```java
+
+    public static class DefaultMonitor implements Monitor {
+        private boolean cancelled = false;
+
+        @Override
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `azure-toolkit-libs/azure-toolkit-appservice-lib/src/main/java/com/microsoft/azure/toolkit/lib/appservice/function/FunctionAppDeploymentSlotDraft.java`
+#### Snippet
+```java
+        private DockerConfiguration dockerConfiguration;
+        private String configurationSource;
+        private DiagnosticConfig diagnosticConfig = null;
+        private Set<String> appSettingsToRemove = new HashSet<>();
+        private Map<String, String> appSettings = null;
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `azure-toolkit-libs/azure-toolkit-appservice-lib/src/main/java/com/microsoft/azure/toolkit/lib/appservice/function/FunctionAppDeploymentSlotDraft.java`
+#### Snippet
+```java
+        private DiagnosticConfig diagnosticConfig = null;
+        private Set<String> appSettingsToRemove = new HashSet<>();
+        private Map<String, String> appSettings = null;
+    }
+}
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `azure-toolkit-libs/azure-toolkit-appservice-lib/src/main/java/com/microsoft/azure/toolkit/lib/appservice/function/FunctionAppDraft.java`
+#### Snippet
+```java
+        private Set<String> appSettingsToRemove = new HashSet<>();
+        private Map<String, String> appSettings = new HashMap<>();
+        private DockerConfiguration dockerConfiguration = null;
+    }
+}
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `azure-toolkit-libs/azure-toolkit-appservice-lib/src/main/java/com/microsoft/azure/toolkit/lib/appservice/function/FunctionAppDraft.java`
+#### Snippet
+```java
+    private static class Config {
+        private Runtime runtime;
+        private AppServicePlan plan = null;
+        private DiagnosticConfig diagnosticConfig = null;
+        private Set<String> appSettingsToRemove = new HashSet<>();
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `azure-toolkit-libs/azure-toolkit-appservice-lib/src/main/java/com/microsoft/azure/toolkit/lib/appservice/function/FunctionAppDraft.java`
+#### Snippet
+```java
+        private Runtime runtime;
+        private AppServicePlan plan = null;
+        private DiagnosticConfig diagnosticConfig = null;
+        private Set<String> appSettingsToRemove = new HashSet<>();
+        private Map<String, String> appSettings = new HashMap<>();
 ```
 
 ### RedundantFieldInitialization
@@ -3041,75 +3063,15 @@ in `azure-toolkit-libs/azure-toolkit-appservice-lib/src/main/java/com/microsoft/
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `azure-toolkit-libs/azure-toolkit-appservice-lib/src/main/java/com/microsoft/azure/toolkit/lib/appservice/function/FunctionAppDeploymentSlotDraft.java`
-#### Snippet
-```java
-        private DiagnosticConfig diagnosticConfig = null;
-        private Set<String> appSettingsToRemove = new HashSet<>();
-        private Map<String, String> appSettings = null;
-    }
-}
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `azure-toolkit-libs/azure-toolkit-appservice-lib/src/main/java/com/microsoft/azure/toolkit/lib/appservice/function/FunctionAppDeploymentSlotDraft.java`
-#### Snippet
-```java
-        private DockerConfiguration dockerConfiguration;
-        private String configurationSource;
-        private DiagnosticConfig diagnosticConfig = null;
-        private Set<String> appSettingsToRemove = new HashSet<>();
-        private Map<String, String> appSettings = null;
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `azure-toolkit-libs/azure-toolkit-appservice-lib/src/main/java/com/microsoft/azure/toolkit/lib/appservice/function/FunctionAppDraft.java`
-#### Snippet
-```java
-        private Runtime runtime;
-        private AppServicePlan plan = null;
-        private DiagnosticConfig diagnosticConfig = null;
-        private Set<String> appSettingsToRemove = new HashSet<>();
-        private Map<String, String> appSettings = new HashMap<>();
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `azure-toolkit-libs/azure-toolkit-appservice-lib/src/main/java/com/microsoft/azure/toolkit/lib/appservice/function/FunctionAppDraft.java`
-#### Snippet
-```java
-        private Set<String> appSettingsToRemove = new HashSet<>();
-        private Map<String, String> appSettings = new HashMap<>();
-        private DockerConfiguration dockerConfiguration = null;
-    }
-}
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `azure-toolkit-libs/azure-toolkit-appservice-lib/src/main/java/com/microsoft/azure/toolkit/lib/appservice/function/FunctionAppDraft.java`
-#### Snippet
-```java
-    private static class Config {
-        private Runtime runtime;
-        private AppServicePlan plan = null;
-        private DiagnosticConfig diagnosticConfig = null;
-        private Set<String> appSettingsToRemove = new HashSet<>();
-```
-
-### RedundantFieldInitialization
 Field initialization to `false` is redundant
-in `azure-toolkit-libs/azure-toolkit-containerapps-lib/src/main/java/com/microsoft/azure/toolkit/lib/containerapps/model/IngressConfig.java`
+in `azure-webapp-maven-plugin/src/main/java/com/microsoft/azure/maven/webapp/models/WebAppOption.java`
 #### Snippet
 ```java
-    private boolean external;
-    @Builder.Default
-    private boolean allowInsecure = false;
-    @Builder.Default
-    private TransportMethod transport = TransportMethod.AUTO;
+    @Getter
+    private WebApp webappInner;
+    private boolean createNewPlaceHolder = false;
+
+    public WebAppOption(@Nonnull WebApp webapp) {
 ```
 
 ### RedundantFieldInitialization
@@ -3125,15 +3087,27 @@ in `azure-webapp-maven-plugin/src/main/java/com/microsoft/azure/maven/webapp/Abs
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `azure-webapp-maven-plugin/src/main/java/com/microsoft/azure/maven/webapp/models/WebAppOption.java`
+Field initialization to `null` is redundant
+in `azure-toolkit-libs/azure-toolkit-springcloud-lib/src/main/java/com/microsoft/azure/toolkit/lib/springcloud/SpringCloudApp.java`
 #### Snippet
 ```java
-    @Getter
-    private WebApp webappInner;
-    private boolean createNewPlaceHolder = false;
+    private final SpringCloudDeploymentModule deploymentModule;
+    @Nullable
+    private SpringCloudDeployment activeDeployment = null;
 
-    public WebAppOption(@Nonnull WebApp webapp) {
+    protected SpringCloudApp(@Nonnull String name, @Nonnull SpringCloudAppModule module) {
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `azure-toolkit-libs/azure-toolkit-containerapps-lib/src/main/java/com/microsoft/azure/toolkit/lib/containerapps/model/IngressConfig.java`
+#### Snippet
+```java
+    private boolean external;
+    @Builder.Default
+    private boolean allowInsecure = false;
+    @Builder.Default
+    private TransportMethod transport = TransportMethod.AUTO;
 ```
 
 ## RuleId[ruleID=RedundantImplements]
@@ -3159,19 +3133,6 @@ public class FunctionApp extends FunctionAppBase<FunctionApp, AppServiceServiceS
     implements Deletable {
 
     @Nonnull
-```
-
-## RuleId[ruleID=HtmlWrongAttributeValue]
-### HtmlWrongAttributeValue
-Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-01-12-12-02-32.927.html`
-#### Snippet
-```java
-              <td>0</td>
-              <td>0</td>
-              <td><textarea rows="10" cols="75" readonly="true" placeholder="empty" style="white-space: pre; border: none">Not collected for refresh</textarea></td>
-            </tr>
-          </tbody>
 ```
 
 ## RuleId[ruleID=CallToStringConcatCanBeReplacedByOperator]
@@ -3241,6 +3202,30 @@ in `azure-toolkit-libs/azure-toolkit-common-lib/src/main/java/com/microsoft/azur
 in `azure-toolkit-libs/azure-toolkit-common-lib/src/main/java/com/microsoft/azure/toolkit/lib/common/model/AbstractAzResource.java`
 #### Snippet
 ```java
+                this.setRemote(refreshed);
+            } catch (Throwable t) {
+                final Throwable cause = t instanceof HttpResponseException ? t : ExceptionUtils.getRootCause(t);
+                if (cause instanceof HttpResponseException && HttpStatus.SC_NOT_FOUND == ((HttpResponseException) cause).getResponse().getStatusCode()) {
+                    this.setRemote(null);
+```
+
+### InstanceofCatchParameter
+'instanceof' on 'catch' parameter `e`
+in `azure-toolkit-libs/azure-toolkit-common-lib/src/main/java/com/microsoft/azure/toolkit/lib/common/model/AbstractAzResource.java`
+#### Snippet
+```java
+        } catch (Exception e) {
+            log.debug("[{}:{}]:loadRemote()=EXCEPTION", this.module.getName(), this.getName(), e);
+            final Throwable cause = e instanceof HttpResponseException ? e : ExceptionUtils.getRootCause(e);
+            if (cause instanceof HttpResponseException && HttpStatus.SC_NOT_FOUND == ((HttpResponseException) cause).getResponse().getStatusCode()) {
+                return null;
+```
+
+### InstanceofCatchParameter
+'instanceof' on 'catch' parameter `t`
+in `azure-toolkit-libs/azure-toolkit-common-lib/src/main/java/com/microsoft/azure/toolkit/lib/common/model/AbstractAzResource.java`
+#### Snippet
+```java
             return remote;
         } catch (Throwable t) {
             final Throwable cause = t instanceof HttpResponseException ? t : ExceptionUtils.getRootCause(t);
@@ -3265,11 +3250,11 @@ in `azure-toolkit-libs/azure-toolkit-common-lib/src/main/java/com/microsoft/azur
 in `azure-toolkit-libs/azure-toolkit-common-lib/src/main/java/com/microsoft/azure/toolkit/lib/common/model/AbstractAzResource.java`
 #### Snippet
 ```java
+            this.getModule().deleteResourceFromAzure(this.getId());
         } catch (Exception e) {
-            log.debug("[{}:{}]:loadRemote()=EXCEPTION", this.module.getName(), this.getName(), e);
             final Throwable cause = e instanceof HttpResponseException ? e : ExceptionUtils.getRootCause(e);
             if (cause instanceof HttpResponseException && HttpStatus.SC_NOT_FOUND == ((HttpResponseException) cause).getResponse().getStatusCode()) {
-                return null;
+                log.debug("[{}]:delete()->deleteResourceFromAzure()=SC_NOT_FOUND", this.name, e);
 ```
 
 ### InstanceofCatchParameter
@@ -3282,30 +3267,6 @@ in `azure-toolkit-libs/azure-toolkit-common-lib/src/main/java/com/microsoft/azur
             final Throwable cause = e instanceof HttpResponseException ? e : ExceptionUtils.getRootCause(e);
             if (cause instanceof HttpResponseException && HttpStatus.SC_NOT_FOUND == ((HttpResponseException) cause).getResponse().getStatusCode()) {
                 return null;
-```
-
-### InstanceofCatchParameter
-'instanceof' on 'catch' parameter `e`
-in `azure-toolkit-libs/azure-toolkit-common-lib/src/main/java/com/microsoft/azure/toolkit/lib/common/model/AbstractAzResource.java`
-#### Snippet
-```java
-            this.getModule().deleteResourceFromAzure(this.getId());
-        } catch (Exception e) {
-            final Throwable cause = e instanceof HttpResponseException ? e : ExceptionUtils.getRootCause(e);
-            if (cause instanceof HttpResponseException && HttpStatus.SC_NOT_FOUND == ((HttpResponseException) cause).getResponse().getStatusCode()) {
-                log.debug("[{}]:delete()->deleteResourceFromAzure()=SC_NOT_FOUND", this.name, e);
-```
-
-### InstanceofCatchParameter
-'instanceof' on 'catch' parameter `t`
-in `azure-toolkit-libs/azure-toolkit-common-lib/src/main/java/com/microsoft/azure/toolkit/lib/common/model/AbstractAzResource.java`
-#### Snippet
-```java
-                this.setRemote(refreshed);
-            } catch (Throwable t) {
-                final Throwable cause = t instanceof HttpResponseException ? t : ExceptionUtils.getRootCause(t);
-                if (cause instanceof HttpResponseException && HttpStatus.SC_NOT_FOUND == ((HttpResponseException) cause).getResponse().getStatusCode()) {
-                    this.setRemote(null);
 ```
 
 ## RuleId[ruleID=RedundantStringFormatCall]
@@ -3375,30 +3336,6 @@ Lock operations on 'this' may have unforeseen side-effects
 in `azure-toolkit-libs/azure-toolkit-common-lib/src/main/java/com/microsoft/azure/toolkit/lib/common/form/AzureFormInput.java`
 #### Snippet
 ```java
-
-    default void trackValidation() {
-        synchronized (this) {
-            final Field<Consumer<T>> TRACKING = Field.of(FIELD_TRACKING);
-            if (Objects.isNull(this.get(TRACKING))) {
-```
-
-### SynchronizeOnThis
-Lock operations on 'this' may have unforeseen side-effects
-in `azure-toolkit-libs/azure-toolkit-common-lib/src/main/java/com/microsoft/azure/toolkit/lib/common/form/AzureFormInput.java`
-#### Snippet
-```java
-
-    default void setValidationInfo(@Nullable AzureValidationInfo info) {
-        synchronized (this) {
-            this.set(FIELD_VALIDATION_INFO, info);
-        }
-```
-
-### SynchronizeOnThis
-Lock operations on 'this' may have unforeseen side-effects
-in `azure-toolkit-libs/azure-toolkit-common-lib/src/main/java/com/microsoft/azure/toolkit/lib/common/form/AzureFormInput.java`
-#### Snippet
-```java
      */
     default AzureValidationInfo getValidationInfo(final boolean revalidateIfNone) {
         synchronized (this) {
@@ -3420,14 +3357,38 @@ in `azure-toolkit-libs/azure-toolkit-common-lib/src/main/java/com/microsoft/azur
 
 ### SynchronizeOnThis
 Lock operations on 'this' may have unforeseen side-effects
-in `azure-toolkit-libs/azure-toolkit-common-lib/src/main/java/com/microsoft/azure/toolkit/lib/common/model/AzResource.java`
+in `azure-toolkit-libs/azure-toolkit-common-lib/src/main/java/com/microsoft/azure/toolkit/lib/common/form/AzureFormInput.java`
 #### Snippet
 ```java
 
-        default T commit() {
+    default void setValidationInfo(@Nullable AzureValidationInfo info) {
+        synchronized (this) {
+            this.set(FIELD_VALIDATION_INFO, info);
+        }
+```
+
+### SynchronizeOnThis
+Lock operations on 'this' may have unforeseen side-effects
+in `azure-toolkit-libs/azure-toolkit-common-lib/src/main/java/com/microsoft/azure/toolkit/lib/common/form/AzureFormInput.java`
+#### Snippet
+```java
+
+    default void trackValidation() {
+        synchronized (this) {
+            final Field<Consumer<T>> TRACKING = Field.of(FIELD_TRACKING);
+            if (Objects.isNull(this.get(TRACKING))) {
+```
+
+### SynchronizeOnThis
+Lock operations on 'this' may have unforeseen side-effects
+in `azure-toolkit-libs/azure-toolkit-common-lib/src/main/java/com/microsoft/azure/toolkit/lib/common/model/AzResource.java`
+#### Snippet
+```java
+        @Nonnull
+        default T createIfNotExist() {
             synchronized (this) {
-                final boolean existing = this.getModule().exists(this.getName(), this.getResourceGroupName());
-                final T result = existing ? this.getModule().update(this) : this.getModule().create(this);
+                final T origin = this.getModule().get(this.getName(), this.getResourceGroupName());
+                if (Objects.isNull(origin) || !origin.exists()) {
 ```
 
 ### SynchronizeOnThis
@@ -3447,23 +3408,11 @@ Lock operations on 'this' may have unforeseen side-effects
 in `azure-toolkit-libs/azure-toolkit-common-lib/src/main/java/com/microsoft/azure/toolkit/lib/common/model/AzResource.java`
 #### Snippet
 ```java
-        @Nonnull
-        default T createIfNotExist() {
-            synchronized (this) {
-                final T origin = this.getModule().get(this.getName(), this.getResourceGroupName());
-                if (Objects.isNull(origin) || !origin.exists()) {
-```
 
-### SynchronizeOnThis
-Lock operations on 'this' may have unforeseen side-effects
-in `azure-toolkit-libs/azure-toolkit-springcloud-lib/src/main/java/com/microsoft/azure/toolkit/lib/springcloud/SpringCloudDeploymentDraft.java`
-#### Snippet
-```java
-        args = ObjectUtils.firstNonNull(args, new Object[0]);
-        if (method.getName().startsWith("set")) {
+        default T commit() {
             synchronized (this) {
-                this.config = ObjectUtils.firstNonNull(this.config, new Config());
-                return method.invoke(config, args);
+                final boolean existing = this.getModule().exists(this.getName(), this.getResourceGroupName());
+                final T result = existing ? this.getModule().update(this) : this.getModule().create(this);
 ```
 
 ### SynchronizeOnThis
@@ -3476,6 +3425,18 @@ in `azure-webapp-maven-plugin/src/main/java/com/microsoft/azure/maven/webapp/Abs
             synchronized (this) {
                 if (stagingDirectory == null) {
                     final String outputFolder = this.getPluginName().replaceAll(MAVEN_PLUGIN_POSTFIX, "");
+```
+
+### SynchronizeOnThis
+Lock operations on 'this' may have unforeseen side-effects
+in `azure-toolkit-libs/azure-toolkit-springcloud-lib/src/main/java/com/microsoft/azure/toolkit/lib/springcloud/SpringCloudDeploymentDraft.java`
+#### Snippet
+```java
+        args = ObjectUtils.firstNonNull(args, new Object[0]);
+        if (method.getName().startsWith("set")) {
+            synchronized (this) {
+                this.config = ObjectUtils.firstNonNull(this.config, new Config());
+                return method.invoke(config, args);
 ```
 
 ## RuleId[ruleID=ZeroLengthArrayInitialization]
@@ -3541,14 +3502,14 @@ in `azure-toolkit-libs/azure-toolkit-common-lib/src/main/java/com/microsoft/azur
 
 ### ZeroLengthArrayInitialization
 Allocation of zero length array
-in `azure-toolkit-libs/azure-toolkit-common-lib/src/main/java/com/microsoft/azure/toolkit/lib/common/messager/AzureMessage.java`
+in `azure-toolkit-libs/azure-toolkit-common-lib/src/main/java/com/microsoft/azure/toolkit/lib/common/messager/IAzureMessage.java`
 #### Snippet
 ```java
-                final Object[] actions = o instanceof AzureToolkitRuntimeException ?
-                    ((AzureToolkitRuntimeException) o).getActions() : ((AzureToolkitException) o).getActions();
-                return Arrays.stream(ObjectUtils.firstNonNull(actions, new Object[0]));
-            }).collect(Collectors.toList());
-    }
+        }
+        if (Objects.isNull(result)) {
+            final Object[] params = Arrays.stream(text.getParams() != null ? text.getParams() : new Object[0])
+                    .map((p) -> this.decorateValue(p, p::toString))
+                    .toArray();
 ```
 
 ### ZeroLengthArrayInitialization
@@ -3565,50 +3526,26 @@ in `azure-toolkit-libs/azure-toolkit-common-lib/src/main/java/com/microsoft/azur
 
 ### ZeroLengthArrayInitialization
 Allocation of zero length array
-in `azure-toolkit-libs/azure-toolkit-common-lib/src/main/java/com/microsoft/azure/toolkit/lib/common/messager/IAzureMessage.java`
+in `azure-toolkit-libs/azure-toolkit-common-lib/src/main/java/com/microsoft/azure/toolkit/lib/common/messager/AzureMessage.java`
 #### Snippet
 ```java
-        }
-        if (Objects.isNull(result)) {
-            final Object[] params = Arrays.stream(text.getParams() != null ? text.getParams() : new Object[0])
-                    .map((p) -> this.decorateValue(p, p::toString))
-                    .toArray();
+                final Object[] actions = o instanceof AzureToolkitRuntimeException ?
+                    ((AzureToolkitRuntimeException) o).getActions() : ((AzureToolkitException) o).getActions();
+                return Arrays.stream(ObjectUtils.firstNonNull(actions, new Object[0]));
+            }).collect(Collectors.toList());
+    }
 ```
 
 ### ZeroLengthArrayInitialization
 Allocation of zero length array
-in `azure-functions-maven-plugin/src/main/java/com/microsoft/azure/maven/function/DeployMojo.java`
-#### Snippet
-```java
-    private File getArtifactToDeploy() throws AzureExecutionException {
-        final File stagingFolder = new File(getDeploymentStagingDirectoryPath());
-        return Arrays.stream(Optional.ofNullable(stagingFolder.listFiles()).orElse(new File[0]))
-                .filter(jar -> StringUtils.equals(FilenameUtils.getBaseName(jar.getName()), this.getFinalName()))
-                .findFirst()
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `azure-toolkit-libs/azure-toolkit-springcloud-lib/src/main/java/com/microsoft/azure/toolkit/lib/springcloud/SpringCloudDeploymentDraft.java`
+in `azure-toolkit-libs/azure-toolkit-appservice-lib/src/main/java/com/microsoft/azure/toolkit/lib/legacy/function/handlers/AnnotationHandlerImpl.java`
 #### Snippet
 ```java
 
-    private Object invokeSuper(@Nonnull Method method, @Nonnull Object[] args) throws Throwable {
-        final Class<?>[] classes = Arrays.stream(args).map(Object::getClass).toArray(value -> new Class<?>[0]);
-        final MethodType type = MethodType.methodType(method.getReturnType(), classes);
-        final MethodHandle handle = MethodHandles.lookup().findSpecial(SpringCloudDeployment.class, method.getName(), type, this.getClass()).bindTo(this);
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `azure-toolkit-libs/azure-toolkit-springcloud-lib/src/main/java/com/microsoft/azure/toolkit/lib/springcloud/SpringCloudDeploymentDraft.java`
-#### Snippet
-```java
-    @Override
-    public synchronized Object invoke(Object proxy, @Nonnull Method method, Object[] args) throws Throwable {
-        args = ObjectUtils.firstNonNull(args, new Object[0]);
-        if (method.getName().startsWith("set")) {
-            synchronized (this) {
+    protected ClassLoader getClassLoader(final List<URL> urlList) {
+        final URL[] urlArray = urlList.toArray(new URL[0]);
+        return new URLClassLoader(urlArray, this.getClass().getClassLoader());
+    }
 ```
 
 ### ZeroLengthArrayInitialization
@@ -3640,18 +3577,6 @@ Allocation of zero length array
 in `azure-toolkit-libs/azure-toolkit-appservice-lib/src/main/java/com/microsoft/azure/toolkit/lib/appservice/function/impl/DefaultFunctionProject.java`
 #### Snippet
 ```java
-            .map(a -> Arrays.stream(a)
-                .map(DefaultFunctionProject::create)
-                .collect(Collectors.toList()).toArray(new FunctionAnnotation[0])).collect(Collectors.toList());
-
-        functionMethod.setParameterAnnotations(parameterAnnotations);
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `azure-toolkit-libs/azure-toolkit-appservice-lib/src/main/java/com/microsoft/azure/toolkit/lib/appservice/function/impl/DefaultFunctionProject.java`
-#### Snippet
-```java
 
     private static ClassLoader getClassLoader(final List<URL> urlList) {
         final URL[] urlArray = urlList.toArray(new URL[0]);
@@ -3661,14 +3586,14 @@ in `azure-toolkit-libs/azure-toolkit-appservice-lib/src/main/java/com/microsoft/
 
 ### ZeroLengthArrayInitialization
 Allocation of zero length array
-in `azure-toolkit-libs/azure-toolkit-appservice-lib/src/main/java/com/microsoft/azure/toolkit/lib/legacy/function/handlers/AnnotationHandlerImpl.java`
+in `azure-toolkit-libs/azure-toolkit-appservice-lib/src/main/java/com/microsoft/azure/toolkit/lib/appservice/function/impl/DefaultFunctionProject.java`
 #### Snippet
 ```java
+            .map(a -> Arrays.stream(a)
+                .map(DefaultFunctionProject::create)
+                .collect(Collectors.toList()).toArray(new FunctionAnnotation[0])).collect(Collectors.toList());
 
-    protected ClassLoader getClassLoader(final List<URL> urlList) {
-        final URL[] urlArray = urlList.toArray(new URL[0]);
-        return new URLClassLoader(urlArray, this.getClass().getClassLoader());
-    }
+        functionMethod.setParameterAnnotations(parameterAnnotations);
 ```
 
 ### ZeroLengthArrayInitialization
@@ -3707,19 +3632,43 @@ in `azure-webapp-maven-plugin/src/main/java/com/microsoft/azure/maven/webapp/uti
             directoryScanner.scan();
 ```
 
-## RuleId[ruleID=DoubleBraceInitialization]
-### DoubleBraceInitialization
-Double brace initialization
-in `azure-functions-maven-plugin/src/main/java/com/microsoft/azure/maven/function/AbstractFunctionMojo.java`
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `azure-functions-maven-plugin/src/main/java/com/microsoft/azure/maven/function/DeployMojo.java`
 #### Snippet
 ```java
-    protected static final String TRIGGER_TYPE = "triggerType";
-    protected static final String AZURE_FUNCTIONS_JAVA_LIBRARY = "azure-functions-java-library";
-    protected static final Map<FunctionExtensionVersion, Set<Integer>> FUNCTION_EXTENSION_LIBRARY_MAP = new HashMap<FunctionExtensionVersion, Set<Integer>>() {
-        {
-            put(FunctionExtensionVersion.VERSION_2, Sets.newHashSet(1, 2));
+    private File getArtifactToDeploy() throws AzureExecutionException {
+        final File stagingFolder = new File(getDeploymentStagingDirectoryPath());
+        return Arrays.stream(Optional.ofNullable(stagingFolder.listFiles()).orElse(new File[0]))
+                .filter(jar -> StringUtils.equals(FilenameUtils.getBaseName(jar.getName()), this.getFinalName()))
+                .findFirst()
 ```
 
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `azure-toolkit-libs/azure-toolkit-springcloud-lib/src/main/java/com/microsoft/azure/toolkit/lib/springcloud/SpringCloudDeploymentDraft.java`
+#### Snippet
+```java
+
+    private Object invokeSuper(@Nonnull Method method, @Nonnull Object[] args) throws Throwable {
+        final Class<?>[] classes = Arrays.stream(args).map(Object::getClass).toArray(value -> new Class<?>[0]);
+        final MethodType type = MethodType.methodType(method.getReturnType(), classes);
+        final MethodHandle handle = MethodHandles.lookup().findSpecial(SpringCloudDeployment.class, method.getName(), type, this.getClass()).bindTo(this);
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `azure-toolkit-libs/azure-toolkit-springcloud-lib/src/main/java/com/microsoft/azure/toolkit/lib/springcloud/SpringCloudDeploymentDraft.java`
+#### Snippet
+```java
+    @Override
+    public synchronized Object invoke(Object proxy, @Nonnull Method method, Object[] args) throws Throwable {
+        args = ObjectUtils.firstNonNull(args, new Object[0]);
+        if (method.getName().startsWith("set")) {
+            synchronized (this) {
+```
+
+## RuleId[ruleID=DoubleBraceInitialization]
 ### DoubleBraceInitialization
 Double brace initialization
 in `azure-toolkit-libs/azure-toolkit-common-lib/src/main/java/com/microsoft/azure/toolkit/lib/common/telemetry/AzureTelemetryClient.java`
@@ -3730,6 +3679,18 @@ in `azure-toolkit-libs/azure-toolkit-common-lib/src/main/java/com/microsoft/azur
     private static final Map<Pattern, String> PATTERN_MAP = new HashMap<Pattern, String>() {{
         put(EMAIL_PATTERN, "<REDACTED: email>");
         put(SECRET_PATTERN, "<REDACTED: secret>");
+```
+
+### DoubleBraceInitialization
+Double brace initialization
+in `azure-functions-maven-plugin/src/main/java/com/microsoft/azure/maven/function/AbstractFunctionMojo.java`
+#### Snippet
+```java
+    protected static final String TRIGGER_TYPE = "triggerType";
+    protected static final String AZURE_FUNCTIONS_JAVA_LIBRARY = "azure-functions-java-library";
+    protected static final Map<FunctionExtensionVersion, Set<Integer>> FUNCTION_EXTENSION_LIBRARY_MAP = new HashMap<FunctionExtensionVersion, Set<Integer>>() {
+        {
+            put(FunctionExtensionVersion.VERSION_2, Sets.newHashSet(1, 2));
 ```
 
 ## RuleId[ruleID=RedundantUnmodifiable]
@@ -3773,18 +3734,6 @@ in `azure-toolkit-libs/azure-toolkit-common-lib/src/main/java/com/microsoft/azur
 
 ## RuleId[ruleID=UnusedAssignment]
 ### UnusedAssignment
-Variable `bindingEnum` initializer `null` is redundant
-in `azure-toolkit-libs/azure-toolkit-appservice-lib/src/main/java/com/microsoft/azure/toolkit/lib/legacy/function/bindings/Binding.java`
-#### Snippet
-```java
-public class Binding {
-
-    protected BindingEnum bindingEnum = null;
-
-    protected String type = null;
-```
-
-### UnusedAssignment
 Variable `direction` initializer `null` is redundant
 in `azure-toolkit-libs/azure-toolkit-appservice-lib/src/main/java/com/microsoft/azure/toolkit/lib/legacy/function/bindings/Binding.java`
 #### Snippet
@@ -3806,6 +3755,18 @@ in `azure-toolkit-libs/azure-toolkit-appservice-lib/src/main/java/com/microsoft/
     protected String type = null;
 
     protected BindingEnum.Direction direction = null;
+```
+
+### UnusedAssignment
+Variable `bindingEnum` initializer `null` is redundant
+in `azure-toolkit-libs/azure-toolkit-appservice-lib/src/main/java/com/microsoft/azure/toolkit/lib/legacy/function/bindings/Binding.java`
+#### Snippet
+```java
+public class Binding {
+
+    protected BindingEnum bindingEnum = null;
+
+    protected String type = null;
 ```
 
 ### UnusedAssignment
@@ -3909,15 +3870,15 @@ in `azure-toolkit-libs/azure-toolkit-appservice-lib/src/main/java/com/microsoft/
 
 ## RuleId[ruleID=FieldMayBeStatic]
 ### FieldMayBeStatic
-Field `name` may be 'static'
+Field `id` may be 'static'
 in `azure-toolkit-libs/azure-toolkit-common-lib/src/main/java/com/microsoft/azure/toolkit/lib/common/model/AzResource.java`
 #### Snippet
 ```java
+    final class None extends AbstractAzResource<None, None, Void> {
         public static final String NONE = "$NONE$";
         private final String id = NONE;
         private final String name = NONE;
         private final String status = NONE;
-        private final String subscriptionId = NONE;
 ```
 
 ### FieldMayBeStatic
@@ -3945,15 +3906,15 @@ in `azure-toolkit-libs/azure-toolkit-common-lib/src/main/java/com/microsoft/azur
 ```
 
 ### FieldMayBeStatic
-Field `id` may be 'static'
+Field `name` may be 'static'
 in `azure-toolkit-libs/azure-toolkit-common-lib/src/main/java/com/microsoft/azure/toolkit/lib/common/model/AzResource.java`
 #### Snippet
 ```java
-    final class None extends AbstractAzResource<None, None, Void> {
         public static final String NONE = "$NONE$";
         private final String id = NONE;
         private final String name = NONE;
         private final String status = NONE;
+        private final String subscriptionId = NONE;
 ```
 
 ## RuleId[ruleID=Java8MapForEach]
@@ -3971,18 +3932,6 @@ in `azure-maven-plugin-lib/src/main/java/com/microsoft/azure/maven/utils/Templat
 
 ## RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
 ### UtilityClassWithoutPrivateConstructor
-Class `TextIOUtils` has only 'static' members, and lacks a 'private' constructor
-in `azure-maven-plugin-lib/src/main/java/com/microsoft/azure/maven/utils/TextIOUtils.java`
-#### Snippet
-```java
-import java.util.function.Supplier;
-
-public class TextIOUtils {
-    private static TextTerminal textTerminal;
-    private static List<Supplier<TextTerminal>> terminalSupplierList = Arrays.asList(
-```
-
-### UtilityClassWithoutPrivateConstructor
 Class `ProjectUtils` has only 'static' members, and lacks a 'private' constructor
 in `azure-maven-plugin-lib/src/main/java/com/microsoft/azure/maven/ProjectUtils.java`
 #### Snippet
@@ -3992,6 +3941,18 @@ import java.util.Set;
 public class ProjectUtils {
     public static IProject convertCommonProject(MavenProject project) {
         if (project == null) {
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `TextIOUtils` has only 'static' members, and lacks a 'private' constructor
+in `azure-maven-plugin-lib/src/main/java/com/microsoft/azure/maven/utils/TextIOUtils.java`
+#### Snippet
+```java
+import java.util.function.Supplier;
+
+public class TextIOUtils {
+    private static TextTerminal textTerminal;
+    private static List<Supplier<TextTerminal>> terminalSupplierList = Arrays.asList(
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -4019,6 +3980,18 @@ public class MavenConfigUtils {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
+Class `SystemPropertyUtils` has only 'static' members, and lacks a 'private' constructor
+in `azure-maven-plugin-lib/src/main/java/com/microsoft/azure/maven/utils/SystemPropertyUtils.java`
+#### Snippet
+```java
+import java.util.List;
+
+public class SystemPropertyUtils {
+    public static Object injectCommandLineParameter(String prefix, Object obj, @Nonnull Class cls) {
+        Object result = obj;
+```
+
+### UtilityClassWithoutPrivateConstructor
 Class `QueryFactory` has only 'static' members, and lacks a 'private' constructor
 in `azure-maven-plugin-lib/src/main/java/com/microsoft/azure/maven/queryer/QueryFactory.java`
 #### Snippet
@@ -4040,18 +4013,6 @@ import java.util.stream.Collectors;
 public class PomUtils {
     public static Element getPluginNode(PluginDescriptor plugin, File pom) throws FileNotFoundException, DocumentException {
         final SAXReader reader = new CustomSAXReader();
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `SystemPropertyUtils` has only 'static' members, and lacks a 'private' constructor
-in `azure-maven-plugin-lib/src/main/java/com/microsoft/azure/maven/utils/SystemPropertyUtils.java`
-#### Snippet
-```java
-import java.util.List;
-
-public class SystemPropertyUtils {
-    public static Object injectCommandLineParameter(String prefix, Object obj, @Nonnull Class cls) {
-        Object result = obj;
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -4127,6 +4088,18 @@ public class InstallationIdUtils {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
+Class `JsonUtils` has only 'static' members, and lacks a 'private' constructor
+in `azure-toolkit-libs/azure-toolkit-common-lib/src/main/java/com/microsoft/azure/toolkit/lib/common/utils/JsonUtils.java`
+#### Snippet
+```java
+import java.io.Writer;
+
+public class JsonUtils {
+    private static final ObjectMapper MAPPER = new ObjectMapper();
+
+```
+
+### UtilityClassWithoutPrivateConstructor
 Class `NetUtils` has only 'static' members, and lacks a 'private' constructor
 in `azure-toolkit-libs/azure-toolkit-common-lib/src/main/java/com/microsoft/azure/toolkit/lib/common/utils/NetUtils.java`
 #### Snippet
@@ -4148,18 +4121,6 @@ in `azure-toolkit-libs/azure-toolkit-common-lib/src/main/java/com/microsoft/azur
 public class ExpressionUtils {
     private static final ImmutableMap<String, Boolean> valueMap = ImmutableMap.of("true", true, "false", false);
     private static final SimpleTemplateEngine engine = new SimpleTemplateEngine();
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `JsonUtils` has only 'static' members, and lacks a 'private' constructor
-in `azure-toolkit-libs/azure-toolkit-common-lib/src/main/java/com/microsoft/azure/toolkit/lib/common/utils/JsonUtils.java`
-#### Snippet
-```java
-import java.io.Writer;
-
-public class JsonUtils {
-    private static final ObjectMapper MAPPER = new ObjectMapper();
-
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -4247,15 +4208,15 @@ public class AzureTelemeter {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `Utils` has only 'static' members, and lacks a 'private' constructor
-in `azure-toolkit-libs/azure-toolkit-springcloud-lib/src/main/java/com/microsoft/azure/toolkit/lib/springcloud/Utils.java`
+Class `DatabaseTemplateUtils` has only 'static' members, and lacks a 'private' constructor
+in `azure-toolkit-libs/azure-toolkit-database-lib/src/main/java/com/microsoft/azure/toolkit/lib/database/utils/DatabaseTemplateUtils.java`
 #### Snippet
 ```java
-import java.util.function.Predicate;
 
-public class Utils {
-    private static final int POLLING_INTERVAL = 1;
+@Builder
+public class DatabaseTemplateUtils {
 
+    private static final String DEFAULT_MYSQL_DRIVER_CLASS_NAME = "com.mysql.cj.jdbc.Driver";
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -4295,6 +4256,18 @@ public class DateUtils {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
+Class `FunctionUtils` has only 'static' members, and lacks a 'private' constructor
+in `azure-toolkit-libs/azure-toolkit-appservice-lib/src/main/java/com/microsoft/azure/toolkit/lib/legacy/function/utils/FunctionUtils.java`
+#### Snippet
+```java
+
+
+public class FunctionUtils {
+    private static final String LOAD_TEMPLATES_FAIL = "Failed to load all function templates.";
+    private static final String LOAD_BINDING_TEMPLATES_FAIL = "Failed to load function binding template.";
+```
+
+### UtilityClassWithoutPrivateConstructor
 Class `AzureStorageHelper` has only 'static' members, and lacks a 'private' constructor
 in `azure-toolkit-libs/azure-toolkit-appservice-lib/src/main/java/com/microsoft/azure/toolkit/lib/legacy/function/AzureStorageHelper.java`
 #### Snippet
@@ -4316,18 +4289,6 @@ in `azure-toolkit-libs/azure-toolkit-appservice-lib/src/main/java/com/microsoft/
 public class BindingFactory {
     private static final String HTTP_OUTPUT_DEFAULT_NAME = "$return";
 
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `FunctionUtils` has only 'static' members, and lacks a 'private' constructor
-in `azure-toolkit-libs/azure-toolkit-appservice-lib/src/main/java/com/microsoft/azure/toolkit/lib/legacy/function/utils/FunctionUtils.java`
-#### Snippet
-```java
-
-
-public class FunctionUtils {
-    private static final String LOAD_TEMPLATES_FAIL = "Failed to load all function templates.";
-    private static final String LOAD_BINDING_TEMPLATES_FAIL = "Failed to load function binding template.";
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -4379,18 +4340,6 @@ class DeployUtils {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `Utils` has only 'static' members, and lacks a 'private' constructor
-in `azure-toolkit-libs/azure-toolkit-appservice-lib/src/main/java/com/microsoft/azure/toolkit/lib/appservice/utils/Utils.java`
-#### Snippet
-```java
-import java.util.stream.Collectors;
-
-public class Utils {
-
-    public static Map<String, String> normalizeAppSettings(Map<String, AppSetting> input) {
-```
-
-### UtilityClassWithoutPrivateConstructor
 Class `AppServiceUtils` has only 'static' members, and lacks a 'private' constructor
 in `azure-toolkit-libs/azure-toolkit-appservice-lib/src/main/java/com/microsoft/azure/toolkit/lib/appservice/utils/AppServiceUtils.java`
 #### Snippet
@@ -4400,6 +4349,18 @@ import java.util.stream.Collectors;
 public class AppServiceUtils {
     private static final String SCRIPT_FILE = "scriptFile";
     private static final String ENTRY_POINT = "entryPoint";
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `Utils` has only 'static' members, and lacks a 'private' constructor
+in `azure-toolkit-libs/azure-toolkit-appservice-lib/src/main/java/com/microsoft/azure/toolkit/lib/appservice/utils/Utils.java`
+#### Snippet
+```java
+import java.util.stream.Collectors;
+
+public class Utils {
+
+    public static Map<String, String> normalizeAppSettings(Map<String, AppSetting> input) {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -4415,15 +4376,75 @@ public class AzureFunctionsAnnotationConstants {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `DatabaseTemplateUtils` has only 'static' members, and lacks a 'private' constructor
-in `azure-toolkit-libs/azure-toolkit-database-lib/src/main/java/com/microsoft/azure/toolkit/lib/database/utils/DatabaseTemplateUtils.java`
+Class `FTPUtils` has only 'static' members, and lacks a 'private' constructor
+in `azure-webapp-maven-plugin/src/main/java/com/microsoft/azure/maven/webapp/utils/FTPUtils.java`
 #### Snippet
 ```java
 
-@Builder
-public class DatabaseTemplateUtils {
+// Todo: Merge this class with FTPUploader in lib to reduce duplicate
+public class FTPUtils {
 
-    private static final String DEFAULT_MYSQL_DRIVER_CLASS_NAME = "com.mysql.cj.jdbc.Driver";
+    public static final String REPLY_MESSAGE = "Reply Message : %s";
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `XMLUtils` has only 'static' members, and lacks a 'private' constructor
+in `azure-webapp-maven-plugin/src/main/java/com/microsoft/azure/maven/webapp/utils/XMLUtils.java`
+#### Snippet
+```java
+import java.util.List;
+
+public class XMLUtils {
+
+    public static void setNamespace(Element element, Namespace nameSpace) {
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `TelemetryHelper` has only 'static' members, and lacks a 'private' constructor
+in `azure-sfmesh-maven-plugin/src/main/java/com/microsoft/azure/maven/servicefabric/TelemetryHelper.java`
+#### Snippet
+```java
+import java.util.Map;
+
+public class TelemetryHelper {
+    private static final TelemetryClient client = new TelemetryClient();
+
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `Constants` has only 'static' members, and lacks a 'private' constructor
+in `azure-sfmesh-maven-plugin/src/main/java/com/microsoft/azure/maven/servicefabric/Constants.java`
+#### Snippet
+```java
+package com.microsoft.azure.maven.servicefabric;
+
+public class Constants{
+
+    public static final String DEFAULT_SCHEMA_VERSION = "1.0.0-preview2";
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `Utils` has only 'static' members, and lacks a 'private' constructor
+in `azure-sfmesh-maven-plugin/src/main/java/com/microsoft/azure/maven/servicefabric/Utils.java`
+#### Snippet
+```java
+import java.util.Map;
+
+public class Utils {
+
+    enum ResourceType {
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `Utils` has only 'static' members, and lacks a 'private' constructor
+in `azure-toolkit-libs/azure-toolkit-springcloud-lib/src/main/java/com/microsoft/azure/toolkit/lib/springcloud/Utils.java`
+#### Snippet
+```java
+import java.util.function.Predicate;
+
+public class Utils {
+    private static final int POLLING_INTERVAL = 5;
+
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -4462,67 +4483,55 @@ public class AzureCliUtils {
 
 ```
 
-### UtilityClassWithoutPrivateConstructor
-Class `Constants` has only 'static' members, and lacks a 'private' constructor
-in `azure-sfmesh-maven-plugin/src/main/java/com/microsoft/azure/maven/servicefabric/Constants.java`
-#### Snippet
-```java
-package com.microsoft.azure.maven.servicefabric;
-
-public class Constants{
-
-    public static final String DEFAULT_SCHEMA_VERSION = "1.0.0-preview2";
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `TelemetryHelper` has only 'static' members, and lacks a 'private' constructor
-in `azure-sfmesh-maven-plugin/src/main/java/com/microsoft/azure/maven/servicefabric/TelemetryHelper.java`
-#### Snippet
-```java
-import java.util.Map;
-
-public class TelemetryHelper {
-    private static final TelemetryClient client = new TelemetryClient();
-
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `Utils` has only 'static' members, and lacks a 'private' constructor
-in `azure-sfmesh-maven-plugin/src/main/java/com/microsoft/azure/maven/servicefabric/Utils.java`
-#### Snippet
-```java
-import java.util.Map;
-
-public class Utils {
-
-    enum ResourceType {
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `FTPUtils` has only 'static' members, and lacks a 'private' constructor
-in `azure-webapp-maven-plugin/src/main/java/com/microsoft/azure/maven/webapp/utils/FTPUtils.java`
-#### Snippet
-```java
-
-// Todo: Merge this class with FTPUploader in lib to reduce duplicate
-public class FTPUtils {
-
-    public static final String REPLY_MESSAGE = "Reply Message : %s";
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `XMLUtils` has only 'static' members, and lacks a 'private' constructor
-in `azure-webapp-maven-plugin/src/main/java/com/microsoft/azure/maven/webapp/utils/XMLUtils.java`
-#### Snippet
-```java
-import java.util.List;
-
-public class XMLUtils {
-
-    public static void setNamespace(Element element, Namespace nameSpace) {
-```
-
 ## RuleId[ruleID=DataFlowIssue]
+### DataFlowIssue
+Method invocation `getName` may produce `NullPointerException`
+in `azure-toolkit-libs/azure-toolkit-storage-lib/src/main/java/com/microsoft/azure/toolkit/lib/storage/StorageAccountDraft.java`
+#### Snippet
+```java
+        com.azure.resourcemanager.storage.models.StorageAccount.DefinitionStages.WithCreate withCreate =
+            manager.storageAccounts().define(name)
+                .withRegion(this.getRegion().getName())
+                .withExistingResourceGroup(this.getResourceGroupName())
+                .withSku(StorageAccountSkuType.fromSkuName(SkuName.fromString(this.getRedundancy().getName())));
+```
+
+### DataFlowIssue
+Method invocation `getName` may produce `NullPointerException`
+in `azure-toolkit-libs/azure-toolkit-storage-lib/src/main/java/com/microsoft/azure/toolkit/lib/storage/StorageAccountDraft.java`
+#### Snippet
+```java
+                .withRegion(this.getRegion().getName())
+                .withExistingResourceGroup(this.getResourceGroupName())
+                .withSku(StorageAccountSkuType.fromSkuName(SkuName.fromString(this.getRedundancy().getName())));
+        final Kind kind = this.getKind();
+        if (Objects.equals(Kind.STORAGE, kind)) {
+```
+
+### DataFlowIssue
+Method invocation `createQueue` may produce `NullPointerException`
+in `azure-toolkit-libs/azure-toolkit-storage-lib/src/main/java/com/microsoft/azure/toolkit/lib/storage/queue/QueueDraft.java`
+#### Snippet
+```java
+        final IAzureMessager messager = AzureMessager.getMessager();
+        messager.info(AzureString.format("Start creating Queue ({0}).", this.getName()));
+        final QueueClient queue = client.createQueue(this.getName());
+        messager.success(AzureString.format("Queue ({0}) is successfully created.", this.getName()));
+        return queue;
+```
+
+### DataFlowIssue
+Method invocation `createTable` may produce `NullPointerException`
+in `azure-toolkit-libs/azure-toolkit-storage-lib/src/main/java/com/microsoft/azure/toolkit/lib/storage/table/TableDraft.java`
+#### Snippet
+```java
+        final IAzureMessager messager = AzureMessager.getMessager();
+        messager.info(AzureString.format("Start creating Table ({0}).", this.getName()));
+        final TableClient table = client.createTable(this.getName());
+        messager.success(AzureString.format("Table ({0}) is successfully created.", this.getName()));
+        return table;
+```
+
 ### DataFlowIssue
 Expression `this.validateValueAsync().block()` might evaluate to null but is returned by the method declared as @Nonnull
 in `azure-toolkit-libs/azure-toolkit-common-lib/src/main/java/com/microsoft/azure/toolkit/lib/common/form/AzureFormInput.java`
@@ -4597,294 +4606,6 @@ in `azure-toolkit-libs/azure-toolkit-common-lib/src/main/java/com/microsoft/azur
 
 ### DataFlowIssue
 Argument `is` might be null
-in `azure-functions-maven-plugin/src/main/java/com/microsoft/azure/maven/function/ListMojo.java`
-#### Snippet
-```java
-    protected void printToSystemOut(String file) throws IOException {
-        try (final InputStream is = ListMojo.class.getResourceAsStream(file)) {
-            IOUtils.copy(is, System.out);
-        }
-    }
-```
-
-### DataFlowIssue
-Argument `this.getRemote()` might be null
-in `azure-toolkit-libs/azure-toolkit-common-lib/src/main/java/com/microsoft/azure/toolkit/lib/common/model/AbstractAzResource.java`
-#### Snippet
-```java
-
-    public void reloadStatus() {
-        this.setStatus(this.loadStatus(this.getRemote()));
-    }
-
-```
-
-### DataFlowIssue
-Method invocation `getAbbreviation` may produce `NullPointerException`
-in `azure-toolkit-libs/azure-toolkit-applicationinsights-lib/src/main/java/com/microsoft/azure/toolkit/lib/applicationinsights/ApplicationInsightDraft.java`
-#### Snippet
-```java
-        String workspaceResourceId;
-        if (this.workspaceConfig.isNewCreate()) {
-            final String resourceGroupName = String.format("DefaultResourceGroup-%s", region.getAbbreviation());
-            final ResourceGroup resourceGroup =
-                    Azure.az(AzureResources.class).groups(getSubscriptionId()).getOrDraft(resourceGroupName, resourceGroupName);
-```
-
-### DataFlowIssue
-Method invocation `getName` may produce `NullPointerException`
-in `azure-toolkit-libs/azure-toolkit-applicationinsights-lib/src/main/java/com/microsoft/azure/toolkit/lib/applicationinsights/ApplicationInsightDraft.java`
-#### Snippet
-```java
-        messager.info(AzureString.format(START_CREATING_APPLICATION_INSIGHT, getName()));
-        final ApplicationInsightsComponent result = applicationInsightsManager.components().define(getName())
-            .withRegion(region.getName())
-            .withExistingResourceGroup(getResourceGroupName())
-            .withKind("web")
-```
-
-### DataFlowIssue
-Method invocation `getRegion` may produce `NullPointerException`
-in `azure-toolkit-libs/azure-toolkit-applicationinsights-lib/src/main/java/com/microsoft/azure/toolkit/lib/applicationinsights/ApplicationInsightDraft.java`
-#### Snippet
-```java
-    @Override
-    public boolean isModified() {
-        return this.region != null && !Objects.equals(this.region, this.origin.getRegion());
-    }
-
-```
-
-### DataFlowIssue
-Argument `app.getAppServicePlan()` might be null
-in `azure-functions-maven-plugin/src/main/java/com/microsoft/azure/maven/function/DeployMojo.java`
-#### Snippet
-```java
-        FunctionApp app = Azure.az(AzureFunctions.class).functionApps(config.subscriptionId()).updateOrCreate(config.appName(), config.resourceGroup());
-        final boolean newFunctionApp = !app.exists();
-        AppServiceConfig defaultConfig = !newFunctionApp ? fromAppService(app, app.getAppServicePlan()) : buildDefaultConfig(config.subscriptionId(),
-            config.resourceGroup(), config.appName());
-        mergeAppServiceConfig(config, defaultConfig);
-```
-
-### DataFlowIssue
-Method invocation `get` may produce `NullPointerException`
-in `azure-functions-maven-plugin/src/main/java/com/microsoft/azure/maven/function/DeployMojo.java`
-#### Snippet
-```java
-        if (!newFunctionApp && !config.disableAppInsights() && StringUtils.isEmpty(config.appInsightsKey())) {
-            // fill ai key from existing app settings
-            config.appInsightsKey(app.getAppSettings().get(CreateOrUpdateFunctionAppTask.APPINSIGHTS_INSTRUMENTATION_KEY));
-        }
-        return new CreateOrUpdateFunctionAppTask(config).doExecute();
-```
-
-### DataFlowIssue
-Method invocation `getRegion` may produce `NullPointerException`
-in `azure-toolkit-libs/azure-toolkit-applicationinsights-lib/src/main/java/com/microsoft/azure/toolkit/lib/applicationinsights/workspace/LogAnalyticsWorkspaceDraft.java`
-#### Snippet
-```java
-    @Override
-    public boolean isModified() {
-        return this.region != null && !Objects.equals(this.region, this.origin.getRegion());
-    }
-
-```
-
-### DataFlowIssue
-Method invocation `getName` may produce `NullPointerException`
-in `azure-toolkit-libs/azure-toolkit-applicationinsights-lib/src/main/java/com/microsoft/azure/toolkit/lib/applicationinsights/workspace/LogAnalyticsWorkspaceDraft.java`
-#### Snippet
-```java
-        messager.info(AzureString.format(START_CREATING_LOG_ANALYTICS_WORKSPACE, getName()));
-        final Workspace workspace = manager.workspaces().define(getName())
-                .withRegion(region.getName())
-                .withExistingResourceGroup(getResourceGroupName())
-                .create();
-```
-
-### DataFlowIssue
-Argument `this.getParent().getFullyQualifiedDomainName()` might be null
-in `azure-toolkit-libs/azure-toolkit-mysql-single-lib/src/main/java/com/microsoft/azure/toolkit/lib/mysql/single/MySqlDatabase.java`
-#### Snippet
-```java
-    @Nonnull
-    public JdbcUrl getJdbcUrl() {
-        return JdbcUrl.mysql(this.getParent().getFullyQualifiedDomainName(), this.getName());
-    }
-}
-```
-
-### DataFlowIssue
-Method invocation `getName` may produce `NullPointerException`
-in `azure-toolkit-libs/azure-toolkit-mysql-single-lib/src/main/java/com/microsoft/azure/toolkit/lib/mysql/single/MySqlServerDraft.java`
-#### Snippet
-```java
-            .withVersion(validateServerVersion(this.getVersion()));
-        final List<PerformanceTierProperties> tiers = manager.locationBasedPerformanceTiers()
-            .list(this.getRegion().getName()).stream().collect(Collectors.toList());
-        final PerformanceTierProperties tier = tiers.stream().filter(e -> CollectionUtils.isNotEmpty(e.serviceLevelObjectives()))
-            .min(Comparator.comparingInt(this::getTierPriority))
-```
-
-### DataFlowIssue
-Argument `remote` might be null
-in `azure-toolkit-libs/azure-toolkit-mysql-single-lib/src/main/java/com/microsoft/azure/toolkit/lib/mysql/single/MySqlServerDraft.java`
-#### Snippet
-```java
-        final Server remote = this.doModify(() -> create.create(), Status.CREATING);
-        messager.success(AzureString.format("MySQL server({0}) is successfully created.", this.getName()));
-        return this.updateResourceInAzure(remote);
-    }
-
-```
-
-### DataFlowIssue
-Argument `this.getFullyQualifiedDomainName()` might be null
-in `azure-toolkit-libs/azure-toolkit-mysql-single-lib/src/main/java/com/microsoft/azure/toolkit/lib/mysql/single/MySqlServer.java`
-#### Snippet
-```java
-        try {
-            Class.forName("com.mysql.jdbc.Driver");
-            DriverManager.getConnection(JdbcUrl.mysql(this.getFullyQualifiedDomainName()).toString(), username, null);
-        } catch (SQLException e) {
-            String ip = NetUtils.parseIpAddressFromMessage(e.getMessage());
-```
-
-### DataFlowIssue
-Argument `this.getFullyQualifiedDomainName()` might be null
-in `azure-toolkit-libs/azure-toolkit-mysql-single-lib/src/main/java/com/microsoft/azure/toolkit/lib/mysql/single/MySqlServer.java`
-#### Snippet
-```java
-    @Nonnull
-    public JdbcUrl getJdbcUrl() {
-        return JdbcUrl.mysql(this.getFullyQualifiedDomainName());
-    }
-
-```
-
-### DataFlowIssue
-Method invocation `parent` may produce `NullPointerException`
-in `azure-toolkit-libs/azure-toolkit-springcloud-lib/src/main/java/com/microsoft/azure/toolkit/lib/springcloud/SpringCloudApp.java`
-#### Snippet
-```java
-    public String getLogStreamingEndpoint(String instanceName) {
-        return Optional.ofNullable(this.getRemote()).map(SpringApp::activeDeploymentName).map(d -> {
-            final String endpoint = this.getRemote().parent().listTestKeys().primaryTestEndpoint();
-            return String.format("%s/api/logstream/apps/%s/instances/%s", endpoint.replace(".test", ""), this.getName(), instanceName);
-        }).orElse(null);
-```
-
-### DataFlowIssue
-Method invocation `isPublic` may produce `NullPointerException`
-in `azure-toolkit-libs/azure-toolkit-springcloud-lib/src/main/java/com/microsoft/azure/toolkit/lib/springcloud/SpringCloudApp.java`
-#### Snippet
-```java
-    public boolean isPublicEndpointEnabled() {
-        if (Objects.nonNull(this.getRemote())) {
-            return this.getRemote().isPublic();
-        }
-        return false;
-```
-
-### DataFlowIssue
-Method invocation `parent` may produce `NullPointerException`
-in `azure-toolkit-libs/azure-toolkit-springcloud-lib/src/main/java/com/microsoft/azure/toolkit/lib/springcloud/SpringCloudApp.java`
-#### Snippet
-```java
-    public String getTestUrl() {
-        return Optional.ofNullable(this.getRemote()).map(SpringApp::activeDeploymentName).map(d -> {
-            final String endpoint = this.getRemote().parent().listTestKeys().primaryTestEndpoint();
-            return String.format("%s/%s/%s", endpoint, this.getName(), d);
-        }).orElse(null);
-```
-
-### DataFlowIssue
-Argument `deployment` might be null
-in `azure-toolkit-libs/azure-toolkit-springcloud-lib/src/main/java/com/microsoft/azure/toolkit/lib/springcloud/SpringCloudDeploymentDraft.java`
-#### Snippet
-```java
-        SpringAppDeployment deployment = this.doModify(() -> create.create(), Status.CREATING);
-        messager.success(AzureString.format("Deployment({0}) is successfully created", name));
-        deployment = this.scaleDeploymentInAzure(deployment);
-        return deployment;
-    }
-```
-
-### DataFlowIssue
-Dereference of `config` may produce `NullPointerException`
-in `azure-toolkit-libs/azure-toolkit-springcloud-lib/src/main/java/com/microsoft/azure/toolkit/lib/springcloud/SpringCloudDeploymentDraft.java`
-#### Snippet
-```java
-        final String newJvmOptions = this.getJvmOptions();
-        final String newVersion = this.getRuntimeVersion();
-        final File newArtifact = Optional.ofNullable(config.artifact).map(IArtifact::getFile).orElse(null);
-
-        final Map<String, String> oldEnv = super.getEnvironmentVariables();
-```
-
-### DataFlowIssue
-Method invocation `instances` may produce `NullPointerException`
-in `azure-toolkit-libs/azure-toolkit-springcloud-lib/src/main/java/com/microsoft/azure/toolkit/lib/springcloud/SpringCloudDeployment.java`
-#### Snippet
-```java
-    public Integer getInstanceNum() {
-        if (Objects.nonNull(this.getRemote())) {
-            return this.getRemote().instances().size();
-        }
-        return null;
-```
-
-### DataFlowIssue
-Method invocation `manager` may produce `NullPointerException`
-in `azure-toolkit-libs/azure-toolkit-springcloud-lib/src/main/java/com/microsoft/azure/toolkit/lib/springcloud/SpringCloudDeployment.java`
-#### Snippet
-```java
-
-    public int getRemoteDebuggingPort() {
-        AppPlatformManager manager = this.getParent().getParent().getRemote().manager();
-        final String clusterName = this.getParent().getParent().getName();
-        final String appName = this.getParent().getName();
-```
-
-### DataFlowIssue
-Method invocation `manager` may produce `NullPointerException`
-in `azure-toolkit-libs/azure-toolkit-springcloud-lib/src/main/java/com/microsoft/azure/toolkit/lib/springcloud/SpringCloudDeployment.java`
-#### Snippet
-```java
-    @AzureOperation(name = "azure/springcloud.enable_remote_debugging.deployment", params = {"this.getName()"})
-    public void enableRemoteDebugging(int port) {
-        AppPlatformManager manager = this.getParent().getParent().getRemote().manager();
-        final RemoteDebuggingPayload payload = new RemoteDebuggingPayload().withPort(port);
-        final String clusterName = this.getParent().getParent().getName();
-```
-
-### DataFlowIssue
-Method invocation `manager` may produce `NullPointerException`
-in `azure-toolkit-libs/azure-toolkit-springcloud-lib/src/main/java/com/microsoft/azure/toolkit/lib/springcloud/SpringCloudDeployment.java`
-#### Snippet
-```java
-    @Override
-    protected void updateAdditionalProperties(SpringAppDeployment newRemote, SpringAppDeployment oldRemote) {
-        final AppPlatformManager manager = this.getParent().getParent().getRemote().manager();
-        final String clusterName = this.getParent().getParent().getName();
-        final String appName = this.getParent().getName();
-```
-
-### DataFlowIssue
-Method invocation `manager` may produce `NullPointerException`
-in `azure-toolkit-libs/azure-toolkit-springcloud-lib/src/main/java/com/microsoft/azure/toolkit/lib/springcloud/SpringCloudDeployment.java`
-#### Snippet
-```java
-    @AzureOperation(name = "azure/springcloud.disable_remote_debugging.deployment", params = {"this.getName()"})
-    public void disableRemoteDebugging() {
-        AppPlatformManager manager = this.getParent().getParent().getRemote().manager();
-        final String clusterName = this.getParent().getParent().getName();
-        final String appName = this.getParent().getName();
-```
-
-### DataFlowIssue
-Argument `is` might be null
 in `azure-toolkit-libs/azure-toolkit-appservice-lib/src/main/java/com/microsoft/azure/toolkit/lib/legacy/function/utils/FunctionUtils.java`
 #### Snippet
 ```java
@@ -4908,18 +4629,6 @@ in `azure-toolkit-libs/azure-toolkit-appservice-lib/src/main/java/com/microsoft/
 ```
 
 ### DataFlowIssue
-Method invocation `getActiveDeploymentName` may produce `NullPointerException`
-in `azure-toolkit-libs/azure-toolkit-springcloud-lib/src/main/java/com/microsoft/azure/toolkit/lib/springcloud/SpringCloudAppDraft.java`
-#### Snippet
-```java
-        final boolean notModified = Objects.isNull(this.config) ||
-            Objects.isNull(this.config.getName()) || Objects.equals(this.config.getName(), super.getName()) ||
-            Objects.isNull(this.config.getActiveDeploymentName()) || Objects.equals(this.config.getActiveDeploymentName(), super.getActiveDeploymentName()) ||
-            Objects.equals(this.isPublicEndpointEnabled(), super.isPublicEndpointEnabled()) ||
-            Objects.equals(this.isPersistentDiskEnabled(), super.isPersistentDiskEnabled()) ||
-```
-
-### DataFlowIssue
 Argument `is` might be null
 in `azure-toolkit-libs/azure-toolkit-appservice-lib/src/main/java/com/microsoft/azure/toolkit/lib/legacy/function/template/TemplateResources.java`
 #### Snippet
@@ -4929,6 +4638,18 @@ in `azure-toolkit-libs/azure-toolkit-appservice-lib/src/main/java/com/microsoft/
             final String resourceJsonStr = IOUtils.toString(is, "utf8");
             final JsonNode node = mapper.readTree(resourceJsonStr);
             map = mapper.convertValue(node.get("en"), Map.class);
+```
+
+### DataFlowIssue
+Argument `this.getRemote()` might be null
+in `azure-toolkit-libs/azure-toolkit-common-lib/src/main/java/com/microsoft/azure/toolkit/lib/common/model/AbstractAzResource.java`
+#### Snippet
+```java
+
+    public void reloadStatus() {
+        this.setStatus(this.loadStatus(this.getRemote()));
+    }
+
 ```
 
 ### DataFlowIssue
@@ -4984,18 +4705,6 @@ Method invocation `getValue` may produce `NullPointerException`
 in `azure-toolkit-libs/azure-toolkit-appservice-lib/src/main/java/com/microsoft/azure/toolkit/lib/appservice/file/AppServiceKuduClient.java`
 #### Snippet
 ```java
-    public CommandOutput execute(final String command, final String dir) {
-        final CommandRequest commandRequest = CommandRequest.builder().command(command).dir(dir).build();
-        return kuduService.execute(host, JsonUtils.toJson(commandRequest)).block().getValue();
-    }
-
-```
-
-### DataFlowIssue
-Method invocation `getValue` may produce `NullPointerException`
-in `azure-toolkit-libs/azure-toolkit-appservice-lib/src/main/java/com/microsoft/azure/toolkit/lib/appservice/file/AppServiceKuduClient.java`
-#### Snippet
-```java
         // this file is generated by kudu itself, should not be visible to user.
         final String fixedDir = StringUtils.removeStart(dir, HOME_PREFIX);
         return this.kuduService.getFilesInDirectory(host, fixedDir).block().getValue().stream()
@@ -5004,39 +4713,15 @@ in `azure-toolkit-libs/azure-toolkit-appservice-lib/src/main/java/com/microsoft/
 ```
 
 ### DataFlowIssue
-Method invocation `getStatus` may produce `NullPointerException`
-in `azure-toolkit-libs/azure-toolkit-appservice-lib/src/main/java/com/microsoft/azure/toolkit/lib/appservice/task/DeployWebAppTask.java`
+Method invocation `getValue` may produce `NullPointerException`
+in `azure-toolkit-libs/azure-toolkit-appservice-lib/src/main/java/com/microsoft/azure/toolkit/lib/appservice/file/AppServiceKuduClient.java`
 #### Snippet
 ```java
-                .takeUntil(csmDeploymentStatus -> !csmDeploymentStatus.getStatus().isRunning())
-                .blockLast();
-        final DeploymentBuildStatus buildStatus = status.getStatus();
-        if (buildStatus.isTimeout()) {
-            this.messager.warning("Resource deployed, but failed to get the deployment status as timeout");
-```
+    public CommandOutput execute(final String command, final String dir) {
+        final CommandRequest commandRequest = CommandRequest.builder().command(command).dir(dir).build();
+        return kuduService.execute(host, JsonUtils.toJson(commandRequest)).block().getValue();
+    }
 
-### DataFlowIssue
-Method invocation `isDocker` may produce `NullPointerException`
-in `azure-toolkit-libs/azure-toolkit-appservice-lib/src/main/java/com/microsoft/azure/toolkit/lib/appservice/task/DeployWebAppTask.java`
-#### Snippet
-```java
-    @AzureOperation(name = "internal/webapp.deploy_app.app", params = {"this.webApp.getName()"})
-    public WebAppBase<?, ?, ?> doExecute() {
-        if (webApp.getRuntime().isDocker()) {
-            this.messager.info(AzureString.format(SKIP_DEPLOYMENT_FOR_DOCKER_APP_SERVICE, "https://" + webApp.getHostName()));
-            return webApp;
-```
-
-### DataFlowIssue
-Method invocation `isWindows` may produce `NullPointerException`
-in `azure-toolkit-libs/azure-toolkit-appservice-lib/src/main/java/com/microsoft/azure/toolkit/lib/appservice/task/DeployWebAppTask.java`
-#### Snippet
-```java
-            return false;
-        }
-        if (webApp.getRuntime().isWindows() && BooleanUtils.isTrue(this.waitDeploymentComplete)) {
-            messager.warning("`waitDeploymentComplete` is not supported in Windows runtime, skip waiting for deployment status.");
-            return false;
 ```
 
 ### DataFlowIssue
@@ -5076,6 +4761,90 @@ in `azure-toolkit-libs/azure-toolkit-appservice-lib/src/main/java/com/microsoft/
 ```
 
 ### DataFlowIssue
+Method invocation `isDocker` may produce `NullPointerException`
+in `azure-toolkit-libs/azure-toolkit-appservice-lib/src/main/java/com/microsoft/azure/toolkit/lib/appservice/task/DeployWebAppTask.java`
+#### Snippet
+```java
+    @AzureOperation(name = "internal/webapp.deploy_app.app", params = {"this.webApp.getName()"})
+    public WebAppBase<?, ?, ?> doExecute() {
+        if (webApp.getRuntime().isDocker()) {
+            this.messager.info(AzureString.format(SKIP_DEPLOYMENT_FOR_DOCKER_APP_SERVICE, "https://" + webApp.getHostName()));
+            return webApp;
+```
+
+### DataFlowIssue
+Method invocation `isWindows` may produce `NullPointerException`
+in `azure-toolkit-libs/azure-toolkit-appservice-lib/src/main/java/com/microsoft/azure/toolkit/lib/appservice/task/DeployWebAppTask.java`
+#### Snippet
+```java
+            return false;
+        }
+        if (webApp.getRuntime().isWindows() && BooleanUtils.isTrue(this.waitDeploymentComplete)) {
+            messager.warning("`waitDeploymentComplete` is not supported in Windows runtime, skip waiting for deployment status.");
+            return false;
+```
+
+### DataFlowIssue
+Method invocation `getStatus` may produce `NullPointerException`
+in `azure-toolkit-libs/azure-toolkit-appservice-lib/src/main/java/com/microsoft/azure/toolkit/lib/appservice/task/DeployWebAppTask.java`
+#### Snippet
+```java
+                .takeUntil(csmDeploymentStatus -> !csmDeploymentStatus.getStatus().isRunning())
+                .blockLast();
+        final DeploymentBuildStatus buildStatus = status.getStatus();
+        if (buildStatus.isTimeout()) {
+            this.messager.warning("Resource deployed, but failed to get the deployment status as timeout");
+```
+
+### DataFlowIssue
+Method invocation `keySet` may produce `NullPointerException`
+in `azure-toolkit-libs/azure-toolkit-appservice-lib/src/main/java/com/microsoft/azure/toolkit/lib/appservice/function/FunctionAppDeploymentSlot.java`
+#### Snippet
+```java
+    protected String getRemoteDebugPort() {
+        final List<FunctionAppDeploymentSlot> list = getParent().slots().list();
+        final List<Integer> collect = list.stream().filter(slot -> slot.getAppSettings().keySet().contains(HTTP_PLATFORM_DEBUG_PORT))
+                .map(slot -> slot.getAppSettings().get(HTTP_PLATFORM_DEBUG_PORT))
+                .map(portValue -> NumberUtils.toInt(portValue))
+```
+
+### DataFlowIssue
+Method invocation `manager` may produce `NullPointerException`
+in `azure-toolkit-libs/azure-toolkit-appservice-lib/src/main/java/com/microsoft/azure/toolkit/lib/appservice/function/FunctionAppDeploymentSlot.java`
+#### Snippet
+```java
+    public String getMasterKey() {
+        final String name = String.format("%s/slots/%s", getParent().getName(), this.getName());
+        return getFullRemote().manager().serviceClient().getWebApps().listHostKeysAsync(this.getResourceGroupName(), name).map(HostKeysInner::masterKey).block();
+    }
+
+```
+
+### DataFlowIssue
+Method invocation `getOrDefault` may produce `NullPointerException`
+in `azure-toolkit-libs/azure-toolkit-appservice-lib/src/main/java/com/microsoft/azure/toolkit/lib/appservice/function/FunctionAppDeploymentSlot.java`
+#### Snippet
+```java
+    public void enableRemoteDebug() {
+        final Map<String, String> appSettings = this.getAppSettings();
+        final String debugPort = appSettings.getOrDefault(HTTP_PLATFORM_DEBUG_PORT, getRemoteDebugPort());
+        doModify(() -> getFullRemote().update()
+                .withWebSocketsEnabled(true)
+```
+
+### DataFlowIssue
+Method invocation `update` may produce `NullPointerException`
+in `azure-toolkit-libs/azure-toolkit-appservice-lib/src/main/java/com/microsoft/azure/toolkit/lib/appservice/function/FunctionAppDeploymentSlot.java`
+#### Snippet
+```java
+        final Map<String, String> appSettings = this.getAppSettings();
+        final String debugPort = appSettings.getOrDefault(HTTP_PLATFORM_DEBUG_PORT, getRemoteDebugPort());
+        doModify(() -> getFullRemote().update()
+                .withWebSocketsEnabled(true)
+                .withPlatformArchitecture(PlatformArchitecture.X64)
+```
+
+### DataFlowIssue
 Argument `appSettings` might be null
 in `azure-toolkit-libs/azure-toolkit-appservice-lib/src/main/java/com/microsoft/azure/toolkit/lib/appservice/function/FunctionAppDeploymentSlot.java`
 #### Snippet
@@ -5112,78 +4881,6 @@ in `azure-toolkit-libs/azure-toolkit-appservice-lib/src/main/java/com/microsoft/
 ```
 
 ### DataFlowIssue
-Method invocation `getOrDefault` may produce `NullPointerException`
-in `azure-toolkit-libs/azure-toolkit-appservice-lib/src/main/java/com/microsoft/azure/toolkit/lib/appservice/function/FunctionAppDeploymentSlot.java`
-#### Snippet
-```java
-    public void enableRemoteDebug() {
-        final Map<String, String> appSettings = this.getAppSettings();
-        final String debugPort = appSettings.getOrDefault(HTTP_PLATFORM_DEBUG_PORT, getRemoteDebugPort());
-        doModify(() -> getFullRemote().update()
-                .withWebSocketsEnabled(true)
-```
-
-### DataFlowIssue
-Method invocation `update` may produce `NullPointerException`
-in `azure-toolkit-libs/azure-toolkit-appservice-lib/src/main/java/com/microsoft/azure/toolkit/lib/appservice/function/FunctionAppDeploymentSlot.java`
-#### Snippet
-```java
-        final Map<String, String> appSettings = this.getAppSettings();
-        final String debugPort = appSettings.getOrDefault(HTTP_PLATFORM_DEBUG_PORT, getRemoteDebugPort());
-        doModify(() -> getFullRemote().update()
-                .withWebSocketsEnabled(true)
-                .withPlatformArchitecture(PlatformArchitecture.X64)
-```
-
-### DataFlowIssue
-Method invocation `manager` may produce `NullPointerException`
-in `azure-toolkit-libs/azure-toolkit-appservice-lib/src/main/java/com/microsoft/azure/toolkit/lib/appservice/function/FunctionAppDeploymentSlot.java`
-#### Snippet
-```java
-    public String getMasterKey() {
-        final String name = String.format("%s/slots/%s", getParent().getName(), this.getName());
-        return getFullRemote().manager().serviceClient().getWebApps().listHostKeysAsync(this.getResourceGroupName(), name).map(HostKeysInner::masterKey).block();
-    }
-
-```
-
-### DataFlowIssue
-Method invocation `keySet` may produce `NullPointerException`
-in `azure-toolkit-libs/azure-toolkit-appservice-lib/src/main/java/com/microsoft/azure/toolkit/lib/appservice/function/FunctionAppDeploymentSlot.java`
-#### Snippet
-```java
-    protected String getRemoteDebugPort() {
-        final List<FunctionAppDeploymentSlot> list = getParent().slots().list();
-        final List<Integer> collect = list.stream().filter(slot -> slot.getAppSettings().keySet().contains(HTTP_PLATFORM_DEBUG_PORT))
-                .map(slot -> slot.getAppSettings().get(HTTP_PLATFORM_DEBUG_PORT))
-                .map(portValue -> NumberUtils.toInt(portValue))
-```
-
-### DataFlowIssue
-Method invocation `getPath` may produce `NullPointerException`
-in `azure-toolkit-libs/azure-toolkit-appservice-lib/src/main/java/com/microsoft/azure/toolkit/lib/appservice/webapp/WebAppBase.java`
-#### Snippet
-```java
-                    deployOptions == null ? null : AppServiceUtils.toDeployOptions(deployOptions);
-            AzureMessager.getMessager().info(AzureString.format("Deploying (%s)[%s] %s ...", targetFile.toString(),
-                    (deployType.toString()), StringUtils.isBlank(deployOptions.getPath()) ? "" : (" to " + (deployOptions.getPath()))));
-            final com.azure.resourcemanager.appservice.models.DeployType type =
-                    com.azure.resourcemanager.appservice.models.DeployType.fromString(deployType.getValue());
-```
-
-### DataFlowIssue
-Method invocation `getPath` may produce `NullPointerException`
-in `azure-toolkit-libs/azure-toolkit-appservice-lib/src/main/java/com/microsoft/azure/toolkit/lib/appservice/webapp/WebAppBase.java`
-#### Snippet
-```java
-                    deployOptions == null ? null : AppServiceUtils.toDeployOptions(deployOptions);
-            AzureMessager.getMessager().info(AzureString.format("Deploying (%s)[%s] %s ...", targetFile.toString(),
-                    (deployType.toString()), StringUtils.isBlank(deployOptions.getPath()) ? "" : (" to " + (deployOptions.getPath()))));
-            final com.azure.resourcemanager.appservice.models.DeployType type =
-                    com.azure.resourcemanager.appservice.models.DeployType.fromString(deployType.getValue());
-```
-
-### DataFlowIssue
 Passing a non-null argument to `Optional`
 in `azure-toolkit-libs/azure-toolkit-appservice-lib/src/main/java/com/microsoft/azure/toolkit/lib/appservice/webapp/WebAppDeploymentSlotDraft.java`
 #### Snippet
@@ -5193,6 +4890,30 @@ in `azure-toolkit-libs/azure-toolkit-appservice-lib/src/main/java/com/microsoft/
             Optional.ofNullable(settingsToRemove).ifPresent(s -> s.forEach(update::withoutAppSetting));
             Optional.ofNullable(newRuntime).ifPresent(r -> updateRuntime(update, r));
             Optional.ofNullable(newDockerConfig)
+```
+
+### DataFlowIssue
+Method invocation `getPath` may produce `NullPointerException`
+in `azure-toolkit-libs/azure-toolkit-appservice-lib/src/main/java/com/microsoft/azure/toolkit/lib/appservice/webapp/WebAppBase.java`
+#### Snippet
+```java
+                    deployOptions == null ? null : AppServiceUtils.toDeployOptions(deployOptions);
+            AzureMessager.getMessager().info(AzureString.format("Deploying (%s)[%s] %s ...", targetFile.toString(),
+                    (deployType.toString()), StringUtils.isBlank(deployOptions.getPath()) ? "" : (" to " + (deployOptions.getPath()))));
+            final com.azure.resourcemanager.appservice.models.DeployType type =
+                    com.azure.resourcemanager.appservice.models.DeployType.fromString(deployType.getValue());
+```
+
+### DataFlowIssue
+Method invocation `getPath` may produce `NullPointerException`
+in `azure-toolkit-libs/azure-toolkit-appservice-lib/src/main/java/com/microsoft/azure/toolkit/lib/appservice/webapp/WebAppBase.java`
+#### Snippet
+```java
+                    deployOptions == null ? null : AppServiceUtils.toDeployOptions(deployOptions);
+            AzureMessager.getMessager().info(AzureString.format("Deploying (%s)[%s] %s ...", targetFile.toString(),
+                    (deployType.toString()), StringUtils.isBlank(deployOptions.getPath()) ? "" : (" to " + (deployOptions.getPath()))));
+            final com.azure.resourcemanager.appservice.models.DeployType type =
+                    com.azure.resourcemanager.appservice.models.DeployType.fromString(deployType.getValue());
 ```
 
 ### DataFlowIssue
@@ -5208,87 +4929,231 @@ in `azure-toolkit-libs/azure-toolkit-appservice-lib/src/main/java/com/microsoft/
 ```
 
 ### DataFlowIssue
+Argument `this.getParent().getFullyQualifiedDomainName()` might be null
+in `azure-toolkit-libs/azure-toolkit-sqlserver-lib/src/main/java/com/microsoft/azure/toolkit/lib/sqlserver/MicrosoftSqlDatabase.java`
+#### Snippet
+```java
+    @Nonnull
+    public JdbcUrl getJdbcUrl() {
+        return JdbcUrl.sqlserver(this.getParent().getFullyQualifiedDomainName(), this.getName());
+    }
+}
+```
+
+### DataFlowIssue
+Method invocation `getWebContainer` may produce `NullPointerException`
+in `azure-webapp-maven-plugin/src/main/java/com/microsoft/azure/maven/webapp/models/WebAppOption.java`
+#### Snippet
+```java
+        }
+
+        return Objects.equals(webappInner.getRuntime().getWebContainer(), WebContainer.JAVA_SE);
+    }
+
+```
+
+### DataFlowIssue
+Method invocation `getId` may produce `NullPointerException`
+in `azure-webapp-maven-plugin/src/main/java/com/microsoft/azure/maven/webapp/models/WebAppOption.java`
+#### Snippet
+```java
+            return null;
+        }
+        return webappInner.getAppServicePlan().getId();
+    }
+
+```
+
+### DataFlowIssue
+Method invocation `isDocker` may produce `NullPointerException`
+in `azure-webapp-maven-plugin/src/main/java/com/microsoft/azure/maven/webapp/models/WebAppOption.java`
+#### Snippet
+```java
+
+    public boolean isDockerWebapp() {
+        return webappInner != null && webappInner.getRuntime().isDocker();
+    }
+
+```
+
+### DataFlowIssue
 Method invocation `getOperatingSystem` may produce `NullPointerException`
-in `azure-toolkit-libs/azure-toolkit-compute-lib/src/main/java/com/microsoft/azure/toolkit/lib/compute/virtualmachine/VirtualMachineDraft.java`
+in `azure-webapp-maven-plugin/src/main/java/com/microsoft/azure/maven/webapp/models/WebAppOption.java`
 #### Snippet
 ```java
-        final String sshKey = this.getSshKey();
+            return null;
+        }
+        return webappInner.getRuntime().getOperatingSystem();
+    }
 
-        if (image.getOperatingSystem() == OperatingSystem.Windows) {
-            return withCreate.withSpecificWindowsImageVersion(image.getImageReference())
-                .withAdminUsername(userName).withAdminPassword(password).withSize(size.getName());
 ```
 
 ### DataFlowIssue
-Method invocation `getName` may produce `NullPointerException`
-in `azure-toolkit-libs/azure-toolkit-compute-lib/src/main/java/com/microsoft/azure/toolkit/lib/compute/virtualmachine/VirtualMachineDraft.java`
+Argument `this.getFullyQualifiedDomainName()` might be null
+in `azure-toolkit-libs/azure-toolkit-sqlserver-lib/src/main/java/com/microsoft/azure/toolkit/lib/sqlserver/MicrosoftSqlServer.java`
 #### Snippet
 ```java
-        if (image.getOperatingSystem() == OperatingSystem.Windows) {
-            return withCreate.withSpecificWindowsImageVersion(image.getImageReference())
-                .withAdminUsername(userName).withAdminPassword(password).withSize(size.getName());
-        } else {
-            final DefinitionStages.WithLinuxRootPasswordOrPublicKeyManagedOrUnmanaged withLinuxImage =
+        try {
+            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+            DriverManager.getConnection(JdbcUrl.sqlserver(this.getFullyQualifiedDomainName()).toString(), username, null);
+        } catch (SQLException e) {
+            ip = StringUtils.trim(NetUtils.parseIpAddressFromMessage(e.getMessage()));
 ```
 
 ### DataFlowIssue
-Method invocation `getName` may produce `NullPointerException`
-in `azure-toolkit-libs/azure-toolkit-compute-lib/src/main/java/com/microsoft/azure/toolkit/lib/compute/virtualmachine/VirtualMachineDraft.java`
+Argument `this.getFullyQualifiedDomainName()` might be null
+in `azure-toolkit-libs/azure-toolkit-sqlserver-lib/src/main/java/com/microsoft/azure/toolkit/lib/sqlserver/MicrosoftSqlServer.java`
 #### Snippet
 ```java
-            final DefinitionStages.WithLinuxCreateManagedOrUnmanaged withLinuxAuthentication = authenticationType == AuthenticationType.Password ?
-                withLinuxImage.withRootPassword(password) : withLinuxImage.withSsh(sshKey);
-            return withLinuxAuthentication.withSize(size.getName());
+    @Nonnull
+    public JdbcUrl getJdbcUrl() {
+        return JdbcUrl.sqlserver(this.getFullyQualifiedDomainName());
+    }
+
+```
+
+### DataFlowIssue
+Method invocation `getFtpUrl` may produce `NullPointerException`
+in `azure-webapp-maven-plugin/src/main/java/com/microsoft/azure/maven/webapp/task/DeployExternalResourcesTask.java`
+#### Snippet
+```java
+        AzureMessager.getMessager().info(AzureString.format("Uploading resources to %s", target.name()));
+        final PublishingProfile publishingProfile = target.getPublishingProfile();
+        final String serverUrl = publishingProfile.getFtpUrl().split("/", 2)[0];
+        try {
+            final FTPClient ftpClient = FTPUtils.getFTPClient(serverUrl, publishingProfile.getFtpUsername(), publishingProfile.getFtpPassword());
+```
+
+### DataFlowIssue
+Argument `inputStream` might be null
+in `azure-sfmesh-maven-plugin/src/main/java/com/microsoft/azure/maven/servicefabric/YamlContent.java`
+#### Snippet
+```java
+            try {
+                final InputStream inputStream = this.getClass().getClassLoader().getResourceAsStream(resourceName);
+                final BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+                while (reader.ready()){
+                    final String line = reader.readLine().replace("\n", "");
+```
+
+### DataFlowIssue
+Method invocation `getImage` may produce `NullPointerException`
+in `azure-webapp-maven-plugin/src/main/java/com/microsoft/azure/maven/webapp/AbstractWebAppMojo.java`
+#### Snippet
+```java
+        map.put(OS_KEY, os);
+        if (StringUtils.equalsIgnoreCase(os, OperatingSystem.DOCKER.getValue())) {
+            final String imageType = AppServiceUtils.getDockerImageType(runtimeConfig.getImage(), StringUtils.isEmpty(runtimeConfig.getServerId()),
+                    runtimeConfig.getRegistryUrl()).name();
+            map.put(DOCKER_IMAGE_TYPE_KEY, imageType);
+```
+
+### DataFlowIssue
+Argument `webapp.getAppServicePlan()` might be null
+in `azure-webapp-maven-plugin/src/main/java/com/microsoft/azure/maven/webapp/ConfigMojo.java`
+#### Snippet
+```java
+    private WebAppConfiguration getConfigurationFromExisting(WebApp webapp,
+                                                             WebAppConfiguration.WebAppConfigurationBuilder<?, ?> builder) {
+        final AppServiceConfig appServiceConfig = fromAppService(webapp, webapp.getAppServicePlan());
+        // common configuration
+        builder.appName(appServiceConfig.appName())
+```
+
+### DataFlowIssue
+Method invocation `get` may produce `NullPointerException`
+in `azure-webapp-maven-plugin/src/main/java/com/microsoft/azure/maven/webapp/ConfigMojo.java`
+#### Snippet
+```java
+            builder.image(appServiceConfig.runtime().image());
+            builder.registryUrl(appServiceConfig.runtime().registryUrl());
+            final String dockerUsernameSetting = settings.get(SETTING_REGISTRY_USERNAME);
+            if (StringUtils.isNotBlank(dockerUsernameSetting)) {
+                builder.serverId(String.format(SERVER_ID_TEMPLATE, dockerUsernameSetting));
+```
+
+### DataFlowIssue
+Argument `is` might be null
+in `azure-functions-maven-plugin/src/main/java/com/microsoft/azure/maven/function/ListMojo.java`
+#### Snippet
+```java
+    protected void printToSystemOut(String file) throws IOException {
+        try (final InputStream is = ListMojo.class.getResourceAsStream(file)) {
+            IOUtils.copy(is, System.out);
         }
     }
 ```
 
 ### DataFlowIssue
-Method invocation `getName` may produce `NullPointerException`
-in `azure-toolkit-libs/azure-toolkit-storage-lib/src/main/java/com/microsoft/azure/toolkit/lib/storage/StorageAccountDraft.java`
+Argument `this.getParent().getFullyQualifiedDomainName()` might be null
+in `azure-toolkit-libs/azure-toolkit-postgre-lib/src/main/java/com/microsoft/azure/toolkit/lib/postgre/PostgreSqlDatabase.java`
 #### Snippet
 ```java
-        com.azure.resourcemanager.storage.models.StorageAccount.DefinitionStages.WithCreate withCreate =
-            manager.storageAccounts().define(name)
-                .withRegion(this.getRegion().getName())
-                .withExistingResourceGroup(this.getResourceGroupName())
-                .withSku(StorageAccountSkuType.fromSkuName(SkuName.fromString(this.getRedundancy().getName())));
+    @Nonnull
+    public JdbcUrl getJdbcUrl() {
+        return JdbcUrl.postgre(this.getParent().getFullyQualifiedDomainName(), this.getName());
+    }
+}
+```
+
+### DataFlowIssue
+Argument `app.getAppServicePlan()` might be null
+in `azure-functions-maven-plugin/src/main/java/com/microsoft/azure/maven/function/DeployMojo.java`
+#### Snippet
+```java
+        FunctionApp app = Azure.az(AzureFunctions.class).functionApps(config.subscriptionId()).updateOrCreate(config.appName(), config.resourceGroup());
+        final boolean newFunctionApp = !app.exists();
+        AppServiceConfig defaultConfig = !newFunctionApp ? fromAppService(app, app.getAppServicePlan()) : buildDefaultConfig(config.subscriptionId(),
+            config.resourceGroup(), config.appName());
+        mergeAppServiceConfig(config, defaultConfig);
+```
+
+### DataFlowIssue
+Method invocation `get` may produce `NullPointerException`
+in `azure-functions-maven-plugin/src/main/java/com/microsoft/azure/maven/function/DeployMojo.java`
+#### Snippet
+```java
+        if (!newFunctionApp && !config.disableAppInsights() && StringUtils.isEmpty(config.appInsightsKey())) {
+            // fill ai key from existing app settings
+            config.appInsightsKey(app.getAppSettings().get(CreateOrUpdateFunctionAppTask.APPINSIGHTS_INSTRUMENTATION_KEY));
+        }
+        return new CreateOrUpdateFunctionAppTask(config).doExecute();
+```
+
+### DataFlowIssue
+Argument `this.getFullyQualifiedDomainName()` might be null
+in `azure-toolkit-libs/azure-toolkit-postgre-lib/src/main/java/com/microsoft/azure/toolkit/lib/postgre/PostgreSqlServer.java`
+#### Snippet
+```java
+    @Nonnull
+    public JdbcUrl getJdbcUrl() {
+        return JdbcUrl.postgre(this.getFullyQualifiedDomainName(), "postgres");
+    }
+
+```
+
+### DataFlowIssue
+Argument `this.getFullyQualifiedDomainName()` might be null
+in `azure-toolkit-libs/azure-toolkit-postgre-lib/src/main/java/com/microsoft/azure/toolkit/lib/postgre/PostgreSqlServer.java`
+#### Snippet
+```java
+        try {
+            Class.forName("org.postgresql.Driver");
+            DriverManager.getConnection(JdbcUrl.postgre(this.getFullyQualifiedDomainName(), "postgres").toString(), username, null);
+        } catch (SQLException e) {
+            String ip = NetUtils.parseIpAddressFromMessage(e.getMessage());
 ```
 
 ### DataFlowIssue
 Method invocation `getName` may produce `NullPointerException`
-in `azure-toolkit-libs/azure-toolkit-storage-lib/src/main/java/com/microsoft/azure/toolkit/lib/storage/StorageAccountDraft.java`
+in `azure-toolkit-libs/azure-toolkit-postgre-lib/src/main/java/com/microsoft/azure/toolkit/lib/postgre/PostgreSqlServerDraft.java`
 #### Snippet
 ```java
-                .withRegion(this.getRegion().getName())
-                .withExistingResourceGroup(this.getResourceGroupName())
-                .withSku(StorageAccountSkuType.fromSkuName(SkuName.fromString(this.getRedundancy().getName())));
-        final Kind kind = this.getKind();
-        if (Objects.equals(Kind.STORAGE, kind)) {
-```
-
-### DataFlowIssue
-Method invocation `createQueue` may produce `NullPointerException`
-in `azure-toolkit-libs/azure-toolkit-storage-lib/src/main/java/com/microsoft/azure/toolkit/lib/storage/queue/QueueDraft.java`
-#### Snippet
-```java
-        final IAzureMessager messager = AzureMessager.getMessager();
-        messager.info(AzureString.format("Start creating Queue ({0}).", this.getName()));
-        final QueueClient queue = client.createQueue(this.getName());
-        messager.success(AzureString.format("Queue ({0}) is successfully created.", this.getName()));
-        return queue;
-```
-
-### DataFlowIssue
-Method invocation `createTable` may produce `NullPointerException`
-in `azure-toolkit-libs/azure-toolkit-storage-lib/src/main/java/com/microsoft/azure/toolkit/lib/storage/table/TableDraft.java`
-#### Snippet
-```java
-        final IAzureMessager messager = AzureMessager.getMessager();
-        messager.info(AzureString.format("Start creating Table ({0}).", this.getName()));
-        final TableClient table = client.createTable(this.getName());
-        messager.success(AzureString.format("Table ({0}) is successfully created.", this.getName()));
-        return table;
+            .withVersion(validateServerVersion(this.getVersion()));
+        final List<PerformanceTierProperties> tiers = manager.locationBasedPerformanceTiers()
+            .list(this.getRegion().getName()).stream().collect(Collectors.toList());
+        final PerformanceTierProperties tier = tiers.stream().filter(e -> CollectionUtils.isNotEmpty(e.serviceLevelObjectives()))
+            .min(Comparator.comparingInt(this::getTierPriority))
 ```
 
 ### DataFlowIssue
@@ -5376,6 +5241,138 @@ in `azure-toolkit-libs/azure-toolkit-cosmos-lib/src/main/java/com/microsoft/azur
 ```
 
 ### DataFlowIssue
+Dereference of `config` may produce `NullPointerException`
+in `azure-toolkit-libs/azure-toolkit-springcloud-lib/src/main/java/com/microsoft/azure/toolkit/lib/springcloud/SpringCloudDeploymentDraft.java`
+#### Snippet
+```java
+        final String newJvmOptions = this.getJvmOptions();
+        final String newVersion = this.getRuntimeVersion();
+        final File newArtifact = Optional.ofNullable(config.artifact).map(IArtifact::getFile).orElse(null);
+
+        final Map<String, String> oldEnv = super.getEnvironmentVariables();
+```
+
+### DataFlowIssue
+Argument `deployment` might be null
+in `azure-toolkit-libs/azure-toolkit-springcloud-lib/src/main/java/com/microsoft/azure/toolkit/lib/springcloud/SpringCloudDeploymentDraft.java`
+#### Snippet
+```java
+        SpringAppDeployment deployment = this.doModify(() -> create.create(), Status.CREATING);
+        messager.success(AzureString.format("Deployment({0}) is successfully created", name));
+        deployment = this.scaleDeploymentInAzure(deployment);
+        return deployment;
+    }
+```
+
+### DataFlowIssue
+Method invocation `parent` may produce `NullPointerException`
+in `azure-toolkit-libs/azure-toolkit-springcloud-lib/src/main/java/com/microsoft/azure/toolkit/lib/springcloud/SpringCloudApp.java`
+#### Snippet
+```java
+    public String getTestUrl() {
+        return Optional.ofNullable(this.getRemote()).map(SpringApp::activeDeploymentName).map(d -> {
+            final String endpoint = this.getRemote().parent().listTestKeys().primaryTestEndpoint();
+            return String.format("%s/%s/%s", endpoint, this.getName(), d);
+        }).orElse(null);
+```
+
+### DataFlowIssue
+Method invocation `isPublic` may produce `NullPointerException`
+in `azure-toolkit-libs/azure-toolkit-springcloud-lib/src/main/java/com/microsoft/azure/toolkit/lib/springcloud/SpringCloudApp.java`
+#### Snippet
+```java
+    public boolean isPublicEndpointEnabled() {
+        if (Objects.nonNull(this.getRemote())) {
+            return this.getRemote().isPublic();
+        }
+        return false;
+```
+
+### DataFlowIssue
+Method invocation `parent` may produce `NullPointerException`
+in `azure-toolkit-libs/azure-toolkit-springcloud-lib/src/main/java/com/microsoft/azure/toolkit/lib/springcloud/SpringCloudApp.java`
+#### Snippet
+```java
+    public String getLogStreamingEndpoint(String instanceName) {
+        return Optional.ofNullable(this.getRemote()).map(SpringApp::activeDeploymentName).map(d -> {
+            final String endpoint = this.getRemote().parent().listTestKeys().primaryTestEndpoint();
+            return String.format("%s/api/logstream/apps/%s/instances/%s", endpoint.replace(".test", ""), this.getName(), instanceName);
+        }).orElse(null);
+```
+
+### DataFlowIssue
+Method invocation `getActiveDeploymentName` may produce `NullPointerException`
+in `azure-toolkit-libs/azure-toolkit-springcloud-lib/src/main/java/com/microsoft/azure/toolkit/lib/springcloud/SpringCloudAppDraft.java`
+#### Snippet
+```java
+        final boolean notModified = Objects.isNull(this.config) ||
+            Objects.isNull(this.config.getName()) || Objects.equals(this.config.getName(), super.getName()) ||
+            Objects.isNull(this.config.getActiveDeploymentName()) || Objects.equals(this.config.getActiveDeploymentName(), super.getActiveDeploymentName()) ||
+            Objects.equals(this.isPublicEndpointEnabled(), super.isPublicEndpointEnabled()) ||
+            Objects.equals(this.isPersistentDiskEnabled(), super.isPersistentDiskEnabled()) ||
+```
+
+### DataFlowIssue
+Method invocation `getName` may produce `NullPointerException`
+in `azure-toolkit-libs/azure-toolkit-monitor-lib/src/main/java/com/microsoft/azure/toolkit/lib/monitor/LogAnalyticsWorkspaceDraft.java`
+#### Snippet
+```java
+        messager.info(AzureString.format(START_CREATING_LOG_ANALYTICS_WORKSPACE, getName()));
+        final Workspace workspace = manager.workspaces().define(getName())
+                .withRegion(region.getName())
+                .withExistingResourceGroup(getResourceGroupName())
+                .create();
+```
+
+### DataFlowIssue
+Method invocation `getRegion` may produce `NullPointerException`
+in `azure-toolkit-libs/azure-toolkit-monitor-lib/src/main/java/com/microsoft/azure/toolkit/lib/monitor/LogAnalyticsWorkspaceDraft.java`
+#### Snippet
+```java
+    @Override
+    public boolean isModified() {
+        return this.region != null && !Objects.equals(this.region, this.origin.getRegion());
+    }
+
+```
+
+### DataFlowIssue
+Method invocation `getAbbreviation` may produce `NullPointerException`
+in `azure-toolkit-libs/azure-toolkit-applicationinsights-lib/src/main/java/com/microsoft/azure/toolkit/lib/applicationinsights/ApplicationInsightDraft.java`
+#### Snippet
+```java
+        String workspaceResourceId;
+        if (this.workspaceConfig.isNewCreate()) {
+            final String resourceGroupName = String.format("DefaultResourceGroup-%s", region.getAbbreviation());
+            final ResourceGroup resourceGroup =
+                    Azure.az(AzureResources.class).groups(getSubscriptionId()).getOrDraft(resourceGroupName, resourceGroupName);
+```
+
+### DataFlowIssue
+Method invocation `getName` may produce `NullPointerException`
+in `azure-toolkit-libs/azure-toolkit-applicationinsights-lib/src/main/java/com/microsoft/azure/toolkit/lib/applicationinsights/ApplicationInsightDraft.java`
+#### Snippet
+```java
+        messager.info(AzureString.format(START_CREATING_APPLICATION_INSIGHT, getName()));
+        final ApplicationInsightsComponent result = applicationInsightsManager.components().define(getName())
+            .withRegion(region.getName())
+            .withExistingResourceGroup(getResourceGroupName())
+            .withKind("web")
+```
+
+### DataFlowIssue
+Method invocation `getRegion` may produce `NullPointerException`
+in `azure-toolkit-libs/azure-toolkit-applicationinsights-lib/src/main/java/com/microsoft/azure/toolkit/lib/applicationinsights/ApplicationInsightDraft.java`
+#### Snippet
+```java
+    @Override
+    public boolean isModified() {
+        return this.region != null && !Objects.equals(this.region, this.origin.getRegion());
+    }
+
+```
+
+### DataFlowIssue
 Method invocation `reason` may produce `NullPointerException`
 in `azure-spring-apps-maven-plugin/src/main/java/com/microsoft/azure/maven/springcloud/DeployMojo.java`
 #### Snippet
@@ -5383,150 +5380,6 @@ in `azure-spring-apps-maven-plugin/src/main/java/com/microsoft/azure/maven/sprin
         deployment.getInstances().forEach(instance ->
                 log.info(String.format("  InstanceName:%-10s  Status:%-10s Reason:%-10s DiscoverStatus:%-10s",
                         instance.getName(), color(instance.getStatus()), instance.getRemote().reason(), instance.getDiscoveryStatus())));
-    }
-
-```
-
-### DataFlowIssue
-Argument `this.getParent().getFullyQualifiedDomainName()` might be null
-in `azure-toolkit-libs/azure-toolkit-postgre-lib/src/main/java/com/microsoft/azure/toolkit/lib/postgre/PostgreSqlDatabase.java`
-#### Snippet
-```java
-    @Nonnull
-    public JdbcUrl getJdbcUrl() {
-        return JdbcUrl.postgre(this.getParent().getFullyQualifiedDomainName(), this.getName());
-    }
-}
-```
-
-### DataFlowIssue
-Argument `this.getParent().getFullyQualifiedDomainName()` might be null
-in `azure-toolkit-libs/azure-toolkit-sqlserver-lib/src/main/java/com/microsoft/azure/toolkit/lib/sqlserver/MicrosoftSqlDatabase.java`
-#### Snippet
-```java
-    @Nonnull
-    public JdbcUrl getJdbcUrl() {
-        return JdbcUrl.sqlserver(this.getParent().getFullyQualifiedDomainName(), this.getName());
-    }
-}
-```
-
-### DataFlowIssue
-Method invocation `getName` may produce `NullPointerException`
-in `azure-toolkit-libs/azure-toolkit-postgre-lib/src/main/java/com/microsoft/azure/toolkit/lib/postgre/PostgreSqlServerDraft.java`
-#### Snippet
-```java
-            .withVersion(validateServerVersion(this.getVersion()));
-        final List<PerformanceTierProperties> tiers = manager.locationBasedPerformanceTiers()
-            .list(this.getRegion().getName()).stream().collect(Collectors.toList());
-        final PerformanceTierProperties tier = tiers.stream().filter(e -> CollectionUtils.isNotEmpty(e.serviceLevelObjectives()))
-            .min(Comparator.comparingInt(this::getTierPriority))
-```
-
-### DataFlowIssue
-Argument `this.getFullyQualifiedDomainName()` might be null
-in `azure-toolkit-libs/azure-toolkit-postgre-lib/src/main/java/com/microsoft/azure/toolkit/lib/postgre/PostgreSqlServer.java`
-#### Snippet
-```java
-    @Nonnull
-    public JdbcUrl getJdbcUrl() {
-        return JdbcUrl.postgre(this.getFullyQualifiedDomainName(), "postgres");
-    }
-
-```
-
-### DataFlowIssue
-Argument `this.getFullyQualifiedDomainName()` might be null
-in `azure-toolkit-libs/azure-toolkit-postgre-lib/src/main/java/com/microsoft/azure/toolkit/lib/postgre/PostgreSqlServer.java`
-#### Snippet
-```java
-        try {
-            Class.forName("org.postgresql.Driver");
-            DriverManager.getConnection(JdbcUrl.postgre(this.getFullyQualifiedDomainName(), "postgres").toString(), username, null);
-        } catch (SQLException e) {
-            String ip = NetUtils.parseIpAddressFromMessage(e.getMessage());
-```
-
-### DataFlowIssue
-Argument `this.getFullyQualifiedDomainName()` might be null
-in `azure-toolkit-libs/azure-toolkit-sqlserver-lib/src/main/java/com/microsoft/azure/toolkit/lib/sqlserver/MicrosoftSqlServer.java`
-#### Snippet
-```java
-        try {
-            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-            DriverManager.getConnection(JdbcUrl.sqlserver(this.getFullyQualifiedDomainName()).toString(), username, null);
-        } catch (SQLException e) {
-            ip = StringUtils.trim(NetUtils.parseIpAddressFromMessage(e.getMessage()));
-```
-
-### DataFlowIssue
-Argument `this.getFullyQualifiedDomainName()` might be null
-in `azure-toolkit-libs/azure-toolkit-sqlserver-lib/src/main/java/com/microsoft/azure/toolkit/lib/sqlserver/MicrosoftSqlServer.java`
-#### Snippet
-```java
-    @Nonnull
-    public JdbcUrl getJdbcUrl() {
-        return JdbcUrl.sqlserver(this.getFullyQualifiedDomainName());
-    }
-
-```
-
-### DataFlowIssue
-Argument `this.getParent().getFullyQualifiedDomainName()` might be null
-in `azure-toolkit-libs/azure-toolkit-mysql-lib/src/main/java/com/microsoft/azure/toolkit/lib/mysql/MySqlDatabase.java`
-#### Snippet
-```java
-    @Nonnull
-    public JdbcUrl getJdbcUrl() {
-        return JdbcUrl.mysql(this.getParent().getFullyQualifiedDomainName(), this.getName());
-    }
-}
-```
-
-### DataFlowIssue
-Argument `this.getFullyQualifiedDomainName()` might be null
-in `azure-toolkit-libs/azure-toolkit-mysql-lib/src/main/java/com/microsoft/azure/toolkit/lib/mysql/MySqlServer.java`
-#### Snippet
-```java
-        try {
-            Class.forName("com.mysql.jdbc.Driver");
-            DriverManager.getConnection(JdbcUrl.mysql(this.getFullyQualifiedDomainName()).toString(), username, null);
-        } catch (SQLException e) {
-            String ip = NetUtils.parseIpAddressFromMessage(e.getMessage());
-```
-
-### DataFlowIssue
-Argument `this.getFullyQualifiedDomainName()` might be null
-in `azure-toolkit-libs/azure-toolkit-mysql-lib/src/main/java/com/microsoft/azure/toolkit/lib/mysql/MySqlServer.java`
-#### Snippet
-```java
-    @Nonnull
-    public JdbcUrl getJdbcUrl() {
-        return JdbcUrl.mysql(this.getFullyQualifiedDomainName());
-    }
-
-```
-
-### DataFlowIssue
-Argument `remote` might be null
-in `azure-toolkit-libs/azure-toolkit-mysql-lib/src/main/java/com/microsoft/azure/toolkit/lib/mysql/MySqlServerDraft.java`
-#### Snippet
-```java
-        final Server remote = this.doModify(() -> create.create(), Status.CREATING);
-        messager.success(AzureString.format("MySQL server({0}) is successfully created.", this.getName()));
-        return this.updateResourceInAzure(remote);
-    }
-
-```
-
-### DataFlowIssue
-Argument `rgName` might be null
-in `azure-toolkit-libs/azure-toolkit-containerapps-lib/src/main/java/com/microsoft/azure/toolkit/lib/containerapps/containerapp/RevisionModule.java`
-#### Snippet
-```java
-    @Override
-    protected AzResource.Draft<Revision, com.azure.resourcemanager.appcontainers.models.Revision> newDraftForCreate(@Nonnull String name, @Nullable String rgName) {
-        return new RevisionDraft(name, rgName, this);
     }
 
 ```
@@ -5556,15 +5409,15 @@ in `azure-toolkit-libs/azure-toolkit-containerapps-lib/src/main/java/com/microso
 ```
 
 ### DataFlowIssue
-Argument `inputStream` might be null
-in `azure-sfmesh-maven-plugin/src/main/java/com/microsoft/azure/maven/servicefabric/YamlContent.java`
+Argument `rgName` might be null
+in `azure-toolkit-libs/azure-toolkit-containerapps-lib/src/main/java/com/microsoft/azure/toolkit/lib/containerapps/containerapp/RevisionModule.java`
 #### Snippet
 ```java
-            try {
-                final InputStream inputStream = this.getClass().getClassLoader().getResourceAsStream(resourceName);
-                final BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
-                while (reader.ready()){
-                    final String line = reader.readLine().replace("\n", "");
+    @Override
+    protected AzResource.Draft<Revision, com.azure.resourcemanager.appcontainers.models.Revision> newDraftForCreate(@Nonnull String name, @Nullable String rgName) {
+        return new RevisionDraft(name, rgName, this);
+    }
+
 ```
 
 ### DataFlowIssue
@@ -5592,6 +5445,102 @@ in `azure-toolkit-libs/azure-toolkit-containerapps-lib/src/main/java/com/microso
 ```
 
 ### DataFlowIssue
+Argument `this.getParent().getFullyQualifiedDomainName()` might be null
+in `azure-toolkit-libs/azure-toolkit-mysql-lib/src/main/java/com/microsoft/azure/toolkit/lib/mysql/MySqlDatabase.java`
+#### Snippet
+```java
+    @Nonnull
+    public JdbcUrl getJdbcUrl() {
+        return JdbcUrl.mysql(this.getParent().getFullyQualifiedDomainName(), this.getName());
+    }
+}
+```
+
+### DataFlowIssue
+Argument `remote` might be null
+in `azure-toolkit-libs/azure-toolkit-mysql-lib/src/main/java/com/microsoft/azure/toolkit/lib/mysql/MySqlServerDraft.java`
+#### Snippet
+```java
+        final Server remote = this.doModify(() -> create.create(), Status.CREATING);
+        messager.success(AzureString.format("MySQL server({0}) is successfully created.", this.getName()));
+        return this.updateResourceInAzure(remote);
+    }
+
+```
+
+### DataFlowIssue
+Argument `this.getFullyQualifiedDomainName()` might be null
+in `azure-toolkit-libs/azure-toolkit-mysql-lib/src/main/java/com/microsoft/azure/toolkit/lib/mysql/MySqlServer.java`
+#### Snippet
+```java
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            DriverManager.getConnection(JdbcUrl.mysql(this.getFullyQualifiedDomainName()).toString(), username, null);
+        } catch (SQLException e) {
+            String ip = NetUtils.parseIpAddressFromMessage(e.getMessage());
+```
+
+### DataFlowIssue
+Argument `this.getFullyQualifiedDomainName()` might be null
+in `azure-toolkit-libs/azure-toolkit-mysql-lib/src/main/java/com/microsoft/azure/toolkit/lib/mysql/MySqlServer.java`
+#### Snippet
+```java
+    @Nonnull
+    public JdbcUrl getJdbcUrl() {
+        return JdbcUrl.mysql(this.getFullyQualifiedDomainName());
+    }
+
+```
+
+### DataFlowIssue
+Method invocation `getOperatingSystem` may produce `NullPointerException`
+in `azure-toolkit-libs/azure-toolkit-compute-lib/src/main/java/com/microsoft/azure/toolkit/lib/compute/virtualmachine/VirtualMachineDraft.java`
+#### Snippet
+```java
+        final String sshKey = this.getSshKey();
+
+        if (image.getOperatingSystem() == OperatingSystem.Windows) {
+            return withCreate.withSpecificWindowsImageVersion(image.getImageReference())
+                .withAdminUsername(userName).withAdminPassword(password).withSize(size.getName());
+```
+
+### DataFlowIssue
+Method invocation `getName` may produce `NullPointerException`
+in `azure-toolkit-libs/azure-toolkit-compute-lib/src/main/java/com/microsoft/azure/toolkit/lib/compute/virtualmachine/VirtualMachineDraft.java`
+#### Snippet
+```java
+        if (image.getOperatingSystem() == OperatingSystem.Windows) {
+            return withCreate.withSpecificWindowsImageVersion(image.getImageReference())
+                .withAdminUsername(userName).withAdminPassword(password).withSize(size.getName());
+        } else {
+            final DefinitionStages.WithLinuxRootPasswordOrPublicKeyManagedOrUnmanaged withLinuxImage =
+```
+
+### DataFlowIssue
+Method invocation `getName` may produce `NullPointerException`
+in `azure-toolkit-libs/azure-toolkit-compute-lib/src/main/java/com/microsoft/azure/toolkit/lib/compute/virtualmachine/VirtualMachineDraft.java`
+#### Snippet
+```java
+            final DefinitionStages.WithLinuxCreateManagedOrUnmanaged withLinuxAuthentication = authenticationType == AuthenticationType.Password ?
+                withLinuxImage.withRootPassword(password) : withLinuxImage.withSsh(sshKey);
+            return withLinuxAuthentication.withSize(size.getName());
+        }
+    }
+```
+
+### DataFlowIssue
+Argument `this.getParent().getFullyQualifiedDomainName()` might be null
+in `azure-toolkit-libs/azure-toolkit-mysql-single-lib/src/main/java/com/microsoft/azure/toolkit/lib/mysql/single/MySqlDatabase.java`
+#### Snippet
+```java
+    @Nonnull
+    public JdbcUrl getJdbcUrl() {
+        return JdbcUrl.mysql(this.getParent().getFullyQualifiedDomainName(), this.getName());
+    }
+}
+```
+
+### DataFlowIssue
 Method invocation `getName` may produce `NullPointerException`
 in `azure-toolkit-libs/azure-toolkit-containerregistry-lib/src/main/java/com/microsoft/azure/toolkit/lib/containerregistry/ContainerRegistryDraft.java`
 #### Snippet
@@ -5604,99 +5553,51 @@ in `azure-toolkit-libs/azure-toolkit-containerregistry-lib/src/main/java/com/mic
 ```
 
 ### DataFlowIssue
-Method invocation `getFtpUrl` may produce `NullPointerException`
-in `azure-webapp-maven-plugin/src/main/java/com/microsoft/azure/maven/webapp/task/DeployExternalResourcesTask.java`
+Method invocation `getName` may produce `NullPointerException`
+in `azure-toolkit-libs/azure-toolkit-mysql-single-lib/src/main/java/com/microsoft/azure/toolkit/lib/mysql/single/MySqlServerDraft.java`
 #### Snippet
 ```java
-        AzureMessager.getMessager().info(AzureString.format("Uploading resources to %s", target.name()));
-        final PublishingProfile publishingProfile = target.getPublishingProfile();
-        final String serverUrl = publishingProfile.getFtpUrl().split("/", 2)[0];
+            .withVersion(validateServerVersion(this.getVersion()));
+        final List<PerformanceTierProperties> tiers = manager.locationBasedPerformanceTiers()
+            .list(this.getRegion().getName()).stream().collect(Collectors.toList());
+        final PerformanceTierProperties tier = tiers.stream().filter(e -> CollectionUtils.isNotEmpty(e.serviceLevelObjectives()))
+            .min(Comparator.comparingInt(this::getTierPriority))
+```
+
+### DataFlowIssue
+Argument `remote` might be null
+in `azure-toolkit-libs/azure-toolkit-mysql-single-lib/src/main/java/com/microsoft/azure/toolkit/lib/mysql/single/MySqlServerDraft.java`
+#### Snippet
+```java
+        final Server remote = this.doModify(() -> create.create(), Status.CREATING);
+        messager.success(AzureString.format("MySQL server({0}) is successfully created.", this.getName()));
+        return this.updateResourceInAzure(remote);
+    }
+
+```
+
+### DataFlowIssue
+Argument `this.getFullyQualifiedDomainName()` might be null
+in `azure-toolkit-libs/azure-toolkit-mysql-single-lib/src/main/java/com/microsoft/azure/toolkit/lib/mysql/single/MySqlServer.java`
+#### Snippet
+```java
         try {
-            final FTPClient ftpClient = FTPUtils.getFTPClient(serverUrl, publishingProfile.getFtpUsername(), publishingProfile.getFtpPassword());
+            Class.forName("com.mysql.jdbc.Driver");
+            DriverManager.getConnection(JdbcUrl.mysql(this.getFullyQualifiedDomainName()).toString(), username, null);
+        } catch (SQLException e) {
+            String ip = NetUtils.parseIpAddressFromMessage(e.getMessage());
 ```
 
 ### DataFlowIssue
-Method invocation `getImage` may produce `NullPointerException`
-in `azure-webapp-maven-plugin/src/main/java/com/microsoft/azure/maven/webapp/AbstractWebAppMojo.java`
+Argument `this.getFullyQualifiedDomainName()` might be null
+in `azure-toolkit-libs/azure-toolkit-mysql-single-lib/src/main/java/com/microsoft/azure/toolkit/lib/mysql/single/MySqlServer.java`
 #### Snippet
 ```java
-        map.put(OS_KEY, os);
-        if (StringUtils.equalsIgnoreCase(os, OperatingSystem.DOCKER.getValue())) {
-            final String imageType = AppServiceUtils.getDockerImageType(runtimeConfig.getImage(), StringUtils.isEmpty(runtimeConfig.getServerId()),
-                    runtimeConfig.getRegistryUrl()).name();
-            map.put(DOCKER_IMAGE_TYPE_KEY, imageType);
-```
-
-### DataFlowIssue
-Method invocation `getOperatingSystem` may produce `NullPointerException`
-in `azure-webapp-maven-plugin/src/main/java/com/microsoft/azure/maven/webapp/models/WebAppOption.java`
-#### Snippet
-```java
-            return null;
-        }
-        return webappInner.getRuntime().getOperatingSystem();
+    @Nonnull
+    public JdbcUrl getJdbcUrl() {
+        return JdbcUrl.mysql(this.getFullyQualifiedDomainName());
     }
 
-```
-
-### DataFlowIssue
-Method invocation `isDocker` may produce `NullPointerException`
-in `azure-webapp-maven-plugin/src/main/java/com/microsoft/azure/maven/webapp/models/WebAppOption.java`
-#### Snippet
-```java
-
-    public boolean isDockerWebapp() {
-        return webappInner != null && webappInner.getRuntime().isDocker();
-    }
-
-```
-
-### DataFlowIssue
-Method invocation `getWebContainer` may produce `NullPointerException`
-in `azure-webapp-maven-plugin/src/main/java/com/microsoft/azure/maven/webapp/models/WebAppOption.java`
-#### Snippet
-```java
-        }
-
-        return Objects.equals(webappInner.getRuntime().getWebContainer(), WebContainer.JAVA_SE);
-    }
-
-```
-
-### DataFlowIssue
-Method invocation `getId` may produce `NullPointerException`
-in `azure-webapp-maven-plugin/src/main/java/com/microsoft/azure/maven/webapp/models/WebAppOption.java`
-#### Snippet
-```java
-            return null;
-        }
-        return webappInner.getAppServicePlan().getId();
-    }
-
-```
-
-### DataFlowIssue
-Argument `webapp.getAppServicePlan()` might be null
-in `azure-webapp-maven-plugin/src/main/java/com/microsoft/azure/maven/webapp/ConfigMojo.java`
-#### Snippet
-```java
-    private WebAppConfiguration getConfigurationFromExisting(WebApp webapp,
-                                                             WebAppConfiguration.WebAppConfigurationBuilder<?, ?> builder) {
-        final AppServiceConfig appServiceConfig = fromAppService(webapp, webapp.getAppServicePlan());
-        // common configuration
-        builder.appName(appServiceConfig.appName())
-```
-
-### DataFlowIssue
-Method invocation `get` may produce `NullPointerException`
-in `azure-webapp-maven-plugin/src/main/java/com/microsoft/azure/maven/webapp/ConfigMojo.java`
-#### Snippet
-```java
-            builder.image(appServiceConfig.runtime().image());
-            builder.registryUrl(appServiceConfig.runtime().registryUrl());
-            final String dockerUsernameSetting = settings.get(SETTING_REGISTRY_USERNAME);
-            if (StringUtils.isNotBlank(dockerUsernameSetting)) {
-                builder.serverId(String.format(SERVER_ID_TEMPLATE, dockerUsernameSetting));
 ```
 
 ## RuleId[ruleID=UnnecessarySemicolon]
@@ -5710,6 +5611,18 @@ in `azure-maven-plugin-lib/src/main/java/com/microsoft/azure/maven/utils/SystemP
                             FieldUtils.writeField(result, field.getName(), propertyValue, true);;
                         }
                     }
+```
+
+### UnnecessarySemicolon
+Unnecessary semicolon `;`
+in `azure-sfmesh-maven-plugin/src/main/java/com/microsoft/azure/maven/servicefabric/Utils.java`
+#### Snippet
+```java
+
+    enum ResourceType {
+        application, volume, network;
+    }
+
 ```
 
 ### UnnecessarySemicolon
@@ -5732,18 +5645,6 @@ in `azure-toolkit-libs/azure-toolkit-compute-lib/src/main/java/com/microsoft/azu
     public enum EvictionType {
         CapacityOnly,
         PriceOrCapacity;
-    }
-
-```
-
-### UnnecessarySemicolon
-Unnecessary semicolon `;`
-in `azure-sfmesh-maven-plugin/src/main/java/com/microsoft/azure/maven/servicefabric/Utils.java`
-#### Snippet
-```java
-
-    enum ResourceType {
-        application, volume, network;
     }
 
 ```
@@ -5824,39 +5725,15 @@ in `azure-toolkit-libs/azure-toolkit-common-lib/src/main/java/com/microsoft/azur
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'validateParameters' is still used
-in `azure-functions-maven-plugin/src/main/java/com/microsoft/azure/maven/function/DeployMojo.java`
+Deprecated member 'AnnotationHandlerImpl' is still used
+in `azure-toolkit-libs/azure-toolkit-appservice-lib/src/main/java/com/microsoft/azure/toolkit/lib/legacy/function/handlers/AnnotationHandlerImpl.java`
 #### Snippet
 ```java
-    // todo: Extract validator for all maven toolkits
-    @Deprecated
-    protected void validateParameters() {
-        // app name
-        if (StringUtils.isBlank(appName)) {
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'SpringCloudDeploymentConfig' is still used
-in `azure-toolkit-libs/azure-toolkit-springcloud-lib/src/main/java/com/microsoft/azure/toolkit/lib/springcloud/config/SpringCloudDeploymentConfig.java`
-#### Snippet
-```java
-@EqualsAndHashCode
+@Slf4j
 @Deprecated
-public class SpringCloudDeploymentConfig {
+public class AnnotationHandlerImpl implements AnnotationHandler {
 
-    @Nullable
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'SpringCloudAppConfig' is still used
-in `azure-toolkit-libs/azure-toolkit-springcloud-lib/src/main/java/com/microsoft/azure/toolkit/lib/springcloud/config/SpringCloudAppConfig.java`
-#### Snippet
-```java
-@EqualsAndHashCode
-@Deprecated
-public class SpringCloudAppConfig {
-    private String subscriptionId;
-    private String clusterName;
+    private static final String MULTI_RETRY_ANNOTATION = "Fixed delay retry and exponential backoff retry are not compatible, " +
 ```
 
 ### DeprecatedIsStillUsed
@@ -5872,42 +5749,18 @@ public class DeployExternalResourcesTask extends AzureTask<WebAppBase<?, ?, ?>> 
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'AnnotationHandlerImpl' is still used
-in `azure-toolkit-libs/azure-toolkit-appservice-lib/src/main/java/com/microsoft/azure/toolkit/lib/legacy/function/handlers/AnnotationHandlerImpl.java`
+Deprecated member 'validateParameters' is still used
+in `azure-functions-maven-plugin/src/main/java/com/microsoft/azure/maven/function/DeployMojo.java`
 #### Snippet
 ```java
-@Slf4j
-@Deprecated
-public class AnnotationHandlerImpl implements AnnotationHandler {
-
-    private static final String MULTI_RETRY_ANNOTATION = "Fixed delay retry and exponential backoff retry are not compatible, " +
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'StorageAccountConfig' is still used
-in `azure-toolkit-libs/azure-toolkit-storage-lib/src/main/java/com/microsoft/azure/toolkit/lib/storage/model/StorageAccountConfig.java`
-#### Snippet
-```java
-@EqualsAndHashCode
-@Deprecated
-public class StorageAccountConfig {
-
-    private String name;
+    // todo: Extract validator for all maven toolkits
+    @Deprecated
+    protected void validateParameters() {
+        // app name
+        if (StringUtils.isBlank(appName)) {
 ```
 
 ## RuleId[ruleID=Convert2MethodRef]
-### Convert2MethodRef
-Lambda can be replaced with method reference
-in `azure-functions-maven-plugin/src/main/java/com/microsoft/azure/maven/function/AbstractFunctionMojo.java`
-#### Snippet
-```java
-                .filter(artifact -> StringUtils.equals(artifact.getArtifactId(), AZURE_FUNCTIONS_JAVA_LIBRARY))
-                .findFirst()
-                .map(artifact -> artifact.getVersion())
-                .orElse(null);
-    }
-```
-
 ### Convert2MethodRef
 Lambda can be replaced with method reference
 in `azure-toolkit-libs/azure-toolkit-appservice-lib/src/main/java/com/microsoft/azure/toolkit/lib/appservice/function/FunctionAppDeploymentSlot.java`
@@ -5958,18 +5811,6 @@ in `azure-toolkit-libs/azure-toolkit-appservice-lib/src/main/java/com/microsoft/
 
 ### Convert2MethodRef
 Lambda can be replaced with method reference
-in `azure-toolkit-libs/azure-toolkit-cosmos-lib/src/main/java/com/microsoft/azure/toolkit/lib/cosmos/CosmosDBAccount.java`
-#### Snippet
-```java
-    @Nullable
-    public String getDocumentEndpoint() {
-        return Optional.ofNullable(getRemote()).map(remote -> remote.documentEndpoint()).orElse(null);
-    }
-
-```
-
-### Convert2MethodRef
-Lambda can be replaced with method reference
 in `azure-toolkit-libs/azure-toolkit-containerservice-lib/src/main/java/com/microsoft/azure/toolkit/lib/containerservice/KubernetesClusterModule.java`
 #### Snippet
 ```java
@@ -5978,18 +5819,6 @@ in `azure-toolkit-libs/azure-toolkit-containerservice-lib/src/main/java/com/micr
                 .stream().map(profile -> profile.orchestratorVersion())
                 .collect(Collectors.toList());
     }
-```
-
-### Convert2MethodRef
-Lambda can be replaced with method reference
-in `azure-toolkit-libs/azure-toolkit-cosmos-lib/src/main/java/com/microsoft/azure/toolkit/lib/cosmos/mongo/MongoDocumentDraft.java`
-#### Snippet
-```java
-                .map(Document::toJson)
-                .map(json -> JsonUtils.fromJson(json, ObjectNode.class))
-                .orElseGet(() -> super.getDocument());
-    }
-
 ```
 
 ### Convert2MethodRef
@@ -6046,18 +5875,6 @@ in `azure-toolkit-libs/azure-toolkit-containerservice-lib/src/main/java/com/micr
 #### Snippet
 ```java
     @Nullable
-    public AgentPoolMode getAgentPoolMode() {
-        return Optional.ofNullable(getRemote()).map(pool -> pool.mode()).map(mode -> AgentPoolMode.fromString(mode.toString())).orElse(null);
-    }
-
-```
-
-### Convert2MethodRef
-Lambda can be replaced with method reference
-in `azure-toolkit-libs/azure-toolkit-containerservice-lib/src/main/java/com/microsoft/azure/toolkit/lib/containerservice/KubernetesClusterAgentPool.java`
-#### Snippet
-```java
-    @Nullable
     public VirtualMachineSize getVirtualMachineSize() {
         return Optional.ofNullable(getRemote()).map(pool -> pool.vmSize()).map(size -> VirtualMachineSize.fromString(size.toString())).orElse(null);
     }
@@ -6072,6 +5889,18 @@ in `azure-toolkit-libs/azure-toolkit-containerservice-lib/src/main/java/com/micr
     @Nullable
     public OsType getOsType() {
         return Optional.ofNullable(getRemote()).map(pool -> pool.osType()).map(os -> OsType.fromString(os.toString())).orElse(null);
+    }
+
+```
+
+### Convert2MethodRef
+Lambda can be replaced with method reference
+in `azure-toolkit-libs/azure-toolkit-containerservice-lib/src/main/java/com/microsoft/azure/toolkit/lib/containerservice/KubernetesClusterAgentPool.java`
+#### Snippet
+```java
+    @Nullable
+    public AgentPoolMode getAgentPoolMode() {
+        return Optional.ofNullable(getRemote()).map(pool -> pool.mode()).map(mode -> AgentPoolMode.fromString(mode.toString())).orElse(null);
     }
 
 ```
@@ -6100,6 +5929,42 @@ in `azure-webapp-maven-plugin/src/main/java/com/microsoft/azure/maven/webapp/Abs
             final String errorDetails = validate.stream().map(message -> message.getMessage().toString()).collect(Collectors.joining(StringUtils.LF));
 ```
 
+### Convert2MethodRef
+Lambda can be replaced with method reference
+in `azure-functions-maven-plugin/src/main/java/com/microsoft/azure/maven/function/AbstractFunctionMojo.java`
+#### Snippet
+```java
+                .filter(artifact -> StringUtils.equals(artifact.getArtifactId(), AZURE_FUNCTIONS_JAVA_LIBRARY))
+                .findFirst()
+                .map(artifact -> artifact.getVersion())
+                .orElse(null);
+    }
+```
+
+### Convert2MethodRef
+Lambda can be replaced with method reference
+in `azure-toolkit-libs/azure-toolkit-cosmos-lib/src/main/java/com/microsoft/azure/toolkit/lib/cosmos/CosmosDBAccount.java`
+#### Snippet
+```java
+    @Nullable
+    public String getDocumentEndpoint() {
+        return Optional.ofNullable(getRemote()).map(remote -> remote.documentEndpoint()).orElse(null);
+    }
+
+```
+
+### Convert2MethodRef
+Lambda can be replaced with method reference
+in `azure-toolkit-libs/azure-toolkit-cosmos-lib/src/main/java/com/microsoft/azure/toolkit/lib/cosmos/mongo/MongoDocumentDraft.java`
+#### Snippet
+```java
+                .map(Document::toJson)
+                .map(json -> JsonUtils.fromJson(json, ObjectNode.class))
+                .orElseGet(() -> super.getDocument());
+    }
+
+```
+
 ## RuleId[ruleID=UnnecessaryCallToStringValueOf]
 ### UnnecessaryCallToStringValueOf
 Unnecessary `Objects.toString()` call
@@ -6113,19 +5978,6 @@ in `azure-webapp-maven-plugin/src/main/java/com/microsoft/azure/maven/webapp/ser
         }
 ```
 
-## RuleId[ruleID=RedundantCollectionOperation]
-### RedundantCollectionOperation
-`contains` can be replaced with 'Map.containsKey()'
-in `azure-toolkit-libs/azure-toolkit-appservice-lib/src/main/java/com/microsoft/azure/toolkit/lib/appservice/function/FunctionAppDeploymentSlot.java`
-#### Snippet
-```java
-    protected String getRemoteDebugPort() {
-        final List<FunctionAppDeploymentSlot> list = getParent().slots().list();
-        final List<Integer> collect = list.stream().filter(slot -> slot.getAppSettings().keySet().contains(HTTP_PLATFORM_DEBUG_PORT))
-                .map(slot -> slot.getAppSettings().get(HTTP_PLATFORM_DEBUG_PORT))
-                .map(portValue -> NumberUtils.toInt(portValue))
-```
-
 ## RuleId[ruleID=NonSynchronizedMethodOverridesSynchronizedMethod]
 ### NonSynchronizedMethodOverridesSynchronizedMethod
 Unsynchronized method `getActiveDeploymentName()` overrides synchronized method
@@ -6137,6 +5989,19 @@ in `azure-toolkit-libs/azure-toolkit-springcloud-lib/src/main/java/com/microsoft
     public String getActiveDeploymentName() {
         return Optional.ofNullable(config).map(Config::getActiveDeploymentName).orElseGet(super::getActiveDeploymentName);
     }
+```
+
+## RuleId[ruleID=RedundantCollectionOperation]
+### RedundantCollectionOperation
+`contains` can be replaced with 'Map.containsKey()'
+in `azure-toolkit-libs/azure-toolkit-appservice-lib/src/main/java/com/microsoft/azure/toolkit/lib/appservice/function/FunctionAppDeploymentSlot.java`
+#### Snippet
+```java
+    protected String getRemoteDebugPort() {
+        final List<FunctionAppDeploymentSlot> list = getParent().slots().list();
+        final List<Integer> collect = list.stream().filter(slot -> slot.getAppSettings().keySet().contains(HTTP_PLATFORM_DEBUG_PORT))
+                .map(slot -> slot.getAppSettings().get(HTTP_PLATFORM_DEBUG_PORT))
+                .map(portValue -> NumberUtils.toInt(portValue))
 ```
 
 ## RuleId[ruleID=NonSerializableFieldInSerializableClass]
@@ -6166,18 +6031,6 @@ in `azure-toolkit-libs/azure-toolkit-common-lib/src/main/java/com/microsoft/azur
 
 ### NonSerializableFieldInSerializableClass
 Non-serializable field 'actions' in a Serializable class
-in `azure-toolkit-libs/azure-toolkit-common-lib/src/main/java/com/microsoft/azure/toolkit/lib/common/exception/SystemException.java`
-#### Snippet
-```java
-     * {@link com.microsoft.azure.toolkit.lib.common.action.Action.Id}
-     */
-    private final Object[] actions;
-
-    public SystemException(@Nonnull Throwable cause) {
-```
-
-### NonSerializableFieldInSerializableClass
-Non-serializable field 'actions' in a Serializable class
 in `azure-toolkit-libs/azure-toolkit-common-lib/src/main/java/com/microsoft/azure/toolkit/lib/common/exception/UserException.java`
 #### Snippet
 ```java
@@ -6188,19 +6041,19 @@ in `azure-toolkit-libs/azure-toolkit-common-lib/src/main/java/com/microsoft/azur
     public UserException(@Nonnull Throwable cause) {
 ```
 
-## RuleId[ruleID=CatchMayIgnoreException]
-### CatchMayIgnoreException
-Empty `catch` block
-in `azure-toolkit-libs/azure-toolkit-common-lib/src/main/java/com/microsoft/azure/toolkit/lib/common/utils/NetUtils.java`
+### NonSerializableFieldInSerializableClass
+Non-serializable field 'actions' in a Serializable class
+in `azure-toolkit-libs/azure-toolkit-common-lib/src/main/java/com/microsoft/azure/toolkit/lib/common/exception/SystemException.java`
 #### Snippet
 ```java
-                }
-            }
-        } catch (IOException e) {
-        }
-        return ip;
+     * {@link com.microsoft.azure.toolkit.lib.common.action.Action.Id}
+     */
+    private final Object[] actions;
+
+    public SystemException(@Nonnull Throwable cause) {
 ```
 
+## RuleId[ruleID=CatchMayIgnoreException]
 ### CatchMayIgnoreException
 Empty `catch` block
 in `azure-toolkit-libs/azure-toolkit-common-lib/src/main/java/com/microsoft/azure/toolkit/lib/common/utils/NetUtils.java`
@@ -6211,6 +6064,18 @@ in `azure-toolkit-libs/azure-toolkit-common-lib/src/main/java/com/microsoft/azur
         } catch (Throwable e) {
         }
         return hostname;
+```
+
+### CatchMayIgnoreException
+Empty `catch` block
+in `azure-toolkit-libs/azure-toolkit-common-lib/src/main/java/com/microsoft/azure/toolkit/lib/common/utils/NetUtils.java`
+#### Snippet
+```java
+                }
+            }
+        } catch (IOException e) {
+        }
+        return ip;
 ```
 
 ### CatchMayIgnoreException
@@ -6228,18 +6093,6 @@ in `azure-toolkit-libs/azure-toolkit-appservice-lib/src/main/java/com/microsoft/
 ## RuleId[ruleID=UnnecessaryToStringCall]
 ### UnnecessaryToStringCall
 Unnecessary `toString()` call
-in `azure-functions-maven-plugin/src/main/java/com/microsoft/azure/maven/function/PackageMojo.java`
-#### Snippet
-```java
-                urlList.add(f.toURI().toURL());
-            } catch (MalformedURLException e) {
-                Log.debug("Failed to get URL for file: " + f.toString());
-            }
-        }
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
 in `azure-toolkit-libs/azure-toolkit-database-lib/src/main/java/com/microsoft/azure/toolkit/lib/database/JdbcUrl.java`
 #### Snippet
 ```java
@@ -6248,18 +6101,6 @@ in `azure-toolkit-libs/azure-toolkit-database-lib/src/main/java/com/microsoft/az
         String url = "jdbc:" + uri.toString();
         return decode(url);
     }
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `azure-spring-apps-maven-plugin/src/main/java/com/microsoft/azure/maven/springcloud/config/ConfigurationPrompter.java`
-#### Snippet
-```java
-            }
-            System.out.println(
-                    TextUtils.yellow(String.format("Validation failure for %s[%s]: %s", propertyName, cliParameter.toString(), errorMessage)));
-        }
-
 ```
 
 ### UnnecessaryToStringCall
@@ -6286,19 +6127,31 @@ in `azure-webapp-maven-plugin/src/main/java/com/microsoft/azure/maven/webapp/Con
                 case WINDOWS:
 ```
 
-## RuleId[ruleID=SetReplaceableByEnumSet]
-### SetReplaceableByEnumSet
-`HashSet<>` can be replaced with 'EnumSet'
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
 in `azure-functions-maven-plugin/src/main/java/com/microsoft/azure/maven/function/PackageMojo.java`
 #### Snippet
 ```java
-
-    protected Set<BindingEnum> getFunctionBindingEnums(Map<String, FunctionConfiguration> configMap) {
-        final Set<BindingEnum> result = new HashSet<>();
-        configMap.values().forEach(configuration -> configuration.getBindings().
-                forEach(binding -> result.add(binding.getBindingEnum())));
+                urlList.add(f.toURI().toURL());
+            } catch (MalformedURLException e) {
+                Log.debug("Failed to get URL for file: " + f.toString());
+            }
+        }
 ```
 
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `azure-spring-apps-maven-plugin/src/main/java/com/microsoft/azure/maven/springcloud/config/ConfigurationPrompter.java`
+#### Snippet
+```java
+            }
+            System.out.println(
+                    TextUtils.yellow(String.format("Validation failure for %s[%s]: %s", propertyName, cliParameter.toString(), errorMessage)));
+        }
+
+```
+
+## RuleId[ruleID=SetReplaceableByEnumSet]
 ### SetReplaceableByEnumSet
 `HashSet<>` can be replaced with 'EnumSet'
 in `azure-toolkit-libs/azure-toolkit-appservice-lib/src/main/java/com/microsoft/azure/toolkit/lib/appservice/function/core/AzureFunctionPackager.java`
@@ -6311,7 +6164,79 @@ in `azure-toolkit-libs/azure-toolkit-appservice-lib/src/main/java/com/microsoft/
             forEach(binding -> result.add(binding.getBindingEnum())));
 ```
 
+### SetReplaceableByEnumSet
+`HashSet<>` can be replaced with 'EnumSet'
+in `azure-functions-maven-plugin/src/main/java/com/microsoft/azure/maven/function/PackageMojo.java`
+#### Snippet
+```java
+
+    protected Set<BindingEnum> getFunctionBindingEnums(Map<String, FunctionConfiguration> configMap) {
+        final Set<BindingEnum> result = new HashSet<>();
+        configMap.values().forEach(configuration -> configuration.getBindings().
+                forEach(binding -> result.add(binding.getBindingEnum())));
+```
+
 ## RuleId[ruleID=PublicFieldAccessedInSynchronizedContext]
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `this.operation` accessed in synchronized context
+in `azure-toolkit-libs/azure-toolkit-common-lib/src/main/java/com/microsoft/azure/toolkit/lib/common/operation/OperationThreadContext.java`
+#### Snippet
+```java
+    @Nullable
+    synchronized Operation popOperation() {
+        final Operation popped = this.operation;
+        assert popped != null : "popped operation is null";
+        this.operation = popped.getParent();
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `this.operation` accessed in synchronized context
+in `azure-toolkit-libs/azure-toolkit-common-lib/src/main/java/com/microsoft/azure/toolkit/lib/common/operation/OperationThreadContext.java`
+#### Snippet
+```java
+        final Operation popped = this.operation;
+        assert popped != null : "popped operation is null";
+        this.operation = popped.getParent();
+        if (Objects.isNull(this.parent) && Objects.isNull(this.operation)) {
+            OperationThreadContext.context.remove();
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `this.parent` accessed in synchronized context
+in `azure-toolkit-libs/azure-toolkit-common-lib/src/main/java/com/microsoft/azure/toolkit/lib/common/operation/OperationThreadContext.java`
+#### Snippet
+```java
+        assert popped != null : "popped operation is null";
+        this.operation = popped.getParent();
+        if (Objects.isNull(this.parent) && Objects.isNull(this.operation)) {
+            OperationThreadContext.context.remove();
+            log.fine(String.format("orphan context[%s] is disposed", this));
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `this.operation` accessed in synchronized context
+in `azure-toolkit-libs/azure-toolkit-common-lib/src/main/java/com/microsoft/azure/toolkit/lib/common/operation/OperationThreadContext.java`
+#### Snippet
+```java
+        assert popped != null : "popped operation is null";
+        this.operation = popped.getParent();
+        if (Objects.isNull(this.parent) && Objects.isNull(this.operation)) {
+            OperationThreadContext.context.remove();
+            log.fine(String.format("orphan context[%s] is disposed", this));
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `this.threadId` accessed in synchronized context
+in `azure-toolkit-libs/azure-toolkit-common-lib/src/main/java/com/microsoft/azure/toolkit/lib/common/operation/OperationThreadContext.java`
+#### Snippet
+```java
+        final long threadId = Thread.currentThread().getId();
+        assert current.threadId == -1 || current.threadId == threadId : String.format("[threadId:%s] illegal thread context[%s]", threadId, current);
+        this.threadId = threadId; // we can not decide in which thread this task will run until here.
+        if (current.threadId != -1) {
+            this.setParent(current);
+```
+
 ### PublicFieldAccessedInSynchronizedContext
 Non-private field `this.threadId` accessed in synchronized context
 in `azure-toolkit-libs/azure-toolkit-common-lib/src/main/java/com/microsoft/azure/toolkit/lib/common/operation/OperationThreadContext.java`
@@ -6361,18 +6286,6 @@ in `azure-toolkit-libs/azure-toolkit-common-lib/src/main/java/com/microsoft/azur
 ```
 
 ### PublicFieldAccessedInSynchronizedContext
-Non-private field `this.threadId` accessed in synchronized context
-in `azure-toolkit-libs/azure-toolkit-common-lib/src/main/java/com/microsoft/azure/toolkit/lib/common/operation/OperationThreadContext.java`
-#### Snippet
-```java
-        final long threadId = Thread.currentThread().getId();
-        assert current.threadId == -1 || current.threadId == threadId : String.format("[threadId:%s] illegal thread context[%s]", threadId, current);
-        this.threadId = threadId; // we can not decide in which thread this task will run until here.
-        if (current.threadId != -1) {
-            this.setParent(current);
-```
-
-### PublicFieldAccessedInSynchronizedContext
 Non-private field `this.parent` accessed in synchronized context
 in `azure-toolkit-libs/azure-toolkit-common-lib/src/main/java/com/microsoft/azure/toolkit/lib/common/operation/OperationThreadContext.java`
 #### Snippet
@@ -6406,54 +6319,6 @@ in `azure-toolkit-libs/azure-toolkit-common-lib/src/main/java/com/microsoft/azur
             this.operation = Optional.ofNullable(parent).map(p -> p.operation).orElse(null);
         }
     }
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `this.operation` accessed in synchronized context
-in `azure-toolkit-libs/azure-toolkit-common-lib/src/main/java/com/microsoft/azure/toolkit/lib/common/operation/OperationThreadContext.java`
-#### Snippet
-```java
-    @Nullable
-    synchronized Operation popOperation() {
-        final Operation popped = this.operation;
-        assert popped != null : "popped operation is null";
-        this.operation = popped.getParent();
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `this.operation` accessed in synchronized context
-in `azure-toolkit-libs/azure-toolkit-common-lib/src/main/java/com/microsoft/azure/toolkit/lib/common/operation/OperationThreadContext.java`
-#### Snippet
-```java
-        final Operation popped = this.operation;
-        assert popped != null : "popped operation is null";
-        this.operation = popped.getParent();
-        if (Objects.isNull(this.parent) && Objects.isNull(this.operation)) {
-            OperationThreadContext.context.remove();
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `this.parent` accessed in synchronized context
-in `azure-toolkit-libs/azure-toolkit-common-lib/src/main/java/com/microsoft/azure/toolkit/lib/common/operation/OperationThreadContext.java`
-#### Snippet
-```java
-        assert popped != null : "popped operation is null";
-        this.operation = popped.getParent();
-        if (Objects.isNull(this.parent) && Objects.isNull(this.operation)) {
-            OperationThreadContext.context.remove();
-            log.fine(String.format("orphan context[%s] is disposed", this));
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `this.operation` accessed in synchronized context
-in `azure-toolkit-libs/azure-toolkit-common-lib/src/main/java/com/microsoft/azure/toolkit/lib/common/operation/OperationThreadContext.java`
-#### Snippet
-```java
-        assert popped != null : "popped operation is null";
-        this.operation = popped.getParent();
-        if (Objects.isNull(this.parent) && Objects.isNull(this.operation)) {
-            OperationThreadContext.context.remove();
-            log.fine(String.format("orphan context[%s] is disposed", this));
 ```
 
 ### PublicFieldAccessedInSynchronizedContext
@@ -6578,18 +6443,6 @@ in `azure-toolkit-libs/azure-toolkit-common-lib/src/main/java/com/microsoft/azur
 ```
 
 ### UnresolvedPropertyKey
-Invalid resource bundle reference 'bundles.com.microsoft.azure.toolkit.operation'
-in `azure-toolkit-libs/azure-toolkit-common-lib/src/main/java/com/microsoft/azure/toolkit/lib/common/action/Action.java`
-#### Snippet
-```java
-        }
-
-        public static <D> Id<D> of(@PropertyKey(resourceBundle = OperationBundle.BUNDLE) @Nonnull String id) {
-            assert StringUtils.isNotBlank(id) : "action id can not be blank";
-            return new Id<>(id);
-```
-
-### UnresolvedPropertyKey
 'account.authenticate' doesn't appear to be a valid property key
 in `azure-toolkit-libs/azure-toolkit-common-lib/src/main/java/com/microsoft/azure/toolkit/lib/common/action/Action.java`
 #### Snippet
@@ -6626,15 +6479,15 @@ in `azure-toolkit-libs/azure-toolkit-common-lib/src/main/java/com/microsoft/azur
 ```
 
 ### UnresolvedPropertyKey
-'account.select_subs' doesn't appear to be a valid property key
-in `azure-toolkit-libs/azure-toolkit-auth-lib/src/main/java/com/microsoft/azure/toolkit/lib/auth/IAccountActions.java`
+Invalid resource bundle reference 'bundles.com.microsoft.azure.toolkit.operation'
+in `azure-toolkit-libs/azure-toolkit-common-lib/src/main/java/com/microsoft/azure/toolkit/lib/common/action/Action.java`
 #### Snippet
 ```java
-public interface IAccountActions {
-    Action.Id<Object> TRY_AZURE = Action.Id.of("account.try_azure");
-    Action.Id<Object> SELECT_SUBS = Action.Id.of("account.select_subs");
-    Action.Id<Object> AUTHENTICATE = Action.AUTHENTICATE;
-}
+        }
+
+        public static <D> Id<D> of(@PropertyKey(resourceBundle = OperationBundle.BUNDLE) @Nonnull String id) {
+            assert StringUtils.isNotBlank(id) : "action id can not be blank";
+            return new Id<>(id);
 ```
 
 ### UnresolvedPropertyKey
@@ -6647,6 +6500,18 @@ public interface IAccountActions {
     Action.Id<Object> TRY_AZURE = Action.Id.of("account.try_azure");
     Action.Id<Object> SELECT_SUBS = Action.Id.of("account.select_subs");
     Action.Id<Object> AUTHENTICATE = Action.AUTHENTICATE;
+```
+
+### UnresolvedPropertyKey
+'account.select_subs' doesn't appear to be a valid property key
+in `azure-toolkit-libs/azure-toolkit-auth-lib/src/main/java/com/microsoft/azure/toolkit/lib/auth/IAccountActions.java`
+#### Snippet
+```java
+public interface IAccountActions {
+    Action.Id<Object> TRY_AZURE = Action.Id.of("account.try_azure");
+    Action.Id<Object> SELECT_SUBS = Action.Id.of("account.select_subs");
+    Action.Id<Object> AUTHENTICATE = Action.AUTHENTICATE;
+}
 ```
 
 ## RuleId[ruleID=RedundantSuppression]
@@ -6735,102 +6600,6 @@ in `azure-maven-plugin-lib/src/main/java/com/microsoft/azure/maven/prompt/Defaul
             System.out.println(defaultEntity == entity ? TextUtils.blue(displayLine + "*") : displayLine);
         }
 
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `azure-maven-plugin-lib/src/main/java/com/microsoft/azure/maven/prompt/DefaultPrompter.java`
-#### Snippet
-```java
-                    return defaultValue;
-                }
-                System.out.print(emptyPromoteMessage);
-            } else {
-                final InputValidateResult<T> res = handleInput.apply(input);
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `azure-maven-plugin-lib/src/main/java/com/microsoft/azure/maven/prompt/DefaultPrompter.java`
-#### Snippet
-```java
-                final InputValidateResult<T> res = handleInput.apply(input);
-                if (res.getErrorMessage() != null) {
-                    System.out.println(TextUtils.yellow(res.getErrorMessage()));
-                } else {
-                    return res.getObj();
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `azure-maven-plugin-lib/src/main/java/com/microsoft/azure/maven/prompt/DefaultPrompter.java`
-#### Snippet
-```java
-                }
-            }
-            System.out.print(promoteMessage);
-            System.out.flush();
-        }
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `azure-maven-plugin-lib/src/main/java/com/microsoft/azure/maven/prompt/DefaultPrompter.java`
-#### Snippet
-```java
-            }
-            System.out.print(promoteMessage);
-            System.out.flush();
-        }
-    }
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `azure-maven-plugin-lib/src/main/java/com/microsoft/azure/maven/prompt/DefaultPrompter.java`
-#### Snippet
-```java
-    public Boolean promoteYesNo(String message, Boolean defaultValue, boolean isRequired) throws IOException {
-        final boolean hasDefaultValue = defaultValue != null;
-        System.out.print(message);
-        System.out.flush();
-
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `azure-maven-plugin-lib/src/main/java/com/microsoft/azure/maven/prompt/DefaultPrompter.java`
-#### Snippet
-```java
-        final boolean hasDefaultValue = defaultValue != null;
-        System.out.print(message);
-        System.out.flush();
-
-        return loopInput(defaultValue, hasDefaultValue, isRequired, "", message, input -> {
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `azure-maven-plugin-lib/src/main/java/com/microsoft/azure/maven/prompt/DefaultPrompter.java`
-#### Snippet
-```java
-            throws IOException {
-        final boolean hasDefaultValue = StringUtils.isNotBlank(defaultValue);
-        System.out.print(message);
-        System.out.flush();
-        return loopInput(defaultValue, hasDefaultValue, isRequired, "", message, input -> {
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `azure-maven-plugin-lib/src/main/java/com/microsoft/azure/maven/prompt/DefaultPrompter.java`
-#### Snippet
-```java
-        final boolean hasDefaultValue = StringUtils.isNotBlank(defaultValue);
-        System.out.print(message);
-        System.out.flush();
-        return loopInput(defaultValue, hasDefaultValue, isRequired, "", message, input -> {
-            if (!isRequired && StringUtils.equals(EMPTY_REPLACEMENT, input.trim())) {
 ```
 
 ### SystemOutErr
@@ -6943,6 +6712,102 @@ in `azure-maven-plugin-lib/src/main/java/com/microsoft/azure/maven/prompt/Defaul
 
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
+in `azure-maven-plugin-lib/src/main/java/com/microsoft/azure/maven/prompt/DefaultPrompter.java`
+#### Snippet
+```java
+    public Boolean promoteYesNo(String message, Boolean defaultValue, boolean isRequired) throws IOException {
+        final boolean hasDefaultValue = defaultValue != null;
+        System.out.print(message);
+        System.out.flush();
+
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `azure-maven-plugin-lib/src/main/java/com/microsoft/azure/maven/prompt/DefaultPrompter.java`
+#### Snippet
+```java
+        final boolean hasDefaultValue = defaultValue != null;
+        System.out.print(message);
+        System.out.flush();
+
+        return loopInput(defaultValue, hasDefaultValue, isRequired, "", message, input -> {
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `azure-maven-plugin-lib/src/main/java/com/microsoft/azure/maven/prompt/DefaultPrompter.java`
+#### Snippet
+```java
+            throws IOException {
+        final boolean hasDefaultValue = StringUtils.isNotBlank(defaultValue);
+        System.out.print(message);
+        System.out.flush();
+        return loopInput(defaultValue, hasDefaultValue, isRequired, "", message, input -> {
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `azure-maven-plugin-lib/src/main/java/com/microsoft/azure/maven/prompt/DefaultPrompter.java`
+#### Snippet
+```java
+        final boolean hasDefaultValue = StringUtils.isNotBlank(defaultValue);
+        System.out.print(message);
+        System.out.flush();
+        return loopInput(defaultValue, hasDefaultValue, isRequired, "", message, input -> {
+            if (!isRequired && StringUtils.equals(EMPTY_REPLACEMENT, input.trim())) {
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `azure-maven-plugin-lib/src/main/java/com/microsoft/azure/maven/prompt/DefaultPrompter.java`
+#### Snippet
+```java
+                    return defaultValue;
+                }
+                System.out.print(emptyPromoteMessage);
+            } else {
+                final InputValidateResult<T> res = handleInput.apply(input);
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `azure-maven-plugin-lib/src/main/java/com/microsoft/azure/maven/prompt/DefaultPrompter.java`
+#### Snippet
+```java
+                final InputValidateResult<T> res = handleInput.apply(input);
+                if (res.getErrorMessage() != null) {
+                    System.out.println(TextUtils.yellow(res.getErrorMessage()));
+                } else {
+                    return res.getObj();
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `azure-maven-plugin-lib/src/main/java/com/microsoft/azure/maven/prompt/DefaultPrompter.java`
+#### Snippet
+```java
+                }
+            }
+            System.out.print(promoteMessage);
+            System.out.flush();
+        }
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `azure-maven-plugin-lib/src/main/java/com/microsoft/azure/maven/prompt/DefaultPrompter.java`
+#### Snippet
+```java
+            }
+            System.out.print(promoteMessage);
+            System.out.flush();
+        }
+    }
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
 in `azure-toolkit-libs/azure-toolkit-common-lib/src/main/java/com/microsoft/azure/toolkit/lib/common/logging/Log.java`
 #### Snippet
 ```java
@@ -6951,174 +6816,6 @@ in `azure-toolkit-libs/azure-toolkit-common-lib/src/main/java/com/microsoft/azur
             System.out.println(message);
         }
     }
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `azure-functions-maven-plugin/src/main/java/com/microsoft/azure/maven/function/ListMojo.java`
-#### Snippet
-```java
-    protected void printToSystemOut(String file) throws IOException {
-        try (final InputStream is = ListMojo.class.getResourceAsStream(file)) {
-            IOUtils.copy(is, System.out);
-        }
-    }
-```
-
-### SystemOutErr
-Uses of `out` should probably be replaced with more robust logging
-in `azure-functions-maven-plugin/src/main/java/com/microsoft/azure/maven/function/AddMojo.java`
-#### Snippet
-```java
-
-        while (true) {
-            out.printf(prompt);
-            out.flush();
-            try {
-```
-
-### SystemOutErr
-Uses of `out` should probably be replaced with more robust logging
-in `azure-functions-maven-plugin/src/main/java/com/microsoft/azure/maven/function/AddMojo.java`
-#### Snippet
-```java
-        while (true) {
-            out.printf(prompt);
-            out.flush();
-            try {
-                final String input = scanner.nextLine();
-```
-
-### SystemOutErr
-Uses of `out` should probably be replaced with more robust logging
-in `azure-functions-maven-plugin/src/main/java/com/microsoft/azure/maven/function/AddMojo.java`
-#### Snippet
-```java
-        }
-
-        out.printf("Choose from below options as %s %n", prompt);
-        for (int i = 0; i < options.size(); i++) {
-            out.printf("%d. %s%n", i, options.get(i));
-```
-
-### SystemOutErr
-Uses of `out` should probably be replaced with more robust logging
-in `azure-functions-maven-plugin/src/main/java/com/microsoft/azure/maven/function/AddMojo.java`
-#### Snippet
-```java
-        out.printf("Choose from below options as %s %n", prompt);
-        for (int i = 0; i < options.size(); i++) {
-            out.printf("%d. %s%n", i, options.get(i));
-        }
-
-```
-
-### SystemOutErr
-Uses of `out` should probably be replaced with more robust logging
-in `azure-functions-maven-plugin/src/main/java/com/microsoft/azure/maven/function/AddMojo.java`
-#### Snippet
-```java
-        final Scanner scanner = getScanner();
-        while (true) {
-            out.printf(getStringInputPromptString(attributeName, defaultValue));
-            out.flush();
-            final String input = scanner.nextLine();
-```
-
-### SystemOutErr
-Uses of `out` should probably be replaced with more robust logging
-in `azure-functions-maven-plugin/src/main/java/com/microsoft/azure/maven/function/AddMojo.java`
-#### Snippet
-```java
-        while (true) {
-            out.printf(getStringInputPromptString(attributeName, defaultValue));
-            out.flush();
-            final String input = scanner.nextLine();
-            if (validator.apply(input)) {
-```
-
-### SystemOutErr
-Uses of `out` should probably be replaced with more robust logging
-in `azure-functions-maven-plugin/src/main/java/com/microsoft/azure/maven/function/AddMojo.java`
-#### Snippet
-```java
-            throw new MojoFailureException(String.format("invalid input: %s", input));
-        } else {
-            out.printf("The input is invalid. Use empty string.%n");
-            setter.accept("");
-        }
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `azure-spring-apps-maven-plugin/src/main/java/com/microsoft/azure/maven/springcloud/DeployMojo.java`
-#### Snippet
-```java
-    protected boolean confirm(List<AzureTask<?>> tasks) throws MojoFailureException {
-        try (final IPrompter prompter = new DefaultPrompter()) {
-            System.out.println(CONFIRM_PROMPT_START);
-            tasks.stream().map(AzureTask::getDescription).filter(t -> Objects.nonNull(t) && StringUtils.isNotBlank(t.toString()))
-                .forEach((t) -> System.out.printf("\t- %s%n", t));
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `azure-spring-apps-maven-plugin/src/main/java/com/microsoft/azure/maven/springcloud/DeployMojo.java`
-#### Snippet
-```java
-            System.out.println(CONFIRM_PROMPT_START);
-            tasks.stream().map(AzureTask::getDescription).filter(t -> Objects.nonNull(t) && StringUtils.isNotBlank(t.toString()))
-                .forEach((t) -> System.out.printf("\t- %s%n", t));
-            return prompter.promoteYesNo(CONFIRM_PROMPT_CONFIRM, true, true);
-        } catch (IOException e) {
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `azure-spring-apps-maven-plugin/src/main/java/com/microsoft/azure/maven/springcloud/ConfigMojo.java`
-#### Snippet
-```java
-                        configuredProjects.size() > 1 ? "are" : "is"));
-                for (final MavenProject proj : configuredProjects) {
-                    System.out.println("    " + TextUtils.yellow(proj.getName()));
-                }
-            } else if (targetProjects.isEmpty()) {
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `azure-spring-apps-maven-plugin/src/main/java/com/microsoft/azure/maven/springcloud/config/ConfigurationPrompter.java`
-#### Snippet
-```java
-    public void confirmChanges(Map<String, String> changesToConfirm, Supplier<Integer> confirmedAction) throws IOException {
-        final Map<String, Object> variables = createVariableTables("confirm");
-        System.out.println(TemplateUtils.evalText("promote.header", variables));
-        for (final Map.Entry<String, String> entry : changesToConfirm.entrySet()) {
-            if (StringUtils.isNotBlank(entry.getValue())) {
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `azure-spring-apps-maven-plugin/src/main/java/com/microsoft/azure/maven/springcloud/config/ConfigurationPrompter.java`
-#### Snippet
-```java
-                return cliParameter.toString();
-            }
-            System.out.println(
-                    TextUtils.yellow(String.format("Validation failure for %s[%s]: %s", propertyName, cliParameter.toString(), errorMessage)));
-        }
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `azure-spring-apps-maven-plugin/src/main/java/com/microsoft/azure/maven/springcloud/config/ConfigurationPrompter.java`
-#### Snippet
-```java
-
-    private static void printConfirmation(String key, Object value) {
-        System.out.printf("%-17s : %s%n", key, TextUtils.cyan(Objects.toString(value)));
-    }
-}
 ```
 
 ### SystemOutErr
@@ -7313,6 +7010,174 @@ in `azure-webapp-maven-plugin/src/main/java/com/microsoft/azure/maven/webapp/Con
         final String result = queryer.assureInputFromUser("confirm", "Y", BOOLEAN_REGEX, "Confirm (Y/N)", null);
 ```
 
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `azure-functions-maven-plugin/src/main/java/com/microsoft/azure/maven/function/ListMojo.java`
+#### Snippet
+```java
+    protected void printToSystemOut(String file) throws IOException {
+        try (final InputStream is = ListMojo.class.getResourceAsStream(file)) {
+            IOUtils.copy(is, System.out);
+        }
+    }
+```
+
+### SystemOutErr
+Uses of `out` should probably be replaced with more robust logging
+in `azure-functions-maven-plugin/src/main/java/com/microsoft/azure/maven/function/AddMojo.java`
+#### Snippet
+```java
+        final Scanner scanner = getScanner();
+        while (true) {
+            out.printf(getStringInputPromptString(attributeName, defaultValue));
+            out.flush();
+            final String input = scanner.nextLine();
+```
+
+### SystemOutErr
+Uses of `out` should probably be replaced with more robust logging
+in `azure-functions-maven-plugin/src/main/java/com/microsoft/azure/maven/function/AddMojo.java`
+#### Snippet
+```java
+        while (true) {
+            out.printf(getStringInputPromptString(attributeName, defaultValue));
+            out.flush();
+            final String input = scanner.nextLine();
+            if (validator.apply(input)) {
+```
+
+### SystemOutErr
+Uses of `out` should probably be replaced with more robust logging
+in `azure-functions-maven-plugin/src/main/java/com/microsoft/azure/maven/function/AddMojo.java`
+#### Snippet
+```java
+            throw new MojoFailureException(String.format("invalid input: %s", input));
+        } else {
+            out.printf("The input is invalid. Use empty string.%n");
+            setter.accept("");
+        }
+```
+
+### SystemOutErr
+Uses of `out` should probably be replaced with more robust logging
+in `azure-functions-maven-plugin/src/main/java/com/microsoft/azure/maven/function/AddMojo.java`
+#### Snippet
+```java
+
+        while (true) {
+            out.printf(prompt);
+            out.flush();
+            try {
+```
+
+### SystemOutErr
+Uses of `out` should probably be replaced with more robust logging
+in `azure-functions-maven-plugin/src/main/java/com/microsoft/azure/maven/function/AddMojo.java`
+#### Snippet
+```java
+        while (true) {
+            out.printf(prompt);
+            out.flush();
+            try {
+                final String input = scanner.nextLine();
+```
+
+### SystemOutErr
+Uses of `out` should probably be replaced with more robust logging
+in `azure-functions-maven-plugin/src/main/java/com/microsoft/azure/maven/function/AddMojo.java`
+#### Snippet
+```java
+        }
+
+        out.printf("Choose from below options as %s %n", prompt);
+        for (int i = 0; i < options.size(); i++) {
+            out.printf("%d. %s%n", i, options.get(i));
+```
+
+### SystemOutErr
+Uses of `out` should probably be replaced with more robust logging
+in `azure-functions-maven-plugin/src/main/java/com/microsoft/azure/maven/function/AddMojo.java`
+#### Snippet
+```java
+        out.printf("Choose from below options as %s %n", prompt);
+        for (int i = 0; i < options.size(); i++) {
+            out.printf("%d. %s%n", i, options.get(i));
+        }
+
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `azure-spring-apps-maven-plugin/src/main/java/com/microsoft/azure/maven/springcloud/DeployMojo.java`
+#### Snippet
+```java
+    protected boolean confirm(List<AzureTask<?>> tasks) throws MojoFailureException {
+        try (final IPrompter prompter = new DefaultPrompter()) {
+            System.out.println(CONFIRM_PROMPT_START);
+            tasks.stream().map(AzureTask::getDescription).filter(t -> Objects.nonNull(t) && StringUtils.isNotBlank(t.toString()))
+                .forEach((t) -> System.out.printf("\t- %s%n", t));
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `azure-spring-apps-maven-plugin/src/main/java/com/microsoft/azure/maven/springcloud/DeployMojo.java`
+#### Snippet
+```java
+            System.out.println(CONFIRM_PROMPT_START);
+            tasks.stream().map(AzureTask::getDescription).filter(t -> Objects.nonNull(t) && StringUtils.isNotBlank(t.toString()))
+                .forEach((t) -> System.out.printf("\t- %s%n", t));
+            return prompter.promoteYesNo(CONFIRM_PROMPT_CONFIRM, true, true);
+        } catch (IOException e) {
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `azure-spring-apps-maven-plugin/src/main/java/com/microsoft/azure/maven/springcloud/ConfigMojo.java`
+#### Snippet
+```java
+                        configuredProjects.size() > 1 ? "are" : "is"));
+                for (final MavenProject proj : configuredProjects) {
+                    System.out.println("    " + TextUtils.yellow(proj.getName()));
+                }
+            } else if (targetProjects.isEmpty()) {
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `azure-spring-apps-maven-plugin/src/main/java/com/microsoft/azure/maven/springcloud/config/ConfigurationPrompter.java`
+#### Snippet
+```java
+                return cliParameter.toString();
+            }
+            System.out.println(
+                    TextUtils.yellow(String.format("Validation failure for %s[%s]: %s", propertyName, cliParameter.toString(), errorMessage)));
+        }
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `azure-spring-apps-maven-plugin/src/main/java/com/microsoft/azure/maven/springcloud/config/ConfigurationPrompter.java`
+#### Snippet
+```java
+    public void confirmChanges(Map<String, String> changesToConfirm, Supplier<Integer> confirmedAction) throws IOException {
+        final Map<String, Object> variables = createVariableTables("confirm");
+        System.out.println(TemplateUtils.evalText("promote.header", variables));
+        for (final Map.Entry<String, String> entry : changesToConfirm.entrySet()) {
+            if (StringUtils.isNotBlank(entry.getValue())) {
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `azure-spring-apps-maven-plugin/src/main/java/com/microsoft/azure/maven/springcloud/config/ConfigurationPrompter.java`
+#### Snippet
+```java
+
+    private static void printConfirmation(String key, Object value) {
+        System.out.printf("%-17s : %s%n", key, TextUtils.cyan(Objects.toString(value)));
+    }
+}
+```
+
 ## RuleId[ruleID=ConditionCoveredByFurtherCondition]
 ### ConditionCoveredByFurtherCondition
 Condition '!firstRunValue.isEmpty()' covered by subsequent condition 'firstRunValue.equalsIgnoreCase(...)'
@@ -7340,18 +7205,6 @@ in `azure-maven-plugin-lib/src/main/java/com/microsoft/azure/maven/utils/CustomT
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
-`split()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `azure-maven-plugin-lib/src/main/java/com/microsoft/azure/maven/AbstractAzureMojo.java`
-#### Snippet
-```java
-
-    public void infoWithMultipleLines(final String messages) {
-        final String[] messageArray = messages.split("\\n");
-        for (final String line : messageArray) {
-            Log.info(line);
-```
-
-### DynamicRegexReplaceableByCompiledPattern
 `replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
 in `azure-maven-plugin-lib/src/main/java/com/microsoft/azure/maven/utils/TemplateUtils.java`
 #### Snippet
@@ -7361,6 +7214,18 @@ in `azure-maven-plugin-lib/src/main/java/com/microsoft/azure/maven/utils/Templat
         return evalPlainText(expr, variableMap).replaceAll("\\*\\*\\*(.*?)\\*\\*\\*", TextUtils.blue("$1"));
     }
 
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`split()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `azure-maven-plugin-lib/src/main/java/com/microsoft/azure/maven/AbstractAzureMojo.java`
+#### Snippet
+```java
+
+    public void infoWithMultipleLines(final String messages) {
+        final String[] messageArray = messages.split("\\n");
+        for (final String line : messageArray) {
+            Log.info(line);
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
@@ -7400,6 +7265,18 @@ in `azure-toolkit-libs/azure-toolkit-common-lib/src/main/java/com/microsoft/azur
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
+`split()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `azure-toolkit-libs/azure-toolkit-common-lib/src/main/java/com/microsoft/azure/toolkit/lib/common/utils/CommandUtils.java`
+#### Snippet
+```java
+            }
+
+            for (final String outputLine : output.split("[\\r\\n]")) {
+                final File file = new File(StringUtils.trim(outputLine));
+                if (!file.exists() || !file.isFile()) {
+```
+
+### DynamicRegexReplaceableByCompiledPattern
 `replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
 in `azure-toolkit-libs/azure-toolkit-common-lib/src/main/java/com/microsoft/azure/toolkit/lib/common/model/AbstractAzResourceModule.java`
 #### Snippet
@@ -7412,15 +7289,15 @@ in `azure-toolkit-libs/azure-toolkit-common-lib/src/main/java/com/microsoft/azur
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
-`split()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `azure-toolkit-libs/azure-toolkit-common-lib/src/main/java/com/microsoft/azure/toolkit/lib/common/utils/CommandUtils.java`
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `azure-toolkit-libs/azure-toolkit-common-lib/src/main/java/com/microsoft/azure/toolkit/lib/common/telemetry/AzureTelemeter.java`
 #### Snippet
 ```java
-            }
-
-            for (final String outputLine : output.split("[\\r\\n]")) {
-                final File file = new File(StringUtils.trim(outputLine));
-                if (!file.exists() || !file.isFile()) {
+        final Optional<Operation> parent = Optional.ofNullable(op.getEffectiveParent());
+        final Map<String, String> properties = new HashMap<>();
+        final String name = op.getId().replaceAll("\\(.+\\)", "(***)"); // e.g. `internal/appservice.list_file.dir`
+        final String[] parts = name.split("\\."); // ["internal/appservice", "list_file", "dir"]
+        properties.put(OP_ID, op.getExecutionId());
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
@@ -7437,14 +7314,170 @@ in `azure-toolkit-libs/azure-toolkit-common-lib/src/main/java/com/microsoft/azur
 
 ### DynamicRegexReplaceableByCompiledPattern
 `replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `azure-toolkit-libs/azure-toolkit-common-lib/src/main/java/com/microsoft/azure/toolkit/lib/common/telemetry/AzureTelemeter.java`
+in `azure-toolkit-libs/azure-toolkit-database-lib/src/main/java/com/microsoft/azure/toolkit/lib/database/entity/IFirewallRule.java`
 #### Snippet
 ```java
-        final Optional<Operation> parent = Optional.ofNullable(op.getEffectiveParent());
-        final Map<String, String> properties = new HashMap<>();
-        final String name = op.getId().replaceAll("\\(.+\\)", "(***)"); // e.g. `internal/appservice.list_file.dir`
-        final String[] parts = name.split("\\."); // ["internal/appservice", "list_file", "dir"]
-        properties.put(OP_ID, op.getExecutionId());
+        final String suffix = "_" + NetUtils.getMac();
+        final int maxHostnameLength = MAX_FIREWALL_NAME_LENGTH - prefix.length() - suffix.length();
+        String hostname = NetUtils.getHostName().replaceAll("[^a-zA-Z0-9_-]", StringUtils.EMPTY);
+        if (StringUtils.length(hostname) > maxHostnameLength) {
+            hostname = StringUtils.substring(hostname, 0, maxHostnameLength);
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `azure-toolkit-libs/azure-toolkit-database-lib/src/main/java/com/microsoft/azure/toolkit/lib/database/JdbcUrl.java`
+#### Snippet
+```java
+
+        private SQLServerJdbcUrl(String url) {
+            super(StringUtils.replaceOnce(url, ";", "?").replaceAll(";", "&"));
+        }
+
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `azure-toolkit-libs/azure-toolkit-database-lib/src/main/java/com/microsoft/azure/toolkit/lib/database/JdbcUrl.java`
+#### Snippet
+```java
+        @Override
+        public String toString() {
+            String url = "jdbc:" + StringUtils.replaceOnce(uri.toString(), "?", ";").replaceAll("&", ";");
+            return JdbcUrl.decode(url);
+        }
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`split()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `azure-toolkit-libs/azure-toolkit-common-lib/src/main/java/com/microsoft/azure/toolkit/lib/common/telemetry/AzureTelemetryClient.java`
+#### Snippet
+```java
+                return value;
+            }
+            return Arrays.stream(value.split("\\r?\\n")).map(line -> {
+                final String input = FILE_PATH_PATTERN.matcher(line).replaceAll("<REDACTED: user-file-path>");
+                for (final Pattern pattern : PATTERN_MAP.keySet()) {
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `azure-toolkit-libs/azure-toolkit-appservice-lib/src/main/java/com/microsoft/azure/toolkit/lib/appservice/file/AppServiceKuduClient.java`
+#### Snippet
+```java
+        }
+        String host = webAppBase.defaultHostname().toLowerCase(Locale.ROOT)
+            .replace("http://", "")
+            .replace("https://", "");
+        String[] parts = host.split("\\.", 2);
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `azure-toolkit-libs/azure-toolkit-appservice-lib/src/main/java/com/microsoft/azure/toolkit/lib/appservice/file/AppServiceKuduClient.java`
+#### Snippet
+```java
+        String host = webAppBase.defaultHostname().toLowerCase(Locale.ROOT)
+            .replace("http://", "")
+            .replace("https://", "");
+        String[] parts = host.split("\\.", 2);
+        host = parts[0] + ".scm." + parts[1];
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replaceFirst()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `azure-toolkit-libs/azure-toolkit-appservice-lib/src/main/java/com/microsoft/azure/toolkit/lib/appservice/model/JavaVersion.java`
+#### Snippet
+```java
+        }
+        // remove java, jre prefix
+        final String version = StringUtils.lowerCase(input).replaceFirst("java|jre", "").trim();
+        // handle java 7/ java 8 cases
+        if (StringUtils.equalsIgnoreCase(version, JAVA_7_VALUE)) {
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replaceFirst()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `azure-toolkit-libs/azure-toolkit-appservice-lib/src/main/java/com/microsoft/azure/toolkit/lib/appservice/utils/AppServiceUtils.java`
+#### Snippet
+```java
+    public static com.azure.resourcemanager.appservice.models.JavaVersion toJavaVersion(JavaVersion javaVersion) {
+        // remove the java/jre prefix for user input
+        final String value = javaVersion.getValue().replaceFirst("(?i)java|jre", "");
+        return com.azure.resourcemanager.appservice.models.JavaVersion.fromString(value);
+    }
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `azure-toolkit-libs/azure-toolkit-appservice-lib/src/main/java/com/microsoft/azure/toolkit/lib/appservice/utils/AppServiceUtils.java`
+#### Snippet
+```java
+    static String getJavaVersionValueForJavaSERuntimeStack(@Nonnull JavaVersion javaVersion) {
+        // Java SE with minor version runtime stack follow pattern JAVA|VERSION, like JAVA|11.0.9, JAVA|8u25
+        return javaVersion.getValue().replaceAll("(?i)java|jre", "").trim();
+    }
+
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `azure-toolkit-libs/azure-toolkit-appservice-lib/src/main/java/com/microsoft/azure/toolkit/lib/appservice/utils/AppServiceUtils.java`
+#### Snippet
+```java
+
+    private static Runtime getRuntimeFromLinuxFunctionApp(String linuxFxVersion) {
+        final JavaVersion javaVersion = JavaVersion.fromString(linuxFxVersion.replace("|", " "));
+        return StringUtils.containsIgnoreCase(linuxFxVersion, "java") ?
+                Runtime.getRuntime(OperatingSystem.LINUX, WebContainer.JAVA_OFF, javaVersion) : Runtime.getRuntime(OperatingSystem.LINUX, WebContainer.JAVA_OFF, JavaVersion.OFF);
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replaceFirst()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `azure-toolkit-libs/azure-toolkit-appservice-lib/src/main/java/com/microsoft/azure/toolkit/lib/appservice/deploy/RunFromBlobFunctionDeployHandler.java`
+#### Snippet
+```java
+    private String getBlobName(final WebAppBase deployTarget, final File zipPackage) {
+        // replace '/' in resource id to '-' in case create multi-level blob
+        final String fixedResourceId = StringUtils.replace(deployTarget.id(), "/", "-").replaceFirst("-", "");
+        return String.format("%s-%s", fixedResourceId, zipPackage.getName());
+    }
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `azure-sfmesh-maven-plugin/src/main/java/com/microsoft/azure/maven/servicefabric/YamlContent.java`
+#### Snippet
+```java
+                final BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+                while (reader.ready()){
+                    final String line = reader.readLine().replace("\n", "");
+                    final String wordToReplace = line.substring(line.lastIndexOf(" ") + 1);
+                    if (properties.containsKey(wordToReplace)){
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `azure-webapp-maven-plugin/src/main/java/com/microsoft/azure/maven/webapp/AbstractWebAppMojo.java`
+#### Snippet
+```java
+            synchronized (this) {
+                if (stagingDirectory == null) {
+                    final String outputFolder = this.getPluginName().replaceAll(MAVEN_PLUGIN_POSTFIX, "");
+                    final String stagingDirectoryPath = Paths.get(this.getBuildDirectoryAbsolutePath(),
+                            outputFolder, String.format("%s-%s", this.getAppName(), UUID.randomUUID().toString())
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `azure-webapp-maven-plugin/src/main/java/com/microsoft/azure/maven/webapp/parser/ConfigParser.java`
+#### Snippet
+```java
+            return path;
+        }
+        return StringUtils.removeEnd(path.replaceAll("([\\\\/])+", Matcher.quoteReplacement("/")), "/");
+    }
+}
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
@@ -7508,30 +7541,6 @@ in `azure-functions-maven-plugin/src/main/java/com/microsoft/azure/maven/functio
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
-`split()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `azure-toolkit-libs/azure-toolkit-common-lib/src/main/java/com/microsoft/azure/toolkit/lib/common/telemetry/AzureTelemetryClient.java`
-#### Snippet
-```java
-                return value;
-            }
-            return Arrays.stream(value.split("\\r?\\n")).map(line -> {
-                final String input = FILE_PATH_PATTERN.matcher(line).replaceAll("<REDACTED: user-file-path>");
-                for (final Pattern pattern : PATTERN_MAP.keySet()) {
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `azure-toolkit-libs/azure-toolkit-springcloud-lib/src/main/java/com/microsoft/azure/toolkit/lib/springcloud/SpringCloudApp.java`
-#### Snippet
-```java
-        return Optional.ofNullable(this.getRemote()).map(SpringApp::activeDeploymentName).map(d -> {
-            final String endpoint = this.getRemote().parent().listTestKeys().primaryTestEndpoint();
-            return String.format("%s/api/logstream/apps/%s/instances/%s", endpoint.replace(".test", ""), this.getName(), instanceName);
-        }).orElse(null);
-    }
-```
-
-### DynamicRegexReplaceableByCompiledPattern
 `matches()` could be replaced with compiled 'java.util.regex.Pattern' construct
 in `azure-functions-maven-plugin/src/main/java/com/microsoft/azure/maven/function/AddMojo.java`
 #### Snippet
@@ -7556,138 +7565,6 @@ in `azure-functions-maven-plugin/src/main/java/com/microsoft/azure/maven/functio
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `azure-toolkit-libs/azure-toolkit-appservice-lib/src/main/java/com/microsoft/azure/toolkit/lib/appservice/file/AppServiceKuduClient.java`
-#### Snippet
-```java
-        }
-        String host = webAppBase.defaultHostname().toLowerCase(Locale.ROOT)
-            .replace("http://", "")
-            .replace("https://", "");
-        String[] parts = host.split("\\.", 2);
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `azure-toolkit-libs/azure-toolkit-appservice-lib/src/main/java/com/microsoft/azure/toolkit/lib/appservice/file/AppServiceKuduClient.java`
-#### Snippet
-```java
-        String host = webAppBase.defaultHostname().toLowerCase(Locale.ROOT)
-            .replace("http://", "")
-            .replace("https://", "");
-        String[] parts = host.split("\\.", 2);
-        host = parts[0] + ".scm." + parts[1];
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replaceFirst()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `azure-toolkit-libs/azure-toolkit-appservice-lib/src/main/java/com/microsoft/azure/toolkit/lib/appservice/model/JavaVersion.java`
-#### Snippet
-```java
-        }
-        // remove java, jre prefix
-        final String version = StringUtils.lowerCase(input).replaceFirst("java|jre", "").trim();
-        // handle java 7/ java 8 cases
-        if (StringUtils.equalsIgnoreCase(version, JAVA_7_VALUE)) {
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replaceFirst()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `azure-toolkit-libs/azure-toolkit-appservice-lib/src/main/java/com/microsoft/azure/toolkit/lib/appservice/deploy/RunFromBlobFunctionDeployHandler.java`
-#### Snippet
-```java
-    private String getBlobName(final WebAppBase deployTarget, final File zipPackage) {
-        // replace '/' in resource id to '-' in case create multi-level blob
-        final String fixedResourceId = StringUtils.replace(deployTarget.id(), "/", "-").replaceFirst("-", "");
-        return String.format("%s-%s", fixedResourceId, zipPackage.getName());
-    }
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `azure-toolkit-libs/azure-toolkit-appservice-lib/src/main/java/com/microsoft/azure/toolkit/lib/appservice/utils/AppServiceUtils.java`
-#### Snippet
-```java
-
-    private static Runtime getRuntimeFromLinuxFunctionApp(String linuxFxVersion) {
-        final JavaVersion javaVersion = JavaVersion.fromString(linuxFxVersion.replace("|", " "));
-        return StringUtils.containsIgnoreCase(linuxFxVersion, "java") ?
-                Runtime.getRuntime(OperatingSystem.LINUX, WebContainer.JAVA_OFF, javaVersion) : Runtime.getRuntime(OperatingSystem.LINUX, WebContainer.JAVA_OFF, JavaVersion.OFF);
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replaceFirst()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `azure-toolkit-libs/azure-toolkit-appservice-lib/src/main/java/com/microsoft/azure/toolkit/lib/appservice/utils/AppServiceUtils.java`
-#### Snippet
-```java
-    public static com.azure.resourcemanager.appservice.models.JavaVersion toJavaVersion(JavaVersion javaVersion) {
-        // remove the java/jre prefix for user input
-        final String value = javaVersion.getValue().replaceFirst("(?i)java|jre", "");
-        return com.azure.resourcemanager.appservice.models.JavaVersion.fromString(value);
-    }
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `azure-toolkit-libs/azure-toolkit-appservice-lib/src/main/java/com/microsoft/azure/toolkit/lib/appservice/utils/AppServiceUtils.java`
-#### Snippet
-```java
-    static String getJavaVersionValueForJavaSERuntimeStack(@Nonnull JavaVersion javaVersion) {
-        // Java SE with minor version runtime stack follow pattern JAVA|VERSION, like JAVA|11.0.9, JAVA|8u25
-        return javaVersion.getValue().replaceAll("(?i)java|jre", "").trim();
-    }
-
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `azure-toolkit-libs/azure-toolkit-database-lib/src/main/java/com/microsoft/azure/toolkit/lib/database/entity/IFirewallRule.java`
-#### Snippet
-```java
-        final String suffix = "_" + NetUtils.getMac();
-        final int maxHostnameLength = MAX_FIREWALL_NAME_LENGTH - prefix.length() - suffix.length();
-        String hostname = NetUtils.getHostName().replaceAll("[^a-zA-Z0-9_-]", StringUtils.EMPTY);
-        if (StringUtils.length(hostname) > maxHostnameLength) {
-            hostname = StringUtils.substring(hostname, 0, maxHostnameLength);
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `azure-toolkit-libs/azure-toolkit-database-lib/src/main/java/com/microsoft/azure/toolkit/lib/database/JdbcUrl.java`
-#### Snippet
-```java
-
-        private SQLServerJdbcUrl(String url) {
-            super(StringUtils.replaceOnce(url, ";", "?").replaceAll(";", "&"));
-        }
-
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `azure-toolkit-libs/azure-toolkit-database-lib/src/main/java/com/microsoft/azure/toolkit/lib/database/JdbcUrl.java`
-#### Snippet
-```java
-        @Override
-        public String toString() {
-            String url = "jdbc:" + StringUtils.replaceOnce(uri.toString(), "?", ";").replaceAll("&", ";");
-            return JdbcUrl.decode(url);
-        }
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `azure-toolkit-libs/azure-toolkit-auth-lib/src/main/java/com/microsoft/azure/toolkit/lib/auth/AzureEnvironmentUtils.java`
-#### Snippet
-```java
-
-    public static String getAuthority(AzureEnvironment environment) {
-        return environment.getActiveDirectoryEndpoint().replaceAll("/+$", "");
-    }
-
-```
-
-### DynamicRegexReplaceableByCompiledPattern
 `replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
 in `azure-appservice-maven-plugin-lib/src/main/java/com/microsoft/azure/maven/appservice/AbstractAppServiceMojo.java`
 #### Snippet
@@ -7701,14 +7578,14 @@ in `azure-appservice-maven-plugin-lib/src/main/java/com/microsoft/azure/maven/ap
 
 ### DynamicRegexReplaceableByCompiledPattern
 `replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `azure-sfmesh-maven-plugin/src/main/java/com/microsoft/azure/maven/servicefabric/YamlContent.java`
+in `azure-toolkit-libs/azure-toolkit-springcloud-lib/src/main/java/com/microsoft/azure/toolkit/lib/springcloud/SpringCloudApp.java`
 #### Snippet
 ```java
-                final BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
-                while (reader.ready()){
-                    final String line = reader.readLine().replace("\n", "");
-                    final String wordToReplace = line.substring(line.lastIndexOf(" ") + 1);
-                    if (properties.containsKey(wordToReplace)){
+        return Optional.ofNullable(this.getRemote()).map(SpringApp::activeDeploymentName).map(d -> {
+            final String endpoint = this.getRemote().parent().listTestKeys().primaryTestEndpoint();
+            return String.format("%s/api/logstream/apps/%s/instances/%s", endpoint.replace(".test", ""), this.getName(), instanceName);
+        }).orElse(null);
+    }
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
@@ -7725,29 +7602,29 @@ in `azure-toolkit-libs/azure-toolkit-containerapps-lib/src/main/java/com/microso
 
 ### DynamicRegexReplaceableByCompiledPattern
 `replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `azure-webapp-maven-plugin/src/main/java/com/microsoft/azure/maven/webapp/AbstractWebAppMojo.java`
+in `azure-toolkit-libs/azure-toolkit-auth-lib/src/main/java/com/microsoft/azure/toolkit/lib/auth/AzureEnvironmentUtils.java`
 #### Snippet
 ```java
-            synchronized (this) {
-                if (stagingDirectory == null) {
-                    final String outputFolder = this.getPluginName().replaceAll(MAVEN_PLUGIN_POSTFIX, "");
-                    final String stagingDirectoryPath = Paths.get(this.getBuildDirectoryAbsolutePath(),
-                            outputFolder, String.format("%s-%s", this.getAppName(), UUID.randomUUID().toString())
-```
 
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `azure-webapp-maven-plugin/src/main/java/com/microsoft/azure/maven/webapp/parser/ConfigParser.java`
-#### Snippet
-```java
-            return path;
-        }
-        return StringUtils.removeEnd(path.replaceAll("([\\\\/])+", Matcher.quoteReplacement("/")), "/");
+    public static String getAuthority(AzureEnvironment environment) {
+        return environment.getActiveDirectoryEndpoint().replaceAll("/+$", "");
     }
-}
+
 ```
 
 ## RuleId[ruleID=UnnecessaryFullyQualifiedName]
+### UnnecessaryFullyQualifiedName
+Qualifier `com.microsoft.azure.toolkit.lib.resource` is unnecessary and can be removed
+in `azure-toolkit-libs/azure-toolkit-common-lib/src/main/java/com/microsoft/azure/toolkit/lib/resource/ResourceGroupModule.java`
+#### Snippet
+```java
+    @Nonnull
+    public ResourceGroup createResourceGroupIfNotExist(@Nonnull String name, @Nonnull Region region) {
+        final com.microsoft.azure.toolkit.lib.resource.ResourceGroup group = this.getOrDraft(name, name);
+        if (group instanceof ResourceGroupDraft && !group.exists()) {
+            ((ResourceGroupDraft) group).setRegion(region);
+```
+
 ### UnnecessaryFullyQualifiedName
 Qualifier `com.azure.resourcemanager.resources.models` is unnecessary and can be removed
 in `azure-toolkit-libs/azure-toolkit-common-lib/src/main/java/com/microsoft/azure/toolkit/lib/resource/ResourceDeploymentDraft.java`
@@ -7821,39 +7698,15 @@ public class ResourceDeploymentDraft extends ResourceDeployment
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `com.microsoft.azure.toolkit.lib.resource` is unnecessary and can be removed
-in `azure-toolkit-libs/azure-toolkit-common-lib/src/main/java/com/microsoft/azure/toolkit/lib/resource/ResourceGroupModule.java`
+Qualifier `com.microsoft.azure.toolkit.lib` is unnecessary and can be removed
+in `azure-appservice-maven-plugin-lib/src/main/java/com/microsoft/azure/maven/appservice/AbstractAppServiceMojo.java`
 #### Snippet
 ```java
-    @Nonnull
-    public ResourceGroup createResourceGroupIfNotExist(@Nonnull String name, @Nonnull Region region) {
-        final com.microsoft.azure.toolkit.lib.resource.ResourceGroup group = this.getOrDraft(name, name);
-        if (group instanceof ResourceGroupDraft && !group.exists()) {
-            ((ResourceGroupDraft) group).setRegion(region);
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.annotation` is unnecessary and can be removed
-in `azure-toolkit-libs/azure-toolkit-applicationinsights-lib/src/main/java/com/microsoft/azure/toolkit/lib/applicationinsights/workspace/LogAnalyticsWorkspaceDraft.java`
-#### Snippet
-```java
-    }
-
-    @javax.annotation.Nullable
-    @Override
-    public Region getRegion() {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `com.microsoft.azure.toolkit.lib.springcloud` is unnecessary and can be removed
-in `azure-toolkit-libs/azure-toolkit-springcloud-lib/src/main/java/com/microsoft/azure/toolkit/lib/springcloud/config/SpringCloudDeploymentConfig.java`
-#### Snippet
-```java
-
-/**
- * @deprecated use {@link com.microsoft.azure.toolkit.lib.springcloud.SpringCloudDeploymentDraft} instead.
- */
-@Builder
+                final String targetSubscriptionId = getTargetSubscriptionId(getSubscriptionId(), subscriptions, account.getSelectedSubscriptions());
+                AbstractAzureMojo.checkSubscription(subscriptions, targetSubscriptionId);
+                com.microsoft.azure.toolkit.lib.Azure.az(AzureAccount.class).account().setSelectedSubscriptions(Collections.singletonList(targetSubscriptionId));
+                appServiceClient = Azure.az(AzureAppService.class);
+                printCurrentSubscription(appServiceClient);
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -7866,6 +7719,42 @@ in `azure-toolkit-libs/azure-toolkit-cosmos-lib/src/main/java/com/microsoft/azur
         sc.init(null, null, new java.security.SecureRandom());
         final DriverConfigLoader configLoader =
                 DriverConfigLoader.programmaticBuilder().withDuration(DefaultDriverOption.REQUEST_TIMEOUT, Duration.ofSeconds(10)).build();
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `javax.annotation` is unnecessary and can be removed
+in `azure-toolkit-libs/azure-toolkit-monitor-lib/src/main/java/com/microsoft/azure/toolkit/lib/monitor/LogAnalyticsWorkspaceDraft.java`
+#### Snippet
+```java
+    }
+
+    @javax.annotation.Nullable
+    @Override
+    public Region getRegion() {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `com.azure.resourcemanager.appcontainers.models` is unnecessary and can be removed
+in `azure-toolkit-libs/azure-toolkit-containerapps-lib/src/main/java/com/microsoft/azure/toolkit/lib/containerapps/environment/ContainerAppsEnvironment.java`
+#### Snippet
+```java
+    }
+
+    protected ContainerAppsEnvironment(@Nonnull com.azure.resourcemanager.appcontainers.models.ManagedEnvironment remote, @Nonnull ContainerAppsEnvironmentModule module) {
+        super(remote.name(), ResourceId.fromString(remote.id()).resourceGroupName(), module);
+    }
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `com.microsoft.azure.toolkit.lib` is unnecessary and can be removed
+in `azure-spring-apps-maven-plugin/src/main/java/com/microsoft/azure/maven/springcloud/ConfigMojo.java`
+#### Snippet
+```java
+            CollectionUtils.isNotEmpty(selectedSubscriptions) ? selectedSubscriptions.get(0) : null,
+            t -> String.format("%s (%s)", t.getName(), t.getId()));
+        com.microsoft.azure.toolkit.lib.Azure.az(AzureAccount.class).account().setSelectedSubscriptions(Collections.singletonList(select.getId()));
+        return select.getId();
+    }
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -7914,55 +7803,6 @@ in `azure-toolkit-libs/azure-toolkit-auth-lib/src/main/java/com/microsoft/azure/
             .parallel().map(com.microsoft.azure.toolkit.lib.common.model.Subscription::getId)
             .map(this::listRegions)
             .sequential().collectList()
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `com.microsoft.azure.toolkit.lib` is unnecessary and can be removed
-in `azure-spring-apps-maven-plugin/src/main/java/com/microsoft/azure/maven/springcloud/ConfigMojo.java`
-#### Snippet
-```java
-            CollectionUtils.isNotEmpty(selectedSubscriptions) ? selectedSubscriptions.get(0) : null,
-            t -> String.format("%s (%s)", t.getName(), t.getId()));
-        com.microsoft.azure.toolkit.lib.Azure.az(AzureAccount.class).account().setSelectedSubscriptions(Collections.singletonList(select.getId()));
-        return select.getId();
-    }
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `com.azure.resourcemanager.appcontainers.models` is unnecessary and can be removed
-in `azure-toolkit-libs/azure-toolkit-containerapps-lib/src/main/java/com/microsoft/azure/toolkit/lib/containerapps/environment/ContainerAppsEnvironment.java`
-#### Snippet
-```java
-    }
-
-    protected ContainerAppsEnvironment(@Nonnull com.azure.resourcemanager.appcontainers.models.ManagedEnvironment remote, @Nonnull ContainerAppsEnvironmentModule module) {
-        super(remote.name(), ResourceId.fromString(remote.id()).resourceGroupName(), module);
-    }
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `com.microsoft.azure.toolkit.lib` is unnecessary and can be removed
-in `azure-appservice-maven-plugin-lib/src/main/java/com/microsoft/azure/maven/appservice/AbstractAppServiceMojo.java`
-#### Snippet
-```java
-                final String targetSubscriptionId = getTargetSubscriptionId(getSubscriptionId(), subscriptions, account.getSelectedSubscriptions());
-                AbstractAzureMojo.checkSubscription(subscriptions, targetSubscriptionId);
-                com.microsoft.azure.toolkit.lib.Azure.az(AzureAccount.class).account().setSelectedSubscriptions(Collections.singletonList(targetSubscriptionId));
-                appServiceClient = Azure.az(AzureAppService.class);
-                printCurrentSubscription(appServiceClient);
-```
-
-## RuleId[ruleID=RegExpSingleCharAlternation]
-### RegExpSingleCharAlternation
-Single character alternation in RegExp
-in `azure-spring-apps-maven-plugin/src/main/resources/schema/Deployment.json`
-#### Snippet
-```java
-    "runtimeVersion": {
-      "type": "string",
-      "pattern": "(J|j)ava(\\s)?(8|11|17)$",
-      "default": "Java 8"
-    }
 ```
 
 ## RuleId[ruleID=ThrowablePrintStackTrace]
@@ -8021,11 +7861,11 @@ Assignment to method parameter `prompt`
 in `azure-maven-plugin-lib/src/main/java/com/microsoft/azure/maven/queryer/TextIOMavenPluginQueryer.java`
 #### Snippet
 ```java
-            return initValue;
         }
+
         prompt = StringUtils.isEmpty(prompt) ? getPromptString(attribute) : prompt;
-        return new GenericInputReader<String>(TextIOUtils::getTextTerminal, null)
-                .withNumberedPossibleValues(options).withDefaultValue(defaultValue).withEqualsFunc(StringUtils::equalsIgnoreCase).read(prompt);
+        return new StringInputReader(TextIOUtils::getTextTerminal).withPattern(regex).withDefaultValue(defaultValue).withMinLength(0).read(prompt);
+    }
 ```
 
 ### AssignmentToMethodParameter
@@ -8033,11 +7873,11 @@ Assignment to method parameter `prompt`
 in `azure-maven-plugin-lib/src/main/java/com/microsoft/azure/maven/queryer/TextIOMavenPluginQueryer.java`
 #### Snippet
 ```java
+            return initValue;
         }
-
         prompt = StringUtils.isEmpty(prompt) ? getPromptString(attribute) : prompt;
-        return new StringInputReader(TextIOUtils::getTextTerminal).withPattern(regex).withDefaultValue(defaultValue).withMinLength(0).read(prompt);
-    }
+        return new GenericInputReader<String>(TextIOUtils::getTextTerminal, null)
+                .withNumberedPossibleValues(options).withDefaultValue(defaultValue).withEqualsFunc(StringUtils::equalsIgnoreCase).read(prompt);
 ```
 
 ### AssignmentToMethodParameter
@@ -8065,27 +7905,15 @@ in `azure-toolkit-libs/azure-toolkit-common-lib/src/main/java/com/microsoft/azur
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `rgName`
-in `azure-toolkit-libs/azure-toolkit-common-lib/src/main/java/com/microsoft/azure/toolkit/lib/common/model/AbstractAzResourceModule.java`
-#### Snippet
-```java
-
-    private String normalizeResourceGroupName(String name, @Nullable String rgName) {
-        rgName = StringUtils.firstNonBlank(rgName, this.getParent().getResourceGroupName());
-        if (StringUtils.isBlank(rgName) || StringUtils.equalsIgnoreCase(rgName, RESOURCE_GROUP_PLACEHOLDER)) {
-            if (this instanceof ResourceGroupModule) {
-```
-
-### AssignmentToMethodParameter
 Assignment to method parameter `id`
 in `azure-toolkit-libs/azure-toolkit-common-lib/src/main/java/com/microsoft/azure/toolkit/lib/common/model/AbstractAzResourceModule.java`
 #### Snippet
 ```java
-        log.debug("[{}]:deleteResourceFromLocal({})", this.name, id);
-        log.debug("[{}]:deleteResourceFromLocal->this.resources.remove({})", this.name, id);
+    protected void addResourceToLocal(@Nonnull String id, @Nullable T resource, boolean... silent) {
+        log.debug("[{}]:addResourceToLocal({}, {})", this.name, id, resource);
         id = id.toLowerCase();
-        final Optional<T> removed = this.resources.remove(id);
-        if (Objects.nonNull(removed) && removed.isPresent()) {
+        final Optional<T> oldResource = this.resources.getOrDefault(id, Optional.empty());
+        final Optional<T> newResource = Optional.ofNullable(resource);
 ```
 
 ### AssignmentToMethodParameter
@@ -8129,11 +7957,23 @@ Assignment to method parameter `id`
 in `azure-toolkit-libs/azure-toolkit-common-lib/src/main/java/com/microsoft/azure/toolkit/lib/common/model/AbstractAzResourceModule.java`
 #### Snippet
 ```java
-    protected void addResourceToLocal(@Nonnull String id, @Nullable T resource, boolean... silent) {
-        log.debug("[{}]:addResourceToLocal({}, {})", this.name, id, resource);
+        log.debug("[{}]:deleteResourceFromLocal({})", this.name, id);
+        log.debug("[{}]:deleteResourceFromLocal->this.resources.remove({})", this.name, id);
         id = id.toLowerCase();
-        final Optional<T> oldResource = this.resources.getOrDefault(id, Optional.empty());
-        final Optional<T> newResource = Optional.ofNullable(resource);
+        final Optional<T> removed = this.resources.remove(id);
+        if (Objects.nonNull(removed) && removed.isPresent()) {
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `rgName`
+in `azure-toolkit-libs/azure-toolkit-common-lib/src/main/java/com/microsoft/azure/toolkit/lib/common/model/AbstractAzResourceModule.java`
+#### Snippet
+```java
+
+    private String normalizeResourceGroupName(String name, @Nullable String rgName) {
+        rgName = StringUtils.firstNonBlank(rgName, this.getParent().getResourceGroupName());
+        if (StringUtils.isBlank(rgName) || StringUtils.equalsIgnoreCase(rgName, RESOURCE_GROUP_PLACEHOLDER)) {
+            if (this instanceof ResourceGroupModule) {
 ```
 
 ### AssignmentToMethodParameter
@@ -8173,18 +8013,6 @@ in `azure-toolkit-libs/azure-toolkit-springcloud-lib/src/main/java/com/microsoft
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `args`
-in `azure-toolkit-libs/azure-toolkit-springcloud-lib/src/main/java/com/microsoft/azure/toolkit/lib/springcloud/SpringCloudDeploymentDraft.java`
-#### Snippet
-```java
-    @Override
-    public synchronized Object invoke(Object proxy, @Nonnull Method method, Object[] args) throws Throwable {
-        args = ObjectUtils.firstNonNull(args, new Object[0]);
-        if (method.getName().startsWith("set")) {
-            synchronized (this) {
-```
-
-### AssignmentToMethodParameter
 Assignment to method parameter `deployment`
 in `azure-toolkit-libs/azure-toolkit-springcloud-lib/src/main/java/com/microsoft/azure/toolkit/lib/springcloud/SpringCloudDeploymentDraft.java`
 #### Snippet
@@ -8206,6 +8034,18 @@ in `azure-toolkit-libs/azure-toolkit-springcloud-lib/src/main/java/com/microsoft
         deployment = this.scaleDeploymentInAzure(deployment);
         return deployment;
     }
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `args`
+in `azure-toolkit-libs/azure-toolkit-springcloud-lib/src/main/java/com/microsoft/azure/toolkit/lib/springcloud/SpringCloudDeploymentDraft.java`
+#### Snippet
+```java
+    @Override
+    public synchronized Object invoke(Object proxy, @Nonnull Method method, Object[] args) throws Throwable {
+        args = ObjectUtils.firstNonNull(args, new Object[0]);
+        if (method.getName().startsWith("set")) {
+            synchronized (this) {
 ```
 
 ### AssignmentToMethodParameter
@@ -8235,19 +8075,19 @@ in `azure-spring-apps-maven-plugin/src/main/java/com/microsoft/azure/maven/sprin
 ## RuleId[ruleID=ReturnNull]
 ### ReturnNull
 Return of `null`
-in `azure-maven-plugin-lib/src/main/java/com/microsoft/azure/maven/model/SubscriptionOption2.java`
+in `azure-toolkit-libs/azure-toolkit-storage-lib/src/main/java/com/microsoft/azure/toolkit/lib/storage/StorageAccount.java`
 #### Snippet
 ```java
-
-    public String getSubscriptionName() {
-        return inner != null ? inner.displayName() : null;
+        return remoteOptional().map(remote -> {
+            String[] replicationArr = remote.skuType().name().toString().split("_");
+            return replicationArr.length == 2 ? Performance.fromName(replicationArr[0]) : null;
+        }).orElse(null);
     }
-
 ```
 
 ### ReturnNull
 Return of `null`
-in `azure-maven-plugin-lib/src/main/java/com/microsoft/azure/maven/model/SubscriptionOption.java`
+in `azure-maven-plugin-lib/src/main/java/com/microsoft/azure/maven/model/SubscriptionOption2.java`
 #### Snippet
 ```java
     @Override
@@ -8259,12 +8099,12 @@ in `azure-maven-plugin-lib/src/main/java/com/microsoft/azure/maven/model/Subscri
 
 ### ReturnNull
 Return of `null`
-in `azure-maven-plugin-lib/src/main/java/com/microsoft/azure/maven/model/SubscriptionOption.java`
+in `azure-maven-plugin-lib/src/main/java/com/microsoft/azure/maven/model/SubscriptionOption2.java`
 #### Snippet
 ```java
 
     public String getSubscriptionName() {
-        return inner != null ? inner.getName() : null;
+        return inner != null ? inner.displayName() : null;
     }
 
 ```
@@ -8283,30 +8123,6 @@ in `azure-maven-plugin-lib/src/main/java/com/microsoft/azure/maven/model/Subscri
 
 ### ReturnNull
 Return of `null`
-in `azure-maven-plugin-lib/src/main/java/com/microsoft/azure/maven/model/SubscriptionOption2.java`
-#### Snippet
-```java
-    @Override
-    public String toString() {
-        return inner != null ? getSubscriptionName(this.inner) : null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `azure-maven-plugin-lib/src/main/java/com/microsoft/azure/maven/ProjectUtils.java`
-#### Snippet
-```java
-    public static IProject convertCommonProject(MavenProject project) {
-        if (project == null) {
-            return null;
-        }
-        final JavaProject proj = new JavaProject();
-```
-
-### ReturnNull
-Return of `null`
 in `azure-maven-plugin-lib/src/main/java/com/microsoft/azure/maven/auth/MavenSettingHelper.java`
 #### Snippet
 ```java
@@ -8319,12 +8135,24 @@ in `azure-maven-plugin-lib/src/main/java/com/microsoft/azure/maven/auth/MavenSet
 
 ### ReturnNull
 Return of `null`
-in `azure-maven-plugin-lib/src/main/java/com/microsoft/azure/maven/utils/MavenUtils.java`
+in `azure-maven-plugin-lib/src/main/java/com/microsoft/azure/maven/model/SubscriptionOption.java`
 #### Snippet
 ```java
-    public static Xpp3Dom getPluginConfiguration(MavenProject mavenProject, String pluginKey) {
-        final Plugin plugin = getPluginFromMavenModel(mavenProject.getModel(), pluginKey);
-        return plugin == null ? null : (Xpp3Dom) plugin.getConfiguration();
+
+    public String getSubscriptionName() {
+        return inner != null ? inner.getName() : null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `azure-maven-plugin-lib/src/main/java/com/microsoft/azure/maven/model/SubscriptionOption.java`
+#### Snippet
+```java
+    @Override
+    public String toString() {
+        return inner != null ? getSubscriptionName(this.inner) : null;
     }
 
 ```
@@ -8367,6 +8195,30 @@ in `azure-maven-plugin-lib/src/main/java/com/microsoft/azure/maven/utils/MavenUt
 
 ### ReturnNull
 Return of `null`
+in `azure-maven-plugin-lib/src/main/java/com/microsoft/azure/maven/utils/MavenUtils.java`
+#### Snippet
+```java
+    public static Xpp3Dom getPluginConfiguration(MavenProject mavenProject, String pluginKey) {
+        final Plugin plugin = getPluginFromMavenModel(mavenProject.getModel(), pluginKey);
+        return plugin == null ? null : (Xpp3Dom) plugin.getConfiguration();
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `azure-maven-plugin-lib/src/main/java/com/microsoft/azure/maven/ProjectUtils.java`
+#### Snippet
+```java
+    public static IProject convertCommonProject(MavenProject project) {
+        if (project == null) {
+            return null;
+        }
+        final JavaProject proj = new JavaProject();
+```
+
+### ReturnNull
+Return of `null`
 in `azure-maven-plugin-lib/src/main/java/com/microsoft/azure/maven/utils/XmlUtils.java`
 #### Snippet
 ```java
@@ -8379,14 +8231,14 @@ in `azure-maven-plugin-lib/src/main/java/com/microsoft/azure/maven/utils/XmlUtil
 
 ### ReturnNull
 Return of `null`
-in `azure-maven-plugin-lib/src/main/java/com/microsoft/azure/toolkit/maven/common/action/MavenActionManager.java`
+in `azure-maven-plugin-lib/src/main/java/com/microsoft/azure/maven/prompt/SchemaValidator.java`
 #### Snippet
 ```java
-    @Override
-    public ActionGroup getGroup(String id) {
-        return null;
-    }
-}
+    private String formatValidationResults(final ProcessingReport reports) {
+        if (reports.isSuccess()) {
+            return null;
+        }
+        final List<String> errors = new ArrayList<>();
 ```
 
 ### ReturnNull
@@ -8403,14 +8255,14 @@ in `azure-maven-plugin-lib/src/main/java/com/microsoft/azure/toolkit/maven/commo
 
 ### ReturnNull
 Return of `null`
-in `azure-maven-plugin-lib/src/main/java/com/microsoft/azure/maven/prompt/SchemaValidator.java`
+in `azure-maven-plugin-lib/src/main/java/com/microsoft/azure/toolkit/maven/common/action/MavenActionManager.java`
 #### Snippet
 ```java
-    private String formatValidationResults(final ProcessingReport reports) {
-        if (reports.isSuccess()) {
-            return null;
-        }
-        final List<String> errors = new ArrayList<>();
+    @Override
+    public ActionGroup getGroup(String id) {
+        return null;
+    }
+}
 ```
 
 ### ReturnNull
@@ -8466,11 +8318,11 @@ Return of `null`
 in `azure-toolkit-libs/azure-toolkit-common-lib/src/main/java/com/microsoft/azure/toolkit/lib/common/proxy/ProxyManager.java`
 #### Snippet
 ```java
-                .password(proxyPassword).build();
-        }
-        return null;
-    }
-
+                                    }
+                                }
+                                return null;
+                            }
+                        }
 ```
 
 ### ReturnNull
@@ -8490,18 +8342,6 @@ Return of `null`
 in `azure-toolkit-libs/azure-toolkit-common-lib/src/main/java/com/microsoft/azure/toolkit/lib/common/proxy/ProxyManager.java`
 #### Snippet
 ```java
-                                    }
-                                }
-                                return null;
-                            }
-                        }
-```
-
-### ReturnNull
-Return of `null`
-in `azure-toolkit-libs/azure-toolkit-common-lib/src/main/java/com/microsoft/azure/toolkit/lib/common/proxy/ProxyManager.java`
-#### Snippet
-```java
     private static Proxy createHttpProxy(String httpProxyHost, Integer httpProxyPort) {
         return StringUtils.isNotBlank(httpProxyHost) ? new Proxy(Proxy.Type.HTTP, new InetSocketAddress(httpProxyHost,
             httpProxyPort)) : null;
@@ -8511,10 +8351,10 @@ in `azure-toolkit-libs/azure-toolkit-common-lib/src/main/java/com/microsoft/azur
 
 ### ReturnNull
 Return of `null`
-in `azure-toolkit-libs/azure-toolkit-common-lib/src/main/java/com/microsoft/azure/toolkit/lib/common/utils/aspect/MethodInvocation.java`
+in `azure-toolkit-libs/azure-toolkit-common-lib/src/main/java/com/microsoft/azure/toolkit/lib/common/proxy/ProxyManager.java`
 #### Snippet
 ```java
-            }
+                .password(proxyPassword).build();
         }
         return null;
     }
@@ -8531,6 +8371,18 @@ in `azure-toolkit-libs/azure-toolkit-common-lib/src/main/java/com/microsoft/azur
             return null;
         }
     }
+```
+
+### ReturnNull
+Return of `null`
+in `azure-toolkit-libs/azure-toolkit-common-lib/src/main/java/com/microsoft/azure/toolkit/lib/common/utils/aspect/MethodInvocation.java`
+#### Snippet
+```java
+            }
+        }
+        return null;
+    }
+
 ```
 
 ### ReturnNull
@@ -8611,6 +8463,18 @@ in `azure-toolkit-libs/azure-toolkit-common-lib/src/main/java/com/microsoft/azur
 #### Snippet
 ```java
 
+        default Object deploy() {
+            return null;
+        }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `azure-toolkit-libs/azure-toolkit-common-lib/src/main/java/com/microsoft/azure/toolkit/lib/common/action/AzureActionManager.java`
+#### Snippet
+```java
+
         default Object restart() {
             return null;
         }
@@ -8623,10 +8487,10 @@ in `azure-toolkit-libs/azure-toolkit-common-lib/src/main/java/com/microsoft/azur
 #### Snippet
 ```java
 
-        default Object deploy() {
+        default Object edit() {
             return null;
         }
-    }
+
 ```
 
 ### ReturnNull
@@ -8659,7 +8523,7 @@ in `azure-toolkit-libs/azure-toolkit-common-lib/src/main/java/com/microsoft/azur
 #### Snippet
 ```java
 
-        default Object edit() {
+        default Object start() {
             return null;
         }
 
@@ -8683,18 +8547,6 @@ in `azure-toolkit-libs/azure-toolkit-common-lib/src/main/java/com/microsoft/azur
 #### Snippet
 ```java
 
-        default Object view() {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `azure-toolkit-libs/azure-toolkit-common-lib/src/main/java/com/microsoft/azure/toolkit/lib/common/action/AzureActionManager.java`
-#### Snippet
-```java
-
         default Object refresh() {
             return null;
         }
@@ -8707,7 +8559,7 @@ in `azure-toolkit-libs/azure-toolkit-common-lib/src/main/java/com/microsoft/azur
 #### Snippet
 ```java
 
-        default Object start() {
+        default Object view() {
             return null;
         }
 
@@ -8739,18 +8591,6 @@ in `azure-toolkit-libs/azure-toolkit-common-lib/src/main/java/com/microsoft/azur
 
 ### ReturnNull
 Return of `null`
-in `azure-toolkit-libs/azure-toolkit-common-lib/src/main/java/com/microsoft/azure/toolkit/lib/resource/ResourceGroupConfig.java`
-#### Snippet
-```java
-    public static ResourceGroupConfig fromResource(@Nullable ResourceGroup group) {
-        if (Objects.isNull(group)) {
-            return null;
-        }
-        return ResourceGroupConfig.builder()
-```
-
-### ReturnNull
-Return of `null`
 in `azure-toolkit-libs/azure-toolkit-common-lib/src/main/java/com/microsoft/azure/toolkit/lib/resource/ResourceDeployment.java`
 #### Snippet
 ```java
@@ -8763,38 +8603,14 @@ in `azure-toolkit-libs/azure-toolkit-common-lib/src/main/java/com/microsoft/azur
 
 ### ReturnNull
 Return of `null`
-in `azure-functions-maven-plugin/src/main/java/com/microsoft/azure/maven/function/ConfigParser.java`
+in `azure-toolkit-libs/azure-toolkit-common-lib/src/main/java/com/microsoft/azure/toolkit/lib/resource/ResourceGroupConfig.java`
 #### Snippet
 ```java
-        final String servicePlan = mojo.getAppServicePlanName();
-        final String servicePlanGroup = StringUtils.firstNonBlank(mojo.getAppServicePlanResourceGroup(), mojo.getResourceGroup());
-        return StringUtils.isAnyBlank(subscriptionId, servicePlan, servicePlanGroup) ? null :
-                Azure.az(AzureAppService.class).plans(subscriptionId).get(servicePlan, servicePlanGroup);
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `azure-functions-maven-plugin/src/main/java/com/microsoft/azure/maven/function/ConfigParser.java`
-#### Snippet
-```java
-        final RuntimeConfiguration runtime = mojo.getRuntimeConfiguration();
-        if (runtime == null) {
+    public static ResourceGroupConfig fromResource(@Nullable ResourceGroup group) {
+        if (Objects.isNull(group)) {
             return null;
         }
-        final OperatingSystem os = Optional.ofNullable(runtime.getOs()).map(OperatingSystem::fromString)
-```
-
-### ReturnNull
-Return of `null`
-in `azure-toolkit-libs/azure-toolkit-common-lib/src/main/java/com/microsoft/azure/toolkit/lib/common/model/AbstractAzResource.java`
-#### Snippet
-```java
-                this.deleteFromAzure();
-            }
-            return null;
-        }, Status.DELETING);
-        this.deleteFromCache();
+        return ResourceGroupConfig.builder()
 ```
 
 ### ReturnNull
@@ -8839,7 +8655,7 @@ in `azure-toolkit-libs/azure-toolkit-appservice-lib/src/main/java/com/microsoft/
 #### Snippet
 ```java
         } catch (Exception e) {
-            AzureMessager.getMessager().warning(GET_LOCAL_VERSION_FAIL);
+            AzureMessager.getMessager().warning(GET_LATEST_VERSION_FAIL);
             return null;
         }
     }
@@ -8851,7 +8667,7 @@ in `azure-toolkit-libs/azure-toolkit-appservice-lib/src/main/java/com/microsoft/
 #### Snippet
 ```java
         } catch (Exception e) {
-            AzureMessager.getMessager().warning(GET_LATEST_VERSION_FAIL);
+            AzureMessager.getMessager().warning(GET_LOCAL_VERSION_FAIL);
             return null;
         }
     }
@@ -8907,6 +8723,18 @@ in `azure-toolkit-libs/azure-toolkit-appservice-lib/src/main/java/com/microsoft/
 
 ### ReturnNull
 Return of `null`
+in `azure-toolkit-libs/azure-toolkit-common-lib/src/main/java/com/microsoft/azure/toolkit/lib/common/model/AbstractAzResource.java`
+#### Snippet
+```java
+                this.deleteFromAzure();
+            }
+            return null;
+        }, Status.DELETING);
+        this.deleteFromCache();
+```
+
+### ReturnNull
+Return of `null`
 in `azure-toolkit-libs/azure-toolkit-appservice-lib/src/main/java/com/microsoft/azure/toolkit/lib/legacy/function/template/FunctionTemplate.java`
 #### Snippet
 ```java
@@ -8919,14 +8747,14 @@ in `azure-toolkit-libs/azure-toolkit-appservice-lib/src/main/java/com/microsoft/
 
 ### ReturnNull
 Return of `null`
-in `azure-toolkit-libs/azure-toolkit-common-lib/src/main/java/com/microsoft/azure/toolkit/lib/common/task/AzureTask.java`
+in `azure-toolkit-libs/azure-toolkit-appservice-lib/src/main/java/com/microsoft/azure/toolkit/lib/legacy/function/handlers/AnnotationHandlerImpl.java`
 #### Snippet
 ```java
-        this(project, title, cancellable, () -> {
-            runnable.run();
-            return null;
-        }, modality);
+            return Retry.createExponentialBackoffRetryFromAnnotation(exponentialBackoffRetry);
+        }
+        return null;
     }
+
 ```
 
 ### ReturnNull
@@ -8958,11 +8786,11 @@ Return of `null`
 in `azure-toolkit-libs/azure-toolkit-appservice-lib/src/main/java/com/microsoft/azure/toolkit/lib/appservice/task/CreateOrUpdateFunctionAppTask.java`
 #### Snippet
 ```java
-        if (StringUtils.isNotEmpty(functionAppConfig.deploymentSlotName())) {
-            AzureMessager.getMessager().info("Skip update app service plan for deployment slot");
-            return null;
-        }
-        return new AzureTask<>(() -> {
+                final String errorMessage = Optional.ofNullable(ExceptionUtils.getRootCause(e)).orElse(e).getMessage();
+                AzureMessager.getMessager().warning(String.format(APPLICATION_INSIGHTS_CREATE_FAILED, errorMessage));
+                return null;
+            }
+        });
 ```
 
 ### ReturnNull
@@ -8982,23 +8810,11 @@ Return of `null`
 in `azure-toolkit-libs/azure-toolkit-appservice-lib/src/main/java/com/microsoft/azure/toolkit/lib/appservice/task/CreateOrUpdateFunctionAppTask.java`
 #### Snippet
 ```java
-                final String errorMessage = Optional.ofNullable(ExceptionUtils.getRootCause(e)).orElse(e).getMessage();
-                AzureMessager.getMessager().warning(String.format(APPLICATION_INSIGHTS_CREATE_FAILED, errorMessage));
-                return null;
-            }
-        });
-```
-
-### ReturnNull
-Return of `null`
-in `azure-toolkit-libs/azure-toolkit-appservice-lib/src/main/java/com/microsoft/azure/toolkit/lib/appservice/task/DeployWebAppTask.java`
-#### Snippet
-```java
-        final CsmDeploymentStatus deploymentStatus = target.getDeploymentStatus(result.getDeploymentId());
-        if (Objects.isNull(deploymentStatus)) {
+        if (StringUtils.isNotEmpty(functionAppConfig.deploymentSlotName())) {
+            AzureMessager.getMessager().info("Skip update app service plan for deployment slot");
             return null;
         }
-        final String statusMessage = String.format("Deployment Status: %s; Successful Instance Count: %s; In-progress Instance Count: %s; Failed Instance Count: %s",
+        return new AzureTask<>(() -> {
 ```
 
 ### ReturnNull
@@ -9015,14 +8831,26 @@ in `azure-toolkit-libs/azure-toolkit-appservice-lib/src/main/java/com/microsoft/
 
 ### ReturnNull
 Return of `null`
-in `azure-toolkit-libs/azure-toolkit-appservice-lib/src/main/java/com/microsoft/azure/toolkit/lib/appservice/utils/Utils.java`
+in `azure-toolkit-libs/azure-toolkit-appservice-lib/src/main/java/com/microsoft/azure/toolkit/lib/appservice/task/DeployWebAppTask.java`
 #### Snippet
 ```java
-        String[] segments = linuxFxVersion.split(Pattern.quote("|"));
-        if (segments.length != 2) {
+        final CsmDeploymentStatus deploymentStatus = target.getDeploymentStatus(result.getDeploymentId());
+        if (Objects.isNull(deploymentStatus)) {
             return null;
         }
-        final String image = segments[1];
+        final String statusMessage = String.format("Deployment Status: %s; Successful Instance Count: %s; In-progress Instance Count: %s; Failed Instance Count: %s",
+```
+
+### ReturnNull
+Return of `null`
+in `azure-toolkit-libs/azure-toolkit-appservice-lib/src/main/java/com/microsoft/azure/toolkit/lib/appservice/utils/AppServiceUtils.java`
+#### Snippet
+```java
+        final WebContainer webContainer = runtime.getWebContainer();
+        if (webContainer == null || Objects.equals(webContainer, WebContainer.JAVA_OFF)) {
+            return null;
+        }
+        if (Objects.equals(webContainer, WebContainer.JAVA_SE)) {
 ```
 
 ### ReturnNull
@@ -9039,14 +8867,26 @@ in `azure-toolkit-libs/azure-toolkit-appservice-lib/src/main/java/com/microsoft/
 
 ### ReturnNull
 Return of `null`
-in `azure-toolkit-libs/azure-toolkit-appservice-lib/src/main/java/com/microsoft/azure/toolkit/lib/appservice/utils/AppServiceUtils.java`
+in `azure-toolkit-libs/azure-toolkit-appservice-lib/src/main/java/com/microsoft/azure/toolkit/lib/appservice/utils/Utils.java`
 #### Snippet
 ```java
-        final WebContainer webContainer = runtime.getWebContainer();
-        if (webContainer == null || Objects.equals(webContainer, WebContainer.JAVA_OFF)) {
+        String[] segments = linuxFxVersion.split(Pattern.quote("|"));
+        if (segments.length != 2) {
             return null;
         }
-        if (Objects.equals(webContainer, WebContainer.JAVA_SE)) {
+        final String image = segments[1];
+```
+
+### ReturnNull
+Return of `null`
+in `azure-toolkit-libs/azure-toolkit-common-lib/src/main/java/com/microsoft/azure/toolkit/lib/common/task/AzureTask.java`
+#### Snippet
+```java
+        this(project, title, cancellable, () -> {
+            runnable.run();
+            return null;
+        }, modality);
+    }
 ```
 
 ### ReturnNull
@@ -9066,7 +8906,7 @@ Return of `null`
 in `azure-toolkit-libs/azure-toolkit-appservice-lib/src/main/java/com/microsoft/azure/toolkit/lib/appservice/function/core/AzureFunctionPackagerBase.java`
 #### Snippet
 ```java
-            return createBinding(annotationEnum, annotation);
+            return createRetryFromMap(exponentialBackoffRetry.getAllAnnotationProperties());
         }
         return null;
     }
@@ -9078,7 +8918,7 @@ Return of `null`
 in `azure-toolkit-libs/azure-toolkit-appservice-lib/src/main/java/com/microsoft/azure/toolkit/lib/appservice/function/core/AzureFunctionPackagerBase.java`
 #### Snippet
 ```java
-            return createRetryFromMap(exponentialBackoffRetry.getAllAnnotationProperties());
+            return createBinding(annotationEnum, annotation);
         }
         return null;
     }
@@ -9099,470 +8939,14 @@ in `azure-toolkit-libs/azure-toolkit-appservice-lib/src/main/java/com/microsoft/
 
 ### ReturnNull
 Return of `null`
-in `azure-toolkit-libs/azure-toolkit-storage-lib/src/main/java/com/microsoft/azure/toolkit/lib/storage/StorageAccount.java`
-#### Snippet
-```java
-        return remoteOptional().map(remote -> {
-            String[] replicationArr = remote.skuType().name().toString().split("_");
-            return replicationArr.length == 2 ? Performance.fromName(replicationArr[0]) : null;
-        }).orElse(null);
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `azure-toolkit-libs/azure-toolkit-cosmos-lib/src/main/java/com/microsoft/azure/toolkit/lib/cosmos/sql/SqlCosmosDBAccount.java`
-#### Snippet
-```java
-        } catch (Throwable e) {
-            // swallow exception to load data client
-            return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `azure-toolkit-libs/azure-toolkit-cosmos-lib/src/main/java/com/microsoft/azure/toolkit/lib/cosmos/sql/SqlDatabaseModule.java`
-#### Snippet
-```java
-                    return client.getSqlDatabase(parent.getResourceGroupName(), parent.getName(), name);
-                } catch (RuntimeException e) {
-                    return null;
-                }
-            }
-```
-
-### ReturnNull
-Return of `null`
-in `azure-toolkit-libs/azure-toolkit-cosmos-lib/src/main/java/com/microsoft/azure/toolkit/lib/cosmos/sql/SqlDatabaseModule.java`
-#### Snippet
-```java
-                return client.listSqlDatabases(parent.getResourceGroupName(), parent.getName()).stream();
-            } catch (final RuntimeException e) {
-                return null;
-            }
-        }).orElse(Stream.empty());
-```
-
-### ReturnNull
-Return of `null`
-in `azure-toolkit-libs/azure-toolkit-cosmos-lib/src/main/java/com/microsoft/azure/toolkit/lib/cosmos/sql/SqlDatabaseModule.java`
-#### Snippet
-```java
-                return client.listSqlDatabases(parent.getResourceGroupName(), parent.getName()).iterableByPage(getPageSize()).iterator();
-            } catch (final RuntimeException e) {
-                return null;
-            }
-        }).orElse(Collections.emptyIterator());
-```
-
-### ReturnNull
-Return of `null`
-in `azure-toolkit-libs/azure-toolkit-cosmos-lib/src/main/java/com/microsoft/azure/toolkit/lib/cosmos/sql/SqlContainerModule.java`
-#### Snippet
-```java
-                return client.listSqlContainers(parent.getResourceGroupName(), parent.getParent().getName(), parent.getName()).iterableByPage(getPageSize()).iterator();
-            } catch (final RuntimeException e) {
-                return null;
-            }
-        }).orElse(Collections.emptyIterator());
-```
-
-### ReturnNull
-Return of `null`
-in `azure-toolkit-libs/azure-toolkit-cosmos-lib/src/main/java/com/microsoft/azure/toolkit/lib/cosmos/sql/SqlContainerModule.java`
-#### Snippet
-```java
-                return client.getSqlContainer(parent.getResourceGroupName(), parent.getParent().getName(), parent.getName(), name);
-            } catch (final RuntimeException e) {
-                return null;
-            }
-        }).orElse(null);
-```
-
-### ReturnNull
-Return of `null`
-in `azure-toolkit-libs/azure-toolkit-cosmos-lib/src/main/java/com/microsoft/azure/toolkit/lib/cosmos/sql/SqlContainerModule.java`
-#### Snippet
-```java
-                return client.listSqlContainers(parent.getResourceGroupName(), parent.getParent().getName(), parent.getName()).stream();
-            } catch (final RuntimeException e) {
-                return null;
-            }
-        }).orElse(Stream.empty());
-```
-
-### ReturnNull
-Return of `null`
-in `azure-toolkit-libs/azure-toolkit-cosmos-lib/src/main/java/com/microsoft/azure/toolkit/lib/cosmos/model/ThroughputConfig.java`
-#### Snippet
-```java
-        assert ObjectUtils.anyNull(throughput, maxThroughput);
-        if (ObjectUtils.allNull(throughput, maxThroughput)) {
-            return null;
-        }
-        final CreateUpdateOptions options = new CreateUpdateOptions();
-```
-
-### ReturnNull
-Return of `null`
-in `azure-toolkit-libs/azure-toolkit-cosmos-lib/src/main/java/com/microsoft/azure/toolkit/lib/cosmos/sql/SqlContainerDraft.java`
-#### Snippet
-```java
-        final List<String> uniqueKeys = ensureConfig().getUniqueKeys();
-        if (CollectionUtils.isEmpty(uniqueKeys)) {
-            return null;
-        }
-        final List<UniqueKey> uniqueKeyList = uniqueKeys.stream().map(path -> Arrays.asList(path.split(",")))
-```
-
-### ReturnNull
-Return of `null`
-in `azure-toolkit-libs/azure-toolkit-cosmos-lib/src/main/java/com/microsoft/azure/toolkit/lib/cosmos/sql/SqlContainer.java`
-#### Snippet
-```java
-        } catch (Throwable e) {
-            // swallow exception to load data client
-            return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `azure-toolkit-libs/azure-toolkit-cosmos-lib/src/main/java/com/microsoft/azure/toolkit/lib/cosmos/mongo/MongoCosmosDBAccount.java`
-#### Snippet
-```java
-        } catch (Throwable e) {
-            // swallow exception to load data client
-            return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `azure-toolkit-libs/azure-toolkit-cosmos-lib/src/main/java/com/microsoft/azure/toolkit/lib/cosmos/mongo/MongoDatabaseModule.java`
-#### Snippet
-```java
-                return client.listMongoDBDatabases(parent.getResourceGroupName(), parent.getName()).iterableByPage(getPageSize()).iterator();
-            } catch (final RuntimeException e) {
-                return null;
-            }
-        }).orElse(Collections.emptyIterator());
-```
-
-### ReturnNull
-Return of `null`
-in `azure-toolkit-libs/azure-toolkit-cosmos-lib/src/main/java/com/microsoft/azure/toolkit/lib/cosmos/mongo/MongoDatabaseModule.java`
-#### Snippet
-```java
-                return client.listMongoDBDatabases(parent.getResourceGroupName(), parent.getName()).stream();
-            } catch (final RuntimeException e) {
-                return null;
-            }
-        }).orElse(Stream.empty());
-```
-
-### ReturnNull
-Return of `null`
-in `azure-toolkit-libs/azure-toolkit-cosmos-lib/src/main/java/com/microsoft/azure/toolkit/lib/cosmos/mongo/MongoDatabaseModule.java`
-#### Snippet
-```java
-                return client.getMongoDBDatabase(parent.getResourceGroupName(), parent.getName(), name);
-            } catch (final RuntimeException e) {
-                return null;
-            }
-        }).orElse(null);
-```
-
-### ReturnNull
-Return of `null`
-in `azure-toolkit-libs/azure-toolkit-cosmos-lib/src/main/java/com/microsoft/azure/toolkit/lib/cosmos/mongo/MongoDocument.java`
-#### Snippet
-```java
-        final String sharedKey = getParent().getSharedKey();
-        final ObjectNode document = getDocument();
-        return ObjectUtils.allNotNull(sharedKey, document) ? document.get(sharedKey).asText() : null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `azure-toolkit-libs/azure-toolkit-cosmos-lib/src/main/java/com/microsoft/azure/toolkit/lib/cosmos/mongo/MongoCollection.java`
-#### Snippet
-```java
-        } catch (Throwable e) {
-            // swallow exception to load data client
-            return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `azure-toolkit-libs/azure-toolkit-cosmos-lib/src/main/java/com/microsoft/azure/toolkit/lib/cosmos/mongo/MongoCollectionModule.java`
-#### Snippet
-```java
-                return client.listMongoDBCollections(parent.getResourceGroupName(), parent.getParent().getName(), parent.getName()).stream();
-            } catch (final RuntimeException e) {
-                return null;
-            }
-        }).orElse(Stream.empty());
-```
-
-### ReturnNull
-Return of `null`
-in `azure-toolkit-libs/azure-toolkit-cosmos-lib/src/main/java/com/microsoft/azure/toolkit/lib/cosmos/mongo/MongoCollectionModule.java`
-#### Snippet
-```java
-                return client.getMongoDBCollection(parent.getResourceGroupName(), parent.getParent().getName(), parent.getName(), name);
-            } catch (final RuntimeException e) {
-                return null;
-            }
-        }).orElse(null);
-```
-
-### ReturnNull
-Return of `null`
-in `azure-toolkit-libs/azure-toolkit-cosmos-lib/src/main/java/com/microsoft/azure/toolkit/lib/cosmos/mongo/MongoCollectionModule.java`
-#### Snippet
-```java
-                return client.listMongoDBCollections(parent.getResourceGroupName(), parent.getParent().getName(), parent.getName()).iterableByPage(getPageSize()).iterator();
-            } catch (final RuntimeException e) {
-                return null;
-            }
-        }).orElse(Collections.emptyIterator());
-```
-
-### ReturnNull
-Return of `null`
-in `azure-toolkit-libs/azure-toolkit-cosmos-lib/src/main/java/com/microsoft/azure/toolkit/lib/cosmos/cassandra/CassandraKeyspaceModule.java`
-#### Snippet
-```java
-                return client.getCassandraKeyspace(parent.getResourceGroupName(), parent.getName(), name);
-            } catch (final RuntimeException e) {
-                return null;
-            }
-        }).orElse(null);
-```
-
-### ReturnNull
-Return of `null`
-in `azure-toolkit-libs/azure-toolkit-cosmos-lib/src/main/java/com/microsoft/azure/toolkit/lib/cosmos/cassandra/CassandraKeyspaceModule.java`
-#### Snippet
-```java
-                return client.listCassandraKeyspaces(parent.getResourceGroupName(), parent.getName()).iterableByPage(getPageSize()).iterator();
-            } catch (final RuntimeException e) {
-                return null;
-            }
-        }).orElse(Collections.emptyIterator());
-```
-
-### ReturnNull
-Return of `null`
-in `azure-toolkit-libs/azure-toolkit-cosmos-lib/src/main/java/com/microsoft/azure/toolkit/lib/cosmos/cassandra/CassandraKeyspaceModule.java`
-#### Snippet
-```java
-                return client.listCassandraKeyspaces(parent.getResourceGroupName(), parent.getName()).stream();
-            } catch (final RuntimeException e) {
-                return null;
-            }
-        }).orElse(Stream.empty());
-```
-
-### ReturnNull
-Return of `null`
-in `azure-toolkit-libs/azure-toolkit-cosmos-lib/src/main/java/com/microsoft/azure/toolkit/lib/cosmos/cassandra/CassandraTableModule.java`
-#### Snippet
-```java
-                return client.getCassandraTable(parent.getResourceGroupName(), parent.getParent().getName(), parent.getName(), name);
-            } catch (final RuntimeException e) {
-                return null;
-            }
-        }).orElse(null);
-```
-
-### ReturnNull
-Return of `null`
-in `azure-toolkit-libs/azure-toolkit-cosmos-lib/src/main/java/com/microsoft/azure/toolkit/lib/cosmos/cassandra/CassandraTableModule.java`
-#### Snippet
-```java
-                return client.listCassandraTables(parent.getResourceGroupName(), parent.getParent().getName(), parent.getName()).stream();
-            } catch (final RuntimeException e) {
-                return null;
-            }
-        }).orElse(Stream.empty());
-```
-
-### ReturnNull
-Return of `null`
-in `azure-toolkit-libs/azure-toolkit-cosmos-lib/src/main/java/com/microsoft/azure/toolkit/lib/cosmos/cassandra/CassandraTableModule.java`
-#### Snippet
-```java
-                return client.listCassandraTables(parent.getResourceGroupName(), parent.getParent().getName(), parent.getName()).iterableByPage(getPageSize()).iterator();
-            } catch (final RuntimeException e) {
-                return null;
-            }
-        }).orElse(Collections.emptyIterator());
-```
-
-### ReturnNull
-Return of `null`
-in `azure-toolkit-libs/azure-toolkit-auth-lib/src/main/java/com/microsoft/azure/toolkit/lib/auth/AzureCloud.java`
-#### Snippet
-```java
-    public String getName() {
-        final AzureEnvironment env = get();
-        return env == null ? null : AzureEnvironmentUtils.getCloudName(env);
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `azure-toolkit-libs/azure-toolkit-auth-lib/src/main/java/com/microsoft/azure/toolkit/lib/auth/AzureCloud.java`
-#### Snippet
-```java
-    public AzureEnvironment get() {
-        final String cloud = Azure.az().config().getCloud();
-        return StringUtils.isNotBlank(cloud) ? AzureEnvironmentUtils.stringToAzureEnvironment(cloud) : null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `azure-spring-apps-maven-plugin/src/main/java/com/microsoft/azure/maven/springcloud/config/ConfigurationPrompter.java`
-#### Snippet
-```java
-            }
-
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `azure-spring-apps-maven-plugin/src/main/java/com/microsoft/azure/maven/springcloud/config/ConfigurationPrompter.java`
-#### Snippet
-```java
-                log.warn(warningMessage);
-            }
-            return null;
-        }
-        final boolean autoSelect = TemplateUtils.evalBoolean("auto_select", variables);
-```
-
-### ReturnNull
-Return of `null`
-in `azure-spring-apps-maven-plugin/src/main/java/com/microsoft/azure/maven/springcloud/config/ConfigurationPrompter.java`
-#### Snippet
-```java
-                    throw new InvalidConfigurationException(TemplateUtils.evalText("message.select_none", variables));
-                }
-                return null;
-            }
-            return options.get(0);
-```
-
-### ReturnNull
-Return of `null`
-in `azure-appservice-maven-plugin-lib/src/main/java/com/microsoft/azure/maven/appservice/MavenDockerCredentialProvider.java`
-#### Snippet
-```java
-            initializeServer();
-        }
-        return server != null ? server.getUsername() : null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `azure-appservice-maven-plugin-lib/src/main/java/com/microsoft/azure/maven/appservice/MavenDockerCredentialProvider.java`
-#### Snippet
-```java
-            initializeServer();
-        }
-        return server != null ? server.getPassword() : null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `azure-toolkit-libs/azure-toolkit-containerapps-lib/src/main/java/com/microsoft/azure/toolkit/lib/containerapps/containerapp/RevisionDraft.java`
-#### Snippet
-```java
-    @Override
-    public com.azure.resourcemanager.appcontainers.models.Revision updateResourceInAzure(@Nonnull com.azure.resourcemanager.appcontainers.models.Revision origin) {
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `azure-toolkit-libs/azure-toolkit-containerapps-lib/src/main/java/com/microsoft/azure/toolkit/lib/containerapps/containerapp/RevisionDraft.java`
-#### Snippet
-```java
-    @Override
-    public com.azure.resourcemanager.appcontainers.models.Revision createResourceInAzure() {
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `azure-toolkit-libs/azure-toolkit-containerapps-lib/src/main/java/com/microsoft/azure/toolkit/lib/containerapps/containerapp/ContainerAppDraft.java`
-#### Snippet
-```java
-            return new Secret().withName(passwordName).withValue(password);
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `azure-toolkit-libs/azure-toolkit-containerapps-lib/src/main/java/com/microsoft/azure/toolkit/lib/containerapps/containerapp/ContainerAppDraft.java`
-#### Snippet
-```java
-            return new RegistryCredentials().withServer(registry.getLoginServerUrl()).withUsername(username).withPasswordSecretRef(passwordName);
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `azure-webapp-maven-plugin/src/main/java/com/microsoft/azure/maven/webapp/utils/XMLUtils.java`
-#### Snippet
-```java
-    public static String getChildValue(String attribute, Element element) {
-        final Element child = element.element(attribute);
-        return child == null ? null : child.getText();
-    }
-
-```
-
-### ReturnNull
-Return of `null`
 in `azure-webapp-maven-plugin/src/main/java/com/microsoft/azure/maven/webapp/models/WebAppOption.java`
 #### Snippet
 ```java
-    public OperatingSystem getOperatingSystem() {
-        if (webappInner == null) {
-            return null;
-        }
-        return webappInner.getRuntime().getOperatingSystem();
+
+    public String getId() {
+        return this.webappInner == null ? null : webappInner.id();
+    }
+
 ```
 
 ### ReturnNull
@@ -9582,11 +8966,11 @@ Return of `null`
 in `azure-webapp-maven-plugin/src/main/java/com/microsoft/azure/maven/webapp/models/WebAppOption.java`
 #### Snippet
 ```java
-
-    public String getId() {
-        return this.webappInner == null ? null : webappInner.id();
-    }
-
+    public String getServicePlanId() {
+        if (webappInner == null) {
+            return null;
+        }
+        return webappInner.getAppServicePlan().getId();
 ```
 
 ### ReturnNull
@@ -9594,11 +8978,23 @@ Return of `null`
 in `azure-webapp-maven-plugin/src/main/java/com/microsoft/azure/maven/webapp/models/WebAppOption.java`
 #### Snippet
 ```java
-    public String getServicePlanId() {
+    public OperatingSystem getOperatingSystem() {
         if (webappInner == null) {
             return null;
         }
-        return webappInner.getAppServicePlan().getId();
+        return webappInner.getRuntime().getOperatingSystem();
+```
+
+### ReturnNull
+Return of `null`
+in `azure-webapp-maven-plugin/src/main/java/com/microsoft/azure/maven/webapp/utils/XMLUtils.java`
+#### Snippet
+```java
+    public static String getChildValue(String attribute, Element element) {
+        final Element child = element.element(attribute);
+        return child == null ? null : child.getText();
+    }
+
 ```
 
 ### ReturnNull
@@ -9639,18 +9035,6 @@ in `azure-webapp-maven-plugin/src/main/java/com/microsoft/azure/maven/webapp/han
 
 ### ReturnNull
 Return of `null`
-in `azure-toolkit-libs/azure-toolkit-appservice-lib/src/main/java/com/microsoft/azure/toolkit/lib/legacy/function/handlers/AnnotationHandlerImpl.java`
-#### Snippet
-```java
-            return Retry.createExponentialBackoffRetryFromAnnotation(exponentialBackoffRetry);
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
 in `azure-webapp-maven-plugin/src/main/java/com/microsoft/azure/maven/webapp/utils/Utils.java`
 #### Snippet
 ```java
@@ -9669,102 +9053,6 @@ in `azure-webapp-maven-plugin/src/main/java/com/microsoft/azure/maven/webapp/con
 
     public String getRegistryUrl() {
         return registryUrl == null ? null : registryUrl.toString();
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `azure-webapp-maven-plugin/src/main/java/com/microsoft/azure/maven/webapp/parser/ConfigParser.java`
-#### Snippet
-```java
-    private static String getRemotePath(@Nonnull DeployType type, Resource resource, File file) {
-        if (type.ignorePath()) {
-            return null;
-        }
-        if (StringUtils.isNotBlank(resource.getTargetPath()) || type.requirePath()) {
-```
-
-### ReturnNull
-Return of `null`
-in `azure-webapp-maven-plugin/src/main/java/com/microsoft/azure/maven/webapp/parser/ConfigParser.java`
-#### Snippet
-```java
-            return normalizePath(Paths.get(StringUtils.defaultString(toDir), file.getName()).toString());
-        } else {
-            return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `azure-webapp-maven-plugin/src/main/java/com/microsoft/azure/maven/webapp/parser/ConfigParser.java`
-#### Snippet
-```java
-        final MavenRuntimeConfig runtime = mojo.getRuntime();
-        if (runtime == null || runtime.isEmpty()) {
-            return null;
-        }
-        final OperatingSystem os = getOs(runtime);
-```
-
-### ReturnNull
-Return of `null`
-in `azure-webapp-maven-plugin/src/main/java/com/microsoft/azure/maven/webapp/parser/ConfigParser.java`
-#### Snippet
-```java
-    public PricingTier getPricingTier() {
-        if (StringUtils.isEmpty(mojo.getPricingTier())) {
-            return null;
-        }
-        return parseExpandableParameter(input -> {
-```
-
-### ReturnNull
-Return of `null`
-in `azure-webapp-maven-plugin/src/main/java/com/microsoft/azure/maven/webapp/parser/ConfigParser.java`
-#### Snippet
-```java
-        final MavenRuntimeConfig runtime = mojo.getRuntime();
-        if (runtime == null || runtime.isEmpty()) {
-            return null;
-        }
-        final OperatingSystem os = getOs(runtime);
-```
-
-### ReturnNull
-Return of `null`
-in `azure-webapp-maven-plugin/src/main/java/com/microsoft/azure/maven/webapp/parser/ConfigParser.java`
-#### Snippet
-```java
-
-    public String getDeploymentSlotConfigurationSource() {
-        return mojo.getDeploymentSlotSetting() == null ? null : mojo.getDeploymentSlotSetting().getConfigurationSource();
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `azure-webapp-maven-plugin/src/main/java/com/microsoft/azure/maven/webapp/parser/ConfigParser.java`
-#### Snippet
-```java
-    public Region getRegion() {
-        if (StringUtils.isEmpty(mojo.getRegion())) {
-            return null;
-        }
-        return parseExpandableParameter(Region::fromName, mojo.getRegion(), EXPANDABLE_REGION_WARNING);
-```
-
-### ReturnNull
-Return of `null`
-in `azure-webapp-maven-plugin/src/main/java/com/microsoft/azure/maven/webapp/parser/ConfigParser.java`
-#### Snippet
-```java
-
-    public String getDeploymentSlotName() {
-        return mojo.getDeploymentSlotSetting() == null ? null : mojo.getDeploymentSlotSetting().getName();
     }
 
 ```
@@ -9827,6 +9115,558 @@ in `azure-webapp-maven-plugin/src/main/java/com/microsoft/azure/maven/webapp/Con
             return null;
         }
         options.addAll(javaOrDockerWebapps);
+```
+
+### ReturnNull
+Return of `null`
+in `azure-functions-maven-plugin/src/main/java/com/microsoft/azure/maven/function/ConfigParser.java`
+#### Snippet
+```java
+        final String servicePlan = mojo.getAppServicePlanName();
+        final String servicePlanGroup = StringUtils.firstNonBlank(mojo.getAppServicePlanResourceGroup(), mojo.getResourceGroup());
+        return StringUtils.isAnyBlank(subscriptionId, servicePlan, servicePlanGroup) ? null :
+                Azure.az(AzureAppService.class).plans(subscriptionId).get(servicePlan, servicePlanGroup);
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `azure-functions-maven-plugin/src/main/java/com/microsoft/azure/maven/function/ConfigParser.java`
+#### Snippet
+```java
+        final RuntimeConfiguration runtime = mojo.getRuntimeConfiguration();
+        if (runtime == null) {
+            return null;
+        }
+        final OperatingSystem os = Optional.ofNullable(runtime.getOs()).map(OperatingSystem::fromString)
+```
+
+### ReturnNull
+Return of `null`
+in `azure-webapp-maven-plugin/src/main/java/com/microsoft/azure/maven/webapp/parser/ConfigParser.java`
+#### Snippet
+```java
+        final MavenRuntimeConfig runtime = mojo.getRuntime();
+        if (runtime == null || runtime.isEmpty()) {
+            return null;
+        }
+        final OperatingSystem os = getOs(runtime);
+```
+
+### ReturnNull
+Return of `null`
+in `azure-webapp-maven-plugin/src/main/java/com/microsoft/azure/maven/webapp/parser/ConfigParser.java`
+#### Snippet
+```java
+
+    public String getDeploymentSlotConfigurationSource() {
+        return mojo.getDeploymentSlotSetting() == null ? null : mojo.getDeploymentSlotSetting().getConfigurationSource();
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `azure-webapp-maven-plugin/src/main/java/com/microsoft/azure/maven/webapp/parser/ConfigParser.java`
+#### Snippet
+```java
+
+    public String getDeploymentSlotName() {
+        return mojo.getDeploymentSlotSetting() == null ? null : mojo.getDeploymentSlotSetting().getName();
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `azure-webapp-maven-plugin/src/main/java/com/microsoft/azure/maven/webapp/parser/ConfigParser.java`
+#### Snippet
+```java
+    public PricingTier getPricingTier() {
+        if (StringUtils.isEmpty(mojo.getPricingTier())) {
+            return null;
+        }
+        return parseExpandableParameter(input -> {
+```
+
+### ReturnNull
+Return of `null`
+in `azure-webapp-maven-plugin/src/main/java/com/microsoft/azure/maven/webapp/parser/ConfigParser.java`
+#### Snippet
+```java
+        final MavenRuntimeConfig runtime = mojo.getRuntime();
+        if (runtime == null || runtime.isEmpty()) {
+            return null;
+        }
+        final OperatingSystem os = getOs(runtime);
+```
+
+### ReturnNull
+Return of `null`
+in `azure-webapp-maven-plugin/src/main/java/com/microsoft/azure/maven/webapp/parser/ConfigParser.java`
+#### Snippet
+```java
+    public Region getRegion() {
+        if (StringUtils.isEmpty(mojo.getRegion())) {
+            return null;
+        }
+        return parseExpandableParameter(Region::fromName, mojo.getRegion(), EXPANDABLE_REGION_WARNING);
+```
+
+### ReturnNull
+Return of `null`
+in `azure-webapp-maven-plugin/src/main/java/com/microsoft/azure/maven/webapp/parser/ConfigParser.java`
+#### Snippet
+```java
+    private static String getRemotePath(@Nonnull DeployType type, Resource resource, File file) {
+        if (type.ignorePath()) {
+            return null;
+        }
+        if (StringUtils.isNotBlank(resource.getTargetPath()) || type.requirePath()) {
+```
+
+### ReturnNull
+Return of `null`
+in `azure-webapp-maven-plugin/src/main/java/com/microsoft/azure/maven/webapp/parser/ConfigParser.java`
+#### Snippet
+```java
+            return normalizePath(Paths.get(StringUtils.defaultString(toDir), file.getName()).toString());
+        } else {
+            return null;
+        }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `azure-toolkit-libs/azure-toolkit-cosmos-lib/src/main/java/com/microsoft/azure/toolkit/lib/cosmos/sql/SqlCosmosDBAccount.java`
+#### Snippet
+```java
+        } catch (Throwable e) {
+            // swallow exception to load data client
+            return null;
+        }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `azure-toolkit-libs/azure-toolkit-cosmos-lib/src/main/java/com/microsoft/azure/toolkit/lib/cosmos/sql/SqlDatabaseModule.java`
+#### Snippet
+```java
+                return client.listSqlDatabases(parent.getResourceGroupName(), parent.getName()).iterableByPage(getPageSize()).iterator();
+            } catch (final RuntimeException e) {
+                return null;
+            }
+        }).orElse(Collections.emptyIterator());
+```
+
+### ReturnNull
+Return of `null`
+in `azure-toolkit-libs/azure-toolkit-cosmos-lib/src/main/java/com/microsoft/azure/toolkit/lib/cosmos/sql/SqlDatabaseModule.java`
+#### Snippet
+```java
+                    return client.getSqlDatabase(parent.getResourceGroupName(), parent.getName(), name);
+                } catch (RuntimeException e) {
+                    return null;
+                }
+            }
+```
+
+### ReturnNull
+Return of `null`
+in `azure-toolkit-libs/azure-toolkit-cosmos-lib/src/main/java/com/microsoft/azure/toolkit/lib/cosmos/sql/SqlDatabaseModule.java`
+#### Snippet
+```java
+                return client.listSqlDatabases(parent.getResourceGroupName(), parent.getName()).stream();
+            } catch (final RuntimeException e) {
+                return null;
+            }
+        }).orElse(Stream.empty());
+```
+
+### ReturnNull
+Return of `null`
+in `azure-toolkit-libs/azure-toolkit-cosmos-lib/src/main/java/com/microsoft/azure/toolkit/lib/cosmos/sql/SqlContainerDraft.java`
+#### Snippet
+```java
+        final List<String> uniqueKeys = ensureConfig().getUniqueKeys();
+        if (CollectionUtils.isEmpty(uniqueKeys)) {
+            return null;
+        }
+        final List<UniqueKey> uniqueKeyList = uniqueKeys.stream().map(path -> Arrays.asList(path.split(",")))
+```
+
+### ReturnNull
+Return of `null`
+in `azure-toolkit-libs/azure-toolkit-cosmos-lib/src/main/java/com/microsoft/azure/toolkit/lib/cosmos/model/ThroughputConfig.java`
+#### Snippet
+```java
+        assert ObjectUtils.anyNull(throughput, maxThroughput);
+        if (ObjectUtils.allNull(throughput, maxThroughput)) {
+            return null;
+        }
+        final CreateUpdateOptions options = new CreateUpdateOptions();
+```
+
+### ReturnNull
+Return of `null`
+in `azure-toolkit-libs/azure-toolkit-cosmos-lib/src/main/java/com/microsoft/azure/toolkit/lib/cosmos/sql/SqlContainer.java`
+#### Snippet
+```java
+        } catch (Throwable e) {
+            // swallow exception to load data client
+            return null;
+        }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `azure-toolkit-libs/azure-toolkit-cosmos-lib/src/main/java/com/microsoft/azure/toolkit/lib/cosmos/sql/SqlContainerModule.java`
+#### Snippet
+```java
+                return client.listSqlContainers(parent.getResourceGroupName(), parent.getParent().getName(), parent.getName()).stream();
+            } catch (final RuntimeException e) {
+                return null;
+            }
+        }).orElse(Stream.empty());
+```
+
+### ReturnNull
+Return of `null`
+in `azure-toolkit-libs/azure-toolkit-cosmos-lib/src/main/java/com/microsoft/azure/toolkit/lib/cosmos/sql/SqlContainerModule.java`
+#### Snippet
+```java
+                return client.listSqlContainers(parent.getResourceGroupName(), parent.getParent().getName(), parent.getName()).iterableByPage(getPageSize()).iterator();
+            } catch (final RuntimeException e) {
+                return null;
+            }
+        }).orElse(Collections.emptyIterator());
+```
+
+### ReturnNull
+Return of `null`
+in `azure-toolkit-libs/azure-toolkit-cosmos-lib/src/main/java/com/microsoft/azure/toolkit/lib/cosmos/sql/SqlContainerModule.java`
+#### Snippet
+```java
+                return client.getSqlContainer(parent.getResourceGroupName(), parent.getParent().getName(), parent.getName(), name);
+            } catch (final RuntimeException e) {
+                return null;
+            }
+        }).orElse(null);
+```
+
+### ReturnNull
+Return of `null`
+in `azure-toolkit-libs/azure-toolkit-cosmos-lib/src/main/java/com/microsoft/azure/toolkit/lib/cosmos/mongo/MongoDatabaseModule.java`
+#### Snippet
+```java
+                return client.listMongoDBDatabases(parent.getResourceGroupName(), parent.getName()).iterableByPage(getPageSize()).iterator();
+            } catch (final RuntimeException e) {
+                return null;
+            }
+        }).orElse(Collections.emptyIterator());
+```
+
+### ReturnNull
+Return of `null`
+in `azure-toolkit-libs/azure-toolkit-cosmos-lib/src/main/java/com/microsoft/azure/toolkit/lib/cosmos/mongo/MongoDatabaseModule.java`
+#### Snippet
+```java
+                return client.listMongoDBDatabases(parent.getResourceGroupName(), parent.getName()).stream();
+            } catch (final RuntimeException e) {
+                return null;
+            }
+        }).orElse(Stream.empty());
+```
+
+### ReturnNull
+Return of `null`
+in `azure-toolkit-libs/azure-toolkit-cosmos-lib/src/main/java/com/microsoft/azure/toolkit/lib/cosmos/mongo/MongoDatabaseModule.java`
+#### Snippet
+```java
+                return client.getMongoDBDatabase(parent.getResourceGroupName(), parent.getName(), name);
+            } catch (final RuntimeException e) {
+                return null;
+            }
+        }).orElse(null);
+```
+
+### ReturnNull
+Return of `null`
+in `azure-toolkit-libs/azure-toolkit-cosmos-lib/src/main/java/com/microsoft/azure/toolkit/lib/cosmos/mongo/MongoCollection.java`
+#### Snippet
+```java
+        } catch (Throwable e) {
+            // swallow exception to load data client
+            return null;
+        }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `azure-toolkit-libs/azure-toolkit-cosmos-lib/src/main/java/com/microsoft/azure/toolkit/lib/cosmos/mongo/MongoCosmosDBAccount.java`
+#### Snippet
+```java
+        } catch (Throwable e) {
+            // swallow exception to load data client
+            return null;
+        }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `azure-toolkit-libs/azure-toolkit-cosmos-lib/src/main/java/com/microsoft/azure/toolkit/lib/cosmos/mongo/MongoDocument.java`
+#### Snippet
+```java
+        final String sharedKey = getParent().getSharedKey();
+        final ObjectNode document = getDocument();
+        return ObjectUtils.allNotNull(sharedKey, document) ? document.get(sharedKey).asText() : null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `azure-toolkit-libs/azure-toolkit-cosmos-lib/src/main/java/com/microsoft/azure/toolkit/lib/cosmos/mongo/MongoCollectionModule.java`
+#### Snippet
+```java
+                return client.getMongoDBCollection(parent.getResourceGroupName(), parent.getParent().getName(), parent.getName(), name);
+            } catch (final RuntimeException e) {
+                return null;
+            }
+        }).orElse(null);
+```
+
+### ReturnNull
+Return of `null`
+in `azure-toolkit-libs/azure-toolkit-cosmos-lib/src/main/java/com/microsoft/azure/toolkit/lib/cosmos/mongo/MongoCollectionModule.java`
+#### Snippet
+```java
+                return client.listMongoDBCollections(parent.getResourceGroupName(), parent.getParent().getName(), parent.getName()).stream();
+            } catch (final RuntimeException e) {
+                return null;
+            }
+        }).orElse(Stream.empty());
+```
+
+### ReturnNull
+Return of `null`
+in `azure-toolkit-libs/azure-toolkit-cosmos-lib/src/main/java/com/microsoft/azure/toolkit/lib/cosmos/mongo/MongoCollectionModule.java`
+#### Snippet
+```java
+                return client.listMongoDBCollections(parent.getResourceGroupName(), parent.getParent().getName(), parent.getName()).iterableByPage(getPageSize()).iterator();
+            } catch (final RuntimeException e) {
+                return null;
+            }
+        }).orElse(Collections.emptyIterator());
+```
+
+### ReturnNull
+Return of `null`
+in `azure-toolkit-libs/azure-toolkit-cosmos-lib/src/main/java/com/microsoft/azure/toolkit/lib/cosmos/cassandra/CassandraTableModule.java`
+#### Snippet
+```java
+                return client.getCassandraTable(parent.getResourceGroupName(), parent.getParent().getName(), parent.getName(), name);
+            } catch (final RuntimeException e) {
+                return null;
+            }
+        }).orElse(null);
+```
+
+### ReturnNull
+Return of `null`
+in `azure-toolkit-libs/azure-toolkit-cosmos-lib/src/main/java/com/microsoft/azure/toolkit/lib/cosmos/cassandra/CassandraTableModule.java`
+#### Snippet
+```java
+                return client.listCassandraTables(parent.getResourceGroupName(), parent.getParent().getName(), parent.getName()).stream();
+            } catch (final RuntimeException e) {
+                return null;
+            }
+        }).orElse(Stream.empty());
+```
+
+### ReturnNull
+Return of `null`
+in `azure-toolkit-libs/azure-toolkit-cosmos-lib/src/main/java/com/microsoft/azure/toolkit/lib/cosmos/cassandra/CassandraTableModule.java`
+#### Snippet
+```java
+                return client.listCassandraTables(parent.getResourceGroupName(), parent.getParent().getName(), parent.getName()).iterableByPage(getPageSize()).iterator();
+            } catch (final RuntimeException e) {
+                return null;
+            }
+        }).orElse(Collections.emptyIterator());
+```
+
+### ReturnNull
+Return of `null`
+in `azure-appservice-maven-plugin-lib/src/main/java/com/microsoft/azure/maven/appservice/MavenDockerCredentialProvider.java`
+#### Snippet
+```java
+            initializeServer();
+        }
+        return server != null ? server.getPassword() : null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `azure-appservice-maven-plugin-lib/src/main/java/com/microsoft/azure/maven/appservice/MavenDockerCredentialProvider.java`
+#### Snippet
+```java
+            initializeServer();
+        }
+        return server != null ? server.getUsername() : null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `azure-toolkit-libs/azure-toolkit-cosmos-lib/src/main/java/com/microsoft/azure/toolkit/lib/cosmos/cassandra/CassandraKeyspaceModule.java`
+#### Snippet
+```java
+                return client.listCassandraKeyspaces(parent.getResourceGroupName(), parent.getName()).iterableByPage(getPageSize()).iterator();
+            } catch (final RuntimeException e) {
+                return null;
+            }
+        }).orElse(Collections.emptyIterator());
+```
+
+### ReturnNull
+Return of `null`
+in `azure-toolkit-libs/azure-toolkit-cosmos-lib/src/main/java/com/microsoft/azure/toolkit/lib/cosmos/cassandra/CassandraKeyspaceModule.java`
+#### Snippet
+```java
+                return client.listCassandraKeyspaces(parent.getResourceGroupName(), parent.getName()).stream();
+            } catch (final RuntimeException e) {
+                return null;
+            }
+        }).orElse(Stream.empty());
+```
+
+### ReturnNull
+Return of `null`
+in `azure-toolkit-libs/azure-toolkit-cosmos-lib/src/main/java/com/microsoft/azure/toolkit/lib/cosmos/cassandra/CassandraKeyspaceModule.java`
+#### Snippet
+```java
+                return client.getCassandraKeyspace(parent.getResourceGroupName(), parent.getName(), name);
+            } catch (final RuntimeException e) {
+                return null;
+            }
+        }).orElse(null);
+```
+
+### ReturnNull
+Return of `null`
+in `azure-toolkit-libs/azure-toolkit-containerapps-lib/src/main/java/com/microsoft/azure/toolkit/lib/containerapps/containerapp/ContainerAppDraft.java`
+#### Snippet
+```java
+            return new RegistryCredentials().withServer(registry.getLoginServerUrl()).withUsername(username).withPasswordSecretRef(passwordName);
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `azure-toolkit-libs/azure-toolkit-containerapps-lib/src/main/java/com/microsoft/azure/toolkit/lib/containerapps/containerapp/ContainerAppDraft.java`
+#### Snippet
+```java
+            return new Secret().withName(passwordName).withValue(password);
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `azure-toolkit-libs/azure-toolkit-containerapps-lib/src/main/java/com/microsoft/azure/toolkit/lib/containerapps/containerapp/RevisionDraft.java`
+#### Snippet
+```java
+    @Override
+    public com.azure.resourcemanager.appcontainers.models.Revision updateResourceInAzure(@Nonnull com.azure.resourcemanager.appcontainers.models.Revision origin) {
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `azure-toolkit-libs/azure-toolkit-containerapps-lib/src/main/java/com/microsoft/azure/toolkit/lib/containerapps/containerapp/RevisionDraft.java`
+#### Snippet
+```java
+    @Override
+    public com.azure.resourcemanager.appcontainers.models.Revision createResourceInAzure() {
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `azure-spring-apps-maven-plugin/src/main/java/com/microsoft/azure/maven/springcloud/config/ConfigurationPrompter.java`
+#### Snippet
+```java
+                log.warn(warningMessage);
+            }
+            return null;
+        }
+        final boolean autoSelect = TemplateUtils.evalBoolean("auto_select", variables);
+```
+
+### ReturnNull
+Return of `null`
+in `azure-spring-apps-maven-plugin/src/main/java/com/microsoft/azure/maven/springcloud/config/ConfigurationPrompter.java`
+#### Snippet
+```java
+                    throw new InvalidConfigurationException(TemplateUtils.evalText("message.select_none", variables));
+                }
+                return null;
+            }
+            return options.get(0);
+```
+
+### ReturnNull
+Return of `null`
+in `azure-spring-apps-maven-plugin/src/main/java/com/microsoft/azure/maven/springcloud/config/ConfigurationPrompter.java`
+#### Snippet
+```java
+            }
+
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `azure-toolkit-libs/azure-toolkit-auth-lib/src/main/java/com/microsoft/azure/toolkit/lib/auth/AzureCloud.java`
+#### Snippet
+```java
+    public String getName() {
+        final AzureEnvironment env = get();
+        return env == null ? null : AzureEnvironmentUtils.getCloudName(env);
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `azure-toolkit-libs/azure-toolkit-auth-lib/src/main/java/com/microsoft/azure/toolkit/lib/auth/AzureCloud.java`
+#### Snippet
+```java
+    public AzureEnvironment get() {
+        final String cloud = Azure.az().config().getCloud();
+        return StringUtils.isNotBlank(cloud) ? AzureEnvironmentUtils.stringToAzureEnvironment(cloud) : null;
+    }
+
 ```
 
 ## RuleId[ruleID=AssignmentToLambdaParameter]
