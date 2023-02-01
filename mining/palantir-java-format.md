@@ -165,18 +165,6 @@ final class FormatterCommandRunner {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `DebugRenderer` has only 'static' members, and lacks a 'private' constructor
-in `palantir-java-format/src/main/java/com/palantir/javaformat/java/DebugRenderer.java`
-#### Snippet
-```java
-import java.util.stream.Collectors;
-
-public class DebugRenderer {
-    private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
-    private static Path publicDir = Paths.get("../debugger/public");
-```
-
-### UtilityClassWithoutPrivateConstructor
 Class `FormatDiff` has only 'static' members, and lacks a 'private' constructor
 in `gradle-palantir-java-format/src/main/java/com/palantir/javaformat/gradle/FormatDiff.java`
 #### Snippet
@@ -189,15 +177,15 @@ final class FormatDiff {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `RemoveUnusedImports` has only 'static' members, and lacks a 'private' constructor
-in `palantir-java-format/src/main/java/com/palantir/javaformat/java/RemoveUnusedImports.java`
+Class `DebugRenderer` has only 'static' members, and lacks a 'private' constructor
+in `palantir-java-format/src/main/java/com/palantir/javaformat/java/DebugRenderer.java`
 #### Snippet
 ```java
- * in javadoc are replaced with fully qualified names.
- */
-public class RemoveUnusedImports {
+import java.util.stream.Collectors;
 
-    // Visits an AST, recording all simple names that could refer to imported
+public class DebugRenderer {
+    private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
+    private static Path publicDir = Paths.get("../debugger/public");
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -213,6 +201,18 @@ class DimensionHelpers {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
+Class `RemoveUnusedImports` has only 'static' members, and lacks a 'private' constructor
+in `palantir-java-format/src/main/java/com/palantir/javaformat/java/RemoveUnusedImports.java`
+#### Snippet
+```java
+ * in javadoc are replaced with fully qualified names.
+ */
+public class RemoveUnusedImports {
+
+    // Visits an AST, recording all simple names that could refer to imported
+```
+
+### UtilityClassWithoutPrivateConstructor
 Class `ModifierOrderer` has only 'static' members, and lacks a 'private' constructor
 in `palantir-java-format/src/main/java/com/palantir/javaformat/java/ModifierOrderer.java`
 #### Snippet
@@ -225,18 +225,6 @@ final class ModifierOrderer {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `JavacTokens` has only 'static' members, and lacks a 'private' constructor
-in `palantir-java-format/src/main/java/com/palantir/javaformat/java/JavacTokens.java`
-#### Snippet
-```java
-
-/** A wrapper around javac's lexer. */
-class JavacTokens {
-
-    /** The lexer eats terminal comments, so feed it one we don't care about. */
-```
-
-### UtilityClassWithoutPrivateConstructor
 Class `CommandLineOptionsParser` has only 'static' members, and lacks a 'private' constructor
 in `palantir-java-format/src/main/java/com/palantir/javaformat/java/CommandLineOptionsParser.java`
 #### Snippet
@@ -246,6 +234,18 @@ in `palantir-java-format/src/main/java/com/palantir/javaformat/java/CommandLineO
 final class CommandLineOptionsParser {
 
     private static final Splitter COMMA_SPLITTER = Splitter.on(',');
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `JavacTokens` has only 'static' members, and lacks a 'private' constructor
+in `palantir-java-format/src/main/java/com/palantir/javaformat/java/JavacTokens.java`
+#### Snippet
+```java
+
+/** A wrapper around javac's lexer. */
+class JavacTokens {
+
+    /** The lexer eats terminal comments, so feed it one we don't care about. */
 ```
 
 ## RuleId[ruleID=StaticCallOnSubclass]
@@ -287,18 +287,6 @@ in `idea-plugin/src/main/java/com/palantir/javaformat/intellij/PalantirJavaForma
 ```
 
 ### DataFlowIssue
-Method invocation `wanted` may produce `NullPointerException`
-in `palantir-java-format/src/main/java/com/palantir/javaformat/java/JavaOutput.java`
-#### Snippet
-```java
-             */
-            BlankLineWanted wanted = inputMetadata.blankLines().getOrDefault(lastK, BlankLineWanted.NO);
-            if (isComment(text) ? sawNewlines : wanted.wanted(state).orElse(sawNewlines)) {
-                ++newlinesPending;
-            }
-```
-
-### DataFlowIssue
 Method invocation `lowerEndpoint` may produce `NullPointerException`
 in `palantir-java-format/src/main/java/com/palantir/javaformat/java/JavaOutput.java`
 #### Snippet
@@ -323,6 +311,30 @@ in `palantir-java-format/src/main/java/com/palantir/javaformat/java/JavaOutput.j
 ```
 
 ### DataFlowIssue
+Method invocation `wanted` may produce `NullPointerException`
+in `palantir-java-format/src/main/java/com/palantir/javaformat/java/JavaOutput.java`
+#### Snippet
+```java
+             */
+            BlankLineWanted wanted = inputMetadata.blankLines().getOrDefault(lastK, BlankLineWanted.NO);
+            if (isComment(text) ? sawNewlines : wanted.wanted(state).orElse(sawNewlines)) {
+                ++newlinesPending;
+            }
+```
+
+### DataFlowIssue
+Method invocation `getTok` may produce `NullPointerException`
+in `palantir-java-format/src/main/java/com/palantir/javaformat/OpsBuilder.java`
+#### Snippet
+```java
+    public Integer actualStartColumn(int position) {
+        Input.Token startToken = input.getPositionTokenMap().get(position);
+        int start = startToken.getTok().getPosition();
+        int line0 = input.getLineNumber(start);
+        for (Input.Tok tok : startToken.getToksBefore()) {
+```
+
+### DataFlowIssue
 Method invocation `getTok` may produce `NullPointerException`
 in `palantir-java-format/src/main/java/com/palantir/javaformat/OpsBuilder.java`
 #### Snippet
@@ -344,18 +356,6 @@ in `palantir-java-format/src/main/java/com/palantir/javaformat/OpsBuilder.java`
         int end = endToken.getTok().getPosition() + endToken.getTok().length();
         for (Input.Tok tok : endToken.getToksAfter()) {
             if (tok.isComment()) {
-```
-
-### DataFlowIssue
-Method invocation `getTok` may produce `NullPointerException`
-in `palantir-java-format/src/main/java/com/palantir/javaformat/OpsBuilder.java`
-#### Snippet
-```java
-    public Integer actualStartColumn(int position) {
-        Input.Token startToken = input.getPositionTokenMap().get(position);
-        int start = startToken.getTok().getPosition();
-        int line0 = input.getLineNumber(start);
-        for (Input.Tok tok : startToken.getToksBefore()) {
 ```
 
 ### DataFlowIssue
@@ -407,6 +407,18 @@ in `palantir-java-format/src/main/java/com/palantir/javaformat/java/JavaInput.ja
 ```
 
 ### DataFlowIssue
+Unboxing of `inExpression.peekLast()` may produce `NullPointerException`
+in `palantir-java-format/src/main/java/com/palantir/javaformat/java/JavaInputAstVisitor.java`
+#### Snippet
+```java
+    @Override
+    public Void scan(Tree tree, Void unused) {
+        inExpression.addLast(tree instanceof ExpressionTree || inExpression.peekLast());
+        int previous = builder.depth();
+        try {
+```
+
+### DataFlowIssue
 Argument `endToken` might be null
 in `palantir-java-format/src/main/java/com/palantir/javaformat/java/JavaInputAstVisitor.java`
 #### Snippet
@@ -440,18 +452,6 @@ in `palantir-java-format/src/main/java/com/palantir/javaformat/java/JavaInputAst
         return inExpression.peekLast();
     }
 
-```
-
-### DataFlowIssue
-Unboxing of `inExpression.peekLast()` may produce `NullPointerException`
-in `palantir-java-format/src/main/java/com/palantir/javaformat/java/JavaInputAstVisitor.java`
-#### Snippet
-```java
-    @Override
-    public Void scan(Tree tree, Void unused) {
-        inExpression.addLast(tree instanceof ExpressionTree || inExpression.peekLast());
-        int previous = builder.depth();
-        try {
 ```
 
 ## RuleId[ruleID=UnnecessarySemicolon]
@@ -534,11 +534,11 @@ Referencing subclass SimpleBlankLine from superclass BlankLineWanted initializer
 in `palantir-java-format/src/main/java/com/palantir/javaformat/OpsBuilder.java`
 #### Snippet
 ```java
-         * Overrides conditional blank lines.
-         */
-        public static final BlankLineWanted PRESERVE = new SimpleBlankLine(/* wanted= */ Optional.empty());
 
-        /** Is the blank line wanted? */
+        /** Never emit a blank line. */
+        public static final BlankLineWanted NO = new SimpleBlankLine(Optional.of(false));
+
+        /**
 ```
 
 ### StaticInitializerReferencesSubClass
@@ -546,11 +546,11 @@ Referencing subclass SimpleBlankLine from superclass BlankLineWanted initializer
 in `palantir-java-format/src/main/java/com/palantir/javaformat/OpsBuilder.java`
 #### Snippet
 ```java
+         * Overrides conditional blank lines.
+         */
+        public static final BlankLineWanted PRESERVE = new SimpleBlankLine(/* wanted= */ Optional.empty());
 
-        /** Never emit a blank line. */
-        public static final BlankLineWanted NO = new SimpleBlankLine(Optional.of(false));
-
-        /**
+        /** Is the blank line wanted? */
 ```
 
 ### StaticInitializerReferencesSubClass
@@ -571,6 +571,18 @@ in `palantir-java-format/src/main/java/com/palantir/javaformat/OpsBuilder.java`
 in `idea-plugin/src/main/java/com/palantir/javaformat/intellij/PalantirJavaFormatSettings.java`
 #### Snippet
 ```java
+     * be used instead of the bundled version.
+     */
+    Optional<List<URI>> getImplementationClassPath() {
+        return state.implementationClassPath;
+    }
+```
+
+### OptionalContainsCollection
+'Optional' contains collection `List`
+in `idea-plugin/src/main/java/com/palantir/javaformat/intellij/PalantirJavaFormatSettings.java`
+#### Snippet
+```java
 
         private EnabledState enabled = EnabledState.UNKNOWN;
         private Optional<List<URI>> implementationClassPath = Optional.empty();
@@ -580,14 +592,14 @@ in `idea-plugin/src/main/java/com/palantir/javaformat/intellij/PalantirJavaForma
 
 ### OptionalContainsCollection
 'Optional' contains collection `List`
-in `idea-plugin/src/main/java/com/palantir/javaformat/intellij/PalantirJavaFormatSettings.java`
+in `idea-plugin/src/main/java/com/palantir/javaformat/intellij/FormatterProvider.java`
 #### Snippet
 ```java
-     * be used instead of the bundled version.
-     */
-    Optional<List<URI>> getImplementationClassPath() {
-        return state.implementationClassPath;
-    }
+        private final Project project;
+        private final int jdkMajorVersion;
+        private final Optional<List<URI>> implementationClassPath;
+        private final boolean useBundledImplementation;
+
 ```
 
 ### OptionalContainsCollection
@@ -612,18 +624,6 @@ in `idea-plugin/src/main/java/com/palantir/javaformat/intellij/FormatterProvider
                 Optional<List<URI>> implementationClassPath,
                 boolean useBundledImplementation) {
             this.project = project;
-```
-
-### OptionalContainsCollection
-'Optional' contains collection `List`
-in `idea-plugin/src/main/java/com/palantir/javaformat/intellij/FormatterProvider.java`
-#### Snippet
-```java
-        private final Project project;
-        private final int jdkMajorVersion;
-        private final Optional<List<URI>> implementationClassPath;
-        private final boolean useBundledImplementation;
-
 ```
 
 ## RuleId[ruleID=CommentedOutCode]
@@ -902,30 +902,6 @@ in `palantir-java-format/src/main/java/com/palantir/javaformat/java/StringWrappe
 
 ## RuleId[ruleID=BoundedWildcard]
 ### BoundedWildcard
-Can generalize to `? extends List`
-in `idea-plugin/src/main/java/com/palantir/javaformat/intellij/FormatterProvider.java`
-#### Snippet
-```java
-
-    private static List<Path> getImplementationUrls(
-            Optional<List<URI>> implementationClassPath, boolean useBundledImplementation) {
-        if (useBundledImplementation) {
-            log.debug("Using palantir-java-format implementation bundled with plugin");
-```
-
-### BoundedWildcard
-Can generalize to `? extends Path`
-in `idea-plugin/src/main/java/com/palantir/javaformat/intellij/FormatterProvider.java`
-#### Snippet
-```java
-    }
-
-    private static URL[] toUrlsUnchecked(List<Path> paths) {
-        return paths.stream()
-                .map(path -> {
-```
-
-### BoundedWildcard
 Can generalize to `? super ExplorationNode`
 in `palantir-java-format/src/main/java/com/palantir/javaformat/doc/Obs.java`
 #### Snippet
@@ -974,15 +950,27 @@ in `palantir-java-format/src/main/java/com/palantir/javaformat/doc/Obs.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends Import`
-in `palantir-java-format/src/main/java/com/palantir/javaformat/java/ImportOrderer.java`
+Can generalize to `? extends List`
+in `idea-plugin/src/main/java/com/palantir/javaformat/intellij/FormatterProvider.java`
 #### Snippet
 ```java
 
-    // Produces the sorted output based on the imports we have scanned.
-    private String reorderedImportsString(ImmutableSortedSet<Import> imports) {
-        Preconditions.checkArgument(!imports.isEmpty(), "imports");
+    private static List<Path> getImplementationUrls(
+            Optional<List<URI>> implementationClassPath, boolean useBundledImplementation) {
+        if (useBundledImplementation) {
+            log.debug("Using palantir-java-format implementation bundled with plugin");
+```
 
+### BoundedWildcard
+Can generalize to `? extends Path`
+in `idea-plugin/src/main/java/com/palantir/javaformat/intellij/FormatterProvider.java`
+#### Snippet
+```java
+    }
+
+    private static URL[] toUrlsUnchecked(List<Path> paths) {
+        return paths.stream()
+                .map(path -> {
 ```
 
 ### BoundedWildcard
@@ -1002,11 +990,11 @@ Can generalize to `? extends Doc`
 in `palantir-java-format/src/main/java/com/palantir/javaformat/doc/Level.java`
 #### Snippet
 ```java
-            CommentsHelper commentsHelper,
-            int maxWidth,
-            List<Doc> docs,
-            State state,
-            Obs.ExplorationNode explorationNode) {
+     *     {@code maxWidth}
+     */
+    private Optional<Integer> tryToFitOnOneLine(int maxWidth, State state, Iterable<Doc> docs) {
+        int column = state.column();
+        int columnBeforeLastBreak = 0; // Not activated by default
 ```
 
 ### BoundedWildcard
@@ -1026,23 +1014,11 @@ Can generalize to `? extends Doc`
 in `palantir-java-format/src/main/java/com/palantir/javaformat/doc/Level.java`
 #### Snippet
 ```java
-     *     {@code maxWidth}
-     */
-    private Optional<Integer> tryToFitOnOneLine(int maxWidth, State state, Iterable<Doc> docs) {
-        int column = state.column();
-        int columnBeforeLastBreak = 0; // Not activated by default
-```
-
-### BoundedWildcard
-Can generalize to `? extends FormatterService`
-in `gradle-palantir-java-format/src/main/java/com/palantir/javaformat/gradle/spotless/PalantirJavaFormatStep.java`
-#### Snippet
-```java
-         *     up-to-dateness purposes.
-         */
-        State(Iterable<File> jars, Supplier<FormatterService> memoizedFormatter) throws IOException {
-            this.jarsSignature = FileSignature.signAsSet(jars);
-            this.memoizedFormatter = memoizedFormatter;
+            CommentsHelper commentsHelper,
+            int maxWidth,
+            List<Doc> docs,
+            State state,
+            Obs.ExplorationNode explorationNode) {
 ```
 
 ### BoundedWildcard
@@ -1055,6 +1031,30 @@ in `palantir-java-format/src/main/java/com/palantir/javaformat/java/StringWrappe
             String input, JCTree.JCCompilationUnit unit, List<Tree> flat) {
         ImmutableList.Builder<String> result = ImmutableList.builder();
         StringBuilder piece = new StringBuilder();
+```
+
+### BoundedWildcard
+Can generalize to `? extends Import`
+in `palantir-java-format/src/main/java/com/palantir/javaformat/java/ImportOrderer.java`
+#### Snippet
+```java
+
+    // Produces the sorted output based on the imports we have scanned.
+    private String reorderedImportsString(ImmutableSortedSet<Import> imports) {
+        Preconditions.checkArgument(!imports.isEmpty(), "imports");
+
+```
+
+### BoundedWildcard
+Can generalize to `? extends FormatterService`
+in `gradle-palantir-java-format/src/main/java/com/palantir/javaformat/gradle/spotless/PalantirJavaFormatStep.java`
+#### Snippet
+```java
+         *     up-to-dateness purposes.
+         */
+        State(Iterable<File> jars, Supplier<FormatterService> memoizedFormatter) throws IOException {
+            this.jarsSignature = FileSignature.signAsSet(jars);
+            this.memoizedFormatter = memoizedFormatter;
 ```
 
 ### BoundedWildcard
@@ -1094,6 +1094,18 @@ final class FormatterExceptions {
 ```
 
 ### BoundedWildcard
+Can generalize to `? super String`
+in `palantir-java-format/src/main/java/com/palantir/javaformat/java/CommandLineOptionsParser.java`
+#### Snippet
+```java
+     * file and appending whitespace-delimited options to {@code arguments}.
+     */
+    private static void expandParamsFiles(Iterable<String> args, List<String> expanded) {
+        for (String arg : args) {
+            if (arg.isEmpty()) {
+```
+
+### BoundedWildcard
 Can generalize to `? super Node`
 in `gradle-palantir-java-format/src/main/groovy/com/palantir/javaformat/gradle/PalantirJavaFormatIdeaPlugin.java`
 #### Snippet
@@ -1115,18 +1127,6 @@ in `palantir-java-format/src/main/java/com/palantir/javaformat/doc/DocBuilder.ja
     public DocBuilder withOps(List<Op> ops) {
         for (Op op : ops) {
             op.add(this); // These operations call the operations below to build the doc.
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `palantir-java-format/src/main/java/com/palantir/javaformat/java/CommandLineOptionsParser.java`
-#### Snippet
-```java
-     * file and appending whitespace-delimited options to {@code arguments}.
-     */
-    private static void expandParamsFiles(Iterable<String> args, List<String> expanded) {
-        for (String arg : args) {
-            if (arg.isEmpty()) {
 ```
 
 ### BoundedWildcard
@@ -1178,6 +1178,66 @@ in `palantir-java-format/src/main/java/com/palantir/javaformat/java/JavaInputAst
 ```
 
 ### BoundedWildcard
+Can generalize to `? super ExpressionTree`
+in `palantir-java-format/src/main/java/com/palantir/javaformat/java/JavaInputAstVisitor.java`
+#### Snippet
+```java
+    /** Accumulate the operands and operators. */
+    private static void walkInfix(
+            int precedence, ExpressionTree expression, List<ExpressionTree> operands, List<String> operators) {
+        if (expression instanceof BinaryTree) {
+            BinaryTree binaryTree = (BinaryTree) expression;
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `palantir-java-format/src/main/java/com/palantir/javaformat/java/JavaInputAstVisitor.java`
+#### Snippet
+```java
+    /** Accumulate the operands and operators. */
+    private static void walkInfix(
+            int precedence, ExpressionTree expression, List<ExpressionTree> operands, List<String> operators) {
+        if (expression instanceof BinaryTree) {
+            BinaryTree binaryTree = (BinaryTree) expression;
+```
+
+### BoundedWildcard
+Can generalize to `? extends ExpressionTree`
+in `palantir-java-format/src/main/java/com/palantir/javaformat/java/JavaInputAstVisitor.java`
+#### Snippet
+```java
+
+    /** Returns the simple names of expressions in a "." chain. */
+    private List<String> simpleNames(Deque<ExpressionTree> stack) {
+        ImmutableList.Builder<String> simpleNames = ImmutableList.builder();
+        OUTER:
+```
+
+### BoundedWildcard
+Can generalize to `? extends List`
+in `palantir-java-format/src/main/java/com/palantir/javaformat/java/JavaInputAstVisitor.java`
+#### Snippet
+```java
+
+    /** Returns true if {@code atLeastM} of the expressions in the given column are the same kind. */
+    private static boolean expressionsAreParallel(List<List<ExpressionTree>> rows, int column, int atLeastM) {
+        Multiset<Tree.Kind> nodeTypes = HashMultiset.create();
+        for (List<? extends ExpressionTree> row : rows) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends ExpressionTree`
+in `palantir-java-format/src/main/java/com/palantir/javaformat/java/JavaInputAstVisitor.java`
+#### Snippet
+```java
+
+    /** Lays out one or more array indices. Does not output the expression for the array itself. */
+    private void formatArrayIndices(Deque<ExpressionTree> indices) {
+        if (indices.isEmpty()) {
+            return;
+```
+
+### BoundedWildcard
 Can generalize to `? extends ExpressionTree`
 in `palantir-java-format/src/main/java/com/palantir/javaformat/java/JavaInputAstVisitor.java`
 #### Snippet
@@ -1211,66 +1271,6 @@ in `palantir-java-format/src/main/java/com/palantir/javaformat/java/JavaInputAst
     protected void visitFormals(Optional<VariableTree> receiver, List<? extends VariableTree> parameters) {
         if (!receiver.isPresent() && parameters.isEmpty()) {
             return;
-```
-
-### BoundedWildcard
-Can generalize to `? extends ExpressionTree`
-in `palantir-java-format/src/main/java/com/palantir/javaformat/java/JavaInputAstVisitor.java`
-#### Snippet
-```java
-
-    /** Lays out one or more array indices. Does not output the expression for the array itself. */
-    private void formatArrayIndices(Deque<ExpressionTree> indices) {
-        if (indices.isEmpty()) {
-            return;
-```
-
-### BoundedWildcard
-Can generalize to `? extends List`
-in `palantir-java-format/src/main/java/com/palantir/javaformat/java/JavaInputAstVisitor.java`
-#### Snippet
-```java
-
-    /** Returns true if {@code atLeastM} of the expressions in the given column are the same kind. */
-    private static boolean expressionsAreParallel(List<List<ExpressionTree>> rows, int column, int atLeastM) {
-        Multiset<Tree.Kind> nodeTypes = HashMultiset.create();
-        for (List<? extends ExpressionTree> row : rows) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends ExpressionTree`
-in `palantir-java-format/src/main/java/com/palantir/javaformat/java/JavaInputAstVisitor.java`
-#### Snippet
-```java
-
-    /** Returns the simple names of expressions in a "." chain. */
-    private List<String> simpleNames(Deque<ExpressionTree> stack) {
-        ImmutableList.Builder<String> simpleNames = ImmutableList.builder();
-        OUTER:
-```
-
-### BoundedWildcard
-Can generalize to `? super ExpressionTree`
-in `palantir-java-format/src/main/java/com/palantir/javaformat/java/JavaInputAstVisitor.java`
-#### Snippet
-```java
-    /** Accumulate the operands and operators. */
-    private static void walkInfix(
-            int precedence, ExpressionTree expression, List<ExpressionTree> operands, List<String> operators) {
-        if (expression instanceof BinaryTree) {
-            BinaryTree binaryTree = (BinaryTree) expression;
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `palantir-java-format/src/main/java/com/palantir/javaformat/java/JavaInputAstVisitor.java`
-#### Snippet
-```java
-    /** Accumulate the operands and operators. */
-    private static void walkInfix(
-            int precedence, ExpressionTree expression, List<ExpressionTree> operands, List<String> operators) {
-        if (expression instanceof BinaryTree) {
-            BinaryTree binaryTree = (BinaryTree) expression;
 ```
 
 ### BoundedWildcard
@@ -1434,39 +1434,15 @@ in `palantir-java-format/src/main/java/com/palantir/javaformat/doc/Token.java`
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional`> used as type for parameter 'implementationClassPath'
-in `idea-plugin/src/main/java/com/palantir/javaformat/intellij/FormatterProvider.java`
+`Optional` used as type for field 'parentLevel'
+in `palantir-java-format/src/main/java/com/palantir/javaformat/doc/Obs.java`
 #### Snippet
 ```java
+        private final Sink sink;
+        private final FinishExplorationNode finishExplorationNode;
+        private final Optional<Level> parentLevel;
 
-    private static List<Path> getImplementationUrls(
-            Optional<List<URI>> implementationClassPath, boolean useBundledImplementation) {
-        if (useBundledImplementation) {
-            log.debug("Using palantir-java-format implementation bundled with plugin");
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional`> used as type for parameter 'implementationClassPath'
-in `idea-plugin/src/main/java/com/palantir/javaformat/intellij/FormatterProvider.java`
-#### Snippet
-```java
-                Project project,
-                int jdkMajorVersion,
-                Optional<List<URI>> implementationClassPath,
-                boolean useBundledImplementation) {
-            this.project = project;
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional`> used as type for field 'implementationClassPath'
-in `idea-plugin/src/main/java/com/palantir/javaformat/intellij/FormatterProvider.java`
-#### Snippet
-```java
-        private final Project project;
-        private final int jdkMajorVersion;
-        private final Optional<List<URI>> implementationClassPath;
-        private final boolean useBundledImplementation;
-
+        public ExplorationNodeImpl(
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -1479,18 +1455,6 @@ in `palantir-java-format/src/main/java/com/palantir/javaformat/doc/Obs.java`
                 Optional<State> incomingState) {
             this.parentLevel = Optional.ofNullable(parent).map(p -> p.level);
             this.sink = sink;
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'parentLevel'
-in `palantir-java-format/src/main/java/com/palantir/javaformat/doc/Obs.java`
-#### Snippet
-```java
-        private final Sink sink;
-        private final FinishExplorationNode finishExplorationNode;
-        private final Optional<Level> parentLevel;
-
-        public ExplorationNodeImpl(
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -1530,6 +1494,42 @@ in `palantir-java-format/src/main/java/com/palantir/javaformat/doc/Obs.java`
 ```
 
 ### OptionalUsedAsFieldOrParameterType
+`Optional`> used as type for field 'implementationClassPath'
+in `idea-plugin/src/main/java/com/palantir/javaformat/intellij/FormatterProvider.java`
+#### Snippet
+```java
+        private final Project project;
+        private final int jdkMajorVersion;
+        private final Optional<List<URI>> implementationClassPath;
+        private final boolean useBundledImplementation;
+
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional`> used as type for parameter 'implementationClassPath'
+in `idea-plugin/src/main/java/com/palantir/javaformat/intellij/FormatterProvider.java`
+#### Snippet
+```java
+
+    private static List<Path> getImplementationUrls(
+            Optional<List<URI>> implementationClassPath, boolean useBundledImplementation) {
+        if (useBundledImplementation) {
+            log.debug("Using palantir-java-format implementation bundled with plugin");
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional`> used as type for parameter 'implementationClassPath'
+in `idea-plugin/src/main/java/com/palantir/javaformat/intellij/FormatterProvider.java`
+#### Snippet
+```java
+                Project project,
+                int jdkMajorVersion,
+                Optional<List<URI>> implementationClassPath,
+                boolean useBundledImplementation) {
+            this.project = project;
+```
+
+### OptionalUsedAsFieldOrParameterType
 `Optional` used as type for parameter 'optBreakDoc'
 in `palantir-java-format/src/main/java/com/palantir/javaformat/doc/Level.java`
 #### Snippet
@@ -1539,18 +1539,6 @@ in `palantir-java-format/src/main/java/com/palantir/javaformat/doc/Level.java`
             Optional<Break> optBreakDoc,
             List<Doc> split,
             Obs.ExplorationNode explorationNode) {
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'optionalTag'
-in `palantir-java-format/src/main/java/com/palantir/javaformat/OpsBuilder.java`
-#### Snippet
-```java
-     * @param optionalTag an optional tag for remembering whether the break was taken
-     */
-    public void breakOp(FillMode fillMode, String flat, Indent plusIndent, Optional<BreakTag> optionalTag) {
-        add(Break.make(fillMode, flat, plusIndent, optionalTag));
-    }
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -1566,6 +1554,18 @@ in `palantir-java-format/src/main/java/com/palantir/javaformat/OpsBuilder.java`
 ```
 
 ### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'wanted'
+in `palantir-java-format/src/main/java/com/palantir/javaformat/OpsBuilder.java`
+#### Snippet
+```java
+            private final Optional<Boolean> wanted;
+
+            SimpleBlankLine(Optional<Boolean> wanted) {
+                this.wanted = wanted;
+            }
+```
+
+### OptionalUsedAsFieldOrParameterType
 `Optional` used as type for field 'wanted'
 in `palantir-java-format/src/main/java/com/palantir/javaformat/OpsBuilder.java`
 #### Snippet
@@ -1578,15 +1578,15 @@ in `palantir-java-format/src/main/java/com/palantir/javaformat/OpsBuilder.java`
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'wanted'
+`Optional` used as type for parameter 'optionalTag'
 in `palantir-java-format/src/main/java/com/palantir/javaformat/OpsBuilder.java`
 #### Snippet
 ```java
-            private final Optional<Boolean> wanted;
-
-            SimpleBlankLine(Optional<Boolean> wanted) {
-                this.wanted = wanted;
-            }
+     * @param optionalTag an optional tag for remembering whether the break was taken
+     */
+    public void breakOp(FillMode fillMode, String flat, Indent plusIndent, Optional<BreakTag> optionalTag) {
+        add(Break.make(fillMode, flat, plusIndent, optionalTag));
+    }
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -1602,18 +1602,6 @@ in `palantir-java-format/src/main/java/com/palantir/javaformat/java/CommandLineO
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'assumeFilename'
-in `palantir-java-format/src/main/java/com/palantir/javaformat/java/CommandLineOptions.java`
-#### Snippet
-```java
-            boolean dryRun,
-            boolean setExitIfChanged,
-            Optional<String> assumeFilename,
-            boolean reflowLongStrings,
-            boolean outputReplacements) {
-```
-
-### OptionalUsedAsFieldOrParameterType
 `Optional` used as type for field 'assumeFilename'
 in `palantir-java-format/src/main/java/com/palantir/javaformat/java/CommandLineOptions.java`
 #### Snippet
@@ -1626,6 +1614,18 @@ in `palantir-java-format/src/main/java/com/palantir/javaformat/java/CommandLineO
 ```
 
 ### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'assumeFilename'
+in `palantir-java-format/src/main/java/com/palantir/javaformat/java/CommandLineOptions.java`
+#### Snippet
+```java
+            boolean dryRun,
+            boolean setExitIfChanged,
+            Optional<String> assumeFilename,
+            boolean reflowLongStrings,
+            boolean outputReplacements) {
+```
+
+### OptionalUsedAsFieldOrParameterType
 `Optional` used as type for parameter 'optTag'
 in `palantir-java-format/src/main/java/com/palantir/javaformat/doc/Break.java`
 #### Snippet
@@ -1635,42 +1635,6 @@ in `palantir-java-format/src/main/java/com/palantir/javaformat/doc/Break.java`
     public static Break make(FillMode fillMode, String flat, Indent plusIndent, Optional<BreakTag> optTag) {
         return builder()
                 .fillMode(fillMode)
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'declarationAnnotationBreak'
-in `palantir-java-format/src/main/java/com/palantir/javaformat/java/JavaInputAstVisitor.java`
-#### Snippet
-```java
-            List<? extends AnnotationTree> annotationTrees,
-            Direction annotationsDirection,
-            Optional<BreakTag> declarationAnnotationBreak) {
-        if (annotationTrees.isEmpty() && !nextIsModifier()) {
-            return EMPTY_LIST;
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'tyargTag'
-in `palantir-java-format/src/main/java/com/palantir/javaformat/java/JavaInputAstVisitor.java`
-#### Snippet
-```java
-    }
-
-    private void dotExpressionUpToArgs(ExpressionTree expression, Optional<BreakTag> tyargTag) {
-        expression = getArrayBase(expression);
-        switch (expression.getKind()) {
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'receiver'
-in `palantir-java-format/src/main/java/com/palantir/javaformat/java/JavaInputAstVisitor.java`
-#### Snippet
-```java
-    }
-
-    protected void visitFormals(Optional<VariableTree> receiver, List<? extends VariableTree> parameters) {
-        if (!receiver.isPresent() && parameters.isEmpty()) {
-            return;
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -1690,23 +1654,11 @@ in `palantir-java-format/src/main/java/com/palantir/javaformat/java/JavaInputAst
 in `palantir-java-format/src/main/java/com/palantir/javaformat/java/JavaInputAstVisitor.java`
 #### Snippet
 ```java
-    protected final Indent.Const plusFour;
-
-    private static ImmutableList<Op> breakList(Optional<BreakTag> breakTag) {
-        return ImmutableList.of(Break.make(FillMode.UNIFIED, " ", ZERO, breakTag));
     }
-```
 
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'declarationAnnotationBreak'
-in `palantir-java-format/src/main/java/com/palantir/javaformat/java/JavaInputAstVisitor.java`
-#### Snippet
-```java
-    /** Output combined modifiers and annotations and the trailing break. */
-    void visitAndBreakModifiers(
-            ModifiersTree modifiers, Direction annotationDirection, Optional<BreakTag> declarationAnnotationBreak) {
-        builder.addAll(visitModifiers(modifiers, annotationDirection, declarationAnnotationBreak));
-    }
+    private static ImmutableList<Op> breakFillList(Optional<BreakTag> breakTag) {
+        return ImmutableList.of(
+                OpenOp.make(ZERO), Break.make(FillMode.INDEPENDENT, " ", ZERO, breakTag), CloseOp.make());
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -1770,6 +1722,66 @@ in `palantir-java-format/src/main/java/com/palantir/javaformat/java/JavaInputAst
 ```
 
 ### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'declarationAnnotationBreak'
+in `palantir-java-format/src/main/java/com/palantir/javaformat/java/JavaInputAstVisitor.java`
+#### Snippet
+```java
+    /** Output combined modifiers and annotations and the trailing break. */
+    void visitAndBreakModifiers(
+            ModifiersTree modifiers, Direction annotationDirection, Optional<BreakTag> declarationAnnotationBreak) {
+        builder.addAll(visitModifiers(modifiers, annotationDirection, declarationAnnotationBreak));
+    }
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'breakTag'
+in `palantir-java-format/src/main/java/com/palantir/javaformat/java/JavaInputAstVisitor.java`
+#### Snippet
+```java
+    protected final Indent.Const plusFour;
+
+    private static ImmutableList<Op> breakList(Optional<BreakTag> breakTag) {
+        return ImmutableList.of(Break.make(FillMode.UNIFIED, " ", ZERO, breakTag));
+    }
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'tyargTag'
+in `palantir-java-format/src/main/java/com/palantir/javaformat/java/JavaInputAstVisitor.java`
+#### Snippet
+```java
+    }
+
+    private void dotExpressionUpToArgs(ExpressionTree expression, Optional<BreakTag> tyargTag) {
+        expression = getArrayBase(expression);
+        switch (expression.getKind()) {
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'declarationAnnotationBreak'
+in `palantir-java-format/src/main/java/com/palantir/javaformat/java/JavaInputAstVisitor.java`
+#### Snippet
+```java
+            List<? extends AnnotationTree> annotationTrees,
+            Direction annotationsDirection,
+            Optional<BreakTag> declarationAnnotationBreak) {
+        if (annotationTrees.isEmpty() && !nextIsModifier()) {
+            return EMPTY_LIST;
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'declarationAnnotationBreak'
+in `palantir-java-format/src/main/java/com/palantir/javaformat/java/JavaInputAstVisitor.java`
+#### Snippet
+```java
+            ModifiersTree modifiersTree,
+            Direction annotationsDirection,
+            Optional<BreakTag> declarationAnnotationBreak) {
+        return visitModifiers(modifiersTree.getAnnotations(), annotationsDirection, declarationAnnotationBreak);
+    }
+```
+
+### OptionalUsedAsFieldOrParameterType
 `Optional` used as type for parameter 'initializer'
 in `palantir-java-format/src/main/java/com/palantir/javaformat/java/JavaInputAstVisitor.java`
 #### Snippet
@@ -1794,27 +1806,15 @@ in `palantir-java-format/src/main/java/com/palantir/javaformat/java/JavaInputAst
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'declarationAnnotationBreak'
-in `palantir-java-format/src/main/java/com/palantir/javaformat/java/JavaInputAstVisitor.java`
-#### Snippet
-```java
-            ModifiersTree modifiersTree,
-            Direction annotationsDirection,
-            Optional<BreakTag> declarationAnnotationBreak) {
-        return visitModifiers(modifiersTree.getAnnotations(), annotationsDirection, declarationAnnotationBreak);
-    }
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'breakTag'
+`Optional` used as type for parameter 'receiver'
 in `palantir-java-format/src/main/java/com/palantir/javaformat/java/JavaInputAstVisitor.java`
 #### Snippet
 ```java
     }
 
-    private static ImmutableList<Op> breakFillList(Optional<BreakTag> breakTag) {
-        return ImmutableList.of(
-                OpenOp.make(ZERO), Break.make(FillMode.INDEPENDENT, " ", ZERO, breakTag), CloseOp.make());
+    protected void visitFormals(Optional<VariableTree> receiver, List<? extends VariableTree> parameters) {
+        if (!receiver.isPresent() && parameters.isEmpty()) {
+            return;
 ```
 
 ## RuleId[ruleID=SystemOutErr]
@@ -2015,18 +2015,6 @@ in `palantir-java-format/src/main/java/com/palantir/javaformat/doc/Obs.java`
 
 ### SimplifyOptionalCallChains
 Can be replaced with 'isEmpty()'
-in `palantir-java-format/src/main/java/com/palantir/javaformat/java/ImportOrderer.java`
-#### Snippet
-```java
-        int firstImportStart;
-        Optional<Integer> maybeFirstImport = findIdentifier(0, IMPORT_OR_CLASS_START);
-        if (!maybeFirstImport.isPresent() || !tokenAt(maybeFirstImport.get()).equals("import")) {
-            // No imports, so nothing to do.
-            return text;
-```
-
-### SimplifyOptionalCallChains
-Can be replaced with 'isEmpty()'
 in `palantir-java-format/src/main/java/com/palantir/javaformat/doc/Level.java`
 #### Snippet
 ```java
@@ -2035,6 +2023,18 @@ in `palantir-java-format/src/main/java/com/palantir/javaformat/doc/Level.java`
                         .isPresent();
 
         if (optBreakDoc.isPresent()) {
+```
+
+### SimplifyOptionalCallChains
+Can be replaced with 'isEmpty()'
+in `palantir-java-format/src/main/java/com/palantir/javaformat/doc/Level.java`
+#### Snippet
+```java
+                Level innerLevel = (Level) doc;
+                Optional<Integer> newWidth = innerLevel.tryToFitOnOneLine(maxWidth, newState, innerLevel.getDocs());
+                if (!newWidth.isPresent()) {
+                    return Optional.empty();
+                }
 ```
 
 ### SimplifyOptionalCallChains
@@ -2063,14 +2063,14 @@ in `palantir-java-format/src/main/java/com/palantir/javaformat/doc/Level.java`
 
 ### SimplifyOptionalCallChains
 Can be replaced with 'isEmpty()'
-in `palantir-java-format/src/main/java/com/palantir/javaformat/doc/Level.java`
+in `palantir-java-format/src/main/java/com/palantir/javaformat/java/ImportOrderer.java`
 #### Snippet
 ```java
-                Level innerLevel = (Level) doc;
-                Optional<Integer> newWidth = innerLevel.tryToFitOnOneLine(maxWidth, newState, innerLevel.getDocs());
-                if (!newWidth.isPresent()) {
-                    return Optional.empty();
-                }
+        int firstImportStart;
+        Optional<Integer> maybeFirstImport = findIdentifier(0, IMPORT_OR_CLASS_START);
+        if (!maybeFirstImport.isPresent() || !tokenAt(maybeFirstImport.get()).equals("import")) {
+            // No imports, so nothing to do.
+            return text;
 ```
 
 ### SimplifyOptionalCallChains
@@ -2240,11 +2240,11 @@ Field initialization to `0` is redundant
 in `palantir-java-format/src/main/java/com/palantir/javaformat/Newlines.java`
 #### Snippet
 ```java
-    private static final class LineOffsetIterator implements Iterator<Integer> {
 
         private int curr = 0;
         private int idx = 0;
         private final String input;
+
 ```
 
 ### RedundantFieldInitialization
@@ -2252,11 +2252,11 @@ Field initialization to `0` is redundant
 in `palantir-java-format/src/main/java/com/palantir/javaformat/Newlines.java`
 #### Snippet
 ```java
+    private static final class LineOffsetIterator implements Iterator<Integer> {
 
         private int curr = 0;
         private int idx = 0;
         private final String input;
-
 ```
 
 ### RedundantFieldInitialization
@@ -2269,42 +2269,6 @@ public final class LevelDelimitedFlatValueDocVisitor implements DocVisitor<Strin
     int indent = 0;
 
     public LevelDelimitedFlatValueDocVisitor(State state) {
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `gradle-palantir-java-format/src/main/java/com/palantir/javaformat/gradle/LineOffsetIterator.java`
-#### Snippet
-```java
-final class LineOffsetIterator implements Iterator<Integer> {
-
-    private int curr = 0;
-    private int idx = 0;
-    private final String input;
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `gradle-palantir-java-format/src/main/java/com/palantir/javaformat/gradle/LineOffsetIterator.java`
-#### Snippet
-```java
-
-    private int curr = 0;
-    private int idx = 0;
-    private final String input;
-
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `palantir-java-format/src/main/java/com/palantir/javaformat/java/JavaOutput.java`
-#### Snippet
-```java
-    private int iLine = 0; // Closest corresponding line number on input.
-    private int lastK = -1; // Last {@link Tok} index output.
-    private int spacesPending = 0;
-    private int newlinesPending = 0;
-    private StringBuilder lineBuilder = new StringBuilder();
 ```
 
 ### RedundantFieldInitialization
@@ -2333,14 +2297,38 @@ in `palantir-java-format/src/main/java/com/palantir/javaformat/java/JavaOutput.j
 
 ### RedundantFieldInitialization
 Field initialization to `0` is redundant
-in `palantir-java-format/src/main/java/com/palantir/javaformat/OpsBuilder.java`
+in `palantir-java-format/src/main/java/com/palantir/javaformat/java/JavaOutput.java`
 #### Snippet
 ```java
-    private static final Const ZERO = Const.ZERO;
+    private int iLine = 0; // Closest corresponding line number on input.
+    private int lastK = -1; // Last {@link Tok} index output.
+    private int spacesPending = 0;
+    private int newlinesPending = 0;
+    private StringBuilder lineBuilder = new StringBuilder();
+```
 
-    private int tokenI = 0;
-    private int inputPosition = Integer.MIN_VALUE;
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `gradle-palantir-java-format/src/main/java/com/palantir/javaformat/gradle/LineOffsetIterator.java`
+#### Snippet
+```java
 
+    private int curr = 0;
+    private int idx = 0;
+    private final String input;
+
+```
+
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `gradle-palantir-java-format/src/main/java/com/palantir/javaformat/gradle/LineOffsetIterator.java`
+#### Snippet
+```java
+final class LineOffsetIterator implements Iterator<Integer> {
+
+    private int curr = 0;
+    private int idx = 0;
+    private final String input;
 ```
 
 ### RedundantFieldInitialization
@@ -2356,15 +2344,15 @@ in `palantir-java-format/src/main/java/com/palantir/javaformat/OpsBuilder.java`
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `palantir-java-format/src/main/java/com/palantir/javaformat/java/CommandLineOptions.java`
+Field initialization to `0` is redundant
+in `palantir-java-format/src/main/java/com/palantir/javaformat/OpsBuilder.java`
 #### Snippet
 ```java
-        private boolean help = false;
-        private boolean stdin = false;
-        private boolean fixImportsOnly = false;
-        private boolean sortImports = true;
-        private boolean removeUnusedImports = true;
+    private static final Const ZERO = Const.ZERO;
+
+    private int tokenI = 0;
+    private int inputPosition = Integer.MIN_VALUE;
+
 ```
 
 ### RedundantFieldInitialization
@@ -2372,11 +2360,11 @@ Field initialization to `false` is redundant
 in `palantir-java-format/src/main/java/com/palantir/javaformat/java/CommandLineOptions.java`
 #### Snippet
 ```java
+        private boolean inPlace = false;
+        private boolean aosp = false;
         private boolean palantirStyle = false;
         private boolean version = false;
         private boolean help = false;
-        private boolean stdin = false;
-        private boolean fixImportsOnly = false;
 ```
 
 ### RedundantFieldInitialization
@@ -2384,11 +2372,11 @@ Field initialization to `false` is redundant
 in `palantir-java-format/src/main/java/com/palantir/javaformat/java/CommandLineOptions.java`
 #### Snippet
 ```java
-        private boolean removeUnusedImports = true;
-        private boolean dryRun = false;
-        private boolean setExitIfChanged = false;
-        private Optional<String> assumeFilename = Optional.empty();
-        private boolean reflowLongStrings = true;
+        private final ImmutableList.Builder<Integer> lengths = ImmutableList.builder();
+        private boolean inPlace = false;
+        private boolean aosp = false;
+        private boolean palantirStyle = false;
+        private boolean version = false;
 ```
 
 ### RedundantFieldInitialization
@@ -2408,6 +2396,30 @@ Field initialization to `false` is redundant
 in `palantir-java-format/src/main/java/com/palantir/javaformat/java/CommandLineOptions.java`
 #### Snippet
 ```java
+        private boolean removeUnusedImports = true;
+        private boolean dryRun = false;
+        private boolean setExitIfChanged = false;
+        private Optional<String> assumeFilename = Optional.empty();
+        private boolean reflowLongStrings = true;
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `palantir-java-format/src/main/java/com/palantir/javaformat/java/CommandLineOptions.java`
+#### Snippet
+```java
+        private boolean aosp = false;
+        private boolean palantirStyle = false;
+        private boolean version = false;
+        private boolean help = false;
+        private boolean stdin = false;
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `palantir-java-format/src/main/java/com/palantir/javaformat/java/CommandLineOptions.java`
+#### Snippet
+```java
         private boolean sortImports = true;
         private boolean removeUnusedImports = true;
         private boolean dryRun = false;
@@ -2420,11 +2432,11 @@ Field initialization to `false` is redundant
 in `palantir-java-format/src/main/java/com/palantir/javaformat/java/CommandLineOptions.java`
 #### Snippet
 ```java
-        private final ImmutableList.Builder<Integer> offsets = ImmutableList.builder();
-        private final ImmutableList.Builder<Integer> lengths = ImmutableList.builder();
-        private boolean inPlace = false;
-        private boolean aosp = false;
         private boolean palantirStyle = false;
+        private boolean version = false;
+        private boolean help = false;
+        private boolean stdin = false;
+        private boolean fixImportsOnly = false;
 ```
 
 ### RedundantFieldInitialization
@@ -2444,11 +2456,11 @@ Field initialization to `false` is redundant
 in `palantir-java-format/src/main/java/com/palantir/javaformat/java/CommandLineOptions.java`
 #### Snippet
 ```java
-        private boolean aosp = false;
-        private boolean palantirStyle = false;
-        private boolean version = false;
         private boolean help = false;
         private boolean stdin = false;
+        private boolean fixImportsOnly = false;
+        private boolean sortImports = true;
+        private boolean removeUnusedImports = true;
 ```
 
 ### RedundantFieldInitialization
@@ -2456,23 +2468,11 @@ Field initialization to `false` is redundant
 in `palantir-java-format/src/main/java/com/palantir/javaformat/java/CommandLineOptions.java`
 #### Snippet
 ```java
-        private boolean inPlace = false;
-        private boolean aosp = false;
-        private boolean palantirStyle = false;
-        private boolean version = false;
-        private boolean help = false;
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `palantir-java-format/src/main/java/com/palantir/javaformat/java/CommandLineOptions.java`
-#### Snippet
-```java
+        private final ImmutableList.Builder<Integer> offsets = ImmutableList.builder();
         private final ImmutableList.Builder<Integer> lengths = ImmutableList.builder();
         private boolean inPlace = false;
         private boolean aosp = false;
         private boolean palantirStyle = false;
-        private boolean version = false;
 ```
 
 ### RedundantFieldInitialization
@@ -2501,6 +2501,126 @@ in `palantir-java-format/src/main/java/com/palantir/javaformat/java/Trees.java`
 ```
 
 ### AssignmentToMethodParameter
+Assignment to method parameter `state`
+in `palantir-java-format/src/main/java/com/palantir/javaformat/doc/Level.java`
+#### Snippet
+```java
+
+        if (optBreakDoc.isPresent()) {
+            state = optBreakDoc.get().computeBreaks(state, shouldBreak);
+        }
+        boolean enoughRoom = state.column() + splitWidth <= maxWidth;
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `state`
+in `palantir-java-format/src/main/java/com/palantir/javaformat/doc/Level.java`
+#### Snippet
+```java
+        }
+        boolean enoughRoom = state.column() + splitWidth <= maxWidth;
+        state = computeSplit(commentsHelper, maxWidth, split, state.withMustBreak(false), explorationNode);
+        if (!enoughRoom) {
+            state = state.withMustBreak(true); // Break after, too.
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `state`
+in `palantir-java-format/src/main/java/com/palantir/javaformat/doc/Level.java`
+#### Snippet
+```java
+        state = computeSplit(commentsHelper, maxWidth, split, state.withMustBreak(false), explorationNode);
+        if (!enoughRoom) {
+            state = state.withMustBreak(true); // Break after, too.
+        }
+        return state;
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `state`
+in `palantir-java-format/src/main/java/com/palantir/javaformat/doc/Level.java`
+#### Snippet
+```java
+        for (int i = 0; i < splitsBreaks.splits().size(); ++i) {
+            if (i > 0) {
+                state = splitsBreaks.breaks().get(i - 1).computeBreaks(state, false);
+            }
+
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `state`
+in `palantir-java-format/src/main/java/com/palantir/javaformat/doc/Level.java`
+#### Snippet
+```java
+            float splitWidth = getWidth(split);
+            boolean enoughRoom = state.column() + splitWidth <= maxWidth;
+            state = computeSplit(commentsHelper, maxWidth, split, state.withMustBreak(false), explorationNode);
+            if (!enoughRoom) {
+                state = state.withMustBreak(true);
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `state`
+in `palantir-java-format/src/main/java/com/palantir/javaformat/doc/Level.java`
+#### Snippet
+```java
+            state = computeSplit(commentsHelper, maxWidth, split, state.withMustBreak(false), explorationNode);
+            if (!enoughRoom) {
+                state = state.withMustBreak(true);
+            }
+        }
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `state`
+in `palantir-java-format/src/main/java/com/palantir/javaformat/doc/Level.java`
+#### Snippet
+```java
+
+        if (!splitsBreaks.breaks().isEmpty()) {
+            state = state.withBrokenLevel();
+        }
+
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `state`
+in `palantir-java-format/src/main/java/com/palantir/javaformat/doc/Level.java`
+#### Snippet
+```java
+
+        ImmutableList<Doc> splitDocs = splitsBreaks.splits().get(0);
+        state = computeBreakAndSplit(
+                commentsHelper, maxWidth, state, /* optBreakDoc= */ Optional.empty(), splitDocs, explorationNode);
+
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `state`
+in `palantir-java-format/src/main/java/com/palantir/javaformat/doc/Level.java`
+#### Snippet
+```java
+        // Handle following breaks and split.
+        for (int i = 0; i < splitsBreaks.breaks().size(); i++) {
+            state = computeBreakAndSplit(
+                    commentsHelper,
+                    maxWidth,
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `state`
+in `palantir-java-format/src/main/java/com/palantir/javaformat/doc/Level.java`
+#### Snippet
+```java
+            Obs.ExplorationNode explorationNode) {
+        for (Doc doc : docs) {
+            state = doc.computeBreaks(commentsHelper, maxWidth, state, explorationNode);
+        }
+        return state;
+```
+
+### AssignmentToMethodParameter
 Assignment to method parameter `input`
 in `palantir-java-format/src/main/java/com/palantir/javaformat/java/Formatter.java`
 #### Snippet
@@ -2522,6 +2642,42 @@ in `palantir-java-format/src/main/java/com/palantir/javaformat/java/Formatter.ja
         input = RemoveUnusedImports.removeUnusedImports(input);
         String formatted = formatSource(input);
         formatted = StringWrapper.wrap(options.maxLineLength(), formatted, this);
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `input`
+in `palantir-java-format/src/main/java/com/palantir/javaformat/java/FormatFileCallable.java`
+#### Snippet
+```java
+    private String fixImports(String input) throws FormatterException {
+        if (parameters.removeUnusedImports()) {
+            input = RemoveUnusedImports.removeUnusedImports(input);
+        }
+        if (parameters.sortImports()) {
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `input`
+in `palantir-java-format/src/main/java/com/palantir/javaformat/java/FormatFileCallable.java`
+#### Snippet
+```java
+        }
+        if (parameters.sortImports()) {
+            input = ImportOrderer.reorderImports(input, options.style());
+        }
+        return input;
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `input`
+in `palantir-java-format/src/main/java/com/palantir/javaformat/java/StringWrapper.java`
+#### Snippet
+```java
+            // If formatting the replacement ranges resulted in a change, recalculate the replacements on
+            // the updated input.
+            input = firstPass;
+            replacements = getReflowReplacements(columnLimit, input);
+        }
 ```
 
 ### AssignmentToMethodParameter
@@ -2669,162 +2825,6 @@ in `palantir-java-format/src/main/java/com/palantir/javaformat/java/ImportOrdere
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `input`
-in `palantir-java-format/src/main/java/com/palantir/javaformat/java/FormatFileCallable.java`
-#### Snippet
-```java
-    private String fixImports(String input) throws FormatterException {
-        if (parameters.removeUnusedImports()) {
-            input = RemoveUnusedImports.removeUnusedImports(input);
-        }
-        if (parameters.sortImports()) {
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `input`
-in `palantir-java-format/src/main/java/com/palantir/javaformat/java/FormatFileCallable.java`
-#### Snippet
-```java
-        }
-        if (parameters.sortImports()) {
-            input = ImportOrderer.reorderImports(input, options.style());
-        }
-        return input;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `state`
-in `palantir-java-format/src/main/java/com/palantir/javaformat/doc/Level.java`
-#### Snippet
-```java
-
-        if (!splitsBreaks.breaks().isEmpty()) {
-            state = state.withBrokenLevel();
-        }
-
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `state`
-in `palantir-java-format/src/main/java/com/palantir/javaformat/doc/Level.java`
-#### Snippet
-```java
-
-        ImmutableList<Doc> splitDocs = splitsBreaks.splits().get(0);
-        state = computeBreakAndSplit(
-                commentsHelper, maxWidth, state, /* optBreakDoc= */ Optional.empty(), splitDocs, explorationNode);
-
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `state`
-in `palantir-java-format/src/main/java/com/palantir/javaformat/doc/Level.java`
-#### Snippet
-```java
-        // Handle following breaks and split.
-        for (int i = 0; i < splitsBreaks.breaks().size(); i++) {
-            state = computeBreakAndSplit(
-                    commentsHelper,
-                    maxWidth,
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `state`
-in `palantir-java-format/src/main/java/com/palantir/javaformat/doc/Level.java`
-#### Snippet
-```java
-
-        if (optBreakDoc.isPresent()) {
-            state = optBreakDoc.get().computeBreaks(state, shouldBreak);
-        }
-        boolean enoughRoom = state.column() + splitWidth <= maxWidth;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `state`
-in `palantir-java-format/src/main/java/com/palantir/javaformat/doc/Level.java`
-#### Snippet
-```java
-        }
-        boolean enoughRoom = state.column() + splitWidth <= maxWidth;
-        state = computeSplit(commentsHelper, maxWidth, split, state.withMustBreak(false), explorationNode);
-        if (!enoughRoom) {
-            state = state.withMustBreak(true); // Break after, too.
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `state`
-in `palantir-java-format/src/main/java/com/palantir/javaformat/doc/Level.java`
-#### Snippet
-```java
-        state = computeSplit(commentsHelper, maxWidth, split, state.withMustBreak(false), explorationNode);
-        if (!enoughRoom) {
-            state = state.withMustBreak(true); // Break after, too.
-        }
-        return state;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `state`
-in `palantir-java-format/src/main/java/com/palantir/javaformat/doc/Level.java`
-#### Snippet
-```java
-        for (int i = 0; i < splitsBreaks.splits().size(); ++i) {
-            if (i > 0) {
-                state = splitsBreaks.breaks().get(i - 1).computeBreaks(state, false);
-            }
-
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `state`
-in `palantir-java-format/src/main/java/com/palantir/javaformat/doc/Level.java`
-#### Snippet
-```java
-            float splitWidth = getWidth(split);
-            boolean enoughRoom = state.column() + splitWidth <= maxWidth;
-            state = computeSplit(commentsHelper, maxWidth, split, state.withMustBreak(false), explorationNode);
-            if (!enoughRoom) {
-                state = state.withMustBreak(true);
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `state`
-in `palantir-java-format/src/main/java/com/palantir/javaformat/doc/Level.java`
-#### Snippet
-```java
-            state = computeSplit(commentsHelper, maxWidth, split, state.withMustBreak(false), explorationNode);
-            if (!enoughRoom) {
-                state = state.withMustBreak(true);
-            }
-        }
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `state`
-in `palantir-java-format/src/main/java/com/palantir/javaformat/doc/Level.java`
-#### Snippet
-```java
-            Obs.ExplorationNode explorationNode) {
-        for (Doc doc : docs) {
-            state = doc.computeBreaks(commentsHelper, maxWidth, state, explorationNode);
-        }
-        return state;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `input`
-in `palantir-java-format/src/main/java/com/palantir/javaformat/java/StringWrapper.java`
-#### Snippet
-```java
-            // If formatting the replacement ranges resulted in a change, recalculate the replacements on
-            // the updated input.
-            input = firstPass;
-            replacements = getReflowReplacements(columnLimit, input);
-        }
-```
-
-### AssignmentToMethodParameter
 Assignment to method parameter `node`
 in `palantir-java-format/src/main/java/com/palantir/javaformat/java/DimensionHelpers.java`
 #### Snippet
@@ -2885,6 +2885,18 @@ in `palantir-java-format/src/main/java/com/palantir/javaformat/java/javadoc/Java
 ```
 
 ### AssignmentToMethodParameter
+Assignment to method parameter `length`
+in `palantir-java-format/src/main/java/com/palantir/javaformat/java/JavaInput.java`
+#### Snippet
+```java
+        if (length == 0) {
+            // 0 stands for "format the line under the cursor"
+            length = 1;
+        }
+        ImmutableCollection<Token> enclosed = getPositionTokenMap()
+```
+
+### AssignmentToMethodParameter
 Assignment to method parameter `columnI`
 in `palantir-java-format/src/main/java/com/palantir/javaformat/java/JavaInput.java`
 #### Snippet
@@ -2921,30 +2933,6 @@ in `palantir-java-format/src/main/java/com/palantir/javaformat/java/JavaInput.ja
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `length`
-in `palantir-java-format/src/main/java/com/palantir/javaformat/java/JavaInput.java`
-#### Snippet
-```java
-        if (length == 0) {
-            // 0 stands for "format the line under the cursor"
-            length = 1;
-        }
-        ImmutableCollection<Token> enclosed = getPositionTokenMap()
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `needDot`
-in `palantir-java-format/src/main/java/com/palantir/javaformat/java/JavaInputAstVisitor.java`
-#### Snippet
-```java
-            }
-            length += getLength(e, getCurrentPath());
-            needDot = true;
-        }
-        if (!needDot0) {
-```
-
-### AssignmentToMethodParameter
 Assignment to method parameter `needDot`
 in `palantir-java-format/src/main/java/com/palantir/javaformat/java/JavaInputAstVisitor.java`
 #### Snippet
@@ -2957,15 +2945,39 @@ in `palantir-java-format/src/main/java/com/palantir/javaformat/java/JavaInputAst
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `expression`
+Assignment to method parameter `node`
 in `palantir-java-format/src/main/java/com/palantir/javaformat/java/JavaInputAstVisitor.java`
 #### Snippet
 ```java
-            ArrayAccessTree array = (ArrayAccessTree) expression;
-            indices.addLast(array.getIndex());
-            expression = array.getExpression();
+    private void visitName(Tree node) {
+        Deque<Name> stack = new ArrayDeque<>();
+        for (; node instanceof MemberSelectTree; node = ((MemberSelectTree) node).getExpression()) {
+            stack.addFirst(((MemberSelectTree) node).getIdentifier());
         }
-        return indices;
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `node`
+in `palantir-java-format/src/main/java/com/palantir/javaformat/java/JavaInputAstVisitor.java`
+#### Snippet
+```java
+            statements.add(node.getThenStatement());
+            if (node.getElseStatement() != null && node.getElseStatement().getKind() == IF) {
+                node = (IfTree) node.getElseStatement();
+            } else {
+                break;
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `needDot`
+in `palantir-java-format/src/main/java/com/palantir/javaformat/java/JavaInputAstVisitor.java`
+#### Snippet
+```java
+            }
+            length += getLength(e, getCurrentPath());
+            needDot = true;
+        }
+        if (!needDot0) {
 ```
 
 ### AssignmentToMethodParameter
@@ -2997,18 +3009,6 @@ Assignment to method parameter `node`
 in `palantir-java-format/src/main/java/com/palantir/javaformat/java/JavaInputAstVisitor.java`
 #### Snippet
 ```java
-    private void visitName(Tree node) {
-        Deque<Name> stack = new ArrayDeque<>();
-        for (; node instanceof MemberSelectTree; node = ((MemberSelectTree) node).getExpression()) {
-            stack.addFirst(((MemberSelectTree) node).getIdentifier());
-        }
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `node`
-in `palantir-java-format/src/main/java/com/palantir/javaformat/java/JavaInputAstVisitor.java`
-#### Snippet
-```java
     private ExpressionTree getArrayBase(ExpressionTree node) {
         while (node instanceof ArrayAccessTree) {
             node = ((ArrayAccessTree) node).getExpression();
@@ -3017,15 +3017,15 @@ in `palantir-java-format/src/main/java/com/palantir/javaformat/java/JavaInputAst
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `node`
+Assignment to method parameter `expression`
 in `palantir-java-format/src/main/java/com/palantir/javaformat/java/JavaInputAstVisitor.java`
 #### Snippet
 ```java
-            statements.add(node.getThenStatement());
-            if (node.getElseStatement() != null && node.getElseStatement().getKind() == IF) {
-                node = (IfTree) node.getElseStatement();
-            } else {
-                break;
+            ArrayAccessTree array = (ArrayAccessTree) expression;
+            indices.addLast(array.getIndex());
+            expression = array.getExpression();
+        }
+        return indices;
 ```
 
 ## RuleId[ruleID=UnnecessaryContinue]
@@ -3264,18 +3264,6 @@ in `palantir-java-format/src/main/java/com/palantir/javaformat/java/JavaInput.ja
 ```
 
 ### UnstableTypeUsedInSignature
-Field must be marked with '@com.google.common.annotations.Beta' annotation because its type references unstable type 'com.google.common.collect.ImmutableRangeMap'
-in `palantir-java-format/src/main/java/com/palantir/javaformat/java/JavaInput.java`
-#### Snippet
-```java
-    private final ImmutableMap<Integer, Integer> positionToColumnMap; // Map Tok position to column.
-    private final ImmutableList<Token> tokens; // The Tokens for this input.
-    private final ImmutableRangeMap<Integer, Token> positionTokenMap; // Map position to Token.
-
-    /** Map from Tok index to the associated Token. */
-```
-
-### UnstableTypeUsedInSignature
 Method must be marked with '@com.google.common.annotations.Beta' annotation because its signature references unstable type 'com.google.common.collect.ImmutableRangeMap'
 in `palantir-java-format/src/main/java/com/palantir/javaformat/java/JavaInput.java`
 #### Snippet
@@ -3287,19 +3275,19 @@ in `palantir-java-format/src/main/java/com/palantir/javaformat/java/JavaInput.ja
     }
 ```
 
-## RuleId[ruleID=UnusedAssignment]
-### UnusedAssignment
-The value `true` assigned to `lastWasAnnotation` is never used
-in `palantir-java-format/src/main/java/com/palantir/javaformat/java/JavaInputAstVisitor.java`
+### UnstableTypeUsedInSignature
+Field must be marked with '@com.google.common.annotations.Beta' annotation because its type references unstable type 'com.google.common.collect.ImmutableRangeMap'
+in `palantir-java-format/src/main/java/com/palantir/javaformat/java/JavaInput.java`
 #### Snippet
 ```java
-            } else {
-                scan(annotations.removeFirst(), null);
-                lastWasAnnotation = true;
-            }
-            first = false;
+    private final ImmutableMap<Integer, Integer> positionToColumnMap; // Map Tok position to column.
+    private final ImmutableList<Token> tokens; // The Tokens for this input.
+    private final ImmutableRangeMap<Integer, Token> positionTokenMap; // Map position to Token.
+
+    /** Map from Tok index to the associated Token. */
 ```
 
+## RuleId[ruleID=UnusedAssignment]
 ### UnusedAssignment
 The value `false` assigned to `first` is never used
 in `palantir-java-format/src/main/java/com/palantir/javaformat/java/JavaInputAstVisitor.java`
@@ -3324,6 +3312,18 @@ in `palantir-java-format/src/main/java/com/palantir/javaformat/java/JavaInputAst
             String name = node.getName().toString();
 ```
 
+### UnusedAssignment
+The value `true` assigned to `lastWasAnnotation` is never used
+in `palantir-java-format/src/main/java/com/palantir/javaformat/java/JavaInputAstVisitor.java`
+#### Snippet
+```java
+            } else {
+                scan(annotations.removeFirst(), null);
+                lastWasAnnotation = true;
+            }
+            first = false;
+```
+
 ## RuleId[ruleID=OptionalGetWithoutIsPresent]
 ### OptionalGetWithoutIsPresent
 `Optional.get()` without 'isPresent()' check
@@ -3335,66 +3335,6 @@ in `idea-plugin/src/main/java/com/palantir/javaformat/intellij/UiFormatterStyle.
                 .get();
     }
 }
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `palantir-java-format/src/main/java/com/palantir/javaformat/java/JavaInputAstVisitor.java`
-#### Snippet
-```java
-            }
-            if (nextIsModifier()) {
-                String currentToken = builder.peekToken().get();
-                token(currentToken);
-                if (currentToken.equals("non")) {
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `palantir-java-format/src/main/java/com/palantir/javaformat/java/JavaInputAstVisitor.java`
-#### Snippet
-```java
-                token(currentToken);
-                if (currentToken.equals("non")) {
-                    token(builder.peekToken().get());
-                    token(builder.peekToken().get());
-                }
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `palantir-java-format/src/main/java/com/palantir/javaformat/java/JavaInputAstVisitor.java`
-#### Snippet
-```java
-                if (currentToken.equals("non")) {
-                    token(builder.peekToken().get());
-                    token(builder.peekToken().get());
-                }
-            } else {
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `palantir-java-format/src/main/java/com/palantir/javaformat/java/JavaInputAstVisitor.java`
-#### Snippet
-```java
-            String name = node.getName().toString();
-            if (name.equals("<init>")) {
-                name = builder.peekToken().get();
-            }
-            token(name);
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `palantir-java-format/src/main/java/com/palantir/javaformat/java/JavaInputAstVisitor.java`
-#### Snippet
-```java
-                case ".":
-                    if (!builder.peekToken().get().equals(".")
-                            || !builder.peekToken(1).get().equals(".")) {
-                        return;
-                    }
 ```
 
 ### OptionalGetWithoutIsPresent
@@ -3438,11 +3378,71 @@ in `palantir-java-format/src/main/java/com/palantir/javaformat/java/JavaInputAst
 in `palantir-java-format/src/main/java/com/palantir/javaformat/java/JavaInputAstVisitor.java`
 #### Snippet
 ```java
+            String name = node.getName().toString();
+            if (name.equals("<init>")) {
+                name = builder.peekToken().get();
+            }
+            token(name);
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `palantir-java-format/src/main/java/com/palantir/javaformat/java/JavaInputAstVisitor.java`
+#### Snippet
+```java
+            }
+            if (nextIsModifier()) {
+                String currentToken = builder.peekToken().get();
+                token(currentToken);
+                if (currentToken.equals("non")) {
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `palantir-java-format/src/main/java/com/palantir/javaformat/java/JavaInputAstVisitor.java`
+#### Snippet
+```java
+                token(currentToken);
+                if (currentToken.equals("non")) {
+                    token(builder.peekToken().get());
+                    token(builder.peekToken().get());
+                }
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `palantir-java-format/src/main/java/com/palantir/javaformat/java/JavaInputAstVisitor.java`
+#### Snippet
+```java
+                if (currentToken.equals("non")) {
+                    token(builder.peekToken().get());
+                    token(builder.peekToken().get());
+                }
+            } else {
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `palantir-java-format/src/main/java/com/palantir/javaformat/java/JavaInputAstVisitor.java`
+#### Snippet
+```java
 
     boolean nextIsModifier() {
         switch (builder.peekToken().get()) {
             case "public":
             case "protected":
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `palantir-java-format/src/main/java/com/palantir/javaformat/java/JavaInputAstVisitor.java`
+#### Snippet
+```java
+                case ".":
+                    if (!builder.peekToken().get().equals(".")
+                            || !builder.peekToken(1).get().equals(".")) {
+                        return;
+                    }
 ```
 
 ## RuleId[ruleID=ConstantValue]
@@ -3653,282 +3653,6 @@ in `palantir-java-format/src/main/java/com/palantir/javaformat/java/InputMetadat
 
 ### UnstableApiUsage
 'com.google.common.collect.RangeSet' is marked unstable with @Beta
-in `palantir-java-format/src/main/java/com/palantir/javaformat/java/Formatter.java`
-#### Snippet
-```java
-            throw new FormatterException(e.diagnostics());
-        }
-        RangeSet<Integer> tokenRangeSet = javaInput.characterRangesToTokenRanges(characterRanges);
-        return javaOutput.getFormatReplacements(tokenRangeSet);
-    }
-```
-
-### UnstableApiUsage
-'com.google.common.collect.RangeSet' is marked unstable with @Beta
-in `palantir-java-format/src/main/java/com/palantir/javaformat/java/InputMetadataBuilder.java`
-#### Snippet
-```java
-public final class InputMetadataBuilder {
-    private final Map<Integer, BlankLineWanted> blankLines = new HashMap<>(); // Info on blank lines.
-    private final RangeSet<Integer> partialFormatRanges = TreeRangeSet.create();
-
-    /**
-```
-
-### UnstableApiUsage
-'com.google.common.collect.TreeRangeSet' is marked unstable with @Beta
-in `palantir-java-format/src/main/java/com/palantir/javaformat/java/InputMetadataBuilder.java`
-#### Snippet
-```java
-public final class InputMetadataBuilder {
-    private final Map<Integer, BlankLineWanted> blankLines = new HashMap<>(); // Info on blank lines.
-    private final RangeSet<Integer> partialFormatRanges = TreeRangeSet.create();
-
-    /**
-```
-
-### UnstableApiUsage
-'create()' is declared in unstable class 'com.google.common.collect.TreeRangeSet' marked with @Beta
-in `palantir-java-format/src/main/java/com/palantir/javaformat/java/InputMetadataBuilder.java`
-#### Snippet
-```java
-public final class InputMetadataBuilder {
-    private final Map<Integer, BlankLineWanted> blankLines = new HashMap<>(); // Info on blank lines.
-    private final RangeSet<Integer> partialFormatRanges = TreeRangeSet.create();
-
-    /**
-```
-
-### UnstableApiUsage
-'com.google.common.collect.ImmutableRangeSet' is marked unstable with @Beta
-in `palantir-java-format/src/main/java/com/palantir/javaformat/java/InputMetadataBuilder.java`
-#### Snippet
-```java
-        return ImmutableInputMetadata.builder()
-                .blankLines(ImmutableMap.copyOf(blankLines))
-                .partialFormatRanges(ImmutableRangeSet.copyOf(partialFormatRanges))
-                .build();
-    }
-```
-
-### UnstableApiUsage
-'copyOf(com.google.common.collect.RangeSet)' is declared in unstable class 'com.google.common.collect.ImmutableRangeSet' marked with @Beta
-in `palantir-java-format/src/main/java/com/palantir/javaformat/java/InputMetadataBuilder.java`
-#### Snippet
-```java
-        return ImmutableInputMetadata.builder()
-                .blankLines(ImmutableMap.copyOf(blankLines))
-                .partialFormatRanges(ImmutableRangeSet.copyOf(partialFormatRanges))
-                .build();
-    }
-```
-
-### UnstableApiUsage
-'add(com.google.common.collect.Range)' is declared in unstable interface 'com.google.common.collect.RangeSet' marked with @Beta
-in `palantir-java-format/src/main/java/com/palantir/javaformat/java/InputMetadataBuilder.java`
-#### Snippet
-```java
-        int lo = JavaOutput.startTok(start).getIndex();
-        int hi = JavaOutput.endTok(end).getIndex();
-        partialFormatRanges.add(Range.closed(lo, hi));
-    }
-
-```
-
-### UnstableApiUsage
-'com.google.common.collect.RangeSet' is marked unstable with @Beta
-in `gradle-palantir-java-format/src/main/java/com/palantir/javaformat/gradle/FormatDiff.java`
-#### Snippet
-```java
-
-    /** Converts zero-indexed, [closed, open) line ranges in the given source file to character ranges. */
-    private static RangeSet<Integer> lineRangesToCharRanges(String input, RangeSet<Integer> lineRanges) {
-        List<Integer> lines = new ArrayList<>();
-        Iterators.addAll(lines, new LineOffsetIterator(input));
-```
-
-### UnstableApiUsage
-'com.google.common.collect.RangeSet' is marked unstable with @Beta
-in `gradle-palantir-java-format/src/main/java/com/palantir/javaformat/gradle/FormatDiff.java`
-#### Snippet
-```java
-
-    /** Converts zero-indexed, [closed, open) line ranges in the given source file to character ranges. */
-    private static RangeSet<Integer> lineRangesToCharRanges(String input, RangeSet<Integer> lineRanges) {
-        List<Integer> lines = new ArrayList<>();
-        Iterators.addAll(lines, new LineOffsetIterator(input));
-```
-
-### UnstableApiUsage
-'com.google.common.collect.RangeSet' is marked unstable with @Beta
-in `gradle-palantir-java-format/src/main/java/com/palantir/javaformat/gradle/FormatDiff.java`
-#### Snippet
-```java
-        lines.add(input.length() + 1);
-
-        final RangeSet<Integer> characterRanges = TreeRangeSet.create();
-        for (Range<Integer> lineRange :
-                lineRanges.subRangeSet(Range.closedOpen(0, lines.size() - 1)).asRanges()) {
-```
-
-### UnstableApiUsage
-'com.google.common.collect.TreeRangeSet' is marked unstable with @Beta
-in `gradle-palantir-java-format/src/main/java/com/palantir/javaformat/gradle/FormatDiff.java`
-#### Snippet
-```java
-        lines.add(input.length() + 1);
-
-        final RangeSet<Integer> characterRanges = TreeRangeSet.create();
-        for (Range<Integer> lineRange :
-                lineRanges.subRangeSet(Range.closedOpen(0, lines.size() - 1)).asRanges()) {
-```
-
-### UnstableApiUsage
-'create()' is declared in unstable class 'com.google.common.collect.TreeRangeSet' marked with @Beta
-in `gradle-palantir-java-format/src/main/java/com/palantir/javaformat/gradle/FormatDiff.java`
-#### Snippet
-```java
-        lines.add(input.length() + 1);
-
-        final RangeSet<Integer> characterRanges = TreeRangeSet.create();
-        for (Range<Integer> lineRange :
-                lineRanges.subRangeSet(Range.closedOpen(0, lines.size() - 1)).asRanges()) {
-```
-
-### UnstableApiUsage
-'subRangeSet(com.google.common.collect.Range)' is declared in unstable interface 'com.google.common.collect.RangeSet' marked with @Beta
-in `gradle-palantir-java-format/src/main/java/com/palantir/javaformat/gradle/FormatDiff.java`
-#### Snippet
-```java
-        final RangeSet<Integer> characterRanges = TreeRangeSet.create();
-        for (Range<Integer> lineRange :
-                lineRanges.subRangeSet(Range.closedOpen(0, lines.size() - 1)).asRanges()) {
-            int lineStart = lines.get(lineRange.lowerEndpoint());
-            // Exclude the trailing newline. This isn't strictly necessary, but handling blank lines
-```
-
-### UnstableApiUsage
-'asRanges()' is declared in unstable interface 'com.google.common.collect.RangeSet' marked with @Beta
-in `gradle-palantir-java-format/src/main/java/com/palantir/javaformat/gradle/FormatDiff.java`
-#### Snippet
-```java
-        final RangeSet<Integer> characterRanges = TreeRangeSet.create();
-        for (Range<Integer> lineRange :
-                lineRanges.subRangeSet(Range.closedOpen(0, lines.size() - 1)).asRanges()) {
-            int lineStart = lines.get(lineRange.lowerEndpoint());
-            // Exclude the trailing newline. This isn't strictly necessary, but handling blank lines
-```
-
-### UnstableApiUsage
-'add(com.google.common.collect.Range)' is declared in unstable interface 'com.google.common.collect.RangeSet' marked with @Beta
-in `gradle-palantir-java-format/src/main/java/com/palantir/javaformat/gradle/FormatDiff.java`
-#### Snippet
-```java
-            int lineEnd = lines.get(lineRange.upperEndpoint()) - 1;
-            Range<Integer> range = Range.closedOpen(lineStart, lineEnd);
-            characterRanges.add(range);
-        }
-        return characterRanges;
-```
-
-### UnstableApiUsage
-'com.google.common.collect.RangeSet' is marked unstable with @Beta
-in `gradle-palantir-java-format/src/main/java/com/palantir/javaformat/gradle/FormatDiff.java`
-#### Snippet
-```java
-        }
-
-        RangeSet<Integer> charRanges = lineRangesToCharRanges(input, diff.lineRanges);
-
-        try {
-```
-
-### UnstableApiUsage
-'asRanges()' is declared in unstable interface 'com.google.common.collect.RangeSet' marked with @Beta
-in `gradle-palantir-java-format/src/main/java/com/palantir/javaformat/gradle/FormatDiff.java`
-#### Snippet
-```java
-        try {
-            System.err.println("Formatting " + diff.path);
-            ImmutableList<Replacement> replacements = formatter.getFormatReplacements(input, charRanges.asRanges());
-            String output = applyReplacements(input, replacements);
-            Files.write(diff.path, output.getBytes(UTF_8));
-```
-
-### UnstableApiUsage
-'com.google.common.collect.RangeSet' is marked unstable with @Beta
-in `gradle-palantir-java-format/src/main/java/com/palantir/javaformat/gradle/FormatDiff.java`
-#### Snippet
-```java
-                    Path path = Paths.get(filenameMatcher.group("filename"));
-
-                    RangeSet<Integer> lineRanges = TreeRangeSet.create();
-                    Matcher hunk = HUNK.matcher(singleFileDiff);
-                    while (hunk.find()) {
-```
-
-### UnstableApiUsage
-'com.google.common.collect.TreeRangeSet' is marked unstable with @Beta
-in `gradle-palantir-java-format/src/main/java/com/palantir/javaformat/gradle/FormatDiff.java`
-#### Snippet
-```java
-                    Path path = Paths.get(filenameMatcher.group("filename"));
-
-                    RangeSet<Integer> lineRanges = TreeRangeSet.create();
-                    Matcher hunk = HUNK.matcher(singleFileDiff);
-                    while (hunk.find()) {
-```
-
-### UnstableApiUsage
-'create()' is declared in unstable class 'com.google.common.collect.TreeRangeSet' marked with @Beta
-in `gradle-palantir-java-format/src/main/java/com/palantir/javaformat/gradle/FormatDiff.java`
-#### Snippet
-```java
-                    Path path = Paths.get(filenameMatcher.group("filename"));
-
-                    RangeSet<Integer> lineRanges = TreeRangeSet.create();
-                    Matcher hunk = HUNK.matcher(singleFileDiff);
-                    while (hunk.find()) {
-```
-
-### UnstableApiUsage
-'add(com.google.common.collect.Range)' is declared in unstable interface 'com.google.common.collect.RangeSet' marked with @Beta
-in `gradle-palantir-java-format/src/main/java/com/palantir/javaformat/gradle/FormatDiff.java`
-#### Snippet
-```java
-                        Range<Integer> rangeZeroIndexed =
-                                Range.closedOpen(firstLineOfHunk, firstLineOfHunk + hunkLength);
-                        lineRanges.add(rangeZeroIndexed);
-                    }
-
-```
-
-### UnstableApiUsage
-'com.google.common.collect.RangeSet' is marked unstable with @Beta
-in `gradle-palantir-java-format/src/main/java/com/palantir/javaformat/gradle/FormatDiff.java`
-#### Snippet
-```java
-        private final RangeSet<Integer> lineRanges; // zero-indexed
-
-        public SingleFileDiff(Path path, RangeSet<Integer> lineRanges) {
-            this.path = path;
-            this.lineRanges = lineRanges;
-```
-
-### UnstableApiUsage
-'com.google.common.collect.RangeSet' is marked unstable with @Beta
-in `gradle-palantir-java-format/src/main/java/com/palantir/javaformat/gradle/FormatDiff.java`
-#### Snippet
-```java
-    public static class SingleFileDiff {
-        private final Path path;
-        private final RangeSet<Integer> lineRanges; // zero-indexed
-
-        public SingleFileDiff(Path path, RangeSet<Integer> lineRanges) {
-```
-
-### UnstableApiUsage
-'com.google.common.collect.RangeSet' is marked unstable with @Beta
 in `palantir-java-format/src/main/java/com/palantir/javaformat/java/JavaOutput.java`
 #### Snippet
 ```java
@@ -4096,63 +3820,279 @@ in `palantir-java-format/src/main/java/com/palantir/javaformat/java/JavaOutput.j
 ```
 
 ### UnstableApiUsage
-'trueFirst()' is marked unstable with @Beta
-in `palantir-java-format/src/main/java/com/palantir/javaformat/java/ImportOrderer.java`
+'com.google.common.collect.ImmutableRangeSet' is marked unstable with @Beta
+in `palantir-java-format/src/main/java/com/palantir/javaformat/java/InputMetadataBuilder.java`
 #### Snippet
 ```java
-     * https://android.googlesource.com/platform/development/+/master/ide/intellij/codestyles/AndroidStyle.xml.
-     */
-    private static final Comparator<Import> AOSP_IMPORT_COMPARATOR = Comparator.comparing(Import::isStatic, trueFirst())
-            .thenComparing(Import::isAndroid, trueFirst())
-            .thenComparing(Import::isThirdParty, trueFirst())
+        return ImmutableInputMetadata.builder()
+                .blankLines(ImmutableMap.copyOf(blankLines))
+                .partialFormatRanges(ImmutableRangeSet.copyOf(partialFormatRanges))
+                .build();
+    }
 ```
 
 ### UnstableApiUsage
-'trueFirst()' is marked unstable with @Beta
-in `palantir-java-format/src/main/java/com/palantir/javaformat/java/ImportOrderer.java`
+'copyOf(com.google.common.collect.RangeSet)' is declared in unstable class 'com.google.common.collect.ImmutableRangeSet' marked with @Beta
+in `palantir-java-format/src/main/java/com/palantir/javaformat/java/InputMetadataBuilder.java`
 #### Snippet
 ```java
-     */
-    private static final Comparator<Import> AOSP_IMPORT_COMPARATOR = Comparator.comparing(Import::isStatic, trueFirst())
-            .thenComparing(Import::isAndroid, trueFirst())
-            .thenComparing(Import::isThirdParty, trueFirst())
-            .thenComparing(Import::isJava, trueFirst())
+        return ImmutableInputMetadata.builder()
+                .blankLines(ImmutableMap.copyOf(blankLines))
+                .partialFormatRanges(ImmutableRangeSet.copyOf(partialFormatRanges))
+                .build();
+    }
 ```
 
 ### UnstableApiUsage
-'trueFirst()' is marked unstable with @Beta
-in `palantir-java-format/src/main/java/com/palantir/javaformat/java/ImportOrderer.java`
+'com.google.common.collect.RangeSet' is marked unstable with @Beta
+in `palantir-java-format/src/main/java/com/palantir/javaformat/java/InputMetadataBuilder.java`
 #### Snippet
 ```java
-    private static final Comparator<Import> AOSP_IMPORT_COMPARATOR = Comparator.comparing(Import::isStatic, trueFirst())
-            .thenComparing(Import::isAndroid, trueFirst())
-            .thenComparing(Import::isThirdParty, trueFirst())
-            .thenComparing(Import::isJava, trueFirst())
-            .thenComparing(Import::imported);
-```
-
-### UnstableApiUsage
-'trueFirst()' is marked unstable with @Beta
-in `palantir-java-format/src/main/java/com/palantir/javaformat/java/ImportOrderer.java`
-#### Snippet
-```java
-            .thenComparing(Import::isAndroid, trueFirst())
-            .thenComparing(Import::isThirdParty, trueFirst())
-            .thenComparing(Import::isJava, trueFirst())
-            .thenComparing(Import::imported);
-
-```
-
-### UnstableApiUsage
-'trueFirst()' is marked unstable with @Beta
-in `palantir-java-format/src/main/java/com/palantir/javaformat/java/ImportOrderer.java`
-#### Snippet
-```java
-     */
-    private static final Comparator<Import> GOOGLE_IMPORT_COMPARATOR =
-            Comparator.comparing(Import::isStatic, trueFirst()).thenComparing(Import::imported);
+public final class InputMetadataBuilder {
+    private final Map<Integer, BlankLineWanted> blankLines = new HashMap<>(); // Info on blank lines.
+    private final RangeSet<Integer> partialFormatRanges = TreeRangeSet.create();
 
     /**
+```
+
+### UnstableApiUsage
+'com.google.common.collect.TreeRangeSet' is marked unstable with @Beta
+in `palantir-java-format/src/main/java/com/palantir/javaformat/java/InputMetadataBuilder.java`
+#### Snippet
+```java
+public final class InputMetadataBuilder {
+    private final Map<Integer, BlankLineWanted> blankLines = new HashMap<>(); // Info on blank lines.
+    private final RangeSet<Integer> partialFormatRanges = TreeRangeSet.create();
+
+    /**
+```
+
+### UnstableApiUsage
+'create()' is declared in unstable class 'com.google.common.collect.TreeRangeSet' marked with @Beta
+in `palantir-java-format/src/main/java/com/palantir/javaformat/java/InputMetadataBuilder.java`
+#### Snippet
+```java
+public final class InputMetadataBuilder {
+    private final Map<Integer, BlankLineWanted> blankLines = new HashMap<>(); // Info on blank lines.
+    private final RangeSet<Integer> partialFormatRanges = TreeRangeSet.create();
+
+    /**
+```
+
+### UnstableApiUsage
+'add(com.google.common.collect.Range)' is declared in unstable interface 'com.google.common.collect.RangeSet' marked with @Beta
+in `palantir-java-format/src/main/java/com/palantir/javaformat/java/InputMetadataBuilder.java`
+#### Snippet
+```java
+        int lo = JavaOutput.startTok(start).getIndex();
+        int hi = JavaOutput.endTok(end).getIndex();
+        partialFormatRanges.add(Range.closed(lo, hi));
+    }
+
+```
+
+### UnstableApiUsage
+'com.google.common.collect.RangeSet' is marked unstable with @Beta
+in `gradle-palantir-java-format/src/main/java/com/palantir/javaformat/gradle/FormatDiff.java`
+#### Snippet
+```java
+        }
+
+        RangeSet<Integer> charRanges = lineRangesToCharRanges(input, diff.lineRanges);
+
+        try {
+```
+
+### UnstableApiUsage
+'asRanges()' is declared in unstable interface 'com.google.common.collect.RangeSet' marked with @Beta
+in `gradle-palantir-java-format/src/main/java/com/palantir/javaformat/gradle/FormatDiff.java`
+#### Snippet
+```java
+        try {
+            System.err.println("Formatting " + diff.path);
+            ImmutableList<Replacement> replacements = formatter.getFormatReplacements(input, charRanges.asRanges());
+            String output = applyReplacements(input, replacements);
+            Files.write(diff.path, output.getBytes(UTF_8));
+```
+
+### UnstableApiUsage
+'com.google.common.collect.RangeSet' is marked unstable with @Beta
+in `gradle-palantir-java-format/src/main/java/com/palantir/javaformat/gradle/FormatDiff.java`
+#### Snippet
+```java
+                    Path path = Paths.get(filenameMatcher.group("filename"));
+
+                    RangeSet<Integer> lineRanges = TreeRangeSet.create();
+                    Matcher hunk = HUNK.matcher(singleFileDiff);
+                    while (hunk.find()) {
+```
+
+### UnstableApiUsage
+'com.google.common.collect.TreeRangeSet' is marked unstable with @Beta
+in `gradle-palantir-java-format/src/main/java/com/palantir/javaformat/gradle/FormatDiff.java`
+#### Snippet
+```java
+                    Path path = Paths.get(filenameMatcher.group("filename"));
+
+                    RangeSet<Integer> lineRanges = TreeRangeSet.create();
+                    Matcher hunk = HUNK.matcher(singleFileDiff);
+                    while (hunk.find()) {
+```
+
+### UnstableApiUsage
+'create()' is declared in unstable class 'com.google.common.collect.TreeRangeSet' marked with @Beta
+in `gradle-palantir-java-format/src/main/java/com/palantir/javaformat/gradle/FormatDiff.java`
+#### Snippet
+```java
+                    Path path = Paths.get(filenameMatcher.group("filename"));
+
+                    RangeSet<Integer> lineRanges = TreeRangeSet.create();
+                    Matcher hunk = HUNK.matcher(singleFileDiff);
+                    while (hunk.find()) {
+```
+
+### UnstableApiUsage
+'add(com.google.common.collect.Range)' is declared in unstable interface 'com.google.common.collect.RangeSet' marked with @Beta
+in `gradle-palantir-java-format/src/main/java/com/palantir/javaformat/gradle/FormatDiff.java`
+#### Snippet
+```java
+                        Range<Integer> rangeZeroIndexed =
+                                Range.closedOpen(firstLineOfHunk, firstLineOfHunk + hunkLength);
+                        lineRanges.add(rangeZeroIndexed);
+                    }
+
+```
+
+### UnstableApiUsage
+'com.google.common.collect.RangeSet' is marked unstable with @Beta
+in `gradle-palantir-java-format/src/main/java/com/palantir/javaformat/gradle/FormatDiff.java`
+#### Snippet
+```java
+        private final RangeSet<Integer> lineRanges; // zero-indexed
+
+        public SingleFileDiff(Path path, RangeSet<Integer> lineRanges) {
+            this.path = path;
+            this.lineRanges = lineRanges;
+```
+
+### UnstableApiUsage
+'com.google.common.collect.RangeSet' is marked unstable with @Beta
+in `gradle-palantir-java-format/src/main/java/com/palantir/javaformat/gradle/FormatDiff.java`
+#### Snippet
+```java
+
+    /** Converts zero-indexed, [closed, open) line ranges in the given source file to character ranges. */
+    private static RangeSet<Integer> lineRangesToCharRanges(String input, RangeSet<Integer> lineRanges) {
+        List<Integer> lines = new ArrayList<>();
+        Iterators.addAll(lines, new LineOffsetIterator(input));
+```
+
+### UnstableApiUsage
+'com.google.common.collect.RangeSet' is marked unstable with @Beta
+in `gradle-palantir-java-format/src/main/java/com/palantir/javaformat/gradle/FormatDiff.java`
+#### Snippet
+```java
+
+    /** Converts zero-indexed, [closed, open) line ranges in the given source file to character ranges. */
+    private static RangeSet<Integer> lineRangesToCharRanges(String input, RangeSet<Integer> lineRanges) {
+        List<Integer> lines = new ArrayList<>();
+        Iterators.addAll(lines, new LineOffsetIterator(input));
+```
+
+### UnstableApiUsage
+'com.google.common.collect.RangeSet' is marked unstable with @Beta
+in `gradle-palantir-java-format/src/main/java/com/palantir/javaformat/gradle/FormatDiff.java`
+#### Snippet
+```java
+        lines.add(input.length() + 1);
+
+        final RangeSet<Integer> characterRanges = TreeRangeSet.create();
+        for (Range<Integer> lineRange :
+                lineRanges.subRangeSet(Range.closedOpen(0, lines.size() - 1)).asRanges()) {
+```
+
+### UnstableApiUsage
+'com.google.common.collect.TreeRangeSet' is marked unstable with @Beta
+in `gradle-palantir-java-format/src/main/java/com/palantir/javaformat/gradle/FormatDiff.java`
+#### Snippet
+```java
+        lines.add(input.length() + 1);
+
+        final RangeSet<Integer> characterRanges = TreeRangeSet.create();
+        for (Range<Integer> lineRange :
+                lineRanges.subRangeSet(Range.closedOpen(0, lines.size() - 1)).asRanges()) {
+```
+
+### UnstableApiUsage
+'create()' is declared in unstable class 'com.google.common.collect.TreeRangeSet' marked with @Beta
+in `gradle-palantir-java-format/src/main/java/com/palantir/javaformat/gradle/FormatDiff.java`
+#### Snippet
+```java
+        lines.add(input.length() + 1);
+
+        final RangeSet<Integer> characterRanges = TreeRangeSet.create();
+        for (Range<Integer> lineRange :
+                lineRanges.subRangeSet(Range.closedOpen(0, lines.size() - 1)).asRanges()) {
+```
+
+### UnstableApiUsage
+'subRangeSet(com.google.common.collect.Range)' is declared in unstable interface 'com.google.common.collect.RangeSet' marked with @Beta
+in `gradle-palantir-java-format/src/main/java/com/palantir/javaformat/gradle/FormatDiff.java`
+#### Snippet
+```java
+        final RangeSet<Integer> characterRanges = TreeRangeSet.create();
+        for (Range<Integer> lineRange :
+                lineRanges.subRangeSet(Range.closedOpen(0, lines.size() - 1)).asRanges()) {
+            int lineStart = lines.get(lineRange.lowerEndpoint());
+            // Exclude the trailing newline. This isn't strictly necessary, but handling blank lines
+```
+
+### UnstableApiUsage
+'asRanges()' is declared in unstable interface 'com.google.common.collect.RangeSet' marked with @Beta
+in `gradle-palantir-java-format/src/main/java/com/palantir/javaformat/gradle/FormatDiff.java`
+#### Snippet
+```java
+        final RangeSet<Integer> characterRanges = TreeRangeSet.create();
+        for (Range<Integer> lineRange :
+                lineRanges.subRangeSet(Range.closedOpen(0, lines.size() - 1)).asRanges()) {
+            int lineStart = lines.get(lineRange.lowerEndpoint());
+            // Exclude the trailing newline. This isn't strictly necessary, but handling blank lines
+```
+
+### UnstableApiUsage
+'add(com.google.common.collect.Range)' is declared in unstable interface 'com.google.common.collect.RangeSet' marked with @Beta
+in `gradle-palantir-java-format/src/main/java/com/palantir/javaformat/gradle/FormatDiff.java`
+#### Snippet
+```java
+            int lineEnd = lines.get(lineRange.upperEndpoint()) - 1;
+            Range<Integer> range = Range.closedOpen(lineStart, lineEnd);
+            characterRanges.add(range);
+        }
+        return characterRanges;
+```
+
+### UnstableApiUsage
+'com.google.common.collect.RangeSet' is marked unstable with @Beta
+in `gradle-palantir-java-format/src/main/java/com/palantir/javaformat/gradle/FormatDiff.java`
+#### Snippet
+```java
+    public static class SingleFileDiff {
+        private final Path path;
+        private final RangeSet<Integer> lineRanges; // zero-indexed
+
+        public SingleFileDiff(Path path, RangeSet<Integer> lineRanges) {
+```
+
+### UnstableApiUsage
+'com.google.common.collect.RangeSet' is marked unstable with @Beta
+in `palantir-java-format/src/main/java/com/palantir/javaformat/java/Formatter.java`
+#### Snippet
+```java
+            throw new FormatterException(e.diagnostics());
+        }
+        RangeSet<Integer> tokenRangeSet = javaInput.characterRangesToTokenRanges(characterRanges);
+        return javaOutput.getFormatReplacements(tokenRangeSet);
+    }
 ```
 
 ### UnstableApiUsage
@@ -4324,63 +4264,483 @@ in `palantir-java-format/src/main/java/com/palantir/javaformat/java/FormatFileCa
 ```
 
 ### UnstableApiUsage
-'com.google.common.collect.RangeMap' is marked unstable with @Beta
-in `palantir-java-format/src/main/java/com/palantir/javaformat/java/RemoveUnusedImports.java`
+'com.google.common.collect.TreeRangeMap' is marked unstable with @Beta
+in `palantir-java-format/src/main/java/com/palantir/javaformat/java/StringWrapper.java`
 #### Snippet
 ```java
+    }
 
-    /** Construct replacements to fix unused imports. */
-    private static RangeMap<Integer, String> buildReplacements(
-            String contents,
-            JCCompilationUnit unit,
-```
-
-### UnstableApiUsage
-'com.google.common.collect.RangeMap' is marked unstable with @Beta
-in `palantir-java-format/src/main/java/com/palantir/javaformat/java/RemoveUnusedImports.java`
-#### Snippet
-```java
-            Set<String> usedNames,
-            Multimap<String, Range<Integer>> usedInJavadoc) {
-        RangeMap<Integer, String> replacements = TreeRangeMap.create();
-        for (JCImport importTree : unit.getImports()) {
-            String simpleName = getSimpleName(importTree);
+    private static TreeRangeMap<Integer, String> getReflowReplacements(int columnLimit, final String input)
+            throws FormatterException {
+        JCTree.JCCompilationUnit unit = parse(input, /* allowStringFolding= */ false);
 ```
 
 ### UnstableApiUsage
 'com.google.common.collect.TreeRangeMap' is marked unstable with @Beta
-in `palantir-java-format/src/main/java/com/palantir/javaformat/java/RemoveUnusedImports.java`
+in `palantir-java-format/src/main/java/com/palantir/javaformat/java/StringWrapper.java`
 #### Snippet
 ```java
-            Set<String> usedNames,
-            Multimap<String, Range<Integer>> usedInJavadoc) {
-        RangeMap<Integer, String> replacements = TreeRangeMap.create();
-        for (JCImport importTree : unit.getImports()) {
-            String simpleName = getSimpleName(importTree);
+        }.scan(new TreePath(unit), null);
+
+        TreeRangeMap<Integer, String> replacements = TreeRangeMap.create();
+        for (TreePath path : toFix) {
+            // Find the outermost contiguous enclosing concatenation expression
+```
+
+### UnstableApiUsage
+'com.google.common.collect.TreeRangeMap' is marked unstable with @Beta
+in `palantir-java-format/src/main/java/com/palantir/javaformat/java/StringWrapper.java`
+#### Snippet
+```java
+        }.scan(new TreePath(unit), null);
+
+        TreeRangeMap<Integer, String> replacements = TreeRangeMap.create();
+        for (TreePath path : toFix) {
+            // Find the outermost contiguous enclosing concatenation expression
 ```
 
 ### UnstableApiUsage
 'create()' is declared in unstable class 'com.google.common.collect.TreeRangeMap' marked with @Beta
-in `palantir-java-format/src/main/java/com/palantir/javaformat/java/RemoveUnusedImports.java`
+in `palantir-java-format/src/main/java/com/palantir/javaformat/java/StringWrapper.java`
 #### Snippet
 ```java
-            Set<String> usedNames,
-            Multimap<String, Range<Integer>> usedInJavadoc) {
-        RangeMap<Integer, String> replacements = TreeRangeMap.create();
-        for (JCImport importTree : unit.getImports()) {
-            String simpleName = getSimpleName(importTree);
+        }.scan(new TreePath(unit), null);
+
+        TreeRangeMap<Integer, String> replacements = TreeRangeMap.create();
+        for (TreePath path : toFix) {
+            // Find the outermost contiguous enclosing concatenation expression
 ```
 
 ### UnstableApiUsage
-'put(com.google.common.collect.Range, V)' is declared in unstable interface 'com.google.common.collect.RangeMap' marked with @Beta
-in `palantir-java-format/src/main/java/com/palantir/javaformat/java/RemoveUnusedImports.java`
+'put(com.google.common.collect.Range, V)' is declared in unstable class 'com.google.common.collect.TreeRangeMap' marked with @Beta
+in `palantir-java-format/src/main/java/com/palantir/javaformat/java/StringWrapper.java`
 #### Snippet
 ```java
-                endPosition += sep.length();
-            }
-            replacements.put(Range.closedOpen(importTree.getStartPosition(), endPosition), "");
+            // Get the original source text of the string literals, excluding `"` and `+`.
+            ImmutableList<String> components = stringComponents(input, unit, flat);
+            replacements.put(
+                    Range.closedOpen(getStartPosition(flat.get(0)), getEndPosition(unit, getLast(flat))),
+                    reflow(separator, columnLimit, trailing, components, first.get(), startColumn, fistLineCol));
+```
+
+### UnstableApiUsage
+'com.google.common.collect.TreeRangeMap' is marked unstable with @Beta
+in `palantir-java-format/src/main/java/com/palantir/javaformat/java/StringWrapper.java`
+#### Snippet
+```java
         }
-        return replacements;
+
+        TreeRangeMap<Integer, String> replacements = getReflowReplacements(columnLimit, input);
+        String firstPass =
+                formatter.formatSource(input, replacements.asMapOfRanges().keySet());
+```
+
+### UnstableApiUsage
+'asMapOfRanges()' is declared in unstable class 'com.google.common.collect.TreeRangeMap' marked with @Beta
+in `palantir-java-format/src/main/java/com/palantir/javaformat/java/StringWrapper.java`
+#### Snippet
+```java
+        TreeRangeMap<Integer, String> replacements = getReflowReplacements(columnLimit, input);
+        String firstPass =
+                formatter.formatSource(input, replacements.asMapOfRanges().keySet());
+
+        if (!firstPass.equals(input)) {
+```
+
+### UnstableApiUsage
+'com.google.common.collect.TreeRangeMap' is marked unstable with @Beta
+in `palantir-java-format/src/main/java/com/palantir/javaformat/java/StringWrapper.java`
+#### Snippet
+```java
+
+    /** Applies replacements to the given string. */
+    private static String applyReplacements(String javaInput, TreeRangeMap<Integer, String> replacementMap) {
+        // process in descending order so the replacement ranges aren't perturbed if any replacements
+        // differ in size from the input
+```
+
+### UnstableApiUsage
+'asDescendingMapOfRanges()' is declared in unstable class 'com.google.common.collect.TreeRangeMap' marked with @Beta
+in `palantir-java-format/src/main/java/com/palantir/javaformat/java/StringWrapper.java`
+#### Snippet
+```java
+        // process in descending order so the replacement ranges aren't perturbed if any replacements
+        // differ in size from the input
+        Map<Range<Integer>, String> ranges = replacementMap.asDescendingMapOfRanges();
+        if (ranges.isEmpty()) {
+            return javaInput;
+```
+
+### UnstableApiUsage
+'com.google.common.collect.TreeRangeMap' is marked unstable with @Beta
+in `palantir-java-format/src/main/java/com/palantir/javaformat/java/StringWrapper.java`
+#### Snippet
+```java
+    @SuppressWarnings("ResultOfMethodCallIgnored")
+    private static ImmutableSet<Range<Integer>> rangesAfterAppliedReplacements(
+            TreeRangeMap<Integer, String> replacements) {
+        ImmutableSet.Builder<Range<Integer>> outputRanges = ImmutableSet.builder();
+        int offset = 0;
+```
+
+### UnstableApiUsage
+'asMapOfRanges()' is declared in unstable class 'com.google.common.collect.TreeRangeMap' marked with @Beta
+in `palantir-java-format/src/main/java/com/palantir/javaformat/java/StringWrapper.java`
+#### Snippet
+```java
+        int offset = 0;
+        for (Map.Entry<Range<Integer>, String> entry :
+                replacements.asMapOfRanges().entrySet()) {
+            Range<Integer> range = entry.getKey();
+            String replacement = entry.getValue();
+```
+
+### UnstableApiUsage
+'trueFirst()' is marked unstable with @Beta
+in `palantir-java-format/src/main/java/com/palantir/javaformat/java/ImportOrderer.java`
+#### Snippet
+```java
+     * https://android.googlesource.com/platform/development/+/master/ide/intellij/codestyles/AndroidStyle.xml.
+     */
+    private static final Comparator<Import> AOSP_IMPORT_COMPARATOR = Comparator.comparing(Import::isStatic, trueFirst())
+            .thenComparing(Import::isAndroid, trueFirst())
+            .thenComparing(Import::isThirdParty, trueFirst())
+```
+
+### UnstableApiUsage
+'trueFirst()' is marked unstable with @Beta
+in `palantir-java-format/src/main/java/com/palantir/javaformat/java/ImportOrderer.java`
+#### Snippet
+```java
+     */
+    private static final Comparator<Import> AOSP_IMPORT_COMPARATOR = Comparator.comparing(Import::isStatic, trueFirst())
+            .thenComparing(Import::isAndroid, trueFirst())
+            .thenComparing(Import::isThirdParty, trueFirst())
+            .thenComparing(Import::isJava, trueFirst())
+```
+
+### UnstableApiUsage
+'trueFirst()' is marked unstable with @Beta
+in `palantir-java-format/src/main/java/com/palantir/javaformat/java/ImportOrderer.java`
+#### Snippet
+```java
+    private static final Comparator<Import> AOSP_IMPORT_COMPARATOR = Comparator.comparing(Import::isStatic, trueFirst())
+            .thenComparing(Import::isAndroid, trueFirst())
+            .thenComparing(Import::isThirdParty, trueFirst())
+            .thenComparing(Import::isJava, trueFirst())
+            .thenComparing(Import::imported);
+```
+
+### UnstableApiUsage
+'trueFirst()' is marked unstable with @Beta
+in `palantir-java-format/src/main/java/com/palantir/javaformat/java/ImportOrderer.java`
+#### Snippet
+```java
+            .thenComparing(Import::isAndroid, trueFirst())
+            .thenComparing(Import::isThirdParty, trueFirst())
+            .thenComparing(Import::isJava, trueFirst())
+            .thenComparing(Import::imported);
+
+```
+
+### UnstableApiUsage
+'trueFirst()' is marked unstable with @Beta
+in `palantir-java-format/src/main/java/com/palantir/javaformat/java/ImportOrderer.java`
+#### Snippet
+```java
+     */
+    private static final Comparator<Import> GOOGLE_IMPORT_COMPARATOR =
+            Comparator.comparing(Import::isStatic, trueFirst()).thenComparing(Import::imported);
+
+    /**
+```
+
+### UnstableApiUsage
+'get(K)' is declared in unstable class 'com.google.common.collect.ImmutableRangeMap' marked with @Beta
+in `palantir-java-format/src/main/java/com/palantir/javaformat/OpsBuilder.java`
+#### Snippet
+```java
+    /** @return the start column of the token at {@code position}, including leading comments. */
+    public Integer actualStartColumn(int position) {
+        Input.Token startToken = input.getPositionTokenMap().get(position);
+        int start = startToken.getTok().getPosition();
+        int line0 = input.getLineNumber(start);
+```
+
+### UnstableApiUsage
+'get(K)' is declared in unstable class 'com.google.common.collect.ImmutableRangeMap' marked with @Beta
+in `palantir-java-format/src/main/java/com/palantir/javaformat/OpsBuilder.java`
+#### Snippet
+```java
+    /** @return the actual size of the AST node at position, including comments. */
+    public int actualSize(int position, int length) {
+        Input.Token startToken = input.getPositionTokenMap().get(position);
+        int start = startToken.getTok().getPosition();
+        for (Input.Tok tok : startToken.getToksBefore()) {
+```
+
+### UnstableApiUsage
+'get(K)' is declared in unstable class 'com.google.common.collect.ImmutableRangeMap' marked with @Beta
+in `palantir-java-format/src/main/java/com/palantir/javaformat/OpsBuilder.java`
+#### Snippet
+```java
+            }
+        }
+        Input.Token endToken = input.getPositionTokenMap().get(position + length - 1);
+        int end = endToken.getTok().getPosition() + endToken.getTok().length();
+        for (Input.Tok tok : endToken.getToksAfter()) {
+```
+
+### UnstableApiUsage
+'isEmpty()' is declared in unstable class 'com.google.common.collect.ImmutableRangeSet' marked with @Beta
+in `palantir-java-format/src/main/java/com/palantir/javaformat/java/CommandLineOptions.java`
+#### Snippet
+```java
+    /** Returns true if partial formatting was selected. */
+    boolean isSelection() {
+        return !lines().isEmpty() || !offsets().isEmpty() || !lengths().isEmpty();
+    }
+
+```
+
+### UnstableApiUsage
+'com.google.common.collect.ImmutableRangeSet' is marked unstable with @Beta
+in `palantir-java-format/src/main/java/com/palantir/javaformat/java/CommandLineOptions.java`
+#### Snippet
+```java
+
+    /** Character ranges to format. */
+    ImmutableRangeSet<Integer> characterRanges() {
+        return characterRanges;
+    }
+```
+
+### UnstableApiUsage
+'com.google.common.collect.ImmutableRangeSet' is marked unstable with @Beta
+in `palantir-java-format/src/main/java/com/palantir/javaformat/java/CommandLineOptions.java`
+#### Snippet
+```java
+    private final ImmutableList<String> files;
+    private final boolean inPlace;
+    private final ImmutableRangeSet<Integer> lines;
+    private final ImmutableRangeSet<Integer> characterRanges;
+    private final ImmutableList<Integer> offsets;
+```
+
+### UnstableApiUsage
+'com.google.common.collect.ImmutableRangeSet' is marked unstable with @Beta
+in `palantir-java-format/src/main/java/com/palantir/javaformat/java/CommandLineOptions.java`
+#### Snippet
+```java
+    private final boolean inPlace;
+    private final ImmutableRangeSet<Integer> lines;
+    private final ImmutableRangeSet<Integer> characterRanges;
+    private final ImmutableList<Integer> offsets;
+    private final ImmutableList<Integer> lengths;
+```
+
+### UnstableApiUsage
+'com.google.common.collect.ImmutableRangeSet' is marked unstable with @Beta
+in `palantir-java-format/src/main/java/com/palantir/javaformat/java/CommandLineOptions.java`
+#### Snippet
+```java
+        }
+
+        ImmutableRangeSet.Builder<Integer> characterRangesBuilder() {
+            return characterRanges;
+        }
+```
+
+### UnstableApiUsage
+'com.google.common.collect.ImmutableRangeSet.Builder' is declared in unstable class 'com.google.common.collect.ImmutableRangeSet' marked with @Beta
+in `palantir-java-format/src/main/java/com/palantir/javaformat/java/CommandLineOptions.java`
+#### Snippet
+```java
+        }
+
+        ImmutableRangeSet.Builder<Integer> characterRangesBuilder() {
+            return characterRanges;
+        }
+```
+
+### UnstableApiUsage
+'com.google.common.collect.ImmutableRangeSet' is marked unstable with @Beta
+in `palantir-java-format/src/main/java/com/palantir/javaformat/java/CommandLineOptions.java`
+#### Snippet
+```java
+        }
+
+        ImmutableRangeSet.Builder<Integer> linesBuilder() {
+            return lines;
+        }
+```
+
+### UnstableApiUsage
+'com.google.common.collect.ImmutableRangeSet.Builder' is declared in unstable class 'com.google.common.collect.ImmutableRangeSet' marked with @Beta
+in `palantir-java-format/src/main/java/com/palantir/javaformat/java/CommandLineOptions.java`
+#### Snippet
+```java
+        }
+
+        ImmutableRangeSet.Builder<Integer> linesBuilder() {
+            return lines;
+        }
+```
+
+### UnstableApiUsage
+'com.google.common.collect.ImmutableRangeSet' is marked unstable with @Beta
+in `palantir-java-format/src/main/java/com/palantir/javaformat/java/CommandLineOptions.java`
+#### Snippet
+```java
+
+        private final ImmutableList.Builder<String> files = ImmutableList.builder();
+        private final ImmutableRangeSet.Builder<Integer> lines = ImmutableRangeSet.builder();
+        private final ImmutableRangeSet.Builder<Integer> characterRanges = ImmutableRangeSet.builder();
+        private final ImmutableList.Builder<Integer> offsets = ImmutableList.builder();
+```
+
+### UnstableApiUsage
+'com.google.common.collect.ImmutableRangeSet.Builder' is declared in unstable class 'com.google.common.collect.ImmutableRangeSet' marked with @Beta
+in `palantir-java-format/src/main/java/com/palantir/javaformat/java/CommandLineOptions.java`
+#### Snippet
+```java
+
+        private final ImmutableList.Builder<String> files = ImmutableList.builder();
+        private final ImmutableRangeSet.Builder<Integer> lines = ImmutableRangeSet.builder();
+        private final ImmutableRangeSet.Builder<Integer> characterRanges = ImmutableRangeSet.builder();
+        private final ImmutableList.Builder<Integer> offsets = ImmutableList.builder();
+```
+
+### UnstableApiUsage
+'com.google.common.collect.ImmutableRangeSet' is marked unstable with @Beta
+in `palantir-java-format/src/main/java/com/palantir/javaformat/java/CommandLineOptions.java`
+#### Snippet
+```java
+
+        private final ImmutableList.Builder<String> files = ImmutableList.builder();
+        private final ImmutableRangeSet.Builder<Integer> lines = ImmutableRangeSet.builder();
+        private final ImmutableRangeSet.Builder<Integer> characterRanges = ImmutableRangeSet.builder();
+        private final ImmutableList.Builder<Integer> offsets = ImmutableList.builder();
+```
+
+### UnstableApiUsage
+'builder()' is declared in unstable class 'com.google.common.collect.ImmutableRangeSet' marked with @Beta
+in `palantir-java-format/src/main/java/com/palantir/javaformat/java/CommandLineOptions.java`
+#### Snippet
+```java
+
+        private final ImmutableList.Builder<String> files = ImmutableList.builder();
+        private final ImmutableRangeSet.Builder<Integer> lines = ImmutableRangeSet.builder();
+        private final ImmutableRangeSet.Builder<Integer> characterRanges = ImmutableRangeSet.builder();
+        private final ImmutableList.Builder<Integer> offsets = ImmutableList.builder();
+```
+
+### UnstableApiUsage
+'com.google.common.collect.ImmutableRangeSet' is marked unstable with @Beta
+in `palantir-java-format/src/main/java/com/palantir/javaformat/java/CommandLineOptions.java`
+#### Snippet
+```java
+            ImmutableList<String> files,
+            boolean inPlace,
+            ImmutableRangeSet<Integer> lines,
+            ImmutableRangeSet<Integer> characterRanges,
+            ImmutableList<Integer> offsets,
+```
+
+### UnstableApiUsage
+'com.google.common.collect.ImmutableRangeSet' is marked unstable with @Beta
+in `palantir-java-format/src/main/java/com/palantir/javaformat/java/CommandLineOptions.java`
+#### Snippet
+```java
+            boolean inPlace,
+            ImmutableRangeSet<Integer> lines,
+            ImmutableRangeSet<Integer> characterRanges,
+            ImmutableList<Integer> offsets,
+            ImmutableList<Integer> lengths,
+```
+
+### UnstableApiUsage
+'build()' is declared in unstable class 'com.google.common.collect.ImmutableRangeSet' marked with @Beta
+in `palantir-java-format/src/main/java/com/palantir/javaformat/java/CommandLineOptions.java`
+#### Snippet
+```java
+                    files.build(),
+                    inPlace,
+                    lines.build(),
+                    characterRanges.build(),
+                    offsets.build(),
+```
+
+### UnstableApiUsage
+'build()' is declared in unstable class 'com.google.common.collect.ImmutableRangeSet' marked with @Beta
+in `palantir-java-format/src/main/java/com/palantir/javaformat/java/CommandLineOptions.java`
+#### Snippet
+```java
+                    inPlace,
+                    lines.build(),
+                    characterRanges.build(),
+                    offsets.build(),
+                    lengths.build(),
+```
+
+### UnstableApiUsage
+'com.google.common.collect.ImmutableRangeSet' is marked unstable with @Beta
+in `palantir-java-format/src/main/java/com/palantir/javaformat/java/CommandLineOptions.java`
+#### Snippet
+```java
+        private final ImmutableList.Builder<String> files = ImmutableList.builder();
+        private final ImmutableRangeSet.Builder<Integer> lines = ImmutableRangeSet.builder();
+        private final ImmutableRangeSet.Builder<Integer> characterRanges = ImmutableRangeSet.builder();
+        private final ImmutableList.Builder<Integer> offsets = ImmutableList.builder();
+        private final ImmutableList.Builder<Integer> lengths = ImmutableList.builder();
+```
+
+### UnstableApiUsage
+'com.google.common.collect.ImmutableRangeSet.Builder' is declared in unstable class 'com.google.common.collect.ImmutableRangeSet' marked with @Beta
+in `palantir-java-format/src/main/java/com/palantir/javaformat/java/CommandLineOptions.java`
+#### Snippet
+```java
+        private final ImmutableList.Builder<String> files = ImmutableList.builder();
+        private final ImmutableRangeSet.Builder<Integer> lines = ImmutableRangeSet.builder();
+        private final ImmutableRangeSet.Builder<Integer> characterRanges = ImmutableRangeSet.builder();
+        private final ImmutableList.Builder<Integer> offsets = ImmutableList.builder();
+        private final ImmutableList.Builder<Integer> lengths = ImmutableList.builder();
+```
+
+### UnstableApiUsage
+'com.google.common.collect.ImmutableRangeSet' is marked unstable with @Beta
+in `palantir-java-format/src/main/java/com/palantir/javaformat/java/CommandLineOptions.java`
+#### Snippet
+```java
+        private final ImmutableList.Builder<String> files = ImmutableList.builder();
+        private final ImmutableRangeSet.Builder<Integer> lines = ImmutableRangeSet.builder();
+        private final ImmutableRangeSet.Builder<Integer> characterRanges = ImmutableRangeSet.builder();
+        private final ImmutableList.Builder<Integer> offsets = ImmutableList.builder();
+        private final ImmutableList.Builder<Integer> lengths = ImmutableList.builder();
+```
+
+### UnstableApiUsage
+'builder()' is declared in unstable class 'com.google.common.collect.ImmutableRangeSet' marked with @Beta
+in `palantir-java-format/src/main/java/com/palantir/javaformat/java/CommandLineOptions.java`
+#### Snippet
+```java
+        private final ImmutableList.Builder<String> files = ImmutableList.builder();
+        private final ImmutableRangeSet.Builder<Integer> lines = ImmutableRangeSet.builder();
+        private final ImmutableRangeSet.Builder<Integer> characterRanges = ImmutableRangeSet.builder();
+        private final ImmutableList.Builder<Integer> offsets = ImmutableList.builder();
+        private final ImmutableList.Builder<Integer> lengths = ImmutableList.builder();
+```
+
+### UnstableApiUsage
+'com.google.common.collect.ImmutableRangeSet' is marked unstable with @Beta
+in `palantir-java-format/src/main/java/com/palantir/javaformat/java/CommandLineOptions.java`
+#### Snippet
+```java
+
+    /** Line ranges to format. */
+    ImmutableRangeSet<Integer> lines() {
+        return lines;
+    }
 ```
 
 ### UnstableApiUsage
@@ -4456,171 +4816,63 @@ in `palantir-java-format/src/main/java/com/palantir/javaformat/java/RemoveUnused
 ```
 
 ### UnstableApiUsage
-'com.google.common.collect.TreeRangeMap' is marked unstable with @Beta
-in `palantir-java-format/src/main/java/com/palantir/javaformat/java/StringWrapper.java`
+'com.google.common.collect.RangeMap' is marked unstable with @Beta
+in `palantir-java-format/src/main/java/com/palantir/javaformat/java/RemoveUnusedImports.java`
 #### Snippet
 ```java
-    @SuppressWarnings("ResultOfMethodCallIgnored")
-    private static ImmutableSet<Range<Integer>> rangesAfterAppliedReplacements(
-            TreeRangeMap<Integer, String> replacements) {
-        ImmutableSet.Builder<Range<Integer>> outputRanges = ImmutableSet.builder();
-        int offset = 0;
+
+    /** Construct replacements to fix unused imports. */
+    private static RangeMap<Integer, String> buildReplacements(
+            String contents,
+            JCCompilationUnit unit,
 ```
 
 ### UnstableApiUsage
-'asMapOfRanges()' is declared in unstable class 'com.google.common.collect.TreeRangeMap' marked with @Beta
-in `palantir-java-format/src/main/java/com/palantir/javaformat/java/StringWrapper.java`
+'com.google.common.collect.RangeMap' is marked unstable with @Beta
+in `palantir-java-format/src/main/java/com/palantir/javaformat/java/RemoveUnusedImports.java`
 #### Snippet
 ```java
-        int offset = 0;
-        for (Map.Entry<Range<Integer>, String> entry :
-                replacements.asMapOfRanges().entrySet()) {
-            Range<Integer> range = entry.getKey();
-            String replacement = entry.getValue();
-```
-
-### UnstableApiUsage
-'com.google.common.collect.TreeRangeMap' is marked unstable with @Beta
-in `palantir-java-format/src/main/java/com/palantir/javaformat/java/StringWrapper.java`
-#### Snippet
-```java
-        }
-
-        TreeRangeMap<Integer, String> replacements = getReflowReplacements(columnLimit, input);
-        String firstPass =
-                formatter.formatSource(input, replacements.asMapOfRanges().keySet());
-```
-
-### UnstableApiUsage
-'asMapOfRanges()' is declared in unstable class 'com.google.common.collect.TreeRangeMap' marked with @Beta
-in `palantir-java-format/src/main/java/com/palantir/javaformat/java/StringWrapper.java`
-#### Snippet
-```java
-        TreeRangeMap<Integer, String> replacements = getReflowReplacements(columnLimit, input);
-        String firstPass =
-                formatter.formatSource(input, replacements.asMapOfRanges().keySet());
-
-        if (!firstPass.equals(input)) {
+            Set<String> usedNames,
+            Multimap<String, Range<Integer>> usedInJavadoc) {
+        RangeMap<Integer, String> replacements = TreeRangeMap.create();
+        for (JCImport importTree : unit.getImports()) {
+            String simpleName = getSimpleName(importTree);
 ```
 
 ### UnstableApiUsage
 'com.google.common.collect.TreeRangeMap' is marked unstable with @Beta
-in `palantir-java-format/src/main/java/com/palantir/javaformat/java/StringWrapper.java`
+in `palantir-java-format/src/main/java/com/palantir/javaformat/java/RemoveUnusedImports.java`
 #### Snippet
 ```java
-
-    /** Applies replacements to the given string. */
-    private static String applyReplacements(String javaInput, TreeRangeMap<Integer, String> replacementMap) {
-        // process in descending order so the replacement ranges aren't perturbed if any replacements
-        // differ in size from the input
-```
-
-### UnstableApiUsage
-'asDescendingMapOfRanges()' is declared in unstable class 'com.google.common.collect.TreeRangeMap' marked with @Beta
-in `palantir-java-format/src/main/java/com/palantir/javaformat/java/StringWrapper.java`
-#### Snippet
-```java
-        // process in descending order so the replacement ranges aren't perturbed if any replacements
-        // differ in size from the input
-        Map<Range<Integer>, String> ranges = replacementMap.asDescendingMapOfRanges();
-        if (ranges.isEmpty()) {
-            return javaInput;
-```
-
-### UnstableApiUsage
-'com.google.common.collect.TreeRangeMap' is marked unstable with @Beta
-in `palantir-java-format/src/main/java/com/palantir/javaformat/java/StringWrapper.java`
-#### Snippet
-```java
-    }
-
-    private static TreeRangeMap<Integer, String> getReflowReplacements(int columnLimit, final String input)
-            throws FormatterException {
-        JCTree.JCCompilationUnit unit = parse(input, /* allowStringFolding= */ false);
-```
-
-### UnstableApiUsage
-'com.google.common.collect.TreeRangeMap' is marked unstable with @Beta
-in `palantir-java-format/src/main/java/com/palantir/javaformat/java/StringWrapper.java`
-#### Snippet
-```java
-        }.scan(new TreePath(unit), null);
-
-        TreeRangeMap<Integer, String> replacements = TreeRangeMap.create();
-        for (TreePath path : toFix) {
-            // Find the outermost contiguous enclosing concatenation expression
-```
-
-### UnstableApiUsage
-'com.google.common.collect.TreeRangeMap' is marked unstable with @Beta
-in `palantir-java-format/src/main/java/com/palantir/javaformat/java/StringWrapper.java`
-#### Snippet
-```java
-        }.scan(new TreePath(unit), null);
-
-        TreeRangeMap<Integer, String> replacements = TreeRangeMap.create();
-        for (TreePath path : toFix) {
-            // Find the outermost contiguous enclosing concatenation expression
+            Set<String> usedNames,
+            Multimap<String, Range<Integer>> usedInJavadoc) {
+        RangeMap<Integer, String> replacements = TreeRangeMap.create();
+        for (JCImport importTree : unit.getImports()) {
+            String simpleName = getSimpleName(importTree);
 ```
 
 ### UnstableApiUsage
 'create()' is declared in unstable class 'com.google.common.collect.TreeRangeMap' marked with @Beta
-in `palantir-java-format/src/main/java/com/palantir/javaformat/java/StringWrapper.java`
+in `palantir-java-format/src/main/java/com/palantir/javaformat/java/RemoveUnusedImports.java`
 #### Snippet
 ```java
-        }.scan(new TreePath(unit), null);
-
-        TreeRangeMap<Integer, String> replacements = TreeRangeMap.create();
-        for (TreePath path : toFix) {
-            // Find the outermost contiguous enclosing concatenation expression
+            Set<String> usedNames,
+            Multimap<String, Range<Integer>> usedInJavadoc) {
+        RangeMap<Integer, String> replacements = TreeRangeMap.create();
+        for (JCImport importTree : unit.getImports()) {
+            String simpleName = getSimpleName(importTree);
 ```
 
 ### UnstableApiUsage
-'put(com.google.common.collect.Range, V)' is declared in unstable class 'com.google.common.collect.TreeRangeMap' marked with @Beta
-in `palantir-java-format/src/main/java/com/palantir/javaformat/java/StringWrapper.java`
+'put(com.google.common.collect.Range, V)' is declared in unstable interface 'com.google.common.collect.RangeMap' marked with @Beta
+in `palantir-java-format/src/main/java/com/palantir/javaformat/java/RemoveUnusedImports.java`
 #### Snippet
 ```java
-            // Get the original source text of the string literals, excluding `"` and `+`.
-            ImmutableList<String> components = stringComponents(input, unit, flat);
-            replacements.put(
-                    Range.closedOpen(getStartPosition(flat.get(0)), getEndPosition(unit, getLast(flat))),
-                    reflow(separator, columnLimit, trailing, components, first.get(), startColumn, fistLineCol));
-```
-
-### UnstableApiUsage
-'get(K)' is declared in unstable class 'com.google.common.collect.ImmutableRangeMap' marked with @Beta
-in `palantir-java-format/src/main/java/com/palantir/javaformat/OpsBuilder.java`
-#### Snippet
-```java
-    /** @return the actual size of the AST node at position, including comments. */
-    public int actualSize(int position, int length) {
-        Input.Token startToken = input.getPositionTokenMap().get(position);
-        int start = startToken.getTok().getPosition();
-        for (Input.Tok tok : startToken.getToksBefore()) {
-```
-
-### UnstableApiUsage
-'get(K)' is declared in unstable class 'com.google.common.collect.ImmutableRangeMap' marked with @Beta
-in `palantir-java-format/src/main/java/com/palantir/javaformat/OpsBuilder.java`
-#### Snippet
-```java
+                endPosition += sep.length();
             }
+            replacements.put(Range.closedOpen(importTree.getStartPosition(), endPosition), "");
         }
-        Input.Token endToken = input.getPositionTokenMap().get(position + length - 1);
-        int end = endToken.getTok().getPosition() + endToken.getTok().length();
-        for (Input.Tok tok : endToken.getToksAfter()) {
-```
-
-### UnstableApiUsage
-'get(K)' is declared in unstable class 'com.google.common.collect.ImmutableRangeMap' marked with @Beta
-in `palantir-java-format/src/main/java/com/palantir/javaformat/OpsBuilder.java`
-#### Snippet
-```java
-    /** @return the start column of the token at {@code position}, including leading comments. */
-    public Integer actualStartColumn(int position) {
-        Input.Token startToken = input.getPositionTokenMap().get(position);
-        int start = startToken.getTok().getPosition();
-        int line0 = input.getLineNumber(start);
+        return replacements;
 ```
 
 ### UnstableApiUsage
@@ -4681,258 +4933,6 @@ in `palantir-java-format/src/main/java/com/palantir/javaformat/java/ModifierOrde
         TreeRangeMap<Integer, String> replacements = TreeRangeMap.create();
         while (it.hasNext()) {
             Token token = it.next();
-```
-
-### UnstableApiUsage
-'com.google.common.collect.ImmutableRangeSet' is marked unstable with @Beta
-in `palantir-java-format/src/main/java/com/palantir/javaformat/java/CommandLineOptions.java`
-#### Snippet
-```java
-            ImmutableList<String> files,
-            boolean inPlace,
-            ImmutableRangeSet<Integer> lines,
-            ImmutableRangeSet<Integer> characterRanges,
-            ImmutableList<Integer> offsets,
-```
-
-### UnstableApiUsage
-'com.google.common.collect.ImmutableRangeSet' is marked unstable with @Beta
-in `palantir-java-format/src/main/java/com/palantir/javaformat/java/CommandLineOptions.java`
-#### Snippet
-```java
-            boolean inPlace,
-            ImmutableRangeSet<Integer> lines,
-            ImmutableRangeSet<Integer> characterRanges,
-            ImmutableList<Integer> offsets,
-            ImmutableList<Integer> lengths,
-```
-
-### UnstableApiUsage
-'com.google.common.collect.ImmutableRangeSet' is marked unstable with @Beta
-in `palantir-java-format/src/main/java/com/palantir/javaformat/java/CommandLineOptions.java`
-#### Snippet
-```java
-    private final ImmutableList<String> files;
-    private final boolean inPlace;
-    private final ImmutableRangeSet<Integer> lines;
-    private final ImmutableRangeSet<Integer> characterRanges;
-    private final ImmutableList<Integer> offsets;
-```
-
-### UnstableApiUsage
-'com.google.common.collect.ImmutableRangeSet' is marked unstable with @Beta
-in `palantir-java-format/src/main/java/com/palantir/javaformat/java/CommandLineOptions.java`
-#### Snippet
-```java
-        private final ImmutableList.Builder<String> files = ImmutableList.builder();
-        private final ImmutableRangeSet.Builder<Integer> lines = ImmutableRangeSet.builder();
-        private final ImmutableRangeSet.Builder<Integer> characterRanges = ImmutableRangeSet.builder();
-        private final ImmutableList.Builder<Integer> offsets = ImmutableList.builder();
-        private final ImmutableList.Builder<Integer> lengths = ImmutableList.builder();
-```
-
-### UnstableApiUsage
-'com.google.common.collect.ImmutableRangeSet.Builder' is declared in unstable class 'com.google.common.collect.ImmutableRangeSet' marked with @Beta
-in `palantir-java-format/src/main/java/com/palantir/javaformat/java/CommandLineOptions.java`
-#### Snippet
-```java
-        private final ImmutableList.Builder<String> files = ImmutableList.builder();
-        private final ImmutableRangeSet.Builder<Integer> lines = ImmutableRangeSet.builder();
-        private final ImmutableRangeSet.Builder<Integer> characterRanges = ImmutableRangeSet.builder();
-        private final ImmutableList.Builder<Integer> offsets = ImmutableList.builder();
-        private final ImmutableList.Builder<Integer> lengths = ImmutableList.builder();
-```
-
-### UnstableApiUsage
-'com.google.common.collect.ImmutableRangeSet' is marked unstable with @Beta
-in `palantir-java-format/src/main/java/com/palantir/javaformat/java/CommandLineOptions.java`
-#### Snippet
-```java
-        private final ImmutableList.Builder<String> files = ImmutableList.builder();
-        private final ImmutableRangeSet.Builder<Integer> lines = ImmutableRangeSet.builder();
-        private final ImmutableRangeSet.Builder<Integer> characterRanges = ImmutableRangeSet.builder();
-        private final ImmutableList.Builder<Integer> offsets = ImmutableList.builder();
-        private final ImmutableList.Builder<Integer> lengths = ImmutableList.builder();
-```
-
-### UnstableApiUsage
-'builder()' is declared in unstable class 'com.google.common.collect.ImmutableRangeSet' marked with @Beta
-in `palantir-java-format/src/main/java/com/palantir/javaformat/java/CommandLineOptions.java`
-#### Snippet
-```java
-        private final ImmutableList.Builder<String> files = ImmutableList.builder();
-        private final ImmutableRangeSet.Builder<Integer> lines = ImmutableRangeSet.builder();
-        private final ImmutableRangeSet.Builder<Integer> characterRanges = ImmutableRangeSet.builder();
-        private final ImmutableList.Builder<Integer> offsets = ImmutableList.builder();
-        private final ImmutableList.Builder<Integer> lengths = ImmutableList.builder();
-```
-
-### UnstableApiUsage
-'build()' is declared in unstable class 'com.google.common.collect.ImmutableRangeSet' marked with @Beta
-in `palantir-java-format/src/main/java/com/palantir/javaformat/java/CommandLineOptions.java`
-#### Snippet
-```java
-                    files.build(),
-                    inPlace,
-                    lines.build(),
-                    characterRanges.build(),
-                    offsets.build(),
-```
-
-### UnstableApiUsage
-'build()' is declared in unstable class 'com.google.common.collect.ImmutableRangeSet' marked with @Beta
-in `palantir-java-format/src/main/java/com/palantir/javaformat/java/CommandLineOptions.java`
-#### Snippet
-```java
-                    inPlace,
-                    lines.build(),
-                    characterRanges.build(),
-                    offsets.build(),
-                    lengths.build(),
-```
-
-### UnstableApiUsage
-'isEmpty()' is declared in unstable class 'com.google.common.collect.ImmutableRangeSet' marked with @Beta
-in `palantir-java-format/src/main/java/com/palantir/javaformat/java/CommandLineOptions.java`
-#### Snippet
-```java
-    /** Returns true if partial formatting was selected. */
-    boolean isSelection() {
-        return !lines().isEmpty() || !offsets().isEmpty() || !lengths().isEmpty();
-    }
-
-```
-
-### UnstableApiUsage
-'com.google.common.collect.ImmutableRangeSet' is marked unstable with @Beta
-in `palantir-java-format/src/main/java/com/palantir/javaformat/java/CommandLineOptions.java`
-#### Snippet
-```java
-    private final boolean inPlace;
-    private final ImmutableRangeSet<Integer> lines;
-    private final ImmutableRangeSet<Integer> characterRanges;
-    private final ImmutableList<Integer> offsets;
-    private final ImmutableList<Integer> lengths;
-```
-
-### UnstableApiUsage
-'com.google.common.collect.ImmutableRangeSet' is marked unstable with @Beta
-in `palantir-java-format/src/main/java/com/palantir/javaformat/java/CommandLineOptions.java`
-#### Snippet
-```java
-
-    /** Character ranges to format. */
-    ImmutableRangeSet<Integer> characterRanges() {
-        return characterRanges;
-    }
-```
-
-### UnstableApiUsage
-'com.google.common.collect.ImmutableRangeSet' is marked unstable with @Beta
-in `palantir-java-format/src/main/java/com/palantir/javaformat/java/CommandLineOptions.java`
-#### Snippet
-```java
-        }
-
-        ImmutableRangeSet.Builder<Integer> linesBuilder() {
-            return lines;
-        }
-```
-
-### UnstableApiUsage
-'com.google.common.collect.ImmutableRangeSet.Builder' is declared in unstable class 'com.google.common.collect.ImmutableRangeSet' marked with @Beta
-in `palantir-java-format/src/main/java/com/palantir/javaformat/java/CommandLineOptions.java`
-#### Snippet
-```java
-        }
-
-        ImmutableRangeSet.Builder<Integer> linesBuilder() {
-            return lines;
-        }
-```
-
-### UnstableApiUsage
-'com.google.common.collect.ImmutableRangeSet' is marked unstable with @Beta
-in `palantir-java-format/src/main/java/com/palantir/javaformat/java/CommandLineOptions.java`
-#### Snippet
-```java
-
-    /** Line ranges to format. */
-    ImmutableRangeSet<Integer> lines() {
-        return lines;
-    }
-```
-
-### UnstableApiUsage
-'com.google.common.collect.ImmutableRangeSet' is marked unstable with @Beta
-in `palantir-java-format/src/main/java/com/palantir/javaformat/java/CommandLineOptions.java`
-#### Snippet
-```java
-        }
-
-        ImmutableRangeSet.Builder<Integer> characterRangesBuilder() {
-            return characterRanges;
-        }
-```
-
-### UnstableApiUsage
-'com.google.common.collect.ImmutableRangeSet.Builder' is declared in unstable class 'com.google.common.collect.ImmutableRangeSet' marked with @Beta
-in `palantir-java-format/src/main/java/com/palantir/javaformat/java/CommandLineOptions.java`
-#### Snippet
-```java
-        }
-
-        ImmutableRangeSet.Builder<Integer> characterRangesBuilder() {
-            return characterRanges;
-        }
-```
-
-### UnstableApiUsage
-'com.google.common.collect.ImmutableRangeSet' is marked unstable with @Beta
-in `palantir-java-format/src/main/java/com/palantir/javaformat/java/CommandLineOptions.java`
-#### Snippet
-```java
-
-        private final ImmutableList.Builder<String> files = ImmutableList.builder();
-        private final ImmutableRangeSet.Builder<Integer> lines = ImmutableRangeSet.builder();
-        private final ImmutableRangeSet.Builder<Integer> characterRanges = ImmutableRangeSet.builder();
-        private final ImmutableList.Builder<Integer> offsets = ImmutableList.builder();
-```
-
-### UnstableApiUsage
-'com.google.common.collect.ImmutableRangeSet.Builder' is declared in unstable class 'com.google.common.collect.ImmutableRangeSet' marked with @Beta
-in `palantir-java-format/src/main/java/com/palantir/javaformat/java/CommandLineOptions.java`
-#### Snippet
-```java
-
-        private final ImmutableList.Builder<String> files = ImmutableList.builder();
-        private final ImmutableRangeSet.Builder<Integer> lines = ImmutableRangeSet.builder();
-        private final ImmutableRangeSet.Builder<Integer> characterRanges = ImmutableRangeSet.builder();
-        private final ImmutableList.Builder<Integer> offsets = ImmutableList.builder();
-```
-
-### UnstableApiUsage
-'com.google.common.collect.ImmutableRangeSet' is marked unstable with @Beta
-in `palantir-java-format/src/main/java/com/palantir/javaformat/java/CommandLineOptions.java`
-#### Snippet
-```java
-
-        private final ImmutableList.Builder<String> files = ImmutableList.builder();
-        private final ImmutableRangeSet.Builder<Integer> lines = ImmutableRangeSet.builder();
-        private final ImmutableRangeSet.Builder<Integer> characterRanges = ImmutableRangeSet.builder();
-        private final ImmutableList.Builder<Integer> offsets = ImmutableList.builder();
-```
-
-### UnstableApiUsage
-'builder()' is declared in unstable class 'com.google.common.collect.ImmutableRangeSet' marked with @Beta
-in `palantir-java-format/src/main/java/com/palantir/javaformat/java/CommandLineOptions.java`
-#### Snippet
-```java
-
-        private final ImmutableList.Builder<String> files = ImmutableList.builder();
-        private final ImmutableRangeSet.Builder<Integer> lines = ImmutableRangeSet.builder();
-        private final ImmutableRangeSet.Builder<Integer> characterRanges = ImmutableRangeSet.builder();
-        private final ImmutableList.Builder<Integer> offsets = ImmutableList.builder();
 ```
 
 ### UnstableApiUsage
@@ -5020,6 +5020,30 @@ in `palantir-java-format/src/main/java/com/palantir/javaformat/Input.java`
 ```
 
 ### UnstableApiUsage
+'subRangeMap(com.google.common.collect.Range)' is declared in unstable class 'com.google.common.collect.ImmutableRangeMap' marked with @Beta
+in `palantir-java-format/src/main/java/com/palantir/javaformat/java/JavaInput.java`
+#### Snippet
+```java
+        }
+        ImmutableCollection<Token> enclosed = getPositionTokenMap()
+                .subRangeMap(Range.closedOpen(offset, offset + length))
+                .asMapOfRanges()
+                .values();
+```
+
+### UnstableApiUsage
+'asMapOfRanges()' is declared in unstable class 'com.google.common.collect.ImmutableRangeMap' marked with @Beta
+in `palantir-java-format/src/main/java/com/palantir/javaformat/java/JavaInput.java`
+#### Snippet
+```java
+        ImmutableCollection<Token> enclosed = getPositionTokenMap()
+                .subRangeMap(Range.closedOpen(offset, offset + length))
+                .asMapOfRanges()
+                .values();
+        if (enclosed.isEmpty()) {
+```
+
+### UnstableApiUsage
 'com.google.common.collect.RangeSet' is marked unstable with @Beta
 in `palantir-java-format/src/main/java/com/palantir/javaformat/java/JavaInput.java`
 #### Snippet
@@ -5084,47 +5108,11 @@ in `palantir-java-format/src/main/java/com/palantir/javaformat/java/JavaInput.ja
 in `palantir-java-format/src/main/java/com/palantir/javaformat/java/JavaInput.java`
 #### Snippet
 ```java
-    private final ImmutableMap<Integer, Integer> positionToColumnMap; // Map Tok position to column.
-    private final ImmutableList<Token> tokens; // The Tokens for this input.
-    private final ImmutableRangeMap<Integer, Token> positionTokenMap; // Map position to Token.
-
-    /** Map from Tok index to the associated Token. */
-```
-
-### UnstableApiUsage
-'com.google.common.collect.ImmutableRangeMap' is marked unstable with @Beta
-in `palantir-java-format/src/main/java/com/palantir/javaformat/java/JavaInput.java`
-#### Snippet
-```java
      */
     @Override
     public ImmutableRangeMap<Integer, Token> getPositionTokenMap() {
         return positionTokenMap;
     }
-```
-
-### UnstableApiUsage
-'subRangeMap(com.google.common.collect.Range)' is declared in unstable class 'com.google.common.collect.ImmutableRangeMap' marked with @Beta
-in `palantir-java-format/src/main/java/com/palantir/javaformat/java/JavaInput.java`
-#### Snippet
-```java
-        }
-        ImmutableCollection<Token> enclosed = getPositionTokenMap()
-                .subRangeMap(Range.closedOpen(offset, offset + length))
-                .asMapOfRanges()
-                .values();
-```
-
-### UnstableApiUsage
-'asMapOfRanges()' is declared in unstable class 'com.google.common.collect.ImmutableRangeMap' marked with @Beta
-in `palantir-java-format/src/main/java/com/palantir/javaformat/java/JavaInput.java`
-#### Snippet
-```java
-        ImmutableCollection<Token> enclosed = getPositionTokenMap()
-                .subRangeMap(Range.closedOpen(offset, offset + length))
-                .asMapOfRanges()
-                .values();
-        if (enclosed.isEmpty()) {
 ```
 
 ### UnstableApiUsage
@@ -5200,15 +5188,15 @@ in `palantir-java-format/src/main/java/com/palantir/javaformat/java/JavaInput.ja
 ```
 
 ### UnstableApiUsage
-'get(K)' is declared in unstable class 'com.google.common.collect.ImmutableRangeMap' marked with @Beta
-in `palantir-java-format/src/main/java/com/palantir/javaformat/java/JavaInputAstVisitor.java`
+'com.google.common.collect.ImmutableRangeMap' is marked unstable with @Beta
+in `palantir-java-format/src/main/java/com/palantir/javaformat/java/JavaInput.java`
 #### Snippet
 ```java
-    private boolean hasJavaDoc(Tree bodyDeclaration) {
-        int position = ((JCTree) bodyDeclaration).getStartPosition();
-        Input.Token token = builder.getInput().getPositionTokenMap().get(position);
-        if (token != null) {
-            for (Input.Tok tok : token.getToksBefore()) {
+    private final ImmutableMap<Integer, Integer> positionToColumnMap; // Map Tok position to column.
+    private final ImmutableList<Token> tokens; // The Tokens for this input.
+    private final ImmutableRangeMap<Integer, Token> positionTokenMap; // Map position to Token.
+
+    /** Map from Tok index to the associated Token. */
 ```
 
 ### UnstableApiUsage
@@ -5257,6 +5245,18 @@ in `palantir-java-format/src/main/java/com/palantir/javaformat/java/JavaInputAst
         Input.Token endToken = positionTokenMap.get(endPosition);
         return lineNumberAt(endToken) - lineNumberAt(startToken) + 1;
     }
+```
+
+### UnstableApiUsage
+'get(K)' is declared in unstable class 'com.google.common.collect.ImmutableRangeMap' marked with @Beta
+in `palantir-java-format/src/main/java/com/palantir/javaformat/java/JavaInputAstVisitor.java`
+#### Snippet
+```java
+    private boolean hasJavaDoc(Tree bodyDeclaration) {
+        int position = ((JCTree) bodyDeclaration).getStartPosition();
+        Input.Token token = builder.getInput().getPositionTokenMap().get(position);
+        if (token != null) {
+            for (Input.Tok tok : token.getToksBefore()) {
 ```
 
 ### UnstableApiUsage
