@@ -1,22 +1,22 @@
 # shenyu 
  
 # Bad smells
-I found 804 bad smells with 103 repairable:
+I found 815 bad smells with 105 repairable:
 | ruleID | number | fixable |
 | --- | --- | --- |
-| BoundedWildcard | 181 | false |
+| BoundedWildcard | 185 | false |
 | ReturnNull | 132 | false |
 | UtilityClassWithoutPrivateConstructor | 63 | true |
 | DynamicRegexReplaceableByCompiledPattern | 56 | false |
 | UseOfPropertiesAsHashtable | 48 | false |
-| UnnecessaryFullyQualifiedName | 38 | false |
-| DataFlowIssue | 32 | false |
+| UnnecessaryFullyQualifiedName | 40 | false |
+| DataFlowIssue | 31 | false |
 | AssignmentToStaticFieldFromInstanceMethod | 21 | false |
 | ZeroLengthArrayInitialization | 15 | false |
+| CodeBlock2Expr | 12 | true |
 | FieldAccessedSynchronizedAndUnsynchronized | 12 | false |
 | RedundantImplements | 12 | false |
 | ConstantValue | 12 | false |
-| CodeBlock2Expr | 10 | true |
 | EmptyMethod | 10 | false |
 | NonProtectedConstructorInAbstractClass | 10 | true |
 | UnnecessaryLocalVariable | 10 | true |
@@ -26,19 +26,19 @@ I found 804 bad smells with 103 repairable:
 | NonSerializableFieldInSerializableClass | 8 | false |
 | StringEqualsEmptyString | 8 | false |
 | RedundantSuppression | 8 | false |
+| KeySetIterationMayUseEntrySet | 7 | false |
 | CallToStringConcatCanBeReplacedByOperator | 7 | false |
 | RedundantLengthCheck | 7 | false |
-| KeySetIterationMayUseEntrySet | 6 | false |
 | NestedAssignment | 6 | false |
 | UnnecessarySuperQualifier | 4 | false |
 | InstanceofCatchParameter | 4 | false |
+| SimplifyStreamApiCallChains | 4 | false |
 | AssignmentToLambdaParameter | 4 | false |
 | SizeReplaceableByIsEmpty | 3 | true |
 | MissortedModifiers | 3 | false |
 | ReplaceAssignmentWithOperatorAssignment | 3 | false |
 | ExcessiveLambdaUsage | 3 | false |
 | DoubleBraceInitialization | 3 | false |
-| SimplifyStreamApiCallChains | 3 | false |
 | InnerClassMayBeStatic | 3 | true |
 | SynchronizationOnLocalVariableOrMethodParameter | 3 | false |
 | UnstableApiUsage | 3 | false |
@@ -48,6 +48,7 @@ I found 804 bad smells with 103 repairable:
 | UnnecessarySemicolon | 2 | false |
 | Convert2MethodRef | 2 | false |
 | MismatchedJavadocCode | 2 | false |
+| SuspiciousMethodCalls | 2 | false |
 | UtilityClassWithPublicConstructor | 2 | false |
 | StaticCallOnSubclass | 1 | false |
 | RedundantClassCall | 1 | false |
@@ -55,12 +56,12 @@ I found 804 bad smells with 103 repairable:
 | DuplicateBranchesInSwitch | 1 | false |
 | ThrowablePrintedToSystemOut | 1 | false |
 | InfiniteLoopStatement | 1 | false |
-| HtmlWrongAttributeValue | 1 | false |
 | NullArgumentToVariableArgMethod | 1 | false |
 | StringConcatenationInsideStringBufferAppend | 1 | false |
 | IOResource | 1 | false |
 | SocketResource | 1 | false |
 | FieldMayBeStatic | 1 | false |
+| RedundantCollectionOperation | 1 | false |
 | ThreadRun | 1 | false |
 | SystemOutErr | 1 | false |
 ## RuleId[ruleID=StaticCallOnSubclass]
@@ -116,6 +117,162 @@ in `shenyu-admin/src/main/java/org/apache/shenyu/admin/mybatis/oracle/OracleSQLP
 
 ## RuleId[ruleID=AssignmentToStaticFieldFromInstanceMethod]
 ### AssignmentToStaticFieldFromInstanceMethod
+Assignment to static field `supportSwaggerPluginMap` from instance context
+in `shenyu-admin/src/main/java/org/apache/shenyu/admin/service/manager/impl/LoadServiceDocEntryImpl.java`
+#### Snippet
+```java
+            return Collections.emptyList();
+        }
+        supportSwaggerPluginMap = pluginDOList.stream().filter(Objects::nonNull)
+            .collect(Collectors.toMap(PluginDO::getId, PluginDO::getName, (value1, value2) -> value1));
+
+```
+
+### AssignmentToStaticFieldFromInstanceMethod
+Assignment to static field `zombieRemovalTimes` from instance context
+in `shenyu-admin/src/main/java/org/apache/shenyu/admin/service/impl/UpstreamCheckService.java`
+#### Snippet
+```java
+        this.scheduledTime = Integer.parseInt(props.getProperty(Constants.SCHEDULED_TIME, Constants.SCHEDULED_TIME_VALUE));
+        this.registerType = shenyuRegisterCenterConfig.getRegisterType();
+        zombieRemovalTimes = Integer.parseInt(props.getProperty(Constants.ZOMBIE_REMOVAL_TIMES, Constants.ZOMBIE_REMOVAL_TIMES_VALUE));
+        if (REGISTER_TYPE_HTTP.equalsIgnoreCase(registerType)) {
+            setup();
+```
+
+### AssignmentToStaticFieldFromInstanceMethod
+Assignment to static field `MqttContext.maxPayloadSize` from instance context
+in `shenyu-protocol/shenyu-protocol-mqtt/src/main/java/org/apache/shenyu/protocol/mqtt/MqttContext.java`
+#### Snippet
+```java
+     */
+    public void setMaxPayloadSize(final int maxPayloadSize) {
+        MqttContext.maxPayloadSize = maxPayloadSize;
+    }
+
+```
+
+### AssignmentToStaticFieldFromInstanceMethod
+Assignment to static field `MqttContext.bossGroupThreadCount` from instance context
+in `shenyu-protocol/shenyu-protocol-mqtt/src/main/java/org/apache/shenyu/protocol/mqtt/MqttContext.java`
+#### Snippet
+```java
+     */
+    public void setBossGroupThreadCount(final int bossGroupThreadCount) {
+        MqttContext.bossGroupThreadCount = bossGroupThreadCount;
+    }
+
+```
+
+### AssignmentToStaticFieldFromInstanceMethod
+Assignment to static field `MqttContext.leakDetectorLevel` from instance context
+in `shenyu-protocol/shenyu-protocol-mqtt/src/main/java/org/apache/shenyu/protocol/mqtt/MqttContext.java`
+#### Snippet
+```java
+     */
+    public void setLeakDetectorLevel(final String leakDetectorLevel) {
+        MqttContext.leakDetectorLevel = leakDetectorLevel;
+    }
+}
+```
+
+### AssignmentToStaticFieldFromInstanceMethod
+Assignment to static field `MqttContext.port` from instance context
+in `shenyu-protocol/shenyu-protocol-mqtt/src/main/java/org/apache/shenyu/protocol/mqtt/MqttContext.java`
+#### Snippet
+```java
+     */
+    public void setPort(final int port) {
+        MqttContext.port = port;
+    }
+
+```
+
+### AssignmentToStaticFieldFromInstanceMethod
+Assignment to static field `MqttContext.userName` from instance context
+in `shenyu-protocol/shenyu-protocol-mqtt/src/main/java/org/apache/shenyu/protocol/mqtt/MqttContext.java`
+#### Snippet
+```java
+     */
+    public void setUserName(final String userName) {
+        MqttContext.userName = userName;
+    }
+
+```
+
+### AssignmentToStaticFieldFromInstanceMethod
+Assignment to static field `MqttContext.password` from instance context
+in `shenyu-protocol/shenyu-protocol-mqtt/src/main/java/org/apache/shenyu/protocol/mqtt/MqttContext.java`
+#### Snippet
+```java
+     */
+    public void setPassword(final String password) {
+        MqttContext.password = password;
+    }
+
+```
+
+### AssignmentToStaticFieldFromInstanceMethod
+Assignment to static field `MqttContext.workerGroupThreadCount` from instance context
+in `shenyu-protocol/shenyu-protocol-mqtt/src/main/java/org/apache/shenyu/protocol/mqtt/MqttContext.java`
+#### Snippet
+```java
+     */
+    public void setWorkerGroupThreadCount(final int workerGroupThreadCount) {
+        MqttContext.workerGroupThreadCount = workerGroupThreadCount;
+    }
+
+```
+
+### AssignmentToStaticFieldFromInstanceMethod
+Assignment to static field `maskFlag` from instance context
+in `shenyu-plugin/shenyu-plugin-logging/shenyu-plugin-logging-console/src/main/java/org/apache/shenyu/plugin/logging/console/LoggingConsolePlugin.java`
+#### Snippet
+```java
+        if (Objects.nonNull(commonLoggingRuleHandle)) {
+            String keywords = commonLoggingRuleHandle.getKeyword();
+            maskFlag = StringUtils.isNotBlank(keywords) && commonLoggingRuleHandle.getMaskStatus();
+            if (maskFlag) {
+                Collections.addAll(keywordSets, keywords.split(";"));
+```
+
+### AssignmentToStaticFieldFromInstanceMethod
+Assignment to static field `dataMaskAlg` from instance context
+in `shenyu-plugin/shenyu-plugin-logging/shenyu-plugin-logging-console/src/main/java/org/apache/shenyu/plugin/logging/console/LoggingConsolePlugin.java`
+#### Snippet
+```java
+            if (maskFlag) {
+                Collections.addAll(keywordSets, keywords.split(";"));
+                dataMaskAlg = Optional.ofNullable(commonLoggingRuleHandle.getMaskType()).orElse(DataMaskEnums.MD5_ENCRYPT.getDataMaskAlg());
+                keyWordMatch = new KeyWordMatch(keywordSets);
+                LOG.info("current plugin:{}, keyword:{}, dataMaskAlg:{}", this.named(), keywords, dataMaskAlg);
+```
+
+### AssignmentToStaticFieldFromInstanceMethod
+Assignment to static field `keyWordMatch` from instance context
+in `shenyu-plugin/shenyu-plugin-logging/shenyu-plugin-logging-console/src/main/java/org/apache/shenyu/plugin/logging/console/LoggingConsolePlugin.java`
+#### Snippet
+```java
+                Collections.addAll(keywordSets, keywords.split(";"));
+                dataMaskAlg = Optional.ofNullable(commonLoggingRuleHandle.getMaskType()).orElse(DataMaskEnums.MD5_ENCRYPT.getDataMaskAlg());
+                keyWordMatch = new KeyWordMatch(keywordSets);
+                LOG.info("current plugin:{}, keyword:{}, dataMaskAlg:{}", this.named(), keywords, dataMaskAlg);
+            }
+```
+
+### AssignmentToStaticFieldFromInstanceMethod
+Assignment to static field `uriRegisterDTO` from instance context
+in `shenyu-register-center/shenyu-register-client/shenyu-register-client-http/src/main/java/org/apache/shenyu/register/client/http/HttpClientRegisterRepository.java`
+#### Snippet
+```java
+        }
+        doRegister(registerDTO, Constants.URI_PATH, Constants.URI);
+        uriRegisterDTO = registerDTO;
+    }
+
+```
+
+### AssignmentToStaticFieldFromInstanceMethod
 Assignment to static field `apiDocRegisterDTO` from instance context
 in `shenyu-register-center/shenyu-register-client/shenyu-register-client-http/src/main/java/org/apache/shenyu/register/client/http/HttpClientRegisterRepository.java`
 #### Snippet
@@ -128,13 +285,13 @@ in `shenyu-register-center/shenyu-register-client/shenyu-register-client-http/sr
 ```
 
 ### AssignmentToStaticFieldFromInstanceMethod
-Assignment to static field `uriRegisterDTO` from instance context
-in `shenyu-register-center/shenyu-register-client/shenyu-register-client-http/src/main/java/org/apache/shenyu/register/client/http/HttpClientRegisterRepository.java`
+Assignment to static field `ShenyuClientShutdownHook.props` from instance context
+in `shenyu-client/shenyu-client-core/src/main/java/org/apache/shenyu/client/core/shutdown/ShenyuClientShutdownHook.java`
 #### Snippet
 ```java
-        }
-        doRegister(registerDTO, Constants.URI_PATH, Constants.URI);
-        uriRegisterDTO = registerDTO;
+        Runtime.getRuntime().addShutdownHook(new Thread(repository::close, name));
+        LOG.info("Add hook {}", name);
+        ShenyuClientShutdownHook.props = config.getProps();
     }
 
 ```
@@ -200,78 +357,6 @@ in `shenyu-client/shenyu-client-core/src/main/java/org/apache/shenyu/client/core
 ```
 
 ### AssignmentToStaticFieldFromInstanceMethod
-Assignment to static field `ShenyuClientShutdownHook.props` from instance context
-in `shenyu-client/shenyu-client-core/src/main/java/org/apache/shenyu/client/core/shutdown/ShenyuClientShutdownHook.java`
-#### Snippet
-```java
-        Runtime.getRuntime().addShutdownHook(new Thread(repository::close, name));
-        LOG.info("Add hook {}", name);
-        ShenyuClientShutdownHook.props = config.getProps();
-    }
-
-```
-
-### AssignmentToStaticFieldFromInstanceMethod
-Assignment to static field `maskFlag` from instance context
-in `shenyu-plugin/shenyu-plugin-logging/shenyu-plugin-logging-console/src/main/java/org/apache/shenyu/plugin/logging/console/LoggingConsolePlugin.java`
-#### Snippet
-```java
-        if (Objects.nonNull(commonLoggingRuleHandle)) {
-            String keywords = commonLoggingRuleHandle.getKeyword();
-            maskFlag = StringUtils.isNotBlank(keywords) && commonLoggingRuleHandle.getMaskStatus();
-            if (maskFlag) {
-                Collections.addAll(keywordSets, keywords.split(";"));
-```
-
-### AssignmentToStaticFieldFromInstanceMethod
-Assignment to static field `dataMaskAlg` from instance context
-in `shenyu-plugin/shenyu-plugin-logging/shenyu-plugin-logging-console/src/main/java/org/apache/shenyu/plugin/logging/console/LoggingConsolePlugin.java`
-#### Snippet
-```java
-            if (maskFlag) {
-                Collections.addAll(keywordSets, keywords.split(";"));
-                dataMaskAlg = Optional.ofNullable(commonLoggingRuleHandle.getMaskType()).orElse(DataMaskEnums.MD5_ENCRYPT.getDataMaskAlg());
-                keyWordMatch = new KeyWordMatch(keywordSets);
-                LOG.info("current plugin:{}, keyword:{}, dataMaskAlg:{}", this.named(), keywords, dataMaskAlg);
-```
-
-### AssignmentToStaticFieldFromInstanceMethod
-Assignment to static field `keyWordMatch` from instance context
-in `shenyu-plugin/shenyu-plugin-logging/shenyu-plugin-logging-console/src/main/java/org/apache/shenyu/plugin/logging/console/LoggingConsolePlugin.java`
-#### Snippet
-```java
-                Collections.addAll(keywordSets, keywords.split(";"));
-                dataMaskAlg = Optional.ofNullable(commonLoggingRuleHandle.getMaskType()).orElse(DataMaskEnums.MD5_ENCRYPT.getDataMaskAlg());
-                keyWordMatch = new KeyWordMatch(keywordSets);
-                LOG.info("current plugin:{}, keyword:{}, dataMaskAlg:{}", this.named(), keywords, dataMaskAlg);
-            }
-```
-
-### AssignmentToStaticFieldFromInstanceMethod
-Assignment to static field `zombieRemovalTimes` from instance context
-in `shenyu-admin/src/main/java/org/apache/shenyu/admin/service/impl/UpstreamCheckService.java`
-#### Snippet
-```java
-        this.scheduledTime = Integer.parseInt(props.getProperty(Constants.SCHEDULED_TIME, Constants.SCHEDULED_TIME_VALUE));
-        this.registerType = shenyuRegisterCenterConfig.getRegisterType();
-        zombieRemovalTimes = Integer.parseInt(props.getProperty(Constants.ZOMBIE_REMOVAL_TIMES, Constants.ZOMBIE_REMOVAL_TIMES_VALUE));
-        if (REGISTER_TYPE_HTTP.equalsIgnoreCase(registerType)) {
-            setup();
-```
-
-### AssignmentToStaticFieldFromInstanceMethod
-Assignment to static field `supportSwaggerPluginMap` from instance context
-in `shenyu-admin/src/main/java/org/apache/shenyu/admin/service/manager/impl/LoadServiceDocEntryImpl.java`
-#### Snippet
-```java
-            return Collections.emptyList();
-        }
-        supportSwaggerPluginMap = pluginDOList.stream().filter(Objects::nonNull)
-            .collect(Collectors.toMap(PluginDO::getId, PluginDO::getName, (value1, value2) -> value1));
-
-```
-
-### AssignmentToStaticFieldFromInstanceMethod
 Assignment to static field `dataMaskAlg` from instance context
 in `shenyu-plugin/shenyu-plugin-logging/shenyu-plugin-logging-common/src/main/java/org/apache/shenyu/plugin/logging/common/AbstractLoggingPlugin.java`
 #### Snippet
@@ -281,90 +366,6 @@ in `shenyu-plugin/shenyu-plugin-logging/shenyu-plugin-logging-common/src/main/ja
                 dataMaskAlg = Optional.ofNullable(commonLoggingRuleHandle.getMaskType()).orElse(DataMaskEnums.MD5_ENCRYPT.getDataMaskAlg());
                 LOG.info("current plugin:{}, keyword:{}, dataMaskAlg:{}", pluginEnum().getName(), keywords, dataMaskAlg);
             }
-```
-
-### AssignmentToStaticFieldFromInstanceMethod
-Assignment to static field `MqttContext.userName` from instance context
-in `shenyu-protocol/shenyu-protocol-mqtt/src/main/java/org/apache/shenyu/protocol/mqtt/MqttContext.java`
-#### Snippet
-```java
-     */
-    public void setUserName(final String userName) {
-        MqttContext.userName = userName;
-    }
-
-```
-
-### AssignmentToStaticFieldFromInstanceMethod
-Assignment to static field `MqttContext.password` from instance context
-in `shenyu-protocol/shenyu-protocol-mqtt/src/main/java/org/apache/shenyu/protocol/mqtt/MqttContext.java`
-#### Snippet
-```java
-     */
-    public void setPassword(final String password) {
-        MqttContext.password = password;
-    }
-
-```
-
-### AssignmentToStaticFieldFromInstanceMethod
-Assignment to static field `MqttContext.port` from instance context
-in `shenyu-protocol/shenyu-protocol-mqtt/src/main/java/org/apache/shenyu/protocol/mqtt/MqttContext.java`
-#### Snippet
-```java
-     */
-    public void setPort(final int port) {
-        MqttContext.port = port;
-    }
-
-```
-
-### AssignmentToStaticFieldFromInstanceMethod
-Assignment to static field `MqttContext.workerGroupThreadCount` from instance context
-in `shenyu-protocol/shenyu-protocol-mqtt/src/main/java/org/apache/shenyu/protocol/mqtt/MqttContext.java`
-#### Snippet
-```java
-     */
-    public void setWorkerGroupThreadCount(final int workerGroupThreadCount) {
-        MqttContext.workerGroupThreadCount = workerGroupThreadCount;
-    }
-
-```
-
-### AssignmentToStaticFieldFromInstanceMethod
-Assignment to static field `MqttContext.leakDetectorLevel` from instance context
-in `shenyu-protocol/shenyu-protocol-mqtt/src/main/java/org/apache/shenyu/protocol/mqtt/MqttContext.java`
-#### Snippet
-```java
-     */
-    public void setLeakDetectorLevel(final String leakDetectorLevel) {
-        MqttContext.leakDetectorLevel = leakDetectorLevel;
-    }
-}
-```
-
-### AssignmentToStaticFieldFromInstanceMethod
-Assignment to static field `MqttContext.maxPayloadSize` from instance context
-in `shenyu-protocol/shenyu-protocol-mqtt/src/main/java/org/apache/shenyu/protocol/mqtt/MqttContext.java`
-#### Snippet
-```java
-     */
-    public void setMaxPayloadSize(final int maxPayloadSize) {
-        MqttContext.maxPayloadSize = maxPayloadSize;
-    }
-
-```
-
-### AssignmentToStaticFieldFromInstanceMethod
-Assignment to static field `MqttContext.bossGroupThreadCount` from instance context
-in `shenyu-protocol/shenyu-protocol-mqtt/src/main/java/org/apache/shenyu/protocol/mqtt/MqttContext.java`
-#### Snippet
-```java
-     */
-    public void setBossGroupThreadCount(final int bossGroupThreadCount) {
-        MqttContext.bossGroupThreadCount = bossGroupThreadCount;
-    }
-
 ```
 
 ## RuleId[ruleID=Java8ListReplaceAll]
@@ -382,15 +383,27 @@ in `shenyu-plugin/shenyu-plugin-logging/shenyu-plugin-logging-mask-api/src/main/
 
 ## RuleId[ruleID=KeySetIterationMayUseEntrySet]
 ### KeySetIterationMayUseEntrySet
-Iteration over `headers.keySet()` may be replaced with 'entrySet()' iteration
-in `shenyu-sdk/shenyu-sdk-okhttp/src/main/java/org/apache/shenyu/sdk/okhttp/OkHttpShenyuSdkClient.java`
+Iteration over `allDataMap.keySet()` may be replaced with 'Map.forEach()' iteration
+in `shenyu-admin/src/main/java/org/apache/shenyu/admin/service/impl/TagServiceImpl.java`
 #### Snippet
 ```java
-        Map<String, Collection<String>> headers = request.getHeaders();
-        Request.Builder builder = new Request.Builder().url(url);
-        for (String name : headers.keySet()) {
-            for (String value : headers.get(name)) {
-                builder.addHeader(name, value);
+        allDataMap.put(update.getId(), update);
+        Map<String, List<String>> relationMap = new ConcurrentHashMap<>();
+        allDataMap.keySet().forEach(tagId -> {
+            TagDO tagDO = allDataMap.get(tagId);
+            if (CollectionUtils.isEmpty(relationMap.get(tagDO.getParentTagId()))) {
+```
+
+### KeySetIterationMayUseEntrySet
+Iteration over `this.consulIndexes.keySet()` may be replaced with 'entrySet()' iteration
+in `shenyu-sync-data-center/shenyu-sync-data-consul/src/main/java/org/apache/shenyu/sync/data/consul/ConsulSyncDataService.java`
+#### Snippet
+```java
+    private void watchConfigKeyValues() {
+        if (this.running.get()) {
+            for (String context : this.consulIndexes.keySet()) {
+                try {
+                    Long currentIndex = this.consulIndexes.get(context);
 ```
 
 ### KeySetIterationMayUseEntrySet
@@ -406,27 +419,15 @@ in `shenyu-register-center/shenyu-register-client-server/shenyu-register-client-
 ```
 
 ### KeySetIterationMayUseEntrySet
-Iteration over `allDataMap.keySet()` may be replaced with 'Map.forEach()' iteration
-in `shenyu-admin/src/main/java/org/apache/shenyu/admin/service/impl/TagServiceImpl.java`
+Iteration over `countMap.keySet()` may be replaced with 'Map.forEach()' iteration
+in `shenyu-loadbalancer/src/main/java/org/apache/shenyu/loadbalancer/spi/LeastActiveLoadBalance.java`
 #### Snippet
 ```java
-        allDataMap.put(update.getId(), update);
-        Map<String, List<String>> relationMap = new ConcurrentHashMap<>();
-        allDataMap.keySet().forEach(tagId -> {
-            TagDO tagDO = allDataMap.get(tagId);
-            if (CollectionUtils.isEmpty(relationMap.get(tagDO.getParentTagId()))) {
-```
-
-### KeySetIterationMayUseEntrySet
-Iteration over `headers.keySet()` may be replaced with 'entrySet()' iteration
-in `shenyu-sdk/shenyu-sdk-httpclient/src/main/java/org/apache/shenyu/sdk/httpclient/HttpShenyuSdkClient.java`
-#### Snippet
-```java
-
-        Map<String, Collection<String>> headers = request.getHeaders();
-        for (String name : headers.keySet()) {
-            for (String value : headers.get(name)) {
-                requestBuilder.addHeader(name, value);
+        }
+        AtomicReference<String> leastDomainUrl = new AtomicReference<>(upstreamList.get(0).buildDomain());
+        countMap.keySet().forEach(key -> {
+            if (countMap.get(key) < countMap.get(leastDomainUrl)) {
+                leastDomainUrl.set(key);
 ```
 
 ### KeySetIterationMayUseEntrySet
@@ -442,15 +443,27 @@ in `shenyu-plugin/shenyu-plugin-api/src/main/java/org/apache/shenyu/plugin/api/u
 ```
 
 ### KeySetIterationMayUseEntrySet
-Iteration over `this.consulIndexes.keySet()` may be replaced with 'entrySet()' iteration
-in `shenyu-sync-data-center/shenyu-sync-data-consul/src/main/java/org/apache/shenyu/sync/data/consul/ConsulSyncDataService.java`
+Iteration over `headers.keySet()` may be replaced with 'entrySet()' iteration
+in `shenyu-sdk/shenyu-sdk-okhttp/src/main/java/org/apache/shenyu/sdk/okhttp/OkHttpShenyuSdkClient.java`
 #### Snippet
 ```java
-    private void watchConfigKeyValues() {
-        if (this.running.get()) {
-            for (String context : this.consulIndexes.keySet()) {
-                try {
-                    Long currentIndex = this.consulIndexes.get(context);
+        Map<String, Collection<String>> headers = request.getHeaders();
+        Request.Builder builder = new Request.Builder().url(url);
+        for (String name : headers.keySet()) {
+            for (String value : headers.get(name)) {
+                builder.addHeader(name, value);
+```
+
+### KeySetIterationMayUseEntrySet
+Iteration over `headers.keySet()` may be replaced with 'entrySet()' iteration
+in `shenyu-sdk/shenyu-sdk-httpclient/src/main/java/org/apache/shenyu/sdk/httpclient/HttpShenyuSdkClient.java`
+#### Snippet
+```java
+
+        Map<String, Collection<String>> headers = request.getHeaders();
+        for (String name : headers.keySet()) {
+            for (String value : headers.get(name)) {
+                requestBuilder.addHeader(name, value);
 ```
 
 ## RuleId[ruleID=DuplicateBranchesInSwitch]
@@ -467,18 +480,6 @@ in `shenyu-protocol/shenyu-protocol-mqtt/src/main/java/org/apache/shenyu/protoco
 ```
 
 ## RuleId[ruleID=SizeReplaceableByIsEmpty]
-### SizeReplaceableByIsEmpty
-`shenyuValidation.length() > 0` can be replaced with '!shenyuValidation.isEmpty()'
-in `shenyu-client/shenyu-client-dubbo/shenyu-client-alibaba-dubbo/src/main/java/org/apache/shenyu/client/alibaba/dubbo/validation/AlibabaDubboClientValidator.java`
-#### Snippet
-```java
-        String shenyuValidation = url.getParameter("shenyuValidation");
-        ValidatorFactory factory;
-        if (shenyuValidation != null && shenyuValidation.length() > 0) {
-            factory = Validation.byProvider((Class) ReflectUtils.forName(shenyuValidation)).configure().buildValidatorFactory();
-        } else {
-```
-
 ### SizeReplaceableByIsEmpty
 `file.length() > 0` can be replaced with '!file.isEmpty()'
 in `shenyu-common/src/main/java/org/apache/shenyu/common/utils/VersionUtils.java`
@@ -503,19 +504,19 @@ in `shenyu-client/shenyu-client-dubbo/shenyu-client-apache-dubbo/src/main/java/o
         } else {
 ```
 
-## RuleId[ruleID=UnnecessaryReturn]
-### UnnecessaryReturn
-`return` is unnecessary as the last statement in a 'void' method
-in `shenyu-plugin/shenyu-plugin-tars/src/main/java/org/apache/shenyu/plugin/tars/cache/ApplicationConfigCache.java`
+### SizeReplaceableByIsEmpty
+`shenyuValidation.length() > 0` can be replaced with '!shenyuValidation.isEmpty()'
+in `shenyu-client/shenyu-client-dubbo/shenyu-client-alibaba-dubbo/src/main/java/org/apache/shenyu/client/alibaba/dubbo/validation/AlibabaDubboClientValidator.java`
 #### Snippet
 ```java
-                return;
-            default:
-                return;
-        }
-    }
+        String shenyuValidation = url.getParameter("shenyuValidation");
+        ValidatorFactory factory;
+        if (shenyuValidation != null && shenyuValidation.length() > 0) {
+            factory = Validation.byProvider((Class) ReflectUtils.forName(shenyuValidation)).configure().buildValidatorFactory();
+        } else {
 ```
 
+## RuleId[ruleID=UnnecessaryReturn]
 ### UnnecessaryReturn
 `return` is unnecessary as the last statement in a 'void' method
 in `shenyu-plugin/shenyu-plugin-sofa/src/main/java/org/apache/shenyu/plugin/sofa/cache/ApplicationConfigCache.java`
@@ -528,197 +529,29 @@ in `shenyu-plugin/shenyu-plugin-sofa/src/main/java/org/apache/shenyu/plugin/sofa
     }
 ```
 
+### UnnecessaryReturn
+`return` is unnecessary as the last statement in a 'void' method
+in `shenyu-plugin/shenyu-plugin-tars/src/main/java/org/apache/shenyu/plugin/tars/cache/ApplicationConfigCache.java`
+#### Snippet
+```java
+                return;
+            default:
+                return;
+        }
+    }
+```
+
 ## RuleId[ruleID=BoundedWildcard]
 ### BoundedWildcard
-Can generalize to `? extends HttpClient`
-in `shenyu-spring-boot-starter/shenyu-spring-boot-starter-plugin/shenyu-spring-boot-starter-plugin-httpclient/src/main/java/org/apache/shenyu/springboot/starter/plugin/httpclient/HttpClientPluginConfiguration.java`
-#### Snippet
-```java
-        public ShenyuPlugin webClientPlugin(
-                final HttpClientProperties properties,
-                final ObjectProvider<HttpClient> httpClient) {
-            WebClient webClient = WebClient.builder()
-                    // fix Exceeded limit on max bytes to buffer
-```
-
-### BoundedWildcard
-Can generalize to `? extends LoopResources`
-in `shenyu-spring-boot-starter/shenyu-spring-boot-starter-plugin/shenyu-spring-boot-starter-plugin-httpclient/src/main/java/org/apache/shenyu/springboot/starter/plugin/httpclient/HttpClientPluginConfiguration.java`
-#### Snippet
-```java
-    @Bean
-    public HttpClient httpClient(final HttpClientProperties properties,
-                                 final ObjectProvider<LoopResources> provider) {
-        // configure pool resources.
-        HttpClientProperties.Pool pool = properties.getPool();
-```
-
-### BoundedWildcard
-Can generalize to `? extends HttpClient`
-in `shenyu-spring-boot-starter/shenyu-spring-boot-starter-plugin/shenyu-spring-boot-starter-plugin-httpclient/src/main/java/org/apache/shenyu/springboot/starter/plugin/httpclient/HttpClientPluginConfiguration.java`
-#### Snippet
-```java
-         */
-        @Bean
-        public ShenyuPlugin nettyHttpClientPlugin(final ObjectProvider<HttpClient> httpClient) {
-            return new NettyHttpClientPlugin(httpClient.getIfAvailable());
-        }
-```
-
-### BoundedWildcard
-Can generalize to `? extends ShenyuSdkRequestInterceptor`
-in `shenyu-sdk/shenyu-sdk-core/src/main/java/org/apache/shenyu/sdk/core/client/AbstractShenyuSdkClient.java`
-#### Snippet
-```java
-
-    @Override
-    public void init(final RegisterConfig registerConfig, final List<ShenyuSdkRequestInterceptor> requestInterceptors, final ShenyuInstanceRegisterRepository instanceRegisterRepository) {
-        this.registerConfig = registerConfig;
-        this.registerRepository = instanceRegisterRepository;
-```
-
-### BoundedWildcard
-Can generalize to `? extends ShenyuContextDecorator`
-in `shenyu-plugin/shenyu-plugin-global/src/main/java/org/apache/shenyu/plugin/global/DefaultShenyuContextBuilder.java`
-#### Snippet
-```java
-     * @param decoratorMap the decorator map
-     */
-    public DefaultShenyuContextBuilder(final Map<String, ShenyuContextDecorator> decoratorMap) {
-        this.decoratorMap = decoratorMap;
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? extends AnnotatedParameterProcessor`
-in `shenyu-sdk/shenyu-sdk-spring/src/main/java/org/apache/shenyu/sdk/spring/proxy/ShenyuClientMethodHandler.java`
-#### Snippet
-```java
-                                     final RequestTemplate requestTemplate,
-                                     final ShenyuSdkClient shenyuHttpClient,
-                                     final Map<Class<? extends Annotation>, AnnotatedParameterProcessor> annotatedArgumentProcessors) {
-        this.shenyuClient = shenyuClient;
-        this.requestTemplate = requestTemplate;
-```
-
-### BoundedWildcard
-Can generalize to `? extends ZookeeperClient`
-in `shenyu-spring-boot-starter/shenyu-spring-boot-starter-sync-data-center/shenyu-spring-boot-starter-sync-data-zookeeper/src/main/java/org/apache/shenyu/springboot/sync/data/zookeeper/ZookeeperSyncDataConfiguration.java`
-#### Snippet
-```java
-     */
-    @Bean
-    public SyncDataService syncDataService(final ObjectProvider<ZookeeperClient> zookeeperClient, final ObjectProvider<PluginDataSubscriber> pluginSubscriber,
-                                           final ObjectProvider<List<MetaDataSubscriber>> metaSubscribers, final ObjectProvider<List<AuthDataSubscriber>> authSubscribers) {
-        LOGGER.info("you use zookeeper sync shenyu data.......");
-```
-
-### BoundedWildcard
-Can generalize to `? extends PluginDataSubscriber`
-in `shenyu-spring-boot-starter/shenyu-spring-boot-starter-sync-data-center/shenyu-spring-boot-starter-sync-data-zookeeper/src/main/java/org/apache/shenyu/springboot/sync/data/zookeeper/ZookeeperSyncDataConfiguration.java`
-#### Snippet
-```java
-     */
-    @Bean
-    public SyncDataService syncDataService(final ObjectProvider<ZookeeperClient> zookeeperClient, final ObjectProvider<PluginDataSubscriber> pluginSubscriber,
-                                           final ObjectProvider<List<MetaDataSubscriber>> metaSubscribers, final ObjectProvider<List<AuthDataSubscriber>> authSubscribers) {
-        LOGGER.info("you use zookeeper sync shenyu data.......");
-```
-
-### BoundedWildcard
-Can generalize to `? extends AnnotatedParameterProcessor`
-in `shenyu-sdk/shenyu-sdk-spring/src/main/java/org/apache/shenyu/sdk/spring/proxy/ShenyuClientInvocationHandler.java`
-#### Snippet
-```java
-
-    private Map<Class<? extends Annotation>, AnnotatedParameterProcessor> toAnnotatedArgumentProcessorMap(
-            final Collection<AnnotatedParameterProcessor> processors) {
-        Map<Class<? extends Annotation>, AnnotatedParameterProcessor> result = new HashMap<>();
-        for (AnnotatedParameterProcessor processor : processors) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends MetaDataRegisterDTO`
-in `shenyu-client/shenyu-client-core/src/main/java/org/apache/shenyu/client/core/disruptor/subcriber/ShenyuClientMetadataExecutorSubscriber.java`
-#### Snippet
-```java
-    
-    @Override
-    public void executor(final Collection<MetaDataRegisterDTO> metaDataRegisterDTOList) {
-        for (MetaDataRegisterDTO metaDataRegisterDTO : metaDataRegisterDTOList) {
-            shenyuClientRegisterRepository.persistInterface(metaDataRegisterDTO);
-```
-
-### BoundedWildcard
-Can generalize to `? extends ApiDocRegisterDTO`
-in `shenyu-client/shenyu-client-core/src/main/java/org/apache/shenyu/client/core/disruptor/subcriber/ShenyuClientApiDocExecutorSubscriber.java`
-#### Snippet
-```java
-
-    @Override
-    public void executor(final Collection<ApiDocRegisterDTO> dataList) {
-        for (ApiDocRegisterDTO apiDocRegisterDTO : dataList) {
-            shenyuClientRegisterRepository.persistApiDoc(apiDocRegisterDTO);
-```
-
-### BoundedWildcard
-Can generalize to `? extends URIRegisterDTO`
-in `shenyu-client/shenyu-client-core/src/main/java/org/apache/shenyu/client/core/disruptor/subcriber/ShenyuClientURIExecutorSubscriber.java`
-#### Snippet
-```java
-    
-    @Override
-    public void executor(final Collection<URIRegisterDTO> dataList) {
-        for (URIRegisterDTO uriRegisterDTO : dataList) {
-            Stopwatch stopwatch = Stopwatch.createStarted();
-```
-
-### BoundedWildcard
-Can generalize to `? extends ShenyuRequestLog`
-in `shenyu-plugin/shenyu-plugin-logging/shenyu-plugin-logging-pulsar/src/main/java/org/apache/shenyu/plugin/logging/pulsar/client/PulsarLogCollectClient.java`
-#### Snippet
-```java
-
-    @Override
-    public void consume0(@NonNull final List<ShenyuRequestLog> logs) {
-        logs.forEach(log -> producer.sendAsync(toBytes(log)));
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? super ServerWebExchangeMatcher`
-in `shenyu-plugin/shenyu-plugin-oauth2/src/main/java/org/apache/shenyu/plugin/oauth2/filter/OAuth2PreFilter.java`
-#### Snippet
-```java
-    private final List<ServerWebExchangeMatcher> matchers;
-
-    public OAuth2PreFilter(final List<ServerWebExchangeMatcher> matchers) {
-        this.matchers = matchers;
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? extends ShenyuRequestLog`
-in `shenyu-plugin/shenyu-plugin-logging/shenyu-plugin-logging-clickhouse/src/main/java/org/apache/shenyu/plugin/logging/clickhouse/client/ClickHouseLogCollectClient.java`
-#### Snippet
-```java
-
-    @Override
-    public void consume0(@NonNull final List<ShenyuRequestLog> logs) throws Exception {
-        if (CollectionUtils.isNotEmpty(logs)) {
-            Object[][] datas = new Object[logs.size()][];
-```
-
-### BoundedWildcard
 Can generalize to `? extends List`
-in `shenyu-register-center/shenyu-register-client-server/shenyu-register-client-server-consul/src/main/java/org/apache/shenyu/register/client/server/consul/ShenyuConsulConfigWatch.java`
+in `shenyu-admin/src/main/java/org/apache/shenyu/admin/model/page/PageResultUtils.java`
 #### Snippet
 ```java
+     * @return the common pager
+     */
+    public static <T> CommonPager<T> result(final PageParameter pageParameter, final Supplier<List<T>> listSupplier) {
+        return new CommonPager<>(pageParameter, listSupplier.get());
     }
-
-    private Map<String, GetValue> extractGetValue(final Response<List<GetValue>> response) {
-        Map<String, GetValue> valueMap = new HashMap<>();
-        List<GetValue> values = response.getValue();
 ```
 
 ### BoundedWildcard
@@ -734,39 +567,27 @@ in `shenyu-admin/src/main/java/org/apache/shenyu/admin/model/page/PageResultUtil
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends List`
-in `shenyu-admin/src/main/java/org/apache/shenyu/admin/model/page/PageResultUtils.java`
+Can generalize to `? extends T`
+in `shenyu-admin/src/main/java/org/apache/shenyu/admin/utils/ListUtil.java`
 #### Snippet
 ```java
-     * @return the common pager
+     * @return list1
      */
-    public static <T> CommonPager<T> result(final PageParameter pageParameter, final Supplier<List<T>> listSupplier) {
-        return new CommonPager<>(pageParameter, listSupplier.get());
-    }
+    public static <T> List<T> merge(final List<T> list1, final List<T> list2) {
+        list1.addAll(list2);
+        return list1;
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends SelectorHandleConverter`
-in `shenyu-admin/src/main/java/org/apache/shenyu/admin/config/ShenyuAdminConfiguration.java`
+Can generalize to `? extends U`
+in `shenyu-admin/src/main/java/org/apache/shenyu/admin/utils/ListUtil.java`
 #### Snippet
 ```java
+     * @return list
      */
-    @Bean
-    public SelectorHandleConverterFactor selectorHandleConverterFactor(final List<SelectorHandleConverter> converterList) {
-        Map<String, SelectorHandleConverter> converterMap = converterList.stream().collect(Collectors.toMap(SelectorHandleConverter::pluginName, e -> e));
-        return new SelectorHandleConverterFactor(converterMap);
-```
-
-### BoundedWildcard
-Can generalize to `? extends ShenyuClientRegisterService`
-in `shenyu-admin/src/main/java/org/apache/shenyu/admin/config/RegisterCenterConfiguration.java`
-#### Snippet
-```java
-    @Bean(destroyMethod = "close")
-    public ShenyuClientServerRegisterRepository shenyuClientServerRegisterRepository(final ShenyuRegisterCenterConfig shenyuRegisterCenterConfig,
-                                                                               final List<ShenyuClientRegisterService> shenyuClientRegisterService) {
-        String registerType = shenyuRegisterCenterConfig.getRegisterType();
-        ShenyuClientServerRegisterRepository registerRepository = ExtensionLoader.getExtensionLoader(ShenyuClientServerRegisterRepository.class).getJoin(registerType);
+    public static <K, U> Map<K, List<U>> groupBy(final Collection<U> list, final Function<? super U, ? extends K> function) {
+        if (CollectionUtils.isEmpty(list)) {
+            return Collections.emptyMap();
 ```
 
 ### BoundedWildcard
@@ -810,35 +631,35 @@ Can generalize to `? extends T`
 in `shenyu-admin/src/main/java/org/apache/shenyu/admin/utils/ListUtil.java`
 #### Snippet
 ```java
-     * @return list1
-     */
-    public static <T> List<T> merge(final List<T> list1, final List<T> list2) {
-        list1.addAll(list2);
-        return list1;
-```
-
-### BoundedWildcard
-Can generalize to `? extends U`
-in `shenyu-admin/src/main/java/org/apache/shenyu/admin/utils/ListUtil.java`
-#### Snippet
-```java
-     * @return list
-     */
-    public static <K, U> Map<K, List<U>> groupBy(final Collection<U> list, final Function<? super U, ? extends K> function) {
-        if (CollectionUtils.isEmpty(list)) {
-            return Collections.emptyMap();
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
-in `shenyu-admin/src/main/java/org/apache/shenyu/admin/utils/ListUtil.java`
-#### Snippet
-```java
      * @return collection1
      */
     public static <T> Set<T> mergeSet(final Set<T> set1, final Set<T> set2) {
         set1.addAll(set2);
         return set1;
+```
+
+### BoundedWildcard
+Can generalize to `? extends ShenyuClientRegisterService`
+in `shenyu-admin/src/main/java/org/apache/shenyu/admin/config/RegisterCenterConfiguration.java`
+#### Snippet
+```java
+    @Bean(destroyMethod = "close")
+    public ShenyuClientServerRegisterRepository shenyuClientServerRegisterRepository(final ShenyuRegisterCenterConfig shenyuRegisterCenterConfig,
+                                                                               final List<ShenyuClientRegisterService> shenyuClientRegisterService) {
+        String registerType = shenyuRegisterCenterConfig.getRegisterType();
+        ShenyuClientServerRegisterRepository registerRepository = ExtensionLoader.getExtensionLoader(ShenyuClientServerRegisterRepository.class).getJoin(registerType);
+```
+
+### BoundedWildcard
+Can generalize to `? extends SelectorHandleConverter`
+in `shenyu-admin/src/main/java/org/apache/shenyu/admin/config/ShenyuAdminConfiguration.java`
+#### Snippet
+```java
+     */
+    @Bean
+    public SelectorHandleConverterFactor selectorHandleConverterFactor(final List<SelectorHandleConverter> converterList) {
+        Map<String, SelectorHandleConverter> converterMap = converterList.stream().collect(Collectors.toMap(SelectorHandleConverter::pluginName, e -> e));
+        return new SelectorHandleConverterFactor(converterMap);
 ```
 
 ### BoundedWildcard
@@ -866,6 +687,18 @@ in `shenyu-admin/src/main/java/org/apache/shenyu/admin/service/PageService.java`
 ```
 
 ### BoundedWildcard
+Can generalize to `? extends List`
+in `shenyu-admin/src/main/java/org/apache/shenyu/admin/service/impl/TagServiceImpl.java`
+#### Snippet
+```java
+     * @param id id
+     */
+    private void recurseUpdateTag(final Map<String, TagDO> allData, final Map<String, List<String>> relationMap, final String id) {
+        if (CollectionUtils.isEmpty(relationMap.get(id))) {
+            return;
+```
+
+### BoundedWildcard
 Can generalize to `? extends ResourceVO`
 in `shenyu-admin/src/main/java/org/apache/shenyu/admin/service/impl/PermissionServiceImpl.java`
 #### Snippet
@@ -878,14 +711,62 @@ in `shenyu-admin/src/main/java/org/apache/shenyu/admin/service/impl/PermissionSe
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends List`
-in `shenyu-admin/src/main/java/org/apache/shenyu/admin/service/impl/TagServiceImpl.java`
+Can generalize to `? extends ResourceVO`
+in `shenyu-admin/src/main/java/org/apache/shenyu/admin/service/impl/RoleServiceImpl.java`
 #### Snippet
 ```java
-     * @param id id
+     * @return list of {@linkplain ResourceInfo}
      */
-    private void recurseUpdateTag(final Map<String, TagDO> allData, final Map<String, List<String>> relationMap, final String id) {
-        if (CollectionUtils.isEmpty(relationMap.get(id))) {
+    private List<ResourceInfo> getTreeModelList(final List<ResourceVO> metaList) {
+        final List<ResourceInfo> retList = new ArrayList<>();
+        if (CollectionUtils.isEmpty(metaList)) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends SelectorConditionDTO`
+in `shenyu-admin/src/main/java/org/apache/shenyu/admin/service/impl/SelectorServiceImpl.java`
+#### Snippet
+```java
+    }
+    
+    private void createCondition(final String selectorId, final List<SelectorConditionDTO> selectorConditions) {
+        for (SelectorConditionDTO condition : selectorConditions) {
+            condition.setSelectorId(selectorId);
+```
+
+### BoundedWildcard
+Can generalize to `? extends SelectorConditionDTO`
+in `shenyu-admin/src/main/java/org/apache/shenyu/admin/service/impl/SelectorServiceImpl.java`
+#### Snippet
+```java
+    }
+    
+    private void publishEvent(final SelectorDO selectorDO, final List<SelectorConditionDTO> selectorConditions) {
+        PluginDO pluginDO = pluginMapper.selectById(selectorDO.getPluginId());
+        List<ConditionData> conditionDataList = ListUtil.map(selectorConditions, ConditionTransfer.INSTANCE::mapToSelectorDTO);
+```
+
+### BoundedWildcard
+Can generalize to `? extends UpstreamInstance`
+in `shenyu-admin/src/main/java/org/apache/shenyu/admin/service/manager/impl/ServiceDocManagerImpl.java`
+#### Snippet
+```java
+
+    @Override
+    public void pullApiDocument(final Set<UpstreamInstance> currentServices) {
+        currentServices.forEach(this::pullApiDocument);
+    }
+```
+
+### BoundedWildcard
+Can generalize to `? super DocInfo`
+in `shenyu-admin/src/main/java/org/apache/shenyu/admin/service/manager/impl/DocManagerImpl.java`
+#### Snippet
+```java
+     */
+    @Override
+    public void addDocInfo(final String clusterName, final String docInfoJson, final Consumer<DocInfo> callback) {
+        if (StringUtils.isEmpty(docInfoJson)) {
             return;
 ```
 
@@ -914,75 +795,15 @@ in `shenyu-admin/src/main/java/org/apache/shenyu/admin/utils/HttpUtils.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends ResourceVO`
-in `shenyu-admin/src/main/java/org/apache/shenyu/admin/service/impl/RoleServiceImpl.java`
-#### Snippet
-```java
-     * @return list of {@linkplain ResourceInfo}
-     */
-    private List<ResourceInfo> getTreeModelList(final List<ResourceVO> metaList) {
-        final List<ResourceInfo> retList = new ArrayList<>();
-        if (CollectionUtils.isEmpty(metaList)) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends UpstreamInstance`
-in `shenyu-admin/src/main/java/org/apache/shenyu/admin/service/manager/impl/ServiceDocManagerImpl.java`
-#### Snippet
-```java
-
-    @Override
-    public void pullApiDocument(final Set<UpstreamInstance> currentServices) {
-        currentServices.forEach(this::pullApiDocument);
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? extends SelectorConditionDTO`
-in `shenyu-admin/src/main/java/org/apache/shenyu/admin/service/impl/SelectorServiceImpl.java`
-#### Snippet
-```java
-    }
-    
-    private void createCondition(final String selectorId, final List<SelectorConditionDTO> selectorConditions) {
-        for (SelectorConditionDTO condition : selectorConditions) {
-            condition.setSelectorId(selectorId);
-```
-
-### BoundedWildcard
-Can generalize to `? extends SelectorConditionDTO`
-in `shenyu-admin/src/main/java/org/apache/shenyu/admin/service/impl/SelectorServiceImpl.java`
-#### Snippet
-```java
-    }
-    
-    private void publishEvent(final SelectorDO selectorDO, final List<SelectorConditionDTO> selectorConditions) {
-        PluginDO pluginDO = pluginMapper.selectById(selectorDO.getPluginId());
-        List<ConditionData> conditionDataList = ListUtil.map(selectorConditions, ConditionTransfer.INSTANCE::mapToSelectorDTO);
-```
-
-### BoundedWildcard
-Can generalize to `? super DocInfo`
-in `shenyu-admin/src/main/java/org/apache/shenyu/admin/service/manager/impl/DocManagerImpl.java`
-#### Snippet
-```java
-     */
-    @Override
-    public void addDocInfo(final String clusterName, final String docInfoJson, final Consumer<DocInfo> callback) {
-        if (StringUtils.isEmpty(docInfoJson)) {
-            return;
-```
-
-### BoundedWildcard
-Can generalize to `? extends DocItem`
-in `shenyu-admin/src/main/java/org/apache/shenyu/admin/service/manager/impl/SwaggerDocParser.java`
+Can generalize to `? extends SelectorData`
+in `shenyu-admin/src/main/java/org/apache/shenyu/admin/service/manager/impl/LoadServiceDocEntryImpl.java`
 #### Snippet
 ```java
     }
 
-    private int getMuduleOrder(final List<DocItem> items) {
-        if (CollectionUtils.isEmpty(items)) {
-            return Integer.MAX_VALUE;
+    private List<UpstreamInstance> getLastUpdateInstanceList(final List<SelectorData> changedList) {
+        if (CollectionUtils.isEmpty(changedList)) {
+            LOG.info("getLastUpdateInstanceList, changedList is empty.");
 ```
 
 ### BoundedWildcard
@@ -998,15 +819,15 @@ in `shenyu-admin/src/main/java/org/apache/shenyu/admin/service/manager/impl/Load
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends SelectorData`
-in `shenyu-admin/src/main/java/org/apache/shenyu/admin/service/manager/impl/LoadServiceDocEntryImpl.java`
+Can generalize to `? extends DocItem`
+in `shenyu-admin/src/main/java/org/apache/shenyu/admin/service/manager/impl/SwaggerDocParser.java`
 #### Snippet
 ```java
     }
 
-    private List<UpstreamInstance> getLastUpdateInstanceList(final List<SelectorData> changedList) {
-        if (CollectionUtils.isEmpty(changedList)) {
-            LOG.info("getLastUpdateInstanceList, changedList is empty.");
+    private int getMuduleOrder(final List<DocItem> items) {
+        if (CollectionUtils.isEmpty(items)) {
+            return Integer.MAX_VALUE;
 ```
 
 ### BoundedWildcard
@@ -1019,18 +840,6 @@ in `shenyu-admin/src/main/java/org/apache/shenyu/admin/service/register/ShenyuCl
     private List<DubboUpstream> buildDubboUpstreamList(final List<URIRegisterDTO> uriList) {
         return uriList.stream()
                 .map(dto -> CommonUpstreamUtils.buildDefaultDubboUpstream(dto.getHost(), dto.getPort()))
-```
-
-### BoundedWildcard
-Can generalize to `? extends CommonUpstream`
-in `shenyu-admin/src/main/java/org/apache/shenyu/admin/service/converter/DubboSelectorHandleConverter.java`
-#### Snippet
-```java
-    
-    @Override
-    protected Object doHandle(final String handle, final List<CommonUpstream> aliveList) {
-        List<DubboUpstream> existList = updateStatusAndFilter(convert(handle), aliveList);
-        aliveList.stream().filter(alive -> existList.stream().noneMatch(valid -> valid.getUpstreamUrl().equals(alive.getUpstreamUrl())))
 ```
 
 ### BoundedWildcard
@@ -1047,14 +856,14 @@ in `shenyu-admin/src/main/java/org/apache/shenyu/admin/service/register/Abstract
 
 ### BoundedWildcard
 Can generalize to `? extends URIRegisterDTO`
-in `shenyu-admin/src/main/java/org/apache/shenyu/admin/service/register/ShenyuClientRegisterTarsServiceImpl.java`
+in `shenyu-admin/src/main/java/org/apache/shenyu/admin/service/register/ShenyuClientRegisterGrpcServiceImpl.java`
 #### Snippet
 ```java
     }
 
-    private List<TarsUpstream> buildTarsUpstreamList(final List<URIRegisterDTO> uriList) {
-        return uriList.stream().map(dto -> CommonUpstreamUtils.buildDefaultTarsUpstream(dto.getHost(), dto.getPort()))
-                .collect(Collectors.toCollection(CopyOnWriteArrayList::new));
+    private List<GrpcUpstream> buildGrpcUpstreamList(final List<URIRegisterDTO> uriList) {
+        return uriList.stream()
+                .map(dto -> CommonUpstreamUtils.buildDefaultGrpcUpstream(dto.getHost(), dto.getPort()))
 ```
 
 ### BoundedWildcard
@@ -1071,26 +880,14 @@ in `shenyu-admin/src/main/java/org/apache/shenyu/admin/service/register/ShenyuCl
 
 ### BoundedWildcard
 Can generalize to `? extends URIRegisterDTO`
-in `shenyu-admin/src/main/java/org/apache/shenyu/admin/service/register/ShenyuClientRegisterGrpcServiceImpl.java`
+in `shenyu-admin/src/main/java/org/apache/shenyu/admin/service/register/ShenyuClientRegisterTarsServiceImpl.java`
 #### Snippet
 ```java
     }
 
-    private List<GrpcUpstream> buildGrpcUpstreamList(final List<URIRegisterDTO> uriList) {
-        return uriList.stream()
-                .map(dto -> CommonUpstreamUtils.buildDefaultGrpcUpstream(dto.getHost(), dto.getPort()))
-```
-
-### BoundedWildcard
-Can generalize to `? extends URIRegisterDTO`
-in `shenyu-admin/src/main/java/org/apache/shenyu/admin/service/register/ShenyuClientRegisterSpringCloudServiceImpl.java`
-#### Snippet
-```java
-    }
-
-    private List<DivideUpstream> buildDivideUpstreamList(final List<URIRegisterDTO> uriList) {
-        return uriList.stream()
-                .map(dto -> CommonUpstreamUtils.buildDefaultDivideUpstream(dto.getHost(), dto.getPort()))
+    private List<TarsUpstream> buildTarsUpstreamList(final List<URIRegisterDTO> uriList) {
+        return uriList.stream().map(dto -> CommonUpstreamUtils.buildDefaultTarsUpstream(dto.getHost(), dto.getPort()))
+                .collect(Collectors.toCollection(CopyOnWriteArrayList::new));
 ```
 
 ### BoundedWildcard
@@ -1107,30 +904,6 @@ in `shenyu-admin/src/main/java/org/apache/shenyu/admin/service/converter/Selecto
 
 ### BoundedWildcard
 Can generalize to `? extends CommonUpstream`
-in `shenyu-admin/src/main/java/org/apache/shenyu/admin/service/converter/TarsSelectorHandleConverter.java`
-#### Snippet
-```java
-     */
-    @Override
-    protected Object doHandle(final String handle, final List<CommonUpstream> aliveList) {
-        List<TarsUpstream> existList = updateStatusAndFilter(convert(handle), aliveList);
-        aliveList.stream().filter(alive -> existList.stream().noneMatch(valid -> valid.getUpstreamUrl().equals(alive.getUpstreamUrl())))
-```
-
-### BoundedWildcard
-Can generalize to `? extends CommonUpstream`
-in `shenyu-admin/src/main/java/org/apache/shenyu/admin/service/converter/DivideSelectorHandleConverter.java`
-#### Snippet
-```java
-     */
-    @Override
-    protected Object doHandle(final String handle, final List<CommonUpstream> aliveList) {
-        List<DivideUpstream> existList = updateStatusAndFilter(convert(handle), aliveList);
-        aliveList.stream().filter(alive -> existList.stream().noneMatch(valid -> valid.getUpstreamUrl().equals(alive.getUpstreamUrl())))
-```
-
-### BoundedWildcard
-Can generalize to `? extends CommonUpstream`
 in `shenyu-admin/src/main/java/org/apache/shenyu/admin/service/converter/SpringCloudSelectorHandleConverter.java`
 #### Snippet
 ```java
@@ -1143,13 +916,13 @@ in `shenyu-admin/src/main/java/org/apache/shenyu/admin/service/converter/SpringC
 
 ### BoundedWildcard
 Can generalize to `? extends CommonUpstream`
-in `shenyu-admin/src/main/java/org/apache/shenyu/admin/service/converter/GrpcSelectorHandleConverter.java`
+in `shenyu-admin/src/main/java/org/apache/shenyu/admin/service/converter/DubboSelectorHandleConverter.java`
 #### Snippet
 ```java
     
     @Override
     protected Object doHandle(final String handle, final List<CommonUpstream> aliveList) {
-        List<GrpcUpstream> existList = updateStatusAndFilter(convert(handle), aliveList);
+        List<DubboUpstream> existList = updateStatusAndFilter(convert(handle), aliveList);
         aliveList.stream().filter(alive -> existList.stream().noneMatch(valid -> valid.getUpstreamUrl().equals(alive.getUpstreamUrl())))
 ```
 
@@ -1166,6 +939,42 @@ in `shenyu-admin/src/main/java/org/apache/shenyu/admin/service/register/ShenyuCl
 ```
 
 ### BoundedWildcard
+Can generalize to `? extends CommonUpstream`
+in `shenyu-admin/src/main/java/org/apache/shenyu/admin/service/converter/DivideSelectorHandleConverter.java`
+#### Snippet
+```java
+     */
+    @Override
+    protected Object doHandle(final String handle, final List<CommonUpstream> aliveList) {
+        List<DivideUpstream> existList = updateStatusAndFilter(convert(handle), aliveList);
+        aliveList.stream().filter(alive -> existList.stream().noneMatch(valid -> valid.getUpstreamUrl().equals(alive.getUpstreamUrl())))
+```
+
+### BoundedWildcard
+Can generalize to `? extends CommonUpstream`
+in `shenyu-admin/src/main/java/org/apache/shenyu/admin/service/converter/GrpcSelectorHandleConverter.java`
+#### Snippet
+```java
+    
+    @Override
+    protected Object doHandle(final String handle, final List<CommonUpstream> aliveList) {
+        List<GrpcUpstream> existList = updateStatusAndFilter(convert(handle), aliveList);
+        aliveList.stream().filter(alive -> existList.stream().noneMatch(valid -> valid.getUpstreamUrl().equals(alive.getUpstreamUrl())))
+```
+
+### BoundedWildcard
+Can generalize to `? extends CommonUpstream`
+in `shenyu-admin/src/main/java/org/apache/shenyu/admin/service/converter/TarsSelectorHandleConverter.java`
+#### Snippet
+```java
+     */
+    @Override
+    protected Object doHandle(final String handle, final List<CommonUpstream> aliveList) {
+        List<TarsUpstream> existList = updateStatusAndFilter(convert(handle), aliveList);
+        aliveList.stream().filter(alive -> existList.stream().noneMatch(valid -> valid.getUpstreamUrl().equals(alive.getUpstreamUrl())))
+```
+
+### BoundedWildcard
 Can generalize to `? extends T`
 in `shenyu-admin/src/main/java/org/apache/shenyu/admin/service/converter/AbstractSelectorHandleConverter.java`
 #### Snippet
@@ -1175,6 +984,18 @@ in `shenyu-admin/src/main/java/org/apache/shenyu/admin/service/converter/Abstrac
     public <T extends CommonUpstream> List<T> updateStatusAndFilter(final List<T> existList, final List<? extends CommonUpstream> aliveList) {
         if (CollectionUtils.isEmpty(aliveList) || CollectionUtils.isEmpty(existList)) {
             return Lists.newArrayList();
+```
+
+### BoundedWildcard
+Can generalize to `? extends URIRegisterDTO`
+in `shenyu-admin/src/main/java/org/apache/shenyu/admin/service/register/ShenyuClientRegisterSpringCloudServiceImpl.java`
+#### Snippet
+```java
+    }
+
+    private List<DivideUpstream> buildDivideUpstreamList(final List<URIRegisterDTO> uriList) {
+        return uriList.stream()
+                .map(dto -> CommonUpstreamUtils.buildDefaultDivideUpstream(dto.getHost(), dto.getPort()))
 ```
 
 ### BoundedWildcard
@@ -1190,18 +1011,6 @@ in `shenyu-admin/src/main/java/org/apache/shenyu/admin/listener/AbstractNodeData
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends PluginData`
-in `shenyu-admin/src/main/java/org/apache/shenyu/admin/listener/AbstractNodeDataChangedListener.java`
-#### Snippet
-```java
-
-    @Override
-    public void onPluginChanged(final List<PluginData> changed, final DataEventTypeEnum eventType) {
-        for (PluginData data : changed) {
-            String pluginPath = DefaultPathConstants.buildPluginPath(data.getName());
-```
-
-### BoundedWildcard
 Can generalize to `? extends RuleData`
 in `shenyu-admin/src/main/java/org/apache/shenyu/admin/listener/AbstractNodeDataChangedListener.java`
 #### Snippet
@@ -1214,15 +1023,15 @@ in `shenyu-admin/src/main/java/org/apache/shenyu/admin/listener/AbstractNodeData
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends SelectorData`
+Can generalize to `? extends PluginData`
 in `shenyu-admin/src/main/java/org/apache/shenyu/admin/listener/AbstractNodeDataChangedListener.java`
 #### Snippet
 ```java
 
     @Override
-    public void onSelectorChanged(final List<SelectorData> changed, final DataEventTypeEnum eventType) {
-        if (eventType == DataEventTypeEnum.REFRESH && !changed.isEmpty()) {
-            String selectorParentPath = DefaultPathConstants.buildSelectorParentPath(changed.get(0).getPluginName());
+    public void onPluginChanged(final List<PluginData> changed, final DataEventTypeEnum eventType) {
+        for (PluginData data : changed) {
+            String pluginPath = DefaultPathConstants.buildPluginPath(data.getName());
 ```
 
 ### BoundedWildcard
@@ -1238,13 +1047,37 @@ in `shenyu-admin/src/main/java/org/apache/shenyu/admin/listener/AbstractNodeData
 ```
 
 ### BoundedWildcard
+Can generalize to `? extends SelectorData`
+in `shenyu-admin/src/main/java/org/apache/shenyu/admin/listener/AbstractNodeDataChangedListener.java`
+#### Snippet
+```java
+
+    @Override
+    public void onSelectorChanged(final List<SelectorData> changed, final DataEventTypeEnum eventType) {
+        if (eventType == DataEventTypeEnum.REFRESH && !changed.isEmpty()) {
+            String selectorParentPath = DefaultPathConstants.buildSelectorParentPath(changed.get(0).getPluginName());
+```
+
+### BoundedWildcard
+Can generalize to `? extends MetaDataRegisterDTO`
+in `shenyu-admin/src/main/java/org/apache/shenyu/admin/disruptor/subscriber/MetadataExecutorSubscriber.java`
+#### Snippet
+```java
+
+    @Override
+    public void executor(final Collection<MetaDataRegisterDTO> metaDataRegisterDTOList) {
+        metaDataRegisterDTOList.forEach(meta -> {
+            Optional.ofNullable(this.shenyuClientRegisterService.get(meta.getRpcType()))
+```
+
+### BoundedWildcard
 Can generalize to `? extends ShenyuClientRegisterService`
-in `shenyu-admin/src/main/java/org/apache/shenyu/admin/disruptor/subscriber/ApiDocExecutorSubscriber.java`
+in `shenyu-admin/src/main/java/org/apache/shenyu/admin/disruptor/subscriber/MetadataExecutorSubscriber.java`
 #### Snippet
 ```java
     private final Map<String, ShenyuClientRegisterService> shenyuClientRegisterService;
 
-    public ApiDocExecutorSubscriber(final Map<String, ShenyuClientRegisterService> shenyuClientRegisterService) {
+    public MetadataExecutorSubscriber(final Map<String, ShenyuClientRegisterService> shenyuClientRegisterService) {
         this.shenyuClientRegisterService = shenyuClientRegisterService;
     }
 ```
@@ -1263,38 +1096,50 @@ in `shenyu-admin/src/main/java/org/apache/shenyu/admin/disruptor/subscriber/ApiD
 
 ### BoundedWildcard
 Can generalize to `? extends ShenyuClientRegisterService`
-in `shenyu-admin/src/main/java/org/apache/shenyu/admin/disruptor/subscriber/MetadataExecutorSubscriber.java`
+in `shenyu-admin/src/main/java/org/apache/shenyu/admin/disruptor/subscriber/ApiDocExecutorSubscriber.java`
 #### Snippet
 ```java
     private final Map<String, ShenyuClientRegisterService> shenyuClientRegisterService;
 
-    public MetadataExecutorSubscriber(final Map<String, ShenyuClientRegisterService> shenyuClientRegisterService) {
+    public ApiDocExecutorSubscriber(final Map<String, ShenyuClientRegisterService> shenyuClientRegisterService) {
         this.shenyuClientRegisterService = shenyuClientRegisterService;
     }
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends MetaDataRegisterDTO`
-in `shenyu-admin/src/main/java/org/apache/shenyu/admin/disruptor/subscriber/MetadataExecutorSubscriber.java`
+Can generalize to `? extends URIRegisterDTO`
+in `shenyu-admin/src/main/java/org/apache/shenyu/admin/disruptor/subscriber/URIRegisterExecutorSubscriber.java`
 #### Snippet
 ```java
-
+    
     @Override
-    public void executor(final Collection<MetaDataRegisterDTO> metaDataRegisterDTOList) {
-        metaDataRegisterDTOList.forEach(meta -> {
-            Optional.ofNullable(this.shenyuClientRegisterService.get(meta.getRpcType()))
+    public void executor(final Collection<URIRegisterDTO> dataList) {
+        if (CollectionUtils.isEmpty(dataList)) {
+            return;
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends SelectorData`
-in `shenyu-admin/src/main/java/org/apache/shenyu/admin/listener/AbstractListDataChangedListener.java`
+Can generalize to `? extends URIRegisterDTO`
+in `shenyu-admin/src/main/java/org/apache/shenyu/admin/disruptor/subscriber/URIRegisterExecutorSubscriber.java`
 #### Snippet
 ```java
+    }
+    
+    private Map<String, List<URIRegisterDTO>> buildData(final Collection<URIRegisterDTO> dataList) {
+        Map<String, List<URIRegisterDTO>> resultMap = new HashMap<>(8);
+        for (URIRegisterDTO dto : dataList) {
+```
 
-    @Override
-    public void onSelectorChanged(final List<SelectorData> changed, final DataEventTypeEnum eventType) {
-        updateSelectorMap(getConfig(changeData.getSelectorDataId()));
-        switch (eventType) {
+### BoundedWildcard
+Can generalize to `? extends ShenyuClientRegisterService`
+in `shenyu-admin/src/main/java/org/apache/shenyu/admin/disruptor/subscriber/URIRegisterExecutorSubscriber.java`
+#### Snippet
+```java
+     * @param shenyuClientRegisterService the shenyu client register service
+     */
+    public URIRegisterExecutorSubscriber(final Map<String, ShenyuClientRegisterService> shenyuClientRegisterService) {
+        this.shenyuClientRegisterService = shenyuClientRegisterService;
+    }
 ```
 
 ### BoundedWildcard
@@ -1322,18 +1167,6 @@ in `shenyu-admin/src/main/java/org/apache/shenyu/admin/listener/AbstractListData
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends MetaData`
-in `shenyu-admin/src/main/java/org/apache/shenyu/admin/listener/AbstractListDataChangedListener.java`
-#### Snippet
-```java
-
-    @Override
-    public void onMetaDataChanged(final List<MetaData> changed, final DataEventTypeEnum eventType) {
-        updateMetaDataMap(getConfig(changeData.getMetaDataId()));
-        switch (eventType) {
-```
-
-### BoundedWildcard
 Can generalize to `? extends RuleData`
 in `shenyu-admin/src/main/java/org/apache/shenyu/admin/listener/AbstractListDataChangedListener.java`
 #### Snippet
@@ -1346,99 +1179,183 @@ in `shenyu-admin/src/main/java/org/apache/shenyu/admin/listener/AbstractListData
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends URIRegisterDTO`
-in `shenyu-admin/src/main/java/org/apache/shenyu/admin/disruptor/subscriber/URIRegisterExecutorSubscriber.java`
+Can generalize to `? extends MetaData`
+in `shenyu-admin/src/main/java/org/apache/shenyu/admin/listener/AbstractListDataChangedListener.java`
 #### Snippet
 ```java
-    
+
     @Override
-    public void executor(final Collection<URIRegisterDTO> dataList) {
-        if (CollectionUtils.isEmpty(dataList)) {
-            return;
+    public void onMetaDataChanged(final List<MetaData> changed, final DataEventTypeEnum eventType) {
+        updateMetaDataMap(getConfig(changeData.getMetaDataId()));
+        switch (eventType) {
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends ShenyuClientRegisterService`
-in `shenyu-admin/src/main/java/org/apache/shenyu/admin/disruptor/subscriber/URIRegisterExecutorSubscriber.java`
+Can generalize to `? extends SelectorData`
+in `shenyu-admin/src/main/java/org/apache/shenyu/admin/listener/AbstractListDataChangedListener.java`
 #### Snippet
 ```java
-     * @param shenyuClientRegisterService the shenyu client register service
-     */
-    public URIRegisterExecutorSubscriber(final Map<String, ShenyuClientRegisterService> shenyuClientRegisterService) {
-        this.shenyuClientRegisterService = shenyuClientRegisterService;
-    }
+
+    @Override
+    public void onSelectorChanged(final List<SelectorData> changed, final DataEventTypeEnum eventType) {
+        updateSelectorMap(getConfig(changeData.getSelectorDataId()));
+        switch (eventType) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends AnnotatedParameterProcessor`
+in `shenyu-sdk/shenyu-sdk-spring/src/main/java/org/apache/shenyu/sdk/spring/proxy/ShenyuClientInvocationHandler.java`
+#### Snippet
+```java
+
+    private Map<Class<? extends Annotation>, AnnotatedParameterProcessor> toAnnotatedArgumentProcessorMap(
+            final Collection<AnnotatedParameterProcessor> processors) {
+        Map<Class<? extends Annotation>, AnnotatedParameterProcessor> result = new HashMap<>();
+        for (AnnotatedParameterProcessor processor : processors) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends AnnotatedParameterProcessor`
+in `shenyu-sdk/shenyu-sdk-spring/src/main/java/org/apache/shenyu/sdk/spring/proxy/ShenyuClientMethodHandler.java`
+#### Snippet
+```java
+                                     final RequestTemplate requestTemplate,
+                                     final ShenyuSdkClient shenyuHttpClient,
+                                     final Map<Class<? extends Annotation>, AnnotatedParameterProcessor> annotatedArgumentProcessors) {
+        this.shenyuClient = shenyuClient;
+        this.requestTemplate = requestTemplate;
 ```
 
 ### BoundedWildcard
 Can generalize to `? extends URIRegisterDTO`
-in `shenyu-admin/src/main/java/org/apache/shenyu/admin/disruptor/subscriber/URIRegisterExecutorSubscriber.java`
+in `shenyu-register-center/shenyu-register-client-server/shenyu-register-client-server-etcd/src/main/java/org/apache/shenyu/register/client/server/etcd/EtcdClientServerRegisterRepository.java`
 #### Snippet
 ```java
     }
-    
-    private Map<String, List<URIRegisterDTO>> buildData(final Collection<URIRegisterDTO> dataList) {
-        Map<String, List<URIRegisterDTO>> resultMap = new HashMap<>(8);
-        for (URIRegisterDTO dto : dataList) {
-```
 
-### BoundedWildcard
-Can generalize to `? extends DubboParamResolveService`
-in `shenyu-spring-boot-starter/shenyu-spring-boot-starter-plugin/shenyu-spring-boot-starter-plugin-dubbo/shenyu-spring-boot-starter-plugin-alibaba-dubbo/src/main/java/org/apache/shenyu/springboot/starter/plugin/alibaba/dubbo/AlibabaDubboPluginConfiguration.java`
-#### Snippet
-```java
-     */
-    @Bean
-    public ShenyuPlugin alibabaDubboPlugin(final ObjectProvider<DubboParamResolveService> dubboParamResolveServices) {
-        return new AlibabaDubboPlugin(new AlibabaDubboProxyService(dubboParamResolveServices.getIfAvailable()));
+    private void publishURI(final List<URIRegisterDTO> registerDTOList) {
+        publisher.publish(registerDTOList);
     }
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends DubboParamResolveService`
-in `shenyu-spring-boot-starter/shenyu-spring-boot-starter-plugin/shenyu-spring-boot-starter-plugin-dubbo/shenyu-spring-boot-starter-plugin-apache-dubbo/src/main/java/org/apache/shenyu/springboot/starter/plugin/apache/dubbo/ApacheDubboPluginConfiguration.java`
+Can generalize to `? extends DiscoveryClient`
+in `shenyu-spring-boot-starter/shenyu-spring-boot-starter-plugin/shenyu-spring-boot-starter-plugin-springcloud/src/main/java/org/apache/shenyu/springboot/starter/plugin/springcloud/SpringCloudPluginConfiguration.java`
 #### Snippet
 ```java
      */
     @Bean
-    public ShenyuPlugin apacheDubboPlugin(final ObjectProvider<DubboParamResolveService> dubboParamResolveServices) {
-        return new ApacheDubboPlugin(new ApacheDubboProxyService(dubboParamResolveServices.getIfAvailable()));
+    public ShenyuSpringCloudServiceChooser shenyuSpringCloudLoadBalancerClient(final ObjectProvider<DiscoveryClient> discoveryClient) {
+        return new ShenyuSpringCloudServiceChooser(discoveryClient.getIfAvailable());
+    }
+```
+
+### BoundedWildcard
+Can generalize to `? super Event`
+in `shenyu-register-center/shenyu-register-client-server/shenyu-register-client-server-etcd/src/main/java/org/apache/shenyu/register/client/server/etcd/client/EtcdClient.java`
+#### Snippet
+```java
+
+    private Watch.Listener watch(final Supplier<Boolean> exitSignSupplier, final ByteSequence storeKey,
+                                 final BiConsumer<Event, Node> consumer) {
+        return Watch.listener(response -> {
+            while (!exitSignSupplier.get()) {
+```
+
+### BoundedWildcard
+Can generalize to `? super Node`
+in `shenyu-register-center/shenyu-register-client-server/shenyu-register-client-server-etcd/src/main/java/org/apache/shenyu/register/client/server/etcd/client/EtcdClient.java`
+#### Snippet
+```java
+
+    private Watch.Listener watch(final Supplier<Boolean> exitSignSupplier, final ByteSequence storeKey,
+                                 final BiConsumer<Event, Node> consumer) {
+        return Watch.listener(response -> {
+            while (!exitSignSupplier.get()) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends SofaParamResolveService`
+in `shenyu-spring-boot-starter/shenyu-spring-boot-starter-plugin/shenyu-spring-boot-starter-plugin-sofa/src/main/java/org/apache/shenyu/springboot/starter/plugin/sofa/SofaPluginConfiguration.java`
+#### Snippet
+```java
+     */
+    @Bean
+    public ShenyuPlugin sofaPlugin(final ObjectProvider<SofaParamResolveService> sofaParamResolveService) {
+        return new SofaPlugin(new SofaProxyService(sofaParamResolveService.getIfAvailable()));
+    }
+```
+
+### BoundedWildcard
+Can generalize to `? extends ShenyuRequestLog`
+in `shenyu-plugin/shenyu-plugin-logging/shenyu-plugin-logging-pulsar/src/main/java/org/apache/shenyu/plugin/logging/pulsar/client/PulsarLogCollectClient.java`
+#### Snippet
+```java
+
+    @Override
+    public void consume0(@NonNull final List<ShenyuRequestLog> logs) {
+        logs.forEach(log -> producer.sendAsync(toBytes(log)));
     }
 ```
 
 ### BoundedWildcard
 Can generalize to `? extends MetaDataSubscriber`
-in `shenyu-sync-data-center/shenyu-sync-data-etcd/src/main/java/org/apache/shenyu/sync/data/etcd/EtcdSyncDataService.java`
+in `shenyu-sync-data-center/shenyu-sync-data-consul/src/main/java/org/apache/shenyu/sync/data/consul/handler/ConsulCacheHandler.java`
 #### Snippet
 ```java
-    public EtcdSyncDataService(final EtcdClient etcdClient,
-                               final PluginDataSubscriber pluginDataSubscriber,
-                               final List<MetaDataSubscriber> metaDataSubscribers,
-                               final List<AuthDataSubscriber> authDataSubscribers) {
-        this.etcdClient = etcdClient;
-```
 
-### BoundedWildcard
-Can generalize to `? extends AuthDataSubscriber`
-in `shenyu-sync-data-center/shenyu-sync-data-etcd/src/main/java/org/apache/shenyu/sync/data/etcd/EtcdSyncDataService.java`
-#### Snippet
-```java
-                               final PluginDataSubscriber pluginDataSubscriber,
-                               final List<MetaDataSubscriber> metaDataSubscribers,
-                               final List<AuthDataSubscriber> authDataSubscribers) {
-        this.etcdClient = etcdClient;
+    public ConsulCacheHandler(final PluginDataSubscriber pluginDataSubscriber,
+                              final List<MetaDataSubscriber> metaDataSubscribers,
+                              final List<AuthDataSubscriber> authDataSubscribers) {
         this.pluginDataSubscriber = pluginDataSubscriber;
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends URIRegisterDTO`
-in `shenyu-register-center/shenyu-register-client-server/shenyu-register-client-server-nacos/src/main/java/org/apache/shenyu/register/client/server/nacos/NacosClientServerRegisterRepository.java`
+Can generalize to `? extends AuthDataSubscriber`
+in `shenyu-sync-data-center/shenyu-sync-data-consul/src/main/java/org/apache/shenyu/sync/data/consul/handler/ConsulCacheHandler.java`
 #### Snippet
 ```java
-    }
+    public ConsulCacheHandler(final PluginDataSubscriber pluginDataSubscriber,
+                              final List<MetaDataSubscriber> metaDataSubscribers,
+                              final List<AuthDataSubscriber> authDataSubscribers) {
+        this.pluginDataSubscriber = pluginDataSubscriber;
+        this.metaDataSubscribers = metaDataSubscribers;
+```
 
-    private void publishRegisterURI(final List<URIRegisterDTO> registerDTOList) {
-        LOGGER.info("publish uri: {}", registerDTOList);
-        publisher.publish(registerDTOList);
+### BoundedWildcard
+Can generalize to `? extends ShenyuRequestLog`
+in `shenyu-plugin/shenyu-plugin-logging/shenyu-plugin-logging-aliyun-sls/src/main/java/org/apache/shenyu/plugin/aliyun/sls/client/AliyunSlsLogCollectClient.java`
+#### Snippet
+```java
+     */
+    @Override
+    public void consume0(@NonNull final List<ShenyuRequestLog> logs) {
+        logs.forEach(this::sendLog);
+    }
+```
+
+### BoundedWildcard
+Can generalize to `? extends ZookeeperClient`
+in `shenyu-spring-boot-starter/shenyu-spring-boot-starter-sync-data-center/shenyu-spring-boot-starter-sync-data-zookeeper/src/main/java/org/apache/shenyu/springboot/sync/data/zookeeper/ZookeeperSyncDataConfiguration.java`
+#### Snippet
+```java
+     */
+    @Bean
+    public SyncDataService syncDataService(final ObjectProvider<ZookeeperClient> zookeeperClient, final ObjectProvider<PluginDataSubscriber> pluginSubscriber,
+                                           final ObjectProvider<List<MetaDataSubscriber>> metaSubscribers, final ObjectProvider<List<AuthDataSubscriber>> authSubscribers) {
+        LOGGER.info("you use zookeeper sync shenyu data.......");
+```
+
+### BoundedWildcard
+Can generalize to `? extends PluginDataSubscriber`
+in `shenyu-spring-boot-starter/shenyu-spring-boot-starter-sync-data-center/shenyu-spring-boot-starter-sync-data-zookeeper/src/main/java/org/apache/shenyu/springboot/sync/data/zookeeper/ZookeeperSyncDataConfiguration.java`
+#### Snippet
+```java
+     */
+    @Bean
+    public SyncDataService syncDataService(final ObjectProvider<ZookeeperClient> zookeeperClient, final ObjectProvider<PluginDataSubscriber> pluginSubscriber,
+                                           final ObjectProvider<List<MetaDataSubscriber>> metaSubscribers, final ObjectProvider<List<AuthDataSubscriber>> authSubscribers) {
+        LOGGER.info("you use zookeeper sync shenyu data.......");
 ```
 
 ### BoundedWildcard
@@ -1454,135 +1371,99 @@ in `shenyu-plugin/shenyu-plugin-logging/shenyu-plugin-logging-tencent-cls/src/ma
 ```
 
 ### BoundedWildcard
-Can generalize to `? super String`
-in `shenyu-sync-data-center/shenyu-sync-data-etcd/src/main/java/org/apache/shenyu/sync/data/etcd/EtcdClient.java`
+Can generalize to `? extends List`
+in `shenyu-register-center/shenyu-register-client-server/shenyu-register-client-server-consul/src/main/java/org/apache/shenyu/register/client/server/consul/ShenyuConsulConfigWatch.java`
 #### Snippet
 ```java
     }
 
-    private Watch.Listener watch(final BiConsumer<String, String> updateHandler,
-                                 final Consumer<String> deleteHandler) {
-        return Watch.listener(response -> {
+    private Map<String, GetValue> extractGetValue(final Response<List<GetValue>> response) {
+        Map<String, GetValue> valueMap = new HashMap<>();
+        List<GetValue> values = response.getValue();
 ```
 
 ### BoundedWildcard
-Can generalize to `? super String`
-in `shenyu-sync-data-center/shenyu-sync-data-etcd/src/main/java/org/apache/shenyu/sync/data/etcd/EtcdClient.java`
+Can generalize to `? extends ShenyuContextDecorator`
+in `shenyu-plugin/shenyu-plugin-global/src/main/java/org/apache/shenyu/plugin/global/DefaultShenyuContextBuilder.java`
 #### Snippet
 ```java
-    }
-
-    private Watch.Listener watch(final BiConsumer<String, String> updateHandler,
-                                 final Consumer<String> deleteHandler) {
-        return Watch.listener(response -> {
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `shenyu-sync-data-center/shenyu-sync-data-etcd/src/main/java/org/apache/shenyu/sync/data/etcd/EtcdClient.java`
-#### Snippet
-```java
-
-    private Watch.Listener watch(final BiConsumer<String, String> updateHandler,
-                                 final Consumer<String> deleteHandler) {
-        return Watch.listener(response -> {
-            for (WatchEvent event : response.getEvents()) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends ShenyuRequestLog`
-in `shenyu-plugin/shenyu-plugin-logging/shenyu-plugin-logging-rocketmq/src/main/java/org/apache/shenyu/plugin/logging/rocketmq/client/RocketMQLogCollectClient.java`
-#### Snippet
-```java
+     * @param decoratorMap the decorator map
      */
-    @Override
-    public void consume0(@NonNull final List<ShenyuRequestLog> logs) {
-        logs.forEach(log -> {
-            String logTopic = StringUtils.defaultIfBlank(LogCollectConfigUtils.getTopic(log.getPath(), apiTopicMap), topic);
-```
-
-### BoundedWildcard
-Can generalize to `? extends Operator`
-in `shenyu-plugin/shenyu-plugin-param-mapping/src/main/java/org/apache/shenyu/plugin/param/mapping/ParamMappingPlugin.java`
-#### Snippet
-```java
-    private final Map<String, Operator> operatorMap;
-
-    public ParamMappingPlugin(final Map<String, Operator> operatorMap) {
-        this.operatorMap = operatorMap;
+    public DefaultShenyuContextBuilder(final Map<String, ShenyuContextDecorator> decoratorMap) {
+        this.decoratorMap = decoratorMap;
     }
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends MetaDataSubscriber`
-in `shenyu-sync-data-center/shenyu-sync-data-zookeeper/src/main/java/org/apache/shenyu/sync/data/zookeeper/ZookeeperSyncDataService.java`
-#### Snippet
-```java
-    public ZookeeperSyncDataService(final ZookeeperClient zkClient,
-                                    final PluginDataSubscriber pluginDataSubscriber,
-                                    final List<MetaDataSubscriber> metaDataSubscribers,
-                                    final List<AuthDataSubscriber> authDataSubscribers) {
-        this.zkClient = zkClient;
-```
-
-### BoundedWildcard
-Can generalize to `? extends AuthDataSubscriber`
-in `shenyu-sync-data-center/shenyu-sync-data-zookeeper/src/main/java/org/apache/shenyu/sync/data/zookeeper/ZookeeperSyncDataService.java`
-#### Snippet
-```java
-                                    final PluginDataSubscriber pluginDataSubscriber,
-                                    final List<MetaDataSubscriber> metaDataSubscribers,
-                                    final List<AuthDataSubscriber> authDataSubscribers) {
-        this.zkClient = zkClient;
-        this.pluginDataSubscriber = pluginDataSubscriber;
-```
-
-### BoundedWildcard
-Can generalize to `? extends ConsulClient`
-in `shenyu-spring-boot-starter/shenyu-spring-boot-starter-sync-data-center/shenyu-spring-boot-starter-sync-data-consul/src/main/java/org/apache/shenyu/springboot/sync/data/consul/ConsulSyncDataConfiguration.java`
+Can generalize to `? extends HttpConfig`
+in `shenyu-spring-boot-starter/shenyu-spring-boot-starter-sync-data-center/shenyu-spring-boot-starter-sync-data-http/src/main/java/org/apache/shenyu/springboot/starter/sync/data/http/HttpSyncDataConfiguration.java`
 #### Snippet
 ```java
      */
     @Bean
-    public SyncDataService syncDataService(final ObjectProvider<ConsulClient> consulClient,
-                                           final ObjectProvider<ConsulConfig> consulConfig,
-                                           final ObjectProvider<PluginDataSubscriber> pluginSubscriber,
-```
-
-### BoundedWildcard
-Can generalize to `? extends ConsulConfig`
-in `shenyu-spring-boot-starter/shenyu-spring-boot-starter-sync-data-center/shenyu-spring-boot-starter-sync-data-consul/src/main/java/org/apache/shenyu/springboot/sync/data/consul/ConsulSyncDataConfiguration.java`
-#### Snippet
-```java
-    @Bean
-    public SyncDataService syncDataService(final ObjectProvider<ConsulClient> consulClient,
-                                           final ObjectProvider<ConsulConfig> consulConfig,
-                                           final ObjectProvider<PluginDataSubscriber> pluginSubscriber,
-                                           final ObjectProvider<List<MetaDataSubscriber>> metaSubscribers,
+    public SyncDataService httpSyncDataService(final ObjectProvider<HttpConfig> httpConfig,
+                                               final ObjectProvider<PluginDataSubscriber> pluginSubscriber,
+                                               final ObjectProvider<RestTemplate> restTemplate,
 ```
 
 ### BoundedWildcard
 Can generalize to `? extends PluginDataSubscriber`
-in `shenyu-spring-boot-starter/shenyu-spring-boot-starter-sync-data-center/shenyu-spring-boot-starter-sync-data-consul/src/main/java/org/apache/shenyu/springboot/sync/data/consul/ConsulSyncDataConfiguration.java`
+in `shenyu-spring-boot-starter/shenyu-spring-boot-starter-sync-data-center/shenyu-spring-boot-starter-sync-data-http/src/main/java/org/apache/shenyu/springboot/starter/sync/data/http/HttpSyncDataConfiguration.java`
 #### Snippet
 ```java
-    public SyncDataService syncDataService(final ObjectProvider<ConsulClient> consulClient,
-                                           final ObjectProvider<ConsulConfig> consulConfig,
-                                           final ObjectProvider<PluginDataSubscriber> pluginSubscriber,
-                                           final ObjectProvider<List<MetaDataSubscriber>> metaSubscribers,
-                                           final ObjectProvider<List<AuthDataSubscriber>> authSubscribers) {
+    @Bean
+    public SyncDataService httpSyncDataService(final ObjectProvider<HttpConfig> httpConfig,
+                                               final ObjectProvider<PluginDataSubscriber> pluginSubscriber,
+                                               final ObjectProvider<RestTemplate> restTemplate,
+                                               final ObjectProvider<List<MetaDataSubscriber>> metaSubscribers,
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends List`
-in `shenyu-loadbalancer/src/main/java/org/apache/shenyu/loadbalancer/cache/UpstreamCheckTask.java`
+Can generalize to `? extends RestTemplate`
+in `shenyu-spring-boot-starter/shenyu-spring-boot-starter-sync-data-center/shenyu-spring-boot-starter-sync-data-http/src/main/java/org/apache/shenyu/springboot/starter/sync/data/http/HttpSyncDataConfiguration.java`
 #### Snippet
 ```java
-    }
+    public SyncDataService httpSyncDataService(final ObjectProvider<HttpConfig> httpConfig,
+                                               final ObjectProvider<PluginDataSubscriber> pluginSubscriber,
+                                               final ObjectProvider<RestTemplate> restTemplate,
+                                               final ObjectProvider<List<MetaDataSubscriber>> metaSubscribers,
+                                               final ObjectProvider<List<AuthDataSubscriber>> authSubscribers,
+```
 
-    private void removeFromMap(final Map<String, List<Upstream>> map, final String selectorId, final Upstream upstream) {
-        synchronized (lock) {
-            List<Upstream> list = map.get(selectorId);
+### BoundedWildcard
+Can generalize to `? extends AccessTokenManager`
+in `shenyu-spring-boot-starter/shenyu-spring-boot-starter-sync-data-center/shenyu-spring-boot-starter-sync-data-http/src/main/java/org/apache/shenyu/springboot/starter/sync/data/http/HttpSyncDataConfiguration.java`
+#### Snippet
+```java
+                                               final ObjectProvider<List<MetaDataSubscriber>> metaSubscribers,
+                                               final ObjectProvider<List<AuthDataSubscriber>> authSubscribers,
+                                               final ObjectProvider<AccessTokenManager> accessTokenManager) {
+        LOGGER.info("you use http long pull sync shenyu data");
+        return new HttpSyncDataService(
+```
+
+### BoundedWildcard
+Can generalize to `? extends ShenyuSdkRequestInterceptor`
+in `shenyu-sdk/shenyu-sdk-core/src/main/java/org/apache/shenyu/sdk/core/client/AbstractShenyuSdkClient.java`
+#### Snippet
+```java
+
+    @Override
+    public void init(final RegisterConfig registerConfig, final List<ShenyuSdkRequestInterceptor> requestInterceptors, final ShenyuInstanceRegisterRepository instanceRegisterRepository) {
+        this.registerConfig = registerConfig;
+        this.registerRepository = instanceRegisterRepository;
+```
+
+### BoundedWildcard
+Can generalize to `? extends ShenyuRequestLog`
+in `shenyu-plugin/shenyu-plugin-logging/shenyu-plugin-logging-clickhouse/src/main/java/org/apache/shenyu/plugin/logging/clickhouse/client/ClickHouseLogCollectClient.java`
+#### Snippet
+```java
+
+    @Override
+    public void consume0(@NonNull final List<ShenyuRequestLog> logs) throws Exception {
+        if (CollectionUtils.isNotEmpty(logs)) {
+            Object[][] datas = new Object[logs.size()][];
 ```
 
 ### BoundedWildcard
@@ -1598,27 +1479,15 @@ in `shenyu-loadbalancer/src/main/java/org/apache/shenyu/loadbalancer/cache/Upstr
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends URIRegisterDTO`
-in `shenyu-register-center/shenyu-register-client-server/shenyu-register-client-server-zookeeper/src/main/java/org/apache/shenyu/register/client/server/zookeeper/ZookeeperClientServerRegisterRepository.java`
+Can generalize to `? extends List`
+in `shenyu-loadbalancer/src/main/java/org/apache/shenyu/loadbalancer/cache/UpstreamCheckTask.java`
 #### Snippet
 ```java
     }
 
-    private void publishRegisterURI(final List<URIRegisterDTO> registerDTOList) {
-        publisher.publish(registerDTOList);
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? extends ReactiveOAuth2AuthorizedClientService`
-in `shenyu-spring-boot-starter/shenyu-spring-boot-starter-plugin/shenyu-spring-boot-starter-plugin-oauth2/src/main/java/org/apache/shenyu/springboot/starter/plugin/oauth2/OAuth2PluginConfiguration.java`
-#### Snippet
-```java
-     */
-    @Bean
-    public ShenyuPlugin oAuth2Plugin(final ObjectProvider<ReactiveOAuth2AuthorizedClientService> authorizedClientServiceProvider) {
-        return new OAuth2Plugin(authorizedClientServiceProvider.getObject());
-    }
+    private void removeFromMap(final Map<String, List<Upstream>> map, final String selectorId, final Upstream upstream) {
+        synchronized (lock) {
+            List<Upstream> list = map.get(selectorId);
 ```
 
 ### BoundedWildcard
@@ -1646,146 +1515,14 @@ in `shenyu-spring-boot-starter/shenyu-spring-boot-starter-sync-data-center/sheny
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends PluginDataSubscriber`
-in `shenyu-spring-boot-starter/shenyu-spring-boot-starter-sync-data-center/shenyu-spring-boot-starter-sync-data-websocket/src/main/java/org/apache/shenyu/springboot/starter/sync/data/websocket/WebsocketSyncDataConfiguration.java`
+Can generalize to `? extends ReactiveOAuth2AuthorizedClientService`
+in `shenyu-spring-boot-starter/shenyu-spring-boot-starter-plugin/shenyu-spring-boot-starter-plugin-oauth2/src/main/java/org/apache/shenyu/springboot/starter/plugin/oauth2/OAuth2PluginConfiguration.java`
 #### Snippet
 ```java
      */
     @Bean
-    public SyncDataService websocketSyncDataService(final ObjectProvider<WebsocketConfig> websocketConfig, final ObjectProvider<PluginDataSubscriber> pluginSubscriber,
-                                           final ObjectProvider<List<MetaDataSubscriber>> metaSubscribers, final ObjectProvider<List<AuthDataSubscriber>> authSubscribers) {
-        LOGGER.info("you use websocket sync shenyu data.......");
-```
-
-### BoundedWildcard
-Can generalize to `? extends ServiceBean`
-in `shenyu-client/shenyu-client-dubbo/shenyu-client-alibaba-dubbo/src/main/java/org/apache/shenyu/client/alibaba/dubbo/AlibabaDubboServiceBeanListener.java`
-#### Snippet
-```java
-    @Override
-    protected URIRegisterDTO buildURIRegisterDTO(final ApplicationContext context,
-                                                 final Map<String, ServiceBean> beans) {
-        return beans.entrySet().stream().findFirst().map(entry -> {
-            final ServiceBean<?> bean = entry.getValue();
-```
-
-### BoundedWildcard
-Can generalize to `? extends ApplicationEventPublisher`
-in `shenyu-spring-boot-starter/shenyu-spring-boot-starter-gateway/src/main/java/org/apache/shenyu/springboot/starter/gateway/ShenyuConfiguration.java`
-#### Snippet
-```java
-    @Bean
-    public PluginDataSubscriber pluginDataSubscriber(final ObjectProvider<List<PluginDataHandler>> pluginDataHandlerList,
-                                                     final ObjectProvider<ApplicationEventPublisher> eventPublisher) {
-        return new CommonPluginDataSubscriber(pluginDataHandlerList.getIfAvailable(Collections::emptyList), eventPublisher.getIfAvailable());
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? extends DiscoveryClient`
-in `shenyu-spring-boot-starter/shenyu-spring-boot-starter-plugin/shenyu-spring-boot-starter-plugin-springcloud/src/main/java/org/apache/shenyu/springboot/starter/plugin/springcloud/SpringCloudPluginConfiguration.java`
-#### Snippet
-```java
-     */
-    @Bean
-    public ShenyuSpringCloudServiceChooser shenyuSpringCloudLoadBalancerClient(final ObjectProvider<DiscoveryClient> discoveryClient) {
-        return new ShenyuSpringCloudServiceChooser(discoveryClient.getIfAvailable());
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? super ConstraintViolation`
-in `shenyu-client/shenyu-client-dubbo/shenyu-client-alibaba-dubbo/src/main/java/org/apache/shenyu/client/alibaba/dubbo/validation/AlibabaDubboClientValidator.java`
-#### Snippet
-```java
-    }
-
-    private void validate(final Set<ConstraintViolation<?>> violations, final Object arg, final Class<?>... groups) {
-        if (arg != null && !isPrimitives(arg.getClass())) {
-            if (arg instanceof Object[]) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends DivideUpstream`
-in `shenyu-plugin/shenyu-plugin-divide/src/main/java/org/apache/shenyu/plugin/divide/handler/DividePluginDataHandler.java`
-#### Snippet
-```java
-    }
-    
-    private List<Upstream> convertUpstreamList(final List<DivideUpstream> upstreamList) {
-        return upstreamList.stream().map(u -> Upstream.builder()
-                .protocol(u.getProtocol())
-```
-
-### BoundedWildcard
-Can generalize to `? extends DefaultJwtRuleHandle.Convert`
-in `shenyu-plugin/shenyu-plugin-jwt/src/main/java/org/apache/shenyu/plugin/jwt/strategy/DefaultJwtConvertStrategy.java`
-#### Snippet
-```java
-    private void addHeader(final HttpHeaders headers,
-                           final Map<String, Object> body,
-                           final List<DefaultJwtRuleHandle.Convert> converters) {
-        for (DefaultJwtRuleHandle.Convert converter : converters) {
-
-```
-
-### BoundedWildcard
-Can generalize to `? extends RuleData`
-in `shenyu-sync-data-center/shenyu-sync-data-http/src/main/java/org/apache/shenyu/sync/data/http/refresh/RuleDataRefresh.java`
-#### Snippet
-```java
-
-    @Override
-    protected void refresh(final List<RuleData> data) {
-        if (CollectionUtils.isEmpty(data)) {
-            LOG.info("clear all rule cache, old cache");
-```
-
-### BoundedWildcard
-Can generalize to `? extends PluginData`
-in `shenyu-sync-data-center/shenyu-sync-data-http/src/main/java/org/apache/shenyu/sync/data/http/refresh/PluginDataRefresh.java`
-#### Snippet
-```java
-
-    @Override
-    protected void refresh(final List<PluginData> data) {
-        pluginDataSubscriber.refreshPluginDataAll();
-        if (CollectionUtils.isEmpty(data)) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends SofaParamResolveService`
-in `shenyu-spring-boot-starter/shenyu-spring-boot-starter-plugin/shenyu-spring-boot-starter-plugin-sofa/src/main/java/org/apache/shenyu/springboot/starter/plugin/sofa/SofaPluginConfiguration.java`
-#### Snippet
-```java
-     */
-    @Bean
-    public ShenyuPlugin sofaPlugin(final ObjectProvider<SofaParamResolveService> sofaParamResolveService) {
-        return new SofaPlugin(new SofaProxyService(sofaParamResolveService.getIfAvailable()));
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? extends MetaData`
-in `shenyu-sync-data-center/shenyu-sync-data-http/src/main/java/org/apache/shenyu/sync/data/http/refresh/MetaDataRefresh.java`
-#### Snippet
-```java
-
-    @Override
-    protected void refresh(final List<MetaData> data) {
-        if (CollectionUtils.isEmpty(data)) {
-            LOG.info("clear all metaData cache");
-```
-
-### BoundedWildcard
-Can generalize to `? extends MetaDataSubscriber`
-in `shenyu-sync-data-center/shenyu-sync-data-http/src/main/java/org/apache/shenyu/sync/data/http/refresh/MetaDataRefresh.java`
-#### Snippet
-```java
-    private final List<MetaDataSubscriber> metaDataSubscribers;
-
-    public MetaDataRefresh(final List<MetaDataSubscriber> metaDataSubscribers) {
-        this.metaDataSubscribers = metaDataSubscribers;
+    public ShenyuPlugin oAuth2Plugin(final ObjectProvider<ReactiveOAuth2AuthorizedClientService> authorizedClientServiceProvider) {
+        return new OAuth2Plugin(authorizedClientServiceProvider.getObject());
     }
 ```
 
@@ -1814,279 +1551,27 @@ in `shenyu-spring-boot-starter/shenyu-spring-boot-starter-sync-data-center/sheny
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends AuthDataSubscriber`
-in `shenyu-sync-data-center/shenyu-sync-data-http/src/main/java/org/apache/shenyu/sync/data/http/refresh/AppAuthDataRefresh.java`
+Can generalize to `? super TimerTask`
+in `shenyu-common/src/main/java/org/apache/shenyu/common/timer/TimerTaskList.java`
 #### Snippet
 ```java
-    private final List<AuthDataSubscriber> authDataSubscribers;
-
-    public AppAuthDataRefresh(final List<AuthDataSubscriber> authDataSubscribers) {
-        this.authDataSubscribers = authDataSubscribers;
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? extends AppAuthData`
-in `shenyu-sync-data-center/shenyu-sync-data-http/src/main/java/org/apache/shenyu/sync/data/http/refresh/AppAuthDataRefresh.java`
-#### Snippet
-```java
-
-    @Override
-    protected void refresh(final List<AppAuthData> data) {
-        if (CollectionUtils.isEmpty(data)) {
-            LOG.info("clear all appAuth data cache");
-```
-
-### BoundedWildcard
-Can generalize to `? extends SelectorData`
-in `shenyu-sync-data-center/shenyu-sync-data-http/src/main/java/org/apache/shenyu/sync/data/http/refresh/SelectorDataRefresh.java`
-#### Snippet
-```java
-
-    @Override
-    protected void refresh(final List<SelectorData> data) {
-        if (CollectionUtils.isEmpty(data)) {
-            LOG.info("clear all selector cache, old cache");
-```
-
-### BoundedWildcard
-Can generalize to `? extends StreamObserver`
-in `shenyu-plugin/shenyu-plugin-grpc/src/main/java/org/apache/shenyu/plugin/grpc/proto/CompositeStreamObserver.java`
-#### Snippet
-```java
-    private final ImmutableList<StreamObserver<T>> observers;
-
-    private CompositeStreamObserver(final ImmutableList<StreamObserver<T>> observers) {
-        this.observers = observers;
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? extends ShenyuServiceInstance`
-in `shenyu-plugin/shenyu-plugin-grpc/src/main/java/org/apache/shenyu/plugin/grpc/resolver/ShenyuServiceInstanceLists.java`
-#### Snippet
-```java
-     * @param shenyuServiceInstances the shenyu service instances
+     * @param consumer the consumer
      */
-    public void addShenyuServiceInstances(final List<ShenyuServiceInstance> shenyuServiceInstances) {
-        this.shenyuServiceInstances.addAll(shenyuServiceInstances);
-    }
+    public synchronized void foreach(final Consumer<TimerTask> consumer) {
+        TimerTaskEntry entry = root.next;
+        while (entry != root) {
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends SubChannelCopy`
-in `shenyu-plugin/shenyu-plugin-grpc/src/main/java/org/apache/shenyu/plugin/grpc/loadbalance/picker/RoundRobinPicker.java`
+Can generalize to `? super TimerTaskEntry`
+in `shenyu-common/src/main/java/org/apache/shenyu/common/timer/TimerTaskList.java`
 #### Snippet
 ```java
-
-    @Override
-    protected SubChannelCopy pick(final List<SubChannelCopy> list) {
-        if (CollectionUtils.isEmpty(list)) {
-            return null;
-```
-
-### BoundedWildcard
-Can generalize to `? extends ShenyuServiceInstance`
-in `shenyu-plugin/shenyu-plugin-grpc/src/main/java/org/apache/shenyu/plugin/grpc/resolver/ShenyuNameResolver.java`
-#### Snippet
-```java
-        }
-
-        private boolean needsToUpdateConnections(final List<ShenyuServiceInstance> newInstanceList) {
-            if (!Objects.equals(this.savedInstanceList.size(), newInstanceList.size())) {
-                return true;
-```
-
-### BoundedWildcard
-Can generalize to `? extends SubChannelCopy`
-in `shenyu-plugin/shenyu-plugin-grpc/src/main/java/org/apache/shenyu/plugin/grpc/loadbalance/picker/RandomPicker.java`
-#### Snippet
-```java
-    }
-
-    private int getRandomIndexByWeight(final List<SubChannelCopy> list) {
-        final int sumWeight = list.stream().mapToInt(SubChannelCopy::getWeight).sum();
-        if (sumWeight <= 0) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
-in `shenyu-plugin/shenyu-plugin-grpc/src/main/java/org/apache/shenyu/plugin/grpc/loadbalance/AbstractLoadBalancer.java`
-#### Snippet
-```java
-    }
-    
-    private <T> Set<T> setsDifference(final Set<T> a, final Set<T> b) {
-        Set<T> aCopy = new HashSet<>(a);
-        aCopy.removeAll(b);
-```
-
-### BoundedWildcard
-Can generalize to `? extends SelectorData`
-in `shenyu-sync-data-center/shenyu-sync-data-websocket/src/main/java/org/apache/shenyu/plugin/sync/data/websocket/handler/SelectorDataHandler.java`
-#### Snippet
-```java
-
-    @Override
-    protected void doDelete(final List<SelectorData> dataList) {
-        dataList.forEach(pluginDataSubscriber::unSelectorSubscribe);
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? extends SelectorData`
-in `shenyu-sync-data-center/shenyu-sync-data-websocket/src/main/java/org/apache/shenyu/plugin/sync/data/websocket/handler/SelectorDataHandler.java`
-#### Snippet
-```java
-
-    @Override
-    protected void doUpdate(final List<SelectorData> dataList) {
-        dataList.forEach(pluginDataSubscriber::onSelectorSubscribe);
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? extends AuthDataSubscriber`
-in `shenyu-sync-data-center/shenyu-sync-data-websocket/src/main/java/org/apache/shenyu/plugin/sync/data/websocket/handler/AuthDataHandler.java`
-#### Snippet
-```java
-    private final List<AuthDataSubscriber> authDataSubscribers;
-
-    public AuthDataHandler(final List<AuthDataSubscriber> authDataSubscribers) {
-        this.authDataSubscribers = authDataSubscribers;
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? extends AppAuthData`
-in `shenyu-sync-data-center/shenyu-sync-data-websocket/src/main/java/org/apache/shenyu/plugin/sync/data/websocket/handler/AuthDataHandler.java`
-#### Snippet
-```java
-
-    @Override
-    protected void doDelete(final List<AppAuthData> dataList) {
-        dataList.forEach(appAuthData -> authDataSubscribers.forEach(authDataSubscriber -> authDataSubscriber.unSubscribe(appAuthData)));
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? extends AppAuthData`
-in `shenyu-sync-data-center/shenyu-sync-data-websocket/src/main/java/org/apache/shenyu/plugin/sync/data/websocket/handler/AuthDataHandler.java`
-#### Snippet
-```java
-
-    @Override
-    protected void doRefresh(final List<AppAuthData> dataList) {
-        authDataSubscribers.forEach(AuthDataSubscriber::refresh);
-        dataList.forEach(appAuthData -> authDataSubscribers.forEach(authDataSubscriber -> authDataSubscriber.onSubscribe(appAuthData)));
-```
-
-### BoundedWildcard
-Can generalize to `? extends AppAuthData`
-in `shenyu-sync-data-center/shenyu-sync-data-websocket/src/main/java/org/apache/shenyu/plugin/sync/data/websocket/handler/AuthDataHandler.java`
-#### Snippet
-```java
-
-    @Override
-    protected void doUpdate(final List<AppAuthData> dataList) {
-        dataList.forEach(appAuthData -> authDataSubscribers.forEach(authDataSubscriber -> authDataSubscriber.onSubscribe(appAuthData)));
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? extends PluginData`
-in `shenyu-sync-data-center/shenyu-sync-data-websocket/src/main/java/org/apache/shenyu/plugin/sync/data/websocket/handler/PluginDataHandler.java`
-#### Snippet
-```java
-
-    @Override
-    protected void doUpdate(final List<PluginData> dataList) {
-        dataList.forEach(pluginDataSubscriber::onSubscribe);
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? extends PluginData`
-in `shenyu-sync-data-center/shenyu-sync-data-websocket/src/main/java/org/apache/shenyu/plugin/sync/data/websocket/handler/PluginDataHandler.java`
-#### Snippet
-```java
-
-    @Override
-    protected void doDelete(final List<PluginData> dataList) {
-        dataList.forEach(pluginDataSubscriber::unSubscribe);
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? extends MetaData`
-in `shenyu-sync-data-center/shenyu-sync-data-websocket/src/main/java/org/apache/shenyu/plugin/sync/data/websocket/handler/MetaDataHandler.java`
-#### Snippet
-```java
-
-    @Override
-    protected void doUpdate(final List<MetaData> dataList) {
-        dataList.forEach(metaData -> metaDataSubscribers.forEach(metaDataSubscriber -> metaDataSubscriber.onSubscribe(metaData)));
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? extends MetaData`
-in `shenyu-sync-data-center/shenyu-sync-data-websocket/src/main/java/org/apache/shenyu/plugin/sync/data/websocket/handler/MetaDataHandler.java`
-#### Snippet
-```java
-
-    @Override
-    protected void doDelete(final List<MetaData> dataList) {
-        dataList.forEach(metaData -> metaDataSubscribers.forEach(metaDataSubscriber -> metaDataSubscriber.unSubscribe(metaData)));
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? extends MetaData`
-in `shenyu-sync-data-center/shenyu-sync-data-websocket/src/main/java/org/apache/shenyu/plugin/sync/data/websocket/handler/MetaDataHandler.java`
-#### Snippet
-```java
-
-    @Override
-    protected void doRefresh(final List<MetaData> dataList) {
-        metaDataSubscribers.forEach(MetaDataSubscriber::refresh);
-        dataList.forEach(metaData -> metaDataSubscribers.forEach(metaDataSubscriber -> metaDataSubscriber.onSubscribe(metaData)));
-```
-
-### BoundedWildcard
-Can generalize to `? extends MetaDataSubscriber`
-in `shenyu-sync-data-center/shenyu-sync-data-websocket/src/main/java/org/apache/shenyu/plugin/sync/data/websocket/handler/MetaDataHandler.java`
-#### Snippet
-```java
-    private final List<MetaDataSubscriber> metaDataSubscribers;
-
-    public MetaDataHandler(final List<MetaDataSubscriber> metaDataSubscribers) {
-        this.metaDataSubscribers = metaDataSubscribers;
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? extends RuleData`
-in `shenyu-sync-data-center/shenyu-sync-data-websocket/src/main/java/org/apache/shenyu/plugin/sync/data/websocket/handler/RuleDataHandler.java`
-#### Snippet
-```java
-
-    @Override
-    protected void doDelete(final List<RuleData> dataList) {
-        dataList.forEach(pluginDataSubscriber::unRuleSubscribe);
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? extends RuleData`
-in `shenyu-sync-data-center/shenyu-sync-data-websocket/src/main/java/org/apache/shenyu/plugin/sync/data/websocket/handler/RuleDataHandler.java`
-#### Snippet
-```java
-
-    @Override
-    protected void doUpdate(final List<RuleData> dataList) {
-        dataList.forEach(pluginDataSubscriber::onRuleSubscribe);
-    }
+     * @param consumer the consumer
+     */
+    synchronized void flush(final Consumer<TimerTaskEntry> consumer) {
+        TimerTaskEntry head = root.next;
+        while (head != root) {
 ```
 
 ### BoundedWildcard
@@ -2114,30 +1599,6 @@ in `shenyu-common/src/main/java/org/apache/shenyu/common/utils/FreshBeanHolder.j
 ```
 
 ### BoundedWildcard
-Can generalize to `? super TimerTask`
-in `shenyu-common/src/main/java/org/apache/shenyu/common/timer/TimerTaskList.java`
-#### Snippet
-```java
-     * @param consumer the consumer
-     */
-    public synchronized void foreach(final Consumer<TimerTask> consumer) {
-        TimerTaskEntry entry = root.next;
-        while (entry != root) {
-```
-
-### BoundedWildcard
-Can generalize to `? super TimerTaskEntry`
-in `shenyu-common/src/main/java/org/apache/shenyu/common/timer/TimerTaskList.java`
-#### Snippet
-```java
-     * @param consumer the consumer
-     */
-    synchronized void flush(final Consumer<TimerTaskEntry> consumer) {
-        TimerTaskEntry head = root.next;
-        while (head != root) {
-```
-
-### BoundedWildcard
 Can generalize to `? super ReflectiveOperationException`
 in `shenyu-common/src/main/java/org/apache/shenyu/common/utils/ReflectUtils.java`
 #### Snippet
@@ -2159,150 +1620,6 @@ in `shenyu-common/src/main/java/org/apache/shenyu/common/concurrent/DiscardOldes
     public void reject(final E e, final Queue<E> queue) {
         queue.poll();
         queue.offer(e);
-```
-
-### BoundedWildcard
-Can generalize to `? extends MessageWriter`
-in `shenyu-plugin/shenyu-plugin-response/src/main/java/org/apache/shenyu/plugin/response/ResponsePlugin.java`
-#### Snippet
-```java
-     * @param writerMap the writer map
-     */
-    public ResponsePlugin(final Map<String, MessageWriter> writerMap) {
-        this.writerMap = writerMap;
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? extends MetaDataSubscriber`
-in `shenyu-sync-data-center/shenyu-sync-data-nacos/src/main/java/org/apache/shenyu/sync/data/nacos/handler/NacosCacheHandler.java`
-#### Snippet
-```java
-
-    public NacosCacheHandler(final ConfigService configService, final PluginDataSubscriber pluginDataSubscriber,
-                             final List<MetaDataSubscriber> metaDataSubscribers,
-                             final List<AuthDataSubscriber> authDataSubscribers) {
-        this.configService = configService;
-```
-
-### BoundedWildcard
-Can generalize to `? extends AuthDataSubscriber`
-in `shenyu-sync-data-center/shenyu-sync-data-nacos/src/main/java/org/apache/shenyu/sync/data/nacos/handler/NacosCacheHandler.java`
-#### Snippet
-```java
-    public NacosCacheHandler(final ConfigService configService, final PluginDataSubscriber pluginDataSubscriber,
-                             final List<MetaDataSubscriber> metaDataSubscribers,
-                             final List<AuthDataSubscriber> authDataSubscribers) {
-        this.configService = configService;
-        this.pluginDataSubscriber = pluginDataSubscriber;
-```
-
-### BoundedWildcard
-Can generalize to `? super L`
-in `shenyu-plugin/shenyu-plugin-logging/shenyu-plugin-logging-common/src/main/java/org/apache/shenyu/plugin/logging/common/body/LoggingServerHttpResponse.java`
-#### Snippet
-```java
-     */
-    public LoggingServerHttpResponse(final ServerHttpResponse delegate, final L logInfo,
-                                     final LogCollector<L> logCollector, final boolean maskFlag,
-                                     final Set<String> keyWordSet, final String dataMaskAlg) {
-        super(delegate);
-```
-
-### BoundedWildcard
-Can generalize to `? extends ShenyuPlugin`
-in `shenyu-web/src/main/java/org/apache/shenyu/web/handler/ShenyuWebHandler.java`
-#### Snippet
-```java
-     * @param extPlugins the ext plugins
-     */
-    public void putExtPlugins(final List<ShenyuPlugin> extPlugins) {
-        if (CollectionUtils.isEmpty(extPlugins)) {
-            return;
-```
-
-### BoundedWildcard
-Can generalize to `? extends ShenyuPlugin`
-in `shenyu-web/src/main/java/org/apache/shenyu/web/handler/ShenyuWebHandler.java`
-#### Snippet
-```java
-         * @param plugins the plugins
-         */
-        DefaultShenyuPluginChain(final List<ShenyuPlugin> plugins) {
-            this.plugins = plugins;
-        }
-```
-
-### BoundedWildcard
-Can generalize to `? super ConstraintViolation`
-in `shenyu-client/shenyu-client-dubbo/shenyu-client-apache-dubbo/src/main/java/org/apache/shenyu/client/apache/dubbo/validation/ApacheDubboClientValidator.java`
-#### Snippet
-```java
-    }
-
-    private void validate(final Set<ConstraintViolation<?>> violations, final Object arg, final Class<?>... groups) {
-        if (arg != null && !ReflectUtils.isPrimitives(arg.getClass())) {
-            if (arg instanceof Object[]) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends ServiceBean`
-in `shenyu-client/shenyu-client-dubbo/shenyu-client-apache-dubbo/src/main/java/org/apache/shenyu/client/apache/dubbo/ApacheDubboServiceBeanListener.java`
-#### Snippet
-```java
-    @Override
-    protected URIRegisterDTO buildURIRegisterDTO(final ApplicationContext context,
-                                                 final Map<String, ServiceBean> beans) {
-        return beans.entrySet().stream().findFirst().map(entry -> {
-            final ServiceBean<?> bean = entry.getValue();
-```
-
-### BoundedWildcard
-Can generalize to `? super Throwable`
-in `shenyu-plugin/shenyu-plugin-resilience4j/src/main/java/org/apache/shenyu/plugin/resilience4j/executor/RateLimiterExecutor.java`
-#### Snippet
-```java
-
-    @Override
-    public <T> Mono<T> run(final Mono<T> toRun, final Function<Throwable, Mono<T>> fallback, final Resilience4JConf conf) {
-        RateLimiter rateLimiter = Resilience4JRegistryFactory.rateLimiter(conf.getId(), conf.getRateLimiterConfig());
-        Mono<T> to = toRun.transformDeferred(RateLimiterOperator.of(rateLimiter));
-```
-
-### BoundedWildcard
-Can generalize to `? extends Mono`
-in `shenyu-plugin/shenyu-plugin-resilience4j/src/main/java/org/apache/shenyu/plugin/resilience4j/executor/RateLimiterExecutor.java`
-#### Snippet
-```java
-
-    @Override
-    public <T> Mono<T> run(final Mono<T> toRun, final Function<Throwable, Mono<T>> fallback, final Resilience4JConf conf) {
-        RateLimiter rateLimiter = Resilience4JRegistryFactory.rateLimiter(conf.getId(), conf.getRateLimiterConfig());
-        Mono<T> to = toRun.transformDeferred(RateLimiterOperator.of(rateLimiter));
-```
-
-### BoundedWildcard
-Can generalize to `? super Throwable`
-in `shenyu-plugin/shenyu-plugin-resilience4j/src/main/java/org/apache/shenyu/plugin/resilience4j/executor/CombinedExecutor.java`
-#### Snippet
-```java
-
-    @Override
-    public <T> Mono<T> run(final Mono<T> run, final Function<Throwable, Mono<T>> fallback, final Resilience4JConf resilience4JConf) {
-        RateLimiter rateLimiter = Resilience4JRegistryFactory.rateLimiter(resilience4JConf.getId(), resilience4JConf.getRateLimiterConfig());
-        CircuitBreaker circuitBreaker = Resilience4JRegistryFactory.circuitBreaker(resilience4JConf.getId(), resilience4JConf.getCircuitBreakerConfig());
-```
-
-### BoundedWildcard
-Can generalize to `? extends Mono`
-in `shenyu-plugin/shenyu-plugin-resilience4j/src/main/java/org/apache/shenyu/plugin/resilience4j/executor/CombinedExecutor.java`
-#### Snippet
-```java
-
-    @Override
-    public <T> Mono<T> run(final Mono<T> run, final Function<Throwable, Mono<T>> fallback, final Resilience4JConf resilience4JConf) {
-        RateLimiter rateLimiter = Resilience4JRegistryFactory.rateLimiter(resilience4JConf.getId(), resilience4JConf.getRateLimiterConfig());
-        CircuitBreaker circuitBreaker = Resilience4JRegistryFactory.circuitBreaker(resilience4JConf.getId(), resilience4JConf.getCircuitBreakerConfig());
 ```
 
 ### BoundedWildcard
@@ -2367,6 +1684,18 @@ in `shenyu-plugin/shenyu-plugin-base/src/main/java/org/apache/shenyu/plugin/base
 
 ### BoundedWildcard
 Can generalize to `? extends ConditionData`
+in `shenyu-plugin/shenyu-plugin-base/src/main/java/org/apache/shenyu/plugin/base/condition/strategy/AndMatchStrategy.java`
+#### Snippet
+```java
+
+    @Override
+    public Boolean match(final List<ConditionData> conditionDataList, final ServerWebExchange exchange) {
+        return conditionDataList
+                .stream()
+```
+
+### BoundedWildcard
+Can generalize to `? extends ConditionData`
 in `shenyu-plugin/shenyu-plugin-base/src/main/java/org/apache/shenyu/plugin/base/condition/strategy/OrMatchStrategy.java`
 #### Snippet
 ```java
@@ -2387,18 +1716,6 @@ in `shenyu-plugin/shenyu-plugin-base/src/main/java/org/apache/shenyu/plugin/base
     public void putExtendPluginDataHandler(final List<PluginDataHandler> handlers) {
         if (CollectionUtils.isEmpty(handlers)) {
             return;
-```
-
-### BoundedWildcard
-Can generalize to `? extends ConditionData`
-in `shenyu-plugin/shenyu-plugin-base/src/main/java/org/apache/shenyu/plugin/base/condition/strategy/AndMatchStrategy.java`
-#### Snippet
-```java
-
-    @Override
-    public Boolean match(final List<ConditionData> conditionDataList, final ServerWebExchange exchange) {
-        return conditionDataList
-                .stream()
 ```
 
 ### BoundedWildcard
@@ -2450,6 +1767,258 @@ in `shenyu-plugin/shenyu-plugin-base/src/main/java/org/apache/shenyu/plugin/base
 ```
 
 ### BoundedWildcard
+Can generalize to `? extends MessageWriter`
+in `shenyu-plugin/shenyu-plugin-response/src/main/java/org/apache/shenyu/plugin/response/ResponsePlugin.java`
+#### Snippet
+```java
+     * @param writerMap the writer map
+     */
+    public ResponsePlugin(final Map<String, MessageWriter> writerMap) {
+        this.writerMap = writerMap;
+    }
+```
+
+### BoundedWildcard
+Can generalize to `? extends Operator`
+in `shenyu-plugin/shenyu-plugin-param-mapping/src/main/java/org/apache/shenyu/plugin/param/mapping/ParamMappingPlugin.java`
+#### Snippet
+```java
+    private final Map<String, Operator> operatorMap;
+
+    public ParamMappingPlugin(final Map<String, Operator> operatorMap) {
+        this.operatorMap = operatorMap;
+    }
+```
+
+### BoundedWildcard
+Can generalize to `? super Throwable`
+in `shenyu-plugin/shenyu-plugin-resilience4j/src/main/java/org/apache/shenyu/plugin/resilience4j/executor/RateLimiterExecutor.java`
+#### Snippet
+```java
+
+    @Override
+    public <T> Mono<T> run(final Mono<T> toRun, final Function<Throwable, Mono<T>> fallback, final Resilience4JConf conf) {
+        RateLimiter rateLimiter = Resilience4JRegistryFactory.rateLimiter(conf.getId(), conf.getRateLimiterConfig());
+        Mono<T> to = toRun.transformDeferred(RateLimiterOperator.of(rateLimiter));
+```
+
+### BoundedWildcard
+Can generalize to `? extends Mono`
+in `shenyu-plugin/shenyu-plugin-resilience4j/src/main/java/org/apache/shenyu/plugin/resilience4j/executor/RateLimiterExecutor.java`
+#### Snippet
+```java
+
+    @Override
+    public <T> Mono<T> run(final Mono<T> toRun, final Function<Throwable, Mono<T>> fallback, final Resilience4JConf conf) {
+        RateLimiter rateLimiter = Resilience4JRegistryFactory.rateLimiter(conf.getId(), conf.getRateLimiterConfig());
+        Mono<T> to = toRun.transformDeferred(RateLimiterOperator.of(rateLimiter));
+```
+
+### BoundedWildcard
+Can generalize to `? extends HttpClient`
+in `shenyu-spring-boot-starter/shenyu-spring-boot-starter-plugin/shenyu-spring-boot-starter-plugin-httpclient/src/main/java/org/apache/shenyu/springboot/starter/plugin/httpclient/HttpClientPluginConfiguration.java`
+#### Snippet
+```java
+         */
+        @Bean
+        public ShenyuPlugin nettyHttpClientPlugin(final ObjectProvider<HttpClient> httpClient) {
+            return new NettyHttpClientPlugin(httpClient.getIfAvailable());
+        }
+```
+
+### BoundedWildcard
+Can generalize to `? extends LoopResources`
+in `shenyu-spring-boot-starter/shenyu-spring-boot-starter-plugin/shenyu-spring-boot-starter-plugin-httpclient/src/main/java/org/apache/shenyu/springboot/starter/plugin/httpclient/HttpClientPluginConfiguration.java`
+#### Snippet
+```java
+    @Bean
+    public HttpClient httpClient(final HttpClientProperties properties,
+                                 final ObjectProvider<LoopResources> provider) {
+        // configure pool resources.
+        HttpClientProperties.Pool pool = properties.getPool();
+```
+
+### BoundedWildcard
+Can generalize to `? extends HttpClient`
+in `shenyu-spring-boot-starter/shenyu-spring-boot-starter-plugin/shenyu-spring-boot-starter-plugin-httpclient/src/main/java/org/apache/shenyu/springboot/starter/plugin/httpclient/HttpClientPluginConfiguration.java`
+#### Snippet
+```java
+        public ShenyuPlugin webClientPlugin(
+                final HttpClientProperties properties,
+                final ObjectProvider<HttpClient> httpClient) {
+            WebClient webClient = WebClient.builder()
+                    // fix Exceeded limit on max bytes to buffer
+```
+
+### BoundedWildcard
+Can generalize to `? super Throwable`
+in `shenyu-plugin/shenyu-plugin-resilience4j/src/main/java/org/apache/shenyu/plugin/resilience4j/executor/CombinedExecutor.java`
+#### Snippet
+```java
+
+    @Override
+    public <T> Mono<T> run(final Mono<T> run, final Function<Throwable, Mono<T>> fallback, final Resilience4JConf resilience4JConf) {
+        RateLimiter rateLimiter = Resilience4JRegistryFactory.rateLimiter(resilience4JConf.getId(), resilience4JConf.getRateLimiterConfig());
+        CircuitBreaker circuitBreaker = Resilience4JRegistryFactory.circuitBreaker(resilience4JConf.getId(), resilience4JConf.getCircuitBreakerConfig());
+```
+
+### BoundedWildcard
+Can generalize to `? extends Mono`
+in `shenyu-plugin/shenyu-plugin-resilience4j/src/main/java/org/apache/shenyu/plugin/resilience4j/executor/CombinedExecutor.java`
+#### Snippet
+```java
+
+    @Override
+    public <T> Mono<T> run(final Mono<T> run, final Function<Throwable, Mono<T>> fallback, final Resilience4JConf resilience4JConf) {
+        RateLimiter rateLimiter = Resilience4JRegistryFactory.rateLimiter(resilience4JConf.getId(), resilience4JConf.getRateLimiterConfig());
+        CircuitBreaker circuitBreaker = Resilience4JRegistryFactory.circuitBreaker(resilience4JConf.getId(), resilience4JConf.getCircuitBreakerConfig());
+```
+
+### BoundedWildcard
+Can generalize to `? extends DubboParamResolveService`
+in `shenyu-spring-boot-starter/shenyu-spring-boot-starter-plugin/shenyu-spring-boot-starter-plugin-dubbo/shenyu-spring-boot-starter-plugin-apache-dubbo/src/main/java/org/apache/shenyu/springboot/starter/plugin/apache/dubbo/ApacheDubboPluginConfiguration.java`
+#### Snippet
+```java
+     */
+    @Bean
+    public ShenyuPlugin apacheDubboPlugin(final ObjectProvider<DubboParamResolveService> dubboParamResolveServices) {
+        return new ApacheDubboPlugin(new ApacheDubboProxyService(dubboParamResolveServices.getIfAvailable()));
+    }
+```
+
+### BoundedWildcard
+Can generalize to `? extends MetaDataSubscriber`
+in `shenyu-sync-data-center/shenyu-sync-data-etcd/src/main/java/org/apache/shenyu/sync/data/etcd/EtcdSyncDataService.java`
+#### Snippet
+```java
+    public EtcdSyncDataService(final EtcdClient etcdClient,
+                               final PluginDataSubscriber pluginDataSubscriber,
+                               final List<MetaDataSubscriber> metaDataSubscribers,
+                               final List<AuthDataSubscriber> authDataSubscribers) {
+        this.etcdClient = etcdClient;
+```
+
+### BoundedWildcard
+Can generalize to `? extends AuthDataSubscriber`
+in `shenyu-sync-data-center/shenyu-sync-data-etcd/src/main/java/org/apache/shenyu/sync/data/etcd/EtcdSyncDataService.java`
+#### Snippet
+```java
+                               final PluginDataSubscriber pluginDataSubscriber,
+                               final List<MetaDataSubscriber> metaDataSubscribers,
+                               final List<AuthDataSubscriber> authDataSubscribers) {
+        this.etcdClient = etcdClient;
+        this.pluginDataSubscriber = pluginDataSubscriber;
+```
+
+### BoundedWildcard
+Can generalize to `? extends ConsulClient`
+in `shenyu-spring-boot-starter/shenyu-spring-boot-starter-sync-data-center/shenyu-spring-boot-starter-sync-data-consul/src/main/java/org/apache/shenyu/springboot/sync/data/consul/ConsulSyncDataConfiguration.java`
+#### Snippet
+```java
+     */
+    @Bean
+    public SyncDataService syncDataService(final ObjectProvider<ConsulClient> consulClient,
+                                           final ObjectProvider<ConsulConfig> consulConfig,
+                                           final ObjectProvider<PluginDataSubscriber> pluginSubscriber,
+```
+
+### BoundedWildcard
+Can generalize to `? extends ConsulConfig`
+in `shenyu-spring-boot-starter/shenyu-spring-boot-starter-sync-data-center/shenyu-spring-boot-starter-sync-data-consul/src/main/java/org/apache/shenyu/springboot/sync/data/consul/ConsulSyncDataConfiguration.java`
+#### Snippet
+```java
+    @Bean
+    public SyncDataService syncDataService(final ObjectProvider<ConsulClient> consulClient,
+                                           final ObjectProvider<ConsulConfig> consulConfig,
+                                           final ObjectProvider<PluginDataSubscriber> pluginSubscriber,
+                                           final ObjectProvider<List<MetaDataSubscriber>> metaSubscribers,
+```
+
+### BoundedWildcard
+Can generalize to `? extends PluginDataSubscriber`
+in `shenyu-spring-boot-starter/shenyu-spring-boot-starter-sync-data-center/shenyu-spring-boot-starter-sync-data-consul/src/main/java/org/apache/shenyu/springboot/sync/data/consul/ConsulSyncDataConfiguration.java`
+#### Snippet
+```java
+    public SyncDataService syncDataService(final ObjectProvider<ConsulClient> consulClient,
+                                           final ObjectProvider<ConsulConfig> consulConfig,
+                                           final ObjectProvider<PluginDataSubscriber> pluginSubscriber,
+                                           final ObjectProvider<List<MetaDataSubscriber>> metaSubscribers,
+                                           final ObjectProvider<List<AuthDataSubscriber>> authSubscribers) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends MetaDataSubscriber`
+in `shenyu-sync-data-center/shenyu-sync-data-zookeeper/src/main/java/org/apache/shenyu/sync/data/zookeeper/ZookeeperSyncDataService.java`
+#### Snippet
+```java
+    public ZookeeperSyncDataService(final ZookeeperClient zkClient,
+                                    final PluginDataSubscriber pluginDataSubscriber,
+                                    final List<MetaDataSubscriber> metaDataSubscribers,
+                                    final List<AuthDataSubscriber> authDataSubscribers) {
+        this.zkClient = zkClient;
+```
+
+### BoundedWildcard
+Can generalize to `? extends AuthDataSubscriber`
+in `shenyu-sync-data-center/shenyu-sync-data-zookeeper/src/main/java/org/apache/shenyu/sync/data/zookeeper/ZookeeperSyncDataService.java`
+#### Snippet
+```java
+                                    final PluginDataSubscriber pluginDataSubscriber,
+                                    final List<MetaDataSubscriber> metaDataSubscribers,
+                                    final List<AuthDataSubscriber> authDataSubscribers) {
+        this.zkClient = zkClient;
+        this.pluginDataSubscriber = pluginDataSubscriber;
+```
+
+### BoundedWildcard
+Can generalize to `? super ServerWebExchangeMatcher`
+in `shenyu-plugin/shenyu-plugin-oauth2/src/main/java/org/apache/shenyu/plugin/oauth2/filter/OAuth2PreFilter.java`
+#### Snippet
+```java
+    private final List<ServerWebExchangeMatcher> matchers;
+
+    public OAuth2PreFilter(final List<ServerWebExchangeMatcher> matchers) {
+        this.matchers = matchers;
+    }
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `shenyu-sync-data-center/shenyu-sync-data-etcd/src/main/java/org/apache/shenyu/sync/data/etcd/EtcdClient.java`
+#### Snippet
+```java
+    }
+
+    private Watch.Listener watch(final BiConsumer<String, String> updateHandler,
+                                 final Consumer<String> deleteHandler) {
+        return Watch.listener(response -> {
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `shenyu-sync-data-center/shenyu-sync-data-etcd/src/main/java/org/apache/shenyu/sync/data/etcd/EtcdClient.java`
+#### Snippet
+```java
+    }
+
+    private Watch.Listener watch(final BiConsumer<String, String> updateHandler,
+                                 final Consumer<String> deleteHandler) {
+        return Watch.listener(response -> {
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `shenyu-sync-data-center/shenyu-sync-data-etcd/src/main/java/org/apache/shenyu/sync/data/etcd/EtcdClient.java`
+#### Snippet
+```java
+
+    private Watch.Listener watch(final BiConsumer<String, String> updateHandler,
+                                 final Consumer<String> deleteHandler) {
+        return Watch.listener(response -> {
+            for (WatchEvent event : response.getEvents()) {
+```
+
+### BoundedWildcard
 Can generalize to `? extends TarsInvokePrx`
 in `shenyu-plugin/shenyu-plugin-tars/src/main/java/org/apache/shenyu/plugin/tars/proxy/TarsInvokePrxList.java`
 #### Snippet
@@ -2462,39 +2031,375 @@ in `shenyu-plugin/shenyu-plugin-tars/src/main/java/org/apache/shenyu/plugin/tars
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends URIRegisterDTO`
-in `shenyu-register-center/shenyu-register-client-server/shenyu-register-client-server-etcd/src/main/java/org/apache/shenyu/register/client/server/etcd/EtcdClientServerRegisterRepository.java`
+Can generalize to `? extends PluginData`
+in `shenyu-sync-data-center/shenyu-sync-data-http/src/main/java/org/apache/shenyu/sync/data/http/refresh/PluginDataRefresh.java`
+#### Snippet
+```java
+
+    @Override
+    protected void refresh(final List<PluginData> data) {
+        pluginDataSubscriber.refreshPluginDataAll();
+        if (CollectionUtils.isEmpty(data)) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends MetaDataSubscriber`
+in `shenyu-sync-data-center/shenyu-sync-data-http/src/main/java/org/apache/shenyu/sync/data/http/refresh/MetaDataRefresh.java`
+#### Snippet
+```java
+    private final List<MetaDataSubscriber> metaDataSubscribers;
+
+    public MetaDataRefresh(final List<MetaDataSubscriber> metaDataSubscribers) {
+        this.metaDataSubscribers = metaDataSubscribers;
+    }
+```
+
+### BoundedWildcard
+Can generalize to `? extends MetaData`
+in `shenyu-sync-data-center/shenyu-sync-data-http/src/main/java/org/apache/shenyu/sync/data/http/refresh/MetaDataRefresh.java`
+#### Snippet
+```java
+
+    @Override
+    protected void refresh(final List<MetaData> data) {
+        if (CollectionUtils.isEmpty(data)) {
+            LOG.info("clear all metaData cache");
+```
+
+### BoundedWildcard
+Can generalize to `? extends SelectorData`
+in `shenyu-sync-data-center/shenyu-sync-data-http/src/main/java/org/apache/shenyu/sync/data/http/refresh/SelectorDataRefresh.java`
+#### Snippet
+```java
+
+    @Override
+    protected void refresh(final List<SelectorData> data) {
+        if (CollectionUtils.isEmpty(data)) {
+            LOG.info("clear all selector cache, old cache");
+```
+
+### BoundedWildcard
+Can generalize to `? extends AppAuthData`
+in `shenyu-sync-data-center/shenyu-sync-data-http/src/main/java/org/apache/shenyu/sync/data/http/refresh/AppAuthDataRefresh.java`
+#### Snippet
+```java
+
+    @Override
+    protected void refresh(final List<AppAuthData> data) {
+        if (CollectionUtils.isEmpty(data)) {
+            LOG.info("clear all appAuth data cache");
+```
+
+### BoundedWildcard
+Can generalize to `? extends AuthDataSubscriber`
+in `shenyu-sync-data-center/shenyu-sync-data-http/src/main/java/org/apache/shenyu/sync/data/http/refresh/AppAuthDataRefresh.java`
+#### Snippet
+```java
+    private final List<AuthDataSubscriber> authDataSubscribers;
+
+    public AppAuthDataRefresh(final List<AuthDataSubscriber> authDataSubscribers) {
+        this.authDataSubscribers = authDataSubscribers;
+    }
+```
+
+### BoundedWildcard
+Can generalize to `? extends RuleData`
+in `shenyu-sync-data-center/shenyu-sync-data-http/src/main/java/org/apache/shenyu/sync/data/http/refresh/RuleDataRefresh.java`
+#### Snippet
+```java
+
+    @Override
+    protected void refresh(final List<RuleData> data) {
+        if (CollectionUtils.isEmpty(data)) {
+            LOG.info("clear all rule cache, old cache");
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `shenyu-plugin/shenyu-plugin-sign/src/main/java/org/apache/shenyu/plugin/sign/service/ComposableSignService.java`
+#### Snippet
+```java
+    private VerifyResult verifySign(final String signKey,
+                                    final SignParameters signParameters,
+                                    final BiFunction<String, SignParameters, String> signFunction) {
+
+        String sign = signFunction.apply(signKey, signParameters);
+```
+
+### BoundedWildcard
+Can generalize to `? super SignParameters`
+in `shenyu-plugin/shenyu-plugin-sign/src/main/java/org/apache/shenyu/plugin/sign/service/ComposableSignService.java`
+#### Snippet
+```java
+    private VerifyResult verifySign(final String signKey,
+                                    final SignParameters signParameters,
+                                    final BiFunction<String, SignParameters, String> signFunction) {
+
+        String sign = signFunction.apply(signKey, signParameters);
+```
+
+### BoundedWildcard
+Can generalize to `? extends DivideUpstream`
+in `shenyu-plugin/shenyu-plugin-springcloud/src/main/java/org/apache/shenyu/plugin/springcloud/handler/SpringCloudPluginDataHandler.java`
 #### Snippet
 ```java
     }
 
-    private void publishURI(final List<URIRegisterDTO> registerDTOList) {
+    private List<Upstream> convertUpstreamList(final List<DivideUpstream> upstreamList) {
+        return upstreamList.stream().map(u -> Upstream.builder()
+                .protocol(u.getProtocol())
+```
+
+### BoundedWildcard
+Can generalize to `? extends ShenyuRequestLog`
+in `shenyu-plugin/shenyu-plugin-logging/shenyu-plugin-logging-rocketmq/src/main/java/org/apache/shenyu/plugin/logging/rocketmq/client/RocketMQLogCollectClient.java`
+#### Snippet
+```java
+     */
+    @Override
+    public void consume0(@NonNull final List<ShenyuRequestLog> logs) {
+        logs.forEach(log -> {
+            String logTopic = StringUtils.defaultIfBlank(LogCollectConfigUtils.getTopic(log.getPath(), apiTopicMap), topic);
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `shenyu-plugin/shenyu-plugin-request/src/main/java/org/apache/shenyu/plugin/request/RequestPlugin.java`
+#### Snippet
+```java
+    }
+
+    private void replaceCookieKey(final Map.Entry<String, String> shenyuCookie, final MultiValueMap<String, HttpCookie> cookies) {
+        List<HttpCookie> httpCookies = cookies.get(shenyuCookie.getKey());
+        if (Objects.nonNull(httpCookies)) {
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `shenyu-plugin/shenyu-plugin-request/src/main/java/org/apache/shenyu/plugin/request/RequestPlugin.java`
+#### Snippet
+```java
+    }
+
+    private void fillParameter(final Map.Entry<String, String> shenyuParam, final MultiValueMap<String, String> queryParams) {
+        queryParams.set(shenyuParam.getKey(), shenyuParam.getValue());
+    }
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `shenyu-plugin/shenyu-plugin-request/src/main/java/org/apache/shenyu/plugin/request/RequestPlugin.java`
+#### Snippet
+```java
+    }
+
+    private void fillParameter(final Map.Entry<String, String> shenyuParam, final MultiValueMap<String, String> queryParams) {
+        queryParams.set(shenyuParam.getKey(), shenyuParam.getValue());
+    }
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `shenyu-plugin/shenyu-plugin-request/src/main/java/org/apache/shenyu/plugin/request/RequestPlugin.java`
+#### Snippet
+```java
+    }
+
+    private void fillCookie(final Map.Entry<String, String> shenyuCookie, final MultiValueMap<String, HttpCookie> cookies) {
+        cookies.set(shenyuCookie.getKey(), new HttpCookie(shenyuCookie.getKey(), shenyuCookie.getValue()));
+    }
+```
+
+### BoundedWildcard
+Can generalize to `? super HttpCookie`
+in `shenyu-plugin/shenyu-plugin-request/src/main/java/org/apache/shenyu/plugin/request/RequestPlugin.java`
+#### Snippet
+```java
+    }
+
+    private void fillCookie(final Map.Entry<String, String> shenyuCookie, final MultiValueMap<String, HttpCookie> cookies) {
+        cookies.set(shenyuCookie.getKey(), new HttpCookie(shenyuCookie.getKey(), shenyuCookie.getValue()));
+    }
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `shenyu-plugin/shenyu-plugin-request/src/main/java/org/apache/shenyu/plugin/request/RequestPlugin.java`
+#### Snippet
+```java
+    }
+
+    private void replaceParameterKey(final Map.Entry<String, String> shenyuParam, final MultiValueMap<String, String> queryParams) {
+        List<String> values = queryParams.get(shenyuParam.getKey());
+        if (Objects.nonNull(values)) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends URIRegisterDTO`
+in `shenyu-register-center/shenyu-register-client-server/shenyu-register-client-server-nacos/src/main/java/org/apache/shenyu/register/client/server/nacos/NacosClientServerRegisterRepository.java`
+#### Snippet
+```java
+    }
+
+    private void publishRegisterURI(final List<URIRegisterDTO> registerDTOList) {
+        LOGGER.info("publish uri: {}", registerDTOList);
+        publisher.publish(registerDTOList);
+```
+
+### BoundedWildcard
+Can generalize to `? extends MetaDataRegisterDTO`
+in `shenyu-client/shenyu-client-core/src/main/java/org/apache/shenyu/client/core/disruptor/subcriber/ShenyuClientMetadataExecutorSubscriber.java`
+#### Snippet
+```java
+    
+    @Override
+    public void executor(final Collection<MetaDataRegisterDTO> metaDataRegisterDTOList) {
+        for (MetaDataRegisterDTO metaDataRegisterDTO : metaDataRegisterDTOList) {
+            shenyuClientRegisterRepository.persistInterface(metaDataRegisterDTO);
+```
+
+### BoundedWildcard
+Can generalize to `? extends URIRegisterDTO`
+in `shenyu-client/shenyu-client-core/src/main/java/org/apache/shenyu/client/core/disruptor/subcriber/ShenyuClientURIExecutorSubscriber.java`
+#### Snippet
+```java
+    
+    @Override
+    public void executor(final Collection<URIRegisterDTO> dataList) {
+        for (URIRegisterDTO uriRegisterDTO : dataList) {
+            Stopwatch stopwatch = Stopwatch.createStarted();
+```
+
+### BoundedWildcard
+Can generalize to `? extends ServiceBean`
+in `shenyu-client/shenyu-client-dubbo/shenyu-client-apache-dubbo/src/main/java/org/apache/shenyu/client/apache/dubbo/ApacheDubboServiceBeanListener.java`
+#### Snippet
+```java
+
+    @Override
+    protected Sextet<String[], String, String, ApiHttpMethodEnum[], RpcTypeEnum, String> buildApiDocSextet(final Method method, final Annotation annotation, final Map<String, ServiceBean> beans) {
+        ShenyuDubboClient shenyuDubboClient = AnnotatedElementUtils.findMergedAnnotation(method, ShenyuDubboClient.class);
+        if (Objects.isNull(shenyuDubboClient)) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends ServiceBean`
+in `shenyu-client/shenyu-client-dubbo/shenyu-client-apache-dubbo/src/main/java/org/apache/shenyu/client/apache/dubbo/ApacheDubboServiceBeanListener.java`
+#### Snippet
+```java
+    @Override
+    protected URIRegisterDTO buildURIRegisterDTO(final ApplicationContext context,
+                                                 final Map<String, ServiceBean> beans) {
+        return beans.entrySet().stream().findFirst().map(entry -> {
+            final ServiceBean<?> bean = entry.getValue();
+```
+
+### BoundedWildcard
+Can generalize to `? extends ApiDocRegisterDTO`
+in `shenyu-client/shenyu-client-core/src/main/java/org/apache/shenyu/client/core/disruptor/subcriber/ShenyuClientApiDocExecutorSubscriber.java`
+#### Snippet
+```java
+
+    @Override
+    public void executor(final Collection<ApiDocRegisterDTO> dataList) {
+        for (ApiDocRegisterDTO apiDocRegisterDTO : dataList) {
+            shenyuClientRegisterRepository.persistApiDoc(apiDocRegisterDTO);
+```
+
+### BoundedWildcard
+Can generalize to `? extends DivideUpstream`
+in `shenyu-plugin/shenyu-plugin-divide/src/main/java/org/apache/shenyu/plugin/divide/handler/DividePluginDataHandler.java`
+#### Snippet
+```java
+    }
+    
+    private List<Upstream> convertUpstreamList(final List<DivideUpstream> upstreamList) {
+        return upstreamList.stream().map(u -> Upstream.builder()
+                .protocol(u.getProtocol())
+```
+
+### BoundedWildcard
+Can generalize to `? extends ApplicationEventPublisher`
+in `shenyu-spring-boot-starter/shenyu-spring-boot-starter-gateway/src/main/java/org/apache/shenyu/springboot/starter/gateway/ShenyuConfiguration.java`
+#### Snippet
+```java
+    @Bean
+    public PluginDataSubscriber pluginDataSubscriber(final ObjectProvider<List<PluginDataHandler>> pluginDataHandlerList,
+                                                     final ObjectProvider<ApplicationEventPublisher> eventPublisher) {
+        return new CommonPluginDataSubscriber(pluginDataHandlerList.getIfAvailable(Collections::emptyList), eventPublisher.getIfAvailable());
+    }
+```
+
+### BoundedWildcard
+Can generalize to `? extends DubboParamResolveService`
+in `shenyu-spring-boot-starter/shenyu-spring-boot-starter-plugin/shenyu-spring-boot-starter-plugin-dubbo/shenyu-spring-boot-starter-plugin-alibaba-dubbo/src/main/java/org/apache/shenyu/springboot/starter/plugin/alibaba/dubbo/AlibabaDubboPluginConfiguration.java`
+#### Snippet
+```java
+     */
+    @Bean
+    public ShenyuPlugin alibabaDubboPlugin(final ObjectProvider<DubboParamResolveService> dubboParamResolveServices) {
+        return new AlibabaDubboPlugin(new AlibabaDubboProxyService(dubboParamResolveServices.getIfAvailable()));
+    }
+```
+
+### BoundedWildcard
+Can generalize to `? extends ServiceBean`
+in `shenyu-client/shenyu-client-dubbo/shenyu-client-alibaba-dubbo/src/main/java/org/apache/shenyu/client/alibaba/dubbo/AlibabaDubboServiceBeanListener.java`
+#### Snippet
+```java
+
+    @Override
+    protected Sextet<String[], String, String, ApiHttpMethodEnum[], RpcTypeEnum, String> buildApiDocSextet(final Method method, final Annotation annotation, final Map<String, ServiceBean> beans) {
+        ShenyuDubboClient shenyuDubboClient = AnnotatedElementUtils.findMergedAnnotation(method, ShenyuDubboClient.class);
+        if (Objects.isNull(shenyuDubboClient)) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends ServiceBean`
+in `shenyu-client/shenyu-client-dubbo/shenyu-client-alibaba-dubbo/src/main/java/org/apache/shenyu/client/alibaba/dubbo/AlibabaDubboServiceBeanListener.java`
+#### Snippet
+```java
+    @Override
+    protected URIRegisterDTO buildURIRegisterDTO(final ApplicationContext context,
+                                                 final Map<String, ServiceBean> beans) {
+        return beans.entrySet().stream().findFirst().map(entry -> {
+            final ServiceBean<?> bean = entry.getValue();
+```
+
+### BoundedWildcard
+Can generalize to `? super ConstraintViolation`
+in `shenyu-client/shenyu-client-dubbo/shenyu-client-apache-dubbo/src/main/java/org/apache/shenyu/client/apache/dubbo/validation/ApacheDubboClientValidator.java`
+#### Snippet
+```java
+    }
+
+    private void validate(final Set<ConstraintViolation<?>> violations, final Object arg, final Class<?>... groups) {
+        if (arg != null && !ReflectUtils.isPrimitives(arg.getClass())) {
+            if (arg instanceof Object[]) {
+```
+
+### BoundedWildcard
+Can generalize to `? super ConstraintViolation`
+in `shenyu-client/shenyu-client-dubbo/shenyu-client-alibaba-dubbo/src/main/java/org/apache/shenyu/client/alibaba/dubbo/validation/AlibabaDubboClientValidator.java`
+#### Snippet
+```java
+    }
+
+    private void validate(final Set<ConstraintViolation<?>> violations, final Object arg, final Class<?>... groups) {
+        if (arg != null && !isPrimitives(arg.getClass())) {
+            if (arg instanceof Object[]) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends URIRegisterDTO`
+in `shenyu-register-center/shenyu-register-client-server/shenyu-register-client-server-zookeeper/src/main/java/org/apache/shenyu/register/client/server/zookeeper/ZookeeperClientServerRegisterRepository.java`
+#### Snippet
+```java
+    }
+
+    private void publishRegisterURI(final List<URIRegisterDTO> registerDTOList) {
         publisher.publish(registerDTOList);
     }
-```
-
-### BoundedWildcard
-Can generalize to `? super Event`
-in `shenyu-register-center/shenyu-register-client-server/shenyu-register-client-server-etcd/src/main/java/org/apache/shenyu/register/client/server/etcd/client/EtcdClient.java`
-#### Snippet
-```java
-
-    private Watch.Listener watch(final Supplier<Boolean> exitSignSupplier, final ByteSequence storeKey,
-                                 final BiConsumer<Event, Node> consumer) {
-        return Watch.listener(response -> {
-            while (!exitSignSupplier.get()) {
-```
-
-### BoundedWildcard
-Can generalize to `? super Node`
-in `shenyu-register-center/shenyu-register-client-server/shenyu-register-client-server-etcd/src/main/java/org/apache/shenyu/register/client/server/etcd/client/EtcdClient.java`
-#### Snippet
-```java
-
-    private Watch.Listener watch(final Supplier<Boolean> exitSignSupplier, final ByteSequence storeKey,
-                                 final BiConsumer<Event, Node> consumer) {
-        return Watch.listener(response -> {
-            while (!exitSignSupplier.get()) {
 ```
 
 ### BoundedWildcard
@@ -2507,6 +2412,306 @@ in `shenyu-plugin/shenyu-plugin-logging/shenyu-plugin-logging-kafka/src/main/jav
     public void consume0(@NonNull final List<ShenyuRequestLog> logs) {
         logs.forEach(log -> {
             String logTopic = StringUtils.defaultIfBlank(LogCollectConfigUtils.getTopic(log.getPath(), apiTopicMap), topic);
+```
+
+### BoundedWildcard
+Can generalize to `? extends SelectorData`
+in `shenyu-sync-data-center/shenyu-sync-data-websocket/src/main/java/org/apache/shenyu/plugin/sync/data/websocket/handler/SelectorDataHandler.java`
+#### Snippet
+```java
+
+    @Override
+    protected void doUpdate(final List<SelectorData> dataList) {
+        dataList.forEach(pluginDataSubscriber::onSelectorSubscribe);
+    }
+```
+
+### BoundedWildcard
+Can generalize to `? extends SelectorData`
+in `shenyu-sync-data-center/shenyu-sync-data-websocket/src/main/java/org/apache/shenyu/plugin/sync/data/websocket/handler/SelectorDataHandler.java`
+#### Snippet
+```java
+
+    @Override
+    protected void doDelete(final List<SelectorData> dataList) {
+        dataList.forEach(pluginDataSubscriber::unSelectorSubscribe);
+    }
+```
+
+### BoundedWildcard
+Can generalize to `? extends AppAuthData`
+in `shenyu-sync-data-center/shenyu-sync-data-websocket/src/main/java/org/apache/shenyu/plugin/sync/data/websocket/handler/AuthDataHandler.java`
+#### Snippet
+```java
+
+    @Override
+    protected void doUpdate(final List<AppAuthData> dataList) {
+        dataList.forEach(appAuthData -> authDataSubscribers.forEach(authDataSubscriber -> authDataSubscriber.onSubscribe(appAuthData)));
+    }
+```
+
+### BoundedWildcard
+Can generalize to `? extends AppAuthData`
+in `shenyu-sync-data-center/shenyu-sync-data-websocket/src/main/java/org/apache/shenyu/plugin/sync/data/websocket/handler/AuthDataHandler.java`
+#### Snippet
+```java
+
+    @Override
+    protected void doRefresh(final List<AppAuthData> dataList) {
+        authDataSubscribers.forEach(AuthDataSubscriber::refresh);
+        dataList.forEach(appAuthData -> authDataSubscribers.forEach(authDataSubscriber -> authDataSubscriber.onSubscribe(appAuthData)));
+```
+
+### BoundedWildcard
+Can generalize to `? extends AuthDataSubscriber`
+in `shenyu-sync-data-center/shenyu-sync-data-websocket/src/main/java/org/apache/shenyu/plugin/sync/data/websocket/handler/AuthDataHandler.java`
+#### Snippet
+```java
+    private final List<AuthDataSubscriber> authDataSubscribers;
+
+    public AuthDataHandler(final List<AuthDataSubscriber> authDataSubscribers) {
+        this.authDataSubscribers = authDataSubscribers;
+    }
+```
+
+### BoundedWildcard
+Can generalize to `? extends AppAuthData`
+in `shenyu-sync-data-center/shenyu-sync-data-websocket/src/main/java/org/apache/shenyu/plugin/sync/data/websocket/handler/AuthDataHandler.java`
+#### Snippet
+```java
+
+    @Override
+    protected void doDelete(final List<AppAuthData> dataList) {
+        dataList.forEach(appAuthData -> authDataSubscribers.forEach(authDataSubscriber -> authDataSubscriber.unSubscribe(appAuthData)));
+    }
+```
+
+### BoundedWildcard
+Can generalize to `? extends RuleData`
+in `shenyu-sync-data-center/shenyu-sync-data-websocket/src/main/java/org/apache/shenyu/plugin/sync/data/websocket/handler/RuleDataHandler.java`
+#### Snippet
+```java
+
+    @Override
+    protected void doUpdate(final List<RuleData> dataList) {
+        dataList.forEach(pluginDataSubscriber::onRuleSubscribe);
+    }
+```
+
+### BoundedWildcard
+Can generalize to `? extends RuleData`
+in `shenyu-sync-data-center/shenyu-sync-data-websocket/src/main/java/org/apache/shenyu/plugin/sync/data/websocket/handler/RuleDataHandler.java`
+#### Snippet
+```java
+
+    @Override
+    protected void doDelete(final List<RuleData> dataList) {
+        dataList.forEach(pluginDataSubscriber::unRuleSubscribe);
+    }
+```
+
+### BoundedWildcard
+Can generalize to `? extends PluginData`
+in `shenyu-sync-data-center/shenyu-sync-data-websocket/src/main/java/org/apache/shenyu/plugin/sync/data/websocket/handler/PluginDataHandler.java`
+#### Snippet
+```java
+
+    @Override
+    protected void doUpdate(final List<PluginData> dataList) {
+        dataList.forEach(pluginDataSubscriber::onSubscribe);
+    }
+```
+
+### BoundedWildcard
+Can generalize to `? extends PluginData`
+in `shenyu-sync-data-center/shenyu-sync-data-websocket/src/main/java/org/apache/shenyu/plugin/sync/data/websocket/handler/PluginDataHandler.java`
+#### Snippet
+```java
+
+    @Override
+    protected void doDelete(final List<PluginData> dataList) {
+        dataList.forEach(pluginDataSubscriber::unSubscribe);
+    }
+```
+
+### BoundedWildcard
+Can generalize to `? extends MetaData`
+in `shenyu-sync-data-center/shenyu-sync-data-websocket/src/main/java/org/apache/shenyu/plugin/sync/data/websocket/handler/MetaDataHandler.java`
+#### Snippet
+```java
+
+    @Override
+    protected void doRefresh(final List<MetaData> dataList) {
+        metaDataSubscribers.forEach(MetaDataSubscriber::refresh);
+        dataList.forEach(metaData -> metaDataSubscribers.forEach(metaDataSubscriber -> metaDataSubscriber.onSubscribe(metaData)));
+```
+
+### BoundedWildcard
+Can generalize to `? extends MetaData`
+in `shenyu-sync-data-center/shenyu-sync-data-websocket/src/main/java/org/apache/shenyu/plugin/sync/data/websocket/handler/MetaDataHandler.java`
+#### Snippet
+```java
+
+    @Override
+    protected void doUpdate(final List<MetaData> dataList) {
+        dataList.forEach(metaData -> metaDataSubscribers.forEach(metaDataSubscriber -> metaDataSubscriber.onSubscribe(metaData)));
+    }
+```
+
+### BoundedWildcard
+Can generalize to `? extends MetaDataSubscriber`
+in `shenyu-sync-data-center/shenyu-sync-data-websocket/src/main/java/org/apache/shenyu/plugin/sync/data/websocket/handler/MetaDataHandler.java`
+#### Snippet
+```java
+    private final List<MetaDataSubscriber> metaDataSubscribers;
+
+    public MetaDataHandler(final List<MetaDataSubscriber> metaDataSubscribers) {
+        this.metaDataSubscribers = metaDataSubscribers;
+    }
+```
+
+### BoundedWildcard
+Can generalize to `? extends MetaData`
+in `shenyu-sync-data-center/shenyu-sync-data-websocket/src/main/java/org/apache/shenyu/plugin/sync/data/websocket/handler/MetaDataHandler.java`
+#### Snippet
+```java
+
+    @Override
+    protected void doDelete(final List<MetaData> dataList) {
+        dataList.forEach(metaData -> metaDataSubscribers.forEach(metaDataSubscriber -> metaDataSubscriber.unSubscribe(metaData)));
+    }
+```
+
+### BoundedWildcard
+Can generalize to `? extends ShenyuPlugin`
+in `shenyu-web/src/main/java/org/apache/shenyu/web/handler/ShenyuWebHandler.java`
+#### Snippet
+```java
+     * @param extPlugins the ext plugins
+     */
+    public void putExtPlugins(final List<ShenyuPlugin> extPlugins) {
+        if (CollectionUtils.isEmpty(extPlugins)) {
+            return;
+```
+
+### BoundedWildcard
+Can generalize to `? extends ShenyuPlugin`
+in `shenyu-web/src/main/java/org/apache/shenyu/web/handler/ShenyuWebHandler.java`
+#### Snippet
+```java
+         * @param plugins the plugins
+         */
+        DefaultShenyuPluginChain(final List<ShenyuPlugin> plugins) {
+            this.plugins = plugins;
+        }
+```
+
+### BoundedWildcard
+Can generalize to `? extends PluginDataSubscriber`
+in `shenyu-spring-boot-starter/shenyu-spring-boot-starter-sync-data-center/shenyu-spring-boot-starter-sync-data-websocket/src/main/java/org/apache/shenyu/springboot/starter/sync/data/websocket/WebsocketSyncDataConfiguration.java`
+#### Snippet
+```java
+     */
+    @Bean
+    public SyncDataService websocketSyncDataService(final ObjectProvider<WebsocketConfig> websocketConfig, final ObjectProvider<PluginDataSubscriber> pluginSubscriber,
+                                           final ObjectProvider<List<MetaDataSubscriber>> metaSubscribers, final ObjectProvider<List<AuthDataSubscriber>> authSubscribers) {
+        LOGGER.info("you use websocket sync shenyu data.......");
+```
+
+### BoundedWildcard
+Can generalize to `? super L`
+in `shenyu-plugin/shenyu-plugin-logging/shenyu-plugin-logging-common/src/main/java/org/apache/shenyu/plugin/logging/common/body/LoggingServerHttpResponse.java`
+#### Snippet
+```java
+     */
+    public LoggingServerHttpResponse(final ServerHttpResponse delegate, final L logInfo,
+                                     final LogCollector<L> logCollector, final boolean maskFlag,
+                                     final Set<String> keyWordSet, final String dataMaskAlg) {
+        super(delegate);
+```
+
+### BoundedWildcard
+Can generalize to `? extends StreamObserver`
+in `shenyu-plugin/shenyu-plugin-grpc/src/main/java/org/apache/shenyu/plugin/grpc/proto/CompositeStreamObserver.java`
+#### Snippet
+```java
+    private final ImmutableList<StreamObserver<T>> observers;
+
+    private CompositeStreamObserver(final ImmutableList<StreamObserver<T>> observers) {
+        this.observers = observers;
+    }
+```
+
+### BoundedWildcard
+Can generalize to `? extends ShenyuServiceInstance`
+in `shenyu-plugin/shenyu-plugin-grpc/src/main/java/org/apache/shenyu/plugin/grpc/resolver/ShenyuServiceInstanceLists.java`
+#### Snippet
+```java
+     * @param shenyuServiceInstances the shenyu service instances
+     */
+    public void addShenyuServiceInstances(final List<ShenyuServiceInstance> shenyuServiceInstances) {
+        this.shenyuServiceInstances.addAll(shenyuServiceInstances);
+    }
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
+in `shenyu-plugin/shenyu-plugin-grpc/src/main/java/org/apache/shenyu/plugin/grpc/loadbalance/AbstractLoadBalancer.java`
+#### Snippet
+```java
+    }
+    
+    private <T> Set<T> setsDifference(final Set<T> a, final Set<T> b) {
+        Set<T> aCopy = new HashSet<>(a);
+        aCopy.removeAll(b);
+```
+
+### BoundedWildcard
+Can generalize to `? extends SubChannelCopy`
+in `shenyu-plugin/shenyu-plugin-grpc/src/main/java/org/apache/shenyu/plugin/grpc/loadbalance/picker/RoundRobinPicker.java`
+#### Snippet
+```java
+
+    @Override
+    protected SubChannelCopy pick(final List<SubChannelCopy> list) {
+        if (CollectionUtils.isEmpty(list)) {
+            return null;
+```
+
+### BoundedWildcard
+Can generalize to `? extends SubChannelCopy`
+in `shenyu-plugin/shenyu-plugin-grpc/src/main/java/org/apache/shenyu/plugin/grpc/loadbalance/picker/RandomPicker.java`
+#### Snippet
+```java
+    }
+
+    private int getRandomIndexByWeight(final List<SubChannelCopy> list) {
+        final int sumWeight = list.stream().mapToInt(SubChannelCopy::getWeight).sum();
+        if (sumWeight <= 0) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends ShenyuServiceInstance`
+in `shenyu-plugin/shenyu-plugin-grpc/src/main/java/org/apache/shenyu/plugin/grpc/resolver/ShenyuNameResolver.java`
+#### Snippet
+```java
+        }
+
+        private boolean needsToUpdateConnections(final List<ShenyuServiceInstance> newInstanceList) {
+            if (!Objects.equals(this.savedInstanceList.size(), newInstanceList.size())) {
+                return true;
+```
+
+### BoundedWildcard
+Can generalize to `? extends DefaultJwtRuleHandle.Convert`
+in `shenyu-plugin/shenyu-plugin-jwt/src/main/java/org/apache/shenyu/plugin/jwt/strategy/DefaultJwtConvertStrategy.java`
+#### Snippet
+```java
+    private void addHeader(final HttpHeaders headers,
+                           final Map<String, Object> body,
+                           final List<DefaultJwtRuleHandle.Convert> converters) {
+        for (DefaultJwtRuleHandle.Convert converter : converters) {
+
 ```
 
 ### BoundedWildcard
@@ -2534,184 +2739,40 @@ in `shenyu-spring-boot-starter/shenyu-spring-boot-starter-sdk/src/main/java/org/
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends DivideUpstream`
-in `shenyu-plugin/shenyu-plugin-springcloud/src/main/java/org/apache/shenyu/plugin/springcloud/handler/SpringCloudPluginDataHandler.java`
-#### Snippet
-```java
-    }
-
-    private List<Upstream> convertUpstreamList(final List<DivideUpstream> upstreamList) {
-        return upstreamList.stream().map(u -> Upstream.builder()
-                .protocol(u.getProtocol())
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `shenyu-plugin/shenyu-plugin-request/src/main/java/org/apache/shenyu/plugin/request/RequestPlugin.java`
-#### Snippet
-```java
-    }
-
-    private void fillCookie(final Map.Entry<String, String> shenyuCookie, final MultiValueMap<String, HttpCookie> cookies) {
-        cookies.set(shenyuCookie.getKey(), new HttpCookie(shenyuCookie.getKey(), shenyuCookie.getValue()));
-    }
-```
-
-### BoundedWildcard
 Can generalize to `? extends MetaDataSubscriber`
-in `shenyu-sync-data-center/shenyu-sync-data-consul/src/main/java/org/apache/shenyu/sync/data/consul/handler/ConsulCacheHandler.java`
+in `shenyu-sync-data-center/shenyu-sync-data-nacos/src/main/java/org/apache/shenyu/sync/data/nacos/handler/NacosCacheHandler.java`
 #### Snippet
 ```java
 
-    public ConsulCacheHandler(final PluginDataSubscriber pluginDataSubscriber,
-                              final List<MetaDataSubscriber> metaDataSubscribers,
-                              final List<AuthDataSubscriber> authDataSubscribers) {
-        this.pluginDataSubscriber = pluginDataSubscriber;
-```
-
-### BoundedWildcard
-Can generalize to `? super HttpCookie`
-in `shenyu-plugin/shenyu-plugin-request/src/main/java/org/apache/shenyu/plugin/request/RequestPlugin.java`
-#### Snippet
-```java
-    }
-
-    private void fillCookie(final Map.Entry<String, String> shenyuCookie, final MultiValueMap<String, HttpCookie> cookies) {
-        cookies.set(shenyuCookie.getKey(), new HttpCookie(shenyuCookie.getKey(), shenyuCookie.getValue()));
-    }
+    public NacosCacheHandler(final ConfigService configService, final PluginDataSubscriber pluginDataSubscriber,
+                             final List<MetaDataSubscriber> metaDataSubscribers,
+                             final List<AuthDataSubscriber> authDataSubscribers) {
+        this.configService = configService;
 ```
 
 ### BoundedWildcard
 Can generalize to `? extends AuthDataSubscriber`
-in `shenyu-sync-data-center/shenyu-sync-data-consul/src/main/java/org/apache/shenyu/sync/data/consul/handler/ConsulCacheHandler.java`
+in `shenyu-sync-data-center/shenyu-sync-data-nacos/src/main/java/org/apache/shenyu/sync/data/nacos/handler/NacosCacheHandler.java`
 #### Snippet
 ```java
-    public ConsulCacheHandler(final PluginDataSubscriber pluginDataSubscriber,
-                              final List<MetaDataSubscriber> metaDataSubscribers,
-                              final List<AuthDataSubscriber> authDataSubscribers) {
+    public NacosCacheHandler(final ConfigService configService, final PluginDataSubscriber pluginDataSubscriber,
+                             final List<MetaDataSubscriber> metaDataSubscribers,
+                             final List<AuthDataSubscriber> authDataSubscribers) {
+        this.configService = configService;
         this.pluginDataSubscriber = pluginDataSubscriber;
-        this.metaDataSubscribers = metaDataSubscribers;
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `shenyu-plugin/shenyu-plugin-request/src/main/java/org/apache/shenyu/plugin/request/RequestPlugin.java`
-#### Snippet
-```java
-    }
-
-    private void replaceParameterKey(final Map.Entry<String, String> shenyuParam, final MultiValueMap<String, String> queryParams) {
-        List<String> values = queryParams.get(shenyuParam.getKey());
-        if (Objects.nonNull(values)) {
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `shenyu-plugin/shenyu-plugin-request/src/main/java/org/apache/shenyu/plugin/request/RequestPlugin.java`
-#### Snippet
-```java
-    }
-
-    private void fillParameter(final Map.Entry<String, String> shenyuParam, final MultiValueMap<String, String> queryParams) {
-        queryParams.set(shenyuParam.getKey(), shenyuParam.getValue());
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `shenyu-plugin/shenyu-plugin-request/src/main/java/org/apache/shenyu/plugin/request/RequestPlugin.java`
-#### Snippet
-```java
-    }
-
-    private void fillParameter(final Map.Entry<String, String> shenyuParam, final MultiValueMap<String, String> queryParams) {
-        queryParams.set(shenyuParam.getKey(), shenyuParam.getValue());
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `shenyu-plugin/shenyu-plugin-request/src/main/java/org/apache/shenyu/plugin/request/RequestPlugin.java`
-#### Snippet
-```java
-    }
-
-    private void replaceCookieKey(final Map.Entry<String, String> shenyuCookie, final MultiValueMap<String, HttpCookie> cookies) {
-        List<HttpCookie> httpCookies = cookies.get(shenyuCookie.getKey());
-        if (Objects.nonNull(httpCookies)) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends ShenyuRequestLog`
-in `shenyu-plugin/shenyu-plugin-logging/shenyu-plugin-logging-aliyun-sls/src/main/java/org/apache/shenyu/plugin/aliyun/sls/client/AliyunSlsLogCollectClient.java`
-#### Snippet
-```java
-     */
-    @Override
-    public void consume0(@NonNull final List<ShenyuRequestLog> logs) {
-        logs.forEach(this::sendLog);
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? extends HttpConfig`
-in `shenyu-spring-boot-starter/shenyu-spring-boot-starter-sync-data-center/shenyu-spring-boot-starter-sync-data-http/src/main/java/org/apache/shenyu/springboot/starter/sync/data/http/HttpSyncDataConfiguration.java`
-#### Snippet
-```java
-     */
-    @Bean
-    public SyncDataService httpSyncDataService(final ObjectProvider<HttpConfig> httpConfig,
-                                               final ObjectProvider<PluginDataSubscriber> pluginSubscriber,
-                                               final ObjectProvider<RestTemplate> restTemplate,
-```
-
-### BoundedWildcard
-Can generalize to `? extends PluginDataSubscriber`
-in `shenyu-spring-boot-starter/shenyu-spring-boot-starter-sync-data-center/shenyu-spring-boot-starter-sync-data-http/src/main/java/org/apache/shenyu/springboot/starter/sync/data/http/HttpSyncDataConfiguration.java`
-#### Snippet
-```java
-    @Bean
-    public SyncDataService httpSyncDataService(final ObjectProvider<HttpConfig> httpConfig,
-                                               final ObjectProvider<PluginDataSubscriber> pluginSubscriber,
-                                               final ObjectProvider<RestTemplate> restTemplate,
-                                               final ObjectProvider<List<MetaDataSubscriber>> metaSubscribers,
-```
-
-### BoundedWildcard
-Can generalize to `? extends RestTemplate`
-in `shenyu-spring-boot-starter/shenyu-spring-boot-starter-sync-data-center/shenyu-spring-boot-starter-sync-data-http/src/main/java/org/apache/shenyu/springboot/starter/sync/data/http/HttpSyncDataConfiguration.java`
-#### Snippet
-```java
-    public SyncDataService httpSyncDataService(final ObjectProvider<HttpConfig> httpConfig,
-                                               final ObjectProvider<PluginDataSubscriber> pluginSubscriber,
-                                               final ObjectProvider<RestTemplate> restTemplate,
-                                               final ObjectProvider<List<MetaDataSubscriber>> metaSubscribers,
-                                               final ObjectProvider<List<AuthDataSubscriber>> authSubscribers,
-```
-
-### BoundedWildcard
-Can generalize to `? extends AccessTokenManager`
-in `shenyu-spring-boot-starter/shenyu-spring-boot-starter-sync-data-center/shenyu-spring-boot-starter-sync-data-http/src/main/java/org/apache/shenyu/springboot/starter/sync/data/http/HttpSyncDataConfiguration.java`
-#### Snippet
-```java
-                                               final ObjectProvider<List<MetaDataSubscriber>> metaSubscribers,
-                                               final ObjectProvider<List<AuthDataSubscriber>> authSubscribers,
-                                               final ObjectProvider<AccessTokenManager> accessTokenManager) {
-        LOGGER.info("you use http long pull sync shenyu data");
-        return new HttpSyncDataService(
 ```
 
 ## RuleId[ruleID=MissortedModifiers]
 ### MissortedModifiers
-Missorted modifiers `final @Nullable`
-in `shenyu-plugin/shenyu-plugin-cache/shenyu-plugin-cache-redis/src/main/java/org/apache/shenyu/plugin/cache/redis/serializer/ByteArrayRedisSerializer.java`
+Missorted modifiers `final @NonNull`
+in `shenyu-client/shenyu-client-http/shenyu-client-springcloud/src/main/java/org/apache/shenyu/client/springcloud/init/SpringCloudClientEventListener.java`
 #### Snippet
 ```java
     @Override
-    @Nullable
-    public byte[] serialize(final @Nullable byte[] bytes) throws SerializationException {
-        return bytes;
-    }
+    protected MetaDataRegisterDTO buildMetaDataDTO(final Object bean,
+                                                   final @NonNull ShenyuSpringCloudClient shenyuClient,
+                                                   final String path, final Class<?> clazz, final Method method) {
+        return MetaDataRegisterDTO.builder()
 ```
 
 ### MissortedModifiers
@@ -2727,64 +2788,28 @@ in `shenyu-plugin/shenyu-plugin-cache/shenyu-plugin-cache-redis/src/main/java/or
 ```
 
 ### MissortedModifiers
-Missorted modifiers `final @NonNull`
-in `shenyu-client/shenyu-client-http/shenyu-client-springcloud/src/main/java/org/apache/shenyu/client/springcloud/init/SpringCloudClientEventListener.java`
+Missorted modifiers `final @Nullable`
+in `shenyu-plugin/shenyu-plugin-cache/shenyu-plugin-cache-redis/src/main/java/org/apache/shenyu/plugin/cache/redis/serializer/ByteArrayRedisSerializer.java`
 #### Snippet
 ```java
     @Override
-    protected MetaDataRegisterDTO buildMetaDataDTO(final Object bean,
-                                                   final @NonNull ShenyuSpringCloudClient shenyuClient,
-                                                   final String path, final Class<?> clazz, final Method method) {
-        return MetaDataRegisterDTO.builder()
+    @Nullable
+    public byte[] serialize(final @Nullable byte[] bytes) throws SerializationException {
+        return bytes;
+    }
 ```
 
 ## RuleId[ruleID=NullableProblems]
 ### NullableProblems
-Overridden method parameters are not annotated
-in `shenyu-client/shenyu-client-core/src/main/java/org/apache/shenyu/client/core/client/AbstractContextRefreshedEventListener.java`
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
+in `shenyu-admin/src/main/java/org/apache/shenyu/admin/service/impl/DashboardUserServiceImpl.java`
 #### Snippet
 ```java
-    protected void handleClass(final Class<?> clazz,
-                               final T bean,
-                               @NonNull final A beanShenyuClient,
-                               final String superPath) {
-        publisher.publishEvent(buildMetaDataDTO(bean, beanShenyuClient, pathJoin(contextPath, superPath), clazz, null));
-```
-
-### NullableProblems
-Overridden method parameters are not annotated
-in `shenyu-client/shenyu-client-core/src/main/java/org/apache/shenyu/client/core/client/AbstractContextRefreshedEventListener.java`
-#### Snippet
-```java
-    protected abstract String buildApiPath(Method method,
-                                           String superPath,
-                                           @NonNull A methodShenyuClient);
+    private final RoleMapper roleMapper;
     
-    protected String pathJoin(@NonNull final String... path) {
-```
-
-### NullableProblems
-Overridden method parameters are not annotated
-in `shenyu-client/shenyu-client-core/src/main/java/org/apache/shenyu/client/core/client/AbstractContextRefreshedEventListener.java`
-#### Snippet
-```java
+    @Nullable
+    private final LdapProperties ldapProperties;
     
-    protected abstract MetaDataRegisterDTO buildMetaDataDTO(T bean,
-                                                            @NonNull A shenyuClient,
-                                                            String path,
-                                                            Class<?> clazz,
-```
-
-### NullableProblems
-Overridden method parameters are not annotated
-in `shenyu-client/shenyu-client-core/src/main/java/org/apache/shenyu/client/core/client/AbstractContextRefreshedEventListener.java`
-#### Snippet
-```java
-    
-    @Override
-    public void onApplicationEvent(@NonNull final ContextRefreshedEvent event) {
-        final ApplicationContext context = event.getApplicationContext();
-        Map<String, T> beans = getBeans(context);
 ```
 
 ### NullableProblems
@@ -2796,18 +2821,6 @@ in `shenyu-admin/src/main/java/org/apache/shenyu/admin/service/impl/DashboardUse
     
     @Nullable
     private final LdapTemplate ldapTemplate;
-    
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
-in `shenyu-admin/src/main/java/org/apache/shenyu/admin/service/impl/DashboardUserServiceImpl.java`
-#### Snippet
-```java
-    private final RoleMapper roleMapper;
-    
-    @Nullable
-    private final LdapProperties ldapProperties;
     
 ```
 
@@ -2835,6 +2848,54 @@ in `shenyu-client/shenyu-client-websocket/shenyu-client-spring-websocket/src/mai
             return webSocketClient.path();
 ```
 
+### NullableProblems
+Overridden method parameters are not annotated
+in `shenyu-client/shenyu-client-core/src/main/java/org/apache/shenyu/client/core/client/AbstractContextRefreshedEventListener.java`
+#### Snippet
+```java
+    
+    protected abstract MetaDataRegisterDTO buildMetaDataDTO(T bean,
+                                                            @NonNull A shenyuClient,
+                                                            String path,
+                                                            Class<?> clazz,
+```
+
+### NullableProblems
+Overridden method parameters are not annotated
+in `shenyu-client/shenyu-client-core/src/main/java/org/apache/shenyu/client/core/client/AbstractContextRefreshedEventListener.java`
+#### Snippet
+```java
+
+    @Override
+    public void onApplicationEvent(@NonNull final ContextRefreshedEvent event) {
+        final ApplicationContext context = event.getApplicationContext();
+        Map<String, T> beans = getBeans(context);
+```
+
+### NullableProblems
+Overridden method parameters are not annotated
+in `shenyu-client/shenyu-client-core/src/main/java/org/apache/shenyu/client/core/client/AbstractContextRefreshedEventListener.java`
+#### Snippet
+```java
+    protected abstract String buildApiPath(Method method,
+                                           String superPath,
+                                           @NonNull A methodShenyuClient);
+    
+    protected String pathJoin(@NonNull final String... path) {
+```
+
+### NullableProblems
+Overridden method parameters are not annotated
+in `shenyu-client/shenyu-client-core/src/main/java/org/apache/shenyu/client/core/client/AbstractContextRefreshedEventListener.java`
+#### Snippet
+```java
+    protected void handleClass(final Class<?> clazz,
+                               final T bean,
+                               @NonNull final A beanShenyuClient,
+                               final String superPath) {
+        publisher.publishEvent(buildMetaDataDTO(bean, beanShenyuClient, pathJoin(contextPath, superPath), clazz, null));
+```
+
 ## RuleId[ruleID=ThrowablePrintedToSystemOut]
 ### ThrowablePrintedToSystemOut
 'Throwable' argument `ioe` to 'System.err.println()' call
@@ -2849,30 +2910,6 @@ in `shenyu-admin/src/main/java/org/apache/shenyu/admin/utils/HttpUtils.java`
 ```
 
 ## RuleId[ruleID=RedundantMethodOverride]
-### RedundantMethodOverride
-Method `skip()` is identical to its super method
-in `shenyu-plugin/shenyu-plugin-casdoor/src/main/java/org/apache/shenyu/plugin/casdoor/CasdoorPlugin.java`
-#### Snippet
-```java
-
-    @Override
-    public boolean skip(final ServerWebExchange exchange) {
-        return false;
-    }
-```
-
-### RedundantMethodOverride
-Method `getSource()` only delegates to its super method
-in `shenyu-register-center/shenyu-register-client-server/shenyu-register-client-server-consul/src/main/java/org/apache/shenyu/register/client/server/consul/ConsulConfigChangedEvent.java`
-#### Snippet
-```java
-
-    @Override
-    public Object getSource() {
-        return super.getSource();
-    }
-```
-
 ### RedundantMethodOverride
 Method `eventName()` is identical to its super method
 in `shenyu-admin/src/main/java/org/apache/shenyu/admin/model/event/plugin/BatchPluginChangedEvent.java`
@@ -2898,14 +2935,26 @@ in `shenyu-admin/src/main/java/org/apache/shenyu/admin/model/event/plugin/BatchP
 ```
 
 ### RedundantMethodOverride
-Method `skip()` is identical to its super method
-in `shenyu-plugin/shenyu-plugin-general-context/src/main/java/org/apache/shenyu/plugin/general/context/GeneralContextPlugin.java`
+Method `onHalfClose()` only delegates to its super method
+in `shenyu-client/shenyu-client-grpc/src/main/java/org/apache/shenyu/client/grpc/json/JsonServerCallListener.java`
 #### Snippet
 ```java
 
     @Override
-    public boolean skip(final ServerWebExchange exchange) {
-        return false;
+    public void onHalfClose() {
+        super.onHalfClose();
+    }
+```
+
+### RedundantMethodOverride
+Method `onReady()` only delegates to its super method
+in `shenyu-client/shenyu-client-grpc/src/main/java/org/apache/shenyu/client/grpc/json/JsonServerCallListener.java`
+#### Snippet
+```java
+
+    @Override
+    public void onReady() {
+        super.onReady();
     }
 ```
 
@@ -2934,26 +2983,38 @@ in `shenyu-client/shenyu-client-grpc/src/main/java/org/apache/shenyu/client/grpc
 ```
 
 ### RedundantMethodOverride
-Method `onReady()` only delegates to its super method
-in `shenyu-client/shenyu-client-grpc/src/main/java/org/apache/shenyu/client/grpc/json/JsonServerCallListener.java`
+Method `skip()` is identical to its super method
+in `shenyu-plugin/shenyu-plugin-general-context/src/main/java/org/apache/shenyu/plugin/general/context/GeneralContextPlugin.java`
 #### Snippet
 ```java
 
     @Override
-    public void onReady() {
-        super.onReady();
+    public boolean skip(final ServerWebExchange exchange) {
+        return false;
     }
 ```
 
 ### RedundantMethodOverride
-Method `onHalfClose()` only delegates to its super method
-in `shenyu-client/shenyu-client-grpc/src/main/java/org/apache/shenyu/client/grpc/json/JsonServerCallListener.java`
+Method `getSource()` only delegates to its super method
+in `shenyu-register-center/shenyu-register-client-server/shenyu-register-client-server-consul/src/main/java/org/apache/shenyu/register/client/server/consul/ConsulConfigChangedEvent.java`
 #### Snippet
 ```java
 
     @Override
-    public void onHalfClose() {
-        super.onHalfClose();
+    public Object getSource() {
+        return super.getSource();
+    }
+```
+
+### RedundantMethodOverride
+Method `skip()` is identical to its super method
+in `shenyu-plugin/shenyu-plugin-casdoor/src/main/java/org/apache/shenyu/plugin/casdoor/CasdoorPlugin.java`
+#### Snippet
+```java
+
+    @Override
+    public boolean skip(final ServerWebExchange exchange) {
+        return false;
     }
 ```
 
@@ -3006,6 +3067,19 @@ in `shenyu-plugin/shenyu-plugin-ratelimiter/src/main/java/org/apache/shenyu/plug
     }
 ```
 
+## RuleId[ruleID=InfiniteLoopStatement]
+### InfiniteLoopStatement
+`while` statement cannot complete without throwing an exception
+in `shenyu-common/src/main/java/org/apache/shenyu/common/timer/HierarchicalWheelTimer.java`
+#### Snippet
+```java
+        @Override
+        public void run() {
+            while (true) {
+                try {
+                    timer.advanceClock(100L);
+```
+
 ## RuleId[ruleID=ReplaceAssignmentWithOperatorAssignment]
 ### ReplaceAssignmentWithOperatorAssignment
 `serviceName = serviceName + GrpcConstants.GRPC_JSON_SERVICE` could be simplified to 'serviceName += GrpcConstants.GRPC_JSON_SERVICE'
@@ -3043,20 +3117,43 @@ in `shenyu-plugin/shenyu-plugin-api/src/main/java/org/apache/shenyu/plugin/api/u
         }
 ```
 
-## RuleId[ruleID=InfiniteLoopStatement]
-### InfiniteLoopStatement
-`while` statement cannot complete without throwing an exception
-in `shenyu-common/src/main/java/org/apache/shenyu/common/timer/HierarchicalWheelTimer.java`
+## RuleId[ruleID=NestedAssignment]
+### NestedAssignment
+Result of assignment expression used
+in `shenyu-admin/src/main/java/org/apache/shenyu/admin/utils/HttpUtils.java`
 #### Snippet
 ```java
-        @Override
-        public void run() {
-            while (true) {
-                try {
-                    timer.advanceClock(100L);
+            byte[] buffer = new byte[DEFAULT_BUFFER_SIZE];
+
+            while (EOF != (n = input.read(buffer))) {
+                output.write(buffer, 0, n);
+            }
 ```
 
-## RuleId[ruleID=NestedAssignment]
+### NestedAssignment
+Result of assignment expression used
+in `shenyu-common/src/main/java/org/apache/shenyu/common/config/ShenyuConfig.java`
+#### Snippet
+```java
+         */
+        public String getAllowedHeaders() {
+            return allowedHeaders = wrapperHeaders(allowedHeaders);
+        }
+    
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `shenyu-plugin/shenyu-plugin-modify-response/src/main/java/org/apache/shenyu/plugin/modify/response/ModifyResponsePlugin.java`
+#### Snippet
+```java
+            HttpStatus statusCode = clientResponse.statusCode();
+            if (this.ruleHandle.getStatusCode() > 0) {
+                this.setStatusCode(statusCode = HttpStatus.valueOf(this.ruleHandle.getStatusCode()));
+            }
+
+```
+
 ### NestedAssignment
 Result of assignment expression used
 in `shenyu-register-center/shenyu-register-client/shenyu-register-client-http/src/main/java/org/apache/shenyu/register/client/http/utils/RuntimeUtils.java`
@@ -3071,14 +3168,14 @@ in `shenyu-register-center/shenyu-register-client/shenyu-register-client-http/sr
 
 ### NestedAssignment
 Result of assignment expression used
-in `shenyu-admin/src/main/java/org/apache/shenyu/admin/utils/HttpUtils.java`
+in `shenyu-web/src/main/java/org/apache/shenyu/web/filter/CrossFilter.java`
 #### Snippet
 ```java
-            byte[] buffer = new byte[DEFAULT_BUFFER_SIZE];
-
-            while (EOF != (n = input.read(buffer))) {
-                output.write(buffer, 0, n);
-            }
+                // if the origin is not allow check match origin again
+                String originRegex;
+                if (!allowCors && StringUtils.isNotBlank(originRegex = this.filterConfig.getAllowedOrigin().getOriginRegex())) {
+                    allowCors = Pattern.matches(originRegex.trim(), origin);
+                }
 ```
 
 ### NestedAssignment
@@ -3096,42 +3193,6 @@ in `shenyu-sync-data-center/shenyu-sync-data-websocket/src/main/java/org/apache/
         });
     }
     
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `shenyu-common/src/main/java/org/apache/shenyu/common/config/ShenyuConfig.java`
-#### Snippet
-```java
-         */
-        public String getAllowedHeaders() {
-            return allowedHeaders = wrapperHeaders(allowedHeaders);
-        }
-    
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `shenyu-web/src/main/java/org/apache/shenyu/web/filter/CrossFilter.java`
-#### Snippet
-```java
-                // if the origin is not allow check match origin again
-                String originRegex;
-                if (!allowCors && StringUtils.isNotBlank(originRegex = this.filterConfig.getAllowedOrigin().getOriginRegex())) {
-                    allowCors = Pattern.matches(originRegex.trim(), origin);
-                }
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `shenyu-plugin/shenyu-plugin-modify-response/src/main/java/org/apache/shenyu/plugin/modify/response/ModifyResponsePlugin.java`
-#### Snippet
-```java
-            HttpStatus statusCode = clientResponse.statusCode();
-            if (this.ruleHandle.getStatusCode() > 0) {
-                this.setStatusCode(statusCode = HttpStatus.valueOf(this.ruleHandle.getStatusCode()));
-            }
-
 ```
 
 ## RuleId[ruleID=ExcessiveLambdaUsage]
@@ -3174,18 +3235,6 @@ in `shenyu-client/shenyu-client-http/shenyu-client-springcloud/src/main/java/org
 ## RuleId[ruleID=CodeBlock2Expr]
 ### CodeBlock2Expr
 Statement lambda can be replaced with expression lambda
-in `shenyu-sdk/shenyu-sdk-spring/src/main/java/org/apache/shenyu/sdk/spring/annotation/RequestParamParameterProcessor.java`
-#### Snippet
-```java
-            pathResult.append(name).append("=").append(arg);
-        } else if (arg instanceof Map) {
-            ((Map<?, ?>) arg).forEach((key, value) -> {
-                pathResult.append(key).append("=").append(value);
-            });
-```
-
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
 in `shenyu-admin/src/main/java/org/apache/shenyu/admin/service/impl/TagServiceImpl.java`
 #### Snippet
 ```java
@@ -3222,6 +3271,18 @@ in `shenyu-admin/src/main/java/org/apache/shenyu/admin/service/manager/impl/DocM
 
 ### CodeBlock2Expr
 Statement lambda can be replaced with expression lambda
+in `shenyu-admin/src/main/java/org/apache/shenyu/admin/disruptor/subscriber/MetadataExecutorSubscriber.java`
+#### Snippet
+```java
+    @Override
+    public void executor(final Collection<MetaDataRegisterDTO> metaDataRegisterDTOList) {
+        metaDataRegisterDTOList.forEach(meta -> {
+            Optional.ofNullable(this.shenyuClientRegisterService.get(meta.getRpcType()))
+                    .ifPresent(shenyuClientRegisterService -> {
+```
+
+### CodeBlock2Expr
+Statement lambda can be replaced with expression lambda
 in `shenyu-admin/src/main/java/org/apache/shenyu/admin/disruptor/subscriber/ApiDocExecutorSubscriber.java`
 #### Snippet
 ```java
@@ -3234,14 +3295,38 @@ in `shenyu-admin/src/main/java/org/apache/shenyu/admin/disruptor/subscriber/ApiD
 
 ### CodeBlock2Expr
 Statement lambda can be replaced with expression lambda
-in `shenyu-admin/src/main/java/org/apache/shenyu/admin/disruptor/subscriber/MetadataExecutorSubscriber.java`
+in `shenyu-sdk/shenyu-sdk-spring/src/main/java/org/apache/shenyu/sdk/spring/annotation/RequestParamParameterProcessor.java`
 #### Snippet
 ```java
-    @Override
-    public void executor(final Collection<MetaDataRegisterDTO> metaDataRegisterDTOList) {
-        metaDataRegisterDTOList.forEach(meta -> {
-            Optional.ofNullable(this.shenyuClientRegisterService.get(meta.getRpcType()))
-                    .ifPresent(shenyuClientRegisterService -> {
+            pathResult.append(name).append("=").append(arg);
+        } else if (arg instanceof Map) {
+            ((Map<?, ?>) arg).forEach((key, value) -> {
+                pathResult.append(key).append("=").append(value);
+            });
+```
+
+### CodeBlock2Expr
+Statement lambda can be replaced with expression lambda
+in `shenyu-register-center/shenyu-register-client-server/shenyu-register-client-server-etcd/src/main/java/org/apache/shenyu/register/client/server/etcd/EtcdClientServerRegisterRepository.java`
+#### Snippet
+```java
+        String rpcPath = RegisterPathConstants.buildURIContextPathParent(rpcType);
+        Set<String> contextList = new HashSet<>();
+        client.getChildren(rpcPath).forEach(dataPath -> {
+            contextList.add(getContext(dataPath));
+        });
+```
+
+### CodeBlock2Expr
+Statement lambda can be replaced with expression lambda
+in `shenyu-loadbalancer/src/main/java/org/apache/shenyu/loadbalancer/spi/LeastActiveLoadBalance.java`
+#### Snippet
+```java
+    protected Upstream doSelect(final List<Upstream> upstreamList, final String ip) {
+        Map<String, Upstream> domainList = new ConcurrentHashMap<>();
+        upstreamList.stream().forEach(upstream -> {
+            domainList.put(upstream.buildDomain(), upstream);
+        });
 ```
 
 ### CodeBlock2Expr
@@ -3270,6 +3355,18 @@ in `shenyu-sync-data-center/shenyu-sync-data-etcd/src/main/java/org/apache/sheny
 
 ### CodeBlock2Expr
 Statement lambda can be replaced with expression lambda
+in `shenyu-client/shenyu-client-core/src/main/java/org/apache/shenyu/client/core/client/AbstractContextRefreshedEventListener.java`
+#### Snippet
+```java
+        beans.forEach(this::handle);
+        Map<String, Object> apiModules = context.getBeansWithAnnotation(ApiModule.class);
+        apiModules.forEach((k, v) -> {
+            handleApiDoc(v, beans);
+        });
+```
+
+### CodeBlock2Expr
+Statement lambda can be replaced with expression lambda
 in `shenyu-plugin/shenyu-plugin-grpc/src/main/java/org/apache/shenyu/plugin/grpc/intercept/ContextClientInterceptor.java`
 #### Snippet
 ```java
@@ -3280,55 +3377,7 @@ in `shenyu-plugin/shenyu-plugin-grpc/src/main/java/org/apache/shenyu/plugin/grpc
                 }));
 ```
 
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
-in `shenyu-register-center/shenyu-register-client-server/shenyu-register-client-server-etcd/src/main/java/org/apache/shenyu/register/client/server/etcd/EtcdClientServerRegisterRepository.java`
-#### Snippet
-```java
-        String rpcPath = RegisterPathConstants.buildURIContextPathParent(rpcType);
-        Set<String> contextList = new HashSet<>();
-        client.getChildren(rpcPath).forEach(dataPath -> {
-            contextList.add(getContext(dataPath));
-        });
-```
-
 ## RuleId[ruleID=FieldAccessedSynchronizedAndUnsynchronized]
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `eurekaClient` is accessed in both synchronized and unsynchronized contexts
-in `shenyu-register-center/shenyu-register-instance/shenyu-register-instance-eureka/src/main/java/org/apache/shenyu/register/instance/eureka/EurekaInstanceRegisterRepository.java`
-#### Snippet
-```java
-    private static final Logger LOGGER = LoggerFactory.getLogger(EurekaInstanceRegisterRepository.class);
-
-    private EurekaClient eurekaClient;
-
-    private EurekaHttpClient eurekaHttpClient;
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `namingService` is accessed in both synchronized and unsynchronized contexts
-in `shenyu-register-center/shenyu-register-client/shenyu-register-client-nacos/src/main/java/org/apache/shenyu/register/client/nacos/NacosClientRegisterRepository.java`
-#### Snippet
-```java
-    private ConfigService configService;
-    
-    private NamingService namingService;
-
-    private final ConcurrentLinkedQueue<String> metadataCache = new ConcurrentLinkedQueue<>();
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `configService` is accessed in both synchronized and unsynchronized contexts
-in `shenyu-register-center/shenyu-register-client/shenyu-register-client-nacos/src/main/java/org/apache/shenyu/register/client/nacos/NacosClientRegisterRepository.java`
-#### Snippet
-```java
-    private static final String URI_META_DATA = "uriMetadata";
-    
-    private ConfigService configService;
-    
-    private NamingService namingService;
-```
-
 ### FieldAccessedSynchronizedAndUnsynchronized
 Field `supportSwaggerPluginMap` is accessed in both synchronized and unsynchronized contexts
 in `shenyu-admin/src/main/java/org/apache/shenyu/admin/service/manager/impl/LoadServiceDocEntryImpl.java`
@@ -3342,15 +3391,15 @@ in `shenyu-admin/src/main/java/org/apache/shenyu/admin/service/manager/impl/Load
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
-Field `client` is accessed in both synchronized and unsynchronized contexts
-in `shenyu-register-center/shenyu-register-client/shenyu-register-client-zookeeper/src/main/java/org/apache/shenyu/register/client/zookeeper/ZookeeperClientRegisterRepository.java`
+Field `checkTimeout` is accessed in both synchronized and unsynchronized contexts
+in `shenyu-loadbalancer/src/main/java/org/apache/shenyu/loadbalancer/cache/UpstreamCheckTask.java`
 #### Snippet
 ```java
-    private static final Logger LOGGER = LoggerFactory.getLogger(ZookeeperClientRegisterRepository.class);
+    private ExecutorService executor;
 
-    private ZookeeperClient client;
+    private int checkTimeout = 3000;
 
-    private final Map<String, String> nodeDataMap = new HashMap<>();
+    private int healthyThreshold = 1;
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
@@ -3363,18 +3412,6 @@ in `shenyu-loadbalancer/src/main/java/org/apache/shenyu/loadbalancer/cache/Upstr
     private ExecutorService executor;
 
     private int checkTimeout = 3000;
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `checkTimeout` is accessed in both synchronized and unsynchronized contexts
-in `shenyu-loadbalancer/src/main/java/org/apache/shenyu/loadbalancer/cache/UpstreamCheckTask.java`
-#### Snippet
-```java
-    private ExecutorService executor;
-
-    private int checkTimeout = 3000;
-
-    private int healthyThreshold = 1;
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
@@ -3437,127 +3474,55 @@ in `shenyu-common/src/main/java/org/apache/shenyu/common/timer/TimingWheel.java`
     /**
 ```
 
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `namingService` is accessed in both synchronized and unsynchronized contexts
+in `shenyu-register-center/shenyu-register-client/shenyu-register-client-nacos/src/main/java/org/apache/shenyu/register/client/nacos/NacosClientRegisterRepository.java`
+#### Snippet
+```java
+    private ConfigService configService;
+    
+    private NamingService namingService;
+
+    private final ConcurrentLinkedQueue<String> metadataCache = new ConcurrentLinkedQueue<>();
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `configService` is accessed in both synchronized and unsynchronized contexts
+in `shenyu-register-center/shenyu-register-client/shenyu-register-client-nacos/src/main/java/org/apache/shenyu/register/client/nacos/NacosClientRegisterRepository.java`
+#### Snippet
+```java
+    private static final String URI_META_DATA = "uriMetadata";
+    
+    private ConfigService configService;
+    
+    private NamingService namingService;
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `client` is accessed in both synchronized and unsynchronized contexts
+in `shenyu-register-center/shenyu-register-client/shenyu-register-client-zookeeper/src/main/java/org/apache/shenyu/register/client/zookeeper/ZookeeperClientRegisterRepository.java`
+#### Snippet
+```java
+    private static final Logger LOGGER = LoggerFactory.getLogger(ZookeeperClientRegisterRepository.class);
+
+    private ZookeeperClient client;
+
+    private final Map<String, String> nodeDataMap = new HashMap<>();
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `eurekaClient` is accessed in both synchronized and unsynchronized contexts
+in `shenyu-register-center/shenyu-register-instance/shenyu-register-instance-eureka/src/main/java/org/apache/shenyu/register/instance/eureka/EurekaInstanceRegisterRepository.java`
+#### Snippet
+```java
+    private static final Logger LOGGER = LoggerFactory.getLogger(EurekaInstanceRegisterRepository.class);
+
+    private EurekaClient eurekaClient;
+
+    private EurekaHttpClient eurekaHttpClient;
+```
+
 ## RuleId[ruleID=UseOfPropertiesAsHashtable]
-### UseOfPropertiesAsHashtable
-Call to `Hashtable.put()` on properties object
-in `shenyu-register-center/shenyu-register-client/shenyu-register-client-nacos/src/main/java/org/apache/shenyu/register/client/nacos/NacosClientRegisterRepository.java`
-#### Snippet
-```java
-        Properties properties = config.getProps();
-        Properties nacosProperties = new Properties();
-        nacosProperties.put(PropertyKeyConst.SERVER_ADDR, serverAddr);
-
-        nacosProperties.put(PropertyKeyConst.NAMESPACE, properties.getProperty(NAMESPACE));
-```
-
-### UseOfPropertiesAsHashtable
-Call to `Hashtable.put()` on properties object
-in `shenyu-register-center/shenyu-register-client/shenyu-register-client-nacos/src/main/java/org/apache/shenyu/register/client/nacos/NacosClientRegisterRepository.java`
-#### Snippet
-```java
-        nacosProperties.put(PropertyKeyConst.SERVER_ADDR, serverAddr);
-
-        nacosProperties.put(PropertyKeyConst.NAMESPACE, properties.getProperty(NAMESPACE));
-        // the nacos authentication username
-        nacosProperties.put(PropertyKeyConst.USERNAME, properties.getProperty(PropertyKeyConst.USERNAME, ""));
-```
-
-### UseOfPropertiesAsHashtable
-Call to `Hashtable.put()` on properties object
-in `shenyu-register-center/shenyu-register-client/shenyu-register-client-nacos/src/main/java/org/apache/shenyu/register/client/nacos/NacosClientRegisterRepository.java`
-#### Snippet
-```java
-        nacosProperties.put(PropertyKeyConst.NAMESPACE, properties.getProperty(NAMESPACE));
-        // the nacos authentication username
-        nacosProperties.put(PropertyKeyConst.USERNAME, properties.getProperty(PropertyKeyConst.USERNAME, ""));
-        // the nacos authentication password
-        nacosProperties.put(PropertyKeyConst.PASSWORD, properties.getProperty(PropertyKeyConst.PASSWORD, ""));
-```
-
-### UseOfPropertiesAsHashtable
-Call to `Hashtable.put()` on properties object
-in `shenyu-register-center/shenyu-register-client/shenyu-register-client-nacos/src/main/java/org/apache/shenyu/register/client/nacos/NacosClientRegisterRepository.java`
-#### Snippet
-```java
-        nacosProperties.put(PropertyKeyConst.USERNAME, properties.getProperty(PropertyKeyConst.USERNAME, ""));
-        // the nacos authentication password
-        nacosProperties.put(PropertyKeyConst.PASSWORD, properties.getProperty(PropertyKeyConst.PASSWORD, ""));
-        // access key for namespace
-        nacosProperties.put(PropertyKeyConst.ACCESS_KEY, properties.getProperty(PropertyKeyConst.ACCESS_KEY, ""));
-```
-
-### UseOfPropertiesAsHashtable
-Call to `Hashtable.put()` on properties object
-in `shenyu-register-center/shenyu-register-client/shenyu-register-client-nacos/src/main/java/org/apache/shenyu/register/client/nacos/NacosClientRegisterRepository.java`
-#### Snippet
-```java
-        nacosProperties.put(PropertyKeyConst.PASSWORD, properties.getProperty(PropertyKeyConst.PASSWORD, ""));
-        // access key for namespace
-        nacosProperties.put(PropertyKeyConst.ACCESS_KEY, properties.getProperty(PropertyKeyConst.ACCESS_KEY, ""));
-        // secret key for namespace
-        nacosProperties.put(PropertyKeyConst.SECRET_KEY, properties.getProperty(PropertyKeyConst.SECRET_KEY, ""));
-```
-
-### UseOfPropertiesAsHashtable
-Call to `Hashtable.put()` on properties object
-in `shenyu-register-center/shenyu-register-client/shenyu-register-client-nacos/src/main/java/org/apache/shenyu/register/client/nacos/NacosClientRegisterRepository.java`
-#### Snippet
-```java
-        nacosProperties.put(PropertyKeyConst.ACCESS_KEY, properties.getProperty(PropertyKeyConst.ACCESS_KEY, ""));
-        // secret key for namespace
-        nacosProperties.put(PropertyKeyConst.SECRET_KEY, properties.getProperty(PropertyKeyConst.SECRET_KEY, ""));
-        try {
-            this.configService = ConfigFactory.createConfigService(nacosProperties);
-```
-
-### UseOfPropertiesAsHashtable
-Call to `Hashtable.get()` on properties object
-in `shenyu-sdk/shenyu-sdk-core/src/main/java/org/apache/shenyu/sdk/core/client/AbstractShenyuSdkClient.java`
-#### Snippet
-```java
-        this.requestInterceptors = requestInterceptors;
-        Properties props = registerConfig.getProps();
-        Boolean retryEnable = Optional.ofNullable(props.get("retry.enable")).map(e -> Boolean.parseBoolean(e.toString())).orElse(false);
-        Long period = Optional.ofNullable(props.get("retry.period")).map(l -> Long.parseLong(l.toString())).orElse(100L);
-        long maxPeriod = Optional.ofNullable(props.get("retry.maxPeriod")).map(l -> Long.parseLong(l.toString())).orElse(SECONDS.toMillis(1));
-```
-
-### UseOfPropertiesAsHashtable
-Call to `Hashtable.get()` on properties object
-in `shenyu-sdk/shenyu-sdk-core/src/main/java/org/apache/shenyu/sdk/core/client/AbstractShenyuSdkClient.java`
-#### Snippet
-```java
-        Properties props = registerConfig.getProps();
-        Boolean retryEnable = Optional.ofNullable(props.get("retry.enable")).map(e -> Boolean.parseBoolean(e.toString())).orElse(false);
-        Long period = Optional.ofNullable(props.get("retry.period")).map(l -> Long.parseLong(l.toString())).orElse(100L);
-        long maxPeriod = Optional.ofNullable(props.get("retry.maxPeriod")).map(l -> Long.parseLong(l.toString())).orElse(SECONDS.toMillis(1));
-        int maxAttempts = Optional.ofNullable(props.get("retry.maxAttempts")).map(l -> Integer.parseInt(l.toString())).orElse(5);
-```
-
-### UseOfPropertiesAsHashtable
-Call to `Hashtable.get()` on properties object
-in `shenyu-sdk/shenyu-sdk-core/src/main/java/org/apache/shenyu/sdk/core/client/AbstractShenyuSdkClient.java`
-#### Snippet
-```java
-        Boolean retryEnable = Optional.ofNullable(props.get("retry.enable")).map(e -> Boolean.parseBoolean(e.toString())).orElse(false);
-        Long period = Optional.ofNullable(props.get("retry.period")).map(l -> Long.parseLong(l.toString())).orElse(100L);
-        long maxPeriod = Optional.ofNullable(props.get("retry.maxPeriod")).map(l -> Long.parseLong(l.toString())).orElse(SECONDS.toMillis(1));
-        int maxAttempts = Optional.ofNullable(props.get("retry.maxAttempts")).map(l -> Integer.parseInt(l.toString())).orElse(5);
-        this.algorithm = props.getProperty("algorithm", "roundRobin");
-```
-
-### UseOfPropertiesAsHashtable
-Call to `Hashtable.get()` on properties object
-in `shenyu-sdk/shenyu-sdk-core/src/main/java/org/apache/shenyu/sdk/core/client/AbstractShenyuSdkClient.java`
-#### Snippet
-```java
-        Long period = Optional.ofNullable(props.get("retry.period")).map(l -> Long.parseLong(l.toString())).orElse(100L);
-        long maxPeriod = Optional.ofNullable(props.get("retry.maxPeriod")).map(l -> Long.parseLong(l.toString())).orElse(SECONDS.toMillis(1));
-        int maxAttempts = Optional.ofNullable(props.get("retry.maxAttempts")).map(l -> Integer.parseInt(l.toString())).orElse(5);
-        this.algorithm = props.getProperty("algorithm", "roundRobin");
-        this.scheme = props.getProperty("scheme", "http");
-```
-
 ### UseOfPropertiesAsHashtable
 Call to `Hashtable.put()` on properties object
 in `shenyu-admin/src/main/java/org/apache/shenyu/admin/config/DataSyncConfiguration.java`
@@ -3655,123 +3620,51 @@ in `shenyu-admin/src/main/java/org/apache/shenyu/admin/config/DataSyncConfigurat
 ```
 
 ### UseOfPropertiesAsHashtable
-Call to `Hashtable.put()` on properties object
-in `shenyu-register-center/shenyu-register-client-server/shenyu-register-client-server-nacos/src/main/java/org/apache/shenyu/register/client/server/nacos/NacosClientServerRegisterRepository.java`
+Call to `Hashtable.get()` on properties object
+in `shenyu-sdk/shenyu-sdk-core/src/main/java/org/apache/shenyu/sdk/core/client/AbstractShenyuSdkClient.java`
 #### Snippet
 ```java
-        Properties properties = config.getProps();
-        Properties nacosProperties = new Properties();
-        nacosProperties.put(PropertyKeyConst.SERVER_ADDR, serverAddr);
-        nacosProperties.put(PropertyKeyConst.NAMESPACE, properties.getProperty("nacosNameSpace"));
-        // the nacos authentication username
+        this.requestInterceptors = requestInterceptors;
+        Properties props = registerConfig.getProps();
+        Boolean retryEnable = Optional.ofNullable(props.get("retry.enable")).map(e -> Boolean.parseBoolean(e.toString())).orElse(false);
+        Long period = Optional.ofNullable(props.get("retry.period")).map(l -> Long.parseLong(l.toString())).orElse(100L);
+        long maxPeriod = Optional.ofNullable(props.get("retry.maxPeriod")).map(l -> Long.parseLong(l.toString())).orElse(SECONDS.toMillis(1));
 ```
 
 ### UseOfPropertiesAsHashtable
-Call to `Hashtable.put()` on properties object
-in `shenyu-register-center/shenyu-register-client-server/shenyu-register-client-server-nacos/src/main/java/org/apache/shenyu/register/client/server/nacos/NacosClientServerRegisterRepository.java`
+Call to `Hashtable.get()` on properties object
+in `shenyu-sdk/shenyu-sdk-core/src/main/java/org/apache/shenyu/sdk/core/client/AbstractShenyuSdkClient.java`
 #### Snippet
 ```java
-        Properties nacosProperties = new Properties();
-        nacosProperties.put(PropertyKeyConst.SERVER_ADDR, serverAddr);
-        nacosProperties.put(PropertyKeyConst.NAMESPACE, properties.getProperty("nacosNameSpace"));
-        // the nacos authentication username
-        nacosProperties.put(PropertyKeyConst.USERNAME, properties.getProperty(PropertyKeyConst.USERNAME, ""));
+        Properties props = registerConfig.getProps();
+        Boolean retryEnable = Optional.ofNullable(props.get("retry.enable")).map(e -> Boolean.parseBoolean(e.toString())).orElse(false);
+        Long period = Optional.ofNullable(props.get("retry.period")).map(l -> Long.parseLong(l.toString())).orElse(100L);
+        long maxPeriod = Optional.ofNullable(props.get("retry.maxPeriod")).map(l -> Long.parseLong(l.toString())).orElse(SECONDS.toMillis(1));
+        int maxAttempts = Optional.ofNullable(props.get("retry.maxAttempts")).map(l -> Integer.parseInt(l.toString())).orElse(5);
 ```
 
 ### UseOfPropertiesAsHashtable
-Call to `Hashtable.put()` on properties object
-in `shenyu-register-center/shenyu-register-client-server/shenyu-register-client-server-nacos/src/main/java/org/apache/shenyu/register/client/server/nacos/NacosClientServerRegisterRepository.java`
+Call to `Hashtable.get()` on properties object
+in `shenyu-sdk/shenyu-sdk-core/src/main/java/org/apache/shenyu/sdk/core/client/AbstractShenyuSdkClient.java`
 #### Snippet
 ```java
-        nacosProperties.put(PropertyKeyConst.NAMESPACE, properties.getProperty("nacosNameSpace"));
-        // the nacos authentication username
-        nacosProperties.put(PropertyKeyConst.USERNAME, properties.getProperty(PropertyKeyConst.USERNAME, ""));
-        // the nacos authentication password
-        nacosProperties.put(PropertyKeyConst.PASSWORD, properties.getProperty(PropertyKeyConst.PASSWORD, ""));
+        Boolean retryEnable = Optional.ofNullable(props.get("retry.enable")).map(e -> Boolean.parseBoolean(e.toString())).orElse(false);
+        Long period = Optional.ofNullable(props.get("retry.period")).map(l -> Long.parseLong(l.toString())).orElse(100L);
+        long maxPeriod = Optional.ofNullable(props.get("retry.maxPeriod")).map(l -> Long.parseLong(l.toString())).orElse(SECONDS.toMillis(1));
+        int maxAttempts = Optional.ofNullable(props.get("retry.maxAttempts")).map(l -> Integer.parseInt(l.toString())).orElse(5);
+        this.algorithm = props.getProperty("algorithm", "roundRobin");
 ```
 
 ### UseOfPropertiesAsHashtable
-Call to `Hashtable.put()` on properties object
-in `shenyu-register-center/shenyu-register-client-server/shenyu-register-client-server-nacos/src/main/java/org/apache/shenyu/register/client/server/nacos/NacosClientServerRegisterRepository.java`
+Call to `Hashtable.get()` on properties object
+in `shenyu-sdk/shenyu-sdk-core/src/main/java/org/apache/shenyu/sdk/core/client/AbstractShenyuSdkClient.java`
 #### Snippet
 ```java
-        nacosProperties.put(PropertyKeyConst.USERNAME, properties.getProperty(PropertyKeyConst.USERNAME, ""));
-        // the nacos authentication password
-        nacosProperties.put(PropertyKeyConst.PASSWORD, properties.getProperty(PropertyKeyConst.PASSWORD, ""));
-        // access key for namespace
-        nacosProperties.put(PropertyKeyConst.ACCESS_KEY, properties.getProperty(PropertyKeyConst.ACCESS_KEY, ""));
-```
-
-### UseOfPropertiesAsHashtable
-Call to `Hashtable.put()` on properties object
-in `shenyu-register-center/shenyu-register-client-server/shenyu-register-client-server-nacos/src/main/java/org/apache/shenyu/register/client/server/nacos/NacosClientServerRegisterRepository.java`
-#### Snippet
-```java
-        nacosProperties.put(PropertyKeyConst.PASSWORD, properties.getProperty(PropertyKeyConst.PASSWORD, ""));
-        // access key for namespace
-        nacosProperties.put(PropertyKeyConst.ACCESS_KEY, properties.getProperty(PropertyKeyConst.ACCESS_KEY, ""));
-        // secret key for namespace
-        nacosProperties.put(PropertyKeyConst.SECRET_KEY, properties.getProperty(PropertyKeyConst.SECRET_KEY, ""));
-```
-
-### UseOfPropertiesAsHashtable
-Call to `Hashtable.put()` on properties object
-in `shenyu-register-center/shenyu-register-client-server/shenyu-register-client-server-nacos/src/main/java/org/apache/shenyu/register/client/server/nacos/NacosClientServerRegisterRepository.java`
-#### Snippet
-```java
-        nacosProperties.put(PropertyKeyConst.ACCESS_KEY, properties.getProperty(PropertyKeyConst.ACCESS_KEY, ""));
-        // secret key for namespace
-        nacosProperties.put(PropertyKeyConst.SECRET_KEY, properties.getProperty(PropertyKeyConst.SECRET_KEY, ""));
-
-        try {
-```
-
-### UseOfPropertiesAsHashtable
-Call to `Hashtable.put()` on properties object
-in `shenyu-alert/src/main/java/org/apache/shenyu/alert/strategy/EmailStrategy.java`
-#### Snippet
-```java
-    private Properties props(final EmailProp emailProp) {
-        Properties props = new Properties();
-        props.put("mail.smtp.host", emailProp.getHost());
-        props.put("mail.smtp.port", emailProp.getPort());
-        props.put("mail.smtp.auth", emailProp.getAuth());
-```
-
-### UseOfPropertiesAsHashtable
-Call to `Hashtable.put()` on properties object
-in `shenyu-alert/src/main/java/org/apache/shenyu/alert/strategy/EmailStrategy.java`
-#### Snippet
-```java
-        Properties props = new Properties();
-        props.put("mail.smtp.host", emailProp.getHost());
-        props.put("mail.smtp.port", emailProp.getPort());
-        props.put("mail.smtp.auth", emailProp.getAuth());
-        props.put("mail.smtp.starttls.enable", emailProp.getEnableTls());
-```
-
-### UseOfPropertiesAsHashtable
-Call to `Hashtable.put()` on properties object
-in `shenyu-alert/src/main/java/org/apache/shenyu/alert/strategy/EmailStrategy.java`
-#### Snippet
-```java
-        props.put("mail.smtp.host", emailProp.getHost());
-        props.put("mail.smtp.port", emailProp.getPort());
-        props.put("mail.smtp.auth", emailProp.getAuth());
-        props.put("mail.smtp.starttls.enable", emailProp.getEnableTls());
-
-```
-
-### UseOfPropertiesAsHashtable
-Call to `Hashtable.put()` on properties object
-in `shenyu-alert/src/main/java/org/apache/shenyu/alert/strategy/EmailStrategy.java`
-#### Snippet
-```java
-        props.put("mail.smtp.port", emailProp.getPort());
-        props.put("mail.smtp.auth", emailProp.getAuth());
-        props.put("mail.smtp.starttls.enable", emailProp.getEnableTls());
-
-        return props;
+        Long period = Optional.ofNullable(props.get("retry.period")).map(l -> Long.parseLong(l.toString())).orElse(100L);
+        long maxPeriod = Optional.ofNullable(props.get("retry.maxPeriod")).map(l -> Long.parseLong(l.toString())).orElse(SECONDS.toMillis(1));
+        int maxAttempts = Optional.ofNullable(props.get("retry.maxAttempts")).map(l -> Integer.parseInt(l.toString())).orElse(5);
+        this.algorithm = props.getProperty("algorithm", "roundRobin");
+        this.scheme = props.getProperty("scheme", "http");
 ```
 
 ### UseOfPropertiesAsHashtable
@@ -3940,6 +3833,198 @@ in `shenyu-spring-boot-starter/shenyu-spring-boot-starter-sync-data-center/sheny
                 properties.put(PropertyKeyConst.PASSWORD, nacosConfig.getPassword());
             }
         }
+```
+
+### UseOfPropertiesAsHashtable
+Call to `Hashtable.put()` on properties object
+in `shenyu-register-center/shenyu-register-client/shenyu-register-client-nacos/src/main/java/org/apache/shenyu/register/client/nacos/NacosClientRegisterRepository.java`
+#### Snippet
+```java
+        Properties properties = config.getProps();
+        Properties nacosProperties = new Properties();
+        nacosProperties.put(PropertyKeyConst.SERVER_ADDR, serverAddr);
+
+        nacosProperties.put(PropertyKeyConst.NAMESPACE, properties.getProperty(NAMESPACE));
+```
+
+### UseOfPropertiesAsHashtable
+Call to `Hashtable.put()` on properties object
+in `shenyu-register-center/shenyu-register-client/shenyu-register-client-nacos/src/main/java/org/apache/shenyu/register/client/nacos/NacosClientRegisterRepository.java`
+#### Snippet
+```java
+        nacosProperties.put(PropertyKeyConst.SERVER_ADDR, serverAddr);
+
+        nacosProperties.put(PropertyKeyConst.NAMESPACE, properties.getProperty(NAMESPACE));
+        // the nacos authentication username
+        nacosProperties.put(PropertyKeyConst.USERNAME, properties.getProperty(PropertyKeyConst.USERNAME, ""));
+```
+
+### UseOfPropertiesAsHashtable
+Call to `Hashtable.put()` on properties object
+in `shenyu-register-center/shenyu-register-client/shenyu-register-client-nacos/src/main/java/org/apache/shenyu/register/client/nacos/NacosClientRegisterRepository.java`
+#### Snippet
+```java
+        nacosProperties.put(PropertyKeyConst.NAMESPACE, properties.getProperty(NAMESPACE));
+        // the nacos authentication username
+        nacosProperties.put(PropertyKeyConst.USERNAME, properties.getProperty(PropertyKeyConst.USERNAME, ""));
+        // the nacos authentication password
+        nacosProperties.put(PropertyKeyConst.PASSWORD, properties.getProperty(PropertyKeyConst.PASSWORD, ""));
+```
+
+### UseOfPropertiesAsHashtable
+Call to `Hashtable.put()` on properties object
+in `shenyu-register-center/shenyu-register-client/shenyu-register-client-nacos/src/main/java/org/apache/shenyu/register/client/nacos/NacosClientRegisterRepository.java`
+#### Snippet
+```java
+        nacosProperties.put(PropertyKeyConst.USERNAME, properties.getProperty(PropertyKeyConst.USERNAME, ""));
+        // the nacos authentication password
+        nacosProperties.put(PropertyKeyConst.PASSWORD, properties.getProperty(PropertyKeyConst.PASSWORD, ""));
+        // access key for namespace
+        nacosProperties.put(PropertyKeyConst.ACCESS_KEY, properties.getProperty(PropertyKeyConst.ACCESS_KEY, ""));
+```
+
+### UseOfPropertiesAsHashtable
+Call to `Hashtable.put()` on properties object
+in `shenyu-register-center/shenyu-register-client/shenyu-register-client-nacos/src/main/java/org/apache/shenyu/register/client/nacos/NacosClientRegisterRepository.java`
+#### Snippet
+```java
+        nacosProperties.put(PropertyKeyConst.PASSWORD, properties.getProperty(PropertyKeyConst.PASSWORD, ""));
+        // access key for namespace
+        nacosProperties.put(PropertyKeyConst.ACCESS_KEY, properties.getProperty(PropertyKeyConst.ACCESS_KEY, ""));
+        // secret key for namespace
+        nacosProperties.put(PropertyKeyConst.SECRET_KEY, properties.getProperty(PropertyKeyConst.SECRET_KEY, ""));
+```
+
+### UseOfPropertiesAsHashtable
+Call to `Hashtable.put()` on properties object
+in `shenyu-register-center/shenyu-register-client/shenyu-register-client-nacos/src/main/java/org/apache/shenyu/register/client/nacos/NacosClientRegisterRepository.java`
+#### Snippet
+```java
+        nacosProperties.put(PropertyKeyConst.ACCESS_KEY, properties.getProperty(PropertyKeyConst.ACCESS_KEY, ""));
+        // secret key for namespace
+        nacosProperties.put(PropertyKeyConst.SECRET_KEY, properties.getProperty(PropertyKeyConst.SECRET_KEY, ""));
+        try {
+            this.configService = ConfigFactory.createConfigService(nacosProperties);
+```
+
+### UseOfPropertiesAsHashtable
+Call to `Hashtable.put()` on properties object
+in `shenyu-alert/src/main/java/org/apache/shenyu/alert/strategy/EmailStrategy.java`
+#### Snippet
+```java
+    private Properties props(final EmailProp emailProp) {
+        Properties props = new Properties();
+        props.put("mail.smtp.host", emailProp.getHost());
+        props.put("mail.smtp.port", emailProp.getPort());
+        props.put("mail.smtp.auth", emailProp.getAuth());
+```
+
+### UseOfPropertiesAsHashtable
+Call to `Hashtable.put()` on properties object
+in `shenyu-alert/src/main/java/org/apache/shenyu/alert/strategy/EmailStrategy.java`
+#### Snippet
+```java
+        Properties props = new Properties();
+        props.put("mail.smtp.host", emailProp.getHost());
+        props.put("mail.smtp.port", emailProp.getPort());
+        props.put("mail.smtp.auth", emailProp.getAuth());
+        props.put("mail.smtp.starttls.enable", emailProp.getEnableTls());
+```
+
+### UseOfPropertiesAsHashtable
+Call to `Hashtable.put()` on properties object
+in `shenyu-alert/src/main/java/org/apache/shenyu/alert/strategy/EmailStrategy.java`
+#### Snippet
+```java
+        props.put("mail.smtp.host", emailProp.getHost());
+        props.put("mail.smtp.port", emailProp.getPort());
+        props.put("mail.smtp.auth", emailProp.getAuth());
+        props.put("mail.smtp.starttls.enable", emailProp.getEnableTls());
+
+```
+
+### UseOfPropertiesAsHashtable
+Call to `Hashtable.put()` on properties object
+in `shenyu-alert/src/main/java/org/apache/shenyu/alert/strategy/EmailStrategy.java`
+#### Snippet
+```java
+        props.put("mail.smtp.port", emailProp.getPort());
+        props.put("mail.smtp.auth", emailProp.getAuth());
+        props.put("mail.smtp.starttls.enable", emailProp.getEnableTls());
+
+        return props;
+```
+
+### UseOfPropertiesAsHashtable
+Call to `Hashtable.put()` on properties object
+in `shenyu-register-center/shenyu-register-client-server/shenyu-register-client-server-nacos/src/main/java/org/apache/shenyu/register/client/server/nacos/NacosClientServerRegisterRepository.java`
+#### Snippet
+```java
+        Properties properties = config.getProps();
+        Properties nacosProperties = new Properties();
+        nacosProperties.put(PropertyKeyConst.SERVER_ADDR, serverAddr);
+        nacosProperties.put(PropertyKeyConst.NAMESPACE, properties.getProperty("nacosNameSpace"));
+        // the nacos authentication username
+```
+
+### UseOfPropertiesAsHashtable
+Call to `Hashtable.put()` on properties object
+in `shenyu-register-center/shenyu-register-client-server/shenyu-register-client-server-nacos/src/main/java/org/apache/shenyu/register/client/server/nacos/NacosClientServerRegisterRepository.java`
+#### Snippet
+```java
+        Properties nacosProperties = new Properties();
+        nacosProperties.put(PropertyKeyConst.SERVER_ADDR, serverAddr);
+        nacosProperties.put(PropertyKeyConst.NAMESPACE, properties.getProperty("nacosNameSpace"));
+        // the nacos authentication username
+        nacosProperties.put(PropertyKeyConst.USERNAME, properties.getProperty(PropertyKeyConst.USERNAME, ""));
+```
+
+### UseOfPropertiesAsHashtable
+Call to `Hashtable.put()` on properties object
+in `shenyu-register-center/shenyu-register-client-server/shenyu-register-client-server-nacos/src/main/java/org/apache/shenyu/register/client/server/nacos/NacosClientServerRegisterRepository.java`
+#### Snippet
+```java
+        nacosProperties.put(PropertyKeyConst.NAMESPACE, properties.getProperty("nacosNameSpace"));
+        // the nacos authentication username
+        nacosProperties.put(PropertyKeyConst.USERNAME, properties.getProperty(PropertyKeyConst.USERNAME, ""));
+        // the nacos authentication password
+        nacosProperties.put(PropertyKeyConst.PASSWORD, properties.getProperty(PropertyKeyConst.PASSWORD, ""));
+```
+
+### UseOfPropertiesAsHashtable
+Call to `Hashtable.put()` on properties object
+in `shenyu-register-center/shenyu-register-client-server/shenyu-register-client-server-nacos/src/main/java/org/apache/shenyu/register/client/server/nacos/NacosClientServerRegisterRepository.java`
+#### Snippet
+```java
+        nacosProperties.put(PropertyKeyConst.USERNAME, properties.getProperty(PropertyKeyConst.USERNAME, ""));
+        // the nacos authentication password
+        nacosProperties.put(PropertyKeyConst.PASSWORD, properties.getProperty(PropertyKeyConst.PASSWORD, ""));
+        // access key for namespace
+        nacosProperties.put(PropertyKeyConst.ACCESS_KEY, properties.getProperty(PropertyKeyConst.ACCESS_KEY, ""));
+```
+
+### UseOfPropertiesAsHashtable
+Call to `Hashtable.put()` on properties object
+in `shenyu-register-center/shenyu-register-client-server/shenyu-register-client-server-nacos/src/main/java/org/apache/shenyu/register/client/server/nacos/NacosClientServerRegisterRepository.java`
+#### Snippet
+```java
+        nacosProperties.put(PropertyKeyConst.PASSWORD, properties.getProperty(PropertyKeyConst.PASSWORD, ""));
+        // access key for namespace
+        nacosProperties.put(PropertyKeyConst.ACCESS_KEY, properties.getProperty(PropertyKeyConst.ACCESS_KEY, ""));
+        // secret key for namespace
+        nacosProperties.put(PropertyKeyConst.SECRET_KEY, properties.getProperty(PropertyKeyConst.SECRET_KEY, ""));
+```
+
+### UseOfPropertiesAsHashtable
+Call to `Hashtable.put()` on properties object
+in `shenyu-register-center/shenyu-register-client-server/shenyu-register-client-server-nacos/src/main/java/org/apache/shenyu/register/client/server/nacos/NacosClientServerRegisterRepository.java`
+#### Snippet
+```java
+        nacosProperties.put(PropertyKeyConst.ACCESS_KEY, properties.getProperty(PropertyKeyConst.ACCESS_KEY, ""));
+        // secret key for namespace
+        nacosProperties.put(PropertyKeyConst.SECRET_KEY, properties.getProperty(PropertyKeyConst.SECRET_KEY, ""));
+
+        try {
 ```
 
 ### UseOfPropertiesAsHashtable
@@ -4209,18 +4294,6 @@ public class ShenyuAdminResult extends AdminResult<Object> implements Serializab
 ```
 
 ### RedundantImplements
-Redundant interface declaration `SelectorHandleConverter`
-in `shenyu-admin/src/main/java/org/apache/shenyu/admin/service/converter/DubboSelectorHandleConverter.java`
-#### Snippet
-```java
- */
-@Component
-public class DubboSelectorHandleConverter extends AbstractSelectorHandleConverter implements SelectorHandleConverter {
-    
-    @Override
-```
-
-### RedundantImplements
 Redundant interface declaration `ShenyuClientRegisterService`
 in `shenyu-admin/src/main/java/org/apache/shenyu/admin/service/register/AbstractShenyuClientRegisterServiceImpl.java`
 #### Snippet
@@ -4234,12 +4307,24 @@ public abstract class AbstractShenyuClientRegisterServiceImpl extends FallbackSh
 
 ### RedundantImplements
 Redundant interface declaration `SelectorHandleConverter`
-in `shenyu-admin/src/main/java/org/apache/shenyu/admin/service/converter/TarsSelectorHandleConverter.java`
+in `shenyu-admin/src/main/java/org/apache/shenyu/admin/service/converter/SpringCloudSelectorHandleConverter.java`
 #### Snippet
 ```java
  */
 @Component
-public class TarsSelectorHandleConverter extends AbstractSelectorHandleConverter implements SelectorHandleConverter {
+public class SpringCloudSelectorHandleConverter extends AbstractSelectorHandleConverter implements SelectorHandleConverter {
+    
+    @Override
+```
+
+### RedundantImplements
+Redundant interface declaration `SelectorHandleConverter`
+in `shenyu-admin/src/main/java/org/apache/shenyu/admin/service/converter/DubboSelectorHandleConverter.java`
+#### Snippet
+```java
+ */
+@Component
+public class DubboSelectorHandleConverter extends AbstractSelectorHandleConverter implements SelectorHandleConverter {
     
     @Override
 ```
@@ -4258,18 +4343,6 @@ public class DivideSelectorHandleConverter extends AbstractSelectorHandleConvert
 
 ### RedundantImplements
 Redundant interface declaration `SelectorHandleConverter`
-in `shenyu-admin/src/main/java/org/apache/shenyu/admin/service/converter/SpringCloudSelectorHandleConverter.java`
-#### Snippet
-```java
- */
-@Component
-public class SpringCloudSelectorHandleConverter extends AbstractSelectorHandleConverter implements SelectorHandleConverter {
-    
-    @Override
-```
-
-### RedundantImplements
-Redundant interface declaration `SelectorHandleConverter`
 in `shenyu-admin/src/main/java/org/apache/shenyu/admin/service/converter/GrpcSelectorHandleConverter.java`
 #### Snippet
 ```java
@@ -4280,23 +4353,22 @@ public class GrpcSelectorHandleConverter extends AbstractSelectorHandleConverter
     @Override
 ```
 
-## RuleId[ruleID=HtmlWrongAttributeValue]
-### HtmlWrongAttributeValue
-Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-01-13-06-57-16.001.html`
+### RedundantImplements
+Redundant interface declaration `SelectorHandleConverter`
+in `shenyu-admin/src/main/java/org/apache/shenyu/admin/service/converter/TarsSelectorHandleConverter.java`
 #### Snippet
 ```java
-              <td>0</td>
-              <td>0</td>
-              <td><textarea rows="10" cols="75" readonly="true" placeholder="empty" style="white-space: pre; border: none">Not collected for refresh</textarea></td>
-            </tr>
-          </tbody>
+ */
+@Component
+public class TarsSelectorHandleConverter extends AbstractSelectorHandleConverter implements SelectorHandleConverter {
+    
+    @Override
 ```
 
 ## RuleId[ruleID=InstanceofCatchParameter]
 ### InstanceofCatchParameter
 'instanceof' on 'catch' parameter `e`
-in `shenyu-plugin/shenyu-plugin-logging/shenyu-plugin-logging-tencent-cls/src/main/java/org/apache/shenyu/plugin/tencent/cls/client/TencentClsLogCollectClient.java`
+in `shenyu-plugin/shenyu-plugin-logging/shenyu-plugin-logging-aliyun-sls/src/main/java/org/apache/shenyu/plugin/aliyun/sls/client/AliyunSlsLogCollectClient.java`
 #### Snippet
 ```java
             LOG.warn("The current thread has been interrupted during send logs.");
@@ -4308,7 +4380,7 @@ in `shenyu-plugin/shenyu-plugin-logging/shenyu-plugin-logging-tencent-cls/src/ma
 
 ### InstanceofCatchParameter
 'instanceof' on 'catch' parameter `e`
-in `shenyu-plugin/shenyu-plugin-logging/shenyu-plugin-logging-tencent-cls/src/main/java/org/apache/shenyu/plugin/tencent/cls/client/TencentClsLogCollectClient.java`
+in `shenyu-plugin/shenyu-plugin-logging/shenyu-plugin-logging-aliyun-sls/src/main/java/org/apache/shenyu/plugin/aliyun/sls/client/AliyunSlsLogCollectClient.java`
 #### Snippet
 ```java
             if (e instanceof MaxBatchCountExceedException) {
@@ -4320,7 +4392,7 @@ in `shenyu-plugin/shenyu-plugin-logging/shenyu-plugin-logging-tencent-cls/src/ma
 
 ### InstanceofCatchParameter
 'instanceof' on 'catch' parameter `e`
-in `shenyu-plugin/shenyu-plugin-logging/shenyu-plugin-logging-aliyun-sls/src/main/java/org/apache/shenyu/plugin/aliyun/sls/client/AliyunSlsLogCollectClient.java`
+in `shenyu-plugin/shenyu-plugin-logging/shenyu-plugin-logging-tencent-cls/src/main/java/org/apache/shenyu/plugin/tencent/cls/client/TencentClsLogCollectClient.java`
 #### Snippet
 ```java
             LOG.warn("The current thread has been interrupted during send logs.");
@@ -4332,7 +4404,7 @@ in `shenyu-plugin/shenyu-plugin-logging/shenyu-plugin-logging-aliyun-sls/src/mai
 
 ### InstanceofCatchParameter
 'instanceof' on 'catch' parameter `e`
-in `shenyu-plugin/shenyu-plugin-logging/shenyu-plugin-logging-aliyun-sls/src/main/java/org/apache/shenyu/plugin/aliyun/sls/client/AliyunSlsLogCollectClient.java`
+in `shenyu-plugin/shenyu-plugin-logging/shenyu-plugin-logging-tencent-cls/src/main/java/org/apache/shenyu/plugin/tencent/cls/client/TencentClsLogCollectClient.java`
 #### Snippet
 ```java
             if (e instanceof MaxBatchCountExceedException) {
@@ -4343,30 +4415,6 @@ in `shenyu-plugin/shenyu-plugin-logging/shenyu-plugin-logging-aliyun-sls/src/mai
 ```
 
 ## RuleId[ruleID=CallToStringConcatCanBeReplacedByOperator]
-### CallToStringConcatCanBeReplacedByOperator
-Call to `concat()` can be replaced with '+' expression
-in `shenyu-register-center/shenyu-register-client/shenyu-register-client-http/src/main/java/org/apache/shenyu/register/client/http/HttpClientRegisterRepository.java`
-#### Snippet
-```java
-        for (String server : serverList) {
-            try {
-                Optional<?> login = RegisterUtils.doLogin(username, password, server.concat(Constants.LOGIN_PATH));
-                login.ifPresent(v -> this.accessToken = String.valueOf(v));
-            } catch (Exception e) {
-```
-
-### CallToStringConcatCanBeReplacedByOperator
-Call to `concat()` can be replaced with '+' expression
-in `shenyu-register-center/shenyu-register-client/shenyu-register-client-http/src/main/java/org/apache/shenyu/register/client/http/HttpClientRegisterRepository.java`
-#### Snippet
-```java
-        for (String server : serverList) {
-            i++;
-            String concat = server.concat(path);
-            try {
-                if (StringUtils.isBlank(accessToken)) {
-```
-
 ### CallToStringConcatCanBeReplacedByOperator
 Call to `concat()` can be replaced with '+' expression
 in `shenyu-admin/src/main/java/org/apache/shenyu/admin/utils/ShenyuSignatureUtils.java`
@@ -4427,200 +4475,31 @@ in `shenyu-admin/src/main/java/org/apache/shenyu/admin/exception/ExceptionHandle
         return ShenyuAdminResult.error(String.format("Request error! invalid argument [%s]", errorMsg));
 ```
 
-## RuleId[ruleID=ZeroLengthArrayInitialization]
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `shenyu-protocol/shenyu-protocol-grpc/src/main/java/org/apache/shenyu/protocol/grpc/message/JsonMessage.java`
+### CallToStringConcatCanBeReplacedByOperator
+Call to `concat()` can be replaced with '+' expression
+in `shenyu-register-center/shenyu-register-client/shenyu-register-client-http/src/main/java/org/apache/shenyu/register/client/http/HttpClientRegisterRepository.java`
 #### Snippet
 ```java
-        try {
-            Descriptors.FileDescriptor fileDescriptor = Descriptors.FileDescriptor
-                    .buildFrom(fileDescriptorProto, new Descriptors.FileDescriptor[0]);
-            return fileDescriptor.findMessageTypeByName(GrpcConstants.JSON_DESCRIPTOR_PROTO_NAME);
-        } catch (Descriptors.DescriptorValidationException e) {
+        for (String server : serverList) {
+            try {
+                Optional<?> login = RegisterUtils.doLogin(username, password, server.concat(Constants.LOGIN_PATH));
+                login.ifPresent(v -> this.accessToken = String.valueOf(v));
+            } catch (Exception e) {
 ```
 
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `shenyu-plugin/shenyu-plugin-dubbo/shenyu-plugin-alibaba-dubbo/src/main/java/org/apache/shenyu/plugin/alibaba/dubbo/proxy/AlibabaDubboProxyService.java`
+### CallToStringConcatCanBeReplacedByOperator
+Call to `concat()` can be replaced with '+' expression
+in `shenyu-register-center/shenyu-register-client/shenyu-register-client-http/src/main/java/org/apache/shenyu/register/client/http/HttpClientRegisterRepository.java`
 #### Snippet
 ```java
-            Pair<String[], Object[]> pair;
-            if (StringUtils.isBlank(metaData.getParameterTypes()) || ParamCheckUtils.bodyIsEmpty(body)) {
-                pair = new ImmutablePair<>(new String[]{}, new Object[]{});
-            } else {
-                pair = dubboParamResolveService.buildParameter(body, metaData.getParameterTypes());
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `shenyu-plugin/shenyu-plugin-dubbo/shenyu-plugin-alibaba-dubbo/src/main/java/org/apache/shenyu/plugin/alibaba/dubbo/proxy/AlibabaDubboProxyService.java`
-#### Snippet
-```java
-            Pair<String[], Object[]> pair;
-            if (StringUtils.isBlank(metaData.getParameterTypes()) || ParamCheckUtils.bodyIsEmpty(body)) {
-                pair = new ImmutablePair<>(new String[]{}, new Object[]{});
-            } else {
-                pair = dubboParamResolveService.buildParameter(body, metaData.getParameterTypes());
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `shenyu-sdk/shenyu-sdk-spring/src/main/java/org/apache/shenyu/sdk/spring/ShenyuClientsRegistrar.java`
-#### Snippet
-```java
-            qualifierList = Collections.singletonList(getQualifier(client));
-        }
-        return !qualifierList.isEmpty() ? qualifierList.toArray(new String[0]) : null;
-    }
-
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `shenyu-admin/src/main/java/org/apache/shenyu/admin/utils/ShenyuSignatureUtils.java`
-#### Snippet
-```java
-
-        List<String> storedKeys = Arrays.stream(map.keySet()
-                .toArray(new String[] {}))
-            .sorted(Comparator.naturalOrder())
-            .collect(Collectors.toList());
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `shenyu-plugin/shenyu-plugin-metrics/src/main/java/org/apache/shenyu/plugin/metrics/reporter/MetricsReporter.java`
-#### Snippet
-```java
-    
-    private static String[] getLabelNames(final List<String> labels) {
-        return labels.toArray(new String[0]);
-    }
-}
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `shenyu-client/shenyu-client-http/shenyu-client-springmvc/src/main/java/org/apache/shenyu/client/springmvc/init/SpringMvcClientEventListener.java`
-#### Snippet
-```java
-        }
-        List<ApiHttpMethodEnum> collect = Stream.of(requestMethods).map(item -> ApiHttpMethodEnum.of(item.name())).collect(Collectors.toList());
-        ApiHttpMethodEnum[] apiHttpMethodEnums = collect.toArray(new ApiHttpMethodEnum[]{});
-        String version = "v0.01";
-        return Sextet.with(values, consume, produce, apiHttpMethodEnums, RpcTypeEnum.HTTP, version);
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `shenyu-plugin/shenyu-plugin-dubbo/shenyu-plugin-apache-dubbo/src/main/java/org/apache/shenyu/plugin/apache/dubbo/proxy/ApacheDubboProxyService.java`
-#### Snippet
-```java
-        Pair<String[], Object[]> pair;
-        if (StringUtils.isBlank(metaData.getParameterTypes()) || ParamCheckUtils.bodyIsEmpty(body)) {
-            pair = new ImmutablePair<>(new String[]{}, new Object[]{});
-        } else {
-            pair = dubboParamResolveService.buildParameter(body, metaData.getParameterTypes());
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `shenyu-plugin/shenyu-plugin-dubbo/shenyu-plugin-apache-dubbo/src/main/java/org/apache/shenyu/plugin/apache/dubbo/proxy/ApacheDubboProxyService.java`
-#### Snippet
-```java
-        Pair<String[], Object[]> pair;
-        if (StringUtils.isBlank(metaData.getParameterTypes()) || ParamCheckUtils.bodyIsEmpty(body)) {
-            pair = new ImmutablePair<>(new String[]{}, new Object[]{});
-        } else {
-            pair = dubboParamResolveService.buildParameter(body, metaData.getParameterTypes());
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `shenyu-client/shenyu-client-dubbo/shenyu-client-alibaba-dubbo/src/main/java/org/apache/shenyu/client/alibaba/dubbo/validation/AlibabaDubboClientValidator.java`
-#### Snippet
-```java
-
-        // convert list to array
-        Class<?>[] classGroups = groups.toArray(new Class<?>[0]);
-
-        Object parameterBean = getMethodParameterBean(clazz, method, arguments);
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `shenyu-client/shenyu-client-http/shenyu-client-springcloud/src/main/java/org/apache/shenyu/client/springcloud/init/SpringCloudClientEventListener.java`
-#### Snippet
-```java
-        }
-        List<ApiHttpMethodEnum> collect = Stream.of(requestMethods).map(item -> ApiHttpMethodEnum.of(item.name())).collect(Collectors.toList());
-        ApiHttpMethodEnum[] apiHttpMethodEnums = collect.toArray(new ApiHttpMethodEnum[]{});
-        String version = "v0.01";
-        return Sextet.with(values, consume, produce, apiHttpMethodEnums, RpcTypeEnum.SPRING_CLOUD, version);
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `shenyu-plugin/shenyu-plugin-sofa/src/main/java/org/apache/shenyu/plugin/sofa/proxy/SofaProxyService.java`
-#### Snippet
-```java
-        Pair<String[], Object[]> pair;
-        if (StringUtils.isBlank(metaData.getParameterTypes()) || ParamCheckUtils.bodyIsEmpty(body)) {
-            pair = new ImmutablePair<>(new String[]{}, new Object[]{});
-        } else {
-            pair = sofaParamResolveService.buildParameter(body, metaData.getParameterTypes());
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `shenyu-plugin/shenyu-plugin-sofa/src/main/java/org/apache/shenyu/plugin/sofa/proxy/SofaProxyService.java`
-#### Snippet
-```java
-        Pair<String[], Object[]> pair;
-        if (StringUtils.isBlank(metaData.getParameterTypes()) || ParamCheckUtils.bodyIsEmpty(body)) {
-            pair = new ImmutablePair<>(new String[]{}, new Object[]{});
-        } else {
-            pair = sofaParamResolveService.buildParameter(body, metaData.getParameterTypes());
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `shenyu-plugin/shenyu-plugin-sofa/src/main/java/org/apache/shenyu/plugin/sofa/param/SofaParamResolveServiceImpl.java`
-#### Snippet
-```java
-            values.add(convertToParameterValue(params.get(paramIndex), parameter));
-        }
-        return new ImmutablePair<>(parameterTypeArr.toArray(new String[0]), values.toArray());
-    }
-
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `shenyu-plugin/shenyu-plugin-api/src/main/java/org/apache/shenyu/plugin/api/utils/BodyParamUtils.java`
-#### Snippet
-```java
-            }
-        }).toArray();
-        String[] paramTypes = paramTypeList.toArray(new String[0]);
-        return new ImmutablePair<>(paramTypes, objects);
-    }
+        for (String server : serverList) {
+            i++;
+            String concat = server.concat(path);
+            try {
+                if (StringUtils.isBlank(accessToken)) {
 ```
 
 ## RuleId[ruleID=SynchronizeOnThis]
-### SynchronizeOnThis
-Lock operations on 'this' may have unforeseen side-effects
-in `shenyu-register-center/shenyu-register-instance/shenyu-register-instance-eureka/src/main/java/org/apache/shenyu/register/instance/eureka/EurekaInstanceRegisterRepository.java`
-#### Snippet
-```java
-    public List<InstanceEntity> selectInstancesAndWatcher(final String selectKey, final WatcherListener watcherListener) {
-        if (!watcher.contains(selectKey)) {
-            synchronized (this) {
-                if (!watcher.contains(selectKey)) {
-                    watcher.add(selectKey);
-```
-
 ### SynchronizeOnThis
 Lock operations on a class may have unforeseen side-effects
 in `shenyu-sdk/shenyu-sdk-spring/src/main/java/org/apache/shenyu/sdk/spring/proxy/ShenyuClientProxyFactory.java`
@@ -4631,18 +4510,6 @@ in `shenyu-sdk/shenyu-sdk-spring/src/main/java/org/apache/shenyu/sdk/spring/prox
         synchronized (apiClass) {
             Object proxy = Proxy.newProxyInstance(apiClass.getClassLoader(),
                     new Class<?>[]{apiClass},
-```
-
-### SynchronizeOnThis
-Lock operations on 'this' may have unforeseen side-effects
-in `shenyu-common/src/main/java/org/apache/shenyu/common/utils/FreshBeanHolder.java`
-#### Snippet
-```java
-        O fresh = function.apply(e);
-        if (fresh != null) {
-            synchronized (this) {
-                this.o = fresh;
-            }
 ```
 
 ### SynchronizeOnThis
@@ -4671,6 +4538,18 @@ in `shenyu-common/src/main/java/org/apache/shenyu/common/timer/TimerTaskList.jav
 
 ### SynchronizeOnThis
 Lock operations on 'this' may have unforeseen side-effects
+in `shenyu-common/src/main/java/org/apache/shenyu/common/utils/FreshBeanHolder.java`
+#### Snippet
+```java
+        O fresh = function.apply(e);
+        if (fresh != null) {
+            synchronized (this) {
+                this.o = fresh;
+            }
+```
+
+### SynchronizeOnThis
+Lock operations on 'this' may have unforeseen side-effects
 in `shenyu-common/src/main/java/org/apache/shenyu/common/timer/TimingWheel.java`
 #### Snippet
 ```java
@@ -4679,6 +4558,18 @@ in `shenyu-common/src/main/java/org/apache/shenyu/common/timer/TimingWheel.java`
             synchronized (this) {
                 bucket = buckets[index];
                 if (bucket == null) {
+```
+
+### SynchronizeOnThis
+Lock operations on 'this' may have unforeseen side-effects
+in `shenyu-web/src/main/java/org/apache/shenyu/web/loader/ShenyuPluginLoader.java`
+#### Snippet
+```java
+            return clazz;
+        }
+        synchronized (this) {
+            clazz = classCache.get(name);
+            if (clazz == null) {
 ```
 
 ### SynchronizeOnThis
@@ -4695,14 +4586,195 @@ in `shenyu-web/src/main/java/org/apache/shenyu/web/loader/ShenyuPluginLoader.jav
 
 ### SynchronizeOnThis
 Lock operations on 'this' may have unforeseen side-effects
-in `shenyu-web/src/main/java/org/apache/shenyu/web/loader/ShenyuPluginLoader.java`
+in `shenyu-register-center/shenyu-register-instance/shenyu-register-instance-eureka/src/main/java/org/apache/shenyu/register/instance/eureka/EurekaInstanceRegisterRepository.java`
 #### Snippet
 ```java
-            return clazz;
+    public List<InstanceEntity> selectInstancesAndWatcher(final String selectKey, final WatcherListener watcherListener) {
+        if (!watcher.contains(selectKey)) {
+            synchronized (this) {
+                if (!watcher.contains(selectKey)) {
+                    watcher.add(selectKey);
+```
+
+## RuleId[ruleID=ZeroLengthArrayInitialization]
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `shenyu-plugin/shenyu-plugin-dubbo/shenyu-plugin-alibaba-dubbo/src/main/java/org/apache/shenyu/plugin/alibaba/dubbo/proxy/AlibabaDubboProxyService.java`
+#### Snippet
+```java
+            Pair<String[], Object[]> pair;
+            if (StringUtils.isBlank(metaData.getParameterTypes()) || ParamCheckUtils.bodyIsEmpty(body)) {
+                pair = new ImmutablePair<>(new String[]{}, new Object[]{});
+            } else {
+                pair = dubboParamResolveService.buildParameter(body, metaData.getParameterTypes());
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `shenyu-plugin/shenyu-plugin-dubbo/shenyu-plugin-alibaba-dubbo/src/main/java/org/apache/shenyu/plugin/alibaba/dubbo/proxy/AlibabaDubboProxyService.java`
+#### Snippet
+```java
+            Pair<String[], Object[]> pair;
+            if (StringUtils.isBlank(metaData.getParameterTypes()) || ParamCheckUtils.bodyIsEmpty(body)) {
+                pair = new ImmutablePair<>(new String[]{}, new Object[]{});
+            } else {
+                pair = dubboParamResolveService.buildParameter(body, metaData.getParameterTypes());
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `shenyu-admin/src/main/java/org/apache/shenyu/admin/utils/ShenyuSignatureUtils.java`
+#### Snippet
+```java
+
+        List<String> storedKeys = Arrays.stream(map.keySet()
+                .toArray(new String[] {}))
+            .sorted(Comparator.naturalOrder())
+            .collect(Collectors.toList());
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `shenyu-client/shenyu-client-http/shenyu-client-springmvc/src/main/java/org/apache/shenyu/client/springmvc/init/SpringMvcClientEventListener.java`
+#### Snippet
+```java
         }
-        synchronized (this) {
-            clazz = classCache.get(name);
-            if (clazz == null) {
+        List<ApiHttpMethodEnum> collect = Stream.of(requestMethods).map(item -> ApiHttpMethodEnum.of(item.name())).collect(Collectors.toList());
+        ApiHttpMethodEnum[] apiHttpMethodEnums = collect.toArray(new ApiHttpMethodEnum[]{});
+        String version = "v0.01";
+        return Sextet.with(values, consume, produce, apiHttpMethodEnums, RpcTypeEnum.HTTP, version);
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `shenyu-sdk/shenyu-sdk-spring/src/main/java/org/apache/shenyu/sdk/spring/ShenyuClientsRegistrar.java`
+#### Snippet
+```java
+            qualifierList = Collections.singletonList(getQualifier(client));
+        }
+        return !qualifierList.isEmpty() ? qualifierList.toArray(new String[0]) : null;
+    }
+
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `shenyu-plugin/shenyu-plugin-api/src/main/java/org/apache/shenyu/plugin/api/utils/BodyParamUtils.java`
+#### Snippet
+```java
+            }
+        }).toArray();
+        String[] paramTypes = paramTypeList.toArray(new String[0]);
+        return new ImmutablePair<>(paramTypes, objects);
+    }
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `shenyu-client/shenyu-client-http/shenyu-client-springcloud/src/main/java/org/apache/shenyu/client/springcloud/init/SpringCloudClientEventListener.java`
+#### Snippet
+```java
+        }
+        List<ApiHttpMethodEnum> collect = Stream.of(requestMethods).map(item -> ApiHttpMethodEnum.of(item.name())).collect(Collectors.toList());
+        ApiHttpMethodEnum[] apiHttpMethodEnums = collect.toArray(new ApiHttpMethodEnum[]{});
+        String version = "v0.01";
+        return Sextet.with(values, consume, produce, apiHttpMethodEnums, RpcTypeEnum.SPRING_CLOUD, version);
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `shenyu-plugin/shenyu-plugin-sofa/src/main/java/org/apache/shenyu/plugin/sofa/param/SofaParamResolveServiceImpl.java`
+#### Snippet
+```java
+            values.add(convertToParameterValue(params.get(paramIndex), parameter));
+        }
+        return new ImmutablePair<>(parameterTypeArr.toArray(new String[0]), values.toArray());
+    }
+
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `shenyu-plugin/shenyu-plugin-sofa/src/main/java/org/apache/shenyu/plugin/sofa/proxy/SofaProxyService.java`
+#### Snippet
+```java
+        Pair<String[], Object[]> pair;
+        if (StringUtils.isBlank(metaData.getParameterTypes()) || ParamCheckUtils.bodyIsEmpty(body)) {
+            pair = new ImmutablePair<>(new String[]{}, new Object[]{});
+        } else {
+            pair = sofaParamResolveService.buildParameter(body, metaData.getParameterTypes());
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `shenyu-plugin/shenyu-plugin-sofa/src/main/java/org/apache/shenyu/plugin/sofa/proxy/SofaProxyService.java`
+#### Snippet
+```java
+        Pair<String[], Object[]> pair;
+        if (StringUtils.isBlank(metaData.getParameterTypes()) || ParamCheckUtils.bodyIsEmpty(body)) {
+            pair = new ImmutablePair<>(new String[]{}, new Object[]{});
+        } else {
+            pair = sofaParamResolveService.buildParameter(body, metaData.getParameterTypes());
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `shenyu-plugin/shenyu-plugin-dubbo/shenyu-plugin-apache-dubbo/src/main/java/org/apache/shenyu/plugin/apache/dubbo/proxy/ApacheDubboProxyService.java`
+#### Snippet
+```java
+        Pair<String[], Object[]> pair;
+        if (StringUtils.isBlank(metaData.getParameterTypes()) || ParamCheckUtils.bodyIsEmpty(body)) {
+            pair = new ImmutablePair<>(new String[]{}, new Object[]{});
+        } else {
+            pair = dubboParamResolveService.buildParameter(body, metaData.getParameterTypes());
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `shenyu-plugin/shenyu-plugin-dubbo/shenyu-plugin-apache-dubbo/src/main/java/org/apache/shenyu/plugin/apache/dubbo/proxy/ApacheDubboProxyService.java`
+#### Snippet
+```java
+        Pair<String[], Object[]> pair;
+        if (StringUtils.isBlank(metaData.getParameterTypes()) || ParamCheckUtils.bodyIsEmpty(body)) {
+            pair = new ImmutablePair<>(new String[]{}, new Object[]{});
+        } else {
+            pair = dubboParamResolveService.buildParameter(body, metaData.getParameterTypes());
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `shenyu-plugin/shenyu-plugin-metrics/src/main/java/org/apache/shenyu/plugin/metrics/reporter/MetricsReporter.java`
+#### Snippet
+```java
+    
+    private static String[] getLabelNames(final List<String> labels) {
+        return labels.toArray(new String[0]);
+    }
+}
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `shenyu-client/shenyu-client-dubbo/shenyu-client-alibaba-dubbo/src/main/java/org/apache/shenyu/client/alibaba/dubbo/validation/AlibabaDubboClientValidator.java`
+#### Snippet
+```java
+
+        // convert list to array
+        Class<?>[] classGroups = groups.toArray(new Class<?>[0]);
+
+        Object parameterBean = getMethodParameterBean(clazz, method, arguments);
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `shenyu-protocol/shenyu-protocol-grpc/src/main/java/org/apache/shenyu/protocol/grpc/message/JsonMessage.java`
+#### Snippet
+```java
+        try {
+            Descriptors.FileDescriptor fileDescriptor = Descriptors.FileDescriptor
+                    .buildFrom(fileDescriptorProto, new Descriptors.FileDescriptor[0]);
+            return fileDescriptor.findMessageTypeByName(GrpcConstants.JSON_DESCRIPTOR_PROTO_NAME);
+        } catch (Descriptors.DescriptorValidationException e) {
 ```
 
 ## RuleId[ruleID=DoubleBraceInitialization]
@@ -4723,11 +4795,11 @@ Double brace initialization
 in `shenyu-plugin/shenyu-plugin-response/src/main/java/org/apache/shenyu/plugin/response/strategy/WebClientMessageWriter.java`
 #### Snippet
 ```java
-        // octet-stream => octet-stream
-        // force-download => force-download
-        Set<String> commonBinaryTypes = new HashSet<String>() {
-            {
-                add("image");
+     * the cross headers.
+     */
+    private static final Set<String> CORS_HEADERS = new HashSet<String>() {
+        {
+            add(HttpHeaders.ACCESS_CONTROL_ALLOW_METHODS);
 ```
 
 ### DoubleBraceInitialization
@@ -4735,11 +4807,11 @@ Double brace initialization
 in `shenyu-plugin/shenyu-plugin-response/src/main/java/org/apache/shenyu/plugin/response/strategy/WebClientMessageWriter.java`
 #### Snippet
 ```java
-     * the cross headers.
-     */
-    private static final Set<String> CORS_HEADERS = new HashSet<String>() {
-        {
-            add(HttpHeaders.ACCESS_CONTROL_ALLOW_METHODS);
+        // octet-stream => octet-stream
+        // force-download => force-download
+        Set<String> commonBinaryTypes = new HashSet<String>() {
+            {
+                add("image");
 ```
 
 ## RuleId[ruleID=NullArgumentToVariableArgMethod]
@@ -4806,18 +4878,6 @@ in `shenyu-plugin/shenyu-plugin-dubbo/shenyu-plugin-alibaba-dubbo/src/main/java/
 ```
 
 ### ConstantValue
-Condition `Objects.isNull(ApplicationConfigCache.getInstance().get(exist.getPath()))` is always `false`
-in `shenyu-plugin/shenyu-plugin-motan/src/main/java/org/apache/shenyu/plugin/motan/handler/MotanMetaDataHandler.java`
-#### Snippet
-```java
-        try {
-            MetaData exist = META_DATA.get(metaData.getPath());
-            if (Objects.isNull(exist) || Objects.isNull(ApplicationConfigCache.getInstance().get(exist.getPath()))
-                    || Objects.isNull(ApplicationConfigCache.getInstance().get(exist.getPath()).getRef())) {
-                // The first initialization
-```
-
-### ConstantValue
 Condition `Objects.isNull(ApplicationConfigCache.getInstance().get(exist.getPath()))` is always `false` when reached
 in `shenyu-plugin/shenyu-plugin-brpc/src/main/java/org/apache/shenyu/plugin/brpc/handler/BrpcMetaDataHandler.java`
 #### Snippet
@@ -4866,6 +4926,18 @@ in `shenyu-client/shenyu-client-websocket/shenyu-client-spring-websocket/src/mai
 ```
 
 ### ConstantValue
+Condition `Objects.nonNull(beanShenyuClient)` is always `true`
+in `shenyu-client/shenyu-client-websocket/shenyu-client-spring-websocket/src/main/java/org/apache/shenyu/client/spring/websocket/init/SpringWebSocketClientEventListener.java`
+#### Snippet
+```java
+        final String superPath = buildApiSuperPath(clazz, beanShenyuClient);
+        // Compatible with previous versions
+        if (Objects.nonNull(beanShenyuClient)) {
+            handleClass(clazz, bean, beanShenyuClient, superPath);
+            return;
+```
+
+### ConstantValue
 Condition `Objects.nonNull(methodShenyuClient)` is always `true`
 in `shenyu-client/shenyu-client-websocket/shenyu-client-spring-websocket/src/main/java/org/apache/shenyu/client/spring/websocket/init/SpringWebSocketClientEventListener.java`
 #### Snippet
@@ -4878,15 +4950,15 @@ in `shenyu-client/shenyu-client-websocket/shenyu-client-spring-websocket/src/mai
 ```
 
 ### ConstantValue
-Condition `Objects.nonNull(beanShenyuClient)` is always `true`
-in `shenyu-client/shenyu-client-websocket/shenyu-client-spring-websocket/src/main/java/org/apache/shenyu/client/spring/websocket/init/SpringWebSocketClientEventListener.java`
+Condition `Objects.isNull(reference)` is always `false`
+in `shenyu-plugin/shenyu-plugin-sofa/src/main/java/org/apache/shenyu/plugin/sofa/proxy/SofaProxyService.java`
 #### Snippet
 ```java
-        final String superPath = buildApiSuperPath(clazz, beanShenyuClient);
-        // Compatible with previous versions
-        if (Objects.nonNull(beanShenyuClient)) {
-            handleClass(clazz, bean, beanShenyuClient, superPath);
-            return;
+    public Mono<Object> genericInvoker(final String body, final MetaData metaData, final ServerWebExchange exchange) throws ShenyuException {
+        ConsumerConfig<GenericService> reference = ApplicationConfigCache.getInstance().get(metaData.getPath());
+        if (Objects.isNull(reference) || StringUtils.isEmpty(reference.getInterfaceId())) {
+            ApplicationConfigCache.getInstance().invalidate(metaData.getPath());
+            reference = ApplicationConfigCache.getInstance().initRef(metaData);
 ```
 
 ### ConstantValue
@@ -4914,15 +4986,15 @@ in `shenyu-plugin/shenyu-plugin-logging/shenyu-plugin-logging-kafka/src/main/jav
 ```
 
 ### ConstantValue
-Condition `Objects.isNull(reference)` is always `false`
-in `shenyu-plugin/shenyu-plugin-sofa/src/main/java/org/apache/shenyu/plugin/sofa/proxy/SofaProxyService.java`
+Condition `Objects.isNull(ApplicationConfigCache.getInstance().get(exist.getPath()))` is always `false`
+in `shenyu-plugin/shenyu-plugin-motan/src/main/java/org/apache/shenyu/plugin/motan/handler/MotanMetaDataHandler.java`
 #### Snippet
 ```java
-    public Mono<Object> genericInvoker(final String body, final MetaData metaData, final ServerWebExchange exchange) throws ShenyuException {
-        ConsumerConfig<GenericService> reference = ApplicationConfigCache.getInstance().get(metaData.getPath());
-        if (Objects.isNull(reference) || StringUtils.isEmpty(reference.getInterfaceId())) {
-            ApplicationConfigCache.getInstance().invalidate(metaData.getPath());
-            reference = ApplicationConfigCache.getInstance().initRef(metaData);
+        try {
+            MetaData exist = META_DATA.get(metaData.getPath());
+            if (Objects.isNull(exist) || Objects.isNull(ApplicationConfigCache.getInstance().get(exist.getPath()))
+                    || Objects.isNull(ApplicationConfigCache.getInstance().get(exist.getPath()).getRef())) {
+                // The first initialization
 ```
 
 ## RuleId[ruleID=StringConcatenationInsideStringBufferAppend]
@@ -4980,18 +5052,6 @@ public class RoundRobinLoadBalancer extends AbstractLoadBalancer {
 ## RuleId[ruleID=RedundantLengthCheck]
 ### RedundantLengthCheck
 Redundant array length check
-in `shenyu-register-center/shenyu-register-instance/shenyu-register-instance-zookeeper/src/main/java/org/apache/shenyu/register/instance/zookeeper/ZookeeperClient.java`
-#### Snippet
-```java
-        TreeCache cache = TreeCache.newBuilder(client, path).build();
-        caches.put(path, cache);
-        if (listeners != null && listeners.length > 0) {
-            for (TreeCacheListener listener : listeners) {
-                cache.getListenable().addListener(listener);
-```
-
-### RedundantLengthCheck
-Redundant array length check
 in `shenyu-sdk/shenyu-sdk-spring/src/main/java/org/apache/shenyu/sdk/spring/support/SpringMvcContract.java`
 #### Snippet
 ```java
@@ -5016,6 +5076,18 @@ in `shenyu-sync-data-center/shenyu-sync-data-zookeeper/src/main/java/org/apache/
 
 ### RedundantLengthCheck
 Redundant array length check
+in `shenyu-register-center/shenyu-register-instance/shenyu-register-instance-zookeeper/src/main/java/org/apache/shenyu/register/instance/zookeeper/ZookeeperClient.java`
+#### Snippet
+```java
+        TreeCache cache = TreeCache.newBuilder(client, path).build();
+        caches.put(path, cache);
+        if (listeners != null && listeners.length > 0) {
+            for (TreeCacheListener listener : listeners) {
+                cache.getListenable().addListener(listener);
+```
+
+### RedundantLengthCheck
+Redundant array length check
 in `shenyu-register-center/shenyu-register-client/shenyu-register-client-zookeeper/src/main/java/org/apache/shenyu/register/client/zookeeper/ZookeeperClient.java`
 #### Snippet
 ```java
@@ -5028,14 +5100,14 @@ in `shenyu-register-center/shenyu-register-client/shenyu-register-client-zookeep
 
 ### RedundantLengthCheck
 Redundant array length check
-in `shenyu-register-center/shenyu-register-client-server/shenyu-register-client-server-zookeeper/src/main/java/org/apache/shenyu/register/client/server/zookeeper/ZookeeperClient.java`
+in `shenyu-client/shenyu-client-dubbo/shenyu-client-apache-dubbo/src/main/java/org/apache/shenyu/client/apache/dubbo/validation/ApacheDubboClientValidator.java`
 #### Snippet
 ```java
-        TreeCache cache = TreeCache.newBuilder(client, path).build();
-        caches.put(path, cache);
-        if (listeners != null && listeners.length > 0) {
-            for (TreeCacheListener listener : listeners) {
-                cache.getListenable().addListener(listener);
+    private static boolean hasConstraintParameter(final Method method) {
+        Annotation[][] parameterAnnotations = method.getParameterAnnotations();
+        if (parameterAnnotations.length > 0) {
+            for (Annotation[] annotations : parameterAnnotations) {
+                for (Annotation annotation : annotations) {
 ```
 
 ### RedundantLengthCheck
@@ -5052,149 +5124,17 @@ in `shenyu-client/shenyu-client-dubbo/shenyu-client-alibaba-dubbo/src/main/java/
 
 ### RedundantLengthCheck
 Redundant array length check
-in `shenyu-client/shenyu-client-dubbo/shenyu-client-apache-dubbo/src/main/java/org/apache/shenyu/client/apache/dubbo/validation/ApacheDubboClientValidator.java`
+in `shenyu-register-center/shenyu-register-client-server/shenyu-register-client-server-zookeeper/src/main/java/org/apache/shenyu/register/client/server/zookeeper/ZookeeperClient.java`
 #### Snippet
 ```java
-    private static boolean hasConstraintParameter(final Method method) {
-        Annotation[][] parameterAnnotations = method.getParameterAnnotations();
-        if (parameterAnnotations.length > 0) {
-            for (Annotation[] annotations : parameterAnnotations) {
-                for (Annotation annotation : annotations) {
+        TreeCache cache = TreeCache.newBuilder(client, path).build();
+        caches.put(path, cache);
+        if (listeners != null && listeners.length > 0) {
+            for (TreeCacheListener listener : listeners) {
+                cache.getListenable().addListener(listener);
 ```
 
 ## RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-### UtilityClassWithoutPrivateConstructor
-Class `GrpcConstants` has only 'static' members, and lacks a 'private' constructor
-in `shenyu-protocol/shenyu-protocol-grpc/src/main/java/org/apache/shenyu/protocol/grpc/constant/GrpcConstants.java`
-#### Snippet
-```java
- * Grpc constants.
- */
-public class GrpcConstants {
-
-    /**
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `Util` has only 'static' members, and lacks a 'private' constructor
-in `shenyu-sdk/shenyu-sdk-core/src/main/java/org/apache/shenyu/sdk/core/util/Util.java`
-#### Snippet
-```java
- * Utilities, typically copied in from guava, so as to avoid dependency conflicts.
- */
-public final class Util {
-
-    /**
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `ShenyuSdkClientFactory` has only 'static' members, and lacks a 'private' constructor
-in `shenyu-sdk/shenyu-sdk-core/src/main/java/org/apache/shenyu/sdk/core/client/ShenyuSdkClientFactory.java`
-#### Snippet
-```java
- * The type Shenyu sdk client factory.
- */
-public class ShenyuSdkClientFactory {
-
-    private static final Map<String, ShenyuSdkClient> SDK_CLIENT_MAP = new ConcurrentHashMap<>();
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `ShenyuClientProxyFactory` has only 'static' members, and lacks a 'private' constructor
-in `shenyu-sdk/shenyu-sdk-spring/src/main/java/org/apache/shenyu/sdk/spring/proxy/ShenyuClientProxyFactory.java`
-#### Snippet
-```java
- *
- */
-public final class ShenyuClientProxyFactory {
-
-    /**
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `PortUtils` has only 'static' members, and lacks a 'private' constructor
-in `shenyu-client/shenyu-client-core/src/main/java/org/apache/shenyu/client/core/utils/PortUtils.java`
-#### Snippet
-```java
- * get the port number exposed by the current tomcat.
- */
-public class PortUtils {
-
-    /**
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `ShenyuClientConstants` has only 'static' members, and lacks a 'private' constructor
-in `shenyu-client/shenyu-client-core/src/main/java/org/apache/shenyu/client/core/constant/ShenyuClientConstants.java`
-#### Snippet
-```java
- * ShenyuClientConstants.
- */
-public final class ShenyuClientConstants {
-    
-    /**
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `ShenyuClientRegisterRepositoryFactory` has only 'static' members, and lacks a 'private' constructor
-in `shenyu-client/shenyu-client-core/src/main/java/org/apache/shenyu/client/core/register/ShenyuClientRegisterRepositoryFactory.java`
-#### Snippet
-```java
- * The type shenyu client register repository factory.
- */
-public final class ShenyuClientRegisterRepositoryFactory {
-    
-    private static final Map<String, ShenyuClientRegisterRepository> REPOSITORY_MAP = new ConcurrentHashMap<>();
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `ShenyuClientShutdownHook` has only 'static' members, and lacks a 'private' constructor
-in `shenyu-client/shenyu-client-core/src/main/java/org/apache/shenyu/client/core/shutdown/ShenyuClientShutdownHook.java`
-#### Snippet
-```java
- * Shenyu client shutdown hook.
- */
-public class ShenyuClientShutdownHook {
-
-    private static final Logger LOG = LoggerFactory.getLogger(ShenyuClientShutdownHook.class);
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `JsonMessage` has only 'static' members, and lacks a 'private' constructor
-in `shenyu-protocol/shenyu-protocol-grpc/src/main/java/org/apache/shenyu/protocol/grpc/message/JsonMessage.java`
-#### Snippet
-```java
- * JsonMessage.
- */
-public class JsonMessage {
-
-    private static final Logger LOG = LoggerFactory.getLogger(JsonMessage.class);
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `ClickHouseLoggingConstant` has only 'static' members, and lacks a 'private' constructor
-in `shenyu-plugin/shenyu-plugin-logging/shenyu-plugin-logging-clickhouse/src/main/java/org/apache/shenyu/plugin/logging/clickhouse/constant/ClickHouseLoggingConstant.java`
-#### Snippet
-```java
- * clickHouse logging Constant.
- */
-public class ClickHouseLoggingConstant {
-
-    /**
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `InstancePathConstants` has only 'static' members, and lacks a 'private' constructor
-in `shenyu-register-center/shenyu-register-instance/shenyu-register-instance-api/src/main/java/org/apache/shenyu/register/instance/api/path/InstancePathConstants.java`
-#### Snippet
-```java
- * zookeeper register center.
- */
-public class InstancePathConstants {
-    
-    /**
-```
-
 ### UtilityClassWithoutPrivateConstructor
 Class `ShenyuAdminBootstrap` has only 'static' members, and lacks a 'private' constructor
 in `shenyu-admin/src/main/java/org/apache/shenyu/admin/ShenyuAdminBootstrap.java`
@@ -5304,109 +5244,73 @@ in `shenyu-admin/src/main/java/org/apache/shenyu/admin/utils/HttpUtils.java`
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `LabelNames` has only 'static' members, and lacks a 'private' constructor
-in `shenyu-plugin/shenyu-plugin-metrics/src/main/java/org/apache/shenyu/plugin/metrics/constant/LabelNames.java`
+Class `ShenyuClientProxyFactory` has only 'static' members, and lacks a 'private' constructor
+in `shenyu-sdk/shenyu-sdk-spring/src/main/java/org/apache/shenyu/sdk/spring/proxy/ShenyuClientProxyFactory.java`
 #### Snippet
 ```java
- * The Label names.
+ *
  */
-public final class LabelNames {
-    
-    /**
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `MetricsReporter` has only 'static' members, and lacks a 'private' constructor
-in `shenyu-plugin/shenyu-plugin-metrics/src/main/java/org/apache/shenyu/plugin/metrics/reporter/MetricsReporter.java`
-#### Snippet
-```java
- * Metrics reporter.
- */
-public final class MetricsReporter {
-    
-    private static MetricsRegister metricsRegister;
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `JwtConvertStrategyFactory` has only 'static' members, and lacks a 'private' constructor
-in `shenyu-plugin/shenyu-plugin-jwt/src/main/java/org/apache/shenyu/plugin/jwt/strategy/JwtConvertStrategyFactory.java`
-#### Snippet
-```java
-import org.apache.shenyu.spi.ExtensionLoader;
-
-public class JwtConvertStrategyFactory {
-
-    private static final String DEFAULT_JWT_CONVERTER = "default";
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `DataMaskFactory` has only 'static' members, and lacks a 'private' constructor
-in `shenyu-plugin/shenyu-plugin-logging/shenyu-plugin-logging-mask-api/src/main/java/org/apache/shenyu/plugin/logging/mask/api/factory/DataMaskFactory.java`
-#### Snippet
-```java
- * shenyu logging mask factory.
- */
-public final class DataMaskFactory {
-
-    public DataMaskFactory() {
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `AlertStrategyFactory` has only 'static' members, and lacks a 'private' constructor
-in `shenyu-alert/src/main/java/org/apache/shenyu/alert/AlertStrategyFactory.java`
-#### Snippet
-```java
- * The type alert strategy factory.
- */
-public class AlertStrategyFactory {
+public final class ShenyuClientProxyFactory {
 
     /**
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `DataMaskUtils` has only 'static' members, and lacks a 'private' constructor
-in `shenyu-plugin/shenyu-plugin-logging/shenyu-plugin-logging-mask-api/src/main/java/org/apache/shenyu/plugin/logging/mask/api/utils/DataMaskUtils.java`
+Class `EncryptUtil` has only 'static' members, and lacks a 'private' constructor
+in `shenyu-protocol/shenyu-protocol-mqtt/src/main/java/org/apache/shenyu/protocol/mqtt/utils/EncryptUtil.java`
 #### Snippet
 ```java
- * data mask utils.
+ * encrypt util.
  */
-public final class DataMaskUtils {
+public class EncryptUtil {
 
     /**
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `RandomUtil` has only 'static' members, and lacks a 'private' constructor
-in `shenyu-plugin/shenyu-plugin-mock/src/main/java/org/apache/shenyu/plugin/mock/util/RandomUtil.java`
+Class `JsonServerServiceInterceptor` has only 'static' members, and lacks a 'private' constructor
+in `shenyu-client/shenyu-client-grpc/src/main/java/org/apache/shenyu/client/grpc/json/JsonServerServiceInterceptor.java`
 #### Snippet
 ```java
- * Random Util.
+ * Support json invoke.
  */
-public class RandomUtil {
-    
+public class JsonServerServiceInterceptor {
+
+    private static final Map<String, Class<?>> REQUEST_CLAZZ_MAP = Maps.newConcurrentMap();
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `Util` has only 'static' members, and lacks a 'private' constructor
+in `shenyu-sdk/shenyu-sdk-core/src/main/java/org/apache/shenyu/sdk/core/util/Util.java`
+#### Snippet
+```java
+ * Utilities, typically copied in from guava, so as to avoid dependency conflicts.
+ */
+public final class Util {
+
     /**
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `MockUtil` has only 'static' members, and lacks a 'private' constructor
-in `shenyu-plugin/shenyu-plugin-mock/src/main/java/org/apache/shenyu/plugin/mock/util/MockUtil.java`
+Class `ShenyuSdkClientFactory` has only 'static' members, and lacks a 'private' constructor
+in `shenyu-sdk/shenyu-sdk-core/src/main/java/org/apache/shenyu/sdk/core/client/ShenyuSdkClientFactory.java`
 #### Snippet
 ```java
-import static org.apache.shenyu.plugin.mock.util.RandomUtil.randomLowerLetterString;
+ * The type Shenyu sdk client factory.
+ */
+public class ShenyuSdkClientFactory {
 
-public class MockUtil {
-
-    private static final Logger LOG = LoggerFactory.getLogger(CurrentTimeGenerator.class);
+    private static final Map<String, ShenyuSdkClient> SDK_CLIENT_MAP = new ConcurrentHashMap<>();
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `ShenyuBootstrapApplication` has only 'static' members, and lacks a 'private' constructor
-in `shenyu-bootstrap/src/main/java/org/apache/shenyu/bootstrap/ShenyuBootstrapApplication.java`
+Class `ClickHouseLoggingConstant` has only 'static' members, and lacks a 'private' constructor
+in `shenyu-plugin/shenyu-plugin-logging/shenyu-plugin-logging-clickhouse/src/main/java/org/apache/shenyu/plugin/logging/clickhouse/constant/ClickHouseLoggingConstant.java`
 #### Snippet
 ```java
+ * clickHouse logging Constant.
  */
-@SpringBootApplication
-public class ShenyuBootstrapApplication {
+public class ClickHouseLoggingConstant {
 
     /**
 ```
@@ -5448,6 +5352,18 @@ public final class SignUtils {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
+Class `UpstreamCheckUtils` has only 'static' members, and lacks a 'private' constructor
+in `shenyu-common/src/main/java/org/apache/shenyu/common/utils/UpstreamCheckUtils.java`
+#### Snippet
+```java
+ * The type Uri utils.
+ */
+public class UpstreamCheckUtils {
+
+    private static final String HTTP = "http";
+```
+
+### UtilityClassWithoutPrivateConstructor
 Class `UriUtils` has only 'static' members, and lacks a 'private' constructor
 in `shenyu-common/src/main/java/org/apache/shenyu/common/utils/UriUtils.java`
 #### Snippet
@@ -5472,30 +5388,6 @@ public class PluginNameAdapter {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `MapUtils` has only 'static' members, and lacks a 'private' constructor
-in `shenyu-common/src/main/java/org/apache/shenyu/common/utils/MapUtils.java`
-#### Snippet
-```java
-import java.util.stream.Collectors;
-
-public class MapUtils {
-
-    /**
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `UpstreamCheckUtils` has only 'static' members, and lacks a 'private' constructor
-in `shenyu-common/src/main/java/org/apache/shenyu/common/utils/UpstreamCheckUtils.java`
-#### Snippet
-```java
- * The type Uri utils.
- */
-public class UpstreamCheckUtils {
-
-    private static final String HTTP = "http";
-```
-
-### UtilityClassWithoutPrivateConstructor
 Class `PathUtils` has only 'static' members, and lacks a 'private' constructor
 in `shenyu-common/src/main/java/org/apache/shenyu/common/utils/PathUtils.java`
 #### Snippet
@@ -5508,18 +5400,6 @@ public final class PathUtils {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `ObjectTypeUtils` has only 'static' members, and lacks a 'private' constructor
-in `shenyu-common/src/main/java/org/apache/shenyu/common/utils/ObjectTypeUtils.java`
-#### Snippet
-```java
- * ObjectTypeUtils.
- */
-public final class ObjectTypeUtils {
-
-    /**
-```
-
-### UtilityClassWithoutPrivateConstructor
 Class `ParamCheckUtils` has only 'static' members, and lacks a 'private' constructor
 in `shenyu-common/src/main/java/org/apache/shenyu/common/utils/ParamCheckUtils.java`
 #### Snippet
@@ -5528,6 +5408,30 @@ in `shenyu-common/src/main/java/org/apache/shenyu/common/utils/ParamCheckUtils.j
  */
 public class ParamCheckUtils {
     
+    /**
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `LogUtils` has only 'static' members, and lacks a 'private' constructor
+in `shenyu-common/src/main/java/org/apache/shenyu/common/utils/LogUtils.java`
+#### Snippet
+```java
+ * LogUtils.
+ */
+public final class LogUtils {
+
+    /**
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `ObjectTypeUtils` has only 'static' members, and lacks a 'private' constructor
+in `shenyu-common/src/main/java/org/apache/shenyu/common/utils/ObjectTypeUtils.java`
+#### Snippet
+```java
+ * ObjectTypeUtils.
+ */
+public final class ObjectTypeUtils {
+
     /**
 ```
 
@@ -5556,18 +5460,6 @@ public class DigestUtils {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `LogUtils` has only 'static' members, and lacks a 'private' constructor
-in `shenyu-common/src/main/java/org/apache/shenyu/common/utils/LogUtils.java`
-#### Snippet
-```java
- * LogUtils.
- */
-public final class LogUtils {
-
-    /**
-```
-
-### UtilityClassWithoutPrivateConstructor
 Class `ContextPathUtils` has only 'static' members, and lacks a 'private' constructor
 in `shenyu-common/src/main/java/org/apache/shenyu/common/utils/ContextPathUtils.java`
 #### Snippet
@@ -5580,13 +5472,13 @@ public class ContextPathUtils {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `SpiLoadFactory` has only 'static' members, and lacks a 'private' constructor
-in `shenyu-common/src/main/java/org/apache/shenyu/common/utils/SpiLoadFactory.java`
+Class `MapUtils` has only 'static' members, and lacks a 'private' constructor
+in `shenyu-common/src/main/java/org/apache/shenyu/common/utils/MapUtils.java`
 #### Snippet
 ```java
- * SpiLoadFactory.
- */
-public class SpiLoadFactory {
+import java.util.stream.Collectors;
+
+public class MapUtils {
 
     /**
 ```
@@ -5604,25 +5496,13 @@ public final class RuleHandleConstants {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `ResourceTypeConstants` has only 'static' members, and lacks a 'private' constructor
-in `shenyu-common/src/main/java/org/apache/shenyu/common/constant/ResourceTypeConstants.java`
+Class `SpiLoadFactory` has only 'static' members, and lacks a 'private' constructor
+in `shenyu-common/src/main/java/org/apache/shenyu/common/utils/SpiLoadFactory.java`
 #### Snippet
 ```java
- * The Constants for Resource Type.
+ * SpiLoadFactory.
  */
-public final class ResourceTypeConstants {
-
-    /**
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `DubboParamConstants` has only 'static' members, and lacks a 'private' constructor
-in `shenyu-common/src/main/java/org/apache/shenyu/common/constant/DubboParamConstants.java`
-#### Snippet
-```java
- * DubboParamConstants.
- */
-public final class DubboParamConstants {
+public class SpiLoadFactory {
 
     /**
 ```
@@ -5640,6 +5520,30 @@ public final class NacosPathConstants {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
+Class `DubboParamConstants` has only 'static' members, and lacks a 'private' constructor
+in `shenyu-common/src/main/java/org/apache/shenyu/common/constant/DubboParamConstants.java`
+#### Snippet
+```java
+ * DubboParamConstants.
+ */
+public final class DubboParamConstants {
+
+    /**
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `ResourceTypeConstants` has only 'static' members, and lacks a 'private' constructor
+in `shenyu-common/src/main/java/org/apache/shenyu/common/constant/ResourceTypeConstants.java`
+#### Snippet
+```java
+ * The Constants for Resource Type.
+ */
+public final class ResourceTypeConstants {
+
+    /**
+```
+
+### UtilityClassWithoutPrivateConstructor
 Class `ConsulConstants` has only 'static' members, and lacks a 'private' constructor
 in `shenyu-common/src/main/java/org/apache/shenyu/common/constant/ConsulConstants.java`
 #### Snippet
@@ -5649,6 +5553,18 @@ in `shenyu-common/src/main/java/org/apache/shenyu/common/constant/ConsulConstant
 public final class ConsulConstants {
 
     public static final String SYNC_PRE_FIX = "shenyu/sync";
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `AdminConstants` has only 'static' members, and lacks a 'private' constructor
+in `shenyu-common/src/main/java/org/apache/shenyu/common/constant/AdminConstants.java`
+#### Snippet
+```java
+ * The type Admin constants.
+ */
+public final class AdminConstants {
+
+    /**
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -5676,18 +5592,6 @@ public class CommonErrorCode {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `AdminConstants` has only 'static' members, and lacks a 'private' constructor
-in `shenyu-common/src/main/java/org/apache/shenyu/common/constant/AdminConstants.java`
-#### Snippet
-```java
- * The type Admin constants.
- */
-public final class AdminConstants {
-
-    /**
-```
-
-### UtilityClassWithoutPrivateConstructor
 Class `MemoryLimitCalculator` has only 'static' members, and lacks a 'private' constructor
 in `shenyu-common/src/main/java/org/apache/shenyu/common/concurrent/MemoryLimitCalculator.java`
 #### Snippet
@@ -5707,54 +5611,6 @@ in `shenyu-common/src/main/java/org/apache/shenyu/common/utils/JsonUtils.java`
  * JsonUtils.
  */
 public final class JsonUtils {
-
-    /**
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `GenericLoggingConstant` has only 'static' members, and lacks a 'private' constructor
-in `shenyu-plugin/shenyu-plugin-logging/shenyu-plugin-logging-common/src/main/java/org/apache/shenyu/plugin/logging/common/constant/GenericLoggingConstant.java`
-#### Snippet
-```java
- * generic logging constant.
- */
-public class GenericLoggingConstant {
-
-    /**
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `LogCollectUtils` has only 'static' members, and lacks a 'private' constructor
-in `shenyu-plugin/shenyu-plugin-logging/shenyu-plugin-logging-common/src/main/java/org/apache/shenyu/plugin/logging/common/utils/LogCollectUtils.java`
-#### Snippet
-```java
- * log collect utils.
- */
-public class LogCollectUtils {
-
-    private static final List<String> BINARY_TYPE_LIST = Arrays.asList("image", "multipart", "cbor",
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `RegisterPathConstants` has only 'static' members, and lacks a 'private' constructor
-in `shenyu-register-center/shenyu-register-common/src/main/java/org/apache/shenyu/register/common/path/RegisterPathConstants.java`
-#### Snippet
-```java
- * zookeeper register center.
- */
-public class RegisterPathConstants {
-
-    /**
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `EncryptUtil` has only 'static' members, and lacks a 'private' constructor
-in `shenyu-protocol/shenyu-protocol-mqtt/src/main/java/org/apache/shenyu/protocol/mqtt/utils/EncryptUtil.java`
-#### Snippet
-```java
- * encrypt util.
- */
-public class EncryptUtil {
 
     /**
 ```
@@ -5796,15 +5652,87 @@ public class ServerWebExchangeUtils {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `JsonServerServiceInterceptor` has only 'static' members, and lacks a 'private' constructor
-in `shenyu-client/shenyu-client-grpc/src/main/java/org/apache/shenyu/client/grpc/json/JsonServerServiceInterceptor.java`
+Class `DataMaskFactory` has only 'static' members, and lacks a 'private' constructor
+in `shenyu-plugin/shenyu-plugin-logging/shenyu-plugin-logging-mask-api/src/main/java/org/apache/shenyu/plugin/logging/mask/api/factory/DataMaskFactory.java`
 #### Snippet
 ```java
- * Support json invoke.
+ * shenyu logging mask factory.
  */
-public class JsonServerServiceInterceptor {
+public final class DataMaskFactory {
 
-    private static final Map<String, Class<?>> REQUEST_CLAZZ_MAP = Maps.newConcurrentMap();
+    public DataMaskFactory() {
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `DataMaskUtils` has only 'static' members, and lacks a 'private' constructor
+in `shenyu-plugin/shenyu-plugin-logging/shenyu-plugin-logging-mask-api/src/main/java/org/apache/shenyu/plugin/logging/mask/api/utils/DataMaskUtils.java`
+#### Snippet
+```java
+ * data mask utils.
+ */
+public final class DataMaskUtils {
+
+    /**
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `RegisterPathConstants` has only 'static' members, and lacks a 'private' constructor
+in `shenyu-register-center/shenyu-register-common/src/main/java/org/apache/shenyu/register/common/path/RegisterPathConstants.java`
+#### Snippet
+```java
+ * zookeeper register center.
+ */
+public class RegisterPathConstants {
+
+    /**
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `AlertStrategyFactory` has only 'static' members, and lacks a 'private' constructor
+in `shenyu-alert/src/main/java/org/apache/shenyu/alert/AlertStrategyFactory.java`
+#### Snippet
+```java
+ * The type alert strategy factory.
+ */
+public class AlertStrategyFactory {
+
+    /**
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `LabelNames` has only 'static' members, and lacks a 'private' constructor
+in `shenyu-plugin/shenyu-plugin-metrics/src/main/java/org/apache/shenyu/plugin/metrics/constant/LabelNames.java`
+#### Snippet
+```java
+ * The Label names.
+ */
+public final class LabelNames {
+    
+    /**
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `MetricsReporter` has only 'static' members, and lacks a 'private' constructor
+in `shenyu-plugin/shenyu-plugin-metrics/src/main/java/org/apache/shenyu/plugin/metrics/reporter/MetricsReporter.java`
+#### Snippet
+```java
+ * Metrics reporter.
+ */
+public final class MetricsReporter {
+    
+    private static MetricsRegister metricsRegister;
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `JwtConvertStrategyFactory` has only 'static' members, and lacks a 'private' constructor
+in `shenyu-plugin/shenyu-plugin-jwt/src/main/java/org/apache/shenyu/plugin/jwt/strategy/JwtConvertStrategyFactory.java`
+#### Snippet
+```java
+import org.apache.shenyu.spi.ExtensionLoader;
+
+public class JwtConvertStrategyFactory {
+
+    private static final String DEFAULT_JWT_CONVERTER = "default";
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -5817,6 +5745,150 @@ in `shenyu-register-center/shenyu-register-instance/shenyu-register-instance-cor
 public final class ShenyuInstanceRegisterRepositoryFactory {
     
     private static final Map<String, ShenyuInstanceRegisterRepository> REPOSITORY_MAP = new ConcurrentHashMap<>();
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `ShenyuClientConstants` has only 'static' members, and lacks a 'private' constructor
+in `shenyu-client/shenyu-client-core/src/main/java/org/apache/shenyu/client/core/constant/ShenyuClientConstants.java`
+#### Snippet
+```java
+ * ShenyuClientConstants.
+ */
+public final class ShenyuClientConstants {
+    
+    /**
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `PortUtils` has only 'static' members, and lacks a 'private' constructor
+in `shenyu-client/shenyu-client-core/src/main/java/org/apache/shenyu/client/core/utils/PortUtils.java`
+#### Snippet
+```java
+ * get the port number exposed by the current tomcat.
+ */
+public class PortUtils {
+
+    /**
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `ShenyuClientRegisterRepositoryFactory` has only 'static' members, and lacks a 'private' constructor
+in `shenyu-client/shenyu-client-core/src/main/java/org/apache/shenyu/client/core/register/ShenyuClientRegisterRepositoryFactory.java`
+#### Snippet
+```java
+ * The type shenyu client register repository factory.
+ */
+public final class ShenyuClientRegisterRepositoryFactory {
+    
+    private static final Map<String, ShenyuClientRegisterRepository> REPOSITORY_MAP = new ConcurrentHashMap<>();
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `ShenyuClientShutdownHook` has only 'static' members, and lacks a 'private' constructor
+in `shenyu-client/shenyu-client-core/src/main/java/org/apache/shenyu/client/core/shutdown/ShenyuClientShutdownHook.java`
+#### Snippet
+```java
+ * Shenyu client shutdown hook.
+ */
+public class ShenyuClientShutdownHook {
+
+    private static final Logger LOG = LoggerFactory.getLogger(ShenyuClientShutdownHook.class);
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `ShenyuBootstrapApplication` has only 'static' members, and lacks a 'private' constructor
+in `shenyu-bootstrap/src/main/java/org/apache/shenyu/bootstrap/ShenyuBootstrapApplication.java`
+#### Snippet
+```java
+ */
+@SpringBootApplication
+public class ShenyuBootstrapApplication {
+
+    /**
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `GrpcConstants` has only 'static' members, and lacks a 'private' constructor
+in `shenyu-protocol/shenyu-protocol-grpc/src/main/java/org/apache/shenyu/protocol/grpc/constant/GrpcConstants.java`
+#### Snippet
+```java
+ * Grpc constants.
+ */
+public class GrpcConstants {
+
+    /**
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `LogCollectUtils` has only 'static' members, and lacks a 'private' constructor
+in `shenyu-plugin/shenyu-plugin-logging/shenyu-plugin-logging-common/src/main/java/org/apache/shenyu/plugin/logging/common/utils/LogCollectUtils.java`
+#### Snippet
+```java
+ * log collect utils.
+ */
+public class LogCollectUtils {
+
+    private static final List<String> BINARY_TYPE_LIST = Arrays.asList("image", "multipart", "cbor",
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `GenericLoggingConstant` has only 'static' members, and lacks a 'private' constructor
+in `shenyu-plugin/shenyu-plugin-logging/shenyu-plugin-logging-common/src/main/java/org/apache/shenyu/plugin/logging/common/constant/GenericLoggingConstant.java`
+#### Snippet
+```java
+ * generic logging constant.
+ */
+public class GenericLoggingConstant {
+
+    /**
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `InstancePathConstants` has only 'static' members, and lacks a 'private' constructor
+in `shenyu-register-center/shenyu-register-instance/shenyu-register-instance-api/src/main/java/org/apache/shenyu/register/instance/api/path/InstancePathConstants.java`
+#### Snippet
+```java
+ * zookeeper register center.
+ */
+public class InstancePathConstants {
+    
+    /**
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `RandomUtil` has only 'static' members, and lacks a 'private' constructor
+in `shenyu-plugin/shenyu-plugin-mock/src/main/java/org/apache/shenyu/plugin/mock/util/RandomUtil.java`
+#### Snippet
+```java
+ * Random Util.
+ */
+public class RandomUtil {
+    
+    /**
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `MockUtil` has only 'static' members, and lacks a 'private' constructor
+in `shenyu-plugin/shenyu-plugin-mock/src/main/java/org/apache/shenyu/plugin/mock/util/MockUtil.java`
+#### Snippet
+```java
+import static org.apache.shenyu.plugin.mock.util.RandomUtil.randomLowerLetterString;
+
+public class MockUtil {
+
+    private static final Logger LOG = LoggerFactory.getLogger(CurrentTimeGenerator.class);
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `JsonMessage` has only 'static' members, and lacks a 'private' constructor
+in `shenyu-protocol/shenyu-protocol-grpc/src/main/java/org/apache/shenyu/protocol/grpc/message/JsonMessage.java`
+#### Snippet
+```java
+ * JsonMessage.
+ */
+public class JsonMessage {
+
+    private static final Logger LOG = LoggerFactory.getLogger(JsonMessage.class);
 ```
 
 ## RuleId[ruleID=UnnecessarySemicolon]
@@ -5846,6 +5918,114 @@ in `shenyu-common/src/main/java/org/apache/shenyu/common/enums/PluginHandlerEven
 
 ## RuleId[ruleID=DataFlowIssue]
 ### DataFlowIssue
+Method invocation `setAccessible` may produce `NullPointerException`
+in `shenyu-admin/src/main/java/org/apache/shenyu/admin/config/SwaggerConfiguration.java`
+#### Snippet
+```java
+                try {
+                    Field field = ReflectionUtils.findField(bean.getClass(), "handlerMappings");
+                    field.setAccessible(true);
+                    return (List<RequestMappingInfoHandlerMapping>) field.get(bean);
+                } catch (IllegalArgumentException | IllegalAccessException e) {
+```
+
+### DataFlowIssue
+Method invocation `getLoginField` may produce `NullPointerException`
+in `shenyu-admin/src/main/java/org/apache/shenyu/admin/service/impl/DashboardUserServiceImpl.java`
+#### Snippet
+```java
+    private DashboardUserVO loginByLdap(final String userName, final String password) {
+        Assert.notNull(ldapProperties, "ldap config is not enable");
+        String searchBase = String.format("%s=%s,%s", ldapProperties.getLoginField(), LdapEncoder.nameEncode(userName), ldapProperties.getBaseDn());
+        String filter = String.format("(objectClass=%s)", ldapProperties.getObjectClass());
+        try {
+```
+
+### DataFlowIssue
+Argument `signContent` might be null
+in `shenyu-admin/src/main/java/org/apache/shenyu/admin/service/impl/SandboxServiceImpl.java`
+#### Snippet
+```java
+        }
+        if (StringUtils.isNotEmpty(appKey)) {
+            response.addHeader("sandbox-beforesign", UriUtils.encode(signContent, StandardCharsets.UTF_8));
+            response.addHeader("sandbox-sign", UriUtils.encode(sign, StandardCharsets.UTF_8));
+        }
+```
+
+### DataFlowIssue
+Argument `sign` might be null
+in `shenyu-admin/src/main/java/org/apache/shenyu/admin/service/impl/SandboxServiceImpl.java`
+#### Snippet
+```java
+        if (StringUtils.isNotEmpty(appKey)) {
+            response.addHeader("sandbox-beforesign", UriUtils.encode(signContent, StandardCharsets.UTF_8));
+            response.addHeader("sandbox-sign", UriUtils.encode(sign, StandardCharsets.UTF_8));
+        }
+
+```
+
+### DataFlowIssue
+Method invocation `string` may produce `NullPointerException`
+in `shenyu-admin/src/main/java/org/apache/shenyu/admin/utils/HttpUtils.java`
+#### Snippet
+```java
+        Request request = builder.build();
+        Response response = httpClient.newCall(request).execute();
+        return response.body().string();
+    }
+
+```
+
+### DataFlowIssue
+Method invocation `string` may produce `NullPointerException`
+in `shenyu-admin/src/main/java/org/apache/shenyu/admin/utils/HttpUtils.java`
+#### Snippet
+```java
+            .execute();
+        try {
+            return response.body().string();
+        } finally {
+            response.close();
+```
+
+### DataFlowIssue
+Method invocation `string` may produce `NullPointerException`
+in `shenyu-admin/src/main/java/org/apache/shenyu/admin/utils/HttpUtils.java`
+#### Snippet
+```java
+    public String requestFileString(final String url, final Map<String, ?> form, final Map<String, String> header,
+        final List<UploadFile> files) throws IOException {
+        return requestFile(url, form, header, files).body().string();
+    }
+
+```
+
+### DataFlowIssue
+Method invocation `newBuilder` may produce `NullPointerException`
+in `shenyu-admin/src/main/java/org/apache/shenyu/admin/utils/HttpUtils.java`
+#### Snippet
+```java
+     */
+    public static HttpUrl buildHttpUrl(final String url, final Map<String, ?> form) {
+        HttpUrl.Builder urlBuilder = HttpUrl.parse(url).newBuilder();
+        if (Objects.nonNull(form) && !form.isEmpty()) {
+            for (Map.Entry<String, ?> entry : form.entrySet()) {
+```
+
+### DataFlowIssue
+Method invocation `string` may produce `NullPointerException`
+in `shenyu-admin/src/main/java/org/apache/shenyu/admin/utils/HttpUtils.java`
+#### Snippet
+```java
+            .execute();
+        try {
+            return response.body().string();
+        } finally {
+            response.close();
+```
+
+### DataFlowIssue
 Method invocation `method` may produce `NullPointerException`
 in `shenyu-sdk/shenyu-sdk-spring/src/main/java/org/apache/shenyu/sdk/spring/support/SpringMvcContract.java`
 #### Snippet
@@ -5870,15 +6050,147 @@ in `shenyu-sdk/shenyu-sdk-spring/src/main/java/org/apache/shenyu/sdk/spring/supp
 ```
 
 ### DataFlowIssue
-Method invocation `string` may produce `NullPointerException`
-in `shenyu-register-center/shenyu-register-client/shenyu-register-client-http/src/main/java/org/apache/shenyu/register/client/http/utils/OkHttpTools.java`
+Method invocation `getParameterTypes` may produce `NullPointerException`
+in `shenyu-plugin/shenyu-plugin-brpc/src/main/java/org/apache/shenyu/plugin/brpc/BrpcPlugin.java`
 #### Snippet
 ```java
-                .post(body)
-                .build();
-        return client.newCall(request).execute().body().string();
-    }
+            return WebFluxResultUtils.result(exchange, error);
+        }
+        if (StringUtils.isNoneBlank(metaData.getParameterTypes()) && StringUtils.isBlank(param)) {
+            exchange.getResponse().setStatusCode(HttpStatus.INTERNAL_SERVER_ERROR);
+            Object error = ShenyuResultWrap.error(exchange, ShenyuResultEnum.BRPC_HAVE_BODY_PARAM);
+```
 
+### DataFlowIssue
+Method invocation `produces` may produce `NullPointerException`
+in `shenyu-client/shenyu-client-http/shenyu-client-springmvc/src/main/java/org/apache/shenyu/client/springmvc/init/SpringMvcClientEventListener.java`
+#### Snippet
+```java
+    protected Sextet<String[], String, String, ApiHttpMethodEnum[], RpcTypeEnum, String> buildApiDocSextet(final Method method, final Annotation annotation, final Map<String, Object> beans) {
+        RequestMapping requestMapping = AnnotatedElementUtils.findMergedAnnotation(method, RequestMapping.class);
+        String produce = requestMapping.produces().length == 0 ? ShenyuClientConstants.MEDIA_TYPE_ALL_VALUE : String.join(",", requestMapping.produces());
+        String consume = requestMapping.consumes().length == 0 ? ShenyuClientConstants.MEDIA_TYPE_ALL_VALUE : String.join(",", requestMapping.consumes());
+        String[] values = requestMapping.value();
+```
+
+### DataFlowIssue
+Method invocation `interfaceClass` may produce `NullPointerException`
+in `shenyu-client/shenyu-client-motan/src/main/java/org/apache/shenyu/client/motan/MotanServiceEventListener.java`
+#### Snippet
+```java
+                .collect(Collectors.joining(","));
+        String serviceName;
+        if (void.class.equals(service.interfaceClass())) {
+            if (clazz.getInterfaces().length > 0) {
+                serviceName = clazz.getInterfaces()[0].getName();
+```
+
+### DataFlowIssue
+Argument `beanShenyuClient` might be null
+in `shenyu-client/shenyu-client-websocket/shenyu-client-spring-websocket/src/main/java/org/apache/shenyu/client/spring/websocket/init/SpringWebSocketClientEventListener.java`
+#### Snippet
+```java
+        Class<?> clazz = getCorrectedClass(bean);
+        final ShenyuSpringWebSocketClient beanShenyuClient = AnnotatedElementUtils.findMergedAnnotation(clazz, getAnnotationType());
+        final String superPath = buildApiSuperPath(clazz, beanShenyuClient);
+        // Compatible with previous versions
+        if (Objects.nonNull(beanShenyuClient)) {
+```
+
+### DataFlowIssue
+Argument `beanFactory` might be null
+in `shenyu-sdk/shenyu-sdk-spring/src/main/java/org/apache/shenyu/sdk/spring/ShenyuClientsRegistrar.java`
+#### Snippet
+```java
+        String name = getName(attributes);
+        ShenyuClientFactoryBean factoryBean = new ShenyuClientFactoryBean();
+        factoryBean.setBeanFactory(beanFactory);
+        factoryBean.setName(name);
+        factoryBean.setContextId(contextId);
+```
+
+### DataFlowIssue
+Method invocation `get` may produce `NullPointerException`
+in `shenyu-sdk/shenyu-sdk-spring/src/main/java/org/apache/shenyu/sdk/spring/ShenyuClientsRegistrar.java`
+#### Snippet
+```java
+
+        Set<String> basePackages = new HashSet<>();
+        for (String pkg : (String[]) attributes.get("value")) {
+            if (StringUtils.hasText(pkg)) {
+                basePackages.add(pkg);
+```
+
+### DataFlowIssue
+Method invocation `produces` may produce `NullPointerException`
+in `shenyu-client/shenyu-client-http/shenyu-client-springcloud/src/main/java/org/apache/shenyu/client/springcloud/init/SpringCloudClientEventListener.java`
+#### Snippet
+```java
+    protected Sextet<String[], String, String, ApiHttpMethodEnum[], RpcTypeEnum, String> buildApiDocSextet(final Method method, final Annotation annotation, final Map<String, Object> beans) {
+        RequestMapping requestMapping = AnnotatedElementUtils.findMergedAnnotation(method, RequestMapping.class);
+        String produce = requestMapping.produces().length == 0 ? ShenyuClientConstants.MEDIA_TYPE_ALL_VALUE : String.join(",", requestMapping.produces());
+        String consume = requestMapping.consumes().length == 0 ? ShenyuClientConstants.MEDIA_TYPE_ALL_VALUE : String.join(",", requestMapping.consumes());
+        String[] values = requestMapping.value();
+```
+
+### DataFlowIssue
+Argument `field` might be null
+in `shenyu-plugin/shenyu-plugin-sofa/src/main/java/org/apache/shenyu/plugin/sofa/cache/ApplicationConfigCache.java`
+#### Snippet
+```java
+    private void setAsyncRuntimeThreadPool(final ThreadPoolExecutor threadPool) {
+        Field field = ReflectionUtils.findField(AsyncRuntime.class, "asyncThreadPool");
+        ReflectionUtils.makeAccessible(field);
+        ReflectionUtils.setField(field, AsyncRuntime.class, threadPool);
+    }
+```
+
+### DataFlowIssue
+Method invocation `getParameterTypes` may produce `NullPointerException`
+in `shenyu-plugin/shenyu-plugin-tars/src/main/java/org/apache/shenyu/plugin/tars/TarsPlugin.java`
+#### Snippet
+```java
+            return WebFluxResultUtils.result(exchange, error);
+        }
+        if (StringUtils.isNoneBlank(metaData.getParameterTypes()) && StringUtils.isBlank(body)) {
+            exchange.getResponse().setStatusCode(HttpStatus.INTERNAL_SERVER_ERROR);
+            Object error = ShenyuResultWrap.error(exchange, ShenyuResultEnum.TARS_HAVE_BODY_PARAM);
+```
+
+### DataFlowIssue
+Argument `field` might be null
+in `shenyu-plugin/shenyu-plugin-tars/src/main/java/org/apache/shenyu/plugin/tars/cache/ApplicationConfigCache.java`
+#### Snippet
+```java
+    private void setCommunicatorThreadPool(final ThreadPoolExecutor threadPool) {
+        Field field = ReflectionUtils.findField(Communicator.class, "threadPoolExecutor");
+        ReflectionUtils.makeAccessible(field);
+        ReflectionUtils.setField(field, communicator, threadPool);
+    }
+```
+
+### DataFlowIssue
+Argument `appAuthData` might be null
+in `shenyu-plugin/shenyu-plugin-sign/src/main/java/org/apache/shenyu/plugin/sign/service/ComposableSignService.java`
+#### Snippet
+```java
+
+        if (result.isSuccess()) {
+            handleExchange(exchange, appAuthData, shenyuContext.getContextPath());
+        }
+
+```
+
+### DataFlowIssue
+Method invocation `get` may produce `NullPointerException`
+in `shenyu-plugin/shenyu-plugin-dubbo/shenyu-plugin-apache-dubbo/src/main/java/org/apache/shenyu/plugin/apache/dubbo/proxy/ApacheDubboProxyService.java`
+#### Snippet
+```java
+        String namespace = "";
+        if (CollectionUtils.isNotEmpty(exchange.getRequest().getHeaders().get(Constants.NAMESPACE))) {
+            namespace = exchange.getRequest().getHeaders().get(Constants.NAMESPACE).get(0);
+            referenceKey = namespace + ":" + referenceKey;
+        }
 ```
 
 ### DataFlowIssue
@@ -5900,6 +6212,18 @@ in `shenyu-register-center/shenyu-register-client/shenyu-register-client-http/sr
 ```java
         reqBuild.url(urlBuilder.build());
         Request request = reqBuild.build();
+        return client.newCall(request).execute().body().string();
+    }
+
+```
+
+### DataFlowIssue
+Method invocation `string` may produce `NullPointerException`
+in `shenyu-register-center/shenyu-register-client/shenyu-register-client-http/src/main/java/org/apache/shenyu/register/client/http/utils/OkHttpTools.java`
+#### Snippet
+```java
+                .post(body)
+                .build();
         return client.newCall(request).execute().body().string();
     }
 
@@ -5942,210 +6266,6 @@ in `shenyu-register-center/shenyu-register-client/shenyu-register-client-http/sr
 ```
 
 ### DataFlowIssue
-Method invocation `get` may produce `NullPointerException`
-in `shenyu-sdk/shenyu-sdk-spring/src/main/java/org/apache/shenyu/sdk/spring/ShenyuClientsRegistrar.java`
-#### Snippet
-```java
-
-        Set<String> basePackages = new HashSet<>();
-        for (String pkg : (String[]) attributes.get("value")) {
-            if (StringUtils.hasText(pkg)) {
-                basePackages.add(pkg);
-```
-
-### DataFlowIssue
-Argument `beanFactory` might be null
-in `shenyu-sdk/shenyu-sdk-spring/src/main/java/org/apache/shenyu/sdk/spring/ShenyuClientsRegistrar.java`
-#### Snippet
-```java
-        String name = getName(attributes);
-        ShenyuClientFactoryBean factoryBean = new ShenyuClientFactoryBean();
-        factoryBean.setBeanFactory(beanFactory);
-        factoryBean.setName(name);
-        factoryBean.setContextId(contextId);
-```
-
-### DataFlowIssue
-Method invocation `setAccessible` may produce `NullPointerException`
-in `shenyu-admin/src/main/java/org/apache/shenyu/admin/config/SwaggerConfiguration.java`
-#### Snippet
-```java
-                try {
-                    Field field = ReflectionUtils.findField(bean.getClass(), "handlerMappings");
-                    field.setAccessible(true);
-                    return (List<RequestMappingInfoHandlerMapping>) field.get(bean);
-                } catch (IllegalArgumentException | IllegalAccessException e) {
-```
-
-### DataFlowIssue
-Argument `signContent` might be null
-in `shenyu-admin/src/main/java/org/apache/shenyu/admin/service/impl/SandboxServiceImpl.java`
-#### Snippet
-```java
-        }
-        if (StringUtils.isNotEmpty(appKey)) {
-            response.addHeader("sandbox-beforesign", UriUtils.encode(signContent, StandardCharsets.UTF_8));
-            response.addHeader("sandbox-sign", UriUtils.encode(sign, StandardCharsets.UTF_8));
-        }
-```
-
-### DataFlowIssue
-Argument `sign` might be null
-in `shenyu-admin/src/main/java/org/apache/shenyu/admin/service/impl/SandboxServiceImpl.java`
-#### Snippet
-```java
-        if (StringUtils.isNotEmpty(appKey)) {
-            response.addHeader("sandbox-beforesign", UriUtils.encode(signContent, StandardCharsets.UTF_8));
-            response.addHeader("sandbox-sign", UriUtils.encode(sign, StandardCharsets.UTF_8));
-        }
-
-```
-
-### DataFlowIssue
-Method invocation `getLoginField` may produce `NullPointerException`
-in `shenyu-admin/src/main/java/org/apache/shenyu/admin/service/impl/DashboardUserServiceImpl.java`
-#### Snippet
-```java
-    private DashboardUserVO loginByLdap(final String userName, final String password) {
-        Assert.notNull(ldapProperties, "ldap config is not enable");
-        String searchBase = String.format("%s=%s,%s", ldapProperties.getLoginField(), LdapEncoder.nameEncode(userName), ldapProperties.getBaseDn());
-        String filter = String.format("(objectClass=%s)", ldapProperties.getObjectClass());
-        try {
-```
-
-### DataFlowIssue
-Method invocation `string` may produce `NullPointerException`
-in `shenyu-admin/src/main/java/org/apache/shenyu/admin/utils/HttpUtils.java`
-#### Snippet
-```java
-            .execute();
-        try {
-            return response.body().string();
-        } finally {
-            response.close();
-```
-
-### DataFlowIssue
-Method invocation `string` may produce `NullPointerException`
-in `shenyu-admin/src/main/java/org/apache/shenyu/admin/utils/HttpUtils.java`
-#### Snippet
-```java
-        Request request = builder.build();
-        Response response = httpClient.newCall(request).execute();
-        return response.body().string();
-    }
-
-```
-
-### DataFlowIssue
-Method invocation `string` may produce `NullPointerException`
-in `shenyu-admin/src/main/java/org/apache/shenyu/admin/utils/HttpUtils.java`
-#### Snippet
-```java
-    public String requestFileString(final String url, final Map<String, ?> form, final Map<String, String> header,
-        final List<UploadFile> files) throws IOException {
-        return requestFile(url, form, header, files).body().string();
-    }
-
-```
-
-### DataFlowIssue
-Method invocation `string` may produce `NullPointerException`
-in `shenyu-admin/src/main/java/org/apache/shenyu/admin/utils/HttpUtils.java`
-#### Snippet
-```java
-            .execute();
-        try {
-            return response.body().string();
-        } finally {
-            response.close();
-```
-
-### DataFlowIssue
-Method invocation `newBuilder` may produce `NullPointerException`
-in `shenyu-admin/src/main/java/org/apache/shenyu/admin/utils/HttpUtils.java`
-#### Snippet
-```java
-     */
-    public static HttpUrl buildHttpUrl(final String url, final Map<String, ?> form) {
-        HttpUrl.Builder urlBuilder = HttpUrl.parse(url).newBuilder();
-        if (Objects.nonNull(form) && !form.isEmpty()) {
-            for (Map.Entry<String, ?> entry : form.entrySet()) {
-```
-
-### DataFlowIssue
-Method invocation `getParameterTypes` may produce `NullPointerException`
-in `shenyu-plugin/shenyu-plugin-brpc/src/main/java/org/apache/shenyu/plugin/brpc/BrpcPlugin.java`
-#### Snippet
-```java
-            return WebFluxResultUtils.result(exchange, error);
-        }
-        if (StringUtils.isNoneBlank(metaData.getParameterTypes()) && StringUtils.isBlank(param)) {
-            exchange.getResponse().setStatusCode(HttpStatus.INTERNAL_SERVER_ERROR);
-            Object error = ShenyuResultWrap.error(exchange, ShenyuResultEnum.BRPC_HAVE_BODY_PARAM);
-```
-
-### DataFlowIssue
-Method invocation `produces` may produce `NullPointerException`
-in `shenyu-client/shenyu-client-http/shenyu-client-springmvc/src/main/java/org/apache/shenyu/client/springmvc/init/SpringMvcClientEventListener.java`
-#### Snippet
-```java
-    protected Sextet<String[], String, String, ApiHttpMethodEnum[], RpcTypeEnum, String> buildApiDocSextet(final Method method, final Annotation annotation) {
-        RequestMapping requestMapping = AnnotatedElementUtils.findMergedAnnotation(method, RequestMapping.class);
-        String produce = requestMapping.produces().length == 0 ? ShenyuClientConstants.MEDIA_TYPE_ALL_VALUE : String.join(",", requestMapping.produces());
-        String consume = requestMapping.consumes().length == 0 ? ShenyuClientConstants.MEDIA_TYPE_ALL_VALUE : String.join(",", requestMapping.consumes());
-        String[] values = requestMapping.value();
-```
-
-### DataFlowIssue
-Method invocation `interfaceClass` may produce `NullPointerException`
-in `shenyu-client/shenyu-client-motan/src/main/java/org/apache/shenyu/client/motan/MotanServiceEventListener.java`
-#### Snippet
-```java
-                .collect(Collectors.joining(","));
-        String serviceName;
-        if (void.class.equals(service.interfaceClass())) {
-            if (clazz.getInterfaces().length > 0) {
-                serviceName = clazz.getInterfaces()[0].getName();
-```
-
-### DataFlowIssue
-Argument `beanShenyuClient` might be null
-in `shenyu-client/shenyu-client-websocket/shenyu-client-spring-websocket/src/main/java/org/apache/shenyu/client/spring/websocket/init/SpringWebSocketClientEventListener.java`
-#### Snippet
-```java
-        Class<?> clazz = getCorrectedClass(bean);
-        final ShenyuSpringWebSocketClient beanShenyuClient = AnnotatedElementUtils.findMergedAnnotation(clazz, getAnnotationType());
-        final String superPath = buildApiSuperPath(clazz, beanShenyuClient);
-        // Compatible with previous versions
-        if (Objects.nonNull(beanShenyuClient)) {
-```
-
-### DataFlowIssue
-Method invocation `get` may produce `NullPointerException`
-in `shenyu-plugin/shenyu-plugin-dubbo/shenyu-plugin-apache-dubbo/src/main/java/org/apache/shenyu/plugin/apache/dubbo/proxy/ApacheDubboProxyService.java`
-#### Snippet
-```java
-        String namespace = "";
-        if (CollectionUtils.isNotEmpty(exchange.getRequest().getHeaders().get(Constants.NAMESPACE))) {
-            namespace = exchange.getRequest().getHeaders().get(Constants.NAMESPACE).get(0);
-            referenceKey = namespace + ":" + referenceKey;
-        }
-```
-
-### DataFlowIssue
-Method invocation `get` may produce `NullPointerException`
-in `shenyu-plugin/shenyu-plugin-divide/src/main/java/org/apache/shenyu/plugin/divide/DividePlugin.java`
-#### Snippet
-```java
-        // set the http url
-        if (CollectionUtils.isNotEmpty(exchange.getRequest().getHeaders().get(Constants.SPECIFY_DOMAIN))) {
-            upstream.setUrl(exchange.getRequest().getHeaders().get(Constants.SPECIFY_DOMAIN).get(0));
-        }
-        // set domain
-```
-
-### DataFlowIssue
 Passing `null` argument to parameter annotated as @NotNull
 in `shenyu-client/shenyu-client-dubbo/shenyu-client-apache-dubbo/src/main/java/org/apache/shenyu/client/apache/dubbo/ApacheDubboServiceBeanListener.java`
 #### Snippet
@@ -6158,75 +6278,15 @@ in `shenyu-client/shenyu-client-dubbo/shenyu-client-apache-dubbo/src/main/java/o
 ```
 
 ### DataFlowIssue
-Method invocation `produces` may produce `NullPointerException`
-in `shenyu-client/shenyu-client-http/shenyu-client-springcloud/src/main/java/org/apache/shenyu/client/springcloud/init/SpringCloudClientEventListener.java`
+Method invocation `get` may produce `NullPointerException`
+in `shenyu-plugin/shenyu-plugin-divide/src/main/java/org/apache/shenyu/plugin/divide/DividePlugin.java`
 #### Snippet
 ```java
-    protected Sextet<String[], String, String, ApiHttpMethodEnum[], RpcTypeEnum, String> buildApiDocSextet(final Method method, final Annotation annotation) {
-        RequestMapping requestMapping = AnnotatedElementUtils.findMergedAnnotation(method, RequestMapping.class);
-        String produce = requestMapping.produces().length == 0 ? ShenyuClientConstants.MEDIA_TYPE_ALL_VALUE : String.join(",", requestMapping.produces());
-        String consume = requestMapping.consumes().length == 0 ? ShenyuClientConstants.MEDIA_TYPE_ALL_VALUE : String.join(",", requestMapping.consumes());
-        String[] values = requestMapping.value();
-```
-
-### DataFlowIssue
-Method invocation `getParameterTypes` may produce `NullPointerException`
-in `shenyu-plugin/shenyu-plugin-tars/src/main/java/org/apache/shenyu/plugin/tars/TarsPlugin.java`
-#### Snippet
-```java
-            return WebFluxResultUtils.result(exchange, error);
+        // set the http url
+        if (CollectionUtils.isNotEmpty(exchange.getRequest().getHeaders().get(Constants.SPECIFY_DOMAIN))) {
+            upstream.setUrl(exchange.getRequest().getHeaders().get(Constants.SPECIFY_DOMAIN).get(0));
         }
-        if (StringUtils.isNoneBlank(metaData.getParameterTypes()) && StringUtils.isBlank(body)) {
-            exchange.getResponse().setStatusCode(HttpStatus.INTERNAL_SERVER_ERROR);
-            Object error = ShenyuResultWrap.error(exchange, ShenyuResultEnum.TARS_HAVE_BODY_PARAM);
-```
-
-### DataFlowIssue
-Argument `field` might be null
-in `shenyu-plugin/shenyu-plugin-tars/src/main/java/org/apache/shenyu/plugin/tars/cache/ApplicationConfigCache.java`
-#### Snippet
-```java
-    private void setCommunicatorThreadPool(final ThreadPoolExecutor threadPool) {
-        Field field = ReflectionUtils.findField(Communicator.class, "threadPoolExecutor");
-        ReflectionUtils.makeAccessible(field);
-        ReflectionUtils.setField(field, communicator, threadPool);
-    }
-```
-
-### DataFlowIssue
-Argument `appAuthData` might be null
-in `shenyu-plugin/shenyu-plugin-sign/src/main/java/org/apache/shenyu/plugin/sign/service/DefaultSignService.java`
-#### Snippet
-```java
-                .and(() -> verifyExpires(signParameters))
-                .and(() -> verifyAuthConfig(appAuthData, signParameters))
-                .and(() -> verifyPath(appAuthData, signParameters))
-                .and(() -> verifySign(signParameters, appAuthData, exchange, requestBody, queryParams)).verify();
-    }
-```
-
-### DataFlowIssue
-Argument `appAuthData` might be null
-in `shenyu-plugin/shenyu-plugin-sign/src/main/java/org/apache/shenyu/plugin/sign/service/DefaultSignService.java`
-#### Snippet
-```java
-                .and(() -> verifyAuthConfig(appAuthData, signParameters))
-                .and(() -> verifyPath(appAuthData, signParameters))
-                .and(() -> verifySign(signParameters, appAuthData, exchange, requestBody, queryParams)).verify();
-    }
-
-```
-
-### DataFlowIssue
-Argument `field` might be null
-in `shenyu-plugin/shenyu-plugin-sofa/src/main/java/org/apache/shenyu/plugin/sofa/cache/ApplicationConfigCache.java`
-#### Snippet
-```java
-    private void setAsyncRuntimeThreadPool(final ThreadPoolExecutor threadPool) {
-        Field field = ReflectionUtils.findField(AsyncRuntime.class, "asyncThreadPool");
-        ReflectionUtils.makeAccessible(field);
-        ReflectionUtils.setField(field, AsyncRuntime.class, threadPool);
-    }
+        // set domain
 ```
 
 ## RuleId[ruleID=SimplifyStreamApiCallChains]
@@ -6255,6 +6315,18 @@ in `shenyu-admin/src/main/java/org/apache/shenyu/admin/service/impl/TagServiceIm
 ```
 
 ### SimplifyStreamApiCallChains
+''stream().forEach()'' can be replaced with 'forEach()'' (may change semantics)
+in `shenyu-loadbalancer/src/main/java/org/apache/shenyu/loadbalancer/spi/LeastActiveLoadBalance.java`
+#### Snippet
+```java
+    protected Upstream doSelect(final List<Upstream> upstreamList, final String ip) {
+        Map<String, Upstream> domainList = new ConcurrentHashMap<>();
+        upstreamList.stream().forEach(upstream -> {
+            domainList.put(upstream.buildDomain(), upstream);
+        });
+```
+
+### SimplifyStreamApiCallChains
 Can be replaced with '.keySet().stream()'
 in `shenyu-sync-data-center/shenyu-sync-data-etcd/src/main/java/org/apache/shenyu/sync/data/etcd/EtcdClient.java`
 #### Snippet
@@ -6272,7 +6344,7 @@ Lambda can be replaced with method reference
 in `shenyu-sync-data-center/shenyu-sync-data-etcd/src/main/java/org/apache/shenyu/sync/data/etcd/EtcdClient.java`
 #### Snippet
 ```java
-                .map(e -> getSubNodeKeyName(prefix, e.getKey(), separator))
+                .map(e -> getSubNodeKeyName(prefix, e.getKey().toString(UTF_8), separator))
                 .distinct()
                 .filter(e -> Objects.nonNull(e))
                 .collect(Collectors.toList());
@@ -6284,26 +6356,27 @@ Lambda can be replaced with method reference
 in `shenyu-sync-data-center/shenyu-sync-data-etcd/src/main/java/org/apache/shenyu/sync/data/etcd/EtcdClient.java`
 #### Snippet
 ```java
-                .map(e -> getSubNodeKeyName(prefix, e.getKey().toString(UTF_8), separator))
+                .map(e -> getSubNodeKeyName(prefix, e.getKey(), separator))
                 .distinct()
                 .filter(e -> Objects.nonNull(e))
                 .collect(Collectors.toList());
     }
 ```
 
-## RuleId[ruleID=NonSerializableFieldInSerializableClass]
-### NonSerializableFieldInSerializableClass
-Non-serializable field 'requestTemplate' in a Serializable class
-in `shenyu-sdk/shenyu-sdk-core/src/main/java/org/apache/shenyu/sdk/core/ShenyuRequest.java`
+## RuleId[ruleID=RedundantCollectionOperation]
+### RedundantCollectionOperation
+`contains` can be replaced with 'Map.containsKey()'
+in `shenyu-loadbalancer/src/main/java/org/apache/shenyu/loadbalancer/spi/LeastActiveLoadBalance.java`
 #### Snippet
 ```java
-    private String body;
-
-    private final RequestTemplate requestTemplate;
-
-    /**
+        });
+        countMap.keySet().forEach(key -> {
+            if (!domainList.keySet().contains(key)) {
+                countMap.remove(key);
+            }
 ```
 
+## RuleId[ruleID=NonSerializableFieldInSerializableClass]
 ### NonSerializableFieldInSerializableClass
 Non-serializable field 'code' in a Serializable class
 in `shenyu-admin/src/main/java/org/apache/shenyu/admin/model/vo/EnumVO.java`
@@ -6353,6 +6426,30 @@ in `shenyu-admin/src/main/java/org/apache/shenyu/admin/model/event/AdminDataMode
 ```
 
 ### NonSerializableFieldInSerializableClass
+Non-serializable field 'requestTemplate' in a Serializable class
+in `shenyu-sdk/shenyu-sdk-core/src/main/java/org/apache/shenyu/sdk/core/ShenyuRequest.java`
+#### Snippet
+```java
+    private String body;
+
+    private final RequestTemplate requestTemplate;
+
+    /**
+```
+
+### NonSerializableFieldInSerializableClass
+Non-serializable field 'data' in a Serializable class
+in `shenyu-plugin/shenyu-plugin-api/src/main/java/org/apache/shenyu/plugin/api/result/DefaultShenyuEntity.java`
+#### Snippet
+```java
+
+    @JsonBackReference
+    private Object data;
+
+    /**
+```
+
+### NonSerializableFieldInSerializableClass
 Non-serializable field 'memoryLimiter' in a Serializable class
 in `shenyu-common/src/main/java/org/apache/shenyu/common/concurrent/MemoryLimitedLinkedBlockingQueue.java`
 #### Snippet
@@ -6374,18 +6471,6 @@ in `shenyu-plugin/shenyu-plugin-base/src/main/java/org/apache/shenyu/plugin/base
     private Object bizInfo;
 
     public ShenyuTrieNode() {
-```
-
-### NonSerializableFieldInSerializableClass
-Non-serializable field 'data' in a Serializable class
-in `shenyu-plugin/shenyu-plugin-api/src/main/java/org/apache/shenyu/plugin/api/result/DefaultShenyuEntity.java`
-#### Snippet
-```java
-
-    @JsonBackReference
-    private Object data;
-
-    /**
 ```
 
 ## RuleId[ruleID=MismatchedJavadocCode]
@@ -6428,18 +6513,6 @@ in `shenyu-client/shenyu-client-core/src/main/java/org/apache/shenyu/client/core
 
 ## RuleId[ruleID=InnerClassMayBeStatic]
 ### InnerClassMayBeStatic
-Inner class `ShenyuCookie` may be 'static'
-in `shenyu-common/src/main/java/org/apache/shenyu/common/dto/convert/rule/RequestHandle.java`
-#### Snippet
-```java
-    }
-
-    public class ShenyuCookie {
-        private Map<String, String> addCookies;
-
-```
-
-### InnerClassMayBeStatic
 Inner class `ShenyuRequestHeader` may be 'static'
 in `shenyu-common/src/main/java/org/apache/shenyu/common/dto/convert/rule/RequestHandle.java`
 #### Snippet
@@ -6463,17 +6536,54 @@ in `shenyu-common/src/main/java/org/apache/shenyu/common/dto/convert/rule/Reques
         private Map<String, String> addParameters;
 ```
 
+### InnerClassMayBeStatic
+Inner class `ShenyuCookie` may be 'static'
+in `shenyu-common/src/main/java/org/apache/shenyu/common/dto/convert/rule/RequestHandle.java`
+#### Snippet
+```java
+    }
+
+    public class ShenyuCookie {
+        private Map<String, String> addCookies;
+
+```
+
+## RuleId[ruleID=SuspiciousMethodCalls]
+### SuspiciousMethodCalls
+'Map' may not contain keys of type 'AtomicReference'
+in `shenyu-loadbalancer/src/main/java/org/apache/shenyu/loadbalancer/spi/LeastActiveLoadBalance.java`
+#### Snippet
+```java
+        AtomicReference<String> leastDomainUrl = new AtomicReference<>(upstreamList.get(0).buildDomain());
+        countMap.keySet().forEach(key -> {
+            if (countMap.get(key) < countMap.get(leastDomainUrl)) {
+                leastDomainUrl.set(key);
+            }
+```
+
+### SuspiciousMethodCalls
+'Map' may not contain keys of type 'AtomicReference'
+in `shenyu-loadbalancer/src/main/java/org/apache/shenyu/loadbalancer/spi/LeastActiveLoadBalance.java`
+#### Snippet
+```java
+            }
+        });
+        return domainList.get(leastDomainUrl);
+    }
+    
+```
+
 ## RuleId[ruleID=StringEqualsEmptyString]
 ### StringEqualsEmptyString
 `equals("")` can be replaced with 'isEmpty()'
-in `shenyu-client/shenyu-client-tars/src/main/java/org/apache/shenyu/client/tars/TarsServiceBeanEventListener.java`
+in `shenyu-client/shenyu-client-brpc/src/main/java/org/apache/shenyu/client/brpc/BrpcContextRefreshedEventListener.java`
 #### Snippet
 ```java
         String host = IpUtils.isCompleteHost(this.getHost()) ? this.getHost() : IpUtils.getHost(this.getHost());
-        String configRuleName = shenyuTarsClient.ruleName();
+        String configRuleName = shenyuBrpcClient.ruleName();
         String ruleName = ("".equals(configRuleName)) ? path : configRuleName;
+        int port = StringUtils.isBlank(this.getPort()) ? -1 : Integer.parseInt(this.getPort());
         String methodName = method.getName();
-        Class<?>[] parameterTypesClazz = method.getParameterTypes();
 ```
 
 ### StringEqualsEmptyString
@@ -6486,30 +6596,6 @@ in `shenyu-client/shenyu-client-motan/src/main/java/org/apache/shenyu/client/mot
         String ruleName = ("".equals(configRuleName)) ? path : configRuleName;
         String methodName = method.getName();
         Class<?>[] parameterTypesClazz = method.getParameterTypes();
-```
-
-### StringEqualsEmptyString
-`equals("")` can be replaced with 'isEmpty()'
-in `shenyu-client/shenyu-client-dubbo/shenyu-client-alibaba-dubbo/src/main/java/org/apache/shenyu/client/alibaba/dubbo/AlibabaDubboServiceBeanListener.java`
-#### Snippet
-```java
-        String serviceName = bean.getInterface();
-        String configRuleName = shenyuClient.ruleName();
-        String ruleName = ("".equals(configRuleName)) ? path : configRuleName;
-        String methodName = Optional.ofNullable(method).map(Method::getName).orElseThrow(() -> new ShenyuException("unexpected error"));
-        Class<?>[] parameterTypesClazz = method.getParameterTypes();
-```
-
-### StringEqualsEmptyString
-`equals("")` can be replaced with 'isEmpty()'
-in `shenyu-client/shenyu-client-brpc/src/main/java/org/apache/shenyu/client/brpc/BrpcContextRefreshedEventListener.java`
-#### Snippet
-```java
-        String host = IpUtils.isCompleteHost(this.getHost()) ? this.getHost() : IpUtils.getHost(this.getHost());
-        String configRuleName = shenyuBrpcClient.ruleName();
-        String ruleName = ("".equals(configRuleName)) ? path : configRuleName;
-        int port = StringUtils.isBlank(this.getPort()) ? -1 : Integer.parseInt(this.getPort());
-        String methodName = method.getName();
 ```
 
 ### StringEqualsEmptyString
@@ -6550,7 +6636,31 @@ in `shenyu-common/src/main/java/org/apache/shenyu/common/utils/IpUtils.java`
 
 ### StringEqualsEmptyString
 `equals("")` can be replaced with 'isEmpty()'
+in `shenyu-client/shenyu-client-tars/src/main/java/org/apache/shenyu/client/tars/TarsServiceBeanEventListener.java`
+#### Snippet
+```java
+        String host = IpUtils.isCompleteHost(this.getHost()) ? this.getHost() : IpUtils.getHost(this.getHost());
+        String configRuleName = shenyuTarsClient.ruleName();
+        String ruleName = ("".equals(configRuleName)) ? path : configRuleName;
+        String methodName = method.getName();
+        Class<?>[] parameterTypesClazz = method.getParameterTypes();
+```
+
+### StringEqualsEmptyString
+`equals("")` can be replaced with 'isEmpty()'
 in `shenyu-client/shenyu-client-dubbo/shenyu-client-apache-dubbo/src/main/java/org/apache/shenyu/client/apache/dubbo/ApacheDubboServiceBeanListener.java`
+#### Snippet
+```java
+        String serviceName = bean.getInterface();
+        String configRuleName = shenyuClient.ruleName();
+        String ruleName = ("".equals(configRuleName)) ? path : configRuleName;
+        String methodName = Optional.ofNullable(method).map(Method::getName).orElseThrow(() -> new ShenyuException("unexpected error"));
+        Class<?>[] parameterTypesClazz = method.getParameterTypes();
+```
+
+### StringEqualsEmptyString
+`equals("")` can be replaced with 'isEmpty()'
+in `shenyu-client/shenyu-client-dubbo/shenyu-client-alibaba-dubbo/src/main/java/org/apache/shenyu/client/alibaba/dubbo/AlibabaDubboServiceBeanListener.java`
 #### Snippet
 ```java
         String serviceName = bean.getInterface();
@@ -6659,18 +6769,6 @@ in `shenyu-plugin/shenyu-plugin-param-mapping/src/main/java/org/apache/shenyu/pl
 
 ## RuleId[ruleID=UtilityClassWithPublicConstructor]
 ### UtilityClassWithPublicConstructor
-Class `ShenyuClientShutdownHook` has only 'static' members, and a 'public' constructor
-in `shenyu-client/shenyu-client-core/src/main/java/org/apache/shenyu/client/core/shutdown/ShenyuClientShutdownHook.java`
-#### Snippet
-```java
- * Shenyu client shutdown hook.
- */
-public class ShenyuClientShutdownHook {
-
-    private static final Logger LOG = LoggerFactory.getLogger(ShenyuClientShutdownHook.class);
-```
-
-### UtilityClassWithPublicConstructor
 Class `DataMaskFactory` has only 'static' members, and a 'public' constructor
 in `shenyu-plugin/shenyu-plugin-logging/shenyu-plugin-logging-mask-api/src/main/java/org/apache/shenyu/plugin/logging/mask/api/factory/DataMaskFactory.java`
 #### Snippet
@@ -6680,6 +6778,18 @@ in `shenyu-plugin/shenyu-plugin-logging/shenyu-plugin-logging-mask-api/src/main/
 public final class DataMaskFactory {
 
     public DataMaskFactory() {
+```
+
+### UtilityClassWithPublicConstructor
+Class `ShenyuClientShutdownHook` has only 'static' members, and a 'public' constructor
+in `shenyu-client/shenyu-client-core/src/main/java/org/apache/shenyu/client/core/shutdown/ShenyuClientShutdownHook.java`
+#### Snippet
+```java
+ * Shenyu client shutdown hook.
+ */
+public class ShenyuClientShutdownHook {
+
+    private static final Logger LOG = LoggerFactory.getLogger(ShenyuClientShutdownHook.class);
 ```
 
 ## RuleId[ruleID=SystemOutErr]
@@ -6698,49 +6808,13 @@ in `shenyu-admin/src/main/java/org/apache/shenyu/admin/utils/HttpUtils.java`
 ## RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
 ### DynamicRegexReplaceableByCompiledPattern
 `replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `shenyu-client/shenyu-client-tars/src/main/java/org/apache/shenyu/client/tars/TarsServiceBeanEventListener.java`
+in `shenyu-client/shenyu-client-brpc/src/main/java/org/apache/shenyu/client/brpc/BrpcContextRefreshedEventListener.java`
 #### Snippet
 ```java
-    protected String buildApiPath(final Method method, final String superPath, final ShenyuTarsClient shenyuTarsClient) {
+    protected String buildApiPath(final Method method, final String superPath, final ShenyuBrpcClient shenyuBrpcClient) {
         return superPath.contains("*")
-                ? pathJoin(contextPath, superPath.replace("*", ""), method.getName())
-                : pathJoin(contextPath, superPath, shenyuTarsClient.path());
-    }
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replaceFirst()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `shenyu-client/shenyu-client-core/src/main/java/org/apache/shenyu/client/core/client/AbstractContextRefreshedEventListener.java`
-#### Snippet
-```java
-                result.append(PATH_SEPARATOR);
-            }
-            result.append(p.startsWith(PATH_SEPARATOR) ? p.replaceFirst(PATH_SEPARATOR, "") : p);
-        }
-        return result.toString();
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `shenyu-plugin/shenyu-plugin-casdoor/src/main/java/org/apache/shenyu/plugin/casdoor/handle/CasdoorPluginDateHandler.java`
-#### Snippet
-```java
-        final String clientId = Optional.ofNullable(configMap.get("client_id")).orElse("");
-        String certificate = Optional.ofNullable(configMap.get("certificate")).orElse("");
-        certificate = certificate.replace("\\n", "\n");
-        String organization = Optional.ofNullable(configMap.get("organization-name")).orElse("");
-        String application = Optional.ofNullable(configMap.get("application-name")).orElse("");
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `shenyu-client/shenyu-client-sofa/src/main/java/org/apache/shenyu/client/sofa/SofaServiceEventListener.java`
-#### Snippet
-```java
-                                  @NonNull final ShenyuSofaClient shenyuSofaClient) {
-        final String contextPath = this.getContextPath();
-        return superPath.contains("*") ? pathJoin(contextPath, superPath.replace("*", ""), method.getName())
-                : pathJoin(contextPath, superPath, shenyuSofaClient.path());
+                ? pathJoin(this.getContextPath(), superPath.replace("*", ""), method.getName())
+                : pathJoin(this.getContextPath(), superPath, shenyuBrpcClient.path());
     }
 ```
 
@@ -6950,18 +7024,6 @@ in `shenyu-plugin/shenyu-plugin-brpc/src/main/java/org/apache/shenyu/plugin/brpc
 
 ### DynamicRegexReplaceableByCompiledPattern
 `replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `shenyu-register-center/shenyu-register-client/shenyu-register-client-consul/src/main/java/org/apache/shenyu/register/client/consul/ConsulClientRegisterRepository.java`
-#### Snippet
-```java
-            nodeName = String.join(SELECTOR_JOIN_RULE,
-                    metadata.getContextPath(),
-                    metadata.getRuleName().replace(PATH_SEPARATOR, SELECTOR_JOIN_RULE));
-        } else {
-            nodeName = RegisterPathConstants.buildNodeName(metadata.getServiceName(), metadata.getMethodName());
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
 in `shenyu-client/shenyu-client-motan/src/main/java/org/apache/shenyu/client/motan/MotanServiceEventListener.java`
 #### Snippet
 ```java
@@ -6986,6 +7048,126 @@ in `shenyu-client/shenyu-client-motan/src/main/java/org/apache/shenyu/client/mot
 
 ### DynamicRegexReplaceableByCompiledPattern
 `replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `shenyu-client/shenyu-client-grpc/src/main/java/org/apache/shenyu/client/grpc/GrpcClientEventListener.java`
+#### Snippet
+```java
+    protected String buildApiPath(final Method method, final String superPath, @NonNull final ShenyuGrpcClient methodShenyuClient) {
+        final String contextPath = getContextPath();
+        return superPath.contains("*") ? pathJoin(contextPath, superPath.replace("*", ""), method.getName())
+                : pathJoin(contextPath, superPath, methodShenyuClient.path());
+    }
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `shenyu-common/src/main/java/org/apache/shenyu/common/utils/SignUtils.java`
+#### Snippet
+```java
+     */
+    public static String generateKey() {
+        return UUID.randomUUID().toString().replaceAll("-", "").toUpperCase();
+    }
+
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `shenyu-client/shenyu-client-tars/src/main/java/org/apache/shenyu/client/tars/TarsServiceBeanEventListener.java`
+#### Snippet
+```java
+    protected String buildApiPath(final Method method, final String superPath, final ShenyuTarsClient shenyuTarsClient) {
+        return superPath.contains("*")
+                ? pathJoin(contextPath, superPath.replace("*", ""), method.getName())
+                : pathJoin(contextPath, superPath, shenyuTarsClient.path());
+    }
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `shenyu-plugin/shenyu-plugin-casdoor/src/main/java/org/apache/shenyu/plugin/casdoor/handle/CasdoorPluginDateHandler.java`
+#### Snippet
+```java
+        final String clientId = Optional.ofNullable(configMap.get("client_id")).orElse("");
+        String certificate = Optional.ofNullable(configMap.get("certificate")).orElse("");
+        certificate = certificate.replace("\\n", "\n");
+        String organization = Optional.ofNullable(configMap.get("organization-name")).orElse("");
+        String application = Optional.ofNullable(configMap.get("application-name")).orElse("");
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `shenyu-plugin/shenyu-plugin-tars/src/main/java/org/apache/shenyu/plugin/tars/util/PrxInfoUtil.java`
+#### Snippet
+```java
+     */
+    public static String getPrxName(final MetaData metaData) {
+        return metaData.getPath().replace("/", "") + metaData.getMethodName() + "Prx";
+    }
+    
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `shenyu-register-center/shenyu-register-common/src/main/java/org/apache/shenyu/register/common/path/RegisterPathConstants.java`
+#### Snippet
+```java
+    public static String buildServiceConfigPath(final String rpcType, final String contextPath) {
+        final String serviceConfigPathOrigin = String.join(SEPARATOR, ROOT_PATH, "service", rpcType, contextPath)
+                .replace("/", DOT_SEPARATOR).replace("*", "");
+        final String serviceConfigPathAfterSubstring = serviceConfigPathOrigin.substring(1);
+        if (serviceConfigPathAfterSubstring.endsWith(".")) {
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `shenyu-register-center/shenyu-register-common/src/main/java/org/apache/shenyu/register/common/path/RegisterPathConstants.java`
+#### Snippet
+```java
+    public static String buildServiceConfigPath(final String rpcType, final String contextPath) {
+        final String serviceConfigPathOrigin = String.join(SEPARATOR, ROOT_PATH, "service", rpcType, contextPath)
+                .replace("/", DOT_SEPARATOR).replace("*", "");
+        final String serviceConfigPathAfterSubstring = serviceConfigPathOrigin.substring(1);
+        if (serviceConfigPathAfterSubstring.endsWith(".")) {
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `shenyu-register-center/shenyu-register-common/src/main/java/org/apache/shenyu/register/common/path/RegisterPathConstants.java`
+#### Snippet
+```java
+    public static String buildServiceInstancePath(final String rpcType) {
+        return String.join(SEPARATOR, ROOT_PATH, "service", rpcType)
+                .replace("/", DOT_SEPARATOR).substring(1);
+    }
+    
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `shenyu-register-center/shenyu-register-client/shenyu-register-client-consul/src/main/java/org/apache/shenyu/register/client/consul/ConsulClientRegisterRepository.java`
+#### Snippet
+```java
+            nodeName = String.join(SELECTOR_JOIN_RULE,
+                    metadata.getContextPath(),
+                    metadata.getRuleName().replace(PATH_SEPARATOR, SELECTOR_JOIN_RULE));
+        } else {
+            nodeName = RegisterPathConstants.buildNodeName(metadata.getServiceName(), metadata.getMethodName());
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `shenyu-register-center/shenyu-register-client/shenyu-register-client-etcd/src/main/java/org/apache/shenyu/register/client/etcd/EtcdClientRegisterRepository.java`
+#### Snippet
+```java
+                || Objects.equals(RpcTypeEnum.SPRING_CLOUD.getName(), rpcType)) {
+            nodeName = String.join(SELECTOR_JOIN_RULE, metadata.getContextPath(),
+                    metadata.getRuleName().replace(PATH_SEPARATOR, SELECTOR_JOIN_RULE));
+        } else {
+            nodeName = RegisterPathConstants.buildNodeName(metadata.getServiceName(), metadata.getMethodName());
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
 in `shenyu-register-center/shenyu-register-client/shenyu-register-client-zookeeper/src/main/java/org/apache/shenyu/register/client/zookeeper/ZookeeperClientRegisterRepository.java`
 #### Snippet
 ```java
@@ -6997,6 +7179,90 @@ in `shenyu-register-center/shenyu-register-client/shenyu-register-client-zookeep
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
+`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `shenyu-client/shenyu-client-dubbo/shenyu-client-apache-dubbo/src/main/java/org/apache/shenyu/client/apache/dubbo/ApacheDubboServiceBeanListener.java`
+#### Snippet
+```java
+                                  @NonNull final ShenyuDubboClient methodShenyuClient) {
+        final String contextPath = this.getContextPath();
+        return superPath.contains("*") ? pathJoin(contextPath, superPath.replace("*", ""), method.getName())
+                : pathJoin(contextPath, superPath, methodShenyuClient.path());
+    }
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `shenyu-client/shenyu-client-dubbo/shenyu-client-alibaba-dubbo/src/main/java/org/apache/shenyu/client/alibaba/dubbo/AlibabaDubboServiceBeanListener.java`
+#### Snippet
+```java
+                                  final ShenyuDubboClient methodShenyuClient) {
+        final String contextPath = this.getContextPath();
+        return superPath.contains("*") ? pathJoin(contextPath, superPath.replace("*", ""), method.getName())
+                : pathJoin(contextPath, superPath, methodShenyuClient.path());
+    }
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `shenyu-client/shenyu-client-sofa/src/main/java/org/apache/shenyu/client/sofa/SofaServiceEventListener.java`
+#### Snippet
+```java
+                                  @NonNull final ShenyuSofaClient shenyuSofaClient) {
+        final String contextPath = this.getContextPath();
+        return superPath.contains("*") ? pathJoin(contextPath, superPath.replace("*", ""), method.getName())
+                : pathJoin(contextPath, superPath, shenyuSofaClient.path());
+    }
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replaceFirst()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `shenyu-client/shenyu-client-core/src/main/java/org/apache/shenyu/client/core/client/AbstractContextRefreshedEventListener.java`
+#### Snippet
+```java
+                result.append(PATH_SEPARATOR);
+            }
+            result.append(p.startsWith(PATH_SEPARATOR) ? p.replaceFirst(PATH_SEPARATOR, "") : p);
+        }
+        return result.toString();
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`split()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `shenyu-web/src/main/java/org/apache/shenyu/web/forward/ForwardedRemoteAddressResolver.java`
+#### Snippet
+```java
+            return Collections.emptyList();
+        }
+        List<String> values = Arrays.asList(xForwardedValues.get(0).split(", "));
+        if (values.size() == 1 && !StringUtils.hasText(values.get(0))) {
+            return Collections.emptyList();
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `shenyu-web/src/main/java/org/apache/shenyu/web/loader/ShenyuPluginLoader.java`
+#### Snippet
+```java
+    
+    private String classNameToPath(final String className) {
+        return String.join("", className.replace(".", "/"), ".class");
+    }
+    
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `shenyu-web/src/main/java/org/apache/shenyu/web/loader/ShenyuPluginLoader.java`
+#### Snippet
+```java
+                String entryName = jarEntry.getName();
+                if (entryName.endsWith(".class") && !entryName.contains("$")) {
+                    String className = entryName.substring(0, entryName.length() - 6).replaceAll("/", ".");
+                    names.add(className);
+                }
+```
+
+### DynamicRegexReplaceableByCompiledPattern
 `matches()` could be replaced with compiled 'java.util.regex.Pattern' construct
 in `shenyu-plugin/shenyu-plugin-mock/src/main/java/org/apache/shenyu/plugin/mock/generator/RandomIntGenerator.java`
 #### Snippet
@@ -7004,42 +7270,6 @@ in `shenyu-plugin/shenyu-plugin-mock/src/main/java/org/apache/shenyu/plugin/mock
     @Override
     public boolean match(final String rule) {
         return rule.matches("^int\\|\\d+-\\d+$");
-    }
-
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`matches()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `shenyu-plugin/shenyu-plugin-mock/src/main/java/org/apache/shenyu/plugin/mock/generator/EmailGenerator.java`
-#### Snippet
-```java
-    @Override
-    public boolean match(final String rule) {
-        return rule.matches("^email$");
-    }
-
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`matches()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `shenyu-plugin/shenyu-plugin-mock/src/main/java/org/apache/shenyu/plugin/mock/generator/ZhStringGenerator.java`
-#### Snippet
-```java
-    @Override
-    public boolean match(final String rule) {
-        return rule.matches("^zh\\|\\d+-\\d+$");
-    }
-
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`matches()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `shenyu-plugin/shenyu-plugin-mock/src/main/java/org/apache/shenyu/plugin/mock/generator/RandomDoubleGenerator.java`
-#### Snippet
-```java
-    @Override
-    public boolean match(final String rule) {
-        return rule.matches("^double\\|\\d+(?:\\.\\d+)?-\\d+(?:\\.\\d+)?.*");
     }
 
 ```
@@ -7058,24 +7288,12 @@ in `shenyu-plugin/shenyu-plugin-mock/src/main/java/org/apache/shenyu/plugin/mock
 
 ### DynamicRegexReplaceableByCompiledPattern
 `matches()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `shenyu-plugin/shenyu-plugin-mock/src/main/java/org/apache/shenyu/plugin/mock/generator/ArrayGenerator.java`
+in `shenyu-plugin/shenyu-plugin-mock/src/main/java/org/apache/shenyu/plugin/mock/generator/ZhStringGenerator.java`
 #### Snippet
 ```java
     @Override
     public boolean match(final String rule) {
-        return rule.matches("^array\\|.+\\|\\d+$");
-    }
-
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`matches()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `shenyu-plugin/shenyu-plugin-mock/src/main/java/org/apache/shenyu/plugin/mock/generator/EnStringGenerator.java`
-#### Snippet
-```java
-    @Override
-    public boolean match(final String rule) {
-        return rule.matches("^en\\|\\d+-\\d+$");
+        return rule.matches("^zh\\|\\d+-\\d+$");
     }
 
 ```
@@ -7106,6 +7324,30 @@ in `shenyu-plugin/shenyu-plugin-mock/src/main/java/org/apache/shenyu/plugin/mock
 
 ### DynamicRegexReplaceableByCompiledPattern
 `matches()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `shenyu-plugin/shenyu-plugin-mock/src/main/java/org/apache/shenyu/plugin/mock/generator/EmailGenerator.java`
+#### Snippet
+```java
+    @Override
+    public boolean match(final String rule) {
+        return rule.matches("^email$");
+    }
+
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`matches()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `shenyu-plugin/shenyu-plugin-mock/src/main/java/org/apache/shenyu/plugin/mock/generator/RandomDoubleGenerator.java`
+#### Snippet
+```java
+    @Override
+    public boolean match(final String rule) {
+        return rule.matches("^double\\|\\d+(?:\\.\\d+)?-\\d+(?:\\.\\d+)?.*");
+    }
+
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`matches()` could be replaced with compiled 'java.util.regex.Pattern' construct
 in `shenyu-plugin/shenyu-plugin-mock/src/main/java/org/apache/shenyu/plugin/mock/generator/CurrentTimeGenerator.java`
 #### Snippet
 ```java
@@ -7118,14 +7360,62 @@ in `shenyu-plugin/shenyu-plugin-mock/src/main/java/org/apache/shenyu/plugin/mock
 
 ### DynamicRegexReplaceableByCompiledPattern
 `matches()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `shenyu-plugin/shenyu-plugin-mock/src/main/java/org/apache/shenyu/plugin/mock/generator/BoolGenerator.java`
+in `shenyu-plugin/shenyu-plugin-mock/src/main/java/org/apache/shenyu/plugin/mock/generator/EnStringGenerator.java`
 #### Snippet
 ```java
     @Override
     public boolean match(final String rule) {
-        return rule.matches("^bool$");
+        return rule.matches("^en\\|\\d+-\\d+$");
     }
-}
+
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`matches()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `shenyu-plugin/shenyu-plugin-mock/src/main/java/org/apache/shenyu/plugin/mock/generator/ArrayGenerator.java`
+#### Snippet
+```java
+    @Override
+    public boolean match(final String rule) {
+        return rule.matches("^array\\|.+\\|\\d+$");
+    }
+
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `shenyu-plugin/shenyu-plugin-mock/src/main/java/org/apache/shenyu/plugin/mock/generator/RangeDataGenerator.java`
+#### Snippet
+```java
+    @Override
+    public String doGenerate(final List<String> params, final String rule, final MockRequest mockRequest) {
+        String rangeData = params.get(0).replaceAll("\\[(.+)]", "$1");
+        String[] data = Arrays.stream(rangeData.split("(?<!\\\\),"))
+                .map(_data -> _data.replace("\\,", ","))
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`split()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `shenyu-plugin/shenyu-plugin-mock/src/main/java/org/apache/shenyu/plugin/mock/generator/RangeDataGenerator.java`
+#### Snippet
+```java
+    public String doGenerate(final List<String> params, final String rule, final MockRequest mockRequest) {
+        String rangeData = params.get(0).replaceAll("\\[(.+)]", "$1");
+        String[] data = Arrays.stream(rangeData.split("(?<!\\\\),"))
+                .map(_data -> _data.replace("\\,", ","))
+                .toArray(String[]::new);
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `shenyu-plugin/shenyu-plugin-mock/src/main/java/org/apache/shenyu/plugin/mock/generator/RangeDataGenerator.java`
+#### Snippet
+```java
+        String rangeData = params.get(0).replaceAll("\\[(.+)]", "$1");
+        String[] data = Arrays.stream(rangeData.split("(?<!\\\\),"))
+                .map(_data -> _data.replace("\\,", ","))
+                .toArray(String[]::new);
+
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
@@ -7153,39 +7443,15 @@ in `shenyu-plugin/shenyu-plugin-mock/src/main/java/org/apache/shenyu/plugin/mock
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `shenyu-plugin/shenyu-plugin-mock/src/main/java/org/apache/shenyu/plugin/mock/generator/RangeDataGenerator.java`
+`matches()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `shenyu-plugin/shenyu-plugin-mock/src/main/java/org/apache/shenyu/plugin/mock/generator/BoolGenerator.java`
 #### Snippet
 ```java
     @Override
-    public String doGenerate(final List<String> params, final String rule, final MockRequest mockRequest) {
-        String rangeData = params.get(0).replaceAll("\\[(.+)]", "$1");
-        String[] data = Arrays.stream(rangeData.split("(?<!\\\\),"))
-                .map(_data -> _data.replace("\\,", ","))
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`split()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `shenyu-plugin/shenyu-plugin-mock/src/main/java/org/apache/shenyu/plugin/mock/generator/RangeDataGenerator.java`
-#### Snippet
-```java
-    public String doGenerate(final List<String> params, final String rule, final MockRequest mockRequest) {
-        String rangeData = params.get(0).replaceAll("\\[(.+)]", "$1");
-        String[] data = Arrays.stream(rangeData.split("(?<!\\\\),"))
-                .map(_data -> _data.replace("\\,", ","))
-                .toArray(String[]::new);
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `shenyu-plugin/shenyu-plugin-mock/src/main/java/org/apache/shenyu/plugin/mock/generator/RangeDataGenerator.java`
-#### Snippet
-```java
-        String rangeData = params.get(0).replaceAll("\\[(.+)]", "$1");
-        String[] data = Arrays.stream(rangeData.split("(?<!\\\\),"))
-                .map(_data -> _data.replace("\\,", ","))
-                .toArray(String[]::new);
-
+    public boolean match(final String rule) {
+        return rule.matches("^bool$");
+    }
+}
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
@@ -7212,173 +7478,17 @@ in `shenyu-plugin/shenyu-plugin-mock/src/main/java/org/apache/shenyu/plugin/mock
             placeHolder = getPlaceholder(afterDeal);
 ```
 
-### DynamicRegexReplaceableByCompiledPattern
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `shenyu-client/shenyu-client-dubbo/shenyu-client-alibaba-dubbo/src/main/java/org/apache/shenyu/client/alibaba/dubbo/AlibabaDubboServiceBeanListener.java`
-#### Snippet
-```java
-                                  final ShenyuDubboClient methodShenyuClient) {
-        final String contextPath = this.getContextPath();
-        return superPath.contains("*") ? pathJoin(contextPath, superPath.replace("*", ""), method.getName())
-                : pathJoin(contextPath, superPath, methodShenyuClient.path());
-    }
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `shenyu-client/shenyu-client-brpc/src/main/java/org/apache/shenyu/client/brpc/BrpcContextRefreshedEventListener.java`
-#### Snippet
-```java
-    protected String buildApiPath(final Method method, final String superPath, final ShenyuBrpcClient shenyuBrpcClient) {
-        return superPath.contains("*")
-                ? pathJoin(this.getContextPath(), superPath.replace("*", ""), method.getName())
-                : pathJoin(this.getContextPath(), superPath, shenyuBrpcClient.path());
-    }
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `shenyu-common/src/main/java/org/apache/shenyu/common/utils/SignUtils.java`
-#### Snippet
-```java
-     */
-    public static String generateKey() {
-        return UUID.randomUUID().toString().replaceAll("-", "").toUpperCase();
-    }
-
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`split()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `shenyu-web/src/main/java/org/apache/shenyu/web/forward/ForwardedRemoteAddressResolver.java`
-#### Snippet
-```java
-            return Collections.emptyList();
-        }
-        List<String> values = Arrays.asList(xForwardedValues.get(0).split(", "));
-        if (values.size() == 1 && !StringUtils.hasText(values.get(0))) {
-            return Collections.emptyList();
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `shenyu-register-center/shenyu-register-client/shenyu-register-client-etcd/src/main/java/org/apache/shenyu/register/client/etcd/EtcdClientRegisterRepository.java`
-#### Snippet
-```java
-                || Objects.equals(RpcTypeEnum.SPRING_CLOUD.getName(), rpcType)) {
-            nodeName = String.join(SELECTOR_JOIN_RULE, metadata.getContextPath(),
-                    metadata.getRuleName().replace(PATH_SEPARATOR, SELECTOR_JOIN_RULE));
-        } else {
-            nodeName = RegisterPathConstants.buildNodeName(metadata.getServiceName(), metadata.getMethodName());
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `shenyu-register-center/shenyu-register-common/src/main/java/org/apache/shenyu/register/common/path/RegisterPathConstants.java`
-#### Snippet
-```java
-    public static String buildServiceInstancePath(final String rpcType) {
-        return String.join(SEPARATOR, ROOT_PATH, "service", rpcType)
-                .replace("/", DOT_SEPARATOR).substring(1);
-    }
-    
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `shenyu-register-center/shenyu-register-common/src/main/java/org/apache/shenyu/register/common/path/RegisterPathConstants.java`
-#### Snippet
-```java
-    public static String buildServiceConfigPath(final String rpcType, final String contextPath) {
-        final String serviceConfigPathOrigin = String.join(SEPARATOR, ROOT_PATH, "service", rpcType, contextPath)
-                .replace("/", DOT_SEPARATOR).replace("*", "");
-        final String serviceConfigPathAfterSubstring = serviceConfigPathOrigin.substring(1);
-        if (serviceConfigPathAfterSubstring.endsWith(".")) {
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `shenyu-register-center/shenyu-register-common/src/main/java/org/apache/shenyu/register/common/path/RegisterPathConstants.java`
-#### Snippet
-```java
-    public static String buildServiceConfigPath(final String rpcType, final String contextPath) {
-        final String serviceConfigPathOrigin = String.join(SEPARATOR, ROOT_PATH, "service", rpcType, contextPath)
-                .replace("/", DOT_SEPARATOR).replace("*", "");
-        final String serviceConfigPathAfterSubstring = serviceConfigPathOrigin.substring(1);
-        if (serviceConfigPathAfterSubstring.endsWith(".")) {
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `shenyu-web/src/main/java/org/apache/shenyu/web/loader/ShenyuPluginLoader.java`
-#### Snippet
-```java
-    
-    private String classNameToPath(final String className) {
-        return String.join("", className.replace(".", "/"), ".class");
-    }
-    
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `shenyu-web/src/main/java/org/apache/shenyu/web/loader/ShenyuPluginLoader.java`
-#### Snippet
-```java
-                String entryName = jarEntry.getName();
-                if (entryName.endsWith(".class") && !entryName.contains("$")) {
-                    String className = entryName.substring(0, entryName.length() - 6).replaceAll("/", ".");
-                    names.add(className);
-                }
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `shenyu-client/shenyu-client-dubbo/shenyu-client-apache-dubbo/src/main/java/org/apache/shenyu/client/apache/dubbo/ApacheDubboServiceBeanListener.java`
-#### Snippet
-```java
-                                  @NonNull final ShenyuDubboClient methodShenyuClient) {
-        final String contextPath = this.getContextPath();
-        return superPath.contains("*") ? pathJoin(contextPath, superPath.replace("*", ""), method.getName())
-                : pathJoin(contextPath, superPath, methodShenyuClient.path());
-    }
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `shenyu-plugin/shenyu-plugin-tars/src/main/java/org/apache/shenyu/plugin/tars/util/PrxInfoUtil.java`
-#### Snippet
-```java
-     */
-    public static String getPrxName(final MetaData metaData) {
-        return metaData.getPath().replace("/", "") + metaData.getMethodName() + "Prx";
-    }
-    
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `shenyu-client/shenyu-client-grpc/src/main/java/org/apache/shenyu/client/grpc/GrpcClientEventListener.java`
-#### Snippet
-```java
-    protected String buildApiPath(final Method method, final String superPath, @NonNull final ShenyuGrpcClient methodShenyuClient) {
-        final String contextPath = getContextPath();
-        return superPath.contains("*") ? pathJoin(contextPath, superPath.replace("*", ""), method.getName())
-                : pathJoin(contextPath, superPath, methodShenyuClient.path());
-    }
-```
-
 ## RuleId[ruleID=UnnecessaryFullyQualifiedName]
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shenyu.sdk.core` is unnecessary and can be removed
-in `shenyu-sdk/shenyu-sdk-core/src/main/java/org/apache/shenyu/sdk/core/retry/RetryableException.java`
+Qualifier `org.apache.shenyu.admin.model.query` is unnecessary and can be removed
+in `shenyu-admin/src/main/java/org/apache/shenyu/admin/mapper/TagRelationMapper.java`
 #### Snippet
 ```java
-
-/**
- * This exception is raised when the {@link org.apache.shenyu.sdk.core.ShenyuResponse} is deemed to be retryable, typically via an
- * {@link org.apache.shenyu.common.exception.CommonErrorCode} when the {@link ShenyuResponse#getStatus() status} is 503.
- * Reference to feign.RetryableException.
+     * select tag relation by query.
+     *
+     * @param tagRelationQuery {@linkplain org.apache.shenyu.admin.model.query.TagRelationQuery}
+     * @return {@linkplain List}
+     */
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -7389,18 +7499,6 @@ in `shenyu-admin/src/main/java/org/apache/shenyu/admin/mapper/TagMapper.java`
      * select tag by query.
      *
      * @param tagQuery {@linkplain org.apache.shenyu.admin.model.query.TagQuery}
-     * @return {@linkplain List}
-     */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shenyu.admin.model.query` is unnecessary and can be removed
-in `shenyu-admin/src/main/java/org/apache/shenyu/admin/mapper/TagRelationMapper.java`
-#### Snippet
-```java
-     * select tag relation by query.
-     *
-     * @param tagRelationQuery {@linkplain org.apache.shenyu.admin.model.query.TagRelationQuery}
      * @return {@linkplain List}
      */
 ```
@@ -7455,12 +7553,12 @@ in `shenyu-admin/src/main/java/org/apache/shenyu/admin/service/impl/PluginHandle
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.apache.shenyu.admin.service` is unnecessary and can be removed
-in `shenyu-admin/src/main/java/org/apache/shenyu/admin/service/impl/PermissionServiceImpl.java`
+in `shenyu-admin/src/main/java/org/apache/shenyu/admin/service/impl/TagServiceImpl.java`
 #### Snippet
 ```java
 
 /**
- * Implementation of the {@link org.apache.shenyu.admin.service.PermissionService}.
+ * Implementation of the {@link org.apache.shenyu.admin.service.TagService}.
  */
 @Service
 ```
@@ -7491,24 +7589,12 @@ in `shenyu-admin/src/main/java/org/apache/shenyu/admin/service/impl/ResourceServ
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.apache.shenyu.admin.service` is unnecessary and can be removed
-in `shenyu-admin/src/main/java/org/apache/shenyu/admin/service/impl/TagServiceImpl.java`
+in `shenyu-admin/src/main/java/org/apache/shenyu/admin/service/impl/PermissionServiceImpl.java`
 #### Snippet
 ```java
 
 /**
- * Implementation of the {@link org.apache.shenyu.admin.service.TagService}.
- */
-@Service
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shenyu.admin.service` is unnecessary and can be removed
-in `shenyu-admin/src/main/java/org/apache/shenyu/admin/service/impl/RuleServiceImpl.java`
-#### Snippet
-```java
-
-/**
- * Implementation of the {@link org.apache.shenyu.admin.service.RuleService}.
+ * Implementation of the {@link org.apache.shenyu.admin.service.PermissionService}.
  */
 @Service
 ```
@@ -7521,6 +7607,30 @@ in `shenyu-admin/src/main/java/org/apache/shenyu/admin/service/impl/DataPermissi
 
 /**
  * Implementation of the {@link org.apache.shenyu.admin.service.DataPermissionService}.
+ */
+@Service
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.shenyu.admin.service` is unnecessary and can be removed
+in `shenyu-admin/src/main/java/org/apache/shenyu/admin/service/impl/RoleServiceImpl.java`
+#### Snippet
+```java
+
+/**
+ * Implementation of the {@link org.apache.shenyu.admin.service.RoleService}.
+ */
+@Service
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.shenyu.admin.service` is unnecessary and can be removed
+in `shenyu-admin/src/main/java/org/apache/shenyu/admin/service/impl/RuleServiceImpl.java`
+#### Snippet
+```java
+
+/**
+ * Implementation of the {@link org.apache.shenyu.admin.service.RuleService}.
  */
 @Service
 ```
@@ -7551,14 +7661,14 @@ in `shenyu-admin/src/main/java/org/apache/shenyu/admin/service/impl/PluginServic
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.apache.shenyu.admin.service` is unnecessary and can be removed
-in `shenyu-admin/src/main/java/org/apache/shenyu/admin/service/impl/RoleServiceImpl.java`
+in `shenyu-admin/src/main/java/org/apache/shenyu/admin/service/impl/SelectorServiceImpl.java`
 #### Snippet
 ```java
 
 /**
- * Implementation of the {@link org.apache.shenyu.admin.service.RoleService}.
+ * Implementation of the {@link org.apache.shenyu.admin.service.SelectorService}.
+ * Maintain {@link SelectorDO} and {@link SelectorConditionDO} related data.
  */
-@Service
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -7571,18 +7681,6 @@ in `shenyu-admin/src/main/java/org/apache/shenyu/admin/service/impl/ShenyuDictSe
  * Implementation of the {@link org.apache.shenyu.admin.service.ShenyuDictService}.
  */
 @Service
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shenyu.admin.service` is unnecessary and can be removed
-in `shenyu-admin/src/main/java/org/apache/shenyu/admin/service/impl/SelectorServiceImpl.java`
-#### Snippet
-```java
-
-/**
- * Implementation of the {@link org.apache.shenyu.admin.service.SelectorService}.
- * Maintain {@link SelectorDO} and {@link SelectorConditionDO} related data.
- */
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -7607,6 +7705,30 @@ in `shenyu-admin/src/main/java/org/apache/shenyu/admin/service/impl/AppAuthServi
  * Implementation of the {@link org.apache.shenyu.admin.service.AppAuthService}.
  */
 @Service
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.grpc.protobuf` is unnecessary, and can be replaced with an import
+in `shenyu-client/shenyu-client-grpc/src/main/java/org/apache/shenyu/client/grpc/json/JsonServerServiceInterceptor.java`
+#### Snippet
+```java
+            throws IllegalArgumentException, IllegalAccessException {
+        return useMarshalledMessages(serviceDef,
+                io.grpc.protobuf.ProtoUtils.marshaller(JsonMessage.buildJsonMessage()));
+    }
+
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.shenyu.sdk.core` is unnecessary and can be removed
+in `shenyu-sdk/shenyu-sdk-core/src/main/java/org/apache/shenyu/sdk/core/retry/RetryableException.java`
+#### Snippet
+```java
+
+/**
+ * This exception is raised when the {@link org.apache.shenyu.sdk.core.ShenyuResponse} is deemed to be retryable, typically via an
+ * {@link org.apache.shenyu.common.exception.CommonErrorCode} when the {@link ShenyuResponse#getStatus() status} is 503.
+ * Reference to feign.RetryableException.
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -7718,15 +7840,39 @@ public class MemoryLimitCalculator {
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `com.google.gson` is unnecessary and can be removed
-in `shenyu-common/src/main/java/org/apache/shenyu/common/utils/GsonUtils.java`
+Qualifier `java.util.concurrent` is unnecessary and can be removed
+in `shenyu-common/src/main/java/org/apache/shenyu/common/concurrent/MemoryLimitedLinkedBlockingQueue.java`
 #### Snippet
 ```java
-     * translate JsonArray in covertToMap of Method.
-     *
-     * @param jsonArray the Gson's Object {@link com.google.gson.JsonArray}
-     * @return list about translating jsonArray
-     */
+
+/**
+ * Can completely solve the OOM problem caused by {@link java.util.concurrent.LinkedBlockingQueue}.
+ *
+ * @see org.apache.shenyu.common.concurrent.MemoryLimiter
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.shenyu.common.concurrent` is unnecessary and can be removed
+in `shenyu-common/src/main/java/org/apache/shenyu/common/concurrent/MemoryLimitedLinkedBlockingQueue.java`
+#### Snippet
+```java
+ * Can completely solve the OOM problem caused by {@link java.util.concurrent.LinkedBlockingQueue}.
+ *
+ * @see org.apache.shenyu.common.concurrent.MemoryLimiter
+ * @see org.apache.shenyu.common.concurrent.MemoryLimitCalculator
+ */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.shenyu.common.concurrent` is unnecessary and can be removed
+in `shenyu-common/src/main/java/org/apache/shenyu/common/concurrent/MemoryLimitedLinkedBlockingQueue.java`
+#### Snippet
+```java
+ *
+ * @see org.apache.shenyu.common.concurrent.MemoryLimiter
+ * @see org.apache.shenyu.common.concurrent.MemoryLimitCalculator
+ */
+public class MemoryLimitedLinkedBlockingQueue<E> extends LinkedBlockingQueue<E> {
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -7766,42 +7912,6 @@ in `shenyu-common/src/main/java/org/apache/shenyu/common/concurrent/MemoryLimite
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `java.util.concurrent` is unnecessary and can be removed
-in `shenyu-common/src/main/java/org/apache/shenyu/common/concurrent/MemoryLimitedLinkedBlockingQueue.java`
-#### Snippet
-```java
-
-/**
- * Can completely solve the OOM problem caused by {@link java.util.concurrent.LinkedBlockingQueue}.
- *
- * @see org.apache.shenyu.common.concurrent.MemoryLimiter
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shenyu.common.concurrent` is unnecessary and can be removed
-in `shenyu-common/src/main/java/org/apache/shenyu/common/concurrent/MemoryLimitedLinkedBlockingQueue.java`
-#### Snippet
-```java
- * Can completely solve the OOM problem caused by {@link java.util.concurrent.LinkedBlockingQueue}.
- *
- * @see org.apache.shenyu.common.concurrent.MemoryLimiter
- * @see org.apache.shenyu.common.concurrent.MemoryLimitCalculator
- */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shenyu.common.concurrent` is unnecessary and can be removed
-in `shenyu-common/src/main/java/org/apache/shenyu/common/concurrent/MemoryLimitedLinkedBlockingQueue.java`
-#### Snippet
-```java
- *
- * @see org.apache.shenyu.common.concurrent.MemoryLimiter
- * @see org.apache.shenyu.common.concurrent.MemoryLimitCalculator
- */
-public class MemoryLimitedLinkedBlockingQueue<E> extends LinkedBlockingQueue<E> {
-```
-
-### UnnecessaryFullyQualifiedName
 Qualifier `org.apache.shenyu.common.concurrent` is unnecessary and can be removed
 in `shenyu-common/src/main/java/org/apache/shenyu/common/concurrent/MemoryLimiter.java`
 #### Snippet
@@ -7814,42 +7924,42 @@ public class MemoryLimiter {
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `io.grpc.protobuf` is unnecessary, and can be replaced with an import
-in `shenyu-client/shenyu-client-grpc/src/main/java/org/apache/shenyu/client/grpc/json/JsonServerServiceInterceptor.java`
+Qualifier `com.google.gson` is unnecessary and can be removed
+in `shenyu-common/src/main/java/org/apache/shenyu/common/utils/GsonUtils.java`
 #### Snippet
 ```java
-            throws IllegalArgumentException, IllegalAccessException {
-        return useMarshalledMessages(serviceDef,
-                io.grpc.protobuf.ProtoUtils.marshaller(JsonMessage.buildJsonMessage()));
-    }
+     * translate JsonArray in covertToMap of Method.
+     *
+     * @param jsonArray the Gson's Object {@link com.google.gson.JsonArray}
+     * @return list about translating jsonArray
+     */
+```
 
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.shenyu.plugin.sign.extractor` is unnecessary and can be removed
+in `shenyu-plugin/shenyu-plugin-sign/src/main/java/org/apache/shenyu/plugin/sign/service/ComposableSignService.java`
+#### Snippet
+```java
+ *    + base64Encoding(signature)
+ * 2. new ComposableSignService(new CustomExtractor(), new CustomSignProvider())
+ *     Customs {@link org.apache.shenyu.plugin.sign.extractor.SignParameterExtractor} and {@link org.apache.shenyu.plugin.sign.provider.SignProvider}
+ *  </pre>
+ */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.shenyu.plugin.sign.provider` is unnecessary and can be removed
+in `shenyu-plugin/shenyu-plugin-sign/src/main/java/org/apache/shenyu/plugin/sign/service/ComposableSignService.java`
+#### Snippet
+```java
+ *    + base64Encoding(signature)
+ * 2. new ComposableSignService(new CustomExtractor(), new CustomSignProvider())
+ *     Customs {@link org.apache.shenyu.plugin.sign.extractor.SignParameterExtractor} and {@link org.apache.shenyu.plugin.sign.provider.SignProvider}
+ *  </pre>
+ */
 ```
 
 ## RuleId[ruleID=NonProtectedConstructorInAbstractClass]
-### NonProtectedConstructorInAbstractClass
-Constructor `FailbackRegistryRepository()` of an abstract class should not be declared 'public'
-in `shenyu-register-center/shenyu-register-client/shenyu-register-client-api/src/main/java/org/apache/shenyu/register/client/api/FailbackRegistryRepository.java`
-#### Snippet
-```java
-     * Instantiates a new Failback registry repository.
-     */
-    public FailbackRegistryRepository() {
-        this.timer = WheelTimerFactory.getSharedTimer();
-    }
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `AbstractContextRefreshedEventListener()` of an abstract class should not be declared 'public'
-in `shenyu-client/shenyu-client-core/src/main/java/org/apache/shenyu/client/core/client/AbstractContextRefreshedEventListener.java`
-#### Snippet
-```java
-     * @param shenyuClientRegisterRepository the shenyuClientRegisterRepository
-     */
-    public AbstractContextRefreshedEventListener(final PropertiesConfig clientConfig,
-                                                 final ShenyuClientRegisterRepository shenyuClientRegisterRepository) {
-        Properties props = clientConfig.getProps();
-```
-
 ### NonProtectedConstructorInAbstractClass
 Constructor `FallbackShenyuClientRegisterService()` of an abstract class should not be declared 'public'
 in `shenyu-admin/src/main/java/org/apache/shenyu/admin/service/register/FallbackShenyuClientRegisterService.java`
@@ -7887,39 +7997,15 @@ in `shenyu-common/src/main/java/org/apache/shenyu/common/timer/AbstractRoundTask
 ```
 
 ### NonProtectedConstructorInAbstractClass
-Constructor `TimerTask()` of an abstract class should not be declared 'public'
-in `shenyu-common/src/main/java/org/apache/shenyu/common/timer/TimerTask.java`
-#### Snippet
-```java
-     * @param delayMs the delay ms
-     */
-    public TimerTask(final long delayMs) {
-        this(delayMs, TimeUnit.MILLISECONDS);
-    }
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `TimerTask()` of an abstract class should not be declared 'public'
-in `shenyu-common/src/main/java/org/apache/shenyu/common/timer/TimerTask.java`
-#### Snippet
-```java
-     * @param unit  the unit
-     */
-    public TimerTask(final long delay, final TimeUnit unit) {
-        delayMs = unit.toMillis(delay);
-    }
-```
-
-### NonProtectedConstructorInAbstractClass
 Constructor `AbstractRetryTask()` of an abstract class should not be declared 'public'
 in `shenyu-common/src/main/java/org/apache/shenyu/common/timer/AbstractRetryTask.java`
 #### Snippet
 ```java
-     * @param retryCount the retry count
+     * @param delayMs the delay ms
      */
     public AbstractRetryTask(final String key,
-                             final long delayMs,
-                             final Integer retryCount) {
+                             final long delayMs) {
+        this(key, delayMs, 1);
 ```
 
 ### NonProtectedConstructorInAbstractClass
@@ -7939,24 +8025,72 @@ Constructor `AbstractRetryTask()` of an abstract class should not be declared 'p
 in `shenyu-common/src/main/java/org/apache/shenyu/common/timer/AbstractRetryTask.java`
 #### Snippet
 ```java
-     * @param delayMs the delay ms
+     * @param retryCount the retry count
      */
     public AbstractRetryTask(final String key,
-                             final long delayMs) {
-        this(key, delayMs, 1);
+                             final long delayMs,
+                             final Integer retryCount) {
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `TimerTask()` of an abstract class should not be declared 'public'
+in `shenyu-common/src/main/java/org/apache/shenyu/common/timer/TimerTask.java`
+#### Snippet
+```java
+     * @param unit  the unit
+     */
+    public TimerTask(final long delay, final TimeUnit unit) {
+        delayMs = unit.toMillis(delay);
+    }
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `TimerTask()` of an abstract class should not be declared 'public'
+in `shenyu-common/src/main/java/org/apache/shenyu/common/timer/TimerTask.java`
+#### Snippet
+```java
+     * @param delayMs the delay ms
+     */
+    public TimerTask(final long delayMs) {
+        this(delayMs, TimeUnit.MILLISECONDS);
+    }
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `FailbackRegistryRepository()` of an abstract class should not be declared 'public'
+in `shenyu-register-center/shenyu-register-client/shenyu-register-client-api/src/main/java/org/apache/shenyu/register/client/api/FailbackRegistryRepository.java`
+#### Snippet
+```java
+     * Instantiates a new Failback registry repository.
+     */
+    public FailbackRegistryRepository() {
+        this.timer = WheelTimerFactory.getSharedTimer();
+    }
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `AbstractContextRefreshedEventListener()` of an abstract class should not be declared 'public'
+in `shenyu-client/shenyu-client-core/src/main/java/org/apache/shenyu/client/core/client/AbstractContextRefreshedEventListener.java`
+#### Snippet
+```java
+     * @param shenyuClientRegisterRepository the shenyuClientRegisterRepository
+     */
+    public AbstractContextRefreshedEventListener(final PropertiesConfig clientConfig,
+                                                 final ShenyuClientRegisterRepository shenyuClientRegisterRepository) {
+        Properties props = clientConfig.getProps();
 ```
 
 ## RuleId[ruleID=SynchronizationOnLocalVariableOrMethodParameter]
 ### SynchronizationOnLocalVariableOrMethodParameter
-Synchronization on method parameter `apiClass`
-in `shenyu-sdk/shenyu-sdk-spring/src/main/java/org/apache/shenyu/sdk/spring/proxy/ShenyuClientProxyFactory.java`
+Synchronization on local variable `shenyuClientRegisterService`
+in `shenyu-admin/src/main/java/org/apache/shenyu/admin/disruptor/subscriber/MetadataExecutorSubscriber.java`
 #### Snippet
 ```java
-        }
-
-        synchronized (apiClass) {
-            Object proxy = Proxy.newProxyInstance(apiClass.getClassLoader(),
-                    new Class<?>[]{apiClass},
+            Optional.ofNullable(this.shenyuClientRegisterService.get(meta.getRpcType()))
+                    .ifPresent(shenyuClientRegisterService -> {
+                        synchronized (shenyuClientRegisterService) {
+                            shenyuClientRegisterService.register(meta);
+                        }
 ```
 
 ### SynchronizationOnLocalVariableOrMethodParameter
@@ -7972,193 +8106,25 @@ in `shenyu-admin/src/main/java/org/apache/shenyu/admin/disruptor/subscriber/ApiD
 ```
 
 ### SynchronizationOnLocalVariableOrMethodParameter
-Synchronization on local variable `shenyuClientRegisterService`
-in `shenyu-admin/src/main/java/org/apache/shenyu/admin/disruptor/subscriber/MetadataExecutorSubscriber.java`
+Synchronization on method parameter `apiClass`
+in `shenyu-sdk/shenyu-sdk-spring/src/main/java/org/apache/shenyu/sdk/spring/proxy/ShenyuClientProxyFactory.java`
 #### Snippet
 ```java
-            Optional.ofNullable(this.shenyuClientRegisterService.get(meta.getRpcType()))
-                    .ifPresent(shenyuClientRegisterService -> {
-                        synchronized (shenyuClientRegisterService) {
-                            shenyuClientRegisterService.register(meta);
-                        }
+        }
+
+        synchronized (apiClass) {
+            Object proxy = Proxy.newProxyInstance(apiClass.getClassLoader(),
+                    new Class<?>[]{apiClass},
 ```
 
 ## RuleId[ruleID=ReturnNull]
 ### ReturnNull
 Return of `null`
-in `shenyu-register-center/shenyu-register-instance/shenyu-register-instance-zookeeper/src/main/java/org/apache/shenyu/register/instance/zookeeper/ZookeeperClient.java`
+in `shenyu-client/shenyu-client-brpc/src/main/java/org/apache/shenyu/client/brpc/BrpcContextRefreshedEventListener.java`
 #### Snippet
 ```java
-            }
-        }
-        return null;
-    }
-}
-```
-
-### ReturnNull
-Return of `null`
-in `shenyu-register-center/shenyu-register-instance/shenyu-register-instance-zookeeper/src/main/java/org/apache/shenyu/register/instance/zookeeper/ZookeeperClient.java`
-#### Snippet
-```java
-        try {
-            byte[] ret = client.getData().forPath(key);
-            return Objects.isNull(ret) ? null : new String(ret, StandardCharsets.UTF_8);
-        } catch (Exception e) {
-            throw new ShenyuException(e);
-```
-
-### ReturnNull
-Return of `null`
-in `shenyu-register-center/shenyu-register-instance/shenyu-register-instance-zookeeper/src/main/java/org/apache/shenyu/register/instance/zookeeper/ZookeeperClient.java`
-#### Snippet
-```java
-            return getDirectly(key);
-        }
-        return Objects.isNull(data.getData()) ? null : new String(data.getData(), StandardCharsets.UTF_8);
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `shenyu-sdk/shenyu-sdk-spring/src/main/java/org/apache/shenyu/sdk/spring/proxy/ShenyuClientMethodHandler.java`
-#### Snippet
-```java
-    private Object handlerResponse(final ShenyuResponse shenyuResponse, final Class<?> returnType) {
-        if (shenyuResponse == null || void.class == returnType) {
-            return null;
-        } else if (ShenyuResponse.class == returnType) {
-            return shenyuResponse;
-```
-
-### ReturnNull
-Return of `null`
-in `shenyu-sdk/shenyu-sdk-spring/src/main/java/org/apache/shenyu/sdk/spring/proxy/ShenyuClientMethodHandler.java`
-#### Snippet
-```java
-            return JsonUtils.jsonToObject(shenyuResponse.getBody(), returnType);
-        } else {
-            return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `shenyu-sdk/shenyu-sdk-spring/src/main/java/org/apache/shenyu/sdk/spring/proxy/ShenyuClientInvocationHandler.java`
-#### Snippet
-```java
-                return (FallbackFactory<?>) applicationContext.getBean(fallbackFactory);
-            }
-            return null;
-        } catch (BeansException exception) {
-            LOG.error("No fallback available ", exception);
-```
-
-### ReturnNull
-Return of `null`
-in `shenyu-sdk/shenyu-sdk-spring/src/main/java/org/apache/shenyu/sdk/spring/proxy/ShenyuClientInvocationHandler.java`
-#### Snippet
-```java
-        } catch (BeansException exception) {
-            LOG.error("No fallback available ", exception);
-            return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `shenyu-client/shenyu-client-tars/src/main/java/org/apache/shenyu/client/tars/TarsServiceBeanEventListener.java`
-#### Snippet
-```java
-        ShenyuTarsClient shenyuTarsClient = AnnotatedElementUtils.findMergedAnnotation(method, ShenyuTarsClient.class);
-        if (Objects.isNull(shenyuTarsClient)) {
-            return null;
-        }
-        String produce = ShenyuClientConstants.MEDIA_TYPE_ALL_VALUE;
-```
-
-### ReturnNull
-Return of `null`
-in `shenyu-sdk/shenyu-sdk-spring/src/main/java/org/apache/shenyu/sdk/spring/ShenyuClientsRegistrar.java`
-#### Snippet
-```java
-    private String getQualifier(final Map<String, Object> client) {
-        if (client == null) {
-            return null;
-        }
-        String qualifier = (String) client.get("qualifier");
-```
-
-### ReturnNull
-Return of `null`
-in `shenyu-sdk/shenyu-sdk-spring/src/main/java/org/apache/shenyu/sdk/spring/ShenyuClientsRegistrar.java`
-#### Snippet
-```java
-            return qualifier;
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `shenyu-sdk/shenyu-sdk-spring/src/main/java/org/apache/shenyu/sdk/spring/ShenyuClientsRegistrar.java`
-#### Snippet
-```java
-                return String.valueOf(evaluateValue);
-            }
-            return null;
-        }
-        return value;
-```
-
-### ReturnNull
-Return of `null`
-in `shenyu-sdk/shenyu-sdk-spring/src/main/java/org/apache/shenyu/sdk/spring/ShenyuClientsRegistrar.java`
-#### Snippet
-```java
-    private String[] getQualifiers(final Map<String, Object> client) {
-        if (client == null) {
-            return null;
-        }
-        List<String> qualifierList = new ArrayList<>(Arrays.asList((String[]) client.get("qualifiers")));
-```
-
-### ReturnNull
-Return of `null`
-in `shenyu-sdk/shenyu-sdk-spring/src/main/java/org/apache/shenyu/sdk/spring/ShenyuClientsRegistrar.java`
-#### Snippet
-```java
-            qualifierList = Collections.singletonList(getQualifier(client));
-        }
-        return !qualifierList.isEmpty() ? qualifierList.toArray(new String[0]) : null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `shenyu-plugin/shenyu-plugin-cache/shenyu-plugin-cache-memory/src/main/java/org/apache/shenyu/plugin/cache/memory/MemoryCache.java`
-#### Snippet
-```java
-                return this.mainCache.get(key).asMap().get(key);
-            }
-            return null;
-        });
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `shenyu-client/shenyu-client-sofa/src/main/java/org/apache/shenyu/client/sofa/SofaServiceEventListener.java`
-#### Snippet
-```java
-        ShenyuSofaClient shenyuSofaClient = AnnotatedElementUtils.findMergedAnnotation(method, ShenyuSofaClient.class);
-        if (Objects.isNull(shenyuSofaClient)) {
+        ShenyuBrpcClient shenyuBrpcClient = AnnotatedElementUtils.findMergedAnnotation(method, ShenyuBrpcClient.class);
+        if (Objects.isNull(shenyuBrpcClient)) {
             return null;
         }
         String produce = ShenyuClientConstants.MEDIA_TYPE_ALL_VALUE;
@@ -8226,14 +8192,14 @@ in `shenyu-admin/src/main/java/org/apache/shenyu/admin/utils/ListUtil.java`
 
 ### ReturnNull
 Return of `null`
-in `shenyu-admin/src/main/java/org/apache/shenyu/admin/service/impl/PermissionServiceImpl.java`
+in `shenyu-admin/src/main/java/org/apache/shenyu/admin/service/impl/ResourceServiceImpl.java`
 #### Snippet
 ```java
-    private List<String> getListDiff(final List<String> preList, final List<String> lastList) {
-        if (CollectionUtils.isEmpty(lastList)) {
-            return null;
-        }
-        
+                .map(ResourceVO::buildResourceVO)
+                .collect(Collectors.toList());
+        return CollectionUtils.isEmpty(resourceVOList) ? null : ResourceUtil.buildMenu(resourceVOList);
+    }
+    
 ```
 
 ### ReturnNull
@@ -8262,14 +8228,14 @@ in `shenyu-admin/src/main/java/org/apache/shenyu/admin/service/impl/PermissionSe
 
 ### ReturnNull
 Return of `null`
-in `shenyu-admin/src/main/java/org/apache/shenyu/admin/service/impl/ResourceServiceImpl.java`
+in `shenyu-admin/src/main/java/org/apache/shenyu/admin/service/impl/PermissionServiceImpl.java`
 #### Snippet
 ```java
-                .map(ResourceVO::buildResourceVO)
-                .collect(Collectors.toList());
-        return CollectionUtils.isEmpty(resourceVOList) ? null : ResourceUtil.buildMenu(resourceVOList);
-    }
-    
+    private List<String> getListDiff(final List<String> preList, final List<String> lastList) {
+        if (CollectionUtils.isEmpty(lastList)) {
+            return null;
+        }
+        
 ```
 
 ### ReturnNull
@@ -8282,30 +8248,6 @@ in `shenyu-admin/src/main/java/org/apache/shenyu/admin/service/impl/RuleServiceI
                     return null;
                 })
                 .filter(Objects::nonNull)
-```
-
-### ReturnNull
-Return of `null`
-in `shenyu-admin/src/main/java/org/apache/shenyu/admin/service/impl/SandboxServiceImpl.java`
-#### Snippet
-```java
-                } catch (IOException e) {
-                    LOG.error("upload file fail", e);
-                    return null;
-                }
-            })
-```
-
-### ReturnNull
-Return of `null`
-in `shenyu-admin/src/main/java/org/apache/shenyu/admin/service/impl/SandboxServiceImpl.java`
-#### Snippet
-```java
-    private String getSecureKey(final String appKey) {
-        AppAuthDO appAuthDO = appAuthService.findByAppKey(appKey);
-        return Objects.nonNull(appAuthDO) ? appAuthDO.getAppSecret() : null;
-    }
-
 ```
 
 ### ReturnNull
@@ -8334,24 +8276,24 @@ in `shenyu-admin/src/main/java/org/apache/shenyu/admin/service/impl/DashboardUse
 
 ### ReturnNull
 Return of `null`
-in `shenyu-admin/src/main/java/org/apache/shenyu/admin/utils/HttpUtils.java`
+in `shenyu-admin/src/main/java/org/apache/shenyu/admin/service/impl/SandboxServiceImpl.java`
 #### Snippet
 ```java
-        if (response.isSuccessful()) {
-            ResponseBody body = response.body();
-            return body == null ? null : body.byteStream();
-        }
-        return null;
+                } catch (IOException e) {
+                    LOG.error("upload file fail", e);
+                    return null;
+                }
+            })
 ```
 
 ### ReturnNull
 Return of `null`
-in `shenyu-admin/src/main/java/org/apache/shenyu/admin/utils/HttpUtils.java`
+in `shenyu-admin/src/main/java/org/apache/shenyu/admin/service/impl/SandboxServiceImpl.java`
 #### Snippet
 ```java
-            return body == null ? null : body.byteStream();
-        }
-        return null;
+    private String getSecureKey(final String appKey) {
+        AppAuthDO appAuthDO = appAuthService.findByAppKey(appKey);
+        return Objects.nonNull(appAuthDO) ? appAuthDO.getAppSecret() : null;
     }
 
 ```
@@ -8394,26 +8336,26 @@ in `shenyu-admin/src/main/java/org/apache/shenyu/admin/service/manager/impl/DocM
 
 ### ReturnNull
 Return of `null`
-in `shenyu-admin/src/main/java/org/apache/shenyu/admin/service/manager/impl/SwaggerDocParser.java`
+in `shenyu-admin/src/main/java/org/apache/shenyu/admin/utils/HttpUtils.java`
 #### Snippet
 ```java
+        if (response.isSuccessful()) {
+            ResponseBody body = response.body();
+            return body == null ? null : body.byteStream();
         }
-        if (Objects.isNull(refElement)) {
-            return null;
-        }
-        String ref = refElement.getAsString();
+        return null;
 ```
 
 ### ReturnNull
 Return of `null`
-in `shenyu-admin/src/main/java/org/apache/shenyu/admin/service/manager/impl/LoadServiceDocEntryImpl.java`
+in `shenyu-admin/src/main/java/org/apache/shenyu/admin/utils/HttpUtils.java`
 #### Snippet
 ```java
-    private UpstreamInstance getClusterLastUpdateInstance(final List<UpstreamInstance> allInstances) {
-        if (CollectionUtils.isEmpty(allInstances)) {
-            return null;
+            return body == null ? null : body.byteStream();
         }
-        return allInstances.stream()
+        return null;
+    }
+
 ```
 
 ### ReturnNull
@@ -8466,19 +8408,31 @@ in `shenyu-admin/src/main/java/org/apache/shenyu/admin/service/manager/impl/Load
 
 ### ReturnNull
 Return of `null`
-in `shenyu-admin/src/main/java/org/apache/shenyu/admin/service/register/ShenyuClientRegisterDubboServiceImpl.java`
+in `shenyu-admin/src/main/java/org/apache/shenyu/admin/service/manager/impl/LoadServiceDocEntryImpl.java`
 #### Snippet
 ```java
-
-        if (doSubmit(selectorDO.getId(), canAddList)) {
+    private UpstreamInstance getClusterLastUpdateInstance(final List<UpstreamInstance> allInstances) {
+        if (CollectionUtils.isEmpty(allInstances)) {
             return null;
         }
-
+        return allInstances.stream()
 ```
 
 ### ReturnNull
 Return of `null`
-in `shenyu-admin/src/main/java/org/apache/shenyu/admin/service/register/ShenyuClientRegisterTarsServiceImpl.java`
+in `shenyu-admin/src/main/java/org/apache/shenyu/admin/service/manager/impl/SwaggerDocParser.java`
+#### Snippet
+```java
+        }
+        if (Objects.isNull(refElement)) {
+            return null;
+        }
+        String ref = refElement.getAsString();
+```
+
+### ReturnNull
+Return of `null`
+in `shenyu-admin/src/main/java/org/apache/shenyu/admin/service/register/ShenyuClientRegisterDubboServiceImpl.java`
 #### Snippet
 ```java
 
@@ -8502,7 +8456,7 @@ in `shenyu-admin/src/main/java/org/apache/shenyu/admin/service/register/ShenyuCl
 
 ### ReturnNull
 Return of `null`
-in `shenyu-admin/src/main/java/org/apache/shenyu/admin/service/register/ShenyuClientRegisterSpringCloudServiceImpl.java`
+in `shenyu-admin/src/main/java/org/apache/shenyu/admin/service/register/ShenyuClientRegisterTarsServiceImpl.java`
 #### Snippet
 ```java
 
@@ -8526,38 +8480,62 @@ in `shenyu-admin/src/main/java/org/apache/shenyu/admin/service/register/ShenyuCl
 
 ### ReturnNull
 Return of `null`
-in `shenyu-register-center/shenyu-register-client-server/shenyu-register-client-server-nacos/src/main/java/org/apache/shenyu/register/client/server/nacos/NacosClientServerRegisterRepository.java`
+in `shenyu-admin/src/main/java/org/apache/shenyu/admin/service/register/ShenyuClientRegisterSpringCloudServiceImpl.java`
 #### Snippet
 ```java
-                @Override
-                public Executor getExecutor() {
-                    return null;
-                }
+
+        if (doSubmit(selectorDO.getId(), canAddList)) {
+            return null;
+        }
 
 ```
 
 ### ReturnNull
 Return of `null`
-in `shenyu-sync-data-center/shenyu-sync-data-etcd/src/main/java/org/apache/shenyu/sync/data/etcd/EtcdClient.java`
+in `shenyu-sdk/shenyu-sdk-spring/src/main/java/org/apache/shenyu/sdk/spring/proxy/ShenyuClientInvocationHandler.java`
 #### Snippet
 ```java
-    private String getSubNodeKeyName(final String prefix, final String fullPath, final String separator) {
-        if (prefix.length() > fullPath.length()) {
+                return (FallbackFactory<?>) applicationContext.getBean(fallbackFactory);
+            }
             return null;
-        }
-        String pathWithoutPrefix = fullPath.substring(prefix.length());
+        } catch (BeansException exception) {
+            LOG.error("No fallback available ", exception);
 ```
 
 ### ReturnNull
 Return of `null`
-in `shenyu-sync-data-center/shenyu-sync-data-etcd/src/main/java/org/apache/shenyu/sync/data/etcd/EtcdClient.java`
+in `shenyu-sdk/shenyu-sdk-spring/src/main/java/org/apache/shenyu/sdk/spring/proxy/ShenyuClientInvocationHandler.java`
 #### Snippet
 ```java
-
-        if (CollectionUtils.isEmpty(keyValues)) {
+        } catch (BeansException exception) {
+            LOG.error("No fallback available ", exception);
             return null;
         }
+    }
+```
 
+### ReturnNull
+Return of `null`
+in `shenyu-sdk/shenyu-sdk-spring/src/main/java/org/apache/shenyu/sdk/spring/proxy/ShenyuClientMethodHandler.java`
+#### Snippet
+```java
+    private Object handlerResponse(final ShenyuResponse shenyuResponse, final Class<?> returnType) {
+        if (shenyuResponse == null || void.class == returnType) {
+            return null;
+        } else if (ShenyuResponse.class == returnType) {
+            return shenyuResponse;
+```
+
+### ReturnNull
+Return of `null`
+in `shenyu-sdk/shenyu-sdk-spring/src/main/java/org/apache/shenyu/sdk/spring/proxy/ShenyuClientMethodHandler.java`
+#### Snippet
+```java
+            return JsonUtils.jsonToObject(shenyuResponse.getBody(), returnType);
+        } else {
+            return null;
+        }
+    }
 ```
 
 ### ReturnNull
@@ -8570,6 +8548,42 @@ in `shenyu-plugin/shenyu-plugin-brpc/src/main/java/org/apache/shenyu/plugin/brpc
             return null;
         }
     }
+```
+
+### ReturnNull
+Return of `null`
+in `shenyu-plugin/shenyu-plugin-brpc/src/main/java/org/apache/shenyu/plugin/brpc/cache/ApplicationConfigCache.java`
+#### Snippet
+```java
+                @Override
+                public AsyncGenericService load(@NonNull final String key) {
+                    return null;
+                }
+            });
+```
+
+### ReturnNull
+Return of `null`
+in `shenyu-register-center/shenyu-register-client-server/shenyu-register-client-server-etcd/src/main/java/org/apache/shenyu/register/client/server/etcd/client/EtcdClient.java`
+#### Snippet
+```java
+            LOGGER.error("getChildren(path:{}) error.", path, e);
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `shenyu-register-center/shenyu-register-client-server/shenyu-register-client-server-etcd/src/main/java/org/apache/shenyu/register/client/server/etcd/client/EtcdClient.java`
+#### Snippet
+```java
+
+        if (Objects.isNull(response)) {
+            return null;
+        }
+
 ```
 
 ### ReturnNull
@@ -8622,150 +8636,6 @@ in `shenyu-client/shenyu-client-http/shenyu-client-springmvc/src/main/java/org/a
 
 ### ReturnNull
 Return of `null`
-in `shenyu-plugin/shenyu-plugin-jwt/src/main/java/org/apache/shenyu/plugin/jwt/rule/JwtRuleHandle.java`
-#### Snippet
-```java
-    public static JwtRuleHandle newInstance(final String handleJson) {
-        if (Objects.isNull(handleJson)) {
-            return null;
-        }
-        Map<String, Object> handleMap = GsonUtils.getInstance().convertToMap(handleJson);
-```
-
-### ReturnNull
-Return of `null`
-in `shenyu-plugin/shenyu-plugin-logging/shenyu-plugin-logging-rocketmq/src/main/java/org/apache/shenyu/plugin/logging/rocketmq/client/RocketMQLogCollectClient.java`
-#### Snippet
-```java
-    private RPCHook getAclRPCHook(final RocketMQLogCollectConfig.RocketMQLogConfig config) {
-        if (StringUtils.isBlank(config.getAccessKey()) || StringUtils.isBlank(config.getSecretKey())) {
-            return null;
-        }
-        return new AclClientRPCHook(new SessionCredentials(config.getAccessKey(), config.getSecretKey()));
-```
-
-### ReturnNull
-Return of `null`
-in `shenyu-plugin/shenyu-plugin-jwt/src/main/java/org/apache/shenyu/plugin/jwt/exception/ThrowingFunction.java`
-#### Snippet
-```java
-            return function.apply();
-        } catch (Exception e) {
-            return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `shenyu-plugin/shenyu-plugin-brpc/src/main/java/org/apache/shenyu/plugin/brpc/cache/ApplicationConfigCache.java`
-#### Snippet
-```java
-                @Override
-                public AsyncGenericService load(@NonNull final String key) {
-                    return null;
-                }
-            });
-```
-
-### ReturnNull
-Return of `null`
-in `shenyu-plugin/shenyu-plugin-jwt/src/main/java/org/apache/shenyu/plugin/jwt/JwtPlugin.java`
-#### Snippet
-```java
-            finalAuthorization = authorization;
-        } else {
-            return null;
-        }
-        return isAuth2(finalAuthorization) ? finalAuthorization.split(" ")[1] : finalAuthorization;
-```
-
-### ReturnNull
-Return of `null`
-in `shenyu-plugin/shenyu-plugin-jwt/src/main/java/org/apache/shenyu/plugin/jwt/JwtPlugin.java`
-#### Snippet
-```java
-
-        if (StringUtils.isEmpty(authorization)) {
-            return null;
-        }
-        JwtParserBuilder jwtParserBuilder = Jwts.parserBuilder();
-```
-
-### ReturnNull
-Return of `null`
-in `shenyu-plugin/shenyu-plugin-jwt/src/main/java/org/apache/shenyu/plugin/jwt/JwtPlugin.java`
-#### Snippet
-```java
-            Jwt jwt = ThrowingFunction.wrap(() -> jwtParserExec.parse(authorization));
-            if (jwt == null) {
-                return null;
-            }
-            return (Map<String, Object>) jwt.getBody();
-```
-
-### ReturnNull
-Return of `null`
-in `shenyu-plugin/shenyu-plugin-jwt/src/main/java/org/apache/shenyu/plugin/jwt/JwtPlugin.java`
-#### Snippet
-```java
-            return (Map<String, Object>) jwt.getBody();
-        }
-        return null;
-    }
-}
-```
-
-### ReturnNull
-Return of `null`
-in `shenyu-sync-data-center/shenyu-sync-data-zookeeper/src/main/java/org/apache/shenyu/sync/data/zookeeper/ZookeeperClient.java`
-#### Snippet
-```java
-            }
-        }
-        return null;
-    }
-}
-```
-
-### ReturnNull
-Return of `null`
-in `shenyu-sync-data-center/shenyu-sync-data-zookeeper/src/main/java/org/apache/shenyu/sync/data/zookeeper/ZookeeperClient.java`
-#### Snippet
-```java
-            return getDirectly(key);
-        }
-        return Objects.isNull(data.getData()) ? null : new String(data.getData(), StandardCharsets.UTF_8);
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `shenyu-sync-data-center/shenyu-sync-data-zookeeper/src/main/java/org/apache/shenyu/sync/data/zookeeper/ZookeeperClient.java`
-#### Snippet
-```java
-        try {
-            byte[] ret = client.getData().forPath(key);
-            return Objects.isNull(ret) ? null : new String(ret, StandardCharsets.UTF_8);
-        } catch (Exception e) {
-            throw new ShenyuException(e);
-```
-
-### ReturnNull
-Return of `null`
-in `shenyu-loadbalancer/src/main/java/org/apache/shenyu/loadbalancer/spi/AbstractLoadBalancer.java`
-#### Snippet
-```java
-    public Upstream select(final List<Upstream> upstreamList, final String ip) {
-        if (CollectionUtils.isEmpty(upstreamList)) {
-            return null;
-        }
-        if (upstreamList.size() == 1) {
-```
-
-### ReturnNull
-Return of `null`
 in `shenyu-client/shenyu-client-motan/src/main/java/org/apache/shenyu/client/motan/MotanServiceEventListener.java`
 #### Snippet
 ```java
@@ -8778,50 +8648,14 @@ in `shenyu-client/shenyu-client-motan/src/main/java/org/apache/shenyu/client/mot
 
 ### ReturnNull
 Return of `null`
-in `shenyu-register-center/shenyu-register-client/shenyu-register-client-zookeeper/src/main/java/org/apache/shenyu/register/client/zookeeper/ZookeeperClient.java`
-#### Snippet
-```java
-            return getDirectly(key);
-        }
-        return Objects.isNull(data.getData()) ? null : new String(data.getData(), StandardCharsets.UTF_8);
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `shenyu-register-center/shenyu-register-client/shenyu-register-client-zookeeper/src/main/java/org/apache/shenyu/register/client/zookeeper/ZookeeperClient.java`
+in `shenyu-client/shenyu-client-websocket/shenyu-client-spring-websocket/src/main/java/org/apache/shenyu/client/spring/websocket/init/SpringWebSocketClientEventListener.java`
 #### Snippet
 ```java
             }
         }
         return null;
     }
-}
-```
 
-### ReturnNull
-Return of `null`
-in `shenyu-register-center/shenyu-register-client/shenyu-register-client-zookeeper/src/main/java/org/apache/shenyu/register/client/zookeeper/ZookeeperClient.java`
-#### Snippet
-```java
-        try {
-            byte[] ret = client.getData().forPath(key);
-            return Objects.isNull(ret) ? null : new String(ret, StandardCharsets.UTF_8);
-        } catch (Exception e) {
-            throw new ShenyuException(e);
-```
-
-### ReturnNull
-Return of `null`
-in `shenyu-plugin/shenyu-plugin-httpclient/src/main/java/org/apache/shenyu/plugin/httpclient/config/HttpClientProperties.java`
-#### Snippet
-```java
-                    return keyManagerFactory;
-                }
-                return null;
-            } catch (Exception e) {
-                throw new ShenyuException(e);
 ```
 
 ### ReturnNull
@@ -8862,86 +8696,14 @@ in `shenyu-client/shenyu-client-websocket/shenyu-client-spring-websocket/src/mai
 
 ### ReturnNull
 Return of `null`
-in `shenyu-client/shenyu-client-websocket/shenyu-client-spring-websocket/src/main/java/org/apache/shenyu/client/spring/websocket/init/SpringWebSocketClientEventListener.java`
+in `shenyu-client/shenyu-client-grpc/src/main/java/org/apache/shenyu/client/grpc/GrpcClientEventListener.java`
 #### Snippet
 ```java
-            }
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `shenyu-plugin/shenyu-plugin-mock/src/main/java/org/apache/shenyu/plugin/mock/generator/GeneratorFactory.java`
-#### Snippet
-```java
-            LOG.warn("{} can not parse,please check", rule);
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `shenyu-plugin/shenyu-plugin-mock/src/main/java/org/apache/shenyu/plugin/mock/generator/GeneratorFactory.java`
-#### Snippet
-```java
-        int start = rule.indexOf("${");
-        if (start < 0) {
+        ShenyuGrpcClient shenyuGrpcClient = AnnotatedElementUtils.findMergedAnnotation(method, ShenyuGrpcClient.class);
+        if (Objects.isNull(shenyuGrpcClient)) {
             return null;
         }
-        int counter = 1;
-```
-
-### ReturnNull
-Return of `null`
-in `shenyu-plugin/shenyu-plugin-mock/src/main/java/org/apache/shenyu/plugin/mock/generator/GeneratorFactory.java`
-#### Snippet
-```java
-            }
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `shenyu-register-center/shenyu-register-client-server/shenyu-register-client-server-zookeeper/src/main/java/org/apache/shenyu/register/client/server/zookeeper/ZookeeperClient.java`
-#### Snippet
-```java
-            return getDirectly(key);
-        }
-        return Objects.isNull(data.getData()) ? null : new String(data.getData(), StandardCharsets.UTF_8);
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `shenyu-register-center/shenyu-register-client-server/shenyu-register-client-server-zookeeper/src/main/java/org/apache/shenyu/register/client/server/zookeeper/ZookeeperClient.java`
-#### Snippet
-```java
-        try {
-            byte[] ret = client.getData().forPath(key);
-            return Objects.isNull(ret) ? null : new String(ret, StandardCharsets.UTF_8);
-        } catch (Exception e) {
-            throw new ShenyuException(e);
-```
-
-### ReturnNull
-Return of `null`
-in `shenyu-register-center/shenyu-register-client-server/shenyu-register-client-server-zookeeper/src/main/java/org/apache/shenyu/register/client/server/zookeeper/ZookeeperClient.java`
-#### Snippet
-```java
-            }
-        }
-        return null;
-    }
-}
+        String produce = ShenyuClientConstants.MEDIA_TYPE_ALL_VALUE;
 ```
 
 ### ReturnNull
@@ -8962,7 +8724,7 @@ in `shenyu-plugin/shenyu-plugin-cryptor/src/main/java/org/apache/shenyu/plugin/c
 #### Snippet
 ```java
         } catch (Exception e) {
-            LOG.error("encrypt data error: ", e);
+            LOG.error("decrypt data error: ", e);
             return null;
         }
     }
@@ -8974,7 +8736,7 @@ in `shenyu-plugin/shenyu-plugin-cryptor/src/main/java/org/apache/shenyu/plugin/c
 #### Snippet
 ```java
         } catch (Exception e) {
-            LOG.error("decrypt data error: ", e);
+            LOG.error("encrypt data error: ", e);
             return null;
         }
     }
@@ -8994,122 +8756,86 @@ in `shenyu-plugin/shenyu-plugin-cryptor/src/main/java/org/apache/shenyu/plugin/c
 
 ### ReturnNull
 Return of `null`
-in `shenyu-client/shenyu-client-dubbo/shenyu-client-alibaba-dubbo/src/main/java/org/apache/shenyu/client/alibaba/dubbo/AlibabaDubboServiceBeanListener.java`
+in `shenyu-sdk/shenyu-sdk-spring/src/main/java/org/apache/shenyu/sdk/spring/ShenyuClientsRegistrar.java`
 #### Snippet
 ```java
-        ShenyuDubboClient shenyuDubboClient = AnnotatedElementUtils.findMergedAnnotation(method, ShenyuDubboClient.class);
-        if (Objects.isNull(shenyuDubboClient)) {
+                return String.valueOf(evaluateValue);
+            }
             return null;
         }
-        String produce = ShenyuClientConstants.MEDIA_TYPE_ALL_VALUE;
+        return value;
 ```
 
 ### ReturnNull
 Return of `null`
-in `shenyu-client/shenyu-client-dubbo/shenyu-client-alibaba-dubbo/src/main/java/org/apache/shenyu/client/alibaba/dubbo/validation/AlibabaDubboClientValidator.java`
+in `shenyu-sdk/shenyu-sdk-spring/src/main/java/org/apache/shenyu/sdk/spring/ShenyuClientsRegistrar.java`
 #### Snippet
 ```java
-    private static Object getMethodParameterBean(final Class<?> clazz, final Method method, final Object[] args) {
-        if (!hasConstraintParameter(method)) {
+    private String getQualifier(final Map<String, Object> client) {
+        if (client == null) {
             return null;
         }
-        try {
+        String qualifier = (String) client.get("qualifier");
 ```
 
 ### ReturnNull
 Return of `null`
-in `shenyu-client/shenyu-client-dubbo/shenyu-client-alibaba-dubbo/src/main/java/org/apache/shenyu/client/alibaba/dubbo/validation/AlibabaDubboClientValidator.java`
+in `shenyu-sdk/shenyu-sdk-spring/src/main/java/org/apache/shenyu/sdk/spring/ShenyuClientsRegistrar.java`
 #### Snippet
 ```java
-        } catch (Exception e) {
-            LOG.warn(e.getMessage(), e);
-            return null;
+            return qualifier;
         }
+        return null;
     }
+
 ```
 
 ### ReturnNull
 Return of `null`
-in `shenyu-plugin/shenyu-plugin-jwt/src/main/java/org/apache/shenyu/plugin/jwt/strategy/DefaultJwtConvertStrategy.java`
+in `shenyu-sdk/shenyu-sdk-spring/src/main/java/org/apache/shenyu/sdk/spring/ShenyuClientsRegistrar.java`
 #### Snippet
 ```java
-        } catch (Exception exception) {
-            LOG.error("Failed to parse json , please check json format", exception);
+    private String[] getQualifiers(final Map<String, Object> client) {
+        if (client == null) {
             return null;
         }
+        List<String> qualifierList = new ArrayList<>(Arrays.asList((String[]) client.get("qualifiers")));
+```
+
+### ReturnNull
+Return of `null`
+in `shenyu-sdk/shenyu-sdk-spring/src/main/java/org/apache/shenyu/sdk/spring/ShenyuClientsRegistrar.java`
+#### Snippet
+```java
+            qualifierList = Collections.singletonList(getQualifier(client));
+        }
+        return !qualifierList.isEmpty() ? qualifierList.toArray(new String[0]) : null;
     }
+
 ```
 
 ### ReturnNull
 Return of `null`
-in `shenyu-client/shenyu-client-brpc/src/main/java/org/apache/shenyu/client/brpc/BrpcContextRefreshedEventListener.java`
+in `shenyu-loadbalancer/src/main/java/org/apache/shenyu/loadbalancer/spi/AbstractLoadBalancer.java`
 #### Snippet
 ```java
-        ShenyuBrpcClient shenyuBrpcClient = AnnotatedElementUtils.findMergedAnnotation(method, ShenyuBrpcClient.class);
-        if (Objects.isNull(shenyuBrpcClient)) {
+    public Upstream select(final List<Upstream> upstreamList, final String ip) {
+        if (CollectionUtils.isEmpty(upstreamList)) {
             return null;
         }
-        String produce = ShenyuClientConstants.MEDIA_TYPE_ALL_VALUE;
+        if (upstreamList.size() == 1) {
 ```
 
 ### ReturnNull
 Return of `null`
-in `shenyu-plugin/shenyu-plugin-grpc/src/main/java/org/apache/shenyu/plugin/grpc/client/GrpcClientBuilder.java`
+in `shenyu-plugin/shenyu-plugin-api/src/main/java/org/apache/shenyu/plugin/api/result/ShenyuResult.java`
 #### Snippet
 ```java
-        GrpcRegisterConfig config = Singleton.INST.get(GrpcRegisterConfig.class);
-        if (null == config) {
-            return null;
-        }
-        final String threadpool = Optional.ofNullable(config.getThreadpool()).orElse(Constants.CACHED);
-```
-
-### ReturnNull
-Return of `null`
-in `shenyu-plugin/shenyu-plugin-grpc/src/main/java/org/apache/shenyu/plugin/grpc/client/GrpcClientBuilder.java`
-#### Snippet
-```java
-            case Constants.CACHED:
-            default:
-                return null;
-        }
+     */
+    default T error(int code, String message, Object object) {
+        return null;
     }
-```
-
-### ReturnNull
-Return of `null`
-in `shenyu-plugin/shenyu-plugin-grpc/src/main/java/org/apache/shenyu/plugin/grpc/client/ShenyuGrpcClient.java`
-#### Snippet
-```java
-            default:
-                LOG.info("Unknown methodType:{}", methodType);
-                return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `shenyu-plugin/shenyu-plugin-grpc/src/main/java/org/apache/shenyu/plugin/grpc/loadbalance/picker/RoundRobinPicker.java`
-#### Snippet
-```java
-    protected SubChannelCopy pick(final List<SubChannelCopy> list) {
-        if (CollectionUtils.isEmpty(list)) {
-            return null;
-        }
-        final int size = list.size();
-```
-
-### ReturnNull
-Return of `null`
-in `shenyu-plugin/shenyu-plugin-grpc/src/main/java/org/apache/shenyu/plugin/grpc/loadbalance/picker/RandomPicker.java`
-#### Snippet
-```java
-    protected SubChannelCopy pick(final List<SubChannelCopy> list) {
-        if (CollectionUtils.isEmpty(list)) {
-            return null;
-        }
-        if (list.size() == 1) {
+}
 ```
 
 ### ReturnNull
@@ -9122,42 +8848,6 @@ in `shenyu-common/src/main/java/org/apache/shenyu/common/utils/UriUtils.java`
         return null;
     }
     
-```
-
-### ReturnNull
-Return of `null`
-in `shenyu-common/src/main/java/org/apache/shenyu/common/utils/ReflectUtils.java`
-#### Snippet
-```java
-            }
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `shenyu-common/src/main/java/org/apache/shenyu/common/utils/ReflectUtils.java`
-#### Snippet
-```java
-            LOG.error("", e);
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `shenyu-common/src/main/java/org/apache/shenyu/common/utils/ReflectUtils.java`
-#### Snippet
-```java
-    public static Object getFieldValue(final Object obj, final String fieldName) {
-        if (Objects.isNull(obj) || StringUtils.isBlank(fieldName)) {
-            return null;
-        }
-        return getFieldValue(obj, getField(obj.getClass(), fieldName));
 ```
 
 ### ReturnNull
@@ -9186,6 +8876,66 @@ in `shenyu-common/src/main/java/org/apache/shenyu/common/utils/ReflectUtils.java
 
 ### ReturnNull
 Return of `null`
+in `shenyu-common/src/main/java/org/apache/shenyu/common/utils/ReflectUtils.java`
+#### Snippet
+```java
+    public static Object getFieldValue(final Object obj, final String fieldName) {
+        if (Objects.isNull(obj) || StringUtils.isBlank(fieldName)) {
+            return null;
+        }
+        return getFieldValue(obj, getField(obj.getClass(), fieldName));
+```
+
+### ReturnNull
+Return of `null`
+in `shenyu-common/src/main/java/org/apache/shenyu/common/utils/ReflectUtils.java`
+#### Snippet
+```java
+            }
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `shenyu-common/src/main/java/org/apache/shenyu/common/utils/ReflectUtils.java`
+#### Snippet
+```java
+            LOG.error("", e);
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `shenyu-common/src/main/java/org/apache/shenyu/common/utils/JsonUtils.java`
+#### Snippet
+```java
+        } catch (IOException e) {
+            LOG.warn("write to Object error: " + json, e);
+            return null;
+        }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `shenyu-plugin/shenyu-plugin-base/src/main/java/org/apache/shenyu/plugin/base/cache/MetaDataCache.java`
+#### Snippet
+```java
+                    return value;
+                });
+        return NULL.equals(metaData) ? null : metaData;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
 in `shenyu-common/src/main/java/org/apache/shenyu/common/utils/GsonUtils.java`
 #### Snippet
 ```java
@@ -9210,114 +8960,6 @@ in `shenyu-common/src/main/java/org/apache/shenyu/common/utils/GsonUtils.java`
 
 ### ReturnNull
 Return of `null`
-in `shenyu-common/src/main/java/org/apache/shenyu/common/utils/JsonUtils.java`
-#### Snippet
-```java
-        } catch (IOException e) {
-            LOG.warn("write to Object error: " + json, e);
-            return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `shenyu-sync-data-center/shenyu-sync-data-nacos/src/main/java/org/apache/shenyu/sync/data/nacos/handler/NacosCacheHandler.java`
-#### Snippet
-```java
-            @Override
-            public Executor getExecutor() {
-                return null;
-            }
-        };
-```
-
-### ReturnNull
-Return of `null`
-in `shenyu-web/src/main/java/org/apache/shenyu/web/loader/ShenyuPluginLoader.java`
-#### Snippet
-```java
-            }
-        }
-        return null;
-    }
-    
-```
-
-### ReturnNull
-Return of `null`
-in `shenyu-client/shenyu-client-dubbo/shenyu-client-apache-dubbo/src/main/java/org/apache/shenyu/client/apache/dubbo/validation/ApacheDubboClientValidator.java`
-#### Snippet
-```java
-        Class<?> cached = methodClassMap.get(methodClassName);
-        if (cached != null) {
-            return cached == clazz ? null : cached;
-        }
-        try {
-```
-
-### ReturnNull
-Return of `null`
-in `shenyu-client/shenyu-client-dubbo/shenyu-client-apache-dubbo/src/main/java/org/apache/shenyu/client/apache/dubbo/validation/ApacheDubboClientValidator.java`
-#### Snippet
-```java
-    private static Object getMethodParameterBean(final Class<?> clazz, final Method method, final Object[] args) {
-        if (!hasConstraintParameter(method)) {
-            return null;
-        }
-        try {
-```
-
-### ReturnNull
-Return of `null`
-in `shenyu-client/shenyu-client-dubbo/shenyu-client-apache-dubbo/src/main/java/org/apache/shenyu/client/apache/dubbo/validation/ApacheDubboClientValidator.java`
-#### Snippet
-```java
-        } catch (Exception e) {
-            LOG.warn(e.getMessage(), e);
-            return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `shenyu-client/shenyu-client-dubbo/shenyu-client-apache-dubbo/src/main/java/org/apache/shenyu/client/apache/dubbo/ApacheDubboServiceBeanListener.java`
-#### Snippet
-```java
-        ShenyuDubboClient shenyuDubboClient = AnnotatedElementUtils.findMergedAnnotation(method, ShenyuDubboClient.class);
-        if (Objects.isNull(shenyuDubboClient)) {
-            return null;
-        }
-        String produce = ShenyuClientConstants.MEDIA_TYPE_ALL_VALUE;
-```
-
-### ReturnNull
-Return of `null`
-in `shenyu-plugin/shenyu-plugin-base/src/main/java/org/apache/shenyu/plugin/base/cache/MetaDataCache.java`
-#### Snippet
-```java
-                    return value;
-                });
-        return NULL.equals(metaData) ? null : metaData;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `shenyu-plugin/shenyu-plugin-base/src/main/java/org/apache/shenyu/plugin/base/trie/ShenyuTrie.java`
-#### Snippet
-```java
-            }
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
 in `shenyu-plugin/shenyu-plugin-base/src/main/java/org/apache/shenyu/plugin/base/trie/ShenyuTrie.java`
 #### Snippet
 ```java
@@ -9338,6 +8980,42 @@ in `shenyu-plugin/shenyu-plugin-base/src/main/java/org/apache/shenyu/plugin/base
             return null;
         }
     }
+```
+
+### ReturnNull
+Return of `null`
+in `shenyu-plugin/shenyu-plugin-base/src/main/java/org/apache/shenyu/plugin/base/trie/ShenyuTrie.java`
+#### Snippet
+```java
+                        }
+                    } else {
+                        return null;
+                    }
+                }
+```
+
+### ReturnNull
+Return of `null`
+in `shenyu-plugin/shenyu-plugin-base/src/main/java/org/apache/shenyu/plugin/base/trie/ShenyuTrie.java`
+#### Snippet
+```java
+            }
+        }
+        return null;
+    }
+    
+```
+
+### ReturnNull
+Return of `null`
+in `shenyu-plugin/shenyu-plugin-base/src/main/java/org/apache/shenyu/plugin/base/trie/ShenyuTrie.java`
+#### Snippet
+```java
+            }
+        }
+        return null;
+    }
+
 ```
 
 ### ReturnNull
@@ -9402,26 +9080,14 @@ in `shenyu-plugin/shenyu-plugin-base/src/main/java/org/apache/shenyu/plugin/base
 
 ### ReturnNull
 Return of `null`
-in `shenyu-plugin/shenyu-plugin-base/src/main/java/org/apache/shenyu/plugin/base/trie/ShenyuTrie.java`
+in `shenyu-plugin/shenyu-plugin-base/src/main/java/org/apache/shenyu/plugin/base/AbstractShenyuPlugin.java`
 #### Snippet
 ```java
-                        }
-                    } else {
-                        return null;
-                    }
-                }
-```
-
-### ReturnNull
-Return of `null`
-in `shenyu-plugin/shenyu-plugin-base/src/main/java/org/apache/shenyu/plugin/base/trie/ShenyuTrie.java`
-#### Snippet
-```java
-            }
+            return genericMatchRule.getRight();
+        } else {
+            return null;
         }
-        return null;
     }
-    
 ```
 
 ### ReturnNull
@@ -9438,14 +9104,14 @@ in `shenyu-plugin/shenyu-plugin-base/src/main/java/org/apache/shenyu/plugin/base
 
 ### ReturnNull
 Return of `null`
-in `shenyu-plugin/shenyu-plugin-base/src/main/java/org/apache/shenyu/plugin/base/AbstractShenyuPlugin.java`
+in `shenyu-plugin/shenyu-plugin-httpclient/src/main/java/org/apache/shenyu/plugin/httpclient/config/HttpClientProperties.java`
 #### Snippet
 ```java
-            return genericMatchRule.getRight();
-        } else {
-            return null;
-        }
-    }
+                    return keyManagerFactory;
+                }
+                return null;
+            } catch (Exception e) {
+                throw new ShenyuException(e);
 ```
 
 ### ReturnNull
@@ -9477,18 +9143,6 @@ Return of `null`
 in `shenyu-client/shenyu-client-http/shenyu-client-springcloud/src/main/java/org/apache/shenyu/client/springcloud/init/SpringCloudClientEventListener.java`
 #### Snippet
 ```java
-                    .ruleName(getContextPath())
-                    .build());
-            return null;
-        }
-        return context.getBeansWithAnnotation(Controller.class);
-```
-
-### ReturnNull
-Return of `null`
-in `shenyu-client/shenyu-client-http/shenyu-client-springcloud/src/main/java/org/apache/shenyu/client/springcloud/init/SpringCloudClientEventListener.java`
-#### Snippet
-```java
             }
         }
         return null;
@@ -9498,11 +9152,59 @@ in `shenyu-client/shenyu-client-http/shenyu-client-springcloud/src/main/java/org
 
 ### ReturnNull
 Return of `null`
-in `shenyu-client/shenyu-client-grpc/src/main/java/org/apache/shenyu/client/grpc/GrpcClientEventListener.java`
+in `shenyu-client/shenyu-client-http/shenyu-client-springcloud/src/main/java/org/apache/shenyu/client/springcloud/init/SpringCloudClientEventListener.java`
 #### Snippet
 ```java
-        ShenyuGrpcClient shenyuGrpcClient = AnnotatedElementUtils.findMergedAnnotation(method, ShenyuGrpcClient.class);
-        if (Objects.isNull(shenyuGrpcClient)) {
+                    .ruleName(getContextPath())
+                    .build());
+            return null;
+        }
+        return context.getBeansWithAnnotation(Controller.class);
+```
+
+### ReturnNull
+Return of `null`
+in `shenyu-sync-data-center/shenyu-sync-data-zookeeper/src/main/java/org/apache/shenyu/sync/data/zookeeper/ZookeeperClient.java`
+#### Snippet
+```java
+            return getDirectly(key);
+        }
+        return Objects.isNull(data.getData()) ? null : new String(data.getData(), StandardCharsets.UTF_8);
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `shenyu-sync-data-center/shenyu-sync-data-zookeeper/src/main/java/org/apache/shenyu/sync/data/zookeeper/ZookeeperClient.java`
+#### Snippet
+```java
+        try {
+            byte[] ret = client.getData().forPath(key);
+            return Objects.isNull(ret) ? null : new String(ret, StandardCharsets.UTF_8);
+        } catch (Exception e) {
+            throw new ShenyuException(e);
+```
+
+### ReturnNull
+Return of `null`
+in `shenyu-sync-data-center/shenyu-sync-data-zookeeper/src/main/java/org/apache/shenyu/sync/data/zookeeper/ZookeeperClient.java`
+#### Snippet
+```java
+            }
+        }
+        return null;
+    }
+}
+```
+
+### ReturnNull
+Return of `null`
+in `shenyu-client/shenyu-client-tars/src/main/java/org/apache/shenyu/client/tars/TarsServiceBeanEventListener.java`
+#### Snippet
+```java
+        ShenyuTarsClient shenyuTarsClient = AnnotatedElementUtils.findMergedAnnotation(method, ShenyuTarsClient.class);
+        if (Objects.isNull(shenyuTarsClient)) {
             return null;
         }
         String produce = ShenyuClientConstants.MEDIA_TYPE_ALL_VALUE;
@@ -9510,47 +9212,59 @@ in `shenyu-client/shenyu-client-grpc/src/main/java/org/apache/shenyu/client/grpc
 
 ### ReturnNull
 Return of `null`
-in `shenyu-register-center/shenyu-register-client-server/shenyu-register-client-server-etcd/src/main/java/org/apache/shenyu/register/client/server/etcd/client/EtcdClient.java`
+in `shenyu-sync-data-center/shenyu-sync-data-etcd/src/main/java/org/apache/shenyu/sync/data/etcd/EtcdClient.java`
 #### Snippet
 ```java
-            LOGGER.error("getChildren(path:{}) error.", path, e);
+    private String getSubNodeKeyName(final String prefix, final String fullPath, final String separator) {
+        if (prefix.length() > fullPath.length()) {
+            return null;
         }
-        return null;
+        String pathWithoutPrefix = fullPath.substring(prefix.length());
+```
+
+### ReturnNull
+Return of `null`
+in `shenyu-sync-data-center/shenyu-sync-data-etcd/src/main/java/org/apache/shenyu/sync/data/etcd/EtcdClient.java`
+#### Snippet
+```java
+
+        if (CollectionUtils.isEmpty(keyValues)) {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `shenyu-register-center/shenyu-register-instance/shenyu-register-instance-zookeeper/src/main/java/org/apache/shenyu/register/instance/zookeeper/ZookeeperClient.java`
+#### Snippet
+```java
+        try {
+            byte[] ret = client.getData().forPath(key);
+            return Objects.isNull(ret) ? null : new String(ret, StandardCharsets.UTF_8);
+        } catch (Exception e) {
+            throw new ShenyuException(e);
+```
+
+### ReturnNull
+Return of `null`
+in `shenyu-register-center/shenyu-register-instance/shenyu-register-instance-zookeeper/src/main/java/org/apache/shenyu/register/instance/zookeeper/ZookeeperClient.java`
+#### Snippet
+```java
+            return getDirectly(key);
+        }
+        return Objects.isNull(data.getData()) ? null : new String(data.getData(), StandardCharsets.UTF_8);
     }
 
 ```
 
 ### ReturnNull
 Return of `null`
-in `shenyu-register-center/shenyu-register-client-server/shenyu-register-client-server-etcd/src/main/java/org/apache/shenyu/register/client/server/etcd/client/EtcdClient.java`
+in `shenyu-register-center/shenyu-register-instance/shenyu-register-instance-zookeeper/src/main/java/org/apache/shenyu/register/instance/zookeeper/ZookeeperClient.java`
 #### Snippet
 ```java
-
-        if (Objects.isNull(response)) {
-            return null;
+            }
         }
-
-```
-
-### ReturnNull
-Return of `null`
-in `shenyu-spring-boot-starter/shenyu-spring-boot-starter-sdk/src/main/java/org/apache/shenyu/springboot/starter/sdk/ShenyuSdkAutoConfiguration.java`
-#### Snippet
-```java
-        final String registerType = config.getRegisterType();
-        if ("local".equals(registerType)) {
-            return null;
-        }
-        return ShenyuInstanceRegisterRepositoryFactory.newAndInitInstance(config);
-```
-
-### ReturnNull
-Return of `null`
-in `shenyu-plugin/shenyu-plugin-api/src/main/java/org/apache/shenyu/plugin/api/result/ShenyuResult.java`
-#### Snippet
-```java
-     */
-    default T error(int code, String message, Object object) {
         return null;
     }
 }
@@ -9568,6 +9282,426 @@ in `shenyu-plugin/shenyu-plugin-springcloud/src/main/java/org/apache/shenyu/plug
         final SpringCloudSelectorHandle springCloudSelectorHandle = SpringCloudPluginDataHandler.SELECTOR_CACHED.get().obtainHandle(selectorId);
 ```
 
+### ReturnNull
+Return of `null`
+in `shenyu-plugin/shenyu-plugin-logging/shenyu-plugin-logging-rocketmq/src/main/java/org/apache/shenyu/plugin/logging/rocketmq/client/RocketMQLogCollectClient.java`
+#### Snippet
+```java
+    private RPCHook getAclRPCHook(final RocketMQLogCollectConfig.RocketMQLogConfig config) {
+        if (StringUtils.isBlank(config.getAccessKey()) || StringUtils.isBlank(config.getSecretKey())) {
+            return null;
+        }
+        return new AclClientRPCHook(new SessionCredentials(config.getAccessKey(), config.getSecretKey()));
+```
+
+### ReturnNull
+Return of `null`
+in `shenyu-register-center/shenyu-register-client/shenyu-register-client-zookeeper/src/main/java/org/apache/shenyu/register/client/zookeeper/ZookeeperClient.java`
+#### Snippet
+```java
+            }
+        }
+        return null;
+    }
+}
+```
+
+### ReturnNull
+Return of `null`
+in `shenyu-register-center/shenyu-register-client/shenyu-register-client-zookeeper/src/main/java/org/apache/shenyu/register/client/zookeeper/ZookeeperClient.java`
+#### Snippet
+```java
+            return getDirectly(key);
+        }
+        return Objects.isNull(data.getData()) ? null : new String(data.getData(), StandardCharsets.UTF_8);
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `shenyu-register-center/shenyu-register-client/shenyu-register-client-zookeeper/src/main/java/org/apache/shenyu/register/client/zookeeper/ZookeeperClient.java`
+#### Snippet
+```java
+        try {
+            byte[] ret = client.getData().forPath(key);
+            return Objects.isNull(ret) ? null : new String(ret, StandardCharsets.UTF_8);
+        } catch (Exception e) {
+            throw new ShenyuException(e);
+```
+
+### ReturnNull
+Return of `null`
+in `shenyu-plugin/shenyu-plugin-jwt/src/main/java/org/apache/shenyu/plugin/jwt/rule/JwtRuleHandle.java`
+#### Snippet
+```java
+    public static JwtRuleHandle newInstance(final String handleJson) {
+        if (Objects.isNull(handleJson)) {
+            return null;
+        }
+        Map<String, Object> handleMap = GsonUtils.getInstance().convertToMap(handleJson);
+```
+
+### ReturnNull
+Return of `null`
+in `shenyu-register-center/shenyu-register-client-server/shenyu-register-client-server-nacos/src/main/java/org/apache/shenyu/register/client/server/nacos/NacosClientServerRegisterRepository.java`
+#### Snippet
+```java
+                @Override
+                public Executor getExecutor() {
+                    return null;
+                }
+
+```
+
+### ReturnNull
+Return of `null`
+in `shenyu-plugin/shenyu-plugin-jwt/src/main/java/org/apache/shenyu/plugin/jwt/exception/ThrowingFunction.java`
+#### Snippet
+```java
+            return function.apply();
+        } catch (Exception e) {
+            return null;
+        }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `shenyu-plugin/shenyu-plugin-jwt/src/main/java/org/apache/shenyu/plugin/jwt/JwtPlugin.java`
+#### Snippet
+```java
+
+        if (StringUtils.isEmpty(authorization)) {
+            return null;
+        }
+        JwtParserBuilder jwtParserBuilder = Jwts.parserBuilder();
+```
+
+### ReturnNull
+Return of `null`
+in `shenyu-plugin/shenyu-plugin-jwt/src/main/java/org/apache/shenyu/plugin/jwt/JwtPlugin.java`
+#### Snippet
+```java
+            Jwt jwt = ThrowingFunction.wrap(() -> jwtParserExec.parse(authorization));
+            if (jwt == null) {
+                return null;
+            }
+            return (Map<String, Object>) jwt.getBody();
+```
+
+### ReturnNull
+Return of `null`
+in `shenyu-plugin/shenyu-plugin-jwt/src/main/java/org/apache/shenyu/plugin/jwt/JwtPlugin.java`
+#### Snippet
+```java
+            return (Map<String, Object>) jwt.getBody();
+        }
+        return null;
+    }
+}
+```
+
+### ReturnNull
+Return of `null`
+in `shenyu-plugin/shenyu-plugin-jwt/src/main/java/org/apache/shenyu/plugin/jwt/JwtPlugin.java`
+#### Snippet
+```java
+            finalAuthorization = authorization;
+        } else {
+            return null;
+        }
+        return isAuth2(finalAuthorization) ? finalAuthorization.split(" ")[1] : finalAuthorization;
+```
+
+### ReturnNull
+Return of `null`
+in `shenyu-client/shenyu-client-dubbo/shenyu-client-apache-dubbo/src/main/java/org/apache/shenyu/client/apache/dubbo/ApacheDubboServiceBeanListener.java`
+#### Snippet
+```java
+        ShenyuDubboClient shenyuDubboClient = AnnotatedElementUtils.findMergedAnnotation(method, ShenyuDubboClient.class);
+        if (Objects.isNull(shenyuDubboClient)) {
+            return null;
+        }
+        String produce = ShenyuClientConstants.MEDIA_TYPE_ALL_VALUE;
+```
+
+### ReturnNull
+Return of `null`
+in `shenyu-client/shenyu-client-dubbo/shenyu-client-alibaba-dubbo/src/main/java/org/apache/shenyu/client/alibaba/dubbo/AlibabaDubboServiceBeanListener.java`
+#### Snippet
+```java
+        ShenyuDubboClient shenyuDubboClient = AnnotatedElementUtils.findMergedAnnotation(method, ShenyuDubboClient.class);
+        if (Objects.isNull(shenyuDubboClient)) {
+            return null;
+        }
+        String produce = ShenyuClientConstants.MEDIA_TYPE_ALL_VALUE;
+```
+
+### ReturnNull
+Return of `null`
+in `shenyu-client/shenyu-client-dubbo/shenyu-client-apache-dubbo/src/main/java/org/apache/shenyu/client/apache/dubbo/validation/ApacheDubboClientValidator.java`
+#### Snippet
+```java
+    private static Object getMethodParameterBean(final Class<?> clazz, final Method method, final Object[] args) {
+        if (!hasConstraintParameter(method)) {
+            return null;
+        }
+        try {
+```
+
+### ReturnNull
+Return of `null`
+in `shenyu-client/shenyu-client-dubbo/shenyu-client-apache-dubbo/src/main/java/org/apache/shenyu/client/apache/dubbo/validation/ApacheDubboClientValidator.java`
+#### Snippet
+```java
+        } catch (Exception e) {
+            LOG.warn(e.getMessage(), e);
+            return null;
+        }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `shenyu-client/shenyu-client-dubbo/shenyu-client-apache-dubbo/src/main/java/org/apache/shenyu/client/apache/dubbo/validation/ApacheDubboClientValidator.java`
+#### Snippet
+```java
+        Class<?> cached = methodClassMap.get(methodClassName);
+        if (cached != null) {
+            return cached == clazz ? null : cached;
+        }
+        try {
+```
+
+### ReturnNull
+Return of `null`
+in `shenyu-client/shenyu-client-sofa/src/main/java/org/apache/shenyu/client/sofa/SofaServiceEventListener.java`
+#### Snippet
+```java
+        ShenyuSofaClient shenyuSofaClient = AnnotatedElementUtils.findMergedAnnotation(method, ShenyuSofaClient.class);
+        if (Objects.isNull(shenyuSofaClient)) {
+            return null;
+        }
+        String produce = ShenyuClientConstants.MEDIA_TYPE_ALL_VALUE;
+```
+
+### ReturnNull
+Return of `null`
+in `shenyu-client/shenyu-client-dubbo/shenyu-client-alibaba-dubbo/src/main/java/org/apache/shenyu/client/alibaba/dubbo/validation/AlibabaDubboClientValidator.java`
+#### Snippet
+```java
+    private static Object getMethodParameterBean(final Class<?> clazz, final Method method, final Object[] args) {
+        if (!hasConstraintParameter(method)) {
+            return null;
+        }
+        try {
+```
+
+### ReturnNull
+Return of `null`
+in `shenyu-client/shenyu-client-dubbo/shenyu-client-alibaba-dubbo/src/main/java/org/apache/shenyu/client/alibaba/dubbo/validation/AlibabaDubboClientValidator.java`
+#### Snippet
+```java
+        } catch (Exception e) {
+            LOG.warn(e.getMessage(), e);
+            return null;
+        }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `shenyu-register-center/shenyu-register-client-server/shenyu-register-client-server-zookeeper/src/main/java/org/apache/shenyu/register/client/server/zookeeper/ZookeeperClient.java`
+#### Snippet
+```java
+        try {
+            byte[] ret = client.getData().forPath(key);
+            return Objects.isNull(ret) ? null : new String(ret, StandardCharsets.UTF_8);
+        } catch (Exception e) {
+            throw new ShenyuException(e);
+```
+
+### ReturnNull
+Return of `null`
+in `shenyu-register-center/shenyu-register-client-server/shenyu-register-client-server-zookeeper/src/main/java/org/apache/shenyu/register/client/server/zookeeper/ZookeeperClient.java`
+#### Snippet
+```java
+            return getDirectly(key);
+        }
+        return Objects.isNull(data.getData()) ? null : new String(data.getData(), StandardCharsets.UTF_8);
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `shenyu-register-center/shenyu-register-client-server/shenyu-register-client-server-zookeeper/src/main/java/org/apache/shenyu/register/client/server/zookeeper/ZookeeperClient.java`
+#### Snippet
+```java
+            }
+        }
+        return null;
+    }
+}
+```
+
+### ReturnNull
+Return of `null`
+in `shenyu-web/src/main/java/org/apache/shenyu/web/loader/ShenyuPluginLoader.java`
+#### Snippet
+```java
+            }
+        }
+        return null;
+    }
+    
+```
+
+### ReturnNull
+Return of `null`
+in `shenyu-plugin/shenyu-plugin-grpc/src/main/java/org/apache/shenyu/plugin/grpc/client/GrpcClientBuilder.java`
+#### Snippet
+```java
+        GrpcRegisterConfig config = Singleton.INST.get(GrpcRegisterConfig.class);
+        if (null == config) {
+            return null;
+        }
+        final String threadpool = Optional.ofNullable(config.getThreadpool()).orElse(Constants.CACHED);
+```
+
+### ReturnNull
+Return of `null`
+in `shenyu-plugin/shenyu-plugin-grpc/src/main/java/org/apache/shenyu/plugin/grpc/client/GrpcClientBuilder.java`
+#### Snippet
+```java
+            case Constants.CACHED:
+            default:
+                return null;
+        }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `shenyu-plugin/shenyu-plugin-grpc/src/main/java/org/apache/shenyu/plugin/grpc/client/ShenyuGrpcClient.java`
+#### Snippet
+```java
+            default:
+                LOG.info("Unknown methodType:{}", methodType);
+                return null;
+        }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `shenyu-plugin/shenyu-plugin-grpc/src/main/java/org/apache/shenyu/plugin/grpc/loadbalance/picker/RoundRobinPicker.java`
+#### Snippet
+```java
+    protected SubChannelCopy pick(final List<SubChannelCopy> list) {
+        if (CollectionUtils.isEmpty(list)) {
+            return null;
+        }
+        final int size = list.size();
+```
+
+### ReturnNull
+Return of `null`
+in `shenyu-plugin/shenyu-plugin-grpc/src/main/java/org/apache/shenyu/plugin/grpc/loadbalance/picker/RandomPicker.java`
+#### Snippet
+```java
+    protected SubChannelCopy pick(final List<SubChannelCopy> list) {
+        if (CollectionUtils.isEmpty(list)) {
+            return null;
+        }
+        if (list.size() == 1) {
+```
+
+### ReturnNull
+Return of `null`
+in `shenyu-plugin/shenyu-plugin-jwt/src/main/java/org/apache/shenyu/plugin/jwt/strategy/DefaultJwtConvertStrategy.java`
+#### Snippet
+```java
+        } catch (Exception exception) {
+            LOG.error("Failed to parse json , please check json format", exception);
+            return null;
+        }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `shenyu-spring-boot-starter/shenyu-spring-boot-starter-sdk/src/main/java/org/apache/shenyu/springboot/starter/sdk/ShenyuSdkAutoConfiguration.java`
+#### Snippet
+```java
+        final String registerType = config.getRegisterType();
+        if ("local".equals(registerType)) {
+            return null;
+        }
+        return ShenyuInstanceRegisterRepositoryFactory.newAndInitInstance(config);
+```
+
+### ReturnNull
+Return of `null`
+in `shenyu-plugin/shenyu-plugin-mock/src/main/java/org/apache/shenyu/plugin/mock/generator/GeneratorFactory.java`
+#### Snippet
+```java
+            LOG.warn("{} can not parse,please check", rule);
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `shenyu-plugin/shenyu-plugin-mock/src/main/java/org/apache/shenyu/plugin/mock/generator/GeneratorFactory.java`
+#### Snippet
+```java
+        int start = rule.indexOf("${");
+        if (start < 0) {
+            return null;
+        }
+        int counter = 1;
+```
+
+### ReturnNull
+Return of `null`
+in `shenyu-plugin/shenyu-plugin-mock/src/main/java/org/apache/shenyu/plugin/mock/generator/GeneratorFactory.java`
+#### Snippet
+```java
+            }
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `shenyu-plugin/shenyu-plugin-cache/shenyu-plugin-cache-memory/src/main/java/org/apache/shenyu/plugin/cache/memory/MemoryCache.java`
+#### Snippet
+```java
+                return this.mainCache.get(key).asMap().get(key);
+            }
+            return null;
+        });
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `shenyu-sync-data-center/shenyu-sync-data-nacos/src/main/java/org/apache/shenyu/sync/data/nacos/handler/NacosCacheHandler.java`
+#### Snippet
+```java
+            @Override
+            public Executor getExecutor() {
+                return null;
+            }
+        };
+```
+
 ## RuleId[ruleID=AssignmentToLambdaParameter]
 ### AssignmentToLambdaParameter
 Assignment to lambda parameter `value`
@@ -9583,14 +9717,14 @@ in `shenyu-plugin/shenyu-plugin-logging/shenyu-plugin-logging-console/src/main/j
 
 ### AssignmentToLambdaParameter
 Assignment to lambda parameter `ret`
-in `shenyu-plugin/shenyu-plugin-dubbo/shenyu-plugin-apache-dubbo/src/main/java/org/apache/shenyu/plugin/apache/dubbo/proxy/ApacheDubboProxyService.java`
+in `shenyu-plugin/shenyu-plugin-sofa/src/main/java/org/apache/shenyu/plugin/sofa/proxy/SofaProxyService.java`
 #### Snippet
 ```java
-        return Mono.fromFuture(invokeAsync(genericService, metaData.getMethodName(), pair.getLeft(), pair.getRight()).thenApply(ret -> {
+        return Mono.fromFuture(future.thenApply(ret -> {
             if (Objects.isNull(ret)) {
-                ret = Constants.DUBBO_RPC_RESULT_EMPTY;
+                ret = Constants.SOFA_RPC_RESULT_EMPTY;
             }
-            exchange.getAttributes().put(Constants.RPC_RESULT, ret);
+            
 ```
 
 ### AssignmentToLambdaParameter
@@ -9607,27 +9741,27 @@ in `shenyu-plugin/shenyu-plugin-tars/src/main/java/org/apache/shenyu/plugin/tars
 
 ### AssignmentToLambdaParameter
 Assignment to lambda parameter `ret`
-in `shenyu-plugin/shenyu-plugin-sofa/src/main/java/org/apache/shenyu/plugin/sofa/proxy/SofaProxyService.java`
+in `shenyu-plugin/shenyu-plugin-dubbo/shenyu-plugin-apache-dubbo/src/main/java/org/apache/shenyu/plugin/apache/dubbo/proxy/ApacheDubboProxyService.java`
 #### Snippet
 ```java
-        return Mono.fromFuture(future.thenApply(ret -> {
+        return Mono.fromFuture(invokeAsync(genericService, metaData.getMethodName(), pair.getLeft(), pair.getRight()).thenApply(ret -> {
             if (Objects.isNull(ret)) {
-                ret = Constants.SOFA_RPC_RESULT_EMPTY;
+                ret = Constants.DUBBO_RPC_RESULT_EMPTY;
             }
-            
+            exchange.getAttributes().put(Constants.RPC_RESULT, ret);
 ```
 
 ## RuleId[ruleID=UnnecessaryLocalVariable]
 ### UnnecessaryLocalVariable
-Local variable `permissionInfo` is redundant
-in `shenyu-admin/src/main/java/org/apache/shenyu/admin/model/vo/RoleEditVO.java`
+Local variable `path` is redundant
+in `shenyu-client/shenyu-client-brpc/src/main/java/org/apache/shenyu/client/brpc/BrpcContextRefreshedEventListener.java`
 #### Snippet
 ```java
-             */
-            public PermissionInfo build() {
-                PermissionInfo permissionInfo = new PermissionInfo(treeList, permissionIds);
-                return permissionInfo;
-            }
+    protected MetaDataRegisterDTO buildMetaDataDTO(final Object bean, final ShenyuBrpcClient shenyuBrpcClient, final String superPath, final Class<?> clazz, final Method method) {
+        String serviceName = clazz.getInterfaces().length > 0 ? clazz.getInterfaces()[0].getName() : clazz.getName();
+        String path = superPath;
+        String desc = shenyuBrpcClient.desc();
+        String host = IpUtils.isCompleteHost(this.getHost()) ? this.getHost() : IpUtils.getHost(this.getHost());
 ```
 
 ### UnnecessaryLocalVariable
@@ -9643,14 +9777,14 @@ in `shenyu-admin/src/main/java/org/apache/shenyu/admin/model/vo/RoleEditVO.java`
 ```
 
 ### UnnecessaryLocalVariable
-Local variable `menuInfo` is redundant
-in `shenyu-admin/src/main/java/org/apache/shenyu/admin/model/vo/PermissionMenuVO.java`
+Local variable `permissionInfo` is redundant
+in `shenyu-admin/src/main/java/org/apache/shenyu/admin/model/vo/RoleEditVO.java`
 #### Snippet
 ```java
              */
-            public MenuInfo build() {
-                MenuInfo menuInfo = new MenuInfo(id, name, url, component, meta, children, sort);
-                return menuInfo;
+            public PermissionInfo build() {
+                PermissionInfo permissionInfo = new PermissionInfo(treeList, permissionIds);
+                return permissionInfo;
             }
 ```
 
@@ -9676,6 +9810,18 @@ in `shenyu-admin/src/main/java/org/apache/shenyu/admin/model/entity/DashboardUse
             DashboardUserDO dashboardUserDO = DashboardUserDO.builder()
                     .password(item.getPassword())
                     .dateUpdated(currentTime)
+```
+
+### UnnecessaryLocalVariable
+Local variable `menuInfo` is redundant
+in `shenyu-admin/src/main/java/org/apache/shenyu/admin/model/vo/PermissionMenuVO.java`
+#### Snippet
+```java
+             */
+            public MenuInfo build() {
+                MenuInfo menuInfo = new MenuInfo(id, name, url, component, meta, children, sort);
+                return menuInfo;
+            }
 ```
 
 ### UnnecessaryLocalVariable
@@ -9709,7 +9855,7 @@ in `shenyu-plugin/shenyu-plugin-brpc/src/main/java/org/apache/shenyu/plugin/brpc
 ```java
                 service = ApplicationConfigCache.getInstance().initService(metaData);
             }
-            Map<String, String> result = (Map<String, String>) service.$invokeFuture(metaData.getMethodName(), params).get();
+            Object result = service.$invokeFuture(metaData.getMethodName(), params).get();
             return result;
         } catch (Exception e) {
 ```
@@ -9724,18 +9870,6 @@ in `shenyu-client/shenyu-client-websocket/shenyu-client-spring-websocket/src/mai
         Map<String, Object> clientBeans = context.getBeansWithAnnotation(ShenyuSpringWebSocketClient.class);
         return clientBeans;
     }
-```
-
-### UnnecessaryLocalVariable
-Local variable `path` is redundant
-in `shenyu-client/shenyu-client-brpc/src/main/java/org/apache/shenyu/client/brpc/BrpcContextRefreshedEventListener.java`
-#### Snippet
-```java
-            }
-        }
-        String path = superPath;
-        String desc = shenyuBrpcClient.desc();
-        String host = IpUtils.isCompleteHost(this.getHost()) ? this.getHost() : IpUtils.getHost(this.getHost());
 ```
 
 ## RuleId[ruleID=UnstableApiUsage]
