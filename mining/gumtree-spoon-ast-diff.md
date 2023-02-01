@@ -317,15 +317,15 @@ in `src/main/java/gumtree/spoon/diff/ActionClassifier.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends Operation`
+Can generalize to `? extends Action`
 in `src/main/java/gumtree/spoon/diff/DiffImpl.java`
 #### Snippet
 ```java
 	}
 
-	private String toDebugString(List<Operation> ops) {
-		String result = "";
-		for (Operation operation : ops) {
+	private List<Operation> convertToSpoon(List<Action> actions, MappingStore mappings) {
+		List<Operation> collect = actions.stream().map(action -> {
+
 ```
 
 ### BoundedWildcard
@@ -353,18 +353,6 @@ in `src/main/java/gumtree/spoon/diff/DiffImpl.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends Action`
-in `src/main/java/gumtree/spoon/diff/DiffImpl.java`
-#### Snippet
-```java
-	}
-
-	private List<Operation> convertToSpoon(List<Action> actions, MappingStore mappings) {
-		List<Operation> collect = actions.stream().map(action -> {
-
-```
-
-### BoundedWildcard
 Can generalize to `? extends Operation`
 in `src/main/java/gumtree/spoon/diff/DiffImpl.java`
 #### Snippet
@@ -374,6 +362,18 @@ in `src/main/java/gumtree/spoon/diff/DiffImpl.java`
 	public List<Operation> getOperationChildren(Operation operationParent, List<Operation> rootOperations) {
 		return rootOperations.stream() //
 				.filter(operation -> operation.getNode().getParent().equals(operationParent)) //
+```
+
+### BoundedWildcard
+Can generalize to `? extends Operation`
+in `src/main/java/gumtree/spoon/diff/DiffImpl.java`
+#### Snippet
+```java
+	}
+
+	private String toDebugString(List<Operation> ops) {
+		String result = "";
+		for (Operation operation : ops) {
 ```
 
 ## RuleId[ruleID=EqualsBetweenInconvertibleTypes]
@@ -566,6 +566,19 @@ public class CtVirtualElement extends CtWrapper<String> {
 	protected Collection<?> children;
 ```
 
+## RuleId[ruleID=HtmlWrongAttributeValue]
+### HtmlWrongAttributeValue
+Wrong attribute value
+in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-02-01-03-13-49.978.html`
+#### Snippet
+```java
+              <td>0</td>
+              <td>0</td>
+              <td><textarea rows="10" cols="75" readonly="true" placeholder="empty" style="white-space: pre; border: none">Not collected for refresh</textarea></td>
+            </tr>
+          </tbody>
+```
+
 ## RuleId[ruleID=ReturnNull]
 ### ReturnNull
 Return of `null`
@@ -627,19 +640,6 @@ in `src/main/java/gumtree/spoon/diff/DiffImpl.java`
 
 ```
 
-## RuleId[ruleID=HtmlWrongAttributeValue]
-### HtmlWrongAttributeValue
-Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-01-12-20-56-39.993.html`
-#### Snippet
-```java
-              <td>0</td>
-              <td>0</td>
-              <td><textarea rows="10" cols="75" readonly="true" placeholder="empty" style="white-space: pre; border: none">Not collected for refresh</textarea></td>
-            </tr>
-          </tbody>
-```
-
 ## RuleId[ruleID=UnnecessaryLocalVariable]
 ### UnnecessaryLocalVariable
 Local variable `collect` is redundant
@@ -679,18 +679,6 @@ in `src/main/java/gumtree/spoon/diff/DiffImpl.java`
 
 ## RuleId[ruleID=UnusedAssignment]
 ### UnusedAssignment
-Variable `nolabel` initializer `false` is redundant
-in `src/main/java/gumtree/spoon/builder/TreeScanner.java`
-#### Snippet
-```java
-	private final TreeContext treeContext;
-	private final Stack<Tree> nodes = new Stack<>();
-	boolean nolabel = false;
-
-	TreeScanner(TreeContext treeContext, Tree root) {
-```
-
-### UnusedAssignment
 Variable `label` initializer `null` is redundant
 in `src/main/java/gumtree/spoon/builder/TreeScanner.java`
 #### Snippet
@@ -700,5 +688,17 @@ in `src/main/java/gumtree/spoon/builder/TreeScanner.java`
 		String label = null;
 		String nodeTypeName = getNodeType(element);
 
+```
+
+### UnusedAssignment
+Variable `nolabel` initializer `false` is redundant
+in `src/main/java/gumtree/spoon/builder/TreeScanner.java`
+#### Snippet
+```java
+	private final TreeContext treeContext;
+	private final Stack<Tree> nodes = new Stack<>();
+	boolean nolabel = false;
+
+	TreeScanner(TreeContext treeContext, Tree root) {
 ```
 
