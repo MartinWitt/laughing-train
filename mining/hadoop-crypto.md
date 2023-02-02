@@ -70,7 +70,7 @@ in `hadoop-crypto/src/main/java/com/palantir/crypto2/hadoop/FileKeyStorageStrate
 ## RuleId[ruleID=IOResource]
 ### IOResource
 'DataInputStream' should be opened in front of a 'try' block and closed in the corresponding 'finally' block
-in `crypto-keys/src/main/java/com/palantir/crypto2/keys/serialization/KeySerializerV2.java`
+in `crypto-keys/src/main/java/com/palantir/crypto2/keys/serialization/KeySerializerV1.java`
 #### Snippet
 ```java
     @Override
@@ -106,7 +106,7 @@ in `crypto-keys/src/main/java/com/palantir/crypto2/keys/serialization/KeyMateria
 
 ### IOResource
 'DataInputStream' should be opened in front of a 'try' block and closed in the corresponding 'finally' block
-in `crypto-keys/src/main/java/com/palantir/crypto2/keys/serialization/KeySerializerV1.java`
+in `crypto-keys/src/main/java/com/palantir/crypto2/keys/serialization/KeySerializerV2.java`
 #### Snippet
 ```java
     @Override
@@ -130,18 +130,6 @@ in `hadoop-crypto/src/main/java/com/palantir/crypto2/hadoop/EncryptedFileSystem.
 ```
 
 ### RedundantMethodOverride
-Method `seek()` only delegates to its super method
-in `crypto-core/src/main/java/com/palantir/crypto2/io/ApacheCtrDecryptingSeekableInput.java`
-#### Snippet
-```java
-
-    @Override
-    public void seek(long offset) throws IOException {
-        super.seek(offset);
-    }
-```
-
-### RedundantMethodOverride
 Method `read()` only delegates to its super method
 in `crypto-core/src/main/java/com/palantir/crypto2/io/ApacheCtrDecryptingSeekableInput.java`
 #### Snippet
@@ -150,6 +138,18 @@ in `crypto-core/src/main/java/com/palantir/crypto2/io/ApacheCtrDecryptingSeekabl
     @Override
     public int read(byte[] bytes, int off, int len) throws IOException {
         return super.read(bytes, off, len);
+    }
+```
+
+### RedundantMethodOverride
+Method `seek()` only delegates to its super method
+in `crypto-core/src/main/java/com/palantir/crypto2/io/ApacheCtrDecryptingSeekableInput.java`
+#### Snippet
+```java
+
+    @Override
+    public void seek(long offset) throws IOException {
+        super.seek(offset);
     }
 ```
 
@@ -205,30 +205,6 @@ in `hadoop-crypto/src/main/java/com/palantir/crypto2/hadoop/EncryptedFileSystem.
 
 ## RuleId[ruleID=DeprecatedIsStillUsed]
 ### DeprecatedIsStillUsed
-Deprecated member 'getCipher' is still used
-in `crypto-core/src/main/java/com/palantir/crypto2/cipher/SeekableCipherFactory.java`
-#### Snippet
-```java
-     */
-    @Deprecated
-    public static SeekableCipher getCipher(String cipherAlgorithm) {
-        switch (cipherAlgorithm) {
-            case AesCtrCipher.ALGORITHM:
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'SymmetricKeySerializerV3' is still used
-in `crypto-keys/src/main/java/com/palantir/crypto2/keys/serialization/SymmetricKeySerializerV3.java`
-#### Snippet
-```java
- */
-@Deprecated
-enum SymmetricKeySerializerV3 implements SymmetricKeySerializer {
-    INSTANCE;
-
-```
-
-### DeprecatedIsStillUsed
 Deprecated member 'FsCipherOutputStream' is still used
 in `hadoop-crypto/src/main/java/com/palantir/crypto2/hadoop/cipher/FsCipherOutputStream.java`
 #### Snippet
@@ -238,6 +214,18 @@ in `hadoop-crypto/src/main/java/com/palantir/crypto2/hadoop/cipher/FsCipherOutpu
 public final class FsCipherOutputStream extends FilterOutputStream {
 
     public FsCipherOutputStream(FSDataOutputStream delegate, SeekableCipher cipher) {
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'KeySerializerV1' is still used
+in `crypto-keys/src/main/java/com/palantir/crypto2/keys/serialization/KeySerializerV1.java`
+#### Snippet
+```java
+ */
+@Deprecated
+enum KeySerializerV1 implements KeySerializer {
+    INSTANCE;
+
 ```
 
 ### DeprecatedIsStillUsed
@@ -253,15 +241,27 @@ in `hadoop-crypto/src/main/java/com/palantir/crypto2/hadoop/EncryptedFileSystem.
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'KeySerializerV1' is still used
-in `crypto-keys/src/main/java/com/palantir/crypto2/keys/serialization/KeySerializerV1.java`
+Deprecated member 'SymmetricKeySerializerV3' is still used
+in `crypto-keys/src/main/java/com/palantir/crypto2/keys/serialization/SymmetricKeySerializerV3.java`
 #### Snippet
 ```java
  */
 @Deprecated
-enum KeySerializerV1 implements KeySerializer {
+enum SymmetricKeySerializerV3 implements SymmetricKeySerializer {
     INSTANCE;
 
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'getCipher' is still used
+in `crypto-core/src/main/java/com/palantir/crypto2/cipher/SeekableCipherFactory.java`
+#### Snippet
+```java
+     */
+    @Deprecated
+    public static SeekableCipher getCipher(String cipherAlgorithm) {
+        switch (cipherAlgorithm) {
+            case AesCtrCipher.ALGORITHM:
 ```
 
 ## RuleId[ruleID=Convert2Lambda]
@@ -293,18 +293,6 @@ in `crypto-core/src/main/java/com/palantir/crypto2/io/ApacheCtrDecryptingSeekabl
 ## RuleId[ruleID=SizeReplaceableByIsEmpty]
 ### SizeReplaceableByIsEmpty
 `strategies.size() > 0` can be replaced with '!strategies.isEmpty()'
-in `crypto-keys/src/main/java/com/palantir/crypto2/keys/ChainedAsyncKeyStorageStrategy.java`
-#### Snippet
-```java
-
-    public ChainedAsyncKeyStorageStrategy(Executor executor, List<AsyncKeyStorageStrategy> strategies) {
-        Preconditions.checkArgument(strategies.size() > 0, "Must specify at least one storage strategy");
-        this.executor = executor;
-        this.strategies = ImmutableList.copyOf(strategies);
-```
-
-### SizeReplaceableByIsEmpty
-`strategies.size() > 0` can be replaced with '!strategies.isEmpty()'
 in `crypto-keys/src/main/java/com/palantir/crypto2/keys/ChainedKeyStorageStrategy.java`
 #### Snippet
 ```java
@@ -315,17 +303,16 @@ in `crypto-keys/src/main/java/com/palantir/crypto2/keys/ChainedKeyStorageStrateg
     }
 ```
 
-## RuleId[ruleID=AbstractClassNeverImplemented]
-### AbstractClassNeverImplemented
-Abstract class `KeyMaterial` has no concrete subclass
-in `crypto-keys/src/main/java/com/palantir/crypto2/keys/KeyMaterial.java`
+### SizeReplaceableByIsEmpty
+`strategies.size() > 0` can be replaced with '!strategies.isEmpty()'
+in `crypto-keys/src/main/java/com/palantir/crypto2/keys/ChainedAsyncKeyStorageStrategy.java`
 #### Snippet
 ```java
-@Value.Immutable
-@Value.Style(visibility = Value.Style.ImplementationVisibility.PACKAGE, jdkOnly = true)
-public abstract class KeyMaterial {
 
-    @Value.Parameter
+    public ChainedAsyncKeyStorageStrategy(Executor executor, List<AsyncKeyStorageStrategy> strategies) {
+        Preconditions.checkArgument(strategies.size() > 0, "Must specify at least one storage strategy");
+        this.executor = executor;
+        this.strategies = ImmutableList.copyOf(strategies);
 ```
 
 ## RuleId[ruleID=BoundedWildcard]
@@ -399,6 +386,19 @@ in `hadoop-crypto/src/main/java/com/palantir/crypto2/hadoop/PathConvertingFileSy
             Function<URI, URI> fromUriFunc) {
         super(delegate);
         this.delegate = delegate;
+```
+
+## RuleId[ruleID=AbstractClassNeverImplemented]
+### AbstractClassNeverImplemented
+Abstract class `KeyMaterial` has no concrete subclass
+in `crypto-keys/src/main/java/com/palantir/crypto2/keys/KeyMaterial.java`
+#### Snippet
+```java
+@Value.Immutable
+@Value.Style(visibility = Value.Style.ImplementationVisibility.PACKAGE, jdkOnly = true)
+public abstract class KeyMaterial {
+
+    @Value.Parameter
 ```
 
 ## RuleId[ruleID=UnstableApiUsage]
