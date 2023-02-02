@@ -94,18 +94,6 @@ in `gradle-metric-schema/src/main/java/com/palantir/metric/schema/gradle/Generat
 ## RuleId[ruleID=ZeroLengthArrayInitialization]
 ### ZeroLengthArrayInitialization
 Allocation of zero length array
-in `metric-schema-lang/src/main/java/com/palantir/metric/schema/lang/Validator.java`
-#### Snippet
-```java
-        List<SafeArg<?>> allArgs = new ArrayList<>(Arrays.asList(args));
-        allArgs.addAll(errorContext);
-        Preconditions.checkArgument(expression, message, allArgs.toArray(new Arg[0]));
-    }
-
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
 in `metric-schema-java/src/main/java/com/palantir/metric/schema/model/ImplementationVisibility.java`
 #### Snippet
 ```java
@@ -118,14 +106,14 @@ in `metric-schema-java/src/main/java/com/palantir/metric/schema/model/Implementa
 
 ### ZeroLengthArrayInitialization
 Allocation of zero length array
-in `metric-schema-java/src/main/java/com/palantir/metric/schema/UtilityGenerator.java`
+in `metric-schema-lang/src/main/java/com/palantir/metric/schema/lang/Validator.java`
 #### Snippet
 ```java
-        }
-        outerBuilder.addType(TypeSpec.classBuilder(Custodian.anyToUpperCamel(stagedBuilderSpec.name()) + "Builder")
-                .addModifiers(modifiers.toArray(new Modifier[0]))
-                .addSuperinterfaces(stagedBuilderSpec.stages().stream()
-                        .map(stage -> ClassName.bestGuess(stageName(stagedBuilderSpec.name(), stage.name())))
+        List<SafeArg<?>> allArgs = new ArrayList<>(Arrays.asList(args));
+        allArgs.addAll(errorContext);
+        Preconditions.checkArgument(expression, message, allArgs.toArray(new Arg[0]));
+    }
+
 ```
 
 ### ZeroLengthArrayInitialization
@@ -138,6 +126,18 @@ in `metric-schema-java/src/main/java/com/palantir/metric/schema/UtilityGenerator
                 .addModifiers(extraModifiers.toArray(new Modifier[0]))
                 .returns(MetricName.class)
                 .addCode("return $L;", metricNameBlock)
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `metric-schema-java/src/main/java/com/palantir/metric/schema/UtilityGenerator.java`
+#### Snippet
+```java
+        }
+        outerBuilder.addType(TypeSpec.classBuilder(Custodian.anyToUpperCamel(stagedBuilderSpec.name()) + "Builder")
+                .addModifiers(modifiers.toArray(new Modifier[0]))
+                .addSuperinterfaces(stagedBuilderSpec.stages().stream()
+                        .map(stage -> ClassName.bestGuess(stageName(stagedBuilderSpec.name(), stage.name())))
 ```
 
 ## RuleId[ruleID=DataFlowIssue]
@@ -192,18 +192,6 @@ in `gradle-metric-schema/src/main/java/com/palantir/metric/schema/gradle/Generat
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends List`
-in `gradle-metric-schema/src/main/java/com/palantir/metric/schema/gradle/CheckMetricMarkdownTask.java`
-#### Snippet
-```java
-    }
-
-    private static boolean isEmpty(Map<String, List<MetricSchema>> schemas) {
-        return schemas.isEmpty() || schemas.values().stream().allMatch(List::isEmpty);
-    }
-```
-
-### BoundedWildcard
 Can generalize to `? extends RegularFile`
 in `gradle-metric-schema/src/main/java/com/palantir/metric/schema/gradle/ProviderUtils.java`
 #### Snippet
@@ -216,6 +204,18 @@ public final class ProviderUtils {
 ```
 
 ### BoundedWildcard
+Can generalize to `? extends List`
+in `gradle-metric-schema/src/main/java/com/palantir/metric/schema/gradle/CheckMetricMarkdownTask.java`
+#### Snippet
+```java
+    }
+
+    private static boolean isEmpty(Map<String, List<MetricSchema>> schemas) {
+        return schemas.isEmpty() || schemas.values().stream().allMatch(List::isEmpty);
+    }
+```
+
+### BoundedWildcard
 Can generalize to `? extends Directory`
 in `gradle-metric-schema/src/main/java/com/palantir/metric/schema/gradle/MetricSchemaPlugin.java`
 #### Snippet
@@ -225,18 +225,6 @@ in `gradle-metric-schema/src/main/java/com/palantir/metric/schema/gradle/MetricS
             Project project, Provider<Directory> metricSchemaDir, SourceDirectorySet sourceSet) {
         Provider<RegularFile> schemaFile = metricSchemaDir.map(dir -> dir.file(METRIC_SCHEMA_RESOURCE));
         JavaPluginConvention javaPlugin = project.getConvention().getPlugin(JavaPluginConvention.class);
-```
-
-### BoundedWildcard
-Can generalize to `? extends Directory`
-in `gradle-metric-schema/src/main/java/com/palantir/metric/schema/gradle/MetricSchemaPlugin.java`
-#### Snippet
-```java
-
-    private static void configureIdea(
-            Project project, TaskProvider<? extends Task> generateMetrics, Provider<Directory> outputDir) {
-        project.getPluginManager().withPlugin("idea", _plugin -> {
-            project.getTasks().named("ideaModule").configure(task -> task.dependsOn(generateMetrics));
 ```
 
 ### BoundedWildcard
@@ -263,19 +251,19 @@ in `gradle-metric-schema/src/main/java/com/palantir/metric/schema/gradle/MetricS
         Configuration runtimeClasspath = project.getConfigurations().getByName("runtimeClasspath");
 ```
 
-## RuleId[ruleID=AbstractClassNeverImplemented]
-### AbstractClassNeverImplemented
-Abstract class `JavaGeneratorArgs` has no concrete subclass
-in `metric-schema-java/src/main/java/com/palantir/metric/schema/JavaGeneratorArgs.java`
+### BoundedWildcard
+Can generalize to `? extends Directory`
+in `gradle-metric-schema/src/main/java/com/palantir/metric/schema/gradle/MetricSchemaPlugin.java`
 #### Snippet
 ```java
-        jdkOnly = true,
-        get = {"get*", "is*"})
-public abstract class JavaGeneratorArgs {
 
-    private static final Predicate<String> LIBRARY_NAME =
+    private static void configureIdea(
+            Project project, TaskProvider<? extends Task> generateMetrics, Provider<Directory> outputDir) {
+        project.getPluginManager().withPlugin("idea", _plugin -> {
+            project.getTasks().named("ideaModule").configure(task -> task.dependsOn(generateMetrics));
 ```
 
+## RuleId[ruleID=AbstractClassNeverImplemented]
 ### AbstractClassNeverImplemented
 Abstract class `GenerateMetricSchemaTask` has no concrete subclass
 in `gradle-metric-schema/src/main/java/com/palantir/metric/schema/gradle/GenerateMetricSchemaTask.java`
@@ -286,6 +274,18 @@ in `gradle-metric-schema/src/main/java/com/palantir/metric/schema/gradle/Generat
 public abstract class GenerateMetricSchemaTask extends DefaultTask {
     private final Property<String> libraryName =
             getProject().getObjects().property(String.class).value(defaultLibraryName());
+```
+
+### AbstractClassNeverImplemented
+Abstract class `JavaGeneratorArgs` has no concrete subclass
+in `metric-schema-java/src/main/java/com/palantir/metric/schema/JavaGeneratorArgs.java`
+#### Snippet
+```java
+        jdkOnly = true,
+        get = {"get*", "is*"})
+public abstract class JavaGeneratorArgs {
+
+    private static final Predicate<String> LIBRARY_NAME =
 ```
 
 ### AbstractClassNeverImplemented
@@ -321,9 +321,9 @@ in `gradle-metric-schema/src/main/java/com/palantir/metric/schema/gradle/CreateM
 ```java
     }
 
-    private static Optional<List<MetricSchema>> inferProjectDependencyMetrics(Project dependencyProject) {
-        if (!dependencyProject.getPlugins().hasPlugin(MetricSchemaPlugin.class)) {
-            return Optional.empty();
+    private static Optional<List<MetricSchema>> getExternalMetrics(ComponentIdentifier id, ResolvedArtifact artifact) {
+        if (!artifact.getFile().exists()) {
+            log.debug("Artifact did not exist: {}", artifact.getFile());
 ```
 
 ### OptionalContainsCollection
@@ -333,9 +333,9 @@ in `gradle-metric-schema/src/main/java/com/palantir/metric/schema/gradle/CreateM
 ```java
     }
 
-    private static Optional<List<MetricSchema>> getExternalMetrics(ComponentIdentifier id, ResolvedArtifact artifact) {
-        if (!artifact.getFile().exists()) {
-            log.debug("Artifact did not exist: {}", artifact.getFile());
+    private static Optional<List<MetricSchema>> inferProjectDependencyMetrics(Project dependencyProject) {
+        if (!dependencyProject.getPlugins().hasPlugin(MetricSchemaPlugin.class)) {
+            return Optional.empty();
 ```
 
 ## RuleId[ruleID=UnstableApiUsage]
