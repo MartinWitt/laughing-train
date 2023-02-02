@@ -152,6 +152,18 @@ Return of `null`
 in `server/src/jetbrains/buildServer/sharedResources/pages/ResourceHelper.java`
 #### Snippet
 ```java
+  private Map<String, String> validate(@NotNull final Map<String, String> params) {
+    if (params.values().stream().anyMatch(StringUtil::isEmptyOrSpaces)) {
+      return null;
+    } else {
+      return params;
+```
+
+### ReturnNull
+Return of `null`
+in `server/src/jetbrains/buildServer/sharedResources/pages/ResourceHelper.java`
+#### Snippet
+```java
         } catch (IllegalArgumentException e) {
           LOG.warn("Illegal argument supplied in quota for resource [" + resourceName + "]");
           return null;
@@ -193,18 +205,6 @@ in `server/src/jetbrains/buildServer/sharedResources/pages/ResourceHelper.java`
       return null;
     }
     if (ResourceType.QUOTED.equals(resourceType)) {
-```
-
-### ReturnNull
-Return of `null`
-in `server/src/jetbrains/buildServer/sharedResources/pages/ResourceHelper.java`
-#### Snippet
-```java
-  private Map<String, String> validate(@NotNull final Map<String, String> params) {
-    if (params.values().stream().anyMatch(StringUtil::isEmptyOrSpaces)) {
-      return null;
-    } else {
-      return params;
 ```
 
 ### ReturnNull
@@ -495,18 +495,6 @@ in `server/src/jetbrains/buildServer/sharedResources/server/runtime/TakenLocksIm
 ```java
 
   @Override
-  public Map<Resource, String> getUnavailableLocks(@NotNull final Collection<Lock> locksToTake,
-                                                   @NotNull final Map<Resource, TakenLock> takenLocks,
-                                                   @NotNull final String projectId,
-```
-
-### BoundedWildcard
-Can generalize to `? extends Lock`
-in `server/src/jetbrains/buildServer/sharedResources/server/runtime/TakenLocksImpl.java`
-#### Snippet
-```java
-
-  @Override
   public Map<Resource, String> getUnavailableLocks(@NotNull final Map<String, Lock> locksToTake,
                                                    @NotNull final Map<Resource, TakenLock> takenLocks,
                                                    @NotNull final DistributionDataAccessor distributionDataAccessor,
@@ -522,6 +510,18 @@ in `server/src/jetbrains/buildServer/sharedResources/server/runtime/TakenLocksIm
                                                    @NotNull final Map<String, Resource> chainNodeResources,
                                                    @NotNull final Map<Resource, Map<BuildPromotionEx, Lock>> chainLocks,
                                                    @NotNull final BuildPromotion promotion) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends Lock`
+in `server/src/jetbrains/buildServer/sharedResources/server/runtime/TakenLocksImpl.java`
+#### Snippet
+```java
+
+  @Override
+  public Map<Resource, String> getUnavailableLocks(@NotNull final Collection<Lock> locksToTake,
+                                                   @NotNull final Map<Resource, TakenLock> takenLocks,
+                                                   @NotNull final String projectId,
 ```
 
 ## RuleId[ruleID=CStyleArrayDeclaration]
