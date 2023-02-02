@@ -1,43 +1,42 @@
 # shardingsphere 
  
 # Bad smells
-I found 1298 bad smells with 151 repairable:
+I found 1305 bad smells with 155 repairable:
 | ruleID | number | fixable |
 | --- | --- | --- |
-| BoundedWildcard | 298 | false |
-| ReturnNull | 260 | false |
-| UtilityClassWithoutPrivateConstructor | 87 | true |
+| BoundedWildcard | 299 | false |
+| ReturnNull | 262 | false |
+| UtilityClassWithoutPrivateConstructor | 88 | true |
 | CastConflictsWithInstanceof | 79 | false |
-| RedundantSuppression | 77 | false |
-| NonProtectedConstructorInAbstractClass | 54 | true |
+| RedundantSuppression | 78 | false |
+| NonProtectedConstructorInAbstractClass | 57 | true |
 | InjectedReferences | 51 | false |
 | EmptyMethod | 41 | false |
 | UnstableApiUsage | 35 | false |
-| OptionalContainsCollection | 29 | false |
-| DynamicRegexReplaceableByCompiledPattern | 26 | false |
+| OptionalContainsCollection | 26 | false |
+| DynamicRegexReplaceableByCompiledPattern | 24 | false |
+| ZeroLengthArrayInitialization | 22 | false |
+| DataFlowIssue | 22 | false |
 | AssignmentToStaticFieldFromInstanceMethod | 21 | false |
-| ZeroLengthArrayInitialization | 21 | false |
-| DataFlowIssue | 19 | false |
-| NestedAssignment | 12 | false |
 | CallToStringConcatCanBeReplacedByOperator | 12 | false |
-| ConstantValue | 12 | false |
+| NestedAssignment | 11 | false |
 | UseOfPropertiesAsHashtable | 11 | false |
+| ConstantValue | 11 | false |
+| SizeReplaceableByIsEmpty | 10 | true |
 | RedundantImplements | 10 | false |
 | OptionalGetWithoutIsPresent | 10 | false |
-| SizeReplaceableByIsEmpty | 9 | true |
 | ReplaceAssignmentWithOperatorAssignment | 9 | false |
+| SynchronizeOnThis | 9 | false |
 | FieldMayBeStatic | 9 | false |
 | RegExpSimplifiable | 8 | false |
 | TrivialStringConcatenation | 8 | false |
-| SynchronizeOnThis | 8 | false |
-| FieldAccessedSynchronizedAndUnsynchronized | 7 | false |
+| FieldAccessedSynchronizedAndUnsynchronized | 8 | false |
 | NullableProblems | 5 | false |
+| HtmlWrongAttributeValue | 5 | false |
 | RegExpRedundantEscape | 4 | false |
-| HtmlWrongAttributeValue | 4 | false |
 | SetReplaceableByEnumSet | 4 | false |
 | KeySetIterationMayUseEntrySet | 3 | false |
 | UnnecessarySuperQualifier | 3 | false |
-| OptionalUsedAsFieldOrParameterType | 3 | false |
 | ComparatorMethodParameterNotUsed | 3 | false |
 | AssignmentToLambdaParameter | 3 | false |
 | DuplicateBranchesInSwitch | 2 | false |
@@ -46,6 +45,7 @@ I found 1298 bad smells with 151 repairable:
 | OptionalAssignedToNull | 2 | false |
 | EqualsAndHashcode | 2 | false |
 | InstanceofCatchParameter | 2 | false |
+| OptionalUsedAsFieldOrParameterType | 2 | false |
 | SystemOutErr | 2 | false |
 | ConditionCoveredByFurtherCondition | 2 | false |
 | TestCaseWithConstructor | 2 | false |
@@ -53,11 +53,10 @@ I found 1298 bad smells with 151 repairable:
 | MagicConstant | 1 | false |
 | CastToIncompatibleInterface | 1 | false |
 | UnnecessaryQualifierForThis | 1 | false |
-| NonShortCircuitBoolean | 1 | false |
 | AbstractClassNeverImplemented | 1 | false |
+| InstanceofIncompatibleInterface | 1 | false |
 | MalformedFormatString | 1 | false |
 | ExcessiveLambdaUsage | 1 | false |
-| CodeBlock2Expr | 1 | true |
 | Lombok | 1 | false |
 | MismatchedCollectionQueryUpdate | 1 | false |
 | DoubleBraceInitialization | 1 | false |
@@ -115,42 +114,6 @@ in `agent/plugins/tracing/test/src/main/java/org/apache/shardingsphere/agent/plu
 
 ### AssignmentToStaticFieldFromInstanceMethod
 Assignment to static field `jdbcConnectionClass` from instance context
-in `kernel/transaction/type/xa/core/src/main/java/org/apache/shardingsphere/transaction/xa/jta/connection/dialect/PostgreSQLXAConnectionWrapper.java`
-#### Snippet
-```java
-    
-    private void loadReflection() {
-        jdbcConnectionClass = getJDBCConnectionClass();
-        xaConnectionConstructor = getXAConnectionConstructor();
-    }
-```
-
-### AssignmentToStaticFieldFromInstanceMethod
-Assignment to static field `xaConnectionConstructor` from instance context
-in `kernel/transaction/type/xa/core/src/main/java/org/apache/shardingsphere/transaction/xa/jta/connection/dialect/PostgreSQLXAConnectionWrapper.java`
-#### Snippet
-```java
-    private void loadReflection() {
-        jdbcConnectionClass = getJDBCConnectionClass();
-        xaConnectionConstructor = getXAConnectionConstructor();
-    }
-    
-```
-
-### AssignmentToStaticFieldFromInstanceMethod
-Assignment to static field `initialized` from instance context
-in `kernel/transaction/type/xa/core/src/main/java/org/apache/shardingsphere/transaction/xa/jta/connection/dialect/PostgreSQLXAConnectionWrapper.java`
-#### Snippet
-```java
-        if (!initialized) {
-            loadReflection();
-            initialized = true;
-        }
-        return createXAConnection(connection.unwrap(jdbcConnectionClass));
-```
-
-### AssignmentToStaticFieldFromInstanceMethod
-Assignment to static field `jdbcConnectionClass` from instance context
 in `kernel/transaction/type/xa/core/src/main/java/org/apache/shardingsphere/transaction/xa/jta/connection/dialect/MariaDBXAConnectionWrapper.java`
 #### Snippet
 ```java
@@ -183,42 +146,6 @@ in `kernel/transaction/type/xa/core/src/main/java/org/apache/shardingsphere/tran
             initialized = true;
         }
         return createXAConnection(connection.unwrap(jdbcConnectionClass));
-```
-
-### AssignmentToStaticFieldFromInstanceMethod
-Assignment to static field `initialized` from instance context
-in `kernel/transaction/type/xa/core/src/main/java/org/apache/shardingsphere/transaction/xa/jta/connection/dialect/OracleXAConnectionWrapper.java`
-#### Snippet
-```java
-        if (!initialized) {
-            loadReflection();
-            initialized = true;
-        }
-        return createXAConnection(connection.unwrap(jdbcConnectionClass));
-```
-
-### AssignmentToStaticFieldFromInstanceMethod
-Assignment to static field `jdbcConnectionClass` from instance context
-in `kernel/transaction/type/xa/core/src/main/java/org/apache/shardingsphere/transaction/xa/jta/connection/dialect/OracleXAConnectionWrapper.java`
-#### Snippet
-```java
-    
-    private void loadReflection() {
-        jdbcConnectionClass = getJDBCConnectionClass();
-        xaConnectionConstructor = getXAConnectionConstructor();
-    }
-```
-
-### AssignmentToStaticFieldFromInstanceMethod
-Assignment to static field `xaConnectionConstructor` from instance context
-in `kernel/transaction/type/xa/core/src/main/java/org/apache/shardingsphere/transaction/xa/jta/connection/dialect/OracleXAConnectionWrapper.java`
-#### Snippet
-```java
-    private void loadReflection() {
-        jdbcConnectionClass = getJDBCConnectionClass();
-        xaConnectionConstructor = getXAConnectionConstructor();
-    }
-    
 ```
 
 ### AssignmentToStaticFieldFromInstanceMethod
@@ -282,39 +209,39 @@ in `kernel/transaction/type/xa/core/src/main/java/org/apache/shardingsphere/tran
 ```
 
 ### AssignmentToStaticFieldFromInstanceMethod
+Assignment to static field `jdbcConnectionClass` from instance context
+in `kernel/transaction/type/xa/core/src/main/java/org/apache/shardingsphere/transaction/xa/jta/connection/dialect/PostgreSQLXAConnectionWrapper.java`
+#### Snippet
+```java
+    
+    private void loadReflection() {
+        jdbcConnectionClass = getJDBCConnectionClass();
+        xaConnectionConstructor = getXAConnectionConstructor();
+    }
+```
+
+### AssignmentToStaticFieldFromInstanceMethod
+Assignment to static field `xaConnectionConstructor` from instance context
+in `kernel/transaction/type/xa/core/src/main/java/org/apache/shardingsphere/transaction/xa/jta/connection/dialect/PostgreSQLXAConnectionWrapper.java`
+#### Snippet
+```java
+    private void loadReflection() {
+        jdbcConnectionClass = getJDBCConnectionClass();
+        xaConnectionConstructor = getXAConnectionConstructor();
+    }
+    
+```
+
+### AssignmentToStaticFieldFromInstanceMethod
 Assignment to static field `initialized` from instance context
-in `kernel/transaction/type/xa/core/src/main/java/org/apache/shardingsphere/transaction/xa/jta/connection/dialect/MySQLXAConnectionWrapper.java`
+in `kernel/transaction/type/xa/core/src/main/java/org/apache/shardingsphere/transaction/xa/jta/connection/dialect/PostgreSQLXAConnectionWrapper.java`
 #### Snippet
 ```java
         if (!initialized) {
             loadReflection();
             initialized = true;
         }
-        return createXAConnection(xaDataSource, connection.unwrap(jdbcConnectionClass));
-```
-
-### AssignmentToStaticFieldFromInstanceMethod
-Assignment to static field `jdbcConnectionClass` from instance context
-in `kernel/transaction/type/xa/core/src/main/java/org/apache/shardingsphere/transaction/xa/jta/connection/dialect/MySQLXAConnectionWrapper.java`
-#### Snippet
-```java
-    
-    private void loadReflection() {
-        jdbcConnectionClass = getJDBCConnectionClass();
-        xaConnectionCreatorMethod = getXAConnectionCreatorMethod();
-    }
-```
-
-### AssignmentToStaticFieldFromInstanceMethod
-Assignment to static field `xaConnectionCreatorMethod` from instance context
-in `kernel/transaction/type/xa/core/src/main/java/org/apache/shardingsphere/transaction/xa/jta/connection/dialect/MySQLXAConnectionWrapper.java`
-#### Snippet
-```java
-    private void loadReflection() {
-        jdbcConnectionClass = getJDBCConnectionClass();
-        xaConnectionCreatorMethod = getXAConnectionCreatorMethod();
-    }
-    
+        return createXAConnection(connection.unwrap(jdbcConnectionClass));
 ```
 
 ### AssignmentToStaticFieldFromInstanceMethod
@@ -353,19 +280,79 @@ in `kernel/transaction/type/xa/core/src/main/java/org/apache/shardingsphere/tran
         return createXAConnection(connection.unwrap(jdbcConnectionClass));
 ```
 
-## RuleId[ruleID=RegExpRedundantEscape]
-### RegExpRedundantEscape
-Redundant character escape `\\.` in RegExp
-in `infra/common/src/main/java/org/apache/shardingsphere/infra/database/metadata/dialect/OracleDataSourceMetaData.java`
+### AssignmentToStaticFieldFromInstanceMethod
+Assignment to static field `initialized` from instance context
+in `kernel/transaction/type/xa/core/src/main/java/org/apache/shardingsphere/transaction/xa/jta/connection/dialect/OracleXAConnectionWrapper.java`
 #### Snippet
 ```java
-    private final String schema;
-    
-    private final Pattern thinUrlPattern = Pattern.compile("jdbc:oracle:(thin|oci|kprb):@(//)?([\\w\\-\\.]+):?([0-9]*)[:/]([\\w\\-]+)", Pattern.CASE_INSENSITIVE);
-    
-    private final Pattern connectDescriptorUrlPattern = Pattern.compile("jdbc:oracle:(thin|oci|kprb):@[(\\w\\s=)]+HOST\\s*=\\s*([\\w\\-\\.]+).*PORT\\s*=\\s*(\\d+).*SERVICE_NAME\\s*=\\s*(\\w+)\\)");
+        if (!initialized) {
+            loadReflection();
+            initialized = true;
+        }
+        return createXAConnection(connection.unwrap(jdbcConnectionClass));
 ```
 
+### AssignmentToStaticFieldFromInstanceMethod
+Assignment to static field `jdbcConnectionClass` from instance context
+in `kernel/transaction/type/xa/core/src/main/java/org/apache/shardingsphere/transaction/xa/jta/connection/dialect/OracleXAConnectionWrapper.java`
+#### Snippet
+```java
+    
+    private void loadReflection() {
+        jdbcConnectionClass = getJDBCConnectionClass();
+        xaConnectionConstructor = getXAConnectionConstructor();
+    }
+```
+
+### AssignmentToStaticFieldFromInstanceMethod
+Assignment to static field `xaConnectionConstructor` from instance context
+in `kernel/transaction/type/xa/core/src/main/java/org/apache/shardingsphere/transaction/xa/jta/connection/dialect/OracleXAConnectionWrapper.java`
+#### Snippet
+```java
+    private void loadReflection() {
+        jdbcConnectionClass = getJDBCConnectionClass();
+        xaConnectionConstructor = getXAConnectionConstructor();
+    }
+    
+```
+
+### AssignmentToStaticFieldFromInstanceMethod
+Assignment to static field `initialized` from instance context
+in `kernel/transaction/type/xa/core/src/main/java/org/apache/shardingsphere/transaction/xa/jta/connection/dialect/MySQLXAConnectionWrapper.java`
+#### Snippet
+```java
+        if (!initialized) {
+            loadReflection();
+            initialized = true;
+        }
+        return createXAConnection(xaDataSource, connection.unwrap(jdbcConnectionClass));
+```
+
+### AssignmentToStaticFieldFromInstanceMethod
+Assignment to static field `jdbcConnectionClass` from instance context
+in `kernel/transaction/type/xa/core/src/main/java/org/apache/shardingsphere/transaction/xa/jta/connection/dialect/MySQLXAConnectionWrapper.java`
+#### Snippet
+```java
+    
+    private void loadReflection() {
+        jdbcConnectionClass = getJDBCConnectionClass();
+        xaConnectionCreatorMethod = getXAConnectionCreatorMethod();
+    }
+```
+
+### AssignmentToStaticFieldFromInstanceMethod
+Assignment to static field `xaConnectionCreatorMethod` from instance context
+in `kernel/transaction/type/xa/core/src/main/java/org/apache/shardingsphere/transaction/xa/jta/connection/dialect/MySQLXAConnectionWrapper.java`
+#### Snippet
+```java
+    private void loadReflection() {
+        jdbcConnectionClass = getJDBCConnectionClass();
+        xaConnectionCreatorMethod = getXAConnectionCreatorMethod();
+    }
+    
+```
+
+## RuleId[ruleID=RegExpRedundantEscape]
 ### RegExpRedundantEscape
 Redundant character escape `\\.` in RegExp
 in `infra/common/src/main/java/org/apache/shardingsphere/infra/database/metadata/dialect/OracleDataSourceMetaData.java`
@@ -376,6 +363,18 @@ in `infra/common/src/main/java/org/apache/shardingsphere/infra/database/metadata
     private final Pattern connectDescriptorUrlPattern = Pattern.compile("jdbc:oracle:(thin|oci|kprb):@[(\\w\\s=)]+HOST\\s*=\\s*([\\w\\-\\.]+).*PORT\\s*=\\s*(\\d+).*SERVICE_NAME\\s*=\\s*(\\w+)\\)");
     
     public OracleDataSourceMetaData(final String url, final String username) {
+```
+
+### RegExpRedundantEscape
+Redundant character escape `\\.` in RegExp
+in `infra/common/src/main/java/org/apache/shardingsphere/infra/database/metadata/dialect/OracleDataSourceMetaData.java`
+#### Snippet
+```java
+    private final String schema;
+    
+    private final Pattern thinUrlPattern = Pattern.compile("jdbc:oracle:(thin|oci|kprb):@(//)?([\\w\\-\\.]+):?([0-9]*)[:/]([\\w\\-]+)", Pattern.CASE_INSENSITIVE);
+    
+    private final Pattern connectDescriptorUrlPattern = Pattern.compile("jdbc:oracle:(thin|oci|kprb):@[(\\w\\s=)]+HOST\\s*=\\s*([\\w\\-\\.]+).*PORT\\s*=\\s*(\\d+).*SERVICE_NAME\\s*=\\s*(\\w+)\\)");
 ```
 
 ### RegExpRedundantEscape
@@ -422,7 +421,7 @@ in `proxy/backend/src/main/java/org/apache/shardingsphere/proxy/backend/handler/
 #### Snippet
 ```java
         Map<String, MySQLSessionVariableHandler> handlers = sessionVariables.keySet().stream().collect(Collectors.toMap(Function.identity(),
-                value -> TypedSPIRegistry.findRegisteredService(MySQLSessionVariableHandler.class, value).orElseGet(DefaultMySQLSessionVariableHandler::new)));
+                value -> TypedSPILoader.findService(MySQLSessionVariableHandler.class, value).orElseGet(DefaultMySQLSessionVariableHandler::new)));
         for (String each : handlers.keySet()) {
             handlers.get(each).handle(connectionSession, each, sessionVariables.get(each));
         }
@@ -509,8 +508,8 @@ in `mode/type/cluster/core/src/main/java/org/apache/shardingsphere/mode/manager/
 #### Snippet
 ```java
     
-    private static Matcher getShowProcessTriggerMatcher(final DataChangedEvent event) {
-        return Pattern.compile(ComputeNode.getProcessTriggerNodePatch() + "/([\\S]+):([\\S]+)$", Pattern.CASE_INSENSITIVE).matcher(event.getKey());
+    private Matcher matchInstanceOnlinePath(final String onlineInstancePath) {
+        return Pattern.compile(ComputeNode.getOnlineInstanceNodePath() + "/([\\S]+)/([\\S]+)$", Pattern.CASE_INSENSITIVE).matcher(onlineInstancePath);
     }
     
 ```
@@ -521,8 +520,8 @@ in `mode/type/cluster/core/src/main/java/org/apache/shardingsphere/mode/manager/
 #### Snippet
 ```java
     
-    private static Matcher getShowProcessTriggerMatcher(final DataChangedEvent event) {
-        return Pattern.compile(ComputeNode.getProcessTriggerNodePatch() + "/([\\S]+):([\\S]+)$", Pattern.CASE_INSENSITIVE).matcher(event.getKey());
+    private Matcher matchInstanceOnlinePath(final String onlineInstancePath) {
+        return Pattern.compile(ComputeNode.getOnlineInstanceNodePath() + "/([\\S]+)/([\\S]+)$", Pattern.CASE_INSENSITIVE).matcher(onlineInstancePath);
     }
     
 ```
@@ -557,8 +556,8 @@ in `mode/type/cluster/core/src/main/java/org/apache/shardingsphere/mode/manager/
 #### Snippet
 ```java
     
-    private Matcher matchInstanceOnlinePath(final String onlineInstancePath) {
-        return Pattern.compile(ComputeNode.getOnlineInstanceNodePath() + "/([\\S]+)/([\\S]+)$", Pattern.CASE_INSENSITIVE).matcher(onlineInstancePath);
+    private static Matcher getShowProcessTriggerMatcher(final DataChangedEvent event) {
+        return Pattern.compile(ComputeNode.getProcessTriggerNodePatch() + "/([\\S]+):([\\S]+)$", Pattern.CASE_INSENSITIVE).matcher(event.getKey());
     }
     
 ```
@@ -569,8 +568,8 @@ in `mode/type/cluster/core/src/main/java/org/apache/shardingsphere/mode/manager/
 #### Snippet
 ```java
     
-    private Matcher matchInstanceOnlinePath(final String onlineInstancePath) {
-        return Pattern.compile(ComputeNode.getOnlineInstanceNodePath() + "/([\\S]+)/([\\S]+)$", Pattern.CASE_INSENSITIVE).matcher(onlineInstancePath);
+    private static Matcher getShowProcessTriggerMatcher(final DataChangedEvent event) {
+        return Pattern.compile(ComputeNode.getProcessTriggerNodePatch() + "/([\\S]+):([\\S]+)$", Pattern.CASE_INSENSITIVE).matcher(event.getKey());
     }
     
 ```
@@ -674,14 +673,26 @@ in `kernel/data-pipeline/core/src/main/java/org/apache/shardingsphere/data/pipel
 
 ### SizeReplaceableByIsEmpty
 `0 == props.getProperty(atLeastOneCharConfigKey).length()` can be replaced with 'props.getProperty(atLeastOneCharConfigKey).isEmpty()'
-in `features/mask/core/src/main/java/org/apache/shardingsphere/mask/algorithm/MaskAlgorithmUtil.java`
+in `features/mask/core/src/main/java/org/apache/shardingsphere/mask/algorithm/MaskAlgorithmPropsChecker.java`
 #### Snippet
 ```java
-            throw new MaskAlgorithmInitializationException(maskType, String.format("%s can not be null.", atLeastOneCharConfigKey));
+            throw new MaskAlgorithmInitializationException(maskType, String.format("%s can not be null", atLeastOneCharConfigKey));
         }
         if (0 == props.getProperty(atLeastOneCharConfigKey).length()) {
-            throw new MaskAlgorithmInitializationException(maskType, String.format("%s's length must be at least one.", atLeastOneCharConfigKey));
+            throw new MaskAlgorithmInitializationException(maskType, String.format("%s's length must be at least one", atLeastOneCharConfigKey));
         }
+```
+
+### SizeReplaceableByIsEmpty
+`0 == line.length()` can be replaced with 'line.isEmpty()'
+in `features/mask/core/src/main/java/org/apache/shardingsphere/mask/algorithm/replace/TelephoneRandomReplaceAlgorithm.java`
+#### Snippet
+```java
+            @Override
+            public boolean processLine(final String line) {
+                if (line.startsWith("#") || 0 == line.length()) {
+                    return true;
+                } else {
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -694,30 +705,6 @@ in `features/encrypt/core/src/main/java/org/apache/shardingsphere/encrypt/algori
                 if (line.startsWith("#") || 0 == line.length()) {
                     return true;
                 } else {
-```
-
-## RuleId[ruleID=NonShortCircuitBoolean]
-### NonShortCircuitBoolean
-Non-short-circuit boolean expression `sqlStatement instanceof SetStatement | sqlStatement instanceof MySQLUseStatement ...`
-in `sql-parser/statement/src/main/java/org/apache/shardingsphere/sql/parser/sql/common/util/SQLUtil.java`
-#### Snippet
-```java
-    
-    private static boolean isReadOnly(final DALStatement sqlStatement) {
-        return !(sqlStatement instanceof SetStatement
-                | sqlStatement instanceof MySQLUseStatement
-                | sqlStatement instanceof MySQLUninstallPluginStatement
-                | sqlStatement instanceof MySQLResetStatement
-                | sqlStatement instanceof MySQLRepairTableStatement
-                | sqlStatement instanceof MySQLOptimizeTableStatement
-                | sqlStatement instanceof MySQLLoadIndexInfoStatement
-                | sqlStatement instanceof MySQLKillStatement
-                | sqlStatement instanceof MySQLInstallPluginStatement
-                | sqlStatement instanceof MySQLFlushStatement
-                | sqlStatement instanceof MySQLChecksumTableStatement
-                | sqlStatement instanceof MySQLCacheIndexStatement);
-    }
-    
 ```
 
 ## RuleId[ruleID=TrivialStringConcatenation]
@@ -738,11 +725,11 @@ Empty string used in concatenation
 in `kernel/data-pipeline/core/src/main/java/org/apache/shardingsphere/data/pipeline/core/api/impl/AbstractPipelineJobAPIImpl.java`
 #### Snippet
 ```java
-        ShardingSpherePreconditions.checkState(jobConfigPOJO.isDisabled(), () -> new PipelineJobHasAlreadyStartedException(jobId));
-        jobConfigPOJO.setDisabled(false);
-        jobConfigPOJO.getProps().setProperty("start_time_millis", System.currentTimeMillis() + "");
-        jobConfigPOJO.getProps().remove("stop_time");
-        jobConfigPOJO.getProps().remove("stop_time_millis");
+        String createTimeFormat = LocalDateTime.now().format(DATE_TIME_FORMATTER);
+        result.getProps().setProperty("create_time", createTimeFormat);
+        result.getProps().setProperty("start_time_millis", System.currentTimeMillis() + "");
+        return result;
+    }
 ```
 
 ### TrivialStringConcatenation
@@ -750,11 +737,11 @@ Empty string used in concatenation
 in `kernel/data-pipeline/core/src/main/java/org/apache/shardingsphere/data/pipeline/core/api/impl/AbstractPipelineJobAPIImpl.java`
 #### Snippet
 ```java
-        String createTimeFormat = LocalDateTime.now().format(DATE_TIME_FORMATTER);
-        result.getProps().setProperty("create_time", createTimeFormat);
-        result.getProps().setProperty("start_time_millis", System.currentTimeMillis() + "");
-        return result;
-    }
+        ShardingSpherePreconditions.checkState(jobConfigPOJO.isDisabled(), () -> new PipelineJobHasAlreadyStartedException(jobId));
+        jobConfigPOJO.setDisabled(false);
+        jobConfigPOJO.getProps().setProperty("start_time_millis", System.currentTimeMillis() + "");
+        jobConfigPOJO.getProps().remove("stop_time");
+        jobConfigPOJO.getProps().remove("stop_time_millis");
 ```
 
 ### TrivialStringConcatenation
@@ -832,18 +819,6 @@ public abstract class PostgreSQLLexerBase extends Lexer {
 
 ## RuleId[ruleID=BoundedWildcard]
 ### BoundedWildcard
-Can generalize to `? extends DataSource`
-in `jdbc/core/src/main/java/org/apache/shardingsphere/driver/data/pipeline/datasource/creator/ShardingSpherePipelineDataSourceCreator.java`
-#### Snippet
-```java
-    }
-    
-    private void closeDataSources(final Collection<DataSource> dataSources) {
-        dataSources.stream().map(DataSourcePoolDestroyer::new).forEach(DataSourcePoolDestroyer::asyncDestroy);
-    }
-```
-
-### BoundedWildcard
 Can generalize to `? extends RuleConfiguration`
 in `jdbc/core/src/main/java/org/apache/shardingsphere/driver/jdbc/core/datasource/ShardingSphereDataSource.java`
 #### Snippet
@@ -851,7 +826,7 @@ in `jdbc/core/src/main/java/org/apache/shardingsphere/driver/jdbc/core/datasourc
     
     private ContextManager createContextManager(final String databaseName, final ModeConfiguration modeConfig, final Map<String, DataSource> dataSourceMap,
                                                 final Collection<RuleConfiguration> ruleConfigs, final Properties props) throws SQLException {
-        InstanceMetaData instanceMetaData = TypedSPIRegistry.getRegisteredService(InstanceMetaDataBuilder.class, "JDBC").build(-1);
+        InstanceMetaData instanceMetaData = TypedSPILoader.getService(InstanceMetaDataBuilder.class, "JDBC").build(-1);
         Collection<RuleConfiguration> globalRuleConfigs = ruleConfigs.stream().filter(each -> each instanceof GlobalRuleConfiguration).collect(Collectors.toList());
 ```
 
@@ -865,6 +840,18 @@ in `jdbc/core/src/main/java/org/apache/shardingsphere/driver/jdbc/core/connectio
     private Map<String, DataSourceProperties> createDataSourcePropertiesMap(final Collection<InstanceMetaData> instances, final Collection<ShardingSphereUser> users,
                                                                             final DataSourceProperties dataSourcePropsSample, final String schema) {
         Map<String, DataSourceProperties> result = new LinkedHashMap<>();
+```
+
+### BoundedWildcard
+Can generalize to `? extends SQLException`
+in `jdbc/core/src/main/java/org/apache/shardingsphere/driver/jdbc/adapter/executor/ForceExecuteTemplate.java`
+#### Snippet
+```java
+    }
+    
+    private void throwSQLExceptionIfNecessary(final Collection<SQLException> exceptions) throws SQLException {
+        if (exceptions.isEmpty()) {
+            return;
 ```
 
 ### BoundedWildcard
@@ -889,18 +876,6 @@ in `jdbc/core/src/main/java/org/apache/shardingsphere/driver/jdbc/adapter/execut
     public void execute(final Collection<T> targets, final ForceExecuteCallback<T> callback) throws SQLException {
         Collection<SQLException> exceptions = new LinkedList<>();
         for (T each : targets) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends SQLException`
-in `jdbc/core/src/main/java/org/apache/shardingsphere/driver/jdbc/adapter/executor/ForceExecuteTemplate.java`
-#### Snippet
-```java
-    }
-    
-    private void throwSQLExceptionIfNecessary(final Collection<SQLException> exceptions) throws SQLException {
-        if (exceptions.isEmpty()) {
-            return;
 ```
 
 ### BoundedWildcard
@@ -940,6 +915,18 @@ in `jdbc/core/src/main/java/org/apache/shardingsphere/driver/jdbc/core/statement
 ```
 
 ### BoundedWildcard
+Can generalize to `? extends ShardingSphereRule`
+in `jdbc/core/src/main/java/org/apache/shardingsphere/driver/executor/DriverJDBCExecutor.java`
+#### Snippet
+```java
+    }
+    
+    private boolean isNeedAccumulate(final Collection<ShardingSphereRule> rules, final SQLStatementContext<?> sqlStatementContext) {
+        for (ShardingSphereRule each : rules) {
+            if (each instanceof DataNodeContainedRule && ((DataNodeContainedRule) each).isNeedAccumulate(sqlStatementContext.getTablesContext().getTableNames())) {
+```
+
+### BoundedWildcard
 Can generalize to `? extends ExecuteResult`
 in `jdbc/core/src/main/java/org/apache/shardingsphere/driver/jdbc/core/statement/ShardingSphereStatement.java`
 #### Snippet
@@ -964,18 +951,6 @@ in `jdbc/core/src/main/java/org/apache/shardingsphere/driver/jdbc/core/statement
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends ShardingSphereRule`
-in `jdbc/core/src/main/java/org/apache/shardingsphere/driver/executor/DriverJDBCExecutor.java`
-#### Snippet
-```java
-    }
-    
-    private boolean isNeedAccumulate(final Collection<ShardingSphereRule> rules, final SQLStatementContext<?> sqlStatementContext) {
-        for (ShardingSphereRule each : rules) {
-            if (each instanceof DataNodeContainedRule && ((DataNodeContainedRule) each).isNeedAccumulate(sqlStatementContext.getTablesContext().getTableNames())) {
-```
-
-### BoundedWildcard
 Can generalize to `? extends DataSource`
 in `mode/core/src/main/java/org/apache/shardingsphere/mode/metadata/persist/MetaDataPersistService.java`
 #### Snippet
@@ -992,11 +967,11 @@ Can generalize to `? extends DatabaseConfiguration`
 in `mode/core/src/main/java/org/apache/shardingsphere/mode/metadata/MetaDataContextsFactory.java`
 #### Snippet
 ```java
+    }
     
-    private static DatabaseConfiguration createEffectiveDatabaseConfiguration(final String databaseName,
-                                                                              final Map<String, DatabaseConfiguration> databaseConfigs, final MetaDataPersistService persistService) {
-        Map<String, DataSource> effectiveDataSources = persistService.getEffectiveDataSources(databaseName, databaseConfigs);
-        Collection<RuleConfiguration> databaseRuleConfigs = persistService.getDatabaseRulePersistService().load(databaseName);
+    private static void checkDataSourceStates(final Map<String, DatabaseConfiguration> databaseConfigs, final Map<String, StorageNodeDataSource> storageNodes, final boolean force) {
+        Map<String, DataSourceState> storageDataSourceStates = getStorageDataSourceStates(storageNodes);
+        databaseConfigs.forEach((key, value) -> {
 ```
 
 ### BoundedWildcard
@@ -1004,11 +979,11 @@ Can generalize to `? extends DatabaseConfiguration`
 in `mode/core/src/main/java/org/apache/shardingsphere/mode/metadata/MetaDataContextsFactory.java`
 #### Snippet
 ```java
-    }
     
-    private static void checkDataSourceStates(final Map<String, DatabaseConfiguration> databaseConfigs, final Map<String, StorageNodeDataSource> storageNodes, final boolean force) {
-        Map<String, DataSourceState> storageDataSourceStates = getStorageDataSourceStates(storageNodes);
-        databaseConfigs.forEach((key, value) -> {
+    private static DatabaseConfiguration createEffectiveDatabaseConfiguration(final String databaseName,
+                                                                              final Map<String, DatabaseConfiguration> databaseConfigs, final MetaDataPersistService persistService) {
+        Map<String, DataSource> effectiveDataSources = persistService.getEffectiveDataSources(databaseName, databaseConfigs);
+        Collection<RuleConfiguration> databaseRuleConfigs = persistService.getDatabaseRulePersistService().load(databaseName);
 ```
 
 ### BoundedWildcard
@@ -1030,8 +1005,8 @@ in `mode/core/src/main/java/org/apache/shardingsphere/mode/manager/switcher/Reso
 ```java
     }
     
-    private Map<String, DataSource> getStaleDataSources(final Map<String, DataSource> dataSources, final Map<String, DataSourceProperties> toBeDeletedDataSourceProps) {
-        return dataSources.entrySet().stream().filter(entry -> toBeDeletedDataSourceProps.containsKey(entry.getKey())).collect(Collectors.toMap(Entry::getKey, Entry::getValue));
+    private boolean isModifiedDataSource(final Map<String, DataSource> originalDataSources, final String dataSourceName, final DataSourceProperties dataSourceProps) {
+        return originalDataSources.containsKey(dataSourceName) && !dataSourceProps.equals(DataSourcePropertiesCreator.create(originalDataSources.get(dataSourceName)));
     }
 ```
 
@@ -1042,8 +1017,8 @@ in `mode/core/src/main/java/org/apache/shardingsphere/mode/manager/switcher/Reso
 ```java
     }
     
-    private boolean isModifiedDataSource(final Map<String, DataSource> originalDataSources, final String dataSourceName, final DataSourceProperties dataSourceProps) {
-        return originalDataSources.containsKey(dataSourceName) && !dataSourceProps.equals(DataSourcePropertiesCreator.create(originalDataSources.get(dataSourceName)));
+    private Map<String, DataSource> getStaleDataSources(final Map<String, DataSource> dataSources, final Map<String, DataSourceProperties> toBeDeletedDataSourceProps) {
+        return dataSources.entrySet().stream().filter(entry -> toBeDeletedDataSourceProps.containsKey(entry.getKey())).collect(Collectors.toMap(Entry::getKey, Entry::getValue));
     }
 ```
 
@@ -1096,6 +1071,18 @@ in `test/it/parser/src/main/java/org/apache/shardingsphere/test/it/sql/parser/in
 ```
 
 ### BoundedWildcard
+Can generalize to `? extends OrderByItemSegment`
+in `test/it/parser/src/main/java/org/apache/shardingsphere/test/it/sql/parser/internal/asserts/segment/orderby/OrderByItemAssert.java`
+#### Snippet
+```java
+     */
+    public static void assertIs(final SQLCaseAssertContext assertContext,
+                                final Collection<OrderByItemSegment> actual, final ExpectedOrderByClause expected, final String type) {
+        assertThat(assertContext.getText(String.format("%s items size assertion error: ", type)), actual.size(), is(expected.getItemSize()));
+        int count = 0;
+```
+
+### BoundedWildcard
 Can generalize to `? extends MutableDataNodeRule`
 in `mode/type/standalone/core/src/main/java/org/apache/shardingsphere/mode/manager/standalone/StandaloneModeContextManager.java`
 #### Snippet
@@ -1117,18 +1104,6 @@ in `mode/type/standalone/core/src/main/java/org/apache/shardingsphere/mode/manag
     private void removeDataNode(final Collection<MutableDataNodeRule> rules, final Collection<String> schemaNames, final Collection<String> tobeRemovedTables) {
         tobeRemovedTables.forEach(each -> rules.forEach(rule -> rule.remove(schemaNames, each)));
     }
-```
-
-### BoundedWildcard
-Can generalize to `? extends OrderByItemSegment`
-in `test/it/parser/src/main/java/org/apache/shardingsphere/test/it/sql/parser/internal/asserts/segment/orderby/OrderByItemAssert.java`
-#### Snippet
-```java
-     */
-    public static void assertIs(final SQLCaseAssertContext assertContext,
-                                final Collection<OrderByItemSegment> actual, final ExpectedOrderByClause expected, final String type) {
-        assertThat(assertContext.getText(String.format("%s items size assertion error: ", type)), actual.size(), is(expected.getItemSize()));
-        int count = 0;
 ```
 
 ### BoundedWildcard
@@ -1186,9 +1161,9 @@ in `agent/core/src/main/java/org/apache/shardingsphere/agent/core/spi/AgentServi
 ```java
     }
     
-    private Collection<T> load(final Class<T> service) {
+    private Collection<T> load(final ClassLoader classLoader, final Class<T> service) {
         Collection<T> result = new LinkedList<>();
-        for (T each : ServiceLoader.load(service)) {
+        for (T each : ServiceLoader.load(service, classLoader)) {
 ```
 
 ### BoundedWildcard
@@ -1204,15 +1179,51 @@ in `agent/core/src/main/java/org/apache/shardingsphere/agent/core/advisor/config
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends File`
-in `agent/core/src/main/java/org/apache/shardingsphere/agent/core/classloader/AgentClassLoader.java`
+Can generalize to `? extends JarFile`
+in `agent/core/src/main/java/org/apache/shardingsphere/agent/core/plugin/PluginLifecycleServiceManager.java`
 #### Snippet
 ```java
     }
     
-    public AgentClassLoader(final ClassLoader appClassLoader, final Collection<PluginJar> pluginJars, final Collection<File> resourcePaths) {
+    private static void close(final ClassLoader pluginClassLoader, final Collection<JarFile> pluginJars) {
+        AgentServiceLoader.getServiceLoader(pluginClassLoader, PluginLifecycleService.class).getServices().forEach(each -> {
+            try {
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
+in `agent/plugins/core/src/main/java/org/apache/shardingsphere/agent/plugin/core/spi/PluginServiceLoader.java`
+#### Snippet
+```java
+    }
+    
+    private Collection<T> load(final Class<T> service) {
+        Collection<T> result = new LinkedList<>();
+        for (T each : ServiceLoader.load(service)) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends JarFile`
+in `agent/core/src/main/java/org/apache/shardingsphere/agent/core/classloader/AgentExtraClassLoader.java`
+#### Snippet
+```java
+    }
+    
+    public AgentExtraClassLoader(final ClassLoader appClassLoader, final Collection<JarFile> extraJars, final Collection<File> extraResourcePaths) {
         super(appClassLoader);
-        this.pluginJars = pluginJars;
+        this.extraJars = extraJars;
+```
+
+### BoundedWildcard
+Can generalize to `? extends File`
+in `agent/core/src/main/java/org/apache/shardingsphere/agent/core/classloader/AgentExtraClassLoader.java`
+#### Snippet
+```java
+    }
+    
+    public AgentExtraClassLoader(final ClassLoader appClassLoader, final Collection<JarFile> extraJars, final Collection<File> extraResourcePaths) {
+        super(appClassLoader);
+        this.extraJars = extraJars;
 ```
 
 ### BoundedWildcard
@@ -1229,26 +1240,14 @@ in `infra/util/src/main/java/org/apache/shardingsphere/infra/util/spi/ShardingSp
 
 ### BoundedWildcard
 Can generalize to `? extends T`
-in `infra/util/src/main/java/org/apache/shardingsphere/infra/util/spi/type/typed/TypedSPIRegistry.java`
+in `infra/util/src/main/java/org/apache/shardingsphere/infra/util/spi/type/typed/TypedSPILoader.java`
 #### Snippet
 ```java
-     * @return registered service
-     */
-    public static <T extends TypedSPI> Optional<T> findRegisteredService(final Class<T> spiClass, final String type) {
+    }
+    
+    private static <T extends TypedSPI> Optional<T> findService(final Class<T> spiClass) {
         for (T each : ShardingSphereServiceLoader.getServiceInstances(spiClass)) {
-            if (matchesType(type, each)) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
-in `infra/util/src/main/java/org/apache/shardingsphere/infra/util/spi/type/typed/TypedSPIRegistry.java`
-#### Snippet
-```java
-     * @return registered service
-     */
-    public static <T extends TypedSPI> Optional<T> findRegisteredService(final Class<T> spiClass, final String type, final Properties props) {
-        for (T each : ShardingSphereServiceLoader.getServiceInstances(spiClass)) {
-            if (matchesType(type, each)) {
+            if (!each.isDefault()) {
 ```
 
 ### BoundedWildcard
@@ -1264,6 +1263,42 @@ in `infra/util/src/main/java/org/apache/shardingsphere/infra/util/props/TypedPro
 ```
 
 ### BoundedWildcard
+Can generalize to `? extends T`
+in `infra/util/src/main/java/org/apache/shardingsphere/infra/util/spi/type/ordered/OrderedSPILoader.java`
+#### Snippet
+```java
+    }
+    
+    private static <T extends OrderedSPI<?>> Collection<T> getServices(final Class<T> spiClass, final Comparator<Integer> comparator) {
+        Map<Integer, T> result = new TreeMap<>(comparator);
+        for (T each : ShardingSphereServiceLoader.getServiceInstances(spiClass)) {
+```
+
+### BoundedWildcard
+Can generalize to `? super Integer`
+in `infra/util/src/main/java/org/apache/shardingsphere/infra/util/spi/type/ordered/OrderedSPILoader.java`
+#### Snippet
+```java
+    }
+    
+    private static <T extends OrderedSPI<?>> Collection<T> getServices(final Class<T> spiClass, final Comparator<Integer> comparator) {
+        Map<Integer, T> result = new TreeMap<>(comparator);
+        for (T each : ShardingSphereServiceLoader.getServiceInstances(spiClass)) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends K`
+in `infra/util/src/main/java/org/apache/shardingsphere/infra/util/spi/type/ordered/OrderedSPILoader.java`
+#### Snippet
+```java
+     */
+    @SuppressWarnings("unchecked")
+    public static <K, V extends OrderedSPI<?>> Map<K, V> getServices(final Class<V> spiClass, final Collection<K> types, final Comparator<Integer> orderComparator) {
+        Optional<Map<K, V>> cachedServices = OrderedServicesCache.findCachedServices(spiClass, types).map(optional -> (Map<K, V>) optional);
+        if (cachedServices.isPresent()) {
+```
+
+### BoundedWildcard
 Can generalize to `? extends QueryResult`
 in `infra/merge/src/main/java/org/apache/shardingsphere/infra/merge/engine/merger/impl/TransparentResultMerger.java`
 #### Snippet
@@ -1276,44 +1311,8 @@ in `infra/merge/src/main/java/org/apache/shardingsphere/infra/merge/engine/merge
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends K`
-in `infra/util/src/main/java/org/apache/shardingsphere/infra/util/spi/type/ordered/OrderedSPIRegistry.java`
-#### Snippet
-```java
-     */
-    @SuppressWarnings("unchecked")
-    public static <K, V extends OrderedSPI<?>> Map<K, V> getRegisteredServices(final Class<V> spiClass, final Collection<K> types, final Comparator<Integer> orderComparator) {
-        Optional<Map<K, V>> cachedServices = OrderedServicesCache.findCachedServices(spiClass, types).map(optional -> (Map<K, V>) optional);
-        if (cachedServices.isPresent()) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
-in `infra/util/src/main/java/org/apache/shardingsphere/infra/util/spi/type/ordered/OrderedSPIRegistry.java`
-#### Snippet
-```java
-    }
-    
-    private static <T extends OrderedSPI<?>> Collection<T> getRegisteredServices(final Class<T> spiClass, final Comparator<Integer> comparator) {
-        Map<Integer, T> result = new TreeMap<>(comparator);
-        for (T each : ShardingSphereServiceLoader.getServiceInstances(spiClass)) {
-```
-
-### BoundedWildcard
-Can generalize to `? super Integer`
-in `infra/util/src/main/java/org/apache/shardingsphere/infra/util/spi/type/ordered/OrderedSPIRegistry.java`
-#### Snippet
-```java
-    }
-    
-    private static <T extends OrderedSPI<?>> Collection<T> getRegisteredServices(final Class<T> spiClass, final Comparator<Integer> comparator) {
-        Map<Integer, T> result = new TreeMap<>(comparator);
-        for (T each : ShardingSphereServiceLoader.getServiceInstances(spiClass)) {
-```
-
-### BoundedWildcard
 Can generalize to `? extends ExpressionSegment`
-in `infra/binder/src/main/java/org/apache/shardingsphere/infra/binder/segment/insert/values/InsertValueContext.java`
+in `infra/binder/src/main/java/org/apache/shardingsphere/infra/binder/segment/insert/values/OnDuplicateUpdateContext.java`
 #### Snippet
 ```java
     }
@@ -1325,7 +1324,7 @@ in `infra/binder/src/main/java/org/apache/shardingsphere/infra/binder/segment/in
 
 ### BoundedWildcard
 Can generalize to `? extends ExpressionSegment`
-in `infra/binder/src/main/java/org/apache/shardingsphere/infra/binder/segment/insert/values/OnDuplicateUpdateContext.java`
+in `infra/binder/src/main/java/org/apache/shardingsphere/infra/binder/segment/insert/values/InsertValueContext.java`
 #### Snippet
 ```java
     }
@@ -1345,18 +1344,6 @@ in `infra/binder/src/main/java/org/apache/shardingsphere/infra/binder/segment/in
     private Collection<ExpressionSegment> findGenerateKeyExpressions(final List<String> insertColumnNames, final List<List<ExpressionSegment>> valueExpressions, final String generateKeyColumnName) {
         Collection<ExpressionSegment> result = new LinkedList<>();
         for (List<ExpressionSegment> each : valueExpressions) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends ExpressionSegment`
-in `infra/binder/src/main/java/org/apache/shardingsphere/infra/binder/segment/select/pagination/engine/TopPaginationContextEngine.java`
-#### Snippet
-```java
-     * @return pagination context
-     */
-    public PaginationContext createPaginationContext(final TopProjectionSegment topProjectionSegment, final Collection<ExpressionSegment> expressions, final List<Object> params) {
-        Collection<AndPredicate> andPredicates = expressions.stream().flatMap(each -> ExpressionExtractUtil.getAndPredicates(each).stream()).collect(Collectors.toList());
-        Optional<ExpressionSegment> rowNumberPredicate = !expressions.isEmpty() ? getRowNumberPredicate(andPredicates, topProjectionSegment.getAlias()) : Optional.empty();
 ```
 
 ### BoundedWildcard
@@ -1381,6 +1368,18 @@ in `infra/binder/src/main/java/org/apache/shardingsphere/infra/binder/segment/se
     private boolean isContainsLastInsertIdProjection(final Collection<Projection> projections) {
         for (Projection each : projections) {
             if (LAST_INSERT_ID_FUNCTION_EXPRESSION.equalsIgnoreCase(SQLUtil.getExactlyExpression(each.getExpression()))) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends ExpressionSegment`
+in `infra/binder/src/main/java/org/apache/shardingsphere/infra/binder/segment/select/pagination/engine/TopPaginationContextEngine.java`
+#### Snippet
+```java
+     * @return pagination context
+     */
+    public PaginationContext createPaginationContext(final TopProjectionSegment topProjectionSegment, final Collection<ExpressionSegment> expressions, final List<Object> params) {
+        Collection<AndPredicate> andPredicates = expressions.stream().flatMap(each -> ExpressionExtractUtil.getAndPredicates(each).stream()).collect(Collectors.toList());
+        Optional<ExpressionSegment> rowNumberPredicate = !expressions.isEmpty() ? getRowNumberPredicate(andPredicates, topProjectionSegment.getAlias()) : Optional.empty();
 ```
 
 ### BoundedWildcard
@@ -1438,9 +1437,9 @@ in `infra/binder/src/main/java/org/apache/shardingsphere/infra/binder/segment/se
 ```java
     }
     
-    private Collection<Projection> getActualProjections(final Collection<Projection> projections) {
+    private Collection<Projection> getJoinUsingColumnsByOriginalColumnSequence(final Collection<Projection> actualProjections, final Collection<String> usingColumnNames) {
         Collection<Projection> result = new LinkedList<>();
-        for (Projection each : projections) {
+        for (Projection each : actualProjections) {
 ```
 
 ### BoundedWildcard
@@ -1450,9 +1449,9 @@ in `infra/binder/src/main/java/org/apache/shardingsphere/infra/binder/segment/se
 ```java
     }
     
-    private Collection<Projection> getJoinUsingColumnsByOriginalColumnSequence(final Collection<Projection> actualProjections, final Collection<String> usingColumnNames) {
+    private Collection<Projection> getActualProjections(final Collection<Projection> projections) {
         Collection<Projection> result = new LinkedList<>();
-        for (Projection each : actualProjections) {
+        for (Projection each : projections) {
 ```
 
 ### BoundedWildcard
@@ -1500,7 +1499,7 @@ in `infra/common/src/main/java/org/apache/shardingsphere/infra/rule/builder/glob
     @SuppressWarnings("rawtypes")
     private static Map<RuleConfiguration, GlobalRuleBuilder> getRuleBuilderMap(final Collection<RuleConfiguration> globalRuleConfigs) {
         Map<RuleConfiguration, GlobalRuleBuilder> result = new LinkedHashMap<>();
-        result.putAll(OrderedSPIRegistry.getRegisteredServices(GlobalRuleBuilder.class, globalRuleConfigs));
+        result.putAll(OrderedSPILoader.getServices(GlobalRuleBuilder.class, globalRuleConfigs));
 ```
 
 ### BoundedWildcard
@@ -1512,7 +1511,7 @@ in `infra/common/src/main/java/org/apache/shardingsphere/infra/rule/builder/data
     @SuppressWarnings("rawtypes")
     private static Map<RuleConfiguration, DatabaseRuleBuilder> getDistributedRuleBuilderMap(final Collection<RuleConfiguration> ruleConfigs) {
         Collection<RuleConfiguration> distributedRuleConfigs = ruleConfigs.stream().filter(each -> isAssignableFrom(each, DistributedRuleConfiguration.class)).collect(Collectors.toList());
-        return OrderedSPIRegistry.getRegisteredServices(DatabaseRuleBuilder.class, distributedRuleConfigs, Comparator.reverseOrder());
+        return OrderedSPILoader.getServices(DatabaseRuleBuilder.class, distributedRuleConfigs, Comparator.reverseOrder());
 ```
 
 ### BoundedWildcard
@@ -1524,7 +1523,7 @@ in `infra/common/src/main/java/org/apache/shardingsphere/infra/rule/builder/data
     @SuppressWarnings("rawtypes")
     private static Map<RuleConfiguration, DatabaseRuleBuilder> getEnhancedRuleBuilderMap(final Collection<RuleConfiguration> ruleConfigs) {
         Collection<RuleConfiguration> enhancedRuleConfigs = ruleConfigs.stream().filter(each -> isAssignableFrom(each, EnhancedRuleConfiguration.class)).collect(Collectors.toList());
-        return OrderedSPIRegistry.getRegisteredServices(DatabaseRuleBuilder.class, enhancedRuleConfigs);
+        return OrderedSPILoader.getServices(DatabaseRuleBuilder.class, enhancedRuleConfigs);
 ```
 
 ### BoundedWildcard
@@ -1564,18 +1563,6 @@ in `infra/common/src/main/java/org/apache/shardingsphere/infra/yaml/config/swapp
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends DataSource`
-in `infra/common/src/main/java/org/apache/shardingsphere/infra/database/type/DatabaseTypeEngine.java`
-#### Snippet
-```java
-     * @return storage type
-     */
-    public static DatabaseType getStorageType(final Collection<DataSource> dataSources) {
-        return dataSources.isEmpty() ? TypedSPIRegistry.getRegisteredService(DatabaseType.class, DEFAULT_DATABASE_TYPE) : getStorageType(dataSources.iterator().next());
-    }
-```
-
-### BoundedWildcard
 Can generalize to `? extends Map`
 in `infra/common/src/main/java/org/apache/shardingsphere/infra/yaml/config/swapper/resource/YamlDataSourceConfigurationSwapper.java`
 #### Snippet
@@ -1584,6 +1571,18 @@ in `infra/common/src/main/java/org/apache/shardingsphere/infra/yaml/config/swapp
      */
     public Map<String, DataSource> swapToDataSources(final Map<String, Map<String, Object>> yamlDataSources, final boolean cacheEnabled) {
         return DataSourcePoolCreator.create(yamlDataSources.entrySet().stream().collect(Collectors.toMap(Entry::getKey, entry -> swapToDataSourceProperties(entry.getValue()))), cacheEnabled);
+    }
+```
+
+### BoundedWildcard
+Can generalize to `? extends DataSource`
+in `infra/common/src/main/java/org/apache/shardingsphere/infra/database/type/DatabaseTypeEngine.java`
+#### Snippet
+```java
+     * @return storage type
+     */
+    public static DatabaseType getStorageType(final Collection<DataSource> dataSources) {
+        return dataSources.isEmpty() ? TypedSPILoader.getService(DatabaseType.class, DEFAULT_DATABASE_TYPE) : getStorageType(dataSources.iterator().next());
     }
 ```
 
@@ -1608,19 +1607,7 @@ in `infra/common/src/main/java/org/apache/shardingsphere/infra/datanode/DataNode
     
     public DataNodes(final Collection<ShardingSphereRule> rules) {
         this.rules = rules;
-        dataNodeBuilders = OrderedSPIRegistry.getRegisteredServices(DataNodeBuilder.class, rules);
-```
-
-### BoundedWildcard
-Can generalize to `? extends DataSource`
-in `infra/common/src/main/java/org/apache/shardingsphere/infra/metadata/data/collector/ShardingSphereTableDataCollectorUtil.java`
-#### Snippet
-```java
-     * @throws SQLException sql exception
-     */
-    public static Collection<ShardingSphereRowData> collectRowData(final Collection<DataSource> dataSources, final String sql, final ShardingSphereTable table,
-                                                                   final Collection<String> selectedColumnNames) throws SQLException {
-        Collection<ShardingSphereRowData> result = new LinkedList<>();
+        dataNodeBuilders = OrderedSPILoader.getServices(DataNodeBuilder.class, rules);
 ```
 
 ### BoundedWildcard
@@ -1648,15 +1635,15 @@ in `infra/common/src/main/java/org/apache/shardingsphere/infra/metadata/database
 ```
 
 ### BoundedWildcard
-Can generalize to `? super String`
-in `infra/common/src/main/java/org/apache/shardingsphere/infra/metadata/database/schema/loader/SchemaMetaDataLoaderEngine.java`
+Can generalize to `? extends DatabaseType`
+in `infra/common/src/main/java/org/apache/shardingsphere/infra/metadata/database/schema/util/SchemaMetaDataUtil.java`
 #### Snippet
 ```java
     }
     
-    private static void mergeSchemaMetaDataMap(final Map<String, SchemaMetaData> schemaMetaDataMap, final Collection<SchemaMetaData> addedSchemaMetaDataList) {
-        for (SchemaMetaData each : addedSchemaMetaDataList) {
-            SchemaMetaData schemaMetaData = schemaMetaDataMap.computeIfAbsent(each.getName(), key -> new SchemaMetaData(each.getName(), new LinkedList<>()));
+    private static Collection<DatabaseType> getNotSupportThreeTierStructureStorageTypes(final Collection<DatabaseType> storageTypes) {
+        Collection<DatabaseType> result = new LinkedList<>();
+        for (DatabaseType each : storageTypes) {
 ```
 
 ### BoundedWildcard
@@ -1684,27 +1671,15 @@ in `infra/common/src/main/java/org/apache/shardingsphere/infra/metadata/database
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends DatabaseType`
-in `infra/common/src/main/java/org/apache/shardingsphere/infra/metadata/database/schema/util/SchemaMetaDataUtil.java`
-#### Snippet
-```java
-    }
-    
-    private static Collection<DatabaseType> getNotSupportThreeTierStructureStorageTypes(final Collection<DatabaseType> storageTypes) {
-        Collection<DatabaseType> result = new LinkedList<>();
-        for (DatabaseType each : storageTypes) {
-```
-
-### BoundedWildcard
 Can generalize to `? super String`
-in `infra/common/src/main/java/org/apache/shardingsphere/infra/metadata/database/schema/loader/dialect/OpenGaussSchemaMetaDataLoader.java`
+in `infra/common/src/main/java/org/apache/shardingsphere/infra/metadata/database/schema/loader/metadata/SchemaMetaDataLoaderEngine.java`
 #### Snippet
 ```java
     }
     
-    private Collection<TableMetaData> createTableMetaDataList(final Multimap<String, IndexMetaData> tableIndexMetaDataMap, final Multimap<String, ColumnMetaData> tableColumnMetaDataMap) {
-        Collection<TableMetaData> result = new LinkedList<>();
-        for (String each : tableColumnMetaDataMap.keySet()) {
+    private static void mergeSchemaMetaDataMap(final Map<String, SchemaMetaData> schemaMetaDataMap, final Collection<SchemaMetaData> addedSchemaMetaDataList) {
+        for (SchemaMetaData each : addedSchemaMetaDataList) {
+            SchemaMetaData schemaMetaData = schemaMetaDataMap.computeIfAbsent(each.getName(), key -> new SchemaMetaData(each.getName(), new LinkedList<>()));
 ```
 
 ### BoundedWildcard
@@ -1721,24 +1696,12 @@ in `infra/common/src/main/java/org/apache/shardingsphere/infra/metadata/database
 
 ### BoundedWildcard
 Can generalize to `? super String`
-in `infra/common/src/main/java/org/apache/shardingsphere/infra/metadata/database/schema/loader/dialect/PostgreSQLSchemaMetaDataLoader.java`
+in `infra/common/src/main/java/org/apache/shardingsphere/infra/metadata/database/schema/loader/metadata/dialect/OpenGaussSchemaMetaDataLoader.java`
 #### Snippet
 ```java
     }
     
-    private Collection<TableMetaData> createTableMetaDataList(final Multimap<String, IndexMetaData> tableIndexMetaDataMap, final Multimap<String, ColumnMetaData> tableColumnMetaDataMap,
-                                                              final Multimap<String, ConstraintMetaData> tableConstraintMetaDataMap) {
-        Collection<TableMetaData> result = new LinkedList<>();
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `infra/common/src/main/java/org/apache/shardingsphere/infra/metadata/database/schema/loader/dialect/PostgreSQLSchemaMetaDataLoader.java`
-#### Snippet
-```java
-    
-    private Collection<TableMetaData> createTableMetaDataList(final Multimap<String, IndexMetaData> tableIndexMetaDataMap, final Multimap<String, ColumnMetaData> tableColumnMetaDataMap,
-                                                              final Multimap<String, ConstraintMetaData> tableConstraintMetaDataMap) {
+    private Collection<TableMetaData> createTableMetaDataList(final Multimap<String, IndexMetaData> tableIndexMetaDataMap, final Multimap<String, ColumnMetaData> tableColumnMetaDataMap) {
         Collection<TableMetaData> result = new LinkedList<>();
         for (String each : tableColumnMetaDataMap.keySet()) {
 ```
@@ -1756,15 +1719,27 @@ in `infra/common/src/main/java/org/apache/shardingsphere/infra/metadata/database
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends DataSource`
-in `infra/common/src/main/java/org/apache/shardingsphere/infra/datasource/state/DataSourceStateManager.java`
+Can generalize to `? super String`
+in `infra/common/src/main/java/org/apache/shardingsphere/infra/metadata/database/schema/loader/metadata/dialect/PostgreSQLSchemaMetaDataLoader.java`
 #### Snippet
 ```java
     }
     
-    private void checkForceConnection(final Map<String, DataSource> dataSources) {
-        if (forceStart) {
-            dataSources.entrySet().removeIf(entry -> {
+    private Collection<TableMetaData> createTableMetaDataList(final Multimap<String, IndexMetaData> tableIndexMetaDataMap, final Multimap<String, ColumnMetaData> tableColumnMetaDataMap,
+                                                              final Multimap<String, ConstraintMetaData> tableConstraintMetaDataMap) {
+        Collection<TableMetaData> result = new LinkedList<>();
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `infra/common/src/main/java/org/apache/shardingsphere/infra/metadata/database/schema/loader/metadata/dialect/PostgreSQLSchemaMetaDataLoader.java`
+#### Snippet
+```java
+    
+    private Collection<TableMetaData> createTableMetaDataList(final Multimap<String, IndexMetaData> tableIndexMetaDataMap, final Multimap<String, ColumnMetaData> tableColumnMetaDataMap,
+                                                              final Multimap<String, ConstraintMetaData> tableConstraintMetaDataMap) {
+        Collection<TableMetaData> result = new LinkedList<>();
+        for (String each : tableColumnMetaDataMap.keySet()) {
 ```
 
 ### BoundedWildcard
@@ -1789,6 +1764,18 @@ in `infra/common/src/main/java/org/apache/shardingsphere/infra/datasource/state/
     public void initStates(final String databaseName, final Map<String, DataSource> dataSources, final Map<String, DataSourceState> storageDataSourceStates, final boolean forceStart) {
         this.forceStart = forceStart;
         dataSources.forEach((key, value) -> initState(databaseName, storageDataSourceStates, key, value));
+```
+
+### BoundedWildcard
+Can generalize to `? extends DataSource`
+in `infra/common/src/main/java/org/apache/shardingsphere/infra/datasource/state/DataSourceStateManager.java`
+#### Snippet
+```java
+    }
+    
+    private void checkForceConnection(final Map<String, DataSource> dataSources) {
+        if (forceStart) {
+            dataSources.entrySet().removeIf(entry -> {
 ```
 
 ### BoundedWildcard
@@ -1904,7 +1891,7 @@ Can generalize to `? super ResultSet`
 in `proxy/backend/src/main/java/org/apache/shardingsphere/proxy/backend/handler/admin/executor/AbstractDatabaseMetaDataExecutor.java`
 #### Snippet
 ```java
-         */
+        
         @Override
         protected void getSourceData(final String databaseName, final FunctionWithException<ResultSet, SQLException> callback) throws SQLException {
             ShardingSphereResourceMetaData resourceMetaData = ProxyContext.getInstance().getContextManager().getMetaDataContexts().getMetaData().getDatabase(databaseName).getResourceMetaData();
@@ -1916,7 +1903,7 @@ Can generalize to `? extends SQLException`
 in `proxy/backend/src/main/java/org/apache/shardingsphere/proxy/backend/handler/admin/executor/AbstractDatabaseMetaDataExecutor.java`
 #### Snippet
 ```java
-         */
+        
         @Override
         protected void getSourceData(final String databaseName, final FunctionWithException<ResultSet, SQLException> callback) throws SQLException {
             ShardingSphereResourceMetaData resourceMetaData = ProxyContext.getInstance().getContextManager().getMetaDataContexts().getMetaData().getDatabase(databaseName).getResourceMetaData();
@@ -1945,6 +1932,78 @@ in `infra/executor/src/main/java/org/apache/shardingsphere/infra/executor/kernel
     private <O> List<O> getGroupResults(final Collection<O> firstResults, final Collection<Future<Collection<O>>> restFutures) throws SQLException {
         List<O> result = new LinkedList<>(firstResults);
         for (Future<Collection<O>> each : restFutures) {
+```
+
+### BoundedWildcard
+Can generalize to `? super T`
+in `proxy/backend/src/main/java/org/apache/shardingsphere/proxy/backend/handler/distsql/ral/QueryableRALBackendHandler.java`
+#### Snippet
+```java
+    }
+    
+    private MergedResult getMergedResultByInstanceContextRequiredExecutor(final InstanceContextRequiredQueryableRALExecutor<T> executor) {
+        return createMergedResult(executor.getRows(ProxyContext.getInstance().getContextManager().getInstanceContext(), getSqlStatement()));
+    }
+```
+
+### BoundedWildcard
+Can generalize to `? super T`
+in `proxy/backend/src/main/java/org/apache/shardingsphere/proxy/backend/handler/distsql/ral/QueryableRALBackendHandler.java`
+#### Snippet
+```java
+    }
+    
+    private MergedResult getMergedResultByMetaDataRequiredExecutor(final MetaDataRequiredQueryableRALExecutor<T> executor) {
+        return createMergedResult(executor.getRows(ProxyContext.getInstance().getContextManager().getMetaDataContexts().getMetaData(), getSqlStatement()));
+    }
+```
+
+### BoundedWildcard
+Can generalize to `? super T`
+in `proxy/backend/src/main/java/org/apache/shardingsphere/proxy/backend/handler/distsql/ral/QueryableRALBackendHandler.java`
+#### Snippet
+```java
+    }
+    
+    private MergedResult getMergedResultByDatabaseRequiredExecutor(final DatabaseRequiredQueryableRALExecutor<T> executor) {
+        String databaseName = getDatabaseName(getConnectionSession(), getSqlStatement());
+        checkDatabaseName(databaseName);
+```
+
+### BoundedWildcard
+Can generalize to `? super T`
+in `proxy/backend/src/main/java/org/apache/shardingsphere/proxy/backend/handler/distsql/ral/QueryableRALBackendHandler.java`
+#### Snippet
+```java
+    }
+    
+    private MergedResult getMergedResultByConnectionSessionRequiredExecutor(final ConnectionSessionRequiredQueryableRALExecutor<T> executor) {
+        return createMergedResult(executor.getRows(ProxyContext.getInstance().getContextManager().getMetaDataContexts().getMetaData(), getConnectionSession(), getSqlStatement()));
+    }
+```
+
+### BoundedWildcard
+Can generalize to `? super T`
+in `proxy/backend/src/main/java/org/apache/shardingsphere/proxy/backend/handler/distsql/ral/QueryableRALBackendHandler.java`
+#### Snippet
+```java
+    }
+    
+    private MergedResult getMergedResult(final QueryableRALExecutor<T> executor) {
+        if (executor instanceof InstanceContextRequiredQueryableRALExecutor) {
+            return getMergedResultByInstanceContextRequiredExecutor((InstanceContextRequiredQueryableRALExecutor<T>) executor);
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `proxy/backend/src/main/java/org/apache/shardingsphere/proxy/backend/handler/admin/mysql/executor/information/SelectInformationSchemataExecutor.java`
+#### Snippet
+```java
+    
+    @Override
+    protected void rowPostProcessing(final String databaseName, final Map<String, Object> rowMap, final Map<String, String> aliasMap) {
+        ShardingSphereResourceMetaData resourceMetaData = ProxyContext.getInstance().getContextManager().getMetaDataContexts().getMetaData().getDatabase(databaseName).getResourceMetaData();
+        Set<String> catalogs = resourceMetaData.getDataSources().keySet().stream().map(each -> resourceMetaData.getDataSourceMetaData(each).getCatalog()).collect(Collectors.toSet());
 ```
 
 ### BoundedWildcard
@@ -1996,30 +2055,6 @@ in `proxy/backend/src/main/java/org/apache/shardingsphere/proxy/backend/handler/
 ```
 
 ### BoundedWildcard
-Can generalize to `? super String`
-in `proxy/backend/src/main/java/org/apache/shardingsphere/proxy/backend/handler/admin/mysql/executor/information/SelectInformationSchemataExecutor.java`
-#### Snippet
-```java
-    
-    @Override
-    protected void rowPostProcessing(final String databaseName, final Map<String, Object> rowMap, final Map<String, String> aliasMap) {
-        ShardingSphereResourceMetaData resourceMetaData = ProxyContext.getInstance().getContextManager().getMetaDataContexts().getMetaData().getDatabase(databaseName).getResourceMetaData();
-        Set<String> catalogs = resourceMetaData.getDataSources().keySet().stream().map(each -> resourceMetaData.getDataSourceMetaData(each).getCatalog()).collect(Collectors.toSet());
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `proxy/backend/src/main/java/org/apache/shardingsphere/proxy/backend/handler/distsql/rdl/resource/UnregisterStorageUnitBackendHandler.java`
-#### Snippet
-```java
-    }
-    
-    private void checkInUsedIgnoreSingleTables(final Collection<String> inUsedResourceNames, final Multimap<String, String> inUsedStorageUnits) {
-        for (String each : inUsedResourceNames) {
-            Collection<String> inUsedRules = inUsedStorageUnits.get(each);
-```
-
-### BoundedWildcard
 Can generalize to `? extends YamlRuleConfiguration`
 in `proxy/backend/src/main/java/org/apache/shardingsphere/proxy/backend/handler/distsql/ral/updatable/ImportDatabaseConfigurationHandler.java`
 #### Snippet
@@ -2033,7 +2068,19 @@ in `proxy/backend/src/main/java/org/apache/shardingsphere/proxy/backend/handler/
 
 ### BoundedWildcard
 Can generalize to `? super String`
-in `proxy/backend/src/main/java/org/apache/shardingsphere/proxy/backend/handler/distsql/rdl/resource/RegisterStorageUnitBackendHandler.java`
+in `proxy/backend/src/main/java/org/apache/shardingsphere/proxy/backend/handler/distsql/rdl/storage/unit/UnregisterStorageUnitBackendHandler.java`
+#### Snippet
+```java
+    }
+    
+    private void checkInUsedIgnoreSingleTables(final Collection<String> inUsedResourceNames, final Multimap<String, String> inUsedStorageUnits) {
+        for (String each : inUsedResourceNames) {
+            Collection<String> inUsedRules = inUsedStorageUnits.get(each);
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `proxy/backend/src/main/java/org/apache/shardingsphere/proxy/backend/handler/distsql/rdl/storage/unit/RegisterStorageUnitBackendHandler.java`
 #### Snippet
 ```java
     }
@@ -2044,27 +2091,15 @@ in `proxy/backend/src/main/java/org/apache/shardingsphere/proxy/backend/handler/
 ```
 
 ### BoundedWildcard
-Can generalize to `? super String`
-in `proxy/backend/src/main/java/org/apache/shardingsphere/proxy/backend/handler/distsql/rql/rule/CountSingleTableRuleResultSet.java`
+Can generalize to `? extends Comparable`
+in `proxy/backend/src/main/java/org/apache/shardingsphere/proxy/backend/response/header/update/UpdateResponseHeader.java`
 #### Snippet
 ```java
     }
     
-    private void addSingleTableData(final Map<String, LinkedList<Object>> rowMap, final String databaseName, final SingleRule rule) {
-        rowMap.compute(SINGLE_TABLE, (key, value) -> buildRow(value, databaseName, rule.getAllTables().size()));
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? extends Connection`
-in `proxy/backend/src/main/java/org/apache/shardingsphere/proxy/backend/communication/BackendConnection.java`
-#### Snippet
-```java
-    }
-    
-    private void setSessionVariablesIfNecessary(final List<Connection> connections) throws SQLException {
-        if (connectionSession.getRequiredSessionVariableRecorder().isEmpty() || connections.isEmpty()) {
-            return;
+    private long getLastInsertId(final Collection<UpdateResult> updateResults, final Collection<Comparable<?>> autoIncrementGeneratedValues) {
+        List<Long> lastInsertIds = new ArrayList<>(updateResults.size() + autoIncrementGeneratedValues.size());
+        for (UpdateResult each : updateResults) {
 ```
 
 ### BoundedWildcard
@@ -2092,6 +2127,18 @@ in `proxy/backend/src/main/java/org/apache/shardingsphere/proxy/backend/communic
 ```
 
 ### BoundedWildcard
+Can generalize to `? extends Connection`
+in `proxy/backend/src/main/java/org/apache/shardingsphere/proxy/backend/communication/BackendConnection.java`
+#### Snippet
+```java
+    }
+    
+    private void setSessionVariablesIfNecessary(final List<Connection> connections) throws SQLException {
+        if (connectionSession.getRequiredSessionVariableRecorder().isEmpty() || connections.isEmpty()) {
+            return;
+```
+
+### BoundedWildcard
 Can generalize to `? extends ShardingSphereRule`
 in `proxy/backend/src/main/java/org/apache/shardingsphere/proxy/backend/communication/ProxySQLExecutor.java`
 #### Snippet
@@ -2104,25 +2151,25 @@ in `proxy/backend/src/main/java/org/apache/shardingsphere/proxy/backend/communic
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends SQLException`
-in `proxy/backend/src/main/java/org/apache/shardingsphere/proxy/backend/communication/jdbc/transaction/LocalTransactionManager.java`
+Can generalize to `? extends ChannelFuture`
+in `proxy/frontend/core/src/main/java/org/apache/shardingsphere/proxy/frontend/ShardingSphereProxy.java`
 #### Snippet
 ```java
     }
     
-    private void throwSQLExceptionIfNecessary(final Collection<SQLException> exceptions) throws SQLException {
-        if (exceptions.isEmpty()) {
-            return;
+    private void accept(final List<ChannelFuture> futures) throws InterruptedException {
+        log.info("ShardingSphere-Proxy {} mode started successfully", ProxyContext.getInstance().getContextManager().getInstanceContext().getModeConfiguration().getType());
+        for (ChannelFuture future : futures) {
 ```
 
 ### BoundedWildcard
 Can generalize to `? extends SQLException`
-in `proxy/backend/src/main/java/org/apache/shardingsphere/proxy/backend/communication/jdbc/transaction/BackendTransactionManager.java`
+in `proxy/frontend/core/src/main/java/org/apache/shardingsphere/proxy/frontend/command/CommandExecutorTask.java`
 #### Snippet
 ```java
     }
     
-    private void throwSQLExceptionIfNecessary(final Collection<SQLException> exceptions) throws SQLException {
+    private void processClosedExceptions(final Collection<SQLException> exceptions) {
         if (exceptions.isEmpty()) {
             return;
 ```
@@ -2149,30 +2196,6 @@ in `proxy/backend/src/main/java/org/apache/shardingsphere/proxy/backend/handler/
     private void addReplicaResource(final Map<String, String> replicaStorageUnits, final Entry<String, Map<String, String>> readwriteSplittingRule) {
         readwriteSplittingRule.getValue().entrySet().stream().filter(entry -> ExportableItemConstants.REPLICA_DATA_SOURCE_NAMES.equals(entry.getKey()))
                 .map(entry -> Arrays.asList(entry.getValue().split(","))).flatMap(Collection::stream).forEach(each -> put(replicaStorageUnits, each, readwriteSplittingRule.getKey()));
-```
-
-### BoundedWildcard
-Can generalize to `? extends ChannelFuture`
-in `proxy/frontend/core/src/main/java/org/apache/shardingsphere/proxy/frontend/ShardingSphereProxy.java`
-#### Snippet
-```java
-    }
-    
-    private void accept(final List<ChannelFuture> futures) throws InterruptedException {
-        log.info("ShardingSphere-Proxy {} mode started successfully", ProxyContext.getInstance().getContextManager().getInstanceContext().getModeConfiguration().getType());
-        for (ChannelFuture future : futures) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends SQLException`
-in `proxy/frontend/core/src/main/java/org/apache/shardingsphere/proxy/frontend/command/CommandExecutorTask.java`
-#### Snippet
-```java
-    }
-    
-    private void processClosedExceptions(final Collection<SQLException> exceptions) {
-        if (exceptions.isEmpty()) {
-            return;
 ```
 
 ### BoundedWildcard
@@ -2236,42 +2259,6 @@ in `kernel/traffic/core/src/main/java/org/apache/shardingsphere/traffic/algorith
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends DataSource`
-in `kernel/single/core/src/main/java/org/apache/shardingsphere/single/rule/SingleRule.java`
-#### Snippet
-```java
-    }
-    
-    private Map<String, DataSource> getAggregateDataSourceMap(final Map<String, DataSource> dataSourceMap, final Collection<ShardingSphereRule> builtRules) {
-        Map<String, DataSource> result = new LinkedHashMap<>(dataSourceMap);
-        for (ShardingSphereRule each : builtRules) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends ShardingSphereRule`
-in `kernel/single/core/src/main/java/org/apache/shardingsphere/single/rule/SingleRule.java`
-#### Snippet
-```java
-    }
-    
-    private Map<String, DataSource> getAggregateDataSourceMap(final Map<String, DataSource> dataSourceMap, final Collection<ShardingSphereRule> builtRules) {
-        Map<String, DataSource> result = new LinkedHashMap<>(dataSourceMap);
-        for (ShardingSphereRule each : builtRules) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends DataSource`
-in `kernel/single/core/src/main/java/org/apache/shardingsphere/single/rule/SingleRule.java`
-#### Snippet
-```java
-    }
-    
-    private Map<String, DataSource> getAggregateDataSourceMap(final Map<String, DataSource> dataSourceMap, final DataSourceContainedRule builtRule) {
-        Map<String, DataSource> result = new LinkedHashMap<>();
-        for (Entry<String, Collection<String>> entry : builtRule.getDataSourceMapper().entrySet()) {
-```
-
-### BoundedWildcard
 Can generalize to `? extends TrafficLoadBalanceAlgorithm`
 in `kernel/traffic/core/src/main/java/org/apache/shardingsphere/traffic/rule/TrafficRule.java`
 #### Snippet
@@ -2296,6 +2283,42 @@ in `kernel/traffic/core/src/main/java/org/apache/shardingsphere/traffic/rule/Tra
 ```
 
 ### BoundedWildcard
+Can generalize to `? extends DataSource`
+in `kernel/single/core/src/main/java/org/apache/shardingsphere/single/rule/SingleRule.java`
+#### Snippet
+```java
+    }
+    
+    private Map<String, DataSource> getAggregateDataSourceMap(final Map<String, DataSource> dataSourceMap, final DataSourceContainedRule builtRule) {
+        Map<String, DataSource> result = new LinkedHashMap<>();
+        for (Entry<String, Collection<String>> entry : builtRule.getDataSourceMapper().entrySet()) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends DataSource`
+in `kernel/single/core/src/main/java/org/apache/shardingsphere/single/rule/SingleRule.java`
+#### Snippet
+```java
+    }
+    
+    private Map<String, DataSource> getAggregateDataSourceMap(final Map<String, DataSource> dataSourceMap, final Collection<ShardingSphereRule> builtRules) {
+        Map<String, DataSource> result = new LinkedHashMap<>(dataSourceMap);
+        for (ShardingSphereRule each : builtRules) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends ShardingSphereRule`
+in `kernel/single/core/src/main/java/org/apache/shardingsphere/single/rule/SingleRule.java`
+#### Snippet
+```java
+    }
+    
+    private Map<String, DataSource> getAggregateDataSourceMap(final Map<String, DataSource> dataSourceMap, final Collection<ShardingSphereRule> builtRules) {
+        Map<String, DataSource> result = new LinkedHashMap<>(dataSourceMap);
+        for (ShardingSphereRule each : builtRules) {
+```
+
+### BoundedWildcard
 Can generalize to `? extends DatabaseType`
 in `kernel/transaction/type/xa/core/src/main/java/org/apache/shardingsphere/transaction/xa/XAShardingSphereTransactionManager.java`
 #### Snippet
@@ -2303,8 +2326,8 @@ in `kernel/transaction/type/xa/core/src/main/java/org/apache/shardingsphere/tran
     
     @Override
     public void init(final Map<String, DatabaseType> databaseTypes, final Map<String, DataSource> dataSources, final String providerType) {
-        xaTransactionManagerProvider = null == providerType
-                ? RequiredSPIRegistry.getRegisteredService(XATransactionManagerProvider.class)
+        xaTransactionManagerProvider = TypedSPILoader.getService(XATransactionManagerProvider.class, providerType);
+        xaTransactionManagerProvider.init();
 ```
 
 ### BoundedWildcard
@@ -2351,7 +2374,7 @@ in `kernel/data-pipeline/api/src/main/java/org/apache/shardingsphere/data/pipeli
     }
     
     private void appendJdbcQueryProperties(final String databaseType, final Map<String, Object> yamlConfig) {
-        Optional<JdbcQueryPropertiesExtension> extension = TypedSPIRegistry.findRegisteredService(JdbcQueryPropertiesExtension.class, databaseType);
+        Optional<JdbcQueryPropertiesExtension> extension = TypedSPILoader.findService(JdbcQueryPropertiesExtension.class, databaseType);
         if (!extension.isPresent()) {
 ```
 
@@ -2368,18 +2391,6 @@ in `kernel/data-pipeline/cdc/core/src/main/java/org/apache/shardingsphere/data/p
 ```
 
 ### BoundedWildcard
-Can generalize to `? super DataRecord`
-in `kernel/data-pipeline/cdc/core/src/main/java/org/apache/shardingsphere/data/pipeline/cdc/util/CDCDataRecordUtil.java`
-#### Snippet
-```java
-    
-    private static DataRecord findMinimumDataRecordWithComparator(final Map<CDCImporter, BlockingQueue<Record>> incrementalRecordMap, final Map<CDCImporter, CDCAckPosition> cdcAckPositionMap,
-                                                                  final Comparator<DataRecord> dataRecordComparator) {
-        Map<CDCImporter, DataRecord> waitSortedMap = new HashMap<>();
-        for (Entry<CDCImporter, BlockingQueue<Record>> entry : incrementalRecordMap.entrySet()) {
-```
-
-### BoundedWildcard
 Can generalize to `? super CDCImporter`
 in `kernel/data-pipeline/cdc/core/src/main/java/org/apache/shardingsphere/data/pipeline/cdc/util/CDCDataRecordUtil.java`
 #### Snippet
@@ -2389,6 +2400,18 @@ in `kernel/data-pipeline/cdc/core/src/main/java/org/apache/shardingsphere/data/p
     private static void saveAckPosition(final Map<CDCImporter, CDCAckPosition> cdcAckPositionMap, final CDCImporter cdcImporter, final Record record) {
         CDCAckPosition cdcAckPosition = cdcAckPositionMap.get(cdcImporter);
         if (null == cdcAckPosition) {
+```
+
+### BoundedWildcard
+Can generalize to `? super DataRecord`
+in `kernel/data-pipeline/cdc/core/src/main/java/org/apache/shardingsphere/data/pipeline/cdc/util/CDCDataRecordUtil.java`
+#### Snippet
+```java
+    
+    private static DataRecord findMinimumDataRecordWithComparator(final Map<CDCImporter, BlockingQueue<Record>> incrementalRecordMap, final Map<CDCImporter, CDCAckPosition> cdcAckPositionMap,
+                                                                  final Comparator<DataRecord> dataRecordComparator) {
+        Map<CDCImporter, DataRecord> waitSortedMap = new HashMap<>();
+        for (Entry<CDCImporter, BlockingQueue<Record>> entry : incrementalRecordMap.entrySet()) {
 ```
 
 ### BoundedWildcard
@@ -2524,27 +2547,63 @@ in `kernel/data-pipeline/dialect/postgresql/src/main/java/org/apache/shardingsph
 ```
 
 ### BoundedWildcard
-Can generalize to `? super String`
-in `kernel/data-pipeline/dialect/postgresql/src/main/java/org/apache/shardingsphere/data/pipeline/postgresql/ddlgenerator/PostgresTablePropertiesLoader.java`
+Can generalize to `? extends Map`
+in `kernel/data-pipeline/dialect/postgresql/src/main/java/org/apache/shardingsphere/data/pipeline/postgresql/ddlgenerator/PostgresColumnPropertiesAppender.java`
 #### Snippet
 ```java
     }
     
-    private void checkRlspolicySupport(final Map<String, Object> context) {
-        if (context.containsKey("rlspolicy")) {
-            if (context.get("rlspolicy") instanceof String && Boolean.TRUE.toString().equals(context.get("rlspolicy"))) {
+    private Map<String, Collection<String>> getEditTypes(final Collection<Map<String, Object>> allColumns) throws SQLException {
+        Map<String, Collection<String>> result = new LinkedHashMap<>();
+        Map<String, Object> params = new LinkedHashMap<>();
 ```
 
 ### BoundedWildcard
 Can generalize to `? super String`
-in `kernel/data-pipeline/dialect/postgresql/src/main/java/org/apache/shardingsphere/data/pipeline/postgresql/ddlgenerator/PostgresTablePropertiesLoader.java`
+in `kernel/data-pipeline/dialect/postgresql/src/main/java/org/apache/shardingsphere/data/pipeline/postgresql/ddlgenerator/PostgresColumnPropertiesAppender.java`
 #### Snippet
 ```java
     }
     
-    private void updateAutovacuumProperties(final Map<String, Object> context) {
-        if (null == context.get("autovacuum_enabled")) {
-            context.put("autovacuum_enabled", "x");
+    private void formatColumnVariables(final Map<String, Object> column) throws SQLException {
+        if (null == column.get("attoptions")) {
+            return;
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `kernel/data-pipeline/dialect/postgresql/src/main/java/org/apache/shardingsphere/data/pipeline/postgresql/ddlgenerator/PostgresColumnPropertiesAppender.java`
+#### Snippet
+```java
+    }
+    
+    private void handlePrimaryColumn(final Map<String, Object> column) {
+        if (null != column.get("attnum") && null != column.get("indkey")) {
+            if (Arrays.stream(column.get("indkey").toString().split(" ")).collect(Collectors.toList()).contains(column.get("attnum").toString())) {
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `kernel/data-pipeline/dialect/postgresql/src/main/java/org/apache/shardingsphere/data/pipeline/postgresql/ddlgenerator/PostgresColumnPropertiesAppender.java`
+#### Snippet
+```java
+    }
+    
+    private void handleLengthPrecision(final Long elemoid, final Map<String, Object> column, final String fullType) {
+        boolean precision = false;
+        boolean length = false;
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `kernel/data-pipeline/dialect/postgresql/src/main/java/org/apache/shardingsphere/data/pipeline/postgresql/ddlgenerator/PostgresColumnPropertiesAppender.java`
+#### Snippet
+```java
+    }
+    
+    private void columnFormatter(final Map<String, Object> column, final Collection<String> editTypes) throws SQLException {
+        handlePrimaryColumn(column);
+        fetchLengthPrecision(column);
 ```
 
 ### BoundedWildcard
@@ -2572,27 +2631,51 @@ in `kernel/data-pipeline/dialect/postgresql/src/main/java/org/apache/shardingsph
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends Statement`
-in `kernel/sql-federation/executor/core/src/main/java/org/apache/shardingsphere/sqlfederation/row/SQLFederationRowScalarEnumerator.java`
+Can generalize to `? super String`
+in `kernel/data-pipeline/dialect/postgresql/src/main/java/org/apache/shardingsphere/data/pipeline/postgresql/ddlgenerator/PostgresTablePropertiesLoader.java`
 #### Snippet
 ```java
-    private Object currentRow;
+    }
     
-    public SQLFederationRowScalarEnumerator(final Collection<Object> rows, final Collection<Statement> statements) {
-        this.rows = rows;
-        this.statements = statements;
+    private void updateAutovacuumProperties(final Map<String, Object> context) {
+        if (null == context.get("autovacuum_enabled")) {
+            context.put("autovacuum_enabled", "x");
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends Statement`
-in `kernel/sql-federation/executor/core/src/main/java/org/apache/shardingsphere/sqlfederation/row/SQLFederationRowEnumerator.java`
+Can generalize to `? super String`
+in `kernel/data-pipeline/dialect/postgresql/src/main/java/org/apache/shardingsphere/data/pipeline/postgresql/ddlgenerator/PostgresTablePropertiesLoader.java`
 #### Snippet
 ```java
-    private T currentRow;
+    }
     
-    public SQLFederationRowEnumerator(final Collection<T> rows, final Collection<Statement> statements) {
-        this.rows = rows;
-        this.statements = statements;
+    private void checkRlspolicySupport(final Map<String, Object> context) {
+        if (context.containsKey("rlspolicy")) {
+            if (context.get("rlspolicy") instanceof String && Boolean.TRUE.toString().equals(context.get("rlspolicy"))) {
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `kernel/data-pipeline/dialect/postgresql/src/main/java/org/apache/shardingsphere/data/pipeline/postgresql/ddlgenerator/PostgresConstraintsPropertiesAppender.java`
+#### Snippet
+```java
+    }
+    
+    private void getExclusionConstraintsColumns(final Map<String, Object> exclusionConstraintsProps) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("cid", exclusionConstraintsProps.get("oid"));
+```
+
+### BoundedWildcard
+Can generalize to `? extends Map`
+in `kernel/data-pipeline/dialect/postgresql/src/main/java/org/apache/shardingsphere/data/pipeline/postgresql/ddlgenerator/PostgresConstraintsPropertiesAppender.java`
+#### Snippet
+```java
+    }
+    
+    private void fetchConstraintsColumns(final Collection<Map<String, Object>> constraintsProps) {
+        for (Map<String, Object> each : constraintsProps) {
+            Collection<Map<String, Object>> columns = new LinkedList<>();
 ```
 
 ### BoundedWildcard
@@ -2632,87 +2715,15 @@ in `kernel/data-pipeline/dialect/postgresql/src/main/java/org/apache/shardingsph
 ```
 
 ### BoundedWildcard
-Can generalize to `? super String`
-in `kernel/data-pipeline/dialect/postgresql/src/main/java/org/apache/shardingsphere/data/pipeline/postgresql/ddlgenerator/PostgresConstraintsPropertiesAppender.java`
+Can generalize to `? extends Statement`
+in `kernel/sql-federation/executor/core/src/main/java/org/apache/shardingsphere/sqlfederation/row/SQLFederationRowEnumerator.java`
 #### Snippet
 ```java
-    }
+    private T currentRow;
     
-    private void getExclusionConstraintsColumns(final Map<String, Object> exclusionConstraintsProps) {
-        Map<String, Object> params = new HashMap<>();
-        params.put("cid", exclusionConstraintsProps.get("oid"));
-```
-
-### BoundedWildcard
-Can generalize to `? extends Map`
-in `kernel/data-pipeline/dialect/postgresql/src/main/java/org/apache/shardingsphere/data/pipeline/postgresql/ddlgenerator/PostgresConstraintsPropertiesAppender.java`
-#### Snippet
-```java
-    }
-    
-    private void fetchConstraintsColumns(final Collection<Map<String, Object>> constraintsProps) {
-        for (Map<String, Object> each : constraintsProps) {
-            Collection<Map<String, Object>> columns = new LinkedList<>();
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `kernel/data-pipeline/dialect/postgresql/src/main/java/org/apache/shardingsphere/data/pipeline/postgresql/ddlgenerator/PostgresColumnPropertiesAppender.java`
-#### Snippet
-```java
-    }
-    
-    private void columnFormatter(final Map<String, Object> column, final Collection<String> editTypes) throws SQLException {
-        handlePrimaryColumn(column);
-        fetchLengthPrecision(column);
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `kernel/data-pipeline/dialect/postgresql/src/main/java/org/apache/shardingsphere/data/pipeline/postgresql/ddlgenerator/PostgresColumnPropertiesAppender.java`
-#### Snippet
-```java
-    }
-    
-    private void handleLengthPrecision(final Long elemoid, final Map<String, Object> column, final String fullType) {
-        boolean precision = false;
-        boolean length = false;
-```
-
-### BoundedWildcard
-Can generalize to `? extends Map`
-in `kernel/data-pipeline/dialect/postgresql/src/main/java/org/apache/shardingsphere/data/pipeline/postgresql/ddlgenerator/PostgresColumnPropertiesAppender.java`
-#### Snippet
-```java
-    }
-    
-    private Map<String, Collection<String>> getEditTypes(final Collection<Map<String, Object>> allColumns) throws SQLException {
-        Map<String, Collection<String>> result = new LinkedHashMap<>();
-        Map<String, Object> params = new LinkedHashMap<>();
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `kernel/data-pipeline/dialect/postgresql/src/main/java/org/apache/shardingsphere/data/pipeline/postgresql/ddlgenerator/PostgresColumnPropertiesAppender.java`
-#### Snippet
-```java
-    }
-    
-    private void handlePrimaryColumn(final Map<String, Object> column) {
-        if (null != column.get("attnum") && null != column.get("indkey")) {
-            if (Arrays.stream(column.get("indkey").toString().split(" ")).collect(Collectors.toList()).contains(column.get("attnum").toString())) {
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `kernel/data-pipeline/dialect/postgresql/src/main/java/org/apache/shardingsphere/data/pipeline/postgresql/ddlgenerator/PostgresColumnPropertiesAppender.java`
-#### Snippet
-```java
-    }
-    
-    private void formatColumnVariables(final Map<String, Object> column) throws SQLException {
-        if (null == column.get("attoptions")) {
-            return;
+    public SQLFederationRowEnumerator(final Collection<T> rows, final Collection<Statement> statements) {
+        this.rows = rows;
+        this.statements = statements;
 ```
 
 ### BoundedWildcard
@@ -2777,18 +2788,6 @@ in `kernel/sql-federation/executor/advanced/src/main/java/org/apache/shardingsph
 
 ### BoundedWildcard
 Can generalize to `? extends RexNode`
-in `kernel/sql-federation/optimizer/src/main/java/org/apache/shardingsphere/sqlfederation/optimizer/metadata/translatable/TranslatableProjectRule.java`
-#### Snippet
-```java
-    }
-    
-    private int[] getProjectFields(final List<RexNode> rexNodes) {
-        List<Integer> rexInputRefs = new ArrayList<>();
-        for (RexNode exp : rexNodes) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends RexNode`
 in `kernel/sql-federation/optimizer/src/main/java/org/apache/shardingsphere/sqlfederation/optimizer/metadata/translatable/TranslatableProjectFilterRule.java`
 #### Snippet
 ```java
@@ -2797,6 +2796,18 @@ in `kernel/sql-federation/optimizer/src/main/java/org/apache/shardingsphere/sqlf
     private int[] getProjectFields(final List<RexNode> rexNodes) {
         int[] result = new int[rexNodes.size()];
         for (int index = 0; index < rexNodes.size(); index++) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends RexNode`
+in `kernel/sql-federation/optimizer/src/main/java/org/apache/shardingsphere/sqlfederation/optimizer/metadata/translatable/TranslatableProjectRule.java`
+#### Snippet
+```java
+    }
+    
+    private int[] getProjectFields(final List<RexNode> rexNodes) {
+        List<Integer> rexInputRefs = new ArrayList<>();
+        for (RexNode exp : rexNodes) {
 ```
 
 ### BoundedWildcard
@@ -2809,18 +2820,6 @@ in `kernel/sql-federation/optimizer/src/main/java/org/apache/shardingsphere/sqlf
     public static Collection<SqlNode> convert(final Collection<OrderByItemSegment> orderByItems) {
         Collection<SqlNode> result = new LinkedList<>();
         for (OrderByItemSegment each : orderByItems) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends RexNode`
-in `kernel/sql-federation/optimizer/src/main/java/org/apache/shardingsphere/sqlfederation/optimizer/metadata/translatable/TranslatableTableScan.java`
-#### Snippet
-```java
-    }
-    
-    private void addFilter(final List<RexNode> filters, final String[] filterValues) {
-        int index = 0;
-        for (RexNode filter : filters) {
 ```
 
 ### BoundedWildcard
@@ -2860,6 +2859,18 @@ in `kernel/sql-federation/optimizer/src/main/java/org/apache/shardingsphere/sqlf
 ```
 
 ### BoundedWildcard
+Can generalize to `? extends RexNode`
+in `kernel/sql-federation/optimizer/src/main/java/org/apache/shardingsphere/sqlfederation/optimizer/metadata/translatable/TranslatableTableScan.java`
+#### Snippet
+```java
+    }
+    
+    private void addFilter(final List<RexNode> filters, final String[] filterValues) {
+        int index = 0;
+        for (RexNode filter : filters) {
+```
+
+### BoundedWildcard
 Can generalize to `? extends DataSourceSegment`
 in `distsql/statement/src/main/java/org/apache/shardingsphere/distsql/parser/segment/converter/DataSourceSegmentsConverter.java`
 #### Snippet
@@ -2872,8 +2883,20 @@ in `distsql/statement/src/main/java/org/apache/shardingsphere/distsql/parser/seg
 ```
 
 ### BoundedWildcard
+Can generalize to `? extends ShadowAlgorithm`
+in `features/shadow/core/src/main/java/org/apache/shardingsphere/shadow/rule/ShadowTableRule.java`
+#### Snippet
+```java
+    
+    private Map<ShadowOperationType, Collection<ShadowAlgorithmNameRule>> getColumnShadowAlgorithmRules(final Collection<String> shadowAlgorithmNames,
+                                                                                                        final Map<String, ShadowAlgorithm> shadowAlgorithms) {
+        Map<ShadowOperationType, Collection<ShadowAlgorithmNameRule>> result = new EnumMap<>(ShadowOperationType.class);
+        for (String each : shadowAlgorithmNames) {
+```
+
+### BoundedWildcard
 Can generalize to `? super String`
-in `features/mask/distsql/handler/src/main/java/org/apache/shardingsphere/mask/distsql/handler/query/CountMaskRuleResultSet.java`
+in `features/mask/distsql/handler/src/main/java/org/apache/shardingsphere/mask/distsql/handler/query/CountMaskRuleExecutor.java`
 #### Snippet
 ```java
     }
@@ -2893,30 +2916,6 @@ in `features/shadow/core/src/main/java/org/apache/shardingsphere/shadow/route/en
     private static Collection<PreciseColumnShadowValue<Comparable<?>>> createColumnShadowValues(final String columnName, final Collection<Comparable<?>> columnValues, final String tableName,
                                                                                                 final ShadowOperationType operationType) {
         Collection<PreciseColumnShadowValue<Comparable<?>>> result = new LinkedList<>();
-```
-
-### BoundedWildcard
-Can generalize to `? extends ShadowAlgorithm`
-in `features/shadow/core/src/main/java/org/apache/shardingsphere/shadow/rule/ShadowTableRule.java`
-#### Snippet
-```java
-    
-    private Map<ShadowOperationType, Collection<ShadowAlgorithmNameRule>> initColumnShadowAlgorithmNames(final Collection<String> shadowAlgorithmNames,
-                                                                                                         final Map<String, ShadowAlgorithm> shadowAlgorithms) {
-        Map<ShadowOperationType, Collection<ShadowAlgorithmNameRule>> result = new EnumMap<>(ShadowOperationType.class);
-        shadowAlgorithmNames.forEach(each -> {
-```
-
-### BoundedWildcard
-Can generalize to `? super ShadowOperationType`
-in `features/shadow/core/src/main/java/org/apache/shardingsphere/shadow/rule/ShadowTableRule.java`
-#### Snippet
-```java
-    
-    private void initShadowAlgorithmNames(final ShadowOperationType operationType, final String algorithmName, final String shadowColumnName,
-                                          final Map<ShadowOperationType, Collection<ShadowAlgorithmNameRule>> columnShadowAlgorithmNames) {
-        Collection<ShadowAlgorithmNameRule> shadowAlgorithmNameRules = columnShadowAlgorithmNames.get(operationType);
-        ShardingSpherePreconditions.checkState(null == shadowAlgorithmNameRules, () -> new InvalidShadowAlgorithmOperationException(operationType.name(), tableName));
 ```
 
 ### BoundedWildcard
@@ -2945,25 +2944,13 @@ in `features/shadow/distsql/parser/src/main/java/org/apache/shardingsphere/shado
 
 ### BoundedWildcard
 Can generalize to `? super String`
-in `features/shadow/distsql/handler/src/main/java/org/apache/shardingsphere/shadow/distsql/handler/query/CountShadowRuleResultSet.java`
+in `features/shadow/distsql/handler/src/main/java/org/apache/shardingsphere/shadow/distsql/handler/query/CountShadowRuleExecutor.java`
 #### Snippet
 ```java
     }
     
     private void addData(final Map<String, LinkedList<Object>> rowMap, final String dataKey, final String databaseName, final Supplier<Integer> apply) {
         rowMap.compute(dataKey, (key, value) -> buildRow(value, databaseName, apply.get()));
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `features/shadow/distsql/handler/src/main/java/org/apache/shardingsphere/shadow/distsql/handler/update/CreateShadowRuleStatementUpdater.java`
-#### Snippet
-```java
-    }
-    
-    private void updateTables(final Map<String, ShadowTableConfiguration> currentTables, final Map<String, ShadowTableConfiguration> toBeCreateTables) {
-        toBeCreateTables.forEach((key, value) -> currentTables.merge(key, value, ShadowRuleStatementSupporter::mergeConfiguration));
     }
 ```
 
@@ -2993,13 +2980,13 @@ in `features/shadow/distsql/handler/src/main/java/org/apache/shardingsphere/shad
 
 ### BoundedWildcard
 Can generalize to `? super String`
-in `features/shadow/distsql/handler/src/main/java/org/apache/shardingsphere/shadow/distsql/handler/query/ShadowRuleResultSet.java`
+in `features/shadow/distsql/handler/src/main/java/org/apache/shardingsphere/shadow/distsql/handler/update/CreateShadowRuleStatementUpdater.java`
 #### Snippet
 ```java
     }
     
-    private Collection<Object> buildRowData(final Map<String, String> data) {
-        return Arrays.asList(data.get(RULE_NAME), data.get(SOURCE_NAME), data.get(SHADOW_NAME), data.getOrDefault(SHADOW_TABLE, ""));
+    private void updateTables(final Map<String, ShadowTableConfiguration> currentTables, final Map<String, ShadowTableConfiguration> toBeCreateTables) {
+        toBeCreateTables.forEach((key, value) -> currentTables.merge(key, value, ShadowRuleStatementSupporter::mergeConfiguration));
     }
 ```
 
@@ -3028,15 +3015,75 @@ in `features/encrypt/core/src/main/java/org/apache/shardingsphere/encrypt/rewrit
 ```
 
 ### BoundedWildcard
-Can generalize to `? super String`
-in `features/encrypt/core/src/main/java/org/apache/shardingsphere/encrypt/rewrite/token/generator/EncryptForUseDefaultInsertColumnsTokenGenerator.java`
+Can generalize to `? super Collection`
+in `features/shadow/distsql/handler/src/main/java/org/apache/shardingsphere/shadow/distsql/handler/checker/ShadowRuleStatementChecker.java`
 #### Snippet
 ```java
-    }
-    
-    private void setCipherColumn(final List<String> columnNames, final EncryptTable encryptTable, final String columnName, final int columnIndex) {
-        columnNames.set(columnIndex, encryptTable.getCipherColumn(columnName));
-    }
+     * @param thrower exception thrower
+     */
+    public static void checkDuplicated(final Collection<String> requiredRules, final Collection<String> currentRules, final Function<Collection<String>, DistSQLException> thrower) {
+        Collection<String> duplicated = getDuplicated(requiredRules, currentRules);
+        ShardingSpherePreconditions.checkState(duplicated.isEmpty(), () -> thrower.apply(duplicated));
+```
+
+### BoundedWildcard
+Can generalize to `? extends DistSQLException`
+in `features/shadow/distsql/handler/src/main/java/org/apache/shardingsphere/shadow/distsql/handler/checker/ShadowRuleStatementChecker.java`
+#### Snippet
+```java
+     * @param thrower exception thrower
+     */
+    public static void checkDuplicated(final Collection<String> requiredRules, final Collection<String> currentRules, final Function<Collection<String>, DistSQLException> thrower) {
+        Collection<String> duplicated = getDuplicated(requiredRules, currentRules);
+        ShardingSpherePreconditions.checkState(duplicated.isEmpty(), () -> thrower.apply(duplicated));
+```
+
+### BoundedWildcard
+Can generalize to `? super Collection`
+in `features/shadow/distsql/handler/src/main/java/org/apache/shardingsphere/shadow/distsql/handler/checker/ShadowRuleStatementChecker.java`
+#### Snippet
+```java
+     * @param thrower exception thrower
+     */
+    public static void checkExisted(final Collection<String> requiredRules, final Collection<String> currentRules, final Function<Collection<String>, DistSQLException> thrower) {
+        Collection<String> notExisted = getNotExisted(requiredRules, currentRules);
+        ShardingSpherePreconditions.checkState(notExisted.isEmpty(), () -> thrower.apply(notExisted));
+```
+
+### BoundedWildcard
+Can generalize to `? extends DistSQLException`
+in `features/shadow/distsql/handler/src/main/java/org/apache/shardingsphere/shadow/distsql/handler/checker/ShadowRuleStatementChecker.java`
+#### Snippet
+```java
+     * @param thrower exception thrower
+     */
+    public static void checkExisted(final Collection<String> requiredRules, final Collection<String> currentRules, final Function<Collection<String>, DistSQLException> thrower) {
+        Collection<String> notExisted = getNotExisted(requiredRules, currentRules);
+        ShardingSpherePreconditions.checkState(notExisted.isEmpty(), () -> thrower.apply(notExisted));
+```
+
+### BoundedWildcard
+Can generalize to `? super Collection`
+in `features/shadow/distsql/handler/src/main/java/org/apache/shardingsphere/shadow/distsql/handler/checker/ShadowRuleStatementChecker.java`
+#### Snippet
+```java
+     * @param thrower exception thrower
+     */
+    public static void checkDuplicated(final Collection<String> rules, final Function<Collection<String>, DistSQLException> thrower) {
+        Collection<String> duplicated = getDuplicated(rules);
+        ShardingSpherePreconditions.checkState(duplicated.isEmpty(), () -> thrower.apply(duplicated));
+```
+
+### BoundedWildcard
+Can generalize to `? extends DistSQLException`
+in `features/shadow/distsql/handler/src/main/java/org/apache/shardingsphere/shadow/distsql/handler/checker/ShadowRuleStatementChecker.java`
+#### Snippet
+```java
+     * @param thrower exception thrower
+     */
+    public static void checkDuplicated(final Collection<String> rules, final Function<Collection<String>, DistSQLException> thrower) {
+        Collection<String> duplicated = getDuplicated(rules);
+        ShardingSpherePreconditions.checkState(duplicated.isEmpty(), () -> thrower.apply(duplicated));
 ```
 
 ### BoundedWildcard
@@ -3046,8 +3093,8 @@ in `features/encrypt/core/src/main/java/org/apache/shardingsphere/encrypt/rewrit
 ```java
     }
     
-    private void addLikeQueryColumn(final List<String> columnNames, final EncryptTable encryptTable, final String columnName, final int columnIndex) {
-        encryptTable.findLikeQueryColumn(columnName).ifPresent(optional -> columnNames.add(columnIndex + 1, optional));
+    private void setCipherColumn(final List<String> columnNames, final EncryptTable encryptTable, final String columnName, final int columnIndex) {
+        columnNames.set(columnIndex, encryptTable.getCipherColumn(columnName));
     }
 ```
 
@@ -3070,81 +3117,21 @@ in `features/encrypt/core/src/main/java/org/apache/shardingsphere/encrypt/rewrit
 ```java
     }
     
-    private void addPlainColumn(final List<String> columnNames, final EncryptTable encryptTable, final String columnName, final int columnIndex) {
-        encryptTable.findPlainColumn(columnName).ifPresent(optional -> columnNames.add(columnIndex + 1, optional));
+    private void addLikeQueryColumn(final List<String> columnNames, final EncryptTable encryptTable, final String columnName, final int columnIndex) {
+        encryptTable.findLikeQueryColumn(columnName).ifPresent(optional -> columnNames.add(columnIndex + 1, optional));
     }
 ```
 
 ### BoundedWildcard
-Can generalize to `? super Collection`
-in `features/shadow/distsql/handler/src/main/java/org/apache/shardingsphere/shadow/distsql/handler/checker/ShadowRuleStatementChecker.java`
+Can generalize to `? super String`
+in `features/encrypt/core/src/main/java/org/apache/shardingsphere/encrypt/rewrite/token/generator/EncryptForUseDefaultInsertColumnsTokenGenerator.java`
 #### Snippet
 ```java
-     * @param thrower exception thrower
-     */
-    public static void checkDuplicated(final Collection<String> requiredRules, final Collection<String> currentRules, final Function<Collection<String>, DistSQLException> thrower) {
-        Collection<String> duplicated = getDuplicated(requiredRules, currentRules);
-        ShardingSpherePreconditions.checkState(duplicated.isEmpty(), () -> thrower.apply(duplicated));
-```
-
-### BoundedWildcard
-Can generalize to `? extends DistSQLException`
-in `features/shadow/distsql/handler/src/main/java/org/apache/shardingsphere/shadow/distsql/handler/checker/ShadowRuleStatementChecker.java`
-#### Snippet
-```java
-     * @param thrower exception thrower
-     */
-    public static void checkDuplicated(final Collection<String> requiredRules, final Collection<String> currentRules, final Function<Collection<String>, DistSQLException> thrower) {
-        Collection<String> duplicated = getDuplicated(requiredRules, currentRules);
-        ShardingSpherePreconditions.checkState(duplicated.isEmpty(), () -> thrower.apply(duplicated));
-```
-
-### BoundedWildcard
-Can generalize to `? super Collection`
-in `features/shadow/distsql/handler/src/main/java/org/apache/shardingsphere/shadow/distsql/handler/checker/ShadowRuleStatementChecker.java`
-#### Snippet
-```java
-     * @param thrower exception thrower
-     */
-    public static void checkExisted(final Collection<String> requiredRules, final Collection<String> currentRules, final Function<Collection<String>, DistSQLException> thrower) {
-        Collection<String> notExisted = getNotExisted(requiredRules, currentRules);
-        ShardingSpherePreconditions.checkState(notExisted.isEmpty(), () -> thrower.apply(notExisted));
-```
-
-### BoundedWildcard
-Can generalize to `? extends DistSQLException`
-in `features/shadow/distsql/handler/src/main/java/org/apache/shardingsphere/shadow/distsql/handler/checker/ShadowRuleStatementChecker.java`
-#### Snippet
-```java
-     * @param thrower exception thrower
-     */
-    public static void checkExisted(final Collection<String> requiredRules, final Collection<String> currentRules, final Function<Collection<String>, DistSQLException> thrower) {
-        Collection<String> notExisted = getNotExisted(requiredRules, currentRules);
-        ShardingSpherePreconditions.checkState(notExisted.isEmpty(), () -> thrower.apply(notExisted));
-```
-
-### BoundedWildcard
-Can generalize to `? super Collection`
-in `features/shadow/distsql/handler/src/main/java/org/apache/shardingsphere/shadow/distsql/handler/checker/ShadowRuleStatementChecker.java`
-#### Snippet
-```java
-     * @param thrower exception thrower
-     */
-    public static void checkDuplicated(final Collection<String> rules, final Function<Collection<String>, DistSQLException> thrower) {
-        Collection<String> duplicated = getDuplicated(rules);
-        ShardingSpherePreconditions.checkState(duplicated.isEmpty(), () -> thrower.apply(duplicated));
-```
-
-### BoundedWildcard
-Can generalize to `? extends DistSQLException`
-in `features/shadow/distsql/handler/src/main/java/org/apache/shardingsphere/shadow/distsql/handler/checker/ShadowRuleStatementChecker.java`
-#### Snippet
-```java
-     * @param thrower exception thrower
-     */
-    public static void checkDuplicated(final Collection<String> rules, final Function<Collection<String>, DistSQLException> thrower) {
-        Collection<String> duplicated = getDuplicated(rules);
-        ShardingSpherePreconditions.checkState(duplicated.isEmpty(), () -> thrower.apply(duplicated));
+    }
+    
+    private void addPlainColumn(final List<String> columnNames, final EncryptTable encryptTable, final String columnName, final int columnIndex) {
+        encryptTable.findPlainColumn(columnName).ifPresent(optional -> columnNames.add(columnIndex + 1, optional));
+    }
 ```
 
 ### BoundedWildcard
@@ -3185,7 +3172,7 @@ in `features/encrypt/core/src/main/java/org/apache/shardingsphere/encrypt/rewrit
 
 ### BoundedWildcard
 Can generalize to `? super String`
-in `features/encrypt/distsql/handler/src/main/java/org/apache/shardingsphere/encrypt/distsql/handler/query/CountEncryptRuleResultSet.java`
+in `features/encrypt/distsql/handler/src/main/java/org/apache/shardingsphere/encrypt/distsql/handler/query/CountEncryptRuleExecutor.java`
 #### Snippet
 ```java
     }
@@ -3193,30 +3180,6 @@ in `features/encrypt/distsql/handler/src/main/java/org/apache/shardingsphere/enc
     private void addData(final Map<String, LinkedList<Object>> rowMap, final String dataKey, final String databaseName, final Supplier<Integer> apply) {
         rowMap.compute(dataKey, (key, value) -> buildRow(value, databaseName, apply.get()));
     }
-```
-
-### BoundedWildcard
-Can generalize to `? extends QueryResult`
-in `features/sharding/core/src/main/java/org/apache/shardingsphere/sharding/merge/dal/show/ShowTableStatusMergedResult.java`
-#### Snippet
-```java
-    @Override
-    protected List<MemoryQueryResultRow> init(final ShardingRule shardingRule, final ShardingSphereSchema schema,
-                                              final SQLStatementContext<?> sqlStatementContext, final List<QueryResult> queryResults) throws SQLException {
-        Map<String, MemoryQueryResultRow> memoryQueryResultRows = new LinkedHashMap<>();
-        for (QueryResult each : queryResults) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends QueryResult`
-in `features/sharding/core/src/main/java/org/apache/shardingsphere/sharding/merge/dal/show/ShowIndexMergedResult.java`
-#### Snippet
-```java
-    @Override
-    protected List<MemoryQueryResultRow> init(final ShardingRule shardingRule, final ShardingSphereSchema schema,
-                                              final SQLStatementContext<?> sqlStatementContext, final List<QueryResult> queryResults) throws SQLException {
-        List<MemoryQueryResultRow> result = new LinkedList<>();
-        for (QueryResult each : queryResults) {
 ```
 
 ### BoundedWildcard
@@ -3233,14 +3196,38 @@ in `features/sharding/core/src/main/java/org/apache/shardingsphere/sharding/merg
 
 ### BoundedWildcard
 Can generalize to `? extends QueryResult`
-in `features/sharding/core/src/main/java/org/apache/shardingsphere/sharding/merge/ddl/fetch/FetchStreamMergedResult.java`
+in `features/sharding/core/src/main/java/org/apache/shardingsphere/sharding/merge/dal/show/ShowIndexMergedResult.java`
 #### Snippet
 ```java
-    }
+    @Override
+    protected List<MemoryQueryResultRow> init(final ShardingRule shardingRule, final ShardingSphereSchema schema,
+                                              final SQLStatementContext<?> sqlStatementContext, final List<QueryResult> queryResults) throws SQLException {
+        List<MemoryQueryResultRow> result = new LinkedList<>();
+        for (QueryResult each : queryResults) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends QueryResult`
+in `features/sharding/core/src/main/java/org/apache/shardingsphere/sharding/merge/dal/show/ShowTableStatusMergedResult.java`
+#### Snippet
+```java
+    @Override
+    protected List<MemoryQueryResultRow> init(final ShardingRule shardingRule, final ShardingSphereSchema schema,
+                                              final SQLStatementContext<?> sqlStatementContext, final List<QueryResult> queryResults) throws SQLException {
+        Map<String, MemoryQueryResultRow> memoryQueryResultRows = new LinkedHashMap<>();
+        for (QueryResult each : queryResults) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends Comparable`
+in `features/sharding/core/src/main/java/org/apache/shardingsphere/sharding/merge/dql/groupby/aggregation/DistinctSumAggregationUnit.java`
+#### Snippet
+```java
     
-    private void addOrderedResultSetsToQueue(final List<FetchOrderByValueGroup> fetchOrderByValueGroups, final List<QueryResult> queryResults) {
-        for (FetchOrderByValueGroup each : fetchOrderByValueGroups) {
-            for (OrderByValue orderByValue : each.getOrderByValues()) {
+    @Override
+    public void merge(final List<Comparable<?>> values) {
+        if (null == values || null == values.get(0)) {
+            return;
 ```
 
 ### BoundedWildcard
@@ -3256,15 +3243,15 @@ in `features/sharding/core/src/main/java/org/apache/shardingsphere/sharding/merg
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends Comparable`
-in `features/sharding/core/src/main/java/org/apache/shardingsphere/sharding/merge/dql/groupby/aggregation/DistinctSumAggregationUnit.java`
+Can generalize to `? extends QueryResult`
+in `features/sharding/core/src/main/java/org/apache/shardingsphere/sharding/merge/ddl/fetch/FetchStreamMergedResult.java`
 #### Snippet
 ```java
+    }
     
-    @Override
-    public void merge(final List<Comparable<?>> values) {
-        if (null == values || null == values.get(0)) {
-            return;
+    private void addOrderedResultSetsToQueue(final List<FetchOrderByValueGroup> fetchOrderByValueGroups, final List<QueryResult> queryResults) {
+        for (FetchOrderByValueGroup each : fetchOrderByValueGroups) {
+            for (OrderByValue orderByValue : each.getOrderByValues()) {
 ```
 
 ### BoundedWildcard
@@ -3340,6 +3327,54 @@ in `features/encrypt/core/src/main/java/org/apache/shardingsphere/encrypt/rewrit
 ```
 
 ### BoundedWildcard
+Can generalize to `? extends Set`
+in `features/sharding/core/src/main/java/org/apache/shardingsphere/sharding/route/engine/type/complex/ShardingCartesianRoutingEngine.java`
+#### Snippet
+```java
+    }
+    
+    private List<Set<RouteMapper>> toRoutingTableGroups(final String dataSource, final List<Set<String>> actualTableGroups) {
+        List<Set<RouteMapper>> result = new ArrayList<>(actualTableGroups.size());
+        for (Set<String> each : actualTableGroups) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends List`
+in `features/sharding/core/src/main/java/org/apache/shardingsphere/sharding/route/engine/type/complex/ShardingCartesianRoutingEngine.java`
+#### Snippet
+```java
+    }
+    
+    private Collection<RouteUnit> getRouteUnits(final String dataSource, final Set<List<RouteMapper>> cartesianRoutingTableGroups) {
+        Collection<RouteUnit> result = new LinkedHashSet<>();
+        for (List<RouteMapper> each : cartesianRoutingTableGroups) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends Set`
+in `features/sharding/core/src/main/java/org/apache/shardingsphere/sharding/route/engine/type/broadcast/ShardingDataSourceGroupBroadcastRoutingEngine.java`
+#### Snippet
+```java
+    }
+    
+    private Collection<Set<String>> getCandidateDataSourceGroup(final Collection<Set<String>> dataSourceSetGroup, final Set<String> compareSet) {
+        Collection<Set<String>> result = new LinkedList<>();
+        Set<String> intersections;
+```
+
+### BoundedWildcard
+Can generalize to `? extends Set`
+in `features/sharding/core/src/main/java/org/apache/shardingsphere/sharding/route/engine/type/broadcast/ShardingDataSourceGroupBroadcastRoutingEngine.java`
+#### Snippet
+```java
+    }
+    
+    private Collection<Set<String>> getBroadcastDataSourceGroup(final Collection<Set<String>> dataSourceGroup) {
+        Collection<Set<String>> result = new LinkedList<>();
+        for (Set<String> each : dataSourceGroup) {
+```
+
+### BoundedWildcard
 Can generalize to `? super GroupByValue`
 in `features/sharding/core/src/main/java/org/apache/shardingsphere/sharding/merge/dql/groupby/GroupByMemoryMergedResult.java`
 #### Snippet
@@ -3388,18 +3423,6 @@ in `features/sharding/core/src/main/java/org/apache/shardingsphere/sharding/merg
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends QueryResult`
-in `features/sharding/core/src/main/java/org/apache/shardingsphere/sharding/merge/dql/groupby/GroupByMemoryMergedResult.java`
-#### Snippet
-```java
-    @Override
-    protected List<MemoryQueryResultRow> init(final ShardingRule shardingRule, final ShardingSphereSchema schema,
-                                              final SQLStatementContext<?> sqlStatementContext, final List<QueryResult> queryResults) throws SQLException {
-        SelectStatementContext selectStatementContext = (SelectStatementContext) sqlStatementContext;
-        Map<GroupByValue, MemoryQueryResultRow> dataMap = new HashMap<>(1024);
-```
-
-### BoundedWildcard
 Can generalize to `? extends Map`
 in `features/sharding/core/src/main/java/org/apache/shardingsphere/sharding/merge/dql/groupby/GroupByMemoryMergedResult.java`
 #### Snippet
@@ -3424,51 +3447,15 @@ in `features/sharding/core/src/main/java/org/apache/shardingsphere/sharding/merg
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends Set`
-in `features/sharding/core/src/main/java/org/apache/shardingsphere/sharding/route/engine/type/broadcast/ShardingDataSourceGroupBroadcastRoutingEngine.java`
+Can generalize to `? extends QueryResult`
+in `features/sharding/core/src/main/java/org/apache/shardingsphere/sharding/merge/dql/groupby/GroupByMemoryMergedResult.java`
 #### Snippet
 ```java
-    }
-    
-    private Collection<Set<String>> getCandidateDataSourceGroup(final Collection<Set<String>> dataSourceSetGroup, final Set<String> compareSet) {
-        Collection<Set<String>> result = new LinkedList<>();
-        Set<String> intersections;
-```
-
-### BoundedWildcard
-Can generalize to `? extends Set`
-in `features/sharding/core/src/main/java/org/apache/shardingsphere/sharding/route/engine/type/broadcast/ShardingDataSourceGroupBroadcastRoutingEngine.java`
-#### Snippet
-```java
-    }
-    
-    private Collection<Set<String>> getBroadcastDataSourceGroup(final Collection<Set<String>> dataSourceGroup) {
-        Collection<Set<String>> result = new LinkedList<>();
-        for (Set<String> each : dataSourceGroup) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends List`
-in `features/sharding/core/src/main/java/org/apache/shardingsphere/sharding/route/engine/type/complex/ShardingCartesianRoutingEngine.java`
-#### Snippet
-```java
-    }
-    
-    private Collection<RouteUnit> getRouteUnits(final String dataSource, final Set<List<RouteMapper>> cartesianRoutingTableGroups) {
-        Collection<RouteUnit> result = new LinkedHashSet<>();
-        for (List<RouteMapper> each : cartesianRoutingTableGroups) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends Set`
-in `features/sharding/core/src/main/java/org/apache/shardingsphere/sharding/route/engine/type/complex/ShardingCartesianRoutingEngine.java`
-#### Snippet
-```java
-    }
-    
-    private List<Set<RouteMapper>> toRoutingTableGroups(final String dataSource, final List<Set<String>> actualTableGroups) {
-        List<Set<RouteMapper>> result = new ArrayList<>(actualTableGroups.size());
-        for (Set<String> each : actualTableGroups) {
+    @Override
+    protected List<MemoryQueryResultRow> init(final ShardingRule shardingRule, final ShardingSphereSchema schema,
+                                              final SQLStatementContext<?> sqlStatementContext, final List<QueryResult> queryResults) throws SQLException {
+        SelectStatementContext selectStatementContext = (SelectStatementContext) sqlStatementContext;
+        Map<GroupByValue, MemoryQueryResultRow> dataMap = new HashMap<>(1024);
 ```
 
 ### BoundedWildcard
@@ -3496,18 +3483,6 @@ in `features/sharding/core/src/main/java/org/apache/shardingsphere/sharding/rout
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends Comparable`
-in `features/sharding/core/src/main/java/org/apache/shardingsphere/sharding/route/engine/type/standard/ShardingStandardRoutingEngine.java`
-#### Snippet
-```java
-    }
-    
-    private List<ShardingConditionValue> getShardingConditions(final Collection<Comparable<?>> shardingValue) {
-        return shardingValue.isEmpty() ? Collections.emptyList() : Collections.singletonList(new ListShardingConditionValue<>("", logicTableName, shardingValue));
-    }
-```
-
-### BoundedWildcard
 Can generalize to `? extends ShardingAlgorithm`
 in `features/sharding/core/src/main/java/org/apache/shardingsphere/sharding/route/engine/type/standard/ShardingStandardRoutingEngine.java`
 #### Snippet
@@ -3520,6 +3495,18 @@ in `features/sharding/core/src/main/java/org/apache/shardingsphere/sharding/rout
 ```
 
 ### BoundedWildcard
+Can generalize to `? extends Comparable`
+in `features/sharding/core/src/main/java/org/apache/shardingsphere/sharding/route/engine/type/standard/ShardingStandardRoutingEngine.java`
+#### Snippet
+```java
+    }
+    
+    private List<ShardingConditionValue> getShardingConditions(final Collection<Comparable<?>> shardingValue) {
+        return shardingValue.isEmpty() ? Collections.emptyList() : Collections.singletonList(new ListShardingConditionValue<>("", logicTableName, shardingValue));
+    }
+```
+
+### BoundedWildcard
 Can generalize to `? extends AlterViewStatement`
 in `features/sharding/core/src/main/java/org/apache/shardingsphere/sharding/route/engine/validator/ddl/impl/ShardingAlterViewStatementValidator.java`
 #### Snippet
@@ -3529,6 +3516,42 @@ in `features/sharding/core/src/main/java/org/apache/shardingsphere/sharding/rout
     public void preValidate(final ShardingRule shardingRule, final SQLStatementContext<AlterViewStatement> sqlStatementContext,
                             final List<Object> params, final ShardingSphereDatabase database, final ConfigurationProperties props) {
         Optional<SelectStatement> selectStatement = AlterViewStatementHandler.getSelectStatement(sqlStatementContext.getSqlStatement());
+```
+
+### BoundedWildcard
+Can generalize to `? extends CreateFunctionStatement`
+in `features/sharding/core/src/main/java/org/apache/shardingsphere/sharding/route/engine/validator/ddl/impl/ShardingCreateFunctionStatementValidator.java`
+#### Snippet
+```java
+    
+    @Override
+    public void preValidate(final ShardingRule shardingRule, final SQLStatementContext<CreateFunctionStatement> sqlStatementContext,
+                            final List<Object> params, final ShardingSphereDatabase database, final ConfigurationProperties props) {
+        Optional<RoutineBodySegment> routineBodySegment = CreateFunctionStatementHandler.getRoutineBodySegment(sqlStatementContext.getSqlStatement());
+```
+
+### BoundedWildcard
+Can generalize to `? extends CreateIndexStatement`
+in `features/sharding/core/src/main/java/org/apache/shardingsphere/sharding/route/engine/validator/ddl/impl/ShardingCreateIndexStatementValidator.java`
+#### Snippet
+```java
+    
+    @Override
+    public void preValidate(final ShardingRule shardingRule, final SQLStatementContext<CreateIndexStatement> sqlStatementContext,
+                            final List<Object> params, final ShardingSphereDatabase database, final ConfigurationProperties props) {
+        if (CreateIndexStatementHandler.ifNotExists(sqlStatementContext.getSqlStatement())) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends ShardingCondition`
+in `features/sharding/core/src/main/java/org/apache/shardingsphere/sharding/route/engine/condition/engine/InsertClauseShardingConditionEngine.java`
+#### Snippet
+```java
+    }
+    
+    private void appendGeneratedKeyCondition(final GeneratedKeyContext generatedKey, final String tableName, final List<ShardingCondition> shardingConditions) {
+        Iterator<Comparable<?>> generatedValuesIterator = generatedKey.getGeneratedValues().iterator();
+        for (ShardingCondition each : shardingConditions) {
 ```
 
 ### BoundedWildcard
@@ -3568,54 +3591,6 @@ in `features/sharding/core/src/main/java/org/apache/shardingsphere/sharding/rout
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends CreateFunctionStatement`
-in `features/sharding/core/src/main/java/org/apache/shardingsphere/sharding/route/engine/validator/ddl/impl/ShardingCreateFunctionStatementValidator.java`
-#### Snippet
-```java
-    
-    @Override
-    public void preValidate(final ShardingRule shardingRule, final SQLStatementContext<CreateFunctionStatement> sqlStatementContext,
-                            final List<Object> params, final ShardingSphereDatabase database, final ConfigurationProperties props) {
-        Optional<RoutineBodySegment> routineBodySegment = CreateFunctionStatementHandler.getRoutineBodySegment(sqlStatementContext.getSqlStatement());
-```
-
-### BoundedWildcard
-Can generalize to `? extends CreateIndexStatement`
-in `features/sharding/core/src/main/java/org/apache/shardingsphere/sharding/route/engine/validator/ddl/impl/ShardingCreateIndexStatementValidator.java`
-#### Snippet
-```java
-    
-    @Override
-    public void preValidate(final ShardingRule shardingRule, final SQLStatementContext<CreateIndexStatement> sqlStatementContext,
-                            final List<Object> params, final ShardingSphereDatabase database, final ConfigurationProperties props) {
-        if (CreateIndexStatementHandler.ifNotExists(sqlStatementContext.getSqlStatement())) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends ShardingCondition`
-in `features/sharding/core/src/main/java/org/apache/shardingsphere/sharding/route/engine/condition/engine/impl/InsertClauseShardingConditionEngine.java`
-#### Snippet
-```java
-    }
-    
-    private void appendGeneratedKeyCondition(final GeneratedKeyContext generatedKey, final String tableName, final List<ShardingCondition> shardingConditions) {
-        Iterator<Comparable<?>> generatedValuesIterator = generatedKey.getGeneratedValues().iterator();
-        for (ShardingCondition each : shardingConditions) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends DropIndexStatement`
-in `features/sharding/core/src/main/java/org/apache/shardingsphere/sharding/route/engine/validator/ddl/impl/ShardingDropIndexStatementValidator.java`
-#### Snippet
-```java
-    
-    @Override
-    public void postValidate(final ShardingRule shardingRule, final SQLStatementContext<DropIndexStatement> sqlStatementContext, final HintValueContext hintValueContext, final List<Object> params,
-                             final ShardingSphereDatabase database, final ConfigurationProperties props, final RouteContext routeContext) {
-        Collection<IndexSegment> indexSegments = sqlStatementContext.getSqlStatement().getIndexes();
-```
-
-### BoundedWildcard
 Can generalize to `? extends DropIndexStatement`
 in `features/sharding/core/src/main/java/org/apache/shardingsphere/sharding/route/engine/validator/ddl/impl/ShardingDropIndexStatementValidator.java`
 #### Snippet
@@ -3628,15 +3603,15 @@ in `features/sharding/core/src/main/java/org/apache/shardingsphere/sharding/rout
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends AlterIndexStatement`
-in `features/sharding/core/src/main/java/org/apache/shardingsphere/sharding/route/engine/validator/ddl/impl/ShardingAlterIndexStatementValidator.java`
+Can generalize to `? extends DropIndexStatement`
+in `features/sharding/core/src/main/java/org/apache/shardingsphere/sharding/route/engine/validator/ddl/impl/ShardingDropIndexStatementValidator.java`
 #### Snippet
 ```java
     
     @Override
-    public void preValidate(final ShardingRule shardingRule, final SQLStatementContext<AlterIndexStatement> sqlStatementContext,
-                            final List<Object> params, final ShardingSphereDatabase database, final ConfigurationProperties props) {
-        Optional<IndexSegment> index = sqlStatementContext.getSqlStatement().getIndex();
+    public void postValidate(final ShardingRule shardingRule, final SQLStatementContext<DropIndexStatement> sqlStatementContext, final HintValueContext hintValueContext, final List<Object> params,
+                             final ShardingSphereDatabase database, final ConfigurationProperties props, final RouteContext routeContext) {
+        Collection<IndexSegment> indexSegments = sqlStatementContext.getSqlStatement().getIndexes();
 ```
 
 ### BoundedWildcard
@@ -3664,51 +3639,15 @@ in `features/sharding/core/src/main/java/org/apache/shardingsphere/sharding/rout
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends AlterTableStatement`
-in `features/sharding/core/src/main/java/org/apache/shardingsphere/sharding/route/engine/validator/ddl/impl/ShardingAlterTableStatementValidator.java`
+Can generalize to `? extends AlterIndexStatement`
+in `features/sharding/core/src/main/java/org/apache/shardingsphere/sharding/route/engine/validator/ddl/impl/ShardingAlterIndexStatementValidator.java`
 #### Snippet
 ```java
     
     @Override
-    public void preValidate(final ShardingRule shardingRule, final SQLStatementContext<AlterTableStatement> sqlStatementContext,
+    public void preValidate(final ShardingRule shardingRule, final SQLStatementContext<AlterIndexStatement> sqlStatementContext,
                             final List<Object> params, final ShardingSphereDatabase database, final ConfigurationProperties props) {
-        Collection<String> tableNames = sqlStatementContext instanceof TableAvailable
-```
-
-### BoundedWildcard
-Can generalize to `? extends AlterTableStatement`
-in `features/sharding/core/src/main/java/org/apache/shardingsphere/sharding/route/engine/validator/ddl/impl/ShardingAlterTableStatementValidator.java`
-#### Snippet
-```java
-    
-    @Override
-    public void postValidate(final ShardingRule shardingRule, final SQLStatementContext<AlterTableStatement> sqlStatementContext, final HintValueContext hintValueContext, final List<Object> params,
-                             final ShardingSphereDatabase database, final ConfigurationProperties props, final RouteContext routeContext) {
-        String primaryTable = sqlStatementContext.getSqlStatement().getTable().getTableName().getIdentifier().getValue();
-```
-
-### BoundedWildcard
-Can generalize to `? extends DeleteStatement`
-in `features/sharding/core/src/main/java/org/apache/shardingsphere/sharding/route/engine/validator/dml/impl/ShardingDeleteStatementValidator.java`
-#### Snippet
-```java
-    
-    @Override
-    public void postValidate(final ShardingRule shardingRule, final SQLStatementContext<DeleteStatement> sqlStatementContext, final HintValueContext hintValueContext, final List<Object> params,
-                             final ShardingSphereDatabase database, final ConfigurationProperties props, final RouteContext routeContext) {
-        if (!shardingRule.isBroadcastTable(sqlStatementContext.getTablesContext().getTableNames().iterator().next())
-```
-
-### BoundedWildcard
-Can generalize to `? extends CopyStatement`
-in `features/sharding/core/src/main/java/org/apache/shardingsphere/sharding/route/engine/validator/dml/impl/ShardingCopyStatementValidator.java`
-#### Snippet
-```java
-    
-    @Override
-    public void preValidate(final ShardingRule shardingRule, final SQLStatementContext<CopyStatement> sqlStatementContext,
-                            final List<Object> params, final ShardingSphereDatabase database, final ConfigurationProperties props) {
-        String tableName = sqlStatementContext.getSqlStatement().getTableSegment().getTableName().getIdentifier().getValue();
+        Optional<IndexSegment> index = sqlStatementContext.getSqlStatement().getIndex();
 ```
 
 ### BoundedWildcard
@@ -3736,15 +3675,27 @@ in `features/sharding/core/src/main/java/org/apache/shardingsphere/sharding/rout
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends UpdateStatement`
-in `features/sharding/core/src/main/java/org/apache/shardingsphere/sharding/route/engine/validator/dml/impl/ShardingUpdateStatementValidator.java`
+Can generalize to `? extends CopyStatement`
+in `features/sharding/core/src/main/java/org/apache/shardingsphere/sharding/route/engine/validator/dml/impl/ShardingCopyStatementValidator.java`
 #### Snippet
 ```java
     
     @Override
-    public void postValidate(final ShardingRule shardingRule, final SQLStatementContext<UpdateStatement> sqlStatementContext, final HintValueContext hintValueContext, final List<Object> params,
+    public void preValidate(final ShardingRule shardingRule, final SQLStatementContext<CopyStatement> sqlStatementContext,
+                            final List<Object> params, final ShardingSphereDatabase database, final ConfigurationProperties props) {
+        String tableName = sqlStatementContext.getSqlStatement().getTableSegment().getTableName().getIdentifier().getValue();
+```
+
+### BoundedWildcard
+Can generalize to `? extends DeleteStatement`
+in `features/sharding/core/src/main/java/org/apache/shardingsphere/sharding/route/engine/validator/dml/impl/ShardingDeleteStatementValidator.java`
+#### Snippet
+```java
+    
+    @Override
+    public void postValidate(final ShardingRule shardingRule, final SQLStatementContext<DeleteStatement> sqlStatementContext, final HintValueContext hintValueContext, final List<Object> params,
                              final ShardingSphereDatabase database, final ConfigurationProperties props, final RouteContext routeContext) {
-        String tableName = sqlStatementContext.getTablesContext().getTableNames().iterator().next();
+        if (!shardingRule.isBroadcastTable(sqlStatementContext.getTablesContext().getTableNames().iterator().next())
 ```
 
 ### BoundedWildcard
@@ -3752,11 +3703,11 @@ Can generalize to `? extends CreateViewStatement`
 in `features/sharding/core/src/main/java/org/apache/shardingsphere/sharding/route/engine/validator/ddl/impl/ShardingCreateViewStatementValidator.java`
 #### Snippet
 ```java
-    }
     
-    private boolean isAllBroadcastTablesWithoutConfigView(final ShardingRule shardingRule, final SQLStatementContext<CreateViewStatement> sqlStatementContext,
-                                                          final Collection<SimpleTableSegment> tableSegments) {
-        Collection<String> tables = new LinkedList<>();
+    @Override
+    public void postValidate(final ShardingRule shardingRule, final SQLStatementContext<CreateViewStatement> sqlStatementContext, final HintValueContext hintValueContext, final List<Object> params,
+                             final ShardingSphereDatabase database, final ConfigurationProperties props, final RouteContext routeContext) {
+        SelectStatement selectStatement = sqlStatementContext.getSqlStatement().getSelect();
 ```
 
 ### BoundedWildcard
@@ -3776,11 +3727,47 @@ Can generalize to `? extends CreateViewStatement`
 in `features/sharding/core/src/main/java/org/apache/shardingsphere/sharding/route/engine/validator/ddl/impl/ShardingCreateViewStatementValidator.java`
 #### Snippet
 ```java
+    }
+    
+    private boolean isAllBroadcastTablesWithoutConfigView(final ShardingRule shardingRule, final SQLStatementContext<CreateViewStatement> sqlStatementContext,
+                                                          final Collection<SimpleTableSegment> tableSegments) {
+        Collection<String> tables = new LinkedList<>();
+```
+
+### BoundedWildcard
+Can generalize to `? extends UpdateStatement`
+in `features/sharding/core/src/main/java/org/apache/shardingsphere/sharding/route/engine/validator/dml/impl/ShardingUpdateStatementValidator.java`
+#### Snippet
+```java
     
     @Override
-    public void postValidate(final ShardingRule shardingRule, final SQLStatementContext<CreateViewStatement> sqlStatementContext, final HintValueContext hintValueContext, final List<Object> params,
+    public void postValidate(final ShardingRule shardingRule, final SQLStatementContext<UpdateStatement> sqlStatementContext, final HintValueContext hintValueContext, final List<Object> params,
                              final ShardingSphereDatabase database, final ConfigurationProperties props, final RouteContext routeContext) {
-        SelectStatement selectStatement = sqlStatementContext.getSqlStatement().getSelect();
+        String tableName = sqlStatementContext.getTablesContext().getTableNames().iterator().next();
+```
+
+### BoundedWildcard
+Can generalize to `? extends AlterTableStatement`
+in `features/sharding/core/src/main/java/org/apache/shardingsphere/sharding/route/engine/validator/ddl/impl/ShardingAlterTableStatementValidator.java`
+#### Snippet
+```java
+    
+    @Override
+    public void preValidate(final ShardingRule shardingRule, final SQLStatementContext<AlterTableStatement> sqlStatementContext,
+                            final List<Object> params, final ShardingSphereDatabase database, final ConfigurationProperties props) {
+        Collection<String> tableNames = sqlStatementContext instanceof TableAvailable
+```
+
+### BoundedWildcard
+Can generalize to `? extends AlterTableStatement`
+in `features/sharding/core/src/main/java/org/apache/shardingsphere/sharding/route/engine/validator/ddl/impl/ShardingAlterTableStatementValidator.java`
+#### Snippet
+```java
+    
+    @Override
+    public void postValidate(final ShardingRule shardingRule, final SQLStatementContext<AlterTableStatement> sqlStatementContext, final HintValueContext hintValueContext, final List<Object> params,
+                             final ShardingSphereDatabase database, final ConfigurationProperties props, final RouteContext routeContext) {
+        String primaryTable = sqlStatementContext.getSqlStatement().getTable().getTableName().getIdentifier().getValue();
 ```
 
 ### BoundedWildcard
@@ -3796,18 +3783,6 @@ in `features/sharding/core/src/main/java/org/apache/shardingsphere/sharding/rout
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends ShardingConditionValue`
-in `features/sharding/core/src/main/java/org/apache/shardingsphere/sharding/route/strategy/type/complex/ComplexShardingStrategy.java`
-#### Snippet
-```java
-    @SuppressWarnings({"unchecked", "rawtypes"})
-    @Override
-    public Collection<String> doSharding(final Collection<String> availableTargetNames, final Collection<ShardingConditionValue> shardingConditionValues,
-                                         final DataNodeInfo dataNodeInfo, final ConfigurationProperties props) {
-        Map<String, Collection<Comparable<?>>> columnShardingValues = new HashMap<>(shardingConditionValues.size(), 1);
-```
-
-### BoundedWildcard
 Can generalize to `? extends InsertStatement`
 in `features/sharding/core/src/main/java/org/apache/shardingsphere/sharding/route/engine/validator/dml/impl/ShardingInsertStatementValidator.java`
 #### Snippet
@@ -3817,6 +3792,18 @@ in `features/sharding/core/src/main/java/org/apache/shardingsphere/sharding/rout
     public void postValidate(final ShardingRule shardingRule, final SQLStatementContext<InsertStatement> sqlStatementContext, final HintValueContext hintValueContext, final List<Object> params,
                              final ShardingSphereDatabase database, final ConfigurationProperties props, final RouteContext routeContext) {
         Optional<SubquerySegment> insertSelect = sqlStatementContext.getSqlStatement().getInsertSelect();
+```
+
+### BoundedWildcard
+Can generalize to `? extends ShardingConditionValue`
+in `features/sharding/core/src/main/java/org/apache/shardingsphere/sharding/route/strategy/type/complex/ComplexShardingStrategy.java`
+#### Snippet
+```java
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    @Override
+    public Collection<String> doSharding(final Collection<String> availableTargetNames, final Collection<ShardingConditionValue> shardingConditionValues,
+                                         final DataNodeInfo dataNodeInfo, final ConfigurationProperties props) {
+        Map<String, Collection<Comparable<?>>> columnShardingValues = new HashMap<>(shardingConditionValues.size(), 1);
 ```
 
 ### BoundedWildcard
@@ -3832,8 +3819,32 @@ in `features/sharding/core/src/main/java/org/apache/shardingsphere/sharding/rewr
 ```
 
 ### BoundedWildcard
+Can generalize to `? super SQLTokenGenerator`
+in `features/sharding/core/src/main/java/org/apache/shardingsphere/sharding/rewrite/token/pojo/ShardingTokenGenerateBuilder.java`
+#### Snippet
+```java
+    }
+    
+    private void addSQLTokenGenerator(final Collection<SQLTokenGenerator> sqlTokenGenerators, final SQLTokenGenerator toBeAddedSQLTokenGenerator) {
+        if (toBeAddedSQLTokenGenerator instanceof IgnoreForSingleRoute && routeContext.isSingleRouting()) {
+            return;
+```
+
+### BoundedWildcard
+Can generalize to `? extends Comparable`
+in `features/sharding/core/src/main/java/org/apache/shardingsphere/sharding/route/engine/condition/engine/WhereClauseShardingConditionEngine.java`
+#### Snippet
+```java
+    }
+    
+    private Collection<Comparable<?>> mergeListAndRangeShardingValues(final Collection<Comparable<?>> listValue, final Range<Comparable<?>> rangeValue) {
+        Collection<Comparable<?>> result = new LinkedList<>();
+        for (Comparable<?> each : listValue) {
+```
+
+### BoundedWildcard
 Can generalize to `? extends ShardingConditionValue`
-in `features/sharding/core/src/main/java/org/apache/shardingsphere/sharding/route/engine/condition/engine/impl/WhereClauseShardingConditionEngine.java`
+in `features/sharding/core/src/main/java/org/apache/shardingsphere/sharding/route/engine/condition/engine/WhereClauseShardingConditionEngine.java`
 #### Snippet
 ```java
     
@@ -3845,7 +3856,7 @@ in `features/sharding/core/src/main/java/org/apache/shardingsphere/sharding/rout
 
 ### BoundedWildcard
 Can generalize to `? extends ExpressionSegment`
-in `features/sharding/core/src/main/java/org/apache/shardingsphere/sharding/route/engine/condition/engine/impl/WhereClauseShardingConditionEngine.java`
+in `features/sharding/core/src/main/java/org/apache/shardingsphere/sharding/route/engine/condition/engine/WhereClauseShardingConditionEngine.java`
 #### Snippet
 ```java
     }
@@ -3853,30 +3864,6 @@ in `features/sharding/core/src/main/java/org/apache/shardingsphere/sharding/rout
     private Map<Column, Collection<ShardingConditionValue>> createShardingConditionValueMap(final Collection<ExpressionSegment> predicates,
                                                                                             final List<Object> params, final Map<String, String> columnTableNames) {
         Map<Column, Collection<ShardingConditionValue>> result = new HashMap<>(predicates.size(), 1);
-```
-
-### BoundedWildcard
-Can generalize to `? extends Comparable`
-in `features/sharding/core/src/main/java/org/apache/shardingsphere/sharding/route/engine/condition/engine/impl/WhereClauseShardingConditionEngine.java`
-#### Snippet
-```java
-    }
-    
-    private Collection<Comparable<?>> mergeListAndRangeShardingValues(final Collection<Comparable<?>> listValue, final Range<Comparable<?>> rangeValue) {
-        Collection<Comparable<?>> result = new LinkedList<>();
-        for (Comparable<?> each : listValue) {
-```
-
-### BoundedWildcard
-Can generalize to `? super SQLTokenGenerator`
-in `features/sharding/core/src/main/java/org/apache/shardingsphere/sharding/rewrite/token/pojo/ShardingTokenGenerateBuilder.java`
-#### Snippet
-```java
-    }
-    
-    private void addSQLTokenGenerator(final Collection<SQLTokenGenerator> sqlTokenGenerators, final SQLTokenGenerator toBeAddedSQLTokenGenerator) {
-        if (toBeAddedSQLTokenGenerator instanceof IgnoreForSingleRoute && routeContext.isSingleRouting()) {
-            return;
 ```
 
 ### BoundedWildcard
@@ -3904,18 +3891,6 @@ in `features/sharding/core/src/main/java/org/apache/shardingsphere/sharding/rewr
 ```
 
 ### BoundedWildcard
-Can generalize to `? super ParameterRewriter`
-in `features/sharding/core/src/main/java/org/apache/shardingsphere/sharding/rewrite/parameter/ShardingParameterRewriterBuilder.java`
-#### Snippet
-```java
-    
-    @SuppressWarnings("rawtypes")
-    private void addParameterRewriter(final Collection<ParameterRewriter> paramRewriters, final ParameterRewriter toBeAddedParamRewriter) {
-        if (toBeAddedParamRewriter instanceof SchemaMetaDataAware) {
-            ((SchemaMetaDataAware) toBeAddedParamRewriter).setSchemas(schemas);
-```
-
-### BoundedWildcard
 Can generalize to `? extends ParameterRewriter`
 in `features/sharding/core/src/main/java/org/apache/shardingsphere/sharding/rewrite/context/ShardingSQLRewriteContextDecorator.java`
 #### Snippet
@@ -3925,6 +3900,18 @@ in `features/sharding/core/src/main/java/org/apache/shardingsphere/sharding/rewr
     private void rewriteParameters(final SQLRewriteContext sqlRewriteContext, final Collection<ParameterRewriter> parameterRewriters) {
         for (ParameterRewriter each : parameterRewriters) {
             each.rewrite(sqlRewriteContext.getParameterBuilder(), sqlRewriteContext.getSqlStatementContext(), sqlRewriteContext.getParameters());
+```
+
+### BoundedWildcard
+Can generalize to `? super ParameterRewriter`
+in `features/sharding/core/src/main/java/org/apache/shardingsphere/sharding/rewrite/parameter/ShardingParameterRewriterBuilder.java`
+#### Snippet
+```java
+    
+    @SuppressWarnings("rawtypes")
+    private void addParameterRewriter(final Collection<ParameterRewriter> paramRewriters, final ParameterRewriter toBeAddedParamRewriter) {
+        if (toBeAddedParamRewriter instanceof SchemaMetaDataAware) {
+            ((SchemaMetaDataAware) toBeAddedParamRewriter).setSchemas(schemas);
 ```
 
 ### BoundedWildcard
@@ -3940,15 +3927,27 @@ in `features/sharding/core/src/main/java/org/apache/shardingsphere/sharding/meta
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends ExpressionSegment`
-in `features/sharding/core/src/main/java/org/apache/shardingsphere/sharding/rule/ShardingRule.java`
+Can generalize to `? extends DataSource`
+in `features/sharding/core/src/main/java/org/apache/shardingsphere/sharding/metadata/data/ShardingStatisticsTableCollector.java`
 #### Snippet
 ```java
+    }
     
-    private Collection<String> getJoinConditionTables(final ShardingSphereSchema schema, final SelectStatementContext select,
-                                                      final Collection<ExpressionSegment> predicates, final boolean isDatabaseJoinCondition) {
-        Collection<String> result = new LinkedList<>();
-        for (ExpressionSegment each : predicates) {
+    private void addForPostgreSQL(final Map<String, DataSource> dataSources, final DataNode dataNode, final List<Object> row) throws SQLException {
+        DataSource dataSource = dataSources.get(dataNode.getDataSourceName());
+        BigDecimal tableRows = BigDecimal.ZERO;
+```
+
+### BoundedWildcard
+Can generalize to `? extends DatabaseType`
+in `features/sharding/core/src/main/java/org/apache/shardingsphere/sharding/metadata/data/ShardingStatisticsTableCollector.java`
+#### Snippet
+```java
+    }
+    
+    private void addTableRowsAndDataLength(final Map<String, DatabaseType> databaseTypes, final Map<String, DataSource> dataSources,
+                                           final DataNode dataNode, final List<Object> row) throws SQLException {
+        DatabaseType databaseType = databaseTypes.get(dataNode.getDataSourceName());
 ```
 
 ### BoundedWildcard
@@ -3961,6 +3960,42 @@ in `features/sharding/plugin/cosid/src/main/java/org/apache/shardingsphere/shard
     public String doSharding(final Collection<String> availableTargetNames, final PreciseShardingValue<T> shardingValue) {
         return modCycle.sharding(shardingValue.getValue());
     }
+```
+
+### BoundedWildcard
+Can generalize to `? extends ExpressionSegment`
+in `features/sharding/core/src/main/java/org/apache/shardingsphere/sharding/rule/ShardingRule.java`
+#### Snippet
+```java
+    
+    private Collection<String> getJoinConditionTables(final ShardingSphereSchema schema, final SelectStatementContext select,
+                                                      final Collection<ExpressionSegment> predicates, final boolean isDatabaseJoinCondition) {
+        Collection<String> result = new LinkedList<>();
+        for (ExpressionSegment each : predicates) {
+```
+
+### BoundedWildcard
+Can generalize to `? super LocalDataQueryResultRow`
+in `features/sharding/distsql/handler/src/main/java/org/apache/shardingsphere/sharding/distsql/handler/query/ShowShardingTableRulesUsedAuditorExecutor.java`
+#### Snippet
+```java
+    }
+    
+    private void requireResult(final ShowShardingTableRulesUsedAuditorStatement statement, final Collection<LocalDataQueryResultRow> result, final ShardingRule rule) {
+        if (!statement.getAuditorName().isPresent()) {
+            return;
+```
+
+### BoundedWildcard
+Can generalize to `? super LocalDataQueryResultRow`
+in `features/sharding/distsql/handler/src/main/java/org/apache/shardingsphere/sharding/distsql/handler/query/ShowShardingTableRulesUsedKeyGeneratorExecutor.java`
+#### Snippet
+```java
+    }
+    
+    private void requireResult(final ShowShardingTableRulesUsedKeyGeneratorStatement statement, final Collection<LocalDataQueryResultRow> result, final ShardingRule rule) {
+        if (!statement.getKeyGeneratorName().isPresent()) {
+            return;
 ```
 
 ### BoundedWildcard
@@ -3988,51 +4023,27 @@ in `features/sharding/plugin/cosid/src/main/java/org/apache/shardingsphere/shard
 ```
 
 ### BoundedWildcard
-Can generalize to `? super Collection`
-in `features/sharding/distsql/handler/src/main/java/org/apache/shardingsphere/sharding/distsql/handler/query/ShardingTableRulesUsedAuditorResultSet.java`
+Can generalize to `? super LocalDataQueryResultRow`
+in `features/sharding/distsql/handler/src/main/java/org/apache/shardingsphere/sharding/distsql/handler/query/CountShardingRuleExecutor.java`
 #### Snippet
 ```java
     }
     
-    private void requireResult(final ShowShardingTableRulesUsedAuditorStatement statement, final Collection<Collection<Object>> result, final ShardingRule rule) {
-        if (!statement.getAuditorName().isPresent()) {
-            return;
+    private void addData(final Collection<LocalDataQueryResultRow> result, final String dataKey, final String databaseName, final Supplier<Integer> apply) {
+        result.add(new LocalDataQueryResultRow(dataKey, databaseName, apply.get()));
+    }
 ```
 
 ### BoundedWildcard
-Can generalize to `? super Collection`
-in `features/sharding/distsql/handler/src/main/java/org/apache/shardingsphere/sharding/distsql/handler/query/ShardingTableRulesUsedKeyGeneratorResultSet.java`
+Can generalize to `? super LocalDataQueryResultRow`
+in `features/sharding/distsql/handler/src/main/java/org/apache/shardingsphere/sharding/distsql/handler/query/ShowShardingTableRulesUsedAlgorithmExecutor.java`
 #### Snippet
 ```java
     }
     
-    private void requireResult(final ShowShardingTableRulesUsedKeyGeneratorStatement statement, final Collection<Collection<Object>> result, final ShardingRule rule) {
-        if (!statement.getKeyGeneratorName().isPresent()) {
-            return;
-```
-
-### BoundedWildcard
-Can generalize to `? super Collection`
-in `features/sharding/distsql/handler/src/main/java/org/apache/shardingsphere/sharding/distsql/handler/query/ShardingTableRulesUsedAlgorithmResultSet.java`
-#### Snippet
-```java
-    }
-    
-    private void requireResult(final ShowShardingTableRulesUsedAlgorithmStatement statement, final Collection<Collection<Object>> data, final ShardingRule rule) {
+    private void requireResult(final ShowShardingTableRulesUsedAlgorithmStatement statement, final Collection<LocalDataQueryResultRow> result, final ShardingRule rule) {
         if (!statement.getShardingAlgorithmName().isPresent()) {
             return;
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `features/sharding/distsql/handler/src/main/java/org/apache/shardingsphere/sharding/distsql/handler/query/CountShardingRuleResultSet.java`
-#### Snippet
-```java
-    }
-    
-    private void addData(final Map<String, LinkedList<Object>> rowMap, final String dataKey, final String databaseName, final Supplier<Integer> apply) {
-        rowMap.compute(dataKey, (key, value) -> buildRow(value, databaseName, apply.get()));
-    }
 ```
 
 ### BoundedWildcard
@@ -4073,7 +4084,7 @@ in `features/db-discovery/core/src/main/java/org/apache/shardingsphere/dbdiscove
 
 ### BoundedWildcard
 Can generalize to `? super String`
-in `features/db-discovery/distsql/handler/src/main/java/org/apache/shardingsphere/dbdiscovery/distsql/handler/query/CountDatabaseDiscoveryRuleResultSet.java`
+in `features/db-discovery/distsql/handler/src/main/java/org/apache/shardingsphere/dbdiscovery/distsql/handler/query/CountDatabaseDiscoveryRuleExecutor.java`
 #### Snippet
 ```java
     }
@@ -4081,30 +4092,6 @@ in `features/db-discovery/distsql/handler/src/main/java/org/apache/shardingspher
     private void addData(final Map<String, LinkedList<Object>> rowMap, final String dataKey, final String databaseName, final Supplier<Integer> apply) {
         rowMap.compute(dataKey, (key, value) -> buildRow(value, databaseName, apply.get()));
     }
-```
-
-### BoundedWildcard
-Can generalize to `? extends AbstractDatabaseDiscoverySegment`
-in `features/db-discovery/distsql/handler/src/main/java/org/apache/shardingsphere/dbdiscovery/distsql/handler/converter/DatabaseDiscoveryRuleStatementConverter.java`
-#### Snippet
-```java
-     * @return database discovery rule configuration
-     */
-    public static DatabaseDiscoveryRuleConfiguration convert(final Collection<AbstractDatabaseDiscoverySegment> ruleSegments) {
-        Map<String, List<AbstractDatabaseDiscoverySegment>> segmentMap = ruleSegments.stream().collect(Collectors.groupingBy(each -> each.getClass().getSimpleName()));
-        DatabaseDiscoveryRuleConfiguration result = new DatabaseDiscoveryRuleConfiguration(new LinkedList<>(), new LinkedHashMap<>(), new LinkedHashMap<>());
-```
-
-### BoundedWildcard
-Can generalize to `? extends DataSource`
-in `features/db-discovery/provider/mysql/src/main/java/org/apache/shardingsphere/dbdiscovery/mysql/type/MySQLNormalReplicationDatabaseDiscoveryProviderAlgorithm.java`
-#### Snippet
-```java
-    
-    @Override
-    public void checkEnvironment(final String databaseName, final Collection<DataSource> dataSources) {
-        ExecutorService executorService = ExecutorEngine.createExecutorEngineWithCPUAndResources(dataSources.size()).getExecutorServiceManager().getExecutorService();
-        Collection<CompletableFuture<Boolean>> completableFutures = new LinkedList<>();
 ```
 
 ### BoundedWildcard
@@ -4117,6 +4104,18 @@ in `features/db-discovery/provider/mysql/src/main/java/org/apache/shardingsphere
     public void checkEnvironment(final String databaseName, final Collection<DataSource> dataSources) {
         ExecutorService executorService = ExecutorEngine.createExecutorEngineWithCPUAndResources(dataSources.size()).getExecutorServiceManager().getExecutorService();
         Collection<CompletableFuture<Void>> completableFutures = new LinkedList<>();
+```
+
+### BoundedWildcard
+Can generalize to `? extends DataSource`
+in `features/db-discovery/provider/mysql/src/main/java/org/apache/shardingsphere/dbdiscovery/mysql/type/MySQLNormalReplicationDatabaseDiscoveryProviderAlgorithm.java`
+#### Snippet
+```java
+    
+    @Override
+    public void checkEnvironment(final String databaseName, final Collection<DataSource> dataSources) {
+        ExecutorService executorService = ExecutorEngine.createExecutorEngineWithCPUAndResources(dataSources.size()).getExecutorServiceManager().getExecutorService();
+        checkPrimaryDataSource(databaseName, dataSources.stream().map(each -> asyncCheckEnvironment(executorService, each)).collect(Collectors.toList()));
 ```
 
 ### BoundedWildcard
@@ -4133,7 +4132,7 @@ in `features/readwrite-splitting/core/src/main/java/org/apache/shardingsphere/re
 
 ### BoundedWildcard
 Can generalize to `? super String`
-in `features/readwrite-splitting/distsql/handler/src/main/java/org/apache/shardingsphere/readwritesplitting/distsql/handler/query/CountReadwriteSplittingRuleResultSet.java`
+in `features/readwrite-splitting/distsql/handler/src/main/java/org/apache/shardingsphere/readwritesplitting/distsql/handler/query/CountReadwriteSplittingRuleExecutor.java`
 #### Snippet
 ```java
     }
@@ -4141,18 +4140,6 @@ in `features/readwrite-splitting/distsql/handler/src/main/java/org/apache/shardi
     private void addData(final Map<String, LinkedList<Object>> rowMap, final String dataKey, final String databaseName, final Supplier<Integer> apply) {
         rowMap.compute(dataKey, (key, value) -> buildRow(value, databaseName, apply.get()));
     }
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `features/readwrite-splitting/core/src/main/java/org/apache/shardingsphere/readwritesplitting/checker/ReadwriteSplittingRuleConfigurationChecker.java`
-#### Snippet
-```java
-    }
-    
-    private void checkWriteDataSourceNames(final String databaseName, final Map<String, DataSource> dataSourceMap, final Collection<String> addedWriteDataSourceNames,
-                                           final StaticReadwriteSplittingStrategyConfiguration strategyConfig, final Collection<ShardingSphereRule> rules) {
-        for (String each : new InlineExpressionParser(strategyConfig.getWriteDataSourceName()).splitAndEvaluate()) {
 ```
 
 ### BoundedWildcard
@@ -4165,18 +4152,6 @@ in `features/readwrite-splitting/core/src/main/java/org/apache/shardingsphere/re
     private boolean containsInOtherRules(final String datasourceName, final Collection<ShardingSphereRule> rules) {
         for (ShardingSphereRule each : rules) {
             if (each instanceof DataSourceContainedRule && ((DataSourceContainedRule) each).getDataSourceMapper().containsKey(datasourceName)) {
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `features/readwrite-splitting/core/src/main/java/org/apache/shardingsphere/readwritesplitting/checker/ReadwriteSplittingRuleConfigurationChecker.java`
-#### Snippet
-```java
-    
-    private void checkReadeDataSourceNames(final String databaseName,
-                                           final Map<String, DataSource> dataSourceMap, final Collection<String> addedReadDataSourceNames, final String readDataSourceName) {
-        for (String each : new InlineExpressionParser(readDataSourceName).splitAndEvaluate()) {
-            ShardingSpherePreconditions.checkState(dataSourceMap.containsKey(each),
 ```
 
 ### BoundedWildcard
@@ -4193,14 +4168,26 @@ in `features/readwrite-splitting/core/src/main/java/org/apache/shardingsphere/re
 
 ### BoundedWildcard
 Can generalize to `? super String`
-in `features/readwrite-splitting/distsql/handler/src/main/java/org/apache/shardingsphere/readwritesplitting/distsql/handler/checker/ReadwriteSplittingRuleStatementChecker.java`
+in `features/readwrite-splitting/core/src/main/java/org/apache/shardingsphere/readwritesplitting/checker/ReadwriteSplittingRuleConfigurationChecker.java`
 #### Snippet
 ```java
     }
     
-    private static void checkDuplicateWriteDataSourceNames(final String databaseName, final Collection<ReadwriteSplittingRuleSegment> segments, final Collection<String> writeDataSourceNames) {
-        segments.forEach(each -> {
-            if (!Strings.isNullOrEmpty(each.getWriteDataSource())) {
+    private void checkWriteDataSourceNames(final String databaseName, final Map<String, DataSource> dataSourceMap, final Collection<String> addedWriteDataSourceNames,
+                                           final StaticReadwriteSplittingStrategyConfiguration strategyConfig, final Collection<ShardingSphereRule> rules) {
+        for (String each : new InlineExpressionParser(strategyConfig.getWriteDataSourceName()).splitAndEvaluate()) {
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `features/readwrite-splitting/core/src/main/java/org/apache/shardingsphere/readwritesplitting/checker/ReadwriteSplittingRuleConfigurationChecker.java`
+#### Snippet
+```java
+    
+    private void checkReadeDataSourceNames(final String databaseName,
+                                           final Map<String, DataSource> dataSourceMap, final Collection<String> addedReadDataSourceNames, final String readDataSourceName) {
+        for (String each : new InlineExpressionParser(readDataSourceName).splitAndEvaluate()) {
+            ShardingSpherePreconditions.checkState(dataSourceMap.containsKey(each),
 ```
 
 ### BoundedWildcard
@@ -4210,21 +4197,21 @@ in `features/readwrite-splitting/distsql/handler/src/main/java/org/apache/shardi
 ```java
     }
     
-    private static void checkDuplicateReadDataSourceNames(final String databaseName, final Collection<ReadwriteSplittingRuleSegment> segments, final Collection<String> readDataSourceNames) {
-        segments.forEach(each -> {
-            if (null != each.getReadDataSources()) {
+    private static void checkDuplicateReadDataSourceNames(final String databaseName, final ReadwriteSplittingRuleSegment segment, final Collection<String> readDataSourceNames) {
+        for (String each : segment.getReadDataSources()) {
+            ShardingSpherePreconditions.checkState(readDataSourceNames.add(each),
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends AbstractTableRuleSegment`
-in `features/sharding/distsql/handler/src/main/java/org/apache/shardingsphere/sharding/distsql/handler/checker/ShardingTableRuleStatementChecker.java`
+Can generalize to `? super String`
+in `features/readwrite-splitting/distsql/handler/src/main/java/org/apache/shardingsphere/readwritesplitting/distsql/handler/checker/ReadwriteSplittingRuleStatementChecker.java`
 #### Snippet
 ```java
     }
     
-    private static Map<String, List<AbstractTableRuleSegment>> groupingByClassType(final Collection<AbstractTableRuleSegment> rules) {
-        return rules.stream().collect(Collectors.groupingBy(each -> each.getClass().getSimpleName()));
-    }
+    private static void checkDuplicateWriteDataSourceNames(final String databaseName, final Collection<ReadwriteSplittingRuleSegment> segments, final Collection<String> writeDataSourceNames) {
+        segments.forEach(each -> {
+            if (!Strings.isNullOrEmpty(each.getWriteDataSource())) {
 ```
 
 ### BoundedWildcard
@@ -4240,15 +4227,27 @@ in `features/sharding/distsql/handler/src/main/java/org/apache/shardingsphere/sh
 ```
 
 ### BoundedWildcard
+Can generalize to `? extends ShardingAlgorithm`
+in `features/sharding/distsql/handler/src/main/java/org/apache/shardingsphere/sharding/distsql/handler/checker/ShardingTableRuleStatementChecker.java`
+#### Snippet
+```java
+    
+    private static TableRule createAutoTableRule(final KeyGenerateStrategyConfiguration defaultKeyGenerateStrategyConfig, final ShardingAutoTableRuleConfiguration autoTableRuleConfig,
+                                                 final Map<String, ShardingAlgorithm> shardingAlgorithms, final Collection<String> dataSourceNames) {
+        ShardingAlgorithm shardingAlgorithm = shardingAlgorithms.get(autoTableRuleConfig.getShardingStrategy().getShardingAlgorithmName());
+        ShardingSpherePreconditions.checkState(shardingAlgorithm instanceof ShardingAutoTableAlgorithm,
+```
+
+### BoundedWildcard
 Can generalize to `? extends AbstractTableRuleSegment`
 in `features/sharding/distsql/handler/src/main/java/org/apache/shardingsphere/sharding/distsql/handler/checker/ShardingTableRuleStatementChecker.java`
 #### Snippet
 ```java
     }
     
-    private static void checkTables(final String databaseName, final Collection<AbstractTableRuleSegment> rules, final ShardingRuleConfiguration currentRuleConfig, final boolean isCreate,
-                                    final boolean ifNotExists) {
-        Collection<String> requiredTables = rules.stream().map(AbstractTableRuleSegment::getLogicTable).collect(Collectors.toList());
+    private static Collection<String> getRequiredDataSources(final Collection<AbstractTableRuleSegment> rules) {
+        return rules.stream().map(AbstractTableRuleSegment::getDataSourceNodes).flatMap(Collection::stream)
+                .map(ShardingTableRuleStatementChecker::parseDateSource).map(ShardingTableRuleStatementChecker::getDataSourceNames).flatMap(Collection::stream).collect(Collectors.toList());
 ```
 
 ### BoundedWildcard
@@ -4270,33 +4269,33 @@ in `features/sharding/distsql/handler/src/main/java/org/apache/shardingsphere/sh
 ```java
     }
     
-    private static Collection<String> getRequiredDataSources(final Collection<AbstractTableRuleSegment> rules) {
-        return rules.stream().map(AbstractTableRuleSegment::getDataSourceNodes).flatMap(Collection::stream)
-                .map(ShardingTableRuleStatementChecker::parseDateSource).map(ShardingTableRuleStatementChecker::getDataSourceNames).flatMap(Collection::stream).collect(Collectors.toList());
+    private static void checkTables(final String databaseName, final Collection<AbstractTableRuleSegment> rules, final ShardingRuleConfiguration currentRuleConfig, final boolean isCreate,
+                                    final boolean ifNotExists) {
+        Collection<String> requiredTables = rules.stream().map(AbstractTableRuleSegment::getLogicTable).collect(Collectors.toList());
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends ShardingAlgorithm`
+Can generalize to `? extends AbstractTableRuleSegment`
 in `features/sharding/distsql/handler/src/main/java/org/apache/shardingsphere/sharding/distsql/handler/checker/ShardingTableRuleStatementChecker.java`
-#### Snippet
-```java
-    
-    private static TableRule createAutoTableRule(final KeyGenerateStrategyConfiguration defaultKeyGenerateStrategyConfig, final ShardingAutoTableRuleConfiguration autoTableRuleConfig,
-                                                 final Map<String, ShardingAlgorithm> shardingAlgorithms, final Collection<String> dataSourceNames) {
-        ShardingAlgorithm shardingAlgorithm = shardingAlgorithms.get(autoTableRuleConfig.getShardingStrategy().getShardingAlgorithmName());
-        ShardingSpherePreconditions.checkState(shardingAlgorithm instanceof ShardingAutoTableAlgorithm,
-```
-
-### BoundedWildcard
-Can generalize to `? super ColumnSegment`
-in `sql-parser/statement/src/main/java/org/apache/shardingsphere/sql/parser/sql/common/util/ColumnExtractor.java`
 #### Snippet
 ```java
     }
     
-    private static void extractColumnSegments(final Collection<ColumnSegment> columnSegments, final AndPredicate andPredicate) {
-        for (ExpressionSegment each : andPredicate.getPredicates()) {
-            columnSegments.addAll(ColumnExtractor.extract(each));
+    private static Map<String, List<AbstractTableRuleSegment>> groupingByClassType(final Collection<AbstractTableRuleSegment> rules) {
+        return rules.stream().collect(Collectors.groupingBy(each -> each.getClass().getSimpleName()));
+    }
+```
+
+### BoundedWildcard
+Can generalize to `? super AndPredicate`
+in `sql-parser/statement/src/main/java/org/apache/shardingsphere/sql/parser/sql/common/util/ExpressionExtractUtil.java`
+#### Snippet
+```java
+    }
+    
+    private static void extractCombinedAndPredicates(final Collection<AndPredicate> result, final AndPredicate current, final Collection<AndPredicate> predicates) {
+        for (AndPredicate each : predicates) {
+            AndPredicate predicate = new AndPredicate();
 ```
 
 ### BoundedWildcard
@@ -4324,15 +4323,15 @@ in `sql-parser/statement/src/main/java/org/apache/shardingsphere/sql/parser/sql/
 ```
 
 ### BoundedWildcard
-Can generalize to `? super AndPredicate`
-in `sql-parser/statement/src/main/java/org/apache/shardingsphere/sql/parser/sql/common/util/ExpressionExtractUtil.java`
+Can generalize to `? super ColumnSegment`
+in `sql-parser/statement/src/main/java/org/apache/shardingsphere/sql/parser/sql/common/util/ColumnExtractor.java`
 #### Snippet
 ```java
     }
     
-    private static void extractCombinedAndPredicates(final Collection<AndPredicate> result, final AndPredicate current, final Collection<AndPredicate> predicates) {
-        for (AndPredicate each : predicates) {
-            AndPredicate predicate = new AndPredicate();
+    private static void extractColumnSegments(final Collection<ColumnSegment> columnSegments, final AndPredicate andPredicate) {
+        for (ExpressionSegment each : andPredicate.getPredicates()) {
+            columnSegments.addAll(ColumnExtractor.extract(each));
 ```
 
 ### BoundedWildcard
@@ -4384,18 +4383,6 @@ in `sql-parser/statement/src/main/java/org/apache/shardingsphere/sql/parser/sql/
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends OrderByItemSegment`
-in `sql-parser/statement/src/main/java/org/apache/shardingsphere/sql/parser/sql/common/extractor/TableExtractor.java`
-#### Snippet
-```java
-    }
-    
-    private void extractTablesFromOrderByItems(final Collection<OrderByItemSegment> orderByItems) {
-        for (OrderByItemSegment each : orderByItems) {
-            if (each instanceof ColumnOrderByItemSegment) {
-```
-
-### BoundedWildcard
 Can generalize to `? extends AssignmentSegment`
 in `sql-parser/statement/src/main/java/org/apache/shardingsphere/sql/parser/sql/common/extractor/TableExtractor.java`
 #### Snippet
@@ -4405,6 +4392,18 @@ in `sql-parser/statement/src/main/java/org/apache/shardingsphere/sql/parser/sql/
     private void extractTablesFromAssignmentItems(final Collection<AssignmentSegment> assignmentItems) {
         assignmentItems.forEach(each -> extractTablesFromColumnSegments(each.getColumns()));
     }
+```
+
+### BoundedWildcard
+Can generalize to `? extends OrderByItemSegment`
+in `sql-parser/statement/src/main/java/org/apache/shardingsphere/sql/parser/sql/common/extractor/TableExtractor.java`
+#### Snippet
+```java
+    }
+    
+    private void extractTablesFromOrderByItems(final Collection<OrderByItemSegment> orderByItems) {
+        for (OrderByItemSegment each : orderByItems) {
+            if (each instanceof ColumnOrderByItemSegment) {
 ```
 
 ## RuleId[ruleID=NullableProblems]
@@ -4493,10 +4492,23 @@ in `kernel/sql-federation/optimizer/src/main/java/org/apache/shardingsphere/sqlf
                 ? Sarg.of(RexUnknownAs.UNKNOWN, ImmutableRangeSet.of(Range.range(lowerValue, BoundType.CLOSED, upperValue, BoundType.CLOSED)))
 ```
 
+## RuleId[ruleID=InstanceofIncompatibleInterface]
+### InstanceofIncompatibleInterface
+'instanceof' incompatible interface `FromDatabaseAvailable`
+in `proxy/backend/src/main/java/org/apache/shardingsphere/proxy/backend/handler/distsql/rdl/RDLBackendHandler.java`
+#### Snippet
+```java
+    
+    private String getDatabaseName(final ConnectionSession connectionSession, final T sqlStatement) {
+        Optional<DatabaseSegment> databaseSegment = sqlStatement instanceof FromDatabaseAvailable ? ((FromDatabaseAvailable) sqlStatement).getDatabase() : Optional.empty();
+        return databaseSegment.isPresent() ? databaseSegment.get().getIdentifier().getValue() : connectionSession.getDatabaseName();
+    }
+```
+
 ## RuleId[ruleID=MalformedFormatString]
 ### MalformedFormatString
 Too few arguments for format string (found: 2, expected: 3)
-in `proxy/backend/src/main/java/org/apache/shardingsphere/proxy/backend/handler/distsql/ral/queryable/ConvertYamlConfigurationHandler.java`
+in `proxy/backend/src/main/java/org/apache/shardingsphere/proxy/backend/handler/distsql/ral/queryable/ConvertYamlConfigurationExecutor.java`
 #### Snippet
 ```java
                 break;
@@ -4520,15 +4532,15 @@ in `mode/type/cluster/repository/provider/consul/src/main/java/org/apache/shardi
 ```
 
 ### RedundantMethodOverride
-Method `load()` only delegates to its super method
-in `infra/common/src/main/java/org/apache/shardingsphere/infra/metadata/database/schema/loader/common/DefaultDataTypeLoader.java`
+Method `init()` is identical to its super method
+in `kernel/time-service/type/system/src/main/java/org/apache/shardingsphere/timeservice/type/system/SystemTimeService.java`
 #### Snippet
 ```java
-     * @throws SQLException SQL exception
-     */
-    public Map<String, Integer> load(final DatabaseMetaData database) throws SQLException {
-        return super.load(database);
+    
+    @Override
+    public void init(final Properties props) {
     }
+    
 ```
 
 ## RuleId[ruleID=OptionalAssignedToNull]
@@ -4638,7 +4650,7 @@ in `infra/executor/src/main/java/org/apache/shardingsphere/infra/executor/sql/pr
     private SQLExecutionUnitBuilder getCachedSqlExecutionUnitBuilder(final String type) {
         SQLExecutionUnitBuilder result;
         if (null == (result = TYPE_TO_BUILDER_MAP.get(type))) {
-            result = TYPE_TO_BUILDER_MAP.computeIfAbsent(type, key -> TypedSPIRegistry.getRegisteredService(SQLExecutionUnitBuilder.class, key));
+            result = TYPE_TO_BUILDER_MAP.computeIfAbsent(type, key -> TypedSPILoader.getService(SQLExecutionUnitBuilder.class, key));
         }
 ```
 
@@ -4680,14 +4692,14 @@ in `features/sharding/core/src/main/java/org/apache/shardingsphere/sharding/algo
 
 ### NestedAssignment
 Result of assignment expression used
-in `features/sharding/distsql/handler/src/main/java/org/apache/shardingsphere/sharding/distsql/handler/query/ShardingKeyGeneratorResultSet.java`
+in `features/sharding/plugin/cache/src/main/java/org/apache/shardingsphere/sharding/cache/checker/ShardingRouteCacheableChecker.java`
 #### Snippet
 ```java
-    @Override
-    public void init(final ShardingSphereDatabase database, final SQLStatement sqlStatement) {
-        database.getRuleMetaData().findSingleRule(ShardingRule.class).map(optional -> data = ((ShardingRuleConfiguration) optional.getConfiguration()).getKeyGenerators().entrySet().iterator());
-    }
-    
+        Collection<String> tableNames = statementContext.getTablesContext().getTableNames();
+        boolean isShardingTable;
+        if (1 != tableNames.size() || (isShardingTable = shardingRule.isAllShardingTables(tableNames)) && containsNonCacheableShardingAlgorithm(tableNames)
+                || !isShardingTable && !shardingRule.isAllBroadcastTables(tableNames)) {
+            return new ShardingRouteCacheableCheckResult(false, Collections.emptyList());
 ```
 
 ### NestedAssignment
@@ -4698,18 +4710,6 @@ in `features/sharding/plugin/cache/src/main/java/org/apache/shardingsphere/shard
         if (1 != tableNames.size() || null != statementContext.getInsertSelectContext() || null != statementContext.getOnDuplicateKeyUpdateValueContext()
                 || statementContext.getGeneratedKeyContext().map(GeneratedKeyContext::isGenerated).orElse(false)
                 || (isShardingTable = shardingRule.isAllShardingTables(tableNames)) && containsNonCacheableShardingAlgorithm(tableNames)
-                || !isShardingTable && !shardingRule.isAllBroadcastTables(tableNames)) {
-            return new ShardingRouteCacheableCheckResult(false, Collections.emptyList());
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `features/sharding/plugin/cache/src/main/java/org/apache/shardingsphere/sharding/cache/checker/ShardingRouteCacheableChecker.java`
-#### Snippet
-```java
-        Collection<String> tableNames = statementContext.getTablesContext().getTableNames();
-        boolean isShardingTable;
-        if (1 != tableNames.size() || (isShardingTable = shardingRule.isAllShardingTables(tableNames)) && containsNonCacheableShardingAlgorithm(tableNames)
                 || !isShardingTable && !shardingRule.isAllBroadcastTables(tableNames)) {
             return new ShardingRouteCacheableCheckResult(false, Collections.emptyList());
 ```
@@ -4777,7 +4777,7 @@ in `features/readwrite-splitting/core/src/main/java/org/apache/shardingsphere/re
 
 ### ReplaceAssignmentWithOperatorAssignment
 `exactWeights[i] = exactWeights[i] / sum` could be simplified to 'exactWeights\[i\] /= sum'
-in `features/readwrite-splitting/core/src/main/java/org/apache/shardingsphere/readwritesplitting/algorithm/loadbalance/FixedReplicaWeightReadQueryLoadBalanceAlgorithm.java`
+in `features/readwrite-splitting/core/src/main/java/org/apache/shardingsphere/readwritesplitting/algorithm/loadbalance/WeightReadQueryLoadBalanceAlgorithm.java`
 #### Snippet
 ```java
                 continue;
@@ -4789,7 +4789,7 @@ in `features/readwrite-splitting/core/src/main/java/org/apache/shardingsphere/re
 
 ### ReplaceAssignmentWithOperatorAssignment
 `exactWeights[i] = exactWeights[i] / sum` could be simplified to 'exactWeights\[i\] /= sum'
-in `features/readwrite-splitting/core/src/main/java/org/apache/shardingsphere/readwritesplitting/algorithm/loadbalance/WeightReadQueryLoadBalanceAlgorithm.java`
+in `features/readwrite-splitting/core/src/main/java/org/apache/shardingsphere/readwritesplitting/algorithm/loadbalance/FixedReplicaWeightReadQueryLoadBalanceAlgorithm.java`
 #### Snippet
 ```java
                 continue;
@@ -4809,18 +4809,6 @@ in `db-protocol/postgresql/src/main/java/org/apache/shardingsphere/db/protocol/p
                 d = (short) (d / INT_TEN_POWERS[4 - effectiveScale]);
                 effectiveScale = 0;
             }
-```
-
-### ReplaceAssignmentWithOperatorAssignment
-`unscaledLong = unscaledLong / 10000L` could be simplified to 'unscaledLong /= 10000L'
-in `db-protocol/postgresql/src/main/java/org/apache/shardingsphere/db/protocol/postgresql/packet/command/query/extended/bind/protocol/PostgreSQLByteConverter.java`
-#### Snippet
-```java
-        do {
-            shortStacks.push((short) (unscaledLong % 10000));
-            unscaledLong = unscaledLong / 10000L;
-            ++result;
-        } while (0 != unscaledLong);
 ```
 
 ### ReplaceAssignmentWithOperatorAssignment
@@ -4847,6 +4835,18 @@ in `db-protocol/postgresql/src/main/java/org/apache/shardingsphere/db/protocol/p
             }
 ```
 
+### ReplaceAssignmentWithOperatorAssignment
+`unscaledLong = unscaledLong / 10000L` could be simplified to 'unscaledLong /= 10000L'
+in `db-protocol/postgresql/src/main/java/org/apache/shardingsphere/db/protocol/postgresql/packet/command/query/extended/bind/protocol/PostgreSQLByteConverter.java`
+#### Snippet
+```java
+        do {
+            shortStacks.push((short) (unscaledLong % 10000));
+            unscaledLong = unscaledLong / 10000L;
+            ++result;
+        } while (0 != unscaledLong);
+```
+
 ## RuleId[ruleID=ExcessiveLambdaUsage]
 ### ExcessiveLambdaUsage
 Excessive lambda usage
@@ -4858,19 +4858,6 @@ in `proxy/backend/src/main/java/org/apache/shardingsphere/proxy/backend/handler/
         row.replaceAll(each -> "");
         rows.add(new MemoryQueryResultDataRow(row));
         return new RawMemoryQueryResult(getQueryResultMetaData(), rows);
-```
-
-## RuleId[ruleID=CodeBlock2Expr]
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
-in `features/readwrite-splitting/distsql/handler/src/main/java/org/apache/shardingsphere/readwritesplitting/distsql/handler/checker/ReadwriteSplittingRuleStatementChecker.java`
-#### Snippet
-```java
-        segments.forEach(each -> {
-            if (null != each.getReadDataSources()) {
-                each.getReadDataSources().forEach(readDataSource -> {
-                    ShardingSpherePreconditions.checkState(readDataSourceNames.add(readDataSource), () -> new InvalidRuleConfigurationException("Readwrite splitting", each.getName(),
-                            String.format("Can not config duplicate read storage unit `%s` in database `%s`", readDataSource, databaseName)));
 ```
 
 ## RuleId[ruleID=Lombok]
@@ -4913,6 +4900,18 @@ public final class NamingEventListener implements EventListener {
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
+Field `agentLoggerClassLoader` is accessed in both synchronized and unsynchronized contexts
+in `agent/core/src/main/java/org/apache/shardingsphere/agent/core/log/AgentLoggerFactory.java`
+#### Snippet
+```java
+public final class AgentLoggerFactory {
+    
+    private static AgentLoggerClassLoader agentLoggerClassLoader;
+    
+    /**
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
 Field `startIndex` is accessed in both synchronized and unsynchronized contexts
 in `kernel/data-pipeline/core/src/main/java/org/apache/shardingsphere/data/pipeline/core/ingest/channel/memory/ManualBitSet.java`
 #### Snippet
@@ -4922,6 +4921,18 @@ in `kernel/data-pipeline/core/src/main/java/org/apache/shardingsphere/data/pipel
     private long startIndex;
     
     /**
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `channel` is accessed in both synchronized and unsynchronized contexts
+in `kernel/data-pipeline/dialect/mysql/src/main/java/org/apache/shardingsphere/data/pipeline/mysql/ingest/client/MySQLClient.java`
+#### Snippet
+```java
+    private EventLoopGroup eventLoopGroup;
+    
+    private Channel channel;
+    
+    private Promise<Object> responseCallback;
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
@@ -4946,18 +4957,6 @@ in `kernel/data-pipeline/dialect/mysql/src/main/java/org/apache/shardingsphere/d
     private EventLoopGroup eventLoopGroup;
     
     private Channel channel;
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `channel` is accessed in both synchronized and unsynchronized contexts
-in `kernel/data-pipeline/dialect/mysql/src/main/java/org/apache/shardingsphere/data/pipeline/mysql/ingest/client/MySQLClient.java`
-#### Snippet
-```java
-    private EventLoopGroup eventLoopGroup;
-    
-    private Channel channel;
-    
-    private Promise<Object> responseCallback;
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
@@ -5059,7 +5058,7 @@ in `proxy/backend/src/main/java/org/apache/shardingsphere/proxy/backend/handler/
 
 ### UseOfPropertiesAsHashtable
 Call to `Hashtable.get()` on properties object
-in `proxy/backend/src/main/java/org/apache/shardingsphere/proxy/backend/handler/distsql/ral/queryable/ConvertYamlConfigurationHandler.java`
+in `proxy/backend/src/main/java/org/apache/shardingsphere/proxy/backend/handler/distsql/ral/queryable/ConvertYamlConfigurationExecutor.java`
 #### Snippet
 ```java
         while (iterator.hasNext()) {
@@ -5095,7 +5094,7 @@ in `features/readwrite-splitting/core/src/main/java/org/apache/shardingsphere/re
 
 ### UseOfPropertiesAsHashtable
 Call to `Hashtable.get()` on properties object
-in `features/readwrite-splitting/core/src/main/java/org/apache/shardingsphere/readwritesplitting/algorithm/loadbalance/FixedReplicaWeightReadQueryLoadBalanceAlgorithm.java`
+in `features/readwrite-splitting/core/src/main/java/org/apache/shardingsphere/readwritesplitting/algorithm/loadbalance/WeightReadQueryLoadBalanceAlgorithm.java`
 #### Snippet
 ```java
     
@@ -5107,7 +5106,7 @@ in `features/readwrite-splitting/core/src/main/java/org/apache/shardingsphere/re
 
 ### UseOfPropertiesAsHashtable
 Call to `Hashtable.get()` on properties object
-in `features/readwrite-splitting/core/src/main/java/org/apache/shardingsphere/readwritesplitting/algorithm/loadbalance/WeightReadQueryLoadBalanceAlgorithm.java`
+in `features/readwrite-splitting/core/src/main/java/org/apache/shardingsphere/readwritesplitting/algorithm/loadbalance/FixedReplicaWeightReadQueryLoadBalanceAlgorithm.java`
 #### Snippet
 ```java
     
@@ -5143,15 +5142,15 @@ in `db-protocol/mysql/src/main/java/org/apache/shardingsphere/db/protocol/mysql/
 ```
 
 ### EmptyMethod
-All implementations of this method are empty
-in `kernel/authority/api/src/main/java/org/apache/shardingsphere/authority/model/ShardingSpherePrivileges.java`
+The method is empty
+in `infra/executor/src/main/java/org/apache/shardingsphere/infra/executor/sql/process/ExecuteProcessReporter.java`
 #### Snippet
 ```java
-     * Set super privilege.
+     * @param eventBusContext event bus context
      */
-    void setSuperPrivilege();
+    public void report(final String executionID, final ExecuteProcessConstants constants, final EventBusContext eventBusContext) {
+    }
     
-    /**
 ```
 
 ### EmptyMethod
@@ -5650,18 +5649,6 @@ public final class TypeSegment implements SQLSegment, OwnerAvailable {
 
 ### RedundantImplements
 Redundant interface declaration `SQLSegment`
-in `sql-parser/statement/src/main/java/org/apache/shardingsphere/sql/parser/sql/common/segment/ddl/index/IndexTypeSegment.java`
-#### Snippet
-```java
-@Getter
-@Setter
-public final class IndexTypeSegment implements SQLSegment, OwnerAvailable {
-    
-    private final int startIndex;
-```
-
-### RedundantImplements
-Redundant interface declaration `SQLSegment`
 in `sql-parser/statement/src/main/java/org/apache/shardingsphere/sql/parser/sql/common/segment/ddl/index/IndexSegment.java`
 #### Snippet
 ```java
@@ -5674,12 +5661,12 @@ public final class IndexSegment implements SQLSegment, OwnerAvailable {
 
 ### RedundantImplements
 Redundant interface declaration `SQLSegment`
-in `sql-parser/statement/src/main/java/org/apache/shardingsphere/sql/parser/sql/common/segment/ddl/routine/FunctionNameSegment.java`
+in `sql-parser/statement/src/main/java/org/apache/shardingsphere/sql/parser/sql/common/segment/ddl/index/IndexTypeSegment.java`
 #### Snippet
 ```java
 @Getter
 @Setter
-public final class FunctionNameSegment implements SQLSegment, OwnerAvailable {
+public final class IndexTypeSegment implements SQLSegment, OwnerAvailable {
     
     private final int startIndex;
 ```
@@ -5692,6 +5679,18 @@ in `sql-parser/statement/src/main/java/org/apache/shardingsphere/sql/parser/sql/
 @Getter
 @Setter
 public final class PackageSegment implements SQLSegment, OwnerAvailable {
+    
+    private final int startIndex;
+```
+
+### RedundantImplements
+Redundant interface declaration `SQLSegment`
+in `sql-parser/statement/src/main/java/org/apache/shardingsphere/sql/parser/sql/common/segment/ddl/routine/FunctionNameSegment.java`
+#### Snippet
+```java
+@Getter
+@Setter
+public final class FunctionNameSegment implements SQLSegment, OwnerAvailable {
     
     private final int startIndex;
 ```
@@ -5734,24 +5733,24 @@ public final class SQLServerCreateTriggerStatement extends CreateTriggerStatemen
 
 ### RedundantImplements
 Redundant interface declaration `DDLStatement`
-in `sql-parser/statement/src/main/java/org/apache/shardingsphere/sql/parser/sql/dialect/statement/sqlserver/ddl/SQLServerDropTriggerStatement.java`
-#### Snippet
-```java
- * SQLServer drop trigger statement.
- */
-public final class SQLServerDropTriggerStatement extends DropTriggerStatement implements DDLStatement, SQLServerStatement {
-}
-
-```
-
-### RedundantImplements
-Redundant interface declaration `DDLStatement`
 in `sql-parser/statement/src/main/java/org/apache/shardingsphere/sql/parser/sql/dialect/statement/sqlserver/ddl/SQLServerAlterTriggerStatement.java`
 #### Snippet
 ```java
  * SQLServer alter trigger statement.
  */
 public final class SQLServerAlterTriggerStatement extends AlterTriggerStatement implements DDLStatement, SQLServerStatement {
+}
+
+```
+
+### RedundantImplements
+Redundant interface declaration `DDLStatement`
+in `sql-parser/statement/src/main/java/org/apache/shardingsphere/sql/parser/sql/dialect/statement/sqlserver/ddl/SQLServerDropTriggerStatement.java`
+#### Snippet
+```java
+ * SQLServer drop trigger statement.
+ */
+public final class SQLServerDropTriggerStatement extends DropTriggerStatement implements DDLStatement, SQLServerStatement {
 }
 
 ```
@@ -5975,6 +5974,18 @@ in `docs/community/layouts/shortcodes/bilibili.html`
             >
 ```
 
+### HtmlWrongAttributeValue
+Wrong attribute value
+in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-02-02-01-33-42.014.html`
+#### Snippet
+```java
+              <td>0</td>
+              <td>0</td>
+              <td><textarea rows="10" cols="75" readonly="true" placeholder="empty" style="white-space: pre; border: none">Not collected for refresh</textarea></td>
+            </tr>
+          </tbody>
+```
+
 ## RuleId[ruleID=SynchronizeOnThis]
 ### SynchronizeOnThis
 Lock operations on 'this' may have unforeseen side-effects
@@ -5986,6 +5997,18 @@ in `mode/type/cluster/repository/provider/nacos/src/main/java/org/apache/shardin
         synchronized (this) {
             instances.forEach(instance -> prefixListenerMap.forEach((prefixPath, listener) -> {
                 String key = NacosMetaDataUtil.getKey(instance);
+```
+
+### SynchronizeOnThis
+Lock operations on a class may have unforeseen side-effects
+in `agent/core/src/main/java/org/apache/shardingsphere/agent/core/log/AgentLoggerFactory.java`
+#### Snippet
+```java
+            return agentLoggerClassLoader;
+        }
+        synchronized (AgentLoggerFactory.class) {
+            if (null == agentLoggerClassLoader) {
+                agentLoggerClassLoader = AgentLoggerClassLoaderFactory.create();
 ```
 
 ### SynchronizeOnThis
@@ -6091,7 +6114,7 @@ in `jdbc/core/src/main/java/org/apache/shardingsphere/driver/state/circuit/resul
 #### Snippet
 ```java
     @Override
-    public byte[] getBytes(final int columnIndex) {
+    public byte[] getBytes(final String columnLabel) {
         return new byte[0];
     }
     
@@ -6103,7 +6126,7 @@ in `jdbc/core/src/main/java/org/apache/shardingsphere/driver/state/circuit/resul
 #### Snippet
 ```java
     @Override
-    public byte[] getBytes(final String columnLabel) {
+    public byte[] getBytes(final int columnIndex) {
         return new byte[0];
     }
     
@@ -6147,50 +6170,62 @@ in `test/fixture/jdbc/src/main/java/org/apache/shardingsphere/test/fixture/jdbc/
 
 ### ZeroLengthArrayInitialization
 Allocation of zero length array
-in `agent/plugins/metrics/type/prometheus/src/main/java/org/apache/shardingsphere/agent/plugin/metrics/prometheus/wrapper/PrometheusWrapperFactory.java`
+in `agent/plugins/metrics/type/prometheus/src/main/java/org/apache/shardingsphere/agent/plugin/metrics/prometheus/collector/type/PrometheusMetricsCounterCollector.java`
 #### Snippet
 ```java
-        List<String> metricLabels = (List<String>) metric.get("labels");
-        if (null != metricLabels) {
-            builder.labelNames(metricLabels.toArray(new String[0]));
-        }
-        return new CounterWrapper(builder.register());
+    
+    public PrometheusMetricsCounterCollector(final MetricConfiguration config) {
+        counter = Counter.build().name(config.getId()).help(config.getHelp()).labelNames(config.getLabels().toArray(new String[0])).register();
+    }
+    
 ```
 
 ### ZeroLengthArrayInitialization
 Allocation of zero length array
-in `agent/plugins/metrics/type/prometheus/src/main/java/org/apache/shardingsphere/agent/plugin/metrics/prometheus/wrapper/PrometheusWrapperFactory.java`
+in `agent/plugins/metrics/type/prometheus/src/main/java/org/apache/shardingsphere/agent/plugin/metrics/prometheus/collector/type/PrometheusMetricsGaugeCollector.java`
 #### Snippet
 ```java
-        List<String> metricLabels = (List<String>) metric.get("labels");
-        if (null != metricLabels) {
-            builder.labelNames(metricLabels.toArray(new String[0]));
-        }
-        return new GaugeWrapper(builder.register());
+    
+    public PrometheusMetricsGaugeCollector(final MetricConfiguration config) {
+        gauge = Gauge.build().name(config.getId()).help(config.getHelp()).labelNames(config.getLabels().toArray(new String[0])).register();
+    }
+    
 ```
 
 ### ZeroLengthArrayInitialization
 Allocation of zero length array
-in `agent/plugins/metrics/type/prometheus/src/main/java/org/apache/shardingsphere/agent/plugin/metrics/prometheus/wrapper/PrometheusWrapperFactory.java`
+in `agent/plugins/metrics/type/prometheus/src/main/java/org/apache/shardingsphere/agent/plugin/metrics/prometheus/collector/type/PrometheusMetricsSummaryCollector.java`
 #### Snippet
 ```java
-        List<String> metricLabels = (List<String>) metric.get("labels");
-        if (null != metricLabels) {
-            builder.labelNames(metricLabels.toArray(new String[0]));
-        }
-        return new SummaryWrapper(builder.register());
+    
+    public PrometheusMetricsSummaryCollector(final MetricConfiguration config) {
+        summary = Summary.build().name(config.getId()).help(config.getHelp()).labelNames(config.getLabels().toArray(new String[0])).register();
+    }
+    
 ```
 
 ### ZeroLengthArrayInitialization
 Allocation of zero length array
-in `agent/plugins/metrics/type/prometheus/src/main/java/org/apache/shardingsphere/agent/plugin/metrics/prometheus/wrapper/PrometheusWrapperFactory.java`
+in `agent/plugins/metrics/type/prometheus/src/main/java/org/apache/shardingsphere/agent/plugin/metrics/prometheus/collector/type/PrometheusMetricsHistogramCollector.java`
 #### Snippet
 ```java
-        List<String> metricLabels = (List<String>) metric.get("labels");
-        if (null != metricLabels) {
-            builder.labelNames(metricLabels.toArray(new String[0]));
+    
+    public PrometheusMetricsHistogramCollector(final MetricConfiguration config) {
+        Builder builder = Histogram.build().name(config.getId()).help(config.getHelp()).labelNames(config.getLabels().toArray(new String[0]));
+        appendProperties(builder, config.getProps());
+        histogram = builder.register();
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `proxy/frontend/opengauss/src/main/java/org/apache/shardingsphere/proxy/frontend/opengauss/authentication/authenticator/OpenGaussSCRAMSha256PasswordAuthenticator.java`
+#### Snippet
+```java
+    private static byte[] hexStringToBytes(final String rawHexString) {
+        if (null == rawHexString || rawHexString.isEmpty()) {
+            return new byte[0];
         }
-        Map<String, Object> metricProps = (Map<String, Object>) metric.get("props");
+        String hexString = rawHexString.toUpperCase(Locale.ENGLISH);
 ```
 
 ### ZeroLengthArrayInitialization
@@ -6291,18 +6326,6 @@ in `features/encrypt/plugin/sm/src/main/java/org/apache/shardingsphere/encrypt/s
 
 ### ZeroLengthArrayInitialization
 Allocation of zero length array
-in `features/db-discovery/provider/mysql/src/main/java/org/apache/shardingsphere/dbdiscovery/mysql/type/MySQLNormalReplicationDatabaseDiscoveryProviderAlgorithm.java`
-#### Snippet
-```java
-            completableFutures.add(supplyAsyncCheckEnvironment(dataSource, executorService));
-        }
-        CompletableFuture.allOf(completableFutures.toArray(new CompletableFuture[0]));
-        Iterator<CompletableFuture<Boolean>> primaryInstancesFuture = completableFutures.stream().iterator();
-        int primaryCount = 0;
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
 in `features/db-discovery/provider/mysql/src/main/java/org/apache/shardingsphere/dbdiscovery/mysql/type/MGRMySQLDatabaseDiscoveryProviderAlgorithm.java`
 #### Snippet
 ```java
@@ -6311,6 +6334,18 @@ in `features/db-discovery/provider/mysql/src/main/java/org/apache/shardingsphere
         CompletableFuture.allOf(completableFutures.toArray(new CompletableFuture[0]));
         Iterator<CompletableFuture<Void>> mgrInstancesFuture = completableFutures.stream().iterator();
         while (mgrInstancesFuture.hasNext()) {
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `features/db-discovery/provider/mysql/src/main/java/org/apache/shardingsphere/dbdiscovery/mysql/type/MySQLNormalReplicationDatabaseDiscoveryProviderAlgorithm.java`
+#### Snippet
+```java
+    
+    private void checkPrimaryDataSource(final String databaseName, final Collection<CompletableFuture<Boolean>> completableFutures) {
+        CompletableFuture.allOf(completableFutures.toArray(new CompletableFuture[0]));
+        Iterator<CompletableFuture<Boolean>> primaryInstancesFuture = completableFutures.stream().iterator();
+        int primaryInstanceCount = 0;
 ```
 
 ### ZeroLengthArrayInitialization
@@ -6376,15 +6411,27 @@ in `sql-parser/statement/src/main/java/org/apache/shardingsphere/sql/parser/sql/
 ```
 
 ### CastConflictsWithInstanceof
-Cast to 'MySQLFlushStatement' type conflicts with preceding 'instanceof MySQLStatement' check
-in `sql-parser/statement/src/main/java/org/apache/shardingsphere/sql/parser/sql/dialect/handler/dal/FlushStatementHandler.java`
+Cast to 'PostgreSQLAlterSchemaStatement' type conflicts with preceding 'instanceof PostgreSQLStatement' check
+in `sql-parser/statement/src/main/java/org/apache/shardingsphere/sql/parser/sql/dialect/handler/ddl/AlterSchemaStatementHandler.java`
 #### Snippet
 ```java
-    public static Collection<SimpleTableSegment> getSimpleTableSegment(final FlushStatement flushStatement) {
-        if (flushStatement instanceof MySQLStatement) {
-            return ((MySQLFlushStatement) flushStatement).getTables();
+    public static Optional<IdentifierValue> getRenameSchema(final AlterSchemaStatement alterSchemaStatement) {
+        if (alterSchemaStatement instanceof PostgreSQLStatement) {
+            return ((PostgreSQLAlterSchemaStatement) alterSchemaStatement).getRenameSchema();
         }
-        return Collections.emptyList();
+        if (alterSchemaStatement instanceof OpenGaussStatement) {
+```
+
+### CastConflictsWithInstanceof
+Cast to 'OpenGaussAlterSchemaStatement' type conflicts with preceding 'instanceof OpenGaussStatement' check
+in `sql-parser/statement/src/main/java/org/apache/shardingsphere/sql/parser/sql/dialect/handler/ddl/AlterSchemaStatementHandler.java`
+#### Snippet
+```java
+        }
+        if (alterSchemaStatement instanceof OpenGaussStatement) {
+            return ((OpenGaussAlterSchemaStatement) alterSchemaStatement).getRenameSchema();
+        }
+        return Optional.empty();
 ```
 
 ### CastConflictsWithInstanceof
@@ -6412,15 +6459,27 @@ in `sql-parser/statement/src/main/java/org/apache/shardingsphere/sql/parser/sql/
 ```
 
 ### CastConflictsWithInstanceof
-Cast to 'PostgreSQLAlterSchemaStatement' type conflicts with preceding 'instanceof PostgreSQLStatement' check
-in `sql-parser/statement/src/main/java/org/apache/shardingsphere/sql/parser/sql/dialect/handler/ddl/AlterSchemaStatementHandler.java`
+Cast to 'PostgreSQLDropSchemaStatement' type conflicts with preceding 'instanceof PostgreSQLStatement' check
+in `sql-parser/statement/src/main/java/org/apache/shardingsphere/sql/parser/sql/dialect/handler/ddl/DropSchemaStatementHandler.java`
 #### Snippet
 ```java
-    public static Optional<IdentifierValue> getRenameSchema(final AlterSchemaStatement alterSchemaStatement) {
-        if (alterSchemaStatement instanceof PostgreSQLStatement) {
-            return ((PostgreSQLAlterSchemaStatement) alterSchemaStatement).getRenameSchema();
+    public static boolean containsCascade(final DropSchemaStatement dropSchemaStatement) {
+        if (dropSchemaStatement instanceof PostgreSQLStatement) {
+            return ((PostgreSQLDropSchemaStatement) dropSchemaStatement).isContainsCascade();
         }
-        if (alterSchemaStatement instanceof OpenGaussStatement) {
+        if (dropSchemaStatement instanceof OpenGaussStatement) {
+```
+
+### CastConflictsWithInstanceof
+Cast to 'OpenGaussDropSchemaStatement' type conflicts with preceding 'instanceof OpenGaussStatement' check
+in `sql-parser/statement/src/main/java/org/apache/shardingsphere/sql/parser/sql/dialect/handler/ddl/DropSchemaStatementHandler.java`
+#### Snippet
+```java
+        }
+        if (dropSchemaStatement instanceof OpenGaussStatement) {
+            return ((OpenGaussDropSchemaStatement) dropSchemaStatement).isContainsCascade();
+        }
+        return false;
 ```
 
 ### CastConflictsWithInstanceof
@@ -6433,18 +6492,6 @@ in `sql-parser/statement/src/main/java/org/apache/shardingsphere/sql/parser/sql/
             return ((MySQLDropIndexStatement) dropIndexStatement).getTable();
         }
         if (dropIndexStatement instanceof SQLServerStatement) {
-```
-
-### CastConflictsWithInstanceof
-Cast to 'OpenGaussAlterSchemaStatement' type conflicts with preceding 'instanceof OpenGaussStatement' check
-in `sql-parser/statement/src/main/java/org/apache/shardingsphere/sql/parser/sql/dialect/handler/ddl/AlterSchemaStatementHandler.java`
-#### Snippet
-```java
-        }
-        if (alterSchemaStatement instanceof OpenGaussStatement) {
-            return ((OpenGaussAlterSchemaStatement) alterSchemaStatement).getRenameSchema();
-        }
-        return Optional.empty();
 ```
 
 ### CastConflictsWithInstanceof
@@ -6491,198 +6538,6 @@ in `sql-parser/statement/src/main/java/org/apache/shardingsphere/sql/parser/sql/
         }
         if (dropIndexStatement instanceof OpenGaussStatement) {
             return ((OpenGaussDropIndexStatement) dropIndexStatement).isIfExists();
-        }
-        return false;
-```
-
-### CastConflictsWithInstanceof
-Cast to 'PostgreSQLClusterStatement' type conflicts with preceding 'instanceof PostgreSQLStatement' check
-in `sql-parser/statement/src/main/java/org/apache/shardingsphere/sql/parser/sql/dialect/handler/ddl/ClusterStatementHandler.java`
-#### Snippet
-```java
-    public static Optional<IndexSegment> getIndexSegment(final ClusterStatement clusterStatement) {
-        if (clusterStatement instanceof PostgreSQLStatement) {
-            return ((PostgreSQLClusterStatement) clusterStatement).getIndex();
-        }
-        return Optional.empty();
-```
-
-### CastConflictsWithInstanceof
-Cast to 'PostgreSQLClusterStatement' type conflicts with preceding 'instanceof PostgreSQLStatement' check
-in `sql-parser/statement/src/main/java/org/apache/shardingsphere/sql/parser/sql/dialect/handler/ddl/ClusterStatementHandler.java`
-#### Snippet
-```java
-    public static Optional<SimpleTableSegment> getSimpleTableSegment(final ClusterStatement clusterStatement) {
-        if (clusterStatement instanceof PostgreSQLStatement) {
-            return ((PostgreSQLClusterStatement) clusterStatement).getTable();
-        }
-        return Optional.empty();
-```
-
-### CastConflictsWithInstanceof
-Cast to 'PostgreSQLCreateSchemaStatement' type conflicts with preceding 'instanceof PostgreSQLStatement' check
-in `sql-parser/statement/src/main/java/org/apache/shardingsphere/sql/parser/sql/dialect/handler/ddl/CreateSchemaStatementHandler.java`
-#### Snippet
-```java
-    public static Optional<IdentifierValue> getUsername(final CreateSchemaStatement createSchemaStatement) {
-        if (createSchemaStatement instanceof PostgreSQLStatement) {
-            return ((PostgreSQLCreateSchemaStatement) createSchemaStatement).getUsername();
-        }
-        if (createSchemaStatement instanceof OpenGaussStatement) {
-```
-
-### CastConflictsWithInstanceof
-Cast to 'OpenGaussCreateSchemaStatement' type conflicts with preceding 'instanceof OpenGaussStatement' check
-in `sql-parser/statement/src/main/java/org/apache/shardingsphere/sql/parser/sql/dialect/handler/ddl/CreateSchemaStatementHandler.java`
-#### Snippet
-```java
-        }
-        if (createSchemaStatement instanceof OpenGaussStatement) {
-            return ((OpenGaussCreateSchemaStatement) createSchemaStatement).getUsername();
-        }
-        return Optional.empty();
-```
-
-### CastConflictsWithInstanceof
-Cast to 'MySQLAlterViewStatement' type conflicts with preceding 'instanceof MySQLStatement' check
-in `sql-parser/statement/src/main/java/org/apache/shardingsphere/sql/parser/sql/dialect/handler/ddl/AlterViewStatementHandler.java`
-#### Snippet
-```java
-    public static Optional<SelectStatement> getSelectStatement(final AlterViewStatement alterViewStatement) {
-        if (alterViewStatement instanceof MySQLStatement) {
-            return Optional.of(((MySQLAlterViewStatement) alterViewStatement).getSelect());
-        }
-        if (alterViewStatement instanceof SQLServerStatement) {
-```
-
-### CastConflictsWithInstanceof
-Cast to 'SQLServerAlterViewStatement' type conflicts with preceding 'instanceof SQLServerStatement' check
-in `sql-parser/statement/src/main/java/org/apache/shardingsphere/sql/parser/sql/dialect/handler/ddl/AlterViewStatementHandler.java`
-#### Snippet
-```java
-        }
-        if (alterViewStatement instanceof SQLServerStatement) {
-            return Optional.of(((SQLServerAlterViewStatement) alterViewStatement).getSelect());
-        }
-        return Optional.empty();
-```
-
-### CastConflictsWithInstanceof
-Cast to 'MySQLAlterViewStatement' type conflicts with preceding 'instanceof MySQLStatement' check
-in `sql-parser/statement/src/main/java/org/apache/shardingsphere/sql/parser/sql/dialect/handler/ddl/AlterViewStatementHandler.java`
-#### Snippet
-```java
-    public static Optional<String> getViewDefinition(final AlterViewStatement alterViewStatement) {
-        if (alterViewStatement instanceof MySQLStatement) {
-            return Optional.of(((MySQLAlterViewStatement) alterViewStatement).getViewDefinition());
-        }
-        if (alterViewStatement instanceof SQLServerStatement) {
-```
-
-### CastConflictsWithInstanceof
-Cast to 'SQLServerAlterViewStatement' type conflicts with preceding 'instanceof SQLServerStatement' check
-in `sql-parser/statement/src/main/java/org/apache/shardingsphere/sql/parser/sql/dialect/handler/ddl/AlterViewStatementHandler.java`
-#### Snippet
-```java
-        }
-        if (alterViewStatement instanceof SQLServerStatement) {
-            return Optional.of(((SQLServerAlterViewStatement) alterViewStatement).getViewDefinition());
-        }
-        return Optional.empty();
-```
-
-### CastConflictsWithInstanceof
-Cast to 'PostgreSQLAlterViewStatement' type conflicts with preceding 'instanceof PostgreSQLStatement' check
-in `sql-parser/statement/src/main/java/org/apache/shardingsphere/sql/parser/sql/dialect/handler/ddl/AlterViewStatementHandler.java`
-#### Snippet
-```java
-    public static Optional<SimpleTableSegment> getRenameView(final AlterViewStatement alterViewStatement) {
-        if (alterViewStatement instanceof PostgreSQLStatement) {
-            return ((PostgreSQLAlterViewStatement) alterViewStatement).getRenameView();
-        }
-        if (alterViewStatement instanceof OpenGaussStatement) {
-```
-
-### CastConflictsWithInstanceof
-Cast to 'OpenGaussAlterViewStatement' type conflicts with preceding 'instanceof OpenGaussStatement' check
-in `sql-parser/statement/src/main/java/org/apache/shardingsphere/sql/parser/sql/dialect/handler/ddl/AlterViewStatementHandler.java`
-#### Snippet
-```java
-        }
-        if (alterViewStatement instanceof OpenGaussStatement) {
-            return ((OpenGaussAlterViewStatement) alterViewStatement).getRenameView();
-        }
-        return Optional.empty();
-```
-
-### CastConflictsWithInstanceof
-Cast to 'PostgreSQLCreateIndexStatement' type conflicts with preceding 'instanceof PostgreSQLStatement' check
-in `sql-parser/statement/src/main/java/org/apache/shardingsphere/sql/parser/sql/dialect/handler/ddl/CreateIndexStatementHandler.java`
-#### Snippet
-```java
-    public static boolean ifNotExists(final CreateIndexStatement createIndexStatement) {
-        if (createIndexStatement instanceof PostgreSQLStatement) {
-            return ((PostgreSQLCreateIndexStatement) createIndexStatement).isIfNotExists();
-        }
-        if (createIndexStatement instanceof OpenGaussStatement) {
-```
-
-### CastConflictsWithInstanceof
-Cast to 'OpenGaussCreateIndexStatement' type conflicts with preceding 'instanceof OpenGaussStatement' check
-in `sql-parser/statement/src/main/java/org/apache/shardingsphere/sql/parser/sql/dialect/handler/ddl/CreateIndexStatementHandler.java`
-#### Snippet
-```java
-        }
-        if (createIndexStatement instanceof OpenGaussStatement) {
-            return ((OpenGaussCreateIndexStatement) createIndexStatement).isIfNotExists();
-        }
-        return false;
-```
-
-### CastConflictsWithInstanceof
-Cast to 'PostgreSQLCreateIndexStatement' type conflicts with preceding 'instanceof PostgreSQLStatement' check
-in `sql-parser/statement/src/main/java/org/apache/shardingsphere/sql/parser/sql/dialect/handler/ddl/CreateIndexStatementHandler.java`
-#### Snippet
-```java
-    public static Optional<Integer> getGeneratedIndexStartIndex(final CreateIndexStatement createIndexStatement) {
-        if (createIndexStatement instanceof PostgreSQLStatement) {
-            return ((PostgreSQLCreateIndexStatement) createIndexStatement).getGeneratedIndexStartIndex();
-        }
-        if (createIndexStatement instanceof OpenGaussStatement) {
-```
-
-### CastConflictsWithInstanceof
-Cast to 'OpenGaussCreateIndexStatement' type conflicts with preceding 'instanceof OpenGaussStatement' check
-in `sql-parser/statement/src/main/java/org/apache/shardingsphere/sql/parser/sql/dialect/handler/ddl/CreateIndexStatementHandler.java`
-#### Snippet
-```java
-        }
-        if (createIndexStatement instanceof OpenGaussStatement) {
-            return ((OpenGaussCreateIndexStatement) createIndexStatement).getGeneratedIndexStartIndex();
-        }
-        return Optional.empty();
-```
-
-### CastConflictsWithInstanceof
-Cast to 'PostgreSQLDropTableStatement' type conflicts with preceding 'instanceof PostgreSQLStatement' check
-in `sql-parser/statement/src/main/java/org/apache/shardingsphere/sql/parser/sql/dialect/handler/ddl/DropTableStatementHandler.java`
-#### Snippet
-```java
-    public static boolean containsCascade(final DropTableStatement dropTableStatement) {
-        if (dropTableStatement instanceof PostgreSQLStatement) {
-            return ((PostgreSQLDropTableStatement) dropTableStatement).isContainsCascade();
-        }
-        if (dropTableStatement instanceof OpenGaussStatement) {
-```
-
-### CastConflictsWithInstanceof
-Cast to 'OpenGaussDropTableStatement' type conflicts with preceding 'instanceof OpenGaussStatement' check
-in `sql-parser/statement/src/main/java/org/apache/shardingsphere/sql/parser/sql/dialect/handler/ddl/DropTableStatementHandler.java`
-#### Snippet
-```java
-        }
-        if (dropTableStatement instanceof OpenGaussStatement) {
-            return ((OpenGaussDropTableStatement) dropTableStatement).isContainsCascade();
         }
         return false;
 ```
@@ -6736,13 +6591,49 @@ in `sql-parser/statement/src/main/java/org/apache/shardingsphere/sql/parser/sql/
 ```
 
 ### CastConflictsWithInstanceof
-Cast to 'OracleCommentStatement' type conflicts with preceding 'instanceof OracleStatement' check
-in `sql-parser/statement/src/main/java/org/apache/shardingsphere/sql/parser/sql/dialect/handler/ddl/CommentStatementHandler.java`
+Cast to 'PostgreSQLDropTableStatement' type conflicts with preceding 'instanceof PostgreSQLStatement' check
+in `sql-parser/statement/src/main/java/org/apache/shardingsphere/sql/parser/sql/dialect/handler/ddl/DropTableStatementHandler.java`
 #### Snippet
 ```java
-    public static Optional<IndexTypeSegment> getIndexType(final CommentStatement commentStatement) {
-        if (commentStatement instanceof OracleStatement) {
-            return Optional.ofNullable(((OracleCommentStatement) commentStatement).getIndexType());
+    public static boolean containsCascade(final DropTableStatement dropTableStatement) {
+        if (dropTableStatement instanceof PostgreSQLStatement) {
+            return ((PostgreSQLDropTableStatement) dropTableStatement).isContainsCascade();
+        }
+        if (dropTableStatement instanceof OpenGaussStatement) {
+```
+
+### CastConflictsWithInstanceof
+Cast to 'OpenGaussDropTableStatement' type conflicts with preceding 'instanceof OpenGaussStatement' check
+in `sql-parser/statement/src/main/java/org/apache/shardingsphere/sql/parser/sql/dialect/handler/ddl/DropTableStatementHandler.java`
+#### Snippet
+```java
+        }
+        if (dropTableStatement instanceof OpenGaussStatement) {
+            return ((OpenGaussDropTableStatement) dropTableStatement).isContainsCascade();
+        }
+        return false;
+```
+
+### CastConflictsWithInstanceof
+Cast to 'PostgreSQLClusterStatement' type conflicts with preceding 'instanceof PostgreSQLStatement' check
+in `sql-parser/statement/src/main/java/org/apache/shardingsphere/sql/parser/sql/dialect/handler/ddl/ClusterStatementHandler.java`
+#### Snippet
+```java
+    public static Optional<IndexSegment> getIndexSegment(final ClusterStatement clusterStatement) {
+        if (clusterStatement instanceof PostgreSQLStatement) {
+            return ((PostgreSQLClusterStatement) clusterStatement).getIndex();
+        }
+        return Optional.empty();
+```
+
+### CastConflictsWithInstanceof
+Cast to 'PostgreSQLClusterStatement' type conflicts with preceding 'instanceof PostgreSQLStatement' check
+in `sql-parser/statement/src/main/java/org/apache/shardingsphere/sql/parser/sql/dialect/handler/ddl/ClusterStatementHandler.java`
+#### Snippet
+```java
+    public static Optional<SimpleTableSegment> getSimpleTableSegment(final ClusterStatement clusterStatement) {
+        if (clusterStatement instanceof PostgreSQLStatement) {
+            return ((PostgreSQLClusterStatement) clusterStatement).getTable();
         }
         return Optional.empty();
 ```
@@ -6760,15 +6651,15 @@ in `sql-parser/statement/src/main/java/org/apache/shardingsphere/sql/parser/sql/
 ```
 
 ### CastConflictsWithInstanceof
-Cast to 'PostgreSQLDropSchemaStatement' type conflicts with preceding 'instanceof PostgreSQLStatement' check
-in `sql-parser/statement/src/main/java/org/apache/shardingsphere/sql/parser/sql/dialect/handler/ddl/DropSchemaStatementHandler.java`
+Cast to 'MySQLFlushStatement' type conflicts with preceding 'instanceof MySQLStatement' check
+in `sql-parser/statement/src/main/java/org/apache/shardingsphere/sql/parser/sql/dialect/handler/dal/FlushStatementHandler.java`
 #### Snippet
 ```java
-    public static boolean containsCascade(final DropSchemaStatement dropSchemaStatement) {
-        if (dropSchemaStatement instanceof PostgreSQLStatement) {
-            return ((PostgreSQLDropSchemaStatement) dropSchemaStatement).isContainsCascade();
+    public static Collection<SimpleTableSegment> getSimpleTableSegment(final FlushStatement flushStatement) {
+        if (flushStatement instanceof MySQLStatement) {
+            return ((MySQLFlushStatement) flushStatement).getTables();
         }
-        if (dropSchemaStatement instanceof OpenGaussStatement) {
+        return Collections.emptyList();
 ```
 
 ### CastConflictsWithInstanceof
@@ -6796,63 +6687,99 @@ in `sql-parser/statement/src/main/java/org/apache/shardingsphere/sql/parser/sql/
 ```
 
 ### CastConflictsWithInstanceof
-Cast to 'OpenGaussDropSchemaStatement' type conflicts with preceding 'instanceof OpenGaussStatement' check
-in `sql-parser/statement/src/main/java/org/apache/shardingsphere/sql/parser/sql/dialect/handler/ddl/DropSchemaStatementHandler.java`
+Cast to 'PostgreSQLCreateSchemaStatement' type conflicts with preceding 'instanceof PostgreSQLStatement' check
+in `sql-parser/statement/src/main/java/org/apache/shardingsphere/sql/parser/sql/dialect/handler/ddl/CreateSchemaStatementHandler.java`
+#### Snippet
+```java
+    public static Optional<IdentifierValue> getUsername(final CreateSchemaStatement createSchemaStatement) {
+        if (createSchemaStatement instanceof PostgreSQLStatement) {
+            return ((PostgreSQLCreateSchemaStatement) createSchemaStatement).getUsername();
+        }
+        if (createSchemaStatement instanceof OpenGaussStatement) {
+```
+
+### CastConflictsWithInstanceof
+Cast to 'OpenGaussCreateSchemaStatement' type conflicts with preceding 'instanceof OpenGaussStatement' check
+in `sql-parser/statement/src/main/java/org/apache/shardingsphere/sql/parser/sql/dialect/handler/ddl/CreateSchemaStatementHandler.java`
 #### Snippet
 ```java
         }
-        if (dropSchemaStatement instanceof OpenGaussStatement) {
-            return ((OpenGaussDropSchemaStatement) dropSchemaStatement).isContainsCascade();
+        if (createSchemaStatement instanceof OpenGaussStatement) {
+            return ((OpenGaussCreateSchemaStatement) createSchemaStatement).getUsername();
+        }
+        return Optional.empty();
+```
+
+### CastConflictsWithInstanceof
+Cast to 'PostgreSQLCreateIndexStatement' type conflicts with preceding 'instanceof PostgreSQLStatement' check
+in `sql-parser/statement/src/main/java/org/apache/shardingsphere/sql/parser/sql/dialect/handler/ddl/CreateIndexStatementHandler.java`
+#### Snippet
+```java
+    public static boolean ifNotExists(final CreateIndexStatement createIndexStatement) {
+        if (createIndexStatement instanceof PostgreSQLStatement) {
+            return ((PostgreSQLCreateIndexStatement) createIndexStatement).isIfNotExists();
+        }
+        if (createIndexStatement instanceof OpenGaussStatement) {
+```
+
+### CastConflictsWithInstanceof
+Cast to 'OpenGaussCreateIndexStatement' type conflicts with preceding 'instanceof OpenGaussStatement' check
+in `sql-parser/statement/src/main/java/org/apache/shardingsphere/sql/parser/sql/dialect/handler/ddl/CreateIndexStatementHandler.java`
+#### Snippet
+```java
+        }
+        if (createIndexStatement instanceof OpenGaussStatement) {
+            return ((OpenGaussCreateIndexStatement) createIndexStatement).isIfNotExists();
         }
         return false;
 ```
 
 ### CastConflictsWithInstanceof
-Cast to 'SQLServerCreateTableStatement' type conflicts with preceding 'instanceof SQLServerStatement' check
-in `sql-parser/statement/src/main/java/org/apache/shardingsphere/sql/parser/sql/dialect/handler/ddl/CreateTableStatementHandler.java`
+Cast to 'PostgreSQLCreateIndexStatement' type conflicts with preceding 'instanceof PostgreSQLStatement' check
+in `sql-parser/statement/src/main/java/org/apache/shardingsphere/sql/parser/sql/dialect/handler/ddl/CreateIndexStatementHandler.java`
 #### Snippet
 ```java
-    public static Optional<SelectStatement> getSelectStatement(final CreateTableStatement createTableStatement) {
-        if (createTableStatement instanceof SQLServerStatement) {
-            return ((SQLServerCreateTableStatement) createTableStatement).getSelectStatement();
+    public static Optional<Integer> getGeneratedIndexStartIndex(final CreateIndexStatement createIndexStatement) {
+        if (createIndexStatement instanceof PostgreSQLStatement) {
+            return ((PostgreSQLCreateIndexStatement) createIndexStatement).getGeneratedIndexStartIndex();
+        }
+        if (createIndexStatement instanceof OpenGaussStatement) {
+```
+
+### CastConflictsWithInstanceof
+Cast to 'OpenGaussCreateIndexStatement' type conflicts with preceding 'instanceof OpenGaussStatement' check
+in `sql-parser/statement/src/main/java/org/apache/shardingsphere/sql/parser/sql/dialect/handler/ddl/CreateIndexStatementHandler.java`
+#### Snippet
+```java
+        }
+        if (createIndexStatement instanceof OpenGaussStatement) {
+            return ((OpenGaussCreateIndexStatement) createIndexStatement).getGeneratedIndexStartIndex();
         }
         return Optional.empty();
 ```
 
 ### CastConflictsWithInstanceof
-Cast to 'MySQLUpdateStatement' type conflicts with preceding 'instanceof MySQLStatement' check
-in `sql-parser/statement/src/main/java/org/apache/shardingsphere/sql/parser/sql/dialect/handler/dml/UpdateStatementHandler.java`
+Cast to 'PostgreSQLCopyStatement' type conflicts with preceding 'instanceof PostgreSQLStatement' check
+in `sql-parser/statement/src/main/java/org/apache/shardingsphere/sql/parser/sql/dialect/handler/dml/CopyStatementHandler.java`
 #### Snippet
 ```java
-    public static Optional<LimitSegment> getLimitSegment(final UpdateStatement updateStatement) {
-        if (updateStatement instanceof MySQLStatement) {
-            return ((MySQLUpdateStatement) updateStatement).getLimit();
+    public static Optional<PrepareStatementQuerySegment> getPrepareStatementQuerySegment(final CopyStatement copyStatement) {
+        if (copyStatement instanceof PostgreSQLStatement) {
+            return ((PostgreSQLCopyStatement) copyStatement).getPrepareStatementQuerySegment();
         }
         return Optional.empty();
 ```
 
 ### CastConflictsWithInstanceof
-Cast to 'SQLServerCreateTableStatement' type conflicts with preceding 'instanceof SQLServerStatement' check
-in `sql-parser/statement/src/main/java/org/apache/shardingsphere/sql/parser/sql/dialect/handler/ddl/CreateTableStatementHandler.java`
+Cast to 'PostgreSQLCopyStatement' type conflicts with preceding 'instanceof PostgreSQLStatement' check
+in `sql-parser/statement/src/main/java/org/apache/shardingsphere/sql/parser/sql/dialect/handler/dml/CopyStatementHandler.java`
 #### Snippet
 ```java
-    public static List<ColumnSegment> getColumns(final CreateTableStatement createTableStatement) {
-        if (createTableStatement instanceof SQLServerStatement) {
-            return ((SQLServerCreateTableStatement) createTableStatement).getColumns();
+    public static Collection<ColumnSegment> getColumns(final CopyStatement copyStatement) {
+        if (copyStatement instanceof PostgreSQLStatement) {
+            return ((PostgreSQLCopyStatement) copyStatement).getColumns();
         }
         return Collections.emptyList();
-```
-
-### CastConflictsWithInstanceof
-Cast to 'MySQLUpdateStatement' type conflicts with preceding 'instanceof MySQLStatement' check
-in `sql-parser/statement/src/main/java/org/apache/shardingsphere/sql/parser/sql/dialect/handler/dml/UpdateStatementHandler.java`
-#### Snippet
-```java
-    public static Optional<OrderBySegment> getOrderBySegment(final UpdateStatement updateStatement) {
-        if (updateStatement instanceof MySQLStatement) {
-            return ((MySQLUpdateStatement) updateStatement).getOrderBy();
-        }
-        return Optional.empty();
 ```
 
 ### CastConflictsWithInstanceof
@@ -6892,61 +6819,325 @@ in `sql-parser/statement/src/main/java/org/apache/shardingsphere/sql/parser/sql/
 ```
 
 ### CastConflictsWithInstanceof
-Cast to 'OracleSelectStatement' type conflicts with preceding 'instanceof OracleStatement' check
-in `sql-parser/statement/src/main/java/org/apache/shardingsphere/sql/parser/sql/dialect/handler/dml/SelectStatementHandler.java`
+Cast to 'OracleCommentStatement' type conflicts with preceding 'instanceof OracleStatement' check
+in `sql-parser/statement/src/main/java/org/apache/shardingsphere/sql/parser/sql/dialect/handler/ddl/CommentStatementHandler.java`
 #### Snippet
 ```java
-    public static Optional<ModelSegment> getModelSegment(final SelectStatement selectStatement) {
-        if (selectStatement instanceof OracleStatement) {
-            return ((OracleSelectStatement) selectStatement).getModelSegment();
+    public static Optional<IndexTypeSegment> getIndexType(final CommentStatement commentStatement) {
+        if (commentStatement instanceof OracleStatement) {
+            return Optional.ofNullable(((OracleCommentStatement) commentStatement).getIndexType());
         }
         return Optional.empty();
 ```
 
 ### CastConflictsWithInstanceof
-Cast to 'MySQLSelectStatement' type conflicts with preceding 'instanceof MySQLStatement' check
-in `sql-parser/statement/src/main/java/org/apache/shardingsphere/sql/parser/sql/dialect/handler/dml/SelectStatementHandler.java`
+Cast to 'SQLServerCreateTableStatement' type conflicts with preceding 'instanceof SQLServerStatement' check
+in `sql-parser/statement/src/main/java/org/apache/shardingsphere/sql/parser/sql/dialect/handler/ddl/CreateTableStatementHandler.java`
 #### Snippet
 ```java
-    public static Optional<LockSegment> getLockSegment(final SelectStatement selectStatement) {
-        if (selectStatement instanceof MySQLStatement) {
-            return ((MySQLSelectStatement) selectStatement).getLock();
+    public static List<ColumnSegment> getColumns(final CreateTableStatement createTableStatement) {
+        if (createTableStatement instanceof SQLServerStatement) {
+            return ((SQLServerCreateTableStatement) createTableStatement).getColumns();
         }
-        if (selectStatement instanceof OracleStatement) {
+        return Collections.emptyList();
 ```
 
 ### CastConflictsWithInstanceof
-Cast to 'OracleSelectStatement' type conflicts with preceding 'instanceof OracleStatement' check
-in `sql-parser/statement/src/main/java/org/apache/shardingsphere/sql/parser/sql/dialect/handler/dml/SelectStatementHandler.java`
+Cast to 'SQLServerCreateTableStatement' type conflicts with preceding 'instanceof SQLServerStatement' check
+in `sql-parser/statement/src/main/java/org/apache/shardingsphere/sql/parser/sql/dialect/handler/ddl/CreateTableStatementHandler.java`
 #### Snippet
 ```java
+    public static Optional<SelectStatement> getSelectStatement(final CreateTableStatement createTableStatement) {
+        if (createTableStatement instanceof SQLServerStatement) {
+            return ((SQLServerCreateTableStatement) createTableStatement).getSelectStatement();
         }
-        if (selectStatement instanceof OracleStatement) {
-            return ((OracleSelectStatement) selectStatement).getLock();
-        }
-        if (selectStatement instanceof PostgreSQLStatement) {
+        return Optional.empty();
 ```
 
 ### CastConflictsWithInstanceof
-Cast to 'PostgreSQLSelectStatement' type conflicts with preceding 'instanceof PostgreSQLStatement' check
-in `sql-parser/statement/src/main/java/org/apache/shardingsphere/sql/parser/sql/dialect/handler/dml/SelectStatementHandler.java`
+Cast to 'MySQLAlterViewStatement' type conflicts with preceding 'instanceof MySQLStatement' check
+in `sql-parser/statement/src/main/java/org/apache/shardingsphere/sql/parser/sql/dialect/handler/ddl/AlterViewStatementHandler.java`
 #### Snippet
 ```java
+    public static Optional<SelectStatement> getSelectStatement(final AlterViewStatement alterViewStatement) {
+        if (alterViewStatement instanceof MySQLStatement) {
+            return Optional.of(((MySQLAlterViewStatement) alterViewStatement).getSelect());
         }
-        if (selectStatement instanceof PostgreSQLStatement) {
-            return ((PostgreSQLSelectStatement) selectStatement).getLock();
-        }
-        if (selectStatement instanceof OpenGaussStatement) {
+        if (alterViewStatement instanceof SQLServerStatement) {
 ```
 
 ### CastConflictsWithInstanceof
-Cast to 'OpenGaussSelectStatement' type conflicts with preceding 'instanceof OpenGaussStatement' check
-in `sql-parser/statement/src/main/java/org/apache/shardingsphere/sql/parser/sql/dialect/handler/dml/SelectStatementHandler.java`
+Cast to 'SQLServerAlterViewStatement' type conflicts with preceding 'instanceof SQLServerStatement' check
+in `sql-parser/statement/src/main/java/org/apache/shardingsphere/sql/parser/sql/dialect/handler/ddl/AlterViewStatementHandler.java`
 #### Snippet
 ```java
         }
-        if (selectStatement instanceof OpenGaussStatement) {
-            return ((OpenGaussSelectStatement) selectStatement).getLock();
+        if (alterViewStatement instanceof SQLServerStatement) {
+            return Optional.of(((SQLServerAlterViewStatement) alterViewStatement).getSelect());
+        }
+        return Optional.empty();
+```
+
+### CastConflictsWithInstanceof
+Cast to 'PostgreSQLAlterViewStatement' type conflicts with preceding 'instanceof PostgreSQLStatement' check
+in `sql-parser/statement/src/main/java/org/apache/shardingsphere/sql/parser/sql/dialect/handler/ddl/AlterViewStatementHandler.java`
+#### Snippet
+```java
+    public static Optional<SimpleTableSegment> getRenameView(final AlterViewStatement alterViewStatement) {
+        if (alterViewStatement instanceof PostgreSQLStatement) {
+            return ((PostgreSQLAlterViewStatement) alterViewStatement).getRenameView();
+        }
+        if (alterViewStatement instanceof OpenGaussStatement) {
+```
+
+### CastConflictsWithInstanceof
+Cast to 'OpenGaussAlterViewStatement' type conflicts with preceding 'instanceof OpenGaussStatement' check
+in `sql-parser/statement/src/main/java/org/apache/shardingsphere/sql/parser/sql/dialect/handler/ddl/AlterViewStatementHandler.java`
+#### Snippet
+```java
+        }
+        if (alterViewStatement instanceof OpenGaussStatement) {
+            return ((OpenGaussAlterViewStatement) alterViewStatement).getRenameView();
+        }
+        return Optional.empty();
+```
+
+### CastConflictsWithInstanceof
+Cast to 'MySQLAlterViewStatement' type conflicts with preceding 'instanceof MySQLStatement' check
+in `sql-parser/statement/src/main/java/org/apache/shardingsphere/sql/parser/sql/dialect/handler/ddl/AlterViewStatementHandler.java`
+#### Snippet
+```java
+    public static Optional<String> getViewDefinition(final AlterViewStatement alterViewStatement) {
+        if (alterViewStatement instanceof MySQLStatement) {
+            return Optional.of(((MySQLAlterViewStatement) alterViewStatement).getViewDefinition());
+        }
+        if (alterViewStatement instanceof SQLServerStatement) {
+```
+
+### CastConflictsWithInstanceof
+Cast to 'SQLServerAlterViewStatement' type conflicts with preceding 'instanceof SQLServerStatement' check
+in `sql-parser/statement/src/main/java/org/apache/shardingsphere/sql/parser/sql/dialect/handler/ddl/AlterViewStatementHandler.java`
+#### Snippet
+```java
+        }
+        if (alterViewStatement instanceof SQLServerStatement) {
+            return Optional.of(((SQLServerAlterViewStatement) alterViewStatement).getViewDefinition());
+        }
+        return Optional.empty();
+```
+
+### CastConflictsWithInstanceof
+Cast to 'MySQLUpdateStatement' type conflicts with preceding 'instanceof MySQLStatement' check
+in `sql-parser/statement/src/main/java/org/apache/shardingsphere/sql/parser/sql/dialect/handler/dml/UpdateStatementHandler.java`
+#### Snippet
+```java
+    public static Optional<LimitSegment> getLimitSegment(final UpdateStatement updateStatement) {
+        if (updateStatement instanceof MySQLStatement) {
+            return ((MySQLUpdateStatement) updateStatement).getLimit();
+        }
+        return Optional.empty();
+```
+
+### CastConflictsWithInstanceof
+Cast to 'MySQLUpdateStatement' type conflicts with preceding 'instanceof MySQLStatement' check
+in `sql-parser/statement/src/main/java/org/apache/shardingsphere/sql/parser/sql/dialect/handler/dml/UpdateStatementHandler.java`
+#### Snippet
+```java
+    public static Optional<OrderBySegment> getOrderBySegment(final UpdateStatement updateStatement) {
+        if (updateStatement instanceof MySQLStatement) {
+            return ((MySQLUpdateStatement) updateStatement).getOrderBy();
+        }
+        return Optional.empty();
+```
+
+### CastConflictsWithInstanceof
+Cast to 'SQLServerInsertStatement' type conflicts with preceding 'instanceof SQLServerStatement' check
+in `sql-parser/statement/src/main/java/org/apache/shardingsphere/sql/parser/sql/dialect/handler/dml/InsertStatementHandler.java`
+#### Snippet
+```java
+    public static Optional<OutputSegment> getOutputSegment(final InsertStatement insertStatement) {
+        if (insertStatement instanceof SQLServerStatement) {
+            return ((SQLServerInsertStatement) insertStatement).getOutputSegment();
+        }
+        return Optional.empty();
+```
+
+### CastConflictsWithInstanceof
+Cast to 'OracleInsertStatement' type conflicts with preceding 'instanceof OracleStatement' check
+in `sql-parser/statement/src/main/java/org/apache/shardingsphere/sql/parser/sql/dialect/handler/dml/InsertStatementHandler.java`
+#### Snippet
+```java
+    public static Optional<InsertMultiTableElementSegment> getInsertMultiTableElementSegment(final InsertStatement insertStatement) {
+        if (insertStatement instanceof OracleStatement) {
+            return ((OracleInsertStatement) insertStatement).getInsertMultiTableElementSegment();
+        }
+        return Optional.empty();
+```
+
+### CastConflictsWithInstanceof
+Cast to 'MySQLInsertStatement' type conflicts with preceding 'instanceof MySQLStatement' check
+in `sql-parser/statement/src/main/java/org/apache/shardingsphere/sql/parser/sql/dialect/handler/dml/InsertStatementHandler.java`
+#### Snippet
+```java
+     */
+    public static Optional<SetAssignmentSegment> getSetAssignmentSegment(final InsertStatement insertStatement) {
+        return insertStatement instanceof MySQLStatement ? ((MySQLInsertStatement) insertStatement).getSetAssignment() : Optional.empty();
+    }
+    
+```
+
+### CastConflictsWithInstanceof
+Cast to 'PostgreSQLInsertStatement' type conflicts with preceding 'instanceof PostgreSQLStatement' check
+in `sql-parser/statement/src/main/java/org/apache/shardingsphere/sql/parser/sql/dialect/handler/dml/InsertStatementHandler.java`
+#### Snippet
+```java
+    public static Optional<WithSegment> getWithSegment(final InsertStatement insertStatement) {
+        if (insertStatement instanceof PostgreSQLStatement) {
+            return ((PostgreSQLInsertStatement) insertStatement).getWithSegment();
+        }
+        if (insertStatement instanceof SQLServerStatement) {
+```
+
+### CastConflictsWithInstanceof
+Cast to 'SQLServerInsertStatement' type conflicts with preceding 'instanceof SQLServerStatement' check
+in `sql-parser/statement/src/main/java/org/apache/shardingsphere/sql/parser/sql/dialect/handler/dml/InsertStatementHandler.java`
+#### Snippet
+```java
+        }
+        if (insertStatement instanceof SQLServerStatement) {
+            return ((SQLServerInsertStatement) insertStatement).getWithSegment();
+        }
+        if (insertStatement instanceof OpenGaussStatement) {
+```
+
+### CastConflictsWithInstanceof
+Cast to 'OpenGaussInsertStatement' type conflicts with preceding 'instanceof OpenGaussStatement' check
+in `sql-parser/statement/src/main/java/org/apache/shardingsphere/sql/parser/sql/dialect/handler/dml/InsertStatementHandler.java`
+#### Snippet
+```java
+        }
+        if (insertStatement instanceof OpenGaussStatement) {
+            return ((OpenGaussInsertStatement) insertStatement).getWithSegment();
+        }
+        return Optional.empty();
+```
+
+### CastConflictsWithInstanceof
+Cast to 'PostgreSQLInsertStatement' type conflicts with preceding 'instanceof PostgreSQLStatement' check
+in `sql-parser/statement/src/main/java/org/apache/shardingsphere/sql/parser/sql/dialect/handler/dml/InsertStatementHandler.java`
+#### Snippet
+```java
+    public static Optional<ReturningSegment> getReturningSegment(final InsertStatement insertStatement) {
+        if (insertStatement instanceof PostgreSQLStatement) {
+            return ((PostgreSQLInsertStatement) insertStatement).getReturningSegment();
+        }
+        if (insertStatement instanceof OpenGaussStatement) {
+```
+
+### CastConflictsWithInstanceof
+Cast to 'OpenGaussInsertStatement' type conflicts with preceding 'instanceof OpenGaussStatement' check
+in `sql-parser/statement/src/main/java/org/apache/shardingsphere/sql/parser/sql/dialect/handler/dml/InsertStatementHandler.java`
+#### Snippet
+```java
+        }
+        if (insertStatement instanceof OpenGaussStatement) {
+            return ((OpenGaussInsertStatement) insertStatement).getReturningSegment();
+        }
+        return Optional.empty();
+```
+
+### CastConflictsWithInstanceof
+Cast to 'OracleInsertStatement' type conflicts with preceding 'instanceof OracleStatement' check
+in `sql-parser/statement/src/main/java/org/apache/shardingsphere/sql/parser/sql/dialect/handler/dml/InsertStatementHandler.java`
+#### Snippet
+```java
+    public static Optional<SubquerySegment> getSelectSubquery(final InsertStatement insertStatement) {
+        if (insertStatement instanceof OracleStatement) {
+            return ((OracleInsertStatement) insertStatement).getSelectSubquery();
+        }
+        return Optional.empty();
+```
+
+### CastConflictsWithInstanceof
+Cast to 'MySQLInsertStatement' type conflicts with preceding 'instanceof MySQLStatement' check
+in `sql-parser/statement/src/main/java/org/apache/shardingsphere/sql/parser/sql/dialect/handler/dml/InsertStatementHandler.java`
+#### Snippet
+```java
+    public static Optional<OnDuplicateKeyColumnsSegment> getOnDuplicateKeyColumnsSegment(final InsertStatement insertStatement) {
+        if (insertStatement instanceof MySQLStatement) {
+            return ((MySQLInsertStatement) insertStatement).getOnDuplicateKeyColumns();
+        }
+        if (insertStatement instanceof OpenGaussStatement) {
+```
+
+### CastConflictsWithInstanceof
+Cast to 'OpenGaussInsertStatement' type conflicts with preceding 'instanceof OpenGaussStatement' check
+in `sql-parser/statement/src/main/java/org/apache/shardingsphere/sql/parser/sql/dialect/handler/dml/InsertStatementHandler.java`
+#### Snippet
+```java
+        }
+        if (insertStatement instanceof OpenGaussStatement) {
+            return ((OpenGaussInsertStatement) insertStatement).getOnDuplicateKeyColumns();
+        }
+        if (insertStatement instanceof PostgreSQLStatement) {
+```
+
+### CastConflictsWithInstanceof
+Cast to 'PostgreSQLInsertStatement' type conflicts with preceding 'instanceof PostgreSQLStatement' check
+in `sql-parser/statement/src/main/java/org/apache/shardingsphere/sql/parser/sql/dialect/handler/dml/InsertStatementHandler.java`
+#### Snippet
+```java
+        }
+        if (insertStatement instanceof PostgreSQLStatement) {
+            return ((PostgreSQLInsertStatement) insertStatement).getOnDuplicateKeyColumns();
+        }
+        return Optional.empty();
+```
+
+### CastConflictsWithInstanceof
+Cast to 'MySQLDeleteStatement' type conflicts with preceding 'instanceof MySQLStatement' check
+in `sql-parser/statement/src/main/java/org/apache/shardingsphere/sql/parser/sql/dialect/handler/dml/DeleteStatementHandler.java`
+#### Snippet
+```java
+    public static Optional<LimitSegment> getLimitSegment(final DeleteStatement deleteStatement) {
+        if (deleteStatement instanceof MySQLStatement) {
+            return ((MySQLDeleteStatement) deleteStatement).getLimit();
+        }
+        return Optional.empty();
+```
+
+### CastConflictsWithInstanceof
+Cast to 'SQLServerDeleteStatement' type conflicts with preceding 'instanceof SQLServerStatement' check
+in `sql-parser/statement/src/main/java/org/apache/shardingsphere/sql/parser/sql/dialect/handler/dml/DeleteStatementHandler.java`
+#### Snippet
+```java
+    public static Optional<WithSegment> getWithSegment(final DeleteStatement deleteStatement) {
+        if (deleteStatement instanceof SQLServerStatement) {
+            return ((SQLServerDeleteStatement) deleteStatement).getWithSegment();
+        }
+        return Optional.empty();
+```
+
+### CastConflictsWithInstanceof
+Cast to 'MySQLDeleteStatement' type conflicts with preceding 'instanceof MySQLStatement' check
+in `sql-parser/statement/src/main/java/org/apache/shardingsphere/sql/parser/sql/dialect/handler/dml/DeleteStatementHandler.java`
+#### Snippet
+```java
+    public static Optional<OrderBySegment> getOrderBySegment(final DeleteStatement deleteStatement) {
+        if (deleteStatement instanceof MySQLStatement) {
+            return ((MySQLDeleteStatement) deleteStatement).getOrderBy();
+        }
+        return Optional.empty();
+```
+
+### CastConflictsWithInstanceof
+Cast to 'SQLServerDeleteStatement' type conflicts with preceding 'instanceof SQLServerStatement' check
+in `sql-parser/statement/src/main/java/org/apache/shardingsphere/sql/parser/sql/dialect/handler/dml/DeleteStatementHandler.java`
+#### Snippet
+```java
+    public static Optional<OutputSegment> getOutputSegment(final DeleteStatement deleteStatement) {
+        if (deleteStatement instanceof SQLServerStatement) {
+            return ((SQLServerDeleteStatement) deleteStatement).getOutputSegment();
         }
         return Optional.empty();
 ```
@@ -7012,6 +7203,18 @@ in `sql-parser/statement/src/main/java/org/apache/shardingsphere/sql/parser/sql/
 ```
 
 ### CastConflictsWithInstanceof
+Cast to 'OracleSelectStatement' type conflicts with preceding 'instanceof OracleStatement' check
+in `sql-parser/statement/src/main/java/org/apache/shardingsphere/sql/parser/sql/dialect/handler/dml/SelectStatementHandler.java`
+#### Snippet
+```java
+    public static Optional<ModelSegment> getModelSegment(final SelectStatement selectStatement) {
+        if (selectStatement instanceof OracleStatement) {
+            return ((OracleSelectStatement) selectStatement).getModelSegment();
+        }
+        return Optional.empty();
+```
+
+### CastConflictsWithInstanceof
 Cast to 'MySQLSelectStatement' type conflicts with preceding 'instanceof MySQLStatement' check
 in `sql-parser/statement/src/main/java/org/apache/shardingsphere/sql/parser/sql/dialect/handler/dml/SelectStatementHandler.java`
 #### Snippet
@@ -7021,18 +7224,6 @@ in `sql-parser/statement/src/main/java/org/apache/shardingsphere/sql/parser/sql/
             return ((MySQLSelectStatement) selectStatement).getWindow();
         }
         if (selectStatement instanceof PostgreSQLStatement) {
-```
-
-### CastConflictsWithInstanceof
-Cast to 'PostgreSQLCopyStatement' type conflicts with preceding 'instanceof PostgreSQLStatement' check
-in `sql-parser/statement/src/main/java/org/apache/shardingsphere/sql/parser/sql/dialect/handler/dml/CopyStatementHandler.java`
-#### Snippet
-```java
-    public static Collection<ColumnSegment> getColumns(final CopyStatement copyStatement) {
-        if (copyStatement instanceof PostgreSQLStatement) {
-            return ((PostgreSQLCopyStatement) copyStatement).getColumns();
-        }
-        return Collections.emptyList();
 ```
 
 ### CastConflictsWithInstanceof
@@ -7048,15 +7239,51 @@ in `sql-parser/statement/src/main/java/org/apache/shardingsphere/sql/parser/sql/
 ```
 
 ### CastConflictsWithInstanceof
-Cast to 'PostgreSQLCopyStatement' type conflicts with preceding 'instanceof PostgreSQLStatement' check
-in `sql-parser/statement/src/main/java/org/apache/shardingsphere/sql/parser/sql/dialect/handler/dml/CopyStatementHandler.java`
+Cast to 'OpenGaussSelectStatement' type conflicts with preceding 'instanceof OpenGaussStatement' check
+in `sql-parser/statement/src/main/java/org/apache/shardingsphere/sql/parser/sql/dialect/handler/dml/SelectStatementHandler.java`
 #### Snippet
 ```java
-    public static Optional<PrepareStatementQuerySegment> getPrepareStatementQuerySegment(final CopyStatement copyStatement) {
-        if (copyStatement instanceof PostgreSQLStatement) {
-            return ((PostgreSQLCopyStatement) copyStatement).getPrepareStatementQuerySegment();
+        }
+        if (selectStatement instanceof OpenGaussStatement) {
+            return ((OpenGaussSelectStatement) selectStatement).getWindow();
         }
         return Optional.empty();
+```
+
+### CastConflictsWithInstanceof
+Cast to 'MySQLSelectStatement' type conflicts with preceding 'instanceof MySQLStatement' check
+in `sql-parser/statement/src/main/java/org/apache/shardingsphere/sql/parser/sql/dialect/handler/dml/SelectStatementHandler.java`
+#### Snippet
+```java
+    public static Optional<LockSegment> getLockSegment(final SelectStatement selectStatement) {
+        if (selectStatement instanceof MySQLStatement) {
+            return ((MySQLSelectStatement) selectStatement).getLock();
+        }
+        if (selectStatement instanceof OracleStatement) {
+```
+
+### CastConflictsWithInstanceof
+Cast to 'OracleSelectStatement' type conflicts with preceding 'instanceof OracleStatement' check
+in `sql-parser/statement/src/main/java/org/apache/shardingsphere/sql/parser/sql/dialect/handler/dml/SelectStatementHandler.java`
+#### Snippet
+```java
+        }
+        if (selectStatement instanceof OracleStatement) {
+            return ((OracleSelectStatement) selectStatement).getLock();
+        }
+        if (selectStatement instanceof PostgreSQLStatement) {
+```
+
+### CastConflictsWithInstanceof
+Cast to 'PostgreSQLSelectStatement' type conflicts with preceding 'instanceof PostgreSQLStatement' check
+in `sql-parser/statement/src/main/java/org/apache/shardingsphere/sql/parser/sql/dialect/handler/dml/SelectStatementHandler.java`
+#### Snippet
+```java
+        }
+        if (selectStatement instanceof PostgreSQLStatement) {
+            return ((PostgreSQLSelectStatement) selectStatement).getLock();
+        }
+        if (selectStatement instanceof OpenGaussStatement) {
 ```
 
 ### CastConflictsWithInstanceof
@@ -7066,7 +7293,7 @@ in `sql-parser/statement/src/main/java/org/apache/shardingsphere/sql/parser/sql/
 ```java
         }
         if (selectStatement instanceof OpenGaussStatement) {
-            return ((OpenGaussSelectStatement) selectStatement).getWindow();
+            return ((OpenGaussSelectStatement) selectStatement).getLock();
         }
         return Optional.empty();
 ```
@@ -7091,198 +7318,6 @@ in `sql-parser/statement/src/main/java/org/apache/shardingsphere/sql/parser/sql/
         }
         if (selectStatement instanceof SQLServerStatement) {
             return ((SQLServerSelectStatement) selectStatement).getWithSegment();
-        }
-        return Optional.empty();
-```
-
-### CastConflictsWithInstanceof
-Cast to 'SQLServerDeleteStatement' type conflicts with preceding 'instanceof SQLServerStatement' check
-in `sql-parser/statement/src/main/java/org/apache/shardingsphere/sql/parser/sql/dialect/handler/dml/DeleteStatementHandler.java`
-#### Snippet
-```java
-    public static Optional<WithSegment> getWithSegment(final DeleteStatement deleteStatement) {
-        if (deleteStatement instanceof SQLServerStatement) {
-            return ((SQLServerDeleteStatement) deleteStatement).getWithSegment();
-        }
-        return Optional.empty();
-```
-
-### CastConflictsWithInstanceof
-Cast to 'MySQLDeleteStatement' type conflicts with preceding 'instanceof MySQLStatement' check
-in `sql-parser/statement/src/main/java/org/apache/shardingsphere/sql/parser/sql/dialect/handler/dml/DeleteStatementHandler.java`
-#### Snippet
-```java
-    public static Optional<OrderBySegment> getOrderBySegment(final DeleteStatement deleteStatement) {
-        if (deleteStatement instanceof MySQLStatement) {
-            return ((MySQLDeleteStatement) deleteStatement).getOrderBy();
-        }
-        return Optional.empty();
-```
-
-### CastConflictsWithInstanceof
-Cast to 'MySQLDeleteStatement' type conflicts with preceding 'instanceof MySQLStatement' check
-in `sql-parser/statement/src/main/java/org/apache/shardingsphere/sql/parser/sql/dialect/handler/dml/DeleteStatementHandler.java`
-#### Snippet
-```java
-    public static Optional<LimitSegment> getLimitSegment(final DeleteStatement deleteStatement) {
-        if (deleteStatement instanceof MySQLStatement) {
-            return ((MySQLDeleteStatement) deleteStatement).getLimit();
-        }
-        return Optional.empty();
-```
-
-### CastConflictsWithInstanceof
-Cast to 'SQLServerDeleteStatement' type conflicts with preceding 'instanceof SQLServerStatement' check
-in `sql-parser/statement/src/main/java/org/apache/shardingsphere/sql/parser/sql/dialect/handler/dml/DeleteStatementHandler.java`
-#### Snippet
-```java
-    public static Optional<OutputSegment> getOutputSegment(final DeleteStatement deleteStatement) {
-        if (deleteStatement instanceof SQLServerStatement) {
-            return ((SQLServerDeleteStatement) deleteStatement).getOutputSegment();
-        }
-        return Optional.empty();
-```
-
-### CastConflictsWithInstanceof
-Cast to 'PostgreSQLInsertStatement' type conflicts with preceding 'instanceof PostgreSQLStatement' check
-in `sql-parser/statement/src/main/java/org/apache/shardingsphere/sql/parser/sql/dialect/handler/dml/InsertStatementHandler.java`
-#### Snippet
-```java
-    public static Optional<WithSegment> getWithSegment(final InsertStatement insertStatement) {
-        if (insertStatement instanceof PostgreSQLStatement) {
-            return ((PostgreSQLInsertStatement) insertStatement).getWithSegment();
-        }
-        if (insertStatement instanceof SQLServerStatement) {
-```
-
-### CastConflictsWithInstanceof
-Cast to 'SQLServerInsertStatement' type conflicts with preceding 'instanceof SQLServerStatement' check
-in `sql-parser/statement/src/main/java/org/apache/shardingsphere/sql/parser/sql/dialect/handler/dml/InsertStatementHandler.java`
-#### Snippet
-```java
-        }
-        if (insertStatement instanceof SQLServerStatement) {
-            return ((SQLServerInsertStatement) insertStatement).getWithSegment();
-        }
-        if (insertStatement instanceof OpenGaussStatement) {
-```
-
-### CastConflictsWithInstanceof
-Cast to 'OpenGaussInsertStatement' type conflicts with preceding 'instanceof OpenGaussStatement' check
-in `sql-parser/statement/src/main/java/org/apache/shardingsphere/sql/parser/sql/dialect/handler/dml/InsertStatementHandler.java`
-#### Snippet
-```java
-        }
-        if (insertStatement instanceof OpenGaussStatement) {
-            return ((OpenGaussInsertStatement) insertStatement).getWithSegment();
-        }
-        return Optional.empty();
-```
-
-### CastConflictsWithInstanceof
-Cast to 'PostgreSQLInsertStatement' type conflicts with preceding 'instanceof PostgreSQLStatement' check
-in `sql-parser/statement/src/main/java/org/apache/shardingsphere/sql/parser/sql/dialect/handler/dml/InsertStatementHandler.java`
-#### Snippet
-```java
-    public static Optional<ReturningSegment> getReturningSegment(final InsertStatement insertStatement) {
-        if (insertStatement instanceof PostgreSQLStatement) {
-            return ((PostgreSQLInsertStatement) insertStatement).getReturningSegment();
-        }
-        if (insertStatement instanceof OpenGaussStatement) {
-```
-
-### CastConflictsWithInstanceof
-Cast to 'OpenGaussInsertStatement' type conflicts with preceding 'instanceof OpenGaussStatement' check
-in `sql-parser/statement/src/main/java/org/apache/shardingsphere/sql/parser/sql/dialect/handler/dml/InsertStatementHandler.java`
-#### Snippet
-```java
-        }
-        if (insertStatement instanceof OpenGaussStatement) {
-            return ((OpenGaussInsertStatement) insertStatement).getReturningSegment();
-        }
-        return Optional.empty();
-```
-
-### CastConflictsWithInstanceof
-Cast to 'MySQLInsertStatement' type conflicts with preceding 'instanceof MySQLStatement' check
-in `sql-parser/statement/src/main/java/org/apache/shardingsphere/sql/parser/sql/dialect/handler/dml/InsertStatementHandler.java`
-#### Snippet
-```java
-    public static Optional<OnDuplicateKeyColumnsSegment> getOnDuplicateKeyColumnsSegment(final InsertStatement insertStatement) {
-        if (insertStatement instanceof MySQLStatement) {
-            return ((MySQLInsertStatement) insertStatement).getOnDuplicateKeyColumns();
-        }
-        if (insertStatement instanceof OpenGaussStatement) {
-```
-
-### CastConflictsWithInstanceof
-Cast to 'OpenGaussInsertStatement' type conflicts with preceding 'instanceof OpenGaussStatement' check
-in `sql-parser/statement/src/main/java/org/apache/shardingsphere/sql/parser/sql/dialect/handler/dml/InsertStatementHandler.java`
-#### Snippet
-```java
-        }
-        if (insertStatement instanceof OpenGaussStatement) {
-            return ((OpenGaussInsertStatement) insertStatement).getOnDuplicateKeyColumns();
-        }
-        if (insertStatement instanceof PostgreSQLStatement) {
-```
-
-### CastConflictsWithInstanceof
-Cast to 'PostgreSQLInsertStatement' type conflicts with preceding 'instanceof PostgreSQLStatement' check
-in `sql-parser/statement/src/main/java/org/apache/shardingsphere/sql/parser/sql/dialect/handler/dml/InsertStatementHandler.java`
-#### Snippet
-```java
-        }
-        if (insertStatement instanceof PostgreSQLStatement) {
-            return ((PostgreSQLInsertStatement) insertStatement).getOnDuplicateKeyColumns();
-        }
-        return Optional.empty();
-```
-
-### CastConflictsWithInstanceof
-Cast to 'MySQLInsertStatement' type conflicts with preceding 'instanceof MySQLStatement' check
-in `sql-parser/statement/src/main/java/org/apache/shardingsphere/sql/parser/sql/dialect/handler/dml/InsertStatementHandler.java`
-#### Snippet
-```java
-     */
-    public static Optional<SetAssignmentSegment> getSetAssignmentSegment(final InsertStatement insertStatement) {
-        return insertStatement instanceof MySQLStatement ? ((MySQLInsertStatement) insertStatement).getSetAssignment() : Optional.empty();
-    }
-    
-```
-
-### CastConflictsWithInstanceof
-Cast to 'OracleInsertStatement' type conflicts with preceding 'instanceof OracleStatement' check
-in `sql-parser/statement/src/main/java/org/apache/shardingsphere/sql/parser/sql/dialect/handler/dml/InsertStatementHandler.java`
-#### Snippet
-```java
-    public static Optional<SubquerySegment> getSelectSubquery(final InsertStatement insertStatement) {
-        if (insertStatement instanceof OracleStatement) {
-            return ((OracleInsertStatement) insertStatement).getSelectSubquery();
-        }
-        return Optional.empty();
-```
-
-### CastConflictsWithInstanceof
-Cast to 'SQLServerInsertStatement' type conflicts with preceding 'instanceof SQLServerStatement' check
-in `sql-parser/statement/src/main/java/org/apache/shardingsphere/sql/parser/sql/dialect/handler/dml/InsertStatementHandler.java`
-#### Snippet
-```java
-    public static Optional<OutputSegment> getOutputSegment(final InsertStatement insertStatement) {
-        if (insertStatement instanceof SQLServerStatement) {
-            return ((SQLServerInsertStatement) insertStatement).getOutputSegment();
-        }
-        return Optional.empty();
-```
-
-### CastConflictsWithInstanceof
-Cast to 'OracleInsertStatement' type conflicts with preceding 'instanceof OracleStatement' check
-in `sql-parser/statement/src/main/java/org/apache/shardingsphere/sql/parser/sql/dialect/handler/dml/InsertStatementHandler.java`
-#### Snippet
-```java
-    public static Optional<InsertMultiTableElementSegment> getInsertMultiTableElementSegment(final InsertStatement insertStatement) {
-        if (insertStatement instanceof OracleStatement) {
-            return ((OracleInsertStatement) insertStatement).getInsertMultiTableElementSegment();
         }
         return Optional.empty();
 ```
@@ -7403,11 +7438,11 @@ in `proxy/backend/src/main/java/org/apache/shardingsphere/proxy/backend/handler/
 in `features/encrypt/core/src/main/java/org/apache/shardingsphere/encrypt/rewrite/token/generator/EncryptInsertOnUpdateTokenGenerator.java`
 #### Snippet
 ```java
-            boolean leftEncryptorPresent = encryptRule.findEncryptor(tableName, each.getColumns().get(0).getIdentifier().getValue()).isPresent();
-            if (each.getValue() instanceof FunctionSegment && "VALUES".equalsIgnoreCase(((FunctionSegment) each.getValue()).getFunctionName())) {
-                ColumnSegment rightColumn = (ColumnSegment) ((FunctionSegment) each.getValue()).getParameters().stream().findFirst().get();
-                boolean rightEncryptorPresent = encryptRule.findEncryptor(tableName, rightColumn.getIdentifier().getValue()).isPresent();
-                if (!leftEncryptorPresent && !rightEncryptorPresent) {
+        ColumnSegment columnSegment = assignmentSegment.getColumns().get(0);
+        String column = columnSegment.getIdentifier().getValue();
+        ColumnSegment valueColumnSegment = (ColumnSegment) functionSegment.getParameters().stream().findFirst().get();
+        String valueColumn = valueColumnSegment.getIdentifier().getValue();
+        EncryptFunctionAssignmentToken result = new EncryptFunctionAssignmentToken(columnSegment.getStartIndex(), assignmentSegment.getStopIndex());
 ```
 
 ### OptionalGetWithoutIsPresent
@@ -7415,11 +7450,11 @@ in `features/encrypt/core/src/main/java/org/apache/shardingsphere/encrypt/rewrit
 in `features/encrypt/core/src/main/java/org/apache/shardingsphere/encrypt/rewrite/token/generator/EncryptInsertOnUpdateTokenGenerator.java`
 #### Snippet
 ```java
-        ColumnSegment columnSegment = assignmentSegment.getColumns().get(0);
-        String column = columnSegment.getIdentifier().getValue();
-        ColumnSegment valueColumnSegment = (ColumnSegment) functionSegment.getParameters().stream().findFirst().get();
-        String valueColumn = valueColumnSegment.getIdentifier().getValue();
-        EncryptFunctionAssignmentToken result = new EncryptFunctionAssignmentToken(columnSegment.getStartIndex(), assignmentSegment.getStopIndex());
+            boolean leftEncryptorPresent = encryptRule.findEncryptor(tableName, each.getColumns().get(0).getIdentifier().getValue()).isPresent();
+            if (each.getValue() instanceof FunctionSegment && "VALUES".equalsIgnoreCase(((FunctionSegment) each.getValue()).getFunctionName())) {
+                ColumnSegment rightColumn = (ColumnSegment) ((FunctionSegment) each.getValue()).getParameters().stream().findFirst().get();
+                boolean rightEncryptorPresent = encryptRule.findEncryptor(tableName, rightColumn.getIdentifier().getValue()).isPresent();
+                if (!leftEncryptorPresent && !rightEncryptorPresent) {
 ```
 
 ### OptionalGetWithoutIsPresent
@@ -7435,18 +7470,6 @@ in `features/readwrite-splitting/core/src/main/java/org/apache/shardingsphere/re
 ```
 
 ## RuleId[ruleID=ConstantValue]
-### ConstantValue
-Value `databaseName` is always 'null'
-in `jdbc/core/src/main/java/org/apache/shardingsphere/driver/data/pipeline/datasource/creator/ShardingSpherePipelineDataSourceCreator.java`
-#### Snippet
-```java
-        Collection<RuleConfiguration> ruleConfigs = new YamlRuleConfigurationSwapperEngine().swapToRuleConfigurations(rootConfig.getRules());
-        try {
-            return ShardingSphereDataSourceFactory.createDataSource(databaseName, dataSourceMap, ruleConfigs, null);
-            // CHECKSTYLE:OFF
-        } catch (final Exception ex) {
-```
-
 ### ConstantValue
 Condition `!connectionTransaction.isRollbackOnly()` is always `true` when reached
 in `jdbc/core/src/main/java/org/apache/shardingsphere/driver/jdbc/core/connection/ConnectionManager.java`
@@ -7581,30 +7604,6 @@ in `sql-parser/dialect/mysql/src/main/java/org/apache/shardingsphere/sql/parser/
 
 ## RuleId[ruleID=FieldMayBeStatic]
 ### FieldMayBeStatic
-Field `startIndex` may be 'static'
-in `sql-parser/statement/src/main/java/org/apache/shardingsphere/sql/parser/sql/common/segment/dml/predicate/OrPredicateSegment.java`
-#### Snippet
-```java
-public final class OrPredicateSegment implements SQLSegment {
-    
-    private final int startIndex = 0;
-    
-    private final int stopIndex = 0;
-```
-
-### FieldMayBeStatic
-Field `stopIndex` may be 'static'
-in `sql-parser/statement/src/main/java/org/apache/shardingsphere/sql/parser/sql/common/segment/dml/predicate/OrPredicateSegment.java`
-#### Snippet
-```java
-    private final int startIndex = 0;
-    
-    private final int stopIndex = 0;
-    
-    private final Collection<AndPredicate> andPredicates = new LinkedList<>();
-```
-
-### FieldMayBeStatic
 Field `stopIndex` may be 'static'
 in `sql-parser/statement/src/main/java/org/apache/shardingsphere/sql/parser/sql/common/segment/dml/predicate/AndPredicate.java`
 #### Snippet
@@ -7629,15 +7628,27 @@ public final class AndPredicate implements SQLSegment {
 ```
 
 ### FieldMayBeStatic
-Field `binlogVersion` may be 'static'
-in `db-protocol/mysql/src/main/java/org/apache/shardingsphere/db/protocol/mysql/packet/binlog/management/MySQLBinlogFormatDescriptionEventPacket.java`
+Field `startIndex` may be 'static'
+in `sql-parser/statement/src/main/java/org/apache/shardingsphere/sql/parser/sql/common/segment/dml/predicate/OrPredicateSegment.java`
 #### Snippet
 ```java
-public final class MySQLBinlogFormatDescriptionEventPacket extends AbstractMySQLBinlogEventPacket {
+public final class OrPredicateSegment implements SQLSegment {
     
-    private final int binlogVersion = 4;
+    private final int startIndex = 0;
     
-    private final byte[] mysqlServerVersion;
+    private final int stopIndex = 0;
+```
+
+### FieldMayBeStatic
+Field `stopIndex` may be 'static'
+in `sql-parser/statement/src/main/java/org/apache/shardingsphere/sql/parser/sql/common/segment/dml/predicate/OrPredicateSegment.java`
+#### Snippet
+```java
+    private final int startIndex = 0;
+    
+    private final int stopIndex = 0;
+    
+    private final Collection<AndPredicate> andPredicates = new LinkedList<>();
 ```
 
 ### FieldMayBeStatic
@@ -7650,6 +7661,30 @@ in `db-protocol/mysql/src/main/java/org/apache/shardingsphere/db/protocol/mysql/
     private final int eventHeaderLength = 19;
     
     public MySQLBinlogFormatDescriptionEventPacket(final MySQLBinlogEventHeader binlogEventHeader, final MySQLPacketPayload payload) {
+```
+
+### FieldMayBeStatic
+Field `binlogVersion` may be 'static'
+in `db-protocol/mysql/src/main/java/org/apache/shardingsphere/db/protocol/mysql/packet/binlog/management/MySQLBinlogFormatDescriptionEventPacket.java`
+#### Snippet
+```java
+public final class MySQLBinlogFormatDescriptionEventPacket extends AbstractMySQLBinlogEventPacket {
+    
+    private final int binlogVersion = 4;
+    
+    private final byte[] mysqlServerVersion;
+```
+
+### FieldMayBeStatic
+Field `typeModifier` may be 'static'
+in `db-protocol/postgresql/src/main/java/org/apache/shardingsphere/db/protocol/postgresql/packet/command/query/PostgreSQLColumnDescription.java`
+#### Snippet
+```java
+    private final int typeOID;
+    
+    private final int typeModifier = -1;
+    
+    private final int dataFormat = 0;
 ```
 
 ### FieldMayBeStatic
@@ -7676,41 +7711,17 @@ in `db-protocol/postgresql/src/main/java/org/apache/shardingsphere/db/protocol/p
     private final int columnIndex;
 ```
 
-### FieldMayBeStatic
-Field `typeModifier` may be 'static'
-in `db-protocol/postgresql/src/main/java/org/apache/shardingsphere/db/protocol/postgresql/packet/command/query/PostgreSQLColumnDescription.java`
-#### Snippet
-```java
-    private final int typeOID;
-    
-    private final int typeModifier = -1;
-    
-    private final int dataFormat = 0;
-```
-
 ## RuleId[ruleID=InjectedReferences]
 ### InjectedReferences
-Unknown encoding: 'UHC'
+Unknown encoding: 'ISO-8859-10'
 in `proxy/backend/src/main/java/org/apache/shardingsphere/proxy/backend/handler/admin/postgresql/PostgreSQLCharacterSets.java`
 #### Snippet
 ```java
-    BIG5(() -> Charset.forName("BIG5"), "WIN950", "Windows950"),
-    GBK(() -> Charset.forName("GBK"), "WIN936", "Windows936"),
-    UHC(() -> Charset.forName("UHC"), "WIN949", "Windows949"),
-    GB18030(() -> Charset.forName("GB18030")),
-    JOHAB(() -> Charset.forName("JOHAB")),
-```
-
-### InjectedReferences
-Unknown encoding: 'MULE_INTERNAL'
-in `proxy/backend/src/main/java/org/apache/shardingsphere/proxy/backend/handler/admin/postgresql/PostgreSQLCharacterSets.java`
-#### Snippet
-```java
-    EUC_JIS_2004(() -> Charset.forName("EUC_JIS_2004")),
-    UTF8(() -> StandardCharsets.UTF_8, "Unicode", "UTF_8"),
-    MULE_INTERNAL(() -> Charset.forName("MULE_INTERNAL")),
-    LATIN1(() -> StandardCharsets.ISO_8859_1, "ISO88591"),
-    LATIN2(() -> Charset.forName("LATIN2"), "ISO88592"),
+    LATIN4(() -> Charset.forName("LATIN4"), "ISO88594"),
+    LATIN5(() -> Charset.forName("LATIN5"), "ISO88599"),
+    LATIN6(() -> Charset.forName("ISO-8859-10"), "ISO885910"),
+    LATIN7(() -> Charset.forName("ISO-8859-13"), "ISO885913"),
+    LATIN8(() -> Charset.forName("ISO-8859-14"), "ISO885914"),
 ```
 
 ### InjectedReferences
@@ -7738,6 +7749,30 @@ in `proxy/backend/src/main/java/org/apache/shardingsphere/proxy/backend/handler/
 ```
 
 ### InjectedReferences
+Unknown encoding: 'UHC'
+in `proxy/backend/src/main/java/org/apache/shardingsphere/proxy/backend/handler/admin/postgresql/PostgreSQLCharacterSets.java`
+#### Snippet
+```java
+    BIG5(() -> Charset.forName("BIG5"), "WIN950", "Windows950"),
+    GBK(() -> Charset.forName("GBK"), "WIN936", "Windows936"),
+    UHC(() -> Charset.forName("UHC"), "WIN949", "Windows949"),
+    GB18030(() -> Charset.forName("GB18030")),
+    JOHAB(() -> Charset.forName("JOHAB")),
+```
+
+### InjectedReferences
+Unknown encoding: 'MULE_INTERNAL'
+in `proxy/backend/src/main/java/org/apache/shardingsphere/proxy/backend/handler/admin/postgresql/PostgreSQLCharacterSets.java`
+#### Snippet
+```java
+    EUC_JIS_2004(() -> Charset.forName("EUC_JIS_2004")),
+    UTF8(() -> StandardCharsets.UTF_8, "Unicode", "UTF_8"),
+    MULE_INTERNAL(() -> Charset.forName("MULE_INTERNAL")),
+    LATIN1(() -> StandardCharsets.ISO_8859_1, "ISO88591"),
+    LATIN2(() -> Charset.forName("LATIN2"), "ISO88592"),
+```
+
+### InjectedReferences
 Unknown encoding: 'EUC_JIS_2004'
 in `proxy/backend/src/main/java/org/apache/shardingsphere/proxy/backend/handler/admin/postgresql/PostgreSQLCharacterSets.java`
 #### Snippet
@@ -7750,15 +7785,15 @@ in `proxy/backend/src/main/java/org/apache/shardingsphere/proxy/backend/handler/
 ```
 
 ### InjectedReferences
-Unknown encoding: 'ISO-8859-10'
-in `proxy/backend/src/main/java/org/apache/shardingsphere/proxy/backend/handler/admin/postgresql/PostgreSQLCharacterSets.java`
+Unknown encoding: 'ucs2'
+in `db-protocol/mysql/src/main/java/org/apache/shardingsphere/db/protocol/mysql/constant/MySQLCharacterSet.java`
 #### Snippet
 ```java
-    LATIN4(() -> Charset.forName("LATIN4"), "ISO88594"),
-    LATIN5(() -> Charset.forName("LATIN5"), "ISO88599"),
-    LATIN6(() -> Charset.forName("ISO-8859-10"), "ISO885910"),
-    LATIN7(() -> Charset.forName("ISO-8859-13"), "ISO885913"),
-    LATIN8(() -> Charset.forName("ISO-8859-14"), "ISO885914"),
+    UCS2_GERMAN2_CI(148, () -> Charset.forName("ucs2")),
+    UCS2_CROATIAN_CI(149, () -> Charset.forName("ucs2")),
+    UCS2_UNICODE_520_CI(150, () -> Charset.forName("ucs2")),
+    UCS2_VIETNAMESE_CI(151, () -> Charset.forName("ucs2")),
+    UCS2_GENERAL_MYSQL500_CI(159, () -> Charset.forName("ucs2")),
 ```
 
 ### InjectedReferences
@@ -7766,11 +7801,167 @@ Unknown encoding: 'ucs2'
 in `db-protocol/mysql/src/main/java/org/apache/shardingsphere/db/protocol/mysql/constant/MySQLCharacterSet.java`
 #### Snippet
 ```java
+    UCS2_DANISH_CI(139, () -> Charset.forName("ucs2")),
+    UCS2_LITHUANIAN_CI(140, () -> Charset.forName("ucs2")),
+    UCS2_SLOVAK_CI(141, () -> Charset.forName("ucs2")),
+    UCS2_SPANISH2_CI(142, () -> Charset.forName("ucs2")),
+    UCS2_ROMAN_CI(143, () -> Charset.forName("ucs2")),
+```
+
+### InjectedReferences
+Unknown encoding: 'keybcs2'
+in `db-protocol/mysql/src/main/java/org/apache/shardingsphere/db/protocol/mysql/constant/MySQLCharacterSet.java`
+#### Snippet
+```java
+    HEBREW_BIN(71, () -> Charset.forName("hebrew")),
+    HP8_BIN(72, () -> Charset.forName("hp8")),
+    KEYBCS2_BIN(73, () -> Charset.forName("keybcs2")),
+    KOI8R_BIN(74, () -> Charset.forName("koi8-r")),
+    KOI8U_BIN(75, () -> Charset.forName("koi8-u")),
+```
+
+### InjectedReferences
+Unknown encoding: 'ujis'
+in `db-protocol/mysql/src/main/java/org/apache/shardingsphere/db/protocol/mysql/constant/MySQLCharacterSet.java`
+#### Snippet
+```java
+    TIS620_BIN(89, () -> Charset.forName("tis620")),
+    UCS2_BIN(90, () -> Charset.forName("ucs2")),
+    UJIS_BIN(91, () -> Charset.forName("ujis")),
+    GEOSTD8_GENERAL_CI(92, () -> Charset.forName("geostd8")),
+    GEOSTD8_BIN(93, () -> Charset.forName("geostd8")),
+```
+
+### InjectedReferences
+Unknown encoding: 'hp8'
+in `db-protocol/mysql/src/main/java/org/apache/shardingsphere/db/protocol/mysql/constant/MySQLCharacterSet.java`
+#### Snippet
+```java
+    GREEK_BIN(70, () -> Charset.forName("greek")),
+    HEBREW_BIN(71, () -> Charset.forName("hebrew")),
+    HP8_BIN(72, () -> Charset.forName("hp8")),
+    KEYBCS2_BIN(73, () -> Charset.forName("keybcs2")),
+    KOI8R_BIN(74, () -> Charset.forName("koi8-r")),
+```
+
+### InjectedReferences
+Unknown encoding: 'ujis'
+in `db-protocol/mysql/src/main/java/org/apache/shardingsphere/db/protocol/mysql/constant/MySQLCharacterSet.java`
+#### Snippet
+```java
+    SWE7_SWEDISH_CI(10, () -> Charset.forName("swe7")),
+    ASCII_GENERAL_CI(11, () -> StandardCharsets.US_ASCII),
+    UJIS_JAPANESE_CI(12, () -> Charset.forName("ujis")),
+    SJIS_JAPANESE_CI(13, () -> Charset.forName("sjis")),
+    CP1251_BULGARIAN_CI(14, () -> Charset.forName("cp1251")),
+```
+
+### InjectedReferences
+Unknown encoding: 'ucs2'
+in `db-protocol/mysql/src/main/java/org/apache/shardingsphere/db/protocol/mysql/constant/MySQLCharacterSet.java`
+#### Snippet
+```java
+    UCS2_UNICODE_CI(128, () -> Charset.forName("ucs2")),
+    UCS2_ICELANDIC_CI(129, () -> Charset.forName("ucs2")),
+    UCS2_LATVIAN_CI(130, () -> Charset.forName("ucs2")),
+    UCS2_ROMANIAN_CI(131, () -> Charset.forName("ucs2")),
+    UCS2_SLOVENIAN_CI(132, () -> Charset.forName("ucs2")),
+```
+
+### InjectedReferences
+Unknown encoding: 'swe7'
+in `db-protocol/mysql/src/main/java/org/apache/shardingsphere/db/protocol/mysql/constant/MySQLCharacterSet.java`
+#### Snippet
+```java
+    LATIN1_SWEDISH_CI(8, () -> StandardCharsets.ISO_8859_1),
+    LATIN2_GENERAL_CI(9, () -> Charset.forName("latin2")),
+    SWE7_SWEDISH_CI(10, () -> Charset.forName("swe7")),
+    ASCII_GENERAL_CI(11, () -> StandardCharsets.US_ASCII),
+    UJIS_JAPANESE_CI(12, () -> Charset.forName("ujis")),
+```
+
+### InjectedReferences
+Unknown encoding: 'ucs2'
+in `db-protocol/mysql/src/main/java/org/apache/shardingsphere/db/protocol/mysql/constant/MySQLCharacterSet.java`
+#### Snippet
+```java
+    SJIS_BIN(88, () -> Charset.forName("sjis")),
+    TIS620_BIN(89, () -> Charset.forName("tis620")),
+    UCS2_BIN(90, () -> Charset.forName("ucs2")),
+    UJIS_BIN(91, () -> Charset.forName("ujis")),
+    GEOSTD8_GENERAL_CI(92, () -> Charset.forName("geostd8")),
+```
+
+### InjectedReferences
+Unknown encoding: 'dec8'
+in `db-protocol/mysql/src/main/java/org/apache/shardingsphere/db/protocol/mysql/constant/MySQLCharacterSet.java`
+#### Snippet
+```java
+    BIG5_CHINESE_CI(1, () -> Charset.forName("big5")),
+    LATIN2_CZECH_CS(2, () -> Charset.forName("latin2")),
+    DEC8_SWEDISH_CI(3, () -> Charset.forName("dec8")),
+    CP850_GENERAL_CI(4, () -> Charset.forName("cp850")),
+    LATIN1_GERMAN1_CI(5, () -> StandardCharsets.ISO_8859_1),
+```
+
+### InjectedReferences
+Unknown encoding: 'ucs2'
+in `db-protocol/mysql/src/main/java/org/apache/shardingsphere/db/protocol/mysql/constant/MySQLCharacterSet.java`
+#### Snippet
+```java
+    UCS2_SLOVAK_CI(141, () -> Charset.forName("ucs2")),
+    UCS2_SPANISH2_CI(142, () -> Charset.forName("ucs2")),
+    UCS2_ROMAN_CI(143, () -> Charset.forName("ucs2")),
+    UCS2_PERSIAN_CI(144, () -> Charset.forName("ucs2")),
+    UCS2_ESPERANTO_CI(145, () -> Charset.forName("ucs2")),
+```
+
+### InjectedReferences
+Unknown encoding: 'ucs2'
+in `db-protocol/mysql/src/main/java/org/apache/shardingsphere/db/protocol/mysql/constant/MySQLCharacterSet.java`
+#### Snippet
+```java
+    UCS2_ESTONIAN_CI(134, () -> Charset.forName("ucs2")),
+    UCS2_SPANISH_CI(135, () -> Charset.forName("ucs2")),
+    UCS2_SWEDISH_CI(136, () -> Charset.forName("ucs2")),
+    UCS2_TURKISH_CI(137, () -> Charset.forName("ucs2")),
+    UCS2_CZECH_CI(138, () -> Charset.forName("ucs2")),
+```
+
+### InjectedReferences
+Unknown encoding: 'ucs2'
+in `db-protocol/mysql/src/main/java/org/apache/shardingsphere/db/protocol/mysql/constant/MySQLCharacterSet.java`
+#### Snippet
+```java
+    UTF8_GENERAL_CI(33, () -> StandardCharsets.UTF_8),
+    CP1250_CZECH_CS(34, () -> Charset.forName("cp1250")),
+    UCS2_GENERAL_CI(35, () -> Charset.forName("ucs2")),
+    CP866_GENERAL_CI(36, () -> Charset.forName("cp866")),
+    KEYBCS2_GENERAL_CI(37, () -> Charset.forName("keybcs2")),
+```
+
+### InjectedReferences
+Unknown encoding: 'ucs2'
+in `db-protocol/mysql/src/main/java/org/apache/shardingsphere/db/protocol/mysql/constant/MySQLCharacterSet.java`
+#### Snippet
+```java
+    UCS2_SPANISH2_CI(142, () -> Charset.forName("ucs2")),
+    UCS2_ROMAN_CI(143, () -> Charset.forName("ucs2")),
     UCS2_PERSIAN_CI(144, () -> Charset.forName("ucs2")),
     UCS2_ESPERANTO_CI(145, () -> Charset.forName("ucs2")),
     UCS2_HUNGARIAN_CI(146, () -> Charset.forName("ucs2")),
-    UCS2_SINHALA_CI(147, () -> Charset.forName("ucs2")),
-    UCS2_GERMAN2_CI(148, () -> Charset.forName("ucs2")),
+```
+
+### InjectedReferences
+Unknown encoding: 'ucs2'
+in `db-protocol/mysql/src/main/java/org/apache/shardingsphere/db/protocol/mysql/constant/MySQLCharacterSet.java`
+#### Snippet
+```java
+    UCS2_LATVIAN_CI(130, () -> Charset.forName("ucs2")),
+    UCS2_ROMANIAN_CI(131, () -> Charset.forName("ucs2")),
+    UCS2_SLOVENIAN_CI(132, () -> Charset.forName("ucs2")),
+    UCS2_POLISH_CI(133, () -> Charset.forName("ucs2")),
+    UCS2_ESTONIAN_CI(134, () -> Charset.forName("ucs2")),
 ```
 
 ### InjectedReferences
@@ -7786,6 +7977,138 @@ in `db-protocol/mysql/src/main/java/org/apache/shardingsphere/db/protocol/mysql/
 ```
 
 ### InjectedReferences
+Unknown encoding: 'macce'
+in `db-protocol/mysql/src/main/java/org/apache/shardingsphere/db/protocol/mysql/constant/MySQLCharacterSet.java`
+#### Snippet
+```java
+    LATIN7_GENERAL_CI(41, () -> Charset.forName("iso-8859-13")),
+    LATIN7_GENERAL_CS(42, () -> Charset.forName("iso-8859-13")),
+    MACCE_BIN(43, () -> Charset.forName("macce")),
+    CP1250_CROATIAN_CI(44, () -> Charset.forName("cp1250")),
+    UTF8MB4_GENERAL_CI(45, () -> StandardCharsets.UTF_8),
+```
+
+### InjectedReferences
+Unknown encoding: 'ucs2'
+in `db-protocol/mysql/src/main/java/org/apache/shardingsphere/db/protocol/mysql/constant/MySQLCharacterSet.java`
+#### Snippet
+```java
+    UCS2_CROATIAN_CI(149, () -> Charset.forName("ucs2")),
+    UCS2_UNICODE_520_CI(150, () -> Charset.forName("ucs2")),
+    UCS2_VIETNAMESE_CI(151, () -> Charset.forName("ucs2")),
+    UCS2_GENERAL_MYSQL500_CI(159, () -> Charset.forName("ucs2")),
+    UTF32_UNICODE_CI(160, () -> Charset.forName("utf32")),
+```
+
+### InjectedReferences
+Unknown encoding: 'eucjpms'
+in `db-protocol/mysql/src/main/java/org/apache/shardingsphere/db/protocol/mysql/constant/MySQLCharacterSet.java`
+#### Snippet
+```java
+    CP932_JAPANESE_CI(95, () -> Charset.forName("cp932")),
+    CP932_BIN(96, () -> Charset.forName("cp932")),
+    EUCJPMS_JAPANESE_CI(97, () -> Charset.forName("eucjpms")),
+    EUCJPMS_BIN(98, () -> Charset.forName("eucjpms")),
+    CP1250_POLISH_CI(99, () -> Charset.forName("cp1250")),
+```
+
+### InjectedReferences
+Unknown encoding: 'ucs2'
+in `db-protocol/mysql/src/main/java/org/apache/shardingsphere/db/protocol/mysql/constant/MySQLCharacterSet.java`
+#### Snippet
+```java
+    UCS2_UNICODE_520_CI(150, () -> Charset.forName("ucs2")),
+    UCS2_VIETNAMESE_CI(151, () -> Charset.forName("ucs2")),
+    UCS2_GENERAL_MYSQL500_CI(159, () -> Charset.forName("ucs2")),
+    UTF32_UNICODE_CI(160, () -> Charset.forName("utf32")),
+    UTF32_ICELANDIC_CI(161, () -> Charset.forName("utf32")),
+```
+
+### InjectedReferences
+Unknown encoding: 'ucs2'
+in `db-protocol/mysql/src/main/java/org/apache/shardingsphere/db/protocol/mysql/constant/MySQLCharacterSet.java`
+#### Snippet
+```java
+    UTF16_UNICODE_520_CI(123, () -> StandardCharsets.UTF_16),
+    UTF16_VIETNAMESE_CI(124, () -> StandardCharsets.UTF_16),
+    UCS2_UNICODE_CI(128, () -> Charset.forName("ucs2")),
+    UCS2_ICELANDIC_CI(129, () -> Charset.forName("ucs2")),
+    UCS2_LATVIAN_CI(130, () -> Charset.forName("ucs2")),
+```
+
+### InjectedReferences
+Unknown encoding: 'ucs2'
+in `db-protocol/mysql/src/main/java/org/apache/shardingsphere/db/protocol/mysql/constant/MySQLCharacterSet.java`
+#### Snippet
+```java
+    UCS2_ROMAN_CI(143, () -> Charset.forName("ucs2")),
+    UCS2_PERSIAN_CI(144, () -> Charset.forName("ucs2")),
+    UCS2_ESPERANTO_CI(145, () -> Charset.forName("ucs2")),
+    UCS2_HUNGARIAN_CI(146, () -> Charset.forName("ucs2")),
+    UCS2_SINHALA_CI(147, () -> Charset.forName("ucs2")),
+```
+
+### InjectedReferences
+Unknown encoding: 'ucs2'
+in `db-protocol/mysql/src/main/java/org/apache/shardingsphere/db/protocol/mysql/constant/MySQLCharacterSet.java`
+#### Snippet
+```java
+    UCS2_SWEDISH_CI(136, () -> Charset.forName("ucs2")),
+    UCS2_TURKISH_CI(137, () -> Charset.forName("ucs2")),
+    UCS2_CZECH_CI(138, () -> Charset.forName("ucs2")),
+    UCS2_DANISH_CI(139, () -> Charset.forName("ucs2")),
+    UCS2_LITHUANIAN_CI(140, () -> Charset.forName("ucs2")),
+```
+
+### InjectedReferences
+Unknown encoding: 'ucs2'
+in `db-protocol/mysql/src/main/java/org/apache/shardingsphere/db/protocol/mysql/constant/MySQLCharacterSet.java`
+#### Snippet
+```java
+    UCS2_ESPERANTO_CI(145, () -> Charset.forName("ucs2")),
+    UCS2_HUNGARIAN_CI(146, () -> Charset.forName("ucs2")),
+    UCS2_SINHALA_CI(147, () -> Charset.forName("ucs2")),
+    UCS2_GERMAN2_CI(148, () -> Charset.forName("ucs2")),
+    UCS2_CROATIAN_CI(149, () -> Charset.forName("ucs2")),
+```
+
+### InjectedReferences
+Unknown encoding: 'geostd8'
+in `db-protocol/mysql/src/main/java/org/apache/shardingsphere/db/protocol/mysql/constant/MySQLCharacterSet.java`
+#### Snippet
+```java
+    UJIS_BIN(91, () -> Charset.forName("ujis")),
+    GEOSTD8_GENERAL_CI(92, () -> Charset.forName("geostd8")),
+    GEOSTD8_BIN(93, () -> Charset.forName("geostd8")),
+    LATIN1_SPANISH_CI(94, () -> StandardCharsets.ISO_8859_1),
+    CP932_JAPANESE_CI(95, () -> Charset.forName("cp932")),
+```
+
+### InjectedReferences
+Unknown encoding: 'ucs2'
+in `db-protocol/mysql/src/main/java/org/apache/shardingsphere/db/protocol/mysql/constant/MySQLCharacterSet.java`
+#### Snippet
+```java
+    UCS2_CZECH_CI(138, () -> Charset.forName("ucs2")),
+    UCS2_DANISH_CI(139, () -> Charset.forName("ucs2")),
+    UCS2_LITHUANIAN_CI(140, () -> Charset.forName("ucs2")),
+    UCS2_SLOVAK_CI(141, () -> Charset.forName("ucs2")),
+    UCS2_SPANISH2_CI(142, () -> Charset.forName("ucs2")),
+```
+
+### InjectedReferences
+Unknown encoding: 'ucs2'
+in `db-protocol/mysql/src/main/java/org/apache/shardingsphere/db/protocol/mysql/constant/MySQLCharacterSet.java`
+#### Snippet
+```java
+    UCS2_SINHALA_CI(147, () -> Charset.forName("ucs2")),
+    UCS2_GERMAN2_CI(148, () -> Charset.forName("ucs2")),
+    UCS2_CROATIAN_CI(149, () -> Charset.forName("ucs2")),
+    UCS2_UNICODE_520_CI(150, () -> Charset.forName("ucs2")),
+    UCS2_VIETNAMESE_CI(151, () -> Charset.forName("ucs2")),
+```
+
+### InjectedReferences
 Unknown encoding: 'ucs2'
 in `db-protocol/mysql/src/main/java/org/apache/shardingsphere/db/protocol/mysql/constant/MySQLCharacterSet.java`
 #### Snippet
@@ -7798,15 +8121,39 @@ in `db-protocol/mysql/src/main/java/org/apache/shardingsphere/db/protocol/mysql/
 ```
 
 ### InjectedReferences
-Unknown encoding: 'macce'
+Unknown encoding: 'eucjpms'
 in `db-protocol/mysql/src/main/java/org/apache/shardingsphere/db/protocol/mysql/constant/MySQLCharacterSet.java`
 #### Snippet
 ```java
-    CP866_GENERAL_CI(36, () -> Charset.forName("cp866")),
-    KEYBCS2_GENERAL_CI(37, () -> Charset.forName("keybcs2")),
-    MACCE_GENERAL_CI(38, () -> Charset.forName("macce")),
-    MACROMAN_GENERAL_CI(39, () -> Charset.forName("macroman")),
-    CP852_GENERAL_CI(40, () -> Charset.forName("cp852")),
+    CP932_BIN(96, () -> Charset.forName("cp932")),
+    EUCJPMS_JAPANESE_CI(97, () -> Charset.forName("eucjpms")),
+    EUCJPMS_BIN(98, () -> Charset.forName("eucjpms")),
+    CP1250_POLISH_CI(99, () -> Charset.forName("cp1250")),
+    UTF16_UNICODE_CI(101, () -> StandardCharsets.UTF_16),
+```
+
+### InjectedReferences
+Unknown encoding: 'ucs2'
+in `db-protocol/mysql/src/main/java/org/apache/shardingsphere/db/protocol/mysql/constant/MySQLCharacterSet.java`
+#### Snippet
+```java
+    UTF16_VIETNAMESE_CI(124, () -> StandardCharsets.UTF_16),
+    UCS2_UNICODE_CI(128, () -> Charset.forName("ucs2")),
+    UCS2_ICELANDIC_CI(129, () -> Charset.forName("ucs2")),
+    UCS2_LATVIAN_CI(130, () -> Charset.forName("ucs2")),
+    UCS2_ROMANIAN_CI(131, () -> Charset.forName("ucs2")),
+```
+
+### InjectedReferences
+Unknown encoding: 'ucs2'
+in `db-protocol/mysql/src/main/java/org/apache/shardingsphere/db/protocol/mysql/constant/MySQLCharacterSet.java`
+#### Snippet
+```java
+    UCS2_TURKISH_CI(137, () -> Charset.forName("ucs2")),
+    UCS2_CZECH_CI(138, () -> Charset.forName("ucs2")),
+    UCS2_DANISH_CI(139, () -> Charset.forName("ucs2")),
+    UCS2_LITHUANIAN_CI(140, () -> Charset.forName("ucs2")),
+    UCS2_SLOVAK_CI(141, () -> Charset.forName("ucs2")),
 ```
 
 ### InjectedReferences
@@ -7838,59 +8185,11 @@ Unknown encoding: 'ucs2'
 in `db-protocol/mysql/src/main/java/org/apache/shardingsphere/db/protocol/mysql/constant/MySQLCharacterSet.java`
 #### Snippet
 ```java
-    UCS2_LITHUANIAN_CI(140, () -> Charset.forName("ucs2")),
-    UCS2_SLOVAK_CI(141, () -> Charset.forName("ucs2")),
-    UCS2_SPANISH2_CI(142, () -> Charset.forName("ucs2")),
-    UCS2_ROMAN_CI(143, () -> Charset.forName("ucs2")),
-    UCS2_PERSIAN_CI(144, () -> Charset.forName("ucs2")),
-```
-
-### InjectedReferences
-Unknown encoding: 'ucs2'
-in `db-protocol/mysql/src/main/java/org/apache/shardingsphere/db/protocol/mysql/constant/MySQLCharacterSet.java`
-#### Snippet
-```java
+    UCS2_SLOVENIAN_CI(132, () -> Charset.forName("ucs2")),
+    UCS2_POLISH_CI(133, () -> Charset.forName("ucs2")),
     UCS2_ESTONIAN_CI(134, () -> Charset.forName("ucs2")),
     UCS2_SPANISH_CI(135, () -> Charset.forName("ucs2")),
     UCS2_SWEDISH_CI(136, () -> Charset.forName("ucs2")),
-    UCS2_TURKISH_CI(137, () -> Charset.forName("ucs2")),
-    UCS2_CZECH_CI(138, () -> Charset.forName("ucs2")),
-```
-
-### InjectedReferences
-Unknown encoding: 'ucs2'
-in `db-protocol/mysql/src/main/java/org/apache/shardingsphere/db/protocol/mysql/constant/MySQLCharacterSet.java`
-#### Snippet
-```java
-    UCS2_UNICODE_520_CI(150, () -> Charset.forName("ucs2")),
-    UCS2_VIETNAMESE_CI(151, () -> Charset.forName("ucs2")),
-    UCS2_GENERAL_MYSQL500_CI(159, () -> Charset.forName("ucs2")),
-    UTF32_UNICODE_CI(160, () -> Charset.forName("utf32")),
-    UTF32_ICELANDIC_CI(161, () -> Charset.forName("utf32")),
-```
-
-### InjectedReferences
-Unknown encoding: 'ucs2'
-in `db-protocol/mysql/src/main/java/org/apache/shardingsphere/db/protocol/mysql/constant/MySQLCharacterSet.java`
-#### Snippet
-```java
-    UTF16_VIETNAMESE_CI(124, () -> StandardCharsets.UTF_16),
-    UCS2_UNICODE_CI(128, () -> Charset.forName("ucs2")),
-    UCS2_ICELANDIC_CI(129, () -> Charset.forName("ucs2")),
-    UCS2_LATVIAN_CI(130, () -> Charset.forName("ucs2")),
-    UCS2_ROMANIAN_CI(131, () -> Charset.forName("ucs2")),
-```
-
-### InjectedReferences
-Unknown encoding: 'dec8'
-in `db-protocol/mysql/src/main/java/org/apache/shardingsphere/db/protocol/mysql/constant/MySQLCharacterSet.java`
-#### Snippet
-```java
-    BIG5_CHINESE_CI(1, () -> Charset.forName("big5")),
-    LATIN2_CZECH_CS(2, () -> Charset.forName("latin2")),
-    DEC8_SWEDISH_CI(3, () -> Charset.forName("dec8")),
-    CP850_GENERAL_CI(4, () -> Charset.forName("cp850")),
-    LATIN1_GERMAN1_CI(5, () -> StandardCharsets.ISO_8859_1),
 ```
 
 ### InjectedReferences
@@ -7898,191 +8197,11 @@ Unknown encoding: 'macce'
 in `db-protocol/mysql/src/main/java/org/apache/shardingsphere/db/protocol/mysql/constant/MySQLCharacterSet.java`
 #### Snippet
 ```java
-    LATIN7_GENERAL_CI(41, () -> Charset.forName("iso-8859-13")),
-    LATIN7_GENERAL_CS(42, () -> Charset.forName("iso-8859-13")),
-    MACCE_BIN(43, () -> Charset.forName("macce")),
-    CP1250_CROATIAN_CI(44, () -> Charset.forName("cp1250")),
-    UTF8MB4_GENERAL_CI(45, () -> StandardCharsets.UTF_8),
-```
-
-### InjectedReferences
-Unknown encoding: 'keybcs2'
-in `db-protocol/mysql/src/main/java/org/apache/shardingsphere/db/protocol/mysql/constant/MySQLCharacterSet.java`
-#### Snippet
-```java
-    UCS2_GENERAL_CI(35, () -> Charset.forName("ucs2")),
     CP866_GENERAL_CI(36, () -> Charset.forName("cp866")),
     KEYBCS2_GENERAL_CI(37, () -> Charset.forName("keybcs2")),
     MACCE_GENERAL_CI(38, () -> Charset.forName("macce")),
     MACROMAN_GENERAL_CI(39, () -> Charset.forName("macroman")),
-```
-
-### InjectedReferences
-Unknown encoding: 'swe7'
-in `db-protocol/mysql/src/main/java/org/apache/shardingsphere/db/protocol/mysql/constant/MySQLCharacterSet.java`
-#### Snippet
-```java
-    LATIN1_SWEDISH_CI(8, () -> StandardCharsets.ISO_8859_1),
-    LATIN2_GENERAL_CI(9, () -> Charset.forName("latin2")),
-    SWE7_SWEDISH_CI(10, () -> Charset.forName("swe7")),
-    ASCII_GENERAL_CI(11, () -> StandardCharsets.US_ASCII),
-    UJIS_JAPANESE_CI(12, () -> Charset.forName("ujis")),
-```
-
-### InjectedReferences
-Unknown encoding: 'ucs2'
-in `db-protocol/mysql/src/main/java/org/apache/shardingsphere/db/protocol/mysql/constant/MySQLCharacterSet.java`
-#### Snippet
-```java
-    UCS2_SPANISH2_CI(142, () -> Charset.forName("ucs2")),
-    UCS2_ROMAN_CI(143, () -> Charset.forName("ucs2")),
-    UCS2_PERSIAN_CI(144, () -> Charset.forName("ucs2")),
-    UCS2_ESPERANTO_CI(145, () -> Charset.forName("ucs2")),
-    UCS2_HUNGARIAN_CI(146, () -> Charset.forName("ucs2")),
-```
-
-### InjectedReferences
-Unknown encoding: 'ucs2'
-in `db-protocol/mysql/src/main/java/org/apache/shardingsphere/db/protocol/mysql/constant/MySQLCharacterSet.java`
-#### Snippet
-```java
-    UTF16_UNICODE_520_CI(123, () -> StandardCharsets.UTF_16),
-    UTF16_VIETNAMESE_CI(124, () -> StandardCharsets.UTF_16),
-    UCS2_UNICODE_CI(128, () -> Charset.forName("ucs2")),
-    UCS2_ICELANDIC_CI(129, () -> Charset.forName("ucs2")),
-    UCS2_LATVIAN_CI(130, () -> Charset.forName("ucs2")),
-```
-
-### InjectedReferences
-Unknown encoding: 'ucs2'
-in `db-protocol/mysql/src/main/java/org/apache/shardingsphere/db/protocol/mysql/constant/MySQLCharacterSet.java`
-#### Snippet
-```java
-    UCS2_CZECH_CI(138, () -> Charset.forName("ucs2")),
-    UCS2_DANISH_CI(139, () -> Charset.forName("ucs2")),
-    UCS2_LITHUANIAN_CI(140, () -> Charset.forName("ucs2")),
-    UCS2_SLOVAK_CI(141, () -> Charset.forName("ucs2")),
-    UCS2_SPANISH2_CI(142, () -> Charset.forName("ucs2")),
-```
-
-### InjectedReferences
-Unknown encoding: 'dec8'
-in `db-protocol/mysql/src/main/java/org/apache/shardingsphere/db/protocol/mysql/constant/MySQLCharacterSet.java`
-#### Snippet
-```java
-    CP1256_BIN(67, () -> Charset.forName("cp1256")),
-    CP866_BIN(68, () -> Charset.forName("cp866")),
-    DEC8_BIN(69, () -> Charset.forName("dec8")),
-    GREEK_BIN(70, () -> Charset.forName("greek")),
-    HEBREW_BIN(71, () -> Charset.forName("hebrew")),
-```
-
-### InjectedReferences
-Unknown encoding: 'ucs2'
-in `db-protocol/mysql/src/main/java/org/apache/shardingsphere/db/protocol/mysql/constant/MySQLCharacterSet.java`
-#### Snippet
-```java
-    UCS2_CROATIAN_CI(149, () -> Charset.forName("ucs2")),
-    UCS2_UNICODE_520_CI(150, () -> Charset.forName("ucs2")),
-    UCS2_VIETNAMESE_CI(151, () -> Charset.forName("ucs2")),
-    UCS2_GENERAL_MYSQL500_CI(159, () -> Charset.forName("ucs2")),
-    UTF32_UNICODE_CI(160, () -> Charset.forName("utf32")),
-```
-
-### InjectedReferences
-Unknown encoding: 'ucs2'
-in `db-protocol/mysql/src/main/java/org/apache/shardingsphere/db/protocol/mysql/constant/MySQLCharacterSet.java`
-#### Snippet
-```java
-    UCS2_GERMAN2_CI(148, () -> Charset.forName("ucs2")),
-    UCS2_CROATIAN_CI(149, () -> Charset.forName("ucs2")),
-    UCS2_UNICODE_520_CI(150, () -> Charset.forName("ucs2")),
-    UCS2_VIETNAMESE_CI(151, () -> Charset.forName("ucs2")),
-    UCS2_GENERAL_MYSQL500_CI(159, () -> Charset.forName("ucs2")),
-```
-
-### InjectedReferences
-Unknown encoding: 'ucs2'
-in `db-protocol/mysql/src/main/java/org/apache/shardingsphere/db/protocol/mysql/constant/MySQLCharacterSet.java`
-#### Snippet
-```java
-    UCS2_HUNGARIAN_CI(146, () -> Charset.forName("ucs2")),
-    UCS2_SINHALA_CI(147, () -> Charset.forName("ucs2")),
-    UCS2_GERMAN2_CI(148, () -> Charset.forName("ucs2")),
-    UCS2_CROATIAN_CI(149, () -> Charset.forName("ucs2")),
-    UCS2_UNICODE_520_CI(150, () -> Charset.forName("ucs2")),
-```
-
-### InjectedReferences
-Unknown encoding: 'geostd8'
-in `db-protocol/mysql/src/main/java/org/apache/shardingsphere/db/protocol/mysql/constant/MySQLCharacterSet.java`
-#### Snippet
-```java
-    UJIS_BIN(91, () -> Charset.forName("ujis")),
-    GEOSTD8_GENERAL_CI(92, () -> Charset.forName("geostd8")),
-    GEOSTD8_BIN(93, () -> Charset.forName("geostd8")),
-    LATIN1_SPANISH_CI(94, () -> StandardCharsets.ISO_8859_1),
-    CP932_JAPANESE_CI(95, () -> Charset.forName("cp932")),
-```
-
-### InjectedReferences
-Unknown encoding: 'ucs2'
-in `db-protocol/mysql/src/main/java/org/apache/shardingsphere/db/protocol/mysql/constant/MySQLCharacterSet.java`
-#### Snippet
-```java
-    SJIS_BIN(88, () -> Charset.forName("sjis")),
-    TIS620_BIN(89, () -> Charset.forName("tis620")),
-    UCS2_BIN(90, () -> Charset.forName("ucs2")),
-    UJIS_BIN(91, () -> Charset.forName("ujis")),
-    GEOSTD8_GENERAL_CI(92, () -> Charset.forName("geostd8")),
-```
-
-### InjectedReferences
-Unknown encoding: 'eucjpms'
-in `db-protocol/mysql/src/main/java/org/apache/shardingsphere/db/protocol/mysql/constant/MySQLCharacterSet.java`
-#### Snippet
-```java
-    CP932_JAPANESE_CI(95, () -> Charset.forName("cp932")),
-    CP932_BIN(96, () -> Charset.forName("cp932")),
-    EUCJPMS_JAPANESE_CI(97, () -> Charset.forName("eucjpms")),
-    EUCJPMS_BIN(98, () -> Charset.forName("eucjpms")),
-    CP1250_POLISH_CI(99, () -> Charset.forName("cp1250")),
-```
-
-### InjectedReferences
-Unknown encoding: 'eucjpms'
-in `db-protocol/mysql/src/main/java/org/apache/shardingsphere/db/protocol/mysql/constant/MySQLCharacterSet.java`
-#### Snippet
-```java
-    CP932_BIN(96, () -> Charset.forName("cp932")),
-    EUCJPMS_JAPANESE_CI(97, () -> Charset.forName("eucjpms")),
-    EUCJPMS_BIN(98, () -> Charset.forName("eucjpms")),
-    CP1250_POLISH_CI(99, () -> Charset.forName("cp1250")),
-    UTF16_UNICODE_CI(101, () -> StandardCharsets.UTF_16),
-```
-
-### InjectedReferences
-Unknown encoding: 'hp8'
-in `db-protocol/mysql/src/main/java/org/apache/shardingsphere/db/protocol/mysql/constant/MySQLCharacterSet.java`
-#### Snippet
-```java
-    GREEK_BIN(70, () -> Charset.forName("greek")),
-    HEBREW_BIN(71, () -> Charset.forName("hebrew")),
-    HP8_BIN(72, () -> Charset.forName("hp8")),
-    KEYBCS2_BIN(73, () -> Charset.forName("keybcs2")),
-    KOI8R_BIN(74, () -> Charset.forName("koi8-r")),
-```
-
-### InjectedReferences
-Unknown encoding: 'ucs2'
-in `db-protocol/mysql/src/main/java/org/apache/shardingsphere/db/protocol/mysql/constant/MySQLCharacterSet.java`
-#### Snippet
-```java
-    UCS2_ESPERANTO_CI(145, () -> Charset.forName("ucs2")),
-    UCS2_HUNGARIAN_CI(146, () -> Charset.forName("ucs2")),
-    UCS2_SINHALA_CI(147, () -> Charset.forName("ucs2")),
-    UCS2_GERMAN2_CI(148, () -> Charset.forName("ucs2")),
-    UCS2_CROATIAN_CI(149, () -> Charset.forName("ucs2")),
+    CP852_GENERAL_CI(40, () -> Charset.forName("cp852")),
 ```
 
 ### InjectedReferences
@@ -8110,63 +8229,15 @@ in `db-protocol/mysql/src/main/java/org/apache/shardingsphere/db/protocol/mysql/
 ```
 
 ### InjectedReferences
-Unknown encoding: 'ucs2'
-in `db-protocol/mysql/src/main/java/org/apache/shardingsphere/db/protocol/mysql/constant/MySQLCharacterSet.java`
-#### Snippet
-```java
-    UTF8_GENERAL_CI(33, () -> StandardCharsets.UTF_8),
-    CP1250_CZECH_CS(34, () -> Charset.forName("cp1250")),
-    UCS2_GENERAL_CI(35, () -> Charset.forName("ucs2")),
-    CP866_GENERAL_CI(36, () -> Charset.forName("cp866")),
-    KEYBCS2_GENERAL_CI(37, () -> Charset.forName("keybcs2")),
-```
-
-### InjectedReferences
-Unknown encoding: 'ucs2'
-in `db-protocol/mysql/src/main/java/org/apache/shardingsphere/db/protocol/mysql/constant/MySQLCharacterSet.java`
-#### Snippet
-```java
-    UCS2_TURKISH_CI(137, () -> Charset.forName("ucs2")),
-    UCS2_CZECH_CI(138, () -> Charset.forName("ucs2")),
-    UCS2_DANISH_CI(139, () -> Charset.forName("ucs2")),
-    UCS2_LITHUANIAN_CI(140, () -> Charset.forName("ucs2")),
-    UCS2_SLOVAK_CI(141, () -> Charset.forName("ucs2")),
-```
-
-### InjectedReferences
-Unknown encoding: 'ucs2'
-in `db-protocol/mysql/src/main/java/org/apache/shardingsphere/db/protocol/mysql/constant/MySQLCharacterSet.java`
-#### Snippet
-```java
-    UCS2_SINHALA_CI(147, () -> Charset.forName("ucs2")),
-    UCS2_GERMAN2_CI(148, () -> Charset.forName("ucs2")),
-    UCS2_CROATIAN_CI(149, () -> Charset.forName("ucs2")),
-    UCS2_UNICODE_520_CI(150, () -> Charset.forName("ucs2")),
-    UCS2_VIETNAMESE_CI(151, () -> Charset.forName("ucs2")),
-```
-
-### InjectedReferences
-Unknown encoding: 'ucs2'
-in `db-protocol/mysql/src/main/java/org/apache/shardingsphere/db/protocol/mysql/constant/MySQLCharacterSet.java`
-#### Snippet
-```java
-    UCS2_ROMAN_CI(143, () -> Charset.forName("ucs2")),
-    UCS2_PERSIAN_CI(144, () -> Charset.forName("ucs2")),
-    UCS2_ESPERANTO_CI(145, () -> Charset.forName("ucs2")),
-    UCS2_HUNGARIAN_CI(146, () -> Charset.forName("ucs2")),
-    UCS2_SINHALA_CI(147, () -> Charset.forName("ucs2")),
-```
-
-### InjectedReferences
 Unknown encoding: 'keybcs2'
 in `db-protocol/mysql/src/main/java/org/apache/shardingsphere/db/protocol/mysql/constant/MySQLCharacterSet.java`
 #### Snippet
 ```java
-    HEBREW_BIN(71, () -> Charset.forName("hebrew")),
-    HP8_BIN(72, () -> Charset.forName("hp8")),
-    KEYBCS2_BIN(73, () -> Charset.forName("keybcs2")),
-    KOI8R_BIN(74, () -> Charset.forName("koi8-r")),
-    KOI8U_BIN(75, () -> Charset.forName("koi8-u")),
+    UCS2_GENERAL_CI(35, () -> Charset.forName("ucs2")),
+    CP866_GENERAL_CI(36, () -> Charset.forName("cp866")),
+    KEYBCS2_GENERAL_CI(37, () -> Charset.forName("keybcs2")),
+    MACCE_GENERAL_CI(38, () -> Charset.forName("macce")),
+    MACROMAN_GENERAL_CI(39, () -> Charset.forName("macroman")),
 ```
 
 ### InjectedReferences
@@ -8182,15 +8253,15 @@ in `db-protocol/mysql/src/main/java/org/apache/shardingsphere/db/protocol/mysql/
 ```
 
 ### InjectedReferences
-Unknown encoding: 'ucs2'
+Unknown encoding: 'dec8'
 in `db-protocol/mysql/src/main/java/org/apache/shardingsphere/db/protocol/mysql/constant/MySQLCharacterSet.java`
 #### Snippet
 ```java
-    UCS2_DANISH_CI(139, () -> Charset.forName("ucs2")),
-    UCS2_LITHUANIAN_CI(140, () -> Charset.forName("ucs2")),
-    UCS2_SLOVAK_CI(141, () -> Charset.forName("ucs2")),
-    UCS2_SPANISH2_CI(142, () -> Charset.forName("ucs2")),
-    UCS2_ROMAN_CI(143, () -> Charset.forName("ucs2")),
+    CP1256_BIN(67, () -> Charset.forName("cp1256")),
+    CP866_BIN(68, () -> Charset.forName("cp866")),
+    DEC8_BIN(69, () -> Charset.forName("dec8")),
+    GREEK_BIN(70, () -> Charset.forName("greek")),
+    HEBREW_BIN(71, () -> Charset.forName("hebrew")),
 ```
 
 ### InjectedReferences
@@ -8198,11 +8269,11 @@ Unknown encoding: 'ucs2'
 in `db-protocol/mysql/src/main/java/org/apache/shardingsphere/db/protocol/mysql/constant/MySQLCharacterSet.java`
 #### Snippet
 ```java
-    UCS2_SLOVAK_CI(141, () -> Charset.forName("ucs2")),
-    UCS2_SPANISH2_CI(142, () -> Charset.forName("ucs2")),
-    UCS2_ROMAN_CI(143, () -> Charset.forName("ucs2")),
     UCS2_PERSIAN_CI(144, () -> Charset.forName("ucs2")),
     UCS2_ESPERANTO_CI(145, () -> Charset.forName("ucs2")),
+    UCS2_HUNGARIAN_CI(146, () -> Charset.forName("ucs2")),
+    UCS2_SINHALA_CI(147, () -> Charset.forName("ucs2")),
+    UCS2_GERMAN2_CI(148, () -> Charset.forName("ucs2")),
 ```
 
 ### InjectedReferences
@@ -8210,11 +8281,35 @@ Unknown encoding: 'ucs2'
 in `db-protocol/mysql/src/main/java/org/apache/shardingsphere/db/protocol/mysql/constant/MySQLCharacterSet.java`
 #### Snippet
 ```java
+    UCS2_ROMANIAN_CI(131, () -> Charset.forName("ucs2")),
     UCS2_SLOVENIAN_CI(132, () -> Charset.forName("ucs2")),
     UCS2_POLISH_CI(133, () -> Charset.forName("ucs2")),
     UCS2_ESTONIAN_CI(134, () -> Charset.forName("ucs2")),
     UCS2_SPANISH_CI(135, () -> Charset.forName("ucs2")),
-    UCS2_SWEDISH_CI(136, () -> Charset.forName("ucs2")),
+```
+
+### InjectedReferences
+Unknown encoding: 'ucs2'
+in `db-protocol/mysql/src/main/java/org/apache/shardingsphere/db/protocol/mysql/constant/MySQLCharacterSet.java`
+#### Snippet
+```java
+    UCS2_HUNGARIAN_CI(146, () -> Charset.forName("ucs2")),
+    UCS2_SINHALA_CI(147, () -> Charset.forName("ucs2")),
+    UCS2_GERMAN2_CI(148, () -> Charset.forName("ucs2")),
+    UCS2_CROATIAN_CI(149, () -> Charset.forName("ucs2")),
+    UCS2_UNICODE_520_CI(150, () -> Charset.forName("ucs2")),
+```
+
+### InjectedReferences
+Unknown encoding: 'ucs2'
+in `db-protocol/mysql/src/main/java/org/apache/shardingsphere/db/protocol/mysql/constant/MySQLCharacterSet.java`
+#### Snippet
+```java
+    UCS2_LITHUANIAN_CI(140, () -> Charset.forName("ucs2")),
+    UCS2_SLOVAK_CI(141, () -> Charset.forName("ucs2")),
+    UCS2_SPANISH2_CI(142, () -> Charset.forName("ucs2")),
+    UCS2_ROMAN_CI(143, () -> Charset.forName("ucs2")),
+    UCS2_PERSIAN_CI(144, () -> Charset.forName("ucs2")),
 ```
 
 ### InjectedReferences
@@ -8227,78 +8322,6 @@ in `db-protocol/mysql/src/main/java/org/apache/shardingsphere/db/protocol/mysql/
     ARMSCII8_GENERAL_CI(32, () -> Charset.forName("armscii8")),
     UTF8_GENERAL_CI(33, () -> StandardCharsets.UTF_8),
     CP1250_CZECH_CS(34, () -> Charset.forName("cp1250")),
-```
-
-### InjectedReferences
-Unknown encoding: 'ucs2'
-in `db-protocol/mysql/src/main/java/org/apache/shardingsphere/db/protocol/mysql/constant/MySQLCharacterSet.java`
-#### Snippet
-```java
-    UCS2_ROMANIAN_CI(131, () -> Charset.forName("ucs2")),
-    UCS2_SLOVENIAN_CI(132, () -> Charset.forName("ucs2")),
-    UCS2_POLISH_CI(133, () -> Charset.forName("ucs2")),
-    UCS2_ESTONIAN_CI(134, () -> Charset.forName("ucs2")),
-    UCS2_SPANISH_CI(135, () -> Charset.forName("ucs2")),
-```
-
-### InjectedReferences
-Unknown encoding: 'ucs2'
-in `db-protocol/mysql/src/main/java/org/apache/shardingsphere/db/protocol/mysql/constant/MySQLCharacterSet.java`
-#### Snippet
-```java
-    UCS2_LATVIAN_CI(130, () -> Charset.forName("ucs2")),
-    UCS2_ROMANIAN_CI(131, () -> Charset.forName("ucs2")),
-    UCS2_SLOVENIAN_CI(132, () -> Charset.forName("ucs2")),
-    UCS2_POLISH_CI(133, () -> Charset.forName("ucs2")),
-    UCS2_ESTONIAN_CI(134, () -> Charset.forName("ucs2")),
-```
-
-### InjectedReferences
-Unknown encoding: 'ucs2'
-in `db-protocol/mysql/src/main/java/org/apache/shardingsphere/db/protocol/mysql/constant/MySQLCharacterSet.java`
-#### Snippet
-```java
-    UCS2_UNICODE_CI(128, () -> Charset.forName("ucs2")),
-    UCS2_ICELANDIC_CI(129, () -> Charset.forName("ucs2")),
-    UCS2_LATVIAN_CI(130, () -> Charset.forName("ucs2")),
-    UCS2_ROMANIAN_CI(131, () -> Charset.forName("ucs2")),
-    UCS2_SLOVENIAN_CI(132, () -> Charset.forName("ucs2")),
-```
-
-### InjectedReferences
-Unknown encoding: 'ucs2'
-in `db-protocol/mysql/src/main/java/org/apache/shardingsphere/db/protocol/mysql/constant/MySQLCharacterSet.java`
-#### Snippet
-```java
-    UCS2_SWEDISH_CI(136, () -> Charset.forName("ucs2")),
-    UCS2_TURKISH_CI(137, () -> Charset.forName("ucs2")),
-    UCS2_CZECH_CI(138, () -> Charset.forName("ucs2")),
-    UCS2_DANISH_CI(139, () -> Charset.forName("ucs2")),
-    UCS2_LITHUANIAN_CI(140, () -> Charset.forName("ucs2")),
-```
-
-### InjectedReferences
-Unknown encoding: 'ujis'
-in `db-protocol/mysql/src/main/java/org/apache/shardingsphere/db/protocol/mysql/constant/MySQLCharacterSet.java`
-#### Snippet
-```java
-    TIS620_BIN(89, () -> Charset.forName("tis620")),
-    UCS2_BIN(90, () -> Charset.forName("ucs2")),
-    UJIS_BIN(91, () -> Charset.forName("ujis")),
-    GEOSTD8_GENERAL_CI(92, () -> Charset.forName("geostd8")),
-    GEOSTD8_BIN(93, () -> Charset.forName("geostd8")),
-```
-
-### InjectedReferences
-Unknown encoding: 'ujis'
-in `db-protocol/mysql/src/main/java/org/apache/shardingsphere/db/protocol/mysql/constant/MySQLCharacterSet.java`
-#### Snippet
-```java
-    SWE7_SWEDISH_CI(10, () -> Charset.forName("swe7")),
-    ASCII_GENERAL_CI(11, () -> StandardCharsets.US_ASCII),
-    UJIS_JAPANESE_CI(12, () -> Charset.forName("ujis")),
-    SJIS_JAPANESE_CI(13, () -> Charset.forName("sjis")),
-    CP1251_BULGARIAN_CI(14, () -> Charset.forName("cp1251")),
 ```
 
 ## RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
@@ -8327,6 +8350,18 @@ public final class WorkerIdNode {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
+Class `ShowMigrationStatusStatementAssert` has only 'static' members, and lacks a 'private' constructor
+in `test/it/parser/src/main/java/org/apache/shardingsphere/test/it/sql/parser/internal/asserts/statement/ral/impl/migration/query/ShowMigrationStatusStatementAssert.java`
+#### Snippet
+```java
+ * Show migration status statement assert.
+ */
+public final class ShowMigrationStatusStatementAssert {
+    
+    /**
+```
+
+### UtilityClassWithoutPrivateConstructor
 Class `JobIdAssert` has only 'static' members, and lacks a 'private' constructor
 in `test/it/parser/src/main/java/org/apache/shardingsphere/test/it/sql/parser/internal/asserts/statement/ral/impl/migration/JobIdAssert.java`
 #### Snippet
@@ -8351,13 +8386,13 @@ public final class ShowMigrationListStatementAssert {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `ShowMigrationSourceStorageUnitsStatementAssert` has only 'static' members, and lacks a 'private' constructor
-in `test/it/parser/src/main/java/org/apache/shardingsphere/test/it/sql/parser/internal/asserts/statement/ral/impl/migration/query/ShowMigrationSourceStorageUnitsStatementAssert.java`
+Class `ShowMigrationCheckStatusStatementAssert` has only 'static' members, and lacks a 'private' constructor
+in `test/it/parser/src/main/java/org/apache/shardingsphere/test/it/sql/parser/internal/asserts/statement/ral/impl/migration/query/ShowMigrationCheckStatusStatementAssert.java`
 #### Snippet
 ```java
- * Show migration source storage units statement assert.
+ * Show migration check status statement assert.
  */
-public final class ShowMigrationSourceStorageUnitsStatementAssert {
+public final class ShowMigrationCheckStatusStatementAssert {
     
     /**
 ```
@@ -8375,25 +8410,13 @@ public final class StopMigrationStatementAssert {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `ShowMigrationCheckStatusStatementAssert` has only 'static' members, and lacks a 'private' constructor
-in `test/it/parser/src/main/java/org/apache/shardingsphere/test/it/sql/parser/internal/asserts/statement/ral/impl/migration/query/ShowMigrationCheckStatusStatementAssert.java`
+Class `ShowMigrationSourceStorageUnitsStatementAssert` has only 'static' members, and lacks a 'private' constructor
+in `test/it/parser/src/main/java/org/apache/shardingsphere/test/it/sql/parser/internal/asserts/statement/ral/impl/migration/query/ShowMigrationSourceStorageUnitsStatementAssert.java`
 #### Snippet
 ```java
- * Show migration check status statement assert.
+ * Show migration source storage units statement assert.
  */
-public final class ShowMigrationCheckStatusStatementAssert {
-    
-    /**
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `ShowMigrationCheckAlgorithmsStatementAssert` has only 'static' members, and lacks a 'private' constructor
-in `test/it/parser/src/main/java/org/apache/shardingsphere/test/it/sql/parser/internal/asserts/statement/ral/impl/migration/query/ShowMigrationCheckAlgorithmsStatementAssert.java`
-#### Snippet
-```java
- * Show migration check algorithms statement assert.
- */
-public final class ShowMigrationCheckAlgorithmsStatementAssert {
+public final class ShowMigrationSourceStorageUnitsStatementAssert {
     
     /**
 ```
@@ -8411,13 +8434,13 @@ public final class RollbackMigrationStatementAssert {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `ShowMigrationStatusStatementAssert` has only 'static' members, and lacks a 'private' constructor
-in `test/it/parser/src/main/java/org/apache/shardingsphere/test/it/sql/parser/internal/asserts/statement/ral/impl/migration/query/ShowMigrationStatusStatementAssert.java`
+Class `ShowMigrationCheckAlgorithmsStatementAssert` has only 'static' members, and lacks a 'private' constructor
+in `test/it/parser/src/main/java/org/apache/shardingsphere/test/it/sql/parser/internal/asserts/statement/ral/impl/migration/query/ShowMigrationCheckAlgorithmsStatementAssert.java`
 #### Snippet
 ```java
- * Show migration status statement assert.
+ * Show migration check algorithms statement assert.
  */
-public final class ShowMigrationStatusStatementAssert {
+public final class ShowMigrationCheckAlgorithmsStatementAssert {
     
     /**
 ```
@@ -8435,18 +8458,6 @@ public final class MigrateTableStatementAssert {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `StartMigrationCheckStatementAssert` has only 'static' members, and lacks a 'private' constructor
-in `test/it/parser/src/main/java/org/apache/shardingsphere/test/it/sql/parser/internal/asserts/statement/ral/impl/migration/update/StartMigrationCheckStatementAssert.java`
-#### Snippet
-```java
- * Start migration check statement assert.
- */
-public final class StartMigrationCheckStatementAssert {
-    
-    /**
-```
-
-### UtilityClassWithoutPrivateConstructor
 Class `DropMigrationCheckStatementAssert` has only 'static' members, and lacks a 'private' constructor
 in `test/it/parser/src/main/java/org/apache/shardingsphere/test/it/sql/parser/internal/asserts/statement/ral/impl/migration/update/DropMigrationCheckStatementAssert.java`
 #### Snippet
@@ -8459,6 +8470,18 @@ public final class DropMigrationCheckStatementAssert {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
+Class `StopMigrationCheckStatementAssert` has only 'static' members, and lacks a 'private' constructor
+in `test/it/parser/src/main/java/org/apache/shardingsphere/test/it/sql/parser/internal/asserts/statement/ral/impl/migration/update/StopMigrationCheckStatementAssert.java`
+#### Snippet
+```java
+ * Stop migration check statement assert.
+ */
+public final class StopMigrationCheckStatementAssert {
+    
+    /**
+```
+
+### UtilityClassWithoutPrivateConstructor
 Class `StartMigrationStatementAssert` has only 'static' members, and lacks a 'private' constructor
 in `test/it/parser/src/main/java/org/apache/shardingsphere/test/it/sql/parser/internal/asserts/statement/ral/impl/migration/update/StartMigrationStatementAssert.java`
 #### Snippet
@@ -8466,6 +8489,18 @@ in `test/it/parser/src/main/java/org/apache/shardingsphere/test/it/sql/parser/in
  * Start migration statement assert.
  */
 public final class StartMigrationStatementAssert {
+    
+    /**
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `StartMigrationCheckStatementAssert` has only 'static' members, and lacks a 'private' constructor
+in `test/it/parser/src/main/java/org/apache/shardingsphere/test/it/sql/parser/internal/asserts/statement/ral/impl/migration/update/StartMigrationCheckStatementAssert.java`
+#### Snippet
+```java
+ * Start migration check statement assert.
+ */
+public final class StartMigrationCheckStatementAssert {
     
     /**
 ```
@@ -8495,18 +8530,6 @@ public final class ShowSQLTranslatorRuleStatementAssert {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `StopMigrationCheckStatementAssert` has only 'static' members, and lacks a 'private' constructor
-in `test/it/parser/src/main/java/org/apache/shardingsphere/test/it/sql/parser/internal/asserts/statement/ral/impl/migration/update/StopMigrationCheckStatementAssert.java`
-#### Snippet
-```java
- * Stop migration check statement assert.
- */
-public final class StopMigrationCheckStatementAssert {
-    
-    /**
-```
-
-### UtilityClassWithoutPrivateConstructor
 Class `ExportDatabaseConfigurationStatementAssert` has only 'static' members, and lacks a 'private' constructor
 in `test/it/parser/src/main/java/org/apache/shardingsphere/test/it/sql/parser/internal/asserts/statement/ral/impl/queryable/ExportDatabaseConfigurationStatementAssert.java`
 #### Snippet
@@ -8514,42 +8537,6 @@ in `test/it/parser/src/main/java/org/apache/shardingsphere/test/it/sql/parser/in
  * Export database configuration statement assert.
  */
 public final class ExportDatabaseConfigurationStatementAssert {
-    
-    /**
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `ShowDistVariableStatementAssert` has only 'static' members, and lacks a 'private' constructor
-in `test/it/parser/src/main/java/org/apache/shardingsphere/test/it/sql/parser/internal/asserts/statement/ral/impl/queryable/ShowDistVariableStatementAssert.java`
-#### Snippet
-```java
- * Show dist variable statement assert.
- */
-public final class ShowDistVariableStatementAssert {
-    
-    /**
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `ShowStatusFromReadwriteSplittingRulesStatementAssert` has only 'static' members, and lacks a 'private' constructor
-in `test/it/parser/src/main/java/org/apache/shardingsphere/test/it/sql/parser/internal/asserts/statement/ral/impl/queryable/ShowStatusFromReadwriteSplittingRulesStatementAssert.java`
-#### Snippet
-```java
- * Show status from readwrite-splitting rules statement assert.
- */
-public final class ShowStatusFromReadwriteSplittingRulesStatementAssert {
-    
-    /**
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `ShowAuthorityRuleStatementAssert` has only 'static' members, and lacks a 'private' constructor
-in `test/it/parser/src/main/java/org/apache/shardingsphere/test/it/sql/parser/internal/asserts/statement/ral/impl/queryable/ShowAuthorityRuleStatementAssert.java`
-#### Snippet
-```java
- * Show authority rule statement assert.
- */
-public final class ShowAuthorityRuleStatementAssert {
     
     /**
 ```
@@ -8567,6 +8554,30 @@ public final class ConvertYamlConfigurationStatementAssert {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
+Class `ShowDistVariableStatementAssert` has only 'static' members, and lacks a 'private' constructor
+in `test/it/parser/src/main/java/org/apache/shardingsphere/test/it/sql/parser/internal/asserts/statement/ral/impl/queryable/ShowDistVariableStatementAssert.java`
+#### Snippet
+```java
+ * Show dist variable statement assert.
+ */
+public final class ShowDistVariableStatementAssert {
+    
+    /**
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `CheckMigrationStatementAssert` has only 'static' members, and lacks a 'private' constructor
+in `test/it/parser/src/main/java/org/apache/shardingsphere/test/it/sql/parser/internal/asserts/statement/ral/impl/migration/update/CheckMigrationStatementAssert.java`
+#### Snippet
+```java
+ * Check migration statement assert.
+ */
+public final class CheckMigrationStatementAssert {
+    
+    /**
+```
+
+### UtilityClassWithoutPrivateConstructor
 Class `ShowDistVariablesStatementAssert` has only 'static' members, and lacks a 'private' constructor
 in `test/it/parser/src/main/java/org/apache/shardingsphere/test/it/sql/parser/internal/asserts/statement/ral/impl/queryable/ShowDistVariablesStatementAssert.java`
 #### Snippet
@@ -8574,6 +8585,30 @@ in `test/it/parser/src/main/java/org/apache/shardingsphere/test/it/sql/parser/in
  * Show dist variables statement assert.
  */
 public final class ShowDistVariablesStatementAssert {
+    
+    /**
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `ShowStatusFromReadwriteSplittingRulesStatementAssert` has only 'static' members, and lacks a 'private' constructor
+in `test/it/parser/src/main/java/org/apache/shardingsphere/test/it/sql/parser/internal/asserts/statement/ral/impl/queryable/ShowStatusFromReadwriteSplittingRulesStatementAssert.java`
+#### Snippet
+```java
+ * Show status from readwrite-splitting rules statement assert.
+ */
+public final class ShowStatusFromReadwriteSplittingRulesStatementAssert {
+    
+    /**
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `ShowComputeNodeInfoStatementAssert` has only 'static' members, and lacks a 'private' constructor
+in `test/it/parser/src/main/java/org/apache/shardingsphere/test/it/sql/parser/internal/asserts/statement/ral/impl/queryable/ShowComputeNodeInfoStatementAssert.java`
+#### Snippet
+```java
+ * Show compute node info statement assert.
+ */
+public final class ShowComputeNodeInfoStatementAssert {
     
     /**
 ```
@@ -8603,37 +8638,13 @@ public final class ShowTableMetaDataStatementAssert {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `CheckMigrationStatementAssert` has only 'static' members, and lacks a 'private' constructor
-in `test/it/parser/src/main/java/org/apache/shardingsphere/test/it/sql/parser/internal/asserts/statement/ral/impl/migration/update/CheckMigrationStatementAssert.java`
+Class `ShowAuthorityRuleStatementAssert` has only 'static' members, and lacks a 'private' constructor
+in `test/it/parser/src/main/java/org/apache/shardingsphere/test/it/sql/parser/internal/asserts/statement/ral/impl/queryable/ShowAuthorityRuleStatementAssert.java`
 #### Snippet
 ```java
- * Check migration statement assert.
+ * Show authority rule statement assert.
  */
-public final class CheckMigrationStatementAssert {
-    
-    /**
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `ShowComputeNodeInfoStatementAssert` has only 'static' members, and lacks a 'private' constructor
-in `test/it/parser/src/main/java/org/apache/shardingsphere/test/it/sql/parser/internal/asserts/statement/ral/impl/queryable/ShowComputeNodeInfoStatementAssert.java`
-#### Snippet
-```java
- * Show compute node info statement assert.
- */
-public final class ShowComputeNodeInfoStatementAssert {
-    
-    /**
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `AlterTransactionRuleStatementAssert` has only 'static' members, and lacks a 'private' constructor
-in `test/it/parser/src/main/java/org/apache/shardingsphere/test/it/sql/parser/internal/asserts/statement/ral/impl/updatable/AlterTransactionRuleStatementAssert.java`
-#### Snippet
-```java
- * Alter transaction rule statement assert.
- */
-public final class AlterTransactionRuleStatementAssert {
+public final class ShowAuthorityRuleStatementAssert {
     
     /**
 ```
@@ -8663,13 +8674,13 @@ public final class ShowSQLParserRuleStatementAssert {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `RefreshTableMetaDataStatementAssert` has only 'static' members, and lacks a 'private' constructor
-in `test/it/parser/src/main/java/org/apache/shardingsphere/test/it/sql/parser/internal/asserts/statement/ral/impl/updatable/RefreshTableMetaDataStatementAssert.java`
+Class `AlterTransactionRuleStatementAssert` has only 'static' members, and lacks a 'private' constructor
+in `test/it/parser/src/main/java/org/apache/shardingsphere/test/it/sql/parser/internal/asserts/statement/ral/impl/updatable/AlterTransactionRuleStatementAssert.java`
 #### Snippet
 ```java
- * Refresh table meta data statement assert.
+ * Alter transaction rule statement assert.
  */
-public final class RefreshTableMetaDataStatementAssert {
+public final class AlterTransactionRuleStatementAssert {
     
     /**
 ```
@@ -8687,6 +8698,18 @@ public final class SetDistVariableStatementAssert {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
+Class `RefreshTableMetaDataStatementAssert` has only 'static' members, and lacks a 'private' constructor
+in `test/it/parser/src/main/java/org/apache/shardingsphere/test/it/sql/parser/internal/asserts/statement/ral/impl/updatable/RefreshTableMetaDataStatementAssert.java`
+#### Snippet
+```java
+ * Refresh table meta data statement assert.
+ */
+public final class RefreshTableMetaDataStatementAssert {
+    
+    /**
+```
+
+### UtilityClassWithoutPrivateConstructor
 Class `AlterSQLParserRuleStatementAssert` has only 'static' members, and lacks a 'private' constructor
 in `test/it/parser/src/main/java/org/apache/shardingsphere/test/it/sql/parser/internal/asserts/statement/ral/impl/updatable/AlterSQLParserRuleStatementAssert.java`
 #### Snippet
@@ -8699,18 +8722,6 @@ public final class AlterSQLParserRuleStatementAssert {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `CreateTrafficRuleStatementAssert` has only 'static' members, and lacks a 'private' constructor
-in `test/it/parser/src/main/java/org/apache/shardingsphere/test/it/sql/parser/internal/asserts/statement/ral/impl/updatable/CreateTrafficRuleStatementAssert.java`
-#### Snippet
-```java
- * Create traffic rule statement assert.
- */
-public final class CreateTrafficRuleStatementAssert {
-    
-    /**
-```
-
-### UtilityClassWithoutPrivateConstructor
 Class `AlterTrafficRuleStatementAssert` has only 'static' members, and lacks a 'private' constructor
 in `test/it/parser/src/main/java/org/apache/shardingsphere/test/it/sql/parser/internal/asserts/statement/ral/impl/updatable/AlterTrafficRuleStatementAssert.java`
 #### Snippet
@@ -8718,6 +8729,18 @@ in `test/it/parser/src/main/java/org/apache/shardingsphere/test/it/sql/parser/in
  * Alter traffic rule statement assert.
  */
 public final class AlterTrafficRuleStatementAssert {
+    
+    /**
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `CreateTrafficRuleStatementAssert` has only 'static' members, and lacks a 'private' constructor
+in `test/it/parser/src/main/java/org/apache/shardingsphere/test/it/sql/parser/internal/asserts/statement/ral/impl/updatable/CreateTrafficRuleStatementAssert.java`
+#### Snippet
+```java
+ * Create traffic rule statement assert.
+ */
+public final class CreateTrafficRuleStatementAssert {
     
     /**
 ```
@@ -8747,18 +8770,6 @@ public final class ParseStatementAssert {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `FormatSQLStatementAssert` has only 'static' members, and lacks a 'private' constructor
-in `test/it/parser/src/main/java/org/apache/shardingsphere/test/it/sql/parser/internal/asserts/statement/rul/impl/sql/FormatSQLStatementAssert.java`
-#### Snippet
-```java
- * Format SQL statement assert.
- */
-public final class FormatSQLStatementAssert {
-    
-    /**
-```
-
-### UtilityClassWithoutPrivateConstructor
 Class `PreviewStatementAssert` has only 'static' members, and lacks a 'private' constructor
 in `test/it/parser/src/main/java/org/apache/shardingsphere/test/it/sql/parser/internal/asserts/statement/rul/impl/sql/PreviewStatementAssert.java`
 #### Snippet
@@ -8771,39 +8782,39 @@ public final class PreviewStatementAssert {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `LoggerFactory` has only 'static' members, and lacks a 'private' constructor
-in `agent/core/src/main/java/org/apache/shardingsphere/agent/core/log/LoggerFactory.java`
+Class `FormatSQLStatementAssert` has only 'static' members, and lacks a 'private' constructor
+in `test/it/parser/src/main/java/org/apache/shardingsphere/test/it/sql/parser/internal/asserts/statement/rul/impl/sql/FormatSQLStatementAssert.java`
 #### Snippet
 ```java
- * Logger factory.
+ * Format SQL statement assert.
  */
-public final class LoggerFactory {
+public final class FormatSQLStatementAssert {
     
-    private static AgentClassLoader classLoader;
+    /**
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `MetricsPool` has only 'static' members, and lacks a 'private' constructor
-in `agent/plugins/metrics/core/src/main/java/org/apache/shardingsphere/agent/plugin/metrics/core/MetricsPool.java`
+Class `MetricsCollectorRegistry` has only 'static' members, and lacks a 'private' constructor
+in `agent/plugins/metrics/core/src/main/java/org/apache/shardingsphere/agent/plugin/metrics/core/collector/MetricsCollectorRegistry.java`
 #### Snippet
 ```java
- * Metrics pool.
+ * Metrics collector registry.
  */
-public final class MetricsPool {
+public final class MetricsCollectorRegistry {
     
-    private static final ConcurrentHashMap<String, MetricsWrapper> METRICS_POOL = new ConcurrentHashMap<>();
+    private static final Map<String, MetricsCollector> COLLECTORS = new ConcurrentHashMap<>();
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `MetricIds` has only 'static' members, and lacks a 'private' constructor
-in `agent/plugins/metrics/core/src/main/java/org/apache/shardingsphere/agent/plugin/metrics/core/constant/MetricIds.java`
+Class `RootSpanContext` has only 'static' members, and lacks a 'private' constructor
+in `agent/plugins/tracing/core/src/main/java/org/apache/shardingsphere/agent/plugin/tracing/core/RootSpanContext.java`
 #### Snippet
 ```java
- * Metric IDs.
+ * Root span context.
  */
-public final class MetricIds {
+public final class RootSpanContext {
     
-    public static final String BUILD_INFO = "build_info";
+    private static final TransmittableThreadLocal<Object> VALUE = new TransmittableThreadLocal<>();
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -8831,18 +8842,6 @@ public final class ShardingSphereDatabasesFactory {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `SchemaManager` has only 'static' members, and lacks a 'private' constructor
-in `infra/common/src/main/java/org/apache/shardingsphere/infra/metadata/database/schema/SchemaManager.java`
-#### Snippet
-```java
- * Schema meta data manager.
- */
-public final class SchemaManager {
-    
-    /**
-```
-
-### UtilityClassWithoutPrivateConstructor
 Class `GenericSchemaBuilder` has only 'static' members, and lacks a 'private' constructor
 in `infra/common/src/main/java/org/apache/shardingsphere/infra/metadata/database/schema/builder/GenericSchemaBuilder.java`
 #### Snippet
@@ -8850,6 +8849,18 @@ in `infra/common/src/main/java/org/apache/shardingsphere/infra/metadata/database
  * Generic schema builder.
  */
 public final class GenericSchemaBuilder {
+    
+    /**
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `SchemaManager` has only 'static' members, and lacks a 'private' constructor
+in `infra/common/src/main/java/org/apache/shardingsphere/infra/metadata/database/schema/SchemaManager.java`
+#### Snippet
+```java
+ * Schema meta data manager.
+ */
+public final class SchemaManager {
     
     /**
 ```
@@ -8939,6 +8950,18 @@ public final class AutoCommitUtils {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
+Class `TimeServiceOrder` has only 'static' members, and lacks a 'private' constructor
+in `kernel/time-service/core/src/main/java/org/apache/shardingsphere/timeservice/core/rule/constant/TimeServiceOrder.java`
+#### Snippet
+```java
+ * Time service order.
+ */
+public final class TimeServiceOrder {
+    
+    /**
+```
+
+### UtilityClassWithoutPrivateConstructor
 Class `PrimaryKeyPositionFactory` has only 'static' members, and lacks a 'private' constructor
 in `kernel/data-pipeline/api/src/main/java/org/apache/shardingsphere/data/pipeline/api/ingest/position/PrimaryKeyPositionFactory.java`
 #### Snippet
@@ -8963,27 +8986,15 @@ public final class JobTypeFactory {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `DataRecordResultConvertUtil` has only 'static' members, and lacks a 'private' constructor
-in `kernel/data-pipeline/cdc/core/src/main/java/org/apache/shardingsphere/data/pipeline/cdc/util/DataRecordResultConvertUtil.java`
-#### Snippet
-```java
- * Data record result convert util.
- */
-public final class DataRecordResultConvertUtil {
-    
-    /**
-```
-
-### UtilityClassWithoutPrivateConstructor
 Class `CDCOrder` has only 'static' members, and lacks a 'private' constructor
 in `kernel/data-pipeline/cdc/core/src/main/java/org/apache/shardingsphere/data/pipeline/cdc/constant/CDCOrder.java`
 #### Snippet
 ```java
- * CDC rule order of load.
+ * CDC rule order.
  */
 public final class CDCOrder {
     
-    public static final int ORDER = 10000;
+    /**
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -8994,6 +9005,18 @@ in `kernel/data-pipeline/cdc/core/src/main/java/org/apache/shardingsphere/data/p
  * CDC response message generator.
  */
 public final class CDCResponseGenerator {
+    
+    /**
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `DataRecordResultConvertUtil` has only 'static' members, and lacks a 'private' constructor
+in `kernel/data-pipeline/cdc/core/src/main/java/org/apache/shardingsphere/data/pipeline/cdc/util/DataRecordResultConvertUtil.java`
+#### Snippet
+```java
+ * Data record result convert util.
+ */
+public final class DataRecordResultConvertUtil {
     
     /**
 ```
@@ -9035,18 +9058,6 @@ public final class ImporterFactory {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `SQLBuilderFactory` has only 'static' members, and lacks a 'private' constructor
-in `kernel/data-pipeline/cdc/client/src/main/java/org/apache/shardingsphere/data/pipeline/cdc/client/sqlbuilder/SQLBuilderFactory.java`
-#### Snippet
-```java
- * SQL builder factory.
- */
-public final class SQLBuilderFactory {
-    
-    /**
-```
-
-### UtilityClassWithoutPrivateConstructor
 Class `AnyValueConvert` has only 'static' members, and lacks a 'private' constructor
 in `kernel/data-pipeline/cdc/client/src/main/java/org/apache/shardingsphere/data/pipeline/cdc/client/util/AnyValueConvert.java`
 #### Snippet
@@ -9054,6 +9065,18 @@ in `kernel/data-pipeline/cdc/client/src/main/java/org/apache/shardingsphere/data
  * Any value convert.
  */
 public final class AnyValueConvert {
+    
+    /**
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `SQLBuilderFactory` has only 'static' members, and lacks a 'private' constructor
+in `kernel/data-pipeline/cdc/client/src/main/java/org/apache/shardingsphere/data/pipeline/cdc/client/sqlbuilder/SQLBuilderFactory.java`
+#### Snippet
+```java
+ * SQL builder factory.
+ */
+public final class SQLBuilderFactory {
     
     /**
 ```
@@ -9083,18 +9106,6 @@ public final class PipelineJobProgressPersistService {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `PipelineProcessConfigurationUtil` has only 'static' members, and lacks a 'private' constructor
-in `kernel/data-pipeline/core/src/main/java/org/apache/shardingsphere/data/pipeline/core/config/process/PipelineProcessConfigurationUtil.java`
-#### Snippet
-```java
- * Pipeline process configuration util.
- */
-public final class PipelineProcessConfigurationUtil {
-    
-    private static final YamlPipelineProcessConfigurationSwapper SWAPPER = new YamlPipelineProcessConfigurationSwapper();
-```
-
-### UtilityClassWithoutPrivateConstructor
 Class `CDCDataRecordUtil` has only 'static' members, and lacks a 'private' constructor
 in `kernel/data-pipeline/cdc/core/src/main/java/org/apache/shardingsphere/data/pipeline/cdc/util/CDCDataRecordUtil.java`
 #### Snippet
@@ -9104,6 +9115,18 @@ in `kernel/data-pipeline/cdc/core/src/main/java/org/apache/shardingsphere/data/p
 public final class CDCDataRecordUtil {
     
     /**
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `PipelineProcessConfigurationUtil` has only 'static' members, and lacks a 'private' constructor
+in `kernel/data-pipeline/core/src/main/java/org/apache/shardingsphere/data/pipeline/core/config/process/PipelineProcessConfigurationUtil.java`
+#### Snippet
+```java
+ * Pipeline process configuration util.
+ */
+public final class PipelineProcessConfigurationUtil {
+    
+    private static final YamlPipelineProcessConfigurationSwapper SWAPPER = new YamlPipelineProcessConfigurationSwapper();
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -9335,6 +9358,18 @@ public final class ShardingTableRuleStatementChecker {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
+Class `PostgreSQLTextTimeUtils` has only 'static' members, and lacks a 'private' constructor
+in `db-protocol/postgresql/src/main/java/org/apache/shardingsphere/db/protocol/postgresql/packet/command/query/extended/bind/protocol/PostgreSQLTextTimeUtils.java`
+#### Snippet
+```java
+ * Utils for PostgreSQL time.
+ */
+public final class PostgreSQLTextTimeUtils {
+    
+    private static final DateTimeFormatter POSTGRESQL_TIME_FORMATTER = DateTimeFormatter.ofPattern(
+```
+
+### UtilityClassWithoutPrivateConstructor
 Class `PostgreSQLMessageSeverityLevel` has only 'static' members, and lacks a 'private' constructor
 in `db-protocol/postgresql/src/main/java/org/apache/shardingsphere/db/protocol/postgresql/constant/PostgreSQLMessageSeverityLevel.java`
 #### Snippet
@@ -9373,39 +9408,27 @@ in `test/it/parser/src/main/java/org/apache/shardingsphere/test/it/sql/parser/in
 ```
 
 ### DataFlowIssue
-Method invocation `multiplyBy` may produce `NullPointerException`
-in `kernel/sql-federation/optimizer/src/main/java/org/apache/shardingsphere/sqlfederation/optimizer/metadata/translatable/TranslatableTableScan.java`
+Method invocation `isMatched` may produce `NullPointerException`
+in `kernel/data-pipeline/api/src/main/java/org/apache/shardingsphere/data/pipeline/api/check/consistency/DataConsistencyCheckResult.java`
 #### Snippet
 ```java
-    @Override
-    public RelOptCost computeSelfCost(final RelOptPlanner planner, final RelMetadataQuery mq) {
-        return super.computeSelfCost(planner, mq).multiplyBy(((double) number + 2D) / ((double) table.getRowType().getFieldCount() + 2D));
+            return false;
+        }
+        return countCheckResult.isMatched() && contentCheckResult.isMatched();
     }
-    
+}
 ```
 
 ### DataFlowIssue
-Argument `table.getExpression(FederationTranslatableTable.class)` might be null
-in `kernel/sql-federation/optimizer/src/main/java/org/apache/shardingsphere/sqlfederation/optimizer/metadata/translatable/TranslatableTableScan.java`
+Method invocation `isMatched` may produce `NullPointerException`
+in `kernel/data-pipeline/api/src/main/java/org/apache/shardingsphere/data/pipeline/api/check/consistency/DataConsistencyCheckResult.java`
 #### Snippet
 ```java
-    private Result generateCodeForNullFilters(final EnumerableRelImplementor implementor, final PhysType physType) {
-        if (fields.length == 1) {
-            return implementor.result(physType, Blocks.toBlock(Expressions.call(table.getExpression(FederationTranslatableTable.class),
-                    "projectScalar", implementor.getRootExpression(), Expressions.constant(fields))));
+            return false;
         }
-```
-
-### DataFlowIssue
-Argument `table.getExpression(FederationTranslatableTable.class)` might be null
-in `kernel/sql-federation/optimizer/src/main/java/org/apache/shardingsphere/sqlfederation/optimizer/metadata/translatable/TranslatableTableScan.java`
-#### Snippet
-```java
-                    "projectScalar", implementor.getRootExpression(), Expressions.constant(fields))));
-        }
-        return implementor.result(physType, Blocks.toBlock(Expressions.call(table.getExpression(FederationTranslatableTable.class),
-                "project", implementor.getRootExpression(), Expressions.constant(fields))));
+        return countCheckResult.isMatched() && contentCheckResult.isMatched();
     }
+}
 ```
 
 ### DataFlowIssue
@@ -9433,6 +9456,54 @@ in `kernel/sql-federation/optimizer/src/main/java/org/apache/shardingsphere/sqlf
 ```
 
 ### DataFlowIssue
+Argument `table.getExpression(FederationTranslatableTable.class)` might be null
+in `kernel/sql-federation/optimizer/src/main/java/org/apache/shardingsphere/sqlfederation/optimizer/metadata/translatable/TranslatableTableScan.java`
+#### Snippet
+```java
+    private Result generateCodeForNullFilters(final EnumerableRelImplementor implementor, final PhysType physType) {
+        if (fields.length == 1) {
+            return implementor.result(physType, Blocks.toBlock(Expressions.call(table.getExpression(FederationTranslatableTable.class),
+                    "projectScalar", implementor.getRootExpression(), Expressions.constant(fields))));
+        }
+```
+
+### DataFlowIssue
+Argument `table.getExpression(FederationTranslatableTable.class)` might be null
+in `kernel/sql-federation/optimizer/src/main/java/org/apache/shardingsphere/sqlfederation/optimizer/metadata/translatable/TranslatableTableScan.java`
+#### Snippet
+```java
+                    "projectScalar", implementor.getRootExpression(), Expressions.constant(fields))));
+        }
+        return implementor.result(physType, Blocks.toBlock(Expressions.call(table.getExpression(FederationTranslatableTable.class),
+                "project", implementor.getRootExpression(), Expressions.constant(fields))));
+    }
+```
+
+### DataFlowIssue
+Method invocation `multiplyBy` may produce `NullPointerException`
+in `kernel/sql-federation/optimizer/src/main/java/org/apache/shardingsphere/sqlfederation/optimizer/metadata/translatable/TranslatableTableScan.java`
+#### Snippet
+```java
+    @Override
+    public RelOptCost computeSelfCost(final RelOptPlanner planner, final RelMetadataQuery mq) {
+        return super.computeSelfCost(planner, mq).multiplyBy(((double) number + 2D) / ((double) table.getRowType().getFieldCount() + 2D));
+    }
+    
+```
+
+### DataFlowIssue
+Argument `inputStream` might be null
+in `features/mask/core/src/main/java/org/apache/shardingsphere/mask/algorithm/replace/TelephoneRandomReplaceAlgorithm.java`
+#### Snippet
+```java
+            }
+        };
+        return CharStreams.readLines(new InputStreamReader(inputStream, Charsets.UTF_8), lineProcessor);
+    }
+    
+```
+
+### DataFlowIssue
 Argument `inputStream` might be null
 in `features/encrypt/core/src/main/java/org/apache/shardingsphere/encrypt/algorithm/like/CharDigestLikeEncryptAlgorithm.java`
 #### Snippet
@@ -9446,7 +9517,7 @@ in `features/encrypt/core/src/main/java/org/apache/shardingsphere/encrypt/algori
 
 ### DataFlowIssue
 Passing a non-null argument to `Optional`
-in `features/sharding/distsql/handler/src/main/java/org/apache/shardingsphere/sharding/distsql/handler/query/ShardingTableRuleResultSet.java`
+in `features/sharding/distsql/handler/src/main/java/org/apache/shardingsphere/sharding/distsql/handler/query/ShowShardingTableRuleExecutor.java`
 #### Snippet
 ```java
         return null == shardingTableRuleConfig.getDatabaseShardingStrategy()
@@ -9505,6 +9576,78 @@ in `sql-parser/dialect/mysql/src/main/java/org/apache/shardingsphere/sql/parser/
 ```
 
 ### DataFlowIssue
+Condition `astNode0 instanceof LimitClauseContext` is redundant and can be replaced with a null check
+in `sql-parser/dialect/opengauss/src/main/java/org/apache/shardingsphere/sql/parser/opengauss/visitor/statement/impl/OpenGaussStatementSQLVisitor.java`
+#### Snippet
+```java
+        LimitValueSegment rowCount = null;
+        LimitValueSegment offset = null;
+        if (astNode0 instanceof LimitClauseContext) {
+            rowCount = null == ctx.limitClause().selectLimitValue() ? null : (LimitValueSegment) visit(ctx.limitClause().selectLimitValue());
+        } else {
+```
+
+### DataFlowIssue
+Condition `astNode1 instanceof LimitClauseContext` is redundant and can be replaced with a null check
+in `sql-parser/dialect/opengauss/src/main/java/org/apache/shardingsphere/sql/parser/opengauss/visitor/statement/impl/OpenGaussStatementSQLVisitor.java`
+#### Snippet
+```java
+        }
+        ParseTree astNode1 = ctx.getChild(1);
+        if (astNode1 instanceof LimitClauseContext) {
+            rowCount = null == ctx.limitClause().selectLimitValue() ? null : (LimitValueSegment) visit(ctx.limitClause().selectLimitValue());
+        } else {
+```
+
+### DataFlowIssue
+Casting `astNode` to `ParameterMarkerExpressionSegment` will produce `ClassCastException` for any non-null value
+in `sql-parser/dialect/opengauss/src/main/java/org/apache/shardingsphere/sql/parser/opengauss/visitor/statement/impl/OpenGaussStatementSQLVisitor.java`
+#### Snippet
+```java
+        if (null != astNode) {
+            if (astNode instanceof ParameterMarkerLimitValueSegment) {
+                return new ParameterMarkerLimitValueSegment(ctx.getStart().getStartIndex(), ctx.getStop().getStopIndex(), ((ParameterMarkerExpressionSegment) astNode).getParameterMarkerIndex());
+            }
+            return new NumberLiteralLimitValueSegment(ctx.start.getStartIndex(), ctx.stop.getStopIndex(), Long.parseLong(((LiteralExpressionSegment) astNode).getLiterals().toString()));
+```
+
+### DataFlowIssue
+Condition `astNode0 instanceof LimitClauseContext` is redundant and can be replaced with a null check
+in `sql-parser/dialect/postgresql/src/main/java/org/apache/shardingsphere/sql/parser/postgresql/visitor/statement/impl/PostgreSQLStatementSQLVisitor.java`
+#### Snippet
+```java
+        LimitValueSegment rowCount = null;
+        LimitValueSegment offset = null;
+        if (astNode0 instanceof LimitClauseContext) {
+            rowCount = null == ctx.limitClause().selectLimitValue() ? null : (LimitValueSegment) visit(ctx.limitClause().selectLimitValue());
+        } else {
+```
+
+### DataFlowIssue
+Condition `astNode1 instanceof LimitClauseContext` is redundant and can be replaced with a null check
+in `sql-parser/dialect/postgresql/src/main/java/org/apache/shardingsphere/sql/parser/postgresql/visitor/statement/impl/PostgreSQLStatementSQLVisitor.java`
+#### Snippet
+```java
+        }
+        ParseTree astNode1 = ctx.getChild(1);
+        if (astNode1 instanceof LimitClauseContext) {
+            rowCount = null == ctx.limitClause().selectLimitValue() ? null : (LimitValueSegment) visit(ctx.limitClause().selectLimitValue());
+        } else {
+```
+
+### DataFlowIssue
+Casting `astNode` to `ParameterMarkerExpressionSegment` will produce `ClassCastException` for any non-null value
+in `sql-parser/dialect/postgresql/src/main/java/org/apache/shardingsphere/sql/parser/postgresql/visitor/statement/impl/PostgreSQLStatementSQLVisitor.java`
+#### Snippet
+```java
+        if (null != astNode) {
+            if (astNode instanceof ParameterMarkerLimitValueSegment) {
+                return new ParameterMarkerLimitValueSegment(ctx.getStart().getStartIndex(), ctx.getStop().getStopIndex(), ((ParameterMarkerExpressionSegment) astNode).getParameterMarkerIndex());
+            }
+            return new NumberLiteralLimitValueSegment(ctx.start.getStartIndex(), ctx.stop.getStopIndex(), Long.parseLong(((LiteralExpressionSegment) astNode).getLiterals().toString()));
+```
+
+### DataFlowIssue
 Variable is already assigned to this value
 in `sql-parser/dialect/sqlserver/src/main/java/org/apache/shardingsphere/sql/parser/sqlserver/visitor/statement/impl/SQLServerStatementSQLVisitor.java`
 #### Snippet
@@ -9514,78 +9657,6 @@ in `sql-parser/dialect/sqlserver/src/main/java/org/apache/shardingsphere/sql/par
             result = visitOrderBy(result, ctx.orderByClause());
         }
         return result;
-```
-
-### DataFlowIssue
-Condition `astNode0 instanceof LimitClauseContext` is redundant and can be replaced with a null check
-in `sql-parser/dialect/opengauss/src/main/java/org/apache/shardingsphere/sql/parser/opengauss/visitor/statement/impl/OpenGaussStatementSQLVisitor.java`
-#### Snippet
-```java
-        LimitValueSegment rowCount = null;
-        LimitValueSegment offset = null;
-        if (astNode0 instanceof LimitClauseContext) {
-            rowCount = null == ctx.limitClause().selectLimitValue() ? null : (LimitValueSegment) visit(ctx.limitClause().selectLimitValue());
-        } else {
-```
-
-### DataFlowIssue
-Condition `astNode1 instanceof LimitClauseContext` is redundant and can be replaced with a null check
-in `sql-parser/dialect/opengauss/src/main/java/org/apache/shardingsphere/sql/parser/opengauss/visitor/statement/impl/OpenGaussStatementSQLVisitor.java`
-#### Snippet
-```java
-        }
-        ParseTree astNode1 = ctx.getChild(1);
-        if (astNode1 instanceof LimitClauseContext) {
-            rowCount = null == ctx.limitClause().selectLimitValue() ? null : (LimitValueSegment) visit(ctx.limitClause().selectLimitValue());
-        } else {
-```
-
-### DataFlowIssue
-Casting `astNode` to `ParameterMarkerExpressionSegment` will produce `ClassCastException` for any non-null value
-in `sql-parser/dialect/opengauss/src/main/java/org/apache/shardingsphere/sql/parser/opengauss/visitor/statement/impl/OpenGaussStatementSQLVisitor.java`
-#### Snippet
-```java
-        if (null != astNode) {
-            if (astNode instanceof ParameterMarkerLimitValueSegment) {
-                return new ParameterMarkerLimitValueSegment(ctx.getStart().getStartIndex(), ctx.getStop().getStopIndex(), ((ParameterMarkerExpressionSegment) astNode).getParameterMarkerIndex());
-            }
-            return new NumberLiteralLimitValueSegment(ctx.start.getStartIndex(), ctx.stop.getStopIndex(), Long.parseLong(((LiteralExpressionSegment) astNode).getLiterals().toString()));
-```
-
-### DataFlowIssue
-Condition `astNode0 instanceof LimitClauseContext` is redundant and can be replaced with a null check
-in `sql-parser/dialect/postgresql/src/main/java/org/apache/shardingsphere/sql/parser/postgresql/visitor/statement/impl/PostgreSQLStatementSQLVisitor.java`
-#### Snippet
-```java
-        LimitValueSegment rowCount = null;
-        LimitValueSegment offset = null;
-        if (astNode0 instanceof LimitClauseContext) {
-            rowCount = null == ctx.limitClause().selectLimitValue() ? null : (LimitValueSegment) visit(ctx.limitClause().selectLimitValue());
-        } else {
-```
-
-### DataFlowIssue
-Condition `astNode1 instanceof LimitClauseContext` is redundant and can be replaced with a null check
-in `sql-parser/dialect/postgresql/src/main/java/org/apache/shardingsphere/sql/parser/postgresql/visitor/statement/impl/PostgreSQLStatementSQLVisitor.java`
-#### Snippet
-```java
-        }
-        ParseTree astNode1 = ctx.getChild(1);
-        if (astNode1 instanceof LimitClauseContext) {
-            rowCount = null == ctx.limitClause().selectLimitValue() ? null : (LimitValueSegment) visit(ctx.limitClause().selectLimitValue());
-        } else {
-```
-
-### DataFlowIssue
-Casting `astNode` to `ParameterMarkerExpressionSegment` will produce `ClassCastException` for any non-null value
-in `sql-parser/dialect/postgresql/src/main/java/org/apache/shardingsphere/sql/parser/postgresql/visitor/statement/impl/PostgreSQLStatementSQLVisitor.java`
-#### Snippet
-```java
-        if (null != astNode) {
-            if (astNode instanceof ParameterMarkerLimitValueSegment) {
-                return new ParameterMarkerLimitValueSegment(ctx.getStart().getStartIndex(), ctx.getStop().getStopIndex(), ((ParameterMarkerExpressionSegment) astNode).getParameterMarkerIndex());
-            }
-            return new NumberLiteralLimitValueSegment(ctx.start.getStartIndex(), ctx.stop.getStopIndex(), Long.parseLong(((LiteralExpressionSegment) astNode).getLiterals().toString()));
 ```
 
 ## RuleId[ruleID=DeprecatedIsStillUsed]
@@ -9604,42 +9675,6 @@ in `infra/common/src/main/java/org/apache/shardingsphere/infra/yaml/config/pojo/
 ## RuleId[ruleID=OptionalContainsCollection]
 ### OptionalContainsCollection
 'Optional' contains collection `Map`
-in `agent/plugins/metrics/type/prometheus/src/main/java/org/apache/shardingsphere/agent/plugin/metrics/prometheus/wrapper/PrometheusWrapperFactory.java`
-#### Snippet
-```java
-    @Override
-    public Optional<MetricsWrapper> create(final String id) {
-        Optional<Map<String, Object>> metricMap = findMetric(id);
-        if (!metricMap.isPresent()) {
-            return Optional.empty();
-```
-
-### OptionalContainsCollection
-'Optional' contains collection `Map`
-in `agent/plugins/metrics/type/prometheus/src/main/java/org/apache/shardingsphere/agent/plugin/metrics/prometheus/wrapper/PrometheusWrapperFactory.java`
-#### Snippet
-```java
-    }
-    
-    private Optional<Map<String, Object>> findMetric(final String id) {
-        return metrics.stream().filter(each -> id.equals(each.get("id"))).findFirst();
-    }
-```
-
-### OptionalContainsCollection
-'Optional' contains collection `Map`
-in `agent/plugins/metrics/type/prometheus/src/main/java/org/apache/shardingsphere/agent/plugin/metrics/prometheus/wrapper/PrometheusWrapperFactory.java`
-#### Snippet
-```java
-     */
-    public Optional<GaugeMetricFamily> createGaugeMetricFamily(final String id) {
-        Optional<Map<String, Object>> metricMap = findMetric(id);
-        if (!metricMap.isPresent()) {
-            return Optional.empty();
-```
-
-### OptionalContainsCollection
-'Optional' contains collection `Map`
 in `infra/util/src/main/java/org/apache/shardingsphere/infra/util/spi/type/ordered/cache/OrderedServicesCache.java`
 #### Snippet
 ```java
@@ -9652,11 +9687,11 @@ in `infra/util/src/main/java/org/apache/shardingsphere/infra/util/spi/type/order
 
 ### OptionalContainsCollection
 'Optional' contains collection `Map`
-in `infra/util/src/main/java/org/apache/shardingsphere/infra/util/spi/type/ordered/OrderedSPIRegistry.java`
+in `infra/util/src/main/java/org/apache/shardingsphere/infra/util/spi/type/ordered/OrderedSPILoader.java`
 #### Snippet
 ```java
     @SuppressWarnings("unchecked")
-    public static <K, V extends OrderedSPI<?>> Map<K, V> getRegisteredServices(final Class<V> spiClass, final Collection<K> types, final Comparator<Integer> orderComparator) {
+    public static <K, V extends OrderedSPI<?>> Map<K, V> getServices(final Class<V> spiClass, final Collection<K> types, final Comparator<Integer> orderComparator) {
         Optional<Map<K, V>> cachedServices = OrderedServicesCache.findCachedServices(spiClass, types).map(optional -> (Map<K, V>) optional);
         if (cachedServices.isPresent()) {
             return cachedServices.get();
@@ -9712,18 +9747,6 @@ in `kernel/sql-federation/optimizer/src/main/java/org/apache/shardingsphere/sqlf
 
 ### OptionalContainsCollection
 'Optional' contains collection `SqlNodeList`
-in `kernel/sql-federation/optimizer/src/main/java/org/apache/shardingsphere/sqlfederation/optimizer/converter/segment/projection/DistinctConverter.java`
-#### Snippet
-```java
-    
-    @Override
-    public Optional<SqlNodeList> convert(final ProjectionsSegment segment) {
-        return segment.isDistinctRow() ? Optional.of(new SqlNodeList(Collections.singletonList(SqlSelectKeyword.DISTINCT.symbol(SqlParserPos.ZERO)), SqlParserPos.ZERO)) : Optional.empty();
-    }
-```
-
-### OptionalContainsCollection
-'Optional' contains collection `SqlNodeList`
 in `kernel/sql-federation/optimizer/src/main/java/org/apache/shardingsphere/sqlfederation/optimizer/converter/segment/projection/ProjectionsConverter.java`
 #### Snippet
 ```java
@@ -9735,15 +9758,15 @@ in `kernel/sql-federation/optimizer/src/main/java/org/apache/shardingsphere/sqlf
 ```
 
 ### OptionalContainsCollection
-'Optional' contains collection `Collection`
-in `features/shadow/core/src/main/java/org/apache/shardingsphere/shadow/route/engine/dml/ShadowUpdateStatementRoutingEngine.java`
+'Optional' contains collection `SqlNodeList`
+in `kernel/sql-federation/optimizer/src/main/java/org/apache/shardingsphere/sqlfederation/optimizer/converter/segment/projection/DistinctConverter.java`
 #### Snippet
 ```java
     
     @Override
-    protected Optional<Collection<String>> parseSQLComments() {
-        Collection<String> result = new LinkedList<>();
-        updateStatementContext.getSqlStatement().getCommentSegments().forEach(each -> result.add(each.getText()));
+    public Optional<SqlNodeList> convert(final ProjectionsSegment segment) {
+        return segment.isDistinctRow() ? Optional.of(new SqlNodeList(Collections.singletonList(SqlSelectKeyword.DISTINCT.symbol(SqlParserPos.ZERO)), SqlParserPos.ZERO)) : Optional.empty();
+    }
 ```
 
 ### OptionalContainsCollection
@@ -9768,6 +9791,42 @@ in `features/shadow/core/src/main/java/org/apache/shardingsphere/shadow/route/en
     protected Optional<Collection<String>> parseSQLComments() {
         Collection<String> result = new LinkedList<>();
         deleteStatementContext.getSqlStatement().getCommentSegments().forEach(each -> result.add(each.getText()));
+```
+
+### OptionalContainsCollection
+'Optional' contains collection `Collection`
+in `features/shadow/core/src/main/java/org/apache/shardingsphere/shadow/route/engine/dml/ShadowUpdateStatementRoutingEngine.java`
+#### Snippet
+```java
+    
+    @Override
+    protected Optional<Collection<String>> parseSQLComments() {
+        Collection<String> result = new LinkedList<>();
+        updateStatementContext.getSqlStatement().getCommentSegments().forEach(each -> result.add(each.getText()));
+```
+
+### OptionalContainsCollection
+'Optional' contains collection `Collection`
+in `features/shadow/core/src/main/java/org/apache/shardingsphere/shadow/route/engine/dml/AbstractShadowDMLStatementRouteEngine.java`
+#### Snippet
+```java
+     * @return SQL comments
+     */
+    protected abstract Optional<Collection<String>> parseSQLComments();
+    
+    /**
+```
+
+### OptionalContainsCollection
+'Optional' contains collection `Collection`
+in `features/shadow/core/src/main/java/org/apache/shardingsphere/shadow/route/engine/dml/AbstractShadowDMLStatementRouteEngine.java`
+#### Snippet
+```java
+    @SuppressWarnings("unchecked")
+    private boolean isMatchDefaultShadowAlgorithm(final ShadowRule shadowRule) {
+        Optional<Collection<String>> sqlComments = parseSQLComments();
+        if (!sqlComments.isPresent()) {
+            return false;
 ```
 
 ### OptionalContainsCollection
@@ -9807,39 +9866,15 @@ in `features/shadow/core/src/main/java/org/apache/shardingsphere/shadow/route/en
 ```
 
 ### OptionalContainsCollection
-'Optional' contains collection `Collection`
-in `features/shadow/core/src/main/java/org/apache/shardingsphere/shadow/route/engine/dml/AbstractShadowDMLStatementRouteEngine.java`
-#### Snippet
-```java
-     * @return SQL comments
-     */
-    protected abstract Optional<Collection<String>> parseSQLComments();
-    
-    /**
-```
-
-### OptionalContainsCollection
-'Optional' contains collection `Collection`
-in `features/shadow/core/src/main/java/org/apache/shardingsphere/shadow/route/engine/dml/AbstractShadowDMLStatementRouteEngine.java`
-#### Snippet
-```java
-    @SuppressWarnings("unchecked")
-    private boolean isMatchDefaultShadowAlgorithm(final ShadowRule shadowRule) {
-        Optional<Collection<String>> sqlComments = parseSQLComments();
-        if (!sqlComments.isPresent()) {
-            return false;
-```
-
-### OptionalContainsCollection
-'Optional' contains collection `Collection`
+'Optional' contains collection `Collection`>
 in `features/shadow/core/src/main/java/org/apache/shardingsphere/shadow/route/engine/dml/ShadowInsertStatementRoutingEngine.java`
 #### Snippet
 ```java
-    
-    @Override
-    protected Optional<Collection<String>> parseSQLComments() {
-        Collection<String> result = new LinkedList<>();
-        insertStatementContext.getSqlStatement().getCommentSegments().forEach(each -> result.add(each.getText()));
+        }
+        
+        private Optional<Collection<Comparable<?>>> getColumnValues(final List<InsertValueContext> insertValueContexts, final int columnIndex) {
+            Collection<Comparable<?>> result = new LinkedList<>();
+            for (InsertValueContext each : insertValueContexts) {
 ```
 
 ### OptionalContainsCollection
@@ -9855,15 +9890,15 @@ in `features/shadow/core/src/main/java/org/apache/shardingsphere/shadow/route/en
 ```
 
 ### OptionalContainsCollection
-'Optional' contains collection `Collection`>
+'Optional' contains collection `Collection`
 in `features/shadow/core/src/main/java/org/apache/shardingsphere/shadow/route/engine/dml/ShadowInsertStatementRoutingEngine.java`
 #### Snippet
 ```java
-        }
-        
-        private Optional<Collection<Comparable<?>>> getColumnValues(final List<InsertValueContext> insertValueContexts, final int columnIndex) {
-            Collection<Comparable<?>> result = new LinkedList<>();
-            for (InsertValueContext each : insertValueContexts) {
+    
+    @Override
+    protected Optional<Collection<String>> parseSQLComments() {
+        Collection<String> result = new LinkedList<>();
+        insertStatementContext.getSqlStatement().getCommentSegments().forEach(each -> result.add(each.getText()));
 ```
 
 ### OptionalContainsCollection
@@ -9883,8 +9918,8 @@ in `features/encrypt/plugin/sm/src/main/java/org/apache/shardingsphere/encrypt/s
 in `sql-parser/dialect/opengauss/src/main/java/org/apache/shardingsphere/sql/parser/opengauss/visitor/statement/impl/OpenGaussDCLStatementSQLVisitor.java`
 #### Snippet
 ```java
-    public ASTNode visitRevoke(final RevokeContext ctx) {
-        OpenGaussRevokeStatement result = new OpenGaussRevokeStatement();
+    public ASTNode visitGrant(final GrantContext ctx) {
+        OpenGaussGrantStatement result = new OpenGaussGrantStatement();
         Optional<Collection<SimpleTableSegment>> tableSegment = null == ctx.privilegeClause() ? Optional.empty() : getTableFromPrivilegeClause(ctx.privilegeClause());
         tableSegment.ifPresent(optional -> result.getTables().addAll(optional));
         return result;
@@ -9895,8 +9930,8 @@ in `sql-parser/dialect/opengauss/src/main/java/org/apache/shardingsphere/sql/par
 in `sql-parser/dialect/opengauss/src/main/java/org/apache/shardingsphere/sql/parser/opengauss/visitor/statement/impl/OpenGaussDCLStatementSQLVisitor.java`
 #### Snippet
 ```java
-    public ASTNode visitGrant(final GrantContext ctx) {
-        OpenGaussGrantStatement result = new OpenGaussGrantStatement();
+    public ASTNode visitRevoke(final RevokeContext ctx) {
+        OpenGaussRevokeStatement result = new OpenGaussRevokeStatement();
         Optional<Collection<SimpleTableSegment>> tableSegment = null == ctx.privilegeClause() ? Optional.empty() : getTableFromPrivilegeClause(ctx.privilegeClause());
         tableSegment.ifPresent(optional -> result.getTables().addAll(optional));
         return result;
@@ -9919,6 +9954,18 @@ in `sql-parser/dialect/opengauss/src/main/java/org/apache/shardingsphere/sql/par
 in `sql-parser/dialect/postgresql/src/main/java/org/apache/shardingsphere/sql/parser/postgresql/visitor/statement/impl/PostgreSQLDCLStatementSQLVisitor.java`
 #### Snippet
 ```java
+    public ASTNode visitGrant(final GrantContext ctx) {
+        PostgreSQLGrantStatement result = new PostgreSQLGrantStatement();
+        Optional<Collection<SimpleTableSegment>> tableSegment = null == ctx.privilegeClause() ? Optional.empty() : getTableFromPrivilegeClause(ctx.privilegeClause());
+        tableSegment.ifPresent(optional -> result.getTables().addAll(optional));
+        return result;
+```
+
+### OptionalContainsCollection
+'Optional' contains collection `Collection`
+in `sql-parser/dialect/postgresql/src/main/java/org/apache/shardingsphere/sql/parser/postgresql/visitor/statement/impl/PostgreSQLDCLStatementSQLVisitor.java`
+#### Snippet
+```java
     
     @SuppressWarnings("unchecked")
     private Optional<Collection<SimpleTableSegment>> getTableFromPrivilegeClause(final PrivilegeClauseContext ctx) {
@@ -9933,18 +9980,6 @@ in `sql-parser/dialect/postgresql/src/main/java/org/apache/shardingsphere/sql/pa
 ```java
     public ASTNode visitRevoke(final RevokeContext ctx) {
         PostgreSQLRevokeStatement result = new PostgreSQLRevokeStatement();
-        Optional<Collection<SimpleTableSegment>> tableSegment = null == ctx.privilegeClause() ? Optional.empty() : getTableFromPrivilegeClause(ctx.privilegeClause());
-        tableSegment.ifPresent(optional -> result.getTables().addAll(optional));
-        return result;
-```
-
-### OptionalContainsCollection
-'Optional' contains collection `Collection`
-in `sql-parser/dialect/postgresql/src/main/java/org/apache/shardingsphere/sql/parser/postgresql/visitor/statement/impl/PostgreSQLDCLStatementSQLVisitor.java`
-#### Snippet
-```java
-    public ASTNode visitGrant(final GrantContext ctx) {
-        PostgreSQLGrantStatement result = new PostgreSQLGrantStatement();
         Optional<Collection<SimpleTableSegment>> tableSegment = null == ctx.privilegeClause() ? Optional.empty() : getTableFromPrivilegeClause(ctx.privilegeClause());
         tableSegment.ifPresent(optional -> result.getTables().addAll(optional));
         return result;
@@ -10021,11 +10056,11 @@ in `infra/util/src/main/java/org/apache/shardingsphere/infra/util/expr/InlineExp
 in `sql-parser/statement/src/main/java/org/apache/shardingsphere/sql/parser/sql/common/enums/DirectionType.java`
 #### Snippet
 ```java
-    BACKWARD_ALL("BACKWARD ALL");
-    
-    private static final Set<DirectionType> ALL_DIRECTION_TYPES = new HashSet<>(Arrays.asList(ALL, FORWARD_ALL, BACKWARD_ALL));
     
     private static final Collection<DirectionType> FORWARD_COUNT_DIRECTION_TYPES =
+            new HashSet<>(Arrays.asList(DirectionType.NEXT, DirectionType.COUNT, DirectionType.FORWARD, DirectionType.FORWARD_COUNT));
+    
+    private static final Collection<DirectionType> BACKWARD_COUNT_DIRECTION_TYPES = new HashSet<>(Arrays.asList(DirectionType.PRIOR, DirectionType.BACKWARD, DirectionType.BACKWARD_COUNT));
 ```
 
 ### SetReplaceableByEnumSet
@@ -10033,11 +10068,11 @@ in `sql-parser/statement/src/main/java/org/apache/shardingsphere/sql/parser/sql/
 in `sql-parser/statement/src/main/java/org/apache/shardingsphere/sql/parser/sql/common/enums/DirectionType.java`
 #### Snippet
 ```java
+    BACKWARD_ALL("BACKWARD ALL");
+    
+    private static final Set<DirectionType> ALL_DIRECTION_TYPES = new HashSet<>(Arrays.asList(ALL, FORWARD_ALL, BACKWARD_ALL));
     
     private static final Collection<DirectionType> FORWARD_COUNT_DIRECTION_TYPES =
-            new HashSet<>(Arrays.asList(DirectionType.NEXT, DirectionType.COUNT, DirectionType.FORWARD, DirectionType.FORWARD_COUNT));
-    
-    private static final Collection<DirectionType> BACKWARD_COUNT_DIRECTION_TYPES = new HashSet<>(Arrays.asList(DirectionType.PRIOR, DirectionType.BACKWARD, DirectionType.BACKWARD_COUNT));
 ```
 
 ### SetReplaceableByEnumSet
@@ -10087,7 +10122,7 @@ in `agent/core/src/main/java/org/apache/shardingsphere/agent/core/builder/AgentL
 @SuppressWarnings("NullableProblems")
 public final class AgentLoggingListener implements Listener {
     
-    private static final Logger LOGGER = LoggerFactory.getLogger(AgentLoggingListener.class);
+    private static final AgentLogger LOGGER = AgentLoggerFactory.getAgentLogger(AgentLoggingListener.class);
 ```
 
 ### RedundantSuppression
@@ -10100,6 +10135,18 @@ in `agent/core/src/main/java/org/apache/shardingsphere/agent/core/builder/AgentT
     public Builder<?> transform(final Builder<?> builder, final TypeDescription typeDescription, final ClassLoader classLoader, final JavaModule module) {
         if (!advisorConfigs.containsKey(typeDescription.getTypeName())) {
             return builder;
+```
+
+### RedundantSuppression
+Redundant suppression
+in `agent/core/src/main/java/org/apache/shardingsphere/agent/core/spi/AgentServiceLoader.java`
+#### Snippet
+```java
+     */
+    @SuppressWarnings("unchecked")
+    public static <T> AgentServiceLoader<T> getServiceLoader(final Class<T> service) {
+        return AgentServiceLoader.getServiceLoader(Thread.currentThread().getContextClassLoader(), service);
+    }
 ```
 
 ### RedundantSuppression
@@ -11017,18 +11064,6 @@ public final class OptimizerParserContextFactory {
 
 ## RuleId[ruleID=OptionalUsedAsFieldOrParameterType]
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'ruleName'
-in `kernel/traffic/distsql/handler/src/main/java/org/apache/shardingsphere/traffic/distsql/handler/query/TrafficRuleResultSet.java`
-#### Snippet
-```java
-    }
-    
-    private Collection<Collection<Object>> buildData(final TrafficRuleConfiguration ruleConfig, final Optional<String> ruleName) {
-        Collection<Collection<Object>> result = new LinkedList<>();
-        ruleConfig.getTrafficStrategies().stream().filter(each -> !ruleName.isPresent() || each.getName().equals(ruleName.get()))
-```
-
-### OptionalUsedAsFieldOrParameterType
 `Optional` used as type for field 'nextResult'
 in `kernel/data-pipeline/core/src/main/java/org/apache/shardingsphere/data/pipeline/core/check/consistency/algorithm/AbstractStreamingDataConsistencyCalculateAlgorithm.java`
 #### Snippet
@@ -11129,7 +11164,7 @@ in `agent/core/src/main/java/org/apache/shardingsphere/agent/core/path/AgentPath
 
 ### DynamicRegexReplaceableByCompiledPattern
 `replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `agent/core/src/main/java/org/apache/shardingsphere/agent/core/classloader/AgentClassLoader.java`
+in `agent/core/src/main/java/org/apache/shardingsphere/agent/core/classloader/AgentExtraClassLoader.java`
 #### Snippet
 ```java
     
@@ -11201,26 +11236,14 @@ in `infra/common/src/main/java/org/apache/shardingsphere/infra/database/metadata
 
 ### DynamicRegexReplaceableByCompiledPattern
 `replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `infra/executor/src/main/java/org/apache/shardingsphere/infra/executor/sql/process/ExecuteProcessEngine.java`
+in `infra/executor/src/main/java/org/apache/shardingsphere/infra/executor/kernel/model/ExecutionGroupReportContext.java`
 #### Snippet
 ```java
-        Optional<ExecuteProcessReporter> reporter = OptionalSPIRegistry.findRegisteredService(ExecuteProcessReporter.class);
-        if (Strings.isNullOrEmpty(executionGroupContext.getExecutionID())) {
-            executionGroupContext.setExecutionID(new UUID(ThreadLocalRandom.current().nextLong(), ThreadLocalRandom.current().nextLong()).toString().replace("-", ""));
-        }
-        if (reporter.isPresent() && isMySQLDDLOrDMLStatement(queryContext.getSqlStatementContext().getSqlStatement())) {
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `infra/executor/src/main/java/org/apache/shardingsphere/infra/executor/sql/process/ExecuteProcessEngine.java`
-#### Snippet
-```java
-    public static String initializeConnection(final Grantee grantee, final String databaseName, final EventBusContext eventBusContext) {
-        ExecutionGroupContext<SQLExecutionUnit> executionGroupContext = new ExecutionGroupContext<>(Collections.emptyList());
-        executionGroupContext.setExecutionID(new UUID(ThreadLocalRandom.current().nextLong(), ThreadLocalRandom.current().nextLong()).toString().replace("-", ""));
-        executionGroupContext.setGrantee(grantee);
-        executionGroupContext.setDatabaseName(databaseName);
+    
+    public ExecutionGroupReportContext(final String databaseName, final Grantee grantee) {
+        this(databaseName, grantee, new UUID(ThreadLocalRandom.current().nextLong(), ThreadLocalRandom.current().nextLong()).toString().replace("-", ""));
+    }
+}
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
@@ -11285,18 +11308,6 @@ in `kernel/data-pipeline/dialect/mysql/src/main/java/org/apache/shardingsphere/d
 
 ### DynamicRegexReplaceableByCompiledPattern
 `replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `kernel/sql-federation/executor/core/src/main/java/org/apache/shardingsphere/sqlfederation/executor/TranslatableTableScanExecutor.java`
-#### Snippet
-```java
-    
-    private QueryContext createQueryContext(final ShardingSphereMetaData metaData, final SqlString sqlString, final DatabaseType databaseType) {
-        String sql = sqlString.getSql().replace("\n", " ");
-        SQLStatement sqlStatement = new SQLStatementParserEngine(databaseType.getType(),
-                optimizerContext.getSqlParserRule().getSqlStatementCache(), optimizerContext.getSqlParserRule().getParseTreeCache(),
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
 in `kernel/sql-federation/executor/core/src/main/java/org/apache/shardingsphere/sqlfederation/executor/FilterableTableScanExecutor.java`
 #### Snippet
 ```java
@@ -11321,13 +11332,25 @@ in `kernel/sql-federation/optimizer/src/main/java/org/apache/shardingsphere/sqlf
 
 ### DynamicRegexReplaceableByCompiledPattern
 `replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `kernel/sql-federation/executor/core/src/main/java/org/apache/shardingsphere/sqlfederation/executor/TranslatableTableScanExecutor.java`
+#### Snippet
+```java
+    
+    private QueryContext createQueryContext(final ShardingSphereMetaData metaData, final SqlString sqlString, final DatabaseType databaseType) {
+        String sql = sqlString.getSql().replace("\n", " ");
+        SQLStatement sqlStatement = new SQLStatementParserEngine(databaseType.getType(),
+                optimizerContext.getSqlParserRule().getSqlStatementCache(), optimizerContext.getSqlParserRule().getParseTreeCache(),
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
 in `features/encrypt/plugin/sm/src/main/java/org/apache/shardingsphere/encrypt/sm/algorithm/SM4EncryptAlgorithm.java`
 #### Snippet
 ```java
     private String createSm4Padding(final Properties props) {
-        ShardingSpherePreconditions.checkState(props.containsKey(SM4_PADDING), () -> new EncryptAlgorithmInitializationException("SM4", String.format("%s can not be null.", SM4_PADDING)));
+        ShardingSpherePreconditions.checkState(props.containsKey(SM4_PADDING), () -> new EncryptAlgorithmInitializationException("SM4", String.format("%s can not be null", SM4_PADDING)));
         String result = String.valueOf(props.getProperty(SM4_PADDING)).toUpperCase().replace("PADDING", "Padding");
-        ShardingSpherePreconditions.checkState(PADDINGS.contains(result), () -> new EncryptAlgorithmInitializationException("SM4", "Padding must be either PKCS5Padding or PKCS7Padding."));
+        ShardingSpherePreconditions.checkState(PADDINGS.contains(result), () -> new EncryptAlgorithmInitializationException("SM4", "Padding must be either PKCS5Padding or PKCS7Padding"));
         return result;
 ```
 
@@ -11357,12 +11380,12 @@ in `features/sharding/core/src/main/java/org/apache/shardingsphere/sharding/algo
 
 ### DynamicRegexReplaceableByCompiledPattern
 `replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `features/sharding/core/src/main/java/org/apache/shardingsphere/sharding/rule/ShardingRule.java`
+in `features/sharding/core/src/main/java/org/apache/shardingsphere/sharding/algorithm/sharding/inline/InlineShardingAlgorithm.java`
 #### Snippet
 ```java
-        String sampleDataNodePrefix = databaseAlgorithm ? tableRule.getDataSourceDataNode().getPrefix() : tableRule.getTableDataNode().getPrefix();
-        String shardingColumn = getShardingColumn(shardingStrategyConfig, checkedConfig.getDefaultShardingColumn());
-        return originAlgorithmExpression.replaceFirst(sampleDataNodePrefix, "").replaceFirst(shardingColumn, "").replaceAll(" ", "");
+    @Override
+    public Optional<String> getAlgorithmStructure(final String dataNodePrefix, final String shardingColumn) {
+        return Optional.of(algorithmExpression.replaceFirst(dataNodePrefix, "").replaceFirst(shardingColumn, "").replaceAll(" ", ""));
     }
     
 ```
@@ -11376,19 +11399,7 @@ in `features/db-discovery/distsql/handler/src/main/java/org/apache/shardingspher
     private static String getName(final String ruleName, final String type) {
         return String.format("%s_%s", ruleName, type.replace(".", "_").toLowerCase());
     }
-    
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `features/sharding/distsql/handler/src/main/java/org/apache/shardingsphere/sharding/distsql/handler/checker/ShardingTableRuleStatementChecker.java`
-#### Snippet
-```java
-        String sampleDataNodePrefix = databaseAlgorithm ? tableRule.getDataSourceDataNode().getPrefix() : tableRule.getTableDataNode().getPrefix();
-        String shardingColumn = getShardingColumn(shardingStrategyConfig, checkedConfig.getDefaultShardingColumn());
-        return originAlgorithmExpression.replaceFirst(sampleDataNodePrefix, "").replaceFirst(shardingColumn, "").replaceAll(" ", "");
-    }
-    
+}
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
@@ -11490,6 +11501,30 @@ in `test/it/parser/src/main/java/org/apache/shardingsphere/test/it/sql/parser/in
 ```
 
 ### NonProtectedConstructorInAbstractClass
+Constructor `AgentExtraClassLoader()` of an abstract class should not be declared 'public'
+in `agent/core/src/main/java/org/apache/shardingsphere/agent/core/classloader/AgentExtraClassLoader.java`
+#### Snippet
+```java
+    }
+    
+    public AgentExtraClassLoader(final ClassLoader appClassLoader, final Collection<JarFile> extraJars, final Collection<File> extraResourcePaths) {
+        super(appClassLoader);
+        this.extraJars = extraJars;
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `AgentExtraClassLoader()` of an abstract class should not be declared 'public'
+in `agent/core/src/main/java/org/apache/shardingsphere/agent/core/classloader/AgentExtraClassLoader.java`
+#### Snippet
+```java
+    private final Collection<File> extraResourcePaths;
+    
+    public AgentExtraClassLoader(final ClassLoader appClassLoader, final Collection<JarFile> extraJars) {
+        this(appClassLoader, extraJars, Collections.emptyList());
+    }
+```
+
+### NonProtectedConstructorInAbstractClass
 Constructor `ShardingSphereExternalException()` of an abstract class should not be declared 'public'
 in `infra/util/src/main/java/org/apache/shardingsphere/infra/util/exception/external/ShardingSphereExternalException.java`
 #### Snippet
@@ -11514,15 +11549,39 @@ in `infra/util/src/main/java/org/apache/shardingsphere/infra/util/exception/exte
 ```
 
 ### NonProtectedConstructorInAbstractClass
-Constructor `FeatureSQLException()` of an abstract class should not be declared 'public'
-in `infra/util/src/main/java/org/apache/shardingsphere/infra/util/exception/external/sql/type/feature/FeatureSQLException.java`
+Constructor `ShardingSphereSQLException()` of an abstract class should not be declared 'public'
+in `infra/util/src/main/java/org/apache/shardingsphere/infra/util/exception/external/sql/ShardingSphereSQLException.java`
 #### Snippet
 ```java
-    private static final int TYPE_OFFSET = 2;
+    private final Exception cause;
     
-    public FeatureSQLException(final SQLState sqlState, final int featureCode, final int errorCode, final String reason, final Object... messageArgs) {
-        super(sqlState, TYPE_OFFSET, featureCode * 100 + errorCode, reason, messageArgs);
+    public ShardingSphereSQLException(final SQLState sqlState, final int typeOffset, final int errorCode, final String reason, final Object... messageArgs) {
+        this(sqlState.getValue(), typeOffset, errorCode, reason, messageArgs);
     }
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `ShardingSphereSQLException()` of an abstract class should not be declared 'public'
+in `infra/util/src/main/java/org/apache/shardingsphere/infra/util/exception/external/sql/ShardingSphereSQLException.java`
+#### Snippet
+```java
+    }
+    
+    public ShardingSphereSQLException(final String sqlState, final int typeOffset, final int errorCode, final String reason, final Object... messageArgs) {
+        this(sqlState, typeOffset, errorCode, null == reason ? null : String.format(reason, messageArgs), (Exception) null);
+    }
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `ShardingSphereSQLException()` of an abstract class should not be declared 'public'
+in `infra/util/src/main/java/org/apache/shardingsphere/infra/util/exception/external/sql/ShardingSphereSQLException.java`
+#### Snippet
+```java
+    }
+    
+    public ShardingSphereSQLException(final String sqlState, final int typeOffset, final int errorCode, final String reason, final Exception cause) {
+        super(reason, cause);
+        this.sqlState = sqlState;
 ```
 
 ### NonProtectedConstructorInAbstractClass
@@ -11546,6 +11605,18 @@ in `infra/util/src/main/java/org/apache/shardingsphere/infra/util/exception/exte
     
     public KernelSQLException(final SQLState sqlState, final int kernelCode, final int errorCode, final String reason, final Exception cause) {
         super(sqlState.getValue(), TYPE_OFFSET, kernelCode * 1000 + errorCode, reason, cause);
+    }
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `FeatureSQLException()` of an abstract class should not be declared 'public'
+in `infra/util/src/main/java/org/apache/shardingsphere/infra/util/exception/external/sql/type/feature/FeatureSQLException.java`
+#### Snippet
+```java
+    private static final int TYPE_OFFSET = 2;
+    
+    public FeatureSQLException(final SQLState sqlState, final int featureCode, final int errorCode, final String reason, final Object... messageArgs) {
+        super(sqlState, TYPE_OFFSET, featureCode * 100 + errorCode, reason, messageArgs);
     }
 ```
 
@@ -11574,38 +11645,14 @@ in `infra/util/src/main/java/org/apache/shardingsphere/infra/util/exception/exte
 ```
 
 ### NonProtectedConstructorInAbstractClass
-Constructor `ShardingSphereSQLException()` of an abstract class should not be declared 'public'
-in `infra/util/src/main/java/org/apache/shardingsphere/infra/util/exception/external/sql/ShardingSphereSQLException.java`
+Constructor `ShardingSphereServerException()` of an abstract class should not be declared 'public'
+in `infra/util/src/main/java/org/apache/shardingsphere/infra/util/exception/external/server/ShardingSphereServerException.java`
 #### Snippet
 ```java
     }
     
-    public ShardingSphereSQLException(final String sqlState, final int typeOffset, final int errorCode, final String reason, final Exception cause) {
-        super(reason, cause);
-        this.sqlState = sqlState;
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `ShardingSphereSQLException()` of an abstract class should not be declared 'public'
-in `infra/util/src/main/java/org/apache/shardingsphere/infra/util/exception/external/sql/ShardingSphereSQLException.java`
-#### Snippet
-```java
-    }
-    
-    public ShardingSphereSQLException(final String sqlState, final int typeOffset, final int errorCode, final String reason, final Object... messageArgs) {
-        this(sqlState, typeOffset, errorCode, null == reason ? null : String.format(reason, messageArgs), (Exception) null);
-    }
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `ShardingSphereSQLException()` of an abstract class should not be declared 'public'
-in `infra/util/src/main/java/org/apache/shardingsphere/infra/util/exception/external/sql/ShardingSphereSQLException.java`
-#### Snippet
-```java
-    private final Exception cause;
-    
-    public ShardingSphereSQLException(final SQLState sqlState, final int typeOffset, final int errorCode, final String reason, final Object... messageArgs) {
-        this(sqlState.getValue(), typeOffset, errorCode, reason, messageArgs);
+    public ShardingSphereServerException(final String errorCategory, final int errorCode, final String message, final Exception cause) {
+        super(String.format("%s-%05d: %s", errorCategory, errorCode, message), cause);
     }
 ```
 
@@ -11618,18 +11665,6 @@ in `infra/util/src/main/java/org/apache/shardingsphere/infra/util/exception/exte
     
     public ShardingSphereServerException(final String errorCategory, final int errorCode, final String message) {
         super(String.format("%s-%05d: %s", errorCategory, errorCode, message));
-    }
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `ShardingSphereServerException()` of an abstract class should not be declared 'public'
-in `infra/util/src/main/java/org/apache/shardingsphere/infra/util/exception/external/server/ShardingSphereServerException.java`
-#### Snippet
-```java
-    }
-    
-    public ShardingSphereServerException(final String errorCategory, final int errorCode, final String message, final Exception cause) {
-        super(String.format("%s-%05d: %s", errorCategory, errorCode, message), cause);
     }
 ```
 
@@ -11670,18 +11705,6 @@ in `infra/util/src/main/java/org/apache/shardingsphere/infra/util/exception/inte
 ```
 
 ### NonProtectedConstructorInAbstractClass
-Constructor `SyntaxSQLException()` of an abstract class should not be declared 'public'
-in `infra/common/src/main/java/org/apache/shardingsphere/infra/exception/SyntaxSQLException.java`
-#### Snippet
-```java
-    private static final int KERNEL_CODE = 2;
-    
-    public SyntaxSQLException(final SQLState sqlState, final int errorCode, final String reason, final Object... messageArgs) {
-        super(sqlState, KERNEL_CODE, errorCode, reason, messageArgs);
-    }
-```
-
-### NonProtectedConstructorInAbstractClass
 Constructor `MetaDataSQLException()` of an abstract class should not be declared 'public'
 in `infra/common/src/main/java/org/apache/shardingsphere/infra/exception/MetaDataSQLException.java`
 #### Snippet
@@ -11689,6 +11712,18 @@ in `infra/common/src/main/java/org/apache/shardingsphere/infra/exception/MetaDat
     private static final int KERNEL_CODE = 0;
     
     public MetaDataSQLException(final SQLState sqlState, final int errorCode, final String reason, final Object... messageArgs) {
+        super(sqlState, KERNEL_CODE, errorCode, reason, messageArgs);
+    }
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `SyntaxSQLException()` of an abstract class should not be declared 'public'
+in `infra/common/src/main/java/org/apache/shardingsphere/infra/exception/SyntaxSQLException.java`
+#### Snippet
+```java
+    private static final int KERNEL_CODE = 2;
+    
+    public SyntaxSQLException(final SQLState sqlState, final int errorCode, final String reason, final Object... messageArgs) {
         super(sqlState, KERNEL_CODE, errorCode, reason, messageArgs);
     }
 ```
@@ -11727,6 +11762,18 @@ in `infra/common/src/main/java/org/apache/shardingsphere/infra/datasource/props/
     public PropertySynonyms(final Map<String, Object> props, final Collection<String> standardPropertyKeys, final Map<String, String> propertySynonyms) {
         this.standardPropertyKeys = standardPropertyKeys;
         standardProperties = buildStandardProperties(props, standardPropertyKeys, propertySynonyms);
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `StorageUnitDefinitionBackendHandler()` of an abstract class should not be declared 'public'
+in `proxy/backend/src/main/java/org/apache/shardingsphere/proxy/backend/handler/distsql/rdl/storage/unit/StorageUnitDefinitionBackendHandler.java`
+#### Snippet
+```java
+public abstract class StorageUnitDefinitionBackendHandler<T extends StorageUnitDefinitionStatement> extends RDLBackendHandler<T> {
+    
+    public StorageUnitDefinitionBackendHandler(final T sqlStatement, final ConnectionSession connectionSession) {
+        super(sqlStatement, connectionSession);
+    }
 ```
 
 ### NonProtectedConstructorInAbstractClass
@@ -12042,18 +12089,6 @@ in `sql-parser/dialect/oracle/src/main/java/org/apache/shardingsphere/sql/parser
 ```
 
 ### NonProtectedConstructorInAbstractClass
-Constructor `SQLServerStatementSQLVisitor()` of an abstract class should not be declared 'public'
-in `sql-parser/dialect/sqlserver/src/main/java/org/apache/shardingsphere/sql/parser/sqlserver/visitor/statement/impl/SQLServerStatementSQLVisitor.java`
-#### Snippet
-```java
-    private final Collection<ParameterMarkerSegment> parameterMarkerSegments = new LinkedList<>();
-    
-    public SQLServerStatementSQLVisitor(final Properties props) {
-    }
-    
-```
-
-### NonProtectedConstructorInAbstractClass
 Constructor `OpenGaussStatementSQLVisitor()` of an abstract class should not be declared 'public'
 in `sql-parser/dialect/opengauss/src/main/java/org/apache/shardingsphere/sql/parser/opengauss/visitor/statement/impl/OpenGaussStatementSQLVisitor.java`
 #### Snippet
@@ -12073,6 +12108,18 @@ in `sql-parser/dialect/postgresql/src/main/java/org/apache/shardingsphere/sql/pa
     private final Collection<ParameterMarkerSegment> parameterMarkerSegments = new LinkedList<>();
     
     public PostgreSQLStatementSQLVisitor(final Properties props) {
+    }
+    
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `SQLServerStatementSQLVisitor()` of an abstract class should not be declared 'public'
+in `sql-parser/dialect/sqlserver/src/main/java/org/apache/shardingsphere/sql/parser/sqlserver/visitor/statement/impl/SQLServerStatementSQLVisitor.java`
+#### Snippet
+```java
+    private final Collection<ParameterMarkerSegment> parameterMarkerSegments = new LinkedList<>();
+    
+    public SQLServerStatementSQLVisitor(final Properties props) {
     }
     
 ```
@@ -12217,6 +12264,42 @@ in `jdbc/core/src/main/java/org/apache/shardingsphere/driver/state/circuit/resul
 #### Snippet
 ```java
     @Override
+    public String getColumnLabel(final int column) {
+        return null;
+    }
+    
+```
+
+### ReturnNull
+Return of `null`
+in `jdbc/core/src/main/java/org/apache/shardingsphere/driver/state/circuit/resultset/CircuitBreakerResultSetMetaData.java`
+#### Snippet
+```java
+    @Override
+    public String getColumnTypeName(final int column) {
+        return null;
+    }
+    
+```
+
+### ReturnNull
+Return of `null`
+in `jdbc/core/src/main/java/org/apache/shardingsphere/driver/state/circuit/resultset/CircuitBreakerResultSetMetaData.java`
+#### Snippet
+```java
+    @Override
+    public String getColumnClassName(final int column) {
+        return null;
+    }
+    
+```
+
+### ReturnNull
+Return of `null`
+in `jdbc/core/src/main/java/org/apache/shardingsphere/driver/state/circuit/resultset/CircuitBreakerResultSetMetaData.java`
+#### Snippet
+```java
+    @Override
     public String getTableName(final int column) {
         return null;
     }
@@ -12241,43 +12324,7 @@ in `jdbc/core/src/main/java/org/apache/shardingsphere/driver/state/circuit/resul
 #### Snippet
 ```java
     @Override
-    public String getColumnTypeName(final int column) {
-        return null;
-    }
-    
-```
-
-### ReturnNull
-Return of `null`
-in `jdbc/core/src/main/java/org/apache/shardingsphere/driver/state/circuit/resultset/CircuitBreakerResultSetMetaData.java`
-#### Snippet
-```java
-    @Override
-    public String getColumnName(final int column) {
-        return null;
-    }
-    
-```
-
-### ReturnNull
-Return of `null`
-in `jdbc/core/src/main/java/org/apache/shardingsphere/driver/state/circuit/resultset/CircuitBreakerResultSetMetaData.java`
-#### Snippet
-```java
-    @Override
     public String getCatalogName(final int column) {
-        return null;
-    }
-    
-```
-
-### ReturnNull
-Return of `null`
-in `jdbc/core/src/main/java/org/apache/shardingsphere/driver/state/circuit/resultset/CircuitBreakerResultSetMetaData.java`
-#### Snippet
-```java
-    @Override
-    public String getColumnLabel(final int column) {
         return null;
     }
     
@@ -12301,7 +12348,7 @@ in `jdbc/core/src/main/java/org/apache/shardingsphere/driver/state/circuit/resul
 #### Snippet
 ```java
     @Override
-    public String getColumnClassName(final int column) {
+    public String getColumnName(final int column) {
         return null;
     }
     
@@ -12337,7 +12384,7 @@ in `jdbc/core/src/main/java/org/apache/shardingsphere/driver/state/circuit/state
 #### Snippet
 ```java
     @Override
-    public ResultSet getGeneratedKeys() {
+    public SQLWarning getWarnings() {
         return null;
     }
     
@@ -12349,7 +12396,7 @@ in `jdbc/core/src/main/java/org/apache/shardingsphere/driver/state/circuit/state
 #### Snippet
 ```java
     @Override
-    public SQLWarning getWarnings() {
+    public ResultSet getGeneratedKeys() {
         return null;
     }
     
@@ -12357,19 +12404,7 @@ in `jdbc/core/src/main/java/org/apache/shardingsphere/driver/state/circuit/state
 
 ### ReturnNull
 Return of `null`
-in `jdbc/core/src/main/java/org/apache/shardingsphere/driver/state/circuit/resultset/CircuitBreakerResultSet.java`
-#### Snippet
-```java
-    @Override
-    public Array getArray(final String columnLabel) {
-        return null;
-    }
-    
-```
-
-### ReturnNull
-Return of `null`
-in `jdbc/core/src/main/java/org/apache/shardingsphere/driver/state/circuit/resultset/CircuitBreakerResultSet.java`
+in `jdbc/core/src/main/java/org/apache/shardingsphere/driver/state/circuit/connection/CircuitBreakerConnection.java`
 #### Snippet
 ```java
     @Override
@@ -12381,431 +12416,11 @@ in `jdbc/core/src/main/java/org/apache/shardingsphere/driver/state/circuit/resul
 
 ### ReturnNull
 Return of `null`
-in `jdbc/core/src/main/java/org/apache/shardingsphere/driver/state/circuit/resultset/CircuitBreakerResultSet.java`
+in `jdbc/core/src/main/java/org/apache/shardingsphere/driver/state/circuit/connection/CircuitBreakerConnection.java`
 #### Snippet
 ```java
     @Override
-    public Date getDate(final int columnIndex) {
-        return null;
-    }
-    
-```
-
-### ReturnNull
-Return of `null`
-in `jdbc/core/src/main/java/org/apache/shardingsphere/driver/state/circuit/resultset/CircuitBreakerResultSet.java`
-#### Snippet
-```java
-    @Override
-    public Timestamp getTimestamp(final String columnLabel) {
-        return null;
-    }
-    
-```
-
-### ReturnNull
-Return of `null`
-in `jdbc/core/src/main/java/org/apache/shardingsphere/driver/state/circuit/resultset/CircuitBreakerResultSet.java`
-#### Snippet
-```java
-    @Override
-    public Blob getBlob(final String columnLabel) {
-        return null;
-    }
-    
-```
-
-### ReturnNull
-Return of `null`
-in `jdbc/core/src/main/java/org/apache/shardingsphere/driver/state/circuit/resultset/CircuitBreakerResultSet.java`
-#### Snippet
-```java
-    @Override
-    public URL getURL(final int columnIndex) {
-        return null;
-    }
-    
-```
-
-### ReturnNull
-Return of `null`
-in `jdbc/core/src/main/java/org/apache/shardingsphere/driver/state/circuit/resultset/CircuitBreakerResultSet.java`
-#### Snippet
-```java
-    @Override
-    public InputStream getBinaryStream(final String columnLabel) {
-        return null;
-    }
-    
-```
-
-### ReturnNull
-Return of `null`
-in `jdbc/core/src/main/java/org/apache/shardingsphere/driver/state/circuit/resultset/CircuitBreakerResultSet.java`
-#### Snippet
-```java
-    @Override
-    public Date getDate(final String columnLabel, final Calendar cal) {
-        return null;
-    }
-    
-```
-
-### ReturnNull
-Return of `null`
-in `jdbc/core/src/main/java/org/apache/shardingsphere/driver/state/circuit/resultset/CircuitBreakerResultSet.java`
-#### Snippet
-```java
-    @Override
-    public Timestamp getTimestamp(final int columnIndex) {
-        return null;
-    }
-    
-```
-
-### ReturnNull
-Return of `null`
-in `jdbc/core/src/main/java/org/apache/shardingsphere/driver/state/circuit/resultset/CircuitBreakerResultSet.java`
-#### Snippet
-```java
-    @Override
-    public Time getTime(final String columnLabel) {
-        return null;
-    }
-    
-```
-
-### ReturnNull
-Return of `null`
-in `jdbc/core/src/main/java/org/apache/shardingsphere/driver/state/circuit/resultset/CircuitBreakerResultSet.java`
-#### Snippet
-```java
-    @Override
-    public Reader getCharacterStream(final int columnIndex) {
-        return null;
-    }
-    
-```
-
-### ReturnNull
-Return of `null`
-in `jdbc/core/src/main/java/org/apache/shardingsphere/driver/state/circuit/resultset/CircuitBreakerResultSet.java`
-#### Snippet
-```java
-    @Override
-    public InputStream getUnicodeStream(final int columnIndex) {
-        return null;
-    }
-    
-```
-
-### ReturnNull
-Return of `null`
-in `jdbc/core/src/main/java/org/apache/shardingsphere/driver/state/circuit/resultset/CircuitBreakerResultSet.java`
-#### Snippet
-```java
-    @Override
-    public Time getTime(final String columnLabel, final Calendar cal) {
-        return null;
-    }
-    
-```
-
-### ReturnNull
-Return of `null`
-in `jdbc/core/src/main/java/org/apache/shardingsphere/driver/state/circuit/resultset/CircuitBreakerResultSet.java`
-#### Snippet
-```java
-    @Override
-    public Date getDate(final String columnLabel) {
-        return null;
-    }
-    
-```
-
-### ReturnNull
-Return of `null`
-in `jdbc/core/src/main/java/org/apache/shardingsphere/driver/state/circuit/resultset/CircuitBreakerResultSet.java`
-#### Snippet
-```java
-    @Override
-    public URL getURL(final String columnLabel) {
-        return null;
-    }
-    
-```
-
-### ReturnNull
-Return of `null`
-in `jdbc/core/src/main/java/org/apache/shardingsphere/driver/state/circuit/resultset/CircuitBreakerResultSet.java`
-#### Snippet
-```java
-    @Override
-    public Reader getCharacterStream(final String columnLabel) {
-        return null;
-    }
-    
-```
-
-### ReturnNull
-Return of `null`
-in `jdbc/core/src/main/java/org/apache/shardingsphere/driver/state/circuit/resultset/CircuitBreakerResultSet.java`
-#### Snippet
-```java
-    @Override
-    public BigDecimal getBigDecimal(final int columnIndex, final int scale) {
-        return null;
-    }
-    
-```
-
-### ReturnNull
-Return of `null`
-in `jdbc/core/src/main/java/org/apache/shardingsphere/driver/state/circuit/resultset/CircuitBreakerResultSet.java`
-#### Snippet
-```java
-    @Override
-    public InputStream getAsciiStream(final String columnLabel) {
-        return null;
-    }
-    
-```
-
-### ReturnNull
-Return of `null`
-in `jdbc/core/src/main/java/org/apache/shardingsphere/driver/state/circuit/resultset/CircuitBreakerResultSet.java`
-#### Snippet
-```java
-    @Override
-    public InputStream getAsciiStream(final int columnIndex) {
-        return null;
-    }
-    
-```
-
-### ReturnNull
-Return of `null`
-in `jdbc/core/src/main/java/org/apache/shardingsphere/driver/state/circuit/resultset/CircuitBreakerResultSet.java`
-#### Snippet
-```java
-    @Override
-    public Statement getStatement() {
-        return null;
-    }
-    
-```
-
-### ReturnNull
-Return of `null`
-in `jdbc/core/src/main/java/org/apache/shardingsphere/driver/state/circuit/resultset/CircuitBreakerResultSet.java`
-#### Snippet
-```java
-    @Override
-    public Blob getBlob(final int columnIndex) {
-        return null;
-    }
-    
-```
-
-### ReturnNull
-Return of `null`
-in `jdbc/core/src/main/java/org/apache/shardingsphere/driver/state/circuit/resultset/CircuitBreakerResultSet.java`
-#### Snippet
-```java
-    @Override
-    public Timestamp getTimestamp(final String columnLabel, final Calendar cal) {
-        return null;
-    }
-    
-```
-
-### ReturnNull
-Return of `null`
-in `jdbc/core/src/main/java/org/apache/shardingsphere/driver/state/circuit/resultset/CircuitBreakerResultSet.java`
-#### Snippet
-```java
-    @Override
-    public Time getTime(final int columnIndex, final Calendar cal) {
-        return null;
-    }
-    
-```
-
-### ReturnNull
-Return of `null`
-in `jdbc/core/src/main/java/org/apache/shardingsphere/driver/state/circuit/resultset/CircuitBreakerResultSet.java`
-#### Snippet
-```java
-    @Override
-    public Timestamp getTimestamp(final int columnIndex, final Calendar cal) {
-        return null;
-    }
-    
-```
-
-### ReturnNull
-Return of `null`
-in `jdbc/core/src/main/java/org/apache/shardingsphere/driver/state/circuit/resultset/CircuitBreakerResultSet.java`
-#### Snippet
-```java
-    @Override
-    public Clob getClob(final String columnLabel) {
-        return null;
-    }
-    
-```
-
-### ReturnNull
-Return of `null`
-in `jdbc/core/src/main/java/org/apache/shardingsphere/driver/state/circuit/resultset/CircuitBreakerResultSet.java`
-#### Snippet
-```java
-    @Override
-    public Array getArray(final int columnIndex) {
-        return null;
-    }
-    
-```
-
-### ReturnNull
-Return of `null`
-in `jdbc/core/src/main/java/org/apache/shardingsphere/driver/state/circuit/resultset/CircuitBreakerResultSet.java`
-#### Snippet
-```java
-    @Override
-    public BigDecimal getBigDecimal(final String columnLabel, final int scale) {
-        return null;
-    }
-    
-```
-
-### ReturnNull
-Return of `null`
-in `jdbc/core/src/main/java/org/apache/shardingsphere/driver/state/circuit/resultset/CircuitBreakerResultSet.java`
-#### Snippet
-```java
-    @Override
-    public BigDecimal getBigDecimal(final String columnLabel) {
-        return null;
-    }
-    
-```
-
-### ReturnNull
-Return of `null`
-in `jdbc/core/src/main/java/org/apache/shardingsphere/driver/state/circuit/resultset/CircuitBreakerResultSet.java`
-#### Snippet
-```java
-    @Override
-    public SQLXML getSQLXML(final String columnLabel) {
-        return null;
-    }
-}
-```
-
-### ReturnNull
-Return of `null`
-in `jdbc/core/src/main/java/org/apache/shardingsphere/driver/state/circuit/resultset/CircuitBreakerResultSet.java`
-#### Snippet
-```java
-    @Override
-    public Object getObject(final String columnLabel) {
-        return null;
-    }
-    
-```
-
-### ReturnNull
-Return of `null`
-in `jdbc/core/src/main/java/org/apache/shardingsphere/driver/state/circuit/resultset/CircuitBreakerResultSet.java`
-#### Snippet
-```java
-    @Override
-    public Object getObject(final int columnIndex) {
-        return null;
-    }
-    
-```
-
-### ReturnNull
-Return of `null`
-in `jdbc/core/src/main/java/org/apache/shardingsphere/driver/state/circuit/resultset/CircuitBreakerResultSet.java`
-#### Snippet
-```java
-    @Override
-    public InputStream getBinaryStream(final int columnIndex) {
-        return null;
-    }
-    
-```
-
-### ReturnNull
-Return of `null`
-in `jdbc/core/src/main/java/org/apache/shardingsphere/driver/state/circuit/resultset/CircuitBreakerResultSet.java`
-#### Snippet
-```java
-    @Override
-    public Time getTime(final int columnIndex) {
-        return null;
-    }
-    
-```
-
-### ReturnNull
-Return of `null`
-in `jdbc/core/src/main/java/org/apache/shardingsphere/driver/state/circuit/resultset/CircuitBreakerResultSet.java`
-#### Snippet
-```java
-    @Override
-    public Date getDate(final int columnIndex, final Calendar cal) {
-        return null;
-    }
-    
-```
-
-### ReturnNull
-Return of `null`
-in `jdbc/core/src/main/java/org/apache/shardingsphere/driver/state/circuit/resultset/CircuitBreakerResultSet.java`
-#### Snippet
-```java
-    @Override
-    public Clob getClob(final int columnIndex) {
-        return null;
-    }
-    
-```
-
-### ReturnNull
-Return of `null`
-in `jdbc/core/src/main/java/org/apache/shardingsphere/driver/state/circuit/resultset/CircuitBreakerResultSet.java`
-#### Snippet
-```java
-    @Override
-    public BigDecimal getBigDecimal(final int columnIndex) {
-        return null;
-    }
-    
-```
-
-### ReturnNull
-Return of `null`
-in `jdbc/core/src/main/java/org/apache/shardingsphere/driver/state/circuit/resultset/CircuitBreakerResultSet.java`
-#### Snippet
-```java
-    @Override
-    public SQLXML getSQLXML(final int columnIndex) {
-        return null;
-    }
-    
-```
-
-### ReturnNull
-Return of `null`
-in `jdbc/core/src/main/java/org/apache/shardingsphere/driver/state/circuit/resultset/CircuitBreakerResultSet.java`
-#### Snippet
-```java
-    @Override
-    public InputStream getUnicodeStream(final String columnLabel) {
+    public Array createArrayOf(final String typeName, final Object[] elements) {
         return null;
     }
     
@@ -12849,7 +12464,295 @@ in `jdbc/core/src/main/java/org/apache/shardingsphere/driver/state/circuit/state
 
 ### ReturnNull
 Return of `null`
-in `jdbc/core/src/main/java/org/apache/shardingsphere/driver/state/circuit/connection/CircuitBreakerConnection.java`
+in `jdbc/core/src/main/java/org/apache/shardingsphere/driver/state/circuit/resultset/CircuitBreakerResultSet.java`
+#### Snippet
+```java
+    @Override
+    public InputStream getBinaryStream(final int columnIndex) {
+        return null;
+    }
+    
+```
+
+### ReturnNull
+Return of `null`
+in `jdbc/core/src/main/java/org/apache/shardingsphere/driver/state/circuit/resultset/CircuitBreakerResultSet.java`
+#### Snippet
+```java
+    @Override
+    public InputStream getUnicodeStream(final int columnIndex) {
+        return null;
+    }
+    
+```
+
+### ReturnNull
+Return of `null`
+in `jdbc/core/src/main/java/org/apache/shardingsphere/driver/state/circuit/resultset/CircuitBreakerResultSet.java`
+#### Snippet
+```java
+    @Override
+    public Date getDate(final String columnLabel) {
+        return null;
+    }
+    
+```
+
+### ReturnNull
+Return of `null`
+in `jdbc/core/src/main/java/org/apache/shardingsphere/driver/state/circuit/resultset/CircuitBreakerResultSet.java`
+#### Snippet
+```java
+    @Override
+    public Date getDate(final int columnIndex, final Calendar cal) {
+        return null;
+    }
+    
+```
+
+### ReturnNull
+Return of `null`
+in `jdbc/core/src/main/java/org/apache/shardingsphere/driver/state/circuit/resultset/CircuitBreakerResultSet.java`
+#### Snippet
+```java
+    @Override
+    public Timestamp getTimestamp(final String columnLabel, final Calendar cal) {
+        return null;
+    }
+    
+```
+
+### ReturnNull
+Return of `null`
+in `jdbc/core/src/main/java/org/apache/shardingsphere/driver/state/circuit/resultset/CircuitBreakerResultSet.java`
+#### Snippet
+```java
+    @Override
+    public Array getArray(final int columnIndex) {
+        return null;
+    }
+    
+```
+
+### ReturnNull
+Return of `null`
+in `jdbc/core/src/main/java/org/apache/shardingsphere/driver/state/circuit/resultset/CircuitBreakerResultSet.java`
+#### Snippet
+```java
+    @Override
+    public InputStream getBinaryStream(final String columnLabel) {
+        return null;
+    }
+    
+```
+
+### ReturnNull
+Return of `null`
+in `jdbc/core/src/main/java/org/apache/shardingsphere/driver/state/circuit/resultset/CircuitBreakerResultSet.java`
+#### Snippet
+```java
+    @Override
+    public Timestamp getTimestamp(final int columnIndex) {
+        return null;
+    }
+    
+```
+
+### ReturnNull
+Return of `null`
+in `jdbc/core/src/main/java/org/apache/shardingsphere/driver/state/circuit/resultset/CircuitBreakerResultSet.java`
+#### Snippet
+```java
+    @Override
+    public Object getObject(final int columnIndex) {
+        return null;
+    }
+    
+```
+
+### ReturnNull
+Return of `null`
+in `jdbc/core/src/main/java/org/apache/shardingsphere/driver/state/circuit/resultset/CircuitBreakerResultSet.java`
+#### Snippet
+```java
+    @Override
+    public InputStream getUnicodeStream(final String columnLabel) {
+        return null;
+    }
+    
+```
+
+### ReturnNull
+Return of `null`
+in `jdbc/core/src/main/java/org/apache/shardingsphere/driver/state/circuit/resultset/CircuitBreakerResultSet.java`
+#### Snippet
+```java
+    @Override
+    public Clob getClob(final String columnLabel) {
+        return null;
+    }
+    
+```
+
+### ReturnNull
+Return of `null`
+in `jdbc/core/src/main/java/org/apache/shardingsphere/driver/state/circuit/resultset/CircuitBreakerResultSet.java`
+#### Snippet
+```java
+    @Override
+    public Reader getCharacterStream(final int columnIndex) {
+        return null;
+    }
+    
+```
+
+### ReturnNull
+Return of `null`
+in `jdbc/core/src/main/java/org/apache/shardingsphere/driver/state/circuit/resultset/CircuitBreakerResultSet.java`
+#### Snippet
+```java
+    @Override
+    public Time getTime(final int columnIndex) {
+        return null;
+    }
+    
+```
+
+### ReturnNull
+Return of `null`
+in `jdbc/core/src/main/java/org/apache/shardingsphere/driver/state/circuit/resultset/CircuitBreakerResultSet.java`
+#### Snippet
+```java
+    @Override
+    public URL getURL(final int columnIndex) {
+        return null;
+    }
+    
+```
+
+### ReturnNull
+Return of `null`
+in `jdbc/core/src/main/java/org/apache/shardingsphere/driver/state/circuit/resultset/CircuitBreakerResultSet.java`
+#### Snippet
+```java
+    @Override
+    public Array getArray(final String columnLabel) {
+        return null;
+    }
+    
+```
+
+### ReturnNull
+Return of `null`
+in `jdbc/core/src/main/java/org/apache/shardingsphere/driver/state/circuit/resultset/CircuitBreakerResultSet.java`
+#### Snippet
+```java
+    @Override
+    public Time getTime(final String columnLabel) {
+        return null;
+    }
+    
+```
+
+### ReturnNull
+Return of `null`
+in `jdbc/core/src/main/java/org/apache/shardingsphere/driver/state/circuit/resultset/CircuitBreakerResultSet.java`
+#### Snippet
+```java
+    @Override
+    public SQLXML getSQLXML(final int columnIndex) {
+        return null;
+    }
+    
+```
+
+### ReturnNull
+Return of `null`
+in `jdbc/core/src/main/java/org/apache/shardingsphere/driver/state/circuit/resultset/CircuitBreakerResultSet.java`
+#### Snippet
+```java
+    @Override
+    public Time getTime(final String columnLabel, final Calendar cal) {
+        return null;
+    }
+    
+```
+
+### ReturnNull
+Return of `null`
+in `jdbc/core/src/main/java/org/apache/shardingsphere/driver/state/circuit/resultset/CircuitBreakerResultSet.java`
+#### Snippet
+```java
+    @Override
+    public Object getObject(final String columnLabel) {
+        return null;
+    }
+    
+```
+
+### ReturnNull
+Return of `null`
+in `jdbc/core/src/main/java/org/apache/shardingsphere/driver/state/circuit/resultset/CircuitBreakerResultSet.java`
+#### Snippet
+```java
+    @Override
+    public BigDecimal getBigDecimal(final String columnLabel, final int scale) {
+        return null;
+    }
+    
+```
+
+### ReturnNull
+Return of `null`
+in `jdbc/core/src/main/java/org/apache/shardingsphere/driver/state/circuit/resultset/CircuitBreakerResultSet.java`
+#### Snippet
+```java
+    @Override
+    public Clob getClob(final int columnIndex) {
+        return null;
+    }
+    
+```
+
+### ReturnNull
+Return of `null`
+in `jdbc/core/src/main/java/org/apache/shardingsphere/driver/state/circuit/resultset/CircuitBreakerResultSet.java`
+#### Snippet
+```java
+    @Override
+    public BigDecimal getBigDecimal(final int columnIndex) {
+        return null;
+    }
+    
+```
+
+### ReturnNull
+Return of `null`
+in `jdbc/core/src/main/java/org/apache/shardingsphere/driver/state/circuit/resultset/CircuitBreakerResultSet.java`
+#### Snippet
+```java
+    @Override
+    public Statement getStatement() {
+        return null;
+    }
+    
+```
+
+### ReturnNull
+Return of `null`
+in `jdbc/core/src/main/java/org/apache/shardingsphere/driver/state/circuit/resultset/CircuitBreakerResultSet.java`
+#### Snippet
+```java
+    @Override
+    public Reader getCharacterStream(final String columnLabel) {
+        return null;
+    }
+    
+```
+
+### ReturnNull
+Return of `null`
+in `jdbc/core/src/main/java/org/apache/shardingsphere/driver/state/circuit/resultset/CircuitBreakerResultSet.java`
 #### Snippet
 ```java
     @Override
@@ -12861,11 +12764,155 @@ in `jdbc/core/src/main/java/org/apache/shardingsphere/driver/state/circuit/conne
 
 ### ReturnNull
 Return of `null`
-in `jdbc/core/src/main/java/org/apache/shardingsphere/driver/state/circuit/connection/CircuitBreakerConnection.java`
+in `jdbc/core/src/main/java/org/apache/shardingsphere/driver/state/circuit/resultset/CircuitBreakerResultSet.java`
 #### Snippet
 ```java
     @Override
-    public Array createArrayOf(final String typeName, final Object[] elements) {
+    public BigDecimal getBigDecimal(final String columnLabel) {
+        return null;
+    }
+    
+```
+
+### ReturnNull
+Return of `null`
+in `jdbc/core/src/main/java/org/apache/shardingsphere/driver/state/circuit/resultset/CircuitBreakerResultSet.java`
+#### Snippet
+```java
+    @Override
+    public Blob getBlob(final String columnLabel) {
+        return null;
+    }
+    
+```
+
+### ReturnNull
+Return of `null`
+in `jdbc/core/src/main/java/org/apache/shardingsphere/driver/state/circuit/resultset/CircuitBreakerResultSet.java`
+#### Snippet
+```java
+    @Override
+    public InputStream getAsciiStream(final int columnIndex) {
+        return null;
+    }
+    
+```
+
+### ReturnNull
+Return of `null`
+in `jdbc/core/src/main/java/org/apache/shardingsphere/driver/state/circuit/resultset/CircuitBreakerResultSet.java`
+#### Snippet
+```java
+    @Override
+    public Timestamp getTimestamp(final String columnLabel) {
+        return null;
+    }
+    
+```
+
+### ReturnNull
+Return of `null`
+in `jdbc/core/src/main/java/org/apache/shardingsphere/driver/state/circuit/resultset/CircuitBreakerResultSet.java`
+#### Snippet
+```java
+    @Override
+    public Time getTime(final int columnIndex, final Calendar cal) {
+        return null;
+    }
+    
+```
+
+### ReturnNull
+Return of `null`
+in `jdbc/core/src/main/java/org/apache/shardingsphere/driver/state/circuit/resultset/CircuitBreakerResultSet.java`
+#### Snippet
+```java
+    @Override
+    public Date getDate(final int columnIndex) {
+        return null;
+    }
+    
+```
+
+### ReturnNull
+Return of `null`
+in `jdbc/core/src/main/java/org/apache/shardingsphere/driver/state/circuit/resultset/CircuitBreakerResultSet.java`
+#### Snippet
+```java
+    @Override
+    public Date getDate(final String columnLabel, final Calendar cal) {
+        return null;
+    }
+    
+```
+
+### ReturnNull
+Return of `null`
+in `jdbc/core/src/main/java/org/apache/shardingsphere/driver/state/circuit/resultset/CircuitBreakerResultSet.java`
+#### Snippet
+```java
+    @Override
+    public Blob getBlob(final int columnIndex) {
+        return null;
+    }
+    
+```
+
+### ReturnNull
+Return of `null`
+in `jdbc/core/src/main/java/org/apache/shardingsphere/driver/state/circuit/resultset/CircuitBreakerResultSet.java`
+#### Snippet
+```java
+    @Override
+    public SQLXML getSQLXML(final String columnLabel) {
+        return null;
+    }
+}
+```
+
+### ReturnNull
+Return of `null`
+in `jdbc/core/src/main/java/org/apache/shardingsphere/driver/state/circuit/resultset/CircuitBreakerResultSet.java`
+#### Snippet
+```java
+    @Override
+    public URL getURL(final String columnLabel) {
+        return null;
+    }
+    
+```
+
+### ReturnNull
+Return of `null`
+in `jdbc/core/src/main/java/org/apache/shardingsphere/driver/state/circuit/resultset/CircuitBreakerResultSet.java`
+#### Snippet
+```java
+    @Override
+    public Timestamp getTimestamp(final int columnIndex, final Calendar cal) {
+        return null;
+    }
+    
+```
+
+### ReturnNull
+Return of `null`
+in `jdbc/core/src/main/java/org/apache/shardingsphere/driver/state/circuit/resultset/CircuitBreakerResultSet.java`
+#### Snippet
+```java
+    @Override
+    public BigDecimal getBigDecimal(final int columnIndex, final int scale) {
+        return null;
+    }
+    
+```
+
+### ReturnNull
+Return of `null`
+in `jdbc/core/src/main/java/org/apache/shardingsphere/driver/state/circuit/resultset/CircuitBreakerResultSet.java`
+#### Snippet
+```java
+    @Override
+    public InputStream getAsciiStream(final String columnLabel) {
         return null;
     }
     
@@ -12877,139 +12924,7 @@ in `jdbc/core/src/main/java/org/apache/shardingsphere/driver/state/circuit/metad
 #### Snippet
 ```java
     @Override
-    public String getSQLKeywords() {
-        return null;
-    }
-    
-```
-
-### ReturnNull
-Return of `null`
-in `jdbc/core/src/main/java/org/apache/shardingsphere/driver/state/circuit/metadata/CircuitBreakerDatabaseMetaData.java`
-#### Snippet
-```java
-    @Override
-    public ResultSet getPseudoColumns(final String catalog, final String schemaPattern, final String tableNamePattern, final String columnNamePattern) {
-        return null;
-    }
-    
-```
-
-### ReturnNull
-Return of `null`
-in `jdbc/core/src/main/java/org/apache/shardingsphere/driver/state/circuit/metadata/CircuitBreakerDatabaseMetaData.java`
-#### Snippet
-```java
-    @Override
-    public ResultSet getAttributes(final String catalog, final String schemaPattern, final String typeNamePattern, final String attributeNamePattern) {
-        return null;
-    }
-    
-```
-
-### ReturnNull
-Return of `null`
-in `jdbc/core/src/main/java/org/apache/shardingsphere/driver/state/circuit/metadata/CircuitBreakerDatabaseMetaData.java`
-#### Snippet
-```java
-    @Override
-    public ResultSet getSuperTypes(final String catalog, final String schemaPattern, final String typeNamePattern) {
-        return null;
-    }
-    
-```
-
-### ReturnNull
-Return of `null`
-in `jdbc/core/src/main/java/org/apache/shardingsphere/driver/state/circuit/metadata/CircuitBreakerDatabaseMetaData.java`
-#### Snippet
-```java
-    @Override
-    public String getNumericFunctions() {
-        return null;
-    }
-    
-```
-
-### ReturnNull
-Return of `null`
-in `jdbc/core/src/main/java/org/apache/shardingsphere/driver/state/circuit/metadata/CircuitBreakerDatabaseMetaData.java`
-#### Snippet
-```java
-    @Override
-    public String getDriverVersion() {
-        return null;
-    }
-    
-```
-
-### ReturnNull
-Return of `null`
-in `jdbc/core/src/main/java/org/apache/shardingsphere/driver/state/circuit/metadata/CircuitBreakerDatabaseMetaData.java`
-#### Snippet
-```java
-    @Override
-    public ResultSet getSchemas(final String catalog, final String schemaPattern) {
-        return null;
-    }
-    
-```
-
-### ReturnNull
-Return of `null`
-in `jdbc/core/src/main/java/org/apache/shardingsphere/driver/state/circuit/metadata/CircuitBreakerDatabaseMetaData.java`
-#### Snippet
-```java
-    @Override
-    public ResultSet getColumns(final String catalog, final String schemaPattern, final String tableNamePattern, final String columnNamePattern) {
-        return null;
-    }
-    
-```
-
-### ReturnNull
-Return of `null`
-in `jdbc/core/src/main/java/org/apache/shardingsphere/driver/state/circuit/metadata/CircuitBreakerDatabaseMetaData.java`
-#### Snippet
-```java
-    @Override
-    public ResultSet getProcedureColumns(final String catalog, final String schemaPattern, final String procedureNamePattern, final String columnNamePattern) {
-        return null;
-    }
-    
-```
-
-### ReturnNull
-Return of `null`
-in `jdbc/core/src/main/java/org/apache/shardingsphere/driver/state/circuit/metadata/CircuitBreakerDatabaseMetaData.java`
-#### Snippet
-```java
-    @Override
-    public String getSearchStringEscape() {
-        return null;
-    }
-    
-```
-
-### ReturnNull
-Return of `null`
-in `jdbc/core/src/main/java/org/apache/shardingsphere/driver/state/circuit/metadata/CircuitBreakerDatabaseMetaData.java`
-#### Snippet
-```java
-    @Override
-    public ResultSet getTables(final String catalog, final String schemaPattern, final String tableNamePattern, final String[] types) {
-        return null;
-    }
-    
-```
-
-### ReturnNull
-Return of `null`
-in `jdbc/core/src/main/java/org/apache/shardingsphere/driver/state/circuit/metadata/CircuitBreakerDatabaseMetaData.java`
-#### Snippet
-```java
-    @Override
-    public ResultSet getCatalogs() {
+    public ResultSet getUDTs(final String catalog, final String schemaPattern, final String typeNamePattern, final int[] types) {
         return null;
     }
     
@@ -13022,126 +12937,6 @@ in `jdbc/core/src/main/java/org/apache/shardingsphere/driver/state/circuit/metad
 ```java
     public ResultSet getCrossReference(final String parentCatalog, final String parentSchema, final String parentTable, final String foreignCatalog,
                                        final String foreignSchema, final String foreignTable) {
-        return null;
-    }
-    
-```
-
-### ReturnNull
-Return of `null`
-in `jdbc/core/src/main/java/org/apache/shardingsphere/driver/state/circuit/metadata/CircuitBreakerDatabaseMetaData.java`
-#### Snippet
-```java
-    @Override
-    public ResultSet getFunctions(final String catalog, final String schemaPattern, final String functionNamePattern) {
-        return null;
-    }
-    
-```
-
-### ReturnNull
-Return of `null`
-in `jdbc/core/src/main/java/org/apache/shardingsphere/driver/state/circuit/metadata/CircuitBreakerDatabaseMetaData.java`
-#### Snippet
-```java
-    @Override
-    public String getSystemFunctions() {
-        return null;
-    }
-    
-```
-
-### ReturnNull
-Return of `null`
-in `jdbc/core/src/main/java/org/apache/shardingsphere/driver/state/circuit/metadata/CircuitBreakerDatabaseMetaData.java`
-#### Snippet
-```java
-    @Override
-    public <T> T unwrap(final Class<T> iface) {
-        return null;
-    }
-    
-```
-
-### ReturnNull
-Return of `null`
-in `jdbc/core/src/main/java/org/apache/shardingsphere/driver/state/circuit/metadata/CircuitBreakerDatabaseMetaData.java`
-#### Snippet
-```java
-    @Override
-    public String getDatabaseProductVersion() {
-        return null;
-    }
-    
-```
-
-### ReturnNull
-Return of `null`
-in `jdbc/core/src/main/java/org/apache/shardingsphere/driver/state/circuit/metadata/CircuitBreakerDatabaseMetaData.java`
-#### Snippet
-```java
-    @Override
-    public String getCatalogTerm() {
-        return null;
-    }
-    
-```
-
-### ReturnNull
-Return of `null`
-in `jdbc/core/src/main/java/org/apache/shardingsphere/driver/state/circuit/metadata/CircuitBreakerDatabaseMetaData.java`
-#### Snippet
-```java
-    @Override
-    public String getIdentifierQuoteString() {
-        return null;
-    }
-    
-```
-
-### ReturnNull
-Return of `null`
-in `jdbc/core/src/main/java/org/apache/shardingsphere/driver/state/circuit/metadata/CircuitBreakerDatabaseMetaData.java`
-#### Snippet
-```java
-    @Override
-    public String getDriverName() {
-        return null;
-    }
-    
-```
-
-### ReturnNull
-Return of `null`
-in `jdbc/core/src/main/java/org/apache/shardingsphere/driver/state/circuit/metadata/CircuitBreakerDatabaseMetaData.java`
-#### Snippet
-```java
-    @Override
-    public RowIdLifetime getRowIdLifetime() {
-        return null;
-    }
-    
-```
-
-### ReturnNull
-Return of `null`
-in `jdbc/core/src/main/java/org/apache/shardingsphere/driver/state/circuit/metadata/CircuitBreakerDatabaseMetaData.java`
-#### Snippet
-```java
-    @Override
-    public String getTimeDateFunctions() {
-        return null;
-    }
-    
-```
-
-### ReturnNull
-Return of `null`
-in `jdbc/core/src/main/java/org/apache/shardingsphere/driver/state/circuit/metadata/CircuitBreakerDatabaseMetaData.java`
-#### Snippet
-```java
-    @Override
-    public String getStringFunctions() {
         return null;
     }
     
@@ -13177,7 +12972,79 @@ in `jdbc/core/src/main/java/org/apache/shardingsphere/driver/state/circuit/metad
 #### Snippet
 ```java
     @Override
-    public ResultSet getUDTs(final String catalog, final String schemaPattern, final String typeNamePattern, final int[] types) {
+    public ResultSet getColumns(final String catalog, final String schemaPattern, final String tableNamePattern, final String columnNamePattern) {
+        return null;
+    }
+    
+```
+
+### ReturnNull
+Return of `null`
+in `jdbc/core/src/main/java/org/apache/shardingsphere/driver/state/circuit/metadata/CircuitBreakerDatabaseMetaData.java`
+#### Snippet
+```java
+    @Override
+    public ResultSet getIndexInfo(final String catalog, final String schema, final String table, final boolean unique, final boolean approximate) {
+        return null;
+    }
+    
+```
+
+### ReturnNull
+Return of `null`
+in `jdbc/core/src/main/java/org/apache/shardingsphere/driver/state/circuit/metadata/CircuitBreakerDatabaseMetaData.java`
+#### Snippet
+```java
+    @Override
+    public String getIdentifierQuoteString() {
+        return null;
+    }
+    
+```
+
+### ReturnNull
+Return of `null`
+in `jdbc/core/src/main/java/org/apache/shardingsphere/driver/state/circuit/metadata/CircuitBreakerDatabaseMetaData.java`
+#### Snippet
+```java
+    @Override
+    public String getDatabaseProductVersion() {
+        return null;
+    }
+    
+```
+
+### ReturnNull
+Return of `null`
+in `jdbc/core/src/main/java/org/apache/shardingsphere/driver/state/circuit/metadata/CircuitBreakerDatabaseMetaData.java`
+#### Snippet
+```java
+    @Override
+    public ResultSet getTypeInfo() {
+        return null;
+    }
+    
+```
+
+### ReturnNull
+Return of `null`
+in `jdbc/core/src/main/java/org/apache/shardingsphere/driver/state/circuit/metadata/CircuitBreakerDatabaseMetaData.java`
+#### Snippet
+```java
+    @Override
+    public ResultSet getSchemas(final String catalog, final String schemaPattern) {
+        return null;
+    }
+    
+```
+
+### ReturnNull
+Return of `null`
+in `jdbc/core/src/main/java/org/apache/shardingsphere/driver/state/circuit/metadata/CircuitBreakerDatabaseMetaData.java`
+#### Snippet
+```java
+    @Override
+    public String getNumericFunctions() {
         return null;
     }
     
@@ -13190,6 +13057,282 @@ in `jdbc/core/src/main/java/org/apache/shardingsphere/driver/state/circuit/metad
 ```java
     @Override
     public ResultSet getExportedKeys(final String catalog, final String schema, final String table) {
+        return null;
+    }
+    
+```
+
+### ReturnNull
+Return of `null`
+in `jdbc/core/src/main/java/org/apache/shardingsphere/driver/state/circuit/metadata/CircuitBreakerDatabaseMetaData.java`
+#### Snippet
+```java
+    @Override
+    public String getTimeDateFunctions() {
+        return null;
+    }
+    
+```
+
+### ReturnNull
+Return of `null`
+in `jdbc/core/src/main/java/org/apache/shardingsphere/driver/state/circuit/metadata/CircuitBreakerDatabaseMetaData.java`
+#### Snippet
+```java
+    @Override
+    public Connection getConnection() {
+        return null;
+    }
+    
+```
+
+### ReturnNull
+Return of `null`
+in `jdbc/core/src/main/java/org/apache/shardingsphere/driver/state/circuit/metadata/CircuitBreakerDatabaseMetaData.java`
+#### Snippet
+```java
+    @Override
+    public String getSearchStringEscape() {
+        return null;
+    }
+    
+```
+
+### ReturnNull
+Return of `null`
+in `jdbc/core/src/main/java/org/apache/shardingsphere/driver/state/circuit/metadata/CircuitBreakerDatabaseMetaData.java`
+#### Snippet
+```java
+    @Override
+    public RowIdLifetime getRowIdLifetime() {
+        return null;
+    }
+    
+```
+
+### ReturnNull
+Return of `null`
+in `jdbc/core/src/main/java/org/apache/shardingsphere/driver/state/circuit/metadata/CircuitBreakerDatabaseMetaData.java`
+#### Snippet
+```java
+    @Override
+    public ResultSet getSuperTables(final String catalog, final String schemaPattern, final String tableNamePattern) {
+        return null;
+    }
+    
+```
+
+### ReturnNull
+Return of `null`
+in `jdbc/core/src/main/java/org/apache/shardingsphere/driver/state/circuit/metadata/CircuitBreakerDatabaseMetaData.java`
+#### Snippet
+```java
+    @Override
+    public String getStringFunctions() {
+        return null;
+    }
+    
+```
+
+### ReturnNull
+Return of `null`
+in `jdbc/core/src/main/java/org/apache/shardingsphere/driver/state/circuit/metadata/CircuitBreakerDatabaseMetaData.java`
+#### Snippet
+```java
+    @Override
+    public String getURL() {
+        return null;
+    }
+    
+```
+
+### ReturnNull
+Return of `null`
+in `jdbc/core/src/main/java/org/apache/shardingsphere/driver/state/circuit/metadata/CircuitBreakerDatabaseMetaData.java`
+#### Snippet
+```java
+    @Override
+    public ResultSet getProcedures(final String catalog, final String schemaPattern, final String procedureNamePattern) {
+        return null;
+    }
+    
+```
+
+### ReturnNull
+Return of `null`
+in `jdbc/core/src/main/java/org/apache/shardingsphere/driver/state/circuit/metadata/CircuitBreakerDatabaseMetaData.java`
+#### Snippet
+```java
+    @Override
+    public ResultSet getAttributes(final String catalog, final String schemaPattern, final String typeNamePattern, final String attributeNamePattern) {
+        return null;
+    }
+    
+```
+
+### ReturnNull
+Return of `null`
+in `jdbc/core/src/main/java/org/apache/shardingsphere/driver/state/circuit/metadata/CircuitBreakerDatabaseMetaData.java`
+#### Snippet
+```java
+    @Override
+    public ResultSet getTables(final String catalog, final String schemaPattern, final String tableNamePattern, final String[] types) {
+        return null;
+    }
+    
+```
+
+### ReturnNull
+Return of `null`
+in `jdbc/core/src/main/java/org/apache/shardingsphere/driver/state/circuit/metadata/CircuitBreakerDatabaseMetaData.java`
+#### Snippet
+```java
+    @Override
+    public String getSQLKeywords() {
+        return null;
+    }
+    
+```
+
+### ReturnNull
+Return of `null`
+in `jdbc/core/src/main/java/org/apache/shardingsphere/driver/state/circuit/metadata/CircuitBreakerDatabaseMetaData.java`
+#### Snippet
+```java
+    @Override
+    public String getSystemFunctions() {
+        return null;
+    }
+    
+```
+
+### ReturnNull
+Return of `null`
+in `jdbc/core/src/main/java/org/apache/shardingsphere/driver/state/circuit/metadata/CircuitBreakerDatabaseMetaData.java`
+#### Snippet
+```java
+    @Override
+    public String getUserName() {
+        return null;
+    }
+    
+```
+
+### ReturnNull
+Return of `null`
+in `jdbc/core/src/main/java/org/apache/shardingsphere/driver/state/circuit/metadata/CircuitBreakerDatabaseMetaData.java`
+#### Snippet
+```java
+    @Override
+    public ResultSet getSchemas() {
+        return null;
+    }
+    
+```
+
+### ReturnNull
+Return of `null`
+in `jdbc/core/src/main/java/org/apache/shardingsphere/driver/state/circuit/metadata/CircuitBreakerDatabaseMetaData.java`
+#### Snippet
+```java
+    @Override
+    public ResultSet getProcedureColumns(final String catalog, final String schemaPattern, final String procedureNamePattern, final String columnNamePattern) {
+        return null;
+    }
+    
+```
+
+### ReturnNull
+Return of `null`
+in `jdbc/core/src/main/java/org/apache/shardingsphere/driver/state/circuit/metadata/CircuitBreakerDatabaseMetaData.java`
+#### Snippet
+```java
+    @Override
+    public String getCatalogSeparator() {
+        return null;
+    }
+    
+```
+
+### ReturnNull
+Return of `null`
+in `jdbc/core/src/main/java/org/apache/shardingsphere/driver/state/circuit/metadata/CircuitBreakerDatabaseMetaData.java`
+#### Snippet
+```java
+    @Override
+    public String getDriverName() {
+        return null;
+    }
+    
+```
+
+### ReturnNull
+Return of `null`
+in `jdbc/core/src/main/java/org/apache/shardingsphere/driver/state/circuit/metadata/CircuitBreakerDatabaseMetaData.java`
+#### Snippet
+```java
+    @Override
+    public ResultSet getTableTypes() {
+        return null;
+    }
+    
+```
+
+### ReturnNull
+Return of `null`
+in `jdbc/core/src/main/java/org/apache/shardingsphere/driver/state/circuit/metadata/CircuitBreakerDatabaseMetaData.java`
+#### Snippet
+```java
+    @Override
+    public String getExtraNameCharacters() {
+        return null;
+    }
+    
+```
+
+### ReturnNull
+Return of `null`
+in `jdbc/core/src/main/java/org/apache/shardingsphere/driver/state/circuit/metadata/CircuitBreakerDatabaseMetaData.java`
+#### Snippet
+```java
+    @Override
+    public <T> T unwrap(final Class<T> iface) {
+        return null;
+    }
+    
+```
+
+### ReturnNull
+Return of `null`
+in `jdbc/core/src/main/java/org/apache/shardingsphere/driver/state/circuit/metadata/CircuitBreakerDatabaseMetaData.java`
+#### Snippet
+```java
+    @Override
+    public ResultSet getFunctions(final String catalog, final String schemaPattern, final String functionNamePattern) {
+        return null;
+    }
+    
+```
+
+### ReturnNull
+Return of `null`
+in `jdbc/core/src/main/java/org/apache/shardingsphere/driver/state/circuit/metadata/CircuitBreakerDatabaseMetaData.java`
+#### Snippet
+```java
+    @Override
+    public ResultSet getPseudoColumns(final String catalog, final String schemaPattern, final String tableNamePattern, final String columnNamePattern) {
+        return null;
+    }
+    
+```
+
+### ReturnNull
+Return of `null`
+in `jdbc/core/src/main/java/org/apache/shardingsphere/driver/state/circuit/metadata/CircuitBreakerDatabaseMetaData.java`
+#### Snippet
+```java
+    @Override
+    public ResultSet getImportedKeys(final String catalog, final String schema, final String table) {
         return null;
     }
     
@@ -13225,139 +13368,7 @@ in `jdbc/core/src/main/java/org/apache/shardingsphere/driver/state/circuit/metad
 #### Snippet
 ```java
     @Override
-    public ResultSet getProcedures(final String catalog, final String schemaPattern, final String procedureNamePattern) {
-        return null;
-    }
-    
-```
-
-### ReturnNull
-Return of `null`
-in `jdbc/core/src/main/java/org/apache/shardingsphere/driver/state/circuit/metadata/CircuitBreakerDatabaseMetaData.java`
-#### Snippet
-```java
-    @Override
-    public Connection getConnection() {
-        return null;
-    }
-    
-```
-
-### ReturnNull
-Return of `null`
-in `jdbc/core/src/main/java/org/apache/shardingsphere/driver/state/circuit/metadata/CircuitBreakerDatabaseMetaData.java`
-#### Snippet
-```java
-    @Override
-    public String getUserName() {
-        return null;
-    }
-    
-```
-
-### ReturnNull
-Return of `null`
-in `jdbc/core/src/main/java/org/apache/shardingsphere/driver/state/circuit/metadata/CircuitBreakerDatabaseMetaData.java`
-#### Snippet
-```java
-    @Override
-    public String getURL() {
-        return null;
-    }
-    
-```
-
-### ReturnNull
-Return of `null`
-in `jdbc/core/src/main/java/org/apache/shardingsphere/driver/state/circuit/metadata/CircuitBreakerDatabaseMetaData.java`
-#### Snippet
-```java
-    @Override
-    public ResultSet getSuperTables(final String catalog, final String schemaPattern, final String tableNamePattern) {
-        return null;
-    }
-    
-```
-
-### ReturnNull
-Return of `null`
-in `jdbc/core/src/main/java/org/apache/shardingsphere/driver/state/circuit/metadata/CircuitBreakerDatabaseMetaData.java`
-#### Snippet
-```java
-    @Override
-    public ResultSet getImportedKeys(final String catalog, final String schema, final String table) {
-        return null;
-    }
-    
-```
-
-### ReturnNull
-Return of `null`
-in `jdbc/core/src/main/java/org/apache/shardingsphere/driver/state/circuit/metadata/CircuitBreakerDatabaseMetaData.java`
-#### Snippet
-```java
-    @Override
-    public ResultSet getPrimaryKeys(final String catalog, final String schema, final String table) {
-        return null;
-    }
-    
-```
-
-### ReturnNull
-Return of `null`
-in `jdbc/core/src/main/java/org/apache/shardingsphere/driver/state/circuit/metadata/CircuitBreakerDatabaseMetaData.java`
-#### Snippet
-```java
-    @Override
     public String getSchemaTerm() {
-        return null;
-    }
-    
-```
-
-### ReturnNull
-Return of `null`
-in `jdbc/core/src/main/java/org/apache/shardingsphere/driver/state/circuit/metadata/CircuitBreakerDatabaseMetaData.java`
-#### Snippet
-```java
-    @Override
-    public ResultSet getTypeInfo() {
-        return null;
-    }
-    
-```
-
-### ReturnNull
-Return of `null`
-in `jdbc/core/src/main/java/org/apache/shardingsphere/driver/state/circuit/metadata/CircuitBreakerDatabaseMetaData.java`
-#### Snippet
-```java
-    @Override
-    public String getProcedureTerm() {
-        return null;
-    }
-    
-```
-
-### ReturnNull
-Return of `null`
-in `jdbc/core/src/main/java/org/apache/shardingsphere/driver/state/circuit/metadata/CircuitBreakerDatabaseMetaData.java`
-#### Snippet
-```java
-    @Override
-    public ResultSet getSchemas() {
-        return null;
-    }
-    
-```
-
-### ReturnNull
-Return of `null`
-in `jdbc/core/src/main/java/org/apache/shardingsphere/driver/state/circuit/metadata/CircuitBreakerDatabaseMetaData.java`
-#### Snippet
-```java
-    @Override
-    public String getExtraNameCharacters() {
         return null;
     }
     
@@ -13381,30 +13392,6 @@ in `jdbc/core/src/main/java/org/apache/shardingsphere/driver/state/circuit/metad
 #### Snippet
 ```java
     @Override
-    public ResultSet getTableTypes() {
-        return null;
-    }
-    
-```
-
-### ReturnNull
-Return of `null`
-in `jdbc/core/src/main/java/org/apache/shardingsphere/driver/state/circuit/metadata/CircuitBreakerDatabaseMetaData.java`
-#### Snippet
-```java
-    @Override
-    public String getCatalogSeparator() {
-        return null;
-    }
-    
-```
-
-### ReturnNull
-Return of `null`
-in `jdbc/core/src/main/java/org/apache/shardingsphere/driver/state/circuit/metadata/CircuitBreakerDatabaseMetaData.java`
-#### Snippet
-```java
-    @Override
     public ResultSet getFunctionColumns(final String catalog, final String schemaPattern, final String functionNamePattern, final String columnNamePattern) {
         return null;
     }
@@ -13417,7 +13404,67 @@ in `jdbc/core/src/main/java/org/apache/shardingsphere/driver/state/circuit/metad
 #### Snippet
 ```java
     @Override
-    public ResultSet getIndexInfo(final String catalog, final String schema, final String table, final boolean unique, final boolean approximate) {
+    public ResultSet getSuperTypes(final String catalog, final String schemaPattern, final String typeNamePattern) {
+        return null;
+    }
+    
+```
+
+### ReturnNull
+Return of `null`
+in `jdbc/core/src/main/java/org/apache/shardingsphere/driver/state/circuit/metadata/CircuitBreakerDatabaseMetaData.java`
+#### Snippet
+```java
+    @Override
+    public String getDriverVersion() {
+        return null;
+    }
+    
+```
+
+### ReturnNull
+Return of `null`
+in `jdbc/core/src/main/java/org/apache/shardingsphere/driver/state/circuit/metadata/CircuitBreakerDatabaseMetaData.java`
+#### Snippet
+```java
+    @Override
+    public ResultSet getCatalogs() {
+        return null;
+    }
+    
+```
+
+### ReturnNull
+Return of `null`
+in `jdbc/core/src/main/java/org/apache/shardingsphere/driver/state/circuit/metadata/CircuitBreakerDatabaseMetaData.java`
+#### Snippet
+```java
+    @Override
+    public String getProcedureTerm() {
+        return null;
+    }
+    
+```
+
+### ReturnNull
+Return of `null`
+in `jdbc/core/src/main/java/org/apache/shardingsphere/driver/state/circuit/metadata/CircuitBreakerDatabaseMetaData.java`
+#### Snippet
+```java
+    @Override
+    public ResultSet getPrimaryKeys(final String catalog, final String schema, final String table) {
+        return null;
+    }
+    
+```
+
+### ReturnNull
+Return of `null`
+in `jdbc/core/src/main/java/org/apache/shardingsphere/driver/state/circuit/metadata/CircuitBreakerDatabaseMetaData.java`
+#### Snippet
+```java
+    @Override
+    public String getCatalogTerm() {
         return null;
     }
     
@@ -13476,11 +13523,11 @@ Return of `null`
 in `mode/type/cluster/repository/provider/nacos/src/main/java/org/apache/shardingsphere/mode/repository/cluster/nacos/NacosRepository.java`
 #### Snippet
 ```java
-                }
-            }
-            return null;
-        } catch (final NacosException ex) {
-            throw new ClusterPersistRepositoryException(ex);
+                                return pathWithoutPrefix.contains(PATH_SEPARATOR) ? pathWithoutPrefix.substring(0, pathWithoutPrefix.indexOf(PATH_SEPARATOR)) : pathWithoutPrefix;
+                            }
+                            return null;
+                        }).filter(Objects::nonNull);
+                concatKeys = Stream.concat(concatKeys, keys);
 ```
 
 ### ReturnNull
@@ -13488,11 +13535,11 @@ Return of `null`
 in `mode/type/cluster/repository/provider/nacos/src/main/java/org/apache/shardingsphere/mode/repository/cluster/nacos/NacosRepository.java`
 #### Snippet
 ```java
-                                return pathWithoutPrefix.contains(PATH_SEPARATOR) ? pathWithoutPrefix.substring(0, pathWithoutPrefix.indexOf(PATH_SEPARATOR)) : pathWithoutPrefix;
-                            }
-                            return null;
-                        }).filter(Objects::nonNull);
-                concatKeys = Stream.concat(concatKeys, keys);
+                }
+            }
+            return null;
+        } catch (final NacosException ex) {
+            throw new ClusterPersistRepositoryException(ex);
 ```
 
 ### ReturnNull
@@ -13608,11 +13655,11 @@ Return of `null`
 in `infra/common/src/main/java/org/apache/shardingsphere/infra/yaml/config/swapper/algorithm/YamlAlgorithmConfigurationSwapper.java`
 #### Snippet
 ```java
-    public YamlAlgorithmConfiguration swapToYamlConfiguration(final AlgorithmConfiguration data) {
-        if (null == data) {
-            return null;
-        }
-        YamlAlgorithmConfiguration result = new YamlAlgorithmConfiguration();
+    @Override
+    public AlgorithmConfiguration swapToObject(final YamlAlgorithmConfiguration yamlConfig) {
+        return null == yamlConfig ? null : new AlgorithmConfiguration(yamlConfig.getType(), yamlConfig.getProps());
+    }
+}
 ```
 
 ### ReturnNull
@@ -13620,11 +13667,11 @@ Return of `null`
 in `infra/common/src/main/java/org/apache/shardingsphere/infra/yaml/config/swapper/algorithm/YamlAlgorithmConfigurationSwapper.java`
 #### Snippet
 ```java
-    @Override
-    public AlgorithmConfiguration swapToObject(final YamlAlgorithmConfiguration yamlConfig) {
-        return null == yamlConfig ? null : new AlgorithmConfiguration(yamlConfig.getType(), yamlConfig.getProps());
-    }
-}
+    public YamlAlgorithmConfiguration swapToYamlConfiguration(final AlgorithmConfiguration data) {
+        if (null == data) {
+            return null;
+        }
+        YamlAlgorithmConfiguration result = new YamlAlgorithmConfiguration();
 ```
 
 ### ReturnNull
@@ -13641,26 +13688,14 @@ in `infra/common/src/main/java/org/apache/shardingsphere/infra/database/type/dia
 
 ### ReturnNull
 Return of `null`
-in `infra/common/src/main/java/org/apache/shardingsphere/infra/metadata/user/yaml/swapper/YamlUserSwapper.java`
+in `infra/common/src/main/java/org/apache/shardingsphere/infra/metadata/ShardingSphereMetaData.java`
 #### Snippet
 ```java
-    public ShardingSphereUser swapToObject(final YamlUserConfiguration yamlConfig) {
-        if (Objects.isNull(yamlConfig)) {
-            return null;
-        }
-        Grantee grantee = convertYamlUserToGrantee(yamlConfig.getUser());
-```
-
-### ReturnNull
-Return of `null`
-in `infra/common/src/main/java/org/apache/shardingsphere/infra/metadata/user/yaml/swapper/YamlUserSwapper.java`
-#### Snippet
-```java
-    public YamlUserConfiguration swapToYamlConfiguration(final ShardingSphereUser data) {
-        if (Objects.isNull(data)) {
-            return null;
-        }
-        YamlUserConfiguration result = new YamlUserConfiguration();
+     */
+    public ShardingSphereDatabase getDatabase(final String databaseName) {
+        return null != databaseName ? databases.get(databaseName.toLowerCase()) : null;
+    }
+    
 ```
 
 ### ReturnNull
@@ -13701,6 +13736,30 @@ in `infra/common/src/main/java/org/apache/shardingsphere/infra/metadata/data/col
 
 ### ReturnNull
 Return of `null`
+in `infra/common/src/main/java/org/apache/shardingsphere/infra/metadata/user/yaml/swapper/YamlUserSwapper.java`
+#### Snippet
+```java
+    public YamlUserConfiguration swapToYamlConfiguration(final ShardingSphereUser data) {
+        if (Objects.isNull(data)) {
+            return null;
+        }
+        YamlUserConfiguration result = new YamlUserConfiguration();
+```
+
+### ReturnNull
+Return of `null`
+in `infra/common/src/main/java/org/apache/shardingsphere/infra/metadata/user/yaml/swapper/YamlUserSwapper.java`
+#### Snippet
+```java
+    public ShardingSphereUser swapToObject(final YamlUserConfiguration yamlConfig) {
+        if (Objects.isNull(yamlConfig)) {
+            return null;
+        }
+        Grantee grantee = convertYamlUserToGrantee(yamlConfig.getUser());
+```
+
+### ReturnNull
+Return of `null`
 in `infra/common/src/main/java/org/apache/shardingsphere/infra/datasource/pool/metadata/type/DefaultDataSourcePoolFieldMetaData.java`
 #### Snippet
 ```java
@@ -13721,18 +13780,6 @@ in `infra/executor/src/main/java/org/apache/shardingsphere/infra/executor/sql/ex
             return resultSet.wasNull() ? null : result;
         }
         return resultSet.getDate(columnIndex);
-```
-
-### ReturnNull
-Return of `null`
-in `infra/executor/src/main/java/org/apache/shardingsphere/infra/executor/sql/execute/result/query/impl/driver/jdbc/type/util/ResultSetUtil.java`
-#### Snippet
-```java
-                return 0.0D;
-            default:
-                return null;
-        }
-    }
 ```
 
 ### ReturnNull
@@ -13761,24 +13808,24 @@ in `infra/executor/src/main/java/org/apache/shardingsphere/infra/executor/sql/ex
 
 ### ReturnNull
 Return of `null`
+in `infra/executor/src/main/java/org/apache/shardingsphere/infra/executor/sql/execute/result/query/impl/driver/jdbc/type/util/ResultSetUtil.java`
+#### Snippet
+```java
+                return 0.0D;
+            default:
+                return null;
+        }
+    }
+```
+
+### ReturnNull
+Return of `null`
 in `proxy/backend/src/main/java/org/apache/shardingsphere/proxy/backend/handler/distsql/ral/hint/executor/AbstractHintUpdateExecutor.java`
 #### Snippet
 ```java
     @Override
     public final QueryResponseRow getQueryResponseRow() {
         return null;
-    }
-}
-```
-
-### ReturnNull
-Return of `null`
-in `proxy/backend/src/main/java/org/apache/shardingsphere/proxy/backend/handler/distsql/ral/updatable/converter/InventoryIncrementalProcessConfigurationSegmentConverter.java`
-#### Snippet
-```java
-    
-    private static AlgorithmConfiguration convertToAlgorithm(final AlgorithmSegment segment) {
-        return null == segment ? null : new AlgorithmConfiguration(segment.getName(), segment.getProps());
     }
 }
 ```
@@ -13805,6 +13852,18 @@ in `proxy/backend/src/main/java/org/apache/shardingsphere/proxy/backend/handler/
                 ? null
                 : new PipelineReadConfiguration(readSegment.getWorkerThread(), readSegment.getBatchSize(), readSegment.getShardingSize(), convertToAlgorithm(readSegment.getRateLimiter()));
     }
+```
+
+### ReturnNull
+Return of `null`
+in `proxy/backend/src/main/java/org/apache/shardingsphere/proxy/backend/handler/distsql/ral/updatable/converter/InventoryIncrementalProcessConfigurationSegmentConverter.java`
+#### Snippet
+```java
+    
+    private static AlgorithmConfiguration convertToAlgorithm(final AlgorithmSegment segment) {
+        return null == segment ? null : new AlgorithmConfiguration(segment.getName(), segment.getProps());
+    }
+}
 ```
 
 ### ReturnNull
@@ -13849,8 +13908,8 @@ in `kernel/traffic/distsql/handler/src/main/java/org/apache/shardingsphere/traff
 #### Snippet
 ```java
     
-    private static String createAlgorithmName(final String ruleName, final AlgorithmConfiguration algorithm) {
-        return null == algorithm ? null : String.format("%s_%s", ruleName, algorithm.getType()).toLowerCase();
+    private static AlgorithmConfiguration createAlgorithmConfiguration(final AlgorithmSegment segment) {
+        return null == segment ? null : new AlgorithmConfiguration(segment.getName(), segment.getProps());
     }
     
 ```
@@ -13861,15 +13920,15 @@ in `kernel/traffic/distsql/handler/src/main/java/org/apache/shardingsphere/traff
 #### Snippet
 ```java
     
-    private static AlgorithmConfiguration createAlgorithmConfiguration(final AlgorithmSegment segment) {
-        return null == segment ? null : new AlgorithmConfiguration(segment.getName(), segment.getProps());
+    private static String createAlgorithmName(final String ruleName, final AlgorithmConfiguration algorithm) {
+        return null == algorithm ? null : String.format("%s_%s", ruleName, algorithm.getType()).toLowerCase();
     }
     
 ```
 
 ### ReturnNull
 Return of `null`
-in `kernel/authority/core/src/main/java/org/apache/shardingsphere/authority/checker/AuthorityChecker.java`
+in `kernel/authority/core/src/main/java/org/apache/shardingsphere/authority/checker/PrivilegeTypeMapper.java`
 #### Snippet
 ```java
         }
@@ -13881,7 +13940,7 @@ in `kernel/authority/core/src/main/java/org/apache/shardingsphere/authority/chec
 
 ### ReturnNull
 Return of `null`
-in `kernel/authority/core/src/main/java/org/apache/shardingsphere/authority/checker/AuthorityChecker.java`
+in `kernel/authority/core/src/main/java/org/apache/shardingsphere/authority/checker/PrivilegeTypeMapper.java`
 #### Snippet
 ```java
             return PrivilegeType.DELETE;
@@ -13893,50 +13952,14 @@ in `kernel/authority/core/src/main/java/org/apache/shardingsphere/authority/chec
 
 ### ReturnNull
 Return of `null`
-in `kernel/authority/core/src/main/java/org/apache/shardingsphere/authority/checker/AuthorityChecker.java`
+in `kernel/authority/core/src/main/java/org/apache/shardingsphere/authority/checker/PrivilegeTypeMapper.java`
 #### Snippet
 ```java
             return PrivilegeType.TRUNCATE;
         }
         return null;
     }
-    
-```
-
-### ReturnNull
-Return of `null`
-in `kernel/transaction/type/xa/provider/bitronix/src/main/java/org/apache/shardingsphere/transaction/xa/bitronix/manager/BitronixRecoveryResource.java`
-#### Snippet
-```java
-    @Override
-    public XAStatefulHolder createPooledConnection(final Object xaFactory, final ResourceBean bean) {
-        return null;
-    }
-    
-```
-
-### ReturnNull
-Return of `null`
-in `kernel/transaction/type/xa/provider/bitronix/src/main/java/org/apache/shardingsphere/transaction/xa/bitronix/manager/BitronixRecoveryResource.java`
-#### Snippet
-```java
-    public XAResourceHolder findXAResourceHolder(final XAResource xaResource) {
-        SingleXAResource singleXAResource = (SingleXAResource) xaResource;
-        return resourceName.equals(singleXAResource.getResourceName()) ? new SingleXAResourceHolder(xaResource, this) : null;
-    }
-    
-```
-
-### ReturnNull
-Return of `null`
-in `kernel/transaction/type/xa/provider/bitronix/src/main/java/org/apache/shardingsphere/transaction/xa/bitronix/manager/BitronixRecoveryResource.java`
-#### Snippet
-```java
-    @Override
-    public Reference getReference() {
-        return null;
-    }
-    
+}
 ```
 
 ### ReturnNull
@@ -13945,7 +13968,7 @@ in `kernel/transaction/type/xa/provider/bitronix/src/main/java/org/apache/shardi
 #### Snippet
 ```java
     @Override
-    public Date getLastReleaseDate() {
+    public Object getConnectionHandle() {
         return null;
     }
     
@@ -13969,8 +13992,44 @@ in `kernel/transaction/type/xa/provider/bitronix/src/main/java/org/apache/shardi
 #### Snippet
 ```java
     @Override
-    public Object getConnectionHandle() {
+    public Date getLastReleaseDate() {
         return null;
+    }
+    
+```
+
+### ReturnNull
+Return of `null`
+in `kernel/transaction/type/xa/provider/bitronix/src/main/java/org/apache/shardingsphere/transaction/xa/bitronix/manager/BitronixRecoveryResource.java`
+#### Snippet
+```java
+    @Override
+    public XAStatefulHolder createPooledConnection(final Object xaFactory, final ResourceBean bean) {
+        return null;
+    }
+    
+```
+
+### ReturnNull
+Return of `null`
+in `kernel/transaction/type/xa/provider/bitronix/src/main/java/org/apache/shardingsphere/transaction/xa/bitronix/manager/BitronixRecoveryResource.java`
+#### Snippet
+```java
+    @Override
+    public Reference getReference() {
+        return null;
+    }
+    
+```
+
+### ReturnNull
+Return of `null`
+in `kernel/transaction/type/xa/provider/bitronix/src/main/java/org/apache/shardingsphere/transaction/xa/bitronix/manager/BitronixRecoveryResource.java`
+#### Snippet
+```java
+    public XAResourceHolder findXAResourceHolder(final XAResource xaResource) {
+        SingleXAResource singleXAResource = (SingleXAResource) xaResource;
+        return resourceName.equals(singleXAResource.getResourceName()) ? new SingleXAResourceHolder(xaResource, this) : null;
     }
     
 ```
@@ -13992,9 +14051,9 @@ Return of `null`
 in `kernel/data-pipeline/api/src/main/java/org/apache/shardingsphere/data/pipeline/api/config/ImporterConfiguration.java`
 #### Snippet
 ```java
-        return TypedSPIRegistry.getRegisteredService(DatabaseType.class, dataSourceConfig.getDatabaseType().getType()).isSchemaAvailable()
-                ? tableNameSchemaNameMapping.getSchemaName(logicTableName)
-                : null;
+     */
+    public String getSchemaName(final LogicTableName logicTableName) {
+        return TypedSPILoader.getService(DatabaseType.class, dataSourceConfig.getDatabaseType().getType()).isSchemaAvailable() ? tableNameSchemaNameMapping.getSchemaName(logicTableName) : null;
     }
 }
 ```
@@ -14100,18 +14159,6 @@ Return of `null`
 in `kernel/data-pipeline/cdc/core/src/main/java/org/apache/shardingsphere/data/pipeline/cdc/util/CDCDataRecordUtil.java`
 #### Snippet
 ```java
-            return (DataRecord) record;
-        }
-        return null;
-    }
-    
-```
-
-### ReturnNull
-Return of `null`
-in `kernel/data-pipeline/cdc/core/src/main/java/org/apache/shardingsphere/data/pipeline/cdc/util/CDCDataRecordUtil.java`
-#### Snippet
-```java
         }
         if (waitSortedMap.isEmpty()) {
             return null;
@@ -14129,6 +14176,18 @@ in `kernel/data-pipeline/cdc/core/src/main/java/org/apache/shardingsphere/data/p
             return null;
         }
         incrementalRecordMap.get(belongImporter).poll();
+```
+
+### ReturnNull
+Return of `null`
+in `kernel/data-pipeline/cdc/core/src/main/java/org/apache/shardingsphere/data/pipeline/cdc/util/CDCDataRecordUtil.java`
+#### Snippet
+```java
+            return (DataRecord) record;
+        }
+        return null;
+    }
+    
 ```
 
 ### ReturnNull
@@ -14181,6 +14240,18 @@ in `kernel/data-pipeline/core/src/main/java/org/apache/shardingsphere/data/pipel
 
 ### ReturnNull
 Return of `null`
+in `kernel/data-pipeline/core/src/main/java/org/apache/shardingsphere/data/pipeline/core/metadata/loader/PipelineTableMetaDataUtil.java`
+#### Snippet
+```java
+        }
+        if (primaryKeys.isEmpty()) {
+            return null;
+        }
+        Collection<PipelineIndexMetaData> uniqueIndexes = tableMetaData.getUniqueIndexes();
+```
+
+### ReturnNull
+Return of `null`
 in `kernel/data-pipeline/core/src/main/java/org/apache/shardingsphere/data/pipeline/core/importer/DataRecordMerger.java`
 #### Snippet
 ```java
@@ -14208,11 +14279,11 @@ Return of `null`
 in `kernel/data-pipeline/core/src/main/java/org/apache/shardingsphere/data/pipeline/yaml/process/YamlPipelineProcessConfigurationSwapper.java`
 #### Snippet
 ```java
-    public YamlPipelineProcessConfiguration swapToYamlConfiguration(final PipelineProcessConfiguration data) {
-        if (null == data) {
-            return null;
-        }
-        YamlPipelineProcessConfiguration result = new YamlPipelineProcessConfiguration();
+    public PipelineProcessConfiguration swapToObject(final YamlPipelineProcessConfiguration yamlConfig) {
+        return null == yamlConfig
+                ? null
+                : new PipelineProcessConfiguration(
+                        readConfigSwapper.swapToObject(yamlConfig.getRead()), writeConfigSwapper.swapToObject(yamlConfig.getWrite()), algorithmSwapper.swapToObject(yamlConfig.getStreamChannel()));
 ```
 
 ### ReturnNull
@@ -14220,11 +14291,11 @@ Return of `null`
 in `kernel/data-pipeline/core/src/main/java/org/apache/shardingsphere/data/pipeline/yaml/process/YamlPipelineProcessConfigurationSwapper.java`
 #### Snippet
 ```java
-    public PipelineProcessConfiguration swapToObject(final YamlPipelineProcessConfiguration yamlConfig) {
-        return null == yamlConfig
-                ? null
-                : new PipelineProcessConfiguration(
-                        readConfigSwapper.swapToObject(yamlConfig.getRead()), writeConfigSwapper.swapToObject(yamlConfig.getWrite()), algorithmSwapper.swapToObject(yamlConfig.getStreamChannel()));
+    public YamlPipelineProcessConfiguration swapToYamlConfiguration(final PipelineProcessConfiguration data) {
+        if (null == data) {
+            return null;
+        }
+        YamlPipelineProcessConfiguration result = new YamlPipelineProcessConfiguration();
 ```
 
 ### ReturnNull
@@ -14256,18 +14327,6 @@ Return of `null`
 in `kernel/data-pipeline/core/src/main/java/org/apache/shardingsphere/data/pipeline/yaml/process/YamlPipelineReadConfigurationSwapper.java`
 #### Snippet
 ```java
-    public PipelineReadConfiguration swapToObject(final YamlPipelineReadConfiguration yamlConfig) {
-        return null == yamlConfig
-                ? null
-                : new PipelineReadConfiguration(yamlConfig.getWorkerThread(), yamlConfig.getBatchSize(), yamlConfig.getShardingSize(), algorithmSwapper.swapToObject(yamlConfig.getRateLimiter()));
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `kernel/data-pipeline/core/src/main/java/org/apache/shardingsphere/data/pipeline/yaml/process/YamlPipelineReadConfigurationSwapper.java`
-#### Snippet
-```java
     public YamlPipelineReadConfiguration swapToYamlConfiguration(final PipelineReadConfiguration data) {
         if (null == data) {
             return null;
@@ -14277,14 +14336,26 @@ in `kernel/data-pipeline/core/src/main/java/org/apache/shardingsphere/data/pipel
 
 ### ReturnNull
 Return of `null`
-in `kernel/data-pipeline/core/src/main/java/org/apache/shardingsphere/data/pipeline/yaml/metadata/YamlPipelineColumnMetaDataSwapper.java`
+in `kernel/data-pipeline/core/src/main/java/org/apache/shardingsphere/data/pipeline/yaml/process/YamlPipelineReadConfigurationSwapper.java`
 #### Snippet
 ```java
-    public YamlPipelineColumnMetaData swapToYamlConfiguration(final PipelineColumnMetaData data) {
-        if (null == data) {
+    public PipelineReadConfiguration swapToObject(final YamlPipelineReadConfiguration yamlConfig) {
+        return null == yamlConfig
+                ? null
+                : new PipelineReadConfiguration(yamlConfig.getWorkerThread(), yamlConfig.getBatchSize(), yamlConfig.getShardingSize(), algorithmSwapper.swapToObject(yamlConfig.getRateLimiter()));
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `kernel/data-pipeline/core/src/main/java/org/apache/shardingsphere/data/pipeline/yaml/consistency/YamlDataConsistencyCheckResultSwapper.java`
+#### Snippet
+```java
+    public DataConsistencyCheckResult swapToObject(final YamlDataConsistencyCheckResult yamlConfig) {
+        if (null == yamlConfig) {
             return null;
         }
-        YamlPipelineColumnMetaData result = new YamlPipelineColumnMetaData();
+        if (!Strings.isNullOrEmpty(yamlConfig.getIgnoredType())) {
 ```
 
 ### ReturnNull
@@ -14301,14 +14372,14 @@ in `kernel/data-pipeline/core/src/main/java/org/apache/shardingsphere/data/pipel
 
 ### ReturnNull
 Return of `null`
-in `kernel/data-pipeline/core/src/main/java/org/apache/shardingsphere/data/pipeline/yaml/consistency/YamlDataConsistencyCheckResultSwapper.java`
+in `kernel/data-pipeline/core/src/main/java/org/apache/shardingsphere/data/pipeline/yaml/metadata/YamlPipelineColumnMetaDataSwapper.java`
 #### Snippet
 ```java
-    public DataConsistencyCheckResult swapToObject(final YamlDataConsistencyCheckResult yamlConfig) {
-        if (null == yamlConfig) {
+    public YamlPipelineColumnMetaData swapToYamlConfiguration(final PipelineColumnMetaData data) {
+        if (null == data) {
             return null;
         }
-        YamlDataConsistencyCountCheckResult yamlCountCheck = yamlConfig.getCountCheckResult();
+        YamlPipelineColumnMetaData result = new YamlPipelineColumnMetaData();
 ```
 
 ### ReturnNull
@@ -14337,18 +14408,6 @@ in `kernel/data-pipeline/dialect/mysql/src/main/java/org/apache/shardingsphere/d
 
 ### ReturnNull
 Return of `null`
-in `kernel/data-pipeline/dialect/mysql/src/main/java/org/apache/shardingsphere/data/pipeline/mysql/ingest/column/value/impl/MySQLUnsignedSmallintHandler.java`
-#### Snippet
-```java
-    public Serializable handle(final Serializable value) {
-        if (null == value) {
-            return null;
-        }
-        short shortValue = (short) value;
-```
-
-### ReturnNull
-Return of `null`
 in `kernel/data-pipeline/dialect/mysql/src/main/java/org/apache/shardingsphere/data/pipeline/mysql/ingest/column/value/impl/MySQLUnsignedBigintHandler.java`
 #### Snippet
 ```java
@@ -14357,6 +14416,18 @@ in `kernel/data-pipeline/dialect/mysql/src/main/java/org/apache/shardingsphere/d
             return null;
         }
         long longValue = (long) value;
+```
+
+### ReturnNull
+Return of `null`
+in `kernel/data-pipeline/dialect/mysql/src/main/java/org/apache/shardingsphere/data/pipeline/mysql/ingest/column/value/impl/MySQLUnsignedSmallintHandler.java`
+#### Snippet
+```java
+    public Serializable handle(final Serializable value) {
+        if (null == value) {
+            return null;
+        }
+        short shortValue = (short) value;
 ```
 
 ### ReturnNull
@@ -14378,30 +14449,6 @@ in `kernel/data-pipeline/dialect/mysql/src/main/java/org/apache/shardingsphere/d
 ```java
         } catch (final ClassNotFoundException ex) {
             log.warn("not find com.mysql.jdbc.Driver class");
-            return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `kernel/data-pipeline/dialect/mysql/src/main/java/org/apache/shardingsphere/data/pipeline/mysql/ingest/client/MySQLClient.java`
-#### Snippet
-```java
-            Object response = responseCallback.get(5, TimeUnit.SECONDS);
-            if (null == response) {
-                return null;
-            }
-            if (type.equals(response.getClass())) {
-```
-
-### ReturnNull
-Return of `null`
-in `kernel/data-pipeline/dialect/mysql/src/main/java/org/apache/shardingsphere/data/pipeline/mysql/ingest/client/MySQLClient.java`
-#### Snippet
-```java
-            return blockingEventQueue.poll(100L, TimeUnit.MILLISECONDS);
-        } catch (final InterruptedException ignored) {
             return null;
         }
     }
@@ -14445,6 +14492,54 @@ in `kernel/data-pipeline/dialect/mysql/src/main/java/org/apache/shardingsphere/d
 
 ### ReturnNull
 Return of `null`
+in `kernel/data-pipeline/dialect/mysql/src/main/java/org/apache/shardingsphere/data/pipeline/mysql/ingest/client/MySQLClient.java`
+#### Snippet
+```java
+            Object response = responseCallback.get(5, TimeUnit.SECONDS);
+            if (null == response) {
+                return null;
+            }
+            if (type.equals(response.getClass())) {
+```
+
+### ReturnNull
+Return of `null`
+in `kernel/data-pipeline/dialect/mysql/src/main/java/org/apache/shardingsphere/data/pipeline/mysql/ingest/client/MySQLClient.java`
+#### Snippet
+```java
+            return blockingEventQueue.poll(100L, TimeUnit.MILLISECONDS);
+        } catch (final InterruptedException ignored) {
+            return null;
+        }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `kernel/data-pipeline/dialect/opengauss/src/main/java/org/apache/shardingsphere/data/pipeline/opengauss/ingest/wal/decode/MppdbDecodingPlugin.java`
+#### Snippet
+```java
+            return result;
+        } catch (final SQLException ignored) {
+            return null;
+        }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `kernel/data-pipeline/dialect/opengauss/src/main/java/org/apache/shardingsphere/data/pipeline/opengauss/ingest/wal/decode/MppdbDecodingPlugin.java`
+#### Snippet
+```java
+            return result;
+        } catch (final SQLException ignored) {
+            return null;
+        }
+    }
+```
+
+### ReturnNull
+Return of `null`
 in `kernel/data-pipeline/dialect/opengauss/src/main/java/org/apache/shardingsphere/data/pipeline/opengauss/ingest/wal/decode/MppdbDecodingPlugin.java`
 #### Snippet
 ```java
@@ -14460,31 +14555,7 @@ Return of `null`
 in `kernel/data-pipeline/dialect/opengauss/src/main/java/org/apache/shardingsphere/data/pipeline/opengauss/ingest/wal/decode/MppdbDecodingPlugin.java`
 #### Snippet
 ```java
-            return result;
-        } catch (final SQLException ignored) {
-            return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `kernel/data-pipeline/dialect/opengauss/src/main/java/org/apache/shardingsphere/data/pipeline/opengauss/ingest/wal/decode/MppdbDecodingPlugin.java`
-#### Snippet
-```java
             return new PGInterval(decodeString(data));
-        } catch (final SQLException ignored) {
-            return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `kernel/data-pipeline/dialect/opengauss/src/main/java/org/apache/shardingsphere/data/pipeline/opengauss/ingest/wal/decode/MppdbDecodingPlugin.java`
-#### Snippet
-```java
-            return result;
         } catch (final SQLException ignored) {
             return null;
         }
@@ -14529,18 +14600,6 @@ in `kernel/sql-federation/executor/core/src/main/java/org/apache/shardingsphere/
 
 ### ReturnNull
 Return of `null`
-in `kernel/sql-federation/optimizer/src/main/java/org/apache/shardingsphere/sqlfederation/optimizer/util/SQLFederationPlannerUtil.java`
-#### Snippet
-```java
-                                                            final SQLParserRule sqlParserRule, final DatabaseType databaseType, final boolean needsViewExpand) {
-        ViewExpander expander = needsViewExpand ? new ShardingSphereViewExpander(sqlParserRule, databaseType,
-                createSqlToRelConverter(catalogReader, validator, cluster, sqlParserRule, databaseType, false)) : (rowType, queryString, schemaPath, viewPath) -> null;
-        // TODO remove withRemoveSortInSubQuery when calcite can expand view which contains order by correctly
-        Config converterConfig = SqlToRelConverter.config().withTrimUnusedFields(true).withRemoveSortInSubQuery(false);
-```
-
-### ReturnNull
-Return of `null`
 in `kernel/sql-federation/executor/advanced/src/main/java/org/apache/shardingsphere/sqlfederation/advanced/resultset/SQLFederationResultSet.java`
 #### Snippet
 ```java
@@ -14565,6 +14624,18 @@ in `kernel/sql-federation/executor/advanced/src/main/java/org/apache/shardingsph
 
 ### ReturnNull
 Return of `null`
+in `kernel/sql-federation/optimizer/src/main/java/org/apache/shardingsphere/sqlfederation/optimizer/util/SQLFederationPlannerUtil.java`
+#### Snippet
+```java
+                                                            final SQLParserRule sqlParserRule, final DatabaseType databaseType, final boolean needsViewExpand) {
+        ViewExpander expander = needsViewExpand ? new ShardingSphereViewExpander(sqlParserRule, databaseType,
+                createSqlToRelConverter(catalogReader, validator, cluster, sqlParserRule, databaseType, false)) : (rowType, queryString, schemaPath, viewPath) -> null;
+        // TODO remove withRemoveSortInSubQuery when calcite can expand view which contains order by correctly
+        Config converterConfig = SqlToRelConverter.config().withTrimUnusedFields(true).withRemoveSortInSubQuery(false);
+```
+
+### ReturnNull
+Return of `null`
 in `kernel/sql-federation/optimizer/src/main/java/org/apache/shardingsphere/sqlfederation/optimizer/metadata/translatable/TranslatableProjectFilterRule.java`
 #### Snippet
 ```java
@@ -14573,6 +14644,30 @@ in `kernel/sql-federation/optimizer/src/main/java/org/apache/shardingsphere/sqlf
                 return null;
             }
         }
+```
+
+### ReturnNull
+Return of `null`
+in `distsql/parser/src/main/java/org/apache/shardingsphere/distsql/parser/core/kernel/KernelDistSQLStatementVisitor.java`
+#### Snippet
+```java
+    
+    private Integer getBatchSize(final BatchSizeContext ctx) {
+        return null == ctx ? null : Integer.parseInt(ctx.intValue().getText());
+    }
+    
+```
+
+### ReturnNull
+Return of `null`
+in `distsql/parser/src/main/java/org/apache/shardingsphere/distsql/parser/core/kernel/KernelDistSQLStatementVisitor.java`
+#### Snippet
+```java
+    
+    private AlgorithmSegment getAlgorithmSegment(final RateLimiterContext ctx) {
+        return null == ctx ? null : (AlgorithmSegment) visit(ctx);
+    }
+    
 ```
 
 ### ReturnNull
@@ -14607,30 +14702,6 @@ in `distsql/parser/src/main/java/org/apache/shardingsphere/distsql/parser/core/k
     
     private Integer getShardingSize(final ShardingSizeContext ctx) {
         return null == ctx ? null : Integer.parseInt(ctx.intValue().getText());
-    }
-    
-```
-
-### ReturnNull
-Return of `null`
-in `distsql/parser/src/main/java/org/apache/shardingsphere/distsql/parser/core/kernel/KernelDistSQLStatementVisitor.java`
-#### Snippet
-```java
-    
-    private Integer getBatchSize(final BatchSizeContext ctx) {
-        return null == ctx ? null : Integer.parseInt(ctx.intValue().getText());
-    }
-    
-```
-
-### ReturnNull
-Return of `null`
-in `distsql/parser/src/main/java/org/apache/shardingsphere/distsql/parser/core/kernel/KernelDistSQLStatementVisitor.java`
-#### Snippet
-```java
-    
-    private AlgorithmSegment getAlgorithmSegment(final RateLimiterContext ctx) {
-        return null == ctx ? null : (AlgorithmSegment) visit(ctx);
     }
     
 ```
@@ -14697,48 +14768,12 @@ in `features/encrypt/core/src/main/java/org/apache/shardingsphere/encrypt/merge/
 
 ### ReturnNull
 Return of `null`
-in `features/encrypt/core/src/main/java/org/apache/shardingsphere/encrypt/algorithm/like/CharDigestLikeEncryptAlgorithm.java`
-#### Snippet
-```java
-    @Override
-    public String encrypt(final Object plainValue, final EncryptContext encryptContext) {
-        return null == plainValue ? null : digest(String.valueOf(plainValue));
-    }
-    
-```
-
-### ReturnNull
-Return of `null`
 in `features/encrypt/core/src/main/java/org/apache/shardingsphere/encrypt/algorithm/encrypt/MD5EncryptAlgorithm.java`
 #### Snippet
 ```java
     @Override
     public String encrypt(final Object plainValue, final EncryptContext encryptContext) {
         return null == plainValue ? null : DigestUtils.md5Hex(plainValue + salt);
-    }
-    
-```
-
-### ReturnNull
-Return of `null`
-in `features/encrypt/core/src/main/java/org/apache/shardingsphere/encrypt/algorithm/encrypt/RC4EncryptAlgorithm.java`
-#### Snippet
-```java
-    public Object decrypt(final String cipherValue, final EncryptContext encryptContext) {
-        if (null == cipherValue) {
-            return null;
-        }
-        byte[] result = handle(Base64.decodeBase64(cipherValue));
-```
-
-### ReturnNull
-Return of `null`
-in `features/encrypt/core/src/main/java/org/apache/shardingsphere/encrypt/algorithm/encrypt/RC4EncryptAlgorithm.java`
-#### Snippet
-```java
-    @Override
-    public String encrypt(final Object plainValue, final EncryptContext encryptContext) {
-        return null == plainValue ? null : Base64.encodeBase64String(handle(String.valueOf(plainValue).getBytes(StandardCharsets.UTF_8)));
     }
     
 ```
@@ -14769,24 +14804,48 @@ in `features/encrypt/core/src/main/java/org/apache/shardingsphere/encrypt/algori
 
 ### ReturnNull
 Return of `null`
-in `features/encrypt/plugin/sm/src/main/java/org/apache/shardingsphere/encrypt/sm/algorithm/SM3EncryptAlgorithm.java`
+in `features/encrypt/core/src/main/java/org/apache/shardingsphere/encrypt/algorithm/encrypt/RC4EncryptAlgorithm.java`
 #### Snippet
 ```java
     @Override
     public String encrypt(final Object plainValue, final EncryptContext encryptContext) {
-        return null == plainValue ? null : ByteUtils.toHexString(digest(String.valueOf(plainValue).getBytes(StandardCharsets.UTF_8), sm3Salt));
+        return null == plainValue ? null : Base64.encodeBase64String(handle(String.valueOf(plainValue).getBytes(StandardCharsets.UTF_8)));
     }
     
 ```
 
 ### ReturnNull
 Return of `null`
-in `features/encrypt/plugin/sm/src/main/java/org/apache/shardingsphere/encrypt/sm/algorithm/SM4EncryptAlgorithm.java`
+in `features/encrypt/core/src/main/java/org/apache/shardingsphere/encrypt/algorithm/encrypt/RC4EncryptAlgorithm.java`
+#### Snippet
+```java
+    public Object decrypt(final String cipherValue, final EncryptContext encryptContext) {
+        if (null == cipherValue) {
+            return null;
+        }
+        byte[] result = handle(Base64.decodeBase64(cipherValue));
+```
+
+### ReturnNull
+Return of `null`
+in `features/encrypt/core/src/main/java/org/apache/shardingsphere/encrypt/algorithm/like/CharDigestLikeEncryptAlgorithm.java`
 #### Snippet
 ```java
     @Override
-    public Object decrypt(final String cipherValue, final EncryptContext encryptContext) {
-        return null == cipherValue ? null : new String(decrypt(ByteUtils.fromHexString(cipherValue)), StandardCharsets.UTF_8);
+    public String encrypt(final Object plainValue, final EncryptContext encryptContext) {
+        return null == plainValue ? null : digest(String.valueOf(plainValue));
+    }
+    
+```
+
+### ReturnNull
+Return of `null`
+in `features/encrypt/plugin/sm/src/main/java/org/apache/shardingsphere/encrypt/sm/algorithm/SM3EncryptAlgorithm.java`
+#### Snippet
+```java
+    @Override
+    public String encrypt(final Object plainValue, final EncryptContext encryptContext) {
+        return null == plainValue ? null : ByteUtils.toHexString(digest(String.valueOf(plainValue).getBytes(StandardCharsets.UTF_8), sm3Salt));
     }
     
 ```
@@ -14812,7 +14871,19 @@ in `features/encrypt/plugin/sm/src/main/java/org/apache/shardingsphere/encrypt/s
         if (!"CBC".equalsIgnoreCase(sm4Mode)) {
             return null;
         }
-        ShardingSpherePreconditions.checkState(props.containsKey(SM4_IV), () -> new EncryptAlgorithmInitializationException("SM4", String.format("%s can not be null.", SM4_IV)));
+        ShardingSpherePreconditions.checkState(props.containsKey(SM4_IV), () -> new EncryptAlgorithmInitializationException("SM4", String.format("%s can not be null", SM4_IV)));
+```
+
+### ReturnNull
+Return of `null`
+in `features/encrypt/plugin/sm/src/main/java/org/apache/shardingsphere/encrypt/sm/algorithm/SM4EncryptAlgorithm.java`
+#### Snippet
+```java
+    @Override
+    public Object decrypt(final String cipherValue, final EncryptContext encryptContext) {
+        return null == cipherValue ? null : new String(decrypt(ByteUtils.fromHexString(cipherValue)), StandardCharsets.UTF_8);
+    }
+    
 ```
 
 ### ReturnNull
@@ -14892,54 +14963,6 @@ Return of `null`
 in `features/sharding/distsql/parser/src/main/java/org/apache/shardingsphere/sharding/distsql/parser/core/ShardingDistSQLStatementVisitor.java`
 #### Snippet
 ```java
-    private ASTNode visitAuditDefinition(final String tableName, final AuditDefinitionContext ctx) {
-        if (null == ctx) {
-            return null;
-        }
-        Collection<ShardingAuditorSegment> shardingAuditorSegments = new LinkedList<>();
-```
-
-### ReturnNull
-Return of `null`
-in `features/sharding/distsql/parser/src/main/java/org/apache/shardingsphere/sharding/distsql/parser/core/ShardingDistSQLStatementVisitor.java`
-#### Snippet
-```java
-    private String getIdentifierValueForDataNodes(final ParseTree context) {
-        if (null == context) {
-            return null;
-        }
-        String value = new IdentifierValue(context.getText(), "[]'").getValue();
-```
-
-### ReturnNull
-Return of `null`
-in `features/sharding/distsql/parser/src/main/java/org/apache/shardingsphere/sharding/distsql/parser/core/ShardingDistSQLStatementVisitor.java`
-#### Snippet
-```java
-            return visit(ctx.shardingAutoTableRule());
-        }
-        return null;
-    }
-    
-```
-
-### ReturnNull
-Return of `null`
-in `features/sharding/distsql/parser/src/main/java/org/apache/shardingsphere/sharding/distsql/parser/core/ShardingDistSQLStatementVisitor.java`
-#### Snippet
-```java
-    public ASTNode visitShardingStrategy(final ShardingStrategyContext ctx) {
-        if (null == ctx) {
-            return null;
-        }
-        AlgorithmSegment algorithmSegment = null != ctx.shardingAlgorithm().algorithmDefinition() ? (AlgorithmSegment) visitAlgorithmDefinition(ctx.shardingAlgorithm().algorithmDefinition()) : null;
-```
-
-### ReturnNull
-Return of `null`
-in `features/sharding/distsql/parser/src/main/java/org/apache/shardingsphere/sharding/distsql/parser/core/ShardingDistSQLStatementVisitor.java`
-#### Snippet
-```java
     
     private String buildShardingColumn(final AutoShardingColumnDefinitionContext ctx) {
         return null == ctx.shardingColumn() ? null : getIdentifierValue(ctx.shardingColumn().columnName());
@@ -14967,6 +14990,54 @@ in `features/sharding/distsql/parser/src/main/java/org/apache/shardingsphere/sha
     
     private String getIdentifierValue(final ParseTree context) {
         return null == context ? null : new IdentifierValue(context.getText()).getValue();
+    }
+    
+```
+
+### ReturnNull
+Return of `null`
+in `features/sharding/distsql/parser/src/main/java/org/apache/shardingsphere/sharding/distsql/parser/core/ShardingDistSQLStatementVisitor.java`
+#### Snippet
+```java
+    private ASTNode visitAuditDefinition(final String tableName, final AuditDefinitionContext ctx) {
+        if (null == ctx) {
+            return null;
+        }
+        Collection<ShardingAuditorSegment> shardingAuditorSegments = new LinkedList<>();
+```
+
+### ReturnNull
+Return of `null`
+in `features/sharding/distsql/parser/src/main/java/org/apache/shardingsphere/sharding/distsql/parser/core/ShardingDistSQLStatementVisitor.java`
+#### Snippet
+```java
+    private String getIdentifierValueForDataNodes(final ParseTree context) {
+        if (null == context) {
+            return null;
+        }
+        String value = new IdentifierValue(context.getText(), "[]'").getValue();
+```
+
+### ReturnNull
+Return of `null`
+in `features/sharding/distsql/parser/src/main/java/org/apache/shardingsphere/sharding/distsql/parser/core/ShardingDistSQLStatementVisitor.java`
+#### Snippet
+```java
+    public ASTNode visitShardingStrategy(final ShardingStrategyContext ctx) {
+        if (null == ctx) {
+            return null;
+        }
+        AlgorithmSegment algorithmSegment = null != ctx.shardingAlgorithm().algorithmDefinition() ? (AlgorithmSegment) visitAlgorithmDefinition(ctx.shardingAlgorithm().algorithmDefinition()) : null;
+```
+
+### ReturnNull
+Return of `null`
+in `features/sharding/distsql/parser/src/main/java/org/apache/shardingsphere/sharding/distsql/parser/core/ShardingDistSQLStatementVisitor.java`
+#### Snippet
+```java
+            return visit(ctx.shardingAutoTableRule());
+        }
+        return null;
     }
     
 ```
@@ -15072,6 +15143,18 @@ Return of `null`
 in `sql-parser/dialect/postgresql/src/main/java/org/apache/shardingsphere/sql/parser/postgresql/visitor/statement/impl/PostgreSQLTCLStatementSQLVisitor.java`
 #### Snippet
 ```java
+            return TransactionAccessType.READ_WRITE;
+        }
+        return null;
+    }
+    
+```
+
+### ReturnNull
+Return of `null`
+in `sql-parser/dialect/postgresql/src/main/java/org/apache/shardingsphere/sql/parser/postgresql/visitor/statement/impl/PostgreSQLTCLStatementSQLVisitor.java`
+#### Snippet
+```java
     private TransactionIsolationLevel getTransactionIsolationLevel(final TransactionModeItemContext modeItemContext) {
         if (null == modeItemContext.isoLevel()) {
             return null;
@@ -15093,18 +15176,6 @@ in `sql-parser/dialect/postgresql/src/main/java/org/apache/shardingsphere/sql/pa
 
 ### ReturnNull
 Return of `null`
-in `sql-parser/dialect/postgresql/src/main/java/org/apache/shardingsphere/sql/parser/postgresql/visitor/statement/impl/PostgreSQLTCLStatementSQLVisitor.java`
-#### Snippet
-```java
-            return TransactionAccessType.READ_WRITE;
-        }
-        return null;
-    }
-    
-```
-
-### ReturnNull
-Return of `null`
 in `sql-parser/dialect/postgresql/src/main/java/org/apache/shardingsphere/sql/parser/postgresql/visitor/statement/facade/PostgreSQLStatementSQLVisitorFacade.java`
 #### Snippet
 ```java
@@ -15113,30 +15184,6 @@ in `sql-parser/dialect/postgresql/src/main/java/org/apache/shardingsphere/sql/pa
         return null;
     }
     
-```
-
-### ReturnNull
-Return of `null`
-in `sql-parser/statement/src/main/java/org/apache/shardingsphere/sql/parser/sql/common/util/SQLUtil.java`
-#### Snippet
-```java
-     */
-    public static String getExactlyValue(final String value) {
-        return null == value ? null : CharMatcher.anyOf(EXCLUDED_CHARACTERS).removeFrom(value);
-    }
-    
-```
-
-### ReturnNull
-Return of `null`
-in `sql-parser/statement/src/main/java/org/apache/shardingsphere/sql/parser/sql/common/util/SQLUtil.java`
-#### Snippet
-```java
-    public static String getExactlyValue(final String value, final String reservedCharacters) {
-        if (null == value) {
-            return null;
-        }
-        String toBeExcludedCharacters = CharMatcher.anyOf(reservedCharacters).removeFrom(EXCLUDED_CHARACTERS);
 ```
 
 ### ReturnNull
@@ -15161,6 +15208,30 @@ in `sql-parser/dialect/opengauss/src/main/java/org/apache/shardingsphere/sql/par
             return null;
         }
         return null == ctx.FIRST() ? NullsOrderType.LAST : NullsOrderType.FIRST;
+```
+
+### ReturnNull
+Return of `null`
+in `sql-parser/statement/src/main/java/org/apache/shardingsphere/sql/parser/sql/common/util/SQLUtil.java`
+#### Snippet
+```java
+    public static String getExactlyValue(final String value, final String reservedCharacters) {
+        if (null == value) {
+            return null;
+        }
+        String toBeExcludedCharacters = CharMatcher.anyOf(reservedCharacters).removeFrom(EXCLUDED_CHARACTERS);
+```
+
+### ReturnNull
+Return of `null`
+in `sql-parser/statement/src/main/java/org/apache/shardingsphere/sql/parser/sql/common/util/SQLUtil.java`
+#### Snippet
+```java
+     */
+    public static String getExactlyValue(final String value) {
+        return null == value ? null : CharMatcher.anyOf(EXCLUDED_CHARACTERS).removeFrom(value);
+    }
+    
 ```
 
 ### ReturnNull
@@ -15205,8 +15276,8 @@ in `db-protocol/mysql/src/main/java/org/apache/shardingsphere/db/protocol/mysql/
 #### Snippet
 ```java
     
-    private String readAuthPluginName(final MySQLPacketPayload payload) {
-        return 0 != (capabilityFlags & MySQLCapabilityFlag.CLIENT_PLUGIN_AUTH.getValue()) ? payload.readStringNul() : null;
+    private String readDatabase(final MySQLPacketPayload payload) {
+        return 0 != (capabilityFlags & MySQLCapabilityFlag.CLIENT_CONNECT_WITH_DB.getValue()) ? payload.readStringNul() : null;
     }
     
 ```
@@ -15217,8 +15288,8 @@ in `db-protocol/mysql/src/main/java/org/apache/shardingsphere/db/protocol/mysql/
 #### Snippet
 ```java
     
-    private String readDatabase(final MySQLPacketPayload payload) {
-        return 0 != (capabilityFlags & MySQLCapabilityFlag.CLIENT_CONNECT_WITH_DB.getValue()) ? payload.readStringNul() : null;
+    private String readAuthPluginName(final MySQLPacketPayload payload) {
+        return 0 != (capabilityFlags & MySQLCapabilityFlag.CLIENT_PLUGIN_AUTH.getValue()) ? payload.readStringNul() : null;
     }
     
 ```
@@ -15364,11 +15435,11 @@ in `mode/type/cluster/repository/provider/consul/src/main/java/org/apache/shardi
 in `proxy/frontend/core/src/main/java/org/apache/shardingsphere/proxy/frontend/netty/CDCChannelInboundHandler.java`
 #### Snippet
 ```java
-        }
-        Optional<ShardingSphereUser> user = authorityRule.get().findUser(new Grantee(body.getUsername(), getHostAddress(ctx)));
+        AuthorityRule authorityRule = ProxyContext.getInstance().getContextManager().getMetaDataContexts().getMetaData().getGlobalRuleMetaData().getSingleRule(AuthorityRule.class);
+        Optional<ShardingSphereUser> user = authorityRule.findUser(new Grantee(body.getUsername(), getHostAddress(ctx)));
         if (user.isPresent() && Objects.equals(Hashing.sha256().hashBytes(user.get().getPassword().getBytes()).toString().toUpperCase(), body.getPassword())) {
-            ctx.channel().attr(CONNECTION_CONTEXT_KEY).get().setStatus(CDCConnectionStatus.LOGGED_IN);
-            ctx.writeAndFlush(CDCResponseGenerator.succeedBuilder(request.getRequestId()).build());
+            connectionContext.setStatus(CDCConnectionStatus.LOGGED_IN);
+            connectionContext.setCurrentUser(user.get());
 ```
 
 ### UnstableApiUsage
@@ -15376,11 +15447,11 @@ in `proxy/frontend/core/src/main/java/org/apache/shardingsphere/proxy/frontend/n
 in `proxy/frontend/core/src/main/java/org/apache/shardingsphere/proxy/frontend/netty/CDCChannelInboundHandler.java`
 #### Snippet
 ```java
-        }
-        Optional<ShardingSphereUser> user = authorityRule.get().findUser(new Grantee(body.getUsername(), getHostAddress(ctx)));
+        AuthorityRule authorityRule = ProxyContext.getInstance().getContextManager().getMetaDataContexts().getMetaData().getGlobalRuleMetaData().getSingleRule(AuthorityRule.class);
+        Optional<ShardingSphereUser> user = authorityRule.findUser(new Grantee(body.getUsername(), getHostAddress(ctx)));
         if (user.isPresent() && Objects.equals(Hashing.sha256().hashBytes(user.get().getPassword().getBytes()).toString().toUpperCase(), body.getPassword())) {
-            ctx.channel().attr(CONNECTION_CONTEXT_KEY).get().setStatus(CDCConnectionStatus.LOGGED_IN);
-            ctx.writeAndFlush(CDCResponseGenerator.succeedBuilder(request.getRequestId()).build());
+            connectionContext.setStatus(CDCConnectionStatus.LOGGED_IN);
+            connectionContext.setCurrentUser(user.get());
 ```
 
 ### UnstableApiUsage
@@ -15388,11 +15459,11 @@ in `proxy/frontend/core/src/main/java/org/apache/shardingsphere/proxy/frontend/n
 in `proxy/frontend/core/src/main/java/org/apache/shardingsphere/proxy/frontend/netty/CDCChannelInboundHandler.java`
 #### Snippet
 ```java
-        }
-        Optional<ShardingSphereUser> user = authorityRule.get().findUser(new Grantee(body.getUsername(), getHostAddress(ctx)));
+        AuthorityRule authorityRule = ProxyContext.getInstance().getContextManager().getMetaDataContexts().getMetaData().getGlobalRuleMetaData().getSingleRule(AuthorityRule.class);
+        Optional<ShardingSphereUser> user = authorityRule.findUser(new Grantee(body.getUsername(), getHostAddress(ctx)));
         if (user.isPresent() && Objects.equals(Hashing.sha256().hashBytes(user.get().getPassword().getBytes()).toString().toUpperCase(), body.getPassword())) {
-            ctx.channel().attr(CONNECTION_CONTEXT_KEY).get().setStatus(CDCConnectionStatus.LOGGED_IN);
-            ctx.writeAndFlush(CDCResponseGenerator.succeedBuilder(request.getRequestId()).build());
+            connectionContext.setStatus(CDCConnectionStatus.LOGGED_IN);
+            connectionContext.setCurrentUser(user.get());
 ```
 
 ### UnstableApiUsage
@@ -15400,11 +15471,11 @@ in `proxy/frontend/core/src/main/java/org/apache/shardingsphere/proxy/frontend/n
 in `proxy/frontend/core/src/main/java/org/apache/shardingsphere/proxy/frontend/netty/CDCChannelInboundHandler.java`
 #### Snippet
 ```java
-        }
-        Optional<ShardingSphereUser> user = authorityRule.get().findUser(new Grantee(body.getUsername(), getHostAddress(ctx)));
+        AuthorityRule authorityRule = ProxyContext.getInstance().getContextManager().getMetaDataContexts().getMetaData().getGlobalRuleMetaData().getSingleRule(AuthorityRule.class);
+        Optional<ShardingSphereUser> user = authorityRule.findUser(new Grantee(body.getUsername(), getHostAddress(ctx)));
         if (user.isPresent() && Objects.equals(Hashing.sha256().hashBytes(user.get().getPassword().getBytes()).toString().toUpperCase(), body.getPassword())) {
-            ctx.channel().attr(CONNECTION_CONTEXT_KEY).get().setStatus(CDCConnectionStatus.LOGGED_IN);
-            ctx.writeAndFlush(CDCResponseGenerator.succeedBuilder(request.getRequestId()).build());
+            connectionContext.setStatus(CDCConnectionStatus.LOGGED_IN);
+            connectionContext.setCurrentUser(user.get());
 ```
 
 ### UnstableApiUsage
@@ -15457,6 +15528,54 @@ in `kernel/data-pipeline/cdc/client/src/main/java/org/apache/shardingsphere/data
 
 ### UnstableApiUsage
 'com.google.common.util.concurrent.RateLimiter' is marked unstable with @Beta
+in `kernel/data-pipeline/core/src/main/java/org/apache/shardingsphere/data/pipeline/core/ratelimit/TPSJobRateLimitAlgorithm.java`
+#### Snippet
+```java
+    private int tps = 2000;
+    
+    private RateLimiter rateLimiter;
+    
+    @Getter
+```
+
+### UnstableApiUsage
+'com.google.common.util.concurrent.RateLimiter' is marked unstable with @Beta
+in `kernel/data-pipeline/core/src/main/java/org/apache/shardingsphere/data/pipeline/core/ratelimit/TPSJobRateLimitAlgorithm.java`
+#### Snippet
+```java
+            tps = Integer.parseInt(tpsValue);
+        }
+        rateLimiter = RateLimiter.create(tps);
+    }
+    
+```
+
+### UnstableApiUsage
+'create(double)' is declared in unstable class 'com.google.common.util.concurrent.RateLimiter' marked with @Beta
+in `kernel/data-pipeline/core/src/main/java/org/apache/shardingsphere/data/pipeline/core/ratelimit/TPSJobRateLimitAlgorithm.java`
+#### Snippet
+```java
+            tps = Integer.parseInt(tpsValue);
+        }
+        rateLimiter = RateLimiter.create(tps);
+    }
+    
+```
+
+### UnstableApiUsage
+'acquire(int)' is declared in unstable class 'com.google.common.util.concurrent.RateLimiter' marked with @Beta
+in `kernel/data-pipeline/core/src/main/java/org/apache/shardingsphere/data/pipeline/core/ratelimit/TPSJobRateLimitAlgorithm.java`
+#### Snippet
+```java
+            case DELETE:
+            case UPDATE:
+                rateLimiter.acquire(null != data ? data.intValue() : 1);
+                break;
+            default:
+```
+
+### UnstableApiUsage
+'com.google.common.util.concurrent.RateLimiter' is marked unstable with @Beta
 in `kernel/data-pipeline/core/src/main/java/org/apache/shardingsphere/data/pipeline/core/ratelimit/QPSJobRateLimitAlgorithm.java`
 #### Snippet
 ```java
@@ -15504,51 +15623,75 @@ in `kernel/data-pipeline/core/src/main/java/org/apache/shardingsphere/data/pipel
 ```
 
 ### UnstableApiUsage
-'com.google.common.util.concurrent.RateLimiter' is marked unstable with @Beta
-in `kernel/data-pipeline/core/src/main/java/org/apache/shardingsphere/data/pipeline/core/ratelimit/TPSJobRateLimitAlgorithm.java`
+'of(org.apache.calcite.rex.RexUnknownAs, com.google.common.collect.RangeSet)' is unstable because its signature references unstable interface 'com.google.common.collect.RangeSet' marked with @Beta
+in `kernel/sql-federation/optimizer/src/main/java/org/apache/shardingsphere/sqlfederation/optimizer/metadata/translatable/ParseRexNodeVisitorImpl.java`
 #### Snippet
 ```java
-            tps = Integer.parseInt(tpsValue);
-        }
-        rateLimiter = RateLimiter.create(tps);
+        Range.range(lowerValue, BoundType.OPEN, upperValue, BoundType.OPEN);
+        return null == ctx.LP_()
+                ? Sarg.of(RexUnknownAs.UNKNOWN, ImmutableRangeSet.of(Range.range(lowerValue, BoundType.CLOSED, upperValue, BoundType.CLOSED)))
+                : Sarg.of(RexUnknownAs.UNKNOWN, ImmutableRangeSet.of(Range.range(lowerValue, BoundType.OPEN, upperValue, BoundType.OPEN)));
+    }
+```
+
+### UnstableApiUsage
+'com.google.common.collect.ImmutableRangeSet' is marked unstable with @Beta
+in `kernel/sql-federation/optimizer/src/main/java/org/apache/shardingsphere/sqlfederation/optimizer/metadata/translatable/ParseRexNodeVisitorImpl.java`
+#### Snippet
+```java
+        Range.range(lowerValue, BoundType.OPEN, upperValue, BoundType.OPEN);
+        return null == ctx.LP_()
+                ? Sarg.of(RexUnknownAs.UNKNOWN, ImmutableRangeSet.of(Range.range(lowerValue, BoundType.CLOSED, upperValue, BoundType.CLOSED)))
+                : Sarg.of(RexUnknownAs.UNKNOWN, ImmutableRangeSet.of(Range.range(lowerValue, BoundType.OPEN, upperValue, BoundType.OPEN)));
+    }
+```
+
+### UnstableApiUsage
+'of(com.google.common.collect.Range)' is declared in unstable class 'com.google.common.collect.ImmutableRangeSet' marked with @Beta
+in `kernel/sql-federation/optimizer/src/main/java/org/apache/shardingsphere/sqlfederation/optimizer/metadata/translatable/ParseRexNodeVisitorImpl.java`
+#### Snippet
+```java
+        Range.range(lowerValue, BoundType.OPEN, upperValue, BoundType.OPEN);
+        return null == ctx.LP_()
+                ? Sarg.of(RexUnknownAs.UNKNOWN, ImmutableRangeSet.of(Range.range(lowerValue, BoundType.CLOSED, upperValue, BoundType.CLOSED)))
+                : Sarg.of(RexUnknownAs.UNKNOWN, ImmutableRangeSet.of(Range.range(lowerValue, BoundType.OPEN, upperValue, BoundType.OPEN)));
+    }
+```
+
+### UnstableApiUsage
+'of(org.apache.calcite.rex.RexUnknownAs, com.google.common.collect.RangeSet)' is unstable because its signature references unstable interface 'com.google.common.collect.RangeSet' marked with @Beta
+in `kernel/sql-federation/optimizer/src/main/java/org/apache/shardingsphere/sqlfederation/optimizer/metadata/translatable/ParseRexNodeVisitorImpl.java`
+#### Snippet
+```java
+        return null == ctx.LP_()
+                ? Sarg.of(RexUnknownAs.UNKNOWN, ImmutableRangeSet.of(Range.range(lowerValue, BoundType.CLOSED, upperValue, BoundType.CLOSED)))
+                : Sarg.of(RexUnknownAs.UNKNOWN, ImmutableRangeSet.of(Range.range(lowerValue, BoundType.OPEN, upperValue, BoundType.OPEN)));
     }
     
 ```
 
 ### UnstableApiUsage
-'create(double)' is declared in unstable class 'com.google.common.util.concurrent.RateLimiter' marked with @Beta
-in `kernel/data-pipeline/core/src/main/java/org/apache/shardingsphere/data/pipeline/core/ratelimit/TPSJobRateLimitAlgorithm.java`
+'com.google.common.collect.ImmutableRangeSet' is marked unstable with @Beta
+in `kernel/sql-federation/optimizer/src/main/java/org/apache/shardingsphere/sqlfederation/optimizer/metadata/translatable/ParseRexNodeVisitorImpl.java`
 #### Snippet
 ```java
-            tps = Integer.parseInt(tpsValue);
-        }
-        rateLimiter = RateLimiter.create(tps);
+        return null == ctx.LP_()
+                ? Sarg.of(RexUnknownAs.UNKNOWN, ImmutableRangeSet.of(Range.range(lowerValue, BoundType.CLOSED, upperValue, BoundType.CLOSED)))
+                : Sarg.of(RexUnknownAs.UNKNOWN, ImmutableRangeSet.of(Range.range(lowerValue, BoundType.OPEN, upperValue, BoundType.OPEN)));
     }
     
 ```
 
 ### UnstableApiUsage
-'acquire(int)' is declared in unstable class 'com.google.common.util.concurrent.RateLimiter' marked with @Beta
-in `kernel/data-pipeline/core/src/main/java/org/apache/shardingsphere/data/pipeline/core/ratelimit/TPSJobRateLimitAlgorithm.java`
+'of(com.google.common.collect.Range)' is declared in unstable class 'com.google.common.collect.ImmutableRangeSet' marked with @Beta
+in `kernel/sql-federation/optimizer/src/main/java/org/apache/shardingsphere/sqlfederation/optimizer/metadata/translatable/ParseRexNodeVisitorImpl.java`
 #### Snippet
 ```java
-            case DELETE:
-            case UPDATE:
-                rateLimiter.acquire(null != data ? data.intValue() : 1);
-                break;
-            default:
-```
-
-### UnstableApiUsage
-'com.google.common.util.concurrent.RateLimiter' is marked unstable with @Beta
-in `kernel/data-pipeline/core/src/main/java/org/apache/shardingsphere/data/pipeline/core/ratelimit/TPSJobRateLimitAlgorithm.java`
-#### Snippet
-```java
-    private int tps = 2000;
+        return null == ctx.LP_()
+                ? Sarg.of(RexUnknownAs.UNKNOWN, ImmutableRangeSet.of(Range.range(lowerValue, BoundType.CLOSED, upperValue, BoundType.CLOSED)))
+                : Sarg.of(RexUnknownAs.UNKNOWN, ImmutableRangeSet.of(Range.range(lowerValue, BoundType.OPEN, upperValue, BoundType.OPEN)));
+    }
     
-    private RateLimiter rateLimiter;
-    
-    @Getter
 ```
 
 ### UnstableApiUsage
@@ -15583,78 +15726,6 @@ in `kernel/sql-federation/optimizer/src/main/java/org/apache/shardingsphere/sqlf
             }
         }
         return Sarg.of(RexUnknownAs.UNKNOWN, ImmutableRangeSet.copyOf(rangeList));
-    }
-    
-```
-
-### UnstableApiUsage
-'of(org.apache.calcite.rex.RexUnknownAs, com.google.common.collect.RangeSet)' is unstable because its signature references unstable interface 'com.google.common.collect.RangeSet' marked with @Beta
-in `kernel/sql-federation/optimizer/src/main/java/org/apache/shardingsphere/sqlfederation/optimizer/metadata/translatable/ParseRexNodeVisitorImpl.java`
-#### Snippet
-```java
-        Range.range(lowerValue, BoundType.OPEN, upperValue, BoundType.OPEN);
-        return null == ctx.LP_()
-                ? Sarg.of(RexUnknownAs.UNKNOWN, ImmutableRangeSet.of(Range.range(lowerValue, BoundType.CLOSED, upperValue, BoundType.CLOSED)))
-                : Sarg.of(RexUnknownAs.UNKNOWN, ImmutableRangeSet.of(Range.range(lowerValue, BoundType.OPEN, upperValue, BoundType.OPEN)));
-    }
-```
-
-### UnstableApiUsage
-'com.google.common.collect.ImmutableRangeSet' is marked unstable with @Beta
-in `kernel/sql-federation/optimizer/src/main/java/org/apache/shardingsphere/sqlfederation/optimizer/metadata/translatable/ParseRexNodeVisitorImpl.java`
-#### Snippet
-```java
-        Range.range(lowerValue, BoundType.OPEN, upperValue, BoundType.OPEN);
-        return null == ctx.LP_()
-                ? Sarg.of(RexUnknownAs.UNKNOWN, ImmutableRangeSet.of(Range.range(lowerValue, BoundType.CLOSED, upperValue, BoundType.CLOSED)))
-                : Sarg.of(RexUnknownAs.UNKNOWN, ImmutableRangeSet.of(Range.range(lowerValue, BoundType.OPEN, upperValue, BoundType.OPEN)));
-    }
-```
-
-### UnstableApiUsage
-'of(com.google.common.collect.Range)' is declared in unstable class 'com.google.common.collect.ImmutableRangeSet' marked with @Beta
-in `kernel/sql-federation/optimizer/src/main/java/org/apache/shardingsphere/sqlfederation/optimizer/metadata/translatable/ParseRexNodeVisitorImpl.java`
-#### Snippet
-```java
-        Range.range(lowerValue, BoundType.OPEN, upperValue, BoundType.OPEN);
-        return null == ctx.LP_()
-                ? Sarg.of(RexUnknownAs.UNKNOWN, ImmutableRangeSet.of(Range.range(lowerValue, BoundType.CLOSED, upperValue, BoundType.CLOSED)))
-                : Sarg.of(RexUnknownAs.UNKNOWN, ImmutableRangeSet.of(Range.range(lowerValue, BoundType.OPEN, upperValue, BoundType.OPEN)));
-    }
-```
-
-### UnstableApiUsage
-'of(org.apache.calcite.rex.RexUnknownAs, com.google.common.collect.RangeSet)' is unstable because its signature references unstable interface 'com.google.common.collect.RangeSet' marked with @Beta
-in `kernel/sql-federation/optimizer/src/main/java/org/apache/shardingsphere/sqlfederation/optimizer/metadata/translatable/ParseRexNodeVisitorImpl.java`
-#### Snippet
-```java
-        return null == ctx.LP_()
-                ? Sarg.of(RexUnknownAs.UNKNOWN, ImmutableRangeSet.of(Range.range(lowerValue, BoundType.CLOSED, upperValue, BoundType.CLOSED)))
-                : Sarg.of(RexUnknownAs.UNKNOWN, ImmutableRangeSet.of(Range.range(lowerValue, BoundType.OPEN, upperValue, BoundType.OPEN)));
-    }
-    
-```
-
-### UnstableApiUsage
-'com.google.common.collect.ImmutableRangeSet' is marked unstable with @Beta
-in `kernel/sql-federation/optimizer/src/main/java/org/apache/shardingsphere/sqlfederation/optimizer/metadata/translatable/ParseRexNodeVisitorImpl.java`
-#### Snippet
-```java
-        return null == ctx.LP_()
-                ? Sarg.of(RexUnknownAs.UNKNOWN, ImmutableRangeSet.of(Range.range(lowerValue, BoundType.CLOSED, upperValue, BoundType.CLOSED)))
-                : Sarg.of(RexUnknownAs.UNKNOWN, ImmutableRangeSet.of(Range.range(lowerValue, BoundType.OPEN, upperValue, BoundType.OPEN)));
-    }
-    
-```
-
-### UnstableApiUsage
-'of(com.google.common.collect.Range)' is declared in unstable class 'com.google.common.collect.ImmutableRangeSet' marked with @Beta
-in `kernel/sql-federation/optimizer/src/main/java/org/apache/shardingsphere/sqlfederation/optimizer/metadata/translatable/ParseRexNodeVisitorImpl.java`
-#### Snippet
-```java
-        return null == ctx.LP_()
-                ? Sarg.of(RexUnknownAs.UNKNOWN, ImmutableRangeSet.of(Range.range(lowerValue, BoundType.CLOSED, upperValue, BoundType.CLOSED)))
-                : Sarg.of(RexUnknownAs.UNKNOWN, ImmutableRangeSet.of(Range.range(lowerValue, BoundType.OPEN, upperValue, BoundType.OPEN)));
     }
     
 ```
