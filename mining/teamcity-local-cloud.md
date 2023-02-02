@@ -171,8 +171,8 @@ Double brace initialization
 in `src/jetbrains/buildServer/clouds/local/LocalCloudInstance.java`
 #### Snippet
 ```java
-        ZipUtil.extract(agentHomeDir, myBaseDir, new FilenameFilter() {
-
+      if (agentHomeDir.isDirectory()) {
+        FileUtil.copyDir(agentHomeDir, myBaseDir, new FileFilter() {
           private final Set<String> ourDirsToNotToCopy = new HashSet<String>() {{
             Collections.addAll(this, "work", "temp", "system", "contrib");
           }};
@@ -183,8 +183,8 @@ Double brace initialization
 in `src/jetbrains/buildServer/clouds/local/LocalCloudInstance.java`
 #### Snippet
 ```java
-      if (agentHomeDir.isDirectory()) {
-        FileUtil.copyDir(agentHomeDir, myBaseDir, new FileFilter() {
+        ZipUtil.extract(agentHomeDir, myBaseDir, new FilenameFilter() {
+
           private final Set<String> ourDirsToNotToCopy = new HashSet<String>() {{
             Collections.addAll(this, "work", "temp", "system", "contrib");
           }};
