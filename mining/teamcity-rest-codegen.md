@@ -466,54 +466,6 @@ in `src/main/java/com/jetbrains/codegen/python/TeamCityPythonCodegen.java`
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/com/jetbrains/codegen/kotlin/TeamCityKotlinCodegen.java`
-#### Snippet
-```java
-    public CodegenProperty fromProperty(String name, Property p) {
-        CodegenProperty property = super.fromProperty(name, p);
-        property.name = property.name.replace(".", "|");
-        property.nameInCamelCase = camelize(property.name.replace("$", ""), true);
-        property.name = property.name.replace("|", ".");
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/com/jetbrains/codegen/kotlin/TeamCityKotlinCodegen.java`
-#### Snippet
-```java
-        CodegenProperty property = super.fromProperty(name, p);
-        property.name = property.name.replace(".", "|");
-        property.nameInCamelCase = camelize(property.name.replace("$", ""), true);
-        property.name = property.name.replace("|", ".");
-        property.baseName = property.baseName.replace("$", "\\$");
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/com/jetbrains/codegen/kotlin/TeamCityKotlinCodegen.java`
-#### Snippet
-```java
-        property.name = property.name.replace(".", "|");
-        property.nameInCamelCase = camelize(property.name.replace("$", ""), true);
-        property.name = property.name.replace("|", ".");
-        property.baseName = property.baseName.replace("$", "\\$");
-
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/com/jetbrains/codegen/kotlin/TeamCityKotlinCodegen.java`
-#### Snippet
-```java
-        property.nameInCamelCase = camelize(property.name.replace("$", ""), true);
-        property.name = property.name.replace("|", ".");
-        property.baseName = property.baseName.replace("$", "\\$");
-
-        return property;
-```
-
-### DynamicRegexReplaceableByCompiledPattern
 `replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
 in `src/main/java/com/jetbrains/codegen/kotlin/TeamCityKotlinCodegen.java`
 #### Snippet
@@ -619,6 +571,54 @@ in `src/main/java/com/jetbrains/codegen/kotlin/TeamCityKotlinCodegen.java`
         name = name.replaceAll(" ", "_");
 
         return name;
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `src/main/java/com/jetbrains/codegen/kotlin/TeamCityKotlinCodegen.java`
+#### Snippet
+```java
+    public CodegenProperty fromProperty(String name, Property p) {
+        CodegenProperty property = super.fromProperty(name, p);
+        property.name = property.name.replace(".", "|");
+        property.nameInCamelCase = camelize(property.name.replace("$", ""), true);
+        property.name = property.name.replace("|", ".");
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `src/main/java/com/jetbrains/codegen/kotlin/TeamCityKotlinCodegen.java`
+#### Snippet
+```java
+        CodegenProperty property = super.fromProperty(name, p);
+        property.name = property.name.replace(".", "|");
+        property.nameInCamelCase = camelize(property.name.replace("$", ""), true);
+        property.name = property.name.replace("|", ".");
+        property.baseName = property.baseName.replace("$", "\\$");
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `src/main/java/com/jetbrains/codegen/kotlin/TeamCityKotlinCodegen.java`
+#### Snippet
+```java
+        property.name = property.name.replace(".", "|");
+        property.nameInCamelCase = camelize(property.name.replace("$", ""), true);
+        property.name = property.name.replace("|", ".");
+        property.baseName = property.baseName.replace("$", "\\$");
+
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `src/main/java/com/jetbrains/codegen/kotlin/TeamCityKotlinCodegen.java`
+#### Snippet
+```java
+        property.nameInCamelCase = camelize(property.name.replace("$", ""), true);
+        property.name = property.name.replace("|", ".");
+        property.baseName = property.baseName.replace("$", "\\$");
+
+        return property;
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
