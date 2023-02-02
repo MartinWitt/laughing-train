@@ -26,18 +26,6 @@ in `powershell-agent/src/main/java/jetbrains/buildServer/powershell/agent/detect
 
 ## RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
 ### UtilityClassWithoutPrivateConstructor
-Class `LegacyKeys` has only 'static' members, and lacks a 'private' constructor
-in `powershell-agent/src/main/java/jetbrains/buildServer/powershell/agent/LegacyKeys.java`
-#### Snippet
-```java
- * @author Oleg Rybak (oleg.rybak@jetbrains.com)
- */
-class LegacyKeys {
-
-  private static String getVersionKey(@NotNull final PowerShellBitness bitness) {
-```
-
-### UtilityClassWithoutPrivateConstructor
 Class `Loggers` has only 'static' members, and lacks a 'private' constructor
 in `powershell-agent/src/main/java/jetbrains/buildServer/powershell/agent/Loggers.java`
 #### Snippet
@@ -61,17 +49,16 @@ public class PowerShellConstants {
   public static final String PLUGIN_NAME = "powershell-runner";
 ```
 
-## RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
-### DynamicRegexReplaceableByCompiledPattern
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `powershell-agent/src/main/java/jetbrains/buildServer/powershell/agent/system/PowerShellCommands.java`
+### UtilityClassWithoutPrivateConstructor
+Class `LegacyKeys` has only 'static' members, and lacks a 'private' constructor
+in `powershell-agent/src/main/java/jetbrains/buildServer/powershell/agent/LegacyKeys.java`
 #### Snippet
 ```java
-      if (info.getBitness() == PowerShellBitness.x64) {
-        if (mySystemBitness.is32bit()) {
-          return info.getExecutablePath().replace(SYSTEM32, NATIVE);
-        }
-      }
+ * @author Oleg Rybak (oleg.rybak@jetbrains.com)
+ */
+class LegacyKeys {
+
+  private static String getVersionKey(@NotNull final PowerShellBitness bitness) {
 ```
 
 ## RuleId[ruleID=StaticCallOnSubclass]
@@ -136,18 +123,6 @@ in `powershell-server/src/main/java/jetbrains/buildServer/powershell/server/Powe
 ```
 
 ### StaticCallOnSubclass
-Static method `join()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
-in `powershell-agent/src/main/java/jetbrains/buildServer/powershell/agent/service/PowerShellServiceWindows.java`
-#### Snippet
-```java
-    final String command = myCommands.getNativeCommand(info, getRunnerContext());
-    buildLogger.message("Command: " + command);
-    buildLogger.message("PowerShell arguments: " + StringUtil.join(args, ", "));
-    return new SimpleProgramCommandLine(env, workDir, command, args);
-  }
-```
-
-### StaticCallOnSubclass
 Static method `isEmptyOrSpaces()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
 in `powershell-agent/src/main/java/jetbrains/buildServer/powershell/agent/service/PowerShellServiceWindows.java`
 #### Snippet
@@ -160,15 +135,15 @@ in `powershell-agent/src/main/java/jetbrains/buildServer/powershell/agent/servic
 ```
 
 ### StaticCallOnSubclass
-Static method `isEmptyOrSpaces()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
-in `powershell-agent/src/main/java/jetbrains/buildServer/powershell/agent/PowerShellCommandLineProvider.java`
+Static method `join()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
+in `powershell-agent/src/main/java/jetbrains/buildServer/powershell/agent/service/PowerShellServiceWindows.java`
 #### Snippet
 ```java
-    }
-    addVersion(result, runnerParams, info); // version must be the 1st arg after executable path
-    if (!StringUtil.isEmptyOrSpaces(runnerParams.get(RUNNER_NO_PROFILE))) {
-      result.add("-NoProfile");
-    }
+    final String command = myCommands.getNativeCommand(info, getRunnerContext());
+    buildLogger.message("Command: " + command);
+    buildLogger.message("PowerShell arguments: " + StringUtil.join(args, ", "));
+    return new SimpleProgramCommandLine(env, workDir, command, args);
+  }
 ```
 
 ### StaticCallOnSubclass
@@ -208,15 +183,15 @@ in `powershell-agent/src/main/java/jetbrains/buildServer/powershell/agent/PowerS
 ```
 
 ### StaticCallOnSubclass
-Static method `join()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
-in `powershell-agent/src/main/java/jetbrains/buildServer/powershell/agent/detect/cmd/CommandLinePowerShellDetector.java`
+Static method `isEmptyOrSpaces()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
+in `powershell-agent/src/main/java/jetbrains/buildServer/powershell/agent/PowerShellCommandLineProvider.java`
 #### Snippet
 ```java
-        final List<String> outputLines = myRunner.runDetectionScript(executablePath, scriptPath, additionalParameters);
-        if (LOG.isDebugEnabled()) {
-          LOG.debug("Detection script output at " + executablePath + "\n" + StringUtil.join(outputLines, "\n"));
-        }
-        if (outputLines.size() == 3) {
+    }
+    addVersion(result, runnerParams, info); // version must be the 1st arg after executable path
+    if (!StringUtil.isEmptyOrSpaces(runnerParams.get(RUNNER_NO_PROFILE))) {
+      result.add("-NoProfile");
+    }
 ```
 
 ### StaticCallOnSubclass
@@ -229,6 +204,31 @@ in `powershell-agent/src/main/java/jetbrains/buildServer/powershell/agent/detect
       LOG.debug("Will be detecting PowerShell in the following locations: [\n" + StringUtil.join(pathsToCheck, "\n") + "\n");
     }
 
+```
+
+### StaticCallOnSubclass
+Static method `join()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
+in `powershell-agent/src/main/java/jetbrains/buildServer/powershell/agent/detect/cmd/CommandLinePowerShellDetector.java`
+#### Snippet
+```java
+        final List<String> outputLines = myRunner.runDetectionScript(executablePath, scriptPath, additionalParameters);
+        if (LOG.isDebugEnabled()) {
+          LOG.debug("Detection script output at " + executablePath + "\n" + StringUtil.join(outputLines, "\n"));
+        }
+        if (outputLines.size() == 3) {
+```
+
+## RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
+### DynamicRegexReplaceableByCompiledPattern
+`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `powershell-agent/src/main/java/jetbrains/buildServer/powershell/agent/system/PowerShellCommands.java`
+#### Snippet
+```java
+      if (info.getBitness() == PowerShellBitness.x64) {
+        if (mySystemBitness.is32bit()) {
+          return info.getExecutablePath().replace(SYSTEM32, NATIVE);
+        }
+      }
 ```
 
 ## RuleId[ruleID=UNUSED_IMPORT]
@@ -276,9 +276,9 @@ in `powershell-agent/src/main/java/jetbrains/buildServer/powershell/agent/detect
 ```java
   }
 
-  private void addGlobalToolsPath(@NotNull final List<String> result) {
-    File toolsPath;
-    if (SystemInfo.isWindows) {
+  private void checkPathAndAdd(@NotNull final Set<String> paths, String path) {
+    if (!isEmptyOrSpaces(path)) {
+      File base = new File(path, "PowerShell");
 ```
 
 ### BoundedWildcard
@@ -288,9 +288,9 @@ in `powershell-agent/src/main/java/jetbrains/buildServer/powershell/agent/detect
 ```java
   }
 
-  private void checkPathAndAdd(@NotNull final Set<String> paths, String path) {
-    if (!isEmptyOrSpaces(path)) {
-      File base = new File(path, "PowerShell");
+  private void addGlobalToolsPath(@NotNull final List<String> result) {
+    File toolsPath;
+    if (SystemInfo.isWindows) {
 ```
 
 ### BoundedWildcard
