@@ -236,6 +236,18 @@ in `src/main/java/org/apache/maven/report/projectinfo/DependencyInformationRepor
 #### Snippet
 ```java
      */
+    @Parameter( defaultValue = "${project.artifactId}", required = true )
+    protected String artifactId;
+
+    /**
+```
+
+### ProtectedMemberInFinalClass
+Class member declared `protected` in 'final' class
+in `src/main/java/org/apache/maven/report/projectinfo/DependencyInformationReport.java`
+#### Snippet
+```java
+     */
     @Parameter( defaultValue = "${project.version}", required = true )
     protected String version;
 
@@ -250,18 +262,6 @@ in `src/main/java/org/apache/maven/report/projectinfo/DependencyInformationRepor
      */
     @Parameter( defaultValue = "${project.groupId}", required = true )
     protected String groupId;
-
-    /**
-```
-
-### ProtectedMemberInFinalClass
-Class member declared `protected` in 'final' class
-in `src/main/java/org/apache/maven/report/projectinfo/DependencyInformationReport.java`
-#### Snippet
-```java
-     */
-    @Parameter( defaultValue = "${project.artifactId}", required = true )
-    protected String artifactId;
 
     /**
 ```
@@ -331,27 +331,15 @@ in `src/main/java/org/apache/maven/report/projectinfo/dependencies/DependencyVer
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends ReportPlugin`
-in `src/main/java/org/apache/maven/report/projectinfo/PluginsReport.java`
+Can generalize to `? extends MavenProject`
+in `src/main/java/org/apache/maven/report/projectinfo/ModulesReport.java`
 #### Snippet
 ```java
-            }
+        }
 
-            public static List<GAV> reportPluginsToGAV( List<ReportPlugin> reportPlugins, MavenProject project )
-            {
-                List<GAV> result = new ArrayList<>( reportPlugins.size() );
-```
-
-### BoundedWildcard
-Can generalize to `? extends Plugin`
-in `src/main/java/org/apache/maven/report/projectinfo/PluginsReport.java`
-#### Snippet
-```java
-            }
-
-            public static List<GAV> pluginsToGAV( List<Plugin> plugins )
-            {
-                List<GAV> result = new ArrayList<>( plugins.size() );
+        private MavenProject getModuleFromReactor( MavenProject project, List<MavenProject> reactorProjects,
+                                                   String module )
+        {
 ```
 
 ### BoundedWildcard
@@ -367,15 +355,27 @@ in `src/main/java/org/apache/maven/report/projectinfo/PluginsReport.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends MavenProject`
-in `src/main/java/org/apache/maven/report/projectinfo/ModulesReport.java`
+Can generalize to `? extends Plugin`
+in `src/main/java/org/apache/maven/report/projectinfo/PluginsReport.java`
 #### Snippet
 ```java
-        }
+            }
 
-        private MavenProject getModuleFromReactor( MavenProject project, List<MavenProject> reactorProjects,
-                                                   String module )
-        {
+            public static List<GAV> pluginsToGAV( List<Plugin> plugins )
+            {
+                List<GAV> result = new ArrayList<>( plugins.size() );
+```
+
+### BoundedWildcard
+Can generalize to `? extends ReportPlugin`
+in `src/main/java/org/apache/maven/report/projectinfo/PluginsReport.java`
+#### Snippet
+```java
+            }
+
+            public static List<GAV> reportPluginsToGAV( List<ReportPlugin> reportPlugins, MavenProject project )
+            {
+                List<GAV> result = new ArrayList<>( reportPlugins.size() );
 ```
 
 ### BoundedWildcard
@@ -427,39 +427,27 @@ in `src/main/java/org/apache/maven/report/projectinfo/dependencies/RepositoryUti
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends List`
-in `src/main/java/org/apache/maven/report/projectinfo/dependencies/renderer/DependencyManagementRenderer.java`
+Can generalize to `? super String`
+in `src/main/java/org/apache/maven/report/projectinfo/TeamReport.java`
 #### Snippet
 ```java
-    }
-
-    private void renderDependenciesForAllScopes( Map<String, List<Dependency>> dependenciesByScope )
-    {
-        renderDependenciesForScope( Artifact.SCOPE_COMPILE, dependenciesByScope.get( Artifact.SCOPE_COMPILE ) );
+         * @param properties
+         */
+        private static void setRequiredArray( Map<String, Boolean> requiredHeaders, List<String> requiredArray,
+                                       String name, String email, String url, String organization,
+                                       String organizationUrl, String roles, String timeZone,
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends Dependency`
-in `src/main/java/org/apache/maven/report/projectinfo/dependencies/renderer/DependencyManagementRenderer.java`
-#### Snippet
-```java
-    }
-
-    private void renderDependenciesForScope( String scope, List<Dependency> artifacts )
-    {
-        if ( artifacts != null )
-```
-
-### BoundedWildcard
-Can generalize to `? extends List`
+Can generalize to `? extends ReverseDependencyLink`
 in `src/main/java/org/apache/maven/report/projectinfo/DependencyConvergenceReport.java`
 #### Snippet
 ```java
-     * @param version
+     * @return A Map of sorted unique artifacts
      */
-    private void generateVersionDetails( Sink sink, Map<String, List<ReverseDependencyLink>> artifactMap,
-                                         String version )
+    private Map<String, List<ReverseDependencyLink>> getSortedUniqueArtifactMap( List<ReverseDependencyLink> depList )
     {
+        Map<String, List<ReverseDependencyLink>> uniqueArtifactMap = new TreeMap<>();
 ```
 
 ### BoundedWildcard
@@ -475,15 +463,15 @@ in `src/main/java/org/apache/maven/report/projectinfo/DependencyConvergenceRepor
 ```
 
 ### BoundedWildcard
-Can generalize to `? super String`
+Can generalize to `? extends ReverseDependencyLink`
 in `src/main/java/org/apache/maven/report/projectinfo/DependencyConvergenceReport.java`
 #### Snippet
 ```java
-     * @param node
-     */
-    private void getAllDependencyMap( Map<String, List<ReverseDependencyLink>> allDependencies,
-                                      MavenProject reactorProject, DependencyNode node )
+    }
+
+    private void showVersionDetails( DependencyNode projectNode, List<ReverseDependencyLink> depList, Sink sink )
     {
+        if ( depList == null || depList.isEmpty() )
 ```
 
 ### BoundedWildcard
@@ -505,9 +493,33 @@ in `src/main/java/org/apache/maven/report/projectinfo/DependencyConvergenceRepor
 ```java
     }
 
-    private void showVersionDetails( DependencyNode projectNode, List<ReverseDependencyLink> depList, Sink sink )
+    private List<DependencyNode> getProjectNodes( List<ReverseDependencyLink> depList )
     {
-        if ( depList == null || depList.isEmpty() )
+        List<DependencyNode> projectNodes = new ArrayList<>();
+```
+
+### BoundedWildcard
+Can generalize to `? extends List`
+in `src/main/java/org/apache/maven/report/projectinfo/DependencyConvergenceReport.java`
+#### Snippet
+```java
+     * @param version
+     */
+    private void generateVersionDetails( Sink sink, Map<String, List<ReverseDependencyLink>> artifactMap,
+                                         String version )
+    {
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `src/main/java/org/apache/maven/report/projectinfo/DependencyConvergenceReport.java`
+#### Snippet
+```java
+     * @param node
+     */
+    private void getAllDependencyMap( Map<String, List<ReverseDependencyLink>> allDependencies,
+                                      MavenProject reactorProject, DependencyNode node )
+    {
 ```
 
 ### BoundedWildcard
@@ -523,39 +535,27 @@ in `src/main/java/org/apache/maven/report/projectinfo/DependencyConvergenceRepor
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends ReverseDependencyLink`
-in `src/main/java/org/apache/maven/report/projectinfo/DependencyConvergenceReport.java`
-#### Snippet
-```java
-     * @return A Map of sorted unique artifacts
-     */
-    private Map<String, List<ReverseDependencyLink>> getSortedUniqueArtifactMap( List<ReverseDependencyLink> depList )
-    {
-        Map<String, List<ReverseDependencyLink>> uniqueArtifactMap = new TreeMap<>();
-```
-
-### BoundedWildcard
-Can generalize to `? extends ReverseDependencyLink`
-in `src/main/java/org/apache/maven/report/projectinfo/DependencyConvergenceReport.java`
+Can generalize to `? extends Dependency`
+in `src/main/java/org/apache/maven/report/projectinfo/dependencies/renderer/DependencyManagementRenderer.java`
 #### Snippet
 ```java
     }
 
-    private List<DependencyNode> getProjectNodes( List<ReverseDependencyLink> depList )
+    private void renderDependenciesForScope( String scope, List<Dependency> artifacts )
     {
-        List<DependencyNode> projectNodes = new ArrayList<>();
+        if ( artifacts != null )
 ```
 
 ### BoundedWildcard
-Can generalize to `? super String`
-in `src/main/java/org/apache/maven/report/projectinfo/TeamReport.java`
+Can generalize to `? extends List`
+in `src/main/java/org/apache/maven/report/projectinfo/dependencies/renderer/DependencyManagementRenderer.java`
 #### Snippet
 ```java
-         * @param properties
-         */
-        private static void setRequiredArray( Map<String, Boolean> requiredHeaders, List<String> requiredArray,
-                                       String name, String email, String url, String organization,
-                                       String organizationUrl, String roles, String timeZone,
+    }
+
+    private void renderDependenciesForAllScopes( Map<String, List<Dependency>> dependenciesByScope )
+    {
+        renderDependenciesForScope( Artifact.SCOPE_COMPILE, dependenciesByScope.get( Artifact.SCOPE_COMPILE ) );
 ```
 
 ### BoundedWildcard
@@ -587,9 +587,9 @@ Can generalize to `? extends Artifact`
 in `src/main/java/org/apache/maven/report/projectinfo/dependencies/renderer/DependenciesRenderer.java`
 #### Snippet
 ```java
-     * @return <code>true</code> if one artifact in the list has a classifier, <code>false</code> otherwise.
+     * @return <code>true</code> if one artifact in the list is sealed, <code>false</code> otherwise.
      */
-    private boolean hasClassifier( List<Artifact> artifacts )
+    private boolean hasSealed( List<Artifact> artifacts )
     {
         for ( Artifact artifact : artifacts )
 ```
@@ -599,9 +599,9 @@ Can generalize to `? extends Artifact`
 in `src/main/java/org/apache/maven/report/projectinfo/dependencies/renderer/DependenciesRenderer.java`
 #### Snippet
 ```java
-     * @return <code>true</code> if one artifact in the list is sealed, <code>false</code> otherwise.
+     * @return <code>true</code> if one artifact in the list has a classifier, <code>false</code> otherwise.
      */
-    private boolean hasSealed( List<Artifact> artifacts )
+    private boolean hasClassifier( List<Artifact> artifacts )
     {
         for ( Artifact artifact : artifacts )
 ```
@@ -676,6 +676,30 @@ Qualifier `super` is unnecessary in this context
 in `src/main/java/org/apache/maven/report/projectinfo/dependencies/renderer/DependenciesRenderer.java`
 #### Snippet
 ```java
+        section = section + 1;
+
+        super.sink.anchor( HtmlTools.encodeId( anchor ) );
+        super.sink.anchor_();
+
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `src/main/java/org/apache/maven/report/projectinfo/dependencies/renderer/DependenciesRenderer.java`
+#### Snippet
+```java
+
+        super.sink.anchor( HtmlTools.encodeId( anchor ) );
+        super.sink.anchor_();
+
+        switch ( section )
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `src/main/java/org/apache/maven/report/projectinfo/dependencies/renderer/DependenciesRenderer.java`
+#### Snippet
+```java
             if ( fs > 1000 * 1000 * 1000 )
             {
                 result = super.format( (float) fs / ( 1000 * 1000 * 1000 ), result, fieldPosition );
@@ -707,30 +731,6 @@ in `src/main/java/org/apache/maven/report/projectinfo/dependencies/renderer/Depe
             return result;
 ```
 
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `src/main/java/org/apache/maven/report/projectinfo/dependencies/renderer/DependenciesRenderer.java`
-#### Snippet
-```java
-        section = section + 1;
-
-        super.sink.anchor( HtmlTools.encodeId( anchor ) );
-        super.sink.anchor_();
-
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `src/main/java/org/apache/maven/report/projectinfo/dependencies/renderer/DependenciesRenderer.java`
-#### Snippet
-```java
-
-        super.sink.anchor( HtmlTools.encodeId( anchor ) );
-        super.sink.anchor_();
-
-        switch ( section )
-```
-
 ## RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
 ### DynamicRegexReplaceableByCompiledPattern
 `replaceFirst()` could be replaced with compiled 'java.util.regex.Pattern' construct
@@ -746,18 +746,6 @@ in `src/main/java/org/apache/maven/report/projectinfo/IssueManagementReport.java
 
 ## RuleId[ruleID=ReplaceAssignmentWithOperatorAssignment]
 ### ReplaceAssignmentWithOperatorAssignment
-`section = section - 1` could be simplified to 'section -= 1'
-in `src/main/java/org/apache/maven/report/projectinfo/dependencies/renderer/DependenciesRenderer.java`
-#### Snippet
-```java
-        }
-
-        section = section - 1;
-
-        if ( section < 0 )
-```
-
-### ReplaceAssignmentWithOperatorAssignment
 `section = section + 1` could be simplified to 'section += 1'
 in `src/main/java/org/apache/maven/report/projectinfo/dependencies/renderer/DependenciesRenderer.java`
 #### Snippet
@@ -767,6 +755,18 @@ in `src/main/java/org/apache/maven/report/projectinfo/dependencies/renderer/Depe
         section = section + 1;
 
         super.sink.anchor( HtmlTools.encodeId( anchor ) );
+```
+
+### ReplaceAssignmentWithOperatorAssignment
+`section = section - 1` could be simplified to 'section -= 1'
+in `src/main/java/org/apache/maven/report/projectinfo/dependencies/renderer/DependenciesRenderer.java`
+#### Snippet
+```java
+        }
+
+        section = section - 1;
+
+        if ( section < 0 )
 ```
 
 ## RuleId[ruleID=NonProtectedConstructorInAbstractClass]
@@ -877,6 +877,42 @@ Field initialization to `0` is redundant
 in `src/main/java/org/apache/maven/report/projectinfo/dependencies/renderer/DependenciesRenderer.java`
 #### Snippet
 ```java
+        long totalProvidedScope = 0;
+
+        long totalSystemScope = 0;
+
+        TotalCell( DecimalFormat decimalFormat )
+```
+
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `src/main/java/org/apache/maven/report/projectinfo/dependencies/renderer/DependenciesRenderer.java`
+#### Snippet
+```java
+        long totalCompileScope = 0;
+
+        long totalTestScope = 0;
+
+        long totalRuntimeScope = 0;
+```
+
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `src/main/java/org/apache/maven/report/projectinfo/dependencies/renderer/DependenciesRenderer.java`
+#### Snippet
+```java
+        long total = 0;
+
+        long totalCompileScope = 0;
+
+        long totalTestScope = 0;
+```
+
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `src/main/java/org/apache/maven/report/projectinfo/dependencies/renderer/DependenciesRenderer.java`
+#### Snippet
+```java
         long totalRuntimeScope = 0;
 
         long totalProvidedScope = 0;
@@ -894,42 +930,6 @@ in `src/main/java/org/apache/maven/report/projectinfo/dependencies/renderer/Depe
         long totalRuntimeScope = 0;
 
         long totalProvidedScope = 0;
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `src/main/java/org/apache/maven/report/projectinfo/dependencies/renderer/DependenciesRenderer.java`
-#### Snippet
-```java
-        long totalCompileScope = 0;
-
-        long totalTestScope = 0;
-
-        long totalRuntimeScope = 0;
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `src/main/java/org/apache/maven/report/projectinfo/dependencies/renderer/DependenciesRenderer.java`
-#### Snippet
-```java
-        final DecimalFormat decimalFormat;
-
-        long total = 0;
-
-        long totalCompileScope = 0;
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `src/main/java/org/apache/maven/report/projectinfo/dependencies/renderer/DependenciesRenderer.java`
-#### Snippet
-```java
-        long total = 0;
-
-        long totalCompileScope = 0;
-
-        long totalTestScope = 0;
 ```
 
 ### RedundantFieldInitialization
@@ -949,11 +949,11 @@ Field initialization to `0` is redundant
 in `src/main/java/org/apache/maven/report/projectinfo/dependencies/renderer/DependenciesRenderer.java`
 #### Snippet
 ```java
-        long totalProvidedScope = 0;
+        final DecimalFormat decimalFormat;
 
-        long totalSystemScope = 0;
+        long total = 0;
 
-        TotalCell( DecimalFormat decimalFormat )
+        long totalCompileScope = 0;
 ```
 
 ## RuleId[ruleID=AssignmentToMethodParameter]
@@ -1113,56 +1113,7 @@ in `src/main/java/org/apache/maven/report/projectinfo/dependencies/renderer/Depe
             return result;
 ```
 
-## RuleId[ruleID=CallToStringConcatCanBeReplacedByOperator]
-### CallToStringConcatCanBeReplacedByOperator
-Call to `concat()` can be replaced with '+' expression
-in `src/main/java/org/apache/maven/report/projectinfo/ModulesReport.java`
-#### Snippet
-```java
-            if ( selectedHref.endsWith( "/" ) )
-            {
-                selectedHref = selectedHref.concat( "index.html" );
-            }
-            else
-```
-
-### CallToStringConcatCanBeReplacedByOperator
-Call to `concat()` can be replaced with '+' expression
-in `src/main/java/org/apache/maven/report/projectinfo/ModulesReport.java`
-#### Snippet
-```java
-            else
-            {
-                selectedHref = selectedHref.concat( "/index.html" );
-            }
-
-```
-
 ## RuleId[ruleID=ReturnNull]
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/maven/report/projectinfo/PluginsReport.java`
-#### Snippet
-```java
-            if ( plugins == null )
-            {
-                return null;
-            }
-            for ( Plugin plugin : plugins )
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/maven/report/projectinfo/PluginsReport.java`
-#### Snippet
-```java
-                }
-            }
-            return null;
-        }
-    }
-```
-
 ### ReturnNull
 Return of `null`
 in `src/main/java/org/apache/maven/report/projectinfo/ModulesReport.java`
@@ -1213,6 +1164,30 @@ in `src/main/java/org/apache/maven/report/projectinfo/ModulesReport.java`
 
 ### ReturnNull
 Return of `null`
+in `src/main/java/org/apache/maven/report/projectinfo/PluginsReport.java`
+#### Snippet
+```java
+            if ( plugins == null )
+            {
+                return null;
+            }
+            for ( Plugin plugin : plugins )
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/maven/report/projectinfo/PluginsReport.java`
+#### Snippet
+```java
+                }
+            }
+            return null;
+        }
+    }
+```
+
+### ReturnNull
+Return of `null`
 in `src/main/java/org/apache/maven/report/projectinfo/DependenciesReport.java`
 #### Snippet
 ```java
@@ -1221,6 +1196,18 @@ in `src/main/java/org/apache/maven/report/projectinfo/DependenciesReport.java`
             return null;
         }
     }
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/maven/report/projectinfo/dependencies/RepositoryUtils.java`
+#### Snippet
+```java
+        if ( repo.isBlacklisted() )
+        {
+            return null;
+        }
+
 ```
 
 ### ReturnNull
@@ -1237,10 +1224,10 @@ in `src/main/java/org/apache/maven/report/projectinfo/ScmReport.java`
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/org/apache/maven/report/projectinfo/dependencies/RepositoryUtils.java`
+in `src/main/java/org/apache/maven/report/projectinfo/AbstractProjectInfoReport.java`
 #### Snippet
 ```java
-        if ( repo.isBlacklisted() )
+        if ( ( getProject().getBuild() == null ) || ( getProject().getBuild().getPluginsAsMap() == null ) )
         {
             return null;
         }
@@ -1269,30 +1256,6 @@ in `src/main/java/org/apache/maven/report/projectinfo/AbstractProjectInfoReport.
         return null;
     }
 
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/maven/report/projectinfo/AbstractProjectInfoReport.java`
-#### Snippet
-```java
-        if ( ( getProject().getBuild() == null ) || ( getProject().getBuild().getPluginsAsMap() == null ) )
-        {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/maven/report/projectinfo/ProjectInfoReportUtils.java`
-#### Snippet
-```java
-                public X509Certificate[] getAcceptedIssuers()
-                {
-                    return null;
-                }
-            } };
 ```
 
 ### ReturnNull
@@ -1333,14 +1296,14 @@ in `src/main/java/org/apache/maven/report/projectinfo/ProjectInfoReportUtils.jav
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/org/apache/maven/report/projectinfo/DependencyConvergenceReport.java`
+in `src/main/java/org/apache/maven/report/projectinfo/ProjectInfoReportUtils.java`
 #### Snippet
 ```java
-        }
-
-        return filters.isEmpty() ? null : new AndDependencyNodeFilter( filters );
-    }
-
+                public X509Certificate[] getAcceptedIssuers()
+                {
+                    return null;
+                }
+            } };
 ```
 
 ### ReturnNull
@@ -1369,6 +1332,18 @@ in `src/main/java/org/apache/maven/report/projectinfo/TeamReport.java`
 
 ### ReturnNull
 Return of `null`
+in `src/main/java/org/apache/maven/report/projectinfo/DependencyConvergenceReport.java`
+#### Snippet
+```java
+        }
+
+        return filters.isEmpty() ? null : new AndDependencyNodeFilter( filters );
+    }
+
+```
+
+### ReturnNull
+Return of `null`
 in `src/main/java/org/apache/maven/report/projectinfo/dependencies/renderer/DependenciesRenderer.java`
 #### Snippet
 ```java
@@ -1379,10 +1354,35 @@ in `src/main/java/org/apache/maven/report/projectinfo/dependencies/renderer/Depe
         }
 ```
 
+## RuleId[ruleID=CallToStringConcatCanBeReplacedByOperator]
+### CallToStringConcatCanBeReplacedByOperator
+Call to `concat()` can be replaced with '+' expression
+in `src/main/java/org/apache/maven/report/projectinfo/ModulesReport.java`
+#### Snippet
+```java
+            if ( selectedHref.endsWith( "/" ) )
+            {
+                selectedHref = selectedHref.concat( "index.html" );
+            }
+            else
+```
+
+### CallToStringConcatCanBeReplacedByOperator
+Call to `concat()` can be replaced with '+' expression
+in `src/main/java/org/apache/maven/report/projectinfo/ModulesReport.java`
+#### Snippet
+```java
+            else
+            {
+                selectedHref = selectedHref.concat( "/index.html" );
+            }
+
+```
+
 ## RuleId[ruleID=HtmlWrongAttributeValue]
 ### HtmlWrongAttributeValue
 Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-01-13-07-19-00.490.html`
+in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-02-02-05-16-46.587.html`
 #### Snippet
 ```java
               <td>0</td>
