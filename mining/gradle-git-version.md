@@ -42,14 +42,14 @@ in `src/main/java/com/palantir/gradle/gitversion/GitVersionPlugin.java`
 ## RuleId[ruleID=ReturnNull]
 ### ReturnNull
 Return of `null`
-in `src/main/java/com/palantir/gradle/gitversion/RefWithTagNameComparator.java`
+in `src/main/java/com/palantir/gradle/gitversion/VersionDetailsImpl.java`
 #### Snippet
 ```java
-            return identity.getWhen().toInstant();
-        } catch (IOException | RuntimeException ignored) {
-            return null;
-        }
+
+        Matcher match = Pattern.compile("(.*)-([0-9]+)-g.?[0-9a-fA-F]{3,}").matcher(description());
+        return match.matches() ? match.group(1) : null;
     }
+
 ```
 
 ### ReturnNull
@@ -57,8 +57,8 @@ Return of `null`
 in `src/main/java/com/palantir/gradle/gitversion/VersionDetailsImpl.java`
 #### Snippet
 ```java
-        ObjectId objectId = git.getRepository().findRef(Constants.HEAD).getObjectId();
-        if (objectId == null) {
+        if (isRepoEmpty()) {
+            log.debug("Repository is empty");
             return null;
         }
 
@@ -93,8 +93,8 @@ Return of `null`
 in `src/main/java/com/palantir/gradle/gitversion/VersionDetailsImpl.java`
 #### Snippet
 ```java
-        if (isRepoEmpty()) {
-            log.debug("Repository is empty");
+        ObjectId objectId = git.getRepository().findRef(Constants.HEAD).getObjectId();
+        if (objectId == null) {
             return null;
         }
 
@@ -102,14 +102,14 @@ in `src/main/java/com/palantir/gradle/gitversion/VersionDetailsImpl.java`
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/com/palantir/gradle/gitversion/VersionDetailsImpl.java`
+in `src/main/java/com/palantir/gradle/gitversion/RefWithTagNameComparator.java`
 #### Snippet
 ```java
-
-        Matcher match = Pattern.compile("(.*)-([0-9]+)-g.?[0-9a-fA-F]{3,}").matcher(description());
-        return match.matches() ? match.group(1) : null;
+            return identity.getWhen().toInstant();
+        } catch (IOException | RuntimeException ignored) {
+            return null;
+        }
     }
-
 ```
 
 ### ReturnNull
