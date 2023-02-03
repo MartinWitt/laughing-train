@@ -34,78 +34,6 @@ Assignment to method parameter `name`
 in `src/main/java/com/jetbrains/codegen/kotlin/TeamCityKotlinCodegen.java`
 #### Snippet
 ```java
-    @Override
-    public String toModelName(String name) {
-        name = sanitizeName(name); // FIXME: a parameter should not be assigned. Also declare the methods parameters as 'final'.
-        // remove dollar sign
-        name = name.replaceAll("\\$", "");
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `name`
-in `src/main/java/com/jetbrains/codegen/kotlin/TeamCityKotlinCodegen.java`
-#### Snippet
-```java
-        name = sanitizeName(name); // FIXME: a parameter should not be assigned. Also declare the methods parameters as 'final'.
-        // remove dollar sign
-        name = name.replaceAll("\\$", "");
-
-        // model name cannot use reserved keyword, e.g. return
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `name`
-in `src/main/java/com/jetbrains/codegen/kotlin/TeamCityKotlinCodegen.java`
-#### Snippet
-```java
-        // model name cannot use reserved keyword, e.g. return
-        if (isReservedWord(name)) {
-            name = "model_" + name; // e.g. return => ModelReturn (after camelize)
-        }
-
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `name`
-in `src/main/java/com/jetbrains/codegen/kotlin/TeamCityKotlinCodegen.java`
-#### Snippet
-```java
-        // model name starts with number
-        if (name.matches("^\\d.*")) {
-            name = "model_" + name; // e.g. 200Response => Model200Response (after camelize)
-        }
-
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `name`
-in `src/main/java/com/jetbrains/codegen/kotlin/TeamCityKotlinCodegen.java`
-#### Snippet
-```java
-
-        if (!StringUtils.isEmpty(modelNamePrefix)) {
-            name = modelNamePrefix + "_" + name;
-        }
-
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `name`
-in `src/main/java/com/jetbrains/codegen/kotlin/TeamCityKotlinCodegen.java`
-#### Snippet
-```java
-
-        if (!StringUtils.isEmpty(modelNameSuffix)) {
-            name = name + "_" + modelNameSuffix;
-        }
-
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `name`
-in `src/main/java/com/jetbrains/codegen/kotlin/TeamCityKotlinCodegen.java`
-#### Snippet
-```java
 
         // input[] => input
         name = name.replaceAll("\\[\\]", ""); // FIXME: a parameter should not be assigned. Also declare the methods parameters as 'final'.
@@ -183,6 +111,78 @@ in `src/main/java/com/jetbrains/codegen/kotlin/TeamCityKotlinCodegen.java`
         name = name.replaceAll(" ", "_");
 
         return name;
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `name`
+in `src/main/java/com/jetbrains/codegen/kotlin/TeamCityKotlinCodegen.java`
+#### Snippet
+```java
+    @Override
+    public String toModelName(String name) {
+        name = sanitizeName(name); // FIXME: a parameter should not be assigned. Also declare the methods parameters as 'final'.
+        // remove dollar sign
+        name = name.replaceAll("\\$", "");
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `name`
+in `src/main/java/com/jetbrains/codegen/kotlin/TeamCityKotlinCodegen.java`
+#### Snippet
+```java
+        name = sanitizeName(name); // FIXME: a parameter should not be assigned. Also declare the methods parameters as 'final'.
+        // remove dollar sign
+        name = name.replaceAll("\\$", "");
+
+        // model name cannot use reserved keyword, e.g. return
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `name`
+in `src/main/java/com/jetbrains/codegen/kotlin/TeamCityKotlinCodegen.java`
+#### Snippet
+```java
+        // model name cannot use reserved keyword, e.g. return
+        if (isReservedWord(name)) {
+            name = "model_" + name; // e.g. return => ModelReturn (after camelize)
+        }
+
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `name`
+in `src/main/java/com/jetbrains/codegen/kotlin/TeamCityKotlinCodegen.java`
+#### Snippet
+```java
+        // model name starts with number
+        if (name.matches("^\\d.*")) {
+            name = "model_" + name; // e.g. 200Response => Model200Response (after camelize)
+        }
+
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `name`
+in `src/main/java/com/jetbrains/codegen/kotlin/TeamCityKotlinCodegen.java`
+#### Snippet
+```java
+
+        if (!StringUtils.isEmpty(modelNamePrefix)) {
+            name = modelNamePrefix + "_" + name;
+        }
+
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `name`
+in `src/main/java/com/jetbrains/codegen/kotlin/TeamCityKotlinCodegen.java`
+#### Snippet
+```java
+
+        if (!StringUtils.isEmpty(modelNameSuffix)) {
+            name = name + "_" + modelNameSuffix;
+        }
+
 ```
 
 ### AssignmentToMethodParameter
@@ -466,27 +466,51 @@ in `src/main/java/com/jetbrains/codegen/python/TeamCityPythonCodegen.java`
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
 in `src/main/java/com/jetbrains/codegen/kotlin/TeamCityKotlinCodegen.java`
 #### Snippet
 ```java
-        name = sanitizeName(name); // FIXME: a parameter should not be assigned. Also declare the methods parameters as 'final'.
-        // remove dollar sign
-        name = name.replaceAll("\\$", "");
-
-        // model name cannot use reserved keyword, e.g. return
+    public CodegenProperty fromProperty(String name, Property p) {
+        CodegenProperty property = super.fromProperty(name, p);
+        property.name = property.name.replace(".", "|");
+        property.nameInCamelCase = camelize(property.name.replace("$", ""), true);
+        property.name = property.name.replace("|", ".");
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
-`matches()` could be replaced with compiled 'java.util.regex.Pattern' construct
+`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
 in `src/main/java/com/jetbrains/codegen/kotlin/TeamCityKotlinCodegen.java`
 #### Snippet
 ```java
+        CodegenProperty property = super.fromProperty(name, p);
+        property.name = property.name.replace(".", "|");
+        property.nameInCamelCase = camelize(property.name.replace("$", ""), true);
+        property.name = property.name.replace("|", ".");
+        property.baseName = property.baseName.replace("$", "\\$");
+```
 
-        // model name starts with number
-        if (name.matches("^\\d.*")) {
-            name = "model_" + name; // e.g. 200Response => Model200Response (after camelize)
-        }
+### DynamicRegexReplaceableByCompiledPattern
+`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `src/main/java/com/jetbrains/codegen/kotlin/TeamCityKotlinCodegen.java`
+#### Snippet
+```java
+        property.name = property.name.replace(".", "|");
+        property.nameInCamelCase = camelize(property.name.replace("$", ""), true);
+        property.name = property.name.replace("|", ".");
+        property.baseName = property.baseName.replace("$", "\\$");
+
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `src/main/java/com/jetbrains/codegen/kotlin/TeamCityKotlinCodegen.java`
+#### Snippet
+```java
+        property.nameInCamelCase = camelize(property.name.replace("$", ""), true);
+        property.name = property.name.replace("|", ".");
+        property.baseName = property.baseName.replace("$", "\\$");
+
+        return property;
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
@@ -574,51 +598,27 @@ in `src/main/java/com/jetbrains/codegen/kotlin/TeamCityKotlinCodegen.java`
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
 in `src/main/java/com/jetbrains/codegen/kotlin/TeamCityKotlinCodegen.java`
 #### Snippet
 ```java
-    public CodegenProperty fromProperty(String name, Property p) {
-        CodegenProperty property = super.fromProperty(name, p);
-        property.name = property.name.replace(".", "|");
-        property.nameInCamelCase = camelize(property.name.replace("$", ""), true);
-        property.name = property.name.replace("|", ".");
+        name = sanitizeName(name); // FIXME: a parameter should not be assigned. Also declare the methods parameters as 'final'.
+        // remove dollar sign
+        name = name.replaceAll("\\$", "");
+
+        // model name cannot use reserved keyword, e.g. return
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
+`matches()` could be replaced with compiled 'java.util.regex.Pattern' construct
 in `src/main/java/com/jetbrains/codegen/kotlin/TeamCityKotlinCodegen.java`
 #### Snippet
 ```java
-        CodegenProperty property = super.fromProperty(name, p);
-        property.name = property.name.replace(".", "|");
-        property.nameInCamelCase = camelize(property.name.replace("$", ""), true);
-        property.name = property.name.replace("|", ".");
-        property.baseName = property.baseName.replace("$", "\\$");
-```
 
-### DynamicRegexReplaceableByCompiledPattern
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/com/jetbrains/codegen/kotlin/TeamCityKotlinCodegen.java`
-#### Snippet
-```java
-        property.name = property.name.replace(".", "|");
-        property.nameInCamelCase = camelize(property.name.replace("$", ""), true);
-        property.name = property.name.replace("|", ".");
-        property.baseName = property.baseName.replace("$", "\\$");
-
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/com/jetbrains/codegen/kotlin/TeamCityKotlinCodegen.java`
-#### Snippet
-```java
-        property.nameInCamelCase = camelize(property.name.replace("$", ""), true);
-        property.name = property.name.replace("|", ".");
-        property.baseName = property.baseName.replace("$", "\\$");
-
-        return property;
+        // model name starts with number
+        if (name.matches("^\\d.*")) {
+            name = "model_" + name; // e.g. 200Response => Model200Response (after camelize)
+        }
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
