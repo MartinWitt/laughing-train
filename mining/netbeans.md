@@ -1,14 +1,14 @@
 # netbeans 
  
 # Bad smells
-I found 312 bad smells with 0 repairable:
+I found 319 bad smells with 0 repairable:
 | ruleID | number | fixable |
 | --- | --- | --- |
 | GroovyUnusedAssignment | 144 | false |
-| RegExpSimplifiable | 68 | false |
-| RegExpRedundantNestedCharacterClass | 58 | false |
-| RegExpRedundantEscape | 28 | false |
-| RegExpSingleCharAlternation | 10 | false |
+| RegExpSimplifiable | 70 | false |
+| RegExpRedundantNestedCharacterClass | 59 | false |
+| RegExpRedundantEscape | 31 | false |
+| RegExpSingleCharAlternation | 11 | false |
 | HtmlWrongAttributeValue | 4 | false |
 ## RuleId[ruleID=GroovyUnusedAssignment]
 ### GroovyUnusedAssignment
@@ -37,38 +37,26 @@ run {
 
 ### GroovyUnusedAssignment
 Assignment is not used
-in `java/gradle.java/test/unit/data/artifacts/withTests/build.gradle`
+in `java/gradle.java/test/unit/data/dependencies/simple2/build.gradle`
 #### Snippet
 ```java
-apply plugin: 'application'
+apply plugin: 'eclipse'
 
-mainClassName = 'test.App'
+group = 'nbtest'
+version = '0.1'
 
-run {
 ```
 
 ### GroovyUnusedAssignment
 Assignment is not used
-in `java/gradle.java/test/unit/data/dependencies/parse/simple.gradle`
+in `java/gradle.java/test/unit/data/dependencies/simple2/build.gradle`
 #### Snippet
 ```java
-apply plugin: 'application'
 
-mainClassName = 'test.App'
+group = 'nbtest'
+version = '0.1'
 
-run {
-```
-
-### GroovyUnusedAssignment
-Variable is not used
-in `java/gradle.java/test/unit/data/dependencies/parse/simple.gradle`
-#### Snippet
-```java
-dependencies {
-    antContrib files('ant/antcontrib.jar')
-    @@A@@runtimeOnly group: 'org.springframework', name: 'spring-beans', version: '2.5'@@A@@
-    runtimeOnly @@B@@'org.springframework:spring-core:3.5'@@B@@,
-            @@C@@'org.springframework:spring-aop:3.5'@@C@@
+println project.group
 ```
 
 ### GroovyUnusedAssignment
@@ -96,6 +84,18 @@ repositories {
 ```
 
 ### GroovyUnusedAssignment
+Assignment is not used
+in `java/gradle.java/test/unit/data/artifacts/withTests/build.gradle`
+#### Snippet
+```java
+apply plugin: 'application'
+
+mainClassName = 'test.App'
+
+run {
+```
+
+### GroovyUnusedAssignment
 Variable is not used
 in `java/gradle.java/test/unit/data/dependencies/parse/variousSyntax.gradle`
 #### Snippet
@@ -109,26 +109,26 @@ application {
 
 ### GroovyUnusedAssignment
 Assignment is not used
-in `java/gradle.java/test/unit/data/dependencies/simple2/build.gradle`
+in `java/gradle.java/test/unit/data/dependencies/parse/simple.gradle`
 #### Snippet
 ```java
-apply plugin: 'eclipse'
+apply plugin: 'application'
 
-group = 'nbtest'
-version = '0.1'
+mainClassName = 'test.App'
 
+run {
 ```
 
 ### GroovyUnusedAssignment
-Assignment is not used
-in `java/gradle.java/test/unit/data/dependencies/simple2/build.gradle`
+Variable is not used
+in `java/gradle.java/test/unit/data/dependencies/parse/simple.gradle`
 #### Snippet
 ```java
-
-group = 'nbtest'
-version = '0.1'
-
-println project.group
+dependencies {
+    antContrib files('ant/antcontrib.jar')
+    @@A@@runtimeOnly group: 'org.springframework', name: 'spring-beans', version: '2.5'@@A@@
+    runtimeOnly @@B@@'org.springframework:spring-core:3.5'@@B@@,
+            @@C@@'org.springframework:spring-aop:3.5'@@C@@
 ```
 
 ### GroovyUnusedAssignment
@@ -193,53 +193,6 @@ jar {
 
 ### GroovyUnusedAssignment
 Assignment is not used
-in `extide/gradle/test/unit/data/projects/multi/p1/build.gradle`
-#### Snippet
-```java
-apply plugin: 'application'
-
-mainClassName = 'test.App'
-
-group = 'nbtest'
-```
-
-### GroovyUnusedAssignment
-Assignment is not used
-in `extide/gradle/test/unit/data/projects/multi/p1/build.gradle`
-#### Snippet
-```java
-mainClassName = 'test.App'
-
-group = 'nbtest'
-version = '0.1'
-
-```
-
-### GroovyUnusedAssignment
-Assignment is not used
-in `extide/gradle/test/unit/data/projects/multi/p1/build.gradle`
-#### Snippet
-```java
-
-group = 'nbtest'
-version = '0.1'
-
-
-```
-
-### GroovyUnusedAssignment
-Assignment is not used
-in `extide/gradle/test/unit/data/projects/oldgradle/basic/build.gradle`
-#### Snippet
-```java
-apply plugin: 'application'
-
-mainClassName = 'test.App'
-
-```
-
-### GroovyUnusedAssignment
-Assignment is not used
 in `extide/gradle/test/unit/data/projects/simple/build.gradle`
 #### Snippet
 ```java
@@ -286,17 +239,6 @@ version = '0.1'
 
 ### GroovyUnusedAssignment
 Assignment is not used
-in `extide/gradle/release/modules/gradle/daemon-loader/build.gradle`
-#### Snippet
-```java
- */
-
-description='Simple Project Just to Fire up a Daemon'
-
-```
-
-### GroovyUnusedAssignment
-Assignment is not used
 in `extide/gradle/test/unit/data/projects/externaldeps/p2/build.gradle`
 #### Snippet
 ```java
@@ -332,7 +274,18 @@ version = '0.1'
 
 ### GroovyUnusedAssignment
 Assignment is not used
-in `extide/gradle/test/unit/data/projects/externaldeps/p1/build.gradle`
+in `extide/gradle/test/unit/data/projects/oldgradle/basic/build.gradle`
+#### Snippet
+```java
+apply plugin: 'application'
+
+mainClassName = 'test.App'
+
+```
+
+### GroovyUnusedAssignment
+Assignment is not used
+in `extide/gradle/test/unit/data/projects/multi/p1/build.gradle`
 #### Snippet
 ```java
 apply plugin: 'application'
@@ -347,6 +300,18 @@ Assignment is not used
 in `extide/gradle/test/unit/data/projects/externaldeps/p1/build.gradle`
 #### Snippet
 ```java
+apply plugin: 'application'
+
+mainClassName = 'test.App'
+
+group = 'nbtest'
+```
+
+### GroovyUnusedAssignment
+Assignment is not used
+in `extide/gradle/test/unit/data/projects/multi/p1/build.gradle`
+#### Snippet
+```java
 mainClassName = 'test.App'
 
 group = 'nbtest'
@@ -359,10 +324,45 @@ Assignment is not used
 in `extide/gradle/test/unit/data/projects/externaldeps/p1/build.gradle`
 #### Snippet
 ```java
+mainClassName = 'test.App'
 
 group = 'nbtest'
 version = '0.1'
 
+```
+
+### GroovyUnusedAssignment
+Assignment is not used
+in `extide/gradle/test/unit/data/projects/multi/p1/build.gradle`
+#### Snippet
+```java
+
+group = 'nbtest'
+version = '0.1'
+
+
+```
+
+### GroovyUnusedAssignment
+Assignment is not used
+in `extide/gradle/test/unit/data/projects/externaldeps/p1/build.gradle`
+#### Snippet
+```java
+
+group = 'nbtest'
+version = '0.1'
+
+
+```
+
+### GroovyUnusedAssignment
+Assignment is not used
+in `extide/gradle/release/modules/gradle/daemon-loader/build.gradle`
+#### Snippet
+```java
+ */
+
+description='Simple Project Just to Fire up a Daemon'
 
 ```
 
@@ -439,18 +439,6 @@ in `groovy/groovy.editor/src/org/netbeans/modules/groovy/editor/resources/FontsA
 
 ### GroovyUnusedAssignment
 Assignment is not used
-in `groovy/groovy.editor/test/unit/data/testfiles/ASTPath1.groovy`
-#### Snippet
-```java
-        ProcessBuilder b = new ProcessBuilder()
-        b.command("good").inheritIO().command()
-        Object o = ProcessBuilder.class;
-        
-        ProcessBuilder aa = new ProcessBuilder()
-```
-
-### GroovyUnusedAssignment
-Assignment is not used
 in `groovy/groovy.editor/test/unit/data/testfiles/Hello.groovy`
 #### Snippet
 ```java
@@ -463,14 +451,14 @@ in `groovy/groovy.editor/test/unit/data/testfiles/Hello.groovy`
 
 ### GroovyUnusedAssignment
 Assignment is not used
-in `groovy/groovy.editor/test/unit/data/testfiles/GroovyScopeTestcase.groovy`
+in `groovy/groovy.editor/test/unit/data/testfiles/ASTPath1.groovy`
 #### Snippet
 ```java
-
-    def test (Object xy = 0 ) {
-        xy = 5
-
-        [1,2,3].each { value ->
+        ProcessBuilder b = new ProcessBuilder()
+        b.command("good").inheritIO().command()
+        Object o = ProcessBuilder.class;
+        
+        ProcessBuilder aa = new ProcessBuilder()
 ```
 
 ### GroovyUnusedAssignment
@@ -570,44 +558,44 @@ in `groovy/groovy.editor/test/unit/data/testfiles/TypeOccurrencesTester.groovy`
 ```
 
 ### GroovyUnusedAssignment
-Variable is not used
-in `groovy/groovy.editor/test/unit/data/testfiles/completion/KeywordImport2.groovy`
-#### Snippet
-```java
-
-    void method1(){
-        Long localLong
-        String localString
-    }
-```
-
-### GroovyUnusedAssignment
-Variable is not used
-in `groovy/groovy.editor/test/unit/data/testfiles/completion/KeywordImport2.groovy`
-#### Snippet
-```java
-    void method1(){
-        Long localLong
-        String localString
-    }
-}
-```
-
-### GroovyUnusedAssignment
 Assignment is not used
-in `groovy/groovy.editor/test/unit/data/testfiles/index/testGetClasses/testGetClasses.groovy`
+in `groovy/groovy.editor/test/unit/data/testfiles/GroovyScopeTestcase.groovy`
 #### Snippet
 ```java
 
-    static void main(args) {
-        String s = 'aaa'
-        println 'Hello, world'
-    }
+    def test (Object xy = 0 ) {
+        xy = 5
+
+        [1,2,3].each { value ->
 ```
 
 ### GroovyUnusedAssignment
 Variable is not used
-in `groovy/groovy.editor/test/unit/data/testfiles/completion/KeywordImport1.groovy`
+in `groovy/groovy.editor/test/unit/data/testfiles/completion/ClassMethodLocalStringConst1.groovy`
+#### Snippet
+```java
+
+    void method1(){
+        Long localLong
+        String localString
+
+```
+
+### GroovyUnusedAssignment
+Variable is not used
+in `groovy/groovy.editor/test/unit/data/testfiles/completion/ClassMethodLocalStringConst1.groovy`
+#### Snippet
+```java
+    void method1(){
+        Long localLong
+        String localString
+
+        " ddd ".c
+```
+
+### GroovyUnusedAssignment
+Variable is not used
+in `groovy/groovy.editor/test/unit/data/testfiles/completion/KeywordImport2.groovy`
 #### Snippet
 ```java
 
@@ -619,7 +607,7 @@ in `groovy/groovy.editor/test/unit/data/testfiles/completion/KeywordImport1.groo
 
 ### GroovyUnusedAssignment
 Variable is not used
-in `groovy/groovy.editor/test/unit/data/testfiles/completion/KeywordImport1.groovy`
+in `groovy/groovy.editor/test/unit/data/testfiles/completion/KeywordImport2.groovy`
 #### Snippet
 ```java
     void method1(){
@@ -631,7 +619,7 @@ in `groovy/groovy.editor/test/unit/data/testfiles/completion/KeywordImport1.groo
 
 ### GroovyUnusedAssignment
 Variable is not used
-in `groovy/groovy.editor/test/unit/data/testfiles/completion/KeywordAboveClass2.groovy`
+in `groovy/groovy.editor/test/unit/data/testfiles/completion/KeywordImport1.groovy`
 #### Snippet
 ```java
 
@@ -643,7 +631,7 @@ in `groovy/groovy.editor/test/unit/data/testfiles/completion/KeywordAboveClass2.
 
 ### GroovyUnusedAssignment
 Variable is not used
-in `groovy/groovy.editor/test/unit/data/testfiles/completion/KeywordAboveClass2.groovy`
+in `groovy/groovy.editor/test/unit/data/testfiles/completion/KeywordImport1.groovy`
 #### Snippet
 ```java
     void method1(){
@@ -679,6 +667,30 @@ in `groovy/groovy.editor/test/unit/data/testfiles/completion/ClassMethodFieldLon
 
 ### GroovyUnusedAssignment
 Variable is not used
+in `groovy/groovy.editor/test/unit/data/testfiles/completion/KeywordAboveClass2.groovy`
+#### Snippet
+```java
+
+    void method1(){
+        Long localLong
+        String localString
+    }
+```
+
+### GroovyUnusedAssignment
+Variable is not used
+in `groovy/groovy.editor/test/unit/data/testfiles/completion/KeywordAboveClass2.groovy`
+#### Snippet
+```java
+    void method1(){
+        Long localLong
+        String localString
+    }
+}
+```
+
+### GroovyUnusedAssignment
+Variable is not used
 in `groovy/groovy.editor/test/unit/data/testfiles/completion/ClassMethodFieldString1.groovy`
 #### Snippet
 ```java
@@ -702,27 +714,27 @@ in `groovy/groovy.editor/test/unit/data/testfiles/completion/ClassMethodFieldStr
 ```
 
 ### GroovyUnusedAssignment
-Variable is not used
-in `groovy/groovy.editor/test/unit/data/testfiles/completion/ClassMethodLocalStringConst1.groovy`
+Assignment is not used
+in `groovy/groovy.editor/test/unit/data/testfiles/index/testGetClasses/testGetClasses.groovy`
 #### Snippet
 ```java
 
-    void method1(){
-        Long localLong
-        String localString
-
+    static void main(args) {
+        String s = 'aaa'
+        println 'Hello, world'
+    }
 ```
 
 ### GroovyUnusedAssignment
 Variable is not used
-in `groovy/groovy.editor/test/unit/data/testfiles/completion/ClassMethodLocalStringConst1.groovy`
+in `groovy/groovy.editor/test/unit/data/testfiles/completion/ClassMethodLocalLong1.groovy`
 #### Snippet
 ```java
     void method1(){
         Long localLong
         String localString
 
-        " ddd ".c
+        localLong.MAX
 ```
 
 ### GroovyUnusedAssignment
@@ -739,6 +751,18 @@ in `groovy/groovy.editor/test/unit/data/testfiles/completion/ClassMethodLocalLon
 
 ### GroovyUnusedAssignment
 Variable is not used
+in `groovy/groovy.editor/test/unit/data/testfiles/completion/ClassMethodLocalString2.groovy`
+#### Snippet
+```java
+
+    void method1(){
+        Long localLong
+        String localString
+
+```
+
+### GroovyUnusedAssignment
+Variable is not used
 in `groovy/groovy.editor/test/unit/data/testfiles/completion/ClassMethodLocalString1.groovy`
 #### Snippet
 ```java
@@ -747,6 +771,30 @@ in `groovy/groovy.editor/test/unit/data/testfiles/completion/ClassMethodLocalStr
         Long localLong
         String localString
 
+```
+
+### GroovyUnusedAssignment
+Variable is not used
+in `groovy/groovy.editor/test/unit/data/testfiles/completion/KeywordAboveClass1.groovy`
+#### Snippet
+```java
+
+    void method1(){
+        Long localLong
+        String localString
+    }
+```
+
+### GroovyUnusedAssignment
+Variable is not used
+in `groovy/groovy.editor/test/unit/data/testfiles/completion/KeywordAboveClass1.groovy`
+#### Snippet
+```java
+    void method1(){
+        Long localLong
+        String localString
+    }
+}
 ```
 
 ### GroovyUnusedAssignment
@@ -787,30 +835,6 @@ in `groovy/groovy.editor/test/unit/data/testfiles/completion/ClassMethodFieldStr
 
 ### GroovyUnusedAssignment
 Variable is not used
-in `groovy/groovy.editor/test/unit/data/testfiles/completion/KeywordAboveClass1.groovy`
-#### Snippet
-```java
-
-    void method1(){
-        Long localLong
-        String localString
-    }
-```
-
-### GroovyUnusedAssignment
-Variable is not used
-in `groovy/groovy.editor/test/unit/data/testfiles/completion/KeywordAboveClass1.groovy`
-#### Snippet
-```java
-    void method1(){
-        Long localLong
-        String localString
-    }
-}
-```
-
-### GroovyUnusedAssignment
-Variable is not used
 in `groovy/groovy.editor/test/unit/data/testfiles/completion/ClassMethodFieldString2.groovy`
 #### Snippet
 ```java
@@ -819,18 +843,6 @@ in `groovy/groovy.editor/test/unit/data/testfiles/completion/ClassMethodFieldStr
         String localString
 
         stringField.spli
-```
-
-### GroovyUnusedAssignment
-Variable is not used
-in `groovy/groovy.editor/test/unit/data/testfiles/completion/ClassMethodLocalString2.groovy`
-#### Snippet
-```java
-
-    void method1(){
-        Long localLong
-        String localString
-
 ```
 
 ### GroovyUnusedAssignment
@@ -843,18 +855,6 @@ def reassignment() {
     def sub = varA.substring(0)
 
     varA = ["a", "b"];
-```
-
-### GroovyUnusedAssignment
-Variable is not used
-in `groovy/groovy.editor/test/unit/data/testfiles/completion/ClassMethodLocalLong1.groovy`
-#### Snippet
-```java
-    void method1(){
-        Long localLong
-        String localString
-
-        localLong.MAX
 ```
 
 ### GroovyUnusedAssignment
@@ -995,6 +995,18 @@ in `groovy/groovy.editor/test/unit/data/testfiles/completion/closures/insideClos
 
 ### GroovyUnusedAssignment
 Variable is not used
+in `groovy/groovy.editor/test/unit/data/testfiles/completion/variables/variables2/Variables2.groovy`
+#### Snippet
+```java
+
+    def y(Properties param) {
+        def item
+        try {
+            for (item2 in []) {
+```
+
+### GroovyUnusedAssignment
+Variable is not used
 in `groovy/groovy.editor/test/unit/data/testfiles/completion/variables/variables1/Variables1.groovy`
 #### Snippet
 ```java
@@ -1015,18 +1027,6 @@ in `groovy/groovy.editor/test/unit/data/testfiles/completion/variables/variables
         def est
         try {
             String ab
-```
-
-### GroovyUnusedAssignment
-Variable is not used
-in `groovy/groovy.editor/test/unit/data/testfiles/completion/variables/variables2/Variables2.groovy`
-#### Snippet
-```java
-
-    def y(Properties param) {
-        def item
-        try {
-            for (item2 in []) {
 ```
 
 ### GroovyUnusedAssignment
@@ -1080,24 +1080,24 @@ StringBuffer sb = new stringbuffer
 
 ### GroovyUnusedAssignment
 Assignment is not used
-in `groovy/groovy.editor/test/unit/data/testfiles/completion/constructors/constructors8/Constructors8.groovy`
-#### Snippet
-```java
-class Foo {
-    public void method() {
-        String s = new String("abc");
-    }
-}
-```
-
-### GroovyUnusedAssignment
-Assignment is not used
 in `groovy/groovy.editor/test/unit/data/testfiles/completion/constructors/constructors7/Constructors7.groovy`
 #### Snippet
 ```java
 class Foo {
     public void method() {
         String s = new String
+    }
+}
+```
+
+### GroovyUnusedAssignment
+Assignment is not used
+in `groovy/groovy.editor/test/unit/data/testfiles/completion/constructors/constructors8/Constructors8.groovy`
+#### Snippet
+```java
+class Foo {
+    public void method() {
+        String s = new String("abc");
     }
 }
 ```
@@ -1270,54 +1270,6 @@ class ${name} {
 
 ### GroovyUnusedAssignment
 Variable is not used
-in `groovy/groovy.support/src/org/netbeans/modules/groovy/support/resources/GroovyTrait.groovy`
-#### Snippet
-```java
-    or more contributor license agreements.  See the NOTICE file
-    distributed with this work for additional information
-    regarding copyright ownership.  The ASF licenses this file
-    to you under the Apache License, Version 2.0 (the
-    "License"); you may not use this file except in compliance
-```
-
-### GroovyUnusedAssignment
-Variable is not used
-in `groovy/groovy.support/src/org/netbeans/modules/groovy/support/resources/GroovyTrait.groovy`
-#### Snippet
-```java
-    to you under the Apache License, Version 2.0 (the
-    "License"); you may not use this file except in compliance
-    with the License.  You may obtain a copy of the License at
-
-      http://www.apache.org/licenses/LICENSE-2.0
-```
-
-### GroovyUnusedAssignment
-Variable is not used
-in `groovy/groovy.support/src/org/netbeans/modules/groovy/support/resources/GroovyTrait.groovy`
-#### Snippet
-```java
-      http://www.apache.org/licenses/LICENSE-2.0
-
-    Unless required by applicable law or agreed to in writing,
-    software distributed under the License is distributed on an
-    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-```
-
-### GroovyUnusedAssignment
-Assignment is not used
-in `groovy/groovy.support/src/org/netbeans/modules/groovy/support/resources/GroovyTrait.groovy`
-#### Snippet
-```java
-
--->
-<#assign licenseFirst = "/*">
-<#assign licensePrefix = " * ">
-<#assign licenseLast = " */">
-```
-
-### GroovyUnusedAssignment
-Variable is not used
 in `groovy/groovy.support/src/org/netbeans/modules/groovy/support/resources/GroovyJUnitTest.groovy`
 #### Snippet
 ```java
@@ -1326,30 +1278,6 @@ in `groovy/groovy.support/src/org/netbeans/modules/groovy/support/resources/Groo
     regarding copyright ownership.  The ASF licenses this file
     to you under the Apache License, Version 2.0 (the
     "License"); you may not use this file except in compliance
-```
-
-### GroovyUnusedAssignment
-Assignment is not used
-in `groovy/groovy.support/src/org/netbeans/modules/groovy/support/resources/GroovyTrait.groovy`
-#### Snippet
-```java
--->
-<#assign licenseFirst = "/*">
-<#assign licensePrefix = " * ">
-<#assign licenseLast = " */">
-<#include "${project.licensePath}">
-```
-
-### GroovyUnusedAssignment
-Assignment is not used
-in `groovy/groovy.support/src/org/netbeans/modules/groovy/support/resources/GroovyTrait.groovy`
-#### Snippet
-```java
-<#assign licenseFirst = "/*">
-<#assign licensePrefix = " * ">
-<#assign licenseLast = " */">
-<#include "${project.licensePath}">
-
 ```
 
 ### GroovyUnusedAssignment
@@ -1389,6 +1317,18 @@ in `groovy/groovy.support/src/org/netbeans/modules/groovy/support/resources/Groo
 ```
 
 ### GroovyUnusedAssignment
+Variable is not used
+in `groovy/groovy.support/src/org/netbeans/modules/groovy/support/resources/GroovyTrait.groovy`
+#### Snippet
+```java
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+```
+
+### GroovyUnusedAssignment
 Assignment is not used
 in `groovy/groovy.support/src/org/netbeans/modules/groovy/support/resources/GroovyJUnitTest.groovy`
 #### Snippet
@@ -1398,6 +1338,18 @@ in `groovy/groovy.support/src/org/netbeans/modules/groovy/support/resources/Groo
 <#assign licensePrefix = " * ">
 <#assign licenseLast = " */">
 <#include "${project.licensePath}">
+```
+
+### GroovyUnusedAssignment
+Variable is not used
+in `groovy/groovy.support/src/org/netbeans/modules/groovy/support/resources/GroovyTrait.groovy`
+#### Snippet
+```java
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
 ```
 
 ### GroovyUnusedAssignment
@@ -1414,6 +1366,18 @@ in `groovy/groovy.support/src/org/netbeans/modules/groovy/support/resources/Groo
 
 ### GroovyUnusedAssignment
 Variable is not used
+in `groovy/groovy.support/src/org/netbeans/modules/groovy/support/resources/GroovyTrait.groovy`
+#### Snippet
+```java
+      http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+```
+
+### GroovyUnusedAssignment
+Variable is not used
 in `groovy/groovy.support/src/org/netbeans/modules/groovy/support/resources/GroovyJUnitTest.groovy`
 #### Snippet
 ```java
@@ -1422,6 +1386,42 @@ in `groovy/groovy.support/src/org/netbeans/modules/groovy/support/resources/Groo
  * @author ${user}
  */
 class ${name} {
+```
+
+### GroovyUnusedAssignment
+Assignment is not used
+in `groovy/groovy.support/src/org/netbeans/modules/groovy/support/resources/GroovyTrait.groovy`
+#### Snippet
+```java
+
+-->
+<#assign licenseFirst = "/*">
+<#assign licensePrefix = " * ">
+<#assign licenseLast = " */">
+```
+
+### GroovyUnusedAssignment
+Assignment is not used
+in `groovy/groovy.support/src/org/netbeans/modules/groovy/support/resources/GroovyTrait.groovy`
+#### Snippet
+```java
+-->
+<#assign licenseFirst = "/*">
+<#assign licensePrefix = " * ">
+<#assign licenseLast = " */">
+<#include "${project.licensePath}">
+```
+
+### GroovyUnusedAssignment
+Assignment is not used
+in `groovy/groovy.support/src/org/netbeans/modules/groovy/support/resources/GroovyTrait.groovy`
+#### Snippet
+```java
+<#assign licenseFirst = "/*">
+<#assign licensePrefix = " * ">
+<#assign licenseLast = " */">
+<#include "${project.licensePath}">
+
 ```
 
 ### GroovyUnusedAssignment
@@ -1438,66 +1438,6 @@ trait ${name} {
 
 ### GroovyUnusedAssignment
 Variable is not used
-in `groovy/groovy.support/src/org/netbeans/modules/groovy/support/resources/GroovyClass.groovy`
-#### Snippet
-```java
-    or more contributor license agreements.  See the NOTICE file
-    distributed with this work for additional information
-    regarding copyright ownership.  The ASF licenses this file
-    to you under the Apache License, Version 2.0 (the
-    "License"); you may not use this file except in compliance
-```
-
-### GroovyUnusedAssignment
-Variable is not used
-in `groovy/groovy.support/src/org/netbeans/modules/groovy/support/resources/GroovyClass.groovy`
-#### Snippet
-```java
-    to you under the Apache License, Version 2.0 (the
-    "License"); you may not use this file except in compliance
-    with the License.  You may obtain a copy of the License at
-
-      http://www.apache.org/licenses/LICENSE-2.0
-```
-
-### GroovyUnusedAssignment
-Variable is not used
-in `groovy/groovy.support/src/org/netbeans/modules/groovy/support/resources/GroovyClass.groovy`
-#### Snippet
-```java
-      http://www.apache.org/licenses/LICENSE-2.0
-
-    Unless required by applicable law or agreed to in writing,
-    software distributed under the License is distributed on an
-    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-```
-
-### GroovyUnusedAssignment
-Assignment is not used
-in `groovy/groovy.support/src/org/netbeans/modules/groovy/support/resources/GroovyClass.groovy`
-#### Snippet
-```java
-
--->
-<#assign licenseFirst = "/*">
-<#assign licensePrefix = " * ">
-<#assign licenseLast = " */">
-```
-
-### GroovyUnusedAssignment
-Assignment is not used
-in `groovy/groovy.support/src/org/netbeans/modules/groovy/support/resources/GroovyClass.groovy`
-#### Snippet
-```java
--->
-<#assign licenseFirst = "/*">
-<#assign licensePrefix = " * ">
-<#assign licenseLast = " */">
-<#include "${project.licensePath}">
-```
-
-### GroovyUnusedAssignment
-Variable is not used
 in `groovy/groovy.support/src/org/netbeans/modules/groovy/support/resources/GroovyJUnit3Test.groovy`
 #### Snippet
 ```java
@@ -1506,30 +1446,6 @@ in `groovy/groovy.support/src/org/netbeans/modules/groovy/support/resources/Groo
     regarding copyright ownership.  The ASF licenses this file
     to you under the Apache License, Version 2.0 (the
     "License"); you may not use this file except in compliance
-```
-
-### GroovyUnusedAssignment
-Assignment is not used
-in `groovy/groovy.support/src/org/netbeans/modules/groovy/support/resources/GroovyClass.groovy`
-#### Snippet
-```java
-<#assign licenseFirst = "/*">
-<#assign licensePrefix = " * ">
-<#assign licenseLast = " */">
-<#include "${project.licensePath}">
-
-```
-
-### GroovyUnusedAssignment
-Variable is not used
-in `groovy/groovy.support/src/org/netbeans/modules/groovy/support/resources/GroovyClass.groovy`
-#### Snippet
-```java
-/**
- *
- * @author ${user}
- */
-class ${name} {
 ```
 
 ### GroovyUnusedAssignment
@@ -1617,6 +1533,90 @@ in `groovy/groovy.support/src/org/netbeans/modules/groovy/support/resources/Groo
 ```
 
 ### GroovyUnusedAssignment
+Variable is not used
+in `groovy/groovy.support/src/org/netbeans/modules/groovy/support/resources/GroovyClass.groovy`
+#### Snippet
+```java
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+```
+
+### GroovyUnusedAssignment
+Variable is not used
+in `groovy/groovy.support/src/org/netbeans/modules/groovy/support/resources/GroovyClass.groovy`
+#### Snippet
+```java
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+```
+
+### GroovyUnusedAssignment
+Variable is not used
+in `groovy/groovy.support/src/org/netbeans/modules/groovy/support/resources/GroovyClass.groovy`
+#### Snippet
+```java
+      http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+```
+
+### GroovyUnusedAssignment
+Assignment is not used
+in `groovy/groovy.support/src/org/netbeans/modules/groovy/support/resources/GroovyClass.groovy`
+#### Snippet
+```java
+
+-->
+<#assign licenseFirst = "/*">
+<#assign licensePrefix = " * ">
+<#assign licenseLast = " */">
+```
+
+### GroovyUnusedAssignment
+Assignment is not used
+in `groovy/groovy.support/src/org/netbeans/modules/groovy/support/resources/GroovyClass.groovy`
+#### Snippet
+```java
+-->
+<#assign licenseFirst = "/*">
+<#assign licensePrefix = " * ">
+<#assign licenseLast = " */">
+<#include "${project.licensePath}">
+```
+
+### GroovyUnusedAssignment
+Assignment is not used
+in `groovy/groovy.support/src/org/netbeans/modules/groovy/support/resources/GroovyClass.groovy`
+#### Snippet
+```java
+<#assign licenseFirst = "/*">
+<#assign licensePrefix = " * ">
+<#assign licenseLast = " */">
+<#include "${project.licensePath}">
+
+```
+
+### GroovyUnusedAssignment
+Variable is not used
+in `groovy/groovy.support/src/org/netbeans/modules/groovy/support/resources/GroovyClass.groovy`
+#### Snippet
+```java
+/**
+ *
+ * @author ${user}
+ */
+class ${name} {
+```
+
+### GroovyUnusedAssignment
 Assignment is not used
 in `contrib/groovy.grailsproject/test/unit/data/projects/completion/grails-app/conf/spring/resources.groovy`
 #### Snippet
@@ -1665,7 +1665,7 @@ repositories {
 
 ### GroovyUnusedAssignment
 Assignment is not used
-in `enterprise/micronaut/test/unit/data/gradle/artifacts/multi/app/build.gradle`
+in `enterprise/micronaut/test/unit/data/gradle/artifacts/multi/oci/build.gradle`
 #### Snippet
 ```java
 }
@@ -1677,7 +1677,7 @@ group = "com.example"
 
 ### GroovyUnusedAssignment
 Assignment is not used
-in `enterprise/micronaut/test/unit/data/gradle/artifacts/multi/app/build.gradle`
+in `enterprise/micronaut/test/unit/data/gradle/artifacts/multi/oci/build.gradle`
 #### Snippet
 ```java
 
@@ -1689,7 +1689,7 @@ repositories {
 
 ### GroovyUnusedAssignment
 Assignment is not used
-in `enterprise/micronaut/test/unit/data/gradle/artifacts/multi/oci/build.gradle`
+in `enterprise/micronaut/test/unit/data/gradle/artifacts/multi/app/build.gradle`
 #### Snippet
 ```java
 }
@@ -1701,7 +1701,7 @@ group = "com.example"
 
 ### GroovyUnusedAssignment
 Assignment is not used
-in `enterprise/micronaut/test/unit/data/gradle/artifacts/multi/oci/build.gradle`
+in `enterprise/micronaut/test/unit/data/gradle/artifacts/multi/app/build.gradle`
 #### Snippet
 ```java
 
@@ -1902,6 +1902,18 @@ in `enterprise/j2ee.dd/src/org/netbeans/modules/j2ee/dd/impl/resources/javaee_we
         <xsd:pattern value="\*|([\i-[:]][\c-[:]]*:)?[\i-[:]][\c-[:]]*\*?"/>
      </xsd:restriction>
 
+```
+
+### RegExpSimplifiable
+`[^\s]` can be simplified to '\\S'
+in `enterprise/j2ee.dd/src/org/netbeans/modules/j2ee/dd/impl/resources/web-common_6_0.xsd`
+#### Snippet
+```java
+    </xsd:annotation>
+    <xsd:restriction base="xsd:string">
+      <xsd:pattern value="[^\s]+"/>
+    </xsd:restriction>
+  </xsd:simpleType>
 ```
 
 ### RegExpSimplifiable
@@ -2182,13 +2194,25 @@ in `enterprise/web.jsf/src/org/netbeans/modules/web/jsf/resources/web-facesconfi
 
 ### RegExpSimplifiable
 `[\p{L}]` can be simplified to '\\p{L}'
-in `enterprise/web.jsf/src/org/netbeans/modules/web/jsf/resources/web-facesconfig_2_0.xsd`
+in `enterprise/web.jsf/src/org/netbeans/modules/web/jsf/resources/web-facesconfig_2_3.xsd`
 #### Snippet
 ```java
+    </xsd:annotation>
+    <xsd:restriction base="xsd:string">
+      <xsd:pattern value="([a-z]{2})[_|\-]?([\p{L}]{2})?[_|\-]?(\w+)?"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+```
 
-        <xsd:restriction base="xsd:string">
-            <xsd:pattern value="([a-z]{2})[_|\-]?([\p{L}]{2})?[_|\-]?(\w+)?"/>
-        </xsd:restriction>
+### RegExpSimplifiable
+`[\p{L}]` can be simplified to '\\p{L}'
+in `enterprise/web.jsf/src/org/netbeans/modules/web/jsf/resources/web-facesconfig_4_0.xsd`
+#### Snippet
+```java
+    </xsd:annotation>
+    <xsd:restriction base="xsd:string">
+      <xsd:pattern value="([a-z]{2})[_|\-]?([\p{L}]{2})?[_|\-]?(\w+)?"/>
+    </xsd:restriction>
   </xsd:simpleType>
 ```
 
@@ -2206,19 +2230,19 @@ in `enterprise/web.jsf/src/org/netbeans/modules/web/jsf/resources/web-facesconfi
 
 ### RegExpSimplifiable
 `[\p{L}]` can be simplified to '\\p{L}'
-in `enterprise/web.jsf/src/org/netbeans/modules/web/jsf/resources/web-facesconfig_2_2.xsd`
+in `enterprise/web.jsf/src/org/netbeans/modules/web/jsf/resources/web-facesconfig_2_0.xsd`
 #### Snippet
 ```java
-    </xsd:annotation>
-    <xsd:restriction base="xsd:string">
-      <xsd:pattern value="([a-z]{2})[_|\-]?([\p{L}]{2})?[_|\-]?(\w+)?"/>
-    </xsd:restriction>
+
+        <xsd:restriction base="xsd:string">
+            <xsd:pattern value="([a-z]{2})[_|\-]?([\p{L}]{2})?[_|\-]?(\w+)?"/>
+        </xsd:restriction>
   </xsd:simpleType>
 ```
 
 ### RegExpSimplifiable
 `[\p{L}]` can be simplified to '\\p{L}'
-in `enterprise/web.jsf/src/org/netbeans/modules/web/jsf/resources/web-facesconfig_2_3.xsd`
+in `enterprise/web.jsf/src/org/netbeans/modules/web/jsf/resources/web-facesconfig_2_2.xsd`
 #### Snippet
 ```java
     </xsd:annotation>
@@ -2580,6 +2604,18 @@ Any text
 ## RuleId[ruleID=RegExpSingleCharAlternation]
 ### RegExpSingleCharAlternation
 Single character alternation in RegExp
+in `enterprise/j2ee.dd/src/org/netbeans/modules/j2ee/dd/impl/resources/web-common_6_0.xsd`
+#### Snippet
+```java
+    </xsd:annotation>
+    <xsd:restriction base="xsd:string">
+      <xsd:pattern value="[a-z]{2}(_|-)?([\p{L}\-\p{Nd}]{2})?"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+```
+
+### RegExpSingleCharAlternation
+Single character alternation in RegExp
 in `enterprise/j2ee.dd/src/org/netbeans/modules/j2ee/dd/impl/resources/web-common_3_0.xsd`
 #### Snippet
 ```java
@@ -2869,6 +2905,18 @@ in `enterprise/j2ee.dd/src/org/netbeans/modules/j2ee/dd/impl/resources/javaee_we
 
 ### RegExpRedundantNestedCharacterClass
 Redundant nested character class
+in `enterprise/j2ee.dd/src/org/netbeans/modules/j2ee/dd/impl/resources/web-common_6_0.xsd`
+#### Snippet
+```java
+    </xsd:annotation>
+    <xsd:restriction base="xsd:token">
+      <xsd:pattern value="[!-~-[\(\)&#60;&#62;@,;:&#34;/\[\]?=\{\}\\\p{Z}]]+"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+```
+
+### RegExpRedundantNestedCharacterClass
+Redundant nested character class
 in `enterprise/j2ee.dd/src/org/netbeans/modules/j2ee/dd/impl/resources/web-common_3_0.xsd`
 #### Snippet
 ```java
@@ -3037,24 +3085,24 @@ in `enterprise/j2ee.dd/src/org/netbeans/modules/j2ee/dd/impl/resources/javaee_we
 
 ### RegExpRedundantNestedCharacterClass
 Redundant nested character class
-in `enterprise/j2ee.dd/src/org/netbeans/modules/j2ee/dd/impl/resources/web-common_4_0.xsd`
-#### Snippet
-```java
-    </xsd:annotation>
-    <xsd:restriction base="xsd:token">
-      <xsd:pattern value="[!-~-[\(\)&#60;&#62;@,;:&#34;/\[\]?=\{\}\\\p{Z}]]+"/>
-    </xsd:restriction>
-  </xsd:simpleType>
-```
-
-### RegExpRedundantNestedCharacterClass
-Redundant nested character class
 in `enterprise/j2ee.dd/src/org/netbeans/modules/j2ee/dd/impl/resources/javaee_web_services_client_1_4.xsd`
 #### Snippet
 ```java
     </xsd:annotation>
     <xsd:restriction base="xsd:token">
       <xsd:pattern value="\*|([\i-[:]][\c-[:]]*:)?[\i-[:]][\c-[:]]*\*?"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+```
+
+### RegExpRedundantNestedCharacterClass
+Redundant nested character class
+in `enterprise/j2ee.dd/src/org/netbeans/modules/j2ee/dd/impl/resources/web-common_4_0.xsd`
+#### Snippet
+```java
+    </xsd:annotation>
+    <xsd:restriction base="xsd:token">
+      <xsd:pattern value="[!-~-[\(\)&#60;&#62;@,;:&#34;/\[\]?=\{\}\\\p{Z}]]+"/>
     </xsd:restriction>
   </xsd:simpleType>
 ```
@@ -3422,7 +3470,7 @@ in `ide/xml/test/qa-functional/data/people.xsd`
 
 ### RegExpRedundantEscape
 Redundant character escape `\.` in RegExp
-in `nbi/engine/src/org/netbeans/installer/product/state-file.xsd`
+in `nbi/engine/src/org/netbeans/installer/product/registry.xsd`
 #### Snippet
 ```java
         <xsd:restriction base="xsd:string">
@@ -3434,7 +3482,7 @@ in `nbi/engine/src/org/netbeans/installer/product/state-file.xsd`
 
 ### RegExpRedundantEscape
 Redundant character escape `\.` in RegExp
-in `nbi/engine/src/org/netbeans/installer/product/registry.xsd`
+in `nbi/engine/src/org/netbeans/installer/product/state-file.xsd`
 #### Snippet
 ```java
         <xsd:restriction base="xsd:string">
@@ -3442,6 +3490,42 @@ in `nbi/engine/src/org/netbeans/installer/product/registry.xsd`
                 value="([A-Za-z0-9\-\._])+"/>
         </xsd:restriction>
     </xsd:simpleType>
+```
+
+### RegExpRedundantEscape
+Redundant character escape `\(` in RegExp
+in `enterprise/j2ee.dd/src/org/netbeans/modules/j2ee/dd/impl/resources/web-common_6_0.xsd`
+#### Snippet
+```java
+    </xsd:annotation>
+    <xsd:restriction base="xsd:token">
+      <xsd:pattern value="[!-~-[\(\)&#60;&#62;@,;:&#34;/\[\]?=\{\}\\\p{Z}]]+"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+```
+
+### RegExpRedundantEscape
+Redundant character escape `\)` in RegExp
+in `enterprise/j2ee.dd/src/org/netbeans/modules/j2ee/dd/impl/resources/web-common_6_0.xsd`
+#### Snippet
+```java
+    </xsd:annotation>
+    <xsd:restriction base="xsd:token">
+      <xsd:pattern value="[!-~-[\(\)&#60;&#62;@,;:&#34;/\[\]?=\{\}\\\p{Z}]]+"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+```
+
+### RegExpRedundantEscape
+Redundant character escape `\{` in RegExp
+in `enterprise/j2ee.dd/src/org/netbeans/modules/j2ee/dd/impl/resources/web-common_6_0.xsd`
+#### Snippet
+```java
+    </xsd:annotation>
+    <xsd:restriction base="xsd:token">
+      <xsd:pattern value="[!-~-[\(\)&#60;&#62;@,;:&#34;/\[\]?=\{\}\\\p{Z}]]+"/>
+    </xsd:restriction>
+  </xsd:simpleType>
 ```
 
 ### RegExpRedundantEscape
