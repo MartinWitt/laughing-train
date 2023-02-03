@@ -11,8 +11,8 @@ I found 18 bad smells with 1 repairable:
 | DynamicRegexReplaceableByCompiledPattern | 1 | false |
 | NestedAssignment | 1 | false |
 | BoundedWildcard | 1 | false |
-| UnusedAssignment | 1 | false |
 | CodeBlock2Expr | 1 | true |
+| UnusedAssignment | 1 | false |
 ## RuleId[ruleID=RedundantFieldInitialization]
 ### RedundantFieldInitialization
 Field initialization to `null` is redundant
@@ -42,13 +42,25 @@ in `src/main/java/com/palantir/gradle/gitversion/GitVersionPlugin.java`
 ## RuleId[ruleID=ReturnNull]
 ### ReturnNull
 Return of `null`
+in `src/main/java/com/palantir/gradle/gitversion/RefWithTagNameComparator.java`
+#### Snippet
+```java
+            return identity.getWhen().toInstant();
+        } catch (IOException | RuntimeException ignored) {
+            return null;
+        }
+    }
+```
+
+### ReturnNull
+Return of `null`
 in `src/main/java/com/palantir/gradle/gitversion/VersionDetailsImpl.java`
 #### Snippet
 ```java
-
-        Matcher match = Pattern.compile("(.*)-([0-9]+)-g.?[0-9a-fA-F]{3,}").matcher(description());
-        return match.matches() ? match.group(1) : null;
-    }
+        Ref ref = git.getRepository().findRef(git.getRepository().getBranch());
+        if (ref == null) {
+            return null;
+        }
 
 ```
 
@@ -81,10 +93,10 @@ Return of `null`
 in `src/main/java/com/palantir/gradle/gitversion/VersionDetailsImpl.java`
 #### Snippet
 ```java
-        Ref ref = git.getRepository().findRef(git.getRepository().getBranch());
-        if (ref == null) {
-            return null;
-        }
+
+        Matcher match = Pattern.compile("(.*)-([0-9]+)-g.?[0-9a-fA-F]{3,}").matcher(description());
+        return match.matches() ? match.group(1) : null;
+    }
 
 ```
 
@@ -98,30 +110,6 @@ in `src/main/java/com/palantir/gradle/gitversion/VersionDetailsImpl.java`
             return null;
         }
 
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/com/palantir/gradle/gitversion/RefWithTagNameComparator.java`
-#### Snippet
-```java
-            return identity.getWhen().toInstant();
-        } catch (IOException | RuntimeException ignored) {
-            return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/com/palantir/gradle/gitversion/JGitDescribe.java`
-#### Snippet
-```java
-        } catch (IOException | RuntimeException e) {
-            log.debug("JGit describe failed", e);
-            return null;
-        }
-    }
 ```
 
 ### ReturnNull
@@ -143,6 +131,18 @@ in `src/main/java/com/palantir/gradle/gitversion/NativeGitDescribe.java`
 ```java
         } catch (IOException | InterruptedException | RuntimeException e) {
             log.debug("Native git describe failed", e);
+            return null;
+        }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/com/palantir/gradle/gitversion/JGitDescribe.java`
+#### Snippet
+```java
+        } catch (IOException | RuntimeException e) {
+            log.debug("JGit describe failed", e);
             return null;
         }
     }
@@ -187,19 +187,6 @@ in `src/main/java/com/palantir/gradle/gitversion/JGitDescribe.java`
             ObjectId objectId,
 ```
 
-## RuleId[ruleID=UnusedAssignment]
-### UnusedAssignment
-Variable `line` initializer `null` is redundant
-in `src/main/java/com/palantir/gradle/gitversion/NativeGitDescribe.java`
-#### Snippet
-```java
-
-        StringBuilder builder = new StringBuilder();
-        String line = null;
-        while ((line = reader.readLine()) != null) {
-            builder.append(line);
-```
-
 ## RuleId[ruleID=CodeBlock2Expr]
 ### CodeBlock2Expr
 Statement lambda can be replaced with expression lambda
@@ -211,6 +198,19 @@ in `src/main/java/com/palantir/gradle/gitversion/TimingVersionDetails.java`
                     return timer.record(method.getName(), () -> {
                         try {
                             return method.invoke(versionDetails, args);
+```
+
+## RuleId[ruleID=UnusedAssignment]
+### UnusedAssignment
+Variable `line` initializer `null` is redundant
+in `src/main/java/com/palantir/gradle/gitversion/NativeGitDescribe.java`
+#### Snippet
+```java
+
+        StringBuilder builder = new StringBuilder();
+        String line = null;
+        while ((line = reader.readLine()) != null) {
+            builder.append(line);
 ```
 
 ## RuleId[ruleID=ConstantValue]
