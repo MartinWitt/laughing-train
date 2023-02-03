@@ -22,6 +22,18 @@ in `src/main/java/jetbrains/teamcity/aws/template/services/ecs/AwsTeamCityTempla
 
 ## RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
 ### UtilityClassWithoutPrivateConstructor
+Class `SetupContainerTask` has only 'static' members, and lacks a 'private' constructor
+in `src/main/java/jetbrains/teamcity/aws/template/services/ecs/setup/SetupContainerTask.java`
+#### Snippet
+```java
+import static jetbrains.teamcity.aws.template.services.ecs.setup.SetupContainerParameters.createDatabaseSh;
+
+public class SetupContainerTask {
+
+    public static void addSetupContainer(@NotNull final Construct scope,
+```
+
+### UtilityClassWithoutPrivateConstructor
 Class `AwsTeamCityTemplateVpc` has only 'static' members, and lacks a 'private' constructor
 in `src/main/java/jetbrains/teamcity/aws/template/services/vpc/AwsTeamCityTemplateVpc.java`
 #### Snippet
@@ -31,18 +43,6 @@ import java.util.List;
 public class AwsTeamCityTemplateVpc {
 
     // VPC Configuration
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `SetupContainerParameters` has only 'static' members, and lacks a 'private' constructor
-in `src/main/java/jetbrains/teamcity/aws/template/services/ecs/setup/SetupContainerParameters.java`
-#### Snippet
-```java
-import java.util.Map;
-
-public class SetupContainerParameters {
-    public final static String createDatabaseSh =
-            "# Define DATADIR env variable in ECS task\n" +
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -58,15 +58,15 @@ public class AwsTeamcityCfnTemplateCdkApp {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `SetupContainerTask` has only 'static' members, and lacks a 'private' constructor
-in `src/main/java/jetbrains/teamcity/aws/template/services/ecs/setup/SetupContainerTask.java`
+Class `SetupContainerParameters` has only 'static' members, and lacks a 'private' constructor
+in `src/main/java/jetbrains/teamcity/aws/template/services/ecs/setup/SetupContainerParameters.java`
 #### Snippet
 ```java
-import static jetbrains.teamcity.aws.template.services.ecs.setup.SetupContainerParameters.createDatabaseSh;
+import java.util.Map;
 
-public class SetupContainerTask {
-
-    public static void addSetupContainer(@NotNull final Construct scope,
+public class SetupContainerParameters {
+    public final static String createDatabaseSh =
+            "# Define DATADIR env variable in ECS task\n" +
 ```
 
 ## RuleId[ruleID=MissortedModifiers]
