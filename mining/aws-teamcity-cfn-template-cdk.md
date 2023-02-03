@@ -34,6 +34,18 @@ public class SetupContainerTask {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
+Class `SetupContainerParameters` has only 'static' members, and lacks a 'private' constructor
+in `src/main/java/jetbrains/teamcity/aws/template/services/ecs/setup/SetupContainerParameters.java`
+#### Snippet
+```java
+import java.util.Map;
+
+public class SetupContainerParameters {
+    public final static String createDatabaseSh =
+            "# Define DATADIR env variable in ECS task\n" +
+```
+
+### UtilityClassWithoutPrivateConstructor
 Class `AwsTeamCityTemplateVpc` has only 'static' members, and lacks a 'private' constructor
 in `src/main/java/jetbrains/teamcity/aws/template/services/vpc/AwsTeamCityTemplateVpc.java`
 #### Snippet
@@ -55,18 +67,6 @@ import software.amazon.awscdk.StackProps;
 public class AwsTeamcityCfnTemplateCdkApp {
     public static void main(final String[] args) {
         App app = new App();
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `SetupContainerParameters` has only 'static' members, and lacks a 'private' constructor
-in `src/main/java/jetbrains/teamcity/aws/template/services/ecs/setup/SetupContainerParameters.java`
-#### Snippet
-```java
-import java.util.Map;
-
-public class SetupContainerParameters {
-    public final static String createDatabaseSh =
-            "# Define DATADIR env variable in ECS task\n" +
 ```
 
 ## RuleId[ruleID=MissortedModifiers]
