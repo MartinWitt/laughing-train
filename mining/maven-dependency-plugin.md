@@ -123,11 +123,11 @@ Obsolete collection type `Stack` used
 in `src/main/java/org/apache/maven/plugins/dependency/tree/BuildingDependencyNodeVisitor.java`
 #### Snippet
 ```java
-        this.visitor = visitor;
+     * The resultant tree parent nodes for the currently visited node.
+     */
+    private final Stack<DependencyNode> parentNodes;
 
-        parentNodes = new Stack<DependencyNode>();
-    }
-
+    /**
 ```
 
 ### ObsoleteCollection
@@ -135,11 +135,11 @@ Obsolete collection type `Stack` used
 in `src/main/java/org/apache/maven/plugins/dependency/tree/BuildingDependencyNodeVisitor.java`
 #### Snippet
 ```java
-     * The resultant tree parent nodes for the currently visited node.
-     */
-    private final Stack<DependencyNode> parentNodes;
+        this.visitor = visitor;
 
-    /**
+        parentNodes = new Stack<DependencyNode>();
+    }
+
 ```
 
 ## RuleId[ruleID=RegExpSimplifiable]
@@ -169,18 +169,6 @@ in `src/main/java/org/apache/maven/plugins/dependency/utils/DependencyUtil.java`
 
 ## RuleId[ruleID=SizeReplaceableByIsEmpty]
 ### SizeReplaceableByIsEmpty
-`missingArtifacts.size() > 0` can be replaced with '!missingArtifacts.isEmpty()'
-in `src/main/java/org/apache/maven/plugins/dependency/PurgeLocalRepositoryMojo.java`
-#### Snippet
-```java
-        }
-
-        if (missingArtifacts.size() > 0) {
-            StringBuilder message = new StringBuilder("required artifacts missing:");
-            message.append(System.lineSeparator());
-```
-
-### SizeReplaceableByIsEmpty
 `manualIncludes.size() > 0` can be replaced with '!manualIncludes.isEmpty()'
 in `src/main/java/org/apache/maven/plugins/dependency/PurgeLocalRepositoryMojo.java`
 #### Snippet
@@ -190,6 +178,18 @@ in `src/main/java/org/apache/maven/plugins/dependency/PurgeLocalRepositoryMojo.j
         if (manualIncludes != null && manualIncludes.size() > 0) {
             manualPurge(manualIncludes);
             return;
+```
+
+### SizeReplaceableByIsEmpty
+`missingArtifacts.size() > 0` can be replaced with '!missingArtifacts.isEmpty()'
+in `src/main/java/org/apache/maven/plugins/dependency/PurgeLocalRepositoryMojo.java`
+#### Snippet
+```java
+        }
+
+        if (missingArtifacts.size() > 0) {
+            StringBuilder message = new StringBuilder("required artifacts missing:");
+            message.append(System.lineSeparator());
 ```
 
 ## RuleId[ruleID=InnerClassMayBeStatic]
@@ -208,50 +208,14 @@ in `src/main/java/org/apache/maven/plugins/dependency/resolvers/ResolveDependenc
 ## RuleId[ruleID=BoundedWildcard]
 ### BoundedWildcard
 Can generalize to `? extends Artifact`
-in `src/main/java/org/apache/maven/plugins/dependency/utils/DependencyStatusSets.java`
+in `src/main/java/org/apache/maven/plugins/dependency/utils/translators/ClassifierTypeTranslator.java`
 #### Snippet
 ```java
-     * @param skipped set of {@link Artifact}
      */
-    public DependencyStatusSets(Set<Artifact> resolved, Set<Artifact> unResolved, Set<Artifact> skipped) {
-        if (resolved != null) {
-            this.resolvedDependencies = new LinkedHashSet<>(resolved);
-```
+    @Override
+    public Set<ArtifactCoordinate> translate(Set<Artifact> artifacts, Log log) {
+        Set<ArtifactCoordinate> results;
 
-### BoundedWildcard
-Can generalize to `? extends Artifact`
-in `src/main/java/org/apache/maven/plugins/dependency/utils/DependencyStatusSets.java`
-#### Snippet
-```java
-     * @param skipped set of {@link Artifact}
-     */
-    public DependencyStatusSets(Set<Artifact> resolved, Set<Artifact> unResolved, Set<Artifact> skipped) {
-        if (resolved != null) {
-            this.resolvedDependencies = new LinkedHashSet<>(resolved);
-```
-
-### BoundedWildcard
-Can generalize to `? extends Artifact`
-in `src/main/java/org/apache/maven/plugins/dependency/utils/DependencyStatusSets.java`
-#### Snippet
-```java
-     * @param skipped set of {@link Artifact}
-     */
-    public DependencyStatusSets(Set<Artifact> resolved, Set<Artifact> unResolved, Set<Artifact> skipped) {
-        if (resolved != null) {
-            this.resolvedDependencies = new LinkedHashSet<>(resolved);
-```
-
-### BoundedWildcard
-Can generalize to `? extends Artifact`
-in `src/main/java/org/apache/maven/plugins/dependency/utils/DependencyStatusSets.java`
-#### Snippet
-```java
-     * @param skippedDependencies The skippedDependencies to set.
-     */
-    public void setSkippedDependencies(Set<Artifact> skippedDependencies) {
-        if (skippedDependencies != null) {
-            this.skippedDependencies = new LinkedHashSet<>(skippedDependencies);
 ```
 
 ### BoundedWildcard
@@ -271,23 +235,59 @@ Can generalize to `? extends Artifact`
 in `src/main/java/org/apache/maven/plugins/dependency/utils/DependencyStatusSets.java`
 #### Snippet
 ```java
+     * @param skippedDependencies The skippedDependencies to set.
+     */
+    public void setSkippedDependencies(Set<Artifact> skippedDependencies) {
+        if (skippedDependencies != null) {
+            this.skippedDependencies = new LinkedHashSet<>(skippedDependencies);
+```
+
+### BoundedWildcard
+Can generalize to `? extends Artifact`
+in `src/main/java/org/apache/maven/plugins/dependency/utils/DependencyStatusSets.java`
+#### Snippet
+```java
+     * @param skipped set of {@link Artifact}
+     */
+    public DependencyStatusSets(Set<Artifact> resolved, Set<Artifact> unResolved, Set<Artifact> skipped) {
+        if (resolved != null) {
+            this.resolvedDependencies = new LinkedHashSet<>(resolved);
+```
+
+### BoundedWildcard
+Can generalize to `? extends Artifact`
+in `src/main/java/org/apache/maven/plugins/dependency/utils/DependencyStatusSets.java`
+#### Snippet
+```java
+     * @param skipped set of {@link Artifact}
+     */
+    public DependencyStatusSets(Set<Artifact> resolved, Set<Artifact> unResolved, Set<Artifact> skipped) {
+        if (resolved != null) {
+            this.resolvedDependencies = new LinkedHashSet<>(resolved);
+```
+
+### BoundedWildcard
+Can generalize to `? extends Artifact`
+in `src/main/java/org/apache/maven/plugins/dependency/utils/DependencyStatusSets.java`
+#### Snippet
+```java
+     * @param skipped set of {@link Artifact}
+     */
+    public DependencyStatusSets(Set<Artifact> resolved, Set<Artifact> unResolved, Set<Artifact> skipped) {
+        if (resolved != null) {
+            this.resolvedDependencies = new LinkedHashSet<>(resolved);
+```
+
+### BoundedWildcard
+Can generalize to `? extends Artifact`
+in `src/main/java/org/apache/maven/plugins/dependency/utils/DependencyStatusSets.java`
+#### Snippet
+```java
      * @param resolvedDependencies The resolvedDependencies to set.
      */
     public void setResolvedDependencies(Set<Artifact> resolvedDependencies) {
         if (resolvedDependencies != null) {
             this.resolvedDependencies = new LinkedHashSet<>(resolvedDependencies);
-```
-
-### BoundedWildcard
-Can generalize to `? extends Artifact`
-in `src/main/java/org/apache/maven/plugins/dependency/utils/translators/ClassifierTypeTranslator.java`
-#### Snippet
-```java
-     */
-    @Override
-    public Set<ArtifactCoordinate> translate(Set<Artifact> artifacts, Log log) {
-        Set<ArtifactCoordinate> results;
-
 ```
 
 ### BoundedWildcard
@@ -300,30 +300,6 @@ in `src/main/java/org/apache/maven/plugins/dependency/resolvers/GoOfflineMojo.ja
             final Collection<DependableCoordinate> dependableCoordinates,
             final String type)
             throws DependencyResolverException {
-```
-
-### BoundedWildcard
-Can generalize to `? extends Artifact`
-in `src/main/java/org/apache/maven/plugins/dependency/PurgeLocalRepositoryMojo.java`
-#### Snippet
-```java
-    }
-
-    private void reResolveArtifacts(MavenProject theProject, Set<Artifact> artifacts)
-            throws ArtifactResolutionException {
-        // Always need to re-resolve the poms in case they were purged along with the artifact
-```
-
-### BoundedWildcard
-Can generalize to `? extends Dependency`
-in `src/main/java/org/apache/maven/plugins/dependency/PurgeLocalRepositoryMojo.java`
-#### Snippet
-```java
-
-    private Set<Artifact> getFilteredResolvedArtifacts(
-            MavenProject theProject, List<Dependency> dependencies, TransformableFilter filter) {
-        try {
-            Iterable<ArtifactResult> results = dependencyResolver.resolveDependencies(
 ```
 
 ### BoundedWildcard
@@ -343,6 +319,30 @@ Can generalize to `? extends Artifact`
 in `src/main/java/org/apache/maven/plugins/dependency/PurgeLocalRepositoryMojo.java`
 #### Snippet
 ```java
+     */
+    private TransformableFilter createPurgeArtifactsFilter(
+            MavenProject theProject, List<Dependency> dependencies, Set<Artifact> purgedArtifacts) {
+        List<TransformableFilter> subFilters = new ArrayList<>();
+
+```
+
+### BoundedWildcard
+Can generalize to `? extends Dependency`
+in `src/main/java/org/apache/maven/plugins/dependency/PurgeLocalRepositoryMojo.java`
+#### Snippet
+```java
+
+    private Set<Artifact> getFilteredResolvedArtifacts(
+            MavenProject theProject, List<Dependency> dependencies, TransformableFilter filter) {
+        try {
+            Iterable<ArtifactResult> results = dependencyResolver.resolveDependencies(
+```
+
+### BoundedWildcard
+Can generalize to `? extends Artifact`
+in `src/main/java/org/apache/maven/plugins/dependency/PurgeLocalRepositoryMojo.java`
+#### Snippet
+```java
     }
 
     private void purgeArtifacts(MavenProject theProject, Set<Artifact> artifacts) {
@@ -355,23 +355,11 @@ Can generalize to `? extends Artifact`
 in `src/main/java/org/apache/maven/plugins/dependency/PurgeLocalRepositoryMojo.java`
 #### Snippet
 ```java
-     */
-    private TransformableFilter createPurgeArtifactsFilter(
-            MavenProject theProject, List<Dependency> dependencies, Set<Artifact> purgedArtifacts) {
-        List<TransformableFilter> subFilters = new ArrayList<>();
+    }
 
-```
-
-### BoundedWildcard
-Can generalize to `? extends Artifact`
-in `src/main/java/org/apache/maven/plugins/dependency/resolvers/ResolveDependenciesMojo.java`
-#### Snippet
-```java
-
-    private StringBuilder buildArtifactListOutput(
-            Set<Artifact> artifacts, boolean outputAbsoluteArtifactFilename, boolean theOutputScope, boolean theSort) {
-        StringBuilder sb = new StringBuilder();
-        List<String> artifactStringList = new ArrayList<>();
+    private void reResolveArtifacts(MavenProject theProject, Set<Artifact> artifacts)
+            throws ArtifactResolutionException {
+        // Always need to re-resolve the poms in case they were purged along with the artifact
 ```
 
 ### BoundedWildcard
@@ -399,15 +387,15 @@ in `src/main/java/org/apache/maven/plugins/dependency/analyze/AnalyzeReportView.
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends ArtifactCoordinate`
-in `src/main/java/org/apache/maven/plugins/dependency/fromDependencies/AbstractDependencyFilterMojo.java`
+Can generalize to `? extends Artifact`
+in `src/main/java/org/apache/maven/plugins/dependency/resolvers/ResolveDependenciesMojo.java`
 #### Snippet
 ```java
-     * @throws MojoExecutionException in case of error.
-     */
-    protected Set<Artifact> resolve(Set<ArtifactCoordinate> coordinates, boolean stopOnFailure)
-            throws MojoExecutionException {
-        ProjectBuildingRequest buildingRequest = newResolveArtifactProjectBuildingRequest();
+
+    private StringBuilder buildArtifactListOutput(
+            Set<Artifact> artifacts, boolean outputAbsoluteArtifactFilename, boolean theOutputScope, boolean theSort) {
+        StringBuilder sb = new StringBuilder();
+        List<String> artifactStringList = new ArrayList<>();
 ```
 
 ### BoundedWildcard
@@ -423,27 +411,15 @@ in `src/main/java/org/apache/maven/plugins/dependency/fromDependencies/AbstractD
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends Artifact`
-in `src/main/java/org/apache/maven/plugins/dependency/analyze/AbstractAnalyzeMojo.java`
+Can generalize to `? extends ArtifactCoordinate`
+in `src/main/java/org/apache/maven/plugins/dependency/fromDependencies/AbstractDependencyFilterMojo.java`
 #### Snippet
 ```java
-    }
-
-    private void writeDependencyXML(Set<Artifact> artifacts) {
-        if (!artifacts.isEmpty()) {
-            getLog().info("Add the following to your pom to correct the missing dependencies: ");
-```
-
-### BoundedWildcard
-Can generalize to `? extends Artifact`
-in `src/main/java/org/apache/maven/plugins/dependency/analyze/AbstractAnalyzeMojo.java`
-#### Snippet
-```java
-    }
-
-    private void logArtifacts(Set<Artifact> artifacts, boolean warn) {
-        if (artifacts.isEmpty()) {
-            getLog().info("   None");
+     * @throws MojoExecutionException in case of error.
+     */
+    protected Set<Artifact> resolve(Set<ArtifactCoordinate> coordinates, boolean stopOnFailure)
+            throws MojoExecutionException {
+        ProjectBuildingRequest buildingRequest = newResolveArtifactProjectBuildingRequest();
 ```
 
 ### BoundedWildcard
@@ -465,9 +441,33 @@ in `src/main/java/org/apache/maven/plugins/dependency/analyze/AbstractAnalyzeMoj
 ```java
     }
 
+    private void writeDependencyXML(Set<Artifact> artifacts) {
+        if (!artifacts.isEmpty()) {
+            getLog().info("Add the following to your pom to correct the missing dependencies: ");
+```
+
+### BoundedWildcard
+Can generalize to `? extends Artifact`
+in `src/main/java/org/apache/maven/plugins/dependency/analyze/AbstractAnalyzeMojo.java`
+#### Snippet
+```java
+    }
+
     private void filterArtifactsByScope(Set<Artifact> artifacts, String scope) {
         artifacts.removeIf(artifact -> artifact.getScope().equals(scope));
     }
+```
+
+### BoundedWildcard
+Can generalize to `? extends Artifact`
+in `src/main/java/org/apache/maven/plugins/dependency/analyze/AbstractAnalyzeMojo.java`
+#### Snippet
+```java
+    }
+
+    private void logArtifacts(Set<Artifact> artifacts, boolean warn) {
+        if (artifacts.isEmpty()) {
+            getLog().info("   None");
 ```
 
 ### BoundedWildcard
@@ -519,18 +519,6 @@ in `src/main/java/org/apache/maven/plugins/dependency/analyze/AnalyzeDepMgt.java
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends Exclusion`
-in `src/main/java/org/apache/maven/plugins/dependency/analyze/AnalyzeDepMgt.java`
-#### Snippet
-```java
-     * @return a map of the exclusions using the Dependency ManagementKey as the keyset.
-     */
-    public Map<String, Exclusion> addExclusions(List<Exclusion> exclusionList) {
-        if (exclusionList != null) {
-            return exclusionList.stream().collect(Collectors.toMap(this::getExclusionKey, exclusion -> exclusion));
-```
-
-### BoundedWildcard
 Can generalize to `? extends Artifact`
 in `src/main/java/org/apache/maven/plugins/dependency/analyze/AnalyzeDepMgt.java`
 #### Snippet
@@ -540,6 +528,18 @@ in `src/main/java/org/apache/maven/plugins/dependency/analyze/AnalyzeDepMgt.java
     public List<Artifact> getExclusionErrors(Map<String, Exclusion> exclusions, Set<Artifact> allDependencyArtifacts) {
         return allDependencyArtifacts.stream()
                 .filter(artifact -> exclusions.containsKey(getExclusionKey(artifact)))
+```
+
+### BoundedWildcard
+Can generalize to `? extends Exclusion`
+in `src/main/java/org/apache/maven/plugins/dependency/analyze/AnalyzeDepMgt.java`
+#### Snippet
+```java
+     * @return a map of the exclusions using the Dependency ManagementKey as the keyset.
+     */
+    public Map<String, Exclusion> addExclusions(List<Exclusion> exclusionList) {
+        if (exclusionList != null) {
+            return exclusionList.stream().collect(Collectors.toMap(this::getExclusionKey, exclusion -> exclusion));
 ```
 
 ## RuleId[ruleID=StringEqualsEmptyString]
@@ -558,18 +558,6 @@ in `src/main/java/org/apache/maven/plugins/dependency/fromConfiguration/Artifact
 ## RuleId[ruleID=IgnoreResultOfCall]
 ### IgnoreResultOfCall
 Result of `File.mkdirs()` is ignored
-in `src/main/java/org/apache/maven/plugins/dependency/utils/DependencyUtil.java`
-#### Snippet
-```java
-    public static synchronized void write(String string, File file, boolean append, String encoding)
-            throws IOException {
-        file.getParentFile().mkdirs();
-
-        try (Writer writer = new OutputStreamWriter(new FileOutputStream(file, append), encoding)) {
-```
-
-### IgnoreResultOfCall
-Result of `File.mkdirs()` is ignored
 in `src/main/java/org/apache/maven/plugins/dependency/AbstractDependencyMojo.java`
 #### Snippet
 ```java
@@ -578,6 +566,18 @@ in `src/main/java/org/apache/maven/plugins/dependency/AbstractDependencyMojo.jav
             location.mkdirs();
             if (!location.exists()) {
                 throw new MojoExecutionException(
+```
+
+### IgnoreResultOfCall
+Result of `File.mkdirs()` is ignored
+in `src/main/java/org/apache/maven/plugins/dependency/utils/DependencyUtil.java`
+#### Snippet
+```java
+    public static synchronized void write(String string, File file, boolean append, String encoding)
+            throws IOException {
+        file.getParentFile().mkdirs();
+
+        try (Writer writer = new OutputStreamWriter(new FileOutputStream(file, append), encoding)) {
 ```
 
 ### IgnoreResultOfCall
@@ -684,8 +684,8 @@ in `src/main/java/org/apache/maven/plugins/dependency/fromDependencies/BuildClas
 ```java
      * @since 2.0
      */
-    @Parameter(property = "mdep.localRepoProperty", defaultValue = "")
-    private String localRepoProperty;
+    @Parameter(property = "mdep.fileSeparator", defaultValue = "")
+    private String fileSeparator;
 
 ```
 
@@ -696,128 +696,8 @@ in `src/main/java/org/apache/maven/plugins/dependency/fromDependencies/BuildClas
 ```java
      * @since 2.0
      */
-    @Parameter(property = "mdep.fileSeparator", defaultValue = "")
-    private String fileSeparator;
-
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `src/main/java/org/apache/maven/plugins/dependency/fromDependencies/AbstractDependencyFilterMojo.java`
-#### Snippet
-```java
-     * @since 2.0
-     */
-    @Parameter(property = "classifier", defaultValue = "")
-    protected String classifier;
-
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `src/main/java/org/apache/maven/plugins/dependency/fromDependencies/AbstractDependencyFilterMojo.java`
-#### Snippet
-```java
-     * @since 2.0
-     */
-    @Parameter(property = "excludeGroupIds", defaultValue = "")
-    protected String excludeGroupIds;
-
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `src/main/java/org/apache/maven/plugins/dependency/fromDependencies/AbstractDependencyFilterMojo.java`
-#### Snippet
-```java
-     * @since 2.0
-     */
-    @Parameter(property = "includeTypes", defaultValue = "")
-    protected String includeTypes;
-
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `src/main/java/org/apache/maven/plugins/dependency/fromDependencies/AbstractDependencyFilterMojo.java`
-#### Snippet
-```java
-     * @since 2.0
-     */
-    @Parameter(property = "includeArtifactIds", defaultValue = "")
-    protected String includeArtifactIds;
-
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `src/main/java/org/apache/maven/plugins/dependency/fromDependencies/AbstractDependencyFilterMojo.java`
-#### Snippet
-```java
-     * @since 2.0
-     */
-    @Parameter(property = "excludeScope", defaultValue = "")
-    protected String excludeScope;
-
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `src/main/java/org/apache/maven/plugins/dependency/fromDependencies/AbstractDependencyFilterMojo.java`
-#### Snippet
-```java
-     * @since 2.0
-     */
-    @Parameter(property = "excludeClassifiers", defaultValue = "")
-    protected String excludeClassifiers;
-
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `src/main/java/org/apache/maven/plugins/dependency/fromDependencies/AbstractDependencyFilterMojo.java`
-#### Snippet
-```java
-     * @since 2.0
-     */
-    @Parameter(property = "includeClassifiers", defaultValue = "")
-    protected String includeClassifiers;
-
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `src/main/java/org/apache/maven/plugins/dependency/fromDependencies/AbstractDependencyFilterMojo.java`
-#### Snippet
-```java
-     * @since 2.0
-     */
-    @Parameter(property = "includeGroupIds", defaultValue = "")
-    protected String includeGroupIds;
-
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `src/main/java/org/apache/maven/plugins/dependency/fromDependencies/AbstractDependencyFilterMojo.java`
-#### Snippet
-```java
-     * @since 2.0
-     */
-    @Parameter(property = "type", defaultValue = "")
-    protected String type;
-
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `src/main/java/org/apache/maven/plugins/dependency/fromDependencies/AbstractDependencyFilterMojo.java`
-#### Snippet
-```java
-     * @since 2.0
-     */
-    @Parameter(property = "excludeArtifactIds", defaultValue = "")
-    protected String excludeArtifactIds;
+    @Parameter(property = "mdep.localRepoProperty", defaultValue = "")
+    private String localRepoProperty;
 
 ```
 
@@ -840,8 +720,128 @@ in `src/main/java/org/apache/maven/plugins/dependency/fromDependencies/AbstractD
 ```java
      * @since 2.0
      */
+    @Parameter(property = "includeClassifiers", defaultValue = "")
+    protected String includeClassifiers;
+
+```
+
+### DefaultAnnotationParam
+Redundant default parameter value assignment
+in `src/main/java/org/apache/maven/plugins/dependency/fromDependencies/AbstractDependencyFilterMojo.java`
+#### Snippet
+```java
+     * @since 2.0
+     */
+    @Parameter(property = "includeTypes", defaultValue = "")
+    protected String includeTypes;
+
+```
+
+### DefaultAnnotationParam
+Redundant default parameter value assignment
+in `src/main/java/org/apache/maven/plugins/dependency/fromDependencies/AbstractDependencyFilterMojo.java`
+#### Snippet
+```java
+     * @since 2.0
+     */
+    @Parameter(property = "type", defaultValue = "")
+    protected String type;
+
+```
+
+### DefaultAnnotationParam
+Redundant default parameter value assignment
+in `src/main/java/org/apache/maven/plugins/dependency/fromDependencies/AbstractDependencyFilterMojo.java`
+#### Snippet
+```java
+     * @since 2.0
+     */
+    @Parameter(property = "includeGroupIds", defaultValue = "")
+    protected String includeGroupIds;
+
+```
+
+### DefaultAnnotationParam
+Redundant default parameter value assignment
+in `src/main/java/org/apache/maven/plugins/dependency/fromDependencies/AbstractDependencyFilterMojo.java`
+#### Snippet
+```java
+     * @since 2.0
+     */
+    @Parameter(property = "classifier", defaultValue = "")
+    protected String classifier;
+
+```
+
+### DefaultAnnotationParam
+Redundant default parameter value assignment
+in `src/main/java/org/apache/maven/plugins/dependency/fromDependencies/AbstractDependencyFilterMojo.java`
+#### Snippet
+```java
+     * @since 2.0
+     */
+    @Parameter(property = "excludeArtifactIds", defaultValue = "")
+    protected String excludeArtifactIds;
+
+```
+
+### DefaultAnnotationParam
+Redundant default parameter value assignment
+in `src/main/java/org/apache/maven/plugins/dependency/fromDependencies/AbstractDependencyFilterMojo.java`
+#### Snippet
+```java
+     * @since 2.0
+     */
+    @Parameter(property = "excludeScope", defaultValue = "")
+    protected String excludeScope;
+
+```
+
+### DefaultAnnotationParam
+Redundant default parameter value assignment
+in `src/main/java/org/apache/maven/plugins/dependency/fromDependencies/AbstractDependencyFilterMojo.java`
+#### Snippet
+```java
+     * @since 2.0
+     */
+    @Parameter(property = "excludeGroupIds", defaultValue = "")
+    protected String excludeGroupIds;
+
+```
+
+### DefaultAnnotationParam
+Redundant default parameter value assignment
+in `src/main/java/org/apache/maven/plugins/dependency/fromDependencies/AbstractDependencyFilterMojo.java`
+#### Snippet
+```java
+     * @since 2.0
+     */
     @Parameter(property = "excludeTypes", defaultValue = "")
     protected String excludeTypes;
+
+```
+
+### DefaultAnnotationParam
+Redundant default parameter value assignment
+in `src/main/java/org/apache/maven/plugins/dependency/fromDependencies/AbstractDependencyFilterMojo.java`
+#### Snippet
+```java
+     * @since 2.0
+     */
+    @Parameter(property = "includeArtifactIds", defaultValue = "")
+    protected String includeArtifactIds;
+
+```
+
+### DefaultAnnotationParam
+Redundant default parameter value assignment
+in `src/main/java/org/apache/maven/plugins/dependency/fromDependencies/AbstractDependencyFilterMojo.java`
+#### Snippet
+```java
+     * @since 2.0
+     */
+    @Parameter(property = "excludeClassifiers", defaultValue = "")
+    protected String excludeClassifiers;
 
 ```
 
@@ -982,37 +982,37 @@ public abstract class AbstractDependencyFilterMojo extends AbstractDependencyMoj
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `src/main/java/org/apache/maven/plugins/dependency/utils/markers/DefaultFileMarkerHandler.java`
+Qualifier `org.codehaus.plexus.logging` is unnecessary and can be removed
+in `src/main/java/org/apache/maven/plugins/dependency/utils/DependencySilentLog.java`
 #### Snippet
 ```java
-     *         <code>false</code> otherwise
-     * @throws SecurityException If a security manager exists and its <code>{@link
-     *          java.lang.SecurityManager#checkRead(java.lang.String)}</code> method denies read access to the file or
-     *             directory
+     * By default, do nothing.
+     *
+     * @see org.codehaus.plexus.logging.Logger#warn(java.lang.String, java.lang.Throwable)
      */
+    @Override
 ```
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `java.lang` is unnecessary and can be removed
-in `src/main/java/org/apache/maven/plugins/dependency/utils/markers/DefaultFileMarkerHandler.java`
+in `src/main/java/org/apache/maven/plugins/dependency/utils/DependencySilentLog.java`
 #### Snippet
 ```java
-     *         <code>false</code> otherwise
-     * @throws SecurityException If a security manager exists and its <code>{@link
-     *          java.lang.SecurityManager#checkRead(java.lang.String)}</code> method denies read access to the file or
-     *             directory
+     * By default, do nothing.
+     *
+     * @see org.codehaus.plexus.logging.Logger#warn(java.lang.String, java.lang.Throwable)
      */
+    @Override
 ```
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `java.lang` is unnecessary and can be removed
-in `src/main/java/org/apache/maven/plugins/dependency/utils/markers/DefaultFileMarkerHandler.java`
+in `src/main/java/org/apache/maven/plugins/dependency/utils/DependencySilentLog.java`
 #### Snippet
 ```java
-     *         otherwise
-     * @throws SecurityException If a security manager exists and its <code>{@link
-     *          java.lang.SecurityManager#checkDelete}</code> method denies delete access to the file
+     * By default, do nothing.
+     *
+     * @see org.codehaus.plexus.logging.Logger#warn(java.lang.String, java.lang.Throwable)
      */
     @Override
 ```
@@ -1030,37 +1030,13 @@ in `src/main/java/org/apache/maven/plugins/dependency/utils/DependencySilentLog.
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.maven.plugin.logging` is unnecessary and can be removed
-in `src/main/java/org/apache/maven/plugins/dependency/utils/DependencySilentLog.java`
-#### Snippet
-```java
-     * By default, do nothing.
-     *
-     * @see org.apache.maven.plugin.logging.Log#error(java.lang.CharSequence)
-     */
-    @Override
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `src/main/java/org/apache/maven/plugins/dependency/utils/DependencySilentLog.java`
-#### Snippet
-```java
-     * By default, do nothing.
-     *
-     * @see org.apache.maven.plugin.logging.Log#error(java.lang.CharSequence)
-     */
-    @Override
-```
-
-### UnnecessaryFullyQualifiedName
 Qualifier `org.codehaus.plexus.logging` is unnecessary and can be removed
 in `src/main/java/org/apache/maven/plugins/dependency/utils/DependencySilentLog.java`
 #### Snippet
 ```java
      * By default, do nothing.
      *
-     * @see org.codehaus.plexus.logging.Logger#fatalError(java.lang.String, java.lang.Throwable)
+     * @see org.codehaus.plexus.logging.Logger#info(java.lang.String)
      */
     @Override
 ```
@@ -1072,79 +1048,7 @@ in `src/main/java/org/apache/maven/plugins/dependency/utils/DependencySilentLog.
 ```java
      * By default, do nothing.
      *
-     * @see org.codehaus.plexus.logging.Logger#fatalError(java.lang.String, java.lang.Throwable)
-     */
-    @Override
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `src/main/java/org/apache/maven/plugins/dependency/utils/DependencySilentLog.java`
-#### Snippet
-```java
-     * By default, do nothing.
-     *
-     * @see org.codehaus.plexus.logging.Logger#fatalError(java.lang.String, java.lang.Throwable)
-     */
-    @Override
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.maven.plugin.logging` is unnecessary and can be removed
-in `src/main/java/org/apache/maven/plugins/dependency/utils/DependencySilentLog.java`
-#### Snippet
-```java
-    /**
-     * @return <code>false</code>
-     * @see org.apache.maven.plugin.logging.Log#isDebugEnabled()
-     */
-    @Override
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.codehaus.plexus.logging` is unnecessary and can be removed
-in `src/main/java/org/apache/maven/plugins/dependency/utils/DependencySilentLog.java`
-#### Snippet
-```java
-    /**
-     * @return <code>0</code>
-     * @see org.codehaus.plexus.logging.Logger#getThreshold()
-     */
-    @Override
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.codehaus.plexus.logging` is unnecessary and can be removed
-in `src/main/java/org/apache/maven/plugins/dependency/utils/DependencySilentLog.java`
-#### Snippet
-```java
-     * By default, do nothing.
-     *
-     * @see org.codehaus.plexus.logging.Logger#info(java.lang.String, java.lang.Throwable)
-     */
-    @Override
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `src/main/java/org/apache/maven/plugins/dependency/utils/DependencySilentLog.java`
-#### Snippet
-```java
-     * By default, do nothing.
-     *
-     * @see org.codehaus.plexus.logging.Logger#info(java.lang.String, java.lang.Throwable)
-     */
-    @Override
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `src/main/java/org/apache/maven/plugins/dependency/utils/DependencySilentLog.java`
-#### Snippet
-```java
-     * By default, do nothing.
-     *
-     * @see org.codehaus.plexus.logging.Logger#info(java.lang.String, java.lang.Throwable)
+     * @see org.codehaus.plexus.logging.Logger#info(java.lang.String)
      */
     @Override
 ```
@@ -1156,7 +1060,7 @@ in `src/main/java/org/apache/maven/plugins/dependency/utils/DependencySilentLog.
 ```java
      * By default, do nothing.
      *
-     * @see org.apache.maven.plugin.logging.Log#debug(java.lang.CharSequence, java.lang.Throwable)
+     * @see org.apache.maven.plugin.logging.Log#info(java.lang.CharSequence)
      */
     @Override
 ```
@@ -1168,103 +1072,7 @@ in `src/main/java/org/apache/maven/plugins/dependency/utils/DependencySilentLog.
 ```java
      * By default, do nothing.
      *
-     * @see org.apache.maven.plugin.logging.Log#debug(java.lang.CharSequence, java.lang.Throwable)
-     */
-    @Override
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `src/main/java/org/apache/maven/plugins/dependency/utils/DependencySilentLog.java`
-#### Snippet
-```java
-     * By default, do nothing.
-     *
-     * @see org.apache.maven.plugin.logging.Log#debug(java.lang.CharSequence, java.lang.Throwable)
-     */
-    @Override
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.codehaus.plexus.logging` is unnecessary and can be removed
-in `src/main/java/org/apache/maven/plugins/dependency/utils/DependencySilentLog.java`
-#### Snippet
-```java
-    /**
-     * @return <code>false</code>
-     * @see org.codehaus.plexus.logging.Logger#isFatalErrorEnabled()
-     */
-    @Override
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.maven.plugin.logging` is unnecessary and can be removed
-in `src/main/java/org/apache/maven/plugins/dependency/utils/DependencySilentLog.java`
-#### Snippet
-```java
-     * By default, do nothing.
-     *
-     * @see org.apache.maven.plugin.logging.Log#debug(java.lang.Throwable)
-     */
-    @Override
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `src/main/java/org/apache/maven/plugins/dependency/utils/DependencySilentLog.java`
-#### Snippet
-```java
-     * By default, do nothing.
-     *
-     * @see org.apache.maven.plugin.logging.Log#debug(java.lang.Throwable)
-     */
-    @Override
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.codehaus.plexus.logging` is unnecessary and can be removed
-in `src/main/java/org/apache/maven/plugins/dependency/utils/DependencySilentLog.java`
-#### Snippet
-```java
-     * By default, do nothing.
-     *
-     * @see org.codehaus.plexus.logging.Logger#error(java.lang.String)
-     */
-    @Override
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `src/main/java/org/apache/maven/plugins/dependency/utils/DependencySilentLog.java`
-#### Snippet
-```java
-     * By default, do nothing.
-     *
-     * @see org.codehaus.plexus.logging.Logger#error(java.lang.String)
-     */
-    @Override
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.codehaus.plexus.logging` is unnecessary and can be removed
-in `src/main/java/org/apache/maven/plugins/dependency/utils/DependencySilentLog.java`
-#### Snippet
-```java
-    /**
-     * @return <code>null</code>
-     * @see org.codehaus.plexus.logging.Logger#getChildLogger(java.lang.String)
-     */
-    @Override
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `src/main/java/org/apache/maven/plugins/dependency/utils/DependencySilentLog.java`
-#### Snippet
-```java
-    /**
-     * @return <code>null</code>
-     * @see org.codehaus.plexus.logging.Logger#getChildLogger(java.lang.String)
+     * @see org.apache.maven.plugin.logging.Log#info(java.lang.CharSequence)
      */
     @Override
 ```
@@ -1286,21 +1094,9 @@ Qualifier `org.apache.maven.plugin.logging` is unnecessary and can be removed
 in `src/main/java/org/apache/maven/plugins/dependency/utils/DependencySilentLog.java`
 #### Snippet
 ```java
-     * By default, do nothing.
-     *
-     * @see org.apache.maven.plugin.logging.Log#debug(java.lang.CharSequence)
-     */
-    @Override
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `src/main/java/org/apache/maven/plugins/dependency/utils/DependencySilentLog.java`
-#### Snippet
-```java
-     * By default, do nothing.
-     *
-     * @see org.apache.maven.plugin.logging.Log#debug(java.lang.CharSequence)
+    /**
+     * @return <code>false</code>
+     * @see org.apache.maven.plugin.logging.Log#isInfoEnabled()
      */
     @Override
 ```
@@ -1310,81 +1106,9 @@ Qualifier `org.codehaus.plexus.logging` is unnecessary and can be removed
 in `src/main/java/org/apache/maven/plugins/dependency/utils/DependencySilentLog.java`
 #### Snippet
 ```java
-     * By default, do nothing.
-     *
-     * @see org.codehaus.plexus.logging.Logger#debug(java.lang.String, java.lang.Throwable)
-     */
-    @Override
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `src/main/java/org/apache/maven/plugins/dependency/utils/DependencySilentLog.java`
-#### Snippet
-```java
-     * By default, do nothing.
-     *
-     * @see org.codehaus.plexus.logging.Logger#debug(java.lang.String, java.lang.Throwable)
-     */
-    @Override
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `src/main/java/org/apache/maven/plugins/dependency/utils/DependencySilentLog.java`
-#### Snippet
-```java
-     * By default, do nothing.
-     *
-     * @see org.codehaus.plexus.logging.Logger#debug(java.lang.String, java.lang.Throwable)
-     */
-    @Override
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.codehaus.plexus.logging` is unnecessary and can be removed
-in `src/main/java/org/apache/maven/plugins/dependency/utils/DependencySilentLog.java`
-#### Snippet
-```java
-     * By default, do nothing.
-     *
-     * @see org.codehaus.plexus.logging.Logger#fatalError(java.lang.String)
-     */
-    @Override
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `src/main/java/org/apache/maven/plugins/dependency/utils/DependencySilentLog.java`
-#### Snippet
-```java
-     * By default, do nothing.
-     *
-     * @see org.codehaus.plexus.logging.Logger#fatalError(java.lang.String)
-     */
-    @Override
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.codehaus.plexus.logging` is unnecessary and can be removed
-in `src/main/java/org/apache/maven/plugins/dependency/utils/DependencySilentLog.java`
-#### Snippet
-```java
-     * By default, do nothing.
-     *
-     * @see org.codehaus.plexus.logging.Logger#info(java.lang.String)
-     */
-    @Override
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `src/main/java/org/apache/maven/plugins/dependency/utils/DependencySilentLog.java`
-#### Snippet
-```java
-     * By default, do nothing.
-     *
-     * @see org.codehaus.plexus.logging.Logger#info(java.lang.String)
+    /**
+     * @return <code>0</code>
+     * @see org.codehaus.plexus.logging.Logger#getThreshold()
      */
     @Override
 ```
@@ -1396,7 +1120,7 @@ in `src/main/java/org/apache/maven/plugins/dependency/utils/DependencySilentLog.
 ```java
      * By default, do nothing.
      *
-     * @see org.apache.maven.plugin.logging.Log#info(java.lang.Throwable)
+     * @see org.apache.maven.plugin.logging.Log#debug(java.lang.Throwable)
      */
     @Override
 ```
@@ -1408,7 +1132,7 @@ in `src/main/java/org/apache/maven/plugins/dependency/utils/DependencySilentLog.
 ```java
      * By default, do nothing.
      *
-     * @see org.apache.maven.plugin.logging.Log#info(java.lang.Throwable)
+     * @see org.apache.maven.plugin.logging.Log#debug(java.lang.Throwable)
      */
     @Override
 ```
@@ -1438,49 +1162,13 @@ in `src/main/java/org/apache/maven/plugins/dependency/utils/DependencySilentLog.
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.maven.plugin.logging` is unnecessary and can be removed
-in `src/main/java/org/apache/maven/plugins/dependency/utils/DependencySilentLog.java`
-#### Snippet
-```java
-     * By default, do nothing.
-     *
-     * @see org.apache.maven.plugin.logging.Log#warn(java.lang.CharSequence, java.lang.Throwable)
-     */
-    @Override
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `src/main/java/org/apache/maven/plugins/dependency/utils/DependencySilentLog.java`
-#### Snippet
-```java
-     * By default, do nothing.
-     *
-     * @see org.apache.maven.plugin.logging.Log#warn(java.lang.CharSequence, java.lang.Throwable)
-     */
-    @Override
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `src/main/java/org/apache/maven/plugins/dependency/utils/DependencySilentLog.java`
-#### Snippet
-```java
-     * By default, do nothing.
-     *
-     * @see org.apache.maven.plugin.logging.Log#warn(java.lang.CharSequence, java.lang.Throwable)
-     */
-    @Override
-```
-
-### UnnecessaryFullyQualifiedName
 Qualifier `org.codehaus.plexus.logging` is unnecessary and can be removed
 in `src/main/java/org/apache/maven/plugins/dependency/utils/DependencySilentLog.java`
 #### Snippet
 ```java
-     * By default, do nothing.
-     *
-     * @see org.codehaus.plexus.logging.Logger#warn(java.lang.String)
+    /**
+     * @return <code>null</code>
+     * @see org.codehaus.plexus.logging.Logger#getChildLogger(java.lang.String)
      */
     @Override
 ```
@@ -1490,9 +1178,9 @@ Qualifier `java.lang` is unnecessary and can be removed
 in `src/main/java/org/apache/maven/plugins/dependency/utils/DependencySilentLog.java`
 #### Snippet
 ```java
-     * By default, do nothing.
-     *
-     * @see org.codehaus.plexus.logging.Logger#warn(java.lang.String)
+    /**
+     * @return <code>null</code>
+     * @see org.codehaus.plexus.logging.Logger#getChildLogger(java.lang.String)
      */
     @Override
 ```
@@ -1517,66 +1205,6 @@ in `src/main/java/org/apache/maven/plugins/dependency/utils/DependencySilentLog.
      * By default, do nothing.
      *
      * @see org.codehaus.plexus.logging.Logger#debug(java.lang.String)
-     */
-    @Override
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.maven.plugin.logging` is unnecessary and can be removed
-in `src/main/java/org/apache/maven/plugins/dependency/utils/DependencySilentLog.java`
-#### Snippet
-```java
-     * By default, do nothing.
-     *
-     * @see org.apache.maven.plugin.logging.Log#info(java.lang.CharSequence, java.lang.Throwable)
-     */
-    @Override
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `src/main/java/org/apache/maven/plugins/dependency/utils/DependencySilentLog.java`
-#### Snippet
-```java
-     * By default, do nothing.
-     *
-     * @see org.apache.maven.plugin.logging.Log#info(java.lang.CharSequence, java.lang.Throwable)
-     */
-    @Override
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `src/main/java/org/apache/maven/plugins/dependency/utils/DependencySilentLog.java`
-#### Snippet
-```java
-     * By default, do nothing.
-     *
-     * @see org.apache.maven.plugin.logging.Log#info(java.lang.CharSequence, java.lang.Throwable)
-     */
-    @Override
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.maven.plugin.logging` is unnecessary and can be removed
-in `src/main/java/org/apache/maven/plugins/dependency/utils/DependencySilentLog.java`
-#### Snippet
-```java
-     * By default, do nothing.
-     *
-     * @see org.apache.maven.plugin.logging.Log#info(java.lang.CharSequence)
-     */
-    @Override
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `src/main/java/org/apache/maven/plugins/dependency/utils/DependencySilentLog.java`
-#### Snippet
-```java
-     * By default, do nothing.
-     *
-     * @see org.apache.maven.plugin.logging.Log#info(java.lang.CharSequence)
      */
     @Override
 ```
@@ -1588,31 +1216,7 @@ in `src/main/java/org/apache/maven/plugins/dependency/utils/DependencySilentLog.
 ```java
     /**
      * @return <code>false</code>
-     * @see org.apache.maven.plugin.logging.Log#isInfoEnabled()
-     */
-    @Override
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.maven.plugin.logging` is unnecessary and can be removed
-in `src/main/java/org/apache/maven/plugins/dependency/utils/DependencySilentLog.java`
-#### Snippet
-```java
-     * By default, do nothing.
-     *
-     * @see org.apache.maven.plugin.logging.Log#warn(java.lang.CharSequence)
-     */
-    @Override
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `src/main/java/org/apache/maven/plugins/dependency/utils/DependencySilentLog.java`
-#### Snippet
-```java
-     * By default, do nothing.
-     *
-     * @see org.apache.maven.plugin.logging.Log#warn(java.lang.CharSequence)
+     * @see org.apache.maven.plugin.logging.Log#isDebugEnabled()
      */
     @Override
 ```
@@ -1624,7 +1228,7 @@ in `src/main/java/org/apache/maven/plugins/dependency/utils/DependencySilentLog.
 ```java
      * By default, do nothing.
      *
-     * @see org.codehaus.plexus.logging.Logger#warn(java.lang.String, java.lang.Throwable)
+     * @see org.codehaus.plexus.logging.Logger#warn(java.lang.String)
      */
     @Override
 ```
@@ -1636,79 +1240,7 @@ in `src/main/java/org/apache/maven/plugins/dependency/utils/DependencySilentLog.
 ```java
      * By default, do nothing.
      *
-     * @see org.codehaus.plexus.logging.Logger#warn(java.lang.String, java.lang.Throwable)
-     */
-    @Override
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `src/main/java/org/apache/maven/plugins/dependency/utils/DependencySilentLog.java`
-#### Snippet
-```java
-     * By default, do nothing.
-     *
-     * @see org.codehaus.plexus.logging.Logger#warn(java.lang.String, java.lang.Throwable)
-     */
-    @Override
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.maven.plugin.logging` is unnecessary and can be removed
-in `src/main/java/org/apache/maven/plugins/dependency/utils/DependencySilentLog.java`
-#### Snippet
-```java
-     * By default, do nothing.
-     *
-     * @see org.apache.maven.plugin.logging.Log#warn(java.lang.Throwable)
-     */
-    @Override
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `src/main/java/org/apache/maven/plugins/dependency/utils/DependencySilentLog.java`
-#### Snippet
-```java
-     * By default, do nothing.
-     *
-     * @see org.apache.maven.plugin.logging.Log#warn(java.lang.Throwable)
-     */
-    @Override
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.maven.plugin.logging` is unnecessary and can be removed
-in `src/main/java/org/apache/maven/plugins/dependency/utils/DependencySilentLog.java`
-#### Snippet
-```java
-     * By default, do nothing.
-     *
-     * @see org.apache.maven.plugin.logging.Log#error(java.lang.CharSequence, java.lang.Throwable)
-     */
-    @Override
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `src/main/java/org/apache/maven/plugins/dependency/utils/DependencySilentLog.java`
-#### Snippet
-```java
-     * By default, do nothing.
-     *
-     * @see org.apache.maven.plugin.logging.Log#error(java.lang.CharSequence, java.lang.Throwable)
-     */
-    @Override
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `src/main/java/org/apache/maven/plugins/dependency/utils/DependencySilentLog.java`
-#### Snippet
-```java
-     * By default, do nothing.
-     *
-     * @see org.apache.maven.plugin.logging.Log#error(java.lang.CharSequence, java.lang.Throwable)
+     * @see org.codehaus.plexus.logging.Logger#warn(java.lang.String)
      */
     @Override
 ```
@@ -1720,7 +1252,7 @@ in `src/main/java/org/apache/maven/plugins/dependency/utils/DependencySilentLog.
 ```java
      * By default, do nothing.
      *
-     * @see org.codehaus.plexus.logging.Logger#error(java.lang.String, java.lang.Throwable)
+     * @see org.codehaus.plexus.logging.Logger#error(java.lang.String)
      */
     @Override
 ```
@@ -1732,19 +1264,7 @@ in `src/main/java/org/apache/maven/plugins/dependency/utils/DependencySilentLog.
 ```java
      * By default, do nothing.
      *
-     * @see org.codehaus.plexus.logging.Logger#error(java.lang.String, java.lang.Throwable)
-     */
-    @Override
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `src/main/java/org/apache/maven/plugins/dependency/utils/DependencySilentLog.java`
-#### Snippet
-```java
-     * By default, do nothing.
-     *
-     * @see org.codehaus.plexus.logging.Logger#error(java.lang.String, java.lang.Throwable)
+     * @see org.codehaus.plexus.logging.Logger#error(java.lang.String)
      */
     @Override
 ```
@@ -1759,6 +1279,486 @@ in `src/main/java/org/apache/maven/plugins/dependency/utils/DependencySilentLog.
      * @see org.apache.maven.plugin.logging.Log#isWarnEnabled()
      */
     @Override
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.maven.plugin.logging` is unnecessary and can be removed
+in `src/main/java/org/apache/maven/plugins/dependency/utils/DependencySilentLog.java`
+#### Snippet
+```java
+     * By default, do nothing.
+     *
+     * @see org.apache.maven.plugin.logging.Log#debug(java.lang.CharSequence)
+     */
+    @Override
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.lang` is unnecessary and can be removed
+in `src/main/java/org/apache/maven/plugins/dependency/utils/DependencySilentLog.java`
+#### Snippet
+```java
+     * By default, do nothing.
+     *
+     * @see org.apache.maven.plugin.logging.Log#debug(java.lang.CharSequence)
+     */
+    @Override
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.maven.plugin.logging` is unnecessary and can be removed
+in `src/main/java/org/apache/maven/plugins/dependency/utils/DependencySilentLog.java`
+#### Snippet
+```java
+     * By default, do nothing.
+     *
+     * @see org.apache.maven.plugin.logging.Log#debug(java.lang.CharSequence, java.lang.Throwable)
+     */
+    @Override
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.lang` is unnecessary and can be removed
+in `src/main/java/org/apache/maven/plugins/dependency/utils/DependencySilentLog.java`
+#### Snippet
+```java
+     * By default, do nothing.
+     *
+     * @see org.apache.maven.plugin.logging.Log#debug(java.lang.CharSequence, java.lang.Throwable)
+     */
+    @Override
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.lang` is unnecessary and can be removed
+in `src/main/java/org/apache/maven/plugins/dependency/utils/DependencySilentLog.java`
+#### Snippet
+```java
+     * By default, do nothing.
+     *
+     * @see org.apache.maven.plugin.logging.Log#debug(java.lang.CharSequence, java.lang.Throwable)
+     */
+    @Override
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.maven.plugin.logging` is unnecessary and can be removed
+in `src/main/java/org/apache/maven/plugins/dependency/utils/DependencySilentLog.java`
+#### Snippet
+```java
+     * By default, do nothing.
+     *
+     * @see org.apache.maven.plugin.logging.Log#warn(java.lang.CharSequence, java.lang.Throwable)
+     */
+    @Override
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.lang` is unnecessary and can be removed
+in `src/main/java/org/apache/maven/plugins/dependency/utils/DependencySilentLog.java`
+#### Snippet
+```java
+     * By default, do nothing.
+     *
+     * @see org.apache.maven.plugin.logging.Log#warn(java.lang.CharSequence, java.lang.Throwable)
+     */
+    @Override
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.lang` is unnecessary and can be removed
+in `src/main/java/org/apache/maven/plugins/dependency/utils/DependencySilentLog.java`
+#### Snippet
+```java
+     * By default, do nothing.
+     *
+     * @see org.apache.maven.plugin.logging.Log#warn(java.lang.CharSequence, java.lang.Throwable)
+     */
+    @Override
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.codehaus.plexus.logging` is unnecessary and can be removed
+in `src/main/java/org/apache/maven/plugins/dependency/utils/DependencySilentLog.java`
+#### Snippet
+```java
+     * By default, do nothing.
+     *
+     * @see org.codehaus.plexus.logging.Logger#info(java.lang.String, java.lang.Throwable)
+     */
+    @Override
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.lang` is unnecessary and can be removed
+in `src/main/java/org/apache/maven/plugins/dependency/utils/DependencySilentLog.java`
+#### Snippet
+```java
+     * By default, do nothing.
+     *
+     * @see org.codehaus.plexus.logging.Logger#info(java.lang.String, java.lang.Throwable)
+     */
+    @Override
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.lang` is unnecessary and can be removed
+in `src/main/java/org/apache/maven/plugins/dependency/utils/DependencySilentLog.java`
+#### Snippet
+```java
+     * By default, do nothing.
+     *
+     * @see org.codehaus.plexus.logging.Logger#info(java.lang.String, java.lang.Throwable)
+     */
+    @Override
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.codehaus.plexus.logging` is unnecessary and can be removed
+in `src/main/java/org/apache/maven/plugins/dependency/utils/DependencySilentLog.java`
+#### Snippet
+```java
+     * By default, do nothing.
+     *
+     * @see org.codehaus.plexus.logging.Logger#debug(java.lang.String, java.lang.Throwable)
+     */
+    @Override
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.lang` is unnecessary and can be removed
+in `src/main/java/org/apache/maven/plugins/dependency/utils/DependencySilentLog.java`
+#### Snippet
+```java
+     * By default, do nothing.
+     *
+     * @see org.codehaus.plexus.logging.Logger#debug(java.lang.String, java.lang.Throwable)
+     */
+    @Override
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.lang` is unnecessary and can be removed
+in `src/main/java/org/apache/maven/plugins/dependency/utils/DependencySilentLog.java`
+#### Snippet
+```java
+     * By default, do nothing.
+     *
+     * @see org.codehaus.plexus.logging.Logger#debug(java.lang.String, java.lang.Throwable)
+     */
+    @Override
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.codehaus.plexus.logging` is unnecessary and can be removed
+in `src/main/java/org/apache/maven/plugins/dependency/utils/DependencySilentLog.java`
+#### Snippet
+```java
+     * By default, do nothing.
+     *
+     * @see org.codehaus.plexus.logging.Logger#fatalError(java.lang.String)
+     */
+    @Override
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.lang` is unnecessary and can be removed
+in `src/main/java/org/apache/maven/plugins/dependency/utils/DependencySilentLog.java`
+#### Snippet
+```java
+     * By default, do nothing.
+     *
+     * @see org.codehaus.plexus.logging.Logger#fatalError(java.lang.String)
+     */
+    @Override
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.maven.plugin.logging` is unnecessary and can be removed
+in `src/main/java/org/apache/maven/plugins/dependency/utils/DependencySilentLog.java`
+#### Snippet
+```java
+     * By default, do nothing.
+     *
+     * @see org.apache.maven.plugin.logging.Log#error(java.lang.CharSequence, java.lang.Throwable)
+     */
+    @Override
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.lang` is unnecessary and can be removed
+in `src/main/java/org/apache/maven/plugins/dependency/utils/DependencySilentLog.java`
+#### Snippet
+```java
+     * By default, do nothing.
+     *
+     * @see org.apache.maven.plugin.logging.Log#error(java.lang.CharSequence, java.lang.Throwable)
+     */
+    @Override
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.lang` is unnecessary and can be removed
+in `src/main/java/org/apache/maven/plugins/dependency/utils/DependencySilentLog.java`
+#### Snippet
+```java
+     * By default, do nothing.
+     *
+     * @see org.apache.maven.plugin.logging.Log#error(java.lang.CharSequence, java.lang.Throwable)
+     */
+    @Override
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.codehaus.plexus.logging` is unnecessary and can be removed
+in `src/main/java/org/apache/maven/plugins/dependency/utils/DependencySilentLog.java`
+#### Snippet
+```java
+     * By default, do nothing.
+     *
+     * @see org.codehaus.plexus.logging.Logger#error(java.lang.String, java.lang.Throwable)
+     */
+    @Override
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.lang` is unnecessary and can be removed
+in `src/main/java/org/apache/maven/plugins/dependency/utils/DependencySilentLog.java`
+#### Snippet
+```java
+     * By default, do nothing.
+     *
+     * @see org.codehaus.plexus.logging.Logger#error(java.lang.String, java.lang.Throwable)
+     */
+    @Override
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.lang` is unnecessary and can be removed
+in `src/main/java/org/apache/maven/plugins/dependency/utils/DependencySilentLog.java`
+#### Snippet
+```java
+     * By default, do nothing.
+     *
+     * @see org.codehaus.plexus.logging.Logger#error(java.lang.String, java.lang.Throwable)
+     */
+    @Override
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.maven.plugin.logging` is unnecessary and can be removed
+in `src/main/java/org/apache/maven/plugins/dependency/utils/DependencySilentLog.java`
+#### Snippet
+```java
+     * By default, do nothing.
+     *
+     * @see org.apache.maven.plugin.logging.Log#info(java.lang.CharSequence, java.lang.Throwable)
+     */
+    @Override
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.lang` is unnecessary and can be removed
+in `src/main/java/org/apache/maven/plugins/dependency/utils/DependencySilentLog.java`
+#### Snippet
+```java
+     * By default, do nothing.
+     *
+     * @see org.apache.maven.plugin.logging.Log#info(java.lang.CharSequence, java.lang.Throwable)
+     */
+    @Override
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.lang` is unnecessary and can be removed
+in `src/main/java/org/apache/maven/plugins/dependency/utils/DependencySilentLog.java`
+#### Snippet
+```java
+     * By default, do nothing.
+     *
+     * @see org.apache.maven.plugin.logging.Log#info(java.lang.CharSequence, java.lang.Throwable)
+     */
+    @Override
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.maven.plugin.logging` is unnecessary and can be removed
+in `src/main/java/org/apache/maven/plugins/dependency/utils/DependencySilentLog.java`
+#### Snippet
+```java
+     * By default, do nothing.
+     *
+     * @see org.apache.maven.plugin.logging.Log#error(java.lang.CharSequence)
+     */
+    @Override
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.lang` is unnecessary and can be removed
+in `src/main/java/org/apache/maven/plugins/dependency/utils/DependencySilentLog.java`
+#### Snippet
+```java
+     * By default, do nothing.
+     *
+     * @see org.apache.maven.plugin.logging.Log#error(java.lang.CharSequence)
+     */
+    @Override
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.maven.plugin.logging` is unnecessary and can be removed
+in `src/main/java/org/apache/maven/plugins/dependency/utils/DependencySilentLog.java`
+#### Snippet
+```java
+     * By default, do nothing.
+     *
+     * @see org.apache.maven.plugin.logging.Log#warn(java.lang.Throwable)
+     */
+    @Override
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.lang` is unnecessary and can be removed
+in `src/main/java/org/apache/maven/plugins/dependency/utils/DependencySilentLog.java`
+#### Snippet
+```java
+     * By default, do nothing.
+     *
+     * @see org.apache.maven.plugin.logging.Log#warn(java.lang.Throwable)
+     */
+    @Override
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.codehaus.plexus.logging` is unnecessary and can be removed
+in `src/main/java/org/apache/maven/plugins/dependency/utils/DependencySilentLog.java`
+#### Snippet
+```java
+    /**
+     * @return <code>false</code>
+     * @see org.codehaus.plexus.logging.Logger#isFatalErrorEnabled()
+     */
+    @Override
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.codehaus.plexus.logging` is unnecessary and can be removed
+in `src/main/java/org/apache/maven/plugins/dependency/utils/DependencySilentLog.java`
+#### Snippet
+```java
+     * By default, do nothing.
+     *
+     * @see org.codehaus.plexus.logging.Logger#fatalError(java.lang.String, java.lang.Throwable)
+     */
+    @Override
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.lang` is unnecessary and can be removed
+in `src/main/java/org/apache/maven/plugins/dependency/utils/DependencySilentLog.java`
+#### Snippet
+```java
+     * By default, do nothing.
+     *
+     * @see org.codehaus.plexus.logging.Logger#fatalError(java.lang.String, java.lang.Throwable)
+     */
+    @Override
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.lang` is unnecessary and can be removed
+in `src/main/java/org/apache/maven/plugins/dependency/utils/DependencySilentLog.java`
+#### Snippet
+```java
+     * By default, do nothing.
+     *
+     * @see org.codehaus.plexus.logging.Logger#fatalError(java.lang.String, java.lang.Throwable)
+     */
+    @Override
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.maven.plugin.logging` is unnecessary and can be removed
+in `src/main/java/org/apache/maven/plugins/dependency/utils/DependencySilentLog.java`
+#### Snippet
+```java
+     * By default, do nothing.
+     *
+     * @see org.apache.maven.plugin.logging.Log#warn(java.lang.CharSequence)
+     */
+    @Override
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.lang` is unnecessary and can be removed
+in `src/main/java/org/apache/maven/plugins/dependency/utils/DependencySilentLog.java`
+#### Snippet
+```java
+     * By default, do nothing.
+     *
+     * @see org.apache.maven.plugin.logging.Log#warn(java.lang.CharSequence)
+     */
+    @Override
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.maven.plugin.logging` is unnecessary and can be removed
+in `src/main/java/org/apache/maven/plugins/dependency/utils/DependencySilentLog.java`
+#### Snippet
+```java
+     * By default, do nothing.
+     *
+     * @see org.apache.maven.plugin.logging.Log#info(java.lang.Throwable)
+     */
+    @Override
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.lang` is unnecessary and can be removed
+in `src/main/java/org/apache/maven/plugins/dependency/utils/DependencySilentLog.java`
+#### Snippet
+```java
+     * By default, do nothing.
+     *
+     * @see org.apache.maven.plugin.logging.Log#info(java.lang.Throwable)
+     */
+    @Override
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.lang` is unnecessary and can be removed
+in `src/main/java/org/apache/maven/plugins/dependency/utils/markers/DefaultFileMarkerHandler.java`
+#### Snippet
+```java
+     *         otherwise
+     * @throws SecurityException If a security manager exists and its <code>{@link
+     *          java.lang.SecurityManager#checkDelete}</code> method denies delete access to the file
+     */
+    @Override
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.lang` is unnecessary and can be removed
+in `src/main/java/org/apache/maven/plugins/dependency/utils/markers/DefaultFileMarkerHandler.java`
+#### Snippet
+```java
+     *         <code>false</code> otherwise
+     * @throws SecurityException If a security manager exists and its <code>{@link
+     *          java.lang.SecurityManager#checkRead(java.lang.String)}</code> method denies read access to the file or
+     *             directory
+     */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.lang` is unnecessary and can be removed
+in `src/main/java/org/apache/maven/plugins/dependency/utils/markers/DefaultFileMarkerHandler.java`
+#### Snippet
+```java
+     *         <code>false</code> otherwise
+     * @throws SecurityException If a security manager exists and its <code>{@link
+     *          java.lang.SecurityManager#checkRead(java.lang.String)}</code> method denies read access to the file or
+     *             directory
+     */
 ```
 
 ## RuleId[ruleID=ThrowablePrintStackTrace]
@@ -1802,18 +1802,6 @@ in `src/main/java/org/apache/maven/plugins/dependency/tree/AbstractSerializingVi
 
 ## RuleId[ruleID=MismatchedCollectionQueryUpdate]
 ### MismatchedCollectionQueryUpdate
-Contents of collection `repositoryLayouts` are queried, but never updated
-in `src/main/java/org/apache/maven/plugins/dependency/ListClassesMojo.java`
-#### Snippet
-```java
-     */
-    @Component(role = ArtifactRepositoryLayout.class)
-    private Map<String, ArtifactRepositoryLayout> repositoryLayouts;
-
-    /**
-```
-
-### MismatchedCollectionQueryUpdate
 Contents of collection `pomRemoteRepositories` are queried, but never updated
 in `src/main/java/org/apache/maven/plugins/dependency/ListClassesMojo.java`
 #### Snippet
@@ -1821,6 +1809,18 @@ in `src/main/java/org/apache/maven/plugins/dependency/ListClassesMojo.java`
 
     @Parameter(defaultValue = "${project.remoteArtifactRepositories}", readonly = true, required = true)
     private List<ArtifactRepository> pomRemoteRepositories;
+
+    /**
+```
+
+### MismatchedCollectionQueryUpdate
+Contents of collection `repositoryLayouts` are queried, but never updated
+in `src/main/java/org/apache/maven/plugins/dependency/ListClassesMojo.java`
+#### Snippet
+```java
+     */
+    @Component(role = ArtifactRepositoryLayout.class)
+    private Map<String, ArtifactRepositoryLayout> repositoryLayouts;
 
     /**
 ```
@@ -1863,13 +1863,13 @@ in `src/main/java/org/apache/maven/plugins/dependency/PurgeLocalRepositoryMojo.j
 
 ## RuleId[ruleID=RedundantFieldInitialization]
 ### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `src/main/java/org/apache/maven/plugins/dependency/utils/DependencyStatusSets.java`
+Field initialization to `false` is redundant
+in `src/main/java/org/apache/maven/plugins/dependency/ListClassesMojo.java`
 #### Snippet
 ```java
-    Set<Artifact> unResolvedDependencies = null;
-
-    Set<Artifact> skippedDependencies = null;
+     */
+    @Parameter(property = "transitive", defaultValue = "false")
+    private boolean transitive = false;
 
     /**
 ```
@@ -1879,11 +1879,11 @@ Field initialization to `null` is redundant
 in `src/main/java/org/apache/maven/plugins/dependency/utils/DependencyStatusSets.java`
 #### Snippet
 ```java
-    Set<Artifact> resolvedDependencies = null;
-
     Set<Artifact> unResolvedDependencies = null;
 
     Set<Artifact> skippedDependencies = null;
+
+    /**
 ```
 
 ### RedundantFieldInitialization
@@ -1899,15 +1899,15 @@ public class DependencyStatusSets {
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `src/main/java/org/apache/maven/plugins/dependency/ListClassesMojo.java`
+Field initialization to `null` is redundant
+in `src/main/java/org/apache/maven/plugins/dependency/utils/DependencyStatusSets.java`
 #### Snippet
 ```java
-     */
-    @Parameter(property = "transitive", defaultValue = "false")
-    private boolean transitive = false;
+    Set<Artifact> resolvedDependencies = null;
 
-    /**
+    Set<Artifact> unResolvedDependencies = null;
+
+    Set<Artifact> skippedDependencies = null;
 ```
 
 ### RedundantFieldInitialization
@@ -2068,18 +2068,6 @@ in `src/main/java/org/apache/maven/plugins/dependency/ListClassesMojo.java`
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `artifacts`
-in `src/main/java/org/apache/maven/plugins/dependency/fromDependencies/AbstractDependencyFilterMojo.java`
-#### Snippet
-```java
-
-            // the unskipped artifacts are in the resolved set.
-            artifacts = status.getResolvedDependencies();
-
-            // resolve the rest of the artifacts
-```
-
-### AssignmentToMethodParameter
 Assignment to method parameter `project`
 in `src/main/java/org/apache/maven/plugins/dependency/fromDependencies/AbstractDependencyFilterMojo.java`
 #### Snippet
@@ -2091,10 +2079,22 @@ in `src/main/java/org/apache/maven/plugins/dependency/fromDependencies/AbstractD
             if (artifacts.contains(project.getArtifact())) {
 ```
 
+### AssignmentToMethodParameter
+Assignment to method parameter `artifacts`
+in `src/main/java/org/apache/maven/plugins/dependency/fromDependencies/AbstractDependencyFilterMojo.java`
+#### Snippet
+```java
+
+            // the unskipped artifacts are in the resolved set.
+            artifacts = status.getResolvedDependencies();
+
+            // resolve the rest of the artifacts
+```
+
 ## RuleId[ruleID=HtmlWrongAttributeValue]
 ### HtmlWrongAttributeValue
 Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-02-02-12-44-11.612.html`
+in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-02-03-13-26-57.425.html`
 #### Snippet
 ```java
               <td>0</td>
@@ -2122,11 +2122,11 @@ Return of `null`
 in `src/main/java/org/apache/maven/plugins/dependency/resolvers/GoOfflineMojo.java`
 #### Snippet
 ```java
-    @Override
-    protected ArtifactsFilter getMarkedArtifactFilter() {
-        return null;
+            return new ExcludeReactorProjectsDependencyFilter(this.reactorProjects, getLog());
+        } else {
+            return null;
+        }
     }
-}
 ```
 
 ### ReturnNull
@@ -2134,11 +2134,11 @@ Return of `null`
 in `src/main/java/org/apache/maven/plugins/dependency/resolvers/GoOfflineMojo.java`
 #### Snippet
 ```java
-            return new ExcludeReactorProjectsDependencyFilter(this.reactorProjects, getLog());
-        } else {
-            return null;
-        }
+    @Override
+    protected ArtifactsFilter getMarkedArtifactFilter() {
+        return null;
     }
+}
 ```
 
 ### ReturnNull
@@ -2158,11 +2158,11 @@ Return of `null`
 in `src/main/java/org/apache/maven/plugins/dependency/fromDependencies/BuildClasspathMojo.java`
 #### Snippet
 ```java
+    @Override
+    protected ArtifactsFilter getMarkedArtifactFilter() {
+        return null;
+    }
 
-        if (!outputFile.isFile()) {
-            return null;
-        }
-        StringBuilder sb = new StringBuilder();
 ```
 
 ### ReturnNull
@@ -2170,11 +2170,11 @@ Return of `null`
 in `src/main/java/org/apache/maven/plugins/dependency/fromDependencies/BuildClasspathMojo.java`
 #### Snippet
 ```java
-    @Override
-    protected ArtifactsFilter getMarkedArtifactFilter() {
-        return null;
-    }
 
+        if (!outputFile.isFile()) {
+            return null;
+        }
+        StringBuilder sb = new StringBuilder();
 ```
 
 ### ReturnNull
@@ -2207,10 +2207,10 @@ in `src/main/java/org/apache/maven/plugins/dependency/utils/DependencySilentLog.
 #### Snippet
 ```java
     @Override
-    public String getName() {
+    public Logger getChildLogger(String name) {
         return null;
     }
-}
+
 ```
 
 ### ReturnNull
@@ -2219,10 +2219,10 @@ in `src/main/java/org/apache/maven/plugins/dependency/utils/DependencySilentLog.
 #### Snippet
 ```java
     @Override
-    public Logger getChildLogger(String name) {
+    public String getName() {
         return null;
     }
-
+}
 ```
 
 ## RuleId[ruleID=ZeroLengthArrayInitialization]
@@ -2234,6 +2234,18 @@ in `src/main/java/org/apache/maven/plugins/dependency/analyze/AbstractAnalyzeMoj
      */
     @Parameter
     private String[] ignoredUsedUndeclaredDependencies = new String[0];
+
+    /**
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `src/main/java/org/apache/maven/plugins/dependency/analyze/AbstractAnalyzeMojo.java`
+#### Snippet
+```java
+     */
+    @Parameter
+    private String[] ignoredUnusedDeclaredDependencies = new String[0];
 
     /**
 ```
@@ -2258,18 +2270,6 @@ in `src/main/java/org/apache/maven/plugins/dependency/analyze/AbstractAnalyzeMoj
      */
     @Parameter
     private String[] ignoredNonTestScopedDependencies = new String[0];
-
-    /**
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `src/main/java/org/apache/maven/plugins/dependency/analyze/AbstractAnalyzeMojo.java`
-#### Snippet
-```java
-     */
-    @Parameter
-    private String[] ignoredUnusedDeclaredDependencies = new String[0];
 
     /**
 ```
