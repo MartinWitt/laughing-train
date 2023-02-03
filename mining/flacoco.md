@@ -16,8 +16,8 @@ I found 72 bad smells with 7 repairable:
 | DynamicRegexReplaceableByCompiledPattern | 2 | false |
 | DataFlowIssue | 2 | false |
 | ReturnNull | 2 | false |
-| RegExpUnnecessaryNonCapturingGroup | 2 | false |
 | UnnecessaryToStringCall | 2 | true |
+| RegExpUnnecessaryNonCapturingGroup | 2 | false |
 | IgnoreResultOfCall | 2 | false |
 | SystemOutErr | 1 | false |
 | UtilityClassWithoutPrivateConstructor | 1 | true |
@@ -46,34 +46,34 @@ Redundant default parameter value assignment
 in `src/main/java/fr/spoonlabs/flacoco/cli/FlacocoMain.java`
 #### Snippet
 ```java
+	String output;
+
+	@CommandLine.ArgGroup(exclusive = true, multiplicity = "0..1")
+	FormatOption formatOption = new FormatOption();
+
+```
+
+### DefaultAnnotationParam
+Redundant default parameter value assignment
+in `src/main/java/fr/spoonlabs/flacoco/cli/FlacocoMain.java`
+#### Snippet
+```java
+	String output;
+
+	@CommandLine.ArgGroup(exclusive = true, multiplicity = "0..1")
+	FormatOption formatOption = new FormatOption();
+
+```
+
+### DefaultAnnotationParam
+Redundant default parameter value assignment
+in `src/main/java/fr/spoonlabs/flacoco/cli/FlacocoMain.java`
+#### Snippet
+```java
 	Set<String> jacocoExcludes = new HashSet<>();
 
 	@CommandLine.ArgGroup(exclusive = false, multiplicity = "0..1", heading = "\nSetting any of these options will result in test detection being bypassed:\n")
 	Tests tests = new Tests();
-
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `src/main/java/fr/spoonlabs/flacoco/cli/FlacocoMain.java`
-#### Snippet
-```java
-	String output;
-
-	@CommandLine.ArgGroup(exclusive = true, multiplicity = "0..1")
-	FormatOption formatOption = new FormatOption();
-
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `src/main/java/fr/spoonlabs/flacoco/cli/FlacocoMain.java`
-#### Snippet
-```java
-	String output;
-
-	@CommandLine.ArgGroup(exclusive = true, multiplicity = "0..1")
-	FormatOption formatOption = new FormatOption();
 
 ```
 
@@ -103,18 +103,6 @@ public interface TestDetectionStrategy {
 ```
 
 ### UnnecessaryModifier
-Modifier `private` is redundant for enum constructors
-in `src/main/java/fr/spoonlabs/flacoco/localization/spectrum/SpectrumFormula.java`
-#### Snippet
-```java
-	private final Formula formula;
-
-	private SpectrumFormula(Formula formula) {
-		this.formula = formula;
-	}
-```
-
-### UnnecessaryModifier
 Modifier `public` is redundant for interface members
 in `src/main/java/fr/spoonlabs/flacoco/localization/spectrum/formulas/Formula.java`
 #### Snippet
@@ -124,6 +112,18 @@ public interface Formula {
 	public double compute(int nPassingNotExecuting, int nFailingNotExecuting, int nPassingExecuting,
 			int nFailingExecuting);
 }
+```
+
+### UnnecessaryModifier
+Modifier `private` is redundant for enum constructors
+in `src/main/java/fr/spoonlabs/flacoco/localization/spectrum/SpectrumFormula.java`
+#### Snippet
+```java
+	private final Formula formula;
+
+	private SpectrumFormula(Formula formula) {
+		this.formula = formula;
+	}
 ```
 
 ## RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
@@ -166,6 +166,18 @@ in `src/main/java/fr/spoonlabs/flacoco/core/coverage/CoverageMatrix.java`
 
 ## RuleId[ruleID=UnnecessaryFullyQualifiedName]
 ### UnnecessaryFullyQualifiedName
+Qualifier `com.sun.management` is unnecessary, and can be replaced with an import
+in `src/main/java/fr/spoonlabs/flacoco/localization/spectrum/SpectrumRunner.java`
+#### Snippet
+```java
+
+		// Warn if system memory is lower than 4GiB
+		long memorySize = ((com.sun.management.OperatingSystemMXBean) ManagementFactory.getOperatingSystemMXBean())
+				.getTotalPhysicalMemorySize();
+		if (memorySize < 4294967296L) {
+```
+
+### UnnecessaryFullyQualifiedName
 Qualifier `org.junit` is unnecessary, and can be replaced with an import
 in `src/main/java/fr/spoonlabs/flacoco/core/test/strategies/classloader/finder/filters/TestMethodFilter.java`
 #### Snippet
@@ -187,18 +199,6 @@ in `src/main/java/fr/spoonlabs/flacoco/core/test/strategies/classloader/finder/f
                 if (method.getAnnotation(org.junit.jupiter.api.Test.class) != null
                         && !isPrivateMethod(method)
                         && !isIgnoredMethod(clazz, method)
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `com.sun.management` is unnecessary, and can be replaced with an import
-in `src/main/java/fr/spoonlabs/flacoco/localization/spectrum/SpectrumRunner.java`
-#### Snippet
-```java
-
-		// Warn if system memory is lower than 4GiB
-		long memorySize = ((com.sun.management.OperatingSystemMXBean) ManagementFactory.getOperatingSystemMXBean())
-				.getTotalPhysicalMemorySize();
-		if (memorySize < 4294967296L) {
 ```
 
 ## RuleId[ruleID=DataFlowIssue]
@@ -266,18 +266,6 @@ in `src/main/java/fr/spoonlabs/flacoco/utils/spoon/SpoonBlockLocationsFinder.jav
 ```
 
 ### AssignmentToStaticFieldFromInstanceMethod
-Assignment to static field `EntryPoint.jUnit5Mode` from instance context
-in `src/main/java/fr/spoonlabs/flacoco/core/coverage/framework/JUnit5Strategy.java`
-#### Snippet
-```java
-
-		// test-runner needs a flag for JUnit5 tests
-		EntryPoint.jUnit5Mode = true;
-
-		return EntryPoint.runOnlineCoveredTestResultPerTestMethods(
-```
-
-### AssignmentToStaticFieldFromInstanceMethod
 Assignment to static field `SpoonBlockLocationsFinder.fullyQualifiedClassName` from instance context
 in `src/main/java/fr/spoonlabs/flacoco/utils/spoon/SpoonBlockInspector.java`
 #### Snippet
@@ -323,6 +311,18 @@ in `src/main/java/fr/spoonlabs/flacoco/utils/spoon/SpoonBlockInspector.java`
         SpoonBlockLocationsFinder.found = null;
 
         return locations;
+```
+
+### AssignmentToStaticFieldFromInstanceMethod
+Assignment to static field `EntryPoint.jUnit5Mode` from instance context
+in `src/main/java/fr/spoonlabs/flacoco/core/coverage/framework/JUnit5Strategy.java`
+#### Snippet
+```java
+
+		// test-runner needs a flag for JUnit5 tests
+		EntryPoint.jUnit5Mode = true;
+
+		return EntryPoint.runOnlineCoveredTestResultPerTestMethods(
 ```
 
 ### AssignmentToStaticFieldFromInstanceMethod
@@ -542,6 +542,19 @@ in `src/main/java/ch/scheitlin/alex/java/StackTraceParser.java`
 
 ```
 
+## RuleId[ruleID=KeySetIterationMayUseEntrySet]
+### KeySetIterationMayUseEntrySet
+Iteration over `original.keySet()` may be replaced with 'entrySet()' iteration
+in `src/main/java/fr/spoonlabs/flacoco/utils/spoon/SpoonConverter.java`
+#### Snippet
+```java
+		Map<Location, CtStatement> mapping = new HashMap<>();
+		Map<Location, Suspiciousness> original = flacocoResult.getDefaultSuspiciousnessMap();
+		for (Location location : original.keySet()) {
+			// Compute location information
+			SpoonLocalizedFaultFinder.fullyQualifiedClassName = location.getClassName();
+```
+
 ## RuleId[ruleID=RedundantFieldInitialization]
 ### RedundantFieldInitialization
 Field initialization to `null` is redundant
@@ -568,18 +581,6 @@ in `src/main/java/fr/spoonlabs/flacoco/cli/FlacocoMain.java`
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `src/main/java/fr/spoonlabs/flacoco/cli/FlacocoMain.java`
-#### Snippet
-```java
-
-	@Option(names = {"--includeZeros"}, description = "Flag for including lines with a suspiciousness sore of 0.", defaultValue = "false")
-	boolean includeZeros = false;
-
-	@Option(names = {"--complianceLevel"}, description = "Compliance level for Spoon. Default value is 8", defaultValue = "8")
-```
-
-### RedundantFieldInitialization
 Field initialization to `0.0` is redundant
 in `src/main/java/fr/spoonlabs/flacoco/cli/FlacocoMain.java`
 #### Snippet
@@ -597,23 +598,22 @@ in `src/main/java/fr/spoonlabs/flacoco/cli/FlacocoMain.java`
 #### Snippet
 ```java
 
+	@Option(names = {"--includeZeros"}, description = "Flag for including lines with a suspiciousness sore of 0.", defaultValue = "false")
+	boolean includeZeros = false;
+
+	@Option(names = {"--complianceLevel"}, description = "Compliance level for Spoon. Default value is 8", defaultValue = "8")
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `src/main/java/fr/spoonlabs/flacoco/cli/FlacocoMain.java`
+#### Snippet
+```java
+
 	@Option(names = {"--testRunnerVerbose"}, description = "Test-runner verbose mode.", defaultValue = "false")
 	boolean testRunnerVerbose = false;
 
 	@Option(names = {"--testRunnerTimeoutInMs"}, description = "Timeout for each test execution with test-runner. Must be greater than 0. Default value is 1000000", defaultValue = "1000000")
-```
-
-## RuleId[ruleID=KeySetIterationMayUseEntrySet]
-### KeySetIterationMayUseEntrySet
-Iteration over `original.keySet()` may be replaced with 'entrySet()' iteration
-in `src/main/java/fr/spoonlabs/flacoco/utils/spoon/SpoonConverter.java`
-#### Snippet
-```java
-		Map<Location, CtStatement> mapping = new HashMap<>();
-		Map<Location, Suspiciousness> original = flacocoResult.getDefaultSuspiciousnessMap();
-		for (Location location : original.keySet()) {
-			// Compute location information
-			SpoonLocalizedFaultFinder.fullyQualifiedClassName = location.getClassName();
 ```
 
 ## RuleId[ruleID=ReturnNull]
@@ -678,31 +678,6 @@ in `src/main/java/fr/spoonlabs/flacoco/core/test/strategies/classloader/Classloa
 }
 ```
 
-## RuleId[ruleID=RegExpUnnecessaryNonCapturingGroup]
-### RegExpUnnecessaryNonCapturingGroup
-Unnecessary non-capturing group `(?:(?:[\\d\\w]*\\.)*[\\d\\w]*)`
-in `src/main/java/ch/scheitlin/alex/java/StackTraceParser.java`
-#### Snippet
-```java
-    // group 7: null | string
-    private static String LINE_SEPARATOR_REGEX = "\\r?\\n|\\r";
-    private static String STACK_TRACE_LINE_REGEX = "^\\tat (?:((?:[\\d\\w]*\\.)*[\\d\\w]*)\\/)?((?:(?:[\\d\\w]*\\.)*[\\d\\w]*))\\.([\\d\\w\\$]*)\\.([\\d\\w\\$]*)\\((?:(?:([\\d\\w]*\\.java):(\\d*))|([\\d\\w\\s]*))\\)$";
-    private static Pattern STACK_TRACE_LINE_PATTERN = Pattern.compile(STACK_TRACE_LINE_REGEX);
-
-```
-
-### RegExpUnnecessaryNonCapturingGroup
-Unnecessary non-capturing group `(?:([\\d\\w]*\\.java):(\\d*))`
-in `src/main/java/ch/scheitlin/alex/java/StackTraceParser.java`
-#### Snippet
-```java
-    // group 7: null | string
-    private static String LINE_SEPARATOR_REGEX = "\\r?\\n|\\r";
-    private static String STACK_TRACE_LINE_REGEX = "^\\tat (?:((?:[\\d\\w]*\\.)*[\\d\\w]*)\\/)?((?:(?:[\\d\\w]*\\.)*[\\d\\w]*))\\.([\\d\\w\\$]*)\\.([\\d\\w\\$]*)\\((?:(?:([\\d\\w]*\\.java):(\\d*))|([\\d\\w\\s]*))\\)$";
-    private static Pattern STACK_TRACE_LINE_PATTERN = Pattern.compile(STACK_TRACE_LINE_REGEX);
-
-```
-
 ## RuleId[ruleID=UnnecessaryToStringCall]
 ### UnnecessaryToStringCall
 Unnecessary `toString()` call
@@ -725,6 +700,31 @@ in `src/main/java/ch/scheitlin/alex/java/StackTraceParser.java`
                             "\tOriginal stack trace line:\t" + lines[i] + "\n" +
                             "\tParsed StackTraceElement:\t" + "\tat " + element.toString());
                 }
+
+```
+
+## RuleId[ruleID=RegExpUnnecessaryNonCapturingGroup]
+### RegExpUnnecessaryNonCapturingGroup
+Unnecessary non-capturing group `(?:(?:[\\d\\w]*\\.)*[\\d\\w]*)`
+in `src/main/java/ch/scheitlin/alex/java/StackTraceParser.java`
+#### Snippet
+```java
+    // group 7: null | string
+    private static String LINE_SEPARATOR_REGEX = "\\r?\\n|\\r";
+    private static String STACK_TRACE_LINE_REGEX = "^\\tat (?:((?:[\\d\\w]*\\.)*[\\d\\w]*)\\/)?((?:(?:[\\d\\w]*\\.)*[\\d\\w]*))\\.([\\d\\w\\$]*)\\.([\\d\\w\\$]*)\\((?:(?:([\\d\\w]*\\.java):(\\d*))|([\\d\\w\\s]*))\\)$";
+    private static Pattern STACK_TRACE_LINE_PATTERN = Pattern.compile(STACK_TRACE_LINE_REGEX);
+
+```
+
+### RegExpUnnecessaryNonCapturingGroup
+Unnecessary non-capturing group `(?:([\\d\\w]*\\.java):(\\d*))`
+in `src/main/java/ch/scheitlin/alex/java/StackTraceParser.java`
+#### Snippet
+```java
+    // group 7: null | string
+    private static String LINE_SEPARATOR_REGEX = "\\r?\\n|\\r";
+    private static String STACK_TRACE_LINE_REGEX = "^\\tat (?:((?:[\\d\\w]*\\.)*[\\d\\w]*)\\/)?((?:(?:[\\d\\w]*\\.)*[\\d\\w]*))\\.([\\d\\w\\$]*)\\.([\\d\\w\\$]*)\\((?:(?:([\\d\\w]*\\.java):(\\d*))|([\\d\\w\\s]*))\\)$";
+    private static Pattern STACK_TRACE_LINE_PATTERN = Pattern.compile(STACK_TRACE_LINE_REGEX);
 
 ```
 
