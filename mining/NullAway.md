@@ -4,7 +4,7 @@
 I found 269 bad smells with 57 repairable:
 | ruleID | number | fixable |
 | --- | --- | --- |
-| BoundedWildcard | 30 | false |
+| BoundedWildcard | 31 | false |
 | AssignmentToMethodParameter | 27 | false |
 | UtilityClassWithoutPrivateConstructor | 19 | true |
 | SizeReplaceableByIsEmpty | 15 | true |
@@ -17,36 +17,35 @@ I found 269 bad smells with 57 repairable:
 | SystemOutErr | 7 | false |
 | RedundantSuppression | 6 | false |
 | UnnecessaryFullyQualifiedName | 6 | false |
+| NullableProblems | 5 | false |
 | DuplicateBranchesInSwitch | 4 | false |
 | AbstractClassNeverImplemented | 4 | false |
-| NullableProblems | 4 | false |
 | CodeBlock2Expr | 4 | true |
 | ConstantValue | 4 | false |
+| OptionalIsPresent | 4 | false |
 | StringOperationCanBeSimplified | 4 | false |
 | Convert2MethodRef | 4 | false |
 | ReturnNull | 4 | false |
 | UnnecessaryLocalVariable | 4 | true |
-| KeySetIterationMayUseEntrySet | 3 | false |
 | OptionalAssignedToNull | 3 | false |
-| MismatchedJavadocCode | 3 | false |
 | OptionalUsedAsFieldOrParameterType | 3 | false |
 | UnnecessaryModifier | 2 | true |
 | AssignmentToStaticFieldFromInstanceMethod | 2 | false |
 | CStyleArrayDeclaration | 2 | false |
 | RegExpRedundantEscape | 2 | false |
+| KeySetIterationMayUseEntrySet | 2 | false |
 | StaticPseudoFunctionalStyleMethod | 2 | false |
+| DuplicateExpressions | 2 | false |
 | IgnoreResultOfCall | 2 | false |
 | SimplifyOptionalCallChains | 2 | false |
 | NestedAssignment | 2 | false |
 | StringConcatenationInsideStringBufferAppend | 2 | false |
 | IOResource | 2 | false |
-| OptionalIsPresent | 2 | false |
 | NonSerializableFieldInSerializableClass | 2 | false |
 | AbstractMethodCallInConstructor | 2 | false |
 | RedundantEscapeInRegexReplacement | 2 | false |
 | CharsetObjectCanBeUsed | 2 | false |
 | NonProtectedConstructorInAbstractClass | 2 | true |
-| Java8MapApi | 2 | false |
 | UnnecessaryContinue | 2 | false |
 | NonShortCircuitBoolean | 1 | false |
 | IfStatementMissingBreakInLoop | 1 | false |
@@ -114,18 +113,6 @@ in `jar-infer/jar-infer-lib/src/main/java/com/uber/nullaway/jarinfer/DefinitelyD
 
 ## RuleId[ruleID=CStyleArrayDeclaration]
 ### CStyleArrayDeclaration
-C-style array declaration of local variable `c`
-in `nullaway/src/main/java/com/uber/nullaway/handlers/ApacheThriftIsSetHandler.java`
-#### Snippet
-```java
-  private static String decapitalize(String str) {
-    // assumes str is non-null and non-empty
-    char c[] = str.toCharArray();
-    c[0] = Character.toLowerCase(c[0]);
-    return new String(c);
-```
-
-### CStyleArrayDeclaration
 C-style array declaration of parameter `arg`
 in `jar-infer/test-java-lib-jarinfer/src/main/java/com/uber/nullaway/jarinfer/toys/unannotated/Toys.java`
 #### Snippet
@@ -135,6 +122,18 @@ in `jar-infer/test-java-lib-jarinfer/src/main/java/com/uber/nullaway/jarinfer/to
   public static void main(String arg[]) throws java.io.IOException {
     String s = "test string...";
     Foo f = new Foo("let's");
+```
+
+### CStyleArrayDeclaration
+C-style array declaration of local variable `c`
+in `nullaway/src/main/java/com/uber/nullaway/handlers/ApacheThriftIsSetHandler.java`
+#### Snippet
+```java
+  private static String decapitalize(String str) {
+    // assumes str is non-null and non-empty
+    char c[] = str.toCharArray();
+    c[0] = Character.toLowerCase(c[0]);
+    return new String(c);
 ```
 
 ## RuleId[ruleID=RegExpRedundantEscape]
@@ -164,18 +163,6 @@ in `jar-infer/jar-infer-lib/src/main/java/com/uber/nullaway/jarinfer/BytecodeAnn
 
 ## RuleId[ruleID=KeySetIterationMayUseEntrySet]
 ### KeySetIterationMayUseEntrySet
-Iteration over `escapes.keySet()` may be replaced with 'entrySet()' iteration
-in `nullaway/src/main/java/com/uber/nullaway/fixserialization/SerializationService.java`
-#### Snippet
-```java
-    str = str.replaceAll(Pattern.quote("\\"), Matcher.quoteReplacement("\\\\"));
-    // escape special characters
-    for (Character key : escapes.keySet()) {
-      str = str.replaceAll(String.valueOf(key), Matcher.quoteReplacement("\\" + escapes.get(key)));
-    }
-```
-
-### KeySetIterationMayUseEntrySet
 Iteration over `contents.keySet()` may be replaced with 'entrySet()' iteration
 in `nullaway/src/main/java/com/uber/nullaway/dataflow/NullnessStore.java`
 #### Snippet
@@ -202,18 +189,6 @@ in `nullaway/src/main/java/com/uber/nullaway/dataflow/NullnessStore.java`
 ## RuleId[ruleID=StaticPseudoFunctionalStyleMethod]
 ### StaticPseudoFunctionalStyleMethod
 Pseudo functional style code
-in `nullaway/src/main/java/com/uber/nullaway/AbstractConfig.java`
-#### Snippet
-```java
-    String choiceRegexp =
-        Joiner.on("|")
-            .join(Iterables.transform(packagePrefixes, input -> input.replaceAll("\\.", "\\\\.")));
-    return Pattern.compile("^(?:" + choiceRegexp + ")(?:\\..*)?");
-  }
-```
-
-### StaticPseudoFunctionalStyleMethod
-Pseudo functional style code
 in `nullaway/src/main/java/com/uber/nullaway/ErrorBuilder.java`
 #### Snippet
 ```java
@@ -222,6 +197,18 @@ in `nullaway/src/main/java/com/uber/nullaway/ErrorBuilder.java`
               + Joiner.on(',').join(Iterables.transform(suppressions, s -> '"' + s + '"'))
               + "}) "
               + config.getAutofixSuppressionComment();
+```
+
+### StaticPseudoFunctionalStyleMethod
+Pseudo functional style code
+in `nullaway/src/main/java/com/uber/nullaway/AbstractConfig.java`
+#### Snippet
+```java
+    String choiceRegexp =
+        Joiner.on("|")
+            .join(Iterables.transform(packagePrefixes, input -> input.replaceAll("\\.", "\\\\.")));
+    return Pattern.compile("^(?:" + choiceRegexp + ")(?:\\..*)?");
+  }
 ```
 
 ## RuleId[ruleID=DuplicateBranchesInSwitch]
@@ -273,31 +260,32 @@ in `nullaway/src/main/java/com/uber/nullaway/NullAway.java`
       case MEMBER_SELECT:
 ```
 
+## RuleId[ruleID=DuplicateExpressions]
+### DuplicateExpressions
+Multiple occurrences of `Paths.get(uri)`
+in `nullaway/src/main/java/com/uber/nullaway/fixserialization/Serializer.java`
+#### Snippet
+```java
+    if ("jimfs".equals(uri.getScheme())) {
+      // In NullAway unit tests, files are stored in memory and have this scheme.
+      return Paths.get(uri);
+    }
+    if (!"file".equals(uri.getScheme())) {
+```
+
+### DuplicateExpressions
+Multiple occurrences of `Paths.get(uri)`
+in `nullaway/src/main/java/com/uber/nullaway/fixserialization/Serializer.java`
+#### Snippet
+```java
+      return null;
+    }
+    Path path = Paths.get(uri);
+    try {
+      return path.toRealPath();
+```
+
 ## RuleId[ruleID=SizeReplaceableByIsEmpty]
-### SizeReplaceableByIsEmpty
-`autofixSuppressionComment.trim().length() > 0` can be replaced with '!autofixSuppressionComment.trim().isEmpty()'
-in `nullaway/src/main/java/com/uber/nullaway/AbstractConfig.java`
-#### Snippet
-```java
-  @Override
-  public String getAutofixSuppressionComment() {
-    if (autofixSuppressionComment.trim().length() > 0) {
-      return "/* " + autofixSuppressionComment + " */ ";
-    } else {
-```
-
-### SizeReplaceableByIsEmpty
-`((ClassTree) tree).getSimpleName().length() != 0` can be replaced with '!((ClassTree) tree).getSimpleName().isEmpty()'
-in `nullaway/src/main/java/com/uber/nullaway/ErrorBuilder.java`
-#### Snippet
-```java
-  private static boolean canHaveSuppressWarningsAnnotation(Tree tree) {
-    return tree instanceof MethodTree
-        || (tree instanceof ClassTree && ((ClassTree) tree).getSimpleName().length() != 0)
-        || tree instanceof VariableTree;
-  }
-```
-
 ### SizeReplaceableByIsEmpty
 `str.length() > 0` can be replaced with '!str.isEmpty()'
 in `jar-infer/test-java-lib-jarinfer/src/main/java/com/uber/nullaway/jarinfer/toys/unannotated/Foo.java`
@@ -359,18 +347,6 @@ in `nullaway/src/main/java/com/uber/nullaway/handlers/StreamNullabilityPropagato
 ```
 
 ### SizeReplaceableByIsEmpty
-`value.length() == 0` can be replaced with 'value.isEmpty()'
-in `sample/src/main/java/org/utilities/StringUtils.java`
-#### Snippet
-```java
-
-  public static boolean isEmptyOrNull(@Nullable final CharSequence value) {
-    return value == null || value.length() == 0;
-  }
-}
-```
-
-### SizeReplaceableByIsEmpty
 `typeArguments.size() == 0` can be replaced with 'typeArguments.isEmpty()'
 in `nullaway/src/main/java/com/uber/nullaway/GenericsChecks.java`
 #### Snippet
@@ -380,6 +356,42 @@ in `nullaway/src/main/java/com/uber/nullaway/GenericsChecks.java`
     if (typeArguments.size() == 0) {
       return;
     }
+```
+
+### SizeReplaceableByIsEmpty
+`((ClassTree) tree).getSimpleName().length() != 0` can be replaced with '!((ClassTree) tree).getSimpleName().isEmpty()'
+in `nullaway/src/main/java/com/uber/nullaway/ErrorBuilder.java`
+#### Snippet
+```java
+  private static boolean canHaveSuppressWarningsAnnotation(Tree tree) {
+    return tree instanceof MethodTree
+        || (tree instanceof ClassTree && ((ClassTree) tree).getSimpleName().length() != 0)
+        || tree instanceof VariableTree;
+  }
+```
+
+### SizeReplaceableByIsEmpty
+`autofixSuppressionComment.trim().length() > 0` can be replaced with '!autofixSuppressionComment.trim().isEmpty()'
+in `nullaway/src/main/java/com/uber/nullaway/AbstractConfig.java`
+#### Snippet
+```java
+  @Override
+  public String getAutofixSuppressionComment() {
+    if (autofixSuppressionComment.trim().length() > 0) {
+      return "/* " + autofixSuppressionComment + " */ ";
+    } else {
+```
+
+### SizeReplaceableByIsEmpty
+`value.length() == 0` can be replaced with 'value.isEmpty()'
+in `sample/src/main/java/org/utilities/StringUtils.java`
+#### Snippet
+```java
+
+  public static boolean isEmptyOrNull(@Nullable final CharSequence value) {
+    return value == null || value.length() == 0;
+  }
+}
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -395,27 +407,15 @@ in `nullaway/src/main/java/com/uber/nullaway/dataflow/AccessPath.java`
 ```
 
 ### SizeReplaceableByIsEmpty
-`tryTree.getCatches().size() == 0` can be replaced with 'tryTree.getCatches().isEmpty()'
+`statements.size() > 0` can be replaced with '!statements.isEmpty()'
 in `nullaway/src/main/java/com/uber/nullaway/NullAway.java`
 #### Snippet
 ```java
-      if (stmt.getKind().equals(Tree.Kind.TRY)) {
-        TryTree tryTree = (TryTree) stmt;
-        if (tryTree.getCatches().size() == 0) {
-          if (tryTree.getBlock() != null) {
-            result.addAll(getSafeInitMethods(tryTree.getBlock(), classSymbol, state));
-```
-
-### SizeReplaceableByIsEmpty
-`actualParams.size() > 0` can be replaced with '!actualParams.isEmpty()'
-in `nullaway/src/main/java/com/uber/nullaway/NullAway.java`
-#### Snippet
-```java
-    }
-    List<? extends ExpressionTree> actualParams = tree.getArguments();
-    if (tree.getClassBody() != null && actualParams.size() > 0) {
-      // passing parameters to constructor of anonymous class
-      // this constructor just invokes the constructor of the superclass, and
+    BlockTree body = constructor.getBody();
+    List<? extends StatementTree> statements = body.getStatements();
+    if (statements.size() > 0) {
+      StatementTree statementTree = statements.get(0);
+      if (isThisCall(statementTree, state)) {
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -425,9 +425,21 @@ in `nullaway/src/main/java/com/uber/nullaway/NullAway.java`
 ```java
         continue;
       }
-      if (constructor.getParameters().size() == 0 && isExternalInit) {
-        // external framework initializes fields in this case
-        continue;
+      if (constructor.getParameters().size() == 0
+          && (isExternalInitClass
+              || symbolHasExternalInitAnnotation(ASTHelpers.getSymbol(constructor)))) {
+```
+
+### SizeReplaceableByIsEmpty
+`tryTree.getCatches().size() == 0` can be replaced with 'tryTree.getCatches().isEmpty()'
+in `nullaway/src/main/java/com/uber/nullaway/NullAway.java`
+#### Snippet
+```java
+      if (stmt.getKind().equals(Tree.Kind.TRY)) {
+        TryTree tryTree = (TryTree) stmt;
+        if (tryTree.getCatches().size() == 0) {
+          if (tryTree.getBlock() != null) {
+            result.addAll(getSafeInitMethods(tryTree.getBlock(), classSymbol, state));
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -443,15 +455,15 @@ in `nullaway/src/main/java/com/uber/nullaway/NullAway.java`
 ```
 
 ### SizeReplaceableByIsEmpty
-`statements.size() > 0` can be replaced with '!statements.isEmpty()'
+`actualParams.size() > 0` can be replaced with '!actualParams.isEmpty()'
 in `nullaway/src/main/java/com/uber/nullaway/NullAway.java`
 #### Snippet
 ```java
-    BlockTree body = constructor.getBody();
-    List<? extends StatementTree> statements = body.getStatements();
-    if (statements.size() > 0) {
-      StatementTree statementTree = statements.get(0);
-      if (isThisCall(statementTree, state)) {
+    }
+    List<? extends ExpressionTree> actualParams = tree.getArguments();
+    if (tree.getClassBody() != null && actualParams.size() > 0) {
+      // passing parameters to constructor of anonymous class
+      // this constructor just invokes the constructor of the superclass, and
 ```
 
 ## RuleId[ruleID=NonShortCircuitBoolean]
@@ -467,17 +479,66 @@ in `nullaway/src/main/java/com/uber/nullaway/handlers/CompositeHandler.java`
     return shouldFilter;
 ```
 
-## RuleId[ruleID=BoundedWildcard]
-### BoundedWildcard
-Can generalize to `? extends T`
-in `nullaway/src/main/java/com/uber/nullaway/fixserialization/XMLUtil.java`
+## RuleId[ruleID=AbstractClassNeverImplemented]
+### AbstractClassNeverImplemented
+Abstract class `MethodClassAndName` has no concrete subclass
+in `nullaway/src/main/java/com/uber/nullaway/AbstractConfig.java`
 #### Snippet
 ```java
-    final Class<T> klass;
 
-    DefaultXMLValueProvider(@Nullable Object value, Class<T> klass) {
-      this.klass = klass;
-      if (value == null) {
+  @AutoValue
+  abstract static class MethodClassAndName {
+
+    static MethodClassAndName create(String enclosingClass, String methodName) {
+```
+
+### AbstractClassNeverImplemented
+Abstract class `AnalysisParams` has no concrete subclass
+in `nullaway/src/main/java/com/uber/nullaway/dataflow/DataFlow.java`
+#### Snippet
+```java
+
+  @AutoValue
+  abstract static class AnalysisParams {
+
+    private static AnalysisParams create(
+```
+
+### AbstractClassNeverImplemented
+Abstract class `CfgParams` has no concrete subclass
+in `nullaway/src/main/java/com/uber/nullaway/dataflow/DataFlow.java`
+#### Snippet
+```java
+
+  @AutoValue
+  abstract static class CfgParams {
+    // Should not be used for hashCode or equals
+    private @Nullable ProcessingEnvironment environment;
+```
+
+### AbstractClassNeverImplemented
+Abstract class `FieldInitEntities` has no concrete subclass
+in `nullaway/src/main/java/com/uber/nullaway/NullAway.java`
+#### Snippet
+```java
+
+  @AutoValue
+  abstract static class FieldInitEntities {
+
+    static FieldInitEntities create(
+```
+
+## RuleId[ruleID=BoundedWildcard]
+### BoundedWildcard
+Can generalize to `? super Node`
+in `nullaway/src/main/java/com/uber/nullaway/handlers/OptionalEmptinessHandler.java`
+#### Snippet
+```java
+
+  private void handleBooleanAssertionOnMethod(
+      Consumer<Node> nonNullMarker,
+      Types types,
+      MethodInvocationNode node,
 ```
 
 ### BoundedWildcard
@@ -490,90 +551,6 @@ in `nullaway/src/main/java/com/uber/nullaway/handlers/contract/ContractNullnessS
       List<LocalVariableNode> parameters,
       Handler handler,
       Context context,
-```
-
-### BoundedWildcard
-Can generalize to `? extends Symbol`
-in `nullaway/src/main/java/com/uber/nullaway/ErrorBuilder.java`
-#### Snippet
-```java
-      VisitorState state,
-      Description.Builder descriptionBuilder,
-      ImmutableList<Symbol> nonNullFields) {
-    // Check needed here, despite check in hasPathSuppression because initialization
-    // checking happens at the class-level (meaning state.getPath() might not include the
-```
-
-### BoundedWildcard
-Can generalize to `? extends JavaFileObject`
-in `jmh/src/main/java/com/uber/nullaway/jmh/NullawayJavac.java`
-#### Snippet
-```java
-   */
-  private NullawayJavac(
-      List<JavaFileObject> compilationUnits,
-      String annotatedPackages,
-      @Nullable String classpath,
-```
-
-### BoundedWildcard
-Can generalize to `? super AccessPath`
-in `nullaway/src/main/java/com/uber/nullaway/dataflow/NullnessStore.java`
-#### Snippet
-```java
-   * @return NullnessStore containing only AccessPaths that pass the predicate
-   */
-  public NullnessStore filterAccessPaths(Predicate<AccessPath> pred) {
-    return new NullnessStore(
-        contents.entrySet().stream()
-```
-
-### BoundedWildcard
-Can generalize to `? extends LocalVariableNode`
-in `nullaway/src/main/java/com/uber/nullaway/dataflow/NullnessStore.java`
-#### Snippet
-```java
-   */
-  public NullnessStore uprootAccessPaths(
-      Map<LocalVariableNode, LocalVariableNode> localVarTranslations) {
-    NullnessStore.Builder nullnessBuilder = NullnessStore.empty().toBuilder();
-    for (AccessPath ap : contents.keySet()) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends LocalVariableNode`
-in `nullaway/src/main/java/com/uber/nullaway/dataflow/NullnessStore.java`
-#### Snippet
-```java
-   */
-  public NullnessStore uprootAccessPaths(
-      Map<LocalVariableNode, LocalVariableNode> localVarTranslations) {
-    NullnessStore.Builder nullnessBuilder = NullnessStore.empty().toBuilder();
-    for (AccessPath ap : contents.keySet()) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends Handler`
-in `nullaway/src/main/java/com/uber/nullaway/handlers/CompositeHandler.java`
-#### Snippet
-```java
-  private final List<Handler> handlers;
-
-  CompositeHandler(ImmutableList<Handler> handlers) {
-    // Attach default handlers
-    this.handlers = handlers;
-```
-
-### BoundedWildcard
-Can generalize to `? extends StreamTypeRecord`
-in `nullaway/src/main/java/com/uber/nullaway/handlers/StreamNullabilityPropagator.java`
-#### Snippet
-```java
-  private final ImmutableList<StreamTypeRecord> models;
-
-  StreamNullabilityPropagator(ImmutableList<StreamTypeRecord> models) {
-    super();
-    this.models = models;
 ```
 
 ### BoundedWildcard
@@ -601,51 +578,27 @@ in `nullaway/src/main/java/com/uber/nullaway/handlers/stream/StreamTypeRecord.ja
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends AnnotationNode`
-in `jar-infer/jar-infer-lib/src/main/java/com/uber/nullaway/jarinfer/BytecodeAnnotator.java`
+Can generalize to `? extends StreamTypeRecord`
+in `nullaway/src/main/java/com/uber/nullaway/handlers/StreamNullabilityPropagator.java`
 #### Snippet
 ```java
-  }
+  private final ImmutableList<StreamTypeRecord> models;
 
-  private static boolean listHasNullnessAnnotations(List<AnnotationNode> annotationList) {
-    if (annotationList != null) {
-      for (AnnotationNode node : annotationList) {
+  StreamNullabilityPropagator(ImmutableList<StreamTypeRecord> models) {
+    super();
+    this.models = models;
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends Size`
-in `sample/src/main/java/com/uber/mylib/Lambdas.java`
-#### Snippet
-```java
-  }
-
-  static void testSort(List<Integer> intList, List<Size> sizeList) {
-    Collections.sort(
-        intList,
-```
-
-### BoundedWildcard
-Can generalize to `? super Integer`
-in `jar-infer/jar-infer-lib/src/main/java/com/uber/nullaway/jarinfer/DefinitelyDerefedParams.java`
-#### Snippet
-```java
-
-  private void checkForUseOfParams(
-      Set<Integer> derefedParamList, int numParam, int firstParamIndex, ISSABasicBlock node) {
-    if (!node.isEntryBlock() && !node.isExitBlock()) { // entry and exit are dummy basic blocks
-      LOG(DEBUG, "DEBUG", ">> bb: " + node.getNumber());
-```
-
-### BoundedWildcard
-Can generalize to `? extends ImmutableSet`
+Can generalize to `? extends Map`
 in `nullaway/src/main/java/com/uber/nullaway/handlers/LibraryModelsHandler.java`
 #### Snippet
 ```java
+      private final Map<Name, Map<MethodRef, T>> state;
 
-    private ImmutableSet<Integer> lookupImmutableSet(
-        Symbol.MethodSymbol symbol, NameIndexedMap<ImmutableSet<Integer>> lookup) {
-      ImmutableSet<Integer> result = lookup.get(symbol);
-      return (result == null) ? ImmutableSet.of() : result;
+      NameIndexedMap(Map<Name, Map<MethodRef, T>> state) {
+        this.state = state;
+      }
 ```
 
 ### BoundedWildcard
@@ -673,18 +626,6 @@ in `nullaway/src/main/java/com/uber/nullaway/handlers/LibraryModelsHandler.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends Map`
-in `nullaway/src/main/java/com/uber/nullaway/handlers/LibraryModelsHandler.java`
-#### Snippet
-```java
-      private final Map<Name, Map<MethodRef, T>> state;
-
-      NameIndexedMap(Map<Name, Map<MethodRef, T>> state) {
-        this.state = state;
-      }
-```
-
-### BoundedWildcard
 Can generalize to `? extends Node`
 in `nullaway/src/main/java/com/uber/nullaway/handlers/LibraryModelsHandler.java`
 #### Snippet
@@ -697,27 +638,183 @@ in `nullaway/src/main/java/com/uber/nullaway/handlers/LibraryModelsHandler.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends Type`
-in `nullaway/src/main/java/com/uber/nullaway/dataflow/AccessPathNullnessPropagation.java`
+Can generalize to `? extends ImmutableSet`
+in `nullaway/src/main/java/com/uber/nullaway/handlers/LibraryModelsHandler.java`
 #### Snippet
 ```java
-  private boolean isCallToMethod(
-      MethodInvocationNode invocationNode,
-      Supplier<Type> containingTypeSupplier,
-      String methodName) {
-    Symbol.MethodSymbol symbol = ASTHelpers.getSymbol(invocationNode.getTree());
+
+    private ImmutableSet<Integer> lookupImmutableSet(
+        Symbol.MethodSymbol symbol, NameIndexedMap<ImmutableSet<Integer>> lookup) {
+      ImmutableSet<Integer> result = lookup.get(symbol);
+      return (result == null) ? ImmutableSet.of() : result;
 ```
 
 ### BoundedWildcard
-Can generalize to `? super MethodInvocationNode`
-in `nullaway/src/main/java/com/uber/nullaway/dataflow/AccessPathNullnessPropagation.java`
+Can generalize to `? super Integer`
+in `jar-infer/jar-infer-lib/src/main/java/com/uber/nullaway/jarinfer/DefinitelyDerefedParams.java`
 #### Snippet
 ```java
-  public AccessPathNullnessPropagation(
-      Nullness defaultAssumption,
-      Predicate<MethodInvocationNode> methodReturnsNonNull,
+
+  private void checkForUseOfParams(
+      Set<Integer> derefedParamList, int numParam, int firstParamIndex, ISSABasicBlock node) {
+    if (!node.isEntryBlock() && !node.isExitBlock()) { // entry and exit are dummy basic blocks
+      LOG(DEBUG, "DEBUG", ">> bb: " + node.getNumber());
+```
+
+### BoundedWildcard
+Can generalize to `? extends Symbol`
+in `nullaway/src/main/java/com/uber/nullaway/ErrorBuilder.java`
+#### Snippet
+```java
       VisitorState state,
-      AccessPath.AccessPathContext apContext,
+      Description.Builder descriptionBuilder,
+      ImmutableList<Symbol> nonNullFields) {
+    // Check needed here, despite check in hasPathSuppression because initialization
+    // checking happens at the class-level (meaning state.getPath() might not include the
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
+in `nullaway/src/main/java/com/uber/nullaway/fixserialization/XMLUtil.java`
+#### Snippet
+```java
+    final Class<T> klass;
+
+    DefaultXMLValueProvider(@Nullable Object value, Class<T> klass) {
+      this.klass = klass;
+      if (value == null) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends JavaFileObject`
+in `jmh/src/main/java/com/uber/nullaway/jmh/NullawayJavac.java`
+#### Snippet
+```java
+   */
+  private NullawayJavac(
+      List<JavaFileObject> compilationUnits,
+      String annotatedPackages,
+      @Nullable String classpath,
+```
+
+### BoundedWildcard
+Can generalize to `? extends Handler`
+in `nullaway/src/main/java/com/uber/nullaway/handlers/CompositeHandler.java`
+#### Snippet
+```java
+  private final List<Handler> handlers;
+
+  CompositeHandler(ImmutableList<Handler> handlers) {
+    // Attach default handlers
+    this.handlers = handlers;
+```
+
+### BoundedWildcard
+Can generalize to `? extends Size`
+in `sample/src/main/java/com/uber/mylib/Lambdas.java`
+#### Snippet
+```java
+  }
+
+  static void testSort(List<Integer> intList, List<Size> sizeList) {
+    Collections.sort(
+        intList,
+```
+
+### BoundedWildcard
+Can generalize to `? extends LocalVariableNode`
+in `nullaway/src/main/java/com/uber/nullaway/dataflow/NullnessStore.java`
+#### Snippet
+```java
+   */
+  public NullnessStore uprootAccessPaths(
+      Map<LocalVariableNode, LocalVariableNode> localVarTranslations) {
+    NullnessStore.Builder nullnessBuilder = NullnessStore.empty().toBuilder();
+    for (AccessPath ap : contents.keySet()) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends LocalVariableNode`
+in `nullaway/src/main/java/com/uber/nullaway/dataflow/NullnessStore.java`
+#### Snippet
+```java
+   */
+  public NullnessStore uprootAccessPaths(
+      Map<LocalVariableNode, LocalVariableNode> localVarTranslations) {
+    NullnessStore.Builder nullnessBuilder = NullnessStore.empty().toBuilder();
+    for (AccessPath ap : contents.keySet()) {
+```
+
+### BoundedWildcard
+Can generalize to `? super AccessPath`
+in `nullaway/src/main/java/com/uber/nullaway/dataflow/NullnessStore.java`
+#### Snippet
+```java
+   * @return NullnessStore containing only AccessPaths that pass the predicate
+   */
+  public NullnessStore filterAccessPaths(Predicate<AccessPath> pred) {
+    return new NullnessStore(
+        contents.entrySet().stream()
+```
+
+### BoundedWildcard
+Can generalize to `? extends Element`
+in `nullaway/src/main/java/com/uber/nullaway/NullAway.java`
+#### Snippet
+```java
+      VisitorState state,
+      Trees trees,
+      Set<Element> safeInitMethods,
+      AccessPathNullnessAnalysis nullnessAnalysis,
+      ImmutableSet.Builder<Element> guaranteedNonNullBuilder) {
+```
+
+### BoundedWildcard
+Can generalize to `? super Element`
+in `nullaway/src/main/java/com/uber/nullaway/NullAway.java`
+#### Snippet
+```java
+      Set<Element> safeInitMethods,
+      AccessPathNullnessAnalysis nullnessAnalysis,
+      ImmutableSet.Builder<Element> guaranteedNonNullBuilder) {
+    for (Element invoked : safeInitMethods) {
+      Tree invokedTree = trees.getTree(invoked);
+```
+
+### BoundedWildcard
+Can generalize to `? extends VarSymbol`
+in `nullaway/src/main/java/com/uber/nullaway/NullAway.java`
+#### Snippet
+```java
+   */
+  private Description checkParamOverriding(
+      List<VarSymbol> overridingParamSymbols,
+      Symbol.MethodSymbol overriddenMethod,
+      @Nullable LambdaExpressionTree lambdaExpressionTree,
+```
+
+### BoundedWildcard
+Can generalize to `? extends Symbol`
+in `nullaway/src/main/java/com/uber/nullaway/NullAway.java`
+#### Snippet
+```java
+   */
+  private Set<Symbol> notAssignedInAnyInitializer(
+      FieldInitEntities entities, Set<Symbol> notInitializedInConstructors, VisitorState state) {
+    Trees trees = getTreesInstance(state);
+    Symbol.ClassSymbol classSymbol = entities.classSymbol();
+```
+
+### BoundedWildcard
+Can generalize to `? extends AnnotationNode`
+in `jar-infer/jar-infer-lib/src/main/java/com/uber/nullaway/jarinfer/BytecodeAnnotator.java`
+#### Snippet
+```java
+  }
+
+  private static boolean listHasNullnessAnnotations(List<AnnotationNode> annotationList) {
+    if (annotationList != null) {
+      for (AnnotationNode node : annotationList) {
 ```
 
 ### BoundedWildcard
@@ -730,6 +827,42 @@ in `nullaway/src/main/java/com/uber/nullaway/dataflow/AccessPathNullnessPropagat
       TransferInput<Nullness, NullnessStore> input,
       NullnessHint returnValueNullnessHint) {
     // NULLABLE is our default
+```
+
+### BoundedWildcard
+Can generalize to `? extends NullnessStore`
+in `nullaway/src/main/java/com/uber/nullaway/dataflow/AccessPathNullnessPropagation.java`
+#### Snippet
+```java
+
+  private TransferResult<Nullness, NullnessStore> updateRegularStore(
+      Nullness value, TransferInput<Nullness, NullnessStore> input, ReadableUpdates updates) {
+    ResultingStore newStore = updateStore(input.getRegularStore(), updates);
+    return new RegularTransferResult<>(value, newStore.store, newStore.storeChanged);
+```
+
+### BoundedWildcard
+Can generalize to `? extends NullnessStore`
+in `nullaway/src/main/java/com/uber/nullaway/dataflow/AccessPathNullnessPropagation.java`
+#### Snippet
+```java
+      LocalVariableNode lhs,
+      Node rhs,
+      TransferInput<Nullness, NullnessStore> input,
+      ReadableUpdates updates) {
+    if (isEnhancedForIteratorVariable(lhs)) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends Type`
+in `nullaway/src/main/java/com/uber/nullaway/dataflow/AccessPathNullnessPropagation.java`
+#### Snippet
+```java
+  private boolean isCallToMethod(
+      MethodInvocationNode invocationNode,
+      Supplier<Type> containingTypeSupplier,
+      String methodName) {
+    Symbol.MethodSymbol symbol = ASTHelpers.getSymbol(invocationNode.getTree());
 ```
 
 ### BoundedWildcard
@@ -750,30 +883,6 @@ in `nullaway/src/main/java/com/uber/nullaway/dataflow/AccessPathNullnessPropagat
 #### Snippet
 ```java
 
-  private TransferResult<Nullness, NullnessStore> updateRegularStore(
-      Nullness value, TransferInput<Nullness, NullnessStore> input, ReadableUpdates updates) {
-    ResultingStore newStore = updateStore(input.getRegularStore(), updates);
-    return new RegularTransferResult<>(value, newStore.store, newStore.storeChanged);
-```
-
-### BoundedWildcard
-Can generalize to `? extends Element`
-in `nullaway/src/main/java/com/uber/nullaway/NullAway.java`
-#### Snippet
-```java
-      VisitorState state,
-      Trees trees,
-      Set<Element> safeInitMethods,
-      AccessPathNullnessAnalysis nullnessAnalysis,
-      ImmutableSet.Builder<Element> guaranteedNonNullBuilder) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends NullnessStore`
-in `nullaway/src/main/java/com/uber/nullaway/dataflow/AccessPathNullnessPropagation.java`
-#### Snippet
-```java
-
   private TransferResult<Nullness, NullnessStore> noStoreChanges(
       Nullness value, TransferInput<Nullness, NullnessStore> input) {
     return new RegularTransferResult<>(value, input.getRegularStore());
@@ -781,113 +890,28 @@ in `nullaway/src/main/java/com/uber/nullaway/dataflow/AccessPathNullnessPropagat
 ```
 
 ### BoundedWildcard
-Can generalize to `? super Element`
-in `nullaway/src/main/java/com/uber/nullaway/NullAway.java`
-#### Snippet
-```java
-      Set<Element> safeInitMethods,
-      AccessPathNullnessAnalysis nullnessAnalysis,
-      ImmutableSet.Builder<Element> guaranteedNonNullBuilder) {
-    for (Element invoked : safeInitMethods) {
-      Tree invokedTree = trees.getTree(invoked);
-```
-
-### BoundedWildcard
-Can generalize to `? extends NullnessStore`
+Can generalize to `? super MethodInvocationNode`
 in `nullaway/src/main/java/com/uber/nullaway/dataflow/AccessPathNullnessPropagation.java`
 #### Snippet
 ```java
-      LocalVariableNode lhs,
-      Node rhs,
-      TransferInput<Nullness, NullnessStore> input,
-      ReadableUpdates updates) {
-    if (isEnhancedForIteratorVariable(lhs)) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends Symbol`
-in `nullaway/src/main/java/com/uber/nullaway/NullAway.java`
-#### Snippet
-```java
-   */
-  private Set<Symbol> notAssignedInAnyInitializer(
-      FieldInitEntities entities, Set<Symbol> notInitializedInConstructors, VisitorState state) {
-    Trees trees = getTreesInstance(state);
-    Symbol.ClassSymbol classSymbol = entities.classSymbol();
-```
-
-### BoundedWildcard
-Can generalize to `? extends VarSymbol`
-in `nullaway/src/main/java/com/uber/nullaway/NullAway.java`
-#### Snippet
-```java
-   */
-  private Description checkParamOverriding(
-      List<VarSymbol> overridingParamSymbols,
-      Symbol.MethodSymbol overriddenMethod,
-      @Nullable LambdaExpressionTree lambdaExpressionTree,
-```
-
-## RuleId[ruleID=AbstractClassNeverImplemented]
-### AbstractClassNeverImplemented
-Abstract class `MethodClassAndName` has no concrete subclass
-in `nullaway/src/main/java/com/uber/nullaway/AbstractConfig.java`
-#### Snippet
-```java
-
-  @AutoValue
-  abstract static class MethodClassAndName {
-
-    static MethodClassAndName create(String enclosingClass, String methodName) {
-```
-
-### AbstractClassNeverImplemented
-Abstract class `CfgParams` has no concrete subclass
-in `nullaway/src/main/java/com/uber/nullaway/dataflow/DataFlow.java`
-#### Snippet
-```java
-
-  @AutoValue
-  abstract static class CfgParams {
-    // Should not be used for hashCode or equals
-    private @Nullable ProcessingEnvironment environment;
-```
-
-### AbstractClassNeverImplemented
-Abstract class `AnalysisParams` has no concrete subclass
-in `nullaway/src/main/java/com/uber/nullaway/dataflow/DataFlow.java`
-#### Snippet
-```java
-
-  @AutoValue
-  abstract static class AnalysisParams {
-
-    private static AnalysisParams create(
-```
-
-### AbstractClassNeverImplemented
-Abstract class `FieldInitEntities` has no concrete subclass
-in `nullaway/src/main/java/com/uber/nullaway/NullAway.java`
-#### Snippet
-```java
-
-  @AutoValue
-  abstract static class FieldInitEntities {
-
-    static FieldInitEntities create(
+  public AccessPathNullnessPropagation(
+      Nullness defaultAssumption,
+      Predicate<MethodInvocationNode> methodReturnsNonNull,
+      VisitorState state,
+      AccessPath.AccessPathContext apContext,
 ```
 
 ## RuleId[ruleID=NullableProblems]
 ### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
-in `jmh/src/main/java/com/uber/nullaway/jmh/NullawayJavac.java`
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@org.checkerframework.checker.nullness.qual.Nullable'
+in `test-java-lib/src/main/java/com/uber/lib/CFNullableStuff.java`
 #### Snippet
 ```java
-  private List<JavaFileObject> compilationUnits;
-  private JavaCompiler compiler;
-  @Nullable private DiagnosticListener<JavaFileObject> diagnosticListener;
-  private StandardJavaFileManager fileManager;
-  private List<String> options;
+  }
+
+  public @Nullable Object f;
+}
+
 ```
 
 ### NullableProblems
@@ -903,15 +927,27 @@ in `test-java-lib-lombok/src/main/java/com/uber/lombok/LombokDTO.java`
 ```
 
 ### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@org.checkerframework.checker.nullness.qual.Nullable'
-in `test-java-lib/src/main/java/com/uber/lib/CFNullableStuff.java`
+Constructor parameter for @Nullable field might be annotated @Nullable itself
+in `nullaway/src/main/java/com/uber/nullaway/fixserialization/out/ClassAndMemberInfo.java`
 #### Snippet
 ```java
-  }
+  @Nullable private Symbol.ClassSymbol clazz;
 
-  public @Nullable Object f;
-}
+  public ClassAndMemberInfo(TreePath path) {
+    Preconditions.checkNotNull(path);
+    this.path = path;
+```
 
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
+in `jmh/src/main/java/com/uber/nullaway/jmh/NullawayJavac.java`
+#### Snippet
+```java
+  private List<JavaFileObject> compilationUnits;
+  private JavaCompiler compiler;
+  @Nullable private DiagnosticListener<JavaFileObject> diagnosticListener;
+  private StandardJavaFileManager fileManager;
+  private List<String> options;
 ```
 
 ### NullableProblems
@@ -928,15 +964,63 @@ public class RestrictivelyAnnotatedGenericContainer<T> {
 
 ## RuleId[ruleID=MissortedModifiers]
 ### MissortedModifiers
-Missorted modifiers `public static @Nullable`
-in `nullaway/src/main/java/com/uber/nullaway/NullabilityUtil.java`
+Missorted modifiers `public static @RecentlyNullable`
+in `test-java-lib/src/main/java/com/uber/lib/unannotated/AndroidRecentlyAnnotatedClass.java`
 #### Snippet
 ```java
-   *     present.
+public class AndroidRecentlyAnnotatedClass {
+
+  public static @RecentlyNullable Object returnsNull() {
+    return null;
+  }
+```
+
+### MissortedModifiers
+Missorted modifiers `public static @Nullable`
+in `nullaway/src/main/java/com/uber/nullaway/handlers/AbstractFieldContractHandler.java`
+#### Snippet
+```java
+   * @return The field with the given name, or {@code null} if the field cannot be found
    */
-  public static @Nullable String getAnnotationValue(
-      Symbol.MethodSymbol methodSymbol, String annotName) {
-    AnnotationMirror annot =
+  public static @Nullable VariableElement getInstanceFieldOfClass(
+      Symbol.ClassSymbol classSymbol, String name) {
+    Preconditions.checkNotNull(classSymbol);
+```
+
+### MissortedModifiers
+Missorted modifiers `private @Nullable`
+in `nullaway/src/main/java/com/uber/nullaway/handlers/stream/StreamModelBuilder.java`
+#### Snippet
+```java
+
+  private final List<StreamTypeRecord> typeRecords = new ArrayList<>();
+  private @Nullable TypePredicate tp = null;
+  private ImmutableSet.Builder<String> filterMethodSigs;
+  private ImmutableSet.Builder<String> filterMethodSimpleNames;
+```
+
+### MissortedModifiers
+Missorted modifiers `private @Nullable`
+in `nullaway/src/main/java/com/uber/nullaway/handlers/OptionalEmptinessHandler.java`
+#### Snippet
+```java
+
+  @Nullable private ImmutableSet<Type> optionalTypes;
+  private @Nullable NullAway analysis;
+
+  private final Config config;
+```
+
+### MissortedModifiers
+Missorted modifiers `public @Nullable`
+in `nullaway/src/main/java/com/uber/nullaway/dataflow/AccessPathElement.java`
+#### Snippet
+```java
+  }
+
+  public @Nullable ImmutableList<String> getConstantArguments() {
+    return this.constantArguments;
+  }
 ```
 
 ### MissortedModifiers
@@ -952,15 +1036,39 @@ in `nullaway/src/main/java/com/uber/nullaway/NullabilityUtil.java`
 ```
 
 ### MissortedModifiers
-Missorted modifiers `private @Nullable`
-in `nullaway/src/main/java/com/uber/nullaway/handlers/contract/ContractHandler.java`
+Missorted modifiers `public static @Nullable`
+in `nullaway/src/main/java/com/uber/nullaway/NullabilityUtil.java`
 #### Snippet
 ```java
-  private final Config config;
+   *     present.
+   */
+  public static @Nullable String getAnnotationValue(
+      Symbol.MethodSymbol methodSymbol, String annotName) {
+    AnnotationMirror annot =
+```
 
-  private @Nullable NullAway analysis;
+### MissortedModifiers
+Missorted modifiers `private @Nullable`
+in `nullaway/src/main/java/com/uber/nullaway/dataflow/DataFlow.java`
+#### Snippet
+```java
+  }
 
-  // Cached on visiting the top-level class and used for onCFGBuildPhase1AfterVisitMethodInvocation,
+  private @Nullable <
+          A extends AbstractValue<A>, S extends Store<S>, T extends ForwardTransferFunction<A, S>>
+      AnalysisResult<A, S> resultFor(TreePath exprPath, Context context, T transfer) {
+```
+
+### MissortedModifiers
+Missorted modifiers `private @Nullable`
+in `nullaway/src/main/java/com/uber/nullaway/dataflow/DataFlow.java`
+#### Snippet
+```java
+  abstract static class CfgParams {
+    // Should not be used for hashCode or equals
+    private @Nullable ProcessingEnvironment environment;
+
+    private static CfgParams create(TreePath codePath, ProcessingEnvironment environment) {
 ```
 
 ### MissortedModifiers
@@ -989,86 +1097,27 @@ in `nullaway/src/main/java/com/uber/nullaway/handlers/contract/ContractHandler.j
 
 ### MissortedModifiers
 Missorted modifiers `private @Nullable`
-in `nullaway/src/main/java/com/uber/nullaway/handlers/OptionalEmptinessHandler.java`
+in `nullaway/src/main/java/com/uber/nullaway/handlers/contract/ContractHandler.java`
 #### Snippet
 ```java
+  private final Config config;
 
-  @Nullable private ImmutableSet<Type> optionalTypes;
   private @Nullable NullAway analysis;
 
-  private final Config config;
+  // Cached on visiting the top-level class and used for onCFGBuildPhase1AfterVisitMethodInvocation,
 ```
 
-### MissortedModifiers
-Missorted modifiers `public static @RecentlyNullable`
-in `test-java-lib/src/main/java/com/uber/lib/unannotated/AndroidRecentlyAnnotatedClass.java`
+## RuleId[ruleID=IfStatementMissingBreakInLoop]
+### IfStatementMissingBreakInLoop
+Loop can be terminated after condition is met
+in `nullaway/src/main/java/com/uber/nullaway/handlers/contract/ContractCheckHandler.java`
 #### Snippet
 ```java
-public class AndroidRecentlyAnnotatedClass {
-
-  public static @RecentlyNullable Object returnsNull() {
-    return null;
-  }
-```
-
-### MissortedModifiers
-Missorted modifiers `public @Nullable`
-in `nullaway/src/main/java/com/uber/nullaway/dataflow/AccessPathElement.java`
-#### Snippet
-```java
-  }
-
-  public @Nullable ImmutableList<String> getConstantArguments() {
-    return this.constantArguments;
-  }
-```
-
-### MissortedModifiers
-Missorted modifiers `private @Nullable`
-in `nullaway/src/main/java/com/uber/nullaway/dataflow/DataFlow.java`
-#### Snippet
-```java
-  abstract static class CfgParams {
-    // Should not be used for hashCode or equals
-    private @Nullable ProcessingEnvironment environment;
-
-    private static CfgParams create(TreePath codePath, ProcessingEnvironment environment) {
-```
-
-### MissortedModifiers
-Missorted modifiers `private @Nullable`
-in `nullaway/src/main/java/com/uber/nullaway/dataflow/DataFlow.java`
-#### Snippet
-```java
-  }
-
-  private @Nullable <
-          A extends AbstractValue<A>, S extends Store<S>, T extends ForwardTransferFunction<A, S>>
-      AnalysisResult<A, S> resultFor(TreePath exprPath, Context context, T transfer) {
-```
-
-### MissortedModifiers
-Missorted modifiers `private @Nullable`
-in `nullaway/src/main/java/com/uber/nullaway/handlers/stream/StreamModelBuilder.java`
-#### Snippet
-```java
-
-  private final List<StreamTypeRecord> typeRecords = new ArrayList<>();
-  private @Nullable TypePredicate tp = null;
-  private ImmutableSet.Builder<String> filterMethodSigs;
-  private ImmutableSet.Builder<String> filterMethodSimpleNames;
-```
-
-### MissortedModifiers
-Missorted modifiers `public static @Nullable`
-in `nullaway/src/main/java/com/uber/nullaway/handlers/AbstractFieldContractHandler.java`
-#### Snippet
-```java
-   * @return The field with the given name, or {@code null} if the field cannot be found
-   */
-  public static @Nullable VariableElement getInstanceFieldOfClass(
-      Symbol.ClassSymbol classSymbol, String name) {
-    Preconditions.checkNotNull(classSymbol);
+      for (int i = 0; i < antecedent.length; ++i) {
+        String valueConstraint = antecedent[i].trim();
+        if (!(valueConstraint.equals("_")
+            || valueConstraint.equals("!null")
+            || valueConstraint.equals("null"))) {
 ```
 
 ## RuleId[ruleID=IgnoreResultOfCall]
@@ -1094,19 +1143,6 @@ in `jar-infer/jar-infer-lib/src/main/java/com/uber/nullaway/jarinfer/DefinitelyD
     new File(outFile).getParentFile().mkdirs();
     if (inPath.endsWith(".jar")) {
       JarFile jar = new JarFile(inPath);
-```
-
-## RuleId[ruleID=IfStatementMissingBreakInLoop]
-### IfStatementMissingBreakInLoop
-Loop can be terminated after condition is met
-in `nullaway/src/main/java/com/uber/nullaway/handlers/contract/ContractCheckHandler.java`
-#### Snippet
-```java
-      for (int i = 0; i < antecedent.length; ++i) {
-        String valueConstraint = antecedent[i].trim();
-        if (!(valueConstraint.equals("_")
-            || valueConstraint.equals("!null")
-            || valueConstraint.equals("null"))) {
 ```
 
 ## RuleId[ruleID=OptionalAssignedToNull]
@@ -1215,30 +1251,6 @@ Statement lambda can be replaced with expression lambda
 in `sample/src/main/java/com/uber/mylib/Lambdas.java`
 #### Snippet
 ```java
-    RetNullableFunction p =
-        () -> {
-          return null;
-        };
-    p.getVal();
-```
-
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
-in `sample/src/main/java/com/uber/mylib/Lambdas.java`
-#### Snippet
-```java
-  static Comparator<Integer> testLambdaExpressionsAreNotNull() {
-    return (a, b) -> {
-      return (b - a);
-    };
-  }
-```
-
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
-in `sample/src/main/java/com/uber/mylib/Lambdas.java`
-#### Snippet
-```java
         intList,
         (a, b) -> {
           return (b - a);
@@ -1256,6 +1268,30 @@ in `sample/src/main/java/com/uber/mylib/Lambdas.java`
           return a;
         });
     Collections.sort(
+```
+
+### CodeBlock2Expr
+Statement lambda can be replaced with expression lambda
+in `sample/src/main/java/com/uber/mylib/Lambdas.java`
+#### Snippet
+```java
+    RetNullableFunction p =
+        () -> {
+          return null;
+        };
+    p.getVal();
+```
+
+### CodeBlock2Expr
+Statement lambda can be replaced with expression lambda
+in `sample/src/main/java/com/uber/mylib/Lambdas.java`
+#### Snippet
+```java
+  static Comparator<Integer> testLambdaExpressionsAreNotNull() {
+    return (a, b) -> {
+      return (b - a);
+    };
+  }
 ```
 
 ## RuleId[ruleID=EmptyMethod]
@@ -1427,7 +1463,32 @@ in `test-java-lib/src/main/java/com/uber/lib/unannotated/RestrictivelyAnnotatedC
   public @NonNull Object returnsNonNull() {
 ```
 
+## RuleId[ruleID=GroovyUnusedAssignment]
+### GroovyUnusedAssignment
+Assignment is not used
+in `code-coverage-report/build.gradle`
+#### Snippet
+```java
+
+// Task to gather code coverage from multiple subprojects
+def codeCoverageReport = tasks.register('codeCoverageReport', JacocoReport) {
+    additionalClassDirs(configurations.runtimeClasspath.filter{it.path.contains(rootProject.name)  })
+    additionalSourceDirs(sourcesPath.incoming.artifactView { lenient(true) }.files)
+```
+
 ## RuleId[ruleID=RedundantFieldInitialization]
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `nullaway/src/main/java/com/uber/nullaway/handlers/stream/StreamModelBuilder.java`
+#### Snippet
+```java
+
+  private final List<StreamTypeRecord> typeRecords = new ArrayList<>();
+  private @Nullable TypePredicate tp = null;
+  private ImmutableSet.Builder<String> filterMethodSigs;
+  private ImmutableSet.Builder<String> filterMethodSimpleNames;
+```
+
 ### RedundantFieldInitialization
 Field initialization to `false` is redundant
 in `nullaway/src/main/java/com/uber/nullaway/handlers/InferredJARModelsHandler.java`
@@ -1453,30 +1514,6 @@ public class InferredJARModelsHandler extends BaseNoOpHandler {
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `jar-infer/jar-infer-lib/src/main/java/com/uber/nullaway/jarinfer/BytecodeAnnotator.java`
-#### Snippet
-```java
-/** Annotates the given methods and method parameters with the specified annotations using ASM. */
-public final class BytecodeAnnotator {
-  private static boolean debug = false;
-
-  private static void LOG(boolean cond, String tag, String msg) {
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `nullaway/src/main/java/com/uber/nullaway/handlers/stream/StreamModelBuilder.java`
-#### Snippet
-```java
-
-  private final List<StreamTypeRecord> typeRecords = new ArrayList<>();
-  private @Nullable TypePredicate tp = null;
-  private ImmutableSet.Builder<String> filterMethodSigs;
-  private ImmutableSet.Builder<String> filterMethodSimpleNames;
-```
-
-### RedundantFieldInitialization
 Field initialization to `0` is redundant
 in `jar-infer/jar-infer-lib/src/main/java/com/uber/nullaway/jarinfer/DefinitelyDerefedParamsDriver.java`
 #### Snippet
@@ -1486,6 +1523,42 @@ in `jar-infer/jar-infer-lib/src/main/java/com/uber/nullaway/jarinfer/DefinitelyD
   private long analysisStartTime = 0;
   private MethodParamAnnotations nonnullParams = new MethodParamAnnotations();
   private MethodReturnAnnotations nullableReturns = new MethodReturnAnnotations();
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `jar-infer/jar-infer-lib/src/main/java/com/uber/nullaway/jarinfer/DefinitelyDerefedParamsDriver.java`
+#### Snippet
+```java
+/** Driver for running {@link DefinitelyDerefedParams} */
+public class DefinitelyDerefedParamsDriver {
+  private static boolean DEBUG = false;
+  private static boolean VERBOSE = false;
+
+```
+
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `jar-infer/jar-infer-lib/src/main/java/com/uber/nullaway/jarinfer/DefinitelyDerefedParamsDriver.java`
+#### Snippet
+```java
+
+  String lastOutPath = "";
+  private long analyzedBytes = 0;
+  private long analysisStartTime = 0;
+  private MethodParamAnnotations nonnullParams = new MethodParamAnnotations();
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `jar-infer/jar-infer-lib/src/main/java/com/uber/nullaway/jarinfer/DefinitelyDerefedParamsDriver.java`
+#### Snippet
+```java
+  private MethodReturnAnnotations nullableReturns = new MethodReturnAnnotations();
+
+  private boolean annotateBytecode = false;
+  private boolean stripJarSignatures = false;
+
 ```
 
 ### RedundantFieldInitialization
@@ -1501,30 +1574,6 @@ in `jar-infer/jar-infer-lib/src/main/java/com/uber/nullaway/jarinfer/DefinitelyD
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `jar-infer/jar-infer-lib/src/main/java/com/uber/nullaway/jarinfer/DefinitelyDerefedParamsDriver.java`
-#### Snippet
-```java
-
-  String lastOutPath = "";
-  private long analyzedBytes = 0;
-  private long analysisStartTime = 0;
-  private MethodParamAnnotations nonnullParams = new MethodParamAnnotations();
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `jar-infer/jar-infer-lib/src/main/java/com/uber/nullaway/jarinfer/DefinitelyDerefedParamsDriver.java`
-#### Snippet
-```java
-  private MethodReturnAnnotations nullableReturns = new MethodReturnAnnotations();
-
-  private boolean annotateBytecode = false;
-  private boolean stripJarSignatures = false;
-
-```
-
-### RedundantFieldInitialization
 Field initialization to `false` is redundant
 in `jar-infer/jar-infer-lib/src/main/java/com/uber/nullaway/jarinfer/DefinitelyDerefedParamsDriver.java`
 #### Snippet
@@ -1538,27 +1587,14 @@ public class DefinitelyDerefedParamsDriver {
 
 ### RedundantFieldInitialization
 Field initialization to `false` is redundant
-in `jar-infer/jar-infer-lib/src/main/java/com/uber/nullaway/jarinfer/DefinitelyDerefedParamsDriver.java`
+in `jar-infer/jar-infer-lib/src/main/java/com/uber/nullaway/jarinfer/BytecodeAnnotator.java`
 #### Snippet
 ```java
-/** Driver for running {@link DefinitelyDerefedParams} */
-public class DefinitelyDerefedParamsDriver {
-  private static boolean DEBUG = false;
-  private static boolean VERBOSE = false;
+/** Annotates the given methods and method parameters with the specified annotations using ASM. */
+public final class BytecodeAnnotator {
+  private static boolean debug = false;
 
-```
-
-## RuleId[ruleID=GroovyUnusedAssignment]
-### GroovyUnusedAssignment
-Assignment is not used
-in `code-coverage-report/build.gradle`
-#### Snippet
-```java
-
-// Task to gather code coverage from multiple subprojects
-def codeCoverageReport = tasks.register('codeCoverageReport', JacocoReport) {
-    additionalClassDirs(configurations.runtimeClasspath.filter{it.path.contains(rootProject.name)  })
-    additionalSourceDirs(sourcesPath.incoming.artifactView { lenient(true) }.files)
+  private static void LOG(boolean cond, String tag, String msg) {
 ```
 
 ## RuleId[ruleID=ZeroLengthArrayInitialization]
@@ -1588,18 +1624,6 @@ in `nullaway/src/main/java/com/uber/nullaway/NullabilityUtil.java`
 ```
 
 ## RuleId[ruleID=ConstantValue]
-### ConstantValue
-Condition `argAntecedentNullness != null` is always `true`
-in `nullaway/src/main/java/com/uber/nullaway/handlers/contract/ContractHandler.java`
-#### Snippet
-```java
-      }
-      Preconditions.checkState(
-          argAntecedentNullness != null, "argAntecedentNullness should have been set");
-      // The nullness of one argument is all that matters for the antecedent, let's negate the
-      // consequent to fix the nullness of this argument.
-```
-
 ### ConstantValue
 Condition `i >= 0` is always `true`
 in `nullaway/src/main/java/com/uber/nullaway/handlers/LibraryModelsHandler.java`
@@ -1634,6 +1658,18 @@ in `nullaway/src/main/java/com/uber/nullaway/handlers/LibraryModelsHandler.java`
       if (i >= 0 && i < arguments.size()) {
         Node argument = arguments.get(i);
         AccessPath ap = AccessPath.getAccessPathForNode(argument, state, apContext);
+```
+
+### ConstantValue
+Condition `argAntecedentNullness != null` is always `true`
+in `nullaway/src/main/java/com/uber/nullaway/handlers/contract/ContractHandler.java`
+#### Snippet
+```java
+      }
+      Preconditions.checkState(
+          argAntecedentNullness != null, "argAntecedentNullness should have been set");
+      // The nullness of one argument is all that matters for the antecedent, let's negate the
+      // consequent to fix the nullness of this argument.
 ```
 
 ## RuleId[ruleID=StringConcatenationInsideStringBufferAppend]
@@ -1689,6 +1725,30 @@ in `jar-infer/jar-infer-lib/src/main/java/com/uber/nullaway/jarinfer/DefinitelyD
 ## RuleId[ruleID=OptionalIsPresent]
 ### OptionalIsPresent
 Can be replaced with single expression in functional style
+in `nullaway/src/main/java/com/uber/nullaway/handlers/OptionalEmptinessHandler.java`
+#### Snippet
+```java
+              .map(n -> (MethodInvocationNode) n)
+              .findFirst();
+      if (assertedOnMethod.isPresent()) {
+        handleBooleanAssertionOnMethod(
+            nonNullMarker,
+```
+
+### OptionalIsPresent
+Can be replaced with single expression in functional style
+in `nullaway/src/main/java/com/uber/nullaway/handlers/OptionalEmptinessHandler.java`
+#### Snippet
+```java
+              .map(n -> (MethodInvocationNode) n)
+              .map(this::maybeUnwrapBooleanValueOf);
+      if (wrappedMethod.isPresent()) {
+        handleBooleanAssertionOnMethod(
+            nonNullMarker, state.getTypes(), wrappedMethod.get(), isTrueMethod, isFalseMethod);
+```
+
+### OptionalIsPresent
+Can be replaced with single expression in functional style
 in `nullaway/src/main/java/com/uber/nullaway/ErrorProneCLIFlagsConfig.java`
 #### Snippet
 ```java
@@ -1713,27 +1773,63 @@ in `nullaway/src/main/java/com/uber/nullaway/ErrorProneCLIFlagsConfig.java`
 
 ## RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
 ### UtilityClassWithoutPrivateConstructor
-Class `Methods` has only 'static' members, and lacks a 'private' constructor
-in `test-java-lib/src/main/java/com/example/jspecify/unannotatedpackage/Methods.java`
+Class `Toys` has only 'static' members, and lacks a 'private' constructor
+in `jar-infer/test-java-lib-jarinfer/src/main/java/com/uber/nullaway/jarinfer/toys/unannotated/Toys.java`
 #### Snippet
 ```java
-import org.jspecify.annotations.NullUnmarked;
+import javax.annotation.Nonnull;
 
-public class Methods {
-  @NullMarked
-  public static void foo(Object o) {}
+public class Toys {
+
+  @ExpectNullable
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `Marked` has only 'static' members, and lacks a 'private' constructor
-in `test-java-lib/src/main/java/com/example/jspecify/unannotatedpackage/Methods.java`
+Class `AndroidRecentlyAnnotatedClass` has only 'static' members, and lacks a 'private' constructor
+in `test-java-lib/src/main/java/com/uber/lib/unannotated/AndroidRecentlyAnnotatedClass.java`
+#### Snippet
+```java
+import androidx.annotation.RecentlyNullable;
+
+public class AndroidRecentlyAnnotatedClass {
+
+  public static @RecentlyNullable Object returnsNull() {
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `MyClass` has only 'static' members, and lacks a 'private' constructor
+in `sample/src/main/java/com/uber/mylib/MyClass.java`
 #### Snippet
 ```java
 
-  @NullMarked
-  public static class Marked {
-    public static void foo(Object o) {}
+/** A sample class. */
+public class MyClass {
 
+  static void log(@Nullable Object x) {
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `UsesDTO` has only 'static' members, and lacks a 'private' constructor
+in `test-java-lib-lombok/src/main/java/com/uber/lombok/UsesDTO.java`
+#### Snippet
+```java
+import javax.annotation.Nullable;
+
+class UsesDTO {
+
+  public static LombokDTO getDTOInstance(@Nullable String s1, String s2) {
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `XMLUtil` has only 'static' members, and lacks a 'private' constructor
+in `nullaway/src/main/java/com/uber/nullaway/fixserialization/XMLUtil.java`
+#### Snippet
+```java
+
+/** Helper for class for parsing/writing xml files. */
+public class XMLUtil {
+
+  /**
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -1761,6 +1857,30 @@ public class Outer {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
+Class `Methods` has only 'static' members, and lacks a 'private' constructor
+in `test-java-lib/src/main/java/com/example/jspecify/unannotatedpackage/Methods.java`
+#### Snippet
+```java
+import org.jspecify.annotations.NullUnmarked;
+
+public class Methods {
+  @NullMarked
+  public static void foo(Object o) {}
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `Marked` has only 'static' members, and lacks a 'private' constructor
+in `test-java-lib/src/main/java/com/example/jspecify/unannotatedpackage/Methods.java`
+#### Snippet
+```java
+
+  @NullMarked
+  public static class Marked {
+    public static void foo(Object o) {}
+
+```
+
+### UtilityClassWithoutPrivateConstructor
 Class `JarInfer` has only 'static' members, and lacks a 'private' constructor
 in `jar-infer/jar-infer-cli/src/main/java/com/uber/nullaway/jarinfer/JarInfer.java`
 #### Snippet
@@ -1769,138 +1889,6 @@ in `jar-infer/jar-infer-cli/src/main/java/com/uber/nullaway/jarinfer/JarInfer.ja
 /** CLI interface for running the jarinfer analysis. {@link DefinitelyDerefedParamsDriver} */
 public class JarInfer {
   private static final String appName = JarInfer.class.getName();
-
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `SerializationService` has only 'static' members, and lacks a 'private' constructor
-in `nullaway/src/main/java/com/uber/nullaway/fixserialization/SerializationService.java`
-#### Snippet
-```java
-
-/** A facade class to interact with fix serialization package. */
-public class SerializationService {
-
-  /** Special characters that need to be escaped in TSV files. */
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `XMLUtil` has only 'static' members, and lacks a 'private' constructor
-in `nullaway/src/main/java/com/uber/nullaway/fixserialization/XMLUtil.java`
-#### Snippet
-```java
-
-/** Helper for class for parsing/writing xml files. */
-public class XMLUtil {
-
-  /**
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `ContractUtils` has only 'static' members, and lacks a 'private' constructor
-in `nullaway/src/main/java/com/uber/nullaway/handlers/contract/ContractUtils.java`
-#### Snippet
-```java
-
-/** An utility class for {@link ContractHandler} and {@link ContractCheckHandler}. */
-public class ContractUtils {
-
-  private static final String[] EMPTY_STRING_ARRAY = new String[0];
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `Toys` has only 'static' members, and lacks a 'private' constructor
-in `jar-infer/test-java-lib-jarinfer/src/main/java/com/uber/nullaway/jarinfer/toys/unannotated/Toys.java`
-#### Snippet
-```java
-import javax.annotation.Nonnull;
-
-public class Toys {
-
-  @ExpectNullable
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `UsesDTO` has only 'static' members, and lacks a 'private' constructor
-in `test-java-lib-lombok/src/main/java/com/uber/lombok/UsesDTO.java`
-#### Snippet
-```java
-import javax.annotation.Nullable;
-
-class UsesDTO {
-
-  public static LombokDTO getDTOInstance(@Nullable String s1, String s2) {
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `MyClass` has only 'static' members, and lacks a 'private' constructor
-in `sample/src/main/java/com/uber/mylib/MyClass.java`
-#### Snippet
-```java
-
-/** A sample class. */
-public class MyClass {
-
-  static void log(@Nullable Object x) {
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `StreamNullabilityPropagatorFactory` has only 'static' members, and lacks a 'private' constructor
-in `nullaway/src/main/java/com/uber/nullaway/handlers/StreamNullabilityPropagatorFactory.java`
-#### Snippet
-```java
-import com.uber.nullaway.handlers.stream.StreamTypeRecord;
-
-public class StreamNullabilityPropagatorFactory {
-  public static StreamNullabilityPropagator getJavaStreamNullabilityPropagator() {
-    ImmutableList<StreamTypeRecord> streamModels =
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `AndroidRecentlyAnnotatedClass` has only 'static' members, and lacks a 'private' constructor
-in `test-java-lib/src/main/java/com/uber/lib/unannotated/AndroidRecentlyAnnotatedClass.java`
-#### Snippet
-```java
-import androidx.annotation.RecentlyNullable;
-
-public class AndroidRecentlyAnnotatedClass {
-
-  public static @RecentlyNullable Object returnsNull() {
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `StubxWriter` has only 'static' members, and lacks a 'private' constructor
-in `jar-infer/jar-infer-lib/src/main/java/com/uber/nullaway/jarinfer/StubxWriter.java`
-#### Snippet
-```java
-
-/** Simple writer for the astubx format. */
-final class StubxWriter {
-  /**
-   * The file magic number for version 0 .astubx files. It should be the first four bytes of any
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `StringUtils` has only 'static' members, and lacks a 'private' constructor
-in `sample/src/main/java/org/utilities/StringUtils.java`
-#### Snippet
-```java
-import javax.annotation.Nullable;
-
-public class StringUtils {
-
-  public static boolean isEmptyOrNull(@Nullable final CharSequence value) {
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `BytecodeAnnotator` has only 'static' members, and lacks a 'private' constructor
-in `jar-infer/jar-infer-lib/src/main/java/com/uber/nullaway/jarinfer/BytecodeAnnotator.java`
-#### Snippet
-```java
-
-/** Annotates the given methods and method parameters with the specified annotations using ASM. */
-public final class BytecodeAnnotator {
-  private static boolean debug = false;
 
 ```
 
@@ -1929,6 +1917,42 @@ public class Utils {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
+Class `StringUtils` has only 'static' members, and lacks a 'private' constructor
+in `sample/src/main/java/org/utilities/StringUtils.java`
+#### Snippet
+```java
+import javax.annotation.Nullable;
+
+public class StringUtils {
+
+  public static boolean isEmptyOrNull(@Nullable final CharSequence value) {
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `StubxWriter` has only 'static' members, and lacks a 'private' constructor
+in `jar-infer/jar-infer-lib/src/main/java/com/uber/nullaway/jarinfer/StubxWriter.java`
+#### Snippet
+```java
+
+/** Simple writer for the astubx format. */
+final class StubxWriter {
+  /**
+   * The file magic number for version 0 .astubx files. It should be the first four bytes of any
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `ContractUtils` has only 'static' members, and lacks a 'private' constructor
+in `nullaway/src/main/java/com/uber/nullaway/handlers/contract/ContractUtils.java`
+#### Snippet
+```java
+
+/** An utility class for {@link ContractHandler} and {@link ContractCheckHandler}. */
+public class ContractUtils {
+
+  private static final String[] EMPTY_STRING_ARRAY = new String[0];
+```
+
+### UtilityClassWithoutPrivateConstructor
 Class `Lambdas` has only 'static' members, and lacks a 'private' constructor
 in `sample/src/main/java/com/uber/mylib/Lambdas.java`
 #### Snippet
@@ -1940,32 +1964,43 @@ public class Lambdas {
   @FunctionalInterface
 ```
 
-## RuleId[ruleID=UnnecessarySemicolon]
-### UnnecessarySemicolon
-Unnecessary semicolon `;`
-in `nullaway/src/main/java/com/uber/nullaway/handlers/RestrictiveAnnotationHandler.java`
+### UtilityClassWithoutPrivateConstructor
+Class `StreamNullabilityPropagatorFactory` has only 'static' members, and lacks a 'private' constructor
+in `nullaway/src/main/java/com/uber/nullaway/handlers/StreamNullabilityPropagatorFactory.java`
 #### Snippet
 ```java
-      AccessPathNullnessPropagation.SubNodeValues inputs,
-      AccessPathNullnessPropagation.Updates updates) {
-    ;
-    return isSymbolRestrictivelyNullable(symbol, context)
-        ? NullnessHint.HINT_NULLABLE
+import com.uber.nullaway.handlers.stream.StreamTypeRecord;
+
+public class StreamNullabilityPropagatorFactory {
+  public static StreamNullabilityPropagator getJavaStreamNullabilityPropagator() {
+    ImmutableList<StreamTypeRecord> streamModels =
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `SerializationService` has only 'static' members, and lacks a 'private' constructor
+in `nullaway/src/main/java/com/uber/nullaway/fixserialization/SerializationService.java`
+#### Snippet
+```java
+
+/** A facade class to interact with fix serialization package. */
+public class SerializationService {
+
+  /** Special characters that need to be escaped in TSV files. */
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `BytecodeAnnotator` has only 'static' members, and lacks a 'private' constructor
+in `jar-infer/jar-infer-lib/src/main/java/com/uber/nullaway/jarinfer/BytecodeAnnotator.java`
+#### Snippet
+```java
+
+/** Annotates the given methods and method parameters with the specified annotations using ASM. */
+public final class BytecodeAnnotator {
+  private static boolean debug = false;
+
 ```
 
 ## RuleId[ruleID=DataFlowIssue]
-### DataFlowIssue
-Argument `outputDirectory` might be null
-in `nullaway/src/main/java/com/uber/nullaway/fixserialization/Serializer.java`
-#### Snippet
-```java
-  public Serializer(FixSerializationConfig config, SerializationAdapter serializationAdapter) {
-    String outputDirectory = config.outputDirectory;
-    this.errorOutputPath = Paths.get(outputDirectory, "errors.tsv");
-    this.suggestedFixesOutputPath = Paths.get(outputDirectory, "fixes.tsv");
-    this.fieldInitializationOutputPath = Paths.get(outputDirectory, "field_init.tsv");
-```
-
 ### DataFlowIssue
 Argument `config.outputDirectory` might be null
 in `nullaway/src/main/java/com/uber/nullaway/fixserialization/Serializer.java`
@@ -1991,27 +2026,15 @@ in `nullaway/src/main/java/com/uber/nullaway/fixserialization/Serializer.java`
 ```
 
 ### DataFlowIssue
-Method invocation `getQualifiedName` may produce `NullPointerException`
-in `nullaway/src/main/java/com/uber/nullaway/AbstractConfig.java`
+Argument `outputDirectory` might be null
+in `nullaway/src/main/java/com/uber/nullaway/fixserialization/Serializer.java`
 #### Snippet
 ```java
-    MethodClassAndName classAndName =
-        MethodClassAndName.create(
-            enclosingClass.getQualifiedName().toString(), methodSymbol.getSimpleName().toString());
-    return knownInitializers.contains(classAndName);
-  }
-```
-
-### DataFlowIssue
-Casting `symbol` to `Symbol.MethodSymbol` may produce `ClassCastException`
-in `nullaway/src/main/java/com/uber/nullaway/CodeAnnotationInfo.java`
-#### Snippet
-```java
-    if (symbol.getKind().equals(ElementKind.METHOD)
-        || symbol.getKind().equals(ElementKind.CONSTRUCTOR)) {
-      return !classCacheRecord.isMethodNullnessAnnotated((Symbol.MethodSymbol) symbol);
-    } else {
-      return !inAnnotatedClass;
+  public Serializer(FixSerializationConfig config, SerializationAdapter serializationAdapter) {
+    String outputDirectory = config.outputDirectory;
+    this.errorOutputPath = Paths.get(outputDirectory, "errors.tsv");
+    this.suggestedFixesOutputPath = Paths.get(outputDirectory, "fixes.tsv");
+    this.fieldInitializationOutputPath = Paths.get(outputDirectory, "field_init.tsv");
 ```
 
 ### DataFlowIssue
@@ -2027,6 +2050,18 @@ in `nullaway/src/main/java/com/uber/nullaway/fixserialization/location/MethodPar
 ```
 
 ### DataFlowIssue
+Casting `symbol` to `Symbol.MethodSymbol` may produce `ClassCastException`
+in `nullaway/src/main/java/com/uber/nullaway/CodeAnnotationInfo.java`
+#### Snippet
+```java
+    if (symbol.getKind().equals(ElementKind.METHOD)
+        || symbol.getKind().equals(ElementKind.CONSTRUCTOR)) {
+      return !classCacheRecord.isMethodNullnessAnnotated((Symbol.MethodSymbol) symbol);
+    } else {
+      return !inAnnotatedClass;
+```
+
+### DataFlowIssue
 Unboxing of `NULL_TEST_APIS.get(sign)` may produce `NullPointerException`
 in `jar-infer/jar-infer-lib/src/main/java/com/uber/nullaway/jarinfer/DefinitelyDerefedParams.java`
 #### Snippet
@@ -2036,6 +2071,31 @@ in `jar-infer/jar-infer-lib/src/main/java/com/uber/nullaway/jarinfer/DefinitelyD
               derefValueNumber = callInst.getUse(NULL_TEST_APIS.get(sign));
             }
           } else {
+```
+
+### DataFlowIssue
+Method invocation `getQualifiedName` may produce `NullPointerException`
+in `nullaway/src/main/java/com/uber/nullaway/AbstractConfig.java`
+#### Snippet
+```java
+    MethodClassAndName classAndName =
+        MethodClassAndName.create(
+            enclosingClass.getQualifiedName().toString(), methodSymbol.getSimpleName().toString());
+    return knownInitializers.contains(classAndName);
+  }
+```
+
+## RuleId[ruleID=UnnecessarySemicolon]
+### UnnecessarySemicolon
+Unnecessary semicolon `;`
+in `nullaway/src/main/java/com/uber/nullaway/handlers/RestrictiveAnnotationHandler.java`
+#### Snippet
+```java
+      AccessPathNullnessPropagation.SubNodeValues inputs,
+      AccessPathNullnessPropagation.Updates updates) {
+    ;
+    return isSymbolRestrictivelyNullable(symbol, context)
+        ? NullnessHint.HINT_NULLABLE
 ```
 
 ## RuleId[ruleID=SimplifyStreamApiCallChains]
@@ -2131,10 +2191,10 @@ in `sample/src/main/java/com/uber/mylib/Lambdas.java`
 #### Snippet
 ```java
 
-  static void testBuiltIn() {
-    java.util.function.Function<String, String> foo = (x) -> x.toString();
-    BiFunction<String, Object, String> bar = (x, y) -> x.toString() + y.toString();
-    Function<String, Object> foo2 = (x) -> null;
+  static void testNonNullParam() {
+    NonNullParamFunction n = (x) -> x.toString();
+    NonNullParamFunction n2 = (@Nullable Object x) -> (x == null) ? "null" : x.toString();
+    NullableParamFunction n3 = (@Nullable Object x) -> (x == null) ? "null" : x.toString();
 ```
 
 ### Convert2MethodRef
@@ -2143,10 +2203,10 @@ in `sample/src/main/java/com/uber/mylib/Lambdas.java`
 #### Snippet
 ```java
 
-  static void testNonNullParam() {
-    NonNullParamFunction n = (x) -> x.toString();
-    NonNullParamFunction n2 = (@Nullable Object x) -> (x == null) ? "null" : x.toString();
-    NullableParamFunction n3 = (@Nullable Object x) -> (x == null) ? "null" : x.toString();
+  static void testBuiltIn() {
+    java.util.function.Function<String, String> foo = (x) -> x.toString();
+    BiFunction<String, Object, String> bar = (x, y) -> x.toString() + y.toString();
+    Function<String, Object> foo2 = (x) -> null;
 ```
 
 ## RuleId[ruleID=NonSerializableFieldInSerializableClass]
@@ -2197,43 +2257,6 @@ in `jmh/src/main/java/com/uber/nullaway/jmh/AbstractBenchmarkCompiler.java`
             getClasspath(),
             getExtraErrorProneArgs(),
             getExtraProcessorPath());
-```
-
-## RuleId[ruleID=MismatchedJavadocCode]
-### MismatchedJavadocCode
-Method is specified to return list but the return type is set
-in `nullaway/src/main/java/com/uber/nullaway/NullAway.java`
-#### Snippet
-```java
-
-    /**
-     * @return the list of constructor
-     */
-    abstract ImmutableSet<MethodTree> constructors();
-```
-
-### MismatchedJavadocCode
-Method is specified to return list but the return type is set
-in `nullaway/src/main/java/com/uber/nullaway/NullAway.java`
-#### Snippet
-```java
-
-    /**
-     * @return the list of static initializer methods. This includes static methods
-     *     annotated @Initializer, as well as those specified by -XepOpt:NullAway:KnownInitializers
-     *     or annotated with annotations passed to -XepOpt:NullAway:CustomInitializerAnnotations
-```
-
-### MismatchedJavadocCode
-Method is specified to return list but the return type is set
-in `nullaway/src/main/java/com/uber/nullaway/NullAway.java`
-#### Snippet
-```java
-
-    /**
-     * @return the list of non-static (instance) initializer methods. This includes methods
-     *     annotated @Initializer, as well as those specified by -XepOpt:NullAway:KnownInitializers
-     *     or annotated with annotations passed to -XepOpt:NullAway:CustomInitializerAnnotations
 ```
 
 ## RuleId[ruleID=RedundantEscapeInRegexReplacement]
@@ -2483,18 +2506,6 @@ in `nullaway/src/main/java/com/uber/nullaway/handlers/ApacheThriftIsSetHandler.j
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'grpcMetadataType'
-in `nullaway/src/main/java/com/uber/nullaway/handlers/GrpcHandler.java`
-#### Snippet
-```java
-      Suppliers.typeFromString(GRPC_METADATA_KEY_TNAME);
-
-  @Nullable private Optional<Type> grpcMetadataType;
-  @Nullable private Optional<Type> grpcKeyType;
-
-```
-
-### OptionalUsedAsFieldOrParameterType
 `Optional` used as type for field 'grpcKeyType'
 in `nullaway/src/main/java/com/uber/nullaway/handlers/GrpcHandler.java`
 #### Snippet
@@ -2504,6 +2515,18 @@ in `nullaway/src/main/java/com/uber/nullaway/handlers/GrpcHandler.java`
   @Nullable private Optional<Type> grpcKeyType;
 
   @Override
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for field 'grpcMetadataType'
+in `nullaway/src/main/java/com/uber/nullaway/handlers/GrpcHandler.java`
+#### Snippet
+```java
+      Suppliers.typeFromString(GRPC_METADATA_KEY_TNAME);
+
+  @Nullable private Optional<Type> grpcMetadataType;
+  @Nullable private Optional<Type> grpcKeyType;
+
 ```
 
 ## RuleId[ruleID=CharsetObjectCanBeUsed]
@@ -2532,18 +2555,6 @@ in `jar-infer/jar-infer-lib/src/main/java/com/uber/nullaway/jarinfer/BytecodeAnn
 ```
 
 ## RuleId[ruleID=SystemOutErr]
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `jar-infer/jar-infer-cli/src/main/java/com/uber/nullaway/jarinfer/JarInfer.java`
-#### Snippet
-```java
-          jarPath, pkgName, outPath, annotateBytecode, stripJarSignatures, false, debug, verbose);
-      if (!new File(outPath).exists()) {
-        System.out.println("Could not write jar file: " + outPath);
-      }
-    } catch (ParseException pe) {
-```
-
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
 in `jar-infer/test-java-lib-jarinfer/src/main/java/com/uber/nullaway/jarinfer/toys/unannotated/Toys.java`
@@ -2582,18 +2593,6 @@ in `nullaway/src/main/java/com/uber/nullaway/handlers/InferredJARModelsHandler.j
 
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
-in `jar-infer/jar-infer-lib/src/main/java/com/uber/nullaway/jarinfer/BytecodeAnnotator.java`
-#### Snippet
-```java
-  private static void LOG(boolean cond, String tag, String msg) {
-    if (cond) {
-      System.out.println("[" + tag + "] " + msg);
-    }
-  }
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
 in `jar-infer/jar-infer-lib/src/main/java/com/uber/nullaway/jarinfer/DefinitelyDerefedParams.java`
 #### Snippet
 ```java
@@ -2616,6 +2615,30 @@ in `jar-infer/jar-infer-lib/src/main/java/com/uber/nullaway/jarinfer/DefinitelyD
   }
 ```
 
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `jar-infer/jar-infer-cli/src/main/java/com/uber/nullaway/jarinfer/JarInfer.java`
+#### Snippet
+```java
+          jarPath, pkgName, outPath, annotateBytecode, stripJarSignatures, false, debug, verbose);
+      if (!new File(outPath).exists()) {
+        System.out.println("Could not write jar file: " + outPath);
+      }
+    } catch (ParseException pe) {
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `jar-infer/jar-infer-lib/src/main/java/com/uber/nullaway/jarinfer/BytecodeAnnotator.java`
+#### Snippet
+```java
+  private static void LOG(boolean cond, String tag, String msg) {
+    if (cond) {
+      System.out.println("[" + tag + "] " + msg);
+    }
+  }
+```
+
 ## RuleId[ruleID=ConditionCoveredByFurtherCondition]
 ### ConditionCoveredByFurtherCondition
 Condition 'condition == null' covered by subsequent condition '!(condition instanceof NotEqualNode)'
@@ -2631,30 +2654,6 @@ in `nullaway/src/main/java/com/uber/nullaway/dataflow/AccessPathNullnessPropagat
 
 ## RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
 ### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `nullaway/src/main/java/com/uber/nullaway/AbstractConfig.java`
-#### Snippet
-```java
-    String choiceRegexp =
-        Joiner.on("|")
-            .join(Iterables.transform(packagePrefixes, input -> input.replaceAll("\\.", "\\\\.")));
-    return Pattern.compile("^(?:" + choiceRegexp + ")(?:\\..*)?");
-  }
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `jar-infer/jar-infer-cli/src/main/java/com/uber/nullaway/jarinfer/JarInfer.java`
-#### Snippet
-```java
-      boolean verbose = line.hasOption('v');
-      if (!pkgName.isEmpty()) {
-        pkgName = "L" + pkgName.replaceAll("\\.", "/");
-      }
-      DefinitelyDerefedParamsDriver driver = new DefinitelyDerefedParamsDriver();
-```
-
-### DynamicRegexReplaceableByCompiledPattern
 `split()` could be replaced with compiled 'java.util.regex.Pattern' construct
 in `nullaway/src/main/java/com/uber/nullaway/handlers/contract/ContractNullnessStoreInitializer.java`
 #### Snippet
@@ -2664,42 +2663,6 @@ in `nullaway/src/main/java/com/uber/nullaway/handlers/contract/ContractNullnessS
     String[] parts = clauses[0].split("->");
     String[] antecedent = parts[0].split(",");
 
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`split()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `nullaway/src/main/java/com/uber/nullaway/handlers/contract/ContractUtils.java`
-#### Snippet
-```java
-      String clause, Tree tree, NullAway analysis, VisitorState state, Symbol callee) {
-
-    String[] parts = clause.split("->");
-    if (parts.length != 2) {
-      String message =
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`split()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `nullaway/src/main/java/com/uber/nullaway/handlers/contract/ContractUtils.java`
-#### Snippet
-```java
-      int numOfArguments) {
-
-    String[] parts = clause.split("->");
-
-    String[] antecedent = parts[0].trim().isEmpty() ? new String[0] : parts[0].split(",");
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `jar-infer/jar-infer-lib/src/main/java/com/uber/nullaway/jarinfer/BytecodeAnnotator.java`
-#### Snippet
-```java
-      // Check for evidence of jar signing, note that lines can be split if too long so regex
-      // matching line by line will have false negatives.
-      String manifestMinusDigests = manifestText.replaceAll(DIGEST_ENTRY_PATTERN, "");
-      if (!manifestText.equals(manifestMinusDigests) && !stripJarSignatures) {
-        throw new SignedJarException(SIGNED_JAR_ERROR_MESSAGE);
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
@@ -2726,17 +2689,77 @@ in `jar-infer/jar-infer-lib/src/main/java/com/uber/nullaway/jarinfer/DefinitelyD
     String strArgTypes = "";
 ```
 
-## RuleId[ruleID=UnnecessaryFullyQualifiedName]
-### UnnecessaryFullyQualifiedName
-Qualifier `com.google.common.base` is unnecessary, and can be replaced with an import
-in `nullaway/src/main/java/com/uber/nullaway/ErrorBuilder.java`
+### DynamicRegexReplaceableByCompiledPattern
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `nullaway/src/main/java/com/uber/nullaway/AbstractConfig.java`
 #### Snippet
 ```java
-      final List<? extends AnnotationTree> annotations = modifiers.getAnnotations();
-      // noinspection ConstantConditions
-      com.google.common.base.Optional<? extends AnnotationTree> suppressWarningsAnnot =
-          Iterables.tryFind(
-              annotations,
+    String choiceRegexp =
+        Joiner.on("|")
+            .join(Iterables.transform(packagePrefixes, input -> input.replaceAll("\\.", "\\\\.")));
+    return Pattern.compile("^(?:" + choiceRegexp + ")(?:\\..*)?");
+  }
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `jar-infer/jar-infer-cli/src/main/java/com/uber/nullaway/jarinfer/JarInfer.java`
+#### Snippet
+```java
+      boolean verbose = line.hasOption('v');
+      if (!pkgName.isEmpty()) {
+        pkgName = "L" + pkgName.replaceAll("\\.", "/");
+      }
+      DefinitelyDerefedParamsDriver driver = new DefinitelyDerefedParamsDriver();
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`split()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `nullaway/src/main/java/com/uber/nullaway/handlers/contract/ContractUtils.java`
+#### Snippet
+```java
+      int numOfArguments) {
+
+    String[] parts = clause.split("->");
+
+    String[] antecedent = parts[0].trim().isEmpty() ? new String[0] : parts[0].split(",");
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`split()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `nullaway/src/main/java/com/uber/nullaway/handlers/contract/ContractUtils.java`
+#### Snippet
+```java
+      String clause, Tree tree, NullAway analysis, VisitorState state, Symbol callee) {
+
+    String[] parts = clause.split("->");
+    if (parts.length != 2) {
+      String message =
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `jar-infer/jar-infer-lib/src/main/java/com/uber/nullaway/jarinfer/BytecodeAnnotator.java`
+#### Snippet
+```java
+      // Check for evidence of jar signing, note that lines can be split if too long so regex
+      // matching line by line will have false negatives.
+      String manifestMinusDigests = manifestText.replaceAll(DIGEST_ENTRY_PATTERN, "");
+      if (!manifestText.equals(manifestMinusDigests) && !stripJarSignatures) {
+        throw new SignedJarException(SIGNED_JAR_ERROR_MESSAGE);
+```
+
+## RuleId[ruleID=UnnecessaryFullyQualifiedName]
+### UnnecessaryFullyQualifiedName
+Qualifier `java.io` is unnecessary, and can be replaced with an import
+in `jar-infer/test-java-lib-jarinfer/src/main/java/com/uber/nullaway/jarinfer/toys/unannotated/Toys.java`
+#### Snippet
+```java
+  }
+
+  public static void main(String arg[]) throws java.io.IOException {
+    String s = "test string...";
+    Foo f = new Foo("let's");
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -2764,27 +2787,15 @@ in `nullaway/src/main/java/com/uber/nullaway/handlers/MethodNameUtil.java`
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `java.io` is unnecessary, and can be replaced with an import
-in `jar-infer/test-java-lib-jarinfer/src/main/java/com/uber/nullaway/jarinfer/toys/unannotated/Toys.java`
+Qualifier `com.google.common.base` is unnecessary, and can be replaced with an import
+in `nullaway/src/main/java/com/uber/nullaway/ErrorBuilder.java`
 #### Snippet
 ```java
-  }
-
-  public static void main(String arg[]) throws java.io.IOException {
-    String s = "test string...";
-    Foo f = new Foo("let's");
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util.function` is unnecessary and can be removed
-in `sample/src/main/java/com/uber/mylib/Lambdas.java`
-#### Snippet
-```java
-
-  static void testBuiltIn() {
-    java.util.function.Function<String, String> foo = (x) -> x.toString();
-    BiFunction<String, Object, String> bar = (x, y) -> x.toString() + y.toString();
-    Function<String, Object> foo2 = (x) -> null;
+      final List<? extends AnnotationTree> annotations = modifiers.getAnnotations();
+      // noinspection ConstantConditions
+      com.google.common.base.Optional<? extends AnnotationTree> suppressWarningsAnnot =
+          Iterables.tryFind(
+              annotations,
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -2797,6 +2808,18 @@ in `nullaway/src/main/java/com/uber/nullaway/dataflow/DataFlow.java`
  * Provides a wrapper around {@link org.checkerframework.nullaway.dataflow.analysis.Analysis}.
  *
  * <p>Modified from Error Prone code for more aggressive caching, and to avoid static state. See
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.util.function` is unnecessary and can be removed
+in `sample/src/main/java/com/uber/mylib/Lambdas.java`
+#### Snippet
+```java
+
+  static void testBuiltIn() {
+    java.util.function.Function<String, String> foo = (x) -> x.toString();
+    BiFunction<String, Object, String> bar = (x, y) -> x.toString() + y.toString();
+    Function<String, Object> foo2 = (x) -> null;
 ```
 
 ## RuleId[ruleID=ComparatorMethodParameterNotUsed]
@@ -2837,42 +2860,41 @@ in `jmh/src/main/java/com/uber/nullaway/jmh/AbstractBenchmarkCompiler.java`
         NullawayJavac.create(
 ```
 
-## RuleId[ruleID=Java8MapApi]
-### Java8MapApi
-Can be replaced with single 'Map.computeIfAbsent' method call
-in `nullaway/src/main/java/com/uber/nullaway/handlers/LibraryModelsHandler.java`
-#### Snippet
-```java
-        Name methodName = names.fromString(ref.methodName);
-        Map<MethodRef, T> mapForName = nameMapping.get(methodName);
-        if (mapForName == null) {
-          mapForName = new LinkedHashMap<>();
-          nameMapping.put(methodName, mapForName);
-```
-
-### Java8MapApi
-Can be replaced with single 'Map.getOrDefault' method call
-in `nullaway/src/main/java/com/uber/nullaway/NullAway.java`
-#### Snippet
-```java
-   */
-  public Nullness getComputedNullness(ExpressionTree e) {
-    if (computedNullnessMap.containsKey(e)) {
-      return computedNullnessMap.get(e);
-    } else {
-```
-
 ## RuleId[ruleID=AssignmentToMethodParameter]
 ### AssignmentToMethodParameter
-Assignment to method parameter `row`
-in `nullaway/src/main/java/com/uber/nullaway/fixserialization/Serializer.java`
+Assignment to method parameter `str`
+in `jar-infer/test-java-lib-jarinfer/src/main/java/com/uber/nullaway/jarinfer/toys/unannotated/Bar.java`
 #### Snippet
 ```java
-      return;
+  public Bar(String str) {
+    if (str == null) {
+      str = "bar";
     }
-    row = row + "\n";
-    try (OutputStream os = new FileOutputStream(path.toFile(), true)) {
-      os.write(row.getBytes(Charset.defaultCharset()), 0, row.length());
+    this.bar = str;
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `str`
+in `jar-infer/test-java-lib-jarinfer/src/main/java/com/uber/nullaway/jarinfer/toys/unannotated/Foo.java`
+#### Snippet
+```java
+  public Foo(String str) {
+    if (str == null) {
+      str = "foo";
+    }
+    this.foo = str;
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `overridingFieldNames`
+in `nullaway/src/main/java/com/uber/nullaway/handlers/contract/fieldcontract/EnsuresNonNullHandler.java`
+#### Snippet
+```java
+    }
+    if (overridingFieldNames == null) {
+      overridingFieldNames = Collections.emptySet();
+    }
+    if (overridingFieldNames.containsAll(overriddenFieldNames)) {
 ```
 
 ### AssignmentToMethodParameter
@@ -2888,27 +2910,39 @@ in `nullaway/src/main/java/com/uber/nullaway/fixserialization/Serializer.java`
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `str`
-in `nullaway/src/main/java/com/uber/nullaway/fixserialization/SerializationService.java`
+Assignment to method parameter `row`
+in `nullaway/src/main/java/com/uber/nullaway/fixserialization/Serializer.java`
 #### Snippet
 ```java
-    // therefore we need four "\".
-    // escape existing backslashes
-    str = str.replaceAll(Pattern.quote("\\"), Matcher.quoteReplacement("\\\\"));
-    // escape special characters
-    for (Character key : escapes.keySet()) {
+      return;
+    }
+    row = row + "\n";
+    try (OutputStream os = new FileOutputStream(path.toFile(), true)) {
+      os.write(row.getBytes(Charset.defaultCharset()), 0, row.length());
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `str`
-in `nullaway/src/main/java/com/uber/nullaway/fixserialization/SerializationService.java`
+Assignment to method parameter `analysisDriver`
+in `jar-infer/jar-infer-lib/src/main/java/com/uber/nullaway/jarinfer/DefinitelyDerefedParamsDriver.java`
 #### Snippet
 ```java
-    // escape special characters
-    for (Character key : escapes.keySet()) {
-      str = str.replaceAll(String.valueOf(key), Matcher.quoteReplacement("\\" + escapes.get(key)));
-    }
-    return str;
+    if (!mtd.getReturnType().isPrimitiveType()) {
+      if (analysisDriver == null) {
+        analysisDriver = getAnalysisDriver(mtd, options, cache);
+      }
+      if (analysisDriver.analyzeReturnType() == DefinitelyDerefedParams.NullnessHint.NULLABLE) {
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `sign`
+in `jar-infer/jar-infer-lib/src/main/java/com/uber/nullaway/jarinfer/DefinitelyDerefedParamsDriver.java`
+#### Snippet
+```java
+      if (analysisDriver.analyzeReturnType() == DefinitelyDerefedParams.NullnessHint.NULLABLE) {
+        if (sign.isEmpty()) {
+          sign = getSignature(mtd);
+        }
+        nullableReturns.add(sign);
 ```
 
 ### AssignmentToMethodParameter
@@ -2996,39 +3030,15 @@ in `nullaway/src/main/java/com/uber/nullaway/ErrorBuilder.java`
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `str`
-in `jar-infer/test-java-lib-jarinfer/src/main/java/com/uber/nullaway/jarinfer/toys/unannotated/Foo.java`
-#### Snippet
-```java
-  public Foo(String str) {
-    if (str == null) {
-      str = "foo";
-    }
-    this.foo = str;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `str`
-in `jar-infer/test-java-lib-jarinfer/src/main/java/com/uber/nullaway/jarinfer/toys/unannotated/Bar.java`
-#### Snippet
-```java
-  public Bar(String str) {
-    if (str == null) {
-      str = "bar";
-    }
-    this.bar = str;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `result`
+Assignment to method parameter `argumentPositionNullness`
 in `nullaway/src/main/java/com/uber/nullaway/handlers/CompositeHandler.java`
 #### Snippet
 ```java
-      NullnessStore.Builder result) {
+      Nullness[] argumentPositionNullness) {
     for (Handler h : handlers) {
-      result = h.onDataflowInitialStore(underlyingAST, parameters, result);
-    }
-    return result;
+      argumentPositionNullness =
+          h.onOverrideMethodInvocationParametersNullability(
+              context, methodSymbol, isAnnotated, argumentPositionNullness);
 ```
 
 ### AssignmentToMethodParameter
@@ -3044,15 +3054,15 @@ in `nullaway/src/main/java/com/uber/nullaway/handlers/CompositeHandler.java`
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `argumentPositionNullness`
+Assignment to method parameter `exprMayBeNull`
 in `nullaway/src/main/java/com/uber/nullaway/handlers/CompositeHandler.java`
 #### Snippet
 ```java
-      Nullness[] argumentPositionNullness) {
+      NullAway analysis, ExpressionTree expr, VisitorState state, boolean exprMayBeNull) {
     for (Handler h : handlers) {
-      argumentPositionNullness =
-          h.onOverrideMethodInvocationParametersNullability(
-              context, methodSymbol, isAnnotated, argumentPositionNullness);
+      exprMayBeNull = h.onOverrideMayBeNullExpr(analysis, expr, state, exprMayBeNull);
+    }
+    return exprMayBeNull;
 ```
 
 ### AssignmentToMethodParameter
@@ -3068,15 +3078,39 @@ in `nullaway/src/main/java/com/uber/nullaway/handlers/CompositeHandler.java`
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `exprMayBeNull`
+Assignment to method parameter `result`
 in `nullaway/src/main/java/com/uber/nullaway/handlers/CompositeHandler.java`
 #### Snippet
 ```java
-      NullAway analysis, ExpressionTree expr, VisitorState state, boolean exprMayBeNull) {
+      NullnessStore.Builder result) {
     for (Handler h : handlers) {
-      exprMayBeNull = h.onOverrideMayBeNullExpr(analysis, expr, state, exprMayBeNull);
+      result = h.onDataflowInitialStore(underlyingAST, parameters, result);
     }
-    return exprMayBeNull;
+    return result;
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `str`
+in `nullaway/src/main/java/com/uber/nullaway/fixserialization/SerializationService.java`
+#### Snippet
+```java
+    // therefore we need four "\".
+    // escape existing backslashes
+    str = str.replaceAll(Pattern.quote("\\"), Matcher.quoteReplacement("\\\\"));
+    // escape special characters
+    for (Map.Entry<Character, Character> entry : escapes.entrySet()) {
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `str`
+in `nullaway/src/main/java/com/uber/nullaway/fixserialization/SerializationService.java`
+#### Snippet
+```java
+    // escape special characters
+    for (Map.Entry<Character, Character> entry : escapes.entrySet()) {
+      str =
+          str.replaceAll(
+              String.valueOf(entry.getKey()), Matcher.quoteReplacement("\\" + entry.getValue()));
 ```
 
 ### AssignmentToMethodParameter
@@ -3104,39 +3138,15 @@ in `nullaway/src/main/java/com/uber/nullaway/dataflow/AccessPath.java`
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `overridingFieldNames`
-in `nullaway/src/main/java/com/uber/nullaway/handlers/contract/fieldcontract/EnsuresNonNullHandler.java`
+Assignment to method parameter `expr`
+in `nullaway/src/main/java/com/uber/nullaway/NullAway.java`
 #### Snippet
 ```java
-    }
-    if (overridingFieldNames == null) {
-      overridingFieldNames = Collections.emptySet();
-    }
-    if (overridingFieldNames.containsAll(overriddenFieldNames)) {
-```
 
-### AssignmentToMethodParameter
-Assignment to method parameter `analysisDriver`
-in `jar-infer/jar-infer-lib/src/main/java/com/uber/nullaway/jarinfer/DefinitelyDerefedParamsDriver.java`
-#### Snippet
-```java
-    if (!mtd.getReturnType().isPrimitiveType()) {
-      if (analysisDriver == null) {
-        analysisDriver = getAnalysisDriver(mtd, options, cache);
-      }
-      if (analysisDriver.analyzeReturnType() == DefinitelyDerefedParams.NullnessHint.NULLABLE) {
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `sign`
-in `jar-infer/jar-infer-lib/src/main/java/com/uber/nullaway/jarinfer/DefinitelyDerefedParamsDriver.java`
-#### Snippet
-```java
-      if (analysisDriver.analyzeReturnType() == DefinitelyDerefedParams.NullnessHint.NULLABLE) {
-        if (sign.isEmpty()) {
-          sign = getSignature(mtd);
-        }
-        nullableReturns.add(sign);
+  private boolean mayBeNullExpr(VisitorState state, ExpressionTree expr) {
+    expr = stripParensAndCasts(expr);
+    if (ASTHelpers.constValue(expr) != null) {
+      // This should include literals such as "true" or a string
 ```
 
 ### AssignmentToMethodParameter
@@ -3175,18 +3185,6 @@ in `nullaway/src/main/java/com/uber/nullaway/NullAway.java`
       }
 ```
 
-### AssignmentToMethodParameter
-Assignment to method parameter `expr`
-in `nullaway/src/main/java/com/uber/nullaway/NullAway.java`
-#### Snippet
-```java
-
-  private boolean mayBeNullExpr(VisitorState state, ExpressionTree expr) {
-    expr = stripParensAndCasts(expr);
-    if (ASTHelpers.constValue(expr) != null) {
-      // This should include literals such as "true" or a string
-```
-
 ## RuleId[ruleID=UnnecessaryContinue]
 ### UnnecessaryContinue
 `continue` is unnecessary as the last statement in a loop
@@ -3215,18 +3213,6 @@ in `nullaway/src/main/java/com/uber/nullaway/handlers/contract/ContractHandler.j
 ## RuleId[ruleID=ReturnNull]
 ### ReturnNull
 Return of `null`
-in `test-java-lib/src/main/java/com/example/jspecify/unannotatedpackage/Methods.java`
-#### Snippet
-```java
-
-    public Object unchecked(Object o) {
-      return null;
-    }
-  }
-```
-
-### ReturnNull
-Return of `null`
 in `jar-infer/test-java-lib-jarinfer/src/main/java/com/uber/nullaway/jarinfer/toys/unannotated/Foo.java`
 #### Snippet
 ```java
@@ -3251,6 +3237,18 @@ in `jar-infer/test-java-lib-jarinfer/src/main/java/com/uber/nullaway/jarinfer/to
 
 ### ReturnNull
 Return of `null`
+in `test-java-lib/src/main/java/com/example/jspecify/unannotatedpackage/Methods.java`
+#### Snippet
+```java
+
+    public Object unchecked(Object o) {
+      return null;
+    }
+  }
+```
+
+### ReturnNull
+Return of `null`
 in `sample/src/main/java/com/uber/mylib/Lambdas.java`
 #### Snippet
 ```java
@@ -3262,18 +3260,6 @@ in `sample/src/main/java/com/uber/mylib/Lambdas.java`
 ```
 
 ## RuleId[ruleID=UnnecessaryLocalVariable]
-### UnnecessaryLocalVariable
-Local variable `realSourceFileNames` is redundant
-in `jmh/src/main/java/com/uber/nullaway/jmh/CaffeineCompiler.java`
-#### Snippet
-```java
-  protected List<String> getSourceFileNames() throws IOException {
-    String caffeineSourceDir = getSourceDirectory();
-    List<String> realSourceFileNames =
-        SOURCE_FILE_NAMES.stream()
-            .map(s -> caffeineSourceDir + File.separator + s.replace("/", File.separator))
-```
-
 ### UnnecessaryLocalVariable
 Local variable `phase3result` is redundant
 in `nullaway/src/main/java/com/uber/nullaway/dataflow/cfg/NullAwayCFGBuilder.java`
@@ -3296,6 +3282,18 @@ in `jmh/src/main/java/com/uber/nullaway/jmh/AbstractBenchmarkCompiler.java`
       List<String> sourceFileNames =
           stream.map(p -> p.toFile().getAbsolutePath()).collect(Collectors.toList());
       return sourceFileNames;
+```
+
+### UnnecessaryLocalVariable
+Local variable `realSourceFileNames` is redundant
+in `jmh/src/main/java/com/uber/nullaway/jmh/CaffeineCompiler.java`
+#### Snippet
+```java
+  protected List<String> getSourceFileNames() throws IOException {
+    String caffeineSourceDir = getSourceDirectory();
+    List<String> realSourceFileNames =
+        SOURCE_FILE_NAMES.stream()
+            .map(s -> caffeineSourceDir + File.separator + s.replace("/", File.separator))
 ```
 
 ### UnnecessaryLocalVariable
