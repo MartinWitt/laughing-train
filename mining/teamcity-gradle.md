@@ -297,9 +297,9 @@ in `gradle-runner-agent/src/main/java/jetbrains/buildServer/gradle/agent/Configu
 ```java
   }
 
-  public static @NotNull String getGradleTasks(Map<String, String> runParameters)
+  public static @NotNull String getGradleInitScript(Map<String, String> runParameters)
   {
-    return emptyIfNull(runParameters.get(GradleRunnerConstants.GRADLE_TASKS));
+    return emptyIfNull(runParameters.get(GradleRunnerConstants.GRADLE_INIT_SCRIPT));
 ```
 
 ### MissortedModifiers
@@ -321,9 +321,21 @@ in `gradle-runner-agent/src/main/java/jetbrains/buildServer/gradle/agent/Configu
 ```java
   }
 
-  public static @NotNull String getGradleInitScript(Map<String, String> runParameters)
+  public static @NotNull String getJavaArgs(Map<String, String> runParameters)
   {
-    return emptyIfNull(runParameters.get(GradleRunnerConstants.GRADLE_INIT_SCRIPT));
+    return StringUtil.newLineToSpaceDelimited(emptyIfNull(runParameters.get(JavaRunnerConstants.JVM_ARGS_KEY)));
+```
+
+### MissortedModifiers
+Missorted modifiers `public static @NotNull`
+in `gradle-runner-agent/src/main/java/jetbrains/buildServer/gradle/agent/ConfigurationParamsUtil.java`
+#### Snippet
+```java
+  }
+
+  public static @NotNull String getGradleTasks(Map<String, String> runParameters)
+  {
+    return emptyIfNull(runParameters.get(GradleRunnerConstants.GRADLE_TASKS));
 ```
 
 ### MissortedModifiers
@@ -336,18 +348,6 @@ public class ConfigurationParamsUtil
   public static @NotNull String getGradleHome(Map<String, String> runParameters)
   {
     return emptyIfNull(runParameters.get(GradleRunnerConstants.GRADLE_HOME));
-```
-
-### MissortedModifiers
-Missorted modifiers `public static @NotNull`
-in `gradle-runner-agent/src/main/java/jetbrains/buildServer/gradle/agent/ConfigurationParamsUtil.java`
-#### Snippet
-```java
-  }
-
-  public static @NotNull String getJavaArgs(Map<String, String> runParameters)
-  {
-    return StringUtil.newLineToSpaceDelimited(emptyIfNull(runParameters.get(JavaRunnerConstants.JVM_ARGS_KEY)));
 ```
 
 ## RuleId[ruleID=Convert2MethodRef]
