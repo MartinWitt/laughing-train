@@ -55,15 +55,15 @@ in `src/org/intellij/grammar/generator/Names.java`
 
 ## RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
 ### UtilityClassWithoutPrivateConstructor
-Class `BnfExpressionOptimizer` has only 'static' members, and lacks a 'private' constructor
-in `src/org/intellij/grammar/refactor/BnfExpressionOptimizer.java`
+Class `Init` has only 'static' members, and lacks a 'private' constructor
+in `src/org/intellij/grammar/LightPsi.java`
 #### Snippet
 ```java
- * @author gregsh
- */
-public class BnfExpressionOptimizer {
-  public static void optimize(@NotNull Project project, @NotNull PsiElement element) {
-    LinkedList<PsiElement> list = new LinkedList<>();
+  }
+
+  public static class Init {
+
+    public static void initExtensions(MockApplication application, @NotNull MockProject project) {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -79,15 +79,15 @@ public class LightPsi {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `Init` has only 'static' members, and lacks a 'private' constructor
-in `src/org/intellij/grammar/LightPsi.java`
+Class `BnfExpressionOptimizer` has only 'static' members, and lacks a 'private' constructor
+in `src/org/intellij/grammar/refactor/BnfExpressionOptimizer.java`
 #### Snippet
 ```java
-  }
-
-  public static class Init {
-
-    public static void initExtensions(MockApplication application, @NotNull MockProject project) {
+ * @author gregsh
+ */
+public class BnfExpressionOptimizer {
+  public static void optimize(@NotNull Project project, @NotNull PsiElement element) {
+    LinkedList<PsiElement> list = new LinkedList<>();
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -284,54 +284,6 @@ in `src/org/intellij/grammar/generator/ParserGeneratorUtil.java`
 ```
 
 ### DataFlowIssue
-Method invocation `getParent` will produce `NullPointerException`
-in `src/org/intellij/grammar/generator/RuleGraphHelper.java`
-#### Snippet
-```java
-      BnfExpression context = nextMap.get(e);
-      Cardinality cardinality = REQUIRED;
-      for (PsiElement cur = context; !(cur instanceof BnfRule); cur = cur.getParent()) {
-        if (PsiTreeUtil.isAncestor(cur, e, true)) break;
-        IElementType curType = getEffectiveType(cur);
-```
-
-### DataFlowIssue
-Condition `tree instanceof BnfReferenceOrToken` is redundant and can be replaced with a null check
-in `src/org/intellij/grammar/generator/RuleGraphHelper.java`
-#### Snippet
-```java
-
-    Map<PsiElement, Cardinality> result;
-    if (tree instanceof BnfReferenceOrToken) {
-      BnfRule targetRule = ((BnfReferenceOrToken)tree).resolveRule();
-      if (targetRule != null) {
-```
-
-### DataFlowIssue
-Method invocation `getText` will produce `NullPointerException`
-in `src/org/intellij/grammar/generator/ParserGenerator.java`
-#### Snippet
-```java
-      NodeCall nodeCall = generateNodeCall(rule, firstElement, getNextName(nextName, 0), consumeType);
-      for (PsiElement e : childExpressions) {
-        String t = e instanceof BnfStringLiteralExpression ? GrammarUtil.unquote(e.getText()) : e.getText();
-        if (!mySimpleTokens.containsKey(t) && !mySimpleTokens.containsValue(t)) {
-          mySimpleTokens.put(t, null);
-```
-
-### DataFlowIssue
-Method invocation `getName` may produce `NullPointerException`
-in `src/org/intellij/grammar/generator/ParserGenerator.java`
-#### Snippet
-```java
-      if (error != null) {
-        if (intf) { // warn only once
-          addWarning(format("%s#%s(\"%s\"): %s", startRule.getName(), methodInfo.name, methodInfo.path, error));
-        }
-        return;
-```
-
-### DataFlowIssue
 Array index is out of bounds
 in `src/org/intellij/grammar/generator/ParserGenerator.java`
 #### Snippet
@@ -365,6 +317,54 @@ in `src/org/intellij/grammar/generator/ParserGenerator.java`
       out(ret + "visitor.visit" + getRulePsiClassName(rule, null) + "(this);");
       out("}");
       newLine();
+```
+
+### DataFlowIssue
+Method invocation `getText` will produce `NullPointerException`
+in `src/org/intellij/grammar/generator/ParserGenerator.java`
+#### Snippet
+```java
+      NodeCall nodeCall = generateNodeCall(rule, firstElement, getNextName(nextName, 0), consumeType);
+      for (PsiElement e : childExpressions) {
+        String t = e instanceof BnfStringLiteralExpression ? GrammarUtil.unquote(e.getText()) : e.getText();
+        if (!mySimpleTokens.containsKey(t) && !mySimpleTokens.containsValue(t)) {
+          mySimpleTokens.put(t, null);
+```
+
+### DataFlowIssue
+Method invocation `getName` may produce `NullPointerException`
+in `src/org/intellij/grammar/generator/ParserGenerator.java`
+#### Snippet
+```java
+      if (error != null) {
+        if (intf) { // warn only once
+          addWarning(format("%s#%s(\"%s\"): %s", startRule.getName(), methodInfo.name, methodInfo.path, error));
+        }
+        return;
+```
+
+### DataFlowIssue
+Method invocation `getParent` will produce `NullPointerException`
+in `src/org/intellij/grammar/generator/RuleGraphHelper.java`
+#### Snippet
+```java
+      BnfExpression context = nextMap.get(e);
+      Cardinality cardinality = REQUIRED;
+      for (PsiElement cur = context; !(cur instanceof BnfRule); cur = cur.getParent()) {
+        if (PsiTreeUtil.isAncestor(cur, e, true)) break;
+        IElementType curType = getEffectiveType(cur);
+```
+
+### DataFlowIssue
+Condition `tree instanceof BnfReferenceOrToken` is redundant and can be replaced with a null check
+in `src/org/intellij/grammar/generator/RuleGraphHelper.java`
+#### Snippet
+```java
+
+    Map<PsiElement, Cardinality> result;
+    if (tree instanceof BnfReferenceOrToken) {
+      BnfRule targetRule = ((BnfReferenceOrToken)tree).resolveRule();
+      if (targetRule != null) {
 ```
 
 ## RuleId[ruleID=CommentedOutCode]
@@ -526,126 +526,6 @@ in `src/org/intellij/grammar/generator/ParserGeneratorUtil.java`
 ```
 
 ### KeySetIterationMayUseEntrySet
-Iteration over `m.keySet()` may be replaced with 'entrySet()' iteration
-in `src/org/intellij/grammar/generator/RuleGraphHelper.java`
-#### Snippet
-```java
-      Map<PsiElement, Cardinality> map = psiMap();
-      boolean leftMarker = m.containsKey(LEFT_MARKER);
-      for (PsiElement t : m.keySet()) {
-        Cardinality joinedCard = fromNodeType(type).and(m.get(t));
-        if (leftMarker) {
-```
-
-### KeySetIterationMayUseEntrySet
-Iteration over `map.keySet()` may be replaced with 'entrySet()' iteration
-in `src/org/intellij/grammar/generator/RuleGraphHelper.java`
-#### Snippet
-```java
-        }
-        else if (leftMarker == OPTIONAL) {
-          for (PsiElement t : map.keySet()) {
-            if (!m.containsKey(t)) {
-              map.put(t, map.get(t).and(OPTIONAL));
-```
-
-### KeySetIterationMayUseEntrySet
-Iteration over `m.keySet()` may be replaced with 'entrySet()' iteration
-in `src/org/intellij/grammar/generator/RuleGraphHelper.java`
-#### Snippet
-```java
-          }
-        }
-        for (PsiElement t : m.keySet()) {
-          if (t == LEFT_MARKER && m != list.get(0)) continue;
-          Cardinality c1 = map.get(t);
-```
-
-### KeySetIterationMayUseEntrySet
-Iteration over `m.keySet()` may be replaced with 'entrySet()' iteration
-in `src/org/intellij/grammar/generator/RuleGraphHelper.java`
-#### Snippet
-```java
-      for (Map<PsiElement, Cardinality> m : list) {
-        if (tryCollapse && willCollapse(rule, m)) continue;
-        for (PsiElement t : m.keySet()) {
-          if (map.containsKey(t)) continue;
-          map.put(t, OPTIONAL.and(m.get(t)));
-```
-
-### KeySetIterationMayUseEntrySet
-Iteration over `nextMap.keySet()` may be replaced with 'entrySet()' iteration
-in `src/org/intellij/grammar/generator/RuleGraphHelper.java`
-#### Snippet
-```java
-    Map<BnfRule, Cardinality> result = new LinkedHashMap<>();
-    Map<BnfExpression, BnfExpression> nextMap = BnfFirstNextAnalyzer.createBackwardAnalyzer(true).calcNext(rule);
-    for (BnfExpression e : nextMap.keySet()) {
-      if (!(e instanceof BnfReferenceOrToken)) continue;
-      BnfRule r = ((BnfReferenceOrToken)e).resolveRule();
-```
-
-### KeySetIterationMayUseEntrySet
-Iteration over `map.keySet()` may be replaced with 'entrySet()' iteration
-in `src/org/intellij/grammar/generator/RuleGraphHelper.java`
-#### Snippet
-```java
-    boolean maybeCollapsed = true;
-    PsiElement required = null;
-    for (PsiElement t : map.keySet()) {
-      if (PsiUtilCore.getElementType(t) == MARKER_TYPE) continue;
-      if (!map.get(t).optional()) {
-```
-
-### KeySetIterationMayUseEntrySet
-Iteration over `metaResults.keySet()` may be replaced with 'entrySet()' iteration
-in `src/org/intellij/grammar/generator/RuleGraphHelper.java`
-#### Snippet
-```java
-          Map<PsiElement, Cardinality> metaResults = collectMembers(metaRule, visited);
-          List<String> params = null;
-          for (PsiElement member : metaResults.keySet()) {
-            Cardinality cardinality = metaResults.get(member);
-            if (!isExternalPsi(member)) {
-```
-
-### KeySetIterationMayUseEntrySet
-Iteration over `argMap.keySet()` may be replaced with 'entrySet()' iteration
-in `src/org/intellij/grammar/generator/RuleGraphHelper.java`
-#### Snippet
-```java
-              if (idx > -1 && idx < arguments.size()) {
-                Map<PsiElement, Cardinality> argMap = collectMembers(rule, arguments.get(idx), visited);
-                for (PsiElement element : argMap.keySet()) {
-                  Cardinality existing = ObjectUtils.notNull(result.get(element), NONE);
-                  result.put(element, existing.or(cardinality.and(argMap.get(element))));
-```
-
-### KeySetIterationMayUseEntrySet
-Iteration over `rulesToTheLeft.keySet()` may be replaced with 'entrySet()' iteration
-in `src/org/intellij/grammar/generator/RuleGraphHelper.java`
-#### Snippet
-```java
-      List<Map<PsiElement, Cardinality>> list = new ArrayList<>();
-      Map<BnfRule, Cardinality> rulesToTheLeft = getRulesToTheLeft(rule);
-      for (BnfRule r : rulesToTheLeft.keySet()) {
-        Cardinality cardinality = rulesToTheLeft.get(r);
-        Map<PsiElement, Cardinality> leftMap = psiMap(r, REQUIRED);
-```
-
-### KeySetIterationMayUseEntrySet
-Iteration over `map.keySet()` may be replaced with 'entrySet()' iteration
-in `src/org/intellij/grammar/generator/RuleGraphHelper.java`
-#### Snippet
-```java
-
-    boolean requiredFound = false;
-    for (PsiElement t : map.keySet()) {
-      if (PsiUtilCore.getElementType(t) == MARKER_TYPE) continue;
-      if (requiredFound || map.get(t) != REQUIRED) return false;
-```
-
-### KeySetIterationMayUseEntrySet
 Iteration over `sortedCompositeTypes.keySet()` may be replaced with 'entrySet()' iteration
 in `src/org/intellij/grammar/generator/ParserGenerator.java`
 #### Snippet
@@ -717,6 +597,126 @@ in `src/org/intellij/grammar/generator/ParserGenerator.java`
         RuleInfo info = ruleInfo(rule);
 ```
 
+### KeySetIterationMayUseEntrySet
+Iteration over `m.keySet()` may be replaced with 'entrySet()' iteration
+in `src/org/intellij/grammar/generator/RuleGraphHelper.java`
+#### Snippet
+```java
+      Map<PsiElement, Cardinality> map = psiMap();
+      boolean leftMarker = m.containsKey(LEFT_MARKER);
+      for (PsiElement t : m.keySet()) {
+        Cardinality joinedCard = fromNodeType(type).and(m.get(t));
+        if (leftMarker) {
+```
+
+### KeySetIterationMayUseEntrySet
+Iteration over `map.keySet()` may be replaced with 'entrySet()' iteration
+in `src/org/intellij/grammar/generator/RuleGraphHelper.java`
+#### Snippet
+```java
+        }
+        else if (leftMarker == OPTIONAL) {
+          for (PsiElement t : map.keySet()) {
+            if (!m.containsKey(t)) {
+              map.put(t, map.get(t).and(OPTIONAL));
+```
+
+### KeySetIterationMayUseEntrySet
+Iteration over `m.keySet()` may be replaced with 'entrySet()' iteration
+in `src/org/intellij/grammar/generator/RuleGraphHelper.java`
+#### Snippet
+```java
+          }
+        }
+        for (PsiElement t : m.keySet()) {
+          if (t == LEFT_MARKER && m != list.get(0)) continue;
+          Cardinality c1 = map.get(t);
+```
+
+### KeySetIterationMayUseEntrySet
+Iteration over `m.keySet()` may be replaced with 'entrySet()' iteration
+in `src/org/intellij/grammar/generator/RuleGraphHelper.java`
+#### Snippet
+```java
+      for (Map<PsiElement, Cardinality> m : list) {
+        if (tryCollapse && willCollapse(rule, m)) continue;
+        for (PsiElement t : m.keySet()) {
+          if (map.containsKey(t)) continue;
+          map.put(t, OPTIONAL.and(m.get(t)));
+```
+
+### KeySetIterationMayUseEntrySet
+Iteration over `nextMap.keySet()` may be replaced with 'entrySet()' iteration
+in `src/org/intellij/grammar/generator/RuleGraphHelper.java`
+#### Snippet
+```java
+    Map<BnfRule, Cardinality> result = new LinkedHashMap<>();
+    Map<BnfExpression, BnfExpression> nextMap = BnfFirstNextAnalyzer.createBackwardAnalyzer(true).calcNext(rule);
+    for (BnfExpression e : nextMap.keySet()) {
+      if (!(e instanceof BnfReferenceOrToken)) continue;
+      BnfRule r = ((BnfReferenceOrToken)e).resolveRule();
+```
+
+### KeySetIterationMayUseEntrySet
+Iteration over `metaResults.keySet()` may be replaced with 'entrySet()' iteration
+in `src/org/intellij/grammar/generator/RuleGraphHelper.java`
+#### Snippet
+```java
+          Map<PsiElement, Cardinality> metaResults = collectMembers(metaRule, visited);
+          List<String> params = null;
+          for (PsiElement member : metaResults.keySet()) {
+            Cardinality cardinality = metaResults.get(member);
+            if (!isExternalPsi(member)) {
+```
+
+### KeySetIterationMayUseEntrySet
+Iteration over `argMap.keySet()` may be replaced with 'entrySet()' iteration
+in `src/org/intellij/grammar/generator/RuleGraphHelper.java`
+#### Snippet
+```java
+              if (idx > -1 && idx < arguments.size()) {
+                Map<PsiElement, Cardinality> argMap = collectMembers(rule, arguments.get(idx), visited);
+                for (PsiElement element : argMap.keySet()) {
+                  Cardinality existing = ObjectUtils.notNull(result.get(element), NONE);
+                  result.put(element, existing.or(cardinality.and(argMap.get(element))));
+```
+
+### KeySetIterationMayUseEntrySet
+Iteration over `rulesToTheLeft.keySet()` may be replaced with 'entrySet()' iteration
+in `src/org/intellij/grammar/generator/RuleGraphHelper.java`
+#### Snippet
+```java
+      List<Map<PsiElement, Cardinality>> list = new ArrayList<>();
+      Map<BnfRule, Cardinality> rulesToTheLeft = getRulesToTheLeft(rule);
+      for (BnfRule r : rulesToTheLeft.keySet()) {
+        Cardinality cardinality = rulesToTheLeft.get(r);
+        Map<PsiElement, Cardinality> leftMap = psiMap(r, REQUIRED);
+```
+
+### KeySetIterationMayUseEntrySet
+Iteration over `map.keySet()` may be replaced with 'entrySet()' iteration
+in `src/org/intellij/grammar/generator/RuleGraphHelper.java`
+#### Snippet
+```java
+
+    boolean requiredFound = false;
+    for (PsiElement t : map.keySet()) {
+      if (PsiUtilCore.getElementType(t) == MARKER_TYPE) continue;
+      if (requiredFound || map.get(t) != REQUIRED) return false;
+```
+
+### KeySetIterationMayUseEntrySet
+Iteration over `map.keySet()` may be replaced with 'entrySet()' iteration
+in `src/org/intellij/grammar/generator/RuleGraphHelper.java`
+#### Snippet
+```java
+    boolean maybeCollapsed = true;
+    PsiElement required = null;
+    for (PsiElement t : map.keySet()) {
+      if (PsiUtilCore.getElementType(t) == MARKER_TYPE) continue;
+      if (!map.get(t).optional()) {
+```
+
 ## RuleId[ruleID=PatternVariableCanBeUsed]
 ### PatternVariableCanBeUsed
 Variable 'attr' can be replaced with pattern variable
@@ -728,18 +728,6 @@ in `src/org/intellij/grammar/BnfCompletionContributor.java`
           BnfAttr attr = (BnfAttr)parent;
           attrCompletion = position == attr.getId() || isOneAfterAnother(attr.getExpression(), position);
         }
-```
-
-### PatternVariableCanBeUsed
-Variable 'file' can be replaced with pattern variable
-in `src/org/intellij/grammar/BnfFoldingBuilder.java`
-#### Snippet
-```java
-                                          boolean quick) {
-    if (!(root instanceof BnfFile)) return;
-    BnfFile file = (BnfFile)root;
-
-    for (BnfAttrs attrs : file.getAttributes()) {
 ```
 
 ### PatternVariableCanBeUsed
@@ -764,6 +752,18 @@ in `src/org/intellij/grammar/generator/RuleMethodsHelper.java`
         BnfRule resultType = (BnfRule)element;
         if (!Rule.isPrivate(rule)) {
           result.add(new MethodInfo(MethodType.RULE, pathName, pathName, resultType, c));
+```
+
+### PatternVariableCanBeUsed
+Variable 'file' can be replaced with pattern variable
+in `src/org/intellij/grammar/BnfFoldingBuilder.java`
+#### Snippet
+```java
+                                          boolean quick) {
+    if (!(root instanceof BnfFile)) return;
+    BnfFile file = (BnfFile)root;
+
+    for (BnfAttrs attrs : file.getAttributes()) {
 ```
 
 ### PatternVariableCanBeUsed
@@ -792,18 +792,6 @@ in `src/org/intellij/grammar/editor/BnfRecursionLineMarkerProvider.java`
 
 ### PatternVariableCanBeUsed
 Variable 'rule' can be replaced with pattern variable
-in `src/org/intellij/grammar/BnfDocumentationProvider.java`
-#### Snippet
-```java
-  public @Nullable String generateDoc(PsiElement element, PsiElement originalElement) {
-    if (element instanceof BnfRule) {
-      BnfRule rule = (BnfRule)element;
-      BnfFirstNextAnalyzer analyzer = BnfFirstNextAnalyzer.createAnalyzer(false);
-      Set<String> first = BnfFirstNextAnalyzer.asStrings(analyzer.calcFirst(rule));
-```
-
-### PatternVariableCanBeUsed
-Variable 'rule' can be replaced with pattern variable
 in `src/org/intellij/grammar/editor/BnfPinMarkerAnnotator.java`
 #### Snippet
 ```java
@@ -812,6 +800,18 @@ in `src/org/intellij/grammar/editor/BnfPinMarkerAnnotator.java`
     BnfRule rule = (BnfRule)psiElement;
     BnfFile bnfFile = (BnfFile)rule.getContainingFile();
     ExpressionHelper exprHelper = ExpressionHelper.getCached(bnfFile);
+```
+
+### PatternVariableCanBeUsed
+Variable 'rule' can be replaced with pattern variable
+in `src/org/intellij/grammar/BnfDocumentationProvider.java`
+#### Snippet
+```java
+  public @Nullable String generateDoc(PsiElement element, PsiElement originalElement) {
+    if (element instanceof BnfRule) {
+      BnfRule rule = (BnfRule)element;
+      BnfFirstNextAnalyzer analyzer = BnfFirstNextAnalyzer.createAnalyzer(false);
+      Set<String> first = BnfFirstNextAnalyzer.asStrings(analyzer.calcFirst(rule));
 ```
 
 ### PatternVariableCanBeUsed
@@ -863,15 +863,15 @@ in `src/org/intellij/jflex/psi/impl/JFlexStateUsageSearcher.java`
 ```
 
 ### PatternVariableCanBeUsed
-Variable 'rule' can be replaced with pattern variable
-in `src/org/intellij/grammar/analysis/BnfFirstNextAnalyzer.java`
+Variable 'bnfFile' can be replaced with pattern variable
+in `src/org/intellij/grammar/actions/BnfGenerateParserUtilAction.java`
 #### Snippet
 ```java
-          (myParentFilter == null || myParentFilter.value(parent)) &&
-          totalVisited.add((BnfRule)parent)) {
-        BnfRule rule = (BnfRule)parent;
-        for (PsiReference reference : ReferencesSearch.search(rule, rule.getUseScope()).findAll()) {
-          PsiElement element = reference.getElement();
+
+    Project project = file.getProject();
+    BnfFile bnfFile = (BnfFile) file;
+    String qualifiedName = createClass(
+        bnfFile, "Create Parser Util Class", BnfConstants.GPUB_CLASS,
 ```
 
 ### PatternVariableCanBeUsed
@@ -887,27 +887,15 @@ in `src/org/intellij/grammar/analysis/BnfFirstNextAnalyzer.java`
 ```
 
 ### PatternVariableCanBeUsed
-Variable 'bnfFile' can be replaced with pattern variable
-in `src/org/intellij/grammar/actions/BnfGenerateParserUtilAction.java`
+Variable 'rule' can be replaced with pattern variable
+in `src/org/intellij/grammar/analysis/BnfFirstNextAnalyzer.java`
 #### Snippet
 ```java
-
-    Project project = file.getProject();
-    BnfFile bnfFile = (BnfFile) file;
-    String qualifiedName = createClass(
-        bnfFile, "Create Parser Util Class", BnfConstants.GPUB_CLASS,
-```
-
-### PatternVariableCanBeUsed
-Variable 'myFile' can be replaced with pattern variable
-in `src/org/intellij/grammar/inspection/BnfUnusedRuleInspection.java`
-#### Snippet
-```java
-    if (!(file instanceof BnfFile)) return null;
-    if (SuppressionUtil.inspectionResultSuppressed(file, this)) return null;
-    BnfFile myFile = (BnfFile)file;
-    JBIterable<BnfRule> rules = JBIterable.from(myFile.getRules());
-    if (rules.isEmpty()) return null;
+          (myParentFilter == null || myParentFilter.value(parent)) &&
+          totalVisited.add((BnfRule)parent)) {
+        BnfRule rule = (BnfRule)parent;
+        for (PsiReference reference : ReferencesSearch.search(rule, rule.getUseScope()).findAll()) {
+          PsiElement element = reference.getElement();
 ```
 
 ### PatternVariableCanBeUsed
@@ -920,6 +908,18 @@ in `src/org/intellij/grammar/inspection/BnfUnusedRuleInspection.java`
             BnfRule rule = (BnfRule)element;
             // add recovery rules to calculation
             BnfAttr recoverAttr = findAttribute(rule, RECOVER_WHILE);
+```
+
+### PatternVariableCanBeUsed
+Variable 'myFile' can be replaced with pattern variable
+in `src/org/intellij/grammar/inspection/BnfUnusedRuleInspection.java`
+#### Snippet
+```java
+    if (!(file instanceof BnfFile)) return null;
+    if (SuppressionUtil.inspectionResultSuppressed(file, this)) return null;
+    BnfFile myFile = (BnfFile)file;
+    JBIterable<BnfRule> rules = JBIterable.from(myFile.getRules());
+    if (rules.isEmpty()) return null;
 ```
 
 ### PatternVariableCanBeUsed
@@ -951,6 +951,18 @@ Variable 'psiMethod' can be replaced with pattern variable
 in `src/org/intellij/grammar/java/JavaHelper.java`
 #### Snippet
 ```java
+    public @NotNull List<String> getParameterAnnotations(@Nullable NavigatablePsiElement method, int paramIndex) {
+      if (!(method instanceof PsiMethod)) return super.getParameterAnnotations(method, paramIndex);
+      PsiMethod psiMethod = (PsiMethod)method;
+      PsiParameter[] parameters = psiMethod.getParameterList().getParameters();
+      if (paramIndex < 0 || paramIndex >= parameters.length) return Collections.emptyList();
+```
+
+### PatternVariableCanBeUsed
+Variable 'psiMethod' can be replaced with pattern variable
+in `src/org/intellij/grammar/java/JavaHelper.java`
+#### Snippet
+```java
     public @NotNull String getDeclaringClass(@Nullable NavigatablePsiElement method) {
       if (!(method instanceof PsiMethod)) return super.getDeclaringClass(method);
       PsiMethod psiMethod = (PsiMethod)method;
@@ -968,18 +980,6 @@ in `src/org/intellij/grammar/java/JavaHelper.java`
       PsiMethod psiMethod = (PsiMethod)method;
       PsiClassType[] types = psiMethod.getThrowsList().getReferencedTypes();
       return ContainerUtil.map(types, type -> type.getCanonicalText(false));
-```
-
-### PatternVariableCanBeUsed
-Variable 'psiMethod' can be replaced with pattern variable
-in `src/org/intellij/grammar/java/JavaHelper.java`
-#### Snippet
-```java
-    public @NotNull List<String> getParameterAnnotations(@Nullable NavigatablePsiElement method, int paramIndex) {
-      if (!(method instanceof PsiMethod)) return super.getParameterAnnotations(method, paramIndex);
-      PsiMethod psiMethod = (PsiMethod)method;
-      PsiParameter[] parameters = psiMethod.getParameterList().getParameters();
-      if (paramIndex < 0 || paramIndex >= parameters.length) return Collections.emptyList();
 ```
 
 ### PatternVariableCanBeUsed
@@ -1007,18 +1007,6 @@ in `src/org/intellij/grammar/java/JavaHelper.java`
 ```
 
 ### PatternVariableCanBeUsed
-Variable 'expression' can be replaced with pattern variable
-in `src/org/intellij/grammar/generator/RuleGraphHelper.java`
-#### Snippet
-```java
-    }
-    else if (tree instanceof BnfExternalExpression) {
-      BnfExternalExpression expression = (BnfExternalExpression)tree;
-      List<BnfExpression> arguments = expression.getArguments();
-      if (arguments.isEmpty() && Rule.isMeta(rule)) {
-```
-
-### PatternVariableCanBeUsed
 Variable 'metaCall' can be replaced with pattern variable
 in `src/org/intellij/grammar/generator/ParserGenerator.java`
 #### Snippet
@@ -1040,6 +1028,18 @@ in `src/org/intellij/grammar/generator/ParserGenerator.java`
       MethodCall methodCall = (MethodCall)nodeCall;
       return () -> format("%s::%s", methodCall.getClassName(), methodCall.getMethodName());
     }
+```
+
+### PatternVariableCanBeUsed
+Variable 'expression' can be replaced with pattern variable
+in `src/org/intellij/grammar/generator/RuleGraphHelper.java`
+#### Snippet
+```java
+    }
+    else if (tree instanceof BnfExternalExpression) {
+      BnfExternalExpression expression = (BnfExternalExpression)tree;
+      List<BnfExpression> arguments = expression.getArguments();
+      if (arguments.isEmpty() && Rule.isMeta(rule)) {
 ```
 
 ## RuleId[ruleID=SizeReplaceableByIsEmpty]
@@ -1080,15 +1080,15 @@ in `src/org/intellij/grammar/livePreview/LivePreviewParser.java`
 ```
 
 ### SizeReplaceableByIsEmpty
-`s.substring(prefix[3] + 1, offset).trim().length() > 0` can be replaced with '!s.substring(prefix\[3\] + 1, offset).trim().isEmpty()'
-in `src/org/intellij/grammar/generator/NameShortener.java`
+`sb.length() == 0` can be replaced with 'sb.isEmpty()'
+in `src/org/intellij/grammar/generator/ParserGeneratorUtil.java`
 #### Snippet
 ```java
-      }
-      else if (!quoted && prefixStack != null && !prefixStack.isEmpty() && parenCount == (prefix = prefixStack.peek())[0] &&
-               s.substring(prefix[3] + 1, offset).trim().length() > 0) {
-        prefixStack.pop();
-        if (forcedOffset == -1 || prefix[1] == forcedOffset) {
+    boolean allCaps = Case.UPPER.apply(fixed).equals(fixed);
+    StringBuilder sb = new StringBuilder();
+    if (!Character.isJavaIdentifierStart(fixed.charAt(0)) && sb.length() == 0) sb.append("_");
+    String[] strings = NameUtil.nameToWords(fixed);
+    for (int i = 0, len = strings.length; i < len; i++) {
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -1104,15 +1104,15 @@ in `src/org/intellij/grammar/generator/ParserGeneratorUtil.java`
 ```
 
 ### SizeReplaceableByIsEmpty
-`sb.length() == 0` can be replaced with 'sb.isEmpty()'
-in `src/org/intellij/grammar/generator/ParserGeneratorUtil.java`
+`s.substring(prefix[3] + 1, offset).trim().length() > 0` can be replaced with '!s.substring(prefix\[3\] + 1, offset).trim().isEmpty()'
+in `src/org/intellij/grammar/generator/NameShortener.java`
 #### Snippet
 ```java
-    boolean allCaps = Case.UPPER.apply(fixed).equals(fixed);
-    StringBuilder sb = new StringBuilder();
-    if (!Character.isJavaIdentifierStart(fixed.charAt(0)) && sb.length() == 0) sb.append("_");
-    String[] strings = NameUtil.nameToWords(fixed);
-    for (int i = 0, len = strings.length; i < len; i++) {
+      }
+      else if (!quoted && prefixStack != null && !prefixStack.isEmpty() && parenCount == (prefix = prefixStack.peek())[0] &&
+               s.substring(prefix[3] + 1, offset).trim().length() > 0) {
+        prefixStack.pop();
+        if (forcedOffset == -1 || prefix[1] == forcedOffset) {
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -1128,18 +1128,6 @@ in `src/org/intellij/grammar/java/JavaHelper.java`
 ```
 
 ### SizeReplaceableByIsEmpty
-`s.length() == 0` can be replaced with 's.isEmpty()'
-in `src/org/intellij/grammar/parser/GeneratedParserUtilBase.java`
-#### Snippet
-```java
-      count = 0;
-      for (String s : strings) {
-        if (s.length() == 0) continue;
-        if (count++ > 0) {
-          if (count > MAX_VARIANTS_TO_DISPLAY) {
-```
-
-### SizeReplaceableByIsEmpty
 `expressions.size() > 0` can be replaced with '!expressions.isEmpty()'
 in `src/org/intellij/grammar/generator/ParserGenerator.java`
 #### Snippet
@@ -1149,6 +1137,18 @@ in `src/org/intellij/grammar/generator/ParserGenerator.java`
     String method = expressions.size() > 0 ? expressions.get(0).getText() : null;
     String targetClassName = null;
     BnfRule targetRule = method == null ? null : myFile.getRule(method);
+```
+
+### SizeReplaceableByIsEmpty
+`s.length() == 0` can be replaced with 's.isEmpty()'
+in `src/org/intellij/grammar/parser/GeneratedParserUtilBase.java`
+#### Snippet
+```java
+      count = 0;
+      for (String s : strings) {
+        if (s.length() == 0) continue;
+        if (count++ > 0) {
+          if (count > MAX_VARIANTS_TO_DISPLAY) {
 ```
 
 ## RuleId[ruleID=ProtectedMemberInFinalClass]
@@ -1202,18 +1202,6 @@ in `src/org/intellij/grammar/refactor/BnfIntroduceRuleHandler.java`
 
 ### ProtectedMemberInFinalClass
 Class member declared `protected` in 'final' class
-in `src/org/intellij/grammar/refactor/BnfIntroduceTokenHandler.java`
-#### Snippet
-```java
-      new OccurrencesChooser<BnfExpression>(editor) {
-        @Override
-        protected TextRange getOccurrenceRange(BnfExpression occurrence) {
-          return occurrence.getTextRange();
-        }
-```
-
-### ProtectedMemberInFinalClass
-Class member declared `protected` in 'final' class
 in `src/org/intellij/jflex/editor/JFlexCompletionContributor.java`
 #### Snippet
 ```java
@@ -1222,6 +1210,18 @@ in `src/org/intellij/jflex/editor/JFlexCompletionContributor.java`
       protected void addCompletions(@NotNull CompletionParameters parameters,
                                     @NotNull ProcessingContext context,
                                     @NotNull CompletionResultSet result) {
+```
+
+### ProtectedMemberInFinalClass
+Class member declared `protected` in 'final' class
+in `src/org/intellij/grammar/refactor/BnfIntroduceTokenHandler.java`
+#### Snippet
+```java
+      new OccurrencesChooser<BnfExpression>(editor) {
+        @Override
+        protected TextRange getOccurrenceRange(BnfExpression occurrence) {
+          return occurrence.getTextRange();
+        }
 ```
 
 ### ProtectedMemberInFinalClass
@@ -1262,6 +1262,18 @@ in `src/org/intellij/jflex/psi/impl/JFlexPsiImplUtil.java`
 
 ## RuleId[ruleID=NonShortCircuitBoolean]
 ### NonShortCircuitBoolean
+Non-short-circuit boolean expression `matchesSomething |= !result.remove(BNF_MATCHES_NOTHING)`
+in `src/org/intellij/grammar/analysis/BnfFirstNextAnalyzer.java`
+#### Snippet
+```java
+      for (BnfExpression child : ((BnfChoice)expression).getExpressionList()) {
+        calcFirstInner(child, result, visited, forcedNext);
+        matchesSomething |= !result.remove(BNF_MATCHES_NOTHING);
+      }
+      if (!matchesSomething || matchesNothing) result.add(BNF_MATCHES_NOTHING);
+```
+
+### NonShortCircuitBoolean
 Non-short-circuit boolean expression `pinApplied |= pinned.contains(e)`
 in `src/org/intellij/grammar/analysis/BnfFirstNextAnalyzer.java`
 #### Snippet
@@ -1298,18 +1310,6 @@ in `src/org/intellij/grammar/analysis/BnfFirstNextAnalyzer.java`
 ```
 
 ### NonShortCircuitBoolean
-Non-short-circuit boolean expression `matchesSomething |= !result.remove(BNF_MATCHES_NOTHING)`
-in `src/org/intellij/grammar/analysis/BnfFirstNextAnalyzer.java`
-#### Snippet
-```java
-      for (BnfExpression child : ((BnfChoice)expression).getExpressionList()) {
-        calcFirstInner(child, result, visited, forcedNext);
-        matchesSomething |= !result.remove(BNF_MATCHES_NOTHING);
-      }
-      if (!matchesSomething || matchesNothing) result.add(BNF_MATCHES_NOTHING);
-```
-
-### NonShortCircuitBoolean
 Non-short-circuit boolean expression `newLine &= (size - count) > 2`
 in `src/org/intellij/grammar/generator/ParserGeneratorUtil.java`
 #### Snippet
@@ -1319,42 +1319,6 @@ in `src/org/intellij/grammar/generator/ParserGeneratorUtil.java`
       newLine &= (size - count) > 2;
       if (count > 0) sb.append(",").append(newLine ? "\n" : " ");
       sb.append(tokenTypes.get(count));
-```
-
-### NonShortCircuitBoolean
-Non-short-circuit boolean expression `hasSynonyms |= rule != e.getValue()`
-in `src/org/intellij/grammar/generator/RuleGraphHelper.java`
-#### Snippet
-```java
-      BnfRule rule = e.getKey();
-      e.setValue(getSynonymTargetOrSelf(rule));
-      hasSynonyms |= rule != e.getValue();
-      for (PsiElement r : myRulesCollapseMap.get(rule)) {
-        if (r instanceof BnfRule && !rulesAndAlts.containsKey(r)) {
-```
-
-### NonShortCircuitBoolean
-Non-short-circuit boolean expression `result |= canCollapseBy(rule, t)`
-in `src/org/intellij/grammar/generator/RuleGraphHelper.java`
-#### Snippet
-```java
-    if (maybeCollapsed) {
-      for (PsiElement t : required != null ? Collections.singleton(required) : map.keySet()) {
-        result |= canCollapseBy(rule, t);
-      }
-    }
-```
-
-### NonShortCircuitBoolean
-Non-short-circuit boolean expression `changed |= rules.addAll(ruleExtendsMap.get(rule))`
-in `src/org/intellij/grammar/generator/RuleGraphHelper.java`
-#### Snippet
-```java
-        Collection<BnfRule> rules = ruleExtendsMap.get(superRule);
-        for (BnfRule rule : new ArrayList<>(rules)) {
-          changed |= rules.addAll(ruleExtendsMap.get(rule));
-        }
-      }
 ```
 
 ### NonShortCircuitBoolean
@@ -1377,6 +1341,42 @@ in `src/org/intellij/grammar/generator/ParserGenerator.java`
         context = curId;
         cardinality = cardinality == AT_LEAST_ONE && index.equals("0") ? REQUIRED : OPTIONAL;
         totalNullable |= cardinality.optional();
+      }
+    }
+```
+
+### NonShortCircuitBoolean
+Non-short-circuit boolean expression `changed |= rules.addAll(ruleExtendsMap.get(rule))`
+in `src/org/intellij/grammar/generator/RuleGraphHelper.java`
+#### Snippet
+```java
+        Collection<BnfRule> rules = ruleExtendsMap.get(superRule);
+        for (BnfRule rule : new ArrayList<>(rules)) {
+          changed |= rules.addAll(ruleExtendsMap.get(rule));
+        }
+      }
+```
+
+### NonShortCircuitBoolean
+Non-short-circuit boolean expression `hasSynonyms |= rule != e.getValue()`
+in `src/org/intellij/grammar/generator/RuleGraphHelper.java`
+#### Snippet
+```java
+      BnfRule rule = e.getKey();
+      e.setValue(getSynonymTargetOrSelf(rule));
+      hasSynonyms |= rule != e.getValue();
+      for (PsiElement r : myRulesCollapseMap.get(rule)) {
+        if (r instanceof BnfRule && !rulesAndAlts.containsKey(r)) {
+```
+
+### NonShortCircuitBoolean
+Non-short-circuit boolean expression `result |= canCollapseBy(rule, t)`
+in `src/org/intellij/grammar/generator/RuleGraphHelper.java`
+#### Snippet
+```java
+    if (maybeCollapsed) {
+      for (PsiElement t : required != null ? Collections.singleton(required) : map.keySet()) {
+        result |= canCollapseBy(rule, t);
       }
     }
 ```
@@ -1613,6 +1613,30 @@ in `src/org/intellij/grammar/analysis/BnfFirstNextAnalyzer.java`
 ```
 
 ### SuspiciousMethodCalls
+'Set' may not contain objects of type ''
+in `src/org/intellij/grammar/inspection/BnfUnusedRuleInspection.java`
+#### Snippet
+```java
+    }
+
+    for (BnfRule r : rules.filter(o -> !roots.contains(o) && !inSuppressed.contains(o))) {
+      String message = null;
+      if (ParserGeneratorUtil.Rule.isFake(r)) {
+```
+
+### SuspiciousMethodCalls
+'Set' may not contain objects of type ''
+in `src/org/intellij/grammar/inspection/BnfUnusedRuleInspection.java`
+#### Snippet
+```java
+    }
+
+    for (BnfRule r : rules.filter(o -> !roots.contains(o) && !inSuppressed.contains(o))) {
+      String message = null;
+      if (ParserGeneratorUtil.Rule.isFake(r)) {
+```
+
+### SuspiciousMethodCalls
 'Map\>' may not contain keys of type ''
 in `src/org/intellij/grammar/livePreview/LivePreviewParser.java`
 #### Snippet
@@ -1625,27 +1649,15 @@ in `src/org/intellij/grammar/livePreview/LivePreviewParser.java`
 ```
 
 ### SuspiciousMethodCalls
-'Set' may not contain objects of type ''
-in `src/org/intellij/grammar/inspection/BnfUnusedRuleInspection.java`
+'Map' may not contain keys of type ''
+in `src/org/intellij/grammar/generator/ParserGenerator.java`
 #### Snippet
 ```java
+      supers.put(rule, getEffectiveSuperRule(myFile, rule));
     }
-
-    for (BnfRule r : rules.filter(o -> !roots.contains(o) && !inSuppressed.contains(o))) {
-      String message = null;
-      if (ParserGeneratorUtil.Rule.isFake(r)) {
-```
-
-### SuspiciousMethodCalls
-'Set' may not contain objects of type ''
-in `src/org/intellij/grammar/inspection/BnfUnusedRuleInspection.java`
-#### Snippet
-```java
-    }
-
-    for (BnfRule r : rules.filter(o -> !roots.contains(o) && !inSuppressed.contains(o))) {
-      String message = null;
-      if (ParserGeneratorUtil.Rule.isFake(r)) {
+    JBTreeTraverser<BnfRule> ordered = new JBTreeTraverser<BnfRule>(key -> JBIterable.of(supers.get(key)))
+      .withRoots(sortedPsiRules.values())
+      .withTraversal(TreeTraversal.POST_ORDER_DFS)
 ```
 
 ### SuspiciousMethodCalls
@@ -1682,18 +1694,6 @@ in `src/org/intellij/grammar/generator/RuleGraphHelper.java`
       result = type == BnfTypes.BNF_SEQUENCE && visited.contains(RECURSION_MARKER) && result.remove(rule.getExpression()) != null ?
                joinMaps(rule, false, type, Arrays.asList(result, result)) : result;
     }
-```
-
-### SuspiciousMethodCalls
-'Map' may not contain keys of type ''
-in `src/org/intellij/grammar/generator/ParserGenerator.java`
-#### Snippet
-```java
-      supers.put(rule, getEffectiveSuperRule(myFile, rule));
-    }
-    JBTreeTraverser<BnfRule> ordered = new JBTreeTraverser<BnfRule>(key -> JBIterable.of(supers.get(key)))
-      .withRoots(sortedPsiRules.values())
-      .withTraversal(TreeTraversal.POST_ORDER_DFS)
 ```
 
 ## RuleId[ruleID=BoundedWildcard]
@@ -1740,9 +1740,9 @@ in `src/org/intellij/grammar/analysis/BnfFirstNextAnalyzer.java`
 ```java
   }
 
-  private static @NotNull Set<BnfExpression> exprSetUnion(Collection<BnfExpression> a, Collection<BnfExpression> b) {
-    Set<BnfExpression> result = newExprSet(a);
-    result.addAll(b);
+  public static Set<String> asStrings(Set<BnfExpression> expressions) {
+    Set<String> result = new TreeSet<>();
+    for (BnfExpression expression : expressions) {
 ```
 
 ### BoundedWildcard
@@ -1752,45 +1752,9 @@ in `src/org/intellij/grammar/analysis/BnfFirstNextAnalyzer.java`
 ```java
   }
 
-  public static Set<String> asStrings(Set<BnfExpression> expressions) {
-    Set<String> result = new TreeSet<>();
-    for (BnfExpression expression : expressions) {
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `src/org/intellij/grammar/generator/NameShortener.java`
-#### Snippet
-```java
-  public static void addTypeToImports(@Nullable String type,
-                                      @NotNull List<String> typeAnnotations,
-                                      @NotNull Collection<String> result) {
-    addTypeToImports(type, result::add, -1);
-    for (String anno : typeAnnotations) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends JavaHelper.TypeParameterInfo`
-in `src/org/intellij/grammar/generator/ParserGeneratorUtil.java`
-#### Snippet
-```java
-  }
-
-  public static String getGenericClauseString(List<JavaHelper.TypeParameterInfo> genericParameters, NameShortener shortener) {
-    if (genericParameters.isEmpty()) return "";
-
-```
-
-### BoundedWildcard
-Can generalize to `? extends BnfExpression`
-in `src/org/intellij/grammar/generator/ParserGeneratorUtil.java`
-#### Snippet
-```java
-    }
-
-    public boolean shouldGenerate(List<BnfExpression> children) {
-      // do not check last expression, last item pin is trivial
-      for (int i = 0, size = children.size(); i < size - 1; i++) {
+  private static @NotNull Set<BnfExpression> exprSetUnion(Collection<BnfExpression> a, Collection<BnfExpression> b) {
+    Set<BnfExpression> result = newExprSet(a);
+    result.addAll(b);
 ```
 
 ### BoundedWildcard
@@ -1818,6 +1782,30 @@ in `src/org/intellij/grammar/generator/ParserGeneratorUtil.java`
 ```
 
 ### BoundedWildcard
+Can generalize to `? extends JavaHelper.TypeParameterInfo`
+in `src/org/intellij/grammar/generator/ParserGeneratorUtil.java`
+#### Snippet
+```java
+  }
+
+  public static String getGenericClauseString(List<JavaHelper.TypeParameterInfo> genericParameters, NameShortener shortener) {
+    if (genericParameters.isEmpty()) return "";
+
+```
+
+### BoundedWildcard
+Can generalize to `? extends BnfExpression`
+in `src/org/intellij/grammar/generator/ParserGeneratorUtil.java`
+#### Snippet
+```java
+    }
+
+    public boolean shouldGenerate(List<BnfExpression> children) {
+      // do not check last expression, last item pin is trivial
+      for (int i = 0, size = children.size(); i < size - 1; i++) {
+```
+
+### BoundedWildcard
 Can generalize to `? extends BnfExpression`
 in `src/org/intellij/grammar/generator/ParserGeneratorUtil.java`
 #### Snippet
@@ -1830,15 +1818,15 @@ in `src/org/intellij/grammar/generator/ParserGeneratorUtil.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends Map.Entry`>
-in `src/org/intellij/grammar/generator/RuleGraphHelper.java`
+Can generalize to `? super String`
+in `src/org/intellij/grammar/generator/NameShortener.java`
 #### Snippet
 ```java
-
-  private static void findTheBestReplacement(Map<BnfRule, BnfRule> rulesAndAlts,
-                                             List<Map.Entry<BnfRule, Collection<BnfRule>>> supers) {
-    BitSet bits = new BitSet(rulesAndAlts.size());
-    int minI = -1, minC = -1, minS = -1;
+  public static void addTypeToImports(@Nullable String type,
+                                      @NotNull List<String> typeAnnotations,
+                                      @NotNull Collection<String> result) {
+    addTypeToImports(type, result::add, -1);
+    for (String anno : typeAnnotations) {
 ```
 
 ### BoundedWildcard
@@ -1853,43 +1841,19 @@ in `src/org/intellij/grammar/generator/ParserGenerator.java`
       generateNodeChild(rule, children.get(i), funcName, i, visited);
 ```
 
+### BoundedWildcard
+Can generalize to `? extends Map.Entry`>
+in `src/org/intellij/grammar/generator/RuleGraphHelper.java`
+#### Snippet
+```java
+
+  private static void findTheBestReplacement(Map<BnfRule, BnfRule> rulesAndAlts,
+                                             List<Map.Entry<BnfRule, Collection<BnfRule>>> supers) {
+    BitSet bits = new BitSet(rulesAndAlts.size());
+    int minI = -1, minC = -1, minS = -1;
+```
+
 ## RuleId[ruleID=NullableProblems]
-### NullableProblems
-Overridden methods are not annotated
-in `src/org/intellij/grammar/BnfParserDefinition.java`
-#### Snippet
-```java
-
-  @Override
-  public @NotNull PsiElement createElement(ASTNode astNode) {
-    throw new UnsupportedOperationException(astNode.getElementType().toString());
-  }
-```
-
-### NullableProblems
-Overridden methods are not annotated
-in `src/org/intellij/grammar/BnfParserDefinition.java`
-#### Snippet
-```java
-
-  @Override
-  public @NotNull IFileElementType getFileNodeType() {
-    return BNF_FILE_ELEMENT_TYPE;
-  }
-```
-
-### NullableProblems
-Overridden methods are not annotated
-in `src/org/intellij/grammar/BnfParserDefinition.java`
-#### Snippet
-```java
-
-  @Override
-  public @NotNull PsiParser createParser(Project project) {
-    return new GrammarParser();
-  }
-```
-
 ### NullableProblems
 Overridden methods are not annotated
 in `src/org/intellij/grammar/BnfParserDefinition.java`
@@ -1923,6 +1887,42 @@ in `src/org/intellij/grammar/BnfParserDefinition.java`
   @Override
   public @NotNull PsiFile createFile(@NotNull FileViewProvider fileViewProvider) {
     return new BnfFileImpl(fileViewProvider);
+  }
+```
+
+### NullableProblems
+Overridden methods are not annotated
+in `src/org/intellij/grammar/BnfParserDefinition.java`
+#### Snippet
+```java
+
+  @Override
+  public @NotNull PsiParser createParser(Project project) {
+    return new GrammarParser();
+  }
+```
+
+### NullableProblems
+Overridden methods are not annotated
+in `src/org/intellij/grammar/BnfParserDefinition.java`
+#### Snippet
+```java
+
+  @Override
+  public @NotNull PsiElement createElement(ASTNode astNode) {
+    throw new UnsupportedOperationException(astNode.getElementType().toString());
+  }
+```
+
+### NullableProblems
+Overridden methods are not annotated
+in `src/org/intellij/grammar/BnfParserDefinition.java`
+#### Snippet
+```java
+
+  @Override
+  public @NotNull IFileElementType getFileNodeType() {
+    return BNF_FILE_ELEMENT_TYPE;
   }
 ```
 
@@ -2003,6 +2003,42 @@ in `src/org/intellij/grammar/refactor/BnfUnwrapDescriptor.java`
 ```
 
 ### ConditionCoveredByFurtherCondition
+Condition 'next instanceof PsiComment' covered by subsequent condition 'next instanceof PsiWhiteSpace'
+in `src/org/intellij/grammar/BnfCompletionContributor.java`
+#### Snippet
+```java
+    if (!(parent instanceof BnfRule)) return false;
+    for (PsiElement cur = element, next = cur.getNextSibling();
+         next == null || next instanceof PsiComment || next instanceof PsiWhiteSpace;
+         cur = next, next = cur.getNextSibling()) {
+      if (next == null) {
+```
+
+### ConditionCoveredByFurtherCondition
+Condition 'element instanceof BnfAttrs' covered by subsequent condition 'element instanceof BnfRule'
+in `src/org/intellij/grammar/BnfStructureViewFactory.java`
+#### Snippet
+```java
+    @Override
+    protected boolean isSuitable(PsiElement element) {
+      return element instanceof BnfAttrs || element instanceof BnfRule;
+    }
+  }
+```
+
+### ConditionCoveredByFurtherCondition
+Condition 'element instanceof BnfRule' covered by subsequent condition 'element instanceof BnfAttr'
+in `src/org/intellij/grammar/BnfStructureViewFactory.java`
+#### Snippet
+```java
+    public @NotNull Collection<StructureViewTreeElement> getChildrenBase() {
+      PsiElement element = getElement();
+      if (element instanceof BnfRule
+          || element instanceof BnfAttr) {
+        return Collections.emptyList();
+```
+
+### ConditionCoveredByFurtherCondition
 Condition 'cur instanceof BnfQuantified' covered by subsequent condition 'cur instanceof BnfParenOptExpression'
 in `src/org/intellij/grammar/refactor/BnfExpressionOptimizer.java`
 #### Snippet
@@ -2024,42 +2060,6 @@ in `src/org/intellij/grammar/refactor/BnfExpressionOptimizer.java`
     return element instanceof BnfReferenceOrToken || element instanceof BnfLiteralExpression ||
            element instanceof BnfParenthesized || element instanceof BnfQuantified ||
            isTrivial(element)
-```
-
-### ConditionCoveredByFurtherCondition
-Condition 'next instanceof PsiComment' covered by subsequent condition 'next instanceof PsiWhiteSpace'
-in `src/org/intellij/grammar/BnfCompletionContributor.java`
-#### Snippet
-```java
-    if (!(parent instanceof BnfRule)) return false;
-    for (PsiElement cur = element, next = cur.getNextSibling();
-         next == null || next instanceof PsiComment || next instanceof PsiWhiteSpace;
-         cur = next, next = cur.getNextSibling()) {
-      if (next == null) {
-```
-
-### ConditionCoveredByFurtherCondition
-Condition 'element instanceof BnfRule' covered by subsequent condition 'element instanceof BnfAttr'
-in `src/org/intellij/grammar/BnfStructureViewFactory.java`
-#### Snippet
-```java
-    public @NotNull Collection<StructureViewTreeElement> getChildrenBase() {
-      PsiElement element = getElement();
-      if (element instanceof BnfRule
-          || element instanceof BnfAttr) {
-        return Collections.emptyList();
-```
-
-### ConditionCoveredByFurtherCondition
-Condition 'element instanceof BnfAttrs' covered by subsequent condition 'element instanceof BnfRule'
-in `src/org/intellij/grammar/BnfStructureViewFactory.java`
-#### Snippet
-```java
-    @Override
-    protected boolean isSuitable(PsiElement element) {
-      return element instanceof BnfAttrs || element instanceof BnfRule;
-    }
-  }
 ```
 
 ### ConditionCoveredByFurtherCondition
@@ -2147,18 +2147,6 @@ in `src/org/intellij/grammar/generator/ParserGeneratorUtil.java`
 ```
 
 ### ConditionCoveredByFurtherCondition
-Condition 'e1 instanceof BnfReferenceOrToken \&\& e2 instanceof BnfReferenceOrToken' covered by subsequent condition 'e1 instanceof BnfLiteralExpression \&\& e2 instanceof BnfLiteralExpression'
-in `src/org/intellij/grammar/generator/RuleGraphHelper.java`
-#### Snippet
-```java
-    @Override
-    public boolean equals(PsiElement e1, PsiElement e2) {
-      if (e1 instanceof BnfReferenceOrToken && e2 instanceof BnfReferenceOrToken ||
-          e1 instanceof BnfLiteralExpression && e2 instanceof BnfLiteralExpression) {
-        return e1.getText().equals(e2.getText());
-```
-
-### ConditionCoveredByFurtherCondition
 Condition 'o instanceof BnfPredicate' covered by subsequent condition 'o instanceof BnfExternalExpression'
 in `src/org/intellij/grammar/generator/RuleGraphHelper.java`
 #### Snippet
@@ -2192,6 +2180,18 @@ in `src/org/intellij/grammar/generator/RuleGraphHelper.java`
       if (e instanceof BnfReferenceOrToken || e instanceof BnfLiteralExpression) {
         return e.getText().hashCode();
       }
+```
+
+### ConditionCoveredByFurtherCondition
+Condition 'e1 instanceof BnfReferenceOrToken \&\& e2 instanceof BnfReferenceOrToken' covered by subsequent condition 'e1 instanceof BnfLiteralExpression \&\& e2 instanceof BnfLiteralExpression'
+in `src/org/intellij/grammar/generator/RuleGraphHelper.java`
+#### Snippet
+```java
+    @Override
+    public boolean equals(PsiElement e1, PsiElement e2) {
+      if (e1 instanceof BnfReferenceOrToken && e2 instanceof BnfReferenceOrToken ||
+          e1 instanceof BnfLiteralExpression && e2 instanceof BnfLiteralExpression) {
+        return e1.getText().equals(e2.getText());
 ```
 
 ## RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
@@ -2413,30 +2413,6 @@ in `src/org/intellij/grammar/actions/BnfGenerateLexerAction.java`
 
 ### DynamicRegexReplaceableByCompiledPattern
 `replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/org/intellij/grammar/generator/NameShortener.java`
-#### Snippet
-```java
-    for (String item : initialImports) {
-      boolean isStatic = false;
-      for (String s : StringUtil.tokenize(item.replaceAll("\\s+", " "), TYPE_TEXT_SEPARATORS)) {
-        s = StringUtil.trimStart(StringUtil.trimStart(s, "? super "), "? extends ");
-        boolean wasStatic = isStatic;
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/org/intellij/grammar/generator/ParserGeneratorUtil.java`
-#### Snippet
-```java
-      String unquoted = GrammarUtil.unquote(text);
-      // in double-quoted strings: un-escape quotes only leaving the rest \ manageable
-      String result = text.charAt(0) == '"' ? unquoted.replaceAll("\\\\([\"'])", "$1") : unquoted;
-      return (T) result;
-    }
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
 in `src/org/intellij/grammar/generator/ParserGeneratorUtil.java`
 #### Snippet
 ```java
@@ -2457,6 +2433,30 @@ in `src/org/intellij/grammar/generator/ParserGeneratorUtil.java`
     String fixed = text.replaceAll("[^:\\p{javaJavaIdentifierPart}]", "_");
     boolean allCaps = Case.UPPER.apply(fixed).equals(fixed);
     StringBuilder sb = new StringBuilder();
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `src/org/intellij/grammar/generator/ParserGeneratorUtil.java`
+#### Snippet
+```java
+      String unquoted = GrammarUtil.unquote(text);
+      // in double-quoted strings: un-escape quotes only leaving the rest \ manageable
+      String result = text.charAt(0) == '"' ? unquoted.replaceAll("\\\\([\"'])", "$1") : unquoted;
+      return (T) result;
+    }
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `src/org/intellij/grammar/generator/NameShortener.java`
+#### Snippet
+```java
+    for (String item : initialImports) {
+      boolean isStatic = false;
+      for (String s : StringUtil.tokenize(item.replaceAll("\\s+", " "), TYPE_TEXT_SEPARATORS)) {
+        s = StringUtil.trimStart(StringUtil.trimStart(s, "? super "), "? extends ");
+        boolean wasStatic = isStatic;
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
@@ -2548,18 +2548,6 @@ in `src/org/intellij/grammar/Main.java`
 ## RuleId[ruleID=NestedAssignment]
 ### NestedAssignment
 Result of assignment expression used
-in `src/org/intellij/grammar/LightPsi.java`
-#### Snippet
-```java
-    String s;
-    addJarEntry(jar, "misc/registry.properties");
-    while ((s = reader.readLine()) != null) {
-      Matcher matcher = pattern.matcher(s);
-      if (!matcher.matches()) continue;
-```
-
-### NestedAssignment
-Result of assignment expression used
 in `src/org/intellij/grammar/refactor/BnfInlineRuleProcessor.java`
 #### Snippet
 ```java
@@ -2580,6 +2568,18 @@ in `src/org/intellij/grammar/refactor/BnfInlineRuleProcessor.java`
             if (idx == 0) visited.put(text, idx = visited.size() + 1);
             if (idx < expressionList.size()) {
               work.addFirst(Pair.create(element, expressionList.get(idx)));
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `src/org/intellij/grammar/LightPsi.java`
+#### Snippet
+```java
+    String s;
+    addJarEntry(jar, "misc/registry.properties");
+    while ((s = reader.readLine()) != null) {
+      Matcher matcher = pattern.matcher(s);
+      if (!matcher.matches()) continue;
 ```
 
 ### NestedAssignment
@@ -2613,7 +2613,7 @@ in `src/org/intellij/grammar/psi/impl/BnfStringImpl.java`
 ```java
     PsiReference ref = e.getUserData(REF_KEY);
     if (ref == null) {
-      e.putUserData(REF_KEY, ref = new MyPatternReference(e));
+      e.putUserData(REF_KEY, ref = new MyRuleReference(e));
     }
     return ref;
 ```
@@ -2625,7 +2625,7 @@ in `src/org/intellij/grammar/psi/impl/BnfStringImpl.java`
 ```java
     PsiReference ref = e.getUserData(REF_KEY);
     if (ref == null) {
-      e.putUserData(REF_KEY, ref = new MyRuleReference(e));
+      e.putUserData(REF_KEY, ref = new MyPatternReference(e));
     }
     return ref;
 ```
@@ -2717,14 +2717,14 @@ in `src/org/intellij/grammar/generator/NameShortener.java`
 
 ### NestedAssignment
 Result of assignment expression used
-in `src/org/intellij/grammar/generator/RuleGraphHelper.java`
+in `src/org/intellij/grammar/generator/ParserGenerator.java`
 #### Snippet
 ```java
-    PsiElement e = myExternalElements.get(name);
-    if (e == null) {
-      myExternalElements.put(name, e = new FakeBnfExpression(EXTERNAL_TYPE, name));
-    }
-    return e;
+        String argNextName;
+        int metaIdx;
+        if (argument.startsWith("<<") && (metaIdx = metaParameterNames.indexOf(argument)) > -1) {
+          nested = expressions.get(metaIdx + 1);
+          argument = nested.getText();
 ```
 
 ### NestedAssignment
@@ -2742,14 +2742,14 @@ in `src/org/intellij/grammar/generator/RuleGraphHelper.java`
 
 ### NestedAssignment
 Result of assignment expression used
-in `src/org/intellij/grammar/generator/ParserGenerator.java`
+in `src/org/intellij/grammar/generator/RuleGraphHelper.java`
 #### Snippet
 ```java
-        String argNextName;
-        int metaIdx;
-        if (argument.startsWith("<<") && (metaIdx = metaParameterNames.indexOf(argument)) > -1) {
-          nested = expressions.get(metaIdx + 1);
-          argument = nested.getText();
+    PsiElement e = myExternalElements.get(name);
+    if (e == null) {
+      myExternalElements.put(name, e = new FakeBnfExpression(EXTERNAL_TYPE, name));
+    }
+    return e;
 ```
 
 ## RuleId[ruleID=NonProtectedConstructorInAbstractClass]
@@ -3037,6 +3037,18 @@ in `src/org/intellij/grammar/LightPsi.java`
 
 ## RuleId[ruleID=AssignmentToMethodParameter]
 ### AssignmentToMethodParameter
+Assignment to method parameter `expression`
+in `src/org/intellij/grammar/refactor/BnfInlineRuleProcessor.java`
+#### Snippet
+```java
+    Object2IntMap<String> visited = new Object2IntOpenHashMap<>();
+    LinkedList<Pair<PsiElement, PsiElement>> work = new LinkedList<>();
+    (expression = (BnfExpression)expression.copy()).acceptChildren(new PsiRecursiveElementWalkingVisitor() {
+      @Override
+      public void visitElement(@NotNull PsiElement element) {
+```
+
+### AssignmentToMethodParameter
 Assignment to method parameter `first`
 in `src/org/intellij/grammar/refactor/BnfExpressionOptimizer.java`
 #### Snippet
@@ -3085,15 +3097,27 @@ in `src/org/intellij/grammar/refactor/BnfExpressionOptimizer.java`
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `expression`
-in `src/org/intellij/grammar/refactor/BnfInlineRuleProcessor.java`
+Assignment to method parameter `item`
+in `src/org/intellij/grammar/diagram/BnfDiagramProvider.java`
 #### Snippet
 ```java
-    Object2IntMap<String> visited = new Object2IntOpenHashMap<>();
-    LinkedList<Pair<PsiElement, PsiElement>> work = new LinkedList<>();
-    (expression = (BnfExpression)expression.copy()).acceptChildren(new PsiRecursiveElementWalkingVisitor() {
-      @Override
-      public void visitElement(@NotNull PsiElement element) {
+    @Override
+    public @Nullable SimpleColoredText getItemName(@Nullable BnfRule element, @Nullable Object item, @NotNull DiagramBuilder builder) {
+      if (item instanceof Item o) item = o.rule;
+      if (item instanceof PsiNamedElement) {
+        return new SimpleColoredText(StringUtil.notNullize(((PsiNamedElement)item).getName()), DEFAULT_TITLE_ATTR);
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `endOffset`
+in `src/org/intellij/grammar/refactor/BnfIntroduceRuleHandler.java`
+#### Snippet
+```java
+  private static @Nullable BnfExpression findParentExpression(PsiFile file, int startOffset, int endOffset) {
+    if (endOffset > startOffset) {
+      endOffset--;
+    }
+    PsiElement startElement = file.findElementAt(startOffset);
 ```
 
 ### AssignmentToMethodParameter
@@ -3157,30 +3181,6 @@ in `src/org/intellij/grammar/Main.java`
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `endOffset`
-in `src/org/intellij/grammar/refactor/BnfIntroduceRuleHandler.java`
-#### Snippet
-```java
-  private static @Nullable BnfExpression findParentExpression(PsiFile file, int startOffset, int endOffset) {
-    if (endOffset > startOffset) {
-      endOffset--;
-    }
-    PsiElement startElement = file.findElementAt(startOffset);
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `item`
-in `src/org/intellij/grammar/diagram/BnfDiagramProvider.java`
-#### Snippet
-```java
-    @Override
-    public @Nullable SimpleColoredText getItemName(@Nullable BnfRule element, @Nullable Object item, @NotNull DiagramBuilder builder) {
-      if (item instanceof Item o) item = o.rule;
-      if (item instanceof PsiNamedElement) {
-        return new SimpleColoredText(StringUtil.notNullize(((PsiNamedElement)item).getName()), DEFAULT_TITLE_ATTR);
-```
-
-### AssignmentToMethodParameter
 Assignment to method parameter `expr`
 in `src/org/intellij/grammar/intention/BnfConvertOptExpressionIntention.java`
 #### Snippet
@@ -3210,6 +3210,30 @@ in `src/org/intellij/grammar/generator/ParserGeneratorUtil.java`
 #### Snippet
 ```java
 
+    public String apply(String s) {
+      if (prefix != null) s = prefix + s;
+      if (suffix != null) s += suffix;
+      return s;
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `s`
+in `src/org/intellij/grammar/generator/ParserGeneratorUtil.java`
+#### Snippet
+```java
+    public String apply(String s) {
+      if (prefix != null) s = prefix + s;
+      if (suffix != null) s += suffix;
+      return s;
+    }
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `s`
+in `src/org/intellij/grammar/generator/ParserGeneratorUtil.java`
+#### Snippet
+```java
+
     public String strip(String s) {
       if (prefix != null && s.startsWith(prefix)) s = s.substring(prefix.length());
       if (suffix != null && s.endsWith(suffix)) s = s.substring(0, s.length() - suffix.length());
@@ -3229,27 +3253,51 @@ in `src/org/intellij/grammar/generator/ParserGeneratorUtil.java`
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `s`
-in `src/org/intellij/grammar/generator/ParserGeneratorUtil.java`
+Assignment to method parameter `pinApplied`
+in `src/org/intellij/grammar/generator/ParserGenerator.java`
 #### Snippet
 ```java
-
-    public String apply(String s) {
-      if (prefix != null) s = prefix + s;
-      if (suffix != null) s += suffix;
-      return s;
+      if (!pinApplied && pinMatcher.matches(i, child)) {
+        pin = i - startIndex + 1;
+        pinApplied = true;
+      }
+    }
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `s`
-in `src/org/intellij/grammar/generator/ParserGeneratorUtil.java`
+Assignment to method parameter `marker`
+in `src/org/intellij/grammar/parser/GeneratedParserUtilBase.java`
 #### Snippet
 ```java
-    public String apply(String s) {
-      if (prefix != null) s = prefix + s;
-      if (suffix != null) s += suffix;
-      return s;
+      state.predicateCount--;
+      if ((frame.modifiers & _NOT_) != 0) state.predicateSign = !state.predicateSign;
+      marker = elementType != null && marker != null && (result || pinned) ? builder.mark() : null;
+      if (resetLastPos) frame.lastVariantAt = builder.rawTokenIndex();
     }
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `elementType`
+in `src/org/intellij/grammar/parser/GeneratedParserUtilBase.java`
+#### Snippet
+```java
+              state.typeExtends(last.getTokenType(), elementType) &&
+              wasAutoSkipped(builder, builder.rawTokenIndex() - last.getEndIndex())) {
+            elementType = last.getTokenType();
+            ((PsiBuilder.Marker)last).drop();
+          }
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `elementType`
+in `src/org/intellij/grammar/parser/GeneratedParserUtilBase.java`
+#### Snippet
+```java
+    Frame frame = state.currentFrame;
+    state.currentFrame = frame == null ? null : frame.parentFrame;
+    if (frame != null && frame.elementType != null) elementType = frame.elementType;
+    if (frame == null || level != frame.level) {
+      LOG.error("Unbalanced error section: got " + frame + ", expected level " + level);
 ```
 
 ### AssignmentToMethodParameter
@@ -3300,58 +3348,10 @@ in `src/org/intellij/grammar/generator/RuleGraphHelper.java`
       if (this == NONE) return c;
 ```
 
-### AssignmentToMethodParameter
-Assignment to method parameter `elementType`
-in `src/org/intellij/grammar/parser/GeneratedParserUtilBase.java`
-#### Snippet
-```java
-    Frame frame = state.currentFrame;
-    state.currentFrame = frame == null ? null : frame.parentFrame;
-    if (frame != null && frame.elementType != null) elementType = frame.elementType;
-    if (frame == null || level != frame.level) {
-      LOG.error("Unbalanced error section: got " + frame + ", expected level " + level);
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `marker`
-in `src/org/intellij/grammar/parser/GeneratedParserUtilBase.java`
-#### Snippet
-```java
-      state.predicateCount--;
-      if ((frame.modifiers & _NOT_) != 0) state.predicateSign = !state.predicateSign;
-      marker = elementType != null && marker != null && (result || pinned) ? builder.mark() : null;
-      if (resetLastPos) frame.lastVariantAt = builder.rawTokenIndex();
-    }
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `elementType`
-in `src/org/intellij/grammar/parser/GeneratedParserUtilBase.java`
-#### Snippet
-```java
-              state.typeExtends(last.getTokenType(), elementType) &&
-              wasAutoSkipped(builder, builder.rawTokenIndex() - last.getEndIndex())) {
-            elementType = last.getTokenType();
-            ((PsiBuilder.Marker)last).drop();
-          }
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `pinApplied`
-in `src/org/intellij/grammar/generator/ParserGenerator.java`
-#### Snippet
-```java
-      if (!pinApplied && pinMatcher.matches(i, child)) {
-        pin = i - startIndex + 1;
-        pinApplied = true;
-      }
-    }
-```
-
 ## RuleId[ruleID=HtmlWrongAttributeValue]
 ### HtmlWrongAttributeValue
 Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-01-11-09-39-06.388.html`
+in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-02-03-17-30-57.182.html`
 #### Snippet
 ```java
               <td>0</td>
@@ -3372,18 +3372,6 @@ in `src/org/intellij/grammar/refactor/BnfUnwrapDescriptor.java`
     if (first == null || last == null || first == last && last instanceof PsiWhiteSpace) return null;
     for (PsiElement c = first; c != last && c != null; c = c.getNextSibling()) {
       toExtract.add(c);
-```
-
-### ReturnNull
-Return of `null`
-in `src/org/intellij/grammar/refactor/BnfExpressionOptimizer.java`
-#### Snippet
-```java
-      last = last.getPrevSibling();
-    }
-    if (first == null || last == null || first == last && last instanceof PsiWhiteSpace) return null;
-
-    PsiElement result = parent.addRangeBefore(first, last, from);
 ```
 
 ### ReturnNull
@@ -3412,6 +3400,18 @@ in `src/org/intellij/grammar/BnfStructureViewFactory.java`
 
 ### ReturnNull
 Return of `null`
+in `src/org/intellij/grammar/refactor/BnfExpressionOptimizer.java`
+#### Snippet
+```java
+      last = last.getPrevSibling();
+    }
+    if (first == null || last == null || first == last && last instanceof PsiWhiteSpace) return null;
+
+    PsiElement result = parent.addRangeBefore(first, last, from);
+```
+
+### ReturnNull
+Return of `null`
 in `src/org/intellij/grammar/BnfFoldingBuilder.java`
 #### Snippet
 ```java
@@ -3419,6 +3419,42 @@ in `src/org/intellij/grammar/BnfFoldingBuilder.java`
     if (node.getElementType() == BnfParserDefinition.BNF_BLOCK_COMMENT) return "/*..*/";
     return null;
   }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/org/intellij/grammar/diagram/BnfDiagramProvider.java`
+#### Snippet
+```java
+    @Override
+    public String getQualifiedName(BnfRule element) {
+      if (element == null) return null;
+      PsiFile psiFile = element.getContainingFile();
+      VirtualFile virtualFile = psiFile == null ? null : psiFile.getVirtualFile();
+```
+
+### ReturnNull
+Return of `null`
+in `src/org/intellij/grammar/diagram/BnfDiagramProvider.java`
+#### Snippet
+```java
+      PsiFile psiFile = element.getContainingFile();
+      VirtualFile virtualFile = psiFile == null ? null : psiFile.getVirtualFile();
+      if (virtualFile == null) return null;
+      return String.format("%s?rule=%s", virtualFile.getUrl(), element.getName());
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `src/org/intellij/grammar/diagram/BnfDiagramProvider.java`
+#### Snippet
+```java
+    @Override
+    public DiagramNode<BnfRule> addElement(BnfRule psiElement) {
+      return null;
+    }
 
 ```
 
@@ -3451,47 +3487,11 @@ Return of `null`
 in `src/org/intellij/grammar/diagram/BnfDiagramProvider.java`
 #### Snippet
 ```java
-    @Override
-    public DiagramNode<BnfRule> addElement(BnfRule psiElement) {
-      return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/org/intellij/grammar/diagram/BnfDiagramProvider.java`
-#### Snippet
-```java
     public BnfRule findInDataContext(@NotNull DataContext context) {
       PsiFile file = CommonDataKeys.PSI_FILE.getData(context);
       if (!(file instanceof BnfFile bnfFile)) return null;
       List<BnfRule> rules = bnfFile.getRules();
       return rules.get(0);
-```
-
-### ReturnNull
-Return of `null`
-in `src/org/intellij/grammar/diagram/BnfDiagramProvider.java`
-#### Snippet
-```java
-    @Override
-    public String getQualifiedName(BnfRule element) {
-      if (element == null) return null;
-      PsiFile psiFile = element.getContainingFile();
-      VirtualFile virtualFile = psiFile == null ? null : psiFile.getVirtualFile();
-```
-
-### ReturnNull
-Return of `null`
-in `src/org/intellij/grammar/diagram/BnfDiagramProvider.java`
-#### Snippet
-```java
-      PsiFile psiFile = element.getContainingFile();
-      VirtualFile virtualFile = psiFile == null ? null : psiFile.getVirtualFile();
-      if (virtualFile == null) return null;
-      return String.format("%s?rule=%s", virtualFile.getUrl(), element.getName());
-    }
 ```
 
 ### ReturnNull
@@ -3604,6 +3604,30 @@ in `src/org/intellij/grammar/livePreview/GrammarAtCaretPassFactory.java`
 
 ### ReturnNull
 Return of `null`
+in `src/org/intellij/grammar/psi/impl/GrammarUtil.java`
+#### Snippet
+```java
+      parent = parent.getParent();
+    }
+    return parent == null? null : parent.getPrevSibling();
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/org/intellij/grammar/generator/ExpressionHelper.java`
+#### Snippet
+```java
+  private static final Key<List<BnfExpression>> ORIGINAL_EXPRESSIONS = Key.create("ORIGINAL_EXPRESSIONS");
+  private static BnfExpression combine(List<BnfExpression> list) {
+    if (list.isEmpty()) return null;
+    if (list.size() == 1) return list.get(0);
+    Project project = list.get(0).getProject();
+```
+
+### ReturnNull
+Return of `null`
 in `src/org/intellij/grammar/generator/ExpressionHelper.java`
 #### Snippet
 ```java
@@ -3628,26 +3652,14 @@ in `src/org/intellij/grammar/generator/ExpressionHelper.java`
 
 ### ReturnNull
 Return of `null`
-in `src/org/intellij/grammar/generator/ExpressionHelper.java`
+in `src/org/intellij/jflex/editor/JFlexStructureViewFactory.java`
 #### Snippet
 ```java
-  private static final Key<List<BnfExpression>> ORIGINAL_EXPRESSIONS = Key.create("ORIGINAL_EXPRESSIONS");
-  private static BnfExpression combine(List<BnfExpression> list) {
-    if (list.isEmpty()) return null;
-    if (list.size() == 1) return list.get(0);
-    Project project = list.get(0).getProject();
-```
-
-### ReturnNull
-Return of `null`
-in `src/org/intellij/grammar/psi/impl/GrammarUtil.java`
-#### Snippet
-```java
-      parent = parent.getParent();
-    }
-    return parent == null? null : parent.getPrevSibling();
-  }
-
+    public String getPresentableText() {
+      PsiElement o = getElement();
+      if (o == null) return null;
+      if (o instanceof JFlexFile) {
+        return ((JFlexFile)o).getName();
 ```
 
 ### ReturnNull
@@ -3664,18 +3676,6 @@ in `src/org/intellij/jflex/editor/JFlexStructureViewFactory.java`
 
 ### ReturnNull
 Return of `null`
-in `src/org/intellij/jflex/editor/JFlexStructureViewFactory.java`
-#### Snippet
-```java
-    public String getPresentableText() {
-      PsiElement o = getElement();
-      if (o == null) return null;
-      if (o instanceof JFlexFile) {
-        return ((JFlexFile)o).getName();
-```
-
-### ReturnNull
-Return of `null`
 in `src/org/intellij/grammar/editor/BnfWordSelectioner.java`
 #### Snippet
 ```java
@@ -3684,6 +3684,30 @@ in `src/org/intellij/grammar/editor/BnfWordSelectioner.java`
     if (list == null) return null;
     if (e instanceof LeafPsiElement && ((LeafPsiElement)e).getElementType() == BnfTypes.BNF_STRING) {
       TextRange range = e.getTextRange();
+```
+
+### ReturnNull
+Return of `null`
+in `src/org/intellij/jflex/editor/JFlexFindUsagesProvider.java`
+#### Snippet
+```java
+  @Override
+  public String getHelpId(@NotNull PsiElement psiElement) {
+    return null;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/org/intellij/jflex/editor/JFlexFindUsagesProvider.java`
+#### Snippet
+```java
+  @Override
+  public WordsScanner getWordsScanner() {
+    return null;
+  }
+
 ```
 
 ### ReturnNull
@@ -3705,6 +3729,18 @@ in `src/org/intellij/jflex/editor/JFlexCommenter.java`
 ```java
   @Override
   public IElementType getDocumentationCommentTokenType() {
+    return null;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/org/intellij/jflex/editor/JFlexCommenter.java`
+#### Snippet
+```java
+  @Override
+  public String getDocumentationCommentPrefix() {
     return null;
   }
 
@@ -3740,43 +3776,7 @@ in `src/org/intellij/jflex/editor/JFlexCommenter.java`
 #### Snippet
 ```java
   @Override
-  public String getDocumentationCommentPrefix() {
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/org/intellij/jflex/editor/JFlexCommenter.java`
-#### Snippet
-```java
-  @Override
   public String getCommentedBlockCommentPrefix() {
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/org/intellij/jflex/editor/JFlexFindUsagesProvider.java`
-#### Snippet
-```java
-  @Override
-  public String getHelpId(@NotNull PsiElement psiElement) {
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/org/intellij/jflex/editor/JFlexFindUsagesProvider.java`
-#### Snippet
-```java
-  @Override
-  public WordsScanner getWordsScanner() {
     return null;
   }
 
@@ -3844,18 +3844,6 @@ in `src/org/intellij/grammar/KnownAttribute.java`
 
 ### ReturnNull
 Return of `null`
-in `src/org/intellij/grammar/livePreview/LivePreviewParser.java`
-#### Snippet
-```java
-
-  private IElementType getTokenElementType(String token) {
-    return token == null ? null : myTokenElementTypes.get(myTokenTypeText + token.toUpperCase());
-  }
-
-```
-
-### ReturnNull
-Return of `null`
 in `src/org/intellij/grammar/BnfFindUsagesProvider.java`
 #### Snippet
 ```java
@@ -3884,7 +3872,7 @@ in `src/org/intellij/grammar/BnfCommenter.java`
 #### Snippet
 ```java
   @Override
-  public String getDocumentationCommentSuffix() {
+  public String getCommentedBlockCommentSuffix() {
     return null;
   }
 
@@ -3908,18 +3896,6 @@ in `src/org/intellij/grammar/BnfCommenter.java`
 #### Snippet
 ```java
   @Override
-  public String getDocumentationCommentPrefix() {
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/org/intellij/grammar/BnfCommenter.java`
-#### Snippet
-```java
-  @Override
   public String getDocumentationCommentLinePrefix() {
     return null;
   }
@@ -3932,7 +3908,19 @@ in `src/org/intellij/grammar/BnfCommenter.java`
 #### Snippet
 ```java
   @Override
-  public String getCommentedBlockCommentSuffix() {
+  public String getDocumentationCommentPrefix() {
+    return null;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/org/intellij/grammar/BnfCommenter.java`
+#### Snippet
+```java
+  @Override
+  public String getDocumentationCommentSuffix() {
     return null;
   }
 
@@ -3948,6 +3936,54 @@ in `src/org/intellij/grammar/BnfCommenter.java`
     return null;
   }
 
+```
+
+### ReturnNull
+Return of `null`
+in `src/org/intellij/grammar/livePreview/LivePreviewParser.java`
+#### Snippet
+```java
+
+  private IElementType getTokenElementType(String token) {
+    return token == null ? null : myTokenElementTypes.get(myTokenTypeText + token.toUpperCase());
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/org/intellij/grammar/generator/ParserGeneratorUtil.java`
+#### Snippet
+```java
+      @Override
+      public Object fun(Object o) {
+        if (o == ObjectUtils.NULL) return null;
+        BnfRule cur = (BnfRule)o;
+        if (visited == null) visited = new HashSet<>();
+```
+
+### ReturnNull
+Return of `null`
+in `src/org/intellij/grammar/generator/ParserGeneratorUtil.java`
+#### Snippet
+```java
+        BnfRule next = getSynonymTargetOrSelf(cur);
+        if (next != cur) return next;
+        if (cur != rule) return null; // do not search for elementType any further
+        String attr = getAttribute(cur, KnownAttribute.EXTENDS);
+        //noinspection StringEquality
+```
+
+### ReturnNull
+Return of `null`
+in `src/org/intellij/grammar/generator/ParserGeneratorUtil.java`
+#### Snippet
+```java
+        //noinspection StringEquality
+        BnfRule ext = attr != KnownAttribute.EXTENDS.getDefaultValue() ? file.getRule(attr) : null;
+        return ext == null && attr != null ? null : ext;
+      }
+    }).map(o -> o == ObjectUtils.NULL ? null : o);
 ```
 
 ### ReturnNull
@@ -4015,58 +4051,10 @@ Return of `null`
 in `src/org/intellij/grammar/generator/ParserGeneratorUtil.java`
 #### Snippet
 ```java
-      @Override
-      public Object fun(Object o) {
-        if (o == ObjectUtils.NULL) return null;
-        BnfRule cur = (BnfRule)o;
-        if (visited == null) visited = new HashSet<>();
-```
-
-### ReturnNull
-Return of `null`
-in `src/org/intellij/grammar/generator/ParserGeneratorUtil.java`
-#### Snippet
-```java
-        BnfRule next = getSynonymTargetOrSelf(cur);
-        if (next != cur) return next;
-        if (cur != rule) return null; // do not search for elementType any further
-        String attr = getAttribute(cur, KnownAttribute.EXTENDS);
-        //noinspection StringEquality
-```
-
-### ReturnNull
-Return of `null`
-in `src/org/intellij/grammar/generator/ParserGeneratorUtil.java`
-#### Snippet
-```java
-        //noinspection StringEquality
-        BnfRule ext = attr != KnownAttribute.EXTENDS.getDefaultValue() ? file.getRule(attr) : null;
-        return ext == null && attr != null ? null : ext;
-      }
-    }).map(o -> o == ObjectUtils.NULL ? null : o);
-```
-
-### ReturnNull
-Return of `null`
-in `src/org/intellij/grammar/generator/ParserGeneratorUtil.java`
-#### Snippet
-```java
     }
     return child instanceof BnfExpression && !(child instanceof BnfLiteralExpression || child instanceof BnfReferenceOrToken) ?
         (BnfExpression) child : null;
   }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/org/intellij/grammar/java/JavaHelper.java`
-#### Snippet
-```java
-    @Override
-    public PsiElement getParent() {
-      return null;
-    }
 
 ```
 
@@ -4088,22 +4076,10 @@ in `src/org/intellij/grammar/java/JavaHelper.java`
 #### Snippet
 ```java
 
-    private PsiClass findClassSafe(String className) {
-      if (className == null) return null;
-      try {
-        return myFacade.findClass(className, GlobalSearchScope.allScope(myFacade.getProject()));
-```
-
-### ReturnNull
-Return of `null`
-in `src/org/intellij/grammar/java/JavaHelper.java`
-#### Snippet
-```java
-      }
-      catch (IndexNotReadyException e) {
-        return null;
-      }
+    private static String fixClassName(String s) {
+      return s == null ? null : s.replace('/', '.').replace('$', '.');
     }
+
 ```
 
 ### ReturnNull
@@ -4111,10 +4087,10 @@ Return of `null`
 in `src/org/intellij/grammar/java/JavaHelper.java`
 #### Snippet
 ```java
-        public AnnotationVisitor visitAnnotation(String s, String s2) {
-          annoParamCounter++;
-          return null;
-        }
+    @Override
+    public PsiElement getParent() {
+      return null;
+    }
 
 ```
 
@@ -4160,9 +4136,33 @@ in `src/org/intellij/grammar/java/JavaHelper.java`
 #### Snippet
 ```java
 
-    private static String fixClassName(String s) {
-      return s == null ? null : s.replace('/', '.').replace('$', '.');
+    private PsiClass findClassSafe(String className) {
+      if (className == null) return null;
+      try {
+        return myFacade.findClass(className, GlobalSearchScope.allScope(myFacade.getProject()));
+```
+
+### ReturnNull
+Return of `null`
+in `src/org/intellij/grammar/java/JavaHelper.java`
+#### Snippet
+```java
+      }
+      catch (IndexNotReadyException e) {
+        return null;
+      }
     }
+```
+
+### ReturnNull
+Return of `null`
+in `src/org/intellij/grammar/java/JavaHelper.java`
+#### Snippet
+```java
+        public AnnotationVisitor visitAnnotation(String s, String s2) {
+          annoParamCounter++;
+          return null;
+        }
 
 ```
 
@@ -4211,9 +4211,9 @@ in `src/org/intellij/grammar/generator/NodeCalls.java`
 ```java
   }
 
-  static class MetaMethodCallArgument implements NodeArgument {
+  static class ExpressionMethodCall implements NodeCall {
 
-    final MetaMethodCall call;
+    final String methodName;
 ```
 
 ### ClassCanBeRecord
@@ -4235,33 +4235,21 @@ in `src/org/intellij/grammar/generator/NodeCalls.java`
 ```java
   }
 
-  static class ExpressionMethodCall implements NodeCall {
-
-    final String methodName;
-```
-
-### ClassCanBeRecord
-Class can be a record
-in `src/org/intellij/grammar/generator/NodeCalls.java`
-#### Snippet
-```java
-  }
-
-  static class ConsumeTokenChoiceCall implements NodeCall {
-
-    final ParserGeneratorUtil.ConsumeType consumeType;
-```
-
-### ClassCanBeRecord
-Class can be a record
-in `src/org/intellij/grammar/generator/NodeCalls.java`
-#### Snippet
-```java
-  }
-
   static class MetaParameterCall implements NodeCall {
 
     final String metaParameterName;
+```
+
+### ClassCanBeRecord
+Class can be a record
+in `src/org/intellij/grammar/generator/NodeCalls.java`
+#### Snippet
+```java
+  }
+
+  static class MetaMethodCallArgument implements NodeArgument {
+
+    final MetaMethodCall call;
 ```
 
 ### ClassCanBeRecord
@@ -4286,6 +4274,18 @@ in `src/org/intellij/grammar/generator/NodeCalls.java`
   static class MethodCall implements NodeCall {
 
     final boolean renderClass;
+```
+
+### ClassCanBeRecord
+Class can be a record
+in `src/org/intellij/grammar/generator/NodeCalls.java`
+#### Snippet
+```java
+  }
+
+  static class ConsumeTokenChoiceCall implements NodeCall {
+
+    final ParserGeneratorUtil.ConsumeType consumeType;
 ```
 
 ### ClassCanBeRecord
@@ -4423,200 +4423,6 @@ in `src/org/intellij/grammar/refactor/BnfUnwrapDescriptor.java`
 ```
 
 ### ConstantValue
-Value `cur` is always 'null'
-in `src/org/intellij/grammar/refactor/BnfExpressionOptimizer.java`
-#### Snippet
-```java
-
-  private static boolean isOptMany(PsiElement cur) {
-    return cur instanceof BnfQuantified || cur instanceof BnfParenOptExpression;
-  }
-
-```
-
-### ConstantValue
-Value `element` is always 'null'
-in `src/org/intellij/grammar/refactor/BnfExpressionOptimizer.java`
-#### Snippet
-```java
-
-  private static boolean isTrivialOrSingular(PsiElement element) {
-    return element instanceof BnfReferenceOrToken || element instanceof BnfLiteralExpression ||
-           element instanceof BnfParenthesized || element instanceof BnfQuantified ||
-           isTrivial(element)
-```
-
-### ConstantValue
-Value `element` is always 'null'
-in `src/org/intellij/grammar/refactor/BnfExpressionOptimizer.java`
-#### Snippet
-```java
-  private static boolean isTrivialOrSingular(PsiElement element) {
-    return element instanceof BnfReferenceOrToken || element instanceof BnfLiteralExpression ||
-           element instanceof BnfParenthesized || element instanceof BnfQuantified ||
-           isTrivial(element)
-      ;
-```
-
-### ConstantValue
-Value `element` is always 'null'
-in `src/org/intellij/grammar/refactor/BnfExpressionOptimizer.java`
-#### Snippet
-```java
-  private static boolean isTrivialOrSingular(PsiElement element) {
-    return element instanceof BnfReferenceOrToken || element instanceof BnfLiteralExpression ||
-           element instanceof BnfParenthesized || element instanceof BnfQuantified ||
-           isTrivial(element)
-      ;
-```
-
-### ConstantValue
-Value `element` is always 'null'
-in `src/org/intellij/grammar/refactor/BnfExpressionOptimizer.java`
-#### Snippet
-```java
-    return element instanceof BnfReferenceOrToken || element instanceof BnfLiteralExpression ||
-           element instanceof BnfParenthesized || element instanceof BnfQuantified ||
-           isTrivial(element)
-      ;
-  }
-```
-
-### ConstantValue
-Condition `cur instanceof BnfChoice && !(parent instanceof BnfParenthesized) && (...` is always `false`
-in `src/org/intellij/grammar/refactor/BnfExpressionOptimizer.java`
-#### Snippet
-```java
-        }
-      }
-      else if (cur instanceof BnfChoice &&
-               !(parent instanceof BnfParenthesized) &&
-               (parent instanceof BnfSequence || parent instanceof BnfQuantified)) {
-        String replacement = "(" + cur.getText() + ")";
-        cur.replace(BnfElementFactory.createExpressionFromText(project, replacement));
-```
-
-### ConstantValue
-Condition `parent instanceof BnfSequence || parent instanceof BnfQuantified` is always `false`
-in `src/org/intellij/grammar/refactor/BnfExpressionOptimizer.java`
-#### Snippet
-```java
-      else if (cur instanceof BnfChoice &&
-               !(parent instanceof BnfParenthesized) &&
-               (parent instanceof BnfSequence || parent instanceof BnfQuantified)) {
-        String replacement = "(" + cur.getText() + ")";
-        cur.replace(BnfElementFactory.createExpressionFromText(project, replacement));
-```
-
-### ConstantValue
-Value `parent` is always 'null'
-in `src/org/intellij/grammar/refactor/BnfExpressionOptimizer.java`
-#### Snippet
-```java
-      else if (cur instanceof BnfChoice &&
-               !(parent instanceof BnfParenthesized) &&
-               (parent instanceof BnfSequence || parent instanceof BnfQuantified)) {
-        String replacement = "(" + cur.getText() + ")";
-        cur.replace(BnfElementFactory.createExpressionFromText(project, replacement));
-```
-
-### ConstantValue
-Value `parent` is always 'null'
-in `src/org/intellij/grammar/refactor/BnfExpressionOptimizer.java`
-#### Snippet
-```java
-      else if (cur instanceof BnfChoice &&
-               !(parent instanceof BnfParenthesized) &&
-               (parent instanceof BnfSequence || parent instanceof BnfQuantified)) {
-        String replacement = "(" + cur.getText() + ")";
-        cur.replace(BnfElementFactory.createExpressionFromText(project, replacement));
-```
-
-### ConstantValue
-Condition `first == null || last == null || first == last && last instanceof PsiWhiteSpace` is always `true`
-in `src/org/intellij/grammar/refactor/BnfExpressionOptimizer.java`
-#### Snippet
-```java
-      last = last.getPrevSibling();
-    }
-    if (first == null || last == null || first == last && last instanceof PsiWhiteSpace) return null;
-
-    PsiElement result = parent.addRangeBefore(first, last, from);
-```
-
-### ConstantValue
-Condition `last == null` is always `false`
-in `src/org/intellij/grammar/refactor/BnfExpressionOptimizer.java`
-#### Snippet
-```java
-      last = last.getPrevSibling();
-    }
-    if (first == null || last == null || first == last && last instanceof PsiWhiteSpace) return null;
-
-    PsiElement result = parent.addRangeBefore(first, last, from);
-```
-
-### ConstantValue
-Condition `first == last` is always `true`
-in `src/org/intellij/grammar/refactor/BnfExpressionOptimizer.java`
-#### Snippet
-```java
-      last = last.getPrevSibling();
-    }
-    if (first == null || last == null || first == last && last instanceof PsiWhiteSpace) return null;
-
-    PsiElement result = parent.addRangeBefore(first, last, from);
-```
-
-### ConstantValue
-Condition `first == last && last instanceof PsiWhiteSpace` is always `true`
-in `src/org/intellij/grammar/refactor/BnfExpressionOptimizer.java`
-#### Snippet
-```java
-      last = last.getPrevSibling();
-    }
-    if (first == null || last == null || first == last && last instanceof PsiWhiteSpace) return null;
-
-    PsiElement result = parent.addRangeBefore(first, last, from);
-```
-
-### ConstantValue
-Value `parent` is always 'null'
-in `src/org/intellij/grammar/refactor/BnfExpressionOptimizer.java`
-#### Snippet
-```java
-    if (cur instanceof BnfSequence) {
-      if (parent instanceof BnfChoice) return true;
-      if (parent instanceof BnfSequence) {
-        List<BnfExpression> list = ((BnfSequence)parent).getExpressionList();
-        return list.isEmpty() || !GrammarUtil.isExternalReference(list.get(0));
-```
-
-### ConstantValue
-Condition `cur instanceof BnfChoice && parent instanceof BnfChoice` is always `false`
-in `src/org/intellij/grammar/refactor/BnfExpressionOptimizer.java`
-#### Snippet
-```java
-      }
-    }
-    return cur instanceof BnfChoice && parent instanceof BnfChoice;
-  }
-
-```
-
-### ConstantValue
-Value `parent` is always 'null'
-in `src/org/intellij/grammar/refactor/BnfExpressionOptimizer.java`
-#### Snippet
-```java
-      }
-    }
-    return cur instanceof BnfChoice && parent instanceof BnfChoice;
-  }
-
-```
-
-### ConstantValue
 Value `parent` is always 'null'
 in `src/org/intellij/grammar/refactor/BnfInlineRuleProcessor.java`
 #### Snippet
@@ -4741,6 +4547,18 @@ Value `element` is always 'null'
 in `src/org/intellij/grammar/BnfStructureViewFactory.java`
 #### Snippet
 ```java
+    @Override
+    protected boolean isSuitable(PsiElement element) {
+      return element instanceof BnfAttrs || element instanceof BnfRule;
+    }
+  }
+```
+
+### ConstantValue
+Value `element` is always 'null'
+in `src/org/intellij/grammar/BnfStructureViewFactory.java`
+#### Snippet
+```java
       PsiElement element = getElement();
       if (element instanceof BnfRule
           || element instanceof BnfAttr) {
@@ -4773,15 +4591,221 @@ in `src/org/intellij/grammar/BnfStructureViewFactory.java`
 ```
 
 ### ConstantValue
-Value `element` is always 'null'
-in `src/org/intellij/grammar/BnfStructureViewFactory.java`
+Condition `!(tree instanceof BnfRule)` is always `false`
+in `src/org/intellij/grammar/generator/RuleMethodsHelper.java`
 #### Snippet
 ```java
-    @Override
-    protected boolean isSuitable(PsiElement element) {
-      return element instanceof BnfAttrs || element instanceof BnfRule;
+    String result;
+
+    if (!(tree instanceof BnfRule)) {
+      if (type.many()) return null; // do not generate token lists
+
+```
+
+### ConstantValue
+Condition `cur instanceof BnfChoice && !(parent instanceof BnfParenthesized) && (...` is always `false`
+in `src/org/intellij/grammar/refactor/BnfExpressionOptimizer.java`
+#### Snippet
+```java
+        }
+      }
+      else if (cur instanceof BnfChoice &&
+               !(parent instanceof BnfParenthesized) &&
+               (parent instanceof BnfSequence || parent instanceof BnfQuantified)) {
+        String replacement = "(" + cur.getText() + ")";
+        cur.replace(BnfElementFactory.createExpressionFromText(project, replacement));
+```
+
+### ConstantValue
+Condition `parent instanceof BnfSequence || parent instanceof BnfQuantified` is always `false`
+in `src/org/intellij/grammar/refactor/BnfExpressionOptimizer.java`
+#### Snippet
+```java
+      else if (cur instanceof BnfChoice &&
+               !(parent instanceof BnfParenthesized) &&
+               (parent instanceof BnfSequence || parent instanceof BnfQuantified)) {
+        String replacement = "(" + cur.getText() + ")";
+        cur.replace(BnfElementFactory.createExpressionFromText(project, replacement));
+```
+
+### ConstantValue
+Value `parent` is always 'null'
+in `src/org/intellij/grammar/refactor/BnfExpressionOptimizer.java`
+#### Snippet
+```java
+      else if (cur instanceof BnfChoice &&
+               !(parent instanceof BnfParenthesized) &&
+               (parent instanceof BnfSequence || parent instanceof BnfQuantified)) {
+        String replacement = "(" + cur.getText() + ")";
+        cur.replace(BnfElementFactory.createExpressionFromText(project, replacement));
+```
+
+### ConstantValue
+Value `parent` is always 'null'
+in `src/org/intellij/grammar/refactor/BnfExpressionOptimizer.java`
+#### Snippet
+```java
+      else if (cur instanceof BnfChoice &&
+               !(parent instanceof BnfParenthesized) &&
+               (parent instanceof BnfSequence || parent instanceof BnfQuantified)) {
+        String replacement = "(" + cur.getText() + ")";
+        cur.replace(BnfElementFactory.createExpressionFromText(project, replacement));
+```
+
+### ConstantValue
+Condition `first == null || last == null || first == last && last instanceof PsiWhiteSpace` is always `true`
+in `src/org/intellij/grammar/refactor/BnfExpressionOptimizer.java`
+#### Snippet
+```java
+      last = last.getPrevSibling();
     }
+    if (first == null || last == null || first == last && last instanceof PsiWhiteSpace) return null;
+
+    PsiElement result = parent.addRangeBefore(first, last, from);
+```
+
+### ConstantValue
+Condition `last == null` is always `false`
+in `src/org/intellij/grammar/refactor/BnfExpressionOptimizer.java`
+#### Snippet
+```java
+      last = last.getPrevSibling();
+    }
+    if (first == null || last == null || first == last && last instanceof PsiWhiteSpace) return null;
+
+    PsiElement result = parent.addRangeBefore(first, last, from);
+```
+
+### ConstantValue
+Condition `first == last` is always `true`
+in `src/org/intellij/grammar/refactor/BnfExpressionOptimizer.java`
+#### Snippet
+```java
+      last = last.getPrevSibling();
+    }
+    if (first == null || last == null || first == last && last instanceof PsiWhiteSpace) return null;
+
+    PsiElement result = parent.addRangeBefore(first, last, from);
+```
+
+### ConstantValue
+Condition `first == last && last instanceof PsiWhiteSpace` is always `true`
+in `src/org/intellij/grammar/refactor/BnfExpressionOptimizer.java`
+#### Snippet
+```java
+      last = last.getPrevSibling();
+    }
+    if (first == null || last == null || first == last && last instanceof PsiWhiteSpace) return null;
+
+    PsiElement result = parent.addRangeBefore(first, last, from);
+```
+
+### ConstantValue
+Value `cur` is always 'null'
+in `src/org/intellij/grammar/refactor/BnfExpressionOptimizer.java`
+#### Snippet
+```java
+
+  private static boolean isOptMany(PsiElement cur) {
+    return cur instanceof BnfQuantified || cur instanceof BnfParenOptExpression;
   }
+
+```
+
+### ConstantValue
+Value `element` is always 'null'
+in `src/org/intellij/grammar/refactor/BnfExpressionOptimizer.java`
+#### Snippet
+```java
+
+  private static boolean isTrivialOrSingular(PsiElement element) {
+    return element instanceof BnfReferenceOrToken || element instanceof BnfLiteralExpression ||
+           element instanceof BnfParenthesized || element instanceof BnfQuantified ||
+           isTrivial(element)
+```
+
+### ConstantValue
+Value `element` is always 'null'
+in `src/org/intellij/grammar/refactor/BnfExpressionOptimizer.java`
+#### Snippet
+```java
+  private static boolean isTrivialOrSingular(PsiElement element) {
+    return element instanceof BnfReferenceOrToken || element instanceof BnfLiteralExpression ||
+           element instanceof BnfParenthesized || element instanceof BnfQuantified ||
+           isTrivial(element)
+      ;
+```
+
+### ConstantValue
+Value `element` is always 'null'
+in `src/org/intellij/grammar/refactor/BnfExpressionOptimizer.java`
+#### Snippet
+```java
+  private static boolean isTrivialOrSingular(PsiElement element) {
+    return element instanceof BnfReferenceOrToken || element instanceof BnfLiteralExpression ||
+           element instanceof BnfParenthesized || element instanceof BnfQuantified ||
+           isTrivial(element)
+      ;
+```
+
+### ConstantValue
+Value `element` is always 'null'
+in `src/org/intellij/grammar/refactor/BnfExpressionOptimizer.java`
+#### Snippet
+```java
+    return element instanceof BnfReferenceOrToken || element instanceof BnfLiteralExpression ||
+           element instanceof BnfParenthesized || element instanceof BnfQuantified ||
+           isTrivial(element)
+      ;
+  }
+```
+
+### ConstantValue
+Value `parent` is always 'null'
+in `src/org/intellij/grammar/refactor/BnfExpressionOptimizer.java`
+#### Snippet
+```java
+    if (cur instanceof BnfSequence) {
+      if (parent instanceof BnfChoice) return true;
+      if (parent instanceof BnfSequence) {
+        List<BnfExpression> list = ((BnfSequence)parent).getExpressionList();
+        return list.isEmpty() || !GrammarUtil.isExternalReference(list.get(0));
+```
+
+### ConstantValue
+Condition `cur instanceof BnfChoice && parent instanceof BnfChoice` is always `false`
+in `src/org/intellij/grammar/refactor/BnfExpressionOptimizer.java`
+#### Snippet
+```java
+      }
+    }
+    return cur instanceof BnfChoice && parent instanceof BnfChoice;
+  }
+
+```
+
+### ConstantValue
+Value `parent` is always 'null'
+in `src/org/intellij/grammar/refactor/BnfExpressionOptimizer.java`
+#### Snippet
+```java
+      }
+    }
+    return cur instanceof BnfChoice && parent instanceof BnfChoice;
+  }
+
+```
+
+### ConstantValue
+Condition `!(root instanceof BnfFile)` is always `false`
+in `src/org/intellij/grammar/BnfFoldingBuilder.java`
+#### Snippet
+```java
+                                          @NotNull Document document,
+                                          boolean quick) {
+    if (!(root instanceof BnfFile)) return;
+    BnfFile file = (BnfFile)root;
+
 ```
 
 ### ConstantValue
@@ -4809,18 +4833,6 @@ in `src/org/intellij/grammar/BnfFoldingBuilder.java`
 ```
 
 ### ConstantValue
-Condition `!(root instanceof BnfFile)` is always `false`
-in `src/org/intellij/grammar/BnfFoldingBuilder.java`
-#### Snippet
-```java
-                                          @NotNull Document document,
-                                          boolean quick) {
-    if (!(root instanceof BnfFile)) return;
-    BnfFile file = (BnfFile)root;
-
-```
-
-### ConstantValue
 Condition `psi instanceof BnfAttrs && !(psi.getParent() instanceof BnfRule)` is always `false` when reached
 in `src/org/intellij/grammar/BnfFoldingBuilder.java`
 #### Snippet
@@ -4845,15 +4857,15 @@ in `src/org/intellij/grammar/BnfFoldingBuilder.java`
 ```
 
 ### ConstantValue
-Condition `!(tree instanceof BnfRule)` is always `false`
-in `src/org/intellij/grammar/generator/RuleMethodsHelper.java`
+Condition `item instanceof PsiNamedElement` is always `false`
+in `src/org/intellij/grammar/diagram/BnfDiagramProvider.java`
 #### Snippet
 ```java
-    String result;
-
-    if (!(tree instanceof BnfRule)) {
-      if (type.many()) return null; // do not generate token lists
-
+    public @Nullable SimpleColoredText getItemName(@Nullable BnfRule element, @Nullable Object item, @NotNull DiagramBuilder builder) {
+      if (item instanceof Item o) item = o.rule;
+      if (item instanceof PsiNamedElement) {
+        return new SimpleColoredText(StringUtil.notNullize(((PsiNamedElement)item).getName()), DEFAULT_TITLE_ATTR);
+      }
 ```
 
 ### ConstantValue
@@ -4866,18 +4878,6 @@ in `src/org/intellij/grammar/psi/impl/BnfStringRegexpInjector.java`
     if (!(host instanceof BnfStringImpl)) return;
     if (!Options.BNF_INJECT_REGEXP_IN_BNF.get()) return;
 
-```
-
-### ConstantValue
-Condition `count == 0` is always `true`
-in `src/org/intellij/grammar/Main.java`
-#### Snippet
-```java
-          }
-        }
-        if (count == 0) {
-          System.out.println("No grammars matching '"+wildCard+"' found in: "+ grammarDir);
-        }
 ```
 
 ### ConstantValue
@@ -4905,15 +4905,15 @@ in `src/org/intellij/grammar/intention/BnfFlipChoiceIntention.java`
 ```
 
 ### ConstantValue
-Condition `item instanceof PsiNamedElement` is always `false`
-in `src/org/intellij/grammar/diagram/BnfDiagramProvider.java`
+Condition `count == 0` is always `true`
+in `src/org/intellij/grammar/Main.java`
 #### Snippet
 ```java
-    public @Nullable SimpleColoredText getItemName(@Nullable BnfRule element, @Nullable Object item, @NotNull DiagramBuilder builder) {
-      if (item instanceof Item o) item = o.rule;
-      if (item instanceof PsiNamedElement) {
-        return new SimpleColoredText(StringUtil.notNullize(((PsiNamedElement)item).getName()), DEFAULT_TITLE_ATTR);
-      }
+          }
+        }
+        if (count == 0) {
+          System.out.println("No grammars matching '"+wildCard+"' found in: "+ grammarDir);
+        }
 ```
 
 ### ConstantValue
@@ -4953,18 +4953,6 @@ in `src/org/intellij/jflex/psi/impl/JFlexJavaCodeInjector.java`
 ```
 
 ### ConstantValue
-Value `element` is always 'null'
-in `src/org/intellij/grammar/BnfDocumentationProvider.java`
-#### Snippet
-```java
-      return docBuilder.toString();
-    }
-    else if (element instanceof BnfAttr) {
-      KnownAttribute<?> attribute = KnownAttribute.getAttribute(((BnfAttr)element).getName());
-      if (attribute != null) return attribute.getDescription();
-```
-
-### ConstantValue
 Condition `!(psiElement instanceof BnfRule)` is always `false`
 in `src/org/intellij/grammar/editor/BnfPinMarkerAnnotator.java`
 #### Snippet
@@ -4977,6 +4965,18 @@ in `src/org/intellij/grammar/editor/BnfPinMarkerAnnotator.java`
 ```
 
 ### ConstantValue
+Value `element` is always 'null'
+in `src/org/intellij/grammar/BnfDocumentationProvider.java`
+#### Snippet
+```java
+      return docBuilder.toString();
+    }
+    else if (element instanceof BnfAttr) {
+      KnownAttribute<?> attribute = KnownAttribute.getAttribute(((BnfAttr)element).getName());
+      if (attribute != null) return attribute.getDescription();
+```
+
+### ConstantValue
 Condition `!(file instanceof BnfFile)` is always `false`
 in `src/org/intellij/grammar/livePreview/GrammarAtCaretPassFactory.java`
 #### Snippet
@@ -4986,6 +4986,18 @@ in `src/org/intellij/grammar/livePreview/GrammarAtCaretPassFactory.java`
     if (!(file instanceof BnfFile)) return null;
 
     VirtualFile virtualFile = file.getVirtualFile();
+```
+
+### ConstantValue
+Condition `prevSibling != null` is always `false`
+in `src/org/intellij/grammar/psi/impl/GrammarUtil.java`
+#### Snippet
+```java
+      prevSibling = prevSibling.getLastChild();
+    }
+    if (prevSibling != null) return prevSibling;
+    PsiElement parent = child.getParent();
+    while (parent instanceof GeneratedParserUtilBase.DummyBlock && parent.getPrevSibling() == null) {
 ```
 
 ### ConstantValue
@@ -5109,18 +5121,6 @@ in `src/org/intellij/grammar/psi/impl/GrammarUtil.java`
 ```
 
 ### ConstantValue
-Condition `prevSibling != null` is always `false`
-in `src/org/intellij/grammar/psi/impl/GrammarUtil.java`
-#### Snippet
-```java
-      prevSibling = prevSibling.getLastChild();
-    }
-    if (prevSibling != null) return prevSibling;
-    PsiElement parent = child.getParent();
-    while (parent instanceof GeneratedParserUtilBase.DummyBlock && parent.getPrevSibling() == null) {
-```
-
-### ConstantValue
 Value `tokenType` is always 'null'
 in `src/org/intellij/grammar/livePreview/LivePreviewSyntaxHighlighterFactory.java`
 #### Snippet
@@ -5166,6 +5166,18 @@ in `src/org/intellij/grammar/livePreview/LivePreviewStructureViewFactory.java`
       return String.valueOf(elementType);
     }
 
+```
+
+### ConstantValue
+Condition `element == null || element instanceof LeafPsiElement` is always `true`
+in `src/org/intellij/grammar/livePreview/LivePreviewStructureViewFactory.java`
+#### Snippet
+```java
+    public @NotNull Collection<StructureViewTreeElement> getChildrenBase() {
+      PsiElement element = getElement();
+      if (element == null || element instanceof LeafPsiElement) return Collections.emptyList();
+      ArrayList<StructureViewTreeElement> result = new ArrayList<>();
+      for (PsiElement e = element.getFirstChild(); e != null; e = e.getNextSibling()) {
 ```
 
 ### ConstantValue
@@ -5217,31 +5229,6 @@ in `src/org/intellij/grammar/livePreview/LivePreviewStructureViewFactory.java`
 ```
 
 ### ConstantValue
-Condition `element == null || element instanceof LeafPsiElement` is always `true`
-in `src/org/intellij/grammar/livePreview/LivePreviewStructureViewFactory.java`
-#### Snippet
-```java
-    public @NotNull Collection<StructureViewTreeElement> getChildrenBase() {
-      PsiElement element = getElement();
-      if (element == null || element instanceof LeafPsiElement) return Collections.emptyList();
-      ArrayList<StructureViewTreeElement> result = new ArrayList<>();
-      for (PsiElement e = element.getFirstChild(); e != null; e = e.getNextSibling()) {
-```
-
-### ConstantValue
-Condition `e instanceof BnfComposite || e instanceof LeafPsiElement && ((LeafPsiElement)e).getElemen...` is always `true`
-in `src/org/intellij/grammar/editor/BnfWordSelectioner.java`
-#### Snippet
-```java
-  @Override
-  public boolean canSelect(@NotNull PsiElement e) {
-    return e instanceof BnfComposite ||
-           e instanceof LeafPsiElement && ((LeafPsiElement)e).getElementType() == BnfTypes.BNF_STRING;
-  }
-
-```
-
-### ConstantValue
 Value `element` is always 'null'
 in `src/org/intellij/grammar/editor/BnfMoveLeftRightHandler.java`
 #### Snippet
@@ -5290,15 +5277,16 @@ in `src/org/intellij/grammar/editor/BnfMoveLeftRightHandler.java`
 ```
 
 ### ConstantValue
-Condition `psiElement instanceof JFlexComposite && psiElement instanceof PsiNamedElement` is always `true`
-in `src/org/intellij/jflex/editor/JFlexRefactoringSupportProvider.java`
+Condition `e instanceof BnfComposite || e instanceof LeafPsiElement && ((LeafPsiElement)e).getElemen...` is always `true`
+in `src/org/intellij/grammar/editor/BnfWordSelectioner.java`
 #### Snippet
 ```java
   @Override
-  public boolean isMemberInplaceRenameAvailable(@NotNull PsiElement psiElement, @Nullable PsiElement context) {
-    return psiElement instanceof JFlexComposite && psiElement instanceof PsiNamedElement;
+  public boolean canSelect(@NotNull PsiElement e) {
+    return e instanceof BnfComposite ||
+           e instanceof LeafPsiElement && ((LeafPsiElement)e).getElementType() == BnfTypes.BNF_STRING;
   }
-}
+
 ```
 
 ### ConstantValue
@@ -5314,6 +5302,18 @@ in `src/org/intellij/jflex/editor/JFlexFindUsagesProvider.java`
 ```
 
 ### ConstantValue
+Condition `psiElement instanceof JFlexComposite && psiElement instanceof PsiNamedElement` is always `true`
+in `src/org/intellij/jflex/editor/JFlexRefactoringSupportProvider.java`
+#### Snippet
+```java
+  @Override
+  public boolean isMemberInplaceRenameAvailable(@NotNull PsiElement psiElement, @Nullable PsiElement context) {
+    return psiElement instanceof JFlexComposite && psiElement instanceof PsiNamedElement;
+  }
+}
+```
+
+### ConstantValue
 Condition `!(psiElement instanceof BnfRule)` is always `false`
 in `src/org/intellij/grammar/editor/BnfExpressionMarkerAnnotator.java`
 #### Snippet
@@ -5323,6 +5323,18 @@ in `src/org/intellij/grammar/editor/BnfExpressionMarkerAnnotator.java`
     if (!(psiElement instanceof BnfRule)) return;
     BnfRule rule = (BnfRule) psiElement;
     // todo
+```
+
+### ConstantValue
+Condition `!(element instanceof BnfComposite)` is always `false`
+in `src/org/intellij/grammar/inspection/BnfInspectionSuppressor.java`
+#### Snippet
+```java
+  @Override
+  public boolean isSuppressedFor(@NotNull PsiElement element, @NotNull String toolId) {
+    if (!(element instanceof BnfComposite)) return false;
+    PsiFile file = element.getContainingFile();
+    if (isSuppressedInComment(file, toolId + "ForFile")) return true;
 ```
 
 ### ConstantValue
@@ -5374,30 +5386,6 @@ in `src/org/intellij/grammar/inspection/BnfInspectionSuppressor.java`
 ```
 
 ### ConstantValue
-Condition `!(element instanceof BnfComposite)` is always `false`
-in `src/org/intellij/grammar/inspection/BnfInspectionSuppressor.java`
-#### Snippet
-```java
-  @Override
-  public boolean isSuppressedFor(@NotNull PsiElement element, @NotNull String toolId) {
-    if (!(element instanceof BnfComposite)) return false;
-    PsiFile file = element.getContainingFile();
-    if (isSuppressedInComment(file, toolId + "ForFile")) return true;
-```
-
-### ConstantValue
-Value `parent` is always 'null'
-in `src/org/intellij/grammar/psi/impl/BnfReferenceImpl.java`
-#### Snippet
-```java
-    PsiElement parent = myElement.getParent();
-    int paramCount = parent instanceof BnfSequence ? ((BnfSequence)parent).getExpressionList().size() - 1 :
-                     parent instanceof BnfExternalExpression ? ((BnfExternalExpression)parent).getArguments().size() : 0;
-    BnfRule rule = Objects.requireNonNull(PsiTreeUtil.getParentOfType(myElement, BnfRule.class));
-    String parserClass = ParserGeneratorUtil.getAttribute(rule, KnownAttribute.PARSER_UTIL_CLASS);
-```
-
-### ConstantValue
 Condition `parent instanceof BnfAttr || parent instanceof BnfListEntry` is always `false`
 in `src/org/intellij/grammar/inspection/BnfResolveInspection.java`
 #### Snippet
@@ -5434,6 +5422,18 @@ in `src/org/intellij/grammar/inspection/BnfResolveInspection.java`
 ```
 
 ### ConstantValue
+Value `parent` is always 'null'
+in `src/org/intellij/grammar/psi/impl/BnfReferenceImpl.java`
+#### Snippet
+```java
+    PsiElement parent = myElement.getParent();
+    int paramCount = parent instanceof BnfSequence ? ((BnfSequence)parent).getExpressionList().size() - 1 :
+                     parent instanceof BnfExternalExpression ? ((BnfExternalExpression)parent).getArguments().size() : 0;
+    BnfRule rule = Objects.requireNonNull(PsiTreeUtil.getParentOfType(myElement, BnfRule.class));
+    String parserClass = ParserGeneratorUtil.getAttribute(rule, KnownAttribute.PARSER_UTIL_CLASS);
+```
+
+### ConstantValue
 Condition `isInterface` is always `false`
 in `src/org/intellij/grammar/actions/BnfGenerateParserUtilAction.java`
 #### Snippet
@@ -5443,6 +5443,91 @@ in `src/org/intellij/grammar/actions/BnfGenerateParserUtilAction.java`
             PsiReferenceList targetReferenceList = isInterface ? resultClass.getImplementsList() : resultClass.getExtendsList();
             assert targetReferenceList != null;
             targetReferenceList.add(ref);
+```
+
+### ConstantValue
+Value `e` is always 'null'
+in `src/org/intellij/jflex/psi/impl/StateRef.java`
+#### Snippet
+```java
+        .replace(JFlexPsiElementFactory.createIdFromText(e.getProject(), newElementName));
+    }
+    else if (e instanceof JFlexJavaCode) {
+      String text = StringUtil.replaceSubstring(e.getText(), getRangeInElement(), newElementName);
+      return e.replace(JFlexPsiElementFactory.createJavaCodeFromText(e.getProject(), text));
+```
+
+### ConstantValue
+Condition `psiElement instanceof BnfRule || psiElement instanceof BnfAttr` is always `true`
+in `src/org/intellij/grammar/BnfFindUsagesProvider.java`
+#### Snippet
+```java
+  @Override
+  public boolean canFindUsagesFor(@NotNull PsiElement psiElement) {
+    return psiElement instanceof BnfRule || psiElement instanceof BnfAttr;
+  }
+
+```
+
+### ConstantValue
+Value `element` is always 'null'
+in `src/org/intellij/grammar/inspection/BnfUnusedRuleInspection.java`
+#### Snippet
+```java
+            return inParsing.contains(rule) || inSuppressed.contains(rule);
+          }
+          else if (element instanceof BnfReferenceOrToken) {
+            ContainerUtil.addIfNotNull(inParsing, ((BnfReferenceOrToken)element).resolveRule());
+            return false;
+```
+
+### ConstantValue
+Value `o` is always 'null'
+in `src/org/intellij/grammar/inspection/BnfUnusedRuleInspection.java`
+#### Snippet
+```java
+  private static @Nullable BnfRule resolveRule(@Nullable PsiElement o) {
+    if (!(o instanceof BnfReferenceOrToken ||
+          o instanceof BnfStringLiteralExpression)) return null;
+    PsiReference reference = ContainerUtil.findInstance(o.getReferences(), BnfReferenceImpl.class);
+    PsiElement target = reference != null ? reference.resolve() : null;
+```
+
+### ConstantValue
+Condition `!(file instanceof BnfFile)` is always `false`
+in `src/org/intellij/grammar/inspection/BnfUnusedRuleInspection.java`
+#### Snippet
+```java
+  @Override
+  public ProblemDescriptor @Nullable [] checkFile(@NotNull PsiFile file, @NotNull InspectionManager manager, boolean isOnTheFly) {
+    if (!(file instanceof BnfFile)) return null;
+    if (SuppressionUtil.inspectionResultSuppressed(file, this)) return null;
+    BnfFile myFile = (BnfFile)file;
+```
+
+### ConstantValue
+Condition `!(element instanceof JFlexLexicalRulesSection)` is always `false`
+in `src/org/intellij/jflex/psi/impl/JFlexPsiImplUtil.java`
+#### Snippet
+```java
+          result.add((T)element);
+        }
+        else if (!(element instanceof JFlexLexicalRulesSection) &&
+                 !(element instanceof JFlexUserCodeSection)) {
+          super.visitElement(element);
+```
+
+### ConstantValue
+Condition `!(element instanceof JFlexLexicalRulesSection) && !(element instanceof JFlexUserCod...` is always `false`
+in `src/org/intellij/jflex/psi/impl/JFlexPsiImplUtil.java`
+#### Snippet
+```java
+          result.add((T)element);
+        }
+        else if (!(element instanceof JFlexLexicalRulesSection) &&
+                 !(element instanceof JFlexUserCodeSection)) {
+          super.visitElement(element);
+        }
 ```
 
 ### ConstantValue
@@ -5491,91 +5576,6 @@ in `src/org/intellij/grammar/livePreview/LivePreviewParser.java`
                 result_ = pinned_ && report_error_(builder, generateTokenSequenceCall(builder, level, rule, children, funcName, i, pinMatcher, pinApplied, skip, externalArguments)) && result_;
               }
             }
-```
-
-### ConstantValue
-Value `e` is always 'null'
-in `src/org/intellij/jflex/psi/impl/StateRef.java`
-#### Snippet
-```java
-        .replace(JFlexPsiElementFactory.createIdFromText(e.getProject(), newElementName));
-    }
-    else if (e instanceof JFlexJavaCode) {
-      String text = StringUtil.replaceSubstring(e.getText(), getRangeInElement(), newElementName);
-      return e.replace(JFlexPsiElementFactory.createJavaCodeFromText(e.getProject(), text));
-```
-
-### ConstantValue
-Condition `psiElement instanceof BnfRule || psiElement instanceof BnfAttr` is always `true`
-in `src/org/intellij/grammar/BnfFindUsagesProvider.java`
-#### Snippet
-```java
-  @Override
-  public boolean canFindUsagesFor(@NotNull PsiElement psiElement) {
-    return psiElement instanceof BnfRule || psiElement instanceof BnfAttr;
-  }
-
-```
-
-### ConstantValue
-Value `o` is always 'null'
-in `src/org/intellij/grammar/inspection/BnfUnusedRuleInspection.java`
-#### Snippet
-```java
-  private static @Nullable BnfRule resolveRule(@Nullable PsiElement o) {
-    if (!(o instanceof BnfReferenceOrToken ||
-          o instanceof BnfStringLiteralExpression)) return null;
-    PsiReference reference = ContainerUtil.findInstance(o.getReferences(), BnfReferenceImpl.class);
-    PsiElement target = reference != null ? reference.resolve() : null;
-```
-
-### ConstantValue
-Condition `!(file instanceof BnfFile)` is always `false`
-in `src/org/intellij/grammar/inspection/BnfUnusedRuleInspection.java`
-#### Snippet
-```java
-  @Override
-  public ProblemDescriptor @Nullable [] checkFile(@NotNull PsiFile file, @NotNull InspectionManager manager, boolean isOnTheFly) {
-    if (!(file instanceof BnfFile)) return null;
-    if (SuppressionUtil.inspectionResultSuppressed(file, this)) return null;
-    BnfFile myFile = (BnfFile)file;
-```
-
-### ConstantValue
-Value `element` is always 'null'
-in `src/org/intellij/grammar/inspection/BnfUnusedRuleInspection.java`
-#### Snippet
-```java
-            return inParsing.contains(rule) || inSuppressed.contains(rule);
-          }
-          else if (element instanceof BnfReferenceOrToken) {
-            ContainerUtil.addIfNotNull(inParsing, ((BnfReferenceOrToken)element).resolveRule());
-            return false;
-```
-
-### ConstantValue
-Condition `!(element instanceof JFlexLexicalRulesSection)` is always `false`
-in `src/org/intellij/jflex/psi/impl/JFlexPsiImplUtil.java`
-#### Snippet
-```java
-          result.add((T)element);
-        }
-        else if (!(element instanceof JFlexLexicalRulesSection) &&
-                 !(element instanceof JFlexUserCodeSection)) {
-          super.visitElement(element);
-```
-
-### ConstantValue
-Condition `!(element instanceof JFlexLexicalRulesSection) && !(element instanceof JFlexUserCod...` is always `false`
-in `src/org/intellij/jflex/psi/impl/JFlexPsiImplUtil.java`
-#### Snippet
-```java
-          result.add((T)element);
-        }
-        else if (!(element instanceof JFlexLexicalRulesSection) &&
-                 !(element instanceof JFlexUserCodeSection)) {
-          super.visitElement(element);
-        }
 ```
 
 ### ConstantValue
@@ -5656,30 +5656,6 @@ in `src/org/intellij/grammar/java/JavaHelper.java`
 #### Snippet
 ```java
     @Override
-    public @NotNull String getDeclaringClass(@Nullable NavigatablePsiElement method) {
-      if (!(method instanceof PsiMethod)) return super.getDeclaringClass(method);
-      PsiMethod psiMethod = (PsiMethod)method;
-      PsiClass aClass = psiMethod.getContainingClass();
-```
-
-### ConstantValue
-Value `method` is always 'null'
-in `src/org/intellij/grammar/java/JavaHelper.java`
-#### Snippet
-```java
-    @Override
-    public List<String> getExceptionList(NavigatablePsiElement method) {
-      if (!(method instanceof PsiMethod)) return super.getExceptionList(method);
-
-      PsiMethod psiMethod = (PsiMethod)method;
-```
-
-### ConstantValue
-Value `method` is always 'null'
-in `src/org/intellij/grammar/java/JavaHelper.java`
-#### Snippet
-```java
-    @Override
     public @NotNull List<String> getParameterAnnotations(@Nullable NavigatablePsiElement method, int paramIndex) {
       if (!(method instanceof PsiMethod)) return super.getParameterAnnotations(method, paramIndex);
       PsiMethod psiMethod = (PsiMethod)method;
@@ -5692,10 +5668,10 @@ in `src/org/intellij/grammar/java/JavaHelper.java`
 #### Snippet
 ```java
     @Override
-    public List<TypeParameterInfo> getGenericParameters(NavigatablePsiElement method) {
-      if (!(method instanceof PsiMethod)) return super.getGenericParameters(method);
-
+    public @NotNull String getDeclaringClass(@Nullable NavigatablePsiElement method) {
+      if (!(method instanceof PsiMethod)) return super.getDeclaringClass(method);
       PsiMethod psiMethod = (PsiMethod)method;
+      PsiClass aClass = psiMethod.getContainingClass();
 ```
 
 ### ConstantValue
@@ -5716,6 +5692,30 @@ in `src/org/intellij/grammar/java/JavaHelper.java`
 #### Snippet
 ```java
     @Override
+    public List<String> getExceptionList(NavigatablePsiElement method) {
+      if (!(method instanceof PsiMethod)) return super.getExceptionList(method);
+
+      PsiMethod psiMethod = (PsiMethod)method;
+```
+
+### ConstantValue
+Value `method` is always 'null'
+in `src/org/intellij/grammar/java/JavaHelper.java`
+#### Snippet
+```java
+    @Override
+    public List<TypeParameterInfo> getGenericParameters(NavigatablePsiElement method) {
+      if (!(method instanceof PsiMethod)) return super.getGenericParameters(method);
+
+      PsiMethod psiMethod = (PsiMethod)method;
+```
+
+### ConstantValue
+Value `method` is always 'null'
+in `src/org/intellij/grammar/java/JavaHelper.java`
+#### Snippet
+```java
+    @Override
     public @NotNull List<String> getMethodTypes(NavigatablePsiElement method) {
       if (!(method instanceof PsiMethod)) return super.getMethodTypes(method);
       PsiMethod psiMethod = (PsiMethod)method;
@@ -5723,75 +5723,27 @@ in `src/org/intellij/grammar/java/JavaHelper.java`
 ```
 
 ### ConstantValue
-Value `cur` is always 'null'
-in `src/org/intellij/grammar/generator/RuleGraphHelper.java`
+Condition `frameName == null` is always `true`
+in `src/org/intellij/grammar/generator/ParserGenerator.java`
 #### Snippet
 ```java
-      Cardinality cardinality = REQUIRED;
-      for (PsiElement cur = context; !(cur instanceof BnfRule); cur = cur.getParent()) {
-        if (PsiTreeUtil.isAncestor(cur, e, true)) break;
-        IElementType curType = getEffectiveType(cur);
-        if (curType == BnfTypes.BNF_OP_OPT || curType == BnfTypes.BNF_OP_ONEMORE || curType == BnfTypes.BNF_OP_ZEROMORE) {
+
+    boolean sectionRequired = !alwaysTrue || !isPrivate || isLeft || recoverWhile != null;
+    boolean sectionRequiredSimple = sectionRequired && modifierList.isEmpty() && recoverWhile == null && frameName == null;
+    boolean sectionMaybeDropped = sectionRequiredSimple && type == BNF_CHOICE && elementTypeRef == null &&
+                                  !ContainerUtil.exists(children, o -> isRollbackRequired(o, myFile));
 ```
 
 ### ConstantValue
-Value `cur` is always 'null'
-in `src/org/intellij/grammar/generator/RuleGraphHelper.java`
+Condition `!(marker instanceof PsiBuilder.Marker)` is always `false`
+in `src/org/intellij/grammar/parser/GeneratedParserUtilBase.java`
 #### Snippet
 ```java
-      for (PsiElement cur = context; !(cur instanceof BnfRule); cur = cur.getParent()) {
-        if (PsiTreeUtil.isAncestor(cur, e, true)) break;
-        IElementType curType = getEffectiveType(cur);
-        if (curType == BnfTypes.BNF_OP_OPT || curType == BnfTypes.BNF_OP_ONEMORE || curType == BnfTypes.BNF_OP_ZEROMORE) {
-          cardinality = cardinality.and(fromNodeType(curType));
-```
+  private static PsiBuilderImpl.ProductionMarker getLatestExtensibleDoneMarker(@NotNull PsiBuilder builder) {
+    PsiBuilderImpl.ProductionMarker marker = ContainerUtil.getLastItem(((Builder)builder).getProductions());
+    return marker == null || marker.getTokenType() == null || !(marker instanceof PsiBuilder.Marker) ? null : marker;
+  }
 
-### ConstantValue
-Condition `isExternalPsi(required)` is always `false` when reached
-in `src/org/intellij/grammar/generator/RuleGraphHelper.java`
-#### Snippet
-```java
-        if (required == null) {
-          required = t;
-          maybeCollapsed = required instanceof BnfRule || isExternalPsi(required);
-        }
-        else {
-```
-
-### ConstantValue
-Value `required` is always 'null'
-in `src/org/intellij/grammar/generator/RuleGraphHelper.java`
-#### Snippet
-```java
-        if (required == null) {
-          required = t;
-          maybeCollapsed = required instanceof BnfRule || isExternalPsi(required);
-        }
-        else {
-```
-
-### ConstantValue
-Condition `e1 instanceof BnfLiteralExpression && e2 instanceof BnfLiteralExpression` is always `false` when reached
-in `src/org/intellij/grammar/generator/RuleGraphHelper.java`
-#### Snippet
-```java
-    public boolean equals(PsiElement e1, PsiElement e2) {
-      if (e1 instanceof BnfReferenceOrToken && e2 instanceof BnfReferenceOrToken ||
-          e1 instanceof BnfLiteralExpression && e2 instanceof BnfLiteralExpression) {
-        return e1.getText().equals(e2.getText());
-      }
-```
-
-### ConstantValue
-Value `e2` is always 'null'
-in `src/org/intellij/grammar/generator/RuleGraphHelper.java`
-#### Snippet
-```java
-    public boolean equals(PsiElement e1, PsiElement e2) {
-      if (e1 instanceof BnfReferenceOrToken && e2 instanceof BnfReferenceOrToken ||
-          e1 instanceof BnfLiteralExpression && e2 instanceof BnfLiteralExpression) {
-        return e1.getText().equals(e2.getText());
-      }
 ```
 
 ### ConstantValue
@@ -5855,6 +5807,30 @@ in `src/org/intellij/grammar/generator/RuleGraphHelper.java`
 ```
 
 ### ConstantValue
+Value `cur` is always 'null'
+in `src/org/intellij/grammar/generator/RuleGraphHelper.java`
+#### Snippet
+```java
+      Cardinality cardinality = REQUIRED;
+      for (PsiElement cur = context; !(cur instanceof BnfRule); cur = cur.getParent()) {
+        if (PsiTreeUtil.isAncestor(cur, e, true)) break;
+        IElementType curType = getEffectiveType(cur);
+        if (curType == BnfTypes.BNF_OP_OPT || curType == BnfTypes.BNF_OP_ONEMORE || curType == BnfTypes.BNF_OP_ZEROMORE) {
+```
+
+### ConstantValue
+Value `cur` is always 'null'
+in `src/org/intellij/grammar/generator/RuleGraphHelper.java`
+#### Snippet
+```java
+      for (PsiElement cur = context; !(cur instanceof BnfRule); cur = cur.getParent()) {
+        if (PsiTreeUtil.isAncestor(cur, e, true)) break;
+        IElementType curType = getEffectiveType(cur);
+        if (curType == BnfTypes.BNF_OP_OPT || curType == BnfTypes.BNF_OP_ONEMORE || curType == BnfTypes.BNF_OP_ZEROMORE) {
+          cardinality = cardinality.and(fromNodeType(curType));
+```
+
+### ConstantValue
 Condition `tree instanceof BnfExternalExpression` is always `false`
 in `src/org/intellij/grammar/generator/RuleGraphHelper.java`
 #### Snippet
@@ -5903,6 +5879,30 @@ in `src/org/intellij/grammar/generator/RuleGraphHelper.java`
 ```
 
 ### ConstantValue
+Condition `e1 instanceof BnfLiteralExpression && e2 instanceof BnfLiteralExpression` is always `false` when reached
+in `src/org/intellij/grammar/generator/RuleGraphHelper.java`
+#### Snippet
+```java
+    public boolean equals(PsiElement e1, PsiElement e2) {
+      if (e1 instanceof BnfReferenceOrToken && e2 instanceof BnfReferenceOrToken ||
+          e1 instanceof BnfLiteralExpression && e2 instanceof BnfLiteralExpression) {
+        return e1.getText().equals(e2.getText());
+      }
+```
+
+### ConstantValue
+Value `e2` is always 'null'
+in `src/org/intellij/grammar/generator/RuleGraphHelper.java`
+#### Snippet
+```java
+    public boolean equals(PsiElement e1, PsiElement e2) {
+      if (e1 instanceof BnfReferenceOrToken && e2 instanceof BnfReferenceOrToken ||
+          e1 instanceof BnfLiteralExpression && e2 instanceof BnfLiteralExpression) {
+        return e1.getText().equals(e2.getText());
+      }
+```
+
+### ConstantValue
 Condition `isExternalPsi(element)` is always `false`
 in `src/org/intellij/grammar/generator/RuleGraphHelper.java`
 #### Snippet
@@ -5939,26 +5939,26 @@ in `src/org/intellij/grammar/generator/RuleGraphHelper.java`
 ```
 
 ### ConstantValue
-Condition `!(marker instanceof PsiBuilder.Marker)` is always `false`
-in `src/org/intellij/grammar/parser/GeneratedParserUtilBase.java`
+Condition `isExternalPsi(required)` is always `false` when reached
+in `src/org/intellij/grammar/generator/RuleGraphHelper.java`
 #### Snippet
 ```java
-  private static PsiBuilderImpl.ProductionMarker getLatestExtensibleDoneMarker(@NotNull PsiBuilder builder) {
-    PsiBuilderImpl.ProductionMarker marker = ContainerUtil.getLastItem(((Builder)builder).getProductions());
-    return marker == null || marker.getTokenType() == null || !(marker instanceof PsiBuilder.Marker) ? null : marker;
-  }
-
+        if (required == null) {
+          required = t;
+          maybeCollapsed = required instanceof BnfRule || isExternalPsi(required);
+        }
+        else {
 ```
 
 ### ConstantValue
-Condition `frameName == null` is always `true`
-in `src/org/intellij/grammar/generator/ParserGenerator.java`
+Value `required` is always 'null'
+in `src/org/intellij/grammar/generator/RuleGraphHelper.java`
 #### Snippet
 ```java
-
-    boolean sectionRequired = !alwaysTrue || !isPrivate || isLeft || recoverWhile != null;
-    boolean sectionRequiredSimple = sectionRequired && modifierList.isEmpty() && recoverWhile == null && frameName == null;
-    boolean sectionMaybeDropped = sectionRequiredSimple && type == BNF_CHOICE && elementTypeRef == null &&
-                                  !ContainerUtil.exists(children, o -> isRollbackRequired(o, myFile));
+        if (required == null) {
+          required = t;
+          maybeCollapsed = required instanceof BnfRule || isExternalPsi(required);
+        }
+        else {
 ```
 
