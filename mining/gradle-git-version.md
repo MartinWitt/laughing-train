@@ -57,18 +57,6 @@ Return of `null`
 in `src/main/java/com/palantir/gradle/gitversion/VersionDetailsImpl.java`
 #### Snippet
 ```java
-        String gitHashFull = getGitHashFull();
-        if (gitHashFull == null) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/com/palantir/gradle/gitversion/VersionDetailsImpl.java`
-#### Snippet
-```java
         ObjectId objectId = git.getRepository().findRef(Constants.HEAD).getObjectId();
         if (objectId == null) {
             return null;
@@ -81,8 +69,20 @@ Return of `null`
 in `src/main/java/com/palantir/gradle/gitversion/VersionDetailsImpl.java`
 #### Snippet
 ```java
-        Ref ref = git.getRepository().findRef(git.getRepository().getBranch());
-        if (ref == null) {
+        if (isRepoEmpty()) {
+            log.debug("Repository is empty");
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/com/palantir/gradle/gitversion/VersionDetailsImpl.java`
+#### Snippet
+```java
+        String gitHashFull = getGitHashFull();
+        if (gitHashFull == null) {
             return null;
         }
 
@@ -105,8 +105,8 @@ Return of `null`
 in `src/main/java/com/palantir/gradle/gitversion/VersionDetailsImpl.java`
 #### Snippet
 ```java
-        if (isRepoEmpty()) {
-            log.debug("Repository is empty");
+        Ref ref = git.getRepository().findRef(git.getRepository().getBranch());
+        if (ref == null) {
             return null;
         }
 
