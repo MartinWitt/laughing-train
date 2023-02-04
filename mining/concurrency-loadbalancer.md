@@ -129,18 +129,6 @@ Lambda can be replaced with method reference
 in `concurrency-loadbalancer-core/src/main/java/com/uber/concurrency/loadbalancer/SubStrategy.java`
 #### Snippet
 ```java
-     * times being picked
-     */
-    LeastFrequency(() -> FrequencyTaskConcurrency.newBuilder()),
-    /**
-     * Least time sub strategy. among all least concurrency partitions pick the one with least aggregated latency
-```
-
-### Convert2MethodRef
-Lambda can be replaced with method reference
-in `concurrency-loadbalancer-core/src/main/java/com/uber/concurrency/loadbalancer/SubStrategy.java`
-#### Snippet
-```java
      * no sub strategy, load balancer will pick any one among all least concurrency partitions
      */
     Absent(() -> TaskConcurrencyImpl.newBuilder()),
@@ -150,14 +138,14 @@ in `concurrency-loadbalancer-core/src/main/java/com/uber/concurrency/loadbalance
 
 ### Convert2MethodRef
 Lambda can be replaced with method reference
-in `concurrency-loadbalancer-core/src/main/java/com/uber/concurrency/loadbalancer/timedcounter/WindowTimedCounter.java`
+in `concurrency-loadbalancer-core/src/main/java/com/uber/concurrency/loadbalancer/SubStrategy.java`
 #### Snippet
 ```java
-    public WindowTimedCounter(WindowScheduledCounter.Builder builder) {
-        value = new AtomicLong();
-        scheduledCounter = builder.of(o->value.addAndGet(o));
-    }
-
+     * times being picked
+     */
+    LeastFrequency(() -> FrequencyTaskConcurrency.newBuilder()),
+    /**
+     * Least time sub strategy. among all least concurrency partitions pick the one with least aggregated latency
 ```
 
 ### Convert2MethodRef
@@ -170,6 +158,18 @@ public class TracingTaskListener<T> implements CompletableTask.Listener<T> {
     private static final Function<Object, String> DEFAULT_TASK_NAME_MAPPER = o->o.toString();
 
     public static class Builder<T> {
+```
+
+### Convert2MethodRef
+Lambda can be replaced with method reference
+in `concurrency-loadbalancer-core/src/main/java/com/uber/concurrency/loadbalancer/timedcounter/WindowTimedCounter.java`
+#### Snippet
+```java
+    public WindowTimedCounter(WindowScheduledCounter.Builder builder) {
+        value = new AtomicLong();
+        scheduledCounter = builder.of(o->value.addAndGet(o));
+    }
+
 ```
 
 ### Convert2MethodRef
@@ -190,10 +190,10 @@ in `concurrency-loadbalancer-core/src/main/java/com/uber/concurrency/loadbalance
 #### Snippet
 ```java
             @Override
-            public void syncState() {
-                syncUpdate(this, ()->super.syncState());
+            public void acquire() {
+                syncUpdate(this, ()->super.acquire());
             }
-        }
+
 ```
 
 ### Convert2MethodRef
@@ -202,10 +202,10 @@ in `concurrency-loadbalancer-core/src/main/java/com/uber/concurrency/loadbalance
 #### Snippet
 ```java
             @Override
-            public void acquire() {
-                syncUpdate(this, ()->super.acquire());
+            public void syncState() {
+                syncUpdate(this, ()->super.syncState());
             }
-
+        }
 ```
 
 ### Convert2MethodRef
@@ -247,18 +247,6 @@ in `concurrency-loadbalancer-core/src/main/java/com/uber/concurrency/loadbalance
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `0L` is redundant
-in `concurrency-loadbalancer-core/src/main/java/com/uber/concurrency/loadbalancer/utils/RandomBooleanGenerator.java`
-#### Snippet
-```java
-    private final PrimitiveIterator.OfLong longStream = new SplittableRandom().longs().iterator();
-    private int nBits = 0;
-    private long bits = 0L;
-    
-    public boolean next() {
-```
-
-### RedundantFieldInitialization
 Field initialization to `0` is redundant
 in `concurrency-loadbalancer-core/src/main/java/com/uber/concurrency/loadbalancer/utils/RandomBooleanGenerator.java`
 #### Snippet
@@ -268,6 +256,18 @@ public class RandomBooleanGenerator {
     private int nBits = 0;
     private long bits = 0L;
     
+```
+
+### RedundantFieldInitialization
+Field initialization to `0L` is redundant
+in `concurrency-loadbalancer-core/src/main/java/com/uber/concurrency/loadbalancer/utils/RandomBooleanGenerator.java`
+#### Snippet
+```java
+    private final PrimitiveIterator.OfLong longStream = new SplittableRandom().longs().iterator();
+    private int nBits = 0;
+    private long bits = 0L;
+    
+    public boolean next() {
 ```
 
 ### RedundantFieldInitialization
@@ -296,30 +296,6 @@ in `concurrency-loadbalancer-core/src/main/java/com/uber/concurrency/loadbalance
 
 ## RuleId[ruleID=AssignmentToMethodParameter]
 ### AssignmentToMethodParameter
-Assignment to method parameter `timeToLive`
-in `concurrency-loadbalancer-core/src/main/java/com/uber/concurrency/loadbalancer/timedcounter/LifespanTracker.java`
-#### Snippet
-```java
-    public long add(long n, Duration timeToLive) {
-        if (maxAge.minus(timeToLive).isNegative()) {
-            timeToLive = maxAge;
-        }
-        if (timeToLive.isNegative()) {
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `timeToLive`
-in `concurrency-loadbalancer-core/src/main/java/com/uber/concurrency/loadbalancer/timedcounter/LifespanTracker.java`
-#### Snippet
-```java
-        }
-        if (timeToLive.isNegative()) {
-            timeToLive = Duration.ZERO;
-        }
-        long nowNanos = ticker.read();
-```
-
-### AssignmentToMethodParameter
 Assignment to method parameter `index`
 in `concurrency-loadbalancer-core/src/main/java/com/uber/concurrency/loadbalancer/utils/HashIndexedPriorityQueue.java`
 #### Snippet
@@ -341,6 +317,30 @@ in `concurrency-loadbalancer-core/src/main/java/com/uber/concurrency/loadbalance
             index = pIndex;
         }
 
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `timeToLive`
+in `concurrency-loadbalancer-core/src/main/java/com/uber/concurrency/loadbalancer/timedcounter/LifespanTracker.java`
+#### Snippet
+```java
+    public long add(long n, Duration timeToLive) {
+        if (maxAge.minus(timeToLive).isNegative()) {
+            timeToLive = maxAge;
+        }
+        if (timeToLive.isNegative()) {
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `timeToLive`
+in `concurrency-loadbalancer-core/src/main/java/com/uber/concurrency/loadbalancer/timedcounter/LifespanTracker.java`
+#### Snippet
+```java
+        }
+        if (timeToLive.isNegative()) {
+            timeToLive = Duration.ZERO;
+        }
+        long nowNanos = ticker.read();
 ```
 
 ### AssignmentToMethodParameter
@@ -383,7 +383,7 @@ in `concurrency-loadbalancer-core/src/main/java/com/uber/concurrency/loadbalance
 ## RuleId[ruleID=HtmlWrongAttributeValue]
 ### HtmlWrongAttributeValue
 Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-02-04-03-24-04.978.html`
+in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-02-04-11-32-17.696.html`
 #### Snippet
 ```java
               <td>0</td>
@@ -420,30 +420,6 @@ in `concurrency-loadbalancer-core/src/main/java/com/uber/concurrency/loadbalance
 
 ### ReturnNull
 Return of `null`
-in `concurrency-loadbalancer-core/src/main/java/com/uber/concurrency/loadbalancer/RoundRobinLoadBalancer.java`
-#### Snippet
-```java
-        int size = tasks.size();
-        if (size == 0) {
-            return null;
-        }
-        return tasks.get(((index.getAndIncrement() % size) + size) % size);
-```
-
-### ReturnNull
-Return of `null`
-in `concurrency-loadbalancer-core/src/main/java/com/uber/concurrency/loadbalancer/utils/ReservoirSampler.java`
-#### Snippet
-```java
-    public T getSample() {
-        if (result.isEmpty()) {
-            return null;
-        }
-        return result.get(0);
-```
-
-### ReturnNull
-Return of `null`
 in `concurrency-loadbalancer-core/src/main/java/com/uber/concurrency/loadbalancer/utils/HashIndexedPriorityQueue.java`
 #### Snippet
 ```java
@@ -468,14 +444,26 @@ in `concurrency-loadbalancer-core/src/main/java/com/uber/concurrency/loadbalance
 
 ### ReturnNull
 Return of `null`
-in `concurrency-loadbalancer-core/src/main/java/com/uber/concurrency/loadbalancer/HeapConcurrencyLoadBalancer.java`
+in `concurrency-loadbalancer-core/src/main/java/com/uber/concurrency/loadbalancer/RoundRobinLoadBalancer.java`
 #### Snippet
 ```java
-        TaskConcurrency<T> taskConcurrency = taskConcurrencyQueue.peek();
-        if (taskConcurrency == null || Integer.compareUnsigned(Integer.MAX_VALUE, taskConcurrency.getConcurrency()) < 0) {
-            return null; // no tasks or all tasks reached concurrency limits
+        int size = tasks.size();
+        if (size == 0) {
+            return null;
         }
-        return new ConcurrentTaskImpl(ticker.read(), taskConcurrency);
+        return tasks.get(((index.getAndIncrement() % size) + size) % size);
+```
+
+### ReturnNull
+Return of `null`
+in `concurrency-loadbalancer-core/src/main/java/com/uber/concurrency/loadbalancer/utils/ReservoirSampler.java`
+#### Snippet
+```java
+    public T getSample() {
+        if (result.isEmpty()) {
+            return null;
+        }
+        return result.get(0);
 ```
 
 ### ReturnNull
@@ -500,6 +488,18 @@ in `concurrency-loadbalancer-core/src/main/java/com/uber/concurrency/loadbalance
                 return null;
             }
 
+```
+
+### ReturnNull
+Return of `null`
+in `concurrency-loadbalancer-core/src/main/java/com/uber/concurrency/loadbalancer/HeapConcurrencyLoadBalancer.java`
+#### Snippet
+```java
+        TaskConcurrency<T> taskConcurrency = taskConcurrencyQueue.peek();
+        if (taskConcurrency == null || Integer.compareUnsigned(Integer.MAX_VALUE, taskConcurrency.getConcurrency()) < 0) {
+            return null; // no tasks or all tasks reached concurrency limits
+        }
+        return new ConcurrentTaskImpl(ticker.read(), taskConcurrency);
 ```
 
 ### ReturnNull
@@ -553,18 +553,6 @@ in `concurrency-loadbalancer-core/src/main/java/com/uber/concurrency/loadbalance
 
 ## RuleId[ruleID=BoundedWildcard]
 ### BoundedWildcard
-Can generalize to `? super Long`
-in `concurrency-loadbalancer-core/src/main/java/com/uber/concurrency/loadbalancer/timedcounter/WindowScheduledCounter.java`
-#### Snippet
-```java
-     * @param consumer         the count consumer
-     */
-    WindowScheduledCounter(LifespanTracker lifespanTracker, Consumer<Long> consumer) {
-        this.lifespanTracker = lifespanTracker;
-        this.consumer = consumer;
-```
-
-### BoundedWildcard
 Can generalize to `? extends TaskConcurrency.Builder`
 in `concurrency-loadbalancer-core/src/main/java/com/uber/concurrency/loadbalancer/SubStrategy.java`
 #### Snippet
@@ -586,6 +574,18 @@ in `concurrency-loadbalancer-core/src/main/java/com/uber/concurrency/loadbalance
     public HashIndexedPriorityQueue(Comparator<E> comparator) {
         this.entityToIndex = new HashMap<>();
         this.entityList = new ArrayList<>();
+```
+
+### BoundedWildcard
+Can generalize to `? super Long`
+in `concurrency-loadbalancer-core/src/main/java/com/uber/concurrency/loadbalancer/timedcounter/WindowScheduledCounter.java`
+#### Snippet
+```java
+     * @param consumer         the count consumer
+     */
+    WindowScheduledCounter(LifespanTracker lifespanTracker, Consumer<Long> consumer) {
+        this.lifespanTracker = lifespanTracker;
+        this.consumer = consumer;
 ```
 
 ### BoundedWildcard
@@ -613,18 +613,6 @@ in `concurrency-loadbalancer-core/src/main/java/com/uber/concurrency/loadbalance
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends Meter`
-in `concurrency-loadbalancer-core/src/main/java/com/uber/concurrency/loadbalancer/AbstractConcurrencyLoadBalancer.java`
-#### Snippet
-```java
-        }
-
-        private double calcCOV(Collection<Meter> meters) {
-            double[] rates = meters.stream()
-                    .map(o->o.getRate())
-```
-
-### BoundedWildcard
 Can generalize to `? extends CompletableTask.Listener`
 in `concurrency-loadbalancer-core/src/main/java/com/uber/concurrency/loadbalancer/AbstractConcurrencyLoadBalancer.java`
 #### Snippet
@@ -637,39 +625,39 @@ in `concurrency-loadbalancer-core/src/main/java/com/uber/concurrency/loadbalance
 ```
 
 ### BoundedWildcard
-Can generalize to `? super T`
-in `concurrency-loadbalancer-m3/src/main/java/com/uber/concurrency/loadbalancer/TallyMetricsTaskListener.java`
+Can generalize to `? extends Meter`
+in `concurrency-loadbalancer-core/src/main/java/com/uber/concurrency/loadbalancer/AbstractConcurrencyLoadBalancer.java`
 #### Snippet
 ```java
-    private TallyMetricsTaskListener(String name,
-                                     Scope rootScope,
-                                     Function<T, String> taskNameMapper,
-                                     Ticker ticker) {
-        this.scope = rootScope.tagged(ImmutableMap.of(TAG_LOAD_BALANCER, name));
+        }
+
+        private double calcCOV(Collection<Meter> meters) {
+            double[] rates = meters.stream()
+                    .map(o->o.getRate())
 ```
 
 ### BoundedWildcard
-Can generalize to `? super EWMARates`
-in `concurrency-loadbalancer-m3/src/main/java/com/uber/concurrency/loadbalancer/TallyMetricsTaskListener.java`
+Can generalize to `? super Integer`
+in `concurrency-loadbalancer-core/src/main/java/com/uber/concurrency/loadbalancer/ArrayConcurrencyLoadBalancer.java`
 #### Snippet
 ```java
-    }
-
-    private double calcStandardDeviation(Function<EWMARates, EWMA> mapper) {
-        double[] rates = taskRates.values().stream()
-                .map(mapper)
+         * @param rand        the rand
+         */
+        WeightedSelector(TreeMap<Integer, T> weightMap, int totalWeight, Random rand) {
+            this.weightMap = weightMap;
+            this.totalWeight = totalWeight;
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends EWMA`
-in `concurrency-loadbalancer-m3/src/main/java/com/uber/concurrency/loadbalancer/TallyMetricsTaskListener.java`
+Can generalize to `? extends T`
+in `concurrency-loadbalancer-core/src/main/java/com/uber/concurrency/loadbalancer/ArrayConcurrencyLoadBalancer.java`
 #### Snippet
 ```java
-    }
-
-    private double calcStandardDeviation(Function<EWMARates, EWMA> mapper) {
-        double[] rates = taskRates.values().stream()
-                .map(mapper)
+         * @param rand        the rand
+         */
+        WeightedSelector(TreeMap<Integer, T> weightMap, int totalWeight, Random rand) {
+            this.weightMap = weightMap;
+            this.totalWeight = totalWeight;
 ```
 
 ### BoundedWildcard
@@ -709,27 +697,39 @@ in `concurrency-loadbalancer-core/src/main/java/com/uber/concurrency/loadbalance
 ```
 
 ### BoundedWildcard
-Can generalize to `? super Integer`
-in `concurrency-loadbalancer-core/src/main/java/com/uber/concurrency/loadbalancer/ArrayConcurrencyLoadBalancer.java`
+Can generalize to `? super EWMARates`
+in `concurrency-loadbalancer-m3/src/main/java/com/uber/concurrency/loadbalancer/TallyMetricsTaskListener.java`
 #### Snippet
 ```java
-         * @param rand        the rand
-         */
-        WeightedSelector(TreeMap<Integer, T> weightMap, int totalWeight, Random rand) {
-            this.weightMap = weightMap;
-            this.totalWeight = totalWeight;
+    }
+
+    private double calcStandardDeviation(Function<EWMARates, EWMA> mapper) {
+        double[] rates = taskRates.values().stream()
+                .map(mapper)
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends T`
-in `concurrency-loadbalancer-core/src/main/java/com/uber/concurrency/loadbalancer/ArrayConcurrencyLoadBalancer.java`
+Can generalize to `? extends EWMA`
+in `concurrency-loadbalancer-m3/src/main/java/com/uber/concurrency/loadbalancer/TallyMetricsTaskListener.java`
 #### Snippet
 ```java
-         * @param rand        the rand
-         */
-        WeightedSelector(TreeMap<Integer, T> weightMap, int totalWeight, Random rand) {
-            this.weightMap = weightMap;
-            this.totalWeight = totalWeight;
+    }
+
+    private double calcStandardDeviation(Function<EWMARates, EWMA> mapper) {
+        double[] rates = taskRates.values().stream()
+                .map(mapper)
+```
+
+### BoundedWildcard
+Can generalize to `? super T`
+in `concurrency-loadbalancer-m3/src/main/java/com/uber/concurrency/loadbalancer/TallyMetricsTaskListener.java`
+#### Snippet
+```java
+    private TallyMetricsTaskListener(String name,
+                                     Scope rootScope,
+                                     Function<T, String> taskNameMapper,
+                                     Ticker ticker) {
+        this.scope = rootScope.tagged(ImmutableMap.of(TAG_LOAD_BALANCER, name));
 ```
 
 ## RuleId[ruleID=NullableProblems]
