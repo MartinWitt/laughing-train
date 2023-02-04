@@ -70,6 +70,18 @@ in `hadoop-crypto/src/main/java/com/palantir/crypto2/hadoop/FileKeyStorageStrate
 ## RuleId[ruleID=IOResource]
 ### IOResource
 'DataInputStream' should be opened in front of a 'try' block and closed in the corresponding 'finally' block
+in `crypto-keys/src/main/java/com/palantir/crypto2/keys/serialization/KeyMaterials.java`
+#### Snippet
+```java
+    private static int version(byte[] wrappedKeyMaterial) {
+        try {
+            DataInputStream stream = new DataInputStream(new ByteArrayInputStream(wrappedKeyMaterial));
+            return stream.read();
+        } catch (IOException e) {
+```
+
+### IOResource
+'DataInputStream' should be opened in front of a 'try' block and closed in the corresponding 'finally' block
 in `crypto-keys/src/main/java/com/palantir/crypto2/keys/serialization/KeySerializerV1.java`
 #### Snippet
 ```java
@@ -90,18 +102,6 @@ in `crypto-keys/src/main/java/com/palantir/crypto2/keys/serialization/CipherSymm
         DataInputStream stream = new DataInputStream(new ByteArrayInputStream(wrappedKeyMaterial));
 
         try {
-```
-
-### IOResource
-'DataInputStream' should be opened in front of a 'try' block and closed in the corresponding 'finally' block
-in `crypto-keys/src/main/java/com/palantir/crypto2/keys/serialization/KeyMaterials.java`
-#### Snippet
-```java
-    private static int version(byte[] wrappedKeyMaterial) {
-        try {
-            DataInputStream stream = new DataInputStream(new ByteArrayInputStream(wrappedKeyMaterial));
-            return stream.read();
-        } catch (IOException e) {
 ```
 
 ### IOResource
@@ -229,6 +229,18 @@ enum KeySerializerV1 implements KeySerializer {
 ```
 
 ### DeprecatedIsStillUsed
+Deprecated member 'getCipher' is still used
+in `crypto-core/src/main/java/com/palantir/crypto2/cipher/SeekableCipherFactory.java`
+#### Snippet
+```java
+     */
+    @Deprecated
+    public static SeekableCipher getCipher(String cipherAlgorithm) {
+        switch (cipherAlgorithm) {
+            case AesCtrCipher.ALGORITHM:
+```
+
+### DeprecatedIsStillUsed
 Deprecated member 'DEPRECATED_CIPHER_ALGORITHM_KEY' is still used
 in `hadoop-crypto/src/main/java/com/palantir/crypto2/hadoop/EncryptedFileSystem.java`
 #### Snippet
@@ -250,18 +262,6 @@ in `crypto-keys/src/main/java/com/palantir/crypto2/keys/serialization/SymmetricK
 enum SymmetricKeySerializerV3 implements SymmetricKeySerializer {
     INSTANCE;
 
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'getCipher' is still used
-in `crypto-core/src/main/java/com/palantir/crypto2/cipher/SeekableCipherFactory.java`
-#### Snippet
-```java
-     */
-    @Deprecated
-    public static SeekableCipher getCipher(String cipherAlgorithm) {
-        switch (cipherAlgorithm) {
-            case AesCtrCipher.ALGORITHM:
 ```
 
 ## RuleId[ruleID=Convert2Lambda]
@@ -293,18 +293,6 @@ in `crypto-core/src/main/java/com/palantir/crypto2/io/ApacheCtrDecryptingSeekabl
 ## RuleId[ruleID=SizeReplaceableByIsEmpty]
 ### SizeReplaceableByIsEmpty
 `strategies.size() > 0` can be replaced with '!strategies.isEmpty()'
-in `crypto-keys/src/main/java/com/palantir/crypto2/keys/ChainedKeyStorageStrategy.java`
-#### Snippet
-```java
-
-    public ChainedKeyStorageStrategy(List<KeyStorageStrategy> strategies) {
-        Preconditions.checkArgument(strategies.size() > 0, "Must specify at least one storage strategy");
-        this.strategies = ImmutableList.copyOf(strategies);
-    }
-```
-
-### SizeReplaceableByIsEmpty
-`strategies.size() > 0` can be replaced with '!strategies.isEmpty()'
 in `crypto-keys/src/main/java/com/palantir/crypto2/keys/ChainedAsyncKeyStorageStrategy.java`
 #### Snippet
 ```java
@@ -313,6 +301,18 @@ in `crypto-keys/src/main/java/com/palantir/crypto2/keys/ChainedAsyncKeyStorageSt
         Preconditions.checkArgument(strategies.size() > 0, "Must specify at least one storage strategy");
         this.executor = executor;
         this.strategies = ImmutableList.copyOf(strategies);
+```
+
+### SizeReplaceableByIsEmpty
+`strategies.size() > 0` can be replaced with '!strategies.isEmpty()'
+in `crypto-keys/src/main/java/com/palantir/crypto2/keys/ChainedKeyStorageStrategy.java`
+#### Snippet
+```java
+
+    public ChainedKeyStorageStrategy(List<KeyStorageStrategy> strategies) {
+        Preconditions.checkArgument(strategies.size() > 0, "Must specify at least one storage strategy");
+        this.strategies = ImmutableList.copyOf(strategies);
+    }
 ```
 
 ## RuleId[ruleID=BoundedWildcard]
