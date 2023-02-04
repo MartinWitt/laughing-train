@@ -16,19 +16,6 @@ I found 29 bad smells with 1 repairable:
 | DataFlowIssue | 1 | false |
 | CodeBlock2Expr | 1 | true |
 | IgnoreResultOfCall | 1 | false |
-## RuleId[ruleID=IOResource]
-### IOResource
-'ZipFile' should be opened in front of a 'try' block and closed in the corresponding 'finally' block
-in `gradle-metric-schema/src/main/java/com/palantir/metric/schema/gradle/CreateMetricsManifestTask.java`
-#### Snippet
-```java
-
-        try {
-            ZipFile zipFile = new ZipFile(artifact.getFile());
-            ZipEntry manifestEntry = zipFile.getEntry(MetricSchemaPlugin.METRIC_SCHEMA_RESOURCE);
-            if (manifestEntry == null) {
-```
-
 ## RuleId[ruleID=OptionalUsedAsFieldOrParameterType]
 ### OptionalUsedAsFieldOrParameterType
 `Optional` used as type for parameter 'libraryName'
@@ -36,22 +23,10 @@ in `metric-schema-java/src/main/java/com/palantir/metric/schema/UtilityGenerator
 #### Snippet
 ```java
             String namespace,
-            String metricName,
+            MetricNamespace metrics,
             Optional<String> libraryName,
-            MetricDefinition definition,
-            MetricNamespace metricNamespace) {
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'libraryName'
-in `metric-schema-java/src/main/java/com/palantir/metric/schema/UtilityGenerator.java`
-#### Snippet
-```java
-            String namespace,
-            String metricName,
-            Optional<String> libraryName,
-            MetricNamespace metricNamespace,
-            MetricDefinition definition,
+            String packageName,
+            ImplementationVisibility visibility) {
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -72,10 +47,35 @@ in `metric-schema-java/src/main/java/com/palantir/metric/schema/UtilityGenerator
 #### Snippet
 ```java
             String namespace,
-            MetricNamespace metrics,
+            String metricName,
             Optional<String> libraryName,
-            String packageName,
-            ImplementationVisibility visibility) {
+            MetricNamespace metricNamespace,
+            MetricDefinition definition,
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'libraryName'
+in `metric-schema-java/src/main/java/com/palantir/metric/schema/UtilityGenerator.java`
+#### Snippet
+```java
+            String namespace,
+            String metricName,
+            Optional<String> libraryName,
+            MetricDefinition definition,
+            MetricNamespace metricNamespace) {
+```
+
+## RuleId[ruleID=IOResource]
+### IOResource
+'ZipFile' should be opened in front of a 'try' block and closed in the corresponding 'finally' block
+in `gradle-metric-schema/src/main/java/com/palantir/metric/schema/gradle/CreateMetricsManifestTask.java`
+#### Snippet
+```java
+
+        try {
+            ZipFile zipFile = new ZipFile(artifact.getFile());
+            ZipEntry manifestEntry = zipFile.getEntry(MetricSchemaPlugin.METRIC_SCHEMA_RESOURCE);
+            if (manifestEntry == null) {
 ```
 
 ## RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
@@ -232,6 +232,18 @@ Can generalize to `? extends Directory`
 in `gradle-metric-schema/src/main/java/com/palantir/metric/schema/gradle/MetricSchemaPlugin.java`
 #### Snippet
 ```java
+
+    private static TaskProvider<CompileMetricSchemaTask> createCompileSchemaTask(
+            Project project, Provider<Directory> metricSchemaDir, SourceDirectorySet sourceSet) {
+        Provider<RegularFile> schemaFile = metricSchemaDir.map(dir -> dir.file(METRIC_SCHEMA_RESOURCE));
+        JavaPluginConvention javaPlugin = project.getConvention().getPlugin(JavaPluginConvention.class);
+```
+
+### BoundedWildcard
+Can generalize to `? extends Directory`
+in `gradle-metric-schema/src/main/java/com/palantir/metric/schema/gradle/MetricSchemaPlugin.java`
+#### Snippet
+```java
     private static void createManifestTask(
             Project project,
             Provider<Directory> metricSchemaDir,
@@ -251,31 +263,7 @@ in `gradle-metric-schema/src/main/java/com/palantir/metric/schema/gradle/MetricS
         Configuration runtimeClasspath = project.getConfigurations().getByName("runtimeClasspath");
 ```
 
-### BoundedWildcard
-Can generalize to `? extends Directory`
-in `gradle-metric-schema/src/main/java/com/palantir/metric/schema/gradle/MetricSchemaPlugin.java`
-#### Snippet
-```java
-
-    private static TaskProvider<CompileMetricSchemaTask> createCompileSchemaTask(
-            Project project, Provider<Directory> metricSchemaDir, SourceDirectorySet sourceSet) {
-        Provider<RegularFile> schemaFile = metricSchemaDir.map(dir -> dir.file(METRIC_SCHEMA_RESOURCE));
-        JavaPluginConvention javaPlugin = project.getConvention().getPlugin(JavaPluginConvention.class);
-```
-
 ## RuleId[ruleID=AbstractClassNeverImplemented]
-### AbstractClassNeverImplemented
-Abstract class `GenerateMetricSchemaTask` has no concrete subclass
-in `gradle-metric-schema/src/main/java/com/palantir/metric/schema/gradle/GenerateMetricSchemaTask.java`
-#### Snippet
-```java
-
-@CacheableTask
-public abstract class GenerateMetricSchemaTask extends DefaultTask {
-    private final Property<String> libraryName =
-            getProject().getObjects().property(String.class).value(defaultLibraryName());
-```
-
 ### AbstractClassNeverImplemented
 Abstract class `JavaGeneratorArgs` has no concrete subclass
 in `metric-schema-java/src/main/java/com/palantir/metric/schema/JavaGeneratorArgs.java`
@@ -286,6 +274,18 @@ in `metric-schema-java/src/main/java/com/palantir/metric/schema/JavaGeneratorArg
 public abstract class JavaGeneratorArgs {
 
     private static final Predicate<String> LIBRARY_NAME =
+```
+
+### AbstractClassNeverImplemented
+Abstract class `GenerateMetricSchemaTask` has no concrete subclass
+in `gradle-metric-schema/src/main/java/com/palantir/metric/schema/gradle/GenerateMetricSchemaTask.java`
+#### Snippet
+```java
+
+@CacheableTask
+public abstract class GenerateMetricSchemaTask extends DefaultTask {
+    private final Property<String> libraryName =
+            getProject().getObjects().property(String.class).value(defaultLibraryName());
 ```
 
 ### AbstractClassNeverImplemented
@@ -308,9 +308,9 @@ in `gradle-metric-schema/src/main/java/com/palantir/metric/schema/gradle/CreateM
 ```java
     }
 
-    private static Optional<List<MetricSchema>> getExternalMetrics(ComponentIdentifier id, ResolvedArtifact artifact) {
-        if (!artifact.getFile().exists()) {
-            log.debug("Artifact did not exist: {}", artifact.getFile());
+    private static Optional<List<MetricSchema>> inferProjectDependencyMetrics(Project dependencyProject) {
+        if (!dependencyProject.getPlugins().hasPlugin(MetricSchemaPlugin.class)) {
+            return Optional.empty();
 ```
 
 ### OptionalContainsCollection
@@ -320,9 +320,9 @@ in `gradle-metric-schema/src/main/java/com/palantir/metric/schema/gradle/CreateM
 ```java
     }
 
-    private static Optional<List<MetricSchema>> inferProjectDependencyMetrics(Project dependencyProject) {
-        if (!dependencyProject.getPlugins().hasPlugin(MetricSchemaPlugin.class)) {
-            return Optional.empty();
+    private static Optional<List<MetricSchema>> getExternalMetrics(ComponentIdentifier id, ResolvedArtifact artifact) {
+        if (!artifact.getFile().exists()) {
+            log.debug("Artifact did not exist: {}", artifact.getFile());
 ```
 
 ## RuleId[ruleID=CodeBlock2Expr]
