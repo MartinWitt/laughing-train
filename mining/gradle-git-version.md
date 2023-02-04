@@ -11,8 +11,8 @@ I found 18 bad smells with 1 repairable:
 | DynamicRegexReplaceableByCompiledPattern | 1 | false |
 | NestedAssignment | 1 | false |
 | BoundedWildcard | 1 | false |
-| CodeBlock2Expr | 1 | true |
 | UnusedAssignment | 1 | false |
+| CodeBlock2Expr | 1 | true |
 ## RuleId[ruleID=RedundantFieldInitialization]
 ### RedundantFieldInitialization
 Field initialization to `null` is redundant
@@ -57,32 +57,32 @@ Return of `null`
 in `src/main/java/com/palantir/gradle/gitversion/VersionDetailsImpl.java`
 #### Snippet
 ```java
-        Ref ref = git.getRepository().findRef(git.getRepository().getBranch());
-        if (ref == null) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/com/palantir/gradle/gitversion/VersionDetailsImpl.java`
-#### Snippet
-```java
-        if (isRepoEmpty()) {
-            log.debug("Repository is empty");
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/com/palantir/gradle/gitversion/VersionDetailsImpl.java`
-#### Snippet
-```java
         String gitHashFull = getGitHashFull();
         if (gitHashFull == null) {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/com/palantir/gradle/gitversion/VersionDetailsImpl.java`
+#### Snippet
+```java
+        ObjectId objectId = git.getRepository().findRef(Constants.HEAD).getObjectId();
+        if (objectId == null) {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/com/palantir/gradle/gitversion/VersionDetailsImpl.java`
+#### Snippet
+```java
+        Ref ref = git.getRepository().findRef(git.getRepository().getBranch());
+        if (ref == null) {
             return null;
         }
 
@@ -105,8 +105,8 @@ Return of `null`
 in `src/main/java/com/palantir/gradle/gitversion/VersionDetailsImpl.java`
 #### Snippet
 ```java
-        ObjectId objectId = git.getRepository().findRef(Constants.HEAD).getObjectId();
-        if (objectId == null) {
+        if (isRepoEmpty()) {
+            log.debug("Repository is empty");
             return null;
         }
 
@@ -187,19 +187,6 @@ in `src/main/java/com/palantir/gradle/gitversion/JGitDescribe.java`
             ObjectId objectId,
 ```
 
-## RuleId[ruleID=CodeBlock2Expr]
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
-in `src/main/java/com/palantir/gradle/gitversion/TimingVersionDetails.java`
-#### Snippet
-```java
-        return (VersionDetails) Proxy.newProxyInstance(
-                VersionDetails.class.getClassLoader(), new Class[] {VersionDetails.class}, (_proxy, method, args) -> {
-                    return timer.record(method.getName(), () -> {
-                        try {
-                            return method.invoke(versionDetails, args);
-```
-
 ## RuleId[ruleID=UnusedAssignment]
 ### UnusedAssignment
 Variable `line` initializer `null` is redundant
@@ -211,6 +198,19 @@ in `src/main/java/com/palantir/gradle/gitversion/NativeGitDescribe.java`
         String line = null;
         while ((line = reader.readLine()) != null) {
             builder.append(line);
+```
+
+## RuleId[ruleID=CodeBlock2Expr]
+### CodeBlock2Expr
+Statement lambda can be replaced with expression lambda
+in `src/main/java/com/palantir/gradle/gitversion/TimingVersionDetails.java`
+#### Snippet
+```java
+        return (VersionDetails) Proxy.newProxyInstance(
+                VersionDetails.class.getClassLoader(), new Class[] {VersionDetails.class}, (_proxy, method, args) -> {
+                    return timer.record(method.getName(), () -> {
+                        try {
+                            return method.invoke(versionDetails, args);
 ```
 
 ## RuleId[ruleID=ConstantValue]
