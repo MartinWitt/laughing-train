@@ -132,11 +132,11 @@ in `conjure-postman-core/src/main/java/com/palantir/conjure/postman/PostmanReque
 in `conjure-postman-core/src/main/java/com/palantir/conjure/postman/visitor/TemplateTypeVisitor.java`
 #### Snippet
 ```java
-                    return new TextNode(String.format(
-                            "{{ %s(%s) }}",
-                            value.getTypeName().getName(), wrapped.toString().replaceAll("[\"{}]", "")));
-                }
-                return wrapped;
+        if (wrapped instanceof TextNode) {
+            return new TextNode(
+                    String.format("{{ Optional<%s> }}", wrapped.toString().replaceAll("[\"{}]", "")));
+        }
+        return wrapped;
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
@@ -144,11 +144,11 @@ in `conjure-postman-core/src/main/java/com/palantir/conjure/postman/visitor/Temp
 in `conjure-postman-core/src/main/java/com/palantir/conjure/postman/visitor/TemplateTypeVisitor.java`
 #### Snippet
 ```java
-        if (wrapped instanceof TextNode) {
-            return new TextNode(
-                    String.format("{{ Optional<%s> }}", wrapped.toString().replaceAll("[\"{}]", "")));
-        }
-        return wrapped;
+                    return new TextNode(String.format(
+                            "{{ %s(%s) }}",
+                            value.getTypeName().getName(), wrapped.toString().replaceAll("[\"{}]", "")));
+                }
+                return wrapped;
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
@@ -178,18 +178,6 @@ in `conjure-postman/src/main/java/com/palantir/conjure/postman/cli/ConjurePostma
 
 ## RuleId[ruleID=AbstractClassNeverImplemented]
 ### AbstractClassNeverImplemented
-Abstract class `CliConfiguration` has no concrete subclass
-in `conjure-postman/src/main/java/com/palantir/conjure/postman/cli/CliConfiguration.java`
-#### Snippet
-```java
-
-@Value.Immutable
-public abstract class CliConfiguration {
-    public static final String PRODUCT_NAME = "productName";
-    public static final String PRODUCT_DESCRIPTION = "productDescription";
-```
-
-### AbstractClassNeverImplemented
 Abstract class `UuidProvider` has no concrete subclass
 in `conjure-postman-core/src/main/java/com/palantir/conjure/postman/UuidProvider.java`
 #### Snippet
@@ -199,6 +187,18 @@ import java.util.UUID;
 public abstract class UuidProvider {
 
     /*
+```
+
+### AbstractClassNeverImplemented
+Abstract class `CliConfiguration` has no concrete subclass
+in `conjure-postman/src/main/java/com/palantir/conjure/postman/cli/CliConfiguration.java`
+#### Snippet
+```java
+
+@Value.Immutable
+public abstract class CliConfiguration {
+    public static final String PRODUCT_NAME = "productName";
+    public static final String PRODUCT_DESCRIPTION = "productDescription";
 ```
 
 ## RuleId[ruleID=OptionalContainsCollection]
