@@ -13,7 +13,7 @@ I found 9 bad smells with 1 repairable:
 ## RuleId[ruleID=HtmlWrongAttributeValue]
 ### HtmlWrongAttributeValue
 Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-02-04-22-21-24.202.html`
+in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-02-06-00-09-30.494.html`
 #### Snippet
 ```java
               <td>0</td>
