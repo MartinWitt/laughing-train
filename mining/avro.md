@@ -1,7 +1,7 @@
 # avro 
  
 # Bad smells
-I found 1286 bad smells with 79 repairable:
+I found 1287 bad smells with 79 repairable:
 | ruleID | number | fixable |
 | --- | --- | --- |
 | UnnecessarySuperQualifier | 180 | false |
@@ -84,6 +84,7 @@ I found 1286 bad smells with 79 repairable:
 | InfiniteLoopStatement | 1 | false |
 | ReturnFromFinallyBlock | 1 | false |
 | ExceptionNameDoesntEndWithException | 1 | false |
+| HtmlWrongAttributeValue | 1 | false |
 | ArrayEquality | 1 | false |
 | TypeParameterExtendsObject | 1 | false |
 | NonExceptionNameEndsWithException | 1 | false |
@@ -102,6 +103,22 @@ I found 1286 bad smells with 79 repairable:
 | ThreadStartInConstruction | 1 | false |
 ## RuleId[ruleID=EnumSwitchStatementWhichMissesCases]
 ### EnumSwitchStatementWhichMissesCases
+`switch (f.getType()) { case ENUM: value = ((EnumValueDescriptor) value).getName(); ...` statement on enum type 'com.google.protobuf.Descriptors.FieldDescriptor.Type' misses cases: 'DOUBLE', 'FLOAT', 'INT64', 'UINT64', 'INT32', ...
+in `lang/java/protobuf/src/main/java/org/apache/avro/protobuf/ProtobufData.java`
+#### Snippet
+```java
+    if (f.hasDefaultValue()) { // parse spec'd default value
+      Object value = f.getDefaultValue();
+      switch (f.getType()) {
+      case ENUM:
+        value = ((EnumValueDescriptor) value).getName();
+        break;
+      }
+      String json = toString(value);
+      try {
+```
+
+### EnumSwitchStatementWhichMissesCases
 `switch (from.getType()) { // only named types. case RECORD: case ENUM: case FIXED: ...` statement on enum type 'org.apache.avro.Schema.Type' misses cases: 'ARRAY', 'MAP', 'UNION', 'STRING', 'BYTES', ...
 in `lang/java/compiler/src/main/java/org/apache/avro/compiler/schema/Schemas.java`
 #### Snippet
@@ -119,96 +136,6 @@ in `lang/java/compiler/src/main/java/org/apache/avro/compiler/schema/Schemas.jav
     }
   }
 
-```
-
-### EnumSwitchStatementWhichMissesCases
-`switch (s.getType()) { case ENUM: return model.createEnum(s.getEnumSymbols().get((Integer)...` statement on enum type 'org.apache.avro.Schema.Type' misses cases: 'RECORD', 'ARRAY', 'MAP', 'UNION', 'STRING', ...
-in `lang/java/trevni/avro/src/main/java/org/apache/trevni/avro/AvroColumnReader.java`
-#### Snippet
-```java
-    Object v = values[column].nextValue();
-
-    switch (s.getType()) {
-    case ENUM:
-      return model.createEnum(s.getEnumSymbols().get((Integer) v), s);
-    case FIXED:
-      return model.createFixed(null, ((ByteBuffer) v).array(), s);
-    }
-
-    return v;
-```
-
-### EnumSwitchStatementWhichMissesCases
-`switch (s.getType()) { case STRING: if (value instanceof Utf8) // convert Utf8 to String ...` statement on enum type 'org.apache.avro.Schema.Type' misses cases: 'RECORD', 'ARRAY', 'MAP', 'UNION', 'BYTES', ...
-in `lang/java/trevni/avro/src/main/java/org/apache/trevni/avro/AvroColumnWriter.java`
-#### Snippet
-```java
-  private void writeValue(Object value, Schema s, int column) throws IOException {
-
-    switch (s.getType()) {
-    case STRING:
-      if (value instanceof Utf8) // convert Utf8 to String
-        value = value.toString();
-      break;
-    case ENUM:
-      if (value instanceof Enum)
-        value = ((Enum) value).ordinal();
-      else
-        value = s.getEnumOrdinal(value.toString());
-      break;
-    case FIXED:
-      value = ((GenericFixed) value).bytes();
-      break;
-    }
-    writer.writeValue(value, column);
-  }
-```
-
-### EnumSwitchStatementWhichMissesCases
-`switch (s.getType()) { case STRING: result = Schema.create(Schema.Type.STRING); if (...` statement on enum type 'org.apache.avro.Schema.Type' misses cases: 'ENUM', 'FIXED', 'BYTES', 'INT', 'LONG', ...
-in `lang/java/compiler/src/main/java/org/apache/avro/compiler/specific/SpecificCompiler.java`
-#### Snippet
-```java
-      return seen.get(s); // break loops
-    Schema result = s;
-    switch (s.getType()) {
-    case STRING:
-      result = Schema.create(Schema.Type.STRING);
-      if (s.getLogicalType() == null) {
-        GenericData.setStringType(result, stringType);
-      }
-      break;
-    case RECORD:
-      result = Schema.createRecord(s.getFullName(), s.getDoc(), null, s.isError());
-      for (String alias : s.getAliases())
-        result.addAlias(alias, null); // copy aliases
-      seen.put(s, result);
-      List<Field> newFields = new ArrayList<>(s.getFields().size());
-      for (Field f : s.getFields()) {
-        Schema fSchema = addStringType(f.schema(), seen);
-        Field newF = new Field(f, fSchema);
-        newFields.add(newF);
-      }
-      result.setFields(newFields);
-      break;
-    case ARRAY:
-      Schema e = addStringType(s.getElementType(), seen);
-      result = Schema.createArray(e);
-      break;
-    case MAP:
-      Schema v = addStringType(s.getValueType(), seen);
-      result = Schema.createMap(v);
-      GenericData.setStringType(result, stringType);
-      break;
-    case UNION:
-      List<Schema> types = new ArrayList<>(s.getTypes().size());
-      for (Schema branch : s.getTypes())
-        types.add(addStringType(branch, seen));
-      result = Schema.createUnion(types);
-      break;
-    }
-    result.addAllProps(s);
-    if (s.getLogicalType() != null) {
 ```
 
 ### EnumSwitchStatementWhichMissesCases
@@ -283,113 +210,6 @@ in `lang/java/avro/src/main/java/org/apache/avro/Conversions.java`
       }
       return datum;
     } catch (ClassCastException e) {
-```
-
-### EnumSwitchStatementWhichMissesCases
-`switch (r.getType()) { case LONG: switch (wt) { case INT: return tr...` statement on enum type 'org.apache.avro.Schema.Type' misses cases: 'RECORD', 'ENUM', 'ARRAY', 'MAP', 'UNION', ...
-in `lang/java/avro/src/main/java/org/apache/avro/Resolver.java`
-#### Snippet
-```java
-        throw new IllegalArgumentException("Only use when reader and writer are different.");
-      Schema.Type wt = w.getType();
-      switch (r.getType()) {
-
-      case LONG:
-        switch (wt) {
-        case INT:
-          return true;
-        }
-        break;
-      case FLOAT:
-        switch (wt) {
-        case INT:
-        case LONG:
-          return true;
-        }
-        break;
-      case DOUBLE:
-        switch (wt) {
-        case INT:
-        case LONG:
-        case FLOAT:
-          return true;
-        }
-        break;
-      case BYTES:
-      case STRING:
-        switch (wt) {
-        case STRING:
-        case BYTES:
-          return true;
-        }
-        break;
-      }
-      return false;
-    }
-```
-
-### EnumSwitchStatementWhichMissesCases
-`switch (wt) { case INT: return true; }` statement on enum type 'org.apache.avro.Schema.Type' misses cases: 'RECORD', 'ENUM', 'ARRAY', 'MAP', 'UNION', ...
-in `lang/java/avro/src/main/java/org/apache/avro/Resolver.java`
-#### Snippet
-```java
-
-      case LONG:
-        switch (wt) {
-        case INT:
-          return true;
-        }
-        break;
-      case FLOAT:
-```
-
-### EnumSwitchStatementWhichMissesCases
-`switch (wt) { case INT: case LONG: return true; }` statement on enum type 'org.apache.avro.Schema.Type' misses cases: 'RECORD', 'ENUM', 'ARRAY', 'MAP', 'UNION', ...
-in `lang/java/avro/src/main/java/org/apache/avro/Resolver.java`
-#### Snippet
-```java
-        break;
-      case FLOAT:
-        switch (wt) {
-        case INT:
-        case LONG:
-          return true;
-        }
-        break;
-      case DOUBLE:
-```
-
-### EnumSwitchStatementWhichMissesCases
-`switch (wt) { case INT: case LONG: case FLOAT: return true; ...` statement on enum type 'org.apache.avro.Schema.Type' misses cases: 'RECORD', 'ENUM', 'ARRAY', 'MAP', 'UNION', ...
-in `lang/java/avro/src/main/java/org/apache/avro/Resolver.java`
-#### Snippet
-```java
-        break;
-      case DOUBLE:
-        switch (wt) {
-        case INT:
-        case LONG:
-        case FLOAT:
-          return true;
-        }
-        break;
-      case BYTES:
-```
-
-### EnumSwitchStatementWhichMissesCases
-`switch (wt) { case STRING: case BYTES: return true; }` statement on enum type 'org.apache.avro.Schema.Type' misses cases: 'RECORD', 'ENUM', 'ARRAY', 'MAP', 'UNION', ...
-in `lang/java/avro/src/main/java/org/apache/avro/Resolver.java`
-#### Snippet
-```java
-      case BYTES:
-      case STRING:
-        switch (wt) {
-        case STRING:
-        case BYTES:
-          return true;
-        }
-        break;
-      }
 ```
 
 ### EnumSwitchStatementWhichMissesCases
@@ -517,6 +337,160 @@ in `lang/java/avro/src/main/java/org/apache/avro/Resolver.java`
 ```
 
 ### EnumSwitchStatementWhichMissesCases
+`switch (r.getType()) { case LONG: switch (wt) { case INT: return tr...` statement on enum type 'org.apache.avro.Schema.Type' misses cases: 'RECORD', 'ENUM', 'ARRAY', 'MAP', 'UNION', ...
+in `lang/java/avro/src/main/java/org/apache/avro/Resolver.java`
+#### Snippet
+```java
+        throw new IllegalArgumentException("Only use when reader and writer are different.");
+      Schema.Type wt = w.getType();
+      switch (r.getType()) {
+
+      case LONG:
+        switch (wt) {
+        case INT:
+          return true;
+        }
+        break;
+      case FLOAT:
+        switch (wt) {
+        case INT:
+        case LONG:
+          return true;
+        }
+        break;
+      case DOUBLE:
+        switch (wt) {
+        case INT:
+        case LONG:
+        case FLOAT:
+          return true;
+        }
+        break;
+      case BYTES:
+      case STRING:
+        switch (wt) {
+        case STRING:
+        case BYTES:
+          return true;
+        }
+        break;
+      }
+      return false;
+    }
+```
+
+### EnumSwitchStatementWhichMissesCases
+`switch (wt) { case INT: return true; }` statement on enum type 'org.apache.avro.Schema.Type' misses cases: 'RECORD', 'ENUM', 'ARRAY', 'MAP', 'UNION', ...
+in `lang/java/avro/src/main/java/org/apache/avro/Resolver.java`
+#### Snippet
+```java
+
+      case LONG:
+        switch (wt) {
+        case INT:
+          return true;
+        }
+        break;
+      case FLOAT:
+```
+
+### EnumSwitchStatementWhichMissesCases
+`switch (wt) { case INT: case LONG: return true; }` statement on enum type 'org.apache.avro.Schema.Type' misses cases: 'RECORD', 'ENUM', 'ARRAY', 'MAP', 'UNION', ...
+in `lang/java/avro/src/main/java/org/apache/avro/Resolver.java`
+#### Snippet
+```java
+        break;
+      case FLOAT:
+        switch (wt) {
+        case INT:
+        case LONG:
+          return true;
+        }
+        break;
+      case DOUBLE:
+```
+
+### EnumSwitchStatementWhichMissesCases
+`switch (wt) { case INT: case LONG: case FLOAT: return true; ...` statement on enum type 'org.apache.avro.Schema.Type' misses cases: 'RECORD', 'ENUM', 'ARRAY', 'MAP', 'UNION', ...
+in `lang/java/avro/src/main/java/org/apache/avro/Resolver.java`
+#### Snippet
+```java
+        break;
+      case DOUBLE:
+        switch (wt) {
+        case INT:
+        case LONG:
+        case FLOAT:
+          return true;
+        }
+        break;
+      case BYTES:
+```
+
+### EnumSwitchStatementWhichMissesCases
+`switch (wt) { case STRING: case BYTES: return true; }` statement on enum type 'org.apache.avro.Schema.Type' misses cases: 'RECORD', 'ENUM', 'ARRAY', 'MAP', 'UNION', ...
+in `lang/java/avro/src/main/java/org/apache/avro/Resolver.java`
+#### Snippet
+```java
+      case BYTES:
+      case STRING:
+        switch (wt) {
+        case STRING:
+        case BYTES:
+          return true;
+        }
+        break;
+      }
+```
+
+### EnumSwitchStatementWhichMissesCases
+`switch (s.getType()) { case STRING: result = Schema.create(Schema.Type.STRING); if (...` statement on enum type 'org.apache.avro.Schema.Type' misses cases: 'ENUM', 'FIXED', 'BYTES', 'INT', 'LONG', ...
+in `lang/java/compiler/src/main/java/org/apache/avro/compiler/specific/SpecificCompiler.java`
+#### Snippet
+```java
+      return seen.get(s); // break loops
+    Schema result = s;
+    switch (s.getType()) {
+    case STRING:
+      result = Schema.create(Schema.Type.STRING);
+      if (s.getLogicalType() == null) {
+        GenericData.setStringType(result, stringType);
+      }
+      break;
+    case RECORD:
+      result = Schema.createRecord(s.getFullName(), s.getDoc(), null, s.isError());
+      for (String alias : s.getAliases())
+        result.addAlias(alias, null); // copy aliases
+      seen.put(s, result);
+      List<Field> newFields = new ArrayList<>(s.getFields().size());
+      for (Field f : s.getFields()) {
+        Schema fSchema = addStringType(f.schema(), seen);
+        Field newF = new Field(f, fSchema);
+        newFields.add(newF);
+      }
+      result.setFields(newFields);
+      break;
+    case ARRAY:
+      Schema e = addStringType(s.getElementType(), seen);
+      result = Schema.createArray(e);
+      break;
+    case MAP:
+      Schema v = addStringType(s.getValueType(), seen);
+      result = Schema.createMap(v);
+      GenericData.setStringType(result, stringType);
+      break;
+    case UNION:
+      List<Schema> types = new ArrayList<>(s.getTypes().size());
+      for (Schema branch : s.getTypes())
+        types.add(addStringType(branch, seen));
+      result = Schema.createUnion(types);
+      break;
+    }
+    result.addAllProps(s);
+    if (s.getLogicalType() != null) {
+```
+
+### EnumSwitchStatementWhichMissesCases
 `switch (schema.getType()) { case STRING: stringClass = getPropAsClass(schema, SpecificData...` statement on enum type 'org.apache.avro.Schema.Type' misses cases: 'RECORD', 'ENUM', 'ARRAY', 'UNION', 'FIXED', ...
 in `lang/java/avro/src/main/java/org/apache/avro/specific/SpecificDatumReader.java`
 #### Snippet
@@ -533,22 +507,6 @@ in `lang/java/avro/src/main/java/org/apache/avro/specific/SpecificDatumReader.ja
     }
     if (stringClass != null)
       return stringClass;
-```
-
-### EnumSwitchStatementWhichMissesCases
-`switch (f.getType()) { case ENUM: value = ((EnumValueDescriptor) value).getName(); ...` statement on enum type 'com.google.protobuf.Descriptors.FieldDescriptor.Type' misses cases: 'DOUBLE', 'FLOAT', 'INT64', 'UINT64', 'INT32', ...
-in `lang/java/protobuf/src/main/java/org/apache/avro/protobuf/ProtobufData.java`
-#### Snippet
-```java
-    if (f.hasDefaultValue()) { // parse spec'd default value
-      Object value = f.getDefaultValue();
-      switch (f.getType()) {
-      case ENUM:
-        value = ((EnumValueDescriptor) value).getName();
-        break;
-      }
-      String json = toString(value);
-      try {
 ```
 
 ### EnumSwitchStatementWhichMissesCases
@@ -582,6 +540,49 @@ in `lang/java/avro/src/main/java/org/apache/avro/reflect/ReflectData.java`
     }
     return super.compare(o1, o2, s, equals);
   }
+```
+
+### EnumSwitchStatementWhichMissesCases
+`switch (s.getType()) { case STRING: if (value instanceof Utf8) // convert Utf8 to String ...` statement on enum type 'org.apache.avro.Schema.Type' misses cases: 'RECORD', 'ARRAY', 'MAP', 'UNION', 'BYTES', ...
+in `lang/java/trevni/avro/src/main/java/org/apache/trevni/avro/AvroColumnWriter.java`
+#### Snippet
+```java
+  private void writeValue(Object value, Schema s, int column) throws IOException {
+
+    switch (s.getType()) {
+    case STRING:
+      if (value instanceof Utf8) // convert Utf8 to String
+        value = value.toString();
+      break;
+    case ENUM:
+      if (value instanceof Enum)
+        value = ((Enum) value).ordinal();
+      else
+        value = s.getEnumOrdinal(value.toString());
+      break;
+    case FIXED:
+      value = ((GenericFixed) value).bytes();
+      break;
+    }
+    writer.writeValue(value, column);
+  }
+```
+
+### EnumSwitchStatementWhichMissesCases
+`switch (s.getType()) { case ENUM: return model.createEnum(s.getEnumSymbols().get((Integer)...` statement on enum type 'org.apache.avro.Schema.Type' misses cases: 'RECORD', 'ARRAY', 'MAP', 'UNION', 'STRING', ...
+in `lang/java/trevni/avro/src/main/java/org/apache/trevni/avro/AvroColumnReader.java`
+#### Snippet
+```java
+    Object v = values[column].nextValue();
+
+    switch (s.getType()) {
+    case ENUM:
+      return model.createEnum(s.getEnumSymbols().get((Integer) v), s);
+    case FIXED:
+      return model.createFixed(null, ((ByteBuffer) v).array(), s);
+    }
+
+    return v;
 ```
 
 ### EnumSwitchStatementWhichMissesCases
@@ -627,42 +628,6 @@ in `lang/java/avro/src/main/java/org/apache/avro/Schema.java`
 ## RuleId[ruleID=WrapperTypeMayBePrimitive]
 ### WrapperTypeMayBePrimitive
 Type may be primitive
-in `lang/java/tools/src/main/java/org/apache/avro/tool/DataFileReadTool.java`
-#### Snippet
-```java
-
-    OptionSet optionSet = optionParser.parse(args.toArray(new String[0]));
-    Boolean pretty = optionSet.has(prettyOption);
-    List<String> nargs = new ArrayList<>((List<String>) optionSet.nonOptionArguments());
-
-```
-
-### WrapperTypeMayBePrimitive
-Type may be primitive
-in `lang/java/tools/src/main/java/org/apache/avro/tool/BinaryFragmentToJsonTool.java`
-#### Snippet
-```java
-
-    OptionSet optionSet = optionParser.parse(args.toArray(new String[0]));
-    Boolean noPretty = optionSet.has(noPrettyOption);
-    List<String> nargs = (List<String>) optionSet.nonOptionArguments();
-    String schemaFile = schemaFileOption.value(optionSet);
-```
-
-### WrapperTypeMayBePrimitive
-Type may be primitive
-in `lang/java/tools/src/main/java/org/apache/avro/tool/TetherTool.java`
-#### Snippet
-```java
-
-      List<String> exargs = null;
-      Boolean cached = false;
-
-      if (line.hasOption("exec_args")) {
-```
-
-### WrapperTypeMayBePrimitive
-Type may be primitive
 in `lang/java/perf/src/main/java/org/apache/avro/perf/Perf.java`
 #### Snippet
 ```java
@@ -685,7 +650,116 @@ in `lang/java/perf/src/main/java/org/apache/avro/perf/Perf.java`
     final ChainedOptionsBuilder runOpt = new OptionsBuilder().mode(Mode.Throughput).timeout(TimeValue.seconds(60))
 ```
 
+### WrapperTypeMayBePrimitive
+Type may be primitive
+in `lang/java/tools/src/main/java/org/apache/avro/tool/TetherTool.java`
+#### Snippet
+```java
+
+      List<String> exargs = null;
+      Boolean cached = false;
+
+      if (line.hasOption("exec_args")) {
+```
+
+### WrapperTypeMayBePrimitive
+Type may be primitive
+in `lang/java/tools/src/main/java/org/apache/avro/tool/DataFileReadTool.java`
+#### Snippet
+```java
+
+    OptionSet optionSet = optionParser.parse(args.toArray(new String[0]));
+    Boolean pretty = optionSet.has(prettyOption);
+    List<String> nargs = new ArrayList<>((List<String>) optionSet.nonOptionArguments());
+
+```
+
+### WrapperTypeMayBePrimitive
+Type may be primitive
+in `lang/java/tools/src/main/java/org/apache/avro/tool/BinaryFragmentToJsonTool.java`
+#### Snippet
+```java
+
+    OptionSet optionSet = optionParser.parse(args.toArray(new String[0]));
+    Boolean noPretty = optionSet.has(noPrettyOption);
+    List<String> nargs = (List<String>) optionSet.nonOptionArguments();
+    String schemaFile = schemaFileOption.value(optionSet);
+```
+
+## RuleId[ruleID=MismatchedArrayReadWrite]
+### MismatchedArrayReadWrite
+Contents of array `javaSourceDirectories` are read, but never written to
+in `lang/java/maven-plugin/src/main/java/org/apache/avro/mojo/InduceMojo.java`
+#### Snippet
+```java
+   *            default-value="${basedir}/src/main/java"
+   */
+  private File[] javaSourceDirectories;
+
+  /**
+```
+
 ## RuleId[ruleID=UnnecessaryModifier]
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `lang/java/avro/src/main/java/org/apache/avro/io/FastReaderBuilder.java`
+#### Snippet
+```java
+  public interface FieldReader extends DatumReader<Object> {
+    @Override
+    public Object read(Object reuse, Decoder decoder) throws IOException;
+
+    public default boolean canReuse() {
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `lang/java/avro/src/main/java/org/apache/avro/io/FastReaderBuilder.java`
+#### Snippet
+```java
+    public Object read(Object reuse, Decoder decoder) throws IOException;
+
+    public default boolean canReuse() {
+      return false;
+    }
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `lang/java/avro/src/main/java/org/apache/avro/io/FastReaderBuilder.java`
+#### Snippet
+```java
+  public interface ReusingFieldReader extends FieldReader {
+    @Override
+    public default boolean canReuse() {
+      return true;
+    }
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `lang/java/avro/src/main/java/org/apache/avro/io/FastReaderBuilder.java`
+#### Snippet
+```java
+
+  public interface ExecutionStep {
+    public void execute(Object record, Decoder decoder) throws IOException;
+  }
+
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `lang/java/avro/src/main/java/org/apache/avro/generic/GenericData.java`
+#### Snippet
+```java
+
+  public interface InstanceSupplier {
+    public Object newInstance(Object oldInstance, Schema schema);
+  }
+}
+```
+
 ### UnnecessaryModifier
 Modifier `static` is redundant for inner enums
 in `lang/java/ipc/src/main/java/org/apache/avro/ipc/SaslSocketTransceiver.java`
@@ -711,66 +785,6 @@ in `lang/java/trevni/core/src/main/java/org/apache/trevni/ValueType.java`
 ```
 
 ### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `lang/java/avro/src/main/java/org/apache/avro/io/FastReaderBuilder.java`
-#### Snippet
-```java
-  public interface FieldReader extends DatumReader<Object> {
-    @Override
-    public Object read(Object reuse, Decoder decoder) throws IOException;
-
-    public default boolean canReuse() {
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `lang/java/avro/src/main/java/org/apache/avro/io/FastReaderBuilder.java`
-#### Snippet
-```java
-
-  public interface ExecutionStep {
-    public void execute(Object record, Decoder decoder) throws IOException;
-  }
-
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `lang/java/avro/src/main/java/org/apache/avro/io/FastReaderBuilder.java`
-#### Snippet
-```java
-  public interface ReusingFieldReader extends FieldReader {
-    @Override
-    public default boolean canReuse() {
-      return true;
-    }
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `lang/java/avro/src/main/java/org/apache/avro/io/FastReaderBuilder.java`
-#### Snippet
-```java
-    public Object read(Object reuse, Decoder decoder) throws IOException;
-
-    public default boolean canReuse() {
-      return false;
-    }
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `lang/java/avro/src/main/java/org/apache/avro/generic/GenericData.java`
-#### Snippet
-```java
-
-  public interface InstanceSupplier {
-    public Object newInstance(Object oldInstance, Schema schema);
-  }
-}
-```
-
-### UnnecessaryModifier
 Modifier `private` is redundant for enum constructors
 in `lang/java/avro/src/main/java/org/apache/avro/Schema.java`
 #### Snippet
@@ -782,56 +796,7 @@ in `lang/java/avro/src/main/java/org/apache/avro/Schema.java`
     }
 ```
 
-## RuleId[ruleID=MismatchedArrayReadWrite]
-### MismatchedArrayReadWrite
-Contents of array `javaSourceDirectories` are read, but never written to
-in `lang/java/maven-plugin/src/main/java/org/apache/avro/mojo/InduceMojo.java`
-#### Snippet
-```java
-   *            default-value="${basedir}/src/main/java"
-   */
-  private File[] javaSourceDirectories;
-
-  /**
-```
-
 ## RuleId[ruleID=PointlessArithmeticExpression]
-### PointlessArithmeticExpression
-`7 * 1` can be replaced with '7'
-in `lang/java/trevni/core/src/main/java/org/apache/trevni/OutputBuffer.java`
-#### Snippet
-```java
-  public static int size(long n) {
-    n = (n << 1) ^ (n >> 63); // move sign to low-order bit
-    if (n <= (1 << (7 * 1)) - 1)
-      return 1;
-    if (n <= (1 << (7 * 2)) - 1)
-```
-
-### PointlessArithmeticExpression
-`7 * 1` can be replaced with '7'
-in `lang/java/trevni/core/src/main/java/org/apache/trevni/OutputBuffer.java`
-#### Snippet
-```java
-  public static int size(int n) {
-    n = (n << 1) ^ (n >> 31); // move sign to low-order bit
-    if (n <= (1 << (7 * 1)) - 1)
-      return 1;
-    if (n <= (1 << (7 * 2)) - 1)
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `lang/java/perf/src/main/java/org/apache/avro/perf/test/basic/StringTest.java`
-#### Snippet
-```java
-    final Encoder e = state.encoder;
-    for (int i = 0; i < state.getBatchSize(); i += 4) {
-      e.writeString(state.testData[i + 0]);
-      e.writeString(state.testData[i + 1]);
-      e.writeString(state.testData[i + 2]);
-```
-
 ### PointlessArithmeticExpression
 `i + 0` can be replaced with 'i'
 in `lang/java/perf/src/main/java/org/apache/avro/perf/test/basic/DoubleTest.java`
@@ -842,6 +807,66 @@ in `lang/java/perf/src/main/java/org/apache/avro/perf/test/basic/DoubleTest.java
       e.writeDouble(state.testData[i + 0]);
       e.writeDouble(state.testData[i + 1]);
       e.writeDouble(state.testData[i + 2]);
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `lang/java/perf/src/main/java/org/apache/avro/perf/test/basic/SmallLongTest.java`
+#### Snippet
+```java
+    final Encoder e = state.encoder;
+    for (int i = 0; i < state.getBatchSize(); i += 4) {
+      e.writeLong(state.testData[i + 0]);
+      e.writeLong(state.testData[i + 1]);
+      e.writeLong(state.testData[i + 2]);
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `lang/java/perf/src/main/java/org/apache/avro/perf/test/basic/FloatTest.java`
+#### Snippet
+```java
+    final Encoder e = state.encoder;
+    for (int i = 0; i < state.getBatchSize(); i += 4) {
+      e.writeFloat(state.testData[i + 0]);
+      e.writeFloat(state.testData[i + 1]);
+      e.writeFloat(state.testData[i + 2]);
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `lang/java/perf/src/main/java/org/apache/avro/perf/test/basic/SmallLongTest.java`
+#### Snippet
+```java
+      for (int i = 0; i < testData.length; i += 4) {
+        // fits in 1 byte
+        testData[i + 0] = super.getRandom().nextInt(50);
+
+        // fits in 2 bytes
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `lang/java/perf/src/main/java/org/apache/avro/perf/test/basic/BytesTest.java`
+#### Snippet
+```java
+    final Encoder e = state.encoder;
+    for (int i = 0; i < state.getBatchSize(); i += 4) {
+      e.writeBytes(state.testData[i + 0]);
+      e.writeBytes(state.testData[i + 1]);
+      e.writeBytes(state.testData[i + 2]);
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `lang/java/perf/src/main/java/org/apache/avro/perf/test/basic/BooleanTest.java`
+#### Snippet
+```java
+    final Encoder e = state.encoder;
+    for (int i = 0; i < state.getBatchSize(); i += 4) {
+      e.writeBoolean(state.testData[i + 0]);
+      e.writeBoolean(state.testData[i + 1]);
+      e.writeBoolean(state.testData[i + 2]);
 ```
 
 ### PointlessArithmeticExpression
@@ -882,74 +907,14 @@ in `lang/java/perf/src/main/java/org/apache/avro/perf/test/basic/ArrayTest.java`
 
 ### PointlessArithmeticExpression
 `i + 0` can be replaced with 'i'
-in `lang/java/perf/src/main/java/org/apache/avro/perf/test/basic/BytesTest.java`
+in `lang/java/perf/src/main/java/org/apache/avro/perf/test/basic/StringTest.java`
 #### Snippet
 ```java
     final Encoder e = state.encoder;
     for (int i = 0; i < state.getBatchSize(); i += 4) {
-      e.writeBytes(state.testData[i + 0]);
-      e.writeBytes(state.testData[i + 1]);
-      e.writeBytes(state.testData[i + 2]);
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `lang/java/perf/src/main/java/org/apache/avro/perf/test/basic/FloatTest.java`
-#### Snippet
-```java
-    final Encoder e = state.encoder;
-    for (int i = 0; i < state.getBatchSize(); i += 4) {
-      e.writeFloat(state.testData[i + 0]);
-      e.writeFloat(state.testData[i + 1]);
-      e.writeFloat(state.testData[i + 2]);
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `lang/java/perf/src/main/java/org/apache/avro/perf/test/basic/BooleanTest.java`
-#### Snippet
-```java
-    final Encoder e = state.encoder;
-    for (int i = 0; i < state.getBatchSize(); i += 4) {
-      e.writeBoolean(state.testData[i + 0]);
-      e.writeBoolean(state.testData[i + 1]);
-      e.writeBoolean(state.testData[i + 2]);
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `lang/java/perf/src/main/java/org/apache/avro/perf/test/basic/SmallLongTest.java`
-#### Snippet
-```java
-      for (int i = 0; i < testData.length; i += 4) {
-        // fits in 1 byte
-        testData[i + 0] = super.getRandom().nextInt(50);
-
-        // fits in 2 bytes
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `lang/java/perf/src/main/java/org/apache/avro/perf/test/basic/SmallLongTest.java`
-#### Snippet
-```java
-    final Encoder e = state.encoder;
-    for (int i = 0; i < state.getBatchSize(); i += 4) {
-      e.writeLong(state.testData[i + 0]);
-      e.writeLong(state.testData[i + 1]);
-      e.writeLong(state.testData[i + 2]);
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `lang/java/perf/src/main/java/org/apache/avro/perf/test/basic/MapTest.java`
-#### Snippet
-```java
-      e.startItem();
-      e.writeString(state.utf);
-      e.writeFloat(state.testData[i + 0]);
-      e.writeFloat(state.testData[i + 1]);
-      e.writeFloat(state.testData[i + 2]);
+      e.writeString(state.testData[i + 0]);
+      e.writeString(state.testData[i + 1]);
+      e.writeString(state.testData[i + 2]);
 ```
 
 ### PointlessArithmeticExpression
@@ -978,14 +943,14 @@ in `lang/java/perf/src/main/java/org/apache/avro/perf/test/basic/IntTest.java`
 
 ### PointlessArithmeticExpression
 `i + 0` can be replaced with 'i'
-in `lang/java/perf/src/main/java/org/apache/avro/perf/test/basic/UnchangedUnionTest.java`
+in `lang/java/perf/src/main/java/org/apache/avro/perf/test/basic/MapTest.java`
 #### Snippet
 ```java
-    GenericDatumWriter<Object> writer = new GenericDatumWriter<>(state.schema);
-    for (int i = 0; i < state.getBatchSize(); i += 4) {
-      writer.write(state.testData[i + 0], e);
-      writer.write(state.testData[i + 1], e);
-      writer.write(state.testData[i + 2], e);
+      e.startItem();
+      e.writeString(state.utf);
+      e.writeFloat(state.testData[i + 0]);
+      e.writeFloat(state.testData[i + 1]);
+      e.writeFloat(state.testData[i + 2]);
 ```
 
 ### PointlessArithmeticExpression
@@ -998,6 +963,42 @@ in `lang/java/perf/src/main/java/org/apache/avro/perf/test/basic/ExtendedEnumTes
       writer.write(state.testData[i + 0], e);
       writer.write(state.testData[i + 1], e);
       writer.write(state.testData[i + 2], e);
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `lang/java/perf/src/main/java/org/apache/avro/perf/test/basic/UnchangedUnionTest.java`
+#### Snippet
+```java
+    GenericDatumWriter<Object> writer = new GenericDatumWriter<>(state.schema);
+    for (int i = 0; i < state.getBatchSize(); i += 4) {
+      writer.write(state.testData[i + 0], e);
+      writer.write(state.testData[i + 1], e);
+      writer.write(state.testData[i + 2], e);
+```
+
+### PointlessArithmeticExpression
+`7 * 1` can be replaced with '7'
+in `lang/java/trevni/core/src/main/java/org/apache/trevni/OutputBuffer.java`
+#### Snippet
+```java
+  public static int size(long n) {
+    n = (n << 1) ^ (n >> 63); // move sign to low-order bit
+    if (n <= (1 << (7 * 1)) - 1)
+      return 1;
+    if (n <= (1 << (7 * 2)) - 1)
+```
+
+### PointlessArithmeticExpression
+`7 * 1` can be replaced with '7'
+in `lang/java/trevni/core/src/main/java/org/apache/trevni/OutputBuffer.java`
+#### Snippet
+```java
+  public static int size(int n) {
+    n = (n << 1) ^ (n >> 31); // move sign to low-order bit
+    if (n <= (1 << (7 * 1)) - 1)
+      return 1;
+    if (n <= (1 << (7 * 2)) - 1)
 ```
 
 ## RuleId[ruleID=StaticCallOnSubclass]
@@ -1052,15 +1053,15 @@ in `lang/java/avro/src/main/java/org/apache/avro/io/BinaryData.java`
 
 ## RuleId[ruleID=StaticInitializerReferencesSubClass]
 ### StaticInitializerReferencesSubClass
-Referencing subclass Terminal from superclass Symbol initializer might lead to class loading deadlock
+Referencing subclass ImplicitAction from superclass Symbol initializer might lead to class loading deadlock
 in `lang/java/avro/src/main/java/org/apache/avro/io/parsing/Symbol.java`
 #### Snippet
 ```java
-  public static final Symbol FLOAT = new Symbol.Terminal("float");
-  public static final Symbol DOUBLE = new Symbol.Terminal("double");
-  public static final Symbol STRING = new Symbol.Terminal("string");
-  public static final Symbol BYTES = new Symbol.Terminal("bytes");
-  public static final Symbol FIXED = new Symbol.Terminal("fixed");
+
+  public static final Symbol RECORD_START = new ImplicitAction(false);
+  public static final Symbol RECORD_END = new ImplicitAction(true);
+  public static final Symbol UNION_END = new ImplicitAction(true);
+  public static final Symbol FIELD_END = new ImplicitAction(true);
 ```
 
 ### StaticInitializerReferencesSubClass
@@ -1068,11 +1069,11 @@ Referencing subclass Terminal from superclass Symbol initializer might lead to c
 in `lang/java/avro/src/main/java/org/apache/avro/io/parsing/Symbol.java`
 #### Snippet
 ```java
+  public static final Symbol NULL = new Symbol.Terminal("null");
   public static final Symbol BOOLEAN = new Symbol.Terminal("boolean");
   public static final Symbol INT = new Symbol.Terminal("int");
   public static final Symbol LONG = new Symbol.Terminal("long");
   public static final Symbol FLOAT = new Symbol.Terminal("float");
-  public static final Symbol DOUBLE = new Symbol.Terminal("double");
 ```
 
 ### StaticInitializerReferencesSubClass
@@ -1088,51 +1089,51 @@ in `lang/java/avro/src/main/java/org/apache/avro/io/parsing/Symbol.java`
 ```
 
 ### StaticInitializerReferencesSubClass
-Referencing subclass Terminal from superclass Symbol initializer might lead to class loading deadlock
-in `lang/java/avro/src/main/java/org/apache/avro/io/parsing/Symbol.java`
-#### Snippet
-```java
-  public static final Symbol MAP_START = new Symbol.Terminal("map-start");
-  public static final Symbol MAP_END = new Symbol.Terminal("map-end");
-  public static final Symbol ITEM_END = new Symbol.Terminal("item-end");
-
-  public static final Symbol WRITER_UNION_ACTION = writerUnionAction();
-```
-
-### StaticInitializerReferencesSubClass
 Referencing subclass ImplicitAction from superclass Symbol initializer might lead to class loading deadlock
 in `lang/java/avro/src/main/java/org/apache/avro/io/parsing/Symbol.java`
 #### Snippet
 ```java
-  public static final Symbol RECORD_END = new ImplicitAction(true);
-  public static final Symbol UNION_END = new ImplicitAction(true);
-  public static final Symbol FIELD_END = new ImplicitAction(true);
-
-  public static final Symbol DEFAULT_END_ACTION = new ImplicitAction(true);
-```
-
-### StaticInitializerReferencesSubClass
-Referencing subclass WriterUnionAction from superclass Symbol initializer might lead to class loading deadlock
-in `lang/java/avro/src/main/java/org/apache/avro/io/parsing/Symbol.java`
-#### Snippet
-```java
-  public static final Symbol ITEM_END = new Symbol.Terminal("item-end");
-
-  public static final Symbol WRITER_UNION_ACTION = writerUnionAction();
-
-  /* a pseudo terminal used by parsers */
-```
-
-### StaticInitializerReferencesSubClass
-Referencing subclass ImplicitAction from superclass Symbol initializer might lead to class loading deadlock
-in `lang/java/avro/src/main/java/org/apache/avro/io/parsing/Symbol.java`
-#### Snippet
-```java
-
   public static final Symbol RECORD_START = new ImplicitAction(false);
   public static final Symbol RECORD_END = new ImplicitAction(true);
   public static final Symbol UNION_END = new ImplicitAction(true);
   public static final Symbol FIELD_END = new ImplicitAction(true);
+
+```
+
+### StaticInitializerReferencesSubClass
+Referencing subclass Terminal from superclass Symbol initializer might lead to class loading deadlock
+in `lang/java/avro/src/main/java/org/apache/avro/io/parsing/Symbol.java`
+#### Snippet
+```java
+  public static final Symbol STRING = new Symbol.Terminal("string");
+  public static final Symbol BYTES = new Symbol.Terminal("bytes");
+  public static final Symbol FIXED = new Symbol.Terminal("fixed");
+  public static final Symbol ENUM = new Symbol.Terminal("enum");
+  public static final Symbol UNION = new Symbol.Terminal("union");
+```
+
+### StaticInitializerReferencesSubClass
+Referencing subclass Terminal from superclass Symbol initializer might lead to class loading deadlock
+in `lang/java/avro/src/main/java/org/apache/avro/io/parsing/Symbol.java`
+#### Snippet
+```java
+  public static final Symbol BOOLEAN = new Symbol.Terminal("boolean");
+  public static final Symbol INT = new Symbol.Terminal("int");
+  public static final Symbol LONG = new Symbol.Terminal("long");
+  public static final Symbol FLOAT = new Symbol.Terminal("float");
+  public static final Symbol DOUBLE = new Symbol.Terminal("double");
+```
+
+### StaticInitializerReferencesSubClass
+Referencing subclass Terminal from superclass Symbol initializer might lead to class loading deadlock
+in `lang/java/avro/src/main/java/org/apache/avro/io/parsing/Symbol.java`
+#### Snippet
+```java
+
+  /* a pseudo terminal used by parsers */
+  public static final Symbol FIELD_ACTION = new Symbol.Terminal("field-action");
+
+  public static final Symbol RECORD_START = new ImplicitAction(false);
 ```
 
 ### StaticInitializerReferencesSubClass
@@ -1152,83 +1153,11 @@ Referencing subclass Terminal from superclass Symbol initializer might lead to c
 in `lang/java/avro/src/main/java/org/apache/avro/io/parsing/Symbol.java`
 #### Snippet
 ```java
-  public static final Symbol DOUBLE = new Symbol.Terminal("double");
-  public static final Symbol STRING = new Symbol.Terminal("string");
-  public static final Symbol BYTES = new Symbol.Terminal("bytes");
-  public static final Symbol FIXED = new Symbol.Terminal("fixed");
-  public static final Symbol ENUM = new Symbol.Terminal("enum");
-```
-
-### StaticInitializerReferencesSubClass
-Referencing subclass Terminal from superclass Symbol initializer might lead to class loading deadlock
-in `lang/java/avro/src/main/java/org/apache/avro/io/parsing/Symbol.java`
-#### Snippet
-```java
-  public static final Symbol NULL = new Symbol.Terminal("null");
-  public static final Symbol BOOLEAN = new Symbol.Terminal("boolean");
-  public static final Symbol INT = new Symbol.Terminal("int");
-  public static final Symbol LONG = new Symbol.Terminal("long");
-  public static final Symbol FLOAT = new Symbol.Terminal("float");
-```
-
-### StaticInitializerReferencesSubClass
-Referencing subclass Terminal from superclass Symbol initializer might lead to class loading deadlock
-in `lang/java/avro/src/main/java/org/apache/avro/io/parsing/Symbol.java`
-#### Snippet
-```java
-  public static final Symbol FIXED = new Symbol.Terminal("fixed");
-  public static final Symbol ENUM = new Symbol.Terminal("enum");
-  public static final Symbol UNION = new Symbol.Terminal("union");
-
   public static final Symbol ARRAY_START = new Symbol.Terminal("array-start");
-```
-
-### StaticInitializerReferencesSubClass
-Referencing subclass Terminal from superclass Symbol initializer might lead to class loading deadlock
-in `lang/java/avro/src/main/java/org/apache/avro/io/parsing/Symbol.java`
-#### Snippet
-```java
   public static final Symbol ARRAY_END = new Symbol.Terminal("array-end");
   public static final Symbol MAP_START = new Symbol.Terminal("map-start");
   public static final Symbol MAP_END = new Symbol.Terminal("map-end");
   public static final Symbol ITEM_END = new Symbol.Terminal("item-end");
-
-```
-
-### StaticInitializerReferencesSubClass
-Referencing subclass ImplicitAction from superclass Symbol initializer might lead to class loading deadlock
-in `lang/java/avro/src/main/java/org/apache/avro/io/parsing/Symbol.java`
-#### Snippet
-```java
-  public static final Symbol RECORD_START = new ImplicitAction(false);
-  public static final Symbol RECORD_END = new ImplicitAction(true);
-  public static final Symbol UNION_END = new ImplicitAction(true);
-  public static final Symbol FIELD_END = new ImplicitAction(true);
-
-```
-
-### StaticInitializerReferencesSubClass
-Referencing subclass Terminal from superclass Symbol initializer might lead to class loading deadlock
-in `lang/java/avro/src/main/java/org/apache/avro/io/parsing/Symbol.java`
-#### Snippet
-```java
-
-  public static final Symbol ARRAY_START = new Symbol.Terminal("array-start");
-  public static final Symbol ARRAY_END = new Symbol.Terminal("array-end");
-  public static final Symbol MAP_START = new Symbol.Terminal("map-start");
-  public static final Symbol MAP_END = new Symbol.Terminal("map-end");
-```
-
-### StaticInitializerReferencesSubClass
-Referencing subclass Terminal from superclass Symbol initializer might lead to class loading deadlock
-in `lang/java/avro/src/main/java/org/apache/avro/io/parsing/Symbol.java`
-#### Snippet
-```java
-  public static final Symbol INT = new Symbol.Terminal("int");
-  public static final Symbol LONG = new Symbol.Terminal("long");
-  public static final Symbol FLOAT = new Symbol.Terminal("float");
-  public static final Symbol DOUBLE = new Symbol.Terminal("double");
-  public static final Symbol STRING = new Symbol.Terminal("string");
 ```
 
 ### StaticInitializerReferencesSubClass
@@ -1248,11 +1177,11 @@ Referencing subclass Terminal from superclass Symbol initializer might lead to c
 in `lang/java/avro/src/main/java/org/apache/avro/io/parsing/Symbol.java`
 #### Snippet
 ```java
-  public static final Symbol LONG = new Symbol.Terminal("long");
   public static final Symbol FLOAT = new Symbol.Terminal("float");
   public static final Symbol DOUBLE = new Symbol.Terminal("double");
   public static final Symbol STRING = new Symbol.Terminal("string");
   public static final Symbol BYTES = new Symbol.Terminal("bytes");
+  public static final Symbol FIXED = new Symbol.Terminal("fixed");
 ```
 
 ### StaticInitializerReferencesSubClass
@@ -1260,11 +1189,95 @@ Referencing subclass Terminal from superclass Symbol initializer might lead to c
 in `lang/java/avro/src/main/java/org/apache/avro/io/parsing/Symbol.java`
 #### Snippet
 ```java
+  public static final Symbol FIXED = new Symbol.Terminal("fixed");
+  public static final Symbol ENUM = new Symbol.Terminal("enum");
+  public static final Symbol UNION = new Symbol.Terminal("union");
+
+  public static final Symbol ARRAY_START = new Symbol.Terminal("array-start");
+```
+
+### StaticInitializerReferencesSubClass
+Referencing subclass ImplicitAction from superclass Symbol initializer might lead to class loading deadlock
+in `lang/java/avro/src/main/java/org/apache/avro/io/parsing/Symbol.java`
+#### Snippet
+```java
+  public static final Symbol RECORD_END = new ImplicitAction(true);
+  public static final Symbol UNION_END = new ImplicitAction(true);
+  public static final Symbol FIELD_END = new ImplicitAction(true);
+
+  public static final Symbol DEFAULT_END_ACTION = new ImplicitAction(true);
+```
+
+### StaticInitializerReferencesSubClass
+Referencing subclass Terminal from superclass Symbol initializer might lead to class loading deadlock
+in `lang/java/avro/src/main/java/org/apache/avro/io/parsing/Symbol.java`
+#### Snippet
+```java
+   */
+  public static final Symbol NULL = new Symbol.Terminal("null");
+  public static final Symbol BOOLEAN = new Symbol.Terminal("boolean");
+  public static final Symbol INT = new Symbol.Terminal("int");
+  public static final Symbol LONG = new Symbol.Terminal("long");
+```
+
+### StaticInitializerReferencesSubClass
+Referencing subclass WriterUnionAction from superclass Symbol initializer might lead to class loading deadlock
+in `lang/java/avro/src/main/java/org/apache/avro/io/parsing/Symbol.java`
+#### Snippet
+```java
+  public static final Symbol ITEM_END = new Symbol.Terminal("item-end");
+
+  public static final Symbol WRITER_UNION_ACTION = writerUnionAction();
+
+  /* a pseudo terminal used by parsers */
+```
+
+### StaticInitializerReferencesSubClass
+Referencing subclass Terminal from superclass Symbol initializer might lead to class loading deadlock
+in `lang/java/avro/src/main/java/org/apache/avro/io/parsing/Symbol.java`
+#### Snippet
+```java
+
   public static final Symbol ARRAY_START = new Symbol.Terminal("array-start");
   public static final Symbol ARRAY_END = new Symbol.Terminal("array-end");
   public static final Symbol MAP_START = new Symbol.Terminal("map-start");
   public static final Symbol MAP_END = new Symbol.Terminal("map-end");
+```
+
+### StaticInitializerReferencesSubClass
+Referencing subclass Terminal from superclass Symbol initializer might lead to class loading deadlock
+in `lang/java/avro/src/main/java/org/apache/avro/io/parsing/Symbol.java`
+#### Snippet
+```java
+  public static final Symbol DOUBLE = new Symbol.Terminal("double");
+  public static final Symbol STRING = new Symbol.Terminal("string");
+  public static final Symbol BYTES = new Symbol.Terminal("bytes");
+  public static final Symbol FIXED = new Symbol.Terminal("fixed");
+  public static final Symbol ENUM = new Symbol.Terminal("enum");
+```
+
+### StaticInitializerReferencesSubClass
+Referencing subclass Terminal from superclass Symbol initializer might lead to class loading deadlock
+in `lang/java/avro/src/main/java/org/apache/avro/io/parsing/Symbol.java`
+#### Snippet
+```java
+  public static final Symbol MAP_START = new Symbol.Terminal("map-start");
+  public static final Symbol MAP_END = new Symbol.Terminal("map-end");
   public static final Symbol ITEM_END = new Symbol.Terminal("item-end");
+
+  public static final Symbol WRITER_UNION_ACTION = writerUnionAction();
+```
+
+### StaticInitializerReferencesSubClass
+Referencing subclass Terminal from superclass Symbol initializer might lead to class loading deadlock
+in `lang/java/avro/src/main/java/org/apache/avro/io/parsing/Symbol.java`
+#### Snippet
+```java
+  public static final Symbol ARRAY_END = new Symbol.Terminal("array-end");
+  public static final Symbol MAP_START = new Symbol.Terminal("map-start");
+  public static final Symbol MAP_END = new Symbol.Terminal("map-end");
+  public static final Symbol ITEM_END = new Symbol.Terminal("item-end");
+
 ```
 
 ### StaticInitializerReferencesSubClass
@@ -1277,6 +1290,30 @@ in `lang/java/avro/src/main/java/org/apache/avro/io/parsing/Symbol.java`
   public static final Symbol ENUM = new Symbol.Terminal("enum");
   public static final Symbol UNION = new Symbol.Terminal("union");
 
+```
+
+### StaticInitializerReferencesSubClass
+Referencing subclass Terminal from superclass Symbol initializer might lead to class loading deadlock
+in `lang/java/avro/src/main/java/org/apache/avro/io/parsing/Symbol.java`
+#### Snippet
+```java
+  public static final Symbol INT = new Symbol.Terminal("int");
+  public static final Symbol LONG = new Symbol.Terminal("long");
+  public static final Symbol FLOAT = new Symbol.Terminal("float");
+  public static final Symbol DOUBLE = new Symbol.Terminal("double");
+  public static final Symbol STRING = new Symbol.Terminal("string");
+```
+
+### StaticInitializerReferencesSubClass
+Referencing subclass Terminal from superclass Symbol initializer might lead to class loading deadlock
+in `lang/java/avro/src/main/java/org/apache/avro/io/parsing/Symbol.java`
+#### Snippet
+```java
+  public static final Symbol UNION = new Symbol.Terminal("union");
+
+  public static final Symbol ARRAY_START = new Symbol.Terminal("array-start");
+  public static final Symbol ARRAY_END = new Symbol.Terminal("array-end");
+  public static final Symbol MAP_START = new Symbol.Terminal("map-start");
 ```
 
 ### StaticInitializerReferencesSubClass
@@ -1296,47 +1333,11 @@ Referencing subclass Terminal from superclass Symbol initializer might lead to c
 in `lang/java/avro/src/main/java/org/apache/avro/io/parsing/Symbol.java`
 #### Snippet
 ```java
-  public static final Symbol UNION = new Symbol.Terminal("union");
-
-  public static final Symbol ARRAY_START = new Symbol.Terminal("array-start");
-  public static final Symbol ARRAY_END = new Symbol.Terminal("array-end");
-  public static final Symbol MAP_START = new Symbol.Terminal("map-start");
-```
-
-### StaticInitializerReferencesSubClass
-Referencing subclass Terminal from superclass Symbol initializer might lead to class loading deadlock
-in `lang/java/avro/src/main/java/org/apache/avro/io/parsing/Symbol.java`
-#### Snippet
-```java
-
-  /* a pseudo terminal used by parsers */
-  public static final Symbol FIELD_ACTION = new Symbol.Terminal("field-action");
-
-  public static final Symbol RECORD_START = new ImplicitAction(false);
-```
-
-### StaticInitializerReferencesSubClass
-Referencing subclass Terminal from superclass Symbol initializer might lead to class loading deadlock
-in `lang/java/avro/src/main/java/org/apache/avro/io/parsing/Symbol.java`
-#### Snippet
-```java
+  public static final Symbol LONG = new Symbol.Terminal("long");
+  public static final Symbol FLOAT = new Symbol.Terminal("float");
+  public static final Symbol DOUBLE = new Symbol.Terminal("double");
   public static final Symbol STRING = new Symbol.Terminal("string");
   public static final Symbol BYTES = new Symbol.Terminal("bytes");
-  public static final Symbol FIXED = new Symbol.Terminal("fixed");
-  public static final Symbol ENUM = new Symbol.Terminal("enum");
-  public static final Symbol UNION = new Symbol.Terminal("union");
-```
-
-### StaticInitializerReferencesSubClass
-Referencing subclass Terminal from superclass Symbol initializer might lead to class loading deadlock
-in `lang/java/avro/src/main/java/org/apache/avro/io/parsing/Symbol.java`
-#### Snippet
-```java
-   */
-  public static final Symbol NULL = new Symbol.Terminal("null");
-  public static final Symbol BOOLEAN = new Symbol.Terminal("boolean");
-  public static final Symbol INT = new Symbol.Terminal("int");
-  public static final Symbol LONG = new Symbol.Terminal("long");
 ```
 
 ## RuleId[ruleID=CommentedOutCode]
@@ -1425,30 +1426,6 @@ in `lang/java/compiler/src/main/java/org/apache/avro/compiler/schema/Schemas.jav
       throw new UnsupportedOperationException("Invalid action " + action + " for " + schema);
     case SKIP_SIBLINGS:
       while (!dq.isEmpty() && dq.getLast() instanceof Schema) {
-```
-
-### DuplicateBranchesInSwitch
-Duplicate branch in 'switch'
-in `lang/java/trevni/avro/src/main/java/org/apache/trevni/avro/AvroColumnator.java`
-#### Snippet
-```java
-      return ValueType.STRING;
-    case ENUM:
-      return ValueType.INT;
-    case FIXED:
-      return ValueType.BYTES;
-```
-
-### DuplicateBranchesInSwitch
-Duplicate branch in 'switch'
-in `lang/java/trevni/avro/src/main/java/org/apache/trevni/avro/AvroColumnator.java`
-#### Snippet
-```java
-      return ValueType.INT;
-    case FIXED:
-      return ValueType.BYTES;
-    default:
-      throw new TrevniRuntimeException("Unknown schema: " + s);
 ```
 
 ### DuplicateBranchesInSwitch
@@ -1595,14 +1572,38 @@ in `lang/java/avro/src/main/java/org/apache/avro/io/parsing/Symbol.java`
       throw new RuntimeException("unknown symbol kind: " + symbol.kind);
 ```
 
+### DuplicateBranchesInSwitch
+Duplicate branch in 'switch'
+in `lang/java/trevni/avro/src/main/java/org/apache/trevni/avro/AvroColumnator.java`
+#### Snippet
+```java
+      return ValueType.STRING;
+    case ENUM:
+      return ValueType.INT;
+    case FIXED:
+      return ValueType.BYTES;
+```
+
+### DuplicateBranchesInSwitch
+Duplicate branch in 'switch'
+in `lang/java/trevni/avro/src/main/java/org/apache/trevni/avro/AvroColumnator.java`
+#### Snippet
+```java
+      return ValueType.INT;
+    case FIXED:
+      return ValueType.BYTES;
+    default:
+      throw new TrevniRuntimeException("Unknown schema: " + s);
+```
+
 ## RuleId[ruleID=ObjectNotify]
 ### ObjectNotify
 `notify` should probably be replaced with 'notifyAll()'
 in `lang/java/mapred/src/main/java/org/apache/avro/mapred/tether/TetherOutputService.java`
 #### Snippet
 ```java
-    LOG.warn("Failing: " + message);
-    error = message;
+    LOG.info("got task complete");
+    complete = true;
     notify();
   }
 
@@ -1613,8 +1614,8 @@ in `lang/java/mapred/src/main/java/org/apache/avro/mapred/tether/TetherOutputSer
 in `lang/java/mapred/src/main/java/org/apache/avro/mapred/tether/TetherOutputService.java`
 #### Snippet
 ```java
-    LOG.info("got task complete");
-    complete = true;
+    LOG.warn("Failing: " + message);
+    error = message;
     notify();
   }
 
@@ -1682,18 +1683,6 @@ in `lang/java/tools/src/main/java/org/apache/avro/tool/DataFileReadTool.java`
 ```
 
 ### SizeReplaceableByIsEmpty
-`filesets.size() == 0` can be replaced with 'filesets.isEmpty()'
-in `lang/java/compiler/src/main/java/org/apache/avro/compiler/specific/ProtocolTask.java`
-#### Snippet
-```java
-  @Override
-  public void execute() {
-    if (src == null && filesets.size() == 0)
-      throw new BuildException("No file or fileset specified.");
-
-```
-
-### SizeReplaceableByIsEmpty
 `fileSet.size() > 0` can be replaced with '!fileSet.isEmpty()'
 in `lang/java/tools/src/main/java/org/apache/avro/tool/SpecificCompilerTool.java`
 #### Snippet
@@ -1706,39 +1695,15 @@ in `lang/java/tools/src/main/java/org/apache/avro/tool/SpecificCompilerTool.java
 ```
 
 ### SizeReplaceableByIsEmpty
-`namedOutput.length() == 0` can be replaced with 'namedOutput.isEmpty()'
-in `lang/java/mapred/src/main/java/org/apache/avro/mapred/AvroMultipleOutputs.java`
+`filesets.size() == 0` can be replaced with 'filesets.isEmpty()'
+in `lang/java/compiler/src/main/java/org/apache/avro/compiler/specific/ProtocolTask.java`
 #### Snippet
 ```java
-   */
-  private static void checkTokenName(String namedOutput) {
-    if (namedOutput == null || namedOutput.length() == 0) {
-      throw new IllegalArgumentException("Name cannot be NULL or empty");
-    }
-```
+  @Override
+  public void execute() {
+    if (src == null && filesets.size() == 0)
+      throw new BuildException("No file or fileset specified.");
 
-### SizeReplaceableByIsEmpty
-`aparams[i].length() > 0` can be replaced with '!aparams\[i\].isEmpty()'
-in `lang/java/mapred/src/main/java/org/apache/avro/mapred/tether/TetheredProcess.java`
-#### Snippet
-```java
-      for (int i = 0; i < aparams.length; i++) {
-        aparams[i] = aparams[i].trim();
-        if (aparams[i].length() > 0) {
-          command.add(aparams[i]);
-        }
-```
-
-### SizeReplaceableByIsEmpty
-`namedOutput.length() == 0` can be replaced with 'namedOutput.isEmpty()'
-in `lang/java/mapred/src/main/java/org/apache/avro/mapreduce/AvroMultipleOutputs.java`
-#### Snippet
-```java
-   */
-  private static void checkTokenName(String namedOutput) {
-    if (namedOutput == null || namedOutput.length() == 0) {
-      throw new IllegalArgumentException("Name cannot be NULL or empty");
-    }
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -1754,6 +1719,30 @@ in `lang/java/avro/src/main/java/org/apache/avro/io/BinaryEncoder.java`
 ```
 
 ### SizeReplaceableByIsEmpty
+`namedOutput.length() == 0` can be replaced with 'namedOutput.isEmpty()'
+in `lang/java/mapred/src/main/java/org/apache/avro/mapred/AvroMultipleOutputs.java`
+#### Snippet
+```java
+   */
+  private static void checkTokenName(String namedOutput) {
+    if (namedOutput == null || namedOutput.length() == 0) {
+      throw new IllegalArgumentException("Name cannot be NULL or empty");
+    }
+```
+
+### SizeReplaceableByIsEmpty
+`namedOutput.length() == 0` can be replaced with 'namedOutput.isEmpty()'
+in `lang/java/mapred/src/main/java/org/apache/avro/mapreduce/AvroMultipleOutputs.java`
+#### Snippet
+```java
+   */
+  private static void checkTokenName(String namedOutput) {
+    if (namedOutput == null || namedOutput.length() == 0) {
+      throw new IllegalArgumentException("Name cannot be NULL or empty");
+    }
+```
+
+### SizeReplaceableByIsEmpty
 `m.size() > 0` can be replaced with '!m.isEmpty()'
 in `lang/java/avro/src/main/java/org/apache/avro/reflect/ReflectData.java`
 #### Snippet
@@ -1766,15 +1755,15 @@ in `lang/java/avro/src/main/java/org/apache/avro/reflect/ReflectData.java`
 ```
 
 ### SizeReplaceableByIsEmpty
-`f.aliases.size() != 0` can be replaced with '!f.aliases.isEmpty()'
-in `lang/java/avro/src/main/java/org/apache/avro/Schema.java`
+`aparams[i].length() > 0` can be replaced with '!aparams\[i\].isEmpty()'
+in `lang/java/mapred/src/main/java/org/apache/avro/mapred/tether/TetheredProcess.java`
 #### Snippet
 ```java
-        if (f.order() != Field.Order.ASCENDING)
-          gen.writeStringField("order", f.order().name);
-        if (f.aliases != null && f.aliases.size() != 0) {
-          gen.writeFieldName("aliases");
-          gen.writeStartArray();
+      for (int i = 0; i < aparams.length; i++) {
+        aparams[i] = aparams[i].trim();
+        if (aparams[i].length() > 0) {
+          command.add(aparams[i]);
+        }
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -1801,7 +1790,43 @@ in `lang/java/avro/src/main/java/org/apache/avro/Schema.java`
 
 ```
 
+### SizeReplaceableByIsEmpty
+`f.aliases.size() != 0` can be replaced with '!f.aliases.isEmpty()'
+in `lang/java/avro/src/main/java/org/apache/avro/Schema.java`
+#### Snippet
+```java
+        if (f.order() != Field.Order.ASCENDING)
+          gen.writeStringField("order", f.order().name);
+        if (f.aliases != null && f.aliases.size() != 0) {
+          gen.writeFieldName("aliases");
+          gen.writeStartArray();
+```
+
 ## RuleId[ruleID=NonShortCircuitBoolean]
+### NonShortCircuitBoolean
+Non-short-circuit boolean expression `noAdj &= (i == adj[i])`
+in `lang/java/avro/src/main/java/org/apache/avro/Resolver.java`
+#### Snippet
+```java
+      noAdj = (adj.length <= rsymCount);
+      for (int i = 0; noAdj && i < count; i++) {
+        noAdj &= (i == adj[i]);
+      }
+      this.noAdjustmentsNeeded = noAdj;
+```
+
+### NonShortCircuitBoolean
+Non-short-circuit boolean expression `result &= (i == readerOrder[i].pos())`
+in `lang/java/avro/src/main/java/org/apache/avro/Resolver.java`
+#### Snippet
+```java
+      boolean result = true;
+      for (int i = 0; result && i < readerOrder.length; i++) {
+        result &= (i == readerOrder[i].pos());
+      }
+      return result;
+```
+
 ### NonShortCircuitBoolean
 Non-short-circuit boolean expression `result &= isCustomCodable(f.schema(), seen)`
 in `lang/java/compiler/src/main/java/org/apache/avro/compiler/specific/SpecificCompiler.java`
@@ -1827,27 +1852,15 @@ in `lang/java/compiler/src/main/java/org/apache/avro/compiler/specific/SpecificC
 ```
 
 ### NonShortCircuitBoolean
-Non-short-circuit boolean expression `noAdj &= (i == adj[i])`
-in `lang/java/avro/src/main/java/org/apache/avro/Resolver.java`
+Non-short-circuit boolean expression `valid &= !original.equals(a.get(this))`
+in `lang/java/avro/src/main/java/org/apache/avro/reflect/ReflectionUtil.java`
 #### Snippet
 ```java
-      noAdj = (adj.length <= rsymCount);
-      for (int i = 0; noAdj && i < count; i++) {
-        noAdj &= (i == adj[i]);
-      }
-      this.noAdjustmentsNeeded = noAdj;
-```
-
-### NonShortCircuitBoolean
-Non-short-circuit boolean expression `result &= (i == readerOrder[i].pos())`
-in `lang/java/avro/src/main/java/org/apache/avro/Resolver.java`
-#### Snippet
-```java
-      boolean result = true;
-      for (int i = 0; result && i < readerOrder.length; i++) {
-        result &= (i == readerOrder[i].pos());
-      }
-      return result;
+      boolean valid = original.equals(a.get(this));
+      a.set(this, toSet);
+      valid &= !original.equals(a.get(this));
+      return valid;
+    }
 ```
 
 ### NonShortCircuitBoolean
@@ -1966,18 +1979,6 @@ in `lang/java/avro/src/main/java/org/apache/avro/reflect/ReflectionUtil.java`
       valid &= validField(access, "d", d, 0.4d);
       valid &= validField(access, "o", o, new Object());
       valid &= validField(access, "i2", i2, -555);
-      return valid;
-    }
-```
-
-### NonShortCircuitBoolean
-Non-short-circuit boolean expression `valid &= !original.equals(a.get(this))`
-in `lang/java/avro/src/main/java/org/apache/avro/reflect/ReflectionUtil.java`
-#### Snippet
-```java
-      boolean valid = original.equals(a.get(this));
-      a.set(this, toSet);
-      valid &= !original.equals(a.get(this));
       return valid;
     }
 ```
@@ -2143,6 +2144,18 @@ in `lang/java/tools/src/main/java/org/apache/avro/tool/SpecificCompilerTool.java
 ```
 
 ### BoundedWildcard
+Can generalize to `? super T`
+in `lang/java/grpc/src/main/java/org/apache/avro/grpc/AvroGrpcClient.java`
+#### Snippet
+```java
+      private final Callback<T> callback;
+
+      CallbackToResponseStreamObserverAdpater(Callback<T> callback) {
+        this.callback = callback;
+      }
+```
+
+### BoundedWildcard
 Can generalize to `? extends Schema`
 in `lang/java/compiler/src/main/java/org/apache/avro/compiler/schema/Schemas.java`
 #### Snippet
@@ -2164,414 +2177,6 @@ in `lang/java/compiler/src/main/java/org/apache/avro/compiler/idl/ResolvingVisit
   public ResolvingVisitor(final Schema root, final IdentityHashMap<Schema, Schema> replace,
       final Function<String, Schema> symbolTable) {
     this.replace = replace;
-```
-
-### BoundedWildcard
-Can generalize to `? super T`
-in `lang/java/grpc/src/main/java/org/apache/avro/grpc/AvroGrpcClient.java`
-#### Snippet
-```java
-      private final Callback<T> callback;
-
-      CallbackToResponseStreamObserverAdpater(Callback<T> callback) {
-        this.callback = callback;
-      }
-```
-
-### BoundedWildcard
-Can generalize to `? super Class`
-in `lang/java/android/src/main/java/org/apache/avro/util/internal/ClassValueCache.java`
-#### Snippet
-```java
-   *                 class instance.
-   */
-  public ClassValueCache(Function<Class<?>, R> ifAbsent) {
-    this.ifAbsent = ifAbsent;
-  }
-```
-
-### BoundedWildcard
-Can generalize to `? extends R`
-in `lang/java/android/src/main/java/org/apache/avro/util/internal/ClassValueCache.java`
-#### Snippet
-```java
-   *                 class instance.
-   */
-  public ClassValueCache(Function<Class<?>, R> ifAbsent) {
-    this.ifAbsent = ifAbsent;
-  }
-```
-
-### BoundedWildcard
-Can generalize to `? extends ByteBuffer`
-in `lang/java/ipc/src/main/java/org/apache/avro/ipc/DatagramTransceiver.java`
-#### Snippet
-```java
-
-  @Override
-  public synchronized void writeBuffers(List<ByteBuffer> buffers) throws IOException {
-    ((Buffer) buffer).clear();
-    for (ByteBuffer b : buffers) {
-```
-
-### BoundedWildcard
-Can generalize to `? super T`
-in `lang/java/ipc/src/main/java/org/apache/avro/ipc/CallFuture.java`
-#### Snippet
-```java
-   * @param chainedCallback the chained Callback to set.
-   */
-  public CallFuture(Callback<T> chainedCallback) {
-    this.chainedCallback = chainedCallback;
-  }
-```
-
-### BoundedWildcard
-Can generalize to `? extends ByteBuffer`
-in `lang/java/ipc/src/main/java/org/apache/avro/ipc/SocketTransceiver.java`
-#### Snippet
-```java
-
-  @Override
-  public synchronized void writeBuffers(List<ByteBuffer> buffers) throws IOException {
-    if (buffers == null)
-      return; // no data to write
-```
-
-### BoundedWildcard
-Can generalize to `? extends ByteBuffer`
-in `lang/java/ipc/src/main/java/org/apache/avro/ipc/HttpTransceiver.java`
-#### Snippet
-```java
-  }
-
-  static void writeBuffers(List<ByteBuffer> buffers, OutputStream out) throws IOException {
-    for (ByteBuffer buffer : buffers) {
-      writeLength(buffer.limit(), out); // length-prefix
-```
-
-### BoundedWildcard
-Can generalize to `? extends ByteBuffer`
-in `lang/java/ipc/src/main/java/org/apache/avro/ipc/HttpTransceiver.java`
-#### Snippet
-```java
-  }
-
-  static int getLength(List<ByteBuffer> buffers) {
-    int length = 0;
-    for (ByteBuffer buffer : buffers) {
-```
-
-### BoundedWildcard
-Can generalize to `? super List`
-in `lang/java/ipc/src/main/java/org/apache/avro/ipc/Transceiver.java`
-#### Snippet
-```java
-   * messages using callbacks.
-   */
-  public void transceive(List<ByteBuffer> request, Callback<List<ByteBuffer>> callback) throws IOException {
-    // The default implementation works synchronously
-    try {
-```
-
-### BoundedWildcard
-Can generalize to `? extends ByteBuffer`
-in `lang/java/ipc/src/main/java/org/apache/avro/ipc/stats/StatsPlugin.java`
-#### Snippet
-```java
-   * Helper to get the size of an RPC payload.
-   */
-  private int getPayloadSize(List<ByteBuffer> payload) {
-    if (payload == null) {
-      return 0;
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
-in `lang/java/ipc/src/main/java/org/apache/avro/ipc/stats/Histogram.java`
-#### Snippet
-```java
-    private TreeMap<T, Integer> index = new TreeMap<>();
-
-    public TreeMapSegmenter(SortedSet<T> leftEndpoints) {
-      if (leftEndpoints.isEmpty()) {
-        throw new IllegalArgumentException("Endpoints must not be empty: " + leftEndpoints);
-```
-
-### BoundedWildcard
-Can generalize to `? extends ByteBuffer`
-in `lang/java/ipc/src/main/java/org/apache/avro/ipc/SaslSocketTransceiver.java`
-#### Snippet
-```java
-
-  @Override
-  public synchronized void writeBuffers(List<ByteBuffer> buffers) throws IOException {
-    if (buffers == null)
-      return; // no data to write
-```
-
-### BoundedWildcard
-Can generalize to `? super T`
-in `lang/java/ipc/src/main/java/org/apache/avro/ipc/Requestor.java`
-#### Snippet
-```java
-     * @param callback the callback to set.
-     */
-    public TransceiverCallback(Request request, Callback<T> callback) {
-      this.request = request;
-      this.callback = callback;
-```
-
-### BoundedWildcard
-Can generalize to `? super Conversion`
-in `lang/java/compiler/src/main/java/org/apache/avro/compiler/specific/SpecificCompiler.java`
-#### Snippet
-```java
-  }
-
-  private void collectUsedTypes(Schema schema, Set<Conversion<?>> conversionResults,
-      Set<LogicalType> logicalTypeResults, Set<Schema> seenSchemas) {
-    if (seenSchemas.contains(schema)) {
-```
-
-### BoundedWildcard
-Can generalize to `? super LogicalType`
-in `lang/java/compiler/src/main/java/org/apache/avro/compiler/specific/SpecificCompiler.java`
-#### Snippet
-```java
-
-  private void collectUsedTypes(Schema schema, Set<Conversion<?>> conversionResults,
-      Set<LogicalType> logicalTypeResults, Set<Schema> seenSchemas) {
-    if (seenSchemas.contains(schema)) {
-      return;
-```
-
-### BoundedWildcard
-Can generalize to `? super Schema`
-in `lang/java/compiler/src/main/java/org/apache/avro/compiler/specific/SpecificCompiler.java`
-#### Snippet
-```java
-
-  private void collectUsedTypes(Schema schema, Set<Conversion<?>> conversionResults,
-      Set<LogicalType> logicalTypeResults, Set<Schema> seenSchemas) {
-    if (seenSchemas.contains(schema)) {
-      return;
-```
-
-### BoundedWildcard
-Can generalize to `? super Schema`
-in `lang/java/compiler/src/main/java/org/apache/avro/compiler/specific/SpecificCompiler.java`
-#### Snippet
-```java
-  }
-
-  private boolean isCustomCodable(Schema schema, Set<Schema> seen) {
-    if (!seen.add(schema))
-      return true;
-```
-
-### BoundedWildcard
-Can generalize to `? super Schema`
-in `lang/java/compiler/src/main/java/org/apache/avro/compiler/specific/SpecificCompiler.java`
-#### Snippet
-```java
-
-  // annotate map and string schemas with string type
-  private Schema addStringType(Schema s, Map<Schema, Schema> seen) {
-    if (seen.containsKey(s))
-      return seen.get(s); // break loops
-```
-
-### BoundedWildcard
-Can generalize to `? super T`
-in `lang/java/mapred/src/main/java/org/apache/avro/hadoop/io/AvroSerializer.java`
-#### Snippet
-```java
-   * @param datumWriter  The datum writer to use for serialization.
-   */
-  public AvroSerializer(Schema writerSchema, DatumWriter<T> datumWriter) {
-    if (null == writerSchema) {
-      throw new IllegalArgumentException("Writer schema may not be null");
-```
-
-### BoundedWildcard
-Can generalize to `? super OUT`
-in `lang/java/mapred/src/main/java/org/apache/avro/mapred/AvroMapper.java`
-#### Snippet
-```java
-  /** Called with each map input datum. By default, collects inputs. */
-  @SuppressWarnings("unchecked")
-  public void map(IN datum, AvroCollector<OUT> collector, Reporter reporter) throws IOException {
-    collector.collect((OUT) datum);
-  }
-```
-
-### BoundedWildcard
-Can generalize to `? super KO`
-in `lang/java/mapred/src/main/java/org/apache/avro/mapred/MapCollector.java`
-#### Snippet
-```java
-  private boolean isMapOnly;
-
-  public MapCollector(OutputCollector<KO, VO> collector, boolean isMapOnly) {
-    this.collector = collector;
-    this.isMapOnly = isMapOnly;
-```
-
-### BoundedWildcard
-Can generalize to `? super VO`
-in `lang/java/mapred/src/main/java/org/apache/avro/mapred/MapCollector.java`
-#### Snippet
-```java
-  private boolean isMapOnly;
-
-  public MapCollector(OutputCollector<KO, VO> collector, boolean isMapOnly) {
-    this.collector = collector;
-    this.isMapOnly = isMapOnly;
-```
-
-### BoundedWildcard
-Can generalize to `? super ByteBuffer`
-in `lang/java/mapred/src/main/java/org/apache/avro/mapred/AvroTextOutputFormat.java`
-#### Snippet
-```java
-    private final byte[] keyValueSeparator;
-
-    public AvroTextRecordWriter(DataFileWriter<ByteBuffer> writer, byte[] keyValueSeparator) {
-      this.writer = writer;
-      this.keyValueSeparator = keyValueSeparator;
-```
-
-### BoundedWildcard
-Can generalize to `? super T`
-in `lang/java/mapred/src/main/java/org/apache/avro/mapred/AvroSerialization.java`
-#### Snippet
-```java
-    private BinaryEncoder encoder;
-
-    public AvroWrapperSerializer(DatumWriter<T> writer) {
-      this.writer = writer;
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? super AvroKey`
-in `lang/java/mapred/src/main/java/org/apache/avro/mapred/HadoopCombiner.java`
-#### Snippet
-```java
-    private OutputCollector<AvroKey<K>, AvroValue<V>> collector;
-
-    public PairCollector(OutputCollector<AvroKey<K>, AvroValue<V>> collector) {
-      this.collector = collector;
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? super AvroValue`
-in `lang/java/mapred/src/main/java/org/apache/avro/mapred/HadoopCombiner.java`
-#### Snippet
-```java
-    private OutputCollector<AvroKey<K>, AvroValue<V>> collector;
-
-    public PairCollector(OutputCollector<AvroKey<K>, AvroValue<V>> collector) {
-      this.collector = collector;
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? extends V`
-in `lang/java/mapred/src/main/java/org/apache/avro/mapred/AvroReducer.java`
-#### Snippet
-```java
-   */
-  @SuppressWarnings("unchecked")
-  public void reduce(K key, Iterable<V> values, AvroCollector<OUT> collector, Reporter reporter) throws IOException {
-    if (outputPair == null)
-      outputPair = new Pair<>(AvroJob.getOutputSchema(getConf()));
-```
-
-### BoundedWildcard
-Can generalize to `? super OUT`
-in `lang/java/mapred/src/main/java/org/apache/avro/mapred/AvroReducer.java`
-#### Snippet
-```java
-   */
-  @SuppressWarnings("unchecked")
-  public void reduce(K key, Iterable<V> values, AvroCollector<OUT> collector, Reporter reporter) throws IOException {
-    if (outputPair == null)
-      outputPair = new Pair<>(AvroJob.getOutputSchema(getConf()));
-```
-
-### BoundedWildcard
-Can generalize to `? super AvroWrapper`
-in `lang/java/mapred/src/main/java/org/apache/avro/mapred/HadoopReducer.java`
-#### Snippet
-```java
-    private OutputCollector<AvroWrapper<OUT>, NullWritable> out;
-
-    public ReduceCollector(OutputCollector<AvroWrapper<OUT>, NullWritable> out) {
-      this.out = out;
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? super NullWritable`
-in `lang/java/mapred/src/main/java/org/apache/avro/mapred/HadoopReducer.java`
-#### Snippet
-```java
-    private OutputCollector<AvroWrapper<OUT>, NullWritable> out;
-
-    public ReduceCollector(OutputCollector<AvroWrapper<OUT>, NullWritable> out) {
-      this.out = out;
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? super TetherData`
-in `lang/java/mapred/src/main/java/org/apache/avro/mapred/tether/TetherOutputService.java`
-#### Snippet
-```java
-  public static final long TIMEOUT = 10 * 1000;
-
-  public TetherOutputService(OutputCollector<TetherData, NullWritable> collector, Reporter reporter) {
-    this.reporter = reporter;
-    this.collector = collector;
-```
-
-### BoundedWildcard
-Can generalize to `? super NullWritable`
-in `lang/java/mapred/src/main/java/org/apache/avro/mapred/tether/TetherOutputService.java`
-#### Snippet
-```java
-  public static final long TIMEOUT = 10 * 1000;
-
-  public TetherOutputService(OutputCollector<TetherData, NullWritable> collector, Reporter reporter) {
-    this.reporter = reporter;
-    this.collector = collector;
-```
-
-### BoundedWildcard
-Can generalize to `? super K`
-in `lang/java/mapred/src/main/java/org/apache/avro/mapreduce/AvroKeyValueRecordWriter.java`
-#### Snippet
-```java
-   * @throws IOException If the record writer cannot be opened.
-   */
-  public AvroKeyValueRecordWriter(AvroDatumConverter<K, ?> keyConverter, AvroDatumConverter<V, ?> valueConverter,
-      GenericData dataModel, CodecFactory compressionCodec, OutputStream outputStream, int syncInterval)
-      throws IOException {
-```
-
-### BoundedWildcard
-Can generalize to `? super V`
-in `lang/java/mapred/src/main/java/org/apache/avro/mapreduce/AvroKeyValueRecordWriter.java`
-#### Snippet
-```java
-   * @throws IOException If the record writer cannot be opened.
-   */
-  public AvroKeyValueRecordWriter(AvroDatumConverter<K, ?> keyConverter, AvroDatumConverter<V, ?> valueConverter,
-      GenericData dataModel, CodecFactory compressionCodec, OutputStream outputStream, int syncInterval)
-      throws IOException {
 ```
 
 ### BoundedWildcard
@@ -2623,6 +2228,78 @@ in `lang/java/avro/src/main/java/org/apache/avro/io/parsing/ValidatingGrammarGen
 ```
 
 ### BoundedWildcard
+Can generalize to `? super SeenPair`
+in `lang/java/avro/src/main/java/org/apache/avro/Resolver.java`
+#### Snippet
+```java
+  }
+
+  private static boolean unionEquiv(Schema write, Schema read, Map<SeenPair, Boolean> seen) {
+    final Schema.Type wt = write.getType();
+    if (wt != read.getType()) {
+```
+
+### BoundedWildcard
+Can generalize to `? super Schema`
+in `lang/java/compiler/src/main/java/org/apache/avro/compiler/specific/SpecificCompiler.java`
+#### Snippet
+```java
+  }
+
+  private boolean isCustomCodable(Schema schema, Set<Schema> seen) {
+    if (!seen.add(schema))
+      return true;
+```
+
+### BoundedWildcard
+Can generalize to `? super Conversion`
+in `lang/java/compiler/src/main/java/org/apache/avro/compiler/specific/SpecificCompiler.java`
+#### Snippet
+```java
+  }
+
+  private void collectUsedTypes(Schema schema, Set<Conversion<?>> conversionResults,
+      Set<LogicalType> logicalTypeResults, Set<Schema> seenSchemas) {
+    if (seenSchemas.contains(schema)) {
+```
+
+### BoundedWildcard
+Can generalize to `? super LogicalType`
+in `lang/java/compiler/src/main/java/org/apache/avro/compiler/specific/SpecificCompiler.java`
+#### Snippet
+```java
+
+  private void collectUsedTypes(Schema schema, Set<Conversion<?>> conversionResults,
+      Set<LogicalType> logicalTypeResults, Set<Schema> seenSchemas) {
+    if (seenSchemas.contains(schema)) {
+      return;
+```
+
+### BoundedWildcard
+Can generalize to `? super Schema`
+in `lang/java/compiler/src/main/java/org/apache/avro/compiler/specific/SpecificCompiler.java`
+#### Snippet
+```java
+
+  private void collectUsedTypes(Schema schema, Set<Conversion<?>> conversionResults,
+      Set<LogicalType> logicalTypeResults, Set<Schema> seenSchemas) {
+    if (seenSchemas.contains(schema)) {
+      return;
+```
+
+### BoundedWildcard
+Can generalize to `? super Schema`
+in `lang/java/compiler/src/main/java/org/apache/avro/compiler/specific/SpecificCompiler.java`
+#### Snippet
+```java
+
+  // annotate map and string schemas with string type
+  private Schema addStringType(Schema s, Map<Schema, Schema> seen) {
+    if (seen.containsKey(s))
+      return seen.get(s); // break loops
+```
+
+### BoundedWildcard
 Can generalize to `? super D`
 in `lang/java/avro/src/main/java/org/apache/avro/file/DataFileWriter.java`
 #### Snippet
@@ -2640,8 +2317,8 @@ in `lang/java/avro/src/main/java/org/apache/avro/util/ByteBufferOutputStream.jav
 #### Snippet
 ```java
 
-  /** Prepend a list of ByteBuffers to this stream. */
-  public void prepend(List<ByteBuffer> lists) {
+  /** Append a list of ByteBuffers to this stream. */
+  public void append(List<ByteBuffer> lists) {
     for (Buffer buffer : lists) {
       buffer.position(buffer.limit());
 ```
@@ -2652,22 +2329,10 @@ in `lang/java/avro/src/main/java/org/apache/avro/util/ByteBufferOutputStream.jav
 #### Snippet
 ```java
 
-  /** Append a list of ByteBuffers to this stream. */
-  public void append(List<ByteBuffer> lists) {
+  /** Prepend a list of ByteBuffers to this stream. */
+  public void prepend(List<ByteBuffer> lists) {
     for (Buffer buffer : lists) {
       buffer.position(buffer.limit());
-```
-
-### BoundedWildcard
-Can generalize to `? super SeenPair`
-in `lang/java/avro/src/main/java/org/apache/avro/Resolver.java`
-#### Snippet
-```java
-  }
-
-  private static boolean unionEquiv(Schema write, Schema read, Map<SeenPair, Boolean> seen) {
-    final Schema.Type wt = write.getType();
-    if (wt != read.getType()) {
 ```
 
 ### BoundedWildcard
@@ -2731,27 +2396,27 @@ in `lang/java/avro/src/main/java/org/apache/avro/util/internal/ClassValueCache.j
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends R`
-in `lang/java/avro/src/main/java/org/apache/avro/SchemaBuilder.java`
+Can generalize to `? super Schema`
+in `lang/java/avro/src/main/java/org/apache/avro/generic/GenericDatumReader.java`
 #### Snippet
 ```java
-    private final Schema immutable;
+    private final Function<Schema, Class> findStringClass;
 
-    protected PrimitiveBuilder(Completion<R> context, NameContext names, Schema.Type type) {
-      this.context = context;
-      this.immutable = names.getFullname(type.getName());
+    public ReaderCache(Function<Schema, Class> findStringClass) {
+      this.findStringClass = findStringClass;
+    }
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends R`
+Can generalize to `? extends Schema`
 in `lang/java/avro/src/main/java/org/apache/avro/SchemaBuilder.java`
 #### Snippet
 ```java
-    private final Completion<R> context;
+    private final List<Schema> schemas;
 
-    private NullableCompletion(Completion<R> context) {
+    private UnionCompletion(Completion<R> context, NameContext names, List<Schema> schemas) {
       this.context = context;
-    }
+      this.names = names;
 ```
 
 ### BoundedWildcard
@@ -2779,27 +2444,51 @@ in `lang/java/avro/src/main/java/org/apache/avro/SchemaBuilder.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends Schema`
+Can generalize to `? extends R`
 in `lang/java/avro/src/main/java/org/apache/avro/SchemaBuilder.java`
 #### Snippet
 ```java
-    private final List<Schema> schemas;
+    private final Completion<R> context;
 
-    private UnionCompletion(Completion<R> context, NameContext names, List<Schema> schemas) {
+    private NullableCompletion(Completion<R> context) {
       this.context = context;
-      this.names = names;
+    }
 ```
 
 ### BoundedWildcard
-Can generalize to `? super Schema`
-in `lang/java/avro/src/main/java/org/apache/avro/generic/GenericDatumReader.java`
+Can generalize to `? extends R`
+in `lang/java/avro/src/main/java/org/apache/avro/SchemaBuilder.java`
 #### Snippet
 ```java
-    private final Function<Schema, Class> findStringClass;
+    private final Schema immutable;
 
-    public ReaderCache(Function<Schema, Class> findStringClass) {
-      this.findStringClass = findStringClass;
-    }
+    protected PrimitiveBuilder(Completion<R> context, NameContext names, Schema.Type type) {
+      this.context = context;
+      this.immutable = names.getFullname(type.getName());
+```
+
+### BoundedWildcard
+Can generalize to `? super T`
+in `lang/java/mapred/src/main/java/org/apache/avro/hadoop/io/AvroSerializer.java`
+#### Snippet
+```java
+   * @param datumWriter  The datum writer to use for serialization.
+   */
+  public AvroSerializer(Schema writerSchema, DatumWriter<T> datumWriter) {
+    if (null == writerSchema) {
+      throw new IllegalArgumentException("Writer schema may not be null");
+```
+
+### BoundedWildcard
+Can generalize to `? super OUT`
+in `lang/java/mapred/src/main/java/org/apache/avro/mapred/AvroMapper.java`
+#### Snippet
+```java
+  /** Called with each map input datum. By default, collects inputs. */
+  @SuppressWarnings("unchecked")
+  public void map(IN datum, AvroCollector<OUT> collector, Reporter reporter) throws IOException {
+    collector.collect((OUT) datum);
+  }
 ```
 
 ### BoundedWildcard
@@ -2815,27 +2504,315 @@ in `lang/java/avro/src/main/java/org/apache/avro/specific/SpecificData.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? super Schema`
-in `lang/java/avro/src/main/java/org/apache/avro/Schema.java`
+Can generalize to `? super ByteBuffer`
+in `lang/java/mapred/src/main/java/org/apache/avro/mapred/AvroTextOutputFormat.java`
+#### Snippet
+```java
+    private final byte[] keyValueSeparator;
+
+    public AvroTextRecordWriter(DataFileWriter<ByteBuffer> writer, byte[] keyValueSeparator) {
+      this.writer = writer;
+      this.keyValueSeparator = keyValueSeparator;
+```
+
+### BoundedWildcard
+Can generalize to `? super KO`
+in `lang/java/mapred/src/main/java/org/apache/avro/mapred/MapCollector.java`
+#### Snippet
+```java
+  private boolean isMapOnly;
+
+  public MapCollector(OutputCollector<KO, VO> collector, boolean isMapOnly) {
+    this.collector = collector;
+    this.isMapOnly = isMapOnly;
+```
+
+### BoundedWildcard
+Can generalize to `? super VO`
+in `lang/java/mapred/src/main/java/org/apache/avro/mapred/MapCollector.java`
+#### Snippet
+```java
+  private boolean isMapOnly;
+
+  public MapCollector(OutputCollector<KO, VO> collector, boolean isMapOnly) {
+    this.collector = collector;
+    this.isMapOnly = isMapOnly;
+```
+
+### BoundedWildcard
+Can generalize to `? super T`
+in `lang/java/mapred/src/main/java/org/apache/avro/mapred/AvroSerialization.java`
+#### Snippet
+```java
+    private BinaryEncoder encoder;
+
+    public AvroWrapperSerializer(DatumWriter<T> writer) {
+      this.writer = writer;
+    }
+```
+
+### BoundedWildcard
+Can generalize to `? extends V`
+in `lang/java/mapred/src/main/java/org/apache/avro/mapred/AvroReducer.java`
+#### Snippet
+```java
+   */
+  @SuppressWarnings("unchecked")
+  public void reduce(K key, Iterable<V> values, AvroCollector<OUT> collector, Reporter reporter) throws IOException {
+    if (outputPair == null)
+      outputPair = new Pair<>(AvroJob.getOutputSchema(getConf()));
+```
+
+### BoundedWildcard
+Can generalize to `? super OUT`
+in `lang/java/mapred/src/main/java/org/apache/avro/mapred/AvroReducer.java`
+#### Snippet
+```java
+   */
+  @SuppressWarnings("unchecked")
+  public void reduce(K key, Iterable<V> values, AvroCollector<OUT> collector, Reporter reporter) throws IOException {
+    if (outputPair == null)
+      outputPair = new Pair<>(AvroJob.getOutputSchema(getConf()));
+```
+
+### BoundedWildcard
+Can generalize to `? super AvroWrapper`
+in `lang/java/mapred/src/main/java/org/apache/avro/mapred/HadoopReducer.java`
+#### Snippet
+```java
+    private OutputCollector<AvroWrapper<OUT>, NullWritable> out;
+
+    public ReduceCollector(OutputCollector<AvroWrapper<OUT>, NullWritable> out) {
+      this.out = out;
+    }
+```
+
+### BoundedWildcard
+Can generalize to `? super NullWritable`
+in `lang/java/mapred/src/main/java/org/apache/avro/mapred/HadoopReducer.java`
+#### Snippet
+```java
+    private OutputCollector<AvroWrapper<OUT>, NullWritable> out;
+
+    public ReduceCollector(OutputCollector<AvroWrapper<OUT>, NullWritable> out) {
+      this.out = out;
+    }
+```
+
+### BoundedWildcard
+Can generalize to `? super AvroKey`
+in `lang/java/mapred/src/main/java/org/apache/avro/mapred/HadoopCombiner.java`
+#### Snippet
+```java
+    private OutputCollector<AvroKey<K>, AvroValue<V>> collector;
+
+    public PairCollector(OutputCollector<AvroKey<K>, AvroValue<V>> collector) {
+      this.collector = collector;
+    }
+```
+
+### BoundedWildcard
+Can generalize to `? super AvroValue`
+in `lang/java/mapred/src/main/java/org/apache/avro/mapred/HadoopCombiner.java`
+#### Snippet
+```java
+    private OutputCollector<AvroKey<K>, AvroValue<V>> collector;
+
+    public PairCollector(OutputCollector<AvroKey<K>, AvroValue<V>> collector) {
+      this.collector = collector;
+    }
+```
+
+### BoundedWildcard
+Can generalize to `? super TetherData`
+in `lang/java/mapred/src/main/java/org/apache/avro/mapred/tether/TetherOutputService.java`
+#### Snippet
+```java
+  public static final long TIMEOUT = 10 * 1000;
+
+  public TetherOutputService(OutputCollector<TetherData, NullWritable> collector, Reporter reporter) {
+    this.reporter = reporter;
+    this.collector = collector;
+```
+
+### BoundedWildcard
+Can generalize to `? super NullWritable`
+in `lang/java/mapred/src/main/java/org/apache/avro/mapred/tether/TetherOutputService.java`
+#### Snippet
+```java
+  public static final long TIMEOUT = 10 * 1000;
+
+  public TetherOutputService(OutputCollector<TetherData, NullWritable> collector, Reporter reporter) {
+    this.reporter = reporter;
+    this.collector = collector;
+```
+
+### BoundedWildcard
+Can generalize to `? super K`
+in `lang/java/mapred/src/main/java/org/apache/avro/mapreduce/AvroKeyValueRecordWriter.java`
+#### Snippet
+```java
+   * @throws IOException If the record writer cannot be opened.
+   */
+  public AvroKeyValueRecordWriter(AvroDatumConverter<K, ?> keyConverter, AvroDatumConverter<V, ?> valueConverter,
+      GenericData dataModel, CodecFactory compressionCodec, OutputStream outputStream, int syncInterval)
+      throws IOException {
+```
+
+### BoundedWildcard
+Can generalize to `? super V`
+in `lang/java/mapred/src/main/java/org/apache/avro/mapreduce/AvroKeyValueRecordWriter.java`
+#### Snippet
+```java
+   * @throws IOException If the record writer cannot be opened.
+   */
+  public AvroKeyValueRecordWriter(AvroDatumConverter<K, ?> keyConverter, AvroDatumConverter<V, ?> valueConverter,
+      GenericData dataModel, CodecFactory compressionCodec, OutputStream outputStream, int syncInterval)
+      throws IOException {
+```
+
+### BoundedWildcard
+Can generalize to `? extends ByteBuffer`
+in `lang/java/ipc/src/main/java/org/apache/avro/ipc/DatagramTransceiver.java`
+#### Snippet
+```java
+
+  @Override
+  public synchronized void writeBuffers(List<ByteBuffer> buffers) throws IOException {
+    ((Buffer) buffer).clear();
+    for (ByteBuffer b : buffers) {
+```
+
+### BoundedWildcard
+Can generalize to `? super T`
+in `lang/java/ipc/src/main/java/org/apache/avro/ipc/CallFuture.java`
+#### Snippet
+```java
+   * @param chainedCallback the chained Callback to set.
+   */
+  public CallFuture(Callback<T> chainedCallback) {
+    this.chainedCallback = chainedCallback;
+  }
+```
+
+### BoundedWildcard
+Can generalize to `? extends ByteBuffer`
+in `lang/java/ipc/src/main/java/org/apache/avro/ipc/SocketTransceiver.java`
+#### Snippet
+```java
+
+  @Override
+  public synchronized void writeBuffers(List<ByteBuffer> buffers) throws IOException {
+    if (buffers == null)
+      return; // no data to write
+```
+
+### BoundedWildcard
+Can generalize to `? extends ByteBuffer`
+in `lang/java/ipc/src/main/java/org/apache/avro/ipc/HttpTransceiver.java`
 #### Snippet
 ```java
   }
 
-  private static Schema applyAliases(Schema s, Map<Schema, Schema> seen, Map<Name, Name> aliases,
-      Map<Name, Map<String, String>> fieldAliases) {
-
+  static int getLength(List<ByteBuffer> buffers) {
+    int length = 0;
+    for (ByteBuffer buffer : buffers) {
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends Schema`
-in `lang/java/avro/src/main/java/org/apache/avro/Schema.java`
+Can generalize to `? extends ByteBuffer`
+in `lang/java/ipc/src/main/java/org/apache/avro/ipc/HttpTransceiver.java`
 #### Snippet
 ```java
-     * parser.
+  }
+
+  static void writeBuffers(List<ByteBuffer> buffers, OutputStream out) throws IOException {
+    for (ByteBuffer buffer : buffers) {
+      writeLength(buffer.limit(), out); // length-prefix
+```
+
+### BoundedWildcard
+Can generalize to `? super List`
+in `lang/java/ipc/src/main/java/org/apache/avro/ipc/Transceiver.java`
+#### Snippet
+```java
+   * messages using callbacks.
+   */
+  public void transceive(List<ByteBuffer> request, Callback<List<ByteBuffer>> callback) throws IOException {
+    // The default implementation works synchronously
+    try {
+```
+
+### BoundedWildcard
+Can generalize to `? extends ByteBuffer`
+in `lang/java/ipc/src/main/java/org/apache/avro/ipc/SaslSocketTransceiver.java`
+#### Snippet
+```java
+
+  @Override
+  public synchronized void writeBuffers(List<ByteBuffer> buffers) throws IOException {
+    if (buffers == null)
+      return; // no data to write
+```
+
+### BoundedWildcard
+Can generalize to `? super T`
+in `lang/java/ipc/src/main/java/org/apache/avro/ipc/Requestor.java`
+#### Snippet
+```java
+     * @param callback the callback to set.
      */
-    public Parser addTypes(Map<String, Schema> types) {
-      for (Schema s : types.values())
-        names.add(s);
+    public TransceiverCallback(Request request, Callback<T> callback) {
+      this.request = request;
+      this.callback = callback;
+```
+
+### BoundedWildcard
+Can generalize to `? extends ByteBuffer`
+in `lang/java/ipc/src/main/java/org/apache/avro/ipc/stats/StatsPlugin.java`
+#### Snippet
+```java
+   * Helper to get the size of an RPC payload.
+   */
+  private int getPayloadSize(List<ByteBuffer> payload) {
+    if (payload == null) {
+      return 0;
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
+in `lang/java/ipc/src/main/java/org/apache/avro/ipc/stats/Histogram.java`
+#### Snippet
+```java
+    private TreeMap<T, Integer> index = new TreeMap<>();
+
+    public TreeMapSegmenter(SortedSet<T> leftEndpoints) {
+      if (leftEndpoints.isEmpty()) {
+        throw new IllegalArgumentException("Endpoints must not be empty: " + leftEndpoints);
+```
+
+### BoundedWildcard
+Can generalize to `? super Class`
+in `lang/java/android/src/main/java/org/apache/avro/util/internal/ClassValueCache.java`
+#### Snippet
+```java
+   *                 class instance.
+   */
+  public ClassValueCache(Function<Class<?>, R> ifAbsent) {
+    this.ifAbsent = ifAbsent;
+  }
+```
+
+### BoundedWildcard
+Can generalize to `? extends R`
+in `lang/java/android/src/main/java/org/apache/avro/util/internal/ClassValueCache.java`
+#### Snippet
+```java
+   *                 class instance.
+   */
+  public ClassValueCache(Function<Class<?>, R> ifAbsent) {
+    this.ifAbsent = ifAbsent;
+  }
 ```
 
 ### BoundedWildcard
@@ -2851,15 +2828,15 @@ in `lang/java/avro/src/main/java/org/apache/avro/Schema.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends Field`
+Can generalize to `? extends Map`
 in `lang/java/avro/src/main/java/org/apache/avro/Schema.java`
 #### Snippet
 ```java
+  }
 
-    @Override
-    public void setFields(List<Field> fields) {
-      if (this.fields != null) {
-        throw new AvroRuntimeException("Fields are already set");
+  private static String getFieldAlias(Name record, String field, Map<Name, Map<String, String>> fieldAliases) {
+    Map<String, String> recordAliases = fieldAliases.get(record);
+    if (recordAliases == null)
 ```
 
 ### BoundedWildcard
@@ -2875,15 +2852,15 @@ in `lang/java/avro/src/main/java/org/apache/avro/Schema.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends Map`
+Can generalize to `? super Schema`
 in `lang/java/avro/src/main/java/org/apache/avro/Schema.java`
 #### Snippet
 ```java
   }
 
-  private static String getFieldAlias(Name record, String field, Map<Name, Map<String, String>> fieldAliases) {
-    Map<String, String> recordAliases = fieldAliases.get(record);
-    if (recordAliases == null)
+  private static Schema applyAliases(Schema s, Map<Schema, Schema> seen, Map<Name, Name> aliases,
+      Map<Name, Map<String, String>> fieldAliases) {
+
 ```
 
 ### BoundedWildcard
@@ -2946,79 +2923,31 @@ in `lang/java/avro/src/main/java/org/apache/avro/Schema.java`
       NamedSchema namedSchema = (NamedSchema) schema;
 ```
 
+### BoundedWildcard
+Can generalize to `? extends Field`
+in `lang/java/avro/src/main/java/org/apache/avro/Schema.java`
+#### Snippet
+```java
+
+    @Override
+    public void setFields(List<Field> fields) {
+      if (this.fields != null) {
+        throw new AvroRuntimeException("Fields are already set");
+```
+
+### BoundedWildcard
+Can generalize to `? extends Schema`
+in `lang/java/avro/src/main/java/org/apache/avro/Schema.java`
+#### Snippet
+```java
+     * parser.
+     */
+    public Parser addTypes(Map<String, Schema> types) {
+      for (Schema s : types.values())
+        names.add(s);
+```
+
 ## RuleId[ruleID=MissortedModifiers]
-### MissortedModifiers
-Missorted modifiers `final static`
-in `lang/java/trevni/avro/src/main/java/org/apache/trevni/avro/AvroTrevniOutputFormat.java`
-#### Snippet
-```java
-
-  /** The file name extension for trevni files. */
-  public final static String EXT = ".trv";
-
-  public static final String META_PREFIX = "trevni.meta.";
-```
-
-### MissortedModifiers
-Missorted modifiers `abstract protected`
-in `lang/java/trevni/avro/src/main/java/org/apache/trevni/avro/mapreduce/AvroTrevniRecordWriterBase.java`
-#### Snippet
-```java
-   * @throws IOException
-   */
-  abstract protected Schema initSchema(TaskAttemptContext context);
-
-  /**
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `lang/java/trevni/avro/src/main/java/org/apache/trevni/avro/mapreduce/AvroTrevniRecordWriterBase.java`
-#### Snippet
-```java
-
-  /** trevni file extension */
-  public final static String EXT = ".trv";
-
-  /** prefix of job configs that we care about */
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `lang/java/ipc/src/main/java/org/apache/avro/ipc/stats/Stopwatch.java`
-#### Snippet
-```java
-
-  /** Default System time source. */
-  public final static Ticks SYSTEM_TICKS = new SystemTicks();
-
-  private Ticks ticks;
-```
-
-### MissortedModifiers
-Missorted modifiers `static abstract`
-in `lang/java/ipc/src/main/java/org/apache/avro/ipc/SaslSocketServer.java`
-#### Snippet
-```java
-  private static final Logger LOG = LoggerFactory.getLogger(SaslServer.class);
-
-  private static abstract class SaslServerFactory {
-    protected abstract SaslServer getServer() throws SaslException;
-  }
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `lang/java/mapred/src/main/java/org/apache/avro/mapred/AvroOutputFormat.java`
-#### Snippet
-```java
-
-  /** The file name extension for avro data files. */
-  public final static String EXT = ".avro";
-
-  /** The configuration key for Avro deflate level. */
-```
-
 ### MissortedModifiers
 Missorted modifiers `final static`
 in `lang/java/avro/src/main/java/org/apache/avro/SchemaNormalization.java`
@@ -3029,6 +2958,18 @@ in `lang/java/avro/src/main/java/org/apache/avro/SchemaNormalization.java`
   final static long EMPTY64 = 0xc15d213aa4d7a795L;
 
   /* An inner class ensures that FP_TABLE initialized only when needed. */
+```
+
+### MissortedModifiers
+Missorted modifiers `static abstract`
+in `lang/java/avro/src/main/java/org/apache/avro/Resolver.java`
+#### Snippet
+```java
+   * reader's (and thus there is no reader schema to resolve to).
+   */
+  public static abstract class Action {
+    /** Helps us traverse faster. */
+    public enum Type {
 ```
 
 ### MissortedModifiers
@@ -3068,135 +3009,39 @@ public class ZstandardCodec extends Codec {
 ```
 
 ### MissortedModifiers
+Missorted modifiers `final static`
+in `lang/java/avro/src/main/java/org/apache/avro/SchemaBuilder.java`
+#### Snippet
+```java
+  }
+
+  public final static class GenericDefault<R> {
+    private final FieldBuilder<R> field;
+    private final Schema schema;
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `lang/java/avro/src/main/java/org/apache/avro/SchemaBuilder.java`
+#### Snippet
+```java
+  }
+
+  public final static class FieldAssembler<R> {
+    private final List<Field> fields = new ArrayList<>();
+    private final Completion<R> context;
+```
+
+### MissortedModifiers
 Missorted modifiers `static abstract`
-in `lang/java/avro/src/main/java/org/apache/avro/Resolver.java`
+in `lang/java/avro/src/main/java/org/apache/avro/SchemaBuilder.java`
 #### Snippet
 ```java
-   * reader's (and thus there is no reader schema to resolve to).
+   * optional.
    */
-  public static abstract class Action {
-    /** Helps us traverse faster. */
-    public enum Type {
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `lang/java/avro/src/main/java/org/apache/avro/reflect/FieldAccessUnsafe.java`
-#### Snippet
-```java
-  }
-
-  final static class UnsafeShortField extends UnsafeCachedField {
-    protected UnsafeShortField(Field f) {
-      super(f);
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `lang/java/avro/src/main/java/org/apache/avro/reflect/FieldAccessUnsafe.java`
-#### Snippet
-```java
-  }
-
-  final static class UnsafeLongField extends UnsafeCachedField {
-    protected UnsafeLongField(Field f) {
-      super(f);
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `lang/java/avro/src/main/java/org/apache/avro/reflect/FieldAccessUnsafe.java`
-#### Snippet
-```java
-  }
-
-  final static class UnsafeBooleanField extends UnsafeCachedField {
-    protected UnsafeBooleanField(Field f) {
-      super(f);
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `lang/java/avro/src/main/java/org/apache/avro/reflect/FieldAccessUnsafe.java`
-#### Snippet
-```java
-  }
-
-  final static class UnsafeIntField extends UnsafeCachedField {
-    UnsafeIntField(Field f) {
-      super(f);
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `lang/java/avro/src/main/java/org/apache/avro/reflect/FieldAccessUnsafe.java`
-#### Snippet
-```java
-  }
-
-  final static class UnsafeCustomEncodedField extends UnsafeCachedField {
-
-    private CustomEncoding<?> encoding;
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `lang/java/avro/src/main/java/org/apache/avro/reflect/FieldAccessUnsafe.java`
-#### Snippet
-```java
-  }
-
-  final static class UnsafeCharField extends UnsafeCachedField {
-    protected UnsafeCharField(Field f) {
-      super(f);
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `lang/java/avro/src/main/java/org/apache/avro/reflect/FieldAccessUnsafe.java`
-#### Snippet
-```java
-  }
-
-  final static class UnsafeByteField extends UnsafeCachedField {
-    protected UnsafeByteField(Field f) {
-      super(f);
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `lang/java/avro/src/main/java/org/apache/avro/reflect/FieldAccessUnsafe.java`
-#### Snippet
-```java
-  }
-
-  final static class UnsafeFloatField extends UnsafeCachedField {
-    protected UnsafeFloatField(Field f) {
-      super(f);
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `lang/java/avro/src/main/java/org/apache/avro/reflect/FieldAccessUnsafe.java`
-#### Snippet
-```java
-  }
-
-  final static class UnsafeObjectField extends UnsafeCachedField {
-    protected UnsafeObjectField(Field f) {
-      super(f);
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `lang/java/avro/src/main/java/org/apache/avro/reflect/FieldAccessUnsafe.java`
-#### Snippet
-```java
-  }
-
-  final static class UnsafeDoubleField extends UnsafeCachedField {
-    protected UnsafeDoubleField(Field f) {
-      super(f);
+  public static abstract class NamedBuilder<S extends NamedBuilder<S>> extends PropBuilder<S> {
+    private final String name;
+    private final NameContext names;
 ```
 
 ### MissortedModifiers
@@ -3228,11 +3073,11 @@ Missorted modifiers `static abstract`
 in `lang/java/avro/src/main/java/org/apache/avro/SchemaBuilder.java`
 #### Snippet
 ```java
-   * for all Avro types that have namespaces (Fixed, Record, and Enum).
-   */
-  public static abstract class NamespacedBuilder<R, S extends NamespacedBuilder<R, S>> extends NamedBuilder<S> {
+  }
+
+  private static abstract class NestedCompletion<R> extends Completion<R> {
     private final Completion<R> context;
-    private String namespace;
+    private final PropBuilder<?> assembler;
 ```
 
 ### MissortedModifiers
@@ -3240,11 +3085,11 @@ Missorted modifiers `static abstract`
 in `lang/java/avro/src/main/java/org/apache/avro/SchemaBuilder.java`
 #### Snippet
 ```java
-   * optional.
+   * for all Avro types that have namespaces (Fixed, Record, and Enum).
    */
-  public static abstract class NamedBuilder<S extends NamedBuilder<S>> extends PropBuilder<S> {
-    private final String name;
-    private final NameContext names;
+  public static abstract class NamespacedBuilder<R, S extends NamespacedBuilder<R, S>> extends NamedBuilder<S> {
+    private final Completion<R> context;
+    private String namespace;
 ```
 
 ### MissortedModifiers
@@ -3260,15 +3105,15 @@ in `lang/java/avro/src/main/java/org/apache/avro/SchemaBuilder.java`
 ```
 
 ### MissortedModifiers
-Missorted modifiers `final static`
+Missorted modifiers `static abstract`
 in `lang/java/avro/src/main/java/org/apache/avro/SchemaBuilder.java`
 #### Snippet
 ```java
-  }
+   * string key-value properties.
+   */
+  public static abstract class PropBuilder<S extends PropBuilder<S>> {
+    private Map<String, JsonNode> props = null;
 
-  public final static class GenericDefault<R> {
-    private final FieldBuilder<R> field;
-    private final Schema schema;
 ```
 
 ### MissortedModifiers
@@ -3285,38 +3130,122 @@ in `lang/java/avro/src/main/java/org/apache/avro/SchemaBuilder.java`
 
 ### MissortedModifiers
 Missorted modifiers `final static`
-in `lang/java/avro/src/main/java/org/apache/avro/SchemaBuilder.java`
+in `lang/java/avro/src/main/java/org/apache/avro/reflect/FieldAccessUnsafe.java`
 #### Snippet
 ```java
   }
 
-  public final static class FieldAssembler<R> {
-    private final List<Field> fields = new ArrayList<>();
-    private final Completion<R> context;
+  final static class UnsafeObjectField extends UnsafeCachedField {
+    protected UnsafeObjectField(Field f) {
+      super(f);
 ```
 
 ### MissortedModifiers
-Missorted modifiers `static abstract`
-in `lang/java/avro/src/main/java/org/apache/avro/SchemaBuilder.java`
+Missorted modifiers `final static`
+in `lang/java/avro/src/main/java/org/apache/avro/reflect/FieldAccessUnsafe.java`
 #### Snippet
 ```java
   }
 
-  private static abstract class NestedCompletion<R> extends Completion<R> {
-    private final Completion<R> context;
-    private final PropBuilder<?> assembler;
+  final static class UnsafeByteField extends UnsafeCachedField {
+    protected UnsafeByteField(Field f) {
+      super(f);
 ```
 
 ### MissortedModifiers
-Missorted modifiers `static abstract`
-in `lang/java/avro/src/main/java/org/apache/avro/SchemaBuilder.java`
+Missorted modifiers `final static`
+in `lang/java/avro/src/main/java/org/apache/avro/reflect/FieldAccessUnsafe.java`
 #### Snippet
 ```java
-   * string key-value properties.
-   */
-  public static abstract class PropBuilder<S extends PropBuilder<S>> {
-    private Map<String, JsonNode> props = null;
+  }
 
+  final static class UnsafeIntField extends UnsafeCachedField {
+    UnsafeIntField(Field f) {
+      super(f);
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `lang/java/avro/src/main/java/org/apache/avro/reflect/FieldAccessUnsafe.java`
+#### Snippet
+```java
+  }
+
+  final static class UnsafeLongField extends UnsafeCachedField {
+    protected UnsafeLongField(Field f) {
+      super(f);
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `lang/java/avro/src/main/java/org/apache/avro/reflect/FieldAccessUnsafe.java`
+#### Snippet
+```java
+  }
+
+  final static class UnsafeDoubleField extends UnsafeCachedField {
+    protected UnsafeDoubleField(Field f) {
+      super(f);
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `lang/java/avro/src/main/java/org/apache/avro/reflect/FieldAccessUnsafe.java`
+#### Snippet
+```java
+  }
+
+  final static class UnsafeFloatField extends UnsafeCachedField {
+    protected UnsafeFloatField(Field f) {
+      super(f);
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `lang/java/avro/src/main/java/org/apache/avro/reflect/FieldAccessUnsafe.java`
+#### Snippet
+```java
+  }
+
+  final static class UnsafeShortField extends UnsafeCachedField {
+    protected UnsafeShortField(Field f) {
+      super(f);
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `lang/java/avro/src/main/java/org/apache/avro/reflect/FieldAccessUnsafe.java`
+#### Snippet
+```java
+  }
+
+  final static class UnsafeBooleanField extends UnsafeCachedField {
+    protected UnsafeBooleanField(Field f) {
+      super(f);
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `lang/java/avro/src/main/java/org/apache/avro/reflect/FieldAccessUnsafe.java`
+#### Snippet
+```java
+  }
+
+  final static class UnsafeCharField extends UnsafeCachedField {
+    protected UnsafeCharField(Field f) {
+      super(f);
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `lang/java/avro/src/main/java/org/apache/avro/reflect/FieldAccessUnsafe.java`
+#### Snippet
+```java
+  }
+
+  final static class UnsafeCustomEncodedField extends UnsafeCachedField {
+
+    private CustomEncoding<?> encoding;
 ```
 
 ### MissortedModifiers
@@ -3344,6 +3273,78 @@ abstract public class SpecificRecordBuilderBase<T extends SpecificRecord> extend
 ```
 
 ### MissortedModifiers
+Missorted modifiers `final static`
+in `lang/java/mapred/src/main/java/org/apache/avro/mapred/AvroOutputFormat.java`
+#### Snippet
+```java
+
+  /** The file name extension for avro data files. */
+  public final static String EXT = ".avro";
+
+  /** The configuration key for Avro deflate level. */
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `lang/java/trevni/avro/src/main/java/org/apache/trevni/avro/AvroTrevniOutputFormat.java`
+#### Snippet
+```java
+
+  /** The file name extension for trevni files. */
+  public final static String EXT = ".trv";
+
+  public static final String META_PREFIX = "trevni.meta.";
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `lang/java/trevni/avro/src/main/java/org/apache/trevni/avro/mapreduce/AvroTrevniRecordWriterBase.java`
+#### Snippet
+```java
+
+  /** trevni file extension */
+  public final static String EXT = ".trv";
+
+  /** prefix of job configs that we care about */
+```
+
+### MissortedModifiers
+Missorted modifiers `abstract protected`
+in `lang/java/trevni/avro/src/main/java/org/apache/trevni/avro/mapreduce/AvroTrevniRecordWriterBase.java`
+#### Snippet
+```java
+   * @throws IOException
+   */
+  abstract protected Schema initSchema(TaskAttemptContext context);
+
+  /**
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `lang/java/ipc/src/main/java/org/apache/avro/ipc/stats/Stopwatch.java`
+#### Snippet
+```java
+
+  /** Default System time source. */
+  public final static Ticks SYSTEM_TICKS = new SystemTicks();
+
+  private Ticks ticks;
+```
+
+### MissortedModifiers
+Missorted modifiers `static abstract`
+in `lang/java/ipc/src/main/java/org/apache/avro/ipc/SaslSocketServer.java`
+#### Snippet
+```java
+  private static final Logger LOG = LoggerFactory.getLogger(SaslServer.class);
+
+  private static abstract class SaslServerFactory {
+    protected abstract SaslServer getServer() throws SaslException;
+  }
+```
+
+### MissortedModifiers
 Missorted modifiers `static abstract`
 in `lang/java/avro/src/main/java/org/apache/avro/Schema.java`
 #### Snippet
@@ -3356,30 +3357,6 @@ in `lang/java/avro/src/main/java/org/apache/avro/Schema.java`
 ```
 
 ## RuleId[ruleID=NegativeIntConstantInLongContext]
-### NegativeIntConstantInLongContext
-Negative int hexadecimal constant in long context
-in `lang/java/trevni/core/src/main/java/org/apache/trevni/OutputBuffer.java`
-#### Snippet
-```java
-  public void writeFixed64(long l) throws IOException {
-    ensure(8);
-    int first = (int) (l & 0xFFFFFFFF);
-    int second = (int) ((l >>> 32) & 0xFFFFFFFF);
-    buf[count] = (byte) ((first) & 0xFF);
-```
-
-### NegativeIntConstantInLongContext
-Negative int hexadecimal constant in long context
-in `lang/java/trevni/core/src/main/java/org/apache/trevni/OutputBuffer.java`
-#### Snippet
-```java
-    ensure(8);
-    int first = (int) (l & 0xFFFFFFFF);
-    int second = (int) ((l >>> 32) & 0xFFFFFFFF);
-    buf[count] = (byte) ((first) & 0xFF);
-    buf[count + 4] = (byte) ((second) & 0xFF);
-```
-
 ### NegativeIntConstantInLongContext
 Negative int hexadecimal constant in long context
 in `lang/java/avro/src/main/java/org/apache/avro/io/BinaryData.java`
@@ -3402,6 +3379,30 @@ in `lang/java/avro/src/main/java/org/apache/avro/io/BinaryData.java`
     int second = (int) ((bits >>> 32) & 0xFFFFFFFF);
     // the compiler seems to execute this order the best, likely due to
     // register allocation -- the lifetime of constants is minimized.
+```
+
+### NegativeIntConstantInLongContext
+Negative int hexadecimal constant in long context
+in `lang/java/trevni/core/src/main/java/org/apache/trevni/OutputBuffer.java`
+#### Snippet
+```java
+  public void writeFixed64(long l) throws IOException {
+    ensure(8);
+    int first = (int) (l & 0xFFFFFFFF);
+    int second = (int) ((l >>> 32) & 0xFFFFFFFF);
+    buf[count] = (byte) ((first) & 0xFF);
+```
+
+### NegativeIntConstantInLongContext
+Negative int hexadecimal constant in long context
+in `lang/java/trevni/core/src/main/java/org/apache/trevni/OutputBuffer.java`
+#### Snippet
+```java
+    ensure(8);
+    int first = (int) (l & 0xFFFFFFFF);
+    int second = (int) ((l >>> 32) & 0xFFFFFFFF);
+    buf[count] = (byte) ((first) & 0xFF);
+    buf[count + 4] = (byte) ((second) & 0xFF);
 ```
 
 ## RuleId[ruleID=IgnoreResultOfCall]
@@ -3431,18 +3432,6 @@ in `lang/java/grpc/src/main/java/org/apache/avro/grpc/AvroGrpcUtils.java`
 
 ### IgnoreResultOfCall
 Result of `File.mkdirs()` is ignored
-in `lang/java/maven-plugin/src/main/java/org/apache/avro/mojo/InduceMojo.java`
-#### Snippet
-```java
-      String fileName = getOutputFileName(klass);
-      File outputFile = new File(fileName);
-      outputFile.getParentFile().mkdirs();
-      try (PrintWriter writer = new PrintWriter(fileName, encoding)) {
-        if (klass.isInterface()) {
-```
-
-### IgnoreResultOfCall
-Result of `File.mkdirs()` is ignored
 in `lang/java/compiler/src/main/java/org/apache/avro/compiler/specific/SpecificCompiler.java`
 #### Snippet
 ```java
@@ -3451,6 +3440,30 @@ in `lang/java/compiler/src/main/java/org/apache/avro/compiler/specific/SpecificC
       f.getParentFile().mkdirs();
       Writer fw = null;
       FileOutputStream fos = null;
+```
+
+### IgnoreResultOfCall
+Result of `ByteArrayInputStream.skip()` is ignored
+in `lang/java/avro/src/main/java/org/apache/avro/file/SeekableByteArrayInput.java`
+#### Snippet
+```java
+  public void seek(long p) throws IOException {
+    this.reset();
+    this.skip(p);
+  }
+
+```
+
+### IgnoreResultOfCall
+Result of `SeekableInputStream.read()` is ignored
+in `lang/java/avro/src/main/java/org/apache/avro/file/DataFileReader12.java`
+#### Snippet
+```java
+    byte[] magic = new byte[4];
+    in.seek(0); // seek to 0 to read magic header
+    in.read(magic);
+    if (!Arrays.equals(MAGIC, magic))
+      throw new InvalidAvroMagicException("Not a data file.");
 ```
 
 ### IgnoreResultOfCall
@@ -3478,27 +3491,15 @@ in `lang/java/mapred/src/main/java/org/apache/avro/mapred/tether/TetheredProcess
 ```
 
 ### IgnoreResultOfCall
-Result of `ByteArrayInputStream.skip()` is ignored
-in `lang/java/avro/src/main/java/org/apache/avro/file/SeekableByteArrayInput.java`
+Result of `File.mkdirs()` is ignored
+in `lang/java/maven-plugin/src/main/java/org/apache/avro/mojo/InduceMojo.java`
 #### Snippet
 ```java
-  public void seek(long p) throws IOException {
-    this.reset();
-    this.skip(p);
-  }
-
-```
-
-### IgnoreResultOfCall
-Result of `SeekableInputStream.read()` is ignored
-in `lang/java/avro/src/main/java/org/apache/avro/file/DataFileReader12.java`
-#### Snippet
-```java
-    byte[] magic = new byte[4];
-    in.seek(0); // seek to 0 to read magic header
-    in.read(magic);
-    if (!Arrays.equals(MAGIC, magic))
-      throw new InvalidAvroMagicException("Not a data file.");
+      String fileName = getOutputFileName(klass);
+      File outputFile = new File(fileName);
+      outputFile.getParentFile().mkdirs();
+      try (PrintWriter writer = new PrintWriter(fileName, encoding)) {
+        if (klass.isInterface()) {
 ```
 
 ## RuleId[ruleID=FunctionalExpressionCanBeFolded]
@@ -3904,18 +3905,6 @@ in `lang/java/mapred/src/main/java/org/apache/avro/hadoop/io/AvroSequenceFile.ja
 
 ## RuleId[ruleID=IntegerMultiplicationImplicitCastToLong]
 ### IntegerMultiplicationImplicitCastToLong
-columnCount \* 8: integer multiplication implicitly cast to long
-in `lang/java/trevni/core/src/main/java/org/apache/trevni/ColumnFileWriter.java`
-#### Snippet
-```java
-  private long[] computeStarts(long start) throws IOException {
-    long[] result = new long[columnCount];
-    start += columnCount * 8; // room for starts
-    for (int column = 0; column < columnCount; column++) {
-      result[column] = start;
-```
-
-### IntegerMultiplicationImplicitCastToLong
 1 \<\< (7 \* 9): integer shift implicitly cast to long
 in `lang/java/trevni/core/src/main/java/org/apache/trevni/OutputBuffer.java`
 #### Snippet
@@ -3925,6 +3914,18 @@ in `lang/java/trevni/core/src/main/java/org/apache/trevni/OutputBuffer.java`
     if (n <= (1 << (7 * 9)) - 1)
       return 9;
     return 10;
+```
+
+### IntegerMultiplicationImplicitCastToLong
+columnCount \* 8: integer multiplication implicitly cast to long
+in `lang/java/trevni/core/src/main/java/org/apache/trevni/ColumnFileWriter.java`
+#### Snippet
+```java
+  private long[] computeStarts(long start) throws IOException {
+    long[] result = new long[columnCount];
+    start += columnCount * 8; // room for starts
+    for (int column = 0; column < columnCount; column++) {
+      result[column] = start;
 ```
 
 ## RuleId[ruleID=IfStatementWithIdenticalBranches]
@@ -3943,127 +3944,7 @@ in `lang/java/avro/src/main/java/org/apache/avro/file/DataFileReader.java`
 ## RuleId[ruleID=UnnecessarySuperQualifier]
 ### UnnecessarySuperQualifier
 Qualifier `super` is unnecessary in this context
-in `lang/java/avro/src/main/java/org/apache/avro/io/BlockingBinaryEncoder.java`
-#### Snippet
-```java
-
-  BlockingBinaryEncoder configure(OutputStream out, int blockBufferSize, int binaryEncoderBufferSize) {
-    super.configure(out, binaryEncoderBufferSize);
-    pos = 0;
-    stackTop = 0;
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `lang/java/avro/src/main/java/org/apache/avro/util/NonCopyingByteArrayOutputStream.java`
-#### Snippet
-```java
-   */
-  public ByteBuffer asByteBuffer() {
-    return ByteBuffer.wrap(super.buf, 0, super.count);
-  }
-}
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `lang/java/avro/src/main/java/org/apache/avro/util/NonCopyingByteArrayOutputStream.java`
-#### Snippet
-```java
-   */
-  public ByteBuffer asByteBuffer() {
-    return ByteBuffer.wrap(super.buf, 0, super.count);
-  }
-}
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `lang/java/avro/src/main/java/org/apache/avro/SchemaBuilder.java`
-#### Snippet
-```java
-    /** Configure this fixed type's size, and end its configuration. **/
-    public R size(int size) {
-      Schema schema = Schema.createFixed(name(), super.doc(), space(), size);
-      completeSchema(schema);
-      return context().complete(schema);
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `lang/java/perf/src/main/java/org/apache/avro/perf/test/basic/StringTest.java`
-#### Snippet
-```java
-    public void doSetupTrial() throws IOException {
-      ByteArrayOutputStream baos = new ByteArrayOutputStream();
-      Encoder encoder = super.newEncoder(true, baos);
-
-      for (int i = 0; i < getBatchSize(); i++) {
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `lang/java/perf/src/main/java/org/apache/avro/perf/test/basic/StringTest.java`
-#### Snippet
-```java
-
-    private String randomString() {
-      final char[] data = new char[super.getRandom().nextInt(70)];
-      for (int j = 0; j < data.length; j++) {
-        data[j] = (char) ('a' + super.getRandom().nextInt('z' - 'a'));
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `lang/java/perf/src/main/java/org/apache/avro/perf/test/basic/StringTest.java`
-#### Snippet
-```java
-      final char[] data = new char[super.getRandom().nextInt(70)];
-      for (int j = 0; j < data.length; j++) {
-        data[j] = (char) ('a' + super.getRandom().nextInt('z' - 'a'));
-      }
-      return new String(data);
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `lang/java/perf/src/main/java/org/apache/avro/perf/test/basic/StringTest.java`
-#### Snippet
-```java
-
-    private String randomString() {
-      final char[] data = new char[super.getRandom().nextInt(70)];
-      for (int j = 0; j < data.length; j++) {
-        data[j] = (char) ('a' + super.getRandom().nextInt('z' - 'a'));
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `lang/java/perf/src/main/java/org/apache/avro/perf/test/basic/StringTest.java`
-#### Snippet
-```java
-      final char[] data = new char[super.getRandom().nextInt(70)];
-      for (int j = 0; j < data.length; j++) {
-        data[j] = (char) ('a' + super.getRandom().nextInt('z' - 'a'));
-      }
-      return new String(data);
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `lang/java/perf/src/main/java/org/apache/avro/perf/test/basic/StringTest.java`
-#### Snippet
-```java
-    @Setup(Level.Trial)
-    public void doSetupTrial() throws Exception {
-      this.encoder = super.newEncoder(false, getNullOutputStream());
-      this.testData = new String[getBatchSize()];
-
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `lang/java/perf/src/main/java/org/apache/avro/perf/test/basic/StringTest.java`
+in `lang/java/perf/src/main/java/org/apache/avro/perf/test/basic/FloatTest.java`
 #### Snippet
 ```java
     @Setup(Level.Invocation)
@@ -4071,30 +3952,6 @@ in `lang/java/perf/src/main/java/org/apache/avro/perf/test/basic/StringTest.java
       this.decoder = super.newDecoder(this.testData);
     }
   }
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `lang/java/perf/src/main/java/org/apache/avro/perf/test/basic/DoubleTest.java`
-#### Snippet
-```java
-    public void doSetupTrial() throws IOException {
-      ByteArrayOutputStream baos = new ByteArrayOutputStream();
-      Encoder encoder = super.newEncoder(true, baos);
-
-      for (int i = 0; i < getBatchSize(); i++) {
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `lang/java/perf/src/main/java/org/apache/avro/perf/test/basic/DoubleTest.java`
-#### Snippet
-```java
-
-      for (int i = 0; i < getBatchSize(); i++) {
-        encoder.writeDouble(super.getRandom().nextDouble());
-      }
-
 ```
 
 ### UnnecessarySuperQualifier
@@ -4126,76 +3983,52 @@ Qualifier `super` is unnecessary in this context
 in `lang/java/perf/src/main/java/org/apache/avro/perf/test/basic/DoubleTest.java`
 #### Snippet
 ```java
-    @Setup(Level.Invocation)
-    public void doSetupInvocation() throws Exception {
-      this.decoder = super.newDecoder(this.testData);
-    }
-  }
+    public void doSetupTrial() throws IOException {
+      ByteArrayOutputStream baos = new ByteArrayOutputStream();
+      Encoder encoder = super.newEncoder(true, baos);
+
+      for (int i = 0; i < getBatchSize(); i++) {
 ```
 
 ### UnnecessarySuperQualifier
 Qualifier `super` is unnecessary in this context
-in `lang/java/perf/src/main/java/org/apache/avro/perf/test/basic/LongTest.java`
+in `lang/java/perf/src/main/java/org/apache/avro/perf/test/basic/FloatTest.java`
 #### Snippet
 ```java
     public void doSetupTrial() throws IOException {
       ByteArrayOutputStream baos = new ByteArrayOutputStream();
       Encoder encoder = super.newEncoder(true, baos);
 
-      for (int i = 0; i < getBatchSize(); i += 4) {
+      for (int i = 0; i < getBatchSize(); i++) {
 ```
 
 ### UnnecessarySuperQualifier
 Qualifier `super` is unnecessary in this context
-in `lang/java/perf/src/main/java/org/apache/avro/perf/test/basic/LongTest.java`
-#### Snippet
-```java
-      for (int i = 0; i < getBatchSize(); i += 4) {
-        // half fit in 1, half in 2
-        encoder.writeLong(super.getRandom().nextLong() % 0x7FL);
-
-        // half fit in <=3, half in 4
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `lang/java/perf/src/main/java/org/apache/avro/perf/test/basic/LongTest.java`
+in `lang/java/perf/src/main/java/org/apache/avro/perf/test/basic/FloatTest.java`
 #### Snippet
 ```java
 
-        // half fit in <=3, half in 4
-        encoder.writeLong(super.getRandom().nextLong() % 0x1FFFFFL);
-
-        // half in <=5, half in 6
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `lang/java/perf/src/main/java/org/apache/avro/perf/test/basic/LongTest.java`
-#### Snippet
-```java
-
-        // half in <=5, half in 6
-        encoder.writeLong(super.getRandom().nextLong() % 0x3FFFFFFFFL);
-
-        // half in <=8, half in 9
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `lang/java/perf/src/main/java/org/apache/avro/perf/test/basic/LongTest.java`
-#### Snippet
-```java
-
-        // half in <=8, half in 9
-        encoder.writeLong(super.getRandom().nextLong() % 0x1FFFFFFFFFFFFL);
+      for (int i = 0; i < getBatchSize(); i++) {
+        encoder.writeFloat(super.getRandom().nextFloat());
       }
 
 ```
 
 ### UnnecessarySuperQualifier
 Qualifier `super` is unnecessary in this context
-in `lang/java/perf/src/main/java/org/apache/avro/perf/test/basic/LongTest.java`
+in `lang/java/perf/src/main/java/org/apache/avro/perf/test/basic/DoubleTest.java`
+#### Snippet
+```java
+
+      for (int i = 0; i < getBatchSize(); i++) {
+        encoder.writeDouble(super.getRandom().nextDouble());
+      }
+
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `lang/java/perf/src/main/java/org/apache/avro/perf/test/basic/DoubleTest.java`
 #### Snippet
 ```java
     @Setup(Level.Invocation)
@@ -4207,67 +4040,55 @@ in `lang/java/perf/src/main/java/org/apache/avro/perf/test/basic/LongTest.java`
 
 ### UnnecessarySuperQualifier
 Qualifier `super` is unnecessary in this context
-in `lang/java/perf/src/main/java/org/apache/avro/perf/test/basic/LongTest.java`
+in `lang/java/perf/src/main/java/org/apache/avro/perf/test/basic/SmallLongTest.java`
 #### Snippet
 ```java
-    @Setup(Level.Trial)
-    public void doSetupTrial() throws Exception {
-      this.encoder = super.newEncoder(false, getNullOutputStream());
-      this.testData = new long[getBatchSize()];
-
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `lang/java/perf/src/main/java/org/apache/avro/perf/test/basic/LongTest.java`
-#### Snippet
-```java
-      for (int i = 0; i < testData.length; i += 4) {
-        // half fit in 1, half in 2
-        testData[i + 0] = super.getRandom().nextLong() % 0x7FL;
-        // half fit in <=3, half in 4
-        testData[i + 1] = super.getRandom().nextLong() % 0x1FFFFFL;
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `lang/java/perf/src/main/java/org/apache/avro/perf/test/basic/LongTest.java`
-#### Snippet
-```java
-        testData[i + 0] = super.getRandom().nextLong() % 0x7FL;
-        // half fit in <=3, half in 4
-        testData[i + 1] = super.getRandom().nextLong() % 0x1FFFFFL;
-        // half in <=5, half in 6
-        testData[i + 2] = super.getRandom().nextLong() % 0x3FFFFFFFFL;
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `lang/java/perf/src/main/java/org/apache/avro/perf/test/basic/LongTest.java`
-#### Snippet
-```java
-        testData[i + 1] = super.getRandom().nextLong() % 0x1FFFFFL;
-        // half in <=5, half in 6
-        testData[i + 2] = super.getRandom().nextLong() % 0x3FFFFFFFFL;
-        // half in <=8, half in 9
-        testData[i + 3] = super.getRandom().nextLong() % 0x1FFFFFFFFFFFFL;
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `lang/java/perf/src/main/java/org/apache/avro/perf/test/basic/LongTest.java`
-#### Snippet
-```java
-        testData[i + 2] = super.getRandom().nextLong() % 0x3FFFFFFFFL;
-        // half in <=8, half in 9
-        testData[i + 3] = super.getRandom().nextLong() % 0x1FFFFFFFFFFFFL;
-      }
+    @Setup(Level.Invocation)
+    public void doSetupInvocation() throws Exception {
+      this.decoder = super.newDecoder(this.testData);
     }
+  }
 ```
 
 ### UnnecessarySuperQualifier
 Qualifier `super` is unnecessary in this context
-in `lang/java/perf/src/main/java/org/apache/avro/perf/test/basic/ArrayTest.java`
+in `lang/java/perf/src/main/java/org/apache/avro/perf/test/basic/BytesTest.java`
+#### Snippet
+```java
+    public void doSetupTrial() throws IOException {
+      ByteArrayOutputStream baos = new ByteArrayOutputStream();
+      Encoder encoder = super.newEncoder(true, baos);
+
+      for (int i = 0; i < getBatchSize(); i++) {
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `lang/java/perf/src/main/java/org/apache/avro/perf/test/basic/BytesTest.java`
+#### Snippet
+```java
+
+      for (int i = 0; i < getBatchSize(); i++) {
+        final byte[] data = new byte[super.getRandom().nextInt(70)];
+        super.getRandom().nextBytes(data);
+        encoder.writeBytes(data);
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `lang/java/perf/src/main/java/org/apache/avro/perf/test/basic/BytesTest.java`
+#### Snippet
+```java
+      for (int i = 0; i < getBatchSize(); i++) {
+        final byte[] data = new byte[super.getRandom().nextInt(70)];
+        super.getRandom().nextBytes(data);
+        encoder.writeBytes(data);
+      }
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `lang/java/perf/src/main/java/org/apache/avro/perf/test/basic/FloatTest.java`
 #### Snippet
 ```java
     @Setup(Level.Trial)
@@ -4275,90 +4096,6 @@ in `lang/java/perf/src/main/java/org/apache/avro/perf/test/basic/ArrayTest.java`
       this.encoder = super.newEncoder(false, getNullOutputStream());
       this.testData = new float[getBatchSize()];
 
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `lang/java/perf/src/main/java/org/apache/avro/perf/test/basic/ArrayTest.java`
-#### Snippet
-```java
-
-      for (int i = 0; i < testData.length; i++) {
-        testData[i] = super.getRandom().nextFloat();
-      }
-    }
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `lang/java/perf/src/main/java/org/apache/avro/perf/test/basic/ArrayTest.java`
-#### Snippet
-```java
-    @Setup(Level.Invocation)
-    public void doSetupInvocation() throws Exception {
-      this.decoder = super.newDecoder(this.testData);
-    }
-  }
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `lang/java/perf/src/main/java/org/apache/avro/perf/test/basic/ArrayTest.java`
-#### Snippet
-```java
-    public void doSetupTrial() throws IOException {
-      ByteArrayOutputStream baos = new ByteArrayOutputStream();
-      Encoder encoder = super.newEncoder(true, baos);
-
-      final int items = getBatchSize() / 4;
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `lang/java/perf/src/main/java/org/apache/avro/perf/test/basic/ArrayTest.java`
-#### Snippet
-```java
-      for (int i = 0; i < getBatchSize(); i += 4) {
-        encoder.startItem();
-        encoder.writeFloat(super.getRandom().nextFloat());
-        encoder.writeFloat(super.getRandom().nextFloat());
-        encoder.writeFloat(super.getRandom().nextFloat());
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `lang/java/perf/src/main/java/org/apache/avro/perf/test/basic/ArrayTest.java`
-#### Snippet
-```java
-        encoder.startItem();
-        encoder.writeFloat(super.getRandom().nextFloat());
-        encoder.writeFloat(super.getRandom().nextFloat());
-        encoder.writeFloat(super.getRandom().nextFloat());
-        encoder.writeFloat(super.getRandom().nextFloat());
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `lang/java/perf/src/main/java/org/apache/avro/perf/test/basic/ArrayTest.java`
-#### Snippet
-```java
-        encoder.writeFloat(super.getRandom().nextFloat());
-        encoder.writeFloat(super.getRandom().nextFloat());
-        encoder.writeFloat(super.getRandom().nextFloat());
-        encoder.writeFloat(super.getRandom().nextFloat());
-      }
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `lang/java/perf/src/main/java/org/apache/avro/perf/test/basic/ArrayTest.java`
-#### Snippet
-```java
-        encoder.writeFloat(super.getRandom().nextFloat());
-        encoder.writeFloat(super.getRandom().nextFloat());
-        encoder.writeFloat(super.getRandom().nextFloat());
-      }
-      encoder.writeArrayEnd();
 ```
 
 ### UnnecessarySuperQualifier
@@ -4411,78 +4148,6 @@ in `lang/java/perf/src/main/java/org/apache/avro/perf/test/basic/BytesTest.java`
 
 ### UnnecessarySuperQualifier
 Qualifier `super` is unnecessary in this context
-in `lang/java/perf/src/main/java/org/apache/avro/perf/test/basic/BytesTest.java`
-#### Snippet
-```java
-    public void doSetupTrial() throws IOException {
-      ByteArrayOutputStream baos = new ByteArrayOutputStream();
-      Encoder encoder = super.newEncoder(true, baos);
-
-      for (int i = 0; i < getBatchSize(); i++) {
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `lang/java/perf/src/main/java/org/apache/avro/perf/test/basic/BytesTest.java`
-#### Snippet
-```java
-
-      for (int i = 0; i < getBatchSize(); i++) {
-        final byte[] data = new byte[super.getRandom().nextInt(70)];
-        super.getRandom().nextBytes(data);
-        encoder.writeBytes(data);
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `lang/java/perf/src/main/java/org/apache/avro/perf/test/basic/BytesTest.java`
-#### Snippet
-```java
-      for (int i = 0; i < getBatchSize(); i++) {
-        final byte[] data = new byte[super.getRandom().nextInt(70)];
-        super.getRandom().nextBytes(data);
-        encoder.writeBytes(data);
-      }
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `lang/java/perf/src/main/java/org/apache/avro/perf/test/basic/FloatTest.java`
-#### Snippet
-```java
-    public void doSetupTrial() throws IOException {
-      ByteArrayOutputStream baos = new ByteArrayOutputStream();
-      Encoder encoder = super.newEncoder(true, baos);
-
-      for (int i = 0; i < getBatchSize(); i++) {
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `lang/java/perf/src/main/java/org/apache/avro/perf/test/basic/FloatTest.java`
-#### Snippet
-```java
-
-      for (int i = 0; i < getBatchSize(); i++) {
-        encoder.writeFloat(super.getRandom().nextFloat());
-      }
-
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `lang/java/perf/src/main/java/org/apache/avro/perf/test/basic/FloatTest.java`
-#### Snippet
-```java
-    @Setup(Level.Trial)
-    public void doSetupTrial() throws Exception {
-      this.encoder = super.newEncoder(false, getNullOutputStream());
-      this.testData = new float[getBatchSize()];
-
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
 in `lang/java/perf/src/main/java/org/apache/avro/perf/test/basic/FloatTest.java`
 #### Snippet
 ```java
@@ -4495,7 +4160,55 @@ in `lang/java/perf/src/main/java/org/apache/avro/perf/test/basic/FloatTest.java`
 
 ### UnnecessarySuperQualifier
 Qualifier `super` is unnecessary in this context
-in `lang/java/perf/src/main/java/org/apache/avro/perf/test/basic/FloatTest.java`
+in `lang/java/perf/src/main/java/org/apache/avro/perf/test/basic/SmallLongTest.java`
+#### Snippet
+```java
+    public void doSetupTrial() throws IOException {
+      ByteArrayOutputStream baos = new ByteArrayOutputStream();
+      Encoder encoder = super.newEncoder(true, baos);
+
+      for (int i = 0; i < getBatchSize(); i += 4) {
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `lang/java/perf/src/main/java/org/apache/avro/perf/test/basic/SmallLongTest.java`
+#### Snippet
+```java
+      for (int i = 0; i < getBatchSize(); i += 4) {
+        // fits in 1 byte
+        encoder.writeInt(super.getRandom().nextInt(50));
+
+        // fits in 2 bytes
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `lang/java/perf/src/main/java/org/apache/avro/perf/test/basic/SmallLongTest.java`
+#### Snippet
+```java
+
+        // fits in 2 bytes
+        encoder.writeInt(super.getRandom().nextInt(5000));
+
+        // fits in 3 bytes
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `lang/java/perf/src/main/java/org/apache/avro/perf/test/basic/SmallLongTest.java`
+#### Snippet
+```java
+
+        // fits in 3 bytes
+        encoder.writeInt(super.getRandom().nextInt(500000));
+
+        // most in 4 bytes, some in 5 bytes
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `lang/java/perf/src/main/java/org/apache/avro/perf/test/basic/BooleanTest.java`
 #### Snippet
 ```java
     @Setup(Level.Invocation)
@@ -4551,66 +4264,6 @@ in `lang/java/perf/src/main/java/org/apache/avro/perf/test/basic/BooleanTest.jav
         encoder.writeBoolean(super.getRandom().nextBoolean());
       }
 
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `lang/java/perf/src/main/java/org/apache/avro/perf/test/basic/BooleanTest.java`
-#### Snippet
-```java
-    @Setup(Level.Invocation)
-    public void doSetupInvocation() throws Exception {
-      this.decoder = super.newDecoder(this.testData);
-    }
-  }
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `lang/java/perf/src/main/java/org/apache/avro/perf/test/basic/SmallLongTest.java`
-#### Snippet
-```java
-    public void doSetupTrial() throws IOException {
-      ByteArrayOutputStream baos = new ByteArrayOutputStream();
-      Encoder encoder = super.newEncoder(true, baos);
-
-      for (int i = 0; i < getBatchSize(); i += 4) {
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `lang/java/perf/src/main/java/org/apache/avro/perf/test/basic/SmallLongTest.java`
-#### Snippet
-```java
-      for (int i = 0; i < getBatchSize(); i += 4) {
-        // fits in 1 byte
-        encoder.writeInt(super.getRandom().nextInt(50));
-
-        // fits in 2 bytes
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `lang/java/perf/src/main/java/org/apache/avro/perf/test/basic/SmallLongTest.java`
-#### Snippet
-```java
-
-        // fits in 2 bytes
-        encoder.writeInt(super.getRandom().nextInt(5000));
-
-        // fits in 3 bytes
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `lang/java/perf/src/main/java/org/apache/avro/perf/test/basic/SmallLongTest.java`
-#### Snippet
-```java
-
-        // fits in 3 bytes
-        encoder.writeInt(super.getRandom().nextInt(500000));
-
-        // most in 4 bytes, some in 5 bytes
 ```
 
 ### UnnecessarySuperQualifier
@@ -4687,7 +4340,127 @@ in `lang/java/perf/src/main/java/org/apache/avro/perf/test/basic/SmallLongTest.j
 
 ### UnnecessarySuperQualifier
 Qualifier `super` is unnecessary in this context
-in `lang/java/perf/src/main/java/org/apache/avro/perf/test/basic/SmallLongTest.java`
+in `lang/java/perf/src/main/java/org/apache/avro/perf/test/basic/LongTest.java`
+#### Snippet
+```java
+    public void doSetupTrial() throws IOException {
+      ByteArrayOutputStream baos = new ByteArrayOutputStream();
+      Encoder encoder = super.newEncoder(true, baos);
+
+      for (int i = 0; i < getBatchSize(); i += 4) {
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `lang/java/perf/src/main/java/org/apache/avro/perf/test/basic/LongTest.java`
+#### Snippet
+```java
+      for (int i = 0; i < getBatchSize(); i += 4) {
+        // half fit in 1, half in 2
+        encoder.writeLong(super.getRandom().nextLong() % 0x7FL);
+
+        // half fit in <=3, half in 4
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `lang/java/perf/src/main/java/org/apache/avro/perf/test/basic/LongTest.java`
+#### Snippet
+```java
+
+        // half fit in <=3, half in 4
+        encoder.writeLong(super.getRandom().nextLong() % 0x1FFFFFL);
+
+        // half in <=5, half in 6
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `lang/java/perf/src/main/java/org/apache/avro/perf/test/basic/LongTest.java`
+#### Snippet
+```java
+
+        // half in <=5, half in 6
+        encoder.writeLong(super.getRandom().nextLong() % 0x3FFFFFFFFL);
+
+        // half in <=8, half in 9
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `lang/java/perf/src/main/java/org/apache/avro/perf/test/basic/LongTest.java`
+#### Snippet
+```java
+
+        // half in <=8, half in 9
+        encoder.writeLong(super.getRandom().nextLong() % 0x1FFFFFFFFFFFFL);
+      }
+
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `lang/java/perf/src/main/java/org/apache/avro/perf/test/basic/LongTest.java`
+#### Snippet
+```java
+    @Setup(Level.Trial)
+    public void doSetupTrial() throws Exception {
+      this.encoder = super.newEncoder(false, getNullOutputStream());
+      this.testData = new long[getBatchSize()];
+
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `lang/java/perf/src/main/java/org/apache/avro/perf/test/basic/LongTest.java`
+#### Snippet
+```java
+      for (int i = 0; i < testData.length; i += 4) {
+        // half fit in 1, half in 2
+        testData[i + 0] = super.getRandom().nextLong() % 0x7FL;
+        // half fit in <=3, half in 4
+        testData[i + 1] = super.getRandom().nextLong() % 0x1FFFFFL;
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `lang/java/perf/src/main/java/org/apache/avro/perf/test/basic/LongTest.java`
+#### Snippet
+```java
+        testData[i + 0] = super.getRandom().nextLong() % 0x7FL;
+        // half fit in <=3, half in 4
+        testData[i + 1] = super.getRandom().nextLong() % 0x1FFFFFL;
+        // half in <=5, half in 6
+        testData[i + 2] = super.getRandom().nextLong() % 0x3FFFFFFFFL;
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `lang/java/perf/src/main/java/org/apache/avro/perf/test/basic/LongTest.java`
+#### Snippet
+```java
+        testData[i + 1] = super.getRandom().nextLong() % 0x1FFFFFL;
+        // half in <=5, half in 6
+        testData[i + 2] = super.getRandom().nextLong() % 0x3FFFFFFFFL;
+        // half in <=8, half in 9
+        testData[i + 3] = super.getRandom().nextLong() % 0x1FFFFFFFFFFFFL;
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `lang/java/perf/src/main/java/org/apache/avro/perf/test/basic/LongTest.java`
+#### Snippet
+```java
+        testData[i + 2] = super.getRandom().nextLong() % 0x3FFFFFFFFL;
+        // half in <=8, half in 9
+        testData[i + 3] = super.getRandom().nextLong() % 0x1FFFFFFFFFFFFL;
+      }
+    }
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `lang/java/perf/src/main/java/org/apache/avro/perf/test/basic/LongTest.java`
 #### Snippet
 ```java
     @Setup(Level.Invocation)
@@ -4699,7 +4472,7 @@ in `lang/java/perf/src/main/java/org/apache/avro/perf/test/basic/SmallLongTest.j
 
 ### UnnecessarySuperQualifier
 Qualifier `super` is unnecessary in this context
-in `lang/java/perf/src/main/java/org/apache/avro/perf/test/basic/MapTest.java`
+in `lang/java/perf/src/main/java/org/apache/avro/perf/test/basic/ArrayTest.java`
 #### Snippet
 ```java
     @Setup(Level.Invocation)
@@ -4707,6 +4480,306 @@ in `lang/java/perf/src/main/java/org/apache/avro/perf/test/basic/MapTest.java`
       this.decoder = super.newDecoder(this.testData);
     }
   }
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `lang/java/perf/src/main/java/org/apache/avro/perf/test/basic/ArrayTest.java`
+#### Snippet
+```java
+    @Setup(Level.Trial)
+    public void doSetupTrial() throws Exception {
+      this.encoder = super.newEncoder(false, getNullOutputStream());
+      this.testData = new float[getBatchSize()];
+
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `lang/java/perf/src/main/java/org/apache/avro/perf/test/basic/ArrayTest.java`
+#### Snippet
+```java
+
+      for (int i = 0; i < testData.length; i++) {
+        testData[i] = super.getRandom().nextFloat();
+      }
+    }
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `lang/java/perf/src/main/java/org/apache/avro/perf/test/basic/ArrayTest.java`
+#### Snippet
+```java
+    public void doSetupTrial() throws IOException {
+      ByteArrayOutputStream baos = new ByteArrayOutputStream();
+      Encoder encoder = super.newEncoder(true, baos);
+
+      final int items = getBatchSize() / 4;
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `lang/java/perf/src/main/java/org/apache/avro/perf/test/basic/ArrayTest.java`
+#### Snippet
+```java
+      for (int i = 0; i < getBatchSize(); i += 4) {
+        encoder.startItem();
+        encoder.writeFloat(super.getRandom().nextFloat());
+        encoder.writeFloat(super.getRandom().nextFloat());
+        encoder.writeFloat(super.getRandom().nextFloat());
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `lang/java/perf/src/main/java/org/apache/avro/perf/test/basic/ArrayTest.java`
+#### Snippet
+```java
+        encoder.startItem();
+        encoder.writeFloat(super.getRandom().nextFloat());
+        encoder.writeFloat(super.getRandom().nextFloat());
+        encoder.writeFloat(super.getRandom().nextFloat());
+        encoder.writeFloat(super.getRandom().nextFloat());
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `lang/java/perf/src/main/java/org/apache/avro/perf/test/basic/ArrayTest.java`
+#### Snippet
+```java
+        encoder.writeFloat(super.getRandom().nextFloat());
+        encoder.writeFloat(super.getRandom().nextFloat());
+        encoder.writeFloat(super.getRandom().nextFloat());
+        encoder.writeFloat(super.getRandom().nextFloat());
+      }
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `lang/java/perf/src/main/java/org/apache/avro/perf/test/basic/ArrayTest.java`
+#### Snippet
+```java
+        encoder.writeFloat(super.getRandom().nextFloat());
+        encoder.writeFloat(super.getRandom().nextFloat());
+        encoder.writeFloat(super.getRandom().nextFloat());
+      }
+      encoder.writeArrayEnd();
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `lang/java/perf/src/main/java/org/apache/avro/perf/test/basic/StringTest.java`
+#### Snippet
+```java
+
+    private String randomString() {
+      final char[] data = new char[super.getRandom().nextInt(70)];
+      for (int j = 0; j < data.length; j++) {
+        data[j] = (char) ('a' + super.getRandom().nextInt('z' - 'a'));
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `lang/java/perf/src/main/java/org/apache/avro/perf/test/basic/StringTest.java`
+#### Snippet
+```java
+      final char[] data = new char[super.getRandom().nextInt(70)];
+      for (int j = 0; j < data.length; j++) {
+        data[j] = (char) ('a' + super.getRandom().nextInt('z' - 'a'));
+      }
+      return new String(data);
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `lang/java/perf/src/main/java/org/apache/avro/perf/test/basic/StringTest.java`
+#### Snippet
+```java
+
+    private String randomString() {
+      final char[] data = new char[super.getRandom().nextInt(70)];
+      for (int j = 0; j < data.length; j++) {
+        data[j] = (char) ('a' + super.getRandom().nextInt('z' - 'a'));
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `lang/java/perf/src/main/java/org/apache/avro/perf/test/basic/StringTest.java`
+#### Snippet
+```java
+      final char[] data = new char[super.getRandom().nextInt(70)];
+      for (int j = 0; j < data.length; j++) {
+        data[j] = (char) ('a' + super.getRandom().nextInt('z' - 'a'));
+      }
+      return new String(data);
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `lang/java/perf/src/main/java/org/apache/avro/perf/test/basic/StringTest.java`
+#### Snippet
+```java
+    public void doSetupTrial() throws IOException {
+      ByteArrayOutputStream baos = new ByteArrayOutputStream();
+      Encoder encoder = super.newEncoder(true, baos);
+
+      for (int i = 0; i < getBatchSize(); i++) {
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `lang/java/perf/src/main/java/org/apache/avro/perf/test/basic/StringTest.java`
+#### Snippet
+```java
+    @Setup(Level.Invocation)
+    public void doSetupInvocation() throws Exception {
+      this.decoder = super.newDecoder(this.testData);
+    }
+  }
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `lang/java/perf/src/main/java/org/apache/avro/perf/test/basic/StringTest.java`
+#### Snippet
+```java
+    @Setup(Level.Trial)
+    public void doSetupTrial() throws Exception {
+      this.encoder = super.newEncoder(false, getNullOutputStream());
+      this.testData = new String[getBatchSize()];
+
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `lang/java/perf/src/main/java/org/apache/avro/perf/test/basic/IntTest.java`
+#### Snippet
+```java
+    @Setup(Level.Invocation)
+    public void doSetupInvocation() throws Exception {
+      this.decoder = super.newDecoder(this.testData);
+    }
+  }
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `lang/java/perf/src/main/java/org/apache/avro/perf/test/basic/IntTest.java`
+#### Snippet
+```java
+    @Setup(Level.Trial)
+    public void doSetupTrial() throws Exception {
+      this.encoder = super.newEncoder(false, getNullOutputStream());
+      this.testData = new int[getBatchSize()];
+
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `lang/java/perf/src/main/java/org/apache/avro/perf/test/basic/IntTest.java`
+#### Snippet
+```java
+      for (int i = 0; i < testData.length; i += 4) {
+        // fits in 1 byte
+        testData[i + 0] = super.getRandom().nextInt(50);
+
+        // fits in 2 bytes
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `lang/java/perf/src/main/java/org/apache/avro/perf/test/basic/IntTest.java`
+#### Snippet
+```java
+
+        // fits in 2 bytes
+        testData[i + 1] = super.getRandom().nextInt(5000);
+
+        // fits in 3 bytes
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `lang/java/perf/src/main/java/org/apache/avro/perf/test/basic/IntTest.java`
+#### Snippet
+```java
+
+        // fits in 3 bytes
+        testData[i + 2] = super.getRandom().nextInt(500000);
+
+        // most in 4 bytes, some in 5 bytes
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `lang/java/perf/src/main/java/org/apache/avro/perf/test/basic/IntTest.java`
+#### Snippet
+```java
+
+        // most in 4 bytes, some in 5 bytes
+        testData[i + 3] = super.getRandom().nextInt(150000000);
+      }
+    }
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `lang/java/perf/src/main/java/org/apache/avro/perf/test/basic/IntTest.java`
+#### Snippet
+```java
+    public void doSetupTrial() throws IOException {
+      ByteArrayOutputStream baos = new ByteArrayOutputStream();
+      Encoder encoder = super.newEncoder(true, baos);
+
+      for (int i = 0; i < getBatchSize(); i += 4) {
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `lang/java/perf/src/main/java/org/apache/avro/perf/test/basic/IntTest.java`
+#### Snippet
+```java
+      for (int i = 0; i < getBatchSize(); i += 4) {
+        // fits in 1 byte
+        encoder.writeInt(super.getRandom().nextInt(50));
+
+        // fits in 2 bytes
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `lang/java/perf/src/main/java/org/apache/avro/perf/test/basic/IntTest.java`
+#### Snippet
+```java
+
+        // fits in 2 bytes
+        encoder.writeInt(super.getRandom().nextInt(5000));
+
+        // fits in 3 bytes
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `lang/java/perf/src/main/java/org/apache/avro/perf/test/basic/IntTest.java`
+#### Snippet
+```java
+
+        // fits in 3 bytes
+        encoder.writeInt(super.getRandom().nextInt(500000));
+
+        // most in 4 bytes, some in 5 bytes
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `lang/java/perf/src/main/java/org/apache/avro/perf/test/basic/IntTest.java`
+#### Snippet
+```java
+
+        // most in 4 bytes, some in 5 bytes
+        encoder.writeInt(super.getRandom().nextInt(150000000));
+      }
+
 ```
 
 ### UnnecessarySuperQualifier
@@ -4795,187 +4868,7 @@ in `lang/java/perf/src/main/java/org/apache/avro/perf/test/basic/MapTest.java`
 
 ### UnnecessarySuperQualifier
 Qualifier `super` is unnecessary in this context
-in `lang/java/perf/src/main/java/org/apache/avro/perf/test/basic/IntTest.java`
-#### Snippet
-```java
-    public void doSetupTrial() throws IOException {
-      ByteArrayOutputStream baos = new ByteArrayOutputStream();
-      Encoder encoder = super.newEncoder(true, baos);
-
-      for (int i = 0; i < getBatchSize(); i += 4) {
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `lang/java/perf/src/main/java/org/apache/avro/perf/test/basic/IntTest.java`
-#### Snippet
-```java
-      for (int i = 0; i < getBatchSize(); i += 4) {
-        // fits in 1 byte
-        encoder.writeInt(super.getRandom().nextInt(50));
-
-        // fits in 2 bytes
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `lang/java/perf/src/main/java/org/apache/avro/perf/test/basic/IntTest.java`
-#### Snippet
-```java
-
-        // fits in 2 bytes
-        encoder.writeInt(super.getRandom().nextInt(5000));
-
-        // fits in 3 bytes
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `lang/java/perf/src/main/java/org/apache/avro/perf/test/basic/IntTest.java`
-#### Snippet
-```java
-
-        // fits in 3 bytes
-        encoder.writeInt(super.getRandom().nextInt(500000));
-
-        // most in 4 bytes, some in 5 bytes
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `lang/java/perf/src/main/java/org/apache/avro/perf/test/basic/IntTest.java`
-#### Snippet
-```java
-
-        // most in 4 bytes, some in 5 bytes
-        encoder.writeInt(super.getRandom().nextInt(150000000));
-      }
-
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `lang/java/perf/src/main/java/org/apache/avro/perf/test/basic/IntTest.java`
-#### Snippet
-```java
-    @Setup(Level.Invocation)
-    public void doSetupInvocation() throws Exception {
-      this.decoder = super.newDecoder(this.testData);
-    }
-  }
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `lang/java/perf/src/main/java/org/apache/avro/perf/test/basic/IntTest.java`
-#### Snippet
-```java
-    @Setup(Level.Trial)
-    public void doSetupTrial() throws Exception {
-      this.encoder = super.newEncoder(false, getNullOutputStream());
-      this.testData = new int[getBatchSize()];
-
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `lang/java/perf/src/main/java/org/apache/avro/perf/test/basic/IntTest.java`
-#### Snippet
-```java
-      for (int i = 0; i < testData.length; i += 4) {
-        // fits in 1 byte
-        testData[i + 0] = super.getRandom().nextInt(50);
-
-        // fits in 2 bytes
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `lang/java/perf/src/main/java/org/apache/avro/perf/test/basic/IntTest.java`
-#### Snippet
-```java
-
-        // fits in 2 bytes
-        testData[i + 1] = super.getRandom().nextInt(5000);
-
-        // fits in 3 bytes
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `lang/java/perf/src/main/java/org/apache/avro/perf/test/basic/IntTest.java`
-#### Snippet
-```java
-
-        // fits in 3 bytes
-        testData[i + 2] = super.getRandom().nextInt(500000);
-
-        // most in 4 bytes, some in 5 bytes
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `lang/java/perf/src/main/java/org/apache/avro/perf/test/basic/IntTest.java`
-#### Snippet
-```java
-
-        // most in 4 bytes, some in 5 bytes
-        testData[i + 3] = super.getRandom().nextInt(150000000);
-      }
-    }
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `lang/java/perf/src/main/java/org/apache/avro/perf/test/basic/UnchangedUnionTest.java`
-#### Snippet
-```java
-    @Setup(Level.Trial)
-    public void doSetupTrial() throws Exception {
-      this.encoder = super.newEncoder(false, getNullOutputStream());
-      this.testData = new GenericRecord[getBatchSize()];
-
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `lang/java/perf/src/main/java/org/apache/avro/perf/test/basic/UnchangedUnionTest.java`
-#### Snippet
-```java
-        final GenericRecord rec = new GenericData.Record(this.schema);
-
-        final int val = super.getRandom().nextInt(1000000);
-        final Integer v = (val < 750000 ? Integer.valueOf(val) : null);
-        rec.put("f", v);
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `lang/java/perf/src/main/java/org/apache/avro/perf/test/basic/UnchangedUnionTest.java`
-#### Snippet
-```java
-    public void doSetupTrial() throws IOException {
-      ByteArrayOutputStream baos = new ByteArrayOutputStream();
-      Encoder encoder = super.newEncoder(true, baos);
-
-      final GenericDatumWriter<Object> writer = new GenericDatumWriter<>(this.schema);
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `lang/java/perf/src/main/java/org/apache/avro/perf/test/basic/UnchangedUnionTest.java`
-#### Snippet
-```java
-      for (int i = 0; i < getBatchSize(); i++) {
-        final GenericRecord rec = new GenericData.Record(this.schema);
-        final int val = super.getRandom().nextInt(1000000);
-        final Integer v = (val < 750000 ? Integer.valueOf(val) : null);
-        rec.put("f", v);
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `lang/java/perf/src/main/java/org/apache/avro/perf/test/basic/UnchangedUnionTest.java`
+in `lang/java/perf/src/main/java/org/apache/avro/perf/test/basic/MapTest.java`
 #### Snippet
 ```java
     @Setup(Level.Invocation)
@@ -5023,102 +4916,6 @@ in `lang/java/perf/src/main/java/org/apache/avro/perf/test/record/RecordWithOutO
 
 ### UnnecessarySuperQualifier
 Qualifier `super` is unnecessary in this context
-in `lang/java/perf/src/main/java/org/apache/avro/perf/test/basic/ExtendedEnumTest.java`
-#### Snippet
-```java
-    @Setup(Level.Trial)
-    public void doSetupTrial() throws Exception {
-      this.encoder = super.newEncoder(false, getNullOutputStream());
-      this.testData = new GenericRecord[getBatchSize()];
-
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `lang/java/perf/src/main/java/org/apache/avro/perf/test/basic/ExtendedEnumTest.java`
-#### Snippet
-```java
-      for (int i = 0; i < getBatchSize(); i++) {
-        final GenericRecord rec = new GenericData.Record(this.schema);
-        final int tag = super.getRandom().nextInt(2);
-
-        rec.put("f", GenericData.get().createEnum(enumSchema.getEnumSymbols().get(tag), enumSchema));
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `lang/java/perf/src/main/java/org/apache/avro/perf/test/basic/ExtendedEnumTest.java`
-#### Snippet
-```java
-    @Setup(Level.Invocation)
-    public void doSetupInvocation() throws Exception {
-      this.decoder = super.newDecoder(this.testData);
-    }
-  }
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `lang/java/perf/src/main/java/org/apache/avro/perf/test/basic/ExtendedEnumTest.java`
-#### Snippet
-```java
-    public void doSetupTrial() throws IOException {
-      ByteArrayOutputStream baos = new ByteArrayOutputStream();
-      Encoder encoder = super.newEncoder(true, baos);
-
-      final GenericDatumWriter<Object> writer = new GenericDatumWriter<>(this.schema);
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `lang/java/perf/src/main/java/org/apache/avro/perf/test/basic/ExtendedEnumTest.java`
-#### Snippet
-```java
-      for (int i = 0; i < getBatchSize(); i++) {
-        final GenericRecord rec = new GenericData.Record(this.schema);
-        final int tag = super.getRandom().nextInt(2);
-
-        rec.put("f", GenericData.get().createEnum(enumSchema.getEnumSymbols().get(tag), enumSchema));
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `lang/java/perf/src/main/java/org/apache/avro/perf/test/record/RecordWithPromotionTest.java`
-#### Snippet
-```java
-    public void doSetupTrial() throws IOException {
-      ByteArrayOutputStream baos = new ByteArrayOutputStream();
-      Encoder encoder = super.newEncoder(true, baos);
-
-      for (int i = 0; i < getBatchSize(); i++) {
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `lang/java/perf/src/main/java/org/apache/avro/perf/test/record/RecordWithPromotionTest.java`
-#### Snippet
-```java
-
-      for (int i = 0; i < getBatchSize(); i++) {
-        final BasicRecord r = new BasicRecord(super.getRandom());
-        encoder.writeDouble(r.f1);
-        encoder.writeDouble(r.f2);
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `lang/java/perf/src/main/java/org/apache/avro/perf/test/record/RecordWithPromotionTest.java`
-#### Snippet
-```java
-    @Setup(Level.Invocation)
-    public void doSetupInvocation() throws Exception {
-      this.decoder = DecoderFactory.get().resolvingDecoder(writerSchema, readerSchema, super.newDecoder(this.testData));
-    }
-  }
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
 in `lang/java/perf/src/main/java/org/apache/avro/perf/test/record/ResolvingRecordTest.java`
 #### Snippet
 ```java
@@ -5144,66 +4941,6 @@ in `lang/java/perf/src/main/java/org/apache/avro/perf/test/record/ResolvingRecor
 ### UnnecessarySuperQualifier
 Qualifier `super` is unnecessary in this context
 in `lang/java/perf/src/main/java/org/apache/avro/perf/test/record/ResolvingRecordTest.java`
-#### Snippet
-```java
-
-      for (int i = 0; i < getBatchSize(); i++) {
-        final BasicRecord r = new BasicRecord(super.getRandom());
-        encoder.writeDouble(r.f1);
-        encoder.writeDouble(r.f2);
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `lang/java/perf/src/main/java/org/apache/avro/perf/test/record/RecordWithDefaultTest.java`
-#### Snippet
-```java
-    public void doSetupTrial() throws IOException {
-      ByteArrayOutputStream baos = new ByteArrayOutputStream();
-      Encoder encoder = super.newEncoder(true, baos);
-
-      for (int i = 0; i < getBatchSize(); i++) {
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `lang/java/perf/src/main/java/org/apache/avro/perf/test/record/RecordWithDefaultTest.java`
-#### Snippet
-```java
-
-      for (int i = 0; i < getBatchSize(); i++) {
-        final BasicRecord r = new BasicRecord(super.getRandom());
-        encoder.writeDouble(r.f1);
-        encoder.writeDouble(r.f2);
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `lang/java/perf/src/main/java/org/apache/avro/perf/test/record/RecordWithDefaultTest.java`
-#### Snippet
-```java
-    @Setup(Level.Invocation)
-    public void doSetupInvocation() throws Exception {
-      this.decoder = DecoderFactory.get().resolvingDecoder(writerSchema, readerSchema, super.newDecoder(this.testData));
-    }
-  }
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `lang/java/perf/src/main/java/org/apache/avro/perf/test/record/RecordTest.java`
-#### Snippet
-```java
-    public void doSetupTrial() throws IOException {
-      ByteArrayOutputStream baos = new ByteArrayOutputStream();
-      Encoder encoder = super.newEncoder(true, baos);
-
-      for (int i = 0; i < getBatchSize(); i++) {
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `lang/java/perf/src/main/java/org/apache/avro/perf/test/record/RecordTest.java`
 #### Snippet
 ```java
 
@@ -5227,6 +4964,246 @@ in `lang/java/perf/src/main/java/org/apache/avro/perf/test/record/RecordTest.jav
 
 ### UnnecessarySuperQualifier
 Qualifier `super` is unnecessary in this context
+in `lang/java/perf/src/main/java/org/apache/avro/perf/test/record/RecordTest.java`
+#### Snippet
+```java
+    public void doSetupTrial() throws IOException {
+      ByteArrayOutputStream baos = new ByteArrayOutputStream();
+      Encoder encoder = super.newEncoder(true, baos);
+
+      for (int i = 0; i < getBatchSize(); i++) {
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `lang/java/perf/src/main/java/org/apache/avro/perf/test/record/RecordTest.java`
+#### Snippet
+```java
+
+      for (int i = 0; i < getBatchSize(); i++) {
+        final BasicRecord r = new BasicRecord(super.getRandom());
+        encoder.writeDouble(r.f1);
+        encoder.writeDouble(r.f2);
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `lang/java/perf/src/main/java/org/apache/avro/perf/test/record/RecordWithPromotionTest.java`
+#### Snippet
+```java
+    public void doSetupTrial() throws IOException {
+      ByteArrayOutputStream baos = new ByteArrayOutputStream();
+      Encoder encoder = super.newEncoder(true, baos);
+
+      for (int i = 0; i < getBatchSize(); i++) {
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `lang/java/perf/src/main/java/org/apache/avro/perf/test/record/RecordWithPromotionTest.java`
+#### Snippet
+```java
+
+      for (int i = 0; i < getBatchSize(); i++) {
+        final BasicRecord r = new BasicRecord(super.getRandom());
+        encoder.writeDouble(r.f1);
+        encoder.writeDouble(r.f2);
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `lang/java/perf/src/main/java/org/apache/avro/perf/test/record/RecordWithPromotionTest.java`
+#### Snippet
+```java
+    @Setup(Level.Invocation)
+    public void doSetupInvocation() throws Exception {
+      this.decoder = DecoderFactory.get().resolvingDecoder(writerSchema, readerSchema, super.newDecoder(this.testData));
+    }
+  }
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `lang/java/perf/src/main/java/org/apache/avro/perf/test/basic/ExtendedEnumTest.java`
+#### Snippet
+```java
+    public void doSetupTrial() throws IOException {
+      ByteArrayOutputStream baos = new ByteArrayOutputStream();
+      Encoder encoder = super.newEncoder(true, baos);
+
+      final GenericDatumWriter<Object> writer = new GenericDatumWriter<>(this.schema);
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `lang/java/perf/src/main/java/org/apache/avro/perf/test/basic/ExtendedEnumTest.java`
+#### Snippet
+```java
+      for (int i = 0; i < getBatchSize(); i++) {
+        final GenericRecord rec = new GenericData.Record(this.schema);
+        final int tag = super.getRandom().nextInt(2);
+
+        rec.put("f", GenericData.get().createEnum(enumSchema.getEnumSymbols().get(tag), enumSchema));
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `lang/java/perf/src/main/java/org/apache/avro/perf/test/basic/ExtendedEnumTest.java`
+#### Snippet
+```java
+    @Setup(Level.Invocation)
+    public void doSetupInvocation() throws Exception {
+      this.decoder = super.newDecoder(this.testData);
+    }
+  }
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `lang/java/perf/src/main/java/org/apache/avro/perf/test/basic/ExtendedEnumTest.java`
+#### Snippet
+```java
+    @Setup(Level.Trial)
+    public void doSetupTrial() throws Exception {
+      this.encoder = super.newEncoder(false, getNullOutputStream());
+      this.testData = new GenericRecord[getBatchSize()];
+
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `lang/java/perf/src/main/java/org/apache/avro/perf/test/basic/ExtendedEnumTest.java`
+#### Snippet
+```java
+      for (int i = 0; i < getBatchSize(); i++) {
+        final GenericRecord rec = new GenericData.Record(this.schema);
+        final int tag = super.getRandom().nextInt(2);
+
+        rec.put("f", GenericData.get().createEnum(enumSchema.getEnumSymbols().get(tag), enumSchema));
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `lang/java/perf/src/main/java/org/apache/avro/perf/test/record/RecordWithDefaultTest.java`
+#### Snippet
+```java
+    public void doSetupTrial() throws IOException {
+      ByteArrayOutputStream baos = new ByteArrayOutputStream();
+      Encoder encoder = super.newEncoder(true, baos);
+
+      for (int i = 0; i < getBatchSize(); i++) {
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `lang/java/perf/src/main/java/org/apache/avro/perf/test/record/RecordWithDefaultTest.java`
+#### Snippet
+```java
+
+      for (int i = 0; i < getBatchSize(); i++) {
+        final BasicRecord r = new BasicRecord(super.getRandom());
+        encoder.writeDouble(r.f1);
+        encoder.writeDouble(r.f2);
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `lang/java/perf/src/main/java/org/apache/avro/perf/test/record/RecordWithDefaultTest.java`
+#### Snippet
+```java
+    @Setup(Level.Invocation)
+    public void doSetupInvocation() throws Exception {
+      this.decoder = DecoderFactory.get().resolvingDecoder(writerSchema, readerSchema, super.newDecoder(this.testData));
+    }
+  }
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `lang/java/perf/src/main/java/org/apache/avro/perf/test/generic/GenericTest.java`
+#### Snippet
+```java
+    @Setup(Level.Trial)
+    public void doSetupTrial() throws Exception {
+      this.encoder = super.newEncoder(false, getNullOutputStream());
+      this.testData = new GenericRecord[getBatchSize()];
+
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `lang/java/perf/src/main/java/org/apache/avro/perf/test/generic/GenericTest.java`
+#### Snippet
+```java
+      this.testData = new GenericRecord[getBatchSize()];
+
+      final Random r = super.getRandom();
+      for (int i = 0; i < testData.length; i++) {
+        final GenericRecord rec = new GenericData.Record(schema);
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `lang/java/perf/src/main/java/org/apache/avro/perf/test/generic/GenericTest.java`
+#### Snippet
+```java
+    public void doSetupTrial() throws IOException {
+      ByteArrayOutputStream baos = new ByteArrayOutputStream();
+      Encoder encoder = super.newEncoder(true, baos);
+
+      final Random r = super.getRandom();
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `lang/java/perf/src/main/java/org/apache/avro/perf/test/generic/GenericTest.java`
+#### Snippet
+```java
+      Encoder encoder = super.newEncoder(true, baos);
+
+      final Random r = super.getRandom();
+      for (int i = 0; i < getBatchSize(); i++) {
+        encoder.writeDouble(r.nextDouble());
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `lang/java/perf/src/main/java/org/apache/avro/perf/test/generic/GenericTest.java`
+#### Snippet
+```java
+    @Setup(Level.Invocation)
+    public void doSetupInvocation() throws Exception {
+      this.decoder = DecoderFactory.get().validatingDecoder(schema, super.newDecoder(this.testData));
+    }
+  }
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `lang/java/perf/src/main/java/org/apache/avro/perf/test/basic/UnchangedUnionTest.java`
+#### Snippet
+```java
+    @Setup(Level.Trial)
+    public void doSetupTrial() throws Exception {
+      this.encoder = super.newEncoder(false, getNullOutputStream());
+      this.testData = new GenericRecord[getBatchSize()];
+
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `lang/java/perf/src/main/java/org/apache/avro/perf/test/basic/UnchangedUnionTest.java`
+#### Snippet
+```java
+        final GenericRecord rec = new GenericData.Record(this.schema);
+
+        final int val = super.getRandom().nextInt(1000000);
+        final Integer v = (val < 750000 ? Integer.valueOf(val) : null);
+        rec.put("f", v);
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
 in `lang/java/perf/src/main/java/org/apache/avro/perf/test/record/ValidatingRecordTest.java`
 #### Snippet
 ```java
@@ -5235,6 +5212,30 @@ in `lang/java/perf/src/main/java/org/apache/avro/perf/test/record/ValidatingReco
       this.decoder = DecoderFactory.get().validatingDecoder(this.schema, super.newDecoder(this.testData));
     }
   }
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `lang/java/perf/src/main/java/org/apache/avro/perf/test/record/ValidatingRecordTest.java`
+#### Snippet
+```java
+    public void doSetupTrial() throws IOException {
+      ByteArrayOutputStream baos = new ByteArrayOutputStream();
+      Encoder encoder = super.newEncoder(true, baos);
+
+      for (int i = 0; i < getBatchSize(); i++) {
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `lang/java/perf/src/main/java/org/apache/avro/perf/test/record/ValidatingRecordTest.java`
+#### Snippet
+```java
+
+      for (int i = 0; i < getBatchSize(); i++) {
+        final BasicRecord r = new BasicRecord(super.getRandom());
+        encoder.writeDouble(r.f1);
+        encoder.writeDouble(r.f2);
 ```
 
 ### UnnecessarySuperQualifier
@@ -5263,55 +5264,43 @@ in `lang/java/perf/src/main/java/org/apache/avro/perf/test/record/ValidatingReco
 
 ### UnnecessarySuperQualifier
 Qualifier `super` is unnecessary in this context
-in `lang/java/perf/src/main/java/org/apache/avro/perf/test/record/ValidatingRecordTest.java`
+in `lang/java/perf/src/main/java/org/apache/avro/perf/test/basic/UnchangedUnionTest.java`
 #### Snippet
 ```java
     public void doSetupTrial() throws IOException {
       ByteArrayOutputStream baos = new ByteArrayOutputStream();
       Encoder encoder = super.newEncoder(true, baos);
 
+      final GenericDatumWriter<Object> writer = new GenericDatumWriter<>(this.schema);
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `lang/java/perf/src/main/java/org/apache/avro/perf/test/basic/UnchangedUnionTest.java`
+#### Snippet
+```java
       for (int i = 0; i < getBatchSize(); i++) {
+        final GenericRecord rec = new GenericData.Record(this.schema);
+        final int val = super.getRandom().nextInt(1000000);
+        final Integer v = (val < 750000 ? Integer.valueOf(val) : null);
+        rec.put("f", v);
 ```
 
 ### UnnecessarySuperQualifier
 Qualifier `super` is unnecessary in this context
-in `lang/java/perf/src/main/java/org/apache/avro/perf/test/record/ValidatingRecordTest.java`
+in `lang/java/perf/src/main/java/org/apache/avro/perf/test/basic/UnchangedUnionTest.java`
 #### Snippet
 ```java
-
-      for (int i = 0; i < getBatchSize(); i++) {
-        final BasicRecord r = new BasicRecord(super.getRandom());
-        encoder.writeDouble(r.f1);
-        encoder.writeDouble(r.f2);
+    @Setup(Level.Invocation)
+    public void doSetupInvocation() throws Exception {
+      this.decoder = super.newDecoder(this.testData);
+    }
+  }
 ```
 
 ### UnnecessarySuperQualifier
 Qualifier `super` is unnecessary in this context
-in `lang/java/perf/src/main/java/org/apache/avro/perf/test/generic/GenericTest.java`
-#### Snippet
-```java
-    @Setup(Level.Trial)
-    public void doSetupTrial() throws Exception {
-      this.encoder = super.newEncoder(false, getNullOutputStream());
-      this.testData = new GenericRecord[getBatchSize()];
-
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `lang/java/perf/src/main/java/org/apache/avro/perf/test/generic/GenericTest.java`
-#### Snippet
-```java
-      this.testData = new GenericRecord[getBatchSize()];
-
-      final Random r = super.getRandom();
-      for (int i = 0; i < testData.length; i++) {
-        final GenericRecord rec = new GenericData.Record(schema);
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `lang/java/perf/src/main/java/org/apache/avro/perf/test/generic/GenericTest.java`
+in `lang/java/perf/src/main/java/org/apache/avro/perf/test/generic/GenericNestedFakeTest.java`
 #### Snippet
 ```java
     @Setup(Level.Invocation)
@@ -5323,7 +5312,7 @@ in `lang/java/perf/src/main/java/org/apache/avro/perf/test/generic/GenericTest.j
 
 ### UnnecessarySuperQualifier
 Qualifier `super` is unnecessary in this context
-in `lang/java/perf/src/main/java/org/apache/avro/perf/test/generic/GenericTest.java`
+in `lang/java/perf/src/main/java/org/apache/avro/perf/test/generic/GenericNestedFakeTest.java`
 #### Snippet
 ```java
     public void doSetupTrial() throws IOException {
@@ -5335,7 +5324,7 @@ in `lang/java/perf/src/main/java/org/apache/avro/perf/test/generic/GenericTest.j
 
 ### UnnecessarySuperQualifier
 Qualifier `super` is unnecessary in this context
-in `lang/java/perf/src/main/java/org/apache/avro/perf/test/generic/GenericTest.java`
+in `lang/java/perf/src/main/java/org/apache/avro/perf/test/generic/GenericNestedFakeTest.java`
 #### Snippet
 ```java
       Encoder encoder = super.newEncoder(true, baos);
@@ -5343,6 +5332,30 @@ in `lang/java/perf/src/main/java/org/apache/avro/perf/test/generic/GenericTest.j
       final Random r = super.getRandom();
       for (int i = 0; i < getBatchSize(); i++) {
         encoder.writeDouble(r.nextDouble());
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `lang/java/perf/src/main/java/org/apache/avro/perf/test/generic/GenericNestedFakeTest.java`
+#### Snippet
+```java
+    @Setup(Level.Trial)
+    public void doSetupTrial() throws Exception {
+      this.encoder = super.newEncoder(false, getNullOutputStream());
+      this.testData = new GenericRecord[getBatchSize()];
+
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `lang/java/perf/src/main/java/org/apache/avro/perf/test/generic/GenericNestedFakeTest.java`
+#### Snippet
+```java
+      this.testData = new GenericRecord[getBatchSize()];
+
+      final Random r = super.getRandom();
+      Schema doubleSchema = schema.getFields().get(0).schema();
+      for (int i = 0; i < testData.length; i++) {
 ```
 
 ### UnnecessarySuperQualifier
@@ -5386,18 +5399,6 @@ Qualifier `super` is unnecessary in this context
 in `lang/java/perf/src/main/java/org/apache/avro/perf/test/generic/GenericWithPromotionTest.java`
 #### Snippet
 ```java
-    @Setup(Level.Invocation)
-    public void doSetupInvocation() throws Exception {
-      this.decoder = super.newDecoder(this.testData);
-    }
-  }
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `lang/java/perf/src/main/java/org/apache/avro/perf/test/generic/GenericWithPromotionTest.java`
-#### Snippet
-```java
     public void doSetupTrial() throws IOException {
       ByteArrayOutputStream baos = new ByteArrayOutputStream();
       Encoder encoder = super.newEncoder(true, baos);
@@ -5419,26 +5420,182 @@ in `lang/java/perf/src/main/java/org/apache/avro/perf/test/generic/GenericWithPr
 
 ### UnnecessarySuperQualifier
 Qualifier `super` is unnecessary in this context
-in `lang/java/perf/src/main/java/org/apache/avro/perf/test/generic/GenericNestedTest.java`
+in `lang/java/perf/src/main/java/org/apache/avro/perf/test/generic/GenericWithPromotionTest.java`
+#### Snippet
+```java
+    @Setup(Level.Invocation)
+    public void doSetupInvocation() throws Exception {
+      this.decoder = super.newDecoder(this.testData);
+    }
+  }
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `lang/java/perf/src/main/java/org/apache/avro/perf/test/generic/GenericStringTest.java`
 #### Snippet
 ```java
     public void doSetupTrial() throws IOException {
       ByteArrayOutputStream baos = new ByteArrayOutputStream();
       Encoder encoder = super.newEncoder(true, baos);
 
-      final Random r = super.getRandom();
+      for (int i = 0; i < getBatchSize(); i++) {
 ```
 
 ### UnnecessarySuperQualifier
 Qualifier `super` is unnecessary in this context
-in `lang/java/perf/src/main/java/org/apache/avro/perf/test/generic/GenericNestedTest.java`
+in `lang/java/perf/src/main/java/org/apache/avro/perf/test/generic/GenericStringTest.java`
 #### Snippet
 ```java
+
+      for (int i = 0; i < getBatchSize(); i++) {
+        encoder.writeString(randomString(super.getRandom()));
+        encoder.writeString(randomString(super.getRandom()));
+        encoder.writeString(randomString(super.getRandom()));
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `lang/java/perf/src/main/java/org/apache/avro/perf/test/generic/GenericStringTest.java`
+#### Snippet
+```java
+      for (int i = 0; i < getBatchSize(); i++) {
+        encoder.writeString(randomString(super.getRandom()));
+        encoder.writeString(randomString(super.getRandom()));
+        encoder.writeString(randomString(super.getRandom()));
+      }
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `lang/java/perf/src/main/java/org/apache/avro/perf/test/generic/GenericStringTest.java`
+#### Snippet
+```java
+        encoder.writeString(randomString(super.getRandom()));
+        encoder.writeString(randomString(super.getRandom()));
+        encoder.writeString(randomString(super.getRandom()));
+      }
+
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `lang/java/perf/src/main/java/org/apache/avro/perf/test/generic/GenericStringTest.java`
+#### Snippet
+```java
+    @Setup(Level.Trial)
+    public void doSetupTrial() throws Exception {
+      this.encoder = super.newEncoder(false, getNullOutputStream());
+      this.testData = new GenericRecord[getBatchSize()];
+
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `lang/java/perf/src/main/java/org/apache/avro/perf/test/generic/GenericStringTest.java`
+#### Snippet
+```java
+      for (int i = 0; i < testData.length; i++) {
+        GenericRecord rec = new GenericData.Record(readerSchema);
+        rec.put(0, randomString(super.getRandom()));
+        rec.put(1, randomString(super.getRandom()));
+        rec.put(2, randomString(super.getRandom()));
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `lang/java/perf/src/main/java/org/apache/avro/perf/test/generic/GenericStringTest.java`
+#### Snippet
+```java
+        GenericRecord rec = new GenericData.Record(readerSchema);
+        rec.put(0, randomString(super.getRandom()));
+        rec.put(1, randomString(super.getRandom()));
+        rec.put(2, randomString(super.getRandom()));
+        testData[i] = rec;
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `lang/java/perf/src/main/java/org/apache/avro/perf/test/generic/GenericStringTest.java`
+#### Snippet
+```java
+        rec.put(0, randomString(super.getRandom()));
+        rec.put(1, randomString(super.getRandom()));
+        rec.put(2, randomString(super.getRandom()));
+        testData[i] = rec;
+      }
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `lang/java/perf/src/main/java/org/apache/avro/perf/test/generic/GenericStringTest.java`
+#### Snippet
+```java
+    @Setup(Level.Invocation)
+    public void doSetupInvocation() throws Exception {
+      this.decoder = DecoderFactory.get().validatingDecoder(readerSchema, super.newDecoder(this.testData));
+    }
+  }
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `lang/java/perf/src/main/java/org/apache/avro/perf/test/generic/GenericWithDefaultTest.java`
+#### Snippet
+```java
+    public void doSetupTrial() throws IOException {
+      ByteArrayOutputStream baos = new ByteArrayOutputStream();
       Encoder encoder = super.newEncoder(true, baos);
+
+      final GenericDatumWriter<Object> writer = new GenericDatumWriter<>(this.schema);
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `lang/java/perf/src/main/java/org/apache/avro/perf/test/generic/GenericWithDefaultTest.java`
+#### Snippet
+```java
+      final GenericDatumWriter<Object> writer = new GenericDatumWriter<>(this.schema);
 
       final Random r = super.getRandom();
       for (int i = 0; i < getBatchSize(); i++) {
-        encoder.writeDouble(r.nextDouble());
+        final GenericRecord rec = new GenericData.Record(schema);
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `lang/java/perf/src/main/java/org/apache/avro/perf/test/generic/GenericWithDefaultTest.java`
+#### Snippet
+```java
+    @Setup(Level.Invocation)
+    public void doSetupInvocation() throws Exception {
+      this.decoder = DecoderFactory.get().validatingDecoder(schema, super.newDecoder(this.testData));
+    }
+  }
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `lang/java/perf/src/main/java/org/apache/avro/perf/test/generic/GenericWithDefaultTest.java`
+#### Snippet
+```java
+    @Setup(Level.Trial)
+    public void doSetupTrial() throws Exception {
+      this.encoder = super.newEncoder(false, getNullOutputStream());
+      this.testData = new GenericRecord[getBatchSize()];
+
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `lang/java/perf/src/main/java/org/apache/avro/perf/test/generic/GenericWithDefaultTest.java`
+#### Snippet
+```java
+      this.testData = new GenericRecord[getBatchSize()];
+
+      final Random r = super.getRandom();
+      for (int i = 0; i < testData.length; i++) {
+        final GenericRecord rec = new GenericData.Record(schema);
 ```
 
 ### UnnecessarySuperQualifier
@@ -5479,7 +5636,7 @@ in `lang/java/perf/src/main/java/org/apache/avro/perf/test/generic/GenericNested
 
 ### UnnecessarySuperQualifier
 Qualifier `super` is unnecessary in this context
-in `lang/java/perf/src/main/java/org/apache/avro/perf/test/generic/GenericNestedFakeTest.java`
+in `lang/java/perf/src/main/java/org/apache/avro/perf/test/generic/GenericNestedTest.java`
 #### Snippet
 ```java
     public void doSetupTrial() throws IOException {
@@ -5491,7 +5648,7 @@ in `lang/java/perf/src/main/java/org/apache/avro/perf/test/generic/GenericNested
 
 ### UnnecessarySuperQualifier
 Qualifier `super` is unnecessary in this context
-in `lang/java/perf/src/main/java/org/apache/avro/perf/test/generic/GenericNestedFakeTest.java`
+in `lang/java/perf/src/main/java/org/apache/avro/perf/test/generic/GenericNestedTest.java`
 #### Snippet
 ```java
       Encoder encoder = super.newEncoder(true, baos);
@@ -5503,98 +5660,38 @@ in `lang/java/perf/src/main/java/org/apache/avro/perf/test/generic/GenericNested
 
 ### UnnecessarySuperQualifier
 Qualifier `super` is unnecessary in this context
-in `lang/java/perf/src/main/java/org/apache/avro/perf/test/generic/GenericWithDefaultTest.java`
-#### Snippet
-```java
-    @Setup(Level.Invocation)
-    public void doSetupInvocation() throws Exception {
-      this.decoder = DecoderFactory.get().validatingDecoder(schema, super.newDecoder(this.testData));
-    }
-  }
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `lang/java/perf/src/main/java/org/apache/avro/perf/test/generic/GenericNestedFakeTest.java`
-#### Snippet
-```java
-    @Setup(Level.Invocation)
-    public void doSetupInvocation() throws Exception {
-      this.decoder = DecoderFactory.get().validatingDecoder(schema, super.newDecoder(this.testData));
-    }
-  }
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `lang/java/perf/src/main/java/org/apache/avro/perf/test/generic/GenericWithDefaultTest.java`
-#### Snippet
-```java
-    @Setup(Level.Trial)
-    public void doSetupTrial() throws Exception {
-      this.encoder = super.newEncoder(false, getNullOutputStream());
-      this.testData = new GenericRecord[getBatchSize()];
-
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `lang/java/perf/src/main/java/org/apache/avro/perf/test/generic/GenericNestedFakeTest.java`
-#### Snippet
-```java
-    @Setup(Level.Trial)
-    public void doSetupTrial() throws Exception {
-      this.encoder = super.newEncoder(false, getNullOutputStream());
-      this.testData = new GenericRecord[getBatchSize()];
-
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `lang/java/perf/src/main/java/org/apache/avro/perf/test/generic/GenericWithDefaultTest.java`
-#### Snippet
-```java
-      this.testData = new GenericRecord[getBatchSize()];
-
-      final Random r = super.getRandom();
-      for (int i = 0; i < testData.length; i++) {
-        final GenericRecord rec = new GenericData.Record(schema);
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `lang/java/perf/src/main/java/org/apache/avro/perf/test/generic/GenericNestedFakeTest.java`
-#### Snippet
-```java
-      this.testData = new GenericRecord[getBatchSize()];
-
-      final Random r = super.getRandom();
-      Schema doubleSchema = schema.getFields().get(0).schema();
-      for (int i = 0; i < testData.length; i++) {
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `lang/java/perf/src/main/java/org/apache/avro/perf/test/generic/GenericWithDefaultTest.java`
+in `lang/java/perf/src/main/java/org/apache/avro/perf/test/reflect/ReflectLargeFloatArrayTest.java`
 #### Snippet
 ```java
     public void doSetupTrial() throws IOException {
       ByteArrayOutputStream baos = new ByteArrayOutputStream();
       Encoder encoder = super.newEncoder(true, baos);
+      ReflectDatumWriter<float[]> writer = new ReflectDatumWriter<>(schema);
 
-      final GenericDatumWriter<Object> writer = new GenericDatumWriter<>(this.schema);
 ```
 
 ### UnnecessarySuperQualifier
 Qualifier `super` is unnecessary in this context
-in `lang/java/perf/src/main/java/org/apache/avro/perf/test/generic/GenericWithDefaultTest.java`
+in `lang/java/perf/src/main/java/org/apache/avro/perf/test/reflect/ReflectLargeFloatArrayTest.java`
 #### Snippet
 ```java
-      final GenericDatumWriter<Object> writer = new GenericDatumWriter<>(this.schema);
+    @Setup(Level.Trial)
+    public void doSetupTrial() throws Exception {
+      this.encoder = super.newEncoder(false, getNullOutputStream());
+      this.datumWriter = new ReflectDatumWriter<>(schema);
+      this.testData = new float[getBatchSize()][];
+```
 
-      final Random r = super.getRandom();
-      for (int i = 0; i < getBatchSize(); i++) {
-        final GenericRecord rec = new GenericData.Record(schema);
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `lang/java/perf/src/main/java/org/apache/avro/perf/test/reflect/ReflectLargeFloatArrayTest.java`
+#### Snippet
+```java
+    @Setup(Level.Invocation)
+    public void doSetupInvocation() throws Exception {
+      this.decoder = DecoderFactory.get().validatingDecoder(schema, super.newDecoder(this.testData));
+    }
+  }
 ```
 
 ### UnnecessarySuperQualifier
@@ -5635,162 +5732,6 @@ in `lang/java/perf/src/main/java/org/apache/avro/perf/test/reflect/ReflectNested
 
 ### UnnecessarySuperQualifier
 Qualifier `super` is unnecessary in this context
-in `lang/java/perf/src/main/java/org/apache/avro/perf/test/generic/GenericStringTest.java`
-#### Snippet
-```java
-    public void doSetupTrial() throws IOException {
-      ByteArrayOutputStream baos = new ByteArrayOutputStream();
-      Encoder encoder = super.newEncoder(true, baos);
-
-      for (int i = 0; i < getBatchSize(); i++) {
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `lang/java/perf/src/main/java/org/apache/avro/perf/test/generic/GenericStringTest.java`
-#### Snippet
-```java
-
-      for (int i = 0; i < getBatchSize(); i++) {
-        encoder.writeString(randomString(super.getRandom()));
-        encoder.writeString(randomString(super.getRandom()));
-        encoder.writeString(randomString(super.getRandom()));
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `lang/java/perf/src/main/java/org/apache/avro/perf/test/generic/GenericStringTest.java`
-#### Snippet
-```java
-      for (int i = 0; i < getBatchSize(); i++) {
-        encoder.writeString(randomString(super.getRandom()));
-        encoder.writeString(randomString(super.getRandom()));
-        encoder.writeString(randomString(super.getRandom()));
-      }
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `lang/java/perf/src/main/java/org/apache/avro/perf/test/generic/GenericStringTest.java`
-#### Snippet
-```java
-        encoder.writeString(randomString(super.getRandom()));
-        encoder.writeString(randomString(super.getRandom()));
-        encoder.writeString(randomString(super.getRandom()));
-      }
-
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `lang/java/perf/src/main/java/org/apache/avro/perf/test/generic/GenericStringTest.java`
-#### Snippet
-```java
-    @Setup(Level.Trial)
-    public void doSetupTrial() throws Exception {
-      this.encoder = super.newEncoder(false, getNullOutputStream());
-      this.testData = new GenericRecord[getBatchSize()];
-
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `lang/java/perf/src/main/java/org/apache/avro/perf/test/generic/GenericStringTest.java`
-#### Snippet
-```java
-      for (int i = 0; i < testData.length; i++) {
-        GenericRecord rec = new GenericData.Record(readerSchema);
-        rec.put(0, randomString(super.getRandom()));
-        rec.put(1, randomString(super.getRandom()));
-        rec.put(2, randomString(super.getRandom()));
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `lang/java/perf/src/main/java/org/apache/avro/perf/test/generic/GenericStringTest.java`
-#### Snippet
-```java
-        GenericRecord rec = new GenericData.Record(readerSchema);
-        rec.put(0, randomString(super.getRandom()));
-        rec.put(1, randomString(super.getRandom()));
-        rec.put(2, randomString(super.getRandom()));
-        testData[i] = rec;
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `lang/java/perf/src/main/java/org/apache/avro/perf/test/generic/GenericStringTest.java`
-#### Snippet
-```java
-        rec.put(0, randomString(super.getRandom()));
-        rec.put(1, randomString(super.getRandom()));
-        rec.put(2, randomString(super.getRandom()));
-        testData[i] = rec;
-      }
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `lang/java/perf/src/main/java/org/apache/avro/perf/test/generic/GenericStringTest.java`
-#### Snippet
-```java
-    @Setup(Level.Invocation)
-    public void doSetupInvocation() throws Exception {
-      this.decoder = DecoderFactory.get().validatingDecoder(readerSchema, super.newDecoder(this.testData));
-    }
-  }
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `lang/java/perf/src/main/java/org/apache/avro/perf/test/reflect/ReflectLargeFloatArrayTest.java`
-#### Snippet
-```java
-    public void doSetupTrial() throws IOException {
-      ByteArrayOutputStream baos = new ByteArrayOutputStream();
-      Encoder encoder = super.newEncoder(true, baos);
-      ReflectDatumWriter<float[]> writer = new ReflectDatumWriter<>(schema);
-
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `lang/java/perf/src/main/java/org/apache/avro/perf/test/reflect/ReflectLargeFloatArrayTest.java`
-#### Snippet
-```java
-    @Setup(Level.Trial)
-    public void doSetupTrial() throws Exception {
-      this.encoder = super.newEncoder(false, getNullOutputStream());
-      this.datumWriter = new ReflectDatumWriter<>(schema);
-      this.testData = new float[getBatchSize()][];
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `lang/java/perf/src/main/java/org/apache/avro/perf/test/reflect/ReflectLargeFloatArrayTest.java`
-#### Snippet
-```java
-    @Setup(Level.Invocation)
-    public void doSetupInvocation() throws Exception {
-      this.decoder = DecoderFactory.get().validatingDecoder(schema, super.newDecoder(this.testData));
-    }
-  }
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `lang/java/perf/src/main/java/org/apache/avro/perf/test/reflect/ReflectFloatArrayTest.java`
-#### Snippet
-```java
-    @Setup(Level.Invocation)
-    public void doSetupInvocation() throws Exception {
-      this.decoder = DecoderFactory.get().validatingDecoder(schema, super.newDecoder(this.testData));
-    }
-  }
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
 in `lang/java/perf/src/main/java/org/apache/avro/perf/test/reflect/ReflectFloatArrayTest.java`
 #### Snippet
 ```java
@@ -5815,115 +5756,7 @@ in `lang/java/perf/src/main/java/org/apache/avro/perf/test/reflect/ReflectFloatA
 
 ### UnnecessarySuperQualifier
 Qualifier `super` is unnecessary in this context
-in `lang/java/perf/src/main/java/org/apache/avro/perf/test/reflect/ReflectLargeFloatArrayBlockedTest.java`
-#### Snippet
-```java
-    @Setup(Level.Invocation)
-    public void doSetupInvocation() throws Exception {
-      this.decoder = DecoderFactory.get().validatingDecoder(schema, super.newDecoder(this.testData));
-    }
-  }
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `lang/java/perf/src/main/java/org/apache/avro/perf/test/reflect/ReflectLargeFloatArrayBlockedTest.java`
-#### Snippet
-```java
-    public void doSetupTrial() throws IOException {
-      ByteArrayOutputStream baos = new ByteArrayOutputStream();
-      Encoder encoder = super.newEncoder(true, baos);
-      ReflectDatumWriter<float[]> writer = new ReflectDatumWriter<>(schema);
-
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `lang/java/perf/src/main/java/org/apache/avro/perf/test/reflect/ReflectLargeFloatArrayBlockedTest.java`
-#### Snippet
-```java
-    @Setup(Level.Trial)
-    public void doSetupTrial() throws Exception {
-      this.encoder = super.newEncoder(254, getNullOutputStream());
-      this.datumWriter = new ReflectDatumWriter<>(schema);
-      this.testData = new float[getBatchSize()][];
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `lang/java/perf/src/main/java/org/apache/avro/perf/test/reflect/ReflectDoubleArrayTest.java`
-#### Snippet
-```java
-    public void doSetupTrial() throws IOException {
-      ByteArrayOutputStream baos = new ByteArrayOutputStream();
-      Encoder encoder = super.newEncoder(true, baos);
-      ReflectDatumWriter<double[]> writer = new ReflectDatumWriter<>(schema);
-
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `lang/java/perf/src/main/java/org/apache/avro/perf/test/reflect/ReflectDoubleArrayTest.java`
-#### Snippet
-```java
-    @Setup(Level.Invocation)
-    public void doSetupInvocation() throws Exception {
-      this.decoder = DecoderFactory.get().validatingDecoder(schema, super.newDecoder(this.testData));
-    }
-  }
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `lang/java/perf/src/main/java/org/apache/avro/perf/test/reflect/ReflectDoubleArrayTest.java`
-#### Snippet
-```java
-    @Setup(Level.Trial)
-    public void doSetupTrial() throws Exception {
-      this.encoder = super.newEncoder(false, getNullOutputStream());
-      this.datumWriter = new ReflectDatumWriter<>(schema);
-
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `lang/java/perf/src/main/java/org/apache/avro/perf/test/reflect/ReflectLongArrayTest.java`
-#### Snippet
-```java
-    @Setup(Level.Trial)
-    public void doSetupTrial() throws Exception {
-      this.encoder = super.newEncoder(false, getNullOutputStream());
-      this.datumWriter = new ReflectDatumWriter<>(schema);
-      this.testData = new long[getBatchSize()][];
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `lang/java/perf/src/main/java/org/apache/avro/perf/test/reflect/ReflectLongArrayTest.java`
-#### Snippet
-```java
-    @Setup(Level.Invocation)
-    public void doSetupInvocation() throws Exception {
-      this.decoder = DecoderFactory.get().validatingDecoder(schema, super.newDecoder(this.testData));
-    }
-  }
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `lang/java/perf/src/main/java/org/apache/avro/perf/test/reflect/ReflectLongArrayTest.java`
-#### Snippet
-```java
-    public void doSetupTrial() throws IOException {
-      ByteArrayOutputStream baos = new ByteArrayOutputStream();
-      Encoder encoder = super.newEncoder(true, baos);
-      ReflectDatumWriter<long[]> writer = new ReflectDatumWriter<>(schema);
-
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `lang/java/perf/src/main/java/org/apache/avro/perf/test/reflect/ReflectRecordTest.java`
+in `lang/java/perf/src/main/java/org/apache/avro/perf/test/reflect/ReflectFloatArrayTest.java`
 #### Snippet
 ```java
     @Setup(Level.Invocation)
@@ -5959,19 +5792,7 @@ in `lang/java/perf/src/main/java/org/apache/avro/perf/test/reflect/ReflectRecord
 
 ### UnnecessarySuperQualifier
 Qualifier `super` is unnecessary in this context
-in `lang/java/perf/src/main/java/org/apache/avro/perf/test/reflect/ReflectNestedFloatArrayTest.java`
-#### Snippet
-```java
-    public void doSetupTrial() throws IOException {
-      ByteArrayOutputStream baos = new ByteArrayOutputStream();
-      Encoder encoder = super.newEncoder(true, baos);
-      ReflectDatumWriter<float[]> writer = new ReflectDatumWriter<>(schema);
-
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `lang/java/perf/src/main/java/org/apache/avro/perf/test/reflect/ReflectNestedFloatArrayTest.java`
+in `lang/java/perf/src/main/java/org/apache/avro/perf/test/reflect/ReflectRecordTest.java`
 #### Snippet
 ```java
     @Setup(Level.Invocation)
@@ -5991,6 +5812,198 @@ in `lang/java/perf/src/main/java/org/apache/avro/perf/test/reflect/ReflectNested
       this.encoder = super.newEncoder(false, getNullOutputStream());
       this.datumWriter = new ReflectDatumWriter<>(schema);
       this.testData = new NativeArrayWrapper[getBatchSize()];
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `lang/java/perf/src/main/java/org/apache/avro/perf/test/reflect/ReflectNestedFloatArrayTest.java`
+#### Snippet
+```java
+    @Setup(Level.Invocation)
+    public void doSetupInvocation() throws Exception {
+      this.decoder = DecoderFactory.get().validatingDecoder(schema, super.newDecoder(this.testData));
+    }
+  }
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `lang/java/perf/src/main/java/org/apache/avro/perf/test/reflect/ReflectNestedFloatArrayTest.java`
+#### Snippet
+```java
+    public void doSetupTrial() throws IOException {
+      ByteArrayOutputStream baos = new ByteArrayOutputStream();
+      Encoder encoder = super.newEncoder(true, baos);
+      ReflectDatumWriter<float[]> writer = new ReflectDatumWriter<>(schema);
+
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `lang/java/perf/src/main/java/org/apache/avro/perf/test/reflect/ReflectLongArrayTest.java`
+#### Snippet
+```java
+    @Setup(Level.Invocation)
+    public void doSetupInvocation() throws Exception {
+      this.decoder = DecoderFactory.get().validatingDecoder(schema, super.newDecoder(this.testData));
+    }
+  }
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `lang/java/perf/src/main/java/org/apache/avro/perf/test/reflect/ReflectLongArrayTest.java`
+#### Snippet
+```java
+    public void doSetupTrial() throws IOException {
+      ByteArrayOutputStream baos = new ByteArrayOutputStream();
+      Encoder encoder = super.newEncoder(true, baos);
+      ReflectDatumWriter<long[]> writer = new ReflectDatumWriter<>(schema);
+
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `lang/java/perf/src/main/java/org/apache/avro/perf/test/reflect/ReflectLongArrayTest.java`
+#### Snippet
+```java
+    @Setup(Level.Trial)
+    public void doSetupTrial() throws Exception {
+      this.encoder = super.newEncoder(false, getNullOutputStream());
+      this.datumWriter = new ReflectDatumWriter<>(schema);
+      this.testData = new long[getBatchSize()][];
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `lang/java/perf/src/main/java/org/apache/avro/perf/test/reflect/ReflectLargeFloatArrayBlockedTest.java`
+#### Snippet
+```java
+    @Setup(Level.Trial)
+    public void doSetupTrial() throws Exception {
+      this.encoder = super.newEncoder(254, getNullOutputStream());
+      this.datumWriter = new ReflectDatumWriter<>(schema);
+      this.testData = new float[getBatchSize()][];
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `lang/java/perf/src/main/java/org/apache/avro/perf/test/reflect/ReflectLargeFloatArrayBlockedTest.java`
+#### Snippet
+```java
+    public void doSetupTrial() throws IOException {
+      ByteArrayOutputStream baos = new ByteArrayOutputStream();
+      Encoder encoder = super.newEncoder(true, baos);
+      ReflectDatumWriter<float[]> writer = new ReflectDatumWriter<>(schema);
+
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `lang/java/perf/src/main/java/org/apache/avro/perf/test/reflect/ReflectLargeFloatArrayBlockedTest.java`
+#### Snippet
+```java
+    @Setup(Level.Invocation)
+    public void doSetupInvocation() throws Exception {
+      this.decoder = DecoderFactory.get().validatingDecoder(schema, super.newDecoder(this.testData));
+    }
+  }
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `lang/java/perf/src/main/java/org/apache/avro/perf/test/reflect/ReflectDoubleArrayTest.java`
+#### Snippet
+```java
+    @Setup(Level.Invocation)
+    public void doSetupInvocation() throws Exception {
+      this.decoder = DecoderFactory.get().validatingDecoder(schema, super.newDecoder(this.testData));
+    }
+  }
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `lang/java/perf/src/main/java/org/apache/avro/perf/test/reflect/ReflectDoubleArrayTest.java`
+#### Snippet
+```java
+    @Setup(Level.Trial)
+    public void doSetupTrial() throws Exception {
+      this.encoder = super.newEncoder(false, getNullOutputStream());
+      this.datumWriter = new ReflectDatumWriter<>(schema);
+
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `lang/java/perf/src/main/java/org/apache/avro/perf/test/reflect/ReflectDoubleArrayTest.java`
+#### Snippet
+```java
+    public void doSetupTrial() throws IOException {
+      ByteArrayOutputStream baos = new ByteArrayOutputStream();
+      Encoder encoder = super.newEncoder(true, baos);
+      ReflectDatumWriter<double[]> writer = new ReflectDatumWriter<>(schema);
+
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `lang/java/perf/src/main/java/org/apache/avro/perf/test/reflect/ReflectBigRecordTest.java`
+#### Snippet
+```java
+    @Setup(Level.Invocation)
+    public void doSetupInvocation() throws Exception {
+      this.decoder = DecoderFactory.get().validatingDecoder(schema, super.newDecoder(this.testData));
+    }
+  }
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `lang/java/perf/src/main/java/org/apache/avro/perf/test/reflect/ReflectBigRecordTest.java`
+#### Snippet
+```java
+    @Setup(Level.Trial)
+    public void doSetupTrial() throws Exception {
+      this.encoder = super.newEncoder(false, getNullOutputStream());
+      this.datumWriter = new ReflectDatumWriter<>(schema);
+      this.testData = new BigRecord[getBatchSize()];
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `lang/java/perf/src/main/java/org/apache/avro/perf/test/reflect/ReflectBigRecordTest.java`
+#### Snippet
+```java
+
+      for (int i = 0; i < testData.length; i++) {
+        this.testData[i] = new BigRecord(super.getRandom());
+      }
+    }
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `lang/java/perf/src/main/java/org/apache/avro/perf/test/reflect/ReflectBigRecordTest.java`
+#### Snippet
+```java
+    public void doSetupTrial() throws IOException {
+      ByteArrayOutputStream baos = new ByteArrayOutputStream();
+      Encoder encoder = super.newEncoder(true, baos);
+      ReflectDatumWriter<BigRecord> writer = new ReflectDatumWriter<>(schema);
+
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `lang/java/perf/src/main/java/org/apache/avro/perf/test/reflect/ReflectBigRecordTest.java`
+#### Snippet
+```java
+
+      for (int i = 0; i < getBatchSize(); i++) {
+        final BigRecord r = new BigRecord(super.getRandom());
+        writer.write(r, encoder);
+      }
 ```
 
 ### UnnecessarySuperQualifier
@@ -6031,62 +6044,50 @@ in `lang/java/perf/src/main/java/org/apache/avro/perf/test/reflect/ReflectIntArr
 
 ### UnnecessarySuperQualifier
 Qualifier `super` is unnecessary in this context
-in `lang/java/perf/src/main/java/org/apache/avro/perf/test/reflect/ReflectBigRecordTest.java`
+in `lang/java/avro/src/main/java/org/apache/avro/io/BlockingBinaryEncoder.java`
 #### Snippet
 ```java
-    @Setup(Level.Trial)
-    public void doSetupTrial() throws Exception {
-      this.encoder = super.newEncoder(false, getNullOutputStream());
-      this.datumWriter = new ReflectDatumWriter<>(schema);
-      this.testData = new BigRecord[getBatchSize()];
+
+  BlockingBinaryEncoder configure(OutputStream out, int blockBufferSize, int binaryEncoderBufferSize) {
+    super.configure(out, binaryEncoderBufferSize);
+    pos = 0;
+    stackTop = 0;
 ```
 
 ### UnnecessarySuperQualifier
 Qualifier `super` is unnecessary in this context
-in `lang/java/perf/src/main/java/org/apache/avro/perf/test/reflect/ReflectBigRecordTest.java`
+in `lang/java/avro/src/main/java/org/apache/avro/util/NonCopyingByteArrayOutputStream.java`
 #### Snippet
 ```java
-
-      for (int i = 0; i < testData.length; i++) {
-        this.testData[i] = new BigRecord(super.getRandom());
-      }
-    }
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `lang/java/perf/src/main/java/org/apache/avro/perf/test/reflect/ReflectBigRecordTest.java`
-#### Snippet
-```java
-    @Setup(Level.Invocation)
-    public void doSetupInvocation() throws Exception {
-      this.decoder = DecoderFactory.get().validatingDecoder(schema, super.newDecoder(this.testData));
-    }
+   */
+  public ByteBuffer asByteBuffer() {
+    return ByteBuffer.wrap(super.buf, 0, super.count);
   }
+}
 ```
 
 ### UnnecessarySuperQualifier
 Qualifier `super` is unnecessary in this context
-in `lang/java/perf/src/main/java/org/apache/avro/perf/test/reflect/ReflectBigRecordTest.java`
+in `lang/java/avro/src/main/java/org/apache/avro/util/NonCopyingByteArrayOutputStream.java`
 #### Snippet
 ```java
-    public void doSetupTrial() throws IOException {
-      ByteArrayOutputStream baos = new ByteArrayOutputStream();
-      Encoder encoder = super.newEncoder(true, baos);
-      ReflectDatumWriter<BigRecord> writer = new ReflectDatumWriter<>(schema);
-
+   */
+  public ByteBuffer asByteBuffer() {
+    return ByteBuffer.wrap(super.buf, 0, super.count);
+  }
+}
 ```
 
 ### UnnecessarySuperQualifier
 Qualifier `super` is unnecessary in this context
-in `lang/java/perf/src/main/java/org/apache/avro/perf/test/reflect/ReflectBigRecordTest.java`
+in `lang/java/avro/src/main/java/org/apache/avro/SchemaBuilder.java`
 #### Snippet
 ```java
-
-      for (int i = 0; i < getBatchSize(); i++) {
-        final BigRecord r = new BigRecord(super.getRandom());
-        writer.write(r, encoder);
-      }
+    /** Configure this fixed type's size, and end its configuration. **/
+    public R size(int size) {
+      Schema schema = Schema.createFixed(name(), super.doc(), space(), size);
+      completeSchema(schema);
+      return context().complete(schema);
 ```
 
 ### UnnecessarySuperQualifier
@@ -6128,6 +6129,18 @@ in `lang/java/tools/src/main/java/org/apache/avro/tool/RecordCountTool.java`
 ```
 
 ### ReplaceAssignmentWithOperatorAssignment
+`skipped = skipped + skip(skip)` could be simplified to 'skipped += skip(skip)'
+in `lang/java/tools/src/main/java/org/apache/avro/tool/CatTool.java`
+#### Snippet
+```java
+    if ((0 < skip) && hasNextInput()) { // goto next file
+      nextInput();
+      skipped = skipped + skip(skip);
+    }
+    return skipped;
+```
+
+### ReplaceAssignmentWithOperatorAssignment
 `sampleCounter = sampleCounter + samplerate` could be simplified to 'sampleCounter += samplerate'
 in `lang/java/tools/src/main/java/org/apache/avro/tool/CatTool.java`
 #### Snippet
@@ -6164,39 +6177,15 @@ in `lang/java/tools/src/main/java/org/apache/avro/tool/CatTool.java`
 ```
 
 ### ReplaceAssignmentWithOperatorAssignment
-`skipped = skipped + skip(skip)` could be simplified to 'skipped += skip(skip)'
-in `lang/java/tools/src/main/java/org/apache/avro/tool/CatTool.java`
+`pos = (int) (pos + n)` could be simplified to 'pos += n'
+in `lang/java/avro/src/main/java/org/apache/avro/io/BinaryDecoder.java`
 #### Snippet
 ```java
-    if ((0 < skip) && hasNextInput()) { // goto next file
-      nextInput();
-      skipped = skipped + skip(skip);
-    }
-    return skipped;
-```
-
-### ReplaceAssignmentWithOperatorAssignment
-`size = size + bb.limit()` could be simplified to 'size += bb.limit()'
-in `lang/java/ipc/src/main/java/org/apache/avro/ipc/stats/StatsPlugin.java`
-#### Snippet
-```java
-    int size = 0;
-    for (ByteBuffer bb : payload) {
-      size = size + bb.limit();
-    }
-
-```
-
-### ReplaceAssignmentWithOperatorAssignment
-`pos = pos + 1` could be simplified to 'pos += 1'
-in `lang/java/ipc/src/main/java/org/apache/avro/ipc/stats/Histogram.java`
-#### Snippet
-```java
-        @Override
-        public String next() {
-          pos = pos + 1;
-          T left = cur;
-          cur = it.hasNext() ? it.next() : null;
+      int remaining = lim - pos;
+      if (remaining > n) {
+        pos = (int) (pos + n);
+        ba.setPos(pos);
+        return n;
 ```
 
 ### ReplaceAssignmentWithOperatorAssignment
@@ -6209,6 +6198,18 @@ in `lang/java/avro/src/main/java/org/apache/avro/io/BinaryDecoder.java`
       pos = (int) (pos + length);
     } else {
       limit = pos = 0;
+```
+
+### ReplaceAssignmentWithOperatorAssignment
+`position = (int) (position + length)` could be simplified to 'position += length'
+in `lang/java/avro/src/main/java/org/apache/avro/io/BinaryDecoder.java`
+#### Snippet
+```java
+      long remaining = (long) max - position;
+      if (remaining >= length) {
+        position = (int) (position + length);
+        ba.setPos(position);
+        return length;
 ```
 
 ### ReplaceAssignmentWithOperatorAssignment
@@ -6236,27 +6237,27 @@ in `lang/java/avro/src/main/java/org/apache/avro/io/BinaryDecoder.java`
 ```
 
 ### ReplaceAssignmentWithOperatorAssignment
-`position = (int) (position + length)` could be simplified to 'position += length'
-in `lang/java/avro/src/main/java/org/apache/avro/io/BinaryDecoder.java`
+`size = size + bb.limit()` could be simplified to 'size += bb.limit()'
+in `lang/java/ipc/src/main/java/org/apache/avro/ipc/stats/StatsPlugin.java`
 #### Snippet
 ```java
-      long remaining = (long) max - position;
-      if (remaining >= length) {
-        position = (int) (position + length);
-        ba.setPos(position);
-        return length;
+    int size = 0;
+    for (ByteBuffer bb : payload) {
+      size = size + bb.limit();
+    }
+
 ```
 
 ### ReplaceAssignmentWithOperatorAssignment
-`pos = (int) (pos + n)` could be simplified to 'pos += n'
-in `lang/java/avro/src/main/java/org/apache/avro/io/BinaryDecoder.java`
+`pos = pos + 1` could be simplified to 'pos += 1'
+in `lang/java/ipc/src/main/java/org/apache/avro/ipc/stats/Histogram.java`
 #### Snippet
 ```java
-      int remaining = lim - pos;
-      if (remaining > n) {
-        pos = (int) (pos + n);
-        ba.setPos(pos);
-        return n;
+        @Override
+        public String next() {
+          pos = pos + 1;
+          T left = cur;
+          cur = it.hasNext() ? it.next() : null;
 ```
 
 ## RuleId[ruleID=NestedAssignment]
@@ -6270,42 +6271,6 @@ in `lang/java/compiler/src/main/java/org/apache/avro/compiler/schema/Schemas.jav
     while ((current = dq.pollLast()) != null) {
       if (current instanceof Supplier) {
         // we are executing a non terminal post visit.
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `lang/java/trevni/core/src/main/java/org/apache/trevni/BZip2Codec.java`
-#### Snippet
-```java
-      int readCount = -1;
-
-      while ((readCount = inputStream.read(buffer, compressedData.position(), buffer.length)) > 0) {
-        baos.write(buffer, 0, readCount);
-      }
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `lang/java/trevni/core/src/main/java/org/apache/trevni/ColumnValues.java`
-#### Snippet
-```java
-  public T nextValue() throws IOException {
-    arrayLength--;
-    return previous = values.readValue(type);
-  }
-
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `lang/java/trevni/core/src/main/java/org/apache/trevni/ColumnValues.java`
-#### Snippet
-```java
-      throw new TrevniRuntimeException("Column is not array: " + column.metaData.getName());
-    assert arrayLength == 0;
-    return arrayLength = values.readLength();
-  }
-
 ```
 
 ### NestedAssignment
@@ -6325,34 +6290,10 @@ Result of assignment expression used
 in `lang/java/avro/src/main/java/org/apache/avro/io/BlockingBinaryEncoder.java`
 #### Snippet
 ```java
-      this.type = null;
-      this.state = BlockedValue.State.ROOT;
-      this.start = this.lastFullItem = 0;
-      this.items = 1; // Makes various assertions work out
-    }
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `lang/java/avro/src/main/java/org/apache/avro/io/BlockingBinaryEncoder.java`
-#### Snippet
-```java
 
     assert s.items == 1;
     s.start = s.lastFullItem = 0;
     s.state = BlockedValue.State.OVERFLOW;
-
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `lang/java/avro/src/main/java/org/apache/avro/io/BlockingBinaryEncoder.java`
-#### Snippet
-```java
-    bv.type = null;
-    bv.state = BlockedValue.State.ROOT;
-    bv.start = bv.lastFullItem = 0;
-    bv.items = 1;
 
 ```
 
@@ -6382,6 +6323,30 @@ in `lang/java/avro/src/main/java/org/apache/avro/io/BlockingBinaryEncoder.java`
 
 ### NestedAssignment
 Result of assignment expression used
+in `lang/java/avro/src/main/java/org/apache/avro/io/BlockingBinaryEncoder.java`
+#### Snippet
+```java
+    bv.type = null;
+    bv.state = BlockedValue.State.ROOT;
+    bv.start = bv.lastFullItem = 0;
+    bv.items = 1;
+
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `lang/java/avro/src/main/java/org/apache/avro/io/BlockingBinaryEncoder.java`
+#### Snippet
+```java
+      this.type = null;
+      this.state = BlockedValue.State.ROOT;
+      this.start = this.lastFullItem = 0;
+      this.items = 1; // Makes various assertions work out
+    }
+```
+
+### NestedAssignment
+Result of assignment expression used
 in `lang/java/avro/src/main/java/org/apache/avro/io/BinaryDecoder.java`
 #### Snippet
 ```java
@@ -6406,6 +6371,18 @@ in `lang/java/avro/src/main/java/org/apache/avro/file/BZip2Codec.java`
 
 ### NestedAssignment
 Result of assignment expression used
+in `lang/java/avro/src/main/java/org/apache/avro/file/DataFileReader12.java`
+#### Snippet
+```java
+          meta.put(key, bb);
+        }
+      } while ((l = vin.mapNext()) != 0);
+    }
+
+```
+
+### NestedAssignment
+Result of assignment expression used
 in `lang/java/avro/src/main/java/org/apache/avro/file/DataFileStream.java`
 #### Snippet
 ```java
@@ -6418,14 +6395,26 @@ in `lang/java/avro/src/main/java/org/apache/avro/file/DataFileStream.java`
 
 ### NestedAssignment
 Result of assignment expression used
-in `lang/java/avro/src/main/java/org/apache/avro/file/DataFileReader12.java`
+in `lang/java/avro/src/main/java/org/apache/avro/generic/GenericDatumReader.java`
 #### Snippet
 ```java
-          meta.put(key, bb);
+          }
         }
-      } while ((l = vin.mapNext()) != 0);
+      } while ((l = in.mapNext()) > 0);
     }
+    return map;
+```
 
+### NestedAssignment
+Result of assignment expression used
+in `lang/java/avro/src/main/java/org/apache/avro/generic/GenericDatumReader.java`
+#### Snippet
+```java
+        }
+        base += l;
+      } while ((l = in.arrayNext()) > 0);
+      return pruneArray(array);
+    } else {
 ```
 
 ### NestedAssignment
@@ -6526,26 +6515,26 @@ in `lang/java/avro/src/main/java/org/apache/avro/reflect/ArrayAccessor.java`
 
 ### NestedAssignment
 Result of assignment expression used
-in `lang/java/avro/src/main/java/org/apache/avro/generic/GenericDatumReader.java`
+in `lang/java/avro/src/main/java/org/apache/avro/reflect/ReflectDatumReader.java`
 #### Snippet
 ```java
+          c.add(element);
         }
-        base += l;
       } while ((l = in.arrayNext()) > 0);
-      return pruneArray(array);
     } else {
+      do {
 ```
 
 ### NestedAssignment
 Result of assignment expression used
-in `lang/java/avro/src/main/java/org/apache/avro/generic/GenericDatumReader.java`
+in `lang/java/avro/src/main/java/org/apache/avro/reflect/ReflectDatumReader.java`
 #### Snippet
 ```java
-          }
+          c.add(element);
         }
-      } while ((l = in.mapNext()) > 0);
+      } while ((l = in.arrayNext()) > 0);
     }
-    return map;
+    return c;
 ```
 
 ### NestedAssignment
@@ -6574,26 +6563,38 @@ in `lang/java/avro/src/main/java/org/apache/avro/reflect/ReflectDatumReader.java
 
 ### NestedAssignment
 Result of assignment expression used
-in `lang/java/avro/src/main/java/org/apache/avro/reflect/ReflectDatumReader.java`
+in `lang/java/trevni/core/src/main/java/org/apache/trevni/BZip2Codec.java`
 #### Snippet
 ```java
-          c.add(element);
-        }
-      } while ((l = in.arrayNext()) > 0);
-    } else {
-      do {
+      int readCount = -1;
+
+      while ((readCount = inputStream.read(buffer, compressedData.position(), buffer.length)) > 0) {
+        baos.write(buffer, 0, readCount);
+      }
 ```
 
 ### NestedAssignment
 Result of assignment expression used
-in `lang/java/avro/src/main/java/org/apache/avro/reflect/ReflectDatumReader.java`
+in `lang/java/trevni/core/src/main/java/org/apache/trevni/ColumnValues.java`
 #### Snippet
 ```java
-          c.add(element);
-        }
-      } while ((l = in.arrayNext()) > 0);
-    }
-    return c;
+      throw new TrevniRuntimeException("Column is not array: " + column.metaData.getName());
+    assert arrayLength == 0;
+    return arrayLength = values.readLength();
+  }
+
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `lang/java/trevni/core/src/main/java/org/apache/trevni/ColumnValues.java`
+#### Snippet
+```java
+  public T nextValue() throws IOException {
+    arrayLength--;
+    return previous = values.readValue(type);
+  }
+
 ```
 
 ### NestedAssignment
@@ -6634,198 +6635,6 @@ in `lang/java/tools/src/main/java/org/apache/avro/tool/DataFileRepairTool.java`
 ```
 
 ## RuleId[ruleID=FieldAccessedSynchronizedAndUnsynchronized]
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `remote` is accessed in both synchronized and unsynchronized contexts
-in `lang/java/ipc/src/main/java/org/apache/avro/ipc/DatagramTransceiver.java`
-#### Snippet
-```java
-
-  private DatagramChannel channel;
-  private SocketAddress remote;
-  private ByteBuffer buffer = ByteBuffer.allocate(MAX_SIZE);
-
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `channel` is accessed in both synchronized and unsynchronized contexts
-in `lang/java/ipc/src/main/java/org/apache/avro/ipc/SocketTransceiver.java`
-#### Snippet
-```java
-  private static final Logger LOG = LoggerFactory.getLogger(SocketTransceiver.class);
-
-  private SocketChannel channel;
-  private ByteBuffer header = ByteBuffer.allocate(4);
-
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `url` is accessed in both synchronized and unsynchronized contexts
-in `lang/java/ipc/src/main/java/org/apache/avro/ipc/HttpTransceiver.java`
-#### Snippet
-```java
-  static final String CONTENT_TYPE = "avro/binary";
-
-  private URL url;
-  private Proxy proxy;
-  private HttpURLConnection connection;
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `timeout` is accessed in both synchronized and unsynchronized contexts
-in `lang/java/ipc/src/main/java/org/apache/avro/ipc/HttpTransceiver.java`
-#### Snippet
-```java
-  private Proxy proxy;
-  private HttpURLConnection connection;
-  private int timeout;
-
-  public HttpTransceiver(URL url) {
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `saslResponsePiggybacked` is accessed in both synchronized and unsynchronized contexts
-in `lang/java/ipc/src/main/java/org/apache/avro/ipc/SaslSocketTransceiver.java`
-#### Snippet
-```java
-  private SocketChannel channel;
-  private boolean dataIsWrapped;
-  private boolean saslResponsePiggybacked;
-
-  private Protocol remote;
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `writeHeader` is accessed in both synchronized and unsynchronized contexts
-in `lang/java/ipc/src/main/java/org/apache/avro/ipc/SaslSocketTransceiver.java`
-#### Snippet
-```java
-
-  private ByteBuffer readHeader = ByteBuffer.allocate(4);
-  private ByteBuffer writeHeader = ByteBuffer.allocate(4);
-  private ByteBuffer zeroHeader = ByteBuffer.allocate(4).putInt(0);
-
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `sasl` is accessed in both synchronized and unsynchronized contexts
-in `lang/java/ipc/src/main/java/org/apache/avro/ipc/SaslSocketTransceiver.java`
-#### Snippet
-```java
-  }
-
-  private SaslParticipant sasl;
-  private SocketChannel channel;
-  private boolean dataIsWrapped;
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `dataIsWrapped` is accessed in both synchronized and unsynchronized contexts
-in `lang/java/ipc/src/main/java/org/apache/avro/ipc/SaslSocketTransceiver.java`
-#### Snippet
-```java
-  private SaslParticipant sasl;
-  private SocketChannel channel;
-  private boolean dataIsWrapped;
-  private boolean saslResponsePiggybacked;
-
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `conf` is accessed in both synchronized and unsynchronized contexts
-in `lang/java/mapred/src/main/java/org/apache/avro/mapred/AvroMultipleOutputs.java`
-#### Snippet
-```java
-  // instance code, to be used from Mapper/Reducer code
-
-  private JobConf conf;
-  private OutputFormat outputFormat;
-  private Set<String> namedOutputs;
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `recordWriters` is accessed in both synchronized and unsynchronized contexts
-in `lang/java/mapred/src/main/java/org/apache/avro/mapred/AvroMultipleOutputs.java`
-#### Snippet
-```java
-  private OutputFormat outputFormat;
-  private Set<String> namedOutputs;
-  private Map<String, RecordWriter> recordWriters;
-  private boolean countersEnabled;
-
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `error` is accessed in both synchronized and unsynchronized contexts
-in `lang/java/mapred/src/main/java/org/apache/avro/mapred/tether/TetherOutputService.java`
-#### Snippet
-```java
-  private int inputPort;
-  private boolean complete;
-  private String error;
-
-  private static final Logger LOG = LoggerFactory.getLogger(TetherOutputService.class);
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `mReader` is accessed in both synchronized and unsynchronized contexts
-in `lang/java/mapred/src/main/java/org/apache/avro/mapreduce/AvroSequenceFileInputFormat.java`
-#### Snippet
-```java
-   */
-  protected class AvroSequenceFileRecordReader extends RecordReader<K, V> {
-    private SequenceFile.Reader mReader;
-    private long mStart;
-    private long mEnd;
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `channel` is accessed in both synchronized and unsynchronized contexts
-in `lang/java/ipc-netty/src/main/java/org/apache/avro/ipc/netty/NettyTransceiver.java`
-#### Snippet
-```java
-   */
-  private final ReentrantReadWriteLock stateLock = new ReentrantReadWriteLock();
-  private Channel channel; // Synchronized on stateLock
-  private Protocol remote; // Synchronized on stateLock
-
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `remote` is accessed in both synchronized and unsynchronized contexts
-in `lang/java/ipc-netty/src/main/java/org/apache/avro/ipc/netty/NettyTransceiver.java`
-#### Snippet
-```java
-  private final ReentrantReadWriteLock stateLock = new ReentrantReadWriteLock();
-  private Channel channel; // Synchronized on stateLock
-  private Protocol remote; // Synchronized on stateLock
-
-  NettyTransceiver() {
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `recordWriters` is accessed in both synchronized and unsynchronized contexts
-in `lang/java/mapred/src/main/java/org/apache/avro/mapreduce/AvroMultipleOutputs.java`
-#### Snippet
-```java
-  private TaskInputOutputContext<?, ?, ?, ?> context;
-  private Set<String> namedOutputs;
-  private Map<String, RecordWriter<?, ?>> recordWriters;
-  private boolean countersEnabled;
-
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `context` is accessed in both synchronized and unsynchronized contexts
-in `lang/java/mapred/src/main/java/org/apache/avro/mapreduce/AvroMultipleOutputs.java`
-#### Snippet
-```java
-  // instance code, to be used from Mapper/Reducer code
-
-  private TaskInputOutputContext<?, ?, ?, ?> context;
-  private Set<String> namedOutputs;
-  private Map<String, RecordWriter<?, ?>> recordWriters;
-```
-
 ### FieldAccessedSynchronizedAndUnsynchronized
 Field `blockCount` is accessed in both synchronized and unsynchronized contexts
 in `lang/java/avro/src/main/java/org/apache/avro/file/DataFileReader12.java`
@@ -6898,6 +6707,198 @@ public class WeakIdentityHashMap<K, V> implements Map<K, V> {
   public WeakIdentityHashMap() {
 ```
 
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `conf` is accessed in both synchronized and unsynchronized contexts
+in `lang/java/mapred/src/main/java/org/apache/avro/mapred/AvroMultipleOutputs.java`
+#### Snippet
+```java
+  // instance code, to be used from Mapper/Reducer code
+
+  private JobConf conf;
+  private OutputFormat outputFormat;
+  private Set<String> namedOutputs;
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `recordWriters` is accessed in both synchronized and unsynchronized contexts
+in `lang/java/mapred/src/main/java/org/apache/avro/mapred/AvroMultipleOutputs.java`
+#### Snippet
+```java
+  private OutputFormat outputFormat;
+  private Set<String> namedOutputs;
+  private Map<String, RecordWriter> recordWriters;
+  private boolean countersEnabled;
+
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `error` is accessed in both synchronized and unsynchronized contexts
+in `lang/java/mapred/src/main/java/org/apache/avro/mapred/tether/TetherOutputService.java`
+#### Snippet
+```java
+  private int inputPort;
+  private boolean complete;
+  private String error;
+
+  private static final Logger LOG = LoggerFactory.getLogger(TetherOutputService.class);
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `mReader` is accessed in both synchronized and unsynchronized contexts
+in `lang/java/mapred/src/main/java/org/apache/avro/mapreduce/AvroSequenceFileInputFormat.java`
+#### Snippet
+```java
+   */
+  protected class AvroSequenceFileRecordReader extends RecordReader<K, V> {
+    private SequenceFile.Reader mReader;
+    private long mStart;
+    private long mEnd;
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `context` is accessed in both synchronized and unsynchronized contexts
+in `lang/java/mapred/src/main/java/org/apache/avro/mapreduce/AvroMultipleOutputs.java`
+#### Snippet
+```java
+  // instance code, to be used from Mapper/Reducer code
+
+  private TaskInputOutputContext<?, ?, ?, ?> context;
+  private Set<String> namedOutputs;
+  private Map<String, RecordWriter<?, ?>> recordWriters;
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `recordWriters` is accessed in both synchronized and unsynchronized contexts
+in `lang/java/mapred/src/main/java/org/apache/avro/mapreduce/AvroMultipleOutputs.java`
+#### Snippet
+```java
+  private TaskInputOutputContext<?, ?, ?, ?> context;
+  private Set<String> namedOutputs;
+  private Map<String, RecordWriter<?, ?>> recordWriters;
+  private boolean countersEnabled;
+
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `remote` is accessed in both synchronized and unsynchronized contexts
+in `lang/java/ipc/src/main/java/org/apache/avro/ipc/DatagramTransceiver.java`
+#### Snippet
+```java
+
+  private DatagramChannel channel;
+  private SocketAddress remote;
+  private ByteBuffer buffer = ByteBuffer.allocate(MAX_SIZE);
+
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `channel` is accessed in both synchronized and unsynchronized contexts
+in `lang/java/ipc/src/main/java/org/apache/avro/ipc/SocketTransceiver.java`
+#### Snippet
+```java
+  private static final Logger LOG = LoggerFactory.getLogger(SocketTransceiver.class);
+
+  private SocketChannel channel;
+  private ByteBuffer header = ByteBuffer.allocate(4);
+
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `url` is accessed in both synchronized and unsynchronized contexts
+in `lang/java/ipc/src/main/java/org/apache/avro/ipc/HttpTransceiver.java`
+#### Snippet
+```java
+  static final String CONTENT_TYPE = "avro/binary";
+
+  private URL url;
+  private Proxy proxy;
+  private HttpURLConnection connection;
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `timeout` is accessed in both synchronized and unsynchronized contexts
+in `lang/java/ipc/src/main/java/org/apache/avro/ipc/HttpTransceiver.java`
+#### Snippet
+```java
+  private Proxy proxy;
+  private HttpURLConnection connection;
+  private int timeout;
+
+  public HttpTransceiver(URL url) {
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `dataIsWrapped` is accessed in both synchronized and unsynchronized contexts
+in `lang/java/ipc/src/main/java/org/apache/avro/ipc/SaslSocketTransceiver.java`
+#### Snippet
+```java
+  private SaslParticipant sasl;
+  private SocketChannel channel;
+  private boolean dataIsWrapped;
+  private boolean saslResponsePiggybacked;
+
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `saslResponsePiggybacked` is accessed in both synchronized and unsynchronized contexts
+in `lang/java/ipc/src/main/java/org/apache/avro/ipc/SaslSocketTransceiver.java`
+#### Snippet
+```java
+  private SocketChannel channel;
+  private boolean dataIsWrapped;
+  private boolean saslResponsePiggybacked;
+
+  private Protocol remote;
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `sasl` is accessed in both synchronized and unsynchronized contexts
+in `lang/java/ipc/src/main/java/org/apache/avro/ipc/SaslSocketTransceiver.java`
+#### Snippet
+```java
+  }
+
+  private SaslParticipant sasl;
+  private SocketChannel channel;
+  private boolean dataIsWrapped;
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `writeHeader` is accessed in both synchronized and unsynchronized contexts
+in `lang/java/ipc/src/main/java/org/apache/avro/ipc/SaslSocketTransceiver.java`
+#### Snippet
+```java
+
+  private ByteBuffer readHeader = ByteBuffer.allocate(4);
+  private ByteBuffer writeHeader = ByteBuffer.allocate(4);
+  private ByteBuffer zeroHeader = ByteBuffer.allocate(4).putInt(0);
+
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `channel` is accessed in both synchronized and unsynchronized contexts
+in `lang/java/ipc-netty/src/main/java/org/apache/avro/ipc/netty/NettyTransceiver.java`
+#### Snippet
+```java
+   */
+  private final ReentrantReadWriteLock stateLock = new ReentrantReadWriteLock();
+  private Channel channel; // Synchronized on stateLock
+  private Protocol remote; // Synchronized on stateLock
+
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `remote` is accessed in both synchronized and unsynchronized contexts
+in `lang/java/ipc-netty/src/main/java/org/apache/avro/ipc/netty/NettyTransceiver.java`
+#### Snippet
+```java
+  private final ReentrantReadWriteLock stateLock = new ReentrantReadWriteLock();
+  private Channel channel; // Synchronized on stateLock
+  private Protocol remote; // Synchronized on stateLock
+
+  NettyTransceiver() {
+```
+
 ## RuleId[ruleID=RedundantFieldInitialization]
 ### RedundantFieldInitialization
 Field initialization to `0` is redundant
@@ -6924,234 +6925,6 @@ in `lang/java/grpc/src/main/java/org/apache/avro/grpc/AvroInputStream.java`
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `lang/java/trevni/avro/src/main/java/org/apache/trevni/avro/AvroTrevniOutputFormat.java`
-#### Snippet
-```java
-
-    return new RecordWriter<AvroWrapper<T>, NullWritable>() {
-      private int part = 0;
-
-      private AvroColumnWriter<T> writer = new AvroColumnWriter<>(schema, meta, ReflectData.get());
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `lang/java/maven-plugin/src/main/java/org/apache/avro/mojo/AbstractAvroMojo.java`
-#### Snippet
-```java
-   * @parameter property="gettersReturnOptional"
-   */
-  protected boolean gettersReturnOptional = false;
-
-  /**
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `lang/java/maven-plugin/src/main/java/org/apache/avro/mojo/AbstractAvroMojo.java`
-#### Snippet
-```java
-   * @parameter property="optionalGettersForNullableFieldsOnly"
-   */
-  protected boolean optionalGettersForNullableFieldsOnly = false;
-
-  /**
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `lang/java/maven-plugin/src/main/java/org/apache/avro/mojo/AbstractAvroMojo.java`
-#### Snippet
-```java
-   * @parameter property="createOptionalGetters"
-   */
-  protected boolean createOptionalGetters = false;
-
-  /**
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `lang/java/trevni/avro/src/main/java/org/apache/trevni/avro/mapreduce/AvroTrevniRecordWriterBase.java`
-#### Snippet
-```java
-   * file has exceeded the block size
-   */
-  protected int part = 0;
-
-  /** Trevni file writer */
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `lang/java/ipc/src/main/java/org/apache/avro/ipc/Ipc.java`
-#### Snippet
-```java
-  } // no public ctor
-
-  static boolean warned = false;
-
-  /** Create a client {@link Transceiver} connecting to the provided URI. */
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `lang/java/ipc/src/main/java/org/apache/avro/ipc/CallFuture.java`
-#### Snippet
-```java
-  private final Callback<T> chainedCallback;
-  private T result = null;
-  private Throwable error = null;
-
-  /**
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `lang/java/ipc/src/main/java/org/apache/avro/ipc/CallFuture.java`
-#### Snippet
-```java
-  private final CountDownLatch latch = new CountDownLatch(1);
-  private final Callback<T> chainedCallback;
-  private T result = null;
-  private Throwable error = null;
-
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `lang/java/ipc/src/main/java/org/apache/avro/ipc/stats/Histogram.java`
-#### Snippet
-```java
-        Iterator<T> it = index.keySet().iterator();
-        T cur = it.next(); // there's always at least one element
-        int pos = 0;
-
-        @Override
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `lang/java/ipc/src/main/java/org/apache/avro/ipc/stats/Histogram.java`
-#### Snippet
-```java
-
-  private class EntryIterator implements Iterable<Entry<B>>, Iterator<Entry<B>> {
-    int i = 0;
-    Iterator<B> bucketNameIterator = segmenter.getBuckets();
-
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `lang/java/ipc-netty/src/main/java/org/apache/avro/ipc/netty/NettyTransportCodec.java`
-#### Snippet
-```java
-   */
-  public static class NettyFrameDecoder extends ByteToMessageDecoder {
-    private boolean packHeaderRead = false;
-    private int listSize;
-    private NettyDataPack dataPack;
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `lang/java/trevni/core/src/main/java/org/apache/trevni/ColumnValues.java`
-#### Snippet
-```java
-  private InputBuffer values;
-  private int block = -1;
-  private long row = 0;
-  private T previous;
-
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `lang/java/compiler/src/main/java/org/apache/avro/compiler/specific/SpecificCompiler.java`
-#### Snippet
-```java
-  private boolean createAllArgsConstructor = true;
-  private String outputCharacterEncoding;
-  private boolean enableDecimalLogicalType = false;
-  private String suffix = ".java";
-  private List<Object> additionalVelocityTools = Collections.emptyList();
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `lang/java/compiler/src/main/java/org/apache/avro/compiler/specific/SpecificCompiler.java`
-#### Snippet
-```java
-  private String templateDir;
-  private FieldVisibility fieldVisibility = FieldVisibility.PRIVATE;
-  private boolean createOptionalGetters = false;
-  private boolean gettersReturnOptional = false;
-  private boolean optionalGettersForNullableFieldsOnly = false;
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `lang/java/compiler/src/main/java/org/apache/avro/compiler/specific/SpecificCompiler.java`
-#### Snippet
-```java
-  private FieldVisibility fieldVisibility = FieldVisibility.PRIVATE;
-  private boolean createOptionalGetters = false;
-  private boolean gettersReturnOptional = false;
-  private boolean optionalGettersForNullableFieldsOnly = false;
-  private boolean createSetters = true;
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `lang/java/compiler/src/main/java/org/apache/avro/compiler/specific/SpecificCompiler.java`
-#### Snippet
-```java
-  private boolean createOptionalGetters = false;
-  private boolean gettersReturnOptional = false;
-  private boolean optionalGettersForNullableFieldsOnly = false;
-  private boolean createSetters = true;
-  private boolean createAllArgsConstructor = true;
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `lang/java/mapred/src/main/java/org/apache/avro/mapred/AvroUtf8InputFormat.java`
-#### Snippet
-```java
-  }
-
-  private CompressionCodecFactory compressionCodecs = null;
-
-  @Override
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `lang/java/mapred/src/main/java/org/apache/avro/mapred/SequenceFileReader.java`
-#### Snippet
-```java
-  private SequenceFile.Reader reader;
-  private Schema schema;
-  private boolean ready = false; // true iff done & key are current
-  private boolean done = false; // true iff at EOF
-  private Writable key, spareKey, value;
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `lang/java/mapred/src/main/java/org/apache/avro/mapred/SequenceFileReader.java`
-#### Snippet
-```java
-  private Schema schema;
-  private boolean ready = false; // true iff done & key are current
-  private boolean done = false; // true iff at EOF
-  private Writable key, spareKey, value;
-
-```
-
-### RedundantFieldInitialization
 Field initialization to `null` is redundant
 in `lang/java/avro/src/main/java/org/apache/avro/io/JsonDecoder.java`
 #### Snippet
@@ -7164,27 +6937,15 @@ in `lang/java/avro/src/main/java/org/apache/avro/io/JsonDecoder.java`
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `lang/java/avro/src/main/java/org/apache/avro/io/BinaryDecoder.java`
-#### Snippet
-```java
-    private int pos;
-    private int limit;
-    boolean detached = false;
-
-    private BufferAccessor(BinaryDecoder decoder) {
-```
-
-### RedundantFieldInitialization
 Field initialization to `0` is redundant
 in `lang/java/avro/src/main/java/org/apache/avro/io/BinaryDecoder.java`
 #### Snippet
 ```java
+  // hurts performance.
   private byte[] buf = null;
   private int minPos = 0;
   private int pos = 0;
   private int limit = 0;
-
 ```
 
 ### RedundantFieldInitialization
@@ -7216,11 +6977,35 @@ Field initialization to `0` is redundant
 in `lang/java/avro/src/main/java/org/apache/avro/io/BinaryDecoder.java`
 #### Snippet
 ```java
-  // hurts performance.
   private byte[] buf = null;
   private int minPos = 0;
   private int pos = 0;
   private int limit = 0;
+
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `lang/java/avro/src/main/java/org/apache/avro/io/BinaryDecoder.java`
+#### Snippet
+```java
+  private static class InputStreamByteSource extends ByteSource {
+    private InputStream in;
+    protected boolean isEof = false;
+
+    private InputStreamByteSource(InputStream in) {
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `lang/java/avro/src/main/java/org/apache/avro/io/BinaryDecoder.java`
+#### Snippet
+```java
+    private int pos;
+    private int limit;
+    boolean detached = false;
+
+    private BufferAccessor(BinaryDecoder decoder) {
 ```
 
 ### RedundantFieldInitialization
@@ -7249,26 +7034,50 @@ in `lang/java/avro/src/main/java/org/apache/avro/io/BinaryDecoder.java`
 
 ### RedundantFieldInitialization
 Field initialization to `false` is redundant
-in `lang/java/avro/src/main/java/org/apache/avro/io/BinaryDecoder.java`
+in `lang/java/compiler/src/main/java/org/apache/avro/compiler/specific/SpecificCompiler.java`
 #### Snippet
 ```java
-  private static class InputStreamByteSource extends ByteSource {
-    private InputStream in;
-    protected boolean isEof = false;
-
-    private InputStreamByteSource(InputStream in) {
+  private FieldVisibility fieldVisibility = FieldVisibility.PRIVATE;
+  private boolean createOptionalGetters = false;
+  private boolean gettersReturnOptional = false;
+  private boolean optionalGettersForNullableFieldsOnly = false;
+  private boolean createSetters = true;
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `lang/java/avro/src/main/java/org/apache/avro/file/DataFileStream.java`
+Field initialization to `false` is redundant
+in `lang/java/compiler/src/main/java/org/apache/avro/compiler/specific/SpecificCompiler.java`
 #### Snippet
 ```java
-   * Secondary decoder, for datums. (Different than vin for block segments.)
-   */
-  BinaryDecoder datumIn = null;
+  private boolean createOptionalGetters = false;
+  private boolean gettersReturnOptional = false;
+  private boolean optionalGettersForNullableFieldsOnly = false;
+  private boolean createSetters = true;
+  private boolean createAllArgsConstructor = true;
+```
 
-  ByteBuffer blockBuffer;
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `lang/java/compiler/src/main/java/org/apache/avro/compiler/specific/SpecificCompiler.java`
+#### Snippet
+```java
+  private String templateDir;
+  private FieldVisibility fieldVisibility = FieldVisibility.PRIVATE;
+  private boolean createOptionalGetters = false;
+  private boolean gettersReturnOptional = false;
+  private boolean optionalGettersForNullableFieldsOnly = false;
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `lang/java/compiler/src/main/java/org/apache/avro/compiler/specific/SpecificCompiler.java`
+#### Snippet
+```java
+  private boolean createAllArgsConstructor = true;
+  private String outputCharacterEncoding;
+  private boolean enableDecimalLogicalType = false;
+  private String suffix = ".java";
+  private List<Object> additionalVelocityTools = Collections.emptyList();
 ```
 
 ### RedundantFieldInitialization
@@ -7293,6 +7102,18 @@ in `lang/java/avro/src/main/java/org/apache/avro/file/DataFileStream.java`
   private DataBlock block = null;
 
   /** True if more entries remain in this file. */
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `lang/java/avro/src/main/java/org/apache/avro/file/DataFileStream.java`
+#### Snippet
+```java
+   * Secondary decoder, for datums. (Different than vin for block segments.)
+   */
+  BinaryDecoder datumIn = null;
+
+  ByteBuffer blockBuffer;
 ```
 
 ### RedundantFieldInitialization
@@ -7321,6 +7142,30 @@ in `lang/java/avro/src/main/java/org/apache/avro/util/ReusableByteBufferInputStr
 
 ### RedundantFieldInitialization
 Field initialization to `null` is redundant
+in `lang/java/avro/src/main/java/org/apache/avro/generic/GenericDatumReader.java`
+#### Snippet
+```java
+  private Schema actual;
+  private Schema expected;
+  private DatumReader<D> fastDatumReader = null;
+
+  private ResolvingDecoder creatorResolver = null;
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `lang/java/avro/src/main/java/org/apache/avro/generic/GenericDatumReader.java`
+#### Snippet
+```java
+  private DatumReader<D> fastDatumReader = null;
+
+  private ResolvingDecoder creatorResolver = null;
+  private final Thread creator;
+
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
 in `lang/java/avro/src/main/java/org/apache/avro/SchemaBuilder.java`
 #### Snippet
 ```java
@@ -7345,38 +7190,14 @@ in `lang/java/avro/src/main/java/org/apache/avro/SchemaBuilder.java`
 
 ### RedundantFieldInitialization
 Field initialization to `null` is redundant
-in `lang/java/avro/src/main/java/org/apache/avro/generic/GenericDatumReader.java`
+in `lang/java/mapred/src/main/java/org/apache/avro/mapred/AvroUtf8InputFormat.java`
 #### Snippet
 ```java
-  private DatumReader<D> fastDatumReader = null;
+  }
 
-  private ResolvingDecoder creatorResolver = null;
-  private final Thread creator;
+  private CompressionCodecFactory compressionCodecs = null;
 
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `lang/java/avro/src/main/java/org/apache/avro/generic/GenericDatumReader.java`
-#### Snippet
-```java
-  private Schema actual;
-  private Schema expected;
-  private DatumReader<D> fastDatumReader = null;
-
-  private ResolvingDecoder creatorResolver = null;
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `lang/java/avro/src/main/java/org/apache/avro/generic/GenericData.java`
-#### Snippet
-```java
-    public Iterator<T> iterator() {
-      return new Iterator<T>() {
-        private int position = 0;
-
-        @Override
+  @Override
 ```
 
 ### RedundantFieldInitialization
@@ -7392,6 +7213,54 @@ in `lang/java/avro/src/main/java/org/apache/avro/generic/GenericData.java`
 ```
 
 ### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `lang/java/avro/src/main/java/org/apache/avro/generic/GenericData.java`
+#### Snippet
+```java
+    public Iterator<T> iterator() {
+      return new Iterator<T>() {
+        private int position = 0;
+
+        @Override
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `lang/java/mapred/src/main/java/org/apache/avro/mapred/SequenceFileReader.java`
+#### Snippet
+```java
+  private SequenceFile.Reader reader;
+  private Schema schema;
+  private boolean ready = false; // true iff done & key are current
+  private boolean done = false; // true iff at EOF
+  private Writable key, spareKey, value;
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `lang/java/mapred/src/main/java/org/apache/avro/mapred/SequenceFileReader.java`
+#### Snippet
+```java
+  private Schema schema;
+  private boolean ready = false; // true iff done & key are current
+  private boolean done = false; // true iff at EOF
+  private Writable key, spareKey, value;
+
+```
+
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `lang/java/trevni/avro/src/main/java/org/apache/trevni/avro/AvroTrevniOutputFormat.java`
+#### Snippet
+```java
+
+    return new RecordWriter<AvroWrapper<T>, NullWritable>() {
+      private int part = 0;
+
+      private AvroColumnWriter<T> writer = new AvroColumnWriter<>(schema, meta, ReflectData.get());
+```
+
+### RedundantFieldInitialization
 Field initialization to `false` is redundant
 in `lang/java/avro/src/main/java/org/apache/avro/reflect/ReflectData.java`
 #### Snippet
@@ -7399,6 +7268,138 @@ in `lang/java/avro/src/main/java/org/apache/avro/reflect/ReflectData.java`
    * disabled.
    */
   private boolean defaultGenerated = false;
+
+  /**
+```
+
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `lang/java/trevni/avro/src/main/java/org/apache/trevni/avro/mapreduce/AvroTrevniRecordWriterBase.java`
+#### Snippet
+```java
+   * file has exceeded the block size
+   */
+  protected int part = 0;
+
+  /** Trevni file writer */
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `lang/java/ipc/src/main/java/org/apache/avro/ipc/CallFuture.java`
+#### Snippet
+```java
+  private final CountDownLatch latch = new CountDownLatch(1);
+  private final Callback<T> chainedCallback;
+  private T result = null;
+  private Throwable error = null;
+
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `lang/java/ipc/src/main/java/org/apache/avro/ipc/CallFuture.java`
+#### Snippet
+```java
+  private final Callback<T> chainedCallback;
+  private T result = null;
+  private Throwable error = null;
+
+  /**
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `lang/java/ipc/src/main/java/org/apache/avro/ipc/Ipc.java`
+#### Snippet
+```java
+  } // no public ctor
+
+  static boolean warned = false;
+
+  /** Create a client {@link Transceiver} connecting to the provided URI. */
+```
+
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `lang/java/ipc/src/main/java/org/apache/avro/ipc/stats/Histogram.java`
+#### Snippet
+```java
+
+  private class EntryIterator implements Iterable<Entry<B>>, Iterator<Entry<B>> {
+    int i = 0;
+    Iterator<B> bucketNameIterator = segmenter.getBuckets();
+
+```
+
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `lang/java/ipc/src/main/java/org/apache/avro/ipc/stats/Histogram.java`
+#### Snippet
+```java
+        Iterator<T> it = index.keySet().iterator();
+        T cur = it.next(); // there's always at least one element
+        int pos = 0;
+
+        @Override
+```
+
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `lang/java/trevni/core/src/main/java/org/apache/trevni/ColumnValues.java`
+#### Snippet
+```java
+  private InputBuffer values;
+  private int block = -1;
+  private long row = 0;
+  private T previous;
+
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `lang/java/ipc-netty/src/main/java/org/apache/avro/ipc/netty/NettyTransportCodec.java`
+#### Snippet
+```java
+   */
+  public static class NettyFrameDecoder extends ByteToMessageDecoder {
+    private boolean packHeaderRead = false;
+    private int listSize;
+    private NettyDataPack dataPack;
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `lang/java/maven-plugin/src/main/java/org/apache/avro/mojo/AbstractAvroMojo.java`
+#### Snippet
+```java
+   * @parameter property="createOptionalGetters"
+   */
+  protected boolean createOptionalGetters = false;
+
+  /**
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `lang/java/maven-plugin/src/main/java/org/apache/avro/mojo/AbstractAvroMojo.java`
+#### Snippet
+```java
+   * @parameter property="gettersReturnOptional"
+   */
+  protected boolean gettersReturnOptional = false;
+
+  /**
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `lang/java/maven-plugin/src/main/java/org/apache/avro/mojo/AbstractAvroMojo.java`
+#### Snippet
+```java
+   * @parameter property="optionalGettersForNullableFieldsOnly"
+   */
+  protected boolean optionalGettersForNullableFieldsOnly = false;
 
   /**
 ```
@@ -7445,11 +7446,11 @@ Class has `equals()` defined but does not define `hashCode()`
 in `lang/java/avro/src/main/java/org/apache/avro/Schema.java`
 #### Snippet
 ```java
-  }
 
-  private static class ArraySchema extends Schema {
-    private final Schema elementType;
-
+  @SuppressWarnings(value = "unchecked")
+  private static class RecordSchema extends NamedSchema {
+    private List<Field> fields;
+    private Map<String, Field> fieldMap;
 ```
 
 ### EqualsAndHashcode
@@ -7457,11 +7458,11 @@ Class has `equals()` defined but does not define `hashCode()`
 in `lang/java/avro/src/main/java/org/apache/avro/Schema.java`
 #### Snippet
 ```java
+  }
 
-  @SuppressWarnings(value = "unchecked")
-  private static class RecordSchema extends NamedSchema {
-    private List<Field> fields;
-    private Map<String, Field> fieldMap;
+  private static class ArraySchema extends Schema {
+    private final Schema elementType;
+
 ```
 
 ### EqualsAndHashcode
@@ -7502,30 +7503,6 @@ in `lang/java/avro/src/main/java/org/apache/avro/Schema.java`
 
 ## RuleId[ruleID=PointlessBitwiseExpression]
 ### PointlessBitwiseExpression
-`l & 0xFFFFFFFF` can be replaced with 'l'
-in `lang/java/trevni/core/src/main/java/org/apache/trevni/OutputBuffer.java`
-#### Snippet
-```java
-  public void writeFixed64(long l) throws IOException {
-    ensure(8);
-    int first = (int) (l & 0xFFFFFFFF);
-    int second = (int) ((l >>> 32) & 0xFFFFFFFF);
-    buf[count] = (byte) ((first) & 0xFF);
-```
-
-### PointlessBitwiseExpression
-`(l >>> 32) & 0xFFFFFFFF` can be replaced with '(l \>\>\> 32)'
-in `lang/java/trevni/core/src/main/java/org/apache/trevni/OutputBuffer.java`
-#### Snippet
-```java
-    ensure(8);
-    int first = (int) (l & 0xFFFFFFFF);
-    int second = (int) ((l >>> 32) & 0xFFFFFFFF);
-    buf[count] = (byte) ((first) & 0xFF);
-    buf[count + 4] = (byte) ((second) & 0xFF);
-```
-
-### PointlessBitwiseExpression
 `bits & 0xFFFFFFFF` can be replaced with 'bits'
 in `lang/java/avro/src/main/java/org/apache/avro/io/BinaryData.java`
 #### Snippet
@@ -7549,17 +7526,41 @@ in `lang/java/avro/src/main/java/org/apache/avro/io/BinaryData.java`
     // register allocation -- the lifetime of constants is minimized.
 ```
 
-## RuleId[ruleID=RedundantImplements]
-### RedundantImplements
-Redundant interface declaration `Closeable`
-in `lang/java/mapred/src/main/java/org/apache/avro/mapred/FsInput.java`
+### PointlessBitwiseExpression
+`l & 0xFFFFFFFF` can be replaced with 'l'
+in `lang/java/trevni/core/src/main/java/org/apache/trevni/OutputBuffer.java`
 #### Snippet
 ```java
+  public void writeFixed64(long l) throws IOException {
+    ensure(8);
+    int first = (int) (l & 0xFFFFFFFF);
+    int second = (int) ((l >>> 32) & 0xFFFFFFFF);
+    buf[count] = (byte) ((first) & 0xFF);
+```
 
-/** Adapt an {@link FSDataInputStream} to {@link SeekableInput}. */
-public class FsInput implements Closeable, SeekableInput {
-  private final FSDataInputStream stream;
-  private final long len;
+### PointlessBitwiseExpression
+`(l >>> 32) & 0xFFFFFFFF` can be replaced with '(l \>\>\> 32)'
+in `lang/java/trevni/core/src/main/java/org/apache/trevni/OutputBuffer.java`
+#### Snippet
+```java
+    ensure(8);
+    int first = (int) (l & 0xFFFFFFFF);
+    int second = (int) ((l >>> 32) & 0xFFFFFFFF);
+    buf[count] = (byte) ((first) & 0xFF);
+    buf[count + 4] = (byte) ((second) & 0xFF);
+```
+
+## RuleId[ruleID=RedundantImplements]
+### RedundantImplements
+Redundant interface declaration `Parser.ActionHandler`
+in `lang/java/avro/src/main/java/org/apache/avro/io/ValidatingDecoder.java`
+#### Snippet
+```java
+ * @see DecoderFactory
+ */
+public class ValidatingDecoder extends ParsingDecoder implements Parser.ActionHandler {
+  protected Decoder in;
+
 ```
 
 ### RedundantImplements
@@ -7575,18 +7576,6 @@ public class JsonDecoder extends ParsingDecoder implements Parser.ActionHandler 
 ```
 
 ### RedundantImplements
-Redundant interface declaration `Parser.ActionHandler`
-in `lang/java/avro/src/main/java/org/apache/avro/io/ValidatingDecoder.java`
-#### Snippet
-```java
- * @see DecoderFactory
- */
-public class ValidatingDecoder extends ParsingDecoder implements Parser.ActionHandler {
-  protected Decoder in;
-
-```
-
-### RedundantImplements
 Redundant interface declaration `Closeable`
 in `lang/java/avro/src/main/java/org/apache/avro/file/DataFileReader12.java`
 #### Snippet
@@ -7596,6 +7585,18 @@ in `lang/java/avro/src/main/java/org/apache/avro/file/DataFileReader12.java`
 public class DataFileReader12<D> implements FileReader<D>, Closeable {
   private static final byte VERSION = 0;
   static final byte[] MAGIC = new byte[] { (byte) 'O', (byte) 'b', (byte) 'j', VERSION };
+```
+
+### RedundantImplements
+Redundant interface declaration `Closeable`
+in `lang/java/mapred/src/main/java/org/apache/avro/mapred/FsInput.java`
+#### Snippet
+```java
+
+/** Adapt an {@link FSDataInputStream} to {@link SeekableInput}. */
+public class FsInput implements Closeable, SeekableInput {
+  private final FSDataInputStream stream;
+  private final long len;
 ```
 
 ## RuleId[ruleID=ExceptionNameDoesntEndWithException]
@@ -7612,6 +7613,18 @@ public abstract class SpecificExceptionBase extends AvroRemoteException implemen
 ```
 
 ## RuleId[ruleID=InstanceofCatchParameter]
+### InstanceofCatchParameter
+'instanceof' on 'catch' parameter `e`
+in `lang/java/avro/src/main/java/org/apache/avro/specific/SpecificData.java`
+#### Snippet
+```java
+      return schemaTypeCache.computeIfAbsent(type, t -> createSchema(t, new HashMap<>()));
+    } catch (Exception e) {
+      throw (e instanceof AvroRuntimeException) ? (AvroRuntimeException) e : new AvroRuntimeException(e);
+    }
+  }
+```
+
 ### InstanceofCatchParameter
 'instanceof' on 'catch' parameter `e`
 in `lang/java/ipc/src/main/java/org/apache/avro/ipc/specific/SpecificRequestor.java`
@@ -7648,16 +7661,17 @@ in `lang/java/ipc-netty/src/main/java/org/apache/avro/ipc/netty/NettyTransceiver
       // all that's left is Error
 ```
 
-### InstanceofCatchParameter
-'instanceof' on 'catch' parameter `e`
-in `lang/java/avro/src/main/java/org/apache/avro/specific/SpecificData.java`
+## RuleId[ruleID=HtmlWrongAttributeValue]
+### HtmlWrongAttributeValue
+Wrong attribute value
+in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-02-06-09-04-00.619.html`
 #### Snippet
 ```java
-      return schemaTypeCache.computeIfAbsent(type, t -> createSchema(t, new HashMap<>()));
-    } catch (Exception e) {
-      throw (e instanceof AvroRuntimeException) ? (AvroRuntimeException) e : new AvroRuntimeException(e);
-    }
-  }
+              <td>0</td>
+              <td>0</td>
+              <td><textarea rows="10" cols="75" readonly="true" placeholder="empty" style="white-space: pre; border: none">Not collected for refresh</textarea></td>
+            </tr>
+          </tbody>
 ```
 
 ## RuleId[ruleID=CallToStringConcatCanBeReplacedByOperator]
@@ -7698,66 +7712,29 @@ in `lang/java/avro/src/main/java/org/apache/avro/io/parsing/Symbol.java`
       }
 ```
 
-## RuleId[ruleID=NonFinalFieldOfException]
-### NonFinalFieldOfException
-Non-final field `unresolvedDatum` of exception class
-in `lang/java/avro/src/main/java/org/apache/avro/UnresolvedUnionException.java`
-#### Snippet
-```java
-/** Thrown when the expected contents of a union cannot be resolved. */
-public class UnresolvedUnionException extends AvroRuntimeException {
-  private Object unresolvedDatum;
-  private Schema unionSchema;
-
-```
-
-### NonFinalFieldOfException
-Non-final field `unionSchema` of exception class
-in `lang/java/avro/src/main/java/org/apache/avro/UnresolvedUnionException.java`
-#### Snippet
-```java
-public class UnresolvedUnionException extends AvroRuntimeException {
-  private Object unresolvedDatum;
-  private Schema unionSchema;
-
-  public UnresolvedUnionException(Schema unionSchema, Object unresolvedDatum) {
-```
-
-### NonFinalFieldOfException
-Non-final field `chainOfFields` of exception class
-in `lang/java/avro/src/main/java/org/apache/avro/AvroMissingFieldException.java`
-#### Snippet
-```java
-/** Avro exception in case of missing fields. */
-public class AvroMissingFieldException extends AvroRuntimeException {
-  private List<Field> chainOfFields = new ArrayList<>(8);
-
-  public AvroMissingFieldException(String message, Field field) {
-```
-
-### NonFinalFieldOfException
-Non-final field `value` of exception class
-in `lang/java/avro/src/main/java/org/apache/avro/AvroRemoteException.java`
-#### Snippet
-```java
-/** Base class for exceptions thrown to client by server. */
-public class AvroRemoteException extends Exception {
-  private Object value;
-
-  protected AvroRemoteException() {
-```
-
 ## RuleId[ruleID=ZeroLengthArrayInitialization]
 ### ZeroLengthArrayInitialization
 Allocation of zero length array
-in `lang/java/tools/src/main/java/org/apache/avro/tool/FromTextTool.java`
+in `lang/java/tools/src/main/java/org/apache/avro/tool/RecodecTool.java`
 #### Snippet
 ```java
-    OptionSpec<String> codec = Util.compressionCodecOption(p);
-
-    OptionSet opts = p.parse(args.toArray(new String[0]));
+    OptionSpec<String> codecOpt = Util.compressionCodecOptionWithDefault(optParser, DataFileConstants.NULL_CODEC);
+    OptionSpec<Integer> levelOpt = Util.compressionLevelOption(optParser);
+    OptionSet opts = optParser.parse(args.toArray(new String[0]));
 
     List<String> nargs = (List<String>) opts.nonOptionArguments();
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `lang/java/tools/src/main/java/org/apache/avro/tool/JsonToBinaryFragmentTool.java`
+#### Snippet
+```java
+        .ofType(String.class);
+
+    OptionSet optionSet = optionParser.parse(args.toArray(new String[0]));
+    List<String> nargs = (List<String>) optionSet.nonOptionArguments();
+    String schemaFile = schemaFileOption.value(optionSet);
 ```
 
 ### ZeroLengthArrayInitialization
@@ -7774,14 +7751,14 @@ in `lang/java/tools/src/main/java/org/apache/avro/tool/ToTextTool.java`
 
 ### ZeroLengthArrayInitialization
 Allocation of zero length array
-in `lang/java/tools/src/main/java/org/apache/avro/tool/JsonToBinaryFragmentTool.java`
+in `lang/java/tools/src/main/java/org/apache/avro/tool/FromTextTool.java`
 #### Snippet
 ```java
-        .ofType(String.class);
+    OptionSpec<String> codec = Util.compressionCodecOption(p);
 
-    OptionSet optionSet = optionParser.parse(args.toArray(new String[0]));
-    List<String> nargs = (List<String>) optionSet.nonOptionArguments();
-    String schemaFile = schemaFileOption.value(optionSet);
+    OptionSet opts = p.parse(args.toArray(new String[0]));
+
+    List<String> nargs = (List<String>) opts.nonOptionArguments();
 ```
 
 ### ZeroLengthArrayInitialization
@@ -7810,26 +7787,26 @@ in `lang/java/tools/src/main/java/org/apache/avro/tool/DataFileGetMetaTool.java`
 
 ### ZeroLengthArrayInitialization
 Allocation of zero length array
-in `lang/java/tools/src/main/java/org/apache/avro/tool/RecodecTool.java`
+in `lang/java/tools/src/main/java/org/apache/avro/tool/RecordCountTool.java`
 #### Snippet
 ```java
-    OptionSpec<String> codecOpt = Util.compressionCodecOptionWithDefault(optParser, DataFileConstants.NULL_CODEC);
-    OptionSpec<Integer> levelOpt = Util.compressionLevelOption(optParser);
-    OptionSet opts = optParser.parse(args.toArray(new String[0]));
+  public int run(InputStream stdin, PrintStream out, PrintStream err, List<String> args) throws Exception {
+    OptionParser optionParser = new OptionParser();
+    OptionSet optionSet = optionParser.parse(args.toArray(new String[0]));
+    List<String> nargs = (List<String>) optionSet.nonOptionArguments();
 
-    List<String> nargs = (List<String>) opts.nonOptionArguments();
 ```
 
 ### ZeroLengthArrayInitialization
 Allocation of zero length array
-in `lang/java/tools/src/main/java/org/apache/avro/tool/ToTrevniTool.java`
+in `lang/java/tools/src/main/java/org/apache/avro/tool/TetherTool.java`
 #### Snippet
 ```java
-    OptionSpec<String> codec = p.accepts("codec", "Compression codec").withRequiredArg().defaultsTo("null")
-        .ofType(String.class);
-    OptionSet opts = p.parse(args.toArray(new String[0]));
-    if (opts.nonOptionArguments().size() != 2) {
-      err.println("Usage: inFile outFile (filenames or '-' for stdin/stdout)");
+  public int run(InputStream ins, PrintStream outs, PrintStream err, List<String> args) throws Exception {
+
+    String[] argarry = args.toArray(new String[0]);
+    Options opts = new Options();
+
 ```
 
 ### ZeroLengthArrayInitialization
@@ -7846,14 +7823,26 @@ in `lang/java/tools/src/main/java/org/apache/avro/tool/CreateRandomFileTool.java
 
 ### ZeroLengthArrayInitialization
 Allocation of zero length array
-in `lang/java/tools/src/main/java/org/apache/avro/tool/RecordCountTool.java`
+in `lang/java/tools/src/main/java/org/apache/avro/tool/ToTrevniTool.java`
 #### Snippet
 ```java
-  public int run(InputStream stdin, PrintStream out, PrintStream err, List<String> args) throws Exception {
-    OptionParser optionParser = new OptionParser();
-    OptionSet optionSet = optionParser.parse(args.toArray(new String[0]));
-    List<String> nargs = (List<String>) optionSet.nonOptionArguments();
+    OptionSpec<String> codec = p.accepts("codec", "Compression codec").withRequiredArg().defaultsTo("null")
+        .ofType(String.class);
+    OptionSet opts = p.parse(args.toArray(new String[0]));
+    if (opts.nonOptionArguments().size() != 2) {
+      err.println("Usage: inFile outFile (filenames or '-' for stdin/stdout)");
+```
 
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `lang/java/tools/src/main/java/org/apache/avro/tool/SchemaFingerprintTool.java`
+#### Snippet
+```java
+        .withRequiredArg().ofType(String.class).defaultsTo("CRC-64-AVRO");
+
+    final OptionSet opts = optParser.parse(args.toArray(new String[0]));
+    final Schema.Parser parser = new Schema.Parser();
+    final List<String> nargs = (List<String>) opts.nonOptionArguments();
 ```
 
 ### ZeroLengthArrayInitialization
@@ -7870,14 +7859,14 @@ in `lang/java/tools/src/main/java/org/apache/avro/tool/DataFileReadTool.java`
 
 ### ZeroLengthArrayInitialization
 Allocation of zero length array
-in `lang/java/tools/src/main/java/org/apache/avro/tool/SchemaFingerprintTool.java`
+in `lang/java/tools/src/main/java/org/apache/avro/tool/DataFileWriteTool.java`
 #### Snippet
 ```java
-        .withRequiredArg().ofType(String.class).defaultsTo("CRC-64-AVRO");
+    OptionSpec<String> file = p.accepts("schema-file", "Schema File").withOptionalArg().ofType(String.class);
+    OptionSpec<String> inschema = p.accepts("schema", "Schema").withOptionalArg().ofType(String.class);
+    OptionSet opts = p.parse(args.toArray(new String[0]));
 
-    final OptionSet opts = optParser.parse(args.toArray(new String[0]));
-    final Schema.Parser parser = new Schema.Parser();
-    final List<String> nargs = (List<String>) opts.nonOptionArguments();
+    List<String> nargs = (List<String>) opts.nonOptionArguments();
 ```
 
 ### ZeroLengthArrayInitialization
@@ -7906,18 +7895,6 @@ in `lang/java/tools/src/main/java/org/apache/avro/tool/BinaryFragmentToJsonTool.
 
 ### ZeroLengthArrayInitialization
 Allocation of zero length array
-in `lang/java/tools/src/main/java/org/apache/avro/tool/DataFileWriteTool.java`
-#### Snippet
-```java
-    OptionSpec<String> file = p.accepts("schema-file", "Schema File").withOptionalArg().ofType(String.class);
-    OptionSpec<String> inschema = p.accepts("schema", "Schema").withOptionalArg().ofType(String.class);
-    OptionSet opts = p.parse(args.toArray(new String[0]));
-
-    List<String> nargs = (List<String>) opts.nonOptionArguments();
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
 in `lang/java/tools/src/main/java/org/apache/avro/tool/RpcSendTool.java`
 #### Snippet
 ```java
@@ -7925,18 +7902,6 @@ in `lang/java/tools/src/main/java/org/apache/avro/tool/RpcSendTool.java`
         .ofType(String.class);
     OptionSet opts = p.parse(args.toArray(new String[0]));
     args = (List<String>) opts.nonOptionArguments();
-
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `lang/java/tools/src/main/java/org/apache/avro/tool/TetherTool.java`
-#### Snippet
-```java
-  public int run(InputStream ins, PrintStream outs, PrintStream err, List<String> args) throws Exception {
-
-    String[] argarry = args.toArray(new String[0]);
-    Options opts = new Options();
 
 ```
 
@@ -7978,134 +7943,74 @@ in `lang/java/tools/src/main/java/org/apache/avro/tool/SpecificCompilerTool.java
 
 ### ZeroLengthArrayInitialization
 Allocation of zero length array
-in `lang/java/maven-plugin/src/main/java/org/apache/avro/mojo/IDLProtocolMojo.java`
+in `lang/java/avro/src/main/java/org/apache/avro/io/BinaryData.java`
 #### Snippet
 ```java
-      }
 
-      URLClassLoader projPathLoader = new URLClassLoader(runtimeUrls.toArray(new URL[0]),
-          Thread.currentThread().getContextClassLoader());
-      try (Idl parser = new Idl(new File(sourceDirectory, filename), projPathLoader)) {
+    public Decoders() {
+      this.d1 = new BinaryDecoder(new byte[0], 0, 0);
+      this.d2 = new BinaryDecoder(new byte[0], 0, 0);
+    }
 ```
 
 ### ZeroLengthArrayInitialization
 Allocation of zero length array
-in `lang/java/trevni/avro/src/main/java/org/apache/trevni/avro/AvroTrevniInputFormat.java`
+in `lang/java/avro/src/main/java/org/apache/avro/io/BinaryData.java`
 #### Snippet
 ```java
-      if (file.getPath().getName().endsWith(AvroTrevniOutputFormat.EXT))
-        result.add(file);
-    return result.toArray(new FileStatus[0]);
-  }
-
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `lang/java/maven-plugin/src/main/java/org/apache/avro/mojo/AbstractAvroMojo.java`
-#### Snippet
-```java
-   * @parameter
-   */
-  protected String[] testExcludes = new String[0];
-
-  /**
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `lang/java/maven-plugin/src/main/java/org/apache/avro/mojo/AbstractAvroMojo.java`
-#### Snippet
-```java
-    final List<URL> urls = appendElements(project.getRuntimeClasspathElements());
-    urls.addAll(appendElements(project.getTestClasspathElements()));
-    return new URLClassLoader(urls.toArray(new URL[0]), Thread.currentThread().getContextClassLoader());
-  }
-
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `lang/java/maven-plugin/src/main/java/org/apache/avro/mojo/AbstractAvroMojo.java`
-#### Snippet
-```java
-   * @parameter property="velocityToolsClassesNames"
-   */
-  protected String[] velocityToolsClassesNames = new String[0];
-
-  /**
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `lang/java/maven-plugin/src/main/java/org/apache/avro/mojo/AbstractAvroMojo.java`
-#### Snippet
-```java
-   * @parameter property="customConversions"
-   */
-  protected String[] customConversions = new String[0];
-
-  /**
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `lang/java/maven-plugin/src/main/java/org/apache/avro/mojo/AbstractAvroMojo.java`
-#### Snippet
-```java
-   * @parameter property="customLogicalTypeFactories"
-   */
-  protected String[] customLogicalTypeFactories = new String[0];
-
-  /**
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `lang/java/maven-plugin/src/main/java/org/apache/avro/mojo/AbstractAvroMojo.java`
-#### Snippet
-```java
-   * @parameter
-   */
-  protected String[] excludes = new String[0];
-
-  /**
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `lang/java/trevni/avro/src/main/java/org/apache/trevni/avro/AvroColumnator.java`
-#### Snippet
-```java
-  /** Return columns for the schema. */
-  public ColumnMetaData[] getColumns() {
-    return columns.toArray(new ColumnMetaData[0]);
-  }
-
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `lang/java/ipc/src/main/java/org/apache/avro/ipc/SaslSocketTransceiver.java`
-#### Snippet
-```java
-    writes.add(zeroHeader);
-
-    writeFully(writes.toArray(new ByteBuffer[0]));
-  }
-
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `lang/java/ipc-netty/src/main/java/org/apache/avro/ipc/netty/NettyTransportCodec.java`
-#### Snippet
-```java
-        bbs.add(b);
-      }
-      out.add(wrappedBuffer(bbs.toArray(new ByteBuffer[0])));
+    public Decoders() {
+      this.d1 = new BinaryDecoder(new byte[0], 0, 0);
+      this.d2 = new BinaryDecoder(new byte[0], 0, 0);
     }
 
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `lang/java/avro/src/main/java/org/apache/avro/io/BinaryData.java`
+#### Snippet
+```java
+
+    public HashData() {
+      this.decoder = new BinaryDecoder(new byte[0], 0, 0);
+    }
+
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `lang/java/avro/src/main/java/org/apache/avro/io/BlockingBinaryEncoder.java`
+#### Snippet
+```java
+    this.buf = new byte[blockBufferSize];
+    this.pos = 0;
+    blockStack = new BlockedValue[0];
+    expandStack();
+    BlockedValue bv = blockStack[++stackTop];
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `lang/java/avro/src/main/java/org/apache/avro/data/RecordBuilderBase.java`
+#### Snippet
+```java
+    this.schema = schema;
+    this.data = data;
+    fields = schema.getFields().toArray(new Field[0]);
+    fieldSetFlags = new boolean[fields.length];
+  }
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `lang/java/avro/src/main/java/org/apache/avro/data/RecordBuilderBase.java`
+#### Snippet
+```java
+    this.schema = other.schema;
+    this.data = data;
+    fields = schema.getFields().toArray(new Field[0]);
+    fieldSetFlags = Arrays.copyOf(other.fieldSetFlags, other.fieldSetFlags.length);
+  }
 ```
 
 ### ZeroLengthArrayInitialization
@@ -8142,6 +8047,30 @@ in `lang/java/compiler/src/main/java/org/apache/avro/compiler/specific/SpecificC
     return new String[0];
   }
 
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `lang/java/avro/src/main/java/org/apache/avro/util/ReusableByteArrayInputStream.java`
+#### Snippet
+```java
+public class ReusableByteArrayInputStream extends ByteArrayInputStream {
+  public ReusableByteArrayInputStream() {
+    super(new byte[0]);
+  }
+
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `lang/java/avro/src/main/java/org/apache/avro/io/parsing/ResolvingGrammarGenerator.java`
+#### Snippet
+```java
+        seen.put(s, result);
+        int i = production.length;
+        production[--i] = Symbol.fieldOrderAction(s.getFields().toArray(new Schema.Field[0]));
+        for (Field f : s.getFields()) {
+          production[--i] = simpleGen(f.schema(), seen);
 ```
 
 ### ZeroLengthArrayInitialization
@@ -8242,102 +8171,6 @@ in `lang/java/mapred/src/main/java/org/apache/avro/mapred/tether/TetherJob.java`
 
 ### ZeroLengthArrayInitialization
 Allocation of zero length array
-in `lang/java/avro/src/main/java/org/apache/avro/io/BinaryData.java`
-#### Snippet
-```java
-
-    public Decoders() {
-      this.d1 = new BinaryDecoder(new byte[0], 0, 0);
-      this.d2 = new BinaryDecoder(new byte[0], 0, 0);
-    }
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `lang/java/avro/src/main/java/org/apache/avro/io/BinaryData.java`
-#### Snippet
-```java
-    public Decoders() {
-      this.d1 = new BinaryDecoder(new byte[0], 0, 0);
-      this.d2 = new BinaryDecoder(new byte[0], 0, 0);
-    }
-
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `lang/java/avro/src/main/java/org/apache/avro/io/BinaryData.java`
-#### Snippet
-```java
-
-    public HashData() {
-      this.decoder = new BinaryDecoder(new byte[0], 0, 0);
-    }
-
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `lang/java/avro/src/main/java/org/apache/avro/io/BlockingBinaryEncoder.java`
-#### Snippet
-```java
-    this.buf = new byte[blockBufferSize];
-    this.pos = 0;
-    blockStack = new BlockedValue[0];
-    expandStack();
-    BlockedValue bv = blockStack[++stackTop];
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `lang/java/avro/src/main/java/org/apache/avro/data/RecordBuilderBase.java`
-#### Snippet
-```java
-    this.schema = schema;
-    this.data = data;
-    fields = schema.getFields().toArray(new Field[0]);
-    fieldSetFlags = new boolean[fields.length];
-  }
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `lang/java/avro/src/main/java/org/apache/avro/data/RecordBuilderBase.java`
-#### Snippet
-```java
-    this.schema = other.schema;
-    this.data = data;
-    fields = schema.getFields().toArray(new Field[0]);
-    fieldSetFlags = Arrays.copyOf(other.fieldSetFlags, other.fieldSetFlags.length);
-  }
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `lang/java/avro/src/main/java/org/apache/avro/util/ReusableByteArrayInputStream.java`
-#### Snippet
-```java
-public class ReusableByteArrayInputStream extends ByteArrayInputStream {
-  public ReusableByteArrayInputStream() {
-    super(new byte[0]);
-  }
-
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `lang/java/avro/src/main/java/org/apache/avro/io/parsing/ResolvingGrammarGenerator.java`
-#### Snippet
-```java
-        seen.put(s, result);
-        int i = production.length;
-        production[--i] = Symbol.fieldOrderAction(s.getFields().toArray(new Schema.Field[0]));
-        for (Field f : s.getFields()) {
-          production[--i] = simpleGen(f.schema(), seen);
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
 in `lang/java/avro/src/main/java/org/apache/avro/reflect/ReflectData.java`
 #### Snippet
 ```java
@@ -8346,6 +8179,138 @@ in `lang/java/avro/src/main/java/org/apache/avro/reflect/ReflectData.java`
     fieldsList = fields.values().toArray(new Field[0]);
     return fieldsList;
   }
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `lang/java/trevni/avro/src/main/java/org/apache/trevni/avro/AvroTrevniInputFormat.java`
+#### Snippet
+```java
+      if (file.getPath().getName().endsWith(AvroTrevniOutputFormat.EXT))
+        result.add(file);
+    return result.toArray(new FileStatus[0]);
+  }
+
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `lang/java/trevni/avro/src/main/java/org/apache/trevni/avro/AvroColumnator.java`
+#### Snippet
+```java
+  /** Return columns for the schema. */
+  public ColumnMetaData[] getColumns() {
+    return columns.toArray(new ColumnMetaData[0]);
+  }
+
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `lang/java/ipc/src/main/java/org/apache/avro/ipc/SaslSocketTransceiver.java`
+#### Snippet
+```java
+    writes.add(zeroHeader);
+
+    writeFully(writes.toArray(new ByteBuffer[0]));
+  }
+
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `lang/java/ipc-netty/src/main/java/org/apache/avro/ipc/netty/NettyTransportCodec.java`
+#### Snippet
+```java
+        bbs.add(b);
+      }
+      out.add(wrappedBuffer(bbs.toArray(new ByteBuffer[0])));
+    }
+
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `lang/java/maven-plugin/src/main/java/org/apache/avro/mojo/IDLProtocolMojo.java`
+#### Snippet
+```java
+      }
+
+      URLClassLoader projPathLoader = new URLClassLoader(runtimeUrls.toArray(new URL[0]),
+          Thread.currentThread().getContextClassLoader());
+      try (Idl parser = new Idl(new File(sourceDirectory, filename), projPathLoader)) {
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `lang/java/maven-plugin/src/main/java/org/apache/avro/mojo/AbstractAvroMojo.java`
+#### Snippet
+```java
+    final List<URL> urls = appendElements(project.getRuntimeClasspathElements());
+    urls.addAll(appendElements(project.getTestClasspathElements()));
+    return new URLClassLoader(urls.toArray(new URL[0]), Thread.currentThread().getContextClassLoader());
+  }
+
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `lang/java/maven-plugin/src/main/java/org/apache/avro/mojo/AbstractAvroMojo.java`
+#### Snippet
+```java
+   * @parameter property="customLogicalTypeFactories"
+   */
+  protected String[] customLogicalTypeFactories = new String[0];
+
+  /**
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `lang/java/maven-plugin/src/main/java/org/apache/avro/mojo/AbstractAvroMojo.java`
+#### Snippet
+```java
+   * @parameter
+   */
+  protected String[] testExcludes = new String[0];
+
+  /**
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `lang/java/maven-plugin/src/main/java/org/apache/avro/mojo/AbstractAvroMojo.java`
+#### Snippet
+```java
+   * @parameter
+   */
+  protected String[] excludes = new String[0];
+
+  /**
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `lang/java/maven-plugin/src/main/java/org/apache/avro/mojo/AbstractAvroMojo.java`
+#### Snippet
+```java
+   * @parameter property="velocityToolsClassesNames"
+   */
+  protected String[] velocityToolsClassesNames = new String[0];
+
+  /**
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `lang/java/maven-plugin/src/main/java/org/apache/avro/mojo/AbstractAvroMojo.java`
+#### Snippet
+```java
+   * @parameter property="customConversions"
+   */
+  protected String[] customConversions = new String[0];
+
+  /**
 ```
 
 ## RuleId[ruleID=RedundantStringFormatCall]
@@ -8385,43 +8350,56 @@ in `lang/java/tools/src/main/java/org/apache/avro/tool/RpcSendTool.java`
     }
 ```
 
+## RuleId[ruleID=NonFinalFieldOfException]
+### NonFinalFieldOfException
+Non-final field `unresolvedDatum` of exception class
+in `lang/java/avro/src/main/java/org/apache/avro/UnresolvedUnionException.java`
+#### Snippet
+```java
+/** Thrown when the expected contents of a union cannot be resolved. */
+public class UnresolvedUnionException extends AvroRuntimeException {
+  private Object unresolvedDatum;
+  private Schema unionSchema;
+
+```
+
+### NonFinalFieldOfException
+Non-final field `unionSchema` of exception class
+in `lang/java/avro/src/main/java/org/apache/avro/UnresolvedUnionException.java`
+#### Snippet
+```java
+public class UnresolvedUnionException extends AvroRuntimeException {
+  private Object unresolvedDatum;
+  private Schema unionSchema;
+
+  public UnresolvedUnionException(Schema unionSchema, Object unresolvedDatum) {
+```
+
+### NonFinalFieldOfException
+Non-final field `chainOfFields` of exception class
+in `lang/java/avro/src/main/java/org/apache/avro/AvroMissingFieldException.java`
+#### Snippet
+```java
+/** Avro exception in case of missing fields. */
+public class AvroMissingFieldException extends AvroRuntimeException {
+  private List<Field> chainOfFields = new ArrayList<>(8);
+
+  public AvroMissingFieldException(String message, Field field) {
+```
+
+### NonFinalFieldOfException
+Non-final field `value` of exception class
+in `lang/java/avro/src/main/java/org/apache/avro/AvroRemoteException.java`
+#### Snippet
+```java
+/** Base class for exceptions thrown to client by server. */
+public class AvroRemoteException extends Exception {
+  private Object value;
+
+  protected AvroRemoteException() {
+```
+
 ## RuleId[ruleID=SynchronizeOnThis]
-### SynchronizeOnThis
-Lock operations on 'this' may have unforeseen side-effects
-in `lang/java/mapred/src/main/java/org/apache/avro/mapred/tether/TetherOutputService.java`
-#### Snippet
-```java
-    LOG.warn("Failing: " + message);
-    error = message;
-    notify();
-  }
-
-```
-
-### SynchronizeOnThis
-Lock operations on 'this' may have unforeseen side-effects
-in `lang/java/mapred/src/main/java/org/apache/avro/mapred/tether/TetherOutputService.java`
-#### Snippet
-```java
-  public synchronized boolean waitForFinish() throws InterruptedException {
-    while (!isFinished())
-      wait();
-    return error != null;
-  }
-```
-
-### SynchronizeOnThis
-Lock operations on 'this' may have unforeseen side-effects
-in `lang/java/mapred/src/main/java/org/apache/avro/mapred/tether/TetherOutputService.java`
-#### Snippet
-```java
-    if (inputPort == 0) {
-      LOG.info("waiting for input port from child");
-      wait(TIMEOUT);
-    }
-
-```
-
 ### SynchronizeOnThis
 Lock operations on 'this' may have unforeseen side-effects
 in `lang/java/mapred/src/main/java/org/apache/avro/mapred/tether/TetherOutputService.java`
@@ -8451,10 +8429,46 @@ Lock operations on 'this' may have unforeseen side-effects
 in `lang/java/mapred/src/main/java/org/apache/avro/mapred/tether/TetherOutputService.java`
 #### Snippet
 ```java
+  public synchronized boolean waitForFinish() throws InterruptedException {
+    while (!isFinished())
+      wait();
+    return error != null;
+  }
+```
+
+### SynchronizeOnThis
+Lock operations on 'this' may have unforeseen side-effects
+in `lang/java/mapred/src/main/java/org/apache/avro/mapred/tether/TetherOutputService.java`
+#### Snippet
+```java
+    LOG.warn("Failing: " + message);
+    error = message;
+    notify();
+  }
+
+```
+
+### SynchronizeOnThis
+Lock operations on 'this' may have unforeseen side-effects
+in `lang/java/mapred/src/main/java/org/apache/avro/mapred/tether/TetherOutputService.java`
+#### Snippet
+```java
     LOG.info("got input port from child: inputport=" + inputPort);
     this.inputPort = inputPort;
     notify();
   }
+
+```
+
+### SynchronizeOnThis
+Lock operations on 'this' may have unforeseen side-effects
+in `lang/java/mapred/src/main/java/org/apache/avro/mapred/tether/TetherOutputService.java`
+#### Snippet
+```java
+    if (inputPort == 0) {
+      LOG.info("waiting for input port from child");
+      wait(TIMEOUT);
+    }
 
 ```
 
@@ -8498,6 +8512,30 @@ in `lang/java/tools/src/main/java/org/apache/avro/tool/TetherTool.java`
 ```
 
 ### UnusedAssignment
+Variable `methodResponse` initializer `null` is redundant
+in `lang/java/grpc/src/main/java/org/apache/avro/grpc/AvroGrpcServer.java`
+#### Snippet
+```java
+    @Override
+    public void invoke(Object[] request, StreamObserver<Object> responseObserver) {
+      Object methodResponse = null;
+      try {
+        methodResponse = method.invoke(getServiceImpl(), request);
+```
+
+### UnusedAssignment
+Variable `arg` initializer `0` is redundant
+in `lang/java/tools/src/main/java/org/apache/avro/tool/SpecificCompilerTool.java`
+#### Snippet
+```java
+      args.remove(args.indexOf("-addExtraOptionalGetters"));
+    }
+    int arg = 0;
+
+    if (args.contains("-optionalGetters")) {
+```
+
+### UnusedAssignment
 Variable `blockSize` initializer `0` is redundant
 in `lang/java/tools/src/main/java/org/apache/avro/tool/DataFileRepairTool.java`
 #### Snippet
@@ -8519,90 +8557,6 @@ in `lang/java/tools/src/main/java/org/apache/avro/tool/DataFileRepairTool.java`
     long blockCount = 0;
     boolean fileWritten = false;
     try {
-```
-
-### UnusedAssignment
-Variable `arg` initializer `0` is redundant
-in `lang/java/tools/src/main/java/org/apache/avro/tool/SpecificCompilerTool.java`
-#### Snippet
-```java
-      args.remove(args.indexOf("-addExtraOptionalGetters"));
-    }
-    int arg = 0;
-
-    if (args.contains("-optionalGetters")) {
-```
-
-### UnusedAssignment
-Variable `methodResponse` initializer `null` is redundant
-in `lang/java/grpc/src/main/java/org/apache/avro/grpc/AvroGrpcServer.java`
-#### Snippet
-```java
-    @Override
-    public void invoke(Object[] request, StreamObserver<Object> responseObserver) {
-      Object methodResponse = null;
-      try {
-        methodResponse = method.invoke(getServiceImpl(), request);
-```
-
-### UnusedAssignment
-Variable `payload` initializer `null` is redundant
-in `lang/java/ipc/src/main/java/org/apache/avro/ipc/Responder.java`
-#### Snippet
-```java
-    Exception error = null;
-    RPCContext context = new RPCContext();
-    List<ByteBuffer> payload = null;
-    List<ByteBuffer> handshake = null;
-    boolean wasConnected = connection != null && connection.isConnected();
-```
-
-### UnusedAssignment
-Variable `keys` initializer `null` is redundant
-in `lang/java/ipc/src/main/java/org/apache/avro/ipc/stats/StatsServlet.java`
-#### Snippet
-```java
-
-    // Get set of all seen messages
-    Set<Message> keys = null;
-    synchronized (this.statsPlugin.methodTimings) {
-      keys = this.statsPlugin.methodTimings.keySet();
-```
-
-### UnusedAssignment
-Variable `readCount` initializer `-1` is redundant
-in `lang/java/trevni/core/src/main/java/org/apache/trevni/BZip2Codec.java`
-#### Snippet
-```java
-      byte[] buffer = new byte[DEFAULT_BUFFER_SIZE];
-
-      int readCount = -1;
-
-      while ((readCount = inputStream.read(buffer, compressedData.position(), buffer.length)) > 0) {
-```
-
-### UnusedAssignment
-The value changed at `len++` is never used
-in `lang/java/trevni/core/src/main/java/org/apache/trevni/InputBuffer.java`
-#### Snippet
-```java
-    int len = 1;
-    int n = (buf[pos] & 0xff) | ((buf[pos + len++] & 0xff) << 8) | ((buf[pos + len++] & 0xff) << 16)
-        | ((buf[pos + len++] & 0xff) << 24);
-    if ((pos + 4) > limit)
-      throw new EOFException();
-```
-
-### UnusedAssignment
-Variable `executable` initializer `""` is redundant
-in `lang/java/mapred/src/main/java/org/apache/avro/mapred/tether/TetheredProcess.java`
-#### Snippet
-```java
-    List<String> command = new ArrayList<>();
-
-    String executable = "";
-    if (job.getBoolean(TetherJob.TETHER_EXEC_CACHED, false)) {
-      // we want to use the cached executable
 ```
 
 ### UnusedAssignment
@@ -8665,7 +8619,91 @@ in `lang/java/avro/src/main/java/org/apache/avro/file/DataFileReader12.java`
 
 ```
 
+### UnusedAssignment
+Variable `executable` initializer `""` is redundant
+in `lang/java/mapred/src/main/java/org/apache/avro/mapred/tether/TetheredProcess.java`
+#### Snippet
+```java
+    List<String> command = new ArrayList<>();
+
+    String executable = "";
+    if (job.getBoolean(TetherJob.TETHER_EXEC_CACHED, false)) {
+      // we want to use the cached executable
+```
+
+### UnusedAssignment
+Variable `payload` initializer `null` is redundant
+in `lang/java/ipc/src/main/java/org/apache/avro/ipc/Responder.java`
+#### Snippet
+```java
+    Exception error = null;
+    RPCContext context = new RPCContext();
+    List<ByteBuffer> payload = null;
+    List<ByteBuffer> handshake = null;
+    boolean wasConnected = connection != null && connection.isConnected();
+```
+
+### UnusedAssignment
+Variable `keys` initializer `null` is redundant
+in `lang/java/ipc/src/main/java/org/apache/avro/ipc/stats/StatsServlet.java`
+#### Snippet
+```java
+
+    // Get set of all seen messages
+    Set<Message> keys = null;
+    synchronized (this.statsPlugin.methodTimings) {
+      keys = this.statsPlugin.methodTimings.keySet();
+```
+
+### UnusedAssignment
+Variable `readCount` initializer `-1` is redundant
+in `lang/java/trevni/core/src/main/java/org/apache/trevni/BZip2Codec.java`
+#### Snippet
+```java
+      byte[] buffer = new byte[DEFAULT_BUFFER_SIZE];
+
+      int readCount = -1;
+
+      while ((readCount = inputStream.read(buffer, compressedData.position(), buffer.length)) > 0) {
+```
+
+### UnusedAssignment
+The value changed at `len++` is never used
+in `lang/java/trevni/core/src/main/java/org/apache/trevni/InputBuffer.java`
+#### Snippet
+```java
+    int len = 1;
+    int n = (buf[pos] & 0xff) | ((buf[pos + len++] & 0xff) << 8) | ((buf[pos + len++] & 0xff) << 16)
+        | ((buf[pos + len++] & 0xff) << 24);
+    if ((pos + 4) > limit)
+      throw new EOFException();
+```
+
 ## RuleId[ruleID=ConstantValue]
+### ConstantValue
+Condition `c == null` is always `false`
+in `lang/java/thrift/src/main/java/org/apache/avro/thrift/ThriftDatumReader.java`
+#### Snippet
+```java
+    try {
+      Class c = ClassUtils.forName(SpecificData.getClassName(schema));
+      if (c == null)
+        return super.createEnum(symbol, schema); // punt to generic
+      return Enum.valueOf(c, symbol);
+```
+
+### ConstantValue
+Condition `c == null` is always `false`
+in `lang/java/thrift/src/main/java/org/apache/avro/thrift/ThriftData.java`
+#### Snippet
+```java
+    try {
+      Class c = ClassUtils.forName(SpecificData.getClassName(schema));
+      if (c == null)
+        return super.newRecord(old, schema); // punt to generic
+      if (c.isInstance(old))
+```
+
 ### ConstantValue
 Value `recoverPrior` is always 'false'
 in `lang/java/tools/src/main/java/org/apache/avro/tool/DataFileRepairTool.java`
@@ -8688,6 +8726,162 @@ in `lang/java/tools/src/main/java/org/apache/avro/tool/DataFileRepairTool.java`
         return innerRecover(fileReader, null, out, err, recoverPrior, recoverAfter, null, null);
       }
 
+```
+
+### ConstantValue
+Condition `n == 0` is always `true`
+in `lang/java/avro/src/main/java/org/apache/avro/io/BinaryDecoder.java`
+#### Snippet
+```java
+        // infinite loop waiting for -1 with some classes others
+        // spuriously will return 0 on occasion without EOF
+        if (n == 0) {
+          if (readZero) {
+            isEof = true;
+```
+
+### ConstantValue
+Condition `n == 0` is always `true`
+in `lang/java/avro/src/main/java/org/apache/avro/io/BinaryDecoder.java`
+#### Snippet
+```java
+          // infinite loop waiting for -1 with some classes others
+          // spuriously will return 0 on occasion without EOF
+          if (n == 0) {
+            if (readZero) {
+              isEof = true;
+```
+
+### ConstantValue
+Condition `noAdj` at the left side of assignment expression is always `true`. Can be simplified
+in `lang/java/avro/src/main/java/org/apache/avro/Resolver.java`
+#### Snippet
+```java
+      noAdj = (adj.length <= rsymCount);
+      for (int i = 0; noAdj && i < count; i++) {
+        noAdj &= (i == adj[i]);
+      }
+      this.noAdjustmentsNeeded = noAdj;
+```
+
+### ConstantValue
+Condition `result` at the left side of assignment expression is always `true`. Can be simplified
+in `lang/java/avro/src/main/java/org/apache/avro/Resolver.java`
+#### Snippet
+```java
+      boolean result = true;
+      for (int i = 0; result && i < readerOrder.length; i++) {
+        result &= (i == readerOrder[i].pos());
+      }
+      return result;
+```
+
+### ConstantValue
+Value `DEFAULT_ZSTANDARD_BUFFERPOOL` is always 'false'
+in `lang/java/avro/src/main/java/org/apache/avro/file/CodecFactory.java`
+#### Snippet
+```java
+    addCodec(DataFileConstants.BZIP2_CODEC, bzip2Codec());
+    addCodec(DataFileConstants.XZ_CODEC, xzCodec(DEFAULT_XZ_LEVEL));
+    addCodec(DataFileConstants.ZSTANDARD_CODEC, zstandardCodec(DEFAULT_ZSTANDARD_LEVEL, DEFAULT_ZSTANDARD_BUFFERPOOL));
+    addCodec(DataFileConstants.SNAPPY_CODEC, snappyCodec());
+  }
+```
+
+### ConstantValue
+Condition `reversePath == null` is always `false`
+in `lang/java/avro/src/main/java/org/apache/avro/path/TracingNullPointException.java`
+#### Snippet
+```java
+    StringBuilder sb = new StringBuilder();
+    sb.append("null value for (non-nullable) ");
+    if (reversePath == null || reversePath.isEmpty()) {
+      // very simple "shallow" NPE, no nesting at all, or custom coders used means we
+      // have no data
+```
+
+### ConstantValue
+Condition `reversePath == null` is always `false`
+in `lang/java/avro/src/main/java/org/apache/avro/path/TracingClassCastException.java`
+#### Snippet
+```java
+    sb.append("value ").append(SchemaUtil.describe(datum));
+    sb.append(" cannot be cast to expected type ").append(SchemaUtil.describe(expected));
+    if (reversePath == null || reversePath.isEmpty()) {
+      // very simple "shallow" NPE, no nesting at all, or custom coders used means we
+      // have no data
+```
+
+### ConstantValue
+Condition `valid` at the left side of assignment expression is always `true`. Can be simplified
+in `lang/java/avro/src/main/java/org/apache/avro/reflect/ReflectionUtil.java`
+#### Snippet
+```java
+    private boolean validate(FieldAccess access) throws Exception {
+      boolean valid = true;
+      valid &= validField(access, "b", b, false);
+      valid &= validField(access, "by", by, (byte) 0xaf);
+      valid &= validField(access, "c", c, 'C');
+```
+
+### ConstantValue
+Condition `!nullValue` is always `true` when reached
+in `lang/java/mapred/src/main/java/org/apache/avro/mapred/AvroTextOutputFormat.java`
+#### Snippet
+```java
+      } else if (!nullKey && nullValue) {
+        writer.append(toByteBuffer(key));
+      } else if (nullKey && !nullValue) {
+        writer.append(toByteBuffer(value));
+      } else {
+```
+
+### ConstantValue
+Value `nullValue` is always 'false'
+in `lang/java/mapred/src/main/java/org/apache/avro/mapred/AvroTextOutputFormat.java`
+#### Snippet
+```java
+      } else if (!nullKey && nullValue) {
+        writer.append(toByteBuffer(key));
+      } else if (nullKey && !nullValue) {
+        writer.append(toByteBuffer(value));
+      } else {
+```
+
+### ConstantValue
+Condition `ch >= '\u0000'` is always `true`
+in `lang/java/avro/src/main/java/org/apache/avro/generic/GenericData.java`
+#### Snippet
+```java
+      default:
+        // Reference: https://www.unicode.org/versions/Unicode5.1.0/
+        if ((ch >= '\u0000' && ch <= '\u001F') || (ch >= '\u007F' && ch <= '\u009F')
+            || (ch >= '\u2000' && ch <= '\u20FF')) {
+          String hex = Integer.toHexString(ch);
+```
+
+### ConstantValue
+Condition `noReorder` at the left side of assignment expression is always `true`. Can be simplified
+in `lang/java/avro/src/main/java/org/apache/avro/io/parsing/Symbol.java`
+#### Snippet
+```java
+      boolean noReorder = true;
+      for (int i = 0; noReorder && i < fields.length; i++)
+        noReorder &= (i == fields[i].pos());
+      this.noReorder = noReorder;
+    }
+```
+
+### ConstantValue
+Condition `noAdj` at the left side of assignment expression is always `true`. Can be simplified
+in `lang/java/avro/src/main/java/org/apache/avro/io/parsing/Symbol.java`
+#### Snippet
+```java
+        noAdj = (adjustments.length <= rsymCount);
+        for (int i = 0; noAdj && i < count; i++)
+          noAdj &= ((adjustments[i] instanceof Integer) && i == (Integer) adjustments[i]);
+      }
+      this.noAdjustments = noAdj;
 ```
 
 ### ConstantValue
@@ -8739,186 +8933,6 @@ in `lang/java/trevni/core/src/main/java/org/apache/trevni/OutputBuffer.java`
 ```
 
 ### ConstantValue
-Condition `!nullValue` is always `true` when reached
-in `lang/java/mapred/src/main/java/org/apache/avro/mapred/AvroTextOutputFormat.java`
-#### Snippet
-```java
-      } else if (!nullKey && nullValue) {
-        writer.append(toByteBuffer(key));
-      } else if (nullKey && !nullValue) {
-        writer.append(toByteBuffer(value));
-      } else {
-```
-
-### ConstantValue
-Value `nullValue` is always 'false'
-in `lang/java/mapred/src/main/java/org/apache/avro/mapred/AvroTextOutputFormat.java`
-#### Snippet
-```java
-      } else if (!nullKey && nullValue) {
-        writer.append(toByteBuffer(key));
-      } else if (nullKey && !nullValue) {
-        writer.append(toByteBuffer(value));
-      } else {
-```
-
-### ConstantValue
-Condition `n == 0` is always `true`
-in `lang/java/avro/src/main/java/org/apache/avro/io/BinaryDecoder.java`
-#### Snippet
-```java
-        // infinite loop waiting for -1 with some classes others
-        // spuriously will return 0 on occasion without EOF
-        if (n == 0) {
-          if (readZero) {
-            isEof = true;
-```
-
-### ConstantValue
-Condition `n == 0` is always `true`
-in `lang/java/avro/src/main/java/org/apache/avro/io/BinaryDecoder.java`
-#### Snippet
-```java
-          // infinite loop waiting for -1 with some classes others
-          // spuriously will return 0 on occasion without EOF
-          if (n == 0) {
-            if (readZero) {
-              isEof = true;
-```
-
-### ConstantValue
-Value `DEFAULT_ZSTANDARD_BUFFERPOOL` is always 'false'
-in `lang/java/avro/src/main/java/org/apache/avro/file/CodecFactory.java`
-#### Snippet
-```java
-    addCodec(DataFileConstants.BZIP2_CODEC, bzip2Codec());
-    addCodec(DataFileConstants.XZ_CODEC, xzCodec(DEFAULT_XZ_LEVEL));
-    addCodec(DataFileConstants.ZSTANDARD_CODEC, zstandardCodec(DEFAULT_ZSTANDARD_LEVEL, DEFAULT_ZSTANDARD_BUFFERPOOL));
-    addCodec(DataFileConstants.SNAPPY_CODEC, snappyCodec());
-  }
-```
-
-### ConstantValue
-Condition `reversePath == null` is always `false`
-in `lang/java/avro/src/main/java/org/apache/avro/path/TracingClassCastException.java`
-#### Snippet
-```java
-    sb.append("value ").append(SchemaUtil.describe(datum));
-    sb.append(" cannot be cast to expected type ").append(SchemaUtil.describe(expected));
-    if (reversePath == null || reversePath.isEmpty()) {
-      // very simple "shallow" NPE, no nesting at all, or custom coders used means we
-      // have no data
-```
-
-### ConstantValue
-Condition `reversePath == null` is always `false`
-in `lang/java/avro/src/main/java/org/apache/avro/path/TracingNullPointException.java`
-#### Snippet
-```java
-    StringBuilder sb = new StringBuilder();
-    sb.append("null value for (non-nullable) ");
-    if (reversePath == null || reversePath.isEmpty()) {
-      // very simple "shallow" NPE, no nesting at all, or custom coders used means we
-      // have no data
-```
-
-### ConstantValue
-Condition `noAdj` at the left side of assignment expression is always `true`. Can be simplified
-in `lang/java/avro/src/main/java/org/apache/avro/Resolver.java`
-#### Snippet
-```java
-      noAdj = (adj.length <= rsymCount);
-      for (int i = 0; noAdj && i < count; i++) {
-        noAdj &= (i == adj[i]);
-      }
-      this.noAdjustmentsNeeded = noAdj;
-```
-
-### ConstantValue
-Condition `result` at the left side of assignment expression is always `true`. Can be simplified
-in `lang/java/avro/src/main/java/org/apache/avro/Resolver.java`
-#### Snippet
-```java
-      boolean result = true;
-      for (int i = 0; result && i < readerOrder.length; i++) {
-        result &= (i == readerOrder[i].pos());
-      }
-      return result;
-```
-
-### ConstantValue
-Condition `valid` at the left side of assignment expression is always `true`. Can be simplified
-in `lang/java/avro/src/main/java/org/apache/avro/reflect/ReflectionUtil.java`
-#### Snippet
-```java
-    private boolean validate(FieldAccess access) throws Exception {
-      boolean valid = true;
-      valid &= validField(access, "b", b, false);
-      valid &= validField(access, "by", by, (byte) 0xaf);
-      valid &= validField(access, "c", c, 'C');
-```
-
-### ConstantValue
-Condition `c == null` is always `false`
-in `lang/java/thrift/src/main/java/org/apache/avro/thrift/ThriftDatumReader.java`
-#### Snippet
-```java
-    try {
-      Class c = ClassUtils.forName(SpecificData.getClassName(schema));
-      if (c == null)
-        return super.createEnum(symbol, schema); // punt to generic
-      return Enum.valueOf(c, symbol);
-```
-
-### ConstantValue
-Condition `c == null` is always `false`
-in `lang/java/thrift/src/main/java/org/apache/avro/thrift/ThriftData.java`
-#### Snippet
-```java
-    try {
-      Class c = ClassUtils.forName(SpecificData.getClassName(schema));
-      if (c == null)
-        return super.newRecord(old, schema); // punt to generic
-      if (c.isInstance(old))
-```
-
-### ConstantValue
-Condition `ch >= '\u0000'` is always `true`
-in `lang/java/avro/src/main/java/org/apache/avro/generic/GenericData.java`
-#### Snippet
-```java
-      default:
-        // Reference: https://www.unicode.org/versions/Unicode5.1.0/
-        if ((ch >= '\u0000' && ch <= '\u001F') || (ch >= '\u007F' && ch <= '\u009F')
-            || (ch >= '\u2000' && ch <= '\u20FF')) {
-          String hex = Integer.toHexString(ch);
-```
-
-### ConstantValue
-Condition `noReorder` at the left side of assignment expression is always `true`. Can be simplified
-in `lang/java/avro/src/main/java/org/apache/avro/io/parsing/Symbol.java`
-#### Snippet
-```java
-      boolean noReorder = true;
-      for (int i = 0; noReorder && i < fields.length; i++)
-        noReorder &= (i == fields[i].pos());
-      this.noReorder = noReorder;
-    }
-```
-
-### ConstantValue
-Condition `noAdj` at the left side of assignment expression is always `true`. Can be simplified
-in `lang/java/avro/src/main/java/org/apache/avro/io/parsing/Symbol.java`
-#### Snippet
-```java
-        noAdj = (adjustments.length <= rsymCount);
-        for (int i = 0; noAdj && i < count; i++)
-          noAdj &= ((adjustments[i] instanceof Integer) && i == (Integer) adjustments[i]);
-      }
-      this.noAdjustments = noAdj;
-```
-
-### ConstantValue
 Condition `name != null` is always `true`
 in `lang/java/avro/src/main/java/org/apache/avro/Schema.java`
 #### Snippet
@@ -8956,27 +8970,15 @@ in `lang/java/avro/src/main/java/org/apache/avro/Schema.java`
 
 ## RuleId[ruleID=MethodOverridesStaticMethod]
 ### MethodOverridesStaticMethod
-Method `getClient()` tries to override a static method of a superclass
-in `lang/java/ipc/src/main/java/org/apache/avro/ipc/reflect/ReflectRequestor.java`
-#### Snippet
-```java
-
-  /** Create a proxy instance whose methods invoke RPCs. */
-  public static <T> T getClient(Class<T> iface, Transceiver transceiver) throws IOException {
-    return getClient(iface, transceiver, new ReflectData(iface.getClassLoader()));
-  }
-```
-
-### MethodOverridesStaticMethod
 Method `get()` tries to override a static method of a superclass
-in `lang/java/mapred/src/main/java/org/apache/avro/mapred/SequenceFileReader.java`
+in `lang/java/protobuf/src/main/java/org/apache/avro/protobuf/ProtobufData.java`
 #### Snippet
 ```java
 
-    /** Return the singleton instance. */
-    public static WritableData get() {
-      return INSTANCE;
-    }
+  /** Return the singleton instance. */
+  public static ProtobufData get() {
+    return INSTANCE;
+  }
 ```
 
 ### MethodOverridesStaticMethod
@@ -8987,18 +8989,6 @@ in `lang/java/thrift/src/main/java/org/apache/avro/thrift/ThriftData.java`
 
   /** Return the singleton instance. */
   public static ThriftData get() {
-    return INSTANCE;
-  }
-```
-
-### MethodOverridesStaticMethod
-Method `get()` tries to override a static method of a superclass
-in `lang/java/protobuf/src/main/java/org/apache/avro/protobuf/ProtobufData.java`
-#### Snippet
-```java
-
-  /** Return the singleton instance. */
-  public static ProtobufData get() {
     return INSTANCE;
   }
 ```
@@ -9017,14 +9007,14 @@ in `lang/java/avro/src/main/java/org/apache/avro/specific/SpecificData.java`
 
 ### MethodOverridesStaticMethod
 Method `get()` tries to override a static method of a superclass
-in `lang/java/avro/src/main/java/org/apache/avro/reflect/ReflectData.java`
+in `lang/java/mapred/src/main/java/org/apache/avro/mapred/SequenceFileReader.java`
 #### Snippet
 ```java
 
-  /** Return the singleton instance. */
-  public static ReflectData get() {
-    return INSTANCE;
-  }
+    /** Return the singleton instance. */
+    public static WritableData get() {
+      return INSTANCE;
+    }
 ```
 
 ### MethodOverridesStaticMethod
@@ -9039,7 +9029,55 @@ in `lang/java/avro/src/main/java/org/apache/avro/reflect/ReflectData.java`
     }
 ```
 
+### MethodOverridesStaticMethod
+Method `get()` tries to override a static method of a superclass
+in `lang/java/avro/src/main/java/org/apache/avro/reflect/ReflectData.java`
+#### Snippet
+```java
+
+  /** Return the singleton instance. */
+  public static ReflectData get() {
+    return INSTANCE;
+  }
+```
+
+### MethodOverridesStaticMethod
+Method `getClient()` tries to override a static method of a superclass
+in `lang/java/ipc/src/main/java/org/apache/avro/ipc/reflect/ReflectRequestor.java`
+#### Snippet
+```java
+
+  /** Create a proxy instance whose methods invoke RPCs. */
+  public static <T> T getClient(Class<T> iface, Transceiver transceiver) throws IOException {
+    return getClient(iface, transceiver, new ReflectData(iface.getClassLoader()));
+  }
+```
+
 ## RuleId[ruleID=IOResource]
+### IOResource
+'DataFileReader' should be opened in front of a 'try' block and closed in the corresponding 'finally' block
+in `lang/java/avro/src/main/java/org/apache/avro/file/DataFileWriter.java`
+#### Snippet
+```java
+  public DataFileWriter<D> appendTo(SeekableInput in, OutputStream out) throws IOException {
+    assertNotOpen();
+    DataFileReader<D> reader = new DataFileReader<>(in, new GenericDatumReader<>());
+    this.schema = reader.getSchema();
+    this.sync = reader.getHeader().sync;
+```
+
+### IOResource
+'DataFileWriter' should be opened in front of a 'try' block and closed in the corresponding 'finally' block
+in `lang/java/mapred/src/main/java/org/apache/avro/mapred/tether/TetherOutputFormat.java`
+#### Snippet
+```java
+    Schema schema = AvroJob.getOutputSchema(job);
+
+    final DataFileWriter writer = new DataFileWriter(new GenericDatumWriter());
+
+    if (FileOutputFormat.getCompressOutput(job)) {
+```
+
 ### IOResource
 'ByteBufferOutputStream' should be opened in front of a 'try' block and closed in the corresponding 'finally' block
 in `lang/java/ipc/src/main/java/org/apache/avro/ipc/Responder.java`
@@ -9064,30 +9102,6 @@ in `lang/java/trevni/core/src/main/java/org/apache/trevni/InputFile.java`
 
 ```
 
-### IOResource
-'DataFileWriter' should be opened in front of a 'try' block and closed in the corresponding 'finally' block
-in `lang/java/mapred/src/main/java/org/apache/avro/mapred/tether/TetherOutputFormat.java`
-#### Snippet
-```java
-    Schema schema = AvroJob.getOutputSchema(job);
-
-    final DataFileWriter writer = new DataFileWriter(new GenericDatumWriter());
-
-    if (FileOutputFormat.getCompressOutput(job)) {
-```
-
-### IOResource
-'DataFileReader' should be opened in front of a 'try' block and closed in the corresponding 'finally' block
-in `lang/java/avro/src/main/java/org/apache/avro/file/DataFileWriter.java`
-#### Snippet
-```java
-  public DataFileWriter<D> appendTo(SeekableInput in, OutputStream out) throws IOException {
-    assertNotOpen();
-    DataFileReader<D> reader = new DataFileReader<>(in, new GenericDatumReader<>());
-    this.schema = reader.getSchema();
-    this.sync = reader.getHeader().sync;
-```
-
 ## RuleId[ruleID=FieldMayBeStatic]
 ### FieldMayBeStatic
 Field `batchSize` may be 'static'
@@ -9102,6 +9116,30 @@ in `lang/java/perf/src/main/java/org/apache/avro/perf/test/BasicState.java`
 ```
 
 ## RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
+### UtilityClassWithoutPrivateConstructor
+Class `ProtoConversions` has only 'static' members, and lacks a 'private' constructor
+in `lang/java/protobuf/src/main/java/org/apache/avro/protobuf/ProtoConversions.java`
+#### Snippet
+```java
+import org.apache.avro.Schema;
+
+public class ProtoConversions {
+
+  private static final int THOUSAND = 1000;
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `Perf` has only 'static' members, and lacks a 'private' constructor
+in `lang/java/perf/src/main/java/org/apache/avro/perf/Perf.java`
+#### Snippet
+```java
+ * decoding.
+ */
+public final class Perf {
+
+  public static void main(String[] args) throws Exception {
+```
+
 ### UtilityClassWithoutPrivateConstructor
 Class `TrevniUtil` has only 'static' members, and lacks a 'private' constructor
 in `lang/java/tools/src/main/java/org/apache/avro/tool/TrevniUtil.java`
@@ -9139,8 +9177,68 @@ public class DocCommentHelper {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
+Class `LogicalTypes` has only 'static' members, and lacks a 'private' constructor
+in `lang/java/avro/src/main/java/org/apache/avro/LogicalTypes.java`
+#### Snippet
+```java
+import org.slf4j.LoggerFactory;
+
+public class LogicalTypes {
+
+  private static final Logger LOG = LoggerFactory.getLogger(LogicalTypes.class);
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `Conversions` has only 'static' members, and lacks a 'private' constructor
+in `lang/java/avro/src/main/java/org/apache/avro/Conversions.java`
+#### Snippet
+```java
+import java.util.UUID;
+
+public class Conversions {
+
+  public static class UUIDConversion extends Conversion<UUID> {
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `Resolver` has only 'static' members, and lacks a 'private' constructor
+in `lang/java/avro/src/main/java/org/apache/avro/Resolver.java`
+#### Snippet
+```java
+ * as an example of how to use this class.
+ */
+public class Resolver {
+  /**
+   * Returns a {@link Resolver.Action} tree for resolving the writer schema
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `ZstandardLoader` has only 'static' members, and lacks a 'private' constructor
+in `lang/java/avro/src/main/java/org/apache/avro/file/ZstandardLoader.java`
+#### Snippet
+```java
+ * we get NoClassDefFoundError when we try and use the Codec's compress
+ * or decompress methods rather than when we instantiate it */
+final class ZstandardLoader {
+
+  static InputStream input(InputStream compressed, boolean useBufferPool) throws IOException {
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `Accessor` has only 'static' members, and lacks a 'private' constructor
+in `lang/java/avro/src/main/java/org/apache/avro/util/internal/Accessor.java`
+#### Snippet
+```java
+import com.fasterxml.jackson.databind.JsonNode;
+
+public class Accessor {
+  public abstract static class JsonPropertiesAccessor {
+    protected abstract void addProp(JsonProperties props, String name, JsonNode value);
+```
+
+### UtilityClassWithoutPrivateConstructor
 Class `ThreadLocalWithInitial` has only 'static' members, and lacks a 'private' constructor
-in `lang/java/android/src/main/java/org/apache/avro/util/internal/ThreadLocalWithInitial.java`
+in `lang/java/avro/src/main/java/org/apache/avro/util/internal/ThreadLocalWithInitial.java`
 #### Snippet
 ```java
  * an android environment, where this method is not available until API 26.
@@ -9148,6 +9246,18 @@ in `lang/java/android/src/main/java/org/apache/avro/util/internal/ThreadLocalWit
 public class ThreadLocalWithInitial {
 
   /** Delegate a ThreadLocal instance with the supplier. */
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `ArrayAccessor` has only 'static' members, and lacks a 'private' constructor
+in `lang/java/avro/src/main/java/org/apache/avro/reflect/ArrayAccessor.java`
+#### Snippet
+```java
+ * faster than using reflection-based operations on arrays.
+ */
+class ArrayAccessor {
+
+  static void writeArray(boolean[] data, Encoder out) throws IOException {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -9187,56 +9297,8 @@ public class AvroMultipleInputs {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `LogicalTypes` has only 'static' members, and lacks a 'private' constructor
-in `lang/java/avro/src/main/java/org/apache/avro/LogicalTypes.java`
-#### Snippet
-```java
-import org.slf4j.LoggerFactory;
-
-public class LogicalTypes {
-
-  private static final Logger LOG = LoggerFactory.getLogger(LogicalTypes.class);
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `Conversions` has only 'static' members, and lacks a 'private' constructor
-in `lang/java/avro/src/main/java/org/apache/avro/Conversions.java`
-#### Snippet
-```java
-import java.util.UUID;
-
-public class Conversions {
-
-  public static class UUIDConversion extends Conversion<UUID> {
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `ZstandardLoader` has only 'static' members, and lacks a 'private' constructor
-in `lang/java/avro/src/main/java/org/apache/avro/file/ZstandardLoader.java`
-#### Snippet
-```java
- * we get NoClassDefFoundError when we try and use the Codec's compress
- * or decompress methods rather than when we instantiate it */
-final class ZstandardLoader {
-
-  static InputStream input(InputStream compressed, boolean useBufferPool) throws IOException {
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `Resolver` has only 'static' members, and lacks a 'private' constructor
-in `lang/java/avro/src/main/java/org/apache/avro/Resolver.java`
-#### Snippet
-```java
- * as an example of how to use this class.
- */
-public class Resolver {
-  /**
-   * Returns a {@link Resolver.Action} tree for resolving the writer schema
-```
-
-### UtilityClassWithoutPrivateConstructor
 Class `ThreadLocalWithInitial` has only 'static' members, and lacks a 'private' constructor
-in `lang/java/avro/src/main/java/org/apache/avro/util/internal/ThreadLocalWithInitial.java`
+in `lang/java/android/src/main/java/org/apache/avro/util/internal/ThreadLocalWithInitial.java`
 #### Snippet
 ```java
  * an android environment, where this method is not available until API 26.
@@ -9244,54 +9306,6 @@ in `lang/java/avro/src/main/java/org/apache/avro/util/internal/ThreadLocalWithIn
 public class ThreadLocalWithInitial {
 
   /** Delegate a ThreadLocal instance with the supplier. */
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `Accessor` has only 'static' members, and lacks a 'private' constructor
-in `lang/java/avro/src/main/java/org/apache/avro/util/internal/Accessor.java`
-#### Snippet
-```java
-import com.fasterxml.jackson.databind.JsonNode;
-
-public class Accessor {
-  public abstract static class JsonPropertiesAccessor {
-    protected abstract void addProp(JsonProperties props, String name, JsonNode value);
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `ArrayAccessor` has only 'static' members, and lacks a 'private' constructor
-in `lang/java/avro/src/main/java/org/apache/avro/reflect/ArrayAccessor.java`
-#### Snippet
-```java
- * faster than using reflection-based operations on arrays.
- */
-class ArrayAccessor {
-
-  static void writeArray(boolean[] data, Encoder out) throws IOException {
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `ProtoConversions` has only 'static' members, and lacks a 'private' constructor
-in `lang/java/protobuf/src/main/java/org/apache/avro/protobuf/ProtoConversions.java`
-#### Snippet
-```java
-import org.apache.avro.Schema;
-
-public class ProtoConversions {
-
-  private static final int THOUSAND = 1000;
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `Perf` has only 'static' members, and lacks a 'private' constructor
-in `lang/java/perf/src/main/java/org/apache/avro/perf/Perf.java`
-#### Snippet
-```java
- * decoding.
- */
-public final class Perf {
-
-  public static void main(String[] args) throws Exception {
 ```
 
 ## RuleId[ruleID=DataFlowIssue]
@@ -9320,18 +9334,6 @@ in `lang/java/grpc/src/main/java/org/apache/avro/grpc/AvroGrpcClient.java`
 ```
 
 ### DataFlowIssue
-Condition `parameterTypes[parameterTypes.length - 1] instanceof Class` is redundant and can be replaced with a null check
-in `lang/java/ipc/src/main/java/org/apache/avro/ipc/specific/SpecificRequestor.java`
-#### Snippet
-```java
-        // Check if this is a callback-based RPC:
-        Type[] parameterTypes = method.getParameterTypes();
-        if ((parameterTypes.length > 0) && (parameterTypes[parameterTypes.length - 1] instanceof Class)
-            && Callback.class.isAssignableFrom(((Class<?>) parameterTypes[parameterTypes.length - 1]))) {
-          // Extract the Callback from the end of of the argument list
-```
-
-### DataFlowIssue
 Passing `null` argument to parameter annotated as @NotNull
 in `lang/java/avro/src/main/java/org/apache/avro/file/DataFileWriter.java`
 #### Snippet
@@ -9341,6 +9343,18 @@ in `lang/java/avro/src/main/java/org/apache/avro/file/DataFileWriter.java`
       super(null);
       this.out = new PositionFilter(out);
     }
+```
+
+### DataFlowIssue
+Condition `parameterTypes[parameterTypes.length - 1] instanceof Class` is redundant and can be replaced with a null check
+in `lang/java/ipc/src/main/java/org/apache/avro/ipc/specific/SpecificRequestor.java`
+#### Snippet
+```java
+        // Check if this is a callback-based RPC:
+        Type[] parameterTypes = method.getParameterTypes();
+        if ((parameterTypes.length > 0) && (parameterTypes[parameterTypes.length - 1] instanceof Class)
+            && Callback.class.isAssignableFrom(((Class<?>) parameterTypes[parameterTypes.length - 1]))) {
+          // Extract the Callback from the end of of the argument list
 ```
 
 ### DataFlowIssue
@@ -9370,6 +9384,18 @@ in `lang/java/avro/src/main/java/org/apache/avro/Schema.java`
 ## RuleId[ruleID=UnnecessarySemicolon]
 ### UnnecessarySemicolon
 Unnecessary semicolon `;`
+in `lang/java/protobuf/src/main/java/org/apache/avro/protobuf/ProtoConversions.java`
+#### Snippet
+```java
+  private enum TimestampPrecise {
+    Millis, Micros
+  };
+
+  public static class TimestampMillisConversion extends Conversion<Timestamp> {
+```
+
+### UnnecessarySemicolon
+Unnecessary semicolon `;`
 in `lang/java/compiler/src/main/java/org/apache/avro/compiler/schema/SchemaVisitorAction.java`
 #### Snippet
 ```java
@@ -9378,18 +9404,6 @@ in `lang/java/compiler/src/main/java/org/apache/avro/compiler/schema/SchemaVisit
   SKIP_SIBLINGS;
 
 }
-```
-
-### UnnecessarySemicolon
-Unnecessary semicolon `;`
-in `lang/java/mapred/src/main/java/org/apache/avro/mapred/tether/TetheredProcess.java`
-#### Snippet
-```java
-  public enum Protocol {
-    HTTP, SASL, NONE
-  };
-
-  // which protocol we are using
 ```
 
 ### UnnecessarySemicolon
@@ -9418,18 +9432,6 @@ in `lang/java/avro/src/main/java/org/apache/avro/SchemaCompatibility.java`
 
 ### UnnecessarySemicolon
 Unnecessary semicolon `;`
-in `lang/java/protobuf/src/main/java/org/apache/avro/protobuf/ProtoConversions.java`
-#### Snippet
-```java
-  private enum TimestampPrecise {
-    Millis, Micros
-  };
-
-  public static class TimestampMillisConversion extends Conversion<Timestamp> {
-```
-
-### UnnecessarySemicolon
-Unnecessary semicolon `;`
 in `lang/java/avro/src/main/java/org/apache/avro/generic/GenericData.java`
 #### Snippet
 ```java
@@ -9450,6 +9452,18 @@ in `lang/java/avro/src/main/java/org/apache/avro/io/parsing/Symbol.java`
   };
 
   /// The kind of this symbol.
+```
+
+### UnnecessarySemicolon
+Unnecessary semicolon `;`
+in `lang/java/mapred/src/main/java/org/apache/avro/mapred/tether/TetheredProcess.java`
+#### Snippet
+```java
+  public enum Protocol {
+    HTTP, SASL, NONE
+  };
+
+  // which protocol we are using
 ```
 
 ### UnnecessarySemicolon
@@ -9503,18 +9517,6 @@ in `lang/java/tools/src/main/java/org/apache/avro/tool/IdlToSchemataTool.java`
 ```
 
 ### StringOperationCanBeSimplified
-`new String()` is redundant
-in `lang/java/ipc/src/main/java/org/apache/avro/ipc/stats/StatsServlet.java`
-#### Snippet
-```java
-
-  private String renderActiveRpc(RPCContext rpc, Stopwatch stopwatch) throws IOException {
-    String out = new String();
-    out += rpc.getMessage().getName() + ": " + formatMillis(StatsPlugin.nanosToMillis(stopwatch.elapsedNanos()));
-    return out;
-```
-
-### StringOperationCanBeSimplified
 Call to `toString()` is redundant
 in `lang/java/mapred/src/main/java/org/apache/avro/mapred/tether/TetherOutputService.java`
 #### Snippet
@@ -9562,6 +9564,18 @@ in `lang/java/mapred/src/main/java/org/apache/avro/mapred/tether/TetheredProcess
       executable = job.get(TetherJob.TETHER_EXEC);
 ```
 
+### StringOperationCanBeSimplified
+`new String()` is redundant
+in `lang/java/ipc/src/main/java/org/apache/avro/ipc/stats/StatsServlet.java`
+#### Snippet
+```java
+
+  private String renderActiveRpc(RPCContext rpc, Stopwatch stopwatch) throws IOException {
+    String out = new String();
+    out += rpc.getMessage().getName() + ": " + formatMillis(StatsPlugin.nanosToMillis(stopwatch.elapsedNanos()));
+    return out;
+```
+
 ## RuleId[ruleID=DeprecatedIsStillUsed]
 ### DeprecatedIsStillUsed
 Deprecated member 'getCollector' is still used
@@ -9573,6 +9587,30 @@ in `lang/java/mapred/src/main/java/org/apache/avro/mapred/AvroMultipleOutputs.ja
   public AvroCollector getCollector(String namedOutput, Reporter reporter) throws IOException {
     return getCollector(namedOutput, null, reporter, namedOutput, null);
   }
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'UnionAdjustAction' is still used
+in `lang/java/avro/src/main/java/org/apache/avro/io/parsing/Symbol.java`
+#### Snippet
+```java
+
+    @Deprecated
+    public UnionAdjustAction(int rindex, Symbol symToParse) {
+      this.rindex = rindex;
+      this.symToParse = symToParse;
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'FieldOrderAction' is still used
+in `lang/java/avro/src/main/java/org/apache/avro/io/parsing/Symbol.java`
+#### Snippet
+```java
+
+    @Deprecated
+    public FieldOrderAction(Schema.Field[] fields) {
+      this.fields = fields;
+      boolean noReorder = true;
 ```
 
 ### DeprecatedIsStillUsed
@@ -9588,27 +9626,27 @@ in `lang/java/avro/src/main/java/org/apache/avro/io/parsing/Symbol.java`
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'FieldAdjustAction' is still used
+Deprecated member 'SkipAction' is still used
 in `lang/java/avro/src/main/java/org/apache/avro/io/parsing/Symbol.java`
 #### Snippet
 ```java
 
     @Deprecated
-    public FieldAdjustAction(int rindex, String fname, Set<String> aliases) {
-      this.rindex = rindex;
-      this.fname = fname;
+    public SkipAction(Symbol symToSkip) {
+      super(true);
+      this.symToSkip = symToSkip;
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'FieldOrderAction' is still used
+Deprecated member 'IntCheckAction' is still used
 in `lang/java/avro/src/main/java/org/apache/avro/io/parsing/Symbol.java`
 #### Snippet
 ```java
 
     @Deprecated
-    public FieldOrderAction(Schema.Field[] fields) {
-      this.fields = fields;
-      boolean noReorder = true;
+    public IntCheckAction(int size) {
+      super(Kind.EXPLICIT_ACTION);
+      this.size = size;
 ```
 
 ### DeprecatedIsStillUsed
@@ -9636,51 +9674,27 @@ in `lang/java/avro/src/main/java/org/apache/avro/io/parsing/Symbol.java`
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'IntCheckAction' is still used
+Deprecated member 'FieldAdjustAction' is still used
 in `lang/java/avro/src/main/java/org/apache/avro/io/parsing/Symbol.java`
 #### Snippet
 ```java
 
     @Deprecated
-    public IntCheckAction(int size) {
-      super(Kind.EXPLICIT_ACTION);
-      this.size = size;
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'UnionAdjustAction' is still used
-in `lang/java/avro/src/main/java/org/apache/avro/io/parsing/Symbol.java`
-#### Snippet
-```java
-
-    @Deprecated
-    public UnionAdjustAction(int rindex, Symbol symToParse) {
+    public FieldAdjustAction(int rindex, String fname, Set<String> aliases) {
       this.rindex = rindex;
-      this.symToParse = symToParse;
+      this.fname = fname;
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'SkipAction' is still used
-in `lang/java/avro/src/main/java/org/apache/avro/io/parsing/Symbol.java`
-#### Snippet
-```java
-
-    @Deprecated
-    public SkipAction(Symbol symToSkip) {
-      super(true);
-      this.symToSkip = symToSkip;
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'ELEMENT_PROP' is still used
+Deprecated member 'CLASS_PROP' is still used
 in `lang/java/avro/src/main/java/org/apache/avro/reflect/ReflectData.java`
 #### Snippet
 ```java
-  /** @deprecated Replaced by {@link SpecificData#ELEMENT_PROP} */
+  /** @deprecated Replaced by {@link SpecificData#CLASS_PROP} */
   @Deprecated
-  static final String ELEMENT_PROP = "java-element-class";
-
-  private static final Map<String, Class> CLASS_CACHE = new ConcurrentHashMap<>();
+  static final String CLASS_PROP = "java-class";
+  /** @deprecated Replaced by {@link SpecificData#KEY_CLASS_PROP} */
+  @Deprecated
 ```
 
 ### DeprecatedIsStillUsed
@@ -9696,15 +9710,15 @@ in `lang/java/avro/src/main/java/org/apache/avro/reflect/ReflectData.java`
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'CLASS_PROP' is still used
+Deprecated member 'ELEMENT_PROP' is still used
 in `lang/java/avro/src/main/java/org/apache/avro/reflect/ReflectData.java`
 #### Snippet
 ```java
-  /** @deprecated Replaced by {@link SpecificData#CLASS_PROP} */
+  /** @deprecated Replaced by {@link SpecificData#ELEMENT_PROP} */
   @Deprecated
-  static final String CLASS_PROP = "java-class";
-  /** @deprecated Replaced by {@link SpecificData#KEY_CLASS_PROP} */
-  @Deprecated
+  static final String ELEMENT_PROP = "java-element-class";
+
+  private static final Map<String, Class> CLASS_CACHE = new ConcurrentHashMap<>();
 ```
 
 ## RuleId[ruleID=MethodOverloadsParentMethod]
@@ -9781,31 +9795,32 @@ in `lang/java/trevni/core/src/main/java/org/apache/trevni/OutputBuffer.java`
     return 10;
 ```
 
+## RuleId[ruleID=AbstractMethodCallInConstructor]
+### AbstractMethodCallInConstructor
+Call to 'abstract' method `getSchema()` during object construction
+in `lang/java/avro/src/main/java/org/apache/avro/specific/SpecificFixed.java`
+#### Snippet
+```java
+
+  public SpecificFixed() {
+    bytes(new byte[getSchema().getFixedSize()]);
+  }
+
+```
+
+### AbstractMethodCallInConstructor
+Call to 'abstract' method `initSchema()` during object construction
+in `lang/java/trevni/avro/src/main/java/org/apache/trevni/avro/mapreduce/AvroTrevniRecordWriterBase.java`
+#### Snippet
+```java
+  public AvroTrevniRecordWriterBase(TaskAttemptContext context) throws IOException {
+
+    schema = initSchema(context);
+    meta = filterMetadata(context.getConfiguration());
+    writer = new AvroColumnWriter<>(schema, meta, ReflectData.get());
+```
+
 ## RuleId[ruleID=NonSerializableFieldInSerializableClass]
-### NonSerializableFieldInSerializableClass
-Non-serializable field 'statsPlugin' in a Serializable class
-in `lang/java/ipc/src/main/java/org/apache/avro/ipc/stats/StatsServlet.java`
-#### Snippet
-```java
- */
-public class StatsServlet extends HttpServlet {
-  private final StatsPlugin statsPlugin;
-  private VelocityEngine velocityEngine;
-  private static final SimpleDateFormat FORMATTER = new SimpleDateFormat("dd-MMM-yyyy HH:mm:ss");
-```
-
-### NonSerializableFieldInSerializableClass
-Non-serializable field 'velocityEngine' in a Serializable class
-in `lang/java/ipc/src/main/java/org/apache/avro/ipc/stats/StatsServlet.java`
-#### Snippet
-```java
-public class StatsServlet extends HttpServlet {
-  private final StatsPlugin statsPlugin;
-  private VelocityEngine velocityEngine;
-  private static final SimpleDateFormat FORMATTER = new SimpleDateFormat("dd-MMM-yyyy HH:mm:ss");
-
-```
-
 ### NonSerializableFieldInSerializableClass
 Non-serializable field 'unresolvedDatum' in a Serializable class
 in `lang/java/avro/src/main/java/org/apache/avro/UnresolvedUnionException.java`
@@ -9842,29 +9857,28 @@ public class TracingClassCastException extends ClassCastException implements Pat
   private final boolean customCoderUsed;
 ```
 
-## RuleId[ruleID=AbstractMethodCallInConstructor]
-### AbstractMethodCallInConstructor
-Call to 'abstract' method `initSchema()` during object construction
-in `lang/java/trevni/avro/src/main/java/org/apache/trevni/avro/mapreduce/AvroTrevniRecordWriterBase.java`
+### NonSerializableFieldInSerializableClass
+Non-serializable field 'velocityEngine' in a Serializable class
+in `lang/java/ipc/src/main/java/org/apache/avro/ipc/stats/StatsServlet.java`
 #### Snippet
 ```java
-  public AvroTrevniRecordWriterBase(TaskAttemptContext context) throws IOException {
+public class StatsServlet extends HttpServlet {
+  private final StatsPlugin statsPlugin;
+  private VelocityEngine velocityEngine;
+  private static final SimpleDateFormat FORMATTER = new SimpleDateFormat("dd-MMM-yyyy HH:mm:ss");
 
-    schema = initSchema(context);
-    meta = filterMetadata(context.getConfiguration());
-    writer = new AvroColumnWriter<>(schema, meta, ReflectData.get());
 ```
 
-### AbstractMethodCallInConstructor
-Call to 'abstract' method `getSchema()` during object construction
-in `lang/java/avro/src/main/java/org/apache/avro/specific/SpecificFixed.java`
+### NonSerializableFieldInSerializableClass
+Non-serializable field 'statsPlugin' in a Serializable class
+in `lang/java/ipc/src/main/java/org/apache/avro/ipc/stats/StatsServlet.java`
 #### Snippet
 ```java
-
-  public SpecificFixed() {
-    bytes(new byte[getSchema().getFixedSize()]);
-  }
-
+ */
+public class StatsServlet extends HttpServlet {
+  private final StatsPlugin statsPlugin;
+  private VelocityEngine velocityEngine;
+  private static final SimpleDateFormat FORMATTER = new SimpleDateFormat("dd-MMM-yyyy HH:mm:ss");
 ```
 
 ## RuleId[ruleID=RedundantCollectionOperation]
@@ -9919,54 +9933,6 @@ in `lang/java/tools/src/main/java/org/apache/avro/tool/RpcReceiveTool.java`
 
 ### CatchMayIgnoreException
 Empty `catch` block
-in `lang/java/ipc/src/main/java/org/apache/avro/ipc/SocketServer.java`
-#### Snippet
-```java
-      try {
-        channel.close();
-      } catch (IOException e) {
-      }
-    }
-```
-
-### CatchMayIgnoreException
-Empty `catch` block
-in `lang/java/ipc/src/main/java/org/apache/avro/ipc/SocketServer.java`
-#### Snippet
-```java
-            xc.writeBuffers(responder.respond(xc.readBuffers(), xc));
-          }
-        } catch (EOFException | ClosedChannelException e) {
-        } finally {
-          xc.close();
-```
-
-### CatchMayIgnoreException
-Empty `catch` block
-in `lang/java/ipc/src/main/java/org/apache/avro/ipc/specific/SpecificRequestor.java`
-#### Snippet
-```java
-        try {
-          protocol = Class.forName(interfaces[0].getName()).getSimpleName();
-        } catch (ClassNotFoundException e) {
-        }
-
-```
-
-### CatchMayIgnoreException
-Empty `catch` block
-in `lang/java/ipc/src/main/java/org/apache/avro/ipc/specific/SpecificRequestor.java`
-#### Snippet
-```java
-          try {
-            remote = ((Requestor) handler).getTransceiver().getRemoteName();
-          } catch (IOException e) {
-          }
-        }
-```
-
-### CatchMayIgnoreException
-Empty `catch` block
 in `lang/java/mapred/src/main/java/org/apache/avro/mapred/AvroJob.java`
 #### Snippet
 ```java
@@ -9975,6 +9941,18 @@ in `lang/java/mapred/src/main/java/org/apache/avro/mapred/AvroJob.java`
     } catch (UnsupportedEncodingException e) {
     }
   }
+```
+
+### CatchMayIgnoreException
+Empty `catch` block
+in `lang/java/avro/src/main/java/org/apache/avro/reflect/ReflectData.java`
+#### Snippet
+```java
+        defaultValue = field.get(typeValue);
+      }
+    } catch (Exception e) {
+
+    }
 ```
 
 ### CatchMayIgnoreException
@@ -10003,14 +9981,50 @@ in `lang/java/mapred/src/main/java/org/apache/avro/mapred/tether/TetheredProcess
 
 ### CatchMayIgnoreException
 Empty `catch` block
-in `lang/java/avro/src/main/java/org/apache/avro/reflect/ReflectData.java`
+in `lang/java/ipc/src/main/java/org/apache/avro/ipc/SocketServer.java`
 #### Snippet
 ```java
-        defaultValue = field.get(typeValue);
-      }
-    } catch (Exception e) {
+            xc.writeBuffers(responder.respond(xc.readBuffers(), xc));
+          }
+        } catch (EOFException | ClosedChannelException e) {
+        } finally {
+          xc.close();
+```
 
+### CatchMayIgnoreException
+Empty `catch` block
+in `lang/java/ipc/src/main/java/org/apache/avro/ipc/SocketServer.java`
+#### Snippet
+```java
+      try {
+        channel.close();
+      } catch (IOException e) {
+      }
     }
+```
+
+### CatchMayIgnoreException
+Empty `catch` block
+in `lang/java/ipc/src/main/java/org/apache/avro/ipc/specific/SpecificRequestor.java`
+#### Snippet
+```java
+        try {
+          protocol = Class.forName(interfaces[0].getName()).getSimpleName();
+        } catch (ClassNotFoundException e) {
+        }
+
+```
+
+### CatchMayIgnoreException
+Empty `catch` block
+in `lang/java/ipc/src/main/java/org/apache/avro/ipc/specific/SpecificRequestor.java`
+#### Snippet
+```java
+          try {
+            remote = ((Requestor) handler).getTransceiver().getRemoteName();
+          } catch (IOException e) {
+          }
+        }
 ```
 
 ## RuleId[ruleID=ProtectedMemberInFinalClass]
@@ -10020,8 +10034,32 @@ in `lang/java/avro/src/main/java/org/apache/avro/reflect/FieldAccessUnsafe.java`
 #### Snippet
 ```java
 
-  final static class UnsafeShortField extends UnsafeCachedField {
-    protected UnsafeShortField(Field f) {
+  final static class UnsafeBooleanField extends UnsafeCachedField {
+    protected UnsafeBooleanField(Field f) {
+      super(f);
+    }
+```
+
+### ProtectedMemberInFinalClass
+Class member declared `protected` in 'final' class
+in `lang/java/avro/src/main/java/org/apache/avro/reflect/FieldAccessUnsafe.java`
+#### Snippet
+```java
+
+  final static class UnsafeFloatField extends UnsafeCachedField {
+    protected UnsafeFloatField(Field f) {
+      super(f);
+    }
+```
+
+### ProtectedMemberInFinalClass
+Class member declared `protected` in 'final' class
+in `lang/java/avro/src/main/java/org/apache/avro/reflect/FieldAccessUnsafe.java`
+#### Snippet
+```java
+
+  final static class UnsafeLongField extends UnsafeCachedField {
+    protected UnsafeLongField(Field f) {
       super(f);
     }
 ```
@@ -10044,32 +10082,20 @@ in `lang/java/avro/src/main/java/org/apache/avro/reflect/FieldAccessUnsafe.java`
 #### Snippet
 ```java
 
+  final static class UnsafeShortField extends UnsafeCachedField {
+    protected UnsafeShortField(Field f) {
+      super(f);
+    }
+```
+
+### ProtectedMemberInFinalClass
+Class member declared `protected` in 'final' class
+in `lang/java/avro/src/main/java/org/apache/avro/reflect/FieldAccessUnsafe.java`
+#### Snippet
+```java
+
   final static class UnsafeDoubleField extends UnsafeCachedField {
     protected UnsafeDoubleField(Field f) {
-      super(f);
-    }
-```
-
-### ProtectedMemberInFinalClass
-Class member declared `protected` in 'final' class
-in `lang/java/avro/src/main/java/org/apache/avro/reflect/FieldAccessUnsafe.java`
-#### Snippet
-```java
-
-  final static class UnsafeBooleanField extends UnsafeCachedField {
-    protected UnsafeBooleanField(Field f) {
-      super(f);
-    }
-```
-
-### ProtectedMemberInFinalClass
-Class member declared `protected` in 'final' class
-in `lang/java/avro/src/main/java/org/apache/avro/reflect/FieldAccessUnsafe.java`
-#### Snippet
-```java
-
-  final static class UnsafeLongField extends UnsafeCachedField {
-    protected UnsafeLongField(Field f) {
       super(f);
     }
 ```
@@ -10094,18 +10120,6 @@ in `lang/java/avro/src/main/java/org/apache/avro/reflect/FieldAccessUnsafe.java`
 
   final static class UnsafeByteField extends UnsafeCachedField {
     protected UnsafeByteField(Field f) {
-      super(f);
-    }
-```
-
-### ProtectedMemberInFinalClass
-Class member declared `protected` in 'final' class
-in `lang/java/avro/src/main/java/org/apache/avro/reflect/FieldAccessUnsafe.java`
-#### Snippet
-```java
-
-  final static class UnsafeFloatField extends UnsafeCachedField {
-    protected UnsafeFloatField(Field f) {
       super(f);
     }
 ```
@@ -10145,18 +10159,6 @@ in `lang/java/tools/src/main/java/org/apache/avro/tool/Util.java`
       out[j++] = DIGITS_LOWER[0x0F & data[i]];
     }
     return new String(out);
-```
-
-### AssignmentToForLoopParameter
-Assignment to for-loop parameter `i`
-in `lang/java/trevni/core/src/main/java/org/apache/trevni/OutputBuffer.java`
-#### Snippet
-```java
-          && i != stringLength - 1 && Character.isLowSurrogate(string.charAt(i + 1))) {
-        p = string.codePointAt(i);
-        i++;
-      }
-      if (p <= 0x007F) {
 ```
 
 ### AssignmentToForLoopParameter
@@ -10231,15 +10233,27 @@ in `lang/java/avro/src/main/java/org/apache/avro/io/parsing/Symbol.java`
     }
 ```
 
+### AssignmentToForLoopParameter
+Assignment to for-loop parameter `i`
+in `lang/java/trevni/core/src/main/java/org/apache/trevni/OutputBuffer.java`
+#### Snippet
+```java
+          && i != stringLength - 1 && Character.isLowSurrogate(string.charAt(i + 1))) {
+        p = string.codePointAt(i);
+        i++;
+      }
+      if (p <= 0x007F) {
+```
+
 ## RuleId[ruleID=UnnecessaryToStringCall]
 ### UnnecessaryToStringCall
 Unnecessary `toString()` call
 in `lang/java/tools/src/main/java/org/apache/avro/tool/Util.java`
 #### Snippet
 ```java
-        in.close();
+        out.close();
       } catch (IOException e) {
-        System.err.println("could not close InputStream " + in.toString());
+        System.err.println("could not close OutputStream " + out.toString());
       }
     }
 ```
@@ -10249,9 +10263,9 @@ Unnecessary `toString()` call
 in `lang/java/tools/src/main/java/org/apache/avro/tool/Util.java`
 #### Snippet
 ```java
-        out.close();
+        in.close();
       } catch (IOException e) {
-        System.err.println("could not close OutputStream " + out.toString());
+        System.err.println("could not close InputStream " + in.toString());
       }
     }
 ```
@@ -10294,27 +10308,15 @@ in `lang/java/mapred/src/main/java/org/apache/avro/mapred/tether/TetheredProcess
 
 ## RuleId[ruleID=InnerClassMayBeStatic]
 ### InnerClassMayBeStatic
-Inner class `RenderableMessage` may be 'static'
-in `lang/java/ipc/src/main/java/org/apache/avro/ipc/stats/StatsServlet.java`
-#### Snippet
-```java
-   * key-value string attributes.
-   */
-  public class RenderableMessage { // Velocity brakes if not public
-    public String name;
-    public int numCalls;
-```
-
-### InnerClassMayBeStatic
-Inner class `TetherDataSerializer` may be 'static'
-in `lang/java/mapred/src/main/java/org/apache/avro/mapred/tether/TetherKeySerialization.java`
+Inner class `BufferedFileOutputStream` may be 'static'
+in `lang/java/avro/src/main/java/org/apache/avro/file/DataFileWriter.java`
 #### Snippet
 ```java
   }
 
-  private class TetherDataSerializer implements Serializer<TetherData> {
+  private class BufferedFileOutputStream extends BufferedOutputStream {
+    private long position; // start of buffer
 
-    private OutputStream out;
 ```
 
 ### InnerClassMayBeStatic
@@ -10330,15 +10332,27 @@ in `lang/java/mapred/src/main/java/org/apache/avro/mapred/tether/TetherKeySerial
 ```
 
 ### InnerClassMayBeStatic
-Inner class `BufferedFileOutputStream` may be 'static'
-in `lang/java/avro/src/main/java/org/apache/avro/file/DataFileWriter.java`
+Inner class `TetherDataSerializer` may be 'static'
+in `lang/java/mapred/src/main/java/org/apache/avro/mapred/tether/TetherKeySerialization.java`
 #### Snippet
 ```java
   }
 
-  private class BufferedFileOutputStream extends BufferedOutputStream {
-    private long position; // start of buffer
+  private class TetherDataSerializer implements Serializer<TetherData> {
 
+    private OutputStream out;
+```
+
+### InnerClassMayBeStatic
+Inner class `RenderableMessage` may be 'static'
+in `lang/java/ipc/src/main/java/org/apache/avro/ipc/stats/StatsServlet.java`
+#### Snippet
+```java
+   * key-value string attributes.
+   */
+  public class RenderableMessage { // Velocity brakes if not public
+    public String name;
+    public int numCalls;
 ```
 
 ## RuleId[ruleID=SwitchStatementWithConfusingDeclaration]
@@ -10355,18 +10369,6 @@ in `lang/java/avro/src/main/java/org/apache/avro/util/RandomData.java`
 ```
 
 ## RuleId[ruleID=StringEqualsEmptyString]
-### StringEqualsEmptyString
-`equals("")` can be replaced with 'isEmpty()'
-in `lang/java/ipc/src/main/java/org/apache/avro/ipc/Responder.java`
-#### Snippet
-```java
-      context.setRequestCallMeta(META_READER.read(null, in));
-      String messageName = in.readString(null).toString();
-      if (messageName.equals("")) // a handshake ping
-        return handshake;
-      Message rm = remote.getMessages().get(messageName);
-```
-
 ### StringEqualsEmptyString
 `equals("")` can be replaced with 'isEmpty()'
 in `lang/java/avro/src/main/java/org/apache/avro/SchemaBuilder.java`
@@ -10405,6 +10407,18 @@ in `lang/java/avro/src/main/java/org/apache/avro/specific/SpecificData.java`
 
 ### StringEqualsEmptyString
 `equals("")` can be replaced with 'isEmpty()'
+in `lang/java/ipc/src/main/java/org/apache/avro/ipc/Responder.java`
+#### Snippet
+```java
+      context.setRequestCallMeta(META_READER.read(null, in));
+      String messageName = in.readString(null).toString();
+      if (messageName.equals("")) // a handshake ping
+        return handshake;
+      Message rm = remote.getMessages().get(messageName);
+```
+
+### StringEqualsEmptyString
+`equals("")` can be replaced with 'isEmpty()'
 in `lang/java/avro/src/main/java/org/apache/avro/Schema.java`
 #### Snippet
 ```java
@@ -10416,6 +10430,18 @@ in `lang/java/avro/src/main/java/org/apache/avro/Schema.java`
 ```
 
 ## RuleId[ruleID=PublicFieldAccessedInSynchronizedContext]
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `count` accessed in synchronized context
+in `lang/java/avro/src/main/java/org/apache/avro/file/DataFileWriter.java`
+#### Snippet
+```java
+        // the file in case of an error
+        // occurred during the write
+        count = 0;
+      }
+    }
+```
+
 ### PublicFieldAccessedInSynchronizedContext
 Non-private field `methodTimings` accessed in synchronized context
 in `lang/java/ipc/src/main/java/org/apache/avro/ipc/stats/StatsPlugin.java`
@@ -10453,11 +10479,83 @@ in `lang/java/ipc/src/main/java/org/apache/avro/ipc/stats/StatsPlugin.java`
 ```
 
 ### PublicFieldAccessedInSynchronizedContext
+Non-private field `sendPayloads` accessed in synchronized context
+in `lang/java/ipc/src/main/java/org/apache/avro/ipc/stats/StatsPlugin.java`
+#### Snippet
+```java
+    this.activeRpcs.put(context, t);
+
+    synchronized (sendPayloads) {
+      IntegerHistogram<?> h = sendPayloads.get(context.getMessage());
+      if (h == null) {
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `sendPayloads` accessed in synchronized context
+in `lang/java/ipc/src/main/java/org/apache/avro/ipc/stats/StatsPlugin.java`
+#### Snippet
+```java
+
+    synchronized (sendPayloads) {
+      IntegerHistogram<?> h = sendPayloads.get(context.getMessage());
+      if (h == null) {
+        h = createNewIntegerHistogram();
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `sendPayloads` accessed in synchronized context
+in `lang/java/ipc/src/main/java/org/apache/avro/ipc/stats/StatsPlugin.java`
+#### Snippet
+```java
+      if (h == null) {
+        h = createNewIntegerHistogram();
+        sendPayloads.put(context.getMessage(), h);
+      }
+      h.add(getPayloadSize(context.getRequestPayload()));
+```
+
+### PublicFieldAccessedInSynchronizedContext
 Non-private field `receivePayloads` accessed in synchronized context
 in `lang/java/ipc/src/main/java/org/apache/avro/ipc/stats/StatsPlugin.java`
 #### Snippet
 ```java
     publish(context, t);
+
+    synchronized (receivePayloads) {
+      IntegerHistogram<?> h = receivePayloads.get(context.getMessage());
+      if (h == null) {
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `receivePayloads` accessed in synchronized context
+in `lang/java/ipc/src/main/java/org/apache/avro/ipc/stats/StatsPlugin.java`
+#### Snippet
+```java
+
+    synchronized (receivePayloads) {
+      IntegerHistogram<?> h = receivePayloads.get(context.getMessage());
+      if (h == null) {
+        h = createNewIntegerHistogram();
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `receivePayloads` accessed in synchronized context
+in `lang/java/ipc/src/main/java/org/apache/avro/ipc/stats/StatsPlugin.java`
+#### Snippet
+```java
+      if (h == null) {
+        h = createNewIntegerHistogram();
+        receivePayloads.put(context.getMessage(), h);
+      }
+      h.add(getPayloadSize(context.getRequestPayload()));
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `receivePayloads` accessed in synchronized context
+in `lang/java/ipc/src/main/java/org/apache/avro/ipc/stats/StatsPlugin.java`
+#### Snippet
+```java
+    this.activeRpcs.put(context, t);
 
     synchronized (receivePayloads) {
       IntegerHistogram<?> h = receivePayloads.get(context.getMessage());
@@ -10525,78 +10623,6 @@ in `lang/java/ipc/src/main/java/org/apache/avro/ipc/stats/StatsPlugin.java`
 ```
 
 ### PublicFieldAccessedInSynchronizedContext
-Non-private field `receivePayloads` accessed in synchronized context
-in `lang/java/ipc/src/main/java/org/apache/avro/ipc/stats/StatsPlugin.java`
-#### Snippet
-```java
-    this.activeRpcs.put(context, t);
-
-    synchronized (receivePayloads) {
-      IntegerHistogram<?> h = receivePayloads.get(context.getMessage());
-      if (h == null) {
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `receivePayloads` accessed in synchronized context
-in `lang/java/ipc/src/main/java/org/apache/avro/ipc/stats/StatsPlugin.java`
-#### Snippet
-```java
-
-    synchronized (receivePayloads) {
-      IntegerHistogram<?> h = receivePayloads.get(context.getMessage());
-      if (h == null) {
-        h = createNewIntegerHistogram();
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `receivePayloads` accessed in synchronized context
-in `lang/java/ipc/src/main/java/org/apache/avro/ipc/stats/StatsPlugin.java`
-#### Snippet
-```java
-      if (h == null) {
-        h = createNewIntegerHistogram();
-        receivePayloads.put(context.getMessage(), h);
-      }
-      h.add(getPayloadSize(context.getRequestPayload()));
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `sendPayloads` accessed in synchronized context
-in `lang/java/ipc/src/main/java/org/apache/avro/ipc/stats/StatsPlugin.java`
-#### Snippet
-```java
-    this.activeRpcs.put(context, t);
-
-    synchronized (sendPayloads) {
-      IntegerHistogram<?> h = sendPayloads.get(context.getMessage());
-      if (h == null) {
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `sendPayloads` accessed in synchronized context
-in `lang/java/ipc/src/main/java/org/apache/avro/ipc/stats/StatsPlugin.java`
-#### Snippet
-```java
-
-    synchronized (sendPayloads) {
-      IntegerHistogram<?> h = sendPayloads.get(context.getMessage());
-      if (h == null) {
-        h = createNewIntegerHistogram();
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `sendPayloads` accessed in synchronized context
-in `lang/java/ipc/src/main/java/org/apache/avro/ipc/stats/StatsPlugin.java`
-#### Snippet
-```java
-      if (h == null) {
-        h = createNewIntegerHistogram();
-        sendPayloads.put(context.getMessage(), h);
-      }
-      h.add(getPayloadSize(context.getRequestPayload()));
-```
-
-### PublicFieldAccessedInSynchronizedContext
 Non-private field `this.pos` accessed in synchronized context
 in `lang/java/trevni/core/src/main/java/org/apache/trevni/InputBytes.java`
 #### Snippet
@@ -10606,54 +10632,6 @@ in `lang/java/trevni/core/src/main/java/org/apache/trevni/InputBytes.java`
     this.pos = (int) pos;
     return read(b, start, len);
   }
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `stopping` accessed in synchronized context
-in `lang/java/ipc-netty/src/main/java/org/apache/avro/ipc/netty/NettyTransceiver.java`
-#### Snippet
-```java
-    ChannelFuture channelFutureToCancel = null;
-    synchronized (channelFutureLock) {
-      if (stopping && channelFuture != null) {
-        channelFutureToCancel = channelFuture;
-        channelFuture = null;
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `channelFuture` accessed in synchronized context
-in `lang/java/ipc-netty/src/main/java/org/apache/avro/ipc/netty/NettyTransceiver.java`
-#### Snippet
-```java
-    ChannelFuture channelFutureToCancel = null;
-    synchronized (channelFutureLock) {
-      if (stopping && channelFuture != null) {
-        channelFutureToCancel = channelFuture;
-        channelFuture = null;
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `channelFuture` accessed in synchronized context
-in `lang/java/ipc-netty/src/main/java/org/apache/avro/ipc/netty/NettyTransceiver.java`
-#### Snippet
-```java
-    synchronized (channelFutureLock) {
-      if (stopping && channelFuture != null) {
-        channelFutureToCancel = channelFuture;
-        channelFuture = null;
-      }
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `channelFuture` accessed in synchronized context
-in `lang/java/ipc-netty/src/main/java/org/apache/avro/ipc/netty/NettyTransceiver.java`
-#### Snippet
-```java
-      if (stopping && channelFuture != null) {
-        channelFutureToCancel = channelFuture;
-        channelFuture = null;
-      }
-    }
 ```
 
 ### PublicFieldAccessedInSynchronizedContext
@@ -10729,13 +10707,49 @@ in `lang/java/ipc-netty/src/main/java/org/apache/avro/ipc/netty/NettyTransceiver
 ```
 
 ### PublicFieldAccessedInSynchronizedContext
-Non-private field `count` accessed in synchronized context
-in `lang/java/avro/src/main/java/org/apache/avro/file/DataFileWriter.java`
+Non-private field `stopping` accessed in synchronized context
+in `lang/java/ipc-netty/src/main/java/org/apache/avro/ipc/netty/NettyTransceiver.java`
 #### Snippet
 ```java
-        // the file in case of an error
-        // occurred during the write
-        count = 0;
+    ChannelFuture channelFutureToCancel = null;
+    synchronized (channelFutureLock) {
+      if (stopping && channelFuture != null) {
+        channelFutureToCancel = channelFuture;
+        channelFuture = null;
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `channelFuture` accessed in synchronized context
+in `lang/java/ipc-netty/src/main/java/org/apache/avro/ipc/netty/NettyTransceiver.java`
+#### Snippet
+```java
+    ChannelFuture channelFutureToCancel = null;
+    synchronized (channelFutureLock) {
+      if (stopping && channelFuture != null) {
+        channelFutureToCancel = channelFuture;
+        channelFuture = null;
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `channelFuture` accessed in synchronized context
+in `lang/java/ipc-netty/src/main/java/org/apache/avro/ipc/netty/NettyTransceiver.java`
+#### Snippet
+```java
+    synchronized (channelFutureLock) {
+      if (stopping && channelFuture != null) {
+        channelFutureToCancel = channelFuture;
+        channelFuture = null;
+      }
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `channelFuture` accessed in synchronized context
+in `lang/java/ipc-netty/src/main/java/org/apache/avro/ipc/netty/NettyTransceiver.java`
+#### Snippet
+```java
+      if (stopping && channelFuture != null) {
+        channelFutureToCancel = channelFuture;
+        channelFuture = null;
       }
     }
 ```
@@ -11070,23 +11084,11 @@ in `lang/java/ipc/src/main/java/org/apache/avro/ipc/stats/StatsPlugin.java`
 ```
 
 ### SynchronizeOnNonFinalField
-Synchronization on a non-final field `receivePayloads`
-in `lang/java/ipc/src/main/java/org/apache/avro/ipc/stats/StatsPlugin.java`
-#### Snippet
-```java
-    publish(context, t);
-
-    synchronized (receivePayloads) {
-      IntegerHistogram<?> h = receivePayloads.get(context.getMessage());
-      if (h == null) {
-```
-
-### SynchronizeOnNonFinalField
 Synchronization on a non-final field `sendPayloads`
 in `lang/java/ipc/src/main/java/org/apache/avro/ipc/stats/StatsPlugin.java`
 #### Snippet
 ```java
-    publish(context, t);
+    this.activeRpcs.put(context, t);
 
     synchronized (sendPayloads) {
       IntegerHistogram<?> h = sendPayloads.get(context.getMessage());
@@ -11098,6 +11100,18 @@ Synchronization on a non-final field `receivePayloads`
 in `lang/java/ipc/src/main/java/org/apache/avro/ipc/stats/StatsPlugin.java`
 #### Snippet
 ```java
+    publish(context, t);
+
+    synchronized (receivePayloads) {
+      IntegerHistogram<?> h = receivePayloads.get(context.getMessage());
+      if (h == null) {
+```
+
+### SynchronizeOnNonFinalField
+Synchronization on a non-final field `receivePayloads`
+in `lang/java/ipc/src/main/java/org/apache/avro/ipc/stats/StatsPlugin.java`
+#### Snippet
+```java
     this.activeRpcs.put(context, t);
 
     synchronized (receivePayloads) {
@@ -11110,7 +11124,7 @@ Synchronization on a non-final field `sendPayloads`
 in `lang/java/ipc/src/main/java/org/apache/avro/ipc/stats/StatsPlugin.java`
 #### Snippet
 ```java
-    this.activeRpcs.put(context, t);
+    publish(context, t);
 
     synchronized (sendPayloads) {
       IntegerHistogram<?> h = sendPayloads.get(context.getMessage());
@@ -11180,6 +11194,18 @@ in `lang/java/avro/src/main/java/org/apache/avro/util/RandomData.java`
 
 ## RuleId[ruleID=OptionalUsedAsFieldOrParameterType]
 ### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for field 'templateDir'
+in `lang/java/tools/src/main/java/org/apache/avro/tool/SpecificCompilerTool.java`
+#### Snippet
+```java
+    boolean addExtraOptionalGetters;
+    Optional<OptionalGettersType> optionalGettersType;
+    Optional<String> templateDir;
+  }
+
+```
+
+### OptionalUsedAsFieldOrParameterType
 `Optional` used as type for field 'fieldVisibility'
 in `lang/java/tools/src/main/java/org/apache/avro/tool/SpecificCompilerTool.java`
 #### Snippet
@@ -11189,18 +11215,6 @@ in `lang/java/tools/src/main/java/org/apache/avro/tool/SpecificCompilerTool.java
     Optional<FieldVisibility> fieldVisibility;
     boolean useLogicalDecimal;
     boolean createSetters;
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'optionalGettersType'
-in `lang/java/tools/src/main/java/org/apache/avro/tool/SpecificCompilerTool.java`
-#### Snippet
-```java
-    boolean createSetters;
-    boolean addExtraOptionalGetters;
-    Optional<OptionalGettersType> optionalGettersType;
-    Optional<String> templateDir;
-  }
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -11216,15 +11230,15 @@ in `lang/java/tools/src/main/java/org/apache/avro/tool/SpecificCompilerTool.java
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'templateDir'
+`Optional` used as type for field 'optionalGettersType'
 in `lang/java/tools/src/main/java/org/apache/avro/tool/SpecificCompilerTool.java`
 #### Snippet
 ```java
+    boolean createSetters;
     boolean addExtraOptionalGetters;
     Optional<OptionalGettersType> optionalGettersType;
     Optional<String> templateDir;
   }
-
 ```
 
 ## RuleId[ruleID=CharsetObjectCanBeUsed]
@@ -11242,27 +11256,51 @@ in `lang/java/trevni/core/src/main/java/org/apache/trevni/InputBuffer.java`
 
 ## RuleId[ruleID=SystemOutErr]
 ### SystemOutErr
-Uses of `System.err` should probably be replaced with more robust logging
-in `lang/java/tools/src/main/java/org/apache/avro/tool/Main.java`
+Uses of `System.out` should probably be replaced with more robust logging
+in `lang/java/perf/src/main/java/org/apache/avro/perf/Perf.java`
 #### Snippet
 ```java
-    byte[] buffer = new byte[1024];
-    for (int i = in.read(buffer); i != -1; i = in.read(buffer))
-      System.err.write(buffer, 0, i);
-  }
-
+    if (cmd.hasOption("help")) {
+      final HelpFormatter formatter = new HelpFormatter();
+      final PrintWriter pw = new PrintWriter(System.out);
+      formatter.printUsage(pw, 80, "Perf", options);
+      pw.flush();
 ```
 
 ### SystemOutErr
 Uses of `System.err` should probably be replaced with more robust logging
-in `lang/java/tools/src/main/java/org/apache/avro/tool/Main.java`
+in `lang/java/tools/src/main/java/org/apache/avro/tool/InduceSchemaTool.java`
 #### Snippet
 ```java
-        break;
-      }
-      System.err.println(line);
+  public int run(InputStream in, PrintStream out, PrintStream err, List<String> args) throws Exception {
+    if (args.size() == 0 || args.size() > 2) {
+      System.err.println("Usage: [colon-delimited-classpath] classname");
+      return 1;
     }
-  }
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `lang/java/tools/src/main/java/org/apache/avro/tool/InduceSchemaTool.java`
+#### Snippet
+```java
+    Class<?> klass = classLoader.loadClass(className);
+    if (klass.isInterface()) {
+      System.out.println(ReflectData.get().getProtocol(klass).toString(true));
+    } else {
+      System.out.println(ReflectData.get().getSchema(klass).toString(true));
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `lang/java/tools/src/main/java/org/apache/avro/tool/InduceSchemaTool.java`
+#### Snippet
+```java
+      System.out.println(ReflectData.get().getProtocol(klass).toString(true));
+    } else {
+      System.out.println(ReflectData.get().getSchema(klass).toString(true));
+    }
+    return 0;
 ```
 
 ### SystemOutErr
@@ -11350,6 +11388,30 @@ in `lang/java/tools/src/main/java/org/apache/avro/tool/Main.java`
 ```
 
 ### SystemOutErr
+Uses of `System.err` should probably be replaced with more robust logging
+in `lang/java/tools/src/main/java/org/apache/avro/tool/Main.java`
+#### Snippet
+```java
+    byte[] buffer = new byte[1024];
+    for (int i = in.read(buffer); i != -1; i = in.read(buffer))
+      System.err.write(buffer, 0, i);
+  }
+
+```
+
+### SystemOutErr
+Uses of `System.err` should probably be replaced with more robust logging
+in `lang/java/tools/src/main/java/org/apache/avro/tool/Main.java`
+#### Snippet
+```java
+        break;
+      }
+      System.err.println(line);
+    }
+  }
+```
+
+### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
 in `lang/java/tools/src/main/java/org/apache/avro/tool/FromTextTool.java`
 #### Snippet
@@ -11362,51 +11424,15 @@ in `lang/java/tools/src/main/java/org/apache/avro/tool/FromTextTool.java`
 ```
 
 ### SystemOutErr
-Uses of `System.err` should probably be replaced with more robust logging
-in `lang/java/tools/src/main/java/org/apache/avro/tool/InduceSchemaTool.java`
-#### Snippet
-```java
-  public int run(InputStream in, PrintStream out, PrintStream err, List<String> args) throws Exception {
-    if (args.size() == 0 || args.size() > 2) {
-      System.err.println("Usage: [colon-delimited-classpath] classname");
-      return 1;
-    }
-```
-
-### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
-in `lang/java/tools/src/main/java/org/apache/avro/tool/InduceSchemaTool.java`
+in `lang/java/tools/src/main/java/org/apache/avro/tool/TetherTool.java`
 #### Snippet
 ```java
-    Class<?> klass = classLoader.loadClass(className);
-    if (klass.isInterface()) {
-      System.out.println(ReflectData.get().getProtocol(klass).toString(true));
-    } else {
-      System.out.println(ReflectData.get().getSchema(klass).toString(true));
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `lang/java/tools/src/main/java/org/apache/avro/tool/InduceSchemaTool.java`
-#### Snippet
-```java
-      System.out.println(ReflectData.get().getProtocol(klass).toString(true));
-    } else {
-      System.out.println(ReflectData.get().getSchema(klass).toString(true));
-    }
-    return 0;
-```
-
-### SystemOutErr
-Uses of `System.err` should probably be replaced with more robust logging
-in `lang/java/tools/src/main/java/org/apache/avro/tool/Util.java`
-#### Snippet
-```java
-        in.close();
-      } catch (IOException e) {
-        System.err.println("could not close InputStream " + in.toString());
       }
-    }
+    } catch (Exception exp) {
+      System.out.println("Unexpected exception: " + exp.getMessage());
+      formatter.printHelp("tether", opts);
+      return -1;
 ```
 
 ### SystemOutErr
@@ -11434,15 +11460,15 @@ in `lang/java/tools/src/main/java/org/apache/avro/tool/Util.java`
 ```
 
 ### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `lang/java/tools/src/main/java/org/apache/avro/tool/TetherTool.java`
+Uses of `System.err` should probably be replaced with more robust logging
+in `lang/java/tools/src/main/java/org/apache/avro/tool/Util.java`
 #### Snippet
 ```java
+        in.close();
+      } catch (IOException e) {
+        System.err.println("could not close InputStream " + in.toString());
       }
-    } catch (Exception exp) {
-      System.out.println("Unexpected exception: " + exp.getMessage());
-      formatter.printHelp("tether", opts);
-      return -1;
+    }
 ```
 
 ### SystemOutErr
@@ -11735,30 +11761,6 @@ in `lang/java/tools/src/main/java/org/apache/avro/tool/SpecificCompilerTool.java
 
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
-in `lang/java/ipc/src/main/java/org/apache/avro/ipc/DatagramServer.java`
-#### Snippet
-```java
-    DatagramServer server = new DatagramServer(null, new InetSocketAddress(0));
-    server.start();
-    System.out.println("started");
-    server.join();
-  }
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `lang/java/ipc/src/main/java/org/apache/avro/ipc/SocketServer.java`
-#### Snippet
-```java
-    SocketServer server = new SocketServer(responder, new InetSocketAddress(0));
-    server.start();
-    System.out.println("server started on port: " + server.getPort());
-    server.join();
-  }
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
 in `lang/java/avro/src/main/java/org/apache/avro/Protocol.java`
 #### Snippet
 ```java
@@ -11783,14 +11785,51 @@ in `lang/java/avro/src/main/java/org/apache/avro/util/RandomData.java`
 
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
-in `lang/java/perf/src/main/java/org/apache/avro/perf/Perf.java`
+in `lang/java/ipc/src/main/java/org/apache/avro/ipc/SocketServer.java`
 #### Snippet
 ```java
-    if (cmd.hasOption("help")) {
-      final HelpFormatter formatter = new HelpFormatter();
-      final PrintWriter pw = new PrintWriter(System.out);
-      formatter.printUsage(pw, 80, "Perf", options);
-      pw.flush();
+    SocketServer server = new SocketServer(responder, new InetSocketAddress(0));
+    server.start();
+    System.out.println("server started on port: " + server.getPort());
+    server.join();
+  }
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `lang/java/ipc/src/main/java/org/apache/avro/ipc/DatagramServer.java`
+#### Snippet
+```java
+    DatagramServer server = new DatagramServer(null, new InetSocketAddress(0));
+    server.start();
+    System.out.println("started");
+    server.join();
+  }
+```
+
+## RuleId[ruleID=MissingDeprecatedAnnotation]
+### MissingDeprecatedAnnotation
+Missing '@Deprecated' annotation
+in `lang/java/mapred/src/main/java/org/apache/avro/mapred/AvroMultipleOutputs.java`
+#### Snippet
+```java
+   */
+  @SuppressWarnings({ "unchecked", "rawtypes" })
+  public AvroCollector getCollector(String namedOutput, Reporter reporter) throws IOException {
+    return getCollector(namedOutput, null, reporter, namedOutput, null);
+  }
+```
+
+### MissingDeprecatedAnnotation
+Missing '@Deprecated' annotation
+in `lang/java/ipc/src/main/java/org/apache/avro/ipc/SocketTransceiver.java`
+#### Snippet
+```java
+ * @deprecated use {@link SaslSocketTransceiver} instead.
+ */
+public class SocketTransceiver extends Transceiver {
+  private static final Logger LOG = LoggerFactory.getLogger(SocketTransceiver.class);
+
 ```
 
 ## RuleId[ruleID=ConditionCoveredByFurtherCondition]
@@ -11804,31 +11843,6 @@ in `lang/java/avro/src/main/java/org/apache/avro/generic/GenericDatumReader.java
       if (obj == null || !(obj instanceof GenericDatumReader.IdentitySchemaKey)) {
         return false;
       }
-```
-
-## RuleId[ruleID=MissingDeprecatedAnnotation]
-### MissingDeprecatedAnnotation
-Missing '@Deprecated' annotation
-in `lang/java/ipc/src/main/java/org/apache/avro/ipc/SocketTransceiver.java`
-#### Snippet
-```java
- * @deprecated use {@link SaslSocketTransceiver} instead.
- */
-public class SocketTransceiver extends Transceiver {
-  private static final Logger LOG = LoggerFactory.getLogger(SocketTransceiver.class);
-
-```
-
-### MissingDeprecatedAnnotation
-Missing '@Deprecated' annotation
-in `lang/java/mapred/src/main/java/org/apache/avro/mapred/AvroMultipleOutputs.java`
-#### Snippet
-```java
-   */
-  @SuppressWarnings({ "unchecked", "rawtypes" })
-  public AvroCollector getCollector(String namedOutput, Reporter reporter) throws IOException {
-    return getCollector(namedOutput, null, reporter, namedOutput, null);
-  }
 ```
 
 ## RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
@@ -11881,6 +11895,78 @@ in `lang/java/tools/src/main/java/org/apache/avro/tool/DataFileGetMetaTool.java`
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
+`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `lang/java/avro/src/main/java/org/apache/avro/SchemaCompatibility.java`
+#### Snippet
+```java
+        }
+        // Apply JSON pointer escaping.
+        s.append(coordinate.replace("~", "~0").replace("/", "~1"));
+      }
+      return s.toString();
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `lang/java/avro/src/main/java/org/apache/avro/SchemaCompatibility.java`
+#### Snippet
+```java
+        }
+        // Apply JSON pointer escaping.
+        s.append(coordinate.replace("~", "~0").replace("/", "~1"));
+      }
+      return s.toString();
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `lang/java/compiler/src/main/java/org/apache/avro/compiler/specific/SpecificCompiler.java`
+#### Snippet
+```java
+   */
+  public static String escapeForJavadoc(String s) {
+    return s.replace("*/", "*&#47;");
+  }
+
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `lang/java/compiler/src/main/java/org/apache/avro/compiler/specific/SpecificCompiler.java`
+#### Snippet
+```java
+   */
+  public static String javaEscape(String o) {
+    return o.replace("\\", "\\\\").replace("\"", "\\\"");
+  }
+
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `lang/java/compiler/src/main/java/org/apache/avro/compiler/specific/SpecificCompiler.java`
+#### Snippet
+```java
+   */
+  public static String javaEscape(String o) {
+    return o.replace("\\", "\\\\").replace("\"", "\\\"");
+  }
+
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `lang/java/ipc/src/main/java/org/apache/avro/ipc/stats/StatsServlet.java`
+#### Snippet
+```java
+  protected static List<String> escapeStringArray(List<String> input) {
+    for (int i = 0; i < input.size(); i++) {
+      input.set(i, "\"" + input.get(i).replace("\"", "\\\"") + "\"");
+    }
+    return input;
+```
+
+### DynamicRegexReplaceableByCompiledPattern
 `replaceFirst()` could be replaced with compiled 'java.util.regex.Pattern' construct
 in `lang/java/maven-plugin/src/main/java/org/apache/avro/mojo/InduceMojo.java`
 #### Snippet
@@ -11904,78 +11990,6 @@ in `lang/java/maven-plugin/src/main/java/org/apache/avro/mojo/InduceMojo.java`
       return filename.concat(".avpr");
 ```
 
-### DynamicRegexReplaceableByCompiledPattern
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `lang/java/ipc/src/main/java/org/apache/avro/ipc/stats/StatsServlet.java`
-#### Snippet
-```java
-  protected static List<String> escapeStringArray(List<String> input) {
-    for (int i = 0; i < input.size(); i++) {
-      input.set(i, "\"" + input.get(i).replace("\"", "\\\"") + "\"");
-    }
-    return input;
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `lang/java/compiler/src/main/java/org/apache/avro/compiler/specific/SpecificCompiler.java`
-#### Snippet
-```java
-   */
-  public static String javaEscape(String o) {
-    return o.replace("\\", "\\\\").replace("\"", "\\\"");
-  }
-
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `lang/java/compiler/src/main/java/org/apache/avro/compiler/specific/SpecificCompiler.java`
-#### Snippet
-```java
-   */
-  public static String javaEscape(String o) {
-    return o.replace("\\", "\\\\").replace("\"", "\\\"");
-  }
-
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `lang/java/compiler/src/main/java/org/apache/avro/compiler/specific/SpecificCompiler.java`
-#### Snippet
-```java
-   */
-  public static String escapeForJavadoc(String s) {
-    return s.replace("*/", "*&#47;");
-  }
-
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `lang/java/avro/src/main/java/org/apache/avro/SchemaCompatibility.java`
-#### Snippet
-```java
-        }
-        // Apply JSON pointer escaping.
-        s.append(coordinate.replace("~", "~0").replace("/", "~1"));
-      }
-      return s.toString();
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `lang/java/avro/src/main/java/org/apache/avro/SchemaCompatibility.java`
-#### Snippet
-```java
-        }
-        // Apply JSON pointer escaping.
-        s.append(coordinate.replace("~", "~0").replace("/", "~1"));
-      }
-      return s.toString();
-```
-
 ## RuleId[ruleID=UnnecessaryFullyQualifiedName]
 ### UnnecessaryFullyQualifiedName
 Qualifier `java.io` is unnecessary, and can be replaced with an import
@@ -11987,330 +12001,6 @@ in `lang/java/tools/src/main/java/org/apache/avro/tool/RecordCountTool.java`
   private long countRecords(InputStream inStream) throws java.io.IOException {
     long count = 0L;
     try (DataFileStream<Object> streamReader = new DataFileStream<>(inStream, new GenericDatumReader<>())) {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.avro` is unnecessary and can be removed
-in `lang/java/maven-plugin/src/main/java/org/apache/avro/mojo/AbstractAvroMojo.java`
-#### Snippet
-```java
-  /**
-   * A set of fully qualified class names of custom
-   * {@link org.apache.avro.LogicalTypes.LogicalTypeFactory} implementations to
-   * add to the compiler. The classes must be on the classpath at compile time and
-   * whenever the Java objects are serialized.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.avro.ipc` is unnecessary and can be removed
-in `lang/java/ipc/src/main/java/org/apache/avro/ipc/specific/SpecificRequestor.java`
-#### Snippet
-```java
-import org.apache.avro.specific.SpecificDatumWriter;
-
-/** {@link org.apache.avro.ipc.Requestor Requestor} for generated interfaces. */
-public class SpecificRequestor extends Requestor implements InvocationHandler {
-  SpecificData data;
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.hadoop.io` is unnecessary and can be removed
-in `lang/java/mapred/src/main/java/org/apache/avro/hadoop/io/AvroKeyComparator.java`
-#### Snippet
-```java
-
-/**
- * The {@link org.apache.hadoop.io.RawComparator} used by jobs configured with
- * {@link org.apache.avro.mapreduce.AvroJob}.
- *
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.avro.mapreduce` is unnecessary and can be removed
-in `lang/java/mapred/src/main/java/org/apache/avro/hadoop/io/AvroKeyComparator.java`
-#### Snippet
-```java
-/**
- * The {@link org.apache.hadoop.io.RawComparator} used by jobs configured with
- * {@link org.apache.avro.mapreduce.AvroJob}.
- *
- * <p>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.avro.mapred` is unnecessary and can be removed
-in `lang/java/mapred/src/main/java/org/apache/avro/hadoop/io/AvroSerializer.java`
-#### Snippet
-```java
- * Keys and values containing Avro types are more efficiently serialized outside
- * of the WritableSerialization model, so they are wrapped in
- * {@link org.apache.avro.mapred.AvroWrapper} objects and serialization is
- * handled by this class.
- * </p>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.avro.mapred` is unnecessary and can be removed
-in `lang/java/mapred/src/main/java/org/apache/avro/hadoop/io/AvroDeserializer.java`
-#### Snippet
-```java
- * Keys and values containing Avro types are more efficiently serialized outside
- * of the WritableSerialization model, so they are wrapper in
- * {@link org.apache.avro.mapred.AvroWrapper} objects and deserialization is
- * handled by this class.
- * </p>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.hadoop.io.serializer` is unnecessary and can be removed
-in `lang/java/mapred/src/main/java/org/apache/avro/hadoop/io/AvroSerialization.java`
-#### Snippet
-```java
-
-/**
- * The {@link org.apache.hadoop.io.serializer.Serialization} used by jobs
- * configured with {@link org.apache.avro.mapreduce.AvroJob}.
- *
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.avro` is unnecessary and can be removed
-in `lang/java/mapred/src/main/java/org/apache/avro/hadoop/io/AvroSequenceFile.java`
-#### Snippet
-```java
-       * <p>
-       * If the keys will be Avro data, use
-       * {@link #withKeySchema(org.apache.avro.Schema)} to specify the writer schema.
-       * The key class will be automatically set to
-       * {@link org.apache.avro.mapred.AvroKey}.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.avro.mapred` is unnecessary and can be removed
-in `lang/java/mapred/src/main/java/org/apache/avro/hadoop/io/AvroSequenceFile.java`
-#### Snippet
-```java
-       * {@link #withKeySchema(org.apache.avro.Schema)} to specify the writer schema.
-       * The key class will be automatically set to
-       * {@link org.apache.avro.mapred.AvroKey}.
-       * </p>
-       *
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.avro.mapred` is unnecessary and can be removed
-in `lang/java/mapred/src/main/java/org/apache/avro/hadoop/io/AvroSequenceFile.java`
-#### Snippet
-```java
-       * <p>
-       * The value class will automatically be set to
-       * {@link org.apache.avro.mapred.AvroValue}, so there is no need to call
-       * {@link #withValueClass(Class)} when using this method.
-       * </p>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.avro.mapred` is unnecessary and can be removed
-in `lang/java/mapred/src/main/java/org/apache/avro/hadoop/io/AvroSequenceFile.java`
-#### Snippet
-```java
-       * <p>
-       * The key class will automatically be set to
-       * {@link org.apache.avro.mapred.AvroKey}, so there is no need to call
-       * {@link #withKeyClass(Class)} when using this method.
-       * </p>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.hadoop.io` is unnecessary and can be removed
-in `lang/java/mapred/src/main/java/org/apache/avro/hadoop/io/AvroSequenceFile.java`
-#### Snippet
-```java
-
-/**
- * A wrapper around a Hadoop {@link org.apache.hadoop.io.SequenceFile} that also
- * supports reading and writing Avro data.
- *
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.avro` is unnecessary and can be removed
-in `lang/java/mapred/src/main/java/org/apache/avro/hadoop/io/AvroSequenceFile.java`
-#### Snippet
-```java
-       * <p>
-       * If the values will be Avro data, use
-       * {@link #withValueSchema(org.apache.avro.Schema)} to specify the writer
-       * schema. The value class will be automatically set to
-       * {@link org.apache.avro.mapred.AvroValue}.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.avro.mapred` is unnecessary and can be removed
-in `lang/java/mapred/src/main/java/org/apache/avro/hadoop/io/AvroSequenceFile.java`
-#### Snippet
-```java
-       * {@link #withValueSchema(org.apache.avro.Schema)} to specify the writer
-       * schema. The value class will be automatically set to
-       * {@link org.apache.avro.mapred.AvroValue}.
-       * </p>
-       *
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.hadoop.mapred` is unnecessary and can be removed
-in `lang/java/mapred/src/main/java/org/apache/avro/mapred/HadoopMapper.java`
-#### Snippet
-```java
-
-/**
- * Bridge between a {@link org.apache.hadoop.mapred.Mapper} and an
- * {@link AvroMapper}. Outputs are written directly when a job is map-only, but
- * are otherwise assumed to be pairs that are split.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.io` is unnecessary and can be removed
-in `lang/java/mapred/src/main/java/org/apache/avro/mapred/AvroMultipleOutputs.java`
-#### Snippet
-```java
-   * their <code>close()</code>
-   *
-   * @throws java.io.IOException thrown if any of the MultipleOutput files could
-   *                             not be closed properly.
-   */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.lang.reflect` is unnecessary and can be removed
-in `lang/java/mapred/src/main/java/org/apache/avro/mapred/SequenceFileReader.java`
-#### Snippet
-```java
-
-    @Override
-    public Schema getSchema(java.lang.reflect.Type type) {
-      if (WRITABLE_SCHEMAS.containsKey(type))
-        return WRITABLE_SCHEMAS.get(type);
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.avro.mapred` is unnecessary, and can be replaced with an import
-in `lang/java/mapred/src/main/java/org/apache/avro/mapreduce/AvroOutputFormatBase.java`
-#### Snippet
-```java
-    if (FileOutputFormat.getCompressOutput(context)) {
-      // Default to deflate compression.
-      int deflateLevel = context.getConfiguration().getInt(org.apache.avro.mapred.AvroOutputFormat.DEFLATE_LEVEL_KEY,
-          CodecFactory.DEFAULT_DEFLATE_LEVEL);
-      int xzLevel = context.getConfiguration().getInt(org.apache.avro.mapred.AvroOutputFormat.XZ_LEVEL_KEY,
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.avro.mapred` is unnecessary, and can be replaced with an import
-in `lang/java/mapred/src/main/java/org/apache/avro/mapreduce/AvroOutputFormatBase.java`
-#### Snippet
-```java
-      int deflateLevel = context.getConfiguration().getInt(org.apache.avro.mapred.AvroOutputFormat.DEFLATE_LEVEL_KEY,
-          CodecFactory.DEFAULT_DEFLATE_LEVEL);
-      int xzLevel = context.getConfiguration().getInt(org.apache.avro.mapred.AvroOutputFormat.XZ_LEVEL_KEY,
-          CodecFactory.DEFAULT_XZ_LEVEL);
-      int zstdLevel = context.getConfiguration().getInt(org.apache.avro.mapred.AvroOutputFormat.ZSTD_LEVEL_KEY,
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.avro.mapred` is unnecessary, and can be replaced with an import
-in `lang/java/mapred/src/main/java/org/apache/avro/mapreduce/AvroOutputFormatBase.java`
-#### Snippet
-```java
-      int xzLevel = context.getConfiguration().getInt(org.apache.avro.mapred.AvroOutputFormat.XZ_LEVEL_KEY,
-          CodecFactory.DEFAULT_XZ_LEVEL);
-      int zstdLevel = context.getConfiguration().getInt(org.apache.avro.mapred.AvroOutputFormat.ZSTD_LEVEL_KEY,
-          DEFAULT_ZSTANDARD_LEVEL);
-      boolean zstdBufferPool = context.getConfiguration()
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.avro.mapred` is unnecessary, and can be replaced with an import
-in `lang/java/mapred/src/main/java/org/apache/avro/mapreduce/AvroOutputFormatBase.java`
-#### Snippet
-```java
-          DEFAULT_ZSTANDARD_LEVEL);
-      boolean zstdBufferPool = context.getConfiguration()
-          .getBoolean(org.apache.avro.mapred.AvroOutputFormat.ZSTD_BUFFERPOOL_KEY, DEFAULT_ZSTANDARD_BUFFERPOOL);
-
-      String outputCodec = context.getConfiguration().get(AvroJob.CONF_OUTPUT_CODEC);
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.avro.mapred` is unnecessary, and can be replaced with an import
-in `lang/java/mapred/src/main/java/org/apache/avro/mapreduce/AvroOutputFormatBase.java`
-#### Snippet
-```java
-    Path path = new Path(getWorkPathFromCommitter(context),
-        getUniqueFile(context, context.getConfiguration().get("avro.mo.config.namedOutput", "part"),
-            org.apache.avro.mapred.AvroOutputFormat.EXT));
-    return path.getFileSystem(context.getConfiguration()).create(path);
-  }
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.avro.mapred` is unnecessary, and can be replaced with an import
-in `lang/java/mapred/src/main/java/org/apache/avro/mapreduce/AvroOutputFormatBase.java`
-#### Snippet
-```java
-   */
-  protected static int getSyncInterval(TaskAttemptContext context) {
-    return context.getConfiguration().getInt(org.apache.avro.mapred.AvroOutputFormat.SYNC_INTERVAL_KEY,
-        DataFileConstants.DEFAULT_SYNC_INTERVAL);
-  }
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.avro` is unnecessary and can be removed
-in `lang/java/mapred/src/main/java/org/apache/avro/mapred/Pair.java`
-#### Snippet
-```java
-      break;
-    default:
-      throw new org.apache.avro.AvroRuntimeException("Bad index: " + i);
-    }
-  }
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.avro` is unnecessary and can be removed
-in `lang/java/mapred/src/main/java/org/apache/avro/mapred/Pair.java`
-#### Snippet
-```java
-      return value;
-    default:
-      throw new org.apache.avro.AvroRuntimeException("Bad index: " + i);
-    }
-  }
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.avro` is unnecessary and can be removed
-in `lang/java/avro/src/main/java/org/apache/avro/Conversions.java`
-#### Snippet
-```java
-   * @param datum      The object to be converted.
-   * @param schema     The schema of datum. Cannot be null if datum is not null.
-   * @param type       The {@link org.apache.avro.LogicalType} of datum. Cannot be
-   *                   null if datum is not null.
-   * @param conversion The tool used to finish the conversion. Cannot be null if
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.avro` is unnecessary and can be removed
-in `lang/java/avro/src/main/java/org/apache/avro/Conversions.java`
-#### Snippet
-```java
-   * @param datum      The object to be converted.
-   * @param schema     The schema of datum. Cannot be null if datum is not null.
-   * @param type       The {@link org.apache.avro.LogicalType} of datum. Cannot be
-   *                   null if datum is not null.
-   * @param conversion The tool used to finish the conversion. Cannot be null if
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -12374,15 +12064,27 @@ in `lang/java/avro/src/main/java/org/apache/avro/JsonProperties.java`
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.avro.util` is unnecessary and can be removed
-in `lang/java/avro/src/main/java/org/apache/avro/io/Encoder.java`
+Qualifier `org.apache.avro` is unnecessary and can be removed
+in `lang/java/avro/src/main/java/org/apache/avro/Conversions.java`
 #### Snippet
 ```java
-  /**
-   * Write a Unicode character string. The default implementation converts the
-   * String to a {@link org.apache.avro.util.Utf8}. Some Encoder implementations
-   * may want to do something different as a performance optimization.
-   * 
+   * @param datum      The object to be converted.
+   * @param schema     The schema of datum. Cannot be null if datum is not null.
+   * @param type       The {@link org.apache.avro.LogicalType} of datum. Cannot be
+   *                   null if datum is not null.
+   * @param conversion The tool used to finish the conversion. Cannot be null if
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.avro` is unnecessary and can be removed
+in `lang/java/avro/src/main/java/org/apache/avro/Conversions.java`
+#### Snippet
+```java
+   * @param datum      The object to be converted.
+   * @param schema     The schema of datum. Cannot be null if datum is not null.
+   * @param type       The {@link org.apache.avro.LogicalType} of datum. Cannot be
+   *                   null if datum is not null.
+   * @param conversion The tool used to finish the conversion. Cannot be null if
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -12398,15 +12100,15 @@ in `lang/java/avro/src/main/java/org/apache/avro/io/Encoder.java`
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `java.io` is unnecessary and can be removed
-in `lang/java/avro/src/main/java/org/apache/avro/io/BinaryDecoder.java`
+Qualifier `org.apache.avro.util` is unnecessary and can be removed
+in `lang/java/avro/src/main/java/org/apache/avro/io/Encoder.java`
 #### Snippet
 ```java
-
   /**
-   * Returns an {@link java.io.InputStream} that is aware of any buffering that
-   * may occur in this BinaryDecoder. Readers that need to interleave decoding
-   * Avro data with other reads must access this InputStream to do so unless the
+   * Write a Unicode character string. The default implementation converts the
+   * String to a {@link org.apache.avro.util.Utf8}. Some Encoder implementations
+   * may want to do something different as a performance optimization.
+   * 
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -12422,6 +12124,18 @@ in `lang/java/avro/src/main/java/org/apache/avro/io/BinaryDecoder.java`
 ```
 
 ### UnnecessaryFullyQualifiedName
+Qualifier `java.io` is unnecessary and can be removed
+in `lang/java/avro/src/main/java/org/apache/avro/io/BinaryDecoder.java`
+#### Snippet
+```java
+
+  /**
+   * Returns an {@link java.io.InputStream} that is aware of any buffering that
+   * may occur in this BinaryDecoder. Readers that need to interleave decoding
+   * Avro data with other reads must access this InputStream to do so unless the
+```
+
+### UnnecessaryFullyQualifiedName
 Qualifier `org.apache.avro.file` is unnecessary and can be removed
 in `lang/java/avro/src/main/java/org/apache/avro/file/SyncableFileOutputStream.java`
 #### Snippet
@@ -12431,6 +12145,18 @@ in `lang/java/avro/src/main/java/org/apache/avro/file/SyncableFileOutputStream.j
  * platforms using the {@linkplain org.apache.avro.file.DataFileWriter#fSync()}
  * method.
  *
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.avro.io` is unnecessary and can be removed
+in `lang/java/avro/src/main/java/org/apache/avro/generic/GenericDatumReader.java`
+#### Snippet
+```java
+   * Called by the default implementation of {@link #readMap} to read a key value.
+   * The default implementation returns delegates to
+   * {@link #readString(Object, org.apache.avro.io.Decoder)}.
+   */
+  protected Object readMapKey(Object old, Schema expected, Decoder in) throws IOException {
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -12482,15 +12208,63 @@ in `lang/java/avro/src/main/java/org/apache/avro/reflect/Union.java`
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.avro.io` is unnecessary and can be removed
-in `lang/java/avro/src/main/java/org/apache/avro/generic/GenericDatumReader.java`
+Qualifier `org.apache.hadoop.io` is unnecessary and can be removed
+in `lang/java/mapred/src/main/java/org/apache/avro/hadoop/io/AvroKeyComparator.java`
 #### Snippet
 ```java
-   * Called by the default implementation of {@link #readMap} to read a key value.
-   * The default implementation returns delegates to
-   * {@link #readString(Object, org.apache.avro.io.Decoder)}.
-   */
-  protected Object readMapKey(Object old, Schema expected, Decoder in) throws IOException {
+
+/**
+ * The {@link org.apache.hadoop.io.RawComparator} used by jobs configured with
+ * {@link org.apache.avro.mapreduce.AvroJob}.
+ *
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.avro.mapreduce` is unnecessary and can be removed
+in `lang/java/mapred/src/main/java/org/apache/avro/hadoop/io/AvroKeyComparator.java`
+#### Snippet
+```java
+/**
+ * The {@link org.apache.hadoop.io.RawComparator} used by jobs configured with
+ * {@link org.apache.avro.mapreduce.AvroJob}.
+ *
+ * <p>
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.avro.mapred` is unnecessary and can be removed
+in `lang/java/mapred/src/main/java/org/apache/avro/hadoop/io/AvroSerializer.java`
+#### Snippet
+```java
+ * Keys and values containing Avro types are more efficiently serialized outside
+ * of the WritableSerialization model, so they are wrapped in
+ * {@link org.apache.avro.mapred.AvroWrapper} objects and serialization is
+ * handled by this class.
+ * </p>
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.avro.mapred` is unnecessary and can be removed
+in `lang/java/mapred/src/main/java/org/apache/avro/hadoop/io/AvroDeserializer.java`
+#### Snippet
+```java
+ * Keys and values containing Avro types are more efficiently serialized outside
+ * of the WritableSerialization model, so they are wrapper in
+ * {@link org.apache.avro.mapred.AvroWrapper} objects and deserialization is
+ * handled by this class.
+ * </p>
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.hadoop.io.serializer` is unnecessary and can be removed
+in `lang/java/mapred/src/main/java/org/apache/avro/hadoop/io/AvroSerialization.java`
+#### Snippet
+```java
+
+/**
+ * The {@link org.apache.hadoop.io.serializer.Serialization} used by jobs
+ * configured with {@link org.apache.avro.mapreduce.AvroJob}.
+ *
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -12565,6 +12339,246 @@ in `lang/java/avro/src/main/java/org/apache/avro/specific/SpecificData.java`
   /** For subclasses. Applications normally use {@link SpecificData#get()}. */
 ```
 
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.hadoop.io` is unnecessary and can be removed
+in `lang/java/mapred/src/main/java/org/apache/avro/hadoop/io/AvroSequenceFile.java`
+#### Snippet
+```java
+
+/**
+ * A wrapper around a Hadoop {@link org.apache.hadoop.io.SequenceFile} that also
+ * supports reading and writing Avro data.
+ *
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.avro.mapred` is unnecessary and can be removed
+in `lang/java/mapred/src/main/java/org/apache/avro/hadoop/io/AvroSequenceFile.java`
+#### Snippet
+```java
+       * <p>
+       * The key class will automatically be set to
+       * {@link org.apache.avro.mapred.AvroKey}, so there is no need to call
+       * {@link #withKeyClass(Class)} when using this method.
+       * </p>
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.avro` is unnecessary and can be removed
+in `lang/java/mapred/src/main/java/org/apache/avro/hadoop/io/AvroSequenceFile.java`
+#### Snippet
+```java
+       * <p>
+       * If the keys will be Avro data, use
+       * {@link #withKeySchema(org.apache.avro.Schema)} to specify the writer schema.
+       * The key class will be automatically set to
+       * {@link org.apache.avro.mapred.AvroKey}.
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.avro.mapred` is unnecessary and can be removed
+in `lang/java/mapred/src/main/java/org/apache/avro/hadoop/io/AvroSequenceFile.java`
+#### Snippet
+```java
+       * {@link #withKeySchema(org.apache.avro.Schema)} to specify the writer schema.
+       * The key class will be automatically set to
+       * {@link org.apache.avro.mapred.AvroKey}.
+       * </p>
+       *
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.avro` is unnecessary and can be removed
+in `lang/java/mapred/src/main/java/org/apache/avro/hadoop/io/AvroSequenceFile.java`
+#### Snippet
+```java
+       * <p>
+       * If the values will be Avro data, use
+       * {@link #withValueSchema(org.apache.avro.Schema)} to specify the writer
+       * schema. The value class will be automatically set to
+       * {@link org.apache.avro.mapred.AvroValue}.
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.avro.mapred` is unnecessary and can be removed
+in `lang/java/mapred/src/main/java/org/apache/avro/hadoop/io/AvroSequenceFile.java`
+#### Snippet
+```java
+       * {@link #withValueSchema(org.apache.avro.Schema)} to specify the writer
+       * schema. The value class will be automatically set to
+       * {@link org.apache.avro.mapred.AvroValue}.
+       * </p>
+       *
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.avro.mapred` is unnecessary and can be removed
+in `lang/java/mapred/src/main/java/org/apache/avro/hadoop/io/AvroSequenceFile.java`
+#### Snippet
+```java
+       * <p>
+       * The value class will automatically be set to
+       * {@link org.apache.avro.mapred.AvroValue}, so there is no need to call
+       * {@link #withValueClass(Class)} when using this method.
+       * </p>
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.io` is unnecessary and can be removed
+in `lang/java/mapred/src/main/java/org/apache/avro/mapred/AvroMultipleOutputs.java`
+#### Snippet
+```java
+   * their <code>close()</code>
+   *
+   * @throws java.io.IOException thrown if any of the MultipleOutput files could
+   *                             not be closed properly.
+   */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.hadoop.mapred` is unnecessary and can be removed
+in `lang/java/mapred/src/main/java/org/apache/avro/mapred/HadoopMapper.java`
+#### Snippet
+```java
+
+/**
+ * Bridge between a {@link org.apache.hadoop.mapred.Mapper} and an
+ * {@link AvroMapper}. Outputs are written directly when a job is map-only, but
+ * are otherwise assumed to be pairs that are split.
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.lang.reflect` is unnecessary and can be removed
+in `lang/java/mapred/src/main/java/org/apache/avro/mapred/SequenceFileReader.java`
+#### Snippet
+```java
+
+    @Override
+    public Schema getSchema(java.lang.reflect.Type type) {
+      if (WRITABLE_SCHEMAS.containsKey(type))
+        return WRITABLE_SCHEMAS.get(type);
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.avro` is unnecessary and can be removed
+in `lang/java/mapred/src/main/java/org/apache/avro/mapred/Pair.java`
+#### Snippet
+```java
+      break;
+    default:
+      throw new org.apache.avro.AvroRuntimeException("Bad index: " + i);
+    }
+  }
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.avro` is unnecessary and can be removed
+in `lang/java/mapred/src/main/java/org/apache/avro/mapred/Pair.java`
+#### Snippet
+```java
+      return value;
+    default:
+      throw new org.apache.avro.AvroRuntimeException("Bad index: " + i);
+    }
+  }
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.avro.mapred` is unnecessary, and can be replaced with an import
+in `lang/java/mapred/src/main/java/org/apache/avro/mapreduce/AvroOutputFormatBase.java`
+#### Snippet
+```java
+   */
+  protected static int getSyncInterval(TaskAttemptContext context) {
+    return context.getConfiguration().getInt(org.apache.avro.mapred.AvroOutputFormat.SYNC_INTERVAL_KEY,
+        DataFileConstants.DEFAULT_SYNC_INTERVAL);
+  }
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.avro.mapred` is unnecessary, and can be replaced with an import
+in `lang/java/mapred/src/main/java/org/apache/avro/mapreduce/AvroOutputFormatBase.java`
+#### Snippet
+```java
+    Path path = new Path(getWorkPathFromCommitter(context),
+        getUniqueFile(context, context.getConfiguration().get("avro.mo.config.namedOutput", "part"),
+            org.apache.avro.mapred.AvroOutputFormat.EXT));
+    return path.getFileSystem(context.getConfiguration()).create(path);
+  }
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.avro.mapred` is unnecessary, and can be replaced with an import
+in `lang/java/mapred/src/main/java/org/apache/avro/mapreduce/AvroOutputFormatBase.java`
+#### Snippet
+```java
+    if (FileOutputFormat.getCompressOutput(context)) {
+      // Default to deflate compression.
+      int deflateLevel = context.getConfiguration().getInt(org.apache.avro.mapred.AvroOutputFormat.DEFLATE_LEVEL_KEY,
+          CodecFactory.DEFAULT_DEFLATE_LEVEL);
+      int xzLevel = context.getConfiguration().getInt(org.apache.avro.mapred.AvroOutputFormat.XZ_LEVEL_KEY,
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.avro.mapred` is unnecessary, and can be replaced with an import
+in `lang/java/mapred/src/main/java/org/apache/avro/mapreduce/AvroOutputFormatBase.java`
+#### Snippet
+```java
+      int deflateLevel = context.getConfiguration().getInt(org.apache.avro.mapred.AvroOutputFormat.DEFLATE_LEVEL_KEY,
+          CodecFactory.DEFAULT_DEFLATE_LEVEL);
+      int xzLevel = context.getConfiguration().getInt(org.apache.avro.mapred.AvroOutputFormat.XZ_LEVEL_KEY,
+          CodecFactory.DEFAULT_XZ_LEVEL);
+      int zstdLevel = context.getConfiguration().getInt(org.apache.avro.mapred.AvroOutputFormat.ZSTD_LEVEL_KEY,
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.avro.mapred` is unnecessary, and can be replaced with an import
+in `lang/java/mapred/src/main/java/org/apache/avro/mapreduce/AvroOutputFormatBase.java`
+#### Snippet
+```java
+      int xzLevel = context.getConfiguration().getInt(org.apache.avro.mapred.AvroOutputFormat.XZ_LEVEL_KEY,
+          CodecFactory.DEFAULT_XZ_LEVEL);
+      int zstdLevel = context.getConfiguration().getInt(org.apache.avro.mapred.AvroOutputFormat.ZSTD_LEVEL_KEY,
+          DEFAULT_ZSTANDARD_LEVEL);
+      boolean zstdBufferPool = context.getConfiguration()
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.avro.mapred` is unnecessary, and can be replaced with an import
+in `lang/java/mapred/src/main/java/org/apache/avro/mapreduce/AvroOutputFormatBase.java`
+#### Snippet
+```java
+          DEFAULT_ZSTANDARD_LEVEL);
+      boolean zstdBufferPool = context.getConfiguration()
+          .getBoolean(org.apache.avro.mapred.AvroOutputFormat.ZSTD_BUFFERPOOL_KEY, DEFAULT_ZSTANDARD_BUFFERPOOL);
+
+      String outputCodec = context.getConfiguration().get(AvroJob.CONF_OUTPUT_CODEC);
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.avro.ipc` is unnecessary and can be removed
+in `lang/java/ipc/src/main/java/org/apache/avro/ipc/specific/SpecificRequestor.java`
+#### Snippet
+```java
+import org.apache.avro.specific.SpecificDatumWriter;
+
+/** {@link org.apache.avro.ipc.Requestor Requestor} for generated interfaces. */
+public class SpecificRequestor extends Requestor implements InvocationHandler {
+  SpecificData data;
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.avro` is unnecessary and can be removed
+in `lang/java/maven-plugin/src/main/java/org/apache/avro/mojo/AbstractAvroMojo.java`
+#### Snippet
+```java
+  /**
+   * A set of fully qualified class names of custom
+   * {@link org.apache.avro.LogicalTypes.LogicalTypeFactory} implementations to
+   * add to the compiler. The classes must be on the classpath at compile time and
+   * whenever the Java objects are serialized.
+```
+
 ## RuleId[ruleID=ThrowablePrintStackTrace]
 ### ThrowablePrintStackTrace
 Call to `printStackTrace()` should probably be replaced with more robust logging
@@ -12605,39 +12619,27 @@ in `lang/java/mapred/src/main/java/org/apache/avro/mapred/tether/TetherKeyCompar
 
 ## RuleId[ruleID=NonProtectedConstructorInAbstractClass]
 ### NonProtectedConstructorInAbstractClass
-Constructor `AvroTrevniRecordWriterBase()` of an abstract class should not be declared 'public'
-in `lang/java/trevni/avro/src/main/java/org/apache/trevni/avro/mapreduce/AvroTrevniRecordWriterBase.java`
+Constructor `BasicArrayState()` of an abstract class should not be declared 'public'
+in `lang/java/perf/src/main/java/org/apache/avro/perf/test/BasicArrayState.java`
 #### Snippet
 ```java
-   *                form the job configuration
-   */
-  public AvroTrevniRecordWriterBase(TaskAttemptContext context) throws IOException {
+  public final int arraySize;
 
-    schema = initSchema(context);
+  public BasicArrayState(final int arraySize) {
+    super();
+    this.arraySize = arraySize;
 ```
 
 ### NonProtectedConstructorInAbstractClass
-Constructor `GenericResponder()` of an abstract class should not be declared 'public'
-in `lang/java/ipc/src/main/java/org/apache/avro/ipc/generic/GenericResponder.java`
+Constructor `BasicState()` of an abstract class should not be declared 'public'
+in `lang/java/perf/src/main/java/org/apache/avro/perf/test/BasicState.java`
 #### Snippet
 ```java
-  private GenericData data;
+  private BinaryEncoder reuseBlockingEncoder;
 
-  public GenericResponder(Protocol local) {
-    this(local, GenericData.get());
-
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `GenericResponder()` of an abstract class should not be declared 'public'
-in `lang/java/ipc/src/main/java/org/apache/avro/ipc/generic/GenericResponder.java`
-#### Snippet
-```java
+  public BasicState() {
+    this.reuseDecoder = null;
   }
-
-  public GenericResponder(Protocol local, GenericData data) {
-    super(local);
-    this.data = data;
 ```
 
 ### NonProtectedConstructorInAbstractClass
@@ -12669,18 +12671,6 @@ Constructor `SpecificExceptionBase()` of an abstract class should not be declare
 in `lang/java/avro/src/main/java/org/apache/avro/specific/SpecificExceptionBase.java`
 #### Snippet
 ```java
-  }
-
-  public SpecificExceptionBase(Object value) {
-    super(value);
-  }
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `SpecificExceptionBase()` of an abstract class should not be declared 'public'
-in `lang/java/avro/src/main/java/org/apache/avro/specific/SpecificExceptionBase.java`
-#### Snippet
-```java
 public abstract class SpecificExceptionBase extends AvroRemoteException implements SpecificRecord, Externalizable {
 
   public SpecificExceptionBase() {
@@ -12695,8 +12685,8 @@ in `lang/java/avro/src/main/java/org/apache/avro/specific/SpecificExceptionBase.
 ```java
   }
 
-  public SpecificExceptionBase(Object value, Throwable cause) {
-    super(value, cause);
+  public SpecificExceptionBase(Object value) {
+    super(value);
   }
 ```
 
@@ -12713,27 +12703,51 @@ in `lang/java/avro/src/main/java/org/apache/avro/specific/SpecificExceptionBase.
 ```
 
 ### NonProtectedConstructorInAbstractClass
-Constructor `BasicArrayState()` of an abstract class should not be declared 'public'
-in `lang/java/perf/src/main/java/org/apache/avro/perf/test/BasicArrayState.java`
+Constructor `SpecificExceptionBase()` of an abstract class should not be declared 'public'
+in `lang/java/avro/src/main/java/org/apache/avro/specific/SpecificExceptionBase.java`
 #### Snippet
 ```java
-  public final int arraySize;
+  }
 
-  public BasicArrayState(final int arraySize) {
-    super();
-    this.arraySize = arraySize;
+  public SpecificExceptionBase(Object value, Throwable cause) {
+    super(value, cause);
+  }
 ```
 
 ### NonProtectedConstructorInAbstractClass
-Constructor `BasicState()` of an abstract class should not be declared 'public'
-in `lang/java/perf/src/main/java/org/apache/avro/perf/test/BasicState.java`
+Constructor `AvroTrevniRecordWriterBase()` of an abstract class should not be declared 'public'
+in `lang/java/trevni/avro/src/main/java/org/apache/trevni/avro/mapreduce/AvroTrevniRecordWriterBase.java`
 #### Snippet
 ```java
-  private BinaryEncoder reuseBlockingEncoder;
+   *                form the job configuration
+   */
+  public AvroTrevniRecordWriterBase(TaskAttemptContext context) throws IOException {
 
-  public BasicState() {
-    this.reuseDecoder = null;
+    schema = initSchema(context);
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `GenericResponder()` of an abstract class should not be declared 'public'
+in `lang/java/ipc/src/main/java/org/apache/avro/ipc/generic/GenericResponder.java`
+#### Snippet
+```java
   }
+
+  public GenericResponder(Protocol local, GenericData data) {
+    super(local);
+    this.data = data;
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `GenericResponder()` of an abstract class should not be declared 'public'
+in `lang/java/ipc/src/main/java/org/apache/avro/ipc/generic/GenericResponder.java`
+#### Snippet
+```java
+  private GenericData data;
+
+  public GenericResponder(Protocol local) {
+    this(local, GenericData.get());
+
 ```
 
 ### NonProtectedConstructorInAbstractClass
@@ -12775,6 +12789,18 @@ in `lang/java/ipc-netty/src/main/java/org/apache/avro/ipc/netty/NettyServer.java
 ```
 
 ## RuleId[ruleID=AssignmentToMethodParameter]
+### AssignmentToMethodParameter
+Assignment to method parameter `containing`
+in `lang/java/protobuf/src/main/java/org/apache/avro/protobuf/ProtobufData.java`
+#### Snippet
+```java
+        inner.insert(0, containing.getName() + "$");
+      }
+      containing = containing.getContainingType();
+    }
+    String d1 = (!outer.isEmpty() || inner.length() != 0 ? "." : "");
+```
+
 ### AssignmentToMethodParameter
 Assignment to method parameter `args`
 in `lang/java/tools/src/main/java/org/apache/avro/tool/ConcatTool.java`
@@ -12837,18 +12863,6 @@ in `lang/java/tools/src/main/java/org/apache/avro/tool/DataFileGetMetaTool.java`
 
 ### AssignmentToMethodParameter
 Assignment to method parameter `args`
-in `lang/java/tools/src/main/java/org/apache/avro/tool/ToTrevniTool.java`
-#### Snippet
-```java
-      return 1;
-    }
-    args = (List<String>) opts.nonOptionArguments();
-
-    DataFileStream<Object> reader = new DataFileStream(Util.fileOrStdin(args.get(0), stdin),
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `args`
 in `lang/java/tools/src/main/java/org/apache/avro/tool/CreateRandomFileTool.java`
 #### Snippet
 ```java
@@ -12857,6 +12871,18 @@ in `lang/java/tools/src/main/java/org/apache/avro/tool/CreateRandomFileTool.java
     args = (List<String>) opts.nonOptionArguments();
 
     String schemastr = inschema.value(opts);
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `args`
+in `lang/java/tools/src/main/java/org/apache/avro/tool/ToTrevniTool.java`
+#### Snippet
+```java
+      return 1;
+    }
+    args = (List<String>) opts.nonOptionArguments();
+
+    DataFileStream<Object> reader = new DataFileStream(Util.fileOrStdin(args.get(0), stdin),
 ```
 
 ### AssignmentToMethodParameter
@@ -12896,603 +12922,15 @@ in `lang/java/tools/src/main/java/org/apache/avro/tool/CatTool.java`
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `path`
-in `lang/java/trevni/avro/src/main/java/org/apache/trevni/avro/AvroColumnator.java`
-#### Snippet
-```java
-  private void addArrayColumn(String path, Schema element, ColumnMetaData parent) {
-    if (path == null)
-      path = element.getFullName();
-    if (isSimple(element)) { // optimize simple arrays
-      addColumn(path, simpleValueType(element), parent, true);
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `path`
-in `lang/java/trevni/avro/src/main/java/org/apache/trevni/avro/AvroColumnator.java`
-#### Snippet
-```java
-    if (isSimple(s)) {
-      if (path == null)
-        path = s.getFullName();
-      addColumn(path, simpleValueType(s), parent, isArray);
-      return;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `path`
-in `lang/java/trevni/avro/src/main/java/org/apache/trevni/avro/AvroColumnator.java`
-#### Snippet
-```java
-    switch (s.getType()) {
-    case MAP:
-      path = path == null ? ">" : path + ">";
-      int start = columns.size();
-      ColumnMetaData p = addColumn(path, ValueType.NULL, parent, true);
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `path`
-in `lang/java/trevni/avro/src/main/java/org/apache/trevni/avro/AvroColumnator.java`
-#### Snippet
-```java
-      break;
-    case ARRAY:
-      path = path == null ? "[]" : path + "[]";
-      addArrayColumn(path, s.getElementType(), parent);
-      break;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `column`
-in `lang/java/trevni/avro/src/main/java/org/apache/trevni/avro/AvroColumnWriter.java`
-#### Snippet
-```java
-    case RECORD:
-      for (Field f : s.getFields())
-        column = write(model.getField(o, f.name(), f.pos()), f.schema(), column);
-      return column;
-    case ARRAY:
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `column`
-in `lang/java/trevni/avro/src/main/java/org/apache/trevni/avro/AvroColumnWriter.java`
-#### Snippet
-```java
-        if (!selected) {
-          writer.writeLength(0, column);
-          column += arrayWidths[column];
-        } else {
-          writer.writeLength(1, column);
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `column`
-in `lang/java/trevni/avro/src/main/java/org/apache/trevni/avro/AvroColumnWriter.java`
-#### Snippet
-```java
-          writer.writeLength(1, column);
-          if (isSimple(branch)) {
-            writeValue(o, branch, column++);
-          } else {
-            writer.writeValue(null, column);
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `column`
-in `lang/java/trevni/avro/src/main/java/org/apache/trevni/avro/AvroColumnWriter.java`
-#### Snippet
-```java
-          } else {
-            writer.writeValue(null, column);
-            column = write(o, branch, column + 1);
-          }
-        }
-```
-
-### AssignmentToMethodParameter
 Assignment to method parameter `value`
-in `lang/java/trevni/avro/src/main/java/org/apache/trevni/avro/AvroColumnWriter.java`
+in `lang/java/avro/src/main/java/org/apache/avro/Conversions.java`
 #### Snippet
 ```java
-    case STRING:
-      if (value instanceof Utf8) // convert Utf8 to String
-        value = value.toString();
-      break;
-    case ENUM:
-```
+    @Override
+    public GenericFixed toFixed(BigDecimal value, Schema schema, LogicalType type) {
+      value = validate((LogicalTypes.Decimal) type, value);
 
-### AssignmentToMethodParameter
-Assignment to method parameter `value`
-in `lang/java/trevni/avro/src/main/java/org/apache/trevni/avro/AvroColumnWriter.java`
-#### Snippet
-```java
-    case ENUM:
-      if (value instanceof Enum)
-        value = ((Enum) value).ordinal();
-      else
-        value = s.getEnumOrdinal(value.toString());
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `value`
-in `lang/java/trevni/avro/src/main/java/org/apache/trevni/avro/AvroColumnWriter.java`
-#### Snippet
-```java
-        value = ((Enum) value).ordinal();
-      else
-        value = s.getEnumOrdinal(value.toString());
-      break;
-    case FIXED:
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `value`
-in `lang/java/trevni/avro/src/main/java/org/apache/trevni/avro/AvroColumnWriter.java`
-#### Snippet
-```java
-      break;
-    case FIXED:
-      value = ((GenericFixed) value).bytes();
-      break;
-    }
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `error`
-in `lang/java/ipc/src/main/java/org/apache/avro/ipc/generic/GenericResponder.java`
-#### Snippet
-```java
-  public void writeError(Schema schema, Object error, Encoder out) throws IOException {
-    if (error instanceof AvroRemoteException)
-      error = ((AvroRemoteException) error).getValue();
-    getDatumWriter(schema).write(error, out);
-  }
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `error`
-in `lang/java/ipc/src/main/java/org/apache/avro/ipc/reflect/ReflectResponder.java`
-#### Snippet
-```java
-  public void writeError(Schema schema, Object error, Encoder out) throws IOException {
-    if (error instanceof CharSequence)
-      error = error.toString(); // system error: convert
-    super.writeError(schema, error, out);
-  }
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `start`
-in `lang/java/trevni/core/src/main/java/org/apache/trevni/ColumnFileWriter.java`
-#### Snippet
-```java
-  private long[] computeStarts(long start) throws IOException {
-    long[] result = new long[columnCount];
-    start += columnCount * 8; // room for starts
-    for (int column = 0; column < columnCount; column++) {
-      result[column] = start;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `start`
-in `lang/java/trevni/core/src/main/java/org/apache/trevni/ColumnFileWriter.java`
-#### Snippet
-```java
-    for (int column = 0; column < columnCount; column++) {
-      result[column] = start;
-      start += columns[column].size();
-    }
-    return result;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `protocol`
-in `lang/java/compiler/src/main/java/org/apache/avro/compiler/specific/SpecificCompiler.java`
-#### Snippet
-```java
-
-  OutputFile compileInterface(Protocol protocol) {
-    protocol = addStringType(protocol); // annotate protocol as needed
-    VelocityContext context = new VelocityContext();
-    context.put("protocol", protocol);
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `schema`
-in `lang/java/compiler/src/main/java/org/apache/avro/compiler/specific/SpecificCompiler.java`
-#### Snippet
-```java
-
-  OutputFile compile(Schema schema) {
-    schema = addStringType(schema); // annotate schema as needed
-    String output = "";
-    VelocityContext context = new VelocityContext();
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `n`
-in `lang/java/trevni/core/src/main/java/org/apache/trevni/OutputBuffer.java`
-#### Snippet
-```java
-  public void writeLong(long n) throws IOException {
-    ensure(10);
-    n = (n << 1) ^ (n >> 63); // move sign to low-order bit
-    if ((n & ~0x7FL) != 0) {
-      buf[count++] = (byte) ((n | 0x80) & 0xFF);
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `n`
-in `lang/java/trevni/core/src/main/java/org/apache/trevni/OutputBuffer.java`
-#### Snippet
-```java
-    if ((n & ~0x7FL) != 0) {
-      buf[count++] = (byte) ((n | 0x80) & 0xFF);
-      n >>>= 7;
-      if (n > 0x7F) {
-        buf[count++] = (byte) ((n | 0x80) & 0xFF);
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `n`
-in `lang/java/trevni/core/src/main/java/org/apache/trevni/OutputBuffer.java`
-#### Snippet
-```java
-      if (n > 0x7F) {
-        buf[count++] = (byte) ((n | 0x80) & 0xFF);
-        n >>>= 7;
-        if (n > 0x7F) {
-          buf[count++] = (byte) ((n | 0x80) & 0xFF);
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `n`
-in `lang/java/trevni/core/src/main/java/org/apache/trevni/OutputBuffer.java`
-#### Snippet
-```java
-        if (n > 0x7F) {
-          buf[count++] = (byte) ((n | 0x80) & 0xFF);
-          n >>>= 7;
-          if (n > 0x7F) {
-            buf[count++] = (byte) ((n | 0x80) & 0xFF);
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `n`
-in `lang/java/trevni/core/src/main/java/org/apache/trevni/OutputBuffer.java`
-#### Snippet
-```java
-          if (n > 0x7F) {
-            buf[count++] = (byte) ((n | 0x80) & 0xFF);
-            n >>>= 7;
-            if (n > 0x7F) {
-              buf[count++] = (byte) ((n | 0x80) & 0xFF);
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `n`
-in `lang/java/trevni/core/src/main/java/org/apache/trevni/OutputBuffer.java`
-#### Snippet
-```java
-            if (n > 0x7F) {
-              buf[count++] = (byte) ((n | 0x80) & 0xFF);
-              n >>>= 7;
-              if (n > 0x7F) {
-                buf[count++] = (byte) ((n | 0x80) & 0xFF);
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `n`
-in `lang/java/trevni/core/src/main/java/org/apache/trevni/OutputBuffer.java`
-#### Snippet
-```java
-              if (n > 0x7F) {
-                buf[count++] = (byte) ((n | 0x80) & 0xFF);
-                n >>>= 7;
-                if (n > 0x7F) {
-                  buf[count++] = (byte) ((n | 0x80) & 0xFF);
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `n`
-in `lang/java/trevni/core/src/main/java/org/apache/trevni/OutputBuffer.java`
-#### Snippet
-```java
-                if (n > 0x7F) {
-                  buf[count++] = (byte) ((n | 0x80) & 0xFF);
-                  n >>>= 7;
-                  if (n > 0x7F) {
-                    buf[count++] = (byte) ((n | 0x80) & 0xFF);
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `n`
-in `lang/java/trevni/core/src/main/java/org/apache/trevni/OutputBuffer.java`
-#### Snippet
-```java
-                  if (n > 0x7F) {
-                    buf[count++] = (byte) ((n | 0x80) & 0xFF);
-                    n >>>= 7;
-                    if (n > 0x7F) {
-                      buf[count++] = (byte) ((n | 0x80) & 0xFF);
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `n`
-in `lang/java/trevni/core/src/main/java/org/apache/trevni/OutputBuffer.java`
-#### Snippet
-```java
-                    if (n > 0x7F) {
-                      buf[count++] = (byte) ((n | 0x80) & 0xFF);
-                      n >>>= 7;
-                    }
-                  }
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `n`
-in `lang/java/trevni/core/src/main/java/org/apache/trevni/OutputBuffer.java`
-#### Snippet
-```java
-  public void writeInt(int n) {
-    ensure(5);
-    n = (n << 1) ^ (n >> 31); // move sign to low-order bit
-    if ((n & ~0x7F) != 0) {
-      buf[count++] = (byte) ((n | 0x80) & 0xFF);
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `n`
-in `lang/java/trevni/core/src/main/java/org/apache/trevni/OutputBuffer.java`
-#### Snippet
-```java
-    if ((n & ~0x7F) != 0) {
-      buf[count++] = (byte) ((n | 0x80) & 0xFF);
-      n >>>= 7;
-      if (n > 0x7F) {
-        buf[count++] = (byte) ((n | 0x80) & 0xFF);
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `n`
-in `lang/java/trevni/core/src/main/java/org/apache/trevni/OutputBuffer.java`
-#### Snippet
-```java
-      if (n > 0x7F) {
-        buf[count++] = (byte) ((n | 0x80) & 0xFF);
-        n >>>= 7;
-        if (n > 0x7F) {
-          buf[count++] = (byte) ((n | 0x80) & 0xFF);
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `n`
-in `lang/java/trevni/core/src/main/java/org/apache/trevni/OutputBuffer.java`
-#### Snippet
-```java
-        if (n > 0x7F) {
-          buf[count++] = (byte) ((n | 0x80) & 0xFF);
-          n >>>= 7;
-          if (n > 0x7F) {
-            buf[count++] = (byte) ((n | 0x80) & 0xFF);
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `n`
-in `lang/java/trevni/core/src/main/java/org/apache/trevni/OutputBuffer.java`
-#### Snippet
-```java
-          if (n > 0x7F) {
-            buf[count++] = (byte) ((n | 0x80) & 0xFF);
-            n >>>= 7;
-          }
-        }
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `n`
-in `lang/java/trevni/core/src/main/java/org/apache/trevni/OutputBuffer.java`
-#### Snippet
-```java
-
-  public static int size(long n) {
-    n = (n << 1) ^ (n >> 63); // move sign to low-order bit
-    if (n <= (1 << (7 * 1)) - 1)
-      return 1;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `n`
-in `lang/java/trevni/core/src/main/java/org/apache/trevni/OutputBuffer.java`
-#### Snippet
-```java
-
-  public static int size(int n) {
-    n = (n << 1) ^ (n >> 31); // move sign to low-order bit
-    if (n <= (1 << (7 * 1)) - 1)
-      return 1;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `l`
-in `lang/java/trevni/core/src/main/java/org/apache/trevni/InputBuffer.java`
-#### Snippet
-```java
-    int len = 1;
-    int b = buf[pos] & 0xff;
-    l ^= (b & 0x7fL) << 28;
-    if (b > 0x7f) {
-      b = buf[pos + len++] & 0xff;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `l`
-in `lang/java/trevni/core/src/main/java/org/apache/trevni/InputBuffer.java`
-#### Snippet
-```java
-    if (b > 0x7f) {
-      b = buf[pos + len++] & 0xff;
-      l ^= (b & 0x7fL) << 35;
-      if (b > 0x7f) {
-        b = buf[pos + len++] & 0xff;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `l`
-in `lang/java/trevni/core/src/main/java/org/apache/trevni/InputBuffer.java`
-#### Snippet
-```java
-      if (b > 0x7f) {
-        b = buf[pos + len++] & 0xff;
-        l ^= (b & 0x7fL) << 42;
-        if (b > 0x7f) {
-          b = buf[pos + len++] & 0xff;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `l`
-in `lang/java/trevni/core/src/main/java/org/apache/trevni/InputBuffer.java`
-#### Snippet
-```java
-        if (b > 0x7f) {
-          b = buf[pos + len++] & 0xff;
-          l ^= (b & 0x7fL) << 49;
-          if (b > 0x7f) {
-            b = buf[pos + len++] & 0xff;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `l`
-in `lang/java/trevni/core/src/main/java/org/apache/trevni/InputBuffer.java`
-#### Snippet
-```java
-          if (b > 0x7f) {
-            b = buf[pos + len++] & 0xff;
-            l ^= (b & 0x7fL) << 56;
-            if (b > 0x7f) {
-              b = buf[pos + len++] & 0xff;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `l`
-in `lang/java/trevni/core/src/main/java/org/apache/trevni/InputBuffer.java`
-#### Snippet
-```java
-            if (b > 0x7f) {
-              b = buf[pos + len++] & 0xff;
-              l ^= (b & 0x7fL) << 63;
-              if (b > 0x7f) {
-                throw new IOException("Invalid long encoding");
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `start`
-in `lang/java/trevni/core/src/main/java/org/apache/trevni/InputBuffer.java`
-#### Snippet
-```java
-
-      System.arraycopy(buf, pos, bytes, start, buffered); // consume buffer
-      start += buffered;
-      len -= buffered;
-      pos += buffered;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `len`
-in `lang/java/trevni/core/src/main/java/org/apache/trevni/InputBuffer.java`
-#### Snippet
-```java
-      System.arraycopy(buf, pos, bytes, start, buffered); // consume buffer
-      start += buffered;
-      len -= buffered;
-      pos += buffered;
-      if (len > buf.length) { // bigger than buffer
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `len`
-in `lang/java/trevni/core/src/main/java/org/apache/trevni/InputBuffer.java`
-#### Snippet
-```java
-        do {
-          int read = readInput(bytes, start, len); // read directly into result
-          len -= read;
-          start += read;
-        } while (len > 0);
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `start`
-in `lang/java/trevni/core/src/main/java/org/apache/trevni/InputBuffer.java`
-#### Snippet
-```java
-          int read = readInput(bytes, start, len); // read directly into result
-          len -= read;
-          start += read;
-        } while (len > 0);
-        return;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `avroWrapperToReuse`
-in `lang/java/mapred/src/main/java/org/apache/avro/hadoop/io/AvroDeserializer.java`
-#### Snippet
-```java
-    // Create a new Avro wrapper if there isn't one to reuse.
-    if (null == avroWrapperToReuse) {
-      avroWrapperToReuse = createAvroWrapper();
-    }
-
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `wrapper`
-in `lang/java/mapred/src/main/java/org/apache/avro/mapred/AvroSerialization.java`
-#### Snippet
-```java
-      T datum = reader.read(wrapper == null ? null : wrapper.datum(), decoder);
-      if (wrapper == null) {
-        wrapper = isKey ? new AvroKey<>(datum) : new AvroValue<>(datum);
-      } else {
-        wrapper.datum(datum);
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `datum`
-in `lang/java/mapred/src/main/java/org/apache/avro/mapred/tether/TetherKeySerialization.java`
-#### Snippet
-```java
-    public TetherData deserialize(TetherData datum) throws IOException {
-      if (datum == null)
-        datum = new TetherData();
-      datum.buffer(decoder.readBytes(datum.buffer()));
-      return datum;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `proto`
-in `lang/java/mapred/src/main/java/org/apache/avro/mapred/tether/TetherJob.java`
-#### Snippet
-```java
-   */
-  public static void setProtocol(JobConf job, String proto) throws IOException {
-    proto = proto.trim().toLowerCase();
-
-    if (!(proto.equals("http") || proto.equals("sasl"))) {
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `connectTimeoutMillis`
-in `lang/java/ipc-netty/src/main/java/org/apache/avro/ipc/netty/NettyTransceiver.java`
-#### Snippet
-```java
-    // Set up.
-    if (connectTimeoutMillis == null) {
-      connectTimeoutMillis = DEFAULT_CONNECTION_TIMEOUT_MILLIS;
-    }
-    this.connectTimeoutMillis = connectTimeoutMillis;
+      byte fillByte = (byte) (value.signum() < 0 ? 0xFF : 0x00);
 ```
 
 ### AssignmentToMethodParameter
@@ -13505,18 +12943,6 @@ in `lang/java/avro/src/main/java/org/apache/avro/Conversions.java`
           value = value.setScale(scale, RoundingMode.UNNECESSARY);
           scaleAdjusted = true;
         } catch (ArithmeticException aex) {
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `value`
-in `lang/java/avro/src/main/java/org/apache/avro/Conversions.java`
-#### Snippet
-```java
-    @Override
-    public GenericFixed toFixed(BigDecimal value, Schema schema, LogicalType type) {
-      value = validate((LogicalTypes.Decimal) type, value);
-
-      byte fillByte = (byte) (value.signum() < 0 ? 0xFF : 0x00);
 ```
 
 ### AssignmentToMethodParameter
@@ -13541,6 +12967,126 @@ in `lang/java/avro/src/main/java/org/apache/avro/io/BinaryData.java`
     while ((bytes[start++] & 0x80) != 0) {
     }
     return start;
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `n`
+in `lang/java/avro/src/main/java/org/apache/avro/io/BinaryData.java`
+#### Snippet
+```java
+  public static int encodeInt(int n, byte[] buf, int pos) {
+    // move sign to low-order bit, and flip others if negative
+    n = (n << 1) ^ (n >> 31);
+    int start = pos;
+    if ((n & ~0x7F) != 0) {
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `pos`
+in `lang/java/avro/src/main/java/org/apache/avro/io/BinaryData.java`
+#### Snippet
+```java
+    int start = pos;
+    if ((n & ~0x7F) != 0) {
+      buf[pos++] = (byte) ((n | 0x80) & 0xFF);
+      n >>>= 7;
+      if (n > 0x7F) {
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `n`
+in `lang/java/avro/src/main/java/org/apache/avro/io/BinaryData.java`
+#### Snippet
+```java
+    if ((n & ~0x7F) != 0) {
+      buf[pos++] = (byte) ((n | 0x80) & 0xFF);
+      n >>>= 7;
+      if (n > 0x7F) {
+        buf[pos++] = (byte) ((n | 0x80) & 0xFF);
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `pos`
+in `lang/java/avro/src/main/java/org/apache/avro/io/BinaryData.java`
+#### Snippet
+```java
+      n >>>= 7;
+      if (n > 0x7F) {
+        buf[pos++] = (byte) ((n | 0x80) & 0xFF);
+        n >>>= 7;
+        if (n > 0x7F) {
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `n`
+in `lang/java/avro/src/main/java/org/apache/avro/io/BinaryData.java`
+#### Snippet
+```java
+      if (n > 0x7F) {
+        buf[pos++] = (byte) ((n | 0x80) & 0xFF);
+        n >>>= 7;
+        if (n > 0x7F) {
+          buf[pos++] = (byte) ((n | 0x80) & 0xFF);
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `pos`
+in `lang/java/avro/src/main/java/org/apache/avro/io/BinaryData.java`
+#### Snippet
+```java
+        n >>>= 7;
+        if (n > 0x7F) {
+          buf[pos++] = (byte) ((n | 0x80) & 0xFF);
+          n >>>= 7;
+          if (n > 0x7F) {
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `n`
+in `lang/java/avro/src/main/java/org/apache/avro/io/BinaryData.java`
+#### Snippet
+```java
+        if (n > 0x7F) {
+          buf[pos++] = (byte) ((n | 0x80) & 0xFF);
+          n >>>= 7;
+          if (n > 0x7F) {
+            buf[pos++] = (byte) ((n | 0x80) & 0xFF);
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `pos`
+in `lang/java/avro/src/main/java/org/apache/avro/io/BinaryData.java`
+#### Snippet
+```java
+          n >>>= 7;
+          if (n > 0x7F) {
+            buf[pos++] = (byte) ((n | 0x80) & 0xFF);
+            n >>>= 7;
+          }
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `n`
+in `lang/java/avro/src/main/java/org/apache/avro/io/BinaryData.java`
+#### Snippet
+```java
+          if (n > 0x7F) {
+            buf[pos++] = (byte) ((n | 0x80) & 0xFF);
+            n >>>= 7;
+          }
+        }
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `pos`
+in `lang/java/avro/src/main/java/org/apache/avro/io/BinaryData.java`
+#### Snippet
+```java
+      }
+    }
+    buf[pos++] = (byte) n;
+    return pos - start;
+  }
 ```
 
 ### AssignmentToMethodParameter
@@ -13784,138 +13330,6 @@ in `lang/java/avro/src/main/java/org/apache/avro/io/BinaryData.java`
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `n`
-in `lang/java/avro/src/main/java/org/apache/avro/io/BinaryData.java`
-#### Snippet
-```java
-  public static int encodeInt(int n, byte[] buf, int pos) {
-    // move sign to low-order bit, and flip others if negative
-    n = (n << 1) ^ (n >> 31);
-    int start = pos;
-    if ((n & ~0x7F) != 0) {
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `pos`
-in `lang/java/avro/src/main/java/org/apache/avro/io/BinaryData.java`
-#### Snippet
-```java
-    int start = pos;
-    if ((n & ~0x7F) != 0) {
-      buf[pos++] = (byte) ((n | 0x80) & 0xFF);
-      n >>>= 7;
-      if (n > 0x7F) {
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `n`
-in `lang/java/avro/src/main/java/org/apache/avro/io/BinaryData.java`
-#### Snippet
-```java
-    if ((n & ~0x7F) != 0) {
-      buf[pos++] = (byte) ((n | 0x80) & 0xFF);
-      n >>>= 7;
-      if (n > 0x7F) {
-        buf[pos++] = (byte) ((n | 0x80) & 0xFF);
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `pos`
-in `lang/java/avro/src/main/java/org/apache/avro/io/BinaryData.java`
-#### Snippet
-```java
-      n >>>= 7;
-      if (n > 0x7F) {
-        buf[pos++] = (byte) ((n | 0x80) & 0xFF);
-        n >>>= 7;
-        if (n > 0x7F) {
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `n`
-in `lang/java/avro/src/main/java/org/apache/avro/io/BinaryData.java`
-#### Snippet
-```java
-      if (n > 0x7F) {
-        buf[pos++] = (byte) ((n | 0x80) & 0xFF);
-        n >>>= 7;
-        if (n > 0x7F) {
-          buf[pos++] = (byte) ((n | 0x80) & 0xFF);
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `pos`
-in `lang/java/avro/src/main/java/org/apache/avro/io/BinaryData.java`
-#### Snippet
-```java
-        n >>>= 7;
-        if (n > 0x7F) {
-          buf[pos++] = (byte) ((n | 0x80) & 0xFF);
-          n >>>= 7;
-          if (n > 0x7F) {
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `n`
-in `lang/java/avro/src/main/java/org/apache/avro/io/BinaryData.java`
-#### Snippet
-```java
-        if (n > 0x7F) {
-          buf[pos++] = (byte) ((n | 0x80) & 0xFF);
-          n >>>= 7;
-          if (n > 0x7F) {
-            buf[pos++] = (byte) ((n | 0x80) & 0xFF);
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `pos`
-in `lang/java/avro/src/main/java/org/apache/avro/io/BinaryData.java`
-#### Snippet
-```java
-          n >>>= 7;
-          if (n > 0x7F) {
-            buf[pos++] = (byte) ((n | 0x80) & 0xFF);
-            n >>>= 7;
-          }
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `n`
-in `lang/java/avro/src/main/java/org/apache/avro/io/BinaryData.java`
-#### Snippet
-```java
-          if (n > 0x7F) {
-            buf[pos++] = (byte) ((n | 0x80) & 0xFF);
-            n >>>= 7;
-          }
-        }
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `pos`
-in `lang/java/avro/src/main/java/org/apache/avro/io/BinaryData.java`
-#### Snippet
-```java
-      }
-    }
-    buf[pos++] = (byte) n;
-    return pos - start;
-  }
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `len`
-in `lang/java/avro/src/main/java/org/apache/avro/io/BlockingBinaryEncoder.java`
-#### Snippet
-```java
-          if (buf.length <= len) {
-            super.writeFixed(b, off, len);
-            len = 0;
-          }
-        }
-```
-
-### AssignmentToMethodParameter
 Assignment to method parameter `length`
 in `lang/java/avro/src/main/java/org/apache/avro/io/DirectBinaryDecoder.java`
 #### Snippet
@@ -13949,6 +13363,18 @@ in `lang/java/avro/src/main/java/org/apache/avro/io/DirectBinaryDecoder.java`
       length -= n;
     }
   }
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `len`
+in `lang/java/avro/src/main/java/org/apache/avro/io/BlockingBinaryEncoder.java`
+#### Snippet
+```java
+          if (buf.length <= len) {
+            super.writeFixed(b, off, len);
+            len = 0;
+          }
+        }
 ```
 
 ### AssignmentToMethodParameter
@@ -14024,15 +13450,15 @@ in `lang/java/avro/src/main/java/org/apache/avro/io/DecoderFactory.java`
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `length`
+Assignment to method parameter `start`
 in `lang/java/avro/src/main/java/org/apache/avro/io/BinaryDecoder.java`
 #### Snippet
 ```java
-        long n = in.skip(length);
-        if (n > 0) {
-          length -= n;
-          continue;
-        }
+      // read the rest of the buffer
+      System.arraycopy(buf, pos, bytes, start, remaining);
+      start += remaining;
+      length -= remaining;
+      pos = limit;
 ```
 
 ### AssignmentToMethodParameter
@@ -14040,11 +13466,11 @@ Assignment to method parameter `length`
 in `lang/java/avro/src/main/java/org/apache/avro/io/BinaryDecoder.java`
 #### Snippet
 ```java
-    } else {
-      limit = pos = 0;
+      System.arraycopy(buf, pos, bytes, start, remaining);
+      start += remaining;
       length -= remaining;
-      source.skipSourceBytes(length);
-    }
+      pos = limit;
+      // finish from the byte source
 ```
 
 ### AssignmentToMethodParameter
@@ -14072,15 +13498,15 @@ in `lang/java/avro/src/main/java/org/apache/avro/io/BinaryDecoder.java`
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `start`
+Assignment to method parameter `length`
 in `lang/java/avro/src/main/java/org/apache/avro/io/BinaryDecoder.java`
 #### Snippet
 ```java
-      // read the rest of the buffer
-      System.arraycopy(buf, pos, bytes, start, remaining);
-      start += remaining;
-      length -= remaining;
-      pos = limit;
+        long n = in.skip(length);
+        if (n > 0) {
+          length -= n;
+          continue;
+        }
 ```
 
 ### AssignmentToMethodParameter
@@ -14088,11 +13514,11 @@ Assignment to method parameter `length`
 in `lang/java/avro/src/main/java/org/apache/avro/io/BinaryDecoder.java`
 #### Snippet
 ```java
-      System.arraycopy(buf, pos, bytes, start, remaining);
-      start += remaining;
+    } else {
+      limit = pos = 0;
       length -= remaining;
-      pos = limit;
-      // finish from the byte source
+      source.skipSourceBytes(length);
+    }
 ```
 
 ### AssignmentToMethodParameter
@@ -14180,15 +13606,27 @@ in `lang/java/avro/src/main/java/org/apache/avro/io/BinaryDecoder.java`
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `reuse`
-in `lang/java/avro/src/main/java/org/apache/avro/file/DataFileStream.java`
+Assignment to method parameter `protocol`
+in `lang/java/compiler/src/main/java/org/apache/avro/compiler/specific/SpecificCompiler.java`
 #### Snippet
 ```java
-    }
-    if (reuse == null || reuse.data.length < (int) blockSize) {
-      reuse = new DataBlock(blockRemaining, (int) blockSize);
-    } else {
-      reuse.numEntries = blockRemaining;
+
+  OutputFile compileInterface(Protocol protocol) {
+    protocol = addStringType(protocol); // annotate protocol as needed
+    VelocityContext context = new VelocityContext();
+    context.put("protocol", protocol);
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `schema`
+in `lang/java/compiler/src/main/java/org/apache/avro/compiler/specific/SpecificCompiler.java`
+#### Snippet
+```java
+
+  OutputFile compile(Schema schema) {
+    schema = addStringType(schema); // annotate schema as needed
+    String output = "";
+    VelocityContext context = new VelocityContext();
 ```
 
 ### AssignmentToMethodParameter
@@ -14201,6 +13639,18 @@ in `lang/java/avro/src/main/java/org/apache/avro/file/DataFileStream.java`
     magic = (magic == null) ? readMagic() : magic;
     validateMagic(magic);
 
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `reuse`
+in `lang/java/avro/src/main/java/org/apache/avro/file/DataFileStream.java`
+#### Snippet
+```java
+    }
+    if (reuse == null || reuse.data.length < (int) blockSize) {
+      reuse = new DataBlock(blockRemaining, (int) blockSize);
+    } else {
+      reuse.numEntries = blockRemaining;
 ```
 
 ### AssignmentToMethodParameter
@@ -14228,174 +13678,6 @@ in `lang/java/avro/src/main/java/org/apache/avro/util/ByteBufferOutputStream.jav
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `array`
-in `lang/java/avro/src/main/java/org/apache/avro/reflect/ArrayAccessor.java`
-#### Snippet
-```java
-      int limit = index + (int) l;
-      if (array.length < limit) {
-        array = Arrays.copyOf(array, limit);
-      }
-      while (index < limit) {
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `l`
-in `lang/java/avro/src/main/java/org/apache/avro/reflect/ArrayAccessor.java`
-#### Snippet
-```java
-        index++;
-      }
-    } while ((l = in.arrayNext()) > 0);
-    return array;
-  }
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `array`
-in `lang/java/avro/src/main/java/org/apache/avro/reflect/ArrayAccessor.java`
-#### Snippet
-```java
-      int limit = index + (int) l;
-      if (array.length < limit) {
-        array = Arrays.copyOf(array, limit);
-      }
-      while (index < limit) {
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `l`
-in `lang/java/avro/src/main/java/org/apache/avro/reflect/ArrayAccessor.java`
-#### Snippet
-```java
-        index++;
-      }
-    } while ((l = in.arrayNext()) > 0);
-    return array;
-  }
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `array`
-in `lang/java/avro/src/main/java/org/apache/avro/reflect/ArrayAccessor.java`
-#### Snippet
-```java
-      int limit = index + (int) l;
-      if (array.length < limit) {
-        array = Arrays.copyOf(array, limit);
-      }
-      while (index < limit) {
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `l`
-in `lang/java/avro/src/main/java/org/apache/avro/reflect/ArrayAccessor.java`
-#### Snippet
-```java
-        index++;
-      }
-    } while ((l = in.arrayNext()) > 0);
-    return array;
-  }
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `array`
-in `lang/java/avro/src/main/java/org/apache/avro/reflect/ArrayAccessor.java`
-#### Snippet
-```java
-      int limit = index + (int) l;
-      if (array.length < limit) {
-        array = Arrays.copyOf(array, limit);
-      }
-      while (index < limit) {
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `l`
-in `lang/java/avro/src/main/java/org/apache/avro/reflect/ArrayAccessor.java`
-#### Snippet
-```java
-        index++;
-      }
-    } while ((l = in.arrayNext()) > 0);
-    return array;
-  }
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `array`
-in `lang/java/avro/src/main/java/org/apache/avro/reflect/ArrayAccessor.java`
-#### Snippet
-```java
-      int limit = index + (int) l;
-      if (array.length < limit) {
-        array = Arrays.copyOf(array, limit);
-      }
-      while (index < limit) {
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `l`
-in `lang/java/avro/src/main/java/org/apache/avro/reflect/ArrayAccessor.java`
-#### Snippet
-```java
-        index++;
-      }
-    } while ((l = in.arrayNext()) > 0);
-    return array;
-  }
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `array`
-in `lang/java/avro/src/main/java/org/apache/avro/reflect/ArrayAccessor.java`
-#### Snippet
-```java
-      int limit = index + (int) l;
-      if (array.length < limit) {
-        array = Arrays.copyOf(array, limit);
-      }
-      while (index < limit) {
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `l`
-in `lang/java/avro/src/main/java/org/apache/avro/reflect/ArrayAccessor.java`
-#### Snippet
-```java
-        index++;
-      }
-    } while ((l = in.arrayNext()) > 0);
-    return array;
-  }
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `array`
-in `lang/java/avro/src/main/java/org/apache/avro/reflect/ArrayAccessor.java`
-#### Snippet
-```java
-      int limit = index + (int) l;
-      if (array.length < limit) {
-        array = Arrays.copyOf(array, limit);
-      }
-      while (index < limit) {
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `l`
-in `lang/java/avro/src/main/java/org/apache/avro/reflect/ArrayAccessor.java`
-#### Snippet
-```java
-        index++;
-      }
-    } while ((l = in.arrayNext()) > 0);
-    return array;
-  }
-```
-
-### AssignmentToMethodParameter
 Assignment to method parameter `space`
 in `lang/java/avro/src/main/java/org/apache/avro/SchemaBuilder.java`
 #### Snippet
@@ -14408,51 +13690,171 @@ in `lang/java/avro/src/main/java/org/apache/avro/SchemaBuilder.java`
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `l`
-in `lang/java/avro/src/main/java/org/apache/avro/reflect/ReflectDatumReader.java`
+Assignment to method parameter `array`
+in `lang/java/avro/src/main/java/org/apache/avro/reflect/ArrayAccessor.java`
 #### Snippet
 ```java
-          index++;
-        }
-      } while ((l = in.arrayNext()) > 0);
-    } else {
-      do {
+      int limit = index + (int) l;
+      if (array.length < limit) {
+        array = Arrays.copyOf(array, limit);
+      }
+      while (index < limit) {
 ```
 
 ### AssignmentToMethodParameter
 Assignment to method parameter `l`
-in `lang/java/avro/src/main/java/org/apache/avro/reflect/ReflectDatumReader.java`
+in `lang/java/avro/src/main/java/org/apache/avro/reflect/ArrayAccessor.java`
 #### Snippet
 ```java
-          index++;
-        }
-      } while ((l = in.arrayNext()) > 0);
-    }
+        index++;
+      }
+    } while ((l = in.arrayNext()) > 0);
     return array;
+  }
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `array`
+in `lang/java/avro/src/main/java/org/apache/avro/reflect/ArrayAccessor.java`
+#### Snippet
+```java
+      int limit = index + (int) l;
+      if (array.length < limit) {
+        array = Arrays.copyOf(array, limit);
+      }
+      while (index < limit) {
 ```
 
 ### AssignmentToMethodParameter
 Assignment to method parameter `l`
-in `lang/java/avro/src/main/java/org/apache/avro/reflect/ReflectDatumReader.java`
+in `lang/java/avro/src/main/java/org/apache/avro/reflect/ArrayAccessor.java`
 #### Snippet
 ```java
-          c.add(element);
-        }
-      } while ((l = in.arrayNext()) > 0);
-    } else {
-      do {
+        index++;
+      }
+    } while ((l = in.arrayNext()) > 0);
+    return array;
+  }
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `array`
+in `lang/java/avro/src/main/java/org/apache/avro/reflect/ArrayAccessor.java`
+#### Snippet
+```java
+      int limit = index + (int) l;
+      if (array.length < limit) {
+        array = Arrays.copyOf(array, limit);
+      }
+      while (index < limit) {
 ```
 
 ### AssignmentToMethodParameter
 Assignment to method parameter `l`
-in `lang/java/avro/src/main/java/org/apache/avro/reflect/ReflectDatumReader.java`
+in `lang/java/avro/src/main/java/org/apache/avro/reflect/ArrayAccessor.java`
 #### Snippet
 ```java
-          c.add(element);
-        }
-      } while ((l = in.arrayNext()) > 0);
-    }
-    return c;
+        index++;
+      }
+    } while ((l = in.arrayNext()) > 0);
+    return array;
+  }
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `array`
+in `lang/java/avro/src/main/java/org/apache/avro/reflect/ArrayAccessor.java`
+#### Snippet
+```java
+      int limit = index + (int) l;
+      if (array.length < limit) {
+        array = Arrays.copyOf(array, limit);
+      }
+      while (index < limit) {
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `l`
+in `lang/java/avro/src/main/java/org/apache/avro/reflect/ArrayAccessor.java`
+#### Snippet
+```java
+        index++;
+      }
+    } while ((l = in.arrayNext()) > 0);
+    return array;
+  }
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `array`
+in `lang/java/avro/src/main/java/org/apache/avro/reflect/ArrayAccessor.java`
+#### Snippet
+```java
+      int limit = index + (int) l;
+      if (array.length < limit) {
+        array = Arrays.copyOf(array, limit);
+      }
+      while (index < limit) {
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `l`
+in `lang/java/avro/src/main/java/org/apache/avro/reflect/ArrayAccessor.java`
+#### Snippet
+```java
+        index++;
+      }
+    } while ((l = in.arrayNext()) > 0);
+    return array;
+  }
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `array`
+in `lang/java/avro/src/main/java/org/apache/avro/reflect/ArrayAccessor.java`
+#### Snippet
+```java
+      int limit = index + (int) l;
+      if (array.length < limit) {
+        array = Arrays.copyOf(array, limit);
+      }
+      while (index < limit) {
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `l`
+in `lang/java/avro/src/main/java/org/apache/avro/reflect/ArrayAccessor.java`
+#### Snippet
+```java
+        index++;
+      }
+    } while ((l = in.arrayNext()) > 0);
+    return array;
+  }
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `array`
+in `lang/java/avro/src/main/java/org/apache/avro/reflect/ArrayAccessor.java`
+#### Snippet
+```java
+      int limit = index + (int) l;
+      if (array.length < limit) {
+        array = Arrays.copyOf(array, limit);
+      }
+      while (index < limit) {
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `l`
+in `lang/java/avro/src/main/java/org/apache/avro/reflect/ArrayAccessor.java`
+#### Snippet
+```java
+        index++;
+      }
+    } while ((l = in.arrayNext()) > 0);
+    return array;
+  }
 ```
 
 ### AssignmentToMethodParameter
@@ -14528,6 +13930,54 @@ in `lang/java/avro/src/main/java/org/apache/avro/specific/SpecificDatumWriter.ja
 ```
 
 ### AssignmentToMethodParameter
+Assignment to method parameter `l`
+in `lang/java/avro/src/main/java/org/apache/avro/reflect/ReflectDatumReader.java`
+#### Snippet
+```java
+          c.add(element);
+        }
+      } while ((l = in.arrayNext()) > 0);
+    } else {
+      do {
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `l`
+in `lang/java/avro/src/main/java/org/apache/avro/reflect/ReflectDatumReader.java`
+#### Snippet
+```java
+          c.add(element);
+        }
+      } while ((l = in.arrayNext()) > 0);
+    }
+    return c;
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `l`
+in `lang/java/avro/src/main/java/org/apache/avro/reflect/ReflectDatumReader.java`
+#### Snippet
+```java
+          index++;
+        }
+      } while ((l = in.arrayNext()) > 0);
+    } else {
+      do {
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `l`
+in `lang/java/avro/src/main/java/org/apache/avro/reflect/ReflectDatumReader.java`
+#### Snippet
+```java
+          index++;
+        }
+      } while ((l = in.arrayNext()) > 0);
+    }
+    return array;
+```
+
+### AssignmentToMethodParameter
 Assignment to method parameter `old`
 in `lang/java/avro/src/main/java/org/apache/avro/specific/SpecificDatumReader.java`
 #### Snippet
@@ -14540,27 +13990,15 @@ in `lang/java/avro/src/main/java/org/apache/avro/specific/SpecificDatumReader.ja
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `containing`
-in `lang/java/protobuf/src/main/java/org/apache/avro/protobuf/ProtobufData.java`
+Assignment to method parameter `avroWrapperToReuse`
+in `lang/java/mapred/src/main/java/org/apache/avro/hadoop/io/AvroDeserializer.java`
 #### Snippet
 ```java
-        inner.insert(0, containing.getName() + "$");
-      }
-      containing = containing.getContainingType();
+    // Create a new Avro wrapper if there isn't one to reuse.
+    if (null == avroWrapperToReuse) {
+      avroWrapperToReuse = createAvroWrapper();
     }
-    String d1 = (!outer.isEmpty() || inner.length() != 0 ? "." : "");
-```
 
-### AssignmentToMethodParameter
-Assignment to method parameter `word`
-in `lang/java/avro/src/main/java/org/apache/avro/specific/SpecificData.java`
-#### Snippet
-```java
-  protected static String unmangle(String word) {
-    while (word.endsWith("$")) {
-      word = word.substring(0, word.length() - 1);
-    }
-    return word;
 ```
 
 ### AssignmentToMethodParameter
@@ -14576,6 +14014,54 @@ in `lang/java/avro/src/main/java/org/apache/avro/specific/SpecificData.java`
 ```
 
 ### AssignmentToMethodParameter
+Assignment to method parameter `word`
+in `lang/java/avro/src/main/java/org/apache/avro/specific/SpecificData.java`
+#### Snippet
+```java
+  protected static String unmangle(String word) {
+    while (word.endsWith("$")) {
+      word = word.substring(0, word.length() - 1);
+    }
+    return word;
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `wrapper`
+in `lang/java/mapred/src/main/java/org/apache/avro/mapred/AvroSerialization.java`
+#### Snippet
+```java
+      T datum = reader.read(wrapper == null ? null : wrapper.datum(), decoder);
+      if (wrapper == null) {
+        wrapper = isKey ? new AvroKey<>(datum) : new AvroValue<>(datum);
+      } else {
+        wrapper.datum(datum);
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `datum`
+in `lang/java/mapred/src/main/java/org/apache/avro/mapred/tether/TetherKeySerialization.java`
+#### Snippet
+```java
+    public TetherData deserialize(TetherData datum) throws IOException {
+      if (datum == null)
+        datum = new TetherData();
+      datum.buffer(decoder.readBytes(datum.buffer()));
+      return datum;
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `proto`
+in `lang/java/mapred/src/main/java/org/apache/avro/mapred/tether/TetherJob.java`
+#### Snippet
+```java
+   */
+  public static void setProtocol(JobConf job, String proto) throws IOException {
+    proto = proto.trim().toLowerCase();
+
+    if (!(proto.equals("http") || proto.equals("sasl"))) {
+```
+
+### AssignmentToMethodParameter
 Assignment to method parameter `c`
 in `lang/java/avro/src/main/java/org/apache/avro/reflect/ReflectData.java`
 #### Snippet
@@ -14585,6 +14071,534 @@ in `lang/java/avro/src/main/java/org/apache/avro/reflect/ReflectData.java`
         c = c.getSuperclass();
       }
       simpleName = c.getSimpleName();
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `value`
+in `lang/java/trevni/avro/src/main/java/org/apache/trevni/avro/AvroColumnWriter.java`
+#### Snippet
+```java
+    case STRING:
+      if (value instanceof Utf8) // convert Utf8 to String
+        value = value.toString();
+      break;
+    case ENUM:
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `value`
+in `lang/java/trevni/avro/src/main/java/org/apache/trevni/avro/AvroColumnWriter.java`
+#### Snippet
+```java
+    case ENUM:
+      if (value instanceof Enum)
+        value = ((Enum) value).ordinal();
+      else
+        value = s.getEnumOrdinal(value.toString());
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `value`
+in `lang/java/trevni/avro/src/main/java/org/apache/trevni/avro/AvroColumnWriter.java`
+#### Snippet
+```java
+        value = ((Enum) value).ordinal();
+      else
+        value = s.getEnumOrdinal(value.toString());
+      break;
+    case FIXED:
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `value`
+in `lang/java/trevni/avro/src/main/java/org/apache/trevni/avro/AvroColumnWriter.java`
+#### Snippet
+```java
+      break;
+    case FIXED:
+      value = ((GenericFixed) value).bytes();
+      break;
+    }
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `column`
+in `lang/java/trevni/avro/src/main/java/org/apache/trevni/avro/AvroColumnWriter.java`
+#### Snippet
+```java
+    case RECORD:
+      for (Field f : s.getFields())
+        column = write(model.getField(o, f.name(), f.pos()), f.schema(), column);
+      return column;
+    case ARRAY:
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `column`
+in `lang/java/trevni/avro/src/main/java/org/apache/trevni/avro/AvroColumnWriter.java`
+#### Snippet
+```java
+        if (!selected) {
+          writer.writeLength(0, column);
+          column += arrayWidths[column];
+        } else {
+          writer.writeLength(1, column);
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `column`
+in `lang/java/trevni/avro/src/main/java/org/apache/trevni/avro/AvroColumnWriter.java`
+#### Snippet
+```java
+          writer.writeLength(1, column);
+          if (isSimple(branch)) {
+            writeValue(o, branch, column++);
+          } else {
+            writer.writeValue(null, column);
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `column`
+in `lang/java/trevni/avro/src/main/java/org/apache/trevni/avro/AvroColumnWriter.java`
+#### Snippet
+```java
+          } else {
+            writer.writeValue(null, column);
+            column = write(o, branch, column + 1);
+          }
+        }
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `path`
+in `lang/java/trevni/avro/src/main/java/org/apache/trevni/avro/AvroColumnator.java`
+#### Snippet
+```java
+    if (isSimple(s)) {
+      if (path == null)
+        path = s.getFullName();
+      addColumn(path, simpleValueType(s), parent, isArray);
+      return;
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `path`
+in `lang/java/trevni/avro/src/main/java/org/apache/trevni/avro/AvroColumnator.java`
+#### Snippet
+```java
+    switch (s.getType()) {
+    case MAP:
+      path = path == null ? ">" : path + ">";
+      int start = columns.size();
+      ColumnMetaData p = addColumn(path, ValueType.NULL, parent, true);
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `path`
+in `lang/java/trevni/avro/src/main/java/org/apache/trevni/avro/AvroColumnator.java`
+#### Snippet
+```java
+      break;
+    case ARRAY:
+      path = path == null ? "[]" : path + "[]";
+      addArrayColumn(path, s.getElementType(), parent);
+      break;
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `path`
+in `lang/java/trevni/avro/src/main/java/org/apache/trevni/avro/AvroColumnator.java`
+#### Snippet
+```java
+  private void addArrayColumn(String path, Schema element, ColumnMetaData parent) {
+    if (path == null)
+      path = element.getFullName();
+    if (isSimple(element)) { // optimize simple arrays
+      addColumn(path, simpleValueType(element), parent, true);
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `error`
+in `lang/java/ipc/src/main/java/org/apache/avro/ipc/generic/GenericResponder.java`
+#### Snippet
+```java
+  public void writeError(Schema schema, Object error, Encoder out) throws IOException {
+    if (error instanceof AvroRemoteException)
+      error = ((AvroRemoteException) error).getValue();
+    getDatumWriter(schema).write(error, out);
+  }
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `error`
+in `lang/java/ipc/src/main/java/org/apache/avro/ipc/reflect/ReflectResponder.java`
+#### Snippet
+```java
+  public void writeError(Schema schema, Object error, Encoder out) throws IOException {
+    if (error instanceof CharSequence)
+      error = error.toString(); // system error: convert
+    super.writeError(schema, error, out);
+  }
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `n`
+in `lang/java/trevni/core/src/main/java/org/apache/trevni/OutputBuffer.java`
+#### Snippet
+```java
+  public void writeInt(int n) {
+    ensure(5);
+    n = (n << 1) ^ (n >> 31); // move sign to low-order bit
+    if ((n & ~0x7F) != 0) {
+      buf[count++] = (byte) ((n | 0x80) & 0xFF);
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `n`
+in `lang/java/trevni/core/src/main/java/org/apache/trevni/OutputBuffer.java`
+#### Snippet
+```java
+    if ((n & ~0x7F) != 0) {
+      buf[count++] = (byte) ((n | 0x80) & 0xFF);
+      n >>>= 7;
+      if (n > 0x7F) {
+        buf[count++] = (byte) ((n | 0x80) & 0xFF);
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `n`
+in `lang/java/trevni/core/src/main/java/org/apache/trevni/OutputBuffer.java`
+#### Snippet
+```java
+      if (n > 0x7F) {
+        buf[count++] = (byte) ((n | 0x80) & 0xFF);
+        n >>>= 7;
+        if (n > 0x7F) {
+          buf[count++] = (byte) ((n | 0x80) & 0xFF);
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `n`
+in `lang/java/trevni/core/src/main/java/org/apache/trevni/OutputBuffer.java`
+#### Snippet
+```java
+        if (n > 0x7F) {
+          buf[count++] = (byte) ((n | 0x80) & 0xFF);
+          n >>>= 7;
+          if (n > 0x7F) {
+            buf[count++] = (byte) ((n | 0x80) & 0xFF);
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `n`
+in `lang/java/trevni/core/src/main/java/org/apache/trevni/OutputBuffer.java`
+#### Snippet
+```java
+          if (n > 0x7F) {
+            buf[count++] = (byte) ((n | 0x80) & 0xFF);
+            n >>>= 7;
+          }
+        }
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `n`
+in `lang/java/trevni/core/src/main/java/org/apache/trevni/OutputBuffer.java`
+#### Snippet
+```java
+
+  public static int size(long n) {
+    n = (n << 1) ^ (n >> 63); // move sign to low-order bit
+    if (n <= (1 << (7 * 1)) - 1)
+      return 1;
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `n`
+in `lang/java/trevni/core/src/main/java/org/apache/trevni/OutputBuffer.java`
+#### Snippet
+```java
+  public void writeLong(long n) throws IOException {
+    ensure(10);
+    n = (n << 1) ^ (n >> 63); // move sign to low-order bit
+    if ((n & ~0x7FL) != 0) {
+      buf[count++] = (byte) ((n | 0x80) & 0xFF);
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `n`
+in `lang/java/trevni/core/src/main/java/org/apache/trevni/OutputBuffer.java`
+#### Snippet
+```java
+    if ((n & ~0x7FL) != 0) {
+      buf[count++] = (byte) ((n | 0x80) & 0xFF);
+      n >>>= 7;
+      if (n > 0x7F) {
+        buf[count++] = (byte) ((n | 0x80) & 0xFF);
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `n`
+in `lang/java/trevni/core/src/main/java/org/apache/trevni/OutputBuffer.java`
+#### Snippet
+```java
+      if (n > 0x7F) {
+        buf[count++] = (byte) ((n | 0x80) & 0xFF);
+        n >>>= 7;
+        if (n > 0x7F) {
+          buf[count++] = (byte) ((n | 0x80) & 0xFF);
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `n`
+in `lang/java/trevni/core/src/main/java/org/apache/trevni/OutputBuffer.java`
+#### Snippet
+```java
+        if (n > 0x7F) {
+          buf[count++] = (byte) ((n | 0x80) & 0xFF);
+          n >>>= 7;
+          if (n > 0x7F) {
+            buf[count++] = (byte) ((n | 0x80) & 0xFF);
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `n`
+in `lang/java/trevni/core/src/main/java/org/apache/trevni/OutputBuffer.java`
+#### Snippet
+```java
+          if (n > 0x7F) {
+            buf[count++] = (byte) ((n | 0x80) & 0xFF);
+            n >>>= 7;
+            if (n > 0x7F) {
+              buf[count++] = (byte) ((n | 0x80) & 0xFF);
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `n`
+in `lang/java/trevni/core/src/main/java/org/apache/trevni/OutputBuffer.java`
+#### Snippet
+```java
+            if (n > 0x7F) {
+              buf[count++] = (byte) ((n | 0x80) & 0xFF);
+              n >>>= 7;
+              if (n > 0x7F) {
+                buf[count++] = (byte) ((n | 0x80) & 0xFF);
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `n`
+in `lang/java/trevni/core/src/main/java/org/apache/trevni/OutputBuffer.java`
+#### Snippet
+```java
+              if (n > 0x7F) {
+                buf[count++] = (byte) ((n | 0x80) & 0xFF);
+                n >>>= 7;
+                if (n > 0x7F) {
+                  buf[count++] = (byte) ((n | 0x80) & 0xFF);
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `n`
+in `lang/java/trevni/core/src/main/java/org/apache/trevni/OutputBuffer.java`
+#### Snippet
+```java
+                if (n > 0x7F) {
+                  buf[count++] = (byte) ((n | 0x80) & 0xFF);
+                  n >>>= 7;
+                  if (n > 0x7F) {
+                    buf[count++] = (byte) ((n | 0x80) & 0xFF);
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `n`
+in `lang/java/trevni/core/src/main/java/org/apache/trevni/OutputBuffer.java`
+#### Snippet
+```java
+                  if (n > 0x7F) {
+                    buf[count++] = (byte) ((n | 0x80) & 0xFF);
+                    n >>>= 7;
+                    if (n > 0x7F) {
+                      buf[count++] = (byte) ((n | 0x80) & 0xFF);
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `n`
+in `lang/java/trevni/core/src/main/java/org/apache/trevni/OutputBuffer.java`
+#### Snippet
+```java
+                    if (n > 0x7F) {
+                      buf[count++] = (byte) ((n | 0x80) & 0xFF);
+                      n >>>= 7;
+                    }
+                  }
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `n`
+in `lang/java/trevni/core/src/main/java/org/apache/trevni/OutputBuffer.java`
+#### Snippet
+```java
+
+  public static int size(int n) {
+    n = (n << 1) ^ (n >> 31); // move sign to low-order bit
+    if (n <= (1 << (7 * 1)) - 1)
+      return 1;
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `start`
+in `lang/java/trevni/core/src/main/java/org/apache/trevni/ColumnFileWriter.java`
+#### Snippet
+```java
+  private long[] computeStarts(long start) throws IOException {
+    long[] result = new long[columnCount];
+    start += columnCount * 8; // room for starts
+    for (int column = 0; column < columnCount; column++) {
+      result[column] = start;
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `start`
+in `lang/java/trevni/core/src/main/java/org/apache/trevni/ColumnFileWriter.java`
+#### Snippet
+```java
+    for (int column = 0; column < columnCount; column++) {
+      result[column] = start;
+      start += columns[column].size();
+    }
+    return result;
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `start`
+in `lang/java/trevni/core/src/main/java/org/apache/trevni/InputBuffer.java`
+#### Snippet
+```java
+
+      System.arraycopy(buf, pos, bytes, start, buffered); // consume buffer
+      start += buffered;
+      len -= buffered;
+      pos += buffered;
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `len`
+in `lang/java/trevni/core/src/main/java/org/apache/trevni/InputBuffer.java`
+#### Snippet
+```java
+      System.arraycopy(buf, pos, bytes, start, buffered); // consume buffer
+      start += buffered;
+      len -= buffered;
+      pos += buffered;
+      if (len > buf.length) { // bigger than buffer
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `len`
+in `lang/java/trevni/core/src/main/java/org/apache/trevni/InputBuffer.java`
+#### Snippet
+```java
+        do {
+          int read = readInput(bytes, start, len); // read directly into result
+          len -= read;
+          start += read;
+        } while (len > 0);
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `start`
+in `lang/java/trevni/core/src/main/java/org/apache/trevni/InputBuffer.java`
+#### Snippet
+```java
+          int read = readInput(bytes, start, len); // read directly into result
+          len -= read;
+          start += read;
+        } while (len > 0);
+        return;
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `l`
+in `lang/java/trevni/core/src/main/java/org/apache/trevni/InputBuffer.java`
+#### Snippet
+```java
+    int len = 1;
+    int b = buf[pos] & 0xff;
+    l ^= (b & 0x7fL) << 28;
+    if (b > 0x7f) {
+      b = buf[pos + len++] & 0xff;
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `l`
+in `lang/java/trevni/core/src/main/java/org/apache/trevni/InputBuffer.java`
+#### Snippet
+```java
+    if (b > 0x7f) {
+      b = buf[pos + len++] & 0xff;
+      l ^= (b & 0x7fL) << 35;
+      if (b > 0x7f) {
+        b = buf[pos + len++] & 0xff;
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `l`
+in `lang/java/trevni/core/src/main/java/org/apache/trevni/InputBuffer.java`
+#### Snippet
+```java
+      if (b > 0x7f) {
+        b = buf[pos + len++] & 0xff;
+        l ^= (b & 0x7fL) << 42;
+        if (b > 0x7f) {
+          b = buf[pos + len++] & 0xff;
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `l`
+in `lang/java/trevni/core/src/main/java/org/apache/trevni/InputBuffer.java`
+#### Snippet
+```java
+        if (b > 0x7f) {
+          b = buf[pos + len++] & 0xff;
+          l ^= (b & 0x7fL) << 49;
+          if (b > 0x7f) {
+            b = buf[pos + len++] & 0xff;
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `l`
+in `lang/java/trevni/core/src/main/java/org/apache/trevni/InputBuffer.java`
+#### Snippet
+```java
+          if (b > 0x7f) {
+            b = buf[pos + len++] & 0xff;
+            l ^= (b & 0x7fL) << 56;
+            if (b > 0x7f) {
+              b = buf[pos + len++] & 0xff;
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `l`
+in `lang/java/trevni/core/src/main/java/org/apache/trevni/InputBuffer.java`
+#### Snippet
+```java
+            if (b > 0x7f) {
+              b = buf[pos + len++] & 0xff;
+              l ^= (b & 0x7fL) << 63;
+              if (b > 0x7f) {
+                throw new IOException("Invalid long encoding");
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `connectTimeoutMillis`
+in `lang/java/ipc-netty/src/main/java/org/apache/avro/ipc/netty/NettyTransceiver.java`
+#### Snippet
+```java
+    // Set up.
+    if (connectTimeoutMillis == null) {
+      connectTimeoutMillis = DEFAULT_CONNECTION_TIMEOUT_MILLIS;
+    }
+    this.connectTimeoutMillis = connectTimeoutMillis;
 ```
 
 ### AssignmentToMethodParameter
@@ -14639,14 +14653,38 @@ in `lang/java/avro/src/main/java/org/apache/avro/io/FastReaderBuilder.java`
 ## RuleId[ruleID=ReturnNull]
 ### ReturnNull
 Return of `null`
-in `lang/java/compiler/src/main/java/org/apache/avro/compiler/idl/DocCommentHelper.java`
+in `lang/java/protobuf/src/main/java/org/apache/avro/protobuf/ProtobufData.java`
 #### Snippet
 ```java
-    DocComment docComment = DOC.get();
-    DOC.remove();
-    return docComment == null ? null : docComment.text;
+      return getConversionByClass(clazz);
+    } catch (ClassNotFoundException e) {
+      return null;
+    }
   }
+```
 
+### ReturnNull
+Return of `null`
+in `lang/java/protobuf/src/main/java/org/apache/avro/protobuf/ProtobufData.java`
+#### Snippet
+```java
+  private JsonNode getDefault(FieldDescriptor f) {
+    if (f.isRequired()) // no default
+      return null;
+
+    if (f.isRepeated()) // empty array as repeated fields' default value
+```
+
+### ReturnNull
+Return of `null`
+in `lang/java/protobuf/src/main/java/org/apache/avro/protobuf/ProtobufData.java`
+#### Snippet
+```java
+    case MESSAGE:
+      if (!f.isRepeated() && !m.hasField(f))
+        return null;
+    default:
+      return m.getField(f);
 ```
 
 ### ReturnNull
@@ -14663,6 +14701,18 @@ in `lang/java/grpc/src/main/java/org/apache/avro/grpc/AvroResponseMarshaller.jav
 
 ### ReturnNull
 Return of `null`
+in `lang/java/compiler/src/main/java/org/apache/avro/compiler/idl/DocCommentHelper.java`
+#### Snippet
+```java
+    DocComment docComment = DOC.get();
+    DOC.remove();
+    return docComment == null ? null : docComment.text;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
 in `lang/java/grpc/src/main/java/org/apache/avro/grpc/AvroGrpcClient.java`
 #### Snippet
 ```java
@@ -14675,326 +14725,14 @@ in `lang/java/grpc/src/main/java/org/apache/avro/grpc/AvroGrpcClient.java`
 
 ### ReturnNull
 Return of `null`
-in `lang/java/maven-plugin/src/main/java/org/apache/avro/mojo/InduceMojo.java`
+in `lang/java/thrift/src/main/java/org/apache/avro/thrift/ThriftData.java`
 #### Snippet
 ```java
-    String namespacedFileName = fileName.substring(index + indentifier.length());
-    if (!namespacedFileName.endsWith(".java")) {
-      return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `lang/java/ipc/src/main/java/org/apache/avro/ipc/SaslSocketServer.java`
-#### Snippet
-```java
-    public byte[] evaluateResponse(byte[] response) throws SaslException {
-      this.user = new String(response, StandardCharsets.UTF_8);
-      return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `lang/java/ipc/src/main/java/org/apache/avro/ipc/SaslSocketServer.java`
-#### Snippet
-```java
-    @Override
-    public Object getNegotiatedProperty(String propName) {
-      return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `lang/java/ipc/src/main/java/org/apache/avro/ipc/Responder.java`
-#### Snippet
-```java
-
-      if (m.isOneWay() && wasConnected) // no response data
-        return null;
-
-      out.writeBoolean(error != null);
-```
-
-### ReturnNull
-Return of `null`
-in `lang/java/ipc/src/main/java/org/apache/avro/ipc/SaslSocketTransceiver.java`
-#### Snippet
-```java
-    @Override
-    public Object getNegotiatedProperty(String propName) {
-      return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `lang/java/ipc/src/main/java/org/apache/avro/ipc/Requestor.java`
-#### Snippet
-```java
-
-      if (lm.isOneWay() && t.isConnected())
-        return null; // one-way w/ handshake
-
-      RPCContext context = request.getContext();
-```
-
-### ReturnNull
-Return of `null`
-in `lang/java/ipc/src/main/java/org/apache/avro/ipc/Requestor.java`
-#### Snippet
-```java
-
-    if (future == null) // the message is one-way, so return immediately
-      return null;
-    try { // the message is two-way, wait for the result
-      return future.get();
-```
-
-### ReturnNull
-Return of `null`
-in `lang/java/ipc/src/main/java/org/apache/avro/ipc/specific/SpecificRequestor.java`
-#### Snippet
-```java
-          Callback<?> callback = (Callback<?>) args[args.length - 1];
-          request(method.getName(), finalArgs, callback);
-          return null;
-        } else {
-          return request(method.getName(), args);
-```
-
-### ReturnNull
-Return of `null`
-in `lang/java/trevni/core/src/main/java/org/apache/trevni/MetaData.java`
-#### Snippet
-```java
-      value = defaults.get(key);
-    if (value == null)
-      return null;
-    return new String(value, StandardCharsets.UTF_8);
-  }
-```
-
-### ReturnNull
-Return of `null`
-in `lang/java/compiler/src/main/java/org/apache/avro/compiler/specific/SpecificCompiler.java`
-#### Snippet
-```java
-      return schema.getLogicalType();
-    }
+    if (struct.isSet(f))
+      return struct.getFieldValue(f);
     return null;
   }
 
-```
-
-### ReturnNull
-Return of `null`
-in `lang/java/compiler/src/main/java/org/apache/avro/compiler/specific/SpecificCompiler.java`
-#### Snippet
-```java
-      return conversion.getConvertedType().getName();
-    }
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `lang/java/trevni/core/src/main/java/org/apache/trevni/InputBuffer.java`
-#### Snippet
-```java
-    switch (type) {
-    case NULL:
-      return null;
-    case BOOLEAN:
-      return (T) Boolean.valueOf(readBoolean());
-```
-
-### ReturnNull
-Return of `null`
-in `lang/java/mapred/src/main/java/org/apache/avro/hadoop/io/AvroKeyValue.java`
-#### Snippet
-```java
-      GenericRecord genericRecord = mGenericIterator.next();
-      if (null == genericRecord) {
-        return null;
-      }
-      return new AvroKeyValue<>(genericRecord);
-```
-
-### ReturnNull
-Return of `null`
-in `lang/java/mapred/src/main/java/org/apache/avro/hadoop/io/AvroSerialization.java`
-#### Snippet
-```java
-  public static Schema getValueWriterSchema(Configuration conf) {
-    String json = conf.get(CONF_VALUE_WRITER_SCHEMA);
-    return null == json ? null : new Schema.Parser().parse(json);
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `lang/java/mapred/src/main/java/org/apache/avro/hadoop/io/AvroSerialization.java`
-#### Snippet
-```java
-  public static Schema getKeyWriterSchema(Configuration conf) {
-    String json = conf.get(CONF_KEY_WRITER_SCHEMA);
-    return null == json ? null : new Schema.Parser().parse(json);
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `lang/java/mapred/src/main/java/org/apache/avro/hadoop/io/AvroSerialization.java`
-#### Snippet
-```java
-  public static Schema getValueReaderSchema(Configuration conf) {
-    String json = conf.get(CONF_VALUE_READER_SCHEMA);
-    return null == json ? null : new Schema.Parser().parse(json);
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `lang/java/mapred/src/main/java/org/apache/avro/hadoop/io/AvroSerialization.java`
-#### Snippet
-```java
-  public static Schema getKeyReaderSchema(Configuration conf) {
-    String json = conf.get(CONF_KEY_READER_SCHEMA);
-    return null == json ? null : new Schema.Parser().parse(json);
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `lang/java/mapred/src/main/java/org/apache/avro/hadoop/io/AvroDatumConverterFactory.java`
-#### Snippet
-```java
-    @Override
-    public Object convert(NullWritable input) {
-      return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `lang/java/mapred/src/main/java/org/apache/avro/mapred/AvroJob.java`
-#### Snippet
-```java
-  public static Schema getInputSchema(Configuration job) {
-    String schemaString = job.get(INPUT_SCHEMA);
-    return schemaString != null ? new Schema.Parser().parse(schemaString) : null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `lang/java/mapred/src/main/java/org/apache/avro/hadoop/file/SortedKeyValueFile.java`
-#### Snippet
-```java
-      if (null == indexEntry) {
-        LOG.debug("Key {} was not found in the index (it is before the first entry)", key);
-        return null;
-      }
-      LOG.debug("Key was found in the index, seeking to syncpoint {}", indexEntry.getValue());
-```
-
-### ReturnNull
-Return of `null`
-in `lang/java/mapred/src/main/java/org/apache/avro/hadoop/file/SortedKeyValueFile.java`
-#### Snippet
-```java
-          // We've passed it.
-          LOG.debug("Searched beyond the point where key {} would appear in the file", key);
-          return null;
-        }
-      }
-```
-
-### ReturnNull
-Return of `null`
-in `lang/java/mapred/src/main/java/org/apache/avro/hadoop/file/SortedKeyValueFile.java`
-#### Snippet
-```java
-      // We've reached the end of the file.
-      LOG.debug("Searched to the end of the file but did not find key {}", key);
-      return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `lang/java/mapred/src/main/java/org/apache/avro/mapreduce/AvroJob.java`
-#### Snippet
-```java
-  public static Schema getOutputKeySchema(Configuration conf) {
-    String schemaString = conf.get(CONF_OUTPUT_KEY_SCHEMA);
-    return schemaString != null ? new Schema.Parser().parse(schemaString) : null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `lang/java/mapred/src/main/java/org/apache/avro/mapreduce/AvroJob.java`
-#### Snippet
-```java
-  public static Schema getInputKeySchema(Configuration conf) {
-    String schemaString = conf.get(CONF_INPUT_KEY_SCHEMA);
-    return schemaString != null ? new Schema.Parser().parse(schemaString) : null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `lang/java/mapred/src/main/java/org/apache/avro/mapreduce/AvroJob.java`
-#### Snippet
-```java
-  public static Schema getOutputValueSchema(Configuration conf) {
-    String schemaString = conf.get(CONF_OUTPUT_VALUE_SCHEMA);
-    return schemaString != null ? new Schema.Parser().parse(schemaString) : null;
-  }
-}
-```
-
-### ReturnNull
-Return of `null`
-in `lang/java/mapred/src/main/java/org/apache/avro/mapreduce/AvroJob.java`
-#### Snippet
-```java
-  public static Schema getInputValueSchema(Configuration conf) {
-    String schemaString = conf.get(CONF_INPUT_VALUE_SCHEMA);
-    return schemaString != null ? new Schema.Parser().parse(schemaString) : null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `lang/java/ipc-netty/src/main/java/org/apache/avro/ipc/netty/NettyTransceiver.java`
-#### Snippet
-```java
-    } catch (InterruptedException | ExecutionException e) {
-      LOG.debug("failed to get the response", e);
-      return null;
-    }
-  }
 ```
 
 ### ReturnNull
@@ -15018,6 +14756,18 @@ in `lang/java/avro/src/main/java/org/apache/avro/LogicalTypes.java`
       // ignore invalid types
       return null;
     }
+
+```
+
+### ReturnNull
+Return of `null`
+in `lang/java/avro/src/main/java/org/apache/avro/JsonProperties.java`
+#### Snippet
+```java
+  public String getProp(String name) {
+    JsonNode value = getJsonProp(name);
+    return value != null && value.isTextual() ? value.textValue() : null;
+  }
 
 ```
 
@@ -15059,26 +14809,14 @@ in `lang/java/avro/src/main/java/org/apache/avro/io/ValidatingEncoder.java`
 
 ### ReturnNull
 Return of `null`
-in `lang/java/avro/src/main/java/org/apache/avro/JsonProperties.java`
+in `lang/java/avro/src/main/java/org/apache/avro/Protocol.java`
 #### Snippet
 ```java
-  public String getProp(String name) {
-    JsonNode value = getJsonProp(name);
-    return value != null && value.isTextual() ? value.textValue() : null;
+    JsonNode nameNode = json.get("doc");
+    if (nameNode == null)
+      return null; // no doc defined
+    return nameNode.textValue();
   }
-
-```
-
-### ReturnNull
-Return of `null`
-in `lang/java/avro/src/main/java/org/apache/avro/io/ResolvingDecoder.java`
-#### Snippet
-```java
-  public final Schema.Field[] readFieldOrderIfDiff() throws IOException {
-    Symbol.FieldOrderAction top = (Symbol.FieldOrderAction) parser.advance(Symbol.FIELD_ACTION);
-    return (top.noReorder ? null : top.fields);
-  }
-
 ```
 
 ### ReturnNull
@@ -15091,6 +14829,18 @@ in `lang/java/avro/src/main/java/org/apache/avro/io/JsonEncoder.java`
     return null;
   }
 }
+```
+
+### ReturnNull
+Return of `null`
+in `lang/java/avro/src/main/java/org/apache/avro/io/ResolvingDecoder.java`
+#### Snippet
+```java
+  public final Schema.Field[] readFieldOrderIfDiff() throws IOException {
+    Symbol.FieldOrderAction top = (Symbol.FieldOrderAction) parser.advance(Symbol.FIELD_ACTION);
+    return (top.noReorder ? null : top.fields);
+  }
+
 ```
 
 ### ReturnNull
@@ -15115,6 +14865,30 @@ in `lang/java/avro/src/main/java/org/apache/avro/io/ResolvingDecoder.java`
     return null;
   }
 
+```
+
+### ReturnNull
+Return of `null`
+in `lang/java/avro/src/main/java/org/apache/avro/SchemaCompatibility.java`
+#### Snippet
+```java
+    switch (writerFields.size()) {
+    case 0:
+      return null;
+    case 1:
+      return writerFields.get(0);
+```
+
+### ReturnNull
+Return of `null`
+in `lang/java/avro/src/main/java/org/apache/avro/io/ValidatingDecoder.java`
+#### Snippet
+```java
+  @Override
+  public Symbol doAction(Symbol input, Symbol top) throws IOException {
+    return null;
+  }
+}
 ```
 
 ### ReturnNull
@@ -15155,38 +14929,14 @@ in `lang/java/avro/src/main/java/org/apache/avro/io/JsonDecoder.java`
 
 ### ReturnNull
 Return of `null`
-in `lang/java/avro/src/main/java/org/apache/avro/io/ValidatingDecoder.java`
+in `lang/java/avro/src/main/java/org/apache/avro/io/FastReaderBuilder.java`
 #### Snippet
 ```java
-  @Override
-  public Symbol doAction(Symbol input, Symbol top) throws IOException {
-    return null;
-  }
-}
-```
-
-### ReturnNull
-Return of `null`
-in `lang/java/avro/src/main/java/org/apache/avro/SchemaCompatibility.java`
-#### Snippet
-```java
-    switch (writerFields.size()) {
-    case 0:
-      return null;
-    case 1:
-      return writerFields.get(0);
-```
-
-### ReturnNull
-Return of `null`
-in `lang/java/avro/src/main/java/org/apache/avro/Protocol.java`
-#### Snippet
-```java
-    JsonNode nameNode = json.get("doc");
-    if (nameNode == null)
-      return null; // no doc defined
-    return nameNode.textValue();
-  }
+      return (old, decoder) -> {
+        decoder.readNull();
+        return null;
+      };
+    case BOOLEAN:
 ```
 
 ### ReturnNull
@@ -15203,22 +14953,22 @@ in `lang/java/avro/src/main/java/org/apache/avro/io/FastReaderBuilder.java`
 
 ### ReturnNull
 Return of `null`
-in `lang/java/avro/src/main/java/org/apache/avro/io/FastReaderBuilder.java`
+in `lang/java/compiler/src/main/java/org/apache/avro/compiler/specific/SpecificCompiler.java`
 #### Snippet
 ```java
-      return (old, decoder) -> {
-        decoder.readNull();
-        return null;
-      };
-    case BOOLEAN:
+      return schema.getLogicalType();
+    }
+    return null;
+  }
+
 ```
 
 ### ReturnNull
 Return of `null`
-in `lang/java/avro/src/main/java/org/apache/avro/file/CodecFactory.java`
+in `lang/java/compiler/src/main/java/org/apache/avro/compiler/specific/SpecificCompiler.java`
 #### Snippet
 ```java
-      return REGISTERED.put(name, c);
+      return conversion.getConvertedType().getName();
     }
     return null;
   }
@@ -15239,7 +14989,19 @@ in `lang/java/avro/src/main/java/org/apache/avro/file/CodecFactory.java`
 
 ### ReturnNull
 Return of `null`
-in `lang/java/avro/src/main/java/org/apache/avro/file/DataFileStream.java`
+in `lang/java/avro/src/main/java/org/apache/avro/file/CodecFactory.java`
+#### Snippet
+```java
+      return REGISTERED.put(name, c);
+    }
+    return null;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `lang/java/avro/src/main/java/org/apache/avro/file/DataFileReader12.java`
 #### Snippet
 ```java
     byte[] value = getMeta(key);
@@ -15263,7 +15025,7 @@ in `lang/java/avro/src/main/java/org/apache/avro/file/DataFileReader12.java`
 
 ### ReturnNull
 Return of `null`
-in `lang/java/avro/src/main/java/org/apache/avro/file/DataFileReader12.java`
+in `lang/java/avro/src/main/java/org/apache/avro/file/DataFileStream.java`
 #### Snippet
 ```java
     byte[] value = getMeta(key);
@@ -15302,18 +15064,6 @@ Return of `null`
 in `lang/java/avro/src/main/java/org/apache/avro/util/internal/JacksonUtils.java`
 #### Snippet
 ```java
-  public static JsonNode toJsonNode(Object datum) {
-    if (datum == null) {
-      return null;
-    }
-    try {
-```
-
-### ReturnNull
-Return of `null`
-in `lang/java/avro/src/main/java/org/apache/avro/util/internal/JacksonUtils.java`
-#### Snippet
-```java
     }
     if (jsonNode == null) {
       return null;
@@ -15335,14 +15085,14 @@ in `lang/java/avro/src/main/java/org/apache/avro/util/internal/JacksonUtils.java
 
 ### ReturnNull
 Return of `null`
-in `lang/java/avro/src/main/java/org/apache/avro/reflect/ArrayAccessor.java`
+in `lang/java/avro/src/main/java/org/apache/avro/util/internal/JacksonUtils.java`
 #### Snippet
 ```java
-    if (elementType == short.class)
-      return readArray((short[]) array, l, in);
-    return null;
-  }
-
+  public static JsonNode toJsonNode(Object datum) {
+    if (datum == null) {
+      return null;
+    }
+    try {
 ```
 
 ### ReturnNull
@@ -15371,6 +15121,18 @@ in `lang/java/avro/src/main/java/org/apache/avro/generic/GenericDatumReader.java
 
 ### ReturnNull
 Return of `null`
+in `lang/java/avro/src/main/java/org/apache/avro/reflect/ArrayAccessor.java`
+#### Snippet
+```java
+    if (elementType == short.class)
+      return readArray((short[]) array, l, in);
+    return null;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
 in `lang/java/avro/src/main/java/org/apache/avro/specific/SpecificRecordBase.java`
 #### Snippet
 ```java
@@ -15383,23 +15145,11 @@ in `lang/java/avro/src/main/java/org/apache/avro/specific/SpecificRecordBase.jav
 
 ### ReturnNull
 Return of `null`
-in `lang/java/avro/src/main/java/org/apache/avro/reflect/ReflectDatumReader.java`
-#### Snippet
-```java
-  @Override
-  protected Object peekArray(Object array) {
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
 in `lang/java/avro/src/main/java/org/apache/avro/reflect/ReflectionUtil.java`
 #### Snippet
 ```java
-      return () -> supplierFunction.apply(argument);
-    } else {
+    } catch (Throwable t) {
+      // if something goes wrong, do not provide a Function instance
       return null;
     }
   }
@@ -15422,11 +15172,23 @@ Return of `null`
 in `lang/java/avro/src/main/java/org/apache/avro/reflect/ReflectionUtil.java`
 #### Snippet
 ```java
-    } catch (Throwable t) {
-      // if something goes wrong, do not provide a Function instance
+      return () -> supplierFunction.apply(argument);
+    } else {
       return null;
     }
   }
+```
+
+### ReturnNull
+Return of `null`
+in `lang/java/avro/src/main/java/org/apache/avro/reflect/ReflectDatumReader.java`
+#### Snippet
+```java
+  @Override
+  protected Object peekArray(Object array) {
+    return null;
+  }
+
 ```
 
 ### ReturnNull
@@ -15443,71 +15205,131 @@ in `lang/java/avro/src/main/java/org/apache/avro/specific/SpecificDatumReader.ja
 
 ### ReturnNull
 Return of `null`
-in `lang/java/thrift/src/main/java/org/apache/avro/thrift/ThriftData.java`
+in `lang/java/mapred/src/main/java/org/apache/avro/hadoop/io/AvroKeyValue.java`
 #### Snippet
 ```java
-    if (struct.isSet(f))
-      return struct.getFieldValue(f);
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `lang/java/ipc-jetty/src/main/java/org/apache/avro/ipc/jetty/StaticServlet.java`
-#### Snippet
-```java
-    URL resource = getClass().getClassLoader().getResource("org/apache/avro/ipc/stats/static/" + filename);
-    if (resource == null) {
-      return null;
-    }
-    return Resource.newResource(resource);
-```
-
-### ReturnNull
-Return of `null`
-in `lang/java/protobuf/src/main/java/org/apache/avro/protobuf/ProtobufData.java`
-#### Snippet
-```java
-  private JsonNode getDefault(FieldDescriptor f) {
-    if (f.isRequired()) // no default
-      return null;
-
-    if (f.isRepeated()) // empty array as repeated fields' default value
-```
-
-### ReturnNull
-Return of `null`
-in `lang/java/protobuf/src/main/java/org/apache/avro/protobuf/ProtobufData.java`
-#### Snippet
-```java
-    case MESSAGE:
-      if (!f.isRepeated() && !m.hasField(f))
+      GenericRecord genericRecord = mGenericIterator.next();
+      if (null == genericRecord) {
         return null;
-    default:
-      return m.getField(f);
+      }
+      return new AvroKeyValue<>(genericRecord);
 ```
 
 ### ReturnNull
 Return of `null`
-in `lang/java/protobuf/src/main/java/org/apache/avro/protobuf/ProtobufData.java`
+in `lang/java/mapred/src/main/java/org/apache/avro/hadoop/io/AvroDatumConverterFactory.java`
 #### Snippet
 ```java
-      return getConversionByClass(clazz);
-    } catch (ClassNotFoundException e) {
+    @Override
+    public Object convert(NullWritable input) {
       return null;
     }
+
+```
+
+### ReturnNull
+Return of `null`
+in `lang/java/mapred/src/main/java/org/apache/avro/hadoop/io/AvroSerialization.java`
+#### Snippet
+```java
+  public static Schema getValueReaderSchema(Configuration conf) {
+    String json = conf.get(CONF_VALUE_READER_SCHEMA);
+    return null == json ? null : new Schema.Parser().parse(json);
   }
+
 ```
 
 ### ReturnNull
 Return of `null`
-in `lang/java/avro/src/main/java/org/apache/avro/generic/GenericData.java`
+in `lang/java/mapred/src/main/java/org/apache/avro/hadoop/io/AvroSerialization.java`
 #### Snippet
 ```java
-    if (json.isNull() && (field.schema().getType() == Type.NULL
-        || (field.schema().getType() == Type.UNION && field.schema().getTypes().get(0).getType() == Type.NULL))) {
+  public static Schema getValueWriterSchema(Configuration conf) {
+    String json = conf.get(CONF_VALUE_WRITER_SCHEMA);
+    return null == json ? null : new Schema.Parser().parse(json);
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `lang/java/mapred/src/main/java/org/apache/avro/hadoop/io/AvroSerialization.java`
+#### Snippet
+```java
+  public static Schema getKeyReaderSchema(Configuration conf) {
+    String json = conf.get(CONF_KEY_READER_SCHEMA);
+    return null == json ? null : new Schema.Parser().parse(json);
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `lang/java/mapred/src/main/java/org/apache/avro/hadoop/io/AvroSerialization.java`
+#### Snippet
+```java
+  public static Schema getKeyWriterSchema(Configuration conf) {
+    String json = conf.get(CONF_KEY_WRITER_SCHEMA);
+    return null == json ? null : new Schema.Parser().parse(json);
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `lang/java/avro/src/main/java/org/apache/avro/specific/SpecificData.java`
+#### Snippet
+```java
+      String name = schema.getFullName();
+      if (name == null)
+        return null;
+      Class<?> c = MapUtil.computeIfAbsent(classCache, name, n -> {
+        try {
+```
+
+### ReturnNull
+Return of `null`
+in `lang/java/avro/src/main/java/org/apache/avro/specific/SpecificData.java`
+#### Snippet
+```java
+        }
+      });
+      return c == NO_CLASS ? null : c;
+    case ARRAY:
+      return List.class;
+```
+
+### ReturnNull
+Return of `null`
+in `lang/java/mapred/src/main/java/org/apache/avro/hadoop/file/SortedKeyValueFile.java`
+#### Snippet
+```java
+      if (null == indexEntry) {
+        LOG.debug("Key {} was not found in the index (it is before the first entry)", key);
+        return null;
+      }
+      LOG.debug("Key was found in the index, seeking to syncpoint {}", indexEntry.getValue());
+```
+
+### ReturnNull
+Return of `null`
+in `lang/java/mapred/src/main/java/org/apache/avro/hadoop/file/SortedKeyValueFile.java`
+#### Snippet
+```java
+          // We've passed it.
+          LOG.debug("Searched beyond the point where key {} would appear in the file", key);
+          return null;
+        }
+      }
+```
+
+### ReturnNull
+Return of `null`
+in `lang/java/mapred/src/main/java/org/apache/avro/hadoop/file/SortedKeyValueFile.java`
+#### Snippet
+```java
+      // We've reached the end of the file.
+      LOG.debug("Searched to the end of the file but did not find key {}", key);
       return null;
     }
 
@@ -15518,11 +15340,11 @@ Return of `null`
 in `lang/java/avro/src/main/java/org/apache/avro/generic/GenericData.java`
 #### Snippet
 ```java
-  public Conversion<Object> getConversionFor(LogicalType logicalType) {
-    if (logicalType == null) {
+  public <T> T deepCopy(Schema schema, T value) {
+    if (value == null)
       return null;
-    }
-    return (Conversion<Object>) conversions.get(logicalType.getName());
+    LogicalType logicalType = schema.getLogicalType();
+    if (logicalType == null) // not a logical type -- use raw copy
 ```
 
 ### ReturnNull
@@ -15554,10 +15376,10 @@ Return of `null`
 in `lang/java/avro/src/main/java/org/apache/avro/generic/GenericData.java`
 #### Snippet
 ```java
-   */
-  protected Object getRecordState(Object record, Schema schema) {
-    return null;
-  }
+    @Override
+    public T peek() {
+      return (size < elements.length) ? (T) elements[size] : null;
+    }
 
 ```
 
@@ -15590,11 +15412,11 @@ Return of `null`
 in `lang/java/avro/src/main/java/org/apache/avro/generic/GenericData.java`
 #### Snippet
 ```java
-  public <T> T deepCopy(Schema schema, T value) {
-    if (value == null)
+    if (json.isNull() && (field.schema().getType() == Type.NULL
+        || (field.schema().getType() == Type.UNION && field.schema().getTypes().get(0).getType() == Type.NULL))) {
       return null;
-    LogicalType logicalType = schema.getLogicalType();
-    if (logicalType == null) // not a logical type -- use raw copy
+    }
+
 ```
 
 ### ReturnNull
@@ -15602,35 +15424,95 @@ Return of `null`
 in `lang/java/avro/src/main/java/org/apache/avro/generic/GenericData.java`
 #### Snippet
 ```java
-    @Override
-    public T peek() {
-      return (size < elements.length) ? (T) elements[size] : null;
+  public Conversion<Object> getConversionFor(LogicalType logicalType) {
+    if (logicalType == null) {
+      return null;
     }
+    return (Conversion<Object>) conversions.get(logicalType.getName());
+```
+
+### ReturnNull
+Return of `null`
+in `lang/java/avro/src/main/java/org/apache/avro/generic/GenericData.java`
+#### Snippet
+```java
+   */
+  protected Object getRecordState(Object record, Schema schema) {
+    return null;
+  }
 
 ```
 
 ### ReturnNull
 Return of `null`
-in `lang/java/avro/src/main/java/org/apache/avro/specific/SpecificData.java`
+in `lang/java/mapred/src/main/java/org/apache/avro/mapred/AvroJob.java`
 #### Snippet
 ```java
-      String name = schema.getFullName();
-      if (name == null)
-        return null;
-      Class<?> c = MapUtil.computeIfAbsent(classCache, name, n -> {
-        try {
+  public static Schema getInputSchema(Configuration job) {
+    String schemaString = job.get(INPUT_SCHEMA);
+    return schemaString != null ? new Schema.Parser().parse(schemaString) : null;
+  }
+
 ```
 
 ### ReturnNull
 Return of `null`
-in `lang/java/avro/src/main/java/org/apache/avro/specific/SpecificData.java`
+in `lang/java/mapred/src/main/java/org/apache/avro/mapreduce/AvroJob.java`
 #### Snippet
 ```java
-        }
-      });
-      return c == NO_CLASS ? null : c;
-    case ARRAY:
-      return List.class;
+  public static Schema getInputKeySchema(Configuration conf) {
+    String schemaString = conf.get(CONF_INPUT_KEY_SCHEMA);
+    return schemaString != null ? new Schema.Parser().parse(schemaString) : null;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `lang/java/mapred/src/main/java/org/apache/avro/mapreduce/AvroJob.java`
+#### Snippet
+```java
+  public static Schema getInputValueSchema(Configuration conf) {
+    String schemaString = conf.get(CONF_INPUT_VALUE_SCHEMA);
+    return schemaString != null ? new Schema.Parser().parse(schemaString) : null;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `lang/java/mapred/src/main/java/org/apache/avro/mapreduce/AvroJob.java`
+#### Snippet
+```java
+  public static Schema getOutputKeySchema(Configuration conf) {
+    String schemaString = conf.get(CONF_OUTPUT_KEY_SCHEMA);
+    return schemaString != null ? new Schema.Parser().parse(schemaString) : null;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `lang/java/mapred/src/main/java/org/apache/avro/mapreduce/AvroJob.java`
+#### Snippet
+```java
+  public static Schema getOutputValueSchema(Configuration conf) {
+    String schemaString = conf.get(CONF_OUTPUT_VALUE_SCHEMA);
+    return schemaString != null ? new Schema.Parser().parse(schemaString) : null;
+  }
+}
+```
+
+### ReturnNull
+Return of `null`
+in `lang/java/avro/src/main/java/org/apache/avro/reflect/ReflectData.java`
+#### Snippet
+```java
+    String name = schema.getProp(prop);
+    if (name == null)
+      return null;
+    Class c = CLASS_CACHE.get(name);
+    if (c != null)
 ```
 
 ### ReturnNull
@@ -15639,18 +15521,6 @@ in `lang/java/avro/src/main/java/org/apache/avro/reflect/ReflectData.java`
 #### Snippet
 ```java
       return data.getAccessorFor(fieldName);
-    }
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `lang/java/avro/src/main/java/org/apache/avro/reflect/ReflectData.java`
-#### Snippet
-```java
-      return data.getAccessorsFor(s);
     }
     return null;
   }
@@ -15674,11 +15544,155 @@ Return of `null`
 in `lang/java/avro/src/main/java/org/apache/avro/reflect/ReflectData.java`
 #### Snippet
 ```java
-    String name = schema.getProp(prop);
-    if (name == null)
+      return data.getAccessorsFor(s);
+    }
+    return null;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `lang/java/ipc/src/main/java/org/apache/avro/ipc/SaslSocketTransceiver.java`
+#### Snippet
+```java
+    @Override
+    public Object getNegotiatedProperty(String propName) {
       return null;
-    Class c = CLASS_CACHE.get(name);
-    if (c != null)
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `lang/java/ipc/src/main/java/org/apache/avro/ipc/SaslSocketServer.java`
+#### Snippet
+```java
+    @Override
+    public Object getNegotiatedProperty(String propName) {
+      return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `lang/java/ipc/src/main/java/org/apache/avro/ipc/SaslSocketServer.java`
+#### Snippet
+```java
+    public byte[] evaluateResponse(byte[] response) throws SaslException {
+      this.user = new String(response, StandardCharsets.UTF_8);
+      return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `lang/java/ipc/src/main/java/org/apache/avro/ipc/Responder.java`
+#### Snippet
+```java
+
+      if (m.isOneWay() && wasConnected) // no response data
+        return null;
+
+      out.writeBoolean(error != null);
+```
+
+### ReturnNull
+Return of `null`
+in `lang/java/ipc/src/main/java/org/apache/avro/ipc/Requestor.java`
+#### Snippet
+```java
+
+      if (lm.isOneWay() && t.isConnected())
+        return null; // one-way w/ handshake
+
+      RPCContext context = request.getContext();
+```
+
+### ReturnNull
+Return of `null`
+in `lang/java/ipc/src/main/java/org/apache/avro/ipc/Requestor.java`
+#### Snippet
+```java
+
+    if (future == null) // the message is one-way, so return immediately
+      return null;
+    try { // the message is two-way, wait for the result
+      return future.get();
+```
+
+### ReturnNull
+Return of `null`
+in `lang/java/trevni/core/src/main/java/org/apache/trevni/MetaData.java`
+#### Snippet
+```java
+      value = defaults.get(key);
+    if (value == null)
+      return null;
+    return new String(value, StandardCharsets.UTF_8);
+  }
+```
+
+### ReturnNull
+Return of `null`
+in `lang/java/ipc/src/main/java/org/apache/avro/ipc/specific/SpecificRequestor.java`
+#### Snippet
+```java
+          Callback<?> callback = (Callback<?>) args[args.length - 1];
+          request(method.getName(), finalArgs, callback);
+          return null;
+        } else {
+          return request(method.getName(), args);
+```
+
+### ReturnNull
+Return of `null`
+in `lang/java/ipc-jetty/src/main/java/org/apache/avro/ipc/jetty/StaticServlet.java`
+#### Snippet
+```java
+    URL resource = getClass().getClassLoader().getResource("org/apache/avro/ipc/stats/static/" + filename);
+    if (resource == null) {
+      return null;
+    }
+    return Resource.newResource(resource);
+```
+
+### ReturnNull
+Return of `null`
+in `lang/java/trevni/core/src/main/java/org/apache/trevni/InputBuffer.java`
+#### Snippet
+```java
+    switch (type) {
+    case NULL:
+      return null;
+    case BOOLEAN:
+      return (T) Boolean.valueOf(readBoolean());
+```
+
+### ReturnNull
+Return of `null`
+in `lang/java/maven-plugin/src/main/java/org/apache/avro/mojo/InduceMojo.java`
+#### Snippet
+```java
+    String namespacedFileName = fileName.substring(index + indentifier.length());
+    if (!namespacedFileName.endsWith(".java")) {
+      return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `lang/java/ipc-netty/src/main/java/org/apache/avro/ipc/netty/NettyTransceiver.java`
+#### Snippet
+```java
+    } catch (InterruptedException | ExecutionException e) {
+      LOG.debug("failed to get the response", e);
+      return null;
+    }
+  }
 ```
 
 ### ReturnNull
@@ -15686,9 +15700,9 @@ Return of `null`
 in `lang/java/avro/src/main/java/org/apache/avro/Schema.java`
 #### Snippet
 ```java
-   */
-  public String getDoc() {
-    return null;
+  private static String getOptionalText(JsonNode container, String key) {
+    JsonNode jsonNode = container.get(key);
+    return jsonNode != null ? jsonNode.textValue() : null;
   }
 
 ```
@@ -15710,9 +15724,9 @@ Return of `null`
 in `lang/java/avro/src/main/java/org/apache/avro/Schema.java`
 #### Snippet
 ```java
-  private static String getOptionalText(JsonNode container, String key) {
-    JsonNode jsonNode = container.get(key);
-    return jsonNode != null ? jsonNode.textValue() : null;
+   */
+  public String getDoc() {
+    return null;
   }
 
 ```
@@ -15728,18 +15742,6 @@ in `lang/java/tools/src/main/java/org/apache/avro/tool/Util.java`
     Object datum = reader.read(null, DecoderFactory.get().jsonDecoder(schema, jsonData));
     return datum;
   }
-```
-
-### UnnecessaryLocalVariable
-Local variable `result` is redundant
-in `lang/java/tools/src/main/java/org/apache/avro/tool/DataFileRepairTool.java`
-#### Snippet
-```java
-          }
-          fileWriter.setCodec(codecFactory);
-          int result = innerRecover(fileReader, fileWriter, out, err, recoverPrior, recoverAfter, schema, outfile);
-          return result;
-        } catch (Exception e) {
 ```
 
 ### UnnecessaryLocalVariable
@@ -15767,15 +15769,15 @@ in `lang/java/grpc/src/main/java/org/apache/avro/grpc/AvroGrpcUtils.java`
 ```
 
 ### UnnecessaryLocalVariable
-Local variable `schema1` is redundant
-in `lang/java/trevni/avro/src/main/java/org/apache/trevni/avro/AvroColumnator.java`
+Local variable `result` is redundant
+in `lang/java/tools/src/main/java/org/apache/avro/tool/DataFileRepairTool.java`
 #### Snippet
 ```java
-
-  public AvroColumnator(Schema schema) {
-    Schema schema1 = schema;
-    columnize(null, schema, null, false);
-  }
+          }
+          fileWriter.setCodec(codecFactory);
+          int result = innerRecover(fileReader, fileWriter, out, err, recoverPrior, recoverAfter, schema, outfile);
+          return result;
+        } catch (Exception e) {
 ```
 
 ### UnnecessaryLocalVariable
@@ -15838,19 +15840,19 @@ in `lang/java/avro/src/main/java/org/apache/avro/reflect/ReflectData.java`
   }
 ```
 
-## RuleId[ruleID=CopyConstructorMissesField]
-### CopyConstructorMissesField
-Copy constructor does not copy fields 'message' and 'requestBytes'
-in `lang/java/ipc/src/main/java/org/apache/avro/ipc/Requestor.java`
+### UnnecessaryLocalVariable
+Local variable `schema1` is redundant
+in `lang/java/trevni/avro/src/main/java/org/apache/trevni/avro/AvroColumnator.java`
 #### Snippet
 ```java
-     * @param other Request from which to copy fields.
-     */
-    public Request(Request other) {
-      this.messageName = other.messageName;
-      this.request = other.request;
+
+  public AvroColumnator(Schema schema) {
+    Schema schema1 = schema;
+    columnize(null, schema, null, false);
+  }
 ```
 
+## RuleId[ruleID=CopyConstructorMissesField]
 ### CopyConstructorMissesField
 Copy constructor does not copy fields 'types' and 'md5'
 in `lang/java/avro/src/main/java/org/apache/avro/Protocol.java`
@@ -15861,6 +15863,18 @@ in `lang/java/avro/src/main/java/org/apache/avro/Protocol.java`
   public Protocol(Protocol p) {
     this(p.getName(), p.getDoc(), p.getNamespace());
     putAll(p);
+```
+
+### CopyConstructorMissesField
+Copy constructor does not copy fields 'message' and 'requestBytes'
+in `lang/java/ipc/src/main/java/org/apache/avro/ipc/Requestor.java`
+#### Snippet
+```java
+     * @param other Request from which to copy fields.
+     */
+    public Request(Request other) {
+      this.messageName = other.messageName;
+      this.request = other.request;
 ```
 
 ## RuleId[ruleID=WaitNotInLoop]
@@ -15882,9 +15896,9 @@ in `lang/java/mapred/src/main/java/org/apache/avro/mapred/tether/TetherOutputSer
 in `lang/java/tools/src/main/java/org/apache/avro/tool/TrevniUtil.java`
 #### Snippet
 ```java
-      return new BufferedInputStream(fs.open(new Path(filename)));
+      return new BufferedOutputStream(fs.create(new Path(filename)));
     } else {
-      return new BufferedInputStream(new FileInputStream(new File(filename)));
+      return new BufferedOutputStream(new FileOutputStream(new File(filename)));
     }
   }
 ```
@@ -15894,9 +15908,9 @@ in `lang/java/tools/src/main/java/org/apache/avro/tool/TrevniUtil.java`
 in `lang/java/tools/src/main/java/org/apache/avro/tool/TrevniUtil.java`
 #### Snippet
 ```java
-      return new BufferedOutputStream(fs.create(new Path(filename)));
+      return new BufferedInputStream(fs.open(new Path(filename)));
     } else {
-      return new BufferedOutputStream(new FileOutputStream(new File(filename)));
+      return new BufferedInputStream(new FileInputStream(new File(filename)));
     }
   }
 ```
