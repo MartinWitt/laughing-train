@@ -182,18 +182,6 @@ in `src/main/java/com/palantir/gradle/revapi/OldApiConfigurations.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends GroupAndName`
-in `src/main/java/com/palantir/gradle/revapi/RevapiPlugin.java`
-#### Snippet
-```java
-
-    private Provider<Set<AcceptedBreak>> acceptedBreaks(
-            Project project, ConfigManager configManager, Provider<GroupAndName> oldGroupAndNameProvider) {
-
-        return GradleUtils.memoisedProvider(
-```
-
-### BoundedWildcard
 Can generalize to `? extends FileCollection`
 in `src/main/java/com/palantir/gradle/revapi/RevapiAnalyzeTask.java`
 #### Snippet
@@ -203,6 +191,18 @@ in `src/main/java/com/palantir/gradle/revapi/RevapiAnalyzeTask.java`
     private static List<FileArchive> toFileArchives(Provider<FileCollection> property) {
         return property.get().filter(File::isFile).getFiles().stream()
                 .map(FileArchive::new)
+```
+
+### BoundedWildcard
+Can generalize to `? extends GroupAndName`
+in `src/main/java/com/palantir/gradle/revapi/RevapiPlugin.java`
+#### Snippet
+```java
+
+    private Provider<Set<AcceptedBreak>> acceptedBreaks(
+            Project project, ConfigManager configManager, Provider<GroupAndName> oldGroupAndNameProvider) {
+
+        return GradleUtils.memoisedProvider(
 ```
 
 ### BoundedWildcard
