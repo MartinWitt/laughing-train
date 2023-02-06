@@ -12,7 +12,7 @@ I found 23 bad smells with 1 repairable:
 ## RuleId[ruleID=HtmlWrongAttributeValue]
 ### HtmlWrongAttributeValue
 Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-02-06-07-02-17.788.html`
+in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-02-06-11-05-57.210.html`
 #### Snippet
 ```java
               <td>0</td>
@@ -99,15 +99,15 @@ in `src/main/java/org/assertj/jodatime/api/DateTimeAssert.java`
 
 ## RuleId[ruleID=MethodOverloadsParentMethod]
 ### MethodOverloadsParentMethod
-Method `isNotEqualTo()` overloads a compatible method of a superclass, when overriding might have been intended
-in `src/main/java/org/assertj/jodatime/api/LocalDateTimeAssert.java`
+Method `isIn()` overloads a compatible method of a superclass, when overriding might have been intended
+in `src/main/java/org/assertj/jodatime/api/LocalDateAssert.java`
 #### Snippet
 ```java
-   *           String.
+   *           Strings.
    */
-  public LocalDateTimeAssert isNotEqualTo(String dateTimeAsString) {
-    assertLocalDateTimeAsStringParameterIsNotNull(dateTimeAsString);
-    return isNotEqualTo(new LocalDateTime(dateTimeAsString));
+  public LocalDateAssert isIn(String... localDatesAsString) {
+    checkIsNotNullAndNotEmpty(localDatesAsString);
+    return isIn(convertToLocalDateArray(localDatesAsString));
 ```
 
 ### MethodOverloadsParentMethod
@@ -123,6 +123,18 @@ in `src/main/java/org/assertj/jodatime/api/LocalDateAssert.java`
 ```
 
 ### MethodOverloadsParentMethod
+Method `isNotEqualTo()` overloads a compatible method of a superclass, when overriding might have been intended
+in `src/main/java/org/assertj/jodatime/api/LocalDateAssert.java`
+#### Snippet
+```java
+   *           String.
+   */
+  public LocalDateAssert isNotEqualTo(String localDateAsString) {
+    assertLocalDateAsStringParameterIsNotNull(localDateAsString);
+    return isNotEqualTo(new LocalDate(localDateAsString));
+```
+
+### MethodOverloadsParentMethod
 Method `isEqualTo()` overloads a compatible method of a superclass, when overriding might have been intended
 in `src/main/java/org/assertj/jodatime/api/LocalDateAssert.java`
 #### Snippet
@@ -135,27 +147,27 @@ in `src/main/java/org/assertj/jodatime/api/LocalDateAssert.java`
 ```
 
 ### MethodOverloadsParentMethod
-Method `isIn()` overloads a compatible method of a superclass, when overriding might have been intended
-in `src/main/java/org/assertj/jodatime/api/LocalDateAssert.java`
-#### Snippet
-```java
-   *           Strings.
-   */
-  public LocalDateAssert isIn(String... localDatesAsString) {
-    checkIsNotNullAndNotEmpty(localDatesAsString);
-    return isIn(convertToLocalDateArray(localDatesAsString));
-```
-
-### MethodOverloadsParentMethod
 Method `isNotEqualTo()` overloads a compatible method of a superclass, when overriding might have been intended
-in `src/main/java/org/assertj/jodatime/api/LocalDateAssert.java`
+in `src/main/java/org/assertj/jodatime/api/LocalDateTimeAssert.java`
 #### Snippet
 ```java
    *           String.
    */
-  public LocalDateAssert isNotEqualTo(String localDateAsString) {
-    assertLocalDateAsStringParameterIsNotNull(localDateAsString);
-    return isNotEqualTo(new LocalDate(localDateAsString));
+  public LocalDateTimeAssert isNotEqualTo(String dateTimeAsString) {
+    assertLocalDateTimeAsStringParameterIsNotNull(dateTimeAsString);
+    return isNotEqualTo(new LocalDateTime(dateTimeAsString));
+```
+
+### MethodOverloadsParentMethod
+Method `isNotIn()` overloads a compatible method of a superclass, when overriding might have been intended
+in `src/main/java/org/assertj/jodatime/api/LocalDateTimeAssert.java`
+#### Snippet
+```java
+   *           Strings.
+   */
+  public LocalDateTimeAssert isNotIn(String... dateTimesAsString) {
+    checkIsNotNullAndNotEmpty(dateTimesAsString);
+    return isNotIn(convertToLocalDateTimeArray(dateTimesAsString));
 ```
 
 ### MethodOverloadsParentMethod
@@ -183,51 +195,15 @@ in `src/main/java/org/assertj/jodatime/api/LocalDateTimeAssert.java`
 ```
 
 ### MethodOverloadsParentMethod
-Method `isNotIn()` overloads a compatible method of a superclass, when overriding might have been intended
-in `src/main/java/org/assertj/jodatime/api/LocalDateTimeAssert.java`
-#### Snippet
-```java
-   *           Strings.
-   */
-  public LocalDateTimeAssert isNotIn(String... dateTimesAsString) {
-    checkIsNotNullAndNotEmpty(dateTimesAsString);
-    return isNotIn(convertToLocalDateTimeArray(dateTimesAsString));
-```
-
-### MethodOverloadsParentMethod
-Method `isIn()` overloads a compatible method of a superclass, when overriding might have been intended
+Method `isEqualTo()` overloads a compatible method of a superclass, when overriding might have been intended
 in `src/main/java/org/assertj/jodatime/api/DateTimeAssert.java`
 #### Snippet
 ```java
-   * @throws AssertionError if the actual {@code DateTime} is not in the {@link DateTime}s built from given Strings.
+   * @throws AssertionError if the actual {@code DateTime} is not equal to the {@link DateTime} built from given String.
    */
-  public DateTimeAssert isIn(String... dateTimesAsString) {
-    checkIsNotNullAndNotEmpty(dateTimesAsString);
-    return isIn(convertToDateTimeArray(dateTimesAsString));
-```
-
-### MethodOverloadsParentMethod
-Method `isNotIn()` overloads a compatible method of a superclass, when overriding might have been intended
-in `src/main/java/org/assertj/jodatime/api/DateTimeAssert.java`
-#### Snippet
-```java
-   * @throws AssertionError if the actual {@code DateTime} is not in the given {@link DateTime}s.
-   */
-  public DateTimeAssert isNotIn(DateTime... expected) {
-    checkIsNotNullAndNotEmpty(expected);
-    return super.isNotIn((Object[]) changeToActualTimeZone(expected));
-```
-
-### MethodOverloadsParentMethod
-Method `isNotEqualTo()` overloads a compatible method of a superclass, when overriding might have been intended
-in `src/main/java/org/assertj/jodatime/api/DateTimeAssert.java`
-#### Snippet
-```java
-   *           DateTimeZone.
-   */
-  public DateTimeAssert isNotEqualTo(DateTime expected) {
-    // if actual is null, we don't really care about DateTimeZone
-    DateTime other = actual == null ? expected : new DateTime(expected, actual.getZone());
+  public DateTimeAssert isEqualTo(String dateTimeAsString) {
+    assertDateTimeAsStringParameterIsNotNull(dateTimeAsString);
+    return isEqualTo(new DateTime(dateTimeAsString));
 ```
 
 ### MethodOverloadsParentMethod
@@ -247,11 +223,47 @@ Method `isNotEqualTo()` overloads a compatible method of a superclass, when over
 in `src/main/java/org/assertj/jodatime/api/DateTimeAssert.java`
 #### Snippet
 ```java
-   * @throws AssertionError if the actual {@code DateTime} is equal to the {@link DateTime} built from given String.
+   *           DateTimeZone.
    */
-  public DateTimeAssert isNotEqualTo(String dateTimeAsString) {
-    assertDateTimeAsStringParameterIsNotNull(dateTimeAsString);
-    return isNotEqualTo(new DateTime(dateTimeAsString));
+  public DateTimeAssert isNotEqualTo(DateTime expected) {
+    // if actual is null, we don't really care about DateTimeZone
+    DateTime other = actual == null ? expected : new DateTime(expected, actual.getZone());
+```
+
+### MethodOverloadsParentMethod
+Method `isNotIn()` overloads a compatible method of a superclass, when overriding might have been intended
+in `src/main/java/org/assertj/jodatime/api/DateTimeAssert.java`
+#### Snippet
+```java
+   * @throws AssertionError if the actual {@code DateTime} is not equal to the {@link DateTime} built from given String.
+   */
+  public DateTimeAssert isNotIn(String... dateTimesAsString) {
+    checkIsNotNullAndNotEmpty(dateTimesAsString);
+    return isNotIn(convertToDateTimeArray(dateTimesAsString));
+```
+
+### MethodOverloadsParentMethod
+Method `isNotIn()` overloads a compatible method of a superclass, when overriding might have been intended
+in `src/main/java/org/assertj/jodatime/api/DateTimeAssert.java`
+#### Snippet
+```java
+   * @throws AssertionError if the actual {@code DateTime} is not in the given {@link DateTime}s.
+   */
+  public DateTimeAssert isNotIn(DateTime... expected) {
+    checkIsNotNullAndNotEmpty(expected);
+    return super.isNotIn((Object[]) changeToActualTimeZone(expected));
+```
+
+### MethodOverloadsParentMethod
+Method `isIn()` overloads a compatible method of a superclass, when overriding might have been intended
+in `src/main/java/org/assertj/jodatime/api/DateTimeAssert.java`
+#### Snippet
+```java
+   * @throws AssertionError if the actual {@code DateTime} is not in the {@link DateTime}s built from given Strings.
+   */
+  public DateTimeAssert isIn(String... dateTimesAsString) {
+    checkIsNotNullAndNotEmpty(dateTimesAsString);
+    return isIn(convertToDateTimeArray(dateTimesAsString));
 ```
 
 ### MethodOverloadsParentMethod
@@ -267,26 +279,14 @@ in `src/main/java/org/assertj/jodatime/api/DateTimeAssert.java`
 ```
 
 ### MethodOverloadsParentMethod
-Method `isEqualTo()` overloads a compatible method of a superclass, when overriding might have been intended
+Method `isNotEqualTo()` overloads a compatible method of a superclass, when overriding might have been intended
 in `src/main/java/org/assertj/jodatime/api/DateTimeAssert.java`
 #### Snippet
 ```java
-   * @throws AssertionError if the actual {@code DateTime} is not equal to the {@link DateTime} built from given String.
+   * @throws AssertionError if the actual {@code DateTime} is equal to the {@link DateTime} built from given String.
    */
-  public DateTimeAssert isEqualTo(String dateTimeAsString) {
+  public DateTimeAssert isNotEqualTo(String dateTimeAsString) {
     assertDateTimeAsStringParameterIsNotNull(dateTimeAsString);
-    return isEqualTo(new DateTime(dateTimeAsString));
-```
-
-### MethodOverloadsParentMethod
-Method `isNotIn()` overloads a compatible method of a superclass, when overriding might have been intended
-in `src/main/java/org/assertj/jodatime/api/DateTimeAssert.java`
-#### Snippet
-```java
-   * @throws AssertionError if the actual {@code DateTime} is not equal to the {@link DateTime} built from given String.
-   */
-  public DateTimeAssert isNotIn(String... dateTimesAsString) {
-    checkIsNotNullAndNotEmpty(dateTimesAsString);
-    return isNotIn(convertToDateTimeArray(dateTimesAsString));
+    return isNotEqualTo(new DateTime(dateTimeAsString));
 ```
 
