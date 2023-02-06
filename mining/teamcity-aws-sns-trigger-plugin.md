@@ -9,8 +9,8 @@ I found 7 bad smells with 2 repairable:
 | DataFlowIssue | 1 | false |
 | BoundedWildcard | 1 | false |
 | MissortedModifiers | 1 | false |
-| AssignmentToStaticFieldFromInstanceMethod | 1 | false |
 | NonProtectedConstructorInAbstractClass | 1 | true |
+| AssignmentToStaticFieldFromInstanceMethod | 1 | false |
 ## RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
 ### UtilityClassWithoutPrivateConstructor
 Class `AwsSnsMessageDetailsHelper` has only 'static' members, and lacks a 'private' constructor
@@ -76,19 +76,6 @@ public class SnsMessageParameterDescriptionProvider extends AbstractParameterDes
     private final Map<Pattern, String> myDescriptions = new HashMap<>();
 ```
 
-## RuleId[ruleID=AssignmentToStaticFieldFromInstanceMethod]
-### AssignmentToStaticFieldFromInstanceMethod
-Assignment to static field `LOG` from instance context
-in `amazon-sns-trigger-server/src/main/java/jetbrains/buildServer/clouds/amazon/sns/trigger/utils/AwsSnsSignatureVerification.java`
-#### Snippet
-```java
-    @TestOnly
-    public void setLogger(Logger newLogger) {
-        LOG = newLogger;
-    }
-
-```
-
 ## RuleId[ruleID=NonProtectedConstructorInAbstractClass]
 ### NonProtectedConstructorInAbstractClass
 Constructor `BaseAwsConnectionController()` of an abstract class should not be declared 'public'
@@ -100,5 +87,18 @@ in `amazon-sns-trigger-server/src/main/java/jetbrains/buildServer/clouds/amazon/
   public BaseAwsConnectionController(@NotNull final SBuildServer server) {
     super(server);
   }
+```
+
+## RuleId[ruleID=AssignmentToStaticFieldFromInstanceMethod]
+### AssignmentToStaticFieldFromInstanceMethod
+Assignment to static field `LOG` from instance context
+in `amazon-sns-trigger-server/src/main/java/jetbrains/buildServer/clouds/amazon/sns/trigger/utils/AwsSnsSignatureVerification.java`
+#### Snippet
+```java
+    @TestOnly
+    public void setLogger(Logger newLogger) {
+        LOG = newLogger;
+    }
+
 ```
 
