@@ -88,18 +88,6 @@ public abstract class CheckSigningKeyTask extends DefaultTask {
 ## RuleId[ruleID=CodeBlock2Expr]
 ### CodeBlock2Expr
 Statement lambda can be replaced with expression lambda
-in `src/main/java/com/palantir/gradle/externalpublish/ExternalPublishDistPlugin.java`
-#### Snippet
-```java
-            // Unfortunately need to use afterEvaluate here, since MavenPublication#artifact immediately tries to get
-            // the value from the task provider, which will fail if the task has not yet been created.
-            project.afterEvaluate(_ignored -> {
-                publication.artifact(project.getTasks().named("distTar"));
-            });
-```
-
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
 in `src/main/java/com/palantir/gradle/externalpublish/ExternalPublishJarPlugin.java`
 #### Snippet
 ```java
@@ -112,6 +100,18 @@ in `src/main/java/com/palantir/gradle/externalpublish/ExternalPublishJarPlugin.j
 
 ### CodeBlock2Expr
 Statement lambda can be replaced with expression lambda
+in `src/main/java/com/palantir/gradle/externalpublish/ExternalPublishDistPlugin.java`
+#### Snippet
+```java
+            // Unfortunately need to use afterEvaluate here, since MavenPublication#artifact immediately tries to get
+            // the value from the task provider, which will fail if the task has not yet been created.
+            project.afterEvaluate(_ignored -> {
+                publication.artifact(project.getTasks().named("distTar"));
+            });
+```
+
+### CodeBlock2Expr
+Statement lambda can be replaced with expression lambda
 in `src/main/java/com/palantir/gradle/externalpublish/ExternalPublishRootPlugin.java`
 #### Snippet
 ```java
@@ -120,6 +120,18 @@ in `src/main/java/com/palantir/gradle/externalpublish/ExternalPublishRootPlugin.
                 .register("checkSigningKey", CheckSigningKeyTask.class, checkSigningKey -> {
                     checkSigningKey.onlyIf(_ignored -> !EnvironmentVariables.isFork(rootProject));
                 });
+```
+
+### CodeBlock2Expr
+Statement lambda can be replaced with expression lambda
+in `src/main/java/com/palantir/gradle/externalpublish/ExternalPublishGradlePluginPlugin.java`
+#### Snippet
+```java
+        project.getTasks().named("publish").configure(publish -> publish.dependsOn(publishPluginsTask));
+
+        publishPluginsTask.configure(publishPlugins -> {
+            publishPlugins.onlyIf(_ignored -> EnvironmentVariables.isTagBuild(project));
+        });
 ```
 
 ### CodeBlock2Expr
@@ -143,18 +155,6 @@ in `src/main/java/com/palantir/gradle/externalpublish/ExternalPublishApplication
 
         project.getTasks().withType(CreateStartScripts.class).configureEach(createStartScripts -> {
             createStartScripts.doLast(new FixWindowsStartScripts());
-        });
-```
-
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
-in `src/main/java/com/palantir/gradle/externalpublish/ExternalPublishGradlePluginPlugin.java`
-#### Snippet
-```java
-        project.getTasks().named("publish").configure(publish -> publish.dependsOn(publishPluginsTask));
-
-        publishPluginsTask.configure(publishPlugins -> {
-            publishPlugins.onlyIf(_ignored -> EnvironmentVariables.isTagBuild(project));
         });
 ```
 
