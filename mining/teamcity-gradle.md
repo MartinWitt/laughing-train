@@ -118,18 +118,6 @@ public class ConfigurationParamsUtil
 
 ## RuleId[ruleID=StaticCallOnSubclass]
 ### StaticCallOnSubclass
-Static method `isEmptyOrSpaces()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
-in `gradle-runner-server/src/main/java/jetbrains/buildServer/gradle/server/GradleRunType.java`
-#### Snippet
-```java
-  public List<Requirement> getRunnerSpecificRequirements(@NotNull final Map<String, String> runParameters) {
-    if(!Boolean.parseBoolean(runParameters.get(GradleRunnerConstants.GRADLE_WRAPPER_FLAG))
-       && StringUtil.isEmptyOrSpaces(runParameters.get(GradleRunnerConstants.GRADLE_HOME))) {
-      return Collections.singletonList(new Requirement("env.GRADLE_HOME", null, RequirementType.EXISTS));
-    } else {
-```
-
-### StaticCallOnSubclass
 Static method `isEmpty()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
 in `gradle-runner-server/src/main/java/jetbrains/buildServer/gradle/server/GradleRunType.java`
 #### Snippet
@@ -139,6 +127,18 @@ in `gradle-runner-server/src/main/java/jetbrains/buildServer/gradle/server/Gradl
       if (StringUtil.isEmpty(gradleTasks)) {
         result.append("Default");
       } else {
+```
+
+### StaticCallOnSubclass
+Static method `isEmptyOrSpaces()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
+in `gradle-runner-server/src/main/java/jetbrains/buildServer/gradle/server/GradleRunType.java`
+#### Snippet
+```java
+  public List<Requirement> getRunnerSpecificRequirements(@NotNull final Map<String, String> runParameters) {
+    if(!Boolean.parseBoolean(runParameters.get(GradleRunnerConstants.GRADLE_WRAPPER_FLAG))
+       && StringUtil.isEmptyOrSpaces(runParameters.get(GradleRunnerConstants.GRADLE_HOME))) {
+      return Collections.singletonList(new Requirement("env.GRADLE_HOME", null, RequirementType.EXISTS));
+    } else {
 ```
 
 ### StaticCallOnSubclass
@@ -297,33 +297,9 @@ in `gradle-runner-agent/src/main/java/jetbrains/buildServer/gradle/agent/Configu
 ```java
   }
 
-  public static @NotNull String getGradleInitScript(Map<String, String> runParameters)
-  {
-    return emptyIfNull(runParameters.get(GradleRunnerConstants.GRADLE_INIT_SCRIPT));
-```
-
-### MissortedModifiers
-Missorted modifiers `public static @NotNull`
-in `gradle-runner-agent/src/main/java/jetbrains/buildServer/gradle/agent/ConfigurationParamsUtil.java`
-#### Snippet
-```java
-  }
-
   public static @NotNull List<String> getGradleParams(Map<String, String> runParameters)
   {
     return CommandLineArgumentsUtil.extractArguments(emptyIfNull(runParameters.get(GradleRunnerConstants.GRADLE_PARAMS)));
-```
-
-### MissortedModifiers
-Missorted modifiers `public static @NotNull`
-in `gradle-runner-agent/src/main/java/jetbrains/buildServer/gradle/agent/ConfigurationParamsUtil.java`
-#### Snippet
-```java
-  }
-
-  public static @NotNull String getJavaArgs(Map<String, String> runParameters)
-  {
-    return StringUtil.newLineToSpaceDelimited(emptyIfNull(runParameters.get(JavaRunnerConstants.JVM_ARGS_KEY)));
 ```
 
 ### MissortedModifiers
@@ -348,6 +324,30 @@ public class ConfigurationParamsUtil
   public static @NotNull String getGradleHome(Map<String, String> runParameters)
   {
     return emptyIfNull(runParameters.get(GradleRunnerConstants.GRADLE_HOME));
+```
+
+### MissortedModifiers
+Missorted modifiers `public static @NotNull`
+in `gradle-runner-agent/src/main/java/jetbrains/buildServer/gradle/agent/ConfigurationParamsUtil.java`
+#### Snippet
+```java
+  }
+
+  public static @NotNull String getGradleInitScript(Map<String, String> runParameters)
+  {
+    return emptyIfNull(runParameters.get(GradleRunnerConstants.GRADLE_INIT_SCRIPT));
+```
+
+### MissortedModifiers
+Missorted modifiers `public static @NotNull`
+in `gradle-runner-agent/src/main/java/jetbrains/buildServer/gradle/agent/ConfigurationParamsUtil.java`
+#### Snippet
+```java
+  }
+
+  public static @NotNull String getJavaArgs(Map<String, String> runParameters)
+  {
+    return StringUtil.newLineToSpaceDelimited(emptyIfNull(runParameters.get(JavaRunnerConstants.JVM_ARGS_KEY)));
 ```
 
 ## RuleId[ruleID=Convert2MethodRef]
