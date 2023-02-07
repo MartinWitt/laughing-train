@@ -60,6 +60,18 @@ in `service-config/src/main/java/com/palantir/conjure/java/api/config/service/Pa
 in `errors/src/main/java/com/palantir/conjure/java/api/errors/QosException.java`
 #### Snippet
 ```java
+        private final Optional<Duration> retryAfter;
+
+        private Throttle(Optional<Duration> retryAfter) {
+            super("Suggesting request throttling with optional retryAfter duration: " + retryAfter, DEFAULT_REASON);
+            this.retryAfter = retryAfter;
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'retryAfter'
+in `errors/src/main/java/com/palantir/conjure/java/api/errors/QosException.java`
+#### Snippet
+```java
         }
 
         private Throttle(Optional<Duration> retryAfter, Throwable cause) {
@@ -100,18 +112,6 @@ in `errors/src/main/java/com/palantir/conjure/java/api/errors/QosException.java`
 
         private Throttle(Optional<Duration> retryAfter, QosReason reason) {
             super("Suggesting request throttling with optional retryAfter duration: " + retryAfter, reason);
-            this.retryAfter = retryAfter;
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'retryAfter'
-in `errors/src/main/java/com/palantir/conjure/java/api/errors/QosException.java`
-#### Snippet
-```java
-        private final Optional<Duration> retryAfter;
-
-        private Throttle(Optional<Duration> retryAfter) {
-            super("Suggesting request throttling with optional retryAfter duration: " + retryAfter, DEFAULT_REASON);
             this.retryAfter = retryAfter;
 ```
 
@@ -206,6 +206,18 @@ in `errors/src/main/java/com/palantir/conjure/java/api/errors/ServiceException.j
 
 ## RuleId[ruleID=DeprecatedIsStillUsed]
 ### DeprecatedIsStillUsed
+Deprecated member 'fallbackToCommonNameVerification' is still used
+in `service-config/src/main/java/com/palantir/conjure/java/api/config/service/PartialServiceConfiguration.java`
+#### Snippet
+```java
+    @Deprecated
+    @JsonAlias("fallback-to-common-name-verification")
+    Optional<Boolean> fallbackToCommonNameVerification();
+
+    /** Proxy configuration for connecting to the service. If absent, uses system proxy configuration. */
+```
+
+### DeprecatedIsStillUsed
 Deprecated member 'getExceptionClass' is still used
 in `errors/src/main/java/com/palantir/conjure/java/api/errors/SerializableError.java`
 #### Snippet
@@ -241,18 +253,6 @@ in `service-config/src/main/java/com/palantir/conjure/java/api/config/service/Se
     public static Builder builder() {
 ```
 
-### DeprecatedIsStillUsed
-Deprecated member 'fallbackToCommonNameVerification' is still used
-in `service-config/src/main/java/com/palantir/conjure/java/api/config/service/PartialServiceConfiguration.java`
-#### Snippet
-```java
-    @Deprecated
-    @JsonAlias("fallback-to-common-name-verification")
-    Optional<Boolean> fallbackToCommonNameVerification();
-
-    /** Proxy configuration for connecting to the service. If absent, uses system proxy configuration. */
-```
-
 ## RuleId[ruleID=NonSerializableFieldInSerializableClass]
 ### NonSerializableFieldInSerializableClass
 Non-serializable field 'retryAfter' in a Serializable class
@@ -280,6 +280,18 @@ public abstract class QosException extends RuntimeException {
 
 ## RuleId[ruleID=ExceptionNameDoesntEndWithException]
 ### ExceptionNameDoesntEndWithException
+Exception class name `Unavailable` does not end with 'Exception'
+in `errors/src/main/java/com/palantir/conjure/java/api/errors/QosException.java`
+#### Snippet
+```java
+
+    /** See {@link #unavailable}. */
+    public static final class Unavailable extends QosException implements SafeLoggable {
+        private static final QosReason DEFAULT_REASON = QosReason.of("qos-unavailable");
+
+```
+
+### ExceptionNameDoesntEndWithException
 Exception class name `Throttle` does not end with 'Exception'
 in `errors/src/main/java/com/palantir/conjure/java/api/errors/QosException.java`
 #### Snippet
@@ -300,18 +312,6 @@ in `errors/src/main/java/com/palantir/conjure/java/api/errors/QosException.java`
     /** See {@link #retryOther}. */
     public static final class RetryOther extends QosException implements SafeLoggable {
         private static final QosReason DEFAULT_REASON = QosReason.of("qos-retry-other");
-
-```
-
-### ExceptionNameDoesntEndWithException
-Exception class name `Unavailable` does not end with 'Exception'
-in `errors/src/main/java/com/palantir/conjure/java/api/errors/QosException.java`
-#### Snippet
-```java
-
-    /** See {@link #unavailable}. */
-    public static final class Unavailable extends QosException implements SafeLoggable {
-        private static final QosReason DEFAULT_REASON = QosReason.of("qos-unavailable");
 
 ```
 
