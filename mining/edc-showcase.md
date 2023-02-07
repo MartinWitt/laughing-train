@@ -48,18 +48,6 @@ in `extensions/identity-hub-verifier/src/main/java/org/eclipse/dataspaceconnecto
 
 ## RuleId[ruleID=ConstantValue]
 ### ConstantValue
-Condition `didUrl == null` is always `true`
-in `extensions/identity-hub-verifier/src/main/java/org/eclipse/dataspaceconnector/iam/did/credentials/DemoCredentialsVerifierExtension.java`
-#### Snippet
-```java
-
-        var didUrl = context.getSetting(DID_URL_SETTING, null);
-        if (didUrl == null) {
-            throw new EdcException(format("The DID Url setting '(%s)' was null!", DID_URL_SETTING));
-        }
-```
-
-### ConstantValue
 Value `monitor` is always 'null'
 in `extensions/federated-catalog-api/src/main/java/org/eclipse/dataspaceconnector/demo/edc_demo/api/FederatedCatalogApiExtension.java`
 #### Snippet
@@ -84,6 +72,18 @@ in `extensions/federated-catalog-api/src/main/java/org/eclipse/dataspaceconnecto
 ```
 
 ### ConstantValue
+Condition `didUrl == null` is always `true`
+in `extensions/identity-hub-verifier/src/main/java/org/eclipse/dataspaceconnector/iam/did/credentials/DemoCredentialsVerifierExtension.java`
+#### Snippet
+```java
+
+        var didUrl = context.getSetting(DID_URL_SETTING, null);
+        if (didUrl == null) {
+            throw new EdcException(format("The DID Url setting '(%s)' was null!", DID_URL_SETTING));
+        }
+```
+
+### ConstantValue
 Value `commit` is always 'null'
 in `extensions/dataseeding/hub/src/main/java/org/eclipse/dataspaceconnector/dataseeding/catalog/IdentityHubDataseedingExtension.java`
 #### Snippet
@@ -92,30 +92,6 @@ in `extensions/dataseeding/hub/src/main/java/org/eclipse/dataspaceconnector/data
         var commit = Commit.Builder.newInstance().type("RegistrationCredentials").context("ION Demo").iss(context.getConnectorId()).sub("test").objectId(objectId).payload(payload).build();
         hubStore.write(commit);
 
-
-```
-
-### ConstantValue
-Value `nodesFile` is always 'null'
-in `extensions/dataseeding/catalog/src/main/java/org/eclipse/dataspaceconnector/dataseeding/catalog/CatalogDataseedingExtension.java`
-#### Snippet
-```java
-
-        var nodesFile = context.getSetting(NODES_FILE_SETTING, "nodes.json");
-        monitor.info("Using FCC Node directory file " + nodesFile);
-
-        //generate+save assets
-```
-
-### ConstantValue
-Value `nodesFile` is always 'null'
-in `extensions/dataseeding/catalog/src/main/java/org/eclipse/dataspaceconnector/dataseeding/catalog/CatalogDataseedingExtension.java`
-#### Snippet
-```java
-
-        // populate node directory
-        var nodes = readNodesFromJson(nodesFile);
-        nodes.forEach(nodeDirectory::insert);
 
 ```
 
@@ -248,6 +224,30 @@ in `extensions/dataseeding/catalog/src/main/java/org/eclipse/dataspaceconnector/
                 .build();
         contractDefinitionStore.save(cdef);
     }
+
+```
+
+### ConstantValue
+Value `nodesFile` is always 'null'
+in `extensions/dataseeding/catalog/src/main/java/org/eclipse/dataspaceconnector/dataseeding/catalog/CatalogDataseedingExtension.java`
+#### Snippet
+```java
+
+        var nodesFile = context.getSetting(NODES_FILE_SETTING, "nodes.json");
+        monitor.info("Using FCC Node directory file " + nodesFile);
+
+        //generate+save assets
+```
+
+### ConstantValue
+Value `nodesFile` is always 'null'
+in `extensions/dataseeding/catalog/src/main/java/org/eclipse/dataspaceconnector/dataseeding/catalog/CatalogDataseedingExtension.java`
+#### Snippet
+```java
+
+        // populate node directory
+        var nodes = readNodesFromJson(nodesFile);
+        nodes.forEach(nodeDirectory::insert);
 
 ```
 
