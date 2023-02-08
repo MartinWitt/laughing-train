@@ -30,7 +30,7 @@ in `src/main/java/com/uber/h3core/H3CoreLoader.java`
 ## RuleId[ruleID=HtmlWrongAttributeValue]
 ### HtmlWrongAttributeValue
 Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-02-05-18-09-17.102.html`
+in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-02-08-06-42-41.410.html`
 #### Snippet
 ```java
               <td>0</td>
@@ -116,6 +116,19 @@ public class H3Exception extends RuntimeException {
   public H3Exception(int code) {
 ```
 
+## RuleId[ruleID=NestedAssignment]
+### NestedAssignment
+Result of assignment expression used
+in `src/main/java/com/uber/h3core/H3CoreLoader.java`
+#### Snippet
+```java
+
+    int read;
+    while ((read = in.read(buf)) != -1) {
+      out.write(buf, 0, read);
+    }
+```
+
 ## RuleId[ruleID=FinalStaticMethod]
 ### FinalStaticMethod
 'static' method declared `final`
@@ -139,19 +152,6 @@ in `src/main/java/com/uber/h3core/H3CoreLoader.java`
   static final String detectArch(String osArch) {
     if (osArch.equals("amd64") || osArch.equals("x86_64")) {
       return ARCH_X64;
-```
-
-## RuleId[ruleID=NestedAssignment]
-### NestedAssignment
-Result of assignment expression used
-in `src/main/java/com/uber/h3core/H3CoreLoader.java`
-#### Snippet
-```java
-
-    int read;
-    while ((read = in.read(buf)) != -1) {
-      out.write(buf, 0, read);
-    }
 ```
 
 ## RuleId[ruleID=BoundedWildcard]
