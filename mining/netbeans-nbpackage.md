@@ -22,8 +22,8 @@ I found 120 bad smells with 20 repairable:
 | UtilityClassWithoutPrivateConstructor | 1 | true |
 | SimplifyStreamApiCallChains | 1 | false |
 | MismatchedCollectionQueryUpdate | 1 | false |
-| ReturnNull | 1 | false |
 | HtmlWrongAttributeValue | 1 | false |
+| ReturnNull | 1 | false |
 | AssignmentToForLoopParameter | 1 | false |
 | UnnecessaryToStringCall | 1 | true |
 | SetReplaceableByEnumSet | 1 | false |
@@ -45,9 +45,9 @@ Uses of `System.out` should probably be replaced with more robust logging
 in `src/main/java/org/apache/netbeans/nbpackage/Main.java`
 #### Snippet
 ```java
-                    "@|bold,red " + msg + "|@"
-            );
-            System.out.println(ansiMsg);
+
+        private void info(String msg) {
+            System.out.println(msg);
         }
 
 ```
@@ -57,9 +57,9 @@ Uses of `System.out` should probably be replaced with more robust logging
 in `src/main/java/org/apache/netbeans/nbpackage/Main.java`
 #### Snippet
 ```java
-
-        private void info(String msg) {
-            System.out.println(msg);
+                    "@|bold,red " + msg + "|@"
+            );
+            System.out.println(ansiMsg);
         }
 
 ```
@@ -83,47 +83,11 @@ Modifier `public` is redundant for interface members
 in `src/main/java/org/apache/netbeans/nbpackage/Packager.java`
 #### Snippet
 ```java
-         * @throws Exception on execution failure
-         */
-        public Path createImage(Path input) throws Exception;
-
-        /**
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `src/main/java/org/apache/netbeans/nbpackage/Packager.java`
-#### Snippet
-```java
-         * @throws Exception on execution failure
-         */
-        public Path createPackage(Path image) throws Exception;
-
-    }
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `src/main/java/org/apache/netbeans/nbpackage/Packager.java`
-#### Snippet
-```java
-         * @throws Exception on validation failure
-         */
-        public void validateCreateImage() throws Exception;
-
-        /**
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `src/main/java/org/apache/netbeans/nbpackage/Packager.java`
-#### Snippet
-```java
-     * @return task
+     * @return stream of packager-specific templates
      */
-    public Task createTask(ExecutionContext context);
-
-    /**
+    public default Stream<Template> templates() {
+        return Stream.empty();
+    }
 ```
 
 ### UnnecessaryModifier
@@ -143,11 +107,23 @@ Modifier `public` is redundant for interface members
 in `src/main/java/org/apache/netbeans/nbpackage/Packager.java`
 #### Snippet
 ```java
-     * @return stream of packager-specific options
+         * @throws Exception on validation failure
+         */
+        public void validateCreatePackage() throws Exception;
+
+        /**
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `src/main/java/org/apache/netbeans/nbpackage/Packager.java`
+#### Snippet
+```java
+     * @return task
      */
-    public default Stream<Option<?>> options() {
-        return Stream.empty();
-    }
+    public Task createTask(ExecutionContext context);
+
+    /**
 ```
 
 ### UnnecessaryModifier
@@ -179,9 +155,21 @@ Modifier `public` is redundant for interface members
 in `src/main/java/org/apache/netbeans/nbpackage/Packager.java`
 #### Snippet
 ```java
-     * @return stream of packager-specific templates
+         * @throws Exception on validation failure
+         */
+        public void validateCreateImage() throws Exception;
+
+        /**
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `src/main/java/org/apache/netbeans/nbpackage/Packager.java`
+#### Snippet
+```java
+     * @return stream of packager-specific options
      */
-    public default Stream<Template> templates() {
+    public default Stream<Option<?>> options() {
         return Stream.empty();
     }
 ```
@@ -191,11 +179,23 @@ Modifier `public` is redundant for interface members
 in `src/main/java/org/apache/netbeans/nbpackage/Packager.java`
 #### Snippet
 ```java
-         * @throws Exception on validation failure
+         * @throws Exception on execution failure
          */
-        public void validateCreatePackage() throws Exception;
+        public Path createImage(Path input) throws Exception;
 
         /**
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `src/main/java/org/apache/netbeans/nbpackage/Packager.java`
+#### Snippet
+```java
+         * @throws Exception on execution failure
+         */
+        public Path createPackage(Path image) throws Exception;
+
+    }
 ```
 
 ### UnnecessaryModifier
@@ -223,18 +223,6 @@ in `src/main/java/org/apache/netbeans/nbpackage/Option.java`
 ```
 
 ### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `src/main/java/org/apache/netbeans/nbpackage/FileUtils.java`
-#### Snippet
-```java
-         * @throws IOException
-         */
-        public boolean processFile(Path tmpFile, String jarPath) throws IOException;
-
-    }
-```
-
-### UnnecessaryModifier
 Modifier `static` is redundant for inner interfaces
 in `src/main/java/org/apache/netbeans/nbpackage/FileUtils.java`
 #### Snippet
@@ -244,6 +232,18 @@ in `src/main/java/org/apache/netbeans/nbpackage/FileUtils.java`
     public static interface JarProcessor {
 
         /**
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `src/main/java/org/apache/netbeans/nbpackage/FileUtils.java`
+#### Snippet
+```java
+         * @throws IOException
+         */
+        public boolean processFile(Path tmpFile, String jarPath) throws IOException;
+
+    }
 ```
 
 ## RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
@@ -277,9 +277,9 @@ in `src/main/java/org/apache/netbeans/nbpackage/AbstractPackagerTask.java`
 in `src/main/java/org/apache/netbeans/nbpackage/deb/DebTask.java`
 #### Snippet
 ```java
-    private String sanitize(String text) {
+    private String sanitizeVersion(String text) {
         return text.toLowerCase(Locale.ROOT)
-                .replaceAll("[^a-z0-9\\+\\-\\.]", "-");
+                .replaceAll("[^a-z0-9\\+\\-\\.\\~]", "-");
     }
 
 ```
@@ -289,9 +289,9 @@ in `src/main/java/org/apache/netbeans/nbpackage/deb/DebTask.java`
 in `src/main/java/org/apache/netbeans/nbpackage/deb/DebTask.java`
 #### Snippet
 ```java
-    private String sanitizeVersion(String text) {
+    private String sanitize(String text) {
         return text.toLowerCase(Locale.ROOT)
-                .replaceAll("[^a-z0-9\\+\\-\\.\\~]", "-");
+                .replaceAll("[^a-z0-9\\+\\-\\.]", "-");
     }
 
 ```
@@ -334,14 +334,14 @@ in `src/main/java/org/apache/netbeans/nbpackage/innosetup/InnoSetupTask.java`
 
 ### DynamicRegexReplaceableByCompiledPattern
 `replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/org/apache/netbeans/nbpackage/appimage/AppImageTask.java`
+in `src/main/java/org/apache/netbeans/nbpackage/ArchiveUtils.java`
 #### Snippet
 ```java
-
-    private String sanitize(String name) {
-        return name.replaceAll("[^a-zA-Z0-9-_\\.]", "_");
-    }
-
+     */
+    private static String getRelativePathString(Path path, Path rootDirectory) {
+        String relativePathString = rootDirectory.relativize(path).toString().replaceAll("\\\\", "/");
+//        LOG.log(System.Logger.Level.TRACE, "Creating relative path from path=" + path + ", rootDirectory=" + rootDirectory + ", relativePathString=" + relativePathString);
+        return relativePathString;
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
@@ -354,18 +354,6 @@ in `src/main/java/org/apache/netbeans/nbpackage/ArchiveUtils.java`
                     String linkData = Files.readSymbolicLink(filePathToArchive).toString().replaceAll("\\\\", "/");
                     archiveOutputStream.write(linkData.getBytes(StandardCharsets.UTF_8));
                 } else {
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/org/apache/netbeans/nbpackage/ArchiveUtils.java`
-#### Snippet
-```java
-     */
-    private static String getRelativePathString(Path path, Path rootDirectory) {
-        String relativePathString = rootDirectory.relativize(path).toString().replaceAll("\\\\", "/");
-//        LOG.log(System.Logger.Level.TRACE, "Creating relative path from path=" + path + ", rootDirectory=" + rootDirectory + ", relativePathString=" + relativePathString);
-        return relativePathString;
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
@@ -390,6 +378,18 @@ in `src/main/java/org/apache/netbeans/nbpackage/macos/AppBundleTask.java`
         return name.replaceAll("[\\\\/:*?\"<>|]", "_");
     }
     
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `src/main/java/org/apache/netbeans/nbpackage/appimage/AppImageTask.java`
+#### Snippet
+```java
+
+    private String sanitize(String name) {
+        return name.replaceAll("[^a-zA-Z0-9-_\\.]", "_");
+    }
+
 ```
 
 ## RuleId[ruleID=DataFlowIssue]
@@ -471,19 +471,6 @@ in `src/main/java/org/apache/netbeans/nbpackage/FileUtils.java`
 ```
 
 ### DataFlowIssue
-Argument `getClass().getResourceAsStream( "/org/apache/netbeans/nbpackage/apache-netbeans-...` might be null
-in `src/main/java/org/apache/netbeans/nbpackage/appimage/AppImageTask.java`
-#### Snippet
-```java
-            Files.copy(icon, iconFile);
-        } else {
-            Files.copy(getClass().getResourceAsStream(
-                    "/org/apache/netbeans/nbpackage/apache-netbeans-48x48.png"),
-                    iconFile
-            );
-```
-
-### DataFlowIssue
 Argument `getClass().getResourceAsStream( "/org/apache/netbeans/nbpackage/apache-netbeans....` might be null
 in `src/main/java/org/apache/netbeans/nbpackage/macos/AppBundleTask.java`
 #### Snippet
@@ -494,6 +481,19 @@ in `src/main/java/org/apache/netbeans/nbpackage/macos/AppBundleTask.java`
                     "/org/apache/netbeans/nbpackage/apache-netbeans.icns"), dstFile);
         }
     }
+```
+
+### DataFlowIssue
+Argument `getClass().getResourceAsStream( "/org/apache/netbeans/nbpackage/apache-netbeans-...` might be null
+in `src/main/java/org/apache/netbeans/nbpackage/appimage/AppImageTask.java`
+#### Snippet
+```java
+            Files.copy(icon, iconFile);
+        } else {
+            Files.copy(getClass().getResourceAsStream(
+                    "/org/apache/netbeans/nbpackage/apache-netbeans-48x48.png"),
+                    iconFile
+            );
 ```
 
 ## RuleId[ruleID=UnnecessaryFullyQualifiedName]
@@ -526,8 +526,8 @@ Qualifier `java.nio.file` is unnecessary and can be removed
 in `src/main/java/org/apache/netbeans/nbpackage/NBPackage.java`
 #### Snippet
 ```java
-     * optionally included in the output. The output is in properties file
-     * format, suitable for use with
+     * options and the options for that type will be output. The output is in
+     * properties file format, suitable for use with
      * {@link Configuration.Builder#load(java.nio.file.Path)}.
      *
      * @param configuration additional configuration
@@ -538,8 +538,8 @@ Qualifier `java.nio.file` is unnecessary and can be removed
 in `src/main/java/org/apache/netbeans/nbpackage/NBPackage.java`
 #### Snippet
 ```java
-     * options and the options for that type will be output. The output is in
-     * properties file format, suitable for use with
+     * optionally included in the output. The output is in properties file
+     * format, suitable for use with
      * {@link Configuration.Builder#load(java.nio.file.Path)}.
      *
      * @param configuration additional configuration
@@ -643,14 +643,62 @@ in `src/main/java/org/apache/netbeans/nbpackage/AbstractPackagerTask.java`
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `java.lang` is unnecessary and can be removed
-in `src/main/java/org/apache/netbeans/nbpackage/Template.java`
+in `src/main/java/org/apache/netbeans/nbpackage/ExecutionContext.java`
 #### Snippet
 ```java
-     * template source. The input stream for the default source should be
-     * readable as UTF-8 text. A packager will usually use
-     * {@link Class#getResourceAsStream(java.lang.String)}. The template name
-     * may be used as a file name for exporting templates.
+     * will be executed using the current working directory. If control over the
+     * working directory or environment is required, use
+     * {@link #execAndGetOutput(java.lang.ProcessBuilder)}.
+     * <p>
+     * If {@link #isVerbose()} then the error stream of the process will be
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.lang` is unnecessary and can be removed
+in `src/main/java/org/apache/netbeans/nbpackage/ExecutionContext.java`
+#### Snippet
+```java
+     * Execute the given external process. The process will be executed using
+     * the current working directory. If control over the working directory or
+     * environment is required, use {@link #exec(java.lang.ProcessBuilder)}.
+     * <p>
+     * If {@link #isVerbose()} then process output streams will be routed to the
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.lang` is unnecessary and can be removed
+in `src/main/java/org/apache/netbeans/nbpackage/ExecutionContext.java`
+#### Snippet
+```java
+     * Default token lookup. Useful if a task wants to provide its own token
+     * value source in eg.
+     * {@link StringUtils#replaceTokens(java.lang.String, java.util.function.Function)}
+     * but fallback to the default token replacement.
      *
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.lang` is unnecessary and can be removed
+in `src/main/java/org/apache/netbeans/nbpackage/ExecutionContext.java`
+#### Snippet
+```java
+     * will be executed using the current working directory. If control over the
+     * working directory or environment is required, use
+     * {@link #execAndGetOutput(java.lang.ProcessBuilder)}.
+     * <p>
+     * If {@link #isVerbose()} then the error stream of the process will be
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.lang` is unnecessary and can be removed
+in `src/main/java/org/apache/netbeans/nbpackage/ExecutionContext.java`
+#### Snippet
+```java
+     * Execute the given external process. The process will be executed using
+     * the current working directory. If control over the working directory or
+     * environment is required, use {@link #exec(java.lang.ProcessBuilder)}.
+     * <p>
+     * If {@link #isVerbose()} then process output streams will be routed to the
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -691,62 +739,38 @@ in `src/main/java/org/apache/netbeans/nbpackage/FileUtils.java`
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `java.lang` is unnecessary and can be removed
-in `src/main/java/org/apache/netbeans/nbpackage/ExecutionContext.java`
+in `src/main/java/org/apache/netbeans/nbpackage/Template.java`
 #### Snippet
 ```java
-     * Execute the given external process. The process will be executed using
-     * the current working directory. If control over the working directory or
-     * environment is required, use {@link #exec(java.lang.ProcessBuilder)}.
-     * <p>
-     * If {@link #isVerbose()} then process output streams will be routed to the
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `src/main/java/org/apache/netbeans/nbpackage/ExecutionContext.java`
-#### Snippet
-```java
-     * will be executed using the current working directory. If control over the
-     * working directory or environment is required, use
-     * {@link #execAndGetOutput(java.lang.ProcessBuilder)}.
-     * <p>
-     * If {@link #isVerbose()} then the error stream of the process will be
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `src/main/java/org/apache/netbeans/nbpackage/ExecutionContext.java`
-#### Snippet
-```java
-     * will be executed using the current working directory. If control over the
-     * working directory or environment is required, use
-     * {@link #execAndGetOutput(java.lang.ProcessBuilder)}.
-     * <p>
-     * If {@link #isVerbose()} then the error stream of the process will be
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `src/main/java/org/apache/netbeans/nbpackage/ExecutionContext.java`
-#### Snippet
-```java
-     * Execute the given external process. The process will be executed using
-     * the current working directory. If control over the working directory or
-     * environment is required, use {@link #exec(java.lang.ProcessBuilder)}.
-     * <p>
-     * If {@link #isVerbose()} then process output streams will be routed to the
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `src/main/java/org/apache/netbeans/nbpackage/ExecutionContext.java`
-#### Snippet
-```java
-     * Default token lookup. Useful if a task wants to provide its own token
-     * value source in eg.
-     * {@link StringUtils#replaceTokens(java.lang.String, java.util.function.Function)}
-     * but fallback to the default token replacement.
+     * template source. The input stream for the default source should be
+     * readable as UTF-8 text. A packager will usually use
+     * {@link Class#getResourceAsStream(java.lang.String)}. The template name
+     * may be used as a file name for exporting templates.
      *
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.lang` is unnecessary and can be removed
+in `src/main/java/org/apache/netbeans/nbpackage/StringUtils.java`
+#### Snippet
+```java
+     * a given token, an exception is thrown - to leave the token text in place
+     * use
+     * {@link #replaceTokens(java.lang.String, java.util.function.Function)}.
+     *
+     * @param input text possibly containing tokens
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.util.function` is unnecessary and can be removed
+in `src/main/java/org/apache/netbeans/nbpackage/StringUtils.java`
+#### Snippet
+```java
+     * a given token, an exception is thrown - to leave the token text in place
+     * use
+     * {@link #replaceTokens(java.lang.String, java.util.function.Function)}.
+     *
+     * @param input text possibly containing tokens
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -817,30 +841,6 @@ in `src/main/java/org/apache/netbeans/nbpackage/StringUtils.java`
      * replacement text. If the token value map has no entry for a given token,
      * an exception is thrown - to leave the token text in place use
      * {@link #replaceTokens(java.lang.String, java.util.Map)}.
-     *
-     * @param input text possibly containing tokens
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `src/main/java/org/apache/netbeans/nbpackage/StringUtils.java`
-#### Snippet
-```java
-     * a given token, an exception is thrown - to leave the token text in place
-     * use
-     * {@link #replaceTokens(java.lang.String, java.util.function.Function)}.
-     *
-     * @param input text possibly containing tokens
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util.function` is unnecessary and can be removed
-in `src/main/java/org/apache/netbeans/nbpackage/StringUtils.java`
-#### Snippet
-```java
-     * a given token, an exception is thrown - to leave the token text in place
-     * use
-     * {@link #replaceTokens(java.lang.String, java.util.function.Function)}.
      *
      * @param input text possibly containing tokens
 ```
@@ -918,6 +918,19 @@ import org.apache.netbeans.nbpackage.AbstractPackagerTask;
 import org.apache.netbeans.nbpackage.ExecutionContext;
 ```
 
+## RuleId[ruleID=SimplifyStreamApiCallChains]
+### SimplifyStreamApiCallChains
+Can be merged with previous 'map()' call
+in `src/main/java/org/apache/netbeans/nbpackage/FileUtils.java`
+#### Snippet
+```java
+                    return false;
+                }
+            }).allMatch(v -> v);
+        })) {
+            return List.copyOf(stream.collect(Collectors.toList()));
+```
+
 ## RuleId[ruleID=NestedAssignment]
 ### NestedAssignment
 Result of assignment expression used
@@ -925,8 +938,8 @@ in `src/main/java/org/apache/netbeans/nbpackage/ArchiveUtils.java`
 #### Snippet
 ```java
 
-        ArchiveEntry entry;
-        while ((entry = archiveInputStream.getNextEntry()) != null) {
+        TarArchiveEntry entry;
+        while ((entry = archiveInputStream.getNextTarEntry()) != null) {
             if (!archiveInputStream.canReadEntryData(entry)) {
                 LOG.log(System.Logger.Level.ERROR, "Failed to read archive entry " + entry);
 ```
@@ -949,23 +962,10 @@ in `src/main/java/org/apache/netbeans/nbpackage/ArchiveUtils.java`
 #### Snippet
 ```java
 
-        TarArchiveEntry entry;
-        while ((entry = archiveInputStream.getNextTarEntry()) != null) {
+        ArchiveEntry entry;
+        while ((entry = archiveInputStream.getNextEntry()) != null) {
             if (!archiveInputStream.canReadEntryData(entry)) {
                 LOG.log(System.Logger.Level.ERROR, "Failed to read archive entry " + entry);
-```
-
-## RuleId[ruleID=SimplifyStreamApiCallChains]
-### SimplifyStreamApiCallChains
-Can be merged with previous 'map()' call
-in `src/main/java/org/apache/netbeans/nbpackage/FileUtils.java`
-#### Snippet
-```java
-                    return false;
-                }
-            }).allMatch(v -> v);
-        })) {
-            return List.copyOf(stream.collect(Collectors.toList()));
 ```
 
 ## RuleId[ruleID=CodeBlock2Expr]
@@ -1034,18 +1034,6 @@ in `src/main/java/org/apache/netbeans/nbpackage/Main.java`
 ## RuleId[ruleID=Convert2MethodRef]
 ### Convert2MethodRef
 Lambda can be replaced with method reference
-in `src/main/java/org/apache/netbeans/nbpackage/deb/DebTask.java`
-#### Snippet
-```java
-        Files.createDirectories(desktopDir);
-        String desktopFileName = context().getValue(DebPackager.DESKTOP_FILENAME)
-                .map(name -> sanitize(name))
-                .orElse(pkgName);
-        Path desktopFile = desktopDir.resolve(desktopFileName + ".desktop");
-```
-
-### Convert2MethodRef
-Lambda can be replaced with method reference
 in `src/main/java/org/apache/netbeans/nbpackage/Configuration.java`
 #### Snippet
 ```java
@@ -1054,6 +1042,18 @@ in `src/main/java/org/apache/netbeans/nbpackage/Configuration.java`
             warningHandler = s -> System.out.println(s);
             infoHandler = warningHandler;
         }
+```
+
+### Convert2MethodRef
+Lambda can be replaced with method reference
+in `src/main/java/org/apache/netbeans/nbpackage/deb/DebTask.java`
+#### Snippet
+```java
+        Files.createDirectories(desktopDir);
+        String desktopFileName = context().getValue(DebPackager.DESKTOP_FILENAME)
+                .map(name -> sanitize(name))
+                .orElse(pkgName);
+        Path desktopFile = desktopDir.resolve(desktopFileName + ".desktop");
 ```
 
 ### Convert2MethodRef
@@ -1146,30 +1146,6 @@ Redundant character escape `\\+` in RegExp
 in `src/main/java/org/apache/netbeans/nbpackage/deb/DebTask.java`
 #### Snippet
 ```java
-    private String sanitize(String text) {
-        return text.toLowerCase(Locale.ROOT)
-                .replaceAll("[^a-z0-9\\+\\-\\.]", "-");
-    }
-
-```
-
-### RegExpRedundantEscape
-Redundant character escape `\\.` in RegExp
-in `src/main/java/org/apache/netbeans/nbpackage/deb/DebTask.java`
-#### Snippet
-```java
-    private String sanitize(String text) {
-        return text.toLowerCase(Locale.ROOT)
-                .replaceAll("[^a-z0-9\\+\\-\\.]", "-");
-    }
-
-```
-
-### RegExpRedundantEscape
-Redundant character escape `\\+` in RegExp
-in `src/main/java/org/apache/netbeans/nbpackage/deb/DebTask.java`
-#### Snippet
-```java
     private String sanitizeVersion(String text) {
         return text.toLowerCase(Locale.ROOT)
                 .replaceAll("[^a-z0-9\\+\\-\\.\\~]", "-");
@@ -1203,6 +1179,54 @@ in `src/main/java/org/apache/netbeans/nbpackage/deb/DebTask.java`
 
 ### RegExpRedundantEscape
 Redundant character escape `\\+` in RegExp
+in `src/main/java/org/apache/netbeans/nbpackage/deb/DebTask.java`
+#### Snippet
+```java
+    private String sanitize(String text) {
+        return text.toLowerCase(Locale.ROOT)
+                .replaceAll("[^a-z0-9\\+\\-\\.]", "-");
+    }
+
+```
+
+### RegExpRedundantEscape
+Redundant character escape `\\.` in RegExp
+in `src/main/java/org/apache/netbeans/nbpackage/deb/DebTask.java`
+#### Snippet
+```java
+    private String sanitize(String text) {
+        return text.toLowerCase(Locale.ROOT)
+                .replaceAll("[^a-z0-9\\+\\-\\.]", "-");
+    }
+
+```
+
+### RegExpRedundantEscape
+Redundant character escape `\\+` in RegExp
+in `src/main/java/org/apache/netbeans/nbpackage/rpm/RpmTask.java`
+#### Snippet
+```java
+    private String sanitize(String text) {
+        return text.toLowerCase(Locale.ROOT)
+                .replaceAll("[^a-z0-9\\+\\-\\.]", "-");
+    }
+
+```
+
+### RegExpRedundantEscape
+Redundant character escape `\\.` in RegExp
+in `src/main/java/org/apache/netbeans/nbpackage/rpm/RpmTask.java`
+#### Snippet
+```java
+    private String sanitize(String text) {
+        return text.toLowerCase(Locale.ROOT)
+                .replaceAll("[^a-z0-9\\+\\-\\.]", "-");
+    }
+
+```
+
+### RegExpRedundantEscape
+Redundant character escape `\\+` in RegExp
 in `src/main/java/org/apache/netbeans/nbpackage/rpm/RpmTask.java`
 #### Snippet
 ```java
@@ -1233,42 +1257,6 @@ in `src/main/java/org/apache/netbeans/nbpackage/rpm/RpmTask.java`
     private String sanitizeVersion(String text) {
         return text.toLowerCase(Locale.ROOT)
                 .replaceAll("[^a-z0-9\\+\\-\\.\\~]", "-");
-    }
-
-```
-
-### RegExpRedundantEscape
-Redundant character escape `\\+` in RegExp
-in `src/main/java/org/apache/netbeans/nbpackage/rpm/RpmTask.java`
-#### Snippet
-```java
-    private String sanitize(String text) {
-        return text.toLowerCase(Locale.ROOT)
-                .replaceAll("[^a-z0-9\\+\\-\\.]", "-");
-    }
-
-```
-
-### RegExpRedundantEscape
-Redundant character escape `\\.` in RegExp
-in `src/main/java/org/apache/netbeans/nbpackage/rpm/RpmTask.java`
-#### Snippet
-```java
-    private String sanitize(String text) {
-        return text.toLowerCase(Locale.ROOT)
-                .replaceAll("[^a-z0-9\\+\\-\\.]", "-");
-    }
-
-```
-
-### RegExpRedundantEscape
-Redundant character escape `\\.` in RegExp
-in `src/main/java/org/apache/netbeans/nbpackage/appimage/AppImageTask.java`
-#### Snippet
-```java
-
-    private String sanitize(String name) {
-        return name.replaceAll("[^a-zA-Z0-9-_\\.]", "_");
     }
 
 ```
@@ -1286,6 +1274,18 @@ in `src/main/java/org/apache/netbeans/nbpackage/macos/AppBundleTask.java`
 ```
 
 ### RegExpRedundantEscape
+Redundant character escape `\\.` in RegExp
+in `src/main/java/org/apache/netbeans/nbpackage/appimage/AppImageTask.java`
+#### Snippet
+```java
+
+    private String sanitize(String name) {
+        return name.replaceAll("[^a-zA-Z0-9-_\\.]", "_");
+    }
+
+```
+
+### RegExpRedundantEscape
 Redundant character escape `\\}` in RegExp
 in `src/main/java/org/apache/netbeans/nbpackage/StringUtils.java`
 #### Snippet
@@ -1295,6 +1295,19 @@ public class StringUtils {
     private static final Pattern TOKEN_PATTERN = Pattern.compile("\\$\\{(.+?)\\}");
 
     private StringUtils() {
+```
+
+## RuleId[ruleID=HtmlWrongAttributeValue]
+### HtmlWrongAttributeValue
+Wrong attribute value
+in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-02-08-09-53-40.906.html`
+#### Snippet
+```java
+              <td>0</td>
+              <td>0</td>
+              <td><textarea rows="10" cols="75" readonly="true" placeholder="empty" style="white-space: pre; border: none">Not collected for refresh</textarea></td>
+            </tr>
+          </tbody>
 ```
 
 ## RuleId[ruleID=ReturnNull]
@@ -1308,19 +1321,6 @@ in `src/main/java/org/apache/netbeans/nbpackage/ExecutionContext.java`
         return null;
     }
 
-```
-
-## RuleId[ruleID=HtmlWrongAttributeValue]
-### HtmlWrongAttributeValue
-Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-02-06-20-09-44.126.html`
-#### Snippet
-```java
-              <td>0</td>
-              <td>0</td>
-              <td><textarea rows="10" cols="75" readonly="true" placeholder="empty" style="white-space: pre; border: none">Not collected for refresh</textarea></td>
-            </tr>
-          </tbody>
 ```
 
 ## RuleId[ruleID=UnnecessaryLocalVariable]
@@ -1395,9 +1395,9 @@ in `src/main/java/org/apache/netbeans/nbpackage/innosetup/InnoSetupTask.java`
 ```java
     }
 
-    private String buildInstallDeleteSection(List<Path> files) {
+    private String buildFilesSection(String execName, List<Path> files) {
         return files.stream()
-                .map(Path::getFileName)
+                .map(file -> buildFilesSectionLine(execName, file))
 ```
 
 ### BoundedWildcard
@@ -1407,21 +1407,21 @@ in `src/main/java/org/apache/netbeans/nbpackage/innosetup/InnoSetupTask.java`
 ```java
     }
 
-    private String buildFilesSection(String execName, List<Path> files) {
+    private String buildInstallDeleteSection(List<Path> files) {
         return files.stream()
-                .map(file -> buildFilesSectionLine(execName, file))
+                .map(Path::getFileName)
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends InputStream`
-in `src/main/java/org/apache/netbeans/nbpackage/Template.java`
+Can generalize to `? extends T`
+in `src/main/java/org/apache/netbeans/nbpackage/ExecutionContext.java`
 #### Snippet
 ```java
+     * @throws IllegalArgumentException if the option cannot be parsed
      */
-    public static Template of(Option<Path> option, String name,
-            Supplier<InputStream> defaultSourceSupplier) {
-        return new Template(option, name, ()
-                -> new InputStreamReader(defaultSourceSupplier.get(), StandardCharsets.UTF_8));
+    public <T> Optional<T> getValue(Option<T> option) {
+        var raw = configuration.getValue(option);
+        if (!raw.isBlank()) {
 ```
 
 ### BoundedWildcard
@@ -1437,15 +1437,15 @@ in `src/main/java/org/apache/netbeans/nbpackage/Template.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends T`
-in `src/main/java/org/apache/netbeans/nbpackage/ExecutionContext.java`
+Can generalize to `? extends InputStream`
+in `src/main/java/org/apache/netbeans/nbpackage/Template.java`
 #### Snippet
 ```java
-     * @throws IllegalArgumentException if the option cannot be parsed
      */
-    public <T> Optional<T> getValue(Option<T> option) {
-        var raw = configuration.getValue(option);
-        if (!raw.isBlank()) {
+    public static Template of(Option<Path> option, String name,
+            Supplier<InputStream> defaultSourceSupplier) {
+        return new Template(option, name, ()
+                -> new InputStreamReader(defaultSourceSupplier.get(), StandardCharsets.UTF_8));
 ```
 
 ### BoundedWildcard
