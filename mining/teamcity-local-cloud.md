@@ -9,8 +9,8 @@ I found 26 bad smells with 3 repairable:
 | UNUSED_IMPORT | 2 | false |
 | DoubleBraceInitialization | 2 | false |
 | WrapperTypeMayBePrimitive | 1 | false |
-| ProtectedMemberInFinalClass | 1 | true |
 | SizeReplaceableByIsEmpty | 1 | true |
+| ProtectedMemberInFinalClass | 1 | true |
 | UnnecessaryFullyQualifiedName | 1 | false |
 | NonProtectedConstructorInAbstractClass | 1 | true |
 | MismatchedCollectionQueryUpdate | 1 | false |
@@ -34,9 +34,9 @@ Return of `null`
 in `src/jetbrains/buildServer/clouds/local/LocalCloudClient.java`
 #### Snippet
 ```java
-      }
-    }
-    return null;
+  private LocalCloudImage findImage(@NotNull final AgentDescription agentDescription) {
+    final String imageId = agentDescription.getConfigurationParameters().get(LocalCloudConstants.IMAGE_ID_PARAM_NAME);
+    return imageId == null ? null : findImageById(imageId);
   }
 
 ```
@@ -46,9 +46,9 @@ Return of `null`
 in `src/jetbrains/buildServer/clouds/local/LocalCloudClient.java`
 #### Snippet
 ```java
-  private LocalCloudImage findImage(@NotNull final AgentDescription agentDescription) {
-    final String imageId = agentDescription.getConfigurationParameters().get(LocalCloudConstants.IMAGE_ID_PARAM_NAME);
-    return imageId == null ? null : findImageById(imageId);
+      }
+    }
+    return null;
   }
 
 ```
@@ -101,19 +101,6 @@ in `src/jetbrains/buildServer/clouds/local/LocalCloudClient.java`
     return generateAgentName(image, instanceId);
 ```
 
-## RuleId[ruleID=ProtectedMemberInFinalClass]
-### ProtectedMemberInFinalClass
-Class member declared `protected` in 'final' class
-in `src/jetbrains/buildServer/clouds/local/LocalCloudInstance.java`
-#### Snippet
-```java
-    new WaitFor(STATUS_WAITING_TIMEOUT) {
-      @Override
-      protected boolean condition() {
-        return myStatus == status;
-      }
-```
-
 ## RuleId[ruleID=SizeReplaceableByIsEmpty]
 ### SizeReplaceableByIsEmpty
 `images.trim().length() == 0` can be replaced with 'images.trim().isEmpty()'
@@ -125,6 +112,19 @@ in `src/jetbrains/buildServer/clouds/local/LocalCloudClient.java`
     if (images == null || images.trim().length() == 0) {
       myErrorInfo = new CloudErrorInfo("No images specified");
       return;
+```
+
+## RuleId[ruleID=ProtectedMemberInFinalClass]
+### ProtectedMemberInFinalClass
+Class member declared `protected` in 'final' class
+in `src/jetbrains/buildServer/clouds/local/LocalCloudInstance.java`
+#### Snippet
+```java
+    new WaitFor(STATUS_WAITING_TIMEOUT) {
+      @Override
+      protected boolean condition() {
+        return myStatus == status;
+      }
 ```
 
 ## RuleId[ruleID=UnnecessaryFullyQualifiedName]
