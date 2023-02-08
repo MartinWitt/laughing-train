@@ -53,6 +53,30 @@ in `src/main/java/com/palantir/gradle/versions/GetVersionPlugin.java`
 ```
 
 ### DataFlowIssue
+Argument `component.getModuleVersion()` might be null
+in `src/main/java/com/palantir/gradle/versions/VersionsLockPlugin.java`
+#### Snippet
+```java
+                        case PRODUCTION:
+                            builder.putProductionDeps(
+                                    MyModuleVersionIdentifier.copyOf(component.getModuleVersion()),
+                                    extractDependents(component));
+                            return;
+```
+
+### DataFlowIssue
+Argument `component.getModuleVersion()` might be null
+in `src/main/java/com/palantir/gradle/versions/VersionsLockPlugin.java`
+#### Snippet
+```java
+                        case TEST:
+                            builder.putTestDeps(
+                                    MyModuleVersionIdentifier.copyOf(component.getModuleVersion()),
+                                    extractDependents(component));
+                            return;
+```
+
+### DataFlowIssue
 Method invocation `getStrategy` may produce `NullPointerException`
 in `src/main/java/com/palantir/gradle/versions/VersionsLockPlugin.java`
 #### Snippet
@@ -88,67 +112,7 @@ in `src/main/java/com/palantir/gradle/versions/VersionsLockPlugin.java`
             }
 ```
 
-### DataFlowIssue
-Argument `component.getModuleVersion()` might be null
-in `src/main/java/com/palantir/gradle/versions/VersionsLockPlugin.java`
-#### Snippet
-```java
-                        case PRODUCTION:
-                            builder.putProductionDeps(
-                                    MyModuleVersionIdentifier.copyOf(component.getModuleVersion()),
-                                    extractDependents(component));
-                            return;
-```
-
-### DataFlowIssue
-Argument `component.getModuleVersion()` might be null
-in `src/main/java/com/palantir/gradle/versions/VersionsLockPlugin.java`
-#### Snippet
-```java
-                        case TEST:
-                            builder.putTestDeps(
-                                    MyModuleVersionIdentifier.copyOf(component.getModuleVersion()),
-                                    extractDependents(component));
-                            return;
-```
-
 ## RuleId[ruleID=UnnecessaryFullyQualifiedName]
-### UnnecessaryFullyQualifiedName
-Qualifier `org.gradle.api.internal.artifacts.configurations` is unnecessary, and can be replaced with an import
-in `src/main/java/com/palantir/gradle/versions/GradleWorkarounds.java`
-#### Snippet
-```java
-
-    static boolean isFailOnVersionConflict(Configuration conf) {
-        org.gradle.api.internal.artifacts.configurations.ConflictResolution conflictResolution =
-                ((org.gradle.api.internal.artifacts.configurations.ResolutionStrategyInternal)
-                                conf.getResolutionStrategy())
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.gradle.api.internal.artifacts.configurations` is unnecessary, and can be replaced with an import
-in `src/main/java/com/palantir/gradle/versions/GradleWorkarounds.java`
-#### Snippet
-```java
-    static boolean isFailOnVersionConflict(Configuration conf) {
-        org.gradle.api.internal.artifacts.configurations.ConflictResolution conflictResolution =
-                ((org.gradle.api.internal.artifacts.configurations.ResolutionStrategyInternal)
-                                conf.getResolutionStrategy())
-                        .getConflictResolution();
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.gradle.api.internal.artifacts.configurations` is unnecessary, and can be replaced with an import
-in `src/main/java/com/palantir/gradle/versions/GradleWorkarounds.java`
-#### Snippet
-```java
-                                conf.getResolutionStrategy())
-                        .getConflictResolution();
-        return conflictResolution == org.gradle.api.internal.artifacts.configurations.ConflictResolution.strict;
-    }
-
-```
-
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.gradle.api.internal.provider` is unnecessary, and can be replaced with an import
 in `src/main/java/com/palantir/gradle/versions/GradleWorkarounds.java`
@@ -183,6 +147,42 @@ in `src/main/java/com/palantir/gradle/versions/GradleWorkarounds.java`
                             == org.gradle.api.internal.provider.CollectionProviderInternal.class) {
                         if (method.getName().equals("getElementType")) {
                             // Proxy to `propertyInternalClass` which we know DefaultListProperty implements.
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.gradle.api.internal.artifacts.configurations` is unnecessary, and can be replaced with an import
+in `src/main/java/com/palantir/gradle/versions/GradleWorkarounds.java`
+#### Snippet
+```java
+
+    static boolean isFailOnVersionConflict(Configuration conf) {
+        org.gradle.api.internal.artifacts.configurations.ConflictResolution conflictResolution =
+                ((org.gradle.api.internal.artifacts.configurations.ResolutionStrategyInternal)
+                                conf.getResolutionStrategy())
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.gradle.api.internal.artifacts.configurations` is unnecessary, and can be replaced with an import
+in `src/main/java/com/palantir/gradle/versions/GradleWorkarounds.java`
+#### Snippet
+```java
+    static boolean isFailOnVersionConflict(Configuration conf) {
+        org.gradle.api.internal.artifacts.configurations.ConflictResolution conflictResolution =
+                ((org.gradle.api.internal.artifacts.configurations.ResolutionStrategyInternal)
+                                conf.getResolutionStrategy())
+                        .getConflictResolution();
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.gradle.api.internal.artifacts.configurations` is unnecessary, and can be replaced with an import
+in `src/main/java/com/palantir/gradle/versions/GradleWorkarounds.java`
+#### Snippet
+```java
+                                conf.getResolutionStrategy())
+                        .getConflictResolution();
+        return conflictResolution == org.gradle.api.internal.artifacts.configurations.ConflictResolution.strict;
+    }
+
 ```
 
 ## RuleId[ruleID=UnnecessaryToStringCall]
@@ -333,15 +333,15 @@ in `src/main/java/com/palantir/gradle/versions/lockstate/LockStates.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? super ResolvedComponentResult`
+Can generalize to `? extends LockedConfigurations`
 in `src/main/java/com/palantir/gradle/versions/VersionsLockPlugin.java`
 #### Snippet
 ```java
-    private static GcvScope getScope(
-            ResolvedComponentResult component,
-            Map<ResolvedComponentResult, GcvScope> scopeCache,
-            DirectDependencyScopes directDependencyScopes) {
-        Optional<GcvScope> cached = Optional.ofNullable(scopeCache.get(component));
+            Project rootProject,
+            Path gradleLockfile,
+            Map<Project, LockedConfigurations> lockedConfigurations,
+            ProjectDependency locksDependency) {
+
 ```
 
 ### BoundedWildcard
@@ -357,15 +357,15 @@ in `src/main/java/com/palantir/gradle/versions/VersionsLockPlugin.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends LockedConfigurations`
+Can generalize to `? extends DependencyConstraint`
 in `src/main/java/com/palantir/gradle/versions/VersionsLockPlugin.java`
 #### Snippet
 ```java
-            Project rootProject,
-            Path gradleLockfile,
-            Map<Project, LockedConfigurations> lockedConfigurations,
-            ProjectDependency locksDependency) {
-
+            Project subproject,
+            ProjectDependency locksDependency,
+            List<DependencyConstraint> publishableConstraints,
+            LockedConfigurations lockedConfigurations) {
+        Configuration locksConfiguration = subproject
 ```
 
 ### BoundedWildcard
@@ -381,15 +381,15 @@ in `src/main/java/com/palantir/gradle/versions/VersionsLockPlugin.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends DependencyConstraint`
+Can generalize to `? super ResolvedComponentResult`
 in `src/main/java/com/palantir/gradle/versions/VersionsLockPlugin.java`
 #### Snippet
 ```java
-            Project subproject,
-            ProjectDependency locksDependency,
-            List<DependencyConstraint> publishableConstraints,
-            LockedConfigurations lockedConfigurations) {
-        Configuration locksConfiguration = subproject
+    private static GcvScope getScope(
+            ResolvedComponentResult component,
+            Map<ResolvedComponentResult, GcvScope> scopeCache,
+            DirectDependencyScopes directDependencyScopes) {
+        Optional<GcvScope> cached = Optional.ofNullable(scopeCache.get(component));
 ```
 
 ## RuleId[ruleID=AbstractClassNeverImplemented]
@@ -459,6 +459,18 @@ Statement lambda can be replaced with expression lambda
 in `src/main/java/com/palantir/gradle/versions/VersionsPropsPlugin.java`
 #### Snippet
 ```java
+                });
+
+        project.getConfigurations().configureEach(conf -> {
+            setupConfiguration(project, extension, rootConfiguration.get(), versionsProps, conf);
+        });
+```
+
+### CodeBlock2Expr
+Statement lambda can be replaced with expression lambda
+in `src/main/java/com/palantir/gradle/versions/VersionsPropsPlugin.java`
+#### Snippet
+```java
 
     private static void configureResolvedVersionsWithVersionMapping(Project project) {
         project.getPluginManager().withPlugin("maven-publish", _plugin -> {
@@ -480,14 +492,14 @@ in `src/main/java/com/palantir/gradle/versions/VersionsPropsPlugin.java`
 
 ### CodeBlock2Expr
 Statement lambda can be replaced with expression lambda
-in `src/main/java/com/palantir/gradle/versions/VersionsPropsPlugin.java`
+in `src/main/java/com/palantir/gradle/versions/WhyDependencyTask.java`
 #### Snippet
 ```java
-                });
 
-        project.getConfigurations().configureEach(conf -> {
-            setupConfiguration(project, extension, rootConfiguration.get(), versionsProps, conf);
-        });
+                getLogger().lifecycle("{}", key);
+                LockStates.prettyPrintConstraints(dependents).forEach(pretty -> {
+                    getLogger().lifecycle("\t{}", pretty);
+                });
 ```
 
 ### CodeBlock2Expr
@@ -500,18 +512,6 @@ in `src/main/java/com/palantir/gradle/versions/FixLegacyJavaConfigurationsPlugin
                 .forEach(conf -> {
                     injectVersions(
                             conf,
-```
-
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
-in `src/main/java/com/palantir/gradle/versions/WhyDependencyTask.java`
-#### Snippet
-```java
-
-                getLogger().lifecycle("{}", key);
-                LockStates.prettyPrintConstraints(dependents).forEach(pretty -> {
-                    getLogger().lifecycle("\t{}", pretty);
-                });
 ```
 
 ### CodeBlock2Expr
@@ -567,18 +567,6 @@ Statement lambda can be replaced with expression lambda
 in `src/main/java/com/palantir/gradle/versions/VersionsLockPlugin.java`
 #### Snippet
 ```java
-        // Parallel 'resolveConfigurations' sometimes breaks unless we force the root one to run first.
-        if (rootProject != project) {
-            project.getPluginManager().withPlugin("com.palantir.configuration-resolver", _plugin -> {
-                project.getTasks().named("resolveConfigurations", task -> task.mustRunAfter(":resolveConfigurations"));
-            });
-```
-
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
-in `src/main/java/com/palantir/gradle/versions/VersionsLockPlugin.java`
-#### Snippet
-```java
         // apiElements etc. (Their constraints get published so we don't want to start publishing strictly locked
         // constraints)
         result.allConfigurations().forEach(conf -> {
@@ -620,6 +608,18 @@ in `src/main/java/com/palantir/gradle/versions/VersionsLockPlugin.java`
             subproject.afterEvaluate(sub -> {
                 sub.getPluginManager().withPlugin("nebula.dependency-recommender", _plugin -> {
                     RecommendationProviderContainer container =
+```
+
+### CodeBlock2Expr
+Statement lambda can be replaced with expression lambda
+in `src/main/java/com/palantir/gradle/versions/VersionsLockPlugin.java`
+#### Snippet
+```java
+        // Parallel 'resolveConfigurations' sometimes breaks unless we force the root one to run first.
+        if (rootProject != project) {
+            project.getPluginManager().withPlugin("com.palantir.configuration-resolver", _plugin -> {
+                project.getTasks().named("resolveConfigurations", task -> task.mustRunAfter(":resolveConfigurations"));
+            });
 ```
 
 ## RuleId[ruleID=RegExpRedundantEscape]
