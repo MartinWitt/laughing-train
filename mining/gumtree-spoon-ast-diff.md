@@ -281,15 +281,15 @@ in `src/main/java/gumtree/spoon/builder/Json4SpoonGenerator.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends SourcePosition`
-in `src/main/java/gumtree/spoon/builder/NodeCreator.java`
+Can generalize to `? extends Action`
+in `src/main/java/gumtree/spoon/diff/ActionClassifier.java`
 #### Snippet
 ```java
-	}
+	private Map<Tree, Action> originalActionsDst = new HashMap<>();
 
-	private static SourcePosition computeSourcePositionOfVirtualElement(List<SourcePosition> modifierPositions) {
-		CompilationUnit cu = null;
-		Integer sourceStart = null;
+	public ActionClassifier(MappingStore mappings, List<Action> actions) {
+		clean();
+
 ```
 
 ### BoundedWildcard
@@ -305,15 +305,39 @@ in `src/main/java/gumtree/spoon/diff/ActionClassifier.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends Action`
-in `src/main/java/gumtree/spoon/diff/ActionClassifier.java`
+Can generalize to `? extends SourcePosition`
+in `src/main/java/gumtree/spoon/builder/NodeCreator.java`
 #### Snippet
 ```java
-	private Map<Tree, Action> originalActionsDst = new HashMap<>();
+	}
 
-	public ActionClassifier(MappingStore mappings, List<Action> actions) {
-		clean();
+	private static SourcePosition computeSourcePositionOfVirtualElement(List<SourcePosition> modifierPositions) {
+		CompilationUnit cu = null;
+		Integer sourceStart = null;
+```
 
+### BoundedWildcard
+Can generalize to `? extends Operation`
+in `src/main/java/gumtree/spoon/diff/DiffImpl.java`
+#### Snippet
+```java
+
+	@Override
+	public boolean containsOperations(List<Operation> operations, OperationKind kind, String nodeKind,
+			String nodeLabel) {
+		return operations.stream()
+```
+
+### BoundedWildcard
+Can generalize to `? extends Operation`
+in `src/main/java/gumtree/spoon/diff/DiffImpl.java`
+#### Snippet
+```java
+
+	@Override
+	public boolean containsOperations(List<Operation> operations, OperationKind kind, String nodeKind) {
+		return operations.stream() //
+				.anyMatch(operation -> operation.getAction().getClass().getSimpleName().equals(kind.name()) //
 ```
 
 ### BoundedWildcard
@@ -350,30 +374,6 @@ in `src/main/java/gumtree/spoon/diff/DiffImpl.java`
 	public List<Operation> getOperationChildren(Operation operationParent, List<Operation> rootOperations) {
 		return rootOperations.stream() //
 				.filter(operation -> operation.getNode().getParent().equals(operationParent)) //
-```
-
-### BoundedWildcard
-Can generalize to `? extends Operation`
-in `src/main/java/gumtree/spoon/diff/DiffImpl.java`
-#### Snippet
-```java
-
-	@Override
-	public boolean containsOperations(List<Operation> operations, OperationKind kind, String nodeKind) {
-		return operations.stream() //
-				.anyMatch(operation -> operation.getAction().getClass().getSimpleName().equals(kind.name()) //
-```
-
-### BoundedWildcard
-Can generalize to `? extends Operation`
-in `src/main/java/gumtree/spoon/diff/DiffImpl.java`
-#### Snippet
-```java
-
-	@Override
-	public boolean containsOperations(List<Operation> operations, OperationKind kind, String nodeKind,
-			String nodeLabel) {
-		return operations.stream()
 ```
 
 ## RuleId[ruleID=EqualsBetweenInconvertibleTypes]
@@ -566,6 +566,19 @@ public class CtVirtualElement extends CtWrapper<String> {
 	protected Collection<?> children;
 ```
 
+## RuleId[ruleID=HtmlWrongAttributeValue]
+### HtmlWrongAttributeValue
+Wrong attribute value
+in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-02-08-13-42-35.879.html`
+#### Snippet
+```java
+              <td>0</td>
+              <td>0</td>
+              <td><textarea rows="10" cols="75" readonly="true" placeholder="empty" style="white-space: pre; border: none">Not collected for refresh</textarea></td>
+            </tr>
+          </tbody>
+```
+
 ## RuleId[ruleID=ReturnNull]
 ### ReturnNull
 Return of `null`
@@ -627,19 +640,6 @@ in `src/main/java/gumtree/spoon/diff/DiffImpl.java`
 
 ```
 
-## RuleId[ruleID=HtmlWrongAttributeValue]
-### HtmlWrongAttributeValue
-Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-02-06-23-07-25.308.html`
-#### Snippet
-```java
-              <td>0</td>
-              <td>0</td>
-              <td><textarea rows="10" cols="75" readonly="true" placeholder="empty" style="white-space: pre; border: none">Not collected for refresh</textarea></td>
-            </tr>
-          </tbody>
-```
-
 ## RuleId[ruleID=UnnecessaryLocalVariable]
 ### UnnecessaryLocalVariable
 Local variable `collect` is redundant
@@ -679,18 +679,6 @@ in `src/main/java/gumtree/spoon/diff/DiffImpl.java`
 
 ## RuleId[ruleID=UnusedAssignment]
 ### UnusedAssignment
-Variable `nolabel` initializer `false` is redundant
-in `src/main/java/gumtree/spoon/builder/TreeScanner.java`
-#### Snippet
-```java
-	private final TreeContext treeContext;
-	private final Stack<Tree> nodes = new Stack<>();
-	boolean nolabel = false;
-
-	TreeScanner(TreeContext treeContext, Tree root) {
-```
-
-### UnusedAssignment
 Variable `label` initializer `null` is redundant
 in `src/main/java/gumtree/spoon/builder/TreeScanner.java`
 #### Snippet
@@ -700,5 +688,17 @@ in `src/main/java/gumtree/spoon/builder/TreeScanner.java`
 		String label = null;
 		String nodeTypeName = getNodeType(element);
 
+```
+
+### UnusedAssignment
+Variable `nolabel` initializer `false` is redundant
+in `src/main/java/gumtree/spoon/builder/TreeScanner.java`
+#### Snippet
+```java
+	private final TreeContext treeContext;
+	private final Stack<Tree> nodes = new Stack<>();
+	boolean nolabel = false;
+
+	TreeScanner(TreeContext treeContext, Tree root) {
 ```
 
