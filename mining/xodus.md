@@ -159,35 +159,35 @@ import java.util.ArrayList;
 in `utils/src/main/kotlin/jetbrains/exodus/util/UnsafeHolder.kt`
 #### Snippet
 ```java
-
-    fun <T> doPrivileged(f: () -> T): T {
-        return AccessController.doPrivileged(PrivilegedExceptionAction<T> {
-            f()
-        })
-```
-
-### MarkedForRemoval
-'java.security.AccessController' is deprecated and marked for removal
-in `utils/src/main/kotlin/jetbrains/exodus/util/UnsafeHolder.kt`
-#### Snippet
-```java
-
-    fun <T> doPrivileged(f: () -> T): T {
-        return AccessController.doPrivileged(PrivilegedExceptionAction<T> {
-            f()
-        })
-```
-
-### MarkedForRemoval
-'java.security.AccessController' is deprecated and marked for removal
-in `utils/src/main/kotlin/jetbrains/exodus/util/UnsafeHolder.kt`
-#### Snippet
-```java
 package jetbrains.exodus.util
 
 import java.security.AccessController
 import java.security.PrivilegedExceptionAction
 
+```
+
+### MarkedForRemoval
+'java.security.AccessController' is deprecated and marked for removal
+in `utils/src/main/kotlin/jetbrains/exodus/util/UnsafeHolder.kt`
+#### Snippet
+```java
+
+    fun <T> doPrivileged(f: () -> T): T {
+        return AccessController.doPrivileged(PrivilegedExceptionAction<T> {
+            f()
+        })
+```
+
+### MarkedForRemoval
+'java.security.AccessController' is deprecated and marked for removal
+in `utils/src/main/kotlin/jetbrains/exodus/util/UnsafeHolder.kt`
+#### Snippet
+```java
+
+    fun <T> doPrivileged(f: () -> T): T {
+        return AccessController.doPrivileged(PrivilegedExceptionAction<T> {
+            f()
+        })
 ```
 
 ### MarkedForRemoval
@@ -198,6 +198,18 @@ in `openAPI/src/main/java/jetbrains/exodus/AbstractConfig.java`
             try {
                 //noinspection CachedNumberConstructorCall,deprecation,BoxingBoxedValue
                 return new Integer(Integer.decode(v));
+            } catch (NumberFormatException ignored) {
+            }
+```
+
+### MarkedForRemoval
+'Long(long)' is deprecated and marked for removal
+in `openAPI/src/main/java/jetbrains/exodus/AbstractConfig.java`
+#### Snippet
+```java
+            try {
+                //noinspection CachedNumberConstructorCall,deprecation,BoxingBoxedValue
+                return new Long(Long.decode(v));
             } catch (NumberFormatException ignored) {
             }
 ```
@@ -214,18 +226,6 @@ in `openAPI/src/main/java/jetbrains/exodus/AbstractConfig.java`
 
 ```
 
-### MarkedForRemoval
-'Long(long)' is deprecated and marked for removal
-in `openAPI/src/main/java/jetbrains/exodus/AbstractConfig.java`
-#### Snippet
-```java
-            try {
-                //noinspection CachedNumberConstructorCall,deprecation,BoxingBoxedValue
-                return new Long(Long.decode(v));
-            } catch (NumberFormatException ignored) {
-            }
-```
-
 ## RuleId[ruleID=StaticInitializerReferencesSubClass]
 ### StaticInitializerReferencesSubClass
 Referencing subclass QuadraticClusteringStrategy from superclass ClusteringStrategy initializer might lead to class loading deadlock
@@ -240,18 +240,6 @@ in `vfs/src/main/java/jetbrains/exodus/vfs/ClusteringStrategy.java`
 ```
 
 ### StaticInitializerReferencesSubClass
-Referencing subclass ExponentialClusteringStrategy from superclass ClusteringStrategy initializer might lead to class loading deadlock
-in `vfs/src/main/java/jetbrains/exodus/vfs/ClusteringStrategy.java`
-#### Snippet
-```java
-    public static final ClusteringStrategy LINEAR = new LinearClusteringStrategy();
-    public static final ClusteringStrategy QUADRATIC = new QuadraticClusteringStrategy();
-    public static final ClusteringStrategy EXPONENTIAL = new ExponentialClusteringStrategy();
-
-    public abstract int getFirstClusterSize();
-```
-
-### StaticInitializerReferencesSubClass
 Referencing subclass LinearClusteringStrategy from superclass ClusteringStrategy initializer might lead to class loading deadlock
 in `vfs/src/main/java/jetbrains/exodus/vfs/ClusteringStrategy.java`
 #### Snippet
@@ -261,6 +249,18 @@ public abstract class ClusteringStrategy {
     public static final ClusteringStrategy LINEAR = new LinearClusteringStrategy();
     public static final ClusteringStrategy QUADRATIC = new QuadraticClusteringStrategy();
     public static final ClusteringStrategy EXPONENTIAL = new ExponentialClusteringStrategy();
+```
+
+### StaticInitializerReferencesSubClass
+Referencing subclass ExponentialClusteringStrategy from superclass ClusteringStrategy initializer might lead to class loading deadlock
+in `vfs/src/main/java/jetbrains/exodus/vfs/ClusteringStrategy.java`
+#### Snippet
+```java
+    public static final ClusteringStrategy LINEAR = new LinearClusteringStrategy();
+    public static final ClusteringStrategy QUADRATIC = new QuadraticClusteringStrategy();
+    public static final ClusteringStrategy EXPONENTIAL = new ExponentialClusteringStrategy();
+
+    public abstract int getFirstClusterSize();
 ```
 
 ### StaticInitializerReferencesSubClass
@@ -288,6 +288,18 @@ in `entity-store/src/main/java/jetbrains/exodus/entitystore/iterate/EntityIterat
 ```
 
 ## RuleId[ruleID=AssignmentToStaticFieldFromInstanceMethod]
+### AssignmentToStaticFieldFromInstanceMethod
+Assignment to static field `IV` from instance context
+in `benchmarks/src/jmh/java/jetbrains/exodus/benchmark/crypto/JMHStreamCipherBenchmarks.java`
+#### Snippet
+```java
+    @Fork(2)
+    public Object initJbChaChaCipher() {
+        jbChaChaCipher.init(KEY_256_BITS, IV++);
+        return jbChaChaCipher;
+    }
+```
+
 ### AssignmentToStaticFieldFromInstanceMethod
 Assignment to static field `IV` from instance context
 in `benchmarks/src/jmh/java/jetbrains/exodus/benchmark/crypto/JMHStreamCipherBenchmarks.java`
@@ -342,18 +354,6 @@ in `benchmarks/src/jmh/java/jetbrains/exodus/benchmark/crypto/JMHStreamCipherBen
 #### Snippet
 ```java
     @Fork(2)
-    public Object initJbChaChaCipher() {
-        jbChaChaCipher.init(KEY_256_BITS, IV++);
-        return jbChaChaCipher;
-    }
-```
-
-### AssignmentToStaticFieldFromInstanceMethod
-Assignment to static field `IV` from instance context
-in `benchmarks/src/jmh/java/jetbrains/exodus/benchmark/crypto/JMHStreamCipherBenchmarks.java`
-#### Snippet
-```java
-    @Fork(2)
     public Object initSalsa20Cipher() {
         salsa20Cipher.init(KEY_256_BITS, IV++);
         return salsa20Cipher;
@@ -374,18 +374,6 @@ in `query/src/main/java/jetbrains/exodus/query/metadata/EntityMetaDataImpl.java`
 ```
 
 ### CommentedOutCode
-Commented out code (3 lines)
-in `utils/src/main/java/jetbrains/exodus/core/crypto/MessageDigestUtil.java`
-#### Snippet
-```java
-import java.security.NoSuchAlgorithmException;
-
-// import javax.crypto.SecretKey;
-// import javax.crypto.Mac;
-// import javax.crypto.spec.SecretKeySpec;
-```
-
-### CommentedOutCode
 Commented out code (5 lines)
 in `utils/src/main/java/jetbrains/exodus/core/crypto/MessageDigestUtil.java`
 #### Snippet
@@ -395,6 +383,18 @@ in `utils/src/main/java/jetbrains/exodus/core/crypto/MessageDigestUtil.java`
         /* if (message == null) return null;
       SecretKey sk = new SecretKeySpec(key, method);
       final Mac m = Mac.getInstance(sk.getAlgorithm());
+```
+
+### CommentedOutCode
+Commented out code (3 lines)
+in `utils/src/main/java/jetbrains/exodus/core/crypto/MessageDigestUtil.java`
+#### Snippet
+```java
+import java.security.NoSuchAlgorithmException;
+
+// import javax.crypto.SecretKey;
+// import javax.crypto.Mac;
+// import javax.crypto.spec.SecretKeySpec;
 ```
 
 ### CommentedOutCode
@@ -560,18 +560,6 @@ in `environment/src/main/java/jetbrains/exodus/env/TransactionBase.java`
 ```
 
 ### UnnecessaryQualifierForThis
-Qualifier `ExcludeNullIterableDecorator` on 'this' is unnecessary in this context
-in `entity-store/src/main/java/jetbrains/exodus/entitystore/iterate/ExcludeNullIterableDecorator.java`
-#### Snippet
-```java
-    @Override
-    public EntityIterator getIteratorImpl(@NotNull final PersistentStoreTransaction txn) {
-        return new EntityIteratorBase(ExcludeNullIterableDecorator.this) {
-            private final EntityIterator iterator = getDecorated().iterator();
-            private EntityId next = null;
-```
-
-### UnnecessaryQualifierForThis
 Qualifier `PersistentEntityStoreImpl` on 'this' is unnecessary in this context
 in `entity-store/src/main/java/jetbrains/exodus/entitystore/PersistentEntityStoreImpl.java`
 #### Snippet
@@ -581,6 +569,18 @@ in `entity-store/src/main/java/jetbrains/exodus/entitystore/PersistentEntityStor
             blobsTables = new OpenTablesCache((t, entityTypeId) -> new BlobsTable(PersistentEntityStoreImpl.this, t,
                     useVersion1Format() ?
                             namingRulez.getBlobsObsoleteTableName(entityTypeId) : namingRulez.getBlobsTableName(entityTypeId),
+```
+
+### UnnecessaryQualifierForThis
+Qualifier `ExcludeNullIterableDecorator` on 'this' is unnecessary in this context
+in `entity-store/src/main/java/jetbrains/exodus/entitystore/iterate/ExcludeNullIterableDecorator.java`
+#### Snippet
+```java
+    @Override
+    public EntityIterator getIteratorImpl(@NotNull final PersistentStoreTransaction txn) {
+        return new EntityIteratorBase(ExcludeNullIterableDecorator.this) {
+            private final EntityIterator iterator = getDecorated().iterator();
+            private EntityId next = null;
 ```
 
 ### UnnecessaryQualifierForThis
@@ -600,11 +600,11 @@ Qualifier `PersistentStoreTransaction` on 'this' is unnecessary in this context
 in `entity-store/src/main/java/jetbrains/exodus/entitystore/PersistentStoreTransaction.java`
 #### Snippet
 ```java
-        final EntityIterableCache entityIterableCache = store.getEntityIterableCache();
-        for (final Updatable it : mutatedInTxn) {
-            it.endUpdate(PersistentStoreTransaction.this);
-        }
-        if (!entityIterableCache.compareAndSetCacheAdapter(localCache, cache.endWrite())) {
+        txn.setCommitHook(() -> {
+            log.flushed();
+            final EntityIterableCacheAdapterMutable cache = PersistentStoreTransaction.this.mutableCache;
+            if (cache != null) { // mutableCache can be null if only blobs are modified
+                applyAtomicCaches(cache);
 ```
 
 ### UnnecessaryQualifierForThis
@@ -612,11 +612,11 @@ Qualifier `PersistentStoreTransaction` on 'this' is unnecessary in this context
 in `entity-store/src/main/java/jetbrains/exodus/entitystore/PersistentStoreTransaction.java`
 #### Snippet
 ```java
-        txn.setCommitHook(() -> {
-            log.flushed();
-            final EntityIterableCacheAdapterMutable cache = PersistentStoreTransaction.this.mutableCache;
-            if (cache != null) { // mutableCache can be null if only blobs are modified
-                applyAtomicCaches(cache);
+        final EntityIterableCache entityIterableCache = store.getEntityIterableCache();
+        for (final Updatable it : mutatedInTxn) {
+            it.endUpdate(PersistentStoreTransaction.this);
+        }
+        if (!entityIterableCache.compareAndSetCacheAdapter(localCache, cache.endWrite())) {
 ```
 
 ## RuleId[ruleID=SizeReplaceableByIsEmpty]
@@ -662,7 +662,7 @@ in `utils/src/main/java/jetbrains/exodus/core/dataStructures/StablePriorityQueue
 #### Snippet
 ```java
     @Override
-    public E pop() {
+    public Pair<P, E> floorPair() {
         if (priorities.size() == 0) {
             return null;
         }
@@ -674,7 +674,7 @@ in `utils/src/main/java/jetbrains/exodus/core/dataStructures/StablePriorityQueue
 #### Snippet
 ```java
     @Override
-    public Pair<P, E> floorPair() {
+    public E pop() {
         if (priorities.size() == 0) {
             return null;
         }
@@ -765,18 +765,6 @@ in `utils/src/main/java/jetbrains/exodus/util/UTFUtil.java`
 ```
 
 ### SizeReplaceableByIsEmpty
-`errorMessage.length() > 0` can be replaced with '!errorMessage.isEmpty()'
-in `openAPI/src/main/java/jetbrains/exodus/AbstractConfig.java`
-#### Snippet
-```java
-            }
-        }
-        if (errorMessage.length() > 0) {
-            throw new InvalidSettingException(errorMessage.toString());
-        }
-```
-
-### SizeReplaceableByIsEmpty
 `builder.length() > 0` can be replaced with '!builder.isEmpty()'
 in `openAPI/src/main/java/jetbrains/exodus/AbstractConfig.java`
 #### Snippet
@@ -785,6 +773,18 @@ in `openAPI/src/main/java/jetbrains/exodus/AbstractConfig.java`
     private static void appendLineFeed(@NotNull final StringBuilder builder) {
         if (builder.length() > 0) {
             builder.append('\n');
+        }
+```
+
+### SizeReplaceableByIsEmpty
+`errorMessage.length() > 0` can be replaced with '!errorMessage.isEmpty()'
+in `openAPI/src/main/java/jetbrains/exodus/AbstractConfig.java`
+#### Snippet
+```java
+            }
+        }
+        if (errorMessage.length() > 0) {
+            throw new InvalidSettingException(errorMessage.toString());
         }
 ```
 
@@ -831,18 +831,6 @@ in `utils/src/main/kotlin/jetbrains/exodus/core/dataStructures/persistent/Persis
 #### Snippet
 ```java
 
-inline fun <K, V> PersistentHashMap<K, V>.writeFinally(block: PersistentHashMap<K, V>.MutablePersistentHashMap.() -> Unit) {
-    while (!write(block)) {
-    }
-}
-```
-
-### ControlFlowWithEmptyBody
-'while' has empty body
-in `utils/src/main/kotlin/jetbrains/exodus/core/dataStructures/persistent/PersistentEx.kt`
-#### Snippet
-```java
-
 inline fun <K> PersistentHashSet<K>.writeFinally(block: PersistentHashSet.MutablePersistentHashSet<K>.() -> Unit) {
     while (!write(block)) {
     }
@@ -867,6 +855,18 @@ in `utils/src/main/kotlin/jetbrains/exodus/core/dataStructures/persistent/Persis
 #### Snippet
 ```java
 
+inline fun <V> PersistentLongMap<V>.writeFinally(block: PersistentLongMap.MutableMap<V>.() -> Unit) {
+    while (!write(block)) {
+    }
+}
+```
+
+### ControlFlowWithEmptyBody
+'while' has empty body
+in `utils/src/main/kotlin/jetbrains/exodus/core/dataStructures/persistent/PersistentEx.kt`
+#### Snippet
+```java
+
 inline fun <K : Comparable<K>, V> Persistent23TreeMap<K, V>.writeFinally(block: Persistent23TreeMap.MutableMap<K, V>.() -> Unit) {
     while (!write(block)) {
     }
@@ -879,7 +879,7 @@ in `utils/src/main/kotlin/jetbrains/exodus/core/dataStructures/persistent/Persis
 #### Snippet
 ```java
 
-inline fun <V> PersistentLongMap<V>.writeFinally(block: PersistentLongMap.MutableMap<V>.() -> Unit) {
+inline fun <K, V> PersistentHashMap<K, V>.writeFinally(block: PersistentHashMap<K, V>.MutablePersistentHashMap.() -> Unit) {
     while (!write(block)) {
     }
 }
@@ -905,9 +905,9 @@ in `utils/src/main/java/jetbrains/exodus/util/HexUtil.java`
 ```java
     }
 
-    public static String byteArrayToString(@NotNull final byte[] array) {
-        return byteArrayToString(array, 0, array.length);
-    }
+    public static String byteArrayToString(@NotNull final byte[] array, int off, int len) {
+        final StringBuilder builder = new StringBuilder();
+        for (int i = 0; i < len; ++i) {
 ```
 
 ### NullableProblems
@@ -917,9 +917,9 @@ in `utils/src/main/java/jetbrains/exodus/util/HexUtil.java`
 ```java
     }
 
-    public static String byteArrayToString(@NotNull final byte[] array, int off, int len) {
-        final StringBuilder builder = new StringBuilder();
-        for (int i = 0; i < len; ++i) {
+    public static String byteArrayToString(@NotNull final byte[] array) {
+        return byteArrayToString(array, 0, array.length);
+    }
 ```
 
 ### NullableProblems
@@ -941,9 +941,9 @@ in `openAPI/src/main/java/jetbrains/exodus/util/LightOutputStream.java`
 ```java
 
     @Override
-    public void write(@NotNull byte @NotNull [] fromBuf, int offset, int length) {
-        ensureCapacity(len + length);
-        System.arraycopy(fromBuf, offset, buf, len, length);
+    public void write(@NotNull byte @NotNull [] fromBuf) {
+        ensureCapacity(len + fromBuf.length);
+        System.arraycopy(fromBuf, 0, buf, len, fromBuf.length);
 ```
 
 ### NullableProblems
@@ -953,9 +953,9 @@ in `openAPI/src/main/java/jetbrains/exodus/util/LightOutputStream.java`
 ```java
 
     @Override
-    public void write(@NotNull byte @NotNull [] fromBuf) {
-        ensureCapacity(len + fromBuf.length);
-        System.arraycopy(fromBuf, 0, buf, len, fromBuf.length);
+    public void write(@NotNull byte @NotNull [] fromBuf, int offset, int length) {
+        ensureCapacity(len + length);
+        System.arraycopy(fromBuf, offset, buf, len, length);
 ```
 
 ### NullableProblems
@@ -996,14 +996,50 @@ in `openAPI/src/main/java/jetbrains/exodus/bindings/IntegerBinding.java`
 
 ### NullableProblems
 Primitive type members cannot be annotated
+in `entity-store/src/main/java/jetbrains/exodus/entitystore/EntityIterableHandle.java`
+#### Snippet
+```java
+    int[] getPropertyIds();
+
+    @NotNull
+    int[] getTypeIdsAffectingCreation();
+
+```
+
+### NullableProblems
+Primitive type members cannot be annotated
+in `entity-store/src/main/java/jetbrains/exodus/entitystore/EntityIterableHandle.java`
+#### Snippet
+```java
+    int[] getLinkIds();
+
+    @NotNull
+    int[] getPropertyIds();
+
+```
+
+### NullableProblems
+Primitive type members cannot be annotated
+in `entity-store/src/main/java/jetbrains/exodus/entitystore/EntityIterableHandle.java`
+#### Snippet
+```java
+    int getEntityTypeId();
+
+    @NotNull
+    int[] getLinkIds();
+
+```
+
+### NullableProblems
+Primitive type members cannot be annotated
 in `entity-store/src/main/java/jetbrains/exodus/entitystore/util/ImmutableSingleTypeEntityIdCollection.java`
 #### Snippet
 ```java
+
+    private final int singleTypeId;
+    @NotNull
     private final long[] idArray;
 
-    public ImmutableSingleTypeEntityIdCollection(int singleTypeId, @NotNull long[] idArray) {
-        this.singleTypeId = singleTypeId;
-        this.idArray = idArray;
 ```
 
 ### NullableProblems
@@ -1023,59 +1059,11 @@ Primitive type members cannot be annotated
 in `entity-store/src/main/java/jetbrains/exodus/entitystore/util/ImmutableSingleTypeEntityIdCollection.java`
 #### Snippet
 ```java
-
-    private final int singleTypeId;
-    @NotNull
     private final long[] idArray;
 
-```
-
-### NullableProblems
-Primitive type members cannot be annotated
-in `entity-store/src/main/java/jetbrains/exodus/entitystore/EntityIterableHandle.java`
-#### Snippet
-```java
-    int[] getLinkIds();
-
-    @NotNull
-    int[] getPropertyIds();
-
-```
-
-### NullableProblems
-Primitive type members cannot be annotated
-in `entity-store/src/main/java/jetbrains/exodus/entitystore/EntityIterableHandle.java`
-#### Snippet
-```java
-    int[] getPropertyIds();
-
-    @NotNull
-    int[] getTypeIdsAffectingCreation();
-
-```
-
-### NullableProblems
-Primitive type members cannot be annotated
-in `entity-store/src/main/java/jetbrains/exodus/entitystore/EntityIterableHandle.java`
-#### Snippet
-```java
-    int getEntityTypeId();
-
-    @NotNull
-    int[] getLinkIds();
-
-```
-
-### NullableProblems
-Primitive type members cannot be annotated
-in `entity-store/src/main/java/jetbrains/exodus/entitystore/tables/PropertyKey.java`
-#### Snippet
-```java
-
-    public static ArrayByteIterable propertyKeyToEntry(final LightOutputStream output,
-                                                       @NotNull final int[] bytes,
-                                                       final long localId,
-                                                       final int propertyId) {
+    public ImmutableSingleTypeEntityIdCollection(int singleTypeId, @NotNull long[] idArray) {
+        this.singleTypeId = singleTypeId;
+        this.idArray = idArray;
 ```
 
 ### NullableProblems
@@ -1092,14 +1080,14 @@ in `entity-store/src/main/java/jetbrains/exodus/entitystore/tables/PropertyKey.j
 
 ### NullableProblems
 Primitive type members cannot be annotated
-in `entity-store/src/main/java/jetbrains/exodus/entitystore/iterate/EntityIterableHandleDecorator.java`
+in `entity-store/src/main/java/jetbrains/exodus/entitystore/tables/PropertyKey.java`
 #### Snippet
 ```java
 
-    @Override
-    @NotNull
-    public int[] getPropertyIds() {
-        return decorated.getPropertyIds();
+    public static ArrayByteIterable propertyKeyToEntry(final LightOutputStream output,
+                                                       @NotNull final int[] bytes,
+                                                       final long localId,
+                                                       final int propertyId) {
 ```
 
 ### NullableProblems
@@ -1112,6 +1100,18 @@ in `entity-store/src/main/java/jetbrains/exodus/entitystore/iterate/EntityIterab
     @NotNull
     public int[] getTypeIdsAffectingCreation() {
         return decorated.getTypeIdsAffectingCreation();
+```
+
+### NullableProblems
+Primitive type members cannot be annotated
+in `entity-store/src/main/java/jetbrains/exodus/entitystore/iterate/EntityIterableHandleDecorator.java`
+#### Snippet
+```java
+
+    @Override
+    @NotNull
+    public int[] getPropertyIds() {
+        return decorated.getPropertyIds();
 ```
 
 ### NullableProblems
@@ -1164,30 +1164,6 @@ in `entity-store/src/main/java/jetbrains/exodus/entitystore/iterate/EntityFromLi
 
 ### NullableProblems
 Primitive type members cannot be annotated
-in `entity-store/src/main/java/jetbrains/exodus/entitystore/iterate/EntitiesWithPropertyIterable.java`
-#### Snippet
-```java
-        }
-
-        @NotNull
-        @Override
-        public int[] getPropertyIds() {
-```
-
-### NullableProblems
-Primitive type members cannot be annotated
-in `entity-store/src/main/java/jetbrains/exodus/entitystore/iterate/EntityFromLinkSetIterable.java`
-#### Snippet
-```java
-        return new ConstantEntityIterableHandle(getStore(), EntityFromLinkSetIterable.getType()) {
-
-            @NotNull
-            @Override
-            public int[] getLinkIds() {
-```
-
-### NullableProblems
-Primitive type members cannot be annotated
 in `entity-store/src/main/java/jetbrains/exodus/entitystore/iterate/SortIterable.java`
 #### Snippet
 ```java
@@ -1208,6 +1184,30 @@ in `entity-store/src/main/java/jetbrains/exodus/entitystore/iterate/SortIterable
             @NotNull
             @Override
             public int[] getPropertyIds() {
+```
+
+### NullableProblems
+Primitive type members cannot be annotated
+in `entity-store/src/main/java/jetbrains/exodus/entitystore/iterate/EntitiesWithPropertyIterable.java`
+#### Snippet
+```java
+        }
+
+        @NotNull
+        @Override
+        public int[] getPropertyIds() {
+```
+
+### NullableProblems
+Primitive type members cannot be annotated
+in `entity-store/src/main/java/jetbrains/exodus/entitystore/iterate/EntityFromLinkSetIterable.java`
+#### Snippet
+```java
+        return new ConstantEntityIterableHandle(getStore(), EntityFromLinkSetIterable.getType()) {
+
+            @NotNull
+            @Override
+            public int[] getLinkIds() {
 ```
 
 ### NullableProblems
@@ -1263,18 +1263,6 @@ Primitive type members cannot be annotated
 in `entity-store/src/main/java/jetbrains/exodus/entitystore/iterate/SortIndirectIterable.java`
 #### Snippet
 ```java
-            private final int[] linkIds = mergeFieldIds(new int[]{linkId}, mergeFieldIds(decorated.getLinkIds(), sortedLinksHandle.getLinkIds()));
-
-            @NotNull
-            @Override
-            public int[] getLinkIds() {
-```
-
-### NullableProblems
-Primitive type members cannot be annotated
-in `entity-store/src/main/java/jetbrains/exodus/entitystore/iterate/SortIndirectIterable.java`
-#### Snippet
-```java
             private final EntityIterableHandleBase sortedLinksHandle = (EntityIterableHandleBase) sortedLinks.getHandle();
 
             @NotNull
@@ -1284,14 +1272,14 @@ in `entity-store/src/main/java/jetbrains/exodus/entitystore/iterate/SortIndirect
 
 ### NullableProblems
 Primitive type members cannot be annotated
-in `entity-store/src/main/java/jetbrains/exodus/entitystore/iterate/PropertiesIterable.java`
+in `entity-store/src/main/java/jetbrains/exodus/entitystore/iterate/SortIndirectIterable.java`
 #### Snippet
 ```java
-        }
+            private final int[] linkIds = mergeFieldIds(new int[]{linkId}, mergeFieldIds(decorated.getLinkIds(), sortedLinksHandle.getLinkIds()));
 
-        @NotNull
-        @Override
-        public int[] getPropertyIds() {
+            @NotNull
+            @Override
+            public int[] getLinkIds() {
 ```
 
 ### NullableProblems
@@ -1311,35 +1299,23 @@ Primitive type members cannot be annotated
 in `entity-store/src/main/java/jetbrains/exodus/entitystore/iterate/EntityIterableHandleBase.java`
 #### Snippet
 ```java
+
+    @Override
+    @NotNull
+    public int[] getPropertyIds() {
+        return IdFilter.EMPTY_ID_ARRAY;
+```
+
+### NullableProblems
+Primitive type members cannot be annotated
+in `entity-store/src/main/java/jetbrains/exodus/entitystore/iterate/EntityIterableHandleBase.java`
+#### Snippet
+```java
     }
 
     @NotNull
-    protected static int[] mergeFieldIds(@NotNull final int[] left, @NotNull final int[] right) {
-        final int l = left.length;
-```
-
-### NullableProblems
-Primitive type members cannot be annotated
-in `entity-store/src/main/java/jetbrains/exodus/entitystore/iterate/EntityIterableHandleBase.java`
-#### Snippet
-```java
-
-    @NotNull
-    protected static int[] mergeFieldIds(@NotNull final int[] left, @NotNull final int[] right) {
-        final int l = left.length;
-        if (l == 0) return right;
-```
-
-### NullableProblems
-Primitive type members cannot be annotated
-in `entity-store/src/main/java/jetbrains/exodus/entitystore/iterate/EntityIterableHandleBase.java`
-#### Snippet
-```java
-
-    @NotNull
-    protected static int[] mergeFieldIds(@NotNull final int[] left, @NotNull final int[] right) {
-        final int l = left.length;
-        if (l == 0) return right;
+    @Override
+    public int[] getLinkIds() {
 ```
 
 ### NullableProblems
@@ -1362,8 +1338,8 @@ in `entity-store/src/main/java/jetbrains/exodus/entitystore/iterate/EntityIterab
     }
 
     @NotNull
-    @Override
-    public int[] getLinkIds() {
+    protected static int[] mergeFieldIds(@NotNull final int[] left, @NotNull final int[] right) {
+        final int l = left.length;
 ```
 
 ### NullableProblems
@@ -1372,10 +1348,46 @@ in `entity-store/src/main/java/jetbrains/exodus/entitystore/iterate/EntityIterab
 #### Snippet
 ```java
 
-    @Override
     @NotNull
-    public int[] getPropertyIds() {
-        return IdFilter.EMPTY_ID_ARRAY;
+    protected static int[] mergeFieldIds(@NotNull final int[] left, @NotNull final int[] right) {
+        final int l = left.length;
+        if (l == 0) return right;
+```
+
+### NullableProblems
+Primitive type members cannot be annotated
+in `entity-store/src/main/java/jetbrains/exodus/entitystore/iterate/EntityIterableHandleBase.java`
+#### Snippet
+```java
+
+    @NotNull
+    protected static int[] mergeFieldIds(@NotNull final int[] left, @NotNull final int[] right) {
+        final int l = left.length;
+        if (l == 0) return right;
+```
+
+### NullableProblems
+Primitive type members cannot be annotated
+in `entity-store/src/main/java/jetbrains/exodus/entitystore/iterate/PropertiesIterable.java`
+#### Snippet
+```java
+        }
+
+        @NotNull
+        @Override
+        public int[] getPropertyIds() {
+```
+
+### NullableProblems
+Primitive type members cannot be annotated
+in `entity-store/src/main/java/jetbrains/exodus/entitystore/iterate/binop/BinaryOperatorEntityIterable.java`
+#### Snippet
+```java
+            private final int[] linkIds = mergeFieldIds(iterable1.getHandle().getLinkIds(), iterable2.getHandle().getLinkIds());
+
+            @NotNull
+            private final int[] propertyIds = mergeFieldIds(iterable1.getHandle().getPropertyIds(), iterable2.getHandle().getPropertyIds());
+
 ```
 
 ### NullableProblems
@@ -1387,6 +1399,18 @@ in `entity-store/src/main/java/jetbrains/exodus/entitystore/iterate/binop/Binary
 
             @NotNull
             private final int[] typeIdsAffectingCreation = mergeFieldIds(iterable1.getHandle().getTypeIdsAffectingCreation(), iterable2.getHandle().getTypeIdsAffectingCreation());
+
+```
+
+### NullableProblems
+Primitive type members cannot be annotated
+in `entity-store/src/main/java/jetbrains/exodus/entitystore/iterate/binop/BinaryOperatorEntityIterable.java`
+#### Snippet
+```java
+            private int entityTypeId = -1;
+
+            @NotNull
+            private final int[] linkIds = mergeFieldIds(iterable1.getHandle().getLinkIds(), iterable2.getHandle().getLinkIds());
 
 ```
 
@@ -1407,30 +1431,6 @@ Primitive type members cannot be annotated
 in `entity-store/src/main/java/jetbrains/exodus/entitystore/iterate/binop/BinaryOperatorEntityIterable.java`
 #### Snippet
 ```java
-            private final int[] typeIdsAffectingCreation = mergeFieldIds(iterable1.getHandle().getTypeIdsAffectingCreation(), iterable2.getHandle().getTypeIdsAffectingCreation());
-
-            @NotNull
-            @Override
-            public int[] getLinkIds() {
-```
-
-### NullableProblems
-Primitive type members cannot be annotated
-in `entity-store/src/main/java/jetbrains/exodus/entitystore/iterate/binop/BinaryOperatorEntityIterable.java`
-#### Snippet
-```java
-            private int entityTypeId = -1;
-
-            @NotNull
-            private final int[] linkIds = mergeFieldIds(iterable1.getHandle().getLinkIds(), iterable2.getHandle().getLinkIds());
-
-```
-
-### NullableProblems
-Primitive type members cannot be annotated
-in `entity-store/src/main/java/jetbrains/exodus/entitystore/iterate/binop/BinaryOperatorEntityIterable.java`
-#### Snippet
-```java
 
             @Override
             @NotNull
@@ -1443,11 +1443,11 @@ Primitive type members cannot be annotated
 in `entity-store/src/main/java/jetbrains/exodus/entitystore/iterate/binop/BinaryOperatorEntityIterable.java`
 #### Snippet
 ```java
-            private final int[] linkIds = mergeFieldIds(iterable1.getHandle().getLinkIds(), iterable2.getHandle().getLinkIds());
+            private final int[] typeIdsAffectingCreation = mergeFieldIds(iterable1.getHandle().getTypeIdsAffectingCreation(), iterable2.getHandle().getTypeIdsAffectingCreation());
 
             @NotNull
-            private final int[] propertyIds = mergeFieldIds(iterable1.getHandle().getPropertyIds(), iterable2.getHandle().getPropertyIds());
-
+            @Override
+            public int[] getLinkIds() {
 ```
 
 ## RuleId[ruleID=ProtectedInFinal]
@@ -1564,18 +1564,6 @@ in `openAPI/src/main/java/jetbrains/exodus/entitystore/PersistentEntityStoreConf
 
 ### UnnecessaryUnboxing
 Unnecessary unboxing
-in `environment/src/main/java/jetbrains/exodus/io/AsyncFileDataWriter.java`
-#### Snippet
-```java
-        }
-
-        var position = ((Long) Files.getAttribute(blockPath, "size")).longValue();
-
-        if (position != length) {
-```
-
-### UnnecessaryUnboxing
-Unnecessary unboxing
 in `environment/src/main/java/jetbrains/exodus/env/ReadWriteTransaction.java`
 #### Snippet
 ```java
@@ -1584,6 +1572,18 @@ in `environment/src/main/java/jetbrains/exodus/env/ReadWriteTransaction.java`
             MetaTreeImpl.removeStore(metaTreeMutable, value.getFirst(), entry.getKey().longValue());
             expiredLoggables = expiredLoggables.mergeWith(TreeMetaInfo.getTreeLoggables(value.getSecond()).trimToSize());
         }
+```
+
+### UnnecessaryUnboxing
+Unnecessary unboxing
+in `environment/src/main/java/jetbrains/exodus/io/AsyncFileDataWriter.java`
+#### Snippet
+```java
+        }
+
+        var position = ((Long) Files.getAttribute(blockPath, "size")).longValue();
+
+        if (position != length) {
 ```
 
 ### UnnecessaryUnboxing
@@ -1639,18 +1639,6 @@ Unnecessary unboxing
 in `entity-store/src/main/java/jetbrains/exodus/entitystore/VFSBlobVault.java`
 #### Snippet
 ```java
-            var actualLength = fs.getFileLength(txn, blobHandle);
-
-            if (actualLength != expectedLength.longValue()) {
-                return null;
-            }
-```
-
-### UnnecessaryUnboxing
-Unnecessary unboxing
-in `entity-store/src/main/java/jetbrains/exodus/entitystore/VFSBlobVault.java`
-#### Snippet
-```java
                 stream.reset();
                 stream.mark(IOUtil.DEFAULT_BUFFER_SIZE);
                 setContent(object.getKey().longValue(), stream, txn);
@@ -1668,6 +1656,18 @@ in `entity-store/src/main/java/jetbrains/exodus/entitystore/VFSBlobVault.java`
                 setContent(object.getKey().longValue(), object.getValue(), txn);
                 return true;
             });
+```
+
+### UnnecessaryUnboxing
+Unnecessary unboxing
+in `entity-store/src/main/java/jetbrains/exodus/entitystore/VFSBlobVault.java`
+#### Snippet
+```java
+            var actualLength = fs.getFileLength(txn, blobHandle);
+
+            if (actualLength != expectedLength.longValue()) {
+                return null;
+            }
 ```
 
 ### UnnecessaryUnboxing
@@ -1723,6 +1723,42 @@ Unnecessary unboxing
 in `entity-store/src/main/java/jetbrains/exodus/entitystore/PersistentStoreTransaction.java`
 #### Snippet
 ```java
+        }
+        return getPropertyIterable(entityType, propertyName, (entityTypeId, propertyId) ->
+                new PropertyContainsValueEntityIterable(this, entityTypeId.intValue(), propertyId.intValue(), value, ignoreCase));
+    }
+
+```
+
+### UnnecessaryUnboxing
+Unnecessary unboxing
+in `entity-store/src/main/java/jetbrains/exodus/entitystore/PersistentStoreTransaction.java`
+#### Snippet
+```java
+        }
+        return getPropertyIterable(entityType, propertyName, (entityTypeId, propertyId) ->
+                new PropertyContainsValueEntityIterable(this, entityTypeId.intValue(), propertyId.intValue(), value, ignoreCase));
+    }
+
+```
+
+### UnnecessaryUnboxing
+Unnecessary unboxing
+in `entity-store/src/main/java/jetbrains/exodus/entitystore/PersistentStoreTransaction.java`
+#### Snippet
+```java
+                        stream.mark(IOUtil.DEFAULT_BUFFER_SIZE);
+
+                        long blobHandle = handle.longValue();
+
+                        var tmpFile = diskBasedBlobVault.copyToTemporaryStore(blobHandle, stream);
+```
+
+### UnnecessaryUnboxing
+Unnecessary unboxing
+in `entity-store/src/main/java/jetbrains/exodus/entitystore/PersistentStoreTransaction.java`
+#### Snippet
+```java
     public EntityIterableBase findWithPropSortedByValue(@NotNull final String entityType, @NotNull final String propertyName) {
         return getPropertyIterable(entityType, propertyName, (entityTypeId, propertyId) ->
                 new PropertiesIterable(this, entityTypeId.intValue(), propertyId.intValue()));
@@ -1738,6 +1774,42 @@ in `entity-store/src/main/java/jetbrains/exodus/entitystore/PersistentStoreTrans
     public EntityIterableBase findWithPropSortedByValue(@NotNull final String entityType, @NotNull final String propertyName) {
         return getPropertyIterable(entityType, propertyName, (entityTypeId, propertyId) ->
                 new PropertiesIterable(this, entityTypeId.intValue(), propertyId.intValue()));
+    }
+
+```
+
+### UnnecessaryUnboxing
+Unnecessary unboxing
+in `entity-store/src/main/java/jetbrains/exodus/entitystore/PersistentStoreTransaction.java`
+#### Snippet
+```java
+
+    // TODO: remove ASAP
+    private static final int traceGetAllForEntityType = Integer.getInteger("jetbrains.exodus.entitystore.traceGetAllForEntityType", -1).intValue();
+
+    @Override
+```
+
+### UnnecessaryUnboxing
+Unnecessary unboxing
+in `entity-store/src/main/java/jetbrains/exodus/entitystore/PersistentStoreTransaction.java`
+#### Snippet
+```java
+    public EntityIterableBase findWithProp(@NotNull final String entityType, @NotNull final String propertyName) {
+        return getPropertyIterable(entityType, propertyName, (entityTypeId, propertyId) ->
+                new EntitiesWithPropertyIterable(this, entityTypeId.intValue(), propertyId.intValue()));
+    }
+
+```
+
+### UnnecessaryUnboxing
+Unnecessary unboxing
+in `entity-store/src/main/java/jetbrains/exodus/entitystore/PersistentStoreTransaction.java`
+#### Snippet
+```java
+    public EntityIterableBase findWithProp(@NotNull final String entityType, @NotNull final String propertyName) {
+        return getPropertyIterable(entityType, propertyName, (entityTypeId, propertyId) ->
+                new EntitiesWithPropertyIterable(this, entityTypeId.intValue(), propertyId.intValue()));
     }
 
 ```
@@ -1850,78 +1922,6 @@ in `entity-store/src/main/java/jetbrains/exodus/entitystore/PersistentStoreTrans
 
 ```
 
-### UnnecessaryUnboxing
-Unnecessary unboxing
-in `entity-store/src/main/java/jetbrains/exodus/entitystore/PersistentStoreTransaction.java`
-#### Snippet
-```java
-    public EntityIterableBase findWithProp(@NotNull final String entityType, @NotNull final String propertyName) {
-        return getPropertyIterable(entityType, propertyName, (entityTypeId, propertyId) ->
-                new EntitiesWithPropertyIterable(this, entityTypeId.intValue(), propertyId.intValue()));
-    }
-
-```
-
-### UnnecessaryUnboxing
-Unnecessary unboxing
-in `entity-store/src/main/java/jetbrains/exodus/entitystore/PersistentStoreTransaction.java`
-#### Snippet
-```java
-    public EntityIterableBase findWithProp(@NotNull final String entityType, @NotNull final String propertyName) {
-        return getPropertyIterable(entityType, propertyName, (entityTypeId, propertyId) ->
-                new EntitiesWithPropertyIterable(this, entityTypeId.intValue(), propertyId.intValue()));
-    }
-
-```
-
-### UnnecessaryUnboxing
-Unnecessary unboxing
-in `entity-store/src/main/java/jetbrains/exodus/entitystore/PersistentStoreTransaction.java`
-#### Snippet
-```java
-
-    // TODO: remove ASAP
-    private static final int traceGetAllForEntityType = Integer.getInteger("jetbrains.exodus.entitystore.traceGetAllForEntityType", -1).intValue();
-
-    @Override
-```
-
-### UnnecessaryUnboxing
-Unnecessary unboxing
-in `entity-store/src/main/java/jetbrains/exodus/entitystore/PersistentStoreTransaction.java`
-#### Snippet
-```java
-        }
-        return getPropertyIterable(entityType, propertyName, (entityTypeId, propertyId) ->
-                new PropertyContainsValueEntityIterable(this, entityTypeId.intValue(), propertyId.intValue(), value, ignoreCase));
-    }
-
-```
-
-### UnnecessaryUnboxing
-Unnecessary unboxing
-in `entity-store/src/main/java/jetbrains/exodus/entitystore/PersistentStoreTransaction.java`
-#### Snippet
-```java
-        }
-        return getPropertyIterable(entityType, propertyName, (entityTypeId, propertyId) ->
-                new PropertyContainsValueEntityIterable(this, entityTypeId.intValue(), propertyId.intValue(), value, ignoreCase));
-    }
-
-```
-
-### UnnecessaryUnboxing
-Unnecessary unboxing
-in `entity-store/src/main/java/jetbrains/exodus/entitystore/PersistentStoreTransaction.java`
-#### Snippet
-```java
-                        stream.mark(IOUtil.DEFAULT_BUFFER_SIZE);
-
-                        long blobHandle = handle.longValue();
-
-                        var tmpFile = diskBasedBlobVault.copyToTemporaryStore(blobHandle, stream);
-```
-
 ## RuleId[ruleID=RedundantMethodOverride]
 ### RedundantMethodOverride
 Method `getEntityType()` is identical to its super method
@@ -1973,7 +1973,7 @@ in `entity-store/src/main/java/jetbrains/exodus/entitystore/iterate/SingleEntity
 
 ### RedundantMethodOverride
 Method `isSortedById()` is identical to its super method
-in `entity-store/src/main/java/jetbrains/exodus/entitystore/iterate/cached/SingleTypeSortedSetEntityIdCachedInstanceIterable.java`
+in `entity-store/src/main/java/jetbrains/exodus/entitystore/iterate/cached/EmptyCachedInstanceIterable.java`
 #### Snippet
 ```java
 
@@ -1985,7 +1985,7 @@ in `entity-store/src/main/java/jetbrains/exodus/entitystore/iterate/cached/Singl
 
 ### RedundantMethodOverride
 Method `isSortedById()` is identical to its super method
-in `entity-store/src/main/java/jetbrains/exodus/entitystore/iterate/cached/EmptyCachedInstanceIterable.java`
+in `entity-store/src/main/java/jetbrains/exodus/entitystore/iterate/cached/SingleTypeSortedSetEntityIdCachedInstanceIterable.java`
 #### Snippet
 ```java
 
@@ -2034,18 +2034,6 @@ in `utils/src/main/java/jetbrains/exodus/core/dataStructures/hash/IntHashMap.jav
 
 ### ClassNameSameAsAncestorName
 Class name `Entry` is the same as one of its superclass' names
-in `utils/src/main/java/jetbrains/exodus/core/dataStructures/hash/IntLinkedHashMap.java`
-#### Snippet
-```java
-
-
-    private static class Entry<V> implements Map.Entry<Integer, V> {
-
-        private final int key;
-```
-
-### ClassNameSameAsAncestorName
-Class name `Entry` is the same as one of its superclass' names
 in `utils/src/main/java/jetbrains/exodus/core/dataStructures/hash/LongLinkedHashMap.java`
 #### Snippet
 ```java
@@ -2054,6 +2042,18 @@ in `utils/src/main/java/jetbrains/exodus/core/dataStructures/hash/LongLinkedHash
     private static class Entry<V> implements Map.Entry<Long, V> {
 
         private final long key;
+```
+
+### ClassNameSameAsAncestorName
+Class name `Entry` is the same as one of its superclass' names
+in `utils/src/main/java/jetbrains/exodus/core/dataStructures/hash/IntLinkedHashMap.java`
+#### Snippet
+```java
+
+
+    private static class Entry<V> implements Map.Entry<Integer, V> {
+
+        private final int key;
 ```
 
 ### ClassNameSameAsAncestorName
@@ -2239,18 +2239,6 @@ in `environment/src/main/java/jetbrains/exodus/tree/btree/BottomPage.java`
 
 ### IntegerMultiplicationImplicitCastToLong
 size \<\< 1: integer shift implicitly cast to long
-in `environment/src/main/java/jetbrains/exodus/tree/btree/BottomPageMutable.java`
-#### Snippet
-```java
-    protected ByteIterable[] getByteIterables(@NotNull final ReclaimFlag flag) {
-        return new ByteIterable[]{
-            CompressedUnsignedLongByteIterable.getIterable((size << 1) + flag.value), // store flag bit
-            CompressedUnsignedLongArrayByteIterable.getIterable(keysAddresses, size)
-        };
-```
-
-### IntegerMultiplicationImplicitCastToLong
-size \<\< 1: integer shift implicitly cast to long
 in `environment/src/main/java/jetbrains/exodus/tree/btree/BasePageMutable.java`
 #### Snippet
 ```java
@@ -2259,6 +2247,18 @@ in `environment/src/main/java/jetbrains/exodus/tree/btree/BasePageMutable.java`
                         (size << 1) + ReclaimFlag.RECLAIM.value
                     );
                     result = log.writeContinuously(type, structureId, new CompoundByteIterable(iterables));
+```
+
+### IntegerMultiplicationImplicitCastToLong
+size \<\< 1: integer shift implicitly cast to long
+in `environment/src/main/java/jetbrains/exodus/tree/btree/BottomPageMutable.java`
+#### Snippet
+```java
+    protected ByteIterable[] getByteIterables(@NotNull final ReclaimFlag flag) {
+        return new ByteIterable[]{
+            CompressedUnsignedLongByteIterable.getIterable((size << 1) + flag.value), // store flag bit
+            CompressedUnsignedLongArrayByteIterable.getIterable(keysAddresses, size)
+        };
 ```
 
 ### IntegerMultiplicationImplicitCastToLong
@@ -2421,18 +2421,6 @@ in `utils/src/main/java/jetbrains/exodus/core/execution/ThreadJobProcessorPool.j
 
 ### NestedAssignment
 Result of assignment expression used
-in `utils/src/main/java/jetbrains/exodus/core/execution/Job.java`
-#### Snippet
-```java
-
-    public boolean queue(JobProcessor processor, Priority priority) {
-        return (wasQueued = processor.queue(this, priority));
-    }
-
-```
-
-### NestedAssignment
-Result of assignment expression used
 in `utils/src/main/java/jetbrains/exodus/core/dataStructures/CacheHitRateable.java`
 #### Snippet
 ```java
@@ -2445,14 +2433,14 @@ in `utils/src/main/java/jetbrains/exodus/core/dataStructures/CacheHitRateable.ja
 
 ### NestedAssignment
 Result of assignment expression used
-in `utils/src/main/java/jetbrains/exodus/core/dataStructures/StablePriorityQueue.java`
+in `utils/src/main/java/jetbrains/exodus/core/execution/Job.java`
 #### Snippet
 ```java
-        final P oldPriority = oldPair == null ? null : oldPair.getSecond();
-        final E oldValue = oldPair == null ? null : oldPair.getFirst();
-        if (oldPriority != null && (values = theQueue.get(oldPriority)) != null) {
-            values.remove(value);
-            if (values.isEmpty()) {
+
+    public boolean queue(JobProcessor processor, Priority priority) {
+        return (wasQueued = processor.queue(this, priority));
+    }
+
 ```
 
 ### NestedAssignment
@@ -2469,14 +2457,14 @@ in `utils/src/main/java/jetbrains/exodus/core/dataStructures/hash/IntHashSet.jav
 
 ### NestedAssignment
 Result of assignment expression used
-in `utils/src/main/java/jetbrains/exodus/core/dataStructures/hash/IntHashMap.java`
+in `utils/src/main/java/jetbrains/exodus/core/dataStructures/StablePriorityQueue.java`
 #### Snippet
 ```java
-        @Override
-        protected Entry<V> nextEntry() {
-            final Entry<V> result = last = e;
-            initNextEntry();
-            return result;
+        final P oldPriority = oldPair == null ? null : oldPair.getSecond();
+        final E oldValue = oldPair == null ? null : oldPair.getFirst();
+        if (oldPriority != null && (values = theQueue.get(oldPriority)) != null) {
+            values.remove(value);
+            if (values.isEmpty()) {
 ```
 
 ### NestedAssignment
@@ -2505,14 +2493,26 @@ in `utils/src/main/java/jetbrains/exodus/core/dataStructures/hash/LongLinkedHash
 
 ### NestedAssignment
 Result of assignment expression used
+in `utils/src/main/java/jetbrains/exodus/core/dataStructures/hash/IntHashMap.java`
+#### Snippet
+```java
+        @Override
+        protected Entry<V> nextEntry() {
+            final Entry<V> result = last = e;
+            initNextEntry();
+            return result;
+```
+
+### NestedAssignment
+Result of assignment expression used
 in `utils/src/main/java/jetbrains/exodus/core/dataStructures/hash/LinkedHashSet.java`
 #### Snippet
 ```java
-        for (Entry<E> e = table[index]; e != null; e = e.hashNext) {
-            final E entryKey;
-            if ((entryKey = e.key) == key || entryKey.equals(key)) {
-                return true;
-            }
+        }
+        allocateTable(HashUtil.getCeilingPrime((int) (capacity / loadFactor)));
+        top = back = null;
+        this.capacity = capacity;
+        size = 0;
 ```
 
 ### NestedAssignment
@@ -2556,11 +2556,11 @@ Result of assignment expression used
 in `utils/src/main/java/jetbrains/exodus/core/dataStructures/hash/LinkedHashSet.java`
 #### Snippet
 ```java
-        }
-        allocateTable(HashUtil.getCeilingPrime((int) (capacity / loadFactor)));
-        top = back = null;
-        this.capacity = capacity;
-        size = 0;
+        for (Entry<E> e = table[index]; e != null; e = e.hashNext) {
+            final E entryKey;
+            if ((entryKey = e.key) == key || entryKey.equals(key)) {
+                return false;
+            }
 ```
 
 ### NestedAssignment
@@ -2571,13 +2571,25 @@ in `utils/src/main/java/jetbrains/exodus/core/dataStructures/hash/LinkedHashSet.
         for (Entry<E> e = table[index]; e != null; e = e.hashNext) {
             final E entryKey;
             if ((entryKey = e.key) == key || entryKey.equals(key)) {
-                return false;
+                return true;
             }
 ```
 
 ### NestedAssignment
 Result of assignment expression used
-in `utils/src/main/java/jetbrains/exodus/core/dataStructures/hash/IntLinkedHashMap.java`
+in `utils/src/main/java/jetbrains/exodus/core/dataStructures/hash/LongLinkedHashMap.java`
+#### Snippet
+```java
+        }
+        allocateTable(HashUtil.getCeilingPrime((int) (capacity / loadFactor)));
+        top = back = null;
+        this.capacity = capacity;
+        _size = 0;
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `utils/src/main/java/jetbrains/exodus/core/dataStructures/hash/LongLinkedHashMap.java`
 #### Snippet
 ```java
         @Override
@@ -2589,14 +2601,26 @@ in `utils/src/main/java/jetbrains/exodus/core/dataStructures/hash/IntLinkedHashM
 
 ### NestedAssignment
 Result of assignment expression used
-in `utils/src/main/java/jetbrains/exodus/core/dataStructures/hash/IntLinkedHashMap.java`
+in `utils/src/main/java/jetbrains/exodus/core/dataStructures/hash/HashSet.java`
 #### Snippet
 ```java
-        }
-        allocateTable(HashUtil.getCeilingPrime((int) (capacity / loadFactor)));
-        top = back = null;
-        this.capacity = capacity;
-        _size = 0;
+        for (Entry<E> e = table[index]; e != null; e = e.hashNext) {
+            final E entryKey;
+            if ((entryKey = e.key) == key || entryKey.equals(key)) {
+                return true;
+            }
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `utils/src/main/java/jetbrains/exodus/core/dataStructures/hash/HashSet.java`
+#### Snippet
+```java
+        for (Entry<E> e = table[index]; e != null; e = e.hashNext) {
+            final E entryKey;
+            if ((entryKey = e.key) == key || entryKey.equals(key)) {
+                return false;
+            }
 ```
 
 ### NestedAssignment
@@ -2637,26 +2661,26 @@ in `utils/src/main/java/jetbrains/exodus/core/dataStructures/hash/HashSet.java`
 
 ### NestedAssignment
 Result of assignment expression used
-in `utils/src/main/java/jetbrains/exodus/core/dataStructures/hash/HashSet.java`
+in `utils/src/main/java/jetbrains/exodus/core/dataStructures/hash/IntLinkedHashMap.java`
 #### Snippet
 ```java
-        for (Entry<E> e = table[index]; e != null; e = e.hashNext) {
-            final E entryKey;
-            if ((entryKey = e.key) == key || entryKey.equals(key)) {
-                return false;
-            }
+        }
+        allocateTable(HashUtil.getCeilingPrime((int) (capacity / loadFactor)));
+        top = back = null;
+        this.capacity = capacity;
+        _size = 0;
 ```
 
 ### NestedAssignment
 Result of assignment expression used
-in `utils/src/main/java/jetbrains/exodus/core/dataStructures/hash/HashSet.java`
+in `utils/src/main/java/jetbrains/exodus/core/dataStructures/hash/IntLinkedHashMap.java`
 #### Snippet
 ```java
-        for (Entry<E> e = table[index]; e != null; e = e.hashNext) {
-            final E entryKey;
-            if ((entryKey = e.key) == key || entryKey.equals(key)) {
-                return true;
-            }
+        @Override
+        protected Entry<V> nextEntry() {
+            final Entry<V> result = last = e;
+            e = result.next;
+            return result;
 ```
 
 ### NestedAssignment
@@ -2673,25 +2697,25 @@ in `utils/src/main/java/jetbrains/exodus/core/dataStructures/hash/LongHashSet.ja
 
 ### NestedAssignment
 Result of assignment expression used
-in `utils/src/main/java/jetbrains/exodus/core/dataStructures/hash/LongLinkedHashMap.java`
+in `utils/src/main/java/jetbrains/exodus/core/dataStructures/hash/HashMap.java`
 #### Snippet
 ```java
-        }
-        allocateTable(HashUtil.getCeilingPrime((int) (capacity / loadFactor)));
-        top = back = null;
-        this.capacity = capacity;
-        _size = 0;
+        for (Entry<K, V> e = table[index]; e != null; e = e.hashNext) {
+            final K entryKey;
+            if ((entryKey = e.key) == key || entryKey.equals(key)) {
+                return e.setValue(value);
+            }
 ```
 
 ### NestedAssignment
 Result of assignment expression used
-in `utils/src/main/java/jetbrains/exodus/core/dataStructures/hash/LongLinkedHashMap.java`
+in `utils/src/main/java/jetbrains/exodus/core/dataStructures/hash/HashMap.java`
 #### Snippet
 ```java
         @Override
-        protected Entry<V> nextEntry() {
-            final Entry<V> result = last = e;
-            e = result.next;
+        protected Entry<K, V> nextEntry() {
+            final Entry<K, V> result = last = e;
+            initNextEntry();
             return result;
 ```
 
@@ -2703,7 +2727,7 @@ in `utils/src/main/java/jetbrains/exodus/core/dataStructures/hash/HashMap.java`
         for (Entry<K, V> e = table[index]; e != null; e = e.hashNext) {
             final K entryKey;
             if ((entryKey = e.key) == key || entryKey.equals(key)) {
-                return e.setValue(value);
+                return e;
             }
 ```
 
@@ -2733,54 +2757,6 @@ in `utils/src/main/java/jetbrains/exodus/core/dataStructures/hash/HashMap.java`
 
 ### NestedAssignment
 Result of assignment expression used
-in `utils/src/main/java/jetbrains/exodus/core/dataStructures/hash/HashMap.java`
-#### Snippet
-```java
-        @Override
-        protected Entry<K, V> nextEntry() {
-            final Entry<K, V> result = last = e;
-            initNextEntry();
-            return result;
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `utils/src/main/java/jetbrains/exodus/core/dataStructures/hash/HashMap.java`
-#### Snippet
-```java
-        for (Entry<K, V> e = table[index]; e != null; e = e.hashNext) {
-            final K entryKey;
-            if ((entryKey = e.key) == key || entryKey.equals(key)) {
-                return e;
-            }
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `utils/src/main/java/jetbrains/exodus/core/dataStructures/hash/LinkedHashMap.java`
-#### Snippet
-```java
-        for (Entry<K, V> e = table[index]; e != null; e = e.hashNext) {
-            final K entryKey;
-            if ((entryKey = e.key) == key || entryKey.equals(key)) {
-                moveToTop(e);
-                return e.setValue(value);
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `utils/src/main/java/jetbrains/exodus/core/dataStructures/hash/LinkedHashMap.java`
-#### Snippet
-```java
-        for (Entry<K, V> e = table[index]; e != null; e = e.hashNext) {
-            final K entryKey;
-            if ((entryKey = e.key) == key || entryKey.equals(key)) {
-                moveToTop(e);
-                return e;
-```
-
-### NestedAssignment
-Result of assignment expression used
 in `utils/src/main/java/jetbrains/exodus/core/dataStructures/hash/LinkedHashMap.java`
 #### Snippet
 ```java
@@ -2801,6 +2777,30 @@ in `utils/src/main/java/jetbrains/exodus/core/dataStructures/hash/LinkedHashMap.
             final Entry<K, V> result = last = e;
             e = result.next;
             return result;
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `utils/src/main/java/jetbrains/exodus/core/dataStructures/hash/LinkedHashMap.java`
+#### Snippet
+```java
+        for (Entry<K, V> e = table[index]; e != null; e = e.hashNext) {
+            final K entryKey;
+            if ((entryKey = e.key) == key || entryKey.equals(key)) {
+                moveToTop(e);
+                return e;
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `utils/src/main/java/jetbrains/exodus/core/dataStructures/hash/LinkedHashMap.java`
+#### Snippet
+```java
+        for (Entry<K, V> e = table[index]; e != null; e = e.hashNext) {
+            final K entryKey;
+            if ((entryKey = e.key) == key || entryKey.equals(key)) {
+                moveToTop(e);
+                return e.setValue(value);
 ```
 
 ### NestedAssignment
@@ -2964,11 +2964,11 @@ Result of assignment expression used
 in `environment/src/main/java/jetbrains/exodus/log/CompressedUnsignedLongByteIterable.java`
 #### Snippet
 ```java
-        while (true) {
-            final byte b = (byte) (l & 0x7f);
-            if ((l >>= 7) == 0) {
-                output.write(b | 0x80);
-                break;
+                byte b = (byte) (l & 0x7f);
+                l >>= 7;
+                if (!(goon = l > 0)) {
+                    b |= 0x80;
+                }
 ```
 
 ### NestedAssignment
@@ -2976,11 +2976,11 @@ Result of assignment expression used
 in `environment/src/main/java/jetbrains/exodus/log/CompressedUnsignedLongByteIterable.java`
 #### Snippet
 ```java
-                byte b = (byte) (l & 0x7f);
-                l >>= 7;
-                if (!(goon = l > 0)) {
-                    b |= 0x80;
-                }
+        while (true) {
+            final byte b = (byte) (l & 0x7f);
+            if ((l >>= 7) == 0) {
+                output.write(b | 0x80);
+                break;
 ```
 
 ### NestedAssignment
@@ -2997,12 +2997,26 @@ in `environment/src/main/java/jetbrains/exodus/tree/TreeCursorMutable.java`
 
 ### NestedAssignment
 Result of assignment expression used
-in `environment/src/main/java/jetbrains/exodus/tree/btree/InternalPage.java`
+in `environment/src/main/java/jetbrains/exodus/log/BufferedDataWriter.java`
 #### Snippet
 ```java
-        super.loadAddressLengths(length, it);
-        it.skip(((long) size) * keyAddressLen);
-        checkAddressLength(childAddressLen = it.next());
+        currentPage.xxHash64.close();
+
+        currentPage = this.currentPage = new MutablePage(new byte[pageSize],
+                currentPage.pageAddress + pageSize, 0);
+        currentPage.xxHash64 = XX_HASH_FACTORY.newStreamingHash64(XX_HASH_SEED);
+
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `environment/src/main/java/jetbrains/exodus/log/BufferedDataWriter.java`
+#### Snippet
+```java
+        currentPage.xxHash64.close();
+
+        return this.currentPage = new MutablePage(pageData,
+                currentPage.pageAddress + pageSize, pageData.length);
     }
 
 ```
@@ -3033,27 +3047,13 @@ in `environment/src/main/java/jetbrains/exodus/log/BufferedDataWriter.java`
 
 ### NestedAssignment
 Result of assignment expression used
-in `environment/src/main/java/jetbrains/exodus/log/BufferedDataWriter.java`
+in `environment/src/main/java/jetbrains/exodus/tree/btree/InternalPage.java`
 #### Snippet
 ```java
-        currentPage.xxHash64.close();
-
-        return this.currentPage = new MutablePage(pageData,
-                currentPage.pageAddress + pageSize, pageData.length);
+        super.loadAddressLengths(length, it);
+        it.skip(((long) size) * keyAddressLen);
+        checkAddressLength(childAddressLen = it.next());
     }
-
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `environment/src/main/java/jetbrains/exodus/log/BufferedDataWriter.java`
-#### Snippet
-```java
-        currentPage.xxHash64.close();
-
-        currentPage = this.currentPage = new MutablePage(new byte[pageSize],
-                currentPage.pageAddress + pageSize, 0);
-        currentPage.xxHash64 = XX_HASH_FACTORY.newStreamingHash64(XX_HASH_SEED);
 
 ```
 
@@ -3074,11 +3074,35 @@ Result of assignment expression used
 in `environment/src/main/java/jetbrains/exodus/tree/btree/BasePageImmutable.java`
 #### Snippet
 ```java
-    @NotNull ILeafNode getMaxKey() {
-        if (maxKey != null) return maxKey;
-        return maxKey = super.getMaxKey();
-    }
+            @SuppressWarnings("ObjectAllocationInLoop")
+            final BinarySearchIterator it = new BinarySearchIterator(adjustedPageSize);
+            it.offset = offset = ((int) midAddress) & (cachePageSize - 1); // cache page size is always a power of 2
+            final long pageAddress = midAddress - offset;
+            if (pageAddress == leftAddress) {
+```
 
+### NestedAssignment
+Result of assignment expression used
+in `environment/src/main/java/jetbrains/exodus/tree/btree/BasePageImmutable.java`
+#### Snippet
+```java
+                it.page = rightPage;
+            } else {
+                it.page = leftPage = log.getCachedPage(pageAddress);
+                leftAddress = pageAddress;
+            }
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `environment/src/main/java/jetbrains/exodus/tree/btree/BasePageImmutable.java`
+#### Snippet
+```java
+                    it.nextPage = rightPage;
+                } else {
+                    it.nextPage = rightPage = log.getCachedPage(nextPageAddress);
+                    rightAddress = nextPageAddress;
+                }
 ```
 
 ### NestedAssignment
@@ -3134,35 +3158,11 @@ Result of assignment expression used
 in `environment/src/main/java/jetbrains/exodus/tree/btree/BasePageImmutable.java`
 #### Snippet
 ```java
-            @SuppressWarnings("ObjectAllocationInLoop")
-            final BinarySearchIterator it = new BinarySearchIterator(adjustedPageSize);
-            it.offset = offset = ((int) midAddress) & (cachePageSize - 1); // cache page size is always a power of 2
-            final long pageAddress = midAddress - offset;
-            if (pageAddress == leftAddress) {
-```
+    @NotNull ILeafNode getMaxKey() {
+        if (maxKey != null) return maxKey;
+        return maxKey = super.getMaxKey();
+    }
 
-### NestedAssignment
-Result of assignment expression used
-in `environment/src/main/java/jetbrains/exodus/tree/btree/BasePageImmutable.java`
-#### Snippet
-```java
-                it.page = rightPage;
-            } else {
-                it.page = leftPage = log.getCachedPage(pageAddress);
-                leftAddress = pageAddress;
-            }
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `environment/src/main/java/jetbrains/exodus/tree/btree/BasePageImmutable.java`
-#### Snippet
-```java
-                    it.nextPage = rightPage;
-                } else {
-                    it.nextPage = rightPage = log.getCachedPage(nextPageAddress);
-                    rightAddress = nextPageAddress;
-                }
 ```
 
 ### NestedAssignment
@@ -3173,42 +3173,6 @@ in `environment/src/main/java/jetbrains/exodus/tree/btree/BasePageImmutable.java
 
     protected void loadAddressLengths(final int length, final ByteIterator it) {
         checkAddressLength(keyAddressLen = (byte) length);
-    }
-
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `environment/src/main/java/jetbrains/exodus/tree/btree/BottomPageMutable.java`
-#### Snippet
-```java
-                    dupTree.mainTree = tree;
-
-                    if (res = dupTree.delete(value)) {
-                        tree.addExpiredLoggable(ln.getAddress());
-                        lnm = LeafNodeDupMutable.convert(ln, tree, dupTree);
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `environment/src/main/java/jetbrains/exodus/tree/patricia/ChildReferenceTransient.java`
-#### Snippet
-```java
-
-    MutableNode mutate(@NotNull final PatriciaTreeMutable tree) {
-        return (MutableNode) (child = child.getMutableCopy(tree));
-    }
-}
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `environment/src/main/java/jetbrains/exodus/tree/btree/BTreeTraverser.java`
-#### Snippet
-```java
-    public INode moveDownToLast() {
-        final BasePage child = getChildForMoveDown();
-        return node = pushChild(new TreePos(currentNode, currentPos), child, child.size - 1);
     }
 
 ```
@@ -3242,6 +3206,30 @@ Result of assignment expression used
 in `environment/src/main/java/jetbrains/exodus/tree/btree/BTreeTraverser.java`
 #### Snippet
 ```java
+    public INode moveDownToLast() {
+        final BasePage child = getChildForMoveDown();
+        return node = pushChild(new TreePos(currentNode, currentPos), child, child.size - 1);
+    }
+
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `environment/src/main/java/jetbrains/exodus/tree/btree/BTreeTraverser.java`
+#### Snippet
+```java
+    @NotNull
+    public INode moveDown() {
+        return node = pushChild(new TreePos(currentNode, currentPos), getChildForMoveDown(), 0);
+    }
+
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `environment/src/main/java/jetbrains/exodus/tree/btree/BTreeTraverser.java`
+#### Snippet
+```java
         ++currentPos;
         if (currentNode.isBottom()) {
             return node = handleLeafR(currentNode.getKey(currentPos));
@@ -3263,14 +3251,26 @@ in `environment/src/main/java/jetbrains/exodus/tree/btree/BTreeTraverser.java`
 
 ### NestedAssignment
 Result of assignment expression used
-in `environment/src/main/java/jetbrains/exodus/tree/btree/BTreeTraverser.java`
+in `environment/src/main/java/jetbrains/exodus/tree/patricia/ChildReferenceTransient.java`
 #### Snippet
 ```java
-    @NotNull
-    public INode moveDown() {
-        return node = pushChild(new TreePos(currentNode, currentPos), getChildForMoveDown(), 0);
-    }
 
+    MutableNode mutate(@NotNull final PatriciaTreeMutable tree) {
+        return (MutableNode) (child = child.getMutableCopy(tree));
+    }
+}
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `environment/src/main/java/jetbrains/exodus/tree/btree/BottomPageMutable.java`
+#### Snippet
+```java
+                    dupTree.mainTree = tree;
+
+                    if (res = dupTree.delete(value)) {
+                        tree.addExpiredLoggable(ln.getAddress());
+                        lnm = LeafNodeDupMutable.convert(ln, tree, dupTree);
 ```
 
 ### NestedAssignment
@@ -3283,6 +3283,18 @@ in `entity-store/src/main/java/jetbrains/exodus/entitystore/iterate/SkipEntityIt
                     this.sourceIt = sourceIt = (EntityIteratorBase) source.iterator();
                     sourceIt.skip(itemsToSkip);
                 }
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `entity-store/src/main/java/jetbrains/exodus/entitystore/iterate/EntityIdArrayCachedInstanceIterableFactory.java`
+#### Snippet
+```java
+                                if (lastTypeId > nextTypeId || lastTypeId == nextTypeId && lastLocalId > nextLocalId) {
+                                    final int length;
+                                    if (nextTypeId == NULL_TYPE_ID && (length = localIds.size()) <= 1) {
+                                        if (length == 1) { // direct conversion
+                                            onlyOneTypeId = false;
 ```
 
 ### NestedAssignment
@@ -3311,14 +3323,14 @@ in `entity-store/src/main/java/jetbrains/exodus/entitystore/iterate/PropertiesIt
 
 ### NestedAssignment
 Result of assignment expression used
-in `entity-store/src/main/java/jetbrains/exodus/entitystore/iterate/EntityIdArrayCachedInstanceIterableFactory.java`
+in `entity-store/src/main/java/jetbrains/exodus/entitystore/iterate/cached/iterator/EntityIdArrayIteratorMultiTypeIdUnpacked.java`
 #### Snippet
 ```java
-                                if (lastTypeId > nextTypeId || lastTypeId == nextTypeId && lastLocalId > nextLocalId) {
-                                    final int length;
-                                    if (nextTypeId == NULL_TYPE_ID && (length = localIds.size()) <= 1) {
-                                        if (length == 1) { // direct conversion
-                                            onlyOneTypeId = false;
+        final int typeId;
+        final int count = localIds.length;
+        if (count == 0 || (typeId = typeIds[typeIds.length - 1]) == NULL_TYPE_ID) {
+            return null;
+        }
 ```
 
 ### NestedAssignment
@@ -3341,18 +3353,6 @@ in `entity-store/src/main/java/jetbrains/exodus/entitystore/iterate/cached/itera
     public EntityId getLast() {
         final int typeId;
         if (localIds.length == 0 || (typeId = typeIds[0]) == NULL_TYPE_ID) {
-            return null;
-        }
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `entity-store/src/main/java/jetbrains/exodus/entitystore/iterate/cached/iterator/EntityIdArrayIteratorMultiTypeIdUnpacked.java`
-#### Snippet
-```java
-        final int typeId;
-        final int count = localIds.length;
-        if (count == 0 || (typeId = typeIds[typeIds.length - 1]) == NULL_TYPE_ID) {
             return null;
         }
 ```
@@ -3389,8 +3389,8 @@ in `entity-store/src/main/java/jetbrains/exodus/entitystore/PersistentStoreTrans
         linksCache = createObjectCache(config.getTransactionLinksCacheSize());
         blobStringsCache = createObjectCache(config.getTransactionBlobStringsCacheSize());
         localCacheAttempts = localCacheHits = 0;
-        txn = ((EnvironmentImpl) store.getEnvironment()).beginTransactionAt(highAddress);
-    }
+        final Runnable beginHook = getRevertCachesBeginHook();
+        final Environment env = store.getEnvironment();
 ```
 
 ### NestedAssignment
@@ -3401,23 +3401,11 @@ in `entity-store/src/main/java/jetbrains/exodus/entitystore/PersistentStoreTrans
         linksCache = createObjectCache(config.getTransactionLinksCacheSize());
         blobStringsCache = createObjectCache(config.getTransactionBlobStringsCacheSize());
         localCacheAttempts = localCacheHits = 0;
-        final Runnable beginHook = getRevertCachesBeginHook();
-        final Environment env = store.getEnvironment();
+        txn = ((EnvironmentImpl) store.getEnvironment()).beginTransactionAt(highAddress);
+    }
 ```
 
 ## RuleId[ruleID=FieldAccessedSynchronizedAndUnsynchronized]
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `externalAssociationEnds` is accessed in both synchronized and unsynchronized contexts
-in `query/src/main/java/jetbrains/exodus/query/metadata/EntityMetaDataImpl.java`
-#### Snippet
-```java
-    private final Set<String> subTypes = new LinkedHashSetDecorator<>();
-    private List<String> thisAndSuperTypes = Collections.emptyList();
-    private Set<AssociationEndMetaData> externalAssociationEnds = null;
-    private final Map<String, PropertyMetaData> properties = new HashMapDecorator<>();
-    private Set<Index> ownIndexes = Collections.emptySet();
-```
-
 ### FieldAccessedSynchronizedAndUnsynchronized
 Field `type` is accessed in both synchronized and unsynchronized contexts
 in `query/src/main/java/jetbrains/exodus/query/metadata/EntityMetaDataImpl.java`
@@ -3428,6 +3416,18 @@ in `query/src/main/java/jetbrains/exodus/query/metadata/EntityMetaDataImpl.java`
     private String type = null;
     private String superType = null;
     private final Set<String> interfaces = new LinkedHashSetDecorator<>();
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `externalAssociationEnds` is accessed in both synchronized and unsynchronized contexts
+in `query/src/main/java/jetbrains/exodus/query/metadata/EntityMetaDataImpl.java`
+#### Snippet
+```java
+    private final Set<String> subTypes = new LinkedHashSetDecorator<>();
+    private List<String> thisAndSuperTypes = Collections.emptyList();
+    private Set<AssociationEndMetaData> externalAssociationEnds = null;
+    private final Map<String, PropertyMetaData> properties = new HashMapDecorator<>();
+    private Set<Index> ownIndexes = Collections.emptySet();
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
@@ -3515,18 +3515,6 @@ in `entity-store/src/main/java/jetbrains/exodus/entitystore/OpenTablesCache.java
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
-Field `closeEnvironment` is accessed in both synchronized and unsynchronized contexts
-in `entity-store/src/main/java/jetbrains/exodus/entitystore/PersistentEntityStoreImpl.java`
-#### Snippet
-```java
-    @NotNull
-    private final Environment environment;
-    private boolean closeEnvironment;
-    @NotNull
-    private final DataReaderWriterProvider readerWriterProvider;
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
 Field `blobVault` is accessed in both synchronized and unsynchronized contexts
 in `entity-store/src/main/java/jetbrains/exodus/entitystore/PersistentEntityStoreImpl.java`
 #### Snippet
@@ -3536,6 +3524,18 @@ in `entity-store/src/main/java/jetbrains/exodus/entitystore/PersistentEntityStor
     private BlobVault blobVault;
 
     @NotNull
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `closeEnvironment` is accessed in both synchronized and unsynchronized contexts
+in `entity-store/src/main/java/jetbrains/exodus/entitystore/PersistentEntityStoreImpl.java`
+#### Snippet
+```java
+    @NotNull
+    private final Environment environment;
+    private boolean closeEnvironment;
+    @NotNull
+    private final DataReaderWriterProvider readerWriterProvider;
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
@@ -3650,30 +3650,6 @@ public class Concat extends BinaryOperator {
 
 ### EqualsAndHashcode
 Class has `equals()` defined but does not define `hashCode()`
-in `query/src/main/java/jetbrains/exodus/query/GetAll.java`
-#### Snippet
-```java
-import jetbrains.exodus.query.metadata.ModelMetaData;
-
-public class GetAll extends NodeBase {
-
-    @Override
-```
-
-### EqualsAndHashcode
-Class has `equals()` defined but does not define `hashCode()`
-in `query/src/main/java/jetbrains/exodus/query/Minus.java`
-#### Snippet
-```java
-import jetbrains.exodus.query.metadata.ModelMetaData;
-
-public class Minus extends BinaryOperator {
-    public Minus(final NodeBase left, final NodeBase right) {
-        super(left, right);
-```
-
-### EqualsAndHashcode
-Class has `equals()` defined but does not define `hashCode()`
 in `query/src/main/java/jetbrains/exodus/query/Sort.java`
 #### Snippet
 ```java
@@ -3694,6 +3670,30 @@ in `query/src/main/java/jetbrains/exodus/query/MergePropertyRanges.java`
 class MergePropertyRanges extends ConversionWildcard<And> {
     /**
      * Create a wildcard node of type {@code t}.
+```
+
+### EqualsAndHashcode
+Class has `equals()` defined but does not define `hashCode()`
+in `query/src/main/java/jetbrains/exodus/query/GetAll.java`
+#### Snippet
+```java
+import jetbrains.exodus.query.metadata.ModelMetaData;
+
+public class GetAll extends NodeBase {
+
+    @Override
+```
+
+### EqualsAndHashcode
+Class has `equals()` defined but does not define `hashCode()`
+in `query/src/main/java/jetbrains/exodus/query/Minus.java`
+#### Snippet
+```java
+import jetbrains.exodus.query.metadata.ModelMetaData;
+
+public class Minus extends BinaryOperator {
+    public Minus(final NodeBase left, final NodeBase right) {
+        super(left, right);
 ```
 
 ### EqualsAndHashcode
@@ -3770,18 +3770,6 @@ class PropertyEqualToPropertyNoNull extends ConversionWildcard<PropertyEqual> {
 
 ### EqualsAndHashcode
 Class has `equals()` defined but does not define `hashCode()`
-in `query/src/main/java/jetbrains/exodus/query/GetLinks.java`
-#### Snippet
-```java
-import static jetbrains.exodus.query.Utils.safe_equals;
-
-public class GetLinks extends NodeBase {
-    private final EntityId id;
-    private final String linkName;
-```
-
-### EqualsAndHashcode
-Class has `equals()` defined but does not define `hashCode()`
 in `query/src/main/java/jetbrains/exodus/query/PropertyStartsWith.java`
 #### Snippet
 ```java
@@ -3794,14 +3782,14 @@ public class PropertyStartsWith extends NodeBase {
 
 ### EqualsAndHashcode
 Class has `equals()` defined but does not define `hashCode()`
-in `query/src/main/java/jetbrains/exodus/query/NodeBase.java`
+in `query/src/main/java/jetbrains/exodus/query/GetLinks.java`
 #### Snippet
 ```java
+import static jetbrains.exodus.query.Utils.safe_equals;
 
-@SuppressWarnings("HardcodedLineSeparator")
-public abstract class NodeBase {
-    protected static final List<NodeBase> NO_CHILDREN = Collections.emptyList();
-    static final String TREE_LEVEL_INDENT = "  ";
+public class GetLinks extends NodeBase {
+    private final EntityId id;
+    private final String linkName;
 ```
 
 ### EqualsAndHashcode
@@ -3814,6 +3802,18 @@ import java.util.List;
 public class Sorts {
     private List<Sort> sorts;
 
+```
+
+### EqualsAndHashcode
+Class has `equals()` defined but does not define `hashCode()`
+in `query/src/main/java/jetbrains/exodus/query/NodeBase.java`
+#### Snippet
+```java
+
+@SuppressWarnings("HardcodedLineSeparator")
+public abstract class NodeBase {
+    protected static final List<NodeBase> NO_CHILDREN = Collections.emptyList();
+    static final String TREE_LEVEL_INDENT = "  ";
 ```
 
 ### EqualsAndHashcode
@@ -3895,6 +3895,18 @@ Lock operations on 'this' may have unforeseen side-effects
 in `query/src/main/java/jetbrains/exodus/query/metadata/EntityMetaDataImpl.java`
 #### Snippet
 ```java
+
+    void reset() {
+        synchronized (this) {
+            allSubTypes = null;
+            incomingAssociations = null;
+```
+
+### SynchronizeOnThis
+Lock operations on 'this' may have unforeseen side-effects
+in `query/src/main/java/jetbrains/exodus/query/metadata/EntityMetaDataImpl.java`
+#### Snippet
+```java
     private void updateIndexes() {
         if (indexes == null || fieldToIndexes == null) {
             synchronized (this) {
@@ -3919,42 +3931,6 @@ Lock operations on 'this' may have unforeseen side-effects
 in `query/src/main/java/jetbrains/exodus/query/metadata/EntityMetaDataImpl.java`
 #### Snippet
 ```java
-        List<String> result = allSubTypes;
-        if (result == null) {
-            synchronized (this) {
-                result = allSubTypes;
-                if (result == null) {
-```
-
-### SynchronizeOnThis
-Lock operations on 'this' may have unforeseen side-effects
-in `query/src/main/java/jetbrains/exodus/query/metadata/EntityMetaDataImpl.java`
-#### Snippet
-```java
-
-    void reset() {
-        synchronized (this) {
-            allSubTypes = null;
-            incomingAssociations = null;
-```
-
-### SynchronizeOnThis
-Lock operations on 'this' may have unforeseen side-effects
-in `query/src/main/java/jetbrains/exodus/query/metadata/EntityMetaDataImpl.java`
-#### Snippet
-```java
-        Ends result = ends;
-        if (result == null) {
-            synchronized (this) {
-                result = ends;
-                if (result == null) {
-```
-
-### SynchronizeOnThis
-Lock operations on 'this' may have unforeseen side-effects
-in `query/src/main/java/jetbrains/exodus/query/metadata/EntityMetaDataImpl.java`
-#### Snippet
-```java
 
     void addAssociationEndMetaData(AssociationEndMetaData end) {
         synchronized (this) {
@@ -3967,11 +3943,35 @@ Lock operations on 'this' may have unforeseen side-effects
 in `query/src/main/java/jetbrains/exodus/query/metadata/EntityMetaDataImpl.java`
 #### Snippet
 ```java
+        List<String> result = allSubTypes;
+        if (result == null) {
+            synchronized (this) {
+                result = allSubTypes;
+                if (result == null) {
+```
+
+### SynchronizeOnThis
+Lock operations on 'this' may have unforeseen side-effects
+in `query/src/main/java/jetbrains/exodus/query/metadata/EntityMetaDataImpl.java`
+#### Snippet
+```java
     private void updateIncommingAssociations(ModelMetaData mmd) {
         if (incomingAssociations == null) {
             synchronized (this) {
                 if (incomingAssociations == null) {
                     final HashMapDecorator<String, Set<String>> result = new HashMapDecorator<>();
+```
+
+### SynchronizeOnThis
+Lock operations on 'this' may have unforeseen side-effects
+in `query/src/main/java/jetbrains/exodus/query/metadata/EntityMetaDataImpl.java`
+#### Snippet
+```java
+        Ends result = ends;
+        if (result == null) {
+            synchronized (this) {
+                result = ends;
+                if (result == null) {
 ```
 
 ### SynchronizeOnThis
@@ -4039,11 +4039,11 @@ Lock operations on 'this' may have unforeseen side-effects
 in `utils/src/main/java/jetbrains/exodus/core/execution/locks/DebugLatch.java`
 #### Snippet
 ```java
-        if (owner != null) {
-            logOwner();
-            wait(timeout);
-            if (owner != null) {
-                return false;
+        clearOwnerInfo();
+        owner = null;
+        notify();
+    }
+
 ```
 
 ### SynchronizeOnThis
@@ -4051,11 +4051,11 @@ Lock operations on 'this' may have unforeseen side-effects
 in `utils/src/main/java/jetbrains/exodus/core/execution/locks/DebugLatch.java`
 #### Snippet
 ```java
-        clearOwnerInfo();
-        owner = null;
-        notify();
-    }
-
+        if (owner != null) {
+            logOwner();
+            wait(timeout);
+            if (owner != null) {
+                return false;
 ```
 
 ### SynchronizeOnThis
@@ -4221,18 +4221,6 @@ in `utils/src/main/kotlin/jetbrains/exodus/util/UnsafeHolder.kt`
 
 ## RuleId[ruleID=MethodOverloadsParentMethod]
 ### MethodOverloadsParentMethod
-Method `get()` overloads a compatible method of a superclass, when overriding might have been intended
-in `utils/src/main/java/jetbrains/exodus/core/dataStructures/hash/IntHashMap.java`
-#### Snippet
-```java
-    }
-
-    public V get(final int key) {
-        Entry<V> e = getEntry(key);
-        return e == null ? null : e.value;
-```
-
-### MethodOverloadsParentMethod
 Method `containsKey()` overloads a compatible method of a superclass, when overriding might have been intended
 in `utils/src/main/java/jetbrains/exodus/core/dataStructures/hash/IntHashMap.java`
 #### Snippet
@@ -4246,7 +4234,7 @@ in `utils/src/main/java/jetbrains/exodus/core/dataStructures/hash/IntHashMap.jav
 
 ### MethodOverloadsParentMethod
 Method `get()` overloads a compatible method of a superclass, when overriding might have been intended
-in `utils/src/main/java/jetbrains/exodus/core/dataStructures/hash/IntLinkedHashMap.java`
+in `utils/src/main/java/jetbrains/exodus/core/dataStructures/hash/IntHashMap.java`
 #### Snippet
 ```java
     }
@@ -4258,12 +4246,12 @@ in `utils/src/main/java/jetbrains/exodus/core/dataStructures/hash/IntLinkedHashM
 
 ### MethodOverloadsParentMethod
 Method `containsKey()` overloads a compatible method of a superclass, when overriding might have been intended
-in `utils/src/main/java/jetbrains/exodus/core/dataStructures/hash/IntLinkedHashMap.java`
+in `utils/src/main/java/jetbrains/exodus/core/dataStructures/hash/LongLinkedHashMap.java`
 #### Snippet
 ```java
     }
 
-    public boolean containsKey(final int key) {
+    public boolean containsKey(final long key) {
         return getEntry(key) != null;
     }
 ```
@@ -4282,29 +4270,29 @@ in `utils/src/main/java/jetbrains/exodus/core/dataStructures/hash/LongLinkedHash
 
 ### MethodOverloadsParentMethod
 Method `containsKey()` overloads a compatible method of a superclass, when overriding might have been intended
-in `utils/src/main/java/jetbrains/exodus/core/dataStructures/hash/LongLinkedHashMap.java`
+in `utils/src/main/java/jetbrains/exodus/core/dataStructures/hash/IntLinkedHashMap.java`
 #### Snippet
 ```java
     }
 
-    public boolean containsKey(final long key) {
+    public boolean containsKey(final int key) {
         return getEntry(key) != null;
     }
 ```
 
-## RuleId[ruleID=HasPlatformType]
-### HasPlatformType
-Declaration has type inferred from a platform call, which can lead to unchecked nullability issues. Specify type explicitly as nullable or non-nullable.
-in `environment/src/main/kotlin/jetbrains/exodus/io/FileDataWriter.kt`
+### MethodOverloadsParentMethod
+Method `get()` overloads a compatible method of a superclass, when overriding might have been intended
+in `utils/src/main/java/jetbrains/exodus/core/dataStructures/hash/IntLinkedHashMap.java`
 #### Snippet
 ```java
     }
 
-    fun lockFilePath() = lockingManager.lockFilePath()
-
-
+    public V get(final int key) {
+        Entry<V> e = getEntry(key);
+        return e == null ? null : e.value;
 ```
 
+## RuleId[ruleID=HasPlatformType]
 ### HasPlatformType
 Declaration has type inferred from a platform call, which can lead to unchecked nullability issues. Specify type explicitly as nullable or non-nullable.
 in `environment/src/main/kotlin/jetbrains/exodus/io/LockingManager.kt`
@@ -4313,6 +4301,18 @@ in `environment/src/main/kotlin/jetbrains/exodus/io/LockingManager.kt`
     }
 
     fun lockFilePath() = getLockFile().absolutePath
+
+
+```
+
+### HasPlatformType
+Declaration has type inferred from a platform call, which can lead to unchecked nullability issues. Specify type explicitly as nullable or non-nullable.
+in `environment/src/main/kotlin/jetbrains/exodus/io/FileDataWriter.kt`
+#### Snippet
+```java
+    }
+
+    fun lockFilePath() = lockingManager.lockFilePath()
 
 
 ```
@@ -4373,6 +4373,30 @@ in `utils/src/main/java/jetbrains/exodus/core/execution/locks/ReleaseLatch.java`
 #### Snippet
 ```java
     @Override
+    public synchronized String getOwnerName() {
+        return owner == null ? "no owner" : owner.getName();
+    }
+
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `owner` accessed in synchronized context
+in `utils/src/main/java/jetbrains/exodus/core/execution/locks/ReleaseLatch.java`
+#### Snippet
+```java
+    @Override
+    public synchronized String getOwnerName() {
+        return owner == null ? "no owner" : owner.getName();
+    }
+
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `owner` accessed in synchronized context
+in `utils/src/main/java/jetbrains/exodus/core/execution/locks/ReleaseLatch.java`
+#### Snippet
+```java
+    @Override
     public synchronized boolean acquire(long timeout) throws InterruptedException {
         if (owner != null) {
             wait(timeout);
@@ -4433,22 +4457,10 @@ in `utils/src/main/java/jetbrains/exodus/core/execution/locks/ReleaseLatch.java`
 #### Snippet
 ```java
     @Override
-    public synchronized String getOwnerName() {
-        return owner == null ? "no owner" : owner.getName();
+    public synchronized void release() {
+        owner = null;
+        notify();
     }
-
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `owner` accessed in synchronized context
-in `utils/src/main/java/jetbrains/exodus/core/execution/locks/ReleaseLatch.java`
-#### Snippet
-```java
-    @Override
-    public synchronized String getOwnerName() {
-        return owner == null ? "no owner" : owner.getName();
-    }
-
 ```
 
 ### PublicFieldAccessedInSynchronizedContext
@@ -4476,18 +4488,6 @@ in `utils/src/main/java/jetbrains/exodus/core/execution/locks/ReleaseLatch.java`
 ```
 
 ### PublicFieldAccessedInSynchronizedContext
-Non-private field `owner` accessed in synchronized context
-in `utils/src/main/java/jetbrains/exodus/core/execution/locks/ReleaseLatch.java`
-#### Snippet
-```java
-    @Override
-    public synchronized void release() {
-        owner = null;
-        notify();
-    }
-```
-
-### PublicFieldAccessedInSynchronizedContext
 Non-private field `thread` accessed in synchronized context
 in `utils/src/main/java/jetbrains/exodus/core/execution/locks/Semaphore.java`
 #### Snippet
@@ -4497,42 +4497,6 @@ in `utils/src/main/java/jetbrains/exodus/core/execution/locks/Semaphore.java`
         thread = Thread.currentThread();
     }
 
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `owner` accessed in synchronized context
-in `utils/src/main/java/jetbrains/exodus/core/execution/locks/DebugLatch.java`
-#### Snippet
-```java
-    @Override
-    public synchronized boolean acquire(long timeout) throws InterruptedException {
-        if (owner != null) {
-            logOwner();
-            wait(timeout);
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `owner` accessed in synchronized context
-in `utils/src/main/java/jetbrains/exodus/core/execution/locks/DebugLatch.java`
-#### Snippet
-```java
-            logOwner();
-            wait(timeout);
-            if (owner != null) {
-                return false;
-            }
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `owner` accessed in synchronized context
-in `utils/src/main/java/jetbrains/exodus/core/execution/locks/DebugLatch.java`
-#### Snippet
-```java
-            }
-        }
-        owner = Thread.currentThread();
-        gatherOwnerInfo();
-        return true;
 ```
 
 ### PublicFieldAccessedInSynchronizedContext
@@ -4577,6 +4541,42 @@ in `utils/src/main/java/jetbrains/exodus/core/execution/locks/DebugLatch.java`
 #### Snippet
 ```java
     @Override
+    public synchronized boolean acquire(long timeout) throws InterruptedException {
+        if (owner != null) {
+            logOwner();
+            wait(timeout);
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `owner` accessed in synchronized context
+in `utils/src/main/java/jetbrains/exodus/core/execution/locks/DebugLatch.java`
+#### Snippet
+```java
+            logOwner();
+            wait(timeout);
+            if (owner != null) {
+                return false;
+            }
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `owner` accessed in synchronized context
+in `utils/src/main/java/jetbrains/exodus/core/execution/locks/DebugLatch.java`
+#### Snippet
+```java
+            }
+        }
+        owner = Thread.currentThread();
+        gatherOwnerInfo();
+        return true;
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `owner` accessed in synchronized context
+in `utils/src/main/java/jetbrains/exodus/core/execution/locks/DebugLatch.java`
+#### Snippet
+```java
+    @Override
     public synchronized void acquire() throws InterruptedException {
         while (owner != null) {
             logOwner();
@@ -4593,18 +4593,6 @@ in `utils/src/main/java/jetbrains/exodus/core/execution/locks/DebugLatch.java`
         owner = Thread.currentThread();
         gatherOwnerInfo();
     }
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `throwableOnCommit` accessed in synchronized context
-in `environment/src/main/java/jetbrains/exodus/env/EnvironmentImpl.java`
-#### Snippet
-```java
-            }
-            throwableOnClose = new EnvironmentClosedException();
-            throwableOnCommit = throwableOnClose;
-        }
-        loggerDebug("Store get cache hit rate: " + ObjectCacheBase.formatHitRate(storeGetCacheHitRate));
 ```
 
 ### PublicFieldAccessedInSynchronizedContext
@@ -4629,6 +4617,18 @@ in `environment/src/main/java/jetbrains/exodus/env/EnvironmentImpl.java`
                 throwableOnCommit = t;
 
                 throw ExodusException.toExodusException(t, errorMessage);
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `throwableOnCommit` accessed in synchronized context
+in `environment/src/main/java/jetbrains/exodus/env/EnvironmentImpl.java`
+#### Snippet
+```java
+            }
+            throwableOnClose = new EnvironmentClosedException();
+            throwableOnCommit = throwableOnClose;
+        }
+        loggerDebug("Store get cache hit rate: " + ObjectCacheBase.formatHitRate(storeGetCacheHitRate));
 ```
 
 ## RuleId[ruleID=RedundantSuppression]
@@ -4839,18 +4839,6 @@ public class Stack<T> extends ArrayList<T> {
 ## RuleId[ruleID=RedundantVisibilityModifier]
 ### RedundantVisibilityModifier
 Redundant visibility modifier
-in `utils/src/main/kotlin/jetbrains/exodus/core/dataStructures/hash/LongLongHashMap.kt`
-#### Snippet
-```java
-    }
-
-    private inner class HashIterator internal constructor() : HashMapIterator() {
-
-        private val table = this@LongLongHashMap.table
-```
-
-### RedundantVisibilityModifier
-Redundant visibility modifier
 in `utils/src/main/kotlin/jetbrains/exodus/core/dataStructures/hash/LongHashMap.kt`
 #### Snippet
 ```java
@@ -4863,14 +4851,14 @@ in `utils/src/main/kotlin/jetbrains/exodus/core/dataStructures/hash/LongHashMap.
 
 ### RedundantVisibilityModifier
 Redundant visibility modifier
-in `utils/src/main/kotlin/jetbrains/exodus/core/dataStructures/persistent/PersistentBitTreeLongSet.kt`
+in `utils/src/main/kotlin/jetbrains/exodus/core/dataStructures/hash/LongLongHashMap.kt`
 #### Snippet
 ```java
     }
 
-    private class ImmutableSet internal constructor(private val map: AbstractPersistent23Tree<Entry>,
-                                                    private val size: Int,
-                                                    private val bitsPerEntry: Int,
+    private inner class HashIterator internal constructor() : HashMapIterator() {
+
+        private val table = this@LongLongHashMap.table
 ```
 
 ### RedundantVisibilityModifier
@@ -4883,6 +4871,18 @@ in `utils/src/main/kotlin/jetbrains/exodus/core/dataStructures/persistent/Persis
     private open class ItemIterator internal constructor(private val iterator: Iterator<Entry>,
                                                          private val bitsPerEntry: Int,
                                                          private val isReversed: Boolean = false) : LongIterator {
+```
+
+### RedundantVisibilityModifier
+Redundant visibility modifier
+in `utils/src/main/kotlin/jetbrains/exodus/core/dataStructures/persistent/PersistentBitTreeLongSet.kt`
+#### Snippet
+```java
+    }
+
+    private class ImmutableSet internal constructor(private val map: AbstractPersistent23Tree<Entry>,
+                                                    private val size: Int,
+                                                    private val bitsPerEntry: Int,
 ```
 
 ### RedundantVisibilityModifier
@@ -5027,18 +5027,6 @@ Uses of `System.out` should probably be replaced with more robust logging
 in `samples/src/main/java/jetbrains/exodus/entitystore/PersistentStoreExample.java`
 #### Snippet
 ```java
-            final EntityIterable blogs = txn.getAll(BLOG_ENTITY_TYPE_NAME);
-            for (Entity blog : blogs) {
-                System.out.println("Blog name: " + blog.getProperty("name"));
-                final Iterable<Entity> blogItems = blog.getLinks("items");
-
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `samples/src/main/java/jetbrains/exodus/entitystore/PersistentStoreExample.java`
-#### Snippet
-```java
 
     private static void printBlogItem(Entity item) throws IOException {
         System.out.println("\tPost title: " + item.getProperty("title"));
@@ -5068,6 +5056,42 @@ in `samples/src/main/java/jetbrains/exodus/entitystore/PersistentStoreExample.ja
                 System.out.println("\t" + line);
             }
         }
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `samples/src/main/java/jetbrains/exodus/entitystore/PersistentStoreExample.java`
+#### Snippet
+```java
+            final EntityIterable blogs = txn.getAll(BLOG_ENTITY_TYPE_NAME);
+            for (Entity blog : blogs) {
+                System.out.println("Blog name: " + blog.getProperty("name"));
+                final Iterable<Entity> blogItems = blog.getLinks("items");
+
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `samples/src/main/java/jetbrains/exodus/env/Users.java`
+#### Snippet
+```java
+                long count = 0;
+                while (cursor.getNext()) {
+                    System.out.println(entryToString(cursor.getKey()) + ' ' + entryToString(cursor.getValue()));
+                    ++count;
+                }
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `samples/src/main/java/jetbrains/exodus/env/Users.java`
+#### Snippet
+```java
+                    ++count;
+                }
+                System.out.println("Total users: " + count);
+            }
+        });
 ```
 
 ### SystemOutErr
@@ -5116,18 +5140,6 @@ in `samples/src/main/java/jetbrains/exodus/env/Users.java`
             System.out.println("  Users <username> <e-mail> - register new user.");
 
         } finally {
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `samples/src/main/java/jetbrains/exodus/env/Users.java`
-#### Snippet
-```java
-                }
-            }
-            System.out.println((exists ? "User is already registered: " : "New user registered: ") + username + " " + email);
-        });
-    }
 ```
 
 ### SystemOutErr
@@ -5195,23 +5207,11 @@ Uses of `System.out` should probably be replaced with more robust logging
 in `samples/src/main/java/jetbrains/exodus/env/Users.java`
 #### Snippet
 ```java
-                long count = 0;
-                while (cursor.getNext()) {
-                    System.out.println(entryToString(cursor.getKey()) + ' ' + entryToString(cursor.getValue()));
-                    ++count;
                 }
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `samples/src/main/java/jetbrains/exodus/env/Users.java`
-#### Snippet
-```java
-                    ++count;
-                }
-                System.out.println("Total users: " + count);
             }
+            System.out.println((exists ? "User is already registered: " : "New user registered: ") + username + " " + email);
         });
+    }
 ```
 
 ### SystemOutErr
@@ -5247,18 +5247,6 @@ in `utils/src/main/java/jetbrains/exodus/core/dataStructures/ObjectCacheDecorato
 ```java
     }
 
-    public ObjectCacheDecorator(final int size) {
-        this(size, () -> true);
-    }
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `ObjectCacheDecorator()` of an abstract class should not be declared 'public'
-in `utils/src/main/java/jetbrains/exodus/core/dataStructures/ObjectCacheDecorator.java`
-#### Snippet
-```java
-    }
-
     public ObjectCacheDecorator(final int size, @NotNull final BooleanSupplier shouldCache) {
         super(size);
         this.shouldCache = shouldCache;
@@ -5273,6 +5261,18 @@ in `utils/src/main/java/jetbrains/exodus/core/dataStructures/ObjectCacheDecorato
 
     public ObjectCacheDecorator() {
         this(DEFAULT_SIZE);
+    }
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `ObjectCacheDecorator()` of an abstract class should not be declared 'public'
+in `utils/src/main/java/jetbrains/exodus/core/dataStructures/ObjectCacheDecorator.java`
+#### Snippet
+```java
+    }
+
+    public ObjectCacheDecorator(final int size) {
+        this(size, () -> true);
     }
 ```
 
@@ -5374,15 +5374,15 @@ in `vfs/src/main/java/jetbrains/exodus/vfs/VirtualFileSystem.java`
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `root`
-in `query/src/main/java/jetbrains/exodus/query/NodeBase.java`
+Assignment to method parameter `iterable`
+in `query/src/main/java/jetbrains/exodus/query/Sorts.java`
 #### Snippet
 ```java
-    public static NodeBase getUnderRoot(NodeBase root) {
-        while (root instanceof Root) {
-            root = ((UnaryNode) root).getChild();
+            }
+            for (final Sort sort : sorts) {
+                iterable = sort.applySort(entityType, iterable, sortEngine);
+            }
         }
-        return root;
 ```
 
 ### AssignmentToMethodParameter
@@ -5398,15 +5398,15 @@ in `query/src/main/java/jetbrains/exodus/query/NodeBase.java`
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `iterable`
-in `query/src/main/java/jetbrains/exodus/query/Sorts.java`
+Assignment to method parameter `root`
+in `query/src/main/java/jetbrains/exodus/query/NodeBase.java`
 #### Snippet
 ```java
-            }
-            for (final Sort sort : sorts) {
-                iterable = sort.applySort(entityType, iterable, sortEngine);
-            }
+    public static NodeBase getUnderRoot(NodeBase root) {
+        while (root instanceof Root) {
+            root = ((UnaryNode) root).getChild();
         }
+        return root;
 ```
 
 ### AssignmentToMethodParameter
@@ -5446,30 +5446,6 @@ in `utils/src/main/java/jetbrains/exodus/core/dataStructures/SoftLongObjectCache
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `secondGenSizeRatio`
-in `utils/src/main/java/jetbrains/exodus/core/dataStructures/LongObjectCache.java`
-#### Snippet
-```java
-        lock = new ReentrantLock();
-        if (secondGenSizeRatio < 0.05f) {
-            secondGenSizeRatio = 0.05f;
-        } else if (secondGenSizeRatio > 0.95f) {
-            secondGenSizeRatio = 0.95f;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `secondGenSizeRatio`
-in `utils/src/main/java/jetbrains/exodus/core/dataStructures/LongObjectCache.java`
-#### Snippet
-```java
-            secondGenSizeRatio = 0.05f;
-        } else if (secondGenSizeRatio > 0.95f) {
-            secondGenSizeRatio = 0.95f;
-        }
-        this.secondGenSizeRatio = secondGenSizeRatio;
-```
-
-### AssignmentToMethodParameter
 Assignment to method parameter `a`
 in `utils/src/main/java/jetbrains/exodus/core/dataStructures/IntArrayList.java`
 #### Snippet
@@ -5495,6 +5471,54 @@ in `utils/src/main/java/jetbrains/exodus/core/dataStructures/hash/IntHashSet.jav
 
 ### AssignmentToMethodParameter
 Assignment to method parameter `secondGenSizeRatio`
+in `utils/src/main/java/jetbrains/exodus/core/dataStructures/LongObjectCache.java`
+#### Snippet
+```java
+        lock = new ReentrantLock();
+        if (secondGenSizeRatio < 0.05f) {
+            secondGenSizeRatio = 0.05f;
+        } else if (secondGenSizeRatio > 0.95f) {
+            secondGenSizeRatio = 0.95f;
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `secondGenSizeRatio`
+in `utils/src/main/java/jetbrains/exodus/core/dataStructures/LongObjectCache.java`
+#### Snippet
+```java
+            secondGenSizeRatio = 0.05f;
+        } else if (secondGenSizeRatio > 0.95f) {
+            secondGenSizeRatio = 0.95f;
+        }
+        this.secondGenSizeRatio = secondGenSizeRatio;
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `capacity`
+in `utils/src/main/java/jetbrains/exodus/core/dataStructures/hash/LongLinkedHashSet.java`
+#### Snippet
+```java
+    private void init(int capacity) {
+        if (capacity < HashUtil.MIN_CAPACITY) {
+            capacity = HashUtil.MIN_CAPACITY;
+        }
+        allocateTable(HashUtil.getCeilingPrime((int) (capacity / loadFactor)));
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `capacity`
+in `utils/src/main/java/jetbrains/exodus/core/dataStructures/hash/IntHashMap.java`
+#### Snippet
+```java
+    protected void init(int capacity) {
+        if (capacity < HashUtil.MIN_CAPACITY) {
+            capacity = HashUtil.MIN_CAPACITY;
+        }
+        allocateTable(HashUtil.getCeilingPrime((int) (capacity / loadFactor)));
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `secondGenSizeRatio`
 in `utils/src/main/java/jetbrains/exodus/core/dataStructures/ObjectCache.java`
 #### Snippet
 ```java
@@ -5519,19 +5543,7 @@ in `utils/src/main/java/jetbrains/exodus/core/dataStructures/ObjectCache.java`
 
 ### AssignmentToMethodParameter
 Assignment to method parameter `capacity`
-in `utils/src/main/java/jetbrains/exodus/core/dataStructures/hash/IntHashMap.java`
-#### Snippet
-```java
-    protected void init(int capacity) {
-        if (capacity < HashUtil.MIN_CAPACITY) {
-            capacity = HashUtil.MIN_CAPACITY;
-        }
-        allocateTable(HashUtil.getCeilingPrime((int) (capacity / loadFactor)));
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `capacity`
-in `utils/src/main/java/jetbrains/exodus/core/dataStructures/hash/LongLinkedHashSet.java`
+in `utils/src/main/java/jetbrains/exodus/core/dataStructures/hash/LinkedHashSet.java`
 #### Snippet
 ```java
     private void init(int capacity) {
@@ -5567,19 +5579,7 @@ in `utils/src/main/java/jetbrains/exodus/core/dataStructures/hash/HashUtil.java`
 
 ### AssignmentToMethodParameter
 Assignment to method parameter `capacity`
-in `utils/src/main/java/jetbrains/exodus/core/dataStructures/hash/LinkedHashSet.java`
-#### Snippet
-```java
-    private void init(int capacity) {
-        if (capacity < HashUtil.MIN_CAPACITY) {
-            capacity = HashUtil.MIN_CAPACITY;
-        }
-        allocateTable(HashUtil.getCeilingPrime((int) (capacity / loadFactor)));
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `capacity`
-in `utils/src/main/java/jetbrains/exodus/core/dataStructures/hash/IntLinkedHashMap.java`
+in `utils/src/main/java/jetbrains/exodus/core/dataStructures/hash/LongLinkedHashMap.java`
 #### Snippet
 ```java
     protected void init(int capacity) {
@@ -5603,34 +5603,22 @@ in `utils/src/main/java/jetbrains/exodus/core/dataStructures/hash/HashSet.java`
 
 ### AssignmentToMethodParameter
 Assignment to method parameter `capacity`
+in `utils/src/main/java/jetbrains/exodus/core/dataStructures/hash/IntLinkedHashMap.java`
+#### Snippet
+```java
+    protected void init(int capacity) {
+        if (capacity < HashUtil.MIN_CAPACITY) {
+            capacity = HashUtil.MIN_CAPACITY;
+        }
+        allocateTable(HashUtil.getCeilingPrime((int) (capacity / loadFactor)));
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `capacity`
 in `utils/src/main/java/jetbrains/exodus/core/dataStructures/hash/LongHashSet.java`
 #### Snippet
 ```java
     private void init(int capacity) {
-        if (capacity < HashUtil.MIN_CAPACITY) {
-            capacity = HashUtil.MIN_CAPACITY;
-        }
-        allocateTable(HashUtil.getCeilingPrime((int) (capacity / loadFactor)));
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `capacity`
-in `utils/src/main/java/jetbrains/exodus/core/dataStructures/hash/LongLinkedHashMap.java`
-#### Snippet
-```java
-    protected void init(int capacity) {
-        if (capacity < HashUtil.MIN_CAPACITY) {
-            capacity = HashUtil.MIN_CAPACITY;
-        }
-        allocateTable(HashUtil.getCeilingPrime((int) (capacity / loadFactor)));
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `capacity`
-in `utils/src/main/java/jetbrains/exodus/core/dataStructures/hash/HashMap.java`
-#### Snippet
-```java
-    protected void init(int capacity) {
         if (capacity < HashUtil.MIN_CAPACITY) {
             capacity = HashUtil.MIN_CAPACITY;
         }
@@ -5651,7 +5639,7 @@ in `utils/src/main/java/jetbrains/exodus/core/dataStructures/hash/HashMap.java`
 
 ### AssignmentToMethodParameter
 Assignment to method parameter `capacity`
-in `utils/src/main/java/jetbrains/exodus/core/dataStructures/hash/LinkedHashMap.java`
+in `utils/src/main/java/jetbrains/exodus/core/dataStructures/hash/HashMap.java`
 #### Snippet
 ```java
     protected void init(int capacity) {
@@ -5662,27 +5650,15 @@ in `utils/src/main/java/jetbrains/exodus/core/dataStructures/hash/LinkedHashMap.
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `secondGenSizeRatio`
-in `utils/src/main/java/jetbrains/exodus/core/dataStructures/persistent/PersistentObjectCache.java`
+Assignment to method parameter `capacity`
+in `utils/src/main/java/jetbrains/exodus/core/dataStructures/hash/LinkedHashMap.java`
 #### Snippet
 ```java
-        this.size = size < ObjectCacheBase.MIN_SIZE ? ObjectCacheBase.MIN_SIZE : size;
-        if (secondGenSizeRatio < 0.05f) {
-            secondGenSizeRatio = 0.05f;
-        } else if (secondGenSizeRatio > 0.95f) {
-            secondGenSizeRatio = 0.95f;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `secondGenSizeRatio`
-in `utils/src/main/java/jetbrains/exodus/core/dataStructures/persistent/PersistentObjectCache.java`
-#### Snippet
-```java
-            secondGenSizeRatio = 0.05f;
-        } else if (secondGenSizeRatio > 0.95f) {
-            secondGenSizeRatio = 0.95f;
+    protected void init(int capacity) {
+        if (capacity < HashUtil.MIN_CAPACITY) {
+            capacity = HashUtil.MIN_CAPACITY;
         }
-        secondGenSizeBound = (int) (size * secondGenSizeRatio);
+        allocateTable(HashUtil.getCeilingPrime((int) (capacity / loadFactor)));
 ```
 
 ### AssignmentToMethodParameter
@@ -5755,6 +5731,30 @@ in `utils/src/main/java/jetbrains/exodus/util/UTFUtil.java`
                 bytes[offset++] = (byte) (0x80 | (c & 0x3F));
             }
         }
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `secondGenSizeRatio`
+in `utils/src/main/java/jetbrains/exodus/core/dataStructures/persistent/PersistentObjectCache.java`
+#### Snippet
+```java
+        this.size = size < ObjectCacheBase.MIN_SIZE ? ObjectCacheBase.MIN_SIZE : size;
+        if (secondGenSizeRatio < 0.05f) {
+            secondGenSizeRatio = 0.05f;
+        } else if (secondGenSizeRatio > 0.95f) {
+            secondGenSizeRatio = 0.95f;
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `secondGenSizeRatio`
+in `utils/src/main/java/jetbrains/exodus/core/dataStructures/persistent/PersistentObjectCache.java`
+#### Snippet
+```java
+            secondGenSizeRatio = 0.05f;
+        } else if (secondGenSizeRatio > 0.95f) {
+            secondGenSizeRatio = 0.95f;
+        }
+        secondGenSizeBound = (int) (size * secondGenSizeRatio);
 ```
 
 ### AssignmentToMethodParameter
@@ -5890,30 +5890,6 @@ in `environment/src/main/java/jetbrains/exodus/tree/btree/LeafNodeDup.java`
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `offset`
-in `environment/src/main/java/jetbrains/exodus/tree/btree/BasePageImmutable.java`
-#### Snippet
-```java
-
-    protected final long getLong(int offset, int length) {
-        offset += dataOffset;
-
-        long result = 0;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `low`
-in `environment/src/main/java/jetbrains/exodus/tree/btree/BasePageImmutable.java`
-#### Snippet
-```java
-
-            if (cmp < 0) {
-                low = mid + 1;
-            } else if (cmp > 0) {
-                high = mid - 1;
-```
-
-### AssignmentToMethodParameter
 Assignment to method parameter `low`
 in `environment/src/main/java/jetbrains/exodus/tree/btree/BasePageImmutable.java`
 #### Snippet
@@ -5923,6 +5899,30 @@ in `environment/src/main/java/jetbrains/exodus/tree/btree/BasePageImmutable.java
                 low = mid + 1;
             } else if (cmp > 0) {
                 high = mid - 1;
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `low`
+in `environment/src/main/java/jetbrains/exodus/tree/btree/BasePageImmutable.java`
+#### Snippet
+```java
+
+            if (cmp < 0) {
+                low = mid + 1;
+            } else if (cmp > 0) {
+                high = mid - 1;
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `offset`
+in `environment/src/main/java/jetbrains/exodus/tree/btree/BasePageImmutable.java`
+#### Snippet
+```java
+
+    protected final long getLong(int offset, int length) {
+        offset += dataOffset;
+
+        long result = 0;
 ```
 
 ### AssignmentToMethodParameter
@@ -5962,15 +5962,15 @@ in `environment/src/main/java/jetbrains/exodus/tree/btree/BasePageMutable.java`
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `tmp`
-in `environment/src/main/java/jetbrains/exodus/tree/patricia/PatriciaTraverser.java`
+Assignment to method parameter `root`
+in `environment/src/main/java/jetbrains/exodus/tree/btree/BTreeMutable.java`
 #### Snippet
 ```java
-            NodeChildrenIterator[] newStack = new NodeChildrenIterator[newCapacity];
-            System.arraycopy(tmp, 0, newStack, 0, length);
-            tmp = newStack;
-        }
-        tmp[depth] = itr;
+    static BasePageMutable delete(BasePageMutable root, ByteIterable key, @Nullable ByteIterable value, boolean[] res) {
+        if (root.delete(key, value)) {
+            root = root.mergeWithChildren();
+            res[0] = true;
+            return root;
 ```
 
 ### AssignmentToMethodParameter
@@ -5986,15 +5986,15 @@ in `environment/src/main/java/jetbrains/exodus/tree/btree/BTreeMutable.java`
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `root`
-in `environment/src/main/java/jetbrains/exodus/tree/btree/BTreeMutable.java`
+Assignment to method parameter `tmp`
+in `environment/src/main/java/jetbrains/exodus/tree/patricia/PatriciaTraverser.java`
 #### Snippet
 ```java
-    static BasePageMutable delete(BasePageMutable root, ByteIterable key, @Nullable ByteIterable value, boolean[] res) {
-        if (root.delete(key, value)) {
-            root = root.mergeWithChildren();
-            res[0] = true;
-            return root;
+            NodeChildrenIterator[] newStack = new NodeChildrenIterator[newCapacity];
+            System.arraycopy(tmp, 0, newStack, 0, length);
+            tmp = newStack;
+        }
+        tmp[depth] = itr;
 ```
 
 ### AssignmentToMethodParameter
@@ -6010,6 +6010,18 @@ in `entity-store/src/main/java/jetbrains/exodus/entitystore/FileSystemBlobVault.
 ```
 
 ### AssignmentToMethodParameter
+Assignment to method parameter `binding`
+in `entity-store/src/main/java/jetbrains/exodus/entitystore/tables/PropertyTypes.java`
+#### Snippet
+```java
+        final ComparableValueType type = getPropertyType((byte) (bytes[offset] ^ 0x80));
+        if (binding == null) {
+            binding = type.getBinding();
+        }
+
+```
+
+### AssignmentToMethodParameter
 Assignment to method parameter `typeId`
 in `entity-store/src/main/java/jetbrains/exodus/entitystore/tables/PropertyTypes.java`
 #### Snippet
@@ -6022,15 +6034,15 @@ in `entity-store/src/main/java/jetbrains/exodus/entitystore/tables/PropertyTypes
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `binding`
-in `entity-store/src/main/java/jetbrains/exodus/entitystore/tables/PropertyTypes.java`
+Assignment to method parameter `number`
+in `entity-store/src/main/java/jetbrains/exodus/entitystore/iterate/EntityIteratorBase.java`
 #### Snippet
 ```java
-        final ComparableValueType type = getPropertyType((byte) (bytes[offset] ^ 0x80));
-        if (binding == null) {
-            binding = type.getBinding();
         }
-
+        checkDisposed();
+        while (number-- > 0 && hasNextImpl()) {
+            nextIdImpl();
+        }
 ```
 
 ### AssignmentToMethodParameter
@@ -6046,15 +6058,15 @@ in `entity-store/src/main/java/jetbrains/exodus/entitystore/FileSystemBlobVaultO
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `number`
-in `entity-store/src/main/java/jetbrains/exodus/entitystore/iterate/EntityIteratorBase.java`
+Assignment to method parameter `target`
+in `entity-store/src/main/java/jetbrains/exodus/entitystore/PersistentEntityStoreImpl.java`
 #### Snippet
 ```java
+        // check if the target is already deleted
+        if (target != null && config.isDebugTestLinkedEntities()) {
+            target = getEntityAssertPhantomLink(txn, target.getId());
         }
-        checkDisposed();
-        while (number-- > 0 && hasNextImpl()) {
-            nextIdImpl();
-        }
+
 ```
 
 ### AssignmentToMethodParameter
@@ -6118,18 +6130,6 @@ in `entity-store/src/main/java/jetbrains/exodus/entitystore/PersistentEntityStor
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `target`
-in `entity-store/src/main/java/jetbrains/exodus/entitystore/PersistentEntityStoreImpl.java`
-#### Snippet
-```java
-        // check if the target is already deleted
-        if (target != null && config.isDebugTestLinkedEntities()) {
-            target = getEntityAssertPhantomLink(txn, target.getId());
-        }
-
-```
-
-### AssignmentToMethodParameter
 Assignment to method parameter `line`
 in `entity-store/src/main/java/jetbrains/exodus/entitystore/iterate/EntityIterableBase.java`
 #### Snippet
@@ -6143,7 +6143,7 @@ in `entity-store/src/main/java/jetbrains/exodus/entitystore/iterate/EntityIterab
 
 ### AssignmentToMethodParameter
 Assignment to method parameter `number`
-in `entity-store/src/main/java/jetbrains/exodus/entitystore/iterate/cached/iterator/OrderedEntityIdCollectionIterator.java`
+in `entity-store/src/main/java/jetbrains/exodus/entitystore/iterate/cached/iterator/ReverseOrderedEntityIdCollectionIterator.java`
 #### Snippet
 ```java
     @Override
@@ -6155,7 +6155,7 @@ in `entity-store/src/main/java/jetbrains/exodus/entitystore/iterate/cached/itera
 
 ### AssignmentToMethodParameter
 Assignment to method parameter `number`
-in `entity-store/src/main/java/jetbrains/exodus/entitystore/iterate/cached/iterator/ReverseOrderedEntityIdCollectionIterator.java`
+in `entity-store/src/main/java/jetbrains/exodus/entitystore/iterate/cached/iterator/OrderedEntityIdCollectionIterator.java`
 #### Snippet
 ```java
     @Override
@@ -6183,10 +6183,10 @@ Return of `null`
 in `query/src/main/java/jetbrains/exodus/query/NodeBase.java`
 #### Snippet
 ```java
-        private NodeBase getNode(Wildcard wildcard) {
-            return nodes == null ?
+        private NodeBase getLeave(ConversionWildcard wildcard) {
+            return leaves == null ?
                 null :
-                nodes.get(wildcard);
+                leaves.get(wildcard);
         }
 ```
 
@@ -6195,10 +6195,10 @@ Return of `null`
 in `query/src/main/java/jetbrains/exodus/query/NodeBase.java`
 #### Snippet
 ```java
-        private NodeBase getLeave(ConversionWildcard wildcard) {
-            return leaves == null ?
+        private NodeBase getNode(Wildcard wildcard) {
+            return nodes == null ?
                 null :
-                leaves.get(wildcard);
+                nodes.get(wildcard);
         }
 ```
 
@@ -6268,7 +6268,7 @@ in `utils/src/main/java/jetbrains/exodus/core/dataStructures/FakeObjectCache.jav
 #### Snippet
 ```java
     @Override
-    public V tryKey(@NotNull K key) {
+    public V cacheObject(@NotNull K key, @NotNull V x) {
         return null;
     }
 
@@ -6280,7 +6280,7 @@ in `utils/src/main/java/jetbrains/exodus/core/dataStructures/FakeObjectCache.jav
 #### Snippet
 ```java
     @Override
-    public V cacheObject(@NotNull K key, @NotNull V x) {
+    public V tryKey(@NotNull K key) {
         return null;
     }
 
@@ -6339,30 +6339,6 @@ Return of `null`
 in `utils/src/main/java/jetbrains/exodus/core/dataStructures/ConcurrentObjectCache.java`
 #### Snippet
 ```java
-            }
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `utils/src/main/java/jetbrains/exodus/core/dataStructures/ConcurrentObjectCache.java`
-#### Snippet
-```java
-            }
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `utils/src/main/java/jetbrains/exodus/core/dataStructures/ConcurrentObjectCache.java`
-#### Snippet
-```java
                 cache[cacheIndex] = new CacheEntry<>(key, x);
                 // in concurrent environment we can't definitely know if a value is pushed out from the cache
                 return null;
@@ -6384,10 +6360,10 @@ in `utils/src/main/java/jetbrains/exodus/core/dataStructures/ConcurrentObjectCac
 
 ### ReturnNull
 Return of `null`
-in `utils/src/main/java/jetbrains/exodus/core/dataStructures/hash/IntHashMap.java`
+in `utils/src/main/java/jetbrains/exodus/core/dataStructures/ConcurrentObjectCache.java`
 #### Snippet
 ```java
-            rehash(HashUtil.nextCapacity(capacity));
+            }
         }
         return null;
     }
@@ -6396,23 +6372,11 @@ in `utils/src/main/java/jetbrains/exodus/core/dataStructures/hash/IntHashMap.jav
 
 ### ReturnNull
 Return of `null`
-in `utils/src/main/java/jetbrains/exodus/core/dataStructures/hash/IntHashMap.java`
+in `utils/src/main/java/jetbrains/exodus/core/dataStructures/ConcurrentObjectCache.java`
 #### Snippet
 ```java
-    public V get(final int key) {
-        Entry<V> e = getEntry(key);
-        return e == null ? null : e.value;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `utils/src/main/java/jetbrains/exodus/core/dataStructures/hash/IntHashMap.java`
-#### Snippet
-```java
+            }
         }
-
         return null;
     }
 
@@ -6440,6 +6404,42 @@ in `utils/src/main/java/jetbrains/exodus/core/dataStructures/hash/IntHashMap.jav
                 if (e == null) return null;
                 if (e.key == key) {
                     last.hashNext = e.hashNext;
+```
+
+### ReturnNull
+Return of `null`
+in `utils/src/main/java/jetbrains/exodus/core/dataStructures/hash/IntHashMap.java`
+#### Snippet
+```java
+            rehash(HashUtil.nextCapacity(capacity));
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `utils/src/main/java/jetbrains/exodus/core/dataStructures/hash/IntHashMap.java`
+#### Snippet
+```java
+        }
+
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `utils/src/main/java/jetbrains/exodus/core/dataStructures/hash/IntHashMap.java`
+#### Snippet
+```java
+    public V get(final int key) {
+        Entry<V> e = getEntry(key);
+        return e == null ? null : e.value;
+    }
+
 ```
 
 ### ReturnNull
@@ -6452,102 +6452,6 @@ in `utils/src/main/java/jetbrains/exodus/core/dataStructures/hash/AbstractHashMa
         return e == null ? null : e.getValue();
     }
 
-```
-
-### ReturnNull
-Return of `null`
-in `utils/src/main/java/jetbrains/exodus/core/dataStructures/hash/IntLinkedHashMap.java`
-#### Snippet
-```java
-            rehash(HashUtil.nextCapacity(capacity));
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `utils/src/main/java/jetbrains/exodus/core/dataStructures/hash/IntLinkedHashMap.java`
-#### Snippet
-```java
-        Entry<V> e = table[index];
-
-        if (e == null) return null;
-
-        if (e.key == key) {
-```
-
-### ReturnNull
-Return of `null`
-in `utils/src/main/java/jetbrains/exodus/core/dataStructures/hash/IntLinkedHashMap.java`
-#### Snippet
-```java
-                final Entry<V> last = e;
-                e = e.hashNext;
-                if (e == null) return null;
-                if (e.key == key) {
-                    last.hashNext = e.hashNext;
-```
-
-### ReturnNull
-Return of `null`
-in `utils/src/main/java/jetbrains/exodus/core/dataStructures/hash/IntLinkedHashMap.java`
-#### Snippet
-```java
-        }
-
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `utils/src/main/java/jetbrains/exodus/core/dataStructures/hash/IntLinkedHashMap.java`
-#### Snippet
-```java
-    public V get(final int key) {
-        Entry<V> e = getEntry(key);
-        return e == null ? null : e.value;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `utils/src/main/java/jetbrains/exodus/core/dataStructures/hash/LongLinkedHashMap.java`
-#### Snippet
-```java
-        }
-
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `utils/src/main/java/jetbrains/exodus/core/dataStructures/hash/LongLinkedHashMap.java`
-#### Snippet
-```java
-        Entry<V> e = table[index];
-
-        if (e == null) return null;
-
-        if (e.key == key) {
-```
-
-### ReturnNull
-Return of `null`
-in `utils/src/main/java/jetbrains/exodus/core/dataStructures/hash/LongLinkedHashMap.java`
-#### Snippet
-```java
-                final Entry<V> last = e;
-                e = e.hashNext;
-                if (e == null) return null;
-                if (e.key == key) {
-                    last.hashNext = e.hashNext;
 ```
 
 ### ReturnNull
@@ -6567,6 +6471,30 @@ Return of `null`
 in `utils/src/main/java/jetbrains/exodus/core/dataStructures/hash/LongLinkedHashMap.java`
 #### Snippet
 ```java
+        Entry<V> e = table[index];
+
+        if (e == null) return null;
+
+        if (e.key == key) {
+```
+
+### ReturnNull
+Return of `null`
+in `utils/src/main/java/jetbrains/exodus/core/dataStructures/hash/LongLinkedHashMap.java`
+#### Snippet
+```java
+                final Entry<V> last = e;
+                e = e.hashNext;
+                if (e == null) return null;
+                if (e.key == key) {
+                    last.hashNext = e.hashNext;
+```
+
+### ReturnNull
+Return of `null`
+in `utils/src/main/java/jetbrains/exodus/core/dataStructures/hash/LongLinkedHashMap.java`
+#### Snippet
+```java
             rehash(HashUtil.nextCapacity(capacity));
         }
         return null;
@@ -6576,48 +6504,72 @@ in `utils/src/main/java/jetbrains/exodus/core/dataStructures/hash/LongLinkedHash
 
 ### ReturnNull
 Return of `null`
-in `utils/src/main/java/jetbrains/exodus/core/dataStructures/hash/HashMap.java`
-#### Snippet
-```java
-                return hadNullValue;
-            }
-            return null;
-        }
-        final Entry<K, V>[] table = this.table;
-```
-
-### ReturnNull
-Return of `null`
-in `utils/src/main/java/jetbrains/exodus/core/dataStructures/hash/HashMap.java`
-#### Snippet
-```java
-        Entry<K, V> e = table[index];
-
-        if (e == null) return null;
-
-        K entryKey;
-```
-
-### ReturnNull
-Return of `null`
-in `utils/src/main/java/jetbrains/exodus/core/dataStructures/hash/HashMap.java`
-#### Snippet
-```java
-                final Entry<K, V> last = e;
-                e = e.hashNext;
-                if (e == null) return null;
-                if ((entryKey = e.key) == key || entryKey.equals(key)) {
-                    last.hashNext = e.hashNext;
-```
-
-### ReturnNull
-Return of `null`
-in `utils/src/main/java/jetbrains/exodus/core/dataStructures/hash/HashMap.java`
+in `utils/src/main/java/jetbrains/exodus/core/dataStructures/hash/LongLinkedHashMap.java`
 #### Snippet
 ```java
         }
 
         return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `utils/src/main/java/jetbrains/exodus/core/dataStructures/hash/IntLinkedHashMap.java`
+#### Snippet
+```java
+        Entry<V> e = table[index];
+
+        if (e == null) return null;
+
+        if (e.key == key) {
+```
+
+### ReturnNull
+Return of `null`
+in `utils/src/main/java/jetbrains/exodus/core/dataStructures/hash/IntLinkedHashMap.java`
+#### Snippet
+```java
+                final Entry<V> last = e;
+                e = e.hashNext;
+                if (e == null) return null;
+                if (e.key == key) {
+                    last.hashNext = e.hashNext;
+```
+
+### ReturnNull
+Return of `null`
+in `utils/src/main/java/jetbrains/exodus/core/dataStructures/hash/IntLinkedHashMap.java`
+#### Snippet
+```java
+        }
+
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `utils/src/main/java/jetbrains/exodus/core/dataStructures/hash/IntLinkedHashMap.java`
+#### Snippet
+```java
+            rehash(HashUtil.nextCapacity(capacity));
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `utils/src/main/java/jetbrains/exodus/core/dataStructures/hash/IntLinkedHashMap.java`
+#### Snippet
+```java
+    public V get(final int key) {
+        Entry<V> e = getEntry(key);
+        return e == null ? null : e.value;
     }
 
 ```
@@ -6660,7 +6612,7 @@ in `utils/src/main/java/jetbrains/exodus/core/dataStructures/decorators/QueueDec
 
 ### ReturnNull
 Return of `null`
-in `utils/src/main/java/jetbrains/exodus/core/dataStructures/hash/LinkedHashMap.java`
+in `utils/src/main/java/jetbrains/exodus/core/dataStructures/hash/HashMap.java`
 #### Snippet
 ```java
         }
@@ -6672,7 +6624,19 @@ in `utils/src/main/java/jetbrains/exodus/core/dataStructures/hash/LinkedHashMap.
 
 ### ReturnNull
 Return of `null`
-in `utils/src/main/java/jetbrains/exodus/core/dataStructures/hash/LinkedHashMap.java`
+in `utils/src/main/java/jetbrains/exodus/core/dataStructures/hash/HashMap.java`
+#### Snippet
+```java
+                return hadNullValue;
+            }
+            return null;
+        }
+        final Entry<K, V>[] table = this.table;
+```
+
+### ReturnNull
+Return of `null`
+in `utils/src/main/java/jetbrains/exodus/core/dataStructures/hash/HashMap.java`
 #### Snippet
 ```java
         Entry<K, V> e = table[index];
@@ -6684,7 +6648,7 @@ in `utils/src/main/java/jetbrains/exodus/core/dataStructures/hash/LinkedHashMap.
 
 ### ReturnNull
 Return of `null`
-in `utils/src/main/java/jetbrains/exodus/core/dataStructures/hash/LinkedHashMap.java`
+in `utils/src/main/java/jetbrains/exodus/core/dataStructures/hash/HashMap.java`
 #### Snippet
 ```java
                 final Entry<K, V> last = e;
@@ -6692,102 +6656,6 @@ in `utils/src/main/java/jetbrains/exodus/core/dataStructures/hash/LinkedHashMap.
                 if (e == null) return null;
                 if ((entryKey = e.key) == key || entryKey.equals(key)) {
                     last.hashNext = e.hashNext;
-```
-
-### ReturnNull
-Return of `null`
-in `utils/src/main/java/jetbrains/exodus/core/dataStructures/persistent/PersistentLong23TreeMap.java`
-#### Snippet
-```java
-            Node<PersistentLongMap.Entry<V>> root = getRoot();
-            if (root == null) {
-                return null;
-            }
-            PersistentLongMap.Entry<V> entry = root.getByWeight(key);
-```
-
-### ReturnNull
-Return of `null`
-in `utils/src/main/java/jetbrains/exodus/core/dataStructures/persistent/PersistentLong23TreeMap.java`
-#### Snippet
-```java
-            }
-            PersistentLongMap.Entry<V> entry = root.getByWeight(key);
-            return entry == null ? null : entry.getValue();
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `utils/src/main/java/jetbrains/exodus/core/dataStructures/persistent/PersistentLong23TreeMap.java`
-#### Snippet
-```java
-            RootNode<PersistentLongMap.Entry<V>> root = getRoot();
-            if (root == null) {
-                return null;
-            }
-            Pair<Node<PersistentLongMap.Entry<V>>, PersistentLongMap.Entry<V>> removeResult = root.remove(new LongMapEntry<>(key), true);
-```
-
-### ReturnNull
-Return of `null`
-in `utils/src/main/java/jetbrains/exodus/core/dataStructures/persistent/PersistentLong23TreeMap.java`
-#### Snippet
-```java
-            Pair<Node<PersistentLongMap.Entry<V>>, PersistentLongMap.Entry<V>> removeResult = root.remove(new LongMapEntry<>(key), true);
-            if (removeResult == null) {
-                return null;
-            }
-            Node<PersistentLongMap.Entry<V>> res = removeResult.getFirst();
-```
-
-### ReturnNull
-Return of `null`
-in `utils/src/main/java/jetbrains/exodus/core/dataStructures/persistent/PersistentLong23TreeMap.java`
-#### Snippet
-```java
-            Node<PersistentLongMap.Entry<V>> root = getRoot();
-            if (root == null) {
-                return null;
-            }
-            PersistentLongMap.Entry<V> entry = root.getByWeight(key);
-```
-
-### ReturnNull
-Return of `null`
-in `utils/src/main/java/jetbrains/exodus/core/dataStructures/persistent/PersistentLong23TreeMap.java`
-#### Snippet
-```java
-            }
-            PersistentLongMap.Entry<V> entry = root.getByWeight(key);
-            return entry == null ? null : entry.getValue();
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `utils/src/main/java/jetbrains/exodus/core/dataStructures/persistent/Persistent23TreeMap.java`
-#### Snippet
-```java
-            Node<Entry<K, V>> root = getRoot();
-            if (root == null) {
-                return null;
-            }
-            Entry<K, V> entry = root.get(new Entry<>(key));
-```
-
-### ReturnNull
-Return of `null`
-in `utils/src/main/java/jetbrains/exodus/core/dataStructures/persistent/Persistent23TreeMap.java`
-#### Snippet
-```java
-            }
-            Entry<K, V> entry = root.get(new Entry<>(key));
-            return entry == null ? null : entry.getValue();
-        }
-
 ```
 
 ### ReturnNull
@@ -6840,11 +6708,131 @@ in `utils/src/main/java/jetbrains/exodus/core/dataStructures/persistent/Persiste
 
 ### ReturnNull
 Return of `null`
-in `utils/src/main/java/jetbrains/exodus/core/dataStructures/persistent/PersistentHashMap.java`
+in `utils/src/main/java/jetbrains/exodus/core/dataStructures/persistent/Persistent23TreeMap.java`
 #### Snippet
 ```java
-        public V get(@NotNull final K key) {
-            final Entry<K, V> entry = getRoot().getKey(new Entry<>(key), key.hashCode(), 0);
+            Node<Entry<K, V>> root = getRoot();
+            if (root == null) {
+                return null;
+            }
+            Entry<K, V> entry = root.get(new Entry<>(key));
+```
+
+### ReturnNull
+Return of `null`
+in `utils/src/main/java/jetbrains/exodus/core/dataStructures/persistent/Persistent23TreeMap.java`
+#### Snippet
+```java
+            }
+            Entry<K, V> entry = root.get(new Entry<>(key));
+            return entry == null ? null : entry.getValue();
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `utils/src/main/java/jetbrains/exodus/core/dataStructures/hash/LinkedHashMap.java`
+#### Snippet
+```java
+        }
+
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `utils/src/main/java/jetbrains/exodus/core/dataStructures/hash/LinkedHashMap.java`
+#### Snippet
+```java
+        Entry<K, V> e = table[index];
+
+        if (e == null) return null;
+
+        K entryKey;
+```
+
+### ReturnNull
+Return of `null`
+in `utils/src/main/java/jetbrains/exodus/core/dataStructures/hash/LinkedHashMap.java`
+#### Snippet
+```java
+                final Entry<K, V> last = e;
+                e = e.hashNext;
+                if (e == null) return null;
+                if ((entryKey = e.key) == key || entryKey.equals(key)) {
+                    last.hashNext = e.hashNext;
+```
+
+### ReturnNull
+Return of `null`
+in `utils/src/main/java/jetbrains/exodus/core/dataStructures/persistent/PersistentLong23TreeMap.java`
+#### Snippet
+```java
+            RootNode<PersistentLongMap.Entry<V>> root = getRoot();
+            if (root == null) {
+                return null;
+            }
+            Pair<Node<PersistentLongMap.Entry<V>>, PersistentLongMap.Entry<V>> removeResult = root.remove(new LongMapEntry<>(key), true);
+```
+
+### ReturnNull
+Return of `null`
+in `utils/src/main/java/jetbrains/exodus/core/dataStructures/persistent/PersistentLong23TreeMap.java`
+#### Snippet
+```java
+            Pair<Node<PersistentLongMap.Entry<V>>, PersistentLongMap.Entry<V>> removeResult = root.remove(new LongMapEntry<>(key), true);
+            if (removeResult == null) {
+                return null;
+            }
+            Node<PersistentLongMap.Entry<V>> res = removeResult.getFirst();
+```
+
+### ReturnNull
+Return of `null`
+in `utils/src/main/java/jetbrains/exodus/core/dataStructures/persistent/PersistentLong23TreeMap.java`
+#### Snippet
+```java
+            Node<PersistentLongMap.Entry<V>> root = getRoot();
+            if (root == null) {
+                return null;
+            }
+            PersistentLongMap.Entry<V> entry = root.getByWeight(key);
+```
+
+### ReturnNull
+Return of `null`
+in `utils/src/main/java/jetbrains/exodus/core/dataStructures/persistent/PersistentLong23TreeMap.java`
+#### Snippet
+```java
+            }
+            PersistentLongMap.Entry<V> entry = root.getByWeight(key);
+            return entry == null ? null : entry.getValue();
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `utils/src/main/java/jetbrains/exodus/core/dataStructures/persistent/PersistentLong23TreeMap.java`
+#### Snippet
+```java
+            Node<PersistentLongMap.Entry<V>> root = getRoot();
+            if (root == null) {
+                return null;
+            }
+            PersistentLongMap.Entry<V> entry = root.getByWeight(key);
+```
+
+### ReturnNull
+Return of `null`
+in `utils/src/main/java/jetbrains/exodus/core/dataStructures/persistent/PersistentLong23TreeMap.java`
+#### Snippet
+```java
+            }
+            PersistentLongMap.Entry<V> entry = root.getByWeight(key);
             return entry == null ? null : entry.getValue();
         }
 
@@ -6864,38 +6852,14 @@ in `utils/src/main/java/jetbrains/exodus/core/dataStructures/persistent/Persiste
 
 ### ReturnNull
 Return of `null`
-in `utils/src/main/java/jetbrains/exodus/core/dataStructures/persistent/PersistentBitTreeLongMap.java`
+in `utils/src/main/java/jetbrains/exodus/core/dataStructures/persistent/PersistentHashMap.java`
 #### Snippet
 ```java
-            final Entry entry = map.getMinimum();
-            if (entry == null) {
-                return null;
-            }
-            int index = entry.bits.nextSetBit(0);
-```
+        public V get(@NotNull final K key) {
+            final Entry<K, V> entry = getRoot().getKey(new Entry<>(key), key.hashCode(), 0);
+            return entry == null ? null : entry.getValue();
+        }
 
-### ReturnNull
-Return of `null`
-in `utils/src/main/java/jetbrains/exodus/core/dataStructures/persistent/PersistentBitTreeLongMap.java`
-#### Snippet
-```java
-            final Entry entry = getEntryByIndex(getEntryIndex(key));
-            if (entry == null) {
-                return null;
-            }
-            return (V) entry.data[(int) (key & MASK)];
-```
-
-### ReturnNull
-Return of `null`
-in `utils/src/main/java/jetbrains/exodus/core/dataStructures/persistent/PersistentBitTreeLongMap.java`
-#### Snippet
-```java
-            final Entry entry = getEntryByIndex(getEntryIndex(key));
-            if (entry == null) {
-                return null;
-            }
-            return (V) entry.data[(int) (key & MASK)];
 ```
 
 ### ReturnNull
@@ -6908,6 +6872,30 @@ in `utils/src/main/java/jetbrains/exodus/core/dataStructures/persistent/Persiste
                 return null;
             }
             int index = entry.bits.nextSetBit(0);
+```
+
+### ReturnNull
+Return of `null`
+in `utils/src/main/java/jetbrains/exodus/core/dataStructures/persistent/PersistentBitTreeLongMap.java`
+#### Snippet
+```java
+            final Entry entry = getEntryByIndex(getEntryIndex(key));
+            if (entry == null) {
+                return null;
+            }
+            return (V) entry.data[(int) (key & MASK)];
+```
+
+### ReturnNull
+Return of `null`
+in `utils/src/main/java/jetbrains/exodus/core/dataStructures/persistent/PersistentBitTreeLongMap.java`
+#### Snippet
+```java
+            final Entry entry = getEntryByIndex(getEntryIndex(key));
+            if (entry == null) {
+                return null;
+            }
+            return (V) entry.data[(int) (key & MASK)];
 ```
 
 ### ReturnNull
@@ -6936,14 +6924,14 @@ in `utils/src/main/java/jetbrains/exodus/core/dataStructures/persistent/Persiste
 
 ### ReturnNull
 Return of `null`
-in `utils/src/main/java/jetbrains/exodus/core/dataStructures/persistent/PersistentObjectCache.java`
+in `utils/src/main/java/jetbrains/exodus/core/dataStructures/persistent/PersistentBitTreeLongMap.java`
 #### Snippet
 ```java
-        final Root<K, V> current = getCurrent();
-        if (current == null) {
-            return null;
-        }
-        V result = current.getFirstGen().beginWrite().getValue(key);
+            final Entry entry = map.getMinimum();
+            if (entry == null) {
+                return null;
+            }
+            int index = entry.bits.nextSetBit(0);
 ```
 
 ### ReturnNull
@@ -6972,6 +6960,18 @@ in `utils/src/main/java/jetbrains/exodus/core/dataStructures/persistent/Persiste
 
 ### ReturnNull
 Return of `null`
+in `utils/src/main/java/jetbrains/exodus/core/dataStructures/persistent/PersistentObjectCache.java`
+#### Snippet
+```java
+        final Root<K, V> current = getCurrent();
+        if (current == null) {
+            return null;
+        }
+        V result = current.getFirstGen().beginWrite().getValue(key);
+```
+
+### ReturnNull
+Return of `null`
 in `utils/src/main/java/jetbrains/exodus/core/dataStructures/persistent/PersistentLinkedHashMap.java`
 #### Snippet
 ```java
@@ -6987,18 +6987,6 @@ Return of `null`
 in `utils/src/main/java/jetbrains/exodus/core/dataStructures/persistent/AbstractPersistent23Tree.java`
 #### Snippet
 ```java
-                return secondKey;
-            }
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `utils/src/main/java/jetbrains/exodus/core/dataStructures/persistent/AbstractPersistent23Tree.java`
-#### Snippet
-```java
         @Override
         public Node<K> getSecondChild() {
             return null;
@@ -7011,20 +6999,8 @@ Return of `null`
 in `utils/src/main/java/jetbrains/exodus/core/dataStructures/persistent/AbstractPersistent23Tree.java`
 #### Snippet
 ```java
-                return secondKey;
-            }
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `utils/src/main/java/jetbrains/exodus/core/dataStructures/persistent/AbstractPersistent23Tree.java`
-#### Snippet
-```java
         @Override
-        public Node<K> getSecondChild() {
+        public Node<K> getThirdChild() {
             return null;
         }
 
@@ -7059,11 +7035,11 @@ Return of `null`
 in `utils/src/main/java/jetbrains/exodus/core/dataStructures/persistent/AbstractPersistent23Tree.java`
 #### Snippet
 ```java
-                Pair<Node<K>, K> removeResult = secondChild.remove(key, compFirst != 0);
-                if (removeResult == null) {
-                    return null;
-                }
-                Node<K> resultNode = removeResult.getFirst();
+            Pair<Node<K>, K> removeResult = secondChild.remove(key, comp != 0);
+            if (removeResult == null) {
+                return null;
+            }
+            Node<K> resultNode = removeResult.getFirst();
 ```
 
 ### ReturnNull
@@ -7071,11 +7047,11 @@ Return of `null`
 in `utils/src/main/java/jetbrains/exodus/core/dataStructures/persistent/AbstractPersistent23Tree.java`
 #### Snippet
 ```java
-            Pair<Node<K>, K> removeResult = thirdChild.remove(key, compSecond != 0);
-            if (removeResult == null) {
-                return null;
+                return secondKey;
             }
-            Node<K> resultNode = removeResult.getFirst();
+            return null;
+        }
+
 ```
 
 ### ReturnNull
@@ -7119,56 +7095,8 @@ Return of `null`
 in `utils/src/main/java/jetbrains/exodus/core/dataStructures/persistent/AbstractPersistent23Tree.java`
 #### Snippet
 ```java
-                Pair<Node<K>, K> removeResult = firstChild.remove(key, strict);
-                if (removeResult == null) {
-                    return null;
-                }
-                Node<K> resultNode = removeResult.getFirst();
-```
-
-### ReturnNull
-Return of `null`
-in `utils/src/main/java/jetbrains/exodus/core/dataStructures/persistent/AbstractPersistent23Tree.java`
-#### Snippet
-```java
-            Pair<Node<K>, K> removeResult = secondChild.remove(key, comp != 0);
-            if (removeResult == null) {
-                return null;
+                return secondKey;
             }
-            Node<K> resultNode = removeResult.getFirst();
-```
-
-### ReturnNull
-Return of `null`
-in `utils/src/main/java/jetbrains/exodus/core/dataStructures/persistent/AbstractPersistent23Tree.java`
-#### Snippet
-```java
-        public K getByWeight(long weight) {
-            final long firstKeyWeight = ((LongComparable) firstKey).getWeight();
-            return firstKeyWeight == weight ? firstKey : null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `utils/src/main/java/jetbrains/exodus/core/dataStructures/persistent/AbstractPersistent23Tree.java`
-#### Snippet
-```java
-        @Override
-        public K get(@NotNull K key) {
-            return key.compareTo(firstKey) == 0 ? firstKey : null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `utils/src/main/java/jetbrains/exodus/core/dataStructures/persistent/AbstractPersistent23Tree.java`
-#### Snippet
-```java
-        @Override
-        public Node<K> getThirdChild() {
             return null;
         }
 
@@ -7200,6 +7128,78 @@ in `utils/src/main/java/jetbrains/exodus/core/dataStructures/persistent/Abstract
 
 ### ReturnNull
 Return of `null`
+in `utils/src/main/java/jetbrains/exodus/core/dataStructures/persistent/AbstractPersistent23Tree.java`
+#### Snippet
+```java
+        @Override
+        public K get(@NotNull K key) {
+            return key.compareTo(firstKey) == 0 ? firstKey : null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `utils/src/main/java/jetbrains/exodus/core/dataStructures/persistent/AbstractPersistent23Tree.java`
+#### Snippet
+```java
+        @Override
+        public Node<K> getSecondChild() {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `utils/src/main/java/jetbrains/exodus/core/dataStructures/persistent/AbstractPersistent23Tree.java`
+#### Snippet
+```java
+        public K getByWeight(long weight) {
+            final long firstKeyWeight = ((LongComparable) firstKey).getWeight();
+            return firstKeyWeight == weight ? firstKey : null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `utils/src/main/java/jetbrains/exodus/core/dataStructures/persistent/AbstractPersistent23Tree.java`
+#### Snippet
+```java
+                Pair<Node<K>, K> removeResult = firstChild.remove(key, strict);
+                if (removeResult == null) {
+                    return null;
+                }
+                Node<K> resultNode = removeResult.getFirst();
+```
+
+### ReturnNull
+Return of `null`
+in `utils/src/main/java/jetbrains/exodus/core/dataStructures/persistent/AbstractPersistent23Tree.java`
+#### Snippet
+```java
+                Pair<Node<K>, K> removeResult = secondChild.remove(key, compFirst != 0);
+                if (removeResult == null) {
+                    return null;
+                }
+                Node<K> resultNode = removeResult.getFirst();
+```
+
+### ReturnNull
+Return of `null`
+in `utils/src/main/java/jetbrains/exodus/core/dataStructures/persistent/AbstractPersistent23Tree.java`
+#### Snippet
+```java
+            Pair<Node<K>, K> removeResult = thirdChild.remove(key, compSecond != 0);
+            if (removeResult == null) {
+                return null;
+            }
+            Node<K> resultNode = removeResult.getFirst();
+```
+
+### ReturnNull
+Return of `null`
 in `openAPI/src/main/java/jetbrains/exodus/ConfigurationStrategy.java`
 #### Snippet
 ```java
@@ -7227,11 +7227,11 @@ Return of `null`
 in `openAPI/src/main/java/jetbrains/exodus/bindings/ComparableValueType.java`
 #### Snippet
 ```java
-
-    public static ComparableBinding getPredefinedBinding(final int typeId) {
-        return typeId >= 0 && typeId < PREDEFINED_BINDINGS.length ? PREDEFINED_BINDINGS[typeId] : null;
+            }
+        }
+        return null;
     }
-
+}
 ```
 
 ### ReturnNull
@@ -7239,11 +7239,11 @@ Return of `null`
 in `openAPI/src/main/java/jetbrains/exodus/bindings/ComparableValueType.java`
 #### Snippet
 ```java
-            }
-        }
-        return null;
+
+    public static ComparableBinding getPredefinedBinding(final int typeId) {
+        return typeId >= 0 && typeId < PREDEFINED_BINDINGS.length ? PREDEFINED_BINDINGS[typeId] : null;
     }
-}
+
 ```
 
 ### ReturnNull
@@ -7312,7 +7312,7 @@ in `environment/src/main/java/jetbrains/exodus/tree/patricia/ChildReferenceSet.j
 #### Snippet
 ```java
             do {
-                if (--i < 0) {
+                if (++i >= size) {
                     return null;
                 }
                 ref = refs[i];
@@ -7348,46 +7348,10 @@ in `environment/src/main/java/jetbrains/exodus/tree/patricia/ChildReferenceSet.j
 #### Snippet
 ```java
             do {
-                if (++i >= size) {
+                if (--i < 0) {
                     return null;
                 }
                 ref = refs[i];
-```
-
-### ReturnNull
-Return of `null`
-in `environment/src/main/java/jetbrains/exodus/tree/patricia/NodeBase.java`
-#### Snippet
-```java
-        @Override
-        public ChildReference prev() {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `environment/src/main/java/jetbrains/exodus/tree/patricia/NodeBase.java`
-#### Snippet
-```java
-        @Override
-        public ChildReference getNode() {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `environment/src/main/java/jetbrains/exodus/tree/patricia/NodeBase.java`
-#### Snippet
-```java
-        @Override
-        public ChildReference next() {
-            return null;
-        }
-
 ```
 
 ### ReturnNull
@@ -7423,6 +7387,42 @@ in `environment/src/main/java/jetbrains/exodus/tree/patricia/SinglePageImmutable
 
         return null;
     }
+
+```
+
+### ReturnNull
+Return of `null`
+in `environment/src/main/java/jetbrains/exodus/tree/patricia/NodeBase.java`
+#### Snippet
+```java
+        @Override
+        public ChildReference next() {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `environment/src/main/java/jetbrains/exodus/tree/patricia/NodeBase.java`
+#### Snippet
+```java
+        @Override
+        public ChildReference prev() {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `environment/src/main/java/jetbrains/exodus/tree/patricia/NodeBase.java`
+#### Snippet
+```java
+        @Override
+        public ChildReference getNode() {
+            return null;
+        }
 
 ```
 
@@ -7467,11 +7467,11 @@ Return of `null`
 in `entity-store/src/main/java/jetbrains/exodus/entitystore/PersistentEntityStoreImpl.java`
 #### Snippet
 ```java
-            @Override
-            public Pair<Long, Long> next() {
-                if (!hasNext()) return null;
-                final Pair<Long, Long> result = next;
-                next = null;
+    public Long getBlobFileLength(long blobHandle, Transaction txn) {
+        final ByteIterable resultEntry = blobFileLengths.get(txn, LongBinding.longToCompressedEntry(blobHandle));
+        return resultEntry == null ? null : LongBinding.compressedEntryToLong(resultEntry);
+    }
+
 ```
 
 ### ReturnNull
@@ -7479,11 +7479,11 @@ Return of `null`
 in `entity-store/src/main/java/jetbrains/exodus/entitystore/PersistentEntityStoreImpl.java`
 #### Snippet
 ```java
-    public Long getBlobFileLength(long blobHandle, Transaction txn) {
-        final ByteIterable resultEntry = blobFileLengths.get(txn, LongBinding.longToCompressedEntry(blobHandle));
-        return resultEntry == null ? null : LongBinding.compressedEntryToLong(resultEntry);
-    }
-
+            @Override
+            public Pair<Long, Long> next() {
+                if (!hasNext()) return null;
+                final Pair<Long, Long> result = next;
+                next = null;
 ```
 
 ### ReturnNull
@@ -7515,18 +7515,6 @@ Return of `null`
 in `entity-store/src/main/java/jetbrains/exodus/entitystore/PersistentStoreTransaction.java`
 #### Snippet
 ```java
-            UnsafeKt.executeInMetaWriteLock((EnvironmentImpl) store.getEnvironment(), () -> {
-                applyAtomicCaches(cache);
-                return null;
-            });
-        }
-```
-
-### ReturnNull
-Return of `null`
-in `entity-store/src/main/java/jetbrains/exodus/entitystore/PersistentStoreTransaction.java`
-#### Snippet
-```java
             }
         }
         return null;
@@ -7534,19 +7522,19 @@ in `entity-store/src/main/java/jetbrains/exodus/entitystore/PersistentStoreTrans
 
 ```
 
-## RuleId[ruleID=BusyWait]
-### BusyWait
-Call to `Thread.sleep()` in a loop, probably busy-waiting
-in `entity-store/src/main/java/jetbrains/exodus/entitystore/PersistentEntityStoreImpl.java`
+### ReturnNull
+Return of `null`
+in `entity-store/src/main/java/jetbrains/exodus/entitystore/PersistentStoreTransaction.java`
 #### Snippet
 ```java
-            while (true) {
-                try {
-                    Thread.sleep(sleepInterval);
-                } catch (InterruptedException e) {
-                    throw new ExodusException("Store : " + getName() +
+            UnsafeKt.executeInMetaWriteLock((EnvironmentImpl) store.getEnvironment(), () -> {
+                applyAtomicCaches(cache);
+                return null;
+            });
+        }
 ```
 
+## RuleId[ruleID=BusyWait]
 ### BusyWait
 Call to `Thread.sleep()` in a loop, probably busy-waiting
 in `entity-store/src/main/java/jetbrains/exodus/entitystore/PersistentEntityStoreImpl.java`
@@ -7557,6 +7545,18 @@ in `entity-store/src/main/java/jetbrains/exodus/entitystore/PersistentEntityStor
                             Thread.sleep(sleepInterval);
                         } catch (InterruptedException e) {
                             throw new ExodusException("Store : " + getName() +
+```
+
+### BusyWait
+Call to `Thread.sleep()` in a loop, probably busy-waiting
+in `entity-store/src/main/java/jetbrains/exodus/entitystore/PersistentEntityStoreImpl.java`
+#### Snippet
+```java
+            while (true) {
+                try {
+                    Thread.sleep(sleepInterval);
+                } catch (InterruptedException e) {
+                    throw new ExodusException("Store : " + getName() +
 ```
 
 ## RuleId[ruleID=UseCompareMethod]
@@ -7980,6 +7980,18 @@ public class InMemoryQuickSortOnInitIterable extends SortEngine.InMemorySortIter
 ```
 
 ### BoundedWildcard
+Can generalize to `? extends EntityMetaData`
+in `query/src/main/java/jetbrains/exodus/query/metadata/ModelMetaDataImpl.java`
+#### Snippet
+```java
+    }
+
+    private void addSubTypeToMetaData(Map<String, EntityMetaData> typeToEntityMetaDatas, EntityMetaData emd, String superType) {
+        final EntityMetaData superEmd = typeToEntityMetaDatas.get(superType);
+        if (superEmd == null) {
+```
+
+### BoundedWildcard
 Can generalize to `? extends AssociationMetaData`
 in `query/src/main/java/jetbrains/exodus/query/metadata/ModelMetaDataImpl.java`
 #### Snippet
@@ -8004,27 +8016,15 @@ in `query/src/main/java/jetbrains/exodus/query/metadata/ModelMetaDataImpl.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends EntityMetaData`
-in `query/src/main/java/jetbrains/exodus/query/metadata/ModelMetaDataImpl.java`
-#### Snippet
-```java
-    }
-
-    private void addSubTypeToMetaData(Map<String, EntityMetaData> typeToEntityMetaDatas, EntityMetaData emd, String superType) {
-        final EntityMetaData superEmd = typeToEntityMetaDatas.get(superType);
-        if (superEmd == null) {
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
+Can generalize to `? extends AssociationEndMetaData`
 in `query/src/main/java/jetbrains/exodus/query/metadata/EntityMetaDataImpl.java`
 #### Snippet
 ```java
-    }
-
-    private void addIncomingAssociation(@NotNull final Map<String, Set<String>> incomingAssociations,
-                                        @NotNull final String type, @NotNull final String associationName) {
-        Set<String> links = incomingAssociations.get(type);
+     * For backward compatibility
+     */
+    public void setAssociationEnds(@NotNull Collection<AssociationEndMetaData> ends) {
+        externalAssociationEnds = new HashSet<>();
+        externalAssociationEnds.addAll(ends);
 ```
 
 ### BoundedWildcard
@@ -8040,18 +8040,6 @@ in `query/src/main/java/jetbrains/exodus/query/metadata/EntityMetaDataImpl.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? super String`
-in `query/src/main/java/jetbrains/exodus/query/metadata/EntityMetaDataImpl.java`
-#### Snippet
-```java
-    }
-
-    private void collectSubTypes(EntityMetaDataImpl emd, List<String> result) {
-        final Set<String> subTypes = emd.subTypes;
-        result.addAll(subTypes);
-```
-
-### BoundedWildcard
 Can generalize to `? extends PropertyMetaData`
 in `query/src/main/java/jetbrains/exodus/query/metadata/EntityMetaDataImpl.java`
 #### Snippet
@@ -8064,15 +8052,27 @@ in `query/src/main/java/jetbrains/exodus/query/metadata/EntityMetaDataImpl.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends AssociationEndMetaData`
+Can generalize to `? super String`
 in `query/src/main/java/jetbrains/exodus/query/metadata/EntityMetaDataImpl.java`
 #### Snippet
 ```java
-     * For backward compatibility
-     */
-    public void setAssociationEnds(@NotNull Collection<AssociationEndMetaData> ends) {
-        externalAssociationEnds = new HashSet<>();
-        externalAssociationEnds.addAll(ends);
+    }
+
+    private void addIncomingAssociation(@NotNull final Map<String, Set<String>> incomingAssociations,
+                                        @NotNull final String type, @NotNull final String associationName) {
+        Set<String> links = incomingAssociations.get(type);
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `query/src/main/java/jetbrains/exodus/query/metadata/EntityMetaDataImpl.java`
+#### Snippet
+```java
+    }
+
+    private void collectSubTypes(EntityMetaDataImpl emd, List<String> result) {
+        final Set<String> subTypes = emd.subTypes;
+        result.addAll(subTypes);
 ```
 
 ### BoundedWildcard
@@ -8208,18 +8208,6 @@ in `utils/src/main/java/jetbrains/exodus/core/dataStructures/ObjectCache.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? super K`
-in `utils/src/main/java/jetbrains/exodus/core/dataStructures/hash/AbstractHashMap.java`
-#### Snippet
-```java
-    }
-
-    public boolean forEachKey(final ObjectProcedure<K> procedure) {
-        for (final Entry<K, V> entry : entrySet()) {
-            if (!procedure.execute(entry.getKey())) return false;
-```
-
-### BoundedWildcard
 Can generalize to `? super V`
 in `utils/src/main/java/jetbrains/exodus/core/dataStructures/hash/AbstractHashMap.java`
 #### Snippet
@@ -8238,7 +8226,7 @@ in `utils/src/main/java/jetbrains/exodus/core/dataStructures/hash/AbstractHashMa
 ```java
     }
 
-    public <E extends Throwable> boolean forEachEntry(final ObjectProcedureThrows<Entry<K, V>, E> procedure) throws E {
+    public boolean forEachEntry(final ObjectProcedure<Entry<K, V>> procedure) {
         for (final Entry<K, V> entry : entrySet()) {
             if (!procedure.execute(entry)) return false;
 ```
@@ -8250,9 +8238,21 @@ in `utils/src/main/java/jetbrains/exodus/core/dataStructures/hash/AbstractHashMa
 ```java
     }
 
-    public boolean forEachEntry(final ObjectProcedure<Entry<K, V>> procedure) {
+    public <E extends Throwable> boolean forEachEntry(final ObjectProcedureThrows<Entry<K, V>, E> procedure) throws E {
         for (final Entry<K, V> entry : entrySet()) {
             if (!procedure.execute(entry)) return false;
+```
+
+### BoundedWildcard
+Can generalize to `? super K`
+in `utils/src/main/java/jetbrains/exodus/core/dataStructures/hash/AbstractHashMap.java`
+#### Snippet
+```java
+    }
+
+    public boolean forEachKey(final ObjectProcedure<K> procedure) {
+        for (final Entry<K, V> entry : entrySet()) {
+            if (!procedure.execute(entry.getKey())) return false;
 ```
 
 ### BoundedWildcard
@@ -8287,8 +8287,8 @@ in `utils/src/main/java/jetbrains/exodus/core/dataStructures/persistent/Abstract
 
         @Override
         public void forEachKey(ObjectProcedure<K> procedure) {
-            for (Object target : table) {
-                if (target instanceof Node) {
+            for (K k : keys) {
+                procedure.execute(k);
 ```
 
 ### BoundedWildcard
@@ -8299,32 +8299,8 @@ in `utils/src/main/java/jetbrains/exodus/core/dataStructures/persistent/Abstract
 
         @Override
         public void forEachKey(ObjectProcedure<K> procedure) {
-            for (K k : keys) {
-                procedure.execute(k);
-```
-
-### BoundedWildcard
-Can generalize to `? super K`
-in `utils/src/main/java/jetbrains/exodus/core/dataStructures/persistent/PersistentObjectCache.java`
-#### Snippet
-```java
-
-        static <K, V> Root<K, V> getClone(@Nullable final Root<K, V> sourceRoot,
-                                          @Nullable final EvictListener<K, V> listener,
-                                          final int firstGenSizeBound, final int secondGenSizeBound) {
-            if (listener == null) {
-```
-
-### BoundedWildcard
-Can generalize to `? super V`
-in `utils/src/main/java/jetbrains/exodus/core/dataStructures/persistent/PersistentObjectCache.java`
-#### Snippet
-```java
-
-        static <K, V> Root<K, V> getClone(@Nullable final Root<K, V> sourceRoot,
-                                          @Nullable final EvictListener<K, V> listener,
-                                          final int firstGenSizeBound, final int secondGenSizeBound) {
-            if (listener == null) {
+            for (Object target : table) {
+                if (target instanceof Node) {
 ```
 
 ### BoundedWildcard
@@ -8373,6 +8349,30 @@ in `utils/src/main/java/jetbrains/exodus/util/SpinAllocator.java`
     public SpinAllocator(final ICreator<T> creator, final IDisposer<T> disposer, int maxAllocations) {
         this.creator = creator;
         this.disposer = disposer;
+```
+
+### BoundedWildcard
+Can generalize to `? super K`
+in `utils/src/main/java/jetbrains/exodus/core/dataStructures/persistent/PersistentObjectCache.java`
+#### Snippet
+```java
+
+        static <K, V> Root<K, V> getClone(@Nullable final Root<K, V> sourceRoot,
+                                          @Nullable final EvictListener<K, V> listener,
+                                          final int firstGenSizeBound, final int secondGenSizeBound) {
+            if (listener == null) {
+```
+
+### BoundedWildcard
+Can generalize to `? super V`
+in `utils/src/main/java/jetbrains/exodus/core/dataStructures/persistent/PersistentObjectCache.java`
+#### Snippet
+```java
+
+        static <K, V> Root<K, V> getClone(@Nullable final Root<K, V> sourceRoot,
+                                          @Nullable final EvictListener<K, V> listener,
+                                          final int firstGenSizeBound, final int secondGenSizeBound) {
+            if (listener == null) {
 ```
 
 ### BoundedWildcard
@@ -8436,15 +8436,51 @@ in `openAPI/src/main/java/jetbrains/exodus/bindings/ComparableSet.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? super LongIntPair`
-in `environment/src/main/java/jetbrains/exodus/io/AsyncFileDataWriter.java`
+Can generalize to `? super String`
+in `benchmarks/src/jmh/java/jetbrains/exodus/benchmark/mapdb/JMHMapDbTokyoCabinetBenchmarkBase.java`
 #### Snippet
 ```java
+    }
 
-        private WriteCompletionHandler(@NotNull ByteBuffer buffer,
-                                       @NotNull CompletableFuture<LongIntPair> future,
-                                       @NotNull LockingManager lockingManager,
-                                       @NotNull AsynchronousFileChannel channel, final long position,
+    void writeSuccessiveKeys(@NotNull final Map<String, String> store) {
+        for (final String key : successiveKeys) {
+            store.put(key, key);
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `benchmarks/src/jmh/java/jetbrains/exodus/benchmark/mapdb/JMHMapDbTokyoCabinetBenchmarkBase.java`
+#### Snippet
+```java
+    }
+
+    void writeSuccessiveKeys(@NotNull final Map<String, String> store) {
+        for (final String key : successiveKeys) {
+            store.put(key, key);
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `benchmarks/src/jmh/java/jetbrains/exodus/benchmark/chronicle/JMHChronicleMapTokyoCabinetBenchmarkBase.java`
+#### Snippet
+```java
+    }
+
+    void writeSuccessiveKeys(@NotNull final Map<String, String> store) {
+        for (final String key : successiveKeys) {
+            store.put(key, key);
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `benchmarks/src/jmh/java/jetbrains/exodus/benchmark/chronicle/JMHChronicleMapTokyoCabinetBenchmarkBase.java`
+#### Snippet
+```java
+    }
+
+    void writeSuccessiveKeys(@NotNull final Map<String, String> store) {
+        for (final String key : successiveKeys) {
+            store.put(key, key);
 ```
 
 ### BoundedWildcard
@@ -8460,27 +8496,15 @@ in `environment/src/main/java/jetbrains/exodus/env/TransactionSet.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? super String`
-in `benchmarks/src/jmh/java/jetbrains/exodus/benchmark/chronicle/JMHChronicleMapTokyoCabinetBenchmarkBase.java`
+Can generalize to `? extends Condition`
+in `environment/src/main/java/jetbrains/exodus/env/ReentrantTransactionDispatcher.java`
 #### Snippet
 ```java
     }
 
-    void writeSuccessiveKeys(@NotNull final Map<String, String> store) {
-        for (final String key : successiveKeys) {
-            store.put(key, key);
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `benchmarks/src/jmh/java/jetbrains/exodus/benchmark/chronicle/JMHChronicleMapTokyoCabinetBenchmarkBase.java`
-#### Snippet
-```java
-    }
-
-    void writeSuccessiveKeys(@NotNull final Map<String, String> store) {
-        for (final String key : successiveKeys) {
-            store.put(key, key);
+    private static boolean notifyNextWaiter(@NotNull final NavigableMap<Long, Condition> queue) {
+        if (!queue.isEmpty()) {
+            queue.firstEntry().getValue().signal();
 ```
 
 ### BoundedWildcard
@@ -8496,15 +8520,15 @@ in `environment/src/main/java/jetbrains/exodus/env/ReentrantTransactionDispatche
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends Condition`
-in `environment/src/main/java/jetbrains/exodus/env/ReentrantTransactionDispatcher.java`
+Can generalize to `? super LongIntPair`
+in `environment/src/main/java/jetbrains/exodus/io/AsyncFileDataWriter.java`
 #### Snippet
 ```java
-    }
 
-    private static boolean notifyNextWaiter(@NotNull final NavigableMap<Long, Condition> queue) {
-        if (!queue.isEmpty()) {
-            queue.firstEntry().getValue().signal();
+        private WriteCompletionHandler(@NotNull ByteBuffer buffer,
+                                       @NotNull CompletableFuture<LongIntPair> future,
+                                       @NotNull LockingManager lockingManager,
+                                       @NotNull AsynchronousFileChannel channel, final long position,
 ```
 
 ### BoundedWildcard
@@ -8544,30 +8568,6 @@ in `environment/src/main/java/jetbrains/exodus/tree/btree/LeafNodeDup.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? super String`
-in `benchmarks/src/jmh/java/jetbrains/exodus/benchmark/mapdb/JMHMapDbTokyoCabinetBenchmarkBase.java`
-#### Snippet
-```java
-    }
-
-    void writeSuccessiveKeys(@NotNull final Map<String, String> store) {
-        for (final String key : successiveKeys) {
-            store.put(key, key);
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `benchmarks/src/jmh/java/jetbrains/exodus/benchmark/mapdb/JMHMapDbTokyoCabinetBenchmarkBase.java`
-#### Snippet
-```java
-    }
-
-    void writeSuccessiveKeys(@NotNull final Map<String, String> store) {
-        for (final String key : successiveKeys) {
-            store.put(key, key);
-```
-
-### BoundedWildcard
 Can generalize to `? extends Entity`
 in `entity-store/src/main/java/jetbrains/exodus/entitystore/iterate/EntityIterableBase.java`
 #### Snippet
@@ -8580,18 +8580,6 @@ in `entity-store/src/main/java/jetbrains/exodus/entitystore/iterate/EntityIterab
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends EntityIterable`
-in `entity-store/src/main/java/jetbrains/exodus/entitystore/PersistentStoreTransaction.java`
-#### Snippet
-```java
-
-    @NotNull
-    public EntityIterable mergeSorted(@NotNull final List<EntityIterable> sorted,
-                                      @NotNull ComparableGetter valueGetter,
-                                      @NotNull final Comparator<Comparable<Object>> comparator) {
-```
-
-### BoundedWildcard
 Can generalize to `? super Updatable`
 in `entity-store/src/main/java/jetbrains/exodus/entitystore/PersistentStoreTransaction.java`
 #### Snippet
@@ -8601,18 +8589,6 @@ in `entity-store/src/main/java/jetbrains/exodus/entitystore/PersistentStoreTrans
                              @NotNull List<Updatable> mutatedInTxn,
                              @NotNull EntityIterableCacheAdapterMutable mutableCache) {
             this.txn = txn;
-```
-
-### BoundedWildcard
-Can generalize to `? extends EntityIterable`
-in `entity-store/src/main/java/jetbrains/exodus/entitystore/PersistentStoreTransaction.java`
-#### Snippet
-```java
-    @Deprecated
-    @NotNull
-    public EntityIterable mergeSorted(@NotNull final List<EntityIterable> sorted,
-                                      @NotNull final Comparator<Entity> comparator) {
-        List<EntityIterable> filtered = null;
 ```
 
 ### BoundedWildcard
@@ -8651,6 +8627,30 @@ in `entity-store/src/main/java/jetbrains/exodus/entitystore/PersistentStoreTrans
         if (entityTypeId < 0) {
 ```
 
+### BoundedWildcard
+Can generalize to `? extends EntityIterable`
+in `entity-store/src/main/java/jetbrains/exodus/entitystore/PersistentStoreTransaction.java`
+#### Snippet
+```java
+
+    @NotNull
+    public EntityIterable mergeSorted(@NotNull final List<EntityIterable> sorted,
+                                      @NotNull ComparableGetter valueGetter,
+                                      @NotNull final Comparator<Comparable<Object>> comparator) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends EntityIterable`
+in `entity-store/src/main/java/jetbrains/exodus/entitystore/PersistentStoreTransaction.java`
+#### Snippet
+```java
+    @Deprecated
+    @NotNull
+    public EntityIterable mergeSorted(@NotNull final List<EntityIterable> sorted,
+                                      @NotNull final Comparator<Entity> comparator) {
+        List<EntityIterable> filtered = null;
+```
+
 ## RuleId[ruleID=MissortedModifiers]
 ### MissortedModifiers
 Missorted modifiers `final static`
@@ -8683,18 +8683,6 @@ in `utils/src/main/java/jetbrains/exodus/core/dataStructures/persistent/Persiste
 ```java
     }
 
-    private final static class ReverseItemIterator<V> implements Iterator<PersistentLongMap.Entry<V>> {
-        @NotNull
-        private final Iterator<Entry> iterator;
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `utils/src/main/java/jetbrains/exodus/core/dataStructures/persistent/PersistentBitTreeLongMap.java`
-#### Snippet
-```java
-    }
-
     private final static class ReverseItemTailIterator<V> implements Iterator<PersistentLongMap.Entry<V>> {
         @NotNull
         private final Iterator<Entry> iterator;
@@ -8708,6 +8696,18 @@ in `utils/src/main/java/jetbrains/exodus/core/dataStructures/persistent/Persiste
     }
 
     private final static class ItemTailIterator<V> implements Iterator<PersistentLongMap.Entry<V>> {
+        @NotNull
+        private final Iterator<Entry> iterator;
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `utils/src/main/java/jetbrains/exodus/core/dataStructures/persistent/PersistentBitTreeLongMap.java`
+#### Snippet
+```java
+    }
+
+    private final static class ReverseItemIterator<V> implements Iterator<PersistentLongMap.Entry<V>> {
         @NotNull
         private final Iterator<Entry> iterator;
 ```
@@ -8876,18 +8876,6 @@ in `sshd/src/main/kotlin/jetbrains/exodus/javascript/Interop.kt`
 ```
 
 ### MemberVisibilityCanBePrivate
-Property 'config' could be private
-in `sshd/src/main/kotlin/jetbrains/exodus/javascript/RhinoCommand.kt`
-#### Snippet
-```java
-import java.io.*
-
-abstract class RhinoCommand(protected val config: Map<String, *>) : Job(), Command {
-
-    companion object {
-```
-
-### MemberVisibilityCanBePrivate
 Function 'isCached' could be private
 in `utils/src/main/kotlin/jetbrains/exodus/core/dataStructures/LongObjectCacheBase.kt`
 #### Snippet
@@ -8897,6 +8885,18 @@ in `utils/src/main/kotlin/jetbrains/exodus/core/dataStructures/LongObjectCacheBa
     fun isCached(key: Long) = getObjectLocked(key) != null
 
     fun size() = size
+```
+
+### MemberVisibilityCanBePrivate
+Property 'config' could be private
+in `sshd/src/main/kotlin/jetbrains/exodus/javascript/RhinoCommand.kt`
+#### Snippet
+```java
+import java.io.*
+
+abstract class RhinoCommand(protected val config: Map<String, *>) : Job(), Command {
+
+    companion object {
 ```
 
 ### MemberVisibilityCanBePrivate
@@ -8960,18 +8960,6 @@ open class InMemorySortBenchmarkBase {
 ```
 
 ### MemberVisibilityCanBePrivate
-Property 'fileDataReader' could be private
-in `environment/src/main/kotlin/jetbrains/exodus/io/WatchingFileDataReader.kt`
-#### Snippet
-```java
-class WatchingFileDataReader(
-    private val envGetter: () -> EnvironmentImpl?,
-    internal val fileDataReader: FileDataReader
-) : DataReader {
-
-```
-
-### MemberVisibilityCanBePrivate
 Function 'newFileDataWriter' could be private
 in `environment/src/main/kotlin/jetbrains/exodus/io/WatchingFileDataReaderWriterProvider.kt`
 #### Snippet
@@ -8993,6 +8981,18 @@ in `environment/src/main/kotlin/jetbrains/exodus/io/WatchingFileDataReaderWriter
     fun newFileDataReader(location: String) =
         WatchingFileDataReader({ env }, nonWatchingFileDataReader(location).apply {
             usedWithWatcher = true
+```
+
+### MemberVisibilityCanBePrivate
+Property 'fileDataReader' could be private
+in `environment/src/main/kotlin/jetbrains/exodus/io/WatchingFileDataReader.kt`
+#### Snippet
+```java
+class WatchingFileDataReader(
+    private val envGetter: () -> EnvironmentImpl?,
+    internal val fileDataReader: FileDataReader
+) : DataReader {
+
 ```
 
 ### MemberVisibilityCanBePrivate
@@ -9020,18 +9020,6 @@ in `environment/src/main/kotlin/jetbrains/exodus/log/LogCache.kt`
 ```
 
 ### MemberVisibilityCanBePrivate
-Property 'gcTransactions' could be private
-in `environment/src/main/kotlin/jetbrains/exodus/debug/TxnProfiler.kt`
-#### Snippet
-```java
-class TxnProfiler : KLogging() {
-
-    var gcTransactions: Long = 0L
-        private set
-    var gcMovedBytes: Long = 0L
-```
-
-### MemberVisibilityCanBePrivate
 Property 'gcMovedBytes' could be private
 in `environment/src/main/kotlin/jetbrains/exodus/debug/TxnProfiler.kt`
 #### Snippet
@@ -9041,6 +9029,18 @@ in `environment/src/main/kotlin/jetbrains/exodus/debug/TxnProfiler.kt`
     var gcMovedBytes: Long = 0L
         private set
     private val readonlyTxns = StackTraceMap()
+```
+
+### MemberVisibilityCanBePrivate
+Property 'gcTransactions' could be private
+in `environment/src/main/kotlin/jetbrains/exodus/debug/TxnProfiler.kt`
+#### Snippet
+```java
+class TxnProfiler : KLogging() {
+
+    var gcTransactions: Long = 0L
+        private set
+    var gcMovedBytes: Long = 0L
 ```
 
 ### MemberVisibilityCanBePrivate
@@ -9435,11 +9435,11 @@ Field initialization to `null` is redundant
 in `query/src/main/java/jetbrains/exodus/query/AddNullStaticTypedEntityIterable.java`
 #### Snippet
 ```java
-        }
         return () -> new Iterator<Entity>() {
             private Iterator<Entity> iterator = null;
             private Boolean hasNull = null;
 
+            @Override
 ```
 
 ### RedundantFieldInitialization
@@ -9447,11 +9447,11 @@ Field initialization to `null` is redundant
 in `query/src/main/java/jetbrains/exodus/query/AddNullStaticTypedEntityIterable.java`
 #### Snippet
 ```java
+        }
         return () -> new Iterator<Entity>() {
             private Iterator<Entity> iterator = null;
             private Boolean hasNull = null;
 
-            @Override
 ```
 
 ### RedundantFieldInitialization
@@ -9479,27 +9479,15 @@ in `query/src/main/java/jetbrains/exodus/query/ExcludeNullStaticTypedEntityItera
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `false` is redundant
+Field initialization to `null` is redundant
 in `query/src/main/java/jetbrains/exodus/query/metadata/AssociationEndMetaDataImpl.java`
 #### Snippet
 ```java
-    private boolean cascadeDelete = false;
-    private boolean clearOnDelete = false;
-    private boolean targetCascadeDelete = false;
-    private boolean targetClearOnDelete = false;
-
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `query/src/main/java/jetbrains/exodus/query/metadata/AssociationEndMetaDataImpl.java`
-#### Snippet
-```java
+    private String associationMetaDataName = null;
+    private AssociationMetaData associationMetaData = null;
+    private AssociationEndType type = null;
     private String oppositeEndName = null;
     private boolean cascadeDelete = false;
-    private boolean clearOnDelete = false;
-    private boolean targetCascadeDelete = false;
-    private boolean targetClearOnDelete = false;
 ```
 
 ### RedundantFieldInitialization
@@ -9507,47 +9495,11 @@ Field initialization to `null` is redundant
 in `query/src/main/java/jetbrains/exodus/query/metadata/AssociationEndMetaDataImpl.java`
 #### Snippet
 ```java
+
     private String name = null;
     private EntityMetaData emd = null;
     private String emdType = null;
     private AssociationEndCardinality cardinality = null;
-    private String associationMetaDataName = null;
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `query/src/main/java/jetbrains/exodus/query/metadata/AssociationEndMetaDataImpl.java`
-#### Snippet
-```java
-    private AssociationMetaData associationMetaData = null;
-    private AssociationEndType type = null;
-    private String oppositeEndName = null;
-    private boolean cascadeDelete = false;
-    private boolean clearOnDelete = false;
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `query/src/main/java/jetbrains/exodus/query/metadata/AssociationEndMetaDataImpl.java`
-#### Snippet
-```java
-    private String emdType = null;
-    private AssociationEndCardinality cardinality = null;
-    private String associationMetaDataName = null;
-    private AssociationMetaData associationMetaData = null;
-    private AssociationEndType type = null;
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `query/src/main/java/jetbrains/exodus/query/metadata/AssociationEndMetaDataImpl.java`
-#### Snippet
-```java
-    private EntityMetaData emd = null;
-    private String emdType = null;
-    private AssociationEndCardinality cardinality = null;
-    private String associationMetaDataName = null;
-    private AssociationMetaData associationMetaData = null;
 ```
 
 ### RedundantFieldInitialization
@@ -9567,6 +9519,78 @@ Field initialization to `false` is redundant
 in `query/src/main/java/jetbrains/exodus/query/metadata/AssociationEndMetaDataImpl.java`
 #### Snippet
 ```java
+    private boolean cascadeDelete = false;
+    private boolean clearOnDelete = false;
+    private boolean targetCascadeDelete = false;
+    private boolean targetClearOnDelete = false;
+
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `query/src/main/java/jetbrains/exodus/query/metadata/AssociationEndMetaDataImpl.java`
+#### Snippet
+```java
+    private String emdType = null;
+    private AssociationEndCardinality cardinality = null;
+    private String associationMetaDataName = null;
+    private AssociationMetaData associationMetaData = null;
+    private AssociationEndType type = null;
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `query/src/main/java/jetbrains/exodus/query/metadata/AssociationEndMetaDataImpl.java`
+#### Snippet
+```java
+    private String name = null;
+    private EntityMetaData emd = null;
+    private String emdType = null;
+    private AssociationEndCardinality cardinality = null;
+    private String associationMetaDataName = null;
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `query/src/main/java/jetbrains/exodus/query/metadata/AssociationEndMetaDataImpl.java`
+#### Snippet
+```java
+    private EntityMetaData emd = null;
+    private String emdType = null;
+    private AssociationEndCardinality cardinality = null;
+    private String associationMetaDataName = null;
+    private AssociationMetaData associationMetaData = null;
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `query/src/main/java/jetbrains/exodus/query/metadata/AssociationEndMetaDataImpl.java`
+#### Snippet
+```java
+    private String oppositeEndName = null;
+    private boolean cascadeDelete = false;
+    private boolean clearOnDelete = false;
+    private boolean targetCascadeDelete = false;
+    private boolean targetClearOnDelete = false;
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `query/src/main/java/jetbrains/exodus/query/metadata/AssociationEndMetaDataImpl.java`
+#### Snippet
+```java
+    private AssociationEndCardinality cardinality = null;
+    private String associationMetaDataName = null;
+    private AssociationMetaData associationMetaData = null;
+    private AssociationEndType type = null;
+    private String oppositeEndName = null;
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `query/src/main/java/jetbrains/exodus/query/metadata/AssociationEndMetaDataImpl.java`
+#### Snippet
+```java
     private AssociationEndType type = null;
     private String oppositeEndName = null;
     private boolean cascadeDelete = false;
@@ -9579,11 +9603,11 @@ Field initialization to `null` is redundant
 in `query/src/main/java/jetbrains/exodus/query/metadata/AssociationEndMetaDataImpl.java`
 #### Snippet
 ```java
-    private String associationMetaDataName = null;
     private AssociationMetaData associationMetaData = null;
     private AssociationEndType type = null;
     private String oppositeEndName = null;
     private boolean cascadeDelete = false;
+    private boolean clearOnDelete = false;
 ```
 
 ### RedundantFieldInitialization
@@ -9596,30 +9620,6 @@ public class AssociationEndMetaDataImpl implements AssociationEndMetaData {
     private String name = null;
     private EntityMetaData emd = null;
     private String emdType = null;
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `query/src/main/java/jetbrains/exodus/query/metadata/AssociationEndMetaDataImpl.java`
-#### Snippet
-```java
-
-    private String name = null;
-    private EntityMetaData emd = null;
-    private String emdType = null;
-    private AssociationEndCardinality cardinality = null;
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `query/src/main/java/jetbrains/exodus/query/metadata/AssociationEndMetaDataImpl.java`
-#### Snippet
-```java
-    private AssociationEndCardinality cardinality = null;
-    private String associationMetaDataName = null;
-    private AssociationMetaData associationMetaData = null;
-    private AssociationEndType type = null;
-    private String oppositeEndName = null;
 ```
 
 ### RedundantFieldInitialization
@@ -9639,11 +9639,47 @@ Field initialization to `null` is redundant
 in `query/src/main/java/jetbrains/exodus/query/metadata/EntityMetaDataImpl.java`
 #### Snippet
 ```java
+    private volatile List<String> allSubTypes = null;
+    private volatile Map<String, Set<String>> incomingAssociations = null;
+    private volatile Ends ends = null;
+
+    public EntityMetaDataImpl() {
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `query/src/main/java/jetbrains/exodus/query/metadata/EntityMetaDataImpl.java`
+#### Snippet
+```java
+    private Runnable initializer = null;
+    private boolean removeOrphan = true;
+    private boolean isAbstract = false;
+    private final Set<String> subTypes = new LinkedHashSetDecorator<>();
+    private List<String> thisAndSuperTypes = Collections.emptyList();
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `query/src/main/java/jetbrains/exodus/query/metadata/EntityMetaDataImpl.java`
+#### Snippet
+```java
     private final AtomicReference<ModelMetaData> modelMetaData;
     private String type = null;
     private String superType = null;
     private final Set<String> interfaces = new LinkedHashSetDecorator<>();
     private Runnable initializer = null;
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `query/src/main/java/jetbrains/exodus/query/metadata/EntityMetaDataImpl.java`
+#### Snippet
+```java
+
+    private final AtomicReference<ModelMetaData> modelMetaData;
+    private String type = null;
+    private String superType = null;
+    private final Set<String> interfaces = new LinkedHashSetDecorator<>();
 ```
 
 ### RedundantFieldInitialization
@@ -9663,11 +9699,23 @@ Field initialization to `null` is redundant
 in `query/src/main/java/jetbrains/exodus/query/metadata/EntityMetaDataImpl.java`
 #### Snippet
 ```java
+    private final Set<String> subTypes = new LinkedHashSetDecorator<>();
+    private List<String> thisAndSuperTypes = Collections.emptyList();
+    private Set<AssociationEndMetaData> externalAssociationEnds = null;
+    private final Map<String, PropertyMetaData> properties = new HashMapDecorator<>();
+    private Set<Index> ownIndexes = Collections.emptySet();
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `query/src/main/java/jetbrains/exodus/query/metadata/EntityMetaDataImpl.java`
+#### Snippet
+```java
+
+    private volatile Map<String, Set<Index>> fieldToIndexes = null;
+    private volatile Set<Index> indexes = null;
     private volatile List<String> allSubTypes = null;
     private volatile Map<String, Set<String>> incomingAssociations = null;
-    private volatile Ends ends = null;
-
-    public EntityMetaDataImpl() {
 ```
 
 ### RedundantFieldInitialization
@@ -9704,54 +9752,6 @@ in `query/src/main/java/jetbrains/exodus/query/metadata/EntityMetaDataImpl.java`
     private Runnable initializer = null;
     private boolean removeOrphan = true;
     private boolean isAbstract = false;
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `query/src/main/java/jetbrains/exodus/query/metadata/EntityMetaDataImpl.java`
-#### Snippet
-```java
-
-    private volatile Map<String, Set<Index>> fieldToIndexes = null;
-    private volatile Set<Index> indexes = null;
-    private volatile List<String> allSubTypes = null;
-    private volatile Map<String, Set<String>> incomingAssociations = null;
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `query/src/main/java/jetbrains/exodus/query/metadata/EntityMetaDataImpl.java`
-#### Snippet
-```java
-    private final Set<String> subTypes = new LinkedHashSetDecorator<>();
-    private List<String> thisAndSuperTypes = Collections.emptyList();
-    private Set<AssociationEndMetaData> externalAssociationEnds = null;
-    private final Map<String, PropertyMetaData> properties = new HashMapDecorator<>();
-    private Set<Index> ownIndexes = Collections.emptySet();
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `query/src/main/java/jetbrains/exodus/query/metadata/EntityMetaDataImpl.java`
-#### Snippet
-```java
-    private Runnable initializer = null;
-    private boolean removeOrphan = true;
-    private boolean isAbstract = false;
-    private final Set<String> subTypes = new LinkedHashSetDecorator<>();
-    private List<String> thisAndSuperTypes = Collections.emptyList();
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `query/src/main/java/jetbrains/exodus/query/metadata/EntityMetaDataImpl.java`
-#### Snippet
-```java
-
-    private final AtomicReference<ModelMetaData> modelMetaData;
-    private String type = null;
-    private String superType = null;
-    private final Set<String> interfaces = new LinkedHashSetDecorator<>();
 ```
 
 ### RedundantFieldInitialization
@@ -9839,6 +9839,18 @@ in `utils/src/main/java/jetbrains/exodus/core/dataStructures/hash/IntHashMap.jav
 ```
 
 ### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `utils/src/main/java/jetbrains/exodus/core/dataStructures/hash/HashSet.java`
+#### Snippet
+```java
+
+        private final Entry<E>[] table = HashSet.this.table;
+        private int index = 0;
+        private Entry<E> e = null;
+        private Entry<E> last;
+```
+
+### RedundantFieldInitialization
 Field initialization to `null` is redundant
 in `utils/src/main/java/jetbrains/exodus/core/dataStructures/hash/HashSet.java`
 #### Snippet
@@ -9851,30 +9863,6 @@ in `utils/src/main/java/jetbrains/exodus/core/dataStructures/hash/HashSet.java`
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `utils/src/main/java/jetbrains/exodus/core/dataStructures/hash/HashSet.java`
-#### Snippet
-```java
-
-        private final Entry<E>[] table = HashSet.this.table;
-        private int index = 0;
-        private Entry<E> e = null;
-        private Entry<E> last;
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `utils/src/main/java/jetbrains/exodus/core/dataStructures/hash/LongHashSet.java`
-#### Snippet
-```java
-
-        private final Entry[] table = LongHashSet.this.table;
-        private int index = 0;
-        private Entry e = null;
-        private Entry last;
-```
-
-### RedundantFieldInitialization
 Field initialization to `null` is redundant
 in `utils/src/main/java/jetbrains/exodus/core/dataStructures/hash/LongHashSet.java`
 #### Snippet
@@ -9884,6 +9872,18 @@ in `utils/src/main/java/jetbrains/exodus/core/dataStructures/hash/LongHashSet.ja
         private Entry e = null;
         private Entry last;
 
+```
+
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `utils/src/main/java/jetbrains/exodus/core/dataStructures/hash/LongHashSet.java`
+#### Snippet
+```java
+
+        private final Entry[] table = LongHashSet.this.table;
+        private int index = 0;
+        private Entry e = null;
+        private Entry last;
 ```
 
 ### RedundantFieldInitialization
@@ -9895,66 +9895,6 @@ in `utils/src/main/java/jetbrains/exodus/core/dataStructures/hash/HashMap.java`
         private int index = -1;
         private Entry<K, V> e = null;
         private Entry<K, V> last;
-
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `utils/src/main/java/jetbrains/exodus/core/dataStructures/persistent/PersistentBitTreeLongMap.java`
-#### Snippet
-```java
-        private final int finishingIndex;
-
-        private Entry currentEntry = null;
-        private long currentEntryBase = 0;
-        private int next = -1;
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `utils/src/main/java/jetbrains/exodus/core/dataStructures/persistent/PersistentBitTreeLongMap.java`
-#### Snippet
-```java
-        private final Iterator<Entry> iterator;
-        private Entry currentEntry = null;
-        private long currentEntryBase = 0;
-        private int next = -1;
-
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `utils/src/main/java/jetbrains/exodus/core/dataStructures/persistent/PersistentBitTreeLongMap.java`
-#### Snippet
-```java
-        @NotNull
-        private final Iterator<Entry> iterator;
-        private Entry currentEntry = null;
-        private long currentEntryBase = 0;
-        private int next = -1;
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `utils/src/main/java/jetbrains/exodus/core/dataStructures/persistent/PersistentBitTreeLongMap.java`
-#### Snippet
-```java
-        private int startingIndex;
-        private Entry currentEntry = null;
-        private long currentEntryBase = 0;
-        private int next = -1;
-
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `utils/src/main/java/jetbrains/exodus/core/dataStructures/persistent/PersistentBitTreeLongMap.java`
-#### Snippet
-```java
-        private final Iterator<Entry> iterator;
-        private Entry currentEntry = null;
-        private long currentEntryBase = 0;
-        private int next = -1;
 
 ```
 
@@ -9975,8 +9915,8 @@ Field initialization to `null` is redundant
 in `utils/src/main/java/jetbrains/exodus/core/dataStructures/persistent/PersistentBitTreeLongMap.java`
 #### Snippet
 ```java
-        @NotNull
-        private final Iterator<Entry> iterator;
+        private final int finishingIndex;
+
         private Entry currentEntry = null;
         private long currentEntryBase = 0;
         private int next = -1;
@@ -9992,6 +9932,78 @@ in `utils/src/main/java/jetbrains/exodus/core/dataStructures/persistent/Persiste
         private long currentEntryBase = 0;
         private int next = -1;
 
+```
+
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `utils/src/main/java/jetbrains/exodus/core/dataStructures/persistent/PersistentBitTreeLongMap.java`
+#### Snippet
+```java
+        private final Iterator<Entry> iterator;
+        private Entry currentEntry = null;
+        private long currentEntryBase = 0;
+        private int next = -1;
+
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `utils/src/main/java/jetbrains/exodus/core/dataStructures/persistent/PersistentBitTreeLongMap.java`
+#### Snippet
+```java
+        @NotNull
+        private final Iterator<Entry> iterator;
+        private Entry currentEntry = null;
+        private long currentEntryBase = 0;
+        private int next = -1;
+```
+
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `utils/src/main/java/jetbrains/exodus/core/dataStructures/persistent/PersistentBitTreeLongMap.java`
+#### Snippet
+```java
+        private int startingIndex;
+        private Entry currentEntry = null;
+        private long currentEntryBase = 0;
+        private int next = -1;
+
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `utils/src/main/java/jetbrains/exodus/core/dataStructures/persistent/PersistentBitTreeLongMap.java`
+#### Snippet
+```java
+        @NotNull
+        private final Iterator<Entry> iterator;
+        private Entry currentEntry = null;
+        private long currentEntryBase = 0;
+        private int next = -1;
+```
+
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `utils/src/main/java/jetbrains/exodus/core/dataStructures/persistent/PersistentBitTreeLongMap.java`
+#### Snippet
+```java
+        private final Iterator<Entry> iterator;
+        private Entry currentEntry = null;
+        private long currentEntryBase = 0;
+        private int next = -1;
+
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `utils/src/main/java/jetbrains/exodus/util/DeferredIO.java`
+#### Snippet
+```java
+public class DeferredIO {
+
+    private static volatile JobProcessorAdapter deferredIOProcessor = null;
+
+    private DeferredIO() {
 ```
 
 ### RedundantFieldInitialization
@@ -10019,15 +10031,15 @@ in `utils/src/main/java/jetbrains/exodus/core/dataStructures/persistent/Persiste
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `utils/src/main/java/jetbrains/exodus/util/DeferredIO.java`
+Field initialization to `0` is redundant
+in `utils/src/main/java/jetbrains/exodus/core/dataStructures/persistent/AbstractPersistent23Tree.java`
 #### Snippet
 ```java
-public class DeferredIO {
+        return new Iterator<K>() {
 
-    private static volatile JobProcessorAdapter deferredIOProcessor = null;
-
-    private DeferredIO() {
+            private int i = 0;
+            private boolean hasNext;
+            private boolean hasNextValid;
 ```
 
 ### RedundantFieldInitialization
@@ -10052,18 +10064,6 @@ in `utils/src/main/java/jetbrains/exodus/core/dataStructures/persistent/Abstract
         boolean sizeChanged = false;
 
         SplitResult<K> fill(@Nullable Node<K> first, @Nullable K key, @Nullable Node<K> second) {
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `utils/src/main/java/jetbrains/exodus/core/dataStructures/persistent/AbstractPersistent23Tree.java`
-#### Snippet
-```java
-        return new Iterator<K>() {
-
-            private int i = 0;
-            private boolean hasNext;
-            private boolean hasNextValid;
 ```
 
 ### RedundantFieldInitialization
@@ -10239,47 +10239,35 @@ Field initialization to `null` is redundant
 in `environment/src/main/java/jetbrains/exodus/tree/TreeCursorMutable.java`
 #### Snippet
 ```java
+    protected ByteIterable nextAfterRemovedValue = null;
+    @Nullable
+    private ByteIterable moveToKey = null;
+    @Nullable
+    private ByteIterable moveToValue = null;
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `environment/src/main/java/jetbrains/exodus/tree/TreeCursorMutable.java`
+#### Snippet
+```java
+    protected ByteIterable nextAfterRemovedKey = null;
+    @Nullable
+    protected ByteIterable nextAfterRemovedValue = null;
+    @Nullable
+    private ByteIterable moveToKey = null;
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `environment/src/main/java/jetbrains/exodus/tree/TreeCursorMutable.java`
+#### Snippet
+```java
     protected boolean wasDelete = false;
     @Nullable
     protected ByteIterable nextAfterRemovedKey = null;
     @Nullable
     protected ByteIterable nextAfterRemovedValue = null;
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `environment/src/main/java/jetbrains/exodus/tree/TreeCursorMutable.java`
-#### Snippet
-```java
-    protected ByteIterable nextAfterRemovedValue = null;
-    @Nullable
-    private ByteIterable moveToKey = null;
-    @Nullable
-    private ByteIterable moveToValue = null;
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `environment/src/main/java/jetbrains/exodus/tree/TreeCursorMutable.java`
-#### Snippet
-```java
-    protected ByteIterable nextAfterRemovedKey = null;
-    @Nullable
-    protected ByteIterable nextAfterRemovedValue = null;
-    @Nullable
-    private ByteIterable moveToKey = null;
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `environment/src/main/java/jetbrains/exodus/tree/TreeCursorMutable.java`
-#### Snippet
-```java
-    private ByteIterable moveToKey = null;
-    @Nullable
-    private ByteIterable moveToValue = null;
-
-    public TreeCursorMutable(ITreeMutable tree, TreeTraverser traverser) {
 ```
 
 ### RedundantFieldInitialization
@@ -10292,6 +10280,18 @@ in `environment/src/main/java/jetbrains/exodus/tree/TreeCursorMutable.java`
     protected boolean wasDelete = false;
     @Nullable
     protected ByteIterable nextAfterRemovedKey = null;
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `environment/src/main/java/jetbrains/exodus/tree/TreeCursorMutable.java`
+#### Snippet
+```java
+    private ByteIterable moveToKey = null;
+    @Nullable
+    private ByteIterable moveToValue = null;
+
+    public TreeCursorMutable(ITreeMutable tree, TreeTraverser traverser) {
 ```
 
 ### RedundantFieldInitialization
@@ -10335,18 +10335,6 @@ Field initialization to `0` is redundant
 in `environment/src/main/java/jetbrains/exodus/tree/btree/BTreeTraverser.java`
 #### Snippet
 ```java
-        return new PageIterator() {
-            int index = 0;
-            int currentIteratorPos = 0;
-            BasePage currentIteratorNode = null;
-
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `environment/src/main/java/jetbrains/exodus/tree/btree/BTreeTraverser.java`
-#### Snippet
-```java
     PageIterator iterator() { // for testing purposes
         return new PageIterator() {
             int index = 0;
@@ -10376,6 +10364,18 @@ in `environment/src/main/java/jetbrains/exodus/tree/btree/BTreeTraverser.java`
     protected int top = 0;
     protected BasePage currentNode;
     protected ILeafNode node = ILeafNode.EMPTY;
+```
+
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `environment/src/main/java/jetbrains/exodus/tree/btree/BTreeTraverser.java`
+#### Snippet
+```java
+        return new PageIterator() {
+            int index = 0;
+            int currentIteratorPos = 0;
+            BasePage currentIteratorNode = null;
+
 ```
 
 ### RedundantFieldInitialization
@@ -10427,18 +10427,6 @@ in `entity-store/src/main/java/jetbrains/exodus/entitystore/PersistentEntityStor
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `entity-store/src/main/java/jetbrains/exodus/entitystore/util/ImmutableSingleTypeEntityIdCollection.java`
-#### Snippet
-```java
-    public @NotNull Iterator<EntityId> iterator() {
-        return new Iterator<EntityId>() {
-            private int i = 0;
-
-            @Override
-```
-
-### RedundantFieldInitialization
 Field initialization to `null` is redundant
 in `entity-store/src/main/java/jetbrains/exodus/entitystore/Explainer.java`
 #### Snippet
@@ -10448,6 +10436,18 @@ in `entity-store/src/main/java/jetbrains/exodus/entitystore/Explainer.java`
     private static Thread forceExplainThread = null;
 
     private final boolean explainOn;
+```
+
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `entity-store/src/main/java/jetbrains/exodus/entitystore/util/ImmutableSingleTypeEntityIdCollection.java`
+#### Snippet
+```java
+    public @NotNull Iterator<EntityId> iterator() {
+        return new Iterator<EntityId>() {
+            private int i = 0;
+
+            @Override
 ```
 
 ### RedundantFieldInitialization
@@ -10464,14 +10464,14 @@ in `entity-store/src/main/java/jetbrains/exodus/entitystore/iterate/SkipEntityIt
 
 ### RedundantFieldInitialization
 Field initialization to `0` is redundant
-in `entity-store/src/main/java/jetbrains/exodus/entitystore/FileSystemBlobVaultOld.java`
+in `entity-store/src/main/java/jetbrains/exodus/entitystore/iterate/EntityIteratorBase.java`
 #### Snippet
 ```java
-                    return new Iterator<VirtualFileDescriptor>() {
-                        int i = 0;
-                        int n = 0;
-                        File[] files;
-                        FileDescriptor next;
+    }
+
+    private static int nextIdCounter = 0;
+
+    @NotNull
 ```
 
 ### RedundantFieldInitialization
@@ -10488,14 +10488,26 @@ in `entity-store/src/main/java/jetbrains/exodus/entitystore/FileSystemBlobVaultO
 
 ### RedundantFieldInitialization
 Field initialization to `0` is redundant
-in `entity-store/src/main/java/jetbrains/exodus/entitystore/iterate/EntityIteratorBase.java`
+in `entity-store/src/main/java/jetbrains/exodus/entitystore/FileSystemBlobVaultOld.java`
 #### Snippet
 ```java
-    }
+                    return new Iterator<VirtualFileDescriptor>() {
+                        int i = 0;
+                        int n = 0;
+                        File[] files;
+                        FileDescriptor next;
+```
 
-    private static int nextIdCounter = 0;
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `entity-store/src/main/java/jetbrains/exodus/entitystore/PersistentEntityStoreImpl.java`
+#### Snippet
+```java
+                        entityTableName, linksTableName, secondLinksTableName, propertiesTableName, blobsObsoleteTableName, blobsTableName),
+                () -> new Iterator<String>() { // enumerate all property value indexes
+                    private int propertyId = 0;
 
-    @NotNull
+                    @Override
 ```
 
 ### RedundantFieldInitialization
@@ -10523,15 +10535,15 @@ in `entity-store/src/main/java/jetbrains/exodus/entitystore/iterate/TakeEntityIt
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `entity-store/src/main/java/jetbrains/exodus/entitystore/PersistentEntityStoreImpl.java`
+Field initialization to `null` is redundant
+in `entity-store/src/main/java/jetbrains/exodus/entitystore/iterate/binop/AddNullDecoratorIterable.java`
 #### Snippet
 ```java
-                        entityTableName, linksTableName, secondLinksTableName, propertiesTableName, blobsObsoleteTableName, blobsTableName),
-                () -> new Iterator<String>() { // enumerate all property value indexes
-                    private int propertyId = 0;
+    public EntityIterator getIteratorImpl(@NotNull final PersistentStoreTransaction txn) {
+        return new EntityIteratorBase(AddNullDecoratorIterable.this) {
+            private EntityIterator iterator = null;
+            private Boolean hasNull = null;
 
-                    @Override
 ```
 
 ### RedundantFieldInitialization
@@ -10547,15 +10559,15 @@ in `entity-store/src/main/java/jetbrains/exodus/entitystore/iterate/binop/AddNul
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `entity-store/src/main/java/jetbrains/exodus/entitystore/iterate/binop/AddNullDecoratorIterable.java`
+Field initialization to `0` is redundant
+in `entity-store/src/main/java/jetbrains/exodus/entitystore/iterate/cached/iterator/ReverseOrderedEntityIdCollectionIterator.java`
 #### Snippet
 ```java
-    public EntityIterator getIteratorImpl(@NotNull final PersistentStoreTransaction txn) {
-        return new EntityIteratorBase(AddNullDecoratorIterable.this) {
-            private EntityIterator iterator = null;
-            private Boolean hasNull = null;
 
+public class ReverseOrderedEntityIdCollectionIterator extends NonDisposableEntityIterator {
+    private int index = 0;
+    @NotNull
+    private final OrderedEntityIdCollection source;
 ```
 
 ### RedundantFieldInitialization
@@ -10565,18 +10577,6 @@ in `entity-store/src/main/java/jetbrains/exodus/entitystore/iterate/cached/itera
 ```java
 
 public class OrderedEntityIdCollectionIterator extends NonDisposableEntityIterator {
-    private int index = 0;
-    @NotNull
-    private final OrderedEntityIdCollection source;
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `entity-store/src/main/java/jetbrains/exodus/entitystore/iterate/cached/iterator/ReverseOrderedEntityIdCollectionIterator.java`
-#### Snippet
-```java
-
-public class ReverseOrderedEntityIdCollectionIterator extends NonDisposableEntityIterator {
     private int index = 0;
     @NotNull
     private final OrderedEntityIdCollection source;
@@ -10599,11 +10599,11 @@ Field initialization to `0` is redundant
 in `entity-store/src/main/java/jetbrains/exodus/entitystore/iterate/cached/iterator/EntityIdArrayIteratorMultiTypeIdPacked.java`
 #### Snippet
 ```java
-    private final long[] localIds;
-
-    private int index = 0;
     private int typeId = -1;
     private int typeIndex = 0;
+    private int currentBound = 0;
+
+    public EntityIdArrayIteratorMultiTypeIdPacked(@NotNull EntityIterableBase iterable, int[] typeIds, long[] localIds) {
 ```
 
 ### RedundantFieldInitialization
@@ -10611,11 +10611,11 @@ Field initialization to `0` is redundant
 in `entity-store/src/main/java/jetbrains/exodus/entitystore/iterate/cached/iterator/EntityIdArrayIteratorMultiTypeIdPacked.java`
 #### Snippet
 ```java
+    private final long[] localIds;
+
+    private int index = 0;
     private int typeId = -1;
     private int typeIndex = 0;
-    private int currentBound = 0;
-
-    public EntityIdArrayIteratorMultiTypeIdPacked(@NotNull EntityIterableBase iterable, int[] typeIds, long[] localIds) {
 ```
 
 ### RedundantFieldInitialization
@@ -10662,7 +10662,7 @@ in `query/src/main/kotlin/jetbrains/exodus/query/LinksEqualDecorator.kt`
 in `utils/src/main/java/jetbrains/exodus/management/MBeanBase.java`
 #### Snippet
 ```java
-            ManagementFactory.getPlatformMBeanServer().registerMBean(this, name);
+        } catch (InstanceNotFoundException ignore) {
         } catch (Exception e) {
             throw e instanceof RuntimeException ? (RuntimeException) e : new RuntimeException(e);
         }
@@ -10674,7 +10674,7 @@ in `utils/src/main/java/jetbrains/exodus/management/MBeanBase.java`
 in `utils/src/main/java/jetbrains/exodus/management/MBeanBase.java`
 #### Snippet
 ```java
-        } catch (InstanceNotFoundException ignore) {
+            ManagementFactory.getPlatformMBeanServer().registerMBean(this, name);
         } catch (Exception e) {
             throw e instanceof RuntimeException ? (RuntimeException) e : new RuntimeException(e);
         }
@@ -11125,54 +11125,6 @@ Argument `firstChild` might be null
 in `utils/src/main/java/jetbrains/exodus/core/dataStructures/persistent/AbstractPersistent23Tree.java`
 #### Snippet
 ```java
-            return new RootBinaryNode<>(key, size);
-        } else {
-            return new RootInternalBinaryNode<>(firstChild, key, secondChild, size);
-        }
-    }
-```
-
-### DataFlowIssue
-Argument `secondChild` might be null
-in `utils/src/main/java/jetbrains/exodus/core/dataStructures/persistent/AbstractPersistent23Tree.java`
-#### Snippet
-```java
-            return new RootBinaryNode<>(key, size);
-        } else {
-            return new RootInternalBinaryNode<>(firstChild, key, secondChild, size);
-        }
-    }
-```
-
-### DataFlowIssue
-Argument `firstChild` might be null
-in `utils/src/main/java/jetbrains/exodus/core/dataStructures/persistent/AbstractPersistent23Tree.java`
-#### Snippet
-```java
-            return new BinaryNode<>(key);
-        } else {
-            return new InternalBinaryNode<>(firstChild, key, secondChild);
-        }
-    }
-```
-
-### DataFlowIssue
-Argument `secondChild` might be null
-in `utils/src/main/java/jetbrains/exodus/core/dataStructures/persistent/AbstractPersistent23Tree.java`
-#### Snippet
-```java
-            return new BinaryNode<>(key);
-        } else {
-            return new InternalBinaryNode<>(firstChild, key, secondChild);
-        }
-    }
-```
-
-### DataFlowIssue
-Argument `firstChild` might be null
-in `utils/src/main/java/jetbrains/exodus/core/dataStructures/persistent/AbstractPersistent23Tree.java`
-#### Snippet
-```java
             return new RootTernaryNode<>(firstKey, secondKey, size);
         } else {
             return new RootInternalTernaryNode<>(firstChild, firstKey, secondChild, secondKey, thirdChild, size);
@@ -11209,6 +11161,30 @@ Argument `firstChild` might be null
 in `utils/src/main/java/jetbrains/exodus/core/dataStructures/persistent/AbstractPersistent23Tree.java`
 #### Snippet
 ```java
+            return new RootBinaryNode<>(key, size);
+        } else {
+            return new RootInternalBinaryNode<>(firstChild, key, secondChild, size);
+        }
+    }
+```
+
+### DataFlowIssue
+Argument `secondChild` might be null
+in `utils/src/main/java/jetbrains/exodus/core/dataStructures/persistent/AbstractPersistent23Tree.java`
+#### Snippet
+```java
+            return new RootBinaryNode<>(key, size);
+        } else {
+            return new RootInternalBinaryNode<>(firstChild, key, secondChild, size);
+        }
+    }
+```
+
+### DataFlowIssue
+Argument `firstChild` might be null
+in `utils/src/main/java/jetbrains/exodus/core/dataStructures/persistent/AbstractPersistent23Tree.java`
+#### Snippet
+```java
             return new TernaryNode<>(firstKey, secondKey);
         } else {
             return new InternalTernaryNode<>(firstChild, firstKey, secondChild, secondKey, thirdChild);
@@ -11236,6 +11212,30 @@ in `utils/src/main/java/jetbrains/exodus/core/dataStructures/persistent/Abstract
             return new TernaryNode<>(firstKey, secondKey);
         } else {
             return new InternalTernaryNode<>(firstChild, firstKey, secondChild, secondKey, thirdChild);
+        }
+    }
+```
+
+### DataFlowIssue
+Argument `firstChild` might be null
+in `utils/src/main/java/jetbrains/exodus/core/dataStructures/persistent/AbstractPersistent23Tree.java`
+#### Snippet
+```java
+            return new BinaryNode<>(key);
+        } else {
+            return new InternalBinaryNode<>(firstChild, key, secondChild);
+        }
+    }
+```
+
+### DataFlowIssue
+Argument `secondChild` might be null
+in `utils/src/main/java/jetbrains/exodus/core/dataStructures/persistent/AbstractPersistent23Tree.java`
+#### Snippet
+```java
+            return new BinaryNode<>(key);
+        } else {
+            return new InternalBinaryNode<>(firstChild, key, secondChild);
         }
     }
 ```
@@ -11281,11 +11281,11 @@ Method invocation `newCipher` may produce `NullPointerException`
 in `benchmarks/src/jmh/java/jetbrains/exodus/benchmark/crypto/JMHStreamCipherBenchmarks.java`
 #### Snippet
 ```java
+    private final StreamCipherProvider chaChaProvider = KryptKt.newCipherProvider(CHACHA_CIPHER_ID);
+    private final StreamCipherProvider jbChaChaProvider = KryptKt.newCipherProvider(JB_CHACHA_CIPHER_ID);
     private final StreamCipher salsa20Cipher = salsa20Provider.newCipher();
     private final StreamCipher chaChaCipher = chaChaProvider.newCipher();
     private final StreamCipher jbChaChaCipher = jbChaChaProvider.newCipher();
-
-    @Setup
 ```
 
 ### DataFlowIssue
@@ -11293,11 +11293,11 @@ Method invocation `newCipher` may produce `NullPointerException`
 in `benchmarks/src/jmh/java/jetbrains/exodus/benchmark/crypto/JMHStreamCipherBenchmarks.java`
 #### Snippet
 ```java
-    private final StreamCipherProvider chaChaProvider = KryptKt.newCipherProvider(CHACHA_CIPHER_ID);
-    private final StreamCipherProvider jbChaChaProvider = KryptKt.newCipherProvider(JB_CHACHA_CIPHER_ID);
     private final StreamCipher salsa20Cipher = salsa20Provider.newCipher();
     private final StreamCipher chaChaCipher = chaChaProvider.newCipher();
     private final StreamCipher jbChaChaCipher = jbChaChaProvider.newCipher();
+
+    @Setup
 ```
 
 ### DataFlowIssue
@@ -11329,18 +11329,6 @@ Argument `leaf.getValue()` might be null
 in `environment/src/main/java/jetbrains/exodus/tree/btree/BTreeTraverserDup.java`
 #### Snippet
 ```java
-    protected ILeafNode handleLeafR(BaseLeafNode leaf) {
-        if (leaf.isDupLeaf()) {
-            return new LeafNodeKV(leaf.getValue(), leaf.getKey());
-        } else if (leaf.isDup()) {
-            inDupTree = true;
-```
-
-### DataFlowIssue
-Argument `leaf.getValue()` might be null
-in `environment/src/main/java/jetbrains/exodus/tree/btree/BTreeTraverserDup.java`
-#### Snippet
-```java
     protected ILeafNode handleLeaf(BaseLeafNode leaf) {
         if (leaf.isDupLeaf()) {
             return new LeafNodeKV(leaf.getValue(), leaf.getKey());
@@ -11354,6 +11342,18 @@ in `environment/src/main/java/jetbrains/exodus/tree/btree/BTreeTraverserDup.java
 #### Snippet
 ```java
     protected ILeafNode handleLeafL(BaseLeafNode leaf) {
+        if (leaf.isDupLeaf()) {
+            return new LeafNodeKV(leaf.getValue(), leaf.getKey());
+        } else if (leaf.isDup()) {
+            inDupTree = true;
+```
+
+### DataFlowIssue
+Argument `leaf.getValue()` might be null
+in `environment/src/main/java/jetbrains/exodus/tree/btree/BTreeTraverserDup.java`
+#### Snippet
+```java
+    protected ILeafNode handleLeafR(BaseLeafNode leaf) {
         if (leaf.isDupLeaf()) {
             return new LeafNodeKV(leaf.getValue(), leaf.getKey());
         } else if (leaf.isDup()) {
@@ -11457,6 +11457,18 @@ in `environment/src/main/java/jetbrains/exodus/tree/btree/BTreeTraverser.java`
 ```
 
 ### DataFlowIssue
+Result of 'max' is the same as the second argument making the call meaningless
+in `environment/src/main/java/jetbrains/exodus/tree/patricia/ChildReferenceSet.java`
+#### Snippet
+```java
+                }
+            } else {
+                this.refs = new ChildReference[Math.max(length, capacity)];
+                System.arraycopy(refs, 0, this.refs, 0, insertPos);
+                System.arraycopy(refs, insertPos, this.refs, insertPos + 1, length - insertPos);
+```
+
+### DataFlowIssue
 Method invocation `getMutableCopy` may produce `NullPointerException`
 in `environment/src/main/java/jetbrains/exodus/tree/patricia/PatriciaReclaimActualTraverser.java`
 #### Snippet
@@ -11493,42 +11505,6 @@ in `environment/src/main/java/jetbrains/exodus/tree/patricia/PatriciaReclaimActu
 ```
 
 ### DataFlowIssue
-Method invocation `matchesKeySequence` may produce `NullPointerException`
-in `environment/src/main/java/jetbrains/exodus/tree/patricia/PatriciaTraverser.java`
-#### Snippet
-```java
-        // go down and search
-        while (true) {
-            if (NodeBase.MatchResult.getMatchingLength(node.matchesKeySequence(it)) < 0) {
-                return false;
-            }
-```
-
-### DataFlowIssue
-Argument `node.getValue()` might be null
-in `environment/src/main/java/jetbrains/exodus/tree/patricia/PatriciaTraverser.java`
-#### Snippet
-```java
-        }
-        // key match
-        if (node.hasValue() && (value == null || value.compareTo(node.getValue()) == 0)) {
-            setCurrentNode(node);
-            getItr();
-```
-
-### DataFlowIssue
-Method invocation `hasNext` may produce `NullPointerException`
-in `environment/src/main/java/jetbrains/exodus/tree/patricia/PatriciaTraverser.java`
-#### Snippet
-```java
-    @NotNull
-    public INode moveRight() {
-        if (currentIterator.hasNext()) {
-            if (currentIterator.isMutable()) {
-                currentChild = currentIterator.next();
-```
-
-### DataFlowIssue
 Method invocation `hasPrev` may produce `NullPointerException`
 in `environment/src/main/java/jetbrains/exodus/tree/patricia/PatriciaTraverser.java`
 #### Snippet
@@ -11541,27 +11517,15 @@ in `environment/src/main/java/jetbrains/exodus/tree/patricia/PatriciaTraverser.j
 ```
 
 ### DataFlowIssue
-Argument `stack[i].getKey()` might be null
+Method invocation `hasNext` may produce `NullPointerException`
 in `environment/src/main/java/jetbrains/exodus/tree/patricia/PatriciaTraverser.java`
 #### Snippet
 ```java
-        final LightOutputStream output = new LightOutputStream(7);
-        for (int i = 0; i < top; ++i) {
-            ByteIterableBase.fillBytes(stack[i].getKey(), output);
-            output.write(stack[i].getNode().firstByte); // seems that firstByte isn't mutated
-        }
-```
-
-### DataFlowIssue
-Dereference of `stack[i].getNode()` may produce `NullPointerException`
-in `environment/src/main/java/jetbrains/exodus/tree/patricia/PatriciaTraverser.java`
-#### Snippet
-```java
-        for (int i = 0; i < top; ++i) {
-            ByteIterableBase.fillBytes(stack[i].getKey(), output);
-            output.write(stack[i].getNode().firstByte); // seems that firstByte isn't mutated
-        }
-        ByteIterableBase.fillBytes(currentNode.keySequence, output);
+    @NotNull
+    public INode moveRight() {
+        if (currentIterator.hasNext()) {
+            if (currentIterator.isMutable()) {
+                currentChild = currentIterator.next();
 ```
 
 ### DataFlowIssue
@@ -11589,6 +11553,54 @@ in `environment/src/main/java/jetbrains/exodus/tree/patricia/PatriciaTraverser.j
 ```
 
 ### DataFlowIssue
+Argument `stack[i].getKey()` might be null
+in `environment/src/main/java/jetbrains/exodus/tree/patricia/PatriciaTraverser.java`
+#### Snippet
+```java
+        final LightOutputStream output = new LightOutputStream(7);
+        for (int i = 0; i < top; ++i) {
+            ByteIterableBase.fillBytes(stack[i].getKey(), output);
+            output.write(stack[i].getNode().firstByte); // seems that firstByte isn't mutated
+        }
+```
+
+### DataFlowIssue
+Dereference of `stack[i].getNode()` may produce `NullPointerException`
+in `environment/src/main/java/jetbrains/exodus/tree/patricia/PatriciaTraverser.java`
+#### Snippet
+```java
+        for (int i = 0; i < top; ++i) {
+            ByteIterableBase.fillBytes(stack[i].getKey(), output);
+            output.write(stack[i].getNode().firstByte); // seems that firstByte isn't mutated
+        }
+        ByteIterableBase.fillBytes(currentNode.keySequence, output);
+```
+
+### DataFlowIssue
+Method invocation `matchesKeySequence` may produce `NullPointerException`
+in `environment/src/main/java/jetbrains/exodus/tree/patricia/PatriciaTraverser.java`
+#### Snippet
+```java
+        // go down and search
+        while (true) {
+            if (NodeBase.MatchResult.getMatchingLength(node.matchesKeySequence(it)) < 0) {
+                return false;
+            }
+```
+
+### DataFlowIssue
+Argument `node.getValue()` might be null
+in `environment/src/main/java/jetbrains/exodus/tree/patricia/PatriciaTraverser.java`
+#### Snippet
+```java
+        }
+        // key match
+        if (node.hasValue() && (value == null || value.compareTo(node.getValue()) == 0)) {
+            setCurrentNode(node);
+            getItr();
+```
+
+### DataFlowIssue
 Method invocation `matchesKeySequence` may produce `NullPointerException`
 in `environment/src/main/java/jetbrains/exodus/tree/patricia/PatriciaTraverser.java`
 #### Snippet
@@ -11610,18 +11622,6 @@ in `environment/src/main/java/jetbrains/exodus/tree/patricia/PatriciaTraverser.j
                 if (value == null || value.compareTo(node.getValue()) <= 0) {
                     setCurrentNode(node);
                     getItr();
-```
-
-### DataFlowIssue
-Result of 'max' is the same as the second argument making the call meaningless
-in `environment/src/main/java/jetbrains/exodus/tree/patricia/ChildReferenceSet.java`
-#### Snippet
-```java
-                }
-            } else {
-                this.refs = new ChildReference[Math.max(length, capacity)];
-                System.arraycopy(refs, 0, this.refs, 0, insertPos);
-                System.arraycopy(refs, insertPos, this.refs, insertPos + 1, length - insertPos);
 ```
 
 ### DataFlowIssue
@@ -11697,6 +11697,18 @@ in `entity-store/src/main/java/jetbrains/exodus/entitystore/iterate/UpdatableEnt
 ```
 
 ### DataFlowIssue
+Dereference of `pair` may produce `NullPointerException`
+in `entity-store/src/main/java/jetbrains/exodus/entitystore/iterate/MergeSortedIterableWithValueGetter.java`
+#### Snippet
+```java
+        public EntityId nextIdImpl() {
+            final EntityWithSource pair = queue.poll();
+            final EntityId result = pair.id;
+            final EntityIterator i = pair.source;
+            if (i.hasNext()) {
+```
+
+### DataFlowIssue
 Argument `typeName` might be null
 in `entity-store/src/main/java/jetbrains/exodus/entitystore/iterate/SortIndirectIterable.java`
 #### Snippet
@@ -11720,31 +11732,7 @@ in `entity-store/src/main/java/jetbrains/exodus/entitystore/iterate/SortIndirect
         });
 ```
 
-### DataFlowIssue
-Dereference of `pair` may produce `NullPointerException`
-in `entity-store/src/main/java/jetbrains/exodus/entitystore/iterate/MergeSortedIterableWithValueGetter.java`
-#### Snippet
-```java
-        public EntityId nextIdImpl() {
-            final EntityWithSource pair = queue.poll();
-            final EntityId result = pair.id;
-            final EntityIterator i = pair.source;
-            if (i.hasNext()) {
-```
-
 ## RuleId[ruleID=DeprecatedIsStillUsed]
-### DeprecatedIsStillUsed
-Deprecated member 'getEntitiesIndexCursor' is still used
-in `entity-store/src/main/java/jetbrains/exodus/entitystore/PersistentEntityStoreImpl.java`
-#### Snippet
-```java
-    @NotNull
-    @Deprecated
-    public Cursor getEntitiesIndexCursor(@NotNull final PersistentStoreTransaction txn, final int entityTypeId) {
-        return getEntitiesTable(txn, entityTypeId).openCursor(txn.getEnvironmentTransaction());
-    }
-```
-
 ### DeprecatedIsStillUsed
 Deprecated member 'getLastVersion' is still used
 in `entity-store/src/main/java/jetbrains/exodus/entitystore/PersistentEntityStoreImpl.java`
@@ -11754,6 +11742,18 @@ in `entity-store/src/main/java/jetbrains/exodus/entitystore/PersistentEntityStor
     @Deprecated
     public int getLastVersion(@NotNull final EntityId id) {
         return getLastVersion(getAndCheckCurrentTransaction(), id);
+    }
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'getEntitiesIndexCursor' is still used
+in `entity-store/src/main/java/jetbrains/exodus/entitystore/PersistentEntityStoreImpl.java`
+#### Snippet
+```java
+    @NotNull
+    @Deprecated
+    public Cursor getEntitiesIndexCursor(@NotNull final PersistentStoreTransaction txn, final int entityTypeId) {
+        return getEntitiesTable(txn, entityTypeId).openCursor(txn.getEnvironmentTransaction());
     }
 ```
 
@@ -11921,36 +11921,12 @@ in `environment/src/main/java/jetbrains/exodus/tree/btree/LeafNodeDupMutable.jav
 
 ### UnnecessaryToStringCall
 Unnecessary `toString()` call
-in `environment/src/main/java/jetbrains/exodus/tree/btree/BaseLeafNode.java`
-#### Snippet
-```java
-    @Override
-    public String toString() {
-        return "LN {key:" + getKey().toString() + "} @ " + getAddress();
-    }
-
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
 in `environment/src/main/java/jetbrains/exodus/tree/btree/LeafNodeMutable.java`
 #### Snippet
 ```java
     @Override
     public String toString() {
         return "LN* {key:" + key.toString() + "} @ " + address;
-    }
-}
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `environment/src/main/java/jetbrains/exodus/tree/btree/DupLeafNodeMutable.java`
-#### Snippet
-```java
-    @Override
-    public String toString() {
-        return "DLN* {key:" + getKey().toString() + "} @ " + getAddress();
     }
 }
 ```
@@ -11969,6 +11945,18 @@ in `environment/src/main/java/jetbrains/exodus/tree/btree/LeafNodeDup.java`
 
 ### UnnecessaryToStringCall
 Unnecessary `toString()` call
+in `environment/src/main/java/jetbrains/exodus/tree/btree/BaseLeafNode.java`
+#### Snippet
+```java
+    @Override
+    public String toString() {
+        return "LN {key:" + getKey().toString() + "} @ " + getAddress();
+    }
+
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
 in `environment/src/main/java/jetbrains/exodus/tree/btree/BTreeDupMutable.java`
 #### Snippet
 ```java
@@ -11977,6 +11965,18 @@ in `environment/src/main/java/jetbrains/exodus/tree/btree/BTreeDupMutable.java`
                     return "DLN {key:" + getKey().toString() + "} @ " + getAddress();
                 }
             };
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `environment/src/main/java/jetbrains/exodus/tree/btree/DupLeafNodeMutable.java`
+#### Snippet
+```java
+    @Override
+    public String toString() {
+        return "DLN* {key:" + getKey().toString() + "} @ " + getAddress();
+    }
+}
 ```
 
 ### UnnecessaryToStringCall
@@ -12181,6 +12181,18 @@ Qualifier `java.io` is unnecessary and can be removed
 in `vfs/src/main/java/jetbrains/exodus/vfs/VirtualFileSystem.java`
 #### Snippet
 ```java
+     * @param txn  {@linkplain Transaction} instance
+     * @param file {@linkplain File} instance
+     * @return {@linkplain java.io.InputStream} to read contents of the specified file from the beginning
+     * @see #readFile(Transaction, long)
+     * @see #readFile(Transaction, File, long)
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.io` is unnecessary and can be removed
+in `vfs/src/main/java/jetbrains/exodus/vfs/VirtualFileSystem.java`
+#### Snippet
+```java
      * @param file         {@linkplain File} instance
      * @param fromPosition file position to read from
      * @return {@linkplain java.io.InputStream} to read contents of the specified file from the specified position
@@ -12198,18 +12210,6 @@ in `vfs/src/main/java/jetbrains/exodus/vfs/VirtualFileSystem.java`
  * To read {@linkplain File} contents, open {@linkplain java.io.InputStream} using {@linkplain #readFile(Transaction, File)},
  * {@linkplain #readFile(Transaction, File, long)} and {@linkplain #readFile(Transaction, long)} methods. To write
  * {@linkplain File} contents, open {@linkplain OutputStream} using {@linkplain #appendFile(Transaction, File)},
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.io` is unnecessary and can be removed
-in `vfs/src/main/java/jetbrains/exodus/vfs/VirtualFileSystem.java`
-#### Snippet
-```java
-     * @param txn  {@linkplain Transaction} instance
-     * @param file {@linkplain File} instance
-     * @return {@linkplain java.io.InputStream} to read contents of the specified file from the beginning
-     * @see #readFile(Transaction, long)
-     * @see #readFile(Transaction, File, long)
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -12421,6 +12421,18 @@ in `sshd/src/main/kotlin/jetbrains/exodus/javascript/Interop.kt`
 ```
 
 ### UnusedSymbol
+Function "getEntity" is never used
+in `sshd/src/main/kotlin/jetbrains/exodus/javascript/Interop.kt`
+#### Snippet
+```java
+    fun println(o: Any?): Interop = print(o).run { newLine() }
+
+    fun getEntity(id: String): Entity {
+        val store = store.notNull
+        return store.getEntity(PersistentEntityId.toEntityId(id))
+```
+
+### UnusedSymbol
 Function "openEntityStore" is never used
 in `sshd/src/main/kotlin/jetbrains/exodus/javascript/Interop.kt`
 #### Snippet
@@ -12429,6 +12441,18 @@ in `sshd/src/main/kotlin/jetbrains/exodus/javascript/Interop.kt`
 
     fun openEntityStore(location: String, storeName: String) {
         entityStore?.run { entityStore = null; close() }
+        if (location.isUndefinedOrNull) {
+```
+
+### UnusedSymbol
+Function "openEnvironment" is never used
+in `sshd/src/main/kotlin/jetbrains/exodus/javascript/Interop.kt`
+#### Snippet
+```java
+    }
+
+    fun openEnvironment(location: String) {
+        environment?.run { environment = null; close() }
         if (location.isUndefinedOrNull) {
 ```
 
@@ -12445,66 +12469,6 @@ in `sshd/src/main/kotlin/jetbrains/exodus/javascript/Interop.kt`
 ```
 
 ### UnusedSymbol
-Function "openEnvironment" is never used
-in `sshd/src/main/kotlin/jetbrains/exodus/javascript/Interop.kt`
-#### Snippet
-```java
-    }
-
-    fun openEnvironment(location: String) {
-        environment?.run { environment = null; close() }
-        if (location.isUndefinedOrNull) {
-```
-
-### UnusedSymbol
-Function "getEntity" is never used
-in `sshd/src/main/kotlin/jetbrains/exodus/javascript/Interop.kt`
-#### Snippet
-```java
-    fun println(o: Any?): Interop = print(o).run { newLine() }
-
-    fun getEntity(id: String): Entity {
-        val store = store.notNull
-        return store.getEntity(PersistentEntityId.toEntityId(id))
-```
-
-### UnusedSymbol
-Function "concat" is never used
-in `query/src/main/kotlin/jetbrains/exodus/query/QueryEngine.kt`
-#### Snippet
-```java
-    }
-
-    open fun concat(left: Iterable<Entity>, right: Iterable<Entity>): Iterable<Entity> {
-        if (left.isEmpty) {
-            return right
-```
-
-### UnusedSymbol
-Property "uniqueKeyIndicesEngine" is never used
-in `query/src/main/kotlin/jetbrains/exodus/query/QueryEngine.kt`
-#### Snippet
-```java
-        }
-
-    val uniqueKeyIndicesEngine = MetaDataAwareUniqueKeyIndicesEngine(persistentStore, modelMetaData)
-
-    open fun queryGetAll(entityType: String): TreeKeepingEntityIterable = query(null, entityType, NodeFactory.all())
-```
-
-### UnusedSymbol
-Function "exclude" is never used
-in `query/src/main/kotlin/jetbrains/exodus/query/QueryEngine.kt`
-#### Snippet
-```java
-    }
-
-    open fun exclude(left: Iterable<Entity>, right: Iterable<Entity>): Iterable<Entity> {
-        if (left.isEmpty || left === right) {
-            return EMPTY
-```
-
-### UnusedSymbol
 Function "writeFinally" is never used
 in `utils/src/main/kotlin/jetbrains/exodus/core/dataStructures/persistent/PersistentEx.kt`
 #### Snippet
@@ -12512,18 +12476,6 @@ in `utils/src/main/kotlin/jetbrains/exodus/core/dataStructures/persistent/Persis
 }
 
 inline fun PersistentLongSet.writeFinally(block: PersistentLongSet.MutableSet.() -> Unit) {
-    while (!write(block)) {
-    }
-```
-
-### UnusedSymbol
-Function "writeFinally" is never used
-in `utils/src/main/kotlin/jetbrains/exodus/core/dataStructures/persistent/PersistentEx.kt`
-#### Snippet
-```java
-}
-
-inline fun <K, V> PersistentHashMap<K, V>.writeFinally(block: PersistentHashMap<K, V>.MutablePersistentHashMap.() -> Unit) {
     while (!write(block)) {
     }
 ```
@@ -12559,6 +12511,18 @@ in `utils/src/main/kotlin/jetbrains/exodus/core/dataStructures/persistent/Persis
 ```java
 }
 
+inline fun <V> PersistentLongMap<V>.writeFinally(block: PersistentLongMap.MutableMap<V>.() -> Unit) {
+    while (!write(block)) {
+    }
+```
+
+### UnusedSymbol
+Function "writeFinally" is never used
+in `utils/src/main/kotlin/jetbrains/exodus/core/dataStructures/persistent/PersistentEx.kt`
+#### Snippet
+```java
+}
+
 inline fun <K : Comparable<K>, V> Persistent23TreeMap<K, V>.writeFinally(block: Persistent23TreeMap.MutableMap<K, V>.() -> Unit) {
     while (!write(block)) {
     }
@@ -12571,7 +12535,7 @@ in `utils/src/main/kotlin/jetbrains/exodus/core/dataStructures/persistent/Persis
 ```java
 }
 
-inline fun <V> PersistentLongMap<V>.writeFinally(block: PersistentLongMap.MutableMap<V>.() -> Unit) {
+inline fun <K, V> PersistentHashMap<K, V>.writeFinally(block: PersistentHashMap<K, V>.MutablePersistentHashMap.() -> Unit) {
     while (!write(block)) {
     }
 ```
@@ -12613,18 +12577,6 @@ in `utils/src/main/kotlin/jetbrains/exodus/system/OperatingSystem.kt`
 ```
 
 ### UnusedSymbol
-Function "cancel" is never used
-in `crypto/src/main/kotlin/jetbrains/exodus/crypto/convert/ScytaleEngine.kt`
-#### Snippet
-```java
-    }
-
-    fun cancel() {
-        cancelled = true
-    }
-```
-
-### UnusedSymbol
 Function "readFully" is never used
 in `utils/src/main/kotlin/jetbrains/exodus/util/IOUtil.kt`
 #### Snippet
@@ -12637,15 +12589,63 @@ in `utils/src/main/kotlin/jetbrains/exodus/util/IOUtil.kt`
 ```
 
 ### UnusedSymbol
-Property "encrypted" is never used
-in `openAPI/src/main/kotlin/jetbrains/exodus/env/replication/EnvironmentReplicationDelta.kt`
+Function "cancel" is never used
+in `crypto/src/main/kotlin/jetbrains/exodus/crypto/convert/ScytaleEngine.kt`
 #### Snippet
 ```java
-    val metaTreeAddress: Long
-    val rootAddress: Long
-    val encrypted: Boolean
-}
+    }
 
+    fun cancel() {
+        cancelled = true
+    }
+```
+
+### UnusedSymbol
+Function "concat" is never used
+in `query/src/main/kotlin/jetbrains/exodus/query/QueryEngine.kt`
+#### Snippet
+```java
+    }
+
+    open fun concat(left: Iterable<Entity>, right: Iterable<Entity>): Iterable<Entity> {
+        if (left.isEmpty) {
+            return right
+```
+
+### UnusedSymbol
+Function "exclude" is never used
+in `query/src/main/kotlin/jetbrains/exodus/query/QueryEngine.kt`
+#### Snippet
+```java
+    }
+
+    open fun exclude(left: Iterable<Entity>, right: Iterable<Entity>): Iterable<Entity> {
+        if (left.isEmpty || left === right) {
+            return EMPTY
+```
+
+### UnusedSymbol
+Property "uniqueKeyIndicesEngine" is never used
+in `query/src/main/kotlin/jetbrains/exodus/query/QueryEngine.kt`
+#### Snippet
+```java
+        }
+
+    val uniqueKeyIndicesEngine = MetaDataAwareUniqueKeyIndicesEngine(persistentStore, modelMetaData)
+
+    open fun queryGetAll(entityType: String): TreeKeepingEntityIterable = query(null, entityType, NodeFactory.all())
+```
+
+### UnusedSymbol
+Function "newPersistentEntityStoreConfig" is never used
+in `openAPI/src/main/kotlin/jetbrains/exodus/entitystore/EntityStoreEx.kt`
+#### Snippet
+```java
+ */
+
+fun newPersistentEntityStoreConfig(configurator: PersistentEntityStoreConfig.() -> Unit): PersistentEntityStoreConfig {
+    return PersistentEntityStoreConfig().apply {
+        configurator()
 ```
 
 ### UnusedSymbol
@@ -12661,15 +12661,15 @@ interface EnvironmentReplicationDelta : LogReplicationDelta {
 ```
 
 ### UnusedSymbol
-Function "newPersistentEntityStoreConfig" is never used
-in `openAPI/src/main/kotlin/jetbrains/exodus/entitystore/EntityStoreEx.kt`
+Property "encrypted" is never used
+in `openAPI/src/main/kotlin/jetbrains/exodus/env/replication/EnvironmentReplicationDelta.kt`
 #### Snippet
 ```java
- */
+    val metaTreeAddress: Long
+    val rootAddress: Long
+    val encrypted: Boolean
+}
 
-fun newPersistentEntityStoreConfig(configurator: PersistentEntityStoreConfig.() -> Unit): PersistentEntityStoreConfig {
-    return PersistentEntityStoreConfig().apply {
-        configurator()
 ```
 
 ### UnusedSymbol
