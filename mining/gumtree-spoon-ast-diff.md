@@ -17,8 +17,8 @@ I found 54 bad smells with 9 repairable:
 | EqualsAndHashcode | 2 | false |
 | UnusedAssignment | 2 | false |
 | StringOperationCanBeSimplified | 1 | false |
-| DeprecatedIsStillUsed | 1 | false |
 | CommentedOutCode | 1 | false |
+| DeprecatedIsStillUsed | 1 | false |
 | KeySetIterationMayUseEntrySet | 1 | false |
 | UnnecessaryToStringCall | 1 | true |
 | EqualsBetweenInconvertibleTypes | 1 | false |
@@ -153,19 +153,6 @@ in `src/main/java/gumtree/spoon/builder/CtVirtualElement.java`
 
 ```
 
-## RuleId[ruleID=DeprecatedIsStillUsed]
-### DeprecatedIsStillUsed
-Deprecated member 'getNode' is still used
-in `src/main/java/gumtree/spoon/diff/operations/Operation.java`
-#### Snippet
-```java
-	/** use {@link #getSrcNode()} or {@link #getDstNode()} instead. */
-	@Deprecated
-	public CtElement getNode() {
-		return node;
-	}
-```
-
 ## RuleId[ruleID=CommentedOutCode]
 ### CommentedOutCode
 Commented out code (2 lines)
@@ -176,6 +163,19 @@ in `src/main/java/gumtree/spoon/AstComparator.java`
 		// see AbstractBottomUpMatcher#SIZE_THRESHOD in Gumtree
 		// System.setProperty("gumtree.match.bu.size","10");
 		// System.setProperty("gt.bum.szt", "1000");
+	}
+```
+
+## RuleId[ruleID=DeprecatedIsStillUsed]
+### DeprecatedIsStillUsed
+Deprecated member 'getNode' is still used
+in `src/main/java/gumtree/spoon/diff/operations/Operation.java`
+#### Snippet
+```java
+	/** use {@link #getSrcNode()} or {@link #getDstNode()} instead. */
+	@Deprecated
+	public CtElement getNode() {
+		return node;
 	}
 ```
 
@@ -269,6 +269,18 @@ in `src/main/java/gumtree/spoon/builder/jsonsupport/OperationNodePainter.java`
 ```
 
 ### BoundedWildcard
+Can generalize to `? extends SourcePosition`
+in `src/main/java/gumtree/spoon/builder/NodeCreator.java`
+#### Snippet
+```java
+	}
+
+	private static SourcePosition computeSourcePositionOfVirtualElement(List<SourcePosition> modifierPositions) {
+		CompilationUnit cu = null;
+		Integer sourceStart = null;
+```
+
+### BoundedWildcard
 Can generalize to `? extends NodePainter`
 in `src/main/java/gumtree/spoon/builder/Json4SpoonGenerator.java`
 #### Snippet
@@ -278,18 +290,6 @@ in `src/main/java/gumtree/spoon/builder/Json4SpoonGenerator.java`
 	public JsonObject getJSONwithCustorLabels(TreeContext context, Tree tree, Collection<NodePainter> nodePainters) {
 
 		JsonObject o = new JsonObject();
-```
-
-### BoundedWildcard
-Can generalize to `? extends Action`
-in `src/main/java/gumtree/spoon/diff/ActionClassifier.java`
-#### Snippet
-```java
-	private Map<Tree, Action> originalActionsDst = new HashMap<>();
-
-	public ActionClassifier(MappingStore mappings, List<Action> actions) {
-		clean();
-
 ```
 
 ### BoundedWildcard
@@ -305,15 +305,15 @@ in `src/main/java/gumtree/spoon/diff/ActionClassifier.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends SourcePosition`
-in `src/main/java/gumtree/spoon/builder/NodeCreator.java`
+Can generalize to `? extends Action`
+in `src/main/java/gumtree/spoon/diff/ActionClassifier.java`
 #### Snippet
 ```java
-	}
+	private Map<Tree, Action> originalActionsDst = new HashMap<>();
 
-	private static SourcePosition computeSourcePositionOfVirtualElement(List<SourcePosition> modifierPositions) {
-		CompilationUnit cu = null;
-		Integer sourceStart = null;
+	public ActionClassifier(MappingStore mappings, List<Action> actions) {
+		clean();
+
 ```
 
 ### BoundedWildcard
@@ -341,18 +341,6 @@ in `src/main/java/gumtree/spoon/diff/DiffImpl.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends Action`
-in `src/main/java/gumtree/spoon/diff/DiffImpl.java`
-#### Snippet
-```java
-	}
-
-	private List<Operation> convertToSpoon(List<Action> actions, MappingStore mappings) {
-		List<Operation> collect = actions.stream().map(action -> {
-
-```
-
-### BoundedWildcard
 Can generalize to `? extends Operation`
 in `src/main/java/gumtree/spoon/diff/DiffImpl.java`
 #### Snippet
@@ -362,6 +350,18 @@ in `src/main/java/gumtree/spoon/diff/DiffImpl.java`
 	private String toDebugString(List<Operation> ops) {
 		String result = "";
 		for (Operation operation : ops) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends Action`
+in `src/main/java/gumtree/spoon/diff/DiffImpl.java`
+#### Snippet
+```java
+	}
+
+	private List<Operation> convertToSpoon(List<Action> actions, MappingStore mappings) {
+		List<Operation> collect = actions.stream().map(action -> {
+
 ```
 
 ### BoundedWildcard
@@ -566,32 +566,7 @@ public class CtVirtualElement extends CtWrapper<String> {
 	protected Collection<?> children;
 ```
 
-## RuleId[ruleID=HtmlWrongAttributeValue]
-### HtmlWrongAttributeValue
-Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-02-08-13-42-35.879.html`
-#### Snippet
-```java
-              <td>0</td>
-              <td>0</td>
-              <td><textarea rows="10" cols="75" readonly="true" placeholder="empty" style="white-space: pre; border: none">Not collected for refresh</textarea></td>
-            </tr>
-          </tbody>
-```
-
 ## RuleId[ruleID=ReturnNull]
-### ReturnNull
-Return of `null`
-in `src/main/java/gumtree/spoon/diff/support/SpoonSupport.java`
-#### Snippet
-```java
-		}
-
-		return null;
-	}
-}
-```
-
 ### ReturnNull
 Return of `null`
 in `src/main/java/gumtree/spoon/builder/CtWrapper.java`
@@ -602,6 +577,18 @@ in `src/main/java/gumtree/spoon/builder/CtWrapper.java`
 		return (value != null) ? value.toString() : null;
 	}
 
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/gumtree/spoon/diff/support/SpoonSupport.java`
+#### Snippet
+```java
+		}
+
+		return null;
+	}
+}
 ```
 
 ### ReturnNull
@@ -638,6 +625,19 @@ in `src/main/java/gumtree/spoon/diff/DiffImpl.java`
 		return null;
 	}
 
+```
+
+## RuleId[ruleID=HtmlWrongAttributeValue]
+### HtmlWrongAttributeValue
+Wrong attribute value
+in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-02-08-15-09-04.197.html`
+#### Snippet
+```java
+              <td>0</td>
+              <td>0</td>
+              <td><textarea rows="10" cols="75" readonly="true" placeholder="empty" style="white-space: pre; border: none">Not collected for refresh</textarea></td>
+            </tr>
+          </tbody>
 ```
 
 ## RuleId[ruleID=UnnecessaryLocalVariable]
