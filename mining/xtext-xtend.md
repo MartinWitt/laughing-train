@@ -96,6 +96,30 @@ in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/jvmmodel/IXtendJvmAssociat
 
 ## RuleId[ruleID=PointlessArithmeticExpression]
 ### PointlessArithmeticExpression
+`XTEND_MEMBER_FEATURE_COUNT + 0` can be replaced with 'XTEND_MEMBER_FEATURE_COUNT'
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendPackage.java`
+#### Snippet
+```java
+	 * @ordered
+	 */
+	int XTEND_ENUM_LITERAL__NAME = XTEND_MEMBER_FEATURE_COUNT + 0;
+
+	/**
+```
+
+### PointlessArithmeticExpression
+`XbasePackage.XBLOCK_EXPRESSION_FEATURE_COUNT + 0` can be replaced with 'XbasePackage.XBLOCK_EXPRESSION_FEATURE_COUNT'
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendPackage.java`
+#### Snippet
+```java
+	 * @ordered
+	 */
+	int RICH_STRING_FEATURE_COUNT = XbasePackage.XBLOCK_EXPRESSION_FEATURE_COUNT + 0;
+
+	/**
+```
+
+### PointlessArithmeticExpression
 `XTEND_ANNOTATION_TARGET_FEATURE_COUNT + 0` can be replaced with 'XTEND_ANNOTATION_TARGET_FEATURE_COUNT'
 in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendPackage.java`
 #### Snippet
@@ -120,25 +144,13 @@ in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendPackage.jav
 ```
 
 ### PointlessArithmeticExpression
-`XTEND_ANNOTATION_TARGET_FEATURE_COUNT + 0` can be replaced with 'XTEND_ANNOTATION_TARGET_FEATURE_COUNT'
+`XTEND_EXECUTABLE_FEATURE_COUNT + 0` can be replaced with 'XTEND_EXECUTABLE_FEATURE_COUNT'
 in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendPackage.java`
 #### Snippet
 ```java
 	 * @ordered
 	 */
-	int XTEND_MEMBER__ANNOTATION_INFO = XTEND_ANNOTATION_TARGET_FEATURE_COUNT + 0;
-
-	/**
-```
-
-### PointlessArithmeticExpression
-`TypesPackage.JVM_FORMAL_PARAMETER_FEATURE_COUNT + 0` can be replaced with 'TypesPackage.JVM_FORMAL_PARAMETER_FEATURE_COUNT'
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendPackage.java`
-#### Snippet
-```java
-	 * @ordered
-	 */
-	int XTEND_FORMAL_PARAMETER__EXTENSION = TypesPackage.JVM_FORMAL_PARAMETER_FEATURE_COUNT + 0;
+	int XTEND_CONSTRUCTOR_FEATURE_COUNT = XTEND_EXECUTABLE_FEATURE_COUNT + 0;
 
 	/**
 ```
@@ -168,13 +180,25 @@ in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendPackage.jav
 ```
 
 ### PointlessArithmeticExpression
-`XTEND_EXECUTABLE_FEATURE_COUNT + 0` can be replaced with 'XTEND_EXECUTABLE_FEATURE_COUNT'
+`TypesPackage.JVM_FORMAL_PARAMETER_FEATURE_COUNT + 0` can be replaced with 'TypesPackage.JVM_FORMAL_PARAMETER_FEATURE_COUNT'
 in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendPackage.java`
 #### Snippet
 ```java
 	 * @ordered
 	 */
-	int XTEND_CONSTRUCTOR_FEATURE_COUNT = XTEND_EXECUTABLE_FEATURE_COUNT + 0;
+	int XTEND_FORMAL_PARAMETER__EXTENSION = TypesPackage.JVM_FORMAL_PARAMETER_FEATURE_COUNT + 0;
+
+	/**
+```
+
+### PointlessArithmeticExpression
+`XbasePackage.XEXPRESSION_FEATURE_COUNT + 0` can be replaced with 'XbasePackage.XEXPRESSION_FEATURE_COUNT'
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendPackage.java`
+#### Snippet
+```java
+	 * @ordered
+	 */
+	int ANONYMOUS_CLASS__ANNOTATIONS = XbasePackage.XEXPRESSION_FEATURE_COUNT + 0;
 
 	/**
 ```
@@ -192,6 +216,30 @@ in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendPackage.jav
 ```
 
 ### PointlessArithmeticExpression
+`XbasePackage.XEXPRESSION_FEATURE_COUNT + 0` can be replaced with 'XbasePackage.XEXPRESSION_FEATURE_COUNT'
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendPackage.java`
+#### Snippet
+```java
+	 * @ordered
+	 */
+	int RICH_STRING_IF__IF = XbasePackage.XEXPRESSION_FEATURE_COUNT + 0;
+
+	/**
+```
+
+### PointlessArithmeticExpression
+`XTEND_TYPE_DECLARATION_FEATURE_COUNT + 0` can be replaced with 'XTEND_TYPE_DECLARATION_FEATURE_COUNT'
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendPackage.java`
+#### Snippet
+```java
+	 * @ordered
+	 */
+	int XTEND_INTERFACE__EXTENDS = XTEND_TYPE_DECLARATION_FEATURE_COUNT + 0;
+
+	/**
+```
+
+### PointlessArithmeticExpression
 `XbasePackage.XSTRING_LITERAL_FEATURE_COUNT + 0` can be replaced with 'XbasePackage.XSTRING_LITERAL_FEATURE_COUNT'
 in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendPackage.java`
 #### Snippet
@@ -199,6 +247,18 @@ in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendPackage.jav
 	 * @ordered
 	 */
 	int RICH_STRING_LITERAL_FEATURE_COUNT = XbasePackage.XSTRING_LITERAL_FEATURE_COUNT + 0;
+
+	/**
+```
+
+### PointlessArithmeticExpression
+`XTEND_MEMBER_FEATURE_COUNT + 0` can be replaced with 'XTEND_MEMBER_FEATURE_COUNT'
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendPackage.java`
+#### Snippet
+```java
+	 * @ordered
+	 */
+	int XTEND_EXECUTABLE__EXCEPTIONS = XTEND_MEMBER_FEATURE_COUNT + 0;
 
 	/**
 ```
@@ -228,18 +288,6 @@ in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendPackage.jav
 ```
 
 ### PointlessArithmeticExpression
-`XTEND_TYPE_DECLARATION_FEATURE_COUNT + 0` can be replaced with 'XTEND_TYPE_DECLARATION_FEATURE_COUNT'
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendPackage.java`
-#### Snippet
-```java
-	 * @ordered
-	 */
-	int XTEND_CLASS__EXTENDS = XTEND_TYPE_DECLARATION_FEATURE_COUNT + 0;
-
-	/**
-```
-
-### PointlessArithmeticExpression
 `XTEND_EXECUTABLE_FEATURE_COUNT + 0` can be replaced with 'XTEND_EXECUTABLE_FEATURE_COUNT'
 in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendPackage.java`
 #### Snippet
@@ -252,97 +300,25 @@ in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendPackage.jav
 ```
 
 ### PointlessArithmeticExpression
+`XTEND_ANNOTATION_TARGET_FEATURE_COUNT + 0` can be replaced with 'XTEND_ANNOTATION_TARGET_FEATURE_COUNT'
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendPackage.java`
+#### Snippet
+```java
+	 * @ordered
+	 */
+	int XTEND_MEMBER__ANNOTATION_INFO = XTEND_ANNOTATION_TARGET_FEATURE_COUNT + 0;
+
+	/**
+```
+
+### PointlessArithmeticExpression
 `XTEND_TYPE_DECLARATION_FEATURE_COUNT + 0` can be replaced with 'XTEND_TYPE_DECLARATION_FEATURE_COUNT'
 in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendPackage.java`
 #### Snippet
 ```java
 	 * @ordered
 	 */
-	int XTEND_INTERFACE__EXTENDS = XTEND_TYPE_DECLARATION_FEATURE_COUNT + 0;
-
-	/**
-```
-
-### PointlessArithmeticExpression
-`XbasePackage.XBLOCK_EXPRESSION_FEATURE_COUNT + 0` can be replaced with 'XbasePackage.XBLOCK_EXPRESSION_FEATURE_COUNT'
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendPackage.java`
-#### Snippet
-```java
-	 * @ordered
-	 */
-	int RICH_STRING_FEATURE_COUNT = XbasePackage.XBLOCK_EXPRESSION_FEATURE_COUNT + 0;
-
-	/**
-```
-
-### PointlessArithmeticExpression
-`XTEND_MEMBER_FEATURE_COUNT + 0` can be replaced with 'XTEND_MEMBER_FEATURE_COUNT'
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendPackage.java`
-#### Snippet
-```java
-	 * @ordered
-	 */
-	int XTEND_ENUM_LITERAL__NAME = XTEND_MEMBER_FEATURE_COUNT + 0;
-
-	/**
-```
-
-### PointlessArithmeticExpression
-`XbasePackage.XEXPRESSION_FEATURE_COUNT + 0` can be replaced with 'XbasePackage.XEXPRESSION_FEATURE_COUNT'
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendPackage.java`
-#### Snippet
-```java
-	 * @ordered
-	 */
-	int ANONYMOUS_CLASS__ANNOTATIONS = XbasePackage.XEXPRESSION_FEATURE_COUNT + 0;
-
-	/**
-```
-
-### PointlessArithmeticExpression
-`XbasePackage.XEXPRESSION_FEATURE_COUNT + 0` can be replaced with 'XbasePackage.XEXPRESSION_FEATURE_COUNT'
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendPackage.java`
-#### Snippet
-```java
-	 * @ordered
-	 */
-	int RICH_STRING_IF__IF = XbasePackage.XEXPRESSION_FEATURE_COUNT + 0;
-
-	/**
-```
-
-### PointlessArithmeticExpression
-`XTEND_MEMBER_FEATURE_COUNT + 0` can be replaced with 'XTEND_MEMBER_FEATURE_COUNT'
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendPackage.java`
-#### Snippet
-```java
-	 * @ordered
-	 */
-	int XTEND_EXECUTABLE__EXCEPTIONS = XTEND_MEMBER_FEATURE_COUNT + 0;
-
-	/**
-```
-
-### PointlessArithmeticExpression
-`LINE_PART_FEATURE_COUNT + 0` can be replaced with 'LINE_PART_FEATURE_COUNT'
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/ProcessedRichStringPackage.java`
-#### Snippet
-```java
-	 * @ordered
-	 */
-	int END_IF__IF_CONDITION_START = LINE_PART_FEATURE_COUNT + 0;
-
-	/**
-```
-
-### PointlessArithmeticExpression
-`LINE_PART_FEATURE_COUNT + 0` can be replaced with 'LINE_PART_FEATURE_COUNT'
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/ProcessedRichStringPackage.java`
-#### Snippet
-```java
-	 * @ordered
-	 */
-	int FOR_LOOP_END__START = LINE_PART_FEATURE_COUNT + 0;
+	int XTEND_CLASS__EXTENDS = XTEND_TYPE_DECLARATION_FEATURE_COUNT + 0;
 
 	/**
 ```
@@ -366,6 +342,18 @@ in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/ProcessedRi
 ```java
 	 * @ordered
 	 */
+	int ELSE_START__IF_CONDITION_START = LINE_PART_FEATURE_COUNT + 0;
+
+	/**
+```
+
+### PointlessArithmeticExpression
+`LINE_PART_FEATURE_COUNT + 0` can be replaced with 'LINE_PART_FEATURE_COUNT'
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/ProcessedRichStringPackage.java`
+#### Snippet
+```java
+	 * @ordered
+	 */
 	int PRINTED_EXPRESSION__EXPRESSION = LINE_PART_FEATURE_COUNT + 0;
 
 	/**
@@ -378,7 +366,7 @@ in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/ProcessedRi
 ```java
 	 * @ordered
 	 */
-	int LITERAL__LITERAL = LINE_PART_FEATURE_COUNT + 0;
+	int END_IF__IF_CONDITION_START = LINE_PART_FEATURE_COUNT + 0;
 
 	/**
 ```
@@ -402,7 +390,7 @@ in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/ProcessedRi
 ```java
 	 * @ordered
 	 */
-	int FOR_LOOP_START__LOOP = LINE_PART_FEATURE_COUNT + 0;
+	int FOR_LOOP_END__START = LINE_PART_FEATURE_COUNT + 0;
 
 	/**
 ```
@@ -414,7 +402,19 @@ in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/ProcessedRi
 ```java
 	 * @ordered
 	 */
-	int ELSE_START__IF_CONDITION_START = LINE_PART_FEATURE_COUNT + 0;
+	int LITERAL__LITERAL = LINE_PART_FEATURE_COUNT + 0;
+
+	/**
+```
+
+### PointlessArithmeticExpression
+`LINE_PART_FEATURE_COUNT + 0` can be replaced with 'LINE_PART_FEATURE_COUNT'
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/ProcessedRichStringPackage.java`
+#### Snippet
+```java
+	 * @ordered
+	 */
+	int FOR_LOOP_START__LOOP = LINE_PART_FEATURE_COUNT + 0;
 
 	/**
 ```
@@ -471,7 +471,7 @@ in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendAdapte
 
 ### AssignmentToStaticFieldFromInstanceMethod
 Assignment to static field `modelPackage` from instance context
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/util/ProcessedRichStringSwitch.java`
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/util/ProcessedRichStringAdapterFactory.java`
 #### Snippet
 ```java
 		if (modelPackage == null)
@@ -483,7 +483,7 @@ in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/util/Proces
 
 ### AssignmentToStaticFieldFromInstanceMethod
 Assignment to static field `modelPackage` from instance context
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/util/ProcessedRichStringAdapterFactory.java`
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/util/ProcessedRichStringSwitch.java`
 #### Snippet
 ```java
 		if (modelPackage == null)
@@ -596,18 +596,6 @@ Pseudo functional style code
 in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/jvmmodel/DispatchHelper.java`
 #### Snippet
 ```java
-			XtendFunction function = (XtendFunction) sourceElement;
-			if (function.isDispatch()) {
-				Iterable<JvmOperation> operations = filter(associations.getJvmElements(sourceElement), JvmOperation.class);
-				for(JvmOperation operation: operations) {
-					if (Strings.equal(operation.getSimpleName(), function.getName())) {
-```
-
-### StaticPseudoFunctionalStyleMethod
-Pseudo functional style code
-in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/jvmmodel/DispatchHelper.java`
-#### Snippet
-```java
 	
 	public boolean isDispatcherFunction(JvmOperation inferredOperation) {
 		return Iterables.any(inferredOperation.eAdapters(), new Predicate<Object>() {
@@ -617,38 +605,14 @@ in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/jvmmodel/DispatchHelper.ja
 
 ### StaticPseudoFunctionalStyleMethod
 Pseudo functional style code
-in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/compiler/batch/XtendBatchCompiler.java`
+in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/jvmmodel/DispatchHelper.java`
 #### Snippet
 ```java
-		}
-		final List<String> split = split(emptyIfNull(path), File.pathSeparator);
-		return transform(split, new Function<String, String>() {
-			@Override
-			public String apply(String from) {
-```
-
-### StaticPseudoFunctionalStyleMethod
-Pseudo functional style code
-in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/compiler/batch/XtendBatchCompiler.java`
-#### Snippet
-```java
-		}
-		List<String> sourceDirectories = newArrayList(sourcePathDirectories);
-		commandLine.add(concat(" ", transform(sourceDirectories, new Function<String, String>() {
-			@Override
-			public String apply(String path) {
-```
-
-### StaticPseudoFunctionalStyleMethod
-Pseudo functional style code
-in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/compiler/batch/XtendBatchCompiler.java`
-#### Snippet
-```java
-	 */
-	protected ClassLoader createClassLoader(Iterable<File> jarsAndFolders, ClassLoader parentClassLoader) {
-		return new URLClassLoader(toArray(transform(jarsAndFolders, TO_URL), URL.class), parentClassLoader);
-	}
-
+			XtendFunction function = (XtendFunction) sourceElement;
+			if (function.isDispatch()) {
+				Iterable<JvmOperation> operations = filter(associations.getJvmElements(sourceElement), JvmOperation.class);
+				for(JvmOperation operation: operations) {
+					if (Strings.equal(operation.getSimpleName(), function.getName())) {
 ```
 
 ### StaticPseudoFunctionalStyleMethod
@@ -689,14 +653,38 @@ in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/compiler/batch/XtendBatchC
 
 ### StaticPseudoFunctionalStyleMethod
 Pseudo functional style code
-in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/jvmmodel/XtendJvmModelInferrer.java`
+in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/compiler/batch/XtendBatchCompiler.java`
 #### Snippet
 ```java
-		boolean override = false;
-		for (JvmOperation jvmOperation : localOperations) {
-			Iterable<XtendFunction> xtendFunctions = Iterables.filter(associations.getSourceElements(jvmOperation),
-					XtendFunction.class);
-			for (XtendFunction func : xtendFunctions) {
+	 */
+	protected ClassLoader createClassLoader(Iterable<File> jarsAndFolders, ClassLoader parentClassLoader) {
+		return new URLClassLoader(toArray(transform(jarsAndFolders, TO_URL), URL.class), parentClassLoader);
+	}
+
+```
+
+### StaticPseudoFunctionalStyleMethod
+Pseudo functional style code
+in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/compiler/batch/XtendBatchCompiler.java`
+#### Snippet
+```java
+		}
+		final List<String> split = split(emptyIfNull(path), File.pathSeparator);
+		return transform(split, new Function<String, String>() {
+			@Override
+			public String apply(String from) {
+```
+
+### StaticPseudoFunctionalStyleMethod
+Pseudo functional style code
+in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/compiler/batch/XtendBatchCompiler.java`
+#### Snippet
+```java
+		}
+		List<String> sourceDirectories = newArrayList(sourcePathDirectories);
+		commandLine.add(concat(" ", transform(sourceDirectories, new Function<String, String>() {
+			@Override
+			public String apply(String path) {
 ```
 
 ### StaticPseudoFunctionalStyleMethod
@@ -725,6 +713,18 @@ in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/jvmmodel/XtendJvmModelInfe
 
 ### StaticPseudoFunctionalStyleMethod
 Pseudo functional style code
+in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/jvmmodel/XtendJvmModelInferrer.java`
+#### Snippet
+```java
+		boolean override = false;
+		for (JvmOperation jvmOperation : localOperations) {
+			Iterable<XtendFunction> xtendFunctions = Iterables.filter(associations.getSourceElements(jvmOperation),
+					XtendFunction.class);
+			for (XtendFunction func : xtendFunctions) {
+```
+
+### StaticPseudoFunctionalStyleMethod
+Pseudo functional style code
 in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/validation/XtendValidator.java`
 #### Snippet
 ```java
@@ -740,11 +740,11 @@ Pseudo functional style code
 in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/validation/XtendValidator.java`
 #### Snippet
 ```java
-		if (inferredType == null)
-			return;
-		Iterable<JvmConstructor> constructors = filter(inferredType.getMembers(), JvmConstructor.class);
-		if(inferredType.getExtendedClass() != null) {
-			JvmType superType = inferredType.getExtendedClass().getType();
+	protected String doGetReadableSignature(String simpleName, List<JvmFormalParameter> parameters) {
+		return getReadableSignature(simpleName,
+				Lists.transform(parameters, new Function<JvmFormalParameter, JvmTypeReference>() {
+					@Override
+					public JvmTypeReference apply(JvmFormalParameter from) {
 ```
 
 ### StaticPseudoFunctionalStyleMethod
@@ -764,11 +764,11 @@ Pseudo functional style code
 in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/validation/XtendValidator.java`
 #### Snippet
 ```java
-
-	protected boolean isRelevantAnnotationTarget(final XtendAnnotationTarget annotationTarget) {
-		return any(targetInfos.keySet(), new Predicate<Class<?>>() {
-			@Override
-			public boolean apply(Class<?> input) {
+		if (inferredType == null)
+			return;
+		Iterable<JvmConstructor> constructors = filter(inferredType.getMembers(), JvmConstructor.class);
+		if(inferredType.getExtendedClass() != null) {
+			JvmType superType = inferredType.getExtendedClass().getType();
 ```
 
 ### StaticPseudoFunctionalStyleMethod
@@ -788,24 +788,24 @@ Pseudo functional style code
 in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/validation/XtendValidator.java`
 #### Snippet
 ```java
-	protected String doGetReadableSignature(String simpleName, List<JvmFormalParameter> parameters) {
-		return getReadableSignature(simpleName,
-				Lists.transform(parameters, new Function<JvmFormalParameter, JvmTypeReference>() {
-					@Override
-					public JvmTypeReference apply(JvmFormalParameter from) {
+
+	protected boolean isRelevantAnnotationTarget(final XtendAnnotationTarget annotationTarget) {
+		return any(targetInfos.keySet(), new Predicate<Class<?>>() {
+			@Override
+			public boolean apply(Class<?> input) {
 ```
 
 ## RuleId[ruleID=SizeReplaceableByIsEmpty]
 ### SizeReplaceableByIsEmpty
-`text.length() == 0` can be replaced with 'text.isEmpty()'
-in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/compiler/XtendCompiler.java`
+`packageName.length() > 0` can be replaced with '!packageName.isEmpty()'
+in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/scoping/XtendImportedNamespaceScopeProvider.java`
 #### Snippet
 ```java
-		public void acceptSemanticText(CharSequence text, /* @Nullable */ RichStringLiteral origin) {
-			setCurrentAppendable(origin);
-			if (text.length() == 0)
-				return;
-			currentAppendable.newLine();
+		String packageName = rootContainer.getPackage();
+		final ImportNormalizer[][] implicitImports;
+		if (packageName != null && packageName.length() > 0) {
+			QualifiedName packageQualifiedName = qualifiedNameConverter.toQualifiedName(packageName);
+			implicitImports = new ImportNormalizer[][] {
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -833,15 +833,15 @@ in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/conversion/JavaIDValueConv
 ```
 
 ### SizeReplaceableByIsEmpty
-`packageName.length() > 0` can be replaced with '!packageName.isEmpty()'
-in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/scoping/XtendImportedNamespaceScopeProvider.java`
+`text.length() == 0` can be replaced with 'text.isEmpty()'
+in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/compiler/XtendCompiler.java`
 #### Snippet
 ```java
-		String packageName = rootContainer.getPackage();
-		final ImportNormalizer[][] implicitImports;
-		if (packageName != null && packageName.length() > 0) {
-			QualifiedName packageQualifiedName = qualifiedNameConverter.toQualifiedName(packageName);
-			implicitImports = new ImportNormalizer[][] {
+		public void acceptSemanticText(CharSequence text, /* @Nullable */ RichStringLiteral origin) {
+			setCurrentAppendable(origin);
+			if (text.length() == 0)
+				return;
+			currentAppendable.newLine();
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -881,18 +881,6 @@ in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/richstring/InitialTemplate
 ```
 
 ### SizeReplaceableByIsEmpty
-`nextLeading.length() > 0` can be replaced with '!nextLeading.isEmpty()'
-in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/richstring/RichStringProcessor.java`
-#### Snippet
-```java
-									TextLine nextLiteralLine = new TextLine(nextLiteralInSameLine.getLiteral().getValue(), nextLiteralInSameLine.getOffset(), nextLiteralInSameLine.getLength(), 0);
-									CharSequence nextLeading = nextLiteralLine.getLeadingWhiteSpace();
-									if (nextLeading.length() > 0) {
-										ws = ws.toString() + nextLeading;
-									}
-```
-
-### SizeReplaceableByIsEmpty
 `indentation.length() != 0` can be replaced with '!indentation.isEmpty()'
 in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/validation/ValidatingRichStringAcceptor.java`
 #### Snippet
@@ -905,15 +893,27 @@ in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/validation/ValidatingRichS
 ```
 
 ### SizeReplaceableByIsEmpty
+`nextLeading.length() > 0` can be replaced with '!nextLeading.isEmpty()'
+in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/richstring/RichStringProcessor.java`
+#### Snippet
+```java
+									TextLine nextLiteralLine = new TextLine(nextLiteralInSameLine.getLiteral().getValue(), nextLiteralInSameLine.getOffset(), nextLiteralInSameLine.getLength(), 0);
+									CharSequence nextLeading = nextLiteralLine.getLeadingWhiteSpace();
+									if (nextLeading.length() > 0) {
+										ws = ws.toString() + nextLeading;
+									}
+```
+
+### SizeReplaceableByIsEmpty
 `name.length() > 0` can be replaced with '!name.isEmpty()'
 in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/validation/XtendValidator.java`
 #### Snippet
 ```java
-	public void checkNoTypeNameShadowing(XtendTypeDeclaration type) {
-		String name = type.getName();
-		if (name != null && name.length() > 0) {
-			XtendTypeDeclaration outer = EcoreUtil2.getContainerOfType(type.eContainer(), XtendTypeDeclaration.class);
-			while(outer != null) {
+			} else if (member instanceof XtendTypeDeclaration) {
+				String name = ((XtendTypeDeclaration) member).getName();
+				if (name != null && name.length() > 0) {
+					name2type.put(name, (XtendTypeDeclaration) member);
+				}
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -933,11 +933,11 @@ in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/validation/XtendValidator.
 in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/validation/XtendValidator.java`
 #### Snippet
 ```java
-			} else if (member instanceof XtendTypeDeclaration) {
-				String name = ((XtendTypeDeclaration) member).getName();
-				if (name != null && name.length() > 0) {
-					name2type.put(name, (XtendTypeDeclaration) member);
-				}
+	public void checkNoTypeNameShadowing(XtendTypeDeclaration type) {
+		String name = type.getName();
+		if (name != null && name.length() > 0) {
+			XtendTypeDeclaration outer = EcoreUtil2.getContainerOfType(type.eContainer(), XtendTypeDeclaration.class);
+			while(outer != null) {
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -1015,18 +1015,6 @@ in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/impl/XtendVariab
 
 ### StringBufferReplaceableByString
 `StringBuilder result` can be replaced with 'String'
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/impl/XtendMemberImpl.java`
-#### Snippet
-```java
-		if (eIsProxy()) return super.toString();
-
-		StringBuilder result = new StringBuilder(super.toString());
-		result.append(" (modifiers: ");
-		result.append(modifiers);
-```
-
-### StringBufferReplaceableByString
-`StringBuilder result` can be replaced with 'String'
 in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/impl/XtendTypeDeclarationImpl.java`
 #### Snippet
 ```java
@@ -1047,6 +1035,18 @@ in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/impl/CreateExten
 		StringBuilder result = new StringBuilder(super.toString());
 		result.append(" (name: ");
 		result.append(name);
+```
+
+### StringBufferReplaceableByString
+`StringBuilder result` can be replaced with 'String'
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/impl/XtendMemberImpl.java`
+#### Snippet
+```java
+		if (eIsProxy()) return super.toString();
+
+		StringBuilder result = new StringBuilder(super.toString());
+		result.append(" (modifiers: ");
+		result.append(modifiers);
 ```
 
 ### StringBufferReplaceableByString
@@ -1160,30 +1160,6 @@ in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/scoping/TypeScopeWithWildc
 ```
 
 ### BoundedWildcard
-Can generalize to `? super IEObjectDescription`
-in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/scoping/TypeParameterScope.java`
-#### Snippet
-```java
-	
-	@Override
-	protected void doGetElements(JvmType type, List<IEObjectDescription> result) {
-		if (type instanceof JvmTypeParameter) {
-			JvmTypeParameter casted = (JvmTypeParameter) type;
-```
-
-### BoundedWildcard
-Can generalize to `? extends List`
-in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/scoping/TypeParameterScope.java`
-#### Snippet
-```java
-	private final List<List<JvmTypeParameter>> typeParameters;
-
-	public TypeParameterScope(List<List<JvmTypeParameter>> typeParameters, AbstractScope parent) {
-		this.typeParameters = typeParameters;
-		this.parent = parent;
-```
-
-### BoundedWildcard
 Can generalize to `? extends QualifiedName`
 in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/scoping/LegacyKnownTypesScope.java`
 #### Snippet
@@ -1205,6 +1181,30 @@ in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/scoping/LegacyKnownTypesSc
 	protected void doGetDescriptions(JvmType type, JvmType knownType, int index, List<IEObjectDescription> result) {
 		super.doGetDescriptions(type, knownType, index, result);
 		QualifiedName importName = importNames.get(index);
+```
+
+### BoundedWildcard
+Can generalize to `? extends List`
+in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/scoping/TypeParameterScope.java`
+#### Snippet
+```java
+	private final List<List<JvmTypeParameter>> typeParameters;
+
+	public TypeParameterScope(List<List<JvmTypeParameter>> typeParameters, AbstractScope parent) {
+		this.typeParameters = typeParameters;
+		this.parent = parent;
+```
+
+### BoundedWildcard
+Can generalize to `? super IEObjectDescription`
+in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/scoping/TypeParameterScope.java`
+#### Snippet
+```java
+	
+	@Override
+	protected void doGetElements(JvmType type, List<IEObjectDescription> result) {
+		if (type instanceof JvmTypeParameter) {
+			JvmTypeParameter casted = (JvmTypeParameter) type;
 ```
 
 ### BoundedWildcard
@@ -1232,18 +1232,6 @@ in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/scoping/NestedTypesScope.j
 ```
 
 ### BoundedWildcard
-Can generalize to `? super CompilationResult`
-in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/compiler/batch/XtendCompilerTester.java`
-#### Snippet
-```java
-	}
-
-	public void compile(CharSequence source, final IAcceptor<CompilationResult> acceptor) {
-		try {
-			compilationTestHelper.configureFreshWorkspace();
-```
-
-### BoundedWildcard
 Can generalize to `? super String`
 in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/jvmmodel/SyntheticNameClashResolver.java`
 #### Snippet
@@ -1268,15 +1256,15 @@ in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/jvmmodel/SyntheticNameClas
 ```
 
 ### BoundedWildcard
-Can generalize to `? super String`
-in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/resource/XtendResourceDescriptionStrategy.java`
+Can generalize to `? super CompilationResult`
+in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/compiler/batch/XtendCompilerTester.java`
 #### Snippet
 ```java
 	}
 
-	protected void addFlags(int flags, ImmutableMap.Builder<String, String> userData) {
-		if(flags != 0)
-			userData.put(DescriptionFlags.KEY, Integer.toString(flags));
+	public void compile(CharSequence source, final IAcceptor<CompilationResult> acceptor) {
+		try {
+			compilationTestHelper.configureFreshWorkspace();
 ```
 
 ### BoundedWildcard
@@ -1292,15 +1280,15 @@ in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/resource/XtendResourceDesc
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends JvmOperation`
-in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/jvmmodel/DispatchHelper.java`
+Can generalize to `? super String`
+in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/resource/XtendResourceDescriptionStrategy.java`
 #### Snippet
 ```java
 	}
 
-	protected void sort(List<JvmOperation> operations) {
-		Collections.sort(operations, new Comparator<JvmOperation>() {
-			@Override
+	protected void addFlags(int flags, ImmutableMap.Builder<String, String> userData) {
+		if(flags != 0)
+			userData.put(DescriptionFlags.KEY, Integer.toString(flags));
 ```
 
 ### BoundedWildcard
@@ -1328,6 +1316,18 @@ in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/conversion/AbstractRichTex
 ```
 
 ### BoundedWildcard
+Can generalize to `? extends JvmOperation`
+in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/jvmmodel/DispatchHelper.java`
+#### Snippet
+```java
+	}
+
+	protected void sort(List<JvmOperation> operations) {
+		Collections.sort(operations, new Comparator<JvmOperation>() {
+			@Override
+```
+
+### BoundedWildcard
 Can generalize to `? super TextLine`
 in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/richstring/TextLines.java`
 #### Snippet
@@ -1352,15 +1352,15 @@ in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/typesystem/TypeDeclaration
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends Issue`
+Can generalize to `? extends File`
 in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/compiler/batch/XtendBatchCompiler.java`
 #### Snippet
 ```java
 	}
 
-	protected void reportIssues(Iterable<Issue> issues) {
-		for (Issue issue : issues) {
-			StringBuilder issueBuilder = createIssueMessage(issue);
+	private File determineCommonRoot(File outputFile, List<File> sourceFileList) {
+		if (baseURI != null && baseURI.isFile()) {
+			return new File(baseURI.toFileString());
 ```
 
 ### BoundedWildcard
@@ -1376,15 +1376,15 @@ in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/compiler/batch/XtendBatchC
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends File`
+Can generalize to `? extends Issue`
 in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/compiler/batch/XtendBatchCompiler.java`
 #### Snippet
 ```java
 	}
 
-	private File determineCommonRoot(File outputFile, List<File> sourceFileList) {
-		if (baseURI != null && baseURI.isFile()) {
-			return new File(baseURI.toFileString());
+	protected void reportIssues(Iterable<Issue> issues) {
+		for (Issue issue : issues) {
+			StringBuilder issueBuilder = createIssueMessage(issue);
 ```
 
 ### BoundedWildcard
@@ -1397,6 +1397,18 @@ in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/jvmmodel/XtendJvmModelInfe
 	protected void copyTypeParameters(List<JvmTypeParameter> typeParameters, JvmTypeParameterDeclarator target) {
 		for (JvmTypeParameter typeParameter : typeParameters) {
 			if (!Strings.isEmpty(typeParameter.getName())) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends XAnnotation`
+in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/jvmmodel/XtendJvmModelInferrer.java`
+#### Snippet
+```java
+	}
+
+	protected void translateAnnotationsTo(List<XAnnotation> annotations, JvmAnnotationTarget target) {
+		jvmTypesBuilder.addAnnotations(target, Iterables.filter(annotations, annotationTranslationFilter));
+	}
 ```
 
 ### BoundedWildcard
@@ -1413,14 +1425,14 @@ in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/jvmmodel/XtendJvmModelInfe
 
 ### BoundedWildcard
 Can generalize to `? extends XAnnotation`
-in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/jvmmodel/XtendJvmModelInferrer.java`
+in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/typesystem/XtendReentrantTypeResolver.java`
 #### Snippet
 ```java
 	}
 
-	protected void translateAnnotationsTo(List<XAnnotation> annotations, JvmAnnotationTarget target) {
-		jvmTypesBuilder.addAnnotations(target, Iterables.filter(annotations, annotationTranslationFilter));
-	}
+	protected void computeXtendAnnotationTypes(ResolvedTypes resolvedTypes, IFeatureScopeSession featureScopeSession, List<XAnnotation> annotations) {
+		for (XAnnotation annotation : annotations) {
+			computeDanglingExpressionType(resolvedTypes, featureScopeSession, null, annotation);
 ```
 
 ### BoundedWildcard
@@ -1436,15 +1448,51 @@ in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/typesystem/XtendReentrantT
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends XAnnotation`
-in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/typesystem/XtendReentrantTypeResolver.java`
+Can generalize to `? extends IResolvedOperation`
+in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/validation/XtendValidator.java`
+#### Snippet
+```java
+	
+	protected void createExceptionMismatchError(IResolvedOperation operation, EObject sourceElement,
+			List<IResolvedOperation> exceptionMismatch) {
+		List<LightweightTypeReference> exceptions = operation.getIllegallyDeclaredExceptions();
+		StringBuilder message = new StringBuilder(100);
+```
+
+### BoundedWildcard
+Can generalize to `? super XReturnExpression`
+in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/validation/XtendValidator.java`
 #### Snippet
 ```java
 	}
 
-	protected void computeXtendAnnotationTypes(ResolvedTypes resolvedTypes, IFeatureScopeSession featureScopeSession, List<XAnnotation> annotations) {
-		for (XAnnotation annotation : annotations) {
-			computeDanglingExpressionType(resolvedTypes, featureScopeSession, null, annotation);
+	protected void collectReturnExpressions(EObject expr, List<XReturnExpression> found) {
+		if (expr instanceof XReturnExpression) {
+			found.add((XReturnExpression) expr);
+```
+
+### BoundedWildcard
+Can generalize to `? extends IResolvedOperation`
+in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/validation/XtendValidator.java`
+#### Snippet
+```java
+	}
+	
+	protected void reportMissingImplementations(XtendTypeDeclaration xtendClass, JvmGenericType inferredType, List<IResolvedOperation> operationsMissingImplementation) {
+		StringBuilder errorMsg = new StringBuilder();
+		String name = xtendClass.getName();
+```
+
+### BoundedWildcard
+Can generalize to `? super EObject`
+in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/validation/XtendValidator.java`
+#### Snippet
+```java
+	}
+
+	protected void doCheckFunctionOverrides(IResolvedOperation operation, Set<EObject> flaggedOperations) {
+		EObject sourceElement = findPrimarySourceElement(operation);
+		if (sourceElement != null) {
 ```
 
 ### BoundedWildcard
@@ -1496,6 +1544,78 @@ in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/validation/XtendValidator.
 ```
 
 ### BoundedWildcard
+Can generalize to `? super JvmGenericType`
+in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/validation/XtendValidator.java`
+#### Snippet
+```java
+	}
+
+	protected boolean hasCycleInHierarchy(JvmGenericType type, Set<JvmGenericType> processedSuperTypes) {
+		JvmDeclaredType container = type;
+		do {
+```
+
+### BoundedWildcard
+Can generalize to `? super JvmDeclaredType`
+in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/validation/XtendValidator.java`
+#### Snippet
+```java
+	
+	private boolean contributesToConflict(JvmDeclaredType type, Set<JvmDeclaredType> involvedInterfaces,
+			RecursionGuard<JvmDeclaredType> guard) {
+		if (!guard.tryNext(type)) {
+			return false;
+```
+
+### BoundedWildcard
+Can generalize to `? extends JvmTypeReference`
+in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/validation/XtendValidator.java`
+#### Snippet
+```java
+	}
+
+	protected String getReadableSignature(String elementName, List<JvmTypeReference> parameterTypes) {
+		StringBuilder result = new StringBuilder(elementName);
+		result.append('(');
+```
+
+### BoundedWildcard
+Can generalize to `? extends IResolvedOperation`
+in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/validation/XtendValidator.java`
+#### Snippet
+```java
+
+	protected void doCheckFunctionOverrides(EObject sourceElement, IResolvedOperation resolved,
+			List<IResolvedOperation> allInherited) {
+		boolean overrideProblems = false;
+		List<IResolvedOperation> exceptionMismatch = null;
+```
+
+### BoundedWildcard
+Can generalize to `? extends JvmFormalParameter`
+in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/validation/XtendValidator.java`
+#### Snippet
+```java
+	}
+
+	protected String doGetReadableSignature(String simpleName, List<JvmFormalParameter> parameters) {
+		return getReadableSignature(simpleName,
+				Lists.transform(parameters, new Function<JvmFormalParameter, JvmTypeReference>() {
+```
+
+### BoundedWildcard
+Can generalize to `? extends JvmOperation`
+in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/validation/XtendValidator.java`
+#### Snippet
+```java
+	}
+
+	protected void addDispatchError(JvmGenericType type, Iterable<JvmOperation> operations, String message, String modifier, String ISSUE_ID) {
+		for (JvmOperation jvmOperation : operations)
+			if (jvmOperation.getDeclaringType() == type)
+```
+
+### BoundedWildcard
 Can generalize to `? extends JvmOperation`
 in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/validation/XtendValidator.java`
 #### Snippet
@@ -1520,114 +1640,6 @@ in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/validation/XtendValidator.
 ```
 
 ### BoundedWildcard
-Can generalize to `? super JvmDeclaredType`
-in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/validation/XtendValidator.java`
-#### Snippet
-```java
-	
-	private boolean contributesToConflict(JvmDeclaredType type, Set<JvmDeclaredType> involvedInterfaces,
-			RecursionGuard<JvmDeclaredType> guard) {
-		if (!guard.tryNext(type)) {
-			return false;
-```
-
-### BoundedWildcard
-Can generalize to `? super XReturnExpression`
-in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/validation/XtendValidator.java`
-#### Snippet
-```java
-	}
-
-	protected void collectReturnExpressions(EObject expr, List<XReturnExpression> found) {
-		if (expr instanceof XReturnExpression) {
-			found.add((XReturnExpression) expr);
-```
-
-### BoundedWildcard
-Can generalize to `? extends JvmFormalParameter`
-in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/validation/XtendValidator.java`
-#### Snippet
-```java
-	}
-
-	protected String doGetReadableSignature(String simpleName, List<JvmFormalParameter> parameters) {
-		return getReadableSignature(simpleName,
-				Lists.transform(parameters, new Function<JvmFormalParameter, JvmTypeReference>() {
-```
-
-### BoundedWildcard
-Can generalize to `? extends JvmTypeReference`
-in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/validation/XtendValidator.java`
-#### Snippet
-```java
-	}
-
-	protected String getReadableSignature(String elementName, List<JvmTypeReference> parameterTypes) {
-		StringBuilder result = new StringBuilder(elementName);
-		result.append('(');
-```
-
-### BoundedWildcard
-Can generalize to `? super EObject`
-in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/validation/XtendValidator.java`
-#### Snippet
-```java
-	}
-
-	protected void doCheckFunctionOverrides(IResolvedOperation operation, Set<EObject> flaggedOperations) {
-		EObject sourceElement = findPrimarySourceElement(operation);
-		if (sourceElement != null) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends IResolvedOperation`
-in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/validation/XtendValidator.java`
-#### Snippet
-```java
-	}
-	
-	protected void reportMissingImplementations(XtendTypeDeclaration xtendClass, JvmGenericType inferredType, List<IResolvedOperation> operationsMissingImplementation) {
-		StringBuilder errorMsg = new StringBuilder();
-		String name = xtendClass.getName();
-```
-
-### BoundedWildcard
-Can generalize to `? extends IResolvedOperation`
-in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/validation/XtendValidator.java`
-#### Snippet
-```java
-
-	protected void doCheckFunctionOverrides(EObject sourceElement, IResolvedOperation resolved,
-			List<IResolvedOperation> allInherited) {
-		boolean overrideProblems = false;
-		List<IResolvedOperation> exceptionMismatch = null;
-```
-
-### BoundedWildcard
-Can generalize to `? extends JvmOperation`
-in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/validation/XtendValidator.java`
-#### Snippet
-```java
-	}
-
-	protected void addDispatchError(JvmGenericType type, Iterable<JvmOperation> operations, String message, String modifier, String ISSUE_ID) {
-		for (JvmOperation jvmOperation : operations)
-			if (jvmOperation.getDeclaringType() == type)
-```
-
-### BoundedWildcard
-Can generalize to `? extends IResolvedOperation`
-in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/validation/XtendValidator.java`
-#### Snippet
-```java
-	
-	protected void createExceptionMismatchError(IResolvedOperation operation, EObject sourceElement,
-			List<IResolvedOperation> exceptionMismatch) {
-		List<LightweightTypeReference> exceptions = operation.getIllegallyDeclaredExceptions();
-		StringBuilder message = new StringBuilder(100);
-```
-
-### BoundedWildcard
 Can generalize to `? extends JvmTypeReference`
 in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/validation/XtendValidator.java`
 #### Snippet
@@ -1637,18 +1649,6 @@ in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/validation/XtendValidator.
 	private void checkExceptions(EObject context, List<JvmTypeReference> exceptions, EReference reference) {
 		Set<String> declaredExceptionNames = Sets.newHashSet();
 		JvmTypeReference throwableType = getServices().getTypeReferences().getTypeForName(Throwable.class, context);
-```
-
-### BoundedWildcard
-Can generalize to `? super JvmGenericType`
-in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/validation/XtendValidator.java`
-#### Snippet
-```java
-	}
-
-	protected boolean hasCycleInHierarchy(JvmGenericType type, Set<JvmGenericType> processedSuperTypes) {
-		JvmDeclaredType container = type;
-		do {
 ```
 
 ### BoundedWildcard
@@ -2239,51 +2239,27 @@ public class XtendSyntacticSequencer extends AbstractXtendSyntacticSequencer {
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/richstring/RichStringProcessor.java`
+Field initialization to `false` is redundant
+in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/compiler/batch/XtendBatchCompiler.java`
 #### Snippet
 ```java
-		private ProcessedRichStringFactory factory = ProcessedRichStringFactory.eINSTANCE;
-		
-		private ProcessedRichString result = null;
-
-		private Line currentLine = null; 
+	protected String outputPath;
+	protected String fileEncoding;
+	protected boolean verbose = false;
+	protected String tempDirectory = System.getProperty("java.io.tmpdir");
+	protected boolean deleteTempDirectory = true;
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/richstring/RichStringProcessor.java`
+Field initialization to `false` is redundant
+in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/compiler/batch/XtendBatchCompiler.java`
 #### Snippet
 ```java
-		private RichStringLiteral announced;
-		
-		private int skipCount = 0;
-
-		public Implementation(IRichStringPartAcceptor acceptor, IRichStringIndentationHandler indentationHandler) {
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/richstring/RichStringProcessor.java`
-#### Snippet
-```java
-		private ProcessedRichString result = null;
-
-		private Line currentLine = null; 
-		
-		public ProcessedRichString processRichString(RichString richString) {
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/validation/ValidatingRichStringAcceptor.java`
-#### Snippet
-```java
-	private int currentOffset = -1;
-	private int wasCurrentOffset = -1;
-	private RichStringLiteral recent = null;
-	private RichStringLiteral root = null;
-	private LinkedList<String> indentationStack;
+	 * @since 2.8
+	 */
+	protected boolean writeStorageFiles = false;
+	private GeneratorConfig generatorConfig = new GeneratorConfig();
+	protected ClassLoader currentClassLoader = getClass().getClassLoader();
 ```
 
 ### RedundantFieldInitialization
@@ -2303,6 +2279,18 @@ Field initialization to `null` is redundant
 in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/validation/ValidatingRichStringAcceptor.java`
 #### Snippet
 ```java
+	private int currentOffset = -1;
+	private int wasCurrentOffset = -1;
+	private RichStringLiteral recent = null;
+	private RichStringLiteral root = null;
+	private LinkedList<String> indentationStack;
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/validation/ValidatingRichStringAcceptor.java`
+#### Snippet
+```java
 	private int wasCurrentOffset = -1;
 	private RichStringLiteral recent = null;
 	private RichStringLiteral root = null;
@@ -2311,27 +2299,123 @@ in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/validation/ValidatingRichS
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/compiler/batch/XtendBatchCompiler.java`
+Field initialization to `null` is redundant
+in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/richstring/RichStringProcessor.java`
 #### Snippet
 ```java
-	 * @since 2.8
-	 */
-	protected boolean writeStorageFiles = false;
-	private GeneratorConfig generatorConfig = new GeneratorConfig();
-	protected ClassLoader currentClassLoader = getClass().getClassLoader();
+		private ProcessedRichString result = null;
+
+		private Line currentLine = null; 
+		
+		public ProcessedRichString processRichString(RichString richString) {
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/compiler/batch/XtendBatchCompiler.java`
+Field initialization to `0` is redundant
+in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/richstring/RichStringProcessor.java`
 #### Snippet
 ```java
-	protected String outputPath;
-	protected String fileEncoding;
-	protected boolean verbose = false;
-	protected String tempDirectory = System.getProperty("java.io.tmpdir");
-	protected boolean deleteTempDirectory = true;
+		private RichStringLiteral announced;
+		
+		private int skipCount = 0;
+
+		public Implementation(IRichStringPartAcceptor acceptor, IRichStringIndentationHandler indentationHandler) {
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/richstring/RichStringProcessor.java`
+#### Snippet
+```java
+		private ProcessedRichStringFactory factory = ProcessedRichStringFactory.eINSTANCE;
+		
+		private ProcessedRichString result = null;
+
+		private Line currentLine = null; 
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/impl/ProcessedRichStringPackageImpl.java`
+#### Snippet
+```java
+	 * @generated
+	 */
+	private EClass forLoopStartEClass = null;
+
+	/**
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/impl/ProcessedRichStringPackageImpl.java`
+#### Snippet
+```java
+	 * @generated
+	 */
+	private EClass lineBreakEClass = null;
+
+	/**
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/impl/ProcessedRichStringPackageImpl.java`
+#### Snippet
+```java
+	 * @generated
+	 */
+	private EClass linePartEClass = null;
+
+	/**
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/impl/ProcessedRichStringPackageImpl.java`
+#### Snippet
+```java
+	 * @generated
+	 */
+	private EClass elseIfConditionEClass = null;
+
+	/**
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/impl/ProcessedRichStringPackageImpl.java`
+#### Snippet
+```java
+	 * @generated
+	 */
+	private EClass literalEClass = null;
+
+	/**
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/impl/ProcessedRichStringPackageImpl.java`
+#### Snippet
+```java
+	 * @generated
+	 */
+	private EClass processedRichStringEClass = null;
+
+	/**
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/impl/ProcessedRichStringPackageImpl.java`
+#### Snippet
+```java
+	 * @generated
+	 */
+	private EClass lineEClass = null;
+
+	/**
 ```
 
 ### RedundantFieldInitialization
@@ -2353,19 +2437,7 @@ in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/impl/Proces
 ```java
 	 * @generated
 	 */
-	private EClass forLoopEndEClass = null;
-
-	/**
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/impl/ProcessedRichStringPackageImpl.java`
-#### Snippet
-```java
-	 * @generated
-	 */
-	private EClass linePartEClass = null;
+	private EClass endIfEClass = null;
 
 	/**
 ```
@@ -2377,7 +2449,7 @@ in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/impl/Proces
 ```java
 	 * @generated
 	 */
-	private boolean isInitialized = false;
+	private boolean isCreated = false;
 
 	/**
 ```
@@ -2413,43 +2485,19 @@ in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/impl/Proces
 ```java
 	 * @generated
 	 */
-	private EClass lineBreakEClass = null;
+	private EClass forLoopEndEClass = null;
 
 	/**
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `null` is redundant
+Field initialization to `false` is redundant
 in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/impl/ProcessedRichStringPackageImpl.java`
 #### Snippet
 ```java
 	 * @generated
 	 */
-	private EClass endIfEClass = null;
-
-	/**
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/impl/ProcessedRichStringPackageImpl.java`
-#### Snippet
-```java
-	 * @generated
-	 */
-	private EClass lineEClass = null;
-
-	/**
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/impl/ProcessedRichStringPackageImpl.java`
-#### Snippet
-```java
-	 * @generated
-	 */
-	private EClass forLoopStartEClass = null;
+	private boolean isInitialized = false;
 
 	/**
 ```
@@ -2462,54 +2510,6 @@ in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/impl/Proces
 	 * @generated
 	 */
 	private static boolean isInited = false;
-
-	/**
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/impl/ProcessedRichStringPackageImpl.java`
-#### Snippet
-```java
-	 * @generated
-	 */
-	private boolean isCreated = false;
-
-	/**
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/impl/ProcessedRichStringPackageImpl.java`
-#### Snippet
-```java
-	 * @generated
-	 */
-	private EClass elseIfConditionEClass = null;
-
-	/**
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/impl/ProcessedRichStringPackageImpl.java`
-#### Snippet
-```java
-	 * @generated
-	 */
-	private EClass processedRichStringEClass = null;
-
-	/**
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/impl/ProcessedRichStringPackageImpl.java`
-#### Snippet
-```java
-	 * @generated
-	 */
-	private EClass literalEClass = null;
 
 	/**
 ```
@@ -2533,78 +2533,6 @@ in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/impl/XtendPackag
 ```java
 	 * @generated
 	 */
-	private EClass xtendAnnotationTargetEClass = null;
-
-	/**
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/impl/XtendPackageImpl.java`
-#### Snippet
-```java
-	 * @generated
-	 */
-	private EClass xtendFieldEClass = null;
-
-	/**
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/impl/XtendPackageImpl.java`
-#### Snippet
-```java
-	 * @generated
-	 */
-	private EClass richStringIfEClass = null;
-
-	/**
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/impl/XtendPackageImpl.java`
-#### Snippet
-```java
-	 * @generated
-	 */
-	private EClass xtendFileEClass = null;
-
-	/**
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/impl/XtendPackageImpl.java`
-#### Snippet
-```java
-	 * @generated
-	 */
-	private EClass richStringElseIfEClass = null;
-
-	/**
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/impl/XtendPackageImpl.java`
-#### Snippet
-```java
-	 * @generated
-	 */
-	private EClass xtendEnumLiteralEClass = null;
-
-	/**
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/impl/XtendPackageImpl.java`
-#### Snippet
-```java
-	 * @generated
-	 */
 	private EClass xtendTypeDeclarationEClass = null;
 
 	/**
@@ -2617,7 +2545,7 @@ in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/impl/XtendPackag
 ```java
 	 * @generated
 	 */
-	private boolean isCreated = false;
+	private static boolean isInited = false;
 
 	/**
 ```
@@ -2629,7 +2557,19 @@ in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/impl/XtendPackag
 ```java
 	 * @generated
 	 */
-	private EClass anonymousClassEClass = null;
+	private EClass xtendAnnotationTypeEClass = null;
+
+	/**
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/impl/XtendPackageImpl.java`
+#### Snippet
+```java
+	 * @generated
+	 */
+	private EClass richStringElseIfEClass = null;
 
 	/**
 ```
@@ -2665,6 +2605,30 @@ in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/impl/XtendPackag
 ```java
 	 * @generated
 	 */
+	private EClass xtendVariableDeclarationEClass = null;
+
+	/**
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/impl/XtendPackageImpl.java`
+#### Snippet
+```java
+	 * @generated
+	 */
+	private EClass xtendInterfaceEClass = null;
+
+	/**
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/impl/XtendPackageImpl.java`
+#### Snippet
+```java
+	 * @generated
+	 */
 	private EClass xtendFunctionEClass = null;
 
 	/**
@@ -2677,7 +2641,31 @@ in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/impl/XtendPackag
 ```java
 	 * @generated
 	 */
-	private EClass xtendMemberEClass = null;
+	private EClass xtendEnumLiteralEClass = null;
+
+	/**
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/impl/XtendPackageImpl.java`
+#### Snippet
+```java
+	 * @generated
+	 */
+	private EClass xtendClassEClass = null;
+
+	/**
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/impl/XtendPackageImpl.java`
+#### Snippet
+```java
+	 * @generated
+	 */
+	private EClass xtendConstructorEClass = null;
 
 	/**
 ```
@@ -2713,43 +2701,7 @@ in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/impl/XtendPackag
 ```java
 	 * @generated
 	 */
-	private EClass xtendVariableDeclarationEClass = null;
-
-	/**
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/impl/XtendPackageImpl.java`
-#### Snippet
-```java
-	 * @generated
-	 */
-	private EClass xtendFormalParameterEClass = null;
-
-	/**
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/impl/XtendPackageImpl.java`
-#### Snippet
-```java
-	 * @generated
-	 */
-	private EClass xtendParameterEClass = null;
-
-	/**
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/impl/XtendPackageImpl.java`
-#### Snippet
-```java
-	 * @generated
-	 */
-	private EClass xtendAnnotationTypeEClass = null;
+	private EClass richStringIfEClass = null;
 
 	/**
 ```
@@ -2779,13 +2731,13 @@ in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/impl/XtendPackag
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `null` is redundant
+Field initialization to `false` is redundant
 in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/impl/XtendPackageImpl.java`
 #### Snippet
 ```java
 	 * @generated
 	 */
-	private EClass xtendConstructorEClass = null;
+	private boolean isCreated = false;
 
 	/**
 ```
@@ -2797,7 +2749,43 @@ in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/impl/XtendPackag
 ```java
 	 * @generated
 	 */
-	private EClass xtendClassEClass = null;
+	private EClass xtendParameterEClass = null;
+
+	/**
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/impl/XtendPackageImpl.java`
+#### Snippet
+```java
+	 * @generated
+	 */
+	private EClass xtendAnnotationTargetEClass = null;
+
+	/**
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/impl/XtendPackageImpl.java`
+#### Snippet
+```java
+	 * @generated
+	 */
+	private EClass xtendFormalParameterEClass = null;
+
+	/**
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/impl/XtendPackageImpl.java`
+#### Snippet
+```java
+	 * @generated
+	 */
+	private EClass anonymousClassEClass = null;
 
 	/**
 ```
@@ -2815,13 +2803,13 @@ in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/impl/XtendPackag
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `false` is redundant
+Field initialization to `null` is redundant
 in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/impl/XtendPackageImpl.java`
 #### Snippet
 ```java
 	 * @generated
 	 */
-	private static boolean isInited = false;
+	private EClass xtendFieldEClass = null;
 
 	/**
 ```
@@ -2833,7 +2821,19 @@ in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/impl/XtendPackag
 ```java
 	 * @generated
 	 */
-	private EClass xtendInterfaceEClass = null;
+	private EClass xtendMemberEClass = null;
+
+	/**
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/impl/XtendPackageImpl.java`
+#### Snippet
+```java
+	 * @generated
+	 */
+	private EClass xtendFileEClass = null;
 
 	/**
 ```
@@ -2891,27 +2891,27 @@ in `org.eclipse.xtend.core/generator/org/eclipse/xtend/core/parser/JFlexLoader.j
 
 ## RuleId[ruleID=UnstableTypeUsedInSignature]
 ### UnstableTypeUsedInSignature
-Method must be marked with '@com.google.common.annotations.Beta' annotation because its signature references unstable type 'org.eclipse.xtend.lib.macro.TransformationContext'
-in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/compiler/batch/XtendCompilerTester.java`
+Method must be marked with '@com.google.common.annotations.Beta' annotation because its signature references unstable type 'org.eclipse.xtext.generator.IShouldGenerate'
+in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/XtendRuntimeModule.java`
 #### Snippet
 ```java
-		CompilationUnit getCompilationUnit();
-		
-		TransformationContext getTransformationContext();
-		
-		/**
+	}
+
+	public Class<? extends IShouldGenerate> bindIShouldGenerate() {
+		return IShouldGenerate.Always.class;
+	}
 ```
 
 ### UnstableTypeUsedInSignature
-Method must be marked with '@com.google.common.annotations.Beta' annotation because its signature references unstable type 'org.eclipse.xtend.lib.macro.services.Problem'
-in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/compiler/batch/XtendCompilerTester.java`
+Method must be marked with '@com.google.common.annotations.Beta' annotation because its signature references unstable type 'org.eclipse.xtend.lib.macro.file.MutableFileSystemSupport'
+in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/XtendRuntimeModule.java`
 #### Snippet
 ```java
-		 * @since 2.8
-		 */
-		List<? extends Problem> getAllProblems();
 	}
-}
+
+	public Class<? extends MutableFileSystemSupport> bindMutableFileSystemSupport() {
+		return JavaIOFileSystemSupport.class;
+	}
 ```
 
 ### UnstableTypeUsedInSignature
@@ -2939,42 +2939,30 @@ in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/compiler/batch/XtendCompil
 ```
 
 ### UnstableTypeUsedInSignature
-Method must be marked with '@com.google.common.annotations.Beta' annotation because its signature references unstable type 'org.eclipse.xtext.generator.IShouldGenerate'
-in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/XtendRuntimeModule.java`
+Method must be marked with '@com.google.common.annotations.Beta' annotation because its signature references unstable type 'org.eclipse.xtend.lib.macro.TransformationContext'
+in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/compiler/batch/XtendCompilerTester.java`
 #### Snippet
 ```java
-	}
-
-	public Class<? extends IShouldGenerate> bindIShouldGenerate() {
-		return IShouldGenerate.Always.class;
-	}
+		CompilationUnit getCompilationUnit();
+		
+		TransformationContext getTransformationContext();
+		
+		/**
 ```
 
 ### UnstableTypeUsedInSignature
-Method must be marked with '@com.google.common.annotations.Beta' annotation because its signature references unstable type 'org.eclipse.xtend.lib.macro.file.MutableFileSystemSupport'
-in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/XtendRuntimeModule.java`
+Method must be marked with '@com.google.common.annotations.Beta' annotation because its signature references unstable type 'org.eclipse.xtend.lib.macro.services.Problem'
+in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/compiler/batch/XtendCompilerTester.java`
 #### Snippet
 ```java
+		 * @since 2.8
+		 */
+		List<? extends Problem> getAllProblems();
 	}
-
-	public Class<? extends MutableFileSystemSupport> bindMutableFileSystemSupport() {
-		return JavaIOFileSystemSupport.class;
-	}
+}
 ```
 
 ## RuleId[ruleID=UnusedAssignment]
-### UnusedAssignment
-Variable `variableName` initializer `null` is redundant
-in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/compiler/XtendCompiler.java`
-#### Snippet
-```java
-			ITreeAppendable debugAppendable = appendable.trace(forLoop, true);
-			internalToJavaStatement(expression, debugAppendable, true);
-			String variableName = null;
-			if (forLoop.getBefore() != null || forLoop.getSeparator() != null || forLoop.getAfter() != null) {
-				variableName = debugAppendable.declareSyntheticVariable(forLoop, "_hasElements");
-```
-
 ### UnusedAssignment
 Variable `members` initializer `null` is redundant
 in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/scoping/XtendImportedNamespaceScopeProvider.java`
@@ -2985,6 +2973,18 @@ in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/scoping/XtendImportedNames
 		EList<JvmMember> members = null;
 		if (type instanceof JvmDeclaredTypeImplCustom) {
 			members = ((JvmDeclaredTypeImplCustom)type).basicGetMembers();
+```
+
+### UnusedAssignment
+Variable `variableName` initializer `null` is redundant
+in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/compiler/XtendCompiler.java`
+#### Snippet
+```java
+			ITreeAppendable debugAppendable = appendable.trace(forLoop, true);
+			internalToJavaStatement(expression, debugAppendable, true);
+			String variableName = null;
+			if (forLoop.getBefore() != null || forLoop.getSeparator() != null || forLoop.getAfter() != null) {
+				variableName = debugAppendable.declareSyntheticVariable(forLoop, "_hasElements");
 ```
 
 ### UnusedAssignment
@@ -3000,18 +3000,6 @@ in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/richstring/InitialTemplate
 ```
 
 ### UnusedAssignment
-Variable `returnType` initializer `null` is redundant
-in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/jvmmodel/XtendJvmModelInferrer.java`
-#### Snippet
-```java
-		CreateExtensionInfo createExtensionInfo = source.getCreateExtensionInfo();
-		
-		JvmTypeReference returnType = null;
-		if (source.getReturnType() != null) {
-			returnType = jvmTypesBuilder.cloneWithProxies(source.getReturnType());
-```
-
-### UnusedAssignment
 Variable `contexts` initializer `null` is redundant
 in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/jvmmodel/XtendJvmModelInferrer.java`
 #### Snippet
@@ -3024,15 +3012,27 @@ in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/jvmmodel/XtendJvmModelInfe
 ```
 
 ### UnusedAssignment
-Variable `inheritedDispatcher` initializer `null` is redundant
+Variable `returnType` initializer `null` is redundant
+in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/jvmmodel/XtendJvmModelInferrer.java`
+#### Snippet
+```java
+		CreateExtensionInfo createExtensionInfo = source.getCreateExtensionInfo();
+		
+		JvmTypeReference returnType = null;
+		if (source.getReturnType() != null) {
+			returnType = jvmTypesBuilder.cloneWithProxies(source.getReturnType());
+```
+
+### UnusedAssignment
+Variable `result` initializer `null` is redundant
 in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/typesystem/XtendReentrantTypeResolver.java`
 #### Snippet
 ```java
-				TypeConformanceComputer conformanceComputer = typeResolver.getServices().getTypeConformanceComputer();
-				List<LightweightTypeReference> parameterTypes = Lists.newArrayListWithCapacity(cases.size());
-				JvmOperation inheritedDispatcher = null;
-				LightweightTypeReference inheritedParameterType = null;
-				for (JvmOperation caseOperation : cases) {
+			LightweightTypeReference thrownVoidOrNull,
+			ResolvedTypes resolvedTypes) {
+		LightweightTypeReference result = null;
+		if (declaredType != null) {
+			result = declaredType;
 ```
 
 ### UnusedAssignment
@@ -3048,15 +3048,15 @@ in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/typesystem/XtendReentrantT
 ```
 
 ### UnusedAssignment
-Variable `result` initializer `null` is redundant
+Variable `inheritedDispatcher` initializer `null` is redundant
 in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/typesystem/XtendReentrantTypeResolver.java`
 #### Snippet
 ```java
-			LightweightTypeReference thrownVoidOrNull,
-			ResolvedTypes resolvedTypes) {
-		LightweightTypeReference result = null;
-		if (declaredType != null) {
-			result = declaredType;
+				TypeConformanceComputer conformanceComputer = typeResolver.getServices().getTypeConformanceComputer();
+				List<LightweightTypeReference> parameterTypes = Lists.newArrayListWithCapacity(cases.size());
+				JvmOperation inheritedDispatcher = null;
+				LightweightTypeReference inheritedParameterType = null;
+				for (JvmOperation caseOperation : cases) {
 ```
 
 ## RuleId[ruleID=IndexOfReplaceableByContains]
@@ -3073,6 +3073,18 @@ in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/conversion/AbstractRichTex
 ```
 
 ## RuleId[ruleID=ConstantValue]
+### ConstantValue
+Condition `importedNames == null` is always `false` when reached
+in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/scoping/XtendImportedNamespaceScopeProvider.java`
+#### Snippet
+```java
+					JvmDeclaredType importedType = importDeclaration.getImportedType();
+					if (importedType != null && !importedType.eIsProxy()) {
+						if (concreteImports == null || importedNames == null /* to make JDT happy */) {
+							concreteImports = Lists.newArrayListWithCapacity(10);
+							importedNames = Lists.newArrayListWithCapacity(10);
+```
+
 ### ConstantValue
 Condition `simpleName == null` is always `false`
 in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/jvmmodel/DispatchHelper.java`
@@ -3095,90 +3107,6 @@ in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/jvmmodel/DispatchHelper.ja
 			result = prime * result + ((simpleName == null) ? 0 : simpleName.hashCode());
 			return result;
 		}
-```
-
-### ConstantValue
-Condition `importedNames == null` is always `false` when reached
-in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/scoping/XtendImportedNamespaceScopeProvider.java`
-#### Snippet
-```java
-					JvmDeclaredType importedType = importDeclaration.getImportedType();
-					if (importedType != null && !importedType.eIsProxy()) {
-						if (concreteImports == null || importedNames == null /* to make JDT happy */) {
-							concreteImports = Lists.newArrayListWithCapacity(10);
-							importedNames = Lists.newArrayListWithCapacity(10);
-```
-
-### ConstantValue
-Value `onlyLiterals` is always 'true'
-in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/richstring/RichStringProcessor.java`
-#### Snippet
-```java
-					if (literal instanceof LineBreak) {
-						if (firstOrLast)
-							return onlyLiterals;
-						return !onlyLiterals;
-					}
-```
-
-### ConstantValue
-Value `onlyLiterals` is always 'true'
-in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/richstring/RichStringProcessor.java`
-#### Snippet
-```java
-			}
-			if (firstOrLast)
-				return onlyLiterals;
-			return !onlyLiterals;
-		}
-```
-
-### ConstantValue
-Condition `NAME_EDEFAULT == null` is always `true`
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/impl/XtendEnumLiteralImpl.java`
-#### Snippet
-```java
-		{
-			case XtendPackage.XTEND_ENUM_LITERAL__NAME:
-				return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
-		}
-		return super.eIsSet(featureID);
-```
-
-### ConstantValue
-Value `msgs` is always 'null'
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/impl/RichStringForLoopImpl.java`
-#### Snippet
-```java
-			NotificationChain msgs = null;
-			if (before != null)
-				msgs = ((InternalEObject)before).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - XtendPackage.RICH_STRING_FOR_LOOP__BEFORE, null, msgs);
-			if (newBefore != null)
-				msgs = ((InternalEObject)newBefore).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - XtendPackage.RICH_STRING_FOR_LOOP__BEFORE, null, msgs);
-```
-
-### ConstantValue
-Value `msgs` is always 'null'
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/impl/RichStringForLoopImpl.java`
-#### Snippet
-```java
-			NotificationChain msgs = null;
-			if (separator != null)
-				msgs = ((InternalEObject)separator).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - XtendPackage.RICH_STRING_FOR_LOOP__SEPARATOR, null, msgs);
-			if (newSeparator != null)
-				msgs = ((InternalEObject)newSeparator).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - XtendPackage.RICH_STRING_FOR_LOOP__SEPARATOR, null, msgs);
-```
-
-### ConstantValue
-Value `skipIndexLookup` is always 'true'
-in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/compiler/batch/XtendBatchCompiler.java`
-#### Snippet
-```java
-	protected void installJvmTypeProvider(ResourceSet resourceSet, File tmpClassDirectory, boolean skipIndexLookup) {
-		if (skipIndexLookup) {
-			internalInstallJvmTypeProvider(resourceSet, tmpClassDirectory, skipIndexLookup);
-		} else {
-			// delegate to the deprecated signature in case it was overridden by clients
 ```
 
 ### ConstantValue
@@ -3218,27 +3146,51 @@ in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/compiler/batch/XtendBatchC
 ```
 
 ### ConstantValue
-Value `msgs` is always 'null'
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/impl/RichStringForLoopImpl.java`
+Value `skipIndexLookup` is always 'true'
+in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/compiler/batch/XtendBatchCompiler.java`
 #### Snippet
 ```java
-			NotificationChain msgs = null;
-			if (after != null)
-				msgs = ((InternalEObject)after).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - XtendPackage.RICH_STRING_FOR_LOOP__AFTER, null, msgs);
-			if (newAfter != null)
-				msgs = ((InternalEObject)newAfter).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - XtendPackage.RICH_STRING_FOR_LOOP__AFTER, null, msgs);
+	protected void installJvmTypeProvider(ResourceSet resourceSet, File tmpClassDirectory, boolean skipIndexLookup) {
+		if (skipIndexLookup) {
+			internalInstallJvmTypeProvider(resourceSet, tmpClassDirectory, skipIndexLookup);
+		} else {
+			// delegate to the deprecated signature in case it was overridden by clients
 ```
 
 ### ConstantValue
-Value `msgs` is always 'null'
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/impl/XtendFileImpl.java`
+Value `onlyLiterals` is always 'true'
+in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/richstring/RichStringProcessor.java`
 #### Snippet
 ```java
-			NotificationChain msgs = null;
-			if (importSection != null)
-				msgs = ((InternalEObject)importSection).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - XtendPackage.XTEND_FILE__IMPORT_SECTION, null, msgs);
-			if (newImportSection != null)
-				msgs = ((InternalEObject)newImportSection).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - XtendPackage.XTEND_FILE__IMPORT_SECTION, null, msgs);
+					if (literal instanceof LineBreak) {
+						if (firstOrLast)
+							return onlyLiterals;
+						return !onlyLiterals;
+					}
+```
+
+### ConstantValue
+Value `onlyLiterals` is always 'true'
+in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/richstring/RichStringProcessor.java`
+#### Snippet
+```java
+			}
+			if (firstOrLast)
+				return onlyLiterals;
+			return !onlyLiterals;
+		}
+```
+
+### ConstantValue
+Condition `NAME_EDEFAULT == null` is always `true`
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/impl/XtendEnumLiteralImpl.java`
+#### Snippet
+```java
+		{
+			case XtendPackage.XTEND_ENUM_LITERAL__NAME:
+				return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
+		}
+		return super.eIsSet(featureID);
 ```
 
 ### ConstantValue
@@ -3255,62 +3207,50 @@ in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/impl/XtendFileIm
 
 ### ConstantValue
 Value `msgs` is always 'null'
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/impl/RichStringElseIfImpl.java`
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/impl/XtendFileImpl.java`
 #### Snippet
 ```java
 			NotificationChain msgs = null;
-			if (if_ != null)
-				msgs = ((InternalEObject)if_).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - XtendPackage.RICH_STRING_ELSE_IF__IF, null, msgs);
-			if (newIf != null)
-				msgs = ((InternalEObject)newIf).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - XtendPackage.RICH_STRING_ELSE_IF__IF, null, msgs);
+			if (importSection != null)
+				msgs = ((InternalEObject)importSection).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - XtendPackage.XTEND_FILE__IMPORT_SECTION, null, msgs);
+			if (newImportSection != null)
+				msgs = ((InternalEObject)newImportSection).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - XtendPackage.XTEND_FILE__IMPORT_SECTION, null, msgs);
 ```
 
 ### ConstantValue
 Value `msgs` is always 'null'
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/impl/RichStringElseIfImpl.java`
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/impl/RichStringForLoopImpl.java`
 #### Snippet
 ```java
 			NotificationChain msgs = null;
-			if (then != null)
-				msgs = ((InternalEObject)then).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - XtendPackage.RICH_STRING_ELSE_IF__THEN, null, msgs);
-			if (newThen != null)
-				msgs = ((InternalEObject)newThen).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - XtendPackage.RICH_STRING_ELSE_IF__THEN, null, msgs);
+			if (after != null)
+				msgs = ((InternalEObject)after).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - XtendPackage.RICH_STRING_FOR_LOOP__AFTER, null, msgs);
+			if (newAfter != null)
+				msgs = ((InternalEObject)newAfter).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - XtendPackage.RICH_STRING_FOR_LOOP__AFTER, null, msgs);
 ```
 
 ### ConstantValue
 Value `msgs` is always 'null'
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/impl/XtendMemberImpl.java`
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/impl/RichStringForLoopImpl.java`
 #### Snippet
 ```java
 			NotificationChain msgs = null;
-			if (eInternalContainer() != null)
-				msgs = eBasicRemoveFromContainer(msgs);
-			if (newDeclaringType != null)
-				msgs = ((InternalEObject)newDeclaringType).eInverseAdd(this, XtendPackage.XTEND_TYPE_DECLARATION__MEMBERS, XtendTypeDeclaration.class, msgs);
+			if (before != null)
+				msgs = ((InternalEObject)before).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - XtendPackage.RICH_STRING_FOR_LOOP__BEFORE, null, msgs);
+			if (newBefore != null)
+				msgs = ((InternalEObject)newBefore).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - XtendPackage.RICH_STRING_FOR_LOOP__BEFORE, null, msgs);
 ```
 
 ### ConstantValue
 Value `msgs` is always 'null'
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/impl/XtendMemberImpl.java`
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/impl/RichStringForLoopImpl.java`
 #### Snippet
 ```java
 			NotificationChain msgs = null;
-			if (annotationInfo != null)
-				msgs = ((InternalEObject)annotationInfo).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - XtendPackage.XTEND_MEMBER__ANNOTATION_INFO, null, msgs);
-			if (newAnnotationInfo != null)
-				msgs = ((InternalEObject)newAnnotationInfo).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - XtendPackage.XTEND_MEMBER__ANNOTATION_INFO, null, msgs);
-```
-
-### ConstantValue
-Value `msgs` is always 'null'
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/impl/XtendClassImpl.java`
-#### Snippet
-```java
-			NotificationChain msgs = null;
-			if (extends_ != null)
-				msgs = ((InternalEObject)extends_).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - XtendPackage.XTEND_CLASS__EXTENDS, null, msgs);
-			if (newExtends != null)
-				msgs = ((InternalEObject)newExtends).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - XtendPackage.XTEND_CLASS__EXTENDS, null, msgs);
+			if (separator != null)
+				msgs = ((InternalEObject)separator).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - XtendPackage.RICH_STRING_FOR_LOOP__SEPARATOR, null, msgs);
+			if (newSeparator != null)
+				msgs = ((InternalEObject)newSeparator).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - XtendPackage.RICH_STRING_FOR_LOOP__SEPARATOR, null, msgs);
 ```
 
 ### ConstantValue
@@ -3351,86 +3291,62 @@ in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/impl/CreateExten
 
 ### ConstantValue
 Value `msgs` is always 'null'
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/impl/XtendFieldImpl.java`
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/impl/XtendMemberImpl.java`
 #### Snippet
 ```java
 			NotificationChain msgs = null;
-			if (initialValue != null)
-				msgs = ((InternalEObject)initialValue).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - XtendPackage.XTEND_FIELD__INITIAL_VALUE, null, msgs);
-			if (newInitialValue != null)
-				msgs = ((InternalEObject)newInitialValue).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - XtendPackage.XTEND_FIELD__INITIAL_VALUE, null, msgs);
-```
-
-### ConstantValue
-Condition `NAME_EDEFAULT == null` is always `true`
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/impl/XtendFieldImpl.java`
-#### Snippet
-```java
-		{
-			case XtendPackage.XTEND_FIELD__NAME:
-				return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
-			case XtendPackage.XTEND_FIELD__TYPE:
-				return type != null;
+			if (eInternalContainer() != null)
+				msgs = eBasicRemoveFromContainer(msgs);
+			if (newDeclaringType != null)
+				msgs = ((InternalEObject)newDeclaringType).eInverseAdd(this, XtendPackage.XTEND_TYPE_DECLARATION__MEMBERS, XtendTypeDeclaration.class, msgs);
 ```
 
 ### ConstantValue
 Value `msgs` is always 'null'
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/impl/XtendFieldImpl.java`
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/impl/XtendMemberImpl.java`
 #### Snippet
 ```java
 			NotificationChain msgs = null;
-			if (type != null)
-				msgs = ((InternalEObject)type).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - XtendPackage.XTEND_FIELD__TYPE, null, msgs);
-			if (newType != null)
-				msgs = ((InternalEObject)newType).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - XtendPackage.XTEND_FIELD__TYPE, null, msgs);
-```
-
-### ConstantValue
-Condition `NAME_EDEFAULT == null` is always `true`
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/impl/XtendFunctionImpl.java`
-#### Snippet
-```java
-		{
-			case XtendPackage.XTEND_FUNCTION__NAME:
-				return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
-			case XtendPackage.XTEND_FUNCTION__RETURN_TYPE:
-				return returnType != null;
+			if (annotationInfo != null)
+				msgs = ((InternalEObject)annotationInfo).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - XtendPackage.XTEND_MEMBER__ANNOTATION_INFO, null, msgs);
+			if (newAnnotationInfo != null)
+				msgs = ((InternalEObject)newAnnotationInfo).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - XtendPackage.XTEND_MEMBER__ANNOTATION_INFO, null, msgs);
 ```
 
 ### ConstantValue
 Value `msgs` is always 'null'
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/impl/XtendFunctionImpl.java`
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/impl/XtendClassImpl.java`
 #### Snippet
 ```java
 			NotificationChain msgs = null;
-			if (createExtensionInfo != null)
-				msgs = ((InternalEObject)createExtensionInfo).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - XtendPackage.XTEND_FUNCTION__CREATE_EXTENSION_INFO, null, msgs);
-			if (newCreateExtensionInfo != null)
-				msgs = ((InternalEObject)newCreateExtensionInfo).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - XtendPackage.XTEND_FUNCTION__CREATE_EXTENSION_INFO, null, msgs);
+			if (extends_ != null)
+				msgs = ((InternalEObject)extends_).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - XtendPackage.XTEND_CLASS__EXTENDS, null, msgs);
+			if (newExtends != null)
+				msgs = ((InternalEObject)newExtends).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - XtendPackage.XTEND_CLASS__EXTENDS, null, msgs);
 ```
 
 ### ConstantValue
 Value `msgs` is always 'null'
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/impl/XtendFunctionImpl.java`
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/impl/RichStringElseIfImpl.java`
 #### Snippet
 ```java
 			NotificationChain msgs = null;
-			if (returnType != null)
-				msgs = ((InternalEObject)returnType).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - XtendPackage.XTEND_FUNCTION__RETURN_TYPE, null, msgs);
-			if (newReturnType != null)
-				msgs = ((InternalEObject)newReturnType).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - XtendPackage.XTEND_FUNCTION__RETURN_TYPE, null, msgs);
+			if (if_ != null)
+				msgs = ((InternalEObject)if_).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - XtendPackage.RICH_STRING_ELSE_IF__IF, null, msgs);
+			if (newIf != null)
+				msgs = ((InternalEObject)newIf).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - XtendPackage.RICH_STRING_ELSE_IF__IF, null, msgs);
 ```
 
 ### ConstantValue
 Value `msgs` is always 'null'
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/impl/XtendExecutableImpl.java`
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/impl/RichStringElseIfImpl.java`
 #### Snippet
 ```java
 			NotificationChain msgs = null;
-			if (expression != null)
-				msgs = ((InternalEObject)expression).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - XtendPackage.XTEND_EXECUTABLE__EXPRESSION, null, msgs);
-			if (newExpression != null)
-				msgs = ((InternalEObject)newExpression).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - XtendPackage.XTEND_EXECUTABLE__EXPRESSION, null, msgs);
+			if (then != null)
+				msgs = ((InternalEObject)then).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - XtendPackage.RICH_STRING_ELSE_IF__THEN, null, msgs);
+			if (newThen != null)
+				msgs = ((InternalEObject)newThen).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - XtendPackage.RICH_STRING_ELSE_IF__THEN, null, msgs);
 ```
 
 ### ConstantValue
@@ -3439,10 +3355,10 @@ in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/impl/RichStringI
 #### Snippet
 ```java
 			NotificationChain msgs = null;
-			if (else_ != null)
-				msgs = ((InternalEObject)else_).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - XtendPackage.RICH_STRING_IF__ELSE, null, msgs);
-			if (newElse != null)
-				msgs = ((InternalEObject)newElse).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - XtendPackage.RICH_STRING_IF__ELSE, null, msgs);
+			if (if_ != null)
+				msgs = ((InternalEObject)if_).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - XtendPackage.RICH_STRING_IF__IF, null, msgs);
+			if (newIf != null)
+				msgs = ((InternalEObject)newIf).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - XtendPackage.RICH_STRING_IF__IF, null, msgs);
 ```
 
 ### ConstantValue
@@ -3463,22 +3379,94 @@ in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/impl/RichStringI
 #### Snippet
 ```java
 			NotificationChain msgs = null;
-			if (if_ != null)
-				msgs = ((InternalEObject)if_).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - XtendPackage.RICH_STRING_IF__IF, null, msgs);
-			if (newIf != null)
-				msgs = ((InternalEObject)newIf).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - XtendPackage.RICH_STRING_IF__IF, null, msgs);
+			if (else_ != null)
+				msgs = ((InternalEObject)else_).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - XtendPackage.RICH_STRING_IF__ELSE, null, msgs);
+			if (newElse != null)
+				msgs = ((InternalEObject)newElse).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - XtendPackage.RICH_STRING_IF__ELSE, null, msgs);
 ```
 
 ### ConstantValue
 Value `msgs` is always 'null'
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/impl/XtendParameterImpl.java`
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/impl/XtendExecutableImpl.java`
 #### Snippet
 ```java
 			NotificationChain msgs = null;
-			if (parameterType != null)
-				msgs = ((InternalEObject)parameterType).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - XtendPackage.XTEND_PARAMETER__PARAMETER_TYPE, null, msgs);
-			if (newParameterType != null)
-				msgs = ((InternalEObject)newParameterType).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - XtendPackage.XTEND_PARAMETER__PARAMETER_TYPE, null, msgs);
+			if (expression != null)
+				msgs = ((InternalEObject)expression).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - XtendPackage.XTEND_EXECUTABLE__EXPRESSION, null, msgs);
+			if (newExpression != null)
+				msgs = ((InternalEObject)newExpression).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - XtendPackage.XTEND_EXECUTABLE__EXPRESSION, null, msgs);
+```
+
+### ConstantValue
+Value `msgs` is always 'null'
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/impl/XtendFieldImpl.java`
+#### Snippet
+```java
+			NotificationChain msgs = null;
+			if (type != null)
+				msgs = ((InternalEObject)type).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - XtendPackage.XTEND_FIELD__TYPE, null, msgs);
+			if (newType != null)
+				msgs = ((InternalEObject)newType).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - XtendPackage.XTEND_FIELD__TYPE, null, msgs);
+```
+
+### ConstantValue
+Condition `NAME_EDEFAULT == null` is always `true`
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/impl/XtendFieldImpl.java`
+#### Snippet
+```java
+		{
+			case XtendPackage.XTEND_FIELD__NAME:
+				return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
+			case XtendPackage.XTEND_FIELD__TYPE:
+				return type != null;
+```
+
+### ConstantValue
+Value `msgs` is always 'null'
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/impl/XtendFieldImpl.java`
+#### Snippet
+```java
+			NotificationChain msgs = null;
+			if (initialValue != null)
+				msgs = ((InternalEObject)initialValue).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - XtendPackage.XTEND_FIELD__INITIAL_VALUE, null, msgs);
+			if (newInitialValue != null)
+				msgs = ((InternalEObject)newInitialValue).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - XtendPackage.XTEND_FIELD__INITIAL_VALUE, null, msgs);
+```
+
+### ConstantValue
+Value `msgs` is always 'null'
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/impl/XtendFunctionImpl.java`
+#### Snippet
+```java
+			NotificationChain msgs = null;
+			if (createExtensionInfo != null)
+				msgs = ((InternalEObject)createExtensionInfo).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - XtendPackage.XTEND_FUNCTION__CREATE_EXTENSION_INFO, null, msgs);
+			if (newCreateExtensionInfo != null)
+				msgs = ((InternalEObject)newCreateExtensionInfo).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - XtendPackage.XTEND_FUNCTION__CREATE_EXTENSION_INFO, null, msgs);
+```
+
+### ConstantValue
+Condition `NAME_EDEFAULT == null` is always `true`
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/impl/XtendFunctionImpl.java`
+#### Snippet
+```java
+		{
+			case XtendPackage.XTEND_FUNCTION__NAME:
+				return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
+			case XtendPackage.XTEND_FUNCTION__RETURN_TYPE:
+				return returnType != null;
+```
+
+### ConstantValue
+Value `msgs` is always 'null'
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/impl/XtendFunctionImpl.java`
+#### Snippet
+```java
+			NotificationChain msgs = null;
+			if (returnType != null)
+				msgs = ((InternalEObject)returnType).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - XtendPackage.XTEND_FUNCTION__RETURN_TYPE, null, msgs);
+			if (newReturnType != null)
+				msgs = ((InternalEObject)newReturnType).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - XtendPackage.XTEND_FUNCTION__RETURN_TYPE, null, msgs);
 ```
 
 ### ConstantValue
@@ -3495,38 +3483,26 @@ in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/impl/XtendParame
 
 ### ConstantValue
 Value `msgs` is always 'null'
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/impl/LinePartImpl.java`
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/impl/XtendParameterImpl.java`
 #### Snippet
 ```java
 			NotificationChain msgs = null;
-			if (eInternalContainer() != null)
-				msgs = eBasicRemoveFromContainer(msgs);
-			if (newLine != null)
-				msgs = ((InternalEObject)newLine).eInverseAdd(this, ProcessedRichStringPackage.LINE__PARTS, Line.class, msgs);
+			if (parameterType != null)
+				msgs = ((InternalEObject)parameterType).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - XtendPackage.XTEND_PARAMETER__PARAMETER_TYPE, null, msgs);
+			if (newParameterType != null)
+				msgs = ((InternalEObject)newParameterType).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - XtendPackage.XTEND_PARAMETER__PARAMETER_TYPE, null, msgs);
 ```
 
 ### ConstantValue
-Value `msgs` is always 'null'
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/impl/ForLoopEndImpl.java`
+Condition `NAME_EDEFAULT == null` is always `true`
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/impl/AnonymousClassImpl.java`
 #### Snippet
 ```java
-			NotificationChain msgs = null;
-			if (start != null)
-				msgs = ((InternalEObject)start).eInverseRemove(this, ProcessedRichStringPackage.FOR_LOOP_START__END, ForLoopStart.class, msgs);
-			if (newStart != null)
-				msgs = ((InternalEObject)newStart).eInverseAdd(this, ProcessedRichStringPackage.FOR_LOOP_START__END, ForLoopStart.class, msgs);
-```
-
-### ConstantValue
-Value `msgs` is always 'null'
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/impl/ElseStartImpl.java`
-#### Snippet
-```java
-			NotificationChain msgs = null;
-			if (ifConditionStart != null)
-				msgs = ((InternalEObject)ifConditionStart).eInverseRemove(this, ProcessedRichStringPackage.IF_CONDITION_START__ELSE_START, IfConditionStart.class, msgs);
-			if (newIfConditionStart != null)
-				msgs = ((InternalEObject)newIfConditionStart).eInverseAdd(this, ProcessedRichStringPackage.IF_CONDITION_START__ELSE_START, IfConditionStart.class, msgs);
+				return getDeclaringType() != null;
+			case XtendPackage.ANONYMOUS_CLASS__NAME:
+				return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
+			case XtendPackage.ANONYMOUS_CLASS__MEMBERS:
+				return members != null && !members.isEmpty();
 ```
 
 ### ConstantValue
@@ -3554,18 +3530,6 @@ in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/impl/AnonymousCl
 ```
 
 ### ConstantValue
-Condition `NAME_EDEFAULT == null` is always `true`
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/impl/AnonymousClassImpl.java`
-#### Snippet
-```java
-				return getDeclaringType() != null;
-			case XtendPackage.ANONYMOUS_CLASS__NAME:
-				return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
-			case XtendPackage.ANONYMOUS_CLASS__MEMBERS:
-				return members != null && !members.isEmpty();
-```
-
-### ConstantValue
 Value `msgs` is always 'null'
 in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/impl/AnonymousClassImpl.java`
 #### Snippet
@@ -3579,14 +3543,38 @@ in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/impl/AnonymousCl
 
 ### ConstantValue
 Value `msgs` is always 'null'
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/impl/LineImpl.java`
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/impl/LinePartImpl.java`
 #### Snippet
 ```java
 			NotificationChain msgs = null;
 			if (eInternalContainer() != null)
 				msgs = eBasicRemoveFromContainer(msgs);
-			if (newRichString != null)
-				msgs = ((InternalEObject)newRichString).eInverseAdd(this, ProcessedRichStringPackage.PROCESSED_RICH_STRING__LINES, ProcessedRichString.class, msgs);
+			if (newLine != null)
+				msgs = ((InternalEObject)newLine).eInverseAdd(this, ProcessedRichStringPackage.LINE__PARTS, Line.class, msgs);
+```
+
+### ConstantValue
+Value `msgs` is always 'null'
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/impl/ElseStartImpl.java`
+#### Snippet
+```java
+			NotificationChain msgs = null;
+			if (ifConditionStart != null)
+				msgs = ((InternalEObject)ifConditionStart).eInverseRemove(this, ProcessedRichStringPackage.IF_CONDITION_START__ELSE_START, IfConditionStart.class, msgs);
+			if (newIfConditionStart != null)
+				msgs = ((InternalEObject)newIfConditionStart).eInverseAdd(this, ProcessedRichStringPackage.IF_CONDITION_START__ELSE_START, IfConditionStart.class, msgs);
+```
+
+### ConstantValue
+Value `msgs` is always 'null'
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/impl/ForLoopEndImpl.java`
+#### Snippet
+```java
+			NotificationChain msgs = null;
+			if (start != null)
+				msgs = ((InternalEObject)start).eInverseRemove(this, ProcessedRichStringPackage.FOR_LOOP_START__END, ForLoopStart.class, msgs);
+			if (newStart != null)
+				msgs = ((InternalEObject)newStart).eInverseAdd(this, ProcessedRichStringPackage.FOR_LOOP_START__END, ForLoopStart.class, msgs);
 ```
 
 ### ConstantValue
@@ -3611,6 +3599,18 @@ in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/impl/ElseIf
 				msgs = ((InternalEObject)ifConditionStart).eInverseRemove(this, ProcessedRichStringPackage.IF_CONDITION_START__ELSE_IF_CONDITIONS, IfConditionStart.class, msgs);
 			if (newIfConditionStart != null)
 				msgs = ((InternalEObject)newIfConditionStart).eInverseAdd(this, ProcessedRichStringPackage.IF_CONDITION_START__ELSE_IF_CONDITIONS, IfConditionStart.class, msgs);
+```
+
+### ConstantValue
+Value `msgs` is always 'null'
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/impl/LineImpl.java`
+#### Snippet
+```java
+			NotificationChain msgs = null;
+			if (eInternalContainer() != null)
+				msgs = eBasicRemoveFromContainer(msgs);
+			if (newRichString != null)
+				msgs = ((InternalEObject)newRichString).eInverseAdd(this, ProcessedRichStringPackage.PROCESSED_RICH_STRING__LINES, ProcessedRichString.class, msgs);
 ```
 
 ### ConstantValue
@@ -3793,9 +3793,9 @@ in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/compiler/XtendCompiler.jav
 ```java
 	}
 	
-	protected void _toJavaExpression(AnonymousClass anonymousClass, ITreeAppendable b) {
-		String varName = getReferenceName(anonymousClass, b);
-		if (varName != null) {
+	public void _toJavaExpression(RichString richString, ITreeAppendable b) {
+		b.append(getVarName(richString, b));
+		if(getLightweightType(richString).isType(String.class))
 ```
 
 ### MethodOverloadsParentMethod
@@ -3805,21 +3805,9 @@ in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/compiler/XtendCompiler.jav
 ```java
 	}
 	
-	public void _toJavaExpression(RichString richString, ITreeAppendable b) {
-		b.append(getVarName(richString, b));
-		if(getLightweightType(richString).isType(String.class))
-```
-
-### MethodOverloadsParentMethod
-Method `_toJavaStatement()` overloads a compatible method of a superclass, when overriding might have been intended
-in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/compiler/XtendCompiler.java`
-#### Snippet
-```java
-	}
-	
-	public void _toJavaStatement(RichString richString, ITreeAppendable b, boolean isReferenced) {
-		LightweightTypeReference actualType = getLightweightType(richString);
-		b = b.trace(richString);
+	protected void _toJavaExpression(AnonymousClass anonymousClass, ITreeAppendable b) {
+		String varName = getReferenceName(anonymousClass, b);
+		if (varName != null) {
 ```
 
 ### MethodOverloadsParentMethod
@@ -3835,15 +3823,15 @@ in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/compiler/XtendCompiler.jav
 ```
 
 ### MethodOverloadsParentMethod
-Method `_computeTypes()` overloads a compatible method of a superclass, when overriding might have been intended
-in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/typesystem/XtendTypeComputer.java`
+Method `_toJavaStatement()` overloads a compatible method of a superclass, when overriding might have been intended
+in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/compiler/XtendCompiler.java`
 #### Snippet
 ```java
 	}
 	
-	protected void _computeTypes(RichStringForLoop object, ITypeComputationState state) {
-		LightweightTypeReference charSequence = getRawTypeForName(CharSequence.class, state);
-		ITypeComputationState eachState = state.withExpectation(charSequence);
+	public void _toJavaStatement(RichString richString, ITreeAppendable b, boolean isReferenced) {
+		LightweightTypeReference actualType = getLightweightType(richString);
+		b = b.trace(richString);
 ```
 
 ### MethodOverloadsParentMethod
@@ -3868,6 +3856,18 @@ in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/typesystem/XtendTypeComput
 	protected void _computeTypes(RichString object, ITypeComputationState state) {
 		List<XExpression> expressions = object.getExpressions();
 		if (!expressions.isEmpty()) {
+```
+
+### MethodOverloadsParentMethod
+Method `_computeTypes()` overloads a compatible method of a superclass, when overriding might have been intended
+in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/typesystem/XtendTypeComputer.java`
+#### Snippet
+```java
+	}
+	
+	protected void _computeTypes(RichStringForLoop object, ITypeComputationState state) {
+		LightweightTypeReference charSequence = getRawTypeForName(CharSequence.class, state);
+		ITypeComputationState eachState = state.withExpectation(charSequence);
 ```
 
 ### MethodOverloadsParentMethod
@@ -3908,18 +3908,6 @@ in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/compiler/batch/XtendBatchC
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'getComplianceLevel' is still used
-in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/compiler/batch/XtendBatchCompiler.java`
-#### Snippet
-```java
-	
-	@Deprecated // use getJavaSourceVersion()
-	protected String getComplianceLevel() {
-		return getJavaSourceVersion();
-	}
-```
-
-### DeprecatedIsStillUsed
 Deprecated member 'bootClassPath' is still used
 in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/compiler/batch/XtendBatchCompiler.java`
 #### Snippet
@@ -3929,6 +3917,18 @@ in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/compiler/batch/XtendBatchC
 	protected String bootClassPath;
 	protected boolean useCurrentClassLoaderAsParent;
 	protected String outputPath;
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'getComplianceLevel' is still used
+in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/compiler/batch/XtendBatchCompiler.java`
+#### Snippet
+```java
+	
+	@Deprecated // use getJavaSourceVersion()
+	protected String getComplianceLevel() {
+		return getJavaSourceVersion();
+	}
 ```
 
 ## RuleId[ruleID=Convert2MethodRef]
@@ -4022,11 +4022,11 @@ in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/impl/XtendMember
 
 ### UnnecessaryToStringCall
 Unnecessary `toString()` call
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/impl/LinePartImpl.java`
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/impl/AnonymousClassImpl.java`
 #### Snippet
 ```java
 		{
-			if (EcoreUtil.isAncestor(this, newLine))
+			if (EcoreUtil.isAncestor(this, newDeclaringType))
 				throw new IllegalArgumentException("Recursive containment not allowed for " + toString());
 			NotificationChain msgs = null;
 			if (eInternalContainer() != null)
@@ -4034,11 +4034,11 @@ in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/impl/LinePa
 
 ### UnnecessaryToStringCall
 Unnecessary `toString()` call
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/impl/AnonymousClassImpl.java`
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/impl/LinePartImpl.java`
 #### Snippet
 ```java
 		{
-			if (EcoreUtil.isAncestor(this, newDeclaringType))
+			if (EcoreUtil.isAncestor(this, newLine))
 				throw new IllegalArgumentException("Recursive containment not allowed for " + toString());
 			NotificationChain msgs = null;
 			if (eInternalContainer() != null)
@@ -4181,18 +4181,6 @@ in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/compiler/batch/XtendCompil
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/RichString.java`
-#### Snippet
-```java
- *
- *
- * @see org.eclipse.xtend.core.xtend.XtendPackage#getRichString()
- * @model
- * @generated
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
 in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendFormalParameter.java`
 #### Snippet
 ```java
@@ -4201,6 +4189,18 @@ in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendFormalParam
 	 * Sets the value of the '{@link org.eclipse.xtend.core.xtend.XtendFormalParameter#isExtension <em>Extension</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendFormalParameter.java`
+#### Snippet
+```java
+	 * @return the value of the '<em>Extension</em>' attribute.
+	 * @see #setExtension(boolean)
+	 * @see org.eclipse.xtend.core.xtend.XtendPackage#getXtendFormalParameter_Extension()
+	 * @model
+	 * @generated
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -4229,14 +4229,14 @@ in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendFormalParam
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendFormalParameter.java`
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/RichString.java`
 #### Snippet
 ```java
-	 * @return the value of the '<em>Extension</em>' attribute.
-	 * @see #setExtension(boolean)
-	 * @see org.eclipse.xtend.core.xtend.XtendPackage#getXtendFormalParameter_Extension()
-	 * @model
-	 * @generated
+ *
+ *
+ * @see org.eclipse.xtend.core.xtend.XtendPackage#getRichString()
+ * @model
+ * @generated
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -4249,6 +4249,18 @@ in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendEnumLiteral
 	 * @see org.eclipse.xtend.core.xtend.XtendPackage#getXtendEnumLiteral_Name()
 	 * @model
 	 * @generated
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendEnumLiteral.java`
+#### Snippet
+```java
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.xtend.core.xtend.XtendEnumLiteral#getName <em>Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -4276,13 +4288,61 @@ in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendEnumLiteral
 ```
 
 ### UnnecessaryFullyQualifiedName
+Qualifier `java.lang` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendMember.java`
+#### Snippet
+```java
+	/**
+	 * Returns the value of the '<em><b>Modifiers</b></em>' attribute list.
+	 * The list contents are of type {@link java.lang.String}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+```
+
+### UnnecessaryFullyQualifiedName
 Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendEnumLiteral.java`
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendMember.java`
+#### Snippet
+```java
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Modifiers</em>' attribute list.
+	 * @see org.eclipse.xtend.core.xtend.XtendPackage#getXtendMember_Modifiers()
+	 * @model unique="false"
+	 * @generated
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendMember.java`
+#### Snippet
+```java
+	 * @return the value of the '<em>Annotation Info</em>' containment reference.
+	 * @see #setAnnotationInfo(XtendAnnotationTarget)
+	 * @see org.eclipse.xtend.core.xtend.XtendPackage#getXtendMember_AnnotationInfo()
+	 * @model containment="true"
+	 * @generated
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendMember.java`
 #### Snippet
 ```java
 
 	/**
-	 * Sets the value of the '{@link org.eclipse.xtend.core.xtend.XtendEnumLiteral#getName <em>Name</em>}' attribute.
+	 * Sets the value of the '{@link org.eclipse.xtend.core.xtend.XtendMember#getDeclaringType <em>Declaring Type</em>}' container reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendMember.java`
+#### Snippet
+```java
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.xtend.core.xtend.XtendMember#getAnnotationInfo <em>Annotation Info</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 ```
@@ -4336,54 +4396,6 @@ in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendMember.java
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendMember.java`
-#### Snippet
-```java
-	/**
-	 * Returns the value of the '<em><b>Modifiers</b></em>' attribute list.
-	 * The list contents are of type {@link java.lang.String}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendMember.java`
-#### Snippet
-```java
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Modifiers</em>' attribute list.
-	 * @see org.eclipse.xtend.core.xtend.XtendPackage#getXtendMember_Modifiers()
-	 * @model unique="false"
-	 * @generated
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendMember.java`
-#### Snippet
-```java
-
-	/**
-	 * Sets the value of the '{@link org.eclipse.xtend.core.xtend.XtendMember#getDeclaringType <em>Declaring Type</em>}' container reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendMember.java`
-#### Snippet
-```java
-	 * @return the value of the '<em>Annotation Info</em>' containment reference.
-	 * @see #setAnnotationInfo(XtendAnnotationTarget)
-	 * @see org.eclipse.xtend.core.xtend.XtendPackage#getXtendMember_AnnotationInfo()
-	 * @model containment="true"
-	 * @generated
-```
-
-### UnnecessaryFullyQualifiedName
 Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
 in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendMember.java`
 #### Snippet
@@ -4421,24 +4433,24 @@ in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendMember.java
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendMember.java`
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendVariableDeclaration.java`
 #### Snippet
 ```java
-
-	/**
-	 * Sets the value of the '{@link org.eclipse.xtend.core.xtend.XtendMember#getAnnotationInfo <em>Annotation Info</em>}' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+ * </p>
+ * <ul>
+ *   <li>{@link org.eclipse.xtend.core.xtend.XtendVariableDeclaration#isExtension <em>Extension</em>}</li>
+ * </ul>
+ *
 ```
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendConstructor.java`
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendVariableDeclaration.java`
 #### Snippet
 ```java
+ * </ul>
  *
- *
- * @see org.eclipse.xtend.core.xtend.XtendPackage#getXtendConstructor()
+ * @see org.eclipse.xtend.core.xtend.XtendPackage#getXtendVariableDeclaration()
  * @model
  * @generated
 ```
@@ -4469,26 +4481,14 @@ in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendVariableDec
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendVariableDeclaration.java`
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendTypeDeclaration.java`
 #### Snippet
 ```java
- * </p>
- * <ul>
- *   <li>{@link org.eclipse.xtend.core.xtend.XtendVariableDeclaration#isExtension <em>Extension</em>}</li>
- * </ul>
- *
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendVariableDeclaration.java`
-#### Snippet
-```java
- * </ul>
- *
- * @see org.eclipse.xtend.core.xtend.XtendPackage#getXtendVariableDeclaration()
- * @model
- * @generated
+	/**
+	 * Returns the value of the '<em><b>Members</b></em>' containment reference list.
+	 * The list contents are of type {@link org.eclipse.xtend.core.xtend.XtendMember}.
+	 * It is bidirectional and its opposite is '{@link org.eclipse.xtend.core.xtend.XtendMember#getDeclaringType <em>Declaring Type</em>}'.
+	 * <!-- begin-user-doc -->
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -4496,10 +4496,34 @@ Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
 in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendTypeDeclaration.java`
 #### Snippet
 ```java
-	 * @return the value of the '<em>Name</em>' attribute.
-	 * @see #setName(String)
-	 * @see org.eclipse.xtend.core.xtend.XtendPackage#getXtendTypeDeclaration_Name()
-	 * @model
+	 * Returns the value of the '<em><b>Members</b></em>' containment reference list.
+	 * The list contents are of type {@link org.eclipse.xtend.core.xtend.XtendMember}.
+	 * It is bidirectional and its opposite is '{@link org.eclipse.xtend.core.xtend.XtendMember#getDeclaringType <em>Declaring Type</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendTypeDeclaration.java`
+#### Snippet
+```java
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Members</em>' containment reference list.
+	 * @see org.eclipse.xtend.core.xtend.XtendPackage#getXtendTypeDeclaration_Members()
+	 * @see org.eclipse.xtend.core.xtend.XtendMember#getDeclaringType
+	 * @model opposite="declaringType" containment="true"
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendTypeDeclaration.java`
+#### Snippet
+```java
+	 * @return the value of the '<em>Members</em>' containment reference list.
+	 * @see org.eclipse.xtend.core.xtend.XtendPackage#getXtendTypeDeclaration_Members()
+	 * @see org.eclipse.xtend.core.xtend.XtendMember#getDeclaringType
+	 * @model opposite="declaringType" containment="true"
 	 * @generated
 ```
 
@@ -4556,47 +4580,23 @@ Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
 in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendTypeDeclaration.java`
 #### Snippet
 ```java
-	/**
-	 * Returns the value of the '<em><b>Members</b></em>' containment reference list.
-	 * The list contents are of type {@link org.eclipse.xtend.core.xtend.XtendMember}.
-	 * It is bidirectional and its opposite is '{@link org.eclipse.xtend.core.xtend.XtendMember#getDeclaringType <em>Declaring Type</em>}'.
-	 * <!-- begin-user-doc -->
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendTypeDeclaration.java`
-#### Snippet
-```java
-	 * Returns the value of the '<em><b>Members</b></em>' containment reference list.
-	 * The list contents are of type {@link org.eclipse.xtend.core.xtend.XtendMember}.
-	 * It is bidirectional and its opposite is '{@link org.eclipse.xtend.core.xtend.XtendMember#getDeclaringType <em>Declaring Type</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendTypeDeclaration.java`
-#### Snippet
-```java
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Members</em>' containment reference list.
-	 * @see org.eclipse.xtend.core.xtend.XtendPackage#getXtendTypeDeclaration_Members()
-	 * @see org.eclipse.xtend.core.xtend.XtendMember#getDeclaringType
-	 * @model opposite="declaringType" containment="true"
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendTypeDeclaration.java`
-#### Snippet
-```java
-	 * @return the value of the '<em>Members</em>' containment reference list.
-	 * @see org.eclipse.xtend.core.xtend.XtendPackage#getXtendTypeDeclaration_Members()
-	 * @see org.eclipse.xtend.core.xtend.XtendMember#getDeclaringType
-	 * @model opposite="declaringType" containment="true"
+	 * @return the value of the '<em>Name</em>' attribute.
+	 * @see #setName(String)
+	 * @see org.eclipse.xtend.core.xtend.XtendPackage#getXtendTypeDeclaration_Name()
+	 * @model
 	 * @generated
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendConstructor.java`
+#### Snippet
+```java
+ *
+ *
+ * @see org.eclipse.xtend.core.xtend.XtendPackage#getXtendConstructor()
+ * @model
+ * @generated
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -4618,7 +4618,7 @@ in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendParameter.j
 ```java
 
 	/**
-	 * Sets the value of the '{@link org.eclipse.xtend.core.xtend.XtendParameter#getParameterType <em>Parameter Type</em>}' containment reference.
+	 * Sets the value of the '{@link org.eclipse.xtend.core.xtend.XtendParameter#getName <em>Name</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 ```
@@ -4630,9 +4630,33 @@ in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendParameter.j
 ```java
 
 	/**
-	 * Sets the value of the '{@link org.eclipse.xtend.core.xtend.XtendParameter#getName <em>Name</em>}' attribute.
+	 * Sets the value of the '{@link org.eclipse.xtend.core.xtend.XtendParameter#isVarArg <em>Var Arg</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendParameter.java`
+#### Snippet
+```java
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.xtend.core.xtend.XtendParameter#isExtension <em>Extension</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendParameter.java`
+#### Snippet
+```java
+	 * @return the value of the '<em>Name</em>' attribute.
+	 * @see #setName(String)
+	 * @see org.eclipse.xtend.core.xtend.XtendPackage#getXtendParameter_Name()
+	 * @model
+	 * @generated
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -4712,45 +4736,9 @@ Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
 in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendParameter.java`
 #### Snippet
 ```java
-	 * @return the value of the '<em>Extension</em>' attribute.
-	 * @see #setExtension(boolean)
-	 * @see org.eclipse.xtend.core.xtend.XtendPackage#getXtendParameter_Extension()
-	 * @model
-	 * @generated
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendParameter.java`
-#### Snippet
-```java
-	 * @return the value of the '<em>Name</em>' attribute.
-	 * @see #setName(String)
-	 * @see org.eclipse.xtend.core.xtend.XtendPackage#getXtendParameter_Name()
-	 * @model
-	 * @generated
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendParameter.java`
-#### Snippet
-```java
 
 	/**
-	 * Sets the value of the '{@link org.eclipse.xtend.core.xtend.XtendParameter#isExtension <em>Extension</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendParameter.java`
-#### Snippet
-```java
-
-	/**
-	 * Sets the value of the '{@link org.eclipse.xtend.core.xtend.XtendParameter#isVarArg <em>Var Arg</em>}' attribute.
+	 * Sets the value of the '{@link org.eclipse.xtend.core.xtend.XtendParameter#getParameterType <em>Parameter Type</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 ```
@@ -4764,6 +4752,18 @@ in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendParameter.j
 	 * @see #setParameterType(JvmTypeReference)
 	 * @see org.eclipse.xtend.core.xtend.XtendPackage#getXtendParameter_ParameterType()
 	 * @model containment="true"
+	 * @generated
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendParameter.java`
+#### Snippet
+```java
+	 * @return the value of the '<em>Extension</em>' attribute.
+	 * @see #setExtension(boolean)
+	 * @see org.eclipse.xtend.core.xtend.XtendPackage#getXtendParameter_Extension()
+	 * @model
 	 * @generated
 ```
 
@@ -4786,9 +4786,33 @@ in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendFunction.ja
 ```java
 
 	/**
+	 * Sets the value of the '{@link org.eclipse.xtend.core.xtend.XtendFunction#getReturnType <em>Return Type</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendFunction.java`
+#### Snippet
+```java
+
+	/**
 	 * Sets the value of the '{@link org.eclipse.xtend.core.xtend.XtendFunction#getName <em>Name</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendFunction.java`
+#### Snippet
+```java
+	 * @return the value of the '<em>Return Type</em>' containment reference.
+	 * @see #setReturnType(JvmTypeReference)
+	 * @see org.eclipse.xtend.core.xtend.XtendPackage#getXtendFunction_ReturnType()
+	 * @model containment="true"
+	 * @generated
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -4844,30 +4868,6 @@ Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
 in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendFunction.java`
 #### Snippet
 ```java
-	 * @return the value of the '<em>Return Type</em>' containment reference.
-	 * @see #setReturnType(JvmTypeReference)
-	 * @see org.eclipse.xtend.core.xtend.XtendPackage#getXtendFunction_ReturnType()
-	 * @model containment="true"
-	 * @generated
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendFunction.java`
-#### Snippet
-```java
-	 * @return the value of the '<em>Name</em>' attribute.
-	 * @see #setName(String)
-	 * @see org.eclipse.xtend.core.xtend.XtendPackage#getXtendFunction_Name()
-	 * @model
-	 * @generated
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendFunction.java`
-#### Snippet
-```java
 
 	/**
 	 * Sets the value of the '{@link org.eclipse.xtend.core.xtend.XtendFunction#getCreateExtensionInfo <em>Create Extension Info</em>}' containment reference.
@@ -4880,47 +4880,11 @@ Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
 in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendFunction.java`
 #### Snippet
 ```java
-
-	/**
-	 * Sets the value of the '{@link org.eclipse.xtend.core.xtend.XtendFunction#getReturnType <em>Return Type</em>}' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/RichStringForLoop.java`
-#### Snippet
-```java
-	 * @return the value of the '<em>Before</em>' containment reference.
-	 * @see #setBefore(XExpression)
-	 * @see org.eclipse.xtend.core.xtend.XtendPackage#getRichStringForLoop_Before()
-	 * @model containment="true"
+	 * @return the value of the '<em>Name</em>' attribute.
+	 * @see #setName(String)
+	 * @see org.eclipse.xtend.core.xtend.XtendPackage#getXtendFunction_Name()
+	 * @model
 	 * @generated
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/RichStringForLoop.java`
-#### Snippet
-```java
-
-	/**
-	 * Sets the value of the '{@link org.eclipse.xtend.core.xtend.RichStringForLoop#getBefore <em>Before</em>}' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/RichStringForLoop.java`
-#### Snippet
-```java
-
-	/**
-	 * Sets the value of the '{@link org.eclipse.xtend.core.xtend.RichStringForLoop#getSeparator <em>Separator</em>}' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -4945,18 +4909,6 @@ in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/RichStringForLoo
 	 * @see org.eclipse.xtend.core.xtend.XtendPackage#getRichStringForLoop_After()
 	 * @model containment="true"
 	 * @generated
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/RichStringForLoop.java`
-#### Snippet
-```java
-
-	/**
-	 * Sets the value of the '{@link org.eclipse.xtend.core.xtend.RichStringForLoop#getAfter <em>After</em>}' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -5009,38 +4961,98 @@ in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/RichStringForLoo
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/CreateExtensionInfo.java`
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/RichStringForLoop.java`
 #### Snippet
 ```java
 
 	/**
-	 * Sets the value of the '{@link org.eclipse.xtend.core.xtend.CreateExtensionInfo#getCreateExpression <em>Create Expression</em>}' containment reference.
+	 * Sets the value of the '{@link org.eclipse.xtend.core.xtend.RichStringForLoop#getAfter <em>After</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 ```
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/CreateExtensionInfo.java`
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/RichStringForLoop.java`
 #### Snippet
 ```java
-	 * @return the value of the '<em>Name</em>' attribute.
-	 * @see #setName(String)
-	 * @see org.eclipse.xtend.core.xtend.XtendPackage#getCreateExtensionInfo_Name()
-	 * @model default="it"
+	 * @return the value of the '<em>Before</em>' containment reference.
+	 * @see #setBefore(XExpression)
+	 * @see org.eclipse.xtend.core.xtend.XtendPackage#getRichStringForLoop_Before()
+	 * @model containment="true"
 	 * @generated
 ```
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/CreateExtensionInfo.java`
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/RichStringForLoop.java`
 #### Snippet
 ```java
 
 	/**
-	 * Sets the value of the '{@link org.eclipse.xtend.core.xtend.CreateExtensionInfo#getName <em>Name</em>}' attribute.
+	 * Sets the value of the '{@link org.eclipse.xtend.core.xtend.RichStringForLoop#getBefore <em>Before</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/RichStringForLoop.java`
+#### Snippet
+```java
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.xtend.core.xtend.RichStringForLoop#getSeparator <em>Separator</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtext.xbase.annotations.xAnnotations` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendAnnotationTarget.java`
+#### Snippet
+```java
+	/**
+	 * Returns the value of the '<em><b>Annotations</b></em>' containment reference list.
+	 * The list contents are of type {@link org.eclipse.xtext.xbase.annotations.xAnnotations.XAnnotation}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendAnnotationTarget.java`
+#### Snippet
+```java
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Annotations</em>' containment reference list.
+	 * @see org.eclipse.xtend.core.xtend.XtendPackage#getXtendAnnotationTarget_Annotations()
+	 * @model containment="true"
+	 * @generated
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendAnnotationTarget.java`
+#### Snippet
+```java
+ * </p>
+ * <ul>
+ *   <li>{@link org.eclipse.xtend.core.xtend.XtendAnnotationTarget#getAnnotations <em>Annotations</em>}</li>
+ * </ul>
+ *
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendAnnotationTarget.java`
+#### Snippet
+```java
+ * </ul>
+ *
+ * @see org.eclipse.xtend.core.xtend.XtendPackage#getXtendAnnotationTarget()
+ * @model abstract="true"
+ * @generated
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -5093,86 +5105,38 @@ in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/CreateExtensionI
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendAnnotationTarget.java`
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/CreateExtensionInfo.java`
 #### Snippet
 ```java
- * </p>
- * <ul>
- *   <li>{@link org.eclipse.xtend.core.xtend.XtendAnnotationTarget#getAnnotations <em>Annotations</em>}</li>
- * </ul>
- *
-```
 
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendAnnotationTarget.java`
-#### Snippet
-```java
- * </ul>
- *
- * @see org.eclipse.xtend.core.xtend.XtendPackage#getXtendAnnotationTarget()
- * @model abstract="true"
- * @generated
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtext.xbase.annotations.xAnnotations` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendAnnotationTarget.java`
-#### Snippet
-```java
 	/**
-	 * Returns the value of the '<em><b>Annotations</b></em>' containment reference list.
-	 * The list contents are of type {@link org.eclipse.xtext.xbase.annotations.xAnnotations.XAnnotation}.
+	 * Sets the value of the '{@link org.eclipse.xtend.core.xtend.CreateExtensionInfo#getName <em>Name</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 ```
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendAnnotationTarget.java`
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/CreateExtensionInfo.java`
 #### Snippet
 ```java
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.xtend.core.xtend.CreateExtensionInfo#getCreateExpression <em>Create Expression</em>}' containment reference.
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Annotations</em>' containment reference list.
-	 * @see org.eclipse.xtend.core.xtend.XtendPackage#getXtendAnnotationTarget_Annotations()
-	 * @model containment="true"
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/CreateExtensionInfo.java`
+#### Snippet
+```java
+	 * @return the value of the '<em>Name</em>' attribute.
+	 * @see #setName(String)
+	 * @see org.eclipse.xtend.core.xtend.XtendPackage#getCreateExtensionInfo_Name()
+	 * @model default="it"
 	 * @generated
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/RichStringElseIf.java`
-#### Snippet
-```java
-
-	/**
-	 * Sets the value of the '{@link org.eclipse.xtend.core.xtend.RichStringElseIf#getThen <em>Then</em>}' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/RichStringElseIf.java`
-#### Snippet
-```java
-	 * @return the value of the '<em>Then</em>' containment reference.
-	 * @see #setThen(XExpression)
-	 * @see org.eclipse.xtend.core.xtend.XtendPackage#getRichStringElseIf_Then()
-	 * @model containment="true"
-	 * @generated
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/RichStringElseIf.java`
-#### Snippet
-```java
-
-	/**
-	 * Sets the value of the '{@link org.eclipse.xtend.core.xtend.RichStringElseIf#getIf <em>If</em>}' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -5224,25 +5188,61 @@ in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/RichStringElseIf
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtext.common.types` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendInterface.java`
+Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendFactory.java`
 #### Snippet
 ```java
+ * It provides a create method for each non-abstract class of the model.
+ * <!-- end-user-doc -->
+ * @see org.eclipse.xtend.core.xtend.XtendPackage
+ * @generated
+ */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.xtend.impl` is unnecessary, and can be replaced with an import
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendFactory.java`
+#### Snippet
+```java
+	 * @generated
+	 */
+	XtendFactory eINSTANCE = org.eclipse.xtend.core.xtend.impl.XtendFactoryImpl.init();
+
 	/**
-	 * Returns the value of the '<em><b>Extends</b></em>' containment reference list.
-	 * The list contents are of type {@link org.eclipse.xtext.common.types.JvmTypeReference}.
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/RichStringElseIf.java`
+#### Snippet
+```java
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.xtend.core.xtend.RichStringElseIf#getThen <em>Then</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 ```
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendInterface.java`
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/RichStringElseIf.java`
 #### Snippet
 ```java
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.xtend.core.xtend.RichStringElseIf#getIf <em>If</em>}' containment reference.
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Extends</em>' containment reference list.
-	 * @see org.eclipse.xtend.core.xtend.XtendPackage#getXtendInterface_Extends()
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/RichStringElseIf.java`
+#### Snippet
+```java
+	 * @return the value of the '<em>Then</em>' containment reference.
+	 * @see #setThen(XExpression)
+	 * @see org.eclipse.xtend.core.xtend.XtendPackage#getRichStringElseIf_Then()
 	 * @model containment="true"
 	 * @generated
 ```
@@ -5309,12 +5309,60 @@ in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendInterface.j
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.eclipse.xtext.common.types` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendInterface.java`
+#### Snippet
+```java
+	/**
+	 * Returns the value of the '<em><b>Extends</b></em>' containment reference list.
+	 * The list contents are of type {@link org.eclipse.xtext.common.types.JvmTypeReference}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendInterface.java`
+#### Snippet
+```java
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Extends</em>' containment reference list.
+	 * @see org.eclipse.xtend.core.xtend.XtendPackage#getXtendInterface_Extends()
+	 * @model containment="true"
+	 * @generated
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendClass.java`
+#### Snippet
+```java
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.xtend.core.xtend.XtendClass#getExtends <em>Extends</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendClass.java`
+#### Snippet
+```java
+	 * @return the value of the '<em>Extends</em>' containment reference.
+	 * @see #setExtends(JvmTypeReference)
+	 * @see org.eclipse.xtend.core.xtend.XtendPackage#getXtendClass_Extends()
+	 * @model containment="true"
+	 * @generated
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtext.common.types` is unnecessary and can be removed
 in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendClass.java`
 #### Snippet
 ```java
 	/**
-	 * Returns the value of the '<em><b>Implements</b></em>' containment reference list.
-	 * The list contents are of type {@link org.eclipse.xtext.common.types.JvmTypeReference}.
+	 * Returns the value of the '<em><b>Type Parameters</b></em>' containment reference list.
+	 * The list contents are of type {@link org.eclipse.xtext.common.types.JvmTypeParameter}.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 ```
@@ -5325,8 +5373,8 @@ in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendClass.java`
 #### Snippet
 ```java
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Implements</em>' containment reference list.
-	 * @see org.eclipse.xtend.core.xtend.XtendPackage#getXtendClass_Implements()
+	 * @return the value of the '<em>Type Parameters</em>' containment reference list.
+	 * @see org.eclipse.xtend.core.xtend.XtendPackage#getXtendClass_TypeParameters()
 	 * @model containment="true"
 	 * @generated
 ```
@@ -5385,8 +5433,8 @@ in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendClass.java`
 #### Snippet
 ```java
 	/**
-	 * Returns the value of the '<em><b>Type Parameters</b></em>' containment reference list.
-	 * The list contents are of type {@link org.eclipse.xtext.common.types.JvmTypeParameter}.
+	 * Returns the value of the '<em><b>Implements</b></em>' containment reference list.
+	 * The list contents are of type {@link org.eclipse.xtext.common.types.JvmTypeReference}.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 ```
@@ -5397,153 +5445,9 @@ in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendClass.java`
 #### Snippet
 ```java
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Type Parameters</em>' containment reference list.
-	 * @see org.eclipse.xtend.core.xtend.XtendPackage#getXtendClass_TypeParameters()
+	 * @return the value of the '<em>Implements</em>' containment reference list.
+	 * @see org.eclipse.xtend.core.xtend.XtendPackage#getXtendClass_Implements()
 	 * @model containment="true"
-	 * @generated
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendClass.java`
-#### Snippet
-```java
-
-	/**
-	 * Sets the value of the '{@link org.eclipse.xtend.core.xtend.XtendClass#getExtends <em>Extends</em>}' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendClass.java`
-#### Snippet
-```java
-	 * @return the value of the '<em>Extends</em>' containment reference.
-	 * @see #setExtends(JvmTypeReference)
-	 * @see org.eclipse.xtend.core.xtend.XtendPackage#getXtendClass_Extends()
-	 * @model containment="true"
-	 * @generated
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendField.java`
-#### Snippet
-```java
-
-	/**
-	 * Sets the value of the '{@link org.eclipse.xtend.core.xtend.XtendField#getName <em>Name</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendField.java`
-#### Snippet
-```java
-	 * @return the value of the '<em>Type</em>' containment reference.
-	 * @see #setType(JvmTypeReference)
-	 * @see org.eclipse.xtend.core.xtend.XtendPackage#getXtendField_Type()
-	 * @model containment="true"
-	 * @generated
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendField.java`
-#### Snippet
-```java
- * </p>
- * <ul>
- *   <li>{@link org.eclipse.xtend.core.xtend.XtendField#getName <em>Name</em>}</li>
- *   <li>{@link org.eclipse.xtend.core.xtend.XtendField#getType <em>Type</em>}</li>
- *   <li>{@link org.eclipse.xtend.core.xtend.XtendField#getInitialValue <em>Initial Value</em>}</li>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendField.java`
-#### Snippet
-```java
- * <ul>
- *   <li>{@link org.eclipse.xtend.core.xtend.XtendField#getName <em>Name</em>}</li>
- *   <li>{@link org.eclipse.xtend.core.xtend.XtendField#getType <em>Type</em>}</li>
- *   <li>{@link org.eclipse.xtend.core.xtend.XtendField#getInitialValue <em>Initial Value</em>}</li>
- * </ul>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendField.java`
-#### Snippet
-```java
- *   <li>{@link org.eclipse.xtend.core.xtend.XtendField#getName <em>Name</em>}</li>
- *   <li>{@link org.eclipse.xtend.core.xtend.XtendField#getType <em>Type</em>}</li>
- *   <li>{@link org.eclipse.xtend.core.xtend.XtendField#getInitialValue <em>Initial Value</em>}</li>
- * </ul>
- *
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendField.java`
-#### Snippet
-```java
- * </ul>
- *
- * @see org.eclipse.xtend.core.xtend.XtendPackage#getXtendField()
- * @model
- * @generated
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendField.java`
-#### Snippet
-```java
-	 * @return the value of the '<em>Initial Value</em>' containment reference.
-	 * @see #setInitialValue(XExpression)
-	 * @see org.eclipse.xtend.core.xtend.XtendPackage#getXtendField_InitialValue()
-	 * @model containment="true"
-	 * @generated
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendField.java`
-#### Snippet
-```java
-
-	/**
-	 * Sets the value of the '{@link org.eclipse.xtend.core.xtend.XtendField#getInitialValue <em>Initial Value</em>}' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendField.java`
-#### Snippet
-```java
-
-	/**
-	 * Sets the value of the '{@link org.eclipse.xtend.core.xtend.XtendField#getType <em>Type</em>}' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendField.java`
-#### Snippet
-```java
-	 * @return the value of the '<em>Name</em>' attribute.
-	 * @see #setName(String)
-	 * @see org.eclipse.xtend.core.xtend.XtendPackage#getXtendField_Name()
-	 * @model
 	 * @generated
 ```
 
@@ -5557,18 +5461,6 @@ in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/AnonymousClass.j
 	 * @see org.eclipse.xtend.core.xtend.XtendPackage#getAnonymousClass_ConstructorCall()
 	 * @model containment="true"
 	 * @generated
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/AnonymousClass.java`
-#### Snippet
-```java
-
-	/**
-	 * Sets the value of the '{@link org.eclipse.xtend.core.xtend.AnonymousClass#getConstructorCall <em>Constructor Call</em>}' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -5597,26 +5489,14 @@ in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/AnonymousClass.j
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendFactory.java`
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/AnonymousClass.java`
 #### Snippet
 ```java
- * It provides a create method for each non-abstract class of the model.
- * <!-- end-user-doc -->
- * @see org.eclipse.xtend.core.xtend.XtendPackage
- * @generated
- */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.xtend.impl` is unnecessary, and can be replaced with an import
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendFactory.java`
-#### Snippet
-```java
-	 * @generated
-	 */
-	XtendFactory eINSTANCE = org.eclipse.xtend.core.xtend.impl.XtendFactoryImpl.init();
 
 	/**
+	 * Sets the value of the '{@link org.eclipse.xtend.core.xtend.AnonymousClass#getConstructorCall <em>Constructor Call</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -5633,54 +5513,6 @@ in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/RichStringLitera
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/RichStringIf.java`
-#### Snippet
-```java
-	/**
-	 * Returns the value of the '<em><b>Else Ifs</b></em>' containment reference list.
-	 * The list contents are of type {@link org.eclipse.xtend.core.xtend.RichStringElseIf}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/RichStringIf.java`
-#### Snippet
-```java
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Else Ifs</em>' containment reference list.
-	 * @see org.eclipse.xtend.core.xtend.XtendPackage#getRichStringIf_ElseIfs()
-	 * @model containment="true"
-	 * @generated
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/RichStringIf.java`
-#### Snippet
-```java
-	 * @return the value of the '<em>Then</em>' containment reference.
-	 * @see #setThen(XExpression)
-	 * @see org.eclipse.xtend.core.xtend.XtendPackage#getRichStringIf_Then()
-	 * @model containment="true"
-	 * @generated
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/RichStringIf.java`
-#### Snippet
-```java
-	 * @return the value of the '<em>Else</em>' containment reference.
-	 * @see #setElse(XExpression)
-	 * @see org.eclipse.xtend.core.xtend.XtendPackage#getRichStringIf_Else()
-	 * @model containment="true"
-	 * @generated
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
 in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendEnum.java`
 #### Snippet
 ```java
@@ -5693,12 +5525,168 @@ in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendEnum.java`
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendExecutable.java`
+#### Snippet
+```java
+	 * @return the value of the '<em>Expression</em>' containment reference.
+	 * @see #setExpression(XExpression)
+	 * @see org.eclipse.xtend.core.xtend.XtendPackage#getXtendExecutable_Expression()
+	 * @model containment="true"
+	 * @generated
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendExecutable.java`
+#### Snippet
+```java
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.xtend.core.xtend.XtendExecutable#getExpression <em>Expression</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendExecutable.java`
+#### Snippet
+```java
+	/**
+	 * Returns the value of the '<em><b>Parameters</b></em>' containment reference list.
+	 * The list contents are of type {@link org.eclipse.xtend.core.xtend.XtendParameter}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendExecutable.java`
+#### Snippet
+```java
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Parameters</em>' containment reference list.
+	 * @see org.eclipse.xtend.core.xtend.XtendPackage#getXtendExecutable_Parameters()
+	 * @model containment="true"
+	 * @generated
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendExecutable.java`
+#### Snippet
+```java
+ * </p>
+ * <ul>
+ *   <li>{@link org.eclipse.xtend.core.xtend.XtendExecutable#getExceptions <em>Exceptions</em>}</li>
+ *   <li>{@link org.eclipse.xtend.core.xtend.XtendExecutable#getTypeParameters <em>Type Parameters</em>}</li>
+ *   <li>{@link org.eclipse.xtend.core.xtend.XtendExecutable#getExpression <em>Expression</em>}</li>
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendExecutable.java`
+#### Snippet
+```java
+ * <ul>
+ *   <li>{@link org.eclipse.xtend.core.xtend.XtendExecutable#getExceptions <em>Exceptions</em>}</li>
+ *   <li>{@link org.eclipse.xtend.core.xtend.XtendExecutable#getTypeParameters <em>Type Parameters</em>}</li>
+ *   <li>{@link org.eclipse.xtend.core.xtend.XtendExecutable#getExpression <em>Expression</em>}</li>
+ *   <li>{@link org.eclipse.xtend.core.xtend.XtendExecutable#getParameters <em>Parameters</em>}</li>
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendExecutable.java`
+#### Snippet
+```java
+ *   <li>{@link org.eclipse.xtend.core.xtend.XtendExecutable#getExceptions <em>Exceptions</em>}</li>
+ *   <li>{@link org.eclipse.xtend.core.xtend.XtendExecutable#getTypeParameters <em>Type Parameters</em>}</li>
+ *   <li>{@link org.eclipse.xtend.core.xtend.XtendExecutable#getExpression <em>Expression</em>}</li>
+ *   <li>{@link org.eclipse.xtend.core.xtend.XtendExecutable#getParameters <em>Parameters</em>}</li>
+ * </ul>
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendExecutable.java`
+#### Snippet
+```java
+ *   <li>{@link org.eclipse.xtend.core.xtend.XtendExecutable#getTypeParameters <em>Type Parameters</em>}</li>
+ *   <li>{@link org.eclipse.xtend.core.xtend.XtendExecutable#getExpression <em>Expression</em>}</li>
+ *   <li>{@link org.eclipse.xtend.core.xtend.XtendExecutable#getParameters <em>Parameters</em>}</li>
+ * </ul>
+ *
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendExecutable.java`
+#### Snippet
+```java
+ * </ul>
+ *
+ * @see org.eclipse.xtend.core.xtend.XtendPackage#getXtendExecutable()
+ * @model abstract="true"
+ * @generated
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtext.common.types` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendExecutable.java`
+#### Snippet
+```java
+	/**
+	 * Returns the value of the '<em><b>Type Parameters</b></em>' containment reference list.
+	 * The list contents are of type {@link org.eclipse.xtext.common.types.JvmTypeParameter}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendExecutable.java`
+#### Snippet
+```java
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Type Parameters</em>' containment reference list.
+	 * @see org.eclipse.xtend.core.xtend.XtendPackage#getXtendExecutable_TypeParameters()
+	 * @model containment="true"
+	 * @generated
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtext.common.types` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendExecutable.java`
+#### Snippet
+```java
+	/**
+	 * Returns the value of the '<em><b>Exceptions</b></em>' containment reference list.
+	 * The list contents are of type {@link org.eclipse.xtext.common.types.JvmTypeReference}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendExecutable.java`
+#### Snippet
+```java
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Exceptions</em>' containment reference list.
+	 * @see org.eclipse.xtend.core.xtend.XtendPackage#getXtendExecutable_Exceptions()
+	 * @model containment="true"
+	 * @generated
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
 in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/RichStringIf.java`
 #### Snippet
 ```java
 
 	/**
-	 * Sets the value of the '{@link org.eclipse.xtend.core.xtend.RichStringIf#getThen <em>Then</em>}' containment reference.
+	 * Sets the value of the '{@link org.eclipse.xtend.core.xtend.RichStringIf#getIf <em>If</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 ```
@@ -5768,11 +5756,47 @@ Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
 in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/RichStringIf.java`
 #### Snippet
 ```java
+	 * @return the value of the '<em>Else</em>' containment reference.
+	 * @see #setElse(XExpression)
+	 * @see org.eclipse.xtend.core.xtend.XtendPackage#getRichStringIf_Else()
+	 * @model containment="true"
+	 * @generated
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/RichStringIf.java`
+#### Snippet
+```java
 
 	/**
-	 * Sets the value of the '{@link org.eclipse.xtend.core.xtend.RichStringIf#getIf <em>If</em>}' containment reference.
+	 * Sets the value of the '{@link org.eclipse.xtend.core.xtend.RichStringIf#getThen <em>Then</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/RichStringIf.java`
+#### Snippet
+```java
+	 * @return the value of the '<em>Then</em>' containment reference.
+	 * @see #setThen(XExpression)
+	 * @see org.eclipse.xtend.core.xtend.XtendPackage#getRichStringIf_Then()
+	 * @model containment="true"
+	 * @generated
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/RichStringIf.java`
+#### Snippet
+```java
+	 * @return the value of the '<em>If</em>' containment reference.
+	 * @see #setIf(XExpression)
+	 * @see org.eclipse.xtend.core.xtend.XtendPackage#getRichStringIf_If()
+	 * @model containment="true"
+	 * @generated
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -5792,165 +5816,21 @@ Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
 in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/RichStringIf.java`
 #### Snippet
 ```java
-	 * @return the value of the '<em>If</em>' containment reference.
-	 * @see #setIf(XExpression)
-	 * @see org.eclipse.xtend.core.xtend.XtendPackage#getRichStringIf_If()
-	 * @model containment="true"
-	 * @generated
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendExecutable.java`
-#### Snippet
-```java
-	 * @return the value of the '<em>Expression</em>' containment reference.
-	 * @see #setExpression(XExpression)
-	 * @see org.eclipse.xtend.core.xtend.XtendPackage#getXtendExecutable_Expression()
-	 * @model containment="true"
-	 * @generated
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtext.common.types` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendExecutable.java`
-#### Snippet
-```java
 	/**
-	 * Returns the value of the '<em><b>Exceptions</b></em>' containment reference list.
-	 * The list contents are of type {@link org.eclipse.xtext.common.types.JvmTypeReference}.
+	 * Returns the value of the '<em><b>Else Ifs</b></em>' containment reference list.
+	 * The list contents are of type {@link org.eclipse.xtend.core.xtend.RichStringElseIf}.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 ```
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendExecutable.java`
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/RichStringIf.java`
 #### Snippet
 ```java
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Exceptions</em>' containment reference list.
-	 * @see org.eclipse.xtend.core.xtend.XtendPackage#getXtendExecutable_Exceptions()
-	 * @model containment="true"
-	 * @generated
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendExecutable.java`
-#### Snippet
-```java
- * </p>
- * <ul>
- *   <li>{@link org.eclipse.xtend.core.xtend.XtendExecutable#getExceptions <em>Exceptions</em>}</li>
- *   <li>{@link org.eclipse.xtend.core.xtend.XtendExecutable#getTypeParameters <em>Type Parameters</em>}</li>
- *   <li>{@link org.eclipse.xtend.core.xtend.XtendExecutable#getExpression <em>Expression</em>}</li>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendExecutable.java`
-#### Snippet
-```java
- * <ul>
- *   <li>{@link org.eclipse.xtend.core.xtend.XtendExecutable#getExceptions <em>Exceptions</em>}</li>
- *   <li>{@link org.eclipse.xtend.core.xtend.XtendExecutable#getTypeParameters <em>Type Parameters</em>}</li>
- *   <li>{@link org.eclipse.xtend.core.xtend.XtendExecutable#getExpression <em>Expression</em>}</li>
- *   <li>{@link org.eclipse.xtend.core.xtend.XtendExecutable#getParameters <em>Parameters</em>}</li>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendExecutable.java`
-#### Snippet
-```java
- *   <li>{@link org.eclipse.xtend.core.xtend.XtendExecutable#getExceptions <em>Exceptions</em>}</li>
- *   <li>{@link org.eclipse.xtend.core.xtend.XtendExecutable#getTypeParameters <em>Type Parameters</em>}</li>
- *   <li>{@link org.eclipse.xtend.core.xtend.XtendExecutable#getExpression <em>Expression</em>}</li>
- *   <li>{@link org.eclipse.xtend.core.xtend.XtendExecutable#getParameters <em>Parameters</em>}</li>
- * </ul>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendExecutable.java`
-#### Snippet
-```java
- *   <li>{@link org.eclipse.xtend.core.xtend.XtendExecutable#getTypeParameters <em>Type Parameters</em>}</li>
- *   <li>{@link org.eclipse.xtend.core.xtend.XtendExecutable#getExpression <em>Expression</em>}</li>
- *   <li>{@link org.eclipse.xtend.core.xtend.XtendExecutable#getParameters <em>Parameters</em>}</li>
- * </ul>
- *
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendExecutable.java`
-#### Snippet
-```java
- * </ul>
- *
- * @see org.eclipse.xtend.core.xtend.XtendPackage#getXtendExecutable()
- * @model abstract="true"
- * @generated
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendExecutable.java`
-#### Snippet
-```java
-
-	/**
-	 * Sets the value of the '{@link org.eclipse.xtend.core.xtend.XtendExecutable#getExpression <em>Expression</em>}' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtext.common.types` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendExecutable.java`
-#### Snippet
-```java
-	/**
-	 * Returns the value of the '<em><b>Type Parameters</b></em>' containment reference list.
-	 * The list contents are of type {@link org.eclipse.xtext.common.types.JvmTypeParameter}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendExecutable.java`
-#### Snippet
-```java
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Type Parameters</em>' containment reference list.
-	 * @see org.eclipse.xtend.core.xtend.XtendPackage#getXtendExecutable_TypeParameters()
-	 * @model containment="true"
-	 * @generated
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendExecutable.java`
-#### Snippet
-```java
-	/**
-	 * Returns the value of the '<em><b>Parameters</b></em>' containment reference list.
-	 * The list contents are of type {@link org.eclipse.xtend.core.xtend.XtendParameter}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendExecutable.java`
-#### Snippet
-```java
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Parameters</em>' containment reference list.
-	 * @see org.eclipse.xtend.core.xtend.XtendPackage#getXtendExecutable_Parameters()
+	 * @return the value of the '<em>Else Ifs</em>' containment reference list.
+	 * @see org.eclipse.xtend.core.xtend.XtendPackage#getRichStringIf_ElseIfs()
 	 * @model containment="true"
 	 * @generated
 ```
@@ -5965,6 +5845,30 @@ in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendFile.java`
 	 * Sets the value of the '{@link org.eclipse.xtend.core.xtend.XtendFile#getPackage <em>Package</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendFile.java`
+#### Snippet
+```java
+	 * @return the value of the '<em>Package</em>' attribute.
+	 * @see #setPackage(String)
+	 * @see org.eclipse.xtend.core.xtend.XtendPackage#getXtendFile_Package()
+	 * @model
+	 * @generated
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendFile.java`
+#### Snippet
+```java
+	 * @return the value of the '<em>Import Section</em>' containment reference.
+	 * @see #setImportSection(XImportSection)
+	 * @see org.eclipse.xtend.core.xtend.XtendPackage#getXtendFile_ImportSection()
+	 * @model containment="true"
+	 * @generated
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -6020,6 +5924,18 @@ Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
 in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendFile.java`
 #### Snippet
 ```java
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.xtend.core.xtend.XtendFile#getImportSection <em>Import Section</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendFile.java`
+#### Snippet
+```java
 	/**
 	 * Returns the value of the '<em><b>Xtend Types</b></em>' containment reference list.
 	 * The list contents are of type {@link org.eclipse.xtend.core.xtend.XtendTypeDeclaration}.
@@ -6041,38 +5957,134 @@ in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendFile.java`
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendFile.java`
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendField.java`
 #### Snippet
 ```java
 
 	/**
-	 * Sets the value of the '{@link org.eclipse.xtend.core.xtend.XtendFile#getImportSection <em>Import Section</em>}' containment reference.
+	 * Sets the value of the '{@link org.eclipse.xtend.core.xtend.XtendField#getInitialValue <em>Initial Value</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 ```
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendFile.java`
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendField.java`
 #### Snippet
 ```java
-	 * @return the value of the '<em>Import Section</em>' containment reference.
-	 * @see #setImportSection(XImportSection)
-	 * @see org.eclipse.xtend.core.xtend.XtendPackage#getXtendFile_ImportSection()
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.xtend.core.xtend.XtendField#getName <em>Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendField.java`
+#### Snippet
+```java
+	 * @return the value of the '<em>Initial Value</em>' containment reference.
+	 * @see #setInitialValue(XExpression)
+	 * @see org.eclipse.xtend.core.xtend.XtendPackage#getXtendField_InitialValue()
 	 * @model containment="true"
 	 * @generated
 ```
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendFile.java`
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendField.java`
 #### Snippet
 ```java
-	 * @return the value of the '<em>Package</em>' attribute.
-	 * @see #setPackage(String)
-	 * @see org.eclipse.xtend.core.xtend.XtendPackage#getXtendFile_Package()
+ * </p>
+ * <ul>
+ *   <li>{@link org.eclipse.xtend.core.xtend.XtendField#getName <em>Name</em>}</li>
+ *   <li>{@link org.eclipse.xtend.core.xtend.XtendField#getType <em>Type</em>}</li>
+ *   <li>{@link org.eclipse.xtend.core.xtend.XtendField#getInitialValue <em>Initial Value</em>}</li>
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendField.java`
+#### Snippet
+```java
+ * <ul>
+ *   <li>{@link org.eclipse.xtend.core.xtend.XtendField#getName <em>Name</em>}</li>
+ *   <li>{@link org.eclipse.xtend.core.xtend.XtendField#getType <em>Type</em>}</li>
+ *   <li>{@link org.eclipse.xtend.core.xtend.XtendField#getInitialValue <em>Initial Value</em>}</li>
+ * </ul>
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendField.java`
+#### Snippet
+```java
+ *   <li>{@link org.eclipse.xtend.core.xtend.XtendField#getName <em>Name</em>}</li>
+ *   <li>{@link org.eclipse.xtend.core.xtend.XtendField#getType <em>Type</em>}</li>
+ *   <li>{@link org.eclipse.xtend.core.xtend.XtendField#getInitialValue <em>Initial Value</em>}</li>
+ * </ul>
+ *
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendField.java`
+#### Snippet
+```java
+ * </ul>
+ *
+ * @see org.eclipse.xtend.core.xtend.XtendPackage#getXtendField()
+ * @model
+ * @generated
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendField.java`
+#### Snippet
+```java
+	 * @return the value of the '<em>Name</em>' attribute.
+	 * @see #setName(String)
+	 * @see org.eclipse.xtend.core.xtend.XtendPackage#getXtendField_Name()
 	 * @model
 	 * @generated
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendField.java`
+#### Snippet
+```java
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.xtend.core.xtend.XtendField#getType <em>Type</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendField.java`
+#### Snippet
+```java
+	 * @return the value of the '<em>Type</em>' containment reference.
+	 * @see #setType(JvmTypeReference)
+	 * @see org.eclipse.xtend.core.xtend.XtendPackage#getXtendField_Type()
+	 * @model containment="true"
+	 * @generated
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.xtend.impl` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/impl/XtendAnnotationTargetImpl.java`
+#### Snippet
+```java
+ * </p>
+ * <ul>
+ *   <li>{@link org.eclipse.xtend.core.xtend.impl.XtendAnnotationTargetImpl#getAnnotations <em>Annotations</em>}</li>
+ * </ul>
+ *
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -6101,42 +6113,6 @@ in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/impl/XtendFormal
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.eclipse.xtend.core.xtend.impl` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/impl/RichStringForLoopImpl.java`
-#### Snippet
-```java
- * </p>
- * <ul>
- *   <li>{@link org.eclipse.xtend.core.xtend.impl.RichStringForLoopImpl#getSeparator <em>Separator</em>}</li>
- *   <li>{@link org.eclipse.xtend.core.xtend.impl.RichStringForLoopImpl#getBefore <em>Before</em>}</li>
- *   <li>{@link org.eclipse.xtend.core.xtend.impl.RichStringForLoopImpl#getAfter <em>After</em>}</li>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.xtend.impl` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/impl/RichStringForLoopImpl.java`
-#### Snippet
-```java
- * <ul>
- *   <li>{@link org.eclipse.xtend.core.xtend.impl.RichStringForLoopImpl#getSeparator <em>Separator</em>}</li>
- *   <li>{@link org.eclipse.xtend.core.xtend.impl.RichStringForLoopImpl#getBefore <em>Before</em>}</li>
- *   <li>{@link org.eclipse.xtend.core.xtend.impl.RichStringForLoopImpl#getAfter <em>After</em>}</li>
- * </ul>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.xtend.impl` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/impl/RichStringForLoopImpl.java`
-#### Snippet
-```java
- *   <li>{@link org.eclipse.xtend.core.xtend.impl.RichStringForLoopImpl#getSeparator <em>Separator</em>}</li>
- *   <li>{@link org.eclipse.xtend.core.xtend.impl.RichStringForLoopImpl#getBefore <em>Before</em>}</li>
- *   <li>{@link org.eclipse.xtend.core.xtend.impl.RichStringForLoopImpl#getAfter <em>After</em>}</li>
- * </ul>
- *
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.xtend.impl` is unnecessary and can be removed
 in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/impl/XtendFileImpl.java`
 #### Snippet
 ```java
@@ -6173,12 +6149,36 @@ in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/impl/XtendFileIm
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.eclipse.xtend.core.xtend.impl` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/impl/XtendAnnotationTargetImpl.java`
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/impl/RichStringForLoopImpl.java`
 #### Snippet
 ```java
  * </p>
  * <ul>
- *   <li>{@link org.eclipse.xtend.core.xtend.impl.XtendAnnotationTargetImpl#getAnnotations <em>Annotations</em>}</li>
+ *   <li>{@link org.eclipse.xtend.core.xtend.impl.RichStringForLoopImpl#getSeparator <em>Separator</em>}</li>
+ *   <li>{@link org.eclipse.xtend.core.xtend.impl.RichStringForLoopImpl#getBefore <em>Before</em>}</li>
+ *   <li>{@link org.eclipse.xtend.core.xtend.impl.RichStringForLoopImpl#getAfter <em>After</em>}</li>
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.xtend.impl` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/impl/RichStringForLoopImpl.java`
+#### Snippet
+```java
+ * <ul>
+ *   <li>{@link org.eclipse.xtend.core.xtend.impl.RichStringForLoopImpl#getSeparator <em>Separator</em>}</li>
+ *   <li>{@link org.eclipse.xtend.core.xtend.impl.RichStringForLoopImpl#getBefore <em>Before</em>}</li>
+ *   <li>{@link org.eclipse.xtend.core.xtend.impl.RichStringForLoopImpl#getAfter <em>After</em>}</li>
+ * </ul>
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.xtend.impl` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/impl/RichStringForLoopImpl.java`
+#### Snippet
+```java
+ *   <li>{@link org.eclipse.xtend.core.xtend.impl.RichStringForLoopImpl#getSeparator <em>Separator</em>}</li>
+ *   <li>{@link org.eclipse.xtend.core.xtend.impl.RichStringForLoopImpl#getBefore <em>Before</em>}</li>
+ *   <li>{@link org.eclipse.xtend.core.xtend.impl.RichStringForLoopImpl#getAfter <em>After</em>}</li>
  * </ul>
  *
 ```
@@ -6197,102 +6197,6 @@ in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/impl/XtendVariab
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.eclipse.xtend.core.xtend.impl` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/impl/RichStringElseIfImpl.java`
-#### Snippet
-```java
- * </p>
- * <ul>
- *   <li>{@link org.eclipse.xtend.core.xtend.impl.RichStringElseIfImpl#getIf <em>If</em>}</li>
- *   <li>{@link org.eclipse.xtend.core.xtend.impl.RichStringElseIfImpl#getThen <em>Then</em>}</li>
- * </ul>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.xtend.impl` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/impl/RichStringElseIfImpl.java`
-#### Snippet
-```java
- * <ul>
- *   <li>{@link org.eclipse.xtend.core.xtend.impl.RichStringElseIfImpl#getIf <em>If</em>}</li>
- *   <li>{@link org.eclipse.xtend.core.xtend.impl.RichStringElseIfImpl#getThen <em>Then</em>}</li>
- * </ul>
- *
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.xtend.impl` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/impl/XtendMemberImpl.java`
-#### Snippet
-```java
- * </p>
- * <ul>
- *   <li>{@link org.eclipse.xtend.core.xtend.impl.XtendMemberImpl#getAnnotationInfo <em>Annotation Info</em>}</li>
- *   <li>{@link org.eclipse.xtend.core.xtend.impl.XtendMemberImpl#getModifiers <em>Modifiers</em>}</li>
- *   <li>{@link org.eclipse.xtend.core.xtend.impl.XtendMemberImpl#getDeclaringType <em>Declaring Type</em>}</li>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.xtend.impl` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/impl/XtendMemberImpl.java`
-#### Snippet
-```java
- * <ul>
- *   <li>{@link org.eclipse.xtend.core.xtend.impl.XtendMemberImpl#getAnnotationInfo <em>Annotation Info</em>}</li>
- *   <li>{@link org.eclipse.xtend.core.xtend.impl.XtendMemberImpl#getModifiers <em>Modifiers</em>}</li>
- *   <li>{@link org.eclipse.xtend.core.xtend.impl.XtendMemberImpl#getDeclaringType <em>Declaring Type</em>}</li>
- * </ul>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.xtend.impl` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/impl/XtendMemberImpl.java`
-#### Snippet
-```java
- *   <li>{@link org.eclipse.xtend.core.xtend.impl.XtendMemberImpl#getAnnotationInfo <em>Annotation Info</em>}</li>
- *   <li>{@link org.eclipse.xtend.core.xtend.impl.XtendMemberImpl#getModifiers <em>Modifiers</em>}</li>
- *   <li>{@link org.eclipse.xtend.core.xtend.impl.XtendMemberImpl#getDeclaringType <em>Declaring Type</em>}</li>
- * </ul>
- *
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.xtend.impl` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/impl/XtendClassImpl.java`
-#### Snippet
-```java
- * </p>
- * <ul>
- *   <li>{@link org.eclipse.xtend.core.xtend.impl.XtendClassImpl#getExtends <em>Extends</em>}</li>
- *   <li>{@link org.eclipse.xtend.core.xtend.impl.XtendClassImpl#getImplements <em>Implements</em>}</li>
- *   <li>{@link org.eclipse.xtend.core.xtend.impl.XtendClassImpl#getTypeParameters <em>Type Parameters</em>}</li>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.xtend.impl` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/impl/XtendClassImpl.java`
-#### Snippet
-```java
- * <ul>
- *   <li>{@link org.eclipse.xtend.core.xtend.impl.XtendClassImpl#getExtends <em>Extends</em>}</li>
- *   <li>{@link org.eclipse.xtend.core.xtend.impl.XtendClassImpl#getImplements <em>Implements</em>}</li>
- *   <li>{@link org.eclipse.xtend.core.xtend.impl.XtendClassImpl#getTypeParameters <em>Type Parameters</em>}</li>
- * </ul>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.xtend.impl` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/impl/XtendClassImpl.java`
-#### Snippet
-```java
- *   <li>{@link org.eclipse.xtend.core.xtend.impl.XtendClassImpl#getExtends <em>Extends</em>}</li>
- *   <li>{@link org.eclipse.xtend.core.xtend.impl.XtendClassImpl#getImplements <em>Implements</em>}</li>
- *   <li>{@link org.eclipse.xtend.core.xtend.impl.XtendClassImpl#getTypeParameters <em>Type Parameters</em>}</li>
- * </ul>
- *
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.xtend.impl` is unnecessary and can be removed
 in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/impl/XtendTypeDeclarationImpl.java`
 #### Snippet
 ```java
@@ -6341,6 +6245,198 @@ in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/impl/CreateExten
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.eclipse.xtend.core.xtend.impl` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/impl/XtendMemberImpl.java`
+#### Snippet
+```java
+ * </p>
+ * <ul>
+ *   <li>{@link org.eclipse.xtend.core.xtend.impl.XtendMemberImpl#getAnnotationInfo <em>Annotation Info</em>}</li>
+ *   <li>{@link org.eclipse.xtend.core.xtend.impl.XtendMemberImpl#getModifiers <em>Modifiers</em>}</li>
+ *   <li>{@link org.eclipse.xtend.core.xtend.impl.XtendMemberImpl#getDeclaringType <em>Declaring Type</em>}</li>
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.xtend.impl` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/impl/XtendMemberImpl.java`
+#### Snippet
+```java
+ * <ul>
+ *   <li>{@link org.eclipse.xtend.core.xtend.impl.XtendMemberImpl#getAnnotationInfo <em>Annotation Info</em>}</li>
+ *   <li>{@link org.eclipse.xtend.core.xtend.impl.XtendMemberImpl#getModifiers <em>Modifiers</em>}</li>
+ *   <li>{@link org.eclipse.xtend.core.xtend.impl.XtendMemberImpl#getDeclaringType <em>Declaring Type</em>}</li>
+ * </ul>
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.xtend.impl` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/impl/XtendMemberImpl.java`
+#### Snippet
+```java
+ *   <li>{@link org.eclipse.xtend.core.xtend.impl.XtendMemberImpl#getAnnotationInfo <em>Annotation Info</em>}</li>
+ *   <li>{@link org.eclipse.xtend.core.xtend.impl.XtendMemberImpl#getModifiers <em>Modifiers</em>}</li>
+ *   <li>{@link org.eclipse.xtend.core.xtend.impl.XtendMemberImpl#getDeclaringType <em>Declaring Type</em>}</li>
+ * </ul>
+ *
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.xtend.impl` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/impl/XtendClassImpl.java`
+#### Snippet
+```java
+ * </p>
+ * <ul>
+ *   <li>{@link org.eclipse.xtend.core.xtend.impl.XtendClassImpl#getExtends <em>Extends</em>}</li>
+ *   <li>{@link org.eclipse.xtend.core.xtend.impl.XtendClassImpl#getImplements <em>Implements</em>}</li>
+ *   <li>{@link org.eclipse.xtend.core.xtend.impl.XtendClassImpl#getTypeParameters <em>Type Parameters</em>}</li>
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.xtend.impl` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/impl/XtendClassImpl.java`
+#### Snippet
+```java
+ * <ul>
+ *   <li>{@link org.eclipse.xtend.core.xtend.impl.XtendClassImpl#getExtends <em>Extends</em>}</li>
+ *   <li>{@link org.eclipse.xtend.core.xtend.impl.XtendClassImpl#getImplements <em>Implements</em>}</li>
+ *   <li>{@link org.eclipse.xtend.core.xtend.impl.XtendClassImpl#getTypeParameters <em>Type Parameters</em>}</li>
+ * </ul>
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.xtend.impl` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/impl/XtendClassImpl.java`
+#### Snippet
+```java
+ *   <li>{@link org.eclipse.xtend.core.xtend.impl.XtendClassImpl#getExtends <em>Extends</em>}</li>
+ *   <li>{@link org.eclipse.xtend.core.xtend.impl.XtendClassImpl#getImplements <em>Implements</em>}</li>
+ *   <li>{@link org.eclipse.xtend.core.xtend.impl.XtendClassImpl#getTypeParameters <em>Type Parameters</em>}</li>
+ * </ul>
+ *
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.xtend.impl` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/impl/RichStringElseIfImpl.java`
+#### Snippet
+```java
+ * </p>
+ * <ul>
+ *   <li>{@link org.eclipse.xtend.core.xtend.impl.RichStringElseIfImpl#getIf <em>If</em>}</li>
+ *   <li>{@link org.eclipse.xtend.core.xtend.impl.RichStringElseIfImpl#getThen <em>Then</em>}</li>
+ * </ul>
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.xtend.impl` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/impl/RichStringElseIfImpl.java`
+#### Snippet
+```java
+ * <ul>
+ *   <li>{@link org.eclipse.xtend.core.xtend.impl.RichStringElseIfImpl#getIf <em>If</em>}</li>
+ *   <li>{@link org.eclipse.xtend.core.xtend.impl.RichStringElseIfImpl#getThen <em>Then</em>}</li>
+ * </ul>
+ *
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.xtend.impl` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/impl/RichStringIfImpl.java`
+#### Snippet
+```java
+ * </p>
+ * <ul>
+ *   <li>{@link org.eclipse.xtend.core.xtend.impl.RichStringIfImpl#getIf <em>If</em>}</li>
+ *   <li>{@link org.eclipse.xtend.core.xtend.impl.RichStringIfImpl#getThen <em>Then</em>}</li>
+ *   <li>{@link org.eclipse.xtend.core.xtend.impl.RichStringIfImpl#getElseIfs <em>Else Ifs</em>}</li>
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.xtend.impl` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/impl/RichStringIfImpl.java`
+#### Snippet
+```java
+ * <ul>
+ *   <li>{@link org.eclipse.xtend.core.xtend.impl.RichStringIfImpl#getIf <em>If</em>}</li>
+ *   <li>{@link org.eclipse.xtend.core.xtend.impl.RichStringIfImpl#getThen <em>Then</em>}</li>
+ *   <li>{@link org.eclipse.xtend.core.xtend.impl.RichStringIfImpl#getElseIfs <em>Else Ifs</em>}</li>
+ *   <li>{@link org.eclipse.xtend.core.xtend.impl.RichStringIfImpl#getElse <em>Else</em>}</li>
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.xtend.impl` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/impl/RichStringIfImpl.java`
+#### Snippet
+```java
+ *   <li>{@link org.eclipse.xtend.core.xtend.impl.RichStringIfImpl#getIf <em>If</em>}</li>
+ *   <li>{@link org.eclipse.xtend.core.xtend.impl.RichStringIfImpl#getThen <em>Then</em>}</li>
+ *   <li>{@link org.eclipse.xtend.core.xtend.impl.RichStringIfImpl#getElseIfs <em>Else Ifs</em>}</li>
+ *   <li>{@link org.eclipse.xtend.core.xtend.impl.RichStringIfImpl#getElse <em>Else</em>}</li>
+ * </ul>
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.xtend.impl` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/impl/RichStringIfImpl.java`
+#### Snippet
+```java
+ *   <li>{@link org.eclipse.xtend.core.xtend.impl.RichStringIfImpl#getThen <em>Then</em>}</li>
+ *   <li>{@link org.eclipse.xtend.core.xtend.impl.RichStringIfImpl#getElseIfs <em>Else Ifs</em>}</li>
+ *   <li>{@link org.eclipse.xtend.core.xtend.impl.RichStringIfImpl#getElse <em>Else</em>}</li>
+ * </ul>
+ *
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.xtend.impl` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/impl/XtendExecutableImpl.java`
+#### Snippet
+```java
+ * </p>
+ * <ul>
+ *   <li>{@link org.eclipse.xtend.core.xtend.impl.XtendExecutableImpl#getExceptions <em>Exceptions</em>}</li>
+ *   <li>{@link org.eclipse.xtend.core.xtend.impl.XtendExecutableImpl#getTypeParameters <em>Type Parameters</em>}</li>
+ *   <li>{@link org.eclipse.xtend.core.xtend.impl.XtendExecutableImpl#getExpression <em>Expression</em>}</li>
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.xtend.impl` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/impl/XtendExecutableImpl.java`
+#### Snippet
+```java
+ * <ul>
+ *   <li>{@link org.eclipse.xtend.core.xtend.impl.XtendExecutableImpl#getExceptions <em>Exceptions</em>}</li>
+ *   <li>{@link org.eclipse.xtend.core.xtend.impl.XtendExecutableImpl#getTypeParameters <em>Type Parameters</em>}</li>
+ *   <li>{@link org.eclipse.xtend.core.xtend.impl.XtendExecutableImpl#getExpression <em>Expression</em>}</li>
+ *   <li>{@link org.eclipse.xtend.core.xtend.impl.XtendExecutableImpl#getParameters <em>Parameters</em>}</li>
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.xtend.impl` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/impl/XtendExecutableImpl.java`
+#### Snippet
+```java
+ *   <li>{@link org.eclipse.xtend.core.xtend.impl.XtendExecutableImpl#getExceptions <em>Exceptions</em>}</li>
+ *   <li>{@link org.eclipse.xtend.core.xtend.impl.XtendExecutableImpl#getTypeParameters <em>Type Parameters</em>}</li>
+ *   <li>{@link org.eclipse.xtend.core.xtend.impl.XtendExecutableImpl#getExpression <em>Expression</em>}</li>
+ *   <li>{@link org.eclipse.xtend.core.xtend.impl.XtendExecutableImpl#getParameters <em>Parameters</em>}</li>
+ * </ul>
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.xtend.impl` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/impl/XtendExecutableImpl.java`
+#### Snippet
+```java
+ *   <li>{@link org.eclipse.xtend.core.xtend.impl.XtendExecutableImpl#getTypeParameters <em>Type Parameters</em>}</li>
+ *   <li>{@link org.eclipse.xtend.core.xtend.impl.XtendExecutableImpl#getExpression <em>Expression</em>}</li>
+ *   <li>{@link org.eclipse.xtend.core.xtend.impl.XtendExecutableImpl#getParameters <em>Parameters</em>}</li>
+ * </ul>
+ *
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.xtend.impl` is unnecessary and can be removed
 in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/impl/XtendFieldImpl.java`
 #### Snippet
 ```java
@@ -6412,109 +6508,13 @@ in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/impl/XtendFuncti
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.xtend.impl` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/impl/XtendExecutableImpl.java`
-#### Snippet
-```java
- * </p>
- * <ul>
- *   <li>{@link org.eclipse.xtend.core.xtend.impl.XtendExecutableImpl#getExceptions <em>Exceptions</em>}</li>
- *   <li>{@link org.eclipse.xtend.core.xtend.impl.XtendExecutableImpl#getTypeParameters <em>Type Parameters</em>}</li>
- *   <li>{@link org.eclipse.xtend.core.xtend.impl.XtendExecutableImpl#getExpression <em>Expression</em>}</li>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.xtend.impl` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/impl/XtendExecutableImpl.java`
-#### Snippet
-```java
- * <ul>
- *   <li>{@link org.eclipse.xtend.core.xtend.impl.XtendExecutableImpl#getExceptions <em>Exceptions</em>}</li>
- *   <li>{@link org.eclipse.xtend.core.xtend.impl.XtendExecutableImpl#getTypeParameters <em>Type Parameters</em>}</li>
- *   <li>{@link org.eclipse.xtend.core.xtend.impl.XtendExecutableImpl#getExpression <em>Expression</em>}</li>
- *   <li>{@link org.eclipse.xtend.core.xtend.impl.XtendExecutableImpl#getParameters <em>Parameters</em>}</li>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.xtend.impl` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/impl/XtendExecutableImpl.java`
-#### Snippet
-```java
- *   <li>{@link org.eclipse.xtend.core.xtend.impl.XtendExecutableImpl#getExceptions <em>Exceptions</em>}</li>
- *   <li>{@link org.eclipse.xtend.core.xtend.impl.XtendExecutableImpl#getTypeParameters <em>Type Parameters</em>}</li>
- *   <li>{@link org.eclipse.xtend.core.xtend.impl.XtendExecutableImpl#getExpression <em>Expression</em>}</li>
- *   <li>{@link org.eclipse.xtend.core.xtend.impl.XtendExecutableImpl#getParameters <em>Parameters</em>}</li>
- * </ul>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.xtend.impl` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/impl/XtendExecutableImpl.java`
-#### Snippet
-```java
- *   <li>{@link org.eclipse.xtend.core.xtend.impl.XtendExecutableImpl#getTypeParameters <em>Type Parameters</em>}</li>
- *   <li>{@link org.eclipse.xtend.core.xtend.impl.XtendExecutableImpl#getExpression <em>Expression</em>}</li>
- *   <li>{@link org.eclipse.xtend.core.xtend.impl.XtendExecutableImpl#getParameters <em>Parameters</em>}</li>
- * </ul>
- *
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.xtend.impl` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/impl/RichStringIfImpl.java`
-#### Snippet
-```java
- * </p>
- * <ul>
- *   <li>{@link org.eclipse.xtend.core.xtend.impl.RichStringIfImpl#getIf <em>If</em>}</li>
- *   <li>{@link org.eclipse.xtend.core.xtend.impl.RichStringIfImpl#getThen <em>Then</em>}</li>
- *   <li>{@link org.eclipse.xtend.core.xtend.impl.RichStringIfImpl#getElseIfs <em>Else Ifs</em>}</li>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.xtend.impl` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/impl/RichStringIfImpl.java`
-#### Snippet
-```java
- * <ul>
- *   <li>{@link org.eclipse.xtend.core.xtend.impl.RichStringIfImpl#getIf <em>If</em>}</li>
- *   <li>{@link org.eclipse.xtend.core.xtend.impl.RichStringIfImpl#getThen <em>Then</em>}</li>
- *   <li>{@link org.eclipse.xtend.core.xtend.impl.RichStringIfImpl#getElseIfs <em>Else Ifs</em>}</li>
- *   <li>{@link org.eclipse.xtend.core.xtend.impl.RichStringIfImpl#getElse <em>Else</em>}</li>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.xtend.impl` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/impl/RichStringIfImpl.java`
-#### Snippet
-```java
- *   <li>{@link org.eclipse.xtend.core.xtend.impl.RichStringIfImpl#getIf <em>If</em>}</li>
- *   <li>{@link org.eclipse.xtend.core.xtend.impl.RichStringIfImpl#getThen <em>Then</em>}</li>
- *   <li>{@link org.eclipse.xtend.core.xtend.impl.RichStringIfImpl#getElseIfs <em>Else Ifs</em>}</li>
- *   <li>{@link org.eclipse.xtend.core.xtend.impl.RichStringIfImpl#getElse <em>Else</em>}</li>
- * </ul>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.xtend.impl` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/impl/RichStringIfImpl.java`
-#### Snippet
-```java
- *   <li>{@link org.eclipse.xtend.core.xtend.impl.RichStringIfImpl#getThen <em>Then</em>}</li>
- *   <li>{@link org.eclipse.xtend.core.xtend.impl.RichStringIfImpl#getElseIfs <em>Else Ifs</em>}</li>
- *   <li>{@link org.eclipse.xtend.core.xtend.impl.RichStringIfImpl#getElse <em>Else</em>}</li>
- * </ul>
- *
-```
-
-### UnnecessaryFullyQualifiedName
 Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
 in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendPackage.java`
 #### Snippet
 ```java
 
 	/**
-	 * Returns the meta object for the containment reference '{@link org.eclipse.xtend.core.xtend.XtendField#getInitialValue <em>Initial Value</em>}'.
+	 * Returns the meta object for class '{@link org.eclipse.xtend.core.xtend.RichStringElseIf <em>Rich String Else If</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 ```
@@ -6525,80 +6525,8 @@ in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendPackage.jav
 #### Snippet
 ```java
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference '<em>Initial Value</em>'.
-	 * @see org.eclipse.xtend.core.xtend.XtendField#getInitialValue()
-	 * @see #getXtendField()
-	 * @generated
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendPackage.java`
-#### Snippet
-```java
-
-	/**
-	 * Returns the meta object for the containment reference list '{@link org.eclipse.xtend.core.xtend.XtendExecutable#getTypeParameters <em>Type Parameters</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendPackage.java`
-#### Snippet
-```java
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference list '<em>Type Parameters</em>'.
-	 * @see org.eclipse.xtend.core.xtend.XtendExecutable#getTypeParameters()
-	 * @see #getXtendExecutable()
-	 * @generated
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendPackage.java`
-#### Snippet
-```java
-
-	/**
-	 * Returns the meta object for the attribute '{@link org.eclipse.xtend.core.xtend.XtendParameter#getName <em>Name</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendPackage.java`
-#### Snippet
-```java
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Name</em>'.
-	 * @see org.eclipse.xtend.core.xtend.XtendParameter#getName()
-	 * @see #getXtendParameter()
-	 * @generated
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendPackage.java`
-#### Snippet
-```java
-
-	/**
-	 * Returns the meta object for class '{@link org.eclipse.xtend.core.xtend.XtendInterface <em>Interface</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendPackage.java`
-#### Snippet
-```java
-	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Interface</em>'.
-	 * @see org.eclipse.xtend.core.xtend.XtendInterface
+	 * @return the meta object for class '<em>Rich String Else If</em>'.
+	 * @see org.eclipse.xtend.core.xtend.RichStringElseIf
 	 * @generated
 	 */
 ```
@@ -6610,7 +6538,7 @@ in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendPackage.jav
 ```java
 
 	/**
-	 * Returns the meta object for class '{@link org.eclipse.xtend.core.xtend.XtendMember <em>Member</em>}'.
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.xtend.core.xtend.XtendTypeDeclaration#getMembers <em>Members</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 ```
@@ -6621,58 +6549,10 @@ in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendPackage.jav
 #### Snippet
 ```java
 	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Member</em>'.
-	 * @see org.eclipse.xtend.core.xtend.XtendMember
+	 * @return the meta object for the containment reference list '<em>Members</em>'.
+	 * @see org.eclipse.xtend.core.xtend.XtendTypeDeclaration#getMembers()
+	 * @see #getXtendTypeDeclaration()
 	 * @generated
-	 */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendPackage.java`
-#### Snippet
-```java
-
-	/**
-	 * Returns the meta object for the containment reference list '{@link org.eclipse.xtend.core.xtend.RichStringIf#getElseIfs <em>Else Ifs</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendPackage.java`
-#### Snippet
-```java
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference list '<em>Else Ifs</em>'.
-	 * @see org.eclipse.xtend.core.xtend.RichStringIf#getElseIfs()
-	 * @see #getRichStringIf()
-	 * @generated
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendPackage.java`
-#### Snippet
-```java
-
-	/**
-	 * Returns the meta object for class '{@link org.eclipse.xtend.core.xtend.XtendVariableDeclaration <em>Variable Declaration</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendPackage.java`
-#### Snippet
-```java
-	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Variable Declaration</em>'.
-	 * @see org.eclipse.xtend.core.xtend.XtendVariableDeclaration
-	 * @generated
-	 */
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -6706,7 +6586,7 @@ in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendPackage.jav
 ```java
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link org.eclipse.xtend.core.xtend.XtendInterface#getTypeParameters <em>Type Parameters</em>}'.
+	 * Returns the meta object for class '{@link org.eclipse.xtend.core.xtend.XtendVariableDeclaration <em>Variable Declaration</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 ```
@@ -6717,80 +6597,8 @@ in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendPackage.jav
 #### Snippet
 ```java
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference list '<em>Type Parameters</em>'.
-	 * @see org.eclipse.xtend.core.xtend.XtendInterface#getTypeParameters()
-	 * @see #getXtendInterface()
-	 * @generated
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendPackage.java`
-#### Snippet
-```java
-
-	/**
-	 * Returns the meta object for the attribute '{@link org.eclipse.xtend.core.xtend.XtendParameter#isExtension <em>Extension</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendPackage.java`
-#### Snippet
-```java
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Extension</em>'.
-	 * @see org.eclipse.xtend.core.xtend.XtendParameter#isExtension()
-	 * @see #getXtendParameter()
-	 * @generated
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendPackage.java`
-#### Snippet
-```java
-
-	/**
-	 * Returns the meta object for the containment reference list '{@link org.eclipse.xtend.core.xtend.XtendClass#getImplements <em>Implements</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendPackage.java`
-#### Snippet
-```java
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference list '<em>Implements</em>'.
-	 * @see org.eclipse.xtend.core.xtend.XtendClass#getImplements()
-	 * @see #getXtendClass()
-	 * @generated
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendPackage.java`
-#### Snippet
-```java
-
-	/**
-	 * Returns the meta object for class '{@link org.eclipse.xtend.core.xtend.AnonymousClass <em>Anonymous Class</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendPackage.java`
-#### Snippet
-```java
-	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Anonymous Class</em>'.
-	 * @see org.eclipse.xtend.core.xtend.AnonymousClass
+	 * @return the meta object for class '<em>Variable Declaration</em>'.
+	 * @see org.eclipse.xtend.core.xtend.XtendVariableDeclaration
 	 * @generated
 	 */
 ```
@@ -6802,7 +6610,7 @@ in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendPackage.jav
 ```java
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.eclipse.xtend.core.xtend.XtendFormalParameter#isExtension <em>Extension</em>}'.
+	 * Returns the meta object for the containment reference '{@link org.eclipse.xtend.core.xtend.RichStringIf#getThen <em>Then</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 ```
@@ -6813,9 +6621,441 @@ in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendPackage.jav
 #### Snippet
 ```java
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Extension</em>'.
-	 * @see org.eclipse.xtend.core.xtend.XtendFormalParameter#isExtension()
-	 * @see #getXtendFormalParameter()
+	 * @return the meta object for the containment reference '<em>Then</em>'.
+	 * @see org.eclipse.xtend.core.xtend.RichStringIf#getThen()
+	 * @see #getRichStringIf()
+	 * @generated
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendPackage.java`
+#### Snippet
+```java
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.xtend.core.xtend.XtendInterface#getExtends <em>Extends</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendPackage.java`
+#### Snippet
+```java
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Extends</em>'.
+	 * @see org.eclipse.xtend.core.xtend.XtendInterface#getExtends()
+	 * @see #getXtendInterface()
+	 * @generated
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendPackage.java`
+#### Snippet
+```java
+
+	/**
+	 * Returns the meta object for the containment reference '{@link org.eclipse.xtend.core.xtend.XtendField#getInitialValue <em>Initial Value</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendPackage.java`
+#### Snippet
+```java
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Initial Value</em>'.
+	 * @see org.eclipse.xtend.core.xtend.XtendField#getInitialValue()
+	 * @see #getXtendField()
+	 * @generated
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendPackage.java`
+#### Snippet
+```java
+
+	/**
+	 * Returns the meta object for class '{@link org.eclipse.xtend.core.xtend.RichStringLiteral <em>Rich String Literal</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendPackage.java`
+#### Snippet
+```java
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Rich String Literal</em>'.
+	 * @see org.eclipse.xtend.core.xtend.RichStringLiteral
+	 * @generated
+	 */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendPackage.java`
+#### Snippet
+```java
+
+	/**
+	 * Returns the meta object for the containment reference '{@link org.eclipse.xtend.core.xtend.RichStringElseIf#getIf <em>If</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendPackage.java`
+#### Snippet
+```java
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>If</em>'.
+	 * @see org.eclipse.xtend.core.xtend.RichStringElseIf#getIf()
+	 * @see #getRichStringElseIf()
+	 * @generated
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendPackage.java`
+#### Snippet
+```java
+
+	/**
+	 * Returns the meta object for class '{@link org.eclipse.xtend.core.xtend.XtendAnnotationType <em>Annotation Type</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendPackage.java`
+#### Snippet
+```java
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Annotation Type</em>'.
+	 * @see org.eclipse.xtend.core.xtend.XtendAnnotationType
+	 * @generated
+	 */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendPackage.java`
+#### Snippet
+```java
+
+	/**
+	 * Returns the meta object for the containment reference '{@link org.eclipse.xtend.core.xtend.XtendMember#getAnnotationInfo <em>Annotation Info</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendPackage.java`
+#### Snippet
+```java
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Annotation Info</em>'.
+	 * @see org.eclipse.xtend.core.xtend.XtendMember#getAnnotationInfo()
+	 * @see #getXtendMember()
+	 * @generated
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendPackage.java`
+#### Snippet
+```java
+
+	/**
+	 * Returns the meta object for the containment reference '{@link org.eclipse.xtend.core.xtend.XtendParameter#getParameterType <em>Parameter Type</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendPackage.java`
+#### Snippet
+```java
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Parameter Type</em>'.
+	 * @see org.eclipse.xtend.core.xtend.XtendParameter#getParameterType()
+	 * @see #getXtendParameter()
+	 * @generated
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendPackage.java`
+#### Snippet
+```java
+
+	/**
+	 * Returns the meta object for class '{@link org.eclipse.xtend.core.xtend.XtendClass <em>Class</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendPackage.java`
+#### Snippet
+```java
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Class</em>'.
+	 * @see org.eclipse.xtend.core.xtend.XtendClass
+	 * @generated
+	 */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendPackage.java`
+#### Snippet
+```java
+
+	/**
+	 * Returns the meta object for class '{@link org.eclipse.xtend.core.xtend.XtendInterface <em>Interface</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendPackage.java`
+#### Snippet
+```java
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Interface</em>'.
+	 * @see org.eclipse.xtend.core.xtend.XtendInterface
+	 * @generated
+	 */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendPackage.java`
+#### Snippet
+```java
+
+	/**
+	 * Returns the meta object for the containment reference '{@link org.eclipse.xtend.core.xtend.RichStringForLoop#getSeparator <em>Separator</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendPackage.java`
+#### Snippet
+```java
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Separator</em>'.
+	 * @see org.eclipse.xtend.core.xtend.RichStringForLoop#getSeparator()
+	 * @see #getRichStringForLoop()
+	 * @generated
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendPackage.java`
+#### Snippet
+```java
+
+	/**
+	 * Returns the meta object for the containment reference '{@link org.eclipse.xtend.core.xtend.RichStringForLoop#getBefore <em>Before</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendPackage.java`
+#### Snippet
+```java
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Before</em>'.
+	 * @see org.eclipse.xtend.core.xtend.RichStringForLoop#getBefore()
+	 * @see #getRichStringForLoop()
+	 * @generated
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendPackage.java`
+#### Snippet
+```java
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.xtend.core.xtend.RichStringIf#getElseIfs <em>Else Ifs</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendPackage.java`
+#### Snippet
+```java
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Else Ifs</em>'.
+	 * @see org.eclipse.xtend.core.xtend.RichStringIf#getElseIfs()
+	 * @see #getRichStringIf()
+	 * @generated
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendPackage.java`
+#### Snippet
+```java
+
+	/**
+	 * Returns the meta object for class '{@link org.eclipse.xtend.core.xtend.XtendEnum <em>Enum</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendPackage.java`
+#### Snippet
+```java
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Enum</em>'.
+	 * @see org.eclipse.xtend.core.xtend.XtendEnum
+	 * @generated
+	 */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendPackage.java`
+#### Snippet
+```java
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.xtend.core.xtend.XtendFunction#getName <em>Name</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendPackage.java`
+#### Snippet
+```java
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Name</em>'.
+	 * @see org.eclipse.xtend.core.xtend.XtendFunction#getName()
+	 * @see #getXtendFunction()
+	 * @generated
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendPackage.java`
+#### Snippet
+```java
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.xtend.core.xtend.CreateExtensionInfo#getName <em>Name</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendPackage.java`
+#### Snippet
+```java
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Name</em>'.
+	 * @see org.eclipse.xtend.core.xtend.CreateExtensionInfo#getName()
+	 * @see #getCreateExtensionInfo()
+	 * @generated
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendPackage.java`
+#### Snippet
+```java
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.xtend.core.xtend.XtendFile#getPackage <em>Package</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendPackage.java`
+#### Snippet
+```java
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Package</em>'.
+	 * @see org.eclipse.xtend.core.xtend.XtendFile#getPackage()
+	 * @see #getXtendFile()
+	 * @generated
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendPackage.java`
+#### Snippet
+```java
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.xtend.core.xtend.XtendFile#getXtendTypes <em>Xtend Types</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendPackage.java`
+#### Snippet
+```java
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Xtend Types</em>'.
+	 * @see org.eclipse.xtend.core.xtend.XtendFile#getXtendTypes()
+	 * @see #getXtendFile()
+	 * @generated
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendPackage.java`
+#### Snippet
+```java
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.xtend.core.xtend.XtendParameter#isVarArg <em>Var Arg</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendPackage.java`
+#### Snippet
+```java
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Var Arg</em>'.
+	 * @see org.eclipse.xtend.core.xtend.XtendParameter#isVarArg()
+	 * @see #getXtendParameter()
 	 * @generated
 ```
 
@@ -6874,7 +7114,7 @@ in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendPackage.jav
 ```java
 
 	/**
-	 * Returns the meta object for the containment reference '{@link org.eclipse.xtend.core.xtend.RichStringElseIf#getThen <em>Then</em>}'.
+	 * Returns the meta object for the attribute '{@link org.eclipse.xtend.core.xtend.XtendFormalParameter#isExtension <em>Extension</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 ```
@@ -6885,381 +7125,9 @@ in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendPackage.jav
 #### Snippet
 ```java
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference '<em>Then</em>'.
-	 * @see org.eclipse.xtend.core.xtend.RichStringElseIf#getThen()
-	 * @see #getRichStringElseIf()
-	 * @generated
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendPackage.java`
-#### Snippet
-```java
-
-	/**
-	 * Returns the meta object for the attribute list '{@link org.eclipse.xtend.core.xtend.XtendMember#getModifiers <em>Modifiers</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendPackage.java`
-#### Snippet
-```java
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute list '<em>Modifiers</em>'.
-	 * @see org.eclipse.xtend.core.xtend.XtendMember#getModifiers()
-	 * @see #getXtendMember()
-	 * @generated
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendPackage.java`
-#### Snippet
-```java
-
-	/**
-	 * Returns the meta object for the containment reference list '{@link org.eclipse.xtend.core.xtend.XtendExecutable#getParameters <em>Parameters</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendPackage.java`
-#### Snippet
-```java
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference list '<em>Parameters</em>'.
-	 * @see org.eclipse.xtend.core.xtend.XtendExecutable#getParameters()
-	 * @see #getXtendExecutable()
-	 * @generated
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendPackage.java`
-#### Snippet
-```java
-
-	/**
-	 * Returns the meta object for the containment reference '{@link org.eclipse.xtend.core.xtend.CreateExtensionInfo#getCreateExpression <em>Create Expression</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendPackage.java`
-#### Snippet
-```java
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference '<em>Create Expression</em>'.
-	 * @see org.eclipse.xtend.core.xtend.CreateExtensionInfo#getCreateExpression()
-	 * @see #getCreateExtensionInfo()
-	 * @generated
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendPackage.java`
-#### Snippet
-```java
-
-	/**
-	 * Returns the meta object for class '{@link org.eclipse.xtend.core.xtend.RichString <em>Rich String</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendPackage.java`
-#### Snippet
-```java
-	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Rich String</em>'.
-	 * @see org.eclipse.xtend.core.xtend.RichString
-	 * @generated
-	 */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendPackage.java`
-#### Snippet
-```java
-
-	/**
-	 * Returns the meta object for the attribute '{@link org.eclipse.xtend.core.xtend.XtendField#getName <em>Name</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendPackage.java`
-#### Snippet
-```java
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Name</em>'.
-	 * @see org.eclipse.xtend.core.xtend.XtendField#getName()
-	 * @see #getXtendField()
-	 * @generated
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.xtend.impl` is unnecessary, and can be replaced with an import
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendPackage.java`
-#### Snippet
-```java
-	 * @generated
-	 */
-	XtendPackage eINSTANCE = org.eclipse.xtend.core.xtend.impl.XtendPackageImpl.init();
-
-	/**
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendPackage.java`
-#### Snippet
-```java
-
-	/**
-	 * Returns the meta object for the containment reference '{@link org.eclipse.xtend.core.xtend.XtendMember#getAnnotationInfo <em>Annotation Info</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendPackage.java`
-#### Snippet
-```java
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference '<em>Annotation Info</em>'.
-	 * @see org.eclipse.xtend.core.xtend.XtendMember#getAnnotationInfo()
-	 * @see #getXtendMember()
-	 * @generated
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendPackage.java`
-#### Snippet
-```java
-
-	/**
-	 * Returns the meta object for the containment reference list '{@link org.eclipse.xtend.core.xtend.XtendFile#getXtendTypes <em>Xtend Types</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendPackage.java`
-#### Snippet
-```java
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference list '<em>Xtend Types</em>'.
-	 * @see org.eclipse.xtend.core.xtend.XtendFile#getXtendTypes()
-	 * @see #getXtendFile()
-	 * @generated
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendPackage.java`
-#### Snippet
-```java
-
-	/**
-	 * Returns the meta object for the attribute '{@link org.eclipse.xtend.core.xtend.XtendFunction#getName <em>Name</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendPackage.java`
-#### Snippet
-```java
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Name</em>'.
-	 * @see org.eclipse.xtend.core.xtend.XtendFunction#getName()
-	 * @see #getXtendFunction()
-	 * @generated
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendPackage.java`
-#### Snippet
-```java
-
-	/**
-	 * Returns the meta object for the containment reference '{@link org.eclipse.xtend.core.xtend.RichStringIf#getIf <em>If</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendPackage.java`
-#### Snippet
-```java
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference '<em>If</em>'.
-	 * @see org.eclipse.xtend.core.xtend.RichStringIf#getIf()
-	 * @see #getRichStringIf()
-	 * @generated
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendPackage.java`
-#### Snippet
-```java
-
-	/**
-	 * Returns the meta object for class '{@link org.eclipse.xtend.core.xtend.XtendFile <em>File</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendPackage.java`
-#### Snippet
-```java
-	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>File</em>'.
-	 * @see org.eclipse.xtend.core.xtend.XtendFile
-	 * @generated
-	 */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendPackage.java`
-#### Snippet
-```java
-
-	/**
-	 * Returns the meta object for the containment reference '{@link org.eclipse.xtend.core.xtend.XtendFunction#getCreateExtensionInfo <em>Create Extension Info</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendPackage.java`
-#### Snippet
-```java
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference '<em>Create Extension Info</em>'.
-	 * @see org.eclipse.xtend.core.xtend.XtendFunction#getCreateExtensionInfo()
-	 * @see #getXtendFunction()
-	 * @generated
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendPackage.java`
-#### Snippet
-```java
-
-	/**
-	 * Returns the meta object for class '{@link org.eclipse.xtend.core.xtend.XtendFunction <em>Function</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendPackage.java`
-#### Snippet
-```java
-	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Function</em>'.
-	 * @see org.eclipse.xtend.core.xtend.XtendFunction
-	 * @generated
-	 */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendPackage.java`
-#### Snippet
-```java
-
-	/**
-	 * Returns the meta object for the containment reference '{@link org.eclipse.xtend.core.xtend.RichStringIf#getThen <em>Then</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendPackage.java`
-#### Snippet
-```java
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference '<em>Then</em>'.
-	 * @see org.eclipse.xtend.core.xtend.RichStringIf#getThen()
-	 * @see #getRichStringIf()
-	 * @generated
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendPackage.java`
-#### Snippet
-```java
-
-	/**
-	 * Returns the meta object for class '{@link org.eclipse.xtend.core.xtend.XtendTypeDeclaration <em>Type Declaration</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendPackage.java`
-#### Snippet
-```java
-	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Type Declaration</em>'.
-	 * @see org.eclipse.xtend.core.xtend.XtendTypeDeclaration
-	 * @generated
-	 */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendPackage.java`
-#### Snippet
-```java
-
-	/**
-	 * Returns the meta object for the containment reference '{@link org.eclipse.xtend.core.xtend.RichStringForLoop#getAfter <em>After</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendPackage.java`
-#### Snippet
-```java
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference '<em>After</em>'.
-	 * @see org.eclipse.xtend.core.xtend.RichStringForLoop#getAfter()
-	 * @see #getRichStringForLoop()
+	 * @return the meta object for the attribute '<em>Extension</em>'.
+	 * @see org.eclipse.xtend.core.xtend.XtendFormalParameter#isExtension()
+	 * @see #getXtendFormalParameter()
 	 * @generated
 ```
 
@@ -7294,7 +7162,7 @@ in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendPackage.jav
 ```java
 
 	/**
-	 * Returns the meta object for class '{@link org.eclipse.xtend.core.xtend.RichStringForLoop <em>Rich String For Loop</em>}'.
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.xtend.core.xtend.XtendExecutable#getTypeParameters <em>Type Parameters</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 ```
@@ -7305,236 +7173,8 @@ in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendPackage.jav
 #### Snippet
 ```java
 	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Rich String For Loop</em>'.
-	 * @see org.eclipse.xtend.core.xtend.RichStringForLoop
-	 * @generated
-	 */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendPackage.java`
-#### Snippet
-```java
-
-	/**
-	 * Returns the meta object for the containment reference '{@link org.eclipse.xtend.core.xtend.XtendFile#getImportSection <em>Import Section</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendPackage.java`
-#### Snippet
-```java
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference '<em>Import Section</em>'.
-	 * @see org.eclipse.xtend.core.xtend.XtendFile#getImportSection()
-	 * @see #getXtendFile()
-	 * @generated
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendPackage.java`
-#### Snippet
-```java
-
-	/**
-	 * Returns the meta object for the attribute '{@link org.eclipse.xtend.core.xtend.XtendEnumLiteral#getName <em>Name</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendPackage.java`
-#### Snippet
-```java
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Name</em>'.
-	 * @see org.eclipse.xtend.core.xtend.XtendEnumLiteral#getName()
-	 * @see #getXtendEnumLiteral()
-	 * @generated
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendPackage.java`
-#### Snippet
-```java
-
-	/**
-	 * Returns the meta object for the containment reference '{@link org.eclipse.xtend.core.xtend.AnonymousClass#getConstructorCall <em>Constructor Call</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendPackage.java`
-#### Snippet
-```java
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference '<em>Constructor Call</em>'.
-	 * @see org.eclipse.xtend.core.xtend.AnonymousClass#getConstructorCall()
-	 * @see #getAnonymousClass()
-	 * @generated
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendPackage.java`
-#### Snippet
-```java
-
-	/**
-	 * Returns the meta object for class '{@link org.eclipse.xtend.core.xtend.XtendAnnotationType <em>Annotation Type</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendPackage.java`
-#### Snippet
-```java
-	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Annotation Type</em>'.
-	 * @see org.eclipse.xtend.core.xtend.XtendAnnotationType
-	 * @generated
-	 */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendPackage.java`
-#### Snippet
-```java
-
-	/**
-	 * Returns the meta object for the containment reference '{@link org.eclipse.xtend.core.xtend.RichStringForLoop#getSeparator <em>Separator</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendPackage.java`
-#### Snippet
-```java
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference '<em>Separator</em>'.
-	 * @see org.eclipse.xtend.core.xtend.RichStringForLoop#getSeparator()
-	 * @see #getRichStringForLoop()
-	 * @generated
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendPackage.java`
-#### Snippet
-```java
-
-	/**
-	 * Returns the meta object for class '{@link org.eclipse.xtend.core.xtend.XtendClass <em>Class</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendPackage.java`
-#### Snippet
-```java
-	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Class</em>'.
-	 * @see org.eclipse.xtend.core.xtend.XtendClass
-	 * @generated
-	 */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendPackage.java`
-#### Snippet
-```java
-
-	/**
-	 * Returns the meta object for class '{@link org.eclipse.xtend.core.xtend.RichStringLiteral <em>Rich String Literal</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendPackage.java`
-#### Snippet
-```java
-	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Rich String Literal</em>'.
-	 * @see org.eclipse.xtend.core.xtend.RichStringLiteral
-	 * @generated
-	 */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendPackage.java`
-#### Snippet
-```java
- * </ul>
- * <!-- end-user-doc -->
- * @see org.eclipse.xtend.core.xtend.XtendFactory
- * @model kind="package"
- * @generated
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendPackage.java`
-#### Snippet
-```java
-
-	/**
-	 * Returns the meta object for class '{@link org.eclipse.xtend.core.xtend.XtendAnnotationTarget <em>Annotation Target</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendPackage.java`
-#### Snippet
-```java
-	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Annotation Target</em>'.
-	 * @see org.eclipse.xtend.core.xtend.XtendAnnotationTarget
-	 * @generated
-	 */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendPackage.java`
-#### Snippet
-```java
-
-	/**
-	 * Returns the meta object for the containment reference '{@link org.eclipse.xtend.core.xtend.XtendExecutable#getExpression <em>Expression</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendPackage.java`
-#### Snippet
-```java
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference '<em>Expression</em>'.
-	 * @see org.eclipse.xtend.core.xtend.XtendExecutable#getExpression()
+	 * @return the meta object for the containment reference list '<em>Type Parameters</em>'.
+	 * @see org.eclipse.xtend.core.xtend.XtendExecutable#getTypeParameters()
 	 * @see #getXtendExecutable()
 	 * @generated
 ```
@@ -7546,7 +7186,7 @@ in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendPackage.jav
 ```java
 
 	/**
-	 * Returns the meta object for class '{@link org.eclipse.xtend.core.xtend.RichStringElseIf <em>Rich String Else If</em>}'.
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.xtend.core.xtend.XtendExecutable#getParameters <em>Parameters</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 ```
@@ -7557,33 +7197,9 @@ in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendPackage.jav
 #### Snippet
 ```java
 	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Rich String Else If</em>'.
-	 * @see org.eclipse.xtend.core.xtend.RichStringElseIf
-	 * @generated
-	 */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendPackage.java`
-#### Snippet
-```java
-
-	/**
-	 * Returns the meta object for the attribute '{@link org.eclipse.xtend.core.xtend.XtendVariableDeclaration#isExtension <em>Extension</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendPackage.java`
-#### Snippet
-```java
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Extension</em>'.
-	 * @see org.eclipse.xtend.core.xtend.XtendVariableDeclaration#isExtension()
-	 * @see #getXtendVariableDeclaration()
+	 * @return the meta object for the containment reference list '<em>Parameters</em>'.
+	 * @see org.eclipse.xtend.core.xtend.XtendExecutable#getParameters()
+	 * @see #getXtendExecutable()
 	 * @generated
 ```
 
@@ -7594,7 +7210,7 @@ in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendPackage.jav
 ```java
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link org.eclipse.xtend.core.xtend.XtendAnnotationTarget#getAnnotations <em>Annotations</em>}'.
+	 * Returns the meta object for class '{@link org.eclipse.xtend.core.xtend.XtendParameter <em>Parameter</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 ```
@@ -7605,128 +7221,8 @@ in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendPackage.jav
 #### Snippet
 ```java
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference list '<em>Annotations</em>'.
-	 * @see org.eclipse.xtend.core.xtend.XtendAnnotationTarget#getAnnotations()
-	 * @see #getXtendAnnotationTarget()
-	 * @generated
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendPackage.java`
-#### Snippet
-```java
-
-	/**
-	 * Returns the meta object for the containment reference '{@link org.eclipse.xtend.core.xtend.RichStringIf#getElse <em>Else</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendPackage.java`
-#### Snippet
-```java
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference '<em>Else</em>'.
-	 * @see org.eclipse.xtend.core.xtend.RichStringIf#getElse()
-	 * @see #getRichStringIf()
-	 * @generated
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendPackage.java`
-#### Snippet
-```java
-
-	/**
-	 * Returns the meta object for class '{@link org.eclipse.xtend.core.xtend.XtendExecutable <em>Executable</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.xtend.impl` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/impl/XtendInterfaceImpl.java`
-#### Snippet
-```java
- * </p>
- * <ul>
- *   <li>{@link org.eclipse.xtend.core.xtend.impl.XtendInterfaceImpl#getExtends <em>Extends</em>}</li>
- *   <li>{@link org.eclipse.xtend.core.xtend.impl.XtendInterfaceImpl#getTypeParameters <em>Type Parameters</em>}</li>
- * </ul>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.xtend.impl` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/impl/XtendInterfaceImpl.java`
-#### Snippet
-```java
- * <ul>
- *   <li>{@link org.eclipse.xtend.core.xtend.impl.XtendInterfaceImpl#getExtends <em>Extends</em>}</li>
- *   <li>{@link org.eclipse.xtend.core.xtend.impl.XtendInterfaceImpl#getTypeParameters <em>Type Parameters</em>}</li>
- * </ul>
- *
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendPackage.java`
-#### Snippet
-```java
-	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Executable</em>'.
-	 * @see org.eclipse.xtend.core.xtend.XtendExecutable
-	 * @generated
-	 */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendPackage.java`
-#### Snippet
-```java
-
-	/**
-	 * Returns the meta object for the containment reference '{@link org.eclipse.xtend.core.xtend.XtendFunction#getReturnType <em>Return Type</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendPackage.java`
-#### Snippet
-```java
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference '<em>Return Type</em>'.
-	 * @see org.eclipse.xtend.core.xtend.XtendFunction#getReturnType()
-	 * @see #getXtendFunction()
-	 * @generated
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendPackage.java`
-#### Snippet
-```java
-
-	/**
-	 * Returns the meta object for class '{@link org.eclipse.xtend.core.xtend.RichStringIf <em>Rich String If</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendPackage.java`
-#### Snippet
-```java
-	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Rich String If</em>'.
-	 * @see org.eclipse.xtend.core.xtend.RichStringIf
+	 * @return the meta object for class '<em>Parameter</em>'.
+	 * @see org.eclipse.xtend.core.xtend.XtendParameter
 	 * @generated
 	 */
 ```
@@ -7762,7 +7258,7 @@ in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendPackage.jav
 ```java
 
 	/**
-	 * Returns the meta object for class '{@link org.eclipse.xtend.core.xtend.XtendParameter <em>Parameter</em>}'.
+	 * Returns the meta object for class '{@link org.eclipse.xtend.core.xtend.XtendExecutable <em>Executable</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 ```
@@ -7773,8 +7269,428 @@ in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendPackage.jav
 #### Snippet
 ```java
 	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Parameter</em>'.
-	 * @see org.eclipse.xtend.core.xtend.XtendParameter
+	 * @return the meta object for class '<em>Executable</em>'.
+	 * @see org.eclipse.xtend.core.xtend.XtendExecutable
+	 * @generated
+	 */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendPackage.java`
+#### Snippet
+```java
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.xtend.core.xtend.XtendParameter#getName <em>Name</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendPackage.java`
+#### Snippet
+```java
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Name</em>'.
+	 * @see org.eclipse.xtend.core.xtend.XtendParameter#getName()
+	 * @see #getXtendParameter()
+	 * @generated
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.xtend.impl` is unnecessary, and can be replaced with an import
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendPackage.java`
+#### Snippet
+```java
+	 * @generated
+	 */
+	XtendPackage eINSTANCE = org.eclipse.xtend.core.xtend.impl.XtendPackageImpl.init();
+
+	/**
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendPackage.java`
+#### Snippet
+```java
+
+	/**
+	 * Returns the meta object for the containment reference '{@link org.eclipse.xtend.core.xtend.AnonymousClass#getConstructorCall <em>Constructor Call</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendPackage.java`
+#### Snippet
+```java
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Constructor Call</em>'.
+	 * @see org.eclipse.xtend.core.xtend.AnonymousClass#getConstructorCall()
+	 * @see #getAnonymousClass()
+	 * @generated
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendPackage.java`
+#### Snippet
+```java
+
+	/**
+	 * Returns the meta object for class '{@link org.eclipse.xtend.core.xtend.XtendConstructor <em>Constructor</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendPackage.java`
+#### Snippet
+```java
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Constructor</em>'.
+	 * @see org.eclipse.xtend.core.xtend.XtendConstructor
+	 * @generated
+	 */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendPackage.java`
+#### Snippet
+```java
+
+	/**
+	 * Returns the meta object for class '{@link org.eclipse.xtend.core.xtend.XtendMember <em>Member</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendPackage.java`
+#### Snippet
+```java
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Member</em>'.
+	 * @see org.eclipse.xtend.core.xtend.XtendMember
+	 * @generated
+	 */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendPackage.java`
+#### Snippet
+```java
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.xtend.core.xtend.XtendEnumLiteral#getName <em>Name</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendPackage.java`
+#### Snippet
+```java
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Name</em>'.
+	 * @see org.eclipse.xtend.core.xtend.XtendEnumLiteral#getName()
+	 * @see #getXtendEnumLiteral()
+	 * @generated
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendPackage.java`
+#### Snippet
+```java
+
+	/**
+	 * Returns the meta object for the containment reference '{@link org.eclipse.xtend.core.xtend.XtendFunction#getReturnType <em>Return Type</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendPackage.java`
+#### Snippet
+```java
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Return Type</em>'.
+	 * @see org.eclipse.xtend.core.xtend.XtendFunction#getReturnType()
+	 * @see #getXtendFunction()
+	 * @generated
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendPackage.java`
+#### Snippet
+```java
+
+	/**
+	 * Returns the meta object for the container reference '{@link org.eclipse.xtend.core.xtend.XtendMember#getDeclaringType <em>Declaring Type</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendPackage.java`
+#### Snippet
+```java
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the container reference '<em>Declaring Type</em>'.
+	 * @see org.eclipse.xtend.core.xtend.XtendMember#getDeclaringType()
+	 * @see #getXtendMember()
+	 * @generated
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendPackage.java`
+#### Snippet
+```java
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.xtend.core.xtend.XtendAnnotationTarget#getAnnotations <em>Annotations</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendPackage.java`
+#### Snippet
+```java
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Annotations</em>'.
+	 * @see org.eclipse.xtend.core.xtend.XtendAnnotationTarget#getAnnotations()
+	 * @see #getXtendAnnotationTarget()
+	 * @generated
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendPackage.java`
+#### Snippet
+```java
+
+	/**
+	 * Returns the meta object for the containment reference '{@link org.eclipse.xtend.core.xtend.RichStringForLoop#getAfter <em>After</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendPackage.java`
+#### Snippet
+```java
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>After</em>'.
+	 * @see org.eclipse.xtend.core.xtend.RichStringForLoop#getAfter()
+	 * @see #getRichStringForLoop()
+	 * @generated
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendPackage.java`
+#### Snippet
+```java
+
+	/**
+	 * Returns the meta object for class '{@link org.eclipse.xtend.core.xtend.RichStringForLoop <em>Rich String For Loop</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendPackage.java`
+#### Snippet
+```java
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Rich String For Loop</em>'.
+	 * @see org.eclipse.xtend.core.xtend.RichStringForLoop
+	 * @generated
+	 */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendPackage.java`
+#### Snippet
+```java
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.xtend.core.xtend.XtendClass#getImplements <em>Implements</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendPackage.java`
+#### Snippet
+```java
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Implements</em>'.
+	 * @see org.eclipse.xtend.core.xtend.XtendClass#getImplements()
+	 * @see #getXtendClass()
+	 * @generated
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendPackage.java`
+#### Snippet
+```java
+
+	/**
+	 * Returns the meta object for class '{@link org.eclipse.xtend.core.xtend.XtendEnumLiteral <em>Enum Literal</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendPackage.java`
+#### Snippet
+```java
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Enum Literal</em>'.
+	 * @see org.eclipse.xtend.core.xtend.XtendEnumLiteral
+	 * @generated
+	 */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendPackage.java`
+#### Snippet
+```java
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.xtend.core.xtend.XtendInterface#getTypeParameters <em>Type Parameters</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendPackage.java`
+#### Snippet
+```java
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Type Parameters</em>'.
+	 * @see org.eclipse.xtend.core.xtend.XtendInterface#getTypeParameters()
+	 * @see #getXtendInterface()
+	 * @generated
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendPackage.java`
+#### Snippet
+```java
+
+	/**
+	 * Returns the meta object for class '{@link org.eclipse.xtend.core.xtend.XtendFile <em>File</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendPackage.java`
+#### Snippet
+```java
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>File</em>'.
+	 * @see org.eclipse.xtend.core.xtend.XtendFile
+	 * @generated
+	 */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendPackage.java`
+#### Snippet
+```java
+
+	/**
+	 * Returns the meta object for class '{@link org.eclipse.xtend.core.xtend.CreateExtensionInfo <em>Create Extension Info</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendPackage.java`
+#### Snippet
+```java
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Create Extension Info</em>'.
+	 * @see org.eclipse.xtend.core.xtend.CreateExtensionInfo
+	 * @generated
+	 */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendPackage.java`
+#### Snippet
+```java
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.xtend.core.xtend.XtendVariableDeclaration#isExtension <em>Extension</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendPackage.java`
+#### Snippet
+```java
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Extension</em>'.
+	 * @see org.eclipse.xtend.core.xtend.XtendVariableDeclaration#isExtension()
+	 * @see #getXtendVariableDeclaration()
+	 * @generated
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendPackage.java`
+#### Snippet
+```java
+
+	/**
+	 * Returns the meta object for class '{@link org.eclipse.xtend.core.xtend.XtendAnnotationTarget <em>Annotation Target</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendPackage.java`
+#### Snippet
+```java
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Annotation Target</em>'.
+	 * @see org.eclipse.xtend.core.xtend.XtendAnnotationTarget
 	 * @generated
 	 */
 ```
@@ -7810,7 +7726,7 @@ in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendPackage.jav
 ```java
 
 	/**
-	 * Returns the meta object for the containment reference '{@link org.eclipse.xtend.core.xtend.RichStringForLoop#getBefore <em>Before</em>}'.
+	 * Returns the meta object for class '{@link org.eclipse.xtend.core.xtend.XtendTypeDeclaration <em>Type Declaration</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 ```
@@ -7821,80 +7737,8 @@ in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendPackage.jav
 #### Snippet
 ```java
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference '<em>Before</em>'.
-	 * @see org.eclipse.xtend.core.xtend.RichStringForLoop#getBefore()
-	 * @see #getRichStringForLoop()
-	 * @generated
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendPackage.java`
-#### Snippet
-```java
-
-	/**
-	 * Returns the meta object for the containment reference list '{@link org.eclipse.xtend.core.xtend.XtendTypeDeclaration#getMembers <em>Members</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendPackage.java`
-#### Snippet
-```java
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference list '<em>Members</em>'.
-	 * @see org.eclipse.xtend.core.xtend.XtendTypeDeclaration#getMembers()
-	 * @see #getXtendTypeDeclaration()
-	 * @generated
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendPackage.java`
-#### Snippet
-```java
-
-	/**
-	 * Returns the meta object for the containment reference '{@link org.eclipse.xtend.core.xtend.RichStringElseIf#getIf <em>If</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendPackage.java`
-#### Snippet
-```java
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference '<em>If</em>'.
-	 * @see org.eclipse.xtend.core.xtend.RichStringElseIf#getIf()
-	 * @see #getRichStringElseIf()
-	 * @generated
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendPackage.java`
-#### Snippet
-```java
-
-	/**
-	 * Returns the meta object for class '{@link org.eclipse.xtend.core.xtend.CreateExtensionInfo <em>Create Extension Info</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendPackage.java`
-#### Snippet
-```java
-	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Create Extension Info</em>'.
-	 * @see org.eclipse.xtend.core.xtend.CreateExtensionInfo
+	 * @return the meta object for class '<em>Type Declaration</em>'.
+	 * @see org.eclipse.xtend.core.xtend.XtendTypeDeclaration
 	 * @generated
 	 */
 ```
@@ -7906,79 +7750,7 @@ in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendPackage.jav
 ```java
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.eclipse.xtend.core.xtend.XtendFile#getPackage <em>Package</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendPackage.java`
-#### Snippet
-```java
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Package</em>'.
-	 * @see org.eclipse.xtend.core.xtend.XtendFile#getPackage()
-	 * @see #getXtendFile()
-	 * @generated
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendPackage.java`
-#### Snippet
-```java
-
-	/**
-	 * Returns the meta object for class '{@link org.eclipse.xtend.core.xtend.XtendEnum <em>Enum</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendPackage.java`
-#### Snippet
-```java
-	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Enum</em>'.
-	 * @see org.eclipse.xtend.core.xtend.XtendEnum
-	 * @generated
-	 */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendPackage.java`
-#### Snippet
-```java
-
-	/**
-	 * Returns the meta object for the container reference '{@link org.eclipse.xtend.core.xtend.XtendMember#getDeclaringType <em>Declaring Type</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendPackage.java`
-#### Snippet
-```java
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the container reference '<em>Declaring Type</em>'.
-	 * @see org.eclipse.xtend.core.xtend.XtendMember#getDeclaringType()
-	 * @see #getXtendMember()
-	 * @generated
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendPackage.java`
-#### Snippet
-```java
-
-	/**
-	 * Returns the meta object for the attribute '{@link org.eclipse.xtend.core.xtend.CreateExtensionInfo#getName <em>Name</em>}'.
+	 * Returns the meta object for the attribute '{@link org.eclipse.xtend.core.xtend.XtendField#getName <em>Name</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 ```
@@ -7990,7 +7762,151 @@ in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendPackage.jav
 ```java
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Name</em>'.
-	 * @see org.eclipse.xtend.core.xtend.CreateExtensionInfo#getName()
+	 * @see org.eclipse.xtend.core.xtend.XtendField#getName()
+	 * @see #getXtendField()
+	 * @generated
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendPackage.java`
+#### Snippet
+```java
+
+	/**
+	 * Returns the meta object for the containment reference '{@link org.eclipse.xtend.core.xtend.XtendFile#getImportSection <em>Import Section</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendPackage.java`
+#### Snippet
+```java
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Import Section</em>'.
+	 * @see org.eclipse.xtend.core.xtend.XtendFile#getImportSection()
+	 * @see #getXtendFile()
+	 * @generated
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendPackage.java`
+#### Snippet
+```java
+
+	/**
+	 * Returns the meta object for class '{@link org.eclipse.xtend.core.xtend.RichString <em>Rich String</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendPackage.java`
+#### Snippet
+```java
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Rich String</em>'.
+	 * @see org.eclipse.xtend.core.xtend.RichString
+	 * @generated
+	 */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendPackage.java`
+#### Snippet
+```java
+
+	/**
+	 * Returns the meta object for the containment reference '{@link org.eclipse.xtend.core.xtend.RichStringIf#getIf <em>If</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendPackage.java`
+#### Snippet
+```java
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>If</em>'.
+	 * @see org.eclipse.xtend.core.xtend.RichStringIf#getIf()
+	 * @see #getRichStringIf()
+	 * @generated
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendPackage.java`
+#### Snippet
+```java
+
+	/**
+	 * Returns the meta object for the containment reference '{@link org.eclipse.xtend.core.xtend.XtendFunction#getCreateExtensionInfo <em>Create Extension Info</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendPackage.java`
+#### Snippet
+```java
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Create Extension Info</em>'.
+	 * @see org.eclipse.xtend.core.xtend.XtendFunction#getCreateExtensionInfo()
+	 * @see #getXtendFunction()
+	 * @generated
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendPackage.java`
+#### Snippet
+```java
+
+	/**
+	 * Returns the meta object for the containment reference '{@link org.eclipse.xtend.core.xtend.XtendExecutable#getExpression <em>Expression</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendPackage.java`
+#### Snippet
+```java
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Expression</em>'.
+	 * @see org.eclipse.xtend.core.xtend.XtendExecutable#getExpression()
+	 * @see #getXtendExecutable()
+	 * @generated
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendPackage.java`
+#### Snippet
+```java
+
+	/**
+	 * Returns the meta object for the containment reference '{@link org.eclipse.xtend.core.xtend.CreateExtensionInfo#getCreateExpression <em>Create Expression</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendPackage.java`
+#### Snippet
+```java
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Create Expression</em>'.
+	 * @see org.eclipse.xtend.core.xtend.CreateExtensionInfo#getCreateExpression()
 	 * @see #getCreateExtensionInfo()
 	 * @generated
 ```
@@ -8002,7 +7918,7 @@ in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendPackage.jav
 ```java
 
 	/**
-	 * Returns the meta object for the containment reference '{@link org.eclipse.xtend.core.xtend.XtendParameter#getParameterType <em>Parameter Type</em>}'.
+	 * Returns the meta object for class '{@link org.eclipse.xtend.core.xtend.XtendFunction <em>Function</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 ```
@@ -8013,10 +7929,10 @@ in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendPackage.jav
 #### Snippet
 ```java
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference '<em>Parameter Type</em>'.
-	 * @see org.eclipse.xtend.core.xtend.XtendParameter#getParameterType()
-	 * @see #getXtendParameter()
+	 * @return the meta object for class '<em>Function</em>'.
+	 * @see org.eclipse.xtend.core.xtend.XtendFunction
 	 * @generated
+	 */
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -8050,7 +7966,7 @@ in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendPackage.jav
 ```java
 
 	/**
-	 * Returns the meta object for class '{@link org.eclipse.xtend.core.xtend.XtendEnumLiteral <em>Enum Literal</em>}'.
+	 * Returns the meta object for class '{@link org.eclipse.xtend.core.xtend.AnonymousClass <em>Anonymous Class</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 ```
@@ -8061,8 +7977,92 @@ in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendPackage.jav
 #### Snippet
 ```java
 	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Enum Literal</em>'.
-	 * @see org.eclipse.xtend.core.xtend.XtendEnumLiteral
+	 * @return the meta object for class '<em>Anonymous Class</em>'.
+	 * @see org.eclipse.xtend.core.xtend.AnonymousClass
+	 * @generated
+	 */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendPackage.java`
+#### Snippet
+```java
+ * </ul>
+ * <!-- end-user-doc -->
+ * @see org.eclipse.xtend.core.xtend.XtendFactory
+ * @model kind="package"
+ * @generated
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendPackage.java`
+#### Snippet
+```java
+
+	/**
+	 * Returns the meta object for the attribute list '{@link org.eclipse.xtend.core.xtend.XtendMember#getModifiers <em>Modifiers</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendPackage.java`
+#### Snippet
+```java
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute list '<em>Modifiers</em>'.
+	 * @see org.eclipse.xtend.core.xtend.XtendMember#getModifiers()
+	 * @see #getXtendMember()
+	 * @generated
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendPackage.java`
+#### Snippet
+```java
+
+	/**
+	 * Returns the meta object for the containment reference '{@link org.eclipse.xtend.core.xtend.RichStringElseIf#getThen <em>Then</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendPackage.java`
+#### Snippet
+```java
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Then</em>'.
+	 * @see org.eclipse.xtend.core.xtend.RichStringElseIf#getThen()
+	 * @see #getRichStringElseIf()
+	 * @generated
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendPackage.java`
+#### Snippet
+```java
+
+	/**
+	 * Returns the meta object for class '{@link org.eclipse.xtend.core.xtend.RichStringIf <em>Rich String If</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendPackage.java`
+#### Snippet
+```java
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Rich String If</em>'.
+	 * @see org.eclipse.xtend.core.xtend.RichStringIf
 	 * @generated
 	 */
 ```
@@ -8074,7 +8074,7 @@ in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendPackage.jav
 ```java
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.eclipse.xtend.core.xtend.XtendParameter#isVarArg <em>Var Arg</em>}'.
+	 * Returns the meta object for the containment reference '{@link org.eclipse.xtend.core.xtend.RichStringIf#getElse <em>Else</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 ```
@@ -8085,106 +8085,106 @@ in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendPackage.jav
 #### Snippet
 ```java
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Var Arg</em>'.
-	 * @see org.eclipse.xtend.core.xtend.XtendParameter#isVarArg()
+	 * @return the meta object for the containment reference '<em>Else</em>'.
+	 * @see org.eclipse.xtend.core.xtend.RichStringIf#getElse()
+	 * @see #getRichStringIf()
+	 * @generated
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendPackage.java`
+#### Snippet
+```java
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.xtend.core.xtend.XtendParameter#isExtension <em>Extension</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendPackage.java`
+#### Snippet
+```java
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Extension</em>'.
+	 * @see org.eclipse.xtend.core.xtend.XtendParameter#isExtension()
 	 * @see #getXtendParameter()
 	 * @generated
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendPackage.java`
-#### Snippet
-```java
-
-	/**
-	 * Returns the meta object for the containment reference list '{@link org.eclipse.xtend.core.xtend.XtendInterface#getExtends <em>Extends</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendPackage.java`
-#### Snippet
-```java
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference list '<em>Extends</em>'.
-	 * @see org.eclipse.xtend.core.xtend.XtendInterface#getExtends()
-	 * @see #getXtendInterface()
-	 * @generated
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendPackage.java`
-#### Snippet
-```java
-
-	/**
-	 * Returns the meta object for class '{@link org.eclipse.xtend.core.xtend.XtendConstructor <em>Constructor</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/XtendPackage.java`
-#### Snippet
-```java
-	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Constructor</em>'.
-	 * @see org.eclipse.xtend.core.xtend.XtendConstructor
-	 * @generated
-	 */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.xtend.impl` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/impl/XtendParameterImpl.java`
+Qualifier `org.eclipse.xtend.core.richstring` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/LinePart.java`
 #### Snippet
 ```java
  * </p>
  * <ul>
- *   <li>{@link org.eclipse.xtend.core.xtend.impl.XtendParameterImpl#getName <em>Name</em>}</li>
- *   <li>{@link org.eclipse.xtend.core.xtend.impl.XtendParameterImpl#getParameterType <em>Parameter Type</em>}</li>
- *   <li>{@link org.eclipse.xtend.core.xtend.impl.XtendParameterImpl#isVarArg <em>Var Arg</em>}</li>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.xtend.impl` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/impl/XtendParameterImpl.java`
-#### Snippet
-```java
- * <ul>
- *   <li>{@link org.eclipse.xtend.core.xtend.impl.XtendParameterImpl#getName <em>Name</em>}</li>
- *   <li>{@link org.eclipse.xtend.core.xtend.impl.XtendParameterImpl#getParameterType <em>Parameter Type</em>}</li>
- *   <li>{@link org.eclipse.xtend.core.xtend.impl.XtendParameterImpl#isVarArg <em>Var Arg</em>}</li>
- *   <li>{@link org.eclipse.xtend.core.xtend.impl.XtendParameterImpl#isExtension <em>Extension</em>}</li>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.xtend.impl` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/impl/XtendParameterImpl.java`
-#### Snippet
-```java
- *   <li>{@link org.eclipse.xtend.core.xtend.impl.XtendParameterImpl#getName <em>Name</em>}</li>
- *   <li>{@link org.eclipse.xtend.core.xtend.impl.XtendParameterImpl#getParameterType <em>Parameter Type</em>}</li>
- *   <li>{@link org.eclipse.xtend.core.xtend.impl.XtendParameterImpl#isVarArg <em>Var Arg</em>}</li>
- *   <li>{@link org.eclipse.xtend.core.xtend.impl.XtendParameterImpl#isExtension <em>Extension</em>}</li>
- * </ul>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.xtend.impl` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/impl/XtendParameterImpl.java`
-#### Snippet
-```java
- *   <li>{@link org.eclipse.xtend.core.xtend.impl.XtendParameterImpl#getParameterType <em>Parameter Type</em>}</li>
- *   <li>{@link org.eclipse.xtend.core.xtend.impl.XtendParameterImpl#isVarArg <em>Var Arg</em>}</li>
- *   <li>{@link org.eclipse.xtend.core.xtend.impl.XtendParameterImpl#isExtension <em>Extension</em>}</li>
+ *   <li>{@link org.eclipse.xtend.core.richstring.LinePart#getLine <em>Line</em>}</li>
  * </ul>
  *
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.richstring` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/LinePart.java`
+#### Snippet
+```java
+ * </ul>
+ *
+ * @see org.eclipse.xtend.core.richstring.ProcessedRichStringPackage#getLinePart()
+ * @model
+ * @generated
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.richstring` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/LinePart.java`
+#### Snippet
+```java
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.xtend.core.richstring.LinePart#getLine <em>Line</em>}' container reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.richstring` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/LinePart.java`
+#### Snippet
+```java
+	/**
+	 * Returns the value of the '<em><b>Line</b></em>' container reference.
+	 * It is bidirectional and its opposite is '{@link org.eclipse.xtend.core.richstring.Line#getParts <em>Parts</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.richstring` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/LinePart.java`
+#### Snippet
+```java
+	 * @return the value of the '<em>Line</em>' container reference.
+	 * @see #setLine(Line)
+	 * @see org.eclipse.xtend.core.richstring.ProcessedRichStringPackage#getLinePart_Line()
+	 * @see org.eclipse.xtend.core.richstring.Line#getParts
+	 * @model opposite="parts" transient="false"
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.richstring` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/LinePart.java`
+#### Snippet
+```java
+	 * @see #setLine(Line)
+	 * @see org.eclipse.xtend.core.richstring.ProcessedRichStringPackage#getLinePart_Line()
+	 * @see org.eclipse.xtend.core.richstring.Line#getParts
+	 * @model opposite="parts" transient="false"
+	 * @generated
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -8197,42 +8197,6 @@ in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/ForLoopStar
 	 * Sets the value of the '{@link org.eclipse.xtend.core.richstring.ForLoopStart#getEnd <em>End</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.richstring` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/ForLoopStart.java`
-#### Snippet
-```java
-	/**
-	 * Returns the value of the '<em><b>End</b></em>' reference.
-	 * It is bidirectional and its opposite is '{@link org.eclipse.xtend.core.richstring.ForLoopEnd#getStart <em>Start</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.richstring` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/ForLoopStart.java`
-#### Snippet
-```java
-	 * @return the value of the '<em>End</em>' reference.
-	 * @see #setEnd(ForLoopEnd)
-	 * @see org.eclipse.xtend.core.richstring.ProcessedRichStringPackage#getForLoopStart_End()
-	 * @see org.eclipse.xtend.core.richstring.ForLoopEnd#getStart
-	 * @model opposite="start"
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.richstring` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/ForLoopStart.java`
-#### Snippet
-```java
-	 * @see #setEnd(ForLoopEnd)
-	 * @see org.eclipse.xtend.core.richstring.ProcessedRichStringPackage#getForLoopStart_End()
-	 * @see org.eclipse.xtend.core.richstring.ForLoopEnd#getStart
-	 * @model opposite="start"
-	 * @generated
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -8288,6 +8252,42 @@ Qualifier `org.eclipse.xtend.core.richstring` is unnecessary and can be removed
 in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/ForLoopStart.java`
 #### Snippet
 ```java
+	/**
+	 * Returns the value of the '<em><b>End</b></em>' reference.
+	 * It is bidirectional and its opposite is '{@link org.eclipse.xtend.core.richstring.ForLoopEnd#getStart <em>Start</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.richstring` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/ForLoopStart.java`
+#### Snippet
+```java
+	 * @return the value of the '<em>End</em>' reference.
+	 * @see #setEnd(ForLoopEnd)
+	 * @see org.eclipse.xtend.core.richstring.ProcessedRichStringPackage#getForLoopStart_End()
+	 * @see org.eclipse.xtend.core.richstring.ForLoopEnd#getStart
+	 * @model opposite="start"
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.richstring` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/ForLoopStart.java`
+#### Snippet
+```java
+	 * @see #setEnd(ForLoopEnd)
+	 * @see org.eclipse.xtend.core.richstring.ProcessedRichStringPackage#getForLoopStart_End()
+	 * @see org.eclipse.xtend.core.richstring.ForLoopEnd#getStart
+	 * @model opposite="start"
+	 * @generated
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.richstring` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/ForLoopStart.java`
+#### Snippet
+```java
 
 	/**
 	 * Sets the value of the '{@link org.eclipse.xtend.core.richstring.ForLoopStart#getLoop <em>Loop</em>}' reference.
@@ -8296,75 +8296,75 @@ in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/ForLoopStar
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.richstring` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/LinePart.java`
-#### Snippet
-```java
-
-	/**
-	 * Sets the value of the '{@link org.eclipse.xtend.core.richstring.LinePart#getLine <em>Line</em>}' container reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.richstring` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/LinePart.java`
-#### Snippet
-```java
-	/**
-	 * Returns the value of the '<em><b>Line</b></em>' container reference.
-	 * It is bidirectional and its opposite is '{@link org.eclipse.xtend.core.richstring.Line#getParts <em>Parts</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.richstring` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/LinePart.java`
-#### Snippet
-```java
-	 * @return the value of the '<em>Line</em>' container reference.
-	 * @see #setLine(Line)
-	 * @see org.eclipse.xtend.core.richstring.ProcessedRichStringPackage#getLinePart_Line()
-	 * @see org.eclipse.xtend.core.richstring.Line#getParts
-	 * @model opposite="parts" transient="false"
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.richstring` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/LinePart.java`
-#### Snippet
-```java
-	 * @see #setLine(Line)
-	 * @see org.eclipse.xtend.core.richstring.ProcessedRichStringPackage#getLinePart_Line()
-	 * @see org.eclipse.xtend.core.richstring.Line#getParts
-	 * @model opposite="parts" transient="false"
-	 * @generated
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.richstring` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/LinePart.java`
+Qualifier `org.eclipse.xtend.core.xtend.impl` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/impl/XtendInterfaceImpl.java`
 #### Snippet
 ```java
  * </p>
  * <ul>
- *   <li>{@link org.eclipse.xtend.core.richstring.LinePart#getLine <em>Line</em>}</li>
+ *   <li>{@link org.eclipse.xtend.core.xtend.impl.XtendInterfaceImpl#getExtends <em>Extends</em>}</li>
+ *   <li>{@link org.eclipse.xtend.core.xtend.impl.XtendInterfaceImpl#getTypeParameters <em>Type Parameters</em>}</li>
+ * </ul>
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.xtend.impl` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/impl/XtendInterfaceImpl.java`
+#### Snippet
+```java
+ * <ul>
+ *   <li>{@link org.eclipse.xtend.core.xtend.impl.XtendInterfaceImpl#getExtends <em>Extends</em>}</li>
+ *   <li>{@link org.eclipse.xtend.core.xtend.impl.XtendInterfaceImpl#getTypeParameters <em>Type Parameters</em>}</li>
  * </ul>
  *
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.richstring` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/LinePart.java`
+Qualifier `org.eclipse.xtend.core.xtend.impl` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/impl/XtendParameterImpl.java`
 #### Snippet
 ```java
+ * </p>
+ * <ul>
+ *   <li>{@link org.eclipse.xtend.core.xtend.impl.XtendParameterImpl#getName <em>Name</em>}</li>
+ *   <li>{@link org.eclipse.xtend.core.xtend.impl.XtendParameterImpl#getParameterType <em>Parameter Type</em>}</li>
+ *   <li>{@link org.eclipse.xtend.core.xtend.impl.XtendParameterImpl#isVarArg <em>Var Arg</em>}</li>
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.xtend.impl` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/impl/XtendParameterImpl.java`
+#### Snippet
+```java
+ * <ul>
+ *   <li>{@link org.eclipse.xtend.core.xtend.impl.XtendParameterImpl#getName <em>Name</em>}</li>
+ *   <li>{@link org.eclipse.xtend.core.xtend.impl.XtendParameterImpl#getParameterType <em>Parameter Type</em>}</li>
+ *   <li>{@link org.eclipse.xtend.core.xtend.impl.XtendParameterImpl#isVarArg <em>Var Arg</em>}</li>
+ *   <li>{@link org.eclipse.xtend.core.xtend.impl.XtendParameterImpl#isExtension <em>Extension</em>}</li>
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.xtend.impl` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/impl/XtendParameterImpl.java`
+#### Snippet
+```java
+ *   <li>{@link org.eclipse.xtend.core.xtend.impl.XtendParameterImpl#getName <em>Name</em>}</li>
+ *   <li>{@link org.eclipse.xtend.core.xtend.impl.XtendParameterImpl#getParameterType <em>Parameter Type</em>}</li>
+ *   <li>{@link org.eclipse.xtend.core.xtend.impl.XtendParameterImpl#isVarArg <em>Var Arg</em>}</li>
+ *   <li>{@link org.eclipse.xtend.core.xtend.impl.XtendParameterImpl#isExtension <em>Extension</em>}</li>
+ * </ul>
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.xtend.impl` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/impl/XtendParameterImpl.java`
+#### Snippet
+```java
+ *   <li>{@link org.eclipse.xtend.core.xtend.impl.XtendParameterImpl#getParameterType <em>Parameter Type</em>}</li>
+ *   <li>{@link org.eclipse.xtend.core.xtend.impl.XtendParameterImpl#isVarArg <em>Var Arg</em>}</li>
+ *   <li>{@link org.eclipse.xtend.core.xtend.impl.XtendParameterImpl#isExtension <em>Extension</em>}</li>
  * </ul>
  *
- * @see org.eclipse.xtend.core.richstring.ProcessedRichStringPackage#getLinePart()
- * @model
- * @generated
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -8389,114 +8389,6 @@ in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/ProcessedRi
 	ProcessedRichStringFactory eINSTANCE = org.eclipse.xtend.core.richstring.impl.ProcessedRichStringFactoryImpl.init();
 
 	/**
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.richstring` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/ElseStart.java`
-#### Snippet
-```java
-
-	/**
-	 * Sets the value of the '{@link org.eclipse.xtend.core.richstring.ElseStart#getIfConditionStart <em>If Condition Start</em>}' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.richstring` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/ElseStart.java`
-#### Snippet
-```java
- * </p>
- * <ul>
- *   <li>{@link org.eclipse.xtend.core.richstring.ElseStart#getIfConditionStart <em>If Condition Start</em>}</li>
- * </ul>
- *
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.richstring` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/ElseStart.java`
-#### Snippet
-```java
- * </ul>
- *
- * @see org.eclipse.xtend.core.richstring.ProcessedRichStringPackage#getElseStart()
- * @model
- * @generated
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.richstring` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/ElseStart.java`
-#### Snippet
-```java
-	/**
-	 * Returns the value of the '<em><b>If Condition Start</b></em>' reference.
-	 * It is bidirectional and its opposite is '{@link org.eclipse.xtend.core.richstring.IfConditionStart#getElseStart <em>Else Start</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.richstring` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/ElseStart.java`
-#### Snippet
-```java
-	 * @return the value of the '<em>If Condition Start</em>' reference.
-	 * @see #setIfConditionStart(IfConditionStart)
-	 * @see org.eclipse.xtend.core.richstring.ProcessedRichStringPackage#getElseStart_IfConditionStart()
-	 * @see org.eclipse.xtend.core.richstring.IfConditionStart#getElseStart
-	 * @model opposite="elseStart"
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.richstring` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/ElseStart.java`
-#### Snippet
-```java
-	 * @see #setIfConditionStart(IfConditionStart)
-	 * @see org.eclipse.xtend.core.richstring.ProcessedRichStringPackage#getElseStart_IfConditionStart()
-	 * @see org.eclipse.xtend.core.richstring.IfConditionStart#getElseStart
-	 * @model opposite="elseStart"
-	 * @generated
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.richstring` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/ForLoopEnd.java`
-#### Snippet
-```java
-
-	/**
-	 * Sets the value of the '{@link org.eclipse.xtend.core.richstring.ForLoopEnd#getStart <em>Start</em>}' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.richstring` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/ForLoopEnd.java`
-#### Snippet
-```java
- * </p>
- * <ul>
- *   <li>{@link org.eclipse.xtend.core.richstring.ForLoopEnd#getStart <em>Start</em>}</li>
- * </ul>
- *
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.richstring` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/ForLoopEnd.java`
-#### Snippet
-```java
- * </ul>
- *
- * @see org.eclipse.xtend.core.richstring.ProcessedRichStringPackage#getForLoopEnd()
- * @model
- * @generated
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -8537,26 +8429,14 @@ in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/ForLoopEnd.
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.eclipse.xtend.core.richstring` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/EndIf.java`
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/ForLoopEnd.java`
 #### Snippet
 ```java
 
 	/**
-	 * Sets the value of the '{@link org.eclipse.xtend.core.richstring.EndIf#getIfConditionStart <em>If Condition Start</em>}' reference.
+	 * Sets the value of the '{@link org.eclipse.xtend.core.richstring.ForLoopEnd#getStart <em>Start</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.richstring` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/EndIf.java`
-#### Snippet
-```java
- * </p>
- * <ul>
- *   <li>{@link org.eclipse.xtend.core.richstring.EndIf#getIfConditionStart <em>If Condition Start</em>}</li>
- * </ul>
- *
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -8573,38 +8453,26 @@ in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/IfCondition
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.eclipse.xtend.core.richstring` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/EndIf.java`
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/ForLoopEnd.java`
+#### Snippet
+```java
+ * </p>
+ * <ul>
+ *   <li>{@link org.eclipse.xtend.core.richstring.ForLoopEnd#getStart <em>Start</em>}</li>
+ * </ul>
+ *
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.richstring` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/ForLoopEnd.java`
 #### Snippet
 ```java
  * </ul>
  *
- * @see org.eclipse.xtend.core.richstring.ProcessedRichStringPackage#getEndIf()
+ * @see org.eclipse.xtend.core.richstring.ProcessedRichStringPackage#getForLoopEnd()
  * @model
  * @generated
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.richstring` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/EndIf.java`
-#### Snippet
-```java
-	 * @return the value of the '<em>If Condition Start</em>' reference.
-	 * @see #setIfConditionStart(IfConditionStart)
-	 * @see org.eclipse.xtend.core.richstring.ProcessedRichStringPackage#getEndIf_IfConditionStart()
-	 * @model
-	 * @generated
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.richstring` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/IfConditionStart.java`
-#### Snippet
-```java
-	 * @return the value of the '<em>Rich String If</em>' reference.
-	 * @see #setRichStringIf(RichStringIf)
-	 * @see org.eclipse.xtend.core.richstring.ProcessedRichStringPackage#getIfConditionStart_RichStringIf()
-	 * @model
-	 * @generated
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -8672,66 +8540,6 @@ Qualifier `org.eclipse.xtend.core.richstring` is unnecessary and can be removed
 in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/IfConditionStart.java`
 #### Snippet
 ```java
-	/**
-	 * Returns the value of the '<em><b>Else If Conditions</b></em>' reference list.
-	 * The list contents are of type {@link org.eclipse.xtend.core.richstring.ElseIfCondition}.
-	 * It is bidirectional and its opposite is '{@link org.eclipse.xtend.core.richstring.ElseIfCondition#getIfConditionStart <em>If Condition Start</em>}'.
-	 * <!-- begin-user-doc -->
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.richstring` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/IfConditionStart.java`
-#### Snippet
-```java
-	 * Returns the value of the '<em><b>Else If Conditions</b></em>' reference list.
-	 * The list contents are of type {@link org.eclipse.xtend.core.richstring.ElseIfCondition}.
-	 * It is bidirectional and its opposite is '{@link org.eclipse.xtend.core.richstring.ElseIfCondition#getIfConditionStart <em>If Condition Start</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.richstring` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/IfConditionStart.java`
-#### Snippet
-```java
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Else If Conditions</em>' reference list.
-	 * @see org.eclipse.xtend.core.richstring.ProcessedRichStringPackage#getIfConditionStart_ElseIfConditions()
-	 * @see org.eclipse.xtend.core.richstring.ElseIfCondition#getIfConditionStart
-	 * @model opposite="ifConditionStart"
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.richstring` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/IfConditionStart.java`
-#### Snippet
-```java
-	 * @return the value of the '<em>Else If Conditions</em>' reference list.
-	 * @see org.eclipse.xtend.core.richstring.ProcessedRichStringPackage#getIfConditionStart_ElseIfConditions()
-	 * @see org.eclipse.xtend.core.richstring.ElseIfCondition#getIfConditionStart
-	 * @model opposite="ifConditionStart"
-	 * @generated
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.richstring` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/IfConditionStart.java`
-#### Snippet
-```java
-	 * @return the value of the '<em>End If</em>' reference.
-	 * @see #setEndIf(EndIf)
-	 * @see org.eclipse.xtend.core.richstring.ProcessedRichStringPackage#getIfConditionStart_EndIf()
-	 * @model
-	 * @generated
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.richstring` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/IfConditionStart.java`
-#### Snippet
-```java
 
 	/**
 	 * Sets the value of the '{@link org.eclipse.xtend.core.richstring.IfConditionStart#getElseStart <em>Else Start</em>}' reference.
@@ -8744,11 +8552,35 @@ Qualifier `org.eclipse.xtend.core.richstring` is unnecessary and can be removed
 in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/IfConditionStart.java`
 #### Snippet
 ```java
+	 * @return the value of the '<em>Rich String If</em>' reference.
+	 * @see #setRichStringIf(RichStringIf)
+	 * @see org.eclipse.xtend.core.richstring.ProcessedRichStringPackage#getIfConditionStart_RichStringIf()
+	 * @model
+	 * @generated
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.richstring` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/IfConditionStart.java`
+#### Snippet
+```java
 
 	/**
 	 * Sets the value of the '{@link org.eclipse.xtend.core.richstring.IfConditionStart#getRichStringIf <em>Rich String If</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.richstring` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/IfConditionStart.java`
+#### Snippet
+```java
+	 * @return the value of the '<em>End If</em>' reference.
+	 * @see #setEndIf(EndIf)
+	 * @see org.eclipse.xtend.core.richstring.ProcessedRichStringPackage#getIfConditionStart_EndIf()
+	 * @model
+	 * @generated
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -8784,6 +8616,174 @@ in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/IfCondition
 	 * @see org.eclipse.xtend.core.richstring.ProcessedRichStringPackage#getIfConditionStart_ElseStart()
 	 * @see org.eclipse.xtend.core.richstring.ElseStart#getIfConditionStart
 	 * @model opposite="ifConditionStart"
+	 * @generated
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.richstring` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/IfConditionStart.java`
+#### Snippet
+```java
+	/**
+	 * Returns the value of the '<em><b>Else If Conditions</b></em>' reference list.
+	 * The list contents are of type {@link org.eclipse.xtend.core.richstring.ElseIfCondition}.
+	 * It is bidirectional and its opposite is '{@link org.eclipse.xtend.core.richstring.ElseIfCondition#getIfConditionStart <em>If Condition Start</em>}'.
+	 * <!-- begin-user-doc -->
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.richstring` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/IfConditionStart.java`
+#### Snippet
+```java
+	 * Returns the value of the '<em><b>Else If Conditions</b></em>' reference list.
+	 * The list contents are of type {@link org.eclipse.xtend.core.richstring.ElseIfCondition}.
+	 * It is bidirectional and its opposite is '{@link org.eclipse.xtend.core.richstring.ElseIfCondition#getIfConditionStart <em>If Condition Start</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.richstring` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/IfConditionStart.java`
+#### Snippet
+```java
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Else If Conditions</em>' reference list.
+	 * @see org.eclipse.xtend.core.richstring.ProcessedRichStringPackage#getIfConditionStart_ElseIfConditions()
+	 * @see org.eclipse.xtend.core.richstring.ElseIfCondition#getIfConditionStart
+	 * @model opposite="ifConditionStart"
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.richstring` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/IfConditionStart.java`
+#### Snippet
+```java
+	 * @return the value of the '<em>Else If Conditions</em>' reference list.
+	 * @see org.eclipse.xtend.core.richstring.ProcessedRichStringPackage#getIfConditionStart_ElseIfConditions()
+	 * @see org.eclipse.xtend.core.richstring.ElseIfCondition#getIfConditionStart
+	 * @model opposite="ifConditionStart"
+	 * @generated
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.richstring` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/ElseStart.java`
+#### Snippet
+```java
+	/**
+	 * Returns the value of the '<em><b>If Condition Start</b></em>' reference.
+	 * It is bidirectional and its opposite is '{@link org.eclipse.xtend.core.richstring.IfConditionStart#getElseStart <em>Else Start</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.richstring` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/ElseStart.java`
+#### Snippet
+```java
+	 * @return the value of the '<em>If Condition Start</em>' reference.
+	 * @see #setIfConditionStart(IfConditionStart)
+	 * @see org.eclipse.xtend.core.richstring.ProcessedRichStringPackage#getElseStart_IfConditionStart()
+	 * @see org.eclipse.xtend.core.richstring.IfConditionStart#getElseStart
+	 * @model opposite="elseStart"
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.richstring` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/ElseStart.java`
+#### Snippet
+```java
+	 * @see #setIfConditionStart(IfConditionStart)
+	 * @see org.eclipse.xtend.core.richstring.ProcessedRichStringPackage#getElseStart_IfConditionStart()
+	 * @see org.eclipse.xtend.core.richstring.IfConditionStart#getElseStart
+	 * @model opposite="elseStart"
+	 * @generated
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.richstring` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/ElseStart.java`
+#### Snippet
+```java
+ * </p>
+ * <ul>
+ *   <li>{@link org.eclipse.xtend.core.richstring.ElseStart#getIfConditionStart <em>If Condition Start</em>}</li>
+ * </ul>
+ *
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.richstring` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/ElseStart.java`
+#### Snippet
+```java
+ * </ul>
+ *
+ * @see org.eclipse.xtend.core.richstring.ProcessedRichStringPackage#getElseStart()
+ * @model
+ * @generated
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.richstring` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/ElseStart.java`
+#### Snippet
+```java
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.xtend.core.richstring.ElseStart#getIfConditionStart <em>If Condition Start</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.richstring` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/EndIf.java`
+#### Snippet
+```java
+ * </p>
+ * <ul>
+ *   <li>{@link org.eclipse.xtend.core.richstring.EndIf#getIfConditionStart <em>If Condition Start</em>}</li>
+ * </ul>
+ *
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.richstring` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/EndIf.java`
+#### Snippet
+```java
+ * </ul>
+ *
+ * @see org.eclipse.xtend.core.richstring.ProcessedRichStringPackage#getEndIf()
+ * @model
+ * @generated
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.richstring` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/EndIf.java`
+#### Snippet
+```java
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.xtend.core.richstring.EndIf#getIfConditionStart <em>If Condition Start</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.richstring` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/EndIf.java`
+#### Snippet
+```java
+	 * @return the value of the '<em>If Condition Start</em>' reference.
+	 * @see #setIfConditionStart(IfConditionStart)
+	 * @see org.eclipse.xtend.core.richstring.ProcessedRichStringPackage#getEndIf_IfConditionStart()
+	 * @model
 	 * @generated
 ```
 
@@ -8840,6 +8840,18 @@ Qualifier `org.eclipse.xtend.core.richstring` is unnecessary and can be removed
 in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/ProcessedRichString.java`
 #### Snippet
 ```java
+	 * @return the value of the '<em>Rich String</em>' reference.
+	 * @see #setRichString(RichString)
+	 * @see org.eclipse.xtend.core.richstring.ProcessedRichStringPackage#getProcessedRichString_RichString()
+	 * @model
+	 * @generated
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.richstring` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/ProcessedRichString.java`
+#### Snippet
+```java
 	/**
 	 * Returns the value of the '<em><b>Lines</b></em>' containment reference list.
 	 * The list contents are of type {@link org.eclipse.xtend.core.richstring.Line}.
@@ -8885,26 +8897,50 @@ in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/ProcessedRi
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.eclipse.xtend.core.richstring` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/ProcessedRichString.java`
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/Line.java`
 #### Snippet
 ```java
-	 * @return the value of the '<em>Rich String</em>' reference.
-	 * @see #setRichString(RichString)
-	 * @see org.eclipse.xtend.core.richstring.ProcessedRichStringPackage#getProcessedRichString_RichString()
-	 * @model
-	 * @generated
+	/**
+	 * Returns the value of the '<em><b>Parts</b></em>' containment reference list.
+	 * The list contents are of type {@link org.eclipse.xtend.core.richstring.LinePart}.
+	 * It is bidirectional and its opposite is '{@link org.eclipse.xtend.core.richstring.LinePart#getLine <em>Line</em>}'.
+	 * <!-- begin-user-doc -->
 ```
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.eclipse.xtend.core.richstring` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/LineBreak.java`
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/Line.java`
 #### Snippet
 ```java
- *
- *
- * @see org.eclipse.xtend.core.richstring.ProcessedRichStringPackage#getLineBreak()
- * @model
- * @generated
+	 * Returns the value of the '<em><b>Parts</b></em>' containment reference list.
+	 * The list contents are of type {@link org.eclipse.xtend.core.richstring.LinePart}.
+	 * It is bidirectional and its opposite is '{@link org.eclipse.xtend.core.richstring.LinePart#getLine <em>Line</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.richstring` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/ElseIfCondition.java`
+#### Snippet
+```java
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.xtend.core.richstring.ElseIfCondition#getRichStringElseIf <em>Rich String Else If</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.richstring` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/ElseIfCondition.java`
+#### Snippet
+```java
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.xtend.core.richstring.ElseIfCondition#getIfConditionStart <em>If Condition Start</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -8960,18 +8996,6 @@ Qualifier `org.eclipse.xtend.core.richstring` is unnecessary and can be removed
 in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/ElseIfCondition.java`
 #### Snippet
 ```java
-
-	/**
-	 * Sets the value of the '{@link org.eclipse.xtend.core.richstring.ElseIfCondition#getRichStringElseIf <em>Rich String Else If</em>}' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.richstring` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/ElseIfCondition.java`
-#### Snippet
-```java
  * </p>
  * <ul>
  *   <li>{@link org.eclipse.xtend.core.richstring.ElseIfCondition#getRichStringElseIf <em>Rich String Else If</em>}</li>
@@ -9005,14 +9029,62 @@ in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/ElseIfCondi
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.eclipse.xtend.core.richstring` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/ElseIfCondition.java`
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/Line.java`
 #### Snippet
 ```java
-
-	/**
-	 * Sets the value of the '{@link org.eclipse.xtend.core.richstring.ElseIfCondition#getIfConditionStart <em>If Condition Start</em>}' reference.
-	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Parts</em>' containment reference list.
+	 * @see org.eclipse.xtend.core.richstring.ProcessedRichStringPackage#getLine_Parts()
+	 * @see org.eclipse.xtend.core.richstring.LinePart#getLine
+	 * @model opposite="line" containment="true"
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.richstring` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/Line.java`
+#### Snippet
+```java
+	 * @return the value of the '<em>Parts</em>' containment reference list.
+	 * @see org.eclipse.xtend.core.richstring.ProcessedRichStringPackage#getLine_Parts()
+	 * @see org.eclipse.xtend.core.richstring.LinePart#getLine
+	 * @model opposite="line" containment="true"
+	 * @generated
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.richstring` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/Line.java`
+#### Snippet
+```java
+ * </p>
+ * <ul>
+ *   <li>{@link org.eclipse.xtend.core.richstring.Line#getParts <em>Parts</em>}</li>
+ *   <li>{@link org.eclipse.xtend.core.richstring.Line#getRichString <em>Rich String</em>}</li>
+ * </ul>
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.richstring` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/Line.java`
+#### Snippet
+```java
+ * <ul>
+ *   <li>{@link org.eclipse.xtend.core.richstring.Line#getParts <em>Parts</em>}</li>
+ *   <li>{@link org.eclipse.xtend.core.richstring.Line#getRichString <em>Rich String</em>}</li>
+ * </ul>
+ *
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.richstring` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/Line.java`
+#### Snippet
+```java
+ * </ul>
+ *
+ * @see org.eclipse.xtend.core.richstring.ProcessedRichStringPackage#getLine()
+ * @model
+ * @generated
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -9065,134 +9137,38 @@ in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/Line.java`
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.eclipse.xtend.core.richstring` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/Line.java`
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/LineBreak.java`
 #### Snippet
 ```java
- * </p>
- * <ul>
- *   <li>{@link org.eclipse.xtend.core.richstring.Line#getParts <em>Parts</em>}</li>
- *   <li>{@link org.eclipse.xtend.core.richstring.Line#getRichString <em>Rich String</em>}</li>
- * </ul>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.richstring` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/Line.java`
-#### Snippet
-```java
- * <ul>
- *   <li>{@link org.eclipse.xtend.core.richstring.Line#getParts <em>Parts</em>}</li>
- *   <li>{@link org.eclipse.xtend.core.richstring.Line#getRichString <em>Rich String</em>}</li>
- * </ul>
  *
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.richstring` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/Line.java`
-#### Snippet
-```java
- * </ul>
  *
- * @see org.eclipse.xtend.core.richstring.ProcessedRichStringPackage#getLine()
+ * @see org.eclipse.xtend.core.richstring.ProcessedRichStringPackage#getLineBreak()
  * @model
  * @generated
 ```
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.eclipse.xtend.core.richstring` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/Line.java`
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/Literal.java`
 #### Snippet
 ```java
-	/**
-	 * Returns the value of the '<em><b>Parts</b></em>' containment reference list.
-	 * The list contents are of type {@link org.eclipse.xtend.core.richstring.LinePart}.
-	 * It is bidirectional and its opposite is '{@link org.eclipse.xtend.core.richstring.LinePart#getLine <em>Line</em>}'.
-	 * <!-- begin-user-doc -->
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.richstring` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/Line.java`
-#### Snippet
-```java
-	 * Returns the value of the '<em><b>Parts</b></em>' containment reference list.
-	 * The list contents are of type {@link org.eclipse.xtend.core.richstring.LinePart}.
-	 * It is bidirectional and its opposite is '{@link org.eclipse.xtend.core.richstring.LinePart#getLine <em>Line</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.richstring` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/Line.java`
-#### Snippet
-```java
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Parts</em>' containment reference list.
-	 * @see org.eclipse.xtend.core.richstring.ProcessedRichStringPackage#getLine_Parts()
-	 * @see org.eclipse.xtend.core.richstring.LinePart#getLine
-	 * @model opposite="line" containment="true"
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.richstring` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/Line.java`
-#### Snippet
-```java
-	 * @return the value of the '<em>Parts</em>' containment reference list.
-	 * @see org.eclipse.xtend.core.richstring.ProcessedRichStringPackage#getLine_Parts()
-	 * @see org.eclipse.xtend.core.richstring.LinePart#getLine
-	 * @model opposite="line" containment="true"
-	 * @generated
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.richstring` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/PrintedExpression.java`
-#### Snippet
-```java
-	 * @return the value of the '<em>Expression</em>' reference.
-	 * @see #setExpression(XExpression)
-	 * @see org.eclipse.xtend.core.richstring.ProcessedRichStringPackage#getPrintedExpression_Expression()
+	 * @return the value of the '<em>Offset</em>' attribute.
+	 * @see #setOffset(int)
+	 * @see org.eclipse.xtend.core.richstring.ProcessedRichStringPackage#getLiteral_Offset()
 	 * @model
 	 * @generated
 ```
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.eclipse.xtend.core.richstring` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/PrintedExpression.java`
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/Literal.java`
 #### Snippet
 ```java
- * </p>
- * <ul>
- *   <li>{@link org.eclipse.xtend.core.richstring.PrintedExpression#getExpression <em>Expression</em>}</li>
- * </ul>
- *
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.richstring` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/PrintedExpression.java`
-#### Snippet
-```java
- * </ul>
- *
- * @see org.eclipse.xtend.core.richstring.ProcessedRichStringPackage#getPrintedExpression()
- * @model
- * @generated
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.richstring` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/PrintedExpression.java`
-#### Snippet
-```java
-
-	/**
-	 * Sets the value of the '{@link org.eclipse.xtend.core.richstring.PrintedExpression#getExpression <em>Expression</em>}' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Literal</em>' reference.
+	 * @see #setLiteral(RichStringLiteral)
+	 * @see org.eclipse.xtend.core.richstring.ProcessedRichStringPackage#getLiteral_Literal()
+	 * @model
+	 * @generated
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -9202,9 +9178,21 @@ in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/Literal.jav
 ```java
 
 	/**
-	 * Sets the value of the '{@link org.eclipse.xtend.core.richstring.Literal#getLength <em>Length</em>}' attribute.
+	 * Sets the value of the '{@link org.eclipse.xtend.core.richstring.Literal#getOffset <em>Offset</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.richstring` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/Literal.java`
+#### Snippet
+```java
+	 * @return the value of the '<em>Length</em>' attribute.
+	 * @see #setLength(int)
+	 * @see org.eclipse.xtend.core.richstring.ProcessedRichStringPackage#getLiteral_Length()
+	 * @model
+	 * @generated
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -9260,30 +9248,6 @@ Qualifier `org.eclipse.xtend.core.richstring` is unnecessary and can be removed
 in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/Literal.java`
 #### Snippet
 ```java
-	 * @return the value of the '<em>Literal</em>' reference.
-	 * @see #setLiteral(RichStringLiteral)
-	 * @see org.eclipse.xtend.core.richstring.ProcessedRichStringPackage#getLiteral_Literal()
-	 * @model
-	 * @generated
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.richstring` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/Literal.java`
-#### Snippet
-```java
-	 * @return the value of the '<em>Offset</em>' attribute.
-	 * @see #setOffset(int)
-	 * @see org.eclipse.xtend.core.richstring.ProcessedRichStringPackage#getLiteral_Offset()
-	 * @model
-	 * @generated
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.richstring` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/Literal.java`
-#### Snippet
-```java
 
 	/**
 	 * Sets the value of the '{@link org.eclipse.xtend.core.richstring.Literal#getLiteral <em>Literal</em>}' reference.
@@ -9296,35 +9260,59 @@ Qualifier `org.eclipse.xtend.core.richstring` is unnecessary and can be removed
 in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/Literal.java`
 #### Snippet
 ```java
-	 * @return the value of the '<em>Length</em>' attribute.
-	 * @see #setLength(int)
-	 * @see org.eclipse.xtend.core.richstring.ProcessedRichStringPackage#getLiteral_Length()
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.xtend.core.richstring.Literal#getLength <em>Length</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.richstring` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/PrintedExpression.java`
+#### Snippet
+```java
+	 * @return the value of the '<em>Expression</em>' reference.
+	 * @see #setExpression(XExpression)
+	 * @see org.eclipse.xtend.core.richstring.ProcessedRichStringPackage#getPrintedExpression_Expression()
 	 * @model
 	 * @generated
 ```
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.eclipse.xtend.core.richstring` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/Literal.java`
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/PrintedExpression.java`
 #### Snippet
 ```java
 
 	/**
-	 * Sets the value of the '{@link org.eclipse.xtend.core.richstring.Literal#getOffset <em>Offset</em>}' attribute.
+	 * Sets the value of the '{@link org.eclipse.xtend.core.richstring.PrintedExpression#getExpression <em>Expression</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.emf.ecore` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendSwitch.java`
+Qualifier `org.eclipse.xtend.core.richstring` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/PrintedExpression.java`
 #### Snippet
 ```java
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Constructor</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
+ * </p>
+ * <ul>
+ *   <li>{@link org.eclipse.xtend.core.richstring.PrintedExpression#getExpression <em>Expression</em>}</li>
+ * </ul>
+ *
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.richstring` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/PrintedExpression.java`
+#### Snippet
+```java
+ * </ul>
+ *
+ * @see org.eclipse.xtend.core.richstring.ProcessedRichStringPackage#getPrintedExpression()
+ * @model
+ * @generated
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -9333,259 +9321,7 @@ in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendSwitch
 #### Snippet
 ```java
 	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Type Declaration</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.emf.ecore` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendSwitch.java`
-#### Snippet
-```java
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>XExpression</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @since 2.7
-	 * @generated
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.emf.ecore` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendSwitch.java`
-#### Snippet
-```java
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Annotation Type</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.emf.ecore` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendSwitch.java`
-#### Snippet
-```java
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>File</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.emf.ecore` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendSwitch.java`
-#### Snippet
-```java
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Rich String If</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.emf.ecore` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendSwitch.java`
-#### Snippet
-```java
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Enum Literal</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.emf.ecore` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendSwitch.java`
-#### Snippet
-```java
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Field</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.emf.ecore` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendSwitch.java`
-#### Snippet
-```java
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>XBlock Expression</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @since 2.7
-	 * @generated
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.emf.ecore` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendSwitch.java`
-#### Snippet
-```java
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>XVariable Declaration</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @since 2.7
-	 * @generated
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.emf.ecore` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendSwitch.java`
-#### Snippet
-```java
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Annotation Target</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.emf.ecore` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendSwitch.java`
-#### Snippet
-```java
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Rich String Literal</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.emf.ecore` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendSwitch.java`
-#### Snippet
-```java
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Variable Declaration</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.emf.ecore` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendSwitch.java`
-#### Snippet
-```java
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Rich String Else If</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.emf.ecore` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendSwitch.java`
-#### Snippet
-```java
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Rich String For Loop</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.emf.ecore` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendSwitch.java`
-#### Snippet
-```java
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Enum</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.emf.ecore` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendSwitch.java`
-#### Snippet
-```java
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Parameter</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.emf.ecore` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendSwitch.java`
-#### Snippet
-```java
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Anonymous Class</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.emf.ecore` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendSwitch.java`
-#### Snippet
-```java
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Interface</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.emf.ecore` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendSwitch.java`
-#### Snippet
-```java
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Member</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.emf.ecore` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendSwitch.java`
-#### Snippet
-```java
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Jvm Annotation Target</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.emf.ecore` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendSwitch.java`
-#### Snippet
-```java
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>XString Literal</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @since 2.7
-	 * @generated
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.emf.ecore` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendSwitch.java`
-#### Snippet
-```java
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Create Extension Info</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Jvm Identifiable Element</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
@@ -9609,7 +9345,7 @@ in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendSwitch
 #### Snippet
 ```java
 	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Jvm Formal Parameter</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Parameter</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
@@ -9621,7 +9357,103 @@ in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendSwitch
 #### Snippet
 ```java
 	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Class</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Type Declaration</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.emf.ecore` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendSwitch.java`
+#### Snippet
+```java
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Constructor</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.emf.ecore` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendSwitch.java`
+#### Snippet
+```java
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>XVariable Declaration</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @since 2.7
+	 * @generated
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.emf.ecore` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendSwitch.java`
+#### Snippet
+```java
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>XExpression</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @since 2.7
+	 * @generated
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.emf.ecore` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendSwitch.java`
+#### Snippet
+```java
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Create Extension Info</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.emf.ecore` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendSwitch.java`
+#### Snippet
+```java
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>File</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.emf.ecore` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendSwitch.java`
+#### Snippet
+```java
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>XFor Loop Expression</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @since 2.7
+	 * @generated
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.emf.ecore` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendSwitch.java`
+#### Snippet
+```java
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Rich String For Loop</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.emf.ecore` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendSwitch.java`
+#### Snippet
+```java
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Function</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
@@ -9657,7 +9489,31 @@ in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendSwitch
 #### Snippet
 ```java
 	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Function</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Jvm Formal Parameter</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.emf.ecore` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendSwitch.java`
+#### Snippet
+```java
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Rich String Else If</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.emf.ecore` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendSwitch.java`
+#### Snippet
+```java
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Rich String Literal</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
@@ -9681,6 +9537,150 @@ in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendSwitch
 #### Snippet
 ```java
 	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>XBlock Expression</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @since 2.7
+	 * @generated
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.emf.ecore` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendSwitch.java`
+#### Snippet
+```java
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Variable Declaration</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.emf.ecore` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendSwitch.java`
+#### Snippet
+```java
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Anonymous Class</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.emf.ecore` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendSwitch.java`
+#### Snippet
+```java
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Rich String If</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.emf.ecore` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendSwitch.java`
+#### Snippet
+```java
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Enum</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.emf.ecore` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendSwitch.java`
+#### Snippet
+```java
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Member</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.emf.ecore` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendSwitch.java`
+#### Snippet
+```java
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Enum Literal</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.emf.ecore` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendSwitch.java`
+#### Snippet
+```java
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Annotation Target</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.emf.ecore` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendSwitch.java`
+#### Snippet
+```java
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Jvm Annotation Target</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.emf.ecore` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendSwitch.java`
+#### Snippet
+```java
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Interface</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.emf.ecore` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendSwitch.java`
+#### Snippet
+```java
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Class</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.emf.ecore` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendSwitch.java`
+#### Snippet
+```java
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>XString Literal</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @since 2.7
+	 * @generated
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.emf.ecore` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendSwitch.java`
+#### Snippet
+```java
+	 * @param object the target of the switch.
 	 * @return the result of interpreting the object as an instance of '<em>EObject</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject)
 	 * @generated
@@ -9693,10 +9693,10 @@ in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendSwitch
 #### Snippet
 ```java
 	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>XFor Loop Expression</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Annotation Type</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @since 2.7
 	 * @generated
+	 */
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -9705,10 +9705,106 @@ in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendSwitch
 #### Snippet
 ```java
 	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Jvm Identifiable Element</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Field</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.xtend.impl` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/impl/AnonymousClassImpl.java`
+#### Snippet
+```java
+ * </p>
+ * <ul>
+ *   <li>{@link org.eclipse.xtend.core.xtend.impl.AnonymousClassImpl#getAnnotations <em>Annotations</em>}</li>
+ *   <li>{@link org.eclipse.xtend.core.xtend.impl.AnonymousClassImpl#getAnnotationInfo <em>Annotation Info</em>}</li>
+ *   <li>{@link org.eclipse.xtend.core.xtend.impl.AnonymousClassImpl#getModifiers <em>Modifiers</em>}</li>
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.xtend.impl` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/impl/AnonymousClassImpl.java`
+#### Snippet
+```java
+ * <ul>
+ *   <li>{@link org.eclipse.xtend.core.xtend.impl.AnonymousClassImpl#getAnnotations <em>Annotations</em>}</li>
+ *   <li>{@link org.eclipse.xtend.core.xtend.impl.AnonymousClassImpl#getAnnotationInfo <em>Annotation Info</em>}</li>
+ *   <li>{@link org.eclipse.xtend.core.xtend.impl.AnonymousClassImpl#getModifiers <em>Modifiers</em>}</li>
+ *   <li>{@link org.eclipse.xtend.core.xtend.impl.AnonymousClassImpl#getDeclaringType <em>Declaring Type</em>}</li>
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.xtend.impl` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/impl/AnonymousClassImpl.java`
+#### Snippet
+```java
+ *   <li>{@link org.eclipse.xtend.core.xtend.impl.AnonymousClassImpl#getAnnotations <em>Annotations</em>}</li>
+ *   <li>{@link org.eclipse.xtend.core.xtend.impl.AnonymousClassImpl#getAnnotationInfo <em>Annotation Info</em>}</li>
+ *   <li>{@link org.eclipse.xtend.core.xtend.impl.AnonymousClassImpl#getModifiers <em>Modifiers</em>}</li>
+ *   <li>{@link org.eclipse.xtend.core.xtend.impl.AnonymousClassImpl#getDeclaringType <em>Declaring Type</em>}</li>
+ *   <li>{@link org.eclipse.xtend.core.xtend.impl.AnonymousClassImpl#getName <em>Name</em>}</li>
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.xtend.impl` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/impl/AnonymousClassImpl.java`
+#### Snippet
+```java
+ *   <li>{@link org.eclipse.xtend.core.xtend.impl.AnonymousClassImpl#getAnnotationInfo <em>Annotation Info</em>}</li>
+ *   <li>{@link org.eclipse.xtend.core.xtend.impl.AnonymousClassImpl#getModifiers <em>Modifiers</em>}</li>
+ *   <li>{@link org.eclipse.xtend.core.xtend.impl.AnonymousClassImpl#getDeclaringType <em>Declaring Type</em>}</li>
+ *   <li>{@link org.eclipse.xtend.core.xtend.impl.AnonymousClassImpl#getName <em>Name</em>}</li>
+ *   <li>{@link org.eclipse.xtend.core.xtend.impl.AnonymousClassImpl#getMembers <em>Members</em>}</li>
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.xtend.impl` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/impl/AnonymousClassImpl.java`
+#### Snippet
+```java
+ *   <li>{@link org.eclipse.xtend.core.xtend.impl.AnonymousClassImpl#getModifiers <em>Modifiers</em>}</li>
+ *   <li>{@link org.eclipse.xtend.core.xtend.impl.AnonymousClassImpl#getDeclaringType <em>Declaring Type</em>}</li>
+ *   <li>{@link org.eclipse.xtend.core.xtend.impl.AnonymousClassImpl#getName <em>Name</em>}</li>
+ *   <li>{@link org.eclipse.xtend.core.xtend.impl.AnonymousClassImpl#getMembers <em>Members</em>}</li>
+ *   <li>{@link org.eclipse.xtend.core.xtend.impl.AnonymousClassImpl#getConstructorCall <em>Constructor Call</em>}</li>
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.xtend.impl` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/impl/AnonymousClassImpl.java`
+#### Snippet
+```java
+ *   <li>{@link org.eclipse.xtend.core.xtend.impl.AnonymousClassImpl#getDeclaringType <em>Declaring Type</em>}</li>
+ *   <li>{@link org.eclipse.xtend.core.xtend.impl.AnonymousClassImpl#getName <em>Name</em>}</li>
+ *   <li>{@link org.eclipse.xtend.core.xtend.impl.AnonymousClassImpl#getMembers <em>Members</em>}</li>
+ *   <li>{@link org.eclipse.xtend.core.xtend.impl.AnonymousClassImpl#getConstructorCall <em>Constructor Call</em>}</li>
+ * </ul>
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.xtend.impl` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/impl/AnonymousClassImpl.java`
+#### Snippet
+```java
+ *   <li>{@link org.eclipse.xtend.core.xtend.impl.AnonymousClassImpl#getName <em>Name</em>}</li>
+ *   <li>{@link org.eclipse.xtend.core.xtend.impl.AnonymousClassImpl#getMembers <em>Members</em>}</li>
+ *   <li>{@link org.eclipse.xtend.core.xtend.impl.AnonymousClassImpl#getConstructorCall <em>Constructor Call</em>}</li>
+ * </ul>
+ *
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.richstring.impl` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/impl/LinePartImpl.java`
+#### Snippet
+```java
+ * </p>
+ * <ul>
+ *   <li>{@link org.eclipse.xtend.core.richstring.impl.LinePartImpl#getLine <em>Line</em>}</li>
+ * </ul>
+ *
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -9718,7 +9814,7 @@ in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendAdapte
 ```java
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.eclipse.xtend.core.xtend.XtendField <em>Field</em>}'.
+	 * Creates a new adapter for an object of class '{@link org.eclipse.xtend.core.xtend.RichStringLiteral <em>Rich String Literal</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 ```
@@ -9730,7 +9826,31 @@ in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendAdapte
 ```java
 	 * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see org.eclipse.xtend.core.xtend.XtendField
+	 * @see org.eclipse.xtend.core.xtend.RichStringLiteral
+	 * @generated
+	 */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendAdapterFactory.java`
+#### Snippet
+```java
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.xtend.core.xtend.XtendEnumLiteral <em>Enum Literal</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendAdapterFactory.java`
+#### Snippet
+```java
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.xtend.core.xtend.XtendEnumLiteral
 	 * @generated
 	 */
 ```
@@ -9766,7 +9886,7 @@ in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendAdapte
 ```java
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.eclipse.xtend.core.xtend.XtendConstructor <em>Constructor</em>}'.
+	 * Creates a new adapter for an object of class '{@link org.eclipse.xtend.core.xtend.XtendClass <em>Class</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 ```
@@ -9778,7 +9898,55 @@ in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendAdapte
 ```java
 	 * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see org.eclipse.xtend.core.xtend.XtendConstructor
+	 * @see org.eclipse.xtend.core.xtend.XtendClass
+	 * @generated
+	 */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendAdapterFactory.java`
+#### Snippet
+```java
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.xtend.core.xtend.AnonymousClass <em>Anonymous Class</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendAdapterFactory.java`
+#### Snippet
+```java
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.xtend.core.xtend.AnonymousClass
+	 * @generated
+	 */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendAdapterFactory.java`
+#### Snippet
+```java
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.xtend.core.xtend.RichStringIf <em>Rich String If</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendAdapterFactory.java`
+#### Snippet
+```java
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.xtend.core.xtend.RichStringIf
 	 * @generated
 	 */
 ```
@@ -9808,6 +9976,174 @@ in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendAdapte
 ```
 
 ### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendAdapterFactory.java`
+#### Snippet
+```java
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.xtend.core.xtend.XtendMember <em>Member</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendAdapterFactory.java`
+#### Snippet
+```java
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.xtend.core.xtend.XtendMember
+	 * @generated
+	 */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendAdapterFactory.java`
+#### Snippet
+```java
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.xtend.core.xtend.XtendExecutable <em>Executable</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendAdapterFactory.java`
+#### Snippet
+```java
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.xtend.core.xtend.XtendExecutable
+	 * @generated
+	 */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendAdapterFactory.java`
+#### Snippet
+```java
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.xtend.core.xtend.XtendInterface <em>Interface</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendAdapterFactory.java`
+#### Snippet
+```java
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.xtend.core.xtend.XtendInterface
+	 * @generated
+	 */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendAdapterFactory.java`
+#### Snippet
+```java
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.xtend.core.xtend.XtendField <em>Field</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendAdapterFactory.java`
+#### Snippet
+```java
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.xtend.core.xtend.XtendField
+	 * @generated
+	 */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendAdapterFactory.java`
+#### Snippet
+```java
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.xtend.core.xtend.XtendParameter <em>Parameter</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendAdapterFactory.java`
+#### Snippet
+```java
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.xtend.core.xtend.XtendParameter
+	 * @generated
+	 */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendAdapterFactory.java`
+#### Snippet
+```java
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.xtend.core.xtend.XtendEnum <em>Enum</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendAdapterFactory.java`
+#### Snippet
+```java
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.xtend.core.xtend.XtendEnum
+	 * @generated
+	 */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendAdapterFactory.java`
+#### Snippet
+```java
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.xtend.core.xtend.RichString <em>Rich String</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendAdapterFactory.java`
+#### Snippet
+```java
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.xtend.core.xtend.RichString
+	 * @generated
+	 */
+```
+
+### UnnecessaryFullyQualifiedName
 Qualifier `org.eclipse.xtext.common.types` is unnecessary and can be removed
 in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendAdapterFactory.java`
 #### Snippet
@@ -9832,13 +10168,61 @@ in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendAdapte
 ```
 
 ### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtext.xbase` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendAdapterFactory.java`
+#### Snippet
+```java
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.xtext.xbase.XStringLiteral <em>XString Literal</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtext.xbase` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendAdapterFactory.java`
+#### Snippet
+```java
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.xtext.xbase.XStringLiteral
+	 * @since 2.7
+	 * @generated
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtext.xbase` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendAdapterFactory.java`
+#### Snippet
+```java
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.xtext.xbase.XExpression <em>XExpression</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtext.xbase` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendAdapterFactory.java`
+#### Snippet
+```java
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.xtext.xbase.XExpression
+	 * @since 2.7
+	 * @generated
+```
+
+### UnnecessaryFullyQualifiedName
 Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
 in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendAdapterFactory.java`
 #### Snippet
 ```java
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.eclipse.xtend.core.xtend.AnonymousClass <em>Anonymous Class</em>}'.
+	 * Creates a new adapter for an object of class '{@link org.eclipse.xtend.core.xtend.XtendAnnotationType <em>Annotation Type</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 ```
@@ -9850,7 +10234,103 @@ in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendAdapte
 ```java
 	 * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see org.eclipse.xtend.core.xtend.AnonymousClass
+	 * @see org.eclipse.xtend.core.xtend.XtendAnnotationType
+	 * @generated
+	 */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendAdapterFactory.java`
+#### Snippet
+```java
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.xtend.core.xtend.CreateExtensionInfo <em>Create Extension Info</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendAdapterFactory.java`
+#### Snippet
+```java
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.xtend.core.xtend.CreateExtensionInfo
+	 * @generated
+	 */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendAdapterFactory.java`
+#### Snippet
+```java
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.xtend.core.xtend.RichStringElseIf <em>Rich String Else If</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendAdapterFactory.java`
+#### Snippet
+```java
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.xtend.core.xtend.RichStringElseIf
+	 * @generated
+	 */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendAdapterFactory.java`
+#### Snippet
+```java
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.xtend.core.xtend.XtendFormalParameter <em>Formal Parameter</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendAdapterFactory.java`
+#### Snippet
+```java
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.xtend.core.xtend.XtendFormalParameter
+	 * @generated
+	 */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendAdapterFactory.java`
+#### Snippet
+```java
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.xtend.core.xtend.XtendAnnotationTarget <em>Annotation Target</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendAdapterFactory.java`
+#### Snippet
+```java
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.xtend.core.xtend.XtendAnnotationTarget
 	 * @generated
 	 */
 ```
@@ -9886,7 +10366,7 @@ in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendAdapte
 ```java
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.eclipse.xtend.core.xtend.XtendInterface <em>Interface</em>}'.
+	 * Creates a new adapter for an object of class '{@link org.eclipse.xtend.core.xtend.XtendVariableDeclaration <em>Variable Declaration</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 ```
@@ -9898,9 +10378,21 @@ in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendAdapte
 ```java
 	 * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see org.eclipse.xtend.core.xtend.XtendInterface
+	 * @see org.eclipse.xtend.core.xtend.XtendVariableDeclaration
 	 * @generated
 	 */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendAdapterFactory.java`
+#### Snippet
+```java
+ * It provides an adapter <code>createXXX</code> method for each class of the model.
+ * <!-- end-user-doc -->
+ * @see org.eclipse.xtend.core.xtend.XtendPackage
+ * @generated
+ */
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -9925,78 +10417,6 @@ in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendAdapte
 	 * @see org.eclipse.xtext.xbase.XVariableDeclaration
 	 * @since 2.7
 	 * @generated
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendAdapterFactory.java`
-#### Snippet
-```java
-
-	/**
-	 * Creates a new adapter for an object of class '{@link org.eclipse.xtend.core.xtend.XtendVariableDeclaration <em>Variable Declaration</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendAdapterFactory.java`
-#### Snippet
-```java
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see org.eclipse.xtend.core.xtend.XtendVariableDeclaration
-	 * @generated
-	 */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendAdapterFactory.java`
-#### Snippet
-```java
-
-	/**
-	 * Creates a new adapter for an object of class '{@link org.eclipse.xtend.core.xtend.RichStringLiteral <em>Rich String Literal</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendAdapterFactory.java`
-#### Snippet
-```java
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see org.eclipse.xtend.core.xtend.RichStringLiteral
-	 * @generated
-	 */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendAdapterFactory.java`
-#### Snippet
-```java
-
-	/**
-	 * Creates a new adapter for an object of class '{@link org.eclipse.xtend.core.xtend.XtendAnnotationType <em>Annotation Type</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendAdapterFactory.java`
-#### Snippet
-```java
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see org.eclipse.xtend.core.xtend.XtendAnnotationType
-	 * @generated
-	 */
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -10048,234 +10468,6 @@ in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendAdapte
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendAdapterFactory.java`
-#### Snippet
-```java
-
-	/**
-	 * Creates a new adapter for an object of class '{@link org.eclipse.xtend.core.xtend.XtendClass <em>Class</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendAdapterFactory.java`
-#### Snippet
-```java
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see org.eclipse.xtend.core.xtend.XtendClass
-	 * @generated
-	 */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendAdapterFactory.java`
-#### Snippet
-```java
-
-	/**
-	 * Creates a new adapter for an object of class '{@link org.eclipse.xtend.core.xtend.CreateExtensionInfo <em>Create Extension Info</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendAdapterFactory.java`
-#### Snippet
-```java
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see org.eclipse.xtend.core.xtend.CreateExtensionInfo
-	 * @generated
-	 */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendAdapterFactory.java`
-#### Snippet
-```java
-
-	/**
-	 * Creates a new adapter for an object of class '{@link org.eclipse.xtend.core.xtend.RichString <em>Rich String</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendAdapterFactory.java`
-#### Snippet
-```java
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see org.eclipse.xtend.core.xtend.RichString
-	 * @generated
-	 */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendAdapterFactory.java`
-#### Snippet
-```java
- * It provides an adapter <code>createXXX</code> method for each class of the model.
- * <!-- end-user-doc -->
- * @see org.eclipse.xtend.core.xtend.XtendPackage
- * @generated
- */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendAdapterFactory.java`
-#### Snippet
-```java
-
-	/**
-	 * Creates a new adapter for an object of class '{@link org.eclipse.xtend.core.xtend.XtendExecutable <em>Executable</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendAdapterFactory.java`
-#### Snippet
-```java
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see org.eclipse.xtend.core.xtend.XtendExecutable
-	 * @generated
-	 */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendAdapterFactory.java`
-#### Snippet
-```java
-
-	/**
-	 * Creates a new adapter for an object of class '{@link org.eclipse.xtend.core.xtend.XtendEnumLiteral <em>Enum Literal</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendAdapterFactory.java`
-#### Snippet
-```java
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see org.eclipse.xtend.core.xtend.XtendEnumLiteral
-	 * @generated
-	 */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendAdapterFactory.java`
-#### Snippet
-```java
-
-	/**
-	 * Creates a new adapter for an object of class '{@link org.eclipse.xtend.core.xtend.XtendAnnotationTarget <em>Annotation Target</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendAdapterFactory.java`
-#### Snippet
-```java
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see org.eclipse.xtend.core.xtend.XtendAnnotationTarget
-	 * @generated
-	 */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendAdapterFactory.java`
-#### Snippet
-```java
-
-	/**
-	 * Creates a new adapter for an object of class '{@link org.eclipse.xtend.core.xtend.XtendEnum <em>Enum</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendAdapterFactory.java`
-#### Snippet
-```java
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see org.eclipse.xtend.core.xtend.XtendEnum
-	 * @generated
-	 */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendAdapterFactory.java`
-#### Snippet
-```java
-
-	/**
-	 * Creates a new adapter for an object of class '{@link org.eclipse.xtend.core.xtend.RichStringElseIf <em>Rich String Else If</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendAdapterFactory.java`
-#### Snippet
-```java
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see org.eclipse.xtend.core.xtend.RichStringElseIf
-	 * @generated
-	 */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendAdapterFactory.java`
-#### Snippet
-```java
-
-	/**
-	 * Creates a new adapter for an object of class '{@link org.eclipse.xtend.core.xtend.XtendParameter <em>Parameter</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendAdapterFactory.java`
-#### Snippet
-```java
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see org.eclipse.xtend.core.xtend.XtendParameter
-	 * @generated
-	 */
-```
-
-### UnnecessaryFullyQualifiedName
 Qualifier `org.eclipse.xtext.xbase` is unnecessary and can be removed
 in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendAdapterFactory.java`
 #### Snippet
@@ -10306,54 +10498,6 @@ in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendAdapte
 ```java
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.eclipse.xtend.core.xtend.XtendMember <em>Member</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendAdapterFactory.java`
-#### Snippet
-```java
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see org.eclipse.xtend.core.xtend.XtendMember
-	 * @generated
-	 */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendAdapterFactory.java`
-#### Snippet
-```java
-
-	/**
-	 * Creates a new adapter for an object of class '{@link org.eclipse.xtend.core.xtend.RichStringIf <em>Rich String If</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendAdapterFactory.java`
-#### Snippet
-```java
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see org.eclipse.xtend.core.xtend.RichStringIf
-	 * @generated
-	 */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendAdapterFactory.java`
-#### Snippet
-```java
-
-	/**
 	 * Creates a new adapter for an object of class '{@link org.eclipse.xtend.core.xtend.XtendFunction <em>Function</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
@@ -10372,27 +10516,27 @@ in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendAdapte
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtext.xbase` is unnecessary and can be removed
+Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
 in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendAdapterFactory.java`
 #### Snippet
 ```java
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.eclipse.xtext.xbase.XStringLiteral <em>XString Literal</em>}'.
+	 * Creates a new adapter for an object of class '{@link org.eclipse.xtend.core.xtend.XtendConstructor <em>Constructor</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtext.xbase` is unnecessary and can be removed
+Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
 in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendAdapterFactory.java`
 #### Snippet
 ```java
 	 * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see org.eclipse.xtext.xbase.XStringLiteral
-	 * @since 2.7
+	 * @see org.eclipse.xtend.core.xtend.XtendConstructor
 	 * @generated
+	 */
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -10420,61 +10564,13 @@ in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendAdapte
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtext.xbase` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendAdapterFactory.java`
-#### Snippet
-```java
-
-	/**
-	 * Creates a new adapter for an object of class '{@link org.eclipse.xtext.xbase.XExpression <em>XExpression</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtext.xbase` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendAdapterFactory.java`
-#### Snippet
-```java
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see org.eclipse.xtext.xbase.XExpression
-	 * @since 2.7
-	 * @generated
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendAdapterFactory.java`
-#### Snippet
-```java
-
-	/**
-	 * Creates a new adapter for an object of class '{@link org.eclipse.xtend.core.xtend.XtendFormalParameter <em>Formal Parameter</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.xtend` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendAdapterFactory.java`
-#### Snippet
-```java
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see org.eclipse.xtend.core.xtend.XtendFormalParameter
-	 * @generated
-	 */
-```
-
-### UnnecessaryFullyQualifiedName
 Qualifier `org.eclipse.xtend.core.richstring.impl` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/impl/LinePartImpl.java`
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/impl/ElseStartImpl.java`
 #### Snippet
 ```java
  * </p>
  * <ul>
- *   <li>{@link org.eclipse.xtend.core.richstring.impl.LinePartImpl#getLine <em>Line</em>}</li>
+ *   <li>{@link org.eclipse.xtend.core.richstring.impl.ElseStartImpl#getIfConditionStart <em>If Condition Start</em>}</li>
  * </ul>
  *
 ```
@@ -10493,18 +10589,6 @@ in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/impl/ForLoo
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.eclipse.xtend.core.richstring.impl` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/impl/ElseStartImpl.java`
-#### Snippet
-```java
- * </p>
- * <ul>
- *   <li>{@link org.eclipse.xtend.core.richstring.impl.ElseStartImpl#getIfConditionStart <em>If Condition Start</em>}</li>
- * </ul>
- *
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.richstring.impl` is unnecessary and can be removed
 in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/impl/PrintedExpressionImpl.java`
 #### Snippet
 ```java
@@ -10516,109 +10600,13 @@ in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/impl/Printe
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.xtend.impl` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/impl/AnonymousClassImpl.java`
-#### Snippet
-```java
- * </p>
- * <ul>
- *   <li>{@link org.eclipse.xtend.core.xtend.impl.AnonymousClassImpl#getAnnotations <em>Annotations</em>}</li>
- *   <li>{@link org.eclipse.xtend.core.xtend.impl.AnonymousClassImpl#getAnnotationInfo <em>Annotation Info</em>}</li>
- *   <li>{@link org.eclipse.xtend.core.xtend.impl.AnonymousClassImpl#getModifiers <em>Modifiers</em>}</li>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.xtend.impl` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/impl/AnonymousClassImpl.java`
-#### Snippet
-```java
- * <ul>
- *   <li>{@link org.eclipse.xtend.core.xtend.impl.AnonymousClassImpl#getAnnotations <em>Annotations</em>}</li>
- *   <li>{@link org.eclipse.xtend.core.xtend.impl.AnonymousClassImpl#getAnnotationInfo <em>Annotation Info</em>}</li>
- *   <li>{@link org.eclipse.xtend.core.xtend.impl.AnonymousClassImpl#getModifiers <em>Modifiers</em>}</li>
- *   <li>{@link org.eclipse.xtend.core.xtend.impl.AnonymousClassImpl#getDeclaringType <em>Declaring Type</em>}</li>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.xtend.impl` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/impl/AnonymousClassImpl.java`
-#### Snippet
-```java
- *   <li>{@link org.eclipse.xtend.core.xtend.impl.AnonymousClassImpl#getAnnotations <em>Annotations</em>}</li>
- *   <li>{@link org.eclipse.xtend.core.xtend.impl.AnonymousClassImpl#getAnnotationInfo <em>Annotation Info</em>}</li>
- *   <li>{@link org.eclipse.xtend.core.xtend.impl.AnonymousClassImpl#getModifiers <em>Modifiers</em>}</li>
- *   <li>{@link org.eclipse.xtend.core.xtend.impl.AnonymousClassImpl#getDeclaringType <em>Declaring Type</em>}</li>
- *   <li>{@link org.eclipse.xtend.core.xtend.impl.AnonymousClassImpl#getName <em>Name</em>}</li>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.xtend.impl` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/impl/AnonymousClassImpl.java`
-#### Snippet
-```java
- *   <li>{@link org.eclipse.xtend.core.xtend.impl.AnonymousClassImpl#getAnnotationInfo <em>Annotation Info</em>}</li>
- *   <li>{@link org.eclipse.xtend.core.xtend.impl.AnonymousClassImpl#getModifiers <em>Modifiers</em>}</li>
- *   <li>{@link org.eclipse.xtend.core.xtend.impl.AnonymousClassImpl#getDeclaringType <em>Declaring Type</em>}</li>
- *   <li>{@link org.eclipse.xtend.core.xtend.impl.AnonymousClassImpl#getName <em>Name</em>}</li>
- *   <li>{@link org.eclipse.xtend.core.xtend.impl.AnonymousClassImpl#getMembers <em>Members</em>}</li>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.xtend.impl` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/impl/AnonymousClassImpl.java`
-#### Snippet
-```java
- *   <li>{@link org.eclipse.xtend.core.xtend.impl.AnonymousClassImpl#getModifiers <em>Modifiers</em>}</li>
- *   <li>{@link org.eclipse.xtend.core.xtend.impl.AnonymousClassImpl#getDeclaringType <em>Declaring Type</em>}</li>
- *   <li>{@link org.eclipse.xtend.core.xtend.impl.AnonymousClassImpl#getName <em>Name</em>}</li>
- *   <li>{@link org.eclipse.xtend.core.xtend.impl.AnonymousClassImpl#getMembers <em>Members</em>}</li>
- *   <li>{@link org.eclipse.xtend.core.xtend.impl.AnonymousClassImpl#getConstructorCall <em>Constructor Call</em>}</li>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.xtend.impl` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/impl/AnonymousClassImpl.java`
-#### Snippet
-```java
- *   <li>{@link org.eclipse.xtend.core.xtend.impl.AnonymousClassImpl#getDeclaringType <em>Declaring Type</em>}</li>
- *   <li>{@link org.eclipse.xtend.core.xtend.impl.AnonymousClassImpl#getName <em>Name</em>}</li>
- *   <li>{@link org.eclipse.xtend.core.xtend.impl.AnonymousClassImpl#getMembers <em>Members</em>}</li>
- *   <li>{@link org.eclipse.xtend.core.xtend.impl.AnonymousClassImpl#getConstructorCall <em>Constructor Call</em>}</li>
- * </ul>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.xtend.impl` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/impl/AnonymousClassImpl.java`
-#### Snippet
-```java
- *   <li>{@link org.eclipse.xtend.core.xtend.impl.AnonymousClassImpl#getName <em>Name</em>}</li>
- *   <li>{@link org.eclipse.xtend.core.xtend.impl.AnonymousClassImpl#getMembers <em>Members</em>}</li>
- *   <li>{@link org.eclipse.xtend.core.xtend.impl.AnonymousClassImpl#getConstructorCall <em>Constructor Call</em>}</li>
- * </ul>
- *
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.richstring.impl` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/impl/EndIfImpl.java`
-#### Snippet
-```java
- * </p>
- * <ul>
- *   <li>{@link org.eclipse.xtend.core.richstring.impl.EndIfImpl#getIfConditionStart <em>If Condition Start</em>}</li>
- * </ul>
- *
-```
-
-### UnnecessaryFullyQualifiedName
 Qualifier `org.eclipse.xtend.core.richstring` is unnecessary and can be removed
 in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/ProcessedRichStringPackage.java`
 #### Snippet
 ```java
 
 	/**
-	 * Returns the meta object for class '{@link org.eclipse.xtend.core.richstring.LinePart <em>Line Part</em>}'.
+	 * Returns the meta object for the container reference '{@link org.eclipse.xtend.core.richstring.Line#getRichString <em>Rich String</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 ```
@@ -10629,10 +10617,10 @@ in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/ProcessedRi
 #### Snippet
 ```java
 	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Line Part</em>'.
-	 * @see org.eclipse.xtend.core.richstring.LinePart
+	 * @return the meta object for the container reference '<em>Rich String</em>'.
+	 * @see org.eclipse.xtend.core.richstring.Line#getRichString()
+	 * @see #getLine()
 	 * @generated
-	 */
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -10642,7 +10630,7 @@ in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/ProcessedRi
 ```java
 
 	/**
-	 * Returns the meta object for class '{@link org.eclipse.xtend.core.richstring.ForLoopEnd <em>For Loop End</em>}'.
+	 * Returns the meta object for the reference '{@link org.eclipse.xtend.core.richstring.ElseIfCondition#getIfConditionStart <em>If Condition Start</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 ```
@@ -10653,10 +10641,10 @@ in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/ProcessedRi
 #### Snippet
 ```java
 	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>For Loop End</em>'.
-	 * @see org.eclipse.xtend.core.richstring.ForLoopEnd
+	 * @return the meta object for the reference '<em>If Condition Start</em>'.
+	 * @see org.eclipse.xtend.core.richstring.ElseIfCondition#getIfConditionStart()
+	 * @see #getElseIfCondition()
 	 * @generated
-	 */
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -10666,7 +10654,7 @@ in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/ProcessedRi
 ```java
 
 	/**
-	 * Returns the meta object for class '{@link org.eclipse.xtend.core.richstring.Literal <em>Literal</em>}'.
+	 * Returns the meta object for the reference '{@link org.eclipse.xtend.core.richstring.IfConditionStart#getElseStart <em>Else Start</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 ```
@@ -10677,10 +10665,10 @@ in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/ProcessedRi
 #### Snippet
 ```java
 	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Literal</em>'.
-	 * @see org.eclipse.xtend.core.richstring.Literal
+	 * @return the meta object for the reference '<em>Else Start</em>'.
+	 * @see org.eclipse.xtend.core.richstring.IfConditionStart#getElseStart()
+	 * @see #getIfConditionStart()
 	 * @generated
-	 */
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -10690,7 +10678,7 @@ in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/ProcessedRi
 ```java
 
 	/**
-	 * Returns the meta object for class '{@link org.eclipse.xtend.core.richstring.Line <em>Line</em>}'.
+	 * Returns the meta object for the reference '{@link org.eclipse.xtend.core.richstring.ElseIfCondition#getRichStringElseIf <em>Rich String Else If</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 ```
@@ -10701,8 +10689,152 @@ in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/ProcessedRi
 #### Snippet
 ```java
 	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Line</em>'.
-	 * @see org.eclipse.xtend.core.richstring.Line
+	 * @return the meta object for the reference '<em>Rich String Else If</em>'.
+	 * @see org.eclipse.xtend.core.richstring.ElseIfCondition#getRichStringElseIf()
+	 * @see #getElseIfCondition()
+	 * @generated
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.richstring` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/ProcessedRichStringPackage.java`
+#### Snippet
+```java
+
+	/**
+	 * Returns the meta object for the reference '{@link org.eclipse.xtend.core.richstring.PrintedExpression#getExpression <em>Expression</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.richstring` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/ProcessedRichStringPackage.java`
+#### Snippet
+```java
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Expression</em>'.
+	 * @see org.eclipse.xtend.core.richstring.PrintedExpression#getExpression()
+	 * @see #getPrintedExpression()
+	 * @generated
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.richstring` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/ProcessedRichStringPackage.java`
+#### Snippet
+```java
+
+	/**
+	 * Returns the meta object for the reference '{@link org.eclipse.xtend.core.richstring.ProcessedRichString#getRichString <em>Rich String</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.richstring` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/ProcessedRichStringPackage.java`
+#### Snippet
+```java
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Rich String</em>'.
+	 * @see org.eclipse.xtend.core.richstring.ProcessedRichString#getRichString()
+	 * @see #getProcessedRichString()
+	 * @generated
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.richstring` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/ProcessedRichStringPackage.java`
+#### Snippet
+```java
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.xtend.core.richstring.Literal#getOffset <em>Offset</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.richstring` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/ProcessedRichStringPackage.java`
+#### Snippet
+```java
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Offset</em>'.
+	 * @see org.eclipse.xtend.core.richstring.Literal#getOffset()
+	 * @see #getLiteral()
+	 * @generated
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.richstring` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/ProcessedRichStringPackage.java`
+#### Snippet
+```java
+
+	/**
+	 * Returns the meta object for the reference '{@link org.eclipse.xtend.core.richstring.ElseStart#getIfConditionStart <em>If Condition Start</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.richstring` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/ProcessedRichStringPackage.java`
+#### Snippet
+```java
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>If Condition Start</em>'.
+	 * @see org.eclipse.xtend.core.richstring.ElseStart#getIfConditionStart()
+	 * @see #getElseStart()
+	 * @generated
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.richstring` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/ProcessedRichStringPackage.java`
+#### Snippet
+```java
+
+	/**
+	 * Returns the meta object for the reference '{@link org.eclipse.xtend.core.richstring.EndIf#getIfConditionStart <em>If Condition Start</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.richstring` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/ProcessedRichStringPackage.java`
+#### Snippet
+```java
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>If Condition Start</em>'.
+	 * @see org.eclipse.xtend.core.richstring.EndIf#getIfConditionStart()
+	 * @see #getEndIf()
+	 * @generated
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.richstring` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/ProcessedRichStringPackage.java`
+#### Snippet
+```java
+
+	/**
+	 * Returns the meta object for class '{@link org.eclipse.xtend.core.richstring.ElseIfCondition <em>Else If Condition</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.richstring` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/ProcessedRichStringPackage.java`
+#### Snippet
+```java
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Else If Condition</em>'.
+	 * @see org.eclipse.xtend.core.richstring.ElseIfCondition
 	 * @generated
 	 */
 ```
@@ -10727,6 +10859,66 @@ in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/ProcessedRi
 	 * <!-- end-user-doc -->
 	 * @return the meta object for class '<em>Processed Rich String</em>'.
 	 * @see org.eclipse.xtend.core.richstring.ProcessedRichString
+	 * @generated
+	 */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.richstring` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/ProcessedRichStringPackage.java`
+#### Snippet
+```java
+ * </ul>
+ * <!-- end-user-doc -->
+ * @see org.eclipse.xtend.core.richstring.ProcessedRichStringFactory
+ * @model kind="package"
+ * @generated
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.richstring` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/ProcessedRichStringPackage.java`
+#### Snippet
+```java
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.xtend.core.richstring.ProcessedRichString#getLines <em>Lines</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.richstring` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/ProcessedRichStringPackage.java`
+#### Snippet
+```java
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Lines</em>'.
+	 * @see org.eclipse.xtend.core.richstring.ProcessedRichString#getLines()
+	 * @see #getProcessedRichString()
+	 * @generated
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.richstring` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/ProcessedRichStringPackage.java`
+#### Snippet
+```java
+
+	/**
+	 * Returns the meta object for class '{@link org.eclipse.xtend.core.richstring.IfConditionStart <em>If Condition Start</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.richstring` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/ProcessedRichStringPackage.java`
+#### Snippet
+```java
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>If Condition Start</em>'.
+	 * @see org.eclipse.xtend.core.richstring.IfConditionStart
 	 * @generated
 	 */
 ```
@@ -10762,7 +10954,7 @@ in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/ProcessedRi
 ```java
 
 	/**
-	 * Returns the meta object for class '{@link org.eclipse.xtend.core.richstring.ForLoopStart <em>For Loop Start</em>}'.
+	 * Returns the meta object for class '{@link org.eclipse.xtend.core.richstring.PrintedExpression <em>Printed Expression</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 ```
@@ -10773,8 +10965,8 @@ in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/ProcessedRi
 #### Snippet
 ```java
 	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>For Loop Start</em>'.
-	 * @see org.eclipse.xtend.core.richstring.ForLoopStart
+	 * @return the meta object for class '<em>Printed Expression</em>'.
+	 * @see org.eclipse.xtend.core.richstring.PrintedExpression
 	 * @generated
 	 */
 ```
@@ -10786,7 +10978,7 @@ in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/ProcessedRi
 ```java
 
 	/**
-	 * Returns the meta object for the reference '{@link org.eclipse.xtend.core.richstring.Literal#getLiteral <em>Literal</em>}'.
+	 * Returns the meta object for class '{@link org.eclipse.xtend.core.richstring.Line <em>Line</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 ```
@@ -10797,9 +10989,57 @@ in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/ProcessedRi
 #### Snippet
 ```java
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Literal</em>'.
-	 * @see org.eclipse.xtend.core.richstring.Literal#getLiteral()
-	 * @see #getLiteral()
+	 * @return the meta object for class '<em>Line</em>'.
+	 * @see org.eclipse.xtend.core.richstring.Line
+	 * @generated
+	 */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.richstring` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/ProcessedRichStringPackage.java`
+#### Snippet
+```java
+
+	/**
+	 * Returns the meta object for class '{@link org.eclipse.xtend.core.richstring.Literal <em>Literal</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.richstring` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/ProcessedRichStringPackage.java`
+#### Snippet
+```java
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Literal</em>'.
+	 * @see org.eclipse.xtend.core.richstring.Literal
+	 * @generated
+	 */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.richstring` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/ProcessedRichStringPackage.java`
+#### Snippet
+```java
+
+	/**
+	 * Returns the meta object for the reference '{@link org.eclipse.xtend.core.richstring.IfConditionStart#getRichStringIf <em>Rich String If</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.richstring` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/ProcessedRichStringPackage.java`
+#### Snippet
+```java
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Rich String If</em>'.
+	 * @see org.eclipse.xtend.core.richstring.IfConditionStart#getRichStringIf()
+	 * @see #getIfConditionStart()
 	 * @generated
 ```
 
@@ -10810,7 +11050,7 @@ in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/ProcessedRi
 ```java
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link org.eclipse.xtend.core.richstring.Line#getParts <em>Parts</em>}'.
+	 * Returns the meta object for the reference list '{@link org.eclipse.xtend.core.richstring.IfConditionStart#getElseIfConditions <em>Else If Conditions</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 ```
@@ -10821,9 +11061,45 @@ in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/ProcessedRi
 #### Snippet
 ```java
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference list '<em>Parts</em>'.
-	 * @see org.eclipse.xtend.core.richstring.Line#getParts()
-	 * @see #getLine()
+	 * @return the meta object for the reference list '<em>Else If Conditions</em>'.
+	 * @see org.eclipse.xtend.core.richstring.IfConditionStart#getElseIfConditions()
+	 * @see #getIfConditionStart()
+	 * @generated
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.richstring.impl` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/impl/EndIfImpl.java`
+#### Snippet
+```java
+ * </p>
+ * <ul>
+ *   <li>{@link org.eclipse.xtend.core.richstring.impl.EndIfImpl#getIfConditionStart <em>If Condition Start</em>}</li>
+ * </ul>
+ *
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.richstring` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/ProcessedRichStringPackage.java`
+#### Snippet
+```java
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.xtend.core.richstring.Literal#getLength <em>Length</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.richstring` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/ProcessedRichStringPackage.java`
+#### Snippet
+```java
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Length</em>'.
+	 * @see org.eclipse.xtend.core.richstring.Literal#getLength()
+	 * @see #getLiteral()
 	 * @generated
 ```
 
@@ -10858,7 +11134,7 @@ in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/ProcessedRi
 ```java
 
 	/**
-	 * Returns the meta object for class '{@link org.eclipse.xtend.core.richstring.IfConditionStart <em>If Condition Start</em>}'.
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.xtend.core.richstring.Line#getParts <em>Parts</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 ```
@@ -10869,10 +11145,22 @@ in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/ProcessedRi
 #### Snippet
 ```java
 	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>If Condition Start</em>'.
-	 * @see org.eclipse.xtend.core.richstring.IfConditionStart
+	 * @return the meta object for the containment reference list '<em>Parts</em>'.
+	 * @see org.eclipse.xtend.core.richstring.Line#getParts()
+	 * @see #getLine()
+	 * @generated
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.richstring.impl` is unnecessary, and can be replaced with an import
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/ProcessedRichStringPackage.java`
+#### Snippet
+```java
 	 * @generated
 	 */
+	ProcessedRichStringPackage eINSTANCE = org.eclipse.xtend.core.richstring.impl.ProcessedRichStringPackageImpl.init();
+
+	/**
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -10882,7 +11170,7 @@ in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/ProcessedRi
 ```java
 
 	/**
-	 * Returns the meta object for class '{@link org.eclipse.xtend.core.richstring.PrintedExpression <em>Printed Expression</em>}'.
+	 * Returns the meta object for class '{@link org.eclipse.xtend.core.richstring.EndIf <em>End If</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 ```
@@ -10893,166 +11181,10 @@ in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/ProcessedRi
 #### Snippet
 ```java
 	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Printed Expression</em>'.
-	 * @see org.eclipse.xtend.core.richstring.PrintedExpression
+	 * @return the meta object for class '<em>End If</em>'.
+	 * @see org.eclipse.xtend.core.richstring.EndIf
 	 * @generated
 	 */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.richstring` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/ProcessedRichStringPackage.java`
-#### Snippet
-```java
- * </ul>
- * <!-- end-user-doc -->
- * @see org.eclipse.xtend.core.richstring.ProcessedRichStringFactory
- * @model kind="package"
- * @generated
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.richstring` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/ProcessedRichStringPackage.java`
-#### Snippet
-```java
-
-	/**
-	 * Returns the meta object for the reference '{@link org.eclipse.xtend.core.richstring.ElseStart#getIfConditionStart <em>If Condition Start</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.richstring` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/ProcessedRichStringPackage.java`
-#### Snippet
-```java
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>If Condition Start</em>'.
-	 * @see org.eclipse.xtend.core.richstring.ElseStart#getIfConditionStart()
-	 * @see #getElseStart()
-	 * @generated
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.richstring` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/ProcessedRichStringPackage.java`
-#### Snippet
-```java
-
-	/**
-	 * Returns the meta object for the reference '{@link org.eclipse.xtend.core.richstring.ElseIfCondition#getIfConditionStart <em>If Condition Start</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.richstring` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/ProcessedRichStringPackage.java`
-#### Snippet
-```java
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>If Condition Start</em>'.
-	 * @see org.eclipse.xtend.core.richstring.ElseIfCondition#getIfConditionStart()
-	 * @see #getElseIfCondition()
-	 * @generated
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.richstring` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/ProcessedRichStringPackage.java`
-#### Snippet
-```java
-
-	/**
-	 * Returns the meta object for the reference list '{@link org.eclipse.xtend.core.richstring.IfConditionStart#getElseIfConditions <em>Else If Conditions</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.richstring` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/ProcessedRichStringPackage.java`
-#### Snippet
-```java
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference list '<em>Else If Conditions</em>'.
-	 * @see org.eclipse.xtend.core.richstring.IfConditionStart#getElseIfConditions()
-	 * @see #getIfConditionStart()
-	 * @generated
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.richstring` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/ProcessedRichStringPackage.java`
-#### Snippet
-```java
-
-	/**
-	 * Returns the meta object for class '{@link org.eclipse.xtend.core.richstring.ElseIfCondition <em>Else If Condition</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.richstring` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/ProcessedRichStringPackage.java`
-#### Snippet
-```java
-	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Else If Condition</em>'.
-	 * @see org.eclipse.xtend.core.richstring.ElseIfCondition
-	 * @generated
-	 */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.richstring` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/ProcessedRichStringPackage.java`
-#### Snippet
-```java
-
-	/**
-	 * Returns the meta object for the reference '{@link org.eclipse.xtend.core.richstring.IfConditionStart#getElseStart <em>Else Start</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.richstring` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/ProcessedRichStringPackage.java`
-#### Snippet
-```java
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Else Start</em>'.
-	 * @see org.eclipse.xtend.core.richstring.IfConditionStart#getElseStart()
-	 * @see #getIfConditionStart()
-	 * @generated
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.richstring` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/ProcessedRichStringPackage.java`
-#### Snippet
-```java
-
-	/**
-	 * Returns the meta object for the attribute '{@link org.eclipse.xtend.core.richstring.Literal#getOffset <em>Offset</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.richstring` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/ProcessedRichStringPackage.java`
-#### Snippet
-```java
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Offset</em>'.
-	 * @see org.eclipse.xtend.core.richstring.Literal#getOffset()
-	 * @see #getLiteral()
-	 * @generated
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -11086,7 +11218,7 @@ in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/ProcessedRi
 ```java
 
 	/**
-	 * Returns the meta object for the reference '{@link org.eclipse.xtend.core.richstring.EndIf#getIfConditionStart <em>If Condition Start</em>}'.
+	 * Returns the meta object for class '{@link org.eclipse.xtend.core.richstring.LineBreak <em>Line Break</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 ```
@@ -11097,10 +11229,10 @@ in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/ProcessedRi
 #### Snippet
 ```java
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>If Condition Start</em>'.
-	 * @see org.eclipse.xtend.core.richstring.EndIf#getIfConditionStart()
-	 * @see #getEndIf()
+	 * @return the meta object for class '<em>Line Break</em>'.
+	 * @see org.eclipse.xtend.core.richstring.LineBreak
 	 * @generated
+	 */
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -11110,7 +11242,7 @@ in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/ProcessedRi
 ```java
 
 	/**
-	 * Returns the meta object for the container reference '{@link org.eclipse.xtend.core.richstring.Line#getRichString <em>Rich String</em>}'.
+	 * Returns the meta object for class '{@link org.eclipse.xtend.core.richstring.LinePart <em>Line Part</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 ```
@@ -11121,82 +11253,10 @@ in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/ProcessedRi
 #### Snippet
 ```java
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the container reference '<em>Rich String</em>'.
-	 * @see org.eclipse.xtend.core.richstring.Line#getRichString()
-	 * @see #getLine()
+	 * @return the meta object for class '<em>Line Part</em>'.
+	 * @see org.eclipse.xtend.core.richstring.LinePart
 	 * @generated
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.richstring` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/ProcessedRichStringPackage.java`
-#### Snippet
-```java
-
-	/**
-	 * Returns the meta object for the containment reference list '{@link org.eclipse.xtend.core.richstring.ProcessedRichString#getLines <em>Lines</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.richstring` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/ProcessedRichStringPackage.java`
-#### Snippet
-```java
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference list '<em>Lines</em>'.
-	 * @see org.eclipse.xtend.core.richstring.ProcessedRichString#getLines()
-	 * @see #getProcessedRichString()
-	 * @generated
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.richstring` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/ProcessedRichStringPackage.java`
-#### Snippet
-```java
-
-	/**
-	 * Returns the meta object for the reference '{@link org.eclipse.xtend.core.richstring.ForLoopEnd#getStart <em>Start</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.richstring` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/ProcessedRichStringPackage.java`
-#### Snippet
-```java
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Start</em>'.
-	 * @see org.eclipse.xtend.core.richstring.ForLoopEnd#getStart()
-	 * @see #getForLoopEnd()
-	 * @generated
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.richstring` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/ProcessedRichStringPackage.java`
-#### Snippet
-```java
-
-	/**
-	 * Returns the meta object for the reference '{@link org.eclipse.xtend.core.richstring.ForLoopStart#getLoop <em>Loop</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.richstring` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/ProcessedRichStringPackage.java`
-#### Snippet
-```java
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Loop</em>'.
-	 * @see org.eclipse.xtend.core.richstring.ForLoopStart#getLoop()
-	 * @see #getForLoopStart()
-	 * @generated
+	 */
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -11230,7 +11290,7 @@ in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/ProcessedRi
 ```java
 
 	/**
-	 * Returns the meta object for the reference '{@link org.eclipse.xtend.core.richstring.PrintedExpression#getExpression <em>Expression</em>}'.
+	 * Returns the meta object for class '{@link org.eclipse.xtend.core.richstring.ForLoopEnd <em>For Loop End</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 ```
@@ -11241,44 +11301,8 @@ in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/ProcessedRi
 #### Snippet
 ```java
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Expression</em>'.
-	 * @see org.eclipse.xtend.core.richstring.PrintedExpression#getExpression()
-	 * @see #getPrintedExpression()
-	 * @generated
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.richstring.impl` is unnecessary, and can be replaced with an import
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/ProcessedRichStringPackage.java`
-#### Snippet
-```java
-	 * @generated
-	 */
-	ProcessedRichStringPackage eINSTANCE = org.eclipse.xtend.core.richstring.impl.ProcessedRichStringPackageImpl.init();
-
-	/**
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.richstring` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/ProcessedRichStringPackage.java`
-#### Snippet
-```java
-
-	/**
-	 * Returns the meta object for class '{@link org.eclipse.xtend.core.richstring.LineBreak <em>Line Break</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.richstring` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/ProcessedRichStringPackage.java`
-#### Snippet
-```java
-	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Line Break</em>'.
-	 * @see org.eclipse.xtend.core.richstring.LineBreak
+	 * @return the meta object for class '<em>For Loop End</em>'.
+	 * @see org.eclipse.xtend.core.richstring.ForLoopEnd
 	 * @generated
 	 */
 ```
@@ -11290,7 +11314,7 @@ in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/ProcessedRi
 ```java
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.eclipse.xtend.core.richstring.Literal#getLength <em>Length</em>}'.
+	 * Returns the meta object for class '{@link org.eclipse.xtend.core.richstring.ForLoopStart <em>For Loop Start</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 ```
@@ -11301,8 +11325,56 @@ in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/ProcessedRi
 #### Snippet
 ```java
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Length</em>'.
-	 * @see org.eclipse.xtend.core.richstring.Literal#getLength()
+	 * @return the meta object for class '<em>For Loop Start</em>'.
+	 * @see org.eclipse.xtend.core.richstring.ForLoopStart
+	 * @generated
+	 */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.richstring` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/ProcessedRichStringPackage.java`
+#### Snippet
+```java
+
+	/**
+	 * Returns the meta object for the reference '{@link org.eclipse.xtend.core.richstring.ForLoopEnd#getStart <em>Start</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.richstring` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/ProcessedRichStringPackage.java`
+#### Snippet
+```java
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Start</em>'.
+	 * @see org.eclipse.xtend.core.richstring.ForLoopEnd#getStart()
+	 * @see #getForLoopEnd()
+	 * @generated
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.richstring` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/ProcessedRichStringPackage.java`
+#### Snippet
+```java
+
+	/**
+	 * Returns the meta object for the reference '{@link org.eclipse.xtend.core.richstring.Literal#getLiteral <em>Literal</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.richstring` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/ProcessedRichStringPackage.java`
+#### Snippet
+```java
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Literal</em>'.
+	 * @see org.eclipse.xtend.core.richstring.Literal#getLiteral()
 	 * @see #getLiteral()
 	 * @generated
 ```
@@ -11314,7 +11386,7 @@ in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/ProcessedRi
 ```java
 
 	/**
-	 * Returns the meta object for the reference '{@link org.eclipse.xtend.core.richstring.ElseIfCondition#getRichStringElseIf <em>Rich String Else If</em>}'.
+	 * Returns the meta object for the reference '{@link org.eclipse.xtend.core.richstring.ForLoopStart#getLoop <em>Loop</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 ```
@@ -11325,130 +11397,10 @@ in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/ProcessedRi
 #### Snippet
 ```java
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Rich String Else If</em>'.
-	 * @see org.eclipse.xtend.core.richstring.ElseIfCondition#getRichStringElseIf()
-	 * @see #getElseIfCondition()
+	 * @return the meta object for the reference '<em>Loop</em>'.
+	 * @see org.eclipse.xtend.core.richstring.ForLoopStart#getLoop()
+	 * @see #getForLoopStart()
 	 * @generated
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.richstring` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/ProcessedRichStringPackage.java`
-#### Snippet
-```java
-
-	/**
-	 * Returns the meta object for the reference '{@link org.eclipse.xtend.core.richstring.IfConditionStart#getRichStringIf <em>Rich String If</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.richstring` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/ProcessedRichStringPackage.java`
-#### Snippet
-```java
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Rich String If</em>'.
-	 * @see org.eclipse.xtend.core.richstring.IfConditionStart#getRichStringIf()
-	 * @see #getIfConditionStart()
-	 * @generated
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.richstring` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/ProcessedRichStringPackage.java`
-#### Snippet
-```java
-
-	/**
-	 * Returns the meta object for the reference '{@link org.eclipse.xtend.core.richstring.ProcessedRichString#getRichString <em>Rich String</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.richstring` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/ProcessedRichStringPackage.java`
-#### Snippet
-```java
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Rich String</em>'.
-	 * @see org.eclipse.xtend.core.richstring.ProcessedRichString#getRichString()
-	 * @see #getProcessedRichString()
-	 * @generated
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.richstring` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/ProcessedRichStringPackage.java`
-#### Snippet
-```java
-
-	/**
-	 * Returns the meta object for class '{@link org.eclipse.xtend.core.richstring.EndIf <em>End If</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.richstring` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/ProcessedRichStringPackage.java`
-#### Snippet
-```java
-	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>End If</em>'.
-	 * @see org.eclipse.xtend.core.richstring.EndIf
-	 * @generated
-	 */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.richstring.impl` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/impl/ProcessedRichStringImpl.java`
-#### Snippet
-```java
- * </p>
- * <ul>
- *   <li>{@link org.eclipse.xtend.core.richstring.impl.ProcessedRichStringImpl#getRichString <em>Rich String</em>}</li>
- *   <li>{@link org.eclipse.xtend.core.richstring.impl.ProcessedRichStringImpl#getLines <em>Lines</em>}</li>
- * </ul>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.richstring.impl` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/impl/ProcessedRichStringImpl.java`
-#### Snippet
-```java
- * <ul>
- *   <li>{@link org.eclipse.xtend.core.richstring.impl.ProcessedRichStringImpl#getRichString <em>Rich String</em>}</li>
- *   <li>{@link org.eclipse.xtend.core.richstring.impl.ProcessedRichStringImpl#getLines <em>Lines</em>}</li>
- * </ul>
- *
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.richstring.impl` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/impl/LineImpl.java`
-#### Snippet
-```java
- * </p>
- * <ul>
- *   <li>{@link org.eclipse.xtend.core.richstring.impl.LineImpl#getParts <em>Parts</em>}</li>
- *   <li>{@link org.eclipse.xtend.core.richstring.impl.LineImpl#getRichString <em>Rich String</em>}</li>
- * </ul>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.richstring.impl` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/impl/LineImpl.java`
-#### Snippet
-```java
- * <ul>
- *   <li>{@link org.eclipse.xtend.core.richstring.impl.LineImpl#getParts <em>Parts</em>}</li>
- *   <li>{@link org.eclipse.xtend.core.richstring.impl.LineImpl#getRichString <em>Rich String</em>}</li>
- * </ul>
- *
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -11501,6 +11453,30 @@ in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/impl/ElseIf
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.eclipse.xtend.core.richstring.impl` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/impl/ProcessedRichStringImpl.java`
+#### Snippet
+```java
+ * </p>
+ * <ul>
+ *   <li>{@link org.eclipse.xtend.core.richstring.impl.ProcessedRichStringImpl#getRichString <em>Rich String</em>}</li>
+ *   <li>{@link org.eclipse.xtend.core.richstring.impl.ProcessedRichStringImpl#getLines <em>Lines</em>}</li>
+ * </ul>
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.richstring.impl` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/impl/ProcessedRichStringImpl.java`
+#### Snippet
+```java
+ * <ul>
+ *   <li>{@link org.eclipse.xtend.core.richstring.impl.ProcessedRichStringImpl#getRichString <em>Rich String</em>}</li>
+ *   <li>{@link org.eclipse.xtend.core.richstring.impl.ProcessedRichStringImpl#getLines <em>Lines</em>}</li>
+ * </ul>
+ *
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.richstring.impl` is unnecessary and can be removed
 in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/impl/LiteralImpl.java`
 #### Snippet
 ```java
@@ -11524,18 +11500,6 @@ in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/impl/Litera
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.emf.ecore` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/util/ProcessedRichStringSwitch.java`
-#### Snippet
-```java
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Line</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-```
-
-### UnnecessaryFullyQualifiedName
 Qualifier `org.eclipse.xtend.core.richstring.impl` is unnecessary and can be removed
 in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/impl/LiteralImpl.java`
 #### Snippet
@@ -11543,212 +11507,152 @@ in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/impl/Litera
  *   <li>{@link org.eclipse.xtend.core.richstring.impl.LiteralImpl#getLiteral <em>Literal</em>}</li>
  *   <li>{@link org.eclipse.xtend.core.richstring.impl.LiteralImpl#getOffset <em>Offset</em>}</li>
  *   <li>{@link org.eclipse.xtend.core.richstring.impl.LiteralImpl#getLength <em>Length</em>}</li>
+ * </ul>
+ *
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.richstring.impl` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/impl/LineImpl.java`
+#### Snippet
+```java
+ * </p>
+ * <ul>
+ *   <li>{@link org.eclipse.xtend.core.richstring.impl.LineImpl#getParts <em>Parts</em>}</li>
+ *   <li>{@link org.eclipse.xtend.core.richstring.impl.LineImpl#getRichString <em>Rich String</em>}</li>
+ * </ul>
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.richstring.impl` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/impl/LineImpl.java`
+#### Snippet
+```java
+ * <ul>
+ *   <li>{@link org.eclipse.xtend.core.richstring.impl.LineImpl#getParts <em>Parts</em>}</li>
+ *   <li>{@link org.eclipse.xtend.core.richstring.impl.LineImpl#getRichString <em>Rich String</em>}</li>
  * </ul>
  *
 ```
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.eclipse.xtend.core.richstring` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/util/ProcessedRichStringSwitch.java`
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/util/ProcessedRichStringAdapterFactory.java`
 #### Snippet
 ```java
- * which is the result of the switch.
- * <!-- end-user-doc -->
- * @see org.eclipse.xtend.core.richstring.ProcessedRichStringPackage
- * @generated
- */
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.xtend.core.richstring.PrintedExpression <em>Printed Expression</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.emf.ecore` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/util/ProcessedRichStringSwitch.java`
+Qualifier `org.eclipse.xtend.core.richstring` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/util/ProcessedRichStringAdapterFactory.java`
 #### Snippet
 ```java
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>End If</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.xtend.core.richstring.PrintedExpression
 	 * @generated
 	 */
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.emf.ecore` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/util/ProcessedRichStringSwitch.java`
+Qualifier `org.eclipse.xtend.core.richstring` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/util/ProcessedRichStringAdapterFactory.java`
 #### Snippet
 ```java
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>If Condition Start</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.xtend.core.richstring.ElseIfCondition <em>Else If Condition</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.richstring` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/util/ProcessedRichStringAdapterFactory.java`
+#### Snippet
+```java
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.xtend.core.richstring.ElseIfCondition
 	 * @generated
 	 */
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.emf.ecore` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/util/ProcessedRichStringSwitch.java`
+Qualifier `org.eclipse.xtend.core.richstring` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/util/ProcessedRichStringAdapterFactory.java`
 #### Snippet
 ```java
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>For Loop End</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.xtend.core.richstring.ForLoopEnd <em>For Loop End</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.richstring` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/util/ProcessedRichStringAdapterFactory.java`
+#### Snippet
+```java
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.xtend.core.richstring.ForLoopEnd
 	 * @generated
 	 */
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.emf.ecore` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/util/ProcessedRichStringSwitch.java`
+Qualifier `org.eclipse.xtend.core.richstring` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/util/ProcessedRichStringAdapterFactory.java`
 #### Snippet
 ```java
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Else Start</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.xtend.core.richstring.LinePart <em>Line Part</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.richstring` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/util/ProcessedRichStringAdapterFactory.java`
+#### Snippet
+```java
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.xtend.core.richstring.LinePart
 	 * @generated
 	 */
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.emf.ecore` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/util/ProcessedRichStringSwitch.java`
+Qualifier `org.eclipse.xtend.core.richstring` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/util/ProcessedRichStringAdapterFactory.java`
 #### Snippet
 ```java
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Line Part</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.xtend.core.richstring.LineBreak <em>Line Break</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.richstring` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/util/ProcessedRichStringAdapterFactory.java`
+#### Snippet
+```java
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.xtend.core.richstring.LineBreak
 	 * @generated
 	 */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.emf.ecore` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/util/ProcessedRichStringSwitch.java`
-#### Snippet
-```java
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Printed Expression</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.emf.ecore` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/util/ProcessedRichStringSwitch.java`
-#### Snippet
-```java
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>For Loop Start</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.emf.ecore` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/util/ProcessedRichStringSwitch.java`
-#### Snippet
-```java
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Else If Condition</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.emf.ecore` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/util/ProcessedRichStringSwitch.java`
-#### Snippet
-```java
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Line Break</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.emf.ecore` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/util/ProcessedRichStringSwitch.java`
-#### Snippet
-```java
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Literal</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.emf.ecore` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/util/ProcessedRichStringSwitch.java`
-#### Snippet
-```java
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>EObject</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject)
-	 * @generated
-	 */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.emf.ecore` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/util/ProcessedRichStringSwitch.java`
-#### Snippet
-```java
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Processed Rich String</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.richstring.impl` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/impl/IfConditionStartImpl.java`
-#### Snippet
-```java
- * </p>
- * <ul>
- *   <li>{@link org.eclipse.xtend.core.richstring.impl.IfConditionStartImpl#getRichStringIf <em>Rich String If</em>}</li>
- *   <li>{@link org.eclipse.xtend.core.richstring.impl.IfConditionStartImpl#getElseStart <em>Else Start</em>}</li>
- *   <li>{@link org.eclipse.xtend.core.richstring.impl.IfConditionStartImpl#getElseIfConditions <em>Else If Conditions</em>}</li>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.richstring.impl` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/impl/IfConditionStartImpl.java`
-#### Snippet
-```java
- * <ul>
- *   <li>{@link org.eclipse.xtend.core.richstring.impl.IfConditionStartImpl#getRichStringIf <em>Rich String If</em>}</li>
- *   <li>{@link org.eclipse.xtend.core.richstring.impl.IfConditionStartImpl#getElseStart <em>Else Start</em>}</li>
- *   <li>{@link org.eclipse.xtend.core.richstring.impl.IfConditionStartImpl#getElseIfConditions <em>Else If Conditions</em>}</li>
- *   <li>{@link org.eclipse.xtend.core.richstring.impl.IfConditionStartImpl#getEndIf <em>End If</em>}</li>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.richstring.impl` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/impl/IfConditionStartImpl.java`
-#### Snippet
-```java
- *   <li>{@link org.eclipse.xtend.core.richstring.impl.IfConditionStartImpl#getRichStringIf <em>Rich String If</em>}</li>
- *   <li>{@link org.eclipse.xtend.core.richstring.impl.IfConditionStartImpl#getElseStart <em>Else Start</em>}</li>
- *   <li>{@link org.eclipse.xtend.core.richstring.impl.IfConditionStartImpl#getElseIfConditions <em>Else If Conditions</em>}</li>
- *   <li>{@link org.eclipse.xtend.core.richstring.impl.IfConditionStartImpl#getEndIf <em>End If</em>}</li>
- * </ul>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.richstring.impl` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/impl/IfConditionStartImpl.java`
-#### Snippet
-```java
- *   <li>{@link org.eclipse.xtend.core.richstring.impl.IfConditionStartImpl#getElseStart <em>Else Start</em>}</li>
- *   <li>{@link org.eclipse.xtend.core.richstring.impl.IfConditionStartImpl#getElseIfConditions <em>Else If Conditions</em>}</li>
- *   <li>{@link org.eclipse.xtend.core.richstring.impl.IfConditionStartImpl#getEndIf <em>End If</em>}</li>
- * </ul>
- *
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -11771,30 +11675,6 @@ in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/util/Proces
 	 * <!-- end-user-doc -->
 	 * @return the new adapter.
 	 * @see org.eclipse.xtend.core.richstring.ProcessedRichString
-	 * @generated
-	 */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.richstring` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/util/ProcessedRichStringAdapterFactory.java`
-#### Snippet
-```java
-
-	/**
-	 * Creates a new adapter for an object of class '{@link org.eclipse.xtend.core.richstring.ForLoopStart <em>For Loop Start</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.richstring` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/util/ProcessedRichStringAdapterFactory.java`
-#### Snippet
-```java
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see org.eclipse.xtend.core.richstring.ForLoopStart
 	 * @generated
 	 */
 ```
@@ -11854,78 +11734,6 @@ in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/util/Proces
 ```java
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.eclipse.xtend.core.richstring.ElseIfCondition <em>Else If Condition</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.richstring` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/util/ProcessedRichStringAdapterFactory.java`
-#### Snippet
-```java
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see org.eclipse.xtend.core.richstring.ElseIfCondition
-	 * @generated
-	 */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.richstring` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/util/ProcessedRichStringAdapterFactory.java`
-#### Snippet
-```java
-
-	/**
-	 * Creates a new adapter for an object of class '{@link org.eclipse.xtend.core.richstring.IfConditionStart <em>If Condition Start</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.richstring` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/util/ProcessedRichStringAdapterFactory.java`
-#### Snippet
-```java
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see org.eclipse.xtend.core.richstring.IfConditionStart
-	 * @generated
-	 */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.richstring` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/util/ProcessedRichStringAdapterFactory.java`
-#### Snippet
-```java
-
-	/**
-	 * Creates a new adapter for an object of class '{@link org.eclipse.xtend.core.richstring.ForLoopEnd <em>For Loop End</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.richstring` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/util/ProcessedRichStringAdapterFactory.java`
-#### Snippet
-```java
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see org.eclipse.xtend.core.richstring.ForLoopEnd
-	 * @generated
-	 */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.richstring` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/util/ProcessedRichStringAdapterFactory.java`
-#### Snippet
-```java
-
-	/**
 	 * Creates a new adapter for an object of class '{@link org.eclipse.xtend.core.richstring.ElseStart <em>Else Start</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
@@ -11939,66 +11747,6 @@ in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/util/Proces
 	 * <!-- end-user-doc -->
 	 * @return the new adapter.
 	 * @see org.eclipse.xtend.core.richstring.ElseStart
-	 * @generated
-	 */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.richstring` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/util/ProcessedRichStringAdapterFactory.java`
-#### Snippet
-```java
- * It provides an adapter <code>createXXX</code> method for each class of the model.
- * <!-- end-user-doc -->
- * @see org.eclipse.xtend.core.richstring.ProcessedRichStringPackage
- * @generated
- */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.richstring` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/util/ProcessedRichStringAdapterFactory.java`
-#### Snippet
-```java
-
-	/**
-	 * Creates a new adapter for an object of class '{@link org.eclipse.xtend.core.richstring.PrintedExpression <em>Printed Expression</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.richstring` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/util/ProcessedRichStringAdapterFactory.java`
-#### Snippet
-```java
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see org.eclipse.xtend.core.richstring.PrintedExpression
-	 * @generated
-	 */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.richstring` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/util/ProcessedRichStringAdapterFactory.java`
-#### Snippet
-```java
-
-	/**
-	 * Creates a new adapter for an object of class '{@link org.eclipse.xtend.core.richstring.LinePart <em>Line Part</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtend.core.richstring` is unnecessary and can be removed
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/util/ProcessedRichStringAdapterFactory.java`
-#### Snippet
-```java
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see org.eclipse.xtend.core.richstring.LinePart
 	 * @generated
 	 */
 ```
@@ -12034,7 +11782,7 @@ in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/util/Proces
 ```java
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.eclipse.xtend.core.richstring.LineBreak <em>Line Break</em>}'.
+	 * Creates a new adapter for an object of class '{@link org.eclipse.xtend.core.richstring.ForLoopStart <em>For Loop Start</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 ```
@@ -12046,7 +11794,259 @@ in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/util/Proces
 ```java
 	 * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see org.eclipse.xtend.core.richstring.LineBreak
+	 * @see org.eclipse.xtend.core.richstring.ForLoopStart
+	 * @generated
+	 */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.richstring` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/util/ProcessedRichStringAdapterFactory.java`
+#### Snippet
+```java
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.xtend.core.richstring.IfConditionStart <em>If Condition Start</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.richstring` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/util/ProcessedRichStringAdapterFactory.java`
+#### Snippet
+```java
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.xtend.core.richstring.IfConditionStart
+	 * @generated
+	 */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.richstring` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/util/ProcessedRichStringAdapterFactory.java`
+#### Snippet
+```java
+ * It provides an adapter <code>createXXX</code> method for each class of the model.
+ * <!-- end-user-doc -->
+ * @see org.eclipse.xtend.core.richstring.ProcessedRichStringPackage
+ * @generated
+ */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.emf.ecore` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/util/ProcessedRichStringSwitch.java`
+#### Snippet
+```java
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Else Start</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.emf.ecore` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/util/ProcessedRichStringSwitch.java`
+#### Snippet
+```java
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Line</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.emf.ecore` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/util/ProcessedRichStringSwitch.java`
+#### Snippet
+```java
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Literal</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.emf.ecore` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/util/ProcessedRichStringSwitch.java`
+#### Snippet
+```java
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>EObject</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject)
+	 * @generated
+	 */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.richstring.impl` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/impl/IfConditionStartImpl.java`
+#### Snippet
+```java
+ * </p>
+ * <ul>
+ *   <li>{@link org.eclipse.xtend.core.richstring.impl.IfConditionStartImpl#getRichStringIf <em>Rich String If</em>}</li>
+ *   <li>{@link org.eclipse.xtend.core.richstring.impl.IfConditionStartImpl#getElseStart <em>Else Start</em>}</li>
+ *   <li>{@link org.eclipse.xtend.core.richstring.impl.IfConditionStartImpl#getElseIfConditions <em>Else If Conditions</em>}</li>
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.emf.ecore` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/util/ProcessedRichStringSwitch.java`
+#### Snippet
+```java
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Processed Rich String</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.richstring.impl` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/impl/IfConditionStartImpl.java`
+#### Snippet
+```java
+ * <ul>
+ *   <li>{@link org.eclipse.xtend.core.richstring.impl.IfConditionStartImpl#getRichStringIf <em>Rich String If</em>}</li>
+ *   <li>{@link org.eclipse.xtend.core.richstring.impl.IfConditionStartImpl#getElseStart <em>Else Start</em>}</li>
+ *   <li>{@link org.eclipse.xtend.core.richstring.impl.IfConditionStartImpl#getElseIfConditions <em>Else If Conditions</em>}</li>
+ *   <li>{@link org.eclipse.xtend.core.richstring.impl.IfConditionStartImpl#getEndIf <em>End If</em>}</li>
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.emf.ecore` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/util/ProcessedRichStringSwitch.java`
+#### Snippet
+```java
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Else If Condition</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.richstring.impl` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/impl/IfConditionStartImpl.java`
+#### Snippet
+```java
+ *   <li>{@link org.eclipse.xtend.core.richstring.impl.IfConditionStartImpl#getRichStringIf <em>Rich String If</em>}</li>
+ *   <li>{@link org.eclipse.xtend.core.richstring.impl.IfConditionStartImpl#getElseStart <em>Else Start</em>}</li>
+ *   <li>{@link org.eclipse.xtend.core.richstring.impl.IfConditionStartImpl#getElseIfConditions <em>Else If Conditions</em>}</li>
+ *   <li>{@link org.eclipse.xtend.core.richstring.impl.IfConditionStartImpl#getEndIf <em>End If</em>}</li>
+ * </ul>
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.richstring` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/util/ProcessedRichStringSwitch.java`
+#### Snippet
+```java
+ * which is the result of the switch.
+ * <!-- end-user-doc -->
+ * @see org.eclipse.xtend.core.richstring.ProcessedRichStringPackage
+ * @generated
+ */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtend.core.richstring.impl` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/impl/IfConditionStartImpl.java`
+#### Snippet
+```java
+ *   <li>{@link org.eclipse.xtend.core.richstring.impl.IfConditionStartImpl#getElseStart <em>Else Start</em>}</li>
+ *   <li>{@link org.eclipse.xtend.core.richstring.impl.IfConditionStartImpl#getElseIfConditions <em>Else If Conditions</em>}</li>
+ *   <li>{@link org.eclipse.xtend.core.richstring.impl.IfConditionStartImpl#getEndIf <em>End If</em>}</li>
+ * </ul>
+ *
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.emf.ecore` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/util/ProcessedRichStringSwitch.java`
+#### Snippet
+```java
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>If Condition Start</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.emf.ecore` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/util/ProcessedRichStringSwitch.java`
+#### Snippet
+```java
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>For Loop End</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.emf.ecore` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/util/ProcessedRichStringSwitch.java`
+#### Snippet
+```java
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Printed Expression</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.emf.ecore` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/util/ProcessedRichStringSwitch.java`
+#### Snippet
+```java
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>For Loop Start</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.emf.ecore` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/util/ProcessedRichStringSwitch.java`
+#### Snippet
+```java
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Line Part</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.emf.ecore` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/util/ProcessedRichStringSwitch.java`
+#### Snippet
+```java
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Line Break</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.emf.ecore` is unnecessary and can be removed
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/util/ProcessedRichStringSwitch.java`
+#### Snippet
+```java
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>End If</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
 ```
@@ -12240,6 +12240,42 @@ Anonymous new Function() can be replaced with lambda
 in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/compiler/batch/XtendBatchCompiler.java`
 #### Snippet
 ```java
+	};
+	
+	private static final Function<File, URL> TO_URL= new Function<File, URL>() {
+		@Override
+		public URL apply(File from) {
+```
+
+### Convert2Lambda
+Anonymous new Predicate() can be replaced with lambda
+in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/compiler/batch/XtendBatchCompiler.java`
+#### Snippet
+```java
+		PathTraverser pathTraverser = new PathTraverser();
+		List<String> sourcePathDirectories = getSourcePathDirectories();
+		Multimap<String, URI> pathes = pathTraverser.resolvePathes(sourcePathDirectories, new Predicate<URI>() {
+			@Override
+			public boolean apply(URI input) {
+```
+
+### Convert2Lambda
+Anonymous new Predicate() can be replaced with lambda
+in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/compiler/batch/XtendBatchCompiler.java`
+#### Snippet
+```java
+	private void internalInstallJvmTypeProvider(ResourceSet resourceSet, File tmpClassDirectory, boolean skipIndexLookup) {
+		Iterable<String> classPathEntries = concat(asList(tmpClassDirectory.toString()), getClassPathEntries(), getSourcePathDirectories());
+		classPathEntries = filter(classPathEntries, new Predicate<String>() {
+			@Override
+			public boolean apply(String input) {
+```
+
+### Convert2Lambda
+Anonymous new Function() can be replaced with lambda
+in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/compiler/batch/XtendBatchCompiler.java`
+#### Snippet
+```java
 	}
 	
 	private static final Function<String, File> TO_FILE = new Function<String, File>() {
@@ -12276,18 +12312,6 @@ Anonymous new Function() can be replaced with lambda
 in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/compiler/batch/XtendBatchCompiler.java`
 #### Snippet
 ```java
-	};
-	
-	private static final Function<File, URL> TO_URL= new Function<File, URL>() {
-		@Override
-		public URL apply(File from) {
-```
-
-### Convert2Lambda
-Anonymous new Function() can be replaced with lambda
-in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/compiler/batch/XtendBatchCompiler.java`
-#### Snippet
-```java
 		}
 		List<String> sourceDirectories = newArrayList(sourcePathDirectories);
 		commandLine.add(concat(" ", transform(sourceDirectories, new Function<String, String>() {
@@ -12297,26 +12321,14 @@ in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/compiler/batch/XtendBatchC
 
 ### Convert2Lambda
 Anonymous new Predicate() can be replaced with lambda
-in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/compiler/batch/XtendBatchCompiler.java`
+in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/jvmmodel/XtendJvmModelInferrer.java`
 #### Snippet
 ```java
-		PathTraverser pathTraverser = new PathTraverser();
-		List<String> sourcePathDirectories = getSourcePathDirectories();
-		Multimap<String, URI> pathes = pathTraverser.resolvePathes(sourcePathDirectories, new Predicate<URI>() {
-			@Override
-			public boolean apply(URI input) {
-```
-
-### Convert2Lambda
-Anonymous new Predicate() can be replaced with lambda
-in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/compiler/batch/XtendBatchCompiler.java`
-#### Snippet
-```java
-	private void internalInstallJvmTypeProvider(ResourceSet resourceSet, File tmpClassDirectory, boolean skipIndexLookup) {
-		Iterable<String> classPathEntries = concat(asList(tmpClassDirectory.toString()), getClassPathEntries(), getSourcePathDirectories());
-		classPathEntries = filter(classPathEntries, new Predicate<String>() {
-			@Override
-			public boolean apply(String input) {
+	}
+	
+	private Predicate<XAnnotation> annotationTranslationFilter = new Predicate<XAnnotation>() {
+		@Override
+		public boolean apply(/* @Nullable */ XAnnotation annotation) {
 ```
 
 ### Convert2Lambda
@@ -12392,42 +12404,6 @@ in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/jvmmodel/XtendJvmModelInfe
 ```
 
 ### Convert2Lambda
-Anonymous new Predicate() can be replaced with lambda
-in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/jvmmodel/XtendJvmModelInferrer.java`
-#### Snippet
-```java
-	}
-	
-	private Predicate<XAnnotation> annotationTranslationFilter = new Predicate<XAnnotation>() {
-		@Override
-		public boolean apply(/* @Nullable */ XAnnotation annotation) {
-```
-
-### Convert2Lambda
-Anonymous new Function() can be replaced with lambda
-in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/validation/XtendValidator.java`
-#### Snippet
-```java
-		if(numUnshownOperations >0)
-			errorMsg.append("\nand " +  numUnshownOperations + " more.");
-		List<String> uris = transform(operationsMissingImplementation, new Function<IResolvedOperation, String>() {
-			@Override
-			public String apply(IResolvedOperation from) {
-```
-
-### Convert2Lambda
-Anonymous new Predicate\>() can be replaced with lambda
-in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/validation/XtendValidator.java`
-#### Snippet
-```java
-
-	protected boolean isRelevantAnnotationTarget(final XtendAnnotationTarget annotationTarget) {
-		return any(targetInfos.keySet(), new Predicate<Class<?>>() {
-			@Override
-			public boolean apply(Class<?> input) {
-```
-
-### Convert2Lambda
 Anonymous new Function\>() can be replaced with lambda
 in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/validation/XtendValidator.java`
 #### Snippet
@@ -12464,15 +12440,15 @@ in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/validation/XtendValidator.
 ```
 
 ### Convert2Lambda
-Anonymous new Predicate() can be replaced with lambda
+Anonymous new Function() can be replaced with lambda
 in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/validation/XtendValidator.java`
 #### Snippet
 ```java
-							Collection<JvmOperation> ops = signatures.get(paramTypes);
-							if (ops.size() > 1) {
-								if (Iterables.any(ops, new Predicate<JvmOperation>() {
-									@Override
-									public boolean apply(JvmOperation input) {
+		if(numUnshownOperations >0)
+			errorMsg.append("\nand " +  numUnshownOperations + " more.");
+		List<String> uris = transform(operationsMissingImplementation, new Function<IResolvedOperation, String>() {
+			@Override
+			public String apply(IResolvedOperation from) {
 ```
 
 ### Convert2Lambda
@@ -12485,6 +12461,30 @@ in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/validation/XtendValidator.
 				Lists.transform(parameters, new Function<JvmFormalParameter, JvmTypeReference>() {
 					@Override
 					public JvmTypeReference apply(JvmFormalParameter from) {
+```
+
+### Convert2Lambda
+Anonymous new Predicate() can be replaced with lambda
+in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/validation/XtendValidator.java`
+#### Snippet
+```java
+							Collection<JvmOperation> ops = signatures.get(paramTypes);
+							if (ops.size() > 1) {
+								if (Iterables.any(ops, new Predicate<JvmOperation>() {
+									@Override
+									public boolean apply(JvmOperation input) {
+```
+
+### Convert2Lambda
+Anonymous new Predicate\>() can be replaced with lambda
+in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/validation/XtendValidator.java`
+#### Snippet
+```java
+
+	protected boolean isRelevantAnnotationTarget(final XtendAnnotationTarget annotationTarget) {
+		return any(targetInfos.keySet(), new Predicate<Class<?>>() {
+			@Override
+			public boolean apply(Class<?> input) {
 ```
 
 ## RuleId[ruleID=AssignmentToMethodParameter]
@@ -12513,6 +12513,18 @@ in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/jvmmodel/IXtendJvmAssociat
 ```
 
 ### AssignmentToMethodParameter
+Assignment to method parameter `string`
+in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/conversion/JavaIDValueConverter.java`
+#### Snippet
+```java
+		try {
+			if (string.charAt(0) == '^') {
+				string = string.substring(1);
+			}
+			String result = convertFromJavaIdentifier(string, node);
+```
+
+### AssignmentToMethodParameter
 Assignment to method parameter `type`
 in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/jvmmodel/DispatchHelper.java`
 #### Snippet
@@ -12537,18 +12549,6 @@ in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/compiler/XtendCompiler.jav
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `string`
-in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/conversion/JavaIDValueConverter.java`
-#### Snippet
-```java
-		try {
-			if (string.charAt(0) == '^') {
-				string = string.substring(1);
-			}
-			String result = convertFromJavaIdentifier(string, node);
-```
-
-### AssignmentToMethodParameter
 Assignment to method parameter `current`
 in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/richstring/InitialTemplateIndentationComputer.java`
 #### Snippet
@@ -12562,11 +12562,23 @@ in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/richstring/InitialTemplate
 
 ### AssignmentToMethodParameter
 Assignment to method parameter `msgs`
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/impl/XtendFileImpl.java`
+#### Snippet
+```java
+		{
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, XtendPackage.XTEND_FILE__IMPORT_SECTION, oldImportSection, newImportSection);
+			if (msgs == null) msgs = notification; else msgs.add(notification);
+		}
+		return msgs;
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `msgs`
 in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/impl/RichStringForLoopImpl.java`
 #### Snippet
 ```java
 		{
-			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, XtendPackage.RICH_STRING_FOR_LOOP__AFTER, oldAfter, newAfter);
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, XtendPackage.RICH_STRING_FOR_LOOP__BEFORE, oldBefore, newBefore);
 			if (msgs == null) msgs = notification; else msgs.add(notification);
 		}
 		return msgs;
@@ -12590,7 +12602,7 @@ in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/impl/RichStringF
 #### Snippet
 ```java
 		{
-			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, XtendPackage.RICH_STRING_FOR_LOOP__BEFORE, oldBefore, newBefore);
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, XtendPackage.RICH_STRING_FOR_LOOP__AFTER, oldAfter, newAfter);
 			if (msgs == null) msgs = notification; else msgs.add(notification);
 		}
 		return msgs;
@@ -12598,11 +12610,59 @@ in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/impl/RichStringF
 
 ### AssignmentToMethodParameter
 Assignment to method parameter `msgs`
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/impl/XtendFileImpl.java`
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/impl/CreateExtensionInfoImpl.java`
 #### Snippet
 ```java
 		{
-			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, XtendPackage.XTEND_FILE__IMPORT_SECTION, oldImportSection, newImportSection);
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, XtendPackage.CREATE_EXTENSION_INFO__CREATE_EXPRESSION, oldCreateExpression, newCreateExpression);
+			if (msgs == null) msgs = notification; else msgs.add(notification);
+		}
+		return msgs;
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `msgs`
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/impl/XtendMemberImpl.java`
+#### Snippet
+```java
+	public NotificationChain basicSetDeclaringType(XtendTypeDeclaration newDeclaringType, NotificationChain msgs)
+	{
+		msgs = eBasicSetContainer((InternalEObject)newDeclaringType, XtendPackage.XTEND_MEMBER__DECLARING_TYPE, msgs);
+		return msgs;
+	}
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `msgs`
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/impl/XtendMemberImpl.java`
+#### Snippet
+```java
+			case XtendPackage.XTEND_MEMBER__DECLARING_TYPE:
+				if (eInternalContainer() != null)
+					msgs = eBasicRemoveFromContainer(msgs);
+				return basicSetDeclaringType((XtendTypeDeclaration)otherEnd, msgs);
+		}
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `msgs`
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/impl/XtendMemberImpl.java`
+#### Snippet
+```java
+		{
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, XtendPackage.XTEND_MEMBER__ANNOTATION_INFO, oldAnnotationInfo, newAnnotationInfo);
+			if (msgs == null) msgs = notification; else msgs.add(notification);
+		}
+		return msgs;
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `msgs`
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/impl/XtendClassImpl.java`
+#### Snippet
+```java
+		{
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, XtendPackage.XTEND_CLASS__EXTENDS, oldExtends, newExtends);
 			if (msgs == null) msgs = notification; else msgs.add(notification);
 		}
 		return msgs;
@@ -12634,35 +12694,11 @@ in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/impl/RichStringE
 
 ### AssignmentToMethodParameter
 Assignment to method parameter `msgs`
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/impl/XtendMemberImpl.java`
-#### Snippet
-```java
-			case XtendPackage.XTEND_MEMBER__DECLARING_TYPE:
-				if (eInternalContainer() != null)
-					msgs = eBasicRemoveFromContainer(msgs);
-				return basicSetDeclaringType((XtendTypeDeclaration)otherEnd, msgs);
-		}
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `msgs`
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/impl/XtendMemberImpl.java`
-#### Snippet
-```java
-	public NotificationChain basicSetDeclaringType(XtendTypeDeclaration newDeclaringType, NotificationChain msgs)
-	{
-		msgs = eBasicSetContainer((InternalEObject)newDeclaringType, XtendPackage.XTEND_MEMBER__DECLARING_TYPE, msgs);
-		return msgs;
-	}
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `msgs`
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/impl/XtendMemberImpl.java`
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/impl/RichStringIfImpl.java`
 #### Snippet
 ```java
 		{
-			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, XtendPackage.XTEND_MEMBER__ANNOTATION_INFO, oldAnnotationInfo, newAnnotationInfo);
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, XtendPackage.RICH_STRING_IF__THEN, oldThen, newThen);
 			if (msgs == null) msgs = notification; else msgs.add(notification);
 		}
 		return msgs;
@@ -12670,11 +12706,11 @@ in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/impl/XtendMember
 
 ### AssignmentToMethodParameter
 Assignment to method parameter `msgs`
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/impl/XtendClassImpl.java`
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/impl/RichStringIfImpl.java`
 #### Snippet
 ```java
 		{
-			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, XtendPackage.XTEND_CLASS__EXTENDS, oldExtends, newExtends);
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, XtendPackage.RICH_STRING_IF__IF, oldIf, newIf);
 			if (msgs == null) msgs = notification; else msgs.add(notification);
 		}
 		return msgs;
@@ -12682,11 +12718,23 @@ in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/impl/XtendClassI
 
 ### AssignmentToMethodParameter
 Assignment to method parameter `msgs`
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/impl/CreateExtensionInfoImpl.java`
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/impl/RichStringIfImpl.java`
 #### Snippet
 ```java
 		{
-			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, XtendPackage.CREATE_EXTENSION_INFO__CREATE_EXPRESSION, oldCreateExpression, newCreateExpression);
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, XtendPackage.RICH_STRING_IF__ELSE, oldElse, newElse);
+			if (msgs == null) msgs = notification; else msgs.add(notification);
+		}
+		return msgs;
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `msgs`
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/impl/XtendExecutableImpl.java`
+#### Snippet
+```java
+		{
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, XtendPackage.XTEND_EXECUTABLE__EXPRESSION, oldExpression, newExpression);
 			if (msgs == null) msgs = notification; else msgs.add(notification);
 		}
 		return msgs;
@@ -12742,54 +12790,6 @@ in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/impl/XtendFuncti
 
 ### AssignmentToMethodParameter
 Assignment to method parameter `msgs`
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/impl/XtendExecutableImpl.java`
-#### Snippet
-```java
-		{
-			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, XtendPackage.XTEND_EXECUTABLE__EXPRESSION, oldExpression, newExpression);
-			if (msgs == null) msgs = notification; else msgs.add(notification);
-		}
-		return msgs;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `msgs`
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/impl/RichStringIfImpl.java`
-#### Snippet
-```java
-		{
-			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, XtendPackage.RICH_STRING_IF__THEN, oldThen, newThen);
-			if (msgs == null) msgs = notification; else msgs.add(notification);
-		}
-		return msgs;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `msgs`
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/impl/RichStringIfImpl.java`
-#### Snippet
-```java
-		{
-			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, XtendPackage.RICH_STRING_IF__IF, oldIf, newIf);
-			if (msgs == null) msgs = notification; else msgs.add(notification);
-		}
-		return msgs;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `msgs`
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/impl/RichStringIfImpl.java`
-#### Snippet
-```java
-		{
-			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, XtendPackage.RICH_STRING_IF__ELSE, oldElse, newElse);
-			if (msgs == null) msgs = notification; else msgs.add(notification);
-		}
-		return msgs;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `msgs`
 in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/impl/XtendParameterImpl.java`
 #### Snippet
 ```java
@@ -12801,99 +12801,15 @@ in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/impl/XtendParame
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `resolvedTypes`
-in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/typesystem/XtendReentrantTypeResolver.java`
-#### Snippet
-```java
-			JvmOperation operation, Map<JvmIdentifiableElement, ResolvedTypes> resolvedTypesByContext) {
-		super._doPrepare(resolvedTypes, featureScopeSession, operation, resolvedTypesByContext);
-		resolvedTypes = resolvedTypesByContext.get(operation);
-		if (dispatchHelper.isDispatcherFunction(operation)) {
-			List<JvmFormalParameter> parameters = operation.getParameters();
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `computedTypes`
-in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/typesystem/XtendReentrantTypeResolver.java`
-#### Snippet
-```java
-					wrapped.add(computedTypes.get(i).getWrapperTypeIfPrimitive());
-				}
-				computedTypes = wrapped;
-			}
-			if (computedTypes.isEmpty() && implicitVoidOrNull != null) {
-```
-
-### AssignmentToMethodParameter
 Assignment to method parameter `msgs`
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/impl/LinePartImpl.java`
-#### Snippet
-```java
-			case ProcessedRichStringPackage.LINE_PART__LINE:
-				if (eInternalContainer() != null)
-					msgs = eBasicRemoveFromContainer(msgs);
-				return basicSetLine((Line)otherEnd, msgs);
-		}
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `msgs`
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/impl/LinePartImpl.java`
-#### Snippet
-```java
-	public NotificationChain basicSetLine(Line newLine, NotificationChain msgs)
-	{
-		msgs = eBasicSetContainer((InternalEObject)newLine, ProcessedRichStringPackage.LINE_PART__LINE, msgs);
-		return msgs;
-	}
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `msgs`
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/impl/ForLoopEndImpl.java`
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/impl/AnonymousClassImpl.java`
 #### Snippet
 ```java
 		{
-			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ProcessedRichStringPackage.FOR_LOOP_END__START, oldStart, newStart);
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, XtendPackage.ANONYMOUS_CLASS__ANNOTATION_INFO, oldAnnotationInfo, newAnnotationInfo);
 			if (msgs == null) msgs = notification; else msgs.add(notification);
 		}
 		return msgs;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `msgs`
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/impl/ElseStartImpl.java`
-#### Snippet
-```java
-		{
-			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ProcessedRichStringPackage.ELSE_START__IF_CONDITION_START, oldIfConditionStart, newIfConditionStart);
-			if (msgs == null) msgs = notification; else msgs.add(notification);
-		}
-		return msgs;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `msgs`
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/impl/ElseStartImpl.java`
-#### Snippet
-```java
-			case ProcessedRichStringPackage.ELSE_START__IF_CONDITION_START:
-				if (ifConditionStart != null)
-					msgs = ((InternalEObject)ifConditionStart).eInverseRemove(this, ProcessedRichStringPackage.IF_CONDITION_START__ELSE_START, IfConditionStart.class, msgs);
-				return basicSetIfConditionStart((IfConditionStart)otherEnd, msgs);
-		}
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `msgs`
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/impl/ForLoopEndImpl.java`
-#### Snippet
-```java
-			case ProcessedRichStringPackage.FOR_LOOP_END__START:
-				if (start != null)
-					msgs = ((InternalEObject)start).eInverseRemove(this, ProcessedRichStringPackage.FOR_LOOP_START__END, ForLoopStart.class, msgs);
-				return basicSetStart((ForLoopStart)otherEnd, msgs);
-		}
 ```
 
 ### AssignmentToMethodParameter
@@ -12934,11 +12850,143 @@ in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/impl/AnonymousCl
 
 ### AssignmentToMethodParameter
 Assignment to method parameter `msgs`
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/impl/AnonymousClassImpl.java`
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/impl/LinePartImpl.java`
+#### Snippet
+```java
+	public NotificationChain basicSetLine(Line newLine, NotificationChain msgs)
+	{
+		msgs = eBasicSetContainer((InternalEObject)newLine, ProcessedRichStringPackage.LINE_PART__LINE, msgs);
+		return msgs;
+	}
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `msgs`
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/impl/LinePartImpl.java`
+#### Snippet
+```java
+			case ProcessedRichStringPackage.LINE_PART__LINE:
+				if (eInternalContainer() != null)
+					msgs = eBasicRemoveFromContainer(msgs);
+				return basicSetLine((Line)otherEnd, msgs);
+		}
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `msgs`
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/impl/ElseStartImpl.java`
 #### Snippet
 ```java
 		{
-			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, XtendPackage.ANONYMOUS_CLASS__ANNOTATION_INFO, oldAnnotationInfo, newAnnotationInfo);
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ProcessedRichStringPackage.ELSE_START__IF_CONDITION_START, oldIfConditionStart, newIfConditionStart);
+			if (msgs == null) msgs = notification; else msgs.add(notification);
+		}
+		return msgs;
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `msgs`
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/impl/ElseStartImpl.java`
+#### Snippet
+```java
+			case ProcessedRichStringPackage.ELSE_START__IF_CONDITION_START:
+				if (ifConditionStart != null)
+					msgs = ((InternalEObject)ifConditionStart).eInverseRemove(this, ProcessedRichStringPackage.IF_CONDITION_START__ELSE_START, IfConditionStart.class, msgs);
+				return basicSetIfConditionStart((IfConditionStart)otherEnd, msgs);
+		}
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `msgs`
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/impl/ForLoopEndImpl.java`
+#### Snippet
+```java
+			case ProcessedRichStringPackage.FOR_LOOP_END__START:
+				if (start != null)
+					msgs = ((InternalEObject)start).eInverseRemove(this, ProcessedRichStringPackage.FOR_LOOP_START__END, ForLoopStart.class, msgs);
+				return basicSetStart((ForLoopStart)otherEnd, msgs);
+		}
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `msgs`
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/impl/ForLoopEndImpl.java`
+#### Snippet
+```java
+		{
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ProcessedRichStringPackage.FOR_LOOP_END__START, oldStart, newStart);
+			if (msgs == null) msgs = notification; else msgs.add(notification);
+		}
+		return msgs;
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `resolvedTypes`
+in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/typesystem/XtendReentrantTypeResolver.java`
+#### Snippet
+```java
+			JvmOperation operation, Map<JvmIdentifiableElement, ResolvedTypes> resolvedTypesByContext) {
+		super._doPrepare(resolvedTypes, featureScopeSession, operation, resolvedTypesByContext);
+		resolvedTypes = resolvedTypesByContext.get(operation);
+		if (dispatchHelper.isDispatcherFunction(operation)) {
+			List<JvmFormalParameter> parameters = operation.getParameters();
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `computedTypes`
+in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/typesystem/XtendReentrantTypeResolver.java`
+#### Snippet
+```java
+					wrapped.add(computedTypes.get(i).getWrapperTypeIfPrimitive());
+				}
+				computedTypes = wrapped;
+			}
+			if (computedTypes.isEmpty() && implicitVoidOrNull != null) {
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `msgs`
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/impl/ForLoopStartImpl.java`
+#### Snippet
+```java
+			case ProcessedRichStringPackage.FOR_LOOP_START__END:
+				if (end != null)
+					msgs = ((InternalEObject)end).eInverseRemove(this, ProcessedRichStringPackage.FOR_LOOP_END__START, ForLoopEnd.class, msgs);
+				return basicSetEnd((ForLoopEnd)otherEnd, msgs);
+		}
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `msgs`
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/impl/ForLoopStartImpl.java`
+#### Snippet
+```java
+		{
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ProcessedRichStringPackage.FOR_LOOP_START__END, oldEnd, newEnd);
+			if (msgs == null) msgs = notification; else msgs.add(notification);
+		}
+		return msgs;
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `msgs`
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/impl/ElseIfConditionImpl.java`
+#### Snippet
+```java
+			case ProcessedRichStringPackage.ELSE_IF_CONDITION__IF_CONDITION_START:
+				if (ifConditionStart != null)
+					msgs = ((InternalEObject)ifConditionStart).eInverseRemove(this, ProcessedRichStringPackage.IF_CONDITION_START__ELSE_IF_CONDITIONS, IfConditionStart.class, msgs);
+				return basicSetIfConditionStart((IfConditionStart)otherEnd, msgs);
+		}
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `msgs`
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/impl/ElseIfConditionImpl.java`
+#### Snippet
+```java
+		{
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ProcessedRichStringPackage.ELSE_IF_CONDITION__IF_CONDITION_START, oldIfConditionStart, newIfConditionStart);
 			if (msgs == null) msgs = notification; else msgs.add(notification);
 		}
 		return msgs;
@@ -12966,54 +13014,6 @@ in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/impl/LineIm
 		msgs = eBasicSetContainer((InternalEObject)newRichString, ProcessedRichStringPackage.LINE__RICH_STRING, msgs);
 		return msgs;
 	}
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `msgs`
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/impl/ForLoopStartImpl.java`
-#### Snippet
-```java
-		{
-			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ProcessedRichStringPackage.FOR_LOOP_START__END, oldEnd, newEnd);
-			if (msgs == null) msgs = notification; else msgs.add(notification);
-		}
-		return msgs;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `msgs`
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/impl/ForLoopStartImpl.java`
-#### Snippet
-```java
-			case ProcessedRichStringPackage.FOR_LOOP_START__END:
-				if (end != null)
-					msgs = ((InternalEObject)end).eInverseRemove(this, ProcessedRichStringPackage.FOR_LOOP_END__START, ForLoopEnd.class, msgs);
-				return basicSetEnd((ForLoopEnd)otherEnd, msgs);
-		}
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `msgs`
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/impl/ElseIfConditionImpl.java`
-#### Snippet
-```java
-		{
-			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ProcessedRichStringPackage.ELSE_IF_CONDITION__IF_CONDITION_START, oldIfConditionStart, newIfConditionStart);
-			if (msgs == null) msgs = notification; else msgs.add(notification);
-		}
-		return msgs;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `msgs`
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/impl/ElseIfConditionImpl.java`
-#### Snippet
-```java
-			case ProcessedRichStringPackage.ELSE_IF_CONDITION__IF_CONDITION_START:
-				if (ifConditionStart != null)
-					msgs = ((InternalEObject)ifConditionStart).eInverseRemove(this, ProcessedRichStringPackage.IF_CONDITION_START__ELSE_IF_CONDITIONS, IfConditionStart.class, msgs);
-				return basicSetIfConditionStart((IfConditionStart)otherEnd, msgs);
-		}
 ```
 
 ### AssignmentToMethodParameter
@@ -13058,30 +13058,6 @@ Return of `null`
 in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/naming/XtendQualifiedNameProvider.java`
 #### Snippet
 ```java
-			if(typeDecl.eContainer() instanceof XtendFile) {
-				if (typeName == null)
-					return null;
-				XtendFile file = (XtendFile) typeDecl.eContainer();
-				String packageName = file.getPackage();
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/naming/XtendQualifiedNameProvider.java`
-#### Snippet
-```java
-			return concatNames(obj, ((XtendEnumLiteral) obj).getName());
-		}
-		return null;
-	}
-
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/naming/XtendQualifiedNameProvider.java`
-#### Snippet
-```java
 	protected QualifiedName concatNames(EObject obj, String name) {
 		if (name == null)
 			return null;
@@ -13103,10 +13079,22 @@ in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/naming/XtendQualifiedNameP
 
 ### ReturnNull
 Return of `null`
-in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/scoping/AbstractScope.java`
+in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/naming/XtendQualifiedNameProvider.java`
 #### Snippet
 ```java
-			return result;
+			if(typeDecl.eContainer() instanceof XtendFile) {
+				if (typeName == null)
+					return null;
+				XtendFile file = (XtendFile) typeDecl.eContainer();
+				String packageName = file.getPackage();
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/naming/XtendQualifiedNameProvider.java`
+#### Snippet
+```java
+			return concatNames(obj, ((XtendEnumLiteral) obj).getName());
 		}
 		return null;
 	}
@@ -13154,11 +13142,11 @@ Return of `null`
 in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/imports/XtendImportsConfiguration.java`
 #### Snippet
 ```java
-	protected XtendFile getXtendFile(XtextResource resource) {
-		if(resource == null || resource.getContents().isEmpty() || !(resource.getContents().get(0) instanceof XtendFile))
-			return null;
-		else 
-			return (XtendFile) resource.getContents().get(0);
+	protected String getCommonPackageName(XtextResource resource) {
+		XtendFile xtendFile = getXtendFile(resource);
+		return xtendFile == null ? null : xtendFile.getPackage();
+	}
+	
 ```
 
 ### ReturnNull
@@ -13166,11 +13154,11 @@ Return of `null`
 in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/imports/XtendImportsConfiguration.java`
 #### Snippet
 ```java
-	protected String getCommonPackageName(XtextResource resource) {
-		XtendFile xtendFile = getXtendFile(resource);
-		return xtendFile == null ? null : xtendFile.getPackage();
-	}
-	
+	protected XtendFile getXtendFile(XtextResource resource) {
+		if(resource == null || resource.getContents().isEmpty() || !(resource.getContents().get(0) instanceof XtendFile))
+			return null;
+		else 
+			return (XtendFile) resource.getContents().get(0);
 ```
 
 ### ReturnNull
@@ -13187,14 +13175,14 @@ in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/imports/XtendImportsConfig
 
 ### ReturnNull
 Return of `null`
-in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/scoping/LocalResourceFilteringTypeScope.java`
+in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/scoping/AbstractScope.java`
 #### Snippet
 ```java
-	public IEObjectDescription getSingleElement(QualifiedName name, boolean binary) {
-		if (isFiltered(name)) {
-			return null;
+			return result;
 		}
-		return delegate.getSingleElement(name, binary);
+		return null;
+	}
+
 ```
 
 ### ReturnNull
@@ -13211,6 +13199,18 @@ in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/scoping/CachingTypeScope.j
 
 ### ReturnNull
 Return of `null`
+in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/scoping/LocalResourceFilteringTypeScope.java`
+#### Snippet
+```java
+	public IEObjectDescription getSingleElement(QualifiedName name, boolean binary) {
+		if (isFiltered(name)) {
+			return null;
+		}
+		return delegate.getSingleElement(name, binary);
+```
+
+### ReturnNull
+Return of `null`
 in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/scoping/TypeScopeWithWildcardImports.java`
 #### Snippet
 ```java
@@ -13219,18 +13219,6 @@ in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/scoping/TypeScopeWithWildc
 							return null;
 						}
 					}
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/scoping/TypeParameterScope.java`
-#### Snippet
-```java
-			}
-		}
-		return null;
-	}
-	
 ```
 
 ### ReturnNull
@@ -13255,6 +13243,30 @@ in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/scoping/LegacyKnownTypesSc
 			return null;
 		}
 		return next;
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/scoping/TypeParameterScope.java`
+#### Snippet
+```java
+			}
+		}
+		return null;
+	}
+	
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/scoping/KnownTypesScope.java`
+#### Snippet
+```java
+				JvmType resolved = getUnambiguousResult(result, index, type, i, name);
+				if (resolved == null) {
+					return null;
+				}
+				if (resolved != result) {
 ```
 
 ### ReturnNull
@@ -13295,14 +13307,14 @@ in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/scoping/KnownTypesScope.ja
 
 ### ReturnNull
 Return of `null`
-in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/scoping/KnownTypesScope.java`
+in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/scoping/NestedTypesScope.java`
 #### Snippet
 ```java
-				JvmType resolved = getUnambiguousResult(result, index, type, i, name);
-				if (resolved == null) {
-					return null;
-				}
-				if (resolved != result) {
+			}
+		}
+		return null;
+	}
+
 ```
 
 ### ReturnNull
@@ -13331,30 +13343,6 @@ in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/scoping/NestedTypesScope.j
 
 ### ReturnNull
 Return of `null`
-in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/scoping/NestedTypesScope.java`
-#### Snippet
-```java
-			}
-		}
-		return null;
-	}
-
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/jvmmodel/AnonymousClassUtil.java`
-#### Snippet
-```java
-			}
-		}
-		return null;
-	}
-
-```
-
-### ReturnNull
-Return of `null`
 in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/jvmmodel/AnonymousClassUtil.java`
 #### Snippet
 ```java
@@ -13379,6 +13367,54 @@ in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/jvmmodel/AnonymousClassUti
 
 ### ReturnNull
 Return of `null`
+in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/jvmmodel/AnonymousClassUtil.java`
+#### Snippet
+```java
+			}
+		}
+		return null;
+	}
+
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/jvmmodel/IXtendJvmAssociations.java`
+#### Snippet
+```java
+			if (primarySourceElement instanceof XtendInterface) 
+				return (XtendInterface) primarySourceElement;
+			return null;
+		}
+
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/jvmmodel/IXtendJvmAssociations.java`
+#### Snippet
+```java
+		public XtendConstructor getXtendConstructor(JvmConstructor jvmConstructor) {
+			EObject primarySourceElement = getPrimarySourceElement(jvmConstructor);
+			return primarySourceElement instanceof XtendConstructor ? (XtendConstructor) primarySourceElement : null;
+		}
+
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/jvmmodel/IXtendJvmAssociations.java`
+#### Snippet
+```java
+			if (primarySourceElement instanceof XtendField)
+				return (XtendField) primarySourceElement;
+			return null;
+		}
+		
+```
+
+### ReturnNull
+Return of `null`
 in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/jvmmodel/IXtendJvmAssociations.java`
 #### Snippet
 ```java
@@ -13394,8 +13430,20 @@ Return of `null`
 in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/jvmmodel/IXtendJvmAssociations.java`
 #### Snippet
 ```java
-			if (primarySourceElement instanceof XtendInterface) 
-				return (XtendInterface) primarySourceElement;
+			if (primarySourceElement instanceof AnonymousClass) 
+				return (AnonymousClass) primarySourceElement;
+			return null;
+		}
+
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/jvmmodel/IXtendJvmAssociations.java`
+#### Snippet
+```java
+				}
+			}
 			return null;
 		}
 
@@ -13466,30 +13514,6 @@ Return of `null`
 in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/jvmmodel/IXtendJvmAssociations.java`
 #### Snippet
 ```java
-			if (iterator.hasNext())
-				return iterator.next();
-			return null;
-		}
-		
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/jvmmodel/IXtendJvmAssociations.java`
-#### Snippet
-```java
-				}
-			}
-			return null;
-		}
-
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/jvmmodel/IXtendJvmAssociations.java`
-#### Snippet
-```java
 			if (primarySourceElement instanceof XtendClass) 
 				return (XtendClass) primarySourceElement;
 			return null;
@@ -13502,32 +13526,8 @@ Return of `null`
 in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/jvmmodel/IXtendJvmAssociations.java`
 #### Snippet
 ```java
-		public XtendConstructor getXtendConstructor(JvmConstructor jvmConstructor) {
-			EObject primarySourceElement = getPrimarySourceElement(jvmConstructor);
-			return primarySourceElement instanceof XtendConstructor ? (XtendConstructor) primarySourceElement : null;
-		}
-
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/jvmmodel/IXtendJvmAssociations.java`
-#### Snippet
-```java
-			if (primarySourceElement instanceof AnonymousClass) 
-				return (AnonymousClass) primarySourceElement;
-			return null;
-		}
-
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/jvmmodel/IXtendJvmAssociations.java`
-#### Snippet
-```java
-			if (primarySourceElement instanceof XtendField)
-				return (XtendField) primarySourceElement;
+			if (iterator.hasNext())
+				return iterator.next();
 			return null;
 		}
 		
@@ -13535,19 +13535,7 @@ in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/jvmmodel/IXtendJvmAssociat
 
 ### ReturnNull
 Return of `null`
-in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/jvmmodel/DispatchHelper.java`
-#### Snippet
-```java
-			return result;
-		}
-		return null;
-	}
-	
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/jvmmodel/DispatchHelper.java`
+in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/scoping/XtendImportedNamespaceScopeProvider.java`
 #### Snippet
 ```java
 			}
@@ -13571,7 +13559,19 @@ in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/conversion/JavaIDValueConv
 
 ### ReturnNull
 Return of `null`
-in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/scoping/XtendImportedNamespaceScopeProvider.java`
+in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/conversion/AbstractRichTextValueConverter.java`
+#### Snippet
+```java
+	public String toValue(String string, INode node) {
+		if (string == null)
+			return null;
+		try {
+			String leadingTerminal = getLeadingTerminal();
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/jvmmodel/DispatchHelper.java`
 #### Snippet
 ```java
 			}
@@ -13583,14 +13583,14 @@ in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/scoping/XtendImportedNames
 
 ### ReturnNull
 Return of `null`
-in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/conversion/AbstractRichTextValueConverter.java`
+in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/jvmmodel/DispatchHelper.java`
 #### Snippet
 ```java
-	public String toValue(String string, INode node) {
-		if (string == null)
-			return null;
-		try {
-			String leadingTerminal = getLeadingTerminal();
+			return result;
+		}
+		return null;
+	}
+	
 ```
 
 ### ReturnNull
@@ -13679,26 +13679,794 @@ in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/impl/XtendMember
 
 ### ReturnNull
 Return of `null`
-in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/typesystem/XtendReentrantTypeResolver.java`
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendSwitch.java`
 #### Snippet
 ```java
-				}
-				if (actualType == null)
-					return null;
-				// actualType may not be java compliant but still carry more information than the
-				// java compliant reference
+	public T caseJvmIdentifiableElement(JvmIdentifiableElement object)
+	{
+		return null;
+	}
+
 ```
 
 ### ReturnNull
 Return of `null`
-in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/typesystem/XtendReentrantTypeResolver.java`
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendSwitch.java`
 #### Snippet
 ```java
-					variable.getSimpleName());
-		}
+	public T caseXtendExecutable(XtendExecutable object)
+	{
 		return null;
 	}
-	
+
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendSwitch.java`
+#### Snippet
+```java
+	public T caseXtendParameter(XtendParameter object)
+	{
+		return null;
+	}
+
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendSwitch.java`
+#### Snippet
+```java
+	public T caseXtendTypeDeclaration(XtendTypeDeclaration object)
+	{
+		return null;
+	}
+
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendSwitch.java`
+#### Snippet
+```java
+	public T caseXtendConstructor(XtendConstructor object)
+	{
+		return null;
+	}
+
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendSwitch.java`
+#### Snippet
+```java
+	public T caseXVariableDeclaration(XVariableDeclaration object)
+	{
+		return null;
+	}
+
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendSwitch.java`
+#### Snippet
+```java
+	public T caseXExpression(XExpression object)
+	{
+		return null;
+	}
+
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendSwitch.java`
+#### Snippet
+```java
+	public T caseCreateExtensionInfo(CreateExtensionInfo object)
+	{
+		return null;
+	}
+
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendSwitch.java`
+#### Snippet
+```java
+	public T caseXtendFile(XtendFile object)
+	{
+		return null;
+	}
+
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendSwitch.java`
+#### Snippet
+```java
+	public T caseXForLoopExpression(XForLoopExpression object)
+	{
+		return null;
+	}
+
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendSwitch.java`
+#### Snippet
+```java
+	public T caseRichStringForLoop(RichStringForLoop object)
+	{
+		return null;
+	}
+
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendSwitch.java`
+#### Snippet
+```java
+	public T caseXtendFunction(XtendFunction object)
+	{
+		return null;
+	}
+
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendSwitch.java`
+#### Snippet
+```java
+	public T caseXtendFormalParameter(XtendFormalParameter object)
+	{
+		return null;
+	}
+
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendSwitch.java`
+#### Snippet
+```java
+	public T caseRichString(RichString object)
+	{
+		return null;
+	}
+
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendSwitch.java`
+#### Snippet
+```java
+	public T caseJvmFormalParameter(JvmFormalParameter object)
+	{
+		return null;
+	}
+
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendSwitch.java`
+#### Snippet
+```java
+	public T caseRichStringElseIf(RichStringElseIf object)
+	{
+		return null;
+	}
+
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendSwitch.java`
+#### Snippet
+```java
+	public T caseRichStringLiteral(RichStringLiteral object)
+	{
+		return null;
+	}
+
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendSwitch.java`
+#### Snippet
+```java
+	public T caseXBlockExpression(XBlockExpression object)
+	{
+		return null;
+	}
+
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendSwitch.java`
+#### Snippet
+```java
+	public T caseXtendVariableDeclaration(XtendVariableDeclaration object)
+	{
+		return null;
+	}
+
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendSwitch.java`
+#### Snippet
+```java
+	public T caseAnonymousClass(AnonymousClass object)
+	{
+		return null;
+	}
+
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendSwitch.java`
+#### Snippet
+```java
+	public T caseRichStringIf(RichStringIf object)
+	{
+		return null;
+	}
+
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendSwitch.java`
+#### Snippet
+```java
+	public T caseXtendEnum(XtendEnum object)
+	{
+		return null;
+	}
+
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendSwitch.java`
+#### Snippet
+```java
+	public T caseXtendMember(XtendMember object)
+	{
+		return null;
+	}
+
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendSwitch.java`
+#### Snippet
+```java
+	public T caseXtendEnumLiteral(XtendEnumLiteral object)
+	{
+		return null;
+	}
+
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendSwitch.java`
+#### Snippet
+```java
+	public T caseXtendAnnotationTarget(XtendAnnotationTarget object)
+	{
+		return null;
+	}
+
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendSwitch.java`
+#### Snippet
+```java
+	public T caseJvmAnnotationTarget(JvmAnnotationTarget object)
+	{
+		return null;
+	}
+
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendSwitch.java`
+#### Snippet
+```java
+	public T caseXtendInterface(XtendInterface object)
+	{
+		return null;
+	}
+
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendSwitch.java`
+#### Snippet
+```java
+	public T caseXtendClass(XtendClass object)
+	{
+		return null;
+	}
+
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendSwitch.java`
+#### Snippet
+```java
+	public T caseXStringLiteral(XStringLiteral object)
+	{
+		return null;
+	}
+
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendSwitch.java`
+#### Snippet
+```java
+	public T defaultCase(EObject object)
+	{
+		return null;
+	}
+
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendSwitch.java`
+#### Snippet
+```java
+	public T caseXtendAnnotationType(XtendAnnotationType object)
+	{
+		return null;
+	}
+
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendSwitch.java`
+#### Snippet
+```java
+	public T caseXtendField(XtendField object)
+	{
+		return null;
+	}
+
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/impl/AnonymousClassImpl.java`
+#### Snippet
+```java
+	public XtendTypeDeclaration getDeclaringType()
+	{
+		if (eContainerFeatureID() != XtendPackage.ANONYMOUS_CLASS__DECLARING_TYPE) return null;
+		return (XtendTypeDeclaration)eInternalContainer();
+	}
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/impl/LinePartImpl.java`
+#### Snippet
+```java
+	public Line getLine()
+	{
+		if (eContainerFeatureID() != ProcessedRichStringPackage.LINE_PART__LINE) return null;
+		return (Line)eInternalContainer();
+	}
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendAdapterFactory.java`
+#### Snippet
+```java
+	public Adapter createRichStringLiteralAdapter()
+	{
+		return null;
+	}
+
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendAdapterFactory.java`
+#### Snippet
+```java
+	public Adapter createXtendEnumLiteralAdapter()
+	{
+		return null;
+	}
+
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendAdapterFactory.java`
+#### Snippet
+```java
+	public Adapter createXtendFileAdapter()
+	{
+		return null;
+	}
+
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendAdapterFactory.java`
+#### Snippet
+```java
+	public Adapter createXtendClassAdapter()
+	{
+		return null;
+	}
+
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendAdapterFactory.java`
+#### Snippet
+```java
+	public Adapter createAnonymousClassAdapter()
+	{
+		return null;
+	}
+
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendAdapterFactory.java`
+#### Snippet
+```java
+	public Adapter createRichStringIfAdapter()
+	{
+		return null;
+	}
+
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendAdapterFactory.java`
+#### Snippet
+```java
+	public Adapter createRichStringForLoopAdapter()
+	{
+		return null;
+	}
+
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendAdapterFactory.java`
+#### Snippet
+```java
+	public Adapter createXtendMemberAdapter()
+	{
+		return null;
+	}
+
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendAdapterFactory.java`
+#### Snippet
+```java
+	public Adapter createXtendExecutableAdapter()
+	{
+		return null;
+	}
+
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendAdapterFactory.java`
+#### Snippet
+```java
+	public Adapter createXtendInterfaceAdapter()
+	{
+		return null;
+	}
+
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendAdapterFactory.java`
+#### Snippet
+```java
+	public Adapter createXtendFieldAdapter()
+	{
+		return null;
+	}
+
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendAdapterFactory.java`
+#### Snippet
+```java
+	public Adapter createXtendParameterAdapter()
+	{
+		return null;
+	}
+
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendAdapterFactory.java`
+#### Snippet
+```java
+	public Adapter createXtendEnumAdapter()
+	{
+		return null;
+	}
+
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendAdapterFactory.java`
+#### Snippet
+```java
+	public Adapter createRichStringAdapter()
+	{
+		return null;
+	}
+
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendAdapterFactory.java`
+#### Snippet
+```java
+	public Adapter createJvmAnnotationTargetAdapter()
+	{
+		return null;
+	}
+
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendAdapterFactory.java`
+#### Snippet
+```java
+	public Adapter createXStringLiteralAdapter()
+	{
+		return null;
+	}
+
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendAdapterFactory.java`
+#### Snippet
+```java
+	public Adapter createXExpressionAdapter()
+	{
+		return null;
+	}
+
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendAdapterFactory.java`
+#### Snippet
+```java
+	public Adapter createXtendAnnotationTypeAdapter()
+	{
+		return null;
+	}
+
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendAdapterFactory.java`
+#### Snippet
+```java
+	public Adapter createCreateExtensionInfoAdapter()
+	{
+		return null;
+	}
+
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendAdapterFactory.java`
+#### Snippet
+```java
+	public Adapter createRichStringElseIfAdapter()
+	{
+		return null;
+	}
+
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendAdapterFactory.java`
+#### Snippet
+```java
+	public Adapter createXtendFormalParameterAdapter()
+	{
+		return null;
+	}
+
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendAdapterFactory.java`
+#### Snippet
+```java
+	public Adapter createEObjectAdapter()
+	{
+		return null;
+	}
+
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendAdapterFactory.java`
+#### Snippet
+```java
+	public Adapter createXtendAnnotationTargetAdapter()
+	{
+		return null;
+	}
+
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendAdapterFactory.java`
+#### Snippet
+```java
+	public Adapter createJvmIdentifiableElementAdapter()
+	{
+		return null;
+	}
+
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendAdapterFactory.java`
+#### Snippet
+```java
+	public Adapter createXtendVariableDeclarationAdapter()
+	{
+		return null;
+	}
+
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendAdapterFactory.java`
+#### Snippet
+```java
+	public Adapter createXVariableDeclarationAdapter()
+	{
+		return null;
+	}
+
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendAdapterFactory.java`
+#### Snippet
+```java
+	public Adapter createJvmFormalParameterAdapter()
+	{
+		return null;
+	}
+
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendAdapterFactory.java`
+#### Snippet
+```java
+	public Adapter createXtendTypeDeclarationAdapter()
+	{
+		return null;
+	}
+
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendAdapterFactory.java`
+#### Snippet
+```java
+	public Adapter createXForLoopExpressionAdapter()
+	{
+		return null;
+	}
+
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendAdapterFactory.java`
+#### Snippet
+```java
+	public Adapter createXtendFunctionAdapter()
+	{
+		return null;
+	}
+
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendAdapterFactory.java`
+#### Snippet
+```java
+	public Adapter createXtendConstructorAdapter()
+	{
+		return null;
+	}
+
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendAdapterFactory.java`
+#### Snippet
+```java
+	public Adapter createXBlockExpressionAdapter()
+	{
+		return null;
+	}
+
 ```
 
 ### ReturnNull
@@ -13711,18 +14479,6 @@ in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/typesystem/XtendReentrantT
 		return null;
 	}
 }
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/typesystem/XtendReentrantTypeResolver.java`
-#### Snippet
-```java
-				TypeConformanceComputer conformanceComputer = typeResolver.getServices().getTypeConformanceComputer();
-				if (types.isEmpty())
-					return null;
-				LightweightTypeReference result = conformanceComputer.getCommonSuperType(types, resolvedTypes.getReferenceOwner());
-				if (result == null) {
 ```
 
 ### ReturnNull
@@ -13775,794 +14531,38 @@ in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/typesystem/XtendReentrantT
 
 ### ReturnNull
 Return of `null`
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendSwitch.java`
+in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/typesystem/XtendReentrantTypeResolver.java`
 #### Snippet
 ```java
-	public T caseXtendConstructor(XtendConstructor object)
-	{
-		return null;
-	}
-
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendSwitch.java`
-#### Snippet
-```java
-	public T caseXtendTypeDeclaration(XtendTypeDeclaration object)
-	{
-		return null;
-	}
-
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendSwitch.java`
-#### Snippet
-```java
-	public T caseXExpression(XExpression object)
-	{
-		return null;
-	}
-
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendSwitch.java`
-#### Snippet
-```java
-	public T caseXtendAnnotationType(XtendAnnotationType object)
-	{
-		return null;
-	}
-
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendSwitch.java`
-#### Snippet
-```java
-	public T caseXtendFile(XtendFile object)
-	{
-		return null;
-	}
-
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendSwitch.java`
-#### Snippet
-```java
-	public T caseRichStringIf(RichStringIf object)
-	{
-		return null;
-	}
-
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendSwitch.java`
-#### Snippet
-```java
-	public T caseXtendEnumLiteral(XtendEnumLiteral object)
-	{
-		return null;
-	}
-
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendSwitch.java`
-#### Snippet
-```java
-	public T caseXtendField(XtendField object)
-	{
-		return null;
-	}
-
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendSwitch.java`
-#### Snippet
-```java
-	public T caseXBlockExpression(XBlockExpression object)
-	{
-		return null;
-	}
-
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendSwitch.java`
-#### Snippet
-```java
-	public T caseXVariableDeclaration(XVariableDeclaration object)
-	{
-		return null;
-	}
-
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendSwitch.java`
-#### Snippet
-```java
-	public T caseXtendAnnotationTarget(XtendAnnotationTarget object)
-	{
-		return null;
-	}
-
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendSwitch.java`
-#### Snippet
-```java
-	public T caseRichStringLiteral(RichStringLiteral object)
-	{
-		return null;
-	}
-
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendSwitch.java`
-#### Snippet
-```java
-	public T caseXtendVariableDeclaration(XtendVariableDeclaration object)
-	{
-		return null;
-	}
-
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendSwitch.java`
-#### Snippet
-```java
-	public T caseRichStringElseIf(RichStringElseIf object)
-	{
-		return null;
-	}
-
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendSwitch.java`
-#### Snippet
-```java
-	public T caseRichStringForLoop(RichStringForLoop object)
-	{
-		return null;
-	}
-
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendSwitch.java`
-#### Snippet
-```java
-	public T caseXtendEnum(XtendEnum object)
-	{
-		return null;
-	}
-
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendSwitch.java`
-#### Snippet
-```java
-	public T caseXtendParameter(XtendParameter object)
-	{
-		return null;
-	}
-
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendSwitch.java`
-#### Snippet
-```java
-	public T caseAnonymousClass(AnonymousClass object)
-	{
-		return null;
-	}
-
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendSwitch.java`
-#### Snippet
-```java
-	public T caseXtendInterface(XtendInterface object)
-	{
-		return null;
-	}
-
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendSwitch.java`
-#### Snippet
-```java
-	public T caseXtendMember(XtendMember object)
-	{
-		return null;
-	}
-
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendSwitch.java`
-#### Snippet
-```java
-	public T caseJvmAnnotationTarget(JvmAnnotationTarget object)
-	{
-		return null;
-	}
-
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendSwitch.java`
-#### Snippet
-```java
-	public T caseXStringLiteral(XStringLiteral object)
-	{
-		return null;
-	}
-
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendSwitch.java`
-#### Snippet
-```java
-	public T caseCreateExtensionInfo(CreateExtensionInfo object)
-	{
-		return null;
-	}
-
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendSwitch.java`
-#### Snippet
-```java
-	public T caseXtendExecutable(XtendExecutable object)
-	{
-		return null;
-	}
-
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendSwitch.java`
-#### Snippet
-```java
-	public T caseJvmFormalParameter(JvmFormalParameter object)
-	{
-		return null;
-	}
-
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendSwitch.java`
-#### Snippet
-```java
-	public T caseXtendClass(XtendClass object)
-	{
-		return null;
-	}
-
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendSwitch.java`
-#### Snippet
-```java
-	public T caseXtendFormalParameter(XtendFormalParameter object)
-	{
-		return null;
-	}
-
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendSwitch.java`
-#### Snippet
-```java
-	public T caseRichString(RichString object)
-	{
-		return null;
-	}
-
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendSwitch.java`
-#### Snippet
-```java
-	public T caseXtendFunction(XtendFunction object)
-	{
-		return null;
-	}
-
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendSwitch.java`
-#### Snippet
-```java
-	public T defaultCase(EObject object)
-	{
-		return null;
-	}
-
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendSwitch.java`
-#### Snippet
-```java
-	public T caseXForLoopExpression(XForLoopExpression object)
-	{
-		return null;
-	}
-
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendSwitch.java`
-#### Snippet
-```java
-	public T caseJvmIdentifiableElement(JvmIdentifiableElement object)
-	{
-		return null;
-	}
-
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendAdapterFactory.java`
-#### Snippet
-```java
-	public Adapter createXtendFieldAdapter()
-	{
-		return null;
-	}
-
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendAdapterFactory.java`
-#### Snippet
-```java
-	public Adapter createXtendFileAdapter()
-	{
-		return null;
-	}
-
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendAdapterFactory.java`
-#### Snippet
-```java
-	public Adapter createXtendConstructorAdapter()
-	{
-		return null;
-	}
-
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendAdapterFactory.java`
-#### Snippet
-```java
-	public Adapter createRichStringForLoopAdapter()
-	{
-		return null;
-	}
-
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendAdapterFactory.java`
-#### Snippet
-```java
-	public Adapter createJvmAnnotationTargetAdapter()
-	{
-		return null;
-	}
-
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendAdapterFactory.java`
-#### Snippet
-```java
-	public Adapter createAnonymousClassAdapter()
-	{
-		return null;
-	}
-
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendAdapterFactory.java`
-#### Snippet
-```java
-	public Adapter createJvmIdentifiableElementAdapter()
-	{
-		return null;
-	}
-
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendAdapterFactory.java`
-#### Snippet
-```java
-	public Adapter createXtendInterfaceAdapter()
-	{
-		return null;
-	}
-
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendAdapterFactory.java`
-#### Snippet
-```java
-	public Adapter createXVariableDeclarationAdapter()
-	{
-		return null;
-	}
-
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendAdapterFactory.java`
-#### Snippet
-```java
-	public Adapter createXtendVariableDeclarationAdapter()
-	{
-		return null;
-	}
-
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendAdapterFactory.java`
-#### Snippet
-```java
-	public Adapter createRichStringLiteralAdapter()
-	{
-		return null;
-	}
-
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendAdapterFactory.java`
-#### Snippet
-```java
-	public Adapter createXtendAnnotationTypeAdapter()
-	{
-		return null;
-	}
-
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendAdapterFactory.java`
-#### Snippet
-```java
-	public Adapter createJvmFormalParameterAdapter()
-	{
-		return null;
-	}
-
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendAdapterFactory.java`
-#### Snippet
-```java
-	public Adapter createXtendTypeDeclarationAdapter()
-	{
-		return null;
-	}
-
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendAdapterFactory.java`
-#### Snippet
-```java
-	public Adapter createXtendClassAdapter()
-	{
-		return null;
-	}
-
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendAdapterFactory.java`
-#### Snippet
-```java
-	public Adapter createCreateExtensionInfoAdapter()
-	{
-		return null;
-	}
-
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendAdapterFactory.java`
-#### Snippet
-```java
-	public Adapter createEObjectAdapter()
-	{
-		return null;
-	}
-
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendAdapterFactory.java`
-#### Snippet
-```java
-	public Adapter createRichStringAdapter()
-	{
-		return null;
-	}
-
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendAdapterFactory.java`
-#### Snippet
-```java
-	public Adapter createXtendExecutableAdapter()
-	{
-		return null;
-	}
-
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendAdapterFactory.java`
-#### Snippet
-```java
-	public Adapter createXtendEnumLiteralAdapter()
-	{
-		return null;
-	}
-
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendAdapterFactory.java`
-#### Snippet
-```java
-	public Adapter createXtendAnnotationTargetAdapter()
-	{
-		return null;
-	}
-
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendAdapterFactory.java`
-#### Snippet
-```java
-	public Adapter createXtendEnumAdapter()
-	{
-		return null;
-	}
-
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendAdapterFactory.java`
-#### Snippet
-```java
-	public Adapter createRichStringElseIfAdapter()
-	{
-		return null;
-	}
-
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendAdapterFactory.java`
-#### Snippet
-```java
-	public Adapter createXtendParameterAdapter()
-	{
-		return null;
-	}
-
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendAdapterFactory.java`
-#### Snippet
-```java
-	public Adapter createXForLoopExpressionAdapter()
-	{
-		return null;
-	}
-
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendAdapterFactory.java`
-#### Snippet
-```java
-	public Adapter createXtendMemberAdapter()
-	{
-		return null;
-	}
-
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendAdapterFactory.java`
-#### Snippet
-```java
-	public Adapter createRichStringIfAdapter()
-	{
-		return null;
-	}
-
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendAdapterFactory.java`
-#### Snippet
-```java
-	public Adapter createXtendFunctionAdapter()
-	{
-		return null;
-	}
-
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendAdapterFactory.java`
-#### Snippet
-```java
-	public Adapter createXStringLiteralAdapter()
-	{
-		return null;
-	}
-
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendAdapterFactory.java`
-#### Snippet
-```java
-	public Adapter createXBlockExpressionAdapter()
-	{
-		return null;
-	}
-
+				TypeConformanceComputer conformanceComputer = typeResolver.getServices().getTypeConformanceComputer();
+				if (types.isEmpty())
+					return null;
+				LightweightTypeReference result = conformanceComputer.getCommonSuperType(types, resolvedTypes.getReferenceOwner());
+				if (result == null) {
 ```
 
 ### ReturnNull
 Return of `null`
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendAdapterFactory.java`
+in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/typesystem/XtendReentrantTypeResolver.java`
 #### Snippet
 ```java
-	public Adapter createXExpressionAdapter()
-	{
-		return null;
-	}
-
+				}
+				if (actualType == null)
+					return null;
+				// actualType may not be java compliant but still carry more information than the
+				// java compliant reference
 ```
 
 ### ReturnNull
 Return of `null`
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/util/XtendAdapterFactory.java`
+in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/typesystem/XtendReentrantTypeResolver.java`
 #### Snippet
 ```java
-	public Adapter createXtendFormalParameterAdapter()
-	{
+					variable.getSimpleName());
+		}
 		return null;
-	}
-
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/impl/LinePartImpl.java`
-#### Snippet
-```java
-	public Line getLine()
-	{
-		if (eContainerFeatureID() != ProcessedRichStringPackage.LINE_PART__LINE) return null;
-		return (Line)eInternalContainer();
-	}
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/impl/AnonymousClassImpl.java`
-#### Snippet
-```java
-	public XtendTypeDeclaration getDeclaringType()
-	{
-		if (eContainerFeatureID() != XtendPackage.ANONYMOUS_CLASS__DECLARING_TYPE) return null;
-		return (XtendTypeDeclaration)eInternalContainer();
 	}
+	
 ```
 
 ### ReturnNull
@@ -14579,10 +14579,154 @@ in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/impl/LineIm
 
 ### ReturnNull
 Return of `null`
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/util/ProcessedRichStringSwitch.java`
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/util/ProcessedRichStringAdapterFactory.java`
 #### Snippet
 ```java
-	public T caseLine(Line object)
+	public Adapter createEndIfAdapter()
+	{
+		return null;
+	}
+
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/util/ProcessedRichStringAdapterFactory.java`
+#### Snippet
+```java
+	public Adapter createPrintedExpressionAdapter()
+	{
+		return null;
+	}
+
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/util/ProcessedRichStringAdapterFactory.java`
+#### Snippet
+```java
+	public Adapter createElseIfConditionAdapter()
+	{
+		return null;
+	}
+
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/util/ProcessedRichStringAdapterFactory.java`
+#### Snippet
+```java
+	public Adapter createForLoopEndAdapter()
+	{
+		return null;
+	}
+
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/util/ProcessedRichStringAdapterFactory.java`
+#### Snippet
+```java
+	public Adapter createLiteralAdapter()
+	{
+		return null;
+	}
+
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/util/ProcessedRichStringAdapterFactory.java`
+#### Snippet
+```java
+	public Adapter createElseStartAdapter()
+	{
+		return null;
+	}
+
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/util/ProcessedRichStringAdapterFactory.java`
+#### Snippet
+```java
+	public Adapter createLineAdapter()
+	{
+		return null;
+	}
+
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/util/ProcessedRichStringAdapterFactory.java`
+#### Snippet
+```java
+	public Adapter createLinePartAdapter()
+	{
+		return null;
+	}
+
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/util/ProcessedRichStringAdapterFactory.java`
+#### Snippet
+```java
+	public Adapter createLineBreakAdapter()
+	{
+		return null;
+	}
+
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/util/ProcessedRichStringAdapterFactory.java`
+#### Snippet
+```java
+	public Adapter createForLoopStartAdapter()
+	{
+		return null;
+	}
+
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/util/ProcessedRichStringAdapterFactory.java`
+#### Snippet
+```java
+	public Adapter createIfConditionStartAdapter()
+	{
+		return null;
+	}
+
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/util/ProcessedRichStringAdapterFactory.java`
+#### Snippet
+```java
+	public Adapter createProcessedRichStringAdapter()
+	{
+		return null;
+	}
+
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/util/ProcessedRichStringAdapterFactory.java`
+#### Snippet
+```java
+	public Adapter createEObjectAdapter()
 	{
 		return null;
 	}
@@ -14594,31 +14738,7 @@ Return of `null`
 in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/util/ProcessedRichStringSwitch.java`
 #### Snippet
 ```java
-	public T casePrintedExpression(PrintedExpression object)
-	{
-		return null;
-	}
-
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/util/ProcessedRichStringSwitch.java`
-#### Snippet
-```java
-	public T caseEndIf(EndIf object)
-	{
-		return null;
-	}
-
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/util/ProcessedRichStringSwitch.java`
-#### Snippet
-```java
-	public T caseForLoopStart(ForLoopStart object)
+	public T caseElseStart(ElseStart object)
 	{
 		return null;
 	}
@@ -14631,6 +14751,18 @@ in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/util/Proces
 #### Snippet
 ```java
 	public T caseElseIfCondition(ElseIfCondition object)
+	{
+		return null;
+	}
+
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/util/ProcessedRichStringSwitch.java`
+#### Snippet
+```java
+	public T caseLine(Line object)
 	{
 		return null;
 	}
@@ -14666,18 +14798,6 @@ Return of `null`
 in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/util/ProcessedRichStringSwitch.java`
 #### Snippet
 ```java
-	public T caseLineBreak(LineBreak object)
-	{
-		return null;
-	}
-
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/util/ProcessedRichStringSwitch.java`
-#### Snippet
-```java
 	public T caseLiteral(Literal object)
 	{
 		return null;
@@ -14702,7 +14822,7 @@ Return of `null`
 in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/util/ProcessedRichStringSwitch.java`
 #### Snippet
 ```java
-	public T caseProcessedRichString(ProcessedRichString object)
+	public T casePrintedExpression(PrintedExpression object)
 	{
 		return null;
 	}
@@ -14714,7 +14834,19 @@ Return of `null`
 in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/util/ProcessedRichStringSwitch.java`
 #### Snippet
 ```java
-	public T caseElseStart(ElseStart object)
+	public T caseForLoopStart(ForLoopStart object)
+	{
+		return null;
+	}
+
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/util/ProcessedRichStringSwitch.java`
+#### Snippet
+```java
+	public T caseProcessedRichString(ProcessedRichString object)
 	{
 		return null;
 	}
@@ -14735,10 +14867,10 @@ in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/util/Proces
 
 ### ReturnNull
 Return of `null`
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/util/ProcessedRichStringAdapterFactory.java`
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/util/ProcessedRichStringSwitch.java`
 #### Snippet
 ```java
-	public Adapter createProcessedRichStringAdapter()
+	public T caseLineBreak(LineBreak object)
 	{
 		return null;
 	}
@@ -14747,142 +14879,10 @@ in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/util/Proces
 
 ### ReturnNull
 Return of `null`
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/util/ProcessedRichStringAdapterFactory.java`
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/util/ProcessedRichStringSwitch.java`
 #### Snippet
 ```java
-	public Adapter createEObjectAdapter()
-	{
-		return null;
-	}
-
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/util/ProcessedRichStringAdapterFactory.java`
-#### Snippet
-```java
-	public Adapter createForLoopEndAdapter()
-	{
-		return null;
-	}
-
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/util/ProcessedRichStringAdapterFactory.java`
-#### Snippet
-```java
-	public Adapter createForLoopStartAdapter()
-	{
-		return null;
-	}
-
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/util/ProcessedRichStringAdapterFactory.java`
-#### Snippet
-```java
-	public Adapter createElseStartAdapter()
-	{
-		return null;
-	}
-
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/util/ProcessedRichStringAdapterFactory.java`
-#### Snippet
-```java
-	public Adapter createEndIfAdapter()
-	{
-		return null;
-	}
-
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/util/ProcessedRichStringAdapterFactory.java`
-#### Snippet
-```java
-	public Adapter createPrintedExpressionAdapter()
-	{
-		return null;
-	}
-
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/util/ProcessedRichStringAdapterFactory.java`
-#### Snippet
-```java
-	public Adapter createLiteralAdapter()
-	{
-		return null;
-	}
-
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/util/ProcessedRichStringAdapterFactory.java`
-#### Snippet
-```java
-	public Adapter createLinePartAdapter()
-	{
-		return null;
-	}
-
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/util/ProcessedRichStringAdapterFactory.java`
-#### Snippet
-```java
-	public Adapter createElseIfConditionAdapter()
-	{
-		return null;
-	}
-
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/util/ProcessedRichStringAdapterFactory.java`
-#### Snippet
-```java
-	public Adapter createLineAdapter()
-	{
-		return null;
-	}
-
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/util/ProcessedRichStringAdapterFactory.java`
-#### Snippet
-```java
-	public Adapter createLineBreakAdapter()
-	{
-		return null;
-	}
-
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/util/ProcessedRichStringAdapterFactory.java`
-#### Snippet
-```java
-	public Adapter createIfConditionStartAdapter()
+	public T caseEndIf(EndIf object)
 	{
 		return null;
 	}
@@ -14899,6 +14899,30 @@ in `org.eclipse.xtend.core/generator/org/eclipse/xtend/core/parser/JFlexGenerato
 		return null;
 	}
 
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/validation/XtendValidator.java`
+#### Snippet
+```java
+			return XTEND_FUNCTION__RETURN_TYPE;
+		else
+			return null;
+	}
+	
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/validation/XtendValidator.java`
+#### Snippet
+```java
+			return XTEND_EXECUTABLE__EXCEPTIONS;
+		else
+			return null;
+	}
+	
 ```
 
 ### ReturnNull
@@ -14930,30 +14954,6 @@ Return of `null`
 in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/validation/XtendValidator.java`
 #### Snippet
 ```java
-			return batchTypeResolver.resolveTypes(operation).getActualType(operation);
-		}
-		return null;
-	}
-	
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/validation/XtendValidator.java`
-#### Snippet
-```java
-			return XTEND_EXECUTABLE__EXCEPTIONS;
-		else
-			return null;
-	}
-	
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/validation/XtendValidator.java`
-#### Snippet
-```java
 
 	protected String canonicalName(JvmIdentifiableElement element) {
 		return (element != null) ? notNull(element.getIdentifier()) : null;
@@ -14966,9 +14966,9 @@ Return of `null`
 in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/validation/XtendValidator.java`
 #### Snippet
 ```java
-			return XTEND_FUNCTION__RETURN_TYPE;
-		else
-			return null;
+			return batchTypeResolver.resolveTypes(operation).getActualType(operation);
+		}
+		return null;
 	}
 	
 ```
@@ -15003,9 +15003,9 @@ Local variable `parseResult` is redundant
 in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/parser/CustomXtendParser.java`
 #### Snippet
 ```java
-	@Override
-	public IParseResult parse(ParserRule rule, Reader reader) {
-		IParseResult parseResult = parse(rule.getName(), new ReaderCharStream(reader));
+		NodeModelBuilder builder = createNodeModelBuilder();
+		builder.setForcedFirstGrammarElement(ruleCall);
+		IParseResult parseResult = doParse(ruleCall.getRule().getName(), new ReaderCharStream(reader), builder, initialLookAhead);
 		return parseResult;
 	}
 ```
@@ -15015,9 +15015,9 @@ Local variable `parseResult` is redundant
 in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/parser/CustomXtendParser.java`
 #### Snippet
 ```java
-		NodeModelBuilder builder = createNodeModelBuilder();
-		builder.setForcedFirstGrammarElement(ruleCall);
-		IParseResult parseResult = doParse(ruleCall.getRule().getName(), new ReaderCharStream(reader), builder, initialLookAhead);
+	@Override
+	public IParseResult parse(ParserRule rule, Reader reader) {
+		IParseResult parseResult = parse(rule.getName(), new ReaderCharStream(reader));
 		return parseResult;
 	}
 ```
@@ -15063,11 +15063,11 @@ Local variable `result` is redundant
 in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/compiler/batch/XtendCompilerTester.java`
 #### Snippet
 ```java
+							Resource resource = compilationUnitImpl.getXtendFile().eResource();
+							Iterable<EObjectDiagnosticImpl> issues = Iterables.filter(Iterables.concat(resource.getErrors(), resource.getWarnings()), EObjectDiagnosticImpl.class); 
+							List<Problem> result = Lists.newArrayList(Iterables.transform(issues, new Function<EObjectDiagnosticImpl, Problem>() {
+
 								@Override
-								public Problem apply(EObjectDiagnosticImpl diag) {
-									ProblemImpl result = new ProblemImpl(diag.getCode(), diag.getMessage(), translateSeverity(diag.getSeverity()));
-									return result;
-								}
 ```
 
 ### UnnecessaryLocalVariable
@@ -15075,11 +15075,11 @@ Local variable `result` is redundant
 in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/compiler/batch/XtendCompilerTester.java`
 #### Snippet
 ```java
-							Resource resource = compilationUnitImpl.getXtendFile().eResource();
-							Iterable<EObjectDiagnosticImpl> issues = Iterables.filter(Iterables.concat(resource.getErrors(), resource.getWarnings()), EObjectDiagnosticImpl.class); 
-							List<Problem> result = Lists.newArrayList(Iterables.transform(issues, new Function<EObjectDiagnosticImpl, Problem>() {
-
 								@Override
+								public Problem apply(EObjectDiagnosticImpl diag) {
+									ProblemImpl result = new ProblemImpl(diag.getCode(), diag.getMessage(), translateSeverity(diag.getSeverity()));
+									return result;
+								}
 ```
 
 ### UnnecessaryLocalVariable
@@ -15090,30 +15090,6 @@ in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/jvmmodel/IXtendJvmAssociat
 		@Override
 		public JvmGenericType getInferredType(XtendInterface xtendInterface) {
 			final JvmGenericType firstOrNull = getFirstOrNull(getJvmElements(xtendInterface), JvmGenericType.class);
-			return firstOrNull;
-		}
-```
-
-### UnnecessaryLocalVariable
-Local variable `firstOrNull` is redundant
-in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/jvmmodel/IXtendJvmAssociations.java`
-#### Snippet
-```java
-		@Override
-		public JvmGenericType getInferredType(AnonymousClass anonymousClass) {
-			final JvmGenericType firstOrNull = getFirstOrNull(getJvmElements(anonymousClass), JvmGenericType.class);
-			return firstOrNull;
-		}
-```
-
-### UnnecessaryLocalVariable
-Local variable `firstOrNull` is redundant
-in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/jvmmodel/IXtendJvmAssociations.java`
-#### Snippet
-```java
-		@Override
-		public JvmGenericType getInferredType(XtendClass xtendClass) {
-			final JvmGenericType firstOrNull = getFirstOrNull(getJvmElements(xtendClass), JvmGenericType.class);
 			return firstOrNull;
 		}
 ```
@@ -15136,20 +15112,8 @@ in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/jvmmodel/IXtendJvmAssociat
 #### Snippet
 ```java
 		@Override
-		public JvmDeclaredType getInferredType(XtendTypeDeclaration xtendType) {
-			final JvmDeclaredType firstOrNull = getFirstOrNull(getJvmElements(xtendType), JvmDeclaredType.class);
-			return firstOrNull;
-		}
-```
-
-### UnnecessaryLocalVariable
-Local variable `firstOrNull` is redundant
-in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/jvmmodel/IXtendJvmAssociations.java`
-#### Snippet
-```java
-		@Override
-		public JvmConstructor getInferredConstructor(XtendConstructor xtendConstructor) {
-			final JvmConstructor firstOrNull = getFirstOrNull(getJvmElements(xtendConstructor), JvmConstructor.class);
+		public JvmGenericType getInferredType(XtendClass xtendClass) {
+			final JvmGenericType firstOrNull = getFirstOrNull(getJvmElements(xtendClass), JvmGenericType.class);
 			return firstOrNull;
 		}
 ```
@@ -15172,6 +15136,30 @@ in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/jvmmodel/IXtendJvmAssociat
 #### Snippet
 ```java
 		@Override
+		public JvmGenericType getInferredType(AnonymousClass anonymousClass) {
+			final JvmGenericType firstOrNull = getFirstOrNull(getJvmElements(anonymousClass), JvmGenericType.class);
+			return firstOrNull;
+		}
+```
+
+### UnnecessaryLocalVariable
+Local variable `firstOrNull` is redundant
+in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/jvmmodel/IXtendJvmAssociations.java`
+#### Snippet
+```java
+		@Override
+		public JvmDeclaredType getInferredType(XtendTypeDeclaration xtendType) {
+			final JvmDeclaredType firstOrNull = getFirstOrNull(getJvmElements(xtendType), JvmDeclaredType.class);
+			return firstOrNull;
+		}
+```
+
+### UnnecessaryLocalVariable
+Local variable `firstOrNull` is redundant
+in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/jvmmodel/IXtendJvmAssociations.java`
+#### Snippet
+```java
+		@Override
 		public JvmEnumerationType getInferredEnumerationType(XtendEnum xtendEnum) {
 			final JvmEnumerationType firstOrNull = getFirstOrNull(getJvmElements(xtendEnum), JvmEnumerationType.class);
 			return firstOrNull;
@@ -15179,27 +15167,15 @@ in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/jvmmodel/IXtendJvmAssociat
 ```
 
 ### UnnecessaryLocalVariable
-Local variable `result` is redundant
-in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/jvmmodel/DispatchHelper.java`
+Local variable `firstOrNull` is redundant
+in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/jvmmodel/IXtendJvmAssociations.java`
 #### Snippet
 ```java
-		} else {
-			DispatchSignature signature = new DispatchSignature(dispatchCase.getSimpleName().substring(1), dispatchCase.getParameters().size());
-			JvmOperation result = getDispatcherOperation(dispatchCase.getDeclaringType(), signature);
-			return result;
+		@Override
+		public JvmConstructor getInferredConstructor(XtendConstructor xtendConstructor) {
+			final JvmConstructor firstOrNull = getFirstOrNull(getJvmElements(xtendConstructor), JvmConstructor.class);
+			return firstOrNull;
 		}
-```
-
-### UnnecessaryLocalVariable
-Local variable `result` is redundant
-in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/conversion/JavaIDValueConverter.java`
-#### Snippet
-```java
-				string = string.substring(1);
-			}
-			String result = convertFromJavaIdentifier(string, node);
-			return result;
-		} catch (IllegalArgumentException e) {
 ```
 
 ### UnnecessaryLocalVariable
@@ -15212,18 +15188,6 @@ in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/scoping/XtendImportedNames
 					AbstractScope caching = new CachingTypeScope(primitiveAware);
 					return caching;
 				}
-```
-
-### UnnecessaryLocalVariable
-Local variable `result` is redundant
-in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/scoping/XtendImportedNamespaceScopeProvider.java`
-#### Snippet
-```java
-	protected XtendFile getXtendFile(final EObject context) {
-		Resource resource = context.eResource();
-		XtendFile result = (XtendFile) resource.getContents().get(0);
-		return result;
-	}
 ```
 
 ### UnnecessaryLocalVariable
@@ -15252,6 +15216,30 @@ in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/scoping/XtendImportedNames
 
 ### UnnecessaryLocalVariable
 Local variable `result` is redundant
+in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/scoping/XtendImportedNamespaceScopeProvider.java`
+#### Snippet
+```java
+	protected XtendFile getXtendFile(final EObject context) {
+		Resource resource = context.eResource();
+		XtendFile result = (XtendFile) resource.getContents().get(0);
+		return result;
+	}
+```
+
+### UnnecessaryLocalVariable
+Local variable `result` is redundant
+in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/conversion/JavaIDValueConverter.java`
+#### Snippet
+```java
+				string = string.substring(1);
+			}
+			String result = convertFromJavaIdentifier(string, node);
+			return result;
+		} catch (IllegalArgumentException e) {
+```
+
+### UnnecessaryLocalVariable
+Local variable `result` is redundant
 in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/conversion/AbstractRichTextValueConverter.java`
 #### Snippet
 ```java
@@ -15260,6 +15248,18 @@ in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/conversion/AbstractRichTex
 				String result = withoutLeadingTerminal.substring(0, withoutLeadingTerminal.length() - trailingTerminal.length());
 				return result;	
 			}
+```
+
+### UnnecessaryLocalVariable
+Local variable `result` is redundant
+in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/jvmmodel/DispatchHelper.java`
+#### Snippet
+```java
+		} else {
+			DispatchSignature signature = new DispatchSignature(dispatchCase.getSimpleName().substring(1), dispatchCase.getParameters().size());
+			JvmOperation result = getDispatcherOperation(dispatchCase.getDeclaringType(), signature);
+			return result;
+		}
 ```
 
 ### UnnecessaryLocalVariable
@@ -15275,15 +15275,15 @@ in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/richstring/TextLine.java`
 ```
 
 ### UnnecessaryLocalVariable
-Local variable `result` is redundant
-in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/richstring/RichStringProcessor.java`
+Local variable `xtendFile` is redundant
+in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/compiler/batch/XtendBatchCompiler.java`
 #### Snippet
 ```java
-			InitialTemplateIndentationComputer computer = new InitialTemplateIndentationComputer(
-					indentationHandler.getTotalIndentation());
-			String result = computer.doSwitch(object);
-			return result;
-		}
+			EObject model = parseResult.getRootASTElement();
+			if (model instanceof XtendFile) {
+				XtendFile xtendFile = (XtendFile) model;
+				return xtendFile;
+			}
 ```
 
 ### UnnecessaryLocalVariable
@@ -15299,63 +15299,15 @@ in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/compiler/batch/XtendBatchC
 ```
 
 ### UnnecessaryLocalVariable
-Local variable `xtendFile` is redundant
-in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/compiler/batch/XtendBatchCompiler.java`
+Local variable `result` is redundant
+in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/richstring/RichStringProcessor.java`
 #### Snippet
 ```java
-			EObject model = parseResult.getRootASTElement();
-			if (model instanceof XtendFile) {
-				XtendFile xtendFile = (XtendFile) model;
-				return xtendFile;
-			}
-```
-
-### UnnecessaryLocalVariable
-Local variable `richStringIf` is redundant
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/impl/XtendFactoryImpl.java`
-#### Snippet
-```java
-	public RichStringIf createRichStringIf()
-	{
-		RichStringIfImpl richStringIf = new RichStringIfImpl();
-		return richStringIf;
-	}
-```
-
-### UnnecessaryLocalVariable
-Local variable `xtendFile` is redundant
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/impl/XtendFactoryImpl.java`
-#### Snippet
-```java
-	public XtendFile createXtendFile()
-	{
-		XtendFileImpl xtendFile = new XtendFileImpl();
-		return xtendFile;
-	}
-```
-
-### UnnecessaryLocalVariable
-Local variable `xtendEnum` is redundant
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/impl/XtendFactoryImpl.java`
-#### Snippet
-```java
-	public XtendEnum createXtendEnum()
-	{
-		XtendEnumImplCustom xtendEnum = new XtendEnumImplCustom();
-		return xtendEnum;
-	}
-```
-
-### UnnecessaryLocalVariable
-Local variable `xtendFormalParameter` is redundant
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/impl/XtendFactoryImpl.java`
-#### Snippet
-```java
-	public XtendFormalParameter createXtendFormalParameter()
-	{
-		XtendFormalParameterImpl xtendFormalParameter = new XtendFormalParameterImpl();
-		return xtendFormalParameter;
-	}
+			InitialTemplateIndentationComputer computer = new InitialTemplateIndentationComputer(
+					indentationHandler.getTotalIndentation());
+			String result = computer.doSwitch(object);
+			return result;
+		}
 ```
 
 ### UnnecessaryLocalVariable
@@ -15367,174 +15319,6 @@ in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/impl/XtendFactor
 	{
 		XtendParameterImpl xtendParameter = new XtendParameterImpl();
 		return xtendParameter;
-	}
-```
-
-### UnnecessaryLocalVariable
-Local variable `xtendTypeDeclaration` is redundant
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/impl/XtendFactoryImpl.java`
-#### Snippet
-```java
-	public XtendTypeDeclaration createXtendTypeDeclaration()
-	{
-		XtendTypeDeclarationImplCustom xtendTypeDeclaration = new XtendTypeDeclarationImplCustom();
-		return xtendTypeDeclaration;
-	}
-```
-
-### UnnecessaryLocalVariable
-Local variable `xtendConstructor` is redundant
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/impl/XtendFactoryImpl.java`
-#### Snippet
-```java
-	public XtendConstructor createXtendConstructor()
-	{
-		XtendConstructorImpl xtendConstructor = new XtendConstructorImpl();
-		return xtendConstructor;
-	}
-```
-
-### UnnecessaryLocalVariable
-Local variable `xtendVariableDeclaration` is redundant
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/impl/XtendFactoryImpl.java`
-#### Snippet
-```java
-	public XtendVariableDeclaration createXtendVariableDeclaration()
-	{
-		XtendVariableDeclarationImpl xtendVariableDeclaration = new XtendVariableDeclarationImpl();
-		return xtendVariableDeclaration;
-	}
-```
-
-### UnnecessaryLocalVariable
-Local variable `xtendAnnotationType` is redundant
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/impl/XtendFactoryImpl.java`
-#### Snippet
-```java
-	public XtendAnnotationType createXtendAnnotationType()
-	{
-		XtendAnnotationTypeImplCustom xtendAnnotationType = new XtendAnnotationTypeImplCustom();
-		return xtendAnnotationType;
-	}
-```
-
-### UnnecessaryLocalVariable
-Local variable `richString` is redundant
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/impl/XtendFactoryImpl.java`
-#### Snippet
-```java
-	public RichString createRichString()
-	{
-		RichStringImpl richString = new RichStringImpl();
-		return richString;
-	}
-```
-
-### UnnecessaryLocalVariable
-Local variable `xtendField` is redundant
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/impl/XtendFactoryImpl.java`
-#### Snippet
-```java
-	public XtendField createXtendField()
-	{
-		XtendFieldImplCustom xtendField = new XtendFieldImplCustom();
-		return xtendField;
-	}
-```
-
-### UnnecessaryLocalVariable
-Local variable `xtendMember` is redundant
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/impl/XtendFactoryImpl.java`
-#### Snippet
-```java
-	public XtendMember createXtendMember()
-	{
-		XtendMemberImplCustom xtendMember = new XtendMemberImplCustom();
-		return xtendMember;
-	}
-```
-
-### UnnecessaryLocalVariable
-Local variable `xtendEnumLiteral` is redundant
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/impl/XtendFactoryImpl.java`
-#### Snippet
-```java
-	public XtendEnumLiteral createXtendEnumLiteral()
-	{
-		XtendEnumLiteralImplCustom xtendEnumLiteral = new XtendEnumLiteralImplCustom();
-		return xtendEnumLiteral;
-	}
-```
-
-### UnnecessaryLocalVariable
-Local variable `richStringForLoop` is redundant
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/impl/XtendFactoryImpl.java`
-#### Snippet
-```java
-	public RichStringForLoop createRichStringForLoop()
-	{
-		RichStringForLoopImpl richStringForLoop = new RichStringForLoopImpl();
-		return richStringForLoop;
-	}
-```
-
-### UnnecessaryLocalVariable
-Local variable `xtendFunction` is redundant
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/impl/XtendFactoryImpl.java`
-#### Snippet
-```java
-	public XtendFunction createXtendFunction()
-	{
-		XtendFunctionImplCustom xtendFunction = new XtendFunctionImplCustom();
-		return xtendFunction;
-	}
-```
-
-### UnnecessaryLocalVariable
-Local variable `xtendClass` is redundant
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/impl/XtendFactoryImpl.java`
-#### Snippet
-```java
-	public XtendClass createXtendClass()
-	{
-		XtendClassImplCustom xtendClass = new XtendClassImplCustom();
-		return xtendClass;
-	}
-```
-
-### UnnecessaryLocalVariable
-Local variable `createExtensionInfo` is redundant
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/impl/XtendFactoryImpl.java`
-#### Snippet
-```java
-	public CreateExtensionInfo createCreateExtensionInfo()
-	{
-		CreateExtensionInfoImpl createExtensionInfo = new CreateExtensionInfoImpl();
-		return createExtensionInfo;
-	}
-```
-
-### UnnecessaryLocalVariable
-Local variable `richStringElseIf` is redundant
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/impl/XtendFactoryImpl.java`
-#### Snippet
-```java
-	public RichStringElseIf createRichStringElseIf()
-	{
-		RichStringElseIfImpl richStringElseIf = new RichStringElseIfImpl();
-		return richStringElseIf;
-	}
-```
-
-### UnnecessaryLocalVariable
-Local variable `xtendInterface` is redundant
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/impl/XtendFactoryImpl.java`
-#### Snippet
-```java
-	public XtendInterface createXtendInterface()
-	{
-		XtendInterfaceImplCustom xtendInterface = new XtendInterfaceImplCustom();
-		return xtendInterface;
 	}
 ```
 
@@ -15551,6 +15335,102 @@ in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/impl/XtendFactor
 ```
 
 ### UnnecessaryLocalVariable
+Local variable `xtendField` is redundant
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/impl/XtendFactoryImpl.java`
+#### Snippet
+```java
+	public XtendField createXtendField()
+	{
+		XtendFieldImplCustom xtendField = new XtendFieldImplCustom();
+		return xtendField;
+	}
+```
+
+### UnnecessaryLocalVariable
+Local variable `xtendFile` is redundant
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/impl/XtendFactoryImpl.java`
+#### Snippet
+```java
+	public XtendFile createXtendFile()
+	{
+		XtendFileImpl xtendFile = new XtendFileImpl();
+		return xtendFile;
+	}
+```
+
+### UnnecessaryLocalVariable
+Local variable `xtendInterface` is redundant
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/impl/XtendFactoryImpl.java`
+#### Snippet
+```java
+	public XtendInterface createXtendInterface()
+	{
+		XtendInterfaceImplCustom xtendInterface = new XtendInterfaceImplCustom();
+		return xtendInterface;
+	}
+```
+
+### UnnecessaryLocalVariable
+Local variable `richStringIf` is redundant
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/impl/XtendFactoryImpl.java`
+#### Snippet
+```java
+	public RichStringIf createRichStringIf()
+	{
+		RichStringIfImpl richStringIf = new RichStringIfImpl();
+		return richStringIf;
+	}
+```
+
+### UnnecessaryLocalVariable
+Local variable `richString` is redundant
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/impl/XtendFactoryImpl.java`
+#### Snippet
+```java
+	public RichString createRichString()
+	{
+		RichStringImpl richString = new RichStringImpl();
+		return richString;
+	}
+```
+
+### UnnecessaryLocalVariable
+Local variable `xtendFunction` is redundant
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/impl/XtendFactoryImpl.java`
+#### Snippet
+```java
+	public XtendFunction createXtendFunction()
+	{
+		XtendFunctionImplCustom xtendFunction = new XtendFunctionImplCustom();
+		return xtendFunction;
+	}
+```
+
+### UnnecessaryLocalVariable
+Local variable `xtendFormalParameter` is redundant
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/impl/XtendFactoryImpl.java`
+#### Snippet
+```java
+	public XtendFormalParameter createXtendFormalParameter()
+	{
+		XtendFormalParameterImpl xtendFormalParameter = new XtendFormalParameterImpl();
+		return xtendFormalParameter;
+	}
+```
+
+### UnnecessaryLocalVariable
+Local variable `xtendTypeDeclaration` is redundant
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/impl/XtendFactoryImpl.java`
+#### Snippet
+```java
+	public XtendTypeDeclaration createXtendTypeDeclaration()
+	{
+		XtendTypeDeclarationImplCustom xtendTypeDeclaration = new XtendTypeDeclarationImplCustom();
+		return xtendTypeDeclaration;
+	}
+```
+
+### UnnecessaryLocalVariable
 Local variable `anonymousClass` is redundant
 in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/impl/XtendFactoryImpl.java`
 #### Snippet
@@ -15563,14 +15443,122 @@ in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/impl/XtendFactor
 ```
 
 ### UnnecessaryLocalVariable
-Local variable `result` is redundant
-in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/typesystem/XtendReentrantTypeResolver.java`
+Local variable `xtendEnumLiteral` is redundant
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/impl/XtendFactoryImpl.java`
 #### Snippet
 ```java
-			}
-		}
-		boolean result = EcoreUtil.isAncestor(root, instance);
-		return result;
+	public XtendEnumLiteral createXtendEnumLiteral()
+	{
+		XtendEnumLiteralImplCustom xtendEnumLiteral = new XtendEnumLiteralImplCustom();
+		return xtendEnumLiteral;
+	}
+```
+
+### UnnecessaryLocalVariable
+Local variable `xtendClass` is redundant
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/impl/XtendFactoryImpl.java`
+#### Snippet
+```java
+	public XtendClass createXtendClass()
+	{
+		XtendClassImplCustom xtendClass = new XtendClassImplCustom();
+		return xtendClass;
+	}
+```
+
+### UnnecessaryLocalVariable
+Local variable `xtendVariableDeclaration` is redundant
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/impl/XtendFactoryImpl.java`
+#### Snippet
+```java
+	public XtendVariableDeclaration createXtendVariableDeclaration()
+	{
+		XtendVariableDeclarationImpl xtendVariableDeclaration = new XtendVariableDeclarationImpl();
+		return xtendVariableDeclaration;
+	}
+```
+
+### UnnecessaryLocalVariable
+Local variable `xtendConstructor` is redundant
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/impl/XtendFactoryImpl.java`
+#### Snippet
+```java
+	public XtendConstructor createXtendConstructor()
+	{
+		XtendConstructorImpl xtendConstructor = new XtendConstructorImpl();
+		return xtendConstructor;
+	}
+```
+
+### UnnecessaryLocalVariable
+Local variable `xtendAnnotationType` is redundant
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/impl/XtendFactoryImpl.java`
+#### Snippet
+```java
+	public XtendAnnotationType createXtendAnnotationType()
+	{
+		XtendAnnotationTypeImplCustom xtendAnnotationType = new XtendAnnotationTypeImplCustom();
+		return xtendAnnotationType;
+	}
+```
+
+### UnnecessaryLocalVariable
+Local variable `xtendEnum` is redundant
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/impl/XtendFactoryImpl.java`
+#### Snippet
+```java
+	public XtendEnum createXtendEnum()
+	{
+		XtendEnumImplCustom xtendEnum = new XtendEnumImplCustom();
+		return xtendEnum;
+	}
+```
+
+### UnnecessaryLocalVariable
+Local variable `richStringForLoop` is redundant
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/impl/XtendFactoryImpl.java`
+#### Snippet
+```java
+	public RichStringForLoop createRichStringForLoop()
+	{
+		RichStringForLoopImpl richStringForLoop = new RichStringForLoopImpl();
+		return richStringForLoop;
+	}
+```
+
+### UnnecessaryLocalVariable
+Local variable `richStringElseIf` is redundant
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/impl/XtendFactoryImpl.java`
+#### Snippet
+```java
+	public RichStringElseIf createRichStringElseIf()
+	{
+		RichStringElseIfImpl richStringElseIf = new RichStringElseIfImpl();
+		return richStringElseIf;
+	}
+```
+
+### UnnecessaryLocalVariable
+Local variable `createExtensionInfo` is redundant
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/impl/XtendFactoryImpl.java`
+#### Snippet
+```java
+	public CreateExtensionInfo createCreateExtensionInfo()
+	{
+		CreateExtensionInfoImpl createExtensionInfo = new CreateExtensionInfoImpl();
+		return createExtensionInfo;
+	}
+```
+
+### UnnecessaryLocalVariable
+Local variable `xtendMember` is redundant
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/xtend/impl/XtendFactoryImpl.java`
+#### Snippet
+```java
+	public XtendMember createXtendMember()
+	{
+		XtendMemberImplCustom xtendMember = new XtendMemberImplCustom();
+		return xtendMember;
 	}
 ```
 
@@ -15587,6 +15575,18 @@ in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/typesystem/XtendReentrantT
 ```
 
 ### UnnecessaryLocalVariable
+Local variable `result` is redundant
+in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/typesystem/XtendReentrantTypeResolver.java`
+#### Snippet
+```java
+			}
+		}
+		boolean result = EcoreUtil.isAncestor(root, instance);
+		return result;
+	}
+```
+
+### UnnecessaryLocalVariable
 Local variable `processedRichString` is redundant
 in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/impl/ProcessedRichStringFactoryImpl.java`
 #### Snippet
@@ -15599,26 +15599,14 @@ in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/impl/Proces
 ```
 
 ### UnnecessaryLocalVariable
-Local variable `linePart` is redundant
+Local variable `elseStart` is redundant
 in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/impl/ProcessedRichStringFactoryImpl.java`
 #### Snippet
 ```java
-	public LinePart createLinePart()
+	public ElseStart createElseStart()
 	{
-		LinePartImpl linePart = new LinePartImpl();
-		return linePart;
-	}
-```
-
-### UnnecessaryLocalVariable
-Local variable `printedExpression` is redundant
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/impl/ProcessedRichStringFactoryImpl.java`
-#### Snippet
-```java
-	public PrintedExpression createPrintedExpression()
-	{
-		PrintedExpressionImpl printedExpression = new PrintedExpressionImpl();
-		return printedExpression;
+		ElseStartImpl elseStart = new ElseStartImpl();
+		return elseStart;
 	}
 ```
 
@@ -15647,30 +15635,6 @@ in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/impl/Proces
 ```
 
 ### UnnecessaryLocalVariable
-Local variable `forLoopStart` is redundant
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/impl/ProcessedRichStringFactoryImpl.java`
-#### Snippet
-```java
-	public ForLoopStart createForLoopStart()
-	{
-		ForLoopStartImpl forLoopStart = new ForLoopStartImpl();
-		return forLoopStart;
-	}
-```
-
-### UnnecessaryLocalVariable
-Local variable `lineBreak` is redundant
-in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/impl/ProcessedRichStringFactoryImpl.java`
-#### Snippet
-```java
-	public LineBreak createLineBreak()
-	{
-		LineBreakImpl lineBreak = new LineBreakImpl();
-		return lineBreak;
-	}
-```
-
-### UnnecessaryLocalVariable
 Local variable `endIf` is redundant
 in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/impl/ProcessedRichStringFactoryImpl.java`
 #### Snippet
@@ -15683,14 +15647,14 @@ in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/impl/Proces
 ```
 
 ### UnnecessaryLocalVariable
-Local variable `line` is redundant
+Local variable `linePart` is redundant
 in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/impl/ProcessedRichStringFactoryImpl.java`
 #### Snippet
 ```java
-	public Line createLine()
+	public LinePart createLinePart()
 	{
-		LineImpl line = new LineImpl();
-		return line;
+		LinePartImpl linePart = new LinePartImpl();
+		return linePart;
 	}
 ```
 
@@ -15707,6 +15671,18 @@ in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/impl/Proces
 ```
 
 ### UnnecessaryLocalVariable
+Local variable `lineBreak` is redundant
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/impl/ProcessedRichStringFactoryImpl.java`
+#### Snippet
+```java
+	public LineBreak createLineBreak()
+	{
+		LineBreakImpl lineBreak = new LineBreakImpl();
+		return lineBreak;
+	}
+```
+
+### UnnecessaryLocalVariable
 Local variable `literal` is redundant
 in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/impl/ProcessedRichStringFactoryImpl.java`
 #### Snippet
@@ -15719,27 +15695,39 @@ in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/impl/Proces
 ```
 
 ### UnnecessaryLocalVariable
-Local variable `elseStart` is redundant
+Local variable `printedExpression` is redundant
 in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/impl/ProcessedRichStringFactoryImpl.java`
 #### Snippet
 ```java
-	public ElseStart createElseStart()
+	public PrintedExpression createPrintedExpression()
 	{
-		ElseStartImpl elseStart = new ElseStartImpl();
-		return elseStart;
+		PrintedExpressionImpl printedExpression = new PrintedExpressionImpl();
+		return printedExpression;
 	}
 ```
 
 ### UnnecessaryLocalVariable
-Local variable `result` is redundant
-in `org.eclipse.xtend.core/generator/org/eclipse/xtend/core/parser/JFlexGeneratorFragment2.java`
+Local variable `forLoopStart` is redundant
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/impl/ProcessedRichStringFactoryImpl.java`
 #### Snippet
 ```java
-	private String readFileIntoString(String filename, Charset encoding) {
-		try {
-			String result = Files.asCharSource(new File(filename), encoding).read();
-			return result;
-		} catch (IOException e) {
+	public ForLoopStart createForLoopStart()
+	{
+		ForLoopStartImpl forLoopStart = new ForLoopStartImpl();
+		return forLoopStart;
+	}
+```
+
+### UnnecessaryLocalVariable
+Local variable `line` is redundant
+in `org.eclipse.xtend.core/emf-gen/org/eclipse/xtend/core/richstring/impl/ProcessedRichStringFactoryImpl.java`
+#### Snippet
+```java
+	public Line createLine()
+	{
+		LineImpl line = new LineImpl();
+		return line;
+	}
 ```
 
 ### UnnecessaryLocalVariable
@@ -15752,6 +15740,18 @@ in `org.eclipse.xtend.core/generator/org/eclipse/xtend/core/parser/JFlexGenerato
 					String patterns = CharStreams.toString(reader);
 					return patterns;
 				} finally {
+```
+
+### UnnecessaryLocalVariable
+Local variable `result` is redundant
+in `org.eclipse.xtend.core/generator/org/eclipse/xtend/core/parser/JFlexGeneratorFragment2.java`
+#### Snippet
+```java
+	private String readFileIntoString(String filename, Charset encoding) {
+		try {
+			String result = Files.asCharSource(new File(filename), encoding).read();
+			return result;
+		} catch (IOException e) {
 ```
 
 ### UnnecessaryLocalVariable
@@ -15793,63 +15793,63 @@ in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/compiler/batch/XtendCompil
 
 ## RuleId[ruleID=UnstableApiUsage]
 ### UnstableApiUsage
+'org.eclipse.xtext.generator.IShouldGenerate' is marked unstable with @Beta
+in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/XtendRuntimeModule.java`
+#### Snippet
+```java
+	}
+
+	public Class<? extends IShouldGenerate> bindIShouldGenerate() {
+		return IShouldGenerate.Always.class;
+	}
+```
+
+### UnstableApiUsage
+'org.eclipse.xtext.generator.IShouldGenerate' is marked unstable with @Beta
+in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/XtendRuntimeModule.java`
+#### Snippet
+```java
+
+	public Class<? extends IShouldGenerate> bindIShouldGenerate() {
+		return IShouldGenerate.Always.class;
+	}
+
+```
+
+### UnstableApiUsage
+'org.eclipse.xtext.generator.IShouldGenerate.Always' is marked unstable with @Beta
+in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/XtendRuntimeModule.java`
+#### Snippet
+```java
+
+	public Class<? extends IShouldGenerate> bindIShouldGenerate() {
+		return IShouldGenerate.Always.class;
+	}
+
+```
+
+### UnstableApiUsage
+'org.eclipse.xtend.lib.macro.file.MutableFileSystemSupport' is marked unstable with @Beta
+in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/XtendRuntimeModule.java`
+#### Snippet
+```java
+	}
+
+	public Class<? extends MutableFileSystemSupport> bindMutableFileSystemSupport() {
+		return JavaIOFileSystemSupport.class;
+	}
+```
+
+### UnstableApiUsage
 'org.eclipse.xtend.lib.macro.services.Problem' is marked unstable with @Beta
 in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/compiler/batch/XtendCompilerTester.java`
 #### Snippet
 ```java
-
-								@Override
-								public Problem apply(EObjectDiagnosticImpl diag) {
-									ProblemImpl result = new ProblemImpl(diag.getCode(), diag.getMessage(), translateSeverity(diag.getSeverity()));
-									return result;
-```
-
-### UnstableApiUsage
-'org.eclipse.xtend.lib.macro.TransformationContext' is marked unstable with @Beta
-in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/compiler/batch/XtendCompilerTester.java`
-#### Snippet
-```java
-		CompilationUnit getCompilationUnit();
-		
-		TransformationContext getTransformationContext();
+		 * @since 2.8
+		 */
+		List<? extends Problem> getProblems(Element element);
 		
 		/**
-```
-
-### UnstableApiUsage
-'org.eclipse.xtend.lib.macro.services.Problem' is marked unstable with @Beta
-in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/compiler/batch/XtendCompilerTester.java`
-#### Snippet
-```java
-						
-						@Override
-						public List<? extends Problem> getAllProblems() {
-							Resource resource = compilationUnitImpl.getXtendFile().eResource();
-							Iterable<EObjectDiagnosticImpl> issues = Iterables.filter(Iterables.concat(resource.getErrors(), resource.getWarnings()), EObjectDiagnosticImpl.class); 
-```
-
-### UnstableApiUsage
-'org.eclipse.xtend.lib.macro.services.Problem' is marked unstable with @Beta
-in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/compiler/batch/XtendCompilerTester.java`
-#### Snippet
-```java
-							Resource resource = compilationUnitImpl.getXtendFile().eResource();
-							Iterable<EObjectDiagnosticImpl> issues = Iterables.filter(Iterables.concat(resource.getErrors(), resource.getWarnings()), EObjectDiagnosticImpl.class); 
-							List<Problem> result = Lists.newArrayList(Iterables.transform(issues, new Function<EObjectDiagnosticImpl, Problem>() {
-
-								@Override
-```
-
-### UnstableApiUsage
-'org.eclipse.xtend.lib.macro.declaration.CompilationUnit' is marked unstable with @Beta
-in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/compiler/batch/XtendCompilerTester.java`
-#### Snippet
-```java
-						
-						@Override
-						public CompilationUnit getCompilationUnit() {
-							return compilationUnitImpl;
-						}
 ```
 
 ### UnstableApiUsage
@@ -15874,42 +15874,6 @@ in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/compiler/batch/XtendCompil
 							return getTransformationContext().getProblems(element);
 						}
 						
-```
-
-### UnstableApiUsage
-'org.eclipse.xtend.lib.macro.services.Problem' is marked unstable with @Beta
-in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/compiler/batch/XtendCompilerTester.java`
-#### Snippet
-```java
-		 * @since 2.8
-		 */
-		List<? extends Problem> getAllProblems();
-	}
-}
-```
-
-### UnstableApiUsage
-'org.eclipse.xtend.lib.macro.services.Problem' is marked unstable with @Beta
-in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/compiler/batch/XtendCompilerTester.java`
-#### Snippet
-```java
-		 * @since 2.8
-		 */
-		List<? extends Problem> getProblems(Element element);
-		
-		/**
-```
-
-### UnstableApiUsage
-'org.eclipse.xtend.lib.macro.TransformationContext' is marked unstable with @Beta
-in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/compiler/batch/XtendCompilerTester.java`
-#### Snippet
-```java
-						}
-						@Override
-						public TransformationContext getTransformationContext() {
-							TransformationContextImpl transformationContextImpl = new TransformationContextImpl();
-							transformationContextImpl.setUnit(compilationUnitImpl);
 ```
 
 ### UnstableApiUsage
@@ -16093,6 +16057,18 @@ in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/compiler/batch/XtendCompil
 ```
 
 ### UnstableApiUsage
+'org.eclipse.xtend.lib.macro.declaration.CompilationUnit' is marked unstable with @Beta
+in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/compiler/batch/XtendCompilerTester.java`
+#### Snippet
+```java
+						
+						@Override
+						public CompilationUnit getCompilationUnit() {
+							return compilationUnitImpl;
+						}
+```
+
+### UnstableApiUsage
 'org.eclipse.xtend.lib.macro.services.Problem' is marked unstable with @Beta
 in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/compiler/batch/XtendCompilerTester.java`
 #### Snippet
@@ -16105,51 +16081,75 @@ in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/compiler/batch/XtendCompil
 ```
 
 ### UnstableApiUsage
-'org.eclipse.xtext.generator.IShouldGenerate' is marked unstable with @Beta
-in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/XtendRuntimeModule.java`
+'org.eclipse.xtend.lib.macro.services.Problem' is marked unstable with @Beta
+in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/compiler/batch/XtendCompilerTester.java`
 #### Snippet
 ```java
-	}
-
-	public Class<? extends IShouldGenerate> bindIShouldGenerate() {
-		return IShouldGenerate.Always.class;
-	}
+						
+						@Override
+						public List<? extends Problem> getAllProblems() {
+							Resource resource = compilationUnitImpl.getXtendFile().eResource();
+							Iterable<EObjectDiagnosticImpl> issues = Iterables.filter(Iterables.concat(resource.getErrors(), resource.getWarnings()), EObjectDiagnosticImpl.class); 
 ```
 
 ### UnstableApiUsage
-'org.eclipse.xtext.generator.IShouldGenerate' is marked unstable with @Beta
-in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/XtendRuntimeModule.java`
+'org.eclipse.xtend.lib.macro.services.Problem' is marked unstable with @Beta
+in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/compiler/batch/XtendCompilerTester.java`
 #### Snippet
 ```java
+							Resource resource = compilationUnitImpl.getXtendFile().eResource();
+							Iterable<EObjectDiagnosticImpl> issues = Iterables.filter(Iterables.concat(resource.getErrors(), resource.getWarnings()), EObjectDiagnosticImpl.class); 
+							List<Problem> result = Lists.newArrayList(Iterables.transform(issues, new Function<EObjectDiagnosticImpl, Problem>() {
 
-	public Class<? extends IShouldGenerate> bindIShouldGenerate() {
-		return IShouldGenerate.Always.class;
-	}
-
+								@Override
 ```
 
 ### UnstableApiUsage
-'org.eclipse.xtext.generator.IShouldGenerate.Always' is marked unstable with @Beta
-in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/XtendRuntimeModule.java`
+'org.eclipse.xtend.lib.macro.TransformationContext' is marked unstable with @Beta
+in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/compiler/batch/XtendCompilerTester.java`
 #### Snippet
 ```java
-
-	public Class<? extends IShouldGenerate> bindIShouldGenerate() {
-		return IShouldGenerate.Always.class;
-	}
-
+		CompilationUnit getCompilationUnit();
+		
+		TransformationContext getTransformationContext();
+		
+		/**
 ```
 
 ### UnstableApiUsage
-'org.eclipse.xtend.lib.macro.file.MutableFileSystemSupport' is marked unstable with @Beta
-in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/XtendRuntimeModule.java`
+'org.eclipse.xtend.lib.macro.services.Problem' is marked unstable with @Beta
+in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/compiler/batch/XtendCompilerTester.java`
 #### Snippet
 ```java
-	}
 
-	public Class<? extends MutableFileSystemSupport> bindMutableFileSystemSupport() {
-		return JavaIOFileSystemSupport.class;
+								@Override
+								public Problem apply(EObjectDiagnosticImpl diag) {
+									ProblemImpl result = new ProblemImpl(diag.getCode(), diag.getMessage(), translateSeverity(diag.getSeverity()));
+									return result;
+```
+
+### UnstableApiUsage
+'org.eclipse.xtend.lib.macro.services.Problem' is marked unstable with @Beta
+in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/compiler/batch/XtendCompilerTester.java`
+#### Snippet
+```java
+		 * @since 2.8
+		 */
+		List<? extends Problem> getAllProblems();
 	}
+}
+```
+
+### UnstableApiUsage
+'org.eclipse.xtend.lib.macro.TransformationContext' is marked unstable with @Beta
+in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/compiler/batch/XtendCompilerTester.java`
+#### Snippet
+```java
+						}
+						@Override
+						public TransformationContext getTransformationContext() {
+							TransformationContextImpl transformationContextImpl = new TransformationContextImpl();
+							transformationContextImpl.setUnit(compilationUnitImpl);
 ```
 
 ### UnstableApiUsage
@@ -16165,18 +16165,6 @@ in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/compiler/XtendCompiler.jav
 ```
 
 ### UnstableApiUsage
-'doGenerateStubs(org.eclipse.xtext.generator.IFileSystemAccess, org.eclipse.xtext.resource.IResourceDescription)' is declared in unstable interface 'org.eclipse.xtext.common.types.descriptions.IStubGenerator' marked with @Beta
-in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/compiler/batch/XtendBatchCompiler.java`
-#### Snippet
-```java
-		for (Resource resource : resources) {
-			IResourceDescription description = resourceDescriptionManager.getResourceDescription(resource);
-			stubGenerator.doGenerateStubs(fileSystemAccess, description);
-		}
-		return outputDirectory;
-```
-
-### UnstableApiUsage
 'org.eclipse.xtext.common.types.descriptions.IStubGenerator' is marked unstable with @Beta
 in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/compiler/batch/XtendBatchCompiler.java`
 #### Snippet
@@ -16186,6 +16174,18 @@ in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/compiler/batch/XtendBatchC
 	private IStubGenerator stubGenerator;
 	@Inject 
 	private IOutputConfigurationProvider outputConfigurationProvider;
+```
+
+### UnstableApiUsage
+'doGenerateStubs(org.eclipse.xtext.generator.IFileSystemAccess, org.eclipse.xtext.resource.IResourceDescription)' is declared in unstable interface 'org.eclipse.xtext.common.types.descriptions.IStubGenerator' marked with @Beta
+in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/compiler/batch/XtendBatchCompiler.java`
+#### Snippet
+```java
+		for (Resource resource : resources) {
+			IResourceDescription description = resourceDescriptionManager.getResourceDescription(resource);
+			stubGenerator.doGenerateStubs(fileSystemAccess, description);
+		}
+		return outputDirectory;
 ```
 
 ### UnstableApiUsage
@@ -16249,18 +16249,6 @@ in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/validation/XtendValidator.
 ```
 
 ### UnstableApiUsage
-'isRepeatable(org.eclipse.xtext.common.types.JvmAnnotationType)' is declared in unstable class 'org.eclipse.xtext.common.types.util.AnnotationLookup' marked with @Beta
-in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/validation/XtendValidator.java`
-#### Snippet
-```java
-				JvmType type = sameType.get(0).getAnnotationType();
-				if (type instanceof JvmAnnotationType && !type.eIsProxy()
-						&& !annotationLookup.isRepeatable((JvmAnnotationType) type)) {
-					for (XAnnotation xAnnotation : sameType) {
-						error("Multiple annotations of non-repeatable type @"
-```
-
-### UnstableApiUsage
 'org.eclipse.xtext.common.types.util.AnnotationLookup' is marked unstable with @Beta
 in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/validation/XtendValidator.java`
 #### Snippet
@@ -16273,15 +16261,15 @@ in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/validation/XtendValidator.
 ```
 
 ### UnstableApiUsage
-'org.eclipse.xtend.lib.macro.Active' is marked unstable with @Beta
-in `org.eclipse.xtend.ide.common/src/org/eclipse/xtend/ide/common/highlighting/XtendHighlightingCalculator.java`
+'isRepeatable(org.eclipse.xtext.common.types.JvmAnnotationType)' is declared in unstable class 'org.eclipse.xtext.common.types.util.AnnotationLookup' marked with @Beta
+in `org.eclipse.xtend.core/src/org/eclipse/xtend/core/validation/XtendValidator.java`
 #### Snippet
 ```java
-		for(XAnnotation annotation: xtendType.getAnnotations()) {
-			JvmType annotationType = annotation.getAnnotationType();
-			if (annotationType != null && !annotationType.eIsProxy() && Active.class.getName().equals(annotationType.getIdentifier())) {
-				highlightFeature(acceptor, annotation, XtendPackage.Literals.XTEND_TYPE_DECLARATION__NAME, ACTIVE_ANNOTATION);
-				break;
+				JvmType type = sameType.get(0).getAnnotationType();
+				if (type instanceof JvmAnnotationType && !type.eIsProxy()
+						&& !annotationLookup.isRepeatable((JvmAnnotationType) type)) {
+					for (XAnnotation xAnnotation : sameType) {
+						error("Multiple annotations of non-repeatable type @"
 ```
 
 ### UnstableApiUsage
@@ -16294,5 +16282,17 @@ in `org.eclipse.xtend.ide.common/src/org/eclipse/xtend/ide/common/highlighting/X
 				if (otherAnnotation != null && !otherAnnotation.eIsProxy() && Active.class.getName().equals(otherAnnotation.getIdentifier())) {
 					highlightAnnotation(annotation, acceptor, ACTIVE_ANNOTATION);
 					return;
+```
+
+### UnstableApiUsage
+'org.eclipse.xtend.lib.macro.Active' is marked unstable with @Beta
+in `org.eclipse.xtend.ide.common/src/org/eclipse/xtend/ide/common/highlighting/XtendHighlightingCalculator.java`
+#### Snippet
+```java
+		for(XAnnotation annotation: xtendType.getAnnotations()) {
+			JvmType annotationType = annotation.getAnnotationType();
+			if (annotationType != null && !annotationType.eIsProxy() && Active.class.getName().equals(annotationType.getIdentifier())) {
+				highlightFeature(acceptor, annotation, XtendPackage.Literals.XTEND_TYPE_DECLARATION__NAME, ACTIVE_ANNOTATION);
+				break;
 ```
 
