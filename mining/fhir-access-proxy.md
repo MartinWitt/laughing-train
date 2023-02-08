@@ -20,32 +20,8 @@ I found 40 bad smells with 6 repairable:
 | ConstantValue | 1 | false |
 ## RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
 ### UtilityClassWithoutPrivateConstructor
-Class `ExceptionUtil` has only 'static' members, and lacks a 'private' constructor
-in `server/src/main/java/com/google/fhir/proxy/ExceptionUtil.java`
-#### Snippet
-```java
-import org.slf4j.Logger;
-
-public class ExceptionUtil {
-
-  static <T extends RuntimeException> void throwRuntimeExceptionAndLog(
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `FhirUtil` has only 'static' members, and lacks a 'private' constructor
-in `server/src/main/java/com/google/fhir/proxy/FhirUtil.java`
-#### Snippet
-```java
-import org.slf4j.LoggerFactory;
-
-public class FhirUtil {
-
-  private static final Logger logger = LoggerFactory.getLogger(FhirUtil.class);
-```
-
-### UtilityClassWithoutPrivateConstructor
 Class `ProxyConstants` has only 'static' members, and lacks a 'private' constructor
-in `server/src/main/java/com/google/fhir/proxy/ProxyConstants.java`
+in `server/src/main/java/com/google/fhir/gateway/ProxyConstants.java`
 #### Snippet
 ```java
 import org.apache.http.entity.ContentType;
@@ -56,8 +32,20 @@ public class ProxyConstants {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
+Class `FhirUtil` has only 'static' members, and lacks a 'private' constructor
+in `server/src/main/java/com/google/fhir/gateway/FhirUtil.java`
+#### Snippet
+```java
+import org.slf4j.LoggerFactory;
+
+public class FhirUtil {
+
+  private static final Logger logger = LoggerFactory.getLogger(FhirUtil.class);
+```
+
+### UtilityClassWithoutPrivateConstructor
 Class `JwtUtil` has only 'static' members, and lacks a 'private' constructor
-in `server/src/main/java/com/google/fhir/proxy/JwtUtil.java`
+in `server/src/main/java/com/google/fhir/gateway/JwtUtil.java`
 #### Snippet
 ```java
 import com.auth0.jwt.interfaces.DecodedJWT;
@@ -68,8 +56,20 @@ public class JwtUtil {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
+Class `ExceptionUtil` has only 'static' members, and lacks a 'private' constructor
+in `server/src/main/java/com/google/fhir/gateway/ExceptionUtil.java`
+#### Snippet
+```java
+import org.slf4j.Logger;
+
+public class ExceptionUtil {
+
+  static <T extends RuntimeException> void throwRuntimeExceptionAndLog(
+```
+
+### UtilityClassWithoutPrivateConstructor
 Class `MainApp` has only 'static' members, and lacks a 'private' constructor
-in `server/src/main/java/com/google/fhir/proxy/MainApp.java`
+in `exec/src/main/java/com/google/fhir/gateway/MainApp.java`
 #### Snippet
 ```java
 @SpringBootApplication
@@ -82,7 +82,7 @@ public class MainApp {
 ## RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
 ### DynamicRegexReplaceableByCompiledPattern
 `replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `server/src/main/java/com/google/fhir/proxy/GcpFhirClient.java`
+in `server/src/main/java/com/google/fhir/gateway/GcpFhirClient.java`
 #### Snippet
 ```java
   public GcpFhirClient(String gcpFhirStore, GoogleCredentials credentials) throws IOException {
@@ -95,7 +95,7 @@ in `server/src/main/java/com/google/fhir/proxy/GcpFhirClient.java`
 ## RuleId[ruleID=DataFlowIssue]
 ### DataFlowIssue
 Method invocation `getTokenValue` may produce `NullPointerException`
-in `server/src/main/java/com/google/fhir/proxy/GcpFhirClient.java`
+in `server/src/main/java/com/google/fhir/gateway/GcpFhirClient.java`
 #### Snippet
 ```java
       ExceptionUtil.throwRuntimeExceptionAndLog(logger, "Cannot get an access token!");
@@ -106,32 +106,8 @@ in `server/src/main/java/com/google/fhir/proxy/GcpFhirClient.java`
 ```
 
 ### DataFlowIssue
-Argument `authHeader` might be null
-in `server/src/main/java/com/google/fhir/proxy/BearerAuthorizationInterceptor.java`
-#### Snippet
-```java
-          logger, "No Authorization header provided!", AuthenticationException.class);
-    }
-    DecodedJWT decodedJwt = decodeAndVerifyBearerToken(authHeader);
-    FhirContext fhirContext = server.getFhirContext();
-    RequestDetailsReader requestDetailsReader = new RequestDetailsToReader(requestDetails);
-```
-
-### DataFlowIssue
-Method invocation `checkAccess` may produce `NullPointerException`
-in `server/src/main/java/com/google/fhir/proxy/BearerAuthorizationInterceptor.java`
-#### Snippet
-```java
-          logger, "Cannot create an AccessChecker!", AuthenticationException.class);
-    }
-    AccessDecision outcome = accessChecker.checkAccess(requestDetailsReader);
-    if (!outcome.canAccess()) {
-      ExceptionUtil.throwRuntimeExceptionAndLog(
-```
-
-### DataFlowIssue
 Method invocation `getIssuer` may produce `NullPointerException`
-in `server/src/main/java/com/google/fhir/proxy/BearerAuthorizationInterceptor.java`
+in `server/src/main/java/com/google/fhir/gateway/BearerAuthorizationInterceptor.java`
 #### Snippet
 ```java
           logger, "Failed to decode JWT: " + e.getMessage(), e, AuthenticationException.class);
@@ -143,7 +119,7 @@ in `server/src/main/java/com/google/fhir/proxy/BearerAuthorizationInterceptor.ja
 
 ### DataFlowIssue
 Method invocation `verify` may produce `NullPointerException`
-in `server/src/main/java/com/google/fhir/proxy/BearerAuthorizationInterceptor.java`
+in `server/src/main/java/com/google/fhir/gateway/BearerAuthorizationInterceptor.java`
 #### Snippet
 ```java
     DecodedJWT verifiedJwt = null;
@@ -154,8 +130,32 @@ in `server/src/main/java/com/google/fhir/proxy/BearerAuthorizationInterceptor.ja
 ```
 
 ### DataFlowIssue
+Argument `authHeader` might be null
+in `server/src/main/java/com/google/fhir/gateway/BearerAuthorizationInterceptor.java`
+#### Snippet
+```java
+          logger, "No Authorization header provided!", AuthenticationException.class);
+    }
+    DecodedJWT decodedJwt = decodeAndVerifyBearerToken(authHeader);
+    FhirContext fhirContext = server.getFhirContext();
+    RequestDetailsReader requestDetailsReader = new RequestDetailsToReader(requestDetails);
+```
+
+### DataFlowIssue
+Method invocation `checkAccess` may produce `NullPointerException`
+in `server/src/main/java/com/google/fhir/gateway/BearerAuthorizationInterceptor.java`
+#### Snippet
+```java
+          logger, "Cannot create an AccessChecker!", AuthenticationException.class);
+    }
+    AccessDecision outcome = accessChecker.checkAccess(requestDetailsReader);
+    if (!outcome.canAccess()) {
+      ExceptionUtil.throwRuntimeExceptionAndLog(
+```
+
+### DataFlowIssue
 Casting `resource` to `Bundle` may produce `ClassCastException`
-in `server/src/main/java/com/google/fhir/proxy/PatientFinderImp.java`
+in `server/src/main/java/com/google/fhir/gateway/PatientFinderImp.java`
 #### Snippet
 ```java
           logger, "The provided resource is not a Bundle!", InvalidRequestException.class);
@@ -167,20 +167,20 @@ in `server/src/main/java/com/google/fhir/proxy/PatientFinderImp.java`
 
 ### DataFlowIssue
 Method invocation `getType` may produce `NullPointerException`
-in `server/src/main/java/com/google/fhir/proxy/PatientFinderImp.java`
+in `server/src/main/java/com/google/fhir/gateway/PatientFinderImp.java`
 #### Snippet
 ```java
     Bundle bundle = (Bundle) resource;
 
     if (bundle.getType() != BundleType.TRANSACTION) {
-      // Currently, support only for transaction bundles (b/217392030)
-      ExceptionUtil.throwRuntimeExceptionAndLog(
+      // Currently, support only for transaction bundles; see:
+      //   https://github.com/google/fhir-access-proxy/issues/67
 ```
 
 ## RuleId[ruleID=NestedAssignment]
 ### NestedAssignment
 Result of assignment expression used
-in `server/src/main/java/com/google/fhir/proxy/BearerAuthorizationInterceptor.java`
+in `server/src/main/java/com/google/fhir/gateway/BearerAuthorizationInterceptor.java`
 #### Snippet
 ```java
     int numMatched = 0;
@@ -193,7 +193,7 @@ in `server/src/main/java/com/google/fhir/proxy/BearerAuthorizationInterceptor.ja
 ## RuleId[ruleID=ReplaceNullCheck]
 ### ReplaceNullCheck
 'if' statement can be replaced with call to 'Objects.requireNonNullElseGet()'
-in `server/src/main/java/com/google/fhir/proxy/ExceptionUtil.java`
+in `server/src/main/java/com/google/fhir/gateway/ExceptionUtil.java`
 #### Snippet
 ```java
     Preconditions.checkNotNull(runTimeExceptionClass);
@@ -206,11 +206,11 @@ in `server/src/main/java/com/google/fhir/proxy/ExceptionUtil.java`
 ## RuleId[ruleID=MismatchedCollectionQueryUpdate]
 ### MismatchedCollectionQueryUpdate
 Contents of collection `accessCheckerFactories` are queried, but never updated
-in `server/src/main/java/com/google/fhir/proxy/FhirProxyServer.java`
+in `server/src/main/java/com/google/fhir/gateway/FhirProxyServer.java`
 #### Snippet
 ```java
-  private static final String ALLOWED_QUERIES_FILE_ENV = "ALLOWED_QUERIES_FILE";
-
+  //   But this implicitly means that the wrapper executable code (or container) should enable
+  //   Spring's automatic scanning.
   @Autowired private Map<String, AccessCheckerFactory> accessCheckerFactories;
 
   static boolean isDevMode() {
@@ -219,7 +219,7 @@ in `server/src/main/java/com/google/fhir/proxy/FhirProxyServer.java`
 ## RuleId[ruleID=RedundantFieldInitialization]
 ### RedundantFieldInitialization
 Field initialization to `false` is redundant
-in `server/src/main/java/com/google/fhir/proxy/BundlePatients.java`
+in `server/src/main/java/com/google/fhir/gateway/BundlePatients.java`
 #### Snippet
 ```java
     private final Set<String> updatedPatients = Sets.newHashSet();
@@ -231,19 +231,7 @@ in `server/src/main/java/com/google/fhir/proxy/BundlePatients.java`
 
 ### RedundantFieldInitialization
 Field initialization to `null` is redundant
-in `server/src/main/java/com/google/fhir/proxy/CapabilityPostProcessor.java`
-#### Snippet
-```java
-          + "header containing a JWT access token. This token must have been issued by the "
-          + "authorization server defined by the configured TOKEN_ISSUER.";
-  private static CapabilityPostProcessor instance = null;
-
-  private final FhirContext fhirContext;
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `server/src/main/java/com/google/fhir/proxy/AllowedQueriesChecker.java`
+in `server/src/main/java/com/google/fhir/gateway/AllowedQueriesChecker.java`
 #### Snippet
 ```java
   private static final Logger logger = LoggerFactory.getLogger(AllowedQueriesChecker.class);
@@ -255,7 +243,19 @@ in `server/src/main/java/com/google/fhir/proxy/AllowedQueriesChecker.java`
 
 ### RedundantFieldInitialization
 Field initialization to `null` is redundant
-in `server/src/main/java/com/google/fhir/proxy/PatientFinderImp.java`
+in `server/src/main/java/com/google/fhir/gateway/CapabilityPostProcessor.java`
+#### Snippet
+```java
+          + "header containing a JWT access token. This token must have been issued by the "
+          + "authorization server defined by the configured TOKEN_ISSUER.";
+  private static CapabilityPostProcessor instance = null;
+
+  private final FhirContext fhirContext;
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `server/src/main/java/com/google/fhir/gateway/PatientFinderImp.java`
 #### Snippet
 ```java
 public final class PatientFinderImp implements PatientFinder {
@@ -268,7 +268,7 @@ public final class PatientFinderImp implements PatientFinder {
 ## RuleId[ruleID=MismatchedJavadocCode]
 ### MismatchedJavadocCode
 Method is specified to return 'true' but its return type is not boolean
-in `plugins/src/main/java/com/google/fhir/proxy/plugin/ListAccessChecker.java`
+in `plugins/src/main/java/com/google/fhir/gateway/plugin/ListAccessChecker.java`
 #### Snippet
 ```java
    *
@@ -278,22 +278,23 @@ in `plugins/src/main/java/com/google/fhir/proxy/plugin/ListAccessChecker.java`
   @Override
 ```
 
+## RuleId[ruleID=HtmlWrongAttributeValue]
+### HtmlWrongAttributeValue
+Wrong attribute value
+in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-02-08-07-59-34.191.html`
+#### Snippet
+```java
+              <td>0</td>
+              <td>0</td>
+              <td><textarea rows="10" cols="75" readonly="true" placeholder="empty" style="white-space: pre; border: none">Not collected for refresh</textarea></td>
+            </tr>
+          </tbody>
+```
+
 ## RuleId[ruleID=ReturnNull]
 ### ReturnNull
 Return of `null`
-in `server/src/main/java/com/google/fhir/proxy/interfaces/NoOpAccessDecision.java`
-#### Snippet
-```java
-  @Override
-  public String postProcess(HttpResponse response) {
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `server/src/main/java/com/google/fhir/proxy/FhirUtil.java`
+in `server/src/main/java/com/google/fhir/gateway/FhirUtil.java`
 #### Snippet
 ```java
   public static String getIdOrNull(RequestDetailsReader requestDetails) {
@@ -305,7 +306,7 @@ in `server/src/main/java/com/google/fhir/proxy/FhirUtil.java`
 
 ### ReturnNull
 Return of `null`
-in `server/src/main/java/com/google/fhir/proxy/HttpUtil.java`
+in `server/src/main/java/com/google/fhir/gateway/HttpUtil.java`
 #### Snippet
 ```java
           logger, "Error in building URI for resource " + uriString);
@@ -317,11 +318,11 @@ in `server/src/main/java/com/google/fhir/proxy/HttpUtil.java`
 
 ### ReturnNull
 Return of `null`
-in `server/src/main/java/com/google/fhir/proxy/BearerAuthorizationInterceptor.java`
+in `server/src/main/java/com/google/fhir/gateway/interfaces/NoOpAccessDecision.java`
 #### Snippet
 ```java
-    }
-    // We should never get here, this is to keep the IDE happy!
+  @Override
+  public String postProcess(HttpResponse response) {
     return null;
   }
 
@@ -329,7 +330,7 @@ in `server/src/main/java/com/google/fhir/proxy/BearerAuthorizationInterceptor.ja
 
 ### ReturnNull
 Return of `null`
-in `server/src/main/java/com/google/fhir/proxy/BearerAuthorizationInterceptor.java`
+in `server/src/main/java/com/google/fhir/gateway/BearerAuthorizationInterceptor.java`
 #### Snippet
 ```java
           String.format("The token issuer %s does not match the expected token issuer", issuer),
@@ -341,7 +342,19 @@ in `server/src/main/java/com/google/fhir/proxy/BearerAuthorizationInterceptor.ja
 
 ### ReturnNull
 Return of `null`
-in `server/src/main/java/com/google/fhir/proxy/PatientFinderImp.java`
+in `server/src/main/java/com/google/fhir/gateway/BearerAuthorizationInterceptor.java`
+#### Snippet
+```java
+    }
+    // We should never get here, this is to keep the IDE happy!
+    return null;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `server/src/main/java/com/google/fhir/gateway/PatientFinderImp.java`
 #### Snippet
 ```java
           "Direct resource fetch is only supported for Patient; use search for " + resourceName,
@@ -353,19 +366,7 @@ in `server/src/main/java/com/google/fhir/proxy/PatientFinderImp.java`
 
 ### ReturnNull
 Return of `null`
-in `server/src/main/java/com/google/fhir/proxy/PatientFinderImp.java`
-#### Snippet
-```java
-    }
-    // It should never reach here!
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `server/src/main/java/com/google/fhir/proxy/PatientFinderImp.java`
+in `server/src/main/java/com/google/fhir/gateway/PatientFinderImp.java`
 #### Snippet
 ```java
           e,
@@ -375,23 +376,22 @@ in `server/src/main/java/com/google/fhir/proxy/PatientFinderImp.java`
   }
 ```
 
-## RuleId[ruleID=HtmlWrongAttributeValue]
-### HtmlWrongAttributeValue
-Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-01-13-02-13-19.022.html`
+### ReturnNull
+Return of `null`
+in `server/src/main/java/com/google/fhir/gateway/PatientFinderImp.java`
 #### Snippet
 ```java
-              <td>0</td>
-              <td>0</td>
-              <td><textarea rows="10" cols="75" readonly="true" placeholder="empty" style="white-space: pre; border: none">Not collected for refresh</textarea></td>
-            </tr>
-          </tbody>
+    }
+    // It should never reach here!
+    return null;
+  }
+
 ```
 
 ## RuleId[ruleID=UnnecessaryLocalVariable]
 ### UnnecessaryLocalVariable
 Local variable `builder` is redundant
-in `server/src/main/java/com/google/fhir/proxy/AllowedQueriesConfig.java`
+in `server/src/main/java/com/google/fhir/gateway/AllowedQueriesConfig.java`
 #### Snippet
 ```java
     @Override
@@ -404,7 +404,7 @@ in `server/src/main/java/com/google/fhir/proxy/AllowedQueriesConfig.java`
 ## RuleId[ruleID=BoundedWildcard]
 ### BoundedWildcard
 Can generalize to `? extends List`
-in `server/src/main/java/com/google/fhir/proxy/PatientFinderImp.java`
+in `server/src/main/java/com/google/fhir/gateway/PatientFinderImp.java`
 #### Snippet
 ```java
   private PatientFinderImp(
@@ -416,7 +416,7 @@ in `server/src/main/java/com/google/fhir/proxy/PatientFinderImp.java`
 
 ### BoundedWildcard
 Can generalize to `? extends List`
-in `server/src/main/java/com/google/fhir/proxy/PatientFinderImp.java`
+in `server/src/main/java/com/google/fhir/gateway/PatientFinderImp.java`
 #### Snippet
 ```java
       FhirContext fhirContext,
@@ -428,7 +428,7 @@ in `server/src/main/java/com/google/fhir/proxy/PatientFinderImp.java`
 
 ### BoundedWildcard
 Can generalize to `? super String`
-in `server/src/main/java/com/google/fhir/proxy/PatientFinderImp.java`
+in `server/src/main/java/com/google/fhir/gateway/PatientFinderImp.java`
 #### Snippet
 ```java
   private static void makeSearchParamMap(
@@ -440,7 +440,7 @@ in `server/src/main/java/com/google/fhir/proxy/PatientFinderImp.java`
 
 ### BoundedWildcard
 Can generalize to `? super List`
-in `server/src/main/java/com/google/fhir/proxy/PatientFinderImp.java`
+in `server/src/main/java/com/google/fhir/gateway/PatientFinderImp.java`
 #### Snippet
 ```java
   private static void makeSearchParamMap(
@@ -453,7 +453,7 @@ in `server/src/main/java/com/google/fhir/proxy/PatientFinderImp.java`
 ## RuleId[ruleID=ConstantValue]
 ### ConstantValue
 Result of `SIGN_ALGORITHM.equals("RS256")` is always 'true'
-in `server/src/main/java/com/google/fhir/proxy/BearerAuthorizationInterceptor.java`
+in `server/src/main/java/com/google/fhir/gateway/BearerAuthorizationInterceptor.java`
 #### Snippet
 ```java
   private RSAPublicKey fetchAndDecodePublicKey() throws IOException {
@@ -466,7 +466,7 @@ in `server/src/main/java/com/google/fhir/proxy/BearerAuthorizationInterceptor.ja
 ## RuleId[ruleID=UnstableApiUsage]
 ### UnstableApiUsage
 'com.google.common.io.Resources' is marked unstable with @Beta
-in `server/src/main/java/com/google/fhir/proxy/PatientFinderImp.java`
+in `server/src/main/java/com/google/fhir/gateway/PatientFinderImp.java`
 #### Snippet
 ```java
     try {
@@ -478,7 +478,7 @@ in `server/src/main/java/com/google/fhir/proxy/PatientFinderImp.java`
 
 ### UnstableApiUsage
 'getResource(java.lang.String)' is declared in unstable class 'com.google.common.io.Resources' marked with @Beta
-in `server/src/main/java/com/google/fhir/proxy/PatientFinderImp.java`
+in `server/src/main/java/com/google/fhir/gateway/PatientFinderImp.java`
 #### Snippet
 ```java
     try {
@@ -490,7 +490,7 @@ in `server/src/main/java/com/google/fhir/proxy/PatientFinderImp.java`
 
 ### UnstableApiUsage
 'com.google.common.io.Resources' is marked unstable with @Beta
-in `server/src/main/java/com/google/fhir/proxy/PatientFinderImp.java`
+in `server/src/main/java/com/google/fhir/gateway/PatientFinderImp.java`
 #### Snippet
 ```java
       URL url = Resources.getResource(resourcePath);
@@ -502,7 +502,7 @@ in `server/src/main/java/com/google/fhir/proxy/PatientFinderImp.java`
 
 ### UnstableApiUsage
 'toString(java.net.URL, java.nio.charset.Charset)' is declared in unstable class 'com.google.common.io.Resources' marked with @Beta
-in `server/src/main/java/com/google/fhir/proxy/PatientFinderImp.java`
+in `server/src/main/java/com/google/fhir/gateway/PatientFinderImp.java`
 #### Snippet
 ```java
       URL url = Resources.getResource(resourcePath);
