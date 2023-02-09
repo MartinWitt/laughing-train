@@ -81,18 +81,6 @@ in `conjure-postman-core/src/main/java/com/palantir/conjure/postman/PostmanReque
 ## RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
 ### DynamicRegexReplaceableByCompiledPattern
 `replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `conjure-postman-core/src/main/java/com/palantir/conjure/postman/writer/PostmanCollectionFileWriter.java`
-#### Snippet
-```java
-        return Paths.get(String.format(
-                "%s.postman_collection.json",
-                collection.info().name().replaceAll(" ", "-").toLowerCase()));
-    }
-}
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
 in `conjure-postman-core/src/main/java/com/palantir/conjure/postman/PostmanCollectionGenerator.java`
 #### Snippet
 ```java
@@ -105,38 +93,14 @@ in `conjure-postman-core/src/main/java/com/palantir/conjure/postman/PostmanColle
 
 ### DynamicRegexReplaceableByCompiledPattern
 `replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `conjure-postman-core/src/main/java/com/palantir/conjure/postman/PostmanRequestGenerator.java`
+in `conjure-postman-core/src/main/java/com/palantir/conjure/postman/writer/PostmanCollectionFileWriter.java`
 #### Snippet
 ```java
-                .resolve(endpointDefinition.getHttpPath().get())
-                .toString();
-        return path.replaceAll("\\{", ":").replaceAll("}", "");
+        return Paths.get(String.format(
+                "%s.postman_collection.json",
+                collection.info().name().replaceAll(" ", "-").toLowerCase()));
     }
-
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `conjure-postman-core/src/main/java/com/palantir/conjure/postman/PostmanRequestGenerator.java`
-#### Snippet
-```java
-                .resolve(endpointDefinition.getHttpPath().get())
-                .toString();
-        return path.replaceAll("\\{", ":").replaceAll("}", "");
-    }
-
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `conjure-postman-core/src/main/java/com/palantir/conjure/postman/visitor/TemplateTypeVisitor.java`
-#### Snippet
-```java
-        String key = "{{KEY}}";
-        if (keyTemplate instanceof TextNode) {
-            key = keyTemplate.toString().replaceAll("[\"]", "");
-        }
-        return objectMapper.createObjectNode().set(key, value.getValueType().accept(this));
+}
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
@@ -161,6 +125,42 @@ in `conjure-postman-core/src/main/java/com/palantir/conjure/postman/visitor/Temp
                     String.format("{{ Optional<%s> }}", wrapped.toString().replaceAll("[\"{}]", "")));
         }
         return wrapped;
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `conjure-postman-core/src/main/java/com/palantir/conjure/postman/visitor/TemplateTypeVisitor.java`
+#### Snippet
+```java
+        String key = "{{KEY}}";
+        if (keyTemplate instanceof TextNode) {
+            key = keyTemplate.toString().replaceAll("[\"]", "");
+        }
+        return objectMapper.createObjectNode().set(key, value.getValueType().accept(this));
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `conjure-postman-core/src/main/java/com/palantir/conjure/postman/PostmanRequestGenerator.java`
+#### Snippet
+```java
+                .resolve(endpointDefinition.getHttpPath().get())
+                .toString();
+        return path.replaceAll("\\{", ":").replaceAll("}", "");
+    }
+
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `conjure-postman-core/src/main/java/com/palantir/conjure/postman/PostmanRequestGenerator.java`
+#### Snippet
+```java
+                .resolve(endpointDefinition.getHttpPath().get())
+                .toString();
+        return path.replaceAll("\\{", ":").replaceAll("}", "");
+    }
+
 ```
 
 ## RuleId[ruleID=UnnecessaryToStringCall]
