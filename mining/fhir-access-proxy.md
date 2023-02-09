@@ -20,6 +20,18 @@ I found 40 bad smells with 6 repairable:
 | ConstantValue | 1 | false |
 ## RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
 ### UtilityClassWithoutPrivateConstructor
+Class `JwtUtil` has only 'static' members, and lacks a 'private' constructor
+in `server/src/main/java/com/google/fhir/gateway/JwtUtil.java`
+#### Snippet
+```java
+import com.auth0.jwt.interfaces.DecodedJWT;
+
+public class JwtUtil {
+  public static String getClaimOrDie(DecodedJWT jwt, String claimName) {
+    Claim claim = jwt.getClaim(claimName);
+```
+
+### UtilityClassWithoutPrivateConstructor
 Class `ProxyConstants` has only 'static' members, and lacks a 'private' constructor
 in `server/src/main/java/com/google/fhir/gateway/ProxyConstants.java`
 #### Snippet
@@ -41,18 +53,6 @@ import org.slf4j.LoggerFactory;
 public class FhirUtil {
 
   private static final Logger logger = LoggerFactory.getLogger(FhirUtil.class);
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `JwtUtil` has only 'static' members, and lacks a 'private' constructor
-in `server/src/main/java/com/google/fhir/gateway/JwtUtil.java`
-#### Snippet
-```java
-import com.auth0.jwt.interfaces.DecodedJWT;
-
-public class JwtUtil {
-  public static String getClaimOrDie(DecodedJWT jwt, String claimName) {
-    Claim claim = jwt.getClaim(claimName);
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -218,15 +218,15 @@ in `server/src/main/java/com/google/fhir/gateway/FhirProxyServer.java`
 
 ## RuleId[ruleID=RedundantFieldInitialization]
 ### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `server/src/main/java/com/google/fhir/gateway/BundlePatients.java`
+Field initialization to `null` is redundant
+in `server/src/main/java/com/google/fhir/gateway/CapabilityPostProcessor.java`
 #### Snippet
 ```java
-    private final Set<String> updatedPatients = Sets.newHashSet();
-    private final List<ImmutableSet<String>> referencedPatients = Lists.newArrayList();
-    private boolean patientsToCreate = false;
+          + "header containing a JWT access token. This token must have been issued by the "
+          + "authorization server defined by the configured TOKEN_ISSUER.";
+  private static CapabilityPostProcessor instance = null;
 
-    public BundlePatientsBuilder addUpdatePatients(Set<String> patientsToUpdate) {
+  private final FhirContext fhirContext;
 ```
 
 ### RedundantFieldInitialization
@@ -242,15 +242,15 @@ in `server/src/main/java/com/google/fhir/gateway/AllowedQueriesChecker.java`
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `server/src/main/java/com/google/fhir/gateway/CapabilityPostProcessor.java`
+Field initialization to `false` is redundant
+in `server/src/main/java/com/google/fhir/gateway/BundlePatients.java`
 #### Snippet
 ```java
-          + "header containing a JWT access token. This token must have been issued by the "
-          + "authorization server defined by the configured TOKEN_ISSUER.";
-  private static CapabilityPostProcessor instance = null;
+    private final Set<String> deletedPatients = Sets.newHashSet();
+    private final List<ImmutableSet<String>> referencedPatients = Lists.newArrayList();
+    private boolean patientsToCreate = false;
 
-  private final FhirContext fhirContext;
+    public BundlePatientsBuilder addUpdatePatients(Set<String> patientsToUpdate) {
 ```
 
 ### RedundantFieldInitialization
@@ -281,7 +281,7 @@ in `plugins/src/main/java/com/google/fhir/gateway/plugin/ListAccessChecker.java`
 ## RuleId[ruleID=HtmlWrongAttributeValue]
 ### HtmlWrongAttributeValue
 Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-02-08-07-59-34.191.html`
+in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-02-09-23-33-57.380.html`
 #### Snippet
 ```java
               <td>0</td>
@@ -306,11 +306,11 @@ in `server/src/main/java/com/google/fhir/gateway/FhirUtil.java`
 
 ### ReturnNull
 Return of `null`
-in `server/src/main/java/com/google/fhir/gateway/HttpUtil.java`
+in `server/src/main/java/com/google/fhir/gateway/interfaces/NoOpAccessDecision.java`
 #### Snippet
 ```java
-          logger, "Error in building URI for resource " + uriString);
-    }
+  @Override
+  public String postProcess(HttpResponse response) {
     return null;
   }
 
@@ -318,11 +318,11 @@ in `server/src/main/java/com/google/fhir/gateway/HttpUtil.java`
 
 ### ReturnNull
 Return of `null`
-in `server/src/main/java/com/google/fhir/gateway/interfaces/NoOpAccessDecision.java`
+in `server/src/main/java/com/google/fhir/gateway/HttpUtil.java`
 #### Snippet
 ```java
-  @Override
-  public String postProcess(HttpResponse response) {
+          logger, "Error in building URI for resource " + uriString);
+    }
     return null;
   }
 
@@ -357,11 +357,11 @@ Return of `null`
 in `server/src/main/java/com/google/fhir/gateway/PatientFinderImp.java`
 #### Snippet
 ```java
-          "Direct resource fetch is only supported for Patient; use search for " + resourceName,
-          InvalidRequestException.class);
-      return null;
     }
-    Map<String, String[]> queryParams = requestDetails.getParameters();
+    // It should never reach here!
+    return null;
+  }
+
 ```
 
 ### ReturnNull
@@ -381,11 +381,11 @@ Return of `null`
 in `server/src/main/java/com/google/fhir/gateway/PatientFinderImp.java`
 #### Snippet
 ```java
+          "Direct resource fetch is only supported for Patient; use search for " + resourceName,
+          InvalidRequestException.class);
+      return null;
     }
-    // It should never reach here!
-    return null;
-  }
-
+    Map<String, String[]> queryParams = requestDetails.getParameters();
 ```
 
 ## RuleId[ruleID=UnnecessaryLocalVariable]
