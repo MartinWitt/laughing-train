@@ -170,18 +170,6 @@ in `src/main/java/com/palantir/gradle/revapi/config/AcceptedBreak.java`
 
 ## RuleId[ruleID=BoundedWildcard]
 ### BoundedWildcard
-Can generalize to `? extends Throwable`
-in `src/main/java/com/palantir/gradle/revapi/OldApiConfigurations.java`
-#### Snippet
-```java
-        private final List<Throwable> resolutionFailures;
-
-        CouldNotResolveOldApiException(Version version, List<Throwable> resolutionFailures) {
-            this.version = version;
-            this.resolutionFailures = resolutionFailures;
-```
-
-### BoundedWildcard
 Can generalize to `? extends FileCollection`
 in `src/main/java/com/palantir/gradle/revapi/RevapiAnalyzeTask.java`
 #### Snippet
@@ -194,18 +182,6 @@ in `src/main/java/com/palantir/gradle/revapi/RevapiAnalyzeTask.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends GroupAndName`
-in `src/main/java/com/palantir/gradle/revapi/RevapiPlugin.java`
-#### Snippet
-```java
-
-    private Provider<Set<AcceptedBreak>> acceptedBreaks(
-            Project project, ConfigManager configManager, Provider<GroupAndName> oldGroupAndNameProvider) {
-
-        return GradleUtils.memoisedProvider(
-```
-
-### BoundedWildcard
 Can generalize to `? extends T`
 in `src/main/java/com/palantir/gradle/revapi/GradleUtils.java`
 #### Snippet
@@ -215,6 +191,30 @@ in `src/main/java/com/palantir/gradle/revapi/GradleUtils.java`
         MemoizingSupplier(Supplier<T> delegate) {
             this.delegate = delegate;
         }
+```
+
+### BoundedWildcard
+Can generalize to `? extends Throwable`
+in `src/main/java/com/palantir/gradle/revapi/OldApiConfigurations.java`
+#### Snippet
+```java
+        private final List<Throwable> resolutionFailures;
+
+        CouldNotResolveOldApiException(Version version, List<Throwable> resolutionFailures) {
+            this.version = version;
+            this.resolutionFailures = resolutionFailures;
+```
+
+### BoundedWildcard
+Can generalize to `? extends GroupAndName`
+in `src/main/java/com/palantir/gradle/revapi/RevapiPlugin.java`
+#### Snippet
+```java
+
+    private Provider<Set<AcceptedBreak>> acceptedBreaks(
+            Project project, ConfigManager configManager, Provider<GroupAndName> oldGroupAndNameProvider) {
+
+        return GradleUtils.memoisedProvider(
 ```
 
 ## RuleId[ruleID=AbstractClassNeverImplemented]
@@ -231,18 +231,6 @@ public abstract class AnalysisResult {
 ```
 
 ### AbstractClassNeverImplemented
-Abstract class `GradleRevapiConfig` has no concrete subclass
-in `src/main/java/com/palantir/gradle/revapi/config/GradleRevapiConfig.java`
-#### Snippet
-```java
-@ImmutableStyle
-@JsonDeserialize(as = ImmutableGradleRevapiConfig.class)
-public abstract class GradleRevapiConfig {
-    @Value.NaturalOrder
-    protected abstract SortedMap<GroupNameVersion, String> versionOverrides();
-```
-
-### AbstractClassNeverImplemented
 Abstract class `AnalysisResults` has no concrete subclass
 in `src/main/java/com/palantir/gradle/revapi/AnalysisResults.java`
 #### Snippet
@@ -252,6 +240,18 @@ in `src/main/java/com/palantir/gradle/revapi/AnalysisResults.java`
 public abstract class AnalysisResults {
     private static final ObjectMapper OBJECT_MAPPER =
             new ObjectMapper().enable(JsonReadFeature.ALLOW_TRAILING_COMMA.mappedFeature());
+```
+
+### AbstractClassNeverImplemented
+Abstract class `RevapiConfig` has no concrete subclass
+in `src/main/java/com/palantir/gradle/revapi/RevapiConfig.java`
+#### Snippet
+```java
+@Value.Immutable
+@ImmutableStyle
+abstract class RevapiConfig {
+    private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper().registerModule(new Jdk8Module());
+
 ```
 
 ### AbstractClassNeverImplemented
@@ -267,15 +267,15 @@ abstract class PerProjectAcceptedBreaks {
 ```
 
 ### AbstractClassNeverImplemented
-Abstract class `RevapiConfig` has no concrete subclass
-in `src/main/java/com/palantir/gradle/revapi/RevapiConfig.java`
+Abstract class `GradleRevapiConfig` has no concrete subclass
+in `src/main/java/com/palantir/gradle/revapi/config/GradleRevapiConfig.java`
 #### Snippet
 ```java
-@Value.Immutable
 @ImmutableStyle
-abstract class RevapiConfig {
-    private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper().registerModule(new Jdk8Module());
-
+@JsonDeserialize(as = ImmutableGradleRevapiConfig.class)
+public abstract class GradleRevapiConfig {
+    @Value.NaturalOrder
+    protected abstract SortedMap<GroupNameVersion, String> versionOverrides();
 ```
 
 ## RuleId[ruleID=EqualsWhichDoesntCheckParameterClass]
