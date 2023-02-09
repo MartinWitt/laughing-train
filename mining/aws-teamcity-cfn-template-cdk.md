@@ -22,15 +22,15 @@ in `src/main/java/jetbrains/teamcity/aws/template/services/ecs/AwsTeamCityTempla
 
 ## RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
 ### UtilityClassWithoutPrivateConstructor
-Class `SetupContainerTask` has only 'static' members, and lacks a 'private' constructor
-in `src/main/java/jetbrains/teamcity/aws/template/services/ecs/setup/SetupContainerTask.java`
+Class `SetupContainerParameters` has only 'static' members, and lacks a 'private' constructor
+in `src/main/java/jetbrains/teamcity/aws/template/services/ecs/setup/SetupContainerParameters.java`
 #### Snippet
 ```java
-import static jetbrains.teamcity.aws.template.services.ecs.setup.SetupContainerParameters.createDatabaseSh;
+import java.util.Map;
 
-public class SetupContainerTask {
-
-    public static void addSetupContainer(@NotNull final Construct scope,
+public class SetupContainerParameters {
+    public final static String createDatabaseSh =
+            "# Define DATADIR env variable in ECS task\n" +
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -46,18 +46,6 @@ public class AwsTeamCityTemplateVpc {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `SetupContainerParameters` has only 'static' members, and lacks a 'private' constructor
-in `src/main/java/jetbrains/teamcity/aws/template/services/ecs/setup/SetupContainerParameters.java`
-#### Snippet
-```java
-import java.util.Map;
-
-public class SetupContainerParameters {
-    public final static String createDatabaseSh =
-            "# Define DATADIR env variable in ECS task\n" +
-```
-
-### UtilityClassWithoutPrivateConstructor
 Class `AwsTeamcityCfnTemplateCdkApp` has only 'static' members, and lacks a 'private' constructor
 in `src/main/java/jetbrains/teamcity/aws/template/AwsTeamcityCfnTemplateCdkApp.java`
 #### Snippet
@@ -67,6 +55,18 @@ import software.amazon.awscdk.StackProps;
 public class AwsTeamcityCfnTemplateCdkApp {
     public static void main(final String[] args) {
         App app = new App();
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `SetupContainerTask` has only 'static' members, and lacks a 'private' constructor
+in `src/main/java/jetbrains/teamcity/aws/template/services/ecs/setup/SetupContainerTask.java`
+#### Snippet
+```java
+import static jetbrains.teamcity.aws.template.services.ecs.setup.SetupContainerParameters.createDatabaseSh;
+
+public class SetupContainerTask {
+
+    public static void addSetupContainer(@NotNull final Construct scope,
 ```
 
 ## RuleId[ruleID=MissortedModifiers]
