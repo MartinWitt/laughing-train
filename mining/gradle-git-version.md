@@ -57,8 +57,20 @@ Return of `null`
 in `src/main/java/com/palantir/gradle/gitversion/VersionDetailsImpl.java`
 #### Snippet
 ```java
-        ObjectId objectId = git.getRepository().findRef(Constants.HEAD).getObjectId();
-        if (objectId == null) {
+        String gitHashFull = getGitHashFull();
+        if (gitHashFull == null) {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/com/palantir/gradle/gitversion/VersionDetailsImpl.java`
+#### Snippet
+```java
+        Ref ref = git.getRepository().findRef(git.getRepository().getBranch());
+        if (ref == null) {
             return null;
         }
 
@@ -81,8 +93,8 @@ Return of `null`
 in `src/main/java/com/palantir/gradle/gitversion/VersionDetailsImpl.java`
 #### Snippet
 ```java
-        String gitHashFull = getGitHashFull();
-        if (gitHashFull == null) {
+        ObjectId objectId = git.getRepository().findRef(Constants.HEAD).getObjectId();
+        if (objectId == null) {
             return null;
         }
 
@@ -97,18 +109,6 @@ in `src/main/java/com/palantir/gradle/gitversion/VersionDetailsImpl.java`
         Matcher match = Pattern.compile("(.*)-([0-9]+)-g.?[0-9a-fA-F]{3,}").matcher(description());
         return match.matches() ? match.group(1) : null;
     }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/com/palantir/gradle/gitversion/VersionDetailsImpl.java`
-#### Snippet
-```java
-        Ref ref = git.getRepository().findRef(git.getRepository().getBranch());
-        if (ref == null) {
-            return null;
-        }
 
 ```
 
