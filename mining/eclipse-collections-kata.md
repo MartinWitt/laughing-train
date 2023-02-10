@@ -12,27 +12,15 @@ I found 37 bad smells with 1 repairable:
 | ZeroLengthArrayInitialization | 1 | false |
 ## RuleId[ruleID=FieldMayBeStatic]
 ### FieldMayBeStatic
-Field `trueValue` may be 'static'
-in `lost-and-found-kata/src/main/java/org/eclipse/collections/lostandfoundkata/primitive/MinMaxPrimitivesBoxed.java`
-#### Snippet
-```java
-class MinMaxPrimitivesBoxed
-{
-    private final Boolean trueValue = true;
-    private final Boolean falseValue = false;
-    private final Byte minbyteValue = Byte.MIN_VALUE;
-```
-
-### FieldMayBeStatic
 Field `falseValue` may be 'static'
-in `lost-and-found-kata/src/main/java/org/eclipse/collections/lostandfoundkata/primitive/MinMaxPrimitivesBoxed.java`
+in `lost-and-found-kata-solutions/src/main/java/org/eclipse/collections/lostandfoundkata/primitive/MinMaxPrimitivesPlain.java`
 #### Snippet
 ```java
 {
-    private final Boolean trueValue = true;
-    private final Boolean falseValue = false;
-    private final Byte minbyteValue = Byte.MIN_VALUE;
-    private final Byte maxbyteValue = Byte.MAX_VALUE;
+    private final boolean trueValue = true;
+    private final boolean falseValue = false;
+    private final byte minbyteValue = Byte.MIN_VALUE;
+    private final byte maxbyteValue = Byte.MAX_VALUE;
 ```
 
 ### FieldMayBeStatic
@@ -49,19 +37,7 @@ class MinMaxPrimitivesPlain
 
 ### FieldMayBeStatic
 Field `falseValue` may be 'static'
-in `lost-and-found-kata-solutions/src/main/java/org/eclipse/collections/lostandfoundkata/primitive/MinMaxPrimitivesPlain.java`
-#### Snippet
-```java
-{
-    private final boolean trueValue = true;
-    private final boolean falseValue = false;
-    private final byte minbyteValue = Byte.MIN_VALUE;
-    private final byte maxbyteValue = Byte.MAX_VALUE;
-```
-
-### FieldMayBeStatic
-Field `falseValue` may be 'static'
-in `lost-and-found-kata-solutions/src/main/java/org/eclipse/collections/lostandfoundkata/primitive/MinMaxPrimitivesBoxed.java`
+in `lost-and-found-kata/src/main/java/org/eclipse/collections/lostandfoundkata/primitive/MinMaxPrimitivesBoxed.java`
 #### Snippet
 ```java
 {
@@ -69,6 +45,18 @@ in `lost-and-found-kata-solutions/src/main/java/org/eclipse/collections/lostandf
     private final Boolean falseValue = false;
     private final Byte minbyteValue = Byte.MIN_VALUE;
     private final Byte maxbyteValue = Byte.MAX_VALUE;
+```
+
+### FieldMayBeStatic
+Field `trueValue` may be 'static'
+in `lost-and-found-kata/src/main/java/org/eclipse/collections/lostandfoundkata/primitive/MinMaxPrimitivesBoxed.java`
+#### Snippet
+```java
+class MinMaxPrimitivesBoxed
+{
+    private final Boolean trueValue = true;
+    private final Boolean falseValue = false;
+    private final Byte minbyteValue = Byte.MIN_VALUE;
 ```
 
 ### FieldMayBeStatic
@@ -81,6 +69,18 @@ class MinMaxPrimitivesBoxed
     private final Boolean trueValue = true;
     private final Boolean falseValue = false;
     private final Byte minbyteValue = Byte.MIN_VALUE;
+```
+
+### FieldMayBeStatic
+Field `falseValue` may be 'static'
+in `lost-and-found-kata-solutions/src/main/java/org/eclipse/collections/lostandfoundkata/primitive/MinMaxPrimitivesBoxed.java`
+#### Snippet
+```java
+{
+    private final Boolean trueValue = true;
+    private final Boolean falseValue = false;
+    private final Byte minbyteValue = Byte.MIN_VALUE;
+    private final Byte maxbyteValue = Byte.MAX_VALUE;
 ```
 
 ### FieldMayBeStatic
