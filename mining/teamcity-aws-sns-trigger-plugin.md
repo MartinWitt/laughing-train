@@ -8,9 +8,9 @@ I found 7 bad smells with 2 repairable:
 | DynamicRegexReplaceableByCompiledPattern | 1 | false |
 | DataFlowIssue | 1 | false |
 | BoundedWildcard | 1 | false |
-| MissortedModifiers | 1 | false |
-| NonProtectedConstructorInAbstractClass | 1 | true |
 | AssignmentToStaticFieldFromInstanceMethod | 1 | false |
+| NonProtectedConstructorInAbstractClass | 1 | true |
+| MissortedModifiers | 1 | false |
 ## RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
 ### UtilityClassWithoutPrivateConstructor
 Class `AwsSnsMessageDetailsHelper` has only 'static' members, and lacks a 'private' constructor
@@ -63,17 +63,17 @@ in `amazon-sns-trigger-server/src/main/java/jetbrains/buildServer/clouds/amazon/
             .orElseThrow(() -> new IllegalStateException("Comparator returned null for list of messages. This should never happen"));
 ```
 
-## RuleId[ruleID=MissortedModifiers]
-### MissortedModifiers
-Missorted modifiers `final static`
-in `amazon-sns-trigger-server/src/main/java/jetbrains/buildServer/clouds/amazon/sns/trigger/service/SnsMessageParameterDescriptionProvider.java`
+## RuleId[ruleID=AssignmentToStaticFieldFromInstanceMethod]
+### AssignmentToStaticFieldFromInstanceMethod
+Assignment to static field `LOG` from instance context
+in `amazon-sns-trigger-server/src/main/java/jetbrains/buildServer/clouds/amazon/sns/trigger/utils/AwsSnsSignatureVerification.java`
 #### Snippet
 ```java
+    @TestOnly
+    public void setLogger(Logger newLogger) {
+        LOG = newLogger;
+    }
 
-public class SnsMessageParameterDescriptionProvider extends AbstractParameterDescriptionProvider {
-    private final static String PARAM_DESCRIPTIONS_RES = "/param-descriptions.xml";
-
-    private final Map<Pattern, String> myDescriptions = new HashMap<>();
 ```
 
 ## RuleId[ruleID=NonProtectedConstructorInAbstractClass]
@@ -89,16 +89,16 @@ in `amazon-sns-trigger-server/src/main/java/jetbrains/buildServer/clouds/amazon/
   }
 ```
 
-## RuleId[ruleID=AssignmentToStaticFieldFromInstanceMethod]
-### AssignmentToStaticFieldFromInstanceMethod
-Assignment to static field `LOG` from instance context
-in `amazon-sns-trigger-server/src/main/java/jetbrains/buildServer/clouds/amazon/sns/trigger/utils/AwsSnsSignatureVerification.java`
+## RuleId[ruleID=MissortedModifiers]
+### MissortedModifiers
+Missorted modifiers `final static`
+in `amazon-sns-trigger-server/src/main/java/jetbrains/buildServer/clouds/amazon/sns/trigger/service/SnsMessageParameterDescriptionProvider.java`
 #### Snippet
 ```java
-    @TestOnly
-    public void setLogger(Logger newLogger) {
-        LOG = newLogger;
-    }
 
+public class SnsMessageParameterDescriptionProvider extends AbstractParameterDescriptionProvider {
+    private final static String PARAM_DESCRIPTIONS_RES = "/param-descriptions.xml";
+
+    private final Map<Pattern, String> myDescriptions = new HashMap<>();
 ```
 
