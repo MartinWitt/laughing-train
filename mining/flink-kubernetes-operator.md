@@ -27,8 +27,8 @@ I found 231 bad smells with 42 repairable:
 | RedundantImplements | 2 | false |
 | HtmlWrongAttributeValue | 2 | false |
 | SynchronizeOnThis | 2 | false |
-| UseBulkOperation | 2 | false |
 | OptionalGetWithoutIsPresent | 2 | false |
+| UseBulkOperation | 2 | false |
 | EnumSwitchStatementWhichMissesCases | 1 | false |
 | IOResource | 1 | false |
 | UnnecessarySemicolon | 1 | false |
@@ -81,15 +81,39 @@ in `flink-kubernetes-standalone/src/main/java/org/apache/flink/kubernetes/operat
 
 ## RuleId[ruleID=MarkedForRemoval]
 ### MarkedForRemoval
-'installShutdownHook()' is deprecated and marked for removal
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/FlinkOperator.java`
+Overrides method that is deprecated and marked for removal in 'io.javaoperatorsdk.operator.api.monitoring.Metrics'
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/metrics/OperatorJosdkMetrics.java`
 #### Snippet
 ```java
-        registerDeploymentController();
-        registerSessionJobController();
-        operator.installShutdownHook();
-        operator.start();
-        if (operatorHealthService != null) {
+
+    @Override
+    public void finishedReconciliation(ResourceID resourceID, Map<String, Object> metadata) {
+        counter(getResourceMg(resourceID, metadata), RECONCILIATION, "finished").inc();
+    }
+```
+
+### MarkedForRemoval
+Overrides method that is deprecated and marked for removal in 'io.javaoperatorsdk.operator.api.monitoring.Metrics'
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/metrics/OperatorJosdkMetrics.java`
+#### Snippet
+```java
+
+    @Override
+    public void failedReconciliation(
+            ResourceID resourceID, Exception exception, Map<String, Object> metadata) {
+        counter(getResourceMg(resourceID, metadata), RECONCILIATION, "failed").inc();
+```
+
+### MarkedForRemoval
+Overrides method that is deprecated and marked for removal in 'io.javaoperatorsdk.operator.api.monitoring.Metrics'
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/metrics/OperatorJosdkMetrics.java`
+#### Snippet
+```java
+
+    @Override
+    public void reconcileCustomResource(
+            ResourceID resourceID, RetryInfo retryInfoNullable, Map<String, Object> metadata) {
+        counter(getResourceMg(resourceID, metadata), RECONCILIATION).inc();
 ```
 
 ### MarkedForRemoval
@@ -105,15 +129,27 @@ in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator
 ```
 
 ### MarkedForRemoval
+'installShutdownHook()' is deprecated and marked for removal
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/FlinkOperator.java`
+#### Snippet
+```java
+        registerDeploymentController();
+        registerSessionJobController();
+        operator.installShutdownHook();
+        operator.start();
+        if (operatorHealthService != null) {
+```
+
+### MarkedForRemoval
 'io.javaoperatorsdk.operator.api.config.RetryConfiguration' is deprecated and marked for removal
 in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/config/FlinkOperatorConfiguration.java`
 #### Snippet
 ```java
-    Integer savepointHistoryCountThreshold;
-    Duration savepointHistoryAgeThreshold;
-    RetryConfiguration retryConfiguration;
-    Boolean exceptionStackTraceEnabled;
-    int exceptionStackTraceLengthThreshold;
+
+    /** Enables configurable retry mechanism for reconciliation errors. */
+    protected static class FlinkOperatorRetryConfiguration implements RetryConfiguration {
+        private final int maxAttempts;
+        private final long initialInterval;
 ```
 
 ### MarkedForRemoval
@@ -145,122 +181,14 @@ import org.apache.commons.lang3.StringUtils;
 in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/config/FlinkOperatorConfiguration.java`
 #### Snippet
 ```java
-
-    /** Enables configurable retry mechanism for reconciliation errors. */
-    protected static class FlinkOperatorRetryConfiguration implements RetryConfiguration {
-        private final int maxAttempts;
-        private final long initialInterval;
-```
-
-### MarkedForRemoval
-Overrides method that is deprecated and marked for removal in 'io.javaoperatorsdk.operator.api.monitoring.Metrics'
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/metrics/OperatorJosdkMetrics.java`
-#### Snippet
-```java
-
-    @Override
-    public void reconcileCustomResource(
-            ResourceID resourceID, RetryInfo retryInfoNullable, Map<String, Object> metadata) {
-        counter(getResourceMg(resourceID, metadata), RECONCILIATION).inc();
-```
-
-### MarkedForRemoval
-Overrides method that is deprecated and marked for removal in 'io.javaoperatorsdk.operator.api.monitoring.Metrics'
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/metrics/OperatorJosdkMetrics.java`
-#### Snippet
-```java
-
-    @Override
-    public void failedReconciliation(
-            ResourceID resourceID, Exception exception, Map<String, Object> metadata) {
-        counter(getResourceMg(resourceID, metadata), RECONCILIATION, "failed").inc();
-```
-
-### MarkedForRemoval
-Overrides method that is deprecated and marked for removal in 'io.javaoperatorsdk.operator.api.monitoring.Metrics'
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/metrics/OperatorJosdkMetrics.java`
-#### Snippet
-```java
-
-    @Override
-    public void finishedReconciliation(ResourceID resourceID, Map<String, Object> metadata) {
-        counter(getResourceMg(resourceID, metadata), RECONCILIATION, "finished").inc();
-    }
+    Integer savepointHistoryCountThreshold;
+    Duration savepointHistoryAgeThreshold;
+    RetryConfiguration retryConfiguration;
+    Boolean exceptionStackTraceEnabled;
+    int exceptionStackTraceLengthThreshold;
 ```
 
 ## RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-### UtilityClassWithoutPrivateConstructor
-Class `FlinkOperatorWebhook` has only 'static' members, and lacks a 'private' constructor
-in `flink-kubernetes-webhook/src/main/java/org/apache/flink/kubernetes/operator/admission/FlinkOperatorWebhook.java`
-#### Snippet
-```java
-
-/** Main Class for Flink native k8s operator. */
-public class FlinkOperatorWebhook {
-    private static final Logger LOG = LoggerFactory.getLogger(FlinkOperatorWebhook.class);
-
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `StandaloneKubernetesConfigOptionsInternal` has only 'static' members, and lacks a 'private' constructor
-in `flink-kubernetes-standalone/src/main/java/org/apache/flink/kubernetes/operator/standalone/StandaloneKubernetesConfigOptionsInternal.java`
-#### Snippet
-```java
- * clusters in standalone mode.
- */
-public class StandaloneKubernetesConfigOptionsInternal {
-    public static final ConfigOption<Integer> KUBERNETES_TASKMANAGER_REPLICAS =
-            key("kubernetes.internal.taskmanager.replicas")
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `AutoScalerOptions` has only 'static' members, and lacks a 'private' constructor
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/autoscaler/config/AutoScalerOptions.java`
-#### Snippet
-```java
-
-/** Config options related to the autoscaler module. */
-public class AutoScalerOptions {
-
-    private static ConfigOptions.OptionBuilder autoScalerConfig(String key) {
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `KubernetesClientUtils` has only 'static' members, and lacks a 'private' constructor
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/utils/KubernetesClientUtils.java`
-#### Snippet
-```java
-
-/** Kubernetes client utils. */
-public class KubernetesClientUtils {
-
-    private static final Logger LOG = LoggerFactory.getLogger(KubernetesClientUtils.class);
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `CrdConstants` has only 'static' members, and lacks a 'private' constructor
-in `flink-kubernetes-operator-api/src/main/java/org/apache/flink/kubernetes/operator/api/CrdConstants.java`
-#### Snippet
-```java
-
-/** Constants used by the CRD. */
-public class CrdConstants {
-    public static final String API_GROUP = "flink.apache.org";
-    public static final String API_VERSION = "v1beta1";
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `OperatorMetricUtils` has only 'static' members, and lacks a 'private' constructor
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/metrics/OperatorMetricUtils.java`
-#### Snippet
-```java
-
-/** Utility class for flink based operator metrics. */
-public class OperatorMetricUtils {
-
-    private static final Logger LOG = LoggerFactory.getLogger(OperatorMetricUtils.class);
-```
-
 ### UtilityClassWithoutPrivateConstructor
 Class `StandaloneKubernetesTaskManagerFactory` has only 'static' members, and lacks a 'private' constructor
 in `flink-kubernetes-standalone/src/main/java/org/apache/flink/kubernetes/operator/kubeclient/factory/StandaloneKubernetesTaskManagerFactory.java`
@@ -271,174 +199,6 @@ in `flink-kubernetes-standalone/src/main/java/org/apache/flink/kubernetes/operat
 public class StandaloneKubernetesTaskManagerFactory {
 
     public static Deployment buildKubernetesTaskManagerDeployment(
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `EventSourceUtils` has only 'static' members, and lacks a 'private' constructor
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/utils/EventSourceUtils.java`
-#### Snippet
-```java
-
-/** Utility class to locate secondary resources. */
-public class EventSourceUtils {
-
-    private static final String FLINK_DEPLOYMENT_IDX = FlinkDeploymentController.class.getName();
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `EnvUtils` has only 'static' members, and lacks a 'private' constructor
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/utils/EnvUtils.java`
-#### Snippet
-```java
-
-/** Util to get value from environments. */
-public class EnvUtils {
-
-    private static final Logger LOG = LoggerFactory.getLogger(EnvUtils.class);
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `ValidatorUtils` has only 'static' members, and lacks a 'private' constructor
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/utils/ValidatorUtils.java`
-#### Snippet
-```java
-
-/** Validator utilities. */
-public final class ValidatorUtils {
-
-    private static final Logger LOG = LoggerFactory.getLogger(FlinkUtils.class);
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `FlinkResourceExceptionUtils` has only 'static' members, and lacks a 'private' constructor
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/utils/FlinkResourceExceptionUtils.java`
-#### Snippet
-```java
-
-/** Flink Resource Exception utilities. */
-public final class FlinkResourceExceptionUtils {
-
-    private static final ObjectMapper objectMapper = new ObjectMapper();
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `KubernetesOperatorMetricOptions` has only 'static' members, and lacks a 'private' constructor
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/metrics/KubernetesOperatorMetricOptions.java`
-#### Snippet
-```java
-
-/** Configuration options for metrics. */
-public class KubernetesOperatorMetricOptions {
-
-    public static final ConfigOption<Boolean> OPERATOR_JVM_METRICS_ENABLED =
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `SavepointUtils` has only 'static' members, and lacks a 'private' constructor
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/utils/SavepointUtils.java`
-#### Snippet
-```java
-
-/** Savepoint utilities. */
-public class SavepointUtils {
-
-    private static final Logger LOG = LoggerFactory.getLogger(SavepointUtils.class);
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `CrdCompatibilityChecker` has only 'static' members, and lacks a 'private' constructor
-in `flink-kubernetes-operator-api/src/main/java/org/apache/flink/kubernetes/operator/api/validation/CrdCompatibilityChecker.java`
-#### Snippet
-```java
- * </ul>
- */
-public class CrdCompatibilityChecker {
-
-    private static final Logger logger = LoggerFactory.getLogger(CrdCompatibilityChecker.class);
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `AutoScalerUtils` has only 'static' members, and lacks a 'private' constructor
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/autoscaler/utils/AutoScalerUtils.java`
-#### Snippet
-```java
-
-/** AutoScaler utilities. */
-public class AutoScalerUtils {
-
-    public static double getTargetProcessingCapacity(
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `AutoscalingExample` has only 'static' members, and lacks a 'private' constructor
-in `examples/autoscaling/src/main/java/autoscaling/AutoscalingExample.java`
-#### Snippet
-```java
-
-/** Autoscaling Example. */
-public class AutoscalingExample {
-    public static void main(String[] args) throws Exception {
-        var env = StreamExecutionEnvironment.getExecutionEnvironment();
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `FlinkUtils` has only 'static' members, and lacks a 'private' constructor
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/utils/FlinkUtils.java`
-#### Snippet
-```java
-
-/** Flink Utility methods used by the operator. */
-public class FlinkUtils {
-
-    private static final Logger LOG = LoggerFactory.getLogger(FlinkUtils.class);
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `Basic` has only 'static' members, and lacks a 'private' constructor
-in `examples/kubernetes-client-examples/src/main/java/org/apache/flink/examples/Basic.java`
-#### Snippet
-```java
-
-/** client code for ../basic.yaml. */
-public class Basic {
-    public static void main(String[] args) {
-        FlinkDeployment flinkDeployment = new FlinkDeployment();
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `ListenerUtils` has only 'static' members, and lacks a 'private' constructor
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/listener/ListenerUtils.java`
-#### Snippet
-```java
-
-/** Flink resource listener utilities. */
-public class ListenerUtils {
-
-    private static final Logger LOG = LoggerFactory.getLogger(ListenerUtils.class);
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `ReconciliationUtils` has only 'static' members, and lacks a 'private' constructor
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/reconciler/ReconciliationUtils.java`
-#### Snippet
-```java
-
-/** Reconciliation utilities. */
-public class ReconciliationUtils {
-
-    private static final Logger LOG = LoggerFactory.getLogger(ReconciliationUtils.class);
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `ConfigOptionUtils` has only 'static' members, and lacks a 'private' constructor
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/utils/ConfigOptionUtils.java`
-#### Snippet
-```java
-
-/** {@link ConfigOption} utilities. */
-public class ConfigOptionUtils {
-
-    private static final Logger LOG = LoggerFactory.getLogger(ConfigOptionUtils.class);
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -454,54 +214,6 @@ public class StandaloneKubernetesJobManagerFactory {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `EventUtils` has only 'static' members, and lacks a 'private' constructor
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/utils/EventUtils.java`
-#### Snippet
-```java
- * https://github.com/EnMasseProject/enmasse/blob/master/k8s-api/src/main/java/io/enmasse/k8s/api/KubeEventLogger.java
- */
-public class EventUtils {
-
-    public static String generateEventName(
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `Utils` has only 'static' members, and lacks a 'private' constructor
-in `flink-kubernetes-docs/src/main/java/org/apache/flink/kubernetes/operator/docs/util/Utils.java`
-#### Snippet
-```java
-
-/** Contains various shared utility functions. */
-public class Utils {
-
-    /**
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `IngressUtils` has only 'static' members, and lacks a 'private' constructor
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/utils/IngressUtils.java`
-#### Snippet
-```java
-
-/** Ingress utilities. */
-public class IngressUtils {
-
-    private static final Pattern NAME_PTN =
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `SqlRunner` has only 'static' members, and lacks a 'private' constructor
-in `examples/flink-sql-runner-example/src/main/java/org/apache/flink/examples/SqlRunner.java`
-#### Snippet
-```java
-
-/** Main class for executing SQL scripts. */
-public class SqlRunner {
-
-    private static final Logger LOG = LoggerFactory.getLogger(SqlRunner.class);
-```
-
-### UtilityClassWithoutPrivateConstructor
 Class `StandaloneKubernetesUtils` has only 'static' members, and lacks a 'private' constructor
 in `flink-kubernetes-standalone/src/main/java/org/apache/flink/kubernetes/operator/utils/StandaloneKubernetesUtils.java`
 #### Snippet
@@ -511,18 +223,6 @@ in `flink-kubernetes-standalone/src/main/java/org/apache/flink/kubernetes/operat
 public class StandaloneKubernetesUtils {
 
     public static final String LABEL_TYPE_STANDALONE_TYPE = "flink-standalone-kubernetes";
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `SpecUtils` has only 'static' members, and lacks a 'private' constructor
-in `flink-kubernetes-operator-api/src/main/java/org/apache/flink/kubernetes/operator/api/utils/SpecUtils.java`
-#### Snippet
-```java
-
-/** Spec utilities. */
-public class SpecUtils {
-    public static final String INTERNAL_METADATA_JSON_KEY = "resource_metadata";
-    private static final ObjectMapper objectMapper = new ObjectMapper();
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -538,15 +238,51 @@ public class KubernetesOperatorConfigOptions {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `AuditUtils` has only 'static' members, and lacks a 'private' constructor
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/listener/AuditUtils.java`
+Class `KubernetesClientUtils` has only 'static' members, and lacks a 'private' constructor
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/utils/KubernetesClientUtils.java`
 #### Snippet
 ```java
 
-/** Responsible for logging resource event/status updates. */
-public class AuditUtils {
-    private static final Logger LOG = LoggerFactory.getLogger(AuditUtils.class);
+/** Kubernetes client utils. */
+public class KubernetesClientUtils {
 
+    private static final Logger LOG = LoggerFactory.getLogger(KubernetesClientUtils.class);
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `KubernetesOperatorMetricOptions` has only 'static' members, and lacks a 'private' constructor
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/metrics/KubernetesOperatorMetricOptions.java`
+#### Snippet
+```java
+
+/** Configuration options for metrics. */
+public class KubernetesOperatorMetricOptions {
+
+    public static final ConfigOption<Boolean> OPERATOR_JVM_METRICS_ENABLED =
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `OperatorMetricUtils` has only 'static' members, and lacks a 'private' constructor
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/metrics/OperatorMetricUtils.java`
+#### Snippet
+```java
+
+/** Utility class for flink based operator metrics. */
+public class OperatorMetricUtils {
+
+    private static final Logger LOG = LoggerFactory.getLogger(OperatorMetricUtils.class);
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `AutoScalerOptions` has only 'static' members, and lacks a 'private' constructor
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/autoscaler/config/AutoScalerOptions.java`
+#### Snippet
+```java
+
+/** Config options related to the autoscaler module. */
+public class AutoScalerOptions {
+
+    private static ConfigOptions.OptionBuilder autoScalerConfig(String key) {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -559,6 +295,270 @@ in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator
 public class ScalingMetrics {
 
     private static final Logger LOG = LoggerFactory.getLogger(ScalingMetrics.class);
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `CrdConstants` has only 'static' members, and lacks a 'private' constructor
+in `flink-kubernetes-operator-api/src/main/java/org/apache/flink/kubernetes/operator/api/CrdConstants.java`
+#### Snippet
+```java
+
+/** Constants used by the CRD. */
+public class CrdConstants {
+    public static final String API_GROUP = "flink.apache.org";
+    public static final String API_VERSION = "v1beta1";
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `EventSourceUtils` has only 'static' members, and lacks a 'private' constructor
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/utils/EventSourceUtils.java`
+#### Snippet
+```java
+
+/** Utility class to locate secondary resources. */
+public class EventSourceUtils {
+
+    private static final String FLINK_DEPLOYMENT_IDX = FlinkDeploymentController.class.getName();
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `ConfigOptionUtils` has only 'static' members, and lacks a 'private' constructor
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/utils/ConfigOptionUtils.java`
+#### Snippet
+```java
+
+/** {@link ConfigOption} utilities. */
+public class ConfigOptionUtils {
+
+    private static final Logger LOG = LoggerFactory.getLogger(ConfigOptionUtils.class);
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `AutoscalingExample` has only 'static' members, and lacks a 'private' constructor
+in `examples/autoscaling/src/main/java/autoscaling/AutoscalingExample.java`
+#### Snippet
+```java
+
+/** Autoscaling Example. */
+public class AutoscalingExample {
+    public static void main(String[] args) throws Exception {
+        var env = StreamExecutionEnvironment.getExecutionEnvironment();
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `FlinkResourceExceptionUtils` has only 'static' members, and lacks a 'private' constructor
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/utils/FlinkResourceExceptionUtils.java`
+#### Snippet
+```java
+
+/** Flink Resource Exception utilities. */
+public final class FlinkResourceExceptionUtils {
+
+    private static final ObjectMapper objectMapper = new ObjectMapper();
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `FlinkUtils` has only 'static' members, and lacks a 'private' constructor
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/utils/FlinkUtils.java`
+#### Snippet
+```java
+
+/** Flink Utility methods used by the operator. */
+public class FlinkUtils {
+
+    private static final Logger LOG = LoggerFactory.getLogger(FlinkUtils.class);
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `EnvUtils` has only 'static' members, and lacks a 'private' constructor
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/utils/EnvUtils.java`
+#### Snippet
+```java
+
+/** Util to get value from environments. */
+public class EnvUtils {
+
+    private static final Logger LOG = LoggerFactory.getLogger(EnvUtils.class);
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `ReconciliationUtils` has only 'static' members, and lacks a 'private' constructor
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/reconciler/ReconciliationUtils.java`
+#### Snippet
+```java
+
+/** Reconciliation utilities. */
+public class ReconciliationUtils {
+
+    private static final Logger LOG = LoggerFactory.getLogger(ReconciliationUtils.class);
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `ValidatorUtils` has only 'static' members, and lacks a 'private' constructor
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/utils/ValidatorUtils.java`
+#### Snippet
+```java
+
+/** Validator utilities. */
+public final class ValidatorUtils {
+
+    private static final Logger LOG = LoggerFactory.getLogger(FlinkUtils.class);
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `AutoScalerUtils` has only 'static' members, and lacks a 'private' constructor
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/autoscaler/utils/AutoScalerUtils.java`
+#### Snippet
+```java
+
+/** AutoScaler utilities. */
+public class AutoScalerUtils {
+
+    public static double getTargetProcessingCapacity(
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `SpecUtils` has only 'static' members, and lacks a 'private' constructor
+in `flink-kubernetes-operator-api/src/main/java/org/apache/flink/kubernetes/operator/api/utils/SpecUtils.java`
+#### Snippet
+```java
+
+/** Spec utilities. */
+public class SpecUtils {
+    public static final String INTERNAL_METADATA_JSON_KEY = "resource_metadata";
+    private static final ObjectMapper objectMapper = new ObjectMapper();
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `AuditUtils` has only 'static' members, and lacks a 'private' constructor
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/listener/AuditUtils.java`
+#### Snippet
+```java
+
+/** Responsible for logging resource event/status updates. */
+public class AuditUtils {
+    private static final Logger LOG = LoggerFactory.getLogger(AuditUtils.class);
+
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `ListenerUtils` has only 'static' members, and lacks a 'private' constructor
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/listener/ListenerUtils.java`
+#### Snippet
+```java
+
+/** Flink resource listener utilities. */
+public class ListenerUtils {
+
+    private static final Logger LOG = LoggerFactory.getLogger(ListenerUtils.class);
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `FlinkOperatorWebhook` has only 'static' members, and lacks a 'private' constructor
+in `flink-kubernetes-webhook/src/main/java/org/apache/flink/kubernetes/operator/admission/FlinkOperatorWebhook.java`
+#### Snippet
+```java
+
+/** Main Class for Flink native k8s operator. */
+public class FlinkOperatorWebhook {
+    private static final Logger LOG = LoggerFactory.getLogger(FlinkOperatorWebhook.class);
+
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `Basic` has only 'static' members, and lacks a 'private' constructor
+in `examples/kubernetes-client-examples/src/main/java/org/apache/flink/examples/Basic.java`
+#### Snippet
+```java
+
+/** client code for ../basic.yaml. */
+public class Basic {
+    public static void main(String[] args) {
+        FlinkDeployment flinkDeployment = new FlinkDeployment();
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `SqlRunner` has only 'static' members, and lacks a 'private' constructor
+in `examples/flink-sql-runner-example/src/main/java/org/apache/flink/examples/SqlRunner.java`
+#### Snippet
+```java
+
+/** Main class for executing SQL scripts. */
+public class SqlRunner {
+
+    private static final Logger LOG = LoggerFactory.getLogger(SqlRunner.class);
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `SavepointUtils` has only 'static' members, and lacks a 'private' constructor
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/utils/SavepointUtils.java`
+#### Snippet
+```java
+
+/** Savepoint utilities. */
+public class SavepointUtils {
+
+    private static final Logger LOG = LoggerFactory.getLogger(SavepointUtils.class);
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `EventUtils` has only 'static' members, and lacks a 'private' constructor
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/utils/EventUtils.java`
+#### Snippet
+```java
+ * https://github.com/EnMasseProject/enmasse/blob/master/k8s-api/src/main/java/io/enmasse/k8s/api/KubeEventLogger.java
+ */
+public class EventUtils {
+
+    public static String generateEventName(
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `CrdCompatibilityChecker` has only 'static' members, and lacks a 'private' constructor
+in `flink-kubernetes-operator-api/src/main/java/org/apache/flink/kubernetes/operator/api/validation/CrdCompatibilityChecker.java`
+#### Snippet
+```java
+ * </ul>
+ */
+public class CrdCompatibilityChecker {
+
+    private static final Logger logger = LoggerFactory.getLogger(CrdCompatibilityChecker.class);
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `IngressUtils` has only 'static' members, and lacks a 'private' constructor
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/utils/IngressUtils.java`
+#### Snippet
+```java
+
+/** Ingress utilities. */
+public class IngressUtils {
+
+    private static final Pattern NAME_PTN =
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `StandaloneKubernetesConfigOptionsInternal` has only 'static' members, and lacks a 'private' constructor
+in `flink-kubernetes-standalone/src/main/java/org/apache/flink/kubernetes/operator/standalone/StandaloneKubernetesConfigOptionsInternal.java`
+#### Snippet
+```java
+ * clusters in standalone mode.
+ */
+public class StandaloneKubernetesConfigOptionsInternal {
+    public static final ConfigOption<Integer> KUBERNETES_TASKMANAGER_REPLICAS =
+            key("kubernetes.internal.taskmanager.replicas")
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `Utils` has only 'static' members, and lacks a 'private' constructor
+in `flink-kubernetes-docs/src/main/java/org/apache/flink/kubernetes/operator/docs/util/Utils.java`
+#### Snippet
+```java
+
+/** Contains various shared utility functions. */
+public class Utils {
+
+    /**
 ```
 
 ## RuleId[ruleID=UnnecessarySemicolon]
@@ -674,27 +674,27 @@ in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator
 
 ## RuleId[ruleID=RegExpRedundantEscape]
 ### RegExpRedundantEscape
-Redundant character escape `\\}` in RegExp
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/utils/IngressUtils.java`
+Redundant character escape `\\/` in RegExp
+in `examples/flink-sql-runner-example/src/main/java/org/apache/flink/examples/SqlRunner.java`
 #### Snippet
 ```java
+    private static final String LINE_DELIMITER = "\n";
 
-    private static final Pattern NAME_PTN =
-            Pattern.compile("\\{\\{name\\}\\}", Pattern.CASE_INSENSITIVE);
-    private static final Pattern NAMESPACE_PTN =
-            Pattern.compile("\\{\\{namespace\\}\\}", Pattern.CASE_INSENSITIVE);
+    private static final String COMMENT_PATTERN = "(--.*)|(((\\/\\*)+?[\\w\\W]+?(\\*\\/)+))";
+
+    public static void main(String[] args) throws Exception {
 ```
 
 ### RegExpRedundantEscape
-Redundant character escape `\\}` in RegExp
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/utils/IngressUtils.java`
+Redundant character escape `\\/` in RegExp
+in `examples/flink-sql-runner-example/src/main/java/org/apache/flink/examples/SqlRunner.java`
 #### Snippet
 ```java
+    private static final String LINE_DELIMITER = "\n";
 
-    private static final Pattern NAME_PTN =
-            Pattern.compile("\\{\\{name\\}\\}", Pattern.CASE_INSENSITIVE);
-    private static final Pattern NAMESPACE_PTN =
-            Pattern.compile("\\{\\{namespace\\}\\}", Pattern.CASE_INSENSITIVE);
+    private static final String COMMENT_PATTERN = "(--.*)|(((\\/\\*)+?[\\w\\W]+?(\\*\\/)+))";
+
+    public static void main(String[] args) throws Exception {
 ```
 
 ### RegExpRedundantEscape
@@ -722,27 +722,27 @@ in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator
 ```
 
 ### RegExpRedundantEscape
-Redundant character escape `\\/` in RegExp
-in `examples/flink-sql-runner-example/src/main/java/org/apache/flink/examples/SqlRunner.java`
+Redundant character escape `\\}` in RegExp
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/utils/IngressUtils.java`
 #### Snippet
 ```java
-    private static final String LINE_DELIMITER = "\n";
 
-    private static final String COMMENT_PATTERN = "(--.*)|(((\\/\\*)+?[\\w\\W]+?(\\*\\/)+))";
-
-    public static void main(String[] args) throws Exception {
+    private static final Pattern NAME_PTN =
+            Pattern.compile("\\{\\{name\\}\\}", Pattern.CASE_INSENSITIVE);
+    private static final Pattern NAMESPACE_PTN =
+            Pattern.compile("\\{\\{namespace\\}\\}", Pattern.CASE_INSENSITIVE);
 ```
 
 ### RegExpRedundantEscape
-Redundant character escape `\\/` in RegExp
-in `examples/flink-sql-runner-example/src/main/java/org/apache/flink/examples/SqlRunner.java`
+Redundant character escape `\\}` in RegExp
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/utils/IngressUtils.java`
 #### Snippet
 ```java
-    private static final String LINE_DELIMITER = "\n";
 
-    private static final String COMMENT_PATTERN = "(--.*)|(((\\/\\*)+?[\\w\\W]+?(\\*\\/)+))";
-
-    public static void main(String[] args) throws Exception {
+    private static final Pattern NAME_PTN =
+            Pattern.compile("\\{\\{name\\}\\}", Pattern.CASE_INSENSITIVE);
+    private static final Pattern NAMESPACE_PTN =
+            Pattern.compile("\\{\\{namespace\\}\\}", Pattern.CASE_INSENSITIVE);
 ```
 
 ## RuleId[ruleID=NonSerializableFieldInSerializableClass]
@@ -760,18 +760,6 @@ in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator
 
 ## RuleId[ruleID=RegExpSimplifiable]
 ### RegExpSimplifiable
-`[\\t]` can be simplified to '\\t'
-in `flink-kubernetes-operator-api/src/main/java/org/apache/flink/kubernetes/operator/api/docs/CrdReferenceDoclet.java`
-#### Snippet
-```java
-
-    private String cleanDoc(String doc) {
-        return doc.replaceAll("[\\t]+", " ").replaceAll("[\\n\\r]+", "");
-    }
-
-```
-
-### RegExpSimplifiable
 `[\\S&&[^.]]` can be simplified to '\\S\&\&\[\^.\]'
 in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/listener/ListenerUtils.java`
 #### Snippet
@@ -783,19 +771,19 @@ in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator
             List.of("io.fabric8", "com.fasterxml");
 ```
 
-## RuleId[ruleID=SizeReplaceableByIsEmpty]
-### SizeReplaceableByIsEmpty
-`matchedList.size() == 0` can be replaced with 'matchedList.isEmpty()'
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/observer/sessionjob/FlinkSessionJobObserver.java`
+### RegExpSimplifiable
+`[\\t]` can be simplified to '\\t'
+in `flink-kubernetes-operator-api/src/main/java/org/apache/flink/kubernetes/operator/api/docs/CrdReferenceDoclet.java`
 #### Snippet
 ```java
-                            status.getJobId(), matchedList.size()));
 
-            if (matchedList.size() == 0) {
-                LOG.warn("No job found for JobID: {}", jobId);
-                return Optional.empty();
+    private String cleanDoc(String doc) {
+        return doc.replaceAll("[\\t]+", " ").replaceAll("[\\n\\r]+", "");
+    }
+
 ```
 
+## RuleId[ruleID=SizeReplaceableByIsEmpty]
 ### SizeReplaceableByIsEmpty
 `curator.asCuratorFramework().getChildren().forPath("/").size() != 0` can be replaced with '!curator.asCuratorFramework().getChildren().forPath("/").isEmpty()'
 in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/utils/FlinkUtils.java`
@@ -806,6 +794,18 @@ in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator
                 return curator.asCuratorFramework().getChildren().forPath("/").size() != 0;
             }
             return false;
+```
+
+### SizeReplaceableByIsEmpty
+`matchedList.size() == 0` can be replaced with 'matchedList.isEmpty()'
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/observer/sessionjob/FlinkSessionJobObserver.java`
+#### Snippet
+```java
+                            status.getJobId(), matchedList.size()));
+
+            if (matchedList.size() == 0) {
+                LOG.warn("No job found for JobID: {}", jobId);
+                return Optional.empty();
 ```
 
 ## RuleId[ruleID=UnnecessaryReturn]
@@ -898,150 +898,6 @@ in `flink-kubernetes-operator/src/main/java/org/apache/flink/runtime/rest/messag
 
 ## RuleId[ruleID=BoundedWildcard]
 ### BoundedWildcard
-Can generalize to `? super Set`
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/config/FlinkConfigManager.java`
-#### Snippet
-```java
-
-    public FlinkConfigManager(
-            Configuration defaultConfig, Consumer<Set<String>> namespaceListener) {
-        this.namespaceListener = namespaceListener;
-        Duration cacheTimeout =
-```
-
-### BoundedWildcard
-Can generalize to `? extends JobVertexID`
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/autoscaler/ScalingMetricCollector.java`
-#### Snippet
-```java
-    private Map<JobVertexID, Map<ScalingMetric, Double>> convertToScalingMetrics(
-            ResourceID resourceID,
-            Map<JobVertexID, Map<FlinkMetric, AggregatedMetric>> collectedMetrics,
-            JobTopology jobTopology,
-            Configuration conf) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends Map`
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/autoscaler/ScalingMetricCollector.java`
-#### Snippet
-```java
-    private Map<JobVertexID, Map<ScalingMetric, Double>> convertToScalingMetrics(
-            ResourceID resourceID,
-            Map<JobVertexID, Map<FlinkMetric, AggregatedMetric>> collectedMetrics,
-            JobTopology jobTopology,
-            Configuration conf) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends JobVertexID`
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/autoscaler/ScalingExecutor.java`
-#### Snippet
-```java
-            AbstractFlinkResource<?, ?> resource,
-            Configuration conf,
-            Map<JobVertexID, Map<ScalingMetric, EvaluatedScalingMetric>> evaluatedMetrics,
-            Map<JobVertexID, SortedMap<Instant, ScalingSummary>> scalingHistory) {
-
-```
-
-### BoundedWildcard
-Can generalize to `? extends Map`
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/autoscaler/ScalingExecutor.java`
-#### Snippet
-```java
-            AbstractFlinkResource<?, ?> resource,
-            Configuration conf,
-            Map<JobVertexID, Map<ScalingMetric, EvaluatedScalingMetric>> evaluatedMetrics,
-            Map<JobVertexID, SortedMap<Instant, ScalingSummary>> scalingHistory) {
-
-```
-
-### BoundedWildcard
-Can generalize to `? extends ScalingSummary`
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/autoscaler/ScalingExecutor.java`
-#### Snippet
-```java
-
-    private static String scalingReport(
-            Map<JobVertexID, ScalingSummary> scalingSummaries, boolean scalingEnabled) {
-        StringBuilder sb =
-                new StringBuilder(
-```
-
-### BoundedWildcard
-Can generalize to `? extends Map`
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/autoscaler/ScalingExecutor.java`
-#### Snippet
-```java
-
-    protected static boolean allVerticesWithinUtilizationTarget(
-            Map<JobVertexID, Map<ScalingMetric, EvaluatedScalingMetric>> evaluatedMetrics,
-            Map<JobVertexID, ScalingSummary> scalingSummaries) {
-
-```
-
-### BoundedWildcard
-Can generalize to `? extends JobVertexID`
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/autoscaler/ScalingExecutor.java`
-#### Snippet
-```java
-    private void setVertexParallelismOverrides(
-            AbstractFlinkResource<?, ?> resource,
-            Map<JobVertexID, Map<ScalingMetric, EvaluatedScalingMetric>> evaluatedMetrics,
-            Map<JobVertexID, ScalingSummary> summaries) {
-        var flinkConf = Configuration.fromMap(resource.getSpec().getFlinkConfiguration());
-```
-
-### BoundedWildcard
-Can generalize to `? extends Map`
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/autoscaler/ScalingExecutor.java`
-#### Snippet
-```java
-    private void setVertexParallelismOverrides(
-            AbstractFlinkResource<?, ?> resource,
-            Map<JobVertexID, Map<ScalingMetric, EvaluatedScalingMetric>> evaluatedMetrics,
-            Map<JobVertexID, ScalingSummary> summaries) {
-        var flinkConf = Configuration.fromMap(resource.getSpec().getFlinkConfiguration());
-```
-
-### BoundedWildcard
-Can generalize to `? extends ScalingSummary`
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/autoscaler/ScalingExecutor.java`
-#### Snippet
-```java
-            AbstractFlinkResource<?, ?> resource,
-            Map<JobVertexID, Map<ScalingMetric, EvaluatedScalingMetric>> evaluatedMetrics,
-            Map<JobVertexID, ScalingSummary> summaries) {
-        var flinkConf = Configuration.fromMap(resource.getSpec().getFlinkConfiguration());
-        var overrides = new HashMap<String, String>();
-```
-
-### BoundedWildcard
-Can generalize to `? extends ScalingSummary`
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/autoscaler/JobVertexScaler.java`
-#### Snippet
-```java
-            Configuration conf,
-            Map<ScalingMetric, EvaluatedScalingMetric> evaluatedMetrics,
-            SortedMap<Instant, ScalingSummary> history,
-            int currentParallelism,
-            int newParallelism) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends EvaluatedScalingMetric`
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/autoscaler/JobVertexScaler.java`
-#### Snippet
-```java
-            JobVertexID vertex,
-            Configuration conf,
-            Map<ScalingMetric, EvaluatedScalingMetric> evaluatedMetrics,
-            ScalingSummary lastSummary) {
-
-```
-
-### BoundedWildcard
 Can generalize to `? extends AggregatedMetric`
 in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/autoscaler/metrics/FlinkMetric.java`
 #### Snippet
@@ -1051,654 +907,6 @@ in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator
     public Optional<String> findAny(Collection<AggregatedMetric> metrics) {
         return metrics.stream().map(AggregatedMetric::getId).filter(predicate).findAny();
     }
-```
-
-### BoundedWildcard
-Can generalize to `? extends JobStatusMessage`
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/observer/sessionjob/FlinkSessionJobObserver.java`
-#### Snippet
-```java
-        @Override
-        protected Optional<JobStatusMessage> filterTargetJob(
-                JobStatus status, List<JobStatusMessage> clusterJobStatuses) {
-            var jobId =
-                    Preconditions.checkNotNull(
-```
-
-### BoundedWildcard
-Can generalize to `? extends Map`>
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/autoscaler/ScalingMetricEvaluator.java`
-#### Snippet
-```java
-            ScalingMetric metric,
-            JobVertexID jobVertexId,
-            SortedMap<Instant, Map<JobVertexID, Map<ScalingMetric, Double>>> metricsHistory) {
-        return StatUtils.mean(
-                metricsHistory.values().stream()
-```
-
-### BoundedWildcard
-Can generalize to `? extends Map`
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/autoscaler/ScalingMetricEvaluator.java`
-#### Snippet
-```java
-            JobVertexID vertex,
-            Configuration conf,
-            HashMap<JobVertexID, Map<ScalingMetric, EvaluatedScalingMetric>> alreadyEvaluated,
-            SortedMap<Instant, Map<JobVertexID, Map<ScalingMetric, Double>>> metricsHistory,
-            Map<ScalingMetric, Double> latestVertexMetrics,
-```
-
-### BoundedWildcard
-Can generalize to `? super ScalingMetric`
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/autoscaler/ScalingMetricEvaluator.java`
-#### Snippet
-```java
-            SortedMap<Instant, Map<JobVertexID, Map<ScalingMetric, Double>>> metricsHistory,
-            Map<ScalingMetric, Double> latestVertexMetrics,
-            Map<ScalingMetric, EvaluatedScalingMetric> out) {
-
-        boolean isSource = topology.getInputs().get(vertex).isEmpty();
-```
-
-### BoundedWildcard
-Can generalize to `? super EvaluatedScalingMetric`
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/autoscaler/ScalingMetricEvaluator.java`
-#### Snippet
-```java
-            SortedMap<Instant, Map<JobVertexID, Map<ScalingMetric, Double>>> metricsHistory,
-            Map<ScalingMetric, Double> latestVertexMetrics,
-            Map<ScalingMetric, EvaluatedScalingMetric> out) {
-
-        boolean isSource = topology.getInputs().get(vertex).isEmpty();
-```
-
-### BoundedWildcard
-Can generalize to `? extends JobStatusMessage`
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/observer/deployment/ApplicationObserver.java`
-#### Snippet
-```java
-        @Override
-        protected Optional<JobStatusMessage> filterTargetJob(
-                JobStatus status, List<JobStatusMessage> clusterJobStatuses) {
-            if (!clusterJobStatuses.isEmpty()) {
-                clusterJobStatuses.sort(
-```
-
-### BoundedWildcard
-Can generalize to `? extends EvaluatedScalingMetric`
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/autoscaler/utils/AutoScalerUtils.java`
-#### Snippet
-```java
-
-    public static double getTargetProcessingCapacity(
-            Map<ScalingMetric, EvaluatedScalingMetric> evaluatedMetrics,
-            Configuration conf,
-            double targetUtilization,
-```
-
-### BoundedWildcard
-Can generalize to `? extends FlinkResourceValidator`
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/controller/FlinkSessionJobController.java`
-#### Snippet
-```java
-    public FlinkSessionJobController(
-            FlinkConfigManager configManager,
-            Set<FlinkResourceValidator> validators,
-            FlinkResourceContextFactory ctxFactory,
-            Reconciler<FlinkSessionJob> reconciler,
-```
-
-### BoundedWildcard
-Can generalize to `? extends FlinkDeployment`
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/observer/deployment/AbstractFlinkDeploymentObserver.java`
-#### Snippet
-```java
-    }
-
-    private void checkContainerBackoff(FlinkResourceContext<FlinkDeployment> ctx) {
-        PodList jmPods =
-                ctx.getFlinkService().getJmPodList(ctx.getResource(), ctx.getObserveConfig());
-```
-
-### BoundedWildcard
-Can generalize to `? extends FlinkDeployment`
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/observer/deployment/AbstractFlinkDeploymentObserver.java`
-#### Snippet
-```java
-    }
-
-    private void observeClusterInfo(FlinkResourceContext<FlinkDeployment> ctx) {
-        var flinkApp = ctx.getResource();
-        try {
-```
-
-### BoundedWildcard
-Can generalize to `? extends FlinkDeployment`
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/observer/deployment/AbstractFlinkDeploymentObserver.java`
-#### Snippet
-```java
-    @Override
-    protected void updateStatusToDeployedIfAlreadyUpgraded(
-            FlinkResourceContext<FlinkDeployment> ctx) {
-        var flinkDep = ctx.getResource();
-        var status = flinkDep.getStatus();
-```
-
-### BoundedWildcard
-Can generalize to `? extends FlinkResourceListener`
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/utils/StatusRecorder.java`
-#### Snippet
-```java
-                    KubernetesClient kubernetesClient,
-                    MetricManager<CR> metricManager,
-                    Collection<FlinkResourceListener> listeners) {
-        BiConsumer<CR, S> consumer =
-                (resource, previousStatus) -> {
-```
-
-### BoundedWildcard
-Can generalize to `? super CR`
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/utils/StatusRecorder.java`
-#### Snippet
-```java
-    public StatusRecorder(
-            KubernetesClient client,
-            MetricManager<CR> metricManager,
-            BiConsumer<CR, STATUS> statusUpdateListener) {
-        this.client = client;
-```
-
-### BoundedWildcard
-Can generalize to `? super CR`
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/utils/StatusRecorder.java`
-#### Snippet
-```java
-            KubernetesClient client,
-            MetricManager<CR> metricManager,
-            BiConsumer<CR, STATUS> statusUpdateListener) {
-        this.client = client;
-        this.statusUpdateListener = statusUpdateListener;
-```
-
-### BoundedWildcard
-Can generalize to `? super STATUS`
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/utils/StatusRecorder.java`
-#### Snippet
-```java
-            KubernetesClient client,
-            MetricManager<CR> metricManager,
-            BiConsumer<CR, STATUS> statusUpdateListener) {
-        this.client = client;
-        this.statusUpdateListener = statusUpdateListener;
-```
-
-### BoundedWildcard
-Can generalize to `? extends JobVertexID`
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/autoscaler/AutoScalerInfo.java`
-#### Snippet
-```java
-    @SneakyThrows
-    public void addToScalingHistory(
-            Instant now, Map<JobVertexID, ScalingSummary> summaries, Configuration conf) {
-        // Make sure to init history
-        getScalingHistory();
-```
-
-### BoundedWildcard
-Can generalize to `? extends ScalingSummary`
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/autoscaler/AutoScalerInfo.java`
-#### Snippet
-```java
-    @SneakyThrows
-    public void addToScalingHistory(
-            Instant now, Map<JobVertexID, ScalingSummary> summaries, Configuration conf) {
-        // Make sure to init history
-        getScalingHistory();
-```
-
-### BoundedWildcard
-Can generalize to `? extends SPEC`
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/reconciler/deployment/AbstractFlinkResourceReconciler.java`
-#### Snippet
-```java
-     */
-    private boolean shouldRollBack(
-            AbstractFlinkResource<SPEC, STATUS> resource,
-            Configuration configuration,
-            FlinkService flinkService) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends FlinkDeployment`
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/reconciler/deployment/SessionReconciler.java`
-#### Snippet
-```java
-    }
-
-    private void deleteSessionCluster(FlinkResourceContext<FlinkDeployment> ctx) {
-        var deployment = ctx.getResource();
-        var conf = ctx.getDeployConfig(ctx.getResource().getSpec());
-```
-
-### BoundedWildcard
-Can generalize to `? extends FlinkDeployment`
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/reconciler/deployment/SessionReconciler.java`
-#### Snippet
-```java
-
-    @Override
-    public DeleteControl cleanupInternal(FlinkResourceContext<FlinkDeployment> ctx) {
-        Set<FlinkSessionJob> sessionJobs =
-                ctx.getJosdkContext().getSecondaryResources(FlinkSessionJob.class);
-```
-
-### BoundedWildcard
-Can generalize to `? extends FlinkDeployment`
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/reconciler/deployment/SessionReconciler.java`
-#### Snippet
-```java
-    @Override
-    public void deploy(
-            FlinkResourceContext<FlinkDeployment> ctx,
-            FlinkDeploymentSpec spec,
-            Configuration deployConfig,
-```
-
-### BoundedWildcard
-Can generalize to `? extends FlinkDeployment`
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/reconciler/deployment/SessionReconciler.java`
-#### Snippet
-```java
-    }
-
-    private void recoverSession(FlinkResourceContext<FlinkDeployment> ctx) throws Exception {
-        ctx.getFlinkService().submitSessionCluster(ctx.getObserveConfig());
-        ctx.getResource()
-```
-
-### BoundedWildcard
-Can generalize to `? extends CR`
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/reconciler/deployment/AbstractJobReconciler.java`
-#### Snippet
-```java
-
-    protected Optional<UpgradeMode> getAvailableUpgradeMode(
-            FlinkResourceContext<CR> ctx, Configuration deployConfig) {
-        var resource = ctx.getResource();
-        var status = resource.getStatus();
-```
-
-### BoundedWildcard
-Can generalize to `? extends RetryInfo`
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/reconciler/ReconciliationUtils.java`
-#### Snippet
-```java
-            ErrorStatusUpdateControl<R> toErrorStatusUpdateControl(
-                    R resource,
-                    Optional<RetryInfo> retryInfo,
-                    Exception e,
-                    StatusRecorder<R, STATUS> statusRecorder,
-```
-
-### BoundedWildcard
-Can generalize to `? super R`
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/reconciler/ReconciliationUtils.java`
-#### Snippet
-```java
-                    Optional<RetryInfo> retryInfo,
-                    Exception e,
-                    StatusRecorder<R, STATUS> statusRecorder,
-                    FlinkOperatorConfiguration operatorConfiguration) {
-
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/observer/ClusterHealthEvaluator.java`
-#### Snippet
-```java
-
-    public static void setLastValidClusterHealthInfo(
-            Map<String, String> clusterInfo, ClusterHealthInfo clusterHealthInfo) {
-        LOG.debug("Setting last valid health check info");
-        clusterInfo.put(CLUSTER_INFO_KEY, ClusterHealthInfo.serialize(clusterHealthInfo));
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/observer/ClusterHealthEvaluator.java`
-#### Snippet
-```java
-
-    public static void setLastValidClusterHealthInfo(
-            Map<String, String> clusterInfo, ClusterHealthInfo clusterHealthInfo) {
-        LOG.debug("Setting last valid health check info");
-        clusterInfo.put(CLUSTER_INFO_KEY, ClusterHealthInfo.serialize(clusterHealthInfo));
-```
-
-### BoundedWildcard
-Can generalize to `? extends FlinkDeployment`
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/reconciler/deployment/ApplicationReconciler.java`
-#### Snippet
-```java
-
-    @Override
-    protected void cancelJob(FlinkResourceContext<FlinkDeployment> ctx, UpgradeMode upgradeMode)
-            throws Exception {
-        ctx.getFlinkService().cancelJob(ctx.getResource(), upgradeMode, ctx.getObserveConfig());
-```
-
-### BoundedWildcard
-Can generalize to `? extends FlinkDeployment`
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/reconciler/deployment/ApplicationReconciler.java`
-#### Snippet
-```java
-    @Override
-    protected Optional<UpgradeMode> getAvailableUpgradeMode(
-            FlinkResourceContext<FlinkDeployment> ctx, Configuration deployConfig) {
-
-        var deployment = ctx.getResource();
-```
-
-### BoundedWildcard
-Can generalize to `? extends FlinkDeployment`
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/reconciler/deployment/ApplicationReconciler.java`
-#### Snippet
-```java
-    @Override
-    public void deploy(
-            FlinkResourceContext<FlinkDeployment> ctx,
-            FlinkDeploymentSpec spec,
-            Configuration deployConfig,
-```
-
-### BoundedWildcard
-Can generalize to `? extends FlinkDeployment`
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/reconciler/deployment/ApplicationReconciler.java`
-#### Snippet
-```java
-    @Override
-    @SneakyThrows
-    protected DeleteControl cleanupInternal(FlinkResourceContext<FlinkDeployment> ctx) {
-        var deployment = ctx.getResource();
-        var status = deployment.getStatus();
-```
-
-### BoundedWildcard
-Can generalize to `? extends FlinkDeployment`
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/reconciler/deployment/ApplicationReconciler.java`
-#### Snippet
-```java
-
-    @Override
-    protected void cleanupAfterFailedJob(FlinkResourceContext<FlinkDeployment> ctx) {
-        // The job has already stopped. Delete the deployment and we are ready.
-        ctx.getFlinkService()
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/utils/ConfigOptionUtils.java`
-#### Snippet
-```java
-     */
-    public static <T extends Comparable<T>> T getValueWithThreshold(
-            Configuration config, ConfigOption<T> configOption, T configThreshold) {
-        T configValue = config.get(configOption);
-        if (configThreshold != null && configValue.compareTo(configThreshold) > 0) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends OptionWithMetaInfo`
-in `flink-kubernetes-docs/src/main/java/org/apache/flink/kubernetes/operator/docs/configuration/ConfigOptionsDocGenerator.java`
-#### Snippet
-```java
-     * @return string containing HTML formatted table
-     */
-    private static String toHtmlTable(final List<OptionWithMetaInfo> options) {
-        StringBuilder htmlTable = new StringBuilder();
-        htmlTable.append("<table class=\"configuration table table-bordered\">\n");
-```
-
-### BoundedWildcard
-Can generalize to `? extends OptionWithMetaInfo`
-in `flink-kubernetes-docs/src/main/java/org/apache/flink/kubernetes/operator/docs/configuration/ConfigOptionsDocGenerator.java`
-#### Snippet
-```java
-    }
-
-    private static void sortOptions(List<OptionWithMetaInfo> configOptions) {
-        configOptions.sort(Comparator.comparing(option -> option.option.key()));
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? extends OptionWithMetaInfo`
-in `flink-kubernetes-docs/src/main/java/org/apache/flink/kubernetes/operator/docs/configuration/ConfigOptionsDocGenerator.java`
-#### Snippet
-```java
-        private final Node root = new Node();
-
-        Tree(ConfigGroup[] groups, Collection<OptionWithMetaInfo> options) {
-            // generate a tree based on all key prefixes
-            for (ConfigGroup group : groups) {
-```
-
-### BoundedWildcard
-Can generalize to `? super Class`
-in `flink-kubernetes-docs/src/main/java/org/apache/flink/kubernetes/operator/docs/configuration/ConfigOptionsDocGenerator.java`
-#### Snippet
-```java
-            String packageName,
-            String pathPrefix,
-            ThrowingConsumer<Class<?>, IOException> classConsumer)
-            throws IOException, ClassNotFoundException {
-        Path configDir = Paths.get(rootDir, module, pathPrefix, packageName.replaceAll("\\.", "/"));
-```
-
-### BoundedWildcard
-Can generalize to `? extends IOException`
-in `flink-kubernetes-docs/src/main/java/org/apache/flink/kubernetes/operator/docs/configuration/ConfigOptionsDocGenerator.java`
-#### Snippet
-```java
-            String packageName,
-            String pathPrefix,
-            ThrowingConsumer<Class<?>, IOException> classConsumer)
-            throws IOException, ClassNotFoundException {
-        Path configDir = Paths.get(rootDir, module, pathPrefix, packageName.replaceAll("\\.", "/"));
-```
-
-### BoundedWildcard
-Can generalize to `? extends FlinkDeployment`
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/validation/DefaultValidator.java`
-#### Snippet
-```java
-    @Override
-    public Optional<String> validateSessionJob(
-            FlinkSessionJob sessionJob, Optional<FlinkDeployment> sessionOpt) {
-
-        if (sessionOpt.isEmpty()) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends FlinkSessionJob`
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/reconciler/sessionjob/SessionJobReconciler.java`
-#### Snippet
-```java
-
-    @Override
-    protected void cancelJob(FlinkResourceContext<FlinkSessionJob> ctx, UpgradeMode upgradeMode)
-            throws Exception {
-        ctx.getFlinkService()
-```
-
-### BoundedWildcard
-Can generalize to `? extends FlinkDeployment`
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/reconciler/sessionjob/SessionJobReconciler.java`
-#### Snippet
-```java
-    }
-
-    public static boolean sessionClusterReady(Optional<FlinkDeployment> flinkDeploymentOpt) {
-        if (flinkDeploymentOpt.isPresent()) {
-            var flinkdep = flinkDeploymentOpt.get();
-```
-
-### BoundedWildcard
-Can generalize to `? super Event`
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/utils/EventUtils.java`
-#### Snippet
-```java
-            String message,
-            EventRecorder.Component component,
-            Consumer<Event> eventListener) {
-        var eventName = generateEventName(target, type, reason, message, component);
-
-```
-
-### BoundedWildcard
-Can generalize to `? extends FlinkResourceValidator`
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/controller/FlinkDeploymentController.java`
-#### Snippet
-```java
-    public FlinkDeploymentController(
-            FlinkConfigManager configManager,
-            Set<FlinkResourceValidator> validators,
-            FlinkResourceContextFactory ctxFactory,
-            ReconcilerFactory reconcilerFactory,
-```
-
-### BoundedWildcard
-Can generalize to `? extends FlinkResourceListener`
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/utils/EventRecorder.java`
-#### Snippet
-```java
-
-    public static EventRecorder create(
-            KubernetesClient client, Collection<FlinkResourceListener> listeners) {
-
-        BiConsumer<AbstractFlinkResource<?, ?>, Event> biConsumer =
-```
-
-### BoundedWildcard
-Can generalize to `? super AbstractFlinkResource`
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/utils/EventRecorder.java`
-#### Snippet
-```java
-
-    public EventRecorder(
-            KubernetesClient client, BiConsumer<AbstractFlinkResource<?, ?>, Event> eventListener) {
-        this.client = client;
-        this.eventListener = eventListener;
-```
-
-### BoundedWildcard
-Can generalize to `? super Event`
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/utils/EventRecorder.java`
-#### Snippet
-```java
-
-    public EventRecorder(
-            KubernetesClient client, BiConsumer<AbstractFlinkResource<?, ?>, Event> eventListener) {
-        this.client = client;
-        this.eventListener = eventListener;
-```
-
-### BoundedWildcard
-Can generalize to `? extends HasMetadata`
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/utils/IngressUtils.java`
-#### Snippet
-```java
-    }
-
-    private static void setOwnerReference(HasMetadata owner, List<HasMetadata> resources) {
-        final OwnerReference ownerReference =
-                new OwnerReferenceBuilder()
-```
-
-### BoundedWildcard
-Can generalize to `? super AggregatedMetric`
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/autoscaler/metrics/MetricAggregator.java`
-#### Snippet
-```java
-    private final Function<AggregatedMetric, Double> getter;
-
-    MetricAggregator(Function<AggregatedMetric, Double> getter) {
-        this.getter = getter;
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
-in `flink-kubernetes-operator-api/src/main/java/org/apache/flink/kubernetes/operator/api/utils/SpecUtils.java`
-#### Snippet
-```java
-     */
-    public static <T extends AbstractFlinkSpec> SpecWithMeta<T> deserializeSpecWithMeta(
-            @Nullable String specWithMetaString, Class<T> specClass) {
-        if (specWithMetaString == null) {
-            return null;
-```
-
-### BoundedWildcard
-Can generalize to `? extends FlinkResourceValidator`
-in `flink-kubernetes-webhook/src/main/java/org/apache/flink/kubernetes/operator/admission/FlinkValidator.java`
-#### Snippet
-```java
-    private final InformerManager informerManager;
-
-    public FlinkValidator(Set<FlinkResourceValidator> validators, InformerManager informerManager) {
-        this.validators = validators;
-        this.informerManager = informerManager;
-```
-
-### BoundedWildcard
-Can generalize to `? extends FlinkDeployment`
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/observer/ClusterHealthObserver.java`
-#### Snippet
-```java
-     * @param ctx Resource context.
-     */
-    public void observe(FlinkResourceContext<FlinkDeployment> ctx) {
-        var flinkApp = ctx.getResource();
-        try {
-```
-
-### BoundedWildcard
-Can generalize to `? extends AggregatedMetric`
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/autoscaler/metrics/ScalingMetrics.java`
-#### Snippet
-```java
-
-    public static void computeLoadMetrics(
-            Map<FlinkMetric, AggregatedMetric> flinkMetrics,
-            Map<ScalingMetric, Double> scalingMetrics) {
-
-```
-
-### BoundedWildcard
-Can generalize to `? super ScalingMetric`
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/autoscaler/metrics/ScalingMetrics.java`
-#### Snippet
-```java
-    public static void computeLoadMetrics(
-            Map<FlinkMetric, AggregatedMetric> flinkMetrics,
-            Map<ScalingMetric, Double> scalingMetrics) {
-
-        var busyTime = flinkMetrics.get(FlinkMetric.BUSY_TIME_PER_SEC);
-```
-
-### BoundedWildcard
-Can generalize to `? super Double`
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/autoscaler/metrics/ScalingMetrics.java`
-#### Snippet
-```java
-    public static void computeLoadMetrics(
-            Map<FlinkMetric, AggregatedMetric> flinkMetrics,
-            Map<ScalingMetric, Double> scalingMetrics) {
-
-        var busyTime = flinkMetrics.get(FlinkMetric.BUSY_TIME_PER_SEC);
 ```
 
 ### BoundedWildcard
@@ -1774,6 +982,798 @@ in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator
 ```
 
 ### BoundedWildcard
+Can generalize to `? extends AggregatedMetric`
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/autoscaler/metrics/ScalingMetrics.java`
+#### Snippet
+```java
+
+    public static void computeLoadMetrics(
+            Map<FlinkMetric, AggregatedMetric> flinkMetrics,
+            Map<ScalingMetric, Double> scalingMetrics) {
+
+```
+
+### BoundedWildcard
+Can generalize to `? super ScalingMetric`
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/autoscaler/metrics/ScalingMetrics.java`
+#### Snippet
+```java
+    public static void computeLoadMetrics(
+            Map<FlinkMetric, AggregatedMetric> flinkMetrics,
+            Map<ScalingMetric, Double> scalingMetrics) {
+
+        var busyTime = flinkMetrics.get(FlinkMetric.BUSY_TIME_PER_SEC);
+```
+
+### BoundedWildcard
+Can generalize to `? super Double`
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/autoscaler/metrics/ScalingMetrics.java`
+#### Snippet
+```java
+    public static void computeLoadMetrics(
+            Map<FlinkMetric, AggregatedMetric> flinkMetrics,
+            Map<ScalingMetric, Double> scalingMetrics) {
+
+        var busyTime = flinkMetrics.get(FlinkMetric.BUSY_TIME_PER_SEC);
+```
+
+### BoundedWildcard
+Can generalize to `? extends JobVertexID`
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/autoscaler/AutoScalerInfo.java`
+#### Snippet
+```java
+    @SneakyThrows
+    public void addToScalingHistory(
+            Instant now, Map<JobVertexID, ScalingSummary> summaries, Configuration conf) {
+        // Make sure to init history
+        getScalingHistory();
+```
+
+### BoundedWildcard
+Can generalize to `? extends ScalingSummary`
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/autoscaler/AutoScalerInfo.java`
+#### Snippet
+```java
+    @SneakyThrows
+    public void addToScalingHistory(
+            Instant now, Map<JobVertexID, ScalingSummary> summaries, Configuration conf) {
+        // Make sure to init history
+        getScalingHistory();
+```
+
+### BoundedWildcard
+Can generalize to `? extends EvaluatedScalingMetric`
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/autoscaler/JobVertexScaler.java`
+#### Snippet
+```java
+            JobVertexID vertex,
+            Configuration conf,
+            Map<ScalingMetric, EvaluatedScalingMetric> evaluatedMetrics,
+            ScalingSummary lastSummary) {
+
+```
+
+### BoundedWildcard
+Can generalize to `? extends ScalingSummary`
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/autoscaler/JobVertexScaler.java`
+#### Snippet
+```java
+            Configuration conf,
+            Map<ScalingMetric, EvaluatedScalingMetric> evaluatedMetrics,
+            SortedMap<Instant, ScalingSummary> history,
+            int currentParallelism,
+            int newParallelism) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends JobVertexID`
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/autoscaler/ScalingExecutor.java`
+#### Snippet
+```java
+    private void setVertexParallelismOverrides(
+            AbstractFlinkResource<?, ?> resource,
+            Map<JobVertexID, Map<ScalingMetric, EvaluatedScalingMetric>> evaluatedMetrics,
+            Map<JobVertexID, ScalingSummary> summaries) {
+        var flinkConf = Configuration.fromMap(resource.getSpec().getFlinkConfiguration());
+```
+
+### BoundedWildcard
+Can generalize to `? extends Map`
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/autoscaler/ScalingExecutor.java`
+#### Snippet
+```java
+    private void setVertexParallelismOverrides(
+            AbstractFlinkResource<?, ?> resource,
+            Map<JobVertexID, Map<ScalingMetric, EvaluatedScalingMetric>> evaluatedMetrics,
+            Map<JobVertexID, ScalingSummary> summaries) {
+        var flinkConf = Configuration.fromMap(resource.getSpec().getFlinkConfiguration());
+```
+
+### BoundedWildcard
+Can generalize to `? extends ScalingSummary`
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/autoscaler/ScalingExecutor.java`
+#### Snippet
+```java
+            AbstractFlinkResource<?, ?> resource,
+            Map<JobVertexID, Map<ScalingMetric, EvaluatedScalingMetric>> evaluatedMetrics,
+            Map<JobVertexID, ScalingSummary> summaries) {
+        var flinkConf = Configuration.fromMap(resource.getSpec().getFlinkConfiguration());
+        var overrides = new HashMap<String, String>();
+```
+
+### BoundedWildcard
+Can generalize to `? extends JobVertexID`
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/autoscaler/ScalingExecutor.java`
+#### Snippet
+```java
+            AbstractFlinkResource<?, ?> resource,
+            Configuration conf,
+            Map<JobVertexID, Map<ScalingMetric, EvaluatedScalingMetric>> evaluatedMetrics,
+            Map<JobVertexID, SortedMap<Instant, ScalingSummary>> scalingHistory) {
+
+```
+
+### BoundedWildcard
+Can generalize to `? extends Map`
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/autoscaler/ScalingExecutor.java`
+#### Snippet
+```java
+            AbstractFlinkResource<?, ?> resource,
+            Configuration conf,
+            Map<JobVertexID, Map<ScalingMetric, EvaluatedScalingMetric>> evaluatedMetrics,
+            Map<JobVertexID, SortedMap<Instant, ScalingSummary>> scalingHistory) {
+
+```
+
+### BoundedWildcard
+Can generalize to `? extends Map`
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/autoscaler/ScalingExecutor.java`
+#### Snippet
+```java
+
+    protected static boolean allVerticesWithinUtilizationTarget(
+            Map<JobVertexID, Map<ScalingMetric, EvaluatedScalingMetric>> evaluatedMetrics,
+            Map<JobVertexID, ScalingSummary> scalingSummaries) {
+
+```
+
+### BoundedWildcard
+Can generalize to `? extends ScalingSummary`
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/autoscaler/ScalingExecutor.java`
+#### Snippet
+```java
+
+    private static String scalingReport(
+            Map<JobVertexID, ScalingSummary> scalingSummaries, boolean scalingEnabled) {
+        StringBuilder sb =
+                new StringBuilder(
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/utils/ConfigOptionUtils.java`
+#### Snippet
+```java
+     */
+    public static <T extends Comparable<T>> T getValueWithThreshold(
+            Configuration config, ConfigOption<T> configOption, T configThreshold) {
+        T configValue = config.get(configOption);
+        if (configThreshold != null && configValue.compareTo(configThreshold) > 0) {
+```
+
+### BoundedWildcard
+Can generalize to `? super Set`
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/config/FlinkConfigManager.java`
+#### Snippet
+```java
+
+    public FlinkConfigManager(
+            Configuration defaultConfig, Consumer<Set<String>> namespaceListener) {
+        this.namespaceListener = namespaceListener;
+        Duration cacheTimeout =
+```
+
+### BoundedWildcard
+Can generalize to `? extends JobVertexID`
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/autoscaler/ScalingMetricCollector.java`
+#### Snippet
+```java
+    private Map<JobVertexID, Map<ScalingMetric, Double>> convertToScalingMetrics(
+            ResourceID resourceID,
+            Map<JobVertexID, Map<FlinkMetric, AggregatedMetric>> collectedMetrics,
+            JobTopology jobTopology,
+            Configuration conf) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends Map`
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/autoscaler/ScalingMetricCollector.java`
+#### Snippet
+```java
+    private Map<JobVertexID, Map<ScalingMetric, Double>> convertToScalingMetrics(
+            ResourceID resourceID,
+            Map<JobVertexID, Map<FlinkMetric, AggregatedMetric>> collectedMetrics,
+            JobTopology jobTopology,
+            Configuration conf) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends FlinkResourceValidator`
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/controller/FlinkSessionJobController.java`
+#### Snippet
+```java
+    public FlinkSessionJobController(
+            FlinkConfigManager configManager,
+            Set<FlinkResourceValidator> validators,
+            FlinkResourceContextFactory ctxFactory,
+            Reconciler<FlinkSessionJob> reconciler,
+```
+
+### BoundedWildcard
+Can generalize to `? extends RetryInfo`
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/reconciler/ReconciliationUtils.java`
+#### Snippet
+```java
+            ErrorStatusUpdateControl<R> toErrorStatusUpdateControl(
+                    R resource,
+                    Optional<RetryInfo> retryInfo,
+                    Exception e,
+                    StatusRecorder<R, STATUS> statusRecorder,
+```
+
+### BoundedWildcard
+Can generalize to `? super R`
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/reconciler/ReconciliationUtils.java`
+#### Snippet
+```java
+                    Optional<RetryInfo> retryInfo,
+                    Exception e,
+                    StatusRecorder<R, STATUS> statusRecorder,
+                    FlinkOperatorConfiguration operatorConfiguration) {
+
+```
+
+### BoundedWildcard
+Can generalize to `? extends JobStatusMessage`
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/observer/sessionjob/FlinkSessionJobObserver.java`
+#### Snippet
+```java
+        @Override
+        protected Optional<JobStatusMessage> filterTargetJob(
+                JobStatus status, List<JobStatusMessage> clusterJobStatuses) {
+            var jobId =
+                    Preconditions.checkNotNull(
+```
+
+### BoundedWildcard
+Can generalize to `? extends EvaluatedScalingMetric`
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/autoscaler/utils/AutoScalerUtils.java`
+#### Snippet
+```java
+
+    public static double getTargetProcessingCapacity(
+            Map<ScalingMetric, EvaluatedScalingMetric> evaluatedMetrics,
+            Configuration conf,
+            double targetUtilization,
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
+in `flink-kubernetes-operator-api/src/main/java/org/apache/flink/kubernetes/operator/api/utils/SpecUtils.java`
+#### Snippet
+```java
+     */
+    public static <T extends AbstractFlinkSpec> SpecWithMeta<T> deserializeSpecWithMeta(
+            @Nullable String specWithMetaString, Class<T> specClass) {
+        if (specWithMetaString == null) {
+            return null;
+```
+
+### BoundedWildcard
+Can generalize to `? extends FlinkDeployment`
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/observer/deployment/AbstractFlinkDeploymentObserver.java`
+#### Snippet
+```java
+    @Override
+    protected void updateStatusToDeployedIfAlreadyUpgraded(
+            FlinkResourceContext<FlinkDeployment> ctx) {
+        var flinkDep = ctx.getResource();
+        var status = flinkDep.getStatus();
+```
+
+### BoundedWildcard
+Can generalize to `? extends FlinkDeployment`
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/observer/deployment/AbstractFlinkDeploymentObserver.java`
+#### Snippet
+```java
+    }
+
+    private void checkContainerBackoff(FlinkResourceContext<FlinkDeployment> ctx) {
+        PodList jmPods =
+                ctx.getFlinkService().getJmPodList(ctx.getResource(), ctx.getObserveConfig());
+```
+
+### BoundedWildcard
+Can generalize to `? extends FlinkDeployment`
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/observer/deployment/AbstractFlinkDeploymentObserver.java`
+#### Snippet
+```java
+    }
+
+    private void observeClusterInfo(FlinkResourceContext<FlinkDeployment> ctx) {
+        var flinkApp = ctx.getResource();
+        try {
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/observer/ClusterHealthEvaluator.java`
+#### Snippet
+```java
+
+    public static void setLastValidClusterHealthInfo(
+            Map<String, String> clusterInfo, ClusterHealthInfo clusterHealthInfo) {
+        LOG.debug("Setting last valid health check info");
+        clusterInfo.put(CLUSTER_INFO_KEY, ClusterHealthInfo.serialize(clusterHealthInfo));
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/observer/ClusterHealthEvaluator.java`
+#### Snippet
+```java
+
+    public static void setLastValidClusterHealthInfo(
+            Map<String, String> clusterInfo, ClusterHealthInfo clusterHealthInfo) {
+        LOG.debug("Setting last valid health check info");
+        clusterInfo.put(CLUSTER_INFO_KEY, ClusterHealthInfo.serialize(clusterHealthInfo));
+```
+
+### BoundedWildcard
+Can generalize to `? extends FlinkSessionJob`
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/reconciler/sessionjob/SessionJobReconciler.java`
+#### Snippet
+```java
+
+    @Override
+    protected void cancelJob(FlinkResourceContext<FlinkSessionJob> ctx, UpgradeMode upgradeMode)
+            throws Exception {
+        ctx.getFlinkService()
+```
+
+### BoundedWildcard
+Can generalize to `? extends FlinkDeployment`
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/reconciler/sessionjob/SessionJobReconciler.java`
+#### Snippet
+```java
+    }
+
+    public static boolean sessionClusterReady(Optional<FlinkDeployment> flinkDeploymentOpt) {
+        if (flinkDeploymentOpt.isPresent()) {
+            var flinkdep = flinkDeploymentOpt.get();
+```
+
+### BoundedWildcard
+Can generalize to `? extends FlinkDeployment`
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/reconciler/deployment/ApplicationReconciler.java`
+#### Snippet
+```java
+
+    @Override
+    protected void cancelJob(FlinkResourceContext<FlinkDeployment> ctx, UpgradeMode upgradeMode)
+            throws Exception {
+        ctx.getFlinkService().cancelJob(ctx.getResource(), upgradeMode, ctx.getObserveConfig());
+```
+
+### BoundedWildcard
+Can generalize to `? extends FlinkDeployment`
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/reconciler/deployment/ApplicationReconciler.java`
+#### Snippet
+```java
+    @Override
+    protected Optional<UpgradeMode> getAvailableUpgradeMode(
+            FlinkResourceContext<FlinkDeployment> ctx, Configuration deployConfig) {
+
+        var deployment = ctx.getResource();
+```
+
+### BoundedWildcard
+Can generalize to `? extends FlinkDeployment`
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/reconciler/deployment/ApplicationReconciler.java`
+#### Snippet
+```java
+    @Override
+    @SneakyThrows
+    protected DeleteControl cleanupInternal(FlinkResourceContext<FlinkDeployment> ctx) {
+        var deployment = ctx.getResource();
+        var status = deployment.getStatus();
+```
+
+### BoundedWildcard
+Can generalize to `? extends FlinkDeployment`
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/reconciler/deployment/ApplicationReconciler.java`
+#### Snippet
+```java
+    @Override
+    public void deploy(
+            FlinkResourceContext<FlinkDeployment> ctx,
+            FlinkDeploymentSpec spec,
+            Configuration deployConfig,
+```
+
+### BoundedWildcard
+Can generalize to `? extends FlinkDeployment`
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/reconciler/deployment/ApplicationReconciler.java`
+#### Snippet
+```java
+
+    @Override
+    protected void cleanupAfterFailedJob(FlinkResourceContext<FlinkDeployment> ctx) {
+        // The job has already stopped. Delete the deployment and we are ready.
+        ctx.getFlinkService()
+```
+
+### BoundedWildcard
+Can generalize to `? extends FlinkResourceListener`
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/utils/StatusRecorder.java`
+#### Snippet
+```java
+                    KubernetesClient kubernetesClient,
+                    MetricManager<CR> metricManager,
+                    Collection<FlinkResourceListener> listeners) {
+        BiConsumer<CR, S> consumer =
+                (resource, previousStatus) -> {
+```
+
+### BoundedWildcard
+Can generalize to `? super CR`
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/utils/StatusRecorder.java`
+#### Snippet
+```java
+    public StatusRecorder(
+            KubernetesClient client,
+            MetricManager<CR> metricManager,
+            BiConsumer<CR, STATUS> statusUpdateListener) {
+        this.client = client;
+```
+
+### BoundedWildcard
+Can generalize to `? super CR`
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/utils/StatusRecorder.java`
+#### Snippet
+```java
+            KubernetesClient client,
+            MetricManager<CR> metricManager,
+            BiConsumer<CR, STATUS> statusUpdateListener) {
+        this.client = client;
+        this.statusUpdateListener = statusUpdateListener;
+```
+
+### BoundedWildcard
+Can generalize to `? super STATUS`
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/utils/StatusRecorder.java`
+#### Snippet
+```java
+            KubernetesClient client,
+            MetricManager<CR> metricManager,
+            BiConsumer<CR, STATUS> statusUpdateListener) {
+        this.client = client;
+        this.statusUpdateListener = statusUpdateListener;
+```
+
+### BoundedWildcard
+Can generalize to `? extends FlinkDeployment`
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/reconciler/deployment/SessionReconciler.java`
+#### Snippet
+```java
+    }
+
+    private void deleteSessionCluster(FlinkResourceContext<FlinkDeployment> ctx) {
+        var deployment = ctx.getResource();
+        var conf = ctx.getDeployConfig(ctx.getResource().getSpec());
+```
+
+### BoundedWildcard
+Can generalize to `? extends FlinkDeployment`
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/reconciler/deployment/SessionReconciler.java`
+#### Snippet
+```java
+    }
+
+    private void recoverSession(FlinkResourceContext<FlinkDeployment> ctx) throws Exception {
+        ctx.getFlinkService().submitSessionCluster(ctx.getObserveConfig());
+        ctx.getResource()
+```
+
+### BoundedWildcard
+Can generalize to `? extends FlinkDeployment`
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/reconciler/deployment/SessionReconciler.java`
+#### Snippet
+```java
+
+    @Override
+    public DeleteControl cleanupInternal(FlinkResourceContext<FlinkDeployment> ctx) {
+        Set<FlinkSessionJob> sessionJobs =
+                ctx.getJosdkContext().getSecondaryResources(FlinkSessionJob.class);
+```
+
+### BoundedWildcard
+Can generalize to `? extends FlinkDeployment`
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/reconciler/deployment/SessionReconciler.java`
+#### Snippet
+```java
+    @Override
+    public void deploy(
+            FlinkResourceContext<FlinkDeployment> ctx,
+            FlinkDeploymentSpec spec,
+            Configuration deployConfig,
+```
+
+### BoundedWildcard
+Can generalize to `? extends SPEC`
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/reconciler/deployment/AbstractFlinkResourceReconciler.java`
+#### Snippet
+```java
+     */
+    private boolean shouldRollBack(
+            AbstractFlinkResource<SPEC, STATUS> resource,
+            Configuration configuration,
+            FlinkService flinkService) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends OptionWithMetaInfo`
+in `flink-kubernetes-docs/src/main/java/org/apache/flink/kubernetes/operator/docs/configuration/ConfigOptionsDocGenerator.java`
+#### Snippet
+```java
+        private final Node root = new Node();
+
+        Tree(ConfigGroup[] groups, Collection<OptionWithMetaInfo> options) {
+            // generate a tree based on all key prefixes
+            for (ConfigGroup group : groups) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends OptionWithMetaInfo`
+in `flink-kubernetes-docs/src/main/java/org/apache/flink/kubernetes/operator/docs/configuration/ConfigOptionsDocGenerator.java`
+#### Snippet
+```java
+    }
+
+    private static void sortOptions(List<OptionWithMetaInfo> configOptions) {
+        configOptions.sort(Comparator.comparing(option -> option.option.key()));
+    }
+```
+
+### BoundedWildcard
+Can generalize to `? extends OptionWithMetaInfo`
+in `flink-kubernetes-docs/src/main/java/org/apache/flink/kubernetes/operator/docs/configuration/ConfigOptionsDocGenerator.java`
+#### Snippet
+```java
+     * @return string containing HTML formatted table
+     */
+    private static String toHtmlTable(final List<OptionWithMetaInfo> options) {
+        StringBuilder htmlTable = new StringBuilder();
+        htmlTable.append("<table class=\"configuration table table-bordered\">\n");
+```
+
+### BoundedWildcard
+Can generalize to `? super Class`
+in `flink-kubernetes-docs/src/main/java/org/apache/flink/kubernetes/operator/docs/configuration/ConfigOptionsDocGenerator.java`
+#### Snippet
+```java
+            String packageName,
+            String pathPrefix,
+            ThrowingConsumer<Class<?>, IOException> classConsumer)
+            throws IOException, ClassNotFoundException {
+        Path configDir = Paths.get(rootDir, module, pathPrefix, packageName.replaceAll("\\.", "/"));
+```
+
+### BoundedWildcard
+Can generalize to `? extends IOException`
+in `flink-kubernetes-docs/src/main/java/org/apache/flink/kubernetes/operator/docs/configuration/ConfigOptionsDocGenerator.java`
+#### Snippet
+```java
+            String packageName,
+            String pathPrefix,
+            ThrowingConsumer<Class<?>, IOException> classConsumer)
+            throws IOException, ClassNotFoundException {
+        Path configDir = Paths.get(rootDir, module, pathPrefix, packageName.replaceAll("\\.", "/"));
+```
+
+### BoundedWildcard
+Can generalize to `? extends CR`
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/reconciler/deployment/AbstractJobReconciler.java`
+#### Snippet
+```java
+
+    protected Optional<UpgradeMode> getAvailableUpgradeMode(
+            FlinkResourceContext<CR> ctx, Configuration deployConfig) {
+        var resource = ctx.getResource();
+        var status = resource.getStatus();
+```
+
+### BoundedWildcard
+Can generalize to `? extends Map`
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/autoscaler/ScalingMetricEvaluator.java`
+#### Snippet
+```java
+            JobVertexID vertex,
+            Configuration conf,
+            HashMap<JobVertexID, Map<ScalingMetric, EvaluatedScalingMetric>> alreadyEvaluated,
+            SortedMap<Instant, Map<JobVertexID, Map<ScalingMetric, Double>>> metricsHistory,
+            Map<ScalingMetric, Double> latestVertexMetrics,
+```
+
+### BoundedWildcard
+Can generalize to `? super ScalingMetric`
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/autoscaler/ScalingMetricEvaluator.java`
+#### Snippet
+```java
+            SortedMap<Instant, Map<JobVertexID, Map<ScalingMetric, Double>>> metricsHistory,
+            Map<ScalingMetric, Double> latestVertexMetrics,
+            Map<ScalingMetric, EvaluatedScalingMetric> out) {
+
+        boolean isSource = topology.getInputs().get(vertex).isEmpty();
+```
+
+### BoundedWildcard
+Can generalize to `? super EvaluatedScalingMetric`
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/autoscaler/ScalingMetricEvaluator.java`
+#### Snippet
+```java
+            SortedMap<Instant, Map<JobVertexID, Map<ScalingMetric, Double>>> metricsHistory,
+            Map<ScalingMetric, Double> latestVertexMetrics,
+            Map<ScalingMetric, EvaluatedScalingMetric> out) {
+
+        boolean isSource = topology.getInputs().get(vertex).isEmpty();
+```
+
+### BoundedWildcard
+Can generalize to `? extends Map`>
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/autoscaler/ScalingMetricEvaluator.java`
+#### Snippet
+```java
+            ScalingMetric metric,
+            JobVertexID jobVertexId,
+            SortedMap<Instant, Map<JobVertexID, Map<ScalingMetric, Double>>> metricsHistory) {
+        return StatUtils.mean(
+                metricsHistory.values().stream()
+```
+
+### BoundedWildcard
+Can generalize to `? extends JobStatusMessage`
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/observer/deployment/ApplicationObserver.java`
+#### Snippet
+```java
+        @Override
+        protected Optional<JobStatusMessage> filterTargetJob(
+                JobStatus status, List<JobStatusMessage> clusterJobStatuses) {
+            if (!clusterJobStatuses.isEmpty()) {
+                clusterJobStatuses.sort(
+```
+
+### BoundedWildcard
+Can generalize to `? super Event`
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/utils/EventUtils.java`
+#### Snippet
+```java
+            String message,
+            EventRecorder.Component component,
+            Consumer<Event> eventListener) {
+        var eventName = generateEventName(target, type, reason, message, component);
+
+```
+
+### BoundedWildcard
+Can generalize to `? super AbstractFlinkResource`
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/utils/EventRecorder.java`
+#### Snippet
+```java
+
+    public EventRecorder(
+            KubernetesClient client, BiConsumer<AbstractFlinkResource<?, ?>, Event> eventListener) {
+        this.client = client;
+        this.eventListener = eventListener;
+```
+
+### BoundedWildcard
+Can generalize to `? super Event`
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/utils/EventRecorder.java`
+#### Snippet
+```java
+
+    public EventRecorder(
+            KubernetesClient client, BiConsumer<AbstractFlinkResource<?, ?>, Event> eventListener) {
+        this.client = client;
+        this.eventListener = eventListener;
+```
+
+### BoundedWildcard
+Can generalize to `? extends FlinkResourceListener`
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/utils/EventRecorder.java`
+#### Snippet
+```java
+
+    public static EventRecorder create(
+            KubernetesClient client, Collection<FlinkResourceListener> listeners) {
+
+        BiConsumer<AbstractFlinkResource<?, ?>, Event> biConsumer =
+```
+
+### BoundedWildcard
+Can generalize to `? extends HasMetadata`
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/utils/IngressUtils.java`
+#### Snippet
+```java
+    }
+
+    private static void setOwnerReference(HasMetadata owner, List<HasMetadata> resources) {
+        final OwnerReference ownerReference =
+                new OwnerReferenceBuilder()
+```
+
+### BoundedWildcard
+Can generalize to `? extends FlinkDeployment`
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/validation/DefaultValidator.java`
+#### Snippet
+```java
+    @Override
+    public Optional<String> validateSessionJob(
+            FlinkSessionJob sessionJob, Optional<FlinkDeployment> sessionOpt) {
+
+        if (sessionOpt.isEmpty()) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends FlinkDeployment`
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/observer/ClusterHealthObserver.java`
+#### Snippet
+```java
+     * @param ctx Resource context.
+     */
+    public void observe(FlinkResourceContext<FlinkDeployment> ctx) {
+        var flinkApp = ctx.getResource();
+        try {
+```
+
+### BoundedWildcard
+Can generalize to `? extends FlinkResourceValidator`
+in `flink-kubernetes-webhook/src/main/java/org/apache/flink/kubernetes/operator/admission/FlinkValidator.java`
+#### Snippet
+```java
+    private final InformerManager informerManager;
+
+    public FlinkValidator(Set<FlinkResourceValidator> validators, InformerManager informerManager) {
+        this.validators = validators;
+        this.informerManager = informerManager;
+```
+
+### BoundedWildcard
+Can generalize to `? super AggregatedMetric`
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/autoscaler/metrics/MetricAggregator.java`
+#### Snippet
+```java
+    private final Function<AggregatedMetric, Double> getter;
+
+    MetricAggregator(Function<AggregatedMetric, Double> getter) {
+        this.getter = getter;
+    }
+```
+
+### BoundedWildcard
+Can generalize to `? extends FlinkResourceValidator`
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/controller/FlinkDeploymentController.java`
+#### Snippet
+```java
+    public FlinkDeploymentController(
+            FlinkConfigManager configManager,
+            Set<FlinkResourceValidator> validators,
+            FlinkResourceContextFactory ctxFactory,
+            ReconcilerFactory reconcilerFactory,
+```
+
+### BoundedWildcard
 Can generalize to `? extends JobVertexID`
 in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/autoscaler/RestApiMetricsCollector.java`
 #### Snippet
@@ -1813,7 +1813,7 @@ in `flink-kubernetes-docs/src/main/java/org/apache/flink/kubernetes/operator/doc
 ## RuleId[ruleID=NullableProblems]
 ### NullableProblems
 Getter for @Nullable field might be annotated @Nullable itself
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/runtime/rest/messages/job/savepoints/stop/StopWithSavepointRequestBody.java`
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/runtime/rest/messages/job/savepoints/SavepointTriggerRequestBody.java`
 #### Snippet
 ```java
 
@@ -1825,7 +1825,7 @@ in `flink-kubernetes-operator/src/main/java/org/apache/flink/runtime/rest/messag
 
 ### NullableProblems
 Getter for @Nullable field might be annotated @Nullable itself
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/runtime/rest/messages/job/savepoints/SavepointTriggerRequestBody.java`
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/runtime/rest/messages/job/savepoints/stop/StopWithSavepointRequestBody.java`
 #### Snippet
 ```java
 
@@ -1837,6 +1837,18 @@ in `flink-kubernetes-operator/src/main/java/org/apache/flink/runtime/rest/messag
 
 ## RuleId[ruleID=OptionalUsedAsFieldOrParameterType]
 ### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'lagGrowthOpt'
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/autoscaler/metrics/ScalingMetrics.java`
+#### Snippet
+```java
+            Map<ScalingMetric, Double> scalingMetrics,
+            JobTopology topology,
+            Optional<Double> lagGrowthOpt,
+            Configuration conf) {
+
+```
+
+### OptionalUsedAsFieldOrParameterType
 `Optional` used as type for parameter 'confOverrideDir'
 in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/config/FlinkConfigManager.java`
 #### Snippet
@@ -1846,30 +1858,6 @@ in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator
     protected static Configuration loadGlobalConfiguration(Optional<String> confOverrideDir) {
         if (confOverrideDir.isPresent()) {
             Configuration configOverrides =
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'session'
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/validation/FlinkResourceValidator.java`
-#### Snippet
-```java
-     */
-    Optional<String> validateSessionJob(
-            FlinkSessionJob sessionJob, Optional<FlinkDeployment> session);
-}
-
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'savepoint'
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/reconciler/deployment/AbstractFlinkResourceReconciler.java`
-#### Snippet
-```java
-            SPEC spec,
-            Configuration deployConfig,
-            Optional<String> savepoint,
-            boolean requireHaMetadata)
-            throws Exception;
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -1897,15 +1885,27 @@ in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'lagGrowthOpt'
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/autoscaler/metrics/ScalingMetrics.java`
+`Optional` used as type for parameter 'session'
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/validation/FlinkResourceValidator.java`
 #### Snippet
 ```java
-            Map<ScalingMetric, Double> scalingMetrics,
-            JobTopology topology,
-            Optional<Double> lagGrowthOpt,
-            Configuration conf) {
+     */
+    Optional<String> validateSessionJob(
+            FlinkSessionJob sessionJob, Optional<FlinkDeployment> session);
+}
 
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'savepoint'
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/reconciler/deployment/AbstractFlinkResourceReconciler.java`
+#### Snippet
+```java
+            SPEC spec,
+            Configuration deployConfig,
+            Optional<String> savepoint,
+            boolean requireHaMetadata)
+            throws Exception;
 ```
 
 ## RuleId[ruleID=SystemOutErr]
@@ -1962,25 +1962,13 @@ in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator
 
 ### DynamicRegexReplaceableByCompiledPattern
 `replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `flink-kubernetes-operator-api/src/main/java/org/apache/flink/kubernetes/operator/api/docs/CrdReferenceDoclet.java`
+in `examples/flink-sql-runner-example/src/main/java/org/apache/flink/examples/SqlRunner.java`
 #### Snippet
 ```java
 
-    private String cleanDoc(String doc) {
-        return doc.replaceAll("[\\t]+", " ").replaceAll("[\\n\\r]+", "");
-    }
-
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `flink-kubernetes-operator-api/src/main/java/org/apache/flink/kubernetes/operator/api/docs/CrdReferenceDoclet.java`
-#### Snippet
-```java
-
-    private String cleanDoc(String doc) {
-        return doc.replaceAll("[\\t]+", " ").replaceAll("[\\n\\r]+", "");
-    }
+    public static List<String> parseStatements(String script) {
+        var formatted = formatSqlFile(script).replaceAll(COMMENT_PATTERN, "");
+        var statements = new ArrayList<String>();
 
 ```
 
@@ -2005,6 +1993,30 @@ in `flink-kubernetes-docs/src/main/java/org/apache/flink/kubernetes/operator/doc
     static String toSnakeCase(String name) {
         return name.replaceAll("(.)([A-Z][a-z])", "$1_$2").toLowerCase();
     }
+
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`split()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/config/FlinkOperatorConfiguration.java`
+#### Snippet
+```java
+                                                    KubernetesOperatorConfigOptions
+                                                            .OPERATOR_WATCHED_NAMESPACES)
+                                            .split(NAMESPACES_SPLITTER_KEY)));
+        } else {
+            watchedNamespaces =
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`split()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/config/FlinkOperatorConfiguration.java`
+#### Snippet
+```java
+                                    EnvUtils.get(ENV_WATCH_NAMESPACES)
+                                            .get()
+                                            .split(NAMESPACES_SPLITTER_KEY)));
+        }
 
 ```
 
@@ -2058,51 +2070,39 @@ in `flink-kubernetes-docs/src/main/java/org/apache/flink/kubernetes/operator/doc
 
 ### DynamicRegexReplaceableByCompiledPattern
 `replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `examples/flink-sql-runner-example/src/main/java/org/apache/flink/examples/SqlRunner.java`
+in `flink-kubernetes-operator-api/src/main/java/org/apache/flink/kubernetes/operator/api/docs/CrdReferenceDoclet.java`
 #### Snippet
 ```java
 
-    public static List<String> parseStatements(String script) {
-        var formatted = formatSqlFile(script).replaceAll(COMMENT_PATTERN, "");
-        var statements = new ArrayList<String>();
+    private String cleanDoc(String doc) {
+        return doc.replaceAll("[\\t]+", " ").replaceAll("[\\n\\r]+", "");
+    }
 
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
-`split()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/config/FlinkOperatorConfiguration.java`
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `flink-kubernetes-operator-api/src/main/java/org/apache/flink/kubernetes/operator/api/docs/CrdReferenceDoclet.java`
 #### Snippet
 ```java
-                                                    KubernetesOperatorConfigOptions
-                                                            .OPERATOR_WATCHED_NAMESPACES)
-                                            .split(NAMESPACES_SPLITTER_KEY)));
-        } else {
-            watchedNamespaces =
-```
 
-### DynamicRegexReplaceableByCompiledPattern
-`split()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/config/FlinkOperatorConfiguration.java`
-#### Snippet
-```java
-                                    EnvUtils.get(ENV_WATCH_NAMESPACES)
-                                            .get()
-                                            .split(NAMESPACES_SPLITTER_KEY)));
-        }
+    private String cleanDoc(String doc) {
+        return doc.replaceAll("[\\t]+", " ").replaceAll("[\\n\\r]+", "");
+    }
 
 ```
 
 ## RuleId[ruleID=UnnecessaryFullyQualifiedName]
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.flink.core.execution` is unnecessary and can be removed
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/utils/SavepointUtils.java`
+Qualifier `org.apache.flink.kubernetes.kubeclient` is unnecessary and can be removed
+in `flink-kubernetes-standalone/src/main/java/org/apache/flink/kubernetes/operator/kubeclient/decorators/InitStandaloneTaskManagerDecorator.java`
 #### Snippet
 ```java
 
-    public static SavepointFormatType getSavepointFormatType(Configuration configuration) {
-        var savepointFormatType = org.apache.flink.core.execution.SavepointFormatType.CANONICAL;
-        if (configuration.get(FLINK_VERSION) != null
-                && configuration.get(FLINK_VERSION).isNewerVersionThan(FlinkVersion.v1_14)) {
+/**
+ * An initializer for the TaskManager {@link org.apache.flink.kubernetes.kubeclient.FlinkPod} in
+ * standalone mode.
+ */
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -2118,27 +2118,15 @@ in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.flink.core.fs` is unnecessary, and can be replaced with an import
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/artifact/FileSystemBasedArtifactFetcher.java`
+Qualifier `org.apache.flink.api.common` is unnecessary, and can be replaced with an import
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/reconciler/sessionjob/SessionJobReconciler.java`
 #### Snippet
 ```java
-    public File fetch(String uri, Configuration flinkConfiguration, File targetDir)
-            throws Exception {
-        org.apache.flink.core.fs.Path source = new org.apache.flink.core.fs.Path(uri);
-        var start = System.currentTimeMillis();
-        FileSystem fileSystem = source.getFileSystem();
-```
+        var status = ctx.getResource().getStatus();
+        status.getJobStatus().setJobId(jobID.toHexString());
+        status.getJobStatus().setState(org.apache.flink.api.common.JobStatus.RECONCILING.name());
+    }
 
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.flink.core.fs` is unnecessary, and can be replaced with an import
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/artifact/FileSystemBasedArtifactFetcher.java`
-#### Snippet
-```java
-    public File fetch(String uri, Configuration flinkConfiguration, File targetDir)
-            throws Exception {
-        org.apache.flink.core.fs.Path source = new org.apache.flink.core.fs.Path(uri);
-        var start = System.currentTimeMillis();
-        FileSystem fileSystem = source.getFileSystem();
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -2154,27 +2142,39 @@ in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.flink.api.common` is unnecessary, and can be replaced with an import
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/reconciler/sessionjob/SessionJobReconciler.java`
+Qualifier `org.apache.flink.core.fs` is unnecessary, and can be replaced with an import
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/artifact/FileSystemBasedArtifactFetcher.java`
 #### Snippet
 ```java
-        var status = ctx.getResource().getStatus();
-        status.getJobStatus().setJobId(jobID.toHexString());
-        status.getJobStatus().setState(org.apache.flink.api.common.JobStatus.RECONCILING.name());
-    }
-
+    public File fetch(String uri, Configuration flinkConfiguration, File targetDir)
+            throws Exception {
+        org.apache.flink.core.fs.Path source = new org.apache.flink.core.fs.Path(uri);
+        var start = System.currentTimeMillis();
+        FileSystem fileSystem = source.getFileSystem();
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.flink.kubernetes.kubeclient` is unnecessary and can be removed
-in `flink-kubernetes-standalone/src/main/java/org/apache/flink/kubernetes/operator/kubeclient/decorators/InitStandaloneTaskManagerDecorator.java`
+Qualifier `org.apache.flink.core.fs` is unnecessary, and can be replaced with an import
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/artifact/FileSystemBasedArtifactFetcher.java`
+#### Snippet
+```java
+    public File fetch(String uri, Configuration flinkConfiguration, File targetDir)
+            throws Exception {
+        org.apache.flink.core.fs.Path source = new org.apache.flink.core.fs.Path(uri);
+        var start = System.currentTimeMillis();
+        FileSystem fileSystem = source.getFileSystem();
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.flink.core.execution` is unnecessary and can be removed
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/utils/SavepointUtils.java`
 #### Snippet
 ```java
 
-/**
- * An initializer for the TaskManager {@link org.apache.flink.kubernetes.kubeclient.FlinkPod} in
- * standalone mode.
- */
+    public static SavepointFormatType getSavepointFormatType(Configuration configuration) {
+        var savepointFormatType = org.apache.flink.core.execution.SavepointFormatType.CANONICAL;
+        if (configuration.get(FLINK_VERSION) != null
+                && configuration.get(FLINK_VERSION).isNewerVersionThan(FlinkVersion.v1_14)) {
 ```
 
 ## RuleId[ruleID=InfiniteLoopStatement]
@@ -2193,6 +2193,18 @@ in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator
 ## RuleId[ruleID=NestedAssignment]
 ### NestedAssignment
 Result of assignment expression used
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/controller/FlinkResourceContext.java`
+#### Snippet
+```java
+            return observeConfig;
+        }
+        return observeConfig = createObserveConfig();
+    }
+
+```
+
+### NestedAssignment
+Result of assignment expression used
 in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/controller/FlinkSessionJobContext.java`
 #### Snippet
 ```java
@@ -2204,18 +2216,6 @@ in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator
                                 .getResourceContext(session.get(), getJosdkContext())
                                 .getFlinkService()
                         : null;
-    }
-
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/controller/FlinkResourceContext.java`
-#### Snippet
-```java
-            return observeConfig;
-        }
-        return observeConfig = createObserveConfig();
     }
 
 ```
@@ -2234,18 +2234,6 @@ in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator
 ```
 
 ### NonProtectedConstructorInAbstractClass
-Constructor `AbstractFlinkResourceObserver()` of an abstract class should not be declared 'public'
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/observer/AbstractFlinkResourceObserver.java`
-#### Snippet
-```java
-    protected final EventRecorder eventRecorder;
-
-    public AbstractFlinkResourceObserver(
-            FlinkConfigManager configManager, EventRecorder eventRecorder) {
-        this.configManager = configManager;
-```
-
-### NonProtectedConstructorInAbstractClass
 Constructor `AbstractFlinkResourceReconciler()` of an abstract class should not be declared 'public'
 in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/reconciler/deployment/AbstractFlinkResourceReconciler.java`
 #### Snippet
@@ -2255,6 +2243,18 @@ in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator
     public AbstractFlinkResourceReconciler(
             KubernetesClient kubernetesClient,
             EventRecorder eventRecorder,
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `AbstractFlinkResourceObserver()` of an abstract class should not be declared 'public'
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/observer/AbstractFlinkResourceObserver.java`
+#### Snippet
+```java
+    protected final EventRecorder eventRecorder;
+
+    public AbstractFlinkResourceObserver(
+            FlinkConfigManager configManager, EventRecorder eventRecorder) {
+        this.configManager = configManager;
 ```
 
 ### NonProtectedConstructorInAbstractClass
@@ -2332,18 +2332,6 @@ in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `flink-kubernetes-operator-api/src/main/java/org/apache/flink/kubernetes/operator/api/status/TaskManagerInfo.java`
-#### Snippet
-```java
-
-    /** Number of TaskManager replicas if defined in the spec. */
-    @StatusReplicas private int replicas = 0;
-}
-
-```
-
-### RedundantFieldInitialization
 Field initialization to `0L` is redundant
 in `flink-kubernetes-operator-api/src/main/java/org/apache/flink/kubernetes/operator/api/status/SavepointInfo.java`
 #### Snippet
@@ -2365,6 +2353,18 @@ in `flink-kubernetes-docs/src/main/java/org/apache/flink/kubernetes/operator/doc
             private boolean isGroupRoot = false;
 
             private Node addChild(String keyComponent) {
+```
+
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `flink-kubernetes-operator-api/src/main/java/org/apache/flink/kubernetes/operator/api/status/TaskManagerInfo.java`
+#### Snippet
+```java
+
+    /** Number of TaskManager replicas if defined in the spec. */
+    @StatusReplicas private int replicas = 0;
+}
+
 ```
 
 ## RuleId[ruleID=AssignmentToMethodParameter]
@@ -2407,18 +2407,6 @@ in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator
 ## RuleId[ruleID=RedundantImplements]
 ### RedundantImplements
 Redundant interface declaration `Namespaced`
-in `flink-kubernetes-operator-api/src/main/java/org/apache/flink/kubernetes/operator/api/FlinkSessionJob.java`
-#### Snippet
-```java
-public class FlinkSessionJob
-        extends AbstractFlinkResource<FlinkSessionJobSpec, FlinkSessionJobStatus>
-        implements Namespaced {
-
-    @Override
-```
-
-### RedundantImplements
-Redundant interface declaration `Namespaced`
 in `flink-kubernetes-operator-api/src/main/java/org/apache/flink/kubernetes/operator/api/FlinkDeployment.java`
 #### Snippet
 ```java
@@ -2427,6 +2415,18 @@ public class FlinkDeployment
         implements Namespaced {
 
     @VisibleForTesting
+```
+
+### RedundantImplements
+Redundant interface declaration `Namespaced`
+in `flink-kubernetes-operator-api/src/main/java/org/apache/flink/kubernetes/operator/api/FlinkSessionJob.java`
+#### Snippet
+```java
+public class FlinkSessionJob
+        extends AbstractFlinkResource<FlinkSessionJobSpec, FlinkSessionJobStatus>
+        implements Namespaced {
+
+    @Override
 ```
 
 ## RuleId[ruleID=HtmlWrongAttributeValue]
@@ -2454,6 +2454,19 @@ in `docs/layouts/_default/baseof.html`
   <input type="checkbox" class="hidden toggle" id="toc-control" />
 ```
 
+## RuleId[ruleID=ExceptionNameDoesntEndWithException]
+### ExceptionNameDoesntEndWithException
+Exception class name `CompatibilityError` does not end with 'Exception'
+in `flink-kubernetes-operator-api/src/main/java/org/apache/flink/kubernetes/operator/api/validation/CrdCompatibilityChecker.java`
+#### Snippet
+```java
+
+    /** Compatibility Error class. */
+    public static class CompatibilityError extends RuntimeException {
+        public CompatibilityError(String msg) {
+            super(msg);
+```
+
 ## RuleId[ruleID=ReturnNull]
 ### ReturnNull
 Return of `null`
@@ -2469,37 +2482,13 @@ in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator
 
 ### ReturnNull
 Return of `null`
-in `flink-kubernetes-webhook/src/main/java/org/apache/flink/kubernetes/operator/admission/FlinkOperatorWebhook.java`
+in `flink-kubernetes-standalone/src/main/java/org/apache/flink/kubernetes/operator/kubeclient/parameters/StandaloneKubernetesJobManagerParameters.java`
 #### Snippet
 ```java
-                            + EnvUtils.ENV_WEBHOOK_KEYSTORE_FILE
-                            + ", running without ssl");
-            return null;
+            return flinkConfig.get(SavepointConfigOptions.SAVEPOINT_PATH);
         }
-
-```
-
-### ReturnNull
-Return of `null`
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/utils/EnvUtils.java`
-#### Snippet
-```java
-     */
-    public static Optional<String> get(String key) {
-        return Optional.ofNullable(StringUtils.getIfBlank(System.getenv().get(key), () -> null));
+        return null;
     }
-
-```
-
-### ReturnNull
-Return of `null`
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/utils/SavepointUtils.java`
-#### Snippet
-```java
-        } else {
-            // Return null if no savepoint was ever taken
-            return null;
-        }
 
 ```
 
@@ -2520,11 +2509,11 @@ Return of `null`
 in `flink-kubernetes-standalone/src/main/java/org/apache/flink/kubernetes/operator/kubeclient/parameters/StandaloneKubernetesJobManagerParameters.java`
 #### Snippet
 ```java
-            return flinkConfig.get(SavepointConfigOptions.SAVEPOINT_PATH);
+    public String getMainClass() {
+        if (!isApplicationCluster()) {
+            return null;
         }
-        return null;
-    }
-
+        return flinkConfig.getString(ApplicationConfiguration.APPLICATION_MAIN_CLASS);
 ```
 
 ### ReturnNull
@@ -2541,60 +2530,12 @@ in `flink-kubernetes-standalone/src/main/java/org/apache/flink/kubernetes/operat
 
 ### ReturnNull
 Return of `null`
-in `flink-kubernetes-standalone/src/main/java/org/apache/flink/kubernetes/operator/kubeclient/parameters/StandaloneKubernetesJobManagerParameters.java`
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/utils/EnvUtils.java`
 #### Snippet
 ```java
-    public String getMainClass() {
-        if (!isApplicationCluster()) {
-            return null;
-        }
-        return flinkConfig.getString(ApplicationConfiguration.APPLICATION_MAIN_CLASS);
-```
-
-### ReturnNull
-Return of `null`
-in `flink-kubernetes-operator-api/src/main/java/org/apache/flink/kubernetes/operator/api/status/ReconciliationStatus.java`
-#### Snippet
-```java
-    public SPEC deserializeLastReconciledSpec() {
-        var specWithMeta = deserializeLastReconciledSpecWithMeta();
-        return specWithMeta != null ? specWithMeta.getSpec() : null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `flink-kubernetes-operator-api/src/main/java/org/apache/flink/kubernetes/operator/api/status/ReconciliationStatus.java`
-#### Snippet
-```java
-    public SPEC deserializeLastStableSpec() {
-        var specWithMeta = deserializeLastStableSpecWithMeta();
-        return specWithMeta != null ? specWithMeta.getSpec() : null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/observer/ClusterHealthEvaluator.java`
-#### Snippet
-```java
-        } else {
-            LOG.debug("No last valid health check info");
-            return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/controller/FlinkSessionJobContext.java`
-#### Snippet
-```java
-            return configManager.getSessionJobConfig(session.get(), (FlinkSessionJobSpec) spec);
-        }
-        return null;
+     */
+    public static Optional<String> get(String key) {
+        return Optional.ofNullable(StringUtils.getIfBlank(System.getenv().get(key), () -> null));
     }
 
 ```
@@ -2625,13 +2566,73 @@ in `flink-kubernetes-operator-api/src/main/java/org/apache/flink/kubernetes/oper
 
 ### ReturnNull
 Return of `null`
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/config/FlinkOperatorConfiguration.java`
+in `flink-kubernetes-webhook/src/main/java/org/apache/flink/kubernetes/operator/admission/FlinkOperatorWebhook.java`
 #### Snippet
 ```java
-    private static LeaderElectionConfiguration getLeaderElectionConfig(Configuration conf) {
-        if (!conf.get(KubernetesOperatorConfigOptions.OPERATOR_LEADER_ELECTION_ENABLED)) {
+                            + EnvUtils.ENV_WEBHOOK_KEYSTORE_FILE
+                            + ", running without ssl");
             return null;
         }
+
+```
+
+### ReturnNull
+Return of `null`
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/observer/ClusterHealthEvaluator.java`
+#### Snippet
+```java
+        } else {
+            LOG.debug("No last valid health check info");
+            return null;
+        }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/utils/SavepointUtils.java`
+#### Snippet
+```java
+        } else {
+            // Return null if no savepoint was ever taken
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `flink-kubernetes-operator-api/src/main/java/org/apache/flink/kubernetes/operator/api/status/ReconciliationStatus.java`
+#### Snippet
+```java
+    public SPEC deserializeLastReconciledSpec() {
+        var specWithMeta = deserializeLastReconciledSpecWithMeta();
+        return specWithMeta != null ? specWithMeta.getSpec() : null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `flink-kubernetes-operator-api/src/main/java/org/apache/flink/kubernetes/operator/api/status/ReconciliationStatus.java`
+#### Snippet
+```java
+    public SPEC deserializeLastStableSpec() {
+        var specWithMeta = deserializeLastStableSpecWithMeta();
+        return specWithMeta != null ? specWithMeta.getSpec() : null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/controller/FlinkSessionJobContext.java`
+#### Snippet
+```java
+            return configManager.getSessionJobConfig(session.get(), (FlinkSessionJobSpec) spec);
+        }
+        return null;
+    }
 
 ```
 
@@ -2645,6 +2646,18 @@ in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator
         return Optional.ofNullable(StringUtils.getIfBlank(System.getenv().get(key), () -> null));
     }
 }
+```
+
+### ReturnNull
+Return of `null`
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/config/FlinkOperatorConfiguration.java`
+#### Snippet
+```java
+    private static LeaderElectionConfiguration getLeaderElectionConfig(Configuration conf) {
+        if (!conf.get(KubernetesOperatorConfigOptions.OPERATOR_LEADER_ELECTION_ENABLED)) {
+            return null;
+        }
+
 ```
 
 ## RuleId[ruleID=InstanceofCatchParameter]
@@ -2684,19 +2697,6 @@ in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator
             }
 ```
 
-## RuleId[ruleID=ExceptionNameDoesntEndWithException]
-### ExceptionNameDoesntEndWithException
-Exception class name `CompatibilityError` does not end with 'Exception'
-in `flink-kubernetes-operator-api/src/main/java/org/apache/flink/kubernetes/operator/api/validation/CrdCompatibilityChecker.java`
-#### Snippet
-```java
-
-    /** Compatibility Error class. */
-    public static class CompatibilityError extends RuntimeException {
-        public CompatibilityError(String msg) {
-            super(msg);
-```
-
 ## RuleId[ruleID=AssignmentToLambdaParameter]
 ### AssignmentToLambdaParameter
 Assignment to lambda parameter `h`
@@ -2726,14 +2726,14 @@ in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator
 ## RuleId[ruleID=ZeroLengthArrayInitialization]
 ### ZeroLengthArrayInitialization
 Allocation of zero length array
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/service/NativeFlinkService.java`
+in `flink-kubernetes-docs/src/main/java/org/apache/flink/kubernetes/operator/docs/configuration/ConfigOptionsDocGenerator.java`
 #### Snippet
 ```java
-        final ApplicationConfiguration applicationConfiguration =
-                new ApplicationConfiguration(
-                        jobSpec.getArgs() != null ? jobSpec.getArgs() : new String[0],
-                        jobSpec.getEntryClass());
-
+                Arrays.stream(clazz.getEnumConstants())
+                        .map(ConfigOptionsDocGenerator::formatEnumOption)
+                        .map(elements -> TextElement.wrap(elements.toArray(new InlineElement[0])))
+                        .toArray(InlineElement[]::new);
+        return Description.builder().text("Possible values:").list(optionDescriptions).build();
 ```
 
 ### ZeroLengthArrayInitialization
@@ -2750,14 +2750,14 @@ in `flink-kubernetes-operator-api/src/main/java/org/apache/flink/kubernetes/oper
 
 ### ZeroLengthArrayInitialization
 Allocation of zero length array
-in `flink-kubernetes-docs/src/main/java/org/apache/flink/kubernetes/operator/docs/configuration/ConfigOptionsDocGenerator.java`
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/service/NativeFlinkService.java`
 #### Snippet
 ```java
-                Arrays.stream(clazz.getEnumConstants())
-                        .map(ConfigOptionsDocGenerator::formatEnumOption)
-                        .map(elements -> TextElement.wrap(elements.toArray(new InlineElement[0])))
-                        .toArray(InlineElement[]::new);
-        return Description.builder().text("Possible values:").list(optionDescriptions).build();
+        final ApplicationConfiguration applicationConfiguration =
+                new ApplicationConfiguration(
+                        jobSpec.getArgs() != null ? jobSpec.getArgs() : new String[0],
+                        jobSpec.getEntryClass());
+
 ```
 
 ## RuleId[ruleID=SynchronizeOnThis]
@@ -2811,31 +2811,6 @@ public class FlinkResourceException {
     /** Exception Type. */
 ```
 
-## RuleId[ruleID=UseBulkOperation]
-### UseBulkOperation
-Iteration can be replaced with bulk 'Collection.addAll()' call
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/metrics/OperatorJosdkMetrics.java`
-#### Snippet
-```java
-    private Counter counter(MetricGroup parent, String... names) {
-        var key = new ArrayList<String>(parent.getScopeComponents().length + names.length);
-        Arrays.stream(parent.getScopeComponents()).forEach(key::add);
-        Arrays.stream(names).forEach(key::add);
-
-```
-
-### UseBulkOperation
-Iteration can be replaced with bulk 'Collection.addAll()' call
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/metrics/OperatorJosdkMetrics.java`
-#### Snippet
-```java
-        var key = new ArrayList<String>(parent.getScopeComponents().length + names.length);
-        Arrays.stream(parent.getScopeComponents()).forEach(key::add);
-        Arrays.stream(names).forEach(key::add);
-
-        return counters.computeIfAbsent(
-```
-
 ## RuleId[ruleID=ConstantValue]
 ### ConstantValue
 Condition `newJob != null` is always `true` when reached
@@ -2872,5 +2847,30 @@ in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator
             return configManager.getSessionJobConfig(session.get(), (FlinkSessionJobSpec) spec);
         }
         return null;
+```
+
+## RuleId[ruleID=UseBulkOperation]
+### UseBulkOperation
+Iteration can be replaced with bulk 'Collection.addAll()' call
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/metrics/OperatorJosdkMetrics.java`
+#### Snippet
+```java
+    private Counter counter(MetricGroup parent, String... names) {
+        var key = new ArrayList<String>(parent.getScopeComponents().length + names.length);
+        Arrays.stream(parent.getScopeComponents()).forEach(key::add);
+        Arrays.stream(names).forEach(key::add);
+
+```
+
+### UseBulkOperation
+Iteration can be replaced with bulk 'Collection.addAll()' call
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/metrics/OperatorJosdkMetrics.java`
+#### Snippet
+```java
+        var key = new ArrayList<String>(parent.getScopeComponents().length + names.length);
+        Arrays.stream(parent.getScopeComponents()).forEach(key::add);
+        Arrays.stream(names).forEach(key::add);
+
+        return counters.computeIfAbsent(
 ```
 
