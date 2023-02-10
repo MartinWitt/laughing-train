@@ -83,6 +83,18 @@ in `rxdogtag/src/main/java/rxdogtag2/DogTagMaybeObserver.java`
 ```
 
 ### BoundedWildcard
+Can generalize to `? super T`
+in `rxdogtag/src/main/java/rxdogtag2/RxDogTag.java`
+#### Snippet
+```java
+   * not contain such element.
+   */
+  private static <T> int indexOfLast(T[] array, NonCheckingPredicate<T> predicate) {
+    for (int index = array.length - 1; index >= 0; --index) {
+      if (predicate.test(array[index])) {
+```
+
+### BoundedWildcard
 Can generalize to `? extends ObserverHandler`
 in `rxdogtag/src/main/java/rxdogtag2/RxDogTag.java`
 #### Snippet
@@ -104,17 +116,5 @@ in `rxdogtag/src/main/java/rxdogtag2/RxDogTag.java`
   static void guardedDelegateCall(NonCheckingConsumer<Throwable> errorConsumer, Runnable runnable) {
     final Thread.UncaughtExceptionHandler h = Thread.currentThread().getUncaughtExceptionHandler();
     try {
-```
-
-### BoundedWildcard
-Can generalize to `? super T`
-in `rxdogtag/src/main/java/rxdogtag2/RxDogTag.java`
-#### Snippet
-```java
-   * not contain such element.
-   */
-  private static <T> int indexOfLast(T[] array, NonCheckingPredicate<T> predicate) {
-    for (int index = array.length - 1; index >= 0; --index) {
-      if (predicate.test(array[index])) {
 ```
 
