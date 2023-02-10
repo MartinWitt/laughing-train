@@ -59,6 +59,18 @@ in `src/main/java/com/palantir/gradle/revapi/GitVersionUtils.java`
 ## RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
 ### DynamicRegexReplaceableByCompiledPattern
 `replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `src/main/java/com/palantir/gradle/revapi/RevapiConfig.java`
+#### Snippet
+```java
+        String template = Utils.resourceToString(RevapiConfig.class, "revapi-configuration.json");
+
+        return fromString(template.replace(
+                "{{ARCHIVE_INCLUDE_REGEXES}}",
+                jarsToReportBreaks.getFiles().stream().map(File::getName).collect(Collectors.joining("\", \""))));
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
 in `src/main/java/com/palantir/gradle/revapi/ExceptionMessages.java`
 #### Snippet
 ```java
@@ -115,18 +127,6 @@ in `src/main/java/com/palantir/gradle/revapi/ExceptionMessages.java`
                 .replace("{{errors}}", errors);
     }
 
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/com/palantir/gradle/revapi/RevapiConfig.java`
-#### Snippet
-```java
-        String template = Utils.resourceToString(RevapiConfig.class, "revapi-configuration.json");
-
-        return fromString(template.replace(
-                "{{ARCHIVE_INCLUDE_REGEXES}}",
-                jarsToReportBreaks.getFiles().stream().map(File::getName).collect(Collectors.joining("\", \""))));
 ```
 
 ## RuleId[ruleID=SynchronizeOnThis]
