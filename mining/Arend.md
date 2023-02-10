@@ -77,21 +77,6 @@ in `base/src/main/java/org/arend/term/prettyprint/PrettyPrintVisitor.java`
 ```
 
 ### EnumSwitchStatementWhichMissesCases
-`switch (processDefCall(expression, param)) { case STOP: return true; case SKIP: brea...` statement on enum type 'org.arend.ext.core.expr.CoreExpression.FindAction' misses case 'CONTINUE'
-in `base/src/main/java/org/arend/typechecking/visitor/SearchVisitor.java`
-#### Snippet
-```java
-    List<ConCallExpression> stack = new ArrayList<>();
-    while (true) {
-      switch (processDefCall(expression, param)) {
-        case STOP: return true;
-        case SKIP: break;
-      }
-
-      for (Expression arg : expression.getDataTypeArguments()) {
-```
-
-### EnumSwitchStatementWhichMissesCases
 `switch (processDefCall(expression, param)) { case STOP: return true; case SKIP: return f...` statement on enum type 'org.arend.ext.core.expr.CoreExpression.FindAction' misses case 'CONTINUE'
 in `base/src/main/java/org/arend/typechecking/visitor/SearchVisitor.java`
 #### Snippet
@@ -104,6 +89,21 @@ in `base/src/main/java/org/arend/typechecking/visitor/SearchVisitor.java`
     }
 
     for (Expression impl : expression.getImplementedHere().values()) {
+```
+
+### EnumSwitchStatementWhichMissesCases
+`switch (processDefCall(expression, param)) { case STOP: return true; case SKIP: brea...` statement on enum type 'org.arend.ext.core.expr.CoreExpression.FindAction' misses case 'CONTINUE'
+in `base/src/main/java/org/arend/typechecking/visitor/SearchVisitor.java`
+#### Snippet
+```java
+    List<ConCallExpression> stack = new ArrayList<>();
+    while (true) {
+      switch (processDefCall(expression, param)) {
+        case STOP: return true;
+        case SKIP: break;
+      }
+
+      for (Expression arg : expression.getDataTypeArguments()) {
 ```
 
 ### EnumSwitchStatementWhichMissesCases
@@ -451,30 +451,6 @@ in `base/src/main/java/org/arend/typechecking/termination/BaseCallGraph.java`
 ```
 
 ### KeySetIterationMayUseEntrySet
-Iteration over `myGraph.keySet()` may be replaced with 'entrySet()' iteration
-in `base/src/main/java/org/arend/typechecking/termination/BaseCallGraph.java`
-#### Snippet
-```java
-  public String toTestScenario(String edgeSetName) {
-    StringBuilder result = new StringBuilder();
-    for (T v : myGraph.keySet()) {
-      String label = getLabel(v);
-      String[] parameterLabels = null;
-```
-
-### KeySetIterationMayUseEntrySet
-Iteration over `myGraph.keySet()` may be replaced with 'entrySet()' iteration
-in `base/src/main/java/org/arend/typechecking/termination/BaseCallGraph.java`
-#### Snippet
-```java
-
-    Integer counter = 0;
-    for (T v : myGraph.keySet()) {
-      String domLabel = getLabel(v);
-      for (T v2 : myGraph.get(v).keySet())
-```
-
-### KeySetIterationMayUseEntrySet
 Iteration over `oldGraph.keySet()` may be replaced with 'values()' iteration
 in `base/src/main/java/org/arend/typechecking/termination/BaseCallGraph.java`
 #### Snippet
@@ -522,6 +498,30 @@ in `base/src/main/java/org/arend/typechecking/termination/BaseCallGraph.java`
             HashMap<T, HashSet<BaseCallMatrix<T>>> outboundEdges2 = oldGraph.get(arrow.getCodomain());
 ```
 
+### KeySetIterationMayUseEntrySet
+Iteration over `myGraph.keySet()` may be replaced with 'entrySet()' iteration
+in `base/src/main/java/org/arend/typechecking/termination/BaseCallGraph.java`
+#### Snippet
+```java
+  public String toTestScenario(String edgeSetName) {
+    StringBuilder result = new StringBuilder();
+    for (T v : myGraph.keySet()) {
+      String label = getLabel(v);
+      String[] parameterLabels = null;
+```
+
+### KeySetIterationMayUseEntrySet
+Iteration over `myGraph.keySet()` may be replaced with 'entrySet()' iteration
+in `base/src/main/java/org/arend/typechecking/termination/BaseCallGraph.java`
+#### Snippet
+```java
+
+    Integer counter = 0;
+    for (T v : myGraph.keySet()) {
+      String domLabel = getLabel(v);
+      for (T v2 : myGraph.get(v).keySet())
+```
+
 ## RuleId[ruleID=SizeReplaceableByIsEmpty]
 ### SizeReplaceableByIsEmpty
 `subPatterns.size() == 0` can be replaced with 'subPatterns.isEmpty()'
@@ -532,18 +532,6 @@ in `base/src/main/java/org/arend/core/pattern/Pattern.java`
     List<? extends Pattern> subPatterns = getSubPatterns();
     return def == Prelude.ARRAY_CONS && subPatterns.size() == 2 ? def.getParameters().getNext().getNext() : def == Prelude.EMPTY_ARRAY && subPatterns.size() == 0 || def == Prelude.ARRAY_CONS && subPatterns.size() == 3 ? def.getParameters().getNext() : def != null ? def.getParameters() : EmptyDependentLink.getInstance();
   }
-
-```
-
-### SizeReplaceableByIsEmpty
-`rhs_strings.size() > 0` can be replaced with '!rhs_strings.isEmpty()'
-in `base/src/main/java/org/arend/term/prettyprint/PrettyPrintVisitor.java`
-#### Snippet
-```java
-
-    boolean increaseIndent(List<String> rhs_strings) {
-      return !(rhs_strings.size() > 0 && spacesCount(rhs_strings.get(0)) > 0 || rhs_strings.size() > 1 && spacesCount(rhs_strings.get(1)) > 0);
-    }
 
 ```
 
@@ -560,15 +548,15 @@ in `base/src/main/java/org/arend/term/prettyprint/PrettyPrintVisitor.java`
 ```
 
 ### SizeReplaceableByIsEmpty
-`def.getParameters().size() > 0` can be replaced with '!def.getParameters().isEmpty()'
+`tailBuilder.length() != 0` can be replaced with '!tailBuilder.isEmpty()'
 in `base/src/main/java/org/arend/term/prettyprint/PrettyPrintVisitor.java`
 #### Snippet
 ```java
-      @Override
-      boolean printSpaceBefore() {
-        return def.getParameters().size() > 0;
-      }
-
+        boolean leftParamIsRecursive = explicitIndex == constructor.getRecursiveParameter();
+        prec = visitBinOp(leftParamIsRecursive ? null : args.get(args.size() - 2).getExpression(), (Concrete.ReferenceExpression) expr.getFunction(), args.subList(0, args.size() - 2), leftParamIsRecursive ? args.get(args.size() - 1).getExpression() : null, prec, tailBuilder);
+        if (tailBuilder.length() != 0) {
+          if (tail == null) {
+            tail = new ArrayList<>();
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -596,6 +584,18 @@ in `base/src/main/java/org/arend/term/prettyprint/PrettyPrintVisitor.java`
 ```
 
 ### SizeReplaceableByIsEmpty
+`rhs_strings.size() > 0` can be replaced with '!rhs_strings.isEmpty()'
+in `base/src/main/java/org/arend/term/prettyprint/PrettyPrintVisitor.java`
+#### Snippet
+```java
+
+    boolean increaseIndent(List<String> rhs_strings) {
+      return !(rhs_strings.size() > 0 && spacesCount(rhs_strings.get(0)) > 0 || rhs_strings.size() > 1 && spacesCount(rhs_strings.get(1)) > 0);
+    }
+
+```
+
+### SizeReplaceableByIsEmpty
 `l.size() > 0` can be replaced with '!l.isEmpty()'
 in `base/src/main/java/org/arend/term/prettyprint/PrettyPrintVisitor.java`
 #### Snippet
@@ -608,15 +608,15 @@ in `base/src/main/java/org/arend/term/prettyprint/PrettyPrintVisitor.java`
 ```
 
 ### SizeReplaceableByIsEmpty
-`tailBuilder.length() != 0` can be replaced with '!tailBuilder.isEmpty()'
+`def.getParameters().size() > 0` can be replaced with '!def.getParameters().isEmpty()'
 in `base/src/main/java/org/arend/term/prettyprint/PrettyPrintVisitor.java`
 #### Snippet
 ```java
-        boolean leftParamIsRecursive = explicitIndex == constructor.getRecursiveParameter();
-        prec = visitBinOp(leftParamIsRecursive ? null : args.get(args.size() - 2).getExpression(), (Concrete.ReferenceExpression) expr.getFunction(), args.subList(0, args.size() - 2), leftParamIsRecursive ? args.get(args.size() - 1).getExpression() : null, prec, tailBuilder);
-        if (tailBuilder.length() != 0) {
-          if (tail == null) {
-            tail = new ArrayList<>();
+      @Override
+      boolean printSpaceBefore() {
+        return def.getParameters().size() > 0;
+      }
+
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -717,6 +717,43 @@ in `base/src/main/java/org/arend/term/prettyprint/PrettyPrintVisitor.java`
       int myMaxLen = (ratio > SMALL_RATIO) ? MAX_LEN : Math.round(MAX_LEN * (1 + SMALL_RATIO));
 
       return (leftLen + rightLen + getOpText().trim().length() + 1 > myMaxLen);
+```
+
+## RuleId[ruleID=AbstractClassNeverImplemented]
+### AbstractClassNeverImplemented
+Abstract class `BaseCoreExpressionVisitor` has no concrete subclass
+in `api/src/main/java/org/arend/ext/core/expr/BaseCoreExpressionVisitor.java`
+#### Snippet
+```java
+import org.jetbrains.annotations.NotNull;
+
+public abstract class BaseCoreExpressionVisitor<P, R> implements CoreExpressionVisitor<P, R> {
+  abstract protected R visit(CoreExpression expression, P param);
+
+```
+
+### AbstractClassNeverImplemented
+Abstract class `SerializableKey` has no concrete subclass
+in `api/src/main/java/org/arend/ext/serialization/SerializableKey.java`
+#### Snippet
+```java
+import org.jetbrains.annotations.NotNull;
+
+public abstract class SerializableKey<T> extends Key<T> {
+  protected SerializableKey(@NotNull String name) {
+    super(name);
+```
+
+### AbstractClassNeverImplemented
+Abstract class `SourceNodeImpl` has no concrete subclass
+in `base/src/main/java/org/arend/term/abs/Abstract.java`
+#### Snippet
+```java
+  }
+
+  public static abstract class SourceNodeImpl implements SourceNode {
+    @NotNull
+    @Override
 ```
 
 ## RuleId[ruleID=BoundedWildcard]
@@ -859,7 +896,7 @@ in `cli/src/main/java/org/arend/frontend/repl/jline/Completers.java`
 ```java
     }
 
-    public FilesCompleter(Supplier<Path> currentDir, boolean forceSlash) {
+    public DirectoriesCompleter(Supplier<Path> currentDir, boolean forceSlash) {
       this.currentDir = currentDir;
       this.forceSlash = forceSlash;
 ```
@@ -871,7 +908,7 @@ in `cli/src/main/java/org/arend/frontend/repl/jline/Completers.java`
 ```java
     }
 
-    public DirectoriesCompleter(Supplier<Path> currentDir, boolean forceSlash) {
+    public FilesCompleter(Supplier<Path> currentDir, boolean forceSlash) {
       this.currentDir = currentDir;
       this.forceSlash = forceSlash;
 ```
@@ -889,18 +926,6 @@ in `cli/src/main/java/org/arend/frontend/repl/CommonCliRepl.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? super DependentLink`
-in `base/src/main/java/org/arend/core/expr/Expression.java`
-#### Snippet
-```java
-  }
-
-  public Expression getLamParameters(List<DependentLink> params) {
-    Expression body = this;
-    for (LamExpression lamBody = body.cast(LamExpression.class); lamBody != null; lamBody = body.cast(LamExpression.class)) {
-```
-
-### BoundedWildcard
 Can generalize to `? super Constructor`
 in `base/src/main/java/org/arend/core/expr/Expression.java`
 #### Snippet
@@ -913,15 +938,27 @@ in `base/src/main/java/org/arend/core/expr/Expression.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? super Expression`
-in `base/src/main/java/org/arend/core/expr/AppExpression.java`
+Can generalize to `? super DependentLink`
+in `base/src/main/java/org/arend/core/expr/Expression.java`
 #### Snippet
 ```java
+  }
 
-  @Override
-  public Expression getArguments(List<Expression> args) {
-    assert args.isEmpty();
-    AppExpression app = this;
+  public Expression getLamParameters(List<DependentLink> params) {
+    Expression body = this;
+    for (LamExpression lamBody = body.cast(LamExpression.class); lamBody != null; lamBody = body.cast(LamExpression.class)) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends LetClausePattern`
+in `base/src/main/java/org/arend/core/expr/let/TupleLetClausePattern.java`
+#### Snippet
+```java
+  private final List<LetClausePattern> myPatterns;
+
+  public TupleLetClausePattern(List<LetClausePattern> patterns) {
+    myPatterns = patterns;
+  }
 ```
 
 ### BoundedWildcard
@@ -937,15 +974,15 @@ in `base/src/main/java/org/arend/core/expr/let/RecordLetClausePattern.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends LetClausePattern`
-in `base/src/main/java/org/arend/core/expr/let/TupleLetClausePattern.java`
+Can generalize to `? super Expression`
+in `base/src/main/java/org/arend/core/expr/AppExpression.java`
 #### Snippet
 ```java
-  private final List<LetClausePattern> myPatterns;
 
-  public TupleLetClausePattern(List<LetClausePattern> patterns) {
-    myPatterns = patterns;
-  }
+  @Override
+  public Expression getArguments(List<Expression> args) {
+    assert args.isEmpty();
+    AppExpression app = this;
 ```
 
 ### BoundedWildcard
@@ -1009,18 +1046,6 @@ in `base/src/main/java/org/arend/core/context/param/TypedSingleDependentLink.jav
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends K`
-in `base/src/main/java/org/arend/core/context/Utils.java`
-#### Snippet
-```java
-    private final Set<K> myOriginalSet;
-
-    public SetContextSaver(Set<K> set) {
-      mySet = set;
-      myOriginalSet = new HashSet<>(mySet);
-```
-
-### BoundedWildcard
 Can generalize to `? super Variable`
 in `base/src/main/java/org/arend/core/subst/UnfoldVisitor.java`
 #### Snippet
@@ -1030,6 +1055,18 @@ in `base/src/main/java/org/arend/core/subst/UnfoldVisitor.java`
   public UnfoldVisitor(Set<? extends Variable> variables, Set<Variable> unfolded, boolean unfoldLet, UnfoldFields unfoldFields) {
     super(new ExprSubstitution(), LevelSubstitution.EMPTY);
     myVariables = variables;
+```
+
+### BoundedWildcard
+Can generalize to `? extends K`
+in `base/src/main/java/org/arend/core/context/Utils.java`
+#### Snippet
+```java
+    private final Set<K> myOriginalSet;
+
+    public SetContextSaver(Set<K> set) {
+      mySet = set;
+      myOriginalSet = new HashSet<>(mySet);
 ```
 
 ### BoundedWildcard
@@ -1069,18 +1106,6 @@ in `base/src/main/java/org/arend/core/context/param/DependentLink.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends CoreParameter`
-in `base/src/main/java/org/arend/core/context/param/DependentLink.java`
-#### Snippet
-```java
-
-  @Override
-  default @NotNull CoreParameter insertParameters(@NotNull Map<CoreParameter, CoreParameter> map) {
-    if (map.isEmpty()) return this;
-    LinkList list = new LinkList();
-```
-
-### BoundedWildcard
 Can generalize to `? extends DependentLink`
 in `base/src/main/java/org/arend/core/context/param/DependentLink.java`
 #### Snippet
@@ -1090,6 +1115,18 @@ in `base/src/main/java/org/arend/core/context/param/DependentLink.java`
     public static List<DependentLink> subst(List<DependentLink> links, ExprSubstitution exprSubst, LevelSubstitution levelSubst) {
       List<DependentLink> newLinks = new ArrayList<>();
       int i = 0;
+```
+
+### BoundedWildcard
+Can generalize to `? extends CoreParameter`
+in `base/src/main/java/org/arend/core/context/param/DependentLink.java`
+#### Snippet
+```java
+
+  @Override
+  default @NotNull CoreParameter insertParameters(@NotNull Map<CoreParameter, CoreParameter> map) {
+    if (map.isEmpty()) return this;
+    LinkList list = new LinkList();
 ```
 
 ### BoundedWildcard
@@ -1106,14 +1143,14 @@ in `base/src/main/java/org/arend/core/expr/visitor/GetTypeVisitor.java`
 
 ### BoundedWildcard
 Can generalize to `? super Pattern`
-in `base/src/main/java/org/arend/core/pattern/ConstructorPattern.java`
+in `base/src/main/java/org/arend/core/pattern/EmptyPattern.java`
 #### Snippet
 ```java
 
-      @Override
-      public DependentLink replaceBindings(DependentLink link, List<Pattern> result) {
-        List<Pattern> subPatterns = new ArrayList<>();
-        result.add(make(data, subPatterns));
+  @Override
+  public DependentLink replaceBindings(DependentLink link, List<Pattern> result) {
+    result.add(new EmptyPattern(link));
+    return link.getNext();
 ```
 
 ### BoundedWildcard
@@ -1130,26 +1167,14 @@ in `base/src/main/java/org/arend/core/pattern/EmptyPattern.java`
 
 ### BoundedWildcard
 Can generalize to `? super Pattern`
-in `base/src/main/java/org/arend/core/pattern/EmptyPattern.java`
+in `base/src/main/java/org/arend/core/pattern/ConstructorPattern.java`
 #### Snippet
 ```java
 
-  @Override
-  public DependentLink replaceBindings(DependentLink link, List<Pattern> result) {
-    result.add(new EmptyPattern(link));
-    return link.getNext();
-```
-
-### BoundedWildcard
-Can generalize to `? extends ExpressionPattern`
-in `base/src/main/java/org/arend/core/pattern/BindingPattern.java`
-#### Snippet
-```java
-
-  @Override
-  public ExpressionPattern subst(ExprSubstitution exprSubst, LevelSubstitution levelSubst, Map<DependentLink, ExpressionPattern> patternSubst) {
-    if (patternSubst == null) {
-      return this;
+      @Override
+      public DependentLink replaceBindings(DependentLink link, List<Pattern> result) {
+        List<Pattern> subPatterns = new ArrayList<>();
+        result.add(make(data, subPatterns));
 ```
 
 ### BoundedWildcard
@@ -1189,6 +1214,18 @@ in `base/src/main/java/org/arend/core/pattern/BindingPattern.java`
 ```
 
 ### BoundedWildcard
+Can generalize to `? extends ExpressionPattern`
+in `base/src/main/java/org/arend/core/pattern/BindingPattern.java`
+#### Snippet
+```java
+
+  @Override
+  public ExpressionPattern subst(ExprSubstitution exprSubst, LevelSubstitution levelSubst, Map<DependentLink, ExpressionPattern> patternSubst) {
+    if (patternSubst == null) {
+      return this;
+```
+
+### BoundedWildcard
 Can generalize to `? extends Expression`
 in `base/src/main/java/org/arend/core/definition/ClassField.java`
 #### Snippet
@@ -1197,18 +1234,6 @@ in `base/src/main/java/org/arend/core/definition/ClassField.java`
   @Override
   public Expression getDefCall(Levels levels, List<Expression> args) {
     return FieldCallExpression.make(this, args.get(0));
-  }
-```
-
-### BoundedWildcard
-Can generalize to `? extends Pair`
-in `base/src/main/java/org/arend/core/definition/TopLevelDefinition.java`
-#### Snippet
-```java
-  }
-
-  public void setParametersOriginalDefinitions(List<Pair<TCDefReferable,Integer>> definitions) {
-    myParametersOriginalDefinitions = definitions;
   }
 ```
 
@@ -1225,6 +1250,18 @@ in `base/src/main/java/org/arend/core/definition/TopLevelDefinition.java`
 ```
 
 ### BoundedWildcard
+Can generalize to `? extends Pair`
+in `base/src/main/java/org/arend/core/definition/TopLevelDefinition.java`
+#### Snippet
+```java
+  }
+
+  public void setParametersOriginalDefinitions(List<Pair<TCDefReferable,Integer>> definitions) {
+    myParametersOriginalDefinitions = definitions;
+  }
+```
+
+### BoundedWildcard
 Can generalize to `? extends TopLevelDefinition`
 in `base/src/main/java/org/arend/core/definition/DataDefinition.java`
 #### Snippet
@@ -1237,15 +1274,15 @@ in `base/src/main/java/org/arend/core/definition/DataDefinition.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends TopLevelDefinition`
-in `base/src/main/java/org/arend/core/definition/FunctionDefinition.java`
+Can generalize to `? extends ElimClause`
+in `base/src/main/java/org/arend/core/elimtree/ElimBody.java`
 #### Snippet
 ```java
-  }
+  private final ElimTree myElimTree;
 
-  public void setRecursiveDefinitions(Set<TopLevelDefinition> recursiveDefinitions) {
-    myRecursiveDefinitions = recursiveDefinitions;
-  }
+  public ElimBody(List<ElimClause<Pattern>> clauses, ElimTree elimTree) {
+    myElimTree = elimTree;
+    myClauses = clauses;
 ```
 
 ### BoundedWildcard
@@ -1273,15 +1310,15 @@ in `base/src/main/java/org/arend/core/elimtree/ElimBody.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends ElimClause`
-in `base/src/main/java/org/arend/core/elimtree/ElimBody.java`
+Can generalize to `? extends TopLevelDefinition`
+in `base/src/main/java/org/arend/core/definition/FunctionDefinition.java`
 #### Snippet
 ```java
-  private final ElimTree myElimTree;
+  }
 
-  public ElimBody(List<ElimClause<Pattern>> clauses, ElimTree elimTree) {
-    myElimTree = elimTree;
-    myClauses = clauses;
+  public void setRecursiveDefinitions(Set<TopLevelDefinition> recursiveDefinitions) {
+    myRecursiveDefinitions = recursiveDefinitions;
+  }
 ```
 
 ### BoundedWildcard
@@ -1309,90 +1346,6 @@ in `base/src/main/java/org/arend/repl/Repl.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends ClassField`
-in `base/src/main/java/org/arend/core/definition/ClassDefinition.java`
-#### Snippet
-```java
-  }
-
-  public void setGoodThisFields(Set<ClassField> goodThisFields) {
-    myGoodThisFields = goodThisFields;
-  }
-```
-
-### BoundedWildcard
-Can generalize to `? extends ClassField`
-in `base/src/main/java/org/arend/core/definition/ClassDefinition.java`
-#### Snippet
-```java
-  }
-
-  public Integer getUseLevel(Map<ClassField,Expression> implemented, Binding thisBinding, boolean isStrict) {
-    loop:
-    for (ParametersLevel parametersLevel : myParametersLevels.getList()) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends Expression`
-in `base/src/main/java/org/arend/core/definition/ClassDefinition.java`
-#### Snippet
-```java
-  }
-
-  public Integer getUseLevel(Map<ClassField,Expression> implemented, Binding thisBinding, boolean isStrict) {
-    loop:
-    for (ParametersLevel parametersLevel : myParametersLevels.getList()) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends Expression`
-in `base/src/main/java/org/arend/core/definition/ClassDefinition.java`
-#### Snippet
-```java
-    }
-
-    private boolean checkExpressionsTypesStrict(List<Expression> expressions) {
-      if (strictList == null || expressions.size() != strictList.size()) {
-        return false;
-```
-
-### BoundedWildcard
-Can generalize to `? extends ClassField`
-in `base/src/main/java/org/arend/core/definition/ClassDefinition.java`
-#### Snippet
-```java
-  }
-
-  public void setTypeClassFields(Set<ClassField> typeClassFields) {
-    myTypeClassParameters = typeClassFields;
-  }
-```
-
-### BoundedWildcard
-Can generalize to `? extends ClassField`
-in `base/src/main/java/org/arend/core/definition/ClassDefinition.java`
-#### Snippet
-```java
-  }
-
-  public void addDefaultImplDependencies(ClassField field, Set<ClassField> dependencies) {
-    myDefaultImplDependencies.computeIfAbsent(field, k -> new HashSet<>()).addAll(dependencies);
-  }
-```
-
-### BoundedWildcard
-Can generalize to `? extends ClassField`
-in `base/src/main/java/org/arend/core/definition/ClassDefinition.java`
-#### Snippet
-```java
-  }
-
-  public void addDefaultDependencies(ClassField field, Set<ClassField> dependencies) {
-    myDefaultDependencies.computeIfAbsent(field, k -> new HashSet<>()).addAll(dependencies);
-  }
-```
-
-### BoundedWildcard
 Can generalize to `? extends Statement`
 in `base/src/main/java/org/arend/term/group/StaticGroup.java`
 #### Snippet
@@ -1417,6 +1370,90 @@ in `base/src/main/java/org/arend/term/group/StaticGroup.java`
 ```
 
 ### BoundedWildcard
+Can generalize to `? extends ClassField`
+in `base/src/main/java/org/arend/core/definition/ClassDefinition.java`
+#### Snippet
+```java
+  }
+
+  public void addDefaultImplDependencies(ClassField field, Set<ClassField> dependencies) {
+    myDefaultImplDependencies.computeIfAbsent(field, k -> new HashSet<>()).addAll(dependencies);
+  }
+```
+
+### BoundedWildcard
+Can generalize to `? extends Expression`
+in `base/src/main/java/org/arend/core/definition/ClassDefinition.java`
+#### Snippet
+```java
+    }
+
+    private boolean checkExpressionsTypesStrict(List<Expression> expressions) {
+      if (strictList == null || expressions.size() != strictList.size()) {
+        return false;
+```
+
+### BoundedWildcard
+Can generalize to `? extends ClassField`
+in `base/src/main/java/org/arend/core/definition/ClassDefinition.java`
+#### Snippet
+```java
+  }
+
+  public void setGoodThisFields(Set<ClassField> goodThisFields) {
+    myGoodThisFields = goodThisFields;
+  }
+```
+
+### BoundedWildcard
+Can generalize to `? extends ClassField`
+in `base/src/main/java/org/arend/core/definition/ClassDefinition.java`
+#### Snippet
+```java
+  }
+
+  public void addDefaultDependencies(ClassField field, Set<ClassField> dependencies) {
+    myDefaultDependencies.computeIfAbsent(field, k -> new HashSet<>()).addAll(dependencies);
+  }
+```
+
+### BoundedWildcard
+Can generalize to `? extends ClassField`
+in `base/src/main/java/org/arend/core/definition/ClassDefinition.java`
+#### Snippet
+```java
+  }
+
+  public Integer getUseLevel(Map<ClassField,Expression> implemented, Binding thisBinding, boolean isStrict) {
+    loop:
+    for (ParametersLevel parametersLevel : myParametersLevels.getList()) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends Expression`
+in `base/src/main/java/org/arend/core/definition/ClassDefinition.java`
+#### Snippet
+```java
+  }
+
+  public Integer getUseLevel(Map<ClassField,Expression> implemented, Binding thisBinding, boolean isStrict) {
+    loop:
+    for (ParametersLevel parametersLevel : myParametersLevels.getList()) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends ClassField`
+in `base/src/main/java/org/arend/core/definition/ClassDefinition.java`
+#### Snippet
+```java
+  }
+
+  public void setTypeClassFields(Set<ClassField> typeClassFields) {
+    myTypeClassParameters = typeClassFields;
+  }
+```
+
+### BoundedWildcard
 Can generalize to `? extends Concrete.FunctionClause`
 in `base/src/main/java/org/arend/term/concrete/ReplaceDataVisitor.java`
 #### Snippet
@@ -1426,42 +1463,6 @@ in `base/src/main/java/org/arend/term/concrete/ReplaceDataVisitor.java`
   private List<Concrete.FunctionClause> visitFunctionClauses(List<Concrete.FunctionClause> clauses) {
     List<Concrete.FunctionClause> result = new ArrayList<>(clauses.size());
     for (Concrete.FunctionClause clause : clauses) {
-```
-
-### BoundedWildcard
-Can generalize to `? super Expression`
-in `base/src/main/java/org/arend/core/expr/visitor/NormalizeVisitor.java`
-#### Snippet
-```java
-  }
-
-  private Expression addSucs(Expression arg1, List<Expression> defCallArgs, Expression result) {
-    ConCallExpression conCall1 = arg1.cast(ConCallExpression.class);
-    while (conCall1 != null && conCall1.getDefinition() == Prelude.SUC) {
-```
-
-### BoundedWildcard
-Can generalize to `? super Expression`
-in `base/src/main/java/org/arend/core/expr/visitor/NormalizeVisitor.java`
-#### Snippet
-```java
-  }
-
-  private ElimTree updateStack(Deque<Expression> stack, List<Expression> argList, BranchElimTree branchElimTree) {
-    Expression argument = TypeConstructorExpression.unfoldExpression(stack.pop());
-    ArrayExpression array = argument instanceof ArrayExpression ? (ArrayExpression) argument : null;
-```
-
-### BoundedWildcard
-Can generalize to `? extends Concrete.NameParameter`
-in `base/src/main/java/org/arend/term/concrete/DefinableMetaDefinition.java`
-#### Snippet
-```java
-  private final List<LevelReferable> myHLevelParameters;
-
-  public DefinableMetaDefinition(MetaReferable referable, List<LevelReferable> pLevelParameters, List<LevelReferable> hLevelParameters, List<Concrete.NameParameter> parameters, Concrete.@Nullable Expression body) {
-    myReferable = referable;
-    myPLevelParameters = pLevelParameters;
 ```
 
 ### BoundedWildcard
@@ -1489,15 +1490,39 @@ in `base/src/main/java/org/arend/term/concrete/DefinableMetaDefinition.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? super Concrete.ClassElement`
-in `base/src/main/java/org/arend/term/abs/ConcreteBuilder.java`
+Can generalize to `? extends Concrete.NameParameter`
+in `base/src/main/java/org/arend/term/concrete/DefinableMetaDefinition.java`
+#### Snippet
+```java
+  private final List<LevelReferable> myHLevelParameters;
+
+  public DefinableMetaDefinition(MetaReferable referable, List<LevelReferable> pLevelParameters, List<LevelReferable> hLevelParameters, List<Concrete.NameParameter> parameters, Concrete.@Nullable Expression body) {
+    myReferable = referable;
+    myPLevelParameters = pLevelParameters;
+```
+
+### BoundedWildcard
+Can generalize to `? super Expression`
+in `base/src/main/java/org/arend/core/expr/visitor/NormalizeVisitor.java`
 #### Snippet
 ```java
   }
 
-  public void buildClassParameters(Collection<? extends Abstract.FieldParameter> absParameters, Concrete.ClassDefinition classDef, List<Concrete.ClassElement> elements) {
-    for (Abstract.FieldParameter absParameter : absParameters) {
-      Concrete.Parameter parameter = buildParameter(absParameter, false, false);
+  private ElimTree updateStack(Deque<Expression> stack, List<Expression> argList, BranchElimTree branchElimTree) {
+    Expression argument = TypeConstructorExpression.unfoldExpression(stack.pop());
+    ArrayExpression array = argument instanceof ArrayExpression ? (ArrayExpression) argument : null;
+```
+
+### BoundedWildcard
+Can generalize to `? super Expression`
+in `base/src/main/java/org/arend/core/expr/visitor/NormalizeVisitor.java`
+#### Snippet
+```java
+  }
+
+  private Expression addSucs(Expression arg1, List<Expression> defCallArgs, Expression result) {
+    ConCallExpression conCall1 = arg1.cast(ConCallExpression.class);
+    while (conCall1 != null && conCall1.getDefinition() == Prelude.SUC) {
 ```
 
 ### BoundedWildcard
@@ -1510,6 +1535,30 @@ in `base/src/main/java/org/arend/term/concrete/FindLevelVariablesVisitor.java`
   public FindLevelVariablesVisitor(Set<Referable> referables) {
     myReferables = referables;
   }
+```
+
+### BoundedWildcard
+Can generalize to `? super Concrete.ClassElement`
+in `base/src/main/java/org/arend/term/abs/ConcreteBuilder.java`
+#### Snippet
+```java
+  }
+
+  public void buildClassParameters(Collection<? extends Abstract.FieldParameter> absParameters, Concrete.ClassDefinition classDef, List<Concrete.ClassElement> elements) {
+    for (Abstract.FieldParameter absParameter : absParameters) {
+      Concrete.Parameter parameter = buildParameter(absParameter, false, false);
+```
+
+### BoundedWildcard
+Can generalize to `? extends Concrete.LevelExpression`
+in `base/src/main/java/org/arend/term/concrete/SubstConcreteVisitor.java`
+#### Snippet
+```java
+  }
+
+  private List<Concrete.LevelExpression> visitLevels(List<Concrete.LevelExpression> levels) {
+    if (levels == null) return null;
+    List<Concrete.LevelExpression> result = new ArrayList<>(levels.size());
 ```
 
 ### BoundedWildcard
@@ -1537,18 +1586,6 @@ in `base/src/main/java/org/arend/term/concrete/SubstConcreteVisitor.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends Concrete.LevelExpression`
-in `base/src/main/java/org/arend/term/concrete/SubstConcreteVisitor.java`
-#### Snippet
-```java
-  }
-
-  private List<Concrete.LevelExpression> visitLevels(List<Concrete.LevelExpression> levels) {
-    if (levels == null) return null;
-    List<Concrete.LevelExpression> result = new ArrayList<>(levels.size());
-```
-
-### BoundedWildcard
 Can generalize to `? super Referable`
 in `base/src/main/java/org/arend/term/concrete/SubstConcreteVisitor.java`
 #### Snippet
@@ -1561,6 +1598,30 @@ in `base/src/main/java/org/arend/term/concrete/SubstConcreteVisitor.java`
 ```
 
 ### BoundedWildcard
+Can generalize to `? extends Concrete.CoClauseElement`
+in `base/src/main/java/org/arend/term/concrete/ConcreteCompareVisitor.java`
+#### Snippet
+```java
+  }
+
+  private boolean compareCoClauseElements(List<Concrete.CoClauseElement> elements1, List<Concrete.CoClauseElement> elements2) {
+    if (elements1.size() != elements2.size()) {
+      return false;
+```
+
+### BoundedWildcard
+Can generalize to `? extends Concrete.CoClauseElement`
+in `base/src/main/java/org/arend/term/concrete/ConcreteCompareVisitor.java`
+#### Snippet
+```java
+  }
+
+  private boolean compareCoClauseElements(List<Concrete.CoClauseElement> elements1, List<Concrete.CoClauseElement> elements2) {
+    if (elements1.size() != elements2.size()) {
+      return false;
+```
+
+### BoundedWildcard
 Can generalize to `? extends Concrete.Pattern`
 in `base/src/main/java/org/arend/term/concrete/ConcreteCompareVisitor.java`
 #### Snippet
@@ -1629,30 +1690,6 @@ in `base/src/main/java/org/arend/term/concrete/ConcreteCompareVisitor.java`
 
   private boolean compareImplementStatements(List<Concrete.ClassFieldImpl> implStats1, List<Concrete.ClassFieldImpl> implStats2) {
     if (implStats1.size() != implStats2.size()) {
-      return false;
-```
-
-### BoundedWildcard
-Can generalize to `? extends Concrete.CoClauseElement`
-in `base/src/main/java/org/arend/term/concrete/ConcreteCompareVisitor.java`
-#### Snippet
-```java
-  }
-
-  private boolean compareCoClauseElements(List<Concrete.CoClauseElement> elements1, List<Concrete.CoClauseElement> elements2) {
-    if (elements1.size() != elements2.size()) {
-      return false;
-```
-
-### BoundedWildcard
-Can generalize to `? extends Concrete.CoClauseElement`
-in `base/src/main/java/org/arend/term/concrete/ConcreteCompareVisitor.java`
-#### Snippet
-```java
-  }
-
-  private boolean compareCoClauseElements(List<Concrete.CoClauseElement> elements1, List<Concrete.CoClauseElement> elements2) {
-    if (elements1.size() != elements2.size()) {
       return false;
 ```
 
@@ -1681,6 +1718,18 @@ in `base/src/main/java/org/arend/term/prettyprint/FreeVariableCollectorConcrete.
 ```
 
 ### BoundedWildcard
+Can generalize to `? extends Referable`
+in `base/src/main/java/org/arend/term/concrete/ConcreteExpressionFactory.java`
+#### Snippet
+```java
+  }
+
+  public static Concrete.TelescopeParameter cTele(List<Referable> referableList, Concrete.Expression type) {
+    return new Concrete.TelescopeParameter(null, true, referableList, type, false);
+  }
+```
+
+### BoundedWildcard
 Can generalize to `? super V`
 in `base/src/main/java/org/arend/util/GraphClosure.java`
 #### Snippet
@@ -1693,39 +1742,27 @@ in `base/src/main/java/org/arend/util/GraphClosure.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends FieldTeleContext`
-in `cli/src/main/java/org/arend/frontend/parser/BuildVisitor.java`
+Can generalize to `? extends GeneralError`
+in `base/src/main/java/org/arend/term/prettyprint/MinimizedRepresentation.java`
 #### Snippet
 ```java
-  }
+    private final ConcreteFactory myFactory;
 
-  private void visitFieldTeles(List<FieldTeleContext> teles, Concrete.ClassDefinition classDef, List<Concrete.ClassElement> fields) {
-    for (FieldTeleContext tele : teles) {
-      boolean explicit;
+    public ErrorFixingConcreteExpressionVisitor(List<GeneralError> myErrors, ConcreteFactory myFactory) {
+        this.myErrors = myErrors;
+        this.myFactory = myFactory;
 ```
 
 ### BoundedWildcard
-Can generalize to `? super Concrete.ClassElement`
-in `cli/src/main/java/org/arend/frontend/parser/BuildVisitor.java`
+Can generalize to `? super GeneralError`
+in `base/src/main/java/org/arend/term/prettyprint/MinimizedRepresentation.java`
 #### Snippet
 ```java
-  }
+    }
 
-  private void visitFieldTeles(List<FieldTeleContext> teles, Concrete.ClassDefinition classDef, List<Concrete.ClassElement> fields) {
-    for (FieldTeleContext tele : teles) {
-      boolean explicit;
-```
-
-### BoundedWildcard
-Can generalize to `? extends LocalCoClauseContext`
-in `cli/src/main/java/org/arend/frontend/parser/BuildVisitor.java`
-#### Snippet
-```java
-  }
-
-  private List<Concrete.ClassFieldImpl> visitLocalCoClauses(List<LocalCoClauseContext> contexts) {
-    List<Concrete.ClassFieldImpl> result = new ArrayList<>();
-    for (LocalCoClauseContext context : contexts) {
+    private static CheckTypeVisitor generateTypechecker(InstanceProvider instanceProvider, List<GeneralError> errorsCollector) {
+        var checkTypeVisitor = new CheckTypeVisitor(error -> {
+            if (!(error instanceof GoalError)) {
 ```
 
 ### BoundedWildcard
@@ -1753,42 +1790,6 @@ in `cli/src/main/java/org/arend/frontend/parser/BuildVisitor.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? super ParsedLocalReferable`
-in `cli/src/main/java/org/arend/frontend/parser/BuildVisitor.java`
-#### Snippet
-```java
-  }
-
-  private boolean getVars(ExprContext expr, List<ParsedLocalReferable> vars) {
-    if (!(expr instanceof AppContext)) {
-      return false;
-```
-
-### BoundedWildcard
-Can generalize to `? extends CoClauseContext`
-in `cli/src/main/java/org/arend/frontend/parser/BuildVisitor.java`
-#### Snippet
-```java
-  }
-
-  private void visitCoClauses(List<CoClauseContext> coClausesCtx, List<? super EmptyGroup> statements, ChildGroup parentGroup, TCDefReferable enclosingDefinition, TCDefReferable enclosingClass, List<Concrete.CoClauseElement> result) {
-    for (CoClauseContext coClause : coClausesCtx) {
-      result.add(visitCoClause(coClause, statements, parentGroup, enclosingClass, enclosingDefinition, false));
-```
-
-### BoundedWildcard
-Can generalize to `? super Concrete.CoClauseElement`
-in `cli/src/main/java/org/arend/frontend/parser/BuildVisitor.java`
-#### Snippet
-```java
-  }
-
-  private void visitCoClauses(List<CoClauseContext> coClausesCtx, List<? super EmptyGroup> statements, ChildGroup parentGroup, TCDefReferable enclosingDefinition, TCDefReferable enclosingClass, List<Concrete.CoClauseElement> result) {
-    for (CoClauseContext coClause : coClausesCtx) {
-      result.add(visitCoClause(coClause, statements, parentGroup, enclosingClass, enclosingDefinition, false));
-```
-
-### BoundedWildcard
 Can generalize to `? extends ClassFieldOrImplContext`
 in `cli/src/main/java/org/arend/frontend/parser/BuildVisitor.java`
 #### Snippet
@@ -1798,42 +1799,6 @@ in `cli/src/main/java/org/arend/frontend/parser/BuildVisitor.java`
   private void visitInstanceStatements(List<ClassFieldOrImplContext> ctx, List<Concrete.ClassElement> elements, Concrete.ClassDefinition parentClass) {
     for (ClassFieldOrImplContext statCtx : ctx) {
       if (statCtx != null) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends LamParamContext`
-in `cli/src/main/java/org/arend/frontend/parser/BuildVisitor.java`
-#### Snippet
-```java
-  }
-
-  private List<Concrete.Pattern> visitLamParams(List<LamParamContext> list, List<Concrete.Parameter> parameters) {
-    List<Concrete.Pattern> patterns = Collections.emptyList();
-    for (LamParamContext ctx : list) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends StatementContext`
-in `cli/src/main/java/org/arend/frontend/parser/BuildVisitor.java`
-#### Snippet
-```java
-  }
-
-  private void visitStatementList(List<StatementContext> statementCtxs, List<Statement> statements, ChildGroup parent, TCDefReferable enclosingClass) {
-    for (StatementContext statementCtx : statementCtxs) {
-      try {
-```
-
-### BoundedWildcard
-Can generalize to `? super Statement`
-in `cli/src/main/java/org/arend/frontend/parser/BuildVisitor.java`
-#### Snippet
-```java
-  }
-
-  private void visitStatementList(List<StatementContext> statementCtxs, List<Statement> statements, ChildGroup parent, TCDefReferable enclosingClass) {
-    for (StatementContext statementCtx : statementCtxs) {
-      try {
 ```
 
 ### BoundedWildcard
@@ -1849,15 +1814,39 @@ in `cli/src/main/java/org/arend/frontend/parser/BuildVisitor.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? super Concrete.ClassElement`
+Can generalize to `? extends ClassStatContext`
 in `cli/src/main/java/org/arend/frontend/parser/BuildVisitor.java`
 #### Snippet
 ```java
   }
 
-  private void visitInstanceStatement(ClassFieldOrImplContext ctx, List<Concrete.ClassElement> elements, Concrete.ClassDefinition parentClass) {
-    if (ctx instanceof ClassFieldContext) {
-      elements.add(visitClassFieldDef(((ClassFieldContext) ctx).classFieldDef(), ClassFieldKind.ANY, parentClass));
+  private void visitInstanceStatements(List<ClassStatContext> ctx, List<Concrete.ClassElement> elements, List<? super Group> statements, Concrete.ClassDefinition parentClass, ChildGroup parent) {
+    for (ClassStatContext statementCtx : ctx) {
+      if (statementCtx == null) {
+```
+
+### BoundedWildcard
+Can generalize to `? super ParsedLocalReferable`
+in `cli/src/main/java/org/arend/frontend/parser/BuildVisitor.java`
+#### Snippet
+```java
+  }
+
+  private boolean getVars(ExprContext expr, List<ParsedLocalReferable> vars) {
+    if (!(expr instanceof AppContext)) {
+      return false;
+```
+
+### BoundedWildcard
+Can generalize to `? extends TeleContext`
+in `cli/src/main/java/org/arend/frontend/parser/BuildVisitor.java`
+#### Snippet
+```java
+  }
+
+  private List<Concrete.TypeParameter> visitTeles(List<TeleContext> teles, boolean isDefinition) {
+    List<Concrete.TypeParameter> parameters = new ArrayList<>(teles.size());
+    for (TeleContext tele : teles) {
 ```
 
 ### BoundedWildcard
@@ -1897,15 +1886,111 @@ in `cli/src/main/java/org/arend/frontend/parser/BuildVisitor.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends TerminalNode`
+Can generalize to `? extends CoClauseContext`
 in `cli/src/main/java/org/arend/frontend/parser/BuildVisitor.java`
 #### Snippet
 ```java
   }
 
-  private List<LevelReferable> visitMetaLevels(List<TerminalNode> ids, boolean isPLevels) {
-    List<LevelReferable> refs = new ArrayList<>();
-    for (TerminalNode id : ids) {
+  private void visitCoClauses(List<CoClauseContext> coClausesCtx, List<? super EmptyGroup> statements, ChildGroup parentGroup, TCDefReferable enclosingDefinition, TCDefReferable enclosingClass, List<Concrete.CoClauseElement> result) {
+    for (CoClauseContext coClause : coClausesCtx) {
+      result.add(visitCoClause(coClause, statements, parentGroup, enclosingClass, enclosingDefinition, false));
+```
+
+### BoundedWildcard
+Can generalize to `? super Concrete.CoClauseElement`
+in `cli/src/main/java/org/arend/frontend/parser/BuildVisitor.java`
+#### Snippet
+```java
+  }
+
+  private void visitCoClauses(List<CoClauseContext> coClausesCtx, List<? super EmptyGroup> statements, ChildGroup parentGroup, TCDefReferable enclosingDefinition, TCDefReferable enclosingClass, List<Concrete.CoClauseElement> result) {
+    for (CoClauseContext coClause : coClausesCtx) {
+      result.add(visitCoClause(coClause, statements, parentGroup, enclosingClass, enclosingDefinition, false));
+```
+
+### BoundedWildcard
+Can generalize to `? extends StatementContext`
+in `cli/src/main/java/org/arend/frontend/parser/BuildVisitor.java`
+#### Snippet
+```java
+  }
+
+  private void visitStatementList(List<StatementContext> statementCtxs, List<Statement> statements, ChildGroup parent, TCDefReferable enclosingClass) {
+    for (StatementContext statementCtx : statementCtxs) {
+      try {
+```
+
+### BoundedWildcard
+Can generalize to `? super Statement`
+in `cli/src/main/java/org/arend/frontend/parser/BuildVisitor.java`
+#### Snippet
+```java
+  }
+
+  private void visitStatementList(List<StatementContext> statementCtxs, List<Statement> statements, ChildGroup parent, TCDefReferable enclosingClass) {
+    for (StatementContext statementCtx : statementCtxs) {
+      try {
+```
+
+### BoundedWildcard
+Can generalize to `? extends LocalCoClauseContext`
+in `cli/src/main/java/org/arend/frontend/parser/BuildVisitor.java`
+#### Snippet
+```java
+  }
+
+  private List<Concrete.ClassFieldImpl> visitLocalCoClauses(List<LocalCoClauseContext> contexts) {
+    List<Concrete.ClassFieldImpl> result = new ArrayList<>();
+    for (LocalCoClauseContext context : contexts) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends FieldTeleContext`
+in `cli/src/main/java/org/arend/frontend/parser/BuildVisitor.java`
+#### Snippet
+```java
+  }
+
+  private void visitFieldTeles(List<FieldTeleContext> teles, Concrete.ClassDefinition classDef, List<Concrete.ClassElement> fields) {
+    for (FieldTeleContext tele : teles) {
+      boolean explicit;
+```
+
+### BoundedWildcard
+Can generalize to `? super Concrete.ClassElement`
+in `cli/src/main/java/org/arend/frontend/parser/BuildVisitor.java`
+#### Snippet
+```java
+  }
+
+  private void visitFieldTeles(List<FieldTeleContext> teles, Concrete.ClassDefinition classDef, List<Concrete.ClassElement> fields) {
+    for (FieldTeleContext tele : teles) {
+      boolean explicit;
+```
+
+### BoundedWildcard
+Can generalize to `? super Concrete.ClassElement`
+in `cli/src/main/java/org/arend/frontend/parser/BuildVisitor.java`
+#### Snippet
+```java
+  }
+
+  private void visitInstanceStatement(ClassFieldOrImplContext ctx, List<Concrete.ClassElement> elements, Concrete.ClassDefinition parentClass) {
+    if (ctx instanceof ClassFieldContext) {
+      elements.add(visitClassFieldDef(((ClassFieldContext) ctx).classFieldDef(), ClassFieldKind.ANY, parentClass));
+```
+
+### BoundedWildcard
+Can generalize to `? extends LamParamContext`
+in `cli/src/main/java/org/arend/frontend/parser/BuildVisitor.java`
+#### Snippet
+```java
+  }
+
+  private List<Concrete.Pattern> visitLamParams(List<LamParamContext> list, List<Concrete.Parameter> parameters) {
+    List<Concrete.Pattern> patterns = Collections.emptyList();
+    for (LamParamContext ctx : list) {
 ```
 
 ### BoundedWildcard
@@ -1921,18 +2006,6 @@ in `cli/src/main/java/org/arend/frontend/parser/BuildVisitor.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends ClassStatContext`
-in `cli/src/main/java/org/arend/frontend/parser/BuildVisitor.java`
-#### Snippet
-```java
-  }
-
-  private void visitInstanceStatements(List<ClassStatContext> ctx, List<Concrete.ClassElement> elements, List<? super Group> statements, Concrete.ClassDefinition parentClass, ChildGroup parent) {
-    for (ClassStatContext statementCtx : ctx) {
-      if (statementCtx == null) {
-```
-
-### BoundedWildcard
 Can generalize to `? extends TeleContext`
 in `cli/src/main/java/org/arend/frontend/parser/BuildVisitor.java`
 #### Snippet
@@ -1945,27 +2018,27 @@ in `cli/src/main/java/org/arend/frontend/parser/BuildVisitor.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends TeleContext`
+Can generalize to `? extends TerminalNode`
 in `cli/src/main/java/org/arend/frontend/parser/BuildVisitor.java`
 #### Snippet
 ```java
   }
 
-  private List<Concrete.TypeParameter> visitTeles(List<TeleContext> teles, boolean isDefinition) {
-    List<Concrete.TypeParameter> parameters = new ArrayList<>(teles.size());
-    for (TeleContext tele : teles) {
+  private List<LevelReferable> visitMetaLevels(List<TerminalNode> ids, boolean isPLevels) {
+    List<LevelReferable> refs = new ArrayList<>();
+    for (TerminalNode id : ids) {
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends Referable`
-in `base/src/main/java/org/arend/term/concrete/ConcreteExpressionFactory.java`
+Can generalize to `? super ModulePath`
+in `base/src/main/java/org/arend/util/FileUtils.java`
 #### Snippet
 ```java
   }
 
-  public static Concrete.TelescopeParameter cTele(List<Referable> referableList, Concrete.Expression type) {
-    return new Concrete.TelescopeParameter(null, true, referableList, type, false);
-  }
+  public static void getModules(Path path, String ext, Collection<ModulePath> modules, ErrorReporter errorReporter) {
+    try {
+      Files.walkFileTree(path, new SimpleFileVisitor<>() {
 ```
 
 ### BoundedWildcard
@@ -1993,42 +2066,6 @@ in `base/src/main/java/org/arend/module/error/ExceptionError.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? super ModulePath`
-in `base/src/main/java/org/arend/util/FileUtils.java`
-#### Snippet
-```java
-  }
-
-  public static void getModules(Path path, String ext, Collection<ModulePath> modules, ErrorReporter errorReporter) {
-    try {
-      Files.walkFileTree(path, new SimpleFileVisitor<>() {
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
-in `base/src/main/java/org/arend/term/prettyprint/BiConcreteVisitor.java`
-#### Snippet
-```java
-  }
-
-  private <T extends Concrete.ClassElement> List<T> visitClassElements(List<T> elements, List<T> wideElements) {
-    List<T> classElements = new ArrayList<>();
-    for (int i = 0; i < elements.size(); i++) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
-in `base/src/main/java/org/arend/term/prettyprint/BiConcreteVisitor.java`
-#### Snippet
-```java
-  }
-
-  private <T extends Concrete.ClassElement> List<T> visitClassElements(List<T> elements, List<T> wideElements) {
-    List<T> classElements = new ArrayList<>();
-    for (int i = 0; i < elements.size(); i++) {
-```
-
-### BoundedWildcard
 Can generalize to `? extends Concrete.FunctionClause`
 in `base/src/main/java/org/arend/term/prettyprint/BiConcreteVisitor.java`
 #### Snippet
@@ -2041,99 +2078,27 @@ in `base/src/main/java/org/arend/term/prettyprint/BiConcreteVisitor.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? super GeneralError`
-in `base/src/main/java/org/arend/term/prettyprint/MinimizedRepresentation.java`
-#### Snippet
-```java
-    }
-
-    private static CheckTypeVisitor generateTypechecker(InstanceProvider instanceProvider, List<GeneralError> errorsCollector) {
-        var checkTypeVisitor = new CheckTypeVisitor(error -> {
-            if (!(error instanceof GoalError)) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends GeneralError`
-in `base/src/main/java/org/arend/term/prettyprint/MinimizedRepresentation.java`
-#### Snippet
-```java
-    private final ConcreteFactory myFactory;
-
-    public ErrorFixingConcreteExpressionVisitor(List<GeneralError> myErrors, ConcreteFactory myFactory) {
-        this.myErrors = myErrors;
-        this.myFactory = myFactory;
-```
-
-### BoundedWildcard
-Can generalize to `? extends Concrete.Argument`
-in `base/src/main/java/org/arend/term/prettyprint/PrettyPrintVisitor.java`
+Can generalize to `? extends T`
+in `base/src/main/java/org/arend/term/prettyprint/BiConcreteVisitor.java`
 #### Snippet
 ```java
   }
 
-  private boolean isInfix(List<Concrete.Argument> args) {
-    for (int i = 0; i < args.size(); i++) {
-      if (args.get(i).isExplicit()) {
+  private <T extends Concrete.ClassElement> List<T> visitClassElements(List<T> elements, List<T> wideElements) {
+    List<T> classElements = new ArrayList<>();
+    for (int i = 0; i < elements.size(); i++) {
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends Concrete.Argument`
-in `base/src/main/java/org/arend/term/prettyprint/PrettyPrintVisitor.java`
+Can generalize to `? extends T`
+in `base/src/main/java/org/arend/term/prettyprint/BiConcreteVisitor.java`
 #### Snippet
 ```java
   }
 
-  static public void printArguments(PrettyPrintVisitor pp, List<Concrete.Argument> args, boolean noIndent) {
-    new ListLayout<Concrete.Argument>() {
-      @Override
-```
-
-### BoundedWildcard
-Can generalize to `? extends Concrete.LevelExpression`
-in `base/src/main/java/org/arend/term/prettyprint/PrettyPrintVisitor.java`
-#### Snippet
-```java
-  }
-
-  private void printLevels(List<Concrete.LevelExpression> levels) {
-    if (levels != null) {
-      if (levels.size() == 1) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends BinOpSequenceElem`
-in `base/src/main/java/org/arend/term/prettyprint/PrettyPrintVisitor.java`
-#### Snippet
-```java
-  }
-
-  private AbstractLayout createBinOpLayout(List<BinOpSequenceElem<Expression>> elems) {
-    Concrete.Expression lhs = elems.get(0).getComponent();
-    if (lhs instanceof Concrete.AppExpression && elems.size() > 1) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends Concrete.ReferenceExpression`
-in `base/src/main/java/org/arend/term/prettyprint/PrettyPrintVisitor.java`
-#### Snippet
-```java
-  }
-
-  private void prettyPrintClassDefinitionHeader(Concrete.Definition def, List<Concrete.ReferenceExpression> superClasses) {
-    myBuilder.append("\\class ").append(def.getData().textRepresentation());
-    if (!superClasses.isEmpty()) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends Concrete.Argument`
-in `base/src/main/java/org/arend/term/prettyprint/PrettyPrintVisitor.java`
-#### Snippet
-```java
-  }
-
-  private Precedence visitBinOp(Concrete.Expression left, Concrete.ReferenceExpression infix, List<Concrete.Argument> implicitArgs, Concrete.Expression right, Precedence prec, StringBuilder builder) {
-    Precedence infixPrec = ((GlobalReferable) infix.getReferent()).getRepresentablePrecedence();
-    boolean needParens = prec.priority > infixPrec.priority || prec.priority == infixPrec.priority && (prec.associativity != infixPrec.associativity || prec.associativity == Precedence.Associativity.NON_ASSOC);
+  private <T extends Concrete.ClassElement> List<T> visitClassElements(List<T> elements, List<T> wideElements) {
+    List<T> classElements = new ArrayList<>();
+    for (int i = 0; i < elements.size(); i++) {
 ```
 
 ### BoundedWildcard
@@ -2149,27 +2114,15 @@ in `base/src/main/java/org/arend/naming/binOp/ExpressionBinOpEngine.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends Level`
+Can generalize to `? extends Variable`
 in `base/src/main/java/org/arend/term/prettyprint/ToAbstractVisitor.java`
 #### Snippet
 ```java
   }
 
-  private List<Concrete.LevelExpression> visitLevelsNull(List<Level> levels) {
-    if (levels.size() == 1) {
-      Concrete.LevelExpression result = visitLevelNull(levels.get(0));
-```
-
-### BoundedWildcard
-Can generalize to `? super Concrete.Argument`
-in `base/src/main/java/org/arend/term/prettyprint/ToAbstractVisitor.java`
-#### Snippet
-```java
+  private LocalReferable makeLocalReference(Binding var, Set<Variable> freeVars, boolean genName) {
+    return !genName && !freeVars.contains(var) ? null : myRenamer.generateFreshReferable(var, freeVars);
   }
-
-  private void visitArgument(Expression arg, boolean isExplicit, List<Concrete.Argument> arguments, boolean genGoal, boolean alwaysShow) {
-    ReferenceExpression refExpr = arg.cast(ReferenceExpression.class);
-    if (refExpr != null && refExpr.getBinding().isHidden()) {
 ```
 
 ### BoundedWildcard
@@ -2185,14 +2138,86 @@ in `base/src/main/java/org/arend/term/prettyprint/ToAbstractVisitor.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends Variable`
+Can generalize to `? super Concrete.Argument`
 in `base/src/main/java/org/arend/term/prettyprint/ToAbstractVisitor.java`
 #### Snippet
 ```java
   }
 
-  private LocalReferable makeLocalReference(Binding var, Set<Variable> freeVars, boolean genName) {
-    return !genName && !freeVars.contains(var) ? null : myRenamer.generateFreshReferable(var, freeVars);
+  private void visitArgument(Expression arg, boolean isExplicit, List<Concrete.Argument> arguments, boolean genGoal, boolean alwaysShow) {
+    ReferenceExpression refExpr = arg.cast(ReferenceExpression.class);
+    if (refExpr != null && refExpr.getBinding().isHidden()) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends Level`
+in `base/src/main/java/org/arend/term/prettyprint/ToAbstractVisitor.java`
+#### Snippet
+```java
+  }
+
+  private List<Concrete.LevelExpression> visitLevelsNull(List<Level> levels) {
+    if (levels.size() == 1) {
+      Concrete.LevelExpression result = visitLevelNull(levels.get(0));
+```
+
+### BoundedWildcard
+Can generalize to `? extends @NotNull Pair`
+in `base/src/main/java/org/arend/naming/binOp/PatternBinOpEngine.java`
+#### Snippet
+```java
+
+  @Override
+  public @NotNull Concrete.Pattern wrapSequence(Object data, Concrete.@NotNull Pattern base, List<@NotNull Pair<? extends Concrete.Pattern, Boolean>> explicitComponents) {
+    if (base instanceof Concrete.ConstructorPattern conBase) {
+      ArrayList<Concrete.Pattern> newPatterns = new ArrayList<>(base.getPatterns());
+```
+
+### BoundedWildcard
+Can generalize to `? extends Concrete.BinOpSequenceElem`
+in `base/src/main/java/org/arend/naming/binOp/MetaBinOpParser.java`
+#### Snippet
+```java
+  }
+
+  private static List<Concrete.Argument> binOpSeqToArgs(List<Concrete.BinOpSequenceElem<Concrete.Expression>> sequence, int start, int end) {
+    List<Concrete.Argument> args = new ArrayList<>();
+    for (int i = start; i < end; i++) {
+```
+
+### BoundedWildcard
+Can generalize to `? super Concrete.Expression`
+in `base/src/main/java/org/arend/naming/binOp/MetaBinOpParser.java`
+#### Snippet
+```java
+  }
+
+  public void resetReference(Concrete.BinOpSequenceElem<Concrete.Expression> elem, MetaBinOpParser.ResolvedReference resolvedReference) {
+    if (resolvedReference != null && resolvedReference.originalReference != null) {
+      resolvedReference.originalReference.reset();
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
+in `base/src/main/java/org/arend/module/serialization/DefinitionDeserialization.java`
+#### Snippet
+```java
+  }
+
+  private <T extends Definition> Set<T> readDefinitions(List<Integer> protos, Class<T> clazz) throws DeserializationException {
+    Set<T> result = new HashSet<>();
+    for (Integer index : protos) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends Scope`
+in `base/src/main/java/org/arend/naming/scope/LazyScope.java`
+#### Snippet
+```java
+  private final Supplier<Scope> mySupplier;
+
+  public LazyScope(Supplier<Scope> supplier) {
+    mySupplier = supplier;
   }
 ```
 
@@ -2221,39 +2246,15 @@ in `base/src/main/java/org/arend/naming/scope/CachingScope.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends T`
-in `base/src/main/java/org/arend/module/serialization/DefinitionDeserialization.java`
+Can generalize to `? extends Concrete.BinOpSequenceElem`
+in `base/src/main/java/org/arend/naming/binOp/BinOpParser.java`
 #### Snippet
 ```java
   }
 
-  private <T extends Definition> Set<T> readDefinitions(List<Integer> protos, Class<T> clazz) throws DeserializationException {
-    Set<T> result = new HashSet<>();
-    for (Integer index : protos) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends Scope`
-in `base/src/main/java/org/arend/naming/scope/LazyScope.java`
-#### Snippet
-```java
-  private final Supplier<Scope> mySupplier;
-
-  public LazyScope(Supplier<Scope> supplier) {
-    mySupplier = supplier;
-  }
-```
-
-### BoundedWildcard
-Can generalize to `? extends @NotNull Pair`
-in `base/src/main/java/org/arend/naming/binOp/PatternBinOpEngine.java`
-#### Snippet
-```java
-
-  @Override
-  public @NotNull Concrete.Pattern wrapSequence(Object data, Concrete.@NotNull Pattern base, List<@NotNull Pair<? extends Concrete.Pattern, Boolean>> explicitComponents) {
-    if (base instanceof Concrete.ConstructorPattern conBase) {
-      ArrayList<Concrete.Pattern> newPatterns = new ArrayList<>(base.getPatterns());
+  @NotNull T parse(@NotNull List<Concrete.BinOpSequenceElem<T>> sequence) {
+    for (Concrete.BinOpSequenceElem<T> elem : sequence) {
+      Referable referable = myEngine.getReferable(elem.getComponent());
 ```
 
 ### BoundedWildcard
@@ -2266,42 +2267,6 @@ in `base/src/main/java/org/arend/naming/scope/SingletonScope.java`
   public Referable find(Predicate<Referable> pred) {
     return pred.test(myReferable) ? myReferable : null;
   }
-```
-
-### BoundedWildcard
-Can generalize to `? extends Concrete.BinOpSequenceElem`
-in `base/src/main/java/org/arend/naming/binOp/MetaBinOpParser.java`
-#### Snippet
-```java
-  }
-
-  private static List<Concrete.Argument> binOpSeqToArgs(List<Concrete.BinOpSequenceElem<Concrete.Expression>> sequence, int start, int end) {
-    List<Concrete.Argument> args = new ArrayList<>();
-    for (int i = start; i < end; i++) {
-```
-
-### BoundedWildcard
-Can generalize to `? super Concrete.Expression`
-in `base/src/main/java/org/arend/naming/binOp/MetaBinOpParser.java`
-#### Snippet
-```java
-  }
-
-  public void resetReference(Concrete.BinOpSequenceElem<Concrete.Expression> elem, MetaBinOpParser.ResolvedReference resolvedReference) {
-    if (resolvedReference != null && resolvedReference.originalReference != null) {
-      resolvedReference.originalReference.reset();
-```
-
-### BoundedWildcard
-Can generalize to `? extends Concrete.BinOpSequenceElem`
-in `base/src/main/java/org/arend/naming/binOp/BinOpParser.java`
-#### Snippet
-```java
-  }
-
-  @NotNull T parse(@NotNull List<Concrete.BinOpSequenceElem<T>> sequence) {
-    for (Concrete.BinOpSequenceElem<T> elem : sequence) {
-      Referable referable = myEngine.getReferable(elem.getComponent());
 ```
 
 ### BoundedWildcard
@@ -2329,27 +2294,87 @@ in `base/src/main/java/org/arend/naming/scope/Scope.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? super Referable`
-in `base/src/main/java/org/arend/naming/scope/ImportedScope.java`
+Can generalize to `? extends Concrete.LevelExpression`
+in `base/src/main/java/org/arend/term/prettyprint/PrettyPrintVisitor.java`
 #### Snippet
 ```java
-  @Nullable
-  @Override
-  public Referable find(Predicate<Referable> pred) {
-    for (Triple triple : myExpectedNamesTree.map.values()) {
-      if (triple.scope != null && pred.test(triple.referable)) {
+  }
+
+  private void printLevels(List<Concrete.LevelExpression> levels) {
+    if (levels != null) {
+      if (levels.size() == 1) {
 ```
 
 ### BoundedWildcard
-Can generalize to `? super Referable`
-in `base/src/main/java/org/arend/naming/scope/ClassFieldImplScope.java`
+Can generalize to `? extends Concrete.Argument`
+in `base/src/main/java/org/arend/term/prettyprint/PrettyPrintVisitor.java`
 #### Snippet
 ```java
-  @Nullable
-  @Override
-  public Referable find(Predicate<Referable> pred) {
-    Set<ClassReferable> visitedClasses = new HashSet<>();
-    Deque<ClassReferable> toVisit = new ArrayDeque<>();
+  }
+
+  private boolean isInfix(List<Concrete.Argument> args) {
+    for (int i = 0; i < args.size(); i++) {
+      if (args.get(i).isExplicit()) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends BinOpSequenceElem`
+in `base/src/main/java/org/arend/term/prettyprint/PrettyPrintVisitor.java`
+#### Snippet
+```java
+  }
+
+  private AbstractLayout createBinOpLayout(List<BinOpSequenceElem<Expression>> elems) {
+    Concrete.Expression lhs = elems.get(0).getComponent();
+    if (lhs instanceof Concrete.AppExpression && elems.size() > 1) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends Concrete.Argument`
+in `base/src/main/java/org/arend/term/prettyprint/PrettyPrintVisitor.java`
+#### Snippet
+```java
+  }
+
+  static public void printArguments(PrettyPrintVisitor pp, List<Concrete.Argument> args, boolean noIndent) {
+    new ListLayout<Concrete.Argument>() {
+      @Override
+```
+
+### BoundedWildcard
+Can generalize to `? extends Concrete.Argument`
+in `base/src/main/java/org/arend/term/prettyprint/PrettyPrintVisitor.java`
+#### Snippet
+```java
+  }
+
+  private Precedence visitBinOp(Concrete.Expression left, Concrete.ReferenceExpression infix, List<Concrete.Argument> implicitArgs, Concrete.Expression right, Precedence prec, StringBuilder builder) {
+    Precedence infixPrec = ((GlobalReferable) infix.getReferent()).getRepresentablePrecedence();
+    boolean needParens = prec.priority > infixPrec.priority || prec.priority == infixPrec.priority && (prec.associativity != infixPrec.associativity || prec.associativity == Precedence.Associativity.NON_ASSOC);
+```
+
+### BoundedWildcard
+Can generalize to `? extends Concrete.ReferenceExpression`
+in `base/src/main/java/org/arend/term/prettyprint/PrettyPrintVisitor.java`
+#### Snippet
+```java
+  }
+
+  private void prettyPrintClassDefinitionHeader(Concrete.Definition def, List<Concrete.ReferenceExpression> superClasses) {
+    myBuilder.append("\\class ").append(def.getData().textRepresentation());
+    if (!superClasses.isEmpty()) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends Scope`
+in `base/src/main/java/org/arend/naming/scope/MergeScope.java`
+#### Snippet
+```java
+  private final boolean myMergeNamespaces;
+
+  public MergeScope(Collection<Scope> scopes) {
+    myScopes = scopes;
+    myMergeNamespaces = false;
 ```
 
 ### BoundedWildcard
@@ -2365,15 +2390,27 @@ in `base/src/main/java/org/arend/naming/scope/MergeScope.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends Scope`
-in `base/src/main/java/org/arend/naming/scope/MergeScope.java`
+Can generalize to `? super Referable`
+in `base/src/main/java/org/arend/naming/scope/ClassFieldImplScope.java`
 #### Snippet
 ```java
-  private final boolean myMergeNamespaces;
+  @Nullable
+  @Override
+  public Referable find(Predicate<Referable> pred) {
+    Set<ClassReferable> visitedClasses = new HashSet<>();
+    Deque<ClassReferable> toVisit = new ArrayDeque<>();
+```
 
-  public MergeScope(Collection<Scope> scopes) {
-    myScopes = scopes;
-    myMergeNamespaces = false;
+### BoundedWildcard
+Can generalize to `? super Referable`
+in `base/src/main/java/org/arend/naming/scope/ImportedScope.java`
+#### Snippet
+```java
+  @Nullable
+  @Override
+  public Referable find(Predicate<Referable> pred) {
+    for (Triple triple : myExpectedNamesTree.map.values()) {
+      if (triple.scope != null && pred.test(triple.referable)) {
 ```
 
 ### BoundedWildcard
@@ -2390,6 +2427,18 @@ in `base/src/main/java/org/arend/naming/scope/local/LocalListScope.java`
 
 ### BoundedWildcard
 Can generalize to `? super Referable`
+in `base/src/main/java/org/arend/naming/scope/local/LetScope.java`
+#### Snippet
+```java
+  }
+
+  private Referable find(Abstract.Pattern pattern, Predicate<Referable> pred) {
+    Referable ref = pattern.getSingleReferable();
+    if (ref != null) {
+```
+
+### BoundedWildcard
+Can generalize to `? super Referable`
 in `base/src/main/java/org/arend/naming/scope/local/TelescopeScope.java`
 #### Snippet
 ```java
@@ -2401,15 +2450,15 @@ in `base/src/main/java/org/arend/naming/scope/local/TelescopeScope.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? super Referable`
-in `base/src/main/java/org/arend/naming/scope/local/LetScope.java`
+Can generalize to `? super String`
+in `base/src/main/java/org/arend/naming/reference/LocatedReferable.java`
 #### Snippet
 ```java
-  }
 
-  private Referable find(Abstract.Pattern pattern, Predicate<Referable> pred) {
-    Referable ref = pattern.getSingleReferable();
-    if (ref != null) {
+  class Helper {
+    public static ModuleLocation getLocation(LocatedReferable referable, List<String> fullName) {
+      LocatedReferable parent = referable.getLocatedReferableParent();
+      if (parent == null) {
 ```
 
 ### BoundedWildcard
@@ -2425,15 +2474,15 @@ in `base/src/main/java/org/arend/naming/scope/local/PatternScope.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? super String`
-in `base/src/main/java/org/arend/naming/reference/LocatedReferable.java`
+Can generalize to `? super Referable`
+in `base/src/main/java/org/arend/naming/scope/LexicalScope.java`
 #### Snippet
 ```java
+  }
 
-  class Helper {
-    public static ModuleLocation getLocation(LocatedReferable referable, List<String> fullName) {
-      LocatedReferable parent = referable.getLocatedReferableParent();
-      if (parent == null) {
+  private Referable checkReferable(Referable referable, Predicate<Referable> pred) {
+    String name = referable.textRepresentation();
+    if (!name.isEmpty() && !"_".equals(name)) {
 ```
 
 ### BoundedWildcard
@@ -2465,18 +2514,6 @@ Can generalize to `? super Referable`
 in `base/src/main/java/org/arend/naming/reference/NamedUnresolvedReference.java`
 #### Snippet
 ```java
-  @NotNull
-  @Override
-  public Referable resolve(Scope scope, @Nullable List<Referable> resolvedRefs, RefKind kind) {
-    if (resolved != null) {
-      return resolved;
-```
-
-### BoundedWildcard
-Can generalize to `? super Referable`
-in `base/src/main/java/org/arend/naming/reference/NamedUnresolvedReference.java`
-#### Snippet
-```java
   @Nullable
   @Override
   public Referable tryResolve(Scope scope, List<Referable> resolvedRefs) {
@@ -2486,14 +2523,74 @@ in `base/src/main/java/org/arend/naming/reference/NamedUnresolvedReference.java`
 
 ### BoundedWildcard
 Can generalize to `? super Referable`
-in `base/src/main/java/org/arend/naming/scope/LexicalScope.java`
+in `base/src/main/java/org/arend/naming/reference/NamedUnresolvedReference.java`
+#### Snippet
+```java
+  @NotNull
+  @Override
+  public Referable resolve(Scope scope, @Nullable List<Referable> resolvedRefs, RefKind kind) {
+    if (resolved != null) {
+      return resolved;
+```
+
+### BoundedWildcard
+Can generalize to `? super Binding`
+in `base/src/main/java/org/arend/extImpl/AbstractedExpressionImpl.java`
 #### Snippet
 ```java
   }
 
-  private Referable checkReferable(Referable referable, Predicate<Referable> pred) {
-    String name = referable.textRepresentation();
-    if (!name.isEmpty() && !"_".equals(name)) {
+  public static Expression getExpression(AbstractedExpression abstracted, List<Binding> bindings) {
+    if (abstracted instanceof Expression) {
+      return (Expression) abstracted;
+```
+
+### BoundedWildcard
+Can generalize to `? extends Set`
+in `base/src/main/java/org/arend/naming/reference/ClassReferable.java`
+#### Snippet
+```java
+    }
+
+    private static void removeImplemented(ClassReferable classDef, Set<FieldReferable> result, HashMap<ClassReferable, Set<FieldReferable>> superClassesFields) {
+      Deque<ClassReferable> toVisit = new ArrayDeque<>();
+      Set<ClassReferable> visitedClasses = new HashSet<>();
+```
+
+### BoundedWildcard
+Can generalize to `? super ClassReferable`
+in `base/src/main/java/org/arend/naming/reference/ClassReferable.java`
+#### Snippet
+```java
+    }
+
+    private static Set<FieldReferable> getAllFields(ClassReferable classDef, Set<ClassReferable> visited, HashMap<ClassReferable, Set<FieldReferable>> superClassesFields) {
+      if (!visited.add(classDef)) {
+        Set<FieldReferable> fieldSet = superClassesFields.get(classDef);
+```
+
+### BoundedWildcard
+Can generalize to `? super ClassReferable`
+in `base/src/main/java/org/arend/naming/reference/ClassReferable.java`
+#### Snippet
+```java
+    }
+
+    private static Set<FieldReferable> getAllFields(ClassReferable classDef, Set<ClassReferable> visited, HashMap<ClassReferable, Set<FieldReferable>> superClassesFields) {
+      if (!visited.add(classDef)) {
+        Set<FieldReferable> fieldSet = superClassesFields.get(classDef);
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
+in `base/src/main/java/org/arend/extImpl/ui/DelegateQuery.java`
+#### Snippet
+```java
+  private ArendQuery<T> myDelegate;
+
+  public void setDelegate(ArendQuery<T> delegate) {
+    myDelegate = delegate;
+  }
 ```
 
 ### BoundedWildcard
@@ -2521,66 +2618,6 @@ in `base/src/main/java/org/arend/naming/scope/ScopeFactory.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? super ClassReferable`
-in `base/src/main/java/org/arend/naming/reference/ClassReferable.java`
-#### Snippet
-```java
-    }
-
-    private static Set<FieldReferable> getAllFields(ClassReferable classDef, Set<ClassReferable> visited, HashMap<ClassReferable, Set<FieldReferable>> superClassesFields) {
-      if (!visited.add(classDef)) {
-        Set<FieldReferable> fieldSet = superClassesFields.get(classDef);
-```
-
-### BoundedWildcard
-Can generalize to `? super ClassReferable`
-in `base/src/main/java/org/arend/naming/reference/ClassReferable.java`
-#### Snippet
-```java
-    }
-
-    private static Set<FieldReferable> getAllFields(ClassReferable classDef, Set<ClassReferable> visited, HashMap<ClassReferable, Set<FieldReferable>> superClassesFields) {
-      if (!visited.add(classDef)) {
-        Set<FieldReferable> fieldSet = superClassesFields.get(classDef);
-```
-
-### BoundedWildcard
-Can generalize to `? extends Set`
-in `base/src/main/java/org/arend/naming/reference/ClassReferable.java`
-#### Snippet
-```java
-    }
-
-    private static void removeImplemented(ClassReferable classDef, Set<FieldReferable> result, HashMap<ClassReferable, Set<FieldReferable>> superClassesFields) {
-      Deque<ClassReferable> toVisit = new ArrayDeque<>();
-      Set<ClassReferable> visitedClasses = new HashSet<>();
-```
-
-### BoundedWildcard
-Can generalize to `? super Binding`
-in `base/src/main/java/org/arend/extImpl/AbstractedExpressionImpl.java`
-#### Snippet
-```java
-  }
-
-  public static Expression getExpression(AbstractedExpression abstracted, List<Binding> bindings) {
-    if (abstracted instanceof Expression) {
-      return (Expression) abstracted;
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
-in `base/src/main/java/org/arend/extImpl/ui/DelegateQuery.java`
-#### Snippet
-```java
-  private ArendQuery<T> myDelegate;
-
-  public void setDelegate(ArendQuery<T> delegate) {
-    myDelegate = delegate;
-  }
-```
-
-### BoundedWildcard
 Can generalize to `? super Referable`
 in `base/src/main/java/org/arend/naming/reference/LongUnresolvedReference.java`
 #### Snippet
@@ -2590,18 +2627,6 @@ in `base/src/main/java/org/arend/naming/reference/LongUnresolvedReference.java`
   private Referable resolve(Scope scope, List<Referable> resolvedRefs, boolean onlyTry, RefKind kind) {
     if (resolved != null) {
       return resolved;
-```
-
-### BoundedWildcard
-Can generalize to `? super Library`
-in `base/src/main/java/org/arend/library/LibraryManager.java`
-#### Snippet
-```java
-   * @return the library with the given name.
-   */
-  public Library getRegisteredLibrary(Predicate<Library> pred) {
-    for (Library library : getRegisteredLibraries()) {
-      if (pred.test(library)) {
 ```
 
 ### BoundedWildcard
@@ -2626,6 +2651,18 @@ in `base/src/main/java/org/arend/library/LibraryManager.java`
   private void reloadLibraries(List<Library> libraries, Supplier<TypecheckingOrderingListener> supplier, boolean reloadExternal) {
     if (!myLoadingLibraries.isEmpty()) {
       myLibraryErrorReporter.report(LibraryError.unloadDuringLoading(myLoadingLibraries.stream().map(Library::getName)));
+```
+
+### BoundedWildcard
+Can generalize to `? super Library`
+in `base/src/main/java/org/arend/library/LibraryManager.java`
+#### Snippet
+```java
+   * @return the library with the given name.
+   */
+  public Library getRegisteredLibrary(Predicate<Library> pred) {
+    for (Library library : getRegisteredLibraries()) {
+      if (pred.test(library)) {
 ```
 
 ### BoundedWildcard
@@ -2677,27 +2714,15 @@ in `base/src/main/java/org/arend/prelude/Prelude.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? super ArendRef`
-in `base/src/main/java/org/arend/typechecking/error/local/CoerceCycleError.java`
+Can generalize to `? super Referable`
+in `base/src/main/java/org/arend/naming/resolving/visitor/DefinitionResolveNameVisitor.java`
 #### Snippet
 ```java
+  }
 
-  @Override
-  public void forAffectedDefinitions(BiConsumer<ArendRef, GeneralError> consumer) {
-    for (Concrete.UseDefinition def : cycle) {
-      consumer.accept(def.getData(), new CoerceCycleError(cycle, def.getData()));
-```
-
-### BoundedWildcard
-Can generalize to `? super GeneralError`
-in `base/src/main/java/org/arend/typechecking/error/local/CoerceCycleError.java`
-#### Snippet
-```java
-
-  @Override
-  public void forAffectedDefinitions(BiConsumer<ArendRef, GeneralError> consumer) {
-    for (Concrete.UseDefinition def : cycle) {
-      consumer.accept(def.getData(), new CoerceCycleError(cycle, def.getData()));
+  private void addNotEliminatedParameters(List<? extends Concrete.Parameter> parameters, List<? extends Concrete.ReferenceExpression> eliminated, List<Referable> context) {
+    if (eliminated.isEmpty()) {
+      return;
 ```
 
 ### BoundedWildcard
@@ -2725,15 +2750,39 @@ in `base/src/main/java/org/arend/naming/resolving/visitor/DefinitionResolveNameV
 ```
 
 ### BoundedWildcard
-Can generalize to `? super Referable`
-in `base/src/main/java/org/arend/naming/resolving/visitor/DefinitionResolveNameVisitor.java`
+Can generalize to `? super ArendRef`
+in `base/src/main/java/org/arend/typechecking/error/local/CoerceCycleError.java`
 #### Snippet
 ```java
-  }
 
-  private void addNotEliminatedParameters(List<? extends Concrete.Parameter> parameters, List<? extends Concrete.ReferenceExpression> eliminated, List<Referable> context) {
-    if (eliminated.isEmpty()) {
-      return;
+  @Override
+  public void forAffectedDefinitions(BiConsumer<ArendRef, GeneralError> consumer) {
+    for (Concrete.UseDefinition def : cycle) {
+      consumer.accept(def.getData(), new CoerceCycleError(cycle, def.getData()));
+```
+
+### BoundedWildcard
+Can generalize to `? super GeneralError`
+in `base/src/main/java/org/arend/typechecking/error/local/CoerceCycleError.java`
+#### Snippet
+```java
+
+  @Override
+  public void forAffectedDefinitions(BiConsumer<ArendRef, GeneralError> consumer) {
+    for (Concrete.UseDefinition def : cycle) {
+      consumer.accept(def.getData(), new CoerceCycleError(cycle, def.getData()));
+```
+
+### BoundedWildcard
+Can generalize to `? super Doc`
+in `base/src/main/java/org/arend/typechecking/error/local/inference/RecursiveInstanceInferenceError.java`
+#### Snippet
+```java
+
+  @Override
+  public void addAdditionalDocs(List<Doc> docs, PrettyPrinterConfig ppConfig) {
+    if (holeExpression != null) {
+      for (int i = holeExpression.recursiveData.size() - 1; i >= 0; i--) {
 ```
 
 ### BoundedWildcard
@@ -2749,15 +2798,27 @@ in `base/src/main/java/org/arend/typechecking/order/DefinitionComparator.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? super Doc`
-in `base/src/main/java/org/arend/typechecking/error/local/inference/RecursiveInstanceInferenceError.java`
+Can generalize to `? extends Concrete.Definition`
+in `base/src/main/java/org/arend/typechecking/order/listener/CollectingOrderingListener.java`
 #### Snippet
 ```java
 
   @Override
-  public void addAdditionalDocs(List<Doc> docs, PrettyPrinterConfig ppConfig) {
-    if (holeExpression != null) {
-      for (int i = holeExpression.recursiveData.size() - 1; i >= 0; i--) {
+  public void preBodiesFound(List<Concrete.Definition> definitions) {
+    myElements.add(new MyDefinitions(definitions, MyDefinitions.Kind.PRE_BODIES));
+  }
+```
+
+### BoundedWildcard
+Can generalize to `? extends Concrete.Definition`
+in `base/src/main/java/org/arend/typechecking/order/listener/CollectingOrderingListener.java`
+#### Snippet
+```java
+
+  @Override
+  public void bodiesFound(List<Concrete.Definition> bodies) {
+    myElements.add(new MyDefinitions(bodies, MyDefinitions.Kind.BODIES));
+  }
 ```
 
 ### BoundedWildcard
@@ -2785,27 +2846,27 @@ in `base/src/main/java/org/arend/typechecking/order/listener/CollectingOrderingL
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends Concrete.Definition`
-in `base/src/main/java/org/arend/typechecking/order/listener/CollectingOrderingListener.java`
+Can generalize to `? super Definition`
+in `base/src/main/java/org/arend/typechecking/UseTypechecking.java`
 #### Snippet
 ```java
-
-  @Override
-  public void bodiesFound(List<Concrete.Definition> bodies) {
-    myElements.add(new MyDefinitions(bodies, MyDefinitions.Kind.BODIES));
   }
+
+  private static void typecheckCoerce(Concrete.UseDefinition def, FunctionDefinition typedDef, ErrorReporter errorReporter, Map<Definition, List<Pair<Expression,FunctionDefinition>>> fromMap, Map<Definition, List<Pair<Expression,FunctionDefinition>>> toMap) {
+    Definition useParent = def.getUseParent().getTypechecked();
+    if ((useParent instanceof DataDefinition || useParent instanceof ClassDefinition) && !def.getParameters().isEmpty()) {
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends Concrete.Definition`
-in `base/src/main/java/org/arend/typechecking/order/listener/CollectingOrderingListener.java`
+Can generalize to `? super Definition`
+in `base/src/main/java/org/arend/typechecking/UseTypechecking.java`
 #### Snippet
 ```java
-
-  @Override
-  public void preBodiesFound(List<Concrete.Definition> definitions) {
-    myElements.add(new MyDefinitions(definitions, MyDefinitions.Kind.PRE_BODIES));
   }
+
+  private static void typecheckCoerce(Concrete.UseDefinition def, FunctionDefinition typedDef, ErrorReporter errorReporter, Map<Definition, List<Pair<Expression,FunctionDefinition>>> fromMap, Map<Definition, List<Pair<Expression,FunctionDefinition>>> toMap) {
+    Definition useParent = def.getUseParent().getTypechecked();
+    if ((useParent instanceof DataDefinition || useParent instanceof ClassDefinition) && !def.getParameters().isEmpty()) {
 ```
 
 ### BoundedWildcard
@@ -2845,27 +2906,27 @@ in `base/src/main/java/org/arend/typechecking/UseTypechecking.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? super Definition`
-in `base/src/main/java/org/arend/typechecking/UseTypechecking.java`
+Can generalize to `? extends TCLevelReferable`
+in `base/src/main/java/org/arend/term/concrete/Concrete.java`
 #### Snippet
 ```java
-  }
+    private final boolean myPLevels;
 
-  private static void typecheckCoerce(Concrete.UseDefinition def, FunctionDefinition typedDef, ErrorReporter errorReporter, Map<Definition, List<Pair<Expression,FunctionDefinition>>> fromMap, Map<Definition, List<Pair<Expression,FunctionDefinition>>> toMap) {
-    Definition useParent = def.getUseParent().getTypechecked();
-    if ((useParent instanceof DataDefinition || useParent instanceof ClassDefinition) && !def.getParameters().isEmpty()) {
+    public LevelsDefinition(Object data, List<TCLevelReferable> referables, boolean isIncreasing, boolean isPLevels) {
+      super(data);
+      myReferables = referables;
 ```
 
 ### BoundedWildcard
-Can generalize to `? super Definition`
-in `base/src/main/java/org/arend/typechecking/UseTypechecking.java`
+Can generalize to `? extends CaseArgument`
+in `base/src/main/java/org/arend/term/concrete/Concrete.java`
 #### Snippet
 ```java
-  }
+    public int level = -2; // the level of the result type; -2 means not truncated
 
-  private static void typecheckCoerce(Concrete.UseDefinition def, FunctionDefinition typedDef, ErrorReporter errorReporter, Map<Definition, List<Pair<Expression,FunctionDefinition>>> fromMap, Map<Definition, List<Pair<Expression,FunctionDefinition>>> toMap) {
-    Definition useParent = def.getUseParent().getTypechecked();
-    if ((useParent instanceof DataDefinition || useParent instanceof ClassDefinition) && !def.getParameters().isEmpty()) {
+    public CaseExpression(Object data, boolean isSCase, List<CaseArgument> arguments, Expression resultType, Expression resultTypeLevel, List<FunctionClause> clauses) {
+      super(data);
+      mySCase = isSCase;
 ```
 
 ### BoundedWildcard
@@ -2929,30 +2990,6 @@ in `base/src/main/java/org/arend/typechecking/subexpr/FindBinding.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends CaseArgument`
-in `base/src/main/java/org/arend/term/concrete/Concrete.java`
-#### Snippet
-```java
-    public int level = -2; // the level of the result type; -2 means not truncated
-
-    public CaseExpression(Object data, boolean isSCase, List<CaseArgument> arguments, Expression resultType, Expression resultTypeLevel, List<FunctionClause> clauses) {
-      super(data);
-      mySCase = isSCase;
-```
-
-### BoundedWildcard
-Can generalize to `? extends TCLevelReferable`
-in `base/src/main/java/org/arend/term/concrete/Concrete.java`
-#### Snippet
-```java
-    private final boolean myPLevels;
-
-    public LevelsDefinition(Object data, List<TCLevelReferable> referables, boolean isIncreasing, boolean isPLevels) {
-      super(data);
-      myReferables = referables;
-```
-
-### BoundedWildcard
 Can generalize to `? super Concrete.ResolvableDefinition`
 in `base/src/main/java/org/arend/typechecking/order/Ordering.java`
 #### Snippet
@@ -3013,18 +3050,6 @@ in `base/src/main/java/org/arend/typechecking/visitor/ReplaceVarConcreteVisitor.
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends Concrete.Argument`
-in `base/src/main/java/org/arend/typechecking/subexpr/CorrespondedSubExprVisitor.java`
-#### Snippet
-```java
-  private @Nullable Pair<@NotNull Expression, Concrete.@NotNull Expression>
-  visitClassCallArguments(@NotNull ClassCallExpression coreClassCall,
-                          @NotNull Iterator<Concrete.Argument> arguments) {
-    Map<ClassField, Expression> implementedHere = coreClassCall.getImplementedHere();
-    Concrete.Argument argument = arguments.next();
-```
-
-### BoundedWildcard
 Can generalize to `? super ElimClause`
 in `base/src/main/java/org/arend/typechecking/subexpr/CorrespondedSubExprVisitor.java`
 #### Snippet
@@ -3049,27 +3074,15 @@ in `base/src/main/java/org/arend/typechecking/subexpr/CorrespondedSubExprVisitor
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends ClassField`
+Can generalize to `? extends Concrete.Argument`
 in `base/src/main/java/org/arend/typechecking/subexpr/CorrespondedSubExprVisitor.java`
 #### Snippet
 ```java
-
-  @Nullable Pair<@NotNull Expression, Concrete.@NotNull Expression>
-  visitStatement(@NotNull Map<ClassField, Expression> implementedHere, @NotNull Concrete.ClassFieldImpl statement) {
-    Referable implementedField = statement.getImplementedField();
-    if (implementedField == null) return nullWithError(new SubExprError(SubExprError.Kind.MissingImplementationField));
-```
-
-### BoundedWildcard
-Can generalize to `? extends Expression`
-in `base/src/main/java/org/arend/typechecking/subexpr/CorrespondedSubExprVisitor.java`
-#### Snippet
-```java
-
-  @Nullable Pair<@NotNull Expression, Concrete.@NotNull Expression>
-  visitStatement(@NotNull Map<ClassField, Expression> implementedHere, @NotNull Concrete.ClassFieldImpl statement) {
-    Referable implementedField = statement.getImplementedField();
-    if (implementedField == null) return nullWithError(new SubExprError(SubExprError.Kind.MissingImplementationField));
+  private @Nullable Pair<@NotNull Expression, Concrete.@NotNull Expression>
+  visitNonClassCallDefCallArguments(@NotNull DefCallExpression expression,
+                                    @NotNull List<Concrete.Argument> argumentList) {
+    Iterator<? extends Expression> defCallArgs = expression.getDefCallArguments().iterator();
+    var arguments = argumentList.iterator();
 ```
 
 ### BoundedWildcard
@@ -3102,70 +3115,34 @@ in `base/src/main/java/org/arend/typechecking/subexpr/CorrespondedSubExprVisitor
 #### Snippet
 ```java
   private @Nullable Pair<@NotNull Expression, Concrete.@NotNull Expression>
-  visitNonClassCallDefCallArguments(@NotNull DefCallExpression expression,
-                                    @NotNull List<Concrete.Argument> argumentList) {
-    Iterator<? extends Expression> defCallArgs = expression.getDefCallArguments().iterator();
-    var arguments = argumentList.iterator();
+  visitClassCallArguments(@NotNull ClassCallExpression coreClassCall,
+                          @NotNull Iterator<Concrete.Argument> arguments) {
+    Map<ClassField, Expression> implementedHere = coreClassCall.getImplementedHere();
+    Concrete.Argument argument = arguments.next();
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends Concrete.UseDefinition`
-in `base/src/main/java/org/arend/typechecking/order/listener/TypecheckingOrderingListener.java`
+Can generalize to `? extends ClassField`
+in `base/src/main/java/org/arend/typechecking/subexpr/CorrespondedSubExprVisitor.java`
 #### Snippet
 ```java
 
-  @Override
-  public void useFound(List<Concrete.UseDefinition> definitions) {
-    myCurrentDefinitions = new ArrayList<>();
-    List<Concrete.UseDefinition> newDefs = new ArrayList<>(definitions.size());
+  @Nullable Pair<@NotNull Expression, Concrete.@NotNull Expression>
+  visitStatement(@NotNull Map<ClassField, Expression> implementedHere, @NotNull Concrete.ClassFieldImpl statement) {
+    Referable implementedField = statement.getImplementedField();
+    if (implementedField == null) return nullWithError(new SubExprError(SubExprError.Kind.MissingImplementationField));
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends Definition`
-in `base/src/main/java/org/arend/typechecking/order/listener/TypecheckingOrderingListener.java`
-#### Snippet
-```java
-  }
-
-  private void findAxiomsAndGoals(List<? extends Concrete.ResolvableDefinition> definitions, Set<Definition> newDefs) {
-    Set<FunctionDefinition> axioms = new HashSet<>();
-    Set<Definition> goals = new HashSet<>();
-```
-
-### BoundedWildcard
-Can generalize to `? extends Concrete.ResolvableDefinition`
-in `base/src/main/java/org/arend/typechecking/order/listener/TypecheckingOrderingListener.java`
+Can generalize to `? extends Expression`
+in `base/src/main/java/org/arend/typechecking/subexpr/CorrespondedSubExprVisitor.java`
 #### Snippet
 ```java
 
-  @Override
-  public void cycleFound(List<Concrete.ResolvableDefinition> definitions) {
-    List<TCReferable> cycle = new ArrayList<>();
-    for (Concrete.ResolvableDefinition definition : definitions) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends Concrete.Definition`
-in `base/src/main/java/org/arend/typechecking/order/listener/TypecheckingOrderingListener.java`
-#### Snippet
-```java
-
-  @Override
-  public void bodiesFound(List<Concrete.Definition> definitions) {
-    Map<FunctionDefinition,Concrete.Definition> functionDefinitions = new HashMap<>();
-    Map<FunctionDefinition, List<? extends ElimClause<ExpressionPattern>>> clausesMap = new HashMap<>();
-```
-
-### BoundedWildcard
-Can generalize to `? extends Concrete.Definition`
-in `base/src/main/java/org/arend/typechecking/order/listener/TypecheckingOrderingListener.java`
-#### Snippet
-```java
-
-  @Override
-  public void preBodiesFound(List<Concrete.Definition> definitions) {
-    List<Concrete.Definition> newDefs = new ArrayList<>(definitions.size());
-    for (Concrete.Definition definition : definitions) {
+  @Nullable Pair<@NotNull Expression, Concrete.@NotNull Expression>
+  visitStatement(@NotNull Map<ClassField, Expression> implementedHere, @NotNull Concrete.ClassFieldImpl statement) {
+    Referable implementedField = statement.getImplementedField();
+    if (implementedField == null) return nullWithError(new SubExprError(SubExprError.Kind.MissingImplementationField));
 ```
 
 ### BoundedWildcard
@@ -3193,6 +3170,66 @@ in `base/src/main/java/org/arend/typechecking/visitor/BaseDefinitionTypechecker.
 ```
 
 ### BoundedWildcard
+Can generalize to `? extends Definition`
+in `base/src/main/java/org/arend/typechecking/order/listener/TypecheckingOrderingListener.java`
+#### Snippet
+```java
+  }
+
+  private void findAxiomsAndGoals(List<? extends Concrete.ResolvableDefinition> definitions, Set<Definition> newDefs) {
+    Set<FunctionDefinition> axioms = new HashSet<>();
+    Set<Definition> goals = new HashSet<>();
+```
+
+### BoundedWildcard
+Can generalize to `? extends Concrete.Definition`
+in `base/src/main/java/org/arend/typechecking/order/listener/TypecheckingOrderingListener.java`
+#### Snippet
+```java
+
+  @Override
+  public void bodiesFound(List<Concrete.Definition> definitions) {
+    Map<FunctionDefinition,Concrete.Definition> functionDefinitions = new HashMap<>();
+    Map<FunctionDefinition, List<? extends ElimClause<ExpressionPattern>>> clausesMap = new HashMap<>();
+```
+
+### BoundedWildcard
+Can generalize to `? extends Concrete.UseDefinition`
+in `base/src/main/java/org/arend/typechecking/order/listener/TypecheckingOrderingListener.java`
+#### Snippet
+```java
+
+  @Override
+  public void useFound(List<Concrete.UseDefinition> definitions) {
+    myCurrentDefinitions = new ArrayList<>();
+    List<Concrete.UseDefinition> newDefs = new ArrayList<>(definitions.size());
+```
+
+### BoundedWildcard
+Can generalize to `? extends Concrete.Definition`
+in `base/src/main/java/org/arend/typechecking/order/listener/TypecheckingOrderingListener.java`
+#### Snippet
+```java
+
+  @Override
+  public void preBodiesFound(List<Concrete.Definition> definitions) {
+    List<Concrete.Definition> newDefs = new ArrayList<>(definitions.size());
+    for (Concrete.Definition definition : definitions) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends Concrete.ResolvableDefinition`
+in `base/src/main/java/org/arend/typechecking/order/listener/TypecheckingOrderingListener.java`
+#### Snippet
+```java
+
+  @Override
+  public void cycleFound(List<Concrete.ResolvableDefinition> definitions) {
+    List<TCReferable> cycle = new ArrayList<>();
+    for (Concrete.ResolvableDefinition definition : definitions) {
+```
+
+### BoundedWildcard
 Can generalize to `? super TCDefReferable`
 in `base/src/main/java/org/arend/typechecking/instance/provider/SimpleInstanceProvider.java`
 #### Snippet
@@ -3202,18 +3239,6 @@ in `base/src/main/java/org/arend/typechecking/instance/provider/SimpleInstancePr
   public TCDefReferable findInstance(Predicate<TCDefReferable> pred) {
     for (int i = myInstances.size() - 1; i >= 0; i--) {
       if (pred.test(myInstances.get(i))) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends DataDefinition`
-in `base/src/main/java/org/arend/typechecking/covariance/RecursiveDataChecker.java`
-#### Snippet
-```java
-  private final Concrete.Parameter myParameter;
-
-  public RecursiveDataChecker(Set<DataDefinition> dataDefinitions, ErrorReporter errorReporter, Concrete.Constructor constructor, Concrete.Parameter parameter) {
-    myDataDefinitions = dataDefinitions;
-    myErrorReporter = errorReporter;
 ```
 
 ### BoundedWildcard
@@ -3229,6 +3254,18 @@ in `base/src/main/java/org/arend/typechecking/visitor/SyntacticDesugarVisitor.ja
 ```
 
 ### BoundedWildcard
+Can generalize to `? extends DataDefinition`
+in `base/src/main/java/org/arend/typechecking/covariance/RecursiveDataChecker.java`
+#### Snippet
+```java
+  private final Concrete.Parameter myParameter;
+
+  public RecursiveDataChecker(Set<DataDefinition> dataDefinitions, ErrorReporter errorReporter, Concrete.Constructor constructor, Concrete.Parameter parameter) {
+    myDataDefinitions = dataDefinitions;
+    myErrorReporter = errorReporter;
+```
+
+### BoundedWildcard
 Can generalize to `? extends T`
 in `base/src/main/java/org/arend/typechecking/computation/ComputationRunner.java`
 #### Snippet
@@ -3238,6 +3275,30 @@ in `base/src/main/java/org/arend/typechecking/computation/ComputationRunner.java
   public T run(CancellationIndicator cancellationIndicator, Supplier<T> runnable) {
     lock(cancellationIndicator);
     try {
+```
+
+### BoundedWildcard
+Can generalize to `? super DependentLink`
+in `base/src/main/java/org/arend/typechecking/termination/CallMatrix.java`
+#### Snippet
+```java
+    }
+
+    private static int initIndexRanges(DependentLink parameter, @Nullable HashMap<DependentLink, Pair<Integer, Integer>> indexRanges, int currIndex) {
+      int length = 1;
+      if (!(parameter instanceof EmptyDependentLink)) {
+```
+
+### BoundedWildcard
+Can generalize to `? super Pair`
+in `base/src/main/java/org/arend/typechecking/termination/CallMatrix.java`
+#### Snippet
+```java
+    }
+
+    private static int initIndexRanges(DependentLink parameter, @Nullable HashMap<DependentLink, Pair<Integer, Integer>> indexRanges, int currIndex) {
+      int length = 1;
+      if (!(parameter instanceof EmptyDependentLink)) {
 ```
 
 ### BoundedWildcard
@@ -3289,30 +3350,6 @@ in `base/src/main/java/org/arend/typechecking/visitor/DesugarVisitor.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? super DependentLink`
-in `base/src/main/java/org/arend/typechecking/termination/CallMatrix.java`
-#### Snippet
-```java
-    }
-
-    private static int initIndexRanges(DependentLink parameter, @Nullable HashMap<DependentLink, Pair<Integer, Integer>> indexRanges, int currIndex) {
-      int length = 1;
-      if (!(parameter instanceof EmptyDependentLink)) {
-```
-
-### BoundedWildcard
-Can generalize to `? super Pair`
-in `base/src/main/java/org/arend/typechecking/termination/CallMatrix.java`
-#### Snippet
-```java
-    }
-
-    private static int initIndexRanges(DependentLink parameter, @Nullable HashMap<DependentLink, Pair<Integer, Integer>> indexRanges, int currIndex) {
-      int length = 1;
-      if (!(parameter instanceof EmptyDependentLink)) {
-```
-
-### BoundedWildcard
 Can generalize to `? extends ExpressionPattern`
 in `base/src/main/java/org/arend/typechecking/termination/CollectCallVisitor.java`
 #### Snippet
@@ -3322,30 +3359,6 @@ in `base/src/main/java/org/arend/typechecking/termination/CollectCallVisitor.jav
   public void collect(ElimClause<ExpressionPattern> clause) {
     if (clause.getExpression() != null) {
       myPatterns = clause.getPatterns();
-```
-
-### BoundedWildcard
-Can generalize to `? super Var`
-in `base/src/main/java/org/arend/typechecking/implicitargs/equations/LevelEquations.java`
-#### Snippet
-```java
-  }
-
-  public List<LevelEquation<Var>> solve(Map<Var, Integer> solution) {
-    Map<Var, List<LevelEquation<Var>>> paths = new HashMap<>();
-
-```
-
-### BoundedWildcard
-Can generalize to `? extends BaseCallMatrix`
-in `base/src/main/java/org/arend/typechecking/termination/BaseCallGraph.java`
-#### Snippet
-```java
-    }
-
-    private RecursiveBehaviors(Set<BaseCallMatrix<T>> callMatrices) {
-      if (callMatrices != null)
-        for (BaseCallMatrix<T> m : callMatrices) myBehaviors.add(new RecursiveBehavior<>(m));
 ```
 
 ### BoundedWildcard
@@ -3373,6 +3386,18 @@ in `base/src/main/java/org/arend/typechecking/termination/BaseCallGraph.java`
 ```
 
 ### BoundedWildcard
+Can generalize to `? extends BaseCallMatrix`
+in `base/src/main/java/org/arend/typechecking/termination/BaseCallGraph.java`
+#### Snippet
+```java
+    }
+
+    private RecursiveBehaviors(Set<BaseCallMatrix<T>> callMatrices) {
+      if (callMatrices != null)
+        for (BaseCallMatrix<T> m : callMatrices) myBehaviors.add(new RecursiveBehavior<>(m));
+```
+
+### BoundedWildcard
 Can generalize to `? extends HashMap`>>
 in `base/src/main/java/org/arend/typechecking/termination/BaseCallGraph.java`
 #### Snippet
@@ -3382,6 +3407,18 @@ in `base/src/main/java/org/arend/typechecking/termination/BaseCallGraph.java`
     private RecursiveBehaviors(HashMap<T, HashMap<T, HashSet<BaseCallMatrix<T>>>> graph, T v) {
       this(graph.get(v).get(v));
       myBasepoint = v;
+```
+
+### BoundedWildcard
+Can generalize to `? super Var`
+in `base/src/main/java/org/arend/typechecking/implicitargs/equations/LevelEquations.java`
+#### Snippet
+```java
+  }
+
+  public List<LevelEquation<Var>> solve(Map<Var, Integer> solution) {
+    Map<Var, List<LevelEquation<Var>>> paths = new HashMap<>();
+
 ```
 
 ### BoundedWildcard
@@ -3421,54 +3458,6 @@ in `base/src/main/java/org/arend/typechecking/doubleChecker/CoreDefinitionChecke
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends Concrete.ClassFieldImpl`
-in `base/src/main/java/org/arend/naming/resolving/visitor/ExpressionResolveNameVisitor.java`
-#### Snippet
-```java
-  }
-
-  void visitClassFieldImpls(List<Concrete.ClassFieldImpl> classFieldImpls, ClassReferable classDef) {
-    for (Concrete.ClassFieldImpl impl : classFieldImpls) {
-      visitClassFieldImpl(impl, classDef);
-```
-
-### BoundedWildcard
-Can generalize to `? extends Concrete.Parameter`
-in `base/src/main/java/org/arend/naming/resolving/visitor/ExpressionResolveNameVisitor.java`
-#### Snippet
-```java
-  }
-
-  private void visitPatterns(List<Concrete.Pattern> patterns, List<Concrete.Parameter> parameters, Map<String, Referable> usedNames, boolean resolvePatterns) {
-    int j = 0;
-    for (int i = 0; i < patterns.size(); i++) {
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `base/src/main/java/org/arend/naming/resolving/visitor/ExpressionResolveNameVisitor.java`
-#### Snippet
-```java
-  }
-
-  private void addReferable(Referable referable, Concrete.Expression type, Map<String, Referable> usedNames) {
-    if (referable == null) {
-      return;
-```
-
-### BoundedWildcard
-Can generalize to `? extends Concrete.Argument`
-in `base/src/main/java/org/arend/naming/resolving/visitor/ExpressionResolveNameVisitor.java`
-#### Snippet
-```java
-  }
-
-  private Concrete.Expression visitArguments(Concrete.Expression function, List<Concrete.Argument> arguments) {
-    for (Concrete.Argument argument : arguments) {
-      function = Concrete.AppExpression.make(function.getData(), function, argument.expression.accept(this, null), argument.isExplicit());
-```
-
-### BoundedWildcard
 Can generalize to `? extends InferenceLevelVariable`
 in `base/src/main/java/org/arend/typechecking/implicitargs/equations/LevelEquationsSolver.java`
 #### Snippet
@@ -3493,18 +3482,6 @@ in `base/src/main/java/org/arend/typechecking/implicitargs/equations/LevelEquati
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends Pair`
-in `base/src/main/java/org/arend/typechecking/implicitargs/equations/LevelEquationsSolver.java`
-#### Snippet
-```java
-  private final boolean myHBased;
-
-  public LevelEquationsSolver(List<LevelEquation<LevelVariable>> levelEquations, List<InferenceLevelVariable> variables, List<Pair<InferenceLevelVariable, InferenceLevelVariable>> boundVariables, ErrorReporter errorReporter, boolean pBased, boolean hBased) {
-    myPBased = pBased;
-    myHBased = hBased;
-```
-
-### BoundedWildcard
 Can generalize to `? extends LevelEquation`
 in `base/src/main/java/org/arend/typechecking/implicitargs/equations/LevelEquationsSolver.java`
 #### Snippet
@@ -3517,15 +3494,63 @@ in `base/src/main/java/org/arend/typechecking/implicitargs/equations/LevelEquati
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends ExpressionPattern`
-in `base/src/main/java/org/arend/typechecking/patternmatching/Util.java`
+Can generalize to `? extends Pair`
+in `base/src/main/java/org/arend/typechecking/implicitargs/equations/LevelEquationsSolver.java`
 #### Snippet
 ```java
+  private final boolean myHBased;
 
-    @Override
-    public ConstructorExpressionPattern getPattern(List<ExpressionPattern> subPatterns) {
-      return new ConstructorExpressionPattern(new ConCallExpression(constructor, levels, dataArguments, Collections.emptyList()), subPatterns);
-    }
+  public LevelEquationsSolver(List<LevelEquation<LevelVariable>> levelEquations, List<InferenceLevelVariable> variables, List<Pair<InferenceLevelVariable, InferenceLevelVariable>> boundVariables, ErrorReporter errorReporter, boolean pBased, boolean hBased) {
+    myPBased = pBased;
+    myHBased = hBased;
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `base/src/main/java/org/arend/naming/resolving/visitor/ExpressionResolveNameVisitor.java`
+#### Snippet
+```java
+  }
+
+  private void addReferable(Referable referable, Concrete.Expression type, Map<String, Referable> usedNames) {
+    if (referable == null) {
+      return;
+```
+
+### BoundedWildcard
+Can generalize to `? extends Concrete.ClassFieldImpl`
+in `base/src/main/java/org/arend/naming/resolving/visitor/ExpressionResolveNameVisitor.java`
+#### Snippet
+```java
+  }
+
+  void visitClassFieldImpls(List<Concrete.ClassFieldImpl> classFieldImpls, ClassReferable classDef) {
+    for (Concrete.ClassFieldImpl impl : classFieldImpls) {
+      visitClassFieldImpl(impl, classDef);
+```
+
+### BoundedWildcard
+Can generalize to `? extends Concrete.Parameter`
+in `base/src/main/java/org/arend/naming/resolving/visitor/ExpressionResolveNameVisitor.java`
+#### Snippet
+```java
+  }
+
+  private void visitPatterns(List<Concrete.Pattern> patterns, List<Concrete.Parameter> parameters, Map<String, Referable> usedNames, boolean resolvePatterns) {
+    int j = 0;
+    for (int i = 0; i < patterns.size(); i++) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends Concrete.Argument`
+in `base/src/main/java/org/arend/naming/resolving/visitor/ExpressionResolveNameVisitor.java`
+#### Snippet
+```java
+  }
+
+  private Concrete.Expression visitArguments(Concrete.Expression function, List<Concrete.Argument> arguments) {
+    for (Concrete.Argument argument : arguments) {
+      function = Concrete.AppExpression.make(function.getData(), function, argument.expression.accept(this, null), argument.isExplicit());
 ```
 
 ### BoundedWildcard
@@ -3548,7 +3573,7 @@ in `base/src/main/java/org/arend/typechecking/patternmatching/Util.java`
 
     @Override
     public ConstructorExpressionPattern getPattern(List<ExpressionPattern> subPatterns) {
-      return new ConstructorExpressionPattern(new FunCallExpression(myConstructor, myConstructor.makeIdLevels(), myLength, myElementsType), myThisBinding, myEmpty, subPatterns);
+      return new ConstructorExpressionPattern(new ConCallExpression(constructor, levels, dataArguments, Collections.emptyList()), subPatterns);
     }
 ```
 
@@ -3565,63 +3590,15 @@ in `base/src/main/java/org/arend/typechecking/patternmatching/Util.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends ClassCallExpression`
-in `base/src/main/java/org/arend/typechecking/implicitargs/equations/TwoStageEquations.java`
+Can generalize to `? extends ExpressionPattern`
+in `base/src/main/java/org/arend/typechecking/patternmatching/Util.java`
 #### Snippet
 ```java
-  }
 
-  private void reportBoundsError(InferenceVariable var, List<ClassCallExpression> bounds, CMP cmp) {
-    List<Equation> equations = new ArrayList<>();
-    Expression infRefExpr = new InferenceReferenceExpression(var, null);
-```
-
-### BoundedWildcard
-Can generalize to `? super Wrapper`
-in `base/src/main/java/org/arend/typechecking/implicitargs/equations/TwoStageEquations.java`
-#### Snippet
-```java
-  }
-
-  private void calculateBoundsOfVariable(InferenceVariable variable, Set<Wrapper> result, Map<InferenceVariable,Set<Wrapper>> bounds, Set<InferenceVariable> visited) {
-    if (!visited.add(variable)) {
-      return;
-```
-
-### BoundedWildcard
-Can generalize to `? extends Set`
-in `base/src/main/java/org/arend/typechecking/implicitargs/equations/TwoStageEquations.java`
-#### Snippet
-```java
-  }
-
-  private void calculateBoundsOfVariable(InferenceVariable variable, Set<Wrapper> result, Map<InferenceVariable,Set<Wrapper>> bounds, Set<InferenceVariable> visited) {
-    if (!visited.add(variable)) {
-      return;
-```
-
-### BoundedWildcard
-Can generalize to `? super InferenceVariable`
-in `base/src/main/java/org/arend/typechecking/implicitargs/equations/TwoStageEquations.java`
-#### Snippet
-```java
-  }
-
-  private void calculateBoundsOfVariable(InferenceVariable variable, Set<Wrapper> result, Map<InferenceVariable,Set<Wrapper>> bounds, Set<InferenceVariable> visited) {
-    if (!visited.add(variable)) {
-      return;
-```
-
-### BoundedWildcard
-Can generalize to `? extends Pair`>
-in `base/src/main/java/org/arend/typechecking/implicitargs/equations/TwoStageEquations.java`
-#### Snippet
-```java
-  }
-
-  private boolean solveClassCallLowerBounds(List<Pair<InferenceVariable, List<ClassCallExpression>>> list, boolean allOK, boolean solved, CMP cmp, boolean useWrapper) {
-    loop:
-    for (Pair<InferenceVariable, List<ClassCallExpression>> pair : list) {
+    @Override
+    public ConstructorExpressionPattern getPattern(List<ExpressionPattern> subPatterns) {
+      return new ConstructorExpressionPattern(new FunCallExpression(myConstructor, myConstructor.makeIdLevels(), myLength, myElementsType), myThisBinding, myEmpty, subPatterns);
+    }
 ```
 
 ### BoundedWildcard
@@ -3721,15 +3698,63 @@ in `base/src/main/java/org/arend/typechecking/implicitargs/StdImplicitArgsInfere
 ```
 
 ### BoundedWildcard
-Can generalize to `? super Binding`
-in `base/src/main/java/org/arend/typechecking/doubleChecker/CoreExpressionChecker.java`
+Can generalize to `? extends ClassCallExpression`
+in `base/src/main/java/org/arend/typechecking/implicitargs/equations/TwoStageEquations.java`
 #### Snippet
 ```java
-  private boolean myCheckLevelVariables;
+  }
 
-  public CoreExpressionChecker(Set<Binding> context, Equations equations, Concrete.SourceNode sourceNode) {
-    myContext = context;
-    myEquations = equations;
+  private void reportBoundsError(InferenceVariable var, List<ClassCallExpression> bounds, CMP cmp) {
+    List<Equation> equations = new ArrayList<>();
+    Expression infRefExpr = new InferenceReferenceExpression(var, null);
+```
+
+### BoundedWildcard
+Can generalize to `? extends Pair`>
+in `base/src/main/java/org/arend/typechecking/implicitargs/equations/TwoStageEquations.java`
+#### Snippet
+```java
+  }
+
+  private boolean solveClassCallLowerBounds(List<Pair<InferenceVariable, List<ClassCallExpression>>> list, boolean allOK, boolean solved, CMP cmp, boolean useWrapper) {
+    loop:
+    for (Pair<InferenceVariable, List<ClassCallExpression>> pair : list) {
+```
+
+### BoundedWildcard
+Can generalize to `? super Wrapper`
+in `base/src/main/java/org/arend/typechecking/implicitargs/equations/TwoStageEquations.java`
+#### Snippet
+```java
+  }
+
+  private void calculateBoundsOfVariable(InferenceVariable variable, Set<Wrapper> result, Map<InferenceVariable,Set<Wrapper>> bounds, Set<InferenceVariable> visited) {
+    if (!visited.add(variable)) {
+      return;
+```
+
+### BoundedWildcard
+Can generalize to `? extends Set`
+in `base/src/main/java/org/arend/typechecking/implicitargs/equations/TwoStageEquations.java`
+#### Snippet
+```java
+  }
+
+  private void calculateBoundsOfVariable(InferenceVariable variable, Set<Wrapper> result, Map<InferenceVariable,Set<Wrapper>> bounds, Set<InferenceVariable> visited) {
+    if (!visited.add(variable)) {
+      return;
+```
+
+### BoundedWildcard
+Can generalize to `? super InferenceVariable`
+in `base/src/main/java/org/arend/typechecking/implicitargs/equations/TwoStageEquations.java`
+#### Snippet
+```java
+  }
+
+  private void calculateBoundsOfVariable(InferenceVariable variable, Set<Wrapper> result, Map<InferenceVariable,Set<Wrapper>> bounds, Set<InferenceVariable> visited) {
+    if (!visited.add(variable)) {
+      return;
 ```
 
 ### BoundedWildcard
@@ -3745,39 +3770,15 @@ in `base/src/main/java/org/arend/typechecking/doubleChecker/CoreExpressionChecke
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends Expression`
-in `base/src/main/java/org/arend/typechecking/patternmatching/ConditionsChecking.java`
+Can generalize to `? super Binding`
+in `base/src/main/java/org/arend/typechecking/doubleChecker/CoreExpressionChecker.java`
 #### Snippet
 ```java
-  }
+  private boolean myCheckLevelVariables;
 
-  private boolean checkIntervalClauseCondition(Pair<Expression, Expression> pair, boolean isLeft, int index, ElimClause<ExpressionPattern> clause, Concrete.SourceNode sourceNode, Definition definition) {
-    Expression expr = isLeft ? pair.proj1 : pair.proj2;
-    if (expr == null || clause.getExpression() == null) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends Expression`
-in `base/src/main/java/org/arend/typechecking/patternmatching/ConditionsChecking.java`
-#### Snippet
-```java
-  }
-
-  private boolean checkIntervalClauseCondition(Pair<Expression, Expression> pair, boolean isLeft, int index, ElimClause<ExpressionPattern> clause, Concrete.SourceNode sourceNode, Definition definition) {
-    Expression expr = isLeft ? pair.proj1 : pair.proj2;
-    if (expr == null || clause.getExpression() == null) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends ExtElimClause`
-in `base/src/main/java/org/arend/typechecking/patternmatching/ConditionsChecking.java`
-#### Snippet
-```java
-  }
-
-  public boolean check(Body body, List<ExtElimClause> clauses, List<? extends Concrete.FunctionClause> cClauses, Definition definition) {
-    assert cClauses == null || clauses.size() <= cClauses.size();
-
+  public CoreExpressionChecker(Set<Binding> context, Equations equations, Concrete.SourceNode sourceNode) {
+    myContext = context;
+    myEquations = equations;
 ```
 
 ### BoundedWildcard
@@ -3841,18 +3842,6 @@ in `base/src/main/java/org/arend/typechecking/patternmatching/ConditionsChecking
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends ExtElimClause`
-in `base/src/main/java/org/arend/typechecking/patternmatching/ConditionsChecking.java`
-#### Snippet
-```java
-  }
-
-  public boolean check(List<ExtElimClause> clauses, List<? extends Concrete.FunctionClause> cClauses, ElimBody elimBody) {
-    assert cClauses == null || clauses.size() <= cClauses.size();
-
-```
-
-### BoundedWildcard
 Can generalize to `? extends ExpressionPattern`
 in `base/src/main/java/org/arend/typechecking/patternmatching/ConditionsChecking.java`
 #### Snippet
@@ -3865,27 +3854,51 @@ in `base/src/main/java/org/arend/typechecking/patternmatching/ConditionsChecking
 ```
 
 ### BoundedWildcard
-Can generalize to `? super Constructor`
-in `base/src/main/java/org/arend/typechecking/patternmatching/ElimTypechecking.java`
+Can generalize to `? extends Expression`
+in `base/src/main/java/org/arend/typechecking/patternmatching/ConditionsChecking.java`
 #### Snippet
 ```java
   }
 
-  private void collectConstructors(DataDefinition dataDef, Body body, Set<Constructor> result) {
-    if (body == null) {
-      return;
+  private boolean checkIntervalClauseCondition(Pair<Expression, Expression> pair, boolean isLeft, int index, ElimClause<ExpressionPattern> clause, Concrete.SourceNode sourceNode, Definition definition) {
+    Expression expr = isLeft ? pair.proj1 : pair.proj2;
+    if (expr == null || clause.getExpression() == null) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends Expression`
+in `base/src/main/java/org/arend/typechecking/patternmatching/ConditionsChecking.java`
+#### Snippet
+```java
+  }
+
+  private boolean checkIntervalClauseCondition(Pair<Expression, Expression> pair, boolean isLeft, int index, ElimClause<ExpressionPattern> clause, Concrete.SourceNode sourceNode, Definition definition) {
+    Expression expr = isLeft ? pair.proj1 : pair.proj2;
+    if (expr == null || clause.getExpression() == null) {
 ```
 
 ### BoundedWildcard
 Can generalize to `? extends ExtElimClause`
-in `base/src/main/java/org/arend/typechecking/patternmatching/ElimTypechecking.java`
+in `base/src/main/java/org/arend/typechecking/patternmatching/ConditionsChecking.java`
 #### Snippet
 ```java
   }
 
-  private ElimTree clausesToElimTree(List<ExtElimClause> clauses, int argsStackSize, int numberOfIntervals) {
-    try (Utils.ContextSaver ignored = new Utils.ContextSaver(myContext)) {
-      int index = 0;
+  public boolean check(List<ExtElimClause> clauses, List<? extends Concrete.FunctionClause> cClauses, ElimBody elimBody) {
+    assert cClauses == null || clauses.size() <= cClauses.size();
+
+```
+
+### BoundedWildcard
+Can generalize to `? extends ExtElimClause`
+in `base/src/main/java/org/arend/typechecking/patternmatching/ConditionsChecking.java`
+#### Snippet
+```java
+  }
+
+  public boolean check(Body body, List<ExtElimClause> clauses, List<? extends Concrete.FunctionClause> cClauses, Definition definition) {
+    assert cClauses == null || clauses.size() <= cClauses.size();
+
 ```
 
 ### BoundedWildcard
@@ -3898,6 +3911,30 @@ in `base/src/main/java/org/arend/typechecking/patternmatching/ElimTypechecking.j
   private void collectClauseIndices(ElimTree elimTree, Set<Integer> indices) {
     if (elimTree instanceof LeafElimTree) {
       indices.add(((LeafElimTree) elimTree).getClauseIndex());
+```
+
+### BoundedWildcard
+Can generalize to `? super DependentLink`
+in `base/src/main/java/org/arend/typechecking/patternmatching/ElimTypechecking.java`
+#### Snippet
+```java
+  }
+
+  private Map<DependentLink, List<Pair<ExpressionPattern, Map<DependentLink, Constructor>>>> computeParamSpec(DependentLink param, DataCallExpression dataCall, List<DependentLink> elimParams, Map<DependentLink, List<ConCallExpression>> paramSpec2, DependentLink parameters) {
+    if (myErrorReporter == null) return null;
+    Map<DependentLink, List<Pair<ExpressionPattern, Map<DependentLink, Constructor>>>> paramSpec = new HashMap<>();
+```
+
+### BoundedWildcard
+Can generalize to `? super Constructor`
+in `base/src/main/java/org/arend/typechecking/patternmatching/ElimTypechecking.java`
+#### Snippet
+```java
+  }
+
+  private void collectConstructors(DataDefinition dataDef, Body body, Set<Constructor> result) {
+    if (body == null) {
+      return;
 ```
 
 ### BoundedWildcard
@@ -3937,15 +3974,27 @@ in `base/src/main/java/org/arend/typechecking/patternmatching/ElimTypechecking.j
 ```
 
 ### BoundedWildcard
-Can generalize to `? super DependentLink`
+Can generalize to `? extends ExtElimClause`
 in `base/src/main/java/org/arend/typechecking/patternmatching/ElimTypechecking.java`
 #### Snippet
 ```java
   }
 
-  private Map<DependentLink, List<Pair<ExpressionPattern, Map<DependentLink, Constructor>>>> computeParamSpec(DependentLink param, DataCallExpression dataCall, List<DependentLink> elimParams, Map<DependentLink, List<ConCallExpression>> paramSpec2, DependentLink parameters) {
-    if (myErrorReporter == null) return null;
-    Map<DependentLink, List<Pair<ExpressionPattern, Map<DependentLink, Constructor>>>> paramSpec = new HashMap<>();
+  private ElimTree clausesToElimTree(List<ExtElimClause> clauses, int argsStackSize, int numberOfIntervals) {
+    try (Utils.ContextSaver ignored = new Utils.ContextSaver(myContext)) {
+      int index = 0;
+```
+
+### BoundedWildcard
+Can generalize to `? super LocalInstance`
+in `base/src/main/java/org/arend/typechecking/visitor/DefinitionTypechecker.java`
+#### Snippet
+```java
+  }
+
+  private static void addFieldInstance(ClassField field, ClassDefinition classDef, List<LocalInstance> instances, boolean onlyOverridden) {
+    PiExpression overriddenType = classDef.getOverriddenType(field);
+    if (onlyOverridden && overriddenType == null) return;
 ```
 
 ### BoundedWildcard
@@ -3970,18 +4019,6 @@ in `base/src/main/java/org/arend/typechecking/visitor/DefinitionTypechecker.java
   private Pair<Expression,ClassCallExpression> typecheckCoClauses(FunctionDefinition typedDef, Concrete.BaseFunctionDefinition def, FunctionKind kind, List<Concrete.CoClauseElement> elements) {
     List<Concrete.Argument> arguments = new ArrayList<>();
     for (Concrete.Parameter parameter : def.getParameters()) {
-```
-
-### BoundedWildcard
-Can generalize to `? super ClassDefinition`
-in `base/src/main/java/org/arend/typechecking/visitor/DefinitionTypechecker.java`
-#### Snippet
-```java
-  }
-
-  private ClassField findClassifyingField(ClassDefinition superClass, ClassDefinition classDef, Set<ClassDefinition> visited) {
-    if (!visited.add(superClass)) {
-      return null;
 ```
 
 ### BoundedWildcard
@@ -4045,6 +4082,30 @@ in `base/src/main/java/org/arend/typechecking/visitor/DefinitionTypechecker.java
 ```
 
 ### BoundedWildcard
+Can generalize to `? extends Concrete.Argument`
+in `base/src/main/java/org/arend/typechecking/visitor/DefinitionTypechecker.java`
+#### Snippet
+```java
+  }
+
+  private List<Concrete.Argument> getArguments(Definition def, List<Concrete.Argument> args) {
+    List<Concrete.Argument> result = new ArrayList<>();
+    int i = 0;
+```
+
+### BoundedWildcard
+Can generalize to `? super ClassDefinition`
+in `base/src/main/java/org/arend/typechecking/visitor/DefinitionTypechecker.java`
+#### Snippet
+```java
+  }
+
+  private ClassField findClassifyingField(ClassDefinition superClass, ClassDefinition classDef, Set<ClassDefinition> visited) {
+    if (!visited.add(superClass)) {
+      return null;
+```
+
+### BoundedWildcard
 Can generalize to `? super DependentLink`
 in `base/src/main/java/org/arend/typechecking/visitor/DefinitionTypechecker.java`
 #### Snippet
@@ -4057,18 +4118,6 @@ in `base/src/main/java/org/arend/typechecking/visitor/DefinitionTypechecker.java
 ```
 
 ### BoundedWildcard
-Can generalize to `? super LocalInstance`
-in `base/src/main/java/org/arend/typechecking/visitor/DefinitionTypechecker.java`
-#### Snippet
-```java
-  }
-
-  private static void addFieldInstance(ClassField field, ClassDefinition classDef, List<LocalInstance> instances, boolean onlyOverridden) {
-    PiExpression overriddenType = classDef.getOverriddenType(field);
-    if (onlyOverridden && overriddenType == null) return;
-```
-
-### BoundedWildcard
 Can generalize to `? extends LocalInstance`
 in `base/src/main/java/org/arend/typechecking/visitor/DefinitionTypechecker.java`
 #### Snippet
@@ -4078,18 +4127,6 @@ in `base/src/main/java/org/arend/typechecking/visitor/DefinitionTypechecker.java
   private void addLocalInstances(List<LocalInstance> localInstances, Binding thisParam, ClassDefinition classDef, boolean useClassDef, LocalInstancePool localInstancePool) {
     if (localInstances.isEmpty() && !useClassDef) {
       return;
-```
-
-### BoundedWildcard
-Can generalize to `? extends Concrete.Argument`
-in `base/src/main/java/org/arend/typechecking/visitor/DefinitionTypechecker.java`
-#### Snippet
-```java
-  }
-
-  private List<Concrete.Argument> getArguments(Definition def, List<Concrete.Argument> args) {
-    List<Concrete.Argument> result = new ArrayList<>();
-    int i = 0;
 ```
 
 ### BoundedWildcard
@@ -4117,18 +4154,6 @@ in `base/src/main/java/org/arend/typechecking/patternmatching/PatternTypecheckin
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends Concrete.FunctionClause`
-in `base/src/main/java/org/arend/typechecking/patternmatching/PatternTypechecking.java`
-#### Snippet
-```java
-  }
-
-  public List<ExtElimClause> typecheckClauses(List<Concrete.FunctionClause> clauses, List<? extends Concrete.Parameter> abstractParameters, DependentLink parameters, Expression expectedType, FunctionDefinition definition) {
-    this.clausesParameters = parameters;
-
-```
-
-### BoundedWildcard
 Can generalize to `? extends Expression`
 in `base/src/main/java/org/arend/typechecking/patternmatching/PatternTypechecking.java`
 #### Snippet
@@ -4141,87 +4166,15 @@ in `base/src/main/java/org/arend/typechecking/patternmatching/PatternTypecheckin
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends Concrete.Argument`
-in `base/src/main/java/org/arend/typechecking/visitor/CheckTypeVisitor.java`
+Can generalize to `? extends Concrete.FunctionClause`
+in `base/src/main/java/org/arend/typechecking/patternmatching/PatternTypechecking.java`
 #### Snippet
 ```java
   }
 
-  private Concrete.Expression desugarClassApp(Concrete.ReferenceExpression fun, List<Concrete.Argument> arguments, Concrete.Expression expr, List<SingleDependentLink> expectedParams, boolean inferTailImplicits, Set<ClassField> implemented) {
-    Referable ref = fun.getReferent();
-    if (!(ref instanceof TCDefReferable)) {
-```
+  public List<ExtElimClause> typecheckClauses(List<Concrete.FunctionClause> clauses, List<? extends Concrete.Parameter> abstractParameters, DependentLink parameters, Expression expectedType, FunctionDefinition definition) {
+    this.clausesParameters = parameters;
 
-### BoundedWildcard
-Can generalize to `? extends SingleDependentLink`
-in `base/src/main/java/org/arend/typechecking/visitor/CheckTypeVisitor.java`
-#### Snippet
-```java
-  }
-
-  private Concrete.Expression desugarClassApp(Concrete.ReferenceExpression fun, List<Concrete.Argument> arguments, Concrete.Expression expr, List<SingleDependentLink> expectedParams, boolean inferTailImplicits, Set<ClassField> implemented) {
-    Referable ref = fun.getReferent();
-    if (!(ref instanceof TCDefReferable)) {
-```
-
-### BoundedWildcard
-Can generalize to `? super Sort`
-in `base/src/main/java/org/arend/typechecking/visitor/CheckTypeVisitor.java`
-#### Snippet
-```java
-  }
-
-  private boolean visitParameter(Concrete.Parameter arg, Expression expectedType, List<Sort> resultSorts, LinkList list) {
-    Type result = checkType(arg.getType(), expectedType == null ? Type.OMEGA : expectedType);
-    if (result == null) return false;
-```
-
-### BoundedWildcard
-Can generalize to `? super ParametersProvider`
-in `base/src/main/java/org/arend/typechecking/visitor/CheckTypeVisitor.java`
-#### Snippet
-```java
-
-    @Override
-    public <T> @Nullable Pair<TypecheckingResult,T> coerce(Function<ParametersProvider, Pair<Expression,T>> checker) {
-      return expression instanceof FunCallExpression && ((FunCallExpression) expression).getDefinition().getKind() == CoreFunctionDefinition.Kind.TYPE
-        ? coerceToType(expression, t -> checker.apply(new ExpressionParametersProvider(t))) : null;
-```
-
-### BoundedWildcard
-Can generalize to `? extends Pair`
-in `base/src/main/java/org/arend/typechecking/visitor/CheckTypeVisitor.java`
-#### Snippet
-```java
-
-    @Override
-    public <T> @Nullable Pair<TypecheckingResult,T> coerce(Function<ParametersProvider, Pair<Expression,T>> checker) {
-      return expression instanceof FunCallExpression && ((FunCallExpression) expression).getDefinition().getKind() == CoreFunctionDefinition.Kind.TYPE
-        ? coerceToType(expression, t -> checker.apply(new ExpressionParametersProvider(t))) : null;
-```
-
-### BoundedWildcard
-Can generalize to `? super TypedExpression`
-in `base/src/main/java/org/arend/typechecking/visitor/CheckTypeVisitor.java`
-#### Snippet
-```java
-
-  @Override
-  public @Nullable Pair<AbstractedExpression,TypedExpression> typecheckAbstracted(@NotNull ConcreteExpression expression, @Nullable CoreExpression expectedType, int abstracted, @Nullable Function<TypedExpression,TypedExpression> transform) {
-    TypecheckingResult result = typecheck(expression, expectedType);
-    if (result == null) return null;
-```
-
-### BoundedWildcard
-Can generalize to `? extends TypedExpression`
-in `base/src/main/java/org/arend/typechecking/visitor/CheckTypeVisitor.java`
-#### Snippet
-```java
-
-  @Override
-  public @Nullable Pair<AbstractedExpression,TypedExpression> typecheckAbstracted(@NotNull ConcreteExpression expression, @Nullable CoreExpression expectedType, int abstracted, @Nullable Function<TypedExpression,TypedExpression> transform) {
-    TypecheckingResult result = typecheck(expression, expectedType);
-    if (result == null) return null;
 ```
 
 ### BoundedWildcard
@@ -4237,27 +4190,39 @@ in `base/src/main/java/org/arend/typechecking/visitor/CheckTypeVisitor.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? super Level`
+Can generalize to `? super Binding`
 in `base/src/main/java/org/arend/typechecking/visitor/CheckTypeVisitor.java`
 #### Snippet
 ```java
   }
 
-  private void generateLevel(LevelVariable param, LevelSubstitution defaultLevels, boolean useMinAsDefault, boolean isUniverseLike, Concrete.SourceNode sourceNode, List<Level> result) {
-    if (defaultLevels != null) {
-      Level level = (Level) defaultLevels.get(param);
+  private LetClausePattern typecheckLetClausePattern(Concrete.Pattern pattern, Expression expression, Expression type, Set<Binding> bindings) {
+    if (pattern instanceof Concrete.NamePattern) {
+      Referable referable = ((Concrete.NamePattern) pattern).getRef();
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends Sort`
+Can generalize to `? super ExpressionTypechecker`
+in `base/src/main/java/org/arend/typechecking/visitor/CheckTypeVisitor.java`
+#### Snippet
+```java
+
+  @Override
+  public <T> T withCurrentState(@NotNull Function<ExpressionTypechecker, T> action) {
+    saveState();
+    try {
+```
+
+### BoundedWildcard
+Can generalize to `? extends Concrete.LevelExpression`
 in `base/src/main/java/org/arend/typechecking/visitor/CheckTypeVisitor.java`
 #### Snippet
 ```java
   }
 
-  private static Sort generateUniqueUpperBound(List<Sort> sorts) {
-    LevelVariable pVar = null;
-    LevelVariable hVar = null;
+  private void typecheckLevels(List<Concrete.LevelExpression> levels, List<? extends LevelVariable> params, LevelSubstitution defaultLevels, boolean useMinAsDefault, boolean isUniverseLike, Concrete.SourceNode sourceNode, List<Level> result) {
+    int s = result.size();
+    if (levels == null) {
 ```
 
 ### BoundedWildcard
@@ -4270,6 +4235,18 @@ in `base/src/main/java/org/arend/typechecking/visitor/CheckTypeVisitor.java`
   public <T> T withErrorReporter(@NotNull ErrorReporter errorReporter, @NotNull Function<ExpressionTypechecker, T> action) {
     MyErrorReporter originalErrorReport = this.errorReporter;
     this.errorReporter = new MyErrorReporter(errorReporter);
+```
+
+### BoundedWildcard
+Can generalize to `? super Sort`
+in `base/src/main/java/org/arend/typechecking/visitor/CheckTypeVisitor.java`
+#### Snippet
+```java
+  }
+
+  private boolean visitSigmaParameter(Concrete.TypeParameter arg, Expression expectedType, List<Sort> resultSorts, LinkList list) {
+    Type result = checkType(arg.getType(), expectedType == null ? Type.OMEGA : expectedType);
+    if (result == null) return false;
 ```
 
 ### BoundedWildcard
@@ -4297,15 +4274,51 @@ in `base/src/main/java/org/arend/typechecking/visitor/CheckTypeVisitor.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? super Binding`
+Can generalize to `? super Expression`
 in `base/src/main/java/org/arend/typechecking/visitor/CheckTypeVisitor.java`
 #### Snippet
 ```java
   }
 
-  private LetClausePattern typecheckLetClausePattern(Concrete.Pattern pattern, Expression expression, Expression type, Set<Binding> bindings) {
-    if (pattern instanceof Concrete.NamePattern) {
-      Referable referable = ((Concrete.NamePattern) pattern).getRef();
+  private static <T> Pair<TypecheckingResult,T> coerceToType(Expression expectedType, Function<Expression, Pair<Expression,T>> checker) {
+    List<TypeConstructorExpression> stack = new ArrayList<>();
+    Expression curType = expectedType;
+```
+
+### BoundedWildcard
+Can generalize to `? extends Pair`
+in `base/src/main/java/org/arend/typechecking/visitor/CheckTypeVisitor.java`
+#### Snippet
+```java
+  }
+
+  private static <T> Pair<TypecheckingResult,T> coerceToType(Expression expectedType, Function<Expression, Pair<Expression,T>> checker) {
+    List<TypeConstructorExpression> stack = new ArrayList<>();
+    Expression curType = expectedType;
+```
+
+### BoundedWildcard
+Can generalize to `? super ParametersProvider`
+in `base/src/main/java/org/arend/typechecking/visitor/CheckTypeVisitor.java`
+#### Snippet
+```java
+
+    @Override
+    public <T> @Nullable Pair<TypecheckingResult,T> coerce(Function<ParametersProvider, Pair<Expression,T>> checker) {
+      return expression instanceof FunCallExpression && ((FunCallExpression) expression).getDefinition().getKind() == CoreFunctionDefinition.Kind.TYPE
+        ? coerceToType(expression, t -> checker.apply(new ExpressionParametersProvider(t))) : null;
+```
+
+### BoundedWildcard
+Can generalize to `? extends Pair`
+in `base/src/main/java/org/arend/typechecking/visitor/CheckTypeVisitor.java`
+#### Snippet
+```java
+
+    @Override
+    public <T> @Nullable Pair<TypecheckingResult,T> coerce(Function<ParametersProvider, Pair<Expression,T>> checker) {
+      return expression instanceof FunCallExpression && ((FunCallExpression) expression).getDefinition().getKind() == CoreFunctionDefinition.Kind.TYPE
+        ? coerceToType(expression, t -> checker.apply(new ExpressionParametersProvider(t))) : null;
 ```
 
 ### BoundedWildcard
@@ -4315,21 +4328,33 @@ in `base/src/main/java/org/arend/typechecking/visitor/CheckTypeVisitor.java`
 ```java
   }
 
-  private boolean visitSigmaParameter(Concrete.TypeParameter arg, Expression expectedType, List<Sort> resultSorts, LinkList list) {
-    Type result = checkType(arg.getType(), expectedType == null ? Type.OMEGA : expectedType);
-    if (result == null) return false;
+  private SingleDependentLink visitTypeParameter(Concrete.TypeParameter param, List<Sort> sorts, Type expectedType) {
+    Type argResult = checkType(param.getType(), Type.OMEGA);
+    if (argResult == null) return null;
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends Concrete.LevelExpression`
+Can generalize to `? super Level`
 in `base/src/main/java/org/arend/typechecking/visitor/CheckTypeVisitor.java`
 #### Snippet
 ```java
   }
 
-  private void typecheckLevels(List<Concrete.LevelExpression> levels, List<? extends LevelVariable> params, LevelSubstitution defaultLevels, boolean useMinAsDefault, boolean isUniverseLike, Concrete.SourceNode sourceNode, List<Level> result) {
-    int s = result.size();
-    if (levels == null) {
+  private void generateLevel(LevelVariable param, LevelSubstitution defaultLevels, boolean useMinAsDefault, boolean isUniverseLike, Concrete.SourceNode sourceNode, List<Level> result) {
+    if (defaultLevels != null) {
+      Level level = (Level) defaultLevels.get(param);
+```
+
+### BoundedWildcard
+Can generalize to `? extends Sort`
+in `base/src/main/java/org/arend/typechecking/visitor/CheckTypeVisitor.java`
+#### Snippet
+```java
+  }
+
+  private static Sort generateUniqueUpperBound(List<Sort> sorts) {
+    LevelVariable pVar = null;
+    LevelVariable hVar = null;
 ```
 
 ### BoundedWildcard
@@ -4357,27 +4382,27 @@ in `base/src/main/java/org/arend/typechecking/visitor/CheckTypeVisitor.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? super ExpressionTypechecker`
-in `base/src/main/java/org/arend/typechecking/visitor/CheckTypeVisitor.java`
-#### Snippet
-```java
-
-  @Override
-  public <T> T withCurrentState(@NotNull Function<ExpressionTypechecker, T> action) {
-    saveState();
-    try {
-```
-
-### BoundedWildcard
-Can generalize to `? super Sort`
+Can generalize to `? extends Concrete.Argument`
 in `base/src/main/java/org/arend/typechecking/visitor/CheckTypeVisitor.java`
 #### Snippet
 ```java
   }
 
-  private SingleDependentLink visitTypeParameter(Concrete.TypeParameter param, List<Sort> sorts, Type expectedType) {
-    Type argResult = checkType(param.getType(), Type.OMEGA);
-    if (argResult == null) return null;
+  private Concrete.Expression desugarClassApp(Concrete.ReferenceExpression fun, List<Concrete.Argument> arguments, Concrete.Expression expr, List<SingleDependentLink> expectedParams, boolean inferTailImplicits, Set<ClassField> implemented) {
+    Referable ref = fun.getReferent();
+    if (!(ref instanceof TCDefReferable)) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends SingleDependentLink`
+in `base/src/main/java/org/arend/typechecking/visitor/CheckTypeVisitor.java`
+#### Snippet
+```java
+  }
+
+  private Concrete.Expression desugarClassApp(Concrete.ReferenceExpression fun, List<Concrete.Argument> arguments, Concrete.Expression expr, List<SingleDependentLink> expectedParams, boolean inferTailImplicits, Set<ClassField> implemented) {
+    Referable ref = fun.getReferent();
+    if (!(ref instanceof TCDefReferable)) {
 ```
 
 ### BoundedWildcard
@@ -4393,64 +4418,39 @@ in `base/src/main/java/org/arend/typechecking/visitor/CheckTypeVisitor.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? super Expression`
+Can generalize to `? super TypedExpression`
 in `base/src/main/java/org/arend/typechecking/visitor/CheckTypeVisitor.java`
 #### Snippet
 ```java
-  }
 
-  private static <T> Pair<TypecheckingResult,T> coerceToType(Expression expectedType, Function<Expression, Pair<Expression,T>> checker) {
-    List<TypeConstructorExpression> stack = new ArrayList<>();
-    Expression curType = expectedType;
+  @Override
+  public @Nullable Pair<AbstractedExpression,TypedExpression> typecheckAbstracted(@NotNull ConcreteExpression expression, @Nullable CoreExpression expectedType, int abstracted, @Nullable Function<TypedExpression,TypedExpression> transform) {
+    TypecheckingResult result = typecheck(expression, expectedType);
+    if (result == null) return null;
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends Pair`
+Can generalize to `? extends TypedExpression`
+in `base/src/main/java/org/arend/typechecking/visitor/CheckTypeVisitor.java`
+#### Snippet
+```java
+
+  @Override
+  public @Nullable Pair<AbstractedExpression,TypedExpression> typecheckAbstracted(@NotNull ConcreteExpression expression, @Nullable CoreExpression expectedType, int abstracted, @Nullable Function<TypedExpression,TypedExpression> transform) {
+    TypecheckingResult result = typecheck(expression, expectedType);
+    if (result == null) return null;
+```
+
+### BoundedWildcard
+Can generalize to `? super Sort`
 in `base/src/main/java/org/arend/typechecking/visitor/CheckTypeVisitor.java`
 #### Snippet
 ```java
   }
 
-  private static <T> Pair<TypecheckingResult,T> coerceToType(Expression expectedType, Function<Expression, Pair<Expression,T>> checker) {
-    List<TypeConstructorExpression> stack = new ArrayList<>();
-    Expression curType = expectedType;
-```
-
-## RuleId[ruleID=AbstractClassNeverImplemented]
-### AbstractClassNeverImplemented
-Abstract class `BaseCoreExpressionVisitor` has no concrete subclass
-in `api/src/main/java/org/arend/ext/core/expr/BaseCoreExpressionVisitor.java`
-#### Snippet
-```java
-import org.jetbrains.annotations.NotNull;
-
-public abstract class BaseCoreExpressionVisitor<P, R> implements CoreExpressionVisitor<P, R> {
-  abstract protected R visit(CoreExpression expression, P param);
-
-```
-
-### AbstractClassNeverImplemented
-Abstract class `SerializableKey` has no concrete subclass
-in `api/src/main/java/org/arend/ext/serialization/SerializableKey.java`
-#### Snippet
-```java
-import org.jetbrains.annotations.NotNull;
-
-public abstract class SerializableKey<T> extends Key<T> {
-  protected SerializableKey(@NotNull String name) {
-    super(name);
-```
-
-### AbstractClassNeverImplemented
-Abstract class `SourceNodeImpl` has no concrete subclass
-in `base/src/main/java/org/arend/term/abs/Abstract.java`
-#### Snippet
-```java
-  }
-
-  public static abstract class SourceNodeImpl implements SourceNode {
-    @NotNull
-    @Override
+  private boolean visitParameter(Concrete.Parameter arg, Expression expectedType, List<Sort> resultSorts, LinkList list) {
+    Type result = checkType(arg.getType(), expectedType == null ? Type.OMEGA : expectedType);
+    if (result == null) return false;
 ```
 
 ## RuleId[ruleID=NullableProblems]
@@ -4508,11 +4508,11 @@ Missorted modifiers `final static`
 in `api/src/main/java/org/arend/ext/prettyprinting/doc/HangDoc.java`
 #### Snippet
 ```java
-  private final Doc bottom;
 
   public final static int INDENT = 2;
   public final static int MAX_INDENT = 6;
 
+  HangDoc(Doc top, Doc bottom) {
 ```
 
 ### MissortedModifiers
@@ -4520,11 +4520,11 @@ Missorted modifiers `final static`
 in `api/src/main/java/org/arend/ext/prettyprinting/doc/HangDoc.java`
 #### Snippet
 ```java
+  private final Doc bottom;
 
   public final static int INDENT = 2;
   public final static int MAX_INDENT = 6;
 
-  HangDoc(Doc top, Doc bottom) {
 ```
 
 ### MissortedModifiers
@@ -4556,11 +4556,11 @@ Missorted modifiers `final static`
 in `cli/src/main/java/org/arend/frontend/ui/CliSession.java`
 #### Snippet
 ```java
-public class CliSession extends BaseSession {
-  private final static String TRUE_VALUE = "yes";
   private final static String FALSE_VALUE = "no";
 
   private final static class Request {
+    public final String message;
+    public final Object data;
 ```
 
 ### MissortedModifiers
@@ -4568,11 +4568,11 @@ Missorted modifiers `final static`
 in `cli/src/main/java/org/arend/frontend/ui/CliSession.java`
 #### Snippet
 ```java
+public class CliSession extends BaseSession {
+  private final static String TRUE_VALUE = "yes";
   private final static String FALSE_VALUE = "no";
 
   private final static class Request {
-    public final String message;
-    public final Object data;
 ```
 
 ### MissortedModifiers
@@ -4616,6 +4616,18 @@ Missorted modifiers `final static`
 in `base/src/main/java/org/arend/core/expr/visitor/GetTypeVisitor.java`
 #### Snippet
 ```java
+public class GetTypeVisitor implements ExpressionVisitor<Void, Expression> {
+  public final static GetTypeVisitor INSTANCE = new GetTypeVisitor(true, false);
+  public final static GetTypeVisitor NN_INSTANCE = new GetTypeVisitor(false, false);
+  public final static GetTypeVisitor MIN_INSTANCE = new GetTypeVisitor(true, true);
+
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `base/src/main/java/org/arend/core/expr/visitor/GetTypeVisitor.java`
+#### Snippet
+```java
 
 public class GetTypeVisitor implements ExpressionVisitor<Void, Expression> {
   public final static GetTypeVisitor INSTANCE = new GetTypeVisitor(true, false);
@@ -4636,18 +4648,6 @@ in `base/src/main/java/org/arend/core/expr/visitor/GetTypeVisitor.java`
 ```
 
 ### MissortedModifiers
-Missorted modifiers `final static`
-in `base/src/main/java/org/arend/core/expr/visitor/GetTypeVisitor.java`
-#### Snippet
-```java
-public class GetTypeVisitor implements ExpressionVisitor<Void, Expression> {
-  public final static GetTypeVisitor INSTANCE = new GetTypeVisitor(true, false);
-  public final static GetTypeVisitor NN_INSTANCE = new GetTypeVisitor(false, false);
-  public final static GetTypeVisitor MIN_INSTANCE = new GetTypeVisitor(true, true);
-
-```
-
-### MissortedModifiers
 Missorted modifiers `static abstract`
 in `base/src/main/java/org/arend/term/abs/Abstract.java`
 #### Snippet
@@ -4657,6 +4657,18 @@ in `base/src/main/java/org/arend/term/abs/Abstract.java`
   public static abstract class SourceNodeImpl implements SourceNode {
     @NotNull
     @Override
+```
+
+### MissortedModifiers
+Missorted modifiers `final public`
+in `base/src/main/java/org/arend/term/prettyprint/MinimizedRepresentation.java`
+#### Snippet
+```java
+import java.util.stream.Collectors;
+
+final public class MinimizedRepresentation {
+    private MinimizedRepresentation() {
+    }
 ```
 
 ### MissortedModifiers
@@ -4684,15 +4696,27 @@ in `base/src/main/java/org/arend/module/scopeprovider/CachingModuleScopeProvider
 ```
 
 ### MissortedModifiers
-Missorted modifiers `final public`
-in `base/src/main/java/org/arend/term/prettyprint/MinimizedRepresentation.java`
+Missorted modifiers `final static`
+in `base/src/main/java/org/arend/naming/scope/CachingScope.java`
 #### Snippet
 ```java
-import java.util.stream.Collectors;
+  private final Map<String, Scope> myOnlyInternalNamespaces = new HashMap<>();
+  private final Scope myScope;
+  private final static Scope EMPTY_SCOPE = new Scope() {};
 
-final public class MinimizedRepresentation {
-    private MinimizedRepresentation() {
-    }
+  private CachingScope(Scope scope) {
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `base/src/main/java/org/arend/naming/scope/EmptyScope.java`
+#### Snippet
+```java
+
+public class EmptyScope implements Scope {
+  public final static EmptyScope INSTANCE = new EmptyScope();
+
+  private EmptyScope() {}
 ```
 
 ### MissortedModifiers
@@ -4733,30 +4757,6 @@ in `base/src/main/java/org/arend/term/prettyprint/PrettyPrintVisitor.java`
 
 ### MissortedModifiers
 Missorted modifiers `final static`
-in `base/src/main/java/org/arend/naming/scope/CachingScope.java`
-#### Snippet
-```java
-  private final Map<String, Scope> myOnlyInternalNamespaces = new HashMap<>();
-  private final Scope myScope;
-  private final static Scope EMPTY_SCOPE = new Scope() {};
-
-  private CachingScope(Scope scope) {
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `base/src/main/java/org/arend/naming/scope/EmptyScope.java`
-#### Snippet
-```java
-
-public class EmptyScope implements Scope {
-  public final static EmptyScope INSTANCE = new EmptyScope();
-
-  private EmptyScope() {}
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
 in `base/src/main/java/org/arend/naming/renamer/Renamer.java`
 #### Snippet
 ```java
@@ -4786,9 +4786,9 @@ in `base/src/main/java/org/arend/term/concrete/Concrete.java`
 ```java
   }
 
-  public static abstract class SourceNodeImpl implements SourceNode {
-    private final Object myData;
-
+  public static abstract class Pattern extends SourceNodeImpl implements ConcretePattern {
+    public static final byte PREC = 11;
+    private boolean myExplicit;
 ```
 
 ### MissortedModifiers
@@ -4801,18 +4801,6 @@ in `base/src/main/java/org/arend/term/concrete/Concrete.java`
   public static abstract class Clause extends SourceNodeImpl implements PatternHolder {
     private final List<Pattern> myPatterns;
 
-```
-
-### MissortedModifiers
-Missorted modifiers `static abstract`
-in `base/src/main/java/org/arend/term/concrete/Concrete.java`
-#### Snippet
-```java
-  }
-
-  public static abstract class ReferableDefinitionBase implements ReferableDefinition {
-    @Override
-    public String toString() {
 ```
 
 ### MissortedModifiers
@@ -4834,21 +4822,9 @@ in `base/src/main/java/org/arend/term/concrete/Concrete.java`
 ```java
   }
 
-  public static abstract class BaseFunctionDefinition extends Definition {
-    private final List<Parameter> myParameters;
-    private Expression myResultType;
-```
-
-### MissortedModifiers
-Missorted modifiers `static abstract`
-in `base/src/main/java/org/arend/term/concrete/Concrete.java`
-#### Snippet
-```java
-  }
-
-  public static abstract class FunctionBody extends SourceNodeImpl implements ConcreteFunctionBody {
-    FunctionBody(Object data) {
-      super(data);
+  public static abstract class ReferableDefinitionBase implements ReferableDefinition {
+    @Override
+    public String toString() {
 ```
 
 ### MissortedModifiers
@@ -4882,9 +4858,45 @@ in `base/src/main/java/org/arend/term/concrete/Concrete.java`
 ```java
   }
 
-  public static abstract class Pattern extends SourceNodeImpl implements ConcretePattern {
-    public static final byte PREC = 11;
-    private boolean myExplicit;
+  public static abstract class BaseFunctionDefinition extends Definition {
+    private final List<Parameter> myParameters;
+    private Expression myResultType;
+```
+
+### MissortedModifiers
+Missorted modifiers `static abstract`
+in `base/src/main/java/org/arend/term/concrete/Concrete.java`
+#### Snippet
+```java
+  }
+
+  public static abstract class ResolvableDefinition implements GeneralDefinition {
+    Stage stage = Stage.TYPE_CLASS_REFERENCES_RESOLVED;
+    private Status myStatus = Status.NO_ERRORS;
+```
+
+### MissortedModifiers
+Missorted modifiers `static abstract`
+in `base/src/main/java/org/arend/term/concrete/Concrete.java`
+#### Snippet
+```java
+  }
+
+  public static abstract class SourceNodeImpl implements SourceNode {
+    private final Object myData;
+
+```
+
+### MissortedModifiers
+Missorted modifiers `static abstract`
+in `base/src/main/java/org/arend/term/concrete/Concrete.java`
+#### Snippet
+```java
+  }
+
+  public static abstract class FunctionBody extends SourceNodeImpl implements ConcreteFunctionBody {
+    FunctionBody(Object data) {
+      super(data);
 ```
 
 ### MissortedModifiers
@@ -4909,18 +4921,6 @@ in `base/src/main/java/org/arend/term/concrete/Concrete.java`
   public static abstract class Definition extends ResolvableDefinition implements ReferableDefinition, ConcreteDefinition {
     private final TCDefReferable myReferable;
     private LevelParameters myPLevelParameters;
-```
-
-### MissortedModifiers
-Missorted modifiers `static abstract`
-in `base/src/main/java/org/arend/term/concrete/Concrete.java`
-#### Snippet
-```java
-  }
-
-  public static abstract class ResolvableDefinition implements GeneralDefinition {
-    Stage stage = Stage.TYPE_CLASS_REFERENCES_RESOLVED;
-    private Status myStatus = Status.NO_ERRORS;
 ```
 
 ### MissortedModifiers
@@ -4949,15 +4949,15 @@ in `base/src/main/java/org/arend/core/elimtree/IntervalElim.java`
 ```
 
 ### ClassNameSameAsAncestorName
-Class name `ParametersLevel` is the same as one of its superclass' names
-in `base/src/main/java/org/arend/core/definition/ClassDefinition.java`
+Class name `Parameter` is the same as one of its superclass' names
+in `base/src/main/java/org/arend/term/abs/Abstract.java`
 #### Snippet
 ```java
   }
 
-  public static class ParametersLevel extends org.arend.core.definition.ParametersLevel {
-    public final List<ClassField> fields;
-    public final List<Pair<ClassDefinition,Set<ClassField>>> strictList;
+  public interface Parameter extends LamParameter, org.arend.naming.reference.Parameter {
+    @Nullable Expression getType();
+    boolean isStrict();
 ```
 
 ### ClassNameSameAsAncestorName
@@ -4973,27 +4973,15 @@ in `base/src/main/java/org/arend/term/abs/Abstract.java`
 ```
 
 ### ClassNameSameAsAncestorName
-Class name `Parameter` is the same as one of its superclass' names
-in `base/src/main/java/org/arend/term/abs/Abstract.java`
+Class name `ParametersLevel` is the same as one of its superclass' names
+in `base/src/main/java/org/arend/core/definition/ClassDefinition.java`
 #### Snippet
 ```java
   }
 
-  public interface Parameter extends LamParameter, org.arend.naming.reference.Parameter {
-    @Nullable Expression getType();
-    boolean isStrict();
-```
-
-### ClassNameSameAsAncestorName
-Class name `LevelParameters` is the same as one of its superclass' names
-in `base/src/main/java/org/arend/term/concrete/Concrete.java`
-#### Snippet
-```java
-  }
-
-  public static class LevelParameters extends SourceNodeImpl implements Abstract.LevelParameters, ConcreteLevelParameters {
-    public final List<? extends LevelReferable> referables;
-    public final boolean isIncreasing;
+  public static class ParametersLevel extends org.arend.core.definition.ParametersLevel {
+    public final List<ClassField> fields;
+    public final List<Pair<ClassDefinition,Set<ClassField>>> strictList;
 ```
 
 ### ClassNameSameAsAncestorName
@@ -5008,19 +4996,19 @@ in `base/src/main/java/org/arend/term/concrete/Concrete.java`
 
 ```
 
-## RuleId[ruleID=RedundantMethodOverride]
-### RedundantMethodOverride
-Method `visitInteger()` is identical to its super method
-in `base/src/main/java/org/arend/core/expr/visitor/NormalizingFindBindingVisitor.java`
+### ClassNameSameAsAncestorName
+Class name `LevelParameters` is the same as one of its superclass' names
+in `base/src/main/java/org/arend/term/concrete/Concrete.java`
 #### Snippet
 ```java
-
-  @Override
-  public Boolean visitInteger(IntegerExpression expr, Void params) {
-    return false;
   }
+
+  public static class LevelParameters extends SourceNodeImpl implements Abstract.LevelParameters, ConcreteLevelParameters {
+    public final List<? extends LevelReferable> referables;
+    public final boolean isIncreasing;
 ```
 
+## RuleId[ruleID=RedundantMethodOverride]
 ### RedundantMethodOverride
 Method `visitError()` is identical to its super method
 in `base/src/main/java/org/arend/core/expr/visitor/NormalizingFindBindingVisitor.java`
@@ -5029,6 +5017,18 @@ in `base/src/main/java/org/arend/core/expr/visitor/NormalizingFindBindingVisitor
 
   @Override
   public Boolean visitError(ErrorExpression expr, Void params) {
+    return false;
+  }
+```
+
+### RedundantMethodOverride
+Method `visitInteger()` is identical to its super method
+in `base/src/main/java/org/arend/core/expr/visitor/NormalizingFindBindingVisitor.java`
+#### Snippet
+```java
+
+  @Override
+  public Boolean visitInteger(IntegerExpression expr, Void params) {
     return false;
   }
 ```
@@ -5076,7 +5076,7 @@ in `base/src/main/java/org/arend/term/prettyprint/PrettyPrintVisitor.java`
 ```java
 
       @Override
-      boolean printSpaceBefore() { return true; }
+      boolean printSpaceBefore() { return true;}
 
       @Override
 ```
@@ -5088,7 +5088,7 @@ in `base/src/main/java/org/arend/term/prettyprint/PrettyPrintVisitor.java`
 ```java
 
       @Override
-      boolean printSpaceBefore() { return true;}
+      boolean printSpaceBefore() { return true; }
 
       @Override
 ```
@@ -5680,18 +5680,6 @@ Field initialization to `null` is redundant
 in `cli/src/main/java/org/arend/frontend/BaseCliFrontend.java`
 #### Snippet
 ```java
-  private final Map<ModulePath, GeneralError.Level> myModuleResults = new LinkedHashMap<>();
-  private final DependencyListener myDependencyCollector = new MetaDependencyCollector();
-  private Map<TCDefReferable, Pair<Long,Long>> myTimes = null;
-  private Map<TCDefReferable, Integer> mySizes = null;
-  private ModulePath myPrintModule;
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `cli/src/main/java/org/arend/frontend/BaseCliFrontend.java`
-#### Snippet
-```java
   private final DependencyListener myDependencyCollector = new MetaDependencyCollector();
   private Map<TCDefReferable, Pair<Long,Long>> myTimes = null;
   private Map<TCDefReferable, Integer> mySizes = null;
@@ -5713,14 +5701,14 @@ in `cli/src/main/java/org/arend/frontend/BaseCliFrontend.java`
 
 ### RedundantFieldInitialization
 Field initialization to `null` is redundant
-in `base/src/main/java/org/arend/core/expr/visitor/FindMissingBindingVisitor.java`
+in `cli/src/main/java/org/arend/frontend/BaseCliFrontend.java`
 #### Snippet
 ```java
-public class FindMissingBindingVisitor extends SearchVisitor<Void> {
-  private final Set<Binding> myBindings;
-  private Variable myResult = null;
-
-  public FindMissingBindingVisitor(Set<Binding> binding) {
+  private final Map<ModulePath, GeneralError.Level> myModuleResults = new LinkedHashMap<>();
+  private final DependencyListener myDependencyCollector = new MetaDependencyCollector();
+  private Map<TCDefReferable, Pair<Long,Long>> myTimes = null;
+  private Map<TCDefReferable, Integer> mySizes = null;
+  private ModulePath myPrintModule;
 ```
 
 ### RedundantFieldInitialization
@@ -5733,6 +5721,18 @@ in `base/src/main/java/org/arend/core/expr/visitor/FindBindingVisitor.java`
   private Variable myResult = null;
 
   public FindBindingVisitor(Set<? extends Variable> binding, boolean normalizeClassCallBindings) {
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `base/src/main/java/org/arend/core/expr/visitor/FindMissingBindingVisitor.java`
+#### Snippet
+```java
+public class FindMissingBindingVisitor extends SearchVisitor<Void> {
+  private final Set<Binding> myBindings;
+  private Variable myResult = null;
+
+  public FindMissingBindingVisitor(Set<Binding> binding) {
 ```
 
 ### RedundantFieldInitialization
@@ -5760,18 +5760,6 @@ in `base/src/main/java/org/arend/core/definition/ClassDefinition.java`
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `base/src/main/java/org/arend/core/expr/visitor/CompareVisitor.java`
-#### Snippet
-```java
-  private CMP myCMP;
-  private boolean myNormalCompare = true;
-  private boolean myOnlySolveVars = false;
-  private boolean myAllowEquations = true;
-  private boolean myNormalize = true;
-```
-
-### RedundantFieldInitialization
 Field initialization to `0` is redundant
 in `base/src/main/java/org/arend/error/CountingErrorReporter.java`
 #### Snippet
@@ -5781,6 +5769,18 @@ public class CountingErrorReporter implements ErrorReporter {
   private int myCounter = 0;
   private final GeneralError.Level myLevel;
   private final Class<? extends GeneralError> myError;
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `base/src/main/java/org/arend/core/expr/visitor/CompareVisitor.java`
+#### Snippet
+```java
+  private CMP myCMP;
+  private boolean myNormalCompare = true;
+  private boolean myOnlySolveVars = false;
+  private boolean myAllowEquations = true;
+  private boolean myNormalize = true;
 ```
 
 ### RedundantFieldInitialization
@@ -5880,6 +5880,18 @@ in `base/src/main/java/org/arend/typechecking/order/BellmanFord.java`
 ```
 
 ### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `base/src/main/java/org/arend/typechecking/instance/pool/GlobalInstancePool.java`
+#### Snippet
+```java
+    Expression finalClassifyingExpression = normClassifyingExpression;
+    class MyPredicate implements Predicate<TCDefReferable> {
+      private FunctionDefinition instanceDef = null;
+
+      @Override
+```
+
+### RedundantFieldInitialization
 Field initialization to `false` is redundant
 in `base/src/main/java/org/arend/typechecking/instance/provider/InstanceProviderSet.java`
 #### Snippet
@@ -5913,18 +5925,6 @@ public class BooleanCancellationIndicator implements CancellationIndicator {
     public boolean isCancelled = false;
 
     @Override
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `base/src/main/java/org/arend/typechecking/instance/pool/GlobalInstancePool.java`
-#### Snippet
-```java
-    Expression finalClassifyingExpression = normClassifyingExpression;
-    class MyPredicate implements Predicate<TCDefReferable> {
-      private FunctionDefinition instanceDef = null;
-
-      @Override
 ```
 
 ### RedundantFieldInitialization
@@ -6464,18 +6464,6 @@ in `cli/src/main/java/org/arend/frontend/repl/PlainCliRepl.java`
 
 ## RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
 ### UtilityClassWithoutPrivateConstructor
-Class `DocFactory` has only 'static' members, and lacks a 'private' constructor
-in `api/src/main/java/org/arend/ext/prettyprinting/doc/DocFactory.java`
-#### Snippet
-```java
-import java.util.*;
-
-public class DocFactory {
-  public static ReferenceDoc refDoc(ArendRef ref) {
-    return new ReferenceDoc(ref);
-```
-
-### UtilityClassWithoutPrivateConstructor
 Class `PreludeBinaryGenerator` has only 'static' members, and lacks a 'private' constructor
 in `cli/src/main/java/org/arend/frontend/PreludeBinaryGenerator.java`
 #### Snippet
@@ -6485,6 +6473,18 @@ import java.nio.file.Paths;
 public class PreludeBinaryGenerator {
   public static void main(String[] args) {
     PreludeFileLibrary library = new PreludeFileLibrary(Paths.get(args[0]));
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `DocFactory` has only 'static' members, and lacks a 'private' constructor
+in `api/src/main/java/org/arend/ext/prettyprinting/doc/DocFactory.java`
+#### Snippet
+```java
+import java.util.*;
+
+public class DocFactory {
+  public static ReferenceDoc refDoc(ArendRef ref) {
+    return new ReferenceDoc(ref);
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -6584,18 +6584,6 @@ in `base/src/main/java/org/arend/naming/reference/LocatedReferable.java`
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `ScopeFactory` has only 'static' members, and lacks a 'private' constructor
-in `base/src/main/java/org/arend/naming/scope/ScopeFactory.java`
-#### Snippet
-```java
-import java.util.function.Function;
-
-public class ScopeFactory {
-  public static @NotNull Scope forGroup(@Nullable Group group, @NotNull ModuleScopeProvider moduleScopeProvider) {
-    return forGroup(group, moduleScopeProvider, true, LexicalScope.Extent.EXTERNAL_AND_FIELDS);
-```
-
-### UtilityClassWithoutPrivateConstructor
 Class `Helper` has only 'static' members, and lacks a 'private' constructor
 in `base/src/main/java/org/arend/naming/reference/ClassReferable.java`
 #### Snippet
@@ -6605,6 +6593,18 @@ in `base/src/main/java/org/arend/naming/reference/ClassReferable.java`
   class Helper {
     public static Set<FieldReferable> getNotImplementedFields(ClassReferable classDef) {
       Set<FieldReferable> result = getAllFields(classDef, new HashSet<>(), new HashMap<>());
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `ScopeFactory` has only 'static' members, and lacks a 'private' constructor
+in `base/src/main/java/org/arend/naming/scope/ScopeFactory.java`
+#### Snippet
+```java
+import java.util.function.Function;
+
+public class ScopeFactory {
+  public static @NotNull Scope forGroup(@Nullable Group group, @NotNull ModuleScopeProvider moduleScopeProvider) {
+    return forGroup(group, moduleScopeProvider, true, LexicalScope.Extent.EXTERNAL_AND_FIELDS);
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -7103,30 +7103,6 @@ in `base/src/main/java/org/arend/core/constructor/ClassConstructor.java`
 ```
 
 ### PatternVariableCanBeUsed
-Variable 'field' can be replaced with pattern variable
-in `base/src/main/java/org/arend/term/concrete/BaseConcreteExpressionVisitor.java`
-#### Snippet
-```java
-      visitClassFieldImpl((Concrete.ClassFieldImpl) element, params);
-    } else if (element instanceof Concrete.OverriddenField) {
-      Concrete.OverriddenField field = (Concrete.OverriddenField) element;
-      visitParameters(field.getParameters(), params);
-      field.setResultType(field.getResultType().accept(this, params));
-```
-
-### PatternVariableCanBeUsed
-Variable 'namePattern' can be replaced with pattern variable
-in `base/src/main/java/org/arend/term/concrete/BaseConcreteExpressionVisitor.java`
-#### Snippet
-```java
-  protected void visitPattern(Concrete.Pattern pattern, P params) {
-    if (pattern instanceof Concrete.NamePattern) {
-      Concrete.NamePattern namePattern = (Concrete.NamePattern) pattern;
-      if (namePattern.type != null) {
-        namePattern.type = namePattern.type.accept(this, params);
-```
-
-### PatternVariableCanBeUsed
 Variable 'namePattern' can be replaced with pattern variable
 in `base/src/main/java/org/arend/term/concrete/SearchConcreteVisitor.java`
 #### Snippet
@@ -7163,51 +7139,27 @@ in `base/src/main/java/org/arend/term/concrete/SearchConcreteVisitor.java`
 ```
 
 ### PatternVariableCanBeUsed
-Variable 'ref' can be replaced with pattern variable
-in `cli/src/main/java/org/arend/frontend/parser/BuildVisitor.java`
+Variable 'field' can be replaced with pattern variable
+in `base/src/main/java/org/arend/term/concrete/BaseConcreteExpressionVisitor.java`
 #### Snippet
 ```java
-  private void collectUsedDefinitions(Group group, List<TCDefReferable> usedDefinitions) {
-    if (group.getReferable() instanceof ConcreteLocatedReferable) {
-      ConcreteLocatedReferable ref = (ConcreteLocatedReferable) group.getReferable();
-      Concrete.ReferableDefinition def = ref.getDefinition();
-      if (def instanceof Concrete.FunctionDefinition && ((Concrete.FunctionDefinition) def).getKind().isUse()) {
+      visitClassFieldImpl((Concrete.ClassFieldImpl) element, params);
+    } else if (element instanceof Concrete.OverriddenField) {
+      Concrete.OverriddenField field = (Concrete.OverriddenField) element;
+      visitParameters(field.getParameters(), params);
+      field.setResultType(field.getResultType().accept(this, params));
 ```
 
 ### PatternVariableCanBeUsed
-Variable 'elimCtx' can be replaced with pattern variable
-in `cli/src/main/java/org/arend/frontend/parser/BuildVisitor.java`
+Variable 'namePattern' can be replaced with pattern variable
+in `base/src/main/java/org/arend/term/concrete/BaseConcreteExpressionVisitor.java`
 #### Snippet
 ```java
-    List<CoClauseContext> coClauses = null;
-    if (functionBodyCtx instanceof WithElimContext) {
-      WithElimContext elimCtx = (WithElimContext) functionBodyCtx;
-      body = new Concrete.ElimFunctionBody(tokenPosition(elimCtx.start), visitElim(elimCtx.elim()), visitClauses(elimCtx.clauses()));
-    } else if (functionBodyCtx instanceof CowithElimContext) {
-```
-
-### PatternVariableCanBeUsed
-Variable 'elimCtx' can be replaced with pattern variable
-in `cli/src/main/java/org/arend/frontend/parser/BuildVisitor.java`
-#### Snippet
-```java
-    List<CoClauseContext> coClauses = null;
-    if (bodyCtx instanceof InstanceWithElimContext) {
-      InstanceWithElimContext elimCtx = (InstanceWithElimContext) bodyCtx;
-      body = new Concrete.ElimFunctionBody(tokenPosition(elimCtx.start), visitElim(elimCtx.elim()), visitClauses(elimCtx.clauses()));
-    } else if (bodyCtx instanceof InstanceWithoutElimContext) {
-```
-
-### PatternVariableCanBeUsed
-Variable 'appExpr' can be replaced with pattern variable
-in `cli/src/main/java/org/arend/frontend/parser/BuildVisitor.java`
-#### Snippet
-```java
-      return false;
-    }
-    AppContext appExpr = (AppContext) expr;
-    if (!(appExpr.appExpr() instanceof AppArgumentContext && appExpr.appPrefix() == null && appExpr.implementStatements() == null)) {
-      return false;
+  protected void visitPattern(Concrete.Pattern pattern, P params) {
+    if (pattern instanceof Concrete.NamePattern) {
+      Concrete.NamePattern namePattern = (Concrete.NamePattern) pattern;
+      if (namePattern.type != null) {
+        namePattern.type = namePattern.type.accept(this, params);
 ```
 
 ### PatternVariableCanBeUsed
@@ -7235,6 +7187,30 @@ in `cli/src/main/java/org/arend/frontend/parser/BuildVisitor.java`
 ```
 
 ### PatternVariableCanBeUsed
+Variable 'elimCtx' can be replaced with pattern variable
+in `cli/src/main/java/org/arend/frontend/parser/BuildVisitor.java`
+#### Snippet
+```java
+    List<CoClauseContext> coClauses = null;
+    if (functionBodyCtx instanceof WithElimContext) {
+      WithElimContext elimCtx = (WithElimContext) functionBodyCtx;
+      body = new Concrete.ElimFunctionBody(tokenPosition(elimCtx.start), visitElim(elimCtx.elim()), visitClauses(elimCtx.clauses()));
+    } else if (functionBodyCtx instanceof CowithElimContext) {
+```
+
+### PatternVariableCanBeUsed
+Variable 'appExpr' can be replaced with pattern variable
+in `cli/src/main/java/org/arend/frontend/parser/BuildVisitor.java`
+#### Snippet
+```java
+      return false;
+    }
+    AppContext appExpr = (AppContext) expr;
+    if (!(appExpr.appExpr() instanceof AppArgumentContext && appExpr.appPrefix() == null && appExpr.implementStatements() == null)) {
+      return false;
+```
+
+### PatternVariableCanBeUsed
 Variable 'moduleCtx' can be replaced with pattern variable
 in `cli/src/main/java/org/arend/frontend/parser/BuildVisitor.java`
 #### Snippet
@@ -7256,6 +7232,18 @@ in `cli/src/main/java/org/arend/frontend/parser/BuildVisitor.java`
           CoClauseWithContext withBody = (CoClauseWithContext) defBody;
           List<Concrete.FunctionClause> clauses = new ArrayList<>();
           for (ClauseContext clauseCtx : withBody.clause()) {
+```
+
+### PatternVariableCanBeUsed
+Variable 'ref' can be replaced with pattern variable
+in `cli/src/main/java/org/arend/frontend/parser/BuildVisitor.java`
+#### Snippet
+```java
+  private void collectUsedDefinitions(Group group, List<TCDefReferable> usedDefinitions) {
+    if (group.getReferable() instanceof ConcreteLocatedReferable) {
+      ConcreteLocatedReferable ref = (ConcreteLocatedReferable) group.getReferable();
+      Concrete.ReferableDefinition def = ref.getDefinition();
+      if (def instanceof Concrete.FunctionDefinition && ((Concrete.FunctionDefinition) def).getKind().isUse()) {
 ```
 
 ### PatternVariableCanBeUsed
@@ -7283,6 +7271,18 @@ in `cli/src/main/java/org/arend/frontend/parser/BuildVisitor.java`
 ```
 
 ### PatternVariableCanBeUsed
+Variable 'elimCtx' can be replaced with pattern variable
+in `cli/src/main/java/org/arend/frontend/parser/BuildVisitor.java`
+#### Snippet
+```java
+    List<CoClauseContext> coClauses = null;
+    if (bodyCtx instanceof InstanceWithElimContext) {
+      InstanceWithElimContext elimCtx = (InstanceWithElimContext) bodyCtx;
+      body = new Concrete.ElimFunctionBody(tokenPosition(elimCtx.start), visitElim(elimCtx.elim()), visitClauses(elimCtx.clauses()));
+    } else if (bodyCtx instanceof InstanceWithoutElimContext) {
+```
+
+### PatternVariableCanBeUsed
 Variable 'intervalElim' can be replaced with pattern variable
 in `base/src/main/java/org/arend/module/serialization/DefinitionSerialization.java`
 #### Snippet
@@ -7295,18 +7295,6 @@ in `base/src/main/java/org/arend/module/serialization/DefinitionSerialization.ja
 ```
 
 ### PatternVariableCanBeUsed
-Variable 'elim' can be replaced with pattern variable
-in `base/src/main/java/org/arend/term/prettyprint/ToAbstractVisitor.java`
-#### Snippet
-```java
-      return visitElimBody(parameters, (ElimBody) body);
-    } else if (body instanceof IntervalElim) {
-      IntervalElim elim = (IntervalElim) body;
-      // TODO: Add interval clauses
-      return elim.getOtherwise() == null ? new ArrayList<>() : visitElimBody(parameters, elim.getOtherwise());
-```
-
-### PatternVariableCanBeUsed
 Variable 'field' can be replaced with pattern variable
 in `base/src/main/java/org/arend/term/prettyprint/ToAbstractVisitor.java`
 #### Snippet
@@ -7316,6 +7304,18 @@ in `base/src/main/java/org/arend/term/prettyprint/ToAbstractVisitor.java`
           ClassField field = (ClassField) list.get(i);
           if (pattern.getFields() == null) return null;
           index = pattern.getFields().indexOf(field);
+```
+
+### PatternVariableCanBeUsed
+Variable 'elim' can be replaced with pattern variable
+in `base/src/main/java/org/arend/term/prettyprint/ToAbstractVisitor.java`
+#### Snippet
+```java
+      return visitElimBody(parameters, (ElimBody) body);
+    } else if (body instanceof IntervalElim) {
+      IntervalElim elim = (IntervalElim) body;
+      // TODO: Add interval clauses
+      return elim.getOtherwise() == null ? new ArrayList<>() : visitElimBody(parameters, elim.getOtherwise());
 ```
 
 ### PatternVariableCanBeUsed
@@ -7379,18 +7379,6 @@ in `base/src/main/java/org/arend/extImpl/AbstractedExpressionImpl.java`
 ```
 
 ### PatternVariableCanBeUsed
-Variable 'ref' can be replaced with pattern variable
-in `base/src/main/java/org/arend/extImpl/definitionRenamer/ScopeDefinitionRenamer.java`
-#### Snippet
-```java
-    }
-
-    LocatedReferable ref = (LocatedReferable) arendRef;
-    List<String> list = new ArrayList<>();
-    list.add(ref.getRepresentableName());
-```
-
-### PatternVariableCanBeUsed
 Variable 'def' can be replaced with pattern variable
 in `base/src/main/java/org/arend/extImpl/DefinitionContributorImpl.java`
 #### Snippet
@@ -7403,27 +7391,15 @@ in `base/src/main/java/org/arend/extImpl/DefinitionContributorImpl.java`
 ```
 
 ### PatternVariableCanBeUsed
-Variable 'dataDef' can be replaced with pattern variable
-in `base/src/main/java/org/arend/typechecking/UseTypechecking.java`
+Variable 'ref' can be replaced with pattern variable
+in `base/src/main/java/org/arend/extImpl/definitionRenamer/ScopeDefinitionRenamer.java`
 #### Snippet
 ```java
-  private static void registerParametersLevel(FunctionDefinition useDefinition, Definition useParent, ParametersLevel parametersLevel) {
-    if (useParent instanceof DataDefinition) {
-      DataDefinition dataDef = (DataDefinition) useParent;
-      if (parametersLevel.parameters == null) {
-        Sort newSort = parametersLevel.level == -1 ? Sort.PROP : new Sort(dataDef.getSort().getPLevel(), new Level(parametersLevel.level));
-```
+    }
 
-### PatternVariableCanBeUsed
-Variable 'useDefinition' can be replaced with pattern variable
-in `base/src/main/java/org/arend/typechecking/UseTypechecking.java`
-#### Snippet
-```java
-      }
-
-      FunctionDefinition useDefinition = (FunctionDefinition) typedDefinition;
-      ErrorReporter localErrorReporter = new LocalErrorReporter(definition.getData(), errorReporter);
-      if (definition.getKind() == FunctionKind.LEVEL && !useDefinition.getResultType().isError()) {
+    LocatedReferable ref = (LocatedReferable) arendRef;
+    List<String> list = new ArrayList<>();
+    list.add(ref.getRepresentableName());
 ```
 
 ### PatternVariableCanBeUsed
@@ -7448,6 +7424,30 @@ in `base/src/main/java/org/arend/typechecking/subexpr/CorrespondedSubDefVisitor.
         var concrete = (Concrete.ClassFieldImpl) concreteRaw;
         Referable implementedField = concrete.getImplementedField();
         Optional<AbsExpression> field = coreDef.getFields()
+```
+
+### PatternVariableCanBeUsed
+Variable 'useDefinition' can be replaced with pattern variable
+in `base/src/main/java/org/arend/typechecking/UseTypechecking.java`
+#### Snippet
+```java
+      }
+
+      FunctionDefinition useDefinition = (FunctionDefinition) typedDefinition;
+      ErrorReporter localErrorReporter = new LocalErrorReporter(definition.getData(), errorReporter);
+      if (definition.getKind() == FunctionKind.LEVEL && !useDefinition.getResultType().isError()) {
+```
+
+### PatternVariableCanBeUsed
+Variable 'dataDef' can be replaced with pattern variable
+in `base/src/main/java/org/arend/typechecking/UseTypechecking.java`
+#### Snippet
+```java
+  private static void registerParametersLevel(FunctionDefinition useDefinition, Definition useParent, ParametersLevel parametersLevel) {
+    if (useParent instanceof DataDefinition) {
+      DataDefinition dataDef = (DataDefinition) useParent;
+      if (parametersLevel.parameters == null) {
+        Sort newSort = parametersLevel.level == -1 ? Sort.PROP : new Sort(dataDef.getSort().getPLevel(), new Level(parametersLevel.level));
 ```
 
 ### PatternVariableCanBeUsed
@@ -7535,66 +7535,6 @@ in `base/src/main/java/org/arend/typechecking/visitor/SearchVisitor.java`
 ```
 
 ### PatternVariableCanBeUsed
-Variable 'newExpr' can be replaced with pattern variable
-in `base/src/main/java/org/arend/typechecking/covariance/CovarianceChecker.java`
-#### Snippet
-```java
-
-    if (expr instanceof NewExpression) {
-      NewExpression newExpr = (NewExpression) expr;
-      if (newExpr.getRenewExpression() != null) {
-        return checkNonCovariant(newExpr.getRenewExpression());
-```
-
-### PatternVariableCanBeUsed
-Variable 'dataCall' can be replaced with pattern variable
-in `base/src/main/java/org/arend/typechecking/covariance/CovarianceChecker.java`
-#### Snippet
-```java
-
-    if (expr instanceof DataCallExpression && allowData()) {
-      DataCallExpression dataCall = (DataCallExpression) expr;
-      if (checkLevels(dataCall.getLevels(), dataCall)) {
-        return true;
-```
-
-### PatternVariableCanBeUsed
-Variable 'classCall' can be replaced with pattern variable
-in `base/src/main/java/org/arend/typechecking/covariance/CovarianceChecker.java`
-#### Snippet
-```java
-
-    if (expr instanceof ClassCallExpression) {
-      ClassCallExpression classCall = (ClassCallExpression) expr;
-      if (checkLevels(classCall.getLevels(), classCall)) {
-        return true;
-```
-
-### PatternVariableCanBeUsed
-Variable 'funCall' can be replaced with pattern variable
-in `base/src/main/java/org/arend/typechecking/covariance/CovarianceChecker.java`
-#### Snippet
-```java
-
-    if (expr instanceof FunCallExpression && ((FunCallExpression) expr).getDefinition() == Prelude.PATH_INFIX && allowData()) {
-      FunCallExpression funCall = (FunCallExpression) expr;
-      if (checkLevels(funCall.getLevels(), funCall)) {
-        return true;
-```
-
-### PatternVariableCanBeUsed
-Variable 'classCall' can be replaced with pattern variable
-in `base/src/main/java/org/arend/typechecking/instance/pool/GlobalInstancePool.java`
-#### Snippet
-```java
-        }
-
-        ClassCallExpression classCall = (ClassCallExpression) instanceDef.getResultType();
-        if (finalClassifyingExpression == null || classCall.getDefinition().getClassifyingField() == null) {
-          return true;
-```
-
-### PatternVariableCanBeUsed
 Variable 'instancePi' can be replaced with pattern variable
 in `base/src/main/java/org/arend/typechecking/instance/pool/GlobalInstancePool.java`
 #### Snippet
@@ -7667,6 +7607,66 @@ in `base/src/main/java/org/arend/typechecking/instance/pool/GlobalInstancePool.j
 ```
 
 ### PatternVariableCanBeUsed
+Variable 'classCall' can be replaced with pattern variable
+in `base/src/main/java/org/arend/typechecking/instance/pool/GlobalInstancePool.java`
+#### Snippet
+```java
+        }
+
+        ClassCallExpression classCall = (ClassCallExpression) instanceDef.getResultType();
+        if (finalClassifyingExpression == null || classCall.getDefinition().getClassifyingField() == null) {
+          return true;
+```
+
+### PatternVariableCanBeUsed
+Variable 'newExpr' can be replaced with pattern variable
+in `base/src/main/java/org/arend/typechecking/covariance/CovarianceChecker.java`
+#### Snippet
+```java
+
+    if (expr instanceof NewExpression) {
+      NewExpression newExpr = (NewExpression) expr;
+      if (newExpr.getRenewExpression() != null) {
+        return checkNonCovariant(newExpr.getRenewExpression());
+```
+
+### PatternVariableCanBeUsed
+Variable 'dataCall' can be replaced with pattern variable
+in `base/src/main/java/org/arend/typechecking/covariance/CovarianceChecker.java`
+#### Snippet
+```java
+
+    if (expr instanceof DataCallExpression && allowData()) {
+      DataCallExpression dataCall = (DataCallExpression) expr;
+      if (checkLevels(dataCall.getLevels(), dataCall)) {
+        return true;
+```
+
+### PatternVariableCanBeUsed
+Variable 'classCall' can be replaced with pattern variable
+in `base/src/main/java/org/arend/typechecking/covariance/CovarianceChecker.java`
+#### Snippet
+```java
+
+    if (expr instanceof ClassCallExpression) {
+      ClassCallExpression classCall = (ClassCallExpression) expr;
+      if (checkLevels(classCall.getLevels(), classCall)) {
+        return true;
+```
+
+### PatternVariableCanBeUsed
+Variable 'funCall' can be replaced with pattern variable
+in `base/src/main/java/org/arend/typechecking/covariance/CovarianceChecker.java`
+#### Snippet
+```java
+
+    if (expr instanceof FunCallExpression && ((FunCallExpression) expr).getDefinition() == Prelude.PATH_INFIX && allowData()) {
+      FunCallExpression funCall = (FunCallExpression) expr;
+      if (checkLevels(funCall.getLevels(), funCall)) {
+        return true;
+```
+
+### PatternVariableCanBeUsed
 Variable 'rb2' can be replaced with pattern variable
 in `base/src/main/java/org/arend/typechecking/termination/RecursiveBehavior.java`
 #### Snippet
@@ -7727,6 +7727,18 @@ in `base/src/main/java/org/arend/typechecking/termination/BaseCallMatrix.java`
 ```
 
 ### PatternVariableCanBeUsed
+Variable 'piType' can be replaced with pattern variable
+in `base/src/main/java/org/arend/typechecking/doubleChecker/CoreDefinitionChecker.java`
+#### Snippet
+```java
+            return false;
+          }
+          PiExpression piType = (PiExpression) type;
+          SingleDependentLink link = piType.getParameters();
+          for (; link.hasNext() && i < sum; link = link.getNext(), i++) {
+```
+
+### PatternVariableCanBeUsed
 Variable 'typeClassCall' can be replaced with pattern variable
 in `base/src/main/java/org/arend/typechecking/doubleChecker/CoreDefinitionChecker.java`
 #### Snippet
@@ -7751,15 +7763,15 @@ in `base/src/main/java/org/arend/typechecking/doubleChecker/CoreDefinitionChecke
 ```
 
 ### PatternVariableCanBeUsed
-Variable 'piType' can be replaced with pattern variable
-in `base/src/main/java/org/arend/typechecking/doubleChecker/CoreDefinitionChecker.java`
+Variable 'var' can be replaced with pattern variable
+in `base/src/main/java/org/arend/typechecking/implicitargs/equations/LevelEquationsSolver.java`
 #### Snippet
 ```java
-            return false;
-          }
-          PiExpression piType = (PiExpression) type;
-          SingleDependentLink link = piType.getParameters();
-          for (; link.hasNext() && i < sum; link = link.getNext(), i++) {
+      return false;
+    }
+    InferenceLevelVariable var = (InferenceLevelVariable) level.getVar();
+    Level oldLevel = myConstantUpperBounds.get(var);
+    if (oldLevel != null && (oldLevel.isProp() || level.getConstant() < 0 && oldLevel.isClosed() && oldLevel.getConstant() == 0)) {
 ```
 
 ### PatternVariableCanBeUsed
@@ -7775,18 +7787,6 @@ in `base/src/main/java/org/arend/typechecking/patternmatching/Condition.java`
 ```
 
 ### PatternVariableCanBeUsed
-Variable 'var' can be replaced with pattern variable
-in `base/src/main/java/org/arend/typechecking/implicitargs/equations/LevelEquationsSolver.java`
-#### Snippet
-```java
-      return false;
-    }
-    InferenceLevelVariable var = (InferenceLevelVariable) level.getVar();
-    Level oldLevel = myConstantUpperBounds.get(var);
-    if (oldLevel != null && (oldLevel.isProp() || level.getConstant() < 0 && oldLevel.isClosed() && oldLevel.getConstant() == 0)) {
-```
-
-### PatternVariableCanBeUsed
 Variable 'dataClauseElem' can be replaced with pattern variable
 in `base/src/main/java/org/arend/typechecking/patternmatching/Util.java`
 #### Snippet
@@ -7796,30 +7796,6 @@ in `base/src/main/java/org/arend/typechecking/patternmatching/Util.java`
         DataClauseElem dataClauseElem = (DataClauseElem) clauseElems.get(i);
         DependentLink parameters = dataClauseElem.getParameters();
         int size = DependentLink.Helper.size(parameters);
-```
-
-### PatternVariableCanBeUsed
-Variable 'actualClassCall' can be replaced with pattern variable
-in `base/src/main/java/org/arend/typechecking/implicitargs/equations/TwoStageEquations.java`
-#### Snippet
-```java
-        actualType = result.getType().normalize(NormalizationMode.WHNF);
-        if (actualType instanceof ClassCallExpression && expectedType instanceof ClassCallExpression) {
-          ClassCallExpression actualClassCall = (ClassCallExpression) actualType;
-          ClassCallExpression expectedClassCall = (ClassCallExpression) expectedType;
-          /* I don't know if this is necessary or not
-```
-
-### PatternVariableCanBeUsed
-Variable 'expectedClassCall' can be replaced with pattern variable
-in `base/src/main/java/org/arend/typechecking/implicitargs/equations/TwoStageEquations.java`
-#### Snippet
-```java
-        if (actualType instanceof ClassCallExpression && expectedType instanceof ClassCallExpression) {
-          ClassCallExpression actualClassCall = (ClassCallExpression) actualType;
-          ClassCallExpression expectedClassCall = (ClassCallExpression) expectedType;
-          /* I don't know if this is necessary or not
-          if (var.compareClassCallsExactly()) {
 ```
 
 ### PatternVariableCanBeUsed
@@ -7859,27 +7835,15 @@ in `base/src/main/java/org/arend/typechecking/patternmatching/ExpressionMatcher.
 ```
 
 ### PatternVariableCanBeUsed
-Variable 'refExpr' can be replaced with pattern variable
+Variable 'pi' can be replaced with pattern variable
 in `base/src/main/java/org/arend/typechecking/implicitargs/StdImplicitArgsInference.java`
 #### Snippet
 ```java
-    Concrete.Expression fun = expr.getFunction();
-    if (fun instanceof Concrete.ReferenceExpression) {
-      Concrete.ReferenceExpression refExpr = (Concrete.ReferenceExpression) fun;
-      if (!expr.getArguments().get(0).isExplicit() && (refExpr.getReferent() == Prelude.ZERO.getRef() || refExpr.getReferent() == Prelude.SUC.getRef())) {
-        TypecheckingResult argResult = myVisitor.checkExpr(expr.getArguments().get(0).getExpression(), Nat());
-```
+      }
 
-### PatternVariableCanBeUsed
-Variable 'defCallResult' can be replaced with pattern variable
-in `base/src/main/java/org/arend/typechecking/implicitargs/StdImplicitArgsInference.java`
-#### Snippet
-```java
-
-    if (result instanceof DefCallResult && expr.getArguments().get(0).isExplicit() && expectedType != null) {
-      DefCallResult defCallResult = (DefCallResult) result;
-      if (defCallResult.getDefinition() instanceof Constructor && defCallResult.getArguments().size() < DependentLink.Helper.size(((Constructor) defCallResult.getDefinition()).getDataTypeParameters())) {
-        DataCallExpression dataCall = TypeConstructorExpression.unfoldType(expectedType).cast(DataCallExpression.class);
+      PiExpression pi = (PiExpression) type;
+      piTypes.add(pi);
+      type = pi.getCodomain();
 ```
 
 ### PatternVariableCanBeUsed
@@ -7911,18 +7875,6 @@ Variable 'pi' can be replaced with pattern variable
 in `base/src/main/java/org/arend/typechecking/implicitargs/StdImplicitArgsInference.java`
 #### Snippet
 ```java
-      }
-
-      PiExpression pi = (PiExpression) type;
-      piTypes.add(pi);
-      type = pi.getCodomain();
-```
-
-### PatternVariableCanBeUsed
-Variable 'pi' can be replaced with pattern variable
-in `base/src/main/java/org/arend/typechecking/implicitargs/StdImplicitArgsInference.java`
-#### Snippet
-```java
         return null;
       }
       PiExpression pi = (PiExpression) type;
@@ -7940,6 +7892,54 @@ in `base/src/main/java/org/arend/typechecking/implicitargs/StdImplicitArgsInfere
         DefCallResult defCallResult = (DefCallResult) result;
         ClassDefinition classDef = getClassRefFromDefCall(defCallResult.getDefinition(), i);
         if (classDef != null && !classDef.isRecord()) {
+```
+
+### PatternVariableCanBeUsed
+Variable 'refExpr' can be replaced with pattern variable
+in `base/src/main/java/org/arend/typechecking/implicitargs/StdImplicitArgsInference.java`
+#### Snippet
+```java
+    Concrete.Expression fun = expr.getFunction();
+    if (fun instanceof Concrete.ReferenceExpression) {
+      Concrete.ReferenceExpression refExpr = (Concrete.ReferenceExpression) fun;
+      if (!expr.getArguments().get(0).isExplicit() && (refExpr.getReferent() == Prelude.ZERO.getRef() || refExpr.getReferent() == Prelude.SUC.getRef())) {
+        TypecheckingResult argResult = myVisitor.checkExpr(expr.getArguments().get(0).getExpression(), Nat());
+```
+
+### PatternVariableCanBeUsed
+Variable 'defCallResult' can be replaced with pattern variable
+in `base/src/main/java/org/arend/typechecking/implicitargs/StdImplicitArgsInference.java`
+#### Snippet
+```java
+
+    if (result instanceof DefCallResult && expr.getArguments().get(0).isExplicit() && expectedType != null) {
+      DefCallResult defCallResult = (DefCallResult) result;
+      if (defCallResult.getDefinition() instanceof Constructor && defCallResult.getArguments().size() < DependentLink.Helper.size(((Constructor) defCallResult.getDefinition()).getDataTypeParameters())) {
+        DataCallExpression dataCall = TypeConstructorExpression.unfoldType(expectedType).cast(DataCallExpression.class);
+```
+
+### PatternVariableCanBeUsed
+Variable 'actualClassCall' can be replaced with pattern variable
+in `base/src/main/java/org/arend/typechecking/implicitargs/equations/TwoStageEquations.java`
+#### Snippet
+```java
+        actualType = result.getType().normalize(NormalizationMode.WHNF);
+        if (actualType instanceof ClassCallExpression && expectedType instanceof ClassCallExpression) {
+          ClassCallExpression actualClassCall = (ClassCallExpression) actualType;
+          ClassCallExpression expectedClassCall = (ClassCallExpression) expectedType;
+          /* I don't know if this is necessary or not
+```
+
+### PatternVariableCanBeUsed
+Variable 'expectedClassCall' can be replaced with pattern variable
+in `base/src/main/java/org/arend/typechecking/implicitargs/equations/TwoStageEquations.java`
+#### Snippet
+```java
+        if (actualType instanceof ClassCallExpression && expectedType instanceof ClassCallExpression) {
+          ClassCallExpression actualClassCall = (ClassCallExpression) actualType;
+          ClassCallExpression expectedClassCall = (ClassCallExpression) expectedType;
+          /* I don't know if this is necessary or not
+          if (var.compareClassCallsExactly()) {
 ```
 
 ### PatternVariableCanBeUsed
@@ -7967,18 +7967,6 @@ in `base/src/main/java/org/arend/typechecking/patternmatching/ConditionsChecking
 ```
 
 ### PatternVariableCanBeUsed
-Variable 'goalExpr' can be replaced with pattern variable
-in `base/src/main/java/org/arend/typechecking/patternmatching/ConditionsChecking.java`
-#### Snippet
-```java
-
-      if (expr instanceof GoalErrorExpression) {
-        GoalErrorExpression goalExpr = (GoalErrorExpression) expr;
-        if (evaluatedExpr1 != null && goalExpr.goalError.hasConditions()) {
-          goalExpr.goalError.addCondition(new Condition(null, pair.proj2, evaluatedExpr1));
-```
-
-### PatternVariableCanBeUsed
 Variable 'conPattern' can be replaced with pattern variable
 in `base/src/main/java/org/arend/typechecking/patternmatching/ConditionsChecking.java`
 #### Snippet
@@ -7988,6 +7976,18 @@ in `base/src/main/java/org/arend/typechecking/patternmatching/ConditionsChecking
         ConstructorExpressionPattern conPattern = (ConstructorExpressionPattern) pattern;
         if (conPattern.getDefinition() == Prelude.PATH_CON) {
           SingleDependentLink lamParam = new TypedSingleDependentLink(true, "i", ExpressionFactory.Interval());
+```
+
+### PatternVariableCanBeUsed
+Variable 'goalExpr' can be replaced with pattern variable
+in `base/src/main/java/org/arend/typechecking/patternmatching/ConditionsChecking.java`
+#### Snippet
+```java
+
+      if (expr instanceof GoalErrorExpression) {
+        GoalErrorExpression goalExpr = (GoalErrorExpression) expr;
+        if (evaluatedExpr1 != null && goalExpr.goalError.hasConditions()) {
+          goalExpr.goalError.addCondition(new Condition(null, pair.proj2, evaluatedExpr1));
 ```
 
 ## RuleId[ruleID=NonSerializableFieldInSerializableClass]
@@ -8046,11 +8046,11 @@ Switch statement can be replaced with enhanced 'switch'
 in `cli/src/main/java/org/arend/frontend/BaseCliFrontend.java`
 #### Snippet
 ```java
-    boolean recompile = recompileString == null && cmdLine.hasOption("r");
-    if (cmdLine.hasOption("i")) {
-      switch (replKind.toLowerCase()) {
-        default:
-          System.err.println("[ERROR] Unrecognized repl type: " + replKind);
+      return ' ';
+    }
+    switch (result) {
+      case GOAL:
+        return '\u25ef';
 ```
 
 ### EnhancedSwitchMigration
@@ -8058,11 +8058,11 @@ Switch statement can be replaced with enhanced 'switch'
 in `cli/src/main/java/org/arend/frontend/BaseCliFrontend.java`
 #### Snippet
 ```java
-      return ' ';
-    }
-    switch (result) {
-      case GOAL:
-        return '\u25ef';
+    boolean recompile = recompileString == null && cmdLine.hasOption("r");
+    if (cmdLine.hasOption("i")) {
+      switch (replKind.toLowerCase()) {
+        default:
+          System.err.println("[ERROR] Unrecognized repl type: " + replKind);
 ```
 
 ### EnhancedSwitchMigration
@@ -8118,11 +8118,23 @@ Switch statement can be replaced with enhanced 'switch'
 in `base/src/main/java/org/arend/module/serialization/DefinitionSerialization.java`
 #### Snippet
 ```java
+      builder.setTypeLevel(defSerializer.writeExpr(definition.getResultTypeLevel()));
+    }
+    switch (definition.getBodyHiddenStatus()) {
+      case NOT_HIDDEN:
+        builder.setBodyHiddenStatus(DefinitionProtos.Definition.FunctionData.HiddenStatus.NOT_HIDDEN);
+```
 
-  private DefinitionProtos.Definition.TypeClassParameterKind writeTypeClassParameterKind(Definition.TypeClassParameterKind kind) {
-    switch (kind) {
-      case YES:
-        return DefinitionProtos.Definition.TypeClassParameterKind.YES;
+### EnhancedSwitchMigration
+Switch statement can be replaced with enhanced 'switch'
+in `base/src/main/java/org/arend/module/serialization/DefinitionSerialization.java`
+#### Snippet
+```java
+    }
+    DefinitionProtos.Definition.FunctionKind kind;
+    switch (definition.getKind()) {
+      case LEMMA:
+        kind = definition.getReferable().getKind() == GlobalReferable.Kind.COCLAUSE_FUNCTION ? DefinitionProtos.Definition.FunctionKind.COCLAUSE_LEMMA : DefinitionProtos.Definition.FunctionKind.LEMMA;
 ```
 
 ### EnhancedSwitchMigration
@@ -8142,23 +8154,11 @@ Switch statement can be replaced with enhanced 'switch'
 in `base/src/main/java/org/arend/module/serialization/DefinitionSerialization.java`
 #### Snippet
 ```java
-      builder.setTypeLevel(defSerializer.writeExpr(definition.getResultTypeLevel()));
-    }
-    switch (definition.getBodyHiddenStatus()) {
-      case NOT_HIDDEN:
-        builder.setBodyHiddenStatus(DefinitionProtos.Definition.FunctionData.HiddenStatus.NOT_HIDDEN);
-```
 
-### EnhancedSwitchMigration
-Switch statement can be replaced with enhanced 'switch'
-in `base/src/main/java/org/arend/module/serialization/DefinitionSerialization.java`
-#### Snippet
-```java
-    }
-    DefinitionProtos.Definition.FunctionKind kind;
-    switch (definition.getKind()) {
-      case LEMMA:
-        kind = definition.getReferable().getKind() == GlobalReferable.Kind.COCLAUSE_FUNCTION ? DefinitionProtos.Definition.FunctionKind.COCLAUSE_LEMMA : DefinitionProtos.Definition.FunctionKind.LEMMA;
+  private DefinitionProtos.Definition.TypeClassParameterKind writeTypeClassParameterKind(Definition.TypeClassParameterKind kind) {
+    switch (kind) {
+      case YES:
+        return DefinitionProtos.Definition.TypeClassParameterKind.YES;
 ```
 
 ### EnhancedSwitchMigration
@@ -8227,18 +8227,6 @@ in `base/src/main/java/org/arend/typechecking/visitor/FindSubexpressionVisitor.j
 #### Snippet
 ```java
   @Override
-  public Boolean visitArray(ArrayExpression expr, Void params) {
-    switch (myFunction.apply(expr)) {
-      case STOP: return true;
-      case SKIP: return false;
-```
-
-### EnhancedSwitchMigration
-Switch statement can be replaced with enhanced 'switch'
-in `base/src/main/java/org/arend/typechecking/visitor/FindSubexpressionVisitor.java`
-#### Snippet
-```java
-  @Override
   public Boolean visitAt(AtExpression expr, Void params) {
     switch (myFunction.apply(expr)) {
       case STOP: return true;
@@ -8251,19 +8239,7 @@ in `base/src/main/java/org/arend/typechecking/visitor/FindSubexpressionVisitor.j
 #### Snippet
 ```java
   @Override
-  public Boolean visitLet(LetExpression expression, Void param) {
-    switch (myFunction.apply(expression)) {
-      case STOP: return true;
-      case SKIP: return false;
-```
-
-### EnhancedSwitchMigration
-Switch statement can be replaced with enhanced 'switch'
-in `base/src/main/java/org/arend/typechecking/visitor/FindSubexpressionVisitor.java`
-#### Snippet
-```java
-  @Override
-  public Boolean visitTypeDestructor(TypeDestructorExpression expr, Void param) {
+  public Boolean visitArray(ArrayExpression expr, Void params) {
     switch (myFunction.apply(expr)) {
       case STOP: return true;
       case SKIP: return false;
@@ -8275,20 +8251,8 @@ in `base/src/main/java/org/arend/typechecking/visitor/FindSubexpressionVisitor.j
 #### Snippet
 ```java
   @Override
-  public Boolean visitInferenceReference(InferenceReferenceExpression expression, Void param) {
-    switch (myFunction.apply(expression)) {
-      case STOP: return true;
-      case SKIP: return false;
-```
-
-### EnhancedSwitchMigration
-Switch statement can be replaced with enhanced 'switch'
-in `base/src/main/java/org/arend/typechecking/visitor/FindSubexpressionVisitor.java`
-#### Snippet
-```java
-  @Override
-  public Boolean visitNew(NewExpression expression, Void param) {
-    switch (myFunction.apply(expression)) {
+  public Boolean visitBox(BoxExpression expr, Void params) {
+    switch (myFunction.apply(expr)) {
       case STOP: return true;
       case SKIP: return false;
 ```
@@ -8311,92 +8275,8 @@ in `base/src/main/java/org/arend/typechecking/visitor/FindSubexpressionVisitor.j
 #### Snippet
 ```java
   @Override
-  public Boolean visitTuple(TupleExpression expression, Void param) {
-    switch (myFunction.apply(expression)) {
-      case STOP: return true;
-      case SKIP: return false;
-```
-
-### EnhancedSwitchMigration
-Switch statement can be replaced with enhanced 'switch'
-in `base/src/main/java/org/arend/typechecking/visitor/FindSubexpressionVisitor.java`
-#### Snippet
-```java
-  @Override
-  public Boolean visitTypeConstructor(TypeConstructorExpression expr, Void param) {
+  public Boolean visitTypeDestructor(TypeDestructorExpression expr, Void param) {
     switch (myFunction.apply(expr)) {
-      case STOP: return true;
-      case SKIP: return false;
-```
-
-### EnhancedSwitchMigration
-Switch statement can be replaced with enhanced 'switch'
-in `base/src/main/java/org/arend/typechecking/visitor/FindSubexpressionVisitor.java`
-#### Snippet
-```java
-  @Override
-  public Boolean visitPEval(PEvalExpression expression, Void param) {
-    switch (myFunction.apply(expression)) {
-      case STOP: return true;
-      case SKIP: return false;
-```
-
-### EnhancedSwitchMigration
-Switch statement can be replaced with enhanced 'switch'
-in `base/src/main/java/org/arend/typechecking/visitor/FindSubexpressionVisitor.java`
-#### Snippet
-```java
-  @Override
-  public Boolean visitReference(ReferenceExpression expression, Void param) {
-    switch (myFunction.apply(expression)) {
-      case STOP: return true;
-      case SKIP: return false;
-```
-
-### EnhancedSwitchMigration
-Switch statement can be replaced with enhanced 'switch'
-in `base/src/main/java/org/arend/typechecking/visitor/FindSubexpressionVisitor.java`
-#### Snippet
-```java
-  @Override
-  public Boolean visitPi(PiExpression expression, Void param) {
-    switch (myFunction.apply(expression)) {
-      case STOP: return true;
-      case SKIP: return false;
-```
-
-### EnhancedSwitchMigration
-Switch statement can be replaced with enhanced 'switch'
-in `base/src/main/java/org/arend/typechecking/visitor/FindSubexpressionVisitor.java`
-#### Snippet
-```java
-  @Override
-  public Boolean visitSigma(SigmaExpression expression, Void param) {
-    switch (myFunction.apply(expression)) {
-      case STOP: return true;
-      case SKIP: return false;
-```
-
-### EnhancedSwitchMigration
-Switch statement can be replaced with enhanced 'switch'
-in `base/src/main/java/org/arend/typechecking/visitor/FindSubexpressionVisitor.java`
-#### Snippet
-```java
-  @Override
-  public Boolean visitSubst(SubstExpression expression, Void param) {
-    switch (myFunction.apply(expression)) {
-      case STOP: return true;
-      case SKIP: return false;
-```
-
-### EnhancedSwitchMigration
-Switch statement can be replaced with enhanced 'switch'
-in `base/src/main/java/org/arend/typechecking/visitor/FindSubexpressionVisitor.java`
-#### Snippet
-```java
-  @Override
-  public Boolean visitProj(ProjExpression expression, Void param) {
-    switch (myFunction.apply(expression)) {
       case STOP: return true;
       case SKIP: return false;
 ```
@@ -8419,19 +8299,7 @@ in `base/src/main/java/org/arend/typechecking/visitor/FindSubexpressionVisitor.j
 #### Snippet
 ```java
   @Override
-  public Boolean visitInteger(IntegerExpression expression, Void param) {
-    switch (myFunction.apply(expression)) {
-      case STOP: return true;
-      case SKIP: return false;
-```
-
-### EnhancedSwitchMigration
-Switch statement can be replaced with enhanced 'switch'
-in `base/src/main/java/org/arend/typechecking/visitor/FindSubexpressionVisitor.java`
-#### Snippet
-```java
-  @Override
-  public Boolean visitUniverse(UniverseExpression expression, Void param) {
+  public Boolean visitInferenceReference(InferenceReferenceExpression expression, Void param) {
     switch (myFunction.apply(expression)) {
       case STOP: return true;
       case SKIP: return false;
@@ -8455,7 +8323,31 @@ in `base/src/main/java/org/arend/typechecking/visitor/FindSubexpressionVisitor.j
 #### Snippet
 ```java
   @Override
-  public Boolean visitApp(AppExpression expression, Void param) {
+  public Boolean visitReference(ReferenceExpression expression, Void param) {
+    switch (myFunction.apply(expression)) {
+      case STOP: return true;
+      case SKIP: return false;
+```
+
+### EnhancedSwitchMigration
+Switch statement can be replaced with enhanced 'switch'
+in `base/src/main/java/org/arend/typechecking/visitor/FindSubexpressionVisitor.java`
+#### Snippet
+```java
+  @Override
+  public Boolean visitUniverse(UniverseExpression expression, Void param) {
+    switch (myFunction.apply(expression)) {
+      case STOP: return true;
+      case SKIP: return false;
+```
+
+### EnhancedSwitchMigration
+Switch statement can be replaced with enhanced 'switch'
+in `base/src/main/java/org/arend/typechecking/visitor/FindSubexpressionVisitor.java`
+#### Snippet
+```java
+  @Override
+  public Boolean visitSubst(SubstExpression expression, Void param) {
     switch (myFunction.apply(expression)) {
       case STOP: return true;
       case SKIP: return false;
@@ -8479,6 +8371,90 @@ in `base/src/main/java/org/arend/typechecking/visitor/FindSubexpressionVisitor.j
 #### Snippet
 ```java
   @Override
+  public Boolean visitTypeConstructor(TypeConstructorExpression expr, Void param) {
+    switch (myFunction.apply(expr)) {
+      case STOP: return true;
+      case SKIP: return false;
+```
+
+### EnhancedSwitchMigration
+Switch statement can be replaced with enhanced 'switch'
+in `base/src/main/java/org/arend/typechecking/visitor/FindSubexpressionVisitor.java`
+#### Snippet
+```java
+  @Override
+  public Boolean visitSigma(SigmaExpression expression, Void param) {
+    switch (myFunction.apply(expression)) {
+      case STOP: return true;
+      case SKIP: return false;
+```
+
+### EnhancedSwitchMigration
+Switch statement can be replaced with enhanced 'switch'
+in `base/src/main/java/org/arend/typechecking/visitor/FindSubexpressionVisitor.java`
+#### Snippet
+```java
+  @Override
+  public Boolean visitPEval(PEvalExpression expression, Void param) {
+    switch (myFunction.apply(expression)) {
+      case STOP: return true;
+      case SKIP: return false;
+```
+
+### EnhancedSwitchMigration
+Switch statement can be replaced with enhanced 'switch'
+in `base/src/main/java/org/arend/typechecking/visitor/FindSubexpressionVisitor.java`
+#### Snippet
+```java
+  @Override
+  public Boolean visitLet(LetExpression expression, Void param) {
+    switch (myFunction.apply(expression)) {
+      case STOP: return true;
+      case SKIP: return false;
+```
+
+### EnhancedSwitchMigration
+Switch statement can be replaced with enhanced 'switch'
+in `base/src/main/java/org/arend/typechecking/visitor/FindSubexpressionVisitor.java`
+#### Snippet
+```java
+  @Override
+  public Boolean visitInteger(IntegerExpression expression, Void param) {
+    switch (myFunction.apply(expression)) {
+      case STOP: return true;
+      case SKIP: return false;
+```
+
+### EnhancedSwitchMigration
+Switch statement can be replaced with enhanced 'switch'
+in `base/src/main/java/org/arend/typechecking/visitor/FindSubexpressionVisitor.java`
+#### Snippet
+```java
+  @Override
+  public Boolean visitProj(ProjExpression expression, Void param) {
+    switch (myFunction.apply(expression)) {
+      case STOP: return true;
+      case SKIP: return false;
+```
+
+### EnhancedSwitchMigration
+Switch statement can be replaced with enhanced 'switch'
+in `base/src/main/java/org/arend/typechecking/visitor/FindSubexpressionVisitor.java`
+#### Snippet
+```java
+  @Override
+  public Boolean visitTuple(TupleExpression expression, Void param) {
+    switch (myFunction.apply(expression)) {
+      case STOP: return true;
+      case SKIP: return false;
+```
+
+### EnhancedSwitchMigration
+Switch statement can be replaced with enhanced 'switch'
+in `base/src/main/java/org/arend/typechecking/visitor/FindSubexpressionVisitor.java`
+#### Snippet
+```java
+  @Override
   public Boolean visitCase(CaseExpression expression, Void param) {
     switch (myFunction.apply(expression)) {
       case STOP: return true;
@@ -8491,20 +8467,32 @@ in `base/src/main/java/org/arend/typechecking/visitor/FindSubexpressionVisitor.j
 #### Snippet
 ```java
   @Override
-  public Boolean visitBox(BoxExpression expr, Void params) {
-    switch (myFunction.apply(expr)) {
+  public Boolean visitApp(AppExpression expression, Void param) {
+    switch (myFunction.apply(expression)) {
       case STOP: return true;
       case SKIP: return false;
 ```
 
 ### EnhancedSwitchMigration
 Switch statement can be replaced with enhanced 'switch'
-in `base/src/main/java/org/arend/typechecking/visitor/SearchVisitor.java`
+in `base/src/main/java/org/arend/typechecking/visitor/FindSubexpressionVisitor.java`
 #### Snippet
 ```java
   @Override
-  public Boolean visitDefCall(DefCallExpression expression, P param) {
-    switch (processDefCall(expression, param)) {
+  public Boolean visitNew(NewExpression expression, Void param) {
+    switch (myFunction.apply(expression)) {
+      case STOP: return true;
+      case SKIP: return false;
+```
+
+### EnhancedSwitchMigration
+Switch statement can be replaced with enhanced 'switch'
+in `base/src/main/java/org/arend/typechecking/visitor/FindSubexpressionVisitor.java`
+#### Snippet
+```java
+  @Override
+  public Boolean visitPi(PiExpression expression, Void param) {
+    switch (myFunction.apply(expression)) {
       case STOP: return true;
       case SKIP: return false;
 ```
@@ -8526,11 +8514,47 @@ Switch statement can be replaced with enhanced 'switch'
 in `base/src/main/java/org/arend/typechecking/visitor/SearchVisitor.java`
 #### Snippet
 ```java
+  @Override
+  public Boolean visitDefCall(DefCallExpression expression, P param) {
+    switch (processDefCall(expression, param)) {
+      case STOP: return true;
+      case SKIP: return false;
+```
+
+### EnhancedSwitchMigration
+Switch statement can be replaced with enhanced 'switch'
+in `base/src/main/java/org/arend/typechecking/visitor/SearchVisitor.java`
+#### Snippet
+```java
     while (true) {
       expression = (ConCallExpression) it;
       switch (processDefCall(expression, param)) {
         case STOP: return true;
         case SKIP: return false;
+```
+
+### EnhancedSwitchMigration
+Switch statement can be replaced with enhanced 'switch'
+in `base/src/main/java/org/arend/typechecking/termination/BaseCallMatrix.java`
+#### Snippet
+```java
+
+  static char rToChar(R r) {
+    switch (r) {
+      case Equal:
+        return '=';
+```
+
+### EnhancedSwitchMigration
+Switch statement can be replaced with enhanced 'switch'
+in `base/src/main/java/org/arend/typechecking/termination/BaseCallMatrix.java`
+#### Snippet
+```java
+
+  static boolean rleq(BaseCallMatrix.R a, BaseCallMatrix.R b) {
+    switch (a) {
+      case LessThan:
+        return (b == BaseCallMatrix.R.LessThan);
 ```
 
 ### EnhancedSwitchMigration
@@ -8567,30 +8591,6 @@ in `base/src/main/java/org/arend/typechecking/termination/BaseCallMatrix.java`
         switch (b) {
           case Equal:
           case LessThan:
-```
-
-### EnhancedSwitchMigration
-Switch statement can be replaced with enhanced 'switch'
-in `base/src/main/java/org/arend/typechecking/termination/BaseCallMatrix.java`
-#### Snippet
-```java
-
-  static char rToChar(R r) {
-    switch (r) {
-      case Equal:
-        return '=';
-```
-
-### EnhancedSwitchMigration
-Switch statement can be replaced with enhanced 'switch'
-in `base/src/main/java/org/arend/typechecking/termination/BaseCallMatrix.java`
-#### Snippet
-```java
-
-  static boolean rleq(BaseCallMatrix.R a, BaseCallMatrix.R b) {
-    switch (a) {
-      case LessThan:
-        return (b == BaseCallMatrix.R.LessThan);
 ```
 
 ### EnhancedSwitchMigration
@@ -8647,7 +8647,7 @@ Assignment to for-loop parameter `link1`
 in `base/src/main/java/org/arend/core/expr/visitor/NormalizeVisitor.java`
 #### Snippet
 ```java
-    SingleDependentLink link = DependentLink.Helper.subst(parameters, substitution);
+    DependentLink link = DependentLink.Helper.subst(parameters, substitution);
     for (DependentLink link1 = link; link1.hasNext(); link1 = link1.getNext()) {
       link1 = link1.getNextTyped(null);
       link1.setType(link1.getType().normalize(mode));
@@ -8659,7 +8659,7 @@ Assignment to for-loop parameter `link1`
 in `base/src/main/java/org/arend/core/expr/visitor/NormalizeVisitor.java`
 #### Snippet
 ```java
-    DependentLink link = DependentLink.Helper.subst(parameters, substitution);
+    SingleDependentLink link = DependentLink.Helper.subst(parameters, substitution);
     for (DependentLink link1 = link; link1.hasNext(); link1 = link1.getNext()) {
       link1 = link1.getNextTyped(null);
       link1.setType(link1.getType().normalize(mode));
@@ -8715,18 +8715,6 @@ in `base/src/main/java/org/arend/util/StringEscapeUtils.java`
 ```
 
 ### AssignmentToForLoopParameter
-Assignment to for-loop parameter `link`
-in `base/src/main/java/org/arend/term/prettyprint/PrettyPrintVisitor.java`
-#### Snippet
-```java
-              recursiveArg++;
-            } else {
-              link = link.getNext();
-              recursiveParam++;
-            }
-```
-
-### AssignmentToForLoopParameter
 Assignment to for-loop parameter `i`
 in `base/src/main/java/org/arend/module/serialization/ExpressionDeserialization.java`
 #### Snippet
@@ -8736,6 +8724,18 @@ in `base/src/main/java/org/arend/module/serialization/ExpressionDeserialization.
         i--;
       } else {
         args.add(readExpr(protos.get(i)));
+```
+
+### AssignmentToForLoopParameter
+Assignment to for-loop parameter `link`
+in `base/src/main/java/org/arend/term/prettyprint/ToAbstractVisitor.java`
+#### Snippet
+```java
+      DependentLink link1 = link.getNextTyped(null);
+      Set<Variable> freeVars = myFreeVariablesCollector.getFreeVariables(link1);
+      for (; link != link1; link = link.getNext()) {
+        referableList.add(makeLocalReference(link, freeVars, genName || !link.isExplicit()));
+      }
 ```
 
 ### AssignmentToForLoopParameter
@@ -8752,14 +8752,14 @@ in `base/src/main/java/org/arend/term/prettyprint/ToAbstractVisitor.java`
 
 ### AssignmentToForLoopParameter
 Assignment to for-loop parameter `link`
-in `base/src/main/java/org/arend/term/prettyprint/ToAbstractVisitor.java`
+in `base/src/main/java/org/arend/term/prettyprint/PrettyPrintVisitor.java`
 #### Snippet
 ```java
-      DependentLink link1 = link.getNextTyped(null);
-      Set<Variable> freeVars = myFreeVariablesCollector.getFreeVariables(link1);
-      for (; link != link1; link = link.getNext()) {
-        referableList.add(makeLocalReference(link, freeVars, genName || !link.isExplicit()));
-      }
+              recursiveArg++;
+            } else {
+              link = link.getNext();
+              recursiveParam++;
+            }
 ```
 
 ### AssignmentToForLoopParameter
@@ -8787,18 +8787,6 @@ in `base/src/main/java/org/arend/naming/resolving/visitor/DefinitionResolveNameV
 ```
 
 ### AssignmentToForLoopParameter
-Assignment to for-loop parameter `link`
-in `base/src/main/java/org/arend/typechecking/order/listener/TypecheckingOrderingListener.java`
-#### Snippet
-```java
-      definitionCallGraph.add(entry.getKey(), functionClauses == null ? Collections.emptyList() : functionClauses, definitions.keySet());
-      for (DependentLink link = entry.getKey().getParameters(); link.hasNext(); link = link.getNext()) {
-        link = link.getNextTyped(null);
-        if (FindDefCallVisitor.findDefinition(link.getTypeExpr(), definitions.keySet()) != null) {
-          myErrorReporter.report(new TypecheckingError("Mutually recursive functions are not allowed in parameters", entry.getValue()).withDefinition(entry.getKey().getReferable()));
-```
-
-### AssignmentToForLoopParameter
 Assignment to for-loop parameter `i`
 in `base/src/main/java/org/arend/typechecking/visitor/WhereVarsFixVisitor.java`
 #### Snippet
@@ -8820,6 +8808,18 @@ in `base/src/main/java/org/arend/typechecking/visitor/BaseDefinitionTypechecker.
         link1 = link1.getNextTyped(null);
         checker.check(link1.getTypeExpr());
         if (parameters.isEmpty()) {
+```
+
+### AssignmentToForLoopParameter
+Assignment to for-loop parameter `link`
+in `base/src/main/java/org/arend/typechecking/order/listener/TypecheckingOrderingListener.java`
+#### Snippet
+```java
+      definitionCallGraph.add(entry.getKey(), functionClauses == null ? Collections.emptyList() : functionClauses, definitions.keySet());
+      for (DependentLink link = entry.getKey().getParameters(); link.hasNext(); link = link.getNext()) {
+        link = link.getNextTyped(null);
+        if (FindDefCallVisitor.findDefinition(link.getTypeExpr(), definitions.keySet()) != null) {
+          myErrorReporter.report(new TypecheckingError("Mutually recursive functions are not allowed in parameters", entry.getValue()).withDefinition(entry.getKey().getReferable()));
 ```
 
 ### AssignmentToForLoopParameter
@@ -8859,6 +8859,18 @@ in `base/src/main/java/org/arend/typechecking/implicitargs/equations/TwoStageEqu
 ```
 
 ### AssignmentToForLoopParameter
+Assignment to for-loop parameter `j`
+in `base/src/main/java/org/arend/typechecking/patternmatching/ElimTypechecking.java`
+#### Snippet
+```java
+      for (int j = i + 1; j < missingClauses.size(); j++) {
+        if (ExpressionPattern.compare(missingClauses.get(i), missingClauses.get(j))) {
+          missingClauses.remove(j--);
+        }
+      }
+```
+
+### AssignmentToForLoopParameter
 Assignment to for-loop parameter `i`
 in `base/src/main/java/org/arend/typechecking/patternmatching/ElimTypechecking.java`
 #### Snippet
@@ -8883,15 +8895,27 @@ in `base/src/main/java/org/arend/typechecking/patternmatching/ElimTypechecking.j
 ```
 
 ### AssignmentToForLoopParameter
-Assignment to for-loop parameter `j`
-in `base/src/main/java/org/arend/typechecking/patternmatching/ElimTypechecking.java`
+Assignment to for-loop parameter `link`
+in `base/src/main/java/org/arend/typechecking/visitor/DefinitionTypechecker.java`
 #### Snippet
 ```java
-      for (int j = i + 1; j < missingClauses.size(); j++) {
-        if (ExpressionPattern.compare(missingClauses.get(i), missingClauses.get(j))) {
-          missingClauses.remove(j--);
-        }
-      }
+        for (Constructor constructor : dataDefinition.getConstructors()) {
+          for (DependentLink link = constructor.getParameters(); link.hasNext(); link = link.getNext()) {
+            link = link.getNextTyped(null);
+            universeKind = universeKind.max(new UniverseKindChecker().getUniverseKind(link.getTypeExpr()));
+            if (universeKind == UniverseKind.WITH_UNIVERSES) {
+```
+
+### AssignmentToForLoopParameter
+Assignment to for-loop parameter `param`
+in `base/src/main/java/org/arend/typechecking/visitor/DefinitionTypechecker.java`
+#### Snippet
+```java
+
+      for (DependentLink param = getExprParameters(expr2); param.hasNext(); param = param.getNext()) {
+        param = param.getNextTyped(null);
+        if (compareExpressions(expr1, param.getTypeExpr(), Type.OMEGA) != 1) {
+          return -1;
 ```
 
 ### AssignmentToForLoopParameter
@@ -8923,35 +8947,11 @@ Assignment to for-loop parameter `link`
 in `base/src/main/java/org/arend/typechecking/visitor/DefinitionTypechecker.java`
 #### Snippet
 ```java
-        for (Constructor constructor : dataDefinition.getConstructors()) {
-          for (DependentLink link = constructor.getParameters(); link.hasNext(); link = link.getNext()) {
-            link = link.getNextTyped(null);
-            universeKind = universeKind.max(new UniverseKindChecker().getUniverseKind(link.getTypeExpr()));
-            if (universeKind == UniverseKind.WITH_UNIVERSES) {
-```
-
-### AssignmentToForLoopParameter
-Assignment to for-loop parameter `link`
-in `base/src/main/java/org/arend/typechecking/visitor/DefinitionTypechecker.java`
-#### Snippet
-```java
       int start = index;
       while (!(link instanceof TypedDependentLink)) {
         link = link.getNext();
         index++;
       }
-```
-
-### AssignmentToForLoopParameter
-Assignment to for-loop parameter `param`
-in `base/src/main/java/org/arend/typechecking/visitor/DefinitionTypechecker.java`
-#### Snippet
-```java
-
-      for (DependentLink param = getExprParameters(expr2); param.hasNext(); param = param.getNext()) {
-        param = param.getNextTyped(null);
-        if (compareExpressions(expr1, param.getTypeExpr(), Type.OMEGA) != 1) {
-          return -1;
 ```
 
 ### AssignmentToForLoopParameter
@@ -8995,6 +8995,18 @@ Assignment to for-loop parameter `i`
 in `base/src/main/java/org/arend/typechecking/visitor/CheckTypeVisitor.java`
 #### Snippet
 ```java
+        pathArgs.add(expr);
+        pathArgs.add(new ReferenceExpression(link));
+        i++;
+        if (i >= parameters.size()) {
+          ok = false;
+```
+
+### AssignmentToForLoopParameter
+Assignment to for-loop parameter `i`
+in `base/src/main/java/org/arend/typechecking/visitor/CheckTypeVisitor.java`
+#### Snippet
+```java
         errorReporter.report(new ArgumentExplicitnessError(true, arguments.get(i).expression));
         while (i < arguments.size() && !arguments.get(i).isExplicit()) {
           i++;
@@ -9024,18 +9036,6 @@ in `base/src/main/java/org/arend/typechecking/visitor/CheckTypeVisitor.java`
               i++;
             }
             if (piParam == null) {
-```
-
-### AssignmentToForLoopParameter
-Assignment to for-loop parameter `i`
-in `base/src/main/java/org/arend/typechecking/visitor/CheckTypeVisitor.java`
-#### Snippet
-```java
-        pathArgs.add(expr);
-        pathArgs.add(new ReferenceExpression(link));
-        i++;
-        if (i >= parameters.size()) {
-          ok = false;
 ```
 
 ## RuleId[ruleID=UnnecessaryToStringCall]
@@ -9156,10 +9156,10 @@ in `cli/src/main/java/org/arend/frontend/ui/ArendCliUI.java`
 #### Snippet
 ```java
   @Override
-  public void showMessage(@Nullable String title, @NotNull String message) {
-    System.out.println((title == null ? "" : title + ": ") + message);
+  public void println(@NotNull Doc doc) {
+    System.out.println(DocStringBuilder.build(doc));
   }
-
+}
 ```
 
 ### SystemOutErr
@@ -9180,10 +9180,10 @@ in `cli/src/main/java/org/arend/frontend/ui/ArendCliUI.java`
 #### Snippet
 ```java
   @Override
-  public void println(@NotNull Doc doc) {
-    System.out.println(DocStringBuilder.build(doc));
+  public void showMessage(@Nullable String title, @NotNull String message) {
+    System.out.println((title == null ? "" : title + ": ") + message);
   }
-}
+
 ```
 
 ### SystemOutErr
@@ -9235,15 +9235,15 @@ in `cli/src/main/java/org/arend/frontend/PreludeBinaryGenerator.java`
 ```
 
 ### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
+Uses of `System.err` should probably be replaced with more robust logging
 in `cli/src/main/java/org/arend/frontend/repl/PlainCliRepl.java`
 #### Snippet
 ```java
   @Override
-  public void print(Object anything) {
-    System.out.print(anything);
-    System.out.flush();
+  public void printlnOpt(Object anything, boolean toError) {
+    (toError ? System.err : System.out).println(anything);
   }
+
 ```
 
 ### SystemOutErr
@@ -9251,9 +9251,33 @@ Uses of `System.out` should probably be replaced with more robust logging
 in `cli/src/main/java/org/arend/frontend/repl/PlainCliRepl.java`
 #### Snippet
 ```java
-  public void print(Object anything) {
-    System.out.print(anything);
-    System.out.flush();
+  @Override
+  public void printlnOpt(Object anything, boolean toError) {
+    (toError ? System.err : System.out).println(anything);
+  }
+
+```
+
+### SystemOutErr
+Uses of `System.err` should probably be replaced with more robust logging
+in `cli/src/main/java/org/arend/frontend/repl/PlainCliRepl.java`
+#### Snippet
+```java
+  @Override
+  public void eprintln(Object anything) {
+    System.err.println(anything);
+    System.err.flush();
+  }
+```
+
+### SystemOutErr
+Uses of `System.err` should probably be replaced with more robust logging
+in `cli/src/main/java/org/arend/frontend/repl/PlainCliRepl.java`
+#### Snippet
+```java
+  public void eprintln(Object anything) {
+    System.err.println(anything);
+    System.err.flush();
   }
 
 ```
@@ -9271,30 +9295,6 @@ in `cli/src/main/java/org/arend/frontend/repl/PlainCliRepl.java`
 ```
 
 ### SystemOutErr
-Uses of `System.err` should probably be replaced with more robust logging
-in `cli/src/main/java/org/arend/frontend/repl/PlainCliRepl.java`
-#### Snippet
-```java
-  @Override
-  public void eprintln(Object anything) {
-    System.err.println(anything);
-    System.err.flush();
-  }
-```
-
-### SystemOutErr
-Uses of `System.err` should probably be replaced with more robust logging
-in `cli/src/main/java/org/arend/frontend/repl/PlainCliRepl.java`
-#### Snippet
-```java
-  public void eprintln(Object anything) {
-    System.err.println(anything);
-    System.err.flush();
-  }
-
-```
-
-### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
 in `cli/src/main/java/org/arend/frontend/repl/PlainCliRepl.java`
 #### Snippet
@@ -9307,15 +9307,15 @@ in `cli/src/main/java/org/arend/frontend/repl/PlainCliRepl.java`
 ```
 
 ### SystemOutErr
-Uses of `System.err` should probably be replaced with more robust logging
+Uses of `System.out` should probably be replaced with more robust logging
 in `cli/src/main/java/org/arend/frontend/repl/PlainCliRepl.java`
 #### Snippet
 ```java
   @Override
-  public void printlnOpt(Object anything, boolean toError) {
-    (toError ? System.err : System.out).println(anything);
+  public void print(Object anything) {
+    System.out.print(anything);
+    System.out.flush();
   }
-
 ```
 
 ### SystemOutErr
@@ -9323,9 +9323,9 @@ Uses of `System.out` should probably be replaced with more robust logging
 in `cli/src/main/java/org/arend/frontend/repl/PlainCliRepl.java`
 #### Snippet
 ```java
-  @Override
-  public void printlnOpt(Object anything, boolean toError) {
-    (toError ? System.err : System.out).println(anything);
+  public void print(Object anything) {
+    System.out.print(anything);
+    System.out.flush();
   }
 
 ```
@@ -9340,30 +9340,6 @@ in `cli/src/main/java/org/arend/frontend/ui/CliSession.java`
     System.out.print("[default: " + defaultValue + "]");
   }
 
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `cli/src/main/java/org/arend/frontend/ui/CliSession.java`
-#### Snippet
-```java
-
-  private String readLine(BufferedReader reader) {
-    System.out.print(": ");
-    System.out.flush();
-    try {
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `cli/src/main/java/org/arend/frontend/ui/CliSession.java`
-#### Snippet
-```java
-  private String readLine(BufferedReader reader) {
-    System.out.print(": ");
-    System.out.flush();
-    try {
-      String line = reader.readLine();
 ```
 
 ### SystemOutErr
@@ -9463,6 +9439,30 @@ in `cli/src/main/java/org/arend/frontend/ui/CliSession.java`
 ```
 
 ### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `cli/src/main/java/org/arend/frontend/ui/CliSession.java`
+#### Snippet
+```java
+
+  private String readLine(BufferedReader reader) {
+    System.out.print(": ");
+    System.out.flush();
+    try {
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `cli/src/main/java/org/arend/frontend/ui/CliSession.java`
+#### Snippet
+```java
+  private String readLine(BufferedReader reader) {
+    System.out.print(": ");
+    System.out.flush();
+    try {
+      String line = reader.readLine();
+```
+
+### SystemOutErr
 Uses of `System.err` should probably be replaced with more robust logging
 in `cli/src/main/java/org/arend/frontend/repl/jline/JLineCliRepl.java`
 #### Snippet
@@ -9472,18 +9472,6 @@ in `cli/src/main/java/org/arend/frontend/repl/jline/JLineCliRepl.java`
       System.err.println("[FATAL] Failed to create terminal: " + e.getLocalizedMessage());
       System.exit(1);
       return;
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `cli/src/main/java/org/arend/frontend/library/TimedLibraryManager.java`
-#### Snippet
-```java
-  @Override
-  protected void beforeLibraryLoading(@NotNull Library library) {
-    System.out.println("[INFO] Loading library " + library.getName());
-    times.push(System.currentTimeMillis());
-  }
 ```
 
 ### SystemOutErr
@@ -9508,6 +9496,78 @@ in `cli/src/main/java/org/arend/frontend/library/TimedLibraryManager.java`
     System.out.println("[INFO] " + (successful ? "Loaded " : "Failed loading ") + "library " + library.getName() + (successful ? " (" + timeToString(time) + ")" : ""));
   }
 }
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `cli/src/main/java/org/arend/frontend/library/TimedLibraryManager.java`
+#### Snippet
+```java
+  @Override
+  protected void beforeLibraryLoading(@NotNull Library library) {
+    System.out.println("[INFO] Loading library " + library.getName());
+    times.push(System.currentTimeMillis());
+  }
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `cli/src/main/java/org/arend/frontend/BaseCliFrontend.java`
+#### Snippet
+```java
+
+  private void reportTypeCheckResult(ModulePath modulePath, GeneralError.Level result) {
+    System.out.println("[" + resultChar(result) + "]" + " " + modulePath);
+  }
+
+```
+
+### SystemOutErr
+Uses of `System.err` should probably be replaced with more robust logging
+in `cli/src/main/java/org/arend/frontend/BaseCliFrontend.java`
+#### Snippet
+```java
+  private boolean myExitWithError = false;
+  private final ErrorReporter mySystemErrErrorReporter = error -> {
+    System.err.println(error);
+    System.err.flush();
+    myExitWithError = true;
+```
+
+### SystemOutErr
+Uses of `System.err` should probably be replaced with more robust logging
+in `cli/src/main/java/org/arend/frontend/BaseCliFrontend.java`
+#### Snippet
+```java
+  private final ErrorReporter mySystemErrErrorReporter = error -> {
+    System.err.println(error);
+    System.err.flush();
+    myExitWithError = true;
+  };
+```
+
+### SystemOutErr
+Uses of `System.err` should probably be replaced with more robust logging
+in `cli/src/main/java/org/arend/frontend/BaseCliFrontend.java`
+#### Snippet
+```java
+      longName = LongName.fromString(fullName.substring(index + 1));
+      if (!FileUtils.isCorrectDefinitionName(longName)) {
+        System.err.println(FileUtils.illegalDefinitionName(longName.toString()));
+        longName = null;
+      }
+```
+
+### SystemOutErr
+Uses of `System.err` should probably be replaced with more robust logging
+in `cli/src/main/java/org/arend/frontend/BaseCliFrontend.java`
+#### Snippet
+```java
+    modulePath = ModulePath.fromString(fullName);
+    if (!FileUtils.isCorrectModulePath(modulePath)) {
+      System.err.println(FileUtils.illegalModuleName(modulePath.toString()));
+      modulePath = null;
+    }
 ```
 
 ### SystemOutErr
@@ -9564,21 +9624,9 @@ in `cli/src/main/java/org/arend/frontend/BaseCliFrontend.java`
 #### Snippet
 ```java
 
-  private void reportTypeCheckResult(ModulePath modulePath, GeneralError.Level result) {
-    System.out.println("[" + resultChar(result) + "]" + " " + modulePath);
-  }
-
-```
-
-### SystemOutErr
-Uses of `System.err` should probably be replaced with more robust logging
-in `cli/src/main/java/org/arend/frontend/BaseCliFrontend.java`
-#### Snippet
-```java
-      longName = LongName.fromString(fullName.substring(index + 1));
-      if (!FileUtils.isCorrectDefinitionName(longName)) {
-        System.err.println(FileUtils.illegalDefinitionName(longName.toString()));
-        longName = null;
+      if (cmdLine.hasOption("v")) {
+        System.out.println("Arend " + Prelude.VERSION);
+        return null;
       }
 ```
 
@@ -9587,10 +9635,10 @@ Uses of `System.err` should probably be replaced with more robust logging
 in `cli/src/main/java/org/arend/frontend/BaseCliFrontend.java`
 #### Snippet
 ```java
-    modulePath = ModulePath.fromString(fullName);
-    if (!FileUtils.isCorrectModulePath(modulePath)) {
-      System.err.println(FileUtils.illegalModuleName(modulePath.toString()));
-      modulePath = null;
+    } catch (ParseException e) {
+      myExitWithError = true;
+      System.err.println(e.getMessage());
+      return null;
     }
 ```
 
@@ -9930,54 +9978,6 @@ in `cli/src/main/java/org/arend/frontend/BaseCliFrontend.java`
       }
 ```
 
-### SystemOutErr
-Uses of `System.err` should probably be replaced with more robust logging
-in `cli/src/main/java/org/arend/frontend/BaseCliFrontend.java`
-#### Snippet
-```java
-  private boolean myExitWithError = false;
-  private final ErrorReporter mySystemErrErrorReporter = error -> {
-    System.err.println(error);
-    System.err.flush();
-    myExitWithError = true;
-```
-
-### SystemOutErr
-Uses of `System.err` should probably be replaced with more robust logging
-in `cli/src/main/java/org/arend/frontend/BaseCliFrontend.java`
-#### Snippet
-```java
-  private final ErrorReporter mySystemErrErrorReporter = error -> {
-    System.err.println(error);
-    System.err.flush();
-    myExitWithError = true;
-  };
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `cli/src/main/java/org/arend/frontend/BaseCliFrontend.java`
-#### Snippet
-```java
-
-      if (cmdLine.hasOption("v")) {
-        System.out.println("Arend " + Prelude.VERSION);
-        return null;
-      }
-```
-
-### SystemOutErr
-Uses of `System.err` should probably be replaced with more robust logging
-in `cli/src/main/java/org/arend/frontend/BaseCliFrontend.java`
-#### Snippet
-```java
-    } catch (ParseException e) {
-      myExitWithError = true;
-      System.err.println(e.getMessage());
-      return null;
-    }
-```
-
 ## RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
 ### DynamicRegexReplaceableByCompiledPattern
 `split()` could be replaced with compiled 'java.util.regex.Pattern' construct
@@ -10008,18 +10008,6 @@ in `api/src/main/java/org/arend/ext/prettyprinting/doc/DocFactory.java`
 in `base/src/main/java/org/arend/term/prettyprint/PrettyPrintVisitor.java`
 #### Snippet
 ```java
-        printListElement(ppv, e);
-
-        String[] strs = sb.toString().split("[\\r\\n]+");
-        int sz = strs.length;
-
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`split()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `base/src/main/java/org/arend/term/prettyprint/PrettyPrintVisitor.java`
-#### Snippet
-```java
 
 
       List<String> lhs_strings = new ArrayList<>(); Collections.addAll(lhs_strings, lhs.toString().split("[\\r\\n]+"));
@@ -10037,6 +10025,18 @@ in `base/src/main/java/org/arend/term/prettyprint/PrettyPrintVisitor.java`
       List<String> rhs_strings = new ArrayList<>(); Collections.addAll(rhs_strings, rhs.toString().split("[\\r\\n]+"));
 
       int lhs_sz = lhs_strings.size();
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`split()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `base/src/main/java/org/arend/term/prettyprint/PrettyPrintVisitor.java`
+#### Snippet
+```java
+        printListElement(ppv, e);
+
+        String[] strs = sb.toString().split("[\\r\\n]+");
+        int sz = strs.length;
+
 ```
 
 ## RuleId[ruleID=UnnecessaryFullyQualifiedName]
@@ -10079,18 +10079,6 @@ in `base/src/main/java/org/arend/core/expr/DefCallExpression.java`
 ```
 
 ### NonProtectedConstructorInAbstractClass
-Constructor `CommonCliRepl()` of an abstract class should not be declared 'public'
-in `cli/src/main/java/org/arend/frontend/repl/CommonCliRepl.java`
-#### Snippet
-```java
-  }
-
-  public CommonCliRepl() {
-    this(new TreeSet<>(), new ListErrorReporter(new ArrayList<>()));
-  }
-```
-
-### NonProtectedConstructorInAbstractClass
 Constructor `LeveledDefCallExpression()` of an abstract class should not be declared 'public'
 in `base/src/main/java/org/arend/core/expr/LeveledDefCallExpression.java`
 #### Snippet
@@ -10100,6 +10088,18 @@ in `base/src/main/java/org/arend/core/expr/LeveledDefCallExpression.java`
   public LeveledDefCallExpression(Definition definition, Levels levels) {
     super(definition);
     assert definition.status().needsTypeChecking() || (definition.getLevelParameters() == null) == (levels instanceof LevelPair);
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `CommonCliRepl()` of an abstract class should not be declared 'public'
+in `cli/src/main/java/org/arend/frontend/repl/CommonCliRepl.java`
+#### Snippet
+```java
+  }
+
+  public CommonCliRepl() {
+    this(new TreeSet<>(), new ListErrorReporter(new ArrayList<>()));
+  }
 ```
 
 ### NonProtectedConstructorInAbstractClass
@@ -10211,39 +10211,27 @@ in `base/src/main/java/org/arend/extImpl/BaseContextDataImpl.java`
 ```
 
 ### NonProtectedConstructorInAbstractClass
-Constructor `Definition()` of an abstract class should not be declared 'public'
+Constructor `Pattern()` of an abstract class should not be declared 'public'
 in `base/src/main/java/org/arend/term/concrete/Concrete.java`
 #### Snippet
 ```java
-    private List<Pair<TCDefReferable,Integer>> myParametersOriginalDefinitions = Collections.emptyList();
+    private TypedReferable myAsReferable;
 
-    public Definition(TCDefReferable referable, LevelParameters pParams, LevelParameters hParams) {
-      myReferable = referable;
-      myPLevelParameters = pParams;
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `Clause()` of an abstract class should not be declared 'public'
-in `base/src/main/java/org/arend/term/concrete/Concrete.java`
-#### Snippet
-```java
-    private final List<Pattern> myPatterns;
-
-    public Clause(Object data, List<Pattern> patterns) {
+    public Pattern(Object data, TypedReferable asReferable) {
       super(data);
-      myPatterns = patterns;
+      myExplicit = true;
 ```
 
 ### NonProtectedConstructorInAbstractClass
-Constructor `BaseFunctionDefinition()` of an abstract class should not be declared 'public'
+Constructor `Parameter()` of an abstract class should not be declared 'public'
 in `base/src/main/java/org/arend/term/concrete/Concrete.java`
 #### Snippet
 ```java
-    private final FunctionBody myBody;
+    private boolean myExplicit;
 
-    public BaseFunctionDefinition(TCDefReferable referable, LevelParameters pParams, LevelParameters hParams, List<Parameter> parameters, Expression resultType, Expression resultTypeLevel, FunctionBody body) {
-      super(referable, pParams, hParams);
-      stage = Stage.NOT_RESOLVED;
+    public Parameter(Object data, boolean explicit) {
+      super(data);
+      myExplicit = explicit;
 ```
 
 ### NonProtectedConstructorInAbstractClass
@@ -10259,15 +10247,15 @@ in `base/src/main/java/org/arend/term/concrete/Concrete.java`
 ```
 
 ### NonProtectedConstructorInAbstractClass
-Constructor `Pattern()` of an abstract class should not be declared 'public'
+Constructor `Definition()` of an abstract class should not be declared 'public'
 in `base/src/main/java/org/arend/term/concrete/Concrete.java`
 #### Snippet
 ```java
-    private TypedReferable myAsReferable;
+    private List<Pair<TCDefReferable,Integer>> myParametersOriginalDefinitions = Collections.emptyList();
 
-    public Pattern(Object data, TypedReferable asReferable) {
-      super(data);
-      myExplicit = true;
+    public Definition(TCDefReferable referable, LevelParameters pParams, LevelParameters hParams) {
+      myReferable = referable;
+      myPLevelParameters = pParams;
 ```
 
 ### NonProtectedConstructorInAbstractClass
@@ -10283,15 +10271,27 @@ in `base/src/main/java/org/arend/term/concrete/Concrete.java`
 ```
 
 ### NonProtectedConstructorInAbstractClass
-Constructor `Parameter()` of an abstract class should not be declared 'public'
+Constructor `BaseFunctionDefinition()` of an abstract class should not be declared 'public'
 in `base/src/main/java/org/arend/term/concrete/Concrete.java`
 #### Snippet
 ```java
-    private boolean myExplicit;
+    private final FunctionBody myBody;
 
-    public Parameter(Object data, boolean explicit) {
+    public BaseFunctionDefinition(TCDefReferable referable, LevelParameters pParams, LevelParameters hParams, List<Parameter> parameters, Expression resultType, Expression resultTypeLevel, FunctionBody body) {
+      super(referable, pParams, hParams);
+      stage = Stage.NOT_RESOLVED;
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `Clause()` of an abstract class should not be declared 'public'
+in `base/src/main/java/org/arend/term/concrete/Concrete.java`
+#### Snippet
+```java
+    private final List<Pattern> myPatterns;
+
+    public Clause(Object data, List<Pattern> patterns) {
       super(data);
-      myExplicit = explicit;
+      myPatterns = patterns;
 ```
 
 ## RuleId[ruleID=AssignmentToMethodParameter]
@@ -10344,15 +10344,15 @@ in `cli/src/main/java/org/arend/frontend/repl/action/LoadModuleCommand.java`
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `expr`
-in `base/src/main/java/org/arend/core/expr/ExpressionFactory.java`
+Assignment to method parameter `fullName`
+in `cli/src/main/java/org/arend/frontend/BaseCliFrontend.java`
 #### Snippet
 ```java
-  public static Expression add(Expression expr, int n) {
-    for (int i = 0; i < n; i++) {
-      expr = Suc(expr);
+        longName = null;
+      }
+      fullName = fullName.substring(0, index);
     }
-    return expr;
+    modulePath = ModulePath.fromString(fullName);
 ```
 
 ### AssignmentToMethodParameter
@@ -10368,15 +10368,15 @@ in `base/src/main/java/org/arend/core/expr/OfTypeExpression.java`
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `fullName`
-in `cli/src/main/java/org/arend/frontend/BaseCliFrontend.java`
+Assignment to method parameter `expr`
+in `base/src/main/java/org/arend/core/expr/ExpressionFactory.java`
 #### Snippet
 ```java
-        longName = null;
-      }
-      fullName = fullName.substring(0, index);
+  public static Expression add(Expression expr, int n) {
+    for (int i = 0; i < n; i++) {
+      expr = Suc(expr);
     }
-    modulePath = ModulePath.fromString(fullName);
+    return expr;
 ```
 
 ### AssignmentToMethodParameter
@@ -10428,18 +10428,6 @@ in `base/src/main/java/org/arend/core/expr/TypeConstructorExpression.java`
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `expression`
-in `base/src/main/java/org/arend/core/expr/LetExpression.java`
-#### Snippet
-```java
-
-  public static Expression normalizeClauseExpression(LetClausePattern pattern, Expression expression) {
-    expression = expression.normalize(NormalizationMode.WHNF);
-    if (!pattern.isMatching()) {
-      return expression;
-```
-
-### AssignmentToMethodParameter
 Assignment to method parameter `thisExpr`
 in `base/src/main/java/org/arend/core/expr/FieldCallExpression.java`
 #### Snippet
@@ -10473,6 +10461,18 @@ in `base/src/main/java/org/arend/core/expr/Expression.java`
         n--;
       }
       if (n == 0) {
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `expression`
+in `base/src/main/java/org/arend/core/expr/LetExpression.java`
+#### Snippet
+```java
+
+  public static Expression normalizeClauseExpression(LetClausePattern pattern, Expression expression) {
+    expression = expression.normalize(NormalizationMode.WHNF);
+    if (!pattern.isMatching()) {
+      return expression;
 ```
 
 ### AssignmentToMethodParameter
@@ -10560,78 +10560,6 @@ in `base/src/main/java/org/arend/core/expr/ClassCallExpression.java`
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `arg`
-in `base/src/main/java/org/arend/core/expr/visitor/GoodThisParametersVisitor.java`
-#### Snippet
-```java
-
-  private void visitArgument(Expression arg, Boolean goodParameter) {
-    arg = arg.getUnderlyingExpression();
-    if (arg instanceof FieldCallExpression && goodParameter) {
-      visitDefCall((FieldCallExpression) arg, null);
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `expr`
-in `base/src/main/java/org/arend/core/expr/visitor/GoodThisParametersVisitor.java`
-#### Snippet
-```java
-    boolean goodParam = false;
-    do {
-      expr = (ConCallExpression) it;
-
-      visitArguments(expr.getDataTypeArguments(), expr.getDefinition().getDataType().getGoodThisParameters());
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `expr`
-in `base/src/main/java/org/arend/core/expr/visitor/ExpressionTransformer.java`
-#### Snippet
-```java
-      }
-
-      expr = (ConCallExpression) rec;
-      recursiveParam = expr.getDefinition().getRecursiveParameter();
-    }
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `expr`
-in `base/src/main/java/org/arend/core/expr/visitor/ExpressionTransformer.java`
-#### Snippet
-```java
-
-    for (int i = argStack.size() - 1; i >= 0; i--) {
-      expr = argStack.get(i);
-      ConCallExpression result = resultStack.get(i);
-      for (int j = expr.getDefinition().getRecursiveParameter() + 1; j < expr.getDefCallArguments().size(); j++) {
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `link`
-in `base/src/main/java/org/arend/core/expr/visitor/VoidExpressionVisitor.java`
-#### Snippet
-```java
-
-  public void visitParameters(DependentLink link, P params) {
-    for (; link.hasNext(); link = link.getNext()) {
-      link = link.getNextTyped(null);
-      link.getTypeExpr().accept(this, params);
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `link`
-in `base/src/main/java/org/arend/core/expr/visitor/VoidExpressionVisitor.java`
-#### Snippet
-```java
-  public void visitParameters(DependentLink link, P params) {
-    for (; link.hasNext(); link = link.getNext()) {
-      link = link.getNextTyped(null);
-      link.getTypeExpr().accept(this, params);
-    }
-```
-
-### AssignmentToMethodParameter
 Assignment to method parameter `expr`
 in `base/src/main/java/org/arend/core/expr/visitor/VoidExpressionVisitor.java`
 #### Snippet
@@ -10653,6 +10581,126 @@ in `base/src/main/java/org/arend/core/expr/visitor/VoidExpressionVisitor.java`
       body = ((IntervalElim) body).getOtherwise();
     }
 
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `link`
+in `base/src/main/java/org/arend/core/expr/visitor/VoidExpressionVisitor.java`
+#### Snippet
+```java
+
+  public void visitParameters(DependentLink link, P params) {
+    for (; link.hasNext(); link = link.getNext()) {
+      link = link.getNextTyped(null);
+      link.getTypeExpr().accept(this, params);
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `link`
+in `base/src/main/java/org/arend/core/expr/visitor/VoidExpressionVisitor.java`
+#### Snippet
+```java
+  public void visitParameters(DependentLink link, P params) {
+    for (; link.hasNext(); link = link.getNext()) {
+      link = link.getNextTyped(null);
+      link.getTypeExpr().accept(this, params);
+    }
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `expr`
+in `base/src/main/java/org/arend/core/expr/visitor/ExpressionTransformer.java`
+#### Snippet
+```java
+      }
+
+      expr = (ConCallExpression) rec;
+      recursiveParam = expr.getDefinition().getRecursiveParameter();
+    }
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `expr`
+in `base/src/main/java/org/arend/core/expr/visitor/GoodThisParametersVisitor.java`
+#### Snippet
+```java
+    boolean goodParam = false;
+    do {
+      expr = (ConCallExpression) it;
+
+      visitArguments(expr.getDataTypeArguments(), expr.getDefinition().getDataType().getGoodThisParameters());
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `expr`
+in `base/src/main/java/org/arend/core/expr/visitor/ExpressionTransformer.java`
+#### Snippet
+```java
+
+    for (int i = argStack.size() - 1; i >= 0; i--) {
+      expr = argStack.get(i);
+      ConCallExpression result = resultStack.get(i);
+      for (int j = expr.getDefinition().getRecursiveParameter() + 1; j < expr.getDefCallArguments().size(); j++) {
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `arg`
+in `base/src/main/java/org/arend/core/expr/visitor/GoodThisParametersVisitor.java`
+#### Snippet
+```java
+
+  private void visitArgument(Expression arg, Boolean goodParameter) {
+    arg = arg.getUnderlyingExpression();
+    if (arg instanceof FieldCallExpression && goodParameter) {
+      visitDefCall((FieldCallExpression) arg, null);
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `link`
+in `base/src/main/java/org/arend/core/expr/visitor/StripVisitor.java`
+#### Snippet
+```java
+
+  public void visitParameters(DependentLink link) {
+    for (; link.hasNext(); link = link.getNext()) {
+      DependentLink link1 = link.getNextTyped(null);
+      link1.setType(link1.getType().strip(this));
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `link`
+in `base/src/main/java/org/arend/core/expr/visitor/FindBindingVisitor.java`
+#### Snippet
+```java
+  @Override
+  protected boolean visitDependentLink(DependentLink link, Void param) {
+    for (; link.hasNext(); link = link.getNext()) {
+      if (link instanceof TypedDependentLink && link.getTypeExpr().accept(this, param)) {
+        return true;
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `link`
+in `base/src/main/java/org/arend/core/expr/visitor/FindBindingVisitor.java`
+#### Snippet
+```java
+
+  private void freeDependentLink(DependentLink link) {
+    for (; link.hasNext(); link = link.getNext()) {
+      myAllowedBindings.remove(link);
+    }
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `param`
+in `base/src/main/java/org/arend/core/expr/visitor/FreeVariablesCollector.java`
+#### Snippet
+```java
+
+  private void freeParams(DependentLink param) {
+    for (; param.hasNext(); param = param.getNext()) {
+      myResult.remove(param);
+    }
 ```
 
 ### AssignmentToMethodParameter
@@ -10681,14 +10729,26 @@ in `base/src/main/java/org/arend/core/expr/visitor/FindMissingBindingVisitor.jav
 
 ### AssignmentToMethodParameter
 Assignment to method parameter `link`
-in `base/src/main/java/org/arend/core/expr/visitor/StripVisitor.java`
+in `base/src/main/java/org/arend/core/expr/visitor/NormalizingFindBindingVisitor.java`
 #### Snippet
 ```java
 
-  public void visitParameters(DependentLink link) {
+  private boolean visitDependentLink(DependentLink link) {
     for (; link.hasNext(); link = link.getNext()) {
-      DependentLink link1 = link.getNextTyped(null);
-      link1.setType(link1.getType().strip(this));
+      link = link.getNextTyped(null);
+      if (findBinding(link.getTypeExpr(), true)) {
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `link`
+in `base/src/main/java/org/arend/core/expr/visitor/NormalizingFindBindingVisitor.java`
+#### Snippet
+```java
+  private boolean visitDependentLink(DependentLink link) {
+    for (; link.hasNext(); link = link.getNext()) {
+      link = link.getNextTyped(null);
+      if (findBinding(link.getTypeExpr(), true)) {
+        return true;
 ```
 
 ### AssignmentToMethodParameter
@@ -10713,66 +10773,6 @@ in `base/src/main/java/org/arend/core/expr/visitor/FieldsCollector.java`
       expr = (ConCallExpression) it;
 
       checkArguments(expr.getDefinition().getDataTypeParameters(), expr.getDataTypeArguments());
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `param`
-in `base/src/main/java/org/arend/core/expr/visitor/FreeVariablesCollector.java`
-#### Snippet
-```java
-
-  private void freeParams(DependentLink param) {
-    for (; param.hasNext(); param = param.getNext()) {
-      myResult.remove(param);
-    }
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `link`
-in `base/src/main/java/org/arend/core/expr/visitor/FindBindingVisitor.java`
-#### Snippet
-```java
-  @Override
-  protected boolean visitDependentLink(DependentLink link, Void param) {
-    for (; link.hasNext(); link = link.getNext()) {
-      if (link instanceof TypedDependentLink && link.getTypeExpr().accept(this, param)) {
-        return true;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `link`
-in `base/src/main/java/org/arend/core/expr/visitor/FindBindingVisitor.java`
-#### Snippet
-```java
-
-  private void freeDependentLink(DependentLink link) {
-    for (; link.hasNext(); link = link.getNext()) {
-      myAllowedBindings.remove(link);
-    }
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `link`
-in `base/src/main/java/org/arend/core/expr/visitor/NormalizingFindBindingVisitor.java`
-#### Snippet
-```java
-
-  private boolean visitDependentLink(DependentLink link) {
-    for (; link.hasNext(); link = link.getNext()) {
-      link = link.getNextTyped(null);
-      if (findBinding(link.getTypeExpr(), true)) {
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `link`
-in `base/src/main/java/org/arend/core/expr/visitor/NormalizingFindBindingVisitor.java`
-#### Snippet
-```java
-  private boolean visitDependentLink(DependentLink link) {
-    for (; link.hasNext(); link = link.getNext()) {
-      link = link.getNextTyped(null);
-      if (findBinding(link.getTypeExpr(), true)) {
-        return true;
 ```
 
 ### AssignmentToMethodParameter
@@ -10852,35 +10852,11 @@ Assignment to method parameter `link`
 in `base/src/main/java/org/arend/core/context/param/DependentLink.java`
 #### Snippet
 ```java
-    public static int size(DependentLink link) {
-      int result = 0;
-      for (; link.hasNext(); link = link.getNext()) {
-        result++;
-      }
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `link`
-in `base/src/main/java/org/arend/core/context/param/DependentLink.java`
-#### Snippet
-```java
           return EmptyDependentLink.getInstance();
         }
         link = link.getNext();
       }
       return link;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `link`
-in `base/src/main/java/org/arend/core/context/param/DependentLink.java`
-#### Snippet
-```java
-    public static List<DependentLink> toList(DependentLink link) {
-      List<DependentLink> result = new ArrayList<>();
-      for (; link.hasNext(); link = link.getNext()) {
-        result.add(link);
-      }
 ```
 
 ### AssignmentToMethodParameter
@@ -10904,6 +10880,30 @@ in `base/src/main/java/org/arend/core/context/param/DependentLink.java`
       DependentLink last = link;
       for (; link.hasNext(); link = link.getNext()) {
         last = link;
+      }
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `link`
+in `base/src/main/java/org/arend/core/context/param/DependentLink.java`
+#### Snippet
+```java
+    public static List<DependentLink> toList(DependentLink link) {
+      List<DependentLink> result = new ArrayList<>();
+      for (; link.hasNext(); link = link.getNext()) {
+        result.add(link);
+      }
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `link`
+in `base/src/main/java/org/arend/core/context/param/DependentLink.java`
+#### Snippet
+```java
+    public static int size(DependentLink link) {
+      int result = 0;
+      for (; link.hasNext(); link = link.getNext()) {
+        result++;
       }
 ```
 
@@ -10993,18 +10993,6 @@ in `base/src/main/java/org/arend/core/expr/visitor/GetTypeVisitor.java`
 
 ### AssignmentToMethodParameter
 Assignment to method parameter `link`
-in `base/src/main/java/org/arend/core/pattern/ConstructorPattern.java`
-#### Snippet
-```java
-        result.add(make(data, subPatterns));
-        for (Pattern pattern : getSubPatterns()) {
-          link = pattern.replaceBindings(link, subPatterns);
-        }
-        return link;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `link`
 in `base/src/main/java/org/arend/core/pattern/Pattern.java`
 #### Snippet
 ```java
@@ -11025,6 +11013,18 @@ in `base/src/main/java/org/arend/core/pattern/Pattern.java`
       link = link.getNext();
     }
     return result;
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `link`
+in `base/src/main/java/org/arend/core/pattern/ConstructorPattern.java`
+#### Snippet
+```java
+        result.add(make(data, subPatterns));
+        for (Pattern pattern : getSubPatterns()) {
+          link = pattern.replaceBindings(link, subPatterns);
+        }
+        return link;
 ```
 
 ### AssignmentToMethodParameter
@@ -11112,15 +11112,27 @@ in `base/src/main/java/org/arend/core/pattern/ConstructorExpressionPattern.java`
 ```
 
 ### AssignmentToMethodParameter
+Assignment to method parameter `type`
+in `base/src/main/java/org/arend/core/pattern/ConstructorExpressionPattern.java`
+#### Snippet
+```java
+
+  public static Boolean isArrayEmpty(Expression type) {
+    type = type.normalize(NormalizationMode.WHNF);
+    return type instanceof ClassCallExpression && ((ClassCallExpression) type).getDefinition() == Prelude.DEP_ARRAY ? isEqualToZero(((ClassCallExpression) type).getAbsImplementationHere(Prelude.ARRAY_LENGTH)) : null;
+  }
+```
+
+### AssignmentToMethodParameter
 Assignment to method parameter `expression`
 in `base/src/main/java/org/arend/core/pattern/ConstructorExpressionPattern.java`
 #### Snippet
 ```java
-    if (dataExpr instanceof FunCallExpression) {
-      FunctionDefinition function = ((FunCallExpression) dataExpr).getDefinition();
-      expression = expression.getUnderlyingExpression();
-      if (function == Prelude.EMPTY_ARRAY) {
-        if (expression instanceof ArrayExpression array && array.getElements().isEmpty() && array.getTail() == null) {
+  public Decision match(Expression expression, List<Expression> result) {
+    Expression dataExpr = getDataExpression();
+    expression = expression.normalize(NormalizationMode.WHNF);
+    List<? extends Expression> arguments = getMatchingExpressionArguments(expression, true);
+    if (arguments != null) {
 ```
 
 ### AssignmentToMethodParameter
@@ -11140,23 +11152,11 @@ Assignment to method parameter `expression`
 in `base/src/main/java/org/arend/core/pattern/ConstructorExpressionPattern.java`
 #### Snippet
 ```java
-  public Decision match(Expression expression, List<Expression> result) {
-    Expression dataExpr = getDataExpression();
-    expression = expression.normalize(NormalizationMode.WHNF);
-    List<? extends Expression> arguments = getMatchingExpressionArguments(expression, true);
-    if (arguments != null) {
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `type`
-in `base/src/main/java/org/arend/core/pattern/ConstructorExpressionPattern.java`
-#### Snippet
-```java
-
-  public static Boolean isArrayEmpty(Expression type) {
-    type = type.normalize(NormalizationMode.WHNF);
-    return type instanceof ClassCallExpression && ((ClassCallExpression) type).getDefinition() == Prelude.DEP_ARRAY ? isEqualToZero(((ClassCallExpression) type).getAbsImplementationHere(Prelude.ARRAY_LENGTH)) : null;
-  }
+    if (dataExpr instanceof FunCallExpression) {
+      FunctionDefinition function = ((FunCallExpression) dataExpr).getDefinition();
+      expression = expression.getUnderlyingExpression();
+      if (function == Prelude.EMPTY_ARRAY) {
+        if (expression instanceof ArrayExpression array && array.getElements().isEmpty() && array.getTail() == null) {
 ```
 
 ### AssignmentToMethodParameter
@@ -11169,90 +11169,6 @@ in `base/src/main/java/org/arend/repl/Repl.java`
     expr = DesugarVisitor.desugar(expr, myErrorReporter);
     if (checkErrors()) return;
     var typechecker = new CheckTypeVisitor(myErrorReporter, null, null);
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `arg`
-in `base/src/main/java/org/arend/core/expr/visitor/NormalizeVisitor.java`
-#### Snippet
-```java
-    }
-
-    arg = arg.normalize(NormalizationMode.WHNF);
-    Expression type = arg.getType();
-    Expression normType = type == null ? null : type.accept(this, NormalizationMode.WHNF);
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `result`
-in `base/src/main/java/org/arend/core/expr/visitor/NormalizeVisitor.java`
-#### Snippet
-```java
-      }
-      for (int j = 0; j < sucs; j++) {
-        result = Suc(result);
-      }
-    }
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `result`
-in `base/src/main/java/org/arend/core/expr/visitor/NormalizeVisitor.java`
-#### Snippet
-```java
-    ConCallExpression conCall1 = arg1.cast(ConCallExpression.class);
-    while (conCall1 != null && conCall1.getDefinition() == Prelude.SUC) {
-      result = Suc(result);
-      arg1 = conCall1.getDefCallArguments().get(0).accept(this, NormalizationMode.WHNF);
-      conCall1 = arg1.cast(ConCallExpression.class);
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `arg1`
-in `base/src/main/java/org/arend/core/expr/visitor/NormalizeVisitor.java`
-#### Snippet
-```java
-    while (conCall1 != null && conCall1.getDefinition() == Prelude.SUC) {
-      result = Suc(result);
-      arg1 = conCall1.getDefCallArguments().get(0).accept(this, NormalizationMode.WHNF);
-      conCall1 = arg1.cast(ConCallExpression.class);
-    }
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `elimTree`
-in `base/src/main/java/org/arend/core/expr/visitor/NormalizeVisitor.java`
-#### Snippet
-```java
-      }
-
-      elimTree = updateStack(stack, null, (BranchElimTree) elimTree);
-      if (elimTree == null) {
-        if (!might) {
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `body`
-in `base/src/main/java/org/arend/core/expr/visitor/NormalizeVisitor.java`
-#### Snippet
-```java
-        }
-      }
-      body = elim.getOtherwise();
-    }
-
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `defCallArgs`
-in `base/src/main/java/org/arend/core/expr/visitor/NormalizeVisitor.java`
-#### Snippet
-```java
-        normDefCalls.add(definition.isStrict(i) ? defCallArgs.get(i).accept(this, NormalizationMode.WHNF) : defCallArgs.get(i));
-      }
-      defCallArgs = normDefCalls;
-    }
-
 ```
 
 ### AssignmentToMethodParameter
@@ -11460,15 +11376,87 @@ in `base/src/main/java/org/arend/core/expr/visitor/NormalizeVisitor.java`
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `resultTypeLevel`
-in `base/src/main/java/org/arend/term/abs/ConcreteBuilder.java`
+Assignment to method parameter `elimTree`
+in `base/src/main/java/org/arend/core/expr/visitor/NormalizeVisitor.java`
+#### Snippet
+```java
+      }
+
+      elimTree = updateStack(stack, null, (BranchElimTree) elimTree);
+      if (elimTree == null) {
+        if (!might) {
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `body`
+in `base/src/main/java/org/arend/core/expr/visitor/NormalizeVisitor.java`
+#### Snippet
+```java
+        }
+      }
+      body = elim.getOtherwise();
+    }
+
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `defCallArgs`
+in `base/src/main/java/org/arend/core/expr/visitor/NormalizeVisitor.java`
+#### Snippet
+```java
+        normDefCalls.add(definition.isStrict(i) ? defCallArgs.get(i).accept(this, NormalizationMode.WHNF) : defCallArgs.get(i));
+      }
+      defCallArgs = normDefCalls;
+    }
+
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `result`
+in `base/src/main/java/org/arend/core/expr/visitor/NormalizeVisitor.java`
+#### Snippet
+```java
+      }
+      for (int j = 0; j < sucs; j++) {
+        result = Suc(result);
+      }
+    }
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `result`
+in `base/src/main/java/org/arend/core/expr/visitor/NormalizeVisitor.java`
+#### Snippet
+```java
+    ConCallExpression conCall1 = arg1.cast(ConCallExpression.class);
+    while (conCall1 != null && conCall1.getDefinition() == Prelude.SUC) {
+      result = Suc(result);
+      arg1 = conCall1.getDefCallArguments().get(0).accept(this, NormalizationMode.WHNF);
+      conCall1 = arg1.cast(ConCallExpression.class);
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `arg1`
+in `base/src/main/java/org/arend/core/expr/visitor/NormalizeVisitor.java`
+#### Snippet
+```java
+    while (conCall1 != null && conCall1.getDefinition() == Prelude.SUC) {
+      result = Suc(result);
+      arg1 = conCall1.getDefCallArguments().get(0).accept(this, NormalizationMode.WHNF);
+      conCall1 = arg1.cast(ConCallExpression.class);
+    }
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `arg`
+in `base/src/main/java/org/arend/core/expr/visitor/NormalizeVisitor.java`
 #### Snippet
 ```java
     }
 
-    resultTypeLevel = checkResultTypeLevel(resultType, resultTypeLevel);
-    Concrete.Expression result = new Concrete.CaseExpression(data, isSFunc, concreteCaseArgs, resultType == null ? null : resultType.accept(this, null), resultTypeLevel == null ? null : resultTypeLevel.accept(this, null), buildClauses(clauses));
-    return evalKind == Abstract.EvalKind.BOX ? new Concrete.BoxExpression(data, result) : evalKind != null ? new Concrete.EvalExpression(data, evalKind == Abstract.EvalKind.PEVAL, result) : result;
+    arg = arg.normalize(NormalizationMode.WHNF);
+    Expression type = arg.getType();
+    Expression normType = type == null ? null : type.accept(this, NormalizationMode.WHNF);
 ```
 
 ### AssignmentToMethodParameter
@@ -11493,6 +11481,18 @@ in `base/src/main/java/org/arend/term/abs/ConcreteBuilder.java`
       pLevel = null;
     }
     if (pLevelNum != null && pLevel != null) {
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `resultTypeLevel`
+in `base/src/main/java/org/arend/term/abs/ConcreteBuilder.java`
+#### Snippet
+```java
+    }
+
+    resultTypeLevel = checkResultTypeLevel(resultType, resultTypeLevel);
+    Concrete.Expression result = new Concrete.CaseExpression(data, isSFunc, concreteCaseArgs, resultType == null ? null : resultType.accept(this, null), resultTypeLevel == null ? null : resultTypeLevel.accept(this, null), buildClauses(clauses));
+    return evalKind == Abstract.EvalKind.BOX ? new Concrete.BoxExpression(data, result) : evalKind != null ? new Concrete.EvalExpression(data, evalKind == Abstract.EvalKind.PEVAL, result) : result;
 ```
 
 ### AssignmentToMethodParameter
@@ -11544,51 +11544,27 @@ in `base/src/main/java/org/arend/term/prettyprint/CollectFreeVariablesVisitor.ja
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `expr1`
-in `base/src/main/java/org/arend/core/expr/visitor/CompareVisitor.java`
+Assignment to method parameter `file`
+in `base/src/main/java/org/arend/util/FileUtils.java`
 #### Snippet
 ```java
-
-  public boolean nonNormalizingCompare(Expression expr1, Expression expr2, Expression type) {
-    expr1 = expr1.getUnderlyingExpression();
-    expr2 = expr2.getUnderlyingExpression();
-
+        public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) {
+          if (file.getFileName().toString().endsWith(ext)) {
+            file = path.relativize(file);
+            ModulePath modulePath = FileUtils.modulePath(file, ext);
+            if (modulePath == null) {
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `expr2`
-in `base/src/main/java/org/arend/core/expr/visitor/CompareVisitor.java`
+Assignment to method parameter `path`
+in `base/src/main/java/org/arend/util/FileUtils.java`
 #### Snippet
 ```java
-  public boolean nonNormalizingCompare(Expression expr1, Expression expr2, Expression type) {
-    expr1 = expr1.getUnderlyingExpression();
-    expr2 = expr2.getUnderlyingExpression();
-
-    // Optimization for let clause calls
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `type`
-in `base/src/main/java/org/arend/core/expr/visitor/CompareVisitor.java`
-#### Snippet
-```java
-    }
-
-    type = type == null ? null : type.dropPiParameter(Math.max(params1.size(), params2.size()));
-    Boolean result = compare(correctOrder ? body1 : body2, correctOrder ? body2 : body1, type, true);
-    for (int i = 0; i < params1.size() && i < params2.size(); i++) {
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `link`
-in `base/src/main/java/org/arend/core/expr/visitor/CompareVisitor.java`
-#### Snippet
-```java
-      if (substitution != null && link != null && link.hasNext()) {
-        substitution.add(link, (myCMP == CMP.LE ? list2 : list1).get(i));
-        link = link.getNext();
+        return null;
       }
+      path = path.resolveSibling(fileName.substring(0, fileName.length() - ext.length()));
     }
+
 ```
 
 ### AssignmentToMethodParameter
@@ -11616,6 +11592,30 @@ in `base/src/main/java/org/arend/core/expr/visitor/CompareVisitor.java`
 ```
 
 ### AssignmentToMethodParameter
+Assignment to method parameter `type`
+in `base/src/main/java/org/arend/core/expr/visitor/CompareVisitor.java`
+#### Snippet
+```java
+    }
+
+    type = type == null ? null : type.dropPiParameter(Math.max(params1.size(), params2.size()));
+    Boolean result = compare(correctOrder ? body1 : body2, correctOrder ? body2 : body1, type, true);
+    for (int i = 0; i < params1.size() && i < params2.size(); i++) {
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `expr2`
+in `base/src/main/java/org/arend/core/expr/visitor/CompareVisitor.java`
+#### Snippet
+```java
+    Expression argumentType = pathExpr1.getArgumentType();
+    Sort sort = new Sort(pathExpr1.getLevels().toLevelPair().get(LevelVariable.PVAR), Level.INFINITY);
+    expr2 = new LamExpression(sort, param, AtExpression.make(expr2, paramRef, false));
+    Expression argType = new PiExpression(sort, param, AppExpression.make(argumentType, paramRef, true));
+    return correctOrder ? compare(pathExpr1.getArgument(), expr2, argType, true) : compare(expr2, pathExpr1.getArgument(), argType, true);
+```
+
+### AssignmentToMethodParameter
 Assignment to method parameter `expr1`
 in `base/src/main/java/org/arend/core/expr/visitor/CompareVisitor.java`
 #### Snippet
@@ -11640,27 +11640,15 @@ in `base/src/main/java/org/arend/core/expr/visitor/CompareVisitor.java`
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `expr1`
+Assignment to method parameter `link`
 in `base/src/main/java/org/arend/core/expr/visitor/CompareVisitor.java`
 #### Snippet
 ```java
+      if (substitution != null && link != null && link.hasNext()) {
+        substitution.add(link, (myCMP == CMP.LE ? list2 : list1).get(i));
+        link = link.getNext();
       }
-      if (myNormalize) {
-        expr1 = ExpressionFactory.Fin(pair1.proj1 instanceof IntegerExpression ? new BigIntegerExpression(pair1.proj2) : ExpressionFactory.add(pair1.proj1, pair1.proj2.intValueExact()));
-        expr2 = ExpressionFactory.Fin(pair2.proj1 instanceof IntegerExpression ? new BigIntegerExpression(pair2.proj2) : ExpressionFactory.add(pair2.proj1, pair2.proj2.intValueExact()));
-      }
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `expr2`
-in `base/src/main/java/org/arend/core/expr/visitor/CompareVisitor.java`
-#### Snippet
-```java
-      if (myNormalize) {
-        expr1 = ExpressionFactory.Fin(pair1.proj1 instanceof IntegerExpression ? new BigIntegerExpression(pair1.proj2) : ExpressionFactory.add(pair1.proj1, pair1.proj2.intValueExact()));
-        expr2 = ExpressionFactory.Fin(pair2.proj1 instanceof IntegerExpression ? new BigIntegerExpression(pair2.proj2) : ExpressionFactory.add(pair2.proj1, pair2.proj2.intValueExact()));
-      }
-      return myEquations.addEquation((correctOrder ? expr1 : expr2), substitute(correctOrder ? expr2 : expr1), Type.OMEGA, myCMP, (stuckVar1 != null ? stuckVar1 : stuckVar2).getSourceNode(), stuckVar1, stuckVar2);
+    }
 ```
 
 ### AssignmentToMethodParameter
@@ -11704,6 +11692,54 @@ Assignment to method parameter `expr1`
 in `base/src/main/java/org/arend/core/expr/visitor/CompareVisitor.java`
 #### Snippet
 ```java
+
+  public boolean nonNormalizingCompare(Expression expr1, Expression expr2, Expression type) {
+    expr1 = expr1.getUnderlyingExpression();
+    expr2 = expr2.getUnderlyingExpression();
+
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `expr2`
+in `base/src/main/java/org/arend/core/expr/visitor/CompareVisitor.java`
+#### Snippet
+```java
+  public boolean nonNormalizingCompare(Expression expr1, Expression expr2, Expression type) {
+    expr1 = expr1.getUnderlyingExpression();
+    expr2 = expr2.getUnderlyingExpression();
+
+    // Optimization for let clause calls
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `expr1`
+in `base/src/main/java/org/arend/core/expr/visitor/CompareVisitor.java`
+#### Snippet
+```java
+      }
+      if (myNormalize) {
+        expr1 = ExpressionFactory.Fin(pair1.proj1 instanceof IntegerExpression ? new BigIntegerExpression(pair1.proj2) : ExpressionFactory.add(pair1.proj1, pair1.proj2.intValueExact()));
+        expr2 = ExpressionFactory.Fin(pair2.proj1 instanceof IntegerExpression ? new BigIntegerExpression(pair2.proj2) : ExpressionFactory.add(pair2.proj1, pair2.proj2.intValueExact()));
+      }
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `expr2`
+in `base/src/main/java/org/arend/core/expr/visitor/CompareVisitor.java`
+#### Snippet
+```java
+      if (myNormalize) {
+        expr1 = ExpressionFactory.Fin(pair1.proj1 instanceof IntegerExpression ? new BigIntegerExpression(pair1.proj2) : ExpressionFactory.add(pair1.proj1, pair1.proj2.intValueExact()));
+        expr2 = ExpressionFactory.Fin(pair2.proj1 instanceof IntegerExpression ? new BigIntegerExpression(pair2.proj2) : ExpressionFactory.add(pair2.proj1, pair2.proj2.intValueExact()));
+      }
+      return myEquations.addEquation((correctOrder ? expr1 : expr2), substitute(correctOrder ? expr2 : expr1), Type.OMEGA, myCMP, (stuckVar1 != null ? stuckVar1 : stuckVar2).getSourceNode(), stuckVar1, stuckVar2);
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `expr1`
+in `base/src/main/java/org/arend/core/expr/visitor/CompareVisitor.java`
+#### Snippet
+```java
       }
       if (!(fun instanceof AppExpression)) return null;
       expr1 = (AppExpression) fun;
@@ -11724,42 +11760,6 @@ in `base/src/main/java/org/arend/core/expr/visitor/CompareVisitor.java`
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `expr2`
-in `base/src/main/java/org/arend/core/expr/visitor/CompareVisitor.java`
-#### Snippet
-```java
-    Expression argumentType = pathExpr1.getArgumentType();
-    Sort sort = new Sort(pathExpr1.getLevels().toLevelPair().get(LevelVariable.PVAR), Level.INFINITY);
-    expr2 = new LamExpression(sort, param, AtExpression.make(expr2, paramRef, false));
-    Expression argType = new PiExpression(sort, param, AppExpression.make(argumentType, paramRef, true));
-    return correctOrder ? compare(pathExpr1.getArgument(), expr2, argType, true) : compare(expr2, pathExpr1.getArgument(), argType, true);
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `path`
-in `base/src/main/java/org/arend/util/FileUtils.java`
-#### Snippet
-```java
-        return null;
-      }
-      path = path.resolveSibling(fileName.substring(0, fileName.length() - ext.length()));
-    }
-
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `file`
-in `base/src/main/java/org/arend/util/FileUtils.java`
-#### Snippet
-```java
-        public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) {
-          if (file.getFileName().toString().endsWith(ext)) {
-            file = path.relativize(file);
-            ModulePath modulePath = FileUtils.modulePath(file, ext);
-            if (modulePath == null) {
-```
-
-### AssignmentToMethodParameter
 Assignment to method parameter `parent`
 in `base/src/main/java/org/arend/module/serialization/ModuleDeserialization.java`
 #### Snippet
@@ -11772,90 +11772,6 @@ in `base/src/main/java/org/arend/module/serialization/ModuleDeserialization.java
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `leftLen`
-in `base/src/main/java/org/arend/term/prettyprint/PrettyPrintVisitor.java`
-#### Snippet
-```java
-
-    boolean doHyphenation(int leftLen, int rightLen) {
-      if (leftLen == 0) leftLen = 1; if (leftLen > MAX_LEN) leftLen = MAX_LEN;
-      if (rightLen == 0) rightLen = 1; if (rightLen > MAX_LEN) rightLen = MAX_LEN;
-      double ratio = ((double) rightLen) / leftLen;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `leftLen`
-in `base/src/main/java/org/arend/term/prettyprint/PrettyPrintVisitor.java`
-#### Snippet
-```java
-
-    boolean doHyphenation(int leftLen, int rightLen) {
-      if (leftLen == 0) leftLen = 1; if (leftLen > MAX_LEN) leftLen = MAX_LEN;
-      if (rightLen == 0) rightLen = 1; if (rightLen > MAX_LEN) rightLen = MAX_LEN;
-      double ratio = ((double) rightLen) / leftLen;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `rightLen`
-in `base/src/main/java/org/arend/term/prettyprint/PrettyPrintVisitor.java`
-#### Snippet
-```java
-    boolean doHyphenation(int leftLen, int rightLen) {
-      if (leftLen == 0) leftLen = 1; if (leftLen > MAX_LEN) leftLen = MAX_LEN;
-      if (rightLen == 0) rightLen = 1; if (rightLen > MAX_LEN) rightLen = MAX_LEN;
-      double ratio = ((double) rightLen) / leftLen;
-      if (ratio > 1.0) ratio = 1/ratio;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `rightLen`
-in `base/src/main/java/org/arend/term/prettyprint/PrettyPrintVisitor.java`
-#### Snippet
-```java
-    boolean doHyphenation(int leftLen, int rightLen) {
-      if (leftLen == 0) leftLen = 1; if (leftLen > MAX_LEN) leftLen = MAX_LEN;
-      if (rightLen == 0) rightLen = 1; if (rightLen > MAX_LEN) rightLen = MAX_LEN;
-      double ratio = ((double) rightLen) / leftLen;
-      if (ratio > 1.0) ratio = 1/ratio;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `expr`
-in `base/src/main/java/org/arend/term/prettyprint/PrettyPrintVisitor.java`
-#### Snippet
-```java
-    Concrete.Expression it = expr;
-    do {
-      expr = (Concrete.AppExpression) it;
-      TCDefReferable tcRef = expr.getFunction() instanceof Concrete.ReferenceExpression && ((ReferenceExpression) expr.getFunction()).getReferent() instanceof TCDefReferable ? (TCDefReferable) ((ReferenceExpression) expr.getFunction()).getReferent() : null;
-      Constructor constructor = tcRef == null ? null : tcRef.getTypechecked() instanceof Constructor ? (Constructor) tcRef.getTypechecked() : null;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `prec`
-in `base/src/main/java/org/arend/term/prettyprint/PrettyPrintVisitor.java`
-#### Snippet
-```java
-        StringBuilder tailBuilder = new StringBuilder();
-        boolean leftParamIsRecursive = explicitIndex == constructor.getRecursiveParameter();
-        prec = visitBinOp(leftParamIsRecursive ? null : args.get(args.size() - 2).getExpression(), (Concrete.ReferenceExpression) expr.getFunction(), args.subList(0, args.size() - 2), leftParamIsRecursive ? args.get(args.size() - 1).getExpression() : null, prec, tailBuilder);
-        if (tailBuilder.length() != 0) {
-          if (tail == null) {
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `prec`
-in `base/src/main/java/org/arend/term/prettyprint/PrettyPrintVisitor.java`
-#### Snippet
-```java
-        }
-        it = args.get(recursiveArg).getExpression();
-        prec = args.get(recursiveArg).isExplicit() ? new Precedence((byte) (Concrete.AppExpression.PREC + 1)) : new Precedence(Concrete.Expression.PREC);
-      }
-    } while (it instanceof Concrete.AppExpression);
-```
-
-### AssignmentToMethodParameter
 Assignment to method parameter `last`
 in `base/src/main/java/org/arend/module/serialization/ExpressionDeserialization.java`
 #### Snippet
@@ -11865,126 +11781,6 @@ in `base/src/main/java/org/arend/module/serialization/ExpressionDeserialization.
         last = true;
         i--;
       } else {
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `piExpr`
-in `base/src/main/java/org/arend/term/prettyprint/ToAbstractVisitor.java`
-#### Snippet
-```java
-    List<List<Concrete.TypeParameter>> parameters = new ArrayList<>();
-    Expression expr = piExpr;
-    for (; piExpr != null; piExpr = expr.cast(PiExpression.class)) {
-      List<Concrete.TypeParameter> params = new ArrayList<>();
-      visitDependentLink(piExpr.getParameters(), params, false);
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `expr`
-in `base/src/main/java/org/arend/term/prettyprint/ToAbstractVisitor.java`
-#### Snippet
-```java
-    boolean concreteExplicit = true;
-    do {
-      expr = (ConCallExpression) it;
-      boolean showImplicitArgs = hasFlag(PrettyPrinterFlag.SHOW_BIN_OP_IMPLICIT_ARGS) || !expr.getDefinition().getReferable().getPrecedence().isInfix;
-
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `expr`
-in `base/src/main/java/org/arend/term/prettyprint/ToAbstractVisitor.java`
-#### Snippet
-```java
-    List<Object> list = new ArrayList<>();
-    while (true) {
-      expr = expr.getUnderlyingExpression();
-      if (expr instanceof ProjExpression) {
-        list.add(((ProjExpression) expr).getField());
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `expr`
-in `base/src/main/java/org/arend/term/prettyprint/ToAbstractVisitor.java`
-#### Snippet
-```java
-      if (expr instanceof ProjExpression) {
-        list.add(((ProjExpression) expr).getField());
-        expr = ((ProjExpression) expr).getExpression();
-      } else if (expr instanceof FieldCallExpression) {
-        list.add(((FieldCallExpression) expr).getDefinition());
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `expr`
-in `base/src/main/java/org/arend/term/prettyprint/ToAbstractVisitor.java`
-#### Snippet
-```java
-      } else if (expr instanceof FieldCallExpression) {
-        list.add(((FieldCallExpression) expr).getDefinition());
-        expr = ((FieldCallExpression) expr).getArgument();
-      } else {
-        break;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `lamExpr`
-in `base/src/main/java/org/arend/term/prettyprint/ToAbstractVisitor.java`
-#### Snippet
-```java
-    List<Concrete.Parameter> parameters = new ArrayList<>();
-    Expression expr = lamExpr;
-    for (; lamExpr != null; lamExpr = expr.cast(LamExpression.class)) {
-      if (hasFlag(PrettyPrinterFlag.SHOW_TYPES_IN_LAM) || shouldBeVerbose(lamExpr.getParameters())) {
-        visitDependentLink(lamExpr.getParameters(), parameters, true);
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `parameters`
-in `base/src/main/java/org/arend/term/prettyprint/ToAbstractVisitor.java`
-#### Snippet
-```java
-      visitArgument(arg, parameters.isExplicit(), concreteArguments, genGoal, (parentVerboseLevel >= implicitArgumentsCounter));
-      if (parameters.hasNext()) {
-        parameters = parameters.getNext();
-      }
-    }
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `expression`
-in `base/src/main/java/org/arend/term/prettyprint/ToAbstractVisitor.java`
-#### Snippet
-```java
-    NormalizationMode mode = config.getNormalizationMode();
-    if (mode != null) {
-      expression = expression.normalize(mode);
-    }
-    expression.accept(collector, variables);
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `parameters`
-in `base/src/main/java/org/arend/term/prettyprint/ToAbstractVisitor.java`
-#### Snippet
-```java
-    for (Pattern pattern : patterns) {
-      visitElimPattern(pattern, parameters.isExplicit(), result);
-      parameters = parameters.getNext();
-    }
-    return result;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `link`
-in `base/src/main/java/org/arend/module/serialization/ExpressionSerialization.java`
-#### Snippet
-```java
-    tBuilder.setType(writeType(typed.getType()));
-    tBuilder.setIsProperty(typed.isProperty());
-    for (; link != typed; link = link.getNext()) {
-      registerBinding(link);
-    }
 ```
 
 ### AssignmentToMethodParameter
@@ -12024,6 +11820,126 @@ in `base/src/main/java/org/arend/module/serialization/ExpressionSerialization.ja
 ```
 
 ### AssignmentToMethodParameter
+Assignment to method parameter `link`
+in `base/src/main/java/org/arend/module/serialization/ExpressionSerialization.java`
+#### Snippet
+```java
+    tBuilder.setType(writeType(typed.getType()));
+    tBuilder.setIsProperty(typed.isProperty());
+    for (; link != typed; link = link.getNext()) {
+      registerBinding(link);
+    }
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `expression`
+in `base/src/main/java/org/arend/term/prettyprint/ToAbstractVisitor.java`
+#### Snippet
+```java
+    NormalizationMode mode = config.getNormalizationMode();
+    if (mode != null) {
+      expression = expression.normalize(mode);
+    }
+    expression.accept(collector, variables);
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `expr`
+in `base/src/main/java/org/arend/term/prettyprint/ToAbstractVisitor.java`
+#### Snippet
+```java
+    boolean concreteExplicit = true;
+    do {
+      expr = (ConCallExpression) it;
+      boolean showImplicitArgs = hasFlag(PrettyPrinterFlag.SHOW_BIN_OP_IMPLICIT_ARGS) || !expr.getDefinition().getReferable().getPrecedence().isInfix;
+
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `lamExpr`
+in `base/src/main/java/org/arend/term/prettyprint/ToAbstractVisitor.java`
+#### Snippet
+```java
+    List<Concrete.Parameter> parameters = new ArrayList<>();
+    Expression expr = lamExpr;
+    for (; lamExpr != null; lamExpr = expr.cast(LamExpression.class)) {
+      if (hasFlag(PrettyPrinterFlag.SHOW_TYPES_IN_LAM) || shouldBeVerbose(lamExpr.getParameters())) {
+        visitDependentLink(lamExpr.getParameters(), parameters, true);
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `expr`
+in `base/src/main/java/org/arend/term/prettyprint/ToAbstractVisitor.java`
+#### Snippet
+```java
+    List<Object> list = new ArrayList<>();
+    while (true) {
+      expr = expr.getUnderlyingExpression();
+      if (expr instanceof ProjExpression) {
+        list.add(((ProjExpression) expr).getField());
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `expr`
+in `base/src/main/java/org/arend/term/prettyprint/ToAbstractVisitor.java`
+#### Snippet
+```java
+      if (expr instanceof ProjExpression) {
+        list.add(((ProjExpression) expr).getField());
+        expr = ((ProjExpression) expr).getExpression();
+      } else if (expr instanceof FieldCallExpression) {
+        list.add(((FieldCallExpression) expr).getDefinition());
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `expr`
+in `base/src/main/java/org/arend/term/prettyprint/ToAbstractVisitor.java`
+#### Snippet
+```java
+      } else if (expr instanceof FieldCallExpression) {
+        list.add(((FieldCallExpression) expr).getDefinition());
+        expr = ((FieldCallExpression) expr).getArgument();
+      } else {
+        break;
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `parameters`
+in `base/src/main/java/org/arend/term/prettyprint/ToAbstractVisitor.java`
+#### Snippet
+```java
+      visitArgument(arg, parameters.isExplicit(), concreteArguments, genGoal, (parentVerboseLevel >= implicitArgumentsCounter));
+      if (parameters.hasNext()) {
+        parameters = parameters.getNext();
+      }
+    }
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `piExpr`
+in `base/src/main/java/org/arend/term/prettyprint/ToAbstractVisitor.java`
+#### Snippet
+```java
+    List<List<Concrete.TypeParameter>> parameters = new ArrayList<>();
+    Expression expr = piExpr;
+    for (; piExpr != null; piExpr = expr.cast(PiExpression.class)) {
+      List<Concrete.TypeParameter> params = new ArrayList<>();
+      visitDependentLink(piExpr.getParameters(), params, false);
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `parameters`
+in `base/src/main/java/org/arend/term/prettyprint/ToAbstractVisitor.java`
+#### Snippet
+```java
+    for (Pattern pattern : patterns) {
+      visitElimPattern(pattern, parameters.isExplicit(), result);
+      parameters = parameters.getNext();
+    }
+    return result;
+```
+
+### AssignmentToMethodParameter
 Assignment to method parameter `scope`
 in `base/src/main/java/org/arend/naming/scope/Scope.java`
 #### Snippet
@@ -12033,6 +11949,90 @@ in `base/src/main/java/org/arend/naming/scope/Scope.java`
         scope = scope.resolveNamespace(path.get(i), i < path.size() - 2);
       }
     }
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `expr`
+in `base/src/main/java/org/arend/term/prettyprint/PrettyPrintVisitor.java`
+#### Snippet
+```java
+    Concrete.Expression it = expr;
+    do {
+      expr = (Concrete.AppExpression) it;
+      TCDefReferable tcRef = expr.getFunction() instanceof Concrete.ReferenceExpression && ((ReferenceExpression) expr.getFunction()).getReferent() instanceof TCDefReferable ? (TCDefReferable) ((ReferenceExpression) expr.getFunction()).getReferent() : null;
+      Constructor constructor = tcRef == null ? null : tcRef.getTypechecked() instanceof Constructor ? (Constructor) tcRef.getTypechecked() : null;
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `prec`
+in `base/src/main/java/org/arend/term/prettyprint/PrettyPrintVisitor.java`
+#### Snippet
+```java
+        StringBuilder tailBuilder = new StringBuilder();
+        boolean leftParamIsRecursive = explicitIndex == constructor.getRecursiveParameter();
+        prec = visitBinOp(leftParamIsRecursive ? null : args.get(args.size() - 2).getExpression(), (Concrete.ReferenceExpression) expr.getFunction(), args.subList(0, args.size() - 2), leftParamIsRecursive ? args.get(args.size() - 1).getExpression() : null, prec, tailBuilder);
+        if (tailBuilder.length() != 0) {
+          if (tail == null) {
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `prec`
+in `base/src/main/java/org/arend/term/prettyprint/PrettyPrintVisitor.java`
+#### Snippet
+```java
+        }
+        it = args.get(recursiveArg).getExpression();
+        prec = args.get(recursiveArg).isExplicit() ? new Precedence((byte) (Concrete.AppExpression.PREC + 1)) : new Precedence(Concrete.Expression.PREC);
+      }
+    } while (it instanceof Concrete.AppExpression);
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `leftLen`
+in `base/src/main/java/org/arend/term/prettyprint/PrettyPrintVisitor.java`
+#### Snippet
+```java
+
+    boolean doHyphenation(int leftLen, int rightLen) {
+      if (leftLen == 0) leftLen = 1; if (leftLen > MAX_LEN) leftLen = MAX_LEN;
+      if (rightLen == 0) rightLen = 1; if (rightLen > MAX_LEN) rightLen = MAX_LEN;
+      double ratio = ((double) rightLen) / leftLen;
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `leftLen`
+in `base/src/main/java/org/arend/term/prettyprint/PrettyPrintVisitor.java`
+#### Snippet
+```java
+
+    boolean doHyphenation(int leftLen, int rightLen) {
+      if (leftLen == 0) leftLen = 1; if (leftLen > MAX_LEN) leftLen = MAX_LEN;
+      if (rightLen == 0) rightLen = 1; if (rightLen > MAX_LEN) rightLen = MAX_LEN;
+      double ratio = ((double) rightLen) / leftLen;
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `rightLen`
+in `base/src/main/java/org/arend/term/prettyprint/PrettyPrintVisitor.java`
+#### Snippet
+```java
+    boolean doHyphenation(int leftLen, int rightLen) {
+      if (leftLen == 0) leftLen = 1; if (leftLen > MAX_LEN) leftLen = MAX_LEN;
+      if (rightLen == 0) rightLen = 1; if (rightLen > MAX_LEN) rightLen = MAX_LEN;
+      double ratio = ((double) rightLen) / leftLen;
+      if (ratio > 1.0) ratio = 1/ratio;
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `rightLen`
+in `base/src/main/java/org/arend/term/prettyprint/PrettyPrintVisitor.java`
+#### Snippet
+```java
+    boolean doHyphenation(int leftLen, int rightLen) {
+      if (leftLen == 0) leftLen = 1; if (leftLen > MAX_LEN) leftLen = MAX_LEN;
+      if (rightLen == 0) rightLen = 1; if (rightLen > MAX_LEN) rightLen = MAX_LEN;
+      double ratio = ((double) rightLen) / leftLen;
+      if (ratio > 1.0) ratio = 1/ratio;
 ```
 
 ### AssignmentToMethodParameter
@@ -12132,30 +12132,6 @@ in `base/src/main/java/org/arend/naming/resolving/visitor/TypeClassReferenceExtr
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `sourceNode`
-in `base/src/main/java/org/arend/naming/scope/ScopeFactory.java`
-#### Snippet
-```java
-      Abstract.SourceNode parentSourceNode = sourceNode.getParentSourceNode();
-      if (parentSourceNode instanceof Abstract.Expression && sourceNode instanceof Abstract.Reference) {
-        sourceNode = parentSourceNode;
-        parentSourceNode = sourceNode.getParentSourceNode();
-      }
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `sourceNode`
-in `base/src/main/java/org/arend/naming/scope/ScopeFactory.java`
-#### Snippet
-```java
-      }
-
-      sourceNode = parentSourceNode;
-    }
-
-```
-
-### AssignmentToMethodParameter
 Assignment to method parameter `expr`
 in `base/src/main/java/org/arend/naming/resolving/visitor/TypeClassReferenceExtractVisitor.java`
 #### Snippet
@@ -12168,18 +12144,6 @@ in `base/src/main/java/org/arend/naming/resolving/visitor/TypeClassReferenceExtr
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `sourceNode`
-in `base/src/main/java/org/arend/naming/scope/ScopeFactory.java`
-#### Snippet
-```java
-    Abstract.SourceNode parentSourceNode = sourceNode.getParentSourceNode();
-    if (parentSourceNode instanceof Abstract.Expression && sourceNode instanceof Abstract.Reference) {
-      sourceNode = parentSourceNode;
-      parentSourceNode = sourceNode.getParentSourceNode();
-    }
-```
-
-### AssignmentToMethodParameter
 Assignment to method parameter `expr`
 in `base/src/main/java/org/arend/naming/resolving/visitor/TypeClassReferenceExtractVisitor.java`
 #### Snippet
@@ -12189,18 +12153,6 @@ in `base/src/main/java/org/arend/naming/resolving/visitor/TypeClassReferenceExtr
           expr = binOpSeq.get(index).getComponent();
         }
       } else if (expr instanceof Concrete.AppExpression) {
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `prelude`
-in `base/src/main/java/org/arend/naming/scope/ScopeFactory.java`
-#### Snippet
-```java
-          NamespaceCommand cmd = statement.getNamespaceCommand();
-          if (cmd != null && cmd.getKind() == NamespaceCommand.Kind.IMPORT && cmd.getPath().equals(Prelude.MODULE_PATH.toList())) {
-            prelude = false;
-          }
-        }
 ```
 
 ### AssignmentToMethodParameter
@@ -12225,6 +12177,138 @@ in `base/src/main/java/org/arend/naming/resolving/visitor/TypeClassReferenceExtr
       referent = ref;
     }
   }
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `sourceNode`
+in `base/src/main/java/org/arend/naming/scope/ScopeFactory.java`
+#### Snippet
+```java
+    Abstract.SourceNode parentSourceNode = sourceNode.getParentSourceNode();
+    if (parentSourceNode instanceof Abstract.Expression && sourceNode instanceof Abstract.Reference) {
+      sourceNode = parentSourceNode;
+      parentSourceNode = sourceNode.getParentSourceNode();
+    }
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `prelude`
+in `base/src/main/java/org/arend/naming/scope/ScopeFactory.java`
+#### Snippet
+```java
+          NamespaceCommand cmd = statement.getNamespaceCommand();
+          if (cmd != null && cmd.getKind() == NamespaceCommand.Kind.IMPORT && cmd.getPath().equals(Prelude.MODULE_PATH.toList())) {
+            prelude = false;
+          }
+        }
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `sourceNode`
+in `base/src/main/java/org/arend/naming/scope/ScopeFactory.java`
+#### Snippet
+```java
+      Abstract.SourceNode parentSourceNode = sourceNode.getParentSourceNode();
+      if (parentSourceNode instanceof Abstract.Expression && sourceNode instanceof Abstract.Reference) {
+        sourceNode = parentSourceNode;
+        parentSourceNode = sourceNode.getParentSourceNode();
+      }
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `sourceNode`
+in `base/src/main/java/org/arend/naming/scope/ScopeFactory.java`
+#### Snippet
+```java
+      }
+
+      sourceNode = parentSourceNode;
+    }
+
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `scope`
+in `base/src/main/java/org/arend/naming/reference/LongUnresolvedReference.java`
+#### Snippet
+```java
+        resolvedRefs.add(scope.resolveName(myPath.get(i)));
+      }
+      scope = scope.resolveNamespace(myPath.get(i), i < myPath.size() - 2);
+      if (scope == null) {
+        if (!onlyTry) {
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `i`
+in `base/src/main/java/org/arend/naming/reference/LongUnresolvedReference.java`
+#### Snippet
+```java
+    }
+
+    for (i++; i < myPath.size(); i++) {
+      ref = new ClassFieldImplScope(classRef, ClassFieldImplScope.Extent.WITH_DYNAMIC).resolveName(myPath.get(i));
+      classRef = ref instanceof TypedReferable ? ((TypedReferable) ref).getTypeClassReference() : null;
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `i`
+in `base/src/main/java/org/arend/naming/reference/LongUnresolvedReference.java`
+#### Snippet
+```java
+    }
+
+    for (i++; i < myPath.size(); i++) {
+      ref = new ClassFieldImplScope(classRef, ClassFieldImplScope.Extent.WITH_DYNAMIC).resolveName(myPath.get(i));
+      classRef = ref instanceof TypedReferable ? ((TypedReferable) ref).getTypeClassReference() : null;
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `scope`
+in `base/src/main/java/org/arend/naming/reference/LongUnresolvedReference.java`
+#### Snippet
+```java
+
+      prevScope = scope;
+      scope = nextScope;
+    }
+
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `scope`
+in `base/src/main/java/org/arend/naming/reference/LongUnresolvedReference.java`
+#### Snippet
+```java
+      }
+      prevScope = scope;
+      scope = nextScope;
+    }
+
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `scope`
+in `base/src/main/java/org/arend/naming/reference/LongUnresolvedReference.java`
+#### Snippet
+```java
+      ClassReferable classRef = ((TypedReferable) ref).getTypeClassReference();
+      if (classRef != null) {
+        scope = new MergeScope(scope, new ClassFieldImplScope(classRef, ClassFieldImplScope.Extent.WITH_DYNAMIC));
+      }
+    }
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `scope`
+in `base/src/main/java/org/arend/naming/reference/LongUnresolvedReference.java`
+#### Snippet
+```java
+
+    for (int i = 0; i < myPath.size(); i++) {
+      scope = scope.resolveNamespace(myPath.get(i), true);
+      if (scope == null) {
+        Object data = getData();
 ```
 
 ### AssignmentToMethodParameter
@@ -12276,102 +12360,6 @@ in `base/src/main/java/org/arend/naming/reference/LongUnresolvedReference.java`
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `scope`
-in `base/src/main/java/org/arend/naming/reference/LongUnresolvedReference.java`
-#### Snippet
-```java
-
-      prevScope = scope;
-      scope = nextScope;
-    }
-
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `scope`
-in `base/src/main/java/org/arend/naming/reference/LongUnresolvedReference.java`
-#### Snippet
-```java
-      }
-      prevScope = scope;
-      scope = nextScope;
-    }
-
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `scope`
-in `base/src/main/java/org/arend/naming/reference/LongUnresolvedReference.java`
-#### Snippet
-```java
-      ClassReferable classRef = ((TypedReferable) ref).getTypeClassReference();
-      if (classRef != null) {
-        scope = new MergeScope(scope, new ClassFieldImplScope(classRef, ClassFieldImplScope.Extent.WITH_DYNAMIC));
-      }
-    }
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `i`
-in `base/src/main/java/org/arend/naming/reference/LongUnresolvedReference.java`
-#### Snippet
-```java
-    }
-
-    for (i++; i < myPath.size(); i++) {
-      ref = new ClassFieldImplScope(classRef, ClassFieldImplScope.Extent.WITH_DYNAMIC).resolveName(myPath.get(i));
-      classRef = ref instanceof TypedReferable ? ((TypedReferable) ref).getTypeClassReference() : null;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `i`
-in `base/src/main/java/org/arend/naming/reference/LongUnresolvedReference.java`
-#### Snippet
-```java
-    }
-
-    for (i++; i < myPath.size(); i++) {
-      ref = new ClassFieldImplScope(classRef, ClassFieldImplScope.Extent.WITH_DYNAMIC).resolveName(myPath.get(i));
-      classRef = ref instanceof TypedReferable ? ((TypedReferable) ref).getTypeClassReference() : null;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `scope`
-in `base/src/main/java/org/arend/naming/reference/LongUnresolvedReference.java`
-#### Snippet
-```java
-        resolvedRefs.add(scope.resolveName(myPath.get(i)));
-      }
-      scope = scope.resolveNamespace(myPath.get(i), i < myPath.size() - 2);
-      if (scope == null) {
-        if (!onlyTry) {
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `scope`
-in `base/src/main/java/org/arend/naming/reference/LongUnresolvedReference.java`
-#### Snippet
-```java
-
-    for (int i = 0; i < myPath.size(); i++) {
-      scope = scope.resolveNamespace(myPath.get(i), true);
-      if (scope == null) {
-        Object data = getData();
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `parentGroup`
-in `base/src/main/java/org/arend/naming/resolving/visitor/DefinitionResolveNameVisitor.java`
-#### Snippet
-```java
-    do {
-      groups.add(parentGroup);
-      parentGroup = parentGroup.getParentGroup();
-    } while (parentGroup != null);
-
-```
-
-### AssignmentToMethodParameter
 Assignment to method parameter `expr`
 in `base/src/main/java/org/arend/naming/resolving/visitor/DefinitionResolveNameVisitor.java`
 #### Snippet
@@ -12420,6 +12408,30 @@ in `base/src/main/java/org/arend/naming/resolving/visitor/DefinitionResolveNameV
 ```
 
 ### AssignmentToMethodParameter
+Assignment to method parameter `parentGroup`
+in `base/src/main/java/org/arend/naming/resolving/visitor/DefinitionResolveNameVisitor.java`
+#### Snippet
+```java
+    do {
+      groups.add(parentGroup);
+      parentGroup = parentGroup.getParentGroup();
+    } while (parentGroup != null);
+
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `unit`
+in `base/src/main/java/org/arend/typechecking/order/BellmanFord.java`
+#### Snippet
+```java
+      List<T> scc = new ArrayList<>();
+      do {
+        unit = myStack.pop();
+        myVertices.get(unit).onStack = false;
+        scc.add(unit);
+```
+
+### AssignmentToMethodParameter
 Assignment to method parameter `number`
 in `base/src/main/java/org/arend/extImpl/ConcreteFactoryImpl.java`
 #### Snippet
@@ -12441,18 +12453,6 @@ in `base/src/main/java/org/arend/extImpl/ConcreteFactoryImpl.java`
     if (number < -Concrete.NumberPattern.MAX_VALUE) number = -Concrete.NumberPattern.MAX_VALUE;
     return new Concrete.NumberPattern(myData, number, null);
   }
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `unit`
-in `base/src/main/java/org/arend/typechecking/order/BellmanFord.java`
-#### Snippet
-```java
-      List<T> scc = new ArrayList<>();
-      do {
-        unit = myStack.pop();
-        myVertices.get(unit).onStack = false;
-        scc.add(unit);
 ```
 
 ### AssignmentToMethodParameter
@@ -12540,18 +12540,6 @@ in `base/src/main/java/org/arend/typechecking/subexpr/CorrespondedSubExprVisitor
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `definition`
-in `base/src/main/java/org/arend/typechecking/order/listener/TypecheckingOrderingListener.java`
-#### Snippet
-```java
-  public void headerFound(Concrete.Definition definition) {
-    Concrete.Definition newDef = myDesugaredDefinitions.get(definition.getData());
-    if (newDef != null) definition = newDef;
-    myCurrentDefinitions = Collections.singletonList(definition.getData());
-    typecheckingHeaderStarted(definition.getData());
-```
-
-### AssignmentToMethodParameter
 Assignment to method parameter `referable`
 in `base/src/main/java/org/arend/typechecking/visitor/WhereVarsFixVisitor.java`
 #### Snippet
@@ -12612,18 +12600,6 @@ in `base/src/main/java/org/arend/typechecking/visitor/SearchVisitor.java`
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `expression`
-in `base/src/main/java/org/arend/typechecking/visitor/SearchVisitor.java`
-#### Snippet
-```java
-    Expression it = expression;
-    while (true) {
-      expression = (ConCallExpression) it;
-      switch (processDefCall(expression, param)) {
-        case STOP: return true;
-```
-
-### AssignmentToMethodParameter
 Assignment to method parameter `link`
 in `base/src/main/java/org/arend/typechecking/visitor/SearchVisitor.java`
 #### Snippet
@@ -12648,6 +12624,42 @@ in `base/src/main/java/org/arend/typechecking/visitor/SearchVisitor.java`
 ```
 
 ### AssignmentToMethodParameter
+Assignment to method parameter `expression`
+in `base/src/main/java/org/arend/typechecking/visitor/SearchVisitor.java`
+#### Snippet
+```java
+    Expression it = expression;
+    while (true) {
+      expression = (ConCallExpression) it;
+      switch (processDefCall(expression, param)) {
+        case STOP: return true;
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `definition`
+in `base/src/main/java/org/arend/typechecking/order/listener/TypecheckingOrderingListener.java`
+#### Snippet
+```java
+  public void headerFound(Concrete.Definition definition) {
+    Concrete.Definition newDef = myDesugaredDefinitions.get(definition.getData());
+    if (newDef != null) definition = newDef;
+    myCurrentDefinitions = Collections.singletonList(definition.getData());
+    typecheckingHeaderStarted(definition.getData());
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `expectedType`
+in `base/src/main/java/org/arend/typechecking/instance/pool/GlobalInstancePool.java`
+#### Snippet
+```java
+          if (classCall != null) {
+            myCheckTypeVisitor.fixClassExtSort(classCall, sourceNode);
+            expectedType = classCall;
+          }
+        }
+```
+
+### AssignmentToMethodParameter
 Assignment to method parameter `parentScope`
 in `base/src/main/java/org/arend/typechecking/instance/provider/InstanceProviderSet.java`
 #### Snippet
@@ -12657,30 +12669,6 @@ in `base/src/main/java/org/arend/typechecking/instance/provider/InstanceProvider
     parentScope = CachingScope.make(LexicalScope.insideOf(group, parentScope));
     List<Group> subgroups = new ArrayList<>();
     for (Statement statement : statements) {
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `expr`
-in `base/src/main/java/org/arend/typechecking/covariance/CovarianceChecker.java`
-#### Snippet
-```java
-
-  private boolean checkConstructor(Expression expr) {
-    expr = expr.getUnderlyingExpression();
-
-    if (expr instanceof LamExpression) {
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `expr`
-in `base/src/main/java/org/arend/typechecking/covariance/CovarianceChecker.java`
-#### Snippet
-```java
-      return false;
-    }
-    expr = expr.getUnderlyingExpression();
-
-    if (expr instanceof UniverseExpression) {
 ```
 
 ### AssignmentToMethodParameter
@@ -12732,15 +12720,27 @@ in `base/src/main/java/org/arend/typechecking/covariance/ParametersCovarianceChe
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `expectedType`
-in `base/src/main/java/org/arend/typechecking/instance/pool/GlobalInstancePool.java`
+Assignment to method parameter `expr`
+in `base/src/main/java/org/arend/typechecking/covariance/CovarianceChecker.java`
 #### Snippet
 ```java
-          if (classCall != null) {
-            myCheckTypeVisitor.fixClassExtSort(classCall, sourceNode);
-            expectedType = classCall;
-          }
-        }
+
+  private boolean checkConstructor(Expression expr) {
+    expr = expr.getUnderlyingExpression();
+
+    if (expr instanceof LamExpression) {
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `expr`
+in `base/src/main/java/org/arend/typechecking/covariance/CovarianceChecker.java`
+#### Snippet
+```java
+      return false;
+    }
+    expr = expr.getUnderlyingExpression();
+
+    if (expr instanceof UniverseExpression) {
 ```
 
 ### AssignmentToMethodParameter
@@ -12753,18 +12753,6 @@ in `base/src/main/java/org/arend/typechecking/termination/CollectCallVisitor.jav
       patternIndex = patternIndex.getNext();
     }
   }
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `expr1`
-in `base/src/main/java/org/arend/typechecking/termination/CollectCallVisitor.java`
-#### Snippet
-```java
-        if (((ReferenceExpression) expr1).getBinding() == binding2) return BaseCallMatrix.R.Equal;
-      } else {
-        expr1 = removeArgs(expr1);
-        if (expr1 instanceof ReferenceExpression && ((ReferenceExpression) expr1).getBinding() == binding2)
-          return BaseCallMatrix.R.LessThan; // ensures that "e x < e"
 ```
 
 ### AssignmentToMethodParameter
@@ -12816,27 +12804,27 @@ in `base/src/main/java/org/arend/typechecking/termination/CollectCallVisitor.jav
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `referable`
-in `base/src/main/java/org/arend/naming/resolving/visitor/ExpressionResolveNameVisitor.java`
+Assignment to method parameter `expr1`
+in `base/src/main/java/org/arend/typechecking/termination/CollectCallVisitor.java`
 #### Snippet
 ```java
-
-  public static Referable resolve(Referable referable, Scope scope, boolean withArg, List<Referable> resolvedRefs, @Nullable Referable.RefKind kind) {
-    referable = RedirectingReferable.getOriginalReferable(referable);
-    if (referable instanceof UnresolvedReference) {
-      if (withArg) {
+        if (((ReferenceExpression) expr1).getBinding() == binding2) return BaseCallMatrix.R.Equal;
+      } else {
+        expr1 = removeArgs(expr1);
+        if (expr1 instanceof ReferenceExpression && ((ReferenceExpression) expr1).getBinding() == binding2)
+          return BaseCallMatrix.R.LessThan; // ensures that "e x < e"
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `referable`
+Assignment to method parameter `arg`
 in `base/src/main/java/org/arend/naming/resolving/visitor/ExpressionResolveNameVisitor.java`
 #### Snippet
 ```java
-        ((UnresolvedReference) referable).resolveArgument(scope, resolvedRefs);
-      }
-      referable = RedirectingReferable.getOriginalReferable(((UnresolvedReference) referable).resolve(scope, withArg ? null : resolvedRefs, kind));
+
+  private void convertArgument(Concrete.Expression arg) {
+    for (; arg instanceof Concrete.AppExpression; arg = ((Concrete.AppExpression) arg).getArguments().get(0).expression) {
+      convertExpr((Concrete.ReferenceExpression) ((Concrete.AppExpression) arg).getFunction());
     }
-    return referable;
 ```
 
 ### AssignmentToMethodParameter
@@ -12852,15 +12840,15 @@ in `base/src/main/java/org/arend/naming/resolving/visitor/ExpressionResolveNameV
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `arg`
+Assignment to method parameter `arguments`
 in `base/src/main/java/org/arend/naming/resolving/visitor/ExpressionResolveNameVisitor.java`
 #### Snippet
 ```java
-
-  private void convertArgument(Concrete.Expression arg) {
-    for (; arg instanceof Concrete.AppExpression; arg = ((Concrete.AppExpression) arg).getArguments().get(0).expression) {
-      convertExpr((Concrete.ReferenceExpression) ((Concrete.AppExpression) arg).getFunction());
-    }
+      List<Concrete.Argument> newArgs = new ArrayList<>(((Concrete.AppExpression) function).getArguments());
+      newArgs.addAll(arguments);
+      arguments = newArgs;
+    } else if (function instanceof Concrete.ReferenceExpression) {
+      refExpr = (Concrete.ReferenceExpression) function;
 ```
 
 ### AssignmentToMethodParameter
@@ -12888,18 +12876,6 @@ in `base/src/main/java/org/arend/naming/resolving/visitor/ExpressionResolveNameV
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `arguments`
-in `base/src/main/java/org/arend/naming/resolving/visitor/ExpressionResolveNameVisitor.java`
-#### Snippet
-```java
-      List<Concrete.Argument> newArgs = new ArrayList<>(((Concrete.AppExpression) function).getArguments());
-      newArgs.addAll(arguments);
-      arguments = newArgs;
-    } else if (function instanceof Concrete.ReferenceExpression) {
-      refExpr = (Concrete.ReferenceExpression) function;
-```
-
-### AssignmentToMethodParameter
 Assignment to method parameter `function`
 in `base/src/main/java/org/arend/naming/resolving/visitor/ExpressionResolveNameVisitor.java`
 #### Snippet
@@ -12912,15 +12888,279 @@ in `base/src/main/java/org/arend/naming/resolving/visitor/ExpressionResolveNameV
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `expr`
-in `base/src/main/java/org/arend/typechecking/implicitargs/equations/TwoStageEquations.java`
+Assignment to method parameter `referable`
+in `base/src/main/java/org/arend/naming/resolving/visitor/ExpressionResolveNameVisitor.java`
 #### Snippet
 ```java
-        }
+
+  public static Referable resolve(Referable referable, Scope scope, boolean withArg, List<Referable> resolvedRefs, @Nullable Referable.RefKind kind) {
+    referable = RedirectingReferable.getOriginalReferable(referable);
+    if (referable instanceof UnresolvedReference) {
+      if (withArg) {
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `referable`
+in `base/src/main/java/org/arend/naming/resolving/visitor/ExpressionResolveNameVisitor.java`
+#### Snippet
+```java
+        ((UnresolvedReference) referable).resolveArgument(scope, resolvedRefs);
       }
-      expr = ((SubstExpression) expr).getExpression();
-      totalSubst.addSubst(reversedSubst);
+      referable = RedirectingReferable.getOriginalReferable(((UnresolvedReference) referable).resolve(scope, withArg ? null : resolvedRefs, kind));
     }
+    return referable;
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `expr`
+in `base/src/main/java/org/arend/typechecking/patternmatching/ExpressionMatcher.java`
+#### Snippet
+```java
+    }
+
+    expr = expr.normalize(NormalizationMode.WHNF);
+    if (!(pattern instanceof ConstructorExpressionPattern)) {
+      if (expr instanceof TupleExpression) {
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `result`
+in `base/src/main/java/org/arend/typechecking/implicitargs/StdImplicitArgsInference.java`
+#### Snippet
+```java
+
+    if (expectedParamsNumber != actualParams.size()) {
+      result = fixImplicitArgs(result, actualParams.subList(0, actualParams.size() - expectedParamsNumber), expr, expectedType == null || expectedType instanceof Type && ((Type) expectedType).isOmega(), null);
+    }
+
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `type`
+in `base/src/main/java/org/arend/typechecking/implicitargs/StdImplicitArgsInference.java`
+#### Snippet
+```java
+    loop:
+    while (true) {
+      type = type.normalize(NormalizationMode.WHNF);
+      if (!(type instanceof PiExpression)) {
+        break;
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `type`
+in `base/src/main/java/org/arend/typechecking/implicitargs/StdImplicitArgsInference.java`
+#### Snippet
+```java
+      PiExpression pi = (PiExpression) type;
+      piTypes.add(pi);
+      type = pi.getCodomain();
+      SingleDependentLink link = pi.getParameters();
+      for (; i < arguments.size() && link.hasNext(); link = link.getNext()) {
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `type`
+in `base/src/main/java/org/arend/typechecking/implicitargs/StdImplicitArgsInference.java`
+#### Snippet
+```java
+          ok = link.isExplicit();
+        } else {
+          type = type.normalize(NormalizationMode.WHNF);
+          if (type instanceof PiExpression) {
+            ok = ((PiExpression) type).getParameters().isExplicit();
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `defCallResult`
+in `base/src/main/java/org/arend/typechecking/implicitargs/StdImplicitArgsInference.java`
+#### Snippet
+```java
+    }
+
+    defCallResult = result instanceof DefCallResult ? (DefCallResult) result : null;
+    if (definition == Prelude.ARRAY_CONS && defCallResult != null && defCallResult.getArguments().isEmpty() && index2 < arguments.size()) {
+      InferenceVariable var = null;
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `result`
+in `base/src/main/java/org/arend/typechecking/implicitargs/StdImplicitArgsInference.java`
+#### Snippet
+```java
+        if (defCallResult.getArguments().isEmpty()) {
+          Expression binding = InferenceReferenceExpression.make(new FunctionInferenceVariable(Prelude.PATH_CON, Prelude.PATH_CON.getDataTypeParameters(), 1, new UniverseExpression(sort0), fun, myVisitor.getAllBindings()), myVisitor.getEquations());
+          result = result.applyExpression(new LamExpression(sort, lamParam, binding), true, myVisitor, fun);
+          argResult = myVisitor.checkArgument(arg, new PiExpression(sort, lamParam, binding), result, null);
+        } else {
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `result`
+in `base/src/main/java/org/arend/typechecking/implicitargs/StdImplicitArgsInference.java`
+#### Snippet
+```java
+      }
+
+      result = fixImplicitArgs(result, result.getImplicitParameters(), fun, false, null);
+    }
+
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `result`
+in `base/src/main/java/org/arend/typechecking/implicitargs/StdImplicitArgsInference.java`
+#### Snippet
+```java
+      TResult coercedResult = CheckTypeVisitor.coerceFromType((TypecheckingResult) result);
+      if (coercedResult != null) {
+        result = coercedResult;
+        if (isExplicit) {
+          result = fixImplicitArgs(result, result.getImplicitParameters(), fun, false, null);
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `result`
+in `base/src/main/java/org/arend/typechecking/implicitargs/StdImplicitArgsInference.java`
+#### Snippet
+```java
+        result = coercedResult;
+        if (isExplicit) {
+          result = fixImplicitArgs(result, result.getImplicitParameters(), fun, false, null);
+        }
+        param = result.getParameter();
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `result`
+in `base/src/main/java/org/arend/typechecking/implicitargs/StdImplicitArgsInference.java`
+#### Snippet
+```java
+      if (!param.hasNext()) {
+        TypecheckingResult tcResult = ((TypecheckingResult) result).normalizeType();
+        result = tcResult;
+        if (tcResult.type instanceof DataCallExpression && ((DataCallExpression) tcResult.type).getDefinition() == Prelude.PATH) {
+          List<Expression> args = ((DataCallExpression) tcResult.type).getDefCallArguments();
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `result`
+in `base/src/main/java/org/arend/typechecking/implicitargs/StdImplicitArgsInference.java`
+#### Snippet
+```java
+        if (tcResult.type instanceof DataCallExpression && ((DataCallExpression) tcResult.type).getDefinition() == Prelude.PATH) {
+          List<Expression> args = ((DataCallExpression) tcResult.type).getDefCallArguments();
+          result = DefCallResult.makeTResult(new Concrete.ReferenceExpression(fun.getData(), Prelude.AT.getRef()), Prelude.AT, ((DataCallExpression) tcResult.type).getLevels())
+            .applyExpression(args.get(0), false, myVisitor, fun)
+            .applyExpression(args.get(1), false, myVisitor, fun)
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `result`
+in `base/src/main/java/org/arend/typechecking/implicitargs/StdImplicitArgsInference.java`
+#### Snippet
+```java
+          coercedResult = CoerceData.coerceToKey(tcResult, new CoerceData.PiKey(), fun, myVisitor);
+          if (coercedResult != null) {
+            result = coercedResult;
+            if (isExplicit) {
+              result = fixImplicitArgs(result, result.getImplicitParameters(), fun, false, null);
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `result`
+in `base/src/main/java/org/arend/typechecking/implicitargs/StdImplicitArgsInference.java`
+#### Snippet
+```java
+            result = coercedResult;
+            if (isExplicit) {
+              result = fixImplicitArgs(result, result.getImplicitParameters(), fun, false, null);
+            }
+            param = result.getParameter();
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `type`
+in `base/src/main/java/org/arend/typechecking/implicitargs/StdImplicitArgsInference.java`
+#### Snippet
+```java
+      }
+      PiExpression pi = (PiExpression) type;
+      type = pi.getCodomain();
+      SingleDependentLink param = pi.getParameters();
+      loop:
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `i`
+in `base/src/main/java/org/arend/typechecking/implicitargs/StdImplicitArgsInference.java`
+#### Snippet
+```java
+      SingleDependentLink param = pi.getParameters();
+      loop:
+      for (; param.hasNext() && i < arguments.size(); param = param.getNext(), i++) {
+        while (param.isExplicit() != arguments.get(i).isExplicit()) {
+          param = param.getNext();
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `elementsType`
+in `base/src/main/java/org/arend/typechecking/implicitargs/StdImplicitArgsInference.java`
+#### Snippet
+```java
+    if (elementsType == null) return null;
+    if (elementsType instanceof LamExpression) {
+      elementsType = ((LamExpression) elementsType).getBody().normalize(NormalizationMode.WHNF);
+      if (elementsType instanceof AppExpression && ((AppExpression) elementsType).isExplicit()) {
+        elementsType = elementsType.getFunction().normalize(NormalizationMode.WHNF);
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `elementsType`
+in `base/src/main/java/org/arend/typechecking/implicitargs/StdImplicitArgsInference.java`
+#### Snippet
+```java
+      elementsType = ((LamExpression) elementsType).getBody().normalize(NormalizationMode.WHNF);
+      if (elementsType instanceof AppExpression && ((AppExpression) elementsType).isExplicit()) {
+        elementsType = elementsType.getFunction().normalize(NormalizationMode.WHNF);
+      }
+    }
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `result`
+in `base/src/main/java/org/arend/typechecking/implicitargs/StdImplicitArgsInference.java`
+#### Snippet
+```java
+                instance = instanceResult.expression;
+              }
+              result = result.applyExpression(instance, defCallResult.getParameter().isExplicit(), myVisitor, expr);
+              substitution.add(parameter, instance);
+              i++;
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `result`
+in `base/src/main/java/org/arend/typechecking/implicitargs/StdImplicitArgsInference.java`
+#### Snippet
+```java
+        argument = InferenceReferenceExpression.make(infVar, myVisitor.getEquations());
+      }
+      result = result.applyExpression(argument, parameter.isExplicit(), myVisitor, expr);
+      substitution.add(parameter, argument);
+      i++;
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `expectedType`
+in `base/src/main/java/org/arend/typechecking/implicitargs/StdImplicitArgsInference.java`
+#### Snippet
+```java
+      }
+
+      expectedType = piParam.hasNext() ? new PiExpression(piExpr.getResultSort(), piParam, piExpr.getCodomain()) : piExpr.getCodomain();
+    }
+
 ```
 
 ### AssignmentToMethodParameter
@@ -13005,6 +13245,18 @@ in `base/src/main/java/org/arend/typechecking/implicitargs/equations/TwoStageEqu
       solved = true;
     }
     return allOK && solved;
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `expr`
+in `base/src/main/java/org/arend/typechecking/implicitargs/equations/TwoStageEquations.java`
+#### Snippet
+```java
+        }
+      }
+      expr = ((SubstExpression) expr).getExpression();
+      totalSubst.addSubst(reversedSubst);
+    }
 ```
 
 ### AssignmentToMethodParameter
@@ -13128,330 +13380,6 @@ in `base/src/main/java/org/arend/typechecking/implicitargs/equations/TwoStageEqu
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `expr`
-in `base/src/main/java/org/arend/typechecking/patternmatching/ExpressionMatcher.java`
-#### Snippet
-```java
-    }
-
-    expr = expr.normalize(NormalizationMode.WHNF);
-    if (!(pattern instanceof ConstructorExpressionPattern)) {
-      if (expr instanceof TupleExpression) {
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `result`
-in `base/src/main/java/org/arend/typechecking/implicitargs/StdImplicitArgsInference.java`
-#### Snippet
-```java
-        if (defCallResult.getArguments().isEmpty()) {
-          Expression binding = InferenceReferenceExpression.make(new FunctionInferenceVariable(Prelude.PATH_CON, Prelude.PATH_CON.getDataTypeParameters(), 1, new UniverseExpression(sort0), fun, myVisitor.getAllBindings()), myVisitor.getEquations());
-          result = result.applyExpression(new LamExpression(sort, lamParam, binding), true, myVisitor, fun);
-          argResult = myVisitor.checkArgument(arg, new PiExpression(sort, lamParam, binding), result, null);
-        } else {
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `result`
-in `base/src/main/java/org/arend/typechecking/implicitargs/StdImplicitArgsInference.java`
-#### Snippet
-```java
-      }
-
-      result = fixImplicitArgs(result, result.getImplicitParameters(), fun, false, null);
-    }
-
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `result`
-in `base/src/main/java/org/arend/typechecking/implicitargs/StdImplicitArgsInference.java`
-#### Snippet
-```java
-      TResult coercedResult = CheckTypeVisitor.coerceFromType((TypecheckingResult) result);
-      if (coercedResult != null) {
-        result = coercedResult;
-        if (isExplicit) {
-          result = fixImplicitArgs(result, result.getImplicitParameters(), fun, false, null);
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `result`
-in `base/src/main/java/org/arend/typechecking/implicitargs/StdImplicitArgsInference.java`
-#### Snippet
-```java
-        result = coercedResult;
-        if (isExplicit) {
-          result = fixImplicitArgs(result, result.getImplicitParameters(), fun, false, null);
-        }
-        param = result.getParameter();
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `result`
-in `base/src/main/java/org/arend/typechecking/implicitargs/StdImplicitArgsInference.java`
-#### Snippet
-```java
-      if (!param.hasNext()) {
-        TypecheckingResult tcResult = ((TypecheckingResult) result).normalizeType();
-        result = tcResult;
-        if (tcResult.type instanceof DataCallExpression && ((DataCallExpression) tcResult.type).getDefinition() == Prelude.PATH) {
-          List<Expression> args = ((DataCallExpression) tcResult.type).getDefCallArguments();
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `result`
-in `base/src/main/java/org/arend/typechecking/implicitargs/StdImplicitArgsInference.java`
-#### Snippet
-```java
-        if (tcResult.type instanceof DataCallExpression && ((DataCallExpression) tcResult.type).getDefinition() == Prelude.PATH) {
-          List<Expression> args = ((DataCallExpression) tcResult.type).getDefCallArguments();
-          result = DefCallResult.makeTResult(new Concrete.ReferenceExpression(fun.getData(), Prelude.AT.getRef()), Prelude.AT, ((DataCallExpression) tcResult.type).getLevels())
-            .applyExpression(args.get(0), false, myVisitor, fun)
-            .applyExpression(args.get(1), false, myVisitor, fun)
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `result`
-in `base/src/main/java/org/arend/typechecking/implicitargs/StdImplicitArgsInference.java`
-#### Snippet
-```java
-          coercedResult = CoerceData.coerceToKey(tcResult, new CoerceData.PiKey(), fun, myVisitor);
-          if (coercedResult != null) {
-            result = coercedResult;
-            if (isExplicit) {
-              result = fixImplicitArgs(result, result.getImplicitParameters(), fun, false, null);
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `result`
-in `base/src/main/java/org/arend/typechecking/implicitargs/StdImplicitArgsInference.java`
-#### Snippet
-```java
-            result = coercedResult;
-            if (isExplicit) {
-              result = fixImplicitArgs(result, result.getImplicitParameters(), fun, false, null);
-            }
-            param = result.getParameter();
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `expectedType`
-in `base/src/main/java/org/arend/typechecking/implicitargs/StdImplicitArgsInference.java`
-#### Snippet
-```java
-      }
-
-      expectedType = piParam.hasNext() ? new PiExpression(piExpr.getResultSort(), piParam, piExpr.getCodomain()) : piExpr.getCodomain();
-    }
-
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `type`
-in `base/src/main/java/org/arend/typechecking/implicitargs/StdImplicitArgsInference.java`
-#### Snippet
-```java
-    loop:
-    while (true) {
-      type = type.normalize(NormalizationMode.WHNF);
-      if (!(type instanceof PiExpression)) {
-        break;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `type`
-in `base/src/main/java/org/arend/typechecking/implicitargs/StdImplicitArgsInference.java`
-#### Snippet
-```java
-      PiExpression pi = (PiExpression) type;
-      piTypes.add(pi);
-      type = pi.getCodomain();
-      SingleDependentLink link = pi.getParameters();
-      for (; i < arguments.size() && link.hasNext(); link = link.getNext()) {
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `type`
-in `base/src/main/java/org/arend/typechecking/implicitargs/StdImplicitArgsInference.java`
-#### Snippet
-```java
-          ok = link.isExplicit();
-        } else {
-          type = type.normalize(NormalizationMode.WHNF);
-          if (type instanceof PiExpression) {
-            ok = ((PiExpression) type).getParameters().isExplicit();
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `defCallResult`
-in `base/src/main/java/org/arend/typechecking/implicitargs/StdImplicitArgsInference.java`
-#### Snippet
-```java
-    }
-
-    defCallResult = result instanceof DefCallResult ? (DefCallResult) result : null;
-    if (definition == Prelude.ARRAY_CONS && defCallResult != null && defCallResult.getArguments().isEmpty() && index2 < arguments.size()) {
-      InferenceVariable var = null;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `elementsType`
-in `base/src/main/java/org/arend/typechecking/implicitargs/StdImplicitArgsInference.java`
-#### Snippet
-```java
-    if (elementsType == null) return null;
-    if (elementsType instanceof LamExpression) {
-      elementsType = ((LamExpression) elementsType).getBody().normalize(NormalizationMode.WHNF);
-      if (elementsType instanceof AppExpression && ((AppExpression) elementsType).isExplicit()) {
-        elementsType = elementsType.getFunction().normalize(NormalizationMode.WHNF);
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `elementsType`
-in `base/src/main/java/org/arend/typechecking/implicitargs/StdImplicitArgsInference.java`
-#### Snippet
-```java
-      elementsType = ((LamExpression) elementsType).getBody().normalize(NormalizationMode.WHNF);
-      if (elementsType instanceof AppExpression && ((AppExpression) elementsType).isExplicit()) {
-        elementsType = elementsType.getFunction().normalize(NormalizationMode.WHNF);
-      }
-    }
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `type`
-in `base/src/main/java/org/arend/typechecking/implicitargs/StdImplicitArgsInference.java`
-#### Snippet
-```java
-      }
-      PiExpression pi = (PiExpression) type;
-      type = pi.getCodomain();
-      SingleDependentLink param = pi.getParameters();
-      loop:
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `i`
-in `base/src/main/java/org/arend/typechecking/implicitargs/StdImplicitArgsInference.java`
-#### Snippet
-```java
-      SingleDependentLink param = pi.getParameters();
-      loop:
-      for (; param.hasNext() && i < arguments.size(); param = param.getNext(), i++) {
-        while (param.isExplicit() != arguments.get(i).isExplicit()) {
-          param = param.getNext();
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `result`
-in `base/src/main/java/org/arend/typechecking/implicitargs/StdImplicitArgsInference.java`
-#### Snippet
-```java
-                instance = instanceResult.expression;
-              }
-              result = result.applyExpression(instance, defCallResult.getParameter().isExplicit(), myVisitor, expr);
-              substitution.add(parameter, instance);
-              i++;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `result`
-in `base/src/main/java/org/arend/typechecking/implicitargs/StdImplicitArgsInference.java`
-#### Snippet
-```java
-        argument = InferenceReferenceExpression.make(infVar, myVisitor.getEquations());
-      }
-      result = result.applyExpression(argument, parameter.isExplicit(), myVisitor, expr);
-      substitution.add(parameter, argument);
-      i++;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `result`
-in `base/src/main/java/org/arend/typechecking/implicitargs/StdImplicitArgsInference.java`
-#### Snippet
-```java
-
-    if (expectedParamsNumber != actualParams.size()) {
-      result = fixImplicitArgs(result, actualParams.subList(0, actualParams.size() - expectedParamsNumber), expr, expectedType == null || expectedType instanceof Type && ((Type) expectedType).isOmega(), null);
-    }
-
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `link`
-in `base/src/main/java/org/arend/typechecking/doubleChecker/CoreExpressionChecker.java`
-#### Snippet
-```java
-  Sort checkDependentLink(DependentLink link, Expression expr) {
-    Sort result = Sort.PROP;
-    for (; link.hasNext(); link = link.getNext()) {
-      addBinding(link, expr);
-      if (link instanceof TypedDependentLink) {
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `link`
-in `base/src/main/java/org/arend/typechecking/doubleChecker/CoreExpressionChecker.java`
-#### Snippet
-```java
-
-  void addDependentLink(DependentLink link) {
-    for (; link.hasNext(); link = link.getNext()) {
-      addBinding(link, null);
-    }
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `level`
-in `base/src/main/java/org/arend/typechecking/doubleChecker/CoreExpressionChecker.java`
-#### Snippet
-```java
-      DefCallExpression defCall = type.cast(DefCallExpression.class);
-      if (defCall != null) {
-        level = defCall.getUseLevel();
-      } else {
-        defCall = type.getPiParameters(null, false).cast(DefCallExpression.class);
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `level`
-in `base/src/main/java/org/arend/typechecking/doubleChecker/CoreExpressionChecker.java`
-#### Snippet
-```java
-        defCall = type.getPiParameters(null, false).cast(DefCallExpression.class);
-        if (defCall != null) {
-          level = defCall.getUseLevel();
-        }
-      }
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `type`
-in `base/src/main/java/org/arend/typechecking/doubleChecker/CoreExpressionChecker.java`
-#### Snippet
-```java
-      args.add(new ReferenceExpression(params.get(i)));
-      args.add(new ReferenceExpression(params.get(i + 1)));
-      type = FunCallExpression.make(Prelude.PATH_INFIX, LevelPair.PROP, args);
-    }
-
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `link`
-in `base/src/main/java/org/arend/typechecking/doubleChecker/CoreExpressionChecker.java`
-#### Snippet
-```java
-  Sort checkDependentLinkWithResult(DependentLink link, Expression type, Expression expr) {
-    Sort result = Sort.PROP;
-    for (; link.hasNext(); link = link.getNext()) {
-      addBinding(link, expr);
-      if (link instanceof TypedDependentLink) {
-```
-
-### AssignmentToMethodParameter
 Assignment to method parameter `parameters`
 in `base/src/main/java/org/arend/typechecking/doubleChecker/CoreExpressionChecker.java`
 #### Snippet
@@ -13469,9 +13397,9 @@ in `base/src/main/java/org/arend/typechecking/doubleChecker/CoreExpressionChecke
 #### Snippet
 ```java
 
-  void freeDependentLink(DependentLink link) {
+  void addDependentLink(DependentLink link) {
     for (; link.hasNext(); link = link.getNext()) {
-      if (myContext != null) myContext.remove(link);
+      addBinding(link, null);
     }
 ```
 
@@ -13482,6 +13410,18 @@ in `base/src/main/java/org/arend/typechecking/doubleChecker/CoreExpressionChecke
 ```java
 
   void checkDependentLink(DependentLink link, Expression type, Expression expr) {
+    for (; link.hasNext(); link = link.getNext()) {
+      addBinding(link, expr);
+      if (link instanceof TypedDependentLink) {
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `link`
+in `base/src/main/java/org/arend/typechecking/doubleChecker/CoreExpressionChecker.java`
+#### Snippet
+```java
+  Sort checkDependentLink(DependentLink link, Expression expr) {
+    Sort result = Sort.PROP;
     for (; link.hasNext(); link = link.getNext()) {
       addBinding(link, expr);
       if (link instanceof TypedDependentLink) {
@@ -13512,15 +13452,27 @@ in `base/src/main/java/org/arend/typechecking/doubleChecker/CoreExpressionChecke
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `expectedType`
+Assignment to method parameter `level`
 in `base/src/main/java/org/arend/typechecking/doubleChecker/CoreExpressionChecker.java`
 #### Snippet
 ```java
-          substitution.add(link, arg);
-        } else {
-          expectedType = link.getTypeExpr().subst(substitution, levelSubst);
+      DefCallExpression defCall = type.cast(DefCallExpression.class);
+      if (defCall != null) {
+        level = defCall.getUseLevel();
+      } else {
+        defCall = type.getPiParameters(null, false).cast(DefCallExpression.class);
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `level`
+in `base/src/main/java/org/arend/typechecking/doubleChecker/CoreExpressionChecker.java`
+#### Snippet
+```java
+        defCall = type.getPiParameters(null, false).cast(DefCallExpression.class);
+        if (defCall != null) {
+          level = defCall.getUseLevel();
         }
-        link = link.getNext();
+      }
 ```
 
 ### AssignmentToMethodParameter
@@ -13533,6 +13485,54 @@ in `base/src/main/java/org/arend/typechecking/doubleChecker/CoreExpressionChecke
       parameters = parameters.getNext();
     }
 
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `type`
+in `base/src/main/java/org/arend/typechecking/doubleChecker/CoreExpressionChecker.java`
+#### Snippet
+```java
+      args.add(new ReferenceExpression(params.get(i)));
+      args.add(new ReferenceExpression(params.get(i + 1)));
+      type = FunCallExpression.make(Prelude.PATH_INFIX, LevelPair.PROP, args);
+    }
+
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `link`
+in `base/src/main/java/org/arend/typechecking/doubleChecker/CoreExpressionChecker.java`
+#### Snippet
+```java
+  Sort checkDependentLinkWithResult(DependentLink link, Expression type, Expression expr) {
+    Sort result = Sort.PROP;
+    for (; link.hasNext(); link = link.getNext()) {
+      addBinding(link, expr);
+      if (link instanceof TypedDependentLink) {
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `expectedType`
+in `base/src/main/java/org/arend/typechecking/doubleChecker/CoreExpressionChecker.java`
+#### Snippet
+```java
+          substitution.add(link, arg);
+        } else {
+          expectedType = link.getTypeExpr().subst(substitution, levelSubst);
+        }
+        link = link.getNext();
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `link`
+in `base/src/main/java/org/arend/typechecking/doubleChecker/CoreExpressionChecker.java`
+#### Snippet
+```java
+
+  void freeDependentLink(DependentLink link) {
+    for (; link.hasNext(); link = link.getNext()) {
+      if (myContext != null) myContext.remove(link);
+    }
 ```
 
 ### AssignmentToMethodParameter
@@ -13572,15 +13572,15 @@ in `base/src/main/java/org/arend/typechecking/patternmatching/ElimTypechecking.j
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `expression`
+Assignment to method parameter `type`
 in `base/src/main/java/org/arend/typechecking/visitor/DefinitionTypechecker.java`
 #### Snippet
 ```java
-  private Expression addAts(Expression expression, DependentLink param, Expression type) {
-    while (type instanceof DataCallExpression && ((DataCallExpression) type).getDefinition() == Prelude.PATH) {
-      expression = AtExpression.make(expression, new ReferenceExpression(param), false);
-      type = ((LamExpression) ((DataCallExpression) type).getDefCallArguments().get(0)).getBody();
-      param = param.getNext();
+
+  private Expression normalizePathExpression(Expression type, Constructor constructor, Concrete.SourceNode sourceNode) {
+    type = type.normalize(NormalizationMode.WHNF);
+    if (type instanceof DataCallExpression && ((DataCallExpression) type).getDefinition() == Prelude.PATH) {
+      List<Expression> pathArgs = ((DataCallExpression) type).getDefCallArguments();
 ```
 
 ### AssignmentToMethodParameter
@@ -13588,23 +13588,11 @@ Assignment to method parameter `type`
 in `base/src/main/java/org/arend/typechecking/visitor/DefinitionTypechecker.java`
 #### Snippet
 ```java
-    while (type instanceof DataCallExpression && ((DataCallExpression) type).getDefinition() == Prelude.PATH) {
-      expression = AtExpression.make(expression, new ReferenceExpression(param), false);
-      type = ((LamExpression) ((DataCallExpression) type).getDefCallArguments().get(0)).getBody();
-      param = param.getNext();
+        }
+      } else {
+        type = null;
+      }
     }
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `param`
-in `base/src/main/java/org/arend/typechecking/visitor/DefinitionTypechecker.java`
-#### Snippet
-```java
-      expression = AtExpression.make(expression, new ReferenceExpression(param), false);
-      type = ((LamExpression) ((DataCallExpression) type).getDefCallArguments().get(0)).getBody();
-      param = param.getNext();
-    }
-    return expression;
 ```
 
 ### AssignmentToMethodParameter
@@ -13644,6 +13632,42 @@ in `base/src/main/java/org/arend/typechecking/visitor/DefinitionTypechecker.java
 ```
 
 ### AssignmentToMethodParameter
+Assignment to method parameter `expression`
+in `base/src/main/java/org/arend/typechecking/visitor/DefinitionTypechecker.java`
+#### Snippet
+```java
+  private Expression addAts(Expression expression, DependentLink param, Expression type) {
+    while (type instanceof DataCallExpression && ((DataCallExpression) type).getDefinition() == Prelude.PATH) {
+      expression = AtExpression.make(expression, new ReferenceExpression(param), false);
+      type = ((LamExpression) ((DataCallExpression) type).getDefCallArguments().get(0)).getBody();
+      param = param.getNext();
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `type`
+in `base/src/main/java/org/arend/typechecking/visitor/DefinitionTypechecker.java`
+#### Snippet
+```java
+    while (type instanceof DataCallExpression && ((DataCallExpression) type).getDefinition() == Prelude.PATH) {
+      expression = AtExpression.make(expression, new ReferenceExpression(param), false);
+      type = ((LamExpression) ((DataCallExpression) type).getDefCallArguments().get(0)).getBody();
+      param = param.getNext();
+    }
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `param`
+in `base/src/main/java/org/arend/typechecking/visitor/DefinitionTypechecker.java`
+#### Snippet
+```java
+      expression = AtExpression.make(expression, new ReferenceExpression(param), false);
+      type = ((LamExpression) ((DataCallExpression) type).getDefCallArguments().get(0)).getBody();
+      param = param.getNext();
+    }
+    return expression;
+```
+
+### AssignmentToMethodParameter
 Assignment to method parameter `oldParameters`
 in `base/src/main/java/org/arend/typechecking/visitor/DefinitionTypechecker.java`
 #### Snippet
@@ -13668,30 +13692,6 @@ in `base/src/main/java/org/arend/typechecking/visitor/DefinitionTypechecker.java
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `type`
-in `base/src/main/java/org/arend/typechecking/visitor/DefinitionTypechecker.java`
-#### Snippet
-```java
-
-  private Expression normalizePathExpression(Expression type, Constructor constructor, Concrete.SourceNode sourceNode) {
-    type = type.normalize(NormalizationMode.WHNF);
-    if (type instanceof DataCallExpression && ((DataCallExpression) type).getDefinition() == Prelude.PATH) {
-      List<Expression> pathArgs = ((DataCallExpression) type).getDefCallArguments();
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `type`
-in `base/src/main/java/org/arend/typechecking/visitor/DefinitionTypechecker.java`
-#### Snippet
-```java
-        }
-      } else {
-        type = null;
-      }
-    }
-```
-
-### AssignmentToMethodParameter
 Assignment to method parameter `patterns`
 in `base/src/main/java/org/arend/typechecking/patternmatching/PatternTypechecking.java`
 #### Snippet
@@ -13701,54 +13701,6 @@ in `base/src/main/java/org/arend/typechecking/patternmatching/PatternTypecheckin
       patterns = patterns1;
     }
 
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `index`
-in `base/src/main/java/org/arend/typechecking/patternmatching/PatternTypechecking.java`
-#### Snippet
-```java
-  private int getIntervalBindings(List<? extends ExpressionPattern> patterns, int index, List<Binding> result) {
-    for (ExpressionPattern pattern : patterns) {
-      index = getIntervalBindings(pattern.getSubPatterns(), index, result);
-      if (pattern == myPathPatterns.get(index).proj1) {
-        List<? extends ExpressionPattern> subPatterns = pattern.getSubPatterns();
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `index`
-in `base/src/main/java/org/arend/typechecking/patternmatching/PatternTypechecking.java`
-#### Snippet
-```java
-          result.add(((BindingPattern) subPatterns.get(subPatterns.size() - 1 - i)).getBinding());
-        }
-        if (++index >= myPathPatterns.size()) {
-          break;
-        }
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `expectedType`
-in `base/src/main/java/org/arend/typechecking/patternmatching/PatternTypechecking.java`
-#### Snippet
-```java
-        }
-      }
-      expectedType = expectedType.subst(substitution);
-
-      GlobalInstancePool globalInstancePool = myVisitor.getInstancePool();
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `expectedType`
-in `base/src/main/java/org/arend/typechecking/patternmatching/PatternTypechecking.java`
-#### Snippet
-```java
-    }
-
-    expectedType = expectedType.copy();
-    Type type = typecheckType(asPattern.type, expectedType);
-    if (asPattern.referable != null) {
 ```
 
 ### AssignmentToMethodParameter
@@ -13848,63 +13800,51 @@ in `base/src/main/java/org/arend/typechecking/patternmatching/PatternTypecheckin
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `expr`
-in `base/src/main/java/org/arend/typechecking/visitor/CheckTypeVisitor.java`
+Assignment to method parameter `index`
+in `base/src/main/java/org/arend/typechecking/patternmatching/PatternTypechecking.java`
 #### Snippet
 ```java
-  static void setCaseLevel(Concrete.Expression expr, int level, boolean setSCase) {
-    while (expr instanceof Concrete.LamExpression) {
-      expr = ((Concrete.LamExpression) expr).getBody();
-    }
-    if (expr instanceof Concrete.CaseExpression caseExpr) {
+  private int getIntervalBindings(List<? extends ExpressionPattern> patterns, int index, List<Binding> result) {
+    for (ExpressionPattern pattern : patterns) {
+      index = getIntervalBindings(pattern.getSubPatterns(), index, result);
+      if (pattern == myPathPatterns.get(index).proj1) {
+        List<? extends ExpressionPattern> subPatterns = pattern.getSubPatterns();
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `expr`
-in `base/src/main/java/org/arend/typechecking/visitor/CheckTypeVisitor.java`
+Assignment to method parameter `index`
+in `base/src/main/java/org/arend/typechecking/patternmatching/PatternTypechecking.java`
 #### Snippet
 ```java
-    }
-
-    expr = expr.accept(new SubstVisitor(new ExprSubstitution(), LevelSubstitution.EMPTY) {
-      @Override
-      public boolean isEmpty() {
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `exprResult`
-in `base/src/main/java/org/arend/typechecking/visitor/CheckTypeVisitor.java`
-#### Snippet
-```java
-      TypecheckingResult coercedResult = CoerceData.coerceToKey(exprResult, new CoerceData.SigmaKey(), expr, this);
-      if (coercedResult != null) {
-        exprResult = coercedResult;
-      }
-    }
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `result`
-in `base/src/main/java/org/arend/typechecking/visitor/CheckTypeVisitor.java`
-#### Snippet
-```java
-  private TypecheckingResult tResultToResult(Expression expectedType, TResult result, Concrete.Expression expr) {
-    if (result != null) {
-      result = myArgsInference.inferTail(result, expectedType, expr);
-    }
-    return result == null ? null : checkResult(expectedType, result.toResult(this), expr);
+          result.add(((BindingPattern) subPatterns.get(subPatterns.size() - 1 - i)).getBinding());
+        }
+        if (++index >= myPathPatterns.size()) {
+          break;
+        }
 ```
 
 ### AssignmentToMethodParameter
 Assignment to method parameter `expectedType`
-in `base/src/main/java/org/arend/typechecking/visitor/CheckTypeVisitor.java`
+in `base/src/main/java/org/arend/typechecking/patternmatching/PatternTypechecking.java`
 #### Snippet
 ```java
-    boolean isOmega = expectedType instanceof Type && ((Type) expectedType).isOmega();
-    if (!isOmega) {
-      expectedType = expectedType.normalize(NormalizationMode.WHNF);
-      if (expectedType.getStuckInferenceVariable() != null) {
-        expectedType1 = Type.OMEGA;
+    }
+
+    expectedType = expectedType.copy();
+    Type type = typecheckType(asPattern.type, expectedType);
+    if (asPattern.referable != null) {
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `expectedType`
+in `base/src/main/java/org/arend/typechecking/patternmatching/PatternTypechecking.java`
+#### Snippet
+```java
+        }
+      }
+      expectedType = expectedType.subst(substitution);
+
+      GlobalInstancePool globalInstancePool = myVisitor.getInstancePool();
 ```
 
 ### AssignmentToMethodParameter
@@ -13920,39 +13860,27 @@ in `base/src/main/java/org/arend/typechecking/visitor/CheckTypeVisitor.java`
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `expr`
-in `base/src/main/java/org/arend/typechecking/visitor/CheckTypeVisitor.java`
-#### Snippet
-```java
-    if (baseClassExpr instanceof Concrete.ClassExtExpression classExt) {
-      classExt.getStatements().addAll(expr.getStatements());
-      expr = classExt;
-      baseClassExpr = classExt.getBaseClassExpression();
-    }
-```
-
-### AssignmentToMethodParameter
 Assignment to method parameter `expectedType`
 in `base/src/main/java/org/arend/typechecking/visitor/CheckTypeVisitor.java`
 #### Snippet
 ```java
-      Expression ty;
-      if (expectedType != null) {
-        expectedType = expectedType.normalize(NormalizationMode.WHNF);
       }
-      if (expectedType instanceof DataCallExpression && ((DataCallExpression) expectedType).getDefinition() == Prelude.FIN) {
+
+      expectedType = expectedType.normalize(NormalizationMode.WHNF);
+      Expression type = expectedType;
+      ClassCallExpression classCall = expectedType.cast(ClassCallExpression.class);
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `expectedType`
+Assignment to method parameter `binding`
 in `base/src/main/java/org/arend/typechecking/visitor/CheckTypeVisitor.java`
 #### Snippet
 ```java
-
-    result.type = result.type.normalize(NormalizationMode.WHNF);
-    expectedType = expectedType.normalize(NormalizationMode.WHNF);
-
-    if (result.expression instanceof FunCallExpression idp && ((FunCallExpression) result.expression).getDefinition() == Prelude.IDP) {
+      } else {
+        if (binding == null) {
+          binding = myClassCallBindings.get(myClassCallBindings.size() - 1 - skipLastClassCallBindings);
+        }
+        tResult = new TypecheckingResult(new ReferenceExpression(binding), binding.getTypeExpr());
 ```
 
 ### AssignmentToMethodParameter
@@ -14008,23 +13936,83 @@ Assignment to method parameter `expectedType`
 in `base/src/main/java/org/arend/typechecking/visitor/CheckTypeVisitor.java`
 #### Snippet
 ```java
-      }
 
-      expectedType = expectedType.normalize(NormalizationMode.WHNF);
-      Expression type = expectedType;
-      ClassCallExpression classCall = expectedType.cast(ClassCallExpression.class);
+    result.type = result.type.normalize(NormalizationMode.WHNF);
+    expectedType = expectedType.normalize(NormalizationMode.WHNF);
+
+    if (result.expression instanceof FunCallExpression idp && ((FunCallExpression) result.expression).getDefinition() == Prelude.IDP) {
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `binding`
+Assignment to method parameter `expectedType`
 in `base/src/main/java/org/arend/typechecking/visitor/CheckTypeVisitor.java`
 #### Snippet
 ```java
-      } else {
-        if (binding == null) {
-          binding = myClassCallBindings.get(myClassCallBindings.size() - 1 - skipLastClassCallBindings);
-        }
-        tResult = new TypecheckingResult(new ReferenceExpression(binding), binding.getTypeExpr());
+      List<SingleDependentLink> params = expectedType == null ? null : new ArrayList<>();
+      if (expectedType != null) {
+        expectedType = expectedType.normalizePi(params);
+      }
+      Concrete.Expression dExpr = desugarClassApp(refExpr, expr.getArguments(), expr, params, inferTailImplicits, Collections.emptySet());
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `expr`
+in `base/src/main/java/org/arend/typechecking/visitor/CheckTypeVisitor.java`
+#### Snippet
+```java
+    }
+
+    expr = expr.accept(new SubstVisitor(new ExprSubstitution(), LevelSubstitution.EMPTY) {
+      @Override
+      public boolean isEmpty() {
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `expectedType`
+in `base/src/main/java/org/arend/typechecking/visitor/CheckTypeVisitor.java`
+#### Snippet
+```java
+    boolean isOmega = expectedType instanceof Type && ((Type) expectedType).isOmega();
+    if (!isOmega) {
+      expectedType = expectedType.normalize(NormalizationMode.WHNF);
+      if (expectedType.getStuckInferenceVariable() != null) {
+        expectedType1 = Type.OMEGA;
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `expr`
+in `base/src/main/java/org/arend/typechecking/visitor/CheckTypeVisitor.java`
+#### Snippet
+```java
+  static void setCaseLevel(Concrete.Expression expr, int level, boolean setSCase) {
+    while (expr instanceof Concrete.LamExpression) {
+      expr = ((Concrete.LamExpression) expr).getBody();
+    }
+    if (expr instanceof Concrete.CaseExpression caseExpr) {
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `expr`
+in `base/src/main/java/org/arend/typechecking/visitor/CheckTypeVisitor.java`
+#### Snippet
+```java
+    if (baseClassExpr instanceof Concrete.ClassExtExpression classExt) {
+      classExt.getStatements().addAll(expr.getStatements());
+      expr = classExt;
+      baseClassExpr = classExt.getBaseClassExpression();
+    }
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `implBody`
+in `base/src/main/java/org/arend/typechecking/visitor/CheckTypeVisitor.java`
+#### Snippet
+```java
+
+    if (addImplicitLambdas) {
+      implBody = addImplicitLamParams(implBody, type);
+    }
+
 ```
 
 ### AssignmentToMethodParameter
@@ -14064,6 +14052,30 @@ in `base/src/main/java/org/arend/typechecking/visitor/CheckTypeVisitor.java`
 ```
 
 ### AssignmentToMethodParameter
+Assignment to method parameter `exprResult`
+in `base/src/main/java/org/arend/typechecking/visitor/CheckTypeVisitor.java`
+#### Snippet
+```java
+      TypecheckingResult coercedResult = CoerceData.coerceToKey(exprResult, new CoerceData.SigmaKey(), expr, this);
+      if (coercedResult != null) {
+        exprResult = coercedResult;
+      }
+    }
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `result`
+in `base/src/main/java/org/arend/typechecking/visitor/CheckTypeVisitor.java`
+#### Snippet
+```java
+  private TypecheckingResult tResultToResult(Expression expectedType, TResult result, Concrete.Expression expr) {
+    if (result != null) {
+      result = myArgsInference.inferTail(result, expectedType, expr);
+    }
+    return result == null ? null : checkResult(expectedType, result.toResult(this), expr);
+```
+
+### AssignmentToMethodParameter
 Assignment to method parameter `expectedType`
 in `base/src/main/java/org/arend/typechecking/visitor/CheckTypeVisitor.java`
 #### Snippet
@@ -14092,23 +14104,11 @@ Assignment to method parameter `expectedType`
 in `base/src/main/java/org/arend/typechecking/visitor/CheckTypeVisitor.java`
 #### Snippet
 ```java
-      List<SingleDependentLink> params = expectedType == null ? null : new ArrayList<>();
+      Expression ty;
       if (expectedType != null) {
-        expectedType = expectedType.normalizePi(params);
+        expectedType = expectedType.normalize(NormalizationMode.WHNF);
       }
-      Concrete.Expression dExpr = desugarClassApp(refExpr, expr.getArguments(), expr, params, inferTailImplicits, Collections.emptySet());
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `implBody`
-in `base/src/main/java/org/arend/typechecking/visitor/CheckTypeVisitor.java`
-#### Snippet
-```java
-
-    if (addImplicitLambdas) {
-      implBody = addImplicitLamParams(implBody, type);
-    }
-
+      if (expectedType instanceof DataCallExpression && ((DataCallExpression) expectedType).getDefinition() == Prelude.FIN) {
 ```
 
 ## RuleId[ruleID=ReturnNull]
@@ -14177,9 +14177,9 @@ Return of `null`
 in `api/src/main/java/org/arend/ext/error/GeneralError.java`
 #### Snippet
 ```java
-
-  public ConcreteSourceNode getCauseSourceNode() {
-    return null;
+  public Object getCause() {
+    ConcreteSourceNode sourceNode = getCauseSourceNode();
+    return sourceNode != null ? sourceNode.getData() : null;
   }
 
 ```
@@ -14189,9 +14189,9 @@ Return of `null`
 in `api/src/main/java/org/arend/ext/error/GeneralError.java`
 #### Snippet
 ```java
-  public Object getCause() {
-    ConcreteSourceNode sourceNode = getCauseSourceNode();
-    return sourceNode != null ? sourceNode.getData() : null;
+
+  public ConcreteSourceNode getCauseSourceNode() {
+    return null;
   }
 
 ```
@@ -14261,6 +14261,18 @@ Return of `null`
 in `cli/src/main/java/org/arend/frontend/FileLibraryResolver.java`
 #### Snippet
 ```java
+      library = Files.exists(yaml) ? getLibrary(yaml) : null;
+    }
+    return library != null && library.getName().equals(libName) ? library : null;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `cli/src/main/java/org/arend/frontend/FileLibraryResolver.java`
+#### Snippet
+```java
 
     if (library == null) {
       return null;
@@ -14278,18 +14290,6 @@ in `cli/src/main/java/org/arend/frontend/FileLibraryResolver.java`
         return null;
       } else {
         return prevLibrary;
-```
-
-### ReturnNull
-Return of `null`
-in `cli/src/main/java/org/arend/frontend/FileLibraryResolver.java`
-#### Snippet
-```java
-      library = Files.exists(yaml) ? getLibrary(yaml) : null;
-    }
-    return library != null && library.getName().equals(libName) ? library : null;
-  }
-
 ```
 
 ### ReturnNull
@@ -14354,6 +14354,18 @@ in `base/src/main/java/org/arend/core/expr/PEvalExpression.java`
 
 ### ReturnNull
 Return of `null`
+in `base/src/main/java/org/arend/core/expr/SubstExpression.java`
+#### Snippet
+```java
+  @Override
+  public <T extends Expression> T cast(Class<T> clazz) {
+    return clazz.isInstance(this) ? clazz.cast(this) : isInferenceVariable() ? null : getSubstExpression().cast(clazz);
+  }
+
+```
+
+### ReturnNull
+Return of `null`
 in `base/src/main/java/org/arend/core/expr/TypeDestructorExpression.java`
 #### Snippet
 ```java
@@ -14390,54 +14402,6 @@ in `base/src/main/java/org/arend/core/expr/TypeDestructorExpression.java`
 
 ### ReturnNull
 Return of `null`
-in `base/src/main/java/org/arend/core/expr/SubstExpression.java`
-#### Snippet
-```java
-  @Override
-  public <T extends Expression> T cast(Class<T> clazz) {
-    return clazz.isInstance(this) ? clazz.cast(this) : isInferenceVariable() ? null : getSubstExpression().cast(clazz);
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `base/src/main/java/org/arend/core/expr/InferenceReferenceExpression.java`
-#### Snippet
-```java
-  @Override
-  public InferenceVariable getVariable() {
-    return mySubstExpression == null ? myVar : null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `base/src/main/java/org/arend/core/expr/InferenceReferenceExpression.java`
-#### Snippet
-```java
-  @Override
-  public <T extends Expression> T cast(Class<T> clazz) {
-    return clazz.isInstance(this) ? clazz.cast(this) : mySubstExpression != null ? mySubstExpression.cast(clazz) : null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `base/src/main/java/org/arend/core/expr/InferenceReferenceExpression.java`
-#### Snippet
-```java
-      return new NewExpression(null, (ClassCallExpression) type);
-    }
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
 in `base/src/main/java/org/arend/core/expr/PiExpression.java`
 #### Snippet
 ```java
@@ -14450,26 +14414,38 @@ in `base/src/main/java/org/arend/core/expr/PiExpression.java`
 
 ### ReturnNull
 Return of `null`
-in `base/src/main/java/org/arend/core/expr/DefCallExpression.java`
+in `cli/src/main/java/org/arend/frontend/BaseCliFrontend.java`
 #### Snippet
 ```java
+      if (cmdLine.hasOption("h")) {
+        new HelpFormatter().printHelp("arend [FILES]", cmdOptions);
+        return null;
       }
-    }
-    return null;
-  }
 
 ```
 
 ### ReturnNull
 Return of `null`
-in `base/src/main/java/org/arend/core/expr/ErrorExpression.java`
+in `cli/src/main/java/org/arend/frontend/BaseCliFrontend.java`
 #### Snippet
 ```java
-  @Override
-  public <T extends Expression> T cast(Class<T> clazz) {
-    return clazz.isInstance(this) ? clazz.cast(this) : myUseExpression ? myExpression.cast(clazz) : null;
-  }
+      if (cmdLine.hasOption("v")) {
+        System.out.println("Arend " + Prelude.VERSION);
+        return null;
+      }
 
+```
+
+### ReturnNull
+Return of `null`
+in `cli/src/main/java/org/arend/frontend/BaseCliFrontend.java`
+#### Snippet
+```java
+      myExitWithError = true;
+      System.err.println(e.getMessage());
+      return null;
+    }
+  }
 ```
 
 ### ReturnNull
@@ -14510,38 +14486,62 @@ in `cli/src/main/java/org/arend/frontend/BaseCliFrontend.java`
 
 ### ReturnNull
 Return of `null`
-in `cli/src/main/java/org/arend/frontend/BaseCliFrontend.java`
+in `base/src/main/java/org/arend/core/expr/InferenceReferenceExpression.java`
 #### Snippet
 ```java
-      if (cmdLine.hasOption("h")) {
-        new HelpFormatter().printHelp("arend [FILES]", cmdOptions);
-        return null;
-      }
-
-```
-
-### ReturnNull
-Return of `null`
-in `cli/src/main/java/org/arend/frontend/BaseCliFrontend.java`
-#### Snippet
-```java
-      if (cmdLine.hasOption("v")) {
-        System.out.println("Arend " + Prelude.VERSION);
-        return null;
-      }
-
-```
-
-### ReturnNull
-Return of `null`
-in `cli/src/main/java/org/arend/frontend/BaseCliFrontend.java`
-#### Snippet
-```java
-      myExitWithError = true;
-      System.err.println(e.getMessage());
-      return null;
-    }
+  @Override
+  public <T extends Expression> T cast(Class<T> clazz) {
+    return clazz.isInstance(this) ? clazz.cast(this) : mySubstExpression != null ? mySubstExpression.cast(clazz) : null;
   }
+
+```
+
+### ReturnNull
+Return of `null`
+in `base/src/main/java/org/arend/core/expr/InferenceReferenceExpression.java`
+#### Snippet
+```java
+      return new NewExpression(null, (ClassCallExpression) type);
+    }
+    return null;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `base/src/main/java/org/arend/core/expr/InferenceReferenceExpression.java`
+#### Snippet
+```java
+  @Override
+  public InferenceVariable getVariable() {
+    return mySubstExpression == null ? myVar : null;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `base/src/main/java/org/arend/core/expr/DefCallExpression.java`
+#### Snippet
+```java
+      }
+    }
+    return null;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `base/src/main/java/org/arend/core/expr/ErrorExpression.java`
+#### Snippet
+```java
+  @Override
+  public <T extends Expression> T cast(Class<T> clazz) {
+    return clazz.isInstance(this) ? clazz.cast(this) : myUseExpression ? myExpression.cast(clazz) : null;
+  }
+
 ```
 
 ### ReturnNull
@@ -14597,11 +14597,11 @@ Return of `null`
 in `base/src/main/java/org/arend/core/expr/Expression.java`
 #### Snippet
 ```java
-      expr = expr.cast(InferenceReferenceExpression.class);
-      if (expr == null) {
-        return null;
-      }
-      InferenceVariable var = ((InferenceReferenceExpression) expr).getVariable();
+
+  public <T extends Expression> T cast(Class<T> clazz) {
+    return clazz.isInstance(this) ? clazz.cast(this) : null;
+  }
+
 ```
 
 ### ReturnNull
@@ -14609,11 +14609,11 @@ Return of `null`
 in `base/src/main/java/org/arend/core/expr/Expression.java`
 #### Snippet
 ```java
-      expr = ((InferenceReferenceExpression) expr).getSubstExpression();
-      if (expr == null) {
-        return null;
-      }
-    }
+  public InferenceVariable getStuckInferenceVariable() {
+    Expression stuck = getStuckExpression();
+    return stuck instanceof InferenceReferenceExpression && ((InferenceReferenceExpression) stuck).getVariable() != null ? ((InferenceReferenceExpression) stuck).getVariable() : null;
+  }
+
 ```
 
 ### ReturnNull
@@ -14621,9 +14621,9 @@ Return of `null`
 in `base/src/main/java/org/arend/core/expr/Expression.java`
 #### Snippet
 ```java
-
-  public Expression pred() {
-    return null;
+  public Expression applyExpression(Expression expression, boolean normalizing) {
+    Expression normExpr = (normalizing ? normalize(NormalizationMode.WHNF) : this).getUnderlyingExpression();
+    return normExpr instanceof ErrorExpression ? normExpr : normExpr instanceof PiExpression ? normExpr.applyExpression(expression, normalizing) : null;
   }
 
 ```
@@ -14657,9 +14657,21 @@ Return of `null`
 in `base/src/main/java/org/arend/core/expr/Expression.java`
 #### Snippet
 ```java
-  public InferenceVariable getStuckInferenceVariable() {
-    Expression stuck = getStuckExpression();
-    return stuck instanceof InferenceReferenceExpression && ((InferenceReferenceExpression) stuck).getVariable() != null ? ((InferenceReferenceExpression) stuck).getVariable() : null;
+  public Sort toSort() {
+    UniverseExpression universe = normalize(NormalizationMode.WHNF).cast(UniverseExpression.class);
+    return universe == null ? null : universe.getSort();
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `base/src/main/java/org/arend/core/expr/Expression.java`
+#### Snippet
+```java
+
+  public Expression pred() {
+    return null;
   }
 
 ```
@@ -14681,11 +14693,23 @@ Return of `null`
 in `base/src/main/java/org/arend/core/expr/Expression.java`
 #### Snippet
 ```java
-  public Sort toSort() {
-    UniverseExpression universe = normalize(NormalizationMode.WHNF).cast(UniverseExpression.class);
-    return universe == null ? null : universe.getSort();
-  }
+      expr = expr.cast(InferenceReferenceExpression.class);
+      if (expr == null) {
+        return null;
+      }
+      InferenceVariable var = ((InferenceReferenceExpression) expr).getVariable();
+```
 
+### ReturnNull
+Return of `null`
+in `base/src/main/java/org/arend/core/expr/Expression.java`
+#### Snippet
+```java
+      expr = ((InferenceReferenceExpression) expr).getSubstExpression();
+      if (expr == null) {
+        return null;
+      }
+    }
 ```
 
 ### ReturnNull
@@ -14696,30 +14720,6 @@ in `base/src/main/java/org/arend/core/expr/Expression.java`
     }
 
     return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `base/src/main/java/org/arend/core/expr/Expression.java`
-#### Snippet
-```java
-  public Expression applyExpression(Expression expression, boolean normalizing) {
-    Expression normExpr = (normalizing ? normalize(NormalizationMode.WHNF) : this).getUnderlyingExpression();
-    return normExpr instanceof ErrorExpression ? normExpr : normExpr instanceof PiExpression ? normExpr.applyExpression(expression, normalizing) : null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `base/src/main/java/org/arend/core/expr/Expression.java`
-#### Snippet
-```java
-
-  public <T extends Expression> T cast(Class<T> clazz) {
-    return clazz.isInstance(this) ? clazz.cast(this) : null;
   }
 
 ```
@@ -14774,6 +14774,18 @@ in `base/src/main/java/org/arend/core/expr/ConCallExpression.java`
 
 ### ReturnNull
 Return of `null`
+in `base/src/main/java/org/arend/core/expr/DataCallExpression.java`
+#### Snippet
+```java
+    for (Constructor constructor : definition.getConstructors()) {
+      if (!getMatchedConCall(constructor, result)) {
+        return null;
+      }
+    }
+```
+
+### ReturnNull
+Return of `null`
 in `base/src/main/java/org/arend/core/expr/ClassCallExpression.java`
 #### Snippet
 ```java
@@ -14798,14 +14810,14 @@ in `base/src/main/java/org/arend/core/expr/ClassCallExpression.java`
 
 ### ReturnNull
 Return of `null`
-in `base/src/main/java/org/arend/core/expr/DataCallExpression.java`
+in `base/src/main/java/org/arend/core/expr/visitor/ExpressionTransformer.java`
 #### Snippet
 ```java
-    for (Constructor constructor : definition.getConstructors()) {
-      if (!getMatchedConCall(constructor, result)) {
+      Expression newArg = visitDataTypeArgument(arg, params);
+      if (newArg == null) {
         return null;
       }
-    }
+      dataTypeArgs.add(newArg);
 ```
 
 ### ReturnNull
@@ -14942,18 +14954,6 @@ in `base/src/main/java/org/arend/core/expr/visitor/ExpressionTransformer.java`
 
 ### ReturnNull
 Return of `null`
-in `base/src/main/java/org/arend/core/expr/visitor/ExpressionTransformer.java`
-#### Snippet
-```java
-      Expression newArg = visitDataTypeArgument(arg, params);
-      if (newArg == null) {
-        return null;
-      }
-      dataTypeArgs.add(newArg);
-```
-
-### ReturnNull
-Return of `null`
 in `base/src/main/java/org/arend/core/sort/Sort.java`
 #### Snippet
 ```java
@@ -14972,6 +14972,162 @@ in `base/src/main/java/org/arend/core/subst/LevelPair.java`
   @Override
   public Level get(Variable variable) {
     return LevelVariable.PVAR.equals(variable) ? myPLevel : LevelVariable.HVAR.equals(variable) ? myHLevel : null;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `base/src/main/java/org/arend/core/expr/visitor/ElimBindingVisitor.java`
+#### Snippet
+```java
+  public Expression visitBox(BoxExpression expr, Void params) {
+    Expression result = expr.getExpression().accept(this, null);
+    return result != null ? BoxExpression.make(result) : null;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `base/src/main/java/org/arend/core/expr/visitor/ElimBindingVisitor.java`
+#### Snippet
+```java
+      Expression newField = acceptSelf(field, true);
+      if (newField == null) {
+        return null;
+      }
+      newFields.add(newField);
+```
+
+### ReturnNull
+Return of `null`
+in `base/src/main/java/org/arend/core/expr/visitor/ElimBindingVisitor.java`
+#### Snippet
+```java
+
+    SigmaExpression sigmaExpr = (SigmaExpression) acceptSelf(expr.getSigmaType(), false);
+    return sigmaExpr == null ? null : new TupleExpression(newFields, sigmaExpr);
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `base/src/main/java/org/arend/core/expr/visitor/ElimBindingVisitor.java`
+#### Snippet
+```java
+  public Expression visitTypeConstructor(TypeConstructorExpression expr, Void params) {
+    List<Expression> newArgs = visitDefCallArguments(expr.getClauseArguments());
+    if (newArgs == null) return null;
+    Expression newArg = acceptSelf(expr.getArgument(), true);
+    return newArg == null ? null : TypeConstructorExpression.make(expr.getDefinition(), expr.getLevels(), expr.getClauseIndex(), newArgs, newArg);
+```
+
+### ReturnNull
+Return of `null`
+in `base/src/main/java/org/arend/core/expr/visitor/ElimBindingVisitor.java`
+#### Snippet
+```java
+    if (newArgs == null) return null;
+    Expression newArg = acceptSelf(expr.getArgument(), true);
+    return newArg == null ? null : TypeConstructorExpression.make(expr.getDefinition(), expr.getLevels(), expr.getClauseIndex(), newArgs, newArg);
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `base/src/main/java/org/arend/core/expr/visitor/ElimBindingVisitor.java`
+#### Snippet
+```java
+  public Expression visitProj(ProjExpression expr, Void params) {
+    Expression newExpr = acceptSelf(expr.getExpression(), false);
+    return newExpr == null ? null : ProjExpression.make(newExpr, expr.getField(), expr.isBoxed());
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `base/src/main/java/org/arend/core/expr/visitor/ElimBindingVisitor.java`
+#### Snippet
+```java
+  public Expression visitPath(PathExpression expr, Void params) {
+    Expression argumentType = acceptSelf(expr.getArgumentType(), true);
+    if (argumentType == null) return null;
+    Expression argument = acceptSelf(expr.getArgument(), true);
+    return argument == null ? null : new PathExpression(expr.getLevels(), argumentType, argument);
+```
+
+### ReturnNull
+Return of `null`
+in `base/src/main/java/org/arend/core/expr/visitor/ElimBindingVisitor.java`
+#### Snippet
+```java
+    if (argumentType == null) return null;
+    Expression argument = acceptSelf(expr.getArgument(), true);
+    return argument == null ? null : new PathExpression(expr.getLevels(), argumentType, argument);
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `base/src/main/java/org/arend/core/sort/Level.java`
+#### Snippet
+```java
+        return new Level(var, Math.max(myConstant, level.myConstant), Math.max(myMaxConstant, level.myMaxConstant));
+      } else {
+        return null;
+      }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `base/src/main/java/org/arend/core/expr/visitor/ElimBindingVisitor.java`
+#### Snippet
+```java
+    SingleDependentLink parameters = DependentLink.Helper.subst(expr.getParameters(), substitution);
+    if (!visitDependentLink(parameters)) {
+      return null;
+    }
+    Expression codomain = acceptSelf(expr.getCodomain().subst(substitution), true);
+```
+
+### ReturnNull
+Return of `null`
+in `base/src/main/java/org/arend/core/expr/visitor/ElimBindingVisitor.java`
+#### Snippet
+```java
+    }
+    if (codomain == null) {
+      return null;
+    }
+    return new PiExpression(expr.getResultSort(), parameters, codomain);
+```
+
+### ReturnNull
+Return of `null`
+in `base/src/main/java/org/arend/core/expr/visitor/ElimBindingVisitor.java`
+#### Snippet
+```java
+            myKeepVisitor.getBindings().remove(expr.getThisBinding());
+          }
+          return null;
+        }
+      }
+```
+
+### ReturnNull
+Return of `null`
+in `base/src/main/java/org/arend/core/expr/visitor/ElimBindingVisitor.java`
+#### Snippet
+```java
+  public Expression visitPEval(PEvalExpression expr, Void params) {
+    Expression result = expr.getExpression().accept(this, null);
+    return result != null ? new PEvalExpression(result) : null;
   }
 
 ```
@@ -15005,47 +15161,11 @@ Return of `null`
 in `base/src/main/java/org/arend/core/expr/visitor/ElimBindingVisitor.java`
 #### Snippet
 ```java
-            myKeepVisitor.getBindings().remove(expr.getThisBinding());
-          }
-          return null;
-        }
-      }
-```
-
-### ReturnNull
-Return of `null`
-in `base/src/main/java/org/arend/core/expr/visitor/ElimBindingVisitor.java`
-#### Snippet
-```java
-      }
-      myFoundVariable = expr.getBinding();
-      return null;
-    } else {
-      return expr;
-```
-
-### ReturnNull
-Return of `null`
-in `base/src/main/java/org/arend/core/expr/visitor/ElimBindingVisitor.java`
-#### Snippet
-```java
-  public static Expression elimLamBinding(LamExpression expr) {
-    if (expr == null) {
+    Expression newExpr = acceptSelf(expr.getExpression(), true);
+    if (newExpr == null) {
       return null;
     }
-    Expression result = expr.getParameters().getNext().hasNext() ? new LamExpression(expr.getResultSort(), expr.getParameters().getNext(), expr.getBody()) : expr.getBody();
-```
-
-### ReturnNull
-Return of `null`
-in `base/src/main/java/org/arend/core/expr/visitor/ElimBindingVisitor.java`
-#### Snippet
-```java
-    SingleDependentLink parameters = DependentLink.Helper.subst(expr.getParameters(), substitution);
-    if (!visitDependentLink(parameters)) {
-      return null;
-    }
-    Expression codomain = acceptSelf(expr.getCodomain().subst(substitution), true);
+    Expression newType = acceptSelf(expr.getTypeOf(), true);
 ```
 
 ### ReturnNull
@@ -15054,10 +15174,10 @@ in `base/src/main/java/org/arend/core/expr/visitor/ElimBindingVisitor.java`
 #### Snippet
 ```java
     }
-    if (codomain == null) {
-      return null;
-    }
-    return new PiExpression(expr.getResultSort(), parameters, codomain);
+    Expression newType = acceptSelf(expr.getTypeOf(), true);
+    return newType == null ? null : new OfTypeExpression(newExpr, newType);
+  }
+
 ```
 
 ### ReturnNull
@@ -15089,11 +15209,11 @@ Return of `null`
 in `base/src/main/java/org/arend/core/expr/visitor/ElimBindingVisitor.java`
 #### Snippet
 ```java
-    Expression newExpr = acceptSelf(expr.getExpression(), true);
-    if (newExpr == null) {
-      return null;
-    }
-    Expression newType = acceptSelf(expr.getTypeOf(), true);
+  public Expression visitTypeDestructor(TypeDestructorExpression expr, Void params) {
+    Expression newArg = acceptSelf(expr.getArgument(), true);
+    return newArg == null ? null : TypeDestructorExpression.make(expr.getDefinition(), newArg);
+  }
+
 ```
 
 ### ReturnNull
@@ -15101,11 +15221,59 @@ Return of `null`
 in `base/src/main/java/org/arend/core/expr/visitor/ElimBindingVisitor.java`
 #### Snippet
 ```java
-    }
-    Expression newType = acceptSelf(expr.getTypeOf(), true);
-    return newType == null ? null : new OfTypeExpression(newExpr, newType);
-  }
+      SingleDependentLink parameters = DependentLink.Helper.subst(oldParameters, substitution);
+      if (!visitDependentLink(parameters)) {
+        return null;
+      }
+      body = acceptSelf(expr.getBody().subst(substitution), true);
+```
 
+### ReturnNull
+Return of `null`
+in `base/src/main/java/org/arend/core/expr/visitor/ElimBindingVisitor.java`
+#### Snippet
+```java
+      }
+      if (body == null) {
+        return null;
+      }
+      body = new LamExpression(expr.getResultSort(), parameters, body);
+```
+
+### ReturnNull
+Return of `null`
+in `base/src/main/java/org/arend/core/expr/visitor/ElimBindingVisitor.java`
+#### Snippet
+```java
+      body = acceptSelf(expr.getBody(), true);
+      if (body == null) {
+        return null;
+      }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `base/src/main/java/org/arend/core/expr/visitor/ElimBindingVisitor.java`
+#### Snippet
+```java
+      for (Map.Entry<Binding, Expression> entry : expr.getSubstitution().getEntries()) {
+        Expression value = acceptSelf(entry.getValue(), true);
+        if (value == null) return null;
+        substitution.add(entry.getKey(), value);
+      }
+```
+
+### ReturnNull
+Return of `null`
+in `base/src/main/java/org/arend/core/expr/visitor/ElimBindingVisitor.java`
+#### Snippet
+```java
+      }
+      Expression result = acceptSelf(expr.getExpression(), true);
+      if (result == null) return null;
+      return SubstExpression.make(result, substitution, expr.getLevelSubstitution());
+    }
 ```
 
 ### ReturnNull
@@ -15149,6 +15317,18 @@ Return of `null`
 in `base/src/main/java/org/arend/core/expr/visitor/ElimBindingVisitor.java`
 #### Snippet
 ```java
+  public static Expression elimLamBinding(LamExpression expr) {
+    if (expr == null) {
+      return null;
+    }
+    Expression result = expr.getParameters().getNext().hasNext() ? new LamExpression(expr.getResultSort(), expr.getParameters().getNext(), expr.getBody()) : expr.getBody();
+```
+
+### ReturnNull
+Return of `null`
+in `base/src/main/java/org/arend/core/expr/visitor/ElimBindingVisitor.java`
+#### Snippet
+```java
     ClassCallExpression classCall = visitClassCall(expr.getClassCall(), false);
     if (classCall == null) {
       return null;
@@ -15173,35 +15353,23 @@ Return of `null`
 in `base/src/main/java/org/arend/core/expr/visitor/ElimBindingVisitor.java`
 #### Snippet
 ```java
-  public Expression visitTypeDestructor(TypeDestructorExpression expr, Void params) {
-    Expression newArg = acceptSelf(expr.getArgument(), true);
-    return newArg == null ? null : TypeDestructorExpression.make(expr.getDefinition(), newArg);
+      return new SigmaExpression(expr.getSort(), parameters);
+    } else {
+      return null;
+    }
+  }
+```
+
+### ReturnNull
+Return of `null`
+in `base/src/main/java/org/arend/core/expr/visitor/ElimBindingVisitor.java`
+#### Snippet
+```java
+    assert expr instanceof LeveledDefCallExpression;
+    List<Expression> newArgs = visitDefCallArguments(expr.getDefCallArguments());
+    return newArgs == null ? null : expr.getDefinition().getDefCall(((LeveledDefCallExpression) expr).getLevels(), newArgs);
   }
 
-```
-
-### ReturnNull
-Return of `null`
-in `base/src/main/java/org/arend/core/expr/visitor/ElimBindingVisitor.java`
-#### Snippet
-```java
-    Expression result = acceptSelf(expr.getFunction(), false);
-    if (result == null) {
-      return null;
-    }
-    Expression arg = acceptSelf(expr.getArgument(), true);
-```
-
-### ReturnNull
-Return of `null`
-in `base/src/main/java/org/arend/core/expr/visitor/ElimBindingVisitor.java`
-#### Snippet
-```java
-    Expression arg = acceptSelf(expr.getArgument(), true);
-    if (arg == null) {
-      return null;
-    }
-    return AppExpression.make(result, arg, expr.isExplicit());
 ```
 
 ### ReturnNull
@@ -15281,59 +15449,23 @@ Return of `null`
 in `base/src/main/java/org/arend/core/expr/visitor/ElimBindingVisitor.java`
 #### Snippet
 ```java
-  public Expression visitBox(BoxExpression expr, Void params) {
-    Expression result = expr.getExpression().accept(this, null);
-    return result != null ? BoxExpression.make(result) : null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `base/src/main/java/org/arend/core/expr/visitor/ElimBindingVisitor.java`
-#### Snippet
-```java
-      SingleDependentLink parameters = DependentLink.Helper.subst(oldParameters, substitution);
-      if (!visitDependentLink(parameters)) {
-        return null;
       }
-      body = acceptSelf(expr.getBody().subst(substitution), true);
-```
-
-### ReturnNull
-Return of `null`
-in `base/src/main/java/org/arend/core/expr/visitor/ElimBindingVisitor.java`
-#### Snippet
-```java
-      }
-      if (body == null) {
-        return null;
-      }
-      body = new LamExpression(expr.getResultSort(), parameters, body);
-```
-
-### ReturnNull
-Return of `null`
-in `base/src/main/java/org/arend/core/expr/visitor/ElimBindingVisitor.java`
-#### Snippet
-```java
-      body = acceptSelf(expr.getBody(), true);
-      if (body == null) {
-        return null;
-      }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `base/src/main/java/org/arend/core/expr/visitor/ElimBindingVisitor.java`
-#### Snippet
-```java
-      return new SigmaExpression(expr.getSort(), parameters);
+      myFoundVariable = expr.getBinding();
+      return null;
     } else {
+      return expr;
+```
+
+### ReturnNull
+Return of `null`
+in `base/src/main/java/org/arend/core/expr/visitor/ElimBindingVisitor.java`
+#### Snippet
+```java
+    Expression result = acceptSelf(expr.getFunction(), false);
+    if (result == null) {
       return null;
     }
-  }
+    Expression arg = acceptSelf(expr.getArgument(), true);
 ```
 
 ### ReturnNull
@@ -15341,143 +15473,59 @@ Return of `null`
 in `base/src/main/java/org/arend/core/expr/visitor/ElimBindingVisitor.java`
 #### Snippet
 ```java
-  public Expression visitProj(ProjExpression expr, Void params) {
-    Expression newExpr = acceptSelf(expr.getExpression(), false);
-    return newExpr == null ? null : ProjExpression.make(newExpr, expr.getField(), expr.isBoxed());
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `base/src/main/java/org/arend/core/expr/visitor/ElimBindingVisitor.java`
-#### Snippet
-```java
-      Expression newField = acceptSelf(field, true);
-      if (newField == null) {
-        return null;
-      }
-      newFields.add(newField);
-```
-
-### ReturnNull
-Return of `null`
-in `base/src/main/java/org/arend/core/expr/visitor/ElimBindingVisitor.java`
-#### Snippet
-```java
-
-    SigmaExpression sigmaExpr = (SigmaExpression) acceptSelf(expr.getSigmaType(), false);
-    return sigmaExpr == null ? null : new TupleExpression(newFields, sigmaExpr);
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `base/src/main/java/org/arend/core/expr/visitor/ElimBindingVisitor.java`
-#### Snippet
-```java
-  public Expression visitTypeConstructor(TypeConstructorExpression expr, Void params) {
-    List<Expression> newArgs = visitDefCallArguments(expr.getClauseArguments());
-    if (newArgs == null) return null;
-    Expression newArg = acceptSelf(expr.getArgument(), true);
-    return newArg == null ? null : TypeConstructorExpression.make(expr.getDefinition(), expr.getLevels(), expr.getClauseIndex(), newArgs, newArg);
-```
-
-### ReturnNull
-Return of `null`
-in `base/src/main/java/org/arend/core/expr/visitor/ElimBindingVisitor.java`
-#### Snippet
-```java
-    if (newArgs == null) return null;
-    Expression newArg = acceptSelf(expr.getArgument(), true);
-    return newArg == null ? null : TypeConstructorExpression.make(expr.getDefinition(), expr.getLevels(), expr.getClauseIndex(), newArgs, newArg);
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `base/src/main/java/org/arend/core/expr/visitor/ElimBindingVisitor.java`
-#### Snippet
-```java
-      for (Map.Entry<Binding, Expression> entry : expr.getSubstitution().getEntries()) {
-        Expression value = acceptSelf(entry.getValue(), true);
-        if (value == null) return null;
-        substitution.add(entry.getKey(), value);
-      }
-```
-
-### ReturnNull
-Return of `null`
-in `base/src/main/java/org/arend/core/expr/visitor/ElimBindingVisitor.java`
-#### Snippet
-```java
-      }
-      Expression result = acceptSelf(expr.getExpression(), true);
-      if (result == null) return null;
-      return SubstExpression.make(result, substitution, expr.getLevelSubstitution());
+    Expression arg = acceptSelf(expr.getArgument(), true);
+    if (arg == null) {
+      return null;
     }
+    return AppExpression.make(result, arg, expr.isExplicit());
 ```
 
 ### ReturnNull
 Return of `null`
-in `base/src/main/java/org/arend/core/expr/visitor/ElimBindingVisitor.java`
+in `base/src/main/java/org/arend/core/context/binding/LevelVariable.java`
 #### Snippet
 ```java
-  public Expression visitPath(PathExpression expr, Void params) {
-    Expression argumentType = acceptSelf(expr.getArgumentType(), true);
-    if (argumentType == null) return null;
-    Expression argument = acceptSelf(expr.getArgument(), true);
-    return argument == null ? null : new PathExpression(expr.getLevels(), argumentType, argument);
-```
-
-### ReturnNull
-Return of `null`
-in `base/src/main/java/org/arend/core/expr/visitor/ElimBindingVisitor.java`
-#### Snippet
-```java
-    if (argumentType == null) return null;
-    Expression argument = acceptSelf(expr.getArgument(), true);
-    return argument == null ? null : new PathExpression(expr.getLevels(), argumentType, argument);
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `base/src/main/java/org/arend/core/expr/visitor/ElimBindingVisitor.java`
-#### Snippet
-```java
-  public Expression visitPEval(PEvalExpression expr, Void params) {
-    Expression result = expr.getExpression().accept(this, null);
-    return result != null ? new PEvalExpression(result) : null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `base/src/main/java/org/arend/core/expr/visitor/ElimBindingVisitor.java`
-#### Snippet
-```java
-    assert expr instanceof LeveledDefCallExpression;
-    List<Expression> newArgs = visitDefCallArguments(expr.getDefCallArguments());
-    return newArgs == null ? null : expr.getDefinition().getDefCall(((LeveledDefCallExpression) expr).getLevels(), newArgs);
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `base/src/main/java/org/arend/core/sort/Level.java`
-#### Snippet
-```java
-        return new Level(var, Math.max(myConstant, level.myConstant), Math.max(myMaxConstant, level.myMaxConstant));
-      } else {
-        return null;
-      }
+    @Override
+    public LevelVariable max(LevelVariable other) {
+      return other instanceof InferenceLevelVariable || getType() != other.getType() ? null : other;
     }
+
+```
+
+### ReturnNull
+Return of `null`
+in `base/src/main/java/org/arend/core/context/binding/LevelVariable.java`
+#### Snippet
+```java
+    @Override
+    public LevelVariable min(LevelVariable other) {
+      return other instanceof InferenceLevelVariable || getType() != other.getType() ? null : this;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `base/src/main/java/org/arend/core/context/binding/LevelVariable.java`
+#### Snippet
+```java
+    @Override
+    public LevelVariable min(LevelVariable other) {
+      return other instanceof InferenceLevelVariable || getType() != other.getType() ? null : this;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `base/src/main/java/org/arend/core/context/binding/LevelVariable.java`
+#### Snippet
+```java
+    @Override
+    public LevelVariable max(LevelVariable other) {
+      return other instanceof InferenceLevelVariable || getType() != other.getType() ? null : other;
+    }
+
 ```
 
 ### ReturnNull
@@ -15518,54 +15566,6 @@ in `base/src/main/java/org/arend/core/context/binding/ParamLevelVariable.java`
 
 ### ReturnNull
 Return of `null`
-in `base/src/main/java/org/arend/core/context/binding/LevelVariable.java`
-#### Snippet
-```java
-    @Override
-    public LevelVariable min(LevelVariable other) {
-      return other instanceof InferenceLevelVariable || getType() != other.getType() ? null : this;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `base/src/main/java/org/arend/core/context/binding/LevelVariable.java`
-#### Snippet
-```java
-    @Override
-    public LevelVariable min(LevelVariable other) {
-      return other instanceof InferenceLevelVariable || getType() != other.getType() ? null : this;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `base/src/main/java/org/arend/core/context/binding/LevelVariable.java`
-#### Snippet
-```java
-    @Override
-    public LevelVariable max(LevelVariable other) {
-      return other instanceof InferenceLevelVariable || getType() != other.getType() ? null : other;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `base/src/main/java/org/arend/core/context/binding/LevelVariable.java`
-#### Snippet
-```java
-    @Override
-    public LevelVariable max(LevelVariable other) {
-      return other instanceof InferenceLevelVariable || getType() != other.getType() ? null : other;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
 in `base/src/main/java/org/arend/core/context/binding/inference/TypeClassInferenceVariable.java`
 #### Snippet
 ```java
@@ -15582,7 +15582,7 @@ in `base/src/main/java/org/arend/core/context/binding/inference/InferenceLevelVa
 #### Snippet
 ```java
   @Override
-  public LevelVariable min(LevelVariable other) {
+  public LevelVariable max(LevelVariable other) {
     return this == other ? this : null;
   }
 
@@ -15594,7 +15594,7 @@ in `base/src/main/java/org/arend/core/context/binding/inference/InferenceLevelVa
 #### Snippet
 ```java
   @Override
-  public LevelVariable max(LevelVariable other) {
+  public LevelVariable min(LevelVariable other) {
     return this == other ? this : null;
   }
 
@@ -15610,6 +15610,42 @@ in `base/src/main/java/org/arend/core/context/binding/inference/InferenceVariabl
     return myReference == null ? null : myReference.getSubstExpression();
   }
 
+```
+
+### ReturnNull
+Return of `null`
+in `base/src/main/java/org/arend/core/pattern/EmptyPattern.java`
+#### Snippet
+```java
+  @Override
+  public Definition getDefinition() {
+    return null;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `base/src/main/java/org/arend/core/pattern/Pattern.java`
+#### Snippet
+```java
+        exprPattern = pattern.toExpressionPattern(TypeConstructorExpression.unfoldType(link.getTypeExpr().subst(substitution)));
+        if (exprPattern == null) {
+          return null;
+        }
+      } else {
+```
+
+### ReturnNull
+Return of `null`
+in `base/src/main/java/org/arend/core/pattern/Pattern.java`
+#### Snippet
+```java
+  default String getBindingName() {
+    Binding binding = getBinding();
+    if (binding == null) return null;
+    String name = binding.getName();
+    return name == null ? Renamer.getNameFromType(binding.getTypeExpr(), null) : name;
 ```
 
 ### ReturnNull
@@ -15686,31 +15722,7 @@ in `base/src/main/java/org/arend/core/pattern/ConstructorPattern.java`
 
 ### ReturnNull
 Return of `null`
-in `base/src/main/java/org/arend/core/pattern/Pattern.java`
-#### Snippet
-```java
-        exprPattern = pattern.toExpressionPattern(TypeConstructorExpression.unfoldType(link.getTypeExpr().subst(substitution)));
-        if (exprPattern == null) {
-          return null;
-        }
-      } else {
-```
-
-### ReturnNull
-Return of `null`
-in `base/src/main/java/org/arend/core/pattern/Pattern.java`
-#### Snippet
-```java
-  default String getBindingName() {
-    Binding binding = getBinding();
-    if (binding == null) return null;
-    String name = binding.getName();
-    return name == null ? Renamer.getNameFromType(binding.getTypeExpr(), null) : name;
-```
-
-### ReturnNull
-Return of `null`
-in `base/src/main/java/org/arend/core/pattern/EmptyPattern.java`
+in `base/src/main/java/org/arend/core/pattern/BindingPattern.java`
 #### Snippet
 ```java
   @Override
@@ -15734,18 +15746,6 @@ in `base/src/main/java/org/arend/core/elimtree/LeafElimTree.java`
 
 ### ReturnNull
 Return of `null`
-in `base/src/main/java/org/arend/core/pattern/BindingPattern.java`
-#### Snippet
-```java
-  @Override
-  public Definition getDefinition() {
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
 in `base/src/main/java/org/arend/core/elimtree/IntervalElim.java`
 #### Snippet
 ```java
@@ -15754,18 +15754,6 @@ in `base/src/main/java/org/arend/core/elimtree/IntervalElim.java`
         return null;
       }
     }
-```
-
-### ReturnNull
-Return of `null`
-in `base/src/main/java/org/arend/core/definition/Definition.java`
-#### Snippet
-```java
-
-  public TCReferable getPLevelsParent() {
-    return null;
-  }
-
 ```
 
 ### ReturnNull
@@ -15810,7 +15798,19 @@ in `base/src/main/java/org/arend/core/definition/Definition.java`
 #### Snippet
 ```java
 
-  public TCReferable getHLevelsParent() {
+  public TCReferable getPLevelsParent() {
+    return null;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `base/src/main/java/org/arend/core/definition/Definition.java`
+#### Snippet
+```java
+
+  public CoerceData getCoerceData() {
     return null;
   }
 
@@ -15834,34 +15834,10 @@ in `base/src/main/java/org/arend/core/definition/Definition.java`
 #### Snippet
 ```java
 
-  public CoerceData getCoerceData() {
+  public TCReferable getHLevelsParent() {
     return null;
   }
 
-```
-
-### ReturnNull
-Return of `null`
-in `base/src/main/java/org/arend/core/elimtree/BranchElimTree.java`
-#### Snippet
-```java
-    if (myChildren.size() == 1) {
-      Map.Entry<BranchKey, ElimTree> entry = myChildren.entrySet().iterator().next();
-      return entry.getKey() instanceof SingleConstructor ? entry.getValue() : null;
-    } else {
-      return null;
-```
-
-### ReturnNull
-Return of `null`
-in `base/src/main/java/org/arend/core/elimtree/BranchElimTree.java`
-#### Snippet
-```java
-      return entry.getKey() instanceof SingleConstructor ? entry.getValue() : null;
-    } else {
-      return null;
-    }
-  }
 ```
 
 ### ReturnNull
@@ -15883,7 +15859,7 @@ in `base/src/main/java/org/arend/core/elimtree/BranchElimTree.java`
 ```java
     if (myChildren.size() == 1) {
       Map.Entry<BranchKey, ElimTree> entry = myChildren.entrySet().iterator().next();
-      return entry.getKey() instanceof SingleConstructor ? (SingleConstructor) entry.getKey() : null;
+      return entry.getKey() instanceof SingleConstructor ? entry.getValue() : null;
     } else {
       return null;
 ```
@@ -15893,7 +15869,7 @@ Return of `null`
 in `base/src/main/java/org/arend/core/elimtree/BranchElimTree.java`
 #### Snippet
 ```java
-      return entry.getKey() instanceof SingleConstructor ? (SingleConstructor) entry.getKey() : null;
+      return entry.getKey() instanceof SingleConstructor ? entry.getValue() : null;
     } else {
       return null;
     }
@@ -15906,6 +15882,30 @@ in `base/src/main/java/org/arend/core/elimtree/BranchElimTree.java`
 #### Snippet
 ```java
       return new ArrayConstructor(((ArrayExpression) argument).getElements().isEmpty(), true, true);
+    } else {
+      return null;
+    }
+  }
+```
+
+### ReturnNull
+Return of `null`
+in `base/src/main/java/org/arend/core/elimtree/BranchElimTree.java`
+#### Snippet
+```java
+    if (myChildren.size() == 1) {
+      Map.Entry<BranchKey, ElimTree> entry = myChildren.entrySet().iterator().next();
+      return entry.getKey() instanceof SingleConstructor ? (SingleConstructor) entry.getKey() : null;
+    } else {
+      return null;
+```
+
+### ReturnNull
+Return of `null`
+in `base/src/main/java/org/arend/core/elimtree/BranchElimTree.java`
+#### Snippet
+```java
+      return entry.getKey() instanceof SingleConstructor ? (SingleConstructor) entry.getKey() : null;
     } else {
       return null;
     }
@@ -15929,10 +15929,10 @@ Return of `null`
 in `base/src/main/java/org/arend/core/definition/DataDefinition.java`
 #### Snippet
 ```java
-      }
+  public Expression getTypeWithParams(List<? super DependentLink> params, Levels levels) {
+    if (!status().headerIsOK()) {
+      return null;
     }
-    return null;
-  }
 
 ```
 
@@ -15941,10 +15941,10 @@ Return of `null`
 in `base/src/main/java/org/arend/core/definition/DataDefinition.java`
 #### Snippet
 ```java
-  public Expression getTypeWithParams(List<? super DependentLink> params, Levels levels) {
-    if (!status().headerIsOK()) {
-      return null;
+      }
     }
+    return null;
+  }
 
 ```
 
@@ -15982,6 +15982,30 @@ in `base/src/main/java/org/arend/core/definition/CoerceData.java`
         return null;
       }
       result.expression = new ErrorExpression(result.expression);
+```
+
+### ReturnNull
+Return of `null`
+in `base/src/main/java/org/arend/core/definition/CoerceData.java`
+#### Snippet
+```java
+    Key key = getKey(type);
+    if (key instanceof DefinitionKey && ((DefinitionKey) key).definition == myDefinition) {
+      return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `base/src/main/java/org/arend/core/definition/CoerceData.java`
+#### Snippet
+```java
+    }
+    addTransitiveClosureTo(key, coercingDefinition);
+    return null;
+  }
+
 ```
 
 ### ReturnNull
@@ -16070,30 +16094,6 @@ in `base/src/main/java/org/arend/core/definition/CoerceData.java`
 
 ### ReturnNull
 Return of `null`
-in `base/src/main/java/org/arend/core/definition/CoerceData.java`
-#### Snippet
-```java
-    Key key = getKey(type);
-    if (key instanceof DefinitionKey && ((DefinitionKey) key).definition == myDefinition) {
-      return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `base/src/main/java/org/arend/core/definition/CoerceData.java`
-#### Snippet
-```java
-    }
-    addTransitiveClosureTo(key, coercingDefinition);
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
 in `base/src/main/java/org/arend/core/constructor/IdpConstructor.java`
 #### Snippet
 ```java
@@ -16172,6 +16172,90 @@ in `base/src/main/java/org/arend/core/pattern/ConstructorExpressionPattern.java`
   public Levels getLevels() {
     Expression dataExpr = getDataExpression();
     return dataExpr instanceof LeveledDefCallExpression ? ((LeveledDefCallExpression) dataExpr).getLevels() : dataExpr instanceof SmallIntegerExpression ? Levels.EMPTY : null;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `base/src/main/java/org/arend/core/pattern/ConstructorExpressionPattern.java`
+#### Snippet
+```java
+
+  public Boolean isArrayEmpty() {
+    return data instanceof ArrayData ? ((ArrayData) data).isEmpty : null;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `base/src/main/java/org/arend/core/pattern/ConstructorExpressionPattern.java`
+#### Snippet
+```java
+      Expression argument = pattern.toPatternExpression();
+      if (argument == null) {
+        return null;
+      }
+      arguments.add(argument);
+```
+
+### ReturnNull
+Return of `null`
+in `base/src/main/java/org/arend/core/pattern/ConstructorExpressionPattern.java`
+#### Snippet
+```java
+  public static Boolean isArrayEmpty(Expression type) {
+    type = type.normalize(NormalizationMode.WHNF);
+    return type instanceof ClassCallExpression && ((ClassCallExpression) type).getDefinition() == Prelude.DEP_ARRAY ? isEqualToZero(((ClassCallExpression) type).getAbsImplementationHere(Prelude.ARRAY_LENGTH)) : null;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `base/src/main/java/org/arend/core/pattern/ConstructorExpressionPattern.java`
+#### Snippet
+```java
+  public Expression getArrayLength() {
+    Expression dataExpr = getDataExpression();
+    return dataExpr instanceof FunCallExpression funCall && funCall.getDefinition() == Prelude.ARRAY_CONS && funCall.getDefCallArguments().size() >= 1 ? funCall.getDefCallArguments().get(0) : null;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `base/src/main/java/org/arend/core/pattern/ConstructorExpressionPattern.java`
+#### Snippet
+```java
+  @Override
+  public Definition getDefinition() {
+    return data instanceof DefCallExpression ? ((DefCallExpression) data).getDefinition() : data instanceof SmallIntegerExpression ? Prelude.ZERO : data instanceof ArrayData ? ((ArrayData) data).funCall.getDefinition() : null;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `base/src/main/java/org/arend/core/pattern/ConstructorExpressionPattern.java`
+#### Snippet
+```java
+
+  public static Boolean isEqualToZero(Expression length) {
+    if (length == null) return null;
+    length = length.normalize(NormalizationMode.WHNF);
+    return length instanceof IntegerExpression ? (Boolean) ((IntegerExpression) length).isZero() : length instanceof ConCallExpression && ((ConCallExpression) length).getDefinition() == Prelude.SUC ? false : null;
+```
+
+### ReturnNull
+Return of `null`
+in `base/src/main/java/org/arend/core/pattern/ConstructorExpressionPattern.java`
+#### Snippet
+```java
+    if (length == null) return null;
+    length = length.normalize(NormalizationMode.WHNF);
+    return length instanceof IntegerExpression ? (Boolean) ((IntegerExpression) length).isZero() : length instanceof ConCallExpression && ((ConCallExpression) length).getDefinition() == Prelude.SUC ? false : null;
   }
 
 ```
@@ -16326,42 +16410,6 @@ in `base/src/main/java/org/arend/core/pattern/ConstructorExpressionPattern.java`
 #### Snippet
 ```java
 
-  public static Boolean isEqualToZero(Expression length) {
-    if (length == null) return null;
-    length = length.normalize(NormalizationMode.WHNF);
-    return length instanceof IntegerExpression ? (Boolean) ((IntegerExpression) length).isZero() : length instanceof ConCallExpression && ((ConCallExpression) length).getDefinition() == Prelude.SUC ? false : null;
-```
-
-### ReturnNull
-Return of `null`
-in `base/src/main/java/org/arend/core/pattern/ConstructorExpressionPattern.java`
-#### Snippet
-```java
-    if (length == null) return null;
-    length = length.normalize(NormalizationMode.WHNF);
-    return length instanceof IntegerExpression ? (Boolean) ((IntegerExpression) length).isZero() : length instanceof ConCallExpression && ((ConCallExpression) length).getDefinition() == Prelude.SUC ? false : null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `base/src/main/java/org/arend/core/pattern/ConstructorExpressionPattern.java`
-#### Snippet
-```java
-  public Expression getArrayLength() {
-    Expression dataExpr = getDataExpression();
-    return dataExpr instanceof FunCallExpression funCall && funCall.getDefinition() == Prelude.ARRAY_CONS && funCall.getDefCallArguments().size() >= 1 ? funCall.getDefCallArguments().get(0) : null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `base/src/main/java/org/arend/core/pattern/ConstructorExpressionPattern.java`
-#### Snippet
-```java
-
   public Binding getArrayThisBinding() {
     return data instanceof ArrayData ? ((ArrayData) data).thisBinding : null;
   }
@@ -16370,48 +16418,12 @@ in `base/src/main/java/org/arend/core/pattern/ConstructorExpressionPattern.java`
 
 ### ReturnNull
 Return of `null`
-in `base/src/main/java/org/arend/core/pattern/ConstructorExpressionPattern.java`
+in `base/src/main/java/org/arend/term/group/Statement.java`
 #### Snippet
 ```java
 
-  public Boolean isArrayEmpty() {
-    return data instanceof ArrayData ? ((ArrayData) data).isEmpty : null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `base/src/main/java/org/arend/core/pattern/ConstructorExpressionPattern.java`
-#### Snippet
-```java
-      Expression argument = pattern.toPatternExpression();
-      if (argument == null) {
-        return null;
-      }
-      arguments.add(argument);
-```
-
-### ReturnNull
-Return of `null`
-in `base/src/main/java/org/arend/core/pattern/ConstructorExpressionPattern.java`
-#### Snippet
-```java
-  public static Boolean isArrayEmpty(Expression type) {
-    type = type.normalize(NormalizationMode.WHNF);
-    return type instanceof ClassCallExpression && ((ClassCallExpression) type).getDefinition() == Prelude.DEP_ARRAY ? isEqualToZero(((ClassCallExpression) type).getAbsImplementationHere(Prelude.ARRAY_LENGTH)) : null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `base/src/main/java/org/arend/core/pattern/ConstructorExpressionPattern.java`
-#### Snippet
-```java
-  @Override
-  public Definition getDefinition() {
-    return data instanceof DefCallExpression ? ((DefCallExpression) data).getDefinition() : data instanceof SmallIntegerExpression ? Prelude.ZERO : data instanceof ArrayData ? ((ArrayData) data).funCall.getDefinition() : null;
+  default Abstract.LevelParameters getPLevelsDefinition() {
+    return null;
   }
 
 ```
@@ -16454,24 +16466,12 @@ in `base/src/main/java/org/arend/term/group/Statement.java`
 
 ### ReturnNull
 Return of `null`
-in `base/src/main/java/org/arend/term/group/Statement.java`
-#### Snippet
-```java
-
-  default Abstract.LevelParameters getPLevelsDefinition() {
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
 in `base/src/main/java/org/arend/core/definition/ClassDefinition.java`
 #### Snippet
 ```java
-  public PiExpression getOverriddenType(ClassField field, Levels levels) {
-    PiExpression type = myOverridden.get(field);
-    return type == null ? null : (PiExpression) new SubstVisitor(new ExprSubstitution(), castLevels(field.getParentClass(), levels).makeSubstitution(field)).visitPi(type, null);
+  public AbsExpression addDefaultIfAbsent(ClassField field, AbsExpression impl, boolean isFunc) {
+    Pair<AbsExpression, Boolean> pair = myDefaults.putIfAbsent(field, new Pair<>(impl, isFunc));
+    return pair == null ? null : pair.proj1;
   }
 
 ```
@@ -16484,6 +16484,18 @@ in `base/src/main/java/org/arend/core/definition/ClassDefinition.java`
   public AbsExpression addDefault(ClassField field, AbsExpression impl, boolean isFunc) {
     Pair<AbsExpression, Boolean> pair = myDefaults.put(field, new Pair<>(impl, isFunc));
     return pair == null ? null : pair.proj1;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `base/src/main/java/org/arend/core/definition/ClassDefinition.java`
+#### Snippet
+```java
+  public PiExpression getOverriddenType(ClassField field, Levels levels) {
+    PiExpression type = myOverridden.get(field);
+    return type == null ? null : (PiExpression) new SubstVisitor(new ExprSubstitution(), castLevels(field.getParentClass(), levels).makeSubstitution(field)).visitPi(type, null);
   }
 
 ```
@@ -16526,18 +16538,6 @@ in `base/src/main/java/org/arend/core/definition/ClassDefinition.java`
 
 ### ReturnNull
 Return of `null`
-in `base/src/main/java/org/arend/core/definition/ClassDefinition.java`
-#### Snippet
-```java
-  public AbsExpression addDefaultIfAbsent(ClassField field, AbsExpression impl, boolean isFunc) {
-    Pair<AbsExpression, Boolean> pair = myDefaults.putIfAbsent(field, new Pair<>(impl, isFunc));
-    return pair == null ? null : pair.proj1;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
 in `base/src/main/java/org/arend/term/concrete/FreeReferablesVisitor.java`
 #### Snippet
 ```java
@@ -16556,90 +16556,6 @@ in `base/src/main/java/org/arend/term/concrete/FreeReferablesVisitor.java`
   public TCReferable visitReference(Concrete.ReferenceExpression expr, Void params) {
     Referable ref = expr.getReferent();
     return ref instanceof TCReferable && myReferables.contains(ref) ? (TCReferable) ref : null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `base/src/main/java/org/arend/term/concrete/SearchConcreteVisitor.java`
-#### Snippet
-```java
-  @Override
-  public R visitReference(Concrete.ReferenceExpression expr, P params) {
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `base/src/main/java/org/arend/term/concrete/SearchConcreteVisitor.java`
-#### Snippet
-```java
-      }
-    }
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `base/src/main/java/org/arend/term/concrete/SearchConcreteVisitor.java`
-#### Snippet
-```java
-      if (result != null) return result;
-    }
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `base/src/main/java/org/arend/term/concrete/SearchConcreteVisitor.java`
-#### Snippet
-```java
-  @Override
-  public R visitHole(Concrete.HoleExpression expr, P params) {
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `base/src/main/java/org/arend/term/concrete/SearchConcreteVisitor.java`
-#### Snippet
-```java
-      if (result != null) return result;
-    }
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `base/src/main/java/org/arend/term/concrete/SearchConcreteVisitor.java`
-#### Snippet
-```java
-  @Override
-  public R visitStringLiteral(Concrete.StringLiteral expr, P params) {
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `base/src/main/java/org/arend/term/concrete/SearchConcreteVisitor.java`
-#### Snippet
-```java
-  @Override
-  public R visitApplyHole(Concrete.ApplyHoleExpression expr, P params) {
-    return null;
   }
 
 ```
@@ -16685,44 +16601,8 @@ Return of `null`
 in `base/src/main/java/org/arend/term/concrete/SearchConcreteVisitor.java`
 #### Snippet
 ```java
-
-  public R visitParameter(Concrete.Parameter parameter, P params) {
-    return parameter.getType() == null ? null : parameter.getType().accept(this, params);
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `base/src/main/java/org/arend/term/concrete/SearchConcreteVisitor.java`
-#### Snippet
-```java
-      if (result != null) return result;
-    }
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `base/src/main/java/org/arend/term/concrete/SearchConcreteVisitor.java`
-#### Snippet
-```java
-  public R visitClause(Concrete.Clause clause, P params) {
-    R result = clause.getPatterns() == null ? null : visitPatterns(clause.getPatterns(), params);
-    return result != null ? result : clause.getExpression() != null ? clause.getExpression().accept(this, params) : null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `base/src/main/java/org/arend/term/concrete/SearchConcreteVisitor.java`
-#### Snippet
-```java
   @Override
-  public R visitThis(Concrete.ThisExpression expr, P params) {
+  public R visitApplyHole(Concrete.ApplyHoleExpression expr, P params) {
     return null;
   }
 
@@ -16746,7 +16626,31 @@ in `base/src/main/java/org/arend/term/concrete/SearchConcreteVisitor.java`
 #### Snippet
 ```java
   @Override
-  public R visitUniverse(Concrete.UniverseExpression expr, P params) {
+  public R visitHole(Concrete.HoleExpression expr, P params) {
+    return null;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `base/src/main/java/org/arend/term/concrete/SearchConcreteVisitor.java`
+#### Snippet
+```java
+  @Override
+  public R visitReference(Concrete.ReferenceExpression expr, P params) {
+    return null;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `base/src/main/java/org/arend/term/concrete/SearchConcreteVisitor.java`
+#### Snippet
+```java
+  @Override
+  public R visitStringLiteral(Concrete.StringLiteral expr, P params) {
     return null;
   }
 
@@ -16841,8 +16745,56 @@ Return of `null`
 in `base/src/main/java/org/arend/term/concrete/SearchConcreteVisitor.java`
 #### Snippet
 ```java
+
+  public R visitParameter(Concrete.Parameter parameter, P params) {
+    return parameter.getType() == null ? null : parameter.getType().accept(this, params);
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `base/src/main/java/org/arend/term/concrete/SearchConcreteVisitor.java`
+#### Snippet
+```java
+  @Override
+  public R visitThis(Concrete.ThisExpression expr, P params) {
+    return null;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `base/src/main/java/org/arend/term/concrete/SearchConcreteVisitor.java`
+#### Snippet
+```java
   @Override
   public R visitNumericLiteral(Concrete.NumericLiteral expr, P params) {
+    return null;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `base/src/main/java/org/arend/term/concrete/SearchConcreteVisitor.java`
+#### Snippet
+```java
+      if (result != null) return result;
+    }
+    return null;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `base/src/main/java/org/arend/term/concrete/SearchConcreteVisitor.java`
+#### Snippet
+```java
+      if (result != null) return result;
+    }
     return null;
   }
 
@@ -16862,26 +16814,50 @@ in `base/src/main/java/org/arend/term/concrete/SearchConcreteVisitor.java`
 
 ### ReturnNull
 Return of `null`
-in `base/src/main/java/org/arend/term/concrete/ReplaceDataVisitor.java`
+in `base/src/main/java/org/arend/term/concrete/SearchConcreteVisitor.java`
 #### Snippet
 ```java
+  public R visitClause(Concrete.Clause clause, P params) {
+    R result = clause.getPatterns() == null ? null : visitPatterns(clause.getPatterns(), params);
+    return result != null ? result : clause.getExpression() != null ? clause.getExpression().accept(this, params) : null;
+  }
 
-  private Concrete.Coclauses visitCoclauses(Concrete.Coclauses coclauses) {
-    if (coclauses == null) return null;
-    List<Concrete.ClassFieldImpl> result = new ArrayList<>(coclauses.getCoclauseList().size());
-    for (Concrete.ClassFieldImpl coclause : coclauses.getCoclauseList()) {
 ```
 
 ### ReturnNull
 Return of `null`
-in `base/src/main/java/org/arend/term/concrete/ReplaceDataVisitor.java`
+in `base/src/main/java/org/arend/term/concrete/SearchConcreteVisitor.java`
 #### Snippet
 ```java
+      }
+    }
+    return null;
+  }
 
-  private List<Concrete.ReferenceExpression> visitReferenceExpressions(List<? extends Concrete.ReferenceExpression> expressions) {
-    if (expressions == null) return null;
-    List<Concrete.ReferenceExpression> result = new ArrayList<>(expressions.size());
-    for (Concrete.ReferenceExpression expression : expressions) {
+```
+
+### ReturnNull
+Return of `null`
+in `base/src/main/java/org/arend/term/concrete/SearchConcreteVisitor.java`
+#### Snippet
+```java
+      if (result != null) return result;
+    }
+    return null;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `base/src/main/java/org/arend/term/concrete/SearchConcreteVisitor.java`
+#### Snippet
+```java
+  @Override
+  public R visitUniverse(Concrete.UniverseExpression expr, P params) {
+    return null;
+  }
+
 ```
 
 ### ReturnNull
@@ -16910,50 +16886,38 @@ in `base/src/main/java/org/arend/term/concrete/ReplaceDataVisitor.java`
 
 ### ReturnNull
 Return of `null`
+in `base/src/main/java/org/arend/term/concrete/ReplaceDataVisitor.java`
+#### Snippet
+```java
+
+  private List<Concrete.ReferenceExpression> visitReferenceExpressions(List<? extends Concrete.ReferenceExpression> expressions) {
+    if (expressions == null) return null;
+    List<Concrete.ReferenceExpression> result = new ArrayList<>(expressions.size());
+    for (Concrete.ReferenceExpression expression : expressions) {
+```
+
+### ReturnNull
+Return of `null`
+in `base/src/main/java/org/arend/term/concrete/ReplaceDataVisitor.java`
+#### Snippet
+```java
+
+  private Concrete.Coclauses visitCoclauses(Concrete.Coclauses coclauses) {
+    if (coclauses == null) return null;
+    List<Concrete.ClassFieldImpl> result = new ArrayList<>(coclauses.getCoclauseList().size());
+    for (Concrete.ClassFieldImpl coclause : coclauses.getCoclauseList()) {
+```
+
+### ReturnNull
+Return of `null`
 in `base/src/main/java/org/arend/core/expr/visitor/NormalizeVisitor.java`
 #### Snippet
 ```java
-        return absImpl.getExpression().subst(new ExprSubstitution(absImpl.getBinding(), arg).add(funCall.getDefinition().getParameters(), funCall.getDefCallArguments()), classCall.getLevelSubstitution().subst(funCall.getLevelSubstitution()));
-      } else if (funCall.getDefinition().getBody() == null) {
-        return null;
+          conArgs.set(recursiveParam, resultExpr);
+        }
+        return result == null ? null : addSucs(result, sucs).accept(this, mode);
       }
-    }
-```
 
-### ReturnNull
-Return of `null`
-in `base/src/main/java/org/arend/core/expr/visitor/NormalizeVisitor.java`
-#### Snippet
-```java
-    Expression type = arg.getType();
-    Expression normType = type == null ? null : type.accept(this, NormalizationMode.WHNF);
-    return normType instanceof ClassCallExpression ? ((ClassCallExpression) normType).getImplementation(field, arg) : null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `base/src/main/java/org/arend/core/expr/visitor/NormalizeVisitor.java`
-#### Snippet
-```java
-        return eval((ElimBody) body, defCall.getDefCallArguments(), new ExprSubstitution(), defCall.getLevelSubstitution(), expr, null);
-      } else {
-        return null;
-      }
-    } else if (expr instanceof CaseExpression) {
-```
-
-### ReturnNull
-Return of `null`
-in `base/src/main/java/org/arend/core/expr/visitor/NormalizeVisitor.java`
-#### Snippet
-```java
-      return eval(((CaseExpression) expr).getElimBody(), ((CaseExpression) expr).getArguments(), new ExprSubstitution(), LevelSubstitution.EMPTY, expr, null);
-    } else {
-      return null;
-    }
-  }
 ```
 
 ### ReturnNull
@@ -16985,6 +16949,30 @@ Return of `null`
 in `base/src/main/java/org/arend/core/expr/visitor/NormalizeVisitor.java`
 #### Snippet
 ```java
+        return eval((ElimBody) body, defCall.getDefCallArguments(), new ExprSubstitution(), defCall.getLevelSubstitution(), expr, null);
+      } else {
+        return null;
+      }
+    } else if (expr instanceof CaseExpression) {
+```
+
+### ReturnNull
+Return of `null`
+in `base/src/main/java/org/arend/core/expr/visitor/NormalizeVisitor.java`
+#### Snippet
+```java
+      return eval(((CaseExpression) expr).getElimBody(), ((CaseExpression) expr).getArguments(), new ExprSubstitution(), LevelSubstitution.EMPTY, expr, null);
+    } else {
+      return null;
+    }
+  }
+```
+
+### ReturnNull
+Return of `null`
+in `base/src/main/java/org/arend/core/expr/visitor/NormalizeVisitor.java`
+#### Snippet
+```java
 
     if (body == null || body instanceof Expression && (mode == NormalizationMode.RNF || mode == NormalizationMode.RNF_EXP)) {
       return null;
@@ -16997,23 +16985,23 @@ Return of `null`
 in `base/src/main/java/org/arend/core/expr/visitor/NormalizeVisitor.java`
 #### Snippet
 ```java
-          conArgs.set(recursiveParam, resultExpr);
-        }
-        return result == null ? null : addSucs(result, sucs).accept(this, mode);
+        return absImpl.getExpression().subst(new ExprSubstitution(absImpl.getBinding(), arg).add(funCall.getDefinition().getParameters(), funCall.getDefCallArguments()), classCall.getLevelSubstitution().subst(funCall.getLevelSubstitution()));
+      } else if (funCall.getDefinition().getBody() == null) {
+        return null;
       }
-
+    }
 ```
 
 ### ReturnNull
 Return of `null`
-in `base/src/main/java/org/arend/term/abs/ConcreteBuilder.java`
+in `base/src/main/java/org/arend/core/expr/visitor/NormalizeVisitor.java`
 #### Snippet
 ```java
-    if (resultType == null && resultTypeLevel != null) {
-      myErrorReporter.report(new AbstractExpressionError(GeneralError.Level.ERROR, "The level of a type can be specified only if the type is also specified", resultTypeLevel));
-      return null;
-    } else {
-      return resultTypeLevel;
+    Expression type = arg.getType();
+    Expression normType = type == null ? null : type.accept(this, NormalizationMode.WHNF);
+    return normType instanceof ClassCallExpression ? ((ClassCallExpression) normType).getImplementation(field, arg) : null;
+  }
+
 ```
 
 ### ReturnNull
@@ -17045,23 +17033,23 @@ Return of `null`
 in `base/src/main/java/org/arend/term/abs/ConcreteBuilder.java`
 #### Snippet
 ```java
+    if (resultType == null && resultTypeLevel != null) {
+      myErrorReporter.report(new AbstractExpressionError(GeneralError.Level.ERROR, "The level of a type can be specified only if the type is also specified", resultTypeLevel));
+      return null;
+    } else {
+      return resultTypeLevel;
+```
+
+### ReturnNull
+Return of `null`
+in `base/src/main/java/org/arend/term/abs/ConcreteBuilder.java`
+#### Snippet
+```java
                 return (Concrete.NameParameter) parameter;
               myErrorReporter.report(new AbstractExpressionError(GeneralError.Level.ERROR, "Definable meta parameters can only be identifiers", parameter));
               return null;
             }).collect(Collectors.toList());
     var term = def.getTerm();
-```
-
-### ReturnNull
-Return of `null`
-in `base/src/main/java/org/arend/term/concrete/SubstConcreteVisitor.java`
-#### Snippet
-```java
-
-  protected Concrete.Pattern visitPattern(Concrete.Pattern pattern) {
-    if (pattern == null) return null;
-    var data = myData != null ? myData : pattern.getData();
-    if (pattern instanceof Concrete.NamePattern namePattern) {
 ```
 
 ### ReturnNull
@@ -17084,6 +17072,354 @@ in `base/src/main/java/org/arend/term/concrete/SubstConcreteVisitor.java`
 
   private Concrete.TypedReferable visitTypedReferable(Concrete.TypedReferable asReferable) {
     return asReferable == null ? null : new Concrete.TypedReferable(myData != null ? myData : asReferable.getData(), asReferable.referable, asReferable.type.accept(this, null));
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `base/src/main/java/org/arend/term/concrete/SubstConcreteVisitor.java`
+#### Snippet
+```java
+
+  protected Concrete.Pattern visitPattern(Concrete.Pattern pattern) {
+    if (pattern == null) return null;
+    var data = myData != null ? myData : pattern.getData();
+    if (pattern instanceof Concrete.NamePattern namePattern) {
+```
+
+### ReturnNull
+Return of `null`
+in `base/src/main/java/org/arend/util/Version.java`
+#### Snippet
+```java
+
+  public static Version fromString(String version) {
+    if (version == null) return null;
+    String[] split = version.trim().split("\\.");
+    try {
+```
+
+### ReturnNull
+Return of `null`
+in `base/src/main/java/org/arend/util/Version.java`
+#### Snippet
+```java
+      }
+    } catch (NumberFormatException ignored) {
+      return null;
+    }
+  }
+```
+
+### ReturnNull
+Return of `null`
+in `base/src/main/java/org/arend/util/SingletonList.java`
+#### Snippet
+```java
+      @Override
+      public Spliterator<E> trySplit() {
+        return null;
+      }
+
+```
+
+### ReturnNull
+Return of `null`
+in `base/src/main/java/org/arend/util/VersionRange.java`
+#### Snippet
+```java
+  public static VersionRange parseVersionRange(String text) {
+    Range<String> stringRange = parseRange(text);
+    if (stringRange == null) return null;
+    Version from = Version.fromString(stringRange.proj1);
+    Version to = Version.fromString(stringRange.proj2);
+```
+
+### ReturnNull
+Return of `null`
+in `base/src/main/java/org/arend/util/VersionRange.java`
+#### Snippet
+```java
+    Version from = Version.fromString(stringRange.proj1);
+    Version to = Version.fromString(stringRange.proj2);
+    return from == null && stringRange.proj1 != null || to == null && stringRange.proj2 != null ? null : new VersionRange(from, to);
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `base/src/main/java/org/arend/util/Range.java`
+#### Snippet
+```java
+
+    if (tokens.size() == 1) {
+      return tokens.get(0).proj1 == TokenType.TEXT ? new Range<>(tokens.get(0).proj2, tokens.get(0).proj2) : null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `base/src/main/java/org/arend/util/Range.java`
+#### Snippet
+```java
+
+    if (tokens.size() != 5 || tokens.get(2).proj1 != TokenType.COMMA) {
+      return null;
+    }
+    if (tokens.get(3).proj1 == TokenType.LEQ && tokens.get(4).proj1 == TokenType.TEXT) {
+```
+
+### ReturnNull
+Return of `null`
+in `base/src/main/java/org/arend/util/Range.java`
+#### Snippet
+```java
+    }
+
+    return lowerBound == null || upperBound == null ? null : new Range<>(lowerBound, upperBound);
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `base/src/main/java/org/arend/term/prettyprint/MinimizedRepresentation.java`
+#### Snippet
+```java
+                    return getBindingDeep((ProjExpression) proj.getExpression());
+                } else {
+                    return null;
+                }
+            }
+```
+
+### ReturnNull
+Return of `null`
+in `base/src/main/java/org/arend/term/prettyprint/MinimizedRepresentation.java`
+#### Snippet
+```java
+            return minimizedConcrete.accept(new ErrorFixingConcreteExpressionVisitor(errorsCollector, factory), completeConcrete);
+        } else {
+            return null;
+        }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `cli/src/main/java/org/arend/frontend/parser/BuildVisitor.java`
+#### Snippet
+```java
+  private Concrete.LevelExpression getLevelExpression(Position position, String text, MaybeLevelAtomContext maybeLevelAtomCtx) {
+    if (text.isEmpty()) {
+      return maybeLevelAtomCtx == null ? null : visitLevel(maybeLevelAtomCtx);
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `cli/src/main/java/org/arend/frontend/parser/BuildVisitor.java`
+#### Snippet
+```java
+  @Override
+  public Concrete.LevelExpression visitWithoutLevelAtom(WithoutLevelAtomContext ctx) {
+    return null;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `cli/src/main/java/org/arend/frontend/parser/BuildVisitor.java`
+#### Snippet
+```java
+  @Override
+  public List<LevelReferable> visitMetaHLevels(MetaHLevelsContext ctx) {
+    return ctx == null ? null : visitMetaLevels(ctx.ID(), false);
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `cli/src/main/java/org/arend/frontend/parser/BuildVisitor.java`
+#### Snippet
+```java
+  @Override
+  public Concrete.LevelParameters visitPlevelParams(PlevelParamsContext ctx) {
+    return ctx == null ? null : (Concrete.LevelParameters) parseLevelParameters(ctx.start, ctx.ID(), null, true);
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `cli/src/main/java/org/arend/frontend/parser/BuildVisitor.java`
+#### Snippet
+```java
+
+  private Referable visitIdOrUnknown(IdOrUnknownContext ctx) {
+    return ctx instanceof IuIdContext ? new ParsedLocalReferable(tokenPosition(ctx.start), ((IuIdContext) ctx).ID().getText()) : null;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `cli/src/main/java/org/arend/frontend/parser/BuildVisitor.java`
+#### Snippet
+```java
+  @Override
+  public Concrete.LevelParameters visitHlevelParams(HlevelParamsContext ctx) {
+    return ctx == null ? null : (Concrete.LevelParameters) parseLevelParameters(ctx.start, ctx.ID(), null, false);
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `cli/src/main/java/org/arend/frontend/parser/BuildVisitor.java`
+#### Snippet
+```java
+  private String getVar(AtomFieldsAccContext ctx) {
+    if (!ctx.NUMBER().isEmpty() || !(ctx.atom() instanceof AtomLiteralContext)) {
+      return null;
+    }
+    LiteralContext literal = ((AtomLiteralContext) ctx.atom()).literal();
+```
+
+### ReturnNull
+Return of `null`
+in `cli/src/main/java/org/arend/frontend/parser/BuildVisitor.java`
+#### Snippet
+```java
+      }
+    }
+    return null;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `cli/src/main/java/org/arend/frontend/parser/BuildVisitor.java`
+#### Snippet
+```java
+  public List<Concrete.LevelExpression> visitSingleLevel(SingleLevelContext ctx) {
+    MaybeLevelAtomContext level = ctx.maybeLevelAtom();
+    return level instanceof WithoutLevelAtomContext ? null : new SingletonList<>(visitLevel(level));
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `cli/src/main/java/org/arend/frontend/parser/BuildVisitor.java`
+#### Snippet
+```java
+    if (ids.size() % 2 == 0) {
+      myErrorReporter.report(new ParserError(tokenPosition(ids.get(0).getSymbol()), "Cannot parse level parameters"));
+      return null;
+    }
+    boolean linear = true;
+```
+
+### ReturnNull
+Return of `null`
+in `cli/src/main/java/org/arend/frontend/parser/BuildVisitor.java`
+#### Snippet
+```java
+        if (inc == null) {
+          myErrorReporter.report(new ParserError(tokenPosition(ids.get(i).getSymbol()), "Expected either '<=' or '>='"));
+          return null;
+        }
+        if (increasing == null) {
+```
+
+### ReturnNull
+Return of `null`
+in `cli/src/main/java/org/arend/frontend/parser/BuildVisitor.java`
+#### Snippet
+```java
+  @Override
+  public List<LevelReferable> visitMetaPLevels(MetaPLevelsContext ctx) {
+    return ctx == null ? null : visitMetaLevels(ctx.ID(), true);
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `base/src/main/java/org/arend/error/ParsingError.java`
+#### Snippet
+```java
+  @Override
+  public Concrete.SourceNode getCauseSourceNode() {
+    return cause instanceof Concrete.SourceNode ? (Concrete.SourceNode) cause : null;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `base/src/main/java/org/arend/module/error/ModuleNotFoundError.java`
+#### Snippet
+```java
+  @Override
+  public ModuleReferable getCause() {
+    return currentModule == null ? null : new ModuleReferable(currentModule);
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `base/src/main/java/org/arend/util/FileUtils.java`
+#### Snippet
+```java
+    for (String name : modulePath.toList()) {
+      if (!MODULE_NAME_REGEX.matcher(name).matches()) {
+        return null;
+      }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `base/src/main/java/org/arend/util/FileUtils.java`
+#### Snippet
+```java
+      String fileName = path.getFileName().toString();
+      if (!fileName.endsWith(ext) || fileName.length() == ext.length()) {
+        return null;
+      }
+      path = path.resolveSibling(fileName.substring(0, fileName.length() - ext.length()));
+```
+
+### ReturnNull
+Return of `null`
+in `base/src/main/java/org/arend/util/FileUtils.java`
+#### Snippet
+```java
+      String name = elem.toString();
+      if (!MODULE_NAME_REGEX.matcher(name).matches()) {
+        return null;
+      }
+      names.add(name);
+```
+
+### ReturnNull
+Return of `null`
+in `base/src/main/java/org/arend/term/prettyprint/BiConcreteVisitor.java`
+#### Snippet
+```java
+      }
+    }
+    return null;
   }
 
 ```
@@ -17146,18 +17482,6 @@ in `base/src/main/java/org/arend/core/expr/visitor/CompareVisitor.java`
         return myNormalCompare && myEquations.addEquation(finalExpr1, finalExpr2, null, myCMP, variable.getSourceNode(), correctOrder ? null : variable, correctOrder ? variable : null) ? true : null;
       }
     }
-```
-
-### ReturnNull
-Return of `null`
-in `base/src/main/java/org/arend/core/expr/visitor/CompareVisitor.java`
-#### Snippet
-```java
-      }
-    }, null);
-    return found[0] ? null : expr.accept(new SubstVisitor(substitution, LevelSubstitution.EMPTY, false), null);
-  }
-
 ```
 
 ### ReturnNull
@@ -17258,338 +17582,14 @@ in `base/src/main/java/org/arend/core/expr/visitor/CompareVisitor.java`
 
 ### ReturnNull
 Return of `null`
-in `base/src/main/java/org/arend/util/Version.java`
-#### Snippet
-```java
-
-  public static Version fromString(String version) {
-    if (version == null) return null;
-    String[] split = version.trim().split("\\.");
-    try {
-```
-
-### ReturnNull
-Return of `null`
-in `base/src/main/java/org/arend/util/Version.java`
+in `base/src/main/java/org/arend/core/expr/visitor/CompareVisitor.java`
 #### Snippet
 ```java
       }
-    } catch (NumberFormatException ignored) {
-      return null;
-    }
-  }
-```
-
-### ReturnNull
-Return of `null`
-in `base/src/main/java/org/arend/util/VersionRange.java`
-#### Snippet
-```java
-  public static VersionRange parseVersionRange(String text) {
-    Range<String> stringRange = parseRange(text);
-    if (stringRange == null) return null;
-    Version from = Version.fromString(stringRange.proj1);
-    Version to = Version.fromString(stringRange.proj2);
-```
-
-### ReturnNull
-Return of `null`
-in `base/src/main/java/org/arend/util/VersionRange.java`
-#### Snippet
-```java
-    Version from = Version.fromString(stringRange.proj1);
-    Version to = Version.fromString(stringRange.proj2);
-    return from == null && stringRange.proj1 != null || to == null && stringRange.proj2 != null ? null : new VersionRange(from, to);
+    }, null);
+    return found[0] ? null : expr.accept(new SubstVisitor(substitution, LevelSubstitution.EMPTY, false), null);
   }
 
-```
-
-### ReturnNull
-Return of `null`
-in `base/src/main/java/org/arend/util/SingletonList.java`
-#### Snippet
-```java
-      @Override
-      public Spliterator<E> trySplit() {
-        return null;
-      }
-
-```
-
-### ReturnNull
-Return of `null`
-in `cli/src/main/java/org/arend/frontend/parser/BuildVisitor.java`
-#### Snippet
-```java
-  @Override
-  public List<LevelReferable> visitMetaHLevels(MetaHLevelsContext ctx) {
-    return ctx == null ? null : visitMetaLevels(ctx.ID(), false);
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `cli/src/main/java/org/arend/frontend/parser/BuildVisitor.java`
-#### Snippet
-```java
-  @Override
-  public List<LevelReferable> visitMetaPLevels(MetaPLevelsContext ctx) {
-    return ctx == null ? null : visitMetaLevels(ctx.ID(), true);
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `cli/src/main/java/org/arend/frontend/parser/BuildVisitor.java`
-#### Snippet
-```java
-  @Override
-  public Concrete.LevelParameters visitHlevelParams(HlevelParamsContext ctx) {
-    return ctx == null ? null : (Concrete.LevelParameters) parseLevelParameters(ctx.start, ctx.ID(), null, false);
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `cli/src/main/java/org/arend/frontend/parser/BuildVisitor.java`
-#### Snippet
-```java
-
-  private Referable visitIdOrUnknown(IdOrUnknownContext ctx) {
-    return ctx instanceof IuIdContext ? new ParsedLocalReferable(tokenPosition(ctx.start), ((IuIdContext) ctx).ID().getText()) : null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `cli/src/main/java/org/arend/frontend/parser/BuildVisitor.java`
-#### Snippet
-```java
-    if (ids.size() % 2 == 0) {
-      myErrorReporter.report(new ParserError(tokenPosition(ids.get(0).getSymbol()), "Cannot parse level parameters"));
-      return null;
-    }
-    boolean linear = true;
-```
-
-### ReturnNull
-Return of `null`
-in `cli/src/main/java/org/arend/frontend/parser/BuildVisitor.java`
-#### Snippet
-```java
-        if (inc == null) {
-          myErrorReporter.report(new ParserError(tokenPosition(ids.get(i).getSymbol()), "Expected either '<=' or '>='"));
-          return null;
-        }
-        if (increasing == null) {
-```
-
-### ReturnNull
-Return of `null`
-in `cli/src/main/java/org/arend/frontend/parser/BuildVisitor.java`
-#### Snippet
-```java
-  @Override
-  public Concrete.LevelExpression visitWithoutLevelAtom(WithoutLevelAtomContext ctx) {
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `cli/src/main/java/org/arend/frontend/parser/BuildVisitor.java`
-#### Snippet
-```java
-  public List<Concrete.LevelExpression> visitSingleLevel(SingleLevelContext ctx) {
-    MaybeLevelAtomContext level = ctx.maybeLevelAtom();
-    return level instanceof WithoutLevelAtomContext ? null : new SingletonList<>(visitLevel(level));
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `cli/src/main/java/org/arend/frontend/parser/BuildVisitor.java`
-#### Snippet
-```java
-  private Concrete.LevelExpression getLevelExpression(Position position, String text, MaybeLevelAtomContext maybeLevelAtomCtx) {
-    if (text.isEmpty()) {
-      return maybeLevelAtomCtx == null ? null : visitLevel(maybeLevelAtomCtx);
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `cli/src/main/java/org/arend/frontend/parser/BuildVisitor.java`
-#### Snippet
-```java
-  @Override
-  public Concrete.LevelParameters visitPlevelParams(PlevelParamsContext ctx) {
-    return ctx == null ? null : (Concrete.LevelParameters) parseLevelParameters(ctx.start, ctx.ID(), null, true);
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `cli/src/main/java/org/arend/frontend/parser/BuildVisitor.java`
-#### Snippet
-```java
-  private String getVar(AtomFieldsAccContext ctx) {
-    if (!ctx.NUMBER().isEmpty() || !(ctx.atom() instanceof AtomLiteralContext)) {
-      return null;
-    }
-    LiteralContext literal = ((AtomLiteralContext) ctx.atom()).literal();
-```
-
-### ReturnNull
-Return of `null`
-in `cli/src/main/java/org/arend/frontend/parser/BuildVisitor.java`
-#### Snippet
-```java
-      }
-    }
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `base/src/main/java/org/arend/util/Range.java`
-#### Snippet
-```java
-
-    if (tokens.size() == 1) {
-      return tokens.get(0).proj1 == TokenType.TEXT ? new Range<>(tokens.get(0).proj2, tokens.get(0).proj2) : null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `base/src/main/java/org/arend/util/Range.java`
-#### Snippet
-```java
-
-    if (tokens.size() != 5 || tokens.get(2).proj1 != TokenType.COMMA) {
-      return null;
-    }
-    if (tokens.get(3).proj1 == TokenType.LEQ && tokens.get(4).proj1 == TokenType.TEXT) {
-```
-
-### ReturnNull
-Return of `null`
-in `base/src/main/java/org/arend/util/Range.java`
-#### Snippet
-```java
-    }
-
-    return lowerBound == null || upperBound == null ? null : new Range<>(lowerBound, upperBound);
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `base/src/main/java/org/arend/error/ParsingError.java`
-#### Snippet
-```java
-  @Override
-  public Concrete.SourceNode getCauseSourceNode() {
-    return cause instanceof Concrete.SourceNode ? (Concrete.SourceNode) cause : null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `base/src/main/java/org/arend/module/error/ModuleNotFoundError.java`
-#### Snippet
-```java
-  @Override
-  public ModuleReferable getCause() {
-    return currentModule == null ? null : new ModuleReferable(currentModule);
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `base/src/main/java/org/arend/util/FileUtils.java`
-#### Snippet
-```java
-    for (String name : modulePath.toList()) {
-      if (!MODULE_NAME_REGEX.matcher(name).matches()) {
-        return null;
-      }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `base/src/main/java/org/arend/util/FileUtils.java`
-#### Snippet
-```java
-      String fileName = path.getFileName().toString();
-      if (!fileName.endsWith(ext) || fileName.length() == ext.length()) {
-        return null;
-      }
-      path = path.resolveSibling(fileName.substring(0, fileName.length() - ext.length()));
-```
-
-### ReturnNull
-Return of `null`
-in `base/src/main/java/org/arend/util/FileUtils.java`
-#### Snippet
-```java
-      String name = elem.toString();
-      if (!MODULE_NAME_REGEX.matcher(name).matches()) {
-        return null;
-      }
-      names.add(name);
-```
-
-### ReturnNull
-Return of `null`
-in `base/src/main/java/org/arend/term/prettyprint/BiConcreteVisitor.java`
-#### Snippet
-```java
-      }
-    }
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `base/src/main/java/org/arend/term/prettyprint/MinimizedRepresentation.java`
-#### Snippet
-```java
-            return minimizedConcrete.accept(new ErrorFixingConcreteExpressionVisitor(errorsCollector, factory), completeConcrete);
-        } else {
-            return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `base/src/main/java/org/arend/term/prettyprint/MinimizedRepresentation.java`
-#### Snippet
-```java
-                    return getBindingDeep((ProjExpression) proj.getExpression());
-                } else {
-                    return null;
-                }
-            }
 ```
 
 ### ReturnNull
@@ -17669,30 +17669,6 @@ Return of `null`
 in `base/src/main/java/org/arend/term/prettyprint/ToAbstractVisitor.java`
 #### Snippet
 ```java
-      return elim.getOtherwise() == null ? new ArrayList<>() : visitElimBody(parameters, elim.getOtherwise());
-    } else if (body == null) {
-      return null;
-    } else {
-      throw new IllegalStateException();
-```
-
-### ReturnNull
-Return of `null`
-in `base/src/main/java/org/arend/term/prettyprint/ToAbstractVisitor.java`
-#### Snippet
-```java
-    if (levels.size() == 1) {
-      Concrete.LevelExpression result = visitLevelNull(levels.get(0));
-      return result == null ? null : new SingletonList<>(result);
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `base/src/main/java/org/arend/term/prettyprint/ToAbstractVisitor.java`
-#### Snippet
-```java
     } else {
       if (!hasFlag(PrettyPrinterFlag.SHOW_LEVELS)) {
         return null;
@@ -17708,6 +17684,42 @@ in `base/src/main/java/org/arend/term/prettyprint/ToAbstractVisitor.java`
 
   private Concrete.LevelExpression visitLevelNull(Level level) {
     return level != null && (level.isClosed() || (!level.isVarOnly() || level.getVar() != LevelVariable.PVAR && level.getVar() != LevelVariable.HVAR) && hasFlag(PrettyPrinterFlag.SHOW_LEVELS)) ? visitLevel(level) : null;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `base/src/main/java/org/arend/term/prettyprint/ToAbstractVisitor.java`
+#### Snippet
+```java
+
+  private LocalReferable makeLocalReference(Binding var, Set<Variable> freeVars, boolean genName) {
+    return !genName && !freeVars.contains(var) ? null : myRenamer.generateFreshReferable(var, freeVars);
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `base/src/main/java/org/arend/term/prettyprint/ToAbstractVisitor.java`
+#### Snippet
+```java
+  private Concrete.Expression checkPath(DataCallExpression expr) {
+    if (expr.getDefinition() != Prelude.PATH || hasFlag(PrettyPrinterFlag.SHOW_PREFIX_PATH)) {
+      return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `base/src/main/java/org/arend/term/prettyprint/ToAbstractVisitor.java`
+#### Snippet
+```java
+      }
+    }
+    return null;
   }
 
 ```
@@ -17777,54 +17789,6 @@ Return of `null`
 in `base/src/main/java/org/arend/term/prettyprint/ToAbstractVisitor.java`
 #### Snippet
 ```java
-  public static Concrete.LevelParameters visitLevelParameters(List<? extends LevelVariable> parameters, boolean isPLevels) {
-    if (parameters.size() == 1 && parameters.get(0).equals(parameters.get(0).getStd())) {
-      return null;
-    }
-    List<LevelReferable> refs = new ArrayList<>(parameters.size());
-```
-
-### ReturnNull
-Return of `null`
-in `base/src/main/java/org/arend/term/prettyprint/ToAbstractVisitor.java`
-#### Snippet
-```java
-
-  private LocalReferable makeLocalReference(Binding var, Set<Variable> freeVars, boolean genName) {
-    return !genName && !freeVars.contains(var) ? null : myRenamer.generateFreshReferable(var, freeVars);
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `base/src/main/java/org/arend/term/prettyprint/ToAbstractVisitor.java`
-#### Snippet
-```java
-  private Concrete.Expression checkPath(DataCallExpression expr) {
-    if (expr.getDefinition() != Prelude.PATH || hasFlag(PrettyPrinterFlag.SHOW_PREFIX_PATH)) {
-      return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `base/src/main/java/org/arend/term/prettyprint/ToAbstractVisitor.java`
-#### Snippet
-```java
-      }
-    }
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `base/src/main/java/org/arend/term/prettyprint/ToAbstractVisitor.java`
-#### Snippet
-```java
 
   private Concrete.Pattern makeLetClausePattern(LetClausePattern pattern) {
     if (pattern == null) return null;
@@ -17861,23 +17825,47 @@ Return of `null`
 in `base/src/main/java/org/arend/term/prettyprint/ToAbstractVisitor.java`
 #### Snippet
 ```java
+      return elim.getOtherwise() == null ? new ArrayList<>() : visitElimBody(parameters, elim.getOtherwise());
+    } else if (body == null) {
+      return null;
+    } else {
+      throw new IllegalStateException();
+```
+
+### ReturnNull
+Return of `null`
+in `base/src/main/java/org/arend/term/prettyprint/ToAbstractVisitor.java`
+#### Snippet
+```java
+    if (levels.size() == 1) {
+      Concrete.LevelExpression result = visitLevelNull(levels.get(0));
+      return result == null ? null : new SingletonList<>(result);
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `base/src/main/java/org/arend/term/prettyprint/ToAbstractVisitor.java`
+#### Snippet
+```java
+  public static Concrete.LevelParameters visitLevelParameters(List<? extends LevelVariable> parameters, boolean isPLevels) {
+    if (parameters.size() == 1 && parameters.get(0).equals(parameters.get(0).getStd())) {
+      return null;
+    }
+    List<LevelReferable> refs = new ArrayList<>(parameters.size());
+```
+
+### ReturnNull
+Return of `null`
+in `base/src/main/java/org/arend/term/prettyprint/ToAbstractVisitor.java`
+#### Snippet
+```java
 
   private List<Concrete.Pattern> visitPatterns(DependentLink parameters, List<? extends Pattern> patterns) {
     if (patterns == null) return null;
     List<Concrete.Pattern> result = new ArrayList<>();
     for (Pattern pattern : patterns) {
-```
-
-### ReturnNull
-Return of `null`
-in `base/src/main/java/org/arend/naming/scope/ListScope.java`
-#### Snippet
-```java
-      }
-    }
-    return null;
-  }
-
 ```
 
 ### ReturnNull
@@ -17888,6 +17876,18 @@ in `base/src/main/java/org/arend/naming/binOp/PatternBinOpEngine.java`
 
   private Referable getReferableInner(Concrete.Pattern pattern) {
     return pattern instanceof Concrete.NamePattern ? ((Concrete.NamePattern) pattern).getReferable() : pattern instanceof Concrete.ConstructorPattern ? ((Concrete.ConstructorPattern) pattern).getConstructor() : null;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `base/src/main/java/org/arend/naming/scope/ListScope.java`
+#### Snippet
+```java
+      }
+    }
+    return null;
   }
 
 ```
@@ -17930,6 +17930,30 @@ in `base/src/main/java/org/arend/naming/scope/local/LocalListScope.java`
 
 ### ReturnNull
 Return of `null`
+in `base/src/main/java/org/arend/naming/scope/local/LetScope.java`
+#### Snippet
+```java
+      }
+    }
+    return null;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `base/src/main/java/org/arend/naming/scope/local/LetScope.java`
+#### Snippet
+```java
+      }
+    }
+    return null;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
 in `base/src/main/java/org/arend/naming/scope/local/TelescopeScope.java`
 #### Snippet
 ```java
@@ -17938,6 +17962,42 @@ in `base/src/main/java/org/arend/naming/scope/local/TelescopeScope.java`
     return null;
   }
 
+```
+
+### ReturnNull
+Return of `null`
+in `base/src/main/java/org/arend/naming/reference/DataLocalReferable.java`
+#### Snippet
+```java
+
+  public static DataLocalReferable make(Referable referable) {
+    return referable == null ? null : new DataLocalReferable(referable, referable.getRefName());
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `base/src/main/java/org/arend/naming/reference/DataLocalReferable.java`
+#### Snippet
+```java
+  public String moduleTextRepresentation() {
+    SourceInfo sourceInfo = SourceInfo.getSourceInfo(myData);
+    return sourceInfo != null ? sourceInfo.moduleTextRepresentation() : null;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `base/src/main/java/org/arend/naming/reference/DataLocalReferable.java`
+#### Snippet
+```java
+  public String positionTextRepresentation() {
+    SourceInfo sourceInfo = SourceInfo.getSourceInfo(myData);
+    return sourceInfo != null ? sourceInfo.positionTextRepresentation() : null;
+  }
+}
 ```
 
 ### ReturnNull
@@ -17990,78 +18050,6 @@ in `base/src/main/java/org/arend/naming/renamer/Renamer.java`
 
 ### ReturnNull
 Return of `null`
-in `base/src/main/java/org/arend/naming/reference/DataLocalReferable.java`
-#### Snippet
-```java
-  public String moduleTextRepresentation() {
-    SourceInfo sourceInfo = SourceInfo.getSourceInfo(myData);
-    return sourceInfo != null ? sourceInfo.moduleTextRepresentation() : null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `base/src/main/java/org/arend/naming/reference/DataLocalReferable.java`
-#### Snippet
-```java
-  public String positionTextRepresentation() {
-    SourceInfo sourceInfo = SourceInfo.getSourceInfo(myData);
-    return sourceInfo != null ? sourceInfo.positionTextRepresentation() : null;
-  }
-}
-```
-
-### ReturnNull
-Return of `null`
-in `base/src/main/java/org/arend/naming/reference/DataLocalReferable.java`
-#### Snippet
-```java
-
-  public static DataLocalReferable make(Referable referable) {
-    return referable == null ? null : new DataLocalReferable(referable, referable.getRefName());
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `base/src/main/java/org/arend/naming/scope/local/LetScope.java`
-#### Snippet
-```java
-      }
-    }
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `base/src/main/java/org/arend/naming/scope/local/LetScope.java`
-#### Snippet
-```java
-      }
-    }
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `base/src/main/java/org/arend/naming/scope/local/PatternScope.java`
-#### Snippet
-```java
-      }
-    }
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
 in `base/src/main/java/org/arend/naming/reference/LocatedReferable.java`
 #### Snippet
 ```java
@@ -18098,12 +18086,12 @@ in `base/src/main/java/org/arend/naming/reference/LocatedReferable.java`
 
 ### ReturnNull
 Return of `null`
-in `base/src/main/java/org/arend/naming/reference/Referable.java`
+in `base/src/main/java/org/arend/naming/scope/local/PatternScope.java`
 #### Snippet
 ```java
-
-  static Referable getUnderlyingReferable(Referable ref) {
-    return ref == null ? null : ref.getUnderlyingReferable();
+      }
+    }
+    return null;
   }
 
 ```
@@ -18134,11 +18122,23 @@ in `base/src/main/java/org/arend/naming/reference/TCDefReferable.java`
 
 ### ReturnNull
 Return of `null`
-in `base/src/main/java/org/arend/naming/reference/GlobalReferable.java`
+in `base/src/main/java/org/arend/naming/reference/Referable.java`
 #### Snippet
 ```java
 
-  default Concrete.ResolvableDefinition getDefaultConcrete() {
+  static Referable getUnderlyingReferable(Referable ref) {
+    return ref == null ? null : ref.getUnderlyingReferable();
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `base/src/main/java/org/arend/naming/scope/LexicalScope.java`
+#### Snippet
+```java
+    }
+
     return null;
   }
 
@@ -18146,12 +18146,24 @@ in `base/src/main/java/org/arend/naming/reference/GlobalReferable.java`
 
 ### ReturnNull
 Return of `null`
-in `base/src/main/java/org/arend/naming/reference/converter/IdReferableConverter.java`
+in `base/src/main/java/org/arend/naming/scope/LexicalScope.java`
 #### Snippet
 ```java
-  @Override
-  public TCReferable toDataLocatedReferable(LocatedReferable referable) {
-    return referable instanceof TCReferable ? (TCReferable) referable : null;
+      }
+    }
+    return null;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `base/src/main/java/org/arend/naming/scope/LexicalScope.java`
+#### Snippet
+```java
+      }
+    }
+    return null;
   }
 
 ```
@@ -18165,30 +18177,6 @@ in `base/src/main/java/org/arend/naming/scope/LexicalScope.java`
     if (name.isEmpty() || "_".equals(name)) {
       return null;
     }
-
-```
-
-### ReturnNull
-Return of `null`
-in `base/src/main/java/org/arend/naming/scope/LexicalScope.java`
-#### Snippet
-```java
-      }
-    }
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `base/src/main/java/org/arend/naming/scope/LexicalScope.java`
-#### Snippet
-```java
-      }
-    }
-    return null;
-  }
 
 ```
 
@@ -18218,12 +18206,24 @@ in `base/src/main/java/org/arend/naming/scope/LexicalScope.java`
 
 ### ReturnNull
 Return of `null`
-in `base/src/main/java/org/arend/naming/scope/LexicalScope.java`
+in `base/src/main/java/org/arend/naming/reference/GlobalReferable.java`
 #### Snippet
 ```java
-    }
 
+  default Concrete.ResolvableDefinition getDefaultConcrete() {
     return null;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `base/src/main/java/org/arend/naming/reference/converter/IdReferableConverter.java`
+#### Snippet
+```java
+  @Override
+  public TCReferable toDataLocatedReferable(LocatedReferable referable) {
+    return referable instanceof TCReferable ? (TCReferable) referable : null;
   }
 
 ```
@@ -18269,11 +18269,11 @@ Return of `null`
 in `base/src/main/java/org/arend/naming/resolving/visitor/TypeClassReferenceExtractVisitor.java`
 #### Snippet
 ```java
-
-  public ClassReferable getTypeClassReference(Concrete.Expression type) {
-    return type == null ? null : findClassReference(getTypeReference(type, true));
+  @Override
+  public ClassReferable visitData(Concrete.DataDefinition def, Void params) {
+    return null;
   }
-}
+
 ```
 
 ### ReturnNull
@@ -18317,9 +18317,9 @@ Return of `null`
 in `base/src/main/java/org/arend/naming/resolving/visitor/TypeClassReferenceExtractVisitor.java`
 #### Snippet
 ```java
-  @Override
-  public ClassReferable visitClass(Concrete.ClassDefinition def, Void params) {
-    return null;
+  public Referable getTypeReference(Concrete.Expression expr, boolean isType) {
+    Concrete.ReferenceExpression refExpr = getTypeReferenceExpression(expr, isType);
+    return refExpr == null ? null : RedirectingReferable.getOriginalReferable(refExpr.getReferent());
   }
 
 ```
@@ -18341,11 +18341,11 @@ Return of `null`
 in `base/src/main/java/org/arend/naming/resolving/visitor/TypeClassReferenceExtractVisitor.java`
 #### Snippet
 ```java
-  public Referable getTypeReference(Concrete.Expression expr, boolean isType) {
-    Concrete.ReferenceExpression refExpr = getTypeReferenceExpression(expr, isType);
-    return refExpr == null ? null : RedirectingReferable.getOriginalReferable(refExpr.getReferent());
-  }
 
+  public ClassReferable getTypeClassReference(Concrete.Expression type) {
+    return type == null ? null : findClassReference(getTypeReference(type, true));
+  }
+}
 ```
 
 ### ReturnNull
@@ -18354,7 +18354,7 @@ in `base/src/main/java/org/arend/naming/resolving/visitor/TypeClassReferenceExtr
 #### Snippet
 ```java
   @Override
-  public ClassReferable visitData(Concrete.DataDefinition def, Void params) {
+  public ClassReferable visitClass(Concrete.ClassDefinition def, Void params) {
     return null;
   }
 
@@ -18449,6 +18449,90 @@ Return of `null`
 in `base/src/main/java/org/arend/naming/reference/LongUnresolvedReference.java`
 #### Snippet
 ```java
+
+  public static UnresolvedReference make(Object data, @NotNull List<String> path) {
+    return path.isEmpty() ? null : path.size() == 1 ? new NamedUnresolvedReference(data, path.get(0)) : new LongUnresolvedReference(data, path);
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `base/src/main/java/org/arend/naming/reference/LongUnresolvedReference.java`
+#### Snippet
+```java
+
+  public ErrorReference getErrorReference() {
+    return resolved instanceof ErrorReference ? (ErrorReference) resolved : null;
+  }
+}
+```
+
+### ReturnNull
+Return of `null`
+in `base/src/main/java/org/arend/naming/reference/LongUnresolvedReference.java`
+#### Snippet
+```java
+  private Concrete.Expression resolveArgument(Scope scope, boolean onlyTry, List<Referable> resolvedRefs) {
+    if (resolved != null) {
+      return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `base/src/main/java/org/arend/naming/reference/LongUnresolvedReference.java`
+#### Snippet
+```java
+    if (resolved == null) {
+      if (myPath.size() == 1) {
+        if (onlyTry) return null;
+        resolved = new ErrorReference(getData(), name);
+      } else {
+```
+
+### ReturnNull
+Return of `null`
+in `base/src/main/java/org/arend/naming/reference/LongUnresolvedReference.java`
+#### Snippet
+```java
+    }
+
+    return null;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `base/src/main/java/org/arend/naming/reference/LongUnresolvedReference.java`
+#### Snippet
+```java
+  public Scope resolveNamespace(Scope scope) {
+    if (resolved instanceof ErrorReference) {
+      return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `base/src/main/java/org/arend/naming/reference/LongUnresolvedReference.java`
+#### Snippet
+```java
+        Object data = getData();
+        resolved = new ErrorReference(data, make(data, myPath.subList(0, i)), i, myPath.get(i));
+        return null;
+      }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `base/src/main/java/org/arend/naming/reference/LongUnresolvedReference.java`
+#### Snippet
+```java
       if (onlyTry) {
         resolved = null;
         return null;
@@ -18506,11 +18590,23 @@ in `base/src/main/java/org/arend/naming/reference/LongUnresolvedReference.java`
 
 ### ReturnNull
 Return of `null`
-in `base/src/main/java/org/arend/naming/reference/LongUnresolvedReference.java`
+in `base/src/main/java/org/arend/library/classLoader/FileClassLoaderDelegate.java`
 #### Snippet
 ```java
-  private Concrete.Expression resolveArgument(Scope scope, boolean onlyTry, List<Referable> resolvedRefs) {
-    if (resolved != null) {
+    Path file = myRoot.resolve(name.replace('.', File.separatorChar) + ".class");
+    try {
+      return Files.isRegularFile(file) ? Files.readAllBytes(file) : null;
+    } catch (IOException e) {
+      throw new ClassNotFoundException("An exception happened during loading of class " + name, e);
+```
+
+### ReturnNull
+Return of `null`
+in `base/src/main/java/org/arend/library/classLoader/ZipClassLoaderDelegate.java`
+#### Snippet
+```java
+    ZipEntry entry = zipFile.getEntry(myPrefix + name.replace('.', '/') + ".class");
+    if (entry == null) {
       return null;
     }
 
@@ -18518,74 +18614,14 @@ in `base/src/main/java/org/arend/naming/reference/LongUnresolvedReference.java`
 
 ### ReturnNull
 Return of `null`
-in `base/src/main/java/org/arend/naming/reference/LongUnresolvedReference.java`
+in `base/src/main/java/org/arend/library/LibraryManager.java`
 #### Snippet
 ```java
-    if (resolved == null) {
-      if (myPath.size() == 1) {
-        if (onlyTry) return null;
-        resolved = new ErrorReference(getData(), name);
-      } else {
-```
-
-### ReturnNull
-Return of `null`
-in `base/src/main/java/org/arend/naming/reference/LongUnresolvedReference.java`
-#### Snippet
-```java
+      }
     }
-
     return null;
   }
 
-```
-
-### ReturnNull
-Return of `null`
-in `base/src/main/java/org/arend/naming/reference/LongUnresolvedReference.java`
-#### Snippet
-```java
-
-  public static UnresolvedReference make(Object data, @NotNull List<String> path) {
-    return path.isEmpty() ? null : path.size() == 1 ? new NamedUnresolvedReference(data, path.get(0)) : new LongUnresolvedReference(data, path);
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `base/src/main/java/org/arend/naming/reference/LongUnresolvedReference.java`
-#### Snippet
-```java
-
-  public ErrorReference getErrorReference() {
-    return resolved instanceof ErrorReference ? (ErrorReference) resolved : null;
-  }
-}
-```
-
-### ReturnNull
-Return of `null`
-in `base/src/main/java/org/arend/naming/reference/LongUnresolvedReference.java`
-#### Snippet
-```java
-  public Scope resolveNamespace(Scope scope) {
-    if (resolved instanceof ErrorReference) {
-      return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `base/src/main/java/org/arend/naming/reference/LongUnresolvedReference.java`
-#### Snippet
-```java
-        Object data = getData();
-        resolved = new ErrorReference(data, make(data, myPath.subList(0, i)), i, myPath.get(i));
-        return null;
-      }
-    }
 ```
 
 ### ReturnNull
@@ -18621,42 +18657,6 @@ in `base/src/main/java/org/arend/library/LibraryManager.java`
 
     return loadLibrary(dependency, typechecking) ? dependency : null;
   }
-
-```
-
-### ReturnNull
-Return of `null`
-in `base/src/main/java/org/arend/library/LibraryManager.java`
-#### Snippet
-```java
-      }
-    }
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `base/src/main/java/org/arend/library/classLoader/FileClassLoaderDelegate.java`
-#### Snippet
-```java
-    Path file = myRoot.resolve(name.replace('.', File.separatorChar) + ".class");
-    try {
-      return Files.isRegularFile(file) ? Files.readAllBytes(file) : null;
-    } catch (IOException e) {
-      throw new ClassNotFoundException("An exception happened during loading of class " + name, e);
-```
-
-### ReturnNull
-Return of `null`
-in `base/src/main/java/org/arend/library/classLoader/ZipClassLoaderDelegate.java`
-#### Snippet
-```java
-    ZipEntry entry = zipFile.getEntry(myPrefix + name.replace('.', '/') + ".class");
-    if (entry == null) {
-      return null;
-    }
 
 ```
 
@@ -18701,6 +18701,30 @@ Return of `null`
 in `base/src/main/java/org/arend/naming/resolving/visitor/DefinitionResolveNameVisitor.java`
 #### Snippet
 ```java
+
+  private static Scope makeScope(Group group, Scope parentScope, LexicalScope.Extent extent) {
+    return parentScope == null ? null : LexicalScope.insideOf(group, parentScope, extent);
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `base/src/main/java/org/arend/naming/resolving/visitor/DefinitionResolveNameVisitor.java`
+#### Snippet
+```java
+  private ExpressionResolveNameVisitor resolveDataHeader(Concrete.DataDefinition def, Scope scope) {
+     if (myResolveTypeClassReferences || def.getStage().ordinal() >= Concrete.Stage.HEADER_RESOLVED.ordinal()) {
+      return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `base/src/main/java/org/arend/naming/resolving/visitor/DefinitionResolveNameVisitor.java`
+#### Snippet
+```java
   private ExpressionResolveNameVisitor resolveFunctionHeader(Concrete.BaseFunctionDefinition def, Scope scope) {
     if (def.getStage().ordinal() >= Concrete.Stage.HEADER_RESOLVED.ordinal()) {
       return null;
@@ -18722,26 +18746,14 @@ in `base/src/main/java/org/arend/naming/resolving/visitor/DefinitionResolveNameV
 
 ### ReturnNull
 Return of `null`
-in `base/src/main/java/org/arend/naming/resolving/visitor/DefinitionResolveNameVisitor.java`
-#### Snippet
-```java
-  private ExpressionResolveNameVisitor resolveDataHeader(Concrete.DataDefinition def, Scope scope) {
-     if (myResolveTypeClassReferences || def.getStage().ordinal() >= Concrete.Stage.HEADER_RESOLVED.ordinal()) {
-      return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `base/src/main/java/org/arend/naming/resolving/visitor/DefinitionResolveNameVisitor.java`
+in `base/src/main/java/org/arend/extImpl/ConcreteFactoryImpl.java`
 #### Snippet
 ```java
 
-  private static Scope makeScope(Group group, Scope parentScope, LexicalScope.Extent extent) {
-    return parentScope == null ? null : LexicalScope.insideOf(group, parentScope, extent);
-  }
-
+  private List<Concrete.LevelExpression> makeLevels(List<? extends ConcreteLevel> levels) {
+    if (levels == null) return null;
+    List<Concrete.LevelExpression> result = new ArrayList<>(levels.size());
+    for (ConcreteLevel level : levels) {
 ```
 
 ### ReturnNull
@@ -18758,18 +18770,6 @@ in `base/src/main/java/org/arend/extImpl/ConcreteFactoryImpl.java`
 
 ### ReturnNull
 Return of `null`
-in `base/src/main/java/org/arend/extImpl/ConcreteFactoryImpl.java`
-#### Snippet
-```java
-
-  private List<Concrete.LevelExpression> makeLevels(List<? extends ConcreteLevel> levels) {
-    if (levels == null) return null;
-    List<Concrete.LevelExpression> result = new ArrayList<>(levels.size());
-    for (ConcreteLevel level : levels) {
-```
-
-### ReturnNull
-Return of `null`
 in `base/src/main/java/org/arend/typechecking/order/DFS.java`
 #### Snippet
 ```java
@@ -18782,50 +18782,14 @@ in `base/src/main/java/org/arend/typechecking/order/DFS.java`
 
 ### ReturnNull
 Return of `null`
-in `base/src/main/java/org/arend/typechecking/UseTypechecking.java`
-#### Snippet
-```java
-  public static ParametersLevel typecheckLevel(Concrete.UseDefinition def, FunctionDefinition typedDef, Definition useParent, ErrorReporter errorReporter) {
-    if (!(useParent instanceof DataDefinition || useParent instanceof ClassDefinition || useParent instanceof FunctionDefinition)) {
-      return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `base/src/main/java/org/arend/typechecking/UseTypechecking.java`
-#### Snippet
-```java
-    Integer level = CheckTypeVisitor.getExpressionLevel(link, resultType, ok ? type : null, DummyEquations.getInstance(), def, errorReporter);
-    if (level == null) {
-      return null;
-    }
-    if (def != null && useParent instanceof DataDefinition && parameters == null && Level.compare(((DataDefinition) useParent).getSort().getHLevel(), new Level(level), CMP.LE, DummyEquations.getInstance(), def)) {
-```
-
-### ReturnNull
-Return of `null`
 in `base/src/main/java/org/arend/typechecking/subexpr/CorrespondedSubDefVisitor.java`
 #### Snippet
 ```java
-    ClassDefinition coreDef;
-    if (params instanceof ClassDefinition) coreDef = (ClassDefinition) params;
-    else return null;
-    var desugared = def.getStage().ordinal() >= Concrete.Stage.DESUGARIZED.ordinal();
-    for (Concrete.ClassElement concreteRaw : def.getElements())
-```
-
-### ReturnNull
-Return of `null`
-in `base/src/main/java/org/arend/typechecking/subexpr/CorrespondedSubDefVisitor.java`
-#### Snippet
-```java
-        if (accept != null) return accept;
       }
+    }
     return null;
   }
-}
+
 ```
 
 ### ReturnNull
@@ -18869,6 +18833,66 @@ Return of `null`
 in `base/src/main/java/org/arend/typechecking/subexpr/CorrespondedSubDefVisitor.java`
 #### Snippet
 ```java
+    ClassDefinition coreDef;
+    if (params instanceof ClassDefinition) coreDef = (ClassDefinition) params;
+    else return null;
+    var desugared = def.getStage().ordinal() >= Concrete.Stage.DESUGARIZED.ordinal();
+    for (Concrete.ClassElement concreteRaw : def.getElements())
+```
+
+### ReturnNull
+Return of `null`
+in `base/src/main/java/org/arend/typechecking/subexpr/CorrespondedSubDefVisitor.java`
+#### Snippet
+```java
+        if (accept != null) return accept;
+      }
+    return null;
+  }
+}
+```
+
+### ReturnNull
+Return of `null`
+in `base/src/main/java/org/arend/typechecking/UseTypechecking.java`
+#### Snippet
+```java
+  public static ParametersLevel typecheckLevel(Concrete.UseDefinition def, FunctionDefinition typedDef, Definition useParent, ErrorReporter errorReporter) {
+    if (!(useParent instanceof DataDefinition || useParent instanceof ClassDefinition || useParent instanceof FunctionDefinition)) {
+      return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `base/src/main/java/org/arend/typechecking/UseTypechecking.java`
+#### Snippet
+```java
+    Integer level = CheckTypeVisitor.getExpressionLevel(link, resultType, ok ? type : null, DummyEquations.getInstance(), def, errorReporter);
+    if (level == null) {
+      return null;
+    }
+    if (def != null && useParent instanceof DataDefinition && parameters == null && Level.compare(((DataDefinition) useParent).getSort().getHLevel(), new Level(level), CMP.LE, DummyEquations.getInstance(), def)) {
+```
+
+### ReturnNull
+Return of `null`
+in `base/src/main/java/org/arend/term/concrete/Concrete.java`
+#### Snippet
+```java
+    @Override
+    public Abstract.LevelParameters getHLevelsDefinition() {
+      return myPLevels ? null : this;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `base/src/main/java/org/arend/term/concrete/Concrete.java`
+#### Snippet
+```java
       }
     }
     return null;
@@ -18878,26 +18902,110 @@ in `base/src/main/java/org/arend/typechecking/subexpr/CorrespondedSubDefVisitor.
 
 ### ReturnNull
 Return of `null`
-in `base/src/main/java/org/arend/typechecking/visitor/FindDefCallVisitor.java`
+in `base/src/main/java/org/arend/term/concrete/Concrete.java`
 #### Snippet
 ```java
-  public T getFoundDefinition() {
-    Iterator<T> it = myFoundDefinitions.iterator();
-    return it.hasNext() ? it.next() : null;
+
+    public LocalError getError() {
+      return null;
+    }
   }
+```
+
+### ReturnNull
+Return of `null`
+in `base/src/main/java/org/arend/term/concrete/Concrete.java`
+#### Snippet
+```java
+    @Override
+    public Abstract.LevelParameters getPLevelsDefinition() {
+      return myPLevels ? this : null;
+    }
 
 ```
 
 ### ReturnNull
 Return of `null`
-in `base/src/main/java/org/arend/typechecking/subexpr/FindBinding.java`
+in `base/src/main/java/org/arend/term/concrete/Concrete.java`
 #### Snippet
 ```java
-      if (next instanceof EmptyDependentLink) {
-        lambda = lambda.getBody().cast(LamExpression.class);
-        if (lambda == null) return null;
-        return lambda.getParameters();
-      } else return next;
+
+    public TCDefReferable getEnclosingClass() {
+      return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `base/src/main/java/org/arend/term/concrete/Concrete.java`
+#### Snippet
+```java
+
+    public static List<LevelReferable> getLevelParametersRefs(Abstract.LevelParameters params, boolean isPLevels) {
+      if (params == null) return null;
+      List<LevelReferable> result = new ArrayList<>();
+      for (Referable ref : params.getReferables()) {
+```
+
+### ReturnNull
+Return of `null`
+in `base/src/main/java/org/arend/term/concrete/Concrete.java`
+#### Snippet
+```java
+
+    public TCDefReferable getUseParent() {
+      return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `base/src/main/java/org/arend/term/concrete/Concrete.java`
+#### Snippet
+```java
+        return expr instanceof ReferenceExpression && ((ReferenceExpression) expr).getReferent() instanceof GlobalReferable ? ((GlobalReferable) ((ReferenceExpression) expr).getReferent()).getPrecedence() : Precedence.DEFAULT;
+      }
+      return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `base/src/main/java/org/arend/term/concrete/Concrete.java`
+#### Snippet
+```java
+    public Referable getUnderlyingReferable() {
+      ReferenceExpression expr = getUnderlyingReferenceExpression();
+      return expr == null ? null : expr.getReferent();
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `base/src/main/java/org/arend/term/concrete/Concrete.java`
+#### Snippet
+```java
+        }
+      }
+      return expr instanceof ReferenceExpression ? (ReferenceExpression) expr : null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `base/src/main/java/org/arend/term/concrete/Concrete.java`
+#### Snippet
+```java
+      return parameters;
+    }
+    return null;
+  }
+
 ```
 
 ### ReturnNull
@@ -18914,11 +19022,47 @@ in `base/src/main/java/org/arend/typechecking/subexpr/FindBinding.java`
 
 ### ReturnNull
 Return of `null`
+in `base/src/main/java/org/arend/typechecking/subexpr/FindBinding.java`
+#### Snippet
+```java
+      if (next instanceof EmptyDependentLink) {
+        lambda = lambda.getBody().cast(LamExpression.class);
+        if (lambda == null) return null;
+        return lambda.getParameters();
+      } else return next;
+```
+
+### ReturnNull
+Return of `null`
+in `base/src/main/java/org/arend/typechecking/visitor/FindDefCallVisitor.java`
+#### Snippet
+```java
+  public T getFoundDefinition() {
+    Iterator<T> it = myFoundDefinitions.iterator();
+    return it.hasNext() ? it.next() : null;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
 in `base/src/main/java/org/arend/typechecking/visitor/MinimizeLevelVisitor.java`
 #### Snippet
 ```java
   @Override
-  public Type visitTypeConstructor(TypeConstructorExpression expr, Void params) {
+  public Type visitProj(ProjExpression expr, Void params) {
+    return null;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `base/src/main/java/org/arend/typechecking/visitor/MinimizeLevelVisitor.java`
+#### Snippet
+```java
+  @Override
+  public Type visitApp(AppExpression expr, Void params) {
     return null;
   }
 
@@ -18941,6 +19085,90 @@ Return of `null`
 in `base/src/main/java/org/arend/typechecking/visitor/MinimizeLevelVisitor.java`
 #### Snippet
 ```java
+      if (param instanceof TypedDependentLink) {
+        Type type = visit(param.getTypeExpr());
+        if (type == null) return null;
+        sort = sort.max(type.getSortOfType());
+        if (sort.equals(expr.getSort()) || !sort.isLessOrEquals(expr.getSort())) {
+```
+
+### ReturnNull
+Return of `null`
+in `base/src/main/java/org/arend/typechecking/visitor/MinimizeLevelVisitor.java`
+#### Snippet
+```java
+  @Override
+  public Type visitTypeConstructor(TypeConstructorExpression expr, Void params) {
+    return null;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `base/src/main/java/org/arend/typechecking/visitor/MinimizeLevelVisitor.java`
+#### Snippet
+```java
+  @Override
+  public Type visitInferenceReference(InferenceReferenceExpression expr, Void params) {
+    return expr.getSubstExpression() == null ? null : expr.getSubstExpression().accept(this, null);
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `base/src/main/java/org/arend/typechecking/visitor/MinimizeLevelVisitor.java`
+#### Snippet
+```java
+  @Override
+  public Type visitPEval(PEvalExpression expr, Void params) {
+    return null;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `base/src/main/java/org/arend/typechecking/visitor/MinimizeLevelVisitor.java`
+#### Snippet
+```java
+  @Override
+  public Type visitError(ErrorExpression expr, Void params) {
+    return null;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `base/src/main/java/org/arend/typechecking/visitor/MinimizeLevelVisitor.java`
+#### Snippet
+```java
+  @Override
+  public Type visitLam(LamExpression expr, Void params) {
+    return null;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `base/src/main/java/org/arend/typechecking/visitor/MinimizeLevelVisitor.java`
+#### Snippet
+```java
+    if (type != null) return type;
+    Sort sort = expr.getSortOfType();
+    return sort == null ? null : new TypeExpression(expr, sort);
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `base/src/main/java/org/arend/typechecking/visitor/MinimizeLevelVisitor.java`
+#### Snippet
+```java
   @Override
   public Type visitPath(PathExpression expr, Void params) {
     return null;
@@ -18954,7 +19182,67 @@ in `base/src/main/java/org/arend/typechecking/visitor/MinimizeLevelVisitor.java`
 #### Snippet
 ```java
   @Override
-  public Type visitLam(LamExpression expr, Void params) {
+  public Type visitNew(NewExpression expr, Void params) {
+    return null;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `base/src/main/java/org/arend/typechecking/visitor/MinimizeLevelVisitor.java`
+#### Snippet
+```java
+  @Override
+  public Type visitAt(AtExpression expr, Void params) {
+    return null;
+  }
+}
+```
+
+### ReturnNull
+Return of `null`
+in `base/src/main/java/org/arend/typechecking/visitor/MinimizeLevelVisitor.java`
+#### Snippet
+```java
+  @Override
+  public Type visitCase(CaseExpression expr, Void params) {
+    return null;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `base/src/main/java/org/arend/typechecking/visitor/MinimizeLevelVisitor.java`
+#### Snippet
+```java
+  @Override
+  public Type visitTuple(TupleExpression expr, Void params) {
+    return null;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `base/src/main/java/org/arend/typechecking/visitor/MinimizeLevelVisitor.java`
+#### Snippet
+```java
+  @Override
+  public Type visitDefCall(DefCallExpression expr, Void params) {
+    return null;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `base/src/main/java/org/arend/typechecking/visitor/MinimizeLevelVisitor.java`
+#### Snippet
+```java
+  @Override
+  public Type visitTypeDestructor(TypeDestructorExpression expr, Void params) {
     return null;
   }
 
@@ -18990,7 +19278,7 @@ in `base/src/main/java/org/arend/typechecking/visitor/MinimizeLevelVisitor.java`
 #### Snippet
 ```java
   @Override
-  public Type visitNew(NewExpression expr, Void params) {
+  public Type visitInteger(IntegerExpression expr, Void params) {
     return null;
   }
 
@@ -19014,295 +19302,7 @@ in `base/src/main/java/org/arend/typechecking/visitor/MinimizeLevelVisitor.java`
 #### Snippet
 ```java
   @Override
-  public Type visitTypeDestructor(TypeDestructorExpression expr, Void params) {
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `base/src/main/java/org/arend/typechecking/visitor/MinimizeLevelVisitor.java`
-#### Snippet
-```java
-  @Override
-  public Type visitCase(CaseExpression expr, Void params) {
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `base/src/main/java/org/arend/typechecking/visitor/MinimizeLevelVisitor.java`
-#### Snippet
-```java
-  @Override
-  public Type visitAt(AtExpression expr, Void params) {
-    return null;
-  }
-}
-```
-
-### ReturnNull
-Return of `null`
-in `base/src/main/java/org/arend/typechecking/visitor/MinimizeLevelVisitor.java`
-#### Snippet
-```java
-  @Override
-  public Type visitInteger(IntegerExpression expr, Void params) {
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `base/src/main/java/org/arend/typechecking/visitor/MinimizeLevelVisitor.java`
-#### Snippet
-```java
-  @Override
   public Type visitArray(ArrayExpression expr, Void params) {
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `base/src/main/java/org/arend/typechecking/visitor/MinimizeLevelVisitor.java`
-#### Snippet
-```java
-  @Override
-  public Type visitError(ErrorExpression expr, Void params) {
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `base/src/main/java/org/arend/typechecking/visitor/MinimizeLevelVisitor.java`
-#### Snippet
-```java
-  @Override
-  public Type visitProj(ProjExpression expr, Void params) {
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `base/src/main/java/org/arend/typechecking/visitor/MinimizeLevelVisitor.java`
-#### Snippet
-```java
-  @Override
-  public Type visitInferenceReference(InferenceReferenceExpression expr, Void params) {
-    return expr.getSubstExpression() == null ? null : expr.getSubstExpression().accept(this, null);
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `base/src/main/java/org/arend/typechecking/visitor/MinimizeLevelVisitor.java`
-#### Snippet
-```java
-  @Override
-  public Type visitDefCall(DefCallExpression expr, Void params) {
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `base/src/main/java/org/arend/typechecking/visitor/MinimizeLevelVisitor.java`
-#### Snippet
-```java
-  @Override
-  public Type visitTuple(TupleExpression expr, Void params) {
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `base/src/main/java/org/arend/typechecking/visitor/MinimizeLevelVisitor.java`
-#### Snippet
-```java
-  @Override
-  public Type visitPEval(PEvalExpression expr, Void params) {
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `base/src/main/java/org/arend/typechecking/visitor/MinimizeLevelVisitor.java`
-#### Snippet
-```java
-  @Override
-  public Type visitApp(AppExpression expr, Void params) {
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `base/src/main/java/org/arend/typechecking/visitor/MinimizeLevelVisitor.java`
-#### Snippet
-```java
-      if (param instanceof TypedDependentLink) {
-        Type type = visit(param.getTypeExpr());
-        if (type == null) return null;
-        sort = sort.max(type.getSortOfType());
-        if (sort.equals(expr.getSort()) || !sort.isLessOrEquals(expr.getSort())) {
-```
-
-### ReturnNull
-Return of `null`
-in `base/src/main/java/org/arend/typechecking/visitor/MinimizeLevelVisitor.java`
-#### Snippet
-```java
-    if (type != null) return type;
-    Sort sort = expr.getSortOfType();
-    return sort == null ? null : new TypeExpression(expr, sort);
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `base/src/main/java/org/arend/term/concrete/Concrete.java`
-#### Snippet
-```java
-
-    public TCDefReferable getEnclosingClass() {
-      return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `base/src/main/java/org/arend/term/concrete/Concrete.java`
-#### Snippet
-```java
-
-    public static List<LevelReferable> getLevelParametersRefs(Abstract.LevelParameters params, boolean isPLevels) {
-      if (params == null) return null;
-      List<LevelReferable> result = new ArrayList<>();
-      for (Referable ref : params.getReferables()) {
-```
-
-### ReturnNull
-Return of `null`
-in `base/src/main/java/org/arend/term/concrete/Concrete.java`
-#### Snippet
-```java
-    @Override
-    public Abstract.LevelParameters getPLevelsDefinition() {
-      return myPLevels ? this : null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `base/src/main/java/org/arend/term/concrete/Concrete.java`
-#### Snippet
-```java
-      return parameters;
-    }
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `base/src/main/java/org/arend/term/concrete/Concrete.java`
-#### Snippet
-```java
-
-    public TCDefReferable getUseParent() {
-      return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `base/src/main/java/org/arend/term/concrete/Concrete.java`
-#### Snippet
-```java
-    public Referable getUnderlyingReferable() {
-      ReferenceExpression expr = getUnderlyingReferenceExpression();
-      return expr == null ? null : expr.getReferent();
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `base/src/main/java/org/arend/term/concrete/Concrete.java`
-#### Snippet
-```java
-    @Override
-    public Abstract.LevelParameters getHLevelsDefinition() {
-      return myPLevels ? null : this;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `base/src/main/java/org/arend/term/concrete/Concrete.java`
-#### Snippet
-```java
-        }
-      }
-      return expr instanceof ReferenceExpression ? (ReferenceExpression) expr : null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `base/src/main/java/org/arend/term/concrete/Concrete.java`
-#### Snippet
-```java
-
-    public LocalError getError() {
-      return null;
-    }
-  }
-```
-
-### ReturnNull
-Return of `null`
-in `base/src/main/java/org/arend/term/concrete/Concrete.java`
-#### Snippet
-```java
-        return expr instanceof ReferenceExpression && ((ReferenceExpression) expr).getReferent() instanceof GlobalReferable ? ((GlobalReferable) ((ReferenceExpression) expr).getReferent()).getPrecedence() : Precedence.DEFAULT;
-      }
-      return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `base/src/main/java/org/arend/term/concrete/Concrete.java`
-#### Snippet
-```java
-      }
-    }
     return null;
   }
 
@@ -19358,6 +19358,42 @@ in `base/src/main/java/org/arend/typechecking/instance/provider/SimpleInstancePr
 
 ### ReturnNull
 Return of `null`
+in `base/src/main/java/org/arend/typechecking/instance/pool/GlobalInstancePool.java`
+#### Snippet
+```java
+
+    Pair<Concrete.Expression, ClassDefinition> pair = myInstanceProvider == null ? null : getInstancePair(classifyingExpression, parameters, sourceNode, recursiveHoleExpression, currentDef);
+    return pair != null ? pair.proj1 : myInstancePool != null && !(currentDef instanceof ClassDefinition) ? myInstancePool.findInstance(classifyingExpression, parameters, sourceNode, currentDef, LocalInstancePool.FieldSearchParameters.FIELDS_ONLY) : null;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `base/src/main/java/org/arend/typechecking/instance/pool/GlobalInstancePool.java`
+#### Snippet
+```java
+  private Pair<Concrete.Expression, ClassDefinition> getInstancePair(Expression classifyingExpression, InstanceSearchParameters parameters, Concrete.SourceNode sourceNode, RecursiveInstanceHoleExpression recursiveHoleExpression, Definition currentDef) {
+    if (!parameters.searchGlobal()) {
+      return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `base/src/main/java/org/arend/typechecking/instance/pool/GlobalInstancePool.java`
+#### Snippet
+```java
+      }
+      if (!(normClassifyingExpression instanceof DefCallExpression || normClassifyingExpression instanceof SigmaExpression || normClassifyingExpression instanceof PiExpression || normClassifyingExpression instanceof UniverseExpression || normClassifyingExpression instanceof IntegerExpression)) {
+        return null;
+      }
+    }
+```
+
+### ReturnNull
+Return of `null`
 in `base/src/main/java/org/arend/typechecking/instance/provider/EmptyInstanceProvider.java`
 #### Snippet
 ```java
@@ -19370,12 +19406,72 @@ in `base/src/main/java/org/arend/typechecking/instance/provider/EmptyInstancePro
 
 ### ReturnNull
 Return of `null`
+in `base/src/main/java/org/arend/typechecking/instance/pool/GlobalInstancePool.java`
+#### Snippet
+```java
+    TCDefReferable instance = myInstanceProvider.findInstance(predicate);
+    if (instance == null || predicate.instanceDef == null) {
+      return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `base/src/main/java/org/arend/typechecking/instance/pool/GlobalInstancePool.java`
+#### Snippet
+```java
+    }
+
+    return parameters.testGlobalInstance(instanceExpr) ? new Pair<>(instanceExpr, actualClass) : null;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `base/src/main/java/org/arend/typechecking/instance/pool/GlobalInstancePool.java`
+#### Snippet
+```java
+    }
+
+    return myInstancePool != null && !(currentDef instanceof ClassDefinition) ? myInstancePool.findInstance(classifyingExpression, expectedType, parameters, sourceNode, currentDef, LocalInstancePool.FieldSearchParameters.FIELDS_ONLY) : null;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
 in `base/src/main/java/org/arend/typechecking/instance/provider/InstanceProviderSet.java`
 #### Snippet
 ```java
 
   public InstanceProvider get(TCReferable referable) {
     return referable instanceof TCDefReferable ? myProviders.get(referable) : null;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `base/src/main/java/org/arend/typechecking/instance/pool/LocalInstancePool.java`
+#### Snippet
+```java
+  Concrete.Expression findInstance(Expression classifyingExpression, InstanceSearchParameters parameters, Concrete.SourceNode sourceNode, Definition currentDef, FieldSearchParameters fieldSearch) {
+    Expression result = findInstance(classifyingExpression, parameters, currentDef, fieldSearch);
+    return result == null ? null : new Concrete.ReferenceExpression(sourceNode, new CoreReferable(null, new TypecheckingResult(result, null)));
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `base/src/main/java/org/arend/typechecking/instance/pool/LocalInstancePool.java`
+#### Snippet
+```java
+  public Expression addLocalInstance(Expression classifyingExpression, ClassDefinition classDef, Expression instance) {
+    myPool.add(new InstanceData(classifyingExpression, classDef, instance));
+    return null;
   }
 
 ```
@@ -19418,30 +19514,6 @@ in `base/src/main/java/org/arend/typechecking/instance/pool/LocalInstancePool.ja
 
 ### ReturnNull
 Return of `null`
-in `base/src/main/java/org/arend/typechecking/instance/pool/LocalInstancePool.java`
-#### Snippet
-```java
-  Concrete.Expression findInstance(Expression classifyingExpression, InstanceSearchParameters parameters, Concrete.SourceNode sourceNode, Definition currentDef, FieldSearchParameters fieldSearch) {
-    Expression result = findInstance(classifyingExpression, parameters, currentDef, fieldSearch);
-    return result == null ? null : new Concrete.ReferenceExpression(sourceNode, new CoreReferable(null, new TypecheckingResult(result, null)));
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `base/src/main/java/org/arend/typechecking/instance/pool/LocalInstancePool.java`
-#### Snippet
-```java
-  public Expression addLocalInstance(Expression classifyingExpression, ClassDefinition classDef, Expression instance) {
-    myPool.add(new InstanceData(classifyingExpression, classDef, instance));
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
 in `base/src/main/java/org/arend/typechecking/computation/ComputationRunner.java`
 #### Snippet
 ```java
@@ -19454,72 +19526,12 @@ in `base/src/main/java/org/arend/typechecking/computation/ComputationRunner.java
 
 ### ReturnNull
 Return of `null`
-in `base/src/main/java/org/arend/typechecking/instance/pool/GlobalInstancePool.java`
+in `base/src/main/java/org/arend/typechecking/termination/CallMatrix.java`
 #### Snippet
 ```java
+      return calculateLabel(parameter.getNext(), queriedIndex - length, parameterIndex + 1, namePrefix, data);
     }
-
-    return myInstancePool != null && !(currentDef instanceof ClassDefinition) ? myInstancePool.findInstance(classifyingExpression, expectedType, parameters, sourceNode, currentDef, LocalInstancePool.FieldSearchParameters.FIELDS_ONLY) : null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `base/src/main/java/org/arend/typechecking/instance/pool/GlobalInstancePool.java`
-#### Snippet
-```java
-
-    Pair<Concrete.Expression, ClassDefinition> pair = myInstanceProvider == null ? null : getInstancePair(classifyingExpression, parameters, sourceNode, recursiveHoleExpression, currentDef);
-    return pair != null ? pair.proj1 : myInstancePool != null && !(currentDef instanceof ClassDefinition) ? myInstancePool.findInstance(classifyingExpression, parameters, sourceNode, currentDef, LocalInstancePool.FieldSearchParameters.FIELDS_ONLY) : null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `base/src/main/java/org/arend/typechecking/instance/pool/GlobalInstancePool.java`
-#### Snippet
-```java
-  private Pair<Concrete.Expression, ClassDefinition> getInstancePair(Expression classifyingExpression, InstanceSearchParameters parameters, Concrete.SourceNode sourceNode, RecursiveInstanceHoleExpression recursiveHoleExpression, Definition currentDef) {
-    if (!parameters.searchGlobal()) {
-      return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `base/src/main/java/org/arend/typechecking/instance/pool/GlobalInstancePool.java`
-#### Snippet
-```java
-      }
-      if (!(normClassifyingExpression instanceof DefCallExpression || normClassifyingExpression instanceof SigmaExpression || normClassifyingExpression instanceof PiExpression || normClassifyingExpression instanceof UniverseExpression || normClassifyingExpression instanceof IntegerExpression)) {
-        return null;
-      }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `base/src/main/java/org/arend/typechecking/instance/pool/GlobalInstancePool.java`
-#### Snippet
-```java
-    TCDefReferable instance = myInstanceProvider.findInstance(predicate);
-    if (instance == null || predicate.instanceDef == null) {
-      return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `base/src/main/java/org/arend/typechecking/instance/pool/GlobalInstancePool.java`
-#### Snippet
-```java
-    }
-
-    return parameters.testGlobalInstance(instanceExpr) ? new Pair<>(instanceExpr, actualClass) : null;
+    return null;
   }
 
 ```
@@ -19538,11 +19550,11 @@ in `base/src/main/java/org/arend/typechecking/visitor/DesugarVisitor.java`
 
 ### ReturnNull
 Return of `null`
-in `base/src/main/java/org/arend/typechecking/termination/CallMatrix.java`
+in `base/src/main/java/org/arend/typechecking/implicitargs/equations/DummyEquations.java`
 #### Snippet
 ```java
-      return calculateLabel(parameter.getNext(), queriedIndex - length, parameterIndex + 1, namePrefix, data);
-    }
+  @Override
+  public LevelEquationsSolver makeLevelEquationsSolver() {
     return null;
   }
 
@@ -19558,42 +19570,6 @@ in `base/src/main/java/org/arend/typechecking/implicitargs/equations/DummyEquati
     return null;
   }
 
-```
-
-### ReturnNull
-Return of `null`
-in `base/src/main/java/org/arend/typechecking/implicitargs/equations/DummyEquations.java`
-#### Snippet
-```java
-  @Override
-  public LevelEquationsSolver makeLevelEquationsSolver() {
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `base/src/main/java/org/arend/typechecking/implicitargs/equations/LevelEquations.java`
-#### Snippet
-```java
-
-    solution.remove(null);
-    return null;
-  }
-}
-```
-
-### ReturnNull
-Return of `null`
-in `base/src/main/java/org/arend/typechecking/termination/BaseCallGraph.java`
-#### Snippet
-```java
-            continue;
-          case Unknown:
-            return null;
-        }
-      }
 ```
 
 ### ReturnNull
@@ -19634,50 +19610,26 @@ in `base/src/main/java/org/arend/typechecking/termination/BaseCallGraph.java`
 
 ### ReturnNull
 Return of `null`
-in `base/src/main/java/org/arend/naming/resolving/visitor/ExpressionResolveNameVisitor.java`
+in `base/src/main/java/org/arend/typechecking/termination/BaseCallGraph.java`
 #### Snippet
 ```java
-      Referable referable = namePattern.getReferable();
-      if (referable == null || referable instanceof GlobalReferable) {
-        return null;
+            continue;
+          case Unknown:
+            return null;
+        }
       }
-
 ```
 
 ### ReturnNull
 Return of `null`
-in `base/src/main/java/org/arend/naming/resolving/visitor/ExpressionResolveNameVisitor.java`
+in `base/src/main/java/org/arend/typechecking/implicitargs/equations/LevelEquations.java`
 #### Snippet
 ```java
-      if (parsedPattern instanceof Concrete.UnparsedConstructorPattern) {
-        myErrorReporter.report(new NameResolverError("Cannot parse pattern", pattern));
-        return null;
-      }
-    } else if (!(pattern instanceof Concrete.NumberPattern)) {
-```
 
-### ReturnNull
-Return of `null`
-in `base/src/main/java/org/arend/naming/resolving/visitor/ExpressionResolveNameVisitor.java`
-#### Snippet
-```java
-      ref = ((RedirectingReferable) ref).getOriginalReferable();
-    }
-    return ref instanceof MetaReferable ? ((MetaReferable) ref).getResolver() : null;
+    solution.remove(null);
+    return null;
   }
-
-```
-
-### ReturnNull
-Return of `null`
-in `base/src/main/java/org/arend/naming/resolving/visitor/ExpressionResolveNameVisitor.java`
-#### Snippet
-```java
-    MetaResolver metaDef = refExpr == null ? null : getMetaResolver(refExpr.getReferent());
-    if (metaDef == null) {
-      return null;
-    }
-    myErrorReporter.resetErrorsNumber();
+}
 ```
 
 ### ReturnNull
@@ -19706,74 +19658,62 @@ in `base/src/main/java/org/arend/typechecking/implicitargs/equations/LevelEquati
 
 ### ReturnNull
 Return of `null`
-in `base/src/main/java/org/arend/typechecking/implicitargs/equations/TwoStageEquations.java`
+in `base/src/main/java/org/arend/naming/resolving/visitor/ExpressionResolveNameVisitor.java`
 #### Snippet
 ```java
-          reversedSubst.add(((ReferenceExpression) entry.getValue()).getBinding(), new ReferenceExpression(entry.getKey()));
-        } else {
-          return null;
-        }
-      }
-```
-
-### ReturnNull
-Return of `null`
-in `base/src/main/java/org/arend/typechecking/implicitargs/equations/TwoStageEquations.java`
-#### Snippet
-```java
-          } else {
-            reportBoundsError(var, bounds, cmp);
-            return null;
-          }
-        }
-```
-
-### ReturnNull
-Return of `null`
-in `base/src/main/java/org/arend/typechecking/implicitargs/equations/TwoStageEquations.java`
-#### Snippet
-```java
-        if (classDef != classCall.getDefinition()) {
-          reportBoundsError(var, bounds, cmp);
-          return null;
-        }
-      }
-```
-
-### ReturnNull
-Return of `null`
-in `base/src/main/java/org/arend/typechecking/implicitargs/equations/TwoStageEquations.java`
-#### Snippet
-```java
-    ClassDefinition classDef = variable.getClassDefinition();
-    if (classDef == null) {
-      return null;
+      ref = ((RedirectingReferable) ref).getOriginalReferable();
     }
-    if (classDef.getClassifyingField() == fieldCall.getDefinition() && expr.getStuckInferenceVariable() == null) {
-```
-
-### ReturnNull
-Return of `null`
-in `base/src/main/java/org/arend/typechecking/implicitargs/equations/TwoStageEquations.java`
-#### Snippet
-```java
-    if (classDef.getClassifyingField() == fieldCall.getDefinition() && expr.getStuckInferenceVariable() == null) {
-      Expression result = variable.getInstance(myVisitor.getInstancePool(), expr, null, variable.getSourceNode());
-      return result == null ? null : solve(variable, result.normalize(NormalizationMode.WHNF), false) != SolveResult.SOLVED;
-    }
-    return null;
-```
-
-### ReturnNull
-Return of `null`
-in `base/src/main/java/org/arend/typechecking/implicitargs/equations/TwoStageEquations.java`
-#### Snippet
-```java
-      return result == null ? null : solve(variable, result.normalize(NormalizationMode.WHNF), false) != SolveResult.SOLVED;
-    }
-    return null;
+    return ref instanceof MetaReferable ? ((MetaReferable) ref).getResolver() : null;
   }
 
+```
+
+### ReturnNull
+Return of `null`
+in `base/src/main/java/org/arend/naming/resolving/visitor/ExpressionResolveNameVisitor.java`
+#### Snippet
+```java
+    MetaResolver metaDef = refExpr == null ? null : getMetaResolver(refExpr.getReferent());
+    if (metaDef == null) {
+      return null;
+    }
+    myErrorReporter.resetErrorsNumber();
+```
+
+### ReturnNull
+Return of `null`
+in `base/src/main/java/org/arend/naming/resolving/visitor/ExpressionResolveNameVisitor.java`
+#### Snippet
+```java
+      Referable referable = namePattern.getReferable();
+      if (referable == null || referable instanceof GlobalReferable) {
+        return null;
+      }
+
+```
+
+### ReturnNull
+Return of `null`
+in `base/src/main/java/org/arend/naming/resolving/visitor/ExpressionResolveNameVisitor.java`
+#### Snippet
+```java
+      if (parsedPattern instanceof Concrete.UnparsedConstructorPattern) {
+        myErrorReporter.report(new NameResolverError("Cannot parse pattern", pattern));
+        return null;
+      }
+    } else if (!(pattern instanceof Concrete.NumberPattern)) {
+```
+
+### ReturnNull
+Return of `null`
+in `base/src/main/java/org/arend/typechecking/patternmatching/ExpressionMatcher.java`
+#### Snippet
+```java
+      Expression newExpr = matchExpression(exprs.get(i), patterns.get(i), computeData, result);
+      if (newExpr == null) {
+        return null;
+      }
+      if (computeData) newExprs.add(newExpr);
 ```
 
 ### ReturnNull
@@ -19838,290 +19778,14 @@ in `base/src/main/java/org/arend/typechecking/patternmatching/ExpressionMatcher.
 
 ### ReturnNull
 Return of `null`
-in `base/src/main/java/org/arend/typechecking/patternmatching/ExpressionMatcher.java`
+in `base/src/main/java/org/arend/typechecking/implicitargs/StdImplicitArgsInference.java`
 #### Snippet
 ```java
-      Expression newExpr = matchExpression(exprs.get(i), patterns.get(i), computeData, result);
-      if (newExpr == null) {
+          myVisitor.getErrorReporter().report(new TypeMismatchError(expectedType, result1.type, expr));
+        }
         return null;
       }
-      if (computeData) newExprs.add(newExpr);
-```
-
-### ReturnNull
-Return of `null`
-in `base/src/main/java/org/arend/typechecking/implicitargs/StdImplicitArgsInference.java`
-#### Snippet
-```java
-  private static ClassDefinition getClassRefFromDefCall(Definition definition, int paramIndex) {
-    if (definition instanceof ClassField) {
-      return paramIndex == 0 ? ((ClassField) definition).getParentClass() : null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `base/src/main/java/org/arend/typechecking/implicitargs/StdImplicitArgsInference.java`
-#### Snippet
-```java
-
-    if (!link.hasNext()) {
-      return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `base/src/main/java/org/arend/typechecking/implicitargs/StdImplicitArgsInference.java`
-#### Snippet
-```java
-
-    ClassCallExpression type = link.getTypeExpr().cast(ClassCallExpression.class);
-    return type != null ? type.getDefinition() : null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `base/src/main/java/org/arend/typechecking/implicitargs/StdImplicitArgsInference.java`
-#### Snippet
-```java
-        TypecheckingResult argResult = myVisitor.checkExpr(expr.getArguments().get(0).getExpression(), Nat());
-        if (argResult == null) {
-          return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `base/src/main/java/org/arend/typechecking/implicitargs/StdImplicitArgsInference.java`
-#### Snippet
-```java
-          if (expr.getArguments().size() > 1) {
-            myVisitor.getErrorReporter().report(new NotPiType(argResult.expression, result.getType(), fun));
-            return null;
-          }
-          return result;
-```
-
-### ReturnNull
-Return of `null`
-in `base/src/main/java/org/arend/typechecking/implicitargs/StdImplicitArgsInference.java`
-#### Snippet
-```java
-        TypecheckingResult arg2Result = myVisitor.checkExpr(expr.getArguments().get(1).getExpression(), Fin(argResult.expression));
-        if (arg2Result == null) {
-          return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `base/src/main/java/org/arend/typechecking/implicitargs/StdImplicitArgsInference.java`
-#### Snippet
-```java
-        if (expr.getArguments().size() > 2) {
-          myVisitor.getErrorReporter().report(new NotPiType(arg2Result.expression, result.getType(), fun));
-          return null;
-        }
-        return result;
-```
-
-### ReturnNull
-Return of `null`
-in `base/src/main/java/org/arend/typechecking/implicitargs/StdImplicitArgsInference.java`
-#### Snippet
-```java
-        myVisitor.checkExpr(argument.expression, null);
-      }
-      return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `base/src/main/java/org/arend/typechecking/implicitargs/StdImplicitArgsInference.java`
-#### Snippet
-```java
-          if (((Constructor) defCallResult.getDefinition()).getDataType() != dataCall.getDefinition()) {
-            myVisitor.getErrorReporter().report(new TypeMismatchError(dataCall, refDoc(((Constructor) defCallResult.getDefinition()).getDataType().getReferable()), fun));
-            return null;
-          }
-
-```
-
-### ReturnNull
-Return of `null`
-in `base/src/main/java/org/arend/typechecking/implicitargs/StdImplicitArgsInference.java`
-#### Snippet
-```java
-            if (!ok) {
-              myVisitor.getErrorReporter().report(new TypeMismatchError(dataCall, DataCallExpression.make(dataCall.getDefinition(), defCallResult.getLevels(), args1), fun));
-              return null;
-            }
-
-```
-
-### ReturnNull
-Return of `null`
-in `base/src/main/java/org/arend/typechecking/implicitargs/StdImplicitArgsInference.java`
-#### Snippet
-```java
-          if (parameter.isExplicit() != argument.isExplicit()) {
-            myVisitor.getErrorReporter().report(new ArgumentExplicitnessError(parameter.isExplicit(), argument.getExpression()));
-            return null;
-          }
-          InferenceVariable var = new ExpressionInferenceVariable(parameter.getTypeExpr(), argument.getExpression(), myVisitor.getAllBindings(), false);
-```
-
-### ReturnNull
-Return of `null`
-in `base/src/main/java/org/arend/typechecking/implicitargs/StdImplicitArgsInference.java`
-#### Snippet
-```java
-          result = inferArg(result, argument.expression, argument.isExplicit(), fun);
-          if (result == null) {
-            return null;
-          }
-          current++;
-```
-
-### ReturnNull
-Return of `null`
-in `base/src/main/java/org/arend/typechecking/implicitargs/StdImplicitArgsInference.java`
-#### Snippet
-```java
-
-        if (result == null) {
-          return null;
-        }
-        if (i < arguments.size()) {
-```
-
-### ReturnNull
-Return of `null`
-in `base/src/main/java/org/arend/typechecking/implicitargs/StdImplicitArgsInference.java`
-#### Snippet
-```java
-    if (result == null) {
-      myVisitor.checkExpr(arg, null);
-      return null;
-    }
-    if (arg == null || result instanceof TypecheckingResult && ((TypecheckingResult) result).expression.reportIfError(myVisitor.getErrorReporter(), fun)) {
-```
-
-### ReturnNull
-Return of `null`
-in `base/src/main/java/org/arend/typechecking/implicitargs/StdImplicitArgsInference.java`
-#### Snippet
-```java
-          argResult = myVisitor.checkArgument(arg, new PiExpression(sort, lamParam, AppExpression.make(defCallResult.getArguments().get(0), new ReferenceExpression(lamParam), true)), result, null);
-        }
-        return argResult == null ? null : ((DefCallResult) result).applyPathArgument(argResult.expression, myVisitor, arg);
-      }
-
-```
-
-### ReturnNull
-Return of `null`
-in `base/src/main/java/org/arend/typechecking/implicitargs/StdImplicitArgsInference.java`
-#### Snippet
-```java
-    TypecheckingResult argResult = myVisitor.checkArgument(arg, param.hasNext() ? param.getTypeExpr() : null, result, null);
-    if (argResult == null) {
-      return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `base/src/main/java/org/arend/typechecking/implicitargs/StdImplicitArgsInference.java`
-#### Snippet
-```java
-        myVisitor.getErrorReporter().report(new NotPiType(argResult.expression, result1.type, fun));
-      }
-      return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `base/src/main/java/org/arend/typechecking/implicitargs/StdImplicitArgsInference.java`
-#### Snippet
-```java
-    if (param.isExplicit() != isExplicit) {
-      myVisitor.getErrorReporter().report(new ArgumentExplicitnessError(param.isExplicit(), arg));
-      return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `base/src/main/java/org/arend/typechecking/implicitargs/StdImplicitArgsInference.java`
-#### Snippet
-```java
-          if (!CompareVisitor.compare(myVisitor.getEquations(), CMP.LE, classCall, expectedClassCall, Type.OMEGA, arg)) {
-            myVisitor.getErrorReporter().report(new TypeMismatchError(expectedClassCall, classCall, arg));
-            return null;
-          }
-        }
-```
-
-### ReturnNull
-Return of `null`
-in `base/src/main/java/org/arend/typechecking/implicitargs/StdImplicitArgsInference.java`
-#### Snippet
-```java
-  private Expression dropPiParameters(Definition definition, List<? extends ConcreteArgument> arguments, Expression expectedType) {
-    if (expectedType == null) {
-      return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `base/src/main/java/org/arend/typechecking/implicitargs/StdImplicitArgsInference.java`
-#### Snippet
-```java
-      }
-      if (!param.hasNext()) {
-        return null;
-      }
-      if (argument.isExplicit() == param.isExplicit()) {
-```
-
-### ReturnNull
-Return of `null`
-in `base/src/main/java/org/arend/typechecking/implicitargs/StdImplicitArgsInference.java`
-#### Snippet
-```java
-      PiExpression piExpr = expectedType.normalize(NormalizationMode.WHNF).cast(PiExpression.class);
-      if (piExpr == null) {
-        return null;
-      }
-
-```
-
-### ReturnNull
-Return of `null`
-in `base/src/main/java/org/arend/typechecking/implicitargs/StdImplicitArgsInference.java`
-#### Snippet
-```java
-      for (; piParam.hasNext() && param.hasNext(); piParam = piParam.getNext(), param = param.getNext()) {
-        if (param.isExplicit() != piParam.isExplicit()) {
-          return null;
-        }
-      }
+      expectedParamsNumber = expectedParams.size();
 ```
 
 ### ReturnNull
@@ -20273,6 +19937,90 @@ Return of `null`
 in `base/src/main/java/org/arend/typechecking/implicitargs/StdImplicitArgsInference.java`
 #### Snippet
 ```java
+    if (result == null) {
+      myVisitor.checkExpr(arg, null);
+      return null;
+    }
+    if (arg == null || result instanceof TypecheckingResult && ((TypecheckingResult) result).expression.reportIfError(myVisitor.getErrorReporter(), fun)) {
+```
+
+### ReturnNull
+Return of `null`
+in `base/src/main/java/org/arend/typechecking/implicitargs/StdImplicitArgsInference.java`
+#### Snippet
+```java
+          argResult = myVisitor.checkArgument(arg, new PiExpression(sort, lamParam, AppExpression.make(defCallResult.getArguments().get(0), new ReferenceExpression(lamParam), true)), result, null);
+        }
+        return argResult == null ? null : ((DefCallResult) result).applyPathArgument(argResult.expression, myVisitor, arg);
+      }
+
+```
+
+### ReturnNull
+Return of `null`
+in `base/src/main/java/org/arend/typechecking/implicitargs/StdImplicitArgsInference.java`
+#### Snippet
+```java
+    TypecheckingResult argResult = myVisitor.checkArgument(arg, param.hasNext() ? param.getTypeExpr() : null, result, null);
+    if (argResult == null) {
+      return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `base/src/main/java/org/arend/typechecking/implicitargs/StdImplicitArgsInference.java`
+#### Snippet
+```java
+        myVisitor.getErrorReporter().report(new NotPiType(argResult.expression, result1.type, fun));
+      }
+      return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `base/src/main/java/org/arend/typechecking/implicitargs/StdImplicitArgsInference.java`
+#### Snippet
+```java
+    if (param.isExplicit() != isExplicit) {
+      myVisitor.getErrorReporter().report(new ArgumentExplicitnessError(param.isExplicit(), arg));
+      return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `base/src/main/java/org/arend/typechecking/implicitargs/StdImplicitArgsInference.java`
+#### Snippet
+```java
+          if (!CompareVisitor.compare(myVisitor.getEquations(), CMP.LE, classCall, expectedClassCall, Type.OMEGA, arg)) {
+            myVisitor.getErrorReporter().report(new TypeMismatchError(expectedClassCall, classCall, arg));
+            return null;
+          }
+        }
+```
+
+### ReturnNull
+Return of `null`
+in `base/src/main/java/org/arend/typechecking/implicitargs/StdImplicitArgsInference.java`
+#### Snippet
+```java
+    while (i < arguments.size()) {
+      if (!(type instanceof PiExpression)) {
+        return null;
+      }
+      PiExpression pi = (PiExpression) type;
+```
+
+### ReturnNull
+Return of `null`
+in `base/src/main/java/org/arend/typechecking/implicitargs/StdImplicitArgsInference.java`
+#### Snippet
+```java
 
   private InferenceVariable getInferenceVariableFromElementsType(Expression elementsType) {
     if (elementsType == null) return null;
@@ -20297,11 +20045,11 @@ Return of `null`
 in `base/src/main/java/org/arend/typechecking/implicitargs/StdImplicitArgsInference.java`
 #### Snippet
 ```java
-    while (i < arguments.size()) {
-      if (!(type instanceof PiExpression)) {
-        return null;
-      }
-      PiExpression pi = (PiExpression) type;
+  private static ClassDefinition getClassRefFromDefCall(Definition definition, int paramIndex) {
+    if (definition instanceof ClassField) {
+      return paramIndex == 0 ? ((ClassField) definition).getParentClass() : null;
+    }
+
 ```
 
 ### ReturnNull
@@ -20309,95 +20057,263 @@ Return of `null`
 in `base/src/main/java/org/arend/typechecking/implicitargs/StdImplicitArgsInference.java`
 #### Snippet
 ```java
-          myVisitor.getErrorReporter().report(new TypeMismatchError(expectedType, result1.type, expr));
-        }
-        return null;
-      }
-      expectedParamsNumber = expectedParams.size();
+
+    if (!link.hasNext()) {
+      return null;
+    }
+
 ```
 
 ### ReturnNull
 Return of `null`
-in `base/src/main/java/org/arend/typechecking/patternmatching/ElimTypechecking.java`
+in `base/src/main/java/org/arend/typechecking/implicitargs/StdImplicitArgsInference.java`
 #### Snippet
 ```java
-    Integer level2 = !l2.isInfinity() && l2.isClosed() ? l2.getConstant() : null;
-    Integer result = level1 != null && level2 != null ? Integer.valueOf(Math.min(level1, level2 - sub)) : level2 != null ? Integer.valueOf(level2 - sub) : level1;
-    return result == null ? null : result + 1;
+
+    ClassCallExpression type = link.getTypeExpr().cast(ClassCallExpression.class);
+    return type != null ? type.getDefinition() : null;
   }
 
 ```
 
 ### ReturnNull
 Return of `null`
-in `base/src/main/java/org/arend/typechecking/patternmatching/ElimTypechecking.java`
+in `base/src/main/java/org/arend/typechecking/implicitargs/StdImplicitArgsInference.java`
 #### Snippet
 ```java
-            if (myErrorReporter != null) myErrorReporter.report(new ImpossibleEliminationError(dataCall, getClause(conClause.index, someConPattern), null, null, null, null, null));
-            myOK = false;
+  private Expression dropPiParameters(Definition definition, List<? extends ConcreteArgument> arguments, Expression expectedType) {
+    if (expectedType == null) {
+      return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `base/src/main/java/org/arend/typechecking/implicitargs/StdImplicitArgsInference.java`
+#### Snippet
+```java
+      }
+      if (!param.hasNext()) {
+        return null;
+      }
+      if (argument.isExplicit() == param.isExplicit()) {
+```
+
+### ReturnNull
+Return of `null`
+in `base/src/main/java/org/arend/typechecking/implicitargs/StdImplicitArgsInference.java`
+#### Snippet
+```java
+      PiExpression piExpr = expectedType.normalize(NormalizationMode.WHNF).cast(PiExpression.class);
+      if (piExpr == null) {
+        return null;
+      }
+
+```
+
+### ReturnNull
+Return of `null`
+in `base/src/main/java/org/arend/typechecking/implicitargs/StdImplicitArgsInference.java`
+#### Snippet
+```java
+      for (; piParam.hasNext() && param.hasNext(); piParam = piParam.getNext(), param = param.getNext()) {
+        if (param.isExplicit() != piParam.isExplicit()) {
+          return null;
+        }
+      }
+```
+
+### ReturnNull
+Return of `null`
+in `base/src/main/java/org/arend/typechecking/implicitargs/StdImplicitArgsInference.java`
+#### Snippet
+```java
+        TypecheckingResult argResult = myVisitor.checkExpr(expr.getArguments().get(0).getExpression(), Nat());
+        if (argResult == null) {
+          return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `base/src/main/java/org/arend/typechecking/implicitargs/StdImplicitArgsInference.java`
+#### Snippet
+```java
+          if (expr.getArguments().size() > 1) {
+            myVisitor.getErrorReporter().report(new NotPiType(argResult.expression, result.getType(), fun));
             return null;
           }
-          branchKeys = new ArrayList<>(conCalls.size());
+          return result;
 ```
 
 ### ReturnNull
 Return of `null`
-in `base/src/main/java/org/arend/typechecking/patternmatching/ElimTypechecking.java`
+in `base/src/main/java/org/arend/typechecking/implicitargs/StdImplicitArgsInference.java`
 #### Snippet
 ```java
-        if (myErrorReporter != null) myErrorReporter.report(new TypecheckingError("Pattern matching on the interval is not allowed here", getClause(conClause.index, someConPattern)));
-        myOK = false;
-        return null;
+        TypecheckingResult arg2Result = myVisitor.checkExpr(expr.getArguments().get(1).getExpression(), Fin(argResult.expression));
+        if (arg2Result == null) {
+          return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `base/src/main/java/org/arend/typechecking/implicitargs/StdImplicitArgsInference.java`
+#### Snippet
+```java
+        if (expr.getArguments().size() > 2) {
+          myVisitor.getErrorReporter().report(new NotPiType(arg2Result.expression, result.getType(), fun));
+          return null;
+        }
+        return result;
+```
+
+### ReturnNull
+Return of `null`
+in `base/src/main/java/org/arend/typechecking/implicitargs/StdImplicitArgsInference.java`
+#### Snippet
+```java
+        myVisitor.checkExpr(argument.expression, null);
       }
+      return null;
+    }
 
 ```
 
 ### ReturnNull
 Return of `null`
-in `base/src/main/java/org/arend/typechecking/patternmatching/ElimTypechecking.java`
+in `base/src/main/java/org/arend/typechecking/implicitargs/StdImplicitArgsInference.java`
 #### Snippet
 ```java
-  private static List<ConCallExpression> getMatchedConstructors(Expression expr) {
-    DataCallExpression dataCall = expr.normalize(NormalizationMode.WHNF).cast(DataCallExpression.class);
-    return dataCall == null ? null : dataCall.getMatchedConstructors();
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `base/src/main/java/org/arend/typechecking/patternmatching/ElimTypechecking.java`
-#### Snippet
-```java
-            errorReporter.report(new NotEnoughPatternsError(expectedNumberOfPatterns - clause.getPatterns().size(), clause));
+          if (((Constructor) defCallResult.getDefinition()).getDataType() != dataCall.getDefinition()) {
+            myVisitor.getErrorReporter().report(new TypeMismatchError(dataCall, refDoc(((Constructor) defCallResult.getDefinition()).getDataType().getReferable()), fun));
+            return null;
           }
-          return null;
-        }
-      }
+
 ```
 
 ### ReturnNull
 Return of `null`
-in `base/src/main/java/org/arend/typechecking/patternmatching/ElimTypechecking.java`
+in `base/src/main/java/org/arend/typechecking/implicitargs/StdImplicitArgsInference.java`
 #### Snippet
 ```java
-        if (!elimParams.isEmpty() && elimParam == link) {
-          errorReporter.report(new TypecheckingError("Duplicated eliminated parameter", expr));
-          return null;
-        }
-        while (elimParam != link) {
-```
-
-### ReturnNull
-Return of `null`
-in `base/src/main/java/org/arend/typechecking/patternmatching/ElimTypechecking.java`
-#### Snippet
-```java
+            if (!ok) {
+              myVisitor.getErrorReporter().report(new TypeMismatchError(dataCall, DataCallExpression.make(dataCall.getDefinition(), defCallResult.getLevels(), args1), fun));
+              return null;
             }
-            errorReporter.report(new TypecheckingError(link == elimParam ? "Variable elimination must be in the order of variable introduction" : "Only parameters can be eliminated", expr));
+
+```
+
+### ReturnNull
+Return of `null`
+in `base/src/main/java/org/arend/typechecking/implicitargs/StdImplicitArgsInference.java`
+#### Snippet
+```java
+          if (parameter.isExplicit() != argument.isExplicit()) {
+            myVisitor.getErrorReporter().report(new ArgumentExplicitnessError(parameter.isExplicit(), argument.getExpression()));
             return null;
           }
-          link = link.getNext();
+          InferenceVariable var = new ExpressionInferenceVariable(parameter.getTypeExpr(), argument.getExpression(), myVisitor.getAllBindings(), false);
+```
+
+### ReturnNull
+Return of `null`
+in `base/src/main/java/org/arend/typechecking/implicitargs/StdImplicitArgsInference.java`
+#### Snippet
+```java
+          result = inferArg(result, argument.expression, argument.isExplicit(), fun);
+          if (result == null) {
+            return null;
+          }
+          current++;
+```
+
+### ReturnNull
+Return of `null`
+in `base/src/main/java/org/arend/typechecking/implicitargs/StdImplicitArgsInference.java`
+#### Snippet
+```java
+
+        if (result == null) {
+          return null;
+        }
+        if (i < arguments.size()) {
+```
+
+### ReturnNull
+Return of `null`
+in `base/src/main/java/org/arend/typechecking/implicitargs/equations/TwoStageEquations.java`
+#### Snippet
+```java
+    ClassDefinition classDef = variable.getClassDefinition();
+    if (classDef == null) {
+      return null;
+    }
+    if (classDef.getClassifyingField() == fieldCall.getDefinition() && expr.getStuckInferenceVariable() == null) {
+```
+
+### ReturnNull
+Return of `null`
+in `base/src/main/java/org/arend/typechecking/implicitargs/equations/TwoStageEquations.java`
+#### Snippet
+```java
+    if (classDef.getClassifyingField() == fieldCall.getDefinition() && expr.getStuckInferenceVariable() == null) {
+      Expression result = variable.getInstance(myVisitor.getInstancePool(), expr, null, variable.getSourceNode());
+      return result == null ? null : solve(variable, result.normalize(NormalizationMode.WHNF), false) != SolveResult.SOLVED;
+    }
+    return null;
+```
+
+### ReturnNull
+Return of `null`
+in `base/src/main/java/org/arend/typechecking/implicitargs/equations/TwoStageEquations.java`
+#### Snippet
+```java
+      return result == null ? null : solve(variable, result.normalize(NormalizationMode.WHNF), false) != SolveResult.SOLVED;
+    }
+    return null;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `base/src/main/java/org/arend/typechecking/implicitargs/equations/TwoStageEquations.java`
+#### Snippet
+```java
+          reversedSubst.add(((ReferenceExpression) entry.getValue()).getBinding(), new ReferenceExpression(entry.getKey()));
+        } else {
+          return null;
+        }
+      }
+```
+
+### ReturnNull
+Return of `null`
+in `base/src/main/java/org/arend/typechecking/implicitargs/equations/TwoStageEquations.java`
+#### Snippet
+```java
+          } else {
+            reportBoundsError(var, bounds, cmp);
+            return null;
+          }
+        }
+```
+
+### ReturnNull
+Return of `null`
+in `base/src/main/java/org/arend/typechecking/implicitargs/equations/TwoStageEquations.java`
+#### Snippet
+```java
+        if (classDef != classCall.getDefinition()) {
+          reportBoundsError(var, bounds, cmp);
+          return null;
+        }
+      }
 ```
 
 ### ReturnNull
@@ -20465,6 +20381,18 @@ Return of `null`
 in `base/src/main/java/org/arend/typechecking/patternmatching/ElimTypechecking.java`
 #### Snippet
 ```java
+  private static List<ConCallExpression> getMatchedConstructors(Expression expr) {
+    DataCallExpression dataCall = expr.normalize(NormalizationMode.WHNF).cast(DataCallExpression.class);
+    return dataCall == null ? null : dataCall.getMatchedConstructors();
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `base/src/main/java/org/arend/typechecking/patternmatching/ElimTypechecking.java`
+#### Snippet
+```java
       }
     }
     return null;
@@ -20498,107 +20426,59 @@ in `base/src/main/java/org/arend/typechecking/patternmatching/ElimTypechecking.j
 
 ### ReturnNull
 Return of `null`
-in `base/src/main/java/org/arend/typechecking/visitor/DefinitionTypechecker.java`
+in `base/src/main/java/org/arend/typechecking/patternmatching/ElimTypechecking.java`
 #### Snippet
 ```java
-
-  private static DependentLink getExprParameters(Expression expr) {
-    return expr instanceof SigmaExpression ? ((SigmaExpression) expr).getParameters() : expr instanceof PiExpression ? ((PiExpression) expr).getParameters() : null;
-  }
-}
-```
-
-### ReturnNull
-Return of `null`
-in `base/src/main/java/org/arend/typechecking/visitor/DefinitionTypechecker.java`
-#### Snippet
-```java
-  private Concrete.LevelParameters levelVariablesToParameters(Object data, List<? extends LevelVariable> levelVars, boolean isPLevels) {
-    if (levelVars.size() == 1 && (levelVars.get(0) == LevelVariable.PVAR || levelVars.get(0) == LevelVariable.HVAR)) {
-      return null;
-    }
-    List<LevelReferable> levelRefs = new ArrayList<>(levelVars.size());
-```
-
-### ReturnNull
-Return of `null`
-in `base/src/main/java/org/arend/typechecking/visitor/DefinitionTypechecker.java`
-#### Snippet
-```java
-      throw new IllegalStateException();
-    }
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `base/src/main/java/org/arend/typechecking/visitor/DefinitionTypechecker.java`
-#### Snippet
-```java
-      typecheckDataBody(definition, def, Collections.singleton(definition));
-    }
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `base/src/main/java/org/arend/typechecking/visitor/DefinitionTypechecker.java`
-#### Snippet
-```java
-      errorReporter.report(new TypecheckingError("A class cannot be recursive", def));
-      if (typechecked != null) {
-        return null;
-      }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `base/src/main/java/org/arend/typechecking/visitor/DefinitionTypechecker.java`
-#### Snippet
-```java
-      typecheckClass(def, definition);
-    }
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `base/src/main/java/org/arend/typechecking/visitor/DefinitionTypechecker.java`
-#### Snippet
-```java
-      if (!oldParametersOK) {
-        errorReporter.report(new TypecheckingError("Cannot typecheck definition. Try to clear cache", parameter));
-        return null;
-      }
-
-```
-
-### ReturnNull
-Return of `null`
-in `base/src/main/java/org/arend/typechecking/visitor/DefinitionTypechecker.java`
-#### Snippet
-```java
-            def.setTypechecked();
+            errorReporter.report(new NotEnoughPatternsError(expectedNumberOfPatterns - clause.getPatterns().size(), clause));
           }
           return null;
         }
-
+      }
 ```
 
 ### ReturnNull
 Return of `null`
-in `base/src/main/java/org/arend/typechecking/visitor/DefinitionTypechecker.java`
+in `base/src/main/java/org/arend/typechecking/patternmatching/ElimTypechecking.java`
 #### Snippet
 ```java
-      typedDef = typechecker.referableToClassField(((Concrete.OverriddenField) def).getOverriddenField(), def);
-      if (typedDef == null) {
+        if (!elimParams.isEmpty() && elimParam == link) {
+          errorReporter.report(new TypecheckingError("Duplicated eliminated parameter", expr));
+          return null;
+        }
+        while (elimParam != link) {
+```
+
+### ReturnNull
+Return of `null`
+in `base/src/main/java/org/arend/typechecking/patternmatching/ElimTypechecking.java`
+#### Snippet
+```java
+            }
+            errorReporter.report(new TypecheckingError(link == elimParam ? "Variable elimination must be in the order of variable introduction" : "Only parameters can be eliminated", expr));
+            return null;
+          }
+          link = link.getNext();
+```
+
+### ReturnNull
+Return of `null`
+in `base/src/main/java/org/arend/typechecking/patternmatching/ElimTypechecking.java`
+#### Snippet
+```java
+            if (myErrorReporter != null) myErrorReporter.report(new ImpossibleEliminationError(dataCall, getClause(conClause.index, someConPattern), null, null, null, null, null));
+            myOK = false;
+            return null;
+          }
+          branchKeys = new ArrayList<>(conCalls.size());
+```
+
+### ReturnNull
+Return of `null`
+in `base/src/main/java/org/arend/typechecking/patternmatching/ElimTypechecking.java`
+#### Snippet
+```java
+        if (myErrorReporter != null) myErrorReporter.report(new TypecheckingError("Pattern matching on the interval is not allowed here", getClause(conClause.index, someConPattern)));
+        myOK = false;
         return null;
       }
 
@@ -20606,14 +20486,14 @@ in `base/src/main/java/org/arend/typechecking/visitor/DefinitionTypechecker.java
 
 ### ReturnNull
 Return of `null`
-in `base/src/main/java/org/arend/typechecking/visitor/DefinitionTypechecker.java`
+in `base/src/main/java/org/arend/typechecking/patternmatching/ElimTypechecking.java`
 #### Snippet
 ```java
-      if (typedDef.getParentClass() == parentClass || !parentClass.getFields().contains(typedDef)) {
-        errorReporter.report(new TypecheckingError("Overridden field must belong to a super class", def));
-        return null;
-      }
-    }
+    Integer level2 = !l2.isInfinity() && l2.isClosed() ? l2.getConstant() : null;
+    Integer result = level1 != null && level2 != null ? Integer.valueOf(Math.min(level1, level2 - sub)) : level2 != null ? Integer.valueOf(level2 - sub) : level1;
+    return result == null ? null : result + 1;
+  }
+
 ```
 
 ### ReturnNull
@@ -20621,11 +20501,11 @@ Return of `null`
 in `base/src/main/java/org/arend/typechecking/visitor/DefinitionTypechecker.java`
 #### Snippet
 ```java
-      }
-      if (!ok) {
-        return null;
-      }
-    }
+        Expression newType = normalizePathExpression(((LamExpression) lamExpr).getBody(), constructor, sourceNode);
+        if (newType == null) {
+          return null;
+        } else {
+          List<Expression> args = new ArrayList<>(3);
 ```
 
 ### ReturnNull
@@ -20633,8 +20513,8 @@ Return of `null`
 in `base/src/main/java/org/arend/typechecking/visitor/DefinitionTypechecker.java`
 #### Snippet
 ```java
-
-    if (!newDef) {
+    if (type == null || !CompareVisitor.compare(typechecker.getEquations(), CMP.EQ, type, expectedType, Type.OMEGA, sourceNode)) {
+      errorReporter.report(new TypecheckingError("Expected an iterated path type in " + expectedType, sourceNode));
       return null;
     }
 
@@ -20693,6 +20573,66 @@ Return of `null`
 in `base/src/main/java/org/arend/typechecking/visitor/DefinitionTypechecker.java`
 #### Snippet
 ```java
+      if (!oldParametersOK) {
+        errorReporter.report(new TypecheckingError("Cannot typecheck definition. Try to clear cache", parameter));
+        return null;
+      }
+
+```
+
+### ReturnNull
+Return of `null`
+in `base/src/main/java/org/arend/typechecking/visitor/DefinitionTypechecker.java`
+#### Snippet
+```java
+      typedDef = typechecker.referableToClassField(((Concrete.OverriddenField) def).getOverriddenField(), def);
+      if (typedDef == null) {
+        return null;
+      }
+
+```
+
+### ReturnNull
+Return of `null`
+in `base/src/main/java/org/arend/typechecking/visitor/DefinitionTypechecker.java`
+#### Snippet
+```java
+      if (typedDef.getParentClass() == parentClass || !parentClass.getFields().contains(typedDef)) {
+        errorReporter.report(new TypecheckingError("Overridden field must belong to a super class", def));
+        return null;
+      }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `base/src/main/java/org/arend/typechecking/visitor/DefinitionTypechecker.java`
+#### Snippet
+```java
+      }
+      if (!ok) {
+        return null;
+      }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `base/src/main/java/org/arend/typechecking/visitor/DefinitionTypechecker.java`
+#### Snippet
+```java
+
+    if (!newDef) {
+      return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `base/src/main/java/org/arend/typechecking/visitor/DefinitionTypechecker.java`
+#### Snippet
+```java
   private ClassField findClassifyingField(ClassDefinition superClass, ClassDefinition classDef, Set<ClassDefinition> visited) {
     if (!visited.add(superClass)) {
       return null;
@@ -20729,11 +20669,11 @@ Return of `null`
 in `base/src/main/java/org/arend/typechecking/visitor/DefinitionTypechecker.java`
 #### Snippet
 ```java
+      throw new IllegalStateException();
+    }
+    return null;
+  }
 
-  private Integer typecheckResultTypeLevel(Concrete.Expression resultTypeLevel, LevelMismatchError.TargetKind kind, Expression resultType, FunctionDefinition funDef, ClassField classField, boolean isOverridden) {
-    if (resultTypeLevel == null) return null;
-    if (kind != null) {
-      Sort sort;
 ```
 
 ### ReturnNull
@@ -20741,11 +20681,71 @@ Return of `null`
 in `base/src/main/java/org/arend/typechecking/visitor/DefinitionTypechecker.java`
 #### Snippet
 ```java
-        UntypedSingleDependentLink x = new UntypedSingleDependentLink("x", y);
-        TypecheckingResult result = typechecker.finalCheckExpr(resultTypeLevel, new PiExpression(sort, x, FunCallExpression.make(Prelude.PATH_INFIX, new LevelPair(sort.getPLevel(), sort.getHLevel()), Arrays.asList(resultType, new ReferenceExpression(x), new ReferenceExpression(y)))));
-        if (result == null) return null;
-        if (myNewDef) {
-          if (funDef != null) {
+  private Concrete.LevelParameters levelVariablesToParameters(Object data, List<? extends LevelVariable> levelVars, boolean isPLevels) {
+    if (levelVars.size() == 1 && (levelVars.get(0) == LevelVariable.PVAR || levelVars.get(0) == LevelVariable.HVAR)) {
+      return null;
+    }
+    List<LevelReferable> levelRefs = new ArrayList<>(levelVars.size());
+```
+
+### ReturnNull
+Return of `null`
+in `base/src/main/java/org/arend/typechecking/visitor/DefinitionTypechecker.java`
+#### Snippet
+```java
+      typecheckDataBody(definition, def, Collections.singleton(definition));
+    }
+    return null;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `base/src/main/java/org/arend/typechecking/visitor/DefinitionTypechecker.java`
+#### Snippet
+```java
+      errorReporter.report(new TypecheckingError("A class cannot be recursive", def));
+      if (typechecked != null) {
+        return null;
+      }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `base/src/main/java/org/arend/typechecking/visitor/DefinitionTypechecker.java`
+#### Snippet
+```java
+      typecheckClass(def, definition);
+    }
+    return null;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `base/src/main/java/org/arend/typechecking/visitor/DefinitionTypechecker.java`
+#### Snippet
+```java
+        ExpressionPattern pattern = checkDConstructor(expr.getImplementation(field), usedVars, sourceNode);
+        if (pattern == null) {
+          return null;
+        }
+        patterns.add(pattern);
+```
+
+### ReturnNull
+Return of `null`
+in `base/src/main/java/org/arend/typechecking/visitor/DefinitionTypechecker.java`
+#### Snippet
+```java
+
+  private List<LevelVariable> typecheckLevelParameters(Concrete.Definition def) {
+    if (def.getPLevelParameters() == null && def.getHLevelParameters() == null) return null;
+    List<LevelVariable> parameters = new ArrayList<>();
+    Map<LevelReferable, ParamLevelVariable> variables = new HashMap<>();
 ```
 
 ### ReturnNull
@@ -20777,11 +20777,11 @@ Return of `null`
 in `base/src/main/java/org/arend/typechecking/visitor/DefinitionTypechecker.java`
 #### Snippet
 ```java
-        ExpressionPattern pattern = checkDConstructor(expr.getImplementation(field), usedVars, sourceNode);
-        if (pattern == null) {
-          return null;
-        }
-        patterns.add(pattern);
+
+  private static DependentLink getExprParameters(Expression expr) {
+    return expr instanceof SigmaExpression ? ((SigmaExpression) expr).getParameters() : expr instanceof PiExpression ? ((PiExpression) expr).getParameters() : null;
+  }
+}
 ```
 
 ### ReturnNull
@@ -20806,6 +20806,30 @@ in `base/src/main/java/org/arend/typechecking/visitor/DefinitionTypechecker.java
     return ref instanceof TCLevelReferable ? (TCLevelReferable) ref : null;
   }
 
+```
+
+### ReturnNull
+Return of `null`
+in `base/src/main/java/org/arend/typechecking/visitor/DefinitionTypechecker.java`
+#### Snippet
+```java
+
+  private Integer typecheckResultTypeLevel(Concrete.Expression resultTypeLevel, LevelMismatchError.TargetKind kind, Expression resultType, FunctionDefinition funDef, ClassField classField, boolean isOverridden) {
+    if (resultTypeLevel == null) return null;
+    if (kind != null) {
+      Sort sort;
+```
+
+### ReturnNull
+Return of `null`
+in `base/src/main/java/org/arend/typechecking/visitor/DefinitionTypechecker.java`
+#### Snippet
+```java
+        UntypedSingleDependentLink x = new UntypedSingleDependentLink("x", y);
+        TypecheckingResult result = typechecker.finalCheckExpr(resultTypeLevel, new PiExpression(sort, x, FunCallExpression.make(Prelude.PATH_INFIX, new LevelPair(sort.getPLevel(), sort.getHLevel()), Arrays.asList(resultType, new ReferenceExpression(x), new ReferenceExpression(y)))));
+        if (result == null) return null;
+        if (myNewDef) {
+          if (funDef != null) {
 ```
 
 ### ReturnNull
@@ -20861,35 +20885,11 @@ Return of `null`
 in `base/src/main/java/org/arend/typechecking/visitor/DefinitionTypechecker.java`
 #### Snippet
 ```java
-        Expression newType = normalizePathExpression(((LamExpression) lamExpr).getBody(), constructor, sourceNode);
-        if (newType == null) {
+            def.setTypechecked();
+          }
           return null;
-        } else {
-          List<Expression> args = new ArrayList<>(3);
-```
+        }
 
-### ReturnNull
-Return of `null`
-in `base/src/main/java/org/arend/typechecking/visitor/DefinitionTypechecker.java`
-#### Snippet
-```java
-    if (type == null || !CompareVisitor.compare(typechecker.getEquations(), CMP.EQ, type, expectedType, Type.OMEGA, sourceNode)) {
-      errorReporter.report(new TypecheckingError("Expected an iterated path type in " + expectedType, sourceNode));
-      return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `base/src/main/java/org/arend/typechecking/visitor/DefinitionTypechecker.java`
-#### Snippet
-```java
-
-  private List<LevelVariable> typecheckLevelParameters(Concrete.Definition def) {
-    if (def.getPLevelParameters() == null && def.getHLevelParameters() == null) return null;
-    List<LevelVariable> parameters = new ArrayList<>();
-    Map<LevelReferable, ParamLevelVariable> variables = new HashMap<>();
 ```
 
 ### ReturnNull
@@ -20902,78 +20902,6 @@ in `base/src/main/java/org/arend/typechecking/patternmatching/PatternTypecheckin
     if (result == null) return null;
     if (myFinal) {
       new StripVisitor(myErrorReporter).visitParameters(Pattern.getFirstBinding(result.patterns));
-```
-
-### ReturnNull
-Return of `null`
-in `base/src/main/java/org/arend/typechecking/patternmatching/PatternTypechecking.java`
-#### Snippet
-```java
-    for (Concrete.FunctionClause clause : clauses) {
-      if (!myTypecheckOtherClauses) {
-        return null;
-      }
-      if (!typecheckClause(clause, abstractParameters, parameters, expectedType, result, definition)) {
-```
-
-### ReturnNull
-Return of `null`
-in `base/src/main/java/org/arend/typechecking/patternmatching/PatternTypechecking.java`
-#### Snippet
-```java
-      }
-    }
-    return ok ? result : null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `base/src/main/java/org/arend/typechecking/patternmatching/PatternTypechecking.java`
-#### Snippet
-```java
-  private Type typecheckType(Concrete.Expression cType, Expression expectedType) {
-    if (cType == null || myVisitor == null) {
-      return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `base/src/main/java/org/arend/typechecking/patternmatching/PatternTypechecking.java`
-#### Snippet
-```java
-    if (type != null && !expectedType.isLessOrEquals(type.getExpr(), myVisitor.getEquations(), cType)) {
-      myErrorReporter.report(new TypeMismatchError(type.getExpr(), expectedType, cType));
-      return null;
-    }
-    return type;
-```
-
-### ReturnNull
-Return of `null`
-in `base/src/main/java/org/arend/typechecking/patternmatching/PatternTypechecking.java`
-#### Snippet
-```java
-    myLinkList.clear();
-    Result result = doTypechecking(patterns, parameters, new ExprSubstitution(), null, sourceNode, withElim, 0);
-    return result == null ? null : new Pair<>(result.patterns, result.exprs == null ? null : myContext);
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `base/src/main/java/org/arend/typechecking/patternmatching/PatternTypechecking.java`
-#### Snippet
-```java
-      Expression paramType = param.getTypeExpr().subst(paramSubst, levelSubst);
-      if (!CompareVisitor.compare(myVisitor.getEquations(), CMP.LE, arg.getType(), paramType, Type.OMEGA, sourceNode)) {
-        return null;
-      }
-      paramSubst.add(param, arg);
 ```
 
 ### ReturnNull
@@ -21302,11 +21230,155 @@ in `base/src/main/java/org/arend/typechecking/patternmatching/PatternTypecheckin
 
 ### ReturnNull
 Return of `null`
+in `base/src/main/java/org/arend/typechecking/patternmatching/PatternTypechecking.java`
+#### Snippet
+```java
+    myLinkList.clear();
+    Result result = doTypechecking(patterns, parameters, new ExprSubstitution(), null, sourceNode, withElim, 0);
+    return result == null ? null : new Pair<>(result.patterns, result.exprs == null ? null : myContext);
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `base/src/main/java/org/arend/typechecking/patternmatching/PatternTypechecking.java`
+#### Snippet
+```java
+  private Type typecheckType(Concrete.Expression cType, Expression expectedType) {
+    if (cType == null || myVisitor == null) {
+      return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `base/src/main/java/org/arend/typechecking/patternmatching/PatternTypechecking.java`
+#### Snippet
+```java
+    if (type != null && !expectedType.isLessOrEquals(type.getExpr(), myVisitor.getEquations(), cType)) {
+      myErrorReporter.report(new TypeMismatchError(type.getExpr(), expectedType, cType));
+      return null;
+    }
+    return type;
+```
+
+### ReturnNull
+Return of `null`
+in `base/src/main/java/org/arend/typechecking/patternmatching/PatternTypechecking.java`
+#### Snippet
+```java
+      Expression paramType = param.getTypeExpr().subst(paramSubst, levelSubst);
+      if (!CompareVisitor.compare(myVisitor.getEquations(), CMP.LE, arg.getType(), paramType, Type.OMEGA, sourceNode)) {
+        return null;
+      }
+      paramSubst.add(param, arg);
+```
+
+### ReturnNull
+Return of `null`
+in `base/src/main/java/org/arend/typechecking/patternmatching/PatternTypechecking.java`
+#### Snippet
+```java
+    for (Concrete.FunctionClause clause : clauses) {
+      if (!myTypecheckOtherClauses) {
+        return null;
+      }
+      if (!typecheckClause(clause, abstractParameters, parameters, expectedType, result, definition)) {
+```
+
+### ReturnNull
+Return of `null`
+in `base/src/main/java/org/arend/typechecking/patternmatching/PatternTypechecking.java`
+#### Snippet
+```java
+      }
+    }
+    return ok ? result : null;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
 in `base/src/main/java/org/arend/typechecking/visitor/CheckTypeVisitor.java`
 #### Snippet
 ```java
-      for (Concrete.TypeParameter parameter : parameters) {
-        if (!visitSigmaParameter(parameter, expectedType, resultSorts, list)) {
+        Type type = checkType(letResult, Type.OMEGA);
+        if (type == null) {
+          return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `base/src/main/java/org/arend/typechecking/visitor/CheckTypeVisitor.java`
+#### Snippet
+```java
+    } else if (param instanceof Concrete.TypeParameter) {
+      SingleDependentLink link = visitTypeParameter((Concrete.TypeParameter) param, null, null);
+      return link == null ? null : bodyToLam(link, typecheckLetClause(parameters.subList(1, parameters.size()), letClause, false), letClause);
+    } else {
+      throw new IllegalStateException();
+```
+
+### ReturnNull
+Return of `null`
+in `base/src/main/java/org/arend/typechecking/visitor/CheckTypeVisitor.java`
+#### Snippet
+```java
+    if (sigma == null && classCall == null || sigma != null && DependentLink.Helper.size(sigma.getParameters()) != numberOfPatterns || notImplementedFields != null && notImplementedFields.size() != numberOfPatterns) {
+      errorReporter.report(new TypeMismatchError("Cannot match an expression with the pattern", DocFactory.text(sigma == null && classCall == null ? "A sigma type or a record" : sigma != null ? "A sigma type with " + numberOfPatterns + " fields" : "A records with " + numberOfPatterns + " not implemented fields"), type, pattern));
+      return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `base/src/main/java/org/arend/typechecking/visitor/CheckTypeVisitor.java`
+#### Snippet
+```java
+      LetClausePattern letClausePattern = typecheckLetClausePattern(subPattern, unfolded.expression, unfolded.type, bindings);
+      if (letClausePattern == null) {
+        return null;
+      }
+      patterns.add(letClausePattern);
+```
+
+### ReturnNull
+Return of `null`
+in `base/src/main/java/org/arend/typechecking/visitor/CheckTypeVisitor.java`
+#### Snippet
+```java
+    Expression curType = result.type;
+    if (!(curType instanceof FunCallExpression && ((FunCallExpression) curType).getDefinition().getKind() == CoreFunctionDefinition.Kind.TYPE)) {
+      return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `base/src/main/java/org/arend/typechecking/visitor/CheckTypeVisitor.java`
+#### Snippet
+```java
+      curExpr = TypeDestructorExpression.match((FunCallExpression) curType, curExpr);
+      if (curExpr == null) {
+        return null;
+      }
+      curType = curExpr.getType().normalize(NormalizationMode.WHNF);
+```
+
+### ReturnNull
+Return of `null`
+in `base/src/main/java/org/arend/typechecking/visitor/CheckTypeVisitor.java`
+#### Snippet
+```java
+        }
+        if (!visitParameter((Concrete.TypeParameter) parameter, expectedType, resultSorts, list)) {
           return null;
         }
       }
@@ -21317,11 +21389,11 @@ Return of `null`
 in `base/src/main/java/org/arend/typechecking/visitor/CheckTypeVisitor.java`
 #### Snippet
 ```java
-    List<Sort> sorts = new ArrayList<>(expr.getParameters().size());
-    DependentLink args = visitSigmaParameters(expr.getParameters(), expectedType, sorts);
-    if (args == null || !args.hasNext()) return null;
-    Sort sort = generateUpperBound(sorts, expr);
-    return checkResult(expectedType, new TypecheckingResult(new SigmaExpression(sort, args), new UniverseExpression(sort)), expr);
+            }
+            errorReporter.report(new FieldDependencyError(field, found, sourceNode));
+            return null;
+          }
+          fieldSet.put(field, FieldCallExpression.make(field, renewExpr));
 ```
 
 ### ReturnNull
@@ -21329,11 +21401,11 @@ Return of `null`
 in `base/src/main/java/org/arend/typechecking/visitor/CheckTypeVisitor.java`
 #### Snippet
 ```java
-  public TypecheckingResult visitThis(Concrete.ThisExpression expr, Expression expectedType) {
-    errorReporter.report(new TypecheckingError("\\this expressions are allowed only in appropriate arguments of definitions and class extensions", expr));
-    return null;
-  }
-
+                  if (classCall.getDefinition().getUniverseKind() != UniverseKind.NO_UNIVERSES && resultClassCall.getDefinition().getUniverseKind() != UniverseKind.NO_UNIVERSES && !resultClassCall.getLevels(classDef).compare(classCall.getLevels(classDef), CMP.EQ, myEquations, pair.proj2.implementation)) {
+                    errorReporter.report(new TypeMismatchError(new ClassCallExpression(classDef, resultClassCall.getLevels(classDef)), classCall, pair.proj2.implementation));
+                    return null;
+                  }
+                  for (ClassField field : classDef.getFields()) {
 ```
 
 ### ReturnNull
@@ -21341,22 +21413,10 @@ Return of `null`
 in `base/src/main/java/org/arend/typechecking/visitor/CheckTypeVisitor.java`
 #### Snippet
 ```java
-      errorReporter.report(new TypeMismatchError(expectedType, result.type, expr));
-    }
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `base/src/main/java/org/arend/typechecking/visitor/CheckTypeVisitor.java`
-#### Snippet
-```java
-    } else if (ref instanceof AbstractedReferable) {
-      Expression core = (Expression) substituteAbstractedExpression(((AbstractedReferable) ref).expression, LevelSubstitution.EMPTY, ((AbstractedReferable) ref).arguments, expr);
-      return core == null ? null : new TypecheckingResult(core, core.getType());
-    }
+      TypecheckingResult result = typecheckLetClause(clause.getParameters(), clause, true);
+      if (result == null) {
+        return null;
+      }
 
 ```
 
@@ -21365,11 +21425,11 @@ Return of `null`
 in `base/src/main/java/org/arend/typechecking/visitor/CheckTypeVisitor.java`
 #### Snippet
 ```java
-    if (meta == null) {
-      errorReporter.report(new TypecheckingError("Meta '" + refExpr.getReferent().getRefName() + "' is empty", refExpr));
+  private TypecheckingResult bodyToLam(SingleDependentLink params, TypecheckingResult bodyResult, Concrete.SourceNode sourceNode) {
+    if (bodyResult == null) {
       return null;
     }
-    ContextData contextData = new ContextDataImpl(refExpr, arguments, coclauses, null, expectedType, null);
+    Sort sort = PiExpression.generateUpperBound(params.getType().getSortOfType(), getSortOfType(bodyResult.type, sourceNode), myEquations, sourceNode);
 ```
 
 ### ReturnNull
@@ -21377,8 +21437,20 @@ Return of `null`
 in `base/src/main/java/org/arend/typechecking/visitor/CheckTypeVisitor.java`
 #### Snippet
 ```java
-    ContextData contextData = new ContextDataImpl(refExpr, arguments, coclauses, null, expectedType, null);
-    if (!meta.checkContextData(contextData, errorReporter)) {
+      TypecheckingResult arg2 = checkExpr(expr.getArguments().get(1).getExpression(), ExpressionFactory.Nat());
+      if (arg1 == null || arg2 == null) {
+        return null;
+      }
+
+```
+
+### ReturnNull
+Return of `null`
+in `base/src/main/java/org/arend/typechecking/visitor/CheckTypeVisitor.java`
+#### Snippet
+```java
+    TResult result = myArgsInference.infer(expr, expectedType);
+    if (result == null || !checkPath(result, expr)) {
       return null;
     }
 
@@ -21389,11 +21461,95 @@ Return of `null`
 in `base/src/main/java/org/arend/typechecking/visitor/CheckTypeVisitor.java`
 #### Snippet
 ```java
-      errorReporter.report(new TypecheckingError("Meta '" + refExpr.getReferent().getRefName() + "' failed", refExpr));
+              }
+              if (!visitParameter((Concrete.Parameter) param, null, null, list)) {
+                return null;
+              }
+            }
+```
+
+### ReturnNull
+Return of `null`
+in `base/src/main/java/org/arend/typechecking/visitor/CheckTypeVisitor.java`
+#### Snippet
+```java
+      assert false;
+      errorReporter.report(new LocalError(GeneralError.Level.ERROR, "Incomplete expression"));
+      return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `base/src/main/java/org/arend/typechecking/visitor/CheckTypeVisitor.java`
+#### Snippet
+```java
+    }
+    if (result == null) {
+      return null;
+    }
+    if (result.expression instanceof Type) {
+```
+
+### ReturnNull
+Return of `null`
+in `base/src/main/java/org/arend/typechecking/visitor/CheckTypeVisitor.java`
+#### Snippet
+```java
+          errorReporter.report(new TypeMismatchError(DocFactory.text("\\Type"), type, expr));
+        }
+        return null;
+      }
+
+```
+
+### ReturnNull
+Return of `null`
+in `base/src/main/java/org/arend/typechecking/visitor/CheckTypeVisitor.java`
+#### Snippet
+```java
+    if (!stack.isEmpty()) {
+      Pair<Expression,T> pair = checker.apply(curType);
+      if (pair == null) return null;
+      Expression curExpr = pair.proj1;
+      if (curExpr == null) return new Pair<>(null, pair.proj2);
+```
+
+### ReturnNull
+Return of `null`
+in `base/src/main/java/org/arend/typechecking/visitor/CheckTypeVisitor.java`
+#### Snippet
+```java
+      return new Pair<>(new TypecheckingResult(stack.get(0), expectedType), pair.proj2);
     }
     return null;
   }
 
+```
+
+### ReturnNull
+Return of `null`
+in `base/src/main/java/org/arend/typechecking/visitor/CheckTypeVisitor.java`
+#### Snippet
+```java
+  public TypecheckingResult finalize(TypecheckingResult result, Concrete.SourceNode sourceNode, boolean propIfPossible) {
+    if (result == null) {
+      return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `base/src/main/java/org/arend/typechecking/visitor/CheckTypeVisitor.java`
+#### Snippet
+```java
+      for (Concrete.TypeParameter parameter : parameters) {
+        if (!visitSigmaParameter(parameter, expectedType, resultSorts, list)) {
+          return null;
+        }
+      }
 ```
 
 ### ReturnNull
@@ -21461,6 +21617,78 @@ Return of `null`
 in `base/src/main/java/org/arend/typechecking/visitor/CheckTypeVisitor.java`
 #### Snippet
 ```java
+  private SingleDependentLink visitTypeParameter(Concrete.TypeParameter param, List<Sort> sorts, Type expectedType) {
+    Type argResult = checkType(param.getType(), Type.OMEGA);
+    if (argResult == null) return null;
+    if (expectedType != null) {
+      Expression expected = expectedType.getExpr().normalize(NormalizationMode.WHNF).getUnderlyingExpression();
+```
+
+### ReturnNull
+Return of `null`
+in `base/src/main/java/org/arend/typechecking/visitor/CheckTypeVisitor.java`
+#### Snippet
+```java
+    List<Sort> sorts = new ArrayList<>(expr.getParameters().size());
+    DependentLink args = visitSigmaParameters(expr.getParameters(), expectedType, sorts);
+    if (args == null || !args.hasNext()) return null;
+    Sort sort = generateUpperBound(sorts, expr);
+    return checkResult(expectedType, new TypecheckingResult(new SigmaExpression(sort, args), new UniverseExpression(sort)), expr);
+```
+
+### ReturnNull
+Return of `null`
+in `base/src/main/java/org/arend/typechecking/visitor/CheckTypeVisitor.java`
+#### Snippet
+```java
+  public TypecheckingResult visitApplyHole(Concrete.ApplyHoleExpression expr, Expression params) {
+    errorReporter.report(new TypecheckingError("`__` not allowed here", expr));
+    return null;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `base/src/main/java/org/arend/typechecking/visitor/CheckTypeVisitor.java`
+#### Snippet
+```java
+    TypecheckingResult result = fieldSetClass.getDefinition().isGoodField(field) ? checkArgument(implBody, type, null, null) : checkExpr(implBody, type);
+    if (result == null) {
+      return null;
+    }
+    result.type = type;
+```
+
+### ReturnNull
+Return of `null`
+in `base/src/main/java/org/arend/typechecking/visitor/CheckTypeVisitor.java`
+#### Snippet
+```java
+    if (typeCheckedDefinition == null) {
+      errorReporter.report(new IncorrectReferenceError(definition, expr));
+      return null;
+    }
+    if (!typeCheckedDefinition.status().headerIsOK()) {
+```
+
+### ReturnNull
+Return of `null`
+in `base/src/main/java/org/arend/typechecking/visitor/CheckTypeVisitor.java`
+#### Snippet
+```java
+    if (!typeCheckedDefinition.status().headerIsOK()) {
+      errorReporter.report(new HasErrors(GeneralError.Level.ERROR, definition, expr));
+      return null;
+    } else {
+      if (typeCheckedDefinition.status().hasDepErrors()) {
+```
+
+### ReturnNull
+Return of `null`
+in `base/src/main/java/org/arend/typechecking/visitor/CheckTypeVisitor.java`
+#### Snippet
+```java
         errorReporter.report(new TypeMismatchError(DocFactory.text("A sigma type"), exprResult.type, expr));
       }
       return null;
@@ -21497,11 +21725,11 @@ Return of `null`
 in `base/src/main/java/org/arend/typechecking/visitor/CheckTypeVisitor.java`
 #### Snippet
 ```java
-        } else {
-          pVar = pVar.max(sort.getPLevel().getVar());
-          if (pVar == null) return null;
-        }
-      }
+      result = myArgsInference.inferTail(result, expectedType, expr);
+    }
+    return result == null ? null : checkResult(expectedType, result.toResult(this), expr);
+  }
+
 ```
 
 ### ReturnNull
@@ -21509,11 +21737,107 @@ Return of `null`
 in `base/src/main/java/org/arend/typechecking/visitor/CheckTypeVisitor.java`
 #### Snippet
 ```java
-        } else {
-          hVar = hVar.max(sort.getHLevel().getVar());
-          if (hVar == null) return null;
-        }
-      }
+
+    errorReporter.report(new GeneralError(GeneralError.Level.ERROR, "`StringTypechecker` not found!"));
+    return null;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `base/src/main/java/org/arend/typechecking/visitor/CheckTypeVisitor.java`
+#### Snippet
+```java
+    TypecheckingResult result = checkExpr(expr.getExpression(), expr.isPEval() ? null : expectedType);
+    if (result == null) {
+      return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `base/src/main/java/org/arend/typechecking/visitor/CheckTypeVisitor.java`
+#### Snippet
+```java
+        caseExpr != null ? "Expected an \\scase expression" :
+          "Expected a function or an \\scase expression", expr.getExpression()));
+      return null;
+    }
+    if (funCall != null && !(funCall.getDefinition().getActualBody() instanceof ElimBody || funCall.getDefinition().getActualBody() instanceof Expression)) {
+```
+
+### ReturnNull
+Return of `null`
+in `base/src/main/java/org/arend/typechecking/visitor/CheckTypeVisitor.java`
+#### Snippet
+```java
+    if (funCall != null && !(funCall.getDefinition().getActualBody() instanceof ElimBody || funCall.getDefinition().getActualBody() instanceof Expression)) {
+      errorReporter.report(new FunctionWithoutBodyError(funCall.getDefinition(), expr.getExpression()));
+      return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `base/src/main/java/org/arend/typechecking/visitor/CheckTypeVisitor.java`
+#### Snippet
+```java
+    if (normExpr == null) {
+      errorReporter.report(new TypecheckingError("Expression does not evaluate", expr.getExpression()));
+      return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `base/src/main/java/org/arend/typechecking/visitor/CheckTypeVisitor.java`
+#### Snippet
+```java
+    if (typeType == null) {
+      errorReporter.report(new TypecheckingError("Cannot infer the universe of the type of the expression", expr.getExpression()));
+      return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `base/src/main/java/org/arend/typechecking/visitor/CheckTypeVisitor.java`
+#### Snippet
+```java
+    if (meta == null) {
+      errorReporter.report(new TypecheckingError("Meta '" + refExpr.getReferent().getRefName() + "' is empty", refExpr));
+      return null;
+    }
+    ContextData contextData = new ContextDataImpl(refExpr, arguments, coclauses, null, expectedType, null);
+```
+
+### ReturnNull
+Return of `null`
+in `base/src/main/java/org/arend/typechecking/visitor/CheckTypeVisitor.java`
+#### Snippet
+```java
+    ContextData contextData = new ContextDataImpl(refExpr, arguments, coclauses, null, expectedType, null);
+    if (!meta.checkContextData(contextData, errorReporter)) {
+      return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `base/src/main/java/org/arend/typechecking/visitor/CheckTypeVisitor.java`
+#### Snippet
+```java
+      errorReporter.report(new TypecheckingError("Meta '" + refExpr.getReferent().getRefName() + "' failed", refExpr));
+    }
+    return null;
+  }
+
 ```
 
 ### ReturnNull
@@ -21538,282 +21862,6 @@ in `base/src/main/java/org/arend/typechecking/visitor/CheckTypeVisitor.java`
       return null;
     }
   }
-```
-
-### ReturnNull
-Return of `null`
-in `base/src/main/java/org/arend/typechecking/visitor/CheckTypeVisitor.java`
-#### Snippet
-```java
-    Definition definition = getTypeCheckedDefinition(resolvedDefinition, expr);
-    if (definition == null) {
-      return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `base/src/main/java/org/arend/typechecking/visitor/CheckTypeVisitor.java`
-#### Snippet
-```java
-      result = myArgsInference.inferTail(result, expectedType, expr);
-    }
-    return result == null ? null : checkResult(expectedType, result.toResult(this), expr);
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `base/src/main/java/org/arend/typechecking/visitor/CheckTypeVisitor.java`
-#### Snippet
-```java
-  public TypecheckingResult visitProj(Concrete.ProjExpression expr, Expression expectedType) {
-    TypecheckingResult exprResult = checkExpr(expr.expression, null);
-    if (exprResult == null) return null;
-    exprResult.type = exprResult.type.normalize(NormalizationMode.WHNF);
-
-```
-
-### ReturnNull
-Return of `null`
-in `base/src/main/java/org/arend/typechecking/visitor/CheckTypeVisitor.java`
-#### Snippet
-```java
-      assert false;
-      errorReporter.report(new LocalError(GeneralError.Level.ERROR, "Incomplete expression"));
-      return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `base/src/main/java/org/arend/typechecking/visitor/CheckTypeVisitor.java`
-#### Snippet
-```java
-    }
-    if (result == null) {
-      return null;
-    }
-    if (result.expression instanceof Type) {
-```
-
-### ReturnNull
-Return of `null`
-in `base/src/main/java/org/arend/typechecking/visitor/CheckTypeVisitor.java`
-#### Snippet
-```java
-          errorReporter.report(new TypeMismatchError(DocFactory.text("\\Type"), type, expr));
-        }
-        return null;
-      }
-
-```
-
-### ReturnNull
-Return of `null`
-in `base/src/main/java/org/arend/typechecking/visitor/CheckTypeVisitor.java`
-#### Snippet
-```java
-    if (sigma == null && classCall == null || sigma != null && DependentLink.Helper.size(sigma.getParameters()) != numberOfPatterns || notImplementedFields != null && notImplementedFields.size() != numberOfPatterns) {
-      errorReporter.report(new TypeMismatchError("Cannot match an expression with the pattern", DocFactory.text(sigma == null && classCall == null ? "A sigma type or a record" : sigma != null ? "A sigma type with " + numberOfPatterns + " fields" : "A records with " + numberOfPatterns + " not implemented fields"), type, pattern));
-      return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `base/src/main/java/org/arend/typechecking/visitor/CheckTypeVisitor.java`
-#### Snippet
-```java
-      LetClausePattern letClausePattern = typecheckLetClausePattern(subPattern, unfolded.expression, unfolded.type, bindings);
-      if (letClausePattern == null) {
-        return null;
-      }
-      patterns.add(letClausePattern);
-```
-
-### ReturnNull
-Return of `null`
-in `base/src/main/java/org/arend/typechecking/visitor/CheckTypeVisitor.java`
-#### Snippet
-```java
-  private Definition referableToDefinition(Referable referable, Concrete.SourceNode sourceNode) {
-    if (referable == null || referable instanceof ErrorReference) {
-      return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `base/src/main/java/org/arend/typechecking/visitor/CheckTypeVisitor.java`
-#### Snippet
-```java
-        errorReporter.report(new WrongReferable("Expected a definition", referable, sourceNode));
-      }
-      return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `base/src/main/java/org/arend/typechecking/visitor/CheckTypeVisitor.java`
-#### Snippet
-```java
-    }
-    if (typeCheckedBaseClass == null) {
-      return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `base/src/main/java/org/arend/typechecking/visitor/CheckTypeVisitor.java`
-#### Snippet
-```java
-    if (classCall == null) {
-      errorReporter.report(new TypecheckingError("Expected a class", expr.getBaseClassExpression()));
-      return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `base/src/main/java/org/arend/typechecking/visitor/CheckTypeVisitor.java`
-#### Snippet
-```java
-
-    errorReporter.report(new GeneralError(GeneralError.Level.ERROR, "`StringTypechecker` not found!"));
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `base/src/main/java/org/arend/typechecking/visitor/CheckTypeVisitor.java`
-#### Snippet
-```java
-        if (!(idp.getLevels().compare(equality.getLevels(), CMP.LE, myEquations, expr) && visitor.compare(idp.getDefCallArguments().get(0), equality.getDefCallArguments().get(0), Type.OMEGA, false))) {
-          errorReporter.report(new TypeMismatchError(equality, result.type, expr));
-          return null;
-        }
-        visitor.setCMP(CMP.EQ);
-```
-
-### ReturnNull
-Return of `null`
-in `base/src/main/java/org/arend/typechecking/visitor/CheckTypeVisitor.java`
-#### Snippet
-```java
-        if (!(visitor.compare(idpArg, left, type, true) && visitor.compare(idpArg, right, type, true))) {
-          errorReporter.report(isNotEqualError ? new NotEqualExpressionsError(left, right, expr) : new TypeMismatchError(equality, result.type, expr));
-          return null;
-        }
-        if (left instanceof ArrayExpression) {
-```
-
-### ReturnNull
-Return of `null`
-in `base/src/main/java/org/arend/typechecking/visitor/CheckTypeVisitor.java`
-#### Snippet
-```java
-    if (!ok || level < -1) {
-      errorReporter.report(new TypecheckingError("\\level has wrong format", sourceNode));
-      return null;
-    } else {
-      return level;
-```
-
-### ReturnNull
-Return of `null`
-in `base/src/main/java/org/arend/typechecking/visitor/CheckTypeVisitor.java`
-#### Snippet
-```java
-  public TypecheckingResult finalize(TypecheckingResult result, Concrete.SourceNode sourceNode, boolean propIfPossible) {
-    if (result == null) {
-      return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `base/src/main/java/org/arend/typechecking/visitor/CheckTypeVisitor.java`
-#### Snippet
-```java
-    TResult result = visitReference(expr);
-    if (result == null || !checkPath(result, expr)) {
-      return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `base/src/main/java/org/arend/typechecking/visitor/CheckTypeVisitor.java`
-#### Snippet
-```java
-      TypecheckingResult arg2 = checkExpr(expr.getArguments().get(1).getExpression(), ExpressionFactory.Nat());
-      if (arg1 == null || arg2 == null) {
-        return null;
-      }
-
-```
-
-### ReturnNull
-Return of `null`
-in `base/src/main/java/org/arend/typechecking/visitor/CheckTypeVisitor.java`
-#### Snippet
-```java
-    TResult result = myArgsInference.infer(expr, expectedType);
-    if (result == null || !checkPath(result, expr)) {
-      return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `base/src/main/java/org/arend/typechecking/visitor/CheckTypeVisitor.java`
-#### Snippet
-```java
-    TypecheckingResult result = fieldSetClass.getDefinition().isGoodField(field) ? checkArgument(implBody, type, null, null) : checkExpr(implBody, type);
-    if (result == null) {
-      return null;
-    }
-    result.type = type;
-```
-
-### ReturnNull
-Return of `null`
-in `base/src/main/java/org/arend/typechecking/visitor/CheckTypeVisitor.java`
-#### Snippet
-```java
-        Type type = checkType(letResult, Type.OMEGA);
-        if (type == null) {
-          return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `base/src/main/java/org/arend/typechecking/visitor/CheckTypeVisitor.java`
-#### Snippet
-```java
-    } else if (param instanceof Concrete.TypeParameter) {
-      SingleDependentLink link = visitTypeParameter((Concrete.TypeParameter) param, null, null);
-      return link == null ? null : bodyToLam(link, typecheckLetClause(parameters.subList(1, parameters.size()), letClause, false), letClause);
-    } else {
-      throw new IllegalStateException();
 ```
 
 ### ReturnNull
@@ -21917,299 +21965,47 @@ Return of `null`
 in `base/src/main/java/org/arend/typechecking/visitor/CheckTypeVisitor.java`
 #### Snippet
 ```java
-  private TypecheckingResult bodyToLam(SingleDependentLink params, TypecheckingResult bodyResult, Concrete.SourceNode sourceNode) {
-    if (bodyResult == null) {
-      return null;
-    }
-    Sort sort = PiExpression.generateUpperBound(params.getType().getSortOfType(), getSortOfType(bodyResult.type, sourceNode), myEquations, sourceNode);
-```
-
-### ReturnNull
-Return of `null`
-in `base/src/main/java/org/arend/typechecking/visitor/CheckTypeVisitor.java`
-#### Snippet
-```java
-  public TypecheckingResult visitBox(Concrete.BoxExpression expr, Expression expectedType) {
-    TypecheckingResult result = checkExpr(expr.getExpression(), expectedType);
-    if (result == null) return null;
-    Expression typeType = result.type.getType();
-    Expression expectedTypeType = new UniverseExpression(Sort.PROP);
-```
-
-### ReturnNull
-Return of `null`
-in `base/src/main/java/org/arend/typechecking/visitor/CheckTypeVisitor.java`
-#### Snippet
-```java
-      Sort sort = typeType.toSort();
-      errorReporter.report(sort != null ? new TypecheckingError("The type of the expression should live in \\Prop, but lives in " + sort, expr) : new TypeMismatchError("The type of the expression does not live in \\Prop", expectedTypeType, typeType, expr));
-      return null;
-    }
-    return new TypecheckingResult(BoxExpression.make(result.expression), result.type);
-```
-
-### ReturnNull
-Return of `null`
-in `base/src/main/java/org/arend/typechecking/visitor/CheckTypeVisitor.java`
-#### Snippet
-```java
-    var pair2 = provider.coerce(newProvider -> {
-      SingleDependentLink newPiParam = newProvider.nextParameter();
-      if (newPiParam == null) return null;
-      var pair = checker.apply(new Pair<>(newProvider, newPiParam));
-      return new Pair<>(pair.proj1 == null ? null : pair.proj1.expression, pair.proj2);
-```
-
-### ReturnNull
-Return of `null`
-in `base/src/main/java/org/arend/typechecking/visitor/CheckTypeVisitor.java`
-#### Snippet
-```java
-    Definition definition = referableToDefinition(referable, sourceNode);
-    if (definition == null) {
-      return null;
-    }
-    if (clazz.isInstance(definition)) {
-```
-
-### ReturnNull
-Return of `null`
-in `base/src/main/java/org/arend/typechecking/visitor/CheckTypeVisitor.java`
-#### Snippet
-```java
-      errorReporter.report(new WrongReferable(errorMsg, referable, sourceNode));
-    }
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `base/src/main/java/org/arend/typechecking/visitor/CheckTypeVisitor.java`
-#### Snippet
-```java
-  public Type finalCheckType(Concrete.Expression expr, Expression expectedType, boolean propIfPossible) {
-    Type result = checkType(expr, expectedType);
-    if (result == null) return null;
-    invokeDeferredMetas(null, null, false);
-    LevelEquationsSolver levelSolver = myEquations.makeLevelEquationsSolver();
-```
-
-### ReturnNull
-Return of `null`
-in `base/src/main/java/org/arend/typechecking/visitor/CheckTypeVisitor.java`
-#### Snippet
-```java
-    Expression curType = result.type;
-    if (!(curType instanceof FunCallExpression && ((FunCallExpression) curType).getDefinition().getKind() == CoreFunctionDefinition.Kind.TYPE)) {
-      return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `base/src/main/java/org/arend/typechecking/visitor/CheckTypeVisitor.java`
-#### Snippet
-```java
-      curExpr = TypeDestructorExpression.match((FunCallExpression) curType, curExpr);
-      if (curExpr == null) {
-        return null;
-      }
-      curType = curExpr.getType().normalize(NormalizationMode.WHNF);
-```
-
-### ReturnNull
-Return of `null`
-in `base/src/main/java/org/arend/typechecking/visitor/CheckTypeVisitor.java`
-#### Snippet
-```java
-    TypecheckingResult result = checkExpr(expr.getExpression(), expr.isPEval() ? null : expectedType);
-    if (result == null) {
-      return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `base/src/main/java/org/arend/typechecking/visitor/CheckTypeVisitor.java`
-#### Snippet
-```java
-        caseExpr != null ? "Expected an \\scase expression" :
-          "Expected a function or an \\scase expression", expr.getExpression()));
-      return null;
-    }
-    if (funCall != null && !(funCall.getDefinition().getActualBody() instanceof ElimBody || funCall.getDefinition().getActualBody() instanceof Expression)) {
-```
-
-### ReturnNull
-Return of `null`
-in `base/src/main/java/org/arend/typechecking/visitor/CheckTypeVisitor.java`
-#### Snippet
-```java
-    if (funCall != null && !(funCall.getDefinition().getActualBody() instanceof ElimBody || funCall.getDefinition().getActualBody() instanceof Expression)) {
-      errorReporter.report(new FunctionWithoutBodyError(funCall.getDefinition(), expr.getExpression()));
-      return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `base/src/main/java/org/arend/typechecking/visitor/CheckTypeVisitor.java`
-#### Snippet
-```java
-    if (normExpr == null) {
-      errorReporter.report(new TypecheckingError("Expression does not evaluate", expr.getExpression()));
-      return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `base/src/main/java/org/arend/typechecking/visitor/CheckTypeVisitor.java`
-#### Snippet
-```java
-    if (typeType == null) {
-      errorReporter.report(new TypecheckingError("Cannot infer the universe of the type of the expression", expr.getExpression()));
-      return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `base/src/main/java/org/arend/typechecking/visitor/CheckTypeVisitor.java`
-#### Snippet
-```java
-      TypecheckingResult result = typecheckLetClause(clause.getParameters(), clause, true);
-      if (result == null) {
-        return null;
-      }
-
-```
-
-### ReturnNull
-Return of `null`
-in `base/src/main/java/org/arend/typechecking/visitor/CheckTypeVisitor.java`
-#### Snippet
-```java
-  public TypecheckingResult visitApplyHole(Concrete.ApplyHoleExpression expr, Expression params) {
-    errorReporter.report(new TypecheckingError("`__` not allowed here", expr));
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `base/src/main/java/org/arend/typechecking/visitor/CheckTypeVisitor.java`
-#### Snippet
-```java
-            }
-            errorReporter.report(new FieldDependencyError(field, found, sourceNode));
-            return null;
-          }
-          fieldSet.put(field, FieldCallExpression.make(field, renewExpr));
-```
-
-### ReturnNull
-Return of `null`
-in `base/src/main/java/org/arend/typechecking/visitor/CheckTypeVisitor.java`
-#### Snippet
-```java
-                  if (classCall.getDefinition().getUniverseKind() != UniverseKind.NO_UNIVERSES && resultClassCall.getDefinition().getUniverseKind() != UniverseKind.NO_UNIVERSES && !resultClassCall.getLevels(classDef).compare(classCall.getLevels(classDef), CMP.EQ, myEquations, pair.proj2.implementation)) {
-                    errorReporter.report(new TypeMismatchError(new ClassCallExpression(classDef, resultClassCall.getLevels(classDef)), classCall, pair.proj2.implementation));
-                    return null;
-                  }
-                  for (ClassField field : classDef.getFields()) {
-```
-
-### ReturnNull
-Return of `null`
-in `base/src/main/java/org/arend/typechecking/visitor/CheckTypeVisitor.java`
-#### Snippet
-```java
-              }
-              if (!visitParameter((Concrete.Parameter) param, null, null, list)) {
-                return null;
-              }
-            }
-```
-
-### ReturnNull
-Return of `null`
-in `base/src/main/java/org/arend/typechecking/visitor/CheckTypeVisitor.java`
-#### Snippet
-```java
-    Function<Expression, Pair<Expression,Boolean>> checker = type -> {
-      if (!(type instanceof SigmaExpression)) {
-        return null;
-      }
-
-```
-
-### ReturnNull
-Return of `null`
-in `base/src/main/java/org/arend/typechecking/visitor/CheckTypeVisitor.java`
-#### Snippet
-```java
-    Pair<Expression,Boolean> pair = checker.apply(expectedTypeNorm);
-    if (pair != null) {
-      return pair.proj1 == null ? null : new TypecheckingResult(pair.proj1, expectedType);
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `base/src/main/java/org/arend/typechecking/visitor/CheckTypeVisitor.java`
-#### Snippet
-```java
-    for (int i = 0; i < expr.getFields().size(); i++) {
-      TypecheckingResult result = checkExpr(expr.getFields().get(i), null);
-      if (result == null) return null;
-      fields.add(result.expression);
-      Sort sort = getSortOfType(result.type, expr);
-```
-
-### ReturnNull
-Return of `null`
-in `base/src/main/java/org/arend/typechecking/visitor/CheckTypeVisitor.java`
-#### Snippet
-```java
-  private SingleDependentLink visitTypeParameter(Concrete.TypeParameter param, List<Sort> sorts, Type expectedType) {
-    Type argResult = checkType(param.getType(), Type.OMEGA);
-    if (argResult == null) return null;
-    if (expectedType != null) {
-      Expression expected = expectedType.getExpr().normalize(NormalizationMode.WHNF).getUnderlyingExpression();
-```
-
-### ReturnNull
-Return of `null`
-in `base/src/main/java/org/arend/typechecking/visitor/CheckTypeVisitor.java`
-#### Snippet
-```java
-    if (typeCheckedDefinition == null) {
-      errorReporter.report(new IncorrectReferenceError(definition, expr));
-      return null;
-    }
-    if (!typeCheckedDefinition.status().headerIsOK()) {
-```
-
-### ReturnNull
-Return of `null`
-in `base/src/main/java/org/arend/typechecking/visitor/CheckTypeVisitor.java`
-#### Snippet
-```java
-    if (!typeCheckedDefinition.status().headerIsOK()) {
-      errorReporter.report(new HasErrors(GeneralError.Level.ERROR, definition, expr));
+    if (!ok || level < -1) {
+      errorReporter.report(new TypecheckingError("\\level has wrong format", sourceNode));
       return null;
     } else {
-      if (typeCheckedDefinition.status().hasDepErrors()) {
+      return level;
+```
+
+### ReturnNull
+Return of `null`
+in `base/src/main/java/org/arend/typechecking/visitor/CheckTypeVisitor.java`
+#### Snippet
+```java
+    } else if (ref instanceof AbstractedReferable) {
+      Expression core = (Expression) substituteAbstractedExpression(((AbstractedReferable) ref).expression, LevelSubstitution.EMPTY, ((AbstractedReferable) ref).arguments, expr);
+      return core == null ? null : new TypecheckingResult(core, core.getType());
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `base/src/main/java/org/arend/typechecking/visitor/CheckTypeVisitor.java`
+#### Snippet
+```java
+
+  private TypecheckingResult makeNew(TypecheckingResult result, Concrete.NewExpression expr, Expression expectedType, Set<ClassField> pseudoImplemented) {
+    if (result == null) return null;
+    Expression normExpr = result.expression.normalize(NormalizationMode.WHNF);
+    ClassCallExpression classCallExpr = normExpr.cast(ClassCallExpression.class);
+```
+
+### ReturnNull
+Return of `null`
+in `base/src/main/java/org/arend/typechecking/visitor/CheckTypeVisitor.java`
+#### Snippet
+```java
+      return checkResult(expectedType, new TypecheckingResult(new NewExpression(null, classCallExpr), classCallExpr), expr);
+    } else {
+      return null;
+    }
+  }
 ```
 
 ### ReturnNull
@@ -22265,9 +22061,129 @@ Return of `null`
 in `base/src/main/java/org/arend/typechecking/visitor/CheckTypeVisitor.java`
 #### Snippet
 ```java
-        }
-        if (!visitParameter((Concrete.TypeParameter) parameter, expectedType, resultSorts, list)) {
+        if (!(idp.getLevels().compare(equality.getLevels(), CMP.LE, myEquations, expr) && visitor.compare(idp.getDefCallArguments().get(0), equality.getDefCallArguments().get(0), Type.OMEGA, false))) {
+          errorReporter.report(new TypeMismatchError(equality, result.type, expr));
           return null;
+        }
+        visitor.setCMP(CMP.EQ);
+```
+
+### ReturnNull
+Return of `null`
+in `base/src/main/java/org/arend/typechecking/visitor/CheckTypeVisitor.java`
+#### Snippet
+```java
+        if (!(visitor.compare(idpArg, left, type, true) && visitor.compare(idpArg, right, type, true))) {
+          errorReporter.report(isNotEqualError ? new NotEqualExpressionsError(left, right, expr) : new TypeMismatchError(equality, result.type, expr));
+          return null;
+        }
+        if (left instanceof ArrayExpression) {
+```
+
+### ReturnNull
+Return of `null`
+in `base/src/main/java/org/arend/typechecking/visitor/CheckTypeVisitor.java`
+#### Snippet
+```java
+    Function<Expression, Pair<Expression,Boolean>> checker = type -> {
+      if (!(type instanceof SigmaExpression)) {
+        return null;
+      }
+
+```
+
+### ReturnNull
+Return of `null`
+in `base/src/main/java/org/arend/typechecking/visitor/CheckTypeVisitor.java`
+#### Snippet
+```java
+    Pair<Expression,Boolean> pair = checker.apply(expectedTypeNorm);
+    if (pair != null) {
+      return pair.proj1 == null ? null : new TypecheckingResult(pair.proj1, expectedType);
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `base/src/main/java/org/arend/typechecking/visitor/CheckTypeVisitor.java`
+#### Snippet
+```java
+    for (int i = 0; i < expr.getFields().size(); i++) {
+      TypecheckingResult result = checkExpr(expr.getFields().get(i), null);
+      if (result == null) return null;
+      fields.add(result.expression);
+      Sort sort = getSortOfType(result.type, expr);
+```
+
+### ReturnNull
+Return of `null`
+in `base/src/main/java/org/arend/typechecking/visitor/CheckTypeVisitor.java`
+#### Snippet
+```java
+      errorReporter.report(new TypeMismatchError(expectedType, result.type, expr));
+    }
+    return null;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `base/src/main/java/org/arend/typechecking/visitor/CheckTypeVisitor.java`
+#### Snippet
+```java
+    var pair2 = provider.coerce(newProvider -> {
+      SingleDependentLink newPiParam = newProvider.nextParameter();
+      if (newPiParam == null) return null;
+      var pair = checker.apply(new Pair<>(newProvider, newPiParam));
+      return new Pair<>(pair.proj1 == null ? null : pair.proj1.expression, pair.proj2);
+```
+
+### ReturnNull
+Return of `null`
+in `base/src/main/java/org/arend/typechecking/visitor/CheckTypeVisitor.java`
+#### Snippet
+```java
+  public Type finalCheckType(Concrete.Expression expr, Expression expectedType, boolean propIfPossible) {
+    Type result = checkType(expr, expectedType);
+    if (result == null) return null;
+    invokeDeferredMetas(null, null, false);
+    LevelEquationsSolver levelSolver = myEquations.makeLevelEquationsSolver();
+```
+
+### ReturnNull
+Return of `null`
+in `base/src/main/java/org/arend/typechecking/visitor/CheckTypeVisitor.java`
+#### Snippet
+```java
+    }
+    if (typeCheckedBaseClass == null) {
+      return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `base/src/main/java/org/arend/typechecking/visitor/CheckTypeVisitor.java`
+#### Snippet
+```java
+    if (classCall == null) {
+      errorReporter.report(new TypecheckingError("Expected a class", expr.getBaseClassExpression()));
+      return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `base/src/main/java/org/arend/typechecking/visitor/CheckTypeVisitor.java`
+#### Snippet
+```java
+        } else {
+          pVar = pVar.max(sort.getPLevel().getVar());
+          if (pVar == null) return null;
         }
       }
 ```
@@ -22277,11 +22193,11 @@ Return of `null`
 in `base/src/main/java/org/arend/typechecking/visitor/CheckTypeVisitor.java`
 #### Snippet
 ```java
-
-  private TypecheckingResult makeNew(TypecheckingResult result, Concrete.NewExpression expr, Expression expectedType, Set<ClassField> pseudoImplemented) {
-    if (result == null) return null;
-    Expression normExpr = result.expression.normalize(NormalizationMode.WHNF);
-    ClassCallExpression classCallExpr = normExpr.cast(ClassCallExpression.class);
+        } else {
+          hVar = hVar.max(sort.getHLevel().getVar());
+          if (hVar == null) return null;
+        }
+      }
 ```
 
 ### ReturnNull
@@ -22289,34 +22205,10 @@ Return of `null`
 in `base/src/main/java/org/arend/typechecking/visitor/CheckTypeVisitor.java`
 #### Snippet
 ```java
-      return checkResult(expectedType, new TypecheckingResult(new NewExpression(null, classCallExpr), classCallExpr), expr);
-    } else {
+    Definition definition = getTypeCheckedDefinition(resolvedDefinition, expr);
+    if (definition == null) {
       return null;
     }
-  }
-```
-
-### ReturnNull
-Return of `null`
-in `base/src/main/java/org/arend/typechecking/visitor/CheckTypeVisitor.java`
-#### Snippet
-```java
-        SingleDependentLink link = visitTypeParameter(arg, sorts, null);
-        if (link == null) {
-          return null;
-        }
-        list.add(link);
-```
-
-### ReturnNull
-Return of `null`
-in `base/src/main/java/org/arend/typechecking/visitor/CheckTypeVisitor.java`
-#### Snippet
-```java
-
-      Type result = checkType(expr.getCodomain(), Type.OMEGA);
-      if (result == null) return null;
-      Sort codSort = result.getSortOfType();
 
 ```
 
@@ -22361,11 +22253,11 @@ Return of `null`
 in `base/src/main/java/org/arend/typechecking/visitor/CheckTypeVisitor.java`
 #### Snippet
 ```java
-    if (!stack.isEmpty()) {
-      Pair<Expression,T> pair = checker.apply(curType);
-      if (pair == null) return null;
-      Expression curExpr = pair.proj1;
-      if (curExpr == null) return new Pair<>(null, pair.proj2);
+  private Definition referableToDefinition(Referable referable, Concrete.SourceNode sourceNode) {
+    if (referable == null || referable instanceof ErrorReference) {
+      return null;
+    }
+
 ```
 
 ### ReturnNull
@@ -22373,11 +22265,119 @@ Return of `null`
 in `base/src/main/java/org/arend/typechecking/visitor/CheckTypeVisitor.java`
 #### Snippet
 ```java
-      return new Pair<>(new TypecheckingResult(stack.get(0), expectedType), pair.proj2);
+        errorReporter.report(new WrongReferable("Expected a definition", referable, sourceNode));
+      }
+      return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `base/src/main/java/org/arend/typechecking/visitor/CheckTypeVisitor.java`
+#### Snippet
+```java
+  public TypecheckingResult visitThis(Concrete.ThisExpression expr, Expression expectedType) {
+    errorReporter.report(new TypecheckingError("\\this expressions are allowed only in appropriate arguments of definitions and class extensions", expr));
+    return null;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `base/src/main/java/org/arend/typechecking/visitor/CheckTypeVisitor.java`
+#### Snippet
+```java
+  public TypecheckingResult visitProj(Concrete.ProjExpression expr, Expression expectedType) {
+    TypecheckingResult exprResult = checkExpr(expr.expression, null);
+    if (exprResult == null) return null;
+    exprResult.type = exprResult.type.normalize(NormalizationMode.WHNF);
+
+```
+
+### ReturnNull
+Return of `null`
+in `base/src/main/java/org/arend/typechecking/visitor/CheckTypeVisitor.java`
+#### Snippet
+```java
+        SingleDependentLink link = visitTypeParameter(arg, sorts, null);
+        if (link == null) {
+          return null;
+        }
+        list.add(link);
+```
+
+### ReturnNull
+Return of `null`
+in `base/src/main/java/org/arend/typechecking/visitor/CheckTypeVisitor.java`
+#### Snippet
+```java
+
+      Type result = checkType(expr.getCodomain(), Type.OMEGA);
+      if (result == null) return null;
+      Sort codSort = result.getSortOfType();
+
+```
+
+### ReturnNull
+Return of `null`
+in `base/src/main/java/org/arend/typechecking/visitor/CheckTypeVisitor.java`
+#### Snippet
+```java
+    TResult result = visitReference(expr);
+    if (result == null || !checkPath(result, expr)) {
+      return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `base/src/main/java/org/arend/typechecking/visitor/CheckTypeVisitor.java`
+#### Snippet
+```java
+    Definition definition = referableToDefinition(referable, sourceNode);
+    if (definition == null) {
+      return null;
+    }
+    if (clazz.isInstance(definition)) {
+```
+
+### ReturnNull
+Return of `null`
+in `base/src/main/java/org/arend/typechecking/visitor/CheckTypeVisitor.java`
+#### Snippet
+```java
+      errorReporter.report(new WrongReferable(errorMsg, referable, sourceNode));
     }
     return null;
   }
 
+```
+
+### ReturnNull
+Return of `null`
+in `base/src/main/java/org/arend/typechecking/visitor/CheckTypeVisitor.java`
+#### Snippet
+```java
+  public TypecheckingResult visitBox(Concrete.BoxExpression expr, Expression expectedType) {
+    TypecheckingResult result = checkExpr(expr.getExpression(), expectedType);
+    if (result == null) return null;
+    Expression typeType = result.type.getType();
+    Expression expectedTypeType = new UniverseExpression(Sort.PROP);
+```
+
+### ReturnNull
+Return of `null`
+in `base/src/main/java/org/arend/typechecking/visitor/CheckTypeVisitor.java`
+#### Snippet
+```java
+      Sort sort = typeType.toSort();
+      errorReporter.report(sort != null ? new TypecheckingError("The type of the expression should live in \\Prop, but lives in " + sort, expr) : new TypeMismatchError("The type of the expression does not live in \\Prop", expectedTypeType, typeType, expr));
+      return null;
+    }
+    return new TypecheckingResult(BoxExpression.make(result.expression), result.type);
 ```
 
 ## RuleId[ruleID=AssignmentToLambdaParameter]
@@ -22569,8 +22569,8 @@ in `base/src/main/java/org/arend/typechecking/order/listener/CollectingOrderingL
 ```java
   }
 
-  private static class MyClass implements Element {
-    private final Concrete.ClassDefinition definition;
+  private static class MyHeader implements Element {
+    final Concrete.Definition definition;
 
 ```
 
@@ -22605,8 +22605,8 @@ in `base/src/main/java/org/arend/typechecking/order/listener/CollectingOrderingL
 ```java
   }
 
-  private static class MyHeader implements Element {
-    final Concrete.Definition definition;
+  private static class MyClass implements Element {
+    private final Concrete.ClassDefinition definition;
 
 ```
 
