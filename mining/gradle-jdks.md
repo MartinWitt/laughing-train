@@ -62,18 +62,6 @@ in `gradle-jdks/src/main/java/com/palantir/gradle/jdks/JdkManager.java`
 
 ## RuleId[ruleID=AbstractClassNeverImplemented]
 ### AbstractClassNeverImplemented
-Abstract class `JdkDistributionExtension` has no concrete subclass
-in `gradle-jdks/src/main/java/com/palantir/gradle/jdks/JdkDistributionExtension.java`
-#### Snippet
-```java
-import org.gradle.api.provider.Property;
-
-public abstract class JdkDistributionExtension {
-    public abstract Property<String> getBaseUrl();
-}
-```
-
-### AbstractClassNeverImplemented
 Abstract class `GradleJdksJavaInstallationMetadata` has no concrete subclass
 in `gradle-jdks/src/main/java/com/palantir/gradle/jdks/GradleJdksJavaInstallationMetadata.java`
 #### Snippet
@@ -83,6 +71,18 @@ in `gradle-jdks/src/main/java/com/palantir/gradle/jdks/GradleJdksJavaInstallatio
 abstract class GradleJdksJavaInstallationMetadata implements JavaInstallationMetadata {
     protected abstract Provider<Directory> installationPathProvider();
 
+```
+
+### AbstractClassNeverImplemented
+Abstract class `JdkDistributionExtension` has no concrete subclass
+in `gradle-jdks/src/main/java/com/palantir/gradle/jdks/JdkDistributionExtension.java`
+#### Snippet
+```java
+import org.gradle.api.provider.Property;
+
+public abstract class JdkDistributionExtension {
+    public abstract Property<String> getBaseUrl();
+}
 ```
 
 ### AbstractClassNeverImplemented
@@ -125,18 +125,6 @@ in `gradle-jdks/src/main/java/com/palantir/gradle/jdks/JdksExtension.java`
 ## RuleId[ruleID=CodeBlock2Expr]
 ### CodeBlock2Expr
 Statement lambda can be replaced with expression lambda
-in `gradle-jdks/src/main/java/com/palantir/gradle/jdks/JdkDownloader.java`
-#### Snippet
-```java
-            ivy.patternLayout(patternLayout -> patternLayout.artifact("[module].[ext]"));
-            ivy.metadataSources(MetadataSources::artifact);
-            ivy.content(repositoryContentDescriptor -> {
-                repositoryContentDescriptor.includeGroup(jdkGroup);
-            });
-```
-
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
 in `gradle-jdks/src/main/java/com/palantir/gradle/jdks/JdksPlugin.java`
 #### Snippet
 ```java
@@ -173,6 +161,18 @@ in `gradle-jdks/src/main/java/com/palantir/gradle/jdks/CaCerts.java`
 
 ### CodeBlock2Expr
 Statement lambda can be replaced with expression lambda
+in `gradle-jdks/src/main/java/com/palantir/gradle/jdks/JdkDownloader.java`
+#### Snippet
+```java
+            ivy.patternLayout(patternLayout -> patternLayout.artifact("[module].[ext]"));
+            ivy.metadataSources(MetadataSources::artifact);
+            ivy.content(repositoryContentDescriptor -> {
+                repositoryContentDescriptor.includeGroup(jdkGroup);
+            });
+```
+
+### CodeBlock2Expr
+Statement lambda can be replaced with expression lambda
 in `gradle-jdks/src/main/java/com/palantir/gradle/jdks/JdkManager.java`
 #### Snippet
 ```java
@@ -184,54 +184,6 @@ in `gradle-jdks/src/main/java/com/palantir/gradle/jdks/JdkManager.java`
 ```
 
 ## RuleId[ruleID=UnstableApiUsage]
-### UnstableApiUsage
-'com.google.common.util.concurrent.Striped' is marked unstable with @Beta
-in `gradle-jdks/src/main/java/com/palantir/gradle/jdks/JdkManager.java`
-#### Snippet
-```java
-     */
-    private static final class PathLock implements Closeable {
-        private static final Striped<Lock> JVM_LOCKS = Striped.lock(16);
-        private final Closer closer;
-
-```
-
-### UnstableApiUsage
-'com.google.common.util.concurrent.Striped' is marked unstable with @Beta
-in `gradle-jdks/src/main/java/com/palantir/gradle/jdks/JdkManager.java`
-#### Snippet
-```java
-     */
-    private static final class PathLock implements Closeable {
-        private static final Striped<Lock> JVM_LOCKS = Striped.lock(16);
-        private final Closer closer;
-
-```
-
-### UnstableApiUsage
-'lock(int)' is declared in unstable class 'com.google.common.util.concurrent.Striped' marked with @Beta
-in `gradle-jdks/src/main/java/com/palantir/gradle/jdks/JdkManager.java`
-#### Snippet
-```java
-     */
-    private static final class PathLock implements Closeable {
-        private static final Striped<Lock> JVM_LOCKS = Striped.lock(16);
-        private final Closer closer;
-
-```
-
-### UnstableApiUsage
-'close()' is declared in unstable class 'com.google.common.io.Closer' marked with @Beta
-in `gradle-jdks/src/main/java/com/palantir/gradle/jdks/JdkManager.java`
-#### Snippet
-```java
-        @Override
-        public void close() throws IOException {
-            closer.close();
-        }
-    }
-```
-
 ### UnstableApiUsage
 'com.google.common.io.Closer' is marked unstable with @Beta
 in `gradle-jdks/src/main/java/com/palantir/gradle/jdks/JdkManager.java`
@@ -326,5 +278,53 @@ in `gradle-jdks/src/main/java/com/palantir/gradle/jdks/JdkManager.java`
         private final Closer closer;
 
         PathLock(Path path) throws IOException {
+```
+
+### UnstableApiUsage
+'close()' is declared in unstable class 'com.google.common.io.Closer' marked with @Beta
+in `gradle-jdks/src/main/java/com/palantir/gradle/jdks/JdkManager.java`
+#### Snippet
+```java
+        @Override
+        public void close() throws IOException {
+            closer.close();
+        }
+    }
+```
+
+### UnstableApiUsage
+'com.google.common.util.concurrent.Striped' is marked unstable with @Beta
+in `gradle-jdks/src/main/java/com/palantir/gradle/jdks/JdkManager.java`
+#### Snippet
+```java
+     */
+    private static final class PathLock implements Closeable {
+        private static final Striped<Lock> JVM_LOCKS = Striped.lock(16);
+        private final Closer closer;
+
+```
+
+### UnstableApiUsage
+'com.google.common.util.concurrent.Striped' is marked unstable with @Beta
+in `gradle-jdks/src/main/java/com/palantir/gradle/jdks/JdkManager.java`
+#### Snippet
+```java
+     */
+    private static final class PathLock implements Closeable {
+        private static final Striped<Lock> JVM_LOCKS = Striped.lock(16);
+        private final Closer closer;
+
+```
+
+### UnstableApiUsage
+'lock(int)' is declared in unstable class 'com.google.common.util.concurrent.Striped' marked with @Beta
+in `gradle-jdks/src/main/java/com/palantir/gradle/jdks/JdkManager.java`
+#### Snippet
+```java
+     */
+    private static final class PathLock implements Closeable {
+        private static final Striped<Lock> JVM_LOCKS = Striped.lock(16);
+        private final Closer closer;
+
 ```
 
