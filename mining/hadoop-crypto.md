@@ -30,6 +30,43 @@ in `hadoop-crypto/src/main/java/com/palantir/crypto2/hadoop/StandaloneEncryptedF
 
 ```
 
+## RuleId[ruleID=OptionalUsedAsFieldOrParameterType]
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'first'
+in `hadoop-crypto/src/main/java/com/palantir/crypto2/hadoop/EncryptedFileSystem.java`
+#### Snippet
+```java
+    }
+
+    private static <T> Optional<T> findFirst(Optional<T> first, Optional<T> second) {
+        if (first.isPresent()) {
+            return first;
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'second'
+in `hadoop-crypto/src/main/java/com/palantir/crypto2/hadoop/EncryptedFileSystem.java`
+#### Snippet
+```java
+    }
+
+    private static <T> Optional<T> findFirst(Optional<T> first, Optional<T> second) {
+        if (first.isPresent()) {
+            return first;
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for field 'privateKey'
+in `hadoop-crypto/src/main/java/com/palantir/crypto2/hadoop/FileKeyStorageStrategy.java`
+#### Snippet
+```java
+    private final FileSystem fs;
+    private final PublicKey publicKey;
+    private final Optional<PrivateKey> privateKey;
+
+    public FileKeyStorageStrategy(FileSystem fs, KeyPair keyPair) {
+```
+
 ## RuleId[ruleID=IOResource]
 ### IOResource
 'DataInputStream' should be opened in front of a 'try' block and closed in the corresponding 'finally' block
@@ -79,53 +116,16 @@ in `crypto-keys/src/main/java/com/palantir/crypto2/keys/serialization/KeySeriali
 
 ```
 
-## RuleId[ruleID=OptionalUsedAsFieldOrParameterType]
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'privateKey'
-in `hadoop-crypto/src/main/java/com/palantir/crypto2/hadoop/FileKeyStorageStrategy.java`
-#### Snippet
-```java
-    private final FileSystem fs;
-    private final PublicKey publicKey;
-    private final Optional<PrivateKey> privateKey;
-
-    public FileKeyStorageStrategy(FileSystem fs, KeyPair keyPair) {
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'first'
-in `hadoop-crypto/src/main/java/com/palantir/crypto2/hadoop/EncryptedFileSystem.java`
-#### Snippet
-```java
-    }
-
-    private static <T> Optional<T> findFirst(Optional<T> first, Optional<T> second) {
-        if (first.isPresent()) {
-            return first;
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'second'
-in `hadoop-crypto/src/main/java/com/palantir/crypto2/hadoop/EncryptedFileSystem.java`
-#### Snippet
-```java
-    }
-
-    private static <T> Optional<T> findFirst(Optional<T> first, Optional<T> second) {
-        if (first.isPresent()) {
-            return first;
-```
-
 ## RuleId[ruleID=RedundantMethodOverride]
 ### RedundantMethodOverride
-Method `seek()` only delegates to its super method
-in `crypto-core/src/main/java/com/palantir/crypto2/io/ApacheCtrDecryptingSeekableInput.java`
+Method `initialize()` only delegates to its super method
+in `hadoop-crypto/src/main/java/com/palantir/crypto2/hadoop/EncryptedFileSystem.java`
 #### Snippet
 ```java
 
     @Override
-    public void seek(long offset) throws IOException {
-        super.seek(offset);
+    public void initialize(URI name, Configuration conf) throws IOException {
+        super.initialize(name, conf);
     }
 ```
 
@@ -142,6 +142,18 @@ in `crypto-core/src/main/java/com/palantir/crypto2/io/ApacheCtrDecryptingSeekabl
 ```
 
 ### RedundantMethodOverride
+Method `seek()` only delegates to its super method
+in `crypto-core/src/main/java/com/palantir/crypto2/io/ApacheCtrDecryptingSeekableInput.java`
+#### Snippet
+```java
+
+    @Override
+    public void seek(long offset) throws IOException {
+        super.seek(offset);
+    }
+```
+
+### RedundantMethodOverride
 Method `close()` only delegates to its super method
 in `crypto-core/src/main/java/com/palantir/crypto2/io/ApacheCtrDecryptingSeekableInput.java`
 #### Snippet
@@ -150,18 +162,6 @@ in `crypto-core/src/main/java/com/palantir/crypto2/io/ApacheCtrDecryptingSeekabl
     @Override
     public void close() throws IOException {
         super.close();
-    }
-```
-
-### RedundantMethodOverride
-Method `initialize()` only delegates to its super method
-in `hadoop-crypto/src/main/java/com/palantir/crypto2/hadoop/EncryptedFileSystem.java`
-#### Snippet
-```java
-
-    @Override
-    public void initialize(URI name, Configuration conf) throws IOException {
-        super.initialize(name, conf);
     }
 ```
 
@@ -180,18 +180,6 @@ in `crypto-core/src/main/java/com/palantir/crypto2/io/ApacheCtrDecryptingSeekabl
 
 ## RuleId[ruleID=UnnecessaryFullyQualifiedName]
 ### UnnecessaryFullyQualifiedName
-Qualifier `javax.crypto` is unnecessary and can be removed
-in `crypto-keys/src/main/java/com/palantir/crypto2/keys/serialization/SymmetricKeySerializer.java`
-#### Snippet
-```java
-public interface SymmetricKeySerializer {
-    /**
-     * Serializes the given {@link KeyMaterial} and wraps the {@link javax.crypto.SecretKey} using the provided {@link
-     * SecretKey}. The produced {@code byte[]} can be unwrapped and deserialized using {@link #unwrap}.
-     */
-```
-
-### UnnecessaryFullyQualifiedName
 Qualifier `org.apache.hadoop.conf` is unnecessary and can be removed
 in `hadoop-crypto/src/main/java/com/palantir/crypto2/hadoop/EncryptedFileSystem.java`
 #### Snippet
@@ -201,6 +189,18 @@ in `hadoop-crypto/src/main/java/com/palantir/crypto2/hadoop/EncryptedFileSystem.
  * org.apache.hadoop.conf.Configuration} to the desired {@link SeekableCipher} algorithm. If no algorithm is set then
  * {@link #DEFAULT_CIPHER_ALGORITHM} will be used. The symmetric key used to encrypt each file is stored and retrieved
  * using the provided {@link KeyStorageStrategy}.
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `javax.crypto` is unnecessary and can be removed
+in `crypto-keys/src/main/java/com/palantir/crypto2/keys/serialization/SymmetricKeySerializer.java`
+#### Snippet
+```java
+public interface SymmetricKeySerializer {
+    /**
+     * Serializes the given {@link KeyMaterial} and wraps the {@link javax.crypto.SecretKey} using the provided {@link
+     * SecretKey}. The produced {@code byte[]} can be unwrapped and deserialized using {@link #unwrap}.
+     */
 ```
 
 ## RuleId[ruleID=DeprecatedIsStillUsed]
@@ -217,18 +217,6 @@ public final class FsCipherOutputStream extends FilterOutputStream {
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'SymmetricKeySerializerV3' is still used
-in `crypto-keys/src/main/java/com/palantir/crypto2/keys/serialization/SymmetricKeySerializerV3.java`
-#### Snippet
-```java
- */
-@Deprecated
-enum SymmetricKeySerializerV3 implements SymmetricKeySerializer {
-    INSTANCE;
-
-```
-
-### DeprecatedIsStillUsed
 Deprecated member 'getCipher' is still used
 in `crypto-core/src/main/java/com/palantir/crypto2/cipher/SeekableCipherFactory.java`
 #### Snippet
@@ -241,13 +229,13 @@ in `crypto-core/src/main/java/com/palantir/crypto2/cipher/SeekableCipherFactory.
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'KeySerializerV1' is still used
-in `crypto-keys/src/main/java/com/palantir/crypto2/keys/serialization/KeySerializerV1.java`
+Deprecated member 'SymmetricKeySerializerV3' is still used
+in `crypto-keys/src/main/java/com/palantir/crypto2/keys/serialization/SymmetricKeySerializerV3.java`
 #### Snippet
 ```java
  */
 @Deprecated
-enum KeySerializerV1 implements KeySerializer {
+enum SymmetricKeySerializerV3 implements SymmetricKeySerializer {
     INSTANCE;
 
 ```
@@ -262,6 +250,18 @@ in `hadoop-crypto/src/main/java/com/palantir/crypto2/hadoop/EncryptedFileSystem.
     public static final String DEPRECATED_CIPHER_ALGORITHM_KEY = "fs.cipher";
 
     public static final String CIPHER_ALGORITHM_KEY = "fs.efs.cipher";
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'KeySerializerV1' is still used
+in `crypto-keys/src/main/java/com/palantir/crypto2/keys/serialization/KeySerializerV1.java`
+#### Snippet
+```java
+ */
+@Deprecated
+enum KeySerializerV1 implements KeySerializer {
+    INSTANCE;
+
 ```
 
 ## RuleId[ruleID=Convert2Lambda]
@@ -293,18 +293,6 @@ in `crypto-core/src/main/java/com/palantir/crypto2/io/ApacheCtrDecryptingSeekabl
 ## RuleId[ruleID=SizeReplaceableByIsEmpty]
 ### SizeReplaceableByIsEmpty
 `strategies.size() > 0` can be replaced with '!strategies.isEmpty()'
-in `crypto-keys/src/main/java/com/palantir/crypto2/keys/ChainedKeyStorageStrategy.java`
-#### Snippet
-```java
-
-    public ChainedKeyStorageStrategy(List<KeyStorageStrategy> strategies) {
-        Preconditions.checkArgument(strategies.size() > 0, "Must specify at least one storage strategy");
-        this.strategies = ImmutableList.copyOf(strategies);
-    }
-```
-
-### SizeReplaceableByIsEmpty
-`strategies.size() > 0` can be replaced with '!strategies.isEmpty()'
 in `crypto-keys/src/main/java/com/palantir/crypto2/keys/ChainedAsyncKeyStorageStrategy.java`
 #### Snippet
 ```java
@@ -315,19 +303,32 @@ in `crypto-keys/src/main/java/com/palantir/crypto2/keys/ChainedAsyncKeyStorageSt
         this.strategies = ImmutableList.copyOf(strategies);
 ```
 
-## RuleId[ruleID=BoundedWildcard]
-### BoundedWildcard
-Can generalize to `? super AsyncKeyStorageStrategy`
-in `crypto-keys/src/main/java/com/palantir/crypto2/keys/ChainedAsyncKeyStorageStrategy.java`
+### SizeReplaceableByIsEmpty
+`strategies.size() > 0` can be replaced with '!strategies.isEmpty()'
+in `crypto-keys/src/main/java/com/palantir/crypto2/keys/ChainedKeyStorageStrategy.java`
 #### Snippet
 ```java
-    }
 
-    private CompletableFuture<Void> applyToStrategies(Function<AsyncKeyStorageStrategy, CompletableFuture<?>> mapper) {
-        CompletableFuture<?>[] futures = strategies.stream().map(mapper).toArray(CompletableFuture[]::new);
-        return CompletableFuture.allOf(futures);
+    public ChainedKeyStorageStrategy(List<KeyStorageStrategy> strategies) {
+        Preconditions.checkArgument(strategies.size() > 0, "Must specify at least one storage strategy");
+        this.strategies = ImmutableList.copyOf(strategies);
+    }
 ```
 
+## RuleId[ruleID=AbstractClassNeverImplemented]
+### AbstractClassNeverImplemented
+Abstract class `KeyMaterial` has no concrete subclass
+in `crypto-keys/src/main/java/com/palantir/crypto2/keys/KeyMaterial.java`
+#### Snippet
+```java
+@Value.Immutable
+@Value.Style(visibility = Value.Style.ImplementationVisibility.PACKAGE, jdkOnly = true)
+public abstract class KeyMaterial {
+
+    @Value.Parameter
+```
+
+## RuleId[ruleID=BoundedWildcard]
 ### BoundedWildcard
 Can generalize to `? super Path`
 in `hadoop-crypto/src/main/java/com/palantir/crypto2/hadoop/PathConvertingFileSystem.java`
@@ -388,17 +389,16 @@ in `hadoop-crypto/src/main/java/com/palantir/crypto2/hadoop/PathConvertingFileSy
         this.delegate = delegate;
 ```
 
-## RuleId[ruleID=AbstractClassNeverImplemented]
-### AbstractClassNeverImplemented
-Abstract class `KeyMaterial` has no concrete subclass
-in `crypto-keys/src/main/java/com/palantir/crypto2/keys/KeyMaterial.java`
+### BoundedWildcard
+Can generalize to `? super AsyncKeyStorageStrategy`
+in `crypto-keys/src/main/java/com/palantir/crypto2/keys/ChainedAsyncKeyStorageStrategy.java`
 #### Snippet
 ```java
-@Value.Immutable
-@Value.Style(visibility = Value.Style.ImplementationVisibility.PACKAGE, jdkOnly = true)
-public abstract class KeyMaterial {
+    }
 
-    @Value.Parameter
+    private CompletableFuture<Void> applyToStrategies(Function<AsyncKeyStorageStrategy, CompletableFuture<?>> mapper) {
+        CompletableFuture<?>[] futures = strategies.stream().map(mapper).toArray(CompletableFuture[]::new);
+        return CompletableFuture.allOf(futures);
 ```
 
 ## RuleId[ruleID=UnstableApiUsage]
