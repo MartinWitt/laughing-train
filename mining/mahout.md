@@ -174,18 +174,6 @@ in `core/src/main/java/org/apache/mahout/math/VectorBinaryAggregate.java`
 
 ## RuleId[ruleID=StaticInitializerReferencesSubClass]
 ### StaticInitializerReferencesSubClass
-Referencing subclass AggregateAllLoop from superclass VectorBinaryAggregate initializer might lead to class loading deadlock
-in `core/src/main/java/org/apache/mahout/math/VectorBinaryAggregate.java`
-#### Snippet
-```java
-    new AggregateAllIterateThisLookupThat(),
-    new AggregateAllIterateThatLookupThis(),
-    new AggregateAllLoop(),
-  };
-
-```
-
-### StaticInitializerReferencesSubClass
 Referencing subclass AssignAllLoopInplaceUpdates from superclass VectorBinaryAssign initializer might lead to class loading deadlock
 in `core/src/main/java/org/apache/mahout/math/VectorBinaryAssign.java`
 #### Snippet
@@ -197,7 +185,31 @@ in `core/src/main/java/org/apache/mahout/math/VectorBinaryAssign.java`
 
 ```
 
+### StaticInitializerReferencesSubClass
+Referencing subclass AggregateAllLoop from superclass VectorBinaryAggregate initializer might lead to class loading deadlock
+in `core/src/main/java/org/apache/mahout/math/VectorBinaryAggregate.java`
+#### Snippet
+```java
+    new AggregateAllIterateThisLookupThat(),
+    new AggregateAllIterateThatLookupThis(),
+    new AggregateAllLoop(),
+  };
+
+```
+
 ## RuleId[ruleID=DeprecatedIsStillUsed]
+### DeprecatedIsStillUsed
+Deprecated member 'SparseColumnMatrix' is still used
+in `core/src/main/java/org/apache/mahout/math/SparseColumnMatrix.java`
+#### Snippet
+```java
+ * @deprecated tons of inconsistences. Use transpose view of SparseRowMatrix for fast column-wise iteration.
+ */
+public class SparseColumnMatrix extends AbstractMatrix {
+
+  private Vector[] columnVectors;
+```
+
 ### DeprecatedIsStillUsed
 Deprecated member 'LanczosState' is still used
 in `core/src/main/java/org/apache/mahout/math/decomposer/lanczos/LanczosState.java`
@@ -220,18 +232,6 @@ in `core/src/main/java/org/apache/mahout/math/decomposer/lanczos/LanczosSolver.j
 public class LanczosSolver {
 
   private static final Logger log = LoggerFactory.getLogger(LanczosSolver.class);
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'SparseColumnMatrix' is still used
-in `core/src/main/java/org/apache/mahout/math/SparseColumnMatrix.java`
-#### Snippet
-```java
- * @deprecated tons of inconsistences. Use transpose view of SparseRowMatrix for fast column-wise iteration.
- */
-public class SparseColumnMatrix extends AbstractMatrix {
-
-  private Vector[] columnVectors;
 ```
 
 ## RuleId[ruleID=MethodOverloadsParentMethod]
@@ -262,18 +262,6 @@ in `core/src/main/java/org/apache/mahout/math/DenseMatrix.java`
 ## RuleId[ruleID=CommentedOutCode]
 ### CommentedOutCode
 Commented out code (2 lines)
-in `core/src/main/java/org/apache/mahout/math/Vector.java`
-#### Snippet
-```java
-  // void foreachNonZero(IntDoubleFunction f);
-  // DoubleDoubleFunction map);
-  // NewVector assign(Vector y, DoubleDoubleFunction function, IntArrayList
-  // nonZeroIndexes);
-
-```
-
-### CommentedOutCode
-Commented out code (2 lines)
 in `core/src/main/java/org/apache/mahout/math/FileBasedSparseBinaryMatrix.java`
 #### Snippet
 ```java
@@ -282,6 +270,18 @@ in `core/src/main/java/org/apache/mahout/math/FileBasedSparseBinaryMatrix.java`
 //      final SparseBinaryVector v = new SparseBinaryVector(buffers.get(buffer), columns, offset, size);
 //      this.rows.add(v);
       offset += size * 4;
+```
+
+### CommentedOutCode
+Commented out code (2 lines)
+in `core/src/main/java/org/apache/mahout/math/Vector.java`
+#### Snippet
+```java
+  // void foreachNonZero(IntDoubleFunction f);
+  // DoubleDoubleFunction map);
+  // NewVector assign(Vector y, DoubleDoubleFunction function, IntArrayList
+  // nonZeroIndexes);
+
 ```
 
 ### CommentedOutCode
@@ -381,18 +381,6 @@ in `core/src/main/java/org/apache/mahout/math/jet/stat/Gamma.java`
 ```
 
 ### CommentedOutCode
-Commented out code (17 lines)
-in `core/src/main/java/org/apache/mahout/math/stats/OnlineSummarizer.java`
-#### Snippet
-```java
-  }
-
-//  public double getMin() {
-//    return getQuartile(0);
-//  }
-```
-
-### CommentedOutCode
 Commented out code (6 lines)
 in `core/src/main/java/org/apache/mahout/math/jet/random/sampling/RandomSampler.java`
 #### Snippet
@@ -402,6 +390,18 @@ in `core/src/main/java/org/apache/mahout/math/jet/random/sampling/RandomSampler.
       /*
       // invert
       for (int iter=0; iter<S && count > 0; iter++) {
+```
+
+### CommentedOutCode
+Commented out code (17 lines)
+in `core/src/main/java/org/apache/mahout/math/stats/OnlineSummarizer.java`
+#### Snippet
+```java
+  }
+
+//  public double getMin() {
+//    return getQuartile(0);
+//  }
 ```
 
 ### CommentedOutCode
@@ -504,6 +504,18 @@ in `core/src/main/java/org/apache/mahout/math/SingularValueDecomposition.java`
 ## RuleId[ruleID=RefusedBequest]
 ### RefusedBequest
 Method `clone()` does not call 'super.clone()'
+in `engine/hdfs/src/main/java/org/apache/mahout/math/VarIntWritable.java`
+#### Snippet
+```java
+
+  @Override
+  public VarIntWritable clone() {
+    return new VarIntWritable(value);
+  }
+```
+
+### RefusedBequest
+Method `clone()` does not call 'super.clone()'
 in `core/src/main/java/org/apache/mahout/math/RandomAccessSparseVector.java`
 #### Snippet
 ```java
@@ -538,18 +550,6 @@ in `core/src/main/java/org/apache/mahout/math/list/ObjectArrayList.java`
     return new ObjectArrayList<>((T[]) elements.clone());
 ```
 
-### RefusedBequest
-Method `clone()` does not call 'super.clone()'
-in `engine/hdfs/src/main/java/org/apache/mahout/math/VarIntWritable.java`
-#### Snippet
-```java
-
-  @Override
-  public VarIntWritable clone() {
-    return new VarIntWritable(value);
-  }
-```
-
 ## RuleId[ruleID=StaticPseudoFunctionalStyleMethod]
 ### StaticPseudoFunctionalStyleMethod
 Pseudo functional style code
@@ -578,18 +578,6 @@ in `core/src/main/java/org/apache/mahout/math/DenseVector.java`
 
 ## RuleId[ruleID=NonSynchronizedMethodOverridesSynchronizedMethod]
 ### NonSynchronizedMethodOverridesSynchronizedMethod
-Unsynchronized method `setSeed()` overrides synchronized method
-in `core/src/main/java/org/apache/mahout/common/RandomWrapper.java`
-#### Snippet
-```java
-
-  @Override
-  public void setSeed(long seed) {
-    // Since this will be called by the java.util.Random() constructor before we construct
-    // the delegate... and because we don't actually care about the result of this for our
-```
-
-### NonSynchronizedMethodOverridesSynchronizedMethod
 Unsynchronized method `nextGaussian()` overrides synchronized method
 in `core/src/main/java/org/apache/mahout/common/RandomWrapper.java`
 #### Snippet
@@ -601,19 +589,19 @@ in `core/src/main/java/org/apache/mahout/common/RandomWrapper.java`
   }
 ```
 
-## RuleId[ruleID=NonSerializableFieldInSerializableClass]
-### NonSerializableFieldInSerializableClass
-Non-serializable field 'table' in a Serializable class
-in `core/src/main/java/org/apache/mahout/math/set/OpenHashSet.java`
+### NonSynchronizedMethodOverridesSynchronizedMethod
+Unsynchronized method `setSeed()` overrides synchronized method
+in `core/src/main/java/org/apache/mahout/common/RandomWrapper.java`
 #### Snippet
 ```java
 
-  /** The hash table keys. */
-  private Object[] table;
-
-  /** The state of each hash table entry (FREE, FULL, REMOVED). */
+  @Override
+  public void setSeed(long seed) {
+    // Since this will be called by the java.util.Random() constructor before we construct
+    // the delegate... and because we don't actually care about the result of this for our
 ```
 
+## RuleId[ruleID=NonSerializableFieldInSerializableClass]
 ### NonSerializableFieldInSerializableClass
 Non-serializable field 'elements' in a Serializable class
 in `core/src/main/java/org/apache/mahout/math/list/ObjectArrayList.java`
@@ -650,6 +638,18 @@ in `core/src/main/java/org/apache/mahout/math/map/OpenHashMap.java`
   /** The hash table values. */
 ```
 
+### NonSerializableFieldInSerializableClass
+Non-serializable field 'table' in a Serializable class
+in `core/src/main/java/org/apache/mahout/math/set/OpenHashSet.java`
+#### Snippet
+```java
+
+  /** The hash table keys. */
+  private Object[] table;
+
+  /** The state of each hash table entry (FREE, FULL, REMOVED). */
+```
+
 ## RuleId[ruleID=StringBufferReplaceableByString]
 ### StringBufferReplaceableByString
 `StringBuilder bldr` can be replaced with 'String'
@@ -665,18 +665,6 @@ in `core/src/main/java/org/apache/mahout/math/NamedVector.java`
 
 ## RuleId[ruleID=NonShortCircuitBoolean]
 ### NonShortCircuitBoolean
-Non-short-circuit boolean expression `anyAdded |= added`
-in `core/src/main/java/org/apache/mahout/math/set/OpenHashSet.java`
-#### Snippet
-```java
-    for (T o : c) {
-      boolean added = add(o);
-      anyAdded |= added;
-    }
-    return anyAdded;
-```
-
-### NonShortCircuitBoolean
 Non-short-circuit boolean expression `anyRemoved |= removed`
 in `core/src/main/java/org/apache/mahout/math/set/OpenHashSet.java`
 #### Snippet
@@ -686,6 +674,18 @@ in `core/src/main/java/org/apache/mahout/math/set/OpenHashSet.java`
       anyRemoved |= removed;
     }
     return anyRemoved;
+```
+
+### NonShortCircuitBoolean
+Non-short-circuit boolean expression `anyAdded |= added`
+in `core/src/main/java/org/apache/mahout/math/set/OpenHashSet.java`
+#### Snippet
+```java
+    for (T o : c) {
+      boolean added = add(o);
+      anyAdded |= added;
+    }
+    return anyAdded;
 ```
 
 ## RuleId[ruleID=ManualMinMaxCalculation]
@@ -908,6 +908,54 @@ in `core/src/main/java/org/apache/mahout/math/DenseVector.java`
 
 ## RuleId[ruleID=BoundedWildcard]
 ### BoundedWildcard
+Can generalize to `? super String`
+in `engine/hdfs/src/main/java/org/apache/mahout/math/MatrixWritable.java`
+#### Snippet
+```java
+
+  public static void readLabels(DataInput in,
+                                Map<String, Integer> columnLabelBindings,
+                                Map<String, Integer> rowLabelBindings) throws IOException {
+    int colSize = in.readInt();
+```
+
+### BoundedWildcard
+Can generalize to `? super Integer`
+in `engine/hdfs/src/main/java/org/apache/mahout/math/MatrixWritable.java`
+#### Snippet
+```java
+
+  public static void readLabels(DataInput in,
+                                Map<String, Integer> columnLabelBindings,
+                                Map<String, Integer> rowLabelBindings) throws IOException {
+    int colSize = in.readInt();
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `engine/hdfs/src/main/java/org/apache/mahout/math/MatrixWritable.java`
+#### Snippet
+```java
+  public static void readLabels(DataInput in,
+                                Map<String, Integer> columnLabelBindings,
+                                Map<String, Integer> rowLabelBindings) throws IOException {
+    int colSize = in.readInt();
+    if (colSize > 0) {
+```
+
+### BoundedWildcard
+Can generalize to `? super Integer`
+in `engine/hdfs/src/main/java/org/apache/mahout/math/MatrixWritable.java`
+#### Snippet
+```java
+  public static void readLabels(DataInput in,
+                                Map<String, Integer> columnLabelBindings,
+                                Map<String, Integer> rowLabelBindings) throws IOException {
+    int colSize = in.readInt();
+    if (colSize > 0) {
+```
+
+### BoundedWildcard
 Can generalize to `? extends MatrixSlice`
 in `core/src/main/java/org/apache/mahout/math/OrthonormalityVerifier.java`
 #### Snippet
@@ -944,27 +992,27 @@ in `core/src/main/java/org/apache/mahout/math/list/ObjectArrayList.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? super T`
-in `core/src/main/java/org/apache/mahout/math/set/OpenHashSet.java`
+Can generalize to `? super K`
+in `core/src/main/java/org/apache/mahout/math/map/OpenHashMap.java`
 #### Snippet
 ```java
    */
   @SuppressWarnings("unchecked")
-  public void keys(List<T> list) {
-    list.clear();
-  
+  public boolean forEachPair(ObjectObjectProcedure<K,V> procedure) {
+    for (int i = table.length; i-- > 0;) {
+      if (state[i] == FULL && !procedure.apply((K)table[i], (V)values[i])) {
 ```
 
 ### BoundedWildcard
-Can generalize to `? super T`
-in `core/src/main/java/org/apache/mahout/math/set/OpenHashSet.java`
+Can generalize to `? super V`
+in `core/src/main/java/org/apache/mahout/math/map/OpenHashMap.java`
 #### Snippet
 ```java
    */
   @SuppressWarnings("unchecked")
-  public boolean forEachKey(ObjectProcedure<T> procedure) {
+  public boolean forEachPair(ObjectObjectProcedure<K,V> procedure) {
     for (int i = table.length; i-- > 0;) {
-      if (state[i] == FULL) {
+      if (state[i] == FULL && !procedure.apply((K)table[i], (V)values[i])) {
 ```
 
 ### BoundedWildcard
@@ -992,30 +1040,6 @@ in `core/src/main/java/org/apache/mahout/math/map/OpenHashMap.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? super K`
-in `core/src/main/java/org/apache/mahout/math/map/OpenHashMap.java`
-#### Snippet
-```java
-   */
-  @SuppressWarnings("unchecked")
-  public boolean forEachPair(ObjectObjectProcedure<K,V> procedure) {
-    for (int i = table.length; i-- > 0;) {
-      if (state[i] == FULL && !procedure.apply((K)table[i], (V)values[i])) {
-```
-
-### BoundedWildcard
-Can generalize to `? super V`
-in `core/src/main/java/org/apache/mahout/math/map/OpenHashMap.java`
-#### Snippet
-```java
-   */
-  @SuppressWarnings("unchecked")
-  public boolean forEachPair(ObjectObjectProcedure<K,V> procedure) {
-    for (int i = table.length; i-- > 0;) {
-      if (state[i] == FULL && !procedure.apply((K)table[i], (V)values[i])) {
-```
-
-### BoundedWildcard
 Can generalize to `? extends T`
 in `core/src/main/java/org/apache/mahout/math/random/Missing.java`
 #### Snippet
@@ -1025,6 +1049,30 @@ in `core/src/main/java/org/apache/mahout/math/random/Missing.java`
   public Missing(int seed, double p, Sampler<T> delegate, T missingMarker) {
     this.p = p;
     this.delegate = delegate;
+```
+
+### BoundedWildcard
+Can generalize to `? super T`
+in `core/src/main/java/org/apache/mahout/math/set/OpenHashSet.java`
+#### Snippet
+```java
+   */
+  @SuppressWarnings("unchecked")
+  public boolean forEachKey(ObjectProcedure<T> procedure) {
+    for (int i = table.length; i-- > 0;) {
+      if (state[i] == FULL) {
+```
+
+### BoundedWildcard
+Can generalize to `? super T`
+in `core/src/main/java/org/apache/mahout/math/set/OpenHashSet.java`
+#### Snippet
+```java
+   */
+  @SuppressWarnings("unchecked")
+  public void keys(List<T> list) {
+    list.clear();
+  
 ```
 
 ### BoundedWildcard
@@ -1064,51 +1112,15 @@ in `core/src/main/java/org/apache/mahout/math/random/IndianBuffet.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? super String`
-in `engine/hdfs/src/main/java/org/apache/mahout/math/MatrixWritable.java`
+Can generalize to `? super T`
+in `core/src/main/java/org/apache/mahout/math/Sorting.java`
 #### Snippet
 ```java
-
-  public static void readLabels(DataInput in,
-                                Map<String, Integer> columnLabelBindings,
-                                Map<String, Integer> rowLabelBindings) throws IOException {
-    int colSize = in.readInt();
-```
-
-### BoundedWildcard
-Can generalize to `? super Integer`
-in `engine/hdfs/src/main/java/org/apache/mahout/math/MatrixWritable.java`
-#### Snippet
-```java
-
-  public static void readLabels(DataInput in,
-                                Map<String, Integer> columnLabelBindings,
-                                Map<String, Integer> rowLabelBindings) throws IOException {
-    int colSize = in.readInt();
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `engine/hdfs/src/main/java/org/apache/mahout/math/MatrixWritable.java`
-#### Snippet
-```java
-  public static void readLabels(DataInput in,
-                                Map<String, Integer> columnLabelBindings,
-                                Map<String, Integer> rowLabelBindings) throws IOException {
-    int colSize = in.readInt();
-    if (colSize > 0) {
-```
-
-### BoundedWildcard
-Can generalize to `? super Integer`
-in `engine/hdfs/src/main/java/org/apache/mahout/math/MatrixWritable.java`
-#### Snippet
-```java
-  public static void readLabels(DataInput in,
-                                Map<String, Integer> columnLabelBindings,
-                                Map<String, Integer> rowLabelBindings) throws IOException {
-    int colSize = in.readInt();
-    if (colSize > 0) {
+   *          - the comparator used to compare Objects
+   */
+  private static <T> int find(T[] arr, T val, int bnd, int l, int r, Comparator<T> c) {
+    int m = l;
+    int d = 1;
 ```
 
 ### BoundedWildcard
@@ -1128,10 +1140,10 @@ Can generalize to `? super T`
 in `core/src/main/java/org/apache/mahout/math/Sorting.java`
 #### Snippet
 ```java
-  }
-  
-  private static <T> void quickSort0(int start, int end, T[] array, Comparator<T> comp) {
-    T temp;
+   */
+  @SuppressWarnings("unchecked") // required to make the temp array work, afaict.
+  public static <T> void mergeSort(T[] array, int start, int end, Comparator<T> comp) {
+    checkBounds(array.length, start, end);
     int length = end - start;
 ```
 
@@ -1140,22 +1152,10 @@ Can generalize to `? super T`
 in `core/src/main/java/org/apache/mahout/math/Sorting.java`
 #### Snippet
 ```java
-   *          - the comparator used to compare Objects
-   */
-  private static <T> int find(T[] arr, T val, int bnd, int l, int r, Comparator<T> c) {
-    int m = l;
-    int d = 1;
-```
-
-### BoundedWildcard
-Can generalize to `? super T`
-in `core/src/main/java/org/apache/mahout/math/Sorting.java`
-#### Snippet
-```java
-   */
-  @SuppressWarnings("unchecked") // required to make the temp array work, afaict.
-  public static <T> void mergeSort(T[] array, int start, int end, Comparator<T> comp) {
-    checkBounds(array.length, start, end);
+  }
+  
+  private static <T> void quickSort0(int start, int end, T[] array, Comparator<T> comp) {
+    T temp;
     int length = end - start;
 ```
 
@@ -1319,6 +1319,18 @@ in `core/src/main/java/org/apache/mahout/math/function/TimesFunction.java`
 ```
 
 ### RedundantMethodOverride
+Method `isAssociative()` is identical to its super method
+in `core/src/main/java/org/apache/mahout/math/function/Functions.java`
+#### Snippet
+```java
+     */
+    @Override
+    public boolean isAssociative() {
+      return false;
+    }
+```
+
+### RedundantMethodOverride
 Method `isLikeRightPlus()` is identical to its super method
 in `core/src/main/java/org/apache/mahout/math/function/Functions.java`
 #### Snippet
@@ -1326,6 +1338,30 @@ in `core/src/main/java/org/apache/mahout/math/function/Functions.java`
      */
     @Override
     public boolean isLikeRightPlus() {
+      return false;
+    }
+```
+
+### RedundantMethodOverride
+Method `isLikeLeftMult()` is identical to its super method
+in `core/src/main/java/org/apache/mahout/math/function/Functions.java`
+#### Snippet
+```java
+     */
+    @Override
+    public boolean isLikeLeftMult() {
+      return false;
+    }
+```
+
+### RedundantMethodOverride
+Method `isCommutative()` is identical to its super method
+in `core/src/main/java/org/apache/mahout/math/function/Functions.java`
+#### Snippet
+```java
+     */
+    @Override
+    public boolean isCommutative() {
       return false;
     }
 ```
@@ -1343,6 +1379,42 @@ in `core/src/main/java/org/apache/mahout/math/function/Functions.java`
 ```
 
 ### RedundantMethodOverride
+Method `isLikeLeftMult()` is identical to its super method
+in `core/src/main/java/org/apache/mahout/math/function/Functions.java`
+#### Snippet
+```java
+     */
+    @Override
+    public boolean isLikeLeftMult() {
+      return false;
+    }
+```
+
+### RedundantMethodOverride
+Method `isLikeRightMult()` is identical to its super method
+in `core/src/main/java/org/apache/mahout/math/function/Functions.java`
+#### Snippet
+```java
+     */
+    @Override
+    public boolean isLikeRightMult() {
+      return false;
+    }
+```
+
+### RedundantMethodOverride
+Method `isLikeRightPlus()` is identical to its super method
+in `core/src/main/java/org/apache/mahout/math/function/Functions.java`
+#### Snippet
+```java
+       */
+      @Override
+      public boolean isLikeRightPlus() {
+        return false;
+      }
+```
+
+### RedundantMethodOverride
 Method `isAssociative()` is identical to its super method
 in `core/src/main/java/org/apache/mahout/math/function/Functions.java`
 #### Snippet
@@ -1350,6 +1422,162 @@ in `core/src/main/java/org/apache/mahout/math/function/Functions.java`
      */
     @Override
     public boolean isAssociative() {
+      return false;
+    }
+```
+
+### RedundantMethodOverride
+Method `isLikeRightMult()` is identical to its super method
+in `core/src/main/java/org/apache/mahout/math/function/Functions.java`
+#### Snippet
+```java
+     */
+    @Override
+    public boolean isLikeRightMult() {
+      return false;
+    }
+```
+
+### RedundantMethodOverride
+Method `isLikeLeftMult()` is identical to its super method
+in `core/src/main/java/org/apache/mahout/math/function/Functions.java`
+#### Snippet
+```java
+     */
+    @Override
+    public boolean isLikeLeftMult() {
+      return false;
+    }
+```
+
+### RedundantMethodOverride
+Method `isLikeRightPlus()` is identical to its super method
+in `core/src/main/java/org/apache/mahout/math/function/Functions.java`
+#### Snippet
+```java
+       */
+      @Override
+      public boolean isLikeRightPlus() {
+        return false;
+      }
+```
+
+### RedundantMethodOverride
+Method `isAssociative()` is identical to its super method
+in `core/src/main/java/org/apache/mahout/math/function/Functions.java`
+#### Snippet
+```java
+       */
+      @Override
+      public boolean isAssociative() {
+        return false;
+      }
+```
+
+### RedundantMethodOverride
+Method `isLikeRightPlus()` is identical to its super method
+in `core/src/main/java/org/apache/mahout/math/function/Functions.java`
+#### Snippet
+```java
+     */
+    @Override
+    public boolean isLikeRightPlus() {
+      return false;
+    }
+```
+
+### RedundantMethodOverride
+Method `isAssociative()` is identical to its super method
+in `core/src/main/java/org/apache/mahout/math/function/Functions.java`
+#### Snippet
+```java
+     */
+    @Override
+    public boolean isAssociative() {
+      return false;
+    }
+```
+
+### RedundantMethodOverride
+Method `isLikeRightPlus()` is identical to its super method
+in `core/src/main/java/org/apache/mahout/math/function/Functions.java`
+#### Snippet
+```java
+     */
+    @Override
+    public boolean isLikeRightPlus() {
+      return false;
+    }
+```
+
+### RedundantMethodOverride
+Method `isLikeLeftMult()` is identical to its super method
+in `core/src/main/java/org/apache/mahout/math/function/Functions.java`
+#### Snippet
+```java
+       */
+      @Override
+      public boolean isLikeLeftMult() {
+        return false;
+      }
+```
+
+### RedundantMethodOverride
+Method `isAssociative()` is identical to its super method
+in `core/src/main/java/org/apache/mahout/math/function/Functions.java`
+#### Snippet
+```java
+     */
+    @Override
+    public boolean isAssociative() {
+      return false;
+    }
+```
+
+### RedundantMethodOverride
+Method `isLikeRightPlus()` is identical to its super method
+in `core/src/main/java/org/apache/mahout/math/function/Functions.java`
+#### Snippet
+```java
+     */
+    @Override
+    public boolean isLikeRightPlus() {
+      return false;
+    }
+```
+
+### RedundantMethodOverride
+Method `isLikeRightPlus()` is identical to its super method
+in `core/src/main/java/org/apache/mahout/math/function/Functions.java`
+#### Snippet
+```java
+     */
+    @Override
+    public boolean isLikeRightPlus() {
+      return false;
+    }
+```
+
+### RedundantMethodOverride
+Method `isCommutative()` is identical to its super method
+in `core/src/main/java/org/apache/mahout/math/function/Functions.java`
+#### Snippet
+```java
+     */
+    @Override
+    public boolean isCommutative() {
+      return false;
+    }
+```
+
+### RedundantMethodOverride
+Method `isLikeLeftMult()` is identical to its super method
+in `core/src/main/java/org/apache/mahout/math/function/Functions.java`
+#### Snippet
+```java
+     */
+    @Override
+    public boolean isLikeLeftMult() {
       return false;
     }
 ```
@@ -1367,25 +1595,13 @@ in `core/src/main/java/org/apache/mahout/math/function/Functions.java`
 ```
 
 ### RedundantMethodOverride
-Method `isCommutative()` is identical to its super method
+Method `isLikeRightMult()` is identical to its super method
 in `core/src/main/java/org/apache/mahout/math/function/Functions.java`
 #### Snippet
 ```java
      */
     @Override
-    public boolean isCommutative() {
-      return false;
-    }
-```
-
-### RedundantMethodOverride
-Method `isCommutative()` is identical to its super method
-in `core/src/main/java/org/apache/mahout/math/function/Functions.java`
-#### Snippet
-```java
-     */
-    @Override
-    public boolean isCommutative() {
+    public boolean isLikeRightMult() {
       return false;
     }
 ```
@@ -1403,97 +1619,25 @@ in `core/src/main/java/org/apache/mahout/math/function/Functions.java`
 ```
 
 ### RedundantMethodOverride
-Method `isAssociative()` is identical to its super method
+Method `isLikeRightPlus()` is identical to its super method
 in `core/src/main/java/org/apache/mahout/math/function/Functions.java`
 #### Snippet
 ```java
-     */
-    @Override
-    public boolean isAssociative() {
-      return false;
-    }
+       */
+      @Override
+      public boolean isLikeRightPlus() {
+        return false;
+      }
 ```
 
 ### RedundantMethodOverride
-Method `isLikeRightMult()` is identical to its super method
+Method `isLikeRightPlus()` is identical to its super method
 in `core/src/main/java/org/apache/mahout/math/function/Functions.java`
 #### Snippet
 ```java
      */
     @Override
-    public boolean isLikeRightMult() {
-      return false;
-    }
-```
-
-### RedundantMethodOverride
-Method `isLikeLeftMult()` is identical to its super method
-in `core/src/main/java/org/apache/mahout/math/function/Functions.java`
-#### Snippet
-```java
-     */
-    @Override
-    public boolean isLikeLeftMult() {
-      return false;
-    }
-```
-
-### RedundantMethodOverride
-Method `isLikeLeftMult()` is identical to its super method
-in `core/src/main/java/org/apache/mahout/math/function/Functions.java`
-#### Snippet
-```java
-     */
-    @Override
-    public boolean isLikeLeftMult() {
-      return false;
-    }
-```
-
-### RedundantMethodOverride
-Method `isLikeLeftMult()` is identical to its super method
-in `core/src/main/java/org/apache/mahout/math/function/Functions.java`
-#### Snippet
-```java
-     */
-    @Override
-    public boolean isLikeLeftMult() {
-      return false;
-    }
-```
-
-### RedundantMethodOverride
-Method `isAssociative()` is identical to its super method
-in `core/src/main/java/org/apache/mahout/math/function/Functions.java`
-#### Snippet
-```java
-     */
-    @Override
-    public boolean isAssociative() {
-      return false;
-    }
-```
-
-### RedundantMethodOverride
-Method `isLikeLeftMult()` is identical to its super method
-in `core/src/main/java/org/apache/mahout/math/function/Functions.java`
-#### Snippet
-```java
-     */
-    @Override
-    public boolean isLikeLeftMult() {
-      return false;
-    }
-```
-
-### RedundantMethodOverride
-Method `isLikeRightMult()` is identical to its super method
-in `core/src/main/java/org/apache/mahout/math/function/Functions.java`
-#### Snippet
-```java
-     */
-    @Override
-    public boolean isLikeRightMult() {
+    public boolean isLikeRightPlus() {
       return false;
     }
 ```
@@ -1535,6 +1679,18 @@ in `core/src/main/java/org/apache/mahout/math/function/Functions.java`
 ```
 
 ### RedundantMethodOverride
+Method `isCommutative()` is identical to its super method
+in `core/src/main/java/org/apache/mahout/math/function/Functions.java`
+#### Snippet
+```java
+     */
+    @Override
+    public boolean isCommutative() {
+      return false;
+    }
+```
+
+### RedundantMethodOverride
 Method `isLikeRightMult()` is identical to its super method
 in `core/src/main/java/org/apache/mahout/math/function/Functions.java`
 #### Snippet
@@ -1559,13 +1715,97 @@ in `core/src/main/java/org/apache/mahout/math/function/Functions.java`
 ```
 
 ### RedundantMethodOverride
-Method `isCommutative()` is identical to its super method
+Method `isLikeLeftMult()` is identical to its super method
 in `core/src/main/java/org/apache/mahout/math/function/Functions.java`
 #### Snippet
 ```java
      */
     @Override
-    public boolean isCommutative() {
+    public boolean isLikeLeftMult() {
+      return false;
+    }
+```
+
+### RedundantMethodOverride
+Method `isAssociative()` is identical to its super method
+in `core/src/main/java/org/apache/mahout/math/function/Functions.java`
+#### Snippet
+```java
+     */
+    @Override
+    public boolean isAssociative() {
+      return false;
+    }
+```
+
+### RedundantMethodOverride
+Method `isLikeRightMult()` is identical to its super method
+in `core/src/main/java/org/apache/mahout/math/function/Functions.java`
+#### Snippet
+```java
+     */
+    @Override
+    public boolean isLikeRightMult() {
+      return false;
+    }
+```
+
+### RedundantMethodOverride
+Method `isLikeRightMult()` is identical to its super method
+in `core/src/main/java/org/apache/mahout/math/function/Functions.java`
+#### Snippet
+```java
+     */
+    @Override
+    public boolean isLikeRightMult() {
+      return false;
+    }
+```
+
+### RedundantMethodOverride
+Method `isAssociative()` is identical to its super method
+in `core/src/main/java/org/apache/mahout/math/function/Functions.java`
+#### Snippet
+```java
+       */
+      @Override
+      public boolean isAssociative() {
+        return false;
+      }
+```
+
+### RedundantMethodOverride
+Method `isLikeLeftMult()` is identical to its super method
+in `core/src/main/java/org/apache/mahout/math/function/Functions.java`
+#### Snippet
+```java
+     */
+    @Override
+    public boolean isLikeLeftMult() {
+      return false;
+    }
+```
+
+### RedundantMethodOverride
+Method `isLikeRightMult()` is identical to its super method
+in `core/src/main/java/org/apache/mahout/math/function/Functions.java`
+#### Snippet
+```java
+       */
+      @Override
+      public boolean isLikeRightMult() {
+        return false;
+      }
+```
+
+### RedundantMethodOverride
+Method `isLikeRightMult()` is identical to its super method
+in `core/src/main/java/org/apache/mahout/math/function/Functions.java`
+#### Snippet
+```java
+     */
+    @Override
+    public boolean isLikeRightMult() {
       return false;
     }
 ```
@@ -1595,25 +1835,13 @@ in `core/src/main/java/org/apache/mahout/math/function/Functions.java`
 ```
 
 ### RedundantMethodOverride
-Method `isLikeRightPlus()` is identical to its super method
+Method `isLikeLeftMult()` is identical to its super method
 in `core/src/main/java/org/apache/mahout/math/function/Functions.java`
 #### Snippet
 ```java
      */
     @Override
-    public boolean isLikeRightPlus() {
-      return false;
-    }
-```
-
-### RedundantMethodOverride
-Method `isLikeRightPlus()` is identical to its super method
-in `core/src/main/java/org/apache/mahout/math/function/Functions.java`
-#### Snippet
-```java
-     */
-    @Override
-    public boolean isLikeRightPlus() {
+    public boolean isLikeLeftMult() {
       return false;
     }
 ```
@@ -1628,6 +1856,18 @@ in `core/src/main/java/org/apache/mahout/math/function/Functions.java`
     public boolean isLikeLeftMult() {
       return false;
     }
+```
+
+### RedundantMethodOverride
+Method `isAssociative()` is identical to its super method
+in `core/src/main/java/org/apache/mahout/math/function/Functions.java`
+#### Snippet
+```java
+       */
+      @Override
+      public boolean isAssociative() {
+        return false;
+      }
 ```
 
 ### RedundantMethodOverride
@@ -1647,23 +1887,11 @@ Method `isLikeLeftMult()` is identical to its super method
 in `core/src/main/java/org/apache/mahout/math/function/Functions.java`
 #### Snippet
 ```java
-     */
-    @Override
-    public boolean isLikeLeftMult() {
-      return false;
-    }
-```
-
-### RedundantMethodOverride
-Method `isLikeRightPlus()` is identical to its super method
-in `core/src/main/java/org/apache/mahout/math/function/Functions.java`
-#### Snippet
-```java
-     */
-    @Override
-    public boolean isLikeRightPlus() {
-      return false;
-    }
+       */
+      @Override
+      public boolean isLikeLeftMult() {
+        return false;
+      }
 ```
 
 ### RedundantMethodOverride
@@ -1683,93 +1911,9 @@ Method `isAssociative()` is identical to its super method
 in `core/src/main/java/org/apache/mahout/math/function/Functions.java`
 #### Snippet
 ```java
-       */
-      @Override
-      public boolean isAssociative() {
-        return false;
-      }
-```
-
-### RedundantMethodOverride
-Method `isLikeRightMult()` is identical to its super method
-in `core/src/main/java/org/apache/mahout/math/function/Functions.java`
-#### Snippet
-```java
-       */
-      @Override
-      public boolean isLikeRightMult() {
-        return false;
-      }
-```
-
-### RedundantMethodOverride
-Method `isLikeRightPlus()` is identical to its super method
-in `core/src/main/java/org/apache/mahout/math/function/Functions.java`
-#### Snippet
-```java
-       */
-      @Override
-      public boolean isLikeRightPlus() {
-        return false;
-      }
-```
-
-### RedundantMethodOverride
-Method `isLikeRightMult()` is identical to its super method
-in `core/src/main/java/org/apache/mahout/math/function/Functions.java`
-#### Snippet
-```java
-     */
-    @Override
-    public boolean isLikeRightMult() {
-      return false;
-    }
-```
-
-### RedundantMethodOverride
-Method `isAssociative()` is identical to its super method
-in `core/src/main/java/org/apache/mahout/math/function/Functions.java`
-#### Snippet
-```java
      */
     @Override
     public boolean isAssociative() {
-      return false;
-    }
-```
-
-### RedundantMethodOverride
-Method `isAssociative()` is identical to its super method
-in `core/src/main/java/org/apache/mahout/math/function/Functions.java`
-#### Snippet
-```java
-     */
-    @Override
-    public boolean isAssociative() {
-      return false;
-    }
-```
-
-### RedundantMethodOverride
-Method `isAssociative()` is identical to its super method
-in `core/src/main/java/org/apache/mahout/math/function/Functions.java`
-#### Snippet
-```java
-       */
-      @Override
-      public boolean isAssociative() {
-        return false;
-      }
-```
-
-### RedundantMethodOverride
-Method `isLikeRightMult()` is identical to its super method
-in `core/src/main/java/org/apache/mahout/math/function/Functions.java`
-#### Snippet
-```java
-     */
-    @Override
-    public boolean isLikeRightMult() {
       return false;
     }
 ```
@@ -1782,150 +1926,6 @@ in `core/src/main/java/org/apache/mahout/math/function/Functions.java`
      */
     @Override
     public boolean isLikeLeftMult() {
-      return false;
-    }
-```
-
-### RedundantMethodOverride
-Method `isLikeLeftMult()` is identical to its super method
-in `core/src/main/java/org/apache/mahout/math/function/Functions.java`
-#### Snippet
-```java
-     */
-    @Override
-    public boolean isLikeLeftMult() {
-      return false;
-    }
-```
-
-### RedundantMethodOverride
-Method `isLikeLeftMult()` is identical to its super method
-in `core/src/main/java/org/apache/mahout/math/function/Functions.java`
-#### Snippet
-```java
-       */
-      @Override
-      public boolean isLikeLeftMult() {
-        return false;
-      }
-```
-
-### RedundantMethodOverride
-Method `isLikeRightPlus()` is identical to its super method
-in `core/src/main/java/org/apache/mahout/math/function/Functions.java`
-#### Snippet
-```java
-       */
-      @Override
-      public boolean isLikeRightPlus() {
-        return false;
-      }
-```
-
-### RedundantMethodOverride
-Method `isLikeLeftMult()` is identical to its super method
-in `core/src/main/java/org/apache/mahout/math/function/Functions.java`
-#### Snippet
-```java
-     */
-    @Override
-    public boolean isLikeLeftMult() {
-      return false;
-    }
-```
-
-### RedundantMethodOverride
-Method `isLikeRightPlus()` is identical to its super method
-in `core/src/main/java/org/apache/mahout/math/function/Functions.java`
-#### Snippet
-```java
-     */
-    @Override
-    public boolean isLikeRightPlus() {
-      return false;
-    }
-```
-
-### RedundantMethodOverride
-Method `isLikeRightPlus()` is identical to its super method
-in `core/src/main/java/org/apache/mahout/math/function/Functions.java`
-#### Snippet
-```java
-       */
-      @Override
-      public boolean isLikeRightPlus() {
-        return false;
-      }
-```
-
-### RedundantMethodOverride
-Method `isAssociative()` is identical to its super method
-in `core/src/main/java/org/apache/mahout/math/function/Functions.java`
-#### Snippet
-```java
-     */
-    @Override
-    public boolean isAssociative() {
-      return false;
-    }
-```
-
-### RedundantMethodOverride
-Method `isAssociative()` is identical to its super method
-in `core/src/main/java/org/apache/mahout/math/function/Functions.java`
-#### Snippet
-```java
-       */
-      @Override
-      public boolean isAssociative() {
-        return false;
-      }
-```
-
-### RedundantMethodOverride
-Method `isLikeLeftMult()` is identical to its super method
-in `core/src/main/java/org/apache/mahout/math/function/Functions.java`
-#### Snippet
-```java
-       */
-      @Override
-      public boolean isLikeLeftMult() {
-        return false;
-      }
-```
-
-### RedundantMethodOverride
-Method `isLikeRightMult()` is identical to its super method
-in `core/src/main/java/org/apache/mahout/math/function/Functions.java`
-#### Snippet
-```java
-     */
-    @Override
-    public boolean isLikeRightMult() {
-      return false;
-    }
-```
-
-### RedundantMethodOverride
-Method `isLikeRightMult()` is identical to its super method
-in `core/src/main/java/org/apache/mahout/math/function/Functions.java`
-#### Snippet
-```java
-     */
-    @Override
-    public boolean isLikeRightMult() {
-      return false;
-    }
-```
-
-### RedundantMethodOverride
-Method `isLikeRightPlus()` is identical to its super method
-in `core/src/main/java/org/apache/mahout/math/function/Functions.java`
-#### Snippet
-```java
-     */
-    @Override
-    public boolean isLikeRightPlus() {
       return false;
     }
 ```
@@ -1983,6 +1983,318 @@ in `core/src/main/java/org/apache/mahout/math/SparseColumnMatrix.java`
 
 ## RuleId[ruleID=UnnecessaryFullyQualifiedName]
 ### UnnecessaryFullyQualifiedName
+Qualifier `java.io` is unnecessary and can be removed
+in `engine/hdfs/src/main/java/org/apache/mahout/math/Varint.java`
+#### Snippet
+```java
+   * @throws IllegalArgumentException if variable-length value does not terminate
+   *  after 5 bytes have been read
+   * @throws java.io.IOException if {@link java.io.DataInput} throws {@link java.io.IOException}
+   * @see #readUnsignedVarLong(java.io.DataInput)
+   */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.io` is unnecessary and can be removed
+in `engine/hdfs/src/main/java/org/apache/mahout/math/Varint.java`
+#### Snippet
+```java
+   * @throws IllegalArgumentException if variable-length value does not terminate
+   *  after 5 bytes have been read
+   * @throws java.io.IOException if {@link java.io.DataInput} throws {@link java.io.IOException}
+   * @see #readUnsignedVarLong(java.io.DataInput)
+   */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.io` is unnecessary and can be removed
+in `engine/hdfs/src/main/java/org/apache/mahout/math/Varint.java`
+#### Snippet
+```java
+   * @throws IllegalArgumentException if variable-length value does not terminate
+   *  after 5 bytes have been read
+   * @throws java.io.IOException if {@link java.io.DataInput} throws {@link java.io.IOException}
+   * @see #readUnsignedVarLong(java.io.DataInput)
+   */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.io` is unnecessary and can be removed
+in `engine/hdfs/src/main/java/org/apache/mahout/math/Varint.java`
+#### Snippet
+```java
+   *  after 5 bytes have been read
+   * @throws java.io.IOException if {@link java.io.DataInput} throws {@link java.io.IOException}
+   * @see #readUnsignedVarLong(java.io.DataInput)
+   */
+  public static int readUnsignedVarInt(DataInput in) throws IOException {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.io` is unnecessary and can be removed
+in `engine/hdfs/src/main/java/org/apache/mahout/math/Varint.java`
+#### Snippet
+```java
+   * @param in to read bytes from
+   * @return decode value
+   * @throws java.io.IOException if {@link java.io.DataInput} throws {@link java.io.IOException}
+   * @throws IllegalArgumentException if variable-length value does not terminate
+   *  after 9 bytes have been read
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.io` is unnecessary and can be removed
+in `engine/hdfs/src/main/java/org/apache/mahout/math/Varint.java`
+#### Snippet
+```java
+   * @param in to read bytes from
+   * @return decode value
+   * @throws java.io.IOException if {@link java.io.DataInput} throws {@link java.io.IOException}
+   * @throws IllegalArgumentException if variable-length value does not terminate
+   *  after 9 bytes have been read
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.io` is unnecessary and can be removed
+in `engine/hdfs/src/main/java/org/apache/mahout/math/Varint.java`
+#### Snippet
+```java
+   * @param in to read bytes from
+   * @return decode value
+   * @throws java.io.IOException if {@link java.io.DataInput} throws {@link java.io.IOException}
+   * @throws IllegalArgumentException if variable-length value does not terminate
+   *  after 9 bytes have been read
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.io` is unnecessary and can be removed
+in `engine/hdfs/src/main/java/org/apache/mahout/math/Varint.java`
+#### Snippet
+```java
+   * @throws IllegalArgumentException if variable-length value does not terminate
+   *  after 9 bytes have been read
+   * @see #writeUnsignedVarLong(long, java.io.DataOutput)
+   */
+  public static long readUnsignedVarLong(DataInput in) throws IOException {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.io` is unnecessary and can be removed
+in `engine/hdfs/src/main/java/org/apache/mahout/math/Varint.java`
+#### Snippet
+```java
+   * @param in to read bytes from
+   * @return decode value
+   * @throws java.io.IOException if {@link java.io.DataInput} throws {@link java.io.IOException}
+   * @throws IllegalArgumentException if variable-length value does not terminate
+   *  after 9 bytes have been read
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.io` is unnecessary and can be removed
+in `engine/hdfs/src/main/java/org/apache/mahout/math/Varint.java`
+#### Snippet
+```java
+   * @param in to read bytes from
+   * @return decode value
+   * @throws java.io.IOException if {@link java.io.DataInput} throws {@link java.io.IOException}
+   * @throws IllegalArgumentException if variable-length value does not terminate
+   *  after 9 bytes have been read
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.io` is unnecessary and can be removed
+in `engine/hdfs/src/main/java/org/apache/mahout/math/Varint.java`
+#### Snippet
+```java
+   * @param in to read bytes from
+   * @return decode value
+   * @throws java.io.IOException if {@link java.io.DataInput} throws {@link java.io.IOException}
+   * @throws IllegalArgumentException if variable-length value does not terminate
+   *  after 9 bytes have been read
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.io` is unnecessary and can be removed
+in `engine/hdfs/src/main/java/org/apache/mahout/math/Varint.java`
+#### Snippet
+```java
+   * @throws IllegalArgumentException if variable-length value does not terminate
+   *  after 9 bytes have been read
+   * @see #writeSignedVarLong(long, java.io.DataOutput)
+   */
+  public static long readSignedVarLong(DataInput in) throws IOException {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.io` is unnecessary and can be removed
+in `engine/hdfs/src/main/java/org/apache/mahout/math/Varint.java`
+#### Snippet
+```java
+   * Google Protocol Buffers</a>. It uses zig-zag encoding to efficiently
+   * encode signed values. If values are known to be nonnegative,
+   * {@link #writeUnsignedVarLong(long, java.io.DataOutput)} should be used.
+   *
+   * @param value value to encode
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.io` is unnecessary and can be removed
+in `engine/hdfs/src/main/java/org/apache/mahout/math/Varint.java`
+#### Snippet
+```java
+   * @param value value to encode
+   * @param out to write bytes to
+   * @throws java.io.IOException if {@link java.io.DataOutput} throws {@link java.io.IOException}
+   */
+  public static void writeSignedVarLong(long value, DataOutput out) throws IOException {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.io` is unnecessary and can be removed
+in `engine/hdfs/src/main/java/org/apache/mahout/math/Varint.java`
+#### Snippet
+```java
+   * @param value value to encode
+   * @param out to write bytes to
+   * @throws java.io.IOException if {@link java.io.DataOutput} throws {@link java.io.IOException}
+   */
+  public static void writeSignedVarLong(long value, DataOutput out) throws IOException {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.io` is unnecessary and can be removed
+in `engine/hdfs/src/main/java/org/apache/mahout/math/Varint.java`
+#### Snippet
+```java
+   * @param value value to encode
+   * @param out to write bytes to
+   * @throws java.io.IOException if {@link java.io.DataOutput} throws {@link java.io.IOException}
+   */
+  public static void writeSignedVarLong(long value, DataOutput out) throws IOException {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.io` is unnecessary and can be removed
+in `engine/hdfs/src/main/java/org/apache/mahout/math/Varint.java`
+#### Snippet
+```java
+
+  /**
+   * @see #writeSignedVarLong(long, java.io.DataOutput)
+   */
+  public static void writeSignedVarInt(int value, DataOutput out) throws IOException {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.io` is unnecessary and can be removed
+in `engine/hdfs/src/main/java/org/apache/mahout/math/Varint.java`
+#### Snippet
+```java
+   * <a href="http://code.google.com/apis/protocolbuffers/docs/encoding.html">
+   * Google Protocol Buffers</a>. Zig-zag is not used, so input must not be negative.
+   * If values can be negative, use {@link #writeSignedVarLong(long, java.io.DataOutput)}
+   * instead. This method treats negative input as like a large unsigned value.
+   *
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.io` is unnecessary and can be removed
+in `engine/hdfs/src/main/java/org/apache/mahout/math/Varint.java`
+#### Snippet
+```java
+   * @param value value to encode
+   * @param out to write bytes to
+   * @throws java.io.IOException if {@link java.io.DataOutput} throws {@link java.io.IOException}
+   */
+  public static void writeUnsignedVarLong(long value, DataOutput out) throws IOException {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.io` is unnecessary and can be removed
+in `engine/hdfs/src/main/java/org/apache/mahout/math/Varint.java`
+#### Snippet
+```java
+   * @param value value to encode
+   * @param out to write bytes to
+   * @throws java.io.IOException if {@link java.io.DataOutput} throws {@link java.io.IOException}
+   */
+  public static void writeUnsignedVarLong(long value, DataOutput out) throws IOException {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.io` is unnecessary and can be removed
+in `engine/hdfs/src/main/java/org/apache/mahout/math/Varint.java`
+#### Snippet
+```java
+   * @param value value to encode
+   * @param out to write bytes to
+   * @throws java.io.IOException if {@link java.io.DataOutput} throws {@link java.io.IOException}
+   */
+  public static void writeUnsignedVarLong(long value, DataOutput out) throws IOException {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.io` is unnecessary and can be removed
+in `engine/hdfs/src/main/java/org/apache/mahout/math/Varint.java`
+#### Snippet
+```java
+   * @throws IllegalArgumentException if variable-length value does not terminate
+   *  after 5 bytes have been read
+   * @throws java.io.IOException if {@link java.io.DataInput} throws {@link java.io.IOException}
+   * @see #readSignedVarLong(java.io.DataInput)
+   */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.io` is unnecessary and can be removed
+in `engine/hdfs/src/main/java/org/apache/mahout/math/Varint.java`
+#### Snippet
+```java
+   * @throws IllegalArgumentException if variable-length value does not terminate
+   *  after 5 bytes have been read
+   * @throws java.io.IOException if {@link java.io.DataInput} throws {@link java.io.IOException}
+   * @see #readSignedVarLong(java.io.DataInput)
+   */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.io` is unnecessary and can be removed
+in `engine/hdfs/src/main/java/org/apache/mahout/math/Varint.java`
+#### Snippet
+```java
+   * @throws IllegalArgumentException if variable-length value does not terminate
+   *  after 5 bytes have been read
+   * @throws java.io.IOException if {@link java.io.DataInput} throws {@link java.io.IOException}
+   * @see #readSignedVarLong(java.io.DataInput)
+   */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.io` is unnecessary and can be removed
+in `engine/hdfs/src/main/java/org/apache/mahout/math/Varint.java`
+#### Snippet
+```java
+   *  after 5 bytes have been read
+   * @throws java.io.IOException if {@link java.io.DataInput} throws {@link java.io.IOException}
+   * @see #readSignedVarLong(java.io.DataInput)
+   */
+  public static int readSignedVarInt(DataInput in) throws IOException {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.io` is unnecessary and can be removed
+in `engine/hdfs/src/main/java/org/apache/mahout/math/Varint.java`
+#### Snippet
+```java
+
+  /**
+   * @see #writeUnsignedVarLong(long, java.io.DataOutput)
+   */
+  public static void writeUnsignedVarInt(int value, DataOutput out) throws IOException {
+```
+
+### UnnecessaryFullyQualifiedName
 Qualifier `java.util` is unnecessary and can be removed
 in `core/src/main/java/org/apache/mahout/math/ConstantVector.java`
 #### Snippet
@@ -2008,6 +2320,42 @@ in `core/src/main/java/org/apache/mahout/math/ConstantVector.java`
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.apache.mahout.math` is unnecessary and can be removed
+in `core/src/main/java/org/apache/mahout/math/UpperTriangular.java`
+#### Snippet
+```java
+/**
+ * 
+ * Quick and dirty implementation of some {@link org.apache.mahout.math.Matrix} methods
+ * over packed upper triangular matrix.
+ *
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.mahout.math` is unnecessary and can be removed
+in `engine/hdfs/src/main/java/org/apache/mahout/math/VectorWritable.java`
+#### Snippet
+```java
+
+  /**
+   * @return true if this is allowed to encode {@link org.apache.mahout.math.Vector}
+   *  values using fewer bytes, possibly losing precision. In particular this means
+   *  that floating point values will be encoded as floats, not doubles.
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.mahout.math` is unnecessary and can be removed
+in `engine/hdfs/src/main/java/org/apache/mahout/math/VectorWritable.java`
+#### Snippet
+```java
+
+  /**
+   * @return {@link org.apache.mahout.math.Vector} that this is to write, or has
+   *  just read
+   */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.mahout.math` is unnecessary and can be removed
 in `core/src/main/java/org/apache/mahout/math/Matrices.java`
 #### Snippet
 ```java
@@ -2028,138 +2376,6 @@ in `core/src/main/java/org/apache/mahout/math/Matrices.java`
    * org.apache.mahout.math.function.IntIntFunction, boolean)}.
    */
   public static Matrix functionalMatrixView(final int rows,
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.mahout.math` is unnecessary and can be removed
-in `core/src/main/java/org/apache/mahout/math/UpperTriangular.java`
-#### Snippet
-```java
-/**
- * 
- * Quick and dirty implementation of some {@link org.apache.mahout.math.Matrix} methods
- * over packed upper triangular matrix.
- *
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.mahout.math` is unnecessary and can be removed
-in `core/src/main/java/org/apache/mahout/math/PivotedMatrix.java`
-#### Snippet
-```java
-   * @param other a Vector
-   * @return the modified receiver
-   * @throws org.apache.mahout.math.CardinalityException
-   *          if the cardinalities differ
-   */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.mahout.math` is unnecessary and can be removed
-in `core/src/main/java/org/apache/mahout/math/PivotedMatrix.java`
-#### Snippet
-```java
-   * @param other  a Vector
-   * @return the modified receiver
-   * @throws org.apache.mahout.math.CardinalityException
-   *          if the cardinalities differ
-   */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.mahout.math` is unnecessary and can be removed
-in `core/src/main/java/org/apache/mahout/math/PivotedMatrix.java`
-#### Snippet
-```java
-   * @param row an int row index
-   * @return a Vector at the index
-   * @throws org.apache.mahout.math.IndexException
-   *          if the index is out of bounds
-   */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.mahout.math` is unnecessary and can be removed
-in `core/src/main/java/org/apache/mahout/math/PivotedMatrix.java`
-#### Snippet
-```java
-   * @param column an int column index
-   * @return a Vector at the index
-   * @throws org.apache.mahout.math.IndexException
-   *          if the index is out of bounds
-   */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.mahout.math` is unnecessary and can be removed
-in `core/src/main/java/org/apache/mahout/math/PivotedMatrix.java`
-#### Snippet
-```java
-   * @param size   the int[2] size of the desired result
-   * @return a new Matrix that is a view of the original
-   * @throws org.apache.mahout.math.CardinalityException
-   *          if the length is greater than the cardinality of the receiver
-   * @throws org.apache.mahout.math.IndexException
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.mahout.math` is unnecessary and can be removed
-in `core/src/main/java/org/apache/mahout/math/PivotedMatrix.java`
-#### Snippet
-```java
-   * @throws org.apache.mahout.math.CardinalityException
-   *          if the length is greater than the cardinality of the receiver
-   * @throws org.apache.mahout.math.IndexException
-   *          if the offset is negative or the offset+length is outside of the receiver
-   */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.io` is unnecessary, and can be replaced with an import
-in `core/src/main/java/org/apache/mahout/math/PersistentObject.java`
-#### Snippet
-```java
- * be switched to Objectivity compatibility (and back) with minimum effort.
- */
-public abstract class PersistentObject implements java.io.Serializable, Cloneable {
-
-  /** Not yet commented. */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary and can be removed
-in `core/src/main/java/org/apache/mahout/math/PermutedVectorView.java`
-#### Snippet
-```java
-   * #getElement(int)} for the given index
-   *
-   * @return An {@link java.util.Iterator} over all elements
-   */
-  @Override
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary and can be removed
-in `core/src/main/java/org/apache/mahout/math/PermutedVectorView.java`
-#### Snippet
-```java
-   * #getElement(int)} for the given index
-   *
-   * @return An {@link java.util.Iterator} over all non-zero elements
-   */
-  @Override
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary and can be removed
-in `core/src/main/java/org/apache/mahout/math/FileBasedSparseBinaryMatrix.java`
-#### Snippet
-```java
-     * for the given index
-     *
-     * @return An {@link java.util.Iterator} over all elements
-     */
-    @Override
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -2199,6 +2415,18 @@ in `core/src/main/java/org/apache/mahout/math/FileBasedSparseBinaryMatrix.java`
 ```
 
 ### UnnecessaryFullyQualifiedName
+Qualifier `java.util` is unnecessary and can be removed
+in `core/src/main/java/org/apache/mahout/math/FileBasedSparseBinaryMatrix.java`
+#### Snippet
+```java
+     * for the given index
+     *
+     * @return An {@link java.util.Iterator} over all elements
+     */
+    @Override
+```
+
+### UnnecessaryFullyQualifiedName
 Qualifier `org.apache.mahout.math` is unnecessary and can be removed
 in `core/src/main/java/org/apache/mahout/math/FileBasedSparseBinaryMatrix.java`
 #### Snippet
@@ -2220,6 +2448,114 @@ in `core/src/main/java/org/apache/mahout/math/FileBasedSparseBinaryMatrix.java`
    * @throws org.apache.mahout.math.IndexException
    *          if the offset is negative or the offset+length is outside of the receiver
    */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.mahout.math` is unnecessary and can be removed
+in `core/src/main/java/org/apache/mahout/math/PivotedMatrix.java`
+#### Snippet
+```java
+   * @param row an int row index
+   * @return a Vector at the index
+   * @throws org.apache.mahout.math.IndexException
+   *          if the index is out of bounds
+   */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.mahout.math` is unnecessary and can be removed
+in `core/src/main/java/org/apache/mahout/math/PivotedMatrix.java`
+#### Snippet
+```java
+   * @param column an int column index
+   * @return a Vector at the index
+   * @throws org.apache.mahout.math.IndexException
+   *          if the index is out of bounds
+   */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.mahout.math` is unnecessary and can be removed
+in `core/src/main/java/org/apache/mahout/math/PivotedMatrix.java`
+#### Snippet
+```java
+   * @param other  a Vector
+   * @return the modified receiver
+   * @throws org.apache.mahout.math.CardinalityException
+   *          if the cardinalities differ
+   */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.mahout.math` is unnecessary and can be removed
+in `core/src/main/java/org/apache/mahout/math/PivotedMatrix.java`
+#### Snippet
+```java
+   * @param size   the int[2] size of the desired result
+   * @return a new Matrix that is a view of the original
+   * @throws org.apache.mahout.math.CardinalityException
+   *          if the length is greater than the cardinality of the receiver
+   * @throws org.apache.mahout.math.IndexException
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.mahout.math` is unnecessary and can be removed
+in `core/src/main/java/org/apache/mahout/math/PivotedMatrix.java`
+#### Snippet
+```java
+   * @throws org.apache.mahout.math.CardinalityException
+   *          if the length is greater than the cardinality of the receiver
+   * @throws org.apache.mahout.math.IndexException
+   *          if the offset is negative or the offset+length is outside of the receiver
+   */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.mahout.math` is unnecessary and can be removed
+in `core/src/main/java/org/apache/mahout/math/PivotedMatrix.java`
+#### Snippet
+```java
+   * @param other a Vector
+   * @return the modified receiver
+   * @throws org.apache.mahout.math.CardinalityException
+   *          if the cardinalities differ
+   */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.io` is unnecessary, and can be replaced with an import
+in `core/src/main/java/org/apache/mahout/math/PersistentObject.java`
+#### Snippet
+```java
+ * be switched to Objectivity compatibility (and back) with minimum effort.
+ */
+public abstract class PersistentObject implements java.io.Serializable, Cloneable {
+
+  /** Not yet commented. */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.util` is unnecessary and can be removed
+in `core/src/main/java/org/apache/mahout/math/PermutedVectorView.java`
+#### Snippet
+```java
+   * #getElement(int)} for the given index
+   *
+   * @return An {@link java.util.Iterator} over all elements
+   */
+  @Override
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.util` is unnecessary and can be removed
+in `core/src/main/java/org/apache/mahout/math/PermutedVectorView.java`
+#### Snippet
+```java
+   * #getElement(int)} for the given index
+   *
+   * @return An {@link java.util.Iterator} over all non-zero elements
+   */
+  @Override
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -2367,18 +2703,6 @@ in `core/src/main/java/org/apache/mahout/math/Arrays.java`
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.mahout.math` is unnecessary, and can be replaced with an import
-in `core/src/main/java/org/apache/mahout/math/list/SimpleLongArrayList.java`
-#### Snippet
-```java
-  @Override
-  public void ensureCapacity(int minCapacity) {
-    elements = org.apache.mahout.math.Arrays.ensureCapacity(elements, minCapacity);
-  }
-
-```
-
-### UnnecessaryFullyQualifiedName
 Qualifier `java.util` is unnecessary and can be removed
 in `core/src/main/java/org/apache/mahout/math/map/PrimeFinder.java`
 #### Snippet
@@ -2388,6 +2712,18 @@ in `core/src/main/java/org/apache/mahout/math/map/PrimeFinder.java`
     int i = java.util.Arrays.binarySearch(PRIME_CAPACITIES, desiredCapacity);
     if (i < 0) {
       // desired capacity not found, choose next prime greater than desired capacity
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.mahout.math` is unnecessary, and can be replaced with an import
+in `core/src/main/java/org/apache/mahout/math/list/SimpleLongArrayList.java`
+#### Snippet
+```java
+  @Override
+  public void ensureCapacity(int minCapacity) {
+    elements = org.apache.mahout.math.Arrays.ensureCapacity(elements, minCapacity);
+  }
+
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -2407,9 +2743,9 @@ Qualifier `org.apache.mahout.math` is unnecessary, and can be replaced with an i
 in `core/src/main/java/org/apache/mahout/math/list/ObjectArrayList.java`
 #### Snippet
 ```java
-  @Override
-  public void trimToSize() {
-    elements = org.apache.mahout.math.Arrays.trimToCapacity(elements, size());
+   */
+  public void ensureCapacity(int minCapacity) {
+    elements = org.apache.mahout.math.Arrays.ensureCapacity(elements, minCapacity);
   }
 
 ```
@@ -2419,9 +2755,9 @@ Qualifier `org.apache.mahout.math` is unnecessary, and can be replaced with an i
 in `core/src/main/java/org/apache/mahout/math/list/ObjectArrayList.java`
 #### Snippet
 ```java
-   */
-  public void ensureCapacity(int minCapacity) {
-    elements = org.apache.mahout.math.Arrays.ensureCapacity(elements, minCapacity);
+  @Override
+  public void trimToSize() {
+    elements = org.apache.mahout.math.Arrays.trimToCapacity(elements, size());
   }
 
 ```
@@ -2443,11 +2779,35 @@ Qualifier `org.apache.mahout.math.decomposer` is unnecessary and can be removed
 in `core/src/main/java/org/apache/mahout/math/decomposer/hebbian/HebbianSolver.java`
 #### Snippet
 ```java
-   *  {@link SingularVectorVerifier } an object which perpetually tries to check how close to
-   *   convergence the current singular vector is (typically is a
-   *  {@link org.apache.mahout.math.decomposer.AsyncEigenVerifier } which does this
-   *   in the background in another thread, while the main thread continues to converge)
-   * @param convergenceTarget a small "epsilon" value which tells the solver how small you want the cosine of the
+   * <b>This is the recommended constructor to use if you're not sure</b>
+   * Creates a new HebbianSolver with the default {@link HebbianUpdater } to do the updating work, and the default
+   * {@link org.apache.mahout.math.decomposer.AsyncEigenVerifier } to check for convergence in a
+   * (single) background thread.
+   *
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.mahout.math.decomposer` is unnecessary and can be removed
+in `core/src/main/java/org/apache/mahout/math/decomposer/hebbian/HebbianSolver.java`
+#### Snippet
+```java
+  /**
+   * Creates a new HebbianSolver with the default {@link HebbianUpdater } to do the updating work, and the default
+   * {@link org.apache.mahout.math.decomposer.AsyncEigenVerifier } to check for convergence in a (single)
+   * background thread, with
+   * maxPassesPerEigen set to Integer.MAX_VALUE.  <b>Not recommended</b> unless only looking
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.mahout.math.decomposer` is unnecessary and can be removed
+in `core/src/main/java/org/apache/mahout/math/decomposer/hebbian/HebbianSolver.java`
+#### Snippet
+```java
+  /**
+   * Creates a new HebbianSolver with the default {@link HebbianUpdater } to do the updating work, and the default
+   * {@link org.apache.mahout.math.decomposer.AsyncEigenVerifier } to check for convergence in a (single)
+   * background thread, with
+   * convergenceTarget set to 0, which means that the solver will not really care about convergence as a loop-exiting
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -2479,371 +2839,11 @@ Qualifier `org.apache.mahout.math.decomposer` is unnecessary and can be removed
 in `core/src/main/java/org/apache/mahout/math/decomposer/hebbian/HebbianSolver.java`
 #### Snippet
 ```java
-  /**
-   * Creates a new HebbianSolver with the default {@link HebbianUpdater } to do the updating work, and the default
-   * {@link org.apache.mahout.math.decomposer.AsyncEigenVerifier } to check for convergence in a (single)
-   * background thread, with
-   * convergenceTarget set to 0, which means that the solver will not really care about convergence as a loop-exiting
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.mahout.math.decomposer` is unnecessary and can be removed
-in `core/src/main/java/org/apache/mahout/math/decomposer/hebbian/HebbianSolver.java`
-#### Snippet
-```java
-  /**
-   * Creates a new HebbianSolver with the default {@link HebbianUpdater } to do the updating work, and the default
-   * {@link org.apache.mahout.math.decomposer.AsyncEigenVerifier } to check for convergence in a (single)
-   * background thread, with
-   * maxPassesPerEigen set to Integer.MAX_VALUE.  <b>Not recommended</b> unless only looking
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.mahout.math.decomposer` is unnecessary and can be removed
-in `core/src/main/java/org/apache/mahout/math/decomposer/hebbian/HebbianSolver.java`
-#### Snippet
-```java
-   * <b>This is the recommended constructor to use if you're not sure</b>
-   * Creates a new HebbianSolver with the default {@link HebbianUpdater } to do the updating work, and the default
-   * {@link org.apache.mahout.math.decomposer.AsyncEigenVerifier } to check for convergence in a
-   * (single) background thread.
-   *
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.io` is unnecessary and can be removed
-in `engine/hdfs/src/main/java/org/apache/mahout/math/Varint.java`
-#### Snippet
-```java
-   * @param in to read bytes from
-   * @return decode value
-   * @throws java.io.IOException if {@link java.io.DataInput} throws {@link java.io.IOException}
-   * @throws IllegalArgumentException if variable-length value does not terminate
-   *  after 9 bytes have been read
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.io` is unnecessary and can be removed
-in `engine/hdfs/src/main/java/org/apache/mahout/math/Varint.java`
-#### Snippet
-```java
-   * @param in to read bytes from
-   * @return decode value
-   * @throws java.io.IOException if {@link java.io.DataInput} throws {@link java.io.IOException}
-   * @throws IllegalArgumentException if variable-length value does not terminate
-   *  after 9 bytes have been read
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.io` is unnecessary and can be removed
-in `engine/hdfs/src/main/java/org/apache/mahout/math/Varint.java`
-#### Snippet
-```java
-   * @param in to read bytes from
-   * @return decode value
-   * @throws java.io.IOException if {@link java.io.DataInput} throws {@link java.io.IOException}
-   * @throws IllegalArgumentException if variable-length value does not terminate
-   *  after 9 bytes have been read
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.io` is unnecessary and can be removed
-in `engine/hdfs/src/main/java/org/apache/mahout/math/Varint.java`
-#### Snippet
-```java
-   * @throws IllegalArgumentException if variable-length value does not terminate
-   *  after 9 bytes have been read
-   * @see #writeSignedVarLong(long, java.io.DataOutput)
-   */
-  public static long readSignedVarLong(DataInput in) throws IOException {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.io` is unnecessary and can be removed
-in `engine/hdfs/src/main/java/org/apache/mahout/math/Varint.java`
-#### Snippet
-```java
-   * @param in to read bytes from
-   * @return decode value
-   * @throws java.io.IOException if {@link java.io.DataInput} throws {@link java.io.IOException}
-   * @throws IllegalArgumentException if variable-length value does not terminate
-   *  after 9 bytes have been read
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.io` is unnecessary and can be removed
-in `engine/hdfs/src/main/java/org/apache/mahout/math/Varint.java`
-#### Snippet
-```java
-   * @param in to read bytes from
-   * @return decode value
-   * @throws java.io.IOException if {@link java.io.DataInput} throws {@link java.io.IOException}
-   * @throws IllegalArgumentException if variable-length value does not terminate
-   *  after 9 bytes have been read
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.io` is unnecessary and can be removed
-in `engine/hdfs/src/main/java/org/apache/mahout/math/Varint.java`
-#### Snippet
-```java
-   * @param in to read bytes from
-   * @return decode value
-   * @throws java.io.IOException if {@link java.io.DataInput} throws {@link java.io.IOException}
-   * @throws IllegalArgumentException if variable-length value does not terminate
-   *  after 9 bytes have been read
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.io` is unnecessary and can be removed
-in `engine/hdfs/src/main/java/org/apache/mahout/math/Varint.java`
-#### Snippet
-```java
-   * @throws IllegalArgumentException if variable-length value does not terminate
-   *  after 9 bytes have been read
-   * @see #writeUnsignedVarLong(long, java.io.DataOutput)
-   */
-  public static long readUnsignedVarLong(DataInput in) throws IOException {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.io` is unnecessary and can be removed
-in `engine/hdfs/src/main/java/org/apache/mahout/math/Varint.java`
-#### Snippet
-```java
-
-  /**
-   * @see #writeUnsignedVarLong(long, java.io.DataOutput)
-   */
-  public static void writeUnsignedVarInt(int value, DataOutput out) throws IOException {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.io` is unnecessary and can be removed
-in `engine/hdfs/src/main/java/org/apache/mahout/math/Varint.java`
-#### Snippet
-```java
-   * Google Protocol Buffers</a>. It uses zig-zag encoding to efficiently
-   * encode signed values. If values are known to be nonnegative,
-   * {@link #writeUnsignedVarLong(long, java.io.DataOutput)} should be used.
-   *
-   * @param value value to encode
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.io` is unnecessary and can be removed
-in `engine/hdfs/src/main/java/org/apache/mahout/math/Varint.java`
-#### Snippet
-```java
-   * @param value value to encode
-   * @param out to write bytes to
-   * @throws java.io.IOException if {@link java.io.DataOutput} throws {@link java.io.IOException}
-   */
-  public static void writeSignedVarLong(long value, DataOutput out) throws IOException {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.io` is unnecessary and can be removed
-in `engine/hdfs/src/main/java/org/apache/mahout/math/Varint.java`
-#### Snippet
-```java
-   * @param value value to encode
-   * @param out to write bytes to
-   * @throws java.io.IOException if {@link java.io.DataOutput} throws {@link java.io.IOException}
-   */
-  public static void writeSignedVarLong(long value, DataOutput out) throws IOException {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.io` is unnecessary and can be removed
-in `engine/hdfs/src/main/java/org/apache/mahout/math/Varint.java`
-#### Snippet
-```java
-   * @param value value to encode
-   * @param out to write bytes to
-   * @throws java.io.IOException if {@link java.io.DataOutput} throws {@link java.io.IOException}
-   */
-  public static void writeSignedVarLong(long value, DataOutput out) throws IOException {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.io` is unnecessary and can be removed
-in `engine/hdfs/src/main/java/org/apache/mahout/math/Varint.java`
-#### Snippet
-```java
-   * @throws IllegalArgumentException if variable-length value does not terminate
-   *  after 5 bytes have been read
-   * @throws java.io.IOException if {@link java.io.DataInput} throws {@link java.io.IOException}
-   * @see #readSignedVarLong(java.io.DataInput)
-   */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.io` is unnecessary and can be removed
-in `engine/hdfs/src/main/java/org/apache/mahout/math/Varint.java`
-#### Snippet
-```java
-   * @throws IllegalArgumentException if variable-length value does not terminate
-   *  after 5 bytes have been read
-   * @throws java.io.IOException if {@link java.io.DataInput} throws {@link java.io.IOException}
-   * @see #readSignedVarLong(java.io.DataInput)
-   */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.io` is unnecessary and can be removed
-in `engine/hdfs/src/main/java/org/apache/mahout/math/Varint.java`
-#### Snippet
-```java
-   * @throws IllegalArgumentException if variable-length value does not terminate
-   *  after 5 bytes have been read
-   * @throws java.io.IOException if {@link java.io.DataInput} throws {@link java.io.IOException}
-   * @see #readSignedVarLong(java.io.DataInput)
-   */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.io` is unnecessary and can be removed
-in `engine/hdfs/src/main/java/org/apache/mahout/math/Varint.java`
-#### Snippet
-```java
-   *  after 5 bytes have been read
-   * @throws java.io.IOException if {@link java.io.DataInput} throws {@link java.io.IOException}
-   * @see #readSignedVarLong(java.io.DataInput)
-   */
-  public static int readSignedVarInt(DataInput in) throws IOException {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.io` is unnecessary and can be removed
-in `engine/hdfs/src/main/java/org/apache/mahout/math/Varint.java`
-#### Snippet
-```java
-   * @throws IllegalArgumentException if variable-length value does not terminate
-   *  after 5 bytes have been read
-   * @throws java.io.IOException if {@link java.io.DataInput} throws {@link java.io.IOException}
-   * @see #readUnsignedVarLong(java.io.DataInput)
-   */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.io` is unnecessary and can be removed
-in `engine/hdfs/src/main/java/org/apache/mahout/math/Varint.java`
-#### Snippet
-```java
-   * @throws IllegalArgumentException if variable-length value does not terminate
-   *  after 5 bytes have been read
-   * @throws java.io.IOException if {@link java.io.DataInput} throws {@link java.io.IOException}
-   * @see #readUnsignedVarLong(java.io.DataInput)
-   */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.io` is unnecessary and can be removed
-in `engine/hdfs/src/main/java/org/apache/mahout/math/Varint.java`
-#### Snippet
-```java
-   * @throws IllegalArgumentException if variable-length value does not terminate
-   *  after 5 bytes have been read
-   * @throws java.io.IOException if {@link java.io.DataInput} throws {@link java.io.IOException}
-   * @see #readUnsignedVarLong(java.io.DataInput)
-   */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.io` is unnecessary and can be removed
-in `engine/hdfs/src/main/java/org/apache/mahout/math/Varint.java`
-#### Snippet
-```java
-   *  after 5 bytes have been read
-   * @throws java.io.IOException if {@link java.io.DataInput} throws {@link java.io.IOException}
-   * @see #readUnsignedVarLong(java.io.DataInput)
-   */
-  public static int readUnsignedVarInt(DataInput in) throws IOException {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.io` is unnecessary and can be removed
-in `engine/hdfs/src/main/java/org/apache/mahout/math/Varint.java`
-#### Snippet
-```java
-
-  /**
-   * @see #writeSignedVarLong(long, java.io.DataOutput)
-   */
-  public static void writeSignedVarInt(int value, DataOutput out) throws IOException {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.io` is unnecessary and can be removed
-in `engine/hdfs/src/main/java/org/apache/mahout/math/Varint.java`
-#### Snippet
-```java
-   * <a href="http://code.google.com/apis/protocolbuffers/docs/encoding.html">
-   * Google Protocol Buffers</a>. Zig-zag is not used, so input must not be negative.
-   * If values can be negative, use {@link #writeSignedVarLong(long, java.io.DataOutput)}
-   * instead. This method treats negative input as like a large unsigned value.
-   *
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.io` is unnecessary and can be removed
-in `engine/hdfs/src/main/java/org/apache/mahout/math/Varint.java`
-#### Snippet
-```java
-   * @param value value to encode
-   * @param out to write bytes to
-   * @throws java.io.IOException if {@link java.io.DataOutput} throws {@link java.io.IOException}
-   */
-  public static void writeUnsignedVarLong(long value, DataOutput out) throws IOException {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.io` is unnecessary and can be removed
-in `engine/hdfs/src/main/java/org/apache/mahout/math/Varint.java`
-#### Snippet
-```java
-   * @param value value to encode
-   * @param out to write bytes to
-   * @throws java.io.IOException if {@link java.io.DataOutput} throws {@link java.io.IOException}
-   */
-  public static void writeUnsignedVarLong(long value, DataOutput out) throws IOException {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.io` is unnecessary and can be removed
-in `engine/hdfs/src/main/java/org/apache/mahout/math/Varint.java`
-#### Snippet
-```java
-   * @param value value to encode
-   * @param out to write bytes to
-   * @throws java.io.IOException if {@link java.io.DataOutput} throws {@link java.io.IOException}
-   */
-  public static void writeUnsignedVarLong(long value, DataOutput out) throws IOException {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.mahout.math` is unnecessary and can be removed
-in `engine/hdfs/src/main/java/org/apache/mahout/math/VectorWritable.java`
-#### Snippet
-```java
-
-  /**
-   * @return true if this is allowed to encode {@link org.apache.mahout.math.Vector}
-   *  values using fewer bytes, possibly losing precision. In particular this means
-   *  that floating point values will be encoded as floats, not doubles.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.mahout.math` is unnecessary and can be removed
-in `engine/hdfs/src/main/java/org/apache/mahout/math/VectorWritable.java`
-#### Snippet
-```java
-
-  /**
-   * @return {@link org.apache.mahout.math.Vector} that this is to write, or has
-   *  just read
-   */
+   *  {@link SingularVectorVerifier } an object which perpetually tries to check how close to
+   *   convergence the current singular vector is (typically is a
+   *  {@link org.apache.mahout.math.decomposer.AsyncEigenVerifier } which does this
+   *   in the background in another thread, while the main thread continues to converge)
+   * @param convergenceTarget a small "epsilon" value which tells the solver how small you want the cosine of the
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -3067,12 +3067,36 @@ in `core/src/main/java/org/apache/mahout/math/SingularValueDecomposition.java`
 ## RuleId[ruleID=NestedAssignment]
 ### NestedAssignment
 Result of assignment expression used
+in `engine/hdfs/src/main/java/org/apache/mahout/math/Varint.java`
+#### Snippet
+```java
+    int i = 0;
+    int b;
+    while (((b = in.readByte()) & 0x80) != 0) {
+      value |= (b & 0x7F) << i;
+      i += 7;
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `engine/hdfs/src/main/java/org/apache/mahout/math/Varint.java`
+#### Snippet
+```java
+    int i = 0;
+    long b;
+    while (((b = in.readByte()) & 0x80L) != 0) {
+      value |= (b & 0x7F) << i;
+      i += 7;
+```
+
+### NestedAssignment
+Result of assignment expression used
 in `core/src/main/java/org/apache/mahout/math/BinarySearch.java`
 #### Snippet
 ```java
     while (from <= to) {
       mid = (from + to) >>> 1;
-      if ((result = comparator.compare(array[mid], object)) < 0) {
+      if ((result = array[mid].compareTo(object)) < 0) {
         from = mid + 1;
       } else if (result == 0) {
 ```
@@ -3084,7 +3108,7 @@ in `core/src/main/java/org/apache/mahout/math/BinarySearch.java`
 ```java
     while (from <= to) {
       mid = (from + to) >>> 1;
-      if ((result = array[mid].compareTo(object)) < 0) {
+      if ((result = comparator.compare(array[mid], object)) < 0) {
         from = mid + 1;
       } else if (result == 0) {
 ```
@@ -3211,30 +3235,6 @@ in `core/src/main/java/org/apache/mahout/math/decomposer/lanczos/LanczosSolver.j
 
 ### NestedAssignment
 Result of assignment expression used
-in `engine/hdfs/src/main/java/org/apache/mahout/math/Varint.java`
-#### Snippet
-```java
-    int i = 0;
-    long b;
-    while (((b = in.readByte()) & 0x80L) != 0) {
-      value |= (b & 0x7F) << i;
-      i += 7;
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `engine/hdfs/src/main/java/org/apache/mahout/math/Varint.java`
-#### Snippet
-```java
-    int i = 0;
-    int b;
-    while (((b = in.readByte()) & 0x80) != 0) {
-      value |= (b & 0x7F) << i;
-      i += 7;
-```
-
-### NestedAssignment
-Result of assignment expression used
 in `core/src/main/java/org/apache/mahout/math/solver/EigenDecomposition.java`
 #### Snippet
 ```java
@@ -3291,6 +3291,114 @@ in `core/src/main/java/org/apache/mahout/math/Sorting.java`
           } while (j > start && (c.compare(prev = out[j - 1], current) > 0));
           out[j] = current;
         }
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `core/src/main/java/org/apache/mahout/math/Sorting.java`
+#### Snippet
+```java
+    while (true) {
+      int comparison;
+      while (b <= c && (comparison = comp.compare(partionValue, array[b])) >= 0) {
+        if (comparison == 0) {
+          temp = array[a];
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `core/src/main/java/org/apache/mahout/math/Sorting.java`
+#### Snippet
+```java
+        b++;
+      }
+      while (c >= b && (comparison = comp.compare(array[c], partionValue)) >= 0) {
+        if (comparison == 0) {
+          temp = array[c];
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `core/src/main/java/org/apache/mahout/math/Sorting.java`
+#### Snippet
+```java
+      array[h++] = temp;
+    }
+    if ((length = b - a) > 0) {
+      quickSort0(start, start + length, array, comp);
+    }
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `core/src/main/java/org/apache/mahout/math/Sorting.java`
+#### Snippet
+```java
+      quickSort0(start, start + length, array, comp);
+    }
+    if ((length = d - c) > 0) {
+      quickSort0(end - length, end, array, comp);
+    }
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `core/src/main/java/org/apache/mahout/math/Sorting.java`
+#### Snippet
+```java
+          do {
+            out[j--] = prev;
+          } while (j > start && (c.compare(prev = out[j - 1], current) > 0));
+          out[j] = current;
+        }
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `core/src/main/java/org/apache/mahout/math/Sorting.java`
+#### Snippet
+```java
+    while (true) {
+      int comparison;
+      while (b <= c && (comparison = comp.compare(array[b], partionValue)) <= 0) {
+        if (comparison == 0) {
+          temp = array[a];
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `core/src/main/java/org/apache/mahout/math/Sorting.java`
+#### Snippet
+```java
+        b++;
+      }
+      while (c >= b && (comparison = comp.compare(array[c], partionValue)) >= 0) {
+        if (comparison == 0) {
+          temp = array[c];
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `core/src/main/java/org/apache/mahout/math/Sorting.java`
+#### Snippet
+```java
+      array[h++] = temp;
+    }
+    if ((length = b - a) > 0) {
+      quickSort0(start, start + length, array, comp);
+    }
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `core/src/main/java/org/apache/mahout/math/Sorting.java`
+#### Snippet
+```java
+      quickSort0(start, start + length, array, comp);
+    }
+    if ((length = d - c) > 0) {
+      quickSort0(end - length, end, array, comp);
+    }
 ```
 
 ### NestedAssignment
@@ -3406,78 +3514,6 @@ Result of assignment expression used
 in `core/src/main/java/org/apache/mahout/math/Sorting.java`
 #### Snippet
 ```java
-          do {
-            out[j--] = prev;
-          } while (j > start && (c.compare(prev = out[j - 1], current) > 0));
-          out[j] = current;
-        }
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `core/src/main/java/org/apache/mahout/math/Sorting.java`
-#### Snippet
-```java
-          do {
-            out[j--] = prev;
-          } while (j > start && (c.compare(prev = out[j - 1], current) > 0));
-          out[j] = current;
-        }
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `core/src/main/java/org/apache/mahout/math/Sorting.java`
-#### Snippet
-```java
-    while (true) {
-      int comparison;
-      while (b <= c && (comparison = comp.compare(array[b], partionValue)) <= 0) {
-        if (comparison == 0) {
-          temp = array[a];
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `core/src/main/java/org/apache/mahout/math/Sorting.java`
-#### Snippet
-```java
-        b++;
-      }
-      while (c >= b && (comparison = comp.compare(array[c], partionValue)) >= 0) {
-        if (comparison == 0) {
-          temp = array[c];
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `core/src/main/java/org/apache/mahout/math/Sorting.java`
-#### Snippet
-```java
-      array[h++] = temp;
-    }
-    if ((length = b - a) > 0) {
-      quickSort0(start, start + length, array, comp);
-    }
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `core/src/main/java/org/apache/mahout/math/Sorting.java`
-#### Snippet
-```java
-      quickSort0(start, start + length, array, comp);
-    }
-    if ((length = d - c) > 0) {
-      quickSort0(end - length, end, array, comp);
-    }
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `core/src/main/java/org/apache/mahout/math/Sorting.java`
-#### Snippet
-```java
     while (true) {
       int comparison;
       while (b <= c && (comparison = comp.compare(array[b], partionValue)) < 0) {
@@ -3574,54 +3610,6 @@ Result of assignment expression used
 in `core/src/main/java/org/apache/mahout/math/Sorting.java`
 #### Snippet
 ```java
-    while (true) {
-      int comparison;
-      while (b <= c && (comparison = comp.compare(partionValue, array[b])) >= 0) {
-        if (comparison == 0) {
-          temp = array[a];
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `core/src/main/java/org/apache/mahout/math/Sorting.java`
-#### Snippet
-```java
-        b++;
-      }
-      while (c >= b && (comparison = comp.compare(array[c], partionValue)) >= 0) {
-        if (comparison == 0) {
-          temp = array[c];
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `core/src/main/java/org/apache/mahout/math/Sorting.java`
-#### Snippet
-```java
-      array[h++] = temp;
-    }
-    if ((length = b - a) > 0) {
-      quickSort0(start, start + length, array, comp);
-    }
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `core/src/main/java/org/apache/mahout/math/Sorting.java`
-#### Snippet
-```java
-      quickSort0(start, start + length, array, comp);
-    }
-    if ((length = d - c) > 0) {
-      quickSort0(end - length, end, array, comp);
-    }
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `core/src/main/java/org/apache/mahout/math/Sorting.java`
-#### Snippet
-```java
           do {
             out[j--] = prev;
           } while (j > start && (c.compare(prev = out[j - 1], current) > 0));
@@ -3684,7 +3672,7 @@ in `core/src/main/java/org/apache/mahout/math/Sorting.java`
 ```java
     while (true) {
       int comparison;
-      while (b <= c && (comparison = comp.compare(array[b], partionValue)) <= 0) {
+      while (b <= c && (comparison = comp.compare(partionValue, array[b])) >= 0) {
         if (comparison == 0) {
           temp = array[a];
 ```
@@ -3732,7 +3720,7 @@ in `core/src/main/java/org/apache/mahout/math/Sorting.java`
 ```java
     while (true) {
       int comparison;
-      while (b <= c && (comparison = comp.compare(partionValue, array[b])) >= 0) {
+      while (b <= c && (comparison = comp.compare(array[b], partionValue)) <= 0) {
         if (comparison == 0) {
           temp = array[a];
 ```
@@ -3771,6 +3759,18 @@ in `core/src/main/java/org/apache/mahout/math/Sorting.java`
     if ((length = d - c) > 0) {
       quickSort0(end - length, end, array, comp);
     }
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `core/src/main/java/org/apache/mahout/math/Sorting.java`
+#### Snippet
+```java
+          do {
+            out[j--] = prev;
+          } while (j > start && (c.compare(prev = out[j - 1], current) > 0));
+          out[j] = current;
+        }
 ```
 
 ## RuleId[ruleID=MismatchedCollectionQueryUpdate]
@@ -3866,11 +3866,11 @@ Field initialization to `0` is redundant
 in `core/src/main/java/org/apache/mahout/math/FileBasedSparseBinaryMatrix.java`
 #### Snippet
 ```java
-    public Iterator<Element> iterateNonZero() {
+    public Iterator<Element> iterator() {
       return new AbstractIterator<Element>() {
         int i = 0;
+
         @Override
-        protected Element computeNext() {
 ```
 
 ### RedundantFieldInitialization
@@ -3878,11 +3878,11 @@ Field initialization to `0` is redundant
 in `core/src/main/java/org/apache/mahout/math/FileBasedSparseBinaryMatrix.java`
 #### Snippet
 ```java
-    public Iterator<Element> iterator() {
+    public Iterator<Element> iterateNonZero() {
       return new AbstractIterator<Element>() {
         int i = 0;
-
         @Override
+        protected Element computeNext() {
 ```
 
 ### RedundantFieldInitialization
@@ -3914,11 +3914,11 @@ Field initialization to `0` is redundant
 in `core/src/main/java/org/apache/mahout/math/random/ChineseRestaurant.java`
 #### Snippet
 ```java
+
   private final double alpha;
   private double weight = 0;
   private double discount = 0;
   private final DoubleArrayList weights = new DoubleArrayList();
-  private final Random rand = RandomUtils.getRandom();
 ```
 
 ### RedundantFieldInitialization
@@ -3926,11 +3926,11 @@ Field initialization to `0` is redundant
 in `core/src/main/java/org/apache/mahout/math/random/ChineseRestaurant.java`
 #### Snippet
 ```java
-
   private final double alpha;
   private double weight = 0;
   private double discount = 0;
   private final DoubleArrayList weights = new DoubleArrayList();
+  private final Random rand = RandomUtils.getRandom();
 ```
 
 ### RedundantFieldInitialization
@@ -4052,7 +4052,7 @@ in `core/src/main/java/org/apache/mahout/math/DenseSymmetricMatrix.java`
       row = column;
       column = swap;
     }
-    super.setQuick(row, column, value);
+    return super.getQuick(row, column);
 ```
 
 ### AssignmentToMethodParameter
@@ -4076,31 +4076,31 @@ in `core/src/main/java/org/apache/mahout/math/DenseSymmetricMatrix.java`
       row = column;
       column = swap;
     }
-    return super.getQuick(row, column);
+    super.setQuick(row, column, value);
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `from`
-in `core/src/main/java/org/apache/mahout/math/BinarySearch.java`
+Assignment to method parameter `value`
+in `engine/hdfs/src/main/java/org/apache/mahout/math/Varint.java`
 #### Snippet
 ```java
-      mid = (from + to) >>> 1;
-      if (value > array[mid]) {
-        from = mid + 1;
-      } else if (value == array[mid]) {
-        return mid;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `to`
-in `core/src/main/java/org/apache/mahout/math/BinarySearch.java`
-#### Snippet
-```java
-        return mid;
-      } else {
-        to = mid - 1;
-      }
+    while ((value & 0xFFFFFFFFFFFFFF80L) != 0L) {
+      out.writeByte(((int) value & 0x7F) | 0x80);
+      value >>>= 7;
     }
+    out.writeByte((int) value & 0x7F);
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `value`
+in `engine/hdfs/src/main/java/org/apache/mahout/math/Varint.java`
+#### Snippet
+```java
+    while ((value & 0xFFFFFF80) != 0L) {
+      out.writeByte((value & 0x7F) | 0x80);
+      value >>>= 7;
+    }
+    out.writeByte(value & 0x7F);
 ```
 
 ### AssignmentToMethodParameter
@@ -4109,9 +4109,9 @@ in `core/src/main/java/org/apache/mahout/math/BinarySearch.java`
 #### Snippet
 ```java
       mid = (from + to) >>> 1;
-      if (value > array[mid]) {
+      if ((result = array[mid].compareTo(object)) < 0) {
         from = mid + 1;
-      } else if (value == array[mid]) {
+      } else if (result == 0) {
         return mid;
 ```
 
@@ -4157,54 +4157,6 @@ in `core/src/main/java/org/apache/mahout/math/BinarySearch.java`
 #### Snippet
 ```java
       mid = (from + to) >>> 1;
-      if ((result = array[mid].compareTo(object)) < 0) {
-        from = mid + 1;
-      } else if (result == 0) {
-        return mid;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `to`
-in `core/src/main/java/org/apache/mahout/math/BinarySearch.java`
-#### Snippet
-```java
-        return mid;
-      } else {
-        to = mid - 1;
-      }
-    }
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `from`
-in `core/src/main/java/org/apache/mahout/math/BinarySearch.java`
-#### Snippet
-```java
-      mid = (from + to) >>> 1;
-      if (value > array[mid]) {
-        from = mid + 1;
-      } else if (value == array[mid]) {
-        return mid;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `to`
-in `core/src/main/java/org/apache/mahout/math/BinarySearch.java`
-#### Snippet
-```java
-        return mid;
-      } else {
-        to = mid - 1;
-      }
-    }
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `from`
-in `core/src/main/java/org/apache/mahout/math/BinarySearch.java`
-#### Snippet
-```java
-      mid = (from + to) >>> 1;
       if (lessThan(array[mid], value)) {
         from = mid + 1;
       } else if (longBits == Double.doubleToLongBits(array[mid])) {
@@ -4229,9 +4181,9 @@ in `core/src/main/java/org/apache/mahout/math/BinarySearch.java`
 #### Snippet
 ```java
       mid = (from + to) >>> 1;
-      if (lessThan(array[mid], value)) {
+      if (value > array[mid]) {
         from = mid + 1;
-      } else if (intBits == Float.floatToIntBits(array[mid])) {
+      } else if (value == array[mid]) {
         return mid;
 ```
 
@@ -4256,6 +4208,78 @@ in `core/src/main/java/org/apache/mahout/math/BinarySearch.java`
       if (value > array[mid]) {
         from = mid + 1;
       } else if (value == array[mid]) {
+        return mid;
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `to`
+in `core/src/main/java/org/apache/mahout/math/BinarySearch.java`
+#### Snippet
+```java
+        return mid;
+      } else {
+        to = mid - 1;
+      }
+    }
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `from`
+in `core/src/main/java/org/apache/mahout/math/BinarySearch.java`
+#### Snippet
+```java
+      mid = (from + to) >>> 1;
+      if (value > array[mid]) {
+        from = mid + 1;
+      } else if (value == array[mid]) {
+        return mid;
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `to`
+in `core/src/main/java/org/apache/mahout/math/BinarySearch.java`
+#### Snippet
+```java
+        return mid;
+      } else {
+        to = mid - 1;
+      }
+    }
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `from`
+in `core/src/main/java/org/apache/mahout/math/BinarySearch.java`
+#### Snippet
+```java
+      mid = (from + to) >>> 1;
+      if (value > array[mid]) {
+        from = mid + 1;
+      } else if (value == array[mid]) {
+        return mid;
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `to`
+in `core/src/main/java/org/apache/mahout/math/BinarySearch.java`
+#### Snippet
+```java
+        return mid;
+      } else {
+        to = mid - 1;
+      }
+    }
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `from`
+in `core/src/main/java/org/apache/mahout/math/BinarySearch.java`
+#### Snippet
+```java
+      mid = (from + to) >>> 1;
+      if (lessThan(array[mid], value)) {
+        from = mid + 1;
+      } else if (intBits == Float.floatToIntBits(array[mid])) {
         return mid;
 ```
 
@@ -4325,44 +4349,8 @@ in `core/src/main/java/org/apache/mahout/math/Arrays.java`
 #### Snippet
 ```java
     if (array.length > maxCapacity) {
-      Object[] oldArray = array;
-      array = new Object[maxCapacity];
-      System.arraycopy(oldArray, 0, array, 0, maxCapacity);
-    }
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `array`
-in `core/src/main/java/org/apache/mahout/math/Arrays.java`
-#### Snippet
-```java
-    if (array.length > maxCapacity) {
-      long[] oldArray = array;
-      array = new long[maxCapacity];
-      System.arraycopy(oldArray, 0, array, 0, maxCapacity);
-    }
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `array`
-in `core/src/main/java/org/apache/mahout/math/Arrays.java`
-#### Snippet
-```java
-    if (array.length > maxCapacity) {
-      char[] oldArray = array;
-      array = new char[maxCapacity];
-      System.arraycopy(oldArray, 0, array, 0, maxCapacity);
-    }
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `array`
-in `core/src/main/java/org/apache/mahout/math/Arrays.java`
-#### Snippet
-```java
-    if (array.length > maxCapacity) {
-      int[] oldArray = array;
-      array = new int[maxCapacity];
+      float[] oldArray = array;
+      array = new float[maxCapacity];
       System.arraycopy(oldArray, 0, array, 0, maxCapacity);
     }
 ```
@@ -4397,8 +4385,20 @@ in `core/src/main/java/org/apache/mahout/math/Arrays.java`
 #### Snippet
 ```java
     if (array.length > maxCapacity) {
-      boolean[] oldArray = array;
-      array = new boolean[maxCapacity];
+      int[] oldArray = array;
+      array = new int[maxCapacity];
+      System.arraycopy(oldArray, 0, array, 0, maxCapacity);
+    }
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `array`
+in `core/src/main/java/org/apache/mahout/math/Arrays.java`
+#### Snippet
+```java
+    if (array.length > maxCapacity) {
+      long[] oldArray = array;
+      array = new long[maxCapacity];
       System.arraycopy(oldArray, 0, array, 0, maxCapacity);
     }
 ```
@@ -4421,8 +4421,32 @@ in `core/src/main/java/org/apache/mahout/math/Arrays.java`
 #### Snippet
 ```java
     if (array.length > maxCapacity) {
-      float[] oldArray = array;
-      array = new float[maxCapacity];
+      Object[] oldArray = array;
+      array = new Object[maxCapacity];
+      System.arraycopy(oldArray, 0, array, 0, maxCapacity);
+    }
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `array`
+in `core/src/main/java/org/apache/mahout/math/Arrays.java`
+#### Snippet
+```java
+    if (array.length > maxCapacity) {
+      char[] oldArray = array;
+      array = new char[maxCapacity];
+      System.arraycopy(oldArray, 0, array, 0, maxCapacity);
+    }
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `array`
+in `core/src/main/java/org/apache/mahout/math/Arrays.java`
+#### Snippet
+```java
+    if (array.length > maxCapacity) {
+      boolean[] oldArray = array;
+      array = new boolean[maxCapacity];
       System.arraycopy(oldArray, 0, array, 0, maxCapacity);
     }
 ```
@@ -4436,6 +4460,18 @@ in `core/src/main/java/org/apache/mahout/math/jet/math/Arithmetic.java`
       if (k > n / 2) {
         k = n - k;
       } // quicker
+    }
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `x`
+in `core/src/main/java/org/apache/mahout/math/jet/random/Gamma.java`
+#### Snippet
+```java
+
+    double z;
+    for (z = 1.0; x < 11.0; x++) {
+      z *= x;
     }
 ```
 
@@ -4461,54 +4497,6 @@ in `core/src/main/java/org/apache/mahout/math/jet/random/engine/MersenneTwister.
       seed = 69069 * seed + 1;
     }
     //log.info("init done");
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `x`
-in `core/src/main/java/org/apache/mahout/math/jet/random/Gamma.java`
-#### Snippet
-```java
-
-    double z;
-    for (z = 1.0; x < 11.0; x++) {
-      z *= x;
-    }
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `x`
-in `core/src/main/java/org/apache/mahout/math/jet/stat/Gamma.java`
-#### Snippet
-```java
-      z = 1.0;
-      while (x >= 3.0) {
-        x -= 1.0;
-        z *= x;
-      }
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `x`
-in `core/src/main/java/org/apache/mahout/math/jet/stat/Gamma.java`
-#### Snippet
-```java
-        }
-        z /= x;
-        x += 1.0;
-      }
-      if (z < 0.0) {
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `x`
-in `core/src/main/java/org/apache/mahout/math/jet/stat/Gamma.java`
-#### Snippet
-```java
-        return Math.log(z);
-      }
-      x -= 2.0;
-      p = x * Polynomial.polevl(x, bCoefficient, 5) / Polynomial.p1evl(x, cCoefficient, 6);
-      return Math.log(z) + p;
 ```
 
 ### AssignmentToMethodParameter
@@ -4560,111 +4548,39 @@ in `core/src/main/java/org/apache/mahout/math/jet/stat/Gamma.java`
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `randomGenerator`
-in `core/src/main/java/org/apache/mahout/math/jet/random/sampling/RandomSampler.java`
+Assignment to method parameter `x`
+in `core/src/main/java/org/apache/mahout/math/jet/stat/Gamma.java`
 #### Snippet
 ```java
-    }
-    if (randomGenerator == null) {
-      randomGenerator = RandomUtils.getRandom();
-    }
-
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `fromIndex`
-in `core/src/main/java/org/apache/mahout/math/jet/random/sampling/RandomSampler.java`
-#### Snippet
-```java
-      //step D5: select the (S+1)st record !
-      chosen += S + 1;
-      values[fromIndex++] = chosen;
-      /*
-      // invert
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `count`
-in `core/src/main/java/org/apache/mahout/math/jet/random/sampling/RandomSampler.java`
-#### Snippet
-```java
-      chosen++;
-      */
-      count--;
-
-      N -= S + 1;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `N`
-in `core/src/main/java/org/apache/mahout/math/jet/random/sampling/RandomSampler.java`
-#### Snippet
-```java
-      count--;
-
-      N -= S + 1;
-      Nreal = negSreal - 1.0 + Nreal;
-      n--;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `n`
-in `core/src/main/java/org/apache/mahout/math/jet/random/sampling/RandomSampler.java`
-#### Snippet
-```java
-      N -= S + 1;
-      Nreal = negSreal - 1.0 + Nreal;
-      n--;
-      nreal--;
-      ninv = nmin1inv;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `fromIndex`
-in `core/src/main/java/org/apache/mahout/math/jet/random/sampling/RandomSampler.java`
-#### Snippet
-```java
-        S = (long) (N * vprime);
-        chosen += S + 1;
-        values[fromIndex++] = chosen;
+      z = 1.0;
+      while (x >= 3.0) {
+        x -= 1.0;
+        z *= x;
       }
-    }
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `fromIndex`
-in `core/src/main/java/org/apache/mahout/math/jet/random/sampling/RandomSampler.java`
+Assignment to method parameter `x`
+in `core/src/main/java/org/apache/mahout/math/jet/stat/Gamma.java`
 #### Snippet
 ```java
+        }
+        z /= x;
+        x += 1.0;
       }
-      chosen += S + 1;
-      values[fromIndex++] = chosen;
-      count--;
-      Nreal--;
+      if (z < 0.0) {
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `count`
-in `core/src/main/java/org/apache/mahout/math/jet/random/sampling/RandomSampler.java`
+Assignment to method parameter `x`
+in `core/src/main/java/org/apache/mahout/math/jet/stat/Gamma.java`
 #### Snippet
 ```java
-      chosen += S + 1;
-      values[fromIndex++] = chosen;
-      count--;
-      Nreal--;
-      n--;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `n`
-in `core/src/main/java/org/apache/mahout/math/jet/random/sampling/RandomSampler.java`
-#### Snippet
-```java
-      count--;
-      Nreal--;
-      n--;
-    }
-
+        return Math.log(z);
+      }
+      x -= 2.0;
+      p = x * Polynomial.polevl(x, bCoefficient, 5) / Polynomial.p1evl(x, cCoefficient, 6);
+      return Math.log(z) + p;
 ```
 
 ### AssignmentToMethodParameter
@@ -4776,6 +4692,114 @@ in `core/src/main/java/org/apache/mahout/math/jet/random/sampling/RandomSampler.
 ```
 
 ### AssignmentToMethodParameter
+Assignment to method parameter `fromIndex`
+in `core/src/main/java/org/apache/mahout/math/jet/random/sampling/RandomSampler.java`
+#### Snippet
+```java
+      //step D5: select the (S+1)st record !
+      chosen += S + 1;
+      values[fromIndex++] = chosen;
+      /*
+      // invert
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `count`
+in `core/src/main/java/org/apache/mahout/math/jet/random/sampling/RandomSampler.java`
+#### Snippet
+```java
+      chosen++;
+      */
+      count--;
+
+      N -= S + 1;
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `N`
+in `core/src/main/java/org/apache/mahout/math/jet/random/sampling/RandomSampler.java`
+#### Snippet
+```java
+      count--;
+
+      N -= S + 1;
+      Nreal = negSreal - 1.0 + Nreal;
+      n--;
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `n`
+in `core/src/main/java/org/apache/mahout/math/jet/random/sampling/RandomSampler.java`
+#### Snippet
+```java
+      N -= S + 1;
+      Nreal = negSreal - 1.0 + Nreal;
+      n--;
+      nreal--;
+      ninv = nmin1inv;
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `fromIndex`
+in `core/src/main/java/org/apache/mahout/math/jet/random/sampling/RandomSampler.java`
+#### Snippet
+```java
+        S = (long) (N * vprime);
+        chosen += S + 1;
+        values[fromIndex++] = chosen;
+      }
+    }
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `fromIndex`
+in `core/src/main/java/org/apache/mahout/math/jet/random/sampling/RandomSampler.java`
+#### Snippet
+```java
+      }
+      chosen += S + 1;
+      values[fromIndex++] = chosen;
+      count--;
+      Nreal--;
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `count`
+in `core/src/main/java/org/apache/mahout/math/jet/random/sampling/RandomSampler.java`
+#### Snippet
+```java
+      chosen += S + 1;
+      values[fromIndex++] = chosen;
+      count--;
+      Nreal--;
+      n--;
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `n`
+in `core/src/main/java/org/apache/mahout/math/jet/random/sampling/RandomSampler.java`
+#### Snippet
+```java
+      count--;
+      Nreal--;
+      n--;
+    }
+
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `randomGenerator`
+in `core/src/main/java/org/apache/mahout/math/jet/random/sampling/RandomSampler.java`
+#### Snippet
+```java
+    }
+    if (randomGenerator == null) {
+      randomGenerator = RandomUtils.getRandom();
+    }
+
+```
+
+### AssignmentToMethodParameter
 Assignment to method parameter `u`
 in `core/src/main/java/org/apache/mahout/math/random/Empirical.java`
 #### Snippet
@@ -4848,27 +4872,99 @@ in `core/src/main/java/org/apache/mahout/collections/Arithmetic.java`
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `value`
-in `engine/hdfs/src/main/java/org/apache/mahout/math/Varint.java`
+Assignment to method parameter `l`
+in `core/src/main/java/org/apache/mahout/math/Sorting.java`
 #### Snippet
 ```java
-    while ((value & 0xFFFFFF80) != 0L) {
-      out.writeByte((value & 0x7F) | 0x80);
-      value >>>= 7;
-    }
-    out.writeByte(value & 0x7F);
+    while (m <= r) {
+      if (c.compare(val, arr[m]) > bnd) {
+        l = m + 1;
+      } else {
+        r = m - 1;
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `value`
-in `engine/hdfs/src/main/java/org/apache/mahout/math/Varint.java`
+Assignment to method parameter `r`
+in `core/src/main/java/org/apache/mahout/math/Sorting.java`
 #### Snippet
 ```java
-    while ((value & 0xFFFFFFFFFFFFFF80L) != 0L) {
-      out.writeByte(((int) value & 0x7F) | 0x80);
-      value >>>= 7;
+        l = m + 1;
+      } else {
+        r = m - 1;
+        break;
+      }
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `l`
+in `core/src/main/java/org/apache/mahout/math/Sorting.java`
+#### Snippet
+```java
+      m = (l + r) >>> 1;
+      if (c.compare(val, arr[m]) > bnd) {
+        l = m + 1;
+      } else {
+        r = m - 1;
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `r`
+in `core/src/main/java/org/apache/mahout/math/Sorting.java`
+#### Snippet
+```java
+        l = m + 1;
+      } else {
+        r = m - 1;
+      }
     }
-    out.writeByte((int) value & 0x7F);
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `l`
+in `core/src/main/java/org/apache/mahout/math/Sorting.java`
+#### Snippet
+```java
+    while (m <= r) {
+      if (c.compare(val, arr[m]) > bnd) {
+        l = m + 1;
+      } else {
+        r = m - 1;
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `r`
+in `core/src/main/java/org/apache/mahout/math/Sorting.java`
+#### Snippet
+```java
+        l = m + 1;
+      } else {
+        r = m - 1;
+        break;
+      }
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `l`
+in `core/src/main/java/org/apache/mahout/math/Sorting.java`
+#### Snippet
+```java
+      m = (l + r) >>> 1;
+      if (c.compare(val, arr[m]) > bnd) {
+        l = m + 1;
+      } else {
+        r = m - 1;
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `r`
+in `core/src/main/java/org/apache/mahout/math/Sorting.java`
+#### Snippet
+```java
+        l = m + 1;
+      } else {
+        r = m - 1;
+      }
+    }
 ```
 
 ### AssignmentToMethodParameter
@@ -4917,6 +5013,222 @@ in `core/src/main/java/org/apache/mahout/math/Sorting.java`
         start++;
         r = r_1 + 1;
       }
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `l`
+in `core/src/main/java/org/apache/mahout/math/Sorting.java`
+#### Snippet
+```java
+    while (m <= r) {
+      if (c.compare(val, arr[m]) > bnd) {
+        l = m + 1;
+      } else {
+        r = m - 1;
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `r`
+in `core/src/main/java/org/apache/mahout/math/Sorting.java`
+#### Snippet
+```java
+        l = m + 1;
+      } else {
+        r = m - 1;
+        break;
+      }
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `l`
+in `core/src/main/java/org/apache/mahout/math/Sorting.java`
+#### Snippet
+```java
+      m = (l + r) >>> 1;
+      if (c.compare(val, arr[m]) > bnd) {
+        l = m + 1;
+      } else {
+        r = m - 1;
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `r`
+in `core/src/main/java/org/apache/mahout/math/Sorting.java`
+#### Snippet
+```java
+        l = m + 1;
+      } else {
+        r = m - 1;
+      }
+    }
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `l`
+in `core/src/main/java/org/apache/mahout/math/Sorting.java`
+#### Snippet
+```java
+    while (m <= r) {
+      if (c.compare(val, arr[m]) > bnd) {
+        l = m + 1;
+      } else {
+        r = m - 1;
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `r`
+in `core/src/main/java/org/apache/mahout/math/Sorting.java`
+#### Snippet
+```java
+        l = m + 1;
+      } else {
+        r = m - 1;
+        break;
+      }
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `l`
+in `core/src/main/java/org/apache/mahout/math/Sorting.java`
+#### Snippet
+```java
+      m = (l + r) >>> 1;
+      if (c.compare(val, arr[m]) > bnd) {
+        l = m + 1;
+      } else {
+        r = m - 1;
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `r`
+in `core/src/main/java/org/apache/mahout/math/Sorting.java`
+#### Snippet
+```java
+        l = m + 1;
+      } else {
+        r = m - 1;
+      }
+    }
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `start`
+in `core/src/main/java/org/apache/mahout/math/Sorting.java`
+#### Snippet
+```java
+        out[i++] = rVal;
+        r++;
+        start = l_1 + 1;
+      } else {
+        int r_1 = find(in, fromVal, 0, r + 1, end - 1, c);
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `start`
+in `core/src/main/java/org/apache/mahout/math/Sorting.java`
+#### Snippet
+```java
+        i += toCopy;
+        out[i++] = fromVal;
+        start++;
+        r = r_1 + 1;
+      }
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `l`
+in `core/src/main/java/org/apache/mahout/math/Sorting.java`
+#### Snippet
+```java
+    while (m <= r) {
+      if (c.compare(val, arr[m]) > bnd) {
+        l = m + 1;
+      } else {
+        r = m - 1;
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `r`
+in `core/src/main/java/org/apache/mahout/math/Sorting.java`
+#### Snippet
+```java
+        l = m + 1;
+      } else {
+        r = m - 1;
+        break;
+      }
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `l`
+in `core/src/main/java/org/apache/mahout/math/Sorting.java`
+#### Snippet
+```java
+      m = (l + r) >>> 1;
+      if (c.compare(val, arr[m]) > bnd) {
+        l = m + 1;
+      } else {
+        r = m - 1;
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `r`
+in `core/src/main/java/org/apache/mahout/math/Sorting.java`
+#### Snippet
+```java
+        l = m + 1;
+      } else {
+        r = m - 1;
+      }
+    }
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `l`
+in `core/src/main/java/org/apache/mahout/math/Sorting.java`
+#### Snippet
+```java
+    while (m <= r) {
+      if (c.compare(val, arr[m]) > bnd) {
+        l = m + 1;
+      } else {
+        r = m - 1;
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `r`
+in `core/src/main/java/org/apache/mahout/math/Sorting.java`
+#### Snippet
+```java
+        l = m + 1;
+      } else {
+        r = m - 1;
+        break;
+      }
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `l`
+in `core/src/main/java/org/apache/mahout/math/Sorting.java`
+#### Snippet
+```java
+      m = (l + r) >>> 1;
+      if (c.compare(val, arr[m]) > bnd) {
+        l = m + 1;
+      } else {
+        r = m - 1;
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `r`
+in `core/src/main/java/org/apache/mahout/math/Sorting.java`
+#### Snippet
+```java
+        l = m + 1;
+      } else {
+        r = m - 1;
+      }
+    }
 ```
 
 ### AssignmentToMethodParameter
@@ -4928,354 +5240,6 @@ in `core/src/main/java/org/apache/mahout/math/Sorting.java`
       } else {
         first = middle + 1;
         len -= half + 1;
-      }
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `l`
-in `core/src/main/java/org/apache/mahout/math/Sorting.java`
-#### Snippet
-```java
-    while (m <= r) {
-      if (c.compare(val, arr[m]) > bnd) {
-        l = m + 1;
-      } else {
-        r = m - 1;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `r`
-in `core/src/main/java/org/apache/mahout/math/Sorting.java`
-#### Snippet
-```java
-        l = m + 1;
-      } else {
-        r = m - 1;
-        break;
-      }
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `l`
-in `core/src/main/java/org/apache/mahout/math/Sorting.java`
-#### Snippet
-```java
-      m = (l + r) >>> 1;
-      if (c.compare(val, arr[m]) > bnd) {
-        l = m + 1;
-      } else {
-        r = m - 1;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `r`
-in `core/src/main/java/org/apache/mahout/math/Sorting.java`
-#### Snippet
-```java
-        l = m + 1;
-      } else {
-        r = m - 1;
-      }
-    }
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `l`
-in `core/src/main/java/org/apache/mahout/math/Sorting.java`
-#### Snippet
-```java
-    while (m <= r) {
-      if (c.compare(val, arr[m]) > bnd) {
-        l = m + 1;
-      } else {
-        r = m - 1;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `r`
-in `core/src/main/java/org/apache/mahout/math/Sorting.java`
-#### Snippet
-```java
-        l = m + 1;
-      } else {
-        r = m - 1;
-        break;
-      }
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `l`
-in `core/src/main/java/org/apache/mahout/math/Sorting.java`
-#### Snippet
-```java
-      m = (l + r) >>> 1;
-      if (c.compare(val, arr[m]) > bnd) {
-        l = m + 1;
-      } else {
-        r = m - 1;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `r`
-in `core/src/main/java/org/apache/mahout/math/Sorting.java`
-#### Snippet
-```java
-        l = m + 1;
-      } else {
-        r = m - 1;
-      }
-    }
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `start`
-in `core/src/main/java/org/apache/mahout/math/Sorting.java`
-#### Snippet
-```java
-        out[i++] = rVal;
-        r++;
-        start = l_1 + 1;
-      } else {
-        int r_1 = find(in, fromVal, 0, r + 1, end - 1, c);
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `start`
-in `core/src/main/java/org/apache/mahout/math/Sorting.java`
-#### Snippet
-```java
-        i += toCopy;
-        out[i++] = fromVal;
-        start++;
-        r = r_1 + 1;
-      }
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `l`
-in `core/src/main/java/org/apache/mahout/math/Sorting.java`
-#### Snippet
-```java
-    while (m <= r) {
-      if (c.compare(val, arr[m]) > bnd) {
-        l = m + 1;
-      } else {
-        r = m - 1;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `r`
-in `core/src/main/java/org/apache/mahout/math/Sorting.java`
-#### Snippet
-```java
-        l = m + 1;
-      } else {
-        r = m - 1;
-        break;
-      }
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `l`
-in `core/src/main/java/org/apache/mahout/math/Sorting.java`
-#### Snippet
-```java
-      m = (l + r) >>> 1;
-      if (c.compare(val, arr[m]) > bnd) {
-        l = m + 1;
-      } else {
-        r = m - 1;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `r`
-in `core/src/main/java/org/apache/mahout/math/Sorting.java`
-#### Snippet
-```java
-        l = m + 1;
-      } else {
-        r = m - 1;
-      }
-    }
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `l`
-in `core/src/main/java/org/apache/mahout/math/Sorting.java`
-#### Snippet
-```java
-    while (m <= r) {
-      if (c.compare(val, arr[m]) > bnd) {
-        l = m + 1;
-      } else {
-        r = m - 1;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `r`
-in `core/src/main/java/org/apache/mahout/math/Sorting.java`
-#### Snippet
-```java
-        l = m + 1;
-      } else {
-        r = m - 1;
-        break;
-      }
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `l`
-in `core/src/main/java/org/apache/mahout/math/Sorting.java`
-#### Snippet
-```java
-      m = (l + r) >>> 1;
-      if (c.compare(val, arr[m]) > bnd) {
-        l = m + 1;
-      } else {
-        r = m - 1;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `r`
-in `core/src/main/java/org/apache/mahout/math/Sorting.java`
-#### Snippet
-```java
-        l = m + 1;
-      } else {
-        r = m - 1;
-      }
-    }
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `start`
-in `core/src/main/java/org/apache/mahout/math/Sorting.java`
-#### Snippet
-```java
-        out[i++] = rVal;
-        r++;
-        start = l_1 + 1;
-      } else {
-        int r_1 = find(in, fromVal, 0, r + 1, end - 1, c);
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `start`
-in `core/src/main/java/org/apache/mahout/math/Sorting.java`
-#### Snippet
-```java
-        i += toCopy;
-        out[i++] = fromVal;
-        start++;
-        r = r_1 + 1;
-      }
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `middle`
-in `core/src/main/java/org/apache/mahout/math/Sorting.java`
-#### Snippet
-```java
-    // end inline
-  
-    middle = firstCut + (secondCut - middle);
-    inplaceMerge(first, firstCut, middle, comp, swapper);
-    inplaceMerge(middle, secondCut, last, comp, swapper);
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `l`
-in `core/src/main/java/org/apache/mahout/math/Sorting.java`
-#### Snippet
-```java
-    while (m <= r) {
-      if (c.compare(val, arr[m]) > bnd) {
-        l = m + 1;
-      } else {
-        r = m - 1;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `r`
-in `core/src/main/java/org/apache/mahout/math/Sorting.java`
-#### Snippet
-```java
-        l = m + 1;
-      } else {
-        r = m - 1;
-        break;
-      }
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `l`
-in `core/src/main/java/org/apache/mahout/math/Sorting.java`
-#### Snippet
-```java
-      m = (l + r) >>> 1;
-      if (c.compare(val, arr[m]) > bnd) {
-        l = m + 1;
-      } else {
-        r = m - 1;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `r`
-in `core/src/main/java/org/apache/mahout/math/Sorting.java`
-#### Snippet
-```java
-        l = m + 1;
-      } else {
-        r = m - 1;
-      }
-    }
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `start`
-in `core/src/main/java/org/apache/mahout/math/Sorting.java`
-#### Snippet
-```java
-        out[i++] = rVal;
-        r++;
-        start = l_1 + 1;
-      } else {
-        int r_1 = find(in, fromVal, 0, r + 1, end - 1, c);
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `start`
-in `core/src/main/java/org/apache/mahout/math/Sorting.java`
-#### Snippet
-```java
-        i += toCopy;
-        out[i++] = fromVal;
-        start++;
-        r = r_1 + 1;
-      }
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `start`
-in `core/src/main/java/org/apache/mahout/math/Sorting.java`
-#### Snippet
-```java
-        out[i++] = rVal;
-        r++;
-        start = l_1 + 1;
-      } else {
-        int r_1 = find(in, fromVal, 0, r + 1, end - 1, c);
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `start`
-in `core/src/main/java/org/apache/mahout/math/Sorting.java`
-#### Snippet
-```java
-        i += toCopy;
-        out[i++] = fromVal;
-        start++;
-        r = r_1 + 1;
       }
 ```
 
@@ -5292,6 +5256,66 @@ in `core/src/main/java/org/apache/mahout/math/Sorting.java`
 ```
 
 ### AssignmentToMethodParameter
+Assignment to method parameter `middle`
+in `core/src/main/java/org/apache/mahout/math/Sorting.java`
+#### Snippet
+```java
+    // end inline
+  
+    middle = firstCut + (secondCut - middle);
+    inplaceMerge(first, firstCut, middle, comp, swapper);
+    inplaceMerge(middle, secondCut, last, comp, swapper);
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `start`
+in `core/src/main/java/org/apache/mahout/math/Sorting.java`
+#### Snippet
+```java
+        out[i++] = rVal;
+        r++;
+        start = l_1 + 1;
+      } else {
+        int r_1 = find(in, fromVal, 0, r + 1, end - 1, c);
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `start`
+in `core/src/main/java/org/apache/mahout/math/Sorting.java`
+#### Snippet
+```java
+        i += toCopy;
+        out[i++] = fromVal;
+        start++;
+        r = r_1 + 1;
+      }
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `start`
+in `core/src/main/java/org/apache/mahout/math/Sorting.java`
+#### Snippet
+```java
+        out[i++] = rVal;
+        r++;
+        start = l_1 + 1;
+      } else {
+        int r_1 = find(in, fromVal, 0, r + 1, end - 1, c);
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `start`
+in `core/src/main/java/org/apache/mahout/math/Sorting.java`
+#### Snippet
+```java
+        i += toCopy;
+        out[i++] = fromVal;
+        start++;
+        r = r_1 + 1;
+      }
+```
+
+### AssignmentToMethodParameter
 Assignment to method parameter `start`
 in `core/src/main/java/org/apache/mahout/math/Sorting.java`
 #### Snippet
@@ -5364,54 +5388,6 @@ in `core/src/main/java/org/apache/mahout/math/Sorting.java`
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `l`
-in `core/src/main/java/org/apache/mahout/math/Sorting.java`
-#### Snippet
-```java
-    while (m <= r) {
-      if (c.compare(val, arr[m]) > bnd) {
-        l = m + 1;
-      } else {
-        r = m - 1;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `r`
-in `core/src/main/java/org/apache/mahout/math/Sorting.java`
-#### Snippet
-```java
-        l = m + 1;
-      } else {
-        r = m - 1;
-        break;
-      }
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `l`
-in `core/src/main/java/org/apache/mahout/math/Sorting.java`
-#### Snippet
-```java
-      m = (l + r) >>> 1;
-      if (c.compare(val, arr[m]) > bnd) {
-        l = m + 1;
-      } else {
-        r = m - 1;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `r`
-in `core/src/main/java/org/apache/mahout/math/Sorting.java`
-#### Snippet
-```java
-        l = m + 1;
-      } else {
-        r = m - 1;
-      }
-    }
-```
-
-### AssignmentToMethodParameter
 Assignment to method parameter `start`
 in `core/src/main/java/org/apache/mahout/math/Sorting.java`
 #### Snippet
@@ -5481,6 +5457,30 @@ in `core/src/main/java/org/apache/mahout/math/Sorting.java`
         r = m - 1;
       }
     }
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `start`
+in `core/src/main/java/org/apache/mahout/math/Sorting.java`
+#### Snippet
+```java
+        out[i++] = rVal;
+        r++;
+        start = l_1 + 1;
+      } else {
+        int r_1 = find(in, fromVal, 0, r + 1, end - 1, c);
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `start`
+in `core/src/main/java/org/apache/mahout/math/Sorting.java`
+#### Snippet
+```java
+        i += toCopy;
+        out[i++] = fromVal;
+        start++;
+        r = r_1 + 1;
+      }
 ```
 
 ## RuleId[ruleID=ReturnNull]
@@ -5492,8 +5492,8 @@ in `core/src/main/java/org/apache/mahout/math/map/OpenHashMap.java`
     int i = indexOfKey((K)key);
     if (i < 0) {
       return null;
-    } //not contained
-    return (V)values[i];
+    }
+    // key not contained
 ```
 
 ### ReturnNull
@@ -5504,8 +5504,8 @@ in `core/src/main/java/org/apache/mahout/math/map/OpenHashMap.java`
     int i = indexOfKey((K)key);
     if (i < 0) {
       return null;
-    }
-    // key not contained
+    } //not contained
+    return (V)values[i];
 ```
 
 ## RuleId[ruleID=UnnecessaryLocalVariable]
@@ -5552,11 +5552,11 @@ Expression can be replaced with 'Double.compare'
 in `core/src/main/java/org/apache/mahout/math/function/Functions.java`
 #### Snippet
 ```java
-      @Override
-      public double apply(double a) {
-        return a < b ? -1 : a > b ? 1 : 0;
-      }
-    };
+    @Override
+    public double apply(double a, double b) {
+      return a < b ? -1 : a > b ? 1 : 0;
+    }
+  };
 ```
 
 ### UseCompareMethod
@@ -5564,11 +5564,11 @@ Expression can be replaced with 'Double.compare'
 in `core/src/main/java/org/apache/mahout/math/function/Functions.java`
 #### Snippet
 ```java
-    @Override
-    public double apply(double a, double b) {
-      return a < b ? -1 : a > b ? 1 : 0;
-    }
-  };
+      @Override
+      public double apply(double a) {
+        return a < b ? -1 : a > b ? 1 : 0;
+      }
+    };
 ```
 
 ### UseCompareMethod
@@ -5850,18 +5850,6 @@ in `core/src/main/java/org/apache/mahout/math/list/ObjectArrayList.java`
 ```
 
 ### ConstantValue
-Condition `realEigen != null` is always `true`
-in `core/src/main/java/org/apache/mahout/math/decomposer/lanczos/LanczosSolver.java`
-#### Snippet
-```java
-
-      Preconditions.checkState(realEigen != null);
-      assert realEigen != null;
-
-      realEigen = realEigen.normalize();
-```
-
-### ConstantValue
 Value `corpus` is always 'null'
 in `core/src/main/java/org/apache/mahout/math/decomposer/hebbian/HebbianSolver.java`
 #### Snippet
@@ -5871,6 +5859,18 @@ in `core/src/main/java/org/apache/mahout/math/decomposer/hebbian/HebbianSolver.j
     TrainingState finalState = solver.solve(corpus, rank);
     long time = (System.currentTimeMillis() - now) / 1000;
     log.info("Solved {} eigenVectors in {} seconds.  Persisted to {}",
+```
+
+### ConstantValue
+Condition `realEigen != null` is always `true`
+in `core/src/main/java/org/apache/mahout/math/decomposer/lanczos/LanczosSolver.java`
+#### Snippet
+```java
+
+      Preconditions.checkState(realEigen != null);
+      assert realEigen != null;
+
+      realEigen = realEigen.normalize();
 ```
 
 ### ConstantValue
@@ -5983,6 +5983,18 @@ in `core/src/main/java/org/apache/mahout/math/random/IndianBuffet.java`
 ```
 
 ### UnstableApiUsage
+Overridden method 'getResult()' is declared in unstable interface 'com.google.common.io.LineProcessor' marked with @Beta
+in `core/src/main/java/org/apache/mahout/math/random/IndianBuffet.java`
+#### Snippet
+```java
+
+            @Override
+            public List<String> getResult() {
+              return theWords;
+            }
+```
+
+### UnstableApiUsage
 'com.google.common.io.LineProcessor' is marked unstable with @Beta
 in `core/src/main/java/org/apache/mahout/math/random/IndianBuffet.java`
 #### Snippet
@@ -6028,18 +6040,6 @@ in `core/src/main/java/org/apache/mahout/math/random/IndianBuffet.java`
     private final Splitter onSpace = Splitter.on(CharMatcher.WHITESPACE).omitEmptyStrings().trimResults();
     private final List<String> words;
 
-```
-
-### UnstableApiUsage
-Overridden method 'getResult()' is declared in unstable interface 'com.google.common.io.LineProcessor' marked with @Beta
-in `core/src/main/java/org/apache/mahout/math/random/IndianBuffet.java`
-#### Snippet
-```java
-
-            @Override
-            public List<String> getResult() {
-              return theWords;
-            }
 ```
 
 ### UnstableApiUsage
