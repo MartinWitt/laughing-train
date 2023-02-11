@@ -100,6 +100,18 @@ in `docker-compose-rule-core/src/main/java/com/palantir/docker/compose/execution
 
 ## RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
 ### DynamicRegexReplaceableByCompiledPattern
+`split()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `docker-compose-rule-core/src/main/java/com/palantir/docker/compose/execution/DefaultDockerCompose.java`
+#### Snippet
+```java
+    public List<String> services() throws IOException, InterruptedException {
+        String servicesOutput = command.execute(Command.throwingOnError(), "config", "--services");
+        return Arrays.asList(servicesOutput.split("(\r|\n)+"));
+    }
+
+```
+
+### DynamicRegexReplaceableByCompiledPattern
 `replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
 in `docker-compose-rule-core/src/main/java/com/palantir/docker/compose/connection/DockerPort.java`
 #### Snippet
@@ -136,30 +148,6 @@ in `docker-compose-rule-core/src/main/java/com/palantir/docker/compose/connectio
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
-`split()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `docker-compose-rule-core/src/main/java/com/palantir/docker/compose/execution/DefaultDockerCompose.java`
-#### Snippet
-```java
-    public List<String> services() throws IOException, InterruptedException {
-        String servicesOutput = command.execute(Command.throwingOnError(), "config", "--services");
-        return Arrays.asList(servicesOutput.split("(\r|\n)+"));
-    }
-
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `docker-compose-rule-core/src/main/java/com/palantir/docker/compose/execution/Docker.java`
-#### Snippet
-```java
-            + "{{else}}UNHEALTHY{{end}}"
-            + "{{else}}HEALTHY{{end}}";
-    private static final String HEALTH_STATUS_FORMAT_WINDOWS = HEALTH_STATUS_FORMAT.replaceAll("\"", "`\"");
-
-    public static Version version() throws IOException, InterruptedException {
-```
-
-### DynamicRegexReplaceableByCompiledPattern
 `replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
 in `docker-compose-rule-core/src/main/java/com/palantir/docker/compose/reporting/GitUtils.java`
 #### Snippet
@@ -181,6 +169,18 @@ in `docker-compose-rule-core/src/main/java/com/palantir/docker/compose/reporting
                 .map(path -> path.replaceAll("^/", ""))
                 .findFirst();
     }
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `docker-compose-rule-core/src/main/java/com/palantir/docker/compose/execution/Docker.java`
+#### Snippet
+```java
+            + "{{else}}UNHEALTHY{{end}}"
+            + "{{else}}HEALTHY{{end}}";
+    private static final String HEALTH_STATUS_FORMAT_WINDOWS = HEALTH_STATUS_FORMAT.replaceAll("\"", "`\"");
+
+    public static Version version() throws IOException, InterruptedException {
 ```
 
 ## RuleId[ruleID=UnnecessaryFullyQualifiedName]
@@ -310,18 +310,6 @@ in `docker-compose-rule-core/src/main/java/com/palantir/docker/compose/Recording
 
 ## RuleId[ruleID=DeprecatedIsStillUsed]
 ### DeprecatedIsStillUsed
-Deprecated member 'AGGRESSIVE_WITH_NETWORK_CLEANUP' is still used
-in `docker-compose-rule-core/src/main/java/com/palantir/docker/compose/configuration/ShutdownStrategy.java`
-#### Snippet
-```java
-     */
-    @Deprecated
-    ShutdownStrategy AGGRESSIVE_WITH_NETWORK_CLEANUP = new AggressiveShutdownWithNetworkCleanupStrategy();
-    /**
-     * Call docker-compose down, kill, then rm. Allows containers up to 10 seconds to shut down
-```
-
-### DeprecatedIsStillUsed
 Deprecated member 'AGGRESSIVE' is still used
 in `docker-compose-rule-core/src/main/java/com/palantir/docker/compose/configuration/ShutdownStrategy.java`
 #### Snippet
@@ -331,6 +319,18 @@ in `docker-compose-rule-core/src/main/java/com/palantir/docker/compose/configura
     ShutdownStrategy AGGRESSIVE = new AggressiveShutdownStrategy();
     /**
      * Call rm on all containers, then call docker-compose down.
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'AGGRESSIVE_WITH_NETWORK_CLEANUP' is still used
+in `docker-compose-rule-core/src/main/java/com/palantir/docker/compose/configuration/ShutdownStrategy.java`
+#### Snippet
+```java
+     */
+    @Deprecated
+    ShutdownStrategy AGGRESSIVE_WITH_NETWORK_CLEANUP = new AggressiveShutdownWithNetworkCleanupStrategy();
+    /**
+     * Call docker-compose down, kill, then rm. Allows containers up to 10 seconds to shut down
 ```
 
 ### DeprecatedIsStillUsed
@@ -412,18 +412,6 @@ in `docker-compose-rule-core/src/main/java/com/palantir/docker/compose/configura
 ## RuleId[ruleID=BoundedWildcard]
 ### BoundedWildcard
 Can generalize to `? super String`
-in `docker-compose-rule-core/src/main/java/com/palantir/docker/compose/connection/waiting/SuccessOrFailure.java`
-#### Snippet
-```java
-    }
-
-    public SuccessOrFailure mapFailure(Function<String, String> mapper) {
-        if (this.succeeded()) {
-            return this;
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
 in `docker-compose-rule-core/src/main/java/com/palantir/docker/compose/execution/Command.java`
 #### Snippet
 ```java
@@ -432,6 +420,18 @@ in `docker-compose-rule-core/src/main/java/com/palantir/docker/compose/execution
     public Command(Executable executable, Consumer<String> logConsumer) {
         this.executable = executable;
         this.logConsumer = logConsumer;
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `docker-compose-rule-core/src/main/java/com/palantir/docker/compose/connection/waiting/SuccessOrFailure.java`
+#### Snippet
+```java
+    }
+
+    public SuccessOrFailure mapFailure(Function<String, String> mapper) {
+        if (this.succeeded()) {
+            return this;
 ```
 
 ### BoundedWildcard
@@ -471,18 +471,6 @@ in `docker-compose-rule-core/src/main/java/com/palantir/docker/compose/execution
 ```
 
 ### BoundedWildcard
-Can generalize to `? super DockerPort`
-in `docker-compose-rule-core/src/main/java/com/palantir/docker/compose/connection/DockerPort.java`
-#### Snippet
-```java
-    @SuppressWarnings("ReadReturnValueIgnored")
-    public SuccessOrFailure isHttpRespondingSuccessfully(
-            Function<DockerPort, String> urlFunction, boolean andCheckStatus) {
-        URL url;
-        try {
-```
-
-### BoundedWildcard
 Can generalize to `? super Cluster`
 in `docker-compose-rule-core/src/main/java/com/palantir/docker/compose/connection/waiting/ClusterHealthCheck.java`
 #### Snippet
@@ -519,15 +507,15 @@ in `docker-compose-rule-core/src/main/java/com/palantir/docker/compose/connectio
 ```
 
 ### BoundedWildcard
-Can generalize to `? super String`
-in `docker-compose-rule-core/src/main/java/com/palantir/docker/compose/connection/DockerMachine.java`
+Can generalize to `? super DockerPort`
+in `docker-compose-rule-core/src/main/java/com/palantir/docker/compose/connection/DockerPort.java`
 #### Snippet
 ```java
-    }
-
-    private void augmentGivenEnvironment(Map<String, String> environmentToAugment) {
-        environmentToAugment.putAll(environment);
-    }
+    @SuppressWarnings("ReadReturnValueIgnored")
+    public SuccessOrFailure isHttpRespondingSuccessfully(
+            Function<DockerPort, String> urlFunction, boolean andCheckStatus) {
+        URL url;
+        try {
 ```
 
 ### BoundedWildcard
@@ -543,14 +531,14 @@ in `docker-compose-rule-core/src/main/java/com/palantir/docker/compose/connectio
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends File`
-in `docker-compose-rule-core/src/main/java/com/palantir/docker/compose/configuration/DockerComposeFiles.java`
+Can generalize to `? super String`
+in `docker-compose-rule-core/src/main/java/com/palantir/docker/compose/connection/DockerMachine.java`
 #### Snippet
 ```java
-    private final List<File> dockerComposeFiles;
+    }
 
-    public DockerComposeFiles(List<File> dockerComposeFiles) {
-        this.dockerComposeFiles = dockerComposeFiles;
+    private void augmentGivenEnvironment(Map<String, String> environmentToAugment) {
+        environmentToAugment.putAll(environment);
     }
 ```
 
@@ -564,6 +552,18 @@ in `docker-compose-rule-core/src/main/java/com/palantir/docker/compose/configura
     private static void validateComposeFilesExist(List<File> dockerComposeFiles) {
         List<File> missingFiles =
                 dockerComposeFiles.stream().filter(f -> !f.exists()).collect(Collectors.toList());
+```
+
+### BoundedWildcard
+Can generalize to `? extends File`
+in `docker-compose-rule-core/src/main/java/com/palantir/docker/compose/configuration/DockerComposeFiles.java`
+#### Snippet
+```java
+    private final List<File> dockerComposeFiles;
+
+    public DockerComposeFiles(List<File> dockerComposeFiles) {
+        this.dockerComposeFiles = dockerComposeFiles;
+    }
 ```
 
 ### BoundedWildcard
@@ -616,18 +616,6 @@ public abstract class SuccessOrFailure {
 ```
 
 ### AbstractClassNeverImplemented
-Abstract class `DockerComposeRunOption` has no concrete subclass
-in `docker-compose-rule-core/src/main/java/com/palantir/docker/compose/execution/DockerComposeRunOption.java`
-#### Snippet
-```java
-
-@Value.Immutable
-public abstract class DockerComposeRunOption {
-    @Value.Parameter
-    public abstract List<String> options();
-```
-
-### AbstractClassNeverImplemented
 Abstract class `DockerComposeExecutable` has no concrete subclass
 in `docker-compose-rule-core/src/main/java/com/palantir/docker/compose/execution/DockerComposeExecutable.java`
 #### Snippet
@@ -637,6 +625,18 @@ in `docker-compose-rule-core/src/main/java/com/palantir/docker/compose/execution
 public abstract class DockerComposeExecutable implements Executable {
     private static final Logger log = LoggerFactory.getLogger(DockerComposeExecutable.class);
 
+```
+
+### AbstractClassNeverImplemented
+Abstract class `DockerComposeRunOption` has no concrete subclass
+in `docker-compose-rule-core/src/main/java/com/palantir/docker/compose/execution/DockerComposeRunOption.java`
+#### Snippet
+```java
+
+@Value.Immutable
+public abstract class DockerComposeRunOption {
+    @Value.Parameter
+    public abstract List<String> options();
 ```
 
 ### AbstractClassNeverImplemented
@@ -798,6 +798,30 @@ in `docker-compose-rule-core/src/main/java/com/palantir/docker/compose/execution
 ```
 
 ### UnstableApiUsage
+'com.google.common.io.CharStreams' is marked unstable with @Beta
+in `docker-compose-rule-core/src/main/java/com/palantir/docker/compose/reporting/ReportCompiler.java`
+#### Snippet
+```java
+
+    private String inputStreamToString(InputStream inputStream) throws IOException {
+        return CharStreams.toString(new InputStreamReader(inputStream, StandardCharsets.UTF_8))
+                .trim();
+    }
+```
+
+### UnstableApiUsage
+'toString(java.lang.Readable)' is declared in unstable class 'com.google.common.io.CharStreams' marked with @Beta
+in `docker-compose-rule-core/src/main/java/com/palantir/docker/compose/reporting/ReportCompiler.java`
+#### Snippet
+```java
+
+    private String inputStreamToString(InputStream inputStream) throws IOException {
+        return CharStreams.toString(new InputStreamReader(inputStream, StandardCharsets.UTF_8))
+                .trim();
+    }
+```
+
+### UnstableApiUsage
 'com.google.common.collect.Streams' is marked unstable with @Beta
 in `docker-compose-rule-core/src/main/java/com/palantir/docker/compose/reporting/GitUtils.java`
 #### Snippet
@@ -823,30 +847,6 @@ in `docker-compose-rule-core/src/main/java/com/palantir/docker/compose/reporting
 
 ### UnstableApiUsage
 'com.google.common.io.CharStreams' is marked unstable with @Beta
-in `docker-compose-rule-core/src/main/java/com/palantir/docker/compose/reporting/ReportCompiler.java`
-#### Snippet
-```java
-
-    private String inputStreamToString(InputStream inputStream) throws IOException {
-        return CharStreams.toString(new InputStreamReader(inputStream, StandardCharsets.UTF_8))
-                .trim();
-    }
-```
-
-### UnstableApiUsage
-'toString(java.lang.Readable)' is declared in unstable class 'com.google.common.io.CharStreams' marked with @Beta
-in `docker-compose-rule-core/src/main/java/com/palantir/docker/compose/reporting/ReportCompiler.java`
-#### Snippet
-```java
-
-    private String inputStreamToString(InputStream inputStream) throws IOException {
-        return CharStreams.toString(new InputStreamReader(inputStream, StandardCharsets.UTF_8))
-                .trim();
-    }
-```
-
-### UnstableApiUsage
-'com.google.common.io.CharStreams' is marked unstable with @Beta
 in `docker-compose-rule-core/src/main/java/com/palantir/docker/compose/reporting/HttpJsonPoster.java`
 #### Snippet
 ```java
@@ -867,18 +867,6 @@ in `docker-compose-rule-core/src/main/java/com/palantir/docker/compose/reporting
                 String error = CharStreams.toString(
                         new InputStreamReader(connection.getErrorStream(), StandardCharsets.UTF_8));
 
-```
-
-### UnstableApiUsage
-'splitToList(java.lang.CharSequence)' is marked unstable with @Beta
-in `docker-compose-rule-core/src/main/java/com/palantir/docker/compose/connection/ContainerNames.java`
-#### Snippet
-```java
-
-    public static List<ContainerName> parseFromDockerComposePs(String psOutput) {
-        List<String> psHeadAndBody = Splitter.on(HEAD_PATTERN).splitToList(psOutput);
-        if (psHeadAndBody.size() < 2) {
-            return emptyList();
 ```
 
 ### UnstableApiUsage
@@ -895,6 +883,18 @@ in `docker-compose-rule-core/src/main/java/com/palantir/docker/compose/connectio
 
 ### UnstableApiUsage
 'splitToList(java.lang.CharSequence)' is marked unstable with @Beta
+in `docker-compose-rule-core/src/main/java/com/palantir/docker/compose/connection/ContainerNames.java`
+#### Snippet
+```java
+
+    public static List<ContainerName> parseFromDockerComposePs(String psOutput) {
+        List<String> psHeadAndBody = Splitter.on(HEAD_PATTERN).splitToList(psOutput);
+        if (psHeadAndBody.size() < 2) {
+            return emptyList();
+```
+
+### UnstableApiUsage
+'splitToList(java.lang.CharSequence)' is marked unstable with @Beta
 in `docker-compose-rule-core/src/main/java/com/palantir/docker/compose/execution/DockerComposeVersion.java`
 #### Snippet
 ```java
@@ -903,18 +903,6 @@ in `docker-compose-rule-core/src/main/java/com/palantir/docker/compose/execution
         List<String> splitOnSeparator = Splitter.on(' ').splitToList(versionOutput);
         String version = splitOnSeparator.get(2);
         StringBuilder builder = new StringBuilder();
-```
-
-### UnstableApiUsage
-'splitToList(java.lang.CharSequence)' is marked unstable with @Beta
-in `docker-compose-rule-core/src/main/java/com/palantir/docker/compose/connection/ContainerName.java`
-#### Snippet
-```java
-
-    public static ContainerName fromPsLine(String psLine) {
-        List<String> lineComponents = Splitter.on(" ").splitToList(psLine);
-        String rawName = lineComponents.get(0);
-
 ```
 
 ### UnstableApiUsage
@@ -939,6 +927,18 @@ in `docker-compose-rule-core/src/main/java/com/palantir/docker/compose/reporting
             Uninterruptibles.sleepUninterruptibly(300, TimeUnit.MILLISECONDS);
         }));
     }
+```
+
+### UnstableApiUsage
+'splitToList(java.lang.CharSequence)' is marked unstable with @Beta
+in `docker-compose-rule-core/src/main/java/com/palantir/docker/compose/connection/ContainerName.java`
+#### Snippet
+```java
+
+    public static ContainerName fromPsLine(String psLine) {
+        List<String> lineComponents = Splitter.on(" ").splitToList(psLine);
+        String rawName = lineComponents.get(0);
+
 ```
 
 ### UnstableApiUsage
