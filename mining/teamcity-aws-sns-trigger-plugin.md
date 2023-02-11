@@ -9,8 +9,8 @@ I found 7 bad smells with 2 repairable:
 | DataFlowIssue | 1 | false |
 | BoundedWildcard | 1 | false |
 | AssignmentToStaticFieldFromInstanceMethod | 1 | false |
-| NonProtectedConstructorInAbstractClass | 1 | true |
 | MissortedModifiers | 1 | false |
+| NonProtectedConstructorInAbstractClass | 1 | true |
 ## RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
 ### UtilityClassWithoutPrivateConstructor
 Class `AwsSnsMessageDetailsHelper` has only 'static' members, and lacks a 'private' constructor
@@ -76,19 +76,6 @@ in `amazon-sns-trigger-server/src/main/java/jetbrains/buildServer/clouds/amazon/
 
 ```
 
-## RuleId[ruleID=NonProtectedConstructorInAbstractClass]
-### NonProtectedConstructorInAbstractClass
-Constructor `BaseAwsConnectionController()` of an abstract class should not be declared 'public'
-in `amazon-sns-trigger-server/src/main/java/jetbrains/buildServer/clouds/amazon/sns/trigger/controllers/BaseAwsConnectionController.java`
-#### Snippet
-```java
-  private final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
-
-  public BaseAwsConnectionController(@NotNull final SBuildServer server) {
-    super(server);
-  }
-```
-
 ## RuleId[ruleID=MissortedModifiers]
 ### MissortedModifiers
 Missorted modifiers `final static`
@@ -100,5 +87,18 @@ public class SnsMessageParameterDescriptionProvider extends AbstractParameterDes
     private final static String PARAM_DESCRIPTIONS_RES = "/param-descriptions.xml";
 
     private final Map<Pattern, String> myDescriptions = new HashMap<>();
+```
+
+## RuleId[ruleID=NonProtectedConstructorInAbstractClass]
+### NonProtectedConstructorInAbstractClass
+Constructor `BaseAwsConnectionController()` of an abstract class should not be declared 'public'
+in `amazon-sns-trigger-server/src/main/java/jetbrains/buildServer/clouds/amazon/sns/trigger/controllers/BaseAwsConnectionController.java`
+#### Snippet
+```java
+  private final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
+
+  public BaseAwsConnectionController(@NotNull final SBuildServer server) {
+    super(server);
+  }
 ```
 
