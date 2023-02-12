@@ -34,18 +34,6 @@ public class SetupContainerParameters {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `AwsTeamCityTemplateVpc` has only 'static' members, and lacks a 'private' constructor
-in `src/main/java/jetbrains/teamcity/aws/template/services/vpc/AwsTeamCityTemplateVpc.java`
-#### Snippet
-```java
-import java.util.List;
-
-public class AwsTeamCityTemplateVpc {
-
-    // VPC Configuration
-```
-
-### UtilityClassWithoutPrivateConstructor
 Class `AwsTeamcityCfnTemplateCdkApp` has only 'static' members, and lacks a 'private' constructor
 in `src/main/java/jetbrains/teamcity/aws/template/AwsTeamcityCfnTemplateCdkApp.java`
 #### Snippet
@@ -55,6 +43,18 @@ import software.amazon.awscdk.StackProps;
 public class AwsTeamcityCfnTemplateCdkApp {
     public static void main(final String[] args) {
         App app = new App();
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `AwsTeamCityTemplateVpc` has only 'static' members, and lacks a 'private' constructor
+in `src/main/java/jetbrains/teamcity/aws/template/services/vpc/AwsTeamCityTemplateVpc.java`
+#### Snippet
+```java
+import java.util.List;
+
+public class AwsTeamCityTemplateVpc {
+
+    // VPC Configuration
 ```
 
 ### UtilityClassWithoutPrivateConstructor
