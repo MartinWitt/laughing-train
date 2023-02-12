@@ -19,18 +19,6 @@ I found 22 bad smells with 2 repairable:
 | UnnecessaryCallToStringValueOf | 1 | false |
 ## RuleId[ruleID=RedundantFieldInitialization]
 ### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `core/src/main/java/com/microsoft/jfr/JfrStream.java`
-#### Snippet
-```java
-
-    private byte[] buffer;
-    private int index = 0;
-    private boolean EOF = false;
-    // There is a recording id and an id you get from the recording for the stream.
-```
-
-### RedundantFieldInitialization
 Field initialization to `false` is redundant
 in `core/src/main/java/com/microsoft/jfr/JfrStream.java`
 #### Snippet
@@ -40,6 +28,18 @@ in `core/src/main/java/com/microsoft/jfr/JfrStream.java`
     private boolean EOF = false;
     // There is a recording id and an id you get from the recording for the stream.
     // streamId is the id for the stream.
+```
+
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `core/src/main/java/com/microsoft/jfr/JfrStream.java`
+#### Snippet
+```java
+
+    private byte[] buffer;
+    private int index = 0;
+    private boolean EOF = false;
+    // There is a recording id and an id you get from the recording for the stream.
 ```
 
 ## RuleId[ruleID=AssignmentToMethodParameter]
@@ -221,18 +221,6 @@ in `core/src/main/java/com/microsoft/jfr/RecordingOptions.java`
 
 ## RuleId[ruleID=MissortedModifiers]
 ### MissortedModifiers
-Missorted modifiers `final private`
-in `core/src/main/java/com/microsoft/jfr/Recording.java`
-#### Snippet
-```java
-
-    final private FlightRecorderConnection connection;
-    final private RecordingOptions recordingOptions;
-    final private RecordingConfiguration recordingConfiguration;
-
-```
-
-### MissortedModifiers
 Missorted modifiers `final static`
 in `core/src/main/java/com/microsoft/jfr/Recording.java`
 #### Snippet
@@ -249,11 +237,11 @@ Missorted modifiers `final private`
 in `core/src/main/java/com/microsoft/jfr/Recording.java`
 #### Snippet
 ```java
+    }
+
     final private FlightRecorderConnection connection;
     final private RecordingOptions recordingOptions;
     final private RecordingConfiguration recordingConfiguration;
-
-    private volatile long id = -1;
 ```
 
 ### MissortedModifiers
@@ -261,11 +249,23 @@ Missorted modifiers `final private`
 in `core/src/main/java/com/microsoft/jfr/Recording.java`
 #### Snippet
 ```java
-    }
 
     final private FlightRecorderConnection connection;
     final private RecordingOptions recordingOptions;
     final private RecordingConfiguration recordingConfiguration;
+
+```
+
+### MissortedModifiers
+Missorted modifiers `final private`
+in `core/src/main/java/com/microsoft/jfr/Recording.java`
+#### Snippet
+```java
+    final private FlightRecorderConnection connection;
+    final private RecordingOptions recordingOptions;
+    final private RecordingConfiguration recordingConfiguration;
+
+    private volatile long id = -1;
 ```
 
 ## RuleId[ruleID=MethodOverridesStaticMethod]
