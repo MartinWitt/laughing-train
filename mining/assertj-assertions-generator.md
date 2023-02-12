@@ -90,6 +90,30 @@ public class ClassUtil {
 in `src/main/java/org/assertj/assertions/generator/BaseAssertionGenerator.java`
 #### Snippet
 ```java
+    if (!getter.getExceptions().isEmpty()) throwsClause.append(' ');
+
+    assertionContent = assertionContent.replace(THROWS_JAVADOC, throwsJavaDoc.toString());
+    assertionContent = assertionContent.replace(THROWS, throwsClause.toString());
+    return assertionContent;
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `src/main/java/org/assertj/assertions/generator/BaseAssertionGenerator.java`
+#### Snippet
+```java
+
+    assertionContent = assertionContent.replace(THROWS_JAVADOC, throwsJavaDoc.toString());
+    assertionContent = assertionContent.replace(THROWS, throwsClause.toString());
+    return assertionContent;
+  }
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `src/main/java/org/assertj/assertions/generator/BaseAssertionGenerator.java`
+#### Snippet
+```java
     String propertyName = getter.getName();
     if (getter.isPredicate()) {
       assertionContent = assertionContent.replace(PREDICATE_FOR_JAVADOC,
@@ -162,6 +186,30 @@ in `src/main/java/org/assertj/assertions/generator/BaseAssertionGenerator.java`
 in `src/main/java/org/assertj/assertions/generator/BaseAssertionGenerator.java`
 #### Snippet
 ```java
+    // we reuse template for properties to have consistent assertions for property and field but change the way we get
+    // the value since it's a field and not a property:
+    assertionContent = assertionContent.replace("${getter}()", PROPERTY_WITH_LOWERCASE_FIRST_CHAR);
+    // - remove also ${throws} and ${throws_javadoc} as it does not make sense for a field
+    assertionContent = remove(assertionContent, THROWS);
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `src/main/java/org/assertj/assertions/generator/BaseAssertionGenerator.java`
+#### Snippet
+```java
+      // if field is not public, we need to use reflection to get its value, ex :
+      // org.assertj.core.util.introspection.FieldSupport.EXTRACTION.fieldValue("grade", Grade.class, actual);
+      assertionContent = assertionContent.replace("actual." + PROPERTY_WITH_LOWERCASE_FIRST_CHAR,
+                                                  format(NON_PUBLIC_FIELD_VALUE_EXTRACTION,
+                                                         PROPERTY_WITH_LOWERCASE_FIRST_CHAR, PROPERTY_TYPE));
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `src/main/java/org/assertj/assertions/generator/BaseAssertionGenerator.java`
+#### Snippet
+```java
   private String fillAssertionContentForPredicateField(FieldDescription field, String assertionContent) {
     if (field.isPublic()) {
       assertionContent = assertionContent.replace("actual." + PREDICATE + "()",
@@ -253,67 +301,7 @@ in `src/main/java/org/assertj/assertions/generator/BaseAssertionGenerator.java`
     assertionContent = replace(assertionContent, PREDICATE, field.getPredicate());
 ```
 
-### DynamicRegexReplaceableByCompiledPattern
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/org/assertj/assertions/generator/BaseAssertionGenerator.java`
-#### Snippet
-```java
-    if (!getter.getExceptions().isEmpty()) throwsClause.append(' ');
-
-    assertionContent = assertionContent.replace(THROWS_JAVADOC, throwsJavaDoc.toString());
-    assertionContent = assertionContent.replace(THROWS, throwsClause.toString());
-    return assertionContent;
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/org/assertj/assertions/generator/BaseAssertionGenerator.java`
-#### Snippet
-```java
-
-    assertionContent = assertionContent.replace(THROWS_JAVADOC, throwsJavaDoc.toString());
-    assertionContent = assertionContent.replace(THROWS, throwsClause.toString());
-    return assertionContent;
-  }
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/org/assertj/assertions/generator/BaseAssertionGenerator.java`
-#### Snippet
-```java
-    // we reuse template for properties to have consistent assertions for property and field but change the way we get
-    // the value since it's a field and not a property:
-    assertionContent = assertionContent.replace("${getter}()", PROPERTY_WITH_LOWERCASE_FIRST_CHAR);
-    // - remove also ${throws} and ${throws_javadoc} as it does not make sense for a field
-    assertionContent = remove(assertionContent, THROWS);
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/org/assertj/assertions/generator/BaseAssertionGenerator.java`
-#### Snippet
-```java
-      // if field is not public, we need to use reflection to get its value, ex :
-      // org.assertj.core.util.introspection.FieldSupport.EXTRACTION.fieldValue("grade", Grade.class, actual);
-      assertionContent = assertionContent.replace("actual." + PROPERTY_WITH_LOWERCASE_FIRST_CHAR,
-                                                  format(NON_PUBLIC_FIELD_VALUE_EXTRACTION,
-                                                         PROPERTY_WITH_LOWERCASE_FIRST_CHAR, PROPERTY_TYPE));
-```
-
 ## RuleId[ruleID=UnnecessarySuperQualifier]
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `src/main/java/org/assertj/assertions/generator/TemplateRegistry.java`
-#### Snippet
-```java
-    checkTemplateParameter(template);
-
-    super.put(template.getType(), template);
-  }
-
-```
-
 ### UnnecessarySuperQualifier
 Qualifier `super` is unnecessary in this context
 in `src/main/java/org/assertj/assertions/generator/TemplateRegistry.java`
@@ -326,31 +314,19 @@ in `src/main/java/org/assertj/assertions/generator/TemplateRegistry.java`
 
 ```
 
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `src/main/java/org/assertj/assertions/generator/TemplateRegistry.java`
+#### Snippet
+```java
+    checkTemplateParameter(template);
+
+    super.put(template.getType(), template);
+  }
+
+```
+
 ## RuleId[ruleID=DataFlowIssue]
-### DataFlowIssue
-Method invocation `length` may produce `NullPointerException`
-in `src/main/java/org/assertj/assertions/generator/description/DataDescription.java`
-#### Snippet
-```java
-    @Override
-    public int compare(String left, String right) {
-      return -Ints.compare(left.length(), right.length());
-    }
-  };
-```
-
-### DataFlowIssue
-Method invocation `length` may produce `NullPointerException`
-in `src/main/java/org/assertj/assertions/generator/description/DataDescription.java`
-#### Snippet
-```java
-    @Override
-    public int compare(String left, String right) {
-      return -Ints.compare(left.length(), right.length());
-    }
-  };
-```
-
 ### DataFlowIssue
 Argument `valueType.getComponentType()` might be null
 in `src/main/java/org/assertj/assertions/generator/description/DataDescription.java`
@@ -361,6 +337,42 @@ in `src/main/java/org/assertj/assertions/generator/description/DataDescription.j
       elementTypeName = getTypeDeclaration(valueType.getComponentType());
     } else if (valueType.isSubtypeOf(Iterable.class)) {
       TypeToken<?> componentType = valueType.resolveType(Iterable.class.getTypeParameters()[0]);
+```
+
+### DataFlowIssue
+Method invocation `length` may produce `NullPointerException`
+in `src/main/java/org/assertj/assertions/generator/description/DataDescription.java`
+#### Snippet
+```java
+    @Override
+    public int compare(String left, String right) {
+      return -Ints.compare(left.length(), right.length());
+    }
+  };
+```
+
+### DataFlowIssue
+Method invocation `length` may produce `NullPointerException`
+in `src/main/java/org/assertj/assertions/generator/description/DataDescription.java`
+#### Snippet
+```java
+    @Override
+    public int compare(String left, String right) {
+      return -Ints.compare(left.length(), right.length());
+    }
+  };
+```
+
+### DataFlowIssue
+Argument `type.getComponentType()` might be null
+in `src/main/java/org/assertj/assertions/generator/util/ClassUtil.java`
+#### Snippet
+```java
+  public static String getTypeDeclaration(TypeToken<?> type) {
+
+    if (type.isArray()) return getTypeDeclaration(type.getComponentType()) + "[]";
+    if (type.isPrimitive()) return type.getRawType().toString();
+
 ```
 
 ### DataFlowIssue
@@ -385,18 +397,6 @@ in `src/main/java/org/assertj/assertions/generator/util/ClassUtil.java`
         checkNotNull(resource, "resource URL from package is null, package %s", path);
         File subDirectory = new File(URLDecoder.decode(resource.getPath(), "UTF-8"));
         Set<TypeToken<?>> classesForSubPackage = getClassesInDirectory(subDirectory, subPackageName, classLoader);
-```
-
-### DataFlowIssue
-Argument `type.getComponentType()` might be null
-in `src/main/java/org/assertj/assertions/generator/util/ClassUtil.java`
-#### Snippet
-```java
-  public static String getTypeDeclaration(TypeToken<?> type) {
-
-    if (type.isArray()) return getTypeDeclaration(type.getComponentType()) + "[]";
-    if (type.isPrimitive()) return type.getRawType().toString();
-
 ```
 
 ## RuleId[ruleID=UnnecessaryFullyQualifiedName]
@@ -425,18 +425,6 @@ in `src/main/java/org/assertj/assertions/generator/AssertionGenerator.java`
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.assertions.generator.description` is unnecessary and can be removed
-in `src/main/java/org/assertj/assertions/generator/AssertionsEntryPointGenerator.java`
-#### Snippet
-```java
-  /**
-   * Returns the assertions entry point class content for the given
-   * {@link org.assertj.assertions.generator.description.ClassDescription} set.
-   * <p>
-   * The idea is to generate an equivalent of assertj-core Assertions class to give easy access to all generated
-```
-
-### UnnecessaryFullyQualifiedName
 Qualifier `java.io` is unnecessary and can be removed
 in `src/main/java/org/assertj/assertions/generator/AssertionsEntryPointGenerator.java`
 #### Snippet
@@ -446,6 +434,18 @@ in `src/main/java/org/assertj/assertions/generator/AssertionsEntryPointGenerator
    * @throws java.io.IOException if entry point file can't be created.
    * @return the generated file
    */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.assertj.assertions.generator.description` is unnecessary and can be removed
+in `src/main/java/org/assertj/assertions/generator/AssertionsEntryPointGenerator.java`
+#### Snippet
+```java
+  /**
+   * Returns the assertions entry point class content for the given
+   * {@link org.assertj.assertions.generator.description.ClassDescription} set.
+   * <p>
+   * The idea is to generate an equivalent of assertj-core Assertions class to give easy access to all generated
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -487,18 +487,6 @@ in `src/main/java/org/assertj/assertions/generator/util/ClassUtil.java`
 
 ## RuleId[ruleID=RedundantFieldInitialization]
 ### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `src/main/java/org/assertj/assertions/generator/BaseAssertionGenerator.java`
-#### Snippet
-```java
-  private File targetBaseDirectory = Paths.get(".").toFile();
-  private TemplateRegistry templateRegistry;// the pattern to search for
-  private boolean generateAssertionsForAllFields = false;
-  private String generatedAssertionsPackage = null;
-
-```
-
-### RedundantFieldInitialization
 Field initialization to `null` is redundant
 in `src/main/java/org/assertj/assertions/generator/BaseAssertionGenerator.java`
 #### Snippet
@@ -510,127 +498,19 @@ in `src/main/java/org/assertj/assertions/generator/BaseAssertionGenerator.java`
   /**
 ```
 
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `src/main/java/org/assertj/assertions/generator/BaseAssertionGenerator.java`
+#### Snippet
+```java
+  private File targetBaseDirectory = Paths.get(".").toFile();
+  private TemplateRegistry templateRegistry;// the pattern to search for
+  private boolean generateAssertionsForAllFields = false;
+  private String generatedAssertionsPackage = null;
+
+```
+
 ## RuleId[ruleID=AssignmentToMethodParameter]
-### AssignmentToMethodParameter
-Assignment to method parameter `assertionContent`
-in `src/main/java/org/assertj/assertions/generator/BaseAssertionGenerator.java`
-#### Snippet
-```java
-  private String fillAssertionContentForPredicateField(FieldDescription field, String assertionContent) {
-    if (field.isPublic()) {
-      assertionContent = assertionContent.replace("actual." + PREDICATE + "()",
-                                                  "actual." + field.getOriginalMember().getName());
-    } else {
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `assertionContent`
-in `src/main/java/org/assertj/assertions/generator/BaseAssertionGenerator.java`
-#### Snippet
-```java
-      // if field is not public, we need to use reflection to get its value, ex :
-      // org.assertj.core.util.introspection.FieldSupport.EXTRACTION.fieldValue("active", Boolean.class, actual);
-      assertionContent = assertionContent.replace("actual." + PREDICATE + "()",
-                                                  format(NON_PUBLIC_FIELD_VALUE_EXTRACTION,
-                                                         field.getOriginalMember().getName(), "Boolean"));
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `assertionContent`
-in `src/main/java/org/assertj/assertions/generator/BaseAssertionGenerator.java`
-#### Snippet
-```java
-                                                         field.getOriginalMember().getName(), "Boolean"));
-    }
-    assertionContent = assertionContent.replace(PREDICATE_FOR_JAVADOC,
-                                                field.getPredicateForJavadoc());
-    assertionContent = assertionContent.replace(NEGATIVE_PREDICATE_FOR_JAVADOC,
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `assertionContent`
-in `src/main/java/org/assertj/assertions/generator/BaseAssertionGenerator.java`
-#### Snippet
-```java
-    assertionContent = assertionContent.replace(PREDICATE_FOR_JAVADOC,
-                                                field.getPredicateForJavadoc());
-    assertionContent = assertionContent.replace(NEGATIVE_PREDICATE_FOR_JAVADOC,
-                                                field.getNegativePredicateForJavadoc());
-    assertionContent = assertionContent.replace(PREDICATE_FOR_FOR_ERROR_MESSAGE_PART1,
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `assertionContent`
-in `src/main/java/org/assertj/assertions/generator/BaseAssertionGenerator.java`
-#### Snippet
-```java
-    assertionContent = assertionContent.replace(NEGATIVE_PREDICATE_FOR_JAVADOC,
-                                                field.getNegativePredicateForJavadoc());
-    assertionContent = assertionContent.replace(PREDICATE_FOR_FOR_ERROR_MESSAGE_PART1,
-                                                field.getPredicateForErrorMessagePart1());
-    assertionContent = assertionContent.replace(PREDICATE_FOR_FOR_ERROR_MESSAGE_PART2,
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `assertionContent`
-in `src/main/java/org/assertj/assertions/generator/BaseAssertionGenerator.java`
-#### Snippet
-```java
-    assertionContent = assertionContent.replace(PREDICATE_FOR_FOR_ERROR_MESSAGE_PART1,
-                                                field.getPredicateForErrorMessagePart1());
-    assertionContent = assertionContent.replace(PREDICATE_FOR_FOR_ERROR_MESSAGE_PART2,
-                                                field.getPredicateForErrorMessagePart2());
-    assertionContent = assertionContent.replace(NEGATIVE_PREDICATE_FOR_FOR_ERROR_MESSAGE_PART1,
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `assertionContent`
-in `src/main/java/org/assertj/assertions/generator/BaseAssertionGenerator.java`
-#### Snippet
-```java
-    assertionContent = assertionContent.replace(PREDICATE_FOR_FOR_ERROR_MESSAGE_PART2,
-                                                field.getPredicateForErrorMessagePart2());
-    assertionContent = assertionContent.replace(NEGATIVE_PREDICATE_FOR_FOR_ERROR_MESSAGE_PART1,
-                                                field.getNegativePredicateForErrorMessagePart1());
-    assertionContent = assertionContent.replace(NEGATIVE_PREDICATE_FOR_FOR_ERROR_MESSAGE_PART2,
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `assertionContent`
-in `src/main/java/org/assertj/assertions/generator/BaseAssertionGenerator.java`
-#### Snippet
-```java
-    assertionContent = assertionContent.replace(NEGATIVE_PREDICATE_FOR_FOR_ERROR_MESSAGE_PART1,
-                                                field.getNegativePredicateForErrorMessagePart1());
-    assertionContent = assertionContent.replace(NEGATIVE_PREDICATE_FOR_FOR_ERROR_MESSAGE_PART2,
-                                                field.getNegativePredicateForErrorMessagePart2());
-    assertionContent = replace(assertionContent, PREDICATE, field.getPredicate());
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `assertionContent`
-in `src/main/java/org/assertj/assertions/generator/BaseAssertionGenerator.java`
-#### Snippet
-```java
-    assertionContent = assertionContent.replace(NEGATIVE_PREDICATE_FOR_FOR_ERROR_MESSAGE_PART2,
-                                                field.getNegativePredicateForErrorMessagePart2());
-    assertionContent = replace(assertionContent, PREDICATE, field.getPredicate());
-    assertionContent = replace(assertionContent, PREDICATE_NEG, field.getNegativePredicate());
-    return assertionContent;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `assertionContent`
-in `src/main/java/org/assertj/assertions/generator/BaseAssertionGenerator.java`
-#### Snippet
-```java
-                                                field.getNegativePredicateForErrorMessagePart2());
-    assertionContent = replace(assertionContent, PREDICATE, field.getPredicate());
-    assertionContent = replace(assertionContent, PREDICATE_NEG, field.getNegativePredicate());
-    return assertionContent;
-  }
-```
-
 ### AssignmentToMethodParameter
 Assignment to method parameter `assertionContent`
 in `src/main/java/org/assertj/assertions/generator/BaseAssertionGenerator.java`
@@ -751,6 +631,126 @@ in `src/main/java/org/assertj/assertions/generator/BaseAssertionGenerator.java`
     return template;
 ```
 
+### AssignmentToMethodParameter
+Assignment to method parameter `assertionContent`
+in `src/main/java/org/assertj/assertions/generator/BaseAssertionGenerator.java`
+#### Snippet
+```java
+  private String fillAssertionContentForPredicateField(FieldDescription field, String assertionContent) {
+    if (field.isPublic()) {
+      assertionContent = assertionContent.replace("actual." + PREDICATE + "()",
+                                                  "actual." + field.getOriginalMember().getName());
+    } else {
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `assertionContent`
+in `src/main/java/org/assertj/assertions/generator/BaseAssertionGenerator.java`
+#### Snippet
+```java
+      // if field is not public, we need to use reflection to get its value, ex :
+      // org.assertj.core.util.introspection.FieldSupport.EXTRACTION.fieldValue("active", Boolean.class, actual);
+      assertionContent = assertionContent.replace("actual." + PREDICATE + "()",
+                                                  format(NON_PUBLIC_FIELD_VALUE_EXTRACTION,
+                                                         field.getOriginalMember().getName(), "Boolean"));
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `assertionContent`
+in `src/main/java/org/assertj/assertions/generator/BaseAssertionGenerator.java`
+#### Snippet
+```java
+                                                         field.getOriginalMember().getName(), "Boolean"));
+    }
+    assertionContent = assertionContent.replace(PREDICATE_FOR_JAVADOC,
+                                                field.getPredicateForJavadoc());
+    assertionContent = assertionContent.replace(NEGATIVE_PREDICATE_FOR_JAVADOC,
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `assertionContent`
+in `src/main/java/org/assertj/assertions/generator/BaseAssertionGenerator.java`
+#### Snippet
+```java
+    assertionContent = assertionContent.replace(PREDICATE_FOR_JAVADOC,
+                                                field.getPredicateForJavadoc());
+    assertionContent = assertionContent.replace(NEGATIVE_PREDICATE_FOR_JAVADOC,
+                                                field.getNegativePredicateForJavadoc());
+    assertionContent = assertionContent.replace(PREDICATE_FOR_FOR_ERROR_MESSAGE_PART1,
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `assertionContent`
+in `src/main/java/org/assertj/assertions/generator/BaseAssertionGenerator.java`
+#### Snippet
+```java
+    assertionContent = assertionContent.replace(NEGATIVE_PREDICATE_FOR_JAVADOC,
+                                                field.getNegativePredicateForJavadoc());
+    assertionContent = assertionContent.replace(PREDICATE_FOR_FOR_ERROR_MESSAGE_PART1,
+                                                field.getPredicateForErrorMessagePart1());
+    assertionContent = assertionContent.replace(PREDICATE_FOR_FOR_ERROR_MESSAGE_PART2,
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `assertionContent`
+in `src/main/java/org/assertj/assertions/generator/BaseAssertionGenerator.java`
+#### Snippet
+```java
+    assertionContent = assertionContent.replace(PREDICATE_FOR_FOR_ERROR_MESSAGE_PART1,
+                                                field.getPredicateForErrorMessagePart1());
+    assertionContent = assertionContent.replace(PREDICATE_FOR_FOR_ERROR_MESSAGE_PART2,
+                                                field.getPredicateForErrorMessagePart2());
+    assertionContent = assertionContent.replace(NEGATIVE_PREDICATE_FOR_FOR_ERROR_MESSAGE_PART1,
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `assertionContent`
+in `src/main/java/org/assertj/assertions/generator/BaseAssertionGenerator.java`
+#### Snippet
+```java
+    assertionContent = assertionContent.replace(PREDICATE_FOR_FOR_ERROR_MESSAGE_PART2,
+                                                field.getPredicateForErrorMessagePart2());
+    assertionContent = assertionContent.replace(NEGATIVE_PREDICATE_FOR_FOR_ERROR_MESSAGE_PART1,
+                                                field.getNegativePredicateForErrorMessagePart1());
+    assertionContent = assertionContent.replace(NEGATIVE_PREDICATE_FOR_FOR_ERROR_MESSAGE_PART2,
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `assertionContent`
+in `src/main/java/org/assertj/assertions/generator/BaseAssertionGenerator.java`
+#### Snippet
+```java
+    assertionContent = assertionContent.replace(NEGATIVE_PREDICATE_FOR_FOR_ERROR_MESSAGE_PART1,
+                                                field.getNegativePredicateForErrorMessagePart1());
+    assertionContent = assertionContent.replace(NEGATIVE_PREDICATE_FOR_FOR_ERROR_MESSAGE_PART2,
+                                                field.getNegativePredicateForErrorMessagePart2());
+    assertionContent = replace(assertionContent, PREDICATE, field.getPredicate());
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `assertionContent`
+in `src/main/java/org/assertj/assertions/generator/BaseAssertionGenerator.java`
+#### Snippet
+```java
+    assertionContent = assertionContent.replace(NEGATIVE_PREDICATE_FOR_FOR_ERROR_MESSAGE_PART2,
+                                                field.getNegativePredicateForErrorMessagePart2());
+    assertionContent = replace(assertionContent, PREDICATE, field.getPredicate());
+    assertionContent = replace(assertionContent, PREDICATE_NEG, field.getNegativePredicate());
+    return assertionContent;
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `assertionContent`
+in `src/main/java/org/assertj/assertions/generator/BaseAssertionGenerator.java`
+#### Snippet
+```java
+                                                field.getNegativePredicateForErrorMessagePart2());
+    assertionContent = replace(assertionContent, PREDICATE, field.getPredicate());
+    assertionContent = replace(assertionContent, PREDICATE_NEG, field.getNegativePredicate());
+    return assertionContent;
+  }
+```
+
 ## RuleId[ruleID=RegExpSimplifiable]
 ### RegExpSimplifiable
 `[\\s]` can be simplified to '\\s'
@@ -807,6 +807,18 @@ Return of `null`
 in `src/main/java/org/assertj/assertions/generator/util/ClassUtil.java`
 #### Snippet
 ```java
+  public static String getPredicatePrefix(String name) {
+    Matcher m = PREFIX_PATTERN.matcher(name);
+    return m.find() ? m.group() : null;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/assertj/assertions/generator/util/ClassUtil.java`
+#### Snippet
+```java
       return loadClass(className, classLoader);
     } catch (ClassNotFoundException e) {
       return null;
@@ -852,18 +864,6 @@ in `src/main/java/org/assertj/assertions/generator/util/ClassUtil.java`
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/org/assertj/assertions/generator/util/ClassUtil.java`
-#### Snippet
-```java
-  public static String getPredicatePrefix(String name) {
-    Matcher m = PREFIX_PATTERN.matcher(name);
-    return m.find() ? m.group() : null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
 in `src/main/java/org/assertj/assertions/generator/BaseAssertionGenerator.java`
 #### Snippet
 ```java
@@ -877,7 +877,7 @@ in `src/main/java/org/assertj/assertions/generator/BaseAssertionGenerator.java`
 ## RuleId[ruleID=HtmlWrongAttributeValue]
 ### HtmlWrongAttributeValue
 Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-02-12-03-56-52.832.html`
+in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-02-12-17-31-46.290.html`
 #### Snippet
 ```java
               <td>0</td>
@@ -889,27 +889,15 @@ in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-02-12-03-56-52.832.
 
 ## RuleId[ruleID=BoundedWildcard]
 ### BoundedWildcard
-Can generalize to `? extends TypeToken`
-in `src/main/java/org/assertj/assertions/generator/cli/AssertionGeneratorLauncher.java`
+Can generalize to `? extends FieldDescription`
+in `src/main/java/org/assertj/assertions/generator/description/ClassDescription.java`
 #### Snippet
 ```java
   }
-  
-  private static void generateFlatAssertions(Set<TypeToken<?>> types) throws IOException {
-    logger.info("Generating assertions for types {}", types);
-    BaseAssertionGenerator customAssertionGenerator = new BaseAssertionGenerator();
-```
 
-### BoundedWildcard
-Can generalize to `? extends TypeToken`
-in `src/main/java/org/assertj/assertions/generator/cli/AssertionGeneratorLauncher.java`
-#### Snippet
-```java
+  public void addFieldDescriptions(Set<FieldDescription> fieldDescriptions) {
+    this.fieldsDescriptions.addAll(fieldDescriptions);
   }
-  
-  private static void generateHierarchicalAssertions(Set<TypeToken<?>> types) throws IOException {
-    // Create a hashset of the classes for efficient lookup.
-    Set<TypeToken<?>> typeSet = newLinkedHashSet(types);
 ```
 
 ### BoundedWildcard
@@ -949,15 +937,27 @@ in `src/main/java/org/assertj/assertions/generator/description/ClassDescription.
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends FieldDescription`
-in `src/main/java/org/assertj/assertions/generator/description/ClassDescription.java`
+Can generalize to `? extends TypeToken`
+in `src/main/java/org/assertj/assertions/generator/cli/AssertionGeneratorLauncher.java`
 #### Snippet
 ```java
   }
+  
+  private static void generateHierarchicalAssertions(Set<TypeToken<?>> types) throws IOException {
+    // Create a hashset of the classes for efficient lookup.
+    Set<TypeToken<?>> typeSet = newLinkedHashSet(types);
+```
 
-  public void addFieldDescriptions(Set<FieldDescription> fieldDescriptions) {
-    this.fieldsDescriptions.addAll(fieldDescriptions);
+### BoundedWildcard
+Can generalize to `? extends TypeToken`
+in `src/main/java/org/assertj/assertions/generator/cli/AssertionGeneratorLauncher.java`
+#### Snippet
+```java
   }
+  
+  private static void generateFlatAssertions(Set<TypeToken<?>> types) throws IOException {
+    logger.info("Generating assertions for types {}", types);
+    BaseAssertionGenerator customAssertionGenerator = new BaseAssertionGenerator();
 ```
 
 ### BoundedWildcard
@@ -973,15 +973,15 @@ in `src/main/java/org/assertj/assertions/generator/BaseAssertionGenerator.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends GetterDescription`
+Can generalize to `? extends ClassDescription`
 in `src/main/java/org/assertj/assertions/generator/BaseAssertionGenerator.java`
 #### Snippet
 ```java
   }
 
-  protected void generateAssertionsForGetters(StringBuilder assertionsForGetters, Set<GetterDescription> getters,
-                                              ClassDescription classDescription) {
-    for (GetterDescription getter : getters) {
+  private String generateAssertionEntryPointMethodsFor(final Set<ClassDescription> classDescriptionSet,
+                                                       Template assertionEntryPointMethodTemplate) {
+    // sort ClassDescription according to their class name.
 ```
 
 ### BoundedWildcard
@@ -997,15 +997,15 @@ in `src/main/java/org/assertj/assertions/generator/BaseAssertionGenerator.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends ClassDescription`
+Can generalize to `? extends GetterDescription`
 in `src/main/java/org/assertj/assertions/generator/BaseAssertionGenerator.java`
 #### Snippet
 ```java
   }
 
-  private String generateAssertionEntryPointMethodsFor(final Set<ClassDescription> classDescriptionSet,
-                                                       Template assertionEntryPointMethodTemplate) {
-    // sort ClassDescription according to their class name.
+  protected void generateAssertionsForGetters(StringBuilder assertionsForGetters, Set<GetterDescription> getters,
+                                              ClassDescription classDescription) {
+    for (GetterDescription getter : getters) {
 ```
 
 ## RuleId[ruleID=UnstableTypeUsedInSignature]
@@ -1034,6 +1034,18 @@ in `src/main/java/org/assertj/assertions/generator/AssertionGenerator.java`
 ```
 
 ### UnstableTypeUsedInSignature
+Method must be marked with '@com.google.common.annotations.Beta' annotation because its signature references unstable type 'com.google.common.reflect.TypeToken'
+in `src/main/java/org/assertj/assertions/generator/description/GetterDescription.java`
+#### Snippet
+```java
+  private final ImmutableList<TypeToken<? extends Throwable>> exceptions;
+
+  public GetterDescription(String propertyName, TypeToken<?> owningType, Method method) {
+    super(propertyName, method, Visibility.PUBLIC, owningType.method(method).getReturnType(), owningType);
+    this.invokable = owningType.method(method);
+```
+
+### UnstableTypeUsedInSignature
 Field must be marked with '@com.google.common.annotations.Beta' annotation because its type references unstable type 'com.google.common.reflect.TypeToken'
 in `src/main/java/org/assertj/assertions/generator/description/GetterDescription.java`
 #### Snippet
@@ -1050,23 +1062,47 @@ Method must be marked with '@com.google.common.annotations.Beta' annotation beca
 in `src/main/java/org/assertj/assertions/generator/description/GetterDescription.java`
 #### Snippet
 ```java
-  private final ImmutableList<TypeToken<? extends Throwable>> exceptions;
-
-  public GetterDescription(String propertyName, TypeToken<?> owningType, Method method) {
-    super(propertyName, method, Visibility.PUBLIC, owningType.method(method).getReturnType(), owningType);
-    this.invokable = owningType.method(method);
-```
-
-### UnstableTypeUsedInSignature
-Method must be marked with '@com.google.common.annotations.Beta' annotation because its signature references unstable type 'com.google.common.reflect.TypeToken'
-in `src/main/java/org/assertj/assertions/generator/description/GetterDescription.java`
-#### Snippet
-```java
   }
 
   public ImmutableList<TypeToken<? extends Throwable>> getExceptions() {
     return exceptions;
   }
+```
+
+### UnstableTypeUsedInSignature
+Field must be marked with '@com.google.common.annotations.Beta' annotation because its type references unstable type 'com.google.common.reflect.TypeToken'
+in `src/main/java/org/assertj/assertions/generator/description/ClassDescription.java`
+#### Snippet
+```java
+  private Set<FieldDescription> declaredFieldsDescriptions;
+  private TypeToken<?> type;
+  private TypeToken<?> superType;
+
+  public ClassDescription(TypeToken<?> type) {
+```
+
+### UnstableTypeUsedInSignature
+Method must be marked with '@com.google.common.annotations.Beta' annotation because its signature references unstable type 'com.google.common.reflect.TypeToken'
+in `src/main/java/org/assertj/assertions/generator/description/ClassDescription.java`
+#### Snippet
+```java
+  }
+
+  public TypeToken<?> getSuperType() {
+    return superType;
+  }
+```
+
+### UnstableTypeUsedInSignature
+Method must be marked with '@com.google.common.annotations.Beta' annotation because its signature references unstable type 'com.google.common.reflect.TypeToken'
+in `src/main/java/org/assertj/assertions/generator/description/ClassDescription.java`
+#### Snippet
+```java
+  private TypeToken<?> superType;
+
+  public ClassDescription(TypeToken<?> type) {
+    this.type = type;
+    this.superType = null;
 ```
 
 ### UnstableTypeUsedInSignature
@@ -1086,18 +1122,6 @@ Method must be marked with '@com.google.common.annotations.Beta' annotation beca
 in `src/main/java/org/assertj/assertions/generator/description/FieldDescription.java`
 #### Snippet
 ```java
-  }
-
-  public FieldDescription(Field field, Visibility visibility, TypeToken<?> owningType) {
-    super(propertyNameOf(field), field, visibility, owningType.resolveType(field.getGenericType()), owningType);
-  }
-```
-
-### UnstableTypeUsedInSignature
-Method must be marked with '@com.google.common.annotations.Beta' annotation because its signature references unstable type 'com.google.common.reflect.TypeToken'
-in `src/main/java/org/assertj/assertions/generator/description/FieldDescription.java`
-#### Snippet
-```java
 public class FieldDescription extends DataDescription implements Comparable<FieldDescription> {
 
   public FieldDescription(Field field, TypeToken<?> owningType) {
@@ -1107,50 +1131,14 @@ public class FieldDescription extends DataDescription implements Comparable<Fiel
 
 ### UnstableTypeUsedInSignature
 Method must be marked with '@com.google.common.annotations.Beta' annotation because its signature references unstable type 'com.google.common.reflect.TypeToken'
-in `src/main/java/org/assertj/assertions/generator/description/ClassDescription.java`
-#### Snippet
-```java
-  private TypeToken<?> superType;
-
-  public ClassDescription(TypeToken<?> type) {
-    this.type = type;
-    this.superType = null;
-```
-
-### UnstableTypeUsedInSignature
-Method must be marked with '@com.google.common.annotations.Beta' annotation because its signature references unstable type 'com.google.common.reflect.TypeToken'
-in `src/main/java/org/assertj/assertions/generator/description/ClassDescription.java`
+in `src/main/java/org/assertj/assertions/generator/description/FieldDescription.java`
 #### Snippet
 ```java
   }
 
-  public TypeToken<?> getSuperType() {
-    return superType;
+  public FieldDescription(Field field, Visibility visibility, TypeToken<?> owningType) {
+    super(propertyNameOf(field), field, visibility, owningType.resolveType(field.getGenericType()), owningType);
   }
-```
-
-### UnstableTypeUsedInSignature
-Field must be marked with '@com.google.common.annotations.Beta' annotation because its type references unstable type 'com.google.common.reflect.TypeToken'
-in `src/main/java/org/assertj/assertions/generator/description/ClassDescription.java`
-#### Snippet
-```java
-  private Set<FieldDescription> declaredFieldsDescriptions;
-  private TypeToken<?> type;
-  private TypeToken<?> superType;
-
-  public ClassDescription(TypeToken<?> type) {
-```
-
-### UnstableTypeUsedInSignature
-Method must be marked with '@com.google.common.annotations.Beta' annotation because its signature references unstable type 'com.google.common.reflect.TypeToken'
-in `src/main/java/org/assertj/assertions/generator/util/ClassUtil.java`
-#### Snippet
-```java
-   * @return String Name resolved within the package
-   */
-  public static String resolveTypeNameInPackage(TypeToken<?> type, String currentPackage) {
-    // we special case java.lang types because they never need a FQN.
-    if (isJavaLangType(type)) {
 ```
 
 ### UnstableTypeUsedInSignature
@@ -1160,93 +1148,9 @@ in `src/main/java/org/assertj/assertions/generator/util/ClassUtil.java`
 ```java
   }
 
-  public static List<Field> nonStaticFieldsOf(TypeToken<?> clazz) {
-    List<Field> fields = getAllFieldsInHierarchy(clazz);
-    return filterNonStaticFields(fields);
-```
-
-### UnstableTypeUsedInSignature
-Method must be marked with '@com.google.common.annotations.Beta' annotation because its signature references unstable type 'com.google.common.reflect.TypeToken'
-in `src/main/java/org/assertj/assertions/generator/util/ClassUtil.java`
-#### Snippet
-```java
-  }
-
-  public static String safePackageName(TypeToken<?> typeToken) {
-    return typeToken.getRawType().getPackage() == null ? "" : typeToken.getRawType().getPackage().getName();
-  }
-```
-
-### UnstableTypeUsedInSignature
-Method must be marked with '@com.google.common.annotations.Beta' annotation because its signature references unstable type 'com.google.common.reflect.TypeToken'
-in `src/main/java/org/assertj/assertions/generator/util/ClassUtil.java`
-#### Snippet
-```java
-   * @return true iff the type is a boolean.
-   */
-  public static boolean isBoolean(TypeToken<?> type) {
-    TypeToken<?> unwrapped = type.unwrap();
-    return unwrapped.isSubtypeOf(boolean.class);
-```
-
-### UnstableTypeUsedInSignature
-Method must be marked with '@com.google.common.annotations.Beta' annotation because its signature references unstable type 'com.google.common.reflect.TypeToken'
-in `src/main/java/org/assertj/assertions/generator/util/ClassUtil.java`
-#### Snippet
-```java
-   * @throws RuntimeException if any error occurs
-   */
-  public static Set<TypeToken<?>> collectClasses(ClassLoader classLoader, boolean includePrivateClasses,
-                                                 String... classOrPackageNames) {
-    Set<TypeToken<?>> classes = newLinkedHashSet();
-```
-
-### UnstableTypeUsedInSignature
-Method must be marked with '@com.google.common.annotations.Beta' annotation because its signature references unstable type 'com.google.common.reflect.TypeToken'
-in `src/main/java/org/assertj/assertions/generator/util/ClassUtil.java`
-#### Snippet
-```java
-  // used to support navigation assertion
-  // https://github.com/joel-costigliola/assertj-assertions-generator/issues/67
-  public static String getAssertType(TypeToken<?> type, String packageName) {
-
-    TypeToken<?> wrapped = type.wrap();
-```
-
-### UnstableTypeUsedInSignature
-Method must be marked with '@com.google.common.annotations.Beta' annotation because its signature references unstable type 'com.google.common.reflect.TypeToken'
-in `src/main/java/org/assertj/assertions/generator/util/ClassUtil.java`
-#### Snippet
-```java
-  }
-
-  public static Set<Method> getterMethodsOf(TypeToken<?> type, Set<Class<?>> includeAnnotations) {
+  public static Set<Method> declaredGetterMethodsOf(TypeToken<?> type, Set<Class<?>> includeAnnotations) {
     Class<?> clazz = type.getRawType();
     boolean isClassAnnotated = containsAny(clazz.getDeclaredAnnotations(), includeAnnotations);
-```
-
-### UnstableTypeUsedInSignature
-Method must be marked with '@com.google.common.annotations.Beta' annotation because its signature references unstable type 'com.google.common.reflect.TypeToken'
-in `src/main/java/org/assertj/assertions/generator/util/ClassUtil.java`
-#### Snippet
-```java
-   * @throws RuntimeException if any error occurs
-   */
-  public static Set<TypeToken<?>> collectClasses(ClassLoader classLoader, String... classOrPackageNames) {
-    return collectClasses(classLoader, false, classOrPackageNames);
-  }
-```
-
-### UnstableTypeUsedInSignature
-Method must be marked with '@com.google.common.annotations.Beta' annotation because its signature references unstable type 'com.google.common.reflect.TypeToken'
-in `src/main/java/org/assertj/assertions/generator/util/ClassUtil.java`
-#### Snippet
-```java
-   * @return all fields (whatever access levels) in the hierarchy of a class up to Object.class excluded.
-   */
-  public static List<Field> getAllFieldsInHierarchy(TypeToken<?> clazz) {
-    List<Field> fields = newArrayList(clazz.getRawType().getDeclaredFields());
-    Class<?> parentClass = clazz.getRawType().getSuperclass();
 ```
 
 ### UnstableTypeUsedInSignature
@@ -1266,11 +1170,23 @@ Method must be marked with '@com.google.common.annotations.Beta' annotation beca
 in `src/main/java/org/assertj/assertions/generator/util/ClassUtil.java`
 #### Snippet
 ```java
-   * @return String representation of the type
-   */
-  public static String getTypeDeclaration(TypeToken<?> type) {
+  }
 
-    if (type.isArray()) return getTypeDeclaration(type.getComponentType()) + "[]";
+  public static List<Field> nonStaticFieldsOf(TypeToken<?> clazz) {
+    List<Field> fields = getAllFieldsInHierarchy(clazz);
+    return filterNonStaticFields(fields);
+```
+
+### UnstableTypeUsedInSignature
+Method must be marked with '@com.google.common.annotations.Beta' annotation because its signature references unstable type 'com.google.common.reflect.TypeToken'
+in `src/main/java/org/assertj/assertions/generator/util/ClassUtil.java`
+#### Snippet
+```java
+   * @return true iff the type is a boolean.
+   */
+  public static boolean isBoolean(TypeToken<?> type) {
+    TypeToken<?> unwrapped = type.unwrap();
+    return unwrapped.isSubtypeOf(boolean.class);
 ```
 
 ### UnstableTypeUsedInSignature
@@ -1302,23 +1218,95 @@ Method must be marked with '@com.google.common.annotations.Beta' annotation beca
 in `src/main/java/org/assertj/assertions/generator/util/ClassUtil.java`
 #### Snippet
 ```java
+   * @return all fields (whatever access levels) in the hierarchy of a class up to Object.class excluded.
+   */
+  public static List<Field> getAllFieldsInHierarchy(TypeToken<?> clazz) {
+    List<Field> fields = newArrayList(clazz.getRawType().getDeclaredFields());
+    Class<?> parentClass = clazz.getRawType().getSuperclass();
+```
+
+### UnstableTypeUsedInSignature
+Method must be marked with '@com.google.common.annotations.Beta' annotation because its signature references unstable type 'com.google.common.reflect.TypeToken'
+in `src/main/java/org/assertj/assertions/generator/util/ClassUtil.java`
+#### Snippet
+```java
+   * @return String representation of the type
+   */
+  public static String getTypeDeclaration(TypeToken<?> type) {
+
+    if (type.isArray()) return getTypeDeclaration(type.getComponentType()) + "[]";
+```
+
+### UnstableTypeUsedInSignature
+Method must be marked with '@com.google.common.annotations.Beta' annotation because its signature references unstable type 'com.google.common.reflect.TypeToken'
+in `src/main/java/org/assertj/assertions/generator/util/ClassUtil.java`
+#### Snippet
+```java
   }
 
-  public static Set<Method> declaredGetterMethodsOf(TypeToken<?> type, Set<Class<?>> includeAnnotations) {
+  public static String safePackageName(TypeToken<?> typeToken) {
+    return typeToken.getRawType().getPackage() == null ? "" : typeToken.getRawType().getPackage().getName();
+  }
+```
+
+### UnstableTypeUsedInSignature
+Method must be marked with '@com.google.common.annotations.Beta' annotation because its signature references unstable type 'com.google.common.reflect.TypeToken'
+in `src/main/java/org/assertj/assertions/generator/util/ClassUtil.java`
+#### Snippet
+```java
+   * @throws RuntimeException if any error occurs
+   */
+  public static Set<TypeToken<?>> collectClasses(ClassLoader classLoader, boolean includePrivateClasses,
+                                                 String... classOrPackageNames) {
+    Set<TypeToken<?>> classes = newLinkedHashSet();
+```
+
+### UnstableTypeUsedInSignature
+Method must be marked with '@com.google.common.annotations.Beta' annotation because its signature references unstable type 'com.google.common.reflect.TypeToken'
+in `src/main/java/org/assertj/assertions/generator/util/ClassUtil.java`
+#### Snippet
+```java
+  }
+
+  public static Set<Method> getterMethodsOf(TypeToken<?> type, Set<Class<?>> includeAnnotations) {
     Class<?> clazz = type.getRawType();
     boolean isClassAnnotated = containsAny(clazz.getDeclaredAnnotations(), includeAnnotations);
 ```
 
 ### UnstableTypeUsedInSignature
 Method must be marked with '@com.google.common.annotations.Beta' annotation because its signature references unstable type 'com.google.common.reflect.TypeToken'
-in `src/main/java/org/assertj/assertions/generator/BaseAssertionGenerator.java`
+in `src/main/java/org/assertj/assertions/generator/util/ClassUtil.java`
 #### Snippet
 ```java
+  // used to support navigation assertion
+  // https://github.com/joel-costigliola/assertj-assertions-generator/issues/67
+  public static String getAssertType(TypeToken<?> type, String packageName) {
 
-  @Override
-  public String[] generateHierarchicalCustomAssertionContentFor(ClassDescription classDescription,
-                                                                Set<TypeToken<?>> classes) {
-    // use abstract class template first
+    TypeToken<?> wrapped = type.wrap();
+```
+
+### UnstableTypeUsedInSignature
+Method must be marked with '@com.google.common.annotations.Beta' annotation because its signature references unstable type 'com.google.common.reflect.TypeToken'
+in `src/main/java/org/assertj/assertions/generator/util/ClassUtil.java`
+#### Snippet
+```java
+   * @throws RuntimeException if any error occurs
+   */
+  public static Set<TypeToken<?>> collectClasses(ClassLoader classLoader, String... classOrPackageNames) {
+    return collectClasses(classLoader, false, classOrPackageNames);
+  }
+```
+
+### UnstableTypeUsedInSignature
+Method must be marked with '@com.google.common.annotations.Beta' annotation because its signature references unstable type 'com.google.common.reflect.TypeToken'
+in `src/main/java/org/assertj/assertions/generator/util/ClassUtil.java`
+#### Snippet
+```java
+   * @return String Name resolved within the package
+   */
+  public static String resolveTypeNameInPackage(TypeToken<?> type, String currentPackage) {
+    // we special case java.lang types because they never need a FQN.
+    if (isJavaLangType(type)) {
 ```
 
 ### UnstableTypeUsedInSignature
@@ -1333,19 +1321,19 @@ in `src/main/java/org/assertj/assertions/generator/BaseAssertionGenerator.java`
     // Assertion content
 ```
 
-## RuleId[ruleID=MissortedModifiers]
-### MissortedModifiers
-Missorted modifiers `static private`
-in `src/main/java/org/assertj/assertions/generator/util/ClassUtil.java`
+### UnstableTypeUsedInSignature
+Method must be marked with '@com.google.common.annotations.Beta' annotation because its signature references unstable type 'com.google.common.reflect.TypeToken'
+in `src/main/java/org/assertj/assertions/generator/BaseAssertionGenerator.java`
 #### Snippet
 ```java
-  static public final Map<String, String> PREDICATE_PREFIXES;
 
-  static private final Comparator<String> LONGEST_TO_SHORTEST = (o1, o2) -> {
-    final int lengthComp = o2.length() - o1.length();
-    return lengthComp == 0 ? o1.compareTo(o2) : lengthComp;
+  @Override
+  public String[] generateHierarchicalCustomAssertionContentFor(ClassDescription classDescription,
+                                                                Set<TypeToken<?>> classes) {
+    // use abstract class template first
 ```
 
+## RuleId[ruleID=MissortedModifiers]
 ### MissortedModifiers
 Missorted modifiers `static private`
 in `src/main/java/org/assertj/assertions/generator/util/ClassUtil.java`
@@ -1356,6 +1344,18 @@ in `src/main/java/org/assertj/assertions/generator/util/ClassUtil.java`
   static private final Pattern PREFIX_PATTERN;
 
   static public final Map<String, String> PREDICATE_PREFIXES;
+```
+
+### MissortedModifiers
+Missorted modifiers `static private`
+in `src/main/java/org/assertj/assertions/generator/util/ClassUtil.java`
+#### Snippet
+```java
+  static public final Map<String, String> PREDICATE_PREFIXES;
+
+  static private final Comparator<String> LONGEST_TO_SHORTEST = (o1, o2) -> {
+    final int lengthComp = o2.length() - o1.length();
+    return lengthComp == 0 ? o1.compareTo(o2) : lengthComp;
 ```
 
 ### MissortedModifiers
@@ -1405,18 +1405,6 @@ in `src/main/java/org/assertj/assertions/generator/AssertionGenerator.java`
   String[] generateHierarchicalCustomAssertionContentFor(ClassDescription classDescription, Set<TypeToken<?>> allClasses);
 
     /**
-```
-
-### UnstableApiUsage
-'com.google.common.reflect.TypeToken' is marked unstable with @Beta
-in `src/main/java/org/assertj/assertions/generator/description/GetterDescription.java`
-#### Snippet
-```java
-
-  private final Invokable<?, ?> invokable;
-  private final ImmutableList<TypeToken<? extends Throwable>> exceptions;
-
-  public GetterDescription(String propertyName, TypeToken<?> owningType, Method method) {
 ```
 
 ### UnstableApiUsage
@@ -1484,6 +1472,18 @@ in `src/main/java/org/assertj/assertions/generator/description/GetterDescription
 in `src/main/java/org/assertj/assertions/generator/description/GetterDescription.java`
 #### Snippet
 ```java
+
+  private final Invokable<?, ?> invokable;
+  private final ImmutableList<TypeToken<? extends Throwable>> exceptions;
+
+  public GetterDescription(String propertyName, TypeToken<?> owningType, Method method) {
+```
+
+### UnstableApiUsage
+'com.google.common.reflect.TypeToken' is marked unstable with @Beta
+in `src/main/java/org/assertj/assertions/generator/description/GetterDescription.java`
+#### Snippet
+```java
   }
 
   public ImmutableList<TypeToken<? extends Throwable>> getExceptions() {
@@ -1505,14 +1505,158 @@ public class GetterDescription extends DataDescription implements Comparable<Get
 
 ### UnstableApiUsage
 'com.google.common.reflect.TypeToken' is marked unstable with @Beta
-in `src/main/java/org/assertj/assertions/generator/description/converter/ClassToClassDescriptionConverter.java`
+in `src/main/java/org/assertj/assertions/generator/description/ClassDescription.java`
 #### Snippet
 ```java
   }
 
-  private Set<GetterDescription> declaredGetterDescriptionsOf(TypeToken<?> type) {
-    return doGetterDescriptionsOf(declaredGetterMethodsOf(type, annotationConfiguration.includedAnnotations()), type);
+  private static String assertClassNameOf(TypeToken<?> type) {
+    String typeDeclaration = getTypeDeclaration(type);
+    String typeNameWithoutDots = getTypeNameWithoutDots(typeDeclaration);
+```
+
+### UnstableApiUsage
+'getRawType()' is declared in unstable class 'com.google.common.reflect.TypeToken' marked with @Beta
+in `src/main/java/org/assertj/assertions/generator/description/ClassDescription.java`
+#### Snippet
+```java
+  @Override
+  public int compareTo(ClassDescription o) {
+    return type.getRawType().getName().compareTo(o.type.getRawType().getName());
   }
+
+```
+
+### UnstableApiUsage
+'getRawType()' is declared in unstable class 'com.google.common.reflect.TypeToken' marked with @Beta
+in `src/main/java/org/assertj/assertions/generator/description/ClassDescription.java`
+#### Snippet
+```java
+  @Override
+  public int compareTo(ClassDescription o) {
+    return type.getRawType().getName().compareTo(o.type.getRawType().getName());
+  }
+
+```
+
+### UnstableApiUsage
+'com.google.common.reflect.TypeToken' is marked unstable with @Beta
+in `src/main/java/org/assertj/assertions/generator/description/ClassDescription.java`
+#### Snippet
+```java
+  private Set<GetterDescription> declaredGettersDescriptions;
+  private Set<FieldDescription> declaredFieldsDescriptions;
+  private TypeToken<?> type;
+  private TypeToken<?> superType;
+
+```
+
+### UnstableApiUsage
+'isSubtypeOf(java.lang.reflect.Type)' is declared in unstable class 'com.google.common.reflect.TypeToken' marked with @Beta
+in `src/main/java/org/assertj/assertions/generator/description/ClassDescription.java`
+#### Snippet
+```java
+
+  public boolean implementsComparable() {
+    return type.isSubtypeOf(Comparable.class);
+  }
+}
+```
+
+### UnstableApiUsage
+'com.google.common.reflect.TypeToken' is marked unstable with @Beta
+in `src/main/java/org/assertj/assertions/generator/description/ClassDescription.java`
+#### Snippet
+```java
+  private Set<FieldDescription> declaredFieldsDescriptions;
+  private TypeToken<?> type;
+  private TypeToken<?> superType;
+
+  public ClassDescription(TypeToken<?> type) {
+```
+
+### UnstableApiUsage
+'getSupertype(java.lang.Class)' is declared in unstable class 'com.google.common.reflect.TypeToken' marked with @Beta
+in `src/main/java/org/assertj/assertions/generator/description/ClassDescription.java`
+#### Snippet
+```java
+    // TypeToken#getSupertype(..) checks to make sure it is a super type
+    if (superType != null) {
+      this.superType = type.getSupertype((Class) superType);
+    }
+  }
+```
+
+### UnstableApiUsage
+'com.google.common.reflect.TypeToken' is marked unstable with @Beta
+in `src/main/java/org/assertj/assertions/generator/description/ClassDescription.java`
+#### Snippet
+```java
+  }
+
+  public TypeToken<?> getSuperType() {
+    return superType;
+  }
+```
+
+### UnstableApiUsage
+'com.google.common.reflect.TypeToken' is marked unstable with @Beta
+in `src/main/java/org/assertj/assertions/generator/description/ClassDescription.java`
+#### Snippet
+```java
+  private TypeToken<?> superType;
+
+  public ClassDescription(TypeToken<?> type) {
+    this.type = type;
+    this.superType = null;
+```
+
+### UnstableApiUsage
+'com.google.common.reflect.TypeToken' is marked unstable with @Beta
+in `src/main/java/org/assertj/assertions/generator/description/ClassDescription.java`
+#### Snippet
+```java
+  }
+
+  private static String abstractAssertClassNameOf(TypeToken<?> type) {
+    return ABSTRACT_ASSERT_CLASS_PREFIX + assertClassNameOf(type);
+  }
+```
+
+### UnstableApiUsage
+'getRawType()' is declared in unstable class 'com.google.common.reflect.TypeToken' marked with @Beta
+in `src/main/java/org/assertj/assertions/generator/description/ClassDescription.java`
+#### Snippet
+```java
+
+  public String getPackageName() {
+    return type.getRawType().getPackage().getName();
+  }
+
+```
+
+### UnstableApiUsage
+'getRawType()' is declared in unstable class 'com.google.common.reflect.TypeToken' marked with @Beta
+in `src/main/java/org/assertj/assertions/generator/description/ClassDescription.java`
+#### Snippet
+```java
+
+  public String getFullyQualifiedParentAssertClassName() {
+    if (superType.getRawType().equals(Object.class)) return "org.assertj.core.api.AbstractObjectAssert";
+    return superType.getRawType().getPackage().getName() + "." + abstractAssertClassNameOf(superType);
+  }
+```
+
+### UnstableApiUsage
+'getRawType()' is declared in unstable class 'com.google.common.reflect.TypeToken' marked with @Beta
+in `src/main/java/org/assertj/assertions/generator/description/ClassDescription.java`
+#### Snippet
+```java
+  public String getFullyQualifiedParentAssertClassName() {
+    if (superType.getRawType().equals(Object.class)) return "org.assertj.core.api.AbstractObjectAssert";
+    return superType.getRawType().getPackage().getName() + "." + abstractAssertClassNameOf(superType);
+  }
+
 ```
 
 ### UnstableApiUsage
@@ -1546,6 +1690,18 @@ in `src/main/java/org/assertj/assertions/generator/description/converter/ClassTo
 ```java
   }
 
+  private Set<FieldDescription> doFieldDescriptionsOf(TypeToken<?> type, List<Field> fields) {
+    Set<FieldDescription> fieldDescriptions = new TreeSet<>();
+    for (Field field : fields) {
+```
+
+### UnstableApiUsage
+'com.google.common.reflect.TypeToken' is marked unstable with @Beta
+in `src/main/java/org/assertj/assertions/generator/description/converter/ClassToClassDescriptionConverter.java`
+#### Snippet
+```java
+  }
+
   private Set<FieldDescription> declaredFieldDescriptionsOf(TypeToken<?> type) {
     return doFieldDescriptionsOf(type, declaredFieldsOf(type));
   }
@@ -1568,11 +1724,35 @@ in `src/main/java/org/assertj/assertions/generator/description/converter/ClassTo
 in `src/main/java/org/assertj/assertions/generator/description/converter/ClassToClassDescriptionConverter.java`
 #### Snippet
 ```java
-  }
 
-  private Set<FieldDescription> doFieldDescriptionsOf(TypeToken<?> type, List<Field> fields) {
-    Set<FieldDescription> fieldDescriptions = new TreeSet<>();
-    for (Field field : fields) {
+  @Override
+  public ClassDescription convertToClassDescription(TypeToken<?> type) {
+    checkArgument(!type.getRawType().isLocalClass(), "Can not support Local class %s", type);
+    ClassDescription classDescription = new ClassDescription(type);
+```
+
+### UnstableApiUsage
+'getRawType()' is declared in unstable class 'com.google.common.reflect.TypeToken' marked with @Beta
+in `src/main/java/org/assertj/assertions/generator/description/converter/ClassToClassDescriptionConverter.java`
+#### Snippet
+```java
+  @Override
+  public ClassDescription convertToClassDescription(TypeToken<?> type) {
+    checkArgument(!type.getRawType().isLocalClass(), "Can not support Local class %s", type);
+    ClassDescription classDescription = new ClassDescription(type);
+    classDescription.addGetterDescriptions(getterDescriptionsOf(type));
+```
+
+### UnstableApiUsage
+'getRawType()' is declared in unstable class 'com.google.common.reflect.TypeToken' marked with @Beta
+in `src/main/java/org/assertj/assertions/generator/description/converter/ClassToClassDescriptionConverter.java`
+#### Snippet
+```java
+    classDescription.addDeclaredGetterDescriptions(declaredGetterDescriptionsOf(type));
+    classDescription.addDeclaredFieldDescriptions(declaredFieldDescriptionsOf(type));
+    classDescription.setSuperType(type.getRawType().getSuperclass());
+    return classDescription;
+  }
 ```
 
 ### UnstableApiUsage
@@ -1628,70 +1808,10 @@ in `src/main/java/org/assertj/assertions/generator/description/converter/ClassTo
 in `src/main/java/org/assertj/assertions/generator/description/converter/ClassToClassDescriptionConverter.java`
 #### Snippet
 ```java
-
-  @Override
-  public ClassDescription convertToClassDescription(TypeToken<?> type) {
-    checkArgument(!type.getRawType().isLocalClass(), "Can not support Local class %s", type);
-    ClassDescription classDescription = new ClassDescription(type);
-```
-
-### UnstableApiUsage
-'getRawType()' is declared in unstable class 'com.google.common.reflect.TypeToken' marked with @Beta
-in `src/main/java/org/assertj/assertions/generator/description/converter/ClassToClassDescriptionConverter.java`
-#### Snippet
-```java
-  @Override
-  public ClassDescription convertToClassDescription(TypeToken<?> type) {
-    checkArgument(!type.getRawType().isLocalClass(), "Can not support Local class %s", type);
-    ClassDescription classDescription = new ClassDescription(type);
-    classDescription.addGetterDescriptions(getterDescriptionsOf(type));
-```
-
-### UnstableApiUsage
-'closeQuietly(java.io.@org.checkerframework.checker.nullness.qual.Nullable InputStream)' is declared in unstable class 'com.google.common.io.Closeables' marked with @Beta
-in `src/main/java/org/assertj/assertions/generator/Template.java`
-#### Snippet
-```java
-      return CharStreams.toString(reader);
-    } finally {
-      closeQuietly(input);
-      closeQuietly(reader);
-    }
-```
-
-### UnstableApiUsage
-'closeQuietly(java.io.@org.checkerframework.checker.nullness.qual.Nullable Reader)' is declared in unstable class 'com.google.common.io.Closeables' marked with @Beta
-in `src/main/java/org/assertj/assertions/generator/Template.java`
-#### Snippet
-```java
-    } finally {
-      closeQuietly(input);
-      closeQuietly(reader);
-    }
-  }
-```
-
-### UnstableApiUsage
-'getRawType()' is declared in unstable class 'com.google.common.reflect.TypeToken' marked with @Beta
-in `src/main/java/org/assertj/assertions/generator/description/converter/ClassToClassDescriptionConverter.java`
-#### Snippet
-```java
-    classDescription.addDeclaredGetterDescriptions(declaredGetterDescriptionsOf(type));
-    classDescription.addDeclaredFieldDescriptions(declaredFieldDescriptionsOf(type));
-    classDescription.setSuperType(type.getRawType().getSuperclass());
-    return classDescription;
-  }
-```
-
-### UnstableApiUsage
-'com.google.common.reflect.TypeToken' is marked unstable with @Beta
-in `src/main/java/org/assertj/assertions/generator/cli/AssertionGeneratorLauncher.java`
-#### Snippet
-```java
   }
 
-  private static ClassDescription toClassDescription(TypeToken<?> type) {
-    return classDescriptionConverter.convertToClassDescription(type);
+  private Set<GetterDescription> declaredGetterDescriptionsOf(TypeToken<?> type) {
+    return doGetterDescriptionsOf(declaredGetterMethodsOf(type, annotationConfiguration.includedAnnotations()), type);
   }
 ```
 
@@ -1705,30 +1825,6 @@ in `src/main/java/org/assertj/assertions/generator/cli/AssertionGeneratorLaunche
       Set<TypeToken<?>> classes = collectClasses(line.getArgs());
 
       if (line.hasOption('H')) {
-```
-
-### UnstableApiUsage
-'com.google.common.reflect.TypeToken' is marked unstable with @Beta
-in `src/main/java/org/assertj/assertions/generator/cli/AssertionGeneratorLauncher.java`
-#### Snippet
-```java
-  }
-  
-  private static void generateFlatAssertions(Set<TypeToken<?>> types) throws IOException {
-    logger.info("Generating assertions for types {}", types);
-    BaseAssertionGenerator customAssertionGenerator = new BaseAssertionGenerator();
-```
-
-### UnstableApiUsage
-'com.google.common.reflect.TypeToken' is marked unstable with @Beta
-in `src/main/java/org/assertj/assertions/generator/cli/AssertionGeneratorLauncher.java`
-#### Snippet
-```java
-    BaseAssertionGenerator customAssertionGenerator = new BaseAssertionGenerator();
-    
-    for (TypeToken<?> type : types) {
-      logger.info("Generating assertions for class : {}", type);
-      File customAssertionFile = customAssertionGenerator.generateCustomAssertionFor(toClassDescription(type));
 ```
 
 ### UnstableApiUsage
@@ -1769,6 +1865,78 @@ in `src/main/java/org/assertj/assertions/generator/cli/AssertionGeneratorLaunche
 
 ### UnstableApiUsage
 'com.google.common.reflect.TypeToken' is marked unstable with @Beta
+in `src/main/java/org/assertj/assertions/generator/cli/AssertionGeneratorLauncher.java`
+#### Snippet
+```java
+  }
+  
+  private static void generateFlatAssertions(Set<TypeToken<?>> types) throws IOException {
+    logger.info("Generating assertions for types {}", types);
+    BaseAssertionGenerator customAssertionGenerator = new BaseAssertionGenerator();
+```
+
+### UnstableApiUsage
+'com.google.common.reflect.TypeToken' is marked unstable with @Beta
+in `src/main/java/org/assertj/assertions/generator/cli/AssertionGeneratorLauncher.java`
+#### Snippet
+```java
+    BaseAssertionGenerator customAssertionGenerator = new BaseAssertionGenerator();
+    
+    for (TypeToken<?> type : types) {
+      logger.info("Generating assertions for class : {}", type);
+      File customAssertionFile = customAssertionGenerator.generateCustomAssertionFor(toClassDescription(type));
+```
+
+### UnstableApiUsage
+'com.google.common.reflect.TypeToken' is marked unstable with @Beta
+in `src/main/java/org/assertj/assertions/generator/cli/AssertionGeneratorLauncher.java`
+#### Snippet
+```java
+  }
+
+  private static ClassDescription toClassDescription(TypeToken<?> type) {
+    return classDescriptionConverter.convertToClassDescription(type);
+  }
+```
+
+### UnstableApiUsage
+'closeQuietly(java.io.@org.checkerframework.checker.nullness.qual.Nullable InputStream)' is declared in unstable class 'com.google.common.io.Closeables' marked with @Beta
+in `src/main/java/org/assertj/assertions/generator/Template.java`
+#### Snippet
+```java
+      return CharStreams.toString(reader);
+    } finally {
+      closeQuietly(input);
+      closeQuietly(reader);
+    }
+```
+
+### UnstableApiUsage
+'closeQuietly(java.io.@org.checkerframework.checker.nullness.qual.Nullable Reader)' is declared in unstable class 'com.google.common.io.Closeables' marked with @Beta
+in `src/main/java/org/assertj/assertions/generator/Template.java`
+#### Snippet
+```java
+    } finally {
+      closeQuietly(input);
+      closeQuietly(reader);
+    }
+  }
+```
+
+### UnstableApiUsage
+'com.google.common.reflect.TypeToken' is marked unstable with @Beta
+in `src/main/java/org/assertj/assertions/generator/description/FieldDescription.java`
+#### Snippet
+```java
+public class FieldDescription extends DataDescription implements Comparable<FieldDescription> {
+
+  public FieldDescription(Field field, TypeToken<?> owningType) {
+    this(field, Visibility.PUBLIC, owningType);
+  }
+```
+
+### UnstableApiUsage
+'com.google.common.reflect.TypeToken' is marked unstable with @Beta
 in `src/main/java/org/assertj/assertions/generator/description/FieldDescription.java`
 #### Snippet
 ```java
@@ -1793,14 +1961,158 @@ in `src/main/java/org/assertj/assertions/generator/description/FieldDescription.
 
 ### UnstableApiUsage
 'com.google.common.reflect.TypeToken' is marked unstable with @Beta
-in `src/main/java/org/assertj/assertions/generator/description/FieldDescription.java`
+in `src/main/java/org/assertj/assertions/generator/description/DataDescription.java`
 #### Snippet
 ```java
-public class FieldDescription extends DataDescription implements Comparable<FieldDescription> {
 
-  public FieldDescription(Field field, TypeToken<?> owningType) {
-    this(field, Visibility.PUBLIC, owningType);
+  public boolean isCharType() {
+    TypeToken<?> unwrapped = valueType.unwrap();
+    return unwrapped.isSubtypeOf(char.class);
   }
+```
+
+### UnstableApiUsage
+'unwrap()' is declared in unstable class 'com.google.common.reflect.TypeToken' marked with @Beta
+in `src/main/java/org/assertj/assertions/generator/description/DataDescription.java`
+#### Snippet
+```java
+
+  public boolean isCharType() {
+    TypeToken<?> unwrapped = valueType.unwrap();
+    return unwrapped.isSubtypeOf(char.class);
+  }
+```
+
+### UnstableApiUsage
+'isSubtypeOf(java.lang.reflect.Type)' is declared in unstable class 'com.google.common.reflect.TypeToken' marked with @Beta
+in `src/main/java/org/assertj/assertions/generator/description/DataDescription.java`
+#### Snippet
+```java
+  public boolean isCharType() {
+    TypeToken<?> unwrapped = valueType.unwrap();
+    return unwrapped.isSubtypeOf(char.class);
+  }
+
+```
+
+### UnstableApiUsage
+'isArray()' is declared in unstable class 'com.google.common.reflect.TypeToken' marked with @Beta
+in `src/main/java/org/assertj/assertions/generator/description/DataDescription.java`
+#### Snippet
+```java
+
+  public boolean isArrayType() {
+    return valueType.isArray();
+  }
+
+```
+
+### UnstableApiUsage
+'isSubtypeOf(java.lang.reflect.Type)' is declared in unstable class 'com.google.common.reflect.TypeToken' marked with @Beta
+in `src/main/java/org/assertj/assertions/generator/description/DataDescription.java`
+#### Snippet
+```java
+
+  public boolean isIterableType() {
+    return valueType.isSubtypeOf(Iterable.class);
+  }
+
+```
+
+### UnstableApiUsage
+'isArray()' is declared in unstable class 'com.google.common.reflect.TypeToken' marked with @Beta
+in `src/main/java/org/assertj/assertions/generator/description/DataDescription.java`
+#### Snippet
+```java
+  public String getElementTypeName() {
+    String elementTypeName = null;
+    if (valueType.isArray()) {
+      elementTypeName = getTypeDeclaration(valueType.getComponentType());
+    } else if (valueType.isSubtypeOf(Iterable.class)) {
+```
+
+### UnstableApiUsage
+'getComponentType()' is declared in unstable class 'com.google.common.reflect.TypeToken' marked with @Beta
+in `src/main/java/org/assertj/assertions/generator/description/DataDescription.java`
+#### Snippet
+```java
+    String elementTypeName = null;
+    if (valueType.isArray()) {
+      elementTypeName = getTypeDeclaration(valueType.getComponentType());
+    } else if (valueType.isSubtypeOf(Iterable.class)) {
+      TypeToken<?> componentType = valueType.resolveType(Iterable.class.getTypeParameters()[0]);
+```
+
+### UnstableApiUsage
+'isSubtypeOf(java.lang.reflect.Type)' is declared in unstable class 'com.google.common.reflect.TypeToken' marked with @Beta
+in `src/main/java/org/assertj/assertions/generator/description/DataDescription.java`
+#### Snippet
+```java
+    if (valueType.isArray()) {
+      elementTypeName = getTypeDeclaration(valueType.getComponentType());
+    } else if (valueType.isSubtypeOf(Iterable.class)) {
+      TypeToken<?> componentType = valueType.resolveType(Iterable.class.getTypeParameters()[0]);
+      elementTypeName = getTypeDeclaration(componentType);
+```
+
+### UnstableApiUsage
+'com.google.common.reflect.TypeToken' is marked unstable with @Beta
+in `src/main/java/org/assertj/assertions/generator/description/DataDescription.java`
+#### Snippet
+```java
+      elementTypeName = getTypeDeclaration(valueType.getComponentType());
+    } else if (valueType.isSubtypeOf(Iterable.class)) {
+      TypeToken<?> componentType = valueType.resolveType(Iterable.class.getTypeParameters()[0]);
+      elementTypeName = getTypeDeclaration(componentType);
+      // remove any generic type boundaries
+```
+
+### UnstableApiUsage
+'resolveType(java.lang.reflect.Type)' is declared in unstable class 'com.google.common.reflect.TypeToken' marked with @Beta
+in `src/main/java/org/assertj/assertions/generator/description/DataDescription.java`
+#### Snippet
+```java
+      elementTypeName = getTypeDeclaration(valueType.getComponentType());
+    } else if (valueType.isSubtypeOf(Iterable.class)) {
+      TypeToken<?> componentType = valueType.resolveType(Iterable.class.getTypeParameters()[0]);
+      elementTypeName = getTypeDeclaration(componentType);
+      // remove any generic type boundaries
+```
+
+### UnstableApiUsage
+'com.google.common.reflect.TypeToken' is marked unstable with @Beta
+in `src/main/java/org/assertj/assertions/generator/description/DataDescription.java`
+#### Snippet
+```java
+  public String getElementAssertTypeName() {
+    String packageName = owningTypePackageName();
+    TypeToken<?> elementType = valueType.getComponentType();
+    return elementType == null ? null : getAssertType(elementType, packageName);
+  }
+```
+
+### UnstableApiUsage
+'getComponentType()' is declared in unstable class 'com.google.common.reflect.TypeToken' marked with @Beta
+in `src/main/java/org/assertj/assertions/generator/description/DataDescription.java`
+#### Snippet
+```java
+  public String getElementAssertTypeName() {
+    String packageName = owningTypePackageName();
+    TypeToken<?> elementType = valueType.getComponentType();
+    return elementType == null ? null : getAssertType(elementType, packageName);
+  }
+```
+
+### UnstableApiUsage
+'com.google.common.reflect.TypeToken' is marked unstable with @Beta
+in `src/main/java/org/assertj/assertions/generator/description/DataDescription.java`
+#### Snippet
+```java
+  final Member originalMember;
+  final TypeToken<?> valueType;
+  private final TypeToken<?> owningType;
+  protected final Visibility visibility;
+
 ```
 
 ### UnstableApiUsage
@@ -1852,99 +2164,15 @@ in `src/main/java/org/assertj/assertions/generator/description/DataDescription.j
 ```
 
 ### UnstableApiUsage
-'com.google.common.reflect.TypeToken' is marked unstable with @Beta
-in `src/main/java/org/assertj/assertions/generator/description/DataDescription.java`
-#### Snippet
-```java
-  private final String name;
-  final Member originalMember;
-  final TypeToken<?> valueType;
-  private final TypeToken<?> owningType;
-  protected final Visibility visibility;
-```
-
-### UnstableApiUsage
-'com.google.common.reflect.TypeToken' is marked unstable with @Beta
-in `src/main/java/org/assertj/assertions/generator/description/DataDescription.java`
-#### Snippet
-```java
-  public String getElementAssertTypeName() {
-    String packageName = owningTypePackageName();
-    TypeToken<?> elementType = valueType.getComponentType();
-    return elementType == null ? null : getAssertType(elementType, packageName);
-  }
-```
-
-### UnstableApiUsage
-'getComponentType()' is declared in unstable class 'com.google.common.reflect.TypeToken' marked with @Beta
-in `src/main/java/org/assertj/assertions/generator/description/DataDescription.java`
-#### Snippet
-```java
-  public String getElementAssertTypeName() {
-    String packageName = owningTypePackageName();
-    TypeToken<?> elementType = valueType.getComponentType();
-    return elementType == null ? null : getAssertType(elementType, packageName);
-  }
-```
-
-### UnstableApiUsage
-'com.google.common.reflect.TypeToken' is marked unstable with @Beta
-in `src/main/java/org/assertj/assertions/generator/description/DataDescription.java`
-#### Snippet
-```java
-  final Member originalMember;
-  final TypeToken<?> valueType;
-  private final TypeToken<?> owningType;
-  protected final Visibility visibility;
-
-```
-
-### UnstableApiUsage
-'isPrimitive()' is declared in unstable class 'com.google.common.reflect.TypeToken' marked with @Beta
+'getRawType()' is declared in unstable class 'com.google.common.reflect.TypeToken' marked with @Beta
 in `src/main/java/org/assertj/assertions/generator/description/DataDescription.java`
 #### Snippet
 ```java
 
-  public boolean isPrimitiveType() {
-    return valueType.isPrimitive();
+  public boolean isPrimitiveWrapperType() {
+    return Primitives.isWrapperType(valueType.getRawType());
   }
 
-```
-
-### UnstableApiUsage
-'isSubtypeOf(java.lang.reflect.Type)' is declared in unstable class 'com.google.common.reflect.TypeToken' marked with @Beta
-in `src/main/java/org/assertj/assertions/generator/description/DataDescription.java`
-#### Snippet
-```java
-
-  public boolean isIterableType() {
-    return valueType.isSubtypeOf(Iterable.class);
-  }
-
-```
-
-### UnstableApiUsage
-'com.google.common.reflect.TypeToken' is marked unstable with @Beta
-in `src/main/java/org/assertj/assertions/generator/description/DataDescription.java`
-#### Snippet
-```java
-  protected final Visibility visibility;
-
-  DataDescription(String name, Member originalMember, Visibility visibility, TypeToken<?> type, TypeToken<?> owningType) {
-    this.name = name;
-    this.originalMember = originalMember;
-```
-
-### UnstableApiUsage
-'com.google.common.reflect.TypeToken' is marked unstable with @Beta
-in `src/main/java/org/assertj/assertions/generator/description/DataDescription.java`
-#### Snippet
-```java
-  protected final Visibility visibility;
-
-  DataDescription(String name, Member originalMember, Visibility visibility, TypeToken<?> type, TypeToken<?> owningType) {
-    this.name = name;
-    this.originalMember = originalMember;
 ```
 
 ### UnstableApiUsage
@@ -2032,279 +2260,363 @@ in `src/main/java/org/assertj/assertions/generator/description/DataDescription.j
 ```
 
 ### UnstableApiUsage
+'isPrimitive()' is declared in unstable class 'com.google.common.reflect.TypeToken' marked with @Beta
+in `src/main/java/org/assertj/assertions/generator/description/DataDescription.java`
+#### Snippet
+```java
+
+  public boolean isPrimitiveType() {
+    return valueType.isPrimitive();
+  }
+
+```
+
+### UnstableApiUsage
+'com.google.common.reflect.TypeToken' is marked unstable with @Beta
+in `src/main/java/org/assertj/assertions/generator/description/DataDescription.java`
+#### Snippet
+```java
+  protected final Visibility visibility;
+
+  DataDescription(String name, Member originalMember, Visibility visibility, TypeToken<?> type, TypeToken<?> owningType) {
+    this.name = name;
+    this.originalMember = originalMember;
+```
+
+### UnstableApiUsage
+'com.google.common.reflect.TypeToken' is marked unstable with @Beta
+in `src/main/java/org/assertj/assertions/generator/description/DataDescription.java`
+#### Snippet
+```java
+  protected final Visibility visibility;
+
+  DataDescription(String name, Member originalMember, Visibility visibility, TypeToken<?> type, TypeToken<?> owningType) {
+    this.name = name;
+    this.originalMember = originalMember;
+```
+
+### UnstableApiUsage
+'com.google.common.reflect.TypeToken' is marked unstable with @Beta
+in `src/main/java/org/assertj/assertions/generator/description/DataDescription.java`
+#### Snippet
+```java
+  private final String name;
+  final Member originalMember;
+  final TypeToken<?> valueType;
+  private final TypeToken<?> owningType;
+  protected final Visibility visibility;
+```
+
+### UnstableApiUsage
+'com.google.common.reflect.TypeToken' is marked unstable with @Beta
+in `src/main/java/org/assertj/assertions/generator/util/ClassUtil.java`
+#### Snippet
+```java
+  }
+
+  private static Set<TypeToken<?>> getPackageClassesFromClasspathFiles(String packageName, ClassLoader classLoader) {
+    try {
+      String packagePath = packageName.replace('.', File.separatorChar);
+```
+
+### UnstableApiUsage
+'com.google.common.reflect.TypeToken' is marked unstable with @Beta
+in `src/main/java/org/assertj/assertions/generator/util/ClassUtil.java`
+#### Snippet
+```java
+      // Ask for all resources for the path
+      Enumeration<URL> resources = classLoader.getResources(packagePath);
+      Set<TypeToken<?>> classes = newLinkedHashSet();
+      while (resources.hasMoreElements()) {
+        File directory = new File(URLDecoder.decode(resources.nextElement().getPath(), "UTF-8"));
+```
+
+### UnstableApiUsage
+'com.google.common.reflect.TypeToken' is marked unstable with @Beta
+in `src/main/java/org/assertj/assertions/generator/util/ClassUtil.java`
+#### Snippet
+```java
+  }
+
+  public static Set<Method> declaredGetterMethodsOf(TypeToken<?> type, Set<Class<?>> includeAnnotations) {
+    Class<?> clazz = type.getRawType();
+    boolean isClassAnnotated = containsAny(clazz.getDeclaredAnnotations(), includeAnnotations);
+```
+
+### UnstableApiUsage
 'getRawType()' is declared in unstable class 'com.google.common.reflect.TypeToken' marked with @Beta
-in `src/main/java/org/assertj/assertions/generator/description/DataDescription.java`
+in `src/main/java/org/assertj/assertions/generator/util/ClassUtil.java`
 #### Snippet
 ```java
 
-  public boolean isPrimitiveWrapperType() {
-    return Primitives.isWrapperType(valueType.getRawType());
-  }
-
-```
-
-### UnstableApiUsage
-'isArray()' is declared in unstable class 'com.google.common.reflect.TypeToken' marked with @Beta
-in `src/main/java/org/assertj/assertions/generator/description/DataDescription.java`
-#### Snippet
-```java
-
-  public boolean isArrayType() {
-    return valueType.isArray();
-  }
-
-```
-
-### UnstableApiUsage
-'isArray()' is declared in unstable class 'com.google.common.reflect.TypeToken' marked with @Beta
-in `src/main/java/org/assertj/assertions/generator/description/DataDescription.java`
-#### Snippet
-```java
-  public String getElementTypeName() {
-    String elementTypeName = null;
-    if (valueType.isArray()) {
-      elementTypeName = getTypeDeclaration(valueType.getComponentType());
-    } else if (valueType.isSubtypeOf(Iterable.class)) {
-```
-
-### UnstableApiUsage
-'getComponentType()' is declared in unstable class 'com.google.common.reflect.TypeToken' marked with @Beta
-in `src/main/java/org/assertj/assertions/generator/description/DataDescription.java`
-#### Snippet
-```java
-    String elementTypeName = null;
-    if (valueType.isArray()) {
-      elementTypeName = getTypeDeclaration(valueType.getComponentType());
-    } else if (valueType.isSubtypeOf(Iterable.class)) {
-      TypeToken<?> componentType = valueType.resolveType(Iterable.class.getTypeParameters()[0]);
-```
-
-### UnstableApiUsage
-'isSubtypeOf(java.lang.reflect.Type)' is declared in unstable class 'com.google.common.reflect.TypeToken' marked with @Beta
-in `src/main/java/org/assertj/assertions/generator/description/DataDescription.java`
-#### Snippet
-```java
-    if (valueType.isArray()) {
-      elementTypeName = getTypeDeclaration(valueType.getComponentType());
-    } else if (valueType.isSubtypeOf(Iterable.class)) {
-      TypeToken<?> componentType = valueType.resolveType(Iterable.class.getTypeParameters()[0]);
-      elementTypeName = getTypeDeclaration(componentType);
+  public static Set<Method> declaredGetterMethodsOf(TypeToken<?> type, Set<Class<?>> includeAnnotations) {
+    Class<?> clazz = type.getRawType();
+    boolean isClassAnnotated = containsAny(clazz.getDeclaredAnnotations(), includeAnnotations);
+    return filterGetterMethods(clazz.getDeclaredMethods(), includeAnnotations, isClassAnnotated);
 ```
 
 ### UnstableApiUsage
 'com.google.common.reflect.TypeToken' is marked unstable with @Beta
-in `src/main/java/org/assertj/assertions/generator/description/DataDescription.java`
+in `src/main/java/org/assertj/assertions/generator/util/ClassUtil.java`
 #### Snippet
 ```java
-      elementTypeName = getTypeDeclaration(valueType.getComponentType());
-    } else if (valueType.isSubtypeOf(Iterable.class)) {
-      TypeToken<?> componentType = valueType.resolveType(Iterable.class.getTypeParameters()[0]);
-      elementTypeName = getTypeDeclaration(componentType);
-      // remove any generic type boundaries
-```
-
-### UnstableApiUsage
-'resolveType(java.lang.reflect.Type)' is declared in unstable class 'com.google.common.reflect.TypeToken' marked with @Beta
-in `src/main/java/org/assertj/assertions/generator/description/DataDescription.java`
-#### Snippet
-```java
-      elementTypeName = getTypeDeclaration(valueType.getComponentType());
-    } else if (valueType.isSubtypeOf(Iterable.class)) {
-      TypeToken<?> componentType = valueType.resolveType(Iterable.class.getTypeParameters()[0]);
-      elementTypeName = getTypeDeclaration(componentType);
-      // remove any generic type boundaries
+   * </code>
+   * @param classOrPackageNames classes or packages to collect.
+   * @return the set of {@link TypeToken}s found
+   */
+  public static Set<TypeToken<?>> collectClasses(String... classOrPackageNames) {
 ```
 
 ### UnstableApiUsage
 'com.google.common.reflect.TypeToken' is marked unstable with @Beta
-in `src/main/java/org/assertj/assertions/generator/description/DataDescription.java`
+in `src/main/java/org/assertj/assertions/generator/util/ClassUtil.java`
 #### Snippet
 ```java
+   * @return the set of {@link TypeToken}s found
+   */
+  public static Set<TypeToken<?>> collectClasses(String... classOrPackageNames) {
+    return collectClasses(Thread.currentThread().getContextClassLoader(), classOrPackageNames);
+  }
+```
 
-  public boolean isCharType() {
-    TypeToken<?> unwrapped = valueType.unwrap();
-    return unwrapped.isSubtypeOf(char.class);
+### UnstableApiUsage
+'com.google.common.reflect.TypeToken' is marked unstable with @Beta
+in `src/main/java/org/assertj/assertions/generator/util/ClassUtil.java`
+#### Snippet
+```java
+  }
+
+  public static List<Field> nonStaticFieldsOf(TypeToken<?> clazz) {
+    List<Field> fields = getAllFieldsInHierarchy(clazz);
+    return filterNonStaticFields(fields);
+```
+
+### UnstableApiUsage
+'com.google.common.reflect.TypeToken' is marked unstable with @Beta
+in `src/main/java/org/assertj/assertions/generator/util/ClassUtil.java`
+#### Snippet
+```java
+   * @return true iff the type is a boolean.
+   */
+  public static boolean isBoolean(TypeToken<?> type) {
+    TypeToken<?> unwrapped = type.unwrap();
+    return unwrapped.isSubtypeOf(boolean.class);
+```
+
+### UnstableApiUsage
+'com.google.common.reflect.TypeToken' is marked unstable with @Beta
+in `src/main/java/org/assertj/assertions/generator/util/ClassUtil.java`
+#### Snippet
+```java
+   */
+  public static boolean isBoolean(TypeToken<?> type) {
+    TypeToken<?> unwrapped = type.unwrap();
+    return unwrapped.isSubtypeOf(boolean.class);
   }
 ```
 
 ### UnstableApiUsage
 'unwrap()' is declared in unstable class 'com.google.common.reflect.TypeToken' marked with @Beta
-in `src/main/java/org/assertj/assertions/generator/description/DataDescription.java`
+in `src/main/java/org/assertj/assertions/generator/util/ClassUtil.java`
 #### Snippet
 ```java
-
-  public boolean isCharType() {
-    TypeToken<?> unwrapped = valueType.unwrap();
-    return unwrapped.isSubtypeOf(char.class);
+   */
+  public static boolean isBoolean(TypeToken<?> type) {
+    TypeToken<?> unwrapped = type.unwrap();
+    return unwrapped.isSubtypeOf(boolean.class);
   }
 ```
 
 ### UnstableApiUsage
 'isSubtypeOf(java.lang.reflect.Type)' is declared in unstable class 'com.google.common.reflect.TypeToken' marked with @Beta
-in `src/main/java/org/assertj/assertions/generator/description/DataDescription.java`
+in `src/main/java/org/assertj/assertions/generator/util/ClassUtil.java`
 #### Snippet
 ```java
-  public boolean isCharType() {
-    TypeToken<?> unwrapped = valueType.unwrap();
-    return unwrapped.isSubtypeOf(char.class);
+  public static boolean isBoolean(TypeToken<?> type) {
+    TypeToken<?> unwrapped = type.unwrap();
+    return unwrapped.isSubtypeOf(boolean.class);
   }
 
 ```
 
 ### UnstableApiUsage
 'com.google.common.reflect.TypeToken' is marked unstable with @Beta
-in `src/main/java/org/assertj/assertions/generator/description/ClassDescription.java`
+in `src/main/java/org/assertj/assertions/generator/util/ClassUtil.java`
 #### Snippet
 ```java
-  private TypeToken<?> superType;
+  }
 
-  public ClassDescription(TypeToken<?> type) {
-    this.type = type;
-    this.superType = null;
+  private static boolean isClassCandidateToAssertionsGeneration(TypeToken<?> typeToken, boolean includePrivate) {
+    if (typeToken == null) return false;
+    if (isPackageInfo(typeToken)) return false;
 ```
 
 ### UnstableApiUsage
 'getRawType()' is declared in unstable class 'com.google.common.reflect.TypeToken' marked with @Beta
-in `src/main/java/org/assertj/assertions/generator/description/ClassDescription.java`
+in `src/main/java/org/assertj/assertions/generator/util/ClassUtil.java`
 #### Snippet
 ```java
-
-  public String getFullyQualifiedParentAssertClassName() {
-    if (superType.getRawType().equals(Object.class)) return "org.assertj.core.api.AbstractObjectAssert";
-    return superType.getRawType().getPackage().getName() + "." + abstractAssertClassNameOf(superType);
-  }
-```
-
-### UnstableApiUsage
-'getRawType()' is declared in unstable class 'com.google.common.reflect.TypeToken' marked with @Beta
-in `src/main/java/org/assertj/assertions/generator/description/ClassDescription.java`
-#### Snippet
-```java
-  public String getFullyQualifiedParentAssertClassName() {
-    if (superType.getRawType().equals(Object.class)) return "org.assertj.core.api.AbstractObjectAssert";
-    return superType.getRawType().getPackage().getName() + "." + abstractAssertClassNameOf(superType);
-  }
-
+    if (typeToken == null) return false;
+    if (isPackageInfo(typeToken)) return false;
+    Class<?> raw = typeToken.getRawType();
+    return (includePrivate || isPublic(raw.getModifiers()))
+           && !raw.isAnonymousClass()
 ```
 
 ### UnstableApiUsage
 'com.google.common.reflect.TypeToken' is marked unstable with @Beta
-in `src/main/java/org/assertj/assertions/generator/description/ClassDescription.java`
+in `src/main/java/org/assertj/assertions/generator/util/ClassUtil.java`
 #### Snippet
 ```java
   }
 
-  public TypeToken<?> getSuperType() {
-    return superType;
+  public static List<Field> declaredFieldsOf(TypeToken<?> type) {
+    Field[] fields = type.getRawType().getDeclaredFields();
+    return filterNonStaticFields(asList(fields));
+```
+
+### UnstableApiUsage
+'getRawType()' is declared in unstable class 'com.google.common.reflect.TypeToken' marked with @Beta
+in `src/main/java/org/assertj/assertions/generator/util/ClassUtil.java`
+#### Snippet
+```java
+
+  public static List<Field> declaredFieldsOf(TypeToken<?> type) {
+    Field[] fields = type.getRawType().getDeclaredFields();
+    return filterNonStaticFields(asList(fields));
   }
 ```
 
 ### UnstableApiUsage
-'getSupertype(java.lang.Class)' is declared in unstable class 'com.google.common.reflect.TypeToken' marked with @Beta
-in `src/main/java/org/assertj/assertions/generator/description/ClassDescription.java`
+'com.google.common.reflect.TypeToken' is marked unstable with @Beta
+in `src/main/java/org/assertj/assertions/generator/util/ClassUtil.java`
 #### Snippet
 ```java
-    // TypeToken#getSupertype(..) checks to make sure it is a super type
-    if (superType != null) {
-      this.superType = type.getSupertype((Class) superType);
+   * @throws RuntimeException if any error occurs
+   */
+  private static Set<TypeToken<?>> getClassesInPackage(String packageName, ClassLoader classLoader) {
+    if (classLoader == null) {
+      throw new IllegalArgumentException("Null class loader.");
+```
+
+### UnstableApiUsage
+'com.google.common.reflect.TypeToken' is marked unstable with @Beta
+in `src/main/java/org/assertj/assertions/generator/util/ClassUtil.java`
+#### Snippet
+```java
     }
-  }
+    // load classes from classpath file system, this won't load classes in jars
+    Set<TypeToken<?>> packageClasses = getPackageClassesFromClasspathFiles(packageName, classLoader);
+    // load classes from classpath jars
+    try {
 ```
 
 ### UnstableApiUsage
 'com.google.common.reflect.TypeToken' is marked unstable with @Beta
-in `src/main/java/org/assertj/assertions/generator/description/ClassDescription.java`
+in `src/main/java/org/assertj/assertions/generator/util/ClassUtil.java`
 #### Snippet
 ```java
-  private Set<FieldDescription> declaredFieldsDescriptions;
-  private TypeToken<?> type;
-  private TypeToken<?> superType;
-
-  public ClassDescription(TypeToken<?> type) {
-```
-
-### UnstableApiUsage
-'com.google.common.reflect.TypeToken' is marked unstable with @Beta
-in `src/main/java/org/assertj/assertions/generator/description/ClassDescription.java`
-#### Snippet
-```java
-  private Set<GetterDescription> declaredGettersDescriptions;
-  private Set<FieldDescription> declaredFieldsDescriptions;
-  private TypeToken<?> type;
-  private TypeToken<?> superType;
-
-```
-
-### UnstableApiUsage
-'isSubtypeOf(java.lang.reflect.Type)' is declared in unstable class 'com.google.common.reflect.TypeToken' marked with @Beta
-in `src/main/java/org/assertj/assertions/generator/description/ClassDescription.java`
-#### Snippet
-```java
-
-  public boolean implementsComparable() {
-    return type.isSubtypeOf(Comparable.class);
+   * @return true if part of java language
+   */
+  public static boolean isJavaLangType(TypeToken<?> type) {
+    return type.isPrimitive() || type.isArray() || Objects.equals(JAVA_LANG_PACKAGE, type.getRawType().getPackage());
   }
-}
 ```
 
 ### UnstableApiUsage
-'com.google.common.reflect.TypeToken' is marked unstable with @Beta
-in `src/main/java/org/assertj/assertions/generator/description/ClassDescription.java`
+'isPrimitive()' is declared in unstable class 'com.google.common.reflect.TypeToken' marked with @Beta
+in `src/main/java/org/assertj/assertions/generator/util/ClassUtil.java`
 #### Snippet
 ```java
+   */
+  public static boolean isJavaLangType(TypeToken<?> type) {
+    return type.isPrimitive() || type.isArray() || Objects.equals(JAVA_LANG_PACKAGE, type.getRawType().getPackage());
   }
 
-  private static String assertClassNameOf(TypeToken<?> type) {
-    String typeDeclaration = getTypeDeclaration(type);
-    String typeNameWithoutDots = getTypeNameWithoutDots(typeDeclaration);
 ```
 
 ### UnstableApiUsage
-'getRawType()' is declared in unstable class 'com.google.common.reflect.TypeToken' marked with @Beta
-in `src/main/java/org/assertj/assertions/generator/description/ClassDescription.java`
+'isArray()' is declared in unstable class 'com.google.common.reflect.TypeToken' marked with @Beta
+in `src/main/java/org/assertj/assertions/generator/util/ClassUtil.java`
 #### Snippet
 ```java
-  @Override
-  public int compareTo(ClassDescription o) {
-    return type.getRawType().getName().compareTo(o.type.getRawType().getName());
+   */
+  public static boolean isJavaLangType(TypeToken<?> type) {
+    return type.isPrimitive() || type.isArray() || Objects.equals(JAVA_LANG_PACKAGE, type.getRawType().getPackage());
   }
 
 ```
 
 ### UnstableApiUsage
 'getRawType()' is declared in unstable class 'com.google.common.reflect.TypeToken' marked with @Beta
-in `src/main/java/org/assertj/assertions/generator/description/ClassDescription.java`
+in `src/main/java/org/assertj/assertions/generator/util/ClassUtil.java`
 #### Snippet
 ```java
-  @Override
-  public int compareTo(ClassDescription o) {
-    return type.getRawType().getName().compareTo(o.type.getRawType().getName());
-  }
-
-```
-
-### UnstableApiUsage
-'getRawType()' is declared in unstable class 'com.google.common.reflect.TypeToken' marked with @Beta
-in `src/main/java/org/assertj/assertions/generator/description/ClassDescription.java`
-#### Snippet
-```java
-
-  public String getPackageName() {
-    return type.getRawType().getPackage().getName();
+   */
+  public static boolean isJavaLangType(TypeToken<?> type) {
+    return type.isPrimitive() || type.isArray() || Objects.equals(JAVA_LANG_PACKAGE, type.getRawType().getPackage());
   }
 
 ```
 
 ### UnstableApiUsage
 'com.google.common.reflect.TypeToken' is marked unstable with @Beta
-in `src/main/java/org/assertj/assertions/generator/description/ClassDescription.java`
+in `src/main/java/org/assertj/assertions/generator/util/ClassUtil.java`
 #### Snippet
 ```java
-  }
+   * @return all fields (whatever access levels) in the hierarchy of a class up to Object.class excluded.
+   */
+  public static List<Field> getAllFieldsInHierarchy(TypeToken<?> clazz) {
+    List<Field> fields = newArrayList(clazz.getRawType().getDeclaredFields());
+    Class<?> parentClass = clazz.getRawType().getSuperclass();
+```
 
-  private static String abstractAssertClassNameOf(TypeToken<?> type) {
-    return ABSTRACT_ASSERT_CLASS_PREFIX + assertClassNameOf(type);
-  }
+### UnstableApiUsage
+'getRawType()' is declared in unstable class 'com.google.common.reflect.TypeToken' marked with @Beta
+in `src/main/java/org/assertj/assertions/generator/util/ClassUtil.java`
+#### Snippet
+```java
+   */
+  public static List<Field> getAllFieldsInHierarchy(TypeToken<?> clazz) {
+    List<Field> fields = newArrayList(clazz.getRawType().getDeclaredFields());
+    Class<?> parentClass = clazz.getRawType().getSuperclass();
+    if (parentClass != null && !Object.class.equals(parentClass)) {
+```
+
+### UnstableApiUsage
+'getRawType()' is declared in unstable class 'com.google.common.reflect.TypeToken' marked with @Beta
+in `src/main/java/org/assertj/assertions/generator/util/ClassUtil.java`
+#### Snippet
+```java
+  public static List<Field> getAllFieldsInHierarchy(TypeToken<?> clazz) {
+    List<Field> fields = newArrayList(clazz.getRawType().getDeclaredFields());
+    Class<?> parentClass = clazz.getRawType().getSuperclass();
+    if (parentClass != null && !Object.class.equals(parentClass)) {
+      fields.addAll(getAllFieldsInHierarchy(TypeToken.of(parentClass)));
+```
+
+### UnstableApiUsage
+'com.google.common.reflect.TypeToken' is marked unstable with @Beta
+in `src/main/java/org/assertj/assertions/generator/util/ClassUtil.java`
+#### Snippet
+```java
+    Class<?> parentClass = clazz.getRawType().getSuperclass();
+    if (parentClass != null && !Object.class.equals(parentClass)) {
+      fields.addAll(getAllFieldsInHierarchy(TypeToken.of(parentClass)));
+    }
+    return fields;
+```
+
+### UnstableApiUsage
+'of(java.lang.Class)' is declared in unstable class 'com.google.common.reflect.TypeToken' marked with @Beta
+in `src/main/java/org/assertj/assertions/generator/util/ClassUtil.java`
+#### Snippet
+```java
+    Class<?> parentClass = clazz.getRawType().getSuperclass();
+    if (parentClass != null && !Object.class.equals(parentClass)) {
+      fields.addAll(getAllFieldsInHierarchy(TypeToken.of(parentClass)));
+    }
+    return fields;
 ```
 
 ### UnstableApiUsage
@@ -2360,11 +2672,47 @@ in `src/main/java/org/assertj/assertions/generator/util/ClassUtil.java`
 in `src/main/java/org/assertj/assertions/generator/util/ClassUtil.java`
 #### Snippet
 ```java
-   * @return String Name resolved within the package
+   * @return String representation of the type
    */
-  public static String resolveTypeNameInPackage(TypeToken<?> type, String currentPackage) {
-    // we special case java.lang types because they never need a FQN.
-    if (isJavaLangType(type)) {
+  public static String getTypeDeclaration(TypeToken<?> type) {
+
+    if (type.isArray()) return getTypeDeclaration(type.getComponentType()) + "[]";
+```
+
+### UnstableApiUsage
+'isArray()' is declared in unstable class 'com.google.common.reflect.TypeToken' marked with @Beta
+in `src/main/java/org/assertj/assertions/generator/util/ClassUtil.java`
+#### Snippet
+```java
+  public static String getTypeDeclaration(TypeToken<?> type) {
+
+    if (type.isArray()) return getTypeDeclaration(type.getComponentType()) + "[]";
+    if (type.isPrimitive()) return type.getRawType().toString();
+
+```
+
+### UnstableApiUsage
+'getComponentType()' is declared in unstable class 'com.google.common.reflect.TypeToken' marked with @Beta
+in `src/main/java/org/assertj/assertions/generator/util/ClassUtil.java`
+#### Snippet
+```java
+  public static String getTypeDeclaration(TypeToken<?> type) {
+
+    if (type.isArray()) return getTypeDeclaration(type.getComponentType()) + "[]";
+    if (type.isPrimitive()) return type.getRawType().toString();
+
+```
+
+### UnstableApiUsage
+'isPrimitive()' is declared in unstable class 'com.google.common.reflect.TypeToken' marked with @Beta
+in `src/main/java/org/assertj/assertions/generator/util/ClassUtil.java`
+#### Snippet
+```java
+
+    if (type.isArray()) return getTypeDeclaration(type.getComponentType()) + "[]";
+    if (type.isPrimitive()) return type.getRawType().toString();
+
+    Class<?> rawClass = type.getRawType();
 ```
 
 ### UnstableApiUsage
@@ -2372,11 +2720,11 @@ in `src/main/java/org/assertj/assertions/generator/util/ClassUtil.java`
 in `src/main/java/org/assertj/assertions/generator/util/ClassUtil.java`
 #### Snippet
 ```java
-    // we special case java.lang types because they never need a FQN.
-    if (isJavaLangType(type)) {
-      return type.getRawType().getSimpleName();
-    }
 
+    if (type.isArray()) return getTypeDeclaration(type.getComponentType()) + "[]";
+    if (type.isPrimitive()) return type.getRawType().toString();
+
+    Class<?> rawClass = type.getRawType();
 ```
 
 ### UnstableApiUsage
@@ -2384,11 +2732,71 @@ in `src/main/java/org/assertj/assertions/generator/util/ClassUtil.java`
 in `src/main/java/org/assertj/assertions/generator/util/ClassUtil.java`
 #### Snippet
 ```java
-    }
+    if (type.isPrimitive()) return type.getRawType().toString();
 
-    return resolveTypeNameInPackage(type.getRawType().getName(), currentPackage);
-  }
+    Class<?> rawClass = type.getRawType();
+    StringBuilder typeDeclaration = new StringBuilder("");
+    // Now we have some types that could be generic, so we have to do more to serialize it to the declaration
+```
 
+### UnstableApiUsage
+'com.google.common.reflect.TypeToken' is marked unstable with @Beta
+in `src/main/java/org/assertj/assertions/generator/util/ClassUtil.java`
+#### Snippet
+```java
+    if (rawClass.isMemberClass()) {
+      // inner class
+      TypeToken<?> outerType = type.resolveType(rawClass.getEnclosingClass());
+      typeDeclaration.append(getTypeDeclaration(outerType))
+                     .append(".")
+```
+
+### UnstableApiUsage
+'resolveType(java.lang.reflect.Type)' is declared in unstable class 'com.google.common.reflect.TypeToken' marked with @Beta
+in `src/main/java/org/assertj/assertions/generator/util/ClassUtil.java`
+#### Snippet
+```java
+    if (rawClass.isMemberClass()) {
+      // inner class
+      TypeToken<?> outerType = type.resolveType(rawClass.getEnclosingClass());
+      typeDeclaration.append(getTypeDeclaration(outerType))
+                     .append(".")
+```
+
+### UnstableApiUsage
+'getType()' is declared in unstable class 'com.google.common.reflect.TypeToken' marked with @Beta
+in `src/main/java/org/assertj/assertions/generator/util/ClassUtil.java`
+#### Snippet
+```java
+                     .append(".")
+                     .append(rawClass.getSimpleName());
+    } else if (type.getType() instanceof TypeVariable) {
+      // used to get generic type parameter real name (ex T instead of having Object)
+      // TODO: should we do a recursive type inference ?
+```
+
+### UnstableApiUsage
+'getType()' is declared in unstable class 'com.google.common.reflect.TypeToken' marked with @Beta
+in `src/main/java/org/assertj/assertions/generator/util/ClassUtil.java`
+#### Snippet
+```java
+      // TODO: should we do a recursive type inference ?
+      @SuppressWarnings("unchecked")
+      TypeVariable<GenericDeclaration> typeVariable = (TypeVariable<GenericDeclaration>) type.getType();
+      String name = typeVariable.getName();
+      name = removeAll(name, "capture#\\d+-of\\s+");
+```
+
+### UnstableApiUsage
+'getRawType()' is declared in unstable class 'com.google.common.reflect.TypeToken' marked with @Beta
+in `src/main/java/org/assertj/assertions/generator/util/ClassUtil.java`
+#### Snippet
+```java
+    } else if (!isJavaLangType(type)) {
+      // it's a normal class but not in java.lang => add the package name
+      typeDeclaration.append(type.getRawType().getPackage().getName())
+                     .append(".")
+                     .append(rawClass.getSimpleName());
 ```
 
 ### UnstableApiUsage
@@ -2398,21 +2806,9 @@ in `src/main/java/org/assertj/assertions/generator/util/ClassUtil.java`
 ```java
   }
 
-  public static List<Field> nonStaticFieldsOf(TypeToken<?> clazz) {
-    List<Field> fields = getAllFieldsInHierarchy(clazz);
-    return filterNonStaticFields(fields);
-```
-
-### UnstableApiUsage
-'com.google.common.reflect.TypeToken' is marked unstable with @Beta
-in `src/main/java/org/assertj/assertions/generator/util/ClassUtil.java`
-#### Snippet
-```java
+  public static String safePackageName(TypeToken<?> typeToken) {
+    return typeToken.getRawType().getPackage() == null ? "" : typeToken.getRawType().getPackage().getName();
   }
-
-  private static boolean isClassCandidateToAssertionsGeneration(TypeToken<?> typeToken, boolean includePrivate) {
-    if (typeToken == null) return false;
-    if (isPackageInfo(typeToken)) return false;
 ```
 
 ### UnstableApiUsage
@@ -2420,11 +2816,23 @@ in `src/main/java/org/assertj/assertions/generator/util/ClassUtil.java`
 in `src/main/java/org/assertj/assertions/generator/util/ClassUtil.java`
 #### Snippet
 ```java
-    if (typeToken == null) return false;
-    if (isPackageInfo(typeToken)) return false;
-    Class<?> raw = typeToken.getRawType();
-    return (includePrivate || isPublic(raw.getModifiers()))
-           && !raw.isAnonymousClass()
+
+  public static String safePackageName(TypeToken<?> typeToken) {
+    return typeToken.getRawType().getPackage() == null ? "" : typeToken.getRawType().getPackage().getName();
+  }
+
+```
+
+### UnstableApiUsage
+'getRawType()' is declared in unstable class 'com.google.common.reflect.TypeToken' marked with @Beta
+in `src/main/java/org/assertj/assertions/generator/util/ClassUtil.java`
+#### Snippet
+```java
+
+  public static String safePackageName(TypeToken<?> typeToken) {
+    return typeToken.getRawType().getPackage() == null ? "" : typeToken.getRawType().getPackage().getName();
+  }
+
 ```
 
 ### UnstableApiUsage
@@ -2461,6 +2869,90 @@ in `src/main/java/org/assertj/assertions/generator/util/ClassUtil.java`
     return isJavaLangType(TypeToken.of(type));
   }
 
+```
+
+### UnstableApiUsage
+'com.google.common.reflect.TypeToken' is marked unstable with @Beta
+in `src/main/java/org/assertj/assertions/generator/util/ClassUtil.java`
+#### Snippet
+```java
+  }
+
+  private static boolean isPackageInfo(TypeToken<?> typeToken) {
+    return typeToken.getRawType().getName().contains("package-info");
+  }
+```
+
+### UnstableApiUsage
+'getRawType()' is declared in unstable class 'com.google.common.reflect.TypeToken' marked with @Beta
+in `src/main/java/org/assertj/assertions/generator/util/ClassUtil.java`
+#### Snippet
+```java
+
+  private static boolean isPackageInfo(TypeToken<?> typeToken) {
+    return typeToken.getRawType().getName().contains("package-info");
+  }
+
+```
+
+### UnstableApiUsage
+'com.google.common.reflect.TypeToken' is marked unstable with @Beta
+in `src/main/java/org/assertj/assertions/generator/util/ClassUtil.java`
+#### Snippet
+```java
+   * @throws RuntimeException if any error occurs
+   */
+  public static Set<TypeToken<?>> collectClasses(ClassLoader classLoader, boolean includePrivateClasses,
+                                                 String... classOrPackageNames) {
+    Set<TypeToken<?>> classes = newLinkedHashSet();
+```
+
+### UnstableApiUsage
+'com.google.common.reflect.TypeToken' is marked unstable with @Beta
+in `src/main/java/org/assertj/assertions/generator/util/ClassUtil.java`
+#### Snippet
+```java
+  public static Set<TypeToken<?>> collectClasses(ClassLoader classLoader, boolean includePrivateClasses,
+                                                 String... classOrPackageNames) {
+    Set<TypeToken<?>> classes = newLinkedHashSet();
+    for (String classOrPackageName : classOrPackageNames) {
+      TypeToken<?> clazz = tryToLoadClass(classOrPackageName, classLoader);
+```
+
+### UnstableApiUsage
+'com.google.common.reflect.TypeToken' is marked unstable with @Beta
+in `src/main/java/org/assertj/assertions/generator/util/ClassUtil.java`
+#### Snippet
+```java
+    Set<TypeToken<?>> classes = newLinkedHashSet();
+    for (String classOrPackageName : classOrPackageNames) {
+      TypeToken<?> clazz = tryToLoadClass(classOrPackageName, classLoader);
+      if (isClassCandidateToAssertionsGeneration(clazz, includePrivateClasses)) {
+        classes.add(clazz);
+```
+
+### UnstableApiUsage
+'com.google.common.reflect.TypeToken' is marked unstable with @Beta
+in `src/main/java/org/assertj/assertions/generator/util/ClassUtil.java`
+#### Snippet
+```java
+  }
+
+  public static Set<Method> getterMethodsOf(TypeToken<?> type, Set<Class<?>> includeAnnotations) {
+    Class<?> clazz = type.getRawType();
+    boolean isClassAnnotated = containsAny(clazz.getDeclaredAnnotations(), includeAnnotations);
+```
+
+### UnstableApiUsage
+'getRawType()' is declared in unstable class 'com.google.common.reflect.TypeToken' marked with @Beta
+in `src/main/java/org/assertj/assertions/generator/util/ClassUtil.java`
+#### Snippet
+```java
+
+  public static Set<Method> getterMethodsOf(TypeToken<?> type, Set<Class<?>> includeAnnotations) {
+    Class<?> clazz = type.getRawType();
+    boolean isClassAnnotated = containsAny(clazz.getDeclaredAnnotations(), includeAnnotations);
+    return filterGetterMethods(clazz.getMethods(), includeAnnotations, isClassAnnotated);
 ```
 
 ### UnstableApiUsage
@@ -2612,174 +3104,6 @@ in `src/main/java/org/assertj/assertions/generator/util/ClassUtil.java`
 in `src/main/java/org/assertj/assertions/generator/util/ClassUtil.java`
 #### Snippet
 ```java
-  }
-
-  public static String safePackageName(TypeToken<?> typeToken) {
-    return typeToken.getRawType().getPackage() == null ? "" : typeToken.getRawType().getPackage().getName();
-  }
-```
-
-### UnstableApiUsage
-'getRawType()' is declared in unstable class 'com.google.common.reflect.TypeToken' marked with @Beta
-in `src/main/java/org/assertj/assertions/generator/util/ClassUtil.java`
-#### Snippet
-```java
-
-  public static String safePackageName(TypeToken<?> typeToken) {
-    return typeToken.getRawType().getPackage() == null ? "" : typeToken.getRawType().getPackage().getName();
-  }
-
-```
-
-### UnstableApiUsage
-'getRawType()' is declared in unstable class 'com.google.common.reflect.TypeToken' marked with @Beta
-in `src/main/java/org/assertj/assertions/generator/util/ClassUtil.java`
-#### Snippet
-```java
-
-  public static String safePackageName(TypeToken<?> typeToken) {
-    return typeToken.getRawType().getPackage() == null ? "" : typeToken.getRawType().getPackage().getName();
-  }
-
-```
-
-### UnstableApiUsage
-'com.google.common.reflect.TypeToken' is marked unstable with @Beta
-in `src/main/java/org/assertj/assertions/generator/util/ClassUtil.java`
-#### Snippet
-```java
-  }
-
-  private static Set<TypeToken<?>> getPackageClassesFromClasspathFiles(String packageName, ClassLoader classLoader) {
-    try {
-      String packagePath = packageName.replace('.', File.separatorChar);
-```
-
-### UnstableApiUsage
-'com.google.common.reflect.TypeToken' is marked unstable with @Beta
-in `src/main/java/org/assertj/assertions/generator/util/ClassUtil.java`
-#### Snippet
-```java
-      // Ask for all resources for the path
-      Enumeration<URL> resources = classLoader.getResources(packagePath);
-      Set<TypeToken<?>> classes = newLinkedHashSet();
-      while (resources.hasMoreElements()) {
-        File directory = new File(URLDecoder.decode(resources.nextElement().getPath(), "UTF-8"));
-```
-
-### UnstableApiUsage
-'com.google.common.reflect.TypeToken' is marked unstable with @Beta
-in `src/main/java/org/assertj/assertions/generator/util/ClassUtil.java`
-#### Snippet
-```java
-   * @return true iff the type is a boolean.
-   */
-  public static boolean isBoolean(TypeToken<?> type) {
-    TypeToken<?> unwrapped = type.unwrap();
-    return unwrapped.isSubtypeOf(boolean.class);
-```
-
-### UnstableApiUsage
-'com.google.common.reflect.TypeToken' is marked unstable with @Beta
-in `src/main/java/org/assertj/assertions/generator/util/ClassUtil.java`
-#### Snippet
-```java
-   */
-  public static boolean isBoolean(TypeToken<?> type) {
-    TypeToken<?> unwrapped = type.unwrap();
-    return unwrapped.isSubtypeOf(boolean.class);
-  }
-```
-
-### UnstableApiUsage
-'unwrap()' is declared in unstable class 'com.google.common.reflect.TypeToken' marked with @Beta
-in `src/main/java/org/assertj/assertions/generator/util/ClassUtil.java`
-#### Snippet
-```java
-   */
-  public static boolean isBoolean(TypeToken<?> type) {
-    TypeToken<?> unwrapped = type.unwrap();
-    return unwrapped.isSubtypeOf(boolean.class);
-  }
-```
-
-### UnstableApiUsage
-'isSubtypeOf(java.lang.reflect.Type)' is declared in unstable class 'com.google.common.reflect.TypeToken' marked with @Beta
-in `src/main/java/org/assertj/assertions/generator/util/ClassUtil.java`
-#### Snippet
-```java
-  public static boolean isBoolean(TypeToken<?> type) {
-    TypeToken<?> unwrapped = type.unwrap();
-    return unwrapped.isSubtypeOf(boolean.class);
-  }
-
-```
-
-### UnstableApiUsage
-'com.google.common.reflect.TypeToken' is marked unstable with @Beta
-in `src/main/java/org/assertj/assertions/generator/util/ClassUtil.java`
-#### Snippet
-```java
-   * @throws RuntimeException if any error occurs
-   */
-  private static Set<TypeToken<?>> getClassesInPackage(String packageName, ClassLoader classLoader) {
-    if (classLoader == null) {
-      throw new IllegalArgumentException("Null class loader.");
-```
-
-### UnstableApiUsage
-'com.google.common.reflect.TypeToken' is marked unstable with @Beta
-in `src/main/java/org/assertj/assertions/generator/util/ClassUtil.java`
-#### Snippet
-```java
-    }
-    // load classes from classpath file system, this won't load classes in jars
-    Set<TypeToken<?>> packageClasses = getPackageClassesFromClasspathFiles(packageName, classLoader);
-    // load classes from classpath jars
-    try {
-```
-
-### UnstableApiUsage
-'com.google.common.reflect.TypeToken' is marked unstable with @Beta
-in `src/main/java/org/assertj/assertions/generator/util/ClassUtil.java`
-#### Snippet
-```java
-   * @throws RuntimeException if any error occurs
-   */
-  public static Set<TypeToken<?>> collectClasses(ClassLoader classLoader, boolean includePrivateClasses,
-                                                 String... classOrPackageNames) {
-    Set<TypeToken<?>> classes = newLinkedHashSet();
-```
-
-### UnstableApiUsage
-'com.google.common.reflect.TypeToken' is marked unstable with @Beta
-in `src/main/java/org/assertj/assertions/generator/util/ClassUtil.java`
-#### Snippet
-```java
-  public static Set<TypeToken<?>> collectClasses(ClassLoader classLoader, boolean includePrivateClasses,
-                                                 String... classOrPackageNames) {
-    Set<TypeToken<?>> classes = newLinkedHashSet();
-    for (String classOrPackageName : classOrPackageNames) {
-      TypeToken<?> clazz = tryToLoadClass(classOrPackageName, classLoader);
-```
-
-### UnstableApiUsage
-'com.google.common.reflect.TypeToken' is marked unstable with @Beta
-in `src/main/java/org/assertj/assertions/generator/util/ClassUtil.java`
-#### Snippet
-```java
-    Set<TypeToken<?>> classes = newLinkedHashSet();
-    for (String classOrPackageName : classOrPackageNames) {
-      TypeToken<?> clazz = tryToLoadClass(classOrPackageName, classLoader);
-      if (isClassCandidateToAssertionsGeneration(clazz, includePrivateClasses)) {
-        classes.add(clazz);
-```
-
-### UnstableApiUsage
-'com.google.common.reflect.TypeToken' is marked unstable with @Beta
-in `src/main/java/org/assertj/assertions/generator/util/ClassUtil.java`
-#### Snippet
-```java
   // used to support navigation assertion
   // https://github.com/joel-costigliola/assertj-assertions-generator/issues/67
   public static String getAssertType(TypeToken<?> type, String packageName) {
@@ -2840,198 +3164,6 @@ in `src/main/java/org/assertj/assertions/generator/util/ClassUtil.java`
 in `src/main/java/org/assertj/assertions/generator/util/ClassUtil.java`
 #### Snippet
 ```java
-  }
-
-  private static boolean isPackageInfo(TypeToken<?> typeToken) {
-    return typeToken.getRawType().getName().contains("package-info");
-  }
-```
-
-### UnstableApiUsage
-'getRawType()' is declared in unstable class 'com.google.common.reflect.TypeToken' marked with @Beta
-in `src/main/java/org/assertj/assertions/generator/util/ClassUtil.java`
-#### Snippet
-```java
-
-  private static boolean isPackageInfo(TypeToken<?> typeToken) {
-    return typeToken.getRawType().getName().contains("package-info");
-  }
-
-```
-
-### UnstableApiUsage
-'com.google.common.reflect.TypeToken' is marked unstable with @Beta
-in `src/main/java/org/assertj/assertions/generator/util/ClassUtil.java`
-#### Snippet
-```java
-  }
-
-  public static Set<Method> getterMethodsOf(TypeToken<?> type, Set<Class<?>> includeAnnotations) {
-    Class<?> clazz = type.getRawType();
-    boolean isClassAnnotated = containsAny(clazz.getDeclaredAnnotations(), includeAnnotations);
-```
-
-### UnstableApiUsage
-'getRawType()' is declared in unstable class 'com.google.common.reflect.TypeToken' marked with @Beta
-in `src/main/java/org/assertj/assertions/generator/util/ClassUtil.java`
-#### Snippet
-```java
-
-  public static Set<Method> getterMethodsOf(TypeToken<?> type, Set<Class<?>> includeAnnotations) {
-    Class<?> clazz = type.getRawType();
-    boolean isClassAnnotated = containsAny(clazz.getDeclaredAnnotations(), includeAnnotations);
-    return filterGetterMethods(clazz.getMethods(), includeAnnotations, isClassAnnotated);
-```
-
-### UnstableApiUsage
-'com.google.common.reflect.TypeToken' is marked unstable with @Beta
-in `src/main/java/org/assertj/assertions/generator/util/ClassUtil.java`
-#### Snippet
-```java
-   * @throws RuntimeException if any error occurs
-   */
-  public static Set<TypeToken<?>> collectClasses(ClassLoader classLoader, String... classOrPackageNames) {
-    return collectClasses(classLoader, false, classOrPackageNames);
-  }
-```
-
-### UnstableApiUsage
-'com.google.common.reflect.TypeToken' is marked unstable with @Beta
-in `src/main/java/org/assertj/assertions/generator/util/ClassUtil.java`
-#### Snippet
-```java
-   * @return all fields (whatever access levels) in the hierarchy of a class up to Object.class excluded.
-   */
-  public static List<Field> getAllFieldsInHierarchy(TypeToken<?> clazz) {
-    List<Field> fields = newArrayList(clazz.getRawType().getDeclaredFields());
-    Class<?> parentClass = clazz.getRawType().getSuperclass();
-```
-
-### UnstableApiUsage
-'getRawType()' is declared in unstable class 'com.google.common.reflect.TypeToken' marked with @Beta
-in `src/main/java/org/assertj/assertions/generator/util/ClassUtil.java`
-#### Snippet
-```java
-   */
-  public static List<Field> getAllFieldsInHierarchy(TypeToken<?> clazz) {
-    List<Field> fields = newArrayList(clazz.getRawType().getDeclaredFields());
-    Class<?> parentClass = clazz.getRawType().getSuperclass();
-    if (parentClass != null && !Object.class.equals(parentClass)) {
-```
-
-### UnstableApiUsage
-'getRawType()' is declared in unstable class 'com.google.common.reflect.TypeToken' marked with @Beta
-in `src/main/java/org/assertj/assertions/generator/util/ClassUtil.java`
-#### Snippet
-```java
-  public static List<Field> getAllFieldsInHierarchy(TypeToken<?> clazz) {
-    List<Field> fields = newArrayList(clazz.getRawType().getDeclaredFields());
-    Class<?> parentClass = clazz.getRawType().getSuperclass();
-    if (parentClass != null && !Object.class.equals(parentClass)) {
-      fields.addAll(getAllFieldsInHierarchy(TypeToken.of(parentClass)));
-```
-
-### UnstableApiUsage
-'com.google.common.reflect.TypeToken' is marked unstable with @Beta
-in `src/main/java/org/assertj/assertions/generator/util/ClassUtil.java`
-#### Snippet
-```java
-    Class<?> parentClass = clazz.getRawType().getSuperclass();
-    if (parentClass != null && !Object.class.equals(parentClass)) {
-      fields.addAll(getAllFieldsInHierarchy(TypeToken.of(parentClass)));
-    }
-    return fields;
-```
-
-### UnstableApiUsage
-'of(java.lang.Class)' is declared in unstable class 'com.google.common.reflect.TypeToken' marked with @Beta
-in `src/main/java/org/assertj/assertions/generator/util/ClassUtil.java`
-#### Snippet
-```java
-    Class<?> parentClass = clazz.getRawType().getSuperclass();
-    if (parentClass != null && !Object.class.equals(parentClass)) {
-      fields.addAll(getAllFieldsInHierarchy(TypeToken.of(parentClass)));
-    }
-    return fields;
-```
-
-### UnstableApiUsage
-'com.google.common.reflect.TypeToken' is marked unstable with @Beta
-in `src/main/java/org/assertj/assertions/generator/util/ClassUtil.java`
-#### Snippet
-```java
-  }
-
-  private static TypeToken<?> tryToLoadClass(String className, ClassLoader classLoader) {
-    try {
-      return loadClass(className, classLoader);
-```
-
-### UnstableApiUsage
-'com.google.common.reflect.TypeToken' is marked unstable with @Beta
-in `src/main/java/org/assertj/assertions/generator/util/ClassUtil.java`
-#### Snippet
-```java
-  }
-
-  private static TypeToken<?> loadClass(String className, ClassLoader classLoader) throws ClassNotFoundException {
-    return TypeToken.of(Class.forName(className, false, classLoader));
-  }
-```
-
-### UnstableApiUsage
-'com.google.common.reflect.TypeToken' is marked unstable with @Beta
-in `src/main/java/org/assertj/assertions/generator/util/ClassUtil.java`
-#### Snippet
-```java
-
-  private static TypeToken<?> loadClass(String className, ClassLoader classLoader) throws ClassNotFoundException {
-    return TypeToken.of(Class.forName(className, false, classLoader));
-  }
-
-```
-
-### UnstableApiUsage
-'of(java.lang.Class)' is declared in unstable class 'com.google.common.reflect.TypeToken' marked with @Beta
-in `src/main/java/org/assertj/assertions/generator/util/ClassUtil.java`
-#### Snippet
-```java
-
-  private static TypeToken<?> loadClass(String className, ClassLoader classLoader) throws ClassNotFoundException {
-    return TypeToken.of(Class.forName(className, false, classLoader));
-  }
-
-```
-
-### UnstableApiUsage
-'com.google.common.reflect.TypeToken' is marked unstable with @Beta
-in `src/main/java/org/assertj/assertions/generator/util/ClassUtil.java`
-#### Snippet
-```java
-   * </code>
-   * @param classOrPackageNames classes or packages to collect.
-   * @return the set of {@link TypeToken}s found
-   */
-  public static Set<TypeToken<?>> collectClasses(String... classOrPackageNames) {
-```
-
-### UnstableApiUsage
-'com.google.common.reflect.TypeToken' is marked unstable with @Beta
-in `src/main/java/org/assertj/assertions/generator/util/ClassUtil.java`
-#### Snippet
-```java
-   * @return the set of {@link TypeToken}s found
-   */
-  public static Set<TypeToken<?>> collectClasses(String... classOrPackageNames) {
-    return collectClasses(Thread.currentThread().getContextClassLoader(), classOrPackageNames);
-  }
-```
-
-### UnstableApiUsage
-'com.google.common.reflect.TypeToken' is marked unstable with @Beta
-in `src/main/java/org/assertj/assertions/generator/util/ClassUtil.java`
-#### Snippet
-```java
    */
   public static String resolveTypeNameInPackage(Type type, String currentPackage) {
     return resolveTypeNameInPackage(TypeToken.of(type), currentPackage);
@@ -3056,154 +3188,10 @@ in `src/main/java/org/assertj/assertions/generator/util/ClassUtil.java`
 in `src/main/java/org/assertj/assertions/generator/util/ClassUtil.java`
 #### Snippet
 ```java
-   * @return String representation of the type
-   */
-  public static String getTypeDeclaration(TypeToken<?> type) {
-
-    if (type.isArray()) return getTypeDeclaration(type.getComponentType()) + "[]";
-```
-
-### UnstableApiUsage
-'isArray()' is declared in unstable class 'com.google.common.reflect.TypeToken' marked with @Beta
-in `src/main/java/org/assertj/assertions/generator/util/ClassUtil.java`
-#### Snippet
-```java
-  public static String getTypeDeclaration(TypeToken<?> type) {
-
-    if (type.isArray()) return getTypeDeclaration(type.getComponentType()) + "[]";
-    if (type.isPrimitive()) return type.getRawType().toString();
-
-```
-
-### UnstableApiUsage
-'getComponentType()' is declared in unstable class 'com.google.common.reflect.TypeToken' marked with @Beta
-in `src/main/java/org/assertj/assertions/generator/util/ClassUtil.java`
-#### Snippet
-```java
-  public static String getTypeDeclaration(TypeToken<?> type) {
-
-    if (type.isArray()) return getTypeDeclaration(type.getComponentType()) + "[]";
-    if (type.isPrimitive()) return type.getRawType().toString();
-
-```
-
-### UnstableApiUsage
-'isPrimitive()' is declared in unstable class 'com.google.common.reflect.TypeToken' marked with @Beta
-in `src/main/java/org/assertj/assertions/generator/util/ClassUtil.java`
-#### Snippet
-```java
-
-    if (type.isArray()) return getTypeDeclaration(type.getComponentType()) + "[]";
-    if (type.isPrimitive()) return type.getRawType().toString();
-
-    Class<?> rawClass = type.getRawType();
-```
-
-### UnstableApiUsage
-'getRawType()' is declared in unstable class 'com.google.common.reflect.TypeToken' marked with @Beta
-in `src/main/java/org/assertj/assertions/generator/util/ClassUtil.java`
-#### Snippet
-```java
-
-    if (type.isArray()) return getTypeDeclaration(type.getComponentType()) + "[]";
-    if (type.isPrimitive()) return type.getRawType().toString();
-
-    Class<?> rawClass = type.getRawType();
-```
-
-### UnstableApiUsage
-'getRawType()' is declared in unstable class 'com.google.common.reflect.TypeToken' marked with @Beta
-in `src/main/java/org/assertj/assertions/generator/util/ClassUtil.java`
-#### Snippet
-```java
-    if (type.isPrimitive()) return type.getRawType().toString();
-
-    Class<?> rawClass = type.getRawType();
-    StringBuilder typeDeclaration = new StringBuilder("");
-    // Now we have some types that could be generic, so we have to do more to serialize it to the declaration
-```
-
-### UnstableApiUsage
-'com.google.common.reflect.TypeToken' is marked unstable with @Beta
-in `src/main/java/org/assertj/assertions/generator/util/ClassUtil.java`
-#### Snippet
-```java
-    if (rawClass.isMemberClass()) {
-      // inner class
-      TypeToken<?> outerType = type.resolveType(rawClass.getEnclosingClass());
-      typeDeclaration.append(getTypeDeclaration(outerType))
-                     .append(".")
-```
-
-### UnstableApiUsage
-'resolveType(java.lang.reflect.Type)' is declared in unstable class 'com.google.common.reflect.TypeToken' marked with @Beta
-in `src/main/java/org/assertj/assertions/generator/util/ClassUtil.java`
-#### Snippet
-```java
-    if (rawClass.isMemberClass()) {
-      // inner class
-      TypeToken<?> outerType = type.resolveType(rawClass.getEnclosingClass());
-      typeDeclaration.append(getTypeDeclaration(outerType))
-                     .append(".")
-```
-
-### UnstableApiUsage
-'getType()' is declared in unstable class 'com.google.common.reflect.TypeToken' marked with @Beta
-in `src/main/java/org/assertj/assertions/generator/util/ClassUtil.java`
-#### Snippet
-```java
-                     .append(".")
-                     .append(rawClass.getSimpleName());
-    } else if (type.getType() instanceof TypeVariable) {
-      // used to get generic type parameter real name (ex T instead of having Object)
-      // TODO: should we do a recursive type inference ?
-```
-
-### UnstableApiUsage
-'getType()' is declared in unstable class 'com.google.common.reflect.TypeToken' marked with @Beta
-in `src/main/java/org/assertj/assertions/generator/util/ClassUtil.java`
-#### Snippet
-```java
-      // TODO: should we do a recursive type inference ?
-      @SuppressWarnings("unchecked")
-      TypeVariable<GenericDeclaration> typeVariable = (TypeVariable<GenericDeclaration>) type.getType();
-      String name = typeVariable.getName();
-      name = removeAll(name, "capture#\\d+-of\\s+");
-```
-
-### UnstableApiUsage
-'getRawType()' is declared in unstable class 'com.google.common.reflect.TypeToken' marked with @Beta
-in `src/main/java/org/assertj/assertions/generator/util/ClassUtil.java`
-#### Snippet
-```java
-    } else if (!isJavaLangType(type)) {
-      // it's a normal class but not in java.lang => add the package name
-      typeDeclaration.append(type.getRawType().getPackage().getName())
-                     .append(".")
-                     .append(rawClass.getSimpleName());
-```
-
-### UnstableApiUsage
-'com.google.common.reflect.TypeToken' is marked unstable with @Beta
-in `src/main/java/org/assertj/assertions/generator/util/ClassUtil.java`
-#### Snippet
-```java
   }
 
-  public static List<Field> declaredFieldsOf(TypeToken<?> type) {
-    Field[] fields = type.getRawType().getDeclaredFields();
-    return filterNonStaticFields(asList(fields));
-```
-
-### UnstableApiUsage
-'getRawType()' is declared in unstable class 'com.google.common.reflect.TypeToken' marked with @Beta
-in `src/main/java/org/assertj/assertions/generator/util/ClassUtil.java`
-#### Snippet
-```java
-
-  public static List<Field> declaredFieldsOf(TypeToken<?> type) {
-    Field[] fields = type.getRawType().getDeclaredFields();
-    return filterNonStaticFields(asList(fields));
+  private static TypeToken<?> loadClass(String className, ClassLoader classLoader) throws ClassNotFoundException {
+    return TypeToken.of(Class.forName(className, false, classLoader));
   }
 ```
 
@@ -3212,45 +3200,21 @@ in `src/main/java/org/assertj/assertions/generator/util/ClassUtil.java`
 in `src/main/java/org/assertj/assertions/generator/util/ClassUtil.java`
 #### Snippet
 ```java
-   * @return true if part of java language
-   */
-  public static boolean isJavaLangType(TypeToken<?> type) {
-    return type.isPrimitive() || type.isArray() || Objects.equals(JAVA_LANG_PACKAGE, type.getRawType().getPackage());
-  }
-```
 
-### UnstableApiUsage
-'isPrimitive()' is declared in unstable class 'com.google.common.reflect.TypeToken' marked with @Beta
-in `src/main/java/org/assertj/assertions/generator/util/ClassUtil.java`
-#### Snippet
-```java
-   */
-  public static boolean isJavaLangType(TypeToken<?> type) {
-    return type.isPrimitive() || type.isArray() || Objects.equals(JAVA_LANG_PACKAGE, type.getRawType().getPackage());
+  private static TypeToken<?> loadClass(String className, ClassLoader classLoader) throws ClassNotFoundException {
+    return TypeToken.of(Class.forName(className, false, classLoader));
   }
 
 ```
 
 ### UnstableApiUsage
-'isArray()' is declared in unstable class 'com.google.common.reflect.TypeToken' marked with @Beta
+'of(java.lang.Class)' is declared in unstable class 'com.google.common.reflect.TypeToken' marked with @Beta
 in `src/main/java/org/assertj/assertions/generator/util/ClassUtil.java`
 #### Snippet
 ```java
-   */
-  public static boolean isJavaLangType(TypeToken<?> type) {
-    return type.isPrimitive() || type.isArray() || Objects.equals(JAVA_LANG_PACKAGE, type.getRawType().getPackage());
-  }
 
-```
-
-### UnstableApiUsage
-'getRawType()' is declared in unstable class 'com.google.common.reflect.TypeToken' marked with @Beta
-in `src/main/java/org/assertj/assertions/generator/util/ClassUtil.java`
-#### Snippet
-```java
-   */
-  public static boolean isJavaLangType(TypeToken<?> type) {
-    return type.isPrimitive() || type.isArray() || Objects.equals(JAVA_LANG_PACKAGE, type.getRawType().getPackage());
+  private static TypeToken<?> loadClass(String className, ClassLoader classLoader) throws ClassNotFoundException {
+    return TypeToken.of(Class.forName(className, false, classLoader));
   }
 
 ```
@@ -3260,11 +3224,35 @@ in `src/main/java/org/assertj/assertions/generator/util/ClassUtil.java`
 in `src/main/java/org/assertj/assertions/generator/util/ClassUtil.java`
 #### Snippet
 ```java
+   * @throws RuntimeException if any error occurs
+   */
+  public static Set<TypeToken<?>> collectClasses(ClassLoader classLoader, String... classOrPackageNames) {
+    return collectClasses(classLoader, false, classOrPackageNames);
+  }
+```
+
+### UnstableApiUsage
+'com.google.common.reflect.TypeToken' is marked unstable with @Beta
+in `src/main/java/org/assertj/assertions/generator/util/ClassUtil.java`
+#### Snippet
+```java
   }
 
-  public static Set<Method> declaredGetterMethodsOf(TypeToken<?> type, Set<Class<?>> includeAnnotations) {
-    Class<?> clazz = type.getRawType();
-    boolean isClassAnnotated = containsAny(clazz.getDeclaredAnnotations(), includeAnnotations);
+  private static TypeToken<?> tryToLoadClass(String className, ClassLoader classLoader) {
+    try {
+      return loadClass(className, classLoader);
+```
+
+### UnstableApiUsage
+'com.google.common.reflect.TypeToken' is marked unstable with @Beta
+in `src/main/java/org/assertj/assertions/generator/util/ClassUtil.java`
+#### Snippet
+```java
+   * @return String Name resolved within the package
+   */
+  public static String resolveTypeNameInPackage(TypeToken<?> type, String currentPackage) {
+    // we special case java.lang types because they never need a FQN.
+    if (isJavaLangType(type)) {
 ```
 
 ### UnstableApiUsage
@@ -3272,11 +3260,47 @@ in `src/main/java/org/assertj/assertions/generator/util/ClassUtil.java`
 in `src/main/java/org/assertj/assertions/generator/util/ClassUtil.java`
 #### Snippet
 ```java
+    // we special case java.lang types because they never need a FQN.
+    if (isJavaLangType(type)) {
+      return type.getRawType().getSimpleName();
+    }
 
-  public static Set<Method> declaredGetterMethodsOf(TypeToken<?> type, Set<Class<?>> includeAnnotations) {
-    Class<?> clazz = type.getRawType();
-    boolean isClassAnnotated = containsAny(clazz.getDeclaredAnnotations(), includeAnnotations);
-    return filterGetterMethods(clazz.getDeclaredMethods(), includeAnnotations, isClassAnnotated);
+```
+
+### UnstableApiUsage
+'getRawType()' is declared in unstable class 'com.google.common.reflect.TypeToken' marked with @Beta
+in `src/main/java/org/assertj/assertions/generator/util/ClassUtil.java`
+#### Snippet
+```java
+    }
+
+    return resolveTypeNameInPackage(type.getRawType().getName(), currentPackage);
+  }
+
+```
+
+### UnstableApiUsage
+'com.google.common.reflect.TypeToken' is marked unstable with @Beta
+in `src/main/java/org/assertj/assertions/generator/BaseAssertionGenerator.java`
+#### Snippet
+```java
+    StringBuilder throwsJavaDoc = new StringBuilder();
+    boolean first = true;
+    for (TypeToken<?> exception : getter.getExceptions()) {
+      if (first) throwsClause.append("throws ");
+      else throwsClause.append(", ");
+```
+
+### UnstableApiUsage
+'com.google.common.reflect.TypeToken' is marked unstable with @Beta
+in `src/main/java/org/assertj/assertions/generator/BaseAssertionGenerator.java`
+#### Snippet
+```java
+
+  private String fillAssertClassTemplate(String template, ClassDescription classDescription,
+                                         Set<TypeToken<?>> classesHierarchy, boolean concrete) {
+    // Add any AssertJ needed imports only, other types are used with their fully qualified names to avoid a compilation
+    // error when two types have the same name.
 ```
 
 ### UnstableApiUsage
@@ -3309,18 +3333,6 @@ in `src/main/java/org/assertj/assertions/generator/BaseAssertionGenerator.java`
 #### Snippet
 ```java
   @Override
-  public String[] generateHierarchicalCustomAssertionContentFor(ClassDescription classDescription,
-                                                                Set<TypeToken<?>> classes) {
-    // use abstract class template first
-    String abstractAssertClassContent = templateRegistry.getTemplate(ABSTRACT_ASSERT_CLASS).getContent();
-```
-
-### UnstableApiUsage
-'com.google.common.reflect.TypeToken' is marked unstable with @Beta
-in `src/main/java/org/assertj/assertions/generator/BaseAssertionGenerator.java`
-#### Snippet
-```java
-  @Override
   public File[] generateHierarchicalCustomAssertionFor(ClassDescription classDescription,
                                                        Set<TypeToken<?>> allClasses) throws IOException {
     // Assertion content
@@ -3332,23 +3344,11 @@ in `src/main/java/org/assertj/assertions/generator/BaseAssertionGenerator.java`
 in `src/main/java/org/assertj/assertions/generator/BaseAssertionGenerator.java`
 #### Snippet
 ```java
-    StringBuilder throwsJavaDoc = new StringBuilder();
-    boolean first = true;
-    for (TypeToken<?> exception : getter.getExceptions()) {
-      if (first) throwsClause.append("throws ");
-      else throwsClause.append(", ");
-```
-
-### UnstableApiUsage
-'com.google.common.reflect.TypeToken' is marked unstable with @Beta
-in `src/main/java/org/assertj/assertions/generator/BaseAssertionGenerator.java`
-#### Snippet
-```java
-
-  private String fillAssertClassTemplate(String template, ClassDescription classDescription,
-                                         Set<TypeToken<?>> classesHierarchy, boolean concrete) {
-    // Add any AssertJ needed imports only, other types are used with their fully qualified names to avoid a compilation
-    // error when two types have the same name.
+  @Override
+  public String[] generateHierarchicalCustomAssertionContentFor(ClassDescription classDescription,
+                                                                Set<TypeToken<?>> classes) {
+    // use abstract class template first
+    String abstractAssertClassContent = templateRegistry.getTemplate(ABSTRACT_ASSERT_CLASS).getContent();
 ```
 
 ## RuleId[ruleID=IgnoreResultOfCall]
