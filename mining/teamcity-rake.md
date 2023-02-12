@@ -164,11 +164,11 @@ Modifier `static` is redundant for interface fields
 in `rake-runner-agent/src/jetbrains/buildServer/agent/ruby/rbenv/Constants.java`
 #### Snippet
 ```java
+  static final String CONF_PARAMETER_PREFIX = "rbenv.";
   static final String CONF_RBENV_RUBIES_LIST = CONF_PARAMETER_PREFIX + "versions.list";
   static final String RBENV_ROOT_ENV_VARIABLE = "RBENV_ROOT";
   static final String RBENV_VERSION_ENV_VARIABLE = "RBENV_VERSION";
 }
-
 ```
 
 ### UnnecessaryModifier
@@ -176,11 +176,11 @@ Modifier `final` is redundant for interface fields
 in `rake-runner-agent/src/jetbrains/buildServer/agent/ruby/rbenv/Constants.java`
 #### Snippet
 ```java
+  static final String CONF_PARAMETER_PREFIX = "rbenv.";
   static final String CONF_RBENV_RUBIES_LIST = CONF_PARAMETER_PREFIX + "versions.list";
   static final String RBENV_ROOT_ENV_VARIABLE = "RBENV_ROOT";
   static final String RBENV_VERSION_ENV_VARIABLE = "RBENV_VERSION";
 }
-
 ```
 
 ### UnnecessaryModifier
@@ -188,11 +188,11 @@ Modifier `static` is redundant for interface fields
 in `rake-runner-agent/src/jetbrains/buildServer/agent/ruby/rbenv/Constants.java`
 #### Snippet
 ```java
-  static final String CONF_PARAMETER_PREFIX = "rbenv.";
   static final String CONF_RBENV_RUBIES_LIST = CONF_PARAMETER_PREFIX + "versions.list";
   static final String RBENV_ROOT_ENV_VARIABLE = "RBENV_ROOT";
   static final String RBENV_VERSION_ENV_VARIABLE = "RBENV_VERSION";
 }
+
 ```
 
 ### UnnecessaryModifier
@@ -200,11 +200,11 @@ Modifier `final` is redundant for interface fields
 in `rake-runner-agent/src/jetbrains/buildServer/agent/ruby/rbenv/Constants.java`
 #### Snippet
 ```java
-  static final String CONF_PARAMETER_PREFIX = "rbenv.";
   static final String CONF_RBENV_RUBIES_LIST = CONF_PARAMETER_PREFIX + "versions.list";
   static final String RBENV_ROOT_ENV_VARIABLE = "RBENV_ROOT";
   static final String RBENV_VERSION_ENV_VARIABLE = "RBENV_VERSION";
 }
+
 ```
 
 ### UnnecessaryModifier
@@ -245,51 +245,15 @@ public class RubyEnvConfiguratorConfiguration {
 
 ## RuleId[ruleID=FieldMayBeStatic]
 ### FieldMayBeStatic
-Field `RSPEC_RUNNER_OPTIONS_FORMATTER_CLASS` may be 'static'
+Field `CUCUMBER_RUNNER_OPTIONS_EXPAND_KEY` may be 'static'
 in `rake-runner-agent/src/jetbrains/buildServer/agent/rakerunner/RakeTasksBuildService.java`
 #### Snippet
 ```java
-  private final String RSPEC_RUNNER_OPTIONS_FORMATTER_PATH = "teamcity/spec/runner/formatter/teamcity/formatter";
-  private final String RSPEC_RUNNER_OPTIONS_FORMATTER_KEY = "--format";
   private final String RSPEC_RUNNER_OPTIONS_FORMATTER_CLASS = "Spec::Runner::Formatter::TeamcityFormatter";
 
   private final String CUCUMBER_RUNNER_OPTIONS_EXPAND_KEY = "--expand";
-```
-
-### FieldMayBeStatic
-Field `RSPEC_RUNNER_OPTIONS_FORMATTER_PATH` may be 'static'
-in `rake-runner-agent/src/jetbrains/buildServer/agent/rakerunner/RakeTasksBuildService.java`
-#### Snippet
-```java
-  private final Set<File> myFilesToDelete = new HashSet<File>();
-  private final String RSPEC_RUNNER_OPTIONS_REQUIRE_KEY = "--require";
-  private final String RSPEC_RUNNER_OPTIONS_FORMATTER_PATH = "teamcity/spec/runner/formatter/teamcity/formatter";
-  private final String RSPEC_RUNNER_OPTIONS_FORMATTER_KEY = "--format";
-  private final String RSPEC_RUNNER_OPTIONS_FORMATTER_CLASS = "Spec::Runner::Formatter::TeamcityFormatter";
-```
-
-### FieldMayBeStatic
-Field `RSPEC_RUNNER_OPTIONS_REQUIRE_KEY` may be 'static'
-in `rake-runner-agent/src/jetbrains/buildServer/agent/rakerunner/RakeTasksBuildService.java`
-#### Snippet
-```java
-public class RakeTasksBuildService extends BuildServiceAdapter implements RakeRunnerConstants {
-  private final Set<File> myFilesToDelete = new HashSet<File>();
-  private final String RSPEC_RUNNER_OPTIONS_REQUIRE_KEY = "--require";
-  private final String RSPEC_RUNNER_OPTIONS_FORMATTER_PATH = "teamcity/spec/runner/formatter/teamcity/formatter";
-  private final String RSPEC_RUNNER_OPTIONS_FORMATTER_KEY = "--format";
-```
-
-### FieldMayBeStatic
-Field `RSPEC_RUNNER_OPTIONS_FORMATTER_KEY` may be 'static'
-in `rake-runner-agent/src/jetbrains/buildServer/agent/rakerunner/RakeTasksBuildService.java`
-#### Snippet
-```java
-  private final String RSPEC_RUNNER_OPTIONS_REQUIRE_KEY = "--require";
-  private final String RSPEC_RUNNER_OPTIONS_FORMATTER_PATH = "teamcity/spec/runner/formatter/teamcity/formatter";
-  private final String RSPEC_RUNNER_OPTIONS_FORMATTER_KEY = "--format";
-  private final String RSPEC_RUNNER_OPTIONS_FORMATTER_CLASS = "Spec::Runner::Formatter::TeamcityFormatter";
-
+  private final String CUCUMBER_RUNNER_OPTIONS_FORMAT_KEY = "--format";
+  private final String CUCUMBER_RUNNER_OPTIONS_FORMAT_CLASS = "Teamcity::Cucumber::Formatter";
 ```
 
 ### FieldMayBeStatic
@@ -305,6 +269,54 @@ in `rake-runner-agent/src/jetbrains/buildServer/agent/rakerunner/RakeTasksBuildS
 ```
 
 ### FieldMayBeStatic
+Field `RSPEC_RUNNER_OPTIONS_REQUIRE_KEY` may be 'static'
+in `rake-runner-agent/src/jetbrains/buildServer/agent/rakerunner/RakeTasksBuildService.java`
+#### Snippet
+```java
+public class RakeTasksBuildService extends BuildServiceAdapter implements RakeRunnerConstants {
+  private final Set<File> myFilesToDelete = new HashSet<File>();
+  private final String RSPEC_RUNNER_OPTIONS_REQUIRE_KEY = "--require";
+  private final String RSPEC_RUNNER_OPTIONS_FORMATTER_PATH = "teamcity/spec/runner/formatter/teamcity/formatter";
+  private final String RSPEC_RUNNER_OPTIONS_FORMATTER_KEY = "--format";
+```
+
+### FieldMayBeStatic
+Field `RSPEC_RUNNER_OPTIONS_FORMATTER_PATH` may be 'static'
+in `rake-runner-agent/src/jetbrains/buildServer/agent/rakerunner/RakeTasksBuildService.java`
+#### Snippet
+```java
+  private final Set<File> myFilesToDelete = new HashSet<File>();
+  private final String RSPEC_RUNNER_OPTIONS_REQUIRE_KEY = "--require";
+  private final String RSPEC_RUNNER_OPTIONS_FORMATTER_PATH = "teamcity/spec/runner/formatter/teamcity/formatter";
+  private final String RSPEC_RUNNER_OPTIONS_FORMATTER_KEY = "--format";
+  private final String RSPEC_RUNNER_OPTIONS_FORMATTER_CLASS = "Spec::Runner::Formatter::TeamcityFormatter";
+```
+
+### FieldMayBeStatic
+Field `RSPEC_RUNNER_OPTIONS_FORMATTER_CLASS` may be 'static'
+in `rake-runner-agent/src/jetbrains/buildServer/agent/rakerunner/RakeTasksBuildService.java`
+#### Snippet
+```java
+  private final String RSPEC_RUNNER_OPTIONS_FORMATTER_PATH = "teamcity/spec/runner/formatter/teamcity/formatter";
+  private final String RSPEC_RUNNER_OPTIONS_FORMATTER_KEY = "--format";
+  private final String RSPEC_RUNNER_OPTIONS_FORMATTER_CLASS = "Spec::Runner::Formatter::TeamcityFormatter";
+
+  private final String CUCUMBER_RUNNER_OPTIONS_EXPAND_KEY = "--expand";
+```
+
+### FieldMayBeStatic
+Field `RSPEC_RUNNER_OPTIONS_FORMATTER_KEY` may be 'static'
+in `rake-runner-agent/src/jetbrains/buildServer/agent/rakerunner/RakeTasksBuildService.java`
+#### Snippet
+```java
+  private final String RSPEC_RUNNER_OPTIONS_REQUIRE_KEY = "--require";
+  private final String RSPEC_RUNNER_OPTIONS_FORMATTER_PATH = "teamcity/spec/runner/formatter/teamcity/formatter";
+  private final String RSPEC_RUNNER_OPTIONS_FORMATTER_KEY = "--format";
+  private final String RSPEC_RUNNER_OPTIONS_FORMATTER_CLASS = "Spec::Runner::Formatter::TeamcityFormatter";
+
+```
+
+### FieldMayBeStatic
 Field `CUCUMBER_RUNNER_OPTIONS_FORMAT_KEY` may be 'static'
 in `rake-runner-agent/src/jetbrains/buildServer/agent/rakerunner/RakeTasksBuildService.java`
 #### Snippet
@@ -314,18 +326,6 @@ in `rake-runner-agent/src/jetbrains/buildServer/agent/rakerunner/RakeTasksBuildS
   private final String CUCUMBER_RUNNER_OPTIONS_FORMAT_KEY = "--format";
   private final String CUCUMBER_RUNNER_OPTIONS_FORMAT_CLASS = "Teamcity::Cucumber::Formatter";
 
-```
-
-### FieldMayBeStatic
-Field `CUCUMBER_RUNNER_OPTIONS_EXPAND_KEY` may be 'static'
-in `rake-runner-agent/src/jetbrains/buildServer/agent/rakerunner/RakeTasksBuildService.java`
-#### Snippet
-```java
-  private final String RSPEC_RUNNER_OPTIONS_FORMATTER_CLASS = "Spec::Runner::Formatter::TeamcityFormatter";
-
-  private final String CUCUMBER_RUNNER_OPTIONS_EXPAND_KEY = "--expand";
-  private final String CUCUMBER_RUNNER_OPTIONS_FORMAT_KEY = "--format";
-  private final String CUCUMBER_RUNNER_OPTIONS_FORMAT_CLASS = "Teamcity::Cucumber::Formatter";
 ```
 
 ## RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
@@ -378,18 +378,6 @@ public class FileUtil2 {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `SdkUtil` has only 'static' members, and lacks a 'private' constructor
-in `rake-runner-agent/src/jetbrains/buildServer/agent/ruby/SdkUtil.java`
-#### Snippet
-```java
- * @author Vladislav.Rassokhin
- */
-public class SdkUtil {
-
-  public static boolean isRvmSdk(@NotNull final RubySdk sdk) {
-```
-
-### UtilityClassWithoutPrivateConstructor
 Class `TestUnitUtil` has only 'static' members, and lacks a 'private' constructor
 in `rake-runner-agent/src/jetbrains/buildServer/agent/rakerunner/utils/TestUnitUtil.java`
 #### Snippet
@@ -399,6 +387,18 @@ in `rake-runner-agent/src/jetbrains/buildServer/agent/rakerunner/utils/TestUnitU
 public class TestUnitUtil {
   @NonNls
   public static final String AUTORUNNER_SCRIPT_PATH = "test/unit/autorunner.rb";
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `SdkUtil` has only 'static' members, and lacks a 'private' constructor
+in `rake-runner-agent/src/jetbrains/buildServer/agent/ruby/SdkUtil.java`
+#### Snippet
+```java
+ * @author Vladislav.Rassokhin
+ */
+public class SdkUtil {
+
+  public static boolean isRvmSdk(@NotNull final RubySdk sdk) {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -438,18 +438,6 @@ public class RakeRunnerUtils {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `RVMInfoUtil` has only 'static' members, and lacks a 'private' constructor
-in `rake-runner-agent/src/jetbrains/buildServer/agent/ruby/rvm/util/RVMInfoUtil.java`
-#### Snippet
-```java
- * @author Vladislav.Rassokhin
- */
-public class RVMInfoUtil {
-
-  public static final Pattern INFO_LINE_PATTERN = Pattern.compile("^[ \\t]*(\\w+):[ \\t]*\"(.*)\"[ \\t]*$");
-```
-
-### UtilityClassWithoutPrivateConstructor
 Class `TextUtil` has only 'static' members, and lacks a 'private' constructor
 in `rake-runner-agent/src/jetbrains/buildServer/agent/rakerunner/utils/TextUtil.java`
 #### Snippet
@@ -459,6 +447,18 @@ in `rake-runner-agent/src/jetbrains/buildServer/agent/rakerunner/utils/TextUtil.
 public class TextUtil {
   private static final Pattern EOL_SPLIT_PATTERN = Pattern.compile(" *(\r|\n|\r\n)+ *");
 
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `RVMInfoUtil` has only 'static' members, and lacks a 'private' constructor
+in `rake-runner-agent/src/jetbrains/buildServer/agent/ruby/rvm/util/RVMInfoUtil.java`
+#### Snippet
+```java
+ * @author Vladislav.Rassokhin
+ */
+public class RVMInfoUtil {
+
+  public static final Pattern INFO_LINE_PATTERN = Pattern.compile("^[ \\t]*(\\w+):[ \\t]*\"(.*)\"[ \\t]*$");
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -486,15 +486,15 @@ public class BundlerUtil {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `OSUtil` has only 'static' members, and lacks a 'private' constructor
-in `rake-runner-agent/src/jetbrains/buildServer/agent/rakerunner/utils/OSUtil.java`
+Class `RubySDKUtil` has only 'static' members, and lacks a 'private' constructor
+in `rake-runner-agent/src/jetbrains/buildServer/agent/rakerunner/utils/RubySDKUtil.java`
 #### Snippet
 ```java
  * @author Roman.Chernyatchik
  */
-public class OSUtil {
-  public static String INDEPENDENT_PATH_SEPARATOR = "/";
+public class RubySDKUtil {
 
+  private static final Pattern VERSION_PATTERN = Pattern.compile("([0-9]+(\\.[0-9A-z]+)*)");
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -510,15 +510,15 @@ public class InternalRubySdkUtil {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `RubySDKUtil` has only 'static' members, and lacks a 'private' constructor
-in `rake-runner-agent/src/jetbrains/buildServer/agent/rakerunner/utils/RubySDKUtil.java`
+Class `OSUtil` has only 'static' members, and lacks a 'private' constructor
+in `rake-runner-agent/src/jetbrains/buildServer/agent/rakerunner/utils/OSUtil.java`
 #### Snippet
 ```java
  * @author Roman.Chernyatchik
  */
-public class RubySDKUtil {
+public class OSUtil {
+  public static String INDEPENDENT_PATH_SEPARATOR = "/";
 
-  private static final Pattern VERSION_PATTERN = Pattern.compile("([0-9]+(\\.[0-9A-z]+)*)");
 ```
 
 ## RuleId[ruleID=DataFlowIssue]
@@ -649,15 +649,15 @@ in `rake-runner-agent/src/jetbrains/buildServer/agent/rakerunner/utils/EnvUtil.j
 
 ## RuleId[ruleID=SizeReplaceableByIsEmpty]
 ### SizeReplaceableByIsEmpty
-`strings[i].length() > 0` can be replaced with '!strings\[i\].isEmpty()'
+`s.length() == 0` can be replaced with 's.isEmpty()'
 in `rake-runner-agent/src/jetbrains/buildServer/agent/rakerunner/utils/TextUtil.java`
 #### Snippet
 ```java
-    final StringBuilder result = new StringBuilder(strings[0]);
-    for (int i = 1; i < strings.length; i++) {
-      if (strings[i] != null && strings[i].length() > 0) {
-        result.append(' ');
-        result.append(strings[i]);
+  @NotNull
+  public static String removeNewLine(@NotNull String s) {
+    if (s.length() == 0) return s;
+    if (s.charAt(s.length() - 1) == '\n') {
+      s = s.substring(0, s.length() - 1);
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -673,15 +673,15 @@ in `rake-runner-agent/src/jetbrains/buildServer/agent/rakerunner/utils/TextUtil.
 ```
 
 ### SizeReplaceableByIsEmpty
-`s.length() == 0` can be replaced with 's.isEmpty()'
+`strings[i].length() > 0` can be replaced with '!strings\[i\].isEmpty()'
 in `rake-runner-agent/src/jetbrains/buildServer/agent/rakerunner/utils/TextUtil.java`
 #### Snippet
 ```java
-  @NotNull
-  public static String removeNewLine(@NotNull String s) {
-    if (s.length() == 0) return s;
-    if (s.charAt(s.length() - 1) == '\n') {
-      s = s.substring(0, s.length() - 1);
+    final StringBuilder result = new StringBuilder(strings[0]);
+    for (int i = 1; i < strings.length; i++) {
+      if (strings[i] != null && strings[i].length() > 0) {
+        result.append(' ');
+        result.append(strings[i]);
 ```
 
 ## RuleId[ruleID=ProtectedMemberInFinalClass]
@@ -695,6 +695,18 @@ in `rake-runner-agent/src/jetbrains/buildServer/agent/ruby/rbenv/InstalledRbEnv.
     protected File createValue() {
       final String root = executeCommandLine(getExecutablePath(), "root");
       final List<String> split = StringUtil.split(root, true, '\n', '\r');
+```
+
+### ProtectedMemberInFinalClass
+Class member declared `protected` in 'final' class
+in `rake-runner-agent/src/jetbrains/buildServer/agent/ruby/rvm/InstalledRVM.java`
+#### Snippet
+```java
+    @Nullable
+    @Override
+    protected Map<Pattern, String> createValue() {
+      final Map<Pattern, String> map = new LinkedHashMap<Pattern, String>();
+      // References from all known repositories ('rvm list known')
 ```
 
 ### ProtectedMemberInFinalClass
@@ -721,19 +733,19 @@ in `rake-runner-agent/src/jetbrains/buildServer/agent/ruby/rvm/InstalledRVM.java
       List<String> split = StringUtil.split(stdout, true, '\n', '\r');
 ```
 
-### ProtectedMemberInFinalClass
-Class member declared `protected` in 'final' class
-in `rake-runner-agent/src/jetbrains/buildServer/agent/ruby/rvm/InstalledRVM.java`
+## RuleId[ruleID=StringBufferReplaceableByString]
+### StringBufferReplaceableByString
+`StringBuilder sb` can be replaced with 'String'
+in `rake-runner-agent/src/jetbrains/buildServer/agent/ruby/rvm/impl/RVMRCBasedRubySdkImpl.java`
 #### Snippet
 ```java
-    @Nullable
-    @Override
-    protected Map<Pattern, String> createValue() {
-      final Map<Pattern, String> map = new LinkedHashMap<Pattern, String>();
-      // References from all known repositories ('rvm list known')
+                          @NotNull final String workingDirectory,
+                          @Nullable final Map<String, String> environment) {
+      StringBuilder sb = new StringBuilder();
+      sb.append("cd ").append(workingDirectory).append('\n');
+      sb.append(script);
 ```
 
-## RuleId[ruleID=StringBufferReplaceableByString]
 ### StringBufferReplaceableByString
 `StringBuilder sb` can be replaced with 'String'
 in `rake-runner-agent/src/jetbrains/buildServer/agent/ruby/rvm/impl/RVMRCBasedRubySdkImpl.java`
@@ -756,18 +768,6 @@ in `rake-runner-agent/src/jetbrains/buildServer/agent/ruby/rvm/impl/RVMRCBasedRu
         StringBuilder sb = new StringBuilder();
         sb.append("\n\t").append("Configuring rvm interpreter with .rvmrc");
         sb.append("\n\t").append("PathToRVMRCFolder = ").append(pathToRVMRCFolder);
-```
-
-### StringBufferReplaceableByString
-`StringBuilder sb` can be replaced with 'String'
-in `rake-runner-agent/src/jetbrains/buildServer/agent/ruby/rvm/impl/RVMRCBasedRubySdkImpl.java`
-#### Snippet
-```java
-                          @NotNull final String workingDirectory,
-                          @Nullable final Map<String, String> environment) {
-      StringBuilder sb = new StringBuilder();
-      sb.append("cd ").append(workingDirectory).append('\n');
-      sb.append(script);
 ```
 
 ### StringBufferReplaceableByString
@@ -906,30 +906,6 @@ in `rake-runner-server/src/jetbrains/buildServer/runner/rakerunner/RakeRunnerRun
 
 ### BoundedWildcard
 Can generalize to `? super String`
-in `rake-runner-common/src/jetbrains/buildServer/rakerunner/RakeRunnerUtils.java`
-#### Snippet
-```java
-
-  public static void setConfigMode(@NotNull final RubyConfigMode mode,
-                                   @NotNull final Map<String, String> runParams) {
-    runParams.put(RakeRunnerConstants.SERVER_UI_RUBY_USAGE_MODE, mode.getModeValueString());
-  }
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `rake-runner-common/src/jetbrains/buildServer/rakerunner/RakeRunnerUtils.java`
-#### Snippet
-```java
-
-  public static void setConfigMode(@NotNull final RubyConfigMode mode,
-                                   @NotNull final Map<String, String> runParams) {
-    runParams.put(RakeRunnerConstants.SERVER_UI_RUBY_USAGE_MODE, mode.getModeValueString());
-  }
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
 in `rake-runner-server/src/jetbrains/buildServer/feature/RubyEnvConfiguratorBuildFeature.java`
 #### Snippet
 ```java
@@ -950,6 +926,30 @@ in `rake-runner-server/src/jetbrains/buildServer/feature/RubyEnvConfiguratorBuil
     private void resetProperty(@NotNull final Map<String, String> properties, @NotNull final String key) {
       if (myDefaultParameters.containsKey(key)) {
         properties.put(key, myDefaultParameters.get(key));
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `rake-runner-common/src/jetbrains/buildServer/rakerunner/RakeRunnerUtils.java`
+#### Snippet
+```java
+
+  public static void setConfigMode(@NotNull final RubyConfigMode mode,
+                                   @NotNull final Map<String, String> runParams) {
+    runParams.put(RakeRunnerConstants.SERVER_UI_RUBY_USAGE_MODE, mode.getModeValueString());
+  }
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `rake-runner-common/src/jetbrains/buildServer/rakerunner/RakeRunnerUtils.java`
+#### Snippet
+```java
+
+  public static void setConfigMode(@NotNull final RubyConfigMode mode,
+                                   @NotNull final Map<String, String> runParams) {
+    runParams.put(RakeRunnerConstants.SERVER_UI_RUBY_USAGE_MODE, mode.getModeValueString());
+  }
 ```
 
 ## RuleId[ruleID=MissortedModifiers]
@@ -1352,7 +1352,7 @@ in `rake-runner-agent/src/jetbrains/buildServer/agent/rakerunner/utils/TextUtil.
 ## RuleId[ruleID=HtmlWrongAttributeValue]
 ### HtmlWrongAttributeValue
 Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-02-11-22-27-33.319.html`
+in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-02-12-22-32-42.194.html`
 #### Snippet
 ```java
               <td>0</td>
@@ -1389,91 +1389,7 @@ in `rake-runner-agent/src/jetbrains/buildServer/agent/ruby/rvm/detector/impl/RVM
 
 ### ReturnNull
 Return of `null`
-in `rake-runner-server/src/jetbrains/buildServer/feature/RubyEnvConfiguratorDiscoveryExtension.java`
-#### Snippet
-```java
-  @Nullable
-  public List<DiscoveredObject> discover(@NotNull final BuildTypeSettings settings) {
-    if (!settings.getBuildFeaturesOfType(RubyEnvConfiguratorConstants.RUBY_ENV_CONFIGURATOR_FEATURE_TYPE).isEmpty()) return null;
-
-    if (settings.findBuildRunnerByType(RakeRunnerConstants.RUNNER_TYPE) != null) {
-```
-
-### ReturnNull
-Return of `null`
-in `rake-runner-server/src/jetbrains/buildServer/feature/RubyEnvConfiguratorDiscoveryExtension.java`
-#### Snippet
-```java
-                           new DiscoveredObject(RubyEnvConfiguratorConstants.RUBY_ENV_CONFIGURATOR_FEATURE_TYPE, rbenv));
-    }
-    return null;
-  }
-}
-```
-
-### ReturnNull
-Return of `null`
-in `rake-runner-agent/src/jetbrains/buildServer/agent/ruby/impl/RubySdkImpl.java`
-#### Snippet
-```java
-  @Nullable
-  public String getGemset() {
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `rake-runner-agent/src/jetbrains/buildServer/agent/ruby/rvm/detector/impl/RVMDetectorForUNIX.java`
-#### Snippet
-```java
-    // Cannot detect rvm if $HOME directory unknowed.
-    if (home == null) {
-      return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `rake-runner-agent/src/jetbrains/buildServer/agent/ruby/impl/RubySdkImpl.java`
-#### Snippet
-```java
-  @Nullable
-  public RubyVersionManager getVersionManager() {
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `rake-runner-agent/src/jetbrains/buildServer/agent/ruby/rvm/detector/impl/RVMDetectorForUNIX.java`
-#### Snippet
-```java
-
-    // No local rvm was found
-    return null;
-  }
-}
-```
-
-### ReturnNull
-Return of `null`
-in `rake-runner-agent/src/jetbrains/buildServer/agent/ruby/rvm/detector/impl/RVMDetectorForUNIX.java`
-#### Snippet
-```java
-
-    // No special rvm was found
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `rake-runner-agent/src/jetbrains/buildServer/agent/ruby/rvm/detector/impl/RVMDetectorForUNIX.java`
+in `rake-runner-agent/src/jetbrains/buildServer/agent/ruby/rbenv/detector/RbEnvDetectorForUNIX.java`
 #### Snippet
 ```java
     } else {
@@ -1485,23 +1401,11 @@ in `rake-runner-agent/src/jetbrains/buildServer/agent/ruby/rvm/detector/impl/RVM
 
 ### ReturnNull
 Return of `null`
-in `rake-runner-agent/src/jetbrains/buildServer/agent/ruby/rvm/detector/impl/RVMDetectorForUNIX.java`
-#### Snippet
-```java
-
-    // No global rvm was found
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
 in `rake-runner-agent/src/jetbrains/buildServer/agent/ruby/rbenv/detector/RbEnvDetectorForUNIX.java`
 #### Snippet
 ```java
 
-    // No special rbenv was found
+    // No global rbenv was found
     return null;
   }
 
@@ -1549,22 +1453,10 @@ in `rake-runner-agent/src/jetbrains/buildServer/agent/ruby/rbenv/detector/RbEnvD
 #### Snippet
 ```java
 
-    // No global rbenv was found
+    // No special rbenv was found
     return null;
   }
 
-```
-
-### ReturnNull
-Return of `null`
-in `rake-runner-agent/src/jetbrains/buildServer/agent/ruby/rbenv/detector/RbEnvDetectorForUNIX.java`
-#### Snippet
-```java
-    } else {
-      // Nothing founded
-      return null;
-    }
-  }
 ```
 
 ### ReturnNull
@@ -1593,6 +1485,114 @@ in `rake-runner-agent/src/jetbrains/buildServer/agent/ruby/rbenv/detector/RbEnvD
 
 ### ReturnNull
 Return of `null`
+in `rake-runner-agent/src/jetbrains/buildServer/agent/ruby/rvm/detector/impl/RVMDetectorForUNIX.java`
+#### Snippet
+```java
+
+    // No global rvm was found
+    return null;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `rake-runner-agent/src/jetbrains/buildServer/agent/ruby/rvm/detector/impl/RVMDetectorForUNIX.java`
+#### Snippet
+```java
+
+    // No special rvm was found
+    return null;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `rake-runner-agent/src/jetbrains/buildServer/agent/ruby/rvm/detector/impl/RVMDetectorForUNIX.java`
+#### Snippet
+```java
+    } else {
+      // Nothing founded
+      return null;
+    }
+  }
+```
+
+### ReturnNull
+Return of `null`
+in `rake-runner-agent/src/jetbrains/buildServer/agent/ruby/rvm/detector/impl/RVMDetectorForUNIX.java`
+#### Snippet
+```java
+    // Cannot detect rvm if $HOME directory unknowed.
+    if (home == null) {
+      return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `rake-runner-agent/src/jetbrains/buildServer/agent/ruby/rvm/detector/impl/RVMDetectorForUNIX.java`
+#### Snippet
+```java
+
+    // No local rvm was found
+    return null;
+  }
+}
+```
+
+### ReturnNull
+Return of `null`
+in `rake-runner-server/src/jetbrains/buildServer/feature/RubyEnvConfiguratorDiscoveryExtension.java`
+#### Snippet
+```java
+  @Nullable
+  public List<DiscoveredObject> discover(@NotNull final BuildTypeSettings settings) {
+    if (!settings.getBuildFeaturesOfType(RubyEnvConfiguratorConstants.RUBY_ENV_CONFIGURATOR_FEATURE_TYPE).isEmpty()) return null;
+
+    if (settings.findBuildRunnerByType(RakeRunnerConstants.RUNNER_TYPE) != null) {
+```
+
+### ReturnNull
+Return of `null`
+in `rake-runner-server/src/jetbrains/buildServer/feature/RubyEnvConfiguratorDiscoveryExtension.java`
+#### Snippet
+```java
+                           new DiscoveredObject(RubyEnvConfiguratorConstants.RUBY_ENV_CONFIGURATOR_FEATURE_TYPE, rbenv));
+    }
+    return null;
+  }
+}
+```
+
+### ReturnNull
+Return of `null`
+in `rake-runner-agent/src/jetbrains/buildServer/agent/ruby/impl/RubySdkImpl.java`
+#### Snippet
+```java
+  @Nullable
+  public String getGemset() {
+    return null;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `rake-runner-agent/src/jetbrains/buildServer/agent/ruby/impl/RubySdkImpl.java`
+#### Snippet
+```java
+  @Nullable
+  public RubyVersionManager getVersionManager() {
+    return null;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
 in `rake-runner-agent/src/jetbrains/buildServer/agent/rakerunner/utils/FileUtil2.java`
 #### Snippet
 ```java
@@ -1617,6 +1617,18 @@ in `rake-runner-agent/src/jetbrains/buildServer/agent/rakerunner/utils/FileUtil2
 
 ### ReturnNull
 Return of `null`
+in `rake-runner-agent/src/jetbrains/buildServer/agent/ruby/rbenv/InstalledRbEnv.java`
+#### Snippet
+```java
+  public File getRubiesFolder() {
+    final File versions = new File(getRoot(), "versions");
+    return versions.exists() && versions.isDirectory() ? versions : null;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
 in `rake-runner-agent/src/jetbrains/buildServer/agent/rakerunner/utils/TestUnitUtil.java`
 #### Snippet
 ```java
@@ -1629,13 +1641,13 @@ in `rake-runner-agent/src/jetbrains/buildServer/agent/rakerunner/utils/TestUnitU
 
 ### ReturnNull
 Return of `null`
-in `rake-runner-agent/src/jetbrains/buildServer/agent/ruby/rbenv/InstalledRbEnv.java`
+in `rake-runner-agent/src/jetbrains/buildServer/agent/ruby/rvm/RVMCommandLineProcessor.java`
 #### Snippet
 ```java
-  public File getRubiesFolder() {
-    final File versions = new File(getRoot(), "versions");
-    return versions.exists() && versions.isDirectory() ? versions : null;
-  }
+      @Override
+      public MapSerializerUtil.UnescapeResult unescape(@NotNull final String str, final int startPos) {
+        return null;
+      }
 
 ```
 
@@ -1649,18 +1661,6 @@ in `rake-runner-agent/src/jetbrains/buildServer/agent/ruby/rvm/RVMCommandLinePro
             return null;
         }
       }
-```
-
-### ReturnNull
-Return of `null`
-in `rake-runner-agent/src/jetbrains/buildServer/agent/ruby/rvm/RVMCommandLineProcessor.java`
-#### Snippet
-```java
-      @Override
-      public MapSerializerUtil.UnescapeResult unescape(@NotNull final String str, final int startPos) {
-        return null;
-      }
-
 ```
 
 ### ReturnNull
@@ -1752,10 +1752,10 @@ Return of `null`
 in `rake-runner-agent/src/jetbrains/buildServer/agent/rakerunner/utils/BundlerUtil.java`
 #### Snippet
 ```java
-      return path;
+
+    if (!isBundleExecEmulationEnabled(context.getRunnerParameters())) {
+      return null;
     }
-    return null;
-  }
 
 ```
 
@@ -1764,10 +1764,10 @@ Return of `null`
 in `rake-runner-agent/src/jetbrains/buildServer/agent/rakerunner/utils/BundlerUtil.java`
 #### Snippet
 ```java
-
-    if (!isBundleExecEmulationEnabled(context.getRunnerParameters())) {
-      return null;
+      return path;
     }
+    return null;
+  }
 
 ```
 
@@ -1780,7 +1780,7 @@ in `rake-runner-agent/src/jetbrains/buildServer/agent/ruby/rvm/InstalledRVM.java
     }
     return null;
   }
-}
+
 ```
 
 ### ReturnNull
@@ -1803,30 +1803,6 @@ in `rake-runner-agent/src/jetbrains/buildServer/agent/ruby/rvm/InstalledRVM.java
       }
     }
     return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `rake-runner-agent/src/jetbrains/buildServer/agent/rakerunner/utils/OSUtil.java`
-#### Snippet
-```java
-      }
-    }
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `rake-runner-agent/src/jetbrains/buildServer/agent/rakerunner/utils/OSUtil.java`
-#### Snippet
-```java
-  public static String getUserHomeFolder() {
-    final String home = System.getProperty("user.home");
-    return FileUtil2.checkIfDirExists(home) ? home : null;
   }
 }
 ```
@@ -1853,5 +1829,29 @@ in `rake-runner-agent/src/jetbrains/buildServer/agent/rakerunner/utils/RubySDKUt
       return null;
     }
     return Collections.max(gems, new GemInfoPairComparator());
+```
+
+### ReturnNull
+Return of `null`
+in `rake-runner-agent/src/jetbrains/buildServer/agent/rakerunner/utils/OSUtil.java`
+#### Snippet
+```java
+      }
+    }
+    return null;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `rake-runner-agent/src/jetbrains/buildServer/agent/rakerunner/utils/OSUtil.java`
+#### Snippet
+```java
+  public static String getUserHomeFolder() {
+    final String home = System.getProperty("user.home");
+    return FileUtil2.checkIfDirExists(home) ? home : null;
+  }
+}
 ```
 
