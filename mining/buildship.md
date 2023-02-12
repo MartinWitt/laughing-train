@@ -164,9 +164,9 @@ Modifier `public` is redundant for interface members
 in `org.eclipse.buildship.ui/src/main/java/org/eclipse/buildship/ui/internal/editor/GradleEditorConstants.java`
 #### Snippet
 ```java
-     * Token type ID for '{@code /*}'-style multi-line comments.
+     * Token type ID for '{@code /**}'-style multi-line comments.
      */
-    public static final String TOKEN_TYPE_MULTILINE_COMMENT = UiPlugin.PLUGIN_ID + ".buildscript.multilinecomment";
+    public static final String TOKEN_TYPE_JAVADOC = UiPlugin.PLUGIN_ID + ".buildscript.javadoccomment";
 
     /**
 ```
@@ -176,9 +176,9 @@ Modifier `static` is redundant for interface fields
 in `org.eclipse.buildship.ui/src/main/java/org/eclipse/buildship/ui/internal/editor/GradleEditorConstants.java`
 #### Snippet
 ```java
-     * Token type ID for '{@code /*}'-style multi-line comments.
+     * Token type ID for '{@code /**}'-style multi-line comments.
      */
-    public static final String TOKEN_TYPE_MULTILINE_COMMENT = UiPlugin.PLUGIN_ID + ".buildscript.multilinecomment";
+    public static final String TOKEN_TYPE_JAVADOC = UiPlugin.PLUGIN_ID + ".buildscript.javadoccomment";
 
     /**
 ```
@@ -188,9 +188,9 @@ Modifier `final` is redundant for interface fields
 in `org.eclipse.buildship.ui/src/main/java/org/eclipse/buildship/ui/internal/editor/GradleEditorConstants.java`
 #### Snippet
 ```java
-     * Token type ID for '{@code /*}'-style multi-line comments.
+     * Token type ID for '{@code /**}'-style multi-line comments.
      */
-    public static final String TOKEN_TYPE_MULTILINE_COMMENT = UiPlugin.PLUGIN_ID + ".buildscript.multilinecomment";
+    public static final String TOKEN_TYPE_JAVADOC = UiPlugin.PLUGIN_ID + ".buildscript.javadoccomment";
 
     /**
 ```
@@ -200,9 +200,9 @@ Modifier `public` is redundant for interface members
 in `org.eclipse.buildship.ui/src/main/java/org/eclipse/buildship/ui/internal/editor/GradleEditorConstants.java`
 #### Snippet
 ```java
-     * The partitioning for Gradle build script files.
+     * Token type ID for '{@code /*}'-style multi-line comments.
      */
-    public static final String PARTITIONING = UiPlugin.PLUGIN_ID + ".buildscript.partitioning";
+    public static final String TOKEN_TYPE_MULTILINE_COMMENT = UiPlugin.PLUGIN_ID + ".buildscript.multilinecomment";
 
     /**
 ```
@@ -212,9 +212,9 @@ Modifier `static` is redundant for interface fields
 in `org.eclipse.buildship.ui/src/main/java/org/eclipse/buildship/ui/internal/editor/GradleEditorConstants.java`
 #### Snippet
 ```java
-     * The partitioning for Gradle build script files.
+     * Token type ID for '{@code /*}'-style multi-line comments.
      */
-    public static final String PARTITIONING = UiPlugin.PLUGIN_ID + ".buildscript.partitioning";
+    public static final String TOKEN_TYPE_MULTILINE_COMMENT = UiPlugin.PLUGIN_ID + ".buildscript.multilinecomment";
 
     /**
 ```
@@ -224,9 +224,9 @@ Modifier `final` is redundant for interface fields
 in `org.eclipse.buildship.ui/src/main/java/org/eclipse/buildship/ui/internal/editor/GradleEditorConstants.java`
 #### Snippet
 ```java
-     * The partitioning for Gradle build script files.
+     * Token type ID for '{@code /*}'-style multi-line comments.
      */
-    public static final String PARTITIONING = UiPlugin.PLUGIN_ID + ".buildscript.partitioning";
+    public static final String TOKEN_TYPE_MULTILINE_COMMENT = UiPlugin.PLUGIN_ID + ".buildscript.multilinecomment";
 
     /**
 ```
@@ -272,9 +272,9 @@ Modifier `public` is redundant for interface members
 in `org.eclipse.buildship.ui/src/main/java/org/eclipse/buildship/ui/internal/editor/GradleEditorConstants.java`
 #### Snippet
 ```java
-     * Token type ID for '{@code /**}'-style multi-line comments.
+     * The partitioning for Gradle build script files.
      */
-    public static final String TOKEN_TYPE_JAVADOC = UiPlugin.PLUGIN_ID + ".buildscript.javadoccomment";
+    public static final String PARTITIONING = UiPlugin.PLUGIN_ID + ".buildscript.partitioning";
 
     /**
 ```
@@ -284,9 +284,9 @@ Modifier `static` is redundant for interface fields
 in `org.eclipse.buildship.ui/src/main/java/org/eclipse/buildship/ui/internal/editor/GradleEditorConstants.java`
 #### Snippet
 ```java
-     * Token type ID for '{@code /**}'-style multi-line comments.
+     * The partitioning for Gradle build script files.
      */
-    public static final String TOKEN_TYPE_JAVADOC = UiPlugin.PLUGIN_ID + ".buildscript.javadoccomment";
+    public static final String PARTITIONING = UiPlugin.PLUGIN_ID + ".buildscript.partitioning";
 
     /**
 ```
@@ -296,9 +296,9 @@ Modifier `final` is redundant for interface fields
 in `org.eclipse.buildship.ui/src/main/java/org/eclipse/buildship/ui/internal/editor/GradleEditorConstants.java`
 #### Snippet
 ```java
-     * Token type ID for '{@code /**}'-style multi-line comments.
+     * The partitioning for Gradle build script files.
      */
-    public static final String TOKEN_TYPE_JAVADOC = UiPlugin.PLUGIN_ID + ".buildscript.javadoccomment";
+    public static final String PARTITIONING = UiPlugin.PLUGIN_ID + ".buildscript.partitioning";
 
     /**
 ```
@@ -368,18 +368,6 @@ Modifier `public` is redundant for interface members
 in `org.eclipse.buildship.core/src/main/java/org/eclipse/buildship/core/internal/operation/ToolingApiOperation.java`
 #### Snippet
 ```java
-     * @return the operation's scheduling rule
-     */
-    public ISchedulingRule getRule();
-
-    /**
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `org.eclipse.buildship.core/src/main/java/org/eclipse/buildship/core/internal/operation/ToolingApiOperation.java`
-#### Snippet
-```java
      * @throws Exception if any exception happens during the execution
      */
     public abstract void runInToolingApi(CancellationTokenSource tokenSource, IProgressMonitor monitor) throws Exception;
@@ -397,6 +385,18 @@ in `org.eclipse.buildship.core/src/main/java/org/eclipse/buildship/core/internal
     public abstract void runInToolingApi(CancellationTokenSource tokenSource, IProgressMonitor monitor) throws Exception;
 }
 
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `org.eclipse.buildship.core/src/main/java/org/eclipse/buildship/core/internal/operation/ToolingApiOperation.java`
+#### Snippet
+```java
+     * @return the operation's scheduling rule
+     */
+    public ISchedulingRule getRule();
+
+    /**
 ```
 
 ### UnnecessaryModifier
@@ -461,18 +461,6 @@ in `org.eclipse.buildship.ui/src/main/java/org/eclipse/buildship/ui/internal/uti
 ```
 
 ## RuleId[ruleID=StaticCallOnSubclass]
-### StaticCallOnSubclass
-Static method `applyWorkingDirExpression()` declared in class 'org.eclipse.buildship.core.internal.launch.BaseRunConfigurationAttributes' but referenced via subclass 'org.eclipse.buildship.core.internal.launch.GradleRunConfigurationAttributes'
-in `org.eclipse.buildship.ui/src/main/java/org/eclipse/buildship/ui/internal/launch/TestsTab.java`
-#### Snippet
-```java
-    public void performApply(ILaunchConfigurationWorkingCopy configuration) {
-        GradleTestRunConfigurationAttributes.applyTestNames(this.tests.getEntries(), configuration);
-        GradleRunConfigurationAttributes.applyWorkingDirExpression(this.workingDirectoryText.getText(), configuration);
-    }
-
-```
-
 ### StaticCallOnSubclass
 Static method `applyOverrideBuildSettings()` declared in class 'org.eclipse.buildship.core.internal.launch.BaseRunConfigurationAttributes' but referenced via subclass 'org.eclipse.buildship.core.internal.launch.GradleRunConfigurationAttributes'
 in `org.eclipse.buildship.ui/src/main/java/org/eclipse/buildship/ui/internal/launch/ProjectSettingsTab.java`
@@ -595,6 +583,18 @@ in `org.eclipse.buildship.ui/src/main/java/org/eclipse/buildship/ui/internal/lau
 
 ### StaticCallOnSubclass
 Static method `applyWorkingDirExpression()` declared in class 'org.eclipse.buildship.core.internal.launch.BaseRunConfigurationAttributes' but referenced via subclass 'org.eclipse.buildship.core.internal.launch.GradleRunConfigurationAttributes'
+in `org.eclipse.buildship.ui/src/main/java/org/eclipse/buildship/ui/internal/launch/TestsTab.java`
+#### Snippet
+```java
+    public void performApply(ILaunchConfigurationWorkingCopy configuration) {
+        GradleTestRunConfigurationAttributes.applyTestNames(this.tests.getEntries(), configuration);
+        GradleRunConfigurationAttributes.applyWorkingDirExpression(this.workingDirectoryText.getText(), configuration);
+    }
+
+```
+
+### StaticCallOnSubclass
+Static method `applyWorkingDirExpression()` declared in class 'org.eclipse.buildship.core.internal.launch.BaseRunConfigurationAttributes' but referenced via subclass 'org.eclipse.buildship.core.internal.launch.GradleRunConfigurationAttributes'
 in `org.eclipse.buildship.ui/src/main/java/org/eclipse/buildship/ui/internal/launch/ProjectTab.java`
 #### Snippet
 ```java
@@ -661,11 +661,11 @@ Assignment to static field `plugin` from instance context
 in `org.eclipse.buildship.core/src/main/java/org/eclipse/buildship/core/internal/CorePlugin.java`
 #### Snippet
 ```java
-        unregisterServices();
-        IdeFriendlyClassLoading.cleanup();
-        plugin = null;
-        super.stop(context);
-    }
+    public void start(BundleContext bundleContext) throws Exception {
+        super.start(bundleContext);
+        plugin = this;
+        ensureProxySettingsApplied();
+        registerServices(bundleContext);
 ```
 
 ### AssignmentToStaticFieldFromInstanceMethod
@@ -673,11 +673,11 @@ Assignment to static field `plugin` from instance context
 in `org.eclipse.buildship.core/src/main/java/org/eclipse/buildship/core/internal/CorePlugin.java`
 #### Snippet
 ```java
-    public void start(BundleContext bundleContext) throws Exception {
-        super.start(bundleContext);
-        plugin = this;
-        ensureProxySettingsApplied();
-        registerServices(bundleContext);
+        unregisterServices();
+        IdeFriendlyClassLoading.cleanup();
+        plugin = null;
+        super.stop(context);
+    }
 ```
 
 ### AssignmentToStaticFieldFromInstanceMethod
@@ -718,15 +718,27 @@ in `org.eclipse.buildship.oomph.edit/src/main/java-generated/org/eclipse/buildsh
 
 ## RuleId[ruleID=RegExpRedundantEscape]
 ### RegExpRedundantEscape
-Redundant character escape `\-` in RegExp
+Redundant character escape `\\-` in RegExp
 in `org.eclipse.buildship.core/src/main/java/org/eclipse/buildship/core/internal/util/string/PatternUtils.java`
 #### Snippet
 ```java
+     * RFC 3492 references RFC 1034 and limits Punycode algorithm output to 63 characters.
+     */
     private static final String PUNYCODE_TLD = "xn\\-\\-[\\w\\-]{0,58}\\w";
 
     private static final String TLD = "(" + PUNYCODE_TLD + "|" + "[" + TLD_CHAR + "]{2,63}" +")";
+```
 
-    private static final String HOST_NAME = "(" + IRI_LABEL + "\\.)+" + TLD;
+### RegExpRedundantEscape
+Redundant character escape `\\-` in RegExp
+in `org.eclipse.buildship.core/src/main/java/org/eclipse/buildship/core/internal/util/string/PatternUtils.java`
+#### Snippet
+```java
+     * RFC 3492 references RFC 1034 and limits Punycode algorithm output to 63 characters.
+     */
+    private static final String PUNYCODE_TLD = "xn\\-\\-[\\w\\-]{0,58}\\w";
+
+    private static final String TLD = "(" + PUNYCODE_TLD + "|" + "[" + TLD_CHAR + "]{2,63}" +")";
 ```
 
 ### RegExpRedundantEscape
@@ -739,30 +751,6 @@ in `org.eclipse.buildship.core/src/main/java/org/eclipse/buildship/core/internal
     private static final String HOST_NAME = "(" + IRI_LABEL + "\\.)+" + TLD;
 
     private static final String DOMAIN_NAME_STR = "(" + HOST_NAME + "|" + IP_ADDRESS_STRING + ")";
-```
-
-### RegExpRedundantEscape
-Redundant character escape `\\-` in RegExp
-in `org.eclipse.buildship.core/src/main/java/org/eclipse/buildship/core/internal/util/string/PatternUtils.java`
-#### Snippet
-```java
-     * RFC 3492 references RFC 1034 and limits Punycode algorithm output to 63 characters.
-     */
-    private static final String PUNYCODE_TLD = "xn\\-\\-[\\w\\-]{0,58}\\w";
-
-    private static final String TLD = "(" + PUNYCODE_TLD + "|" + "[" + TLD_CHAR + "]{2,63}" +")";
-```
-
-### RegExpRedundantEscape
-Redundant character escape `\\-` in RegExp
-in `org.eclipse.buildship.core/src/main/java/org/eclipse/buildship/core/internal/util/string/PatternUtils.java`
-#### Snippet
-```java
-     * RFC 3492 references RFC 1034 and limits Punycode algorithm output to 63 characters.
-     */
-    private static final String PUNYCODE_TLD = "xn\\-\\-[\\w\\-]{0,58}\\w";
-
-    private static final String TLD = "(" + PUNYCODE_TLD + "|" + "[" + TLD_CHAR + "]{2,63}" +")";
 ```
 
 ### RegExpRedundantEscape
@@ -775,6 +763,18 @@ in `org.eclipse.buildship.core/src/main/java/org/eclipse/buildship/core/internal
     private static final String DOMAIN_NAME_STR = "(" + HOST_NAME + "|" + IP_ADDRESS_STRING + ")";
     public static final Pattern DOMAIN_NAME = Pattern.compile(DOMAIN_NAME_STR);
 
+```
+
+### RegExpRedundantEscape
+Redundant character escape `\-` in RegExp
+in `org.eclipse.buildship.core/src/main/java/org/eclipse/buildship/core/internal/util/string/PatternUtils.java`
+#### Snippet
+```java
+    private static final String PUNYCODE_TLD = "xn\\-\\-[\\w\\-]{0,58}\\w";
+
+    private static final String TLD = "(" + PUNYCODE_TLD + "|" + "[" + TLD_CHAR + "]{2,63}" +")";
+
+    private static final String HOST_NAME = "(" + IRI_LABEL + "\\.)+" + TLD;
 ```
 
 ## RuleId[ruleID=ObsoleteCollection]
@@ -937,6 +937,30 @@ in `org.eclipse.buildship.ui/src/main/java/org/eclipse/buildship/ui/internal/wiz
 ```
 
 ### UnnecessaryQualifierForThis
+Qualifier `GradleOptionsWizardPage` on 'this' is unnecessary in this context
+in `org.eclipse.buildship.ui/src/main/java/org/eclipse/buildship/ui/internal/wizard/project/GradleOptionsWizardPage.java`
+#### Snippet
+```java
+
+        this.gradleProjectSettingsComposite.getAdvancedOptionsGroup().getArgumentsEditor().addChangeListener(() ->
+                getConfiguration().getArguments().setValue(GradleOptionsWizardPage.this.gradleProjectSettingsComposite.getAdvancedOptionsGroup().getArguments()));
+
+        this.gradleProjectSettingsComposite.getAdvancedOptionsGroup().getJvmArgumentsEditor().addChangeListener(() ->
+```
+
+### UnnecessaryQualifierForThis
+Qualifier `GradleOptionsWizardPage` on 'this' is unnecessary in this context
+in `org.eclipse.buildship.ui/src/main/java/org/eclipse/buildship/ui/internal/wizard/project/GradleOptionsWizardPage.java`
+#### Snippet
+```java
+
+        this.gradleProjectSettingsComposite.getAdvancedOptionsGroup().getJvmArgumentsEditor().addChangeListener(() ->
+                getConfiguration().getJvmArguments().setValue(GradleOptionsWizardPage.this.gradleProjectSettingsComposite.getAdvancedOptionsGroup().getJvmArguments()));
+
+        this.gradleProjectSettingsComposite.getShowConsoleViewCheckbox().addSelectionListener(new SelectionListener() {
+```
+
+### UnnecessaryQualifierForThis
 Qualifier `ProjectPreviewWizardPage` on 'this' is unnecessary in this context
 in `org.eclipse.buildship.ui/src/main/java/org/eclipse/buildship/ui/internal/wizard/project/ProjectPreviewWizardPage.java`
 #### Snippet
@@ -970,30 +994,6 @@ in `org.eclipse.buildship.ui/src/main/java/org/eclipse/buildship/ui/internal/wiz
             ProjectPreviewWizardPage.this.javaHomeLabel.setText(javaHome);
         }
     }
-```
-
-### UnnecessaryQualifierForThis
-Qualifier `GradleOptionsWizardPage` on 'this' is unnecessary in this context
-in `org.eclipse.buildship.ui/src/main/java/org/eclipse/buildship/ui/internal/wizard/project/GradleOptionsWizardPage.java`
-#### Snippet
-```java
-
-        this.gradleProjectSettingsComposite.getAdvancedOptionsGroup().getArgumentsEditor().addChangeListener(() ->
-                getConfiguration().getArguments().setValue(GradleOptionsWizardPage.this.gradleProjectSettingsComposite.getAdvancedOptionsGroup().getArguments()));
-
-        this.gradleProjectSettingsComposite.getAdvancedOptionsGroup().getJvmArgumentsEditor().addChangeListener(() ->
-```
-
-### UnnecessaryQualifierForThis
-Qualifier `GradleOptionsWizardPage` on 'this' is unnecessary in this context
-in `org.eclipse.buildship.ui/src/main/java/org/eclipse/buildship/ui/internal/wizard/project/GradleOptionsWizardPage.java`
-#### Snippet
-```java
-
-        this.gradleProjectSettingsComposite.getAdvancedOptionsGroup().getJvmArgumentsEditor().addChangeListener(() ->
-                getConfiguration().getJvmArguments().setValue(GradleOptionsWizardPage.this.gradleProjectSettingsComposite.getAdvancedOptionsGroup().getJvmArguments()));
-
-        this.gradleProjectSettingsComposite.getShowConsoleViewCheckbox().addSelectionListener(new SelectionListener() {
 ```
 
 ### UnnecessaryQualifierForThis
@@ -1143,114 +1143,6 @@ in `org.eclipse.buildship.core/src/main/java/org/eclipse/buildship/core/internal
 ```
 
 ### RegExpSimplifiable
-`[ -퟿豈-﷏ﷰ-￯𐀀-🿽𠀀-𯿽𰀀-𿿽񀀀-񏿽񐀀-񟿽񠀀-񯿽񰀀-񿿽򀀀-򏿽򐀀-򟿽򠀀-򯿽򰀀-򿿽󀀀-󏿽󐀀-󟿽󡀀-󯿽&&[^ [ - ]   　]]` can be simplified to ' -퟿豈-﷏ﷰ-￯𐀀-🿽𠀀-𯿽𰀀-𿿽񀀀-񏿽񐀀-񟿽񠀀-񯿽񰀀-񿿽򀀀-򏿽򐀀-򟿽򠀀-򯿽򰀀-򿿽󀀀-󏿽󐀀-󟿽󡀀-󯿽\&\&\[\^ \[ - \]   　\]'
-in `org.eclipse.buildship.core/src/main/java/org/eclipse/buildship/core/internal/util/string/PatternUtils.java`
-#### Snippet
-```java
-    private static final String PUNYCODE_TLD = "xn\\-\\-[\\w\\-]{0,58}\\w";
-
-    private static final String TLD = "(" + PUNYCODE_TLD + "|" + "[" + TLD_CHAR + "]{2,63}" +")";
-
-    private static final String HOST_NAME = "(" + IRI_LABEL + "\\.)+" + TLD;
-```
-
-### RegExpSimplifiable
-`[ -퟿豈-﷏ﷰ-￯𐀀-🿽𠀀-𯿽𰀀-𿿽񀀀-񏿽񐀀-񟿽񠀀-񯿽񰀀-񿿽򀀀-򏿽򐀀-򟿽򠀀-򯿽򰀀-򿿽󀀀-󏿽󐀀-󟿽󡀀-󯿽&&[^ [ - ]   　]]` can be simplified to ' -퟿豈-﷏ﷰ-￯𐀀-🿽𠀀-𯿽𰀀-𿿽񀀀-񏿽񐀀-񟿽񠀀-񯿽񰀀-񿿽򀀀-򏿽򐀀-򟿽򠀀-򯿽򰀀-򿿽󀀀-󏿽󐀀-󟿽󡀀-󯿽\&\&\[\^ \[ - \]   　\]'
-in `org.eclipse.buildship.core/src/main/java/org/eclipse/buildship/core/internal/util/string/PatternUtils.java`
-#### Snippet
-```java
-     * Valid characters for IRI label defined in RFC 3987.
-     */
-    private static final String LABEL_CHAR = "a-zA-Z0-9" + UCS_CHAR;
-
-    /**
-```
-
-### RegExpSimplifiable
-`[ -퟿豈-﷏ﷰ-￯𐀀-🿽𠀀-𯿽𰀀-𿿽񀀀-񏿽񐀀-񟿽񠀀-񯿽񰀀-񿿽򀀀-򏿽򐀀-򟿽򠀀-򯿽򰀀-򿿽󀀀-󏿽󐀀-󟿽󡀀-󯿽&&[^ [ - ]   　]]` can be simplified to ' -퟿豈-﷏ﷰ-￯𐀀-🿽𠀀-𯿽𰀀-𿿽񀀀-񏿽񐀀-񟿽񠀀-񯿽񰀀-񿿽򀀀-򏿽򐀀-򟿽򠀀-򯿽򰀀-򿿽󀀀-󏿽󐀀-󟿽󡀀-󯿽\&\&\[\^ \[ - \]   　\]'
-in `org.eclipse.buildship.core/src/main/java/org/eclipse/buildship/core/internal/util/string/PatternUtils.java`
-#### Snippet
-```java
-    private static final String TLD = "(" + PUNYCODE_TLD + "|" + "[" + TLD_CHAR + "]{2,63}" +")";
-
-    private static final String HOST_NAME = "(" + IRI_LABEL + "\\.)+" + TLD;
-
-    private static final String DOMAIN_NAME_STR = "(" + HOST_NAME + "|" + IP_ADDRESS_STRING + ")";
-```
-
-### RegExpSimplifiable
-`{0,1}` can be simplified to '?'
-in `org.eclipse.buildship.core/src/main/java/org/eclipse/buildship/core/internal/util/string/PatternUtils.java`
-#### Snippet
-```java
-    private static final String TLD = "(" + PUNYCODE_TLD + "|" + "[" + TLD_CHAR + "]{2,63}" +")";
-
-    private static final String HOST_NAME = "(" + IRI_LABEL + "\\.)+" + TLD;
-
-    private static final String DOMAIN_NAME_STR = "(" + HOST_NAME + "|" + IP_ADDRESS_STRING + ")";
-```
-
-### RegExpSimplifiable
-`[ -퟿豈-﷏ﷰ-￯𐀀-🿽𠀀-𯿽𰀀-𿿽񀀀-񏿽񐀀-񟿽񠀀-񯿽񰀀-񿿽򀀀-򏿽򐀀-򟿽򠀀-򯿽򰀀-򿿽󀀀-󏿽󐀀-󟿽󡀀-󯿽&&[^ [ - ]   　]]` can be simplified to ' -퟿豈-﷏ﷰ-￯𐀀-🿽𠀀-𯿽𰀀-𿿽񀀀-񏿽񐀀-񟿽񠀀-񯿽񰀀-񿿽򀀀-򏿽򐀀-򟿽򠀀-򯿽򰀀-򿿽󀀀-󏿽󐀀-󟿽󡀀-󯿽\&\&\[\^ \[ - \]   　\]'
-in `org.eclipse.buildship.core/src/main/java/org/eclipse/buildship/core/internal/util/string/PatternUtils.java`
-#### Snippet
-```java
-    private static final String TLD = "(" + PUNYCODE_TLD + "|" + "[" + TLD_CHAR + "]{2,63}" +")";
-
-    private static final String HOST_NAME = "(" + IRI_LABEL + "\\.)+" + TLD;
-
-    private static final String DOMAIN_NAME_STR = "(" + HOST_NAME + "|" + IP_ADDRESS_STRING + ")";
-```
-
-### RegExpSimplifiable
-`[ -퟿豈-﷏ﷰ-￯𐀀-🿽𠀀-𯿽𰀀-𿿽񀀀-񏿽񐀀-񟿽񠀀-񯿽񰀀-񿿽򀀀-򏿽򐀀-򟿽򠀀-򯿽򰀀-򿿽󀀀-󏿽󐀀-󟿽󡀀-󯿽&&[^ [ - ]   　]]` can be simplified to ' -퟿豈-﷏ﷰ-￯𐀀-🿽𠀀-𯿽𰀀-𿿽񀀀-񏿽񐀀-񟿽񠀀-񯿽񰀀-񿿽򀀀-򏿽򐀀-򟿽򠀀-򯿽򰀀-򿿽󀀀-󏿽󐀀-󟿽󡀀-󯿽\&\&\[\^ \[ - \]   　\]'
-in `org.eclipse.buildship.core/src/main/java/org/eclipse/buildship/core/internal/util/string/PatternUtils.java`
-#### Snippet
-```java
-     */
-    private static final String IRI_LABEL =
-            "[" + LABEL_CHAR + "](?:[" + LABEL_CHAR + "\\-]{0,61}[" + LABEL_CHAR + "]){0,1}";
-
-    /**
-```
-
-### RegExpSimplifiable
-`[ -퟿豈-﷏ﷰ-￯𐀀-🿽𠀀-𯿽𰀀-𿿽񀀀-񏿽񐀀-񟿽񠀀-񯿽񰀀-񿿽򀀀-򏿽򐀀-򟿽򠀀-򯿽򰀀-򿿽󀀀-󏿽󐀀-󟿽󡀀-󯿽&&[^ [ - ]   　]]` can be simplified to ' -퟿豈-﷏ﷰ-￯𐀀-🿽𠀀-𯿽𰀀-𿿽񀀀-񏿽񐀀-񟿽񠀀-񯿽񰀀-񿿽򀀀-򏿽򐀀-򟿽򠀀-򯿽򰀀-򿿽󀀀-󏿽󐀀-󟿽󡀀-󯿽\&\&\[\^ \[ - \]   　\]'
-in `org.eclipse.buildship.core/src/main/java/org/eclipse/buildship/core/internal/util/string/PatternUtils.java`
-#### Snippet
-```java
-     */
-    private static final String IRI_LABEL =
-            "[" + LABEL_CHAR + "](?:[" + LABEL_CHAR + "\\-]{0,61}[" + LABEL_CHAR + "]){0,1}";
-
-    /**
-```
-
-### RegExpSimplifiable
-`[ -퟿豈-﷏ﷰ-￯𐀀-🿽𠀀-𯿽𰀀-𿿽񀀀-񏿽񐀀-񟿽񠀀-񯿽񰀀-񿿽򀀀-򏿽򐀀-򟿽򠀀-򯿽򰀀-򿿽󀀀-󏿽󐀀-󟿽󡀀-󯿽&&[^ [ - ]   　]]` can be simplified to ' -퟿豈-﷏ﷰ-￯𐀀-🿽𠀀-𯿽𰀀-𿿽񀀀-񏿽񐀀-񟿽񠀀-񯿽񰀀-񿿽򀀀-򏿽򐀀-򟿽򠀀-򯿽򰀀-򿿽󀀀-󏿽󐀀-󟿽󡀀-󯿽\&\&\[\^ \[ - \]   　\]'
-in `org.eclipse.buildship.core/src/main/java/org/eclipse/buildship/core/internal/util/string/PatternUtils.java`
-#### Snippet
-```java
-     */
-    private static final String IRI_LABEL =
-            "[" + LABEL_CHAR + "](?:[" + LABEL_CHAR + "\\-]{0,61}[" + LABEL_CHAR + "]){0,1}";
-
-    /**
-```
-
-### RegExpSimplifiable
-`{0,1}` can be simplified to '?'
-in `org.eclipse.buildship.core/src/main/java/org/eclipse/buildship/core/internal/util/string/PatternUtils.java`
-#### Snippet
-```java
-     */
-    private static final String IRI_LABEL =
-            "[" + LABEL_CHAR + "](?:[" + LABEL_CHAR + "\\-]{0,61}[" + LABEL_CHAR + "]){0,1}";
-
-    /**
-```
-
-### RegExpSimplifiable
 `[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF\uD800\uDC00-\uD83F\uDFFD\uD840\uDC00-\uD87F\uDFFD\uD880\uDC...` can be simplified to ' -퟿豈-﷏ﷰ-￯𐀀-🿽𠀀-𯿽𰀀-𿿽񀀀-񏿽񐀀-񟿽񠀀-񯿽񰀀-񿿽򀀀-򏿽򐀀-򟿽򠀀-򯿽򰀀-򿿽󀀀-󏿽󐀀-󟿽󡀀-󯿽\&\&\[\^ \[ - \]   　\]'
 in `org.eclipse.buildship.core/src/main/java/org/eclipse/buildship/core/internal/util/string/PatternUtils.java`
 #### Snippet
@@ -1285,6 +1177,54 @@ in `org.eclipse.buildship.core/src/main/java/org/eclipse/buildship/core/internal
 in `org.eclipse.buildship.core/src/main/java/org/eclipse/buildship/core/internal/util/string/PatternUtils.java`
 #### Snippet
 ```java
+    private static final String TLD = "(" + PUNYCODE_TLD + "|" + "[" + TLD_CHAR + "]{2,63}" +")";
+
+    private static final String HOST_NAME = "(" + IRI_LABEL + "\\.)+" + TLD;
+
+    private static final String DOMAIN_NAME_STR = "(" + HOST_NAME + "|" + IP_ADDRESS_STRING + ")";
+```
+
+### RegExpSimplifiable
+`{0,1}` can be simplified to '?'
+in `org.eclipse.buildship.core/src/main/java/org/eclipse/buildship/core/internal/util/string/PatternUtils.java`
+#### Snippet
+```java
+    private static final String TLD = "(" + PUNYCODE_TLD + "|" + "[" + TLD_CHAR + "]{2,63}" +")";
+
+    private static final String HOST_NAME = "(" + IRI_LABEL + "\\.)+" + TLD;
+
+    private static final String DOMAIN_NAME_STR = "(" + HOST_NAME + "|" + IP_ADDRESS_STRING + ")";
+```
+
+### RegExpSimplifiable
+`[ -퟿豈-﷏ﷰ-￯𐀀-🿽𠀀-𯿽𰀀-𿿽񀀀-񏿽񐀀-񟿽񠀀-񯿽񰀀-񿿽򀀀-򏿽򐀀-򟿽򠀀-򯿽򰀀-򿿽󀀀-󏿽󐀀-󟿽󡀀-󯿽&&[^ [ - ]   　]]` can be simplified to ' -퟿豈-﷏ﷰ-￯𐀀-🿽𠀀-𯿽𰀀-𿿽񀀀-񏿽񐀀-񟿽񠀀-񯿽񰀀-񿿽򀀀-򏿽򐀀-򟿽򠀀-򯿽򰀀-򿿽󀀀-󏿽󐀀-󟿽󡀀-󯿽\&\&\[\^ \[ - \]   　\]'
+in `org.eclipse.buildship.core/src/main/java/org/eclipse/buildship/core/internal/util/string/PatternUtils.java`
+#### Snippet
+```java
+    private static final String TLD = "(" + PUNYCODE_TLD + "|" + "[" + TLD_CHAR + "]{2,63}" +")";
+
+    private static final String HOST_NAME = "(" + IRI_LABEL + "\\.)+" + TLD;
+
+    private static final String DOMAIN_NAME_STR = "(" + HOST_NAME + "|" + IP_ADDRESS_STRING + ")";
+```
+
+### RegExpSimplifiable
+`[ -퟿豈-﷏ﷰ-￯𐀀-🿽𠀀-𯿽𰀀-𿿽񀀀-񏿽񐀀-񟿽񠀀-񯿽񰀀-񿿽򀀀-򏿽򐀀-򟿽򠀀-򯿽򰀀-򿿽󀀀-󏿽󐀀-󟿽󡀀-󯿽&&[^ [ - ]   　]]` can be simplified to ' -퟿豈-﷏ﷰ-￯𐀀-🿽𠀀-𯿽𰀀-𿿽񀀀-񏿽񐀀-񟿽񠀀-񯿽񰀀-񿿽򀀀-򏿽򐀀-򟿽򠀀-򯿽򰀀-򿿽󀀀-󏿽󐀀-󟿽󡀀-󯿽\&\&\[\^ \[ - \]   　\]'
+in `org.eclipse.buildship.core/src/main/java/org/eclipse/buildship/core/internal/util/string/PatternUtils.java`
+#### Snippet
+```java
+     * Valid characters for IRI label defined in RFC 3987.
+     */
+    private static final String LABEL_CHAR = "a-zA-Z0-9" + UCS_CHAR;
+
+    /**
+```
+
+### RegExpSimplifiable
+`[ -퟿豈-﷏ﷰ-￯𐀀-🿽𠀀-𯿽𰀀-𿿽񀀀-񏿽񐀀-񟿽񠀀-񯿽񰀀-񿿽򀀀-򏿽򐀀-򟿽򠀀-򯿽򰀀-򿿽󀀀-󏿽󐀀-󟿽󡀀-󯿽&&[^ [ - ]   　]]` can be simplified to ' -퟿豈-﷏ﷰ-￯𐀀-🿽𠀀-𯿽𰀀-𿿽񀀀-񏿽񐀀-񟿽񠀀-񯿽񰀀-񿿽򀀀-򏿽򐀀-򟿽򠀀-򯿽򰀀-򿿽󀀀-󏿽󐀀-󟿽󡀀-󯿽\&\&\[\^ \[ - \]   　\]'
+in `org.eclipse.buildship.core/src/main/java/org/eclipse/buildship/core/internal/util/string/PatternUtils.java`
+#### Snippet
+```java
     private static final String HOST_NAME = "(" + IRI_LABEL + "\\.)+" + TLD;
 
     private static final String DOMAIN_NAME_STR = "(" + HOST_NAME + "|" + IP_ADDRESS_STRING + ")";
@@ -1302,6 +1242,66 @@ in `org.eclipse.buildship.core/src/main/java/org/eclipse/buildship/core/internal
     private static final String DOMAIN_NAME_STR = "(" + HOST_NAME + "|" + IP_ADDRESS_STRING + ")";
     public static final Pattern DOMAIN_NAME = Pattern.compile(DOMAIN_NAME_STR);
 
+```
+
+### RegExpSimplifiable
+`[ -퟿豈-﷏ﷰ-￯𐀀-🿽𠀀-𯿽𰀀-𿿽񀀀-񏿽񐀀-񟿽񠀀-񯿽񰀀-񿿽򀀀-򏿽򐀀-򟿽򠀀-򯿽򰀀-򿿽󀀀-󏿽󐀀-󟿽󡀀-󯿽&&[^ [ - ]   　]]` can be simplified to ' -퟿豈-﷏ﷰ-￯𐀀-🿽𠀀-𯿽𰀀-𿿽񀀀-񏿽񐀀-񟿽񠀀-񯿽񰀀-񿿽򀀀-򏿽򐀀-򟿽򠀀-򯿽򰀀-򿿽󀀀-󏿽󐀀-󟿽󡀀-󯿽\&\&\[\^ \[ - \]   　\]'
+in `org.eclipse.buildship.core/src/main/java/org/eclipse/buildship/core/internal/util/string/PatternUtils.java`
+#### Snippet
+```java
+    private static final String PUNYCODE_TLD = "xn\\-\\-[\\w\\-]{0,58}\\w";
+
+    private static final String TLD = "(" + PUNYCODE_TLD + "|" + "[" + TLD_CHAR + "]{2,63}" +")";
+
+    private static final String HOST_NAME = "(" + IRI_LABEL + "\\.)+" + TLD;
+```
+
+### RegExpSimplifiable
+`[ -퟿豈-﷏ﷰ-￯𐀀-🿽𠀀-𯿽𰀀-𿿽񀀀-񏿽񐀀-񟿽񠀀-񯿽񰀀-񿿽򀀀-򏿽򐀀-򟿽򠀀-򯿽򰀀-򿿽󀀀-󏿽󐀀-󟿽󡀀-󯿽&&[^ [ - ]   　]]` can be simplified to ' -퟿豈-﷏ﷰ-￯𐀀-🿽𠀀-𯿽𰀀-𿿽񀀀-񏿽񐀀-񟿽񠀀-񯿽񰀀-񿿽򀀀-򏿽򐀀-򟿽򠀀-򯿽򰀀-򿿽󀀀-󏿽󐀀-󟿽󡀀-󯿽\&\&\[\^ \[ - \]   　\]'
+in `org.eclipse.buildship.core/src/main/java/org/eclipse/buildship/core/internal/util/string/PatternUtils.java`
+#### Snippet
+```java
+     */
+    private static final String IRI_LABEL =
+            "[" + LABEL_CHAR + "](?:[" + LABEL_CHAR + "\\-]{0,61}[" + LABEL_CHAR + "]){0,1}";
+
+    /**
+```
+
+### RegExpSimplifiable
+`[ -퟿豈-﷏ﷰ-￯𐀀-🿽𠀀-𯿽𰀀-𿿽񀀀-񏿽񐀀-񟿽񠀀-񯿽񰀀-񿿽򀀀-򏿽򐀀-򟿽򠀀-򯿽򰀀-򿿽󀀀-󏿽󐀀-󟿽󡀀-󯿽&&[^ [ - ]   　]]` can be simplified to ' -퟿豈-﷏ﷰ-￯𐀀-🿽𠀀-𯿽𰀀-𿿽񀀀-񏿽񐀀-񟿽񠀀-񯿽񰀀-񿿽򀀀-򏿽򐀀-򟿽򠀀-򯿽򰀀-򿿽󀀀-󏿽󐀀-󟿽󡀀-󯿽\&\&\[\^ \[ - \]   　\]'
+in `org.eclipse.buildship.core/src/main/java/org/eclipse/buildship/core/internal/util/string/PatternUtils.java`
+#### Snippet
+```java
+     */
+    private static final String IRI_LABEL =
+            "[" + LABEL_CHAR + "](?:[" + LABEL_CHAR + "\\-]{0,61}[" + LABEL_CHAR + "]){0,1}";
+
+    /**
+```
+
+### RegExpSimplifiable
+`[ -퟿豈-﷏ﷰ-￯𐀀-🿽𠀀-𯿽𰀀-𿿽񀀀-񏿽񐀀-񟿽񠀀-񯿽񰀀-񿿽򀀀-򏿽򐀀-򟿽򠀀-򯿽򰀀-򿿽󀀀-󏿽󐀀-󟿽󡀀-󯿽&&[^ [ - ]   　]]` can be simplified to ' -퟿豈-﷏ﷰ-￯𐀀-🿽𠀀-𯿽𰀀-𿿽񀀀-񏿽񐀀-񟿽񠀀-񯿽񰀀-񿿽򀀀-򏿽򐀀-򟿽򠀀-򯿽򰀀-򿿽󀀀-󏿽󐀀-󟿽󡀀-󯿽\&\&\[\^ \[ - \]   　\]'
+in `org.eclipse.buildship.core/src/main/java/org/eclipse/buildship/core/internal/util/string/PatternUtils.java`
+#### Snippet
+```java
+     */
+    private static final String IRI_LABEL =
+            "[" + LABEL_CHAR + "](?:[" + LABEL_CHAR + "\\-]{0,61}[" + LABEL_CHAR + "]){0,1}";
+
+    /**
+```
+
+### RegExpSimplifiable
+`{0,1}` can be simplified to '?'
+in `org.eclipse.buildship.core/src/main/java/org/eclipse/buildship/core/internal/util/string/PatternUtils.java`
+#### Snippet
+```java
+     */
+    private static final String IRI_LABEL =
+            "[" + LABEL_CHAR + "](?:[" + LABEL_CHAR + "\\-]{0,61}[" + LABEL_CHAR + "]){0,1}";
+
+    /**
 ```
 
 ## RuleId[ruleID=SizeReplaceableByIsEmpty]
@@ -1330,18 +1330,6 @@ in `org.eclipse.buildship.ui/src/main/java/org/eclipse/buildship/ui/internal/uti
 ```
 
 ### SizeReplaceableByIsEmpty
-`filterTextString.length() == 0` can be replaced with 'filterTextString.isEmpty()'
-in `org.eclipse.buildship.ui/src/main/java/org/eclipse/buildship/ui/internal/util/widget/FilteredTree.java`
-#### Snippet
-```java
-            public void getName(AccessibleEvent e) {
-                String filterTextString = FilteredTree.this.filterText.getText();
-                if (filterTextString.length() == 0 || filterTextString.equals(FilteredTree.this.initialText)) {
-                    e.result = FilteredTree.this.initialText;
-                } else {
-```
-
-### SizeReplaceableByIsEmpty
 `text.length() > 0` can be replaced with '!text.isEmpty()'
 in `org.eclipse.buildship.ui/src/main/java/org/eclipse/buildship/ui/internal/util/widget/FilteredTree.java`
 #### Snippet
@@ -1351,6 +1339,18 @@ in `org.eclipse.buildship.ui/src/main/java/org/eclipse/buildship/ui/internal/uti
                     if (text.length() > 0 && !initial) {
                         /*
                          * Expand elements one at a time. After each is expanded, check to see if
+```
+
+### SizeReplaceableByIsEmpty
+`filterTextString.length() == 0` can be replaced with 'filterTextString.isEmpty()'
+in `org.eclipse.buildship.ui/src/main/java/org/eclipse/buildship/ui/internal/util/widget/FilteredTree.java`
+#### Snippet
+```java
+            public void getName(AccessibleEvent e) {
+                String filterTextString = FilteredTree.this.filterText.getText();
+                if (filterTextString.length() == 0 || filterTextString.equals(FilteredTree.this.initialText)) {
+                    e.result = FilteredTree.this.initialText;
+                } else {
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -1519,8 +1519,8 @@ in `org.eclipse.buildship.core/src/main/java/org/eclipse/buildship/core/internal
 ```java
     }
 
-    public static final SynchronizationProblem newError(String pluginId, IResource resource, String message, Exception exception) {
-        return new SynchronizationProblem(pluginId, resource, message, exception, IStatus.ERROR);
+    public static final SynchronizationProblem newWarning(String pluginId, IResource resource, String message, Exception exception) {
+        return new SynchronizationProblem(pluginId, resource, message, exception, IStatus.WARNING);
     }
 ```
 
@@ -1531,12 +1531,48 @@ in `org.eclipse.buildship.core/src/main/java/org/eclipse/buildship/core/internal
 ```java
     }
 
-    public static final SynchronizationProblem newWarning(String pluginId, IResource resource, String message, Exception exception) {
-        return new SynchronizationProblem(pluginId, resource, message, exception, IStatus.WARNING);
+    public static final SynchronizationProblem newError(String pluginId, IResource resource, String message, Exception exception) {
+        return new SynchronizationProblem(pluginId, resource, message, exception, IStatus.ERROR);
     }
 ```
 
 ## RuleId[ruleID=RegExpRedundantNestedCharacterClass]
+### RegExpRedundantNestedCharacterClass
+Redundant nested character class
+in `org.eclipse.buildship.core/src/main/java/org/eclipse/buildship/core/internal/util/string/PatternUtils.java`
+#### Snippet
+```java
+    private static final String TLD = "(" + PUNYCODE_TLD + "|" + "[" + TLD_CHAR + "]{2,63}" +")";
+
+    private static final String HOST_NAME = "(" + IRI_LABEL + "\\.)+" + TLD;
+
+    private static final String DOMAIN_NAME_STR = "(" + HOST_NAME + "|" + IP_ADDRESS_STRING + ")";
+```
+
+### RegExpRedundantNestedCharacterClass
+Redundant nested character class
+in `org.eclipse.buildship.core/src/main/java/org/eclipse/buildship/core/internal/util/string/PatternUtils.java`
+#### Snippet
+```java
+    private static final String TLD = "(" + PUNYCODE_TLD + "|" + "[" + TLD_CHAR + "]{2,63}" +")";
+
+    private static final String HOST_NAME = "(" + IRI_LABEL + "\\.)+" + TLD;
+
+    private static final String DOMAIN_NAME_STR = "(" + HOST_NAME + "|" + IP_ADDRESS_STRING + ")";
+```
+
+### RegExpRedundantNestedCharacterClass
+Redundant nested character class
+in `org.eclipse.buildship.core/src/main/java/org/eclipse/buildship/core/internal/util/string/PatternUtils.java`
+#### Snippet
+```java
+    private static final String HOST_NAME = "(" + IRI_LABEL + "\\.)+" + TLD;
+
+    private static final String DOMAIN_NAME_STR = "(" + HOST_NAME + "|" + IP_ADDRESS_STRING + ")";
+    public static final Pattern DOMAIN_NAME = Pattern.compile(DOMAIN_NAME_STR);
+
+```
+
 ### RegExpRedundantNestedCharacterClass
 Redundant nested character class
 in `org.eclipse.buildship.core/src/main/java/org/eclipse/buildship/core/internal/util/string/PatternUtils.java`
@@ -1554,30 +1590,6 @@ Redundant nested character class
 in `org.eclipse.buildship.core/src/main/java/org/eclipse/buildship/core/internal/util/string/PatternUtils.java`
 #### Snippet
 ```java
-    private static final String TLD = "(" + PUNYCODE_TLD + "|" + "[" + TLD_CHAR + "]{2,63}" +")";
-
-    private static final String HOST_NAME = "(" + IRI_LABEL + "\\.)+" + TLD;
-
-    private static final String DOMAIN_NAME_STR = "(" + HOST_NAME + "|" + IP_ADDRESS_STRING + ")";
-```
-
-### RegExpRedundantNestedCharacterClass
-Redundant nested character class
-in `org.eclipse.buildship.core/src/main/java/org/eclipse/buildship/core/internal/util/string/PatternUtils.java`
-#### Snippet
-```java
-    private static final String TLD = "(" + PUNYCODE_TLD + "|" + "[" + TLD_CHAR + "]{2,63}" +")";
-
-    private static final String HOST_NAME = "(" + IRI_LABEL + "\\.)+" + TLD;
-
-    private static final String DOMAIN_NAME_STR = "(" + HOST_NAME + "|" + IP_ADDRESS_STRING + ")";
-```
-
-### RegExpRedundantNestedCharacterClass
-Redundant nested character class
-in `org.eclipse.buildship.core/src/main/java/org/eclipse/buildship/core/internal/util/string/PatternUtils.java`
-#### Snippet
-```java
      */
     private static final String IRI_LABEL =
             "[" + LABEL_CHAR + "](?:[" + LABEL_CHAR + "\\-]{0,61}[" + LABEL_CHAR + "]){0,1}";
@@ -1607,18 +1619,6 @@ in `org.eclipse.buildship.core/src/main/java/org/eclipse/buildship/core/internal
             "[" + LABEL_CHAR + "](?:[" + LABEL_CHAR + "\\-]{0,61}[" + LABEL_CHAR + "]){0,1}";
 
     /**
-```
-
-### RegExpRedundantNestedCharacterClass
-Redundant nested character class
-in `org.eclipse.buildship.core/src/main/java/org/eclipse/buildship/core/internal/util/string/PatternUtils.java`
-#### Snippet
-```java
-    private static final String HOST_NAME = "(" + IRI_LABEL + "\\.)+" + TLD;
-
-    private static final String DOMAIN_NAME_STR = "(" + HOST_NAME + "|" + IP_ADDRESS_STRING + ")";
-    public static final Pattern DOMAIN_NAME = Pattern.compile(DOMAIN_NAME_STR);
-
 ```
 
 ## RuleId[ruleID=BooleanConstructor]
@@ -1764,11 +1764,11 @@ in `org.eclipse.buildship.core/src/main/java/org/eclipse/buildship/core/internal
 in `org.eclipse.buildship.ui/src/main/java/org/eclipse/buildship/ui/internal/wizard/project/ProjectCreationWizard.java`
 #### Snippet
 ```java
-        // needs to be removed
-        IWizardPage currentPage = getContainer().getCurrentPage();
-        if (this.projectPreviewPage.equals(currentPage)) {
-            File projectDir = ProjectCreationWizard.this.importController.getConfiguration().getProjectDir().getValue();
-            if (projectDir != null) {
+        @Override
+        public void pageChanged(PageChangedEvent event) {
+            if (this.projectCreationWizard.projectPreviewPage.equals(this.previousPage) && this.projectCreationWizard.gradleOptionsPage.equals(event.getSelectedPage())) {
+                // user moved back, so we need to delete the previously created Gradle project
+                File projectDir = this.projectCreationWizard.importController.getConfiguration().getProjectDir().getValue();
 ```
 
 ### EqualsBetweenInconvertibleTypes
@@ -1776,11 +1776,11 @@ in `org.eclipse.buildship.ui/src/main/java/org/eclipse/buildship/ui/internal/wiz
 in `org.eclipse.buildship.ui/src/main/java/org/eclipse/buildship/ui/internal/wizard/project/ProjectCreationWizard.java`
 #### Snippet
 ```java
-        @Override
-        public void pageChanged(PageChangedEvent event) {
-            if (this.projectCreationWizard.projectPreviewPage.equals(this.previousPage) && this.projectCreationWizard.gradleOptionsPage.equals(event.getSelectedPage())) {
-                // user moved back, so we need to delete the previously created Gradle project
-                File projectDir = this.projectCreationWizard.importController.getConfiguration().getProjectDir().getValue();
+        // needs to be removed
+        IWizardPage currentPage = getContainer().getCurrentPage();
+        if (this.projectPreviewPage.equals(currentPage)) {
+            File projectDir = ProjectCreationWizard.this.importController.getConfiguration().getProjectDir().getValue();
+            if (projectDir != null) {
 ```
 
 ### EqualsBetweenInconvertibleTypes
@@ -1798,18 +1798,6 @@ in `org.eclipse.buildship.core/src/main/java/org/eclipse/buildship/core/internal
 ## RuleId[ruleID=IgnoreResultOfCall]
 ### IgnoreResultOfCall
 Result of `UiBuilder.control()` is ignored
-in `org.eclipse.buildship.ui/src/main/java/org/eclipse/buildship/ui/internal/wizard/project/NewGradleProjectWizardPage.java`
-#### Snippet
-```java
-
-        // project name label
-        uiBuilderFactory.newLabel(projectNameComposite).alignLeft().text(ProjectWizardMessages.Label_ProjectName).control();
-
-        // project name text field
-```
-
-### IgnoreResultOfCall
-Result of `UiBuilder.control()` is ignored
 in `org.eclipse.buildship.ui/src/main/java/org/eclipse/buildship/ui/internal/wizard/project/GradleProjectWizardPage.java`
 #### Snippet
 ```java
@@ -1818,6 +1806,18 @@ in `org.eclipse.buildship.ui/src/main/java/org/eclipse/buildship/ui/internal/wiz
         uiBuilderFactory.newLabel(projectDirectoryComposite).alignLeft().text(ProjectWizardMessages.Label_ProjectRootDirectory).control();
 
         // project directory text field
+```
+
+### IgnoreResultOfCall
+Result of `UiBuilder.control()` is ignored
+in `org.eclipse.buildship.ui/src/main/java/org/eclipse/buildship/ui/internal/wizard/project/NewGradleProjectWizardPage.java`
+#### Snippet
+```java
+
+        // project name label
+        uiBuilderFactory.newLabel(projectNameComposite).alignLeft().text(ProjectWizardMessages.Label_ProjectName).control();
+
+        // project name text field
 ```
 
 ### IgnoreResultOfCall
@@ -1975,18 +1975,6 @@ Can be replaced with 'isEmpty()'
 in `org.eclipse.buildship.ui/src/main/java/org/eclipse/buildship/ui/internal/util/gradle/GradleDistributionViewModel.java`
 #### Snippet
 ```java
-        java.util.Optional<GradleDistributionViewModel.Type> typeOrNull = getType();
-
-        if (!typeOrNull.isPresent()) {
-            return "Unknown Gradle distribution " + this.configuration; // TODO (donat) NLS
-        }
-```
-
-### SimplifyOptionalCallChains
-Can be replaced with 'isEmpty()'
-in `org.eclipse.buildship.ui/src/main/java/org/eclipse/buildship/ui/internal/util/gradle/GradleDistributionViewModel.java`
-#### Snippet
-```java
     public Optional<String> validate() {
         java.util.Optional<GradleDistributionViewModel.Type> typeOrNull = getType();
         if (!typeOrNull.isPresent()) {
@@ -1996,14 +1984,14 @@ in `org.eclipse.buildship.ui/src/main/java/org/eclipse/buildship/ui/internal/uti
 
 ### SimplifyOptionalCallChains
 Can be replaced with 'isEmpty()'
-in `org.eclipse.buildship.ui/src/main/java/org/eclipse/buildship/ui/internal/launch/SelectionPropertyTester.java`
+in `org.eclipse.buildship.ui/src/main/java/org/eclipse/buildship/ui/internal/util/gradle/GradleDistributionViewModel.java`
 #### Snippet
 ```java
-    private boolean selectionIsLaunchableAsTest(Collection<?> elements) {
-        JavaElementSelection selection = SelectionJavaElementResolver.from(elements);
-        return !TestExecutionTarget.from(selection, "run").validate().isPresent();
+        java.util.Optional<GradleDistributionViewModel.Type> typeOrNull = getType();
 
-    }
+        if (!typeOrNull.isPresent()) {
+            return "Unknown Gradle distribution " + this.configuration; // TODO (donat) NLS
+        }
 ```
 
 ### SimplifyOptionalCallChains
@@ -2020,6 +2008,18 @@ in `org.eclipse.buildship.ui/src/main/java/org/eclipse/buildship/ui/internal/lau
 
 ### SimplifyOptionalCallChains
 Can be replaced with 'isEmpty()'
+in `org.eclipse.buildship.ui/src/main/java/org/eclipse/buildship/ui/internal/launch/SelectionPropertyTester.java`
+#### Snippet
+```java
+    private boolean selectionIsLaunchableAsTest(Collection<?> elements) {
+        JavaElementSelection selection = SelectionJavaElementResolver.from(elements);
+        return !TestExecutionTarget.from(selection, "run").validate().isPresent();
+
+    }
+```
+
+### SimplifyOptionalCallChains
+Can be replaced with 'isEmpty()'
 in `org.eclipse.buildship.ui/src/main/java/org/eclipse/buildship/ui/internal/wizard/project/ProjectPreviewWizardPage.java`
 #### Snippet
 ```java
@@ -2028,18 +2028,6 @@ in `org.eclipse.buildship.ui/src/main/java/org/eclipse/buildship/ui/internal/wiz
         if (!typeOrNull.isPresent()) {
             target.setText(defaultMessage);
         } else {
-```
-
-### SimplifyOptionalCallChains
-Can be replaced with 'isEmpty()'
-in `org.eclipse.buildship.core/src/main/java/org/eclipse/buildship/core/internal/launch/LaunchUtils.java`
-#### Snippet
-```java
-        monitor.beginTask(name, IProgressMonitor.UNKNOWN);
-        try {
-            if (!jobOrNull.isPresent()) {
-                return;
-            }
 ```
 
 ### SimplifyOptionalCallChains
@@ -2068,25 +2056,13 @@ in `org.eclipse.buildship.core/src/main/java/org/eclipse/buildship/core/internal
 
 ### SimplifyOptionalCallChains
 Can be replaced with 'isEmpty()'
-in `org.eclipse.buildship.core/src/main/java/org/eclipse/buildship/core/internal/launch/TestExecutionTarget.java`
+in `org.eclipse.buildship.core/src/main/java/org/eclipse/buildship/core/internal/launch/LaunchUtils.java`
 #### Snippet
 ```java
-        public Optional<String> validate() {
-            Optional<String> result = validateGradleProject(this.project);
-            if (!result.isPresent()) {
-                result = this.tests.isEmpty() ? Optional.of(NLS.bind(LaunchMessages.Validation_Message_NoTests_0, this.project.getName())) : Optional.empty();
-            }
-```
-
-### SimplifyOptionalCallChains
-Can be replaced with 'isEmpty()'
-in `org.eclipse.buildship.core/src/main/java/org/eclipse/buildship/core/internal/launch/TestExecutionTarget.java`
-#### Snippet
-```java
-                result = this.tests.isEmpty() ? Optional.of(NLS.bind(LaunchMessages.Validation_Message_NoTests_0, this.project.getName())) : Optional.empty();
-            }
-            if (!result.isPresent()) {
-                result = "debug".equals(this.mode) ? supportsTestDebugging(this.project) : Optional.empty(); //$NON-NLS-1$
+        monitor.beginTask(name, IProgressMonitor.UNKNOWN);
+        try {
+            if (!jobOrNull.isPresent()) {
+                return;
             }
 ```
 
@@ -2112,6 +2088,30 @@ in `org.eclipse.buildship.core/src/main/java/org/eclipse/buildship/core/internal
         if (!result.isPresent()) {
             result =  validateMethods(methods);
         }
+```
+
+### SimplifyOptionalCallChains
+Can be replaced with 'isEmpty()'
+in `org.eclipse.buildship.core/src/main/java/org/eclipse/buildship/core/internal/launch/TestExecutionTarget.java`
+#### Snippet
+```java
+        public Optional<String> validate() {
+            Optional<String> result = validateGradleProject(this.project);
+            if (!result.isPresent()) {
+                result = this.tests.isEmpty() ? Optional.of(NLS.bind(LaunchMessages.Validation_Message_NoTests_0, this.project.getName())) : Optional.empty();
+            }
+```
+
+### SimplifyOptionalCallChains
+Can be replaced with 'isEmpty()'
+in `org.eclipse.buildship.core/src/main/java/org/eclipse/buildship/core/internal/launch/TestExecutionTarget.java`
+#### Snippet
+```java
+                result = this.tests.isEmpty() ? Optional.of(NLS.bind(LaunchMessages.Validation_Message_NoTests_0, this.project.getName())) : Optional.empty();
+            }
+            if (!result.isPresent()) {
+                result = "debug".equals(this.mode) ? supportsTestDebugging(this.project) : Optional.empty(); //$NON-NLS-1$
+            }
 ```
 
 ### SimplifyOptionalCallChains
@@ -2905,6 +2905,42 @@ Field initialization to `false` is redundant
 in `org.eclipse.buildship.core/src/main/java/org/eclipse/buildship/core/BuildConfiguration.java`
 #### Snippet
 ```java
+        private File javaHome = null;
+        private boolean buildScansEnabled = false;
+        private boolean offlineMode = false;
+        private boolean autoSync = false;
+        private List<String> arguments = new ArrayList<>();
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `org.eclipse.buildship.core/src/main/java/org/eclipse/buildship/core/BuildConfiguration.java`
+#### Snippet
+```java
+        private File gradleUserHome = null;
+        private File javaHome = null;
+        private boolean buildScansEnabled = false;
+        private boolean offlineMode = false;
+        private boolean autoSync = false;
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `org.eclipse.buildship.core/src/main/java/org/eclipse/buildship/core/BuildConfiguration.java`
+#### Snippet
+```java
+        private boolean overrideWorkspaceConfiguration = false;
+        private GradleDistribution gradleDistribution;
+        private File gradleUserHome = null;
+        private File javaHome = null;
+        private boolean buildScansEnabled = false;
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `org.eclipse.buildship.core/src/main/java/org/eclipse/buildship/core/BuildConfiguration.java`
+#### Snippet
+```java
 
         private final File rootProjectDirectory;
         private boolean overrideWorkspaceConfiguration = false;
@@ -2917,59 +2953,23 @@ Field initialization to `false` is redundant
 in `org.eclipse.buildship.core/src/main/java/org/eclipse/buildship/core/BuildConfiguration.java`
 #### Snippet
 ```java
-        private File javaHome = null;
-        private boolean buildScansEnabled = false;
-        private boolean offlineMode = false;
-        private boolean autoSync = false;
-        private List<String> arguments = new ArrayList<>();
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `org.eclipse.buildship.core/src/main/java/org/eclipse/buildship/core/BuildConfiguration.java`
-#### Snippet
-```java
-        private GradleDistribution gradleDistribution;
-        private File gradleUserHome = null;
-        private File javaHome = null;
-        private boolean buildScansEnabled = false;
-        private boolean offlineMode = false;
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `org.eclipse.buildship.core/src/main/java/org/eclipse/buildship/core/BuildConfiguration.java`
-#### Snippet
-```java
-        private boolean overrideWorkspaceConfiguration = false;
-        private GradleDistribution gradleDistribution;
-        private File gradleUserHome = null;
-        private File javaHome = null;
-        private boolean buildScansEnabled = false;
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `org.eclipse.buildship.core/src/main/java/org/eclipse/buildship/core/BuildConfiguration.java`
-#### Snippet
-```java
-        private File gradleUserHome = null;
-        private File javaHome = null;
-        private boolean buildScansEnabled = false;
-        private boolean offlineMode = false;
-        private boolean autoSync = false;
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `org.eclipse.buildship.core/src/main/java/org/eclipse/buildship/core/BuildConfiguration.java`
-#### Snippet
-```java
         private boolean buildScansEnabled = false;
         private boolean offlineMode = false;
         private boolean autoSync = false;
         private List<String> arguments = new ArrayList<>();
         private List<String> jvmArguments = new ArrayList<>();
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `org.eclipse.buildship.core/src/main/java/org/eclipse/buildship/core/BuildConfiguration.java`
+#### Snippet
+```java
+        private GradleDistribution gradleDistribution;
+        private File gradleUserHome = null;
+        private File javaHome = null;
+        private boolean buildScansEnabled = false;
+        private boolean offlineMode = false;
 ```
 
 ### RedundantFieldInitialization
@@ -3021,25 +3021,13 @@ in `org.eclipse.buildship.core/src/main/java/org/eclipse/buildship/core/internal
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `null` is redundant
+Field initialization to `false` is redundant
 in `org.eclipse.buildship.oomph/src/main/java-generated/org/eclipse/buildship/oomph/impl/GradleImportPackageImpl.java`
 #### Snippet
 ```java
      * @generated
      */
-    private EEnum distributionTypeEEnum = null;
-
-    /**
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `org.eclipse.buildship.oomph/src/main/java-generated/org/eclipse/buildship/oomph/impl/GradleImportPackageImpl.java`
-#### Snippet
-```java
-     * @generated
-     */
-    private EClass gradleImportTaskEClass = null;
+    private boolean isCreated = false;
 
     /**
 ```
@@ -3057,13 +3045,25 @@ in `org.eclipse.buildship.oomph/src/main/java-generated/org/eclipse/buildship/oo
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `false` is redundant
+Field initialization to `null` is redundant
 in `org.eclipse.buildship.oomph/src/main/java-generated/org/eclipse/buildship/oomph/impl/GradleImportPackageImpl.java`
 #### Snippet
 ```java
      * @generated
      */
-    private static boolean isInited = false;
+    private EClass gradleImportTaskEClass = null;
+
+    /**
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `org.eclipse.buildship.oomph/src/main/java-generated/org/eclipse/buildship/oomph/impl/GradleImportPackageImpl.java`
+#### Snippet
+```java
+     * @generated
+     */
+    private EEnum distributionTypeEEnum = null;
 
     /**
 ```
@@ -3075,7 +3075,7 @@ in `org.eclipse.buildship.oomph/src/main/java-generated/org/eclipse/buildship/oo
 ```java
      * @generated
      */
-    private boolean isCreated = false;
+    private static boolean isInited = false;
 
     /**
 ```
@@ -3227,18 +3227,6 @@ in `org.eclipse.buildship.core.test/src/main/groovy/org/eclipse/buildship/core/i
 
 ### GroovyUnusedAssignment
 Assignment is not used
-in `org.eclipse.buildship.core.test/src/main/groovy/org/eclipse/buildship/core/internal/launch/GradleLaunchConfigurationManagerTest.groovy`
-#### Snippet
-```java
-    def "Can't create a run configuration from null object"() {
-        when:
-        def config = manager.getOrCreateRunConfiguration(null)
-
-        then:
-```
-
-### GroovyUnusedAssignment
-Assignment is not used
 in `org.eclipse.buildship.core.test/src/main/groovy/org/eclipse/buildship/core/internal/launch/MavenGradleClasspathProviderUpdaterTest.groovy`
 #### Snippet
 ```java
@@ -3259,6 +3247,18 @@ in `org.eclipse.buildship.core.test/src/main/groovy/org/eclipse/buildship/core/i
         File buildFile = new File(projectDir, 'build.gradle')
         File settingsFile = new File(projectDir, 'settings.gradle')
         File subBuildFile = new File(projectDir, 'sub/build.gradle')
+```
+
+### GroovyUnusedAssignment
+Assignment is not used
+in `org.eclipse.buildship.core.test/src/main/groovy/org/eclipse/buildship/core/internal/launch/GradleLaunchConfigurationManagerTest.groovy`
+#### Snippet
+```java
+    def "Can't create a run configuration from null object"() {
+        when:
+        def config = manager.getOrCreateRunConfiguration(null)
+
+        then:
 ```
 
 ### GroovyUnusedAssignment
@@ -3311,6 +3311,18 @@ in `org.eclipse.buildship.core.test/src/main/groovy/org/eclipse/buildship/core/i
 
 ### GroovyUnusedAssignment
 Assignment is not used
+in `org.eclipse.buildship.core.test/src/main/groovy/org/eclipse/buildship/core/internal/workspace/WorkspaceOperationsTest.groovy`
+#### Snippet
+```java
+        setup:
+        IProject projectA = newProject('project-a')
+        IProject projectB = newProject('project-b')
+
+        when:
+```
+
+### GroovyUnusedAssignment
+Assignment is not used
 in `org.eclipse.buildship.core.test/src/main/groovy/org/eclipse/buildship/core/internal/workspace/ImportingProjectInDefaultLocation.groovy`
 #### Snippet
 ```java
@@ -3335,18 +3347,6 @@ in `org.eclipse.buildship.core.test/src/main/groovy/org/eclipse/buildship/core/i
 
 ### GroovyUnusedAssignment
 Assignment is not used
-in `org.eclipse.buildship.core.test/src/main/groovy/org/eclipse/buildship/core/internal/workspace/WorkspaceOperationsTest.groovy`
-#### Snippet
-```java
-        setup:
-        IProject projectA = newProject('project-a')
-        IProject projectB = newProject('project-b')
-
-        when:
-```
-
-### GroovyUnusedAssignment
-Assignment is not used
 in `org.eclipse.buildship.core.test/src/main/groovy/org/eclipse/buildship/core/internal/workspace/ClasspathPersistenceTest.groovy`
 #### Snippet
 ```java
@@ -3355,6 +3355,30 @@ in `org.eclipse.buildship.core.test/src/main/groovy/org/eclipse/buildship/core/i
         IJavaProject javaProject = JavaCore.create(project)
 
         expect:
+```
+
+### GroovyUnusedAssignment
+Assignment is not used
+in `org.eclipse.buildship.core.test/src/main/groovy/org/eclipse/buildship/core/internal/workspace/SingleProjectSynchronizationSpecification.groovy`
+#### Snippet
+```java
+        String sourceCompatibility = javaProject.getOption(JavaCore.COMPILER_SOURCE, true)
+        String targetCompatibility = javaProject.getOption(JavaCore.COMPILER_CODEGEN_TARGET_PLATFORM, true)
+        String currentJavaVersion = JavaVersionUtil.adaptVersionToEclipseNamingConversions(JavaVersion.current())
+
+        then:
+```
+
+### GroovyUnusedAssignment
+Assignment is not used
+in `org.eclipse.buildship.core.test/src/main/groovy/org/eclipse/buildship/core/internal/workspace/SingleProjectSynchronizationSpecification.groovy`
+#### Snippet
+```java
+        String sourceCompatibility = javaProject.getOption(JavaCore.COMPILER_SOURCE, true)
+        String targetCompatibility = javaProject.getOption(JavaCore.COMPILER_CODEGEN_TARGET_PLATFORM, true)
+        String currentJavaVersion = JavaVersionUtil.adaptVersionToEclipseNamingConversions(JavaVersion.current())
+
+        then:
 ```
 
 ### GroovyUnusedAssignment
@@ -3371,30 +3395,6 @@ in `org.eclipse.buildship.core.test/src/main/groovy/org/eclipse/buildship/core/i
 
 ### GroovyUnusedAssignment
 Assignment is not used
-in `org.eclipse.buildship.core.test/src/main/groovy/org/eclipse/buildship/core/internal/workspace/SingleProjectSynchronizationSpecification.groovy`
-#### Snippet
-```java
-        String sourceCompatibility = javaProject.getOption(JavaCore.COMPILER_SOURCE, true)
-        String targetCompatibility = javaProject.getOption(JavaCore.COMPILER_CODEGEN_TARGET_PLATFORM, true)
-        String currentJavaVersion = JavaVersionUtil.adaptVersionToEclipseNamingConversions(JavaVersion.current())
-
-        then:
-```
-
-### GroovyUnusedAssignment
-Assignment is not used
-in `org.eclipse.buildship.core.test/src/main/groovy/org/eclipse/buildship/core/internal/workspace/SingleProjectSynchronizationSpecification.groovy`
-#### Snippet
-```java
-        String sourceCompatibility = javaProject.getOption(JavaCore.COMPILER_SOURCE, true)
-        String targetCompatibility = javaProject.getOption(JavaCore.COMPILER_CODEGEN_TARGET_PLATFORM, true)
-        String currentJavaVersion = JavaVersionUtil.adaptVersionToEclipseNamingConversions(JavaVersion.current())
-
-        then:
-```
-
-### GroovyUnusedAssignment
-Assignment is not used
 in `org.eclipse.buildship.core.test/src/main/groovy/org/eclipse/buildship/core/internal/workspace/ImportingWtpProjects.groovy`
 #### Snippet
 ```java
@@ -3403,6 +3403,18 @@ in `org.eclipse.buildship.core.test/src/main/groovy/org/eclipse/buildship/core/i
         IClasspathAttribute[] attributes = dependency.getExtraAttributes()
         IClasspathAttribute deploymenAttribute = dependency.getExtraAttributes().find { it.name == NON_DEPLOYED }
         deploymenAttribute.value == ""
+```
+
+### GroovyUnusedAssignment
+Assignment is not used
+in `org.eclipse.buildship.core.test/src/main/groovy/org/eclipse/buildship/core/internal/workspace/LinkedResourcesUpdaterTest.groovy`
+#### Snippet
+```java
+
+        LinkedResourcesUpdater.update(project, [linkedResourceB], persistentModel, new NullProgressMonitor())
+        Collection<IResource> linkedResources = linkedResources(project)
+
+        then:
 ```
 
 ### GroovyUnusedAssignment
@@ -3437,18 +3449,6 @@ in `org.eclipse.buildship.core.test/src/main/groovy/org/eclipse/buildship/core/i
 
         when:
         SynchronizationResult result = tryImportAndWait(projectDir)
-
-        then:
-```
-
-### GroovyUnusedAssignment
-Assignment is not used
-in `org.eclipse.buildship.core.test/src/main/groovy/org/eclipse/buildship/core/internal/workspace/LinkedResourcesUpdaterTest.groovy`
-#### Snippet
-```java
-
-        LinkedResourcesUpdater.update(project, [linkedResourceB], persistentModel, new NullProgressMonitor())
-        Collection<IResource> linkedResources = linkedResources(project)
 
         then:
 ```
@@ -3547,10 +3547,10 @@ Allocation of zero length array
 in `org.eclipse.buildship.ui/src/main/java/org/eclipse/buildship/ui/internal/view/task/QuickSearchManager.java`
 #### Snippet
 ```java
-        private void reset() {
-            this.searchText = "";
-            this.results = new TreeItem[0];
-            this.current = -1;
+        } else if (clearIfNoResults) {
+            // if there are no matching items, clear the selection
+            this.tree.setSelection(new TreeItem[0]);
+            this.tree.notifyListeners(SWT.Selection, new Event());
         }
 ```
 
@@ -3559,10 +3559,10 @@ Allocation of zero length array
 in `org.eclipse.buildship.ui/src/main/java/org/eclipse/buildship/ui/internal/view/task/QuickSearchManager.java`
 #### Snippet
 ```java
-        } else if (clearIfNoResults) {
-            // if there are no matching items, clear the selection
-            this.tree.setSelection(new TreeItem[0]);
-            this.tree.notifyListeners(SWT.Selection, new Event());
+        private void reset() {
+            this.searchText = "";
+            this.results = new TreeItem[0];
+            this.current = -1;
         }
 ```
 
@@ -3655,11 +3655,11 @@ Allocation of zero length array
 in `org.eclipse.buildship.core/src/main/java/org/eclipse/buildship/core/internal/workspace/SourceFolderUpdater.java`
 #### Snippet
 ```java
-        private IPath output = null;
-        private IPath[] includes = new IPath[0];
-        private IPath[] excludes = new IPath[0];
-        private IClasspathAttribute[] attributes = new IClasspathAttribute[0];
-        private IJavaProject project;
+        updateExistingSourceFolders(classpath);
+        addNewSourceFolders(classpath);
+        this.project.setRawClasspath(classpath.toArray(new IClasspathEntry[0]), monitor);
+    }
+
 ```
 
 ### ZeroLengthArrayInitialization
@@ -3667,11 +3667,11 @@ Allocation of zero length array
 in `org.eclipse.buildship.core/src/main/java/org/eclipse/buildship/core/internal/workspace/SourceFolderUpdater.java`
 #### Snippet
 ```java
-        updateExistingSourceFolders(classpath);
-        addNewSourceFolders(classpath);
-        this.project.setRawClasspath(classpath.toArray(new IClasspathEntry[0]), monitor);
-    }
-
+        private IPath output = null;
+        private IPath[] includes = new IPath[0];
+        private IPath[] excludes = new IPath[0];
+        private IClasspathAttribute[] attributes = new IClasspathAttribute[0];
+        private IJavaProject project;
 ```
 
 ### ZeroLengthArrayInitialization
@@ -3715,11 +3715,11 @@ Allocation of zero length array
 in `org.eclipse.buildship.core/src/main/java/org/eclipse/buildship/core/internal/workspace/GradleClasspathContainerRuntimeClasspathEntryResolver.java`
 #### Snippet
 ```java
-            boolean excludeTestCode, boolean moduleSupport) throws CoreException {
-        if (entry.getType() != IRuntimeClasspathEntry.CONTAINER || !entry.getPath().equals(GradleClasspathContainer.CONTAINER_PATH)) {
+    public IRuntimeClasspathEntry[] resolveRuntimeClasspathEntry(IRuntimeClasspathEntry entry, ILaunchConfiguration configuration) throws CoreException {
+        if (entry == null || entry.getJavaProject() == null) {
             return new IRuntimeClasspathEntry[0];
         }
-        PersistentModel model = CorePlugin.modelPersistence().loadModel(project.getProject());
+        LaunchConfigurationScope configurationScopes = LaunchConfigurationScope.from(configuration);
 ```
 
 ### ZeroLengthArrayInitialization
@@ -3727,11 +3727,11 @@ Allocation of zero length array
 in `org.eclipse.buildship.core/src/main/java/org/eclipse/buildship/core/internal/workspace/GradleClasspathContainerRuntimeClasspathEntryResolver.java`
 #### Snippet
 ```java
-    public IRuntimeClasspathEntry[] resolveRuntimeClasspathEntry(IRuntimeClasspathEntry entry, ILaunchConfiguration configuration) throws CoreException {
-        if (entry == null || entry.getJavaProject() == null) {
+            boolean excludeTestCode, boolean moduleSupport) throws CoreException {
+        if (entry.getType() != IRuntimeClasspathEntry.CONTAINER || !entry.getPath().equals(GradleClasspathContainer.CONTAINER_PATH)) {
             return new IRuntimeClasspathEntry[0];
         }
-        LaunchConfigurationScope configurationScopes = LaunchConfigurationScope.from(configuration);
+        PersistentModel model = CorePlugin.modelPersistence().loadModel(project.getProject());
 ```
 
 ## RuleId[ruleID=InfiniteRecursion]
@@ -3786,18 +3786,6 @@ in `org.eclipse.buildship.core/src/main/java/org/eclipse/buildship/core/internal
 
 ## RuleId[ruleID=UnusedAssignment]
 ### UnusedAssignment
-Variable `message` initializer `String.format("Cannot open file %s in editor.", file.getFullPath())` is redundant
-in `org.eclipse.buildship.ui/src/main/java/org/eclipse/buildship/ui/internal/util/editor/EditorUtils.java`
-#### Snippet
-```java
-           return  IDE.openEditor(activePage, file, editorId, activate);
-        } catch (PartInitException e) {
-            String message = String.format("Cannot open file %s in editor.", file.getFullPath());
-            UiPlugin.logger().error(message, e); //$NON-NLS-1$
-            throw new GradlePluginsRuntimeException(message, e);
-```
-
-### UnusedAssignment
 Variable `message` initializer `String.format("Cannot open file %s in editor.", file.getAbsolutePath())` is redundant
 in `org.eclipse.buildship.ui/src/main/java/org/eclipse/buildship/ui/internal/util/editor/EditorUtils.java`
 #### Snippet
@@ -3810,15 +3798,15 @@ in `org.eclipse.buildship.ui/src/main/java/org/eclipse/buildship/ui/internal/uti
 ```
 
 ### UnusedAssignment
-Variable `runConfig` initializer `null` is redundant
-in `org.eclipse.buildship.core/src/main/java/org/eclipse/buildship/core/internal/launch/RunGradleJvmTestLaunchRequestJob.java`
+Variable `message` initializer `String.format("Cannot open file %s in editor.", file.getFullPath())` is redundant
+in `org.eclipse.buildship.ui/src/main/java/org/eclipse/buildship/ui/internal/util/editor/EditorUtils.java`
 #### Snippet
 ```java
-    public static Optional<BaseLaunchRequestJob<TestLauncher>> createJob(ILaunchConfiguration launch, String mode) {
-        // launch invalid configuration
-        TestRunConfiguration runConfig = null;
-        try {
-            runConfig = CorePlugin.configurationManager().loadTestRunConfiguration(launch);
+           return  IDE.openEditor(activePage, file, editorId, activate);
+        } catch (PartInitException e) {
+            String message = String.format("Cannot open file %s in editor.", file.getFullPath());
+            UiPlugin.logger().error(message, e); //$NON-NLS-1$
+            throw new GradlePluginsRuntimeException(message, e);
 ```
 
 ### UnusedAssignment
@@ -3831,6 +3819,18 @@ in `org.eclipse.buildship.core/src/main/java/org/eclipse/buildship/core/internal
         IClasspathEntry fragmentRootEntry = null;
         try {
             fragmentRootEntry = getPackageFragmentRoot(type).getRawClasspathEntry();
+```
+
+### UnusedAssignment
+Variable `runConfig` initializer `null` is redundant
+in `org.eclipse.buildship.core/src/main/java/org/eclipse/buildship/core/internal/launch/RunGradleJvmTestLaunchRequestJob.java`
+#### Snippet
+```java
+    public static Optional<BaseLaunchRequestJob<TestLauncher>> createJob(ILaunchConfiguration launch, String mode) {
+        // launch invalid configuration
+        TestRunConfiguration runConfig = null;
+        try {
+            runConfig = CorePlugin.configurationManager().loadTestRunConfiguration(launch);
 ```
 
 ### UnusedAssignment
@@ -4016,30 +4016,6 @@ in `org.eclipse.buildship.ui/src/main/java/org/eclipse/buildship/ui/internal/uti
 ```
 
 ### ConstantValue
-Condition `items.length > 0` is always `true`
-in `org.eclipse.buildship.ui/src/main/java/org/eclipse/buildship/ui/internal/util/widget/FilteredTree.java`
-#### Snippet
-```java
-                            }
-                            TreeItem[] children = item.getItems();
-                            if (items.length > 0) {
-                                canceled = recursiveExpand(children, monitor, cancelTime, numItemsLeft);
-                            }
-```
-
-### ConstantValue
-Condition `text != null` is always `true`
-in `org.eclipse.buildship.ui/src/main/java/org/eclipse/buildship/ui/internal/util/widget/FilteredTree.java`
-#### Snippet
-```java
-                if (initial) {
-                    FilteredTree.this.patternFilter.setPattern(null);
-                } else if (text != null) {
-                    FilteredTree.this.patternFilter.setPattern(text);
-                }
-```
-
-### ConstantValue
 Condition `initialText != null && initialText.equals(filterText)` is always `false`
 in `org.eclipse.buildship.ui/src/main/java/org/eclipse/buildship/ui/internal/util/widget/FilteredTree.java`
 #### Snippet
@@ -4084,6 +4060,30 @@ in `org.eclipse.buildship.ui/src/main/java/org/eclipse/buildship/ui/internal/uti
                     filter.setPattern(null);
                 } else if (filterText != null) {
                     filter.setPattern(filterText);
+                }
+```
+
+### ConstantValue
+Condition `items.length > 0` is always `true`
+in `org.eclipse.buildship.ui/src/main/java/org/eclipse/buildship/ui/internal/util/widget/FilteredTree.java`
+#### Snippet
+```java
+                            }
+                            TreeItem[] children = item.getItems();
+                            if (items.length > 0) {
+                                canceled = recursiveExpand(children, monitor, cancelTime, numItemsLeft);
+                            }
+```
+
+### ConstantValue
+Condition `text != null` is always `true`
+in `org.eclipse.buildship.ui/src/main/java/org/eclipse/buildship/ui/internal/util/widget/FilteredTree.java`
+#### Snippet
+```java
+                if (initial) {
+                    FilteredTree.this.patternFilter.setPattern(null);
+                } else if (text != null) {
+                    FilteredTree.this.patternFilter.setPattern(text);
                 }
 ```
 
@@ -4148,30 +4148,6 @@ in `org.eclipse.buildship.ui/src/main/java/org/eclipse/buildship/ui/internal/vie
 ```
 
 ### ConstantValue
-Value `result` is always 'null'
-in `org.eclipse.buildship.ui/src/main/java/org/eclipse/buildship/ui/internal/view/execution/ExecutionPageNameLabelProvider.java`
-#### Snippet
-```java
-            if (result instanceof FailureResult) {
-                return PluginImages.OPERATION_FAILURE.withState(PluginImage.ImageState.ENABLED).getImage();
-            } else if (result instanceof SkippedResult) {
-                return PluginImages.OPERATION_SKIPPED.withState(PluginImage.ImageState.ENABLED).getImage();
-            } else if (result instanceof SuccessResult) {
-```
-
-### ConstantValue
-Value `result` is always 'null'
-in `org.eclipse.buildship.ui/src/main/java/org/eclipse/buildship/ui/internal/view/execution/ExecutionPageNameLabelProvider.java`
-#### Snippet
-```java
-            } else if (result instanceof SkippedResult) {
-                return PluginImages.OPERATION_SKIPPED.withState(PluginImage.ImageState.ENABLED).getImage();
-            } else if (result instanceof SuccessResult) {
-                return PluginImages.OPERATION_SUCCESS.withState(PluginImage.ImageState.ENABLED).getImage();
-            } else {
-```
-
-### ConstantValue
 Value `descriptor` is always 'null'
 in `org.eclipse.buildship.ui/src/main/java/org/eclipse/buildship/ui/internal/view/execution/ExecutionPageNameLabelProvider.java`
 #### Snippet
@@ -4208,6 +4184,30 @@ in `org.eclipse.buildship.ui/src/main/java/org/eclipse/buildship/ui/internal/vie
 ```
 
 ### ConstantValue
+Value `result` is always 'null'
+in `org.eclipse.buildship.ui/src/main/java/org/eclipse/buildship/ui/internal/view/execution/ExecutionPageNameLabelProvider.java`
+#### Snippet
+```java
+            if (result instanceof FailureResult) {
+                return PluginImages.OPERATION_FAILURE.withState(PluginImage.ImageState.ENABLED).getImage();
+            } else if (result instanceof SkippedResult) {
+                return PluginImages.OPERATION_SKIPPED.withState(PluginImage.ImageState.ENABLED).getImage();
+            } else if (result instanceof SuccessResult) {
+```
+
+### ConstantValue
+Value `result` is always 'null'
+in `org.eclipse.buildship.ui/src/main/java/org/eclipse/buildship/ui/internal/view/execution/ExecutionPageNameLabelProvider.java`
+#### Snippet
+```java
+            } else if (result instanceof SkippedResult) {
+                return PluginImages.OPERATION_SKIPPED.withState(PluginImage.ImageState.ENABLED).getImage();
+            } else if (result instanceof SuccessResult) {
+                return PluginImages.OPERATION_SUCCESS.withState(PluginImage.ImageState.ENABLED).getImage();
+            } else {
+```
+
+### ConstantValue
 Condition `e != null` is always `false`
 in `org.eclipse.buildship.ui/src/main/java/org/eclipse/buildship/ui/internal/console/GradleConsole.java`
 #### Snippet
@@ -4232,18 +4232,6 @@ in `org.eclipse.buildship.core/src/main/java/org/eclipse/buildship/core/internal
 ```
 
 ### ConstantValue
-Condition `gradleVersion.snapshot == null` is always `true` when reached
-in `org.eclipse.buildship.core/src/main/java/org/eclipse/buildship/core/internal/util/gradle/GradleVersion.java`
-#### Snippet
-```java
-            return 1;
-        }
-        if (this.snapshot != null && gradleVersion.snapshot == null) {
-            return -1;
-        }
-```
-
-### ConstantValue
 Value `parent` is always 'null'
 in `org.eclipse.buildship.core/src/main/java/org/eclipse/buildship/core/internal/util/gradle/CompatGradleProject.java`
 #### Snippet
@@ -4253,6 +4241,18 @@ in `org.eclipse.buildship.core/src/main/java/org/eclipse/buildship/core/internal
         return parent == null ? parent : new CompatGradleProject(parent);
     }
 
+```
+
+### ConstantValue
+Condition `gradleVersion.snapshot == null` is always `true` when reached
+in `org.eclipse.buildship.core/src/main/java/org/eclipse/buildship/core/internal/util/gradle/GradleVersion.java`
+#### Snippet
+```java
+            return 1;
+        }
+        if (this.snapshot != null && gradleVersion.snapshot == null) {
+            return -1;
+        }
 ```
 
 ### ConstantValue
@@ -4532,18 +4532,6 @@ in `org.eclipse.buildship.core/src/main/java/org/eclipse/buildship/core/internal
 ```
 
 ### ConstantValue
-Result of `configurator.getId()` is always 'null'
-in `org.eclipse.buildship.core/src/main/java/org/eclipse/buildship/core/internal/extension/InternalProjectConfigurator.java`
-#### Snippet
-```java
-            ProjectConfiguratorContribution configurator = it.next();
-            if (configurator.getId() == null) {
-                LOGGER.trace(CoreTraceScopes.PROJECT_CONFIGURATORS, configurator.getId() + " was removed because it had no ID defined");
-                it.remove();
-            } else {
-```
-
-### ConstantValue
 Condition `compilerOptionChanged` at the left side of assignment expression is always `false`. Can be simplified
 in `org.eclipse.buildship.core/src/main/java/org/eclipse/buildship/core/internal/workspace/JavaSourceSettingsUpdater.java`
 #### Snippet
@@ -4577,6 +4565,18 @@ in `org.eclipse.buildship.core/src/main/java/org/eclipse/buildship/core/internal
             return resource instanceof IWorkspaceRoot;
         }
     }
+```
+
+### ConstantValue
+Result of `configurator.getId()` is always 'null'
+in `org.eclipse.buildship.core/src/main/java/org/eclipse/buildship/core/internal/extension/InternalProjectConfigurator.java`
+#### Snippet
+```java
+            ProjectConfiguratorContribution configurator = it.next();
+            if (configurator.getId() == null) {
+                LOGGER.trace(CoreTraceScopes.PROJECT_CONFIGURATORS, configurator.getId() + " was removed because it had no ID defined");
+                it.remove();
+            } else {
 ```
 
 ### ConstantValue
@@ -4775,18 +4775,6 @@ final class ManagedModelMergingStrategy {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `BuildScriptLocationUpdater` has only 'static' members, and lacks a 'private' constructor
-in `org.eclipse.buildship.core/src/main/java/org/eclipse/buildship/core/internal/workspace/BuildScriptLocationUpdater.java`
-#### Snippet
-```java
- * @author Donat Csikos
- */
-final class BuildScriptLocationUpdater {
-
-    public static void update(EclipseProject eclipseProject, PersistentModelBuilder persistentModel, IProgressMonitor monitor) {
-```
-
-### UtilityClassWithoutPrivateConstructor
 Class `OutputLocationUpdater` has only 'static' members, and lacks a 'private' constructor
 in `org.eclipse.buildship.core/src/main/java/org/eclipse/buildship/core/internal/workspace/OutputLocationUpdater.java`
 #### Snippet
@@ -4796,6 +4784,18 @@ in `org.eclipse.buildship.core/src/main/java/org/eclipse/buildship/core/internal
 final class OutputLocationUpdater {
 
     public static void update(ProjectContext projectContext, IJavaProject project, EclipseProject eclipseProject, IProgressMonitor monitor) throws CoreException {
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `BuildScriptLocationUpdater` has only 'static' members, and lacks a 'private' constructor
+in `org.eclipse.buildship.core/src/main/java/org/eclipse/buildship/core/internal/workspace/BuildScriptLocationUpdater.java`
+#### Snippet
+```java
+ * @author Donat Csikos
+ */
+final class BuildScriptLocationUpdater {
+
+    public static void update(EclipseProject eclipseProject, PersistentModelBuilder persistentModel, IProgressMonitor monitor) {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -4921,18 +4921,6 @@ in `org.eclipse.buildship.ui/src/main/java/org/eclipse/buildship/ui/internal/uti
 ```
 
 ### DataFlowIssue
-Passing `null` argument to parameter annotated as @NotNull
-in `org.eclipse.buildship.ui/src/main/java/org/eclipse/buildship/ui/internal/view/execution/ExecutionPageNameLabelProvider.java`
-#### Snippet
-```java
-            return renderTestOutput((TestOutputDescriptor) descriptor);
-        } else {
-            return renderOther(descriptor);
-        }
-    }
-```
-
-### DataFlowIssue
 Method invocation `setDocumentPartitioner` will produce `NullPointerException`
 in `org.eclipse.buildship.ui/src/main/java/org/eclipse/buildship/ui/internal/editor/GradleDocumentSetupParticipant.java`
 #### Snippet
@@ -4942,6 +4930,18 @@ in `org.eclipse.buildship.ui/src/main/java/org/eclipse/buildship/ui/internal/edi
             document.setDocumentPartitioner(partitioner);
         }
         partitioner.connect(document);
+```
+
+### DataFlowIssue
+Passing `null` argument to parameter annotated as @NotNull
+in `org.eclipse.buildship.ui/src/main/java/org/eclipse/buildship/ui/internal/view/execution/ExecutionPageNameLabelProvider.java`
+#### Snippet
+```java
+            return renderTestOutput((TestOutputDescriptor) descriptor);
+        } else {
+            return renderOther(descriptor);
+        }
+    }
 ```
 
 ### DataFlowIssue
@@ -4993,18 +4993,6 @@ in `org.eclipse.buildship.core/src/main/java/org/eclipse/buildship/core/internal
 ```
 
 ### DataFlowIssue
-Method invocation `getRawClasspathEntry` may produce `NullPointerException`
-in `org.eclipse.buildship.core/src/main/java/org/eclipse/buildship/core/internal/launch/TestExecutionTarget.java`
-#### Snippet
-```java
-        IClasspathEntry fragmentRootEntry = null;
-        try {
-            fragmentRootEntry = getPackageFragmentRoot(type).getRawClasspathEntry();
-        } catch (JavaModelException e) {
-            throw new GradlePluginsRuntimeException(e);
-```
-
-### DataFlowIssue
 Condition `failure instanceof OperationCanceledException` is redundant and can be replaced with a null check
 in `org.eclipse.buildship.core/src/main/java/org/eclipse/buildship/core/internal/operation/ToolingApiStatus.java`
 #### Snippet
@@ -5014,6 +5002,18 @@ in `org.eclipse.buildship.core/src/main/java/org/eclipse/buildship/core/internal
         if (failure instanceof OperationCanceledException) {
             return new ToolingApiStatus(ToolingApiStatusType.BUILD_CANCELLED, workName, failure);
         } else if (failure instanceof BuildCancelledException) {
+```
+
+### DataFlowIssue
+Method invocation `getRawClasspathEntry` may produce `NullPointerException`
+in `org.eclipse.buildship.core/src/main/java/org/eclipse/buildship/core/internal/launch/TestExecutionTarget.java`
+#### Snippet
+```java
+        IClasspathEntry fragmentRootEntry = null;
+        try {
+            fragmentRootEntry = getPackageFragmentRoot(type).getRawClasspathEntry();
+        } catch (JavaModelException e) {
+            throw new GradlePluginsRuntimeException(e);
 ```
 
 ### DataFlowIssue
@@ -5029,14 +5029,14 @@ in `org.eclipse.buildship.core/src/main/java/org/eclipse/buildship/core/internal
 ```
 
 ### DataFlowIssue
-Switch label `GradleImportPackage.GRADLE_IMPORT_TASK` is unreachable
+Switch label `GradleImportPackage.DISTRIBUTION_TYPE` is unreachable
 in `org.eclipse.buildship.oomph/src/main/java-generated/org/eclipse/buildship/oomph/impl/GradleImportFactoryImpl.java`
 #### Snippet
 ```java
-    public EObject create(EClass eClass) {
-        switch (eClass.getClassifierID()) {
-            case GradleImportPackage.GRADLE_IMPORT_TASK:
-                return createGradleImportTask();
+    public Object createFromString(EDataType eDataType, String initialValue) {
+        switch (eDataType.getClassifierID()) {
+            case GradleImportPackage.DISTRIBUTION_TYPE:
+                return createDistributionTypeFromString(eDataType, initialValue);
             default:
 ```
 
@@ -5053,14 +5053,14 @@ in `org.eclipse.buildship.oomph/src/main/java-generated/org/eclipse/buildship/oo
 ```
 
 ### DataFlowIssue
-Switch label `GradleImportPackage.DISTRIBUTION_TYPE` is unreachable
+Switch label `GradleImportPackage.GRADLE_IMPORT_TASK` is unreachable
 in `org.eclipse.buildship.oomph/src/main/java-generated/org/eclipse/buildship/oomph/impl/GradleImportFactoryImpl.java`
 #### Snippet
 ```java
-    public Object createFromString(EDataType eDataType, String initialValue) {
-        switch (eDataType.getClassifierID()) {
-            case GradleImportPackage.DISTRIBUTION_TYPE:
-                return createDistributionTypeFromString(eDataType, initialValue);
+    public EObject create(EClass eClass) {
+        switch (eClass.getClassifierID()) {
+            case GradleImportPackage.GRADLE_IMPORT_TASK:
+                return createGradleImportTask();
             default:
 ```
 
@@ -5095,11 +5095,11 @@ in `org.eclipse.buildship.core.test/src/main/groovy/org/eclipse/buildship/core/i
 in `org.eclipse.buildship.core/src/main/java/org/eclipse/buildship/core/internal/util/classpath/ClasspathUtils.java`
 #### Snippet
 ```java
-     * @return the set of used-by scopes
+     * @return the set of scopes
      */
-    public static Optional<Set<String>> usedByScopesFor(IClasspathEntry entry) {
+    public static Optional<Set<String>> scopesFor(IClasspathEntry entry) {
         for (IClasspathAttribute attribute : entry.getExtraAttributes()) {
-            if (attribute.getName().equals("gradle_used_by_scope")) {
+            if (attribute.getName().equals("gradle_scope")) {
 ```
 
 ### OptionalContainsCollection
@@ -5107,11 +5107,11 @@ in `org.eclipse.buildship.core/src/main/java/org/eclipse/buildship/core/internal
 in `org.eclipse.buildship.core/src/main/java/org/eclipse/buildship/core/internal/util/classpath/ClasspathUtils.java`
 #### Snippet
 ```java
-     * @return the set of scopes
+     * @return the set of used-by scopes
      */
-    public static Optional<Set<String>> scopesFor(IClasspathEntry entry) {
+    public static Optional<Set<String>> usedByScopesFor(IClasspathEntry entry) {
         for (IClasspathAttribute attribute : entry.getExtraAttributes()) {
-            if (attribute.getName().equals("gradle_scope")) {
+            if (attribute.getName().equals("gradle_used_by_scope")) {
 ```
 
 ### OptionalContainsCollection
@@ -5215,11 +5215,11 @@ in `org.eclipse.buildship.core/src/main/java/org/eclipse/buildship/core/WrapperG
 ## RuleId[ruleID=CatchMayIgnoreException]
 ### CatchMayIgnoreException
 Empty `catch` block
-in `org.eclipse.buildship.ui/src/main/java/org/eclipse/buildship/ui/internal/console/BuildScanPatternMatchListener.java`
+in `org.eclipse.buildship.ui/src/main/java/org/eclipse/buildship/ui/internal/console/UrlPatternMatchListener.java`
 #### Snippet
 ```java
-                CorePlugin.listenerRegistry().dispatch(new BuildScanCreatedEvent(buildScanUrl, description.get()));
-            }
+            final String url = this.console.getDocument().get(offset, length);
+            this.console.addHyperlink(new Hyperlink(url), offset, length);
         } catch (BadLocationException e) {
         }
     }
@@ -5227,11 +5227,11 @@ in `org.eclipse.buildship.ui/src/main/java/org/eclipse/buildship/ui/internal/con
 
 ### CatchMayIgnoreException
 Empty `catch` block
-in `org.eclipse.buildship.ui/src/main/java/org/eclipse/buildship/ui/internal/console/UrlPatternMatchListener.java`
+in `org.eclipse.buildship.ui/src/main/java/org/eclipse/buildship/ui/internal/console/BuildScanPatternMatchListener.java`
 #### Snippet
 ```java
-            final String url = this.console.getDocument().get(offset, length);
-            this.console.addHyperlink(new Hyperlink(url), offset, length);
+                CorePlugin.listenerRegistry().dispatch(new BuildScanCreatedEvent(buildScanUrl, description.get()));
+            }
         } catch (BadLocationException e) {
         }
     }
@@ -5303,11 +5303,11 @@ Class member declared `protected` in 'final' class
 in `org.eclipse.buildship.ui/src/main/java/org/eclipse/buildship/ui/internal/editor/GradleEditor.java`
 #### Snippet
 ```java
-public final class GradleEditor extends TextEditor {
+
     @Override
-    protected void initializeEditor() {
-        super.initializeEditor();
-        setSourceViewerConfiguration(new GradleTextViewerConfiguration());
+    protected boolean isTabsToSpacesConversionEnabled() {
+        // Can't use our own preference store because JDT disables this functionality in its preferences.
+        return EditorsUI.getPreferenceStore().getBoolean(AbstractDecoratedTextEditorPreferenceConstants.EDITOR_SPACES_FOR_TABS);
 ```
 
 ### ProtectedMemberInFinalClass
@@ -5315,11 +5315,11 @@ Class member declared `protected` in 'final' class
 in `org.eclipse.buildship.ui/src/main/java/org/eclipse/buildship/ui/internal/editor/GradleEditor.java`
 #### Snippet
 ```java
-
+public final class GradleEditor extends TextEditor {
     @Override
-    protected boolean isTabsToSpacesConversionEnabled() {
-        // Can't use our own preference store because JDT disables this functionality in its preferences.
-        return EditorsUI.getPreferenceStore().getBoolean(AbstractDecoratedTextEditorPreferenceConstants.EDITOR_SPACES_FOR_TABS);
+    protected void initializeEditor() {
+        super.initializeEditor();
+        setSourceViewerConfiguration(new GradleTextViewerConfiguration());
 ```
 
 ### ProtectedMemberInFinalClass
@@ -5341,9 +5341,9 @@ in `org.eclipse.buildship.ui/src/main/java/org/eclipse/buildship/ui/internal/vie
 ```java
 
     @Override
-    protected void createButtonsForButtonBar(Composite parent) {
-        createButton(parent, IDialogConstants.OK_ID, IDialogConstants.CLOSE_LABEL, false);
-    }
+    protected Control createDialogArea(Composite parent) {
+        Composite container = (Composite) super.createDialogArea(parent);
+        GridData containerGridData = new GridData(SWT.FILL, SWT.FILL, true, true);
 ```
 
 ### ProtectedMemberInFinalClass
@@ -5353,9 +5353,9 @@ in `org.eclipse.buildship.ui/src/main/java/org/eclipse/buildship/ui/internal/vie
 ```java
 
     @Override
-    protected Control createDialogArea(Composite parent) {
-        Composite container = (Composite) super.createDialogArea(parent);
-        GridData containerGridData = new GridData(SWT.FILL, SWT.FILL, true, true);
+    protected void createButtonsForButtonBar(Composite parent) {
+        createButton(parent, IDialogConstants.OK_ID, IDialogConstants.CLOSE_LABEL, false);
+    }
 ```
 
 ### ProtectedMemberInFinalClass
@@ -5384,30 +5384,6 @@ in `org.eclipse.buildship.ui/src/main/java/org/eclipse/buildship/ui/internal/pre
 
 ### ProtectedMemberInFinalClass
 Class member declared `protected` in 'final' class
-in `org.eclipse.buildship.ui/src/main/java/org/eclipse/buildship/ui/internal/preferences/GradleProjectPreferencePage.java`
-#### Snippet
-```java
-
-    @Override
-    protected Control createContents(Composite parent) {
-        this.gradleProjectSettingsComposite = GradleProjectSettingsComposite.builder(parent)
-                .withAutoSyncCheckbox()
-```
-
-### ProtectedMemberInFinalClass
-Class member declared `protected` in 'final' class
-in `org.eclipse.buildship.ui/src/main/java/org/eclipse/buildship/ui/internal/preferences/GradleWorkbenchPreferencePage.java`
-#### Snippet
-```java
-
-    @Override
-    protected Control createContents(Composite parent) {
-        this.gradleProjectSettingsComposite = GradleProjectSettingsComposite.builder(parent)
-                .withAutoSyncCheckbox()
-```
-
-### ProtectedMemberInFinalClass
-Class member declared `protected` in 'final' class
 in `org.eclipse.buildship.ui/src/main/java/org/eclipse/buildship/ui/internal/preferences/GradleWorkbenchPreferencePage.java`
 #### Snippet
 ```java
@@ -5420,14 +5396,26 @@ in `org.eclipse.buildship.ui/src/main/java/org/eclipse/buildship/ui/internal/pre
 
 ### ProtectedMemberInFinalClass
 Class member declared `protected` in 'final' class
-in `org.eclipse.buildship.core/src/main/java/org/eclipse/buildship/core/internal/util/gradle/PublishedGradleVersionsWrapper.java`
+in `org.eclipse.buildship.ui/src/main/java/org/eclipse/buildship/ui/internal/preferences/GradleWorkbenchPreferencePage.java`
 #### Snippet
 ```java
 
-        @Override
-        protected void canceling() {
-            Thread.currentThread().interrupt();
-        }
+    @Override
+    protected Control createContents(Composite parent) {
+        this.gradleProjectSettingsComposite = GradleProjectSettingsComposite.builder(parent)
+                .withAutoSyncCheckbox()
+```
+
+### ProtectedMemberInFinalClass
+Class member declared `protected` in 'final' class
+in `org.eclipse.buildship.ui/src/main/java/org/eclipse/buildship/ui/internal/preferences/GradleProjectPreferencePage.java`
+#### Snippet
+```java
+
+    @Override
+    protected Control createContents(Composite parent) {
+        this.gradleProjectSettingsComposite = GradleProjectSettingsComposite.builder(parent)
+                .withAutoSyncCheckbox()
 ```
 
 ### ProtectedMemberInFinalClass
@@ -5440,6 +5428,18 @@ in `org.eclipse.buildship.core/src/main/java/org/eclipse/buildship/core/internal
         protected IStatus run(IProgressMonitor monitor) {
             try {
                 PublishedGradleVersions versions = PublishedGradleVersions.create(LookupStrategy.REMOTE_IF_NOT_CACHED);
+```
+
+### ProtectedMemberInFinalClass
+Class member declared `protected` in 'final' class
+in `org.eclipse.buildship.core/src/main/java/org/eclipse/buildship/core/internal/util/gradle/PublishedGradleVersionsWrapper.java`
+#### Snippet
+```java
+
+        @Override
+        protected void canceling() {
+            Thread.currentThread().interrupt();
+        }
 ```
 
 ### ProtectedMemberInFinalClass
@@ -5459,11 +5459,11 @@ Class member declared `protected` in 'final' class
 in `org.eclipse.buildship.core/src/main/java/org/eclipse/buildship/core/internal/configuration/DefaultGradleProjectBuilder.java`
 #### Snippet
 ```java
-    // In Eclipse 3.6, this method has no generics in the argument list (Map<String,String>)
+
     @Override
-    protected IProject[] build(int kind, @SuppressWarnings("rawtypes") Map args, IProgressMonitor monitor) throws CoreException {
-        IProject project = getProject();
-        if (kind == AUTO_BUILD) {
+    protected void clean(IProgressMonitor monitor) throws CoreException {
+        // delete markers
+        GradleProjectMarker.INSTANCE.removeMarkerFromResourceRecursively(getProject());
 ```
 
 ### ProtectedMemberInFinalClass
@@ -5471,11 +5471,11 @@ Class member declared `protected` in 'final' class
 in `org.eclipse.buildship.core/src/main/java/org/eclipse/buildship/core/internal/configuration/DefaultGradleProjectBuilder.java`
 #### Snippet
 ```java
-
+    // In Eclipse 3.6, this method has no generics in the argument list (Map<String,String>)
     @Override
-    protected void clean(IProgressMonitor monitor) throws CoreException {
-        // delete markers
-        GradleProjectMarker.INSTANCE.removeMarkerFromResourceRecursively(getProject());
+    protected IProject[] build(int kind, @SuppressWarnings("rawtypes") Map args, IProgressMonitor monitor) throws CoreException {
+        IProject project = getProject();
+        if (kind == AUTO_BUILD) {
 ```
 
 ### ProtectedMemberInFinalClass
@@ -5530,18 +5530,6 @@ in `org.eclipse.buildship.ui/src/main/java/org/eclipse/buildship/ui/internal/vie
 
 ### InnerClassMayBeStatic
 Inner class `DialogUpdater` may be 'static'
-in `org.eclipse.buildship.ui/src/main/java/org/eclipse/buildship/ui/internal/launch/TestsTab.java`
-#### Snippet
-```java
-     * Listener implementation to update the dialog buttons and messages.
-     */
-    private class DialogUpdater extends SelectionAdapter implements ModifyListener, StringListChangeListener {
-        @Override
-        public void widgetSelected(SelectionEvent e) {
-```
-
-### InnerClassMayBeStatic
-Inner class `DialogUpdater` may be 'static'
 in `org.eclipse.buildship.ui/src/main/java/org/eclipse/buildship/ui/internal/launch/ProjectSettingsTab.java`
 #### Snippet
 ```java
@@ -5550,6 +5538,18 @@ in `org.eclipse.buildship.ui/src/main/java/org/eclipse/buildship/ui/internal/lau
     private class DialogUpdater extends SelectionAdapter implements ModifyListener, DistributionChangedListener, StringListChangeListener {
 
         @Override
+```
+
+### InnerClassMayBeStatic
+Inner class `DialogUpdater` may be 'static'
+in `org.eclipse.buildship.ui/src/main/java/org/eclipse/buildship/ui/internal/launch/TestsTab.java`
+#### Snippet
+```java
+     * Listener implementation to update the dialog buttons and messages.
+     */
+    private class DialogUpdater extends SelectionAdapter implements ModifyListener, StringListChangeListener {
+        @Override
+        public void widgetSelected(SelectionEvent e) {
 ```
 
 ### InnerClassMayBeStatic
@@ -6257,18 +6257,6 @@ in `org.eclipse.buildship.ui/src/main/java/org/eclipse/buildship/ui/internal/wiz
 #### Snippet
 ```java
 
-    public void setBuildScansEnabled(boolean buildScansEnabled) {
-        this.buildScansEnabled.setValue(Boolean.valueOf(buildScansEnabled));
-    }
-
-```
-
-### UnnecessaryBoxing
-Unnecessary boxing
-in `org.eclipse.buildship.ui/src/main/java/org/eclipse/buildship/ui/internal/wizard/project/ProjectImportConfiguration.java`
-#### Snippet
-```java
-
     public void setAutoSync(boolean autoSync) {
         this.autoSync.setValue(Boolean.valueOf(autoSync));
     }
@@ -6283,6 +6271,18 @@ in `org.eclipse.buildship.ui/src/main/java/org/eclipse/buildship/ui/internal/wiz
 
     public void setShowConsoleView(boolean showConsoleView) {
         this.showConsoleView.setValue(Boolean.valueOf(showConsoleView));
+    }
+
+```
+
+### UnnecessaryBoxing
+Unnecessary boxing
+in `org.eclipse.buildship.ui/src/main/java/org/eclipse/buildship/ui/internal/wizard/project/ProjectImportConfiguration.java`
+#### Snippet
+```java
+
+    public void setBuildScansEnabled(boolean buildScansEnabled) {
+        this.buildScansEnabled.setValue(Boolean.valueOf(buildScansEnabled));
     }
 
 ```
@@ -6342,11 +6342,11 @@ StandardCharsets.UTF_8 can be used instead
 in `org.eclipse.buildship.core/src/main/java/org/eclipse/buildship/core/internal/configuration/PreferenceStore.java`
 #### Snippet
 ```java
-                output.close();
-            }
-            String string = output.toString("UTF-8");
-            String separator = System.getProperty("line.separator");
-            return string.substring(string.indexOf(separator) + separator.length());
+                output = new FileOutputStream(this.propertiesFile);
+
+                output.write(removeTimestampFromTable(this.properties).getBytes("UTF-8")); //$NON-NLS-1$
+                output.flush();
+            } catch (IOException e) {
 ```
 
 ### CharsetObjectCanBeUsed
@@ -6354,11 +6354,11 @@ StandardCharsets.UTF_8 can be used instead
 in `org.eclipse.buildship.core/src/main/java/org/eclipse/buildship/core/internal/configuration/PreferenceStore.java`
 #### Snippet
 ```java
-                output = new FileOutputStream(this.propertiesFile);
-
-                output.write(removeTimestampFromTable(this.properties).getBytes("UTF-8")); //$NON-NLS-1$
-                output.flush();
-            } catch (IOException e) {
+                output.close();
+            }
+            String string = output.toString("UTF-8");
+            String separator = System.getProperty("line.separator");
+            return string.substring(string.indexOf(separator) + separator.length());
 ```
 
 ## RuleId[ruleID=SystemOutErr]
@@ -6368,7 +6368,7 @@ in `org.eclipse.buildship.core/src/main/java/org/eclipse/buildship/core/internal
 #### Snippet
 ```java
         @Override
-        public OutputStream getConfiguration() {
+        public OutputStream getError() {
             return System.err;
         }
 
@@ -6392,7 +6392,7 @@ in `org.eclipse.buildship.core/src/main/java/org/eclipse/buildship/core/internal
 #### Snippet
 ```java
         @Override
-        public OutputStream getError() {
+        public OutputStream getConfiguration() {
             return System.err;
         }
 
@@ -6701,18 +6701,6 @@ in `org.eclipse.buildship.core/src/main/java/org/eclipse/buildship/core/internal
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.buildship.oomph` is unnecessary and can be removed
-in `org.eclipse.buildship.oomph/src/main/java-generated/org/eclipse/buildship/oomph/GradleImportFactory.java`
-#### Snippet
-```java
- * non-abstract class of the model. <!-- end-user-doc -->
- * 
- * @see org.eclipse.buildship.oomph.GradleImportPackage
- * @generated
- */
-```
-
-### UnnecessaryFullyQualifiedName
 Qualifier `org.eclipse.buildship.oomph.impl` is unnecessary, and can be replaced with an import
 in `org.eclipse.buildship.oomph/src/main/java-generated/org/eclipse/buildship/oomph/GradleImportFactory.java`
 #### Snippet
@@ -6726,14 +6714,14 @@ in `org.eclipse.buildship.oomph/src/main/java-generated/org/eclipse/buildship/oo
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.eclipse.buildship.oomph` is unnecessary and can be removed
-in `org.eclipse.buildship.oomph/src/main/java-generated/org/eclipse/buildship/oomph/DistributionType.java`
+in `org.eclipse.buildship.oomph/src/main/java-generated/org/eclipse/buildship/oomph/GradleImportFactory.java`
 #### Snippet
 ```java
- * Type</b></em>', and utility methods for working with them. <!-- end-user-doc -->
+ * non-abstract class of the model. <!-- end-user-doc -->
  * 
- * @see org.eclipse.buildship.oomph.GradleImportPackage#getDistributionType()
- * @model
+ * @see org.eclipse.buildship.oomph.GradleImportPackage
  * @generated
+ */
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -6741,11 +6729,11 @@ Qualifier `org.eclipse.buildship.oomph` is unnecessary and can be removed
 in `org.eclipse.buildship.oomph/src/main/java-generated/org/eclipse/buildship/oomph/GradleImportTask.java`
 #### Snippet
 ```java
-     * @return the value of the '<em>Specific Gradle Version</em>' attribute.
-     * @see #setSpecificGradleVersion(String)
-     * @see org.eclipse.buildship.oomph.GradleImportPackage#getGradleImportTask_SpecificGradleVersion()
-     * @model
-     * @generated
+    /**
+     * Sets the value of the
+     * '{@link org.eclipse.buildship.oomph.GradleImportTask#getLocalInstallationDirectory <em>Local
+     * Installation Directory</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -6753,9 +6741,9 @@ Qualifier `org.eclipse.buildship.oomph` is unnecessary and can be removed
 in `org.eclipse.buildship.oomph/src/main/java-generated/org/eclipse/buildship/oomph/GradleImportTask.java`
 #### Snippet
 ```java
-     * @return the value of the '<em>Show Executions View</em>' attribute.
-     * @see #setShowExecutionsView(boolean)
-     * @see org.eclipse.buildship.oomph.GradleImportPackage#getGradleImportTask_ShowExecutionsView()
+     * @return the value of the '<em>Override Workspace Settings</em>' attribute.
+     * @see #setOverrideWorkspaceSettings(boolean)
+     * @see org.eclipse.buildship.oomph.GradleImportPackage#getGradleImportTask_OverrideWorkspaceSettings()
      * @model default="false"
      * @generated
 ```
@@ -6767,8 +6755,8 @@ in `org.eclipse.buildship.oomph/src/main/java-generated/org/eclipse/buildship/oo
 ```java
 
     /**
-     * Sets the value of the '{@link org.eclipse.buildship.oomph.GradleImportTask#getGradleUserHome
-     * <em>Gradle User Home</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+     * Sets the value of the '{@link org.eclipse.buildship.oomph.GradleImportTask#isOfflineMode
+     * <em>Offline Mode</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
      * 
 ```
 
@@ -6777,11 +6765,131 @@ Qualifier `org.eclipse.buildship.oomph` is unnecessary and can be removed
 in `org.eclipse.buildship.oomph/src/main/java-generated/org/eclipse/buildship/oomph/GradleImportTask.java`
 #### Snippet
 ```java
-     * Returns the value of the '<em><b>Distribution Type</b></em>' attribute. The default value is
-     * <code>"GRADLE_WRAPPER"</code>. The literals are from the enumeration
-     * {@link org.eclipse.buildship.oomph.DistributionType}. <!-- begin-user-doc -->
+     * @return the value of the '<em>Remote Distribution Location</em>' attribute.
+     * @see #setRemoteDistributionLocation(String)
+     * @see org.eclipse.buildship.oomph.GradleImportPackage#getGradleImportTask_RemoteDistributionLocation()
+     * @model
+     * @generated
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.buildship.oomph` is unnecessary and can be removed
+in `org.eclipse.buildship.oomph/src/main/java-generated/org/eclipse/buildship/oomph/GradleImportTask.java`
+#### Snippet
+```java
+     * @return the value of the '<em>Offline Mode</em>' attribute.
+     * @see #setOfflineMode(boolean)
+     * @see org.eclipse.buildship.oomph.GradleImportPackage#getGradleImportTask_OfflineMode()
+     * @model default="false"
+     * @generated
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.buildship.oomph` is unnecessary and can be removed
+in `org.eclipse.buildship.oomph/src/main/java-generated/org/eclipse/buildship/oomph/GradleImportTask.java`
+#### Snippet
+```java
+
+    /**
+     * Sets the value of the '{@link org.eclipse.buildship.oomph.GradleImportTask#getJavaHome
+     * <em>Java Home</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.buildship.oomph` is unnecessary and can be removed
+in `org.eclipse.buildship.oomph/src/main/java-generated/org/eclipse/buildship/oomph/GradleImportTask.java`
+#### Snippet
+```java
+    /**
+     * Sets the value of the
+     * '{@link org.eclipse.buildship.oomph.GradleImportTask#getDistributionType <em>Distribution
+     * Type</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.buildship.oomph` is unnecessary and can be removed
+in `org.eclipse.buildship.oomph/src/main/java-generated/org/eclipse/buildship/oomph/GradleImportTask.java`
+#### Snippet
+```java
+     * 
+     * @param value the new value of the '<em>Distribution Type</em>' attribute.
+     * @see org.eclipse.buildship.oomph.DistributionType
+     * @see #getDistributionType()
+     * @generated
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.buildship.oomph` is unnecessary and can be removed
+in `org.eclipse.buildship.oomph/src/main/java-generated/org/eclipse/buildship/oomph/GradleImportTask.java`
+#### Snippet
+```java
+    /**
+     * Sets the value of the
+     * '{@link org.eclipse.buildship.oomph.GradleImportTask#getSpecificGradleVersion <em>Specific
+     * Gradle Version</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.buildship.oomph` is unnecessary and can be removed
+in `org.eclipse.buildship.oomph/src/main/java-generated/org/eclipse/buildship/oomph/GradleImportTask.java`
+#### Snippet
+```java
+     * @return the value of the '<em>Local Installation Directory</em>' attribute.
+     * @see #setLocalInstallationDirectory(String)
+     * @see org.eclipse.buildship.oomph.GradleImportPackage#getGradleImportTask_LocalInstallationDirectory()
+     * @model
+     * @generated
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.buildship.oomph` is unnecessary and can be removed
+in `org.eclipse.buildship.oomph/src/main/java-generated/org/eclipse/buildship/oomph/GradleImportTask.java`
+#### Snippet
+```java
+     * @return the value of the '<em>Automatic Project Synchronization</em>' attribute.
+     * @see #setAutomaticProjectSynchronization(boolean)
+     * @see org.eclipse.buildship.oomph.GradleImportPackage#getGradleImportTask_AutomaticProjectSynchronization()
+     * @model default="false"
+     * @generated
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.buildship.oomph` is unnecessary and can be removed
+in `org.eclipse.buildship.oomph/src/main/java-generated/org/eclipse/buildship/oomph/GradleImportTask.java`
+#### Snippet
+```java
+     * @return the value of the '<em>Gradle User Home</em>' attribute.
+     * @see #setGradleUserHome(String)
+     * @see org.eclipse.buildship.oomph.GradleImportPackage#getGradleImportTask_GradleUserHome()
+     * @model
+     * @generated
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.buildship.oomph` is unnecessary and can be removed
+in `org.eclipse.buildship.oomph/src/main/java-generated/org/eclipse/buildship/oomph/GradleImportTask.java`
+#### Snippet
+```java
+
+    /**
+     * Sets the value of the '{@link org.eclipse.buildship.oomph.GradleImportTask#isBuildScans
+     * <em>Build Scans</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.lang` is unnecessary and can be removed
+in `org.eclipse.buildship.oomph/src/main/java-generated/org/eclipse/buildship/oomph/GradleImportTask.java`
+#### Snippet
+```java
+    /**
+     * Returns the value of the '<em><b>Program Arguments</b></em>' attribute list. The list
+     * contents are of type {@link java.lang.String}. <!-- begin-user-doc -->
      * <p>
-     * If the meaning of the '<em>Distribution Type</em>' attribute isn't clear, there really should
+     * If the meaning of the '<em>Program Arguments</em>' attribute list isn't clear, there really
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -6790,21 +6898,9 @@ in `org.eclipse.buildship.oomph/src/main/java-generated/org/eclipse/buildship/oo
 #### Snippet
 ```java
      * 
-     * @return the value of the '<em>Distribution Type</em>' attribute.
-     * @see org.eclipse.buildship.oomph.DistributionType
-     * @see #setDistributionType(DistributionType)
-     * @see org.eclipse.buildship.oomph.GradleImportPackage#getGradleImportTask_DistributionType()
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.buildship.oomph` is unnecessary and can be removed
-in `org.eclipse.buildship.oomph/src/main/java-generated/org/eclipse/buildship/oomph/GradleImportTask.java`
-#### Snippet
-```java
-     * @see org.eclipse.buildship.oomph.DistributionType
-     * @see #setDistributionType(DistributionType)
-     * @see org.eclipse.buildship.oomph.GradleImportPackage#getGradleImportTask_DistributionType()
-     * @model default="GRADLE_WRAPPER"
+     * @return the value of the '<em>Program Arguments</em>' attribute list.
+     * @see org.eclipse.buildship.oomph.GradleImportPackage#getGradleImportTask_ProgramArguments()
+     * @model unique="false"
      * @generated
 ```
 
@@ -7005,11 +7101,35 @@ Qualifier `org.eclipse.buildship.oomph` is unnecessary and can be removed
 in `org.eclipse.buildship.oomph/src/main/java-generated/org/eclipse/buildship/oomph/GradleImportTask.java`
 #### Snippet
 ```java
+     * Returns the value of the '<em><b>Distribution Type</b></em>' attribute. The default value is
+     * <code>"GRADLE_WRAPPER"</code>. The literals are from the enumeration
+     * {@link org.eclipse.buildship.oomph.DistributionType}. <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Distribution Type</em>' attribute isn't clear, there really should
+```
 
-    /**
-     * Sets the value of the '{@link org.eclipse.buildship.oomph.GradleImportTask#isOfflineMode
-     * <em>Offline Mode</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.buildship.oomph` is unnecessary and can be removed
+in `org.eclipse.buildship.oomph/src/main/java-generated/org/eclipse/buildship/oomph/GradleImportTask.java`
+#### Snippet
+```java
      * 
+     * @return the value of the '<em>Distribution Type</em>' attribute.
+     * @see org.eclipse.buildship.oomph.DistributionType
+     * @see #setDistributionType(DistributionType)
+     * @see org.eclipse.buildship.oomph.GradleImportPackage#getGradleImportTask_DistributionType()
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.buildship.oomph` is unnecessary and can be removed
+in `org.eclipse.buildship.oomph/src/main/java-generated/org/eclipse/buildship/oomph/GradleImportTask.java`
+#### Snippet
+```java
+     * @see org.eclipse.buildship.oomph.DistributionType
+     * @see #setDistributionType(DistributionType)
+     * @see org.eclipse.buildship.oomph.GradleImportPackage#getGradleImportTask_DistributionType()
+     * @model default="GRADLE_WRAPPER"
+     * @generated
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -7029,118 +7149,10 @@ Qualifier `org.eclipse.buildship.oomph` is unnecessary and can be removed
 in `org.eclipse.buildship.oomph/src/main/java-generated/org/eclipse/buildship/oomph/GradleImportTask.java`
 #### Snippet
 ```java
-     * @return the value of the '<em>Build Scans</em>' attribute.
-     * @see #setBuildScans(boolean)
-     * @see org.eclipse.buildship.oomph.GradleImportPackage#getGradleImportTask_BuildScans()
-     * @model default="false"
-     * @generated
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.buildship.oomph` is unnecessary and can be removed
-in `org.eclipse.buildship.oomph/src/main/java-generated/org/eclipse/buildship/oomph/GradleImportTask.java`
-#### Snippet
-```java
-
-    /**
-     * Sets the value of the '{@link org.eclipse.buildship.oomph.GradleImportTask#isBuildScans
-     * <em>Build Scans</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.buildship.oomph` is unnecessary and can be removed
-in `org.eclipse.buildship.oomph/src/main/java-generated/org/eclipse/buildship/oomph/GradleImportTask.java`
-#### Snippet
-```java
-    /**
-     * Sets the value of the
-     * '{@link org.eclipse.buildship.oomph.GradleImportTask#getDistributionType <em>Distribution
-     * Type</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.buildship.oomph` is unnecessary and can be removed
-in `org.eclipse.buildship.oomph/src/main/java-generated/org/eclipse/buildship/oomph/GradleImportTask.java`
-#### Snippet
-```java
-     * 
-     * @param value the new value of the '<em>Distribution Type</em>' attribute.
-     * @see org.eclipse.buildship.oomph.DistributionType
-     * @see #getDistributionType()
-     * @generated
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.buildship.oomph` is unnecessary and can be removed
-in `org.eclipse.buildship.oomph/src/main/java-generated/org/eclipse/buildship/oomph/GradleImportTask.java`
-#### Snippet
-```java
-     * @return the value of the '<em>Local Installation Directory</em>' attribute.
-     * @see #setLocalInstallationDirectory(String)
-     * @see org.eclipse.buildship.oomph.GradleImportPackage#getGradleImportTask_LocalInstallationDirectory()
-     * @model
-     * @generated
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.buildship.oomph` is unnecessary and can be removed
-in `org.eclipse.buildship.oomph/src/main/java-generated/org/eclipse/buildship/oomph/GradleImportTask.java`
-#### Snippet
-```java
-
-    /**
-     * Sets the value of the '{@link org.eclipse.buildship.oomph.GradleImportTask#getJavaHome
-     * <em>Java Home</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.buildship.oomph` is unnecessary and can be removed
-in `org.eclipse.buildship.oomph/src/main/java-generated/org/eclipse/buildship/oomph/GradleImportTask.java`
-#### Snippet
-```java
-     * @return the value of the '<em>Show Console View</em>' attribute.
-     * @see #setShowConsoleView(boolean)
-     * @see org.eclipse.buildship.oomph.GradleImportPackage#getGradleImportTask_ShowConsoleView()
-     * @model default="false"
-     * @generated
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.buildship.oomph` is unnecessary and can be removed
-in `org.eclipse.buildship.oomph/src/main/java-generated/org/eclipse/buildship/oomph/GradleImportTask.java`
-#### Snippet
-```java
 
     /**
      * Sets the value of the '{@link org.eclipse.buildship.oomph.GradleImportTask#isShowConsoleView
      * <em>Show Console View</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.buildship.oomph` is unnecessary and can be removed
-in `org.eclipse.buildship.oomph/src/main/java-generated/org/eclipse/buildship/oomph/GradleImportTask.java`
-#### Snippet
-```java
-     * 
-     * @return the value of the '<em>Source Locators</em>' containment reference list.
-     * @see org.eclipse.buildship.oomph.GradleImportPackage#getGradleImportTask_SourceLocators()
-     * @model containment="true" required="true" extendedMetaData="name='sourceLocator'"
-     * @generated
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.buildship.oomph` is unnecessary and can be removed
-in `org.eclipse.buildship.oomph/src/main/java-generated/org/eclipse/buildship/oomph/GradleImportTask.java`
-#### Snippet
-```java
-    /**
-     * Sets the value of the
-     * '{@link org.eclipse.buildship.oomph.GradleImportTask#getSpecificGradleVersion <em>Specific
-     * Gradle Version</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
      * 
 ```
 
@@ -7161,9 +7173,9 @@ Qualifier `org.eclipse.buildship.oomph` is unnecessary and can be removed
 in `org.eclipse.buildship.oomph/src/main/java-generated/org/eclipse/buildship/oomph/GradleImportTask.java`
 #### Snippet
 ```java
-     * @return the value of the '<em>Automatic Project Synchronization</em>' attribute.
-     * @see #setAutomaticProjectSynchronization(boolean)
-     * @see org.eclipse.buildship.oomph.GradleImportPackage#getGradleImportTask_AutomaticProjectSynchronization()
+     * @return the value of the '<em>Show Executions View</em>' attribute.
+     * @see #setShowExecutionsView(boolean)
+     * @see org.eclipse.buildship.oomph.GradleImportPackage#getGradleImportTask_ShowExecutionsView()
      * @model default="false"
      * @generated
 ```
@@ -7199,20 +7211,8 @@ in `org.eclipse.buildship.oomph/src/main/java-generated/org/eclipse/buildship/oo
 ```java
     /**
      * Sets the value of the
-     * '{@link org.eclipse.buildship.oomph.GradleImportTask#isAutomaticProjectSynchronization
-     * <em>Automatic Project Synchronization</em>}' attribute. <!-- begin-user-doc --> <!--
-     * end-user-doc -->
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.buildship.oomph` is unnecessary and can be removed
-in `org.eclipse.buildship.oomph/src/main/java-generated/org/eclipse/buildship/oomph/GradleImportTask.java`
-#### Snippet
-```java
-    /**
-     * Sets the value of the
-     * '{@link org.eclipse.buildship.oomph.GradleImportTask#getLocalInstallationDirectory <em>Local
-     * Installation Directory</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+     * '{@link org.eclipse.buildship.oomph.GradleImportTask#isOverrideWorkspaceSettings <em>Override
+     * Workspace Settings</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
      * 
 ```
 
@@ -7221,9 +7221,9 @@ Qualifier `org.eclipse.buildship.oomph` is unnecessary and can be removed
 in `org.eclipse.buildship.oomph/src/main/java-generated/org/eclipse/buildship/oomph/GradleImportTask.java`
 #### Snippet
 ```java
-     * @return the value of the '<em>Offline Mode</em>' attribute.
-     * @see #setOfflineMode(boolean)
-     * @see org.eclipse.buildship.oomph.GradleImportPackage#getGradleImportTask_OfflineMode()
+     * @return the value of the '<em>Show Console View</em>' attribute.
+     * @see #setShowConsoleView(boolean)
+     * @see org.eclipse.buildship.oomph.GradleImportPackage#getGradleImportTask_ShowConsoleView()
      * @model default="false"
      * @generated
 ```
@@ -7235,45 +7235,9 @@ in `org.eclipse.buildship.oomph/src/main/java-generated/org/eclipse/buildship/oo
 ```java
     /**
      * Sets the value of the
-     * '{@link org.eclipse.buildship.oomph.GradleImportTask#isOverrideWorkspaceSettings <em>Override
-     * Workspace Settings</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.buildship.oomph` is unnecessary and can be removed
-in `org.eclipse.buildship.oomph/src/main/java-generated/org/eclipse/buildship/oomph/GradleImportTask.java`
-#### Snippet
-```java
-     * @return the value of the '<em>Remote Distribution Location</em>' attribute.
-     * @see #setRemoteDistributionLocation(String)
-     * @see org.eclipse.buildship.oomph.GradleImportPackage#getGradleImportTask_RemoteDistributionLocation()
-     * @model
-     * @generated
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `org.eclipse.buildship.oomph/src/main/java-generated/org/eclipse/buildship/oomph/GradleImportTask.java`
-#### Snippet
-```java
-    /**
-     * Returns the value of the '<em><b>Program Arguments</b></em>' attribute list. The list
-     * contents are of type {@link java.lang.String}. <!-- begin-user-doc -->
-     * <p>
-     * If the meaning of the '<em>Program Arguments</em>' attribute list isn't clear, there really
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.buildship.oomph` is unnecessary and can be removed
-in `org.eclipse.buildship.oomph/src/main/java-generated/org/eclipse/buildship/oomph/GradleImportTask.java`
-#### Snippet
-```java
-     * 
-     * @return the value of the '<em>Program Arguments</em>' attribute list.
-     * @see org.eclipse.buildship.oomph.GradleImportPackage#getGradleImportTask_ProgramArguments()
-     * @model unique="false"
-     * @generated
+     * '{@link org.eclipse.buildship.oomph.GradleImportTask#isAutomaticProjectSynchronization
+     * <em>Automatic Project Synchronization</em>}' attribute. <!-- begin-user-doc --> <!--
+     * end-user-doc -->
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -7293,10 +7257,10 @@ Qualifier `org.eclipse.buildship.oomph` is unnecessary and can be removed
 in `org.eclipse.buildship.oomph/src/main/java-generated/org/eclipse/buildship/oomph/GradleImportTask.java`
 #### Snippet
 ```java
-     * @return the value of the '<em>Gradle User Home</em>' attribute.
-     * @see #setGradleUserHome(String)
-     * @see org.eclipse.buildship.oomph.GradleImportPackage#getGradleImportTask_GradleUserHome()
-     * @model
+     * 
+     * @return the value of the '<em>Source Locators</em>' containment reference list.
+     * @see org.eclipse.buildship.oomph.GradleImportPackage#getGradleImportTask_SourceLocators()
+     * @model containment="true" required="true" extendedMetaData="name='sourceLocator'"
      * @generated
 ```
 
@@ -7305,83 +7269,35 @@ Qualifier `org.eclipse.buildship.oomph` is unnecessary and can be removed
 in `org.eclipse.buildship.oomph/src/main/java-generated/org/eclipse/buildship/oomph/GradleImportTask.java`
 #### Snippet
 ```java
-     * @return the value of the '<em>Override Workspace Settings</em>' attribute.
-     * @see #setOverrideWorkspaceSettings(boolean)
-     * @see org.eclipse.buildship.oomph.GradleImportPackage#getGradleImportTask_OverrideWorkspaceSettings()
+
+    /**
+     * Sets the value of the '{@link org.eclipse.buildship.oomph.GradleImportTask#getGradleUserHome
+     * <em>Gradle User Home</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.buildship.oomph` is unnecessary and can be removed
+in `org.eclipse.buildship.oomph/src/main/java-generated/org/eclipse/buildship/oomph/GradleImportTask.java`
+#### Snippet
+```java
+     * @return the value of the '<em>Build Scans</em>' attribute.
+     * @see #setBuildScans(boolean)
+     * @see org.eclipse.buildship.oomph.GradleImportPackage#getGradleImportTask_BuildScans()
      * @model default="false"
      * @generated
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `java.nio.file` is unnecessary, and can be replaced with an import
-in `org.eclipse.buildship.oomph/src/main/java/org/eclipse/buildship/oomph/impl/CustomGradleImportTaskImpl.java`
-#### Snippet
-```java
-                IPath projectFolder = project.getLocation();
-                try {
-                    if (Files.isSameFile(java.nio.file.Paths.get(projectFolder.toOSString()), java.nio.file.Paths.get(rootFolder.toOSString()))) {
-                        projectPresentInWorkspace = true;
-                        break;
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.nio.file` is unnecessary, and can be replaced with an import
-in `org.eclipse.buildship.oomph/src/main/java/org/eclipse/buildship/oomph/impl/CustomGradleImportTaskImpl.java`
-#### Snippet
-```java
-                IPath projectFolder = project.getLocation();
-                try {
-                    if (Files.isSameFile(java.nio.file.Paths.get(projectFolder.toOSString()), java.nio.file.Paths.get(rootFolder.toOSString()))) {
-                        projectPresentInWorkspace = true;
-                        break;
-```
-
-### UnnecessaryFullyQualifiedName
 Qualifier `org.eclipse.buildship.oomph` is unnecessary and can be removed
-in `org.eclipse.buildship.oomph/src/main/java-generated/org/eclipse/buildship/oomph/util/GradleImportSwitch.java`
+in `org.eclipse.buildship.oomph/src/main/java-generated/org/eclipse/buildship/oomph/GradleImportTask.java`
 #### Snippet
 ```java
- * <!-- end-user-doc -->
- * 
- * @see org.eclipse.buildship.oomph.GradleImportPackage
- * @generated
- */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.buildship.oomph` is unnecessary and can be removed
-in `org.eclipse.buildship.oomph/src/main/java-generated/org/eclipse/buildship/oomph/util/GradleImportAdapterFactory.java`
-#### Snippet
-```java
-    /**
-     * Creates a new adapter for an object of class
-     * '{@link org.eclipse.buildship.oomph.GradleImportTask <em>Task</em>}'. <!-- begin-user-doc -->
-     * This default implementation returns null so that we can easily ignore cases; it's useful to
-     * ignore a case when inheritance will catch all the cases anyway. <!-- end-user-doc -->
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.buildship.oomph` is unnecessary and can be removed
-in `org.eclipse.buildship.oomph/src/main/java-generated/org/eclipse/buildship/oomph/util/GradleImportAdapterFactory.java`
-#### Snippet
-```java
-     * 
-     * @return the new adapter.
-     * @see org.eclipse.buildship.oomph.GradleImportTask
+     * @return the value of the '<em>Specific Gradle Version</em>' attribute.
+     * @see #setSpecificGradleVersion(String)
+     * @see org.eclipse.buildship.oomph.GradleImportPackage#getGradleImportTask_SpecificGradleVersion()
+     * @model
      * @generated
-     */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.buildship.oomph` is unnecessary and can be removed
-in `org.eclipse.buildship.oomph/src/main/java-generated/org/eclipse/buildship/oomph/util/GradleImportAdapterFactory.java`
-#### Snippet
-```java
- * <code>createXXX</code> method for each class of the model. <!-- end-user-doc -->
- * 
- * @see org.eclipse.buildship.oomph.GradleImportPackage
- * @generated
- */
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -7401,10 +7317,34 @@ Qualifier `org.eclipse.buildship.oomph` is unnecessary and can be removed
 in `org.eclipse.buildship.oomph/src/main/java-generated/org/eclipse/buildship/oomph/GradleImportPackage.java`
 #### Snippet
 ```java
+
     /**
-     * Returns the meta object for the attribute list
-     * '{@link org.eclipse.buildship.oomph.GradleImportTask#getJvmArguments <em>Jvm
-     * Arguments</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
+     * The meta object id for the '{@link org.eclipse.buildship.oomph.DistributionType
+     * <em>Distribution Type</em>}' enum. <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.buildship.oomph` is unnecessary and can be removed
+in `org.eclipse.buildship.oomph/src/main/java-generated/org/eclipse/buildship/oomph/GradleImportPackage.java`
+#### Snippet
+```java
+     * <em>Distribution Type</em>}' enum. <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
+     * @see org.eclipse.buildship.oomph.DistributionType
+     * @see org.eclipse.buildship.oomph.impl.GradleImportPackageImpl#getDistributionType()
+     * @generated
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.buildship.oomph` is unnecessary and can be removed
+in `org.eclipse.buildship.oomph/src/main/java-generated/org/eclipse/buildship/oomph/GradleImportPackage.java`
+#### Snippet
+```java
+    /**
+     * Returns the meta object for the attribute
+     * '{@link org.eclipse.buildship.oomph.GradleImportTask#getSpecificGradleVersion <em>Specific
+     * Gradle Version</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
      * 
 ```
 
@@ -7414,8 +7354,8 @@ in `org.eclipse.buildship.oomph/src/main/java-generated/org/eclipse/buildship/oo
 #### Snippet
 ```java
      * 
-     * @return the meta object for the attribute list '<em>Jvm Arguments</em>'.
-     * @see org.eclipse.buildship.oomph.GradleImportTask#getJvmArguments()
+     * @return the meta object for the attribute '<em>Specific Gradle Version</em>'.
+     * @see org.eclipse.buildship.oomph.GradleImportTask#getSpecificGradleVersion()
      * @see #getGradleImportTask()
      * @generated
 ```
@@ -7427,8 +7367,8 @@ in `org.eclipse.buildship.oomph/src/main/java-generated/org/eclipse/buildship/oo
 ```java
     /**
      * Returns the meta object for the attribute
-     * '{@link org.eclipse.buildship.oomph.GradleImportTask#isShowConsoleView <em>Show Console
-     * View</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
+     * '{@link org.eclipse.buildship.oomph.GradleImportTask#getJavaHome <em>Java Home</em>}'. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
      * 
 ```
 
@@ -7438,8 +7378,8 @@ in `org.eclipse.buildship.oomph/src/main/java-generated/org/eclipse/buildship/oo
 #### Snippet
 ```java
      * 
-     * @return the meta object for the attribute '<em>Show Console View</em>'.
-     * @see org.eclipse.buildship.oomph.GradleImportTask#isShowConsoleView()
+     * @return the meta object for the attribute '<em>Java Home</em>'.
+     * @see org.eclipse.buildship.oomph.GradleImportTask#getJavaHome()
      * @see #getGradleImportTask()
      * @generated
 ```
@@ -7451,8 +7391,8 @@ in `org.eclipse.buildship.oomph/src/main/java-generated/org/eclipse/buildship/oo
 ```java
     /**
      * Returns the meta object for the attribute
-     * '{@link org.eclipse.buildship.oomph.GradleImportTask#getRemoteDistributionLocation <em>Remote
-     * Distribution Location</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
+     * '{@link org.eclipse.buildship.oomph.GradleImportTask#getGradleUserHome <em>Gradle User
+     * Home</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
      * 
 ```
 
@@ -7462,8 +7402,8 @@ in `org.eclipse.buildship.oomph/src/main/java-generated/org/eclipse/buildship/oo
 #### Snippet
 ```java
      * 
-     * @return the meta object for the attribute '<em>Remote Distribution Location</em>'.
-     * @see org.eclipse.buildship.oomph.GradleImportTask#getRemoteDistributionLocation()
+     * @return the meta object for the attribute '<em>Gradle User Home</em>'.
+     * @see org.eclipse.buildship.oomph.GradleImportTask#getGradleUserHome()
      * @see #getGradleImportTask()
      * @generated
 ```
@@ -7522,9 +7462,9 @@ in `org.eclipse.buildship.oomph/src/main/java-generated/org/eclipse/buildship/oo
 #### Snippet
 ```java
     /**
-     * Returns the meta object for the attribute
-     * '{@link org.eclipse.buildship.oomph.GradleImportTask#isBuildScans <em>Build Scans</em>}'.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * Returns the meta object for the attribute list
+     * '{@link org.eclipse.buildship.oomph.GradleImportTask#getProgramArguments <em>Program
+     * Arguments</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
      * 
 ```
 
@@ -7534,22 +7474,22 @@ in `org.eclipse.buildship.oomph/src/main/java-generated/org/eclipse/buildship/oo
 #### Snippet
 ```java
      * 
-     * @return the meta object for the attribute '<em>Build Scans</em>'.
-     * @see org.eclipse.buildship.oomph.GradleImportTask#isBuildScans()
+     * @return the meta object for the attribute list '<em>Program Arguments</em>'.
+     * @see org.eclipse.buildship.oomph.GradleImportTask#getProgramArguments()
      * @see #getGradleImportTask()
      * @generated
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.buildship.oomph` is unnecessary and can be removed
+Qualifier `org.eclipse.buildship.oomph.impl` is unnecessary, and can be replaced with an import
 in `org.eclipse.buildship.oomph/src/main/java-generated/org/eclipse/buildship/oomph/GradleImportPackage.java`
 #### Snippet
 ```java
+     * @generated
+     */
+    GradleImportPackage eINSTANCE = org.eclipse.buildship.oomph.impl.GradleImportPackageImpl.init();
 
     /**
-     * The meta object id for the '{@link org.eclipse.buildship.oomph.DistributionType
-     * <em>Distribution Type</em>}' enum. <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -7557,11 +7497,23 @@ Qualifier `org.eclipse.buildship.oomph` is unnecessary and can be removed
 in `org.eclipse.buildship.oomph/src/main/java-generated/org/eclipse/buildship/oomph/GradleImportPackage.java`
 #### Snippet
 ```java
-     * <em>Distribution Type</em>}' enum. <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
-     * @see org.eclipse.buildship.oomph.DistributionType
-     * @see org.eclipse.buildship.oomph.impl.GradleImportPackageImpl#getDistributionType()
-     * @generated
+
+        /**
+         * The meta object literal for the '{@link org.eclipse.buildship.oomph.DistributionType
+         * <em>Distribution Type</em>}' enum. <!-- begin-user-doc --> <!-- end-user-doc -->
+         * 
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.buildship.oomph` is unnecessary and can be removed
+in `org.eclipse.buildship.oomph/src/main/java-generated/org/eclipse/buildship/oomph/GradleImportPackage.java`
+#### Snippet
+```java
+         * <em>Distribution Type</em>}' enum. <!-- begin-user-doc --> <!-- end-user-doc -->
+         * 
+         * @see org.eclipse.buildship.oomph.DistributionType
+         * @see org.eclipse.buildship.oomph.impl.GradleImportPackageImpl#getDistributionType()
+         * @generated
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -7571,8 +7523,8 @@ in `org.eclipse.buildship.oomph/src/main/java-generated/org/eclipse/buildship/oo
 ```java
     /**
      * Returns the meta object for the attribute
-     * '{@link org.eclipse.buildship.oomph.GradleImportTask#isOfflineMode <em>Offline Mode</em>}'.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * '{@link org.eclipse.buildship.oomph.GradleImportTask#getRemoteDistributionLocation <em>Remote
+     * Distribution Location</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
      * 
 ```
 
@@ -7582,8 +7534,8 @@ in `org.eclipse.buildship.oomph/src/main/java-generated/org/eclipse/buildship/oo
 #### Snippet
 ```java
      * 
-     * @return the meta object for the attribute '<em>Offline Mode</em>'.
-     * @see org.eclipse.buildship.oomph.GradleImportTask#isOfflineMode()
+     * @return the meta object for the attribute '<em>Remote Distribution Location</em>'.
+     * @see org.eclipse.buildship.oomph.GradleImportTask#getRemoteDistributionLocation()
      * @see #getGradleImportTask()
      * @generated
 ```
@@ -7619,8 +7571,8 @@ in `org.eclipse.buildship.oomph/src/main/java-generated/org/eclipse/buildship/oo
 ```java
     /**
      * Returns the meta object for the attribute
-     * '{@link org.eclipse.buildship.oomph.GradleImportTask#getJavaHome <em>Java Home</em>}'. <!--
-     * begin-user-doc --> <!-- end-user-doc -->
+     * '{@link org.eclipse.buildship.oomph.GradleImportTask#isBuildScans <em>Build Scans</em>}'.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * 
 ```
 
@@ -7630,32 +7582,8 @@ in `org.eclipse.buildship.oomph/src/main/java-generated/org/eclipse/buildship/oo
 #### Snippet
 ```java
      * 
-     * @return the meta object for the attribute '<em>Java Home</em>'.
-     * @see org.eclipse.buildship.oomph.GradleImportTask#getJavaHome()
-     * @see #getGradleImportTask()
-     * @generated
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.buildship.oomph` is unnecessary and can be removed
-in `org.eclipse.buildship.oomph/src/main/java-generated/org/eclipse/buildship/oomph/GradleImportPackage.java`
-#### Snippet
-```java
-    /**
-     * Returns the meta object for the attribute
-     * '{@link org.eclipse.buildship.oomph.GradleImportTask#isShowExecutionsView <em>Show Executions
-     * View</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.buildship.oomph` is unnecessary and can be removed
-in `org.eclipse.buildship.oomph/src/main/java-generated/org/eclipse/buildship/oomph/GradleImportPackage.java`
-#### Snippet
-```java
-     * 
-     * @return the meta object for the attribute '<em>Show Executions View</em>'.
-     * @see org.eclipse.buildship.oomph.GradleImportTask#isShowExecutionsView()
+     * @return the meta object for the attribute '<em>Build Scans</em>'.
+     * @see org.eclipse.buildship.oomph.GradleImportTask#isBuildScans()
      * @see #getGradleImportTask()
      * @generated
 ```
@@ -7691,6 +7619,30 @@ in `org.eclipse.buildship.oomph/src/main/java-generated/org/eclipse/buildship/oo
 ```java
     /**
      * Returns the meta object for the attribute
+     * '{@link org.eclipse.buildship.oomph.GradleImportTask#isShowConsoleView <em>Show Console
+     * View</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.buildship.oomph` is unnecessary and can be removed
+in `org.eclipse.buildship.oomph/src/main/java-generated/org/eclipse/buildship/oomph/GradleImportPackage.java`
+#### Snippet
+```java
+     * 
+     * @return the meta object for the attribute '<em>Show Console View</em>'.
+     * @see org.eclipse.buildship.oomph.GradleImportTask#isShowConsoleView()
+     * @see #getGradleImportTask()
+     * @generated
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.buildship.oomph` is unnecessary and can be removed
+in `org.eclipse.buildship.oomph/src/main/java-generated/org/eclipse/buildship/oomph/GradleImportPackage.java`
+#### Snippet
+```java
+    /**
+     * Returns the meta object for the attribute
      * '{@link org.eclipse.buildship.oomph.GradleImportTask#isAutomaticProjectSynchronization
      * <em>Automatic Project Synchronization</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
      * 
@@ -7704,6 +7656,30 @@ in `org.eclipse.buildship.oomph/src/main/java-generated/org/eclipse/buildship/oo
      * 
      * @return the meta object for the attribute '<em>Automatic Project Synchronization</em>'.
      * @see org.eclipse.buildship.oomph.GradleImportTask#isAutomaticProjectSynchronization()
+     * @see #getGradleImportTask()
+     * @generated
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.buildship.oomph` is unnecessary and can be removed
+in `org.eclipse.buildship.oomph/src/main/java-generated/org/eclipse/buildship/oomph/GradleImportPackage.java`
+#### Snippet
+```java
+    /**
+     * Returns the meta object for the attribute
+     * '{@link org.eclipse.buildship.oomph.GradleImportTask#getDistributionType <em>Distribution
+     * Type</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.buildship.oomph` is unnecessary and can be removed
+in `org.eclipse.buildship.oomph/src/main/java-generated/org/eclipse/buildship/oomph/GradleImportPackage.java`
+#### Snippet
+```java
+     * 
+     * @return the meta object for the attribute '<em>Distribution Type</em>'.
+     * @see org.eclipse.buildship.oomph.GradleImportTask#getDistributionType()
      * @see #getGradleImportTask()
      * @generated
 ```
@@ -7738,8 +7714,56 @@ in `org.eclipse.buildship.oomph/src/main/java-generated/org/eclipse/buildship/oo
 #### Snippet
 ```java
     /**
+     * Returns the meta object for the attribute
+     * '{@link org.eclipse.buildship.oomph.GradleImportTask#isOfflineMode <em>Offline Mode</em>}'.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.buildship.oomph` is unnecessary and can be removed
+in `org.eclipse.buildship.oomph/src/main/java-generated/org/eclipse/buildship/oomph/GradleImportPackage.java`
+#### Snippet
+```java
+     * 
+     * @return the meta object for the attribute '<em>Offline Mode</em>'.
+     * @see org.eclipse.buildship.oomph.GradleImportTask#isOfflineMode()
+     * @see #getGradleImportTask()
+     * @generated
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.buildship.oomph` is unnecessary and can be removed
+in `org.eclipse.buildship.oomph/src/main/java-generated/org/eclipse/buildship/oomph/GradleImportPackage.java`
+#### Snippet
+```java
+    /**
+     * Returns the meta object for the attribute
+     * '{@link org.eclipse.buildship.oomph.GradleImportTask#isShowExecutionsView <em>Show Executions
+     * View</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.buildship.oomph` is unnecessary and can be removed
+in `org.eclipse.buildship.oomph/src/main/java-generated/org/eclipse/buildship/oomph/GradleImportPackage.java`
+#### Snippet
+```java
+     * 
+     * @return the meta object for the attribute '<em>Show Executions View</em>'.
+     * @see org.eclipse.buildship.oomph.GradleImportTask#isShowExecutionsView()
+     * @see #getGradleImportTask()
+     * @generated
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.buildship.oomph` is unnecessary and can be removed
+in `org.eclipse.buildship.oomph/src/main/java-generated/org/eclipse/buildship/oomph/GradleImportPackage.java`
+#### Snippet
+```java
+    /**
      * Returns the meta object for the attribute list
-     * '{@link org.eclipse.buildship.oomph.GradleImportTask#getProgramArguments <em>Program
+     * '{@link org.eclipse.buildship.oomph.GradleImportTask#getJvmArguments <em>Jvm
      * Arguments</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
      * 
 ```
@@ -7750,118 +7774,94 @@ in `org.eclipse.buildship.oomph/src/main/java-generated/org/eclipse/buildship/oo
 #### Snippet
 ```java
      * 
-     * @return the meta object for the attribute list '<em>Program Arguments</em>'.
-     * @see org.eclipse.buildship.oomph.GradleImportTask#getProgramArguments()
+     * @return the meta object for the attribute list '<em>Jvm Arguments</em>'.
+     * @see org.eclipse.buildship.oomph.GradleImportTask#getJvmArguments()
      * @see #getGradleImportTask()
      * @generated
 ```
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.eclipse.buildship.oomph` is unnecessary and can be removed
-in `org.eclipse.buildship.oomph/src/main/java-generated/org/eclipse/buildship/oomph/GradleImportPackage.java`
+in `org.eclipse.buildship.oomph/src/main/java-generated/org/eclipse/buildship/oomph/util/GradleImportSwitch.java`
+#### Snippet
+```java
+ * <!-- end-user-doc -->
+ * 
+ * @see org.eclipse.buildship.oomph.GradleImportPackage
+ * @generated
+ */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.nio.file` is unnecessary, and can be replaced with an import
+in `org.eclipse.buildship.oomph/src/main/java/org/eclipse/buildship/oomph/impl/CustomGradleImportTaskImpl.java`
+#### Snippet
+```java
+                IPath projectFolder = project.getLocation();
+                try {
+                    if (Files.isSameFile(java.nio.file.Paths.get(projectFolder.toOSString()), java.nio.file.Paths.get(rootFolder.toOSString()))) {
+                        projectPresentInWorkspace = true;
+                        break;
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.nio.file` is unnecessary, and can be replaced with an import
+in `org.eclipse.buildship.oomph/src/main/java/org/eclipse/buildship/oomph/impl/CustomGradleImportTaskImpl.java`
+#### Snippet
+```java
+                IPath projectFolder = project.getLocation();
+                try {
+                    if (Files.isSameFile(java.nio.file.Paths.get(projectFolder.toOSString()), java.nio.file.Paths.get(rootFolder.toOSString()))) {
+                        projectPresentInWorkspace = true;
+                        break;
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.buildship.oomph` is unnecessary and can be removed
+in `org.eclipse.buildship.oomph/src/main/java-generated/org/eclipse/buildship/oomph/DistributionType.java`
+#### Snippet
+```java
+ * Type</b></em>', and utility methods for working with them. <!-- end-user-doc -->
+ * 
+ * @see org.eclipse.buildship.oomph.GradleImportPackage#getDistributionType()
+ * @model
+ * @generated
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.buildship.oomph` is unnecessary and can be removed
+in `org.eclipse.buildship.oomph/src/main/java-generated/org/eclipse/buildship/oomph/util/GradleImportAdapterFactory.java`
+#### Snippet
+```java
+ * <code>createXXX</code> method for each class of the model. <!-- end-user-doc -->
+ * 
+ * @see org.eclipse.buildship.oomph.GradleImportPackage
+ * @generated
+ */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.buildship.oomph` is unnecessary and can be removed
+in `org.eclipse.buildship.oomph/src/main/java-generated/org/eclipse/buildship/oomph/util/GradleImportAdapterFactory.java`
 #### Snippet
 ```java
     /**
-     * Returns the meta object for the attribute
-     * '{@link org.eclipse.buildship.oomph.GradleImportTask#getSpecificGradleVersion <em>Specific
-     * Gradle Version</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     * Creates a new adapter for an object of class
+     * '{@link org.eclipse.buildship.oomph.GradleImportTask <em>Task</em>}'. <!-- begin-user-doc -->
+     * This default implementation returns null so that we can easily ignore cases; it's useful to
+     * ignore a case when inheritance will catch all the cases anyway. <!-- end-user-doc -->
 ```
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.eclipse.buildship.oomph` is unnecessary and can be removed
-in `org.eclipse.buildship.oomph/src/main/java-generated/org/eclipse/buildship/oomph/GradleImportPackage.java`
-#### Snippet
-```java
-     * 
-     * @return the meta object for the attribute '<em>Specific Gradle Version</em>'.
-     * @see org.eclipse.buildship.oomph.GradleImportTask#getSpecificGradleVersion()
-     * @see #getGradleImportTask()
-     * @generated
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.buildship.oomph` is unnecessary and can be removed
-in `org.eclipse.buildship.oomph/src/main/java-generated/org/eclipse/buildship/oomph/GradleImportPackage.java`
-#### Snippet
-```java
-    /**
-     * Returns the meta object for the attribute
-     * '{@link org.eclipse.buildship.oomph.GradleImportTask#getDistributionType <em>Distribution
-     * Type</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.buildship.oomph` is unnecessary and can be removed
-in `org.eclipse.buildship.oomph/src/main/java-generated/org/eclipse/buildship/oomph/GradleImportPackage.java`
+in `org.eclipse.buildship.oomph/src/main/java-generated/org/eclipse/buildship/oomph/util/GradleImportAdapterFactory.java`
 #### Snippet
 ```java
      * 
-     * @return the meta object for the attribute '<em>Distribution Type</em>'.
-     * @see org.eclipse.buildship.oomph.GradleImportTask#getDistributionType()
-     * @see #getGradleImportTask()
-     * @generated
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.buildship.oomph` is unnecessary and can be removed
-in `org.eclipse.buildship.oomph/src/main/java-generated/org/eclipse/buildship/oomph/GradleImportPackage.java`
-#### Snippet
-```java
-
-        /**
-         * The meta object literal for the '{@link org.eclipse.buildship.oomph.DistributionType
-         * <em>Distribution Type</em>}' enum. <!-- begin-user-doc --> <!-- end-user-doc -->
-         * 
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.buildship.oomph` is unnecessary and can be removed
-in `org.eclipse.buildship.oomph/src/main/java-generated/org/eclipse/buildship/oomph/GradleImportPackage.java`
-#### Snippet
-```java
-         * <em>Distribution Type</em>}' enum. <!-- begin-user-doc --> <!-- end-user-doc -->
-         * 
-         * @see org.eclipse.buildship.oomph.DistributionType
-         * @see org.eclipse.buildship.oomph.impl.GradleImportPackageImpl#getDistributionType()
-         * @generated
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.buildship.oomph` is unnecessary and can be removed
-in `org.eclipse.buildship.oomph/src/main/java-generated/org/eclipse/buildship/oomph/GradleImportPackage.java`
-#### Snippet
-```java
-    /**
-     * Returns the meta object for the attribute
-     * '{@link org.eclipse.buildship.oomph.GradleImportTask#getGradleUserHome <em>Gradle User
-     * Home</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.buildship.oomph` is unnecessary and can be removed
-in `org.eclipse.buildship.oomph/src/main/java-generated/org/eclipse/buildship/oomph/GradleImportPackage.java`
-#### Snippet
-```java
-     * 
-     * @return the meta object for the attribute '<em>Gradle User Home</em>'.
-     * @see org.eclipse.buildship.oomph.GradleImportTask#getGradleUserHome()
-     * @see #getGradleImportTask()
-     * @generated
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.buildship.oomph.impl` is unnecessary, and can be replaced with an import
-in `org.eclipse.buildship.oomph/src/main/java-generated/org/eclipse/buildship/oomph/GradleImportPackage.java`
-#### Snippet
-```java
+     * @return the new adapter.
+     * @see org.eclipse.buildship.oomph.GradleImportTask
      * @generated
      */
-    GradleImportPackage eINSTANCE = org.eclipse.buildship.oomph.impl.GradleImportPackageImpl.init();
-
-    /**
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -8107,18 +8107,6 @@ in `org.eclipse.buildship.ui/src/main/java/org/eclipse/buildship/ui/internal/vie
 ```
 
 ### NonProtectedConstructorInAbstractClass
-Constructor `BaseToolingApiOperation()` of an abstract class should not be declared 'public'
-in `org.eclipse.buildship.core/src/main/java/org/eclipse/buildship/core/internal/operation/BaseToolingApiOperation.java`
-#### Snippet
-```java
-    private String name;
-
-    public BaseToolingApiOperation(String name) {
-        this.name = Preconditions.checkNotNull(name);
-    }
-```
-
-### NonProtectedConstructorInAbstractClass
 Constructor `ToolingApiJob()` of an abstract class should not be declared 'public'
 in `org.eclipse.buildship.core/src/main/java/org/eclipse/buildship/core/internal/operation/ToolingApiJob.java`
 #### Snippet
@@ -8127,6 +8115,18 @@ in `org.eclipse.buildship.core/src/main/java/org/eclipse/buildship/core/internal
 
     public ToolingApiJob(String name) {
         super(name);
+    }
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `BaseToolingApiOperation()` of an abstract class should not be declared 'public'
+in `org.eclipse.buildship.core/src/main/java/org/eclipse/buildship/core/internal/operation/BaseToolingApiOperation.java`
+#### Snippet
+```java
+    private String name;
+
+    public BaseToolingApiOperation(String name) {
+        this.name = Preconditions.checkNotNull(name);
     }
 ```
 
@@ -8147,11 +8147,11 @@ Constructor `GradleVersionProvider()` of an abstract class should not be declare
 in `org.eclipse.buildship.core.test/src/main/groovy/org/eclipse/buildship/core/internal/test/fixtures/GradleVersionProvider.java`
 #### Snippet
 ```java
-    }
+    private final Supplier<String> versionRangePattern;
 
-    public GradleVersionProvider(ReleasedGradleVersions releasedVersions, Supplier<String> versionRangePattern) {
-        this.releasedVersions = releasedVersions;
-        this.versionRangePattern = versionRangePattern;
+    public GradleVersionProvider(Supplier<String> versionRangePattern) {
+        this(ReleasedGradleVersions.create(), versionRangePattern);
+    }
 ```
 
 ### NonProtectedConstructorInAbstractClass
@@ -8159,11 +8159,11 @@ Constructor `GradleVersionProvider()` of an abstract class should not be declare
 in `org.eclipse.buildship.core.test/src/main/groovy/org/eclipse/buildship/core/internal/test/fixtures/GradleVersionProvider.java`
 #### Snippet
 ```java
-    private final Supplier<String> versionRangePattern;
-
-    public GradleVersionProvider(Supplier<String> versionRangePattern) {
-        this(ReleasedGradleVersions.create(), versionRangePattern);
     }
+
+    public GradleVersionProvider(ReleasedGradleVersions releasedVersions, Supplier<String> versionRangePattern) {
+        this.releasedVersions = releasedVersions;
+        this.versionRangePattern = versionRangePattern;
 ```
 
 ### NonProtectedConstructorInAbstractClass
@@ -8338,18 +8338,6 @@ in `org.eclipse.buildship.ui/src/main/java/org/eclipse/buildship/ui/internal/lau
 
 ### Convert2Lambda
 Anonymous new Runnable() can be replaced with lambda
-in `org.eclipse.buildship.ui/src/main/java/org/eclipse/buildship/ui/internal/wizard/project/ProjectImportWizardController.java`
-#### Snippet
-```java
-
-        private void ensureGradleViewsAreVisible() {
-            PlatformUI.getWorkbench().getDisplay().asyncExec(new Runnable() {
-
-                @Override
-```
-
-### Convert2Lambda
-Anonymous new Runnable() can be replaced with lambda
 in `org.eclipse.buildship.ui/src/main/java/org/eclipse/buildship/ui/internal/console/GradleConsole.java`
 #### Snippet
 ```java
@@ -8362,11 +8350,11 @@ in `org.eclipse.buildship.ui/src/main/java/org/eclipse/buildship/ui/internal/con
 
 ### Convert2Lambda
 Anonymous new Runnable() can be replaced with lambda
-in `org.eclipse.buildship.ui/src/main/java/org/eclipse/buildship/ui/internal/wizard/project/ProjectPreviewWizardPage.java`
+in `org.eclipse.buildship.ui/src/main/java/org/eclipse/buildship/ui/internal/wizard/project/ProjectImportWizardController.java`
 #### Snippet
 ```java
-            // schedule the loading of the project preview asynchronously, otherwise the UI will not
-            // update until the job has finished
+
+        private void ensureGradleViewsAreVisible() {
             PlatformUI.getWorkbench().getDisplay().asyncExec(new Runnable() {
 
                 @Override
@@ -8389,8 +8377,8 @@ Anonymous new Runnable() can be replaced with lambda
 in `org.eclipse.buildship.ui/src/main/java/org/eclipse/buildship/ui/internal/wizard/project/ProjectPreviewWizardPage.java`
 #### Snippet
 ```java
-        Throwable t = status.getException();
-        final String stacktrace = t == null ? ProjectWizardMessages.Preview_No_Stacktrace : Throwables.getStackTraceAsString(t);
+
+    private void previewFinished(final BuildEnvironment buildEnvironment, final GradleBuild gradleBuild) {
         PlatformUI.getWorkbench().getDisplay().asyncExec(new Runnable() {
 
             @Override
@@ -8401,8 +8389,20 @@ Anonymous new Runnable() can be replaced with lambda
 in `org.eclipse.buildship.ui/src/main/java/org/eclipse/buildship/ui/internal/wizard/project/ProjectPreviewWizardPage.java`
 #### Snippet
 ```java
+            // schedule the loading of the project preview asynchronously, otherwise the UI will not
+            // update until the job has finished
+            PlatformUI.getWorkbench().getDisplay().asyncExec(new Runnable() {
 
-    private void previewFinished(final BuildEnvironment buildEnvironment, final GradleBuild gradleBuild) {
+                @Override
+```
+
+### Convert2Lambda
+Anonymous new Runnable() can be replaced with lambda
+in `org.eclipse.buildship.ui/src/main/java/org/eclipse/buildship/ui/internal/wizard/project/ProjectPreviewWizardPage.java`
+#### Snippet
+```java
+        Throwable t = status.getException();
+        final String stacktrace = t == null ? ProjectWizardMessages.Preview_No_Stacktrace : Throwables.getStackTraceAsString(t);
         PlatformUI.getWorkbench().getDisplay().asyncExec(new Runnable() {
 
             @Override
@@ -8454,7 +8454,7 @@ in `org.eclipse.buildship.ui/src/main/java/org/eclipse/buildship/ui/internal/uti
         if (end > tlen) {
             end = tlen;
         }
-        if (end < 0 || start >= end) {
+
 ```
 
 ### AssignmentToMethodParameter
@@ -8514,7 +8514,7 @@ in `org.eclipse.buildship.ui/src/main/java/org/eclipse/buildship/ui/internal/uti
         if (end > tlen) {
             end = tlen;
         }
-
+        if (end < 0 || start >= end) {
 ```
 
 ### AssignmentToMethodParameter
@@ -8546,11 +8546,11 @@ Assignment to method parameter `monitor`
 in `org.eclipse.buildship.core/src/main/java/org/eclipse/buildship/core/internal/DefaultGradleBuild.java`
 #### Snippet
 ```java
-    public <T> T withConnection(Function<ProjectConnection, ? extends T> action, CancellationTokenSource tokenSource, IProgressMonitor monitor) throws Exception {
-        Preconditions.checkNotNull(action);
+        }
+
         monitor = monitor != null ? monitor : new NullProgressMonitor();
 
-        GradleConnectionOperation<T> operation = new GradleConnectionOperation<>(action);
+        SynchronizeOperation operation = new SynchronizeOperation(this, newProjectHandler);
 ```
 
 ### AssignmentToMethodParameter
@@ -8558,11 +8558,11 @@ Assignment to method parameter `monitor`
 in `org.eclipse.buildship.core/src/main/java/org/eclipse/buildship/core/internal/DefaultGradleBuild.java`
 #### Snippet
 ```java
-        }
-
+    public <T> T withConnection(Function<ProjectConnection, ? extends T> action, CancellationTokenSource tokenSource, IProgressMonitor monitor) throws Exception {
+        Preconditions.checkNotNull(action);
         monitor = monitor != null ? monitor : new NullProgressMonitor();
 
-        SynchronizeOperation operation = new SynchronizeOperation(this, newProjectHandler);
+        GradleConnectionOperation<T> operation = new GradleConnectionOperation<>(action);
 ```
 
 ### AssignmentToMethodParameter
@@ -8640,6 +8640,18 @@ in `org.eclipse.buildship.ui/src/main/java/org/eclipse/buildship/ui/internal/vie
 
 ### ReturnNull
 Return of `null`
+in `org.eclipse.buildship.ui/src/main/java/org/eclipse/buildship/ui/internal/util/nodeselection/NodeSelection.java`
+#### Snippet
+```java
+    @Override
+    public Object getFirstElement() {
+        return isEmpty() ? null : this.nodes.get(0);
+    }
+
+```
+
+### ReturnNull
+Return of `null`
 in `org.eclipse.buildship.ui/src/main/java/org/eclipse/buildship/ui/internal/util/widget/StringMatcher.java`
 #### Snippet
 ```java
@@ -8691,18 +8703,6 @@ Return of `null`
 in `org.eclipse.buildship.ui/src/main/java/org/eclipse/buildship/ui/internal/util/widget/FilteredTree.java`
 #### Snippet
 ```java
-            }
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.buildship.ui/src/main/java/org/eclipse/buildship/ui/internal/util/widget/FilteredTree.java`
-#### Snippet
-```java
 
         if (filterText == null) {
             return null;
@@ -8736,11 +8736,11 @@ in `org.eclipse.buildship.ui/src/main/java/org/eclipse/buildship/ui/internal/uti
 
 ### ReturnNull
 Return of `null`
-in `org.eclipse.buildship.ui/src/main/java/org/eclipse/buildship/ui/internal/view/task/OpenRunConfigurationHandler.java`
+in `org.eclipse.buildship.ui/src/main/java/org/eclipse/buildship/ui/internal/util/widget/FilteredTree.java`
 #### Snippet
 ```java
-        DebugUITools.openLaunchConfigurationPropertiesDialog(shell, launchConfiguration, UiPluginConstants.RUN_LAUNCH_GROUP_ID);
-
+            }
+        }
         return null;
     }
 
@@ -8748,12 +8748,12 @@ in `org.eclipse.buildship.ui/src/main/java/org/eclipse/buildship/ui/internal/vie
 
 ### ReturnNull
 Return of `null`
-in `org.eclipse.buildship.ui/src/main/java/org/eclipse/buildship/ui/internal/util/nodeselection/NodeSelection.java`
+in `org.eclipse.buildship.ui/src/main/java/org/eclipse/buildship/ui/internal/view/task/OpenRunConfigurationHandler.java`
 #### Snippet
 ```java
-    @Override
-    public Object getFirstElement() {
-        return isEmpty() ? null : this.nodes.get(0);
+        DebugUITools.openLaunchConfigurationPropertiesDialog(shell, launchConfiguration, UiPluginConstants.RUN_LAUNCH_GROUP_ID);
+
+        return null;
     }
 
 ```
@@ -8868,12 +8868,12 @@ in `org.eclipse.buildship.ui/src/main/java/org/eclipse/buildship/ui/internal/vie
 
 ### ReturnNull
 Return of `null`
-in `org.eclipse.buildship.ui/src/main/java/org/eclipse/buildship/ui/internal/view/execution/ExecutionPageNameLabelProvider.java`
+in `org.eclipse.buildship.ui/src/main/java/org/eclipse/buildship/ui/internal/editor/GradleTextViewerConfiguration.java`
 #### Snippet
 ```java
     @Override
-    public Image getImage(Object element) {
-        return element instanceof OperationItem ? calculateImage((OperationItem) element) : null;
+    public IReconciler getReconciler(ISourceViewer sourceViewer) {
+        return null;
     }
 
 ```
@@ -8883,11 +8883,11 @@ Return of `null`
 in `org.eclipse.buildship.ui/src/main/java/org/eclipse/buildship/ui/internal/view/execution/ExecutionPageNameLabelProvider.java`
 #### Snippet
 ```java
-                return PluginImages.OPERATION_SUCCESS.withState(PluginImage.ImageState.ENABLED).getImage();
-            } else {
-                return null;
-            }
-        } else {
+    @Override
+    public Image getImage(Object element) {
+        return element instanceof OperationItem ? calculateImage((OperationItem) element) : null;
+    }
+
 ```
 
 ### ReturnNull
@@ -8904,14 +8904,38 @@ in `org.eclipse.buildship.ui/src/main/java/org/eclipse/buildship/ui/internal/vie
 
 ### ReturnNull
 Return of `null`
-in `org.eclipse.buildship.ui/src/main/java/org/eclipse/buildship/ui/internal/editor/GradleTextViewerConfiguration.java`
+in `org.eclipse.buildship.ui/src/main/java/org/eclipse/buildship/ui/internal/view/execution/ExecutionPageNameLabelProvider.java`
 #### Snippet
 ```java
-    @Override
-    public IReconciler getReconciler(ISourceViewer sourceViewer) {
-        return null;
-    }
+                return PluginImages.OPERATION_SUCCESS.withState(PluginImage.ImageState.ENABLED).getImage();
+            } else {
+                return null;
+            }
+        } else {
+```
 
+### ReturnNull
+Return of `null`
+in `org.eclipse.buildship.ui/src/main/java/org/eclipse/buildship/ui/internal/view/execution/OpenTestSourceFileJob.java`
+#### Snippet
+```java
+                } catch (Exception e) {
+                    // ignore and treat as no method being found
+                    return null;
+                }
+            }
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.buildship.ui/src/main/java/org/eclipse/buildship/ui/internal/view/execution/OpenTestSourceFileJob.java`
+#### Snippet
+```java
+            } catch (Exception e) {
+                // ignore and treat as no method being found
+                return null;
+            }
+        }
 ```
 
 ### ReturnNull
@@ -8952,26 +8976,14 @@ in `org.eclipse.buildship.ui/src/main/java/org/eclipse/buildship/ui/internal/vie
 
 ### ReturnNull
 Return of `null`
-in `org.eclipse.buildship.ui/src/main/java/org/eclipse/buildship/ui/internal/view/execution/OpenTestSourceFileJob.java`
+in `org.eclipse.buildship.ui/src/main/java/org/eclipse/buildship/ui/internal/wizard/project/WorkingSetConfigurationWidget.java`
 #### Snippet
 ```java
-                } catch (Exception e) {
-                    // ignore and treat as no method being found
-                    return null;
-                }
-            }
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.buildship.ui/src/main/java/org/eclipse/buildship/ui/internal/view/execution/OpenTestSourceFileJob.java`
-#### Snippet
-```java
-            } catch (Exception e) {
-                // ignore and treat as no method being found
-                return null;
             }
         }
+        return null;
+    }
+
 ```
 
 ### ReturnNull
@@ -8988,30 +9000,6 @@ in `org.eclipse.buildship.ui/src/main/java/org/eclipse/buildship/ui/internal/con
 
 ### ReturnNull
 Return of `null`
-in `org.eclipse.buildship.ui/src/main/java/org/eclipse/buildship/ui/internal/console/BuildScanPatternMatchListener.java`
-#### Snippet
-```java
-    @Override
-    public String getLineQualifier() {
-        return null;
-    }
-}
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.buildship.ui/src/main/java/org/eclipse/buildship/ui/internal/wizard/project/WorkingSetConfigurationWidget.java`
-#### Snippet
-```java
-            }
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
 in `org.eclipse.buildship.ui/src/main/java/org/eclipse/buildship/ui/internal/console/UrlPatternMatchListener.java`
 #### Snippet
 ```java
@@ -9020,6 +9008,18 @@ in `org.eclipse.buildship.ui/src/main/java/org/eclipse/buildship/ui/internal/con
         return null;
     }
 
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.buildship.ui/src/main/java/org/eclipse/buildship/ui/internal/console/BuildScanPatternMatchListener.java`
+#### Snippet
+```java
+    @Override
+    public String getLineQualifier() {
+        return null;
+    }
+}
 ```
 
 ### ReturnNull
@@ -9096,30 +9096,6 @@ in `org.eclipse.buildship.core/src/main/java/org/eclipse/buildship/core/internal
 
 ### ReturnNull
 Return of `null`
-in `org.eclipse.buildship.core/src/main/java/org/eclipse/buildship/core/internal/util/string/StringUtils.java`
-#### Snippet
-```java
-     */
-    public static String valueOf(Object value) {
-        return value == null ? null : value.toString();
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.buildship.core/src/main/java/org/eclipse/buildship/core/internal/DefaultGradleBuild.java`
-#### Snippet
-```java
-        @Override
-        public ISchedulingRule getRule() {
-            return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
 in `org.eclipse.buildship.core/src/main/java/org/eclipse/buildship/core/internal/util/gradle/CompatGradleProject.java`
 #### Snippet
 ```java
@@ -9149,6 +9125,30 @@ in `org.eclipse.buildship.core/src/main/java/org/eclipse/buildship/core/internal
 ```java
             return getElement().getBuildScript();
         } catch (Exception ignore) {
+            return null;
+        }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.buildship.core/src/main/java/org/eclipse/buildship/core/internal/util/string/StringUtils.java`
+#### Snippet
+```java
+     */
+    public static String valueOf(Object value) {
+        return value == null ? null : value.toString();
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.buildship.core/src/main/java/org/eclipse/buildship/core/internal/DefaultGradleBuild.java`
+#### Snippet
+```java
+        @Override
+        public ISchedulingRule getRule() {
             return null;
         }
     }
@@ -9288,18 +9288,6 @@ in `org.eclipse.buildship.core/src/main/java/org/eclipse/buildship/core/internal
 
 ### ReturnNull
 Return of `null`
-in `org.eclipse.buildship.core/src/main/java/org/eclipse/buildship/core/internal/workspace/GradleClasspathContainerRuntimeClasspathEntryResolver.java`
-#### Snippet
-```java
-    @Override
-    public IVMInstall resolveVMInstall(IClasspathEntry entry) throws CoreException {
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
 in `org.eclipse.buildship.core/src/main/java/org/eclipse/buildship/core/internal/workspace/BaseConfigurator.java`
 #### Snippet
 ```java
@@ -9308,6 +9296,18 @@ in `org.eclipse.buildship.core/src/main/java/org/eclipse/buildship/core/internal
             return null;
         }
         return this.locationToProject.get(path.toFile());
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.buildship.core/src/main/java/org/eclipse/buildship/core/internal/workspace/GradleClasspathContainerRuntimeClasspathEntryResolver.java`
+#### Snippet
+```java
+    @Override
+    public IVMInstall resolveVMInstall(IClasspathEntry entry) throws CoreException {
+        return null;
+    }
+
 ```
 
 ### ReturnNull
@@ -9336,60 +9336,36 @@ in `org.eclipse.buildship.core/src/main/java/org/eclipse/buildship/core/internal
 
 ### ReturnNull
 Return of `null`
-in `org.eclipse.buildship.core/src/main/java/org/eclipse/buildship/core/internal/configuration/DefaultConfigurationManager.java`
-#### Snippet
-```java
-        } catch(RuntimeException e) {
-            CorePlugin.logger().trace(CoreTraceScopes.PREFERENCES, "Cannot load configuration for project " + project.getName(), e);
-            return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.buildship.oomph/src/main/java-generated/org/eclipse/buildship/oomph/DistributionType.java`
-#### Snippet
-```java
-                return SPECIFIC_GRADLE_VERSION;
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.buildship.oomph/src/main/java-generated/org/eclipse/buildship/oomph/DistributionType.java`
-#### Snippet
-```java
-            }
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.buildship.oomph/src/main/java-generated/org/eclipse/buildship/oomph/DistributionType.java`
-#### Snippet
-```java
-            }
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
 in `org.eclipse.buildship.oomph/src/main/java-generated/org/eclipse/buildship/oomph/impl/GradleImportFactoryImpl.java`
 #### Snippet
 ```java
      */
     public String convertDistributionTypeToString(EDataType eDataType, Object instanceValue) {
         return instanceValue == null ? null : instanceValue.toString();
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.buildship.oomph/src/main/java-generated/org/eclipse/buildship/oomph/util/GradleImportSwitch.java`
+#### Snippet
+```java
+     */
+    public T caseSetupTask(SetupTask object) {
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.buildship.oomph/src/main/java-generated/org/eclipse/buildship/oomph/util/GradleImportSwitch.java`
+#### Snippet
+```java
+    @Override
+    public T defaultCase(EObject object) {
+        return null;
     }
 
 ```
@@ -9420,11 +9396,11 @@ in `org.eclipse.buildship.oomph/src/main/java-generated/org/eclipse/buildship/oo
 
 ### ReturnNull
 Return of `null`
-in `org.eclipse.buildship.oomph/src/main/java-generated/org/eclipse/buildship/oomph/util/GradleImportSwitch.java`
+in `org.eclipse.buildship.oomph/src/main/java-generated/org/eclipse/buildship/oomph/DistributionType.java`
 #### Snippet
 ```java
-    @Override
-    public T defaultCase(EObject object) {
+            }
+        }
         return null;
     }
 
@@ -9432,14 +9408,50 @@ in `org.eclipse.buildship.oomph/src/main/java-generated/org/eclipse/buildship/oo
 
 ### ReturnNull
 Return of `null`
-in `org.eclipse.buildship.oomph/src/main/java-generated/org/eclipse/buildship/oomph/util/GradleImportSwitch.java`
+in `org.eclipse.buildship.oomph/src/main/java-generated/org/eclipse/buildship/oomph/DistributionType.java`
 #### Snippet
 ```java
-     */
-    public T caseSetupTask(SetupTask object) {
+                return SPECIFIC_GRADLE_VERSION;
+        }
         return null;
     }
 
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.buildship.oomph/src/main/java-generated/org/eclipse/buildship/oomph/DistributionType.java`
+#### Snippet
+```java
+            }
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.buildship.core/src/main/java/org/eclipse/buildship/core/internal/configuration/GradleArguments.java`
+#### Snippet
+```java
+            return gradleEnvironment.getGradleUserHome();
+        } catch (Exception ignore) {
+            return null;
+        }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.buildship.core/src/main/java/org/eclipse/buildship/core/internal/configuration/DefaultConfigurationManager.java`
+#### Snippet
+```java
+        } catch(RuntimeException e) {
+            CorePlugin.logger().trace(CoreTraceScopes.PREFERENCES, "Cannot load configuration for project " + project.getName(), e);
+            return null;
+        }
+    }
 ```
 
 ### ReturnNull
@@ -9448,7 +9460,7 @@ in `org.eclipse.buildship.oomph/src/main/java-generated/org/eclipse/buildship/oo
 #### Snippet
 ```java
      */
-    public Adapter createGradleImportTaskAdapter() {
+    public Adapter createSetupTaskAdapter() {
         return null;
     }
 
@@ -9472,7 +9484,7 @@ in `org.eclipse.buildship.oomph/src/main/java-generated/org/eclipse/buildship/oo
 #### Snippet
 ```java
      */
-    public Adapter createSetupTaskAdapter() {
+    public Adapter createEObjectAdapter() {
         return null;
     }
 
@@ -9484,31 +9496,7 @@ in `org.eclipse.buildship.oomph/src/main/java-generated/org/eclipse/buildship/oo
 #### Snippet
 ```java
      */
-    public Adapter createEObjectAdapter() {
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.buildship.core/src/main/java/org/eclipse/buildship/core/internal/configuration/GradleArguments.java`
-#### Snippet
-```java
-            return gradleEnvironment.getGradleUserHome();
-        } catch (Exception ignore) {
-            return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.buildship.oomph.edit/src/main/java-generated/org/eclipse/buildship/oomph/provider/GradleImportItemProviderAdapterFactory.java`
-#### Snippet
-```java
-        }
-
+    public Adapter createGradleImportTaskAdapter() {
         return null;
     }
 
@@ -9535,6 +9523,18 @@ in `org.eclipse.buildship.oomph.edit/src/main/java-generated/org/eclipse/buildsh
 
                 return null;
             }
+
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.buildship.oomph.edit/src/main/java-generated/org/eclipse/buildship/oomph/provider/GradleImportItemProviderAdapterFactory.java`
+#### Snippet
+```java
+        }
+
+        return null;
+    }
 
 ```
 
@@ -9581,8 +9581,8 @@ Expression can be replaced with 'Integer.compare'
 in `org.eclipse.buildship.ui/src/main/java/org/eclipse/buildship/ui/internal/view/task/TaskNodeViewerSorter.java`
 #### Snippet
 ```java
-                int leftOrdinal = toOrdinal(left.getType());
-                int rightOrdinal = toOrdinal(right.getType());
+                int leftOrdinal = toOrdinal(left);
+                int rightOrdinal = toOrdinal(right);
                 return (leftOrdinal < rightOrdinal ? -1 : (leftOrdinal == rightOrdinal ? 0 : 1));
             }
 
@@ -9593,8 +9593,8 @@ Expression can be replaced with 'Integer.compare'
 in `org.eclipse.buildship.ui/src/main/java/org/eclipse/buildship/ui/internal/view/task/TaskNodeViewerSorter.java`
 #### Snippet
 ```java
-                int leftOrdinal = toOrdinal(left);
-                int rightOrdinal = toOrdinal(right);
+                int leftOrdinal = toOrdinal(left.getType());
+                int rightOrdinal = toOrdinal(right.getType());
                 return (leftOrdinal < rightOrdinal ? -1 : (leftOrdinal == rightOrdinal ? 0 : 1));
             }
 
