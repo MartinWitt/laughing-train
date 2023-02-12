@@ -40,183 +40,6 @@ I found 118 bad smells with 29 repairable:
 | UseBulkOperation | 1 | false |
 ## RuleId[ruleID=UnnecessaryModifier]
 ### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `server/api/src/main/java/org/eclipse/microprofile/graphql/ConfigKey.java`
-#### Snippet
-```java
-    @Deprecated
-    public static final String EXCEPTION_BLACK_LIST = "mp.graphql.exceptionsBlackList";
-    public static final String EXCEPTION_HIDE_ERROR_MESSAGE_LIST = "mp.graphql.hideErrorMessage";
-
-    @Deprecated
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `server/api/src/main/java/org/eclipse/microprofile/graphql/ConfigKey.java`
-#### Snippet
-```java
-    @Deprecated
-    public static final String EXCEPTION_BLACK_LIST = "mp.graphql.exceptionsBlackList";
-    public static final String EXCEPTION_HIDE_ERROR_MESSAGE_LIST = "mp.graphql.hideErrorMessage";
-
-    @Deprecated
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `server/api/src/main/java/org/eclipse/microprofile/graphql/ConfigKey.java`
-#### Snippet
-```java
-    @Deprecated
-    public static final String EXCEPTION_BLACK_LIST = "mp.graphql.exceptionsBlackList";
-    public static final String EXCEPTION_HIDE_ERROR_MESSAGE_LIST = "mp.graphql.hideErrorMessage";
-
-    @Deprecated
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `server/api/src/main/java/org/eclipse/microprofile/graphql/ConfigKey.java`
-#### Snippet
-```java
-
-    @Deprecated
-    public static final String EXCEPTION_BLACK_LIST = "mp.graphql.exceptionsBlackList";
-    public static final String EXCEPTION_HIDE_ERROR_MESSAGE_LIST = "mp.graphql.hideErrorMessage";
-
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `server/api/src/main/java/org/eclipse/microprofile/graphql/ConfigKey.java`
-#### Snippet
-```java
-
-    @Deprecated
-    public static final String EXCEPTION_BLACK_LIST = "mp.graphql.exceptionsBlackList";
-    public static final String EXCEPTION_HIDE_ERROR_MESSAGE_LIST = "mp.graphql.hideErrorMessage";
-
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `server/api/src/main/java/org/eclipse/microprofile/graphql/ConfigKey.java`
-#### Snippet
-```java
-
-    @Deprecated
-    public static final String EXCEPTION_BLACK_LIST = "mp.graphql.exceptionsBlackList";
-    public static final String EXCEPTION_HIDE_ERROR_MESSAGE_LIST = "mp.graphql.hideErrorMessage";
-
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `server/api/src/main/java/org/eclipse/microprofile/graphql/ConfigKey.java`
-#### Snippet
-```java
- */
-public interface ConfigKey {
-    public static final String DEFAULT_ERROR_MESSAGE = "mp.graphql.defaultErrorMessage";
-
-    @Deprecated
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `server/api/src/main/java/org/eclipse/microprofile/graphql/ConfigKey.java`
-#### Snippet
-```java
- */
-public interface ConfigKey {
-    public static final String DEFAULT_ERROR_MESSAGE = "mp.graphql.defaultErrorMessage";
-
-    @Deprecated
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `server/api/src/main/java/org/eclipse/microprofile/graphql/ConfigKey.java`
-#### Snippet
-```java
- */
-public interface ConfigKey {
-    public static final String DEFAULT_ERROR_MESSAGE = "mp.graphql.defaultErrorMessage";
-
-    @Deprecated
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `server/api/src/main/java/org/eclipse/microprofile/graphql/ConfigKey.java`
-#### Snippet
-```java
-    @Deprecated
-    public static final String EXCEPTION_WHITE_LIST = "mp.graphql.exceptionsWhiteList";
-    public static final String EXCEPTION_SHOW_ERROR_MESSAGE_LIST = "mp.graphql.showErrorMessage";
-}
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `server/api/src/main/java/org/eclipse/microprofile/graphql/ConfigKey.java`
-#### Snippet
-```java
-    @Deprecated
-    public static final String EXCEPTION_WHITE_LIST = "mp.graphql.exceptionsWhiteList";
-    public static final String EXCEPTION_SHOW_ERROR_MESSAGE_LIST = "mp.graphql.showErrorMessage";
-}
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `server/api/src/main/java/org/eclipse/microprofile/graphql/ConfigKey.java`
-#### Snippet
-```java
-    @Deprecated
-    public static final String EXCEPTION_WHITE_LIST = "mp.graphql.exceptionsWhiteList";
-    public static final String EXCEPTION_SHOW_ERROR_MESSAGE_LIST = "mp.graphql.showErrorMessage";
-}
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `server/api/src/main/java/org/eclipse/microprofile/graphql/ConfigKey.java`
-#### Snippet
-```java
-
-    @Deprecated
-    public static final String EXCEPTION_WHITE_LIST = "mp.graphql.exceptionsWhiteList";
-    public static final String EXCEPTION_SHOW_ERROR_MESSAGE_LIST = "mp.graphql.showErrorMessage";
-}
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `server/api/src/main/java/org/eclipse/microprofile/graphql/ConfigKey.java`
-#### Snippet
-```java
-
-    @Deprecated
-    public static final String EXCEPTION_WHITE_LIST = "mp.graphql.exceptionsWhiteList";
-    public static final String EXCEPTION_SHOW_ERROR_MESSAGE_LIST = "mp.graphql.showErrorMessage";
-}
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `server/api/src/main/java/org/eclipse/microprofile/graphql/ConfigKey.java`
-#### Snippet
-```java
-
-    @Deprecated
-    public static final String EXCEPTION_WHITE_LIST = "mp.graphql.exceptionsWhiteList";
-    public static final String EXCEPTION_SHOW_ERROR_MESSAGE_LIST = "mp.graphql.showErrorMessage";
-}
-```
-
-### UnnecessaryModifier
 Modifier `static` is redundant for inner enums
 in `server/api/src/main/java/org/eclipse/microprofile/graphql/GraphQLException.java`
 #### Snippet
@@ -238,6 +61,183 @@ in `server/tck/src/main/java/org/eclipse/microprofile/graphql/tck/dynamic/execut
     private static enum DataFrom {
         implementation,specification
     }
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `server/api/src/main/java/org/eclipse/microprofile/graphql/ConfigKey.java`
+#### Snippet
+```java
+
+    @Deprecated
+    public static final String EXCEPTION_BLACK_LIST = "mp.graphql.exceptionsBlackList";
+    public static final String EXCEPTION_HIDE_ERROR_MESSAGE_LIST = "mp.graphql.hideErrorMessage";
+
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `server/api/src/main/java/org/eclipse/microprofile/graphql/ConfigKey.java`
+#### Snippet
+```java
+
+    @Deprecated
+    public static final String EXCEPTION_BLACK_LIST = "mp.graphql.exceptionsBlackList";
+    public static final String EXCEPTION_HIDE_ERROR_MESSAGE_LIST = "mp.graphql.hideErrorMessage";
+
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `server/api/src/main/java/org/eclipse/microprofile/graphql/ConfigKey.java`
+#### Snippet
+```java
+
+    @Deprecated
+    public static final String EXCEPTION_BLACK_LIST = "mp.graphql.exceptionsBlackList";
+    public static final String EXCEPTION_HIDE_ERROR_MESSAGE_LIST = "mp.graphql.hideErrorMessage";
+
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `server/api/src/main/java/org/eclipse/microprofile/graphql/ConfigKey.java`
+#### Snippet
+```java
+    @Deprecated
+    public static final String EXCEPTION_WHITE_LIST = "mp.graphql.exceptionsWhiteList";
+    public static final String EXCEPTION_SHOW_ERROR_MESSAGE_LIST = "mp.graphql.showErrorMessage";
+}
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `server/api/src/main/java/org/eclipse/microprofile/graphql/ConfigKey.java`
+#### Snippet
+```java
+    @Deprecated
+    public static final String EXCEPTION_WHITE_LIST = "mp.graphql.exceptionsWhiteList";
+    public static final String EXCEPTION_SHOW_ERROR_MESSAGE_LIST = "mp.graphql.showErrorMessage";
+}
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `server/api/src/main/java/org/eclipse/microprofile/graphql/ConfigKey.java`
+#### Snippet
+```java
+    @Deprecated
+    public static final String EXCEPTION_WHITE_LIST = "mp.graphql.exceptionsWhiteList";
+    public static final String EXCEPTION_SHOW_ERROR_MESSAGE_LIST = "mp.graphql.showErrorMessage";
+}
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `server/api/src/main/java/org/eclipse/microprofile/graphql/ConfigKey.java`
+#### Snippet
+```java
+
+    @Deprecated
+    public static final String EXCEPTION_WHITE_LIST = "mp.graphql.exceptionsWhiteList";
+    public static final String EXCEPTION_SHOW_ERROR_MESSAGE_LIST = "mp.graphql.showErrorMessage";
+}
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `server/api/src/main/java/org/eclipse/microprofile/graphql/ConfigKey.java`
+#### Snippet
+```java
+
+    @Deprecated
+    public static final String EXCEPTION_WHITE_LIST = "mp.graphql.exceptionsWhiteList";
+    public static final String EXCEPTION_SHOW_ERROR_MESSAGE_LIST = "mp.graphql.showErrorMessage";
+}
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `server/api/src/main/java/org/eclipse/microprofile/graphql/ConfigKey.java`
+#### Snippet
+```java
+
+    @Deprecated
+    public static final String EXCEPTION_WHITE_LIST = "mp.graphql.exceptionsWhiteList";
+    public static final String EXCEPTION_SHOW_ERROR_MESSAGE_LIST = "mp.graphql.showErrorMessage";
+}
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `server/api/src/main/java/org/eclipse/microprofile/graphql/ConfigKey.java`
+#### Snippet
+```java
+    @Deprecated
+    public static final String EXCEPTION_BLACK_LIST = "mp.graphql.exceptionsBlackList";
+    public static final String EXCEPTION_HIDE_ERROR_MESSAGE_LIST = "mp.graphql.hideErrorMessage";
+
+    @Deprecated
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `server/api/src/main/java/org/eclipse/microprofile/graphql/ConfigKey.java`
+#### Snippet
+```java
+    @Deprecated
+    public static final String EXCEPTION_BLACK_LIST = "mp.graphql.exceptionsBlackList";
+    public static final String EXCEPTION_HIDE_ERROR_MESSAGE_LIST = "mp.graphql.hideErrorMessage";
+
+    @Deprecated
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `server/api/src/main/java/org/eclipse/microprofile/graphql/ConfigKey.java`
+#### Snippet
+```java
+    @Deprecated
+    public static final String EXCEPTION_BLACK_LIST = "mp.graphql.exceptionsBlackList";
+    public static final String EXCEPTION_HIDE_ERROR_MESSAGE_LIST = "mp.graphql.hideErrorMessage";
+
+    @Deprecated
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `server/api/src/main/java/org/eclipse/microprofile/graphql/ConfigKey.java`
+#### Snippet
+```java
+ */
+public interface ConfigKey {
+    public static final String DEFAULT_ERROR_MESSAGE = "mp.graphql.defaultErrorMessage";
+
+    @Deprecated
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `server/api/src/main/java/org/eclipse/microprofile/graphql/ConfigKey.java`
+#### Snippet
+```java
+ */
+public interface ConfigKey {
+    public static final String DEFAULT_ERROR_MESSAGE = "mp.graphql.defaultErrorMessage";
+
+    @Deprecated
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `server/api/src/main/java/org/eclipse/microprofile/graphql/ConfigKey.java`
+#### Snippet
+```java
+ */
+public interface ConfigKey {
+    public static final String DEFAULT_ERROR_MESSAGE = "mp.graphql.defaultErrorMessage";
+
+    @Deprecated
 ```
 
 ## RuleId[ruleID=ManualArrayToCollectionCopy]
@@ -332,18 +332,6 @@ in `server/tck/src/main/java/org/eclipse/microprofile/graphql/tck/dynamic/Schema
 ```
 
 ### SizeReplaceableByIsEmpty
-`members.size() > 0` can be replaced with '!members.isEmpty()'
-in `server/tck/src/main/java/org/eclipse/microprofile/graphql/tck/apps/superhero/api/HeroFinder.java`
-#### Snippet
-```java
-        List<SuperHero> members = newTeam.getMembers();
-        Team team = heroDB.createNewTeam(newTeam.getName());
-        if (members != null && members.size() > 0) {
-            team.setMembers(members);
-        }
-```
-
-### SizeReplaceableByIsEmpty
 `testData.getInput().size() > 0` can be replaced with '!testData.getInput().isEmpty()'
 in `server/tck/src/main/java/org/eclipse/microprofile/graphql/tck/dynamic/execution/GraphQLTestDataProvider.java`
 #### Snippet
@@ -353,6 +341,18 @@ in `server/tck/src/main/java/org/eclipse/microprofile/graphql/tck/dynamic/execut
                     if(!testData.shouldIgnore() && testData.getInput().size() > 0){
                         testDataList.add(testData);
                     }
+```
+
+### SizeReplaceableByIsEmpty
+`members.size() > 0` can be replaced with '!members.isEmpty()'
+in `server/tck/src/main/java/org/eclipse/microprofile/graphql/tck/apps/superhero/api/HeroFinder.java`
+#### Snippet
+```java
+        List<SuperHero> members = newTeam.getMembers();
+        Team team = heroDB.createNewTeam(newTeam.getName());
+        if (members != null && members.size() > 0) {
+            team.setMembers(members);
+        }
 ```
 
 ## RuleId[ruleID=UnnecessaryToStringCall]
@@ -389,9 +389,9 @@ in `server/tck/src/main/java/org/eclipse/microprofile/graphql/tck/dynamic/schema
 ```java
     }
     
-    private static List<Path> toListOfPaths(DirectoryStream<Path> directoryStream){
-        List<Path> files = new ArrayList<>();
-        for(Path p: directoryStream){
+    private static List<TestData> toListOfTestData(List<Path> testFolders){
+        List<TestData> testDataList = new LinkedList<>();
+        for (Path testFile : testFolders) {
 ```
 
 ### BoundedWildcard
@@ -401,33 +401,9 @@ in `server/tck/src/main/java/org/eclipse/microprofile/graphql/tck/dynamic/schema
 ```java
     }
     
-    private static List<TestData> toListOfTestData(List<Path> testFolders){
-        List<TestData> testDataList = new LinkedList<>();
-        for (Path testFile : testFolders) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends SuperHero`
-in `server/tck/src/main/java/org/eclipse/microprofile/graphql/tck/apps/superhero/db/HeroDatabase.java`
-#### Snippet
-```java
-    }
-
-    public int addHeroes(Collection<SuperHero> heroes) {
-        int count = 0;
-        for (SuperHero hero : heroes) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends Sidekick`
-in `server/tck/src/main/java/org/eclipse/microprofile/graphql/tck/apps/superhero/db/SidekickDatabase.java`
-#### Snippet
-```java
-    }
-
-    public int addSidekicks(Collection<Sidekick> sidekicks) {
-        int count = 0;
-        for (Sidekick sidekick : sidekicks) {
+    private static List<Path> toListOfPaths(DirectoryStream<Path> directoryStream){
+        List<Path> files = new ArrayList<>();
+        for(Path p: directoryStream){
 ```
 
 ### BoundedWildcard
@@ -443,27 +419,15 @@ in `server/tck/src/main/java/org/eclipse/microprofile/graphql/tck/dynamic/Execut
 ```
 
 ### BoundedWildcard
-Can generalize to `? super SuperHero`
-in `server/tck/src/main/java/org/eclipse/microprofile/graphql/tck/apps/superhero/api/HeroFinder.java`
-#### Snippet
-```java
-    }
-    
-    private Collection<SuperHero> allHeroesByFilter(Predicate<SuperHero> predicate) {
-        return heroDB.getAllHeroes()
-                .stream()
-```
-
-### BoundedWildcard
-Can generalize to `? extends TestData`
-in `server/tck/src/main/java/org/eclipse/microprofile/graphql/tck/dynamic/execution/GraphQLTestDataProvider.java`
+Can generalize to `? extends Sidekick`
+in `server/tck/src/main/java/org/eclipse/microprofile/graphql/tck/apps/superhero/db/SidekickDatabase.java`
 #### Snippet
 ```java
     }
 
-    private static Object[][] toObjectArray(List<TestData> testDataList){
-        Object[][] testParameters = new Object[testDataList.size()][1];
-        for (int row = 0; row < testDataList.size(); row++) {
+    public int addSidekicks(Collection<Sidekick> sidekicks) {
+        int count = 0;
+        for (Sidekick sidekick : sidekicks) {
 ```
 
 ### BoundedWildcard
@@ -500,6 +464,42 @@ in `server/tck/src/main/java/org/eclipse/microprofile/graphql/tck/dynamic/execut
     private static void sort(List<TestData> testDataList){
         Collections.sort(testDataList, new Comparator<TestData>() {
             @Override
+```
+
+### BoundedWildcard
+Can generalize to `? extends TestData`
+in `server/tck/src/main/java/org/eclipse/microprofile/graphql/tck/dynamic/execution/GraphQLTestDataProvider.java`
+#### Snippet
+```java
+    }
+
+    private static Object[][] toObjectArray(List<TestData> testDataList){
+        Object[][] testParameters = new Object[testDataList.size()][1];
+        for (int row = 0; row < testDataList.size(); row++) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends SuperHero`
+in `server/tck/src/main/java/org/eclipse/microprofile/graphql/tck/apps/superhero/db/HeroDatabase.java`
+#### Snippet
+```java
+    }
+
+    public int addHeroes(Collection<SuperHero> heroes) {
+        int count = 0;
+        for (SuperHero hero : heroes) {
+```
+
+### BoundedWildcard
+Can generalize to `? super SuperHero`
+in `server/tck/src/main/java/org/eclipse/microprofile/graphql/tck/apps/superhero/api/HeroFinder.java`
+#### Snippet
+```java
+    }
+    
+    private Collection<SuperHero> allHeroesByFilter(Predicate<SuperHero> predicate) {
+        return heroDB.getAllHeroes()
+                .stream()
 ```
 
 ## RuleId[ruleID=MissortedModifiers]
@@ -685,6 +685,18 @@ in `server/tck/src/main/java/org/eclipse/microprofile/graphql/tck/apps/basic/api
 ```
 
 ### UnnecessaryBoxing
+Redundant boxing, `Boolean.parseBoolean()` call can be used instead
+in `server/tck/src/main/java/org/eclipse/microprofile/graphql/tck/dynamic/execution/GraphQLTestDataProvider.java`
+#### Snippet
+```java
+    
+    private static boolean disableSpecificationTests(){
+        return Boolean.valueOf(System.getProperty("disableSpecificationTests", "false"));
+    }
+}
+```
+
+### UnnecessaryBoxing
 Unnecessary boxing
 in `client/tck/src/main/java/org/eclipse/microprofile/graphql/client/tck/core/ScalarsTest.java`
 #### Snippet
@@ -780,18 +792,6 @@ in `client/tck/src/main/java/org/eclipse/microprofile/graphql/client/tck/core/Sc
                                                 prop("stringObject", "Hello World !")
 ```
 
-### UnnecessaryBoxing
-Redundant boxing, `Boolean.parseBoolean()` call can be used instead
-in `server/tck/src/main/java/org/eclipse/microprofile/graphql/tck/dynamic/execution/GraphQLTestDataProvider.java`
-#### Snippet
-```java
-    
-    private static boolean disableSpecificationTests(){
-        return Boolean.valueOf(System.getProperty("disableSpecificationTests", "false"));
-    }
-}
-```
-
 ## RuleId[ruleID=OptionalUsedAsFieldOrParameterType]
 ### OptionalUsedAsFieldOrParameterType
 `Optional` used as type for parameter 'value'
@@ -833,18 +833,6 @@ in `server/tck/src/main/java/org/eclipse/microprofile/graphql/tck/dynamic/Schema
 
 ## RuleId[ruleID=SystemOutErr]
 ### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `server/tck/src/main/java/org/eclipse/microprofile/graphql/tck/apps/superhero/db/HeroDatabase.java`
-#### Snippet
-```java
-                count++;
-            } catch (DuplicateSuperHeroException ex) {
-                System.out.println("Already added : " + hero.getName());
-            }
-        }
-```
-
-### SystemOutErr
 Uses of `System.err` should probably be replaced with more robust logging
 in `client/tck/src/main/java/org/eclipse/microprofile/graphql/client/tck/helper/AssertGraphQL.java`
 #### Snippet
@@ -864,6 +852,18 @@ in `server/tck/src/main/java/org/eclipse/microprofile/graphql/tck/apps/superhero
                 count++;
             } catch (DuplicateSidekickException ex) {
                 System.out.println("Already added : " + sidekick.getName());
+            }
+        }
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `server/tck/src/main/java/org/eclipse/microprofile/graphql/tck/apps/superhero/db/HeroDatabase.java`
+#### Snippet
+```java
+                count++;
+            } catch (DuplicateSuperHeroException ex) {
+                System.out.println("Already added : " + hero.getName());
             }
         }
 ```
@@ -904,18 +904,6 @@ in `client/tck/src/main/java/org/eclipse/microprofile/graphql/client/tck/helper/
                 .replaceAll(",", "");
     }
 
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `server/tck/src/main/java/org/eclipse/microprofile/graphql/tck/apps/superhero/api/HeroFinder.java`
-#### Snippet
-```java
-        String uuid = UUID.randomUUID().toString();
-        if(maskFirstPart){
-            return new Token(uuid.substring(0,uuid.length()-4).replaceAll("[A-Za-z0-9]", "*") + uuid.substring(uuid.length()-4,uuid.length()));
-        }else{
-            return new Token(uuid);
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
@@ -978,19 +966,19 @@ in `server/tck/src/main/java/org/eclipse/microprofile/graphql/tck/dynamic/execut
 
 ```
 
-## RuleId[ruleID=UnnecessaryFullyQualifiedName]
-### UnnecessaryFullyQualifiedName
-Qualifier `org.osgi.annotation.versioning` is unnecessary, and can be replaced with an import
-in `server/api/src/main/java/org/eclipse/microprofile/graphql/package-info.java`
+### DynamicRegexReplaceableByCompiledPattern
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `server/tck/src/main/java/org/eclipse/microprofile/graphql/tck/apps/superhero/api/HeroFinder.java`
 #### Snippet
 ```java
- * @since 1.0
- */
-@org.osgi.annotation.versioning.Version("1.0")
-package org.eclipse.microprofile.graphql;
-
+        String uuid = UUID.randomUUID().toString();
+        if(maskFirstPart){
+            return new Token(uuid.substring(0,uuid.length()-4).replaceAll("[A-Za-z0-9]", "*") + uuid.substring(uuid.length()-4,uuid.length()));
+        }else{
+            return new Token(uuid);
 ```
 
+## RuleId[ruleID=UnnecessaryFullyQualifiedName]
 ### UnnecessaryFullyQualifiedName
 Qualifier `java.lang` is unnecessary and can be removed
 in `server/api/src/main/java/org/eclipse/microprofile/graphql/GraphQLException.java`
@@ -1001,6 +989,18 @@ in `server/api/src/main/java/org/eclipse/microprofile/graphql/GraphQLException.j
     public java.lang.Object getPartialResults() {
         return partialResults;
     }
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.osgi.annotation.versioning` is unnecessary, and can be replaced with an import
+in `server/api/src/main/java/org/eclipse/microprofile/graphql/package-info.java`
+#### Snippet
+```java
+ * @since 1.0
+ */
+@org.osgi.annotation.versioning.Version("1.0")
+package org.eclipse.microprofile.graphql;
+
 ```
 
 ## RuleId[ruleID=NestedAssignment]
@@ -1029,18 +1029,6 @@ in `server/tck/src/main/java/org/eclipse/microprofile/graphql/tck/dynamic/Execut
 ```
 
 ## RuleId[ruleID=CodeBlock2Expr]
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
-in `server/tck/src/main/java/org/eclipse/microprofile/graphql/tck/apps/superhero/api/HeroFinder.java`
-#### Snippet
-```java
-        return heroLocator.getHeroLocation(heroName)
-                .orElseThrow(() -> {
-                    return new GraphQLException("Cannot find location for " + heroName,
-                            GraphQLException.ExceptionType.DataFetchingException);
-                });
-```
-
 ### CodeBlock2Expr
 Statement lambda can be replaced with expression lambda
 in `server/tck/src/main/java/org/eclipse/microprofile/graphql/tck/apps/superhero/api/HeroFinder.java`
@@ -1075,6 +1063,18 @@ in `server/tck/src/main/java/org/eclipse/microprofile/graphql/tck/apps/superhero
             return hero.getSuperPowers().contains(power);
         });
     }
+```
+
+### CodeBlock2Expr
+Statement lambda can be replaced with expression lambda
+in `server/tck/src/main/java/org/eclipse/microprofile/graphql/tck/apps/superhero/api/HeroFinder.java`
+#### Snippet
+```java
+        return heroLocator.getHeroLocation(heroName)
+                .orElseThrow(() -> {
+                    return new GraphQLException("Cannot find location for " + heroName,
+                            GraphQLException.ExceptionType.DataFetchingException);
+                });
 ```
 
 ## RuleId[ruleID=Convert2Lambda]
@@ -1145,11 +1145,11 @@ Field initialization to `null` is redundant
 in `server/tck/src/main/java/org/eclipse/microprofile/graphql/tck/dynamic/ExecutionDynamicTest.java`
 #### Snippet
 ```java
-    private static final int READ_TIMEOUT = Integer.getInteger("mp.tck.read.timeout", 5000);
-
     private HttpMethod currentHttpMethod = null;
     private TestData currentTestData = null;
     private String currentOutput = null;
+
+    @ArquillianResource
 ```
 
 ### RedundantFieldInitialization
@@ -1157,11 +1157,11 @@ Field initialization to `null` is redundant
 in `server/tck/src/main/java/org/eclipse/microprofile/graphql/tck/dynamic/ExecutionDynamicTest.java`
 #### Snippet
 ```java
+    private static final int READ_TIMEOUT = Integer.getInteger("mp.tck.read.timeout", 5000);
+
     private HttpMethod currentHttpMethod = null;
     private TestData currentTestData = null;
     private String currentOutput = null;
-
-    @ArquillianResource
 ```
 
 ### RedundantFieldInitialization
@@ -1177,18 +1177,6 @@ in `server/tck/src/main/java/org/eclipse/microprofile/graphql/tck/dynamic/Execut
 ```
 
 ## RuleId[ruleID=AssignmentToMethodParameter]
-### AssignmentToMethodParameter
-Assignment to method parameter `single`
-in `server/tck/src/main/java/org/eclipse/microprofile/graphql/tck/dynamic/SchemaDynamicValidityTest.java`
-#### Snippet
-```java
-    private boolean matchSingle(String single,String snippet){
-        if(single.startsWith("!")){
-            single = single.substring(1);
-            return !snippet.contains(single);
-        }else{
-```
-
 ### AssignmentToMethodParameter
 Assignment to method parameter `expectedRequest`
 in `client/tck/src/main/java/org/eclipse/microprofile/graphql/client/tck/helper/AssertGraphQL.java`
@@ -1214,15 +1202,15 @@ in `client/tck/src/main/java/org/eclipse/microprofile/graphql/client/tck/helper/
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `httpMethod`
-in `server/tck/src/main/java/org/eclipse/microprofile/graphql/tck/dynamic/ExecutionDynamicTest.java`
+Assignment to method parameter `single`
+in `server/tck/src/main/java/org/eclipse/microprofile/graphql/tck/dynamic/SchemaDynamicValidityTest.java`
 #### Snippet
 ```java
-        // We can only do Queries over GET
-        if(testData.isMutation()){
-            httpMethod = HttpMethod.POST;
-        }
-
+    private boolean matchSingle(String single,String snippet){
+        if(single.startsWith("!")){
+            single = single.substring(1);
+            return !snippet.contains(single);
+        }else{
 ```
 
 ### AssignmentToMethodParameter
@@ -1237,10 +1225,22 @@ in `server/tck/src/main/java/org/eclipse/microprofile/graphql/tck/dynamic/Execut
         return emptyJsonErrorPatchBuilder;
 ```
 
+### AssignmentToMethodParameter
+Assignment to method parameter `httpMethod`
+in `server/tck/src/main/java/org/eclipse/microprofile/graphql/tck/dynamic/ExecutionDynamicTest.java`
+#### Snippet
+```java
+        // We can only do Queries over GET
+        if(testData.isMutation()){
+            httpMethod = HttpMethod.POST;
+        }
+
+```
+
 ## RuleId[ruleID=HtmlWrongAttributeValue]
 ### HtmlWrongAttributeValue
 Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-02-12-02-45-52.091.html`
+in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-02-12-08-37-04.114.html`
 #### Snippet
 ```java
               <td>0</td>
@@ -1277,6 +1277,18 @@ in `server/tck/src/main/java/org/eclipse/microprofile/graphql/tck/dynamic/execut
 
 ### ReturnNull
 Return of `null`
+in `server/tck/src/main/java/org/eclipse/microprofile/graphql/tck/dynamic/execution/GraphQLTestDataProvider.java`
+#### Snippet
+```java
+    private static JsonObject toJsonObject(String jsonString){
+        if(jsonString==null || jsonString.isEmpty()) {
+            return null;
+        }
+        try (JsonReader jsonReader = Json.createReader(new StringReader(jsonString))) {
+```
+
+### ReturnNull
+Return of `null`
 in `server/tck/src/main/java/org/eclipse/microprofile/graphql/tck/apps/superhero/db/HeroDatabase.java`
 #### Snippet
 ```java
@@ -1299,31 +1311,7 @@ in `server/tck/src/main/java/org/eclipse/microprofile/graphql/tck/apps/superhero
 
 ```
 
-### ReturnNull
-Return of `null`
-in `server/tck/src/main/java/org/eclipse/microprofile/graphql/tck/dynamic/execution/GraphQLTestDataProvider.java`
-#### Snippet
-```java
-    private static JsonObject toJsonObject(String jsonString){
-        if(jsonString==null || jsonString.isEmpty()) {
-            return null;
-        }
-        try (JsonReader jsonReader = Json.createReader(new StringReader(jsonString))) {
-```
-
 ## RuleId[ruleID=UnnecessaryLocalVariable]
-### UnnecessaryLocalVariable
-Local variable `t` is redundant
-in `client/api/src/main/java/org/eclipse/microprofile/graphql/client/core/utils/ServiceUtils.java`
-#### Snippet
-```java
-    public static <T> T getNewInstanceOf(Class<T> clazz) {
-        ServiceLoader<T> sl = ServiceLoader.load(clazz);
-        T t = sl.iterator().next();
-
-        return t;
-```
-
 ### UnnecessaryLocalVariable
 Local variable `content` is redundant
 in `client/tck/src/main/java/org/eclipse/microprofile/graphql/client/tck/helper/Utils.java`
@@ -1334,6 +1322,18 @@ in `client/tck/src/main/java/org/eclipse/microprofile/graphql/client/tck/helper/
         String content = reader.lines().collect(Collectors.joining("\n"));
 
         return content;
+```
+
+### UnnecessaryLocalVariable
+Local variable `t` is redundant
+in `client/api/src/main/java/org/eclipse/microprofile/graphql/client/core/utils/ServiceUtils.java`
+#### Snippet
+```java
+    public static <T> T getNewInstanceOf(Class<T> clazz) {
+        ServiceLoader<T> sl = ServiceLoader.load(clazz);
+        T t = sl.iterator().next();
+
+        return t;
 ```
 
 ### UnnecessaryLocalVariable
@@ -1385,44 +1385,7 @@ in `server/api/src/main/java/org/eclipse/microprofile/graphql/GraphQLException.j
     public GraphQLException() {
 ```
 
-## RuleId[ruleID=DuplicateThrows]
-### DuplicateThrows
-There is a more general exception, 'java.io.IOException', in the throws list already.
-in `server/tck/src/main/java/org/eclipse/microprofile/graphql/tck/dynamic/SchemaDynamicValidityTest.java`
-#### Snippet
-```java
-    }
-    
-    private String getSchemaContent() throws MalformedURLException, ProtocolException, IOException {
-        URL url = new URL(this.uri + PATH);
-        HttpURLConnection connection = null;
-```
-
-### DuplicateThrows
-There is a more general exception, 'java.io.IOException', in the throws list already.
-in `server/tck/src/main/java/org/eclipse/microprofile/graphql/tck/dynamic/SchemaDynamicValidityTest.java`
-#### Snippet
-```java
-    }
-    
-    private String getSchemaContent() throws MalformedURLException, ProtocolException, IOException {
-        URL url = new URL(this.uri + PATH);
-        HttpURLConnection connection = null;
-```
-
 ## RuleId[ruleID=ZeroLengthArrayInitialization]
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `server/tck/src/main/java/org/eclipse/microprofile/graphql/tck/apps/superhero/db/HeroDatabase.java`
-#### Snippet
-```java
-
-    public Team removeHeroesFromTeam(Team team, Collection<SuperHero> heroes) {
-        return removeHeroesFromTeam(team, heroes.toArray(new SuperHero[]{}));
-    }
-
-```
-
 ### ZeroLengthArrayInitialization
 Allocation of zero length array
 in `client/tck/src/main/java/org/eclipse/microprofile/graphql/client/tck/core/NestedObjectsTest.java`
@@ -1457,6 +1420,43 @@ in `server/tck/src/main/java/org/eclipse/microprofile/graphql/tck/dynamic/execut
             return new Object[][]{};
         }
     }
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `server/tck/src/main/java/org/eclipse/microprofile/graphql/tck/apps/superhero/db/HeroDatabase.java`
+#### Snippet
+```java
+
+    public Team removeHeroesFromTeam(Team team, Collection<SuperHero> heroes) {
+        return removeHeroesFromTeam(team, heroes.toArray(new SuperHero[]{}));
+    }
+
+```
+
+## RuleId[ruleID=DuplicateThrows]
+### DuplicateThrows
+There is a more general exception, 'java.io.IOException', in the throws list already.
+in `server/tck/src/main/java/org/eclipse/microprofile/graphql/tck/dynamic/SchemaDynamicValidityTest.java`
+#### Snippet
+```java
+    }
+    
+    private String getSchemaContent() throws MalformedURLException, ProtocolException, IOException {
+        URL url = new URL(this.uri + PATH);
+        HttpURLConnection connection = null;
+```
+
+### DuplicateThrows
+There is a more general exception, 'java.io.IOException', in the throws list already.
+in `server/tck/src/main/java/org/eclipse/microprofile/graphql/tck/dynamic/SchemaDynamicValidityTest.java`
+#### Snippet
+```java
+    }
+    
+    private String getSchemaContent() throws MalformedURLException, ProtocolException, IOException {
+        URL url = new URL(this.uri + PATH);
+        HttpURLConnection connection = null;
 ```
 
 ## RuleId[ruleID=UnusedAssignment]
