@@ -101,18 +101,6 @@ in `src/main/java/com/uber/jenkins/phabricator/coverage/XmlCoverageProvider.java
 
 ## RuleId[ruleID=FieldMayBeStatic]
 ### FieldMayBeStatic
-Field `color` may be 'static'
-in `src/main/java/com/uber/jenkins/phabricator/PhabricatorPostbuildAction.java`
-#### Snippet
-```java
-    private final String iconPath;
-    private final String text;
-    private final String color = "#1FBAD6";
-    private final String background = "transparent";
-    private final String border = "0";
-```
-
-### FieldMayBeStatic
 Field `border` may be 'static'
 in `src/main/java/com/uber/jenkins/phabricator/PhabricatorPostbuildAction.java`
 #### Snippet
@@ -146,6 +134,18 @@ in `src/main/java/com/uber/jenkins/phabricator/PhabricatorPostbuildAction.java`
     private final String background = "transparent";
     private final String border = "0";
     private final String borderColor = "transparent";
+```
+
+### FieldMayBeStatic
+Field `color` may be 'static'
+in `src/main/java/com/uber/jenkins/phabricator/PhabricatorPostbuildAction.java`
+#### Snippet
+```java
+    private final String iconPath;
+    private final String text;
+    private final String color = "#1FBAD6";
+    private final String background = "transparent";
+    private final String border = "0";
 ```
 
 ## RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
@@ -374,6 +374,18 @@ public class ConduitCredentialsImpl extends BaseStandardCredentials implements C
 ```
 
 ### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@edu.umd.cs.findbugs.annotations.Nullable'
+in `src/main/java/com/uber/jenkins/phabricator/credentials/ConduitCredentialsImpl.java`
+#### Snippet
+```java
+    private final Secret token;
+
+    @Nullable
+    private final String gateway;
+
+```
+
+### NullableProblems
 Cannot annotate with both @NonNull and @CheckForNull
 in `src/main/java/com/uber/jenkins/phabricator/credentials/ConduitCredentialsImpl.java`
 #### Snippet
@@ -397,27 +409,15 @@ in `src/main/java/com/uber/jenkins/phabricator/credentials/ConduitCredentialsImp
 
 ```
 
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@edu.umd.cs.findbugs.annotations.Nullable'
-in `src/main/java/com/uber/jenkins/phabricator/credentials/ConduitCredentialsImpl.java`
-#### Snippet
-```java
-    private final Secret token;
-
-    @Nullable
-    private final String gateway;
-
-```
-
 ## RuleId[ruleID=StringEqualsEmptyString]
 ### StringEqualsEmptyString
 `equals("")` can be replaced with 'isEmpty()'
 in `src/main/java/com/uber/jenkins/phabricator/conduit/Differential.java`
 #### Snippet
 ```java
-    public String getDiffID() {
-        String rawDiffId = (String) rawJSON.get("id");
-        if (rawDiffId == null || rawDiffId.equals("")) {
+        Object rawRevisionIdObj = rawJSON.get("revisionID");
+        String rawRevisionId = rawRevisionIdObj != null && !(rawRevisionIdObj instanceof net.sf.json.JSONNull) ? (String) rawRevisionIdObj : null;
+        if (rawRevisionId == null || rawRevisionId.equals("")) {
             return null;
         }
 ```
@@ -427,9 +427,9 @@ in `src/main/java/com/uber/jenkins/phabricator/conduit/Differential.java`
 in `src/main/java/com/uber/jenkins/phabricator/conduit/Differential.java`
 #### Snippet
 ```java
-        Object rawRevisionIdObj = rawJSON.get("revisionID");
-        String rawRevisionId = rawRevisionIdObj != null && !(rawRevisionIdObj instanceof net.sf.json.JSONNull) ? (String) rawRevisionIdObj : null;
-        if (rawRevisionId == null || rawRevisionId.equals("")) {
+    public String getDiffID() {
+        String rawDiffId = (String) rawJSON.get("id");
+        if (rawDiffId == null || rawDiffId.equals("")) {
             return null;
         }
 ```
@@ -443,18 +443,6 @@ in `src/main/java/com/uber/jenkins/phabricator/coverage/XmlCoverageProvider.java
         String content = attrs.getNamedItem(attr).getTextContent();
         try {
             return Math.round(Float.valueOf(content));
-        } catch (NumberFormatException e) {
-            throw new IllegalStateException(content + " is not a valid coverage number", e);
-```
-
-### UnnecessaryBoxing
-Redundant boxing, `Double.parseDouble()` call can be used instead
-in `src/main/java/com/uber/jenkins/phabricator/coverage/XmlCoverageProvider.java`
-#### Snippet
-```java
-        String content = attrs.getNamedItem(attr).getTextContent();
-        try {
-            return Math.round(Double.valueOf(content));
         } catch (NumberFormatException e) {
             throw new IllegalStateException(content + " is not a valid coverage number", e);
 ```
@@ -481,6 +469,18 @@ in `src/main/java/com/uber/jenkins/phabricator/coverage/XmlCoverageProvider.java
                 long missed = Long.valueOf(attrs.getNamedItem("missed").getTextContent());
                 switch (attrs.getNamedItem("type").getTextContent()) {
                     case "CLASS":
+```
+
+### UnnecessaryBoxing
+Redundant boxing, `Double.parseDouble()` call can be used instead
+in `src/main/java/com/uber/jenkins/phabricator/coverage/XmlCoverageProvider.java`
+#### Snippet
+```java
+        String content = attrs.getNamedItem(attr).getTextContent();
+        try {
+            return Math.round(Double.valueOf(content));
+        } catch (NumberFormatException e) {
+            throw new IllegalStateException(content + " is not a valid coverage number", e);
 ```
 
 ## RuleId[ruleID=IgnoreResultOfCall]
@@ -712,18 +712,6 @@ in `src/main/java/com/uber/jenkins/phabricator/coverage/XmlCoverageProvider.java
 ## RuleId[ruleID=ReturnNull]
 ### ReturnNull
 Return of `null`
-in `src/main/java/com/uber/jenkins/phabricator/PhabricatorPlugin.java`
-#### Snippet
-```java
-    public static String getIconPath(String icon) {
-        if (icon == null) {
-            return null;
-        }
-        if (icon.startsWith("/")) {
-```
-
-### ReturnNull
-Return of `null`
 in `src/main/java/com/uber/jenkins/phabricator/unit/JUnitTestProvider.java`
 #### Snippet
 ```java
@@ -732,6 +720,18 @@ in `src/main/java/com/uber/jenkins/phabricator/unit/JUnitTestProvider.java`
             return null;
         }
         return jUnitAction.getResult();
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/com/uber/jenkins/phabricator/PhabricatorPlugin.java`
+#### Snippet
+```java
+    public static String getIconPath(String icon) {
+        if (icon == null) {
+            return null;
+        }
+        if (icon.startsWith("/")) {
 ```
 
 ### ReturnNull
@@ -751,11 +751,11 @@ Return of `null`
 in `src/main/java/com/uber/jenkins/phabricator/conduit/Differential.java`
 #### Snippet
 ```java
-        String rawDiffId = (String) rawJSON.get("id");
-        if (rawDiffId == null || rawDiffId.equals("")) {
+        String rawRevisionId = rawRevisionIdObj != null && !(rawRevisionIdObj instanceof net.sf.json.JSONNull) ? (String) rawRevisionIdObj : null;
+        if (rawRevisionId == null || rawRevisionId.equals("")) {
             return null;
         }
-        return rawDiffId;
+        if (formatted) {
 ```
 
 ### ReturnNull
@@ -763,11 +763,11 @@ Return of `null`
 in `src/main/java/com/uber/jenkins/phabricator/conduit/Differential.java`
 #### Snippet
 ```java
-        String rawRevisionId = rawRevisionIdObj != null && !(rawRevisionIdObj instanceof net.sf.json.JSONNull) ? (String) rawRevisionIdObj : null;
-        if (rawRevisionId == null || rawRevisionId.equals("")) {
+        String rawDiffId = (String) rawJSON.get("id");
+        if (rawDiffId == null || rawDiffId.equals("")) {
             return null;
         }
-        if (formatted) {
+        return rawDiffId;
 ```
 
 ### ReturnNull
@@ -796,18 +796,6 @@ in `src/main/java/com/uber/jenkins/phabricator/coverage/JacocoPluginCoverageProv
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/com/uber/jenkins/phabricator/tasks/PostCommentTask.java`
-#### Snippet
-```java
-
-        result = Result.FAILURE;
-        return null;
-    }
-}
-```
-
-### ReturnNull
-Return of `null`
 in `src/main/java/com/uber/jenkins/phabricator/provider/InstanceProvider.java`
 #### Snippet
 ```java
@@ -820,6 +808,18 @@ in `src/main/java/com/uber/jenkins/phabricator/provider/InstanceProvider.java`
 
 ### ReturnNull
 Return of `null`
+in `src/main/java/com/uber/jenkins/phabricator/tasks/PostCommentTask.java`
+#### Snippet
+```java
+
+        result = Result.FAILURE;
+        return null;
+    }
+}
+```
+
+### ReturnNull
+Return of `null`
 in `src/main/java/com/uber/jenkins/phabricator/coverage/CoberturaPluginCoverageProvider.java`
 #### Snippet
 ```java
@@ -827,30 +827,6 @@ in `src/main/java/com/uber/jenkins/phabricator/coverage/CoberturaPluginCoverageP
         if (result == null) {
             return null;
         }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/com/uber/jenkins/phabricator/uberalls/UberallsClient.java`
-#### Snippet
-```java
-            if (statusCode != HttpStatus.SC_OK) {
-                logger.info(TAG, "Call failed: " + response.getStatusLine().toString());
-                return null;
-            }
-            return EntityUtils.toString(response.getEntity());
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/com/uber/jenkins/phabricator/uberalls/UberallsClient.java`
-#### Snippet
-```java
-            e.printStackTrace(logger.getStream());
-        }
-        return null;
-    }
 
 ```
 
@@ -885,6 +861,42 @@ in `src/main/java/com/uber/jenkins/phabricator/uberalls/UberallsClient.java`
 ```java
         }
 
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/com/uber/jenkins/phabricator/uberalls/UberallsClient.java`
+#### Snippet
+```java
+            if (statusCode != HttpStatus.SC_OK) {
+                logger.info(TAG, "Call failed: " + response.getStatusLine().toString());
+                return null;
+            }
+            return EntityUtils.toString(response.getEntity());
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/com/uber/jenkins/phabricator/uberalls/UberallsClient.java`
+#### Snippet
+```java
+            e.printStackTrace(logger.getStream());
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/com/uber/jenkins/phabricator/PhabricatorNotifier.java`
+#### Snippet
+```java
+            return credentials.getUrl();
+        }
         return null;
     }
 
@@ -928,18 +940,6 @@ in `src/main/java/com/uber/jenkins/phabricator/PhabricatorNotifier.java`
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/com/uber/jenkins/phabricator/PhabricatorNotifier.java`
-#### Snippet
-```java
-            return credentials.getUrl();
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
 in `src/main/java/com/uber/jenkins/phabricator/RemoteFileFetcher.java`
 #### Snippet
 ```java
@@ -960,6 +960,30 @@ in `src/main/java/com/uber/jenkins/phabricator/RemoteFileFetcher.java`
             return null;
         }
         if (src.length > 1) {
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/com/uber/jenkins/phabricator/PhabricatorBuildWrapper.java`
+#### Snippet
+```java
+            return credentials.getUrl();
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/com/uber/jenkins/phabricator/PhabricatorBuildWrapper.java`
+#### Snippet
+```java
+        }
+        logger.warn("credentials", "No credentials configured.");
+        return null;
+    }
+
 ```
 
 ### ReturnNull
@@ -1003,32 +1027,8 @@ Return of `null`
 in `src/main/java/com/uber/jenkins/phabricator/PhabricatorBuildWrapper.java`
 #### Snippet
 ```java
-            return credentials.getUrl();
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/com/uber/jenkins/phabricator/PhabricatorBuildWrapper.java`
-#### Snippet
-```java
             }
         }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/com/uber/jenkins/phabricator/PhabricatorBuildWrapper.java`
-#### Snippet
-```java
-        }
-        logger.warn("credentials", "No credentials configured.");
         return null;
     }
 
