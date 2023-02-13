@@ -102,18 +102,6 @@ in `streams/src/main/java/com/palantir/common/streams/BufferingSpliterator.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends Map.Entry`
-in `streams/src/main/java/com/palantir/common/streams/KeyedStream.java`
-#### Snippet
-```java
-     * Returns a keyed stream of Entries.
-     */
-    static <K, V> KeyedStream<K, V> ofEntries(Stream<Map.Entry<K, V>> entries) {
-        return new KeyedStreamImpl<K, V>(entries.map(entry -> entry));
-    }
-```
-
-### BoundedWildcard
 Can generalize to `? super K`
 in `streams/src/main/java/com/palantir/common/streams/KeyedStream.java`
 #### Snippet
@@ -134,6 +122,18 @@ in `streams/src/main/java/com/palantir/common/streams/KeyedStream.java`
      */
     default KeyedStream<K, V> peek(BiConsumer<K, V> consumer) {
         return new KeyedStreamImpl<>(entries().peek(entry -> consumer.accept(entry.getKey(), entry.getValue())));
+    }
+```
+
+### BoundedWildcard
+Can generalize to `? extends Map.Entry`
+in `streams/src/main/java/com/palantir/common/streams/KeyedStream.java`
+#### Snippet
+```java
+     * Returns a keyed stream of Entries.
+     */
+    static <K, V> KeyedStream<K, V> ofEntries(Stream<Map.Entry<K, V>> entries) {
+        return new KeyedStreamImpl<K, V>(entries.map(entry -> entry));
     }
 ```
 
@@ -186,18 +186,6 @@ in `streams/src/main/java/com/palantir/common/streams/MoreStreams.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends T`
-in `streams/src/main/java/com/palantir/common/streams/MoreStreams.java`
-#### Snippet
-```java
-     */
-    @Deprecated
-    public static <T> Stream<T> stream(Iterator<T> iterator) {
-        return StreamSupport.stream(Spliterators.spliteratorUnknownSize(iterator, 0), NOT_PARALLEL);
-    }
-```
-
-### BoundedWildcard
 Can generalize to `? extends U`
 in `streams/src/main/java/com/palantir/common/streams/MoreStreams.java`
 #### Snippet
@@ -246,87 +234,15 @@ in `streams/src/main/java/com/palantir/common/streams/MoreStreams.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? super T`
-in `streams/src/main/java/com/palantir/common/streams/MoreCollectors.java`
+Can generalize to `? extends T`
+in `streams/src/main/java/com/palantir/common/streams/MoreStreams.java`
 #### Snippet
 ```java
+     */
     @Deprecated
-    public static <T, K, V> Collector<T, ?, Map<K, V>> toImmutableMap(
-            Function<T, K> keyFunction, Function<T, V> valueFunction) {
-        return Collector.of(
-                ImmutableMap::<K, V>builder,
-```
-
-### BoundedWildcard
-Can generalize to `? extends K`
-in `streams/src/main/java/com/palantir/common/streams/MoreCollectors.java`
-#### Snippet
-```java
-    @Deprecated
-    public static <T, K, V> Collector<T, ?, Map<K, V>> toImmutableMap(
-            Function<T, K> keyFunction, Function<T, V> valueFunction) {
-        return Collector.of(
-                ImmutableMap::<K, V>builder,
-```
-
-### BoundedWildcard
-Can generalize to `? super T`
-in `streams/src/main/java/com/palantir/common/streams/MoreCollectors.java`
-#### Snippet
-```java
-    @Deprecated
-    public static <T, K, V> Collector<T, ?, Map<K, V>> toImmutableMap(
-            Function<T, K> keyFunction, Function<T, V> valueFunction) {
-        return Collector.of(
-                ImmutableMap::<K, V>builder,
-```
-
-### BoundedWildcard
-Can generalize to `? extends V`
-in `streams/src/main/java/com/palantir/common/streams/MoreCollectors.java`
-#### Snippet
-```java
-    @Deprecated
-    public static <T, K, V> Collector<T, ?, Map<K, V>> toImmutableMap(
-            Function<T, K> keyFunction, Function<T, V> valueFunction) {
-        return Collector.of(
-                ImmutableMap::<K, V>builder,
-```
-
-### BoundedWildcard
-Can generalize to `? super V`
-in `streams/src/main/java/com/palantir/common/streams/KeyedStreamImpl.java`
-#### Snippet
-```java
+    public static <T> Stream<T> stream(Iterator<T> iterator) {
+        return StreamSupport.stream(Spliterators.spliteratorUnknownSize(iterator, 0), NOT_PARALLEL);
     }
-
-    private static <K, V> void combine(Map<K, V> map, Map<K, V> entries) {
-        Set<K> duplicates = Sets.intersection(map.keySet(), entries.keySet());
-        if (!duplicates.isEmpty()) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends K`
-in `streams/src/main/java/com/palantir/common/streams/KeyedStreamImpl.java`
-#### Snippet
-```java
-    }
-
-    private static <K, V> void combine(Map<K, V> map, Map<K, V> entries) {
-        Set<K> duplicates = Sets.intersection(map.keySet(), entries.keySet());
-        if (!duplicates.isEmpty()) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends V`
-in `streams/src/main/java/com/palantir/common/streams/KeyedStreamImpl.java`
-#### Snippet
-```java
-    }
-
-    private static <K, V> void combine(Map<K, V> map, Map<K, V> entries) {
-        Set<K> duplicates = Sets.intersection(map.keySet(), entries.keySet());
-        if (!duplicates.isEmpty()) {
 ```
 
 ### BoundedWildcard
@@ -375,6 +291,90 @@ in `streams/src/main/java/com/palantir/common/streams/KeyedStreamImpl.java`
     private static <K, V> void combine(Multimap<K, V> multimap, Multimap<K, V> entries) {
         multimap.putAll(entries);
     }
+```
+
+### BoundedWildcard
+Can generalize to `? super V`
+in `streams/src/main/java/com/palantir/common/streams/KeyedStreamImpl.java`
+#### Snippet
+```java
+    }
+
+    private static <K, V> void combine(Map<K, V> map, Map<K, V> entries) {
+        Set<K> duplicates = Sets.intersection(map.keySet(), entries.keySet());
+        if (!duplicates.isEmpty()) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends K`
+in `streams/src/main/java/com/palantir/common/streams/KeyedStreamImpl.java`
+#### Snippet
+```java
+    }
+
+    private static <K, V> void combine(Map<K, V> map, Map<K, V> entries) {
+        Set<K> duplicates = Sets.intersection(map.keySet(), entries.keySet());
+        if (!duplicates.isEmpty()) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends V`
+in `streams/src/main/java/com/palantir/common/streams/KeyedStreamImpl.java`
+#### Snippet
+```java
+    }
+
+    private static <K, V> void combine(Map<K, V> map, Map<K, V> entries) {
+        Set<K> duplicates = Sets.intersection(map.keySet(), entries.keySet());
+        if (!duplicates.isEmpty()) {
+```
+
+### BoundedWildcard
+Can generalize to `? super T`
+in `streams/src/main/java/com/palantir/common/streams/MoreCollectors.java`
+#### Snippet
+```java
+    @Deprecated
+    public static <T, K, V> Collector<T, ?, Map<K, V>> toImmutableMap(
+            Function<T, K> keyFunction, Function<T, V> valueFunction) {
+        return Collector.of(
+                ImmutableMap::<K, V>builder,
+```
+
+### BoundedWildcard
+Can generalize to `? extends K`
+in `streams/src/main/java/com/palantir/common/streams/MoreCollectors.java`
+#### Snippet
+```java
+    @Deprecated
+    public static <T, K, V> Collector<T, ?, Map<K, V>> toImmutableMap(
+            Function<T, K> keyFunction, Function<T, V> valueFunction) {
+        return Collector.of(
+                ImmutableMap::<K, V>builder,
+```
+
+### BoundedWildcard
+Can generalize to `? super T`
+in `streams/src/main/java/com/palantir/common/streams/MoreCollectors.java`
+#### Snippet
+```java
+    @Deprecated
+    public static <T, K, V> Collector<T, ?, Map<K, V>> toImmutableMap(
+            Function<T, K> keyFunction, Function<T, V> valueFunction) {
+        return Collector.of(
+                ImmutableMap::<K, V>builder,
+```
+
+### BoundedWildcard
+Can generalize to `? extends V`
+in `streams/src/main/java/com/palantir/common/streams/MoreCollectors.java`
+#### Snippet
+```java
+    @Deprecated
+    public static <T, K, V> Collector<T, ?, Map<K, V>> toImmutableMap(
+            Function<T, K> keyFunction, Function<T, V> valueFunction) {
+        return Collector.of(
+                ImmutableMap::<K, V>builder,
 ```
 
 ## RuleId[ruleID=DeprecatedIsStillUsed]
@@ -427,18 +427,6 @@ in `streams/src/main/java/com/palantir/common/streams/MoreCollectors.java`
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'toImmutableList' is still used
-in `streams/src/main/java/com/palantir/common/streams/MoreCollectors.java`
-#### Snippet
-```java
-     */
-    @Deprecated
-    public static <T> Collector<T, ?, List<T>> toImmutableList() {
-        return Collector.of(
-                ImmutableList::<T>builder,
-```
-
-### DeprecatedIsStillUsed
 Deprecated member 'toImmutableSet' is still used
 in `streams/src/main/java/com/palantir/common/streams/MoreCollectors.java`
 #### Snippet
@@ -448,6 +436,18 @@ in `streams/src/main/java/com/palantir/common/streams/MoreCollectors.java`
     public static <T> Collector<T, ?, Set<T>> toImmutableSet() {
         return Collector.of(
                 ImmutableSet::<T>builder,
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'toImmutableList' is still used
+in `streams/src/main/java/com/palantir/common/streams/MoreCollectors.java`
+#### Snippet
+```java
+     */
+    @Deprecated
+    public static <T> Collector<T, ?, List<T>> toImmutableList() {
+        return Collector.of(
+                ImmutableList::<T>builder,
 ```
 
 ## RuleId[ruleID=RedundantSuppression]
@@ -489,18 +489,6 @@ in `streams/src/main/java/com/palantir/common/streams/MoreStreams.java`
 ```
 
 ### UnstableApiUsage
-'stream(java.util.Iterator)' is marked unstable with @Beta
-in `streams/src/main/java/com/palantir/common/streams/MoreStreams.java`
-#### Snippet
-```java
-     * @return A stream for the iterator
-     *
-     * @deprecated Use {@link com.google.common.collect.Streams#stream(Iterator)}, available in Guava 21+
-     */
-    @Deprecated
-```
-
-### UnstableApiUsage
 'transform(com.google.common.util.concurrent.ListenableFuture*, com.google.common.base.Function, java.util.concurrent.Executor)' is marked unstable with @Beta*
 in `streams/src/main/java/com/palantir/common/streams/MoreStreams.java`
 #### Snippet
@@ -510,5 +498,17 @@ in `streams/src/main/java/com/palantir/common/streams/MoreStreams.java`
                                 x -> Futures.transform(Futures.immediateFuture(x), mapper::apply, executor),
                                 maxParallelism),
                         NOT_PARALLEL)
+```
+
+### UnstableApiUsage
+'stream(java.util.Iterator)' is marked unstable with @Beta
+in `streams/src/main/java/com/palantir/common/streams/MoreStreams.java`
+#### Snippet
+```java
+     * @return A stream for the iterator
+     *
+     * @deprecated Use {@link com.google.common.collect.Streams#stream(Iterator)}, available in Guava 21+
+     */
+    @Deprecated
 ```
 
