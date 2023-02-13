@@ -60,11 +60,11 @@ in `errors/src/main/java/com/palantir/conjure/java/api/errors/QosException.java`
 in `errors/src/main/java/com/palantir/conjure/java/api/errors/QosException.java`
 #### Snippet
 ```java
-        }
+        private final Optional<Duration> retryAfter;
 
-        private Throttle(Optional<Duration> retryAfter, Throwable cause) {
-            super(
-                    "Suggesting request throttling with optional retryAfter duration: " + retryAfter,
+        private Throttle(Optional<Duration> retryAfter) {
+            super("Suggesting request throttling with optional retryAfter duration: " + retryAfter, DEFAULT_REASON);
+            this.retryAfter = retryAfter;
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -72,11 +72,11 @@ in `errors/src/main/java/com/palantir/conjure/java/api/errors/QosException.java`
 in `errors/src/main/java/com/palantir/conjure/java/api/errors/QosException.java`
 #### Snippet
 ```java
-        private final Optional<Duration> retryAfter;
+        }
 
-        private Throttle(Optional<Duration> retryAfter) {
-            super("Suggesting request throttling with optional retryAfter duration: " + retryAfter, DEFAULT_REASON);
-            this.retryAfter = retryAfter;
+        private Throttle(Optional<Duration> retryAfter, Throwable cause) {
+            super(
+                    "Suggesting request throttling with optional retryAfter duration: " + retryAfter,
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -141,6 +141,19 @@ in `errors/src/main/java/com/palantir/conjure/java/api/errors/SerializableError.
 public abstract class SerializableError implements Serializable {
 ```
 
+## RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
+### DynamicRegexReplaceableByCompiledPattern
+`split()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `service-config/src/main/java/com/palantir/conjure/java/api/config/service/UserAgents.java`
+#### Snippet
+```java
+    private static Map<String, String> parseComments(String commentsString) {
+        Map<String, String> comments = new HashMap<>();
+        for (String comment : commentsString.split("[,;]")) {
+            String[] fields = comment.split(":");
+            if (fields.length == 2) {
+```
+
 ## RuleId[ruleID=SimplifyOptionalCallChains]
 ### SimplifyOptionalCallChains
 Can be replaced with 'isEmpty()'
@@ -176,19 +189,6 @@ in `ssl-config/src/main/java/com/palantir/conjure/java/api/config/ssl/SslConfigu
         if (keyStoreKeyAlias().isPresent() && !keyStorePath().isPresent()) {
             throw new SafeIllegalArgumentException("keyStorePath must be present if keyStoreKeyAlias is present");
         }
-```
-
-## RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
-### DynamicRegexReplaceableByCompiledPattern
-`split()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `service-config/src/main/java/com/palantir/conjure/java/api/config/service/UserAgents.java`
-#### Snippet
-```java
-    private static Map<String, String> parseComments(String commentsString) {
-        Map<String, String> comments = new HashMap<>();
-        for (String comment : commentsString.split("[,;]")) {
-            String[] fields = comment.split(":");
-            if (fields.length == 2) {
 ```
 
 ## RuleId[ruleID=UnnecessaryFullyQualifiedName]
@@ -280,18 +280,6 @@ in `errors/src/main/java/com/palantir/conjure/java/api/errors/QosException.java`
 
 ## RuleId[ruleID=ExceptionNameDoesntEndWithException]
 ### ExceptionNameDoesntEndWithException
-Exception class name `RetryOther` does not end with 'Exception'
-in `errors/src/main/java/com/palantir/conjure/java/api/errors/QosException.java`
-#### Snippet
-```java
-
-    /** See {@link #retryOther}. */
-    public static final class RetryOther extends QosException implements SafeLoggable {
-        private static final QosReason DEFAULT_REASON = QosReason.of("qos-retry-other");
-
-```
-
-### ExceptionNameDoesntEndWithException
 Exception class name `Unavailable` does not end with 'Exception'
 in `errors/src/main/java/com/palantir/conjure/java/api/errors/QosException.java`
 #### Snippet
@@ -312,6 +300,18 @@ in `errors/src/main/java/com/palantir/conjure/java/api/errors/QosException.java`
     /** See {@link #throttle}. */
     public static final class Throttle extends QosException implements SafeLoggable {
         private static final QosReason DEFAULT_REASON = QosReason.of("qos-throttle");
+
+```
+
+### ExceptionNameDoesntEndWithException
+Exception class name `RetryOther` does not end with 'Exception'
+in `errors/src/main/java/com/palantir/conjure/java/api/errors/QosException.java`
+#### Snippet
+```java
+
+    /** See {@link #retryOther}. */
+    public static final class RetryOther extends QosException implements SafeLoggable {
+        private static final QosReason DEFAULT_REASON = QosReason.of("qos-retry-other");
 
 ```
 
@@ -380,18 +380,6 @@ in `errors/src/main/java/com/palantir/conjure/java/api/errors/ServiceException.j
 ```
 
 ### BoundedWildcard
-Can generalize to `? super String`
-in `test-utils/src/main/java/com/palantir/conjure/java/api/testing/ServiceExceptionAssert.java`
-#### Snippet
-```java
-        }
-
-        private static void assertPut(Map<String, Object> map, String key, Object value, String name) {
-            Object previous = map.put(key, value);
-            if (previous != null) {
-```
-
-### BoundedWildcard
 Can generalize to `? extends Arg`
 in `test-utils/src/main/java/com/palantir/conjure/java/api/testing/ServiceExceptionAssert.java`
 #### Snippet
@@ -401,6 +389,18 @@ in `test-utils/src/main/java/com/palantir/conjure/java/api/testing/ServiceExcept
         private AssertableArgs(List<Arg<?>> args) {
             args.forEach(arg -> {
                 if (arg.isSafeForLogging()) {
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `test-utils/src/main/java/com/palantir/conjure/java/api/testing/ServiceExceptionAssert.java`
+#### Snippet
+```java
+        }
+
+        private static void assertPut(Map<String, Object> map, String key, Object value, String name) {
+            Object previous = map.put(key, value);
+            if (previous != null) {
 ```
 
 ## RuleId[ruleID=AbstractClassNeverImplemented]
