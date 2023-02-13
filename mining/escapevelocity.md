@@ -32,11 +32,11 @@ in `src/main/java/com/google/escapevelocity/Parser.java`
 in `src/main/java/com/google/escapevelocity/Parser.java`
 #### Snippet
 ```java
-    if (c != ')') {
-      args.add(parsePrimary(/* nullAllowed= */ true));
-      while (c == ',') {
-        nextNonSpace();
-        args.add(parsePrimary(/* nullAllowed= */ true));
+    ImmutableList.Builder<ExpressionNode> builder = ImmutableList.builder();
+    builder.add(first);
+    while (c == ',') {
+      next();
+      builder.add(parsePrimary(false));
 ```
 
 ### WhileLoopSpinsOnField
@@ -44,11 +44,11 @@ in `src/main/java/com/google/escapevelocity/Parser.java`
 in `src/main/java/com/google/escapevelocity/Parser.java`
 #### Snippet
 ```java
-    ImmutableList.Builder<ExpressionNode> builder = ImmutableList.builder();
-    builder.add(first);
-    while (c == ',') {
-      next();
-      builder.add(parsePrimary(false));
+    if (c != ')') {
+      args.add(parsePrimary(/* nullAllowed= */ true));
+      while (c == ',') {
+        nextNonSpace();
+        args.add(parsePrimary(/* nullAllowed= */ true));
 ```
 
 ## RuleId[ruleID=MisspelledEquals]
@@ -65,42 +65,6 @@ in `src/main/java/com/google/escapevelocity/ExpressionNode.java`
 ```
 
 ## RuleId[ruleID=ReturnNull]
-### ReturnNull
-Return of `null`
-in `src/main/java/com/google/escapevelocity/MethodFinder.java`
-#### Snippet
-```java
-  static Method visibleMethod(Method method, Class<?> in) {
-    if (in == null) {
-      return null;
-    }
-    Method methodInClass;
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/com/google/escapevelocity/MethodFinder.java`
-#### Snippet
-```java
-      methodInClass = in.getMethod(method.getName(), method.getParameterTypes());
-    } catch (NoSuchMethodException e) {
-      return null;
-    }
-    if (classIsPublic(in) || in.getName().startsWith(THIS_PACKAGE)) {
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/com/google/escapevelocity/MethodFinder.java`
-#### Snippet
-```java
-      }
-    }
-    return null;
-  }
-
-```
-
 ### ReturnNull
 Return of `null`
 in `src/main/java/com/google/escapevelocity/ExpressionNode.java`
@@ -149,6 +113,42 @@ in `src/main/java/com/google/escapevelocity/ExpressionNode.java`
           throw new AssertionError(op);
 ```
 
+### ReturnNull
+Return of `null`
+in `src/main/java/com/google/escapevelocity/MethodFinder.java`
+#### Snippet
+```java
+  static Method visibleMethod(Method method, Class<?> in) {
+    if (in == null) {
+      return null;
+    }
+    Method methodInClass;
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/com/google/escapevelocity/MethodFinder.java`
+#### Snippet
+```java
+      methodInClass = in.getMethod(method.getName(), method.getParameterTypes());
+    } catch (NoSuchMethodException e) {
+      return null;
+    }
+    if (classIsPublic(in) || in.getName().startsWith(THIS_PACKAGE)) {
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/com/google/escapevelocity/MethodFinder.java`
+#### Snippet
+```java
+      }
+    }
+    return null;
+  }
+
+```
+
 ## RuleId[ruleID=StringBufferReplaceableByString]
 ### StringBufferReplaceableByString
 `StringBuilder` can be replaced with 'String'
@@ -188,18 +188,6 @@ in `src/main/java/com/google/escapevelocity/Node.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? super String`
-in `src/main/java/com/google/escapevelocity/Macro.java`
-#### Snippet
-```java
-
-    MacroEvaluationContext(
-        Map<String, ExpressionNode> parameterThunks,
-        EvaluationContext originalEvaluationContext,
-        Node bodyContent) {
-```
-
-### BoundedWildcard
 Can generalize to `? extends ExpressionNode`
 in `src/main/java/com/google/escapevelocity/Macro.java`
 #### Snippet
@@ -209,6 +197,18 @@ in `src/main/java/com/google/escapevelocity/Macro.java`
       List<ExpressionNode> thunks,
       Node bodyContent,
       StringBuilder output) {
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `src/main/java/com/google/escapevelocity/Macro.java`
+#### Snippet
+```java
+
+    MacroEvaluationContext(
+        Map<String, ExpressionNode> parameterThunks,
+        EvaluationContext originalEvaluationContext,
+        Node bodyContent) {
 ```
 
 ### BoundedWildcard
@@ -224,15 +224,15 @@ in `src/main/java/com/google/escapevelocity/ReferenceNode.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends Map.Entry`
+Can generalize to `? extends Node`
 in `src/main/java/com/google/escapevelocity/Parser.java`
 #### Snippet
 ```java
-        String resourceName,
-        int lineNumber,
-        ImmutableList<Map.Entry<ExpressionNode, ExpressionNode>> entries) {
+    private final ImmutableList<Node> nodes;
+
+    StringLiteralNode(String resourceName, int lineNumber, char quote, ImmutableList<Node> nodes) {
       super(resourceName, lineNumber);
-      this.entries = entries;
+      this.quote = quote;
 ```
 
 ### BoundedWildcard
@@ -248,15 +248,15 @@ in `src/main/java/com/google/escapevelocity/Parser.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends Node`
+Can generalize to `? extends Map.Entry`
 in `src/main/java/com/google/escapevelocity/Parser.java`
 #### Snippet
 ```java
-    private final ImmutableList<Node> nodes;
-
-    StringLiteralNode(String resourceName, int lineNumber, char quote, ImmutableList<Node> nodes) {
+        String resourceName,
+        int lineNumber,
+        ImmutableList<Map.Entry<ExpressionNode, ExpressionNode>> entries) {
       super(resourceName, lineNumber);
-      this.quote = quote;
+      this.entries = entries;
 ```
 
 ## RuleId[ruleID=ConstantValue]
