@@ -30,7 +30,7 @@ in `src/main/java/com/uber/h3core/H3CoreLoader.java`
 ## RuleId[ruleID=HtmlWrongAttributeValue]
 ### HtmlWrongAttributeValue
 Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-02-08-06-42-41.410.html`
+in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-02-13-13-48-30.425.html`
 #### Snippet
 ```java
               <td>0</td>
@@ -116,20 +116,19 @@ public class H3Exception extends RuntimeException {
   public H3Exception(int code) {
 ```
 
-## RuleId[ruleID=NestedAssignment]
-### NestedAssignment
-Result of assignment expression used
+## RuleId[ruleID=FinalStaticMethod]
+### FinalStaticMethod
+'static' method declared `final`
 in `src/main/java/com/uber/h3core/H3CoreLoader.java`
 #### Snippet
 ```java
-
-    int read;
-    while ((read = in.read(buf)) != -1) {
-      out.write(buf, 0, read);
-    }
+   * @param osArch Value of system property "os.arch"
+   */
+  static final String detectArch(String osArch) {
+    if (osArch.equals("amd64") || osArch.equals("x86_64")) {
+      return ARCH_X64;
 ```
 
-## RuleId[ruleID=FinalStaticMethod]
 ### FinalStaticMethod
 'static' method declared `final`
 in `src/main/java/com/uber/h3core/H3CoreLoader.java`
@@ -142,16 +141,17 @@ in `src/main/java/com/uber/h3core/H3CoreLoader.java`
     // https://developer.android.com/reference/java/lang/System.html
 ```
 
-### FinalStaticMethod
-'static' method declared `final`
+## RuleId[ruleID=NestedAssignment]
+### NestedAssignment
+Result of assignment expression used
 in `src/main/java/com/uber/h3core/H3CoreLoader.java`
 #### Snippet
 ```java
-   * @param osArch Value of system property "os.arch"
-   */
-  static final String detectArch(String osArch) {
-    if (osArch.equals("amd64") || osArch.equals("x86_64")) {
-      return ARCH_X64;
+
+    int read;
+    while ((read = in.read(buf)) != -1) {
+      out.write(buf, 0, read);
+    }
 ```
 
 ## RuleId[ruleID=BoundedWildcard]
