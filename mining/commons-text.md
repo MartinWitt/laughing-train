@@ -133,18 +133,6 @@ in `src/main/java/org/apache/commons/text/StrLookup.java`
 ```
 
 ### StaticInitializerReferencesSubClass
-Referencing subclass CharMatcher from superclass StrMatcher initializer might lead to class loading deadlock
-in `src/main/java/org/apache/commons/text/StrMatcher.java`
-#### Snippet
-```java
-     * Matches the comma character.
-     */
-    private static final StrMatcher COMMA_MATCHER = new CharMatcher(',');
-
-    /**
-```
-
-### StaticInitializerReferencesSubClass
 Referencing subclass TrimMatcher from superclass StrMatcher initializer might lead to class loading deadlock
 in `src/main/java/org/apache/commons/text/StrMatcher.java`
 #### Snippet
@@ -152,18 +140,6 @@ in `src/main/java/org/apache/commons/text/StrMatcher.java`
      * Matches the String trim() whitespace characters.
      */
     private static final StrMatcher TRIM_MATCHER = new TrimMatcher();
-
-    /**
-```
-
-### StaticInitializerReferencesSubClass
-Referencing subclass CharMatcher from superclass StrMatcher initializer might lead to class loading deadlock
-in `src/main/java/org/apache/commons/text/StrMatcher.java`
-#### Snippet
-```java
-     * Matches the double quote character.
-     */
-    private static final StrMatcher SINGLE_QUOTE_MATCHER = new CharMatcher('\'');
 
     /**
 ```
@@ -181,18 +157,6 @@ in `src/main/java/org/apache/commons/text/StrMatcher.java`
 ```
 
 ### StaticInitializerReferencesSubClass
-Referencing subclass CharMatcher from superclass StrMatcher initializer might lead to class loading deadlock
-in `src/main/java/org/apache/commons/text/StrMatcher.java`
-#### Snippet
-```java
-     * Matches the double quote character.
-     */
-    private static final StrMatcher DOUBLE_QUOTE_MATCHER = new CharMatcher('"');
-
-    /**
-```
-
-### StaticInitializerReferencesSubClass
 Referencing subclass CharSetMatcher from superclass StrMatcher initializer might lead to class loading deadlock
 in `src/main/java/org/apache/commons/text/StrMatcher.java`
 #### Snippet
@@ -205,13 +169,25 @@ in `src/main/java/org/apache/commons/text/StrMatcher.java`
 ```
 
 ### StaticInitializerReferencesSubClass
-Referencing subclass CharSetMatcher from superclass StrMatcher initializer might lead to class loading deadlock
+Referencing subclass CharMatcher from superclass StrMatcher initializer might lead to class loading deadlock
 in `src/main/java/org/apache/commons/text/StrMatcher.java`
 #### Snippet
 ```java
-     * Matches the single or double quote character.
+     * Matches the comma character.
      */
-    private static final StrMatcher QUOTE_MATCHER = new CharSetMatcher("'\"".toCharArray());
+    private static final StrMatcher COMMA_MATCHER = new CharMatcher(',');
+
+    /**
+```
+
+### StaticInitializerReferencesSubClass
+Referencing subclass NoMatcher from superclass StrMatcher initializer might lead to class loading deadlock
+in `src/main/java/org/apache/commons/text/StrMatcher.java`
+#### Snippet
+```java
+     * Matches no characters.
+     */
+    private static final StrMatcher NONE_MATCHER = new NoMatcher();
 
     /**
 ```
@@ -229,13 +205,37 @@ in `src/main/java/org/apache/commons/text/StrMatcher.java`
 ```
 
 ### StaticInitializerReferencesSubClass
-Referencing subclass NoMatcher from superclass StrMatcher initializer might lead to class loading deadlock
+Referencing subclass CharMatcher from superclass StrMatcher initializer might lead to class loading deadlock
 in `src/main/java/org/apache/commons/text/StrMatcher.java`
 #### Snippet
 ```java
-     * Matches no characters.
+     * Matches the double quote character.
      */
-    private static final StrMatcher NONE_MATCHER = new NoMatcher();
+    private static final StrMatcher DOUBLE_QUOTE_MATCHER = new CharMatcher('"');
+
+    /**
+```
+
+### StaticInitializerReferencesSubClass
+Referencing subclass CharMatcher from superclass StrMatcher initializer might lead to class loading deadlock
+in `src/main/java/org/apache/commons/text/StrMatcher.java`
+#### Snippet
+```java
+     * Matches the double quote character.
+     */
+    private static final StrMatcher SINGLE_QUOTE_MATCHER = new CharMatcher('\'');
+
+    /**
+```
+
+### StaticInitializerReferencesSubClass
+Referencing subclass CharSetMatcher from superclass StrMatcher initializer might lead to class loading deadlock
+in `src/main/java/org/apache/commons/text/StrMatcher.java`
+#### Snippet
+```java
+     * Matches the single or double quote character.
+     */
+    private static final StrMatcher QUOTE_MATCHER = new CharSetMatcher("'\"".toCharArray());
 
     /**
 ```
@@ -273,8 +273,8 @@ in `src/main/java/org/apache/commons/text/lookup/AbstractStringLookup.java`
 ```java
      */
     @Deprecated
-    protected String substringAfter(final String value, final char ch) {
-        return StringUtils.substringAfter(value, ch);
+    protected String substringAfter(final String value, final String str) {
+        return StringUtils.substringAfter(value, str);
     }
 ```
 
@@ -285,8 +285,8 @@ in `src/main/java/org/apache/commons/text/lookup/AbstractStringLookup.java`
 ```java
      */
     @Deprecated
-    protected String substringAfter(final String value, final String str) {
-        return StringUtils.substringAfter(value, str);
+    protected String substringAfter(final String value, final char ch) {
+        return StringUtils.substringAfter(value, ch);
     }
 ```
 
@@ -305,7 +305,7 @@ in `src/main/java/org/apache/commons/text/lookup/AbstractStringLookup.java`
 ## RuleId[ruleID=RefusedBequest]
 ### RefusedBequest
 Method `clone()` does not call 'super.clone()'
-in `src/main/java/org/apache/commons/text/StringTokenizer.java`
+in `src/main/java/org/apache/commons/text/StrTokenizer.java`
 #### Snippet
 ```java
      */
@@ -317,7 +317,7 @@ in `src/main/java/org/apache/commons/text/StringTokenizer.java`
 
 ### RefusedBequest
 Method `clone()` does not call 'super.clone()'
-in `src/main/java/org/apache/commons/text/StrTokenizer.java`
+in `src/main/java/org/apache/commons/text/StringTokenizer.java`
 #### Snippet
 ```java
      */
@@ -346,30 +346,6 @@ in `src/main/java/org/apache/commons/text/lookup/DnsStringLookup.java`
 in `src/main/java/org/apache/commons/text/StringEscapeUtils.java`
 #### Snippet
 ```java
-     * @return String with escaped values, {@code null} if null string input
-     */
-    public static final String escapeEcmaScript(final String input) {
-        return ESCAPE_ECMASCRIPT.translate(input);
-    }
-```
-
-### FinalStaticMethod
-'static' method declared `final`
-in `src/main/java/org/apache/commons/text/StringEscapeUtils.java`
-#### Snippet
-```java
-     * @return String with escaped values, {@code null} if null string input
-     */
-    public static final String escapeJava(final String input) {
-        return ESCAPE_JAVA.translate(input);
-    }
-```
-
-### FinalStaticMethod
-'static' method declared `final`
-in `src/main/java/org/apache/commons/text/StringEscapeUtils.java`
-#### Snippet
-```java
      * @return a new escaped {@code String}, {@code null} if null string input
      */
     public static final String escapeHtml3(final String input) {
@@ -382,22 +358,10 @@ in `src/main/java/org/apache/commons/text/StringEscapeUtils.java`
 in `src/main/java/org/apache/commons/text/StringEscapeUtils.java`
 #### Snippet
 ```java
-     * @see #escapeXml11(String)
+     * @return A new unescaped {@code String}, {@code null} if null string input
      */
-    public static final String unescapeXml(final String input) {
-        return UNESCAPE_XML.translate(input);
-    }
-```
-
-### FinalStaticMethod
-'static' method declared `final`
-in `src/main/java/org/apache/commons/text/StringEscapeUtils.java`
-#### Snippet
-```java
-     * @return a new unescaped {@code String}, {@code null} if null string input
-     */
-    public static final String unescapeJava(final String input) {
-        return UNESCAPE_JAVA.translate(input);
+    public static final String unescapeEcmaScript(final String input) {
+        return UNESCAPE_ECMASCRIPT.translate(input);
     }
 ```
 
@@ -418,22 +382,10 @@ in `src/main/java/org/apache/commons/text/StringEscapeUtils.java`
 in `src/main/java/org/apache/commons/text/StringEscapeUtils.java`
 #### Snippet
 ```java
-     * quotes unescaped, {@code null} if null string input
+     * @return String with escaped values, {@code null} if null string input
      */
-    public static final String unescapeCsv(final String input) {
-        return UNESCAPE_CSV.translate(input);
-    }
-```
-
-### FinalStaticMethod
-'static' method declared `final`
-in `src/main/java/org/apache/commons/text/StringEscapeUtils.java`
-#### Snippet
-```java
-     * @return A new unescaped {@code String}, {@code null} if null string input
-     */
-    public static final String unescapeJson(final String input) {
-        return UNESCAPE_JSON.translate(input);
+    public static final String escapeJson(final String input) {
+        return ESCAPE_JSON.translate(input);
     }
 ```
 
@@ -446,6 +398,90 @@ in `src/main/java/org/apache/commons/text/StringEscapeUtils.java`
      */
     public static final String escapeCsv(final String input) {
         return ESCAPE_CSV.translate(input);
+    }
+```
+
+### FinalStaticMethod
+'static' method declared `final`
+in `src/main/java/org/apache/commons/text/StringEscapeUtils.java`
+#### Snippet
+```java
+     * quotes unescaped, {@code null} if null string input
+     */
+    public static final String unescapeCsv(final String input) {
+        return UNESCAPE_CSV.translate(input);
+    }
+```
+
+### FinalStaticMethod
+'static' method declared `final`
+in `src/main/java/org/apache/commons/text/StringEscapeUtils.java`
+#### Snippet
+```java
+     * @return a new unescaped {@code String}, {@code null} if null string input
+     */
+    public static final String unescapeJava(final String input) {
+        return UNESCAPE_JAVA.translate(input);
+    }
+```
+
+### FinalStaticMethod
+'static' method declared `final`
+in `src/main/java/org/apache/commons/text/StringEscapeUtils.java`
+#### Snippet
+```java
+     * @return String with escaped values, {@code null} if null string input
+     */
+    public static final String escapeEcmaScript(final String input) {
+        return ESCAPE_ECMASCRIPT.translate(input);
+    }
+```
+
+### FinalStaticMethod
+'static' method declared `final`
+in `src/main/java/org/apache/commons/text/StringEscapeUtils.java`
+#### Snippet
+```java
+     * @return a new unescaped {@code String}, {@code null} if null string input
+     */
+    public static final String unescapeXSI(final String input) {
+        return UNESCAPE_XSI.translate(input);
+    }
+```
+
+### FinalStaticMethod
+'static' method declared `final`
+in `src/main/java/org/apache/commons/text/StringEscapeUtils.java`
+#### Snippet
+```java
+     * @see <a href="http://www.w3.org/TR/html401/charset.html#code-position">HTML 4.01 Code positions</a>
+     */
+    public static final String escapeHtml4(final String input) {
+        return ESCAPE_HTML4.translate(input);
+    }
+```
+
+### FinalStaticMethod
+'static' method declared `final`
+in `src/main/java/org/apache/commons/text/StringEscapeUtils.java`
+#### Snippet
+```java
+     * @see #escapeXml11(String)
+     */
+    public static final String unescapeXml(final String input) {
+        return UNESCAPE_XML.translate(input);
+    }
+```
+
+### FinalStaticMethod
+'static' method declared `final`
+in `src/main/java/org/apache/commons/text/StringEscapeUtils.java`
+#### Snippet
+```java
+     * @return A new unescaped {@code String}, {@code null} if null string input
+     */
+    public static final String unescapeJson(final String input) {
+        return UNESCAPE_JSON.translate(input);
     }
 ```
 
@@ -480,44 +516,8 @@ in `src/main/java/org/apache/commons/text/StringEscapeUtils.java`
 ```java
      * @return String with escaped values, {@code null} if null string input
      */
-    public static final String escapeJson(final String input) {
-        return ESCAPE_JSON.translate(input);
-    }
-```
-
-### FinalStaticMethod
-'static' method declared `final`
-in `src/main/java/org/apache/commons/text/StringEscapeUtils.java`
-#### Snippet
-```java
-     * @see <a href="http://www.w3.org/TR/html401/charset.html#code-position">HTML 4.01 Code positions</a>
-     */
-    public static final String escapeHtml4(final String input) {
-        return ESCAPE_HTML4.translate(input);
-    }
-```
-
-### FinalStaticMethod
-'static' method declared `final`
-in `src/main/java/org/apache/commons/text/StringEscapeUtils.java`
-#### Snippet
-```java
-     * @return A new unescaped {@code String}, {@code null} if null string input
-     */
-    public static final String unescapeEcmaScript(final String input) {
-        return UNESCAPE_ECMASCRIPT.translate(input);
-    }
-```
-
-### FinalStaticMethod
-'static' method declared `final`
-in `src/main/java/org/apache/commons/text/StringEscapeUtils.java`
-#### Snippet
-```java
-     * @return a new unescaped {@code String}, {@code null} if null string input
-     */
-    public static final String unescapeXSI(final String input) {
-        return UNESCAPE_XSI.translate(input);
+    public static final String escapeJava(final String input) {
+        return ESCAPE_JAVA.translate(input);
     }
 ```
 
@@ -551,6 +551,18 @@ Assignment to for-loop parameter `i`
 in `src/main/java/org/apache/commons/text/StrBuilder.java`
 #### Snippet
 ```java
+                replaceImpl(i, i + removeLen, removeLen, replaceStr, replaceLen);
+                to = to - removeLen + replaceLen;
+                i = i + replaceLen - 1;
+                if (replaceCount > 0) {
+                    replaceCount--;
+```
+
+### AssignmentToForLoopParameter
+Assignment to for-loop parameter `i`
+in `src/main/java/org/apache/commons/text/StrBuilder.java`
+#### Snippet
+```java
             if (buffer[i] == ch) {
                 final int start = i;
                 while (++i < size) {
@@ -568,18 +580,6 @@ in `src/main/java/org/apache/commons/text/StrBuilder.java`
                 i -= len;
             }
         }
-```
-
-### AssignmentToForLoopParameter
-Assignment to for-loop parameter `i`
-in `src/main/java/org/apache/commons/text/StrBuilder.java`
-#### Snippet
-```java
-                replaceImpl(i, i + removeLen, removeLen, replaceStr, replaceLen);
-                to = to - removeLen + replaceLen;
-                i = i + replaceLen - 1;
-                if (replaceCount > 0) {
-                    replaceCount--;
 ```
 
 ### AssignmentToForLoopParameter
@@ -645,38 +645,14 @@ in `src/main/java/org/apache/commons/text/diff/KeepCommand.java`
 
 ### BoundedWildcard
 Can generalize to `? super String`
-in `src/main/java/org/apache/commons/text/StringTokenizer.java`
+in `src/main/java/org/apache/commons/text/StrTokenizer.java`
 #### Snippet
 ```java
-     *            the token to add
+     * @param tok  the token to add
      */
     private void addToken(final List<String> list, String tok) {
         if (tok == null || tok.isEmpty()) {
             if (isIgnoreEmptyTokens()) {
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `src/main/java/org/apache/commons/text/lookup/FunctionStringLookup.java`
-#### Snippet
-```java
-     * @param function the function, may be null.
-     */
-    private FunctionStringLookup(final Function<String, V> function) {
-        this.function = function;
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? extends V`
-in `src/main/java/org/apache/commons/text/lookup/FunctionStringLookup.java`
-#### Snippet
-```java
-     * @param function the function, may be null.
-     */
-    private FunctionStringLookup(final Function<String, V> function) {
-        this.function = function;
-    }
 ```
 
 ### BoundedWildcard
@@ -692,6 +668,42 @@ in `src/main/java/org/apache/commons/text/lookup/FunctionStringLookup.java`
 ```
 
 ### BoundedWildcard
+Can generalize to `? super String`
+in `src/main/java/org/apache/commons/text/lookup/FunctionStringLookup.java`
+#### Snippet
+```java
+     * @param function the function, may be null.
+     */
+    private FunctionStringLookup(final Function<String, V> function) {
+        this.function = function;
+    }
+```
+
+### BoundedWildcard
+Can generalize to `? extends V`
+in `src/main/java/org/apache/commons/text/lookup/FunctionStringLookup.java`
+#### Snippet
+```java
+     * @param function the function, may be null.
+     */
+    private FunctionStringLookup(final Function<String, V> function) {
+        this.function = function;
+    }
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `src/main/java/org/apache/commons/text/StringTokenizer.java`
+#### Snippet
+```java
+     *            the token to add
+     */
+    private void addToken(final List<String> list, String tok) {
+        if (tok == null || tok.isEmpty()) {
+            if (isIgnoreEmptyTokens()) {
+```
+
+### BoundedWildcard
 Can generalize to `? super T`
 in `src/main/java/org/apache/commons/text/diff/DeleteCommand.java`
 #### Snippet
@@ -704,39 +716,27 @@ in `src/main/java/org/apache/commons/text/diff/DeleteCommand.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? super String`
-in `src/main/java/org/apache/commons/text/StrTokenizer.java`
+Can generalize to `? extends CharSequence`
+in `src/main/java/org/apache/commons/text/translate/EntityArrays.java`
 #### Snippet
 ```java
-     * @param tok  the token to add
+     * @return Map&lt;String, String&gt; inverted array
      */
-    private void addToken(final List<String> list, String tok) {
-        if (tok == null || tok.isEmpty()) {
-            if (isIgnoreEmptyTokens()) {
+    public static Map<CharSequence, CharSequence> invert(final Map<CharSequence, CharSequence> map) {
+        return map.entrySet().stream().collect(Collectors.toMap(Entry::getValue, Entry::getKey));
+    }
 ```
 
 ### BoundedWildcard
-Can generalize to `? super String`
-in `src/main/java/org/apache/commons/text/lookup/StringLookupFactory.java`
+Can generalize to `? extends CharSequence`
+in `src/main/java/org/apache/commons/text/translate/EntityArrays.java`
 #### Snippet
 ```java
-         * @param map map to add to
-         */
-        private static void addLookup(final DefaultStringLookup lookup, final Map<String, StringLookup> map) {
-            map.put(toKey(lookup.getKey()), lookup.getStringLookup());
-
-```
-
-### BoundedWildcard
-Can generalize to `? super StringLookup`
-in `src/main/java/org/apache/commons/text/lookup/StringLookupFactory.java`
-#### Snippet
-```java
-         * @param map map to add to
-         */
-        private static void addLookup(final DefaultStringLookup lookup, final Map<String, StringLookup> map) {
-            map.put(toKey(lookup.getKey()), lookup.getStringLookup());
-
+     * @return Map&lt;String, String&gt; inverted array
+     */
+    public static Map<CharSequence, CharSequence> invert(final Map<CharSequence, CharSequence> map) {
+        return map.entrySet().stream().collect(Collectors.toMap(Entry::getValue, Entry::getKey));
+    }
 ```
 
 ### BoundedWildcard
@@ -764,27 +764,27 @@ in `src/main/java/org/apache/commons/text/lookup/StringLookupFactory.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends CharSequence`
-in `src/main/java/org/apache/commons/text/translate/EntityArrays.java`
+Can generalize to `? super String`
+in `src/main/java/org/apache/commons/text/lookup/StringLookupFactory.java`
 #### Snippet
 ```java
-     * @return Map&lt;String, String&gt; inverted array
-     */
-    public static Map<CharSequence, CharSequence> invert(final Map<CharSequence, CharSequence> map) {
-        return map.entrySet().stream().collect(Collectors.toMap(Entry::getValue, Entry::getKey));
-    }
+         * @param map map to add to
+         */
+        private static void addLookup(final DefaultStringLookup lookup, final Map<String, StringLookup> map) {
+            map.put(toKey(lookup.getKey()), lookup.getStringLookup());
+
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends CharSequence`
-in `src/main/java/org/apache/commons/text/translate/EntityArrays.java`
+Can generalize to `? super StringLookup`
+in `src/main/java/org/apache/commons/text/lookup/StringLookupFactory.java`
 #### Snippet
 ```java
-     * @return Map&lt;String, String&gt; inverted array
-     */
-    public static Map<CharSequence, CharSequence> invert(final Map<CharSequence, CharSequence> map) {
-        return map.entrySet().stream().collect(Collectors.toMap(Entry::getValue, Entry::getKey));
-    }
+         * @param map map to add to
+         */
+        private static void addLookup(final DefaultStringLookup lookup, final Map<String, StringLookup> map) {
+            map.put(toKey(lookup.getKey()), lookup.getStringLookup());
+
 ```
 
 ### BoundedWildcard
@@ -821,6 +821,18 @@ in `src/main/java/org/apache/commons/text/RandomStringGenerator.java`
                                   final Set<CharacterPredicate> inclusivePredicates, final TextRandomProvider random,
                                   final List<Character> characterList) {
         this.minimumCodePoint = minimumCodePoint;
+```
+
+### BoundedWildcard
+Can generalize to `? super Character`
+in `src/main/java/org/apache/commons/text/diff/StringsComparator.java`
+#### Snippet
+```java
+     */
+    private void buildScript(final int start1, final int end1, final int start2, final int end2,
+            final EditScript<Character> script) {
+        final Snake middle = getMiddleSnake(start1, end1, start2, end2);
+
 ```
 
 ### BoundedWildcard
@@ -869,18 +881,6 @@ in `src/main/java/org/apache/commons/text/lookup/BiFunctionStringLookup.java`
     private BiFunctionStringLookup(final BiFunction<String, P, R> biFunction) {
         this.biFunction = biFunction;
     }
-```
-
-### BoundedWildcard
-Can generalize to `? super Character`
-in `src/main/java/org/apache/commons/text/diff/StringsComparator.java`
-#### Snippet
-```java
-     */
-    private void buildScript(final int start1, final int end1, final int start2, final int end2,
-            final EditScript<Character> script) {
-        final Snake middle = getMiddleSnake(start1, end1, start2, end2);
-
 ```
 
 ### BoundedWildcard
@@ -1317,18 +1317,6 @@ in `src/main/java/org/apache/commons/text/StrBuilder.java`
 
 ## RuleId[ruleID=RedundantFieldInitialization]
 ### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `src/main/java/org/apache/commons/text/numbers/DoubleFormat.java`
-#### Snippet
-```java
-
-        /** Maximum number of significant decimal digits in formatted strings. */
-        private int maxPrecision = 0;
-
-        /** Minimum decimal exponent. */
-```
-
-### RedundantFieldInitialization
 Field initialization to `false` is redundant
 in `src/main/java/org/apache/commons/text/numbers/DoubleFormat.java`
 #### Snippet
@@ -1350,6 +1338,18 @@ in `src/main/java/org/apache/commons/text/numbers/DoubleFormat.java`
         private boolean groupThousands = false;
 
         /** Minus sign character. */
+```
+
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `src/main/java/org/apache/commons/text/numbers/DoubleFormat.java`
+#### Snippet
+```java
+
+        /** Maximum number of significant decimal digits in formatted strings. */
+        private int maxPrecision = 0;
+
+        /** Minimum decimal exponent. */
 ```
 
 ## RuleId[ruleID=AssignmentToMethodParameter]
@@ -1414,30 +1414,6 @@ in `src/main/java/org/apache/commons/text/similarity/LevenshteinDistance.java`
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `tok`
-in `src/main/java/org/apache/commons/text/StringTokenizer.java`
-#### Snippet
-```java
-            }
-            if (isEmptyTokenAsNull()) {
-                tok = null;
-            }
-        }
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `start`
-in `src/main/java/org/apache/commons/text/StringTokenizer.java`
-#### Snippet
-```java
-                break;
-            }
-            start += removeLen;
-        }
-
-```
-
-### AssignmentToMethodParameter
 Assignment to method parameter `start`
 in `src/main/java/org/apache/commons/text/StrTokenizer.java`
 #### Snippet
@@ -1462,39 +1438,51 @@ in `src/main/java/org/apache/commons/text/StrTokenizer.java`
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `startIndex`
-in `src/main/java/org/apache/commons/text/StrBuilder.java`
+Assignment to method parameter `start`
+in `src/main/java/org/apache/commons/text/StringTokenizer.java`
 #### Snippet
 ```java
-     */
-    public int lastIndexOf(final String str, int startIndex) {
-        startIndex = startIndex >= size ? size - 1 : startIndex;
-        if (str == null || startIndex < 0) {
-            return -1;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `index`
-in `src/main/java/org/apache/commons/text/StrBuilder.java`
-#### Snippet
-```java
-    public String midString(int index, final int length) {
-        if (index < 0) {
-            index = 0;
+                break;
+            }
+            start += removeLen;
         }
-        if (length <= 0 || index >= size) {
+
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `startIndex`
-in `src/main/java/org/apache/commons/text/StrBuilder.java`
+Assignment to method parameter `tok`
+in `src/main/java/org/apache/commons/text/StringTokenizer.java`
 #### Snippet
 ```java
-     */
-    public int indexOf(final String str, int startIndex) {
-        startIndex = Math.max(startIndex, 0);
-        if (str == null || startIndex >= size) {
-            return -1;
+            }
+            if (isEmptyTokenAsNull()) {
+                tok = null;
+            }
+        }
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `pos`
+in `src/main/java/org/apache/commons/text/StrMatcher.java`
+#### Snippet
+```java
+                return 0;
+            }
+            for (int i = 0; i < chars.length; i++, pos++) {
+                if (chars[i] != buffer[pos]) {
+                    return 0;
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `key`
+in `src/main/java/org/apache/commons/text/lookup/InterpolatorStringLookup.java`
+#### Snippet
+```java
+                return value;
+            }
+            key = key.substring(prefixPos + 1);
+        }
+        if (defaultStringLookup != null) {
 ```
 
 ### AssignmentToMethodParameter
@@ -1510,15 +1498,15 @@ in `src/main/java/org/apache/commons/text/StrBuilder.java`
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `startIndex`
+Assignment to method parameter `endIndex`
 in `src/main/java/org/apache/commons/text/StrBuilder.java`
 #### Snippet
 ```java
-     */
-    public int indexOf(final char ch, int startIndex) {
-        startIndex = Math.max(startIndex, 0);
-        if (startIndex >= size) {
-            return -1;
+        }
+        if (endIndex > size) {
+            endIndex = size;
+        }
+        if (startIndex > endIndex) {
 ```
 
 ### AssignmentToMethodParameter
@@ -1534,63 +1522,15 @@ in `src/main/java/org/apache/commons/text/StrBuilder.java`
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `destination`
-in `src/main/java/org/apache/commons/text/StrBuilder.java`
-#### Snippet
-```java
-        final int len = length();
-        if (destination == null || destination.length < len) {
-            destination = new char[len];
-        }
-        System.arraycopy(buffer, 0, destination, 0, len);
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `to`
-in `src/main/java/org/apache/commons/text/StrBuilder.java`
-#### Snippet
-```java
-            if (removeLen > 0) {
-                replaceImpl(i, i + removeLen, removeLen, replaceStr, replaceLen);
-                to = to - removeLen + replaceLen;
-                i = i + replaceLen - 1;
-                if (replaceCount > 0) {
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `replaceCount`
-in `src/main/java/org/apache/commons/text/StrBuilder.java`
-#### Snippet
-```java
-                i = i + replaceLen - 1;
-                if (replaceCount > 0) {
-                    replaceCount--;
-                }
-            }
-```
-
-### AssignmentToMethodParameter
 Assignment to method parameter `startIndex`
 in `src/main/java/org/apache/commons/text/StrBuilder.java`
 #### Snippet
 ```java
      */
-    public int lastIndexOf(final StrMatcher matcher, int startIndex) {
+    public int lastIndexOf(final String str, int startIndex) {
         startIndex = startIndex >= size ? size - 1 : startIndex;
-        if (matcher == null || startIndex < 0) {
+        if (str == null || startIndex < 0) {
             return -1;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `endIndex`
-in `src/main/java/org/apache/commons/text/StrBuilder.java`
-#### Snippet
-```java
-     */
-    public StrBuilder delete(final int startIndex, int endIndex) {
-        endIndex = validateRange(startIndex, endIndex);
-        final int len = endIndex - startIndex;
-        if (len > 0) {
 ```
 
 ### AssignmentToMethodParameter
@@ -1639,18 +1579,6 @@ in `src/main/java/org/apache/commons/text/StrBuilder.java`
             buffer[index++] = 'u';
             buffer[index] = 'e';
             size += 4;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `pos`
-in `src/main/java/org/apache/commons/text/StrMatcher.java`
-#### Snippet
-```java
-                return 0;
-            }
-            for (int i = 0; i < chars.length; i++, pos++) {
-                if (chars[i] != buffer[pos]) {
-                    return 0;
 ```
 
 ### AssignmentToMethodParameter
@@ -1714,15 +1642,63 @@ in `src/main/java/org/apache/commons/text/StrBuilder.java`
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `n`
+Assignment to method parameter `index`
 in `src/main/java/org/apache/commons/text/StrBuilder.java`
 #### Snippet
 ```java
-        public long skip(long n) {
-            if (pos + n > StrBuilder.this.size()) {
-                n = StrBuilder.this.size() - pos;
+    public String midString(int index, final int length) {
+        if (index < 0) {
+            index = 0;
+        }
+        if (length <= 0 || index >= size) {
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `endIndex`
+in `src/main/java/org/apache/commons/text/StrBuilder.java`
+#### Snippet
+```java
+     */
+    public char[] toCharArray(final int startIndex, int endIndex) {
+        endIndex = validateRange(startIndex, endIndex);
+        final int len = endIndex - startIndex;
+        if (len == 0) {
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `startIndex`
+in `src/main/java/org/apache/commons/text/StrBuilder.java`
+#### Snippet
+```java
+     */
+    public int indexOf(final char ch, int startIndex) {
+        startIndex = Math.max(startIndex, 0);
+        if (startIndex >= size) {
+            return -1;
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `to`
+in `src/main/java/org/apache/commons/text/StrBuilder.java`
+#### Snippet
+```java
+            if (removeLen > 0) {
+                replaceImpl(i, i + removeLen, removeLen, replaceStr, replaceLen);
+                to = to - removeLen + replaceLen;
+                i = i + replaceLen - 1;
+                if (replaceCount > 0) {
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `replaceCount`
+in `src/main/java/org/apache/commons/text/StrBuilder.java`
+#### Snippet
+```java
+                i = i + replaceLen - 1;
+                if (replaceCount > 0) {
+                    replaceCount--;
+                }
             }
-            if (n < 0) {
 ```
 
 ### AssignmentToMethodParameter
@@ -1743,22 +1719,22 @@ in `src/main/java/org/apache/commons/text/StrBuilder.java`
 #### Snippet
 ```java
      */
-    public char[] toCharArray(final int startIndex, int endIndex) {
+    public String substring(final int startIndex, int endIndex) {
         endIndex = validateRange(startIndex, endIndex);
-        final int len = endIndex - startIndex;
-        if (len == 0) {
+        return new String(buffer, startIndex, endIndex - startIndex);
+    }
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `endIndex`
+Assignment to method parameter `startIndex`
 in `src/main/java/org/apache/commons/text/StrBuilder.java`
 #### Snippet
 ```java
-            final StrMatcher matcher, final String replaceStr,
-            final int startIndex, int endIndex, final int replaceCount) {
-        endIndex = validateRange(startIndex, endIndex);
-        return replaceImpl(matcher, replaceStr, startIndex, endIndex, replaceCount);
-    }
+     */
+    public int indexOf(final String str, int startIndex) {
+        startIndex = Math.max(startIndex, 0);
+        if (str == null || startIndex >= size) {
+            return -1;
 ```
 
 ### AssignmentToMethodParameter
@@ -1774,30 +1750,6 @@ in `src/main/java/org/apache/commons/text/StrBuilder.java`
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `endIndex`
-in `src/main/java/org/apache/commons/text/StrBuilder.java`
-#### Snippet
-```java
-        }
-        if (endIndex > size) {
-            endIndex = size;
-        }
-        if (startIndex > endIndex) {
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `endIndex`
-in `src/main/java/org/apache/commons/text/StrBuilder.java`
-#### Snippet
-```java
-     */
-    public String substring(final int startIndex, int endIndex) {
-        endIndex = validateRange(startIndex, endIndex);
-        return new String(buffer, startIndex, endIndex - startIndex);
-    }
-```
-
-### AssignmentToMethodParameter
 Assignment to method parameter `len`
 in `src/main/java/org/apache/commons/text/StrBuilder.java`
 #### Snippet
@@ -1810,159 +1762,63 @@ in `src/main/java/org/apache/commons/text/StrBuilder.java`
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `key`
-in `src/main/java/org/apache/commons/text/lookup/InterpolatorStringLookup.java`
-#### Snippet
-```java
-                return value;
-            }
-            key = key.substring(prefixPos + 1);
-        }
-        if (defaultStringLookup != null) {
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `index`
-in `src/main/java/org/apache/commons/text/TextStringBuilder.java`
-#### Snippet
-```java
-    public String midString(int index, final int length) {
-        if (index < 0) {
-            index = 0;
-        }
-        if (length <= 0 || index >= size) {
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `target`
-in `src/main/java/org/apache/commons/text/TextStringBuilder.java`
-#### Snippet
-```java
-        final int len = length();
-        if (target == null || target.length < len) {
-            target = new char[len];
-        }
-        System.arraycopy(buffer, 0, target, 0, len);
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `startIndex`
-in `src/main/java/org/apache/commons/text/TextStringBuilder.java`
+Assignment to method parameter `endIndex`
+in `src/main/java/org/apache/commons/text/StrBuilder.java`
 #### Snippet
 ```java
      */
-    public int lastIndexOf(final StringMatcher matcher, int startIndex) {
-        startIndex = startIndex >= size ? size - 1 : startIndex;
-        if (matcher == null || startIndex < 0) {
-            return StringUtils.INDEX_NOT_FOUND;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `endIndex`
-in `src/main/java/org/apache/commons/text/TextStringBuilder.java`
-#### Snippet
-```java
-        }
-        if (endIndex > size) {
-            endIndex = size;
-        }
-        if (startIndex > endIndex) {
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `endIndex`
-in `src/main/java/org/apache/commons/text/TextStringBuilder.java`
-#### Snippet
-```java
-     */
-    public TextStringBuilder replace(final int startIndex, int endIndex, final String replaceStr) {
-        endIndex = validateRange(startIndex, endIndex);
-        final int insertLen = replaceStr == null ? 0 : replaceStr.length();
-        replaceImpl(startIndex, endIndex, endIndex - startIndex, replaceStr, insertLen);
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `endIndex`
-in `src/main/java/org/apache/commons/text/TextStringBuilder.java`
-#### Snippet
-```java
-     */
-    public char[] toCharArray(final int startIndex, int endIndex) {
+    public StrBuilder delete(final int startIndex, int endIndex) {
         endIndex = validateRange(startIndex, endIndex);
         final int len = endIndex - startIndex;
-        return len == 0 ? ArrayUtils.EMPTY_CHAR_ARRAY : Arrays.copyOfRange(buffer, startIndex, endIndex);
+        if (len > 0) {
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `len`
-in `src/main/java/org/apache/commons/text/TextStringBuilder.java`
+Assignment to method parameter `n`
+in `src/main/java/org/apache/commons/text/StrBuilder.java`
 #### Snippet
 ```java
+        public long skip(long n) {
+            if (pos + n > StrBuilder.this.size()) {
+                n = StrBuilder.this.size() - pos;
             }
-            if (pos + len > size()) {
-                len = TextStringBuilder.this.size() - pos;
-            }
-            TextStringBuilder.this.getChars(pos, pos + len, b, off);
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `nullText`
-in `src/main/java/org/apache/commons/text/TextStringBuilder.java`
-#### Snippet
-```java
-    public TextStringBuilder setNullText(String nullText) {
-        if (nullText != null && nullText.isEmpty()) {
-            nullText = null;
-        }
-        this.nullText = nullText;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `to`
-in `src/main/java/org/apache/commons/text/TextStringBuilder.java`
-#### Snippet
-```java
-            if (removeLen > 0) {
-                replaceImpl(i, i + removeLen, removeLen, replaceStr, replaceLen);
-                to = to - removeLen + replaceLen;
-                i = i + replaceLen - 1;
-                if (replaceCount > 0) {
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `replaceCount`
-in `src/main/java/org/apache/commons/text/TextStringBuilder.java`
-#### Snippet
-```java
-                i = i + replaceLen - 1;
-                if (replaceCount > 0) {
-                    replaceCount--;
-                }
-            }
+            if (n < 0) {
 ```
 
 ### AssignmentToMethodParameter
 Assignment to method parameter `startIndex`
-in `src/main/java/org/apache/commons/text/TextStringBuilder.java`
+in `src/main/java/org/apache/commons/text/StrBuilder.java`
 #### Snippet
 ```java
      */
-    public int indexOf(final StringMatcher matcher, int startIndex) {
-        startIndex = Math.max(0, startIndex);
-        if (matcher == null || startIndex >= size) {
-            return StringUtils.INDEX_NOT_FOUND;
+    public int lastIndexOf(final StrMatcher matcher, int startIndex) {
+        startIndex = startIndex >= size ? size - 1 : startIndex;
+        if (matcher == null || startIndex < 0) {
+            return -1;
 ```
 
 ### AssignmentToMethodParameter
 Assignment to method parameter `endIndex`
-in `src/main/java/org/apache/commons/text/TextStringBuilder.java`
+in `src/main/java/org/apache/commons/text/StrBuilder.java`
 #### Snippet
 ```java
-    public TextStringBuilder replace(final StringMatcher matcher, final String replaceStr, final int startIndex,
-        int endIndex, final int replaceCount) {
+            final StrMatcher matcher, final String replaceStr,
+            final int startIndex, int endIndex, final int replaceCount) {
         endIndex = validateRange(startIndex, endIndex);
         return replaceImpl(matcher, replaceStr, startIndex, endIndex, replaceCount);
     }
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `destination`
+in `src/main/java/org/apache/commons/text/StrBuilder.java`
+#### Snippet
+```java
+        final int len = length();
+        if (destination == null || destination.length < len) {
+            destination = new char[len];
+        }
+        System.arraycopy(buffer, 0, destination, 0, len);
 ```
 
 ### AssignmentToMethodParameter
@@ -1978,87 +1834,15 @@ in `src/main/java/org/apache/commons/text/StringSubstitutor.java`
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `n`
-in `src/main/java/org/apache/commons/text/TextStringBuilder.java`
-#### Snippet
-```java
-        public long skip(long n) {
-            if (pos + n > TextStringBuilder.this.size()) {
-                n = TextStringBuilder.this.size() - pos;
-            }
-            if (n < 0) {
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `index`
-in `src/main/java/org/apache/commons/text/TextStringBuilder.java`
-#### Snippet
-```java
-    /** Appends {@code "true"}. */
-    private void appendTrue(int index) {
-        buffer[index++] = 't';
-        buffer[index++] = 'r';
-        buffer[index++] = 'u';
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `index`
-in `src/main/java/org/apache/commons/text/TextStringBuilder.java`
-#### Snippet
-```java
-    private void appendTrue(int index) {
-        buffer[index++] = 't';
-        buffer[index++] = 'r';
-        buffer[index++] = 'u';
-        buffer[index] = 'e';
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `index`
-in `src/main/java/org/apache/commons/text/TextStringBuilder.java`
-#### Snippet
-```java
-        buffer[index++] = 't';
-        buffer[index++] = 'r';
-        buffer[index++] = 'u';
-        buffer[index] = 'e';
-        size += TRUE_STRING_SIZE;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `startIndex`
-in `src/main/java/org/apache/commons/text/TextStringBuilder.java`
-#### Snippet
-```java
-     */
-    public int indexOf(final String str, int startIndex) {
-        startIndex = Math.max(0, startIndex);
-        if (str == null || startIndex >= size) {
-            return StringUtils.INDEX_NOT_FOUND;
-```
-
-### AssignmentToMethodParameter
 Assignment to method parameter `endIndex`
 in `src/main/java/org/apache/commons/text/TextStringBuilder.java`
 #### Snippet
 ```java
      */
-    public String substring(final int startIndex, int endIndex) {
+    public TextStringBuilder replace(final int startIndex, int endIndex, final String replaceStr) {
         endIndex = validateRange(startIndex, endIndex);
-        return new String(buffer, startIndex, endIndex - startIndex);
-    }
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `startIndex`
-in `src/main/java/org/apache/commons/text/TextStringBuilder.java`
-#### Snippet
-```java
-     */
-    public int indexOf(final char ch, int startIndex) {
-        startIndex = Math.max(0, startIndex);
-        if (startIndex >= size) {
-            return StringUtils.INDEX_NOT_FOUND;
+        final int insertLen = replaceStr == null ? 0 : replaceStr.length();
+        replaceImpl(startIndex, endIndex, endIndex - startIndex, replaceStr, insertLen);
 ```
 
 ### AssignmentToMethodParameter
@@ -2110,15 +1894,27 @@ in `src/main/java/org/apache/commons/text/TextStringBuilder.java`
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `startIndex`
+Assignment to method parameter `n`
 in `src/main/java/org/apache/commons/text/TextStringBuilder.java`
 #### Snippet
 ```java
-     */
-    public int lastIndexOf(final String str, int startIndex) {
-        startIndex = startIndex >= size ? size - 1 : startIndex;
-        if (str == null || startIndex < 0) {
-            return StringUtils.INDEX_NOT_FOUND;
+        public long skip(long n) {
+            if (pos + n > TextStringBuilder.this.size()) {
+                n = TextStringBuilder.this.size() - pos;
+            }
+            if (n < 0) {
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `target`
+in `src/main/java/org/apache/commons/text/TextStringBuilder.java`
+#### Snippet
+```java
+        final int len = length();
+        if (target == null || target.length < len) {
+            target = new char[len];
+        }
+        System.arraycopy(buffer, 0, target, 0, len);
 ```
 
 ### AssignmentToMethodParameter
@@ -2127,10 +1923,22 @@ in `src/main/java/org/apache/commons/text/TextStringBuilder.java`
 #### Snippet
 ```java
      */
-    public int lastIndexOf(final char ch, int startIndex) {
+    public int lastIndexOf(final StringMatcher matcher, int startIndex) {
         startIndex = startIndex >= size ? size - 1 : startIndex;
-        if (startIndex < 0) {
+        if (matcher == null || startIndex < 0) {
             return StringUtils.INDEX_NOT_FOUND;
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `endIndex`
+in `src/main/java/org/apache/commons/text/TextStringBuilder.java`
+#### Snippet
+```java
+     */
+    public char[] toCharArray(final int startIndex, int endIndex) {
+        endIndex = validateRange(startIndex, endIndex);
+        final int len = endIndex - startIndex;
+        return len == 0 ? ArrayUtils.EMPTY_CHAR_ARRAY : Arrays.copyOfRange(buffer, startIndex, endIndex);
 ```
 
 ### AssignmentToMethodParameter
@@ -2146,39 +1954,195 @@ in `src/main/java/org/apache/commons/text/TextStringBuilder.java`
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `lower`
-in `src/main/java/org/apache/commons/text/WordUtils.java`
+Assignment to method parameter `endIndex`
+in `src/main/java/org/apache/commons/text/TextStringBuilder.java`
 #### Snippet
 ```java
-        // set to the length of the string
-        if (lower > str.length()) {
-            lower = str.length();
-        }
-
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `upper`
-in `src/main/java/org/apache/commons/text/WordUtils.java`
-#### Snippet
-```java
-        // than the length of the string, set to the length of the string
-        if (upper == -1 || upper > str.length()) {
-            upper = str.length();
-        }
-
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `str`
-in `src/main/java/org/apache/commons/text/WordUtils.java`
-#### Snippet
-```java
-            return str;
-        }
-        str = str.toLowerCase();
-        return capitalize(str, delimiters);
+    public TextStringBuilder replace(final StringMatcher matcher, final String replaceStr, final int startIndex,
+        int endIndex, final int replaceCount) {
+        endIndex = validateRange(startIndex, endIndex);
+        return replaceImpl(matcher, replaceStr, startIndex, endIndex, replaceCount);
     }
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `startIndex`
+in `src/main/java/org/apache/commons/text/TextStringBuilder.java`
+#### Snippet
+```java
+     */
+    public int indexOf(final char ch, int startIndex) {
+        startIndex = Math.max(0, startIndex);
+        if (startIndex >= size) {
+            return StringUtils.INDEX_NOT_FOUND;
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `startIndex`
+in `src/main/java/org/apache/commons/text/TextStringBuilder.java`
+#### Snippet
+```java
+     */
+    public int indexOf(final String str, int startIndex) {
+        startIndex = Math.max(0, startIndex);
+        if (str == null || startIndex >= size) {
+            return StringUtils.INDEX_NOT_FOUND;
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `len`
+in `src/main/java/org/apache/commons/text/TextStringBuilder.java`
+#### Snippet
+```java
+            }
+            if (pos + len > size()) {
+                len = TextStringBuilder.this.size() - pos;
+            }
+            TextStringBuilder.this.getChars(pos, pos + len, b, off);
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `index`
+in `src/main/java/org/apache/commons/text/TextStringBuilder.java`
+#### Snippet
+```java
+    /** Appends {@code "true"}. */
+    private void appendTrue(int index) {
+        buffer[index++] = 't';
+        buffer[index++] = 'r';
+        buffer[index++] = 'u';
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `index`
+in `src/main/java/org/apache/commons/text/TextStringBuilder.java`
+#### Snippet
+```java
+    private void appendTrue(int index) {
+        buffer[index++] = 't';
+        buffer[index++] = 'r';
+        buffer[index++] = 'u';
+        buffer[index] = 'e';
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `index`
+in `src/main/java/org/apache/commons/text/TextStringBuilder.java`
+#### Snippet
+```java
+        buffer[index++] = 't';
+        buffer[index++] = 'r';
+        buffer[index++] = 'u';
+        buffer[index] = 'e';
+        size += TRUE_STRING_SIZE;
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `nullText`
+in `src/main/java/org/apache/commons/text/TextStringBuilder.java`
+#### Snippet
+```java
+    public TextStringBuilder setNullText(String nullText) {
+        if (nullText != null && nullText.isEmpty()) {
+            nullText = null;
+        }
+        this.nullText = nullText;
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `endIndex`
+in `src/main/java/org/apache/commons/text/TextStringBuilder.java`
+#### Snippet
+```java
+     */
+    public String substring(final int startIndex, int endIndex) {
+        endIndex = validateRange(startIndex, endIndex);
+        return new String(buffer, startIndex, endIndex - startIndex);
+    }
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `index`
+in `src/main/java/org/apache/commons/text/TextStringBuilder.java`
+#### Snippet
+```java
+    public String midString(int index, final int length) {
+        if (index < 0) {
+            index = 0;
+        }
+        if (length <= 0 || index >= size) {
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `endIndex`
+in `src/main/java/org/apache/commons/text/TextStringBuilder.java`
+#### Snippet
+```java
+        }
+        if (endIndex > size) {
+            endIndex = size;
+        }
+        if (startIndex > endIndex) {
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `startIndex`
+in `src/main/java/org/apache/commons/text/TextStringBuilder.java`
+#### Snippet
+```java
+     */
+    public int lastIndexOf(final char ch, int startIndex) {
+        startIndex = startIndex >= size ? size - 1 : startIndex;
+        if (startIndex < 0) {
+            return StringUtils.INDEX_NOT_FOUND;
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `to`
+in `src/main/java/org/apache/commons/text/TextStringBuilder.java`
+#### Snippet
+```java
+            if (removeLen > 0) {
+                replaceImpl(i, i + removeLen, removeLen, replaceStr, replaceLen);
+                to = to - removeLen + replaceLen;
+                i = i + replaceLen - 1;
+                if (replaceCount > 0) {
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `replaceCount`
+in `src/main/java/org/apache/commons/text/TextStringBuilder.java`
+#### Snippet
+```java
+                i = i + replaceLen - 1;
+                if (replaceCount > 0) {
+                    replaceCount--;
+                }
+            }
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `startIndex`
+in `src/main/java/org/apache/commons/text/TextStringBuilder.java`
+#### Snippet
+```java
+     */
+    public int indexOf(final StringMatcher matcher, int startIndex) {
+        startIndex = Math.max(0, startIndex);
+        if (matcher == null || startIndex >= size) {
+            return StringUtils.INDEX_NOT_FOUND;
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `startIndex`
+in `src/main/java/org/apache/commons/text/TextStringBuilder.java`
+#### Snippet
+```java
+     */
+    public int lastIndexOf(final String str, int startIndex) {
+        startIndex = startIndex >= size ? size - 1 : startIndex;
+        if (str == null || startIndex < 0) {
+            return StringUtils.INDEX_NOT_FOUND;
 ```
 
 ### AssignmentToMethodParameter
@@ -2215,6 +2179,42 @@ in `src/main/java/org/apache/commons/text/WordUtils.java`
             wrapOn = " ";
         }
         final Pattern patternToWrapOn = Pattern.compile(wrapOn);
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `lower`
+in `src/main/java/org/apache/commons/text/WordUtils.java`
+#### Snippet
+```java
+        // set to the length of the string
+        if (lower > str.length()) {
+            lower = str.length();
+        }
+
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `upper`
+in `src/main/java/org/apache/commons/text/WordUtils.java`
+#### Snippet
+```java
+        // than the length of the string, set to the length of the string
+        if (upper == -1 || upper > str.length()) {
+            upper = str.length();
+        }
+
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `str`
+in `src/main/java/org/apache/commons/text/WordUtils.java`
+#### Snippet
+```java
+            return str;
+        }
+        str = str.toLowerCase();
+        return capitalize(str, delimiters);
+    }
 ```
 
 ### AssignmentToMethodParameter
@@ -2280,7 +2280,7 @@ in `src/main/java/org/apache/commons/text/StrSubstitutor.java`
 ## RuleId[ruleID=HtmlWrongAttributeValue]
 ### HtmlWrongAttributeValue
 Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-02-12-03-27-02.784.html`
+in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-02-13-23-14-10.202.html`
 #### Snippet
 ```java
               <td>0</td>
@@ -2344,6 +2344,18 @@ Return of `null`
 in `src/main/java/org/apache/commons/text/lookup/ConstantStringLookup.java`
 #### Snippet
 ```java
+        final Class<?> clazz = fetchClass(className);
+        if (clazz == null) {
+            return null;
+        }
+        return clazz.getField(fieldName).get(null);
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/text/lookup/ConstantStringLookup.java`
+#### Snippet
+```java
     public synchronized String lookup(final String key) {
         if (key == null) {
             return null;
@@ -2377,30 +2389,6 @@ in `src/main/java/org/apache/commons/text/lookup/ConstantStringLookup.java`
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/org/apache/commons/text/lookup/ConstantStringLookup.java`
-#### Snippet
-```java
-        final Class<?> clazz = fetchClass(className);
-        if (clazz == null) {
-            return null;
-        }
-        return clazz.getField(fieldName).get(null);
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/text/lookup/FileStringLookup.java`
-#### Snippet
-```java
-    public String lookup(final String key) {
-        if (key == null) {
-            return null;
-        }
-        final String[] keys = key.split(String.valueOf(SPLIT_CH));
-```
-
-### ReturnNull
-Return of `null`
 in `src/main/java/org/apache/commons/text/lookup/LocalHostStringLookup.java`
 #### Snippet
 ```java
@@ -2425,14 +2413,14 @@ in `src/main/java/org/apache/commons/text/lookup/LocalHostStringLookup.java`
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/org/apache/commons/text/StrLookup.java`
+in `src/main/java/org/apache/commons/text/lookup/FileStringLookup.java`
 #### Snippet
 ```java
-                }
-            }
+    public String lookup(final String key) {
+        if (key == null) {
             return null;
         }
-    }
+        final String[] keys = key.split(String.valueOf(SPLIT_CH));
 ```
 
 ### ReturnNull
@@ -2449,6 +2437,18 @@ in `src/main/java/org/apache/commons/text/StrLookup.java`
 
 ### ReturnNull
 Return of `null`
+in `src/main/java/org/apache/commons/text/StrLookup.java`
+#### Snippet
+```java
+                }
+            }
+            return null;
+        }
+    }
+```
+
+### ReturnNull
+Return of `null`
 in `src/main/java/org/apache/commons/text/lookup/JavaPlatformStringLookup.java`
 #### Snippet
 ```java
@@ -2461,31 +2461,19 @@ in `src/main/java/org/apache/commons/text/lookup/JavaPlatformStringLookup.java`
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/org/apache/commons/text/StringTokenizer.java`
+in `src/main/java/org/apache/commons/text/StrTokenizer.java`
 #### Snippet
 ```java
-            return tokens[tokenPos++];
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/text/StringTokenizer.java`
-#### Snippet
-```java
-    public String getContent() {
-        if (chars == null) {
+            return cloneReset();
+        } catch (final CloneNotSupportedException ex) {
             return null;
         }
-        return new String(chars);
+    }
 ```
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/org/apache/commons/text/StringTokenizer.java`
+in `src/main/java/org/apache/commons/text/StrTokenizer.java`
 #### Snippet
 ```java
             return tokens[--tokenPos];
@@ -2497,14 +2485,26 @@ in `src/main/java/org/apache/commons/text/StringTokenizer.java`
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/org/apache/commons/text/StringTokenizer.java`
+in `src/main/java/org/apache/commons/text/StrTokenizer.java`
 #### Snippet
 ```java
-            return cloneReset();
-        } catch (final CloneNotSupportedException ex) {
+            return tokens[tokenPos++];
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/text/StrTokenizer.java`
+#### Snippet
+```java
+    public String getContent() {
+        if (chars == null) {
             return null;
         }
-    }
+        return new String(chars);
 ```
 
 ### ReturnNull
@@ -2533,6 +2533,54 @@ in `src/main/java/org/apache/commons/text/lookup/FunctionStringLookup.java`
 
 ### ReturnNull
 Return of `null`
+in `src/main/java/org/apache/commons/text/StringTokenizer.java`
+#### Snippet
+```java
+            return tokens[--tokenPos];
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/text/StringTokenizer.java`
+#### Snippet
+```java
+            return cloneReset();
+        } catch (final CloneNotSupportedException ex) {
+            return null;
+        }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/text/StringTokenizer.java`
+#### Snippet
+```java
+    public String getContent() {
+        if (chars == null) {
+            return null;
+        }
+        return new String(chars);
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/text/StringTokenizer.java`
+#### Snippet
+```java
+            return tokens[tokenPos++];
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
 in `src/main/java/org/apache/commons/text/lookup/DnsStringLookup.java`
 #### Snippet
 ```java
@@ -2553,54 +2601,6 @@ in `src/main/java/org/apache/commons/text/lookup/DnsStringLookup.java`
             return null;
         }
     }
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/text/StrTokenizer.java`
-#### Snippet
-```java
-            return tokens[tokenPos++];
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/text/StrTokenizer.java`
-#### Snippet
-```java
-            return tokens[--tokenPos];
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/text/StrTokenizer.java`
-#### Snippet
-```java
-            return cloneReset();
-        } catch (final CloneNotSupportedException ex) {
-            return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/text/StrTokenizer.java`
-#### Snippet
-```java
-    public String getContent() {
-        if (chars == null) {
-            return null;
-        }
-        return new String(chars);
 ```
 
 ### ReturnNull
@@ -2680,7 +2680,19 @@ Return of `null`
 in `src/main/java/org/apache/commons/text/StringSubstitutor.java`
 #### Snippet
 ```java
-    public String replace(final TextStringBuilder source, final int offset, final int length) {
+    public String replace(final StringBuffer source) {
+        if (source == null) {
+            return null;
+        }
+        final TextStringBuilder buf = new TextStringBuilder(source.length()).append(source);
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/text/StringSubstitutor.java`
+#### Snippet
+```java
+    public String replace(final String source, final int offset, final int length) {
         if (source == null) {
             return null;
         }
@@ -2692,23 +2704,11 @@ Return of `null`
 in `src/main/java/org/apache/commons/text/StringSubstitutor.java`
 #### Snippet
 ```java
-    public String replace(final char[] source) {
+    public String replace(final TextStringBuilder source, final int offset, final int length) {
         if (source == null) {
             return null;
         }
-        final TextStringBuilder buf = new TextStringBuilder(source.length).append(source);
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/text/StringSubstitutor.java`
-#### Snippet
-```java
-    public String replace(final String source) {
-        if (source == null) {
-            return null;
-        }
-        final TextStringBuilder buf = new TextStringBuilder(source);
+        final TextStringBuilder buf = new TextStringBuilder(length).append(source, offset, length);
 ```
 
 ### ReturnNull
@@ -2728,47 +2728,23 @@ Return of `null`
 in `src/main/java/org/apache/commons/text/StringSubstitutor.java`
 #### Snippet
 ```java
+    public String replace(final char[] source) {
+        if (source == null) {
+            return null;
+        }
+        final TextStringBuilder buf = new TextStringBuilder(source.length).append(source);
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/text/StringSubstitutor.java`
+#### Snippet
+```java
     public String replace(final StringBuffer source, final int offset, final int length) {
         if (source == null) {
             return null;
         }
         final TextStringBuilder buf = new TextStringBuilder(length).append(source, offset, length);
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/text/StringSubstitutor.java`
-#### Snippet
-```java
-    public String replace(final char[] source, final int offset, final int length) {
-        if (source == null) {
-            return null;
-        }
-        final TextStringBuilder buf = new TextStringBuilder(length).append(source, offset, length);
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/text/StringSubstitutor.java`
-#### Snippet
-```java
-    public String replace(final StringBuffer source) {
-        if (source == null) {
-            return null;
-        }
-        final TextStringBuilder buf = new TextStringBuilder(source.length()).append(source);
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/text/StringSubstitutor.java`
-#### Snippet
-```java
-    public String replace(final CharSequence source, final int offset, final int length) {
-        if (source == null) {
-            return null;
-        }
-        final TextStringBuilder buf = new TextStringBuilder(length).append(source.toString(), offset, length);
 ```
 
 ### ReturnNull
@@ -2788,7 +2764,31 @@ Return of `null`
 in `src/main/java/org/apache/commons/text/StringSubstitutor.java`
 #### Snippet
 ```java
-    public String replace(final String source, final int offset, final int length) {
+    public String replace(final CharSequence source, final int offset, final int length) {
+        if (source == null) {
+            return null;
+        }
+        final TextStringBuilder buf = new TextStringBuilder(length).append(source.toString(), offset, length);
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/text/StringSubstitutor.java`
+#### Snippet
+```java
+    public String replace(final String source) {
+        if (source == null) {
+            return null;
+        }
+        final TextStringBuilder buf = new TextStringBuilder(source);
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/text/StringSubstitutor.java`
+#### Snippet
+```java
+    public String replace(final char[] source, final int offset, final int length) {
         if (source == null) {
             return null;
         }
@@ -2809,6 +2809,18 @@ in `src/main/java/org/apache/commons/text/StringSubstitutor.java`
 
 ### ReturnNull
 Return of `null`
+in `src/main/java/org/apache/commons/text/diff/StringsComparator.java`
+#### Snippet
+```java
+        final int n = end2 - start2;
+        if (m == 0 || n == 0) {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
 in `src/main/java/org/apache/commons/text/translate/CharSequenceTranslator.java`
 #### Snippet
 ```java
@@ -2817,6 +2829,18 @@ in `src/main/java/org/apache/commons/text/translate/CharSequenceTranslator.java`
             return null;
         }
         try {
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/text/lookup/UrlEncoderStringLookup.java`
+#### Snippet
+```java
+    public String lookup(final String key) {
+        if (key == null) {
+            return null;
+        }
+        final String enc = StandardCharsets.UTF_8.name();
 ```
 
 ### ReturnNull
@@ -2845,26 +2869,14 @@ in `src/main/java/org/apache/commons/text/lookup/BiFunctionStringLookup.java`
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/org/apache/commons/text/lookup/UrlEncoderStringLookup.java`
+in `src/main/java/org/apache/commons/text/WordUtils.java`
 #### Snippet
 ```java
-    public String lookup(final String key) {
-        if (key == null) {
+                              String wrapOn) {
+        if (str == null) {
             return null;
         }
-        final String enc = StandardCharsets.UTF_8.name();
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/text/diff/StringsComparator.java`
-#### Snippet
-```java
-        final int n = end2 - start2;
-        if (m == 0 || n == 0) {
-            return null;
-        }
-
+        if (newLineStr == null) {
 ```
 
 ### ReturnNull
@@ -2893,14 +2905,14 @@ in `src/main/java/org/apache/commons/text/lookup/ResourceBundleStringLookup.java
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/org/apache/commons/text/WordUtils.java`
+in `src/main/java/org/apache/commons/text/AlphabetConverter.java`
 #### Snippet
 ```java
-                              String wrapOn) {
-        if (str == null) {
+            throws UnsupportedEncodingException {
+        if (encoded == null) {
             return null;
         }
-        if (newLineStr == null) {
+
 ```
 
 ### ReturnNull
@@ -2917,50 +2929,14 @@ in `src/main/java/org/apache/commons/text/AlphabetConverter.java`
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/org/apache/commons/text/AlphabetConverter.java`
-#### Snippet
-```java
-            throws UnsupportedEncodingException {
-        if (encoded == null) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
 in `src/main/java/org/apache/commons/text/StrSubstitutor.java`
 #### Snippet
 ```java
-    public String replace(final String source, final int offset, final int length) {
+    public String replace(final char[] source, final int offset, final int length) {
         if (source == null) {
             return null;
         }
         final StrBuilder buf = new StrBuilder(length).append(source, offset, length);
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/text/StrSubstitutor.java`
-#### Snippet
-```java
-    public String replace(final CharSequence source, final int offset, final int length) {
-        if (source == null) {
-            return null;
-        }
-        final StrBuilder buf = new StrBuilder(length).append(source, offset, length);
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/text/StrSubstitutor.java`
-#### Snippet
-```java
-    public String replace(final StrBuilder source) {
-        if (source == null) {
-            return null;
-        }
-        final StrBuilder buf = new StrBuilder(source.length()).append(source);
 ```
 
 ### ReturnNull
@@ -2980,7 +2956,19 @@ Return of `null`
 in `src/main/java/org/apache/commons/text/StrSubstitutor.java`
 #### Snippet
 ```java
-    public String replace(final char[] source, final int offset, final int length) {
+    public String replace(final char[] source) {
+        if (source == null) {
+            return null;
+        }
+        final StrBuilder buf = new StrBuilder(source.length).append(source);
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/text/StrSubstitutor.java`
+#### Snippet
+```java
+    public String replace(final String source, final int offset, final int length) {
         if (source == null) {
             return null;
         }
@@ -3004,7 +2992,7 @@ Return of `null`
 in `src/main/java/org/apache/commons/text/StrSubstitutor.java`
 #### Snippet
 ```java
-    public String replace(final StrBuilder source, final int offset, final int length) {
+    public String replace(final CharSequence source, final int offset, final int length) {
         if (source == null) {
             return null;
         }
@@ -3016,11 +3004,11 @@ Return of `null`
 in `src/main/java/org/apache/commons/text/StrSubstitutor.java`
 #### Snippet
 ```java
-    public String replace(final StringBuffer source, final int offset, final int length) {
+    public String replace(final StringBuffer source) {
         if (source == null) {
             return null;
         }
-        final StrBuilder buf = new StrBuilder(length).append(source, offset, length);
+        final StrBuilder buf = new StrBuilder(source.length()).append(source);
 ```
 
 ### ReturnNull
@@ -3052,11 +3040,11 @@ Return of `null`
 in `src/main/java/org/apache/commons/text/StrSubstitutor.java`
 #### Snippet
 ```java
-    public String replace(final StringBuffer source) {
+    public String replace(final StringBuffer source, final int offset, final int length) {
         if (source == null) {
             return null;
         }
-        final StrBuilder buf = new StrBuilder(source.length()).append(source);
+        final StrBuilder buf = new StrBuilder(length).append(source, offset, length);
 ```
 
 ### ReturnNull
@@ -3064,11 +3052,23 @@ Return of `null`
 in `src/main/java/org/apache/commons/text/StrSubstitutor.java`
 #### Snippet
 ```java
-    public String replace(final char[] source) {
+    public String replace(final StrBuilder source, final int offset, final int length) {
         if (source == null) {
             return null;
         }
-        final StrBuilder buf = new StrBuilder(source.length).append(source);
+        final StrBuilder buf = new StrBuilder(length).append(source, offset, length);
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/text/StrSubstitutor.java`
+#### Snippet
+```java
+    public String replace(final StrBuilder source) {
+        if (source == null) {
+            return null;
+        }
+        final StrBuilder buf = new StrBuilder(source.length()).append(source);
 ```
 
 ## RuleId[ruleID=NullArgumentToVariableArgMethod]
@@ -3090,8 +3090,8 @@ in `src/main/java/org/apache/commons/text/WordUtils.java`
 #### Snippet
 ```java
      */
-    public static String initials(final String str) {
-        return initials(str, null);
+    public static String capitalize(final String str) {
+        return capitalize(str, null);
     }
 
 ```
@@ -3114,8 +3114,8 @@ in `src/main/java/org/apache/commons/text/WordUtils.java`
 #### Snippet
 ```java
      */
-    public static String capitalize(final String str) {
-        return capitalize(str, null);
+    public static String initials(final String str) {
+        return initials(str, null);
     }
 
 ```
@@ -3327,18 +3327,6 @@ in `src/main/java/org/apache/commons/text/StrSubstitutor.java`
 
 ## RuleId[ruleID=MethodOverridesStaticMethod]
 ### MethodOverridesStaticMethod
-Method `below()` tries to override a static method of a superclass
-in `src/main/java/org/apache/commons/text/translate/JavaUnicodeEscaper.java`
-#### Snippet
-```java
-     * @return The newly created {@code UnicodeEscaper} instance
-     */
-    public static JavaUnicodeEscaper below(final int codePoint) {
-        return outsideOf(codePoint, Integer.MAX_VALUE);
-    }
-```
-
-### MethodOverridesStaticMethod
 Method `outsideOf()` tries to override a static method of a superclass
 in `src/main/java/org/apache/commons/text/translate/JavaUnicodeEscaper.java`
 #### Snippet
@@ -3351,14 +3339,14 @@ in `src/main/java/org/apache/commons/text/translate/JavaUnicodeEscaper.java`
 ```
 
 ### MethodOverridesStaticMethod
-Method `between()` tries to override a static method of a superclass
+Method `below()` tries to override a static method of a superclass
 in `src/main/java/org/apache/commons/text/translate/JavaUnicodeEscaper.java`
 #### Snippet
 ```java
      * @return The newly created {@code UnicodeEscaper} instance
      */
-    public static JavaUnicodeEscaper between(final int codePointLow, final int codePointHigh) {
-        return new JavaUnicodeEscaper(codePointLow, codePointHigh, true);
+    public static JavaUnicodeEscaper below(final int codePoint) {
+        return outsideOf(codePoint, Integer.MAX_VALUE);
     }
 ```
 
@@ -3371,6 +3359,18 @@ in `src/main/java/org/apache/commons/text/translate/JavaUnicodeEscaper.java`
      */
     public static JavaUnicodeEscaper above(final int codePoint) {
         return outsideOf(0, codePoint);
+    }
+```
+
+### MethodOverridesStaticMethod
+Method `between()` tries to override a static method of a superclass
+in `src/main/java/org/apache/commons/text/translate/JavaUnicodeEscaper.java`
+#### Snippet
+```java
+     * @return The newly created {@code UnicodeEscaper} instance
+     */
+    public static JavaUnicodeEscaper between(final int codePointLow, final int codePointHigh) {
+        return new JavaUnicodeEscaper(codePointLow, codePointHigh, true);
     }
 ```
 
