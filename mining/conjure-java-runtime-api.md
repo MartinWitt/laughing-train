@@ -80,15 +80,15 @@ in `errors/src/main/java/com/palantir/conjure/java/api/errors/QosException.java`
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'retryAfter'
+`Optional` used as type for field 'retryAfter'
 in `errors/src/main/java/com/palantir/conjure/java/api/errors/QosException.java`
 #### Snippet
 ```java
-        }
+        private static final QosReason DEFAULT_REASON = QosReason.of("qos-throttle");
 
-        private Throttle(Optional<Duration> retryAfter, Throwable cause) {
-            super(
-                    "Suggesting request throttling with optional retryAfter duration: " + retryAfter,
+        private final Optional<Duration> retryAfter;
+
+        private Throttle(Optional<Duration> retryAfter) {
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -104,15 +104,15 @@ in `errors/src/main/java/com/palantir/conjure/java/api/errors/QosException.java`
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'retryAfter'
+`Optional` used as type for parameter 'retryAfter'
 in `errors/src/main/java/com/palantir/conjure/java/api/errors/QosException.java`
 #### Snippet
 ```java
-        private static final QosReason DEFAULT_REASON = QosReason.of("qos-throttle");
+        }
 
-        private final Optional<Duration> retryAfter;
-
-        private Throttle(Optional<Duration> retryAfter) {
+        private Throttle(Optional<Duration> retryAfter, Throwable cause) {
+            super(
+                    "Suggesting request throttling with optional retryAfter duration: " + retryAfter,
 ```
 
 ## RuleId[ruleID=ClassNameSameAsAncestorName]
@@ -230,18 +230,6 @@ in `errors/src/main/java/com/palantir/conjure/java/api/errors/SerializableError.
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'defaultFallbackToCommonNameVerification' is still used
-in `service-config/src/main/java/com/palantir/conjure/java/api/config/service/ServicesConfigBlock.java`
-#### Snippet
-```java
-    @JsonProperty("fallbackToCommonNameVerification")
-    @JsonAlias("fallback-to-common-name-verification")
-    public abstract Optional<Boolean> defaultFallbackToCommonNameVerification();
-
-    public static Builder builder() {
-```
-
-### DeprecatedIsStillUsed
 Deprecated member 'fallbackToCommonNameVerification' is still used
 in `service-config/src/main/java/com/palantir/conjure/java/api/config/service/PartialServiceConfiguration.java`
 #### Snippet
@@ -253,19 +241,19 @@ in `service-config/src/main/java/com/palantir/conjure/java/api/config/service/Pa
     /** Proxy configuration for connecting to the service. If absent, uses system proxy configuration. */
 ```
 
-## RuleId[ruleID=NonSerializableFieldInSerializableClass]
-### NonSerializableFieldInSerializableClass
-Non-serializable field 'reason' in a Serializable class
-in `errors/src/main/java/com/palantir/conjure/java/api/errors/QosException.java`
+### DeprecatedIsStillUsed
+Deprecated member 'defaultFallbackToCommonNameVerification' is still used
+in `service-config/src/main/java/com/palantir/conjure/java/api/config/service/ServicesConfigBlock.java`
 #### Snippet
 ```java
-public abstract class QosException extends RuntimeException {
+    @JsonProperty("fallbackToCommonNameVerification")
+    @JsonAlias("fallback-to-common-name-verification")
+    public abstract Optional<Boolean> defaultFallbackToCommonNameVerification();
 
-    private final QosReason reason;
-
-    // Not meant for external subclassing.
+    public static Builder builder() {
 ```
 
+## RuleId[ruleID=NonSerializableFieldInSerializableClass]
 ### NonSerializableFieldInSerializableClass
 Non-serializable field 'retryAfter' in a Serializable class
 in `errors/src/main/java/com/palantir/conjure/java/api/errors/QosException.java`
@@ -276,6 +264,18 @@ in `errors/src/main/java/com/palantir/conjure/java/api/errors/QosException.java`
         private final Optional<Duration> retryAfter;
 
         private Throttle(Optional<Duration> retryAfter) {
+```
+
+### NonSerializableFieldInSerializableClass
+Non-serializable field 'reason' in a Serializable class
+in `errors/src/main/java/com/palantir/conjure/java/api/errors/QosException.java`
+#### Snippet
+```java
+public abstract class QosException extends RuntimeException {
+
+    private final QosReason reason;
+
+    // Not meant for external subclassing.
 ```
 
 ## RuleId[ruleID=ExceptionNameDoesntEndWithException]
@@ -429,18 +429,6 @@ public abstract class SerializableError implements Serializable {
 ```
 
 ### AbstractClassNeverImplemented
-Abstract class `ProxyConfiguration` has no concrete subclass
-in `service-config/src/main/java/com/palantir/conjure/java/api/config/service/ProxyConfiguration.java`
-#### Snippet
-```java
-@JsonDeserialize(builder = ProxyConfiguration.Builder.class)
-@ImmutablesStyle
-public abstract class ProxyConfiguration {
-
-    public static final ProxyConfiguration DIRECT =
-```
-
-### AbstractClassNeverImplemented
 Abstract class `SslConfiguration` has no concrete subclass
 in `ssl-config/src/main/java/com/palantir/conjure/java/api/config/ssl/SslConfiguration.java`
 #### Snippet
@@ -450,6 +438,18 @@ in `ssl-config/src/main/java/com/palantir/conjure/java/api/config/ssl/SslConfigu
 public abstract class SslConfiguration {
 
     private static final ImmutableSet<String> PEM_EXTENSIONS = ImmutableSet.of("key", "pem", "cer", "crt");
+```
+
+### AbstractClassNeverImplemented
+Abstract class `ProxyConfiguration` has no concrete subclass
+in `service-config/src/main/java/com/palantir/conjure/java/api/config/service/ProxyConfiguration.java`
+#### Snippet
+```java
+@JsonDeserialize(builder = ProxyConfiguration.Builder.class)
+@ImmutablesStyle
+public abstract class ProxyConfiguration {
+
+    public static final ProxyConfiguration DIRECT =
 ```
 
 ### AbstractClassNeverImplemented
