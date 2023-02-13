@@ -89,30 +89,6 @@ in `src/main/java/org/apache/commons/io/EndianUtils.java`
 #### Snippet
 ```java
      */
-    public static void writeSwappedShort(final byte[] data, final int offset, final short value) {
-        data[offset + 0] = (byte)(value >> 0 & 0xff);
-        data[offset + 1] = (byte)(value >> 8 & 0xff);
-    }
-```
-
-### PointlessArithmeticExpression
-`offset + 0` can be replaced with 'offset'
-in `src/main/java/org/apache/commons/io/EndianUtils.java`
-#### Snippet
-```java
-     */
-    public static int readSwappedInteger(final byte[] data, final int offset) {
-        return ((data[offset + 0] & 0xff) << 0) +
-            ((data[offset + 1] & 0xff) << 8) +
-            ((data[offset + 2] & 0xff) << 16) +
-```
-
-### PointlessArithmeticExpression
-`offset + 0` can be replaced with 'offset'
-in `src/main/java/org/apache/commons/io/EndianUtils.java`
-#### Snippet
-```java
-     */
     public static void writeSwappedLong(final byte[] data, final int offset, final long value) {
         data[offset + 0] = (byte) (value >> 0 & 0xff);
         data[offset + 1] = (byte) (value >> 8 & 0xff);
@@ -137,18 +113,6 @@ in `src/main/java/org/apache/commons/io/EndianUtils.java`
 #### Snippet
 ```java
      */
-    public static short readSwappedShort(final byte[] data, final int offset) {
-        return (short)(((data[offset + 0] & 0xff) << 0) +
-            ((data[offset + 1] & 0xff) << 8));
-    }
-```
-
-### PointlessArithmeticExpression
-`offset + 0` can be replaced with 'offset'
-in `src/main/java/org/apache/commons/io/EndianUtils.java`
-#### Snippet
-```java
-     */
     public static long readSwappedUnsignedInteger(final byte[] data, final int offset) {
         final long low = ((data[offset + 0] & 0xff) << 0) +
                      ((data[offset + 1] & 0xff) << 8) +
@@ -161,10 +125,46 @@ in `src/main/java/org/apache/commons/io/EndianUtils.java`
 #### Snippet
 ```java
      */
+    public static void writeSwappedShort(final byte[] data, final int offset, final short value) {
+        data[offset + 0] = (byte)(value >> 0 & 0xff);
+        data[offset + 1] = (byte)(value >> 8 & 0xff);
+    }
+```
+
+### PointlessArithmeticExpression
+`offset + 0` can be replaced with 'offset'
+in `src/main/java/org/apache/commons/io/EndianUtils.java`
+#### Snippet
+```java
+     */
     public static void writeSwappedInteger(final byte[] data, final int offset, final int value) {
         data[offset + 0] = (byte) (value >> 0 & 0xff);
         data[offset + 1] = (byte) (value >> 8 & 0xff);
         data[offset + 2] = (byte) (value >> 16 & 0xff);
+```
+
+### PointlessArithmeticExpression
+`offset + 0` can be replaced with 'offset'
+in `src/main/java/org/apache/commons/io/EndianUtils.java`
+#### Snippet
+```java
+     */
+    public static short readSwappedShort(final byte[] data, final int offset) {
+        return (short)(((data[offset + 0] & 0xff) << 0) +
+            ((data[offset + 1] & 0xff) << 8));
+    }
+```
+
+### PointlessArithmeticExpression
+`offset + 0` can be replaced with 'offset'
+in `src/main/java/org/apache/commons/io/EndianUtils.java`
+#### Snippet
+```java
+     */
+    public static int readSwappedInteger(final byte[] data, final int offset) {
+        return ((data[offset + 0] & 0xff) << 0) +
+            ((data[offset + 1] & 0xff) << 8) +
+            ((data[offset + 2] & 0xff) << 16) +
 ```
 
 ## RuleId[ruleID=StaticInitializerReferencesSubClass]
@@ -186,11 +186,11 @@ Commented out code (2 lines)
 in `src/main/java/org/apache/commons/io/file/PathUtils.java`
 #### Snippet
 ```java
-                }
-            }
-            // relativeDirList1 = tmpRelativeDirList1;
-            // relativeDirList2 = tmpRelativeDirList2;
-            relativeFileList1 = tmpRelativeFileList1;
+
+        final boolean equals;
+        // final List<Path> relativeDirList1; // might need later?
+        // final List<Path> relativeDirList2; // might need later?
+        final List<Path> relativeFileList1;
 ```
 
 ### CommentedOutCode
@@ -198,11 +198,11 @@ Commented out code (2 lines)
 in `src/main/java/org/apache/commons/io/file/PathUtils.java`
 #### Snippet
 ```java
-
-        final boolean equals;
-        // final List<Path> relativeDirList1; // might need later?
-        // final List<Path> relativeDirList2; // might need later?
-        final List<Path> relativeFileList1;
+                }
+            }
+            // relativeDirList1 = tmpRelativeDirList1;
+            // relativeDirList2 = tmpRelativeDirList2;
+            relativeFileList1 = tmpRelativeFileList1;
 ```
 
 ## RuleId[ruleID=RegExpSimplifiable]
@@ -295,39 +295,15 @@ in `src/main/java/org/apache/commons/io/input/UnsynchronizedBufferedInputStream.
 
 ## RuleId[ruleID=BoundedWildcard]
 ### BoundedWildcard
-Can generalize to `? extends IOFileFilter`
-in `src/main/java/org/apache/commons/io/filefilter/AndFileFilter.java`
-#### Snippet
-```java
-     */
-    @Override
-    public void setFileFilters(final List<IOFileFilter> fileFilters) {
-        this.fileFilters.clear();
-        this.fileFilters.addAll(fileFilters);
-```
-
-### BoundedWildcard
 Can generalize to `? extends IOException`
-in `src/main/java/org/apache/commons/io/input/BrokenReader.java`
+in `src/main/java/org/apache/commons/io/input/BrokenInputStream.java`
 #### Snippet
 ```java
      * @since 2.12.0
      */
-    public BrokenReader(final Supplier<IOException> exceptionSupplier) {
+    public BrokenInputStream(final Supplier<IOException> exceptionSupplier) {
         this.exceptionSupplier = exceptionSupplier;
     }
-```
-
-### BoundedWildcard
-Can generalize to `? extends IOFileFilter`
-in `src/main/java/org/apache/commons/io/filefilter/OrFileFilter.java`
-#### Snippet
-```java
-     */
-    @Override
-    public void setFileFilters(final List<IOFileFilter> fileFilters) {
-        this.fileFilters.clear();
-        this.fileFilters.addAll(Objects.requireNonNull(fileFilters, "fileFilters"));
 ```
 
 ### BoundedWildcard
@@ -343,50 +319,38 @@ in `src/main/java/org/apache/commons/io/filefilter/RegexFileFilter.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends IOException`
-in `src/main/java/org/apache/commons/io/input/BrokenInputStream.java`
+Can generalize to `? extends IOFileFilter`
+in `src/main/java/org/apache/commons/io/filefilter/OrFileFilter.java`
 #### Snippet
 ```java
-     * @since 2.12.0
      */
-    public BrokenInputStream(final Supplier<IOException> exceptionSupplier) {
-        this.exceptionSupplier = exceptionSupplier;
-    }
+    @Override
+    public void setFileFilters(final List<IOFileFilter> fileFilters) {
+        this.fileFilters.clear();
+        this.fileFilters.addAll(Objects.requireNonNull(fileFilters, "fileFilters"));
+```
+
+### BoundedWildcard
+Can generalize to `? extends IOFileFilter`
+in `src/main/java/org/apache/commons/io/filefilter/AndFileFilter.java`
+#### Snippet
+```java
+     */
+    @Override
+    public void setFileFilters(final List<IOFileFilter> fileFilters) {
+        this.fileFilters.clear();
+        this.fileFilters.addAll(fileFilters);
 ```
 
 ### BoundedWildcard
 Can generalize to `? extends IOException`
-in `src/main/java/org/apache/commons/io/output/BrokenOutputStream.java`
+in `src/main/java/org/apache/commons/io/output/BrokenWriter.java`
 #### Snippet
 ```java
      * @since 2.12.0
      */
-    public BrokenOutputStream(final Supplier<IOException> exceptionSupplier) {
+    public BrokenWriter(final Supplier<IOException> exceptionSupplier) {
         this.exceptionSupplier = exceptionSupplier;
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? super T`
-in `src/main/java/org/apache/commons/io/function/IOConsumer.java`
-#### Snippet
-```java
-     */
-    @SafeVarargs
-    static <T> void forAll(final IOConsumer<T> action, final T... array) throws IOExceptionList {
-        IOStreams.forAll(IOStreams.of(array), action);
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? super T`
-in `src/main/java/org/apache/commons/io/function/IOConsumer.java`
-#### Snippet
-```java
-     * @since 2.12.0
-     */
-    static <T> void forEach(final T[] array, final IOConsumer<T> action) throws IOException {
-        IOStreams.forEach(IOStreams.of(array), action);
     }
 ```
 
@@ -399,18 +363,6 @@ in `src/main/java/org/apache/commons/io/file/AccumulatorPathVisitor.java`
 
     private void add(final List<Path> list, final Path dir) {
         list.add(dir.normalize());
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? extends IOException`
-in `src/main/java/org/apache/commons/io/output/BrokenWriter.java`
-#### Snippet
-```java
-     * @since 2.12.0
-     */
-    public BrokenWriter(final Supplier<IOException> exceptionSupplier) {
-        this.exceptionSupplier = exceptionSupplier;
     }
 ```
 
@@ -443,11 +395,11 @@ Can generalize to `? extends Path`
 in `src/main/java/org/apache/commons/io/file/PathUtils.java`
 #### Snippet
 ```java
-     * @return A collection of relativized paths, optionally sorted.
-     */
-    static List<Path> relativize(final Collection<Path> collection, final Path parent, final boolean sort, final Comparator<? super Path> comparator) {
-        Stream<Path> stream = collection.stream().map(parent::relativize);
-        if (sort) {
+    }
+
+    private static <R, A> R filterPaths(final PathFilter filter, final Stream<Path> stream, final Collector<? super Path, A, R> collector) {
+        Objects.requireNonNull(filter, "filter");
+        Objects.requireNonNull(collector, "collector");
 ```
 
 ### BoundedWildcard
@@ -455,11 +407,11 @@ Can generalize to `? extends Path`
 in `src/main/java/org/apache/commons/io/file/PathUtils.java`
 #### Snippet
 ```java
-    }
-
-    private static <R, A> R filterPaths(final PathFilter filter, final Stream<Path> stream, final Collector<? super Path, A, R> collector) {
-        Objects.requireNonNull(filter, "filter");
-        Objects.requireNonNull(collector, "collector");
+     * @return A collection of relativized paths, optionally sorted.
+     */
+    static List<Path> relativize(final Collection<Path> collection, final Path parent, final boolean sort, final Comparator<? super Path> comparator) {
+        Stream<Path> stream = collection.stream().map(parent::relativize);
+        if (sort) {
 ```
 
 ### BoundedWildcard
@@ -472,6 +424,114 @@ in `src/main/java/org/apache/commons/io/file/PathUtils.java`
         final IOFunction<PosixFileAttributes, R> function) throws IOException {
         final PosixFileAttributes posixFileAttributes = overrideReadOnly ? readPosixFileAttributes(path, linkOptions) : null;
         try {
+```
+
+### BoundedWildcard
+Can generalize to `? extends IOException`
+in `src/main/java/org/apache/commons/io/output/BrokenOutputStream.java`
+#### Snippet
+```java
+     * @since 2.12.0
+     */
+    public BrokenOutputStream(final Supplier<IOException> exceptionSupplier) {
+        this.exceptionSupplier = exceptionSupplier;
+    }
+```
+
+### BoundedWildcard
+Can generalize to `? super IOException`
+in `src/main/java/org/apache/commons/io/IOUtils.java`
+#### Snippet
+```java
+     * @since 2.7
+     */
+    public static void closeQuietly(final Closeable closeable, final Consumer<IOException> consumer) {
+        if (closeable != null) {
+            try {
+```
+
+### BoundedWildcard
+Can generalize to `? super IOException`
+in `src/main/java/org/apache/commons/io/IOUtils.java`
+#### Snippet
+```java
+     * @since 2.7
+     */
+    public static void close(final Closeable closeable, final IOConsumer<IOException> consumer) throws IOException {
+        if (closeable != null) {
+            try {
+```
+
+### BoundedWildcard
+Can generalize to `? extends Closeable`
+in `src/main/java/org/apache/commons/io/IOUtils.java`
+#### Snippet
+```java
+     * @since 2.12.0
+     */
+    public static void closeQuietly(final Stream<Closeable> closeables) {
+        if (closeables != null) {
+            closeables.forEach(IOUtils::closeQuietly);
+```
+
+### BoundedWildcard
+Can generalize to `? extends Closeable`
+in `src/main/java/org/apache/commons/io/IOUtils.java`
+#### Snippet
+```java
+     * @since 2.12.0
+     */
+    public static void closeQuietly(final Iterable<Closeable> closeables) {
+        if (closeables != null) {
+            closeables.forEach(IOUtils::closeQuietly);
+```
+
+### BoundedWildcard
+Can generalize to `? extends IOException`
+in `src/main/java/org/apache/commons/io/input/BrokenReader.java`
+#### Snippet
+```java
+     * @since 2.12.0
+     */
+    public BrokenReader(final Supplier<IOException> exceptionSupplier) {
+        this.exceptionSupplier = exceptionSupplier;
+    }
+```
+
+### BoundedWildcard
+Can generalize to `? extends File`
+in `src/main/java/org/apache/commons/io/filefilter/FileFilterUtils.java`
+#### Snippet
+```java
+     * @throws NullPointerException if the filter is {@code null}.
+     */
+    private static <R, A> R filterFiles(final IOFileFilter filter, final Stream<File> stream,
+        final Collector<? super File, A, R> collector) {
+        Objects.requireNonNull(filter, "filter");
+```
+
+### BoundedWildcard
+Can generalize to `? super T`
+in `src/main/java/org/apache/commons/io/function/IOConsumer.java`
+#### Snippet
+```java
+     * @since 2.12.0
+     */
+    static <T> void forEach(final T[] array, final IOConsumer<T> action) throws IOException {
+        IOStreams.forEach(IOStreams.of(array), action);
+    }
+```
+
+### BoundedWildcard
+Can generalize to `? super T`
+in `src/main/java/org/apache/commons/io/function/IOConsumer.java`
+#### Snippet
+```java
+     */
+    @SafeVarargs
+    static <T> void forAll(final IOConsumer<T> action, final T... array) throws IOExceptionList {
+        IOStreams.forAll(IOStreams.of(array), action);
+    }
 ```
 
 ### BoundedWildcard
@@ -496,66 +556,6 @@ in `src/main/java/org/apache/commons/io/FileUtils.java`
     private static List<File> toList(final Stream<File> stream) {
         return stream.collect(Collectors.toList());
     }
-```
-
-### BoundedWildcard
-Can generalize to `? super IOException`
-in `src/main/java/org/apache/commons/io/IOUtils.java`
-#### Snippet
-```java
-     * @since 2.7
-     */
-    public static void close(final Closeable closeable, final IOConsumer<IOException> consumer) throws IOException {
-        if (closeable != null) {
-            try {
-```
-
-### BoundedWildcard
-Can generalize to `? extends Closeable`
-in `src/main/java/org/apache/commons/io/IOUtils.java`
-#### Snippet
-```java
-     * @since 2.12.0
-     */
-    public static void closeQuietly(final Iterable<Closeable> closeables) {
-        if (closeables != null) {
-            closeables.forEach(IOUtils::closeQuietly);
-```
-
-### BoundedWildcard
-Can generalize to `? super IOException`
-in `src/main/java/org/apache/commons/io/IOUtils.java`
-#### Snippet
-```java
-     * @since 2.7
-     */
-    public static void closeQuietly(final Closeable closeable, final Consumer<IOException> consumer) {
-        if (closeable != null) {
-            try {
-```
-
-### BoundedWildcard
-Can generalize to `? extends Closeable`
-in `src/main/java/org/apache/commons/io/IOUtils.java`
-#### Snippet
-```java
-     * @since 2.12.0
-     */
-    public static void closeQuietly(final Stream<Closeable> closeables) {
-        if (closeables != null) {
-            closeables.forEach(IOUtils::closeQuietly);
-```
-
-### BoundedWildcard
-Can generalize to `? extends File`
-in `src/main/java/org/apache/commons/io/filefilter/FileFilterUtils.java`
-#### Snippet
-```java
-     * @throws NullPointerException if the filter is {@code null}.
-     */
-    private static <R, A> R filterFiles(final IOFileFilter filter, final Stream<File> stream,
-        final Collector<? super File, A, R> collector) {
-        Objects.requireNonNull(filter, "filter");
 ```
 
 ### BoundedWildcard
@@ -607,6 +607,30 @@ in `src/main/java/org/apache/commons/io/function/IOStream.java`
 ```
 
 ### BoundedWildcard
+Can generalize to `? super U`
+in `src/main/java/org/apache/commons/io/function/IOStream.java`
+#### Snippet
+```java
+     */
+    @SuppressWarnings("unused") // thrown by Erase.
+    default <U> U reduce(final U identity, final IOBiFunction<U, ? super T, U> accumulator, final IOBinaryOperator<U> combiner) throws IOException {
+        return unwrap().reduce(identity, (t, u) -> Erase.apply(accumulator, t, u), (t, u) -> Erase.apply(combiner, t, u));
+    }
+```
+
+### BoundedWildcard
+Can generalize to `? extends U`
+in `src/main/java/org/apache/commons/io/function/IOStream.java`
+#### Snippet
+```java
+     */
+    @SuppressWarnings("unused") // thrown by Erase.
+    default <U> U reduce(final U identity, final IOBiFunction<U, ? super T, U> accumulator, final IOBinaryOperator<U> combiner) throws IOException {
+        return unwrap().reduce(identity, (t, u) -> Erase.apply(accumulator, t, u), (t, u) -> Erase.apply(combiner, t, u));
+    }
+```
+
+### BoundedWildcard
 Can generalize to `? super Integer`
 in `src/main/java/org/apache/commons/io/function/IOStream.java`
 #### Snippet
@@ -642,43 +666,7 @@ in `src/main/java/org/apache/commons/io/function/IOStream.java`
         final AtomicInteger index = new AtomicInteger();
 ```
 
-### BoundedWildcard
-Can generalize to `? super U`
-in `src/main/java/org/apache/commons/io/function/IOStream.java`
-#### Snippet
-```java
-     */
-    @SuppressWarnings("unused") // thrown by Erase.
-    default <U> U reduce(final U identity, final IOBiFunction<U, ? super T, U> accumulator, final IOBinaryOperator<U> combiner) throws IOException {
-        return unwrap().reduce(identity, (t, u) -> Erase.apply(accumulator, t, u), (t, u) -> Erase.apply(combiner, t, u));
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? extends U`
-in `src/main/java/org/apache/commons/io/function/IOStream.java`
-#### Snippet
-```java
-     */
-    @SuppressWarnings("unused") // thrown by Erase.
-    default <U> U reduce(final U identity, final IOBiFunction<U, ? super T, U> accumulator, final IOBinaryOperator<U> combiner) throws IOException {
-        return unwrap().reduce(identity, (t, u) -> Erase.apply(accumulator, t, u), (t, u) -> Erase.apply(combiner, t, u));
-    }
-```
-
 ## RuleId[ruleID=MissortedModifiers]
-### MissortedModifiers
-Missorted modifiers `final static`
-in `src/main/java/org/apache/commons/io/file/Counters.java`
-#### Snippet
-```java
-     * Counts files, directories, and sizes, as a visit proceeds, using BigInteger numbers.
-     */
-    private final static class BigIntegerPathCounters extends AbstractPathCounters {
-
-        /**
-```
-
 ### MissortedModifiers
 Missorted modifiers `final static`
 in `src/main/java/org/apache/commons/io/file/Counters.java`
@@ -696,9 +684,21 @@ Missorted modifiers `final static`
 in `src/main/java/org/apache/commons/io/file/Counters.java`
 #### Snippet
 ```java
-     * Counts files, directories, and sizes, as a visit proceeds, using long numbers.
+     * Counts using a {@code long} number.
      */
-    private final static class LongPathCounters extends AbstractPathCounters {
+    private final static class LongCounter implements Counter {
+
+        private long value;
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `src/main/java/org/apache/commons/io/file/Counters.java`
+#### Snippet
+```java
+     * Counts files, directories, and sizes, as a visit proceeds, using BigInteger numbers.
+     */
+    private final static class BigIntegerPathCounters extends AbstractPathCounters {
 
         /**
 ```
@@ -708,11 +708,11 @@ Missorted modifiers `final static`
 in `src/main/java/org/apache/commons/io/file/Counters.java`
 #### Snippet
 ```java
-     * Counts using a {@code long} number.
+     * Counts files, directories, and sizes, as a visit proceeds, using long numbers.
      */
-    private final static class LongCounter implements Counter {
+    private final static class LongPathCounters extends AbstractPathCounters {
 
-        private long value;
+        /**
 ```
 
 ### MissortedModifiers
@@ -743,14 +743,14 @@ in `src/main/java/org/apache/commons/io/input/CharSequenceInputStream.java`
 ## RuleId[ruleID=WhileLoopSpinsOnField]
 ### WhileLoopSpinsOnField
 `while` loop spins on field
-in `src/main/java/org/apache/commons/io/input/ReadAheadInputStream.java`
+in `src/main/java/org/apache/commons/io/input/SequenceReader.java`
 #### Snippet
 ```java
-            // There is only one reader, and one writer, so the writer should signal only once,
-            // but a while loop checking the wake-up condition is still needed to avoid spurious wakeups.
-            while (readInProgress) {
-                asyncReadComplete.await();
-            }
+        }
+        int count = 0;
+        while (reader != null) {
+            final int readLen = reader.read(cbuf, off, len);
+            if (readLen == EOF) {
 ```
 
 ### WhileLoopSpinsOnField
@@ -767,41 +767,17 @@ in `src/main/java/org/apache/commons/io/input/SequenceReader.java`
 
 ### WhileLoopSpinsOnField
 `while` loop spins on field
-in `src/main/java/org/apache/commons/io/input/SequenceReader.java`
+in `src/main/java/org/apache/commons/io/input/ReadAheadInputStream.java`
 #### Snippet
 ```java
-        }
-        int count = 0;
-        while (reader != null) {
-            final int readLen = reader.read(cbuf, off, len);
-            if (readLen == EOF) {
+            // There is only one reader, and one writer, so the writer should signal only once,
+            // but a while loop checking the wake-up condition is still needed to avoid spurious wakeups.
+            while (readInProgress) {
+                asyncReadComplete.await();
+            }
 ```
 
 ## RuleId[ruleID=NestedAssignment]
-### NestedAssignment
-Result of assignment expression used
-in `src/main/java/org/apache/commons/io/input/Tailer.java`
-#### Snippet
-```java
-            int num;
-            boolean seenCR = false;
-            while (getRun() && (num = reader.read(inbuf)) != EOF) {
-                for (int i = 0; i < num; i++) {
-                    final byte ch = inbuf[i];
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `src/main/java/org/apache/commons/io/input/ReversedLinesFileReader.java`
-#### Snippet
-```java
-
-                // --- check for newline ---
-                if ((newLineMatchByteCount = getNewLineMatchByteCount(data, i)) > 0 /* found newline */) {
-                    final int lineStart = i + 1;
-                    final int lineLengthBytes = currentLastBytePos - lineStart + 1;
-```
-
 ### NestedAssignment
 Result of assignment expression used
 in `src/main/java/org/apache/commons/io/input/UnsynchronizedBufferedInputStream.java`
@@ -828,26 +804,26 @@ in `src/main/java/org/apache/commons/io/input/UnsynchronizedBufferedInputStream.
 
 ### NestedAssignment
 Result of assignment expression used
-in `src/main/java/org/apache/commons/io/CopyUtils.java`
+in `src/main/java/org/apache/commons/io/input/Tailer.java`
 #### Snippet
 ```java
-        int count = 0;
-        int n;
-        while (EOF != (n = input.read(buffer))) {
-            output.write(buffer, 0, n);
-            count += n;
+            int num;
+            boolean seenCR = false;
+            while (getRun() && (num = reader.read(inbuf)) != EOF) {
+                for (int i = 0; i < num; i++) {
+                    final byte ch = inbuf[i];
 ```
 
 ### NestedAssignment
 Result of assignment expression used
-in `src/main/java/org/apache/commons/io/CopyUtils.java`
+in `src/main/java/org/apache/commons/io/input/ReversedLinesFileReader.java`
 #### Snippet
 ```java
-        int count = 0;
-        int n;
-        while (EOF != (n = input.read(buffer))) {
-            output.write(buffer, 0, n);
-            count += n;
+
+                // --- check for newline ---
+                if ((newLineMatchByteCount = getNewLineMatchByteCount(data, i)) > 0 /* found newline */) {
+                    final int lineStart = i + 1;
+                    final int lineLengthBytes = currentLastBytePos - lineStart + 1;
 ```
 
 ### NestedAssignment
@@ -857,8 +833,8 @@ in `src/main/java/org/apache/commons/io/IOUtils.java`
 ```java
         long count = 0;
         int n;
-        while (EOF != (n = reader.read(buffer))) {
-            writer.write(buffer, 0, n);
+        while (EOF != (n = inputStream.read(buffer))) {
+            outputStream.write(buffer, 0, n);
             count += n;
 ```
 
@@ -881,9 +857,9 @@ in `src/main/java/org/apache/commons/io/IOUtils.java`
 ```java
         long count = 0;
         int n;
-        while (EOF != (n = inputStream.read(buffer))) {
-            outputStream.write(buffer, 0, n);
-            count += n;
+        while (EOF != (n = reader.read(buffer))) {
+            buffer.flip();
+            output.append(buffer, 0, n);
 ```
 
 ### NestedAssignment
@@ -906,8 +882,8 @@ in `src/main/java/org/apache/commons/io/IOUtils.java`
         long count = 0;
         int n;
         while (EOF != (n = reader.read(buffer))) {
-            buffer.flip();
-            output.append(buffer, 0, n);
+            writer.write(buffer, 0, n);
+            count += n;
 ```
 
 ### NestedAssignment
@@ -924,6 +900,30 @@ in `src/main/java/org/apache/commons/io/IOUtils.java`
 
 ### NestedAssignment
 Result of assignment expression used
+in `src/main/java/org/apache/commons/io/CopyUtils.java`
+#### Snippet
+```java
+        int count = 0;
+        int n;
+        while (EOF != (n = input.read(buffer))) {
+            output.write(buffer, 0, n);
+            count += n;
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `src/main/java/org/apache/commons/io/CopyUtils.java`
+#### Snippet
+```java
+        int count = 0;
+        int n;
+        while (EOF != (n = input.read(buffer))) {
+            output.write(buffer, 0, n);
+            count += n;
+```
+
+### NestedAssignment
+Result of assignment expression used
 in `src/main/java/org/apache/commons/io/function/IOStream.java`
 #### Snippet
 ```java
@@ -936,75 +936,15 @@ in `src/main/java/org/apache/commons/io/function/IOStream.java`
 
 ## RuleId[ruleID=FieldAccessedSynchronizedAndUnsynchronized]
 ### FieldAccessedSynchronizedAndUnsynchronized
-Field `position` is accessed in both synchronized and unsynchronized contexts
-in `src/main/java/org/apache/commons/io/input/NullReader.java`
+Field `branch` is accessed in both synchronized and unsynchronized contexts
+in `src/main/java/org/apache/commons/io/output/TeeOutputStream.java`
 #### Snippet
 ```java
+     * TODO Make private and final in 3.0.
+     */
+    protected OutputStream branch;
 
-    private final long size;
-    private long position;
-    private long mark = -1;
-    private long readlimit;
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `mark` is accessed in both synchronized and unsynchronized contexts
-in `src/main/java/org/apache/commons/io/input/NullReader.java`
-#### Snippet
-```java
-    private final long size;
-    private long position;
-    private long mark = -1;
-    private long readlimit;
-    private boolean eof;
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `eof` is accessed in both synchronized and unsynchronized contexts
-in `src/main/java/org/apache/commons/io/input/NullReader.java`
-#### Snippet
-```java
-    private long mark = -1;
-    private long readlimit;
-    private boolean eof;
-    private final boolean throwEofException;
-    private final boolean markSupported;
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `fbIndex` is accessed in both synchronized and unsynchronized contexts
-in `src/main/java/org/apache/commons/io/input/BOMInputStream.java`
-#### Snippet
-```java
-    private int[] firstBytes;
-    private int fbLength;
-    private int fbIndex;
-    private int markFbIndex;
-    private boolean markedAtStart;
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `firstBytes` is accessed in both synchronized and unsynchronized contexts
-in `src/main/java/org/apache/commons/io/input/BOMInputStream.java`
-#### Snippet
-```java
-    private final List<ByteOrderMark> boms;
-    private ByteOrderMark byteOrderMark;
-    private int[] firstBytes;
-    private int fbLength;
-    private int fbIndex;
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `pos` is accessed in both synchronized and unsynchronized contexts
-in `src/main/java/org/apache/commons/io/input/BoundedInputStream.java`
-#### Snippet
-```java
-
-    /** the number of bytes already returned */
-    private long pos;
-
-    /** the marked position */
+    /**
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
@@ -1020,20 +960,44 @@ in `src/main/java/org/apache/commons/io/FileCleaningTracker.java`
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
-Field `branch` is accessed in both synchronized and unsynchronized contexts
-in `src/main/java/org/apache/commons/io/output/TeeOutputStream.java`
+Field `firstBytes` is accessed in both synchronized and unsynchronized contexts
+in `src/main/java/org/apache/commons/io/input/BOMInputStream.java`
 #### Snippet
 ```java
-     * TODO Make private and final in 3.0.
-     */
-    protected OutputStream branch;
+    private final List<ByteOrderMark> boms;
+    private ByteOrderMark byteOrderMark;
+    private int[] firstBytes;
+    private int fbLength;
+    private int fbIndex;
+```
 
-    /**
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `fbIndex` is accessed in both synchronized and unsynchronized contexts
+in `src/main/java/org/apache/commons/io/input/BOMInputStream.java`
+#### Snippet
+```java
+    private int[] firstBytes;
+    private int fbLength;
+    private int fbIndex;
+    private int markFbIndex;
+    private boolean markedAtStart;
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `position` is accessed in both synchronized and unsynchronized contexts
+in `src/main/java/org/apache/commons/io/input/NullReader.java`
+#### Snippet
+```java
+
+    private final long size;
+    private long position;
+    private long mark = -1;
+    private long readlimit;
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
 Field `eof` is accessed in both synchronized and unsynchronized contexts
-in `src/main/java/org/apache/commons/io/input/NullInputStream.java`
+in `src/main/java/org/apache/commons/io/input/NullReader.java`
 #### Snippet
 ```java
     private long mark = -1;
@@ -1041,6 +1005,30 @@ in `src/main/java/org/apache/commons/io/input/NullInputStream.java`
     private boolean eof;
     private final boolean throwEofException;
     private final boolean markSupported;
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `mark` is accessed in both synchronized and unsynchronized contexts
+in `src/main/java/org/apache/commons/io/input/NullReader.java`
+#### Snippet
+```java
+    private final long size;
+    private long position;
+    private long mark = -1;
+    private long readlimit;
+    private boolean eof;
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `mark` is accessed in both synchronized and unsynchronized contexts
+in `src/main/java/org/apache/commons/io/input/NullInputStream.java`
+#### Snippet
+```java
+    private final long size;
+    private long position;
+    private long mark = -1;
+    private long readlimit;
+    private boolean eof;
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
@@ -1056,15 +1044,27 @@ in `src/main/java/org/apache/commons/io/input/NullInputStream.java`
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
-Field `mark` is accessed in both synchronized and unsynchronized contexts
+Field `eof` is accessed in both synchronized and unsynchronized contexts
 in `src/main/java/org/apache/commons/io/input/NullInputStream.java`
 #### Snippet
 ```java
-    private final long size;
-    private long position;
     private long mark = -1;
     private long readlimit;
     private boolean eof;
+    private final boolean throwEofException;
+    private final boolean markSupported;
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `pos` is accessed in both synchronized and unsynchronized contexts
+in `src/main/java/org/apache/commons/io/input/BoundedInputStream.java`
+#### Snippet
+```java
+
+    /** the number of bytes already returned */
+    private long pos;
+
+    /** the marked position */
 ```
 
 ## RuleId[ruleID=EmptyMethod]
@@ -1231,10 +1231,10 @@ in `src/main/java/org/apache/commons/io/EndianUtils.java`
 #### Snippet
 ```java
      */
-    public static void writeSwappedShort(final byte[] data, final int offset, final short value) {
-        data[offset + 0] = (byte)(value >> 0 & 0xff);
-        data[offset + 1] = (byte)(value >> 8 & 0xff);
-    }
+    public static void writeSwappedLong(final byte[] data, final int offset, final long value) {
+        data[offset + 0] = (byte) (value >> 0 & 0xff);
+        data[offset + 1] = (byte) (value >> 8 & 0xff);
+        data[offset + 2] = (byte) (value >> 16 & 0xff);
 ```
 
 ### PointlessBitwiseExpression
@@ -1243,10 +1243,70 @@ in `src/main/java/org/apache/commons/io/EndianUtils.java`
 #### Snippet
 ```java
      */
-    public static int readSwappedInteger(final byte[] data, final int offset) {
+    public static int readSwappedUnsignedShort(final byte[] data, final int offset) {
         return ((data[offset + 0] & 0xff) << 0) +
-            ((data[offset + 1] & 0xff) << 8) +
-            ((data[offset + 2] & 0xff) << 16) +
+            ((data[offset + 1] & 0xff) << 8);
+    }
+```
+
+### PointlessBitwiseExpression
+`value >> 0` can be replaced with 'value'
+in `src/main/java/org/apache/commons/io/EndianUtils.java`
+#### Snippet
+```java
+     */
+    public static void writeSwappedInteger(final byte[] data, final int offset, final int value) {
+        data[offset + 0] = (byte) (value >> 0 & 0xff);
+        data[offset + 1] = (byte) (value >> 8 & 0xff);
+        data[offset + 2] = (byte) (value >> 16 & 0xff);
+```
+
+### PointlessBitwiseExpression
+`(data[offset + 0] & 0xff) << 0` can be replaced with '(data\[offset + 0\] \& 0xff)'
+in `src/main/java/org/apache/commons/io/EndianUtils.java`
+#### Snippet
+```java
+     */
+    public static short readSwappedShort(final byte[] data, final int offset) {
+        return (short)(((data[offset + 0] & 0xff) << 0) +
+            ((data[offset + 1] & 0xff) << 8));
+    }
+```
+
+### PointlessBitwiseExpression
+`(value1 & 0xff) << 0` can be replaced with '(value1 \& 0xff)'
+in `src/main/java/org/apache/commons/io/EndianUtils.java`
+#### Snippet
+```java
+        final int value2 = read(input);
+
+        return ((value1 & 0xff) << 0) + ((value2 & 0xff) << 8);
+    }
+
+```
+
+### PointlessBitwiseExpression
+`(read(input) & 0xff) << 0` can be replaced with '(read(input) \& 0xff)'
+in `src/main/java/org/apache/commons/io/EndianUtils.java`
+#### Snippet
+```java
+     */
+    public static short readSwappedShort(final InputStream input) throws IOException {
+        return (short) (((read(input) & 0xff) << 0) + ((read(input) & 0xff) << 8));
+    }
+
+```
+
+### PointlessBitwiseExpression
+`value >> 0` can be replaced with 'value'
+in `src/main/java/org/apache/commons/io/EndianUtils.java`
+#### Snippet
+```java
+     */
+    public static void writeSwappedInteger(final OutputStream output, final int value) throws IOException {
+        output.write((byte) (value >> 0 & 0xff));
+        output.write((byte) (value >> 8 & 0xff));
+        output.write((byte) (value >> 16 & 0xff));
 ```
 
 ### PointlessBitwiseExpression
@@ -1267,32 +1327,32 @@ in `src/main/java/org/apache/commons/io/EndianUtils.java`
 #### Snippet
 ```java
      */
-    public static short swapShort(final short value) {
-        return (short) (((value >> 0 & 0xff) << 8) +
-            ((value >> 8 & 0xff) << 0));
+    public static void writeSwappedShort(final byte[] data, final int offset, final short value) {
+        data[offset + 0] = (byte)(value >> 0 & 0xff);
+        data[offset + 1] = (byte)(value >> 8 & 0xff);
     }
 ```
 
 ### PointlessBitwiseExpression
-`(value >> 8 & 0xff) << 0` can be replaced with '(value \>\> 8 \& 0xff)'
+`value >> 0` can be replaced with 'value'
 in `src/main/java/org/apache/commons/io/EndianUtils.java`
 #### Snippet
 ```java
-    public static short swapShort(final short value) {
-        return (short) (((value >> 0 & 0xff) << 8) +
-            ((value >> 8 & 0xff) << 0));
-    }
-
+    public static int swapInteger(final int value) {
+        return
+            ((value >> 0 & 0xff) << 24) +
+            ((value >> 8 & 0xff) << 16) +
+            ((value >> 16 & 0xff) << 8) +
 ```
 
 ### PointlessBitwiseExpression
-`(read(input) & 0xff) << 0` can be replaced with '(read(input) \& 0xff)'
+`(value >> 24 & 0xff) << 0` can be replaced with '(value \>\> 24 \& 0xff)'
 in `src/main/java/org/apache/commons/io/EndianUtils.java`
 #### Snippet
 ```java
-     */
-    public static short readSwappedShort(final InputStream input) throws IOException {
-        return (short) (((read(input) & 0xff) << 0) + ((read(input) & 0xff) << 8));
+            ((value >> 8 & 0xff) << 16) +
+            ((value >> 16 & 0xff) << 8) +
+            ((value >> 24 & 0xff) << 0);
     }
 
 ```
@@ -1304,9 +1364,9 @@ in `src/main/java/org/apache/commons/io/EndianUtils.java`
 ```java
         final int value3 = read(input);
         final int value4 = read(input);
-        final long low = ((value1 & 0xff) << 0) + ((value2 & 0xff) << 8) + ((value3 & 0xff) << 16);
-        final long high = value4 & 0xff;
-        return (high << 24) + (0xffffffffL & low);
+        return ((value1 & 0xff) << 0) + ((value2 & 0xff) << 8) + ((value3 & 0xff) << 16) + ((value4 & 0xff) << 24);
+    }
+
 ```
 
 ### PointlessBitwiseExpression
@@ -1338,23 +1398,35 @@ in `src/main/java/org/apache/commons/io/EndianUtils.java`
 in `src/main/java/org/apache/commons/io/EndianUtils.java`
 #### Snippet
 ```java
-    public static int swapInteger(final int value) {
-        return
-            ((value >> 0 & 0xff) << 24) +
-            ((value >> 8 & 0xff) << 16) +
-            ((value >> 16 & 0xff) << 8) +
+     */
+    public static short swapShort(final short value) {
+        return (short) (((value >> 0 & 0xff) << 8) +
+            ((value >> 8 & 0xff) << 0));
+    }
 ```
 
 ### PointlessBitwiseExpression
-`(value >> 24 & 0xff) << 0` can be replaced with '(value \>\> 24 \& 0xff)'
+`(value >> 8 & 0xff) << 0` can be replaced with '(value \>\> 8 \& 0xff)'
 in `src/main/java/org/apache/commons/io/EndianUtils.java`
 #### Snippet
 ```java
-            ((value >> 8 & 0xff) << 16) +
-            ((value >> 16 & 0xff) << 8) +
-            ((value >> 24 & 0xff) << 0);
+    public static short swapShort(final short value) {
+        return (short) (((value >> 0 & 0xff) << 8) +
+            ((value >> 8 & 0xff) << 0));
     }
 
+```
+
+### PointlessBitwiseExpression
+`value >> 0` can be replaced with 'value'
+in `src/main/java/org/apache/commons/io/EndianUtils.java`
+#### Snippet
+```java
+     */
+    public static void writeSwappedShort(final OutputStream output, final short value) throws IOException {
+        output.write((byte) (value >> 0 & 0xff));
+        output.write((byte) (value >> 8 & 0xff));
+    }
 ```
 
 ### PointlessBitwiseExpression
@@ -1370,39 +1442,15 @@ in `src/main/java/org/apache/commons/io/EndianUtils.java`
 ```
 
 ### PointlessBitwiseExpression
-`value >> 0` can be replaced with 'value'
-in `src/main/java/org/apache/commons/io/EndianUtils.java`
-#### Snippet
-```java
-     */
-    public static void writeSwappedLong(final byte[] data, final int offset, final long value) {
-        data[offset + 0] = (byte) (value >> 0 & 0xff);
-        data[offset + 1] = (byte) (value >> 8 & 0xff);
-        data[offset + 2] = (byte) (value >> 16 & 0xff);
-```
-
-### PointlessBitwiseExpression
-`(data[offset + 0] & 0xff) << 0` can be replaced with '(data\[offset + 0\] \& 0xff)'
-in `src/main/java/org/apache/commons/io/EndianUtils.java`
-#### Snippet
-```java
-     */
-    public static int readSwappedUnsignedShort(final byte[] data, final int offset) {
-        return ((data[offset + 0] & 0xff) << 0) +
-            ((data[offset + 1] & 0xff) << 8);
-    }
-```
-
-### PointlessBitwiseExpression
 `(value1 & 0xff) << 0` can be replaced with '(value1 \& 0xff)'
 in `src/main/java/org/apache/commons/io/EndianUtils.java`
 #### Snippet
 ```java
         final int value3 = read(input);
         final int value4 = read(input);
-        return ((value1 & 0xff) << 0) + ((value2 & 0xff) << 8) + ((value3 & 0xff) << 16) + ((value4 & 0xff) << 24);
-    }
-
+        final long low = ((value1 & 0xff) << 0) + ((value2 & 0xff) << 8) + ((value3 & 0xff) << 16);
+        final long high = value4 & 0xff;
+        return (high << 24) + (0xffffffffL & low);
 ```
 
 ### PointlessBitwiseExpression
@@ -1411,64 +1459,16 @@ in `src/main/java/org/apache/commons/io/EndianUtils.java`
 #### Snippet
 ```java
      */
-    public static short readSwappedShort(final byte[] data, final int offset) {
-        return (short)(((data[offset + 0] & 0xff) << 0) +
-            ((data[offset + 1] & 0xff) << 8));
-    }
-```
-
-### PointlessBitwiseExpression
-`(value1 & 0xff) << 0` can be replaced with '(value1 \& 0xff)'
-in `src/main/java/org/apache/commons/io/EndianUtils.java`
-#### Snippet
-```java
-        final int value2 = read(input);
-
-        return ((value1 & 0xff) << 0) + ((value2 & 0xff) << 8);
-    }
-
-```
-
-### PointlessBitwiseExpression
-`value >> 0` can be replaced with 'value'
-in `src/main/java/org/apache/commons/io/EndianUtils.java`
-#### Snippet
-```java
-     */
-    public static void writeSwappedInteger(final OutputStream output, final int value) throws IOException {
-        output.write((byte) (value >> 0 & 0xff));
-        output.write((byte) (value >> 8 & 0xff));
-        output.write((byte) (value >> 16 & 0xff));
-```
-
-### PointlessBitwiseExpression
-`value >> 0` can be replaced with 'value'
-in `src/main/java/org/apache/commons/io/EndianUtils.java`
-#### Snippet
-```java
-     */
-    public static void writeSwappedInteger(final byte[] data, final int offset, final int value) {
-        data[offset + 0] = (byte) (value >> 0 & 0xff);
-        data[offset + 1] = (byte) (value >> 8 & 0xff);
-        data[offset + 2] = (byte) (value >> 16 & 0xff);
-```
-
-### PointlessBitwiseExpression
-`value >> 0` can be replaced with 'value'
-in `src/main/java/org/apache/commons/io/EndianUtils.java`
-#### Snippet
-```java
-     */
-    public static void writeSwappedShort(final OutputStream output, final short value) throws IOException {
-        output.write((byte) (value >> 0 & 0xff));
-        output.write((byte) (value >> 8 & 0xff));
-    }
+    public static int readSwappedInteger(final byte[] data, final int offset) {
+        return ((data[offset + 0] & 0xff) << 0) +
+            ((data[offset + 1] & 0xff) << 8) +
+            ((data[offset + 2] & 0xff) << 16) +
 ```
 
 ## RuleId[ruleID=HtmlWrongAttributeValue]
 ### HtmlWrongAttributeValue
 Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-02-11-15-01-24.421.html`
+in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-02-13-09-32-37.118.html`
 #### Snippet
 ```java
               <td>0</td>
@@ -1476,6 +1476,19 @@ in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-02-11-15-01-24.421.
               <td><textarea rows="10" cols="75" readonly="true" placeholder="empty" style="white-space: pre; border: none">Not collected for refresh</textarea></td>
             </tr>
           </tbody>
+```
+
+## RuleId[ruleID=InstanceofCatchParameter]
+### InstanceofCatchParameter
+'instanceof' on 'catch' parameter `ex`
+in `src/main/java/org/apache/commons/io/input/ReadAheadInputStream.java`
+#### Snippet
+```java
+            } catch (final Throwable ex) {
+                exception = ex;
+                if (ex instanceof Error) {
+                    // `readException` may not be reported to the user. Rethrow Error to make sure at least
+                    // The user can see Error in UncaughtExceptionHandler.
 ```
 
 ## RuleId[ruleID=ExceptionNameDoesntEndWithException]
@@ -1503,32 +1516,7 @@ public class IOExceptionList extends IOException implements Iterable<Throwable> 
     private static final long serialVersionUID = 1L;
 ```
 
-## RuleId[ruleID=InstanceofCatchParameter]
-### InstanceofCatchParameter
-'instanceof' on 'catch' parameter `ex`
-in `src/main/java/org/apache/commons/io/input/ReadAheadInputStream.java`
-#### Snippet
-```java
-            } catch (final Throwable ex) {
-                exception = ex;
-                if (ex instanceof Error) {
-                    // `readException` may not be reported to the user. Rethrow Error to make sure at least
-                    // The user can see Error in UncaughtExceptionHandler.
-```
-
 ## RuleId[ruleID=ArrayEquality]
-### ArrayEquality
-Array objects are compared using `!=`, not 'Arrays.equals()'
-in `src/main/java/org/apache/commons/io/input/UnsynchronizedBufferedInputStream.java`
-#### Snippet
-```java
-                }
-                // localBuf may have been invalidated by fillbuf
-                if (localBuf != buf) {
-                    localBuf = buf;
-                    if (localBuf == null) {
-```
-
 ### ArrayEquality
 Array objects are compared using `!=`, not 'Arrays.equals()'
 in `src/main/java/org/apache/commons/io/input/UnsynchronizedBufferedInputStream.java`
@@ -1541,17 +1529,29 @@ in `src/main/java/org/apache/commons/io/input/UnsynchronizedBufferedInputStream.
             if (localBuf == null) {
 ```
 
-## RuleId[ruleID=SynchronizeOnThis]
-### SynchronizeOnThis
-Lock operations on 'this' may have unforeseen side-effects
-in `src/main/java/org/apache/commons/io/output/ByteArrayOutputStream.java`
+### ArrayEquality
+Array objects are compared using `!=`, not 'Arrays.equals()'
+in `src/main/java/org/apache/commons/io/input/UnsynchronizedBufferedInputStream.java`
 #### Snippet
 ```java
-            return;
-        }
-        synchronized (this) {
-            writeImpl(b, off, len);
-        }
+                }
+                // localBuf may have been invalidated by fillbuf
+                if (localBuf != buf) {
+                    localBuf = buf;
+                    if (localBuf == null) {
+```
+
+## RuleId[ruleID=SynchronizeOnThis]
+### SynchronizeOnThis
+Lock operations on a class may have unforeseen side-effects
+in `src/main/java/org/apache/commons/io/output/LockableFileWriter.java`
+#### Snippet
+```java
+     */
+    private void createLock() throws IOException {
+        synchronized (LockableFileWriter.class) {
+            if (!lockFile.createNewFile()) {
+                throw new IOException("Can't write file, lock " + lockFile.getAbsolutePath() + " exists");
 ```
 
 ### SynchronizeOnThis
@@ -1567,15 +1567,15 @@ in `src/main/java/org/apache/commons/io/output/ByteArrayOutputStream.java`
 ```
 
 ### SynchronizeOnThis
-Lock operations on a class may have unforeseen side-effects
-in `src/main/java/org/apache/commons/io/output/LockableFileWriter.java`
+Lock operations on 'this' may have unforeseen side-effects
+in `src/main/java/org/apache/commons/io/output/ByteArrayOutputStream.java`
 #### Snippet
 ```java
-     */
-    private void createLock() throws IOException {
-        synchronized (LockableFileWriter.class) {
-            if (!lockFile.createNewFile()) {
-                throw new IOException("Can't write file, lock " + lockFile.getAbsolutePath() + " exists");
+            return;
+        }
+        synchronized (this) {
+            writeImpl(b, off, len);
+        }
 ```
 
 ## RuleId[ruleID=ConstantValue]
@@ -1605,50 +1605,14 @@ in `src/main/java/org/apache/commons/io/file/PathUtils.java`
 
 ## RuleId[ruleID=MethodOverridesStaticMethod]
 ### MethodOverridesStaticMethod
-Method `withBigIntegerCounters()` tries to override a static method of a superclass
-in `src/main/java/org/apache/commons/io/file/DeletingPathVisitor.java`
-#### Snippet
-```java
-     * @return a new instance configured with a BigInteger {@link PathCounters}.
-     */
-    public static DeletingPathVisitor withBigIntegerCounters() {
-        return new DeletingPathVisitor(Counters.bigIntegerPathCounters());
-    }
-```
-
-### MethodOverridesStaticMethod
 Method `withLongCounters()` tries to override a static method of a superclass
-in `src/main/java/org/apache/commons/io/file/DeletingPathVisitor.java`
+in `src/main/java/org/apache/commons/io/file/AccumulatorPathVisitor.java`
 #### Snippet
 ```java
      * @return a new instance configured with a long {@link PathCounters}.
      */
-    public static DeletingPathVisitor withLongCounters() {
-        return new DeletingPathVisitor(Counters.longPathCounters());
-    }
-```
-
-### MethodOverridesStaticMethod
-Method `withLongCounters()` tries to override a static method of a superclass
-in `src/main/java/org/apache/commons/io/file/CleaningPathVisitor.java`
-#### Snippet
-```java
-     * @return a new instance configured with a long {@link PathCounters}.
-     */
-    public static CountingPathVisitor withLongCounters() {
-        return new CleaningPathVisitor(Counters.longPathCounters());
-    }
-```
-
-### MethodOverridesStaticMethod
-Method `withBigIntegerCounters()` tries to override a static method of a superclass
-in `src/main/java/org/apache/commons/io/file/CleaningPathVisitor.java`
-#### Snippet
-```java
-     * @return a new instance configured with a BigInteger {@link PathCounters}.
-     */
-    public static CountingPathVisitor withBigIntegerCounters() {
-        return new CleaningPathVisitor(Counters.bigIntegerPathCounters());
+    public static AccumulatorPathVisitor withLongCounters() {
+        return new AccumulatorPathVisitor(Counters.longPathCounters());
     }
 ```
 
@@ -1665,30 +1629,54 @@ in `src/main/java/org/apache/commons/io/file/AccumulatorPathVisitor.java`
 ```
 
 ### MethodOverridesStaticMethod
+Method `withBigIntegerCounters()` tries to override a static method of a superclass
+in `src/main/java/org/apache/commons/io/file/CleaningPathVisitor.java`
+#### Snippet
+```java
+     * @return a new instance configured with a BigInteger {@link PathCounters}.
+     */
+    public static CountingPathVisitor withBigIntegerCounters() {
+        return new CleaningPathVisitor(Counters.bigIntegerPathCounters());
+    }
+```
+
+### MethodOverridesStaticMethod
 Method `withLongCounters()` tries to override a static method of a superclass
-in `src/main/java/org/apache/commons/io/file/AccumulatorPathVisitor.java`
+in `src/main/java/org/apache/commons/io/file/CleaningPathVisitor.java`
 #### Snippet
 ```java
      * @return a new instance configured with a long {@link PathCounters}.
      */
-    public static AccumulatorPathVisitor withLongCounters() {
-        return new AccumulatorPathVisitor(Counters.longPathCounters());
+    public static CountingPathVisitor withLongCounters() {
+        return new CleaningPathVisitor(Counters.longPathCounters());
+    }
+```
+
+### MethodOverridesStaticMethod
+Method `withLongCounters()` tries to override a static method of a superclass
+in `src/main/java/org/apache/commons/io/file/DeletingPathVisitor.java`
+#### Snippet
+```java
+     * @return a new instance configured with a long {@link PathCounters}.
+     */
+    public static DeletingPathVisitor withLongCounters() {
+        return new DeletingPathVisitor(Counters.longPathCounters());
+    }
+```
+
+### MethodOverridesStaticMethod
+Method `withBigIntegerCounters()` tries to override a static method of a superclass
+in `src/main/java/org/apache/commons/io/file/DeletingPathVisitor.java`
+#### Snippet
+```java
+     * @return a new instance configured with a BigInteger {@link PathCounters}.
+     */
+    public static DeletingPathVisitor withBigIntegerCounters() {
+        return new DeletingPathVisitor(Counters.bigIntegerPathCounters());
     }
 ```
 
 ## RuleId[ruleID=IOResource]
-### IOResource
-'StreamIterator' should be opened in front of a 'try' block and closed in the corresponding 'finally' block
-in `src/main/java/org/apache/commons/io/StreamIterator.java`
-#### Snippet
-```java
-    @SuppressWarnings("resource") // Caller MUST close or iterate to the end.
-    public static <T> Iterator<T> iterator(final Stream<T> stream) {
-        return new StreamIterator<>(stream).iterator;
-    }
-
-```
-
 ### IOResource
 'BufferedReader' should be opened in front of a 'try' block and closed in the corresponding 'finally' block
 in `src/main/java/org/apache/commons/io/input/XmlStreamReader.java`
@@ -1699,6 +1687,18 @@ in `src/main/java/org/apache/commons/io/input/XmlStreamReader.java`
                 final BufferedReader bReader = new BufferedReader(new StringReader(xmlProlog.substring(0, firstGT + 1)));
                 final StringBuilder prolog = new StringBuilder();
                 IOConsumer.forEach(bReader.lines(), prolog::append);
+```
+
+### IOResource
+'StreamIterator' should be opened in front of a 'try' block and closed in the corresponding 'finally' block
+in `src/main/java/org/apache/commons/io/StreamIterator.java`
+#### Snippet
+```java
+    @SuppressWarnings("resource") // Caller MUST close or iterate to the end.
+    public static <T> Iterator<T> iterator(final Stream<T> stream) {
+        return new StreamIterator<>(stream).iterator;
+    }
+
 ```
 
 ## RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
@@ -1715,6 +1715,30 @@ public class ThreadUtils {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
+Class `ByteBufferCleaner` has only 'static' members, and lacks a 'private' constructor
+in `src/main/java/org/apache/commons/io/input/ByteBufferCleaner.java`
+#### Snippet
+```java
+ * </p>
+ */
+class ByteBufferCleaner {
+
+    private interface Cleaner {
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `Charsets` has only 'static' members, and lacks a 'private' constructor
+in `src/main/java/org/apache/commons/io/Charsets.java`
+#### Snippet
+```java
+ * @since 2.3
+ */
+public class Charsets {
+
+    //
+```
+
+### UtilityClassWithoutPrivateConstructor
 Class `EndianUtils` has only 'static' members, and lacks a 'private' constructor
 in `src/main/java/org/apache/commons/io/EndianUtils.java`
 #### Snippet
@@ -1727,13 +1751,49 @@ public class EndianUtils {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `HexDump` has only 'static' members, and lacks a 'private' constructor
-in `src/main/java/org/apache/commons/io/HexDump.java`
+Class `FileCleaner` has only 'static' members, and lacks a 'private' constructor
+in `src/main/java/org/apache/commons/io/FileCleaner.java`
+#### Snippet
+```java
+ */
+@Deprecated
+public class FileCleaner {
+
+    /**
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `UnsupportedOperationExceptions` has only 'static' members, and lacks a 'private' constructor
+in `src/main/java/org/apache/commons/io/input/UnsupportedOperationExceptions.java`
 #### Snippet
 ```java
  * </p>
  */
-public class HexDump {
+class UnsupportedOperationExceptions {
+
+    private static final String MARK_RESET = "mark/reset";
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `IOUtils` has only 'static' members, and lacks a 'private' constructor
+in `src/main/java/org/apache/commons/io/IOUtils.java`
+#### Snippet
+```java
+ * </p>
+ */
+public class IOUtils {
+    // NOTE: This class is focused on InputStream, OutputStream, Reader and
+    // Writer. Each method should take at least one of these as a parameter,
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `CopyUtils` has only 'static' members, and lacks a 'private' constructor
+in `src/main/java/org/apache/commons/io/CopyUtils.java`
+#### Snippet
+```java
+ */
+@Deprecated
+public class CopyUtils {
 
     /**
 ```
@@ -1751,54 +1811,6 @@ public class Counters {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `Charsets` has only 'static' members, and lacks a 'private' constructor
-in `src/main/java/org/apache/commons/io/Charsets.java`
-#### Snippet
-```java
- * @since 2.3
- */
-public class Charsets {
-
-    //
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `UnsupportedOperationExceptions` has only 'static' members, and lacks a 'private' constructor
-in `src/main/java/org/apache/commons/io/input/UnsupportedOperationExceptions.java`
-#### Snippet
-```java
- * </p>
- */
-class UnsupportedOperationExceptions {
-
-    private static final String MARK_RESET = "mark/reset";
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `FileCleaner` has only 'static' members, and lacks a 'private' constructor
-in `src/main/java/org/apache/commons/io/FileCleaner.java`
-#### Snippet
-```java
- */
-@Deprecated
-public class FileCleaner {
-
-    /**
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `ByteBufferCleaner` has only 'static' members, and lacks a 'private' constructor
-in `src/main/java/org/apache/commons/io/input/ByteBufferCleaner.java`
-#### Snippet
-```java
- * </p>
- */
-class ByteBufferCleaner {
-
-    private interface Cleaner {
-```
-
-### UtilityClassWithoutPrivateConstructor
 Class `FilenameUtils` has only 'static' members, and lacks a 'private' constructor
 in `src/main/java/org/apache/commons/io/FilenameUtils.java`
 #### Snippet
@@ -1811,39 +1823,15 @@ public class FilenameUtils {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `CopyUtils` has only 'static' members, and lacks a 'private' constructor
-in `src/main/java/org/apache/commons/io/CopyUtils.java`
-#### Snippet
-```java
- */
-@Deprecated
-public class CopyUtils {
-
-    /**
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `FileUtils` has only 'static' members, and lacks a 'private' constructor
-in `src/main/java/org/apache/commons/io/FileUtils.java`
+Class `HexDump` has only 'static' members, and lacks a 'private' constructor
+in `src/main/java/org/apache/commons/io/HexDump.java`
 #### Snippet
 ```java
  * </p>
  */
-public class FileUtils {
+public class HexDump {
 
     /**
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `IOUtils` has only 'static' members, and lacks a 'private' constructor
-in `src/main/java/org/apache/commons/io/IOUtils.java`
-#### Snippet
-```java
- * </p>
- */
-public class IOUtils {
-    // NOTE: This class is focused on InputStream, OutputStream, Reader and
-    // Writer. Each method should take at least one of these as a parameter,
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -1858,31 +1846,19 @@ public class FileFilterUtils {
     /* Constructed on demand and then cached */
 ```
 
+### UtilityClassWithoutPrivateConstructor
+Class `FileUtils` has only 'static' members, and lacks a 'private' constructor
+in `src/main/java/org/apache/commons/io/FileUtils.java`
+#### Snippet
+```java
+ * </p>
+ */
+public class FileUtils {
+
+    /**
+```
+
 ## RuleId[ruleID=DataFlowIssue]
-### DataFlowIssue
-Method invocation `toString` may produce `NullPointerException`
-in `src/main/java/org/apache/commons/io/filefilter/DelegateFileFilter.java`
-#### Snippet
-```java
-    @Override
-    public String toString() {
-        final String delegate = fileFilter != null ? fileFilter.toString() : filenameFilter.toString();
-        return super.toString() + "(" + delegate + ")";
-    }
-```
-
-### DataFlowIssue
-Variable is already assigned to this value
-in `src/main/java/org/apache/commons/io/input/UnsynchronizedByteArrayInputStream.java`
-#### Snippet
-```java
-        this.offset = 0;
-        this.eod = data.length;
-        this.markedOffset = this.offset;
-    }
-
-```
-
 ### DataFlowIssue
 Argument `reader` might be null
 in `src/main/java/org/apache/commons/io/input/Tailer.java`
@@ -1907,6 +1883,30 @@ in `src/main/java/org/apache/commons/io/input/Tailer.java`
                     // Now we can read new lines
 ```
 
+### DataFlowIssue
+Variable is already assigned to this value
+in `src/main/java/org/apache/commons/io/input/UnsynchronizedByteArrayInputStream.java`
+#### Snippet
+```java
+        this.offset = 0;
+        this.eod = data.length;
+        this.markedOffset = this.offset;
+    }
+
+```
+
+### DataFlowIssue
+Method invocation `toString` may produce `NullPointerException`
+in `src/main/java/org/apache/commons/io/filefilter/DelegateFileFilter.java`
+#### Snippet
+```java
+    @Override
+    public String toString() {
+        final String delegate = fileFilter != null ? fileFilter.toString() : filenameFilter.toString();
+        return super.toString() + "(" + delegate + ")";
+    }
+```
+
 ## RuleId[ruleID=SimplifyStreamApiCallChains]
 ### SimplifyStreamApiCallChains
 Can be replaced with 'List.contains()'
@@ -1921,6 +1921,42 @@ in `src/main/java/org/apache/commons/io/FilenameUtils.java`
 ```
 
 ## RuleId[ruleID=DeprecatedIsStillUsed]
+### DeprecatedIsStillUsed
+Deprecated member 'CloseShieldInputStream' is still used
+in `src/main/java/org/apache/commons/io/input/CloseShieldInputStream.java`
+#### Snippet
+```java
+     */
+    @Deprecated
+    public CloseShieldInputStream(final InputStream inputStream) {
+        super(inputStream);
+    }
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'IOExceptionWithCause' is still used
+in `src/main/java/org/apache/commons/io/IOExceptionWithCause.java`
+#### Snippet
+```java
+ */
+@Deprecated
+public class IOExceptionWithCause extends IOException {
+
+    /**
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'WildcardFilter' is still used
+in `src/main/java/org/apache/commons/io/filefilter/WildcardFilter.java`
+#### Snippet
+```java
+ */
+@Deprecated
+public class WildcardFilter extends AbstractFileFilter implements Serializable {
+
+    private static final long serialVersionUID = -5037645902506953517L;
+```
+
 ### DeprecatedIsStillUsed
 Deprecated member 'CloseShieldReader' is still used
 in `src/main/java/org/apache/commons/io/input/CloseShieldReader.java`
@@ -1946,15 +1982,15 @@ in `src/main/java/org/apache/commons/io/output/CloseShieldWriter.java`
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'WildcardFilter' is still used
-in `src/main/java/org/apache/commons/io/filefilter/WildcardFilter.java`
+Deprecated member 'LockableFileWriter' is still used
+in `src/main/java/org/apache/commons/io/output/LockableFileWriter.java`
 #### Snippet
 ```java
- */
-@Deprecated
-public class WildcardFilter extends AbstractFileFilter implements Serializable {
-
-    private static final long serialVersionUID = -5037645902506953517L;
+     */
+    @Deprecated
+    public LockableFileWriter(final File file, final boolean append, final String lockDir) throws IOException {
+        this(file, Charset.defaultCharset(), append, lockDir);
+    }
 ```
 
 ### DeprecatedIsStillUsed
@@ -1970,49 +2006,25 @@ in `src/main/java/org/apache/commons/io/output/CloseShieldOutputStream.java`
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'IOExceptionWithCause' is still used
-in `src/main/java/org/apache/commons/io/IOExceptionWithCause.java`
-#### Snippet
-```java
- */
-@Deprecated
-public class IOExceptionWithCause extends IOException {
-
-    /**
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'LockableFileWriter' is still used
-in `src/main/java/org/apache/commons/io/output/LockableFileWriter.java`
+Deprecated member 'readBasicFileAttributesUnchecked' is still used
+in `src/main/java/org/apache/commons/io/file/PathUtils.java`
 #### Snippet
 ```java
      */
     @Deprecated
-    public LockableFileWriter(final File file, final boolean append, final String lockDir) throws IOException {
-        this(file, Charset.defaultCharset(), append, lockDir);
+    public static BasicFileAttributes readBasicFileAttributesUnchecked(final Path path) {
+        return readBasicFileAttributes(path, EMPTY_LINK_OPTION_ARRAY);
     }
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'CloseShieldInputStream' is still used
-in `src/main/java/org/apache/commons/io/input/CloseShieldInputStream.java`
+Deprecated member 'NOFOLLOW_LINK_OPTION_ARRAY' is still used
+in `src/main/java/org/apache/commons/io/file/PathUtils.java`
 #### Snippet
 ```java
      */
     @Deprecated
-    public CloseShieldInputStream(final InputStream inputStream) {
-        super(inputStream);
-    }
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'DirectoryWalker' is still used
-in `src/main/java/org/apache/commons/io/DirectoryWalker.java`
-#### Snippet
-```java
- */
-@Deprecated
-public abstract class DirectoryWalker<T> {
+    public static final LinkOption[] NOFOLLOW_LINK_OPTION_ARRAY = {LinkOption.NOFOLLOW_LINKS};
 
     /**
 ```
@@ -2030,27 +2042,27 @@ in `src/main/java/org/apache/commons/io/file/PathUtils.java`
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'NOFOLLOW_LINK_OPTION_ARRAY' is still used
-in `src/main/java/org/apache/commons/io/file/PathUtils.java`
+Deprecated member 'LINE_SEPARATOR' is still used
+in `src/main/java/org/apache/commons/io/IOUtils.java`
 #### Snippet
 ```java
      */
     @Deprecated
-    public static final LinkOption[] NOFOLLOW_LINK_OPTION_ARRAY = {LinkOption.NOFOLLOW_LINKS};
+    public static final String LINE_SEPARATOR = System.lineSeparator();
 
     /**
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'readBasicFileAttributesUnchecked' is still used
-in `src/main/java/org/apache/commons/io/file/PathUtils.java`
+Deprecated member 'CopyUtils' is still used
+in `src/main/java/org/apache/commons/io/CopyUtils.java`
 #### Snippet
 ```java
-     */
-    @Deprecated
-    public static BasicFileAttributes readBasicFileAttributesUnchecked(final Path path) {
-        return readBasicFileAttributes(path, EMPTY_LINK_OPTION_ARRAY);
-    }
+ */
+@Deprecated
+public class CopyUtils {
+
+    /**
 ```
 
 ### DeprecatedIsStillUsed
@@ -2078,13 +2090,13 @@ in `src/main/java/org/apache/commons/io/FileSystemUtils.java`
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'CopyUtils' is still used
-in `src/main/java/org/apache/commons/io/CopyUtils.java`
+Deprecated member 'DirectoryWalker' is still used
+in `src/main/java/org/apache/commons/io/DirectoryWalker.java`
 #### Snippet
 ```java
  */
 @Deprecated
-public class CopyUtils {
+public abstract class DirectoryWalker<T> {
 
     /**
 ```
@@ -2123,18 +2135,6 @@ in `src/main/java/org/apache/commons/io/FileUtils.java`
     public static String readFileToString(final File file) throws IOException {
         return readFileToString(file, Charset.defaultCharset());
     }
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'LINE_SEPARATOR' is still used
-in `src/main/java/org/apache/commons/io/IOUtils.java`
-#### Snippet
-```java
-     */
-    @Deprecated
-    public static final String LINE_SEPARATOR = System.lineSeparator();
-
-    /**
 ```
 
 ## RuleId[ruleID=Convert2MethodRef]
@@ -2178,13 +2178,25 @@ in `src/main/java/org/apache/commons/io/input/ByteBufferCleaner.java`
 ## RuleId[ruleID=NonSynchronizedMethodOverridesSynchronizedMethod]
 ### NonSynchronizedMethodOverridesSynchronizedMethod
 Unsynchronized method `reset()` overrides synchronized method
-in `src/main/java/org/apache/commons/io/input/UnsynchronizedByteArrayInputStream.java`
+in `src/main/java/org/apache/commons/io/input/MarkShieldInputStream.java`
 #### Snippet
 ```java
     @SuppressWarnings("sync-override")
     @Override
-    public void reset() {
-        this.offset = this.markedOffset;
+    public void reset() throws IOException {
+        throw UnsupportedOperationExceptions.reset();
+    }
+```
+
+### NonSynchronizedMethodOverridesSynchronizedMethod
+Unsynchronized method `mark()` overrides synchronized method
+in `src/main/java/org/apache/commons/io/input/MarkShieldInputStream.java`
+#### Snippet
+```java
+    @SuppressWarnings("sync-override")
+    @Override
+    public void mark(final int readlimit) {
+        // no-op
     }
 ```
 
@@ -2197,6 +2209,18 @@ in `src/main/java/org/apache/commons/io/input/UnsynchronizedByteArrayInputStream
     @Override
     public void mark(final int readlimit) {
         this.markedOffset = this.offset;
+    }
+```
+
+### NonSynchronizedMethodOverridesSynchronizedMethod
+Unsynchronized method `reset()` overrides synchronized method
+in `src/main/java/org/apache/commons/io/input/UnsynchronizedByteArrayInputStream.java`
+#### Snippet
+```java
+    @SuppressWarnings("sync-override")
+    @Override
+    public void reset() {
+        this.offset = this.markedOffset;
     }
 ```
 
@@ -2224,89 +2248,17 @@ in `src/main/java/org/apache/commons/io/input/UnsynchronizedFilterInputStream.ja
     }
 ```
 
-### NonSynchronizedMethodOverridesSynchronizedMethod
-Unsynchronized method `mark()` overrides synchronized method
-in `src/main/java/org/apache/commons/io/input/MarkShieldInputStream.java`
-#### Snippet
-```java
-    @SuppressWarnings("sync-override")
-    @Override
-    public void mark(final int readlimit) {
-        // no-op
-    }
-```
-
-### NonSynchronizedMethodOverridesSynchronizedMethod
-Unsynchronized method `reset()` overrides synchronized method
-in `src/main/java/org/apache/commons/io/input/MarkShieldInputStream.java`
-#### Snippet
-```java
-    @SuppressWarnings("sync-override")
-    @Override
-    public void reset() throws IOException {
-        throw UnsupportedOperationExceptions.reset();
-    }
-```
-
 ## RuleId[ruleID=MismatchedJavadocCode]
 ### MismatchedJavadocCode
 Method is specified to return 'true' but there's no such enum constant in FileVisitResult
-in `src/main/java/org/apache/commons/io/filefilter/SymbolicLinkFileFilter.java`
+in `src/main/java/org/apache/commons/io/filefilter/FileFileFilter.java`
 #### Snippet
 ```java
      * @param file  the File to check
      *
-     * @return true if the file is a symbolic link.
-     */
-    @Override
-```
-
-### MismatchedJavadocCode
-Method is specified to return 'true' but there's no such enum constant in FileVisitResult
-in `src/main/java/org/apache/commons/io/filefilter/AgeFileFilter.java`
-#### Snippet
-```java
-     * @param file the File to check
-     *
-     * @return true if the file name matches
+     * @return true if the file is a file
      * @since 2.9.0
      */
-```
-
-### MismatchedJavadocCode
-Method is specified to return 'true' but there's no such enum constant in FileVisitResult
-in `src/main/java/org/apache/commons/io/filefilter/RegexFileFilter.java`
-#### Snippet
-```java
-     * @param path the path
-     * @param attributes the path attributes
-     * @return true if the file name matches one of the regular expressions
-     */
-    @Override
-```
-
-### MismatchedJavadocCode
-Method is specified to return 'true' but there's no such enum constant in FileVisitResult
-in `src/main/java/org/apache/commons/io/filefilter/WildcardFilter.java`
-#### Snippet
-```java
-     * @param file the file to check
-     *
-     * @return true if the file name matches one of the wildcards
-     * @since 2.9.0
-     */
-```
-
-### MismatchedJavadocCode
-Method is specified to return 'true' but there's no such enum constant in FileVisitResult
-in `src/main/java/org/apache/commons/io/filefilter/SizeFileFilter.java`
-#### Snippet
-```java
-     * @param file  the File to check
-     *
-     * @return true if the file name matches
-     */
-    @Override
 ```
 
 ### MismatchedJavadocCode
@@ -2323,60 +2275,24 @@ in `src/main/java/org/apache/commons/io/filefilter/IOFileFilter.java`
 
 ### MismatchedJavadocCode
 Method is specified to return 'true' but there's no such enum constant in FileVisitResult
-in `src/main/java/org/apache/commons/io/filefilter/PrefixFileFilter.java`
+in `src/main/java/org/apache/commons/io/filefilter/WildcardFilter.java`
 #### Snippet
 ```java
-     * @param file  the File to check
+     * @param file the file to check
      *
-     * @return true if the file name starts with one of our prefixes
+     * @return true if the file name matches one of the wildcards
      * @since 2.9.0
      */
 ```
 
 ### MismatchedJavadocCode
 Method is specified to return 'true' but there's no such enum constant in FileVisitResult
-in `src/main/java/org/apache/commons/io/filefilter/NotFileFilter.java`
-#### Snippet
-```java
-     * @param file the File to check
-     *
-     * @return true if the filter returns false
-     * @since 2.9.0
-     */
-```
-
-### MismatchedJavadocCode
-Method is specified to return 'true' but its return type is not boolean
-in `src/main/java/org/apache/commons/io/IOCase.java`
-#### Snippet
-```java
-     * @param str1  the first string to compare, not null
-     * @param str2  the second string to compare, not null
-     * @return true if equal using the case rules
-     * @throws NullPointerException if either string is null
-     */
-```
-
-### MismatchedJavadocCode
-Method is specified to return 'true' but there's no such enum constant in FileVisitResult
-in `src/main/java/org/apache/commons/io/filefilter/SuffixFileFilter.java`
+in `src/main/java/org/apache/commons/io/filefilter/NameFileFilter.java`
 #### Snippet
 ```java
      * @param file  the File to check
      *
-     * @return true if the file name ends with one of our suffixes
-     * @since 2.9.0
-     */
-```
-
-### MismatchedJavadocCode
-Method is specified to return 'true' but there's no such enum constant in FileVisitResult
-in `src/main/java/org/apache/commons/io/filefilter/FileFileFilter.java`
-#### Snippet
-```java
-     * @param file  the File to check
-     *
-     * @return true if the file is a file
+     * @return true if the file name matches
      * @since 2.9.0
      */
 ```
@@ -2395,6 +2311,54 @@ in `src/main/java/org/apache/commons/io/filefilter/WildcardFileFilter.java`
 
 ### MismatchedJavadocCode
 Method is specified to return 'true' but there's no such enum constant in FileVisitResult
+in `src/main/java/org/apache/commons/io/filefilter/SuffixFileFilter.java`
+#### Snippet
+```java
+     * @param file  the File to check
+     *
+     * @return true if the file name ends with one of our suffixes
+     * @since 2.9.0
+     */
+```
+
+### MismatchedJavadocCode
+Method is specified to return 'true' but there's no such enum constant in FileVisitResult
+in `src/main/java/org/apache/commons/io/filefilter/SizeFileFilter.java`
+#### Snippet
+```java
+     * @param file  the File to check
+     *
+     * @return true if the file name matches
+     */
+    @Override
+```
+
+### MismatchedJavadocCode
+Method is specified to return 'true' but there's no such enum constant in FileVisitResult
+in `src/main/java/org/apache/commons/io/filefilter/RegexFileFilter.java`
+#### Snippet
+```java
+     * @param path the path
+     * @param attributes the path attributes
+     * @return true if the file name matches one of the regular expressions
+     */
+    @Override
+```
+
+### MismatchedJavadocCode
+Method is specified to return 'true' but there's no such enum constant in FileVisitResult
+in `src/main/java/org/apache/commons/io/filefilter/AgeFileFilter.java`
+#### Snippet
+```java
+     * @param file the File to check
+     *
+     * @return true if the file name matches
+     * @since 2.9.0
+     */
+```
+
+### MismatchedJavadocCode
+Method is specified to return 'true' but there's no such enum constant in FileVisitResult
 in `src/main/java/org/apache/commons/io/filefilter/DirectoryFileFilter.java`
 #### Snippet
 ```java
@@ -2406,13 +2370,49 @@ in `src/main/java/org/apache/commons/io/filefilter/DirectoryFileFilter.java`
 ```
 
 ### MismatchedJavadocCode
+Method is specified to return 'true' but its return type is not boolean
+in `src/main/java/org/apache/commons/io/IOCase.java`
+#### Snippet
+```java
+     * @param str1  the first string to compare, not null
+     * @param str2  the second string to compare, not null
+     * @return true if equal using the case rules
+     * @throws NullPointerException if either string is null
+     */
+```
+
+### MismatchedJavadocCode
 Method is specified to return 'true' but there's no such enum constant in FileVisitResult
-in `src/main/java/org/apache/commons/io/filefilter/NameFileFilter.java`
+in `src/main/java/org/apache/commons/io/filefilter/SymbolicLinkFileFilter.java`
 #### Snippet
 ```java
      * @param file  the File to check
      *
-     * @return true if the file name matches
+     * @return true if the file is a symbolic link.
+     */
+    @Override
+```
+
+### MismatchedJavadocCode
+Method is specified to return 'true' but there's no such enum constant in FileVisitResult
+in `src/main/java/org/apache/commons/io/filefilter/NotFileFilter.java`
+#### Snippet
+```java
+     * @param file the File to check
+     *
+     * @return true if the filter returns false
+     * @since 2.9.0
+     */
+```
+
+### MismatchedJavadocCode
+Method is specified to return 'true' but there's no such enum constant in FileVisitResult
+in `src/main/java/org/apache/commons/io/filefilter/PrefixFileFilter.java`
+#### Snippet
+```java
+     * @param file  the File to check
+     *
+     * @return true if the file name starts with one of our prefixes
      * @since 2.9.0
      */
 ```
@@ -2425,8 +2425,8 @@ in `src/main/java/org/apache/commons/io/file/Counters.java`
 ```java
          * Constructs a new initialized instance.
          */
-        protected BigIntegerPathCounters() {
-            super(Counters.bigIntegerCounter(), Counters.bigIntegerCounter(), Counters.bigIntegerCounter());
+        protected LongPathCounters() {
+            super(Counters.longCounter(), Counters.longCounter(), Counters.longCounter());
         }
 ```
 
@@ -2437,61 +2437,24 @@ in `src/main/java/org/apache/commons/io/file/Counters.java`
 ```java
          * Constructs a new initialized instance.
          */
-        protected LongPathCounters() {
-            super(Counters.longCounter(), Counters.longCounter(), Counters.longCounter());
+        protected BigIntegerPathCounters() {
+            super(Counters.bigIntegerCounter(), Counters.bigIntegerCounter(), Counters.bigIntegerCounter());
         }
-```
-
-## RuleId[ruleID=UnnecessaryToStringCall]
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `src/main/java/org/apache/commons/io/monitor/FileAlterationObserver.java`
-#### Snippet
-```java
-        if (fileFilter != null) {
-            builder.append(", ");
-            builder.append(fileFilter.toString());
-        }
-        builder.append(", listeners=");
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `src/main/java/org/apache/commons/io/filefilter/NotFileFilter.java`
-#### Snippet
-```java
-    @Override
-    public String toString() {
-        return "NOT (" + filter.toString() + ")";
-    }
-
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `src/main/java/org/apache/commons/io/comparator/ReverseFileComparator.java`
-#### Snippet
-```java
-    @Override
-    public String toString() {
-        return super.toString() + "[" + delegate.toString() + "]";
-    }
-
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `src/main/java/org/apache/commons/io/FileUtils.java`
-#### Snippet
-```java
-                        if (byteBuffer.position() > 0) {
-                            byteBuffer.flip();
-                            builder.append(StandardCharsets.UTF_8.decode(byteBuffer).toString());
-                            byteBuffer.clear();
-                        }
 ```
 
 ## RuleId[ruleID=AssignmentToForLoopParameter]
+### AssignmentToForLoopParameter
+Assignment to for-loop parameter `k`
+in `src/main/java/org/apache/commons/io/FileSystemUtils.java`
+#### Snippet
+```java
+        for (int k = 0; k < buf.length(); k++) {
+            if (buf.charAt(k) == ',' || buf.charAt(k) == '.') {
+                buf.deleteCharAt(k--);
+            }
+        }
+```
+
 ### AssignmentToForLoopParameter
 Assignment to for-loop parameter `i`
 in `src/main/java/org/apache/commons/io/FilenameUtils.java`
@@ -2540,16 +2503,53 @@ in `src/main/java/org/apache/commons/io/FilenameUtils.java`
         }
 ```
 
-### AssignmentToForLoopParameter
-Assignment to for-loop parameter `k`
-in `src/main/java/org/apache/commons/io/FileSystemUtils.java`
+## RuleId[ruleID=UnnecessaryToStringCall]
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `src/main/java/org/apache/commons/io/monitor/FileAlterationObserver.java`
 #### Snippet
 ```java
-        for (int k = 0; k < buf.length(); k++) {
-            if (buf.charAt(k) == ',' || buf.charAt(k) == '.') {
-                buf.deleteCharAt(k--);
-            }
+        if (fileFilter != null) {
+            builder.append(", ");
+            builder.append(fileFilter.toString());
         }
+        builder.append(", listeners=");
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `src/main/java/org/apache/commons/io/comparator/ReverseFileComparator.java`
+#### Snippet
+```java
+    @Override
+    public String toString() {
+        return super.toString() + "[" + delegate.toString() + "]";
+    }
+
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `src/main/java/org/apache/commons/io/filefilter/NotFileFilter.java`
+#### Snippet
+```java
+    @Override
+    public String toString() {
+        return "NOT (" + filter.toString() + ")";
+    }
+
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `src/main/java/org/apache/commons/io/FileUtils.java`
+#### Snippet
+```java
+                        if (byteBuffer.position() > 0) {
+                            byteBuffer.flip();
+                            builder.append(StandardCharsets.UTF_8.decode(byteBuffer).toString());
+                            byteBuffer.clear();
+                        }
 ```
 
 ## RuleId[ruleID=SetReplaceableByEnumSet]
@@ -2567,99 +2567,39 @@ in `src/main/java/org/apache/commons/io/FileUtils.java`
 
 ## RuleId[ruleID=PublicFieldAccessedInSynchronizedContext]
 ### PublicFieldAccessedInSynchronizedContext
-Non-private field `in` accessed in synchronized context
-in `src/main/java/org/apache/commons/io/input/BOMInputStream.java`
+Non-private field `this.branch` accessed in synchronized context
+in `src/main/java/org/apache/commons/io/output/TeeOutputStream.java`
 #### Snippet
 ```java
-        markFbIndex = fbIndex;
-        markedAtStart = firstBytes == null;
-        in.mark(readlimit);
+    public synchronized void write(final byte[] b, final int off, final int len) throws IOException {
+        super.write(b, off, len);
+        this.branch.write(b, off, len);
     }
 
 ```
 
 ### PublicFieldAccessedInSynchronizedContext
-Non-private field `in` accessed in synchronized context
-in `src/main/java/org/apache/commons/io/input/BOMInputStream.java`
+Non-private field `this.branch` accessed in synchronized context
+in `src/main/java/org/apache/commons/io/output/TeeOutputStream.java`
 #### Snippet
 ```java
-        }
-
-        in.reset();
+    public synchronized void write(final byte[] b) throws IOException {
+        super.write(b);
+        this.branch.write(b);
     }
 
 ```
 
 ### PublicFieldAccessedInSynchronizedContext
-Non-private field `in` accessed in synchronized context
-in `src/main/java/org/apache/commons/io/input/ProxyInputStream.java`
+Non-private field `this.branch` accessed in synchronized context
+in `src/main/java/org/apache/commons/io/output/TeeOutputStream.java`
 #### Snippet
 ```java
-    @Override
-    public synchronized void mark(final int readlimit) {
-        in.mark(readlimit);
+    public synchronized void write(final int b) throws IOException {
+        super.write(b);
+        this.branch.write(b);
     }
 
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `in` accessed in synchronized context
-in `src/main/java/org/apache/commons/io/input/ProxyInputStream.java`
-#### Snippet
-```java
-    public synchronized void reset() throws IOException {
-        try {
-            in.reset();
-        } catch (final IOException e) {
-            handleIOException(e);
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `exitWhenFinished` accessed in synchronized context
-in `src/main/java/org/apache/commons/io/FileCleaningTracker.java`
-#### Snippet
-```java
-    public synchronized void exitWhenFinished() {
-        // synchronized block protects reaper
-        exitWhenFinished = true;
-        if (reaper != null) {
-            synchronized (reaper) {
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `reaper` accessed in synchronized context
-in `src/main/java/org/apache/commons/io/FileCleaningTracker.java`
-#### Snippet
-```java
-        // synchronized block protects reaper
-        exitWhenFinished = true;
-        if (reaper != null) {
-            synchronized (reaper) {
-                reaper.interrupt();
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `reaper` accessed in synchronized context
-in `src/main/java/org/apache/commons/io/FileCleaningTracker.java`
-#### Snippet
-```java
-        exitWhenFinished = true;
-        if (reaper != null) {
-            synchronized (reaper) {
-                reaper.interrupt();
-            }
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `reaper` accessed in synchronized context
-in `src/main/java/org/apache/commons/io/FileCleaningTracker.java`
-#### Snippet
-```java
-        if (reaper != null) {
-            synchronized (reaper) {
-                reaper.interrupt();
-            }
-        }
 ```
 
 ### PublicFieldAccessedInSynchronizedContext
@@ -2723,6 +2663,78 @@ in `src/main/java/org/apache/commons/io/FileCleaningTracker.java`
 ```
 
 ### PublicFieldAccessedInSynchronizedContext
+Non-private field `exitWhenFinished` accessed in synchronized context
+in `src/main/java/org/apache/commons/io/FileCleaningTracker.java`
+#### Snippet
+```java
+    public synchronized void exitWhenFinished() {
+        // synchronized block protects reaper
+        exitWhenFinished = true;
+        if (reaper != null) {
+            synchronized (reaper) {
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `reaper` accessed in synchronized context
+in `src/main/java/org/apache/commons/io/FileCleaningTracker.java`
+#### Snippet
+```java
+        // synchronized block protects reaper
+        exitWhenFinished = true;
+        if (reaper != null) {
+            synchronized (reaper) {
+                reaper.interrupt();
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `reaper` accessed in synchronized context
+in `src/main/java/org/apache/commons/io/FileCleaningTracker.java`
+#### Snippet
+```java
+        exitWhenFinished = true;
+        if (reaper != null) {
+            synchronized (reaper) {
+                reaper.interrupt();
+            }
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `reaper` accessed in synchronized context
+in `src/main/java/org/apache/commons/io/FileCleaningTracker.java`
+#### Snippet
+```java
+        if (reaper != null) {
+            synchronized (reaper) {
+                reaper.interrupt();
+            }
+        }
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `in` accessed in synchronized context
+in `src/main/java/org/apache/commons/io/input/BOMInputStream.java`
+#### Snippet
+```java
+        markFbIndex = fbIndex;
+        markedAtStart = firstBytes == null;
+        in.mark(readlimit);
+    }
+
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `in` accessed in synchronized context
+in `src/main/java/org/apache/commons/io/input/BOMInputStream.java`
+#### Snippet
+```java
+        }
+
+        in.reset();
+    }
+
+```
+
+### PublicFieldAccessedInSynchronizedContext
 Non-private field `count` accessed in synchronized context
 in `src/main/java/org/apache/commons/io/output/ByteArrayOutputStream.java`
 #### Snippet
@@ -2730,42 +2742,6 @@ in `src/main/java/org/apache/commons/io/output/ByteArrayOutputStream.java`
     @Override
     public synchronized int size() {
         return count;
-    }
-
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `this.branch` accessed in synchronized context
-in `src/main/java/org/apache/commons/io/output/TeeOutputStream.java`
-#### Snippet
-```java
-    public synchronized void write(final int b) throws IOException {
-        super.write(b);
-        this.branch.write(b);
-    }
-
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `this.branch` accessed in synchronized context
-in `src/main/java/org/apache/commons/io/output/TeeOutputStream.java`
-#### Snippet
-```java
-    public synchronized void write(final byte[] b, final int off, final int len) throws IOException {
-        super.write(b, off, len);
-        this.branch.write(b, off, len);
-    }
-
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `this.branch` accessed in synchronized context
-in `src/main/java/org/apache/commons/io/output/TeeOutputStream.java`
-#### Snippet
-```java
-    public synchronized void write(final byte[] b) throws IOException {
-        super.write(b);
-        this.branch.write(b);
     }
 
 ```
@@ -2785,6 +2761,30 @@ in `src/main/java/org/apache/commons/io/input/ProxyReader.java`
 ### PublicFieldAccessedInSynchronizedContext
 Non-private field `in` accessed in synchronized context
 in `src/main/java/org/apache/commons/io/input/ProxyReader.java`
+#### Snippet
+```java
+    public synchronized void reset() throws IOException {
+        try {
+            in.reset();
+        } catch (final IOException e) {
+            handleIOException(e);
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `in` accessed in synchronized context
+in `src/main/java/org/apache/commons/io/input/ProxyInputStream.java`
+#### Snippet
+```java
+    @Override
+    public synchronized void mark(final int readlimit) {
+        in.mark(readlimit);
+    }
+
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `in` accessed in synchronized context
+in `src/main/java/org/apache/commons/io/input/ProxyInputStream.java`
 #### Snippet
 ```java
     public synchronized void reset() throws IOException {
@@ -3328,13 +3328,25 @@ public class EndianUtils {
 ```
 
 ### UtilityClassWithPublicConstructor
-Class `HexDump` has only 'static' members, and a 'public' constructor
-in `src/main/java/org/apache/commons/io/HexDump.java`
+Class `IOUtils` has only 'static' members, and a 'public' constructor
+in `src/main/java/org/apache/commons/io/IOUtils.java`
 #### Snippet
 ```java
  * </p>
  */
-public class HexDump {
+public class IOUtils {
+    // NOTE: This class is focused on InputStream, OutputStream, Reader and
+    // Writer. Each method should take at least one of these as a parameter,
+```
+
+### UtilityClassWithPublicConstructor
+Class `CopyUtils` has only 'static' members, and a 'public' constructor
+in `src/main/java/org/apache/commons/io/CopyUtils.java`
+#### Snippet
+```java
+ */
+@Deprecated
+public class CopyUtils {
 
     /**
 ```
@@ -3352,39 +3364,15 @@ public class FilenameUtils {
 ```
 
 ### UtilityClassWithPublicConstructor
-Class `CopyUtils` has only 'static' members, and a 'public' constructor
-in `src/main/java/org/apache/commons/io/CopyUtils.java`
-#### Snippet
-```java
- */
-@Deprecated
-public class CopyUtils {
-
-    /**
-```
-
-### UtilityClassWithPublicConstructor
-Class `FileUtils` has only 'static' members, and a 'public' constructor
-in `src/main/java/org/apache/commons/io/FileUtils.java`
+Class `HexDump` has only 'static' members, and a 'public' constructor
+in `src/main/java/org/apache/commons/io/HexDump.java`
 #### Snippet
 ```java
  * </p>
  */
-public class FileUtils {
+public class HexDump {
 
     /**
-```
-
-### UtilityClassWithPublicConstructor
-Class `IOUtils` has only 'static' members, and a 'public' constructor
-in `src/main/java/org/apache/commons/io/IOUtils.java`
-#### Snippet
-```java
- * </p>
- */
-public class IOUtils {
-    // NOTE: This class is focused on InputStream, OutputStream, Reader and
-    // Writer. Each method should take at least one of these as a parameter,
 ```
 
 ### UtilityClassWithPublicConstructor
@@ -3399,7 +3387,31 @@ public class FileFilterUtils {
     /* Constructed on demand and then cached */
 ```
 
+### UtilityClassWithPublicConstructor
+Class `FileUtils` has only 'static' members, and a 'public' constructor
+in `src/main/java/org/apache/commons/io/FileUtils.java`
+#### Snippet
+```java
+ * </p>
+ */
+public class FileUtils {
+
+    /**
+```
+
 ## RuleId[ruleID=UnnecessaryBoxing]
+### UnnecessaryBoxing
+Unnecessary boxing
+in `src/main/java/org/apache/commons/io/input/CharacterSetFilterReader.java`
+#### Snippet
+```java
+        }
+        final Set<Integer> unmodifiableSet = Collections.unmodifiableSet(skip);
+        return c -> unmodifiableSet.contains(Integer.valueOf(c));
+    }
+
+```
+
 ### UnnecessaryBoxing
 Unnecessary boxing
 in `src/main/java/org/apache/commons/io/file/Counters.java`
@@ -3418,8 +3430,32 @@ in `src/main/java/org/apache/commons/io/file/Counters.java`
 #### Snippet
 ```java
         @Override
-        public Long getLong() {
-            return Long.valueOf(value.longValueExact());
+        public String toString() {
+            return String.format("%,d files, %,d directories, %,d bytes", Long.valueOf(fileCounter.get()),
+                Long.valueOf(directoryCounter.get()), Long.valueOf(byteCounter.get()));
+        }
+```
+
+### UnnecessaryBoxing
+Unnecessary boxing
+in `src/main/java/org/apache/commons/io/file/Counters.java`
+#### Snippet
+```java
+        public String toString() {
+            return String.format("%,d files, %,d directories, %,d bytes", Long.valueOf(fileCounter.get()),
+                Long.valueOf(directoryCounter.get()), Long.valueOf(byteCounter.get()));
+        }
+
+```
+
+### UnnecessaryBoxing
+Unnecessary boxing
+in `src/main/java/org/apache/commons/io/file/Counters.java`
+#### Snippet
+```java
+        public String toString() {
+            return String.format("%,d files, %,d directories, %,d bytes", Long.valueOf(fileCounter.get()),
+                Long.valueOf(directoryCounter.get()), Long.valueOf(byteCounter.get()));
         }
 
 ```
@@ -3430,45 +3466,9 @@ in `src/main/java/org/apache/commons/io/file/Counters.java`
 #### Snippet
 ```java
         @Override
-        public String toString() {
-            return String.format("%,d files, %,d directories, %,d bytes", Long.valueOf(fileCounter.get()),
-                Long.valueOf(directoryCounter.get()), Long.valueOf(byteCounter.get()));
+        public Long getLong() {
+            return Long.valueOf(value.longValueExact());
         }
-```
-
-### UnnecessaryBoxing
-Unnecessary boxing
-in `src/main/java/org/apache/commons/io/file/Counters.java`
-#### Snippet
-```java
-        public String toString() {
-            return String.format("%,d files, %,d directories, %,d bytes", Long.valueOf(fileCounter.get()),
-                Long.valueOf(directoryCounter.get()), Long.valueOf(byteCounter.get()));
-        }
-
-```
-
-### UnnecessaryBoxing
-Unnecessary boxing
-in `src/main/java/org/apache/commons/io/file/Counters.java`
-#### Snippet
-```java
-        public String toString() {
-            return String.format("%,d files, %,d directories, %,d bytes", Long.valueOf(fileCounter.get()),
-                Long.valueOf(directoryCounter.get()), Long.valueOf(byteCounter.get()));
-        }
-
-```
-
-### UnnecessaryBoxing
-Unnecessary boxing
-in `src/main/java/org/apache/commons/io/input/CharacterSetFilterReader.java`
-#### Snippet
-```java
-        }
-        final Set<Integer> unmodifiableSet = Collections.unmodifiableSet(skip);
-        return c -> unmodifiableSet.contains(Integer.valueOf(c));
-    }
 
 ```
 
@@ -3513,54 +3513,6 @@ in `src/main/java/org/apache/commons/io/FileSystem.java`
 
 ## RuleId[ruleID=UnnecessaryFullyQualifiedName]
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.commons.io` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/io/input/BOMInputStream.java`
-#### Snippet
-```java
- * </pre>
- *
- * @see org.apache.commons.io.ByteOrderMark
- * @see <a href="http://en.wikipedia.org/wiki/Byte_order_mark">Wikipedia - Byte Order Mark</a>
- * @since 2.0
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.io` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/io/input/UnsynchronizedByteArrayInputStream.java`
-#### Snippet
-```java
-
-/**
- * This is an alternative to {@link java.io.ByteArrayInputStream}
- * which removes the synchronization overhead for non-concurrent
- * access; as such this class is not thread-safe.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util.stream` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/io/function/IOBaseStream.java`
-#### Snippet
-```java
-     *
-     * @return See {@link BaseStream#unordered() delegate}.
-     * @see java.util.stream.BaseStream#unordered()
-     */
-    @SuppressWarnings("resource") // for unwrap()
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.nio.file` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/io/input/Tailer.java`
-#### Snippet
-```java
-         * Gets the last modification {@link FileTime}.
-         *
-         * @return See {@link java.nio.file.Files#getLastModifiedTime(Path, LinkOption...)}.
-         * @throws IOException if an I/O error occurs.
-         */
-```
-
-### UnnecessaryFullyQualifiedName
 Qualifier `org.apache.commons.io.input` is unnecessary and can be removed
 in `src/main/java/org/apache/commons/io/input/MessageDigestCalculatingInputStream.java`
 #### Snippet
@@ -3570,18 +3522,6 @@ in `src/main/java/org/apache/commons/io/input/MessageDigestCalculatingInputStrea
  * {@link org.apache.commons.io.input.ObservableInputStream.Observer}, which calculates a checksum using a
  * MessageDigest, for example an MD5 sum.
  * <p>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.commons.io` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/io/serialization/WildcardClassNameMatcher.java`
-#### Snippet
-```java
-/**
- * A {@link ClassNameMatcher} that uses simplified regular expressions
- *  provided by {@link org.apache.commons.io.FilenameUtils#wildcardMatch(String, String) FilenameUtils.wildcardMatch}
- * <p>
- * This object is immutable and thread-safe.
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -3615,7 +3555,7 @@ in `src/main/java/org/apache/commons/io/filefilter/IOFileFilter.java`
 ```java
      * Checks to see if the File should be accepted by this filter.
      * <p>
-     * Defined in {@link java.io.FilenameFilter}.
+     * Defined in {@link java.io.FileFilter}.
      * </p>
      *
 ```
@@ -3627,9 +3567,177 @@ in `src/main/java/org/apache/commons/io/filefilter/IOFileFilter.java`
 ```java
      * Checks to see if the File should be accepted by this filter.
      * <p>
-     * Defined in {@link java.io.FileFilter}.
+     * Defined in {@link java.io.FilenameFilter}.
      * </p>
      *
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.nio.file` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/io/filefilter/PathEqualsFileFilter.java`
+#### Snippet
+```java
+ * Accepts only an exact {@link Path} object match. You can use this filter to visit the start directory when walking a
+ * file tree with
+ * {@link java.nio.file.Files#walkFileTree(java.nio.file.Path, java.util.Set, int, java.nio.file.FileVisitor)}.
+ *
+ * @since 2.9.0
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.nio.charset` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/io/Charsets.java`
+#### Snippet
+```java
+     *
+     * @see <a href="https://docs.oracle.com/javase/7/docs/api/java/nio/charset/Charset.html">Standard charsets</a>
+     * @deprecated Use Java 7's {@link java.nio.charset.StandardCharsets}
+     */
+    @Deprecated
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.nio.charset` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/io/Charsets.java`
+#### Snippet
+```java
+     *
+     * @see <a href="https://docs.oracle.com/javase/7/docs/api/java/nio/charset/Charset.html">Standard charsets</a>
+     * @deprecated Use Java 7's {@link java.nio.charset.StandardCharsets}
+     */
+    @Deprecated
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.nio.charset` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/io/Charsets.java`
+#### Snippet
+```java
+     *
+     * @see <a href="https://docs.oracle.com/javase/7/docs/api/java/nio/charset/Charset.html">Standard charsets</a>
+     * @deprecated Use Java 7's {@link java.nio.charset.StandardCharsets}
+     */
+    @Deprecated
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.nio.charset` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/io/Charsets.java`
+#### Snippet
+```java
+     *
+     * @see <a href="https://docs.oracle.com/javase/7/docs/api/java/nio/charset/Charset.html">Standard charsets</a>
+     * @deprecated Use Java 7's {@link java.nio.charset.StandardCharsets}
+     */
+    @Deprecated
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.nio.charset` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/io/Charsets.java`
+#### Snippet
+```java
+     *
+     * @see <a href="https://docs.oracle.com/javase/7/docs/api/java/nio/charset/Charset.html">Standard charsets</a>
+     * @deprecated Use Java 7's {@link java.nio.charset.StandardCharsets}
+     */
+    @Deprecated
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.nio.charset` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/io/Charsets.java`
+#### Snippet
+```java
+     *
+     * @see <a href="https://docs.oracle.com/javase/7/docs/api/java/nio/charset/Charset.html">Standard charsets</a>
+     * @deprecated Use Java 7's {@link java.nio.charset.StandardCharsets}
+     */
+    @Deprecated
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.commons.io` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/io/input/BOMInputStream.java`
+#### Snippet
+```java
+ * </pre>
+ *
+ * @see org.apache.commons.io.ByteOrderMark
+ * @see <a href="http://en.wikipedia.org/wiki/Byte_order_mark">Wikipedia - Byte Order Mark</a>
+ * @since 2.0
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.nio.file` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/io/input/Tailer.java`
+#### Snippet
+```java
+         * Gets the last modification {@link FileTime}.
+         *
+         * @return See {@link java.nio.file.Files#getLastModifiedTime(Path, LinkOption...)}.
+         * @throws IOException if an I/O error occurs.
+         */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.lang` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/io/output/AppendableWriter.java`
+#### Snippet
+```java
+ * Object.
+ * <p>
+ * For example, can be used with a {@link java.lang.StringBuilder}
+ * or {@link java.lang.StringBuffer}.
+ * </p>
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.lang` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/io/output/AppendableWriter.java`
+#### Snippet
+```java
+ * <p>
+ * For example, can be used with a {@link java.lang.StringBuilder}
+ * or {@link java.lang.StringBuffer}.
+ * </p>
+ *
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.io` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/io/input/UnsynchronizedByteArrayInputStream.java`
+#### Snippet
+```java
+
+/**
+ * This is an alternative to {@link java.io.ByteArrayInputStream}
+ * which removes the synchronization overhead for non-concurrent
+ * access; as such this class is not thread-safe.
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.io` is unnecessary, and can be replaced with an import
+in `src/main/java/org/apache/commons/io/output/ByteArrayOutputStream.java`
+#### Snippet
+```java
+    @Override
+    public synchronized InputStream toInputStream() {
+        return toInputStream(java.io.ByteArrayInputStream::new);
+    }
+
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.commons.io.output` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/io/output/DeferredFileOutputStream.java`
+#### Snippet
+```java
+     * @return the current contents of this output stream.
+     * @throws IOException if this stream is not yet closed or an error occurs.
+     * @see org.apache.commons.io.output.ByteArrayOutputStream#toInputStream()
+     *
+     * @since 2.9.0
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -3645,114 +3753,6 @@ in `src/main/java/org/apache/commons/io/output/QueueOutputStream.java`
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `java.io` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/io/output/FileWriterWithEncoding.java`
-#### Snippet
-```java
- * <p>
- * The encoding must be specified using either the name of the {@link Charset}, the {@link Charset}, or a
- * {@link CharsetEncoder}. If the default encoding is required then use the {@link java.io.FileWriter} directly, rather
- * than this implementation.
- * </p>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.nio.charset` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/io/Charsets.java`
-#### Snippet
-```java
-     *
-     * @see <a href="https://docs.oracle.com/javase/7/docs/api/java/nio/charset/Charset.html">Standard charsets</a>
-     * @deprecated Use Java 7's {@link java.nio.charset.StandardCharsets}
-     */
-    @Deprecated
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.nio.charset` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/io/Charsets.java`
-#### Snippet
-```java
-     *
-     * @see <a href="https://docs.oracle.com/javase/7/docs/api/java/nio/charset/Charset.html">Standard charsets</a>
-     * @deprecated Use Java 7's {@link java.nio.charset.StandardCharsets}
-     */
-    @Deprecated
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.nio.charset` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/io/Charsets.java`
-#### Snippet
-```java
-     *
-     * @see <a href="https://docs.oracle.com/javase/7/docs/api/java/nio/charset/Charset.html">Standard charsets</a>
-     * @deprecated Use Java 7's {@link java.nio.charset.StandardCharsets}
-     */
-    @Deprecated
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.nio.charset` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/io/Charsets.java`
-#### Snippet
-```java
-     *
-     * @see <a href="https://docs.oracle.com/javase/7/docs/api/java/nio/charset/Charset.html">Standard charsets</a>
-     * @deprecated Use Java 7's {@link java.nio.charset.StandardCharsets}
-     */
-    @Deprecated
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.nio.charset` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/io/Charsets.java`
-#### Snippet
-```java
-     *
-     * @see <a href="https://docs.oracle.com/javase/7/docs/api/java/nio/charset/Charset.html">Standard charsets</a>
-     * @deprecated Use Java 7's {@link java.nio.charset.StandardCharsets}
-     */
-    @Deprecated
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.nio.charset` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/io/Charsets.java`
-#### Snippet
-```java
-     *
-     * @see <a href="https://docs.oracle.com/javase/7/docs/api/java/nio/charset/Charset.html">Standard charsets</a>
-     * @deprecated Use Java 7's {@link java.nio.charset.StandardCharsets}
-     */
-    @Deprecated
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.nio.file` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/io/filefilter/FileEqualsFileFilter.java`
-#### Snippet
-```java
- * Accepts only an exact {@link File} object match. You can use this filter to visit the start directory when walking a
- * file tree with
- * {@link java.nio.file.Files#walkFileTree(java.nio.file.Path, java.util.Set, int, java.nio.file.FileVisitor)}.
- *
- * @since 2.9.0
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.io` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/io/input/QueueInputStream.java`
-#### Snippet
-```java
-
-/**
- * Simple alternative to JDK {@link java.io.PipedInputStream}; queue input stream provides what's written in queue
- * output stream.
- *
-```
-
-### UnnecessaryFullyQualifiedName
 Qualifier `java.nio.file` is unnecessary and can be removed
 in `src/main/java/org/apache/commons/io/file/FilesUncheck.java`
 #### Snippet
@@ -3765,39 +3765,147 @@ in `src/main/java/org/apache/commons/io/file/FilesUncheck.java`
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `java.nio.file` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/io/file/DirectoryStreamFilter.java`
-#### Snippet
-```java
-
-/**
- * A {@link java.nio.file.DirectoryStream.Filter DirectoryStream.Filter} that delegates to a {@link PathFilter}.
- * <p>
- * You pass this filter to {@link java.nio.file.Files#newDirectoryStream(Path, DirectoryStream.Filter)
-```
-
-### UnnecessaryFullyQualifiedName
 Qualifier `java.io` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/io/input/ClassLoaderObjectInputStream.java`
+in `src/main/java/org/apache/commons/io/output/NullWriter.java`
 #### Snippet
 ```java
-     * @throws IOException in case of an I/O error
-     * @throws ClassNotFoundException if the Class cannot be found
-     * @see java.io.ObjectInputStream#resolveProxyClass(String[])
-     * @since 2.1
-     */
-```
+    }
 
-### UnnecessaryFullyQualifiedName
-Qualifier `java.io` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/io/input/CountingInputStream.java`
-#### Snippet
-```java
-     * @return the actual number of bytes skipped
-     * @throws IOException if an I/O error occurs.
-     * @see java.io.InputStream#skip(long)
-     */
+    /** @see java.io.Writer#flush() */
     @Override
+    public void flush() {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.io` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/io/output/NullWriter.java`
+#### Snippet
+```java
+    }
+
+    /** @see java.io.Writer#close() */
+    @Override
+    public void close() {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.commons.io` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/io/file/PathUtils.java`
+#### Snippet
+```java
+     * @throws NullPointerException if either input is null.
+     * @throws IOException if an I/O error occurs.
+     * @see org.apache.commons.io.FileUtils#contentEquals(java.io.File, java.io.File)
+     */
+    public static boolean fileContentEquals(final Path path1, final Path path2, final LinkOption[] linkOptions, final OpenOption[] openOptions)
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.io` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/io/file/PathUtils.java`
+#### Snippet
+```java
+     * @throws NullPointerException if either input is null.
+     * @throws IOException if an I/O error occurs.
+     * @see org.apache.commons.io.FileUtils#contentEquals(java.io.File, java.io.File)
+     */
+    public static boolean fileContentEquals(final Path path1, final Path path2, final LinkOption[] linkOptions, final OpenOption[] openOptions)
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.io` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/io/file/PathUtils.java`
+#### Snippet
+```java
+     * @throws NullPointerException if either input is null.
+     * @throws IOException if an I/O error occurs.
+     * @see org.apache.commons.io.FileUtils#contentEquals(java.io.File, java.io.File)
+     */
+    public static boolean fileContentEquals(final Path path1, final Path path2, final LinkOption[] linkOptions, final OpenOption[] openOptions)
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.commons.io` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/io/file/PathUtils.java`
+#### Snippet
+```java
+     * @throws NullPointerException if either input is null.
+     * @throws IOException if an I/O error occurs.
+     * @see org.apache.commons.io.FileUtils#contentEquals(java.io.File, java.io.File)
+     */
+    public static boolean fileContentEquals(final Path path1, final Path path2) throws IOException {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.io` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/io/file/PathUtils.java`
+#### Snippet
+```java
+     * @throws NullPointerException if either input is null.
+     * @throws IOException if an I/O error occurs.
+     * @see org.apache.commons.io.FileUtils#contentEquals(java.io.File, java.io.File)
+     */
+    public static boolean fileContentEquals(final Path path1, final Path path2) throws IOException {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.io` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/io/file/PathUtils.java`
+#### Snippet
+```java
+     * @throws NullPointerException if either input is null.
+     * @throws IOException if an I/O error occurs.
+     * @see org.apache.commons.io.FileUtils#contentEquals(java.io.File, java.io.File)
+     */
+    public static boolean fileContentEquals(final Path path1, final Path path2) throws IOException {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.io` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/io/file/PathUtils.java`
+#### Snippet
+```java
+     * <ul>
+     * <li>A directory to delete does not have to be empty.</li>
+     * <li>You get exceptions when a file or directory cannot be deleted; {@link java.io.File#delete()} returns a boolean.
+     * </ul>
+     *
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.io` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/io/file/PathUtils.java`
+#### Snippet
+```java
+     * <ul>
+     * <li>A directory to delete does not have to be empty.</li>
+     * <li>You get exceptions when a file or directory cannot be deleted; {@link java.io.File#delete()} returns a boolean.
+     * </ul>
+     *
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.io` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/io/file/PathUtils.java`
+#### Snippet
+```java
+     * <ul>
+     * <li>A directory to delete does not have to be empty.</li>
+     * <li>You get exceptions when a file or directory cannot be deleted; {@link java.io.File#delete()} returns a boolean.
+     * </ul>
+     *
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.commons.io` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/io/serialization/WildcardClassNameMatcher.java`
+#### Snippet
+```java
+/**
+ * A {@link ClassNameMatcher} that uses simplified regular expressions
+ *  provided by {@link org.apache.commons.io.FilenameUtils#wildcardMatch(String, String) FilenameUtils.wildcardMatch}
+ * <p>
+ * This object is immutable and thread-safe.
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -3806,20 +3914,8 @@ in `src/main/java/org/apache/commons/io/input/BoundedReader.java`
 #### Snippet
 ```java
      *
-     * @throws IOException If an I/O error occurs while calling the underlying reader's mark method
-     * @see java.io.Reader#mark(int)
-     */
-    @Override
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.io` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/io/input/BoundedReader.java`
-#### Snippet
-```java
-     * @return -1 on EOF or the character read
-     * @throws IOException If an I/O error occurs while calling the underlying reader's read method
-     * @see java.io.Reader#read()
+     * @throws IOException If an I/O error occurs while calling the underlying reader's reset method
+     * @see java.io.Reader#reset()
      */
     @Override
 ```
@@ -3841,9 +3937,9 @@ Qualifier `java.io` is unnecessary and can be removed
 in `src/main/java/org/apache/commons/io/input/BoundedReader.java`
 #### Snippet
 ```java
-     *
-     * @throws IOException If an I/O error occurs while calling the underlying reader's reset method
-     * @see java.io.Reader#reset()
+     * @return -1 on EOF or the character read
+     * @throws IOException If an I/O error occurs while calling the underlying reader's read method
+     * @see java.io.Reader#read()
      */
     @Override
 ```
@@ -3861,231 +3957,27 @@ in `src/main/java/org/apache/commons/io/input/BoundedReader.java`
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `java.io` is unnecessary, and can be replaced with an import
-in `src/main/java/org/apache/commons/io/output/ByteArrayOutputStream.java`
+Qualifier `java.io` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/io/input/BoundedReader.java`
 #### Snippet
 ```java
+     *
+     * @throws IOException If an I/O error occurs while calling the underlying reader's mark method
+     * @see java.io.Reader#mark(int)
+     */
     @Override
-    public synchronized InputStream toInputStream() {
-        return toInputStream(java.io.ByteArrayInputStream::new);
-    }
-
 ```
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `java.nio.file` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/io/filefilter/PathEqualsFileFilter.java`
+in `src/main/java/org/apache/commons/io/file/DirectoryStreamFilter.java`
 #### Snippet
 ```java
- * Accepts only an exact {@link Path} object match. You can use this filter to visit the start directory when walking a
- * file tree with
- * {@link java.nio.file.Files#walkFileTree(java.nio.file.Path, java.util.Set, int, java.nio.file.FileVisitor)}.
- *
- * @since 2.9.0
-```
 
-### UnnecessaryFullyQualifiedName
-Qualifier `java.io` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/io/output/NullWriter.java`
-#### Snippet
-```java
-    }
-
-    /** @see java.io.Writer#close() */
-    @Override
-    public void close() {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.io` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/io/output/NullWriter.java`
-#### Snippet
-```java
-    }
-
-    /** @see java.io.Writer#flush() */
-    @Override
-    public void flush() {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/io/output/AppendableWriter.java`
-#### Snippet
-```java
- * Object.
+/**
+ * A {@link java.nio.file.DirectoryStream.Filter DirectoryStream.Filter} that delegates to a {@link PathFilter}.
  * <p>
- * For example, can be used with a {@link java.lang.StringBuilder}
- * or {@link java.lang.StringBuffer}.
- * </p>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/io/output/AppendableWriter.java`
-#### Snippet
-```java
- * <p>
- * For example, can be used with a {@link java.lang.StringBuilder}
- * or {@link java.lang.StringBuffer}.
- * </p>
- *
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.io` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/io/FilenameUtils.java`
-#### Snippet
-```java
- * <p>
- * <b>NOTE</b>: You may be able to avoid using this class entirely simply by
- * using JDK {@link java.io.File File} objects and the two argument constructor
- * {@link java.io.File#File(java.io.File, String) File(File,String)}.
- * </p>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.io` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/io/FilenameUtils.java`
-#### Snippet
-```java
- * <b>NOTE</b>: You may be able to avoid using this class entirely simply by
- * using JDK {@link java.io.File File} objects and the two argument constructor
- * {@link java.io.File#File(java.io.File, String) File(File,String)}.
- * </p>
- * <p>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.io` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/io/FilenameUtils.java`
-#### Snippet
-```java
- * <b>NOTE</b>: You may be able to avoid using this class entirely simply by
- * using JDK {@link java.io.File File} objects and the two argument constructor
- * {@link java.io.File#File(java.io.File, String) File(File,String)}.
- * </p>
- * <p>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.commons.io.output` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/io/output/DeferredFileOutputStream.java`
-#### Snippet
-```java
-     * @return the current contents of this output stream.
-     * @throws IOException if this stream is not yet closed or an error occurs.
-     * @see org.apache.commons.io.output.ByteArrayOutputStream#toInputStream()
-     *
-     * @since 2.9.0
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.commons.io` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/io/file/PathUtils.java`
-#### Snippet
-```java
-     * @throws NullPointerException if either input is null.
-     * @throws IOException if an I/O error occurs.
-     * @see org.apache.commons.io.FileUtils#contentEquals(java.io.File, java.io.File)
-     */
-    public static boolean fileContentEquals(final Path path1, final Path path2) throws IOException {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.io` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/io/file/PathUtils.java`
-#### Snippet
-```java
-     * @throws NullPointerException if either input is null.
-     * @throws IOException if an I/O error occurs.
-     * @see org.apache.commons.io.FileUtils#contentEquals(java.io.File, java.io.File)
-     */
-    public static boolean fileContentEquals(final Path path1, final Path path2) throws IOException {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.io` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/io/file/PathUtils.java`
-#### Snippet
-```java
-     * @throws NullPointerException if either input is null.
-     * @throws IOException if an I/O error occurs.
-     * @see org.apache.commons.io.FileUtils#contentEquals(java.io.File, java.io.File)
-     */
-    public static boolean fileContentEquals(final Path path1, final Path path2) throws IOException {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.io` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/io/file/PathUtils.java`
-#### Snippet
-```java
-     * <ul>
-     * <li>A directory to delete does not have to be empty.</li>
-     * <li>You get exceptions when a file or directory cannot be deleted; {@link java.io.File#delete()} returns a boolean.
-     * </ul>
-     *
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.io` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/io/file/PathUtils.java`
-#### Snippet
-```java
-     * <ul>
-     * <li>A directory to delete does not have to be empty.</li>
-     * <li>You get exceptions when a file or directory cannot be deleted; {@link java.io.File#delete()} returns a boolean.
-     * </ul>
-     *
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.io` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/io/file/PathUtils.java`
-#### Snippet
-```java
-     * <ul>
-     * <li>A directory to delete does not have to be empty.</li>
-     * <li>You get exceptions when a file or directory cannot be deleted; {@link java.io.File#delete()} returns a boolean.
-     * </ul>
-     *
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.commons.io` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/io/file/PathUtils.java`
-#### Snippet
-```java
-     * @throws NullPointerException if either input is null.
-     * @throws IOException if an I/O error occurs.
-     * @see org.apache.commons.io.FileUtils#contentEquals(java.io.File, java.io.File)
-     */
-    public static boolean fileContentEquals(final Path path1, final Path path2, final LinkOption[] linkOptions, final OpenOption[] openOptions)
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.io` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/io/file/PathUtils.java`
-#### Snippet
-```java
-     * @throws NullPointerException if either input is null.
-     * @throws IOException if an I/O error occurs.
-     * @see org.apache.commons.io.FileUtils#contentEquals(java.io.File, java.io.File)
-     */
-    public static boolean fileContentEquals(final Path path1, final Path path2, final LinkOption[] linkOptions, final OpenOption[] openOptions)
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.io` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/io/file/PathUtils.java`
-#### Snippet
-```java
-     * @throws NullPointerException if either input is null.
-     * @throws IOException if an I/O error occurs.
-     * @see org.apache.commons.io.FileUtils#contentEquals(java.io.File, java.io.File)
-     */
-    public static boolean fileContentEquals(final Path path1, final Path path2, final LinkOption[] linkOptions, final OpenOption[] openOptions)
+ * You pass this filter to {@link java.nio.file.Files#newDirectoryStream(Path, DirectoryStream.Filter)
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -4102,26 +3994,110 @@ in `src/main/java/org/apache/commons/io/CopyUtils.java`
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `java.nio.file` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/io/FileUtils.java`
+in `src/main/java/org/apache/commons/io/filefilter/FileEqualsFileFilter.java`
 #### Snippet
 ```java
-    /**
-     * Returns the last modification time in milliseconds via
-     * {@link java.nio.file.Files#getLastModifiedTime(Path, LinkOption...)}.
-     * <p>
-     * For the best precision, use {@link #lastModifiedFileTime(File)}.
+ * Accepts only an exact {@link File} object match. You can use this filter to visit the start directory when walking a
+ * file tree with
+ * {@link java.nio.file.Files#walkFileTree(java.nio.file.Path, java.util.Set, int, java.nio.file.FileVisitor)}.
+ *
+ * @since 2.9.0
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `java.nio.file.attribute` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/io/FileUtils.java`
+Qualifier `java.util.stream` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/io/function/IOBaseStream.java`
 #### Snippet
 ```java
      *
-     * @param file The File to query.
-     * @return See {@link java.nio.file.attribute.FileTime#toMillis()}.
+     * @return See {@link BaseStream#unordered() delegate}.
+     * @see java.util.stream.BaseStream#unordered()
+     */
+    @SuppressWarnings("resource") // for unwrap()
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.io` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/io/FilenameUtils.java`
+#### Snippet
+```java
+ * <p>
+ * <b>NOTE</b>: You may be able to avoid using this class entirely simply by
+ * using JDK {@link java.io.File File} objects and the two argument constructor
+ * {@link java.io.File#File(java.io.File, String) File(File,String)}.
+ * </p>
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.io` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/io/FilenameUtils.java`
+#### Snippet
+```java
+ * <b>NOTE</b>: You may be able to avoid using this class entirely simply by
+ * using JDK {@link java.io.File File} objects and the two argument constructor
+ * {@link java.io.File#File(java.io.File, String) File(File,String)}.
+ * </p>
+ * <p>
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.io` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/io/FilenameUtils.java`
+#### Snippet
+```java
+ * <b>NOTE</b>: You may be able to avoid using this class entirely simply by
+ * using JDK {@link java.io.File File} objects and the two argument constructor
+ * {@link java.io.File#File(java.io.File, String) File(File,String)}.
+ * </p>
+ * <p>
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.io` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/io/output/FileWriterWithEncoding.java`
+#### Snippet
+```java
+ * <p>
+ * The encoding must be specified using either the name of the {@link Charset}, the {@link Charset}, or a
+ * {@link CharsetEncoder}. If the default encoding is required then use the {@link java.io.FileWriter} directly, rather
+ * than this implementation.
+ * </p>
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.io` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/io/input/ClassLoaderObjectInputStream.java`
+#### Snippet
+```java
+     * @throws IOException in case of an I/O error
+     * @throws ClassNotFoundException if the Class cannot be found
+     * @see java.io.ObjectInputStream#resolveProxyClass(String[])
+     * @since 2.1
+     */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.io` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/io/input/QueueInputStream.java`
+#### Snippet
+```java
+
+/**
+ * Simple alternative to JDK {@link java.io.PipedInputStream}; queue input stream provides what's written in queue
+ * output stream.
+ *
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.io` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/io/input/CountingInputStream.java`
+#### Snippet
+```java
+     * @return the actual number of bytes skipped
      * @throws IOException if an I/O error occurs.
-     * @since 2.9.0
+     * @see java.io.InputStream#skip(long)
+     */
+    @Override
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -4133,55 +4109,7 @@ in `src/main/java/org/apache/commons/io/FileUtils.java`
      * @throws IOException if an I/O error occurs.
      * @throws java.nio.charset.UnsupportedCharsetException thrown instead of {@link java.io
      * .UnsupportedEncodingException} in version 2.2 if the named charset is unavailable.
-     * @since 2.3
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.nio.file` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/io/FileUtils.java`
-#### Snippet
-```java
-    /**
-     * Returns the last modification {@link FileTime} via
-     * {@link java.nio.file.Files#getLastModifiedTime(Path, LinkOption...)}.
-     * <p>
-     * Use this method to avoid issues with {@link File#lastModified()} like
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.nio.file` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/io/FileUtils.java`
-#### Snippet
-```java
-     *
-     * @param file The File to query.
-     * @return See {@link java.nio.file.Files#getLastModifiedTime(Path, LinkOption...)}.
-     * @throws IOException if an I/O error occurs.
-     * @since 2.12.0
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.commons.io.file` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/io/FileUtils.java`
-#### Snippet
-```java
-     * @throws IllegalArgumentException when an input is not a file.
-     * @throws IOException If an I/O error occurs.
-     * @see org.apache.commons.io.file.PathUtils#fileContentEquals(Path,Path,java.nio.file.LinkOption[],java.nio.file.OpenOption...)
-     */
-    public static boolean contentEquals(final File file1, final File file2) throws IOException {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.nio.file` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/io/FileUtils.java`
-#### Snippet
-```java
-     * @throws IllegalArgumentException when an input is not a file.
-     * @throws IOException If an I/O error occurs.
-     * @see org.apache.commons.io.file.PathUtils#fileContentEquals(Path,Path,java.nio.file.LinkOption[],java.nio.file.OpenOption...)
-     */
-    public static boolean contentEquals(final File file1, final File file2) throws IOException {
+     * @since 1.1
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -4221,15 +4149,27 @@ in `src/main/java/org/apache/commons/io/FileUtils.java`
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `java.nio.charset` is unnecessary and can be removed
+Qualifier `java.nio.file` is unnecessary and can be removed
 in `src/main/java/org/apache/commons/io/FileUtils.java`
 #### Snippet
 ```java
-     *         other reason cannot be opened for reading.
+    /**
+     * Returns the last modification time in milliseconds via
+     * {@link java.nio.file.Files#getLastModifiedTime(Path, LinkOption...)}.
+     * <p>
+     * For the best precision, use {@link #lastModifiedFileTime(File)}.
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.nio.file.attribute` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/io/FileUtils.java`
+#### Snippet
+```java
+     *
+     * @param file The File to query.
+     * @return See {@link java.nio.file.attribute.FileTime#toMillis()}.
      * @throws IOException if an I/O error occurs.
-     * @throws java.nio.charset.UnsupportedCharsetException thrown instead of {@link java.io
-     * .UnsupportedEncodingException} in version 2.2 if the named charset is unavailable.
-     * @since 1.1
+     * @since 2.9.0
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -4245,15 +4185,15 @@ in `src/main/java/org/apache/commons/io/FileUtils.java`
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.commons.io` is unnecessary and can be removed
+Qualifier `java.nio.charset` is unnecessary and can be removed
 in `src/main/java/org/apache/commons/io/FileUtils.java`
 #### Snippet
 ```java
-     *                   search. Use TrueFileFilter.INSTANCE to match all directories.
-     * @return a collection of java.io.File with the matching files
-     * @see org.apache.commons.io.FileUtils#listFiles
-     * @see org.apache.commons.io.filefilter.FileFilterUtils
-     * @see org.apache.commons.io.filefilter.NameFileFilter
+     *         other reason cannot be opened for reading.
+     * @throws IOException if an I/O error occurs.
+     * @throws java.nio.charset.UnsupportedCharsetException thrown instead of {@link java.io
+     * .UnsupportedEncodingException} in version 2.2 if the named charset is unavailable.
+     * @since 2.3
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -4269,6 +4209,66 @@ in `src/main/java/org/apache/commons/io/FileUtils.java`
 ```
 
 ### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.commons.io` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/io/FileUtils.java`
+#### Snippet
+```java
+     *                   search. Use TrueFileFilter.INSTANCE to match all directories.
+     * @return a collection of java.io.File with the matching files
+     * @see org.apache.commons.io.FileUtils#listFiles
+     * @see org.apache.commons.io.filefilter.FileFilterUtils
+     * @see org.apache.commons.io.filefilter.NameFileFilter
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.commons.io.file` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/io/FileUtils.java`
+#### Snippet
+```java
+     * @throws IllegalArgumentException when an input is not a file.
+     * @throws IOException If an I/O error occurs.
+     * @see org.apache.commons.io.file.PathUtils#fileContentEquals(Path,Path,java.nio.file.LinkOption[],java.nio.file.OpenOption...)
+     */
+    public static boolean contentEquals(final File file1, final File file2) throws IOException {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.nio.file` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/io/FileUtils.java`
+#### Snippet
+```java
+     * @throws IllegalArgumentException when an input is not a file.
+     * @throws IOException If an I/O error occurs.
+     * @see org.apache.commons.io.file.PathUtils#fileContentEquals(Path,Path,java.nio.file.LinkOption[],java.nio.file.OpenOption...)
+     */
+    public static boolean contentEquals(final File file1, final File file2) throws IOException {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.nio.file` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/io/FileUtils.java`
+#### Snippet
+```java
+    /**
+     * Returns the last modification {@link FileTime} via
+     * {@link java.nio.file.Files#getLastModifiedTime(Path, LinkOption...)}.
+     * <p>
+     * Use this method to avoid issues with {@link File#lastModified()} like
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.nio.file` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/io/FileUtils.java`
+#### Snippet
+```java
+     *
+     * @param file The File to query.
+     * @return See {@link java.nio.file.Files#getLastModifiedTime(Path, LinkOption...)}.
+     * @throws IOException if an I/O error occurs.
+     * @since 2.12.0
+```
+
+### UnnecessaryFullyQualifiedName
 Qualifier `java.util` is unnecessary and can be removed
 in `src/main/java/org/apache/commons/io/function/IOStream.java`
 #### Snippet
@@ -4281,18 +4281,6 @@ in `src/main/java/org/apache/commons/io/function/IOStream.java`
 ```
 
 ## RuleId[ruleID=NonProtectedConstructorInAbstractClass]
-### NonProtectedConstructorInAbstractClass
-Constructor `ProxyInputStream()` of an abstract class should not be declared 'public'
-in `src/main/java/org/apache/commons/io/input/ProxyInputStream.java`
-#### Snippet
-```java
-     * @param proxy  the InputStream to delegate to
-     */
-    public ProxyInputStream(final InputStream proxy) {
-        super(proxy);
-        // the proxy is stored in a protected superclass variable named 'in'
-```
-
 ### NonProtectedConstructorInAbstractClass
 Constructor `AbstractFileFilter()` of an abstract class should not be declared 'public'
 in `src/main/java/org/apache/commons/io/filefilter/AbstractFileFilter.java`
@@ -4317,41 +4305,65 @@ in `src/main/java/org/apache/commons/io/input/ProxyReader.java`
         // the proxy is stored in a protected superclass variable named 'in'
 ```
 
-## RuleId[ruleID=AssignmentToMethodParameter]
-### AssignmentToMethodParameter
-Assignment to method parameter `off`
-in `src/main/java/org/apache/commons/io/input/CharSequenceInputStream.java`
+### NonProtectedConstructorInAbstractClass
+Constructor `ProxyInputStream()` of an abstract class should not be declared 'public'
+in `src/main/java/org/apache/commons/io/input/ProxyInputStream.java`
 #### Snippet
 ```java
-                final int chunk = Math.min(this.bBuf.remaining(), len);
-                this.bBuf.get(array, off, chunk);
-                off += chunk;
-                len -= chunk;
-                bytesRead += chunk;
+     * @param proxy  the InputStream to delegate to
+     */
+    public ProxyInputStream(final InputStream proxy) {
+        super(proxy);
+        // the proxy is stored in a protected superclass variable named 'in'
+```
+
+## RuleId[ruleID=AssignmentToMethodParameter]
+### AssignmentToMethodParameter
+Assignment to method parameter `offset`
+in `src/main/java/org/apache/commons/io/input/UnsynchronizedBufferedInputStream.java`
+#### Snippet
+```java
+                return copylength;
+            }
+            offset += copylength;
+            required = length - copylength;
+        } else {
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `offset`
+in `src/main/java/org/apache/commons/io/input/UnsynchronizedBufferedInputStream.java`
+#### Snippet
+```java
+                return length - required;
+            }
+            offset += read;
+        }
+    }
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `localBuf`
+in `src/main/java/org/apache/commons/io/input/UnsynchronizedBufferedInputStream.java`
+#### Snippet
+```java
+            // Reassign buf, which will invalidate any local references
+            // FIXME: what if buf was null?
+            localBuf = buf = newbuf;
+        } else if (markpos > 0) {
+            System.arraycopy(localBuf, markpos, localBuf, 0, localBuf.length - markpos);
 ```
 
 ### AssignmentToMethodParameter
 Assignment to method parameter `len`
-in `src/main/java/org/apache/commons/io/input/CharSequenceInputStream.java`
+in `src/main/java/org/apache/commons/io/input/BufferedFileChannelInputStream.java`
 #### Snippet
 ```java
-                this.bBuf.get(array, off, chunk);
-                off += chunk;
-                len -= chunk;
-                bytesRead += chunk;
-            } else {
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `n`
-in `src/main/java/org/apache/commons/io/input/CharSequenceInputStream.java`
-#### Snippet
-```java
-        while (n > 0 && available() > 0) {
-            this.read();
-            n--;
-            skipped++;
+            return EOF;
         }
+        len = Math.min(len, byteBuffer.remaining());
+        byteBuffer.get(b, offset, len);
+        return len;
 ```
 
 ### AssignmentToMethodParameter
@@ -4379,39 +4391,15 @@ in `src/main/java/org/apache/commons/io/input/BOMInputStream.java`
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `len`
-in `src/main/java/org/apache/commons/io/input/ReadAheadInputStream.java`
+Assignment to method parameter `lockDir`
+in `src/main/java/org/apache/commons/io/output/LockableFileWriter.java`
 #### Snippet
 ```java
-            }
+        // init lock file
+        if (lockDir == null) {
+            lockDir = FileUtils.getTempDirectoryPath();
         }
-        len = Math.min(len, activeBuffer.remaining());
-        activeBuffer.get(b, offset, len);
-
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `off`
-in `src/main/java/org/apache/commons/io/input/SequenceReader.java`
-#### Snippet
-```java
-            } else {
-                count += readLen;
-                off += readLen;
-                len -= readLen;
-                if (len <= 0) {
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `len`
-in `src/main/java/org/apache/commons/io/input/SequenceReader.java`
-#### Snippet
-```java
-                count += readLen;
-                off += readLen;
-                len -= readLen;
-                if (len <= 0) {
-                    break;
+        final File lockDirFile = new File(lockDir);
 ```
 
 ### AssignmentToMethodParameter
@@ -4451,27 +4439,99 @@ in `src/main/java/org/apache/commons/io/input/XmlStreamReader.java`
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `lockDir`
-in `src/main/java/org/apache/commons/io/output/LockableFileWriter.java`
+Assignment to method parameter `start`
+in `src/main/java/org/apache/commons/io/FileSystem.java`
 #### Snippet
 ```java
-        // init lock file
-        if (lockDir == null) {
-            lockDir = FileUtils.getTempDirectoryPath();
+        final int sz = cs.length();
+        if (start < 0) {
+            start = 0;
         }
-        final File lockDirFile = new File(lockDir);
+        if (searchChar < Character.MIN_SUPPLEMENTARY_CODE_POINT) {
 ```
 
 ### AssignmentToMethodParameter
 Assignment to method parameter `len`
-in `src/main/java/org/apache/commons/io/input/BufferedFileChannelInputStream.java`
+in `src/main/java/org/apache/commons/io/output/WriterOutputStream.java`
 #### Snippet
 ```java
-            return EOF;
+            decoderIn.put(b, off, c);
+            processInput(false);
+            len -= c;
+            off += c;
         }
-        len = Math.min(len, byteBuffer.remaining());
-        byteBuffer.get(b, offset, len);
-        return len;
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `off`
+in `src/main/java/org/apache/commons/io/output/WriterOutputStream.java`
+#### Snippet
+```java
+            processInput(false);
+            len -= c;
+            off += c;
+        }
+        if (writeImmediately) {
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `off`
+in `src/main/java/org/apache/commons/io/input/SequenceReader.java`
+#### Snippet
+```java
+            } else {
+                count += readLen;
+                off += readLen;
+                len -= readLen;
+                if (len <= 0) {
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `len`
+in `src/main/java/org/apache/commons/io/input/SequenceReader.java`
+#### Snippet
+```java
+                count += readLen;
+                off += readLen;
+                len -= readLen;
+                if (len <= 0) {
+                    break;
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `len`
+in `src/main/java/org/apache/commons/io/input/ReadAheadInputStream.java`
+#### Snippet
+```java
+            }
+        }
+        len = Math.min(len, activeBuffer.remaining());
+        activeBuffer.get(b, offset, len);
+
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `lineEnding`
+in `src/main/java/org/apache/commons/io/IOUtils.java`
+#### Snippet
+```java
+        }
+        if (lineEnding == null) {
+            lineEnding = System.lineSeparator();
+        }
+        for (final Object line : lines) {
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `lineEnding`
+in `src/main/java/org/apache/commons/io/IOUtils.java`
+#### Snippet
+```java
+        }
+        if (lineEnding == null) {
+            lineEnding = System.lineSeparator();
+        }
+        final Charset cs = Charsets.toCharset(charset);
 ```
 
 ### AssignmentToMethodParameter
@@ -4496,6 +4556,42 @@ in `src/main/java/org/apache/commons/io/input/ReaderInputStream.java`
                 len -= c;
                 read += c;
             } else if (endOfInput) { // Already reach EOF in the last read
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `n`
+in `src/main/java/org/apache/commons/io/input/CharSequenceInputStream.java`
+#### Snippet
+```java
+        while (n > 0 && available() > 0) {
+            this.read();
+            n--;
+            skipped++;
+        }
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `off`
+in `src/main/java/org/apache/commons/io/input/CharSequenceInputStream.java`
+#### Snippet
+```java
+                final int chunk = Math.min(this.bBuf.remaining(), len);
+                this.bBuf.get(array, off, chunk);
+                off += chunk;
+                len -= chunk;
+                bytesRead += chunk;
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `len`
+in `src/main/java/org/apache/commons/io/input/CharSequenceInputStream.java`
+#### Snippet
+```java
+                this.bBuf.get(array, off, chunk);
+                off += chunk;
+                len -= chunk;
+                bytesRead += chunk;
+            } else {
 ```
 
 ### AssignmentToMethodParameter
@@ -4532,18 +4628,6 @@ in `src/main/java/org/apache/commons/io/FilenameUtils.java`
         ioCase = IOCase.value(ioCase, IOCase.SENSITIVE);
         final String[] wcs = splitOnTokens(wildcardMatcher);
         boolean anyChars = false;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `start`
-in `src/main/java/org/apache/commons/io/FileSystem.java`
-#### Snippet
-```java
-        final int sz = cs.length();
-        if (start < 0) {
-            start = 0;
-        }
-        if (searchChar < Character.MIN_SUPPLEMENTARY_CODE_POINT) {
 ```
 
 ### AssignmentToMethodParameter
@@ -4594,90 +4678,6 @@ in `src/main/java/org/apache/commons/io/DirectoryWalker.java`
         }
 ```
 
-### AssignmentToMethodParameter
-Assignment to method parameter `localBuf`
-in `src/main/java/org/apache/commons/io/input/UnsynchronizedBufferedInputStream.java`
-#### Snippet
-```java
-            // Reassign buf, which will invalidate any local references
-            // FIXME: what if buf was null?
-            localBuf = buf = newbuf;
-        } else if (markpos > 0) {
-            System.arraycopy(localBuf, markpos, localBuf, 0, localBuf.length - markpos);
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `offset`
-in `src/main/java/org/apache/commons/io/input/UnsynchronizedBufferedInputStream.java`
-#### Snippet
-```java
-                return copylength;
-            }
-            offset += copylength;
-            required = length - copylength;
-        } else {
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `offset`
-in `src/main/java/org/apache/commons/io/input/UnsynchronizedBufferedInputStream.java`
-#### Snippet
-```java
-                return length - required;
-            }
-            offset += read;
-        }
-    }
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `lineEnding`
-in `src/main/java/org/apache/commons/io/IOUtils.java`
-#### Snippet
-```java
-        }
-        if (lineEnding == null) {
-            lineEnding = System.lineSeparator();
-        }
-        final Charset cs = Charsets.toCharset(charset);
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `lineEnding`
-in `src/main/java/org/apache/commons/io/IOUtils.java`
-#### Snippet
-```java
-        }
-        if (lineEnding == null) {
-            lineEnding = System.lineSeparator();
-        }
-        for (final Object line : lines) {
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `len`
-in `src/main/java/org/apache/commons/io/output/WriterOutputStream.java`
-#### Snippet
-```java
-            decoderIn.put(b, off, c);
-            processInput(false);
-            len -= c;
-            off += c;
-        }
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `off`
-in `src/main/java/org/apache/commons/io/output/WriterOutputStream.java`
-#### Snippet
-```java
-            processInput(false);
-            len -= c;
-            off += c;
-        }
-        if (writeImmediately) {
-```
-
 ## RuleId[ruleID=UnnecessaryContinue]
 ### UnnecessaryContinue
 `continue` is unnecessary as the last statement in a loop
@@ -4706,24 +4706,72 @@ in `src/main/java/org/apache/commons/io/input/BOMInputStream.java`
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/org/apache/commons/io/file/attribute/FileTimes.java`
+in `src/main/java/org/apache/commons/io/input/ReversedLinesFileReader.java`
+#### Snippet
+```java
+                        + new String(leftOver, charset));
+            }
+            return null;
+        }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/io/FileSystem.java`
 #### Snippet
 ```java
      */
-    public static Date toDate(final FileTime fileTime) {
-        return fileTime != null ? new Date(fileTime.toMillis()) : null;
+    private static String replace(final String path, final char oldChar, final char newChar) {
+        return path == null ? null : path.replace(oldChar, newChar);
+    }
+    private final boolean casePreserving;
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/io/FileSystem.java`
+#### Snippet
+```java
+            System.err.println("Caught a SecurityException reading the system property '" + property
+                    + "'; the SystemUtils property value will default to null.");
+            return null;
+        }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/io/output/DeferredFileOutputStream.java`
+#### Snippet
+```java
+
+    private Path toPath(final File file, final Supplier<Path> defaultPathSupplier) {
+        return file != null ? file.toPath() : defaultPathSupplier == null ? null : defaultPathSupplier.get();
     }
 
 ```
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/org/apache/commons/io/file/attribute/FileTimes.java`
+in `src/main/java/org/apache/commons/io/output/DeferredFileOutputStream.java`
 #### Snippet
 ```java
      */
-    public static FileTime toFileTime(final Date date) {
-        return date != null ? FileTime.fromMillis(date.getTime()) : null;
+    public File getFile() {
+        return outputPath != null ? outputPath.toFile() : null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/io/output/DeferredFileOutputStream.java`
+#### Snippet
+```java
+     */
+    public byte[] getData() {
+        return memoryOutputStream != null ? memoryOutputStream.toByteArray() : null;
     }
 
 ```
@@ -4742,23 +4790,59 @@ in `src/main/java/org/apache/commons/io/function/Constants.java`
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/org/apache/commons/io/ThreadMonitor.java`
+in `src/main/java/org/apache/commons/io/file/attribute/FileTimes.java`
 #### Snippet
 ```java
-    static Thread start(final Thread thread, final Duration timeout) {
-        if (timeout.isZero() || timeout.isNegative()) {
-            return null;
-        }
-        final Thread monitor = new Thread(new ThreadMonitor(thread, timeout), ThreadMonitor.class.getSimpleName());
+     */
+    public static FileTime toFileTime(final Date date) {
+        return date != null ? FileTime.fromMillis(date.getTime()) : null;
+    }
+
 ```
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/org/apache/commons/io/input/ReversedLinesFileReader.java`
+in `src/main/java/org/apache/commons/io/file/attribute/FileTimes.java`
 #### Snippet
 ```java
-                        + new String(leftOver, charset));
-            }
+     */
+    public static Date toDate(final FileTime fileTime) {
+        return fileTime != null ? new Date(fileTime.toMillis()) : null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/io/file/PathUtils.java`
+#### Snippet
+```java
+
+    private static Path readIfSymbolicLink(final Path path) throws IOException {
+        return path != null ? Files.isSymbolicLink(path) ? Files.readSymbolicLink(path) : path : null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/io/file/PathUtils.java`
+#### Snippet
+```java
+    public static <A extends BasicFileAttributes> A readAttributes(final Path path, final Class<A> type, final LinkOption... options) {
+        try {
+            return path == null ? null : Uncheck.apply(Files::readAttributes, path, type, options);
+        } catch (final UnsupportedOperationException e) {
+            // For example, on Windows.
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/io/file/PathUtils.java`
+#### Snippet
+```java
+        } catch (final UnsupportedOperationException e) {
+            // For example, on Windows.
             return null;
         }
     }
@@ -4766,14 +4850,98 @@ in `src/main/java/org/apache/commons/io/input/ReversedLinesFileReader.java`
 
 ### ReturnNull
 Return of `null`
+in `src/main/java/org/apache/commons/io/file/PathUtils.java`
+#### Snippet
+```java
+
+    private static Path getParent(final Path path) {
+        return path == null ? null : path.getParent();
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/io/file/PathUtils.java`
+#### Snippet
+```java
+        Path parent = getParent(path);
+        parent = linkOption == LinkOption.NOFOLLOW_LINKS ? parent : readIfSymbolicLink(parent);
+        return parent == null ? null : Files.createDirectories(parent, attrs);
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/io/file/PathUtils.java`
+#### Snippet
+```java
+    public static List<AclEntry> getAclEntryList(final Path sourcePath) throws IOException {
+        final AclFileAttributeView fileAttributeView = getAclFileAttributeView(sourcePath);
+        return fileAttributeView == null ? null : fileAttributeView.getAcl();
+    }
+
+```
+
+### ReturnNull
+Return of `null`
 in `src/main/java/org/apache/commons/io/FilenameUtils.java`
 #### Snippet
 ```java
-    public static String getName(final String fileName) {
+    private static String doGetPath(final String fileName, final int separatorAdd) {
         if (fileName == null) {
             return null;
         }
-        return requireNonNullChars(fileName).substring(indexOfLastSeparator(fileName) + 1);
+        final int prefix = getPrefixLength(fileName);
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/io/FilenameUtils.java`
+#### Snippet
+```java
+        final int prefix = getPrefixLength(fileName);
+        if (prefix < 0) {
+            return null;
+        }
+        final int index = indexOfLastSeparator(fileName);
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/io/FilenameUtils.java`
+#### Snippet
+```java
+    private static String doNormalize(final String fileName, final char separator, final boolean keepSeparator) {
+        if (fileName == null) {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/io/FilenameUtils.java`
+#### Snippet
+```java
+        final int prefix = getPrefixLength(fileName);
+        if (prefix < 0) {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/io/FilenameUtils.java`
+#### Snippet
+```java
+                    (i == prefix + 2 || array[i - 3] == separator)) {
+                if (i == prefix + 2) {
+                    return null;
+                }
+                if (i == size - 1) {
 ```
 
 ### ReturnNull
@@ -4829,30 +4997,6 @@ Return of `null`
 in `src/main/java/org/apache/commons/io/FilenameUtils.java`
 #### Snippet
 ```java
-    private static String doGetPath(final String fileName, final int separatorAdd) {
-        if (fileName == null) {
-            return null;
-        }
-        final int prefix = getPrefixLength(fileName);
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/io/FilenameUtils.java`
-#### Snippet
-```java
-        final int prefix = getPrefixLength(fileName);
-        if (prefix < 0) {
-            return null;
-        }
-        final int index = indexOfLastSeparator(fileName);
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/io/FilenameUtils.java`
-#### Snippet
-```java
         final int prefix = getPrefixLength(fullFileNameToAdd);
         if (prefix < 0) {
             return null;
@@ -4877,35 +5021,11 @@ Return of `null`
 in `src/main/java/org/apache/commons/io/FilenameUtils.java`
 #### Snippet
 ```java
-    private static String doNormalize(final String fileName, final char separator, final boolean keepSeparator) {
+    public static String getName(final String fileName) {
         if (fileName == null) {
             return null;
         }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/io/FilenameUtils.java`
-#### Snippet
-```java
-        final int prefix = getPrefixLength(fileName);
-        if (prefix < 0) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/io/FilenameUtils.java`
-#### Snippet
-```java
-                    (i == prefix + 2 || array[i - 3] == separator)) {
-                if (i == prefix + 2) {
-                    return null;
-                }
-                if (i == size - 1) {
+        return requireNonNullChars(fileName).substring(indexOfLastSeparator(fileName) + 1);
 ```
 
 ### ReturnNull
@@ -4934,134 +5054,14 @@ in `src/main/java/org/apache/commons/io/FilenameUtils.java`
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/org/apache/commons/io/FileSystem.java`
+in `src/main/java/org/apache/commons/io/ThreadMonitor.java`
 #### Snippet
 ```java
-            System.err.println("Caught a SecurityException reading the system property '" + property
-                    + "'; the SystemUtils property value will default to null.");
+    static Thread start(final Thread thread, final Duration timeout) {
+        if (timeout.isZero() || timeout.isNegative()) {
             return null;
         }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/io/FileSystem.java`
-#### Snippet
-```java
-     */
-    private static String replace(final String path, final char oldChar, final char newChar) {
-        return path == null ? null : path.replace(oldChar, newChar);
-    }
-    private final boolean casePreserving;
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/io/output/DeferredFileOutputStream.java`
-#### Snippet
-```java
-     */
-    public File getFile() {
-        return outputPath != null ? outputPath.toFile() : null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/io/output/DeferredFileOutputStream.java`
-#### Snippet
-```java
-     */
-    public byte[] getData() {
-        return memoryOutputStream != null ? memoryOutputStream.toByteArray() : null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/io/output/DeferredFileOutputStream.java`
-#### Snippet
-```java
-
-    private Path toPath(final File file, final Supplier<Path> defaultPathSupplier) {
-        return file != null ? file.toPath() : defaultPathSupplier == null ? null : defaultPathSupplier.get();
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/io/file/PathUtils.java`
-#### Snippet
-```java
-
-    private static Path getParent(final Path path) {
-        return path == null ? null : path.getParent();
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/io/file/PathUtils.java`
-#### Snippet
-```java
-    public static <A extends BasicFileAttributes> A readAttributes(final Path path, final Class<A> type, final LinkOption... options) {
-        try {
-            return path == null ? null : Uncheck.apply(Files::readAttributes, path, type, options);
-        } catch (final UnsupportedOperationException e) {
-            // For example, on Windows.
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/io/file/PathUtils.java`
-#### Snippet
-```java
-        } catch (final UnsupportedOperationException e) {
-            // For example, on Windows.
-            return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/io/file/PathUtils.java`
-#### Snippet
-```java
-
-    private static Path readIfSymbolicLink(final Path path) throws IOException {
-        return path != null ? Files.isSymbolicLink(path) ? Files.readSymbolicLink(path) : path : null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/io/file/PathUtils.java`
-#### Snippet
-```java
-        Path parent = getParent(path);
-        parent = linkOption == LinkOption.NOFOLLOW_LINKS ? parent : readIfSymbolicLink(parent);
-        return parent == null ? null : Files.createDirectories(parent, attrs);
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/io/file/PathUtils.java`
-#### Snippet
-```java
-    public static List<AclEntry> getAclEntryList(final Path sourcePath) throws IOException {
-        final AclFileAttributeView fileAttributeView = getAclFileAttributeView(sourcePath);
-        return fileAttributeView == null ? null : fileAttributeView.getAcl();
-    }
-
+        final Thread monitor = new Thread(new ThreadMonitor(thread, timeout), ThreadMonitor.class.getSimpleName());
 ```
 
 ### ReturnNull
