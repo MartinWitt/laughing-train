@@ -1,7 +1,7 @@
 # fhir-access-proxy 
  
 # Bad smells
-I found 40 bad smells with 6 repairable:
+I found 39 bad smells with 6 repairable:
 | ruleID | number | fixable |
 | --- | --- | --- |
 | ReturnNull | 8 | false |
@@ -15,22 +15,9 @@ I found 40 bad smells with 6 repairable:
 | ReplaceNullCheck | 1 | false |
 | MismatchedCollectionQueryUpdate | 1 | false |
 | MismatchedJavadocCode | 1 | false |
-| HtmlWrongAttributeValue | 1 | false |
 | UnnecessaryLocalVariable | 1 | true |
 | ConstantValue | 1 | false |
 ## RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-### UtilityClassWithoutPrivateConstructor
-Class `JwtUtil` has only 'static' members, and lacks a 'private' constructor
-in `server/src/main/java/com/google/fhir/gateway/JwtUtil.java`
-#### Snippet
-```java
-import com.auth0.jwt.interfaces.DecodedJWT;
-
-public class JwtUtil {
-  public static String getClaimOrDie(DecodedJWT jwt, String claimName) {
-    Claim claim = jwt.getClaim(claimName);
-```
-
 ### UtilityClassWithoutPrivateConstructor
 Class `ProxyConstants` has only 'static' members, and lacks a 'private' constructor
 in `server/src/main/java/com/google/fhir/gateway/ProxyConstants.java`
@@ -77,6 +64,18 @@ in `exec/src/main/java/com/google/fhir/gateway/MainApp.java`
 public class MainApp {
 
   public static void main(String[] args) {
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `JwtUtil` has only 'static' members, and lacks a 'private' constructor
+in `server/src/main/java/com/google/fhir/gateway/JwtUtil.java`
+#### Snippet
+```java
+import com.auth0.jwt.interfaces.DecodedJWT;
+
+public class JwtUtil {
+  public static String getClaimOrDie(DecodedJWT jwt, String claimName) {
+    Claim claim = jwt.getClaim(claimName);
 ```
 
 ## RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
@@ -219,18 +218,6 @@ in `server/src/main/java/com/google/fhir/gateway/FhirProxyServer.java`
 ## RuleId[ruleID=RedundantFieldInitialization]
 ### RedundantFieldInitialization
 Field initialization to `null` is redundant
-in `server/src/main/java/com/google/fhir/gateway/CapabilityPostProcessor.java`
-#### Snippet
-```java
-          + "header containing a JWT access token. This token must have been issued by the "
-          + "authorization server defined by the configured TOKEN_ISSUER.";
-  private static CapabilityPostProcessor instance = null;
-
-  private final FhirContext fhirContext;
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
 in `server/src/main/java/com/google/fhir/gateway/AllowedQueriesChecker.java`
 #### Snippet
 ```java
@@ -239,6 +226,18 @@ in `server/src/main/java/com/google/fhir/gateway/AllowedQueriesChecker.java`
   private AllowedQueriesConfig config = null;
 
   AllowedQueriesChecker(String configFile) throws IOException {
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `server/src/main/java/com/google/fhir/gateway/CapabilityPostProcessor.java`
+#### Snippet
+```java
+          + "header containing a JWT access token. This token must have been issued by the "
+          + "authorization server defined by the configured TOKEN_ISSUER.";
+  private static CapabilityPostProcessor instance = null;
+
+  private final FhirContext fhirContext;
 ```
 
 ### RedundantFieldInitialization
@@ -278,19 +277,6 @@ in `plugins/src/main/java/com/google/fhir/gateway/plugin/ListAccessChecker.java`
   @Override
 ```
 
-## RuleId[ruleID=HtmlWrongAttributeValue]
-### HtmlWrongAttributeValue
-Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-02-09-23-33-57.380.html`
-#### Snippet
-```java
-              <td>0</td>
-              <td>0</td>
-              <td><textarea rows="10" cols="75" readonly="true" placeholder="empty" style="white-space: pre; border: none">Not collected for refresh</textarea></td>
-            </tr>
-          </tbody>
-```
-
 ## RuleId[ruleID=ReturnNull]
 ### ReturnNull
 Return of `null`
@@ -306,11 +292,11 @@ in `server/src/main/java/com/google/fhir/gateway/FhirUtil.java`
 
 ### ReturnNull
 Return of `null`
-in `server/src/main/java/com/google/fhir/gateway/interfaces/NoOpAccessDecision.java`
+in `server/src/main/java/com/google/fhir/gateway/HttpUtil.java`
 #### Snippet
 ```java
-  @Override
-  public String postProcess(HttpResponse response) {
+          logger, "Error in building URI for resource " + uriString);
+    }
     return null;
   }
 
@@ -318,11 +304,11 @@ in `server/src/main/java/com/google/fhir/gateway/interfaces/NoOpAccessDecision.j
 
 ### ReturnNull
 Return of `null`
-in `server/src/main/java/com/google/fhir/gateway/HttpUtil.java`
+in `server/src/main/java/com/google/fhir/gateway/interfaces/NoOpAccessDecision.java`
 #### Snippet
 ```java
-          logger, "Error in building URI for resource " + uriString);
-    }
+  @Override
+  public String postProcess(HttpResponse response) {
     return null;
   }
 
@@ -357,11 +343,11 @@ Return of `null`
 in `server/src/main/java/com/google/fhir/gateway/PatientFinderImp.java`
 #### Snippet
 ```java
+          "Direct resource fetch is only supported for Patient; use search for " + resourceName,
+          InvalidRequestException.class);
+      return null;
     }
-    // It should never reach here!
-    return null;
-  }
-
+    Map<String, String[]> queryParams = requestDetails.getParameters();
 ```
 
 ### ReturnNull
@@ -381,11 +367,11 @@ Return of `null`
 in `server/src/main/java/com/google/fhir/gateway/PatientFinderImp.java`
 #### Snippet
 ```java
-          "Direct resource fetch is only supported for Patient; use search for " + resourceName,
-          InvalidRequestException.class);
-      return null;
     }
-    Map<String, String[]> queryParams = requestDetails.getParameters();
+    // It should never reach here!
+    return null;
+  }
+
 ```
 
 ## RuleId[ruleID=UnnecessaryLocalVariable]
@@ -402,30 +388,6 @@ in `server/src/main/java/com/google/fhir/gateway/AllowedQueriesConfig.java`
 ```
 
 ## RuleId[ruleID=BoundedWildcard]
-### BoundedWildcard
-Can generalize to `? extends List`
-in `server/src/main/java/com/google/fhir/gateway/PatientFinderImp.java`
-#### Snippet
-```java
-  private PatientFinderImp(
-      FhirContext fhirContext,
-      Map<String, List<String>> patientFhirPaths,
-      Map<String, List<String>> patientSearchParams,
-      boolean blockJoins) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends List`
-in `server/src/main/java/com/google/fhir/gateway/PatientFinderImp.java`
-#### Snippet
-```java
-      FhirContext fhirContext,
-      Map<String, List<String>> patientFhirPaths,
-      Map<String, List<String>> patientSearchParams,
-      boolean blockJoins) {
-    this.fhirContext = fhirContext;
-```
-
 ### BoundedWildcard
 Can generalize to `? super String`
 in `server/src/main/java/com/google/fhir/gateway/PatientFinderImp.java`
@@ -448,6 +410,30 @@ in `server/src/main/java/com/google/fhir/gateway/PatientFinderImp.java`
       final Map<String, List<String>> patientSearchParams) {
     for (CompartmentDefinitionResourceComponent resource : patientCompartment.getResource()) {
       String resourceType = resource.getCode();
+```
+
+### BoundedWildcard
+Can generalize to `? extends List`
+in `server/src/main/java/com/google/fhir/gateway/PatientFinderImp.java`
+#### Snippet
+```java
+  private PatientFinderImp(
+      FhirContext fhirContext,
+      Map<String, List<String>> patientFhirPaths,
+      Map<String, List<String>> patientSearchParams,
+      boolean blockJoins) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends List`
+in `server/src/main/java/com/google/fhir/gateway/PatientFinderImp.java`
+#### Snippet
+```java
+      FhirContext fhirContext,
+      Map<String, List<String>> patientFhirPaths,
+      Map<String, List<String>> patientSearchParams,
+      boolean blockJoins) {
+    this.fhirContext = fhirContext;
 ```
 
 ## RuleId[ruleID=ConstantValue]
