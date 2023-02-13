@@ -30,7 +30,7 @@ in `src/main/java/com/uber/h3core/H3CoreLoader.java`
 ## RuleId[ruleID=HtmlWrongAttributeValue]
 ### HtmlWrongAttributeValue
 Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-02-13-13-48-30.425.html`
+in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-02-13-13-59-33.297.html`
 #### Snippet
 ```java
               <td>0</td>
@@ -156,18 +156,6 @@ in `src/main/java/com/uber/h3core/H3CoreLoader.java`
 
 ## RuleId[ruleID=BoundedWildcard]
 ### BoundedWildcard
-Can generalize to `? extends List`
-in `src/main/java/com/uber/h3core/H3Core.java`
-#### Snippet
-```java
-   * @throws IllegalArgumentException Invalid resolution
-   */
-  public List<Long> polygonToCells(List<LatLng> points, List<List<LatLng>> holes, int res) {
-    checkResolution(res);
-
-```
-
-### BoundedWildcard
 Can generalize to `? extends LatLng`
 in `src/main/java/com/uber/h3core/H3Core.java`
 #### Snippet
@@ -176,6 +164,18 @@ in `src/main/java/com/uber/h3core/H3Core.java`
    */
   private static int packGeofenceVertices(double[] arr, List<LatLng> original, int offset) {
     assert arr.length >= (original.size() * 2) + offset;
+
+```
+
+### BoundedWildcard
+Can generalize to `? extends List`
+in `src/main/java/com/uber/h3core/H3Core.java`
+#### Snippet
+```java
+   * @throws IllegalArgumentException Invalid resolution
+   */
+  public List<Long> polygonToCells(List<LatLng> points, List<List<LatLng>> holes, int res) {
+    checkResolution(res);
 
 ```
 
