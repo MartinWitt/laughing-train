@@ -62,30 +62,6 @@ in `src/main/java/com/google/gradle/osdetector/OsDetector.java`
 
 ## RuleId[ruleID=UnstableApiUsage]
 ### UnstableApiUsage
-'systemProperty(java.lang.String)' is marked unstable with @Incubating
-in `src/main/java/com/google/gradle/osdetector/OsDetector.java`
-#### Snippet
-```java
-    @Override
-    public String getSystemProperty(String name, String def) {
-      return forUseAtConfigurationTime(getProviderFactory().systemProperty(name)).getOrElse(def);
-    }
-
-```
-
-### UnstableApiUsage
-'systemProperty(java.lang.String)' is marked unstable with @Incubating
-in `src/main/java/com/google/gradle/osdetector/OsDetector.java`
-#### Snippet
-```java
-    @Override
-    public String getSystemProperty(String name) {
-      return forUseAtConfigurationTime(getProviderFactory().systemProperty(name)).getOrNull();
-    }
-
-```
-
-### UnstableApiUsage
 'fileContents(org.gradle.api.file.RegularFile)' is marked unstable with @Incubating
 in `src/main/java/com/google/gradle/osdetector/OsDetector.java`
 #### Snippet
@@ -110,6 +86,18 @@ in `src/main/java/com/google/gradle/osdetector/OsDetector.java`
 ```
 
 ### UnstableApiUsage
+'systemProperty(java.lang.String)' is marked unstable with @Incubating
+in `src/main/java/com/google/gradle/osdetector/OsDetector.java`
+#### Snippet
+```java
+    @Override
+    public String getSystemProperty(String name, String def) {
+      return forUseAtConfigurationTime(getProviderFactory().systemProperty(name)).getOrElse(def);
+    }
+
+```
+
+### UnstableApiUsage
 'forUseAtConfigurationTime()' is marked unstable with @Incubating
 in `src/main/java/com/google/gradle/osdetector/OsDetector.java`
 #### Snippet
@@ -121,6 +109,18 @@ in `src/main/java/com/google/gradle/osdetector/OsDetector.java`
       return provider;
 ```
 
+### UnstableApiUsage
+'systemProperty(java.lang.String)' is marked unstable with @Incubating
+in `src/main/java/com/google/gradle/osdetector/OsDetector.java`
+#### Snippet
+```java
+    @Override
+    public String getSystemProperty(String name) {
+      return forUseAtConfigurationTime(getProviderFactory().systemProperty(name)).getOrNull();
+    }
+
+```
+
 ## RuleId[ruleID=UseOfPropertiesAsHashtable]
 ### UseOfPropertiesAsHashtable
 Call to `Hashtable.get()` on properties object
@@ -128,8 +128,8 @@ in `src/main/java/com/google/gradle/osdetector/OsDetector.java`
 #### Snippet
 ```java
 
-  public String getOs() {
-    return (String) getImpl().detectedProperties.get(Detector.DETECTED_NAME);
+  public String getArch() {
+    return (String) getImpl().detectedProperties.get(Detector.DETECTED_ARCH);
   }
 
 ```
@@ -139,10 +139,10 @@ Call to `Hashtable.get()` on properties object
 in `src/main/java/com/google/gradle/osdetector/OsDetector.java`
 #### Snippet
 ```java
-     */
-    public String getId() {
-      return (String) impl.detectedProperties.get(Detector.DETECTED_RELEASE);
-    }
+
+  public String getOs() {
+    return (String) getImpl().detectedProperties.get(Detector.DETECTED_NAME);
+  }
 
 ```
 
@@ -175,10 +175,10 @@ Call to `Hashtable.get()` on properties object
 in `src/main/java/com/google/gradle/osdetector/OsDetector.java`
 #### Snippet
 ```java
-
-  public String getArch() {
-    return (String) getImpl().detectedProperties.get(Detector.DETECTED_ARCH);
-  }
+     */
+    public String getVersion() {
+      return (String) impl.detectedProperties.get(Detector.DETECTED_RELEASE_VERSION);
+    }
 
 ```
 
@@ -188,8 +188,8 @@ in `src/main/java/com/google/gradle/osdetector/OsDetector.java`
 #### Snippet
 ```java
      */
-    public String getVersion() {
-      return (String) impl.detectedProperties.get(Detector.DETECTED_RELEASE_VERSION);
+    public String getId() {
+      return (String) impl.detectedProperties.get(Detector.DETECTED_RELEASE);
     }
 
 ```
