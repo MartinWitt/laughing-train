@@ -1,7 +1,7 @@
 # directory-scimple 
  
 # Bad smells
-I found 263 bad smells with 25 repairable:
+I found 262 bad smells with 25 repairable:
 | ruleID | number | fixable |
 | --- | --- | --- |
 | BoundedWildcard | 41 | false |
@@ -45,7 +45,6 @@ I found 263 bad smells with 25 repairable:
 | SamePackageImport | 1 | false |
 | FieldAccessedSynchronizedAndUnsynchronized | 1 | false |
 | StringRepeatCanBeUsed | 1 | false |
-| HtmlWrongAttributeValue | 1 | false |
 | AssignmentToLambdaParameter | 1 | false |
 | NonFinalFieldOfException | 1 | false |
 ## RuleId[ruleID=IOResource]
@@ -89,6 +88,18 @@ in `scim-client/src/main/java/org/apache/directory/scim/client/rest/RestClientUt
 ## RuleId[ruleID=UnnecessaryModifier]
 ### UnnecessaryModifier
 Modifier `public` is redundant for interface members
+in `scim-spec/scim-spec-schema/src/main/java/org/apache/directory/scim/spec/filter/ValueFilterExpression.java`
+#### Snippet
+```java
+public interface ValueFilterExpression {
+
+  public String toFilter();
+
+}
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
 in `scim-spec/scim-spec-protocol/src/main/java/org/apache/directory/scim/protocol/SelfResource.java`
 #### Snippet
 ```java
@@ -123,29 +134,17 @@ public interface SelfResource {
   /**
 ```
 
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `scim-spec/scim-spec-schema/src/main/java/org/apache/directory/scim/spec/filter/ValueFilterExpression.java`
-#### Snippet
-```java
-public interface ValueFilterExpression {
-
-  public String toFilter();
-
-}
-```
-
 ## RuleId[ruleID=FieldMayBeStatic]
 ### FieldMayBeStatic
-Field `GLOBAL_NUMBER_REGEX` may be 'static'
+Field `LOCAL_SUBSCRIBER_NUMBER_REGEX` may be 'static'
 in `scim-spec/scim-spec-schema/src/main/java/org/apache/directory/scim/spec/resources/PhoneNumber.java`
 #### Snippet
 ```java
+    final String CONTEXT_PREFIX = ";phone-context=%s";
+    final String PARAMS_STRING = ";%s=%s";
     final String LOCAL_SUBSCRIBER_NUMBER_REGEX = "^[\\d\\.\\-\\(\\)]+$";
     final String DOMAIN_NAME_REGEX = "^[a-zA-Z0-9\\.\\-]+$";
     final String GLOBAL_NUMBER_REGEX = "^(\\+)?[\\d\\.\\-\\(\\)]+$";
-    final String COUNTRY_CODE_REGEX = "^(\\+)?[1-9][0-9]{0,2}$";
-
 ```
 
 ### FieldMayBeStatic
@@ -161,27 +160,15 @@ in `scim-spec/scim-spec-schema/src/main/java/org/apache/directory/scim/spec/reso
 ```
 
 ### FieldMayBeStatic
-Field `PARAMS_STRING` may be 'static'
+Field `COUNTRY_CODE_REGEX` may be 'static'
 in `scim-spec/scim-spec-schema/src/main/java/org/apache/directory/scim/spec/resources/PhoneNumber.java`
 #### Snippet
 ```java
-    final String ISUB_PREFIX = ";isub=%s";
-    final String CONTEXT_PREFIX = ";phone-context=%s";
-    final String PARAMS_STRING = ";%s=%s";
-    final String LOCAL_SUBSCRIBER_NUMBER_REGEX = "^[\\d\\.\\-\\(\\)]+$";
     final String DOMAIN_NAME_REGEX = "^[a-zA-Z0-9\\.\\-]+$";
-```
+    final String GLOBAL_NUMBER_REGEX = "^(\\+)?[\\d\\.\\-\\(\\)]+$";
+    final String COUNTRY_CODE_REGEX = "^(\\+)?[1-9][0-9]{0,2}$";
 
-### FieldMayBeStatic
-Field `EXTENSTION_PREFIX` may be 'static'
-in `scim-spec/scim-spec-schema/src/main/java/org/apache/directory/scim/spec/resources/PhoneNumber.java`
-#### Snippet
-```java
-    final String INTERNATIONAL_PREFIX = "+";
-    final String PREFIX = "tel:%s";
-    final String EXTENSTION_PREFIX = ";ext=%s";
-    final String ISUB_PREFIX = ";isub=%s";
-    final String CONTEXT_PREFIX = ";phone-context=%s";
+    String number;
 ```
 
 ### FieldMayBeStatic
@@ -197,27 +184,27 @@ in `scim-spec/scim-spec-schema/src/main/java/org/apache/directory/scim/spec/reso
 ```
 
 ### FieldMayBeStatic
-Field `LOCAL_SUBSCRIBER_NUMBER_REGEX` may be 'static'
+Field `GLOBAL_NUMBER_REGEX` may be 'static'
 in `scim-spec/scim-spec-schema/src/main/java/org/apache/directory/scim/spec/resources/PhoneNumber.java`
 #### Snippet
 ```java
+    final String LOCAL_SUBSCRIBER_NUMBER_REGEX = "^[\\d\\.\\-\\(\\)]+$";
+    final String DOMAIN_NAME_REGEX = "^[a-zA-Z0-9\\.\\-]+$";
+    final String GLOBAL_NUMBER_REGEX = "^(\\+)?[\\d\\.\\-\\(\\)]+$";
+    final String COUNTRY_CODE_REGEX = "^(\\+)?[1-9][0-9]{0,2}$";
+
+```
+
+### FieldMayBeStatic
+Field `PARAMS_STRING` may be 'static'
+in `scim-spec/scim-spec-schema/src/main/java/org/apache/directory/scim/spec/resources/PhoneNumber.java`
+#### Snippet
+```java
+    final String ISUB_PREFIX = ";isub=%s";
     final String CONTEXT_PREFIX = ";phone-context=%s";
     final String PARAMS_STRING = ";%s=%s";
     final String LOCAL_SUBSCRIBER_NUMBER_REGEX = "^[\\d\\.\\-\\(\\)]+$";
     final String DOMAIN_NAME_REGEX = "^[a-zA-Z0-9\\.\\-]+$";
-    final String GLOBAL_NUMBER_REGEX = "^(\\+)?[\\d\\.\\-\\(\\)]+$";
-```
-
-### FieldMayBeStatic
-Field `INTERNATIONAL_PREFIX` may be 'static'
-in `scim-spec/scim-spec-schema/src/main/java/org/apache/directory/scim/spec/resources/PhoneNumber.java`
-#### Snippet
-```java
-
-    final String HYPHEN = "-";
-    final String INTERNATIONAL_PREFIX = "+";
-    final String PREFIX = "tel:%s";
-    final String EXTENSTION_PREFIX = ";ext=%s";
 ```
 
 ### FieldMayBeStatic
@@ -233,15 +220,15 @@ in `scim-spec/scim-spec-schema/src/main/java/org/apache/directory/scim/spec/reso
 ```
 
 ### FieldMayBeStatic
-Field `ISUB_PREFIX` may be 'static'
+Field `EXTENSTION_PREFIX` may be 'static'
 in `scim-spec/scim-spec-schema/src/main/java/org/apache/directory/scim/spec/resources/PhoneNumber.java`
 #### Snippet
 ```java
+    final String INTERNATIONAL_PREFIX = "+";
     final String PREFIX = "tel:%s";
     final String EXTENSTION_PREFIX = ";ext=%s";
     final String ISUB_PREFIX = ";isub=%s";
     final String CONTEXT_PREFIX = ";phone-context=%s";
-    final String PARAMS_STRING = ";%s=%s";
 ```
 
 ### FieldMayBeStatic
@@ -257,15 +244,27 @@ in `scim-spec/scim-spec-schema/src/main/java/org/apache/directory/scim/spec/reso
 ```
 
 ### FieldMayBeStatic
-Field `COUNTRY_CODE_REGEX` may be 'static'
+Field `ISUB_PREFIX` may be 'static'
 in `scim-spec/scim-spec-schema/src/main/java/org/apache/directory/scim/spec/resources/PhoneNumber.java`
 #### Snippet
 ```java
-    final String DOMAIN_NAME_REGEX = "^[a-zA-Z0-9\\.\\-]+$";
-    final String GLOBAL_NUMBER_REGEX = "^(\\+)?[\\d\\.\\-\\(\\)]+$";
-    final String COUNTRY_CODE_REGEX = "^(\\+)?[1-9][0-9]{0,2}$";
+    final String PREFIX = "tel:%s";
+    final String EXTENSTION_PREFIX = ";ext=%s";
+    final String ISUB_PREFIX = ";isub=%s";
+    final String CONTEXT_PREFIX = ";phone-context=%s";
+    final String PARAMS_STRING = ";%s=%s";
+```
 
-    String number;
+### FieldMayBeStatic
+Field `INTERNATIONAL_PREFIX` may be 'static'
+in `scim-spec/scim-spec-schema/src/main/java/org/apache/directory/scim/spec/resources/PhoneNumber.java`
+#### Snippet
+```java
+
+    final String HYPHEN = "-";
+    final String INTERNATIONAL_PREFIX = "+";
+    final String PREFIX = "tel:%s";
+    final String EXTENSTION_PREFIX = ";ext=%s";
 ```
 
 ## RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
@@ -297,26 +296,62 @@ in `scim-spec/scim-spec-schema/src/main/java/org/apache/directory/scim/spec/sche
 ## RuleId[ruleID=UnnecessarySemicolon]
 ### UnnecessarySemicolon
 Unnecessary semicolon `;`
-in `scim-spec/scim-spec-schema/src/main/java/org/apache/directory/scim/spec/schema/Schema.java`
+in `scim-spec/scim-spec-schema/src/main/java/org/apache/directory/scim/spec/filter/LogicalOperator.java`
 #### Snippet
 ```java
-      @XmlEnumValue("global") GLOBAL,
-      @XmlEnumValue("none") NONE,
-      @XmlEnumValue("server") SERVER;
-    }
-    
+  
+  AND,
+  OR;
+}
+
 ```
 
 ### UnnecessarySemicolon
 Unnecessary semicolon `;`
-in `scim-spec/scim-spec-schema/src/main/java/org/apache/directory/scim/spec/schema/Schema.java`
+in `scim-spec/scim-spec-schema/src/main/java/org/apache/directory/scim/spec/patch/PatchOperation.java`
 #### Snippet
 ```java
-      @XmlEnumValue("integer") INTEGER,
-      @XmlEnumValue("reference") REFERENCE,
-      @XmlEnumValue("string") STRING;
-    }
+    @XmlEnumValue("add") ADD,
+    @XmlEnumValue("remove") REMOVE,
+    @XmlEnumValue("replace") REPLACE;
+  }
+  
+```
 
+### UnnecessarySemicolon
+Unnecessary semicolon `;`
+in `scim-spec/scim-spec-protocol/src/main/java/org/apache/directory/scim/protocol/data/BulkOperation.java`
+#### Snippet
+```java
+    @XmlEnumValue("PUT") PUT,
+    @XmlEnumValue("PATCH") PATCH,
+    @XmlEnumValue("DELETE") DELETE;
+  }
+  
+```
+
+### UnnecessarySemicolon
+Unnecessary semicolon `;`
+in `scim-spec/scim-spec-schema/src/main/java/org/apache/directory/scim/spec/filter/CompareOperator.java`
+#### Snippet
+```java
+  GE, // greater than or equal
+  LT, // greater than
+  LE; // greater than or equal
+}
+
+```
+
+### UnnecessarySemicolon
+Unnecessary semicolon `;`
+in `scim-spec/scim-spec-schema/src/main/java/org/apache/directory/scim/spec/schema/ResourceReference.java`
+#### Snippet
+```java
+    @XmlEnumValue("indirect") INDIRECT,
+    @XmlEnumValue("User") USER,
+    @XmlEnumValue("Group") GROUP;
+  }
+  
 ```
 
 ### UnnecessarySemicolon
@@ -345,65 +380,41 @@ in `scim-spec/scim-spec-schema/src/main/java/org/apache/directory/scim/spec/sche
 
 ### UnnecessarySemicolon
 Unnecessary semicolon `;`
-in `scim-spec/scim-spec-protocol/src/main/java/org/apache/directory/scim/protocol/data/BulkOperation.java`
+in `scim-spec/scim-spec-schema/src/main/java/org/apache/directory/scim/spec/schema/Schema.java`
 #### Snippet
 ```java
-    @XmlEnumValue("PUT") PUT,
-    @XmlEnumValue("PATCH") PATCH,
-    @XmlEnumValue("DELETE") DELETE;
-  }
-  
+      @XmlEnumValue("global") GLOBAL,
+      @XmlEnumValue("none") NONE,
+      @XmlEnumValue("server") SERVER;
+    }
+    
 ```
 
 ### UnnecessarySemicolon
 Unnecessary semicolon `;`
-in `scim-spec/scim-spec-schema/src/main/java/org/apache/directory/scim/spec/patch/PatchOperation.java`
+in `scim-spec/scim-spec-schema/src/main/java/org/apache/directory/scim/spec/schema/Schema.java`
 #### Snippet
 ```java
-    @XmlEnumValue("add") ADD,
-    @XmlEnumValue("remove") REMOVE,
-    @XmlEnumValue("replace") REPLACE;
-  }
-  
-```
+      @XmlEnumValue("integer") INTEGER,
+      @XmlEnumValue("reference") REFERENCE,
+      @XmlEnumValue("string") STRING;
+    }
 
-### UnnecessarySemicolon
-Unnecessary semicolon `;`
-in `scim-spec/scim-spec-schema/src/main/java/org/apache/directory/scim/spec/filter/LogicalOperator.java`
-#### Snippet
-```java
-  
-  AND,
-  OR;
-}
-
-```
-
-### UnnecessarySemicolon
-Unnecessary semicolon `;`
-in `scim-spec/scim-spec-schema/src/main/java/org/apache/directory/scim/spec/filter/CompareOperator.java`
-#### Snippet
-```java
-  GE, // greater than or equal
-  LT, // greater than
-  LE; // greater than or equal
-}
-
-```
-
-### UnnecessarySemicolon
-Unnecessary semicolon `;`
-in `scim-spec/scim-spec-schema/src/main/java/org/apache/directory/scim/spec/schema/ResourceReference.java`
-#### Snippet
-```java
-    @XmlEnumValue("indirect") INDIRECT,
-    @XmlEnumValue("User") USER,
-    @XmlEnumValue("Group") GROUP;
-  }
-  
 ```
 
 ## RuleId[ruleID=TypeParameterHidesVisibleType]
+### TypeParameterHidesVisibleType
+Type parameter `R` hides type parameter 'R'
+in `scim-spec/scim-spec-schema/src/main/java/org/apache/directory/scim/spec/filter/InMemoryScimFilterMatcher.java`
+#### Snippet
+```java
+  }
+
+  private abstract class AbstractAttributePredicate<T extends FilterExpression, R> implements Predicate<R> {
+
+    final T expression;
+```
+
 ### TypeParameterHidesVisibleType
 Type parameter `R` hides type parameter 'R'
 in `scim-spec/scim-spec-schema/src/main/java/org/apache/directory/scim/spec/filter/InMemoryScimFilterMatcher.java`
@@ -438,18 +449,6 @@ in `scim-spec/scim-spec-schema/src/main/java/org/apache/directory/scim/spec/filt
   private class ValuePathPredicate<R> extends AbstractAttributePredicate<ValuePathExpression, R> {
 
     final private Predicate<Object> nestedPredicate;
-```
-
-### TypeParameterHidesVisibleType
-Type parameter `R` hides type parameter 'R'
-in `scim-spec/scim-spec-schema/src/main/java/org/apache/directory/scim/spec/filter/InMemoryScimFilterMatcher.java`
-#### Snippet
-```java
-  }
-
-  private abstract class AbstractAttributePredicate<T extends FilterExpression, R> implements Predicate<R> {
-
-    final T expression;
 ```
 
 ### TypeParameterHidesVisibleType
@@ -502,18 +501,6 @@ in `scim-core/src/main/java/org/apache/directory/scim/core/repository/UpdateRequ
 ```
 
 ### CommentedOutCode
-Commented out code (11 lines)
-in `scim-server/src/main/java/org/apache/directory/scim/server/rest/BulkResourceImpl.java`
-#### Snippet
-```java
-  private static final Pattern PATH_PATTERN = Pattern.compile("^/[^/]+/[^/]+$");
-
-//  static {
-//    METHOD_NOT_ALLOWED_STATUS.setCode(METHOD_NOT_ALLOWED);
-//    OKAY_STATUS.setCode(OKAY);
-```
-
-### CommentedOutCode
 Commented out code (18 lines)
 in `scim-server/src/main/java/org/apache/directory/scim/server/rest/BulkResourceImpl.java`
 #### Snippet
@@ -523,6 +510,18 @@ public class BulkResourceImpl implements BulkResource {
 //  private static final StatusWrapper OKAY_STATUS = new StatusWrapper();
 //  private static final StatusWrapper CREATED_STATUS = new StatusWrapper();
 //  private static final StatusWrapper NO_CONTENT_STATUS = new StatusWrapper();
+```
+
+### CommentedOutCode
+Commented out code (11 lines)
+in `scim-server/src/main/java/org/apache/directory/scim/server/rest/BulkResourceImpl.java`
+#### Snippet
+```java
+  private static final Pattern PATH_PATTERN = Pattern.compile("^/[^/]+/[^/]+$");
+
+//  static {
+//    METHOD_NOT_ALLOWED_STATUS.setCode(METHOD_NOT_ALLOWED);
+//    OKAY_STATUS.setCode(OKAY);
 ```
 
 ## RuleId[ruleID=Convert2MethodRef]
@@ -544,42 +543,6 @@ Redundant character escape `\\.` in RegExp
 in `scim-spec/scim-spec-schema/src/main/java/org/apache/directory/scim/spec/resources/PhoneNumber.java`
 #### Snippet
 ```java
-    final String LOCAL_SUBSCRIBER_NUMBER_REGEX = "^[\\d\\.\\-\\(\\)]+$";
-    final String DOMAIN_NAME_REGEX = "^[a-zA-Z0-9\\.\\-]+$";
-    final String GLOBAL_NUMBER_REGEX = "^(\\+)?[\\d\\.\\-\\(\\)]+$";
-    final String COUNTRY_CODE_REGEX = "^(\\+)?[1-9][0-9]{0,2}$";
-
-```
-
-### RegExpRedundantEscape
-Redundant character escape `\\(` in RegExp
-in `scim-spec/scim-spec-schema/src/main/java/org/apache/directory/scim/spec/resources/PhoneNumber.java`
-#### Snippet
-```java
-    final String LOCAL_SUBSCRIBER_NUMBER_REGEX = "^[\\d\\.\\-\\(\\)]+$";
-    final String DOMAIN_NAME_REGEX = "^[a-zA-Z0-9\\.\\-]+$";
-    final String GLOBAL_NUMBER_REGEX = "^(\\+)?[\\d\\.\\-\\(\\)]+$";
-    final String COUNTRY_CODE_REGEX = "^(\\+)?[1-9][0-9]{0,2}$";
-
-```
-
-### RegExpRedundantEscape
-Redundant character escape `\\)` in RegExp
-in `scim-spec/scim-spec-schema/src/main/java/org/apache/directory/scim/spec/resources/PhoneNumber.java`
-#### Snippet
-```java
-    final String LOCAL_SUBSCRIBER_NUMBER_REGEX = "^[\\d\\.\\-\\(\\)]+$";
-    final String DOMAIN_NAME_REGEX = "^[a-zA-Z0-9\\.\\-]+$";
-    final String GLOBAL_NUMBER_REGEX = "^(\\+)?[\\d\\.\\-\\(\\)]+$";
-    final String COUNTRY_CODE_REGEX = "^(\\+)?[1-9][0-9]{0,2}$";
-
-```
-
-### RegExpRedundantEscape
-Redundant character escape `\\.` in RegExp
-in `scim-spec/scim-spec-schema/src/main/java/org/apache/directory/scim/spec/resources/PhoneNumber.java`
-#### Snippet
-```java
     final String CONTEXT_PREFIX = ";phone-context=%s";
     final String PARAMS_STRING = ";%s=%s";
     final String LOCAL_SUBSCRIBER_NUMBER_REGEX = "^[\\d\\.\\-\\(\\)]+$";
@@ -645,6 +608,42 @@ in `scim-spec/scim-spec-schema/src/main/java/org/apache/directory/scim/spec/reso
   private static final String VISUAL_SEPARATORS = "[\\(\\)\\-\\.]";
 
   private static final Logger log = LoggerFactory.getLogger(PhoneNumber.class);
+```
+
+### RegExpRedundantEscape
+Redundant character escape `\\.` in RegExp
+in `scim-spec/scim-spec-schema/src/main/java/org/apache/directory/scim/spec/resources/PhoneNumber.java`
+#### Snippet
+```java
+    final String LOCAL_SUBSCRIBER_NUMBER_REGEX = "^[\\d\\.\\-\\(\\)]+$";
+    final String DOMAIN_NAME_REGEX = "^[a-zA-Z0-9\\.\\-]+$";
+    final String GLOBAL_NUMBER_REGEX = "^(\\+)?[\\d\\.\\-\\(\\)]+$";
+    final String COUNTRY_CODE_REGEX = "^(\\+)?[1-9][0-9]{0,2}$";
+
+```
+
+### RegExpRedundantEscape
+Redundant character escape `\\(` in RegExp
+in `scim-spec/scim-spec-schema/src/main/java/org/apache/directory/scim/spec/resources/PhoneNumber.java`
+#### Snippet
+```java
+    final String LOCAL_SUBSCRIBER_NUMBER_REGEX = "^[\\d\\.\\-\\(\\)]+$";
+    final String DOMAIN_NAME_REGEX = "^[a-zA-Z0-9\\.\\-]+$";
+    final String GLOBAL_NUMBER_REGEX = "^(\\+)?[\\d\\.\\-\\(\\)]+$";
+    final String COUNTRY_CODE_REGEX = "^(\\+)?[1-9][0-9]{0,2}$";
+
+```
+
+### RegExpRedundantEscape
+Redundant character escape `\\)` in RegExp
+in `scim-spec/scim-spec-schema/src/main/java/org/apache/directory/scim/spec/resources/PhoneNumber.java`
+#### Snippet
+```java
+    final String LOCAL_SUBSCRIBER_NUMBER_REGEX = "^[\\d\\.\\-\\(\\)]+$";
+    final String DOMAIN_NAME_REGEX = "^[a-zA-Z0-9\\.\\-]+$";
+    final String GLOBAL_NUMBER_REGEX = "^(\\+)?[\\d\\.\\-\\(\\)]+$";
+    final String COUNTRY_CODE_REGEX = "^(\\+)?[1-9][0-9]{0,2}$";
+
 ```
 
 ### RegExpRedundantEscape
@@ -686,30 +685,6 @@ in `scim-spec/scim-spec-schema/src/main/java/org/apache/directory/scim/spec/reso
 
 ## RuleId[ruleID=NonSerializableFieldInSerializableClass]
 ### NonSerializableFieldInSerializableClass
-Non-serializable field 'changePassword' in a Serializable class
-in `scim-spec/scim-spec-schema/src/main/java/org/apache/directory/scim/spec/schema/ServiceProviderConfiguration.java`
-#### Snippet
-```java
-
-  @XmlElement
-  SupportedConfiguration changePassword;
-
-  @XmlElement
-```
-
-### NonSerializableFieldInSerializableClass
-Non-serializable field 'patch' in a Serializable class
-in `scim-spec/scim-spec-schema/src/main/java/org/apache/directory/scim/spec/schema/ServiceProviderConfiguration.java`
-#### Snippet
-```java
-
-  @XmlElement
-  SupportedConfiguration patch;
-
-  @XmlElement
-```
-
-### NonSerializableFieldInSerializableClass
 Non-serializable field 'sort' in a Serializable class
 in `scim-spec/scim-spec-schema/src/main/java/org/apache/directory/scim/spec/schema/ServiceProviderConfiguration.java`
 #### Snippet
@@ -717,6 +692,18 @@ in `scim-spec/scim-spec-schema/src/main/java/org/apache/directory/scim/spec/sche
 
   @XmlElement
   SupportedConfiguration sort;
+
+  @XmlElement
+```
+
+### NonSerializableFieldInSerializableClass
+Non-serializable field 'filter' in a Serializable class
+in `scim-spec/scim-spec-schema/src/main/java/org/apache/directory/scim/spec/schema/ServiceProviderConfiguration.java`
+#### Snippet
+```java
+
+  @XmlElement
+  FilterConfiguration filter;
 
   @XmlElement
 ```
@@ -746,13 +733,25 @@ in `scim-spec/scim-spec-schema/src/main/java/org/apache/directory/scim/spec/sche
 ```
 
 ### NonSerializableFieldInSerializableClass
-Non-serializable field 'filter' in a Serializable class
+Non-serializable field 'changePassword' in a Serializable class
 in `scim-spec/scim-spec-schema/src/main/java/org/apache/directory/scim/spec/schema/ServiceProviderConfiguration.java`
 #### Snippet
 ```java
 
   @XmlElement
-  FilterConfiguration filter;
+  SupportedConfiguration changePassword;
+
+  @XmlElement
+```
+
+### NonSerializableFieldInSerializableClass
+Non-serializable field 'patch' in a Serializable class
+in `scim-spec/scim-spec-schema/src/main/java/org/apache/directory/scim/spec/schema/ServiceProviderConfiguration.java`
+#### Snippet
+```java
+
+  @XmlElement
+  SupportedConfiguration patch;
 
   @XmlElement
 ```
@@ -770,18 +769,6 @@ public class ScimResourceDeserializer extends StdDeserializer<ScimResource> {
 ```
 
 ### NonSerializableFieldInSerializableClass
-Non-serializable field 'filter' in a Serializable class
-in `scim-spec/scim-spec-protocol/src/main/java/org/apache/directory/scim/protocol/data/SearchRequest.java`
-#### Snippet
-```java
-  @XmlElement
-  @XmlJavaTypeAdapter(FilterAdapter.class)
-  Filter filter;
-
-  @XmlElement
-```
-
-### NonSerializableFieldInSerializableClass
 Non-serializable field 'schemaRegistry' in a Serializable class
 in `scim-core/src/main/java/org/apache/directory/scim/core/json/ObjectMapperFactory.java`
 #### Snippet
@@ -793,65 +780,16 @@ in `scim-core/src/main/java/org/apache/directory/scim/core/json/ObjectMapperFact
     public ScimResourceModule(SchemaRegistry schemaRegistry) {
 ```
 
-## RuleId[ruleID=SizeReplaceableByIsEmpty]
-### SizeReplaceableByIsEmpty
-`ar.size() == 0` can be replaced with 'ar.isEmpty()'
-in `scim-core/src/main/java/org/apache/directory/scim/core/repository/UpdateRequest.java`
+### NonSerializableFieldInSerializableClass
+Non-serializable field 'filter' in a Serializable class
+in `scim-spec/scim-spec-protocol/src/main/java/org/apache/directory/scim/protocol/data/SearchRequest.java`
 #### Snippet
 ```java
-        if (childNode instanceof ArrayNode) {
-          ArrayNode ar = (ArrayNode)childNode;
-          if (ar.size() == 0) {
-            objectsToDelete.add(name);
-          }
-```
+  @XmlElement
+  @XmlJavaTypeAdapter(FilterAdapter.class)
+  Filter filter;
 
-### SizeReplaceableByIsEmpty
-`localCode.length() > 0` can be replaced with '!localCode.isEmpty()'
-in `scim-spec/scim-spec-schema/src/main/java/org/apache/directory/scim/spec/resources/PhoneNumber.java`
-#### Snippet
-```java
-      if (localCode != null && !localCode.isEmpty()) {
-        localCode = localCode.trim();
-        if (localCode.length() > 0 && localCode.charAt(0) != '+') {
-          localCode = '+' + localCode;
-        }
-```
-
-### SizeReplaceableByIsEmpty
-`expressionStack.size() == 0` can be replaced with 'expressionStack.isEmpty()'
-in `scim-spec/scim-spec-schema/src/main/java/org/apache/directory/scim/spec/filter/ExpressionBuildingListener.java`
-#### Snippet
-```java
-    String parentAttributeName = attributeReference.getAttributeName();
-
-    if (expressionStack.size() == 0) {
-      throw new IllegalStateException("Invalid Expression " + ctx.attributePath);
-    }
-```
-
-### SizeReplaceableByIsEmpty
-`subUnresolveds.size() > 0` can be replaced with '!subUnresolveds.isEmpty()'
-in `scim-server/src/main/java/org/apache/directory/scim/server/rest/BulkResourceImpl.java`
-#### Snippet
-```java
-          }
-
-          if (subUnresolveds.size() > 0) {
-            UnresolvedTopLevel unresolved = new UnresolvedTopLevelComplex(accessor, attributeFieldValue, subUnresolveds);
-
-```
-
-### SizeReplaceableByIsEmpty
-`unresolvedTopLevels.size() > 0` can be replaced with '!unresolvedTopLevels.isEmpty()'
-in `scim-server/src/main/java/org/apache/directory/scim/server/rest/BulkResourceImpl.java`
-#### Snippet
-```java
-      }
-    }
-    if (unresolvedTopLevels.size() > 0) {
-      String bulkIdKey = "bulkId:" + bulkOperationResult.getBulkId();
-
+  @XmlElement
 ```
 
 ## RuleId[ruleID=DuplicateExpressions]
@@ -879,19 +817,68 @@ in `scim-spec/scim-spec-schema/src/main/java/org/apache/directory/scim/spec/filt
         return !compareValue.equals(actualValue);
 ```
 
-## RuleId[ruleID=InnerClassMayBeStatic]
-### InnerClassMayBeStatic
-Inner class `ReplaceOperationHandler` may be 'static'
-in `scim-core/src/main/java/org/apache/directory/scim/core/repository/PatchHandlerImpl.java`
+## RuleId[ruleID=SizeReplaceableByIsEmpty]
+### SizeReplaceableByIsEmpty
+`expressionStack.size() == 0` can be replaced with 'expressionStack.isEmpty()'
+in `scim-spec/scim-spec-schema/src/main/java/org/apache/directory/scim/spec/filter/ExpressionBuildingListener.java`
 #### Snippet
 ```java
-  }
+    String parentAttributeName = attributeReference.getAttributeName();
 
-  private class ReplaceOperationHandler implements PatchOperationHandler {
-
-    @Override
+    if (expressionStack.size() == 0) {
+      throw new IllegalStateException("Invalid Expression " + ctx.attributePath);
+    }
 ```
 
+### SizeReplaceableByIsEmpty
+`localCode.length() > 0` can be replaced with '!localCode.isEmpty()'
+in `scim-spec/scim-spec-schema/src/main/java/org/apache/directory/scim/spec/resources/PhoneNumber.java`
+#### Snippet
+```java
+      if (localCode != null && !localCode.isEmpty()) {
+        localCode = localCode.trim();
+        if (localCode.length() > 0 && localCode.charAt(0) != '+') {
+          localCode = '+' + localCode;
+        }
+```
+
+### SizeReplaceableByIsEmpty
+`ar.size() == 0` can be replaced with 'ar.isEmpty()'
+in `scim-core/src/main/java/org/apache/directory/scim/core/repository/UpdateRequest.java`
+#### Snippet
+```java
+        if (childNode instanceof ArrayNode) {
+          ArrayNode ar = (ArrayNode)childNode;
+          if (ar.size() == 0) {
+            objectsToDelete.add(name);
+          }
+```
+
+### SizeReplaceableByIsEmpty
+`subUnresolveds.size() > 0` can be replaced with '!subUnresolveds.isEmpty()'
+in `scim-server/src/main/java/org/apache/directory/scim/server/rest/BulkResourceImpl.java`
+#### Snippet
+```java
+          }
+
+          if (subUnresolveds.size() > 0) {
+            UnresolvedTopLevel unresolved = new UnresolvedTopLevelComplex(accessor, attributeFieldValue, subUnresolveds);
+
+```
+
+### SizeReplaceableByIsEmpty
+`unresolvedTopLevels.size() > 0` can be replaced with '!unresolvedTopLevels.isEmpty()'
+in `scim-server/src/main/java/org/apache/directory/scim/server/rest/BulkResourceImpl.java`
+#### Snippet
+```java
+      }
+    }
+    if (unresolvedTopLevels.size() > 0) {
+      String bulkIdKey = "bulkId:" + bulkOperationResult.getBulkId();
+
+```
+
+## RuleId[ruleID=InnerClassMayBeStatic]
 ### InnerClassMayBeStatic
 Inner class `RemoveOperationHandler` may be 'static'
 in `scim-core/src/main/java/org/apache/directory/scim/core/repository/PatchHandlerImpl.java`
@@ -904,53 +891,113 @@ in `scim-core/src/main/java/org/apache/directory/scim/core/repository/PatchHandl
     @Override
 ```
 
-## RuleId[ruleID=BoundedWildcard]
-### BoundedWildcard
-Can generalize to `? extends SelfIdResolver`
-in `scim-server/src/main/java/org/apache/directory/scim/server/rest/SelfResourceImpl.java`
-#### Snippet
-```java
-
-  @Inject
-  public SelfResourceImpl(UserResource userResource, Instance<SelfIdResolver> selfIdResolver, RequestContext requestContext) {
-    this.userResource = userResource;
-    this.selfIdResolver = selfIdResolver;
-```
-
-### BoundedWildcard
-Can generalize to `? extends Attribute`
-in `scim-spec/scim-spec-schema/src/main/java/org/apache/directory/scim/spec/schema/Schema.java`
+### InnerClassMayBeStatic
+Inner class `ReplaceOperationHandler` may be 'static'
+in `scim-core/src/main/java/org/apache/directory/scim/core/repository/PatchHandlerImpl.java`
 #### Snippet
 ```java
   }
-  
-  public void setAttributes(List<Attribute> attributes) {
-    attributeNamesMap.clear();
-    
+
+  private class ReplaceOperationHandler implements PatchOperationHandler {
+
+    @Override
+```
+
+## RuleId[ruleID=BoundedWildcard]
+### BoundedWildcard
+Can generalize to `? extends ScimUser`
+in `scim-server-examples/scim-server-memory/src/main/java/org/apache/directory/scim/example/memory/service/InMemoryUserService.java`
+#### Snippet
+```java
+   */
+  @Override
+  public ScimUser update(UpdateRequest<ScimUser> updateRequest) throws UnableToUpdateResourceException {
+    String id = updateRequest.getId();
+    ScimUser resource = updateRequest.getResource();
 ```
 
 ### BoundedWildcard
-Can generalize to `? super Throwable`
-in `scim-client/src/main/java/org/apache/directory/scim/client/rest/RestClientUtil.java`
+Can generalize to `? extends ScimGroup`
+in `scim-server-examples/scim-server-memory/src/main/java/org/apache/directory/scim/example/memory/service/InMemoryGroupService.java`
 #### Snippet
 ```java
-   * @param consumer
-   */
-  public static void close(Response response, Consumer<Throwable> consumer) {
-    try {
-      response.close();
+
+  @Override
+  public ScimGroup update(UpdateRequest<ScimGroup> updateRequest) throws UnableToUpdateResourceException {
+    String id = updateRequest.getId();
+    ScimGroup resource = updateRequest.getResource();
+```
+
+### BoundedWildcard
+Can generalize to `? extends Repository`
+in `scim-core/src/main/java/org/apache/directory/scim/core/spi/ScimpleComponents.java`
+#### Snippet
+```java
+  @Produces
+  @ApplicationScoped
+  public RepositoryRegistry repositoryRegistry(SchemaRegistry schemaRegistry, Instance<Repository<? extends ScimResource>> repositoryInstances) {
+    return new RepositoryRegistry(schemaRegistry, repositoryInstances.stream().collect(Collectors.toList()));
+  }
 ```
 
 ### BoundedWildcard
 Can generalize to `? extends T`
-in `scim-client/src/main/java/org/apache/directory/scim/client/rest/RestClientUtil.java`
+in `scim-client/src/main/java/org/apache/directory/scim/client/rest/BaseScimClient.java`
 #### Snippet
 ```java
-   * @throws RestException
-   */
-  public <T> Optional<T> tryReadEntity(Response response, GenericType<T> entityType) throws RestException, ProcessingException, IllegalStateException {
-    return readEntity(response, entityType, response::readEntity, Optional::ofNullable);
+  private RestCall invoke = Invocation::invoke;
+
+  public BaseScimClient(Client client, String baseUrl, Class<T> scimResourceClass, GenericType<ListResponse<T>> scimResourceListGenericType) {
+    ScimResourceType scimResourceType = scimResourceClass.getAnnotation(ScimResourceType.class);
+    String endpoint = scimResourceType != null ? scimResourceType.endpoint() : null;
+```
+
+### BoundedWildcard
+Can generalize to `? extends ListResponse`
+in `scim-client/src/main/java/org/apache/directory/scim/client/rest/BaseScimClient.java`
+#### Snippet
+```java
+  private RestCall invoke = Invocation::invoke;
+
+  public BaseScimClient(Client client, String baseUrl, Class<T> scimResourceClass, GenericType<ListResponse<T>> scimResourceListGenericType) {
+    ScimResourceType scimResourceType = scimResourceClass.getAnnotation(ScimResourceType.class);
+    String endpoint = scimResourceType != null ? scimResourceType.endpoint() : null;
+```
+
+### BoundedWildcard
+Can generalize to `? super Attribute`
+in `scim-server/src/main/java/org/apache/directory/scim/server/rest/AttributeUtil.java`
+#### Snippet
+```java
   }
+
+  private void processAttributes(Object object, AttributeContainer attributeContainer, Function<Attribute, Boolean> function) throws AttributeException {
+    try {
+      if (attributeContainer != null && object != null) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends AttributeReference`
+in `scim-server/src/main/java/org/apache/directory/scim/server/rest/AttributeUtil.java`
+#### Snippet
+```java
+  }
+
+  private Set<Attribute> resolveAttributeReferences(Set<AttributeReference> attributeReferences, boolean includeAttributeChain) throws AttributeDoesNotExistException {
+    Set<Attribute> attributes = new HashSet<>();
+
+```
+
+### BoundedWildcard
+Can generalize to `? extends ScimUser`
+in `scim-server-examples/scim-server-spring-boot/src/main/java/org/apache/directory/scim/example/spring/service/InMemoryUserService.java`
+#### Snippet
+```java
+   */
+  @Override
+  public ScimUser update(UpdateRequest<ScimUser> updateRequest) throws UnableToUpdateResourceException {
+    String id = updateRequest.getId();
+    ScimUser resource = updateRequest.getResource();
 ```
 
 ### BoundedWildcard
@@ -961,18 +1008,6 @@ in `scim-client/src/main/java/org/apache/directory/scim/client/rest/RestClientUt
    * @throws RestException
    */
   public static <T> Optional<T> readEntity(Response response, GenericType<T> entityType) throws RestException, ProcessingException, IllegalStateException{
-    return readEntity(response, entityType, response::readEntity, Optional::of);
-  }
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
-in `scim-client/src/main/java/org/apache/directory/scim/client/rest/RestClientUtil.java`
-#### Snippet
-```java
-   * @throws RestException
-   */
-  public static <T> Optional<T> readEntity(Response response, Class<T> entityType) throws RestException, ProcessingException, IllegalStateException{
     return readEntity(response, entityType, response::readEntity, Optional::of);
   }
 ```
@@ -1014,8 +1049,56 @@ in `scim-client/src/main/java/org/apache/directory/scim/client/rest/RestClientUt
 ```
 
 ### BoundedWildcard
+Can generalize to `? extends T`
+in `scim-client/src/main/java/org/apache/directory/scim/client/rest/RestClientUtil.java`
+#### Snippet
+```java
+   * @throws RestException
+   */
+  public static <T> Optional<T> readEntity(Response response, Class<T> entityType) throws RestException, ProcessingException, IllegalStateException{
+    return readEntity(response, entityType, response::readEntity, Optional::of);
+  }
+```
+
+### BoundedWildcard
+Can generalize to `? super Throwable`
+in `scim-client/src/main/java/org/apache/directory/scim/client/rest/RestClientUtil.java`
+#### Snippet
+```java
+   * @param consumer
+   */
+  public static void close(Response response, Consumer<Throwable> consumer) {
+    try {
+      response.close();
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
+in `scim-client/src/main/java/org/apache/directory/scim/client/rest/RestClientUtil.java`
+#### Snippet
+```java
+   * @throws RestException
+   */
+  public <T> Optional<T> tryReadEntity(Response response, GenericType<T> entityType) throws RestException, ProcessingException, IllegalStateException {
+    return readEntity(response, entityType, response::readEntity, Optional::ofNullable);
+  }
+```
+
+### BoundedWildcard
+Can generalize to `? extends SelfIdResolver`
+in `scim-server/src/main/java/org/apache/directory/scim/server/rest/SelfResourceImpl.java`
+#### Snippet
+```java
+
+  @Inject
+  public SelfResourceImpl(UserResource userResource, Instance<SelfIdResolver> selfIdResolver, RequestContext requestContext) {
+    this.userResource = userResource;
+    this.selfIdResolver = selfIdResolver;
+```
+
+### BoundedWildcard
 Can generalize to `? extends ScimUser`
-in `scim-server-examples/scim-server-spring-boot/src/main/java/org/apache/directory/scim/example/spring/service/InMemoryUserService.java`
+in `scim-server-examples/scim-server-jersey/src/main/java/org/apache/directory/scim/example/jersey/service/InMemoryUserService.java`
 #### Snippet
 ```java
    */
@@ -1023,30 +1106,6 @@ in `scim-server-examples/scim-server-spring-boot/src/main/java/org/apache/direct
   public ScimUser update(UpdateRequest<ScimUser> updateRequest) throws UnableToUpdateResourceException {
     String id = updateRequest.getId();
     ScimUser resource = updateRequest.getResource();
-```
-
-### BoundedWildcard
-Can generalize to `? extends Repository`
-in `scim-core/src/main/java/org/apache/directory/scim/core/spi/ScimpleComponents.java`
-#### Snippet
-```java
-  @Produces
-  @ApplicationScoped
-  public RepositoryRegistry repositoryRegistry(SchemaRegistry schemaRegistry, Instance<Repository<? extends ScimResource>> repositoryInstances) {
-    return new RepositoryRegistry(schemaRegistry, repositoryInstances.stream().collect(Collectors.toList()));
-  }
-```
-
-### BoundedWildcard
-Can generalize to `? extends ScimGroup`
-in `scim-server-examples/scim-server-spring-boot/src/main/java/org/apache/directory/scim/example/spring/service/InMemoryGroupService.java`
-#### Snippet
-```java
-
-  @Override
-  public ScimGroup update(UpdateRequest<ScimGroup> updateRequest) throws UnableToUpdateResourceException {
-    String id = updateRequest.getId();
-    ScimGroup resource = updateRequest.getResource();
 ```
 
 ### BoundedWildcard
@@ -1059,6 +1118,54 @@ in `scim-spec/scim-spec-schema/src/main/java/org/apache/directory/scim/spec/filt
     private CompareOperatorPredicate(CompareOperator op, T comparedValue, Comparator<T> comparator) {
       this.op = op;
       this.comparator = comparator;
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
+in `scim-core/src/main/java/org/apache/directory/scim/core/repository/RepositoryRegistry.java`
+#### Snippet
+```java
+  }
+
+  public synchronized <T extends ScimResource> void registerRepository(Class<T> clazz, Repository<T> repository) throws InvalidRepositoryException {
+    List<Class<? extends ScimExtension>> extensionList = repository.getExtensionList();
+
+```
+
+### BoundedWildcard
+Can generalize to `? extends ScimGroup`
+in `scim-server-examples/scim-server-jersey/src/main/java/org/apache/directory/scim/example/jersey/service/InMemoryGroupService.java`
+#### Snippet
+```java
+
+  @Override
+  public ScimGroup update(UpdateRequest<ScimGroup> updateRequest) throws UnableToUpdateResourceException {
+    String id = updateRequest.getId();
+    ScimGroup resource = updateRequest.getResource();
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `scim-spec/scim-spec-schema/src/main/java/org/apache/directory/scim/spec/schema/Schemas.java`
+#### Snippet
+```java
+
+
+  private static List<Schema.Attribute> createAttributes(String urn, List<Field> fieldList, Set<String> invalidAttributes, String nameBase) throws ScimResourceInvalidException {
+    List<Schema.Attribute> attributeList = new ArrayList<>();
+
+```
+
+### BoundedWildcard
+Can generalize to `? extends ScimGroup`
+in `scim-server-examples/scim-server-spring-boot/src/main/java/org/apache/directory/scim/example/spring/service/InMemoryGroupService.java`
+#### Snippet
+```java
+
+  @Override
+  public ScimGroup update(UpdateRequest<ScimGroup> updateRequest) throws UnableToUpdateResourceException {
+    String id = updateRequest.getId();
+    ScimGroup resource = updateRequest.getResource();
 ```
 
 ### BoundedWildcard
@@ -1086,135 +1193,99 @@ in `scim-server/src/main/java/org/apache/directory/scim/server/rest/BaseResource
 ```
 
 ### BoundedWildcard
-Can generalize to `? super String`
-in `scim-spec/scim-spec-schema/src/main/java/org/apache/directory/scim/spec/schema/Schemas.java`
-#### Snippet
-```java
-
-
-  private static List<Schema.Attribute> createAttributes(String urn, List<Field> fieldList, Set<String> invalidAttributes, String nameBase) throws ScimResourceInvalidException {
-    List<Schema.Attribute> attributeList = new ArrayList<>();
-
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
-in `scim-core/src/main/java/org/apache/directory/scim/core/repository/RepositoryRegistry.java`
+Can generalize to `? extends Attribute`
+in `scim-spec/scim-spec-schema/src/main/java/org/apache/directory/scim/spec/schema/Schema.java`
 #### Snippet
 ```java
   }
-
-  public synchronized <T extends ScimResource> void registerRepository(Class<T> clazz, Repository<T> repository) throws InvalidRepositoryException {
-    List<Class<? extends ScimExtension>> extensionList = repository.getExtensionList();
-
+  
+  public void setAttributes(List<Attribute> attributes) {
+    attributeNamesMap.clear();
+    
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends T`
-in `scim-client/src/main/java/org/apache/directory/scim/client/rest/BaseScimClient.java`
-#### Snippet
-```java
-  private RestCall invoke = Invocation::invoke;
-
-  public BaseScimClient(Client client, String baseUrl, Class<T> scimResourceClass, GenericType<ListResponse<T>> scimResourceListGenericType) {
-    ScimResourceType scimResourceType = scimResourceClass.getAnnotation(ScimResourceType.class);
-    String endpoint = scimResourceType != null ? scimResourceType.endpoint() : null;
-```
-
-### BoundedWildcard
-Can generalize to `? extends ListResponse`
-in `scim-client/src/main/java/org/apache/directory/scim/client/rest/BaseScimClient.java`
-#### Snippet
-```java
-  private RestCall invoke = Invocation::invoke;
-
-  public BaseScimClient(Client client, String baseUrl, Class<T> scimResourceClass, GenericType<ListResponse<T>> scimResourceListGenericType) {
-    ScimResourceType scimResourceType = scimResourceClass.getAnnotation(ScimResourceType.class);
-    String endpoint = scimResourceType != null ? scimResourceType.endpoint() : null;
-```
-
-### BoundedWildcard
-Can generalize to `? extends ScimGroup`
-in `scim-server-examples/scim-server-jersey/src/main/java/org/apache/directory/scim/example/jersey/service/InMemoryGroupService.java`
+Can generalize to `? extends PatchOperation`
+in `scim-core/src/main/java/org/apache/directory/scim/core/repository/PatchHandlerImpl.java`
 #### Snippet
 ```java
 
   @Override
-  public ScimGroup update(UpdateRequest<ScimGroup> updateRequest) throws UnableToUpdateResourceException {
-    String id = updateRequest.getId();
-    ScimGroup resource = updateRequest.getResource();
-```
-
-### BoundedWildcard
-Can generalize to `? extends ScimUser`
-in `scim-server-examples/scim-server-memory/src/main/java/org/apache/directory/scim/example/memory/service/InMemoryUserService.java`
-#### Snippet
-```java
-   */
-  @Override
-  public ScimUser update(UpdateRequest<ScimUser> updateRequest) throws UnableToUpdateResourceException {
-    String id = updateRequest.getId();
-    ScimUser resource = updateRequest.getResource();
-```
-
-### BoundedWildcard
-Can generalize to `? extends ScimUser`
-in `scim-server-examples/scim-server-jersey/src/main/java/org/apache/directory/scim/example/jersey/service/InMemoryUserService.java`
-#### Snippet
-```java
-   */
-  @Override
-  public ScimUser update(UpdateRequest<ScimUser> updateRequest) throws UnableToUpdateResourceException {
-    String id = updateRequest.getId();
-    ScimUser resource = updateRequest.getResource();
-```
-
-### BoundedWildcard
-Can generalize to `? super Attribute`
-in `scim-server/src/main/java/org/apache/directory/scim/server/rest/AttributeUtil.java`
-#### Snippet
-```java
-  }
-
-  private void processAttributes(Object object, AttributeContainer attributeContainer, Function<Attribute, Boolean> function) throws AttributeException {
-    try {
-      if (attributeContainer != null && object != null) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends AttributeReference`
-in `scim-server/src/main/java/org/apache/directory/scim/server/rest/AttributeUtil.java`
-#### Snippet
-```java
-  }
-
-  private Set<Attribute> resolveAttributeReferences(Set<AttributeReference> attributeReferences, boolean includeAttributeChain) throws AttributeDoesNotExistException {
-    Set<Attribute> attributes = new HashSet<>();
-
-```
-
-### BoundedWildcard
-Can generalize to `? extends ScimGroup`
-in `scim-server-examples/scim-server-memory/src/main/java/org/apache/directory/scim/example/memory/service/InMemoryGroupService.java`
-#### Snippet
-```java
-
-  @Override
-  public ScimGroup update(UpdateRequest<ScimGroup> updateRequest) throws UnableToUpdateResourceException {
-    String id = updateRequest.getId();
-    ScimGroup resource = updateRequest.getResource();
+  public <T extends ScimResource> T apply(final T original, final List<PatchOperation> patchOperations) {
+    if (original == null) {
+      throw new UnsupportedFilterException("Original resource is null. Cannot apply patch.");
 ```
 
 ### BoundedWildcard
 Can generalize to `? super String`
-in `scim-server/src/main/java/org/apache/directory/scim/server/rest/BulkResourceImpl.java`
+in `scim-core/src/main/java/org/apache/directory/scim/core/repository/PatchHandlerImpl.java`
 #### Snippet
 ```java
-   * @param current
-   */
-  private static void generateVisited(Set<String> visited, Map<String, Set<String>> dependencyGraph, String root, String current) {
-    if (!root.equals(current) && !visited.contains(current)) {
-      visited.add(current);
+
+    @Override
+    public void applySingleValue(Map<String, Object> sourceAsMap, Attribute attribute, AttributeReference attributeReference, Object value) {
+      String attributeName = attribute.getName();
+      checkMutability(attribute, sourceAsMap.get(attributeName));
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `scim-core/src/main/java/org/apache/directory/scim/core/repository/PatchHandlerImpl.java`
+#### Snippet
+```java
+
+    @Override
+    public <T extends ScimResource> void applyMultiValue(T source, Map<String, Object> sourceAsMap, Schema schema, Attribute attribute, ValuePathExpression valuePathExpression, Object value) {
+
+      String attributeName = attribute.getName();
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `scim-core/src/main/java/org/apache/directory/scim/core/repository/PatchHandlerImpl.java`
+#### Snippet
+```java
+
+    @Override
+    public void applySingleValue(Map<String, Object> sourceAsMap, Attribute attribute, AttributeReference attributeReference, Object value) {
+      if (attributeReference.hasSubAttribute()) {
+        Map<String, Object> parentValue = (Map<String, Object>) sourceAsMap.get(attributeReference.getAttributeName());
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `scim-core/src/main/java/org/apache/directory/scim/core/repository/PatchHandlerImpl.java`
+#### Snippet
+```java
+
+    @Override
+    public <T extends ScimResource> void applyMultiValue(T source, Map<String, Object> sourceAsMap, Schema schema, Attribute attribute, AttributeReference attributeReference, Object value) {
+
+      Collection<Object> items = (Collection<Object>) sourceAsMap.get(attributeReference.getAttributeName());
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `scim-core/src/main/java/org/apache/directory/scim/core/repository/PatchHandlerImpl.java`
+#### Snippet
+```java
+
+    @Override
+    public <T extends ScimResource> void applyExtensionValue(T source, Map<String, Object> sourceAsMap, Schema schema, Attribute attribute, ValuePathExpression valuePathExpression, String urn, Object value) {
+
+      // add the extension URN
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `scim-core/src/main/java/org/apache/directory/scim/core/repository/PatchHandlerImpl.java`
+#### Snippet
+```java
+
+    @Override
+    public <T extends ScimResource> void applyMultiValue(T source, Map<String, Object> sourceAsMap, Schema schema, Attribute attribute, AttributeReference attributeReference, Object value) {
+      checkMutability(attribute, sourceAsMap.get(attribute.getName()));
+      // replace the collection
 ```
 
 ### BoundedWildcard
@@ -1246,47 +1317,11 @@ Can generalize to `? extends BulkOperation`
 in `scim-server/src/main/java/org/apache/directory/scim/server/rest/BulkResourceImpl.java`
 #### Snippet
 ```java
-   * @return
-   */
-  private Map<String, Set<String>> generateReverseDependenciesGraph(List<BulkOperation> bulkOperations) {
-    Map<String, Set<String>> reverseDependenciesGraph = new HashMap<>();
-
-```
-
-### BoundedWildcard
-Can generalize to `? super IWishJavaHadTuples`
-in `scim-server/src/main/java/org/apache/directory/scim/server/rest/BulkResourceImpl.java`
-#### Snippet
-```java
-   * @throws UnresolvableOperationException
-   */
-  private void resolveTopLevel(List<IWishJavaHadTuples> unresolveds, BulkOperation bulkOperationResult, Map<String, BulkOperation> bulkIdKeyToOperationResult) throws UnresolvableOperationException {
-    ScimResource scimResource = bulkOperationResult.getData();
-    String schemaUrn = scimResource.getBaseUrn();
-```
-
-### BoundedWildcard
-Can generalize to `? extends BulkOperation`
-in `scim-server/src/main/java/org/apache/directory/scim/server/rest/BulkResourceImpl.java`
-#### Snippet
-```java
    * @throws UnresolvableOperationException
    */
   private static List<UnresolvedComplex> resolveAttribute(List<UnresolvedComplex> unresolveds, Object attributeValue, Schema.Attribute attribute, Map<String, BulkOperation> bulkIdKeyToOperationResult) throws UnresolvableOperationException {
     if (attributeValue == null) {
       return unresolveds;
-```
-
-### BoundedWildcard
-Can generalize to `? extends BulkOperation`
-in `scim-server/src/main/java/org/apache/directory/scim/server/rest/BulkResourceImpl.java`
-#### Snippet
-```java
-
-    @Override
-    public void resolve(ScimResource scimResource, Map<String, BulkOperation> bulkIdKeyToOperationResult) throws UnresolvableOperationException {
-      BulkOperation resolvedOperationResult = bulkIdKeyToOperationResult.get(this.unresolvedBulkIdKey);
-      BaseResource response = resolvedOperationResult.getResponse();
 ```
 
 ### BoundedWildcard
@@ -1306,6 +1341,30 @@ Can generalize to `? extends BulkOperation`
 in `scim-server/src/main/java/org/apache/directory/scim/server/rest/BulkResourceImpl.java`
 #### Snippet
 ```java
+
+    @Override
+    public void resolve(ScimResource scimResource, Map<String, BulkOperation> bulkIdKeyToOperationResult) throws UnresolvableOperationException {
+      BulkOperation resolvedOperationResult = bulkIdKeyToOperationResult.get(this.unresolvedBulkIdKey);
+      BaseResource response = resolvedOperationResult.getResponse();
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `scim-server/src/main/java/org/apache/directory/scim/server/rest/BulkResourceImpl.java`
+#### Snippet
+```java
+   * @param current
+   */
+  private static void generateVisited(Set<String> visited, Map<String, Set<String>> dependencyGraph, String root, String current) {
+    if (!root.equals(current) && !visited.contains(current)) {
+      visited.add(current);
+```
+
+### BoundedWildcard
+Can generalize to `? extends BulkOperation`
+in `scim-server/src/main/java/org/apache/directory/scim/server/rest/BulkResourceImpl.java`
+#### Snippet
+```java
     private final String bulkIdKey;
 
     public void resolve(Map<String, BulkOperation> bulkIdKeyToOperationResult) throws UnresolvableOperationException {
@@ -1314,102 +1373,30 @@ in `scim-server/src/main/java/org/apache/directory/scim/server/rest/BulkResource
 ```
 
 ### BoundedWildcard
-Can generalize to `? super String`
-in `scim-core/src/main/java/org/apache/directory/scim/core/repository/PatchHandlerImpl.java`
+Can generalize to `? extends BulkOperation`
+in `scim-server/src/main/java/org/apache/directory/scim/server/rest/BulkResourceImpl.java`
 #### Snippet
 ```java
+   * @return
+   */
+  private Map<String, Set<String>> generateReverseDependenciesGraph(List<BulkOperation> bulkOperations) {
+    Map<String, Set<String>> reverseDependenciesGraph = new HashMap<>();
 
-    @Override
-    public <T extends ScimResource> void applyMultiValue(T source, Map<String, Object> sourceAsMap, Schema schema, Attribute attribute, AttributeReference attributeReference, Object value) {
-      checkMutability(attribute, sourceAsMap.get(attribute.getName()));
-      // replace the collection
 ```
 
 ### BoundedWildcard
-Can generalize to `? super String`
-in `scim-core/src/main/java/org/apache/directory/scim/core/repository/PatchHandlerImpl.java`
+Can generalize to `? super IWishJavaHadTuples`
+in `scim-server/src/main/java/org/apache/directory/scim/server/rest/BulkResourceImpl.java`
 #### Snippet
 ```java
-
-    @Override
-    public void applySingleValue(Map<String, Object> sourceAsMap, Attribute attribute, AttributeReference attributeReference, Object value) {
-      if (attributeReference.hasSubAttribute()) {
-        Map<String, Object> parentValue = (Map<String, Object>) sourceAsMap.get(attributeReference.getAttributeName());
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `scim-core/src/main/java/org/apache/directory/scim/core/repository/PatchHandlerImpl.java`
-#### Snippet
-```java
-
-    @Override
-    public void applySingleValue(Map<String, Object> sourceAsMap, Attribute attribute, AttributeReference attributeReference, Object value) {
-      String attributeName = attribute.getName();
-      checkMutability(attribute, sourceAsMap.get(attributeName));
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `scim-core/src/main/java/org/apache/directory/scim/core/repository/PatchHandlerImpl.java`
-#### Snippet
-```java
-
-    @Override
-    public <T extends ScimResource> void applyExtensionValue(T source, Map<String, Object> sourceAsMap, Schema schema, Attribute attribute, ValuePathExpression valuePathExpression, String urn, Object value) {
-
-      // add the extension URN
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `scim-core/src/main/java/org/apache/directory/scim/core/repository/PatchHandlerImpl.java`
-#### Snippet
-```java
-
-    @Override
-    public <T extends ScimResource> void applyMultiValue(T source, Map<String, Object> sourceAsMap, Schema schema, Attribute attribute, ValuePathExpression valuePathExpression, Object value) {
-
-      String attributeName = attribute.getName();
-```
-
-### BoundedWildcard
-Can generalize to `? extends PatchOperation`
-in `scim-core/src/main/java/org/apache/directory/scim/core/repository/PatchHandlerImpl.java`
-#### Snippet
-```java
-
-  @Override
-  public <T extends ScimResource> T apply(final T original, final List<PatchOperation> patchOperations) {
-    if (original == null) {
-      throw new UnsupportedFilterException("Original resource is null. Cannot apply patch.");
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `scim-core/src/main/java/org/apache/directory/scim/core/repository/PatchHandlerImpl.java`
-#### Snippet
-```java
-
-    @Override
-    public <T extends ScimResource> void applyMultiValue(T source, Map<String, Object> sourceAsMap, Schema schema, Attribute attribute, AttributeReference attributeReference, Object value) {
-
-      Collection<Object> items = (Collection<Object>) sourceAsMap.get(attributeReference.getAttributeName());
+   * @throws UnresolvableOperationException
+   */
+  private void resolveTopLevel(List<IWishJavaHadTuples> unresolveds, BulkOperation bulkOperationResult, Map<String, BulkOperation> bulkIdKeyToOperationResult) throws UnresolvableOperationException {
+    ScimResource scimResource = bulkOperationResult.getData();
+    String schemaUrn = scimResource.getBaseUrn();
 ```
 
 ## RuleId[ruleID=MissortedModifiers]
-### MissortedModifiers
-Missorted modifiers `final private`
-in `scim-spec/scim-spec-schema/src/main/java/org/apache/directory/scim/spec/filter/InMemoryScimFilterMatcher.java`
-#### Snippet
-```java
-  private class ValuePathPredicate<R> extends AbstractAttributePredicate<ValuePathExpression, R> {
-
-    final private Predicate<Object> nestedPredicate;
-
-    ValuePathPredicate(ValuePathExpression expression, AttributeContainer attributeContainer, Predicate<Object> nestedPredicate) {
-```
-
 ### MissortedModifiers
 Missorted modifiers `final static`
 in `scim-core/src/main/java/org/apache/directory/scim/core/json/ObjectMapperFactory.java`
@@ -1420,6 +1407,18 @@ public class ObjectMapperFactory {
   private final static ObjectMapper objectMapper = createObjectMapper();
 
   /**
+```
+
+### MissortedModifiers
+Missorted modifiers `final private`
+in `scim-spec/scim-spec-schema/src/main/java/org/apache/directory/scim/spec/filter/InMemoryScimFilterMatcher.java`
+#### Snippet
+```java
+  private class ValuePathPredicate<R> extends AbstractAttributePredicate<ValuePathExpression, R> {
+
+    final private Predicate<Object> nestedPredicate;
+
+    ValuePathPredicate(ValuePathExpression expression, AttributeContainer attributeContainer, Predicate<Object> nestedPredicate) {
 ```
 
 ### MissortedModifiers
@@ -1489,14 +1488,14 @@ in `scim-server/src/main/java/org/apache/directory/scim/server/rest/BulkResource
 ## RuleId[ruleID=DefaultAnnotationParam]
 ### DefaultAnnotationParam
 Redundant default parameter value assignment
-in `scim-spec/scim-spec-schema/src/main/java/org/apache/directory/scim/spec/schema/Schema.java`
+in `scim-spec/scim-spec-schema/src/main/java/org/apache/directory/scim/spec/patch/PatchOperation.java`
 #### Snippet
 ```java
-    }
-
-    @XmlEnum(String.class)
-    public enum Type {
-      @XmlEnumValue("binary") BINARY,
+public class PatchOperation {
+  
+  @XmlEnum(String.class)
+  public enum Type {
+    @XmlEnumValue("add") ADD,
 ```
 
 ### DefaultAnnotationParam
@@ -1513,18 +1512,6 @@ public class EnterpriseExtension implements ScimExtension {
 
 ### DefaultAnnotationParam
 Redundant default parameter value assignment
-in `scim-spec/scim-spec-schema/src/main/java/org/apache/directory/scim/spec/patch/PatchOperation.java`
-#### Snippet
-```java
-public class PatchOperation {
-  
-  @XmlEnum(String.class)
-  public enum Type {
-    @XmlEnumValue("add") ADD,
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
 in `scim-spec/scim-spec-protocol/src/main/java/org/apache/directory/scim/protocol/ErrorMessageType.java`
 #### Snippet
 ```java
@@ -1533,6 +1520,18 @@ import lombok.Getter;
 @XmlEnum(String.class)
 @Getter(AccessLevel.PUBLIC)
 public enum ErrorMessageType {
+```
+
+### DefaultAnnotationParam
+Redundant default parameter value assignment
+in `scim-spec/scim-spec-schema/src/main/java/org/apache/directory/scim/spec/schema/Schema.java`
+#### Snippet
+```java
+    }
+
+    @XmlEnum(String.class)
+    public enum Type {
+      @XmlEnumValue("binary") BINARY,
 ```
 
 ## RuleId[ruleID=ConditionCoveredByFurtherCondition]
@@ -1558,18 +1557,6 @@ in `scim-core/src/main/java/org/apache/directory/scim/core/repository/UpdateRequ
       if (value != null && value instanceof ArrayList) {
         List<Object> objList = (List<Object>)value;
         
-```
-
-### ConditionCoveredByFurtherCondition
-Condition 'response == null' covered by subsequent condition '!(response instanceof ErrorResponse)'
-in `scim-server/src/main/java/org/apache/directory/scim/server/rest/BulkResourceImpl.java`
-#### Snippet
-```java
-            ScimResource resolvedResource = resolvedOperationResult.getData();
-
-            if ((response == null || !(response instanceof ErrorResponse)) && resolvedResource != null) {
-              String resolvedId = resolvedResource.getId();
-
 ```
 
 ### ConditionCoveredByFurtherCondition
@@ -1608,6 +1595,18 @@ in `scim-server/src/main/java/org/apache/directory/scim/server/rest/BulkResource
         this.accessor.set(this.object, resolvedId);
 ```
 
+### ConditionCoveredByFurtherCondition
+Condition 'response == null' covered by subsequent condition '!(response instanceof ErrorResponse)'
+in `scim-server/src/main/java/org/apache/directory/scim/server/rest/BulkResourceImpl.java`
+#### Snippet
+```java
+            ScimResource resolvedResource = resolvedOperationResult.getData();
+
+            if ((response == null || !(response instanceof ErrorResponse)) && resolvedResource != null) {
+              String resolvedId = resolvedResource.getId();
+
+```
+
 ## RuleId[ruleID=UnnecessarySuperQualifier]
 ### UnnecessarySuperQualifier
 Qualifier `super` is unnecessary in this context
@@ -1622,18 +1621,6 @@ in `scim-server/src/main/java/org/apache/directory/scim/server/rest/BulkResource
 ```
 
 ## RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
-### DynamicRegexReplaceableByCompiledPattern
-`replaceFirst()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `scim-compliance-tests/src/main/java/org/apache/directory/scim/compliance/tests/UsersIT.java`
-#### Snippet
-```java
-      .extract().jsonPath().get("id");
-
-    String updatedBody = body.replaceFirst("}$",
-      ",\"phoneNumbers\": [{\"value\": \"555-555-5555\",\"type\": \"work\"}]}");
-
-```
-
 ### DynamicRegexReplaceableByCompiledPattern
 `matches()` could be replaced with compiled 'java.util.regex.Pattern' construct
 in `scim-spec/scim-spec-schema/src/main/java/org/apache/directory/scim/spec/validator/UrnValidator.java`
@@ -1672,38 +1659,26 @@ in `scim-spec/scim-spec-schema/src/main/java/org/apache/directory/scim/spec/filt
 
 ### DynamicRegexReplaceableByCompiledPattern
 `replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `scim-spec/scim-spec-schema/src/main/java/org/apache/directory/scim/spec/resources/PhoneNumber.java`
+in `scim-spec/scim-spec-schema/src/main/java/org/apache/directory/scim/spec/filter/ExpressionBuildingListener.java`
 #### Snippet
 ```java
-    int result = 1;
-    result = prime * result + (isGlobalNumber ? 1231 : 1237);
-    result = prime * result + ((number == null) ? 0 : number.replaceAll(VISUAL_SEPARATORS, "").hashCode());
-    result = prime * result + ((extension == null) ? 0 : extension.replaceAll(VISUAL_SEPARATORS, "").hashCode());
-    result = prime * result + ((subAddress == null) ? 0 : subAddress.toLowerCase().hashCode());
+      String doubleEscaped = jsonValue.substring(1, jsonValue.length() - 1)
+          // StringEscapeUtils follows the outdated JSON spec requiring "/" to be escaped, this could subtly break things
+          .replaceAll("\\\\/", "\\\\\\\\/")
+          // Just in case someone needs a single-quote with a backslash in front of it, this will be unnecessary with escapeJson()
+          .replaceAll("\\\\'", "\\\\\\\\'");
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
 `replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `scim-spec/scim-spec-schema/src/main/java/org/apache/directory/scim/spec/resources/PhoneNumber.java`
+in `scim-spec/scim-spec-schema/src/main/java/org/apache/directory/scim/spec/filter/ExpressionBuildingListener.java`
 #### Snippet
 ```java
-    result = prime * result + (isGlobalNumber ? 1231 : 1237);
-    result = prime * result + ((number == null) ? 0 : number.replaceAll(VISUAL_SEPARATORS, "").hashCode());
-    result = prime * result + ((extension == null) ? 0 : extension.replaceAll(VISUAL_SEPARATORS, "").hashCode());
-    result = prime * result + ((subAddress == null) ? 0 : subAddress.toLowerCase().hashCode());
-    result = prime * result + ((phoneContext == null) ? 0 : (isDomainPhoneContext ? phoneContext.toLowerCase().hashCode() : phoneContext.replaceAll(VISUAL_SEPARATORS, "").hashCode()));
-```
+          .replaceAll("\\\\/", "\\\\\\\\/")
+          // Just in case someone needs a single-quote with a backslash in front of it, this will be unnecessary with escapeJson()
+          .replaceAll("\\\\'", "\\\\\\\\'");
 
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `scim-spec/scim-spec-schema/src/main/java/org/apache/directory/scim/spec/resources/PhoneNumber.java`
-#### Snippet
-```java
-    result = prime * result + ((extension == null) ? 0 : extension.replaceAll(VISUAL_SEPARATORS, "").hashCode());
-    result = prime * result + ((subAddress == null) ? 0 : subAddress.toLowerCase().hashCode());
-    result = prime * result + ((phoneContext == null) ? 0 : (isDomainPhoneContext ? phoneContext.toLowerCase().hashCode() : phoneContext.replaceAll(VISUAL_SEPARATORS, "").hashCode()));
-    result = prime * result + ((params == null) ? 0 : paramsToLowerCase().hashCode());
-    result = prime * result + ((primary == null) ? 0 : primary.hashCode());
+      // TODO change this to escapeJson() when dependencies get upgraded
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
@@ -1783,23 +1758,47 @@ in `scim-spec/scim-spec-schema/src/main/java/org/apache/directory/scim/spec/reso
 in `scim-spec/scim-spec-schema/src/main/java/org/apache/directory/scim/spec/resources/PhoneNumber.java`
 #### Snippet
 ```java
-      }
-
-      if (extension != null && !extension.matches(LOCAL_SUBSCRIBER_NUMBER_REGEX)) {
-        throw new IllegalArgumentException("PhoneNumberBuilder extension must contain only numeric characters and optional ., -, (, ) visual separator characters.");
-      }
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`matches()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `scim-spec/scim-spec-schema/src/main/java/org/apache/directory/scim/spec/resources/PhoneNumber.java`
-#### Snippet
-```java
     @Override
     public PhoneNumber build() throws PhoneNumberParseException {
       if (StringUtils.isBlank(globalNumber) || !globalNumber.matches(GLOBAL_NUMBER_REGEX)) {
         throw new IllegalArgumentException("GlobalPhoneNumberBuilder globalNumber must contain only numeric characters, optional ., -, (, ) visual separators, and an optional plus (+) prefix.");
       }
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `scim-spec/scim-spec-schema/src/main/java/org/apache/directory/scim/spec/resources/PhoneNumber.java`
+#### Snippet
+```java
+    int result = 1;
+    result = prime * result + (isGlobalNumber ? 1231 : 1237);
+    result = prime * result + ((number == null) ? 0 : number.replaceAll(VISUAL_SEPARATORS, "").hashCode());
+    result = prime * result + ((extension == null) ? 0 : extension.replaceAll(VISUAL_SEPARATORS, "").hashCode());
+    result = prime * result + ((subAddress == null) ? 0 : subAddress.toLowerCase().hashCode());
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `scim-spec/scim-spec-schema/src/main/java/org/apache/directory/scim/spec/resources/PhoneNumber.java`
+#### Snippet
+```java
+    result = prime * result + (isGlobalNumber ? 1231 : 1237);
+    result = prime * result + ((number == null) ? 0 : number.replaceAll(VISUAL_SEPARATORS, "").hashCode());
+    result = prime * result + ((extension == null) ? 0 : extension.replaceAll(VISUAL_SEPARATORS, "").hashCode());
+    result = prime * result + ((subAddress == null) ? 0 : subAddress.toLowerCase().hashCode());
+    result = prime * result + ((phoneContext == null) ? 0 : (isDomainPhoneContext ? phoneContext.toLowerCase().hashCode() : phoneContext.replaceAll(VISUAL_SEPARATORS, "").hashCode()));
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `scim-spec/scim-spec-schema/src/main/java/org/apache/directory/scim/spec/resources/PhoneNumber.java`
+#### Snippet
+```java
+    result = prime * result + ((extension == null) ? 0 : extension.replaceAll(VISUAL_SEPARATORS, "").hashCode());
+    result = prime * result + ((subAddress == null) ? 0 : subAddress.toLowerCase().hashCode());
+    result = prime * result + ((phoneContext == null) ? 0 : (isDomainPhoneContext ? phoneContext.toLowerCase().hashCode() : phoneContext.replaceAll(VISUAL_SEPARATORS, "").hashCode()));
+    result = prime * result + ((params == null) ? 0 : paramsToLowerCase().hashCode());
+    result = prime * result + ((primary == null) ? 0 : primary.hashCode());
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
@@ -1839,54 +1838,30 @@ in `scim-spec/scim-spec-schema/src/main/java/org/apache/directory/scim/spec/reso
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `scim-spec/scim-spec-schema/src/main/java/org/apache/directory/scim/spec/filter/ExpressionBuildingListener.java`
+`matches()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `scim-spec/scim-spec-schema/src/main/java/org/apache/directory/scim/spec/resources/PhoneNumber.java`
 #### Snippet
 ```java
-      String doubleEscaped = jsonValue.substring(1, jsonValue.length() - 1)
-          // StringEscapeUtils follows the outdated JSON spec requiring "/" to be escaped, this could subtly break things
-          .replaceAll("\\\\/", "\\\\\\\\/")
-          // Just in case someone needs a single-quote with a backslash in front of it, this will be unnecessary with escapeJson()
-          .replaceAll("\\\\'", "\\\\\\\\'");
+      }
+
+      if (extension != null && !extension.matches(LOCAL_SUBSCRIBER_NUMBER_REGEX)) {
+        throw new IllegalArgumentException("PhoneNumberBuilder extension must contain only numeric characters and optional ., -, (, ) visual separator characters.");
+      }
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `scim-spec/scim-spec-schema/src/main/java/org/apache/directory/scim/spec/filter/ExpressionBuildingListener.java`
+`replaceFirst()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `scim-compliance-tests/src/main/java/org/apache/directory/scim/compliance/tests/UsersIT.java`
 #### Snippet
 ```java
-          .replaceAll("\\\\/", "\\\\\\\\/")
-          // Just in case someone needs a single-quote with a backslash in front of it, this will be unnecessary with escapeJson()
-          .replaceAll("\\\\'", "\\\\\\\\'");
+      .extract().jsonPath().get("id");
 
-      // TODO change this to escapeJson() when dependencies get upgraded
+    String updatedBody = body.replaceFirst("}$",
+      ",\"phoneNumbers\": [{\"value\": \"555-555-5555\",\"type\": \"work\"}]}");
+
 ```
 
 ## RuleId[ruleID=UnnecessaryFullyQualifiedName]
-### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `scim-server-examples/scim-server-spring-boot/src/main/java/org/apache/directory/scim/example/spring/service/InMemoryUserService.java`
-#### Snippet
-```java
-
-  /**
-   * @see Repository#get(java.lang.String)
-   */
-  @Override
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `scim-server-examples/scim-server-spring-boot/src/main/java/org/apache/directory/scim/example/spring/service/InMemoryUserService.java`
-#### Snippet
-```java
-
-  /**
-   * @see Repository#delete(java.lang.String)
-   */
-  @Override
-```
-
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
 in `scim-server-examples/scim-server-jersey/src/main/java/org/apache/directory/scim/example/jersey/JerseyApplication.java`
@@ -1925,7 +1900,19 @@ in `scim-server-examples/scim-server-memory/src/main/java/org/apache/directory/s
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `java.lang` is unnecessary and can be removed
-in `scim-server-examples/scim-server-jersey/src/main/java/org/apache/directory/scim/example/jersey/service/InMemoryUserService.java`
+in `scim-server-examples/scim-server-spring-boot/src/main/java/org/apache/directory/scim/example/spring/service/InMemoryUserService.java`
+#### Snippet
+```java
+
+  /**
+   * @see Repository#get(java.lang.String)
+   */
+  @Override
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.lang` is unnecessary and can be removed
+in `scim-server-examples/scim-server-spring-boot/src/main/java/org/apache/directory/scim/example/spring/service/InMemoryUserService.java`
 #### Snippet
 ```java
 
@@ -1943,6 +1930,18 @@ in `scim-server-examples/scim-server-jersey/src/main/java/org/apache/directory/s
 
   /**
    * @see Repository#get(java.lang.String)
+   */
+  @Override
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.lang` is unnecessary and can be removed
+in `scim-server-examples/scim-server-jersey/src/main/java/org/apache/directory/scim/example/jersey/service/InMemoryUserService.java`
+#### Snippet
+```java
+
+  /**
+   * @see Repository#delete(java.lang.String)
    */
   @Override
 ```
@@ -2045,83 +2044,10 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 ```
 
-## RuleId[ruleID=NonProtectedConstructorInAbstractClass]
-### NonProtectedConstructorInAbstractClass
-Constructor `ScimResourceWithOptionalId()` of an abstract class should not be declared 'public'
-in `scim-spec/scim-spec-schema/src/main/java/org/apache/directory/scim/spec/resources/ScimResourceWithOptionalId.java`
-#### Snippet
-```java
-  String id;
-  
-  public ScimResourceWithOptionalId(String urn, String resourceType) {
-    super(urn, resourceType);
-  }
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `BaseResourceTypeResourceImpl()` of an abstract class should not be declared 'public'
-in `scim-server/src/main/java/org/apache/directory/scim/server/rest/BaseResourceTypeResourceImpl.java`
-#### Snippet
-```java
-  private final Class<T> resourceClass;
-
-  public BaseResourceTypeResourceImpl(SchemaRegistry schemaRegistry, RepositoryRegistry repositoryRegistry, RequestContext requestContext, EtagGenerator etagGenerator, Class<T> resourceClass) {
-    this.schemaRegistry = schemaRegistry;
-    this.repositoryRegistry = repositoryRegistry;
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `BaseScimClient()` of an abstract class should not be declared 'public'
-in `scim-client/src/main/java/org/apache/directory/scim/client/rest/BaseScimClient.java`
-#### Snippet
-```java
-  }
-
-  public BaseScimClient(Client client, String baseUrl, Class<T> scimResourceClass, GenericType<ListResponse<T>> scimResourceListGenericType, RestCall invoke) {
-    this(client, baseUrl, scimResourceClass, scimResourceListGenericType);
-
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `BaseScimClient()` of an abstract class should not be declared 'public'
-in `scim-client/src/main/java/org/apache/directory/scim/client/rest/BaseScimClient.java`
-#### Snippet
-```java
-  private RestCall invoke = Invocation::invoke;
-
-  public BaseScimClient(Client client, String baseUrl, Class<T> scimResourceClass, GenericType<ListResponse<T>> scimResourceListGenericType) {
-    ScimResourceType scimResourceType = scimResourceClass.getAnnotation(ScimResourceType.class);
-    String endpoint = scimResourceType != null ? scimResourceType.endpoint() : null;
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `ScimResource()` of an abstract class should not be declared 'public'
-in `scim-spec/scim-spec-schema/src/main/java/org/apache/directory/scim/spec/resources/ScimResource.java`
-#### Snippet
-```java
-  private final String resourceType;
-
-  public ScimResource(String urn, String resourceType) {
-    super(urn);
-    this.baseUrn = urn;
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `BaseResource()` of an abstract class should not be declared 'public'
-in `scim-spec/scim-spec-schema/src/main/java/org/apache/directory/scim/spec/resources/BaseResource.java`
-#### Snippet
-```java
-  Set<String> schemas;
-
-  public BaseResource(@Urn String urn) {
-    addSchema(urn);
-  }
-```
-
 ## RuleId[ruleID=Lombok]
 ### Lombok
 Lombok needs a default constructor in the base class
-in `scim-spec/scim-spec-schema/src/main/java/org/apache/directory/scim/spec/schema/ServiceProviderConfiguration.java`
+in `scim-spec/scim-spec-protocol/src/main/java/org/apache/directory/scim/protocol/data/ErrorResponse.java`
 #### Snippet
 ```java
 import lombok.EqualsAndHashCode;
@@ -2133,14 +2059,50 @@ import lombok.EqualsAndHashCode;
 
 ### Lombok
 Lombok needs a default constructor in the base class
-in `scim-spec/scim-spec-schema/src/main/java/org/apache/directory/scim/spec/schema/ResourceType.java`
+in `scim-spec/scim-spec-protocol/src/main/java/org/apache/directory/scim/protocol/data/ListResponse.java`
 #### Snippet
 ```java
- * @author Steve Moyer &lt;smoyer@psu.edu&gt;
+import org.apache.directory.scim.spec.resources.BaseResource;
+
+@Data
+@EqualsAndHashCode(callSuper = true)
+@XmlRootElement
+```
+
+### Lombok
+Lombok needs a default constructor in the base class
+in `scim-spec/scim-spec-schema/src/main/java/org/apache/directory/scim/spec/resources/ScimUser.java`
+#### Snippet
+```java
+import lombok.ToString;
+
+@Data
+@ToString(callSuper = true, exclude = {"password"})
+@EqualsAndHashCode(callSuper = true, exclude = {"password"})
+```
+
+### Lombok
+Lombok needs a default constructor in the base class
+in `scim-spec/scim-spec-schema/src/main/java/org/apache/directory/scim/spec/resources/ScimResource.java`
+#### Snippet
+```java
+ * @author smoyer1
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
 @XmlAccessorType(XmlAccessType.NONE)
+```
+
+### Lombok
+Lombok needs a default constructor in the base class
+in `scim-spec/scim-spec-schema/src/main/java/org/apache/directory/scim/spec/schema/ServiceProviderConfiguration.java`
+#### Snippet
+```java
+import lombok.EqualsAndHashCode;
+
+@Data
+@EqualsAndHashCode(callSuper = true)
+@XmlRootElement
 ```
 
 ### Lombok
@@ -2157,86 +2119,14 @@ import lombok.EqualsAndHashCode;
 
 ### Lombok
 Lombok needs a default constructor in the base class
-in `scim-spec/scim-spec-protocol/src/main/java/org/apache/directory/scim/protocol/data/BulkResponse.java`
-#### Snippet
-```java
-import lombok.EqualsAndHashCode;
-
-@Data
-@EqualsAndHashCode(callSuper = true)
-@XmlType
-```
-
-### Lombok
-Lombok needs a default constructor in the base class
-in `scim-spec/scim-spec-protocol/src/main/java/org/apache/directory/scim/protocol/data/PatchRequest.java`
-#### Snippet
-```java
-import org.apache.directory.scim.spec.resources.BaseResource;
-
-@Data
-@EqualsAndHashCode(callSuper = true)
-@XmlRootElement
-```
-
-### Lombok
-Lombok needs a default constructor in the base class
-in `scim-spec/scim-spec-protocol/src/main/java/org/apache/directory/scim/protocol/data/SearchRequest.java`
-#### Snippet
-```java
- *
- */
-@Data
-@EqualsAndHashCode(callSuper = true)
-@XmlType
-```
-
-### Lombok
-Lombok needs a default constructor in the base class
-in `scim-spec/scim-spec-schema/src/main/java/org/apache/directory/scim/spec/resources/ScimResourceWithOptionalId.java`
-#### Snippet
-```java
- * @author crh5255
- */
-@Data
-@EqualsAndHashCode(callSuper = true)
-@XmlAccessorType(XmlAccessType.NONE)
-```
-
-### Lombok
-Lombok needs a default constructor in the base class
-in `scim-server/src/main/java/org/apache/directory/scim/server/exception/UnableToDeleteResourceException.java`
+in `scim-server/src/main/java/org/apache/directory/scim/server/exception/UnableToResolveIdResourceException.java`
 #### Snippet
 ```java
 import org.apache.directory.scim.spec.exception.ResourceException;
 
 @Data
 @EqualsAndHashCode(callSuper=true)
-public class UnableToDeleteResourceException extends ResourceException {
-```
-
-### Lombok
-Lombok needs a default constructor in the base class
-in `scim-spec/scim-spec-schema/src/main/java/org/apache/directory/scim/spec/resources/ScimGroup.java`
-#### Snippet
-```java
-import lombok.EqualsAndHashCode;
-
-@Data
-@EqualsAndHashCode(callSuper = true)
-@ScimResourceType(id = ScimGroup.RESOURCE_NAME, name = ScimGroup.RESOURCE_NAME, schema = ScimGroup.SCHEMA_URI, description = "Top level ScimGroup", endpoint = "/Groups")
-```
-
-### Lombok
-Lombok needs a default constructor in the base class
-in `scim-spec/scim-spec-schema/src/main/java/org/apache/directory/scim/spec/resources/ScimResource.java`
-#### Snippet
-```java
- * @author smoyer1
- */
-@Data
-@EqualsAndHashCode(callSuper = true)
-@XmlAccessorType(XmlAccessType.NONE)
+public class UnableToResolveIdResourceException extends ResourceException {
 ```
 
 ### Lombok
@@ -2265,50 +2155,14 @@ public class UnableToRetrieveExtensionsResourceException extends ResourceExcepti
 
 ### Lombok
 Lombok needs a default constructor in the base class
-in `scim-server/src/main/java/org/apache/directory/scim/server/exception/UnableToRetrieveResourceException.java`
+in `scim-server/src/main/java/org/apache/directory/scim/server/exception/UnableToDeleteResourceException.java`
 #### Snippet
 ```java
 import org.apache.directory.scim.spec.exception.ResourceException;
 
 @Data
 @EqualsAndHashCode(callSuper=true)
-public class UnableToRetrieveResourceException extends ResourceException {
-```
-
-### Lombok
-Lombok needs a default constructor in the base class
-in `scim-spec/scim-spec-schema/src/main/java/org/apache/directory/scim/spec/resources/ScimUser.java`
-#### Snippet
-```java
-import lombok.ToString;
-
-@Data
-@ToString(callSuper = true, exclude = {"password"})
-@EqualsAndHashCode(callSuper = true, exclude = {"password"})
-```
-
-### Lombok
-Lombok needs a default constructor in the base class
-in `scim-spec/scim-spec-protocol/src/main/java/org/apache/directory/scim/protocol/data/ListResponse.java`
-#### Snippet
-```java
-import org.apache.directory.scim.spec.resources.BaseResource;
-
-@Data
-@EqualsAndHashCode(callSuper = true)
-@XmlRootElement
-```
-
-### Lombok
-Lombok needs a default constructor in the base class
-in `scim-spec/scim-spec-protocol/src/main/java/org/apache/directory/scim/protocol/data/ErrorResponse.java`
-#### Snippet
-```java
-import lombok.EqualsAndHashCode;
-
-@Data
-@EqualsAndHashCode(callSuper = true)
-@XmlRootElement
+public class UnableToDeleteResourceException extends ResourceException {
 ```
 
 ### Lombok
@@ -2325,14 +2179,159 @@ public class UnableToCreateResourceException extends ResourceException {
 
 ### Lombok
 Lombok needs a default constructor in the base class
-in `scim-server/src/main/java/org/apache/directory/scim/server/exception/UnableToResolveIdResourceException.java`
+in `scim-spec/scim-spec-schema/src/main/java/org/apache/directory/scim/spec/resources/ScimResourceWithOptionalId.java`
+#### Snippet
+```java
+ * @author crh5255
+ */
+@Data
+@EqualsAndHashCode(callSuper = true)
+@XmlAccessorType(XmlAccessType.NONE)
+```
+
+### Lombok
+Lombok needs a default constructor in the base class
+in `scim-spec/scim-spec-schema/src/main/java/org/apache/directory/scim/spec/schema/ResourceType.java`
+#### Snippet
+```java
+ * @author Steve Moyer &lt;smoyer@psu.edu&gt;
+ */
+@Data
+@EqualsAndHashCode(callSuper = true)
+@XmlAccessorType(XmlAccessType.NONE)
+```
+
+### Lombok
+Lombok needs a default constructor in the base class
+in `scim-spec/scim-spec-protocol/src/main/java/org/apache/directory/scim/protocol/data/SearchRequest.java`
+#### Snippet
+```java
+ *
+ */
+@Data
+@EqualsAndHashCode(callSuper = true)
+@XmlType
+```
+
+### Lombok
+Lombok needs a default constructor in the base class
+in `scim-spec/scim-spec-protocol/src/main/java/org/apache/directory/scim/protocol/data/BulkResponse.java`
+#### Snippet
+```java
+import lombok.EqualsAndHashCode;
+
+@Data
+@EqualsAndHashCode(callSuper = true)
+@XmlType
+```
+
+### Lombok
+Lombok needs a default constructor in the base class
+in `scim-spec/scim-spec-schema/src/main/java/org/apache/directory/scim/spec/resources/ScimGroup.java`
+#### Snippet
+```java
+import lombok.EqualsAndHashCode;
+
+@Data
+@EqualsAndHashCode(callSuper = true)
+@ScimResourceType(id = ScimGroup.RESOURCE_NAME, name = ScimGroup.RESOURCE_NAME, schema = ScimGroup.SCHEMA_URI, description = "Top level ScimGroup", endpoint = "/Groups")
+```
+
+### Lombok
+Lombok needs a default constructor in the base class
+in `scim-server/src/main/java/org/apache/directory/scim/server/exception/UnableToRetrieveResourceException.java`
 #### Snippet
 ```java
 import org.apache.directory.scim.spec.exception.ResourceException;
 
 @Data
 @EqualsAndHashCode(callSuper=true)
-public class UnableToResolveIdResourceException extends ResourceException {
+public class UnableToRetrieveResourceException extends ResourceException {
+```
+
+### Lombok
+Lombok needs a default constructor in the base class
+in `scim-spec/scim-spec-protocol/src/main/java/org/apache/directory/scim/protocol/data/PatchRequest.java`
+#### Snippet
+```java
+import org.apache.directory.scim.spec.resources.BaseResource;
+
+@Data
+@EqualsAndHashCode(callSuper = true)
+@XmlRootElement
+```
+
+## RuleId[ruleID=NonProtectedConstructorInAbstractClass]
+### NonProtectedConstructorInAbstractClass
+Constructor `BaseResource()` of an abstract class should not be declared 'public'
+in `scim-spec/scim-spec-schema/src/main/java/org/apache/directory/scim/spec/resources/BaseResource.java`
+#### Snippet
+```java
+  Set<String> schemas;
+
+  public BaseResource(@Urn String urn) {
+    addSchema(urn);
+  }
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `ScimResource()` of an abstract class should not be declared 'public'
+in `scim-spec/scim-spec-schema/src/main/java/org/apache/directory/scim/spec/resources/ScimResource.java`
+#### Snippet
+```java
+  private final String resourceType;
+
+  public ScimResource(String urn, String resourceType) {
+    super(urn);
+    this.baseUrn = urn;
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `BaseScimClient()` of an abstract class should not be declared 'public'
+in `scim-client/src/main/java/org/apache/directory/scim/client/rest/BaseScimClient.java`
+#### Snippet
+```java
+  private RestCall invoke = Invocation::invoke;
+
+  public BaseScimClient(Client client, String baseUrl, Class<T> scimResourceClass, GenericType<ListResponse<T>> scimResourceListGenericType) {
+    ScimResourceType scimResourceType = scimResourceClass.getAnnotation(ScimResourceType.class);
+    String endpoint = scimResourceType != null ? scimResourceType.endpoint() : null;
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `BaseScimClient()` of an abstract class should not be declared 'public'
+in `scim-client/src/main/java/org/apache/directory/scim/client/rest/BaseScimClient.java`
+#### Snippet
+```java
+  }
+
+  public BaseScimClient(Client client, String baseUrl, Class<T> scimResourceClass, GenericType<ListResponse<T>> scimResourceListGenericType, RestCall invoke) {
+    this(client, baseUrl, scimResourceClass, scimResourceListGenericType);
+
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `ScimResourceWithOptionalId()` of an abstract class should not be declared 'public'
+in `scim-spec/scim-spec-schema/src/main/java/org/apache/directory/scim/spec/resources/ScimResourceWithOptionalId.java`
+#### Snippet
+```java
+  String id;
+  
+  public ScimResourceWithOptionalId(String urn, String resourceType) {
+    super(urn, resourceType);
+  }
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `BaseResourceTypeResourceImpl()` of an abstract class should not be declared 'public'
+in `scim-server/src/main/java/org/apache/directory/scim/server/rest/BaseResourceTypeResourceImpl.java`
+#### Snippet
+```java
+  private final Class<T> resourceClass;
+
+  public BaseResourceTypeResourceImpl(SchemaRegistry schemaRegistry, RepositoryRegistry repositoryRegistry, RequestContext requestContext, EtagGenerator etagGenerator, Class<T> resourceClass) {
+    this.schemaRegistry = schemaRegistry;
+    this.repositoryRegistry = repositoryRegistry;
 ```
 
 ## RuleId[ruleID=FieldAccessedSynchronizedAndUnsynchronized]
@@ -2363,26 +2362,14 @@ public class ScimServerBuildCompatibleExtension implements BuildCompatibleExtens
 
 ### RedundantFieldInitialization
 Field initialization to `false` is redundant
-in `scim-core/src/main/java/org/apache/directory/scim/core/repository/UpdateRequest.java`
-#### Snippet
-```java
-  private T original;
-  private List<PatchOperation> patchOperations;
-  private boolean initialized = false;
-
-  private Schema schema;
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
 in `scim-server/src/main/java/org/apache/directory/scim/server/configuration/ServerConfiguration.java`
 #### Snippet
 ```java
-  boolean supportsPatch = true;
+  boolean supportsETag = true;
   
-  boolean supportsSort = false;
+  boolean supportsFilter = false;
+  int filterMaxResults = FILTER_MAXIMUM_RESULTS;
   
-  String documentationUri;
 ```
 
 ### RedundantFieldInitialization
@@ -2402,11 +2389,11 @@ Field initialization to `false` is redundant
 in `scim-server/src/main/java/org/apache/directory/scim/server/configuration/ServerConfiguration.java`
 #### Snippet
 ```java
-  boolean supportsETag = true;
+  boolean supportsPatch = true;
   
-  boolean supportsFilter = false;
-  int filterMaxResults = FILTER_MAXIMUM_RESULTS;
+  boolean supportsSort = false;
   
+  String documentationUri;
 ```
 
 ### RedundantFieldInitialization
@@ -2457,6 +2444,18 @@ in `scim-spec/scim-spec-schema/src/main/java/org/apache/directory/scim/spec/reso
 
 ```
 
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `scim-core/src/main/java/org/apache/directory/scim/core/repository/UpdateRequest.java`
+#### Snippet
+```java
+  private T original;
+  private List<PatchOperation> patchOperations;
+  private boolean initialized = false;
+
+  private Schema schema;
+```
+
 ## RuleId[ruleID=AssignmentToMethodParameter]
 ### AssignmentToMethodParameter
 Assignment to method parameter `actual`
@@ -2480,42 +2479,6 @@ in `scim-spec/scim-spec-schema/src/main/java/org/apache/directory/scim/spec/filt
             actual = get(schemaAttribute, actual);
           }
           return test(schemaAttribute, actual);
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `resource`
-in `scim-server/src/main/java/org/apache/directory/scim/server/rest/BaseResourceTypeResourceImpl.java`
-#### Snippet
-```java
-  private <T extends ScimResource> T attributesForDisplay(T resource, Set<AttributeReference> includedAttributes, Set<AttributeReference> excludedAttributes) throws AttributeException {
-    if (!excludedAttributes.isEmpty()) {
-      resource = attributeUtil.setExcludedAttributesForDisplay(resource, excludedAttributes);
-    } else {
-      resource = attributeUtil.setAttributesForDisplay(resource, includedAttributes);
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `resource`
-in `scim-server/src/main/java/org/apache/directory/scim/server/rest/BaseResourceTypeResourceImpl.java`
-#### Snippet
-```java
-      resource = attributeUtil.setExcludedAttributesForDisplay(resource, excludedAttributes);
-    } else {
-      resource = attributeUtil.setAttributesForDisplay(resource, includedAttributes);
-    }
-    return resource;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `resource`
-in `scim-server/src/main/java/org/apache/directory/scim/server/rest/BaseResourceTypeResourceImpl.java`
-#### Snippet
-```java
-
-          try {
-            resource = (T) attributeFilterExtension.filterAttributes(resource, scimRequestContext);
-            log.debug("Resource now - " + resource.toString());
-          } catch (ClientFilterException e) {
 ```
 
 ### AssignmentToMethodParameter
@@ -2566,17 +2529,53 @@ in `scim-core/src/main/java/org/apache/directory/scim/core/repository/UpdateRequ
         
 ```
 
+### AssignmentToMethodParameter
+Assignment to method parameter `resource`
+in `scim-server/src/main/java/org/apache/directory/scim/server/rest/BaseResourceTypeResourceImpl.java`
+#### Snippet
+```java
+  private <T extends ScimResource> T attributesForDisplay(T resource, Set<AttributeReference> includedAttributes, Set<AttributeReference> excludedAttributes) throws AttributeException {
+    if (!excludedAttributes.isEmpty()) {
+      resource = attributeUtil.setExcludedAttributesForDisplay(resource, excludedAttributes);
+    } else {
+      resource = attributeUtil.setAttributesForDisplay(resource, includedAttributes);
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `resource`
+in `scim-server/src/main/java/org/apache/directory/scim/server/rest/BaseResourceTypeResourceImpl.java`
+#### Snippet
+```java
+      resource = attributeUtil.setExcludedAttributesForDisplay(resource, excludedAttributes);
+    } else {
+      resource = attributeUtil.setAttributesForDisplay(resource, includedAttributes);
+    }
+    return resource;
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `resource`
+in `scim-server/src/main/java/org/apache/directory/scim/server/rest/BaseResourceTypeResourceImpl.java`
+#### Snippet
+```java
+
+          try {
+            resource = (T) attributeFilterExtension.filterAttributes(resource, scimRequestContext);
+            log.debug("Resource now - " + resource.toString());
+          } catch (ClientFilterException e) {
+```
+
 ## RuleId[ruleID=RedundantImplements]
 ### RedundantImplements
 Redundant interface declaration `Serializable`
-in `scim-spec/scim-spec-schema/src/main/java/org/apache/directory/scim/spec/resources/ScimGroup.java`
+in `scim-spec/scim-spec-schema/src/main/java/org/apache/directory/scim/spec/resources/ScimUser.java`
 #### Snippet
 ```java
-@XmlRootElement(name = ScimGroup.RESOURCE_NAME)
+@XmlRootElement(name = ScimUser.RESOURCE_NAME)
 @XmlAccessorType(XmlAccessType.NONE)
-public class ScimGroup extends ScimResource implements Serializable {
+public class ScimUser extends ScimResource implements Serializable {
 
-  private static final long serialVersionUID = 4424638498347469070L;
+  private static final long serialVersionUID = -2306547717245071997L;
 ```
 
 ### RedundantImplements
@@ -2593,185 +2592,39 @@ public abstract class ScimResource extends BaseResource<ScimResource> implements
 
 ### RedundantImplements
 Redundant interface declaration `Serializable`
-in `scim-spec/scim-spec-schema/src/main/java/org/apache/directory/scim/spec/resources/ScimUser.java`
+in `scim-spec/scim-spec-schema/src/main/java/org/apache/directory/scim/spec/resources/ScimGroup.java`
 #### Snippet
 ```java
-@XmlRootElement(name = ScimUser.RESOURCE_NAME)
+@XmlRootElement(name = ScimGroup.RESOURCE_NAME)
 @XmlAccessorType(XmlAccessType.NONE)
-public class ScimUser extends ScimResource implements Serializable {
+public class ScimGroup extends ScimResource implements Serializable {
 
-  private static final long serialVersionUID = -2306547717245071997L;
-```
-
-## RuleId[ruleID=StringRepeatCanBeUsed]
-### StringRepeatCanBeUsed
-Can be replaced with 'String.repeat()'
-in `scim-spec/scim-spec-schema/src/main/java/org/apache/directory/scim/spec/phonenumber/PhoneNumberParseTreeListener.java`
-#### Snippet
-```java
-  private String indent(String s) {
-    StringBuilder sb = new StringBuilder();
-    for (int i = 0; i < indent; i++) {
-      sb.append("    ");
-    }
-```
-
-## RuleId[ruleID=HtmlWrongAttributeValue]
-### HtmlWrongAttributeValue
-Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-02-07-23-04-09.377.html`
-#### Snippet
-```java
-              <td>0</td>
-              <td>0</td>
-              <td><textarea rows="10" cols="75" readonly="true" placeholder="empty" style="white-space: pre; border: none">Not collected for refresh</textarea></td>
-            </tr>
-          </tbody>
+  private static final long serialVersionUID = 4424638498347469070L;
 ```
 
 ## RuleId[ruleID=ReturnNull]
 ### ReturnNull
 Return of `null`
-in `scim-spec/scim-spec-protocol/src/main/java/org/apache/directory/scim/protocol/adapter/FilterAdapter.java`
+in `scim-spec/scim-spec-protocol/src/main/java/org/apache/directory/scim/protocol/adapter/AttributeReferenceAdapter.java`
 #### Snippet
 ```java
-  public Filter unmarshal(String string) throws Exception {
+  public AttributeReference unmarshal(String string) throws Exception {
     if (string == null) {
       return null;
     }
-    return new Filter(string);
+    return new AttributeReference(string);
 ```
 
 ### ReturnNull
 Return of `null`
-in `scim-spec/scim-spec-protocol/src/main/java/org/apache/directory/scim/protocol/adapter/FilterAdapter.java`
+in `scim-spec/scim-spec-protocol/src/main/java/org/apache/directory/scim/protocol/adapter/AttributeReferenceAdapter.java`
 #### Snippet
 ```java
-  public String marshal(Filter filter) throws Exception {
-    if (filter == null) {
+  public String marshal(AttributeReference attributeReference) throws Exception {
+    if (attributeReference == null) {
       return null;
     }
-    return filter.getExpression().toFilter();
-```
-
-### ReturnNull
-Return of `null`
-in `scim-spec/scim-spec-schema/src/main/java/org/apache/directory/scim/spec/adapter/PatchOperationPathAdapter.java`
-#### Snippet
-```java
-  public PatchOperationPath unmarshal(String v) throws Exception {
-    if (v == null) {
-      return null;
-    }
-    return new PatchOperationPath(v);
-```
-
-### ReturnNull
-Return of `null`
-in `scim-spec/scim-spec-schema/src/main/java/org/apache/directory/scim/spec/adapter/PatchOperationPathAdapter.java`
-#### Snippet
-```java
-  public String marshal(PatchOperationPath v) throws Exception {
-    if (v == null) {
-      return null;
-    }
-    return v.toString();  
-```
-
-### ReturnNull
-Return of `null`
-in `scim-spec/scim-spec-schema/src/main/java/org/apache/directory/scim/spec/adapter/Iso8601DateTimeAdapter.java`
-#### Snippet
-```java
-    if (date == null)
-    {
-      return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `scim-spec/scim-spec-schema/src/main/java/org/apache/directory/scim/spec/adapter/Iso8601DateTimeAdapter.java`
-#### Snippet
-```java
-    if (date == null || date.isEmpty())
-    {
-      return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `scim-spec/scim-spec-schema/src/main/java/org/apache/directory/scim/spec/schema/Schema.java`
-#### Snippet
-```java
-    public Attribute getAttribute(String name) {
-      if (name == null) {
-        return null;
-      }
-      return subAttributeNamesMap.get(name.toLowerCase());
-```
-
-### ReturnNull
-Return of `null`
-in `scim-spec/scim-spec-schema/src/main/java/org/apache/directory/scim/spec/schema/Schema.java`
-#### Snippet
-```java
-  public Attribute getAttributeFromPath(String path) {
-    if (path == null) {
-      return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `scim-spec/scim-spec-schema/src/main/java/org/apache/directory/scim/spec/schema/Schema.java`
-#### Snippet
-```java
-  public Attribute getAttribute(String name) {
-    if (name == null) {
-      return null;
-    }
-    return attributeNamesMap.get(name.toLowerCase());
-```
-
-### ReturnNull
-Return of `null`
-in `scim-core/src/main/java/org/apache/directory/scim/core/schema/SchemaRegistry.java`
-#### Snippet
-```java
-    ResourceType rt = resourceTypeMap.get(resourceType);
-    if (rt == null) {
-      return null;
-    }
-    
-```
-
-### ReturnNull
-Return of `null`
-in `scim-spec/scim-spec-schema/src/main/java/org/apache/directory/scim/spec/adapter/LocalDateTimeAdapter.java`
-#### Snippet
-```java
-	public String marshal(LocalDateTime v) throws Exception {
-		if (v == null) {
-		  return null;
-		}
-		return FORMATTER.format(v);
-```
-
-### ReturnNull
-Return of `null`
-in `scim-spec/scim-spec-schema/src/main/java/org/apache/directory/scim/spec/adapter/LocalDateTimeAdapter.java`
-#### Snippet
-```java
-	public LocalDateTime unmarshal(String v) throws Exception {
-		if (v == null) {
-			return null;
-		}
-		return LocalDateTime.parse(v, FORMATTER);
+    return attributeReference.getFullyQualifiedAttributeName();
 ```
 
 ### ReturnNull
@@ -2812,11 +2665,23 @@ in `scim-spec/scim-spec-schema/src/main/java/org/apache/directory/scim/spec/filt
 
 ### ReturnNull
 Return of `null`
-in `scim-spec/scim-spec-protocol/src/main/java/org/apache/directory/scim/protocol/data/StatusAdapter.java`
+in `scim-spec/scim-spec-schema/src/main/java/org/apache/directory/scim/spec/filter/ExpressionBuildingListener.java`
 #### Snippet
 ```java
-  public Status unmarshal(String v) throws Exception {
-    if (v == null) {
+      return StringEscapeUtils.unescapeEcmaScript(doubleEscaped);
+    } else if ("null".equals(jsonValue)) {
+      return null;
+    } else if ("true".equals(jsonValue)) {
+      return true;
+```
+
+### ReturnNull
+Return of `null`
+in `scim-spec/scim-spec-schema/src/main/java/org/apache/directory/scim/spec/resources/PhoneNumber.java`
+#### Snippet
+```java
+      }
+
       return null;
     }
 
@@ -2824,50 +2689,74 @@ in `scim-spec/scim-spec-protocol/src/main/java/org/apache/directory/scim/protoco
 
 ### ReturnNull
 Return of `null`
-in `scim-spec/scim-spec-protocol/src/main/java/org/apache/directory/scim/protocol/data/StatusAdapter.java`
+in `scim-spec/scim-spec-schema/src/main/java/org/apache/directory/scim/spec/resources/PhoneNumber.java`
 #### Snippet
 ```java
-  public String marshal(Status v) throws Exception {
-    if (v == null) {
-      return null;
+      }
+
+      return !valueString.isEmpty() ? valueString : null;
     }
-    return Integer.toString(v.getStatusCode());
+
 ```
 
 ### ReturnNull
 Return of `null`
-in `scim-spec/scim-spec-protocol/src/main/java/org/apache/directory/scim/protocol/adapter/AttributeReferenceAdapter.java`
+in `scim-spec/scim-spec-schema/src/main/java/org/apache/directory/scim/spec/resources/PhoneNumber.java`
 #### Snippet
 ```java
-  public AttributeReference unmarshal(String string) throws Exception {
-    if (string == null) {
+      }
+
       return null;
     }
-    return new AttributeReference(string);
+
 ```
 
 ### ReturnNull
 Return of `null`
-in `scim-spec/scim-spec-protocol/src/main/java/org/apache/directory/scim/protocol/adapter/AttributeReferenceAdapter.java`
+in `scim-spec/scim-spec-schema/src/main/java/org/apache/directory/scim/spec/resources/PhoneNumber.java`
 #### Snippet
 ```java
-  public String marshal(AttributeReference attributeReference) throws Exception {
-    if (attributeReference == null) {
+      }
+
       return null;
     }
-    return attributeReference.getFullyQualifiedAttributeName();
+
 ```
 
 ### ReturnNull
 Return of `null`
-in `scim-server/src/main/java/org/apache/directory/scim/server/rest/BaseResourceTypeResourceImpl.java`
+in `scim-spec/scim-spec-schema/src/main/java/org/apache/directory/scim/spec/resources/PhoneNumber.java`
 #### Snippet
 ```java
-    } catch (EtagGenerationException e) {
-      log.warn("Failed to generate etag for resource", e);
+      }
+
+      return !paramsFormatted.isEmpty() ? paramsFormatted : null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `scim-spec/scim-spec-schema/src/main/java/org/apache/directory/scim/spec/adapter/Iso8601DateTimeAdapter.java`
+#### Snippet
+```java
+    if (date == null)
+    {
       return null;
     }
-  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `scim-spec/scim-spec-schema/src/main/java/org/apache/directory/scim/spec/adapter/Iso8601DateTimeAdapter.java`
+#### Snippet
+```java
+    if (date == null || date.isEmpty())
+    {
+      return null;
+    }
+
 ```
 
 ### ReturnNull
@@ -2896,11 +2785,131 @@ in `scim-client/src/main/java/org/apache/directory/scim/client/rest/BaseScimClie
 
 ### ReturnNull
 Return of `null`
+in `scim-spec/scim-spec-schema/src/main/java/org/apache/directory/scim/spec/adapter/LocalDateTimeAdapter.java`
+#### Snippet
+```java
+	public String marshal(LocalDateTime v) throws Exception {
+		if (v == null) {
+		  return null;
+		}
+		return FORMATTER.format(v);
+```
+
+### ReturnNull
+Return of `null`
+in `scim-spec/scim-spec-schema/src/main/java/org/apache/directory/scim/spec/adapter/LocalDateTimeAdapter.java`
+#### Snippet
+```java
+	public LocalDateTime unmarshal(String v) throws Exception {
+		if (v == null) {
+			return null;
+		}
+		return LocalDateTime.parse(v, FORMATTER);
+```
+
+### ReturnNull
+Return of `null`
+in `scim-spec/scim-spec-schema/src/main/java/org/apache/directory/scim/spec/adapter/PatchOperationPathAdapter.java`
+#### Snippet
+```java
+  public String marshal(PatchOperationPath v) throws Exception {
+    if (v == null) {
+      return null;
+    }
+    return v.toString();  
+```
+
+### ReturnNull
+Return of `null`
+in `scim-spec/scim-spec-schema/src/main/java/org/apache/directory/scim/spec/adapter/PatchOperationPathAdapter.java`
+#### Snippet
+```java
+  public PatchOperationPath unmarshal(String v) throws Exception {
+    if (v == null) {
+      return null;
+    }
+    return new PatchOperationPath(v);
+```
+
+### ReturnNull
+Return of `null`
+in `scim-spec/scim-spec-protocol/src/main/java/org/apache/directory/scim/protocol/data/StatusAdapter.java`
+#### Snippet
+```java
+  public String marshal(Status v) throws Exception {
+    if (v == null) {
+      return null;
+    }
+    return Integer.toString(v.getStatusCode());
+```
+
+### ReturnNull
+Return of `null`
+in `scim-spec/scim-spec-protocol/src/main/java/org/apache/directory/scim/protocol/data/StatusAdapter.java`
+#### Snippet
+```java
+  public Status unmarshal(String v) throws Exception {
+    if (v == null) {
+      return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `scim-core/src/main/java/org/apache/directory/scim/core/schema/SchemaRegistry.java`
+#### Snippet
+```java
+    ResourceType rt = resourceTypeMap.get(resourceType);
+    if (rt == null) {
+      return null;
+    }
+    
+```
+
+### ReturnNull
+Return of `null`
+in `scim-spec/scim-spec-protocol/src/main/java/org/apache/directory/scim/protocol/adapter/FilterAdapter.java`
+#### Snippet
+```java
+  public Filter unmarshal(String string) throws Exception {
+    if (string == null) {
+      return null;
+    }
+    return new Filter(string);
+```
+
+### ReturnNull
+Return of `null`
+in `scim-spec/scim-spec-protocol/src/main/java/org/apache/directory/scim/protocol/adapter/FilterAdapter.java`
+#### Snippet
+```java
+  public String marshal(Filter filter) throws Exception {
+    if (filter == null) {
+      return null;
+    }
+    return filter.getExpression().toFilter();
+```
+
+### ReturnNull
+Return of `null`
 in `scim-core/src/main/java/org/apache/directory/scim/core/repository/UpdateRequest.java`
 #### Snippet
 ```java
       List list = (List) object;
       if (index >= list.size()) {
+        return null;
+      }
+
+```
+
+### ReturnNull
+Return of `null`
+in `scim-core/src/main/java/org/apache/directory/scim/core/repository/UpdateRequest.java`
+#### Snippet
+```java
+    private Object lookupAttribute(Object object, AttributeContainer ac, String attributeName) throws IllegalArgumentException, IllegalAccessException {
+      if (object == null) {
         return null;
       }
 
@@ -2944,86 +2953,63 @@ in `scim-core/src/main/java/org/apache/directory/scim/core/repository/UpdateRequ
 
 ### ReturnNull
 Return of `null`
-in `scim-core/src/main/java/org/apache/directory/scim/core/repository/UpdateRequest.java`
+in `scim-server/src/main/java/org/apache/directory/scim/server/rest/BaseResourceTypeResourceImpl.java`
 #### Snippet
 ```java
-    private Object lookupAttribute(Object object, AttributeContainer ac, String attributeName) throws IllegalArgumentException, IllegalAccessException {
-      if (object == null) {
+    } catch (EtagGenerationException e) {
+      log.warn("Failed to generate etag for resource", e);
+      return null;
+    }
+  }
+```
+
+### ReturnNull
+Return of `null`
+in `scim-spec/scim-spec-schema/src/main/java/org/apache/directory/scim/spec/schema/Schema.java`
+#### Snippet
+```java
+  public Attribute getAttributeFromPath(String path) {
+    if (path == null) {
+      return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `scim-spec/scim-spec-schema/src/main/java/org/apache/directory/scim/spec/schema/Schema.java`
+#### Snippet
+```java
+    public Attribute getAttribute(String name) {
+      if (name == null) {
         return null;
       }
-
+      return subAttributeNamesMap.get(name.toLowerCase());
 ```
 
 ### ReturnNull
 Return of `null`
-in `scim-spec/scim-spec-schema/src/main/java/org/apache/directory/scim/spec/resources/PhoneNumber.java`
+in `scim-spec/scim-spec-schema/src/main/java/org/apache/directory/scim/spec/schema/Schema.java`
 #### Snippet
 ```java
-      }
-
+  public Attribute getAttribute(String name) {
+    if (name == null) {
       return null;
     }
-
+    return attributeNamesMap.get(name.toLowerCase());
 ```
 
-### ReturnNull
-Return of `null`
-in `scim-spec/scim-spec-schema/src/main/java/org/apache/directory/scim/spec/resources/PhoneNumber.java`
+## RuleId[ruleID=StringRepeatCanBeUsed]
+### StringRepeatCanBeUsed
+Can be replaced with 'String.repeat()'
+in `scim-spec/scim-spec-schema/src/main/java/org/apache/directory/scim/spec/phonenumber/PhoneNumberParseTreeListener.java`
 #### Snippet
 ```java
-      }
-
-      return !paramsFormatted.isEmpty() ? paramsFormatted : null;
+  private String indent(String s) {
+    StringBuilder sb = new StringBuilder();
+    for (int i = 0; i < indent; i++) {
+      sb.append("    ");
     }
-
-```
-
-### ReturnNull
-Return of `null`
-in `scim-spec/scim-spec-schema/src/main/java/org/apache/directory/scim/spec/resources/PhoneNumber.java`
-#### Snippet
-```java
-      }
-
-      return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `scim-spec/scim-spec-schema/src/main/java/org/apache/directory/scim/spec/resources/PhoneNumber.java`
-#### Snippet
-```java
-      }
-
-      return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `scim-spec/scim-spec-schema/src/main/java/org/apache/directory/scim/spec/resources/PhoneNumber.java`
-#### Snippet
-```java
-      }
-
-      return !valueString.isEmpty() ? valueString : null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `scim-spec/scim-spec-schema/src/main/java/org/apache/directory/scim/spec/filter/ExpressionBuildingListener.java`
-#### Snippet
-```java
-      return StringEscapeUtils.unescapeEcmaScript(doubleEscaped);
-    } else if ("null".equals(jsonValue)) {
-      return null;
-    } else if ("true".equals(jsonValue)) {
-      return true;
 ```
 
 ## RuleId[ruleID=AssignmentToLambdaParameter]
@@ -3041,6 +3027,18 @@ in `scim-core/src/main/java/org/apache/directory/scim/core/repository/PatchHandl
 
 ## RuleId[ruleID=UnnecessaryLocalVariable]
 ### UnnecessaryLocalVariable
+Local variable `vpe` is redundant
+in `scim-spec/scim-spec-schema/src/main/java/org/apache/directory/scim/spec/filter/ValuePathExpression.java`
+#### Snippet
+```java
+
+  public static ValuePathExpression fromFilterExpression(AttributeReference attrRef, FilterExpression attributeExpression) {
+    ValuePathExpression vpe = new ValuePathExpression(attrRef, attributeExpression);
+
+    return vpe;
+```
+
+### UnnecessaryLocalVariable
 Local variable `self` is redundant
 in `scim-client/src/main/java/org/apache/directory/scim/client/rest/ScimSelfClient.java`
 #### Snippet
@@ -3050,42 +3048,6 @@ in `scim-client/src/main/java/org/apache/directory/scim/client/rest/ScimSelfClie
     ScimUser self = this.getSelf(null, null);
 
     return self;
-```
-
-### UnnecessaryLocalVariable
-Local variable `response` is redundant
-in `scim-client/src/main/java/org/apache/directory/scim/client/rest/ResourceTypesClient.java`
-#### Snippet
-```java
-    @Override
-    public Response getAllResourceTypes(String filter) throws RestException {
-      Response response = ResourceTypesClient.this.target
-          .queryParam("filter", filter)
-          .request("application/scim+json")
-```
-
-### UnnecessaryLocalVariable
-Local variable `response` is redundant
-in `scim-client/src/main/java/org/apache/directory/scim/client/rest/ResourceTypesClient.java`
-#### Snippet
-```java
-    @Override
-    public Response getResourceType(String name) throws RestException {
-      Response response = ResourceTypesClient.this.target
-          .path(name)
-          .request("application/scim+json")
-```
-
-### UnnecessaryLocalVariable
-Local variable `patchOps` is redundant
-in `scim-core/src/main/java/org/apache/directory/scim/core/repository/UpdateRequest.java`
-#### Snippet
-```java
-    }*/
-
-    List<PatchOperation> patchOps = convertToPatchOperations(differences);
-
-    /*try {
 ```
 
 ### UnnecessaryLocalVariable
@@ -3101,15 +3063,39 @@ in `scim-spec/scim-spec-schema/src/main/java/org/apache/directory/scim/spec/filt
 ```
 
 ### UnnecessaryLocalVariable
-Local variable `vpe` is redundant
-in `scim-spec/scim-spec-schema/src/main/java/org/apache/directory/scim/spec/filter/ValuePathExpression.java`
+Local variable `patchOps` is redundant
+in `scim-core/src/main/java/org/apache/directory/scim/core/repository/UpdateRequest.java`
 #### Snippet
 ```java
+    }*/
 
-  public static ValuePathExpression fromFilterExpression(AttributeReference attrRef, FilterExpression attributeExpression) {
-    ValuePathExpression vpe = new ValuePathExpression(attrRef, attributeExpression);
+    List<PatchOperation> patchOps = convertToPatchOperations(differences);
 
-    return vpe;
+    /*try {
+```
+
+### UnnecessaryLocalVariable
+Local variable `response` is redundant
+in `scim-client/src/main/java/org/apache/directory/scim/client/rest/ResourceTypesClient.java`
+#### Snippet
+```java
+    @Override
+    public Response getResourceType(String name) throws RestException {
+      Response response = ResourceTypesClient.this.target
+          .path(name)
+          .request("application/scim+json")
+```
+
+### UnnecessaryLocalVariable
+Local variable `response` is redundant
+in `scim-client/src/main/java/org/apache/directory/scim/client/rest/ResourceTypesClient.java`
+#### Snippet
+```java
+    @Override
+    public Response getAllResourceTypes(String filter) throws RestException {
+      Response response = ResourceTypesClient.this.target
+          .queryParam("filter", filter)
+          .request("application/scim+json")
 ```
 
 ### UnnecessaryLocalVariable
@@ -3130,11 +3116,11 @@ There is a more general exception, 'java.io.IOException', in the throws list alr
 in `scim-tools/src/main/java/org/apache/directory/scim/tools/lint/Lint.java`
 #### Snippet
 ```java
-public class Lint {
-
-  JsonNode convert(InputStream inputStream) throws JsonProcessingException, IOException {
-    ObjectMapper objectMapper = new ObjectMapper();
-    return objectMapper.readTree(inputStream);
+  }
+  
+  public boolean lint(InputStream inputStream) throws JsonProcessingException, IOException {
+    return lint(convert(inputStream));
+  }
 ```
 
 ### DuplicateThrows
@@ -3142,11 +3128,11 @@ There is a more general exception, 'java.io.IOException', in the throws list alr
 in `scim-tools/src/main/java/org/apache/directory/scim/tools/lint/Lint.java`
 #### Snippet
 ```java
-  }
-  
-  public boolean lint(InputStream inputStream) throws JsonProcessingException, IOException {
-    return lint(convert(inputStream));
-  }
+public class Lint {
+
+  JsonNode convert(InputStream inputStream) throws JsonProcessingException, IOException {
+    ObjectMapper objectMapper = new ObjectMapper();
+    return objectMapper.readTree(inputStream);
 ```
 
 ## RuleId[ruleID=NonFinalFieldOfException]
@@ -3163,6 +3149,18 @@ in `scim-client/src/main/java/org/apache/directory/scim/client/rest/RestExceptio
 ```
 
 ## RuleId[ruleID=UnusedAssignment]
+### UnusedAssignment
+Variable `schema` initializer `null` is redundant
+in `scim-server/src/main/java/org/apache/directory/scim/server/rest/AttributeUtil.java`
+#### Snippet
+```java
+  private Set<Attribute> findAttribute(AttributeReference attributeReference, boolean includeAttributeChain) throws AttributeDoesNotExistException {
+    String schemaUrn = attributeReference.getUrn();
+    Schema schema = null;
+    Set<Attribute> attributes;
+    
+```
+
 ### UnusedAssignment
 Variable `canonicalTypes` initializer `null` is redundant
 in `scim-spec/scim-spec-schema/src/main/java/org/apache/directory/scim/spec/schema/Schemas.java`
@@ -3187,43 +3185,7 @@ in `scim-spec/scim-spec-schema/src/main/java/org/apache/directory/scim/spec/sche
         log.debug("We have a collection");
 ```
 
-### UnusedAssignment
-Variable `schema` initializer `null` is redundant
-in `scim-server/src/main/java/org/apache/directory/scim/server/rest/AttributeUtil.java`
-#### Snippet
-```java
-  private Set<Attribute> findAttribute(AttributeReference attributeReference, boolean includeAttributeChain) throws AttributeDoesNotExistException {
-    String schemaUrn = attributeReference.getUrn();
-    Schema schema = null;
-    Set<Attribute> attributes;
-    
-```
-
 ## RuleId[ruleID=ConstantValue]
-### ConstantValue
-Condition `operation != null` is always `true`
-in `scim-core/src/main/java/org/apache/directory/scim/core/repository/UpdateRequest.java`
-#### Snippet
-```java
-          for (Object obj : objList) {
-            PatchOperation operation = buildPatchOperation(patchOpType, parseData, attributeReferenceList, valueFilterExpression, subAttributes, obj);
-            if (operation != null) {
-              operations.add(operation);
-            }
-```
-
-### ConstantValue
-Condition `operation != null` is always `true`
-in `scim-core/src/main/java/org/apache/directory/scim/core/repository/UpdateRequest.java`
-#### Snippet
-```java
-      } else {
-        PatchOperation operation = buildPatchOperation(patchOpType, parseData, attributeReferenceList, valueFilterExpression, subAttributes, value);
-        if (operation != null) {
-          operations.add(operation);
-        }
-```
-
 ### ConstantValue
 Condition `otherParams != null` is always `true` when reached
 in `scim-spec/scim-spec-schema/src/main/java/org/apache/directory/scim/spec/resources/PhoneNumber.java`
@@ -3246,5 +3208,29 @@ in `scim-spec/scim-spec-schema/src/main/java/org/apache/directory/scim/spec/reso
     if ((params == null && otherParams != null) || (params != null && otherParams == null) || (params.size() != otherParams.size())) {
       return false;
     }
+```
+
+### ConstantValue
+Condition `operation != null` is always `true`
+in `scim-core/src/main/java/org/apache/directory/scim/core/repository/UpdateRequest.java`
+#### Snippet
+```java
+          for (Object obj : objList) {
+            PatchOperation operation = buildPatchOperation(patchOpType, parseData, attributeReferenceList, valueFilterExpression, subAttributes, obj);
+            if (operation != null) {
+              operations.add(operation);
+            }
+```
+
+### ConstantValue
+Condition `operation != null` is always `true`
+in `scim-core/src/main/java/org/apache/directory/scim/core/repository/UpdateRequest.java`
+#### Snippet
+```java
+      } else {
+        PatchOperation operation = buildPatchOperation(patchOpType, parseData, attributeReferenceList, valueFilterExpression, subAttributes, value);
+        if (operation != null) {
+          operations.add(operation);
+        }
 ```
 
