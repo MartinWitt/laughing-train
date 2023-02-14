@@ -270,9 +270,9 @@ Call to `Thread.sleep()` in a loop, probably busy-waiting
 in `src/main/java/de/chrisliebaer/salvage/SalvageService.java`
 #### Snippet
 ```java
-			log.info("waiting for next tide '{}' in '{}'", tide.name(), SalvageMain.formatDuration(duration));
 			try {
-				Thread.sleep(duration.toMillis());
+				// to prevent double execution, we add 5 seconds to the duration
+				Thread.sleep(Math.max(duration.toMillis(), 0) + 5000);
 			} catch (InterruptedException e) {
 				Thread.currentThread().interrupt();
 ```
