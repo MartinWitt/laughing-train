@@ -70,11 +70,11 @@ Return of `null`
 in `src/main/java/com/google/escapevelocity/ExpressionNode.java`
 #### Snippet
 ```java
-      }
-      if (lhsValue == null || rhsValue == null) {
-        return null;
-      }
-      if (!(lhsValue instanceof Integer) || !(rhsValue instanceof Integer)) {
+    Object value = evaluate(context);
+    if (value == null) {
+      return null;
+    }
+    if (!(value instanceof Integer)) {
 ```
 
 ### ReturnNull
@@ -82,11 +82,11 @@ Return of `null`
 in `src/main/java/com/google/escapevelocity/ExpressionNode.java`
 #### Snippet
 ```java
-    Object value = evaluate(context);
-    if (value == null) {
-      return null;
-    }
-    if (!(value instanceof Integer)) {
+      }
+      if (lhsValue == null || rhsValue == null) {
+        return null;
+      }
+      if (!(lhsValue instanceof Integer) || !(rhsValue instanceof Integer)) {
 ```
 
 ### ReturnNull
@@ -176,15 +176,15 @@ in `src/main/java/com/google/escapevelocity/SetSpacing.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends Node`
-in `src/main/java/com/google/escapevelocity/Node.java`
+Can generalize to `? super String`
+in `src/main/java/com/google/escapevelocity/Macro.java`
 #### Snippet
 ```java
-    private final ImmutableList<Node> nodes;
 
-    Cons(String resourceName, int lineNumber, ImmutableList<Node> nodes) {
-      super(resourceName, lineNumber);
-      this.nodes = nodes;
+    MacroEvaluationContext(
+        Map<String, ExpressionNode> parameterThunks,
+        EvaluationContext originalEvaluationContext,
+        Node bodyContent) {
 ```
 
 ### BoundedWildcard
@@ -200,15 +200,15 @@ in `src/main/java/com/google/escapevelocity/Macro.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? super String`
-in `src/main/java/com/google/escapevelocity/Macro.java`
+Can generalize to `? extends Node`
+in `src/main/java/com/google/escapevelocity/Node.java`
 #### Snippet
 ```java
+    private final ImmutableList<Node> nodes;
 
-    MacroEvaluationContext(
-        Map<String, ExpressionNode> parameterThunks,
-        EvaluationContext originalEvaluationContext,
-        Node bodyContent) {
+    Cons(String resourceName, int lineNumber, ImmutableList<Node> nodes) {
+      super(resourceName, lineNumber);
+      this.nodes = nodes;
 ```
 
 ### BoundedWildcard
@@ -274,18 +274,6 @@ in `src/main/java/com/google/escapevelocity/Parser.java`
 
 ## RuleId[ruleID=UnstableApiUsage]
 ### UnstableApiUsage
-'tryParse(java.lang.String)' is marked unstable with @Beta
-in `src/main/java/com/google/escapevelocity/Parser.java`
-#### Snippet
-```java
-      next();
-    }
-    Integer value = Ints.tryParse(sb.toString());
-    if (value == null) {
-      throw parseException("Invalid integer: " + sb);
-```
-
-### UnstableApiUsage
 'closed(int, int)' is marked unstable with @Beta
 in `src/main/java/com/google/escapevelocity/Parser.java`
 #### Snippet
@@ -307,6 +295,18 @@ in `src/main/java/com/google/escapevelocity/Parser.java`
               : ContiguousSet.closed(to, from).descendingSet();
       return new ForwardingSortedSet<Integer>() {
         @Override
+```
+
+### UnstableApiUsage
+'tryParse(java.lang.String)' is marked unstable with @Beta
+in `src/main/java/com/google/escapevelocity/Parser.java`
+#### Snippet
+```java
+      next();
+    }
+    Integer value = Ints.tryParse(sb.toString());
+    if (value == null) {
+      throw parseException("Invalid integer: " + sb);
 ```
 
 ## RuleId[ruleID=JavaReflectionMemberAccess]
