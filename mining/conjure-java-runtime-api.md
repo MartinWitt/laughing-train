@@ -20,27 +20,27 @@ I found 37 bad smells with 1 repairable:
 | NonFinalFieldOfException | 1 | false |
 ## RuleId[ruleID=OptionalUsedAsFieldOrParameterType]
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'first'
-in `service-config/src/main/java/com/palantir/conjure/java/api/config/service/ServiceConfigurationFactory.java`
+`Optional` used as type for parameter 'retryAfter'
+in `errors/src/main/java/com/palantir/conjure/java/api/errors/QosException.java`
 #### Snippet
 ```java
+        }
 
-    // Returns the first Optional if present, or the second Optional otherwise.
-    private static <T> Optional<T> orElse(Optional<T> first, Optional<T> second) {
-        if (first.isPresent()) {
-            return first;
+        private Throttle(Optional<Duration> retryAfter, QosReason reason) {
+            super("Suggesting request throttling with optional retryAfter duration: " + retryAfter, reason);
+            this.retryAfter = retryAfter;
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'second'
-in `service-config/src/main/java/com/palantir/conjure/java/api/config/service/ServiceConfigurationFactory.java`
+`Optional` used as type for field 'retryAfter'
+in `errors/src/main/java/com/palantir/conjure/java/api/errors/QosException.java`
 #### Snippet
 ```java
+        private static final QosReason DEFAULT_REASON = QosReason.of("qos-throttle");
 
-    // Returns the first Optional if present, or the second Optional otherwise.
-    private static <T> Optional<T> orElse(Optional<T> first, Optional<T> second) {
-        if (first.isPresent()) {
-            return first;
+        private final Optional<Duration> retryAfter;
+
+        private Throttle(Optional<Duration> retryAfter) {
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -80,27 +80,27 @@ in `errors/src/main/java/com/palantir/conjure/java/api/errors/QosException.java`
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'retryAfter'
-in `errors/src/main/java/com/palantir/conjure/java/api/errors/QosException.java`
+`Optional` used as type for parameter 'first'
+in `service-config/src/main/java/com/palantir/conjure/java/api/config/service/ServiceConfigurationFactory.java`
 #### Snippet
 ```java
-        private static final QosReason DEFAULT_REASON = QosReason.of("qos-throttle");
 
-        private final Optional<Duration> retryAfter;
-
-        private Throttle(Optional<Duration> retryAfter) {
+    // Returns the first Optional if present, or the second Optional otherwise.
+    private static <T> Optional<T> orElse(Optional<T> first, Optional<T> second) {
+        if (first.isPresent()) {
+            return first;
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'retryAfter'
-in `errors/src/main/java/com/palantir/conjure/java/api/errors/QosException.java`
+`Optional` used as type for parameter 'second'
+in `service-config/src/main/java/com/palantir/conjure/java/api/config/service/ServiceConfigurationFactory.java`
 #### Snippet
 ```java
-        }
 
-        private Throttle(Optional<Duration> retryAfter, QosReason reason) {
-            super("Suggesting request throttling with optional retryAfter duration: " + retryAfter, reason);
-            this.retryAfter = retryAfter;
+    // Returns the first Optional if present, or the second Optional otherwise.
+    private static <T> Optional<T> orElse(Optional<T> first, Optional<T> second) {
+        if (first.isPresent()) {
+            return first;
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -141,19 +141,6 @@ in `errors/src/main/java/com/palantir/conjure/java/api/errors/SerializableError.
 public abstract class SerializableError implements Serializable {
 ```
 
-## RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
-### DynamicRegexReplaceableByCompiledPattern
-`split()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `service-config/src/main/java/com/palantir/conjure/java/api/config/service/UserAgents.java`
-#### Snippet
-```java
-    private static Map<String, String> parseComments(String commentsString) {
-        Map<String, String> comments = new HashMap<>();
-        for (String comment : commentsString.split("[,;]")) {
-            String[] fields = comment.split(":");
-            if (fields.length == 2) {
-```
-
 ## RuleId[ruleID=SimplifyOptionalCallChains]
 ### SimplifyOptionalCallChains
 Can be replaced with 'isEmpty()'
@@ -191,6 +178,19 @@ in `ssl-config/src/main/java/com/palantir/conjure/java/api/config/ssl/SslConfigu
         }
 ```
 
+## RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
+### DynamicRegexReplaceableByCompiledPattern
+`split()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `service-config/src/main/java/com/palantir/conjure/java/api/config/service/UserAgents.java`
+#### Snippet
+```java
+    private static Map<String, String> parseComments(String commentsString) {
+        Map<String, String> comments = new HashMap<>();
+        for (String comment : commentsString.split("[,;]")) {
+            String[] fields = comment.split(":");
+            if (fields.length == 2) {
+```
+
 ## RuleId[ruleID=UnnecessaryFullyQualifiedName]
 ### UnnecessaryFullyQualifiedName
 Qualifier `com.palantir.logsafe` is unnecessary and can be removed
@@ -206,18 +206,6 @@ in `errors/src/main/java/com/palantir/conjure/java/api/errors/ServiceException.j
 
 ## RuleId[ruleID=DeprecatedIsStillUsed]
 ### DeprecatedIsStillUsed
-Deprecated member 'getExceptionClass' is still used
-in `errors/src/main/java/com/palantir/conjure/java/api/errors/SerializableError.java`
-#### Snippet
-```java
-    @Value.Auxiliary
-    @SuppressWarnings("checkstyle:designforextension")
-    abstract Optional<String> getExceptionClass();
-
-    /**
-```
-
-### DeprecatedIsStillUsed
 Deprecated member 'getMessage' is still used
 in `errors/src/main/java/com/palantir/conjure/java/api/errors/SerializableError.java`
 #### Snippet
@@ -225,6 +213,18 @@ in `errors/src/main/java/com/palantir/conjure/java/api/errors/SerializableError.
     @Value.Auxiliary
     @SuppressWarnings("checkstyle:designforextension")
     abstract Optional<String> getMessage();
+
+    /**
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'getExceptionClass' is still used
+in `errors/src/main/java/com/palantir/conjure/java/api/errors/SerializableError.java`
+#### Snippet
+```java
+    @Value.Auxiliary
+    @SuppressWarnings("checkstyle:designforextension")
+    abstract Optional<String> getExceptionClass();
 
     /**
 ```
@@ -280,14 +280,14 @@ in `errors/src/main/java/com/palantir/conjure/java/api/errors/QosException.java`
 
 ## RuleId[ruleID=ExceptionNameDoesntEndWithException]
 ### ExceptionNameDoesntEndWithException
-Exception class name `Unavailable` does not end with 'Exception'
+Exception class name `RetryOther` does not end with 'Exception'
 in `errors/src/main/java/com/palantir/conjure/java/api/errors/QosException.java`
 #### Snippet
 ```java
 
-    /** See {@link #unavailable}. */
-    public static final class Unavailable extends QosException implements SafeLoggable {
-        private static final QosReason DEFAULT_REASON = QosReason.of("qos-unavailable");
+    /** See {@link #retryOther}. */
+    public static final class RetryOther extends QosException implements SafeLoggable {
+        private static final QosReason DEFAULT_REASON = QosReason.of("qos-retry-other");
 
 ```
 
@@ -304,14 +304,14 @@ in `errors/src/main/java/com/palantir/conjure/java/api/errors/QosException.java`
 ```
 
 ### ExceptionNameDoesntEndWithException
-Exception class name `RetryOther` does not end with 'Exception'
+Exception class name `Unavailable` does not end with 'Exception'
 in `errors/src/main/java/com/palantir/conjure/java/api/errors/QosException.java`
 #### Snippet
 ```java
 
-    /** See {@link #retryOther}. */
-    public static final class RetryOther extends QosException implements SafeLoggable {
-        private static final QosReason DEFAULT_REASON = QosReason.of("qos-retry-other");
+    /** See {@link #unavailable}. */
+    public static final class Unavailable extends QosException implements SafeLoggable {
+        private static final QosReason DEFAULT_REASON = QosReason.of("qos-unavailable");
 
 ```
 
