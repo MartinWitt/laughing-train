@@ -1,7 +1,7 @@
 # sling-org-apache-sling-servlets-get 
  
 # Bad smells
-I found 39 bad smells with 4 repairable:
+I found 40 bad smells with 4 repairable:
 | ruleID | number | fixable |
 | --- | --- | --- |
 | DataFlowIssue | 8 | false |
@@ -18,6 +18,7 @@ I found 39 bad smells with 4 repairable:
 | CStyleArrayDeclaration | 1 | false |
 | Java8MapApi | 1 | false |
 | NonSerializableFieldInSerializableClass | 1 | false |
+| HtmlWrongAttributeValue | 1 | false |
 | ZeroLengthArrayInitialization | 1 | false |
 | CopyConstructorMissesField | 1 | false |
 | UnnecessaryToStringCall | 1 | true |
@@ -52,18 +53,6 @@ in `src/main/java/org/apache/sling/servlets/get/impl/helpers/StreamRenderer.java
 ```
 
 ## RuleId[ruleID=DataFlowIssue]
-### DataFlowIssue
-Argument `r.adaptTo(String[].class)` might be null
-in `src/main/java/org/apache/sling/servlets/get/impl/helpers/HtmlRenderer.java`
-#### Snippet
-```java
-            printProlog(pw, isIncluded);
-            printResourceInfo(pw, r);
-            render(pw, r, r.adaptTo(String[].class));
-            printEpilog(pw, isIncluded);
-        } else {
-```
-
 ### DataFlowIssue
 Method invocation `getWorkspace` may produce `NullPointerException`
 in `src/main/java/org/apache/sling/servlets/get/impl/VersionInfoServlet.java`
@@ -148,6 +137,18 @@ in `src/main/java/org/apache/sling/servlets/get/impl/helpers/StreamRenderer.java
                 Range currentRange = ranges.next();
 ```
 
+### DataFlowIssue
+Argument `r.adaptTo(String[].class)` might be null
+in `src/main/java/org/apache/sling/servlets/get/impl/helpers/HtmlRenderer.java`
+#### Snippet
+```java
+            printProlog(pw, isIncluded);
+            printResourceInfo(pw, r);
+            render(pw, r, r.adaptTo(String[].class));
+            printEpilog(pw, isIncluded);
+        } else {
+```
+
 ## RuleId[ruleID=UNUSED_IMPORT]
 ### UNUSED_IMPORT
 Unused import `import javax.json.JsonException;`
@@ -200,18 +201,6 @@ in `src/main/java/org/apache/sling/servlets/get/impl/util/JsonToText.java`
 ```
 
 ### StringOperationCanBeSimplified
-Call to `toString()` is redundant
-in `src/main/java/org/apache/sling/servlets/get/impl/util/JsonObjectCreator.java`
-#### Snippet
-```java
-            final String value = resource.adaptTo(String.class);
-            if (value != null) {
-                obj.add(resource.getName(), value.toString());
-            } else {
-                final String[] values = resource.adaptTo(String[].class);
-```
-
-### StringOperationCanBeSimplified
 Unnecessary string length argument
 in `src/main/java/org/apache/sling/servlets/get/impl/helpers/StreamRenderer.java`
 #### Snippet
@@ -221,6 +210,18 @@ in `src/main/java/org/apache/sling/servlets/get/impl/helpers/StreamRenderer.java
                             dashPos + 1, rangeDefinition.length()));
                     else
                         currentRange.end = fileLength - 1;
+```
+
+### StringOperationCanBeSimplified
+Call to `toString()` is redundant
+in `src/main/java/org/apache/sling/servlets/get/impl/util/JsonObjectCreator.java`
+#### Snippet
+```java
+            final String value = resource.adaptTo(String.class);
+            if (value != null) {
+                obj.add(resource.getName(), value.toString());
+            } else {
+                final String[] values = resource.adaptTo(String[].class);
 ```
 
 ## RuleId[ruleID=WhileCanBeForeach]
@@ -276,18 +277,6 @@ in `src/main/java/org/apache/sling/servlets/get/impl/util/ResourceTraversor.java
 
 ## RuleId[ruleID=AssignmentToMethodParameter]
 ### AssignmentToMethodParameter
-Assignment to method parameter `response`
-in `src/main/java/org/apache/sling/servlets/get/impl/DefaultGetServlet.java`
-#### Snippet
-```java
-            IOException {
-
-        response = new HeadServletResponse(response);
-        doGet(request, response);
-    }
-```
-
-### AssignmentToMethodParameter
 Assignment to method parameter `currentLevel`
 in `src/main/java/org/apache/sling/servlets/get/impl/util/ResourceTraversor.java`
 #### Snippet
@@ -297,6 +286,18 @@ in `src/main/java/org/apache/sling/servlets/get/impl/util/ResourceTraversor.java
                 currentLevel++;
                 currentQueue = nextQueue;
                 nextQueue = new LinkedList<>();
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `response`
+in `src/main/java/org/apache/sling/servlets/get/impl/DefaultGetServlet.java`
+#### Snippet
+```java
+            IOException {
+
+        response = new HeadServletResponse(response);
+        doGet(request, response);
+    }
 ```
 
 ## RuleId[ruleID=NonSerializableFieldInSerializableClass]
@@ -371,6 +372,19 @@ in `src/main/java/org/apache/sling/servlets/get/impl/helpers/StreamRenderer.java
                 return null;
             }
 
+```
+
+## RuleId[ruleID=HtmlWrongAttributeValue]
+### HtmlWrongAttributeValue
+Wrong attribute value
+in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-02-14-01-43-02.921.html`
+#### Snippet
+```java
+              <td>0</td>
+              <td>0</td>
+              <td><textarea rows="10" cols="75" readonly="true" placeholder="empty" style="white-space: pre; border: none">Not collected for refresh</textarea></td>
+            </tr>
+          </tbody>
 ```
 
 ## RuleId[ruleID=SizeReplaceableByIsEmpty]
