@@ -188,7 +188,7 @@ in `src/main/java/org/apache/sling/jcr/repoinit/impl/RetryableOperation.java`
 ## RuleId[ruleID=HtmlWrongAttributeValue]
 ### HtmlWrongAttributeValue
 Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-02-13-09-23-41.483.html`
+in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-02-14-15-08-57.516.html`
 #### Snippet
 ```java
               <td>0</td>
@@ -315,7 +315,7 @@ Unnecessary `toString()` call
 in `src/main/java/org/apache/sling/jcr/repoinit/impl/AclVisitor.java`
 #### Snippet
 ```java
-                AclUtil.removeEntries(session, require(line, PROP_PRINCIPALS), paths, require(line, PROP_PRIVILEGES), line.getAction() == AclLine.Action.ALLOW, line.getRestrictions());
+                AclUtil.removeEntries(session, principals, paths, require(line, PROP_PRIVILEGES), line.getAction() == AclLine.Action.ALLOW, line.getRestrictions());
             } catch (Exception e) {
                 report(e,"Failed to remove access control entries (" + e.toString() + ") " + line);
             }
@@ -327,11 +327,11 @@ Unnecessary `toString()` call
 in `src/main/java/org/apache/sling/jcr/repoinit/impl/AclVisitor.java`
 #### Snippet
 ```java
+                AclUtil.removeEntries(session, require(line, PROP_PRINCIPALS), paths, require(line, PROP_PRIVILEGES), line.getAction() == AclLine.Action.ALLOW, line.getRestrictions());
+            } catch (Exception e) {
+                report(e,"Failed to remove access control entries (" + e.toString() + ") " + line);
             }
-        } catch (Exception e) {
-            report(e, "Failed to set repository level ACL (" + e.toString() + ") " + line);
         }
-    }
 ```
 
 ### UnnecessaryToStringCall
@@ -351,11 +351,11 @@ Unnecessary `toString()` call
 in `src/main/java/org/apache/sling/jcr/repoinit/impl/AclVisitor.java`
 #### Snippet
 ```java
-                AclUtil.removeEntries(session, principals, paths, require(line, PROP_PRIVILEGES), line.getAction() == AclLine.Action.ALLOW, line.getRestrictions());
-            } catch (Exception e) {
-                report(e,"Failed to remove access control entries (" + e.toString() + ") " + line);
             }
+        } catch (Exception e) {
+            report(e, "Failed to set repository level ACL (" + e.toString() + ") " + line);
         }
+    }
 ```
 
 ## RuleId[ruleID=BoundedWildcard]
