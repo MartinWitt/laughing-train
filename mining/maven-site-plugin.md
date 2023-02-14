@@ -1,7 +1,7 @@
 # maven-site-plugin 
  
 # Bad smells
-I found 55 bad smells with 6 repairable:
+I found 56 bad smells with 6 repairable:
 | ruleID | number | fixable |
 | --- | --- | --- |
 | ReturnNull | 17 | false |
@@ -19,6 +19,7 @@ I found 55 bad smells with 6 repairable:
 | CodeBlock2Expr | 1 | true |
 | DeprecatedIsStillUsed | 1 | false |
 | GroovyUnusedAssignment | 1 | false |
+| HtmlWrongAttributeValue | 1 | false |
 | ConstantValue | 1 | false |
 | StringEqualsEmptyString | 1 | false |
 ## RuleId[ruleID=ToArrayCallWithZeroLengthArrayArgument]
@@ -93,81 +94,81 @@ in `src/main/java/org/apache/maven/plugins/site/run/DoxiaFilter.java`
 ```java
 
     /**
+     * @see javax.servlet.Filter#doFilter(javax.servlet.ServletRequest, javax.servlet.ServletResponse, javax.servlet.FilterChain)
+     */
+    public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain)
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `javax.servlet` is unnecessary and can be removed
+in `src/main/java/org/apache/maven/plugins/site/run/DoxiaFilter.java`
+#### Snippet
+```java
+
+    /**
+     * @see javax.servlet.Filter#doFilter(javax.servlet.ServletRequest, javax.servlet.ServletResponse, javax.servlet.FilterChain)
+     */
+    public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain)
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `javax.servlet` is unnecessary and can be removed
+in `src/main/java/org/apache/maven/plugins/site/run/DoxiaFilter.java`
+#### Snippet
+```java
+
+    /**
+     * @see javax.servlet.Filter#doFilter(javax.servlet.ServletRequest, javax.servlet.ServletResponse, javax.servlet.FilterChain)
+     */
+    public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain)
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `javax.servlet` is unnecessary and can be removed
+in `src/main/java/org/apache/maven/plugins/site/run/DoxiaFilter.java`
+#### Snippet
+```java
+
+    /**
+     * @see javax.servlet.Filter#doFilter(javax.servlet.ServletRequest, javax.servlet.ServletResponse, javax.servlet.FilterChain)
+     */
+    public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain)
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `javax.servlet` is unnecessary and can be removed
+in `src/main/java/org/apache/maven/plugins/site/run/DoxiaFilter.java`
+#### Snippet
+```java
+
+    /**
+     * @see javax.servlet.Filter#init(javax.servlet.FilterConfig)
+     */
+    public void init(FilterConfig filterConfig) throws ServletException {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `javax.servlet` is unnecessary and can be removed
+in `src/main/java/org/apache/maven/plugins/site/run/DoxiaFilter.java`
+#### Snippet
+```java
+
+    /**
+     * @see javax.servlet.Filter#init(javax.servlet.FilterConfig)
+     */
+    public void init(FilterConfig filterConfig) throws ServletException {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `javax.servlet` is unnecessary and can be removed
+in `src/main/java/org/apache/maven/plugins/site/run/DoxiaFilter.java`
+#### Snippet
+```java
+
+    /**
      * @see javax.servlet.Filter#destroy()
      */
     public void destroy() {}
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.servlet` is unnecessary and can be removed
-in `src/main/java/org/apache/maven/plugins/site/run/DoxiaFilter.java`
-#### Snippet
-```java
-
-    /**
-     * @see javax.servlet.Filter#doFilter(javax.servlet.ServletRequest, javax.servlet.ServletResponse, javax.servlet.FilterChain)
-     */
-    public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain)
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.servlet` is unnecessary and can be removed
-in `src/main/java/org/apache/maven/plugins/site/run/DoxiaFilter.java`
-#### Snippet
-```java
-
-    /**
-     * @see javax.servlet.Filter#doFilter(javax.servlet.ServletRequest, javax.servlet.ServletResponse, javax.servlet.FilterChain)
-     */
-    public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain)
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.servlet` is unnecessary and can be removed
-in `src/main/java/org/apache/maven/plugins/site/run/DoxiaFilter.java`
-#### Snippet
-```java
-
-    /**
-     * @see javax.servlet.Filter#doFilter(javax.servlet.ServletRequest, javax.servlet.ServletResponse, javax.servlet.FilterChain)
-     */
-    public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain)
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.servlet` is unnecessary and can be removed
-in `src/main/java/org/apache/maven/plugins/site/run/DoxiaFilter.java`
-#### Snippet
-```java
-
-    /**
-     * @see javax.servlet.Filter#doFilter(javax.servlet.ServletRequest, javax.servlet.ServletResponse, javax.servlet.FilterChain)
-     */
-    public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain)
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.servlet` is unnecessary and can be removed
-in `src/main/java/org/apache/maven/plugins/site/run/DoxiaFilter.java`
-#### Snippet
-```java
-
-    /**
-     * @see javax.servlet.Filter#init(javax.servlet.FilterConfig)
-     */
-    public void init(FilterConfig filterConfig) throws ServletException {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.servlet` is unnecessary and can be removed
-in `src/main/java/org/apache/maven/plugins/site/run/DoxiaFilter.java`
-#### Snippet
-```java
-
-    /**
-     * @see javax.servlet.Filter#init(javax.servlet.FilterConfig)
-     */
-    public void init(FilterConfig filterConfig) throws ServletException {
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -252,11 +253,11 @@ Can be replaced with single 'Map.computeIfAbsent' method call
 in `src/main/java/org/apache/maven/plugins/site/render/AbstractSiteRenderingMojo.java`
 #### Snippet
 ```java
-        }
-
-        if (attributes.get("project") == null) {
-            attributes.put("project", project);
-        }
+        for (MavenReport report : reports) {
+            List<MavenReport> categoryReports = categories.get(report.getCategoryName());
+            if (categoryReports == null) {
+                categoryReports = new ArrayList<>();
+                categories.put(report.getCategoryName(), categoryReports);
 ```
 
 ### Java8MapApi
@@ -264,11 +265,11 @@ Can be replaced with single 'Map.computeIfAbsent' method call
 in `src/main/java/org/apache/maven/plugins/site/render/AbstractSiteRenderingMojo.java`
 #### Snippet
 ```java
-        for (MavenReport report : reports) {
-            List<MavenReport> categoryReports = categories.get(report.getCategoryName());
-            if (categoryReports == null) {
-                categoryReports = new ArrayList<>();
-                categories.put(report.getCategoryName(), categoryReports);
+        }
+
+        if (attributes.get("project") == null) {
+            attributes.put("project", project);
+        }
 ```
 
 ## RuleId[ruleID=GroovyUnusedAssignment]
@@ -282,6 +283,19 @@ in `src/it/projects/full-reporting/verify.groovy`
     previousReportLink = link;
 }
 
+```
+
+## RuleId[ruleID=HtmlWrongAttributeValue]
+### HtmlWrongAttributeValue
+Wrong attribute value
+in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-02-14-22-36-50.220.html`
+#### Snippet
+```java
+              <td>0</td>
+              <td>0</td>
+              <td><textarea rows="10" cols="75" readonly="true" placeholder="empty" style="white-space: pre; border: none">Not collected for refresh</textarea></td>
+            </tr>
+          </tbody>
 ```
 
 ## RuleId[ruleID=ReturnNull]
@@ -386,18 +400,6 @@ Return of `null`
 in `src/main/java/org/apache/maven/plugins/site/render/ReportDocumentRenderer.java`
 #### Snippet
 ```java
-        public Sink createSink(OutputStream arg0, String arg1) throws IOException {
-            // Not used
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/maven/plugins/site/render/ReportDocumentRenderer.java`
-#### Snippet
-```java
         public Sink createSink(File arg0, String arg1, String arg2) throws IOException {
             // Not used
             return null;
@@ -411,6 +413,18 @@ in `src/main/java/org/apache/maven/plugins/site/render/ReportDocumentRenderer.ja
 #### Snippet
 ```java
         public Sink createSink(OutputStream arg0) throws IOException {
+            // Not used
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/maven/plugins/site/render/ReportDocumentRenderer.java`
+#### Snippet
+```java
+        public Sink createSink(OutputStream arg0, String arg1) throws IOException {
             // Not used
             return null;
         }
@@ -540,6 +554,30 @@ in `src/main/java/org/apache/maven/plugins/site/render/SiteMap.java`
 ```
 
 ### BoundedWildcard
+Can generalize to `? extends MavenReport`
+in `src/main/java/org/apache/maven/plugins/site/render/AbstractSiteRenderingMojo.java`
+#### Snippet
+```java
+     * @return A map keyed category having the report itself as value
+     */
+    protected Map<String, List<MavenReport>> categoriseReports(Collection<MavenReport> reports) {
+        Map<String, List<MavenReport>> categories = new LinkedHashMap<>();
+        for (MavenReport report : reports) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends MavenReport`
+in `src/main/java/org/apache/maven/plugins/site/render/AbstractSiteRenderingMojo.java`
+#### Snippet
+```java
+    }
+
+    private void populateItemRefs(List<MenuItem> items, Locale locale, Map<String, MavenReport> reportsByOutputName) {
+        for (Iterator<MenuItem> i = items.iterator(); i.hasNext(); ) {
+            MenuItem item = i.next();
+```
+
+### BoundedWildcard
 Can generalize to `? extends MavenReportExecution`
 in `src/main/java/org/apache/maven/plugins/site/render/AbstractSiteRenderingMojo.java`
 #### Snippet
@@ -573,30 +611,6 @@ in `src/main/java/org/apache/maven/plugins/site/render/AbstractSiteRenderingMojo
             List<MavenReportExecution> reports, Map<String, DocumentRenderer> documents, Locale locale) {
         Map<String, MavenReport> reportsByOutputName = new LinkedHashMap<>();
         for (MavenReportExecution mavenReportExecution : reports) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends MavenReport`
-in `src/main/java/org/apache/maven/plugins/site/render/AbstractSiteRenderingMojo.java`
-#### Snippet
-```java
-    }
-
-    private void populateItemRefs(List<MenuItem> items, Locale locale, Map<String, MavenReport> reportsByOutputName) {
-        for (Iterator<MenuItem> i = items.iterator(); i.hasNext(); ) {
-            MenuItem item = i.next();
-```
-
-### BoundedWildcard
-Can generalize to `? extends MavenReport`
-in `src/main/java/org/apache/maven/plugins/site/render/AbstractSiteRenderingMojo.java`
-#### Snippet
-```java
-     * @return A map keyed category having the report itself as value
-     */
-    protected Map<String, List<MavenReport>> categoriseReports(Collection<MavenReport> reports) {
-        Map<String, List<MavenReport>> categories = new LinkedHashMap<>();
-        for (MavenReport report : reports) {
 ```
 
 ## RuleId[ruleID=ConstantValue]
@@ -640,6 +654,18 @@ in `src/main/java/org/apache/maven/plugins/site/deploy/SiteStageMojo.java`
 
 ### IgnoreResultOfCall
 Result of `File.mkdirs()` is ignored
+in `src/main/java/org/apache/maven/plugins/site/run/SiteRunMojo.java`
+#### Snippet
+```java
+    private WebAppContext createWebApplication() throws MojoExecutionException {
+        File webXml = new File(tempWebappDirectory, "WEB-INF/web.xml");
+        webXml.getParentFile().mkdirs();
+
+        try (InputStream inStream = getClass().getResourceAsStream("/run/web.xml"); //
+```
+
+### IgnoreResultOfCall
+Result of `File.mkdirs()` is ignored
 in `src/main/java/org/apache/maven/plugins/site/descriptor/SiteDescriptorArtifactMetadata.java`
 #### Snippet
 ```java
@@ -660,18 +686,6 @@ in `src/main/java/org/apache/maven/plugins/site/descriptor/EffectiveSiteMojo.jav
             output.getParentFile().mkdirs();
 
             out.write(content);
-```
-
-### IgnoreResultOfCall
-Result of `File.mkdirs()` is ignored
-in `src/main/java/org/apache/maven/plugins/site/run/SiteRunMojo.java`
-#### Snippet
-```java
-    private WebAppContext createWebApplication() throws MojoExecutionException {
-        File webXml = new File(tempWebappDirectory, "WEB-INF/web.xml");
-        webXml.getParentFile().mkdirs();
-
-        try (InputStream inStream = getClass().getResourceAsStream("/run/web.xml"); //
 ```
 
 ### IgnoreResultOfCall
