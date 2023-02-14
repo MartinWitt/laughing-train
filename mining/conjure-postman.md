@@ -132,6 +132,18 @@ in `conjure-postman-core/src/main/java/com/palantir/conjure/postman/PostmanReque
 in `conjure-postman-core/src/main/java/com/palantir/conjure/postman/visitor/TemplateTypeVisitor.java`
 #### Snippet
 ```java
+        String key = "{{KEY}}";
+        if (keyTemplate instanceof TextNode) {
+            key = keyTemplate.toString().replaceAll("[\"]", "");
+        }
+        return objectMapper.createObjectNode().set(key, value.getValueType().accept(this));
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `conjure-postman-core/src/main/java/com/palantir/conjure/postman/visitor/TemplateTypeVisitor.java`
+#### Snippet
+```java
         if (wrapped instanceof TextNode) {
             return new TextNode(
                     String.format("{{ Optional<%s> }}", wrapped.toString().replaceAll("[\"{}]", "")));
@@ -149,18 +161,6 @@ in `conjure-postman-core/src/main/java/com/palantir/conjure/postman/visitor/Temp
                             value.getTypeName().getName(), wrapped.toString().replaceAll("[\"{}]", "")));
                 }
                 return wrapped;
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `conjure-postman-core/src/main/java/com/palantir/conjure/postman/visitor/TemplateTypeVisitor.java`
-#### Snippet
-```java
-        String key = "{{KEY}}";
-        if (keyTemplate instanceof TextNode) {
-            key = keyTemplate.toString().replaceAll("[\"]", "");
-        }
-        return objectMapper.createObjectNode().set(key, value.getValueType().accept(this));
 ```
 
 ## RuleId[ruleID=UnnecessaryToStringCall]
