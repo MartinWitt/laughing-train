@@ -150,6 +150,30 @@ public class FxCopRequirementsUtil {
 in `fxcop-agent/src/jetbrains/buildServer/fxcop/agent/FxCopFileProcessor.java`
 #### Snippet
 ```java
+        }
+
+        reportPath = reportPath.replace('/', '|').replace("\\", "|");
+        if (reportPath.startsWith("|")) {
+          reportPath = reportPath.substring(1);
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `fxcop-agent/src/jetbrains/buildServer/fxcop/agent/FxCopFileProcessor.java`
+#### Snippet
+```java
+      case MEMBER:
+      case ACCESSOR:
+        return myCurrentTarget + "/" + myCurrentNamespace.replace(".", "/") + "/" + myCurrentType;
+      default:
+        return "_unknown_/_unknown_";
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `fxcop-agent/src/jetbrains/buildServer/fxcop/agent/FxCopFileProcessor.java`
+#### Snippet
+```java
 
   private String reformatInOneLine(@NotNull final String source) {
     return source.replace("\r", "").replace("\n", " ").replaceAll("\\s+", " ").trim();
@@ -179,30 +203,6 @@ in `fxcop-agent/src/jetbrains/buildServer/fxcop/agent/FxCopFileProcessor.java`
     return source.replace("\r", "").replace("\n", " ").replaceAll("\\s+", " ").trim();
   }
 
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `fxcop-agent/src/jetbrains/buildServer/fxcop/agent/FxCopFileProcessor.java`
-#### Snippet
-```java
-        }
-
-        reportPath = reportPath.replace('/', '|').replace("\\", "|");
-        if (reportPath.startsWith("|")) {
-          reportPath = reportPath.substring(1);
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `fxcop-agent/src/jetbrains/buildServer/fxcop/agent/FxCopFileProcessor.java`
-#### Snippet
-```java
-      case MEMBER:
-      case ACCESSOR:
-        return myCurrentTarget + "/" + myCurrentNamespace.replace(".", "/") + "/" + myCurrentType;
-      default:
-        return "_unknown_/_unknown_";
 ```
 
 ## RuleId[ruleID=ZeroLengthArrayInitialization]
