@@ -23,18 +23,6 @@ in `docker-proxy-rule-core/src/main/java/com/palantir/docker/proxy/NetworkBasedD
 
 ### OptionalUsedAsFieldOrParameterType
 `Optional` used as type for parameter 'imageNameOverride'
-in `docker-proxy-rule-core/src/main/java/com/palantir/docker/proxy/NetworkBasedDockerContainerInfo.java`
-#### Snippet
-```java
-
-    public NetworkBasedDockerContainerInfo(
-            DockerExecutable docker, String networkName, Optional<String> imageNameOverride) {
-        this.docker = docker;
-        this.networkName = networkName;
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'imageNameOverride'
 in `docker-proxy-rule-core/src/main/java/com/palantir/docker/proxy/ProjectBasedDockerContainerInfo.java`
 #### Snippet
 ```java
@@ -55,6 +43,18 @@ in `docker-proxy-rule-core/src/main/java/com/palantir/docker/proxy/ProjectBasedD
     private final Optional<String> imageNameOverride;
 
     public ProjectBasedDockerContainerInfo(
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'imageNameOverride'
+in `docker-proxy-rule-core/src/main/java/com/palantir/docker/proxy/NetworkBasedDockerContainerInfo.java`
+#### Snippet
+```java
+
+    public NetworkBasedDockerContainerInfo(
+            DockerExecutable docker, String networkName, Optional<String> imageNameOverride) {
+        this.docker = docker;
+        this.networkName = networkName;
 ```
 
 ## RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
@@ -121,30 +121,6 @@ in `docker-proxy-rule-core/src/main/java/com/palantir/docker/proxy/DockerNameSer
 ```
 
 ### UnstableApiUsage
-'com.google.common.io.CharStreams' is marked unstable with @Beta
-in `docker-proxy-rule-core/src/main/java/com/palantir/docker/proxy/DockerContainerInfoUtils.java`
-#### Snippet
-```java
-    private static List<String> getLinesFromInputStream(InputStream inputStream) throws IOException {
-        try (InputStreamReader inputStreamReader = new InputStreamReader(inputStream, StandardCharsets.UTF_8)) {
-            return CharStreams.readLines(inputStreamReader);
-        }
-    }
-```
-
-### UnstableApiUsage
-'readLines(java.lang.Readable)' is declared in unstable class 'com.google.common.io.CharStreams' marked with @Beta
-in `docker-proxy-rule-core/src/main/java/com/palantir/docker/proxy/DockerContainerInfoUtils.java`
-#### Snippet
-```java
-    private static List<String> getLinesFromInputStream(InputStream inputStream) throws IOException {
-        try (InputStreamReader inputStreamReader = new InputStreamReader(inputStream, StandardCharsets.UTF_8)) {
-            return CharStreams.readLines(inputStreamReader);
-        }
-    }
-```
-
-### UnstableApiUsage
 'com.google.common.net.InetAddresses' is marked unstable with @Beta
 in `docker-proxy-rule-core/src/main/java/com/palantir/docker/proxy/DockerContainerInfoUtils.java`
 #### Snippet
@@ -178,6 +154,30 @@ in `docker-proxy-rule-core/src/main/java/com/palantir/docker/proxy/DockerContain
             return Splitter.on(CharMatcher.anyOf(",/")).omitEmptyStrings().splitToList(labelsString);
         } catch (IOException | InterruptedException e) {
             throw Throwables.propagate(e);
+```
+
+### UnstableApiUsage
+'com.google.common.io.CharStreams' is marked unstable with @Beta
+in `docker-proxy-rule-core/src/main/java/com/palantir/docker/proxy/DockerContainerInfoUtils.java`
+#### Snippet
+```java
+    private static List<String> getLinesFromInputStream(InputStream inputStream) throws IOException {
+        try (InputStreamReader inputStreamReader = new InputStreamReader(inputStream, StandardCharsets.UTF_8)) {
+            return CharStreams.readLines(inputStreamReader);
+        }
+    }
+```
+
+### UnstableApiUsage
+'readLines(java.lang.Readable)' is declared in unstable class 'com.google.common.io.CharStreams' marked with @Beta
+in `docker-proxy-rule-core/src/main/java/com/palantir/docker/proxy/DockerContainerInfoUtils.java`
+#### Snippet
+```java
+    private static List<String> getLinesFromInputStream(InputStream inputStream) throws IOException {
+        try (InputStreamReader inputStreamReader = new InputStreamReader(inputStream, StandardCharsets.UTF_8)) {
+            return CharStreams.readLines(inputStreamReader);
+        }
+    }
 ```
 
 ### UnstableApiUsage
