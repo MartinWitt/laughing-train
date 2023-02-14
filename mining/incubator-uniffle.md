@@ -1,10 +1,10 @@
 # incubator-uniffle 
  
 # Bad smells
-I found 332 bad smells with 51 repairable:
+I found 331 bad smells with 51 repairable:
 | ruleID | number | fixable |
 | --- | --- | --- |
-| BoundedWildcard | 47 | false |
+| BoundedWildcard | 46 | false |
 | FieldAccessedSynchronizedAndUnsynchronized | 33 | false |
 | ReturnNull | 26 | false |
 | RedundantFieldInitialization | 23 | false |
@@ -32,8 +32,8 @@ I found 332 bad smells with 51 repairable:
 | AnonymousHasLambdaAlternative | 2 | false |
 | DynamicRegexReplaceableByCompiledPattern | 2 | false |
 | UnnecessaryFullyQualifiedName | 2 | false |
-| ReplaceAssignmentWithOperatorAssignment | 2 | false |
 | NestedAssignment | 2 | false |
+| ReplaceAssignmentWithOperatorAssignment | 2 | false |
 | Java8MapApi | 2 | false |
 | Convert2Lambda | 2 | false |
 | EmptyMethod | 2 | false |
@@ -54,18 +54,6 @@ I found 332 bad smells with 51 repairable:
 | JavaReflectionInvocation | 1 | false |
 ## RuleId[ruleID=ToArrayCallWithZeroLengthArrayArgument]
 ### ToArrayCallWithZeroLengthArrayArgument
-Call to `toArray()` with pre-sized array argument 'new String\[deletePaths.size()\]'
-in `server/src/main/java/org/apache/uniffle/server/storage/LocalStorageManager.java`
-#### Snippet
-```java
-    }).collect(Collectors.toList());
-
-    deleteHandler.delete(deletePaths.toArray(new String[deletePaths.size()]), appId, user);
-  }
-
-```
-
-### ToArrayCallWithZeroLengthArrayArgument
 Call to `toArray()` with pre-sized array argument 'new String\[storageBasePaths.size()\]'
 in `server/src/main/java/org/apache/uniffle/server/ShuffleFlushManager.java`
 #### Snippet
@@ -75,6 +63,18 @@ in `server/src/main/java/org/apache/uniffle/server/ShuffleFlushManager.java`
             storageBasePaths.toArray(new String[storageBasePaths.size()]),
             shuffleServerId,
             hadoopConf,
+```
+
+### ToArrayCallWithZeroLengthArrayArgument
+Call to `toArray()` with pre-sized array argument 'new String\[deletePaths.size()\]'
+in `server/src/main/java/org/apache/uniffle/server/storage/LocalStorageManager.java`
+#### Snippet
+```java
+    }).collect(Collectors.toList());
+
+    deleteHandler.delete(deletePaths.toArray(new String[deletePaths.size()]), appId, user);
+  }
+
 ```
 
 ## RuleId[ruleID=Java8MapForEach]
@@ -92,75 +92,15 @@ in `client/src/main/java/org/apache/uniffle/client/impl/ShuffleWriteClientImpl.j
 
 ## RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
 ### UtilityClassWithoutPrivateConstructor
-Class `HadoopFilesystemProvider` has only 'static' members, and lacks a 'private' constructor
-in `common/src/main/java/org/apache/uniffle/common/filesystem/HadoopFilesystemProvider.java`
+Class `ThreadUtils` has only 'static' members, and lacks a 'private' constructor
+in `common/src/main/java/org/apache/uniffle/common/util/ThreadUtils.java`
 #### Snippet
 ```java
- * the dfs cluster is kerberos enabled or not.
+ * Provide a general method to create a thread factory to make the code more standardized
  */
-public class HadoopFilesystemProvider {
-  private static final Logger LOGGER = LoggerFactory.getLogger(HadoopFilesystemProvider.class);
+public class ThreadUtils {
 
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `ShuffleServerMetrics` has only 'static' members, and lacks a 'private' constructor
-in `server/src/main/java/org/apache/uniffle/server/ShuffleServerMetrics.java`
-#### Snippet
-```java
-import org.apache.uniffle.storage.common.LocalStorage;
-
-public class ShuffleServerMetrics {
-
-  private static final String TOTAL_RECEIVED_DATA = "total_received_data";
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `RssClientConfig` has only 'static' members, and lacks a 'private' constructor
-in `client/src/main/java/org/apache/uniffle/client/util/RssClientConfig.java`
-#### Snippet
-```java
-package org.apache.uniffle.client.util;
-
-public class RssClientConfig {
-
-  public static final String RSS_CLIENT_TYPE = "rss.client.type";
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `JvmMetrics` has only 'static' members, and lacks a 'private' constructor
-in `common/src/main/java/org/apache/uniffle/common/metrics/JvmMetrics.java`
-#### Snippet
-```java
-import io.prometheus.client.hotspot.VersionInfoExports;
-
-public class JvmMetrics {
-  private static CollectorRegistry collectorRegistry;
-  private static boolean initialized = false;
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `MetricReporterFactory` has only 'static' members, and lacks a 'private' constructor
-in `common/src/main/java/org/apache/uniffle/common/metrics/MetricReporterFactory.java`
-#### Snippet
-```java
-import org.apache.uniffle.common.config.RssConf;
-
-public class MetricReporterFactory {
-
-  public static MetricReporter getMetricReporter(RssConf conf, String instanceId) throws Exception {
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `CoordinatorMetrics` has only 'static' members, and lacks a 'private' constructor
-in `coordinator/src/main/java/org/apache/uniffle/coordinator/metric/CoordinatorMetrics.java`
-#### Snippet
-```java
-import org.apache.uniffle.common.util.RssUtils;
-
-public class CoordinatorMetrics {
-
-  private static final String TOTAL_SERVER_NUM = "total_server_num";
+  public static ThreadFactory getThreadFactory(String factoryName) {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -176,27 +116,39 @@ public class UnionKey {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `StorageInfoUtils` has only 'static' members, and lacks a 'private' constructor
-in `common/src/main/java/org/apache/uniffle/common/storage/StorageInfoUtils.java`
+Class `JvmMetrics` has only 'static' members, and lacks a 'private' constructor
+in `common/src/main/java/org/apache/uniffle/common/metrics/JvmMetrics.java`
 #### Snippet
 ```java
+import io.prometheus.client.hotspot.VersionInfoExports;
 
-
-public class StorageInfoUtils {
-  public static Map<String, RssProtos.StorageInfo> toProto(
-      Map<String, StorageInfo> info) {
+public class JvmMetrics {
+  private static CollectorRegistry collectorRegistry;
+  private static boolean initialized = false;
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `LazyHolder` has only 'static' members, and lacks a 'private' constructor
-in `common/src/main/java/org/apache/uniffle/common/security/SecurityContextFactory.java`
+Class `ClientUtils` has only 'static' members, and lacks a 'private' constructor
+in `client/src/main/java/org/apache/uniffle/client/util/ClientUtils.java`
 #### Snippet
 ```java
-  private SecurityContext securityContext = new NoOpSecurityContext();
+import org.apache.uniffle.storage.util.StorageType;
 
-  static class LazyHolder {
-    static final SecurityContextFactory SECURITY_CONTEXT_FACTORY = new SecurityContextFactory();
-  }
+public class ClientUtils {
+
+  // BlockId is long and composed of partitionId, executorId and AtomicInteger.
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `ShuffleServerMetrics` has only 'static' members, and lacks a 'private' constructor
+in `server/src/main/java/org/apache/uniffle/server/ShuffleServerMetrics.java`
+#### Snippet
+```java
+import org.apache.uniffle.storage.common.LocalStorage;
+
+public class ShuffleServerMetrics {
+
+  private static final String TOTAL_RECEIVED_DATA = "total_received_data";
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -212,6 +164,54 @@ public class ChecksumUtils {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
+Class `MetricReporterFactory` has only 'static' members, and lacks a 'private' constructor
+in `common/src/main/java/org/apache/uniffle/common/metrics/MetricReporterFactory.java`
+#### Snippet
+```java
+import org.apache.uniffle.common.config.RssConf;
+
+public class MetricReporterFactory {
+
+  public static MetricReporter getMetricReporter(RssConf conf, String instanceId) throws Exception {
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `StorageInfoUtils` has only 'static' members, and lacks a 'private' constructor
+in `common/src/main/java/org/apache/uniffle/common/storage/StorageInfoUtils.java`
+#### Snippet
+```java
+
+
+public class StorageInfoUtils {
+  public static Map<String, RssProtos.StorageInfo> toProto(
+      Map<String, StorageInfo> info) {
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `RssClientConfig` has only 'static' members, and lacks a 'private' constructor
+in `client/src/main/java/org/apache/uniffle/client/util/RssClientConfig.java`
+#### Snippet
+```java
+package org.apache.uniffle.client.util;
+
+public class RssClientConfig {
+
+  public static final String RSS_CLIENT_TYPE = "rss.client.type";
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `HadoopFilesystemProvider` has only 'static' members, and lacks a 'private' constructor
+in `common/src/main/java/org/apache/uniffle/common/filesystem/HadoopFilesystemProvider.java`
+#### Snippet
+```java
+ * the dfs cluster is kerberos enabled or not.
+ */
+public class HadoopFilesystemProvider {
+  private static final Logger LOGGER = LoggerFactory.getLogger(HadoopFilesystemProvider.class);
+
+```
+
+### UtilityClassWithoutPrivateConstructor
 Class `RetryUtils` has only 'static' members, and lacks a 'private' constructor
 in `common/src/main/java/org/apache/uniffle/common/util/RetryUtils.java`
 #### Snippet
@@ -221,6 +221,30 @@ import org.apache.uniffle.common.exception.NotRetryException;
 public class RetryUtils {
   private static final Logger LOG = LoggerFactory.getLogger(RetryUtils.class);
 
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `LazyHolder` has only 'static' members, and lacks a 'private' constructor
+in `common/src/main/java/org/apache/uniffle/common/security/SecurityContextFactory.java`
+#### Snippet
+```java
+  private SecurityContext securityContext = new NoOpSecurityContext();
+
+  static class LazyHolder {
+    static final SecurityContextFactory SECURITY_CONTEXT_FACTORY = new SecurityContextFactory();
+  }
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `RssClientConf` has only 'static' members, and lacks a 'private' constructor
+in `common/src/main/java/org/apache/uniffle/common/config/RssClientConf.java`
+#### Snippet
+```java
+import static org.apache.uniffle.common.compression.Codec.Type.LZ4;
+
+public class RssClientConf {
+
+  public static final ConfigOption<Codec.Type> COMPRESSION_TYPE = ConfigOptions
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -248,39 +272,15 @@ public class ExitUtils {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `RssClientConf` has only 'static' members, and lacks a 'private' constructor
-in `common/src/main/java/org/apache/uniffle/common/config/RssClientConf.java`
+Class `CoordinatorMetrics` has only 'static' members, and lacks a 'private' constructor
+in `coordinator/src/main/java/org/apache/uniffle/coordinator/metric/CoordinatorMetrics.java`
 #### Snippet
 ```java
-import static org.apache.uniffle.common.compression.Codec.Type.LZ4;
+import org.apache.uniffle.common.util.RssUtils;
 
-public class RssClientConf {
+public class CoordinatorMetrics {
 
-  public static final ConfigOption<Codec.Type> COMPRESSION_TYPE = ConfigOptions
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `ClientUtils` has only 'static' members, and lacks a 'private' constructor
-in `client/src/main/java/org/apache/uniffle/client/util/ClientUtils.java`
-#### Snippet
-```java
-import org.apache.uniffle.storage.util.StorageType;
-
-public class ClientUtils {
-
-  // BlockId is long and composed of partitionId, executorId and AtomicInteger.
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `ThreadUtils` has only 'static' members, and lacks a 'private' constructor
-in `common/src/main/java/org/apache/uniffle/common/util/ThreadUtils.java`
-#### Snippet
-```java
- * Provide a general method to create a thread factory to make the code more standardized
- */
-public class ThreadUtils {
-
-  public static ThreadFactory getThreadFactory(String factoryName) {
+  private static final String TOTAL_SERVER_NUM = "total_server_num";
 ```
 
 ## RuleId[ruleID=DataFlowIssue]
@@ -297,6 +297,18 @@ in `server/src/main/java/org/apache/uniffle/server/ShuffleTaskInfo.java`
 ```
 
 ## RuleId[ruleID=SimplifyStreamApiCallChains]
+### SimplifyStreamApiCallChains
+Can be replaced with 'java.util.ArrayList' constructor
+in `coordinator/src/main/java/org/apache/uniffle/coordinator/SimpleClusterManager.java`
+#### Snippet
+```java
+        LOG.info("Alive servers number: {}, ids: {}",
+            servers.size(),
+            servers.keySet().stream().collect(Collectors.toList())
+        );
+      }
+```
+
 ### SimplifyStreamApiCallChains
 'Arrays.asList().stream()' can be replaced with 'Stream.of()'
 in `server/src/main/java/org/apache/uniffle/server/storage/LocalStorageManager.java`
@@ -319,18 +331,6 @@ in `coordinator/src/main/java/org/apache/uniffle/coordinator/strategy/host/Prefe
     Set<ServerNode> candidatesNodeSet = candidatesNodes.stream().collect(Collectors.toSet());
     if (candidatesNodes.size() < expectNum) {
       for (ServerNode node : allNodes) {
-```
-
-### SimplifyStreamApiCallChains
-Can be replaced with 'java.util.ArrayList' constructor
-in `coordinator/src/main/java/org/apache/uniffle/coordinator/SimpleClusterManager.java`
-#### Snippet
-```java
-        LOG.info("Alive servers number: {}, ids: {}",
-            servers.size(),
-            servers.keySet().stream().collect(Collectors.toList())
-        );
-      }
 ```
 
 ## RuleId[ruleID=Convert2MethodRef]
@@ -398,18 +398,6 @@ in `common/src/main/java/org/apache/uniffle/common/segment/LocalOrderSegmentSpli
 ```
 
 ### SizeReplaceableByIsEmpty
-`remoteStorageConf.size() > 0` can be replaced with '!remoteStorageConf.isEmpty()'
-in `server/src/main/java/org/apache/uniffle/server/storage/HdfsStorageManager.java`
-#### Snippet
-```java
-      Map<String, String> remoteStorageConf = remoteStorageInfo.getConfItems();
-      Configuration remoteStorageHadoopConf = new Configuration(hadoopConf);
-      if (remoteStorageConf != null && remoteStorageConf.size() > 0) {
-        for (Map.Entry<String, String> entry : remoteStorageConf.entrySet()) {
-          remoteStorageHadoopConf.setStrings(entry.getKey(), entry.getValue());
-```
-
-### SizeReplaceableByIsEmpty
 `blocks.size() == 0` can be replaced with 'blocks.isEmpty()'
 in `server/src/main/java/org/apache/uniffle/server/ShuffleFlushManager.java`
 #### Snippet
@@ -422,15 +410,15 @@ in `server/src/main/java/org/apache/uniffle/server/ShuffleFlushManager.java`
 ```
 
 ### SizeReplaceableByIsEmpty
-`blocks.size() == 0` can be replaced with 'blocks.isEmpty()'
-in `server/src/main/java/org/apache/uniffle/server/ShuffleServerGrpcService.java`
+`remoteStorageConf.size() > 0` can be replaced with '!remoteStorageConf.isEmpty()'
+in `server/src/main/java/org/apache/uniffle/server/storage/HdfsStorageManager.java`
 #### Snippet
 ```java
-
-  private ShufflePartitionedBlock[] toPartitionedBlock(List<ShuffleBlock> blocks) {
-    if (blocks == null || blocks.size() == 0) {
-      return new ShufflePartitionedBlock[]{};
-    }
+      Map<String, String> remoteStorageConf = remoteStorageInfo.getConfItems();
+      Configuration remoteStorageHadoopConf = new Configuration(hadoopConf);
+      if (remoteStorageConf != null && remoteStorageConf.size() > 0) {
+        for (Map.Entry<String, String> entry : remoteStorageConf.entrySet()) {
+          remoteStorageHadoopConf.setStrings(entry.getKey(), entry.getValue());
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -455,6 +443,18 @@ in `server/src/main/java/org/apache/uniffle/server/buffer/ShuffleBuffer.java`
     if ((!inFlushBlockMap.isEmpty() || blocks.size() > 0) && offset == 0 && !hasLastBlockId) {
       // can't find lastBlockId, it should be flushed
       // but there still has data in memory
+```
+
+### SizeReplaceableByIsEmpty
+`blocks.size() == 0` can be replaced with 'blocks.isEmpty()'
+in `server/src/main/java/org/apache/uniffle/server/ShuffleServerGrpcService.java`
+#### Snippet
+```java
+
+  private ShufflePartitionedBlock[] toPartitionedBlock(List<ShuffleBlock> blocks) {
+    if (blocks == null || blocks.size() == 0) {
+      return new ShufflePartitionedBlock[]{};
+    }
 ```
 
 ## RuleId[ruleID=UnnecessaryReturn]
@@ -510,15 +510,27 @@ in `server/src/main/java/org/apache/uniffle/server/ShuffleTaskManager.java`
 
 ## RuleId[ruleID=BoundedWildcard]
 ### BoundedWildcard
-Can generalize to `? super K`
-in `server/src/main/java/org/apache/uniffle/server/storage/LocalStorageManager.java`
+Can generalize to `? extends ServerNode`
+in `coordinator/src/main/java/org/apache/uniffle/coordinator/strategy/host/MustDiffHostAssignmentStrategy.java`
+#### Snippet
+```java
+public class MustDiffHostAssignmentStrategy implements HostAssignmentStrategy {
+  @Override
+  public List<ServerNode> assign(List<ServerNode> allNodes, int expectNum) {
+    List<ServerNode> candidatesNodes = new ArrayList<>();
+    Set<String> hostIpCandidate = new HashSet<>();
+```
+
+### BoundedWildcard
+Can generalize to `? extends Collector.MetricFamilySamples`
+in `common/src/main/java/org/apache/uniffle/common/web/CommonMetricsServlet.java`
 #### Snippet
 ```java
   }
 
-  private <K, V> void deleteElement(Map<K, V> map, Function<K, Boolean> deleteConditionFunc) {
-    Iterator<Map.Entry<K, V>> iterator = map.entrySet().iterator();
-    while (iterator.hasNext()) {
+  public void toJson(Writer writer, Enumeration<Collector.MetricFamilySamples> mfs) throws IOException {
+
+    List<Collector.MetricFamilySamples.Sample> metrics = new LinkedList<>();
 ```
 
 ### BoundedWildcard
@@ -543,150 +555,6 @@ in `coordinator/src/main/java/org/apache/uniffle/coordinator/strategy/storage/Lo
       Map<String, RemoteStorageInfo> availableRemoteStorageInfo,
       CoordinatorConf conf) {
     super(remoteStoragePathRankValue, conf);
-```
-
-### BoundedWildcard
-Can generalize to `? extends ServerNode`
-in `coordinator/src/main/java/org/apache/uniffle/coordinator/strategy/partition/RoundSelectPartitionStrategy.java`
-#### Snippet
-```java
-  public SortedMap<PartitionRange, List<ServerNode>> assign(
-      int totalPartitionNum, int partitionNumPerRange, int replica,
-      List<ServerNode> candidatesNodes, int estimateTaskConcurrency) {
-    SortedMap<PartitionRange, List<ServerNode>> assignments = new TreeMap<>();
-    int idx = 0;
-```
-
-### BoundedWildcard
-Can generalize to `? extends ShufflePartitionedBlock`
-in `server/src/main/java/org/apache/uniffle/server/ShuffleFlushManager.java`
-#### Snippet
-```java
-  }
-  
-  private void updateCommittedBlockIds(String appId, int shuffleId, List<ShufflePartitionedBlock> blocks) {
-    if (blocks == null || blocks.size() == 0) {
-      return;
-```
-
-### BoundedWildcard
-Can generalize to `? extends PartitionRange`
-in `server/src/main/java/org/apache/uniffle/server/ShuffleTaskManager.java`
-#### Snippet
-```java
-      String appId,
-      int shuffleId,
-      List<PartitionRange> partitionRanges,
-      RemoteStorageInfo remoteStorageInfo,
-      String user,
-```
-
-### BoundedWildcard
-Can generalize to `? extends ClientReadHandler`
-in `storage/src/main/java/org/apache/uniffle/storage/handler/impl/MultiReplicaClientReadHandler.java`
-#### Snippet
-```java
-
-  public MultiReplicaClientReadHandler(
-      List<ClientReadHandler> handlers,
-      List<ShuffleServerInfo> shuffleServerInfos,
-      Roaring64NavigableMap blockIdBitmap,
-```
-
-### BoundedWildcard
-Can generalize to `? extends ShuffleServerInfo`
-in `storage/src/main/java/org/apache/uniffle/storage/handler/impl/MultiReplicaClientReadHandler.java`
-#### Snippet
-```java
-  public MultiReplicaClientReadHandler(
-      List<ClientReadHandler> handlers,
-      List<ShuffleServerInfo> shuffleServerInfos,
-      Roaring64NavigableMap blockIdBitmap,
-      Roaring64NavigableMap processedBlockIds) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends FileBasedShuffleSegment`
-in `storage/src/main/java/org/apache/uniffle/storage/util/ShuffleStorageUtils.java`
-#### Snippet
-```java
-
-  public static List<DataFileSegment> mergeSegments(
-      String path, List<FileBasedShuffleSegment> segments, int readBufferSize) {
-    List<DataFileSegment> dataFileSegments = Lists.newArrayList();
-    if (segments != null && !segments.isEmpty()) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends Collector.MetricFamilySamples`
-in `common/src/main/java/org/apache/uniffle/common/web/CommonMetricsServlet.java`
-#### Snippet
-```java
-  }
-
-  public void toJson(Writer writer, Enumeration<Collector.MetricFamilySamples> mfs) throws IOException {
-
-    List<Collector.MetricFamilySamples.Sample> metrics = new LinkedList<>();
-```
-
-### BoundedWildcard
-Can generalize to `? super ClientReadHandlerMetric`
-in `storage/src/main/java/org/apache/uniffle/storage/handler/impl/ComposedClientReadHandler.java`
-#### Snippet
-```java
-  }
-
-  private String getMetricsInfo(String name, Function<ClientReadHandlerMetric, Long> consumed,
-      Function<ClientReadHandlerMetric, Long> skipped) {
-    StringBuilder sb = new StringBuilder("Client read ").append(consumed.apply(readHandlerMetric))
-```
-
-### BoundedWildcard
-Can generalize to `? super ClientReadHandlerMetric`
-in `storage/src/main/java/org/apache/uniffle/storage/handler/impl/ComposedClientReadHandler.java`
-#### Snippet
-```java
-
-  private String getMetricsInfo(String name, Function<ClientReadHandlerMetric, Long> consumed,
-      Function<ClientReadHandlerMetric, Long> skipped) {
-    StringBuilder sb = new StringBuilder("Client read ").append(consumed.apply(readHandlerMetric))
-        .append(" ").append(name).append(" from [").append(serverInfo).append("], Consumed[");
-```
-
-### BoundedWildcard
-Can generalize to `? extends ShufflePartitionedBlock`
-in `storage/src/main/java/org/apache/uniffle/storage/handler/impl/LocalFileWriteHandler.java`
-#### Snippet
-```java
-  @Override
-  public synchronized void write(
-      List<ShufflePartitionedBlock> shuffleBlocks) throws Exception {
-
-    // Ignore this write, if the shuffle directory is deleted after being uploaded in multi mode
-```
-
-### BoundedWildcard
-Can generalize to `? extends ShufflePartitionedBlock`
-in `storage/src/main/java/org/apache/uniffle/storage/handler/impl/HdfsShuffleWriteHandler.java`
-#### Snippet
-```java
-  @Override
-  public void write(
-      List<ShufflePartitionedBlock> shuffleBlocks) throws Exception {
-    final long start = System.currentTimeMillis();
-    writeLock.lock();
-```
-
-### BoundedWildcard
-Can generalize to `? extends ServerNode`
-in `coordinator/src/main/java/org/apache/uniffle/coordinator/strategy/host/MustDiffHostAssignmentStrategy.java`
-#### Snippet
-```java
-public class MustDiffHostAssignmentStrategy implements HostAssignmentStrategy {
-  @Override
-  public List<ServerNode> assign(List<ServerNode> allNodes, int expectNum) {
-    List<ServerNode> candidatesNodes = new ArrayList<>();
-    Set<String> hostIpCandidate = new HashSet<>();
 ```
 
 ### BoundedWildcard
@@ -726,63 +594,27 @@ in `client/src/main/java/org/apache/uniffle/client/util/ClientUtils.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? super String`
-in `server/src/main/java/org/apache/uniffle/server/buffer/ShuffleBufferManager.java`
+Can generalize to `? super T`
+in `common/src/main/java/org/apache/uniffle/common/config/ConfigOptions.java`
 #### Snippet
 ```java
-  }
 
-  private void addPickedShuffle(String key, Map<String, Set<Integer>> pickedShuffle) {
-    String[] splits = key.split(Constants.KEY_SPLIT_CHAR);
-    String appId = splits[0];
+    // todo: errorMsg shouldn't contain key
+    public TypedConfigOptionBuilder<T> checkValue(Function<T, Boolean> checkValue, String errMsg) {
+      Function<Object, T> newConverter = (v) -> {
+        T newValue = this.converter.apply(v);
 ```
 
 ### BoundedWildcard
-Can generalize to `? super String`
-in `server/src/main/java/org/apache/uniffle/server/buffer/ShuffleBufferManager.java`
+Can generalize to `? super E`
+in `common/src/main/java/org/apache/uniffle/common/config/ConfigOptions.java`
 #### Snippet
 ```java
-      int startPartition,
-      int endPartition,
-      TripleFunction<String, Integer, Integer, Long> getPartitionDataSizeFunc) {
-    // When we use multi storage and trigger single buffer flush, the buffer size should be bigger
-    // than rss.server.flush.cold.storage.threshold.size, otherwise cold storage will be useless.
-```
+    }
 
-### BoundedWildcard
-Can generalize to `? super Integer`
-in `server/src/main/java/org/apache/uniffle/server/buffer/ShuffleBufferManager.java`
-#### Snippet
-```java
-      int startPartition,
-      int endPartition,
-      TripleFunction<String, Integer, Integer, Long> getPartitionDataSizeFunc) {
-    // When we use multi storage and trigger single buffer flush, the buffer size should be bigger
-    // than rss.server.flush.cold.storage.threshold.size, otherwise cold storage will be useless.
-```
-
-### BoundedWildcard
-Can generalize to `? super Integer`
-in `server/src/main/java/org/apache/uniffle/server/buffer/ShuffleBufferManager.java`
-#### Snippet
-```java
-      int startPartition,
-      int endPartition,
-      TripleFunction<String, Integer, Integer, Long> getPartitionDataSizeFunc) {
-    // When we use multi storage and trigger single buffer flush, the buffer size should be bigger
-    // than rss.server.flush.cold.storage.threshold.size, otherwise cold storage will be useless.
-```
-
-### BoundedWildcard
-Can generalize to `? extends Set`
-in `server/src/main/java/org/apache/uniffle/server/buffer/ShuffleBufferManager.java`
-#### Snippet
-```java
-
-  // flush the buffer with required map which is <appId -> shuffleId>
-  public synchronized void flush(Map<String, Set<Integer>> requiredFlush) {
-    for (Map.Entry<String, Map<Integer, RangeMap<Integer, ShuffleBuffer>>>
-        appIdToBuffers : bufferPool.entrySet()) {
+    public ListConfigOptionBuilder<E> checkValue(Function<E, Boolean> checkValueFunc, String errMsg) {
+      final Function<Object, List<E>> listConverFunc = asListConverter;
+      Function<Object, List<E>> newConverter = (v) -> {
 ```
 
 ### BoundedWildcard
@@ -810,30 +642,6 @@ in `coordinator/src/main/java/org/apache/uniffle/coordinator/strategy/storage/Ap
 ```
 
 ### BoundedWildcard
-Can generalize to `? super E`
-in `common/src/main/java/org/apache/uniffle/common/config/ConfigOptions.java`
-#### Snippet
-```java
-    }
-
-    public ListConfigOptionBuilder<E> checkValue(Function<E, Boolean> checkValueFunc, String errMsg) {
-      final Function<Object, List<E>> listConverFunc = asListConverter;
-      Function<Object, List<E>> newConverter = (v) -> {
-```
-
-### BoundedWildcard
-Can generalize to `? super T`
-in `common/src/main/java/org/apache/uniffle/common/config/ConfigOptions.java`
-#### Snippet
-```java
-
-    // todo: errorMsg shouldn't contain key
-    public TypedConfigOptionBuilder<T> checkValue(Function<T, Boolean> checkValue, String errMsg) {
-      Function<Object, T> newConverter = (v) -> {
-        T newValue = this.converter.apply(v);
-```
-
-### BoundedWildcard
 Can generalize to `? extends ServerNode`
 in `coordinator/src/main/java/org/apache/uniffle/coordinator/strategy/partition/ContinuousSelectPartitionStrategy.java`
 #### Snippet
@@ -846,6 +654,30 @@ in `coordinator/src/main/java/org/apache/uniffle/coordinator/strategy/partition/
 ```
 
 ### BoundedWildcard
+Can generalize to `? extends ShufflePartitionedBlock`
+in `storage/src/main/java/org/apache/uniffle/storage/handler/impl/HdfsShuffleWriteHandler.java`
+#### Snippet
+```java
+  @Override
+  public void write(
+      List<ShufflePartitionedBlock> shuffleBlocks) throws Exception {
+    final long start = System.currentTimeMillis();
+    writeLock.lock();
+```
+
+### BoundedWildcard
+Can generalize to `? extends ShufflePartitionedBlock`
+in `server/src/main/java/org/apache/uniffle/server/ShuffleFlushManager.java`
+#### Snippet
+```java
+  }
+  
+  private void updateCommittedBlockIds(String appId, int shuffleId, List<ShufflePartitionedBlock> blocks) {
+    if (blocks == null || blocks.size() == 0) {
+      return;
+```
+
+### BoundedWildcard
 Can generalize to `? extends T`
 in `common/src/main/java/org/apache/uniffle/common/config/RssConf.java`
 #### Snippet
@@ -855,6 +687,174 @@ in `common/src/main/java/org/apache/uniffle/common/config/RssConf.java`
   public <T> Optional<T> getOptional(ConfigOption<T> option) {
     Optional<Object> rawValue = getRawValueFromOption(option);
     Class<?> clazz = option.getClazz();
+```
+
+### BoundedWildcard
+Can generalize to `? extends ShufflePartitionedBlock`
+in `storage/src/main/java/org/apache/uniffle/storage/handler/impl/LocalFileWriteHandler.java`
+#### Snippet
+```java
+  @Override
+  public synchronized void write(
+      List<ShufflePartitionedBlock> shuffleBlocks) throws Exception {
+
+    // Ignore this write, if the shuffle directory is deleted after being uploaded in multi mode
+```
+
+### BoundedWildcard
+Can generalize to `? extends Set`
+in `server/src/main/java/org/apache/uniffle/server/buffer/ShuffleBufferManager.java`
+#### Snippet
+```java
+
+  // flush the buffer with required map which is <appId -> shuffleId>
+  public synchronized void flush(Map<String, Set<Integer>> requiredFlush) {
+    for (Map.Entry<String, Map<Integer, RangeMap<Integer, ShuffleBuffer>>>
+        appIdToBuffers : bufferPool.entrySet()) {
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `server/src/main/java/org/apache/uniffle/server/buffer/ShuffleBufferManager.java`
+#### Snippet
+```java
+      int startPartition,
+      int endPartition,
+      TripleFunction<String, Integer, Integer, Long> getPartitionDataSizeFunc) {
+    // When we use multi storage and trigger single buffer flush, the buffer size should be bigger
+    // than rss.server.flush.cold.storage.threshold.size, otherwise cold storage will be useless.
+```
+
+### BoundedWildcard
+Can generalize to `? super Integer`
+in `server/src/main/java/org/apache/uniffle/server/buffer/ShuffleBufferManager.java`
+#### Snippet
+```java
+      int startPartition,
+      int endPartition,
+      TripleFunction<String, Integer, Integer, Long> getPartitionDataSizeFunc) {
+    // When we use multi storage and trigger single buffer flush, the buffer size should be bigger
+    // than rss.server.flush.cold.storage.threshold.size, otherwise cold storage will be useless.
+```
+
+### BoundedWildcard
+Can generalize to `? super Integer`
+in `server/src/main/java/org/apache/uniffle/server/buffer/ShuffleBufferManager.java`
+#### Snippet
+```java
+      int startPartition,
+      int endPartition,
+      TripleFunction<String, Integer, Integer, Long> getPartitionDataSizeFunc) {
+    // When we use multi storage and trigger single buffer flush, the buffer size should be bigger
+    // than rss.server.flush.cold.storage.threshold.size, otherwise cold storage will be useless.
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `server/src/main/java/org/apache/uniffle/server/buffer/ShuffleBufferManager.java`
+#### Snippet
+```java
+  }
+
+  private void addPickedShuffle(String key, Map<String, Set<Integer>> pickedShuffle) {
+    String[] splits = key.split(Constants.KEY_SPLIT_CHAR);
+    String appId = splits[0];
+```
+
+### BoundedWildcard
+Can generalize to `? extends ClientReadHandler`
+in `storage/src/main/java/org/apache/uniffle/storage/handler/impl/MultiReplicaClientReadHandler.java`
+#### Snippet
+```java
+
+  public MultiReplicaClientReadHandler(
+      List<ClientReadHandler> handlers,
+      List<ShuffleServerInfo> shuffleServerInfos,
+      Roaring64NavigableMap blockIdBitmap,
+```
+
+### BoundedWildcard
+Can generalize to `? extends ShuffleServerInfo`
+in `storage/src/main/java/org/apache/uniffle/storage/handler/impl/MultiReplicaClientReadHandler.java`
+#### Snippet
+```java
+  public MultiReplicaClientReadHandler(
+      List<ClientReadHandler> handlers,
+      List<ShuffleServerInfo> shuffleServerInfos,
+      Roaring64NavigableMap blockIdBitmap,
+      Roaring64NavigableMap processedBlockIds) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends FileBasedShuffleSegment`
+in `storage/src/main/java/org/apache/uniffle/storage/util/ShuffleStorageUtils.java`
+#### Snippet
+```java
+
+  public static List<DataFileSegment> mergeSegments(
+      String path, List<FileBasedShuffleSegment> segments, int readBufferSize) {
+    List<DataFileSegment> dataFileSegments = Lists.newArrayList();
+    if (segments != null && !segments.isEmpty()) {
+```
+
+### BoundedWildcard
+Can generalize to `? super K`
+in `server/src/main/java/org/apache/uniffle/server/storage/LocalStorageManager.java`
+#### Snippet
+```java
+  }
+
+  private <K, V> void deleteElement(Map<K, V> map, Function<K, Boolean> deleteConditionFunc) {
+    Iterator<Map.Entry<K, V>> iterator = map.entrySet().iterator();
+    while (iterator.hasNext()) {
+```
+
+### BoundedWildcard
+Can generalize to `? super ClientReadHandlerMetric`
+in `storage/src/main/java/org/apache/uniffle/storage/handler/impl/ComposedClientReadHandler.java`
+#### Snippet
+```java
+  }
+
+  private String getMetricsInfo(String name, Function<ClientReadHandlerMetric, Long> consumed,
+      Function<ClientReadHandlerMetric, Long> skipped) {
+    StringBuilder sb = new StringBuilder("Client read ").append(consumed.apply(readHandlerMetric))
+```
+
+### BoundedWildcard
+Can generalize to `? super ClientReadHandlerMetric`
+in `storage/src/main/java/org/apache/uniffle/storage/handler/impl/ComposedClientReadHandler.java`
+#### Snippet
+```java
+
+  private String getMetricsInfo(String name, Function<ClientReadHandlerMetric, Long> consumed,
+      Function<ClientReadHandlerMetric, Long> skipped) {
+    StringBuilder sb = new StringBuilder("Client read ").append(consumed.apply(readHandlerMetric))
+        .append(" ").append(name).append(" from [").append(serverInfo).append("], Consumed[");
+```
+
+### BoundedWildcard
+Can generalize to `? extends ServerNode`
+in `coordinator/src/main/java/org/apache/uniffle/coordinator/strategy/partition/RoundSelectPartitionStrategy.java`
+#### Snippet
+```java
+  public SortedMap<PartitionRange, List<ServerNode>> assign(
+      int totalPartitionNum, int partitionNumPerRange, int replica,
+      List<ServerNode> candidatesNodes, int estimateTaskConcurrency) {
+    SortedMap<PartitionRange, List<ServerNode>> assignments = new TreeMap<>();
+    int idx = 0;
+```
+
+### BoundedWildcard
+Can generalize to `? extends BufferSegment`
+in `server/src/main/java/org/apache/uniffle/server/buffer/ShuffleBuffer.java`
+#### Snippet
+```java
+  }
+
+  private int calculateDataLength(List<BufferSegment> bufferSegments) {
+    BufferSegment bufferSegment = bufferSegments.get(bufferSegments.size() - 1);
+    return bufferSegment.getOffset() + bufferSegment.getLength();
 ```
 
 ### BoundedWildcard
@@ -891,18 +891,6 @@ in `server/src/main/java/org/apache/uniffle/server/buffer/ShuffleBuffer.java`
       List<ShufflePartitionedBlock> readBlocks,
       Roaring64NavigableMap expectedTaskIds) {
     int currentOffset = offset;
-```
-
-### BoundedWildcard
-Can generalize to `? extends BufferSegment`
-in `server/src/main/java/org/apache/uniffle/server/buffer/ShuffleBuffer.java`
-#### Snippet
-```java
-  }
-
-  private int calculateDataLength(List<BufferSegment> bufferSegments) {
-    BufferSegment bufferSegment = bufferSegments.get(bufferSegments.size() - 1);
-    return bufferSegment.getOffset() + bufferSegment.getLength();
 ```
 
 ### BoundedWildcard
@@ -954,15 +942,51 @@ in `server/src/main/java/org/apache/uniffle/server/buffer/ShuffleBuffer.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends ShuffleBlockInfo`
+Can generalize to `? extends PartitionRange`
+in `server/src/main/java/org/apache/uniffle/server/ShuffleTaskManager.java`
+#### Snippet
+```java
+      String appId,
+      int shuffleId,
+      List<PartitionRange> partitionRanges,
+      RemoteStorageInfo remoteStorageInfo,
+      String user,
+```
+
+### BoundedWildcard
+Can generalize to `? super ShuffleServerInfo`
 in `client/src/main/java/org/apache/uniffle/client/impl/ShuffleWriteClientImpl.java`
 #### Snippet
 ```java
-   */
-  @Override
-  public SendShuffleDataResult sendShuffleData(String appId, List<ShuffleBlockInfo> shuffleBlockInfoList,
-      Supplier<Boolean> needCancelRequest) {
+      List<ShuffleServerInfo> serverList,
+      int replicaNum,
+      Collection<ShuffleServerInfo> excludeServers,
+      Map<ShuffleServerInfo, Map<Integer, Map<Integer, List<ShuffleBlockInfo>>>> serverToBlocks,
+      Map<ShuffleServerInfo, List<Long>> serverToBlockIds,
+```
 
+### BoundedWildcard
+Can generalize to `? super ShuffleServerInfo`
+in `client/src/main/java/org/apache/uniffle/client/impl/ShuffleWriteClientImpl.java`
+#### Snippet
+```java
+      int replicaNum,
+      Collection<ShuffleServerInfo> excludeServers,
+      Map<ShuffleServerInfo, Map<Integer, Map<Integer, List<ShuffleBlockInfo>>>> serverToBlocks,
+      Map<ShuffleServerInfo, List<Long>> serverToBlockIds,
+      boolean excludeDefectiveServers) {
+```
+
+### BoundedWildcard
+Can generalize to `? super ShuffleServerInfo`
+in `client/src/main/java/org/apache/uniffle/client/impl/ShuffleWriteClientImpl.java`
+#### Snippet
+```java
+      Collection<ShuffleServerInfo> excludeServers,
+      Map<ShuffleServerInfo, Map<Integer, Map<Integer, List<ShuffleBlockInfo>>>> serverToBlocks,
+      Map<ShuffleServerInfo, List<Long>> serverToBlockIds,
+      boolean excludeDefectiveServers) {
+    if (replicaNum <= 0) {
 ```
 
 ### BoundedWildcard
@@ -990,6 +1014,30 @@ in `client/src/main/java/org/apache/uniffle/client/impl/ShuffleWriteClientImpl.j
 ```
 
 ### BoundedWildcard
+Can generalize to `? extends ShuffleServerInfo`
+in `client/src/main/java/org/apache/uniffle/client/impl/ShuffleWriteClientImpl.java`
+#### Snippet
+```java
+
+  @Override
+  public Roaring64NavigableMap getShuffleResult(String clientType, Set<ShuffleServerInfo> shuffleServerInfoSet,
+      String appId, int shuffleId, int partitionId) {
+    RssGetShuffleResultRequest request = new RssGetShuffleResultRequest(
+```
+
+### BoundedWildcard
+Can generalize to `? extends ShuffleBlockInfo`
+in `client/src/main/java/org/apache/uniffle/client/impl/ShuffleWriteClientImpl.java`
+#### Snippet
+```java
+   */
+  @Override
+  public SendShuffleDataResult sendShuffleData(String appId, List<ShuffleBlockInfo> shuffleBlockInfoList,
+      Supplier<Boolean> needCancelRequest) {
+
+```
+
+### BoundedWildcard
 Can generalize to `? extends List`
 in `client/src/main/java/org/apache/uniffle/client/impl/ShuffleWriteClientImpl.java`
 #### Snippet
@@ -1013,140 +1061,7 @@ in `client/src/main/java/org/apache/uniffle/client/impl/ShuffleWriteClientImpl.j
 
 ```
 
-### BoundedWildcard
-Can generalize to `? extends ShuffleServerInfo`
-in `client/src/main/java/org/apache/uniffle/client/impl/ShuffleWriteClientImpl.java`
-#### Snippet
-```java
-
-  @Override
-  public Roaring64NavigableMap getShuffleResult(String clientType, Set<ShuffleServerInfo> shuffleServerInfoSet,
-      String appId, int shuffleId, int partitionId) {
-    RssGetShuffleResultRequest request = new RssGetShuffleResultRequest(
-```
-
-### BoundedWildcard
-Can generalize to `? extends ShuffleServerInfo`
-in `client/src/main/java/org/apache/uniffle/client/impl/ShuffleWriteClientImpl.java`
-#### Snippet
-```java
-  void genServerToBlocks(
-      ShuffleBlockInfo sbi,
-      List<ShuffleServerInfo> serverList,
-      int replicaNum,
-      List<ShuffleServerInfo> excludeServers,
-```
-
-### BoundedWildcard
-Can generalize to `? super ShuffleServerInfo`
-in `client/src/main/java/org/apache/uniffle/client/impl/ShuffleWriteClientImpl.java`
-#### Snippet
-```java
-      List<ShuffleServerInfo> serverList,
-      int replicaNum,
-      List<ShuffleServerInfo> excludeServers,
-      Map<ShuffleServerInfo, Map<Integer, Map<Integer, List<ShuffleBlockInfo>>>> serverToBlocks,
-      Map<ShuffleServerInfo, List<Long>> serverToBlockIds,
-```
-
-### BoundedWildcard
-Can generalize to `? super ShuffleServerInfo`
-in `client/src/main/java/org/apache/uniffle/client/impl/ShuffleWriteClientImpl.java`
-#### Snippet
-```java
-      int replicaNum,
-      List<ShuffleServerInfo> excludeServers,
-      Map<ShuffleServerInfo, Map<Integer, Map<Integer, List<ShuffleBlockInfo>>>> serverToBlocks,
-      Map<ShuffleServerInfo, List<Long>> serverToBlockIds,
-      boolean excludeDefectiveServers) {
-```
-
-### BoundedWildcard
-Can generalize to `? super ShuffleServerInfo`
-in `client/src/main/java/org/apache/uniffle/client/impl/ShuffleWriteClientImpl.java`
-#### Snippet
-```java
-      List<ShuffleServerInfo> excludeServers,
-      Map<ShuffleServerInfo, Map<Integer, Map<Integer, List<ShuffleBlockInfo>>>> serverToBlocks,
-      Map<ShuffleServerInfo, List<Long>> serverToBlockIds,
-      boolean excludeDefectiveServers) {
-    if (replicaNum <= 0) {
-```
-
-## RuleId[ruleID=StringEqualsEmptyString]
-### StringEqualsEmptyString
-`equals("")` can be replaced with 'isEmpty()'
-in `coordinator/src/main/java/org/apache/uniffle/coordinator/AccessManager.java`
-#### Snippet
-```java
-      }
-      String resultUuid = accessCheckResult.getUuid();
-      if (!"".equals(resultUuid)) {
-        uuid = resultUuid;
-      }
-```
-
-### StringEqualsEmptyString
-`equals("")` can be replaced with 'isEmpty()'
-in `coordinator/src/main/java/org/apache/uniffle/coordinator/access/checker/AccessQuotaChecker.java`
-#### Snippet
-```java
-    final String user = accessInfo.getUser();
-    // low version client user attribute is an empty string
-    if (!"".equals(user) && quotaManager.checkQuota(user, uuid)) {
-      String msg = "Denied by AccessQuotaChecker => "
-          + "User: " + user + ", current app num is: " + quotaManager.getCurrentUserAndApp().get(user).size()
-```
-
 ## RuleId[ruleID=PublicFieldAccessedInSynchronizedContext]
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `counterRemoteStorageTotalWrite` accessed in synchronized context
-in `server/src/main/java/org/apache/uniffle/server/ShuffleServerMetrics.java`
-#### Snippet
-```java
-  public static synchronized void register(CollectorRegistry collectorRegistry) {
-    if (!isRegister) {
-      counterRemoteStorageTotalWrite = Maps.newConcurrentMap();
-      counterRemoteStorageRetryWrite = Maps.newConcurrentMap();
-      counterRemoteStorageFailedWrite = Maps.newConcurrentMap();
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `counterRemoteStorageRetryWrite` accessed in synchronized context
-in `server/src/main/java/org/apache/uniffle/server/ShuffleServerMetrics.java`
-#### Snippet
-```java
-    if (!isRegister) {
-      counterRemoteStorageTotalWrite = Maps.newConcurrentMap();
-      counterRemoteStorageRetryWrite = Maps.newConcurrentMap();
-      counterRemoteStorageFailedWrite = Maps.newConcurrentMap();
-      counterRemoteStorageSuccessWrite = Maps.newConcurrentMap();
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `counterRemoteStorageFailedWrite` accessed in synchronized context
-in `server/src/main/java/org/apache/uniffle/server/ShuffleServerMetrics.java`
-#### Snippet
-```java
-      counterRemoteStorageTotalWrite = Maps.newConcurrentMap();
-      counterRemoteStorageRetryWrite = Maps.newConcurrentMap();
-      counterRemoteStorageFailedWrite = Maps.newConcurrentMap();
-      counterRemoteStorageSuccessWrite = Maps.newConcurrentMap();
-      metricsManager = new MetricsManager(collectorRegistry);
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `counterRemoteStorageSuccessWrite` accessed in synchronized context
-in `server/src/main/java/org/apache/uniffle/server/ShuffleServerMetrics.java`
-#### Snippet
-```java
-      counterRemoteStorageRetryWrite = Maps.newConcurrentMap();
-      counterRemoteStorageFailedWrite = Maps.newConcurrentMap();
-      counterRemoteStorageSuccessWrite = Maps.newConcurrentMap();
-      metricsManager = new MetricsManager(collectorRegistry);
-      isRegister = true;
-```
-
 ### PublicFieldAccessedInSynchronizedContext
 Non-private field `counterRemoteStorageTotalWrite` accessed in synchronized context
 in `server/src/main/java/org/apache/uniffle/server/ShuffleServerMetrics.java`
@@ -1244,6 +1159,66 @@ in `server/src/main/java/org/apache/uniffle/server/ShuffleServerMetrics.java`
 ```
 
 ### PublicFieldAccessedInSynchronizedContext
+Non-private field `counterRemoteStorageTotalWrite` accessed in synchronized context
+in `server/src/main/java/org/apache/uniffle/server/ShuffleServerMetrics.java`
+#### Snippet
+```java
+  public static synchronized void register(CollectorRegistry collectorRegistry) {
+    if (!isRegister) {
+      counterRemoteStorageTotalWrite = Maps.newConcurrentMap();
+      counterRemoteStorageRetryWrite = Maps.newConcurrentMap();
+      counterRemoteStorageFailedWrite = Maps.newConcurrentMap();
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `counterRemoteStorageRetryWrite` accessed in synchronized context
+in `server/src/main/java/org/apache/uniffle/server/ShuffleServerMetrics.java`
+#### Snippet
+```java
+    if (!isRegister) {
+      counterRemoteStorageTotalWrite = Maps.newConcurrentMap();
+      counterRemoteStorageRetryWrite = Maps.newConcurrentMap();
+      counterRemoteStorageFailedWrite = Maps.newConcurrentMap();
+      counterRemoteStorageSuccessWrite = Maps.newConcurrentMap();
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `counterRemoteStorageFailedWrite` accessed in synchronized context
+in `server/src/main/java/org/apache/uniffle/server/ShuffleServerMetrics.java`
+#### Snippet
+```java
+      counterRemoteStorageTotalWrite = Maps.newConcurrentMap();
+      counterRemoteStorageRetryWrite = Maps.newConcurrentMap();
+      counterRemoteStorageFailedWrite = Maps.newConcurrentMap();
+      counterRemoteStorageSuccessWrite = Maps.newConcurrentMap();
+      metricsManager = new MetricsManager(collectorRegistry);
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `counterRemoteStorageSuccessWrite` accessed in synchronized context
+in `server/src/main/java/org/apache/uniffle/server/ShuffleServerMetrics.java`
+#### Snippet
+```java
+      counterRemoteStorageRetryWrite = Maps.newConcurrentMap();
+      counterRemoteStorageFailedWrite = Maps.newConcurrentMap();
+      counterRemoteStorageSuccessWrite = Maps.newConcurrentMap();
+      metricsManager = new MetricsManager(collectorRegistry);
+      isRegister = true;
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `bufferPool` accessed in synchronized context
+in `server/src/main/java/org/apache/uniffle/server/buffer/ShuffleBufferManager.java`
+#### Snippet
+```java
+  public synchronized void flush(Map<String, Set<Integer>> requiredFlush) {
+    for (Map.Entry<String, Map<Integer, RangeMap<Integer, ShuffleBuffer>>>
+        appIdToBuffers : bufferPool.entrySet()) {
+      String appId = appIdToBuffers.getKey();
+      if (requiredFlush.containsKey(appId)) {
+```
+
+### PublicFieldAccessedInSynchronizedContext
 Non-private field `usedMemory` accessed in synchronized context
 in `server/src/main/java/org/apache/uniffle/server/buffer/ShuffleBufferManager.java`
 #### Snippet
@@ -1327,16 +1302,29 @@ in `server/src/main/java/org/apache/uniffle/server/buffer/ShuffleBufferManager.j
       ShuffleBuffer buffer = entry.getValue();
 ```
 
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `bufferPool` accessed in synchronized context
-in `server/src/main/java/org/apache/uniffle/server/buffer/ShuffleBufferManager.java`
+## RuleId[ruleID=StringEqualsEmptyString]
+### StringEqualsEmptyString
+`equals("")` can be replaced with 'isEmpty()'
+in `coordinator/src/main/java/org/apache/uniffle/coordinator/access/checker/AccessQuotaChecker.java`
 #### Snippet
 ```java
-  public synchronized void flush(Map<String, Set<Integer>> requiredFlush) {
-    for (Map.Entry<String, Map<Integer, RangeMap<Integer, ShuffleBuffer>>>
-        appIdToBuffers : bufferPool.entrySet()) {
-      String appId = appIdToBuffers.getKey();
-      if (requiredFlush.containsKey(appId)) {
+    final String user = accessInfo.getUser();
+    // low version client user attribute is an empty string
+    if (!"".equals(user) && quotaManager.checkQuota(user, uuid)) {
+      String msg = "Denied by AccessQuotaChecker => "
+          + "User: " + user + ", current app num is: " + quotaManager.getCurrentUserAndApp().get(user).size()
+```
+
+### StringEqualsEmptyString
+`equals("")` can be replaced with 'isEmpty()'
+in `coordinator/src/main/java/org/apache/uniffle/coordinator/AccessManager.java`
+#### Snippet
+```java
+      }
+      String resultUuid = accessCheckResult.getUuid();
+      if (!"".equals(resultUuid)) {
+        uuid = resultUuid;
+      }
 ```
 
 ## RuleId[ruleID=AnonymousHasLambdaAlternative]
@@ -1417,18 +1405,6 @@ in `coordinator/src/main/java/org/apache/uniffle/coordinator/ClientConfManager.j
 
 ## RuleId[ruleID=UnnecessaryFullyQualifiedName]
 ### UnnecessaryFullyQualifiedName
-Qualifier `sun.security.krb5` is unnecessary, and can be replaced with an import
-in `common/src/main/java/org/apache/uniffle/common/security/HadoopSecurityContext.java`
-#### Snippet
-```java
-    if (StringUtils.isNotEmpty(krb5ConfPath)) {
-      System.setProperty(KRB5_CONF_KEY, krb5ConfPath);
-      sun.security.krb5.Config.refresh();
-    }
-
-```
-
-### UnnecessaryFullyQualifiedName
 Qualifier `java.io` is unnecessary, and can be replaced with an import
 in `storage/src/main/java/org/apache/uniffle/storage/common/ShuffleSegment.java`
 #### Snippet
@@ -1438,6 +1414,18 @@ package org.apache.uniffle.storage.common;
 public abstract class ShuffleSegment implements java.io.Serializable {
 
 }
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `sun.security.krb5` is unnecessary, and can be replaced with an import
+in `common/src/main/java/org/apache/uniffle/common/security/HadoopSecurityContext.java`
+#### Snippet
+```java
+    if (StringUtils.isNotEmpty(krb5ConfPath)) {
+      System.setProperty(KRB5_CONF_KEY, krb5ConfPath);
+      sun.security.krb5.Config.refresh();
+    }
+
 ```
 
 ## RuleId[ruleID=ComparatorMethodParameterNotUsed]
@@ -1453,32 +1441,44 @@ in `server/src/main/java/org/apache/uniffle/server/buffer/ShuffleBuffer.java`
     return eventIdList;
 ```
 
-## RuleId[ruleID=ReplaceAssignmentWithOperatorAssignment]
-### ReplaceAssignmentWithOperatorAssignment
-`retryMax = retryMax / 2` could be simplified to 'retryMax /= 2'
-in `client/src/main/java/org/apache/uniffle/client/factory/ShuffleClientFactory.java`
+## RuleId[ruleID=NestedAssignment]
+### NestedAssignment
+Result of assignment expression used
+in `coordinator/src/main/java/org/apache/uniffle/coordinator/QuotaManager.java`
 #### Snippet
 ```java
-    // We need retry less times in this case for let the first round fail fast.
-    if (replicaSkipEnabled && replica > replicaWrite) {
-      retryMax = retryMax / 2;
-    }
-    return new ShuffleWriteClientImpl(
+    try (BufferedReader bufferedReader =
+             new BufferedReader(new InputStreamReader(fsDataInputStream, StandardCharsets.UTF_8))) {
+      while ((content = bufferedReader.readLine()) != null) {
+        // to avoid reading comments
+        if (!content.startsWith("#") && !content.isEmpty()) {
 ```
 
-### ReplaceAssignmentWithOperatorAssignment
-`nextOffset = nextOffset + data.length` could be simplified to 'nextOffset += data.length'
-in `storage/src/main/java/org/apache/uniffle/storage/handler/impl/LocalFileWriter.java`
+### NestedAssignment
+Result of assignment expression used
+in `coordinator/src/main/java/org/apache/uniffle/coordinator/SimpleClusterManager.java`
 #### Snippet
 ```java
-    if (data != null && data.length > 0) {
-      dataOutputStream.write(data);
-      nextOffset = nextOffset + data.length;
-    }
-  }
+    try (BufferedReader br = new BufferedReader(new InputStreamReader(fsDataInputStream, StandardCharsets.UTF_8))) {
+      String line;
+      while ((line = br.readLine()) != null) {
+        if (!StringUtils.isEmpty(line)) {
+          nodes.add(line.trim());
 ```
 
 ## RuleId[ruleID=InfiniteLoopStatement]
+### InfiniteLoopStatement
+`while` statement cannot complete without throwing an exception
+in `server/src/main/java/org/apache/uniffle/server/ShuffleFlushManager.java`
+#### Snippet
+```java
+
+  protected void eventLoop() {
+    while (true) {
+      processNextEvent();
+    }
+```
+
 ### InfiniteLoopStatement
 `for` statement cannot complete without throwing an exception
 in `server/src/main/java/org/apache/uniffle/server/ShuffleFlushManager.java`
@@ -1493,18 +1493,6 @@ in `server/src/main/java/org/apache/uniffle/server/ShuffleFlushManager.java`
 
 ### InfiniteLoopStatement
 `while` statement cannot complete without throwing an exception
-in `server/src/main/java/org/apache/uniffle/server/ShuffleFlushManager.java`
-#### Snippet
-```java
-
-  protected void eventLoop() {
-    while (true) {
-      processNextEvent();
-    }
-```
-
-### InfiniteLoopStatement
-`while` statement cannot complete without throwing an exception
 in `server/src/main/java/org/apache/uniffle/server/ShuffleTaskManager.java`
 #### Snippet
 ```java
@@ -1515,42 +1503,42 @@ in `server/src/main/java/org/apache/uniffle/server/ShuffleTaskManager.java`
           PurgeEvent event = expiredAppIdQueue.take();
 ```
 
-## RuleId[ruleID=NestedAssignment]
-### NestedAssignment
-Result of assignment expression used
-in `coordinator/src/main/java/org/apache/uniffle/coordinator/SimpleClusterManager.java`
+## RuleId[ruleID=ReplaceAssignmentWithOperatorAssignment]
+### ReplaceAssignmentWithOperatorAssignment
+`nextOffset = nextOffset + data.length` could be simplified to 'nextOffset += data.length'
+in `storage/src/main/java/org/apache/uniffle/storage/handler/impl/LocalFileWriter.java`
 #### Snippet
 ```java
-    try (BufferedReader br = new BufferedReader(new InputStreamReader(fsDataInputStream, StandardCharsets.UTF_8))) {
-      String line;
-      while ((line = br.readLine()) != null) {
-        if (!StringUtils.isEmpty(line)) {
-          nodes.add(line.trim());
+    if (data != null && data.length > 0) {
+      dataOutputStream.write(data);
+      nextOffset = nextOffset + data.length;
+    }
+  }
 ```
 
-### NestedAssignment
-Result of assignment expression used
-in `coordinator/src/main/java/org/apache/uniffle/coordinator/QuotaManager.java`
+### ReplaceAssignmentWithOperatorAssignment
+`retryMax = retryMax / 2` could be simplified to 'retryMax /= 2'
+in `client/src/main/java/org/apache/uniffle/client/factory/ShuffleClientFactory.java`
 #### Snippet
 ```java
-    try (BufferedReader bufferedReader =
-             new BufferedReader(new InputStreamReader(fsDataInputStream, StandardCharsets.UTF_8))) {
-      while ((content = bufferedReader.readLine()) != null) {
-        // to avoid reading comments
-        if (!content.startsWith("#") && !content.isEmpty()) {
+    // We need retry less times in this case for let the first round fail fast.
+    if (replicaSkipEnabled && replica > replicaWrite) {
+      retryMax = retryMax / 2;
+    }
+    return new ShuffleWriteClientImpl(
 ```
 
 ## RuleId[ruleID=NonProtectedConstructorInAbstractClass]
 ### NonProtectedConstructorInAbstractClass
-Constructor `SingleStorageManager()` of an abstract class should not be declared 'public'
-in `server/src/main/java/org/apache/uniffle/server/storage/SingleStorageManager.java`
+Constructor `AbstractSelectStorageStrategy()` of an abstract class should not be declared 'public'
+in `coordinator/src/main/java/org/apache/uniffle/coordinator/strategy/storage/AbstractSelectStorageStrategy.java`
 #### Snippet
 ```java
-  private final long eventSizeThresholdL3;
+  protected final int fileSize;
 
-  public SingleStorageManager(ShuffleServerConf conf) {
-    writeSlowThreshold = conf.getSizeAsBytes(ShuffleServerConf.SERVER_WRITE_SLOW_THRESHOLD);
-    eventSizeThresholdL1 = conf.getSizeAsBytes(ShuffleServerConf.SERVER_EVENT_SIZE_THRESHOLD_L1);
+  public AbstractSelectStorageStrategy(
+      Map<String, RankValue> remoteStoragePathRankValue,
+      CoordinatorConf conf) {
 ```
 
 ### NonProtectedConstructorInAbstractClass
@@ -1566,27 +1554,27 @@ in `server/src/main/java/org/apache/uniffle/server/event/PurgeEvent.java`
 ```
 
 ### NonProtectedConstructorInAbstractClass
-Constructor `AbstractMetricReporter()` of an abstract class should not be declared 'public'
-in `common/src/main/java/org/apache/uniffle/common/metrics/AbstractMetricReporter.java`
+Constructor `ReconfigurableBase()` of an abstract class should not be declared 'public'
+in `common/src/main/java/org/apache/uniffle/common/config/ReconfigurableBase.java`
 #### Snippet
 ```java
-  protected List<CollectorRegistry> registryList = new ArrayList<>();
+  private final AtomicLong lastModify = new AtomicLong(0L);
 
-  public AbstractMetricReporter(RssConf conf, String instanceId) {
-    this.conf = conf;
-    this.instanceId = instanceId;
+  public ReconfigurableBase(RssConf rssConf) {
+    this.rssConf = rssConf;
+    scheduledExecutorService = Executors.newSingleThreadScheduledExecutor(
 ```
 
 ### NonProtectedConstructorInAbstractClass
-Constructor `AbstractStorageManagerFallbackStrategy()` of an abstract class should not be declared 'public'
-in `server/src/main/java/org/apache/uniffle/server/storage/AbstractStorageManagerFallbackStrategy.java`
+Constructor `SingleStorageManager()` of an abstract class should not be declared 'public'
+in `server/src/main/java/org/apache/uniffle/server/storage/SingleStorageManager.java`
 #### Snippet
 ```java
-  protected ShuffleServerConf conf;
+  private final long eventSizeThresholdL3;
 
-  public AbstractStorageManagerFallbackStrategy(ShuffleServerConf conf) {
-    this.conf = conf;
-  }
+  public SingleStorageManager(ShuffleServerConf conf) {
+    writeSlowThreshold = conf.getSizeAsBytes(ShuffleServerConf.SERVER_WRITE_SLOW_THRESHOLD);
+    eventSizeThresholdL1 = conf.getSizeAsBytes(ShuffleServerConf.SERVER_EVENT_SIZE_THRESHOLD_L1);
 ```
 
 ### NonProtectedConstructorInAbstractClass
@@ -1602,6 +1590,30 @@ in `storage/src/main/java/org/apache/uniffle/storage/handler/impl/DataSkippableR
 ```
 
 ### NonProtectedConstructorInAbstractClass
+Constructor `AbstractStorageManagerFallbackStrategy()` of an abstract class should not be declared 'public'
+in `server/src/main/java/org/apache/uniffle/server/storage/AbstractStorageManagerFallbackStrategy.java`
+#### Snippet
+```java
+  protected ShuffleServerConf conf;
+
+  public AbstractStorageManagerFallbackStrategy(ShuffleServerConf conf) {
+    this.conf = conf;
+  }
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `AbstractMetricReporter()` of an abstract class should not be declared 'public'
+in `common/src/main/java/org/apache/uniffle/common/metrics/AbstractMetricReporter.java`
+#### Snippet
+```java
+  protected List<CollectorRegistry> registryList = new ArrayList<>();
+
+  public AbstractMetricReporter(RssConf conf, String instanceId) {
+    this.conf = conf;
+    this.instanceId = instanceId;
+```
+
+### NonProtectedConstructorInAbstractClass
 Constructor `AbstractAssignmentStrategy()` of an abstract class should not be declared 'public'
 in `coordinator/src/main/java/org/apache/uniffle/coordinator/strategy/assignment/AbstractAssignmentStrategy.java`
 #### Snippet
@@ -1613,43 +1625,20 @@ in `coordinator/src/main/java/org/apache/uniffle/coordinator/strategy/assignment
     loadHostAssignmentStrategy();
 ```
 
-### NonProtectedConstructorInAbstractClass
-Constructor `ReconfigurableBase()` of an abstract class should not be declared 'public'
-in `common/src/main/java/org/apache/uniffle/common/config/ReconfigurableBase.java`
+## RuleId[ruleID=ReturnFromFinallyBlock]
+### ReturnFromFinallyBlock
+'return' inside 'finally' block
+in `server/src/main/java/org/apache/uniffle/server/LocalStorageChecker.java`
 #### Snippet
 ```java
-  private final AtomicLong lastModify = new AtomicLong(0L);
-
-  public ReconfigurableBase(RssConf rssConf) {
-    this.rssConf = rssConf;
-    scheduledExecutorService = Executors.newSingleThreadScheduledExecutor(
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `AbstractSelectStorageStrategy()` of an abstract class should not be declared 'public'
-in `coordinator/src/main/java/org/apache/uniffle/coordinator/strategy/storage/AbstractSelectStorageStrategy.java`
-#### Snippet
-```java
-  protected final int fileSize;
-
-  public AbstractSelectStorageStrategy(
-      Map<String, RankValue> remoteStoragePathRankValue,
-      CoordinatorConf conf) {
+        } catch (IOException ioe) {
+          LOG.error("delete directory fail. Storage dir: {}", storageDir, ioe);
+          return false;
+        }
+      }
 ```
 
 ## RuleId[ruleID=CodeBlock2Expr]
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
-in `common/src/main/java/org/apache/uniffle/common/config/RssBaseConf.java`
-#### Snippet
-```java
-
-    List<ConfigOption<Object>> configOptions = ConfigUtils.getAllConfigOptions(RssBaseConf.class);
-    properties.forEach((k, v) -> {
-      configOptions.forEach(config -> {
-        if (config.key().equalsIgnoreCase(k)) {
-```
-
 ### CodeBlock2Expr
 Statement lambda can be replaced with expression lambda
 in `coordinator/src/main/java/org/apache/uniffle/coordinator/CoordinatorConf.java`
@@ -1657,6 +1646,18 @@ in `coordinator/src/main/java/org/apache/uniffle/coordinator/CoordinatorConf.jav
 ```java
 
     List<ConfigOption<Object>> configOptions = ConfigUtils.getAllConfigOptions(CoordinatorConf.class);
+    properties.forEach((k, v) -> {
+      configOptions.forEach(config -> {
+        if (config.key().equalsIgnoreCase(k)) {
+```
+
+### CodeBlock2Expr
+Statement lambda can be replaced with expression lambda
+in `common/src/main/java/org/apache/uniffle/common/config/RssBaseConf.java`
+#### Snippet
+```java
+
+    List<ConfigOption<Object>> configOptions = ConfigUtils.getAllConfigOptions(RssBaseConf.class);
     properties.forEach((k, v) -> {
       configOptions.forEach(config -> {
         if (config.key().equalsIgnoreCase(k)) {
@@ -1672,6 +1673,42 @@ in `storage/src/main/java/org/apache/uniffle/storage/factory/ShuffleHandlerFacto
       request.getShuffleServerInfoList().forEach((ssi) -> {
         handlers.add(ShuffleHandlerFactory.getInstance().createSingleReplicaClientReadHandler(request, ssi));
       });
+```
+
+### CodeBlock2Expr
+Statement lambda can be replaced with expression lambda
+in `client/src/main/java/org/apache/uniffle/client/impl/ShuffleWriteClientImpl.java`
+#### Snippet
+```java
+    AtomicInteger successfulCommit = new AtomicInteger(0);
+    try {
+      forkJoinPool.submit(() -> {
+        shuffleServerInfoSet.parallelStream().forEach(ssi -> {
+          RssSendCommitRequest request = new RssSendCommitRequest(appId, shuffleId);
+```
+
+### CodeBlock2Expr
+Statement lambda can be replaced with expression lambda
+in `client/src/main/java/org/apache/uniffle/client/impl/ShuffleWriteClientImpl.java`
+#### Snippet
+```java
+    RssApplicationInfoRequest request = new RssApplicationInfoRequest(appId, timeoutMs, user);
+    List<Callable<Void>> callableList = Lists.newArrayList();
+    coordinatorClients.forEach(coordinatorClient -> {
+      callableList.add(() -> {
+        try {
+```
+
+### CodeBlock2Expr
+Statement lambda can be replaced with expression lambda
+in `client/src/main/java/org/apache/uniffle/client/impl/ShuffleWriteClientImpl.java`
+#### Snippet
+```java
+    }
+
+    shuffleServerInfos.forEach(shuffleServerInfo -> {
+          callableList.add(() -> {
+            try {
 ```
 
 ### CodeBlock2Expr
@@ -1696,55 +1733,6 @@ in `client/src/main/java/org/apache/uniffle/client/impl/ShuffleWriteClientImpl.j
     coordinatorClients.forEach(coordinatorClient -> {
       callableList.add(() -> {
         try {
-```
-
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
-in `client/src/main/java/org/apache/uniffle/client/impl/ShuffleWriteClientImpl.java`
-#### Snippet
-```java
-    RssApplicationInfoRequest request = new RssApplicationInfoRequest(appId, timeoutMs, user);
-    List<Callable<Void>> callableList = Lists.newArrayList();
-    coordinatorClients.forEach(coordinatorClient -> {
-      callableList.add(() -> {
-        try {
-```
-
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
-in `client/src/main/java/org/apache/uniffle/client/impl/ShuffleWriteClientImpl.java`
-#### Snippet
-```java
-    AtomicInteger successfulCommit = new AtomicInteger(0);
-    try {
-      forkJoinPool.submit(() -> {
-        shuffleServerInfoSet.parallelStream().forEach(ssi -> {
-          RssSendCommitRequest request = new RssSendCommitRequest(appId, shuffleId);
-```
-
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
-in `client/src/main/java/org/apache/uniffle/client/impl/ShuffleWriteClientImpl.java`
-#### Snippet
-```java
-    }
-
-    shuffleServerInfos.forEach(shuffleServerInfo -> {
-          callableList.add(() -> {
-            try {
-```
-
-## RuleId[ruleID=ReturnFromFinallyBlock]
-### ReturnFromFinallyBlock
-'return' inside 'finally' block
-in `server/src/main/java/org/apache/uniffle/server/LocalStorageChecker.java`
-#### Snippet
-```java
-        } catch (IOException ioe) {
-          LOG.error("delete directory fail. Storage dir: {}", storageDir, ioe);
-          return false;
-        }
-      }
 ```
 
 ## RuleId[ruleID=Java8MapApi]
@@ -1774,63 +1762,27 @@ in `client/src/main/java/org/apache/uniffle/client/impl/ShuffleWriteClientImpl.j
 
 ## RuleId[ruleID=FieldAccessedSynchronizedAndUnsynchronized]
 ### FieldAccessedSynchronizedAndUnsynchronized
-Field `pathToStorages` is accessed in both synchronized and unsynchronized contexts
-in `server/src/main/java/org/apache/uniffle/server/storage/HdfsStorageManager.java`
+Field `serverToPartitions` is accessed in both synchronized and unsynchronized contexts
+in `coordinator/src/main/java/org/apache/uniffle/coordinator/strategy/assignment/PartitionBalanceAssignmentStrategy.java`
 #### Snippet
 ```java
-  private final Configuration hadoopConf;
-  private Map<String, HdfsStorage> appIdToStorages = Maps.newConcurrentMap();
-  private Map<String, HdfsStorage> pathToStorages = Maps.newConcurrentMap();
 
-  HdfsStorageManager(ShuffleServerConf conf) {
+  private ClusterManager clusterManager;
+  private Map<ServerNode, PartitionAssignmentInfo> serverToPartitions = Maps.newConcurrentMap();
+
+  public PartitionBalanceAssignmentStrategy(ClusterManager clusterManager, CoordinatorConf conf) {
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
-Field `metricsManager` is accessed in both synchronized and unsynchronized contexts
-in `server/src/main/java/org/apache/uniffle/server/ShuffleServerMetrics.java`
+Field `uris` is accessed in both synchronized and unsynchronized contexts
+in `coordinator/src/main/java/org/apache/uniffle/coordinator/strategy/storage/LowestIOSampleCostSelectStorageStrategy.java`
 #### Snippet
 ```java
-  public static Map<String, Counter> counterRemoteStorageSuccessWrite;
+  private final Configuration hdfsConf;
+  private final int readAndWriteTimes;
+  private List<Map.Entry<String, RankValue>> uris;
 
-  private static MetricsManager metricsManager;
-  private static boolean isRegister = false;
-
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `counterLocalStorageRetryWrite` is accessed in both synchronized and unsynchronized contexts
-in `server/src/main/java/org/apache/uniffle/server/ShuffleServerMetrics.java`
-#### Snippet
-```java
-
-  public static Counter counterLocalStorageTotalWrite;
-  public static Counter counterLocalStorageRetryWrite;
-  public static Counter counterLocalStorageFailedWrite;
-  public static Counter counterLocalStorageSuccessWrite;
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `counterRemoteStorageFailedWrite` is accessed in both synchronized and unsynchronized contexts
-in `server/src/main/java/org/apache/uniffle/server/ShuffleServerMetrics.java`
-#### Snippet
-```java
-  public static Map<String, Counter> counterRemoteStorageTotalWrite;
-  public static Map<String, Counter> counterRemoteStorageRetryWrite;
-  public static Map<String, Counter> counterRemoteStorageFailedWrite;
-  public static Map<String, Counter> counterRemoteStorageSuccessWrite;
-
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `counterLocalStorageSuccessWrite` is accessed in both synchronized and unsynchronized contexts
-in `server/src/main/java/org/apache/uniffle/server/ShuffleServerMetrics.java`
-#### Snippet
-```java
-  public static Counter counterLocalStorageRetryWrite;
-  public static Counter counterLocalStorageFailedWrite;
-  public static Counter counterLocalStorageSuccessWrite;
-  public static Counter counterTotalRequireReadMemoryNum;
-  public static Counter counterTotalRequireReadMemoryRetryNum;
+  public LowestIOSampleCostSelectStorageStrategy(
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
@@ -1843,42 +1795,6 @@ in `server/src/main/java/org/apache/uniffle/server/ShuffleServerMetrics.java`
   public static Counter counterLocalStorageTotalWrite;
   public static Counter counterLocalStorageRetryWrite;
   public static Counter counterLocalStorageFailedWrite;
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `counterRemoteStorageRetryWrite` is accessed in both synchronized and unsynchronized contexts
-in `server/src/main/java/org/apache/uniffle/server/ShuffleServerMetrics.java`
-#### Snippet
-```java
-  public static Gauge gaugeTotalPartitionNum;
-  public static Map<String, Counter> counterRemoteStorageTotalWrite;
-  public static Map<String, Counter> counterRemoteStorageRetryWrite;
-  public static Map<String, Counter> counterRemoteStorageFailedWrite;
-  public static Map<String, Counter> counterRemoteStorageSuccessWrite;
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `counterRemoteStorageSuccessWrite` is accessed in both synchronized and unsynchronized contexts
-in `server/src/main/java/org/apache/uniffle/server/ShuffleServerMetrics.java`
-#### Snippet
-```java
-  public static Map<String, Counter> counterRemoteStorageRetryWrite;
-  public static Map<String, Counter> counterRemoteStorageFailedWrite;
-  public static Map<String, Counter> counterRemoteStorageSuccessWrite;
-
-  private static MetricsManager metricsManager;
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `counterRemoteStorageTotalWrite` is accessed in both synchronized and unsynchronized contexts
-in `server/src/main/java/org/apache/uniffle/server/ShuffleServerMetrics.java`
-#### Snippet
-```java
-  public static Gauge gaugeAppNum;
-  public static Gauge gaugeTotalPartitionNum;
-  public static Map<String, Counter> counterRemoteStorageTotalWrite;
-  public static Map<String, Counter> counterRemoteStorageRetryWrite;
-  public static Map<String, Counter> counterRemoteStorageFailedWrite;
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
@@ -1906,23 +1822,83 @@ in `server/src/main/java/org/apache/uniffle/server/ShuffleServerMetrics.java`
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
-Field `uris` is accessed in both synchronized and unsynchronized contexts
-in `coordinator/src/main/java/org/apache/uniffle/coordinator/strategy/storage/LowestIOSampleCostSelectStorageStrategy.java`
+Field `counterRemoteStorageFailedWrite` is accessed in both synchronized and unsynchronized contexts
+in `server/src/main/java/org/apache/uniffle/server/ShuffleServerMetrics.java`
 #### Snippet
 ```java
-  private final Configuration hdfsConf;
-  private final int readAndWriteTimes;
-  private List<Map.Entry<String, RankValue>> uris;
+  public static Map<String, Counter> counterRemoteStorageTotalWrite;
+  public static Map<String, Counter> counterRemoteStorageRetryWrite;
+  public static Map<String, Counter> counterRemoteStorageFailedWrite;
+  public static Map<String, Counter> counterRemoteStorageSuccessWrite;
 
-  public LowestIOSampleCostSelectStorageStrategy(
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `counterLocalStorageSuccessWrite` is accessed in both synchronized and unsynchronized contexts
+in `server/src/main/java/org/apache/uniffle/server/ShuffleServerMetrics.java`
+#### Snippet
+```java
+  public static Counter counterLocalStorageRetryWrite;
+  public static Counter counterLocalStorageFailedWrite;
+  public static Counter counterLocalStorageSuccessWrite;
+  public static Counter counterTotalRequireReadMemoryNum;
+  public static Counter counterTotalRequireReadMemoryRetryNum;
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `counterRemoteStorageSuccessWrite` is accessed in both synchronized and unsynchronized contexts
+in `server/src/main/java/org/apache/uniffle/server/ShuffleServerMetrics.java`
+#### Snippet
+```java
+  public static Map<String, Counter> counterRemoteStorageRetryWrite;
+  public static Map<String, Counter> counterRemoteStorageFailedWrite;
+  public static Map<String, Counter> counterRemoteStorageSuccessWrite;
+
+  private static MetricsManager metricsManager;
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `counterRemoteStorageRetryWrite` is accessed in both synchronized and unsynchronized contexts
+in `server/src/main/java/org/apache/uniffle/server/ShuffleServerMetrics.java`
+#### Snippet
+```java
+  public static Gauge gaugeTotalPartitionNum;
+  public static Map<String, Counter> counterRemoteStorageTotalWrite;
+  public static Map<String, Counter> counterRemoteStorageRetryWrite;
+  public static Map<String, Counter> counterRemoteStorageFailedWrite;
+  public static Map<String, Counter> counterRemoteStorageSuccessWrite;
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `counterRemoteStorageTotalWrite` is accessed in both synchronized and unsynchronized contexts
+in `server/src/main/java/org/apache/uniffle/server/ShuffleServerMetrics.java`
+#### Snippet
+```java
+  public static Gauge gaugeAppNum;
+  public static Gauge gaugeTotalPartitionNum;
+  public static Map<String, Counter> counterRemoteStorageTotalWrite;
+  public static Map<String, Counter> counterRemoteStorageRetryWrite;
+  public static Map<String, Counter> counterRemoteStorageFailedWrite;
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `counterLocalStorageRetryWrite` is accessed in both synchronized and unsynchronized contexts
+in `server/src/main/java/org/apache/uniffle/server/ShuffleServerMetrics.java`
+#### Snippet
+```java
+
+  public static Counter counterLocalStorageTotalWrite;
+  public static Counter counterLocalStorageRetryWrite;
+  public static Counter counterLocalStorageFailedWrite;
+  public static Counter counterLocalStorageSuccessWrite;
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
 Field `metricsManager` is accessed in both synchronized and unsynchronized contexts
-in `coordinator/src/main/java/org/apache/uniffle/coordinator/metric/CoordinatorMetrics.java`
+in `server/src/main/java/org/apache/uniffle/server/ShuffleServerMetrics.java`
 #### Snippet
 ```java
-  public static final Map<String, Gauge> GAUGE_USED_REMOTE_STORAGE = Maps.newConcurrentMap();
+  public static Map<String, Counter> counterRemoteStorageSuccessWrite;
 
   private static MetricsManager metricsManager;
   private static boolean isRegister = false;
@@ -1930,39 +1906,15 @@ in `coordinator/src/main/java/org/apache/uniffle/coordinator/metric/CoordinatorM
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
-Field `isRegister` is accessed in both synchronized and unsynchronized contexts
-in `coordinator/src/main/java/org/apache/uniffle/coordinator/metric/CoordinatorMetrics.java`
+Field `uris` is accessed in both synchronized and unsynchronized contexts
+in `coordinator/src/main/java/org/apache/uniffle/coordinator/strategy/storage/AppBalanceSelectStorageStrategy.java`
 #### Snippet
 ```java
+  private final Map<String, RemoteStorageInfo> availableRemoteStorageInfo;
+  private final Configuration hdfsConf;
+  private List<Map.Entry<String, RankValue>> uris;
 
-  private static MetricsManager metricsManager;
-  private static boolean isRegister = false;
-
-  public static synchronized void register(CollectorRegistry collectorRegistry) {
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `dataInputStream` is accessed in both synchronized and unsynchronized contexts
-in `storage/src/main/java/org/apache/uniffle/storage/handler/impl/LocalFileReader.java`
-#### Snippet
-```java
-  private static final Logger LOG = LoggerFactory.getLogger(LocalFileReader.class);
-  private String path;
-  private DataInputStream dataInputStream;
-
-  public LocalFileReader(String path) throws Exception {
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `path` is accessed in both synchronized and unsynchronized contexts
-in `storage/src/main/java/org/apache/uniffle/storage/handler/impl/LocalFileReader.java`
-#### Snippet
-```java
-
-  private static final Logger LOG = LoggerFactory.getLogger(LocalFileReader.class);
-  private String path;
-  private DataInputStream dataInputStream;
-
+  public AppBalanceSelectStorageStrategy(
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
@@ -1978,27 +1930,27 @@ in `storage/src/main/java/org/apache/uniffle/storage/handler/impl/HdfsFileReader
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
-Field `conf` is accessed in both synchronized and unsynchronized contexts
-in `server/src/main/java/org/apache/uniffle/server/ShuffleTaskManager.java`
+Field `path` is accessed in both synchronized and unsynchronized contexts
+in `storage/src/main/java/org/apache/uniffle/storage/handler/impl/LocalFileReader.java`
 #### Snippet
 ```java
-  private final StorageManager storageManager;
-  private AtomicLong requireBufferId = new AtomicLong(0);
-  private ShuffleServerConf conf;
-  private long appExpiredWithoutHB;
-  private long preAllocationExpired;
+
+  private static final Logger LOG = LoggerFactory.getLogger(LocalFileReader.class);
+  private String path;
+  private DataInputStream dataInputStream;
+
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
-Field `basePath` is accessed in both synchronized and unsynchronized contexts
-in `storage/src/main/java/org/apache/uniffle/storage/handler/impl/LocalFileWriteHandler.java`
+Field `dataInputStream` is accessed in both synchronized and unsynchronized contexts
+in `storage/src/main/java/org/apache/uniffle/storage/handler/impl/LocalFileReader.java`
 #### Snippet
 ```java
+  private static final Logger LOG = LoggerFactory.getLogger(LocalFileReader.class);
+  private String path;
+  private DataInputStream dataInputStream;
 
-  private String fileNamePrefix;
-  private String basePath;
-
-  public LocalFileWriteHandler(
+  public LocalFileReader(String path) throws Exception {
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
@@ -2026,15 +1978,27 @@ in `storage/src/main/java/org/apache/uniffle/storage/handler/impl/HdfsFileWriter
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
-Field `serverToPartitions` is accessed in both synchronized and unsynchronized contexts
-in `coordinator/src/main/java/org/apache/uniffle/coordinator/strategy/assignment/PartitionBalanceAssignmentStrategy.java`
+Field `basePath` is accessed in both synchronized and unsynchronized contexts
+in `storage/src/main/java/org/apache/uniffle/storage/handler/impl/LocalFileWriteHandler.java`
 #### Snippet
 ```java
 
-  private ClusterManager clusterManager;
-  private Map<ServerNode, PartitionAssignmentInfo> serverToPartitions = Maps.newConcurrentMap();
+  private String fileNamePrefix;
+  private String basePath;
 
-  public PartitionBalanceAssignmentStrategy(ClusterManager clusterManager, CoordinatorConf conf) {
+  public LocalFileWriteHandler(
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `pathToStorages` is accessed in both synchronized and unsynchronized contexts
+in `server/src/main/java/org/apache/uniffle/server/storage/HdfsStorageManager.java`
+#### Snippet
+```java
+  private final Configuration hadoopConf;
+  private Map<String, HdfsStorage> appIdToStorages = Maps.newConcurrentMap();
+  private Map<String, HdfsStorage> pathToStorages = Maps.newConcurrentMap();
+
+  HdfsStorageManager(ShuffleServerConf conf) {
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
@@ -2050,30 +2014,6 @@ in `server/src/main/java/org/apache/uniffle/server/buffer/ShuffleBufferManager.j
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
-Field `bufferPool` is accessed in both synchronized and unsynchronized contexts
-in `server/src/main/java/org/apache/uniffle/server/buffer/ShuffleBufferManager.java`
-#### Snippet
-```java
-  private AtomicLong readDataMemory = new AtomicLong(0L);
-  // appId -> shuffleId -> partitionId -> ShuffleBuffer to avoid too many appId
-  protected Map<String, Map<Integer, RangeMap<Integer, ShuffleBuffer>>> bufferPool;
-  // appId -> shuffleId -> shuffle size in buffer
-  protected Map<String, Map<Integer, AtomicLong>> shuffleSizeMap = Maps.newConcurrentMap();
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `readDataMemory` is accessed in both synchronized and unsynchronized contexts
-in `server/src/main/java/org/apache/uniffle/server/buffer/ShuffleBufferManager.java`
-#### Snippet
-```java
-  protected AtomicLong inFlushSize = new AtomicLong(0L);
-  protected AtomicLong usedMemory = new AtomicLong(0L);
-  private AtomicLong readDataMemory = new AtomicLong(0L);
-  // appId -> shuffleId -> partitionId -> ShuffleBuffer to avoid too many appId
-  protected Map<String, Map<Integer, RangeMap<Integer, ShuffleBuffer>>> bufferPool;
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
 Field `preAllocatedSize` is accessed in both synchronized and unsynchronized contexts
 in `server/src/main/java/org/apache/uniffle/server/buffer/ShuffleBufferManager.java`
 #### Snippet
@@ -2083,6 +2023,18 @@ in `server/src/main/java/org/apache/uniffle/server/buffer/ShuffleBufferManager.j
   protected AtomicLong preAllocatedSize = new AtomicLong(0L);
   protected AtomicLong inFlushSize = new AtomicLong(0L);
   protected AtomicLong usedMemory = new AtomicLong(0L);
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `bufferPool` is accessed in both synchronized and unsynchronized contexts
+in `server/src/main/java/org/apache/uniffle/server/buffer/ShuffleBufferManager.java`
+#### Snippet
+```java
+  private AtomicLong readDataMemory = new AtomicLong(0L);
+  // appId -> shuffleId -> partitionId -> ShuffleBuffer to avoid too many appId
+  protected Map<String, Map<Integer, RangeMap<Integer, ShuffleBuffer>>> bufferPool;
+  // appId -> shuffleId -> shuffle size in buffer
+  protected Map<String, Map<Integer, AtomicLong>> shuffleSizeMap = Maps.newConcurrentMap();
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
@@ -2098,15 +2050,15 @@ in `server/src/main/java/org/apache/uniffle/server/buffer/ShuffleBufferManager.j
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
-Field `readCapacity` is accessed in both synchronized and unsynchronized contexts
+Field `readDataMemory` is accessed in both synchronized and unsynchronized contexts
 in `server/src/main/java/org/apache/uniffle/server/buffer/ShuffleBufferManager.java`
 #### Snippet
 ```java
-  private final ShuffleFlushManager shuffleFlushManager;
-  private long capacity;
-  private long readCapacity;
-  private int retryNum;
-  private long highWaterMark;
+  protected AtomicLong inFlushSize = new AtomicLong(0L);
+  protected AtomicLong usedMemory = new AtomicLong(0L);
+  private AtomicLong readDataMemory = new AtomicLong(0L);
+  // appId -> shuffleId -> partitionId -> ShuffleBuffer to avoid too many appId
+  protected Map<String, Map<Integer, RangeMap<Integer, ShuffleBuffer>>> bufferPool;
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
@@ -2122,15 +2074,27 @@ in `server/src/main/java/org/apache/uniffle/server/buffer/ShuffleBufferManager.j
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
-Field `uris` is accessed in both synchronized and unsynchronized contexts
-in `coordinator/src/main/java/org/apache/uniffle/coordinator/strategy/storage/AppBalanceSelectStorageStrategy.java`
+Field `readCapacity` is accessed in both synchronized and unsynchronized contexts
+in `server/src/main/java/org/apache/uniffle/server/buffer/ShuffleBufferManager.java`
 #### Snippet
 ```java
-  private final Map<String, RemoteStorageInfo> availableRemoteStorageInfo;
-  private final Configuration hdfsConf;
-  private List<Map.Entry<String, RankValue>> uris;
+  private final ShuffleFlushManager shuffleFlushManager;
+  private long capacity;
+  private long readCapacity;
+  private int retryNum;
+  private long highWaterMark;
+```
 
-  public AppBalanceSelectStorageStrategy(
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `size` is accessed in both synchronized and unsynchronized contexts
+in `server/src/main/java/org/apache/uniffle/server/buffer/ShuffleBuffer.java`
+#### Snippet
+```java
+
+  private final long capacity;
+  private long size;
+  // blocks will be added to inFlushBlockMap as <eventId, blocks> pair
+  // it will be removed after flush to storage
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
@@ -2158,40 +2122,39 @@ in `server/src/main/java/org/apache/uniffle/server/buffer/ShuffleBuffer.java`
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
-Field `size` is accessed in both synchronized and unsynchronized contexts
-in `server/src/main/java/org/apache/uniffle/server/buffer/ShuffleBuffer.java`
+Field `isRegister` is accessed in both synchronized and unsynchronized contexts
+in `coordinator/src/main/java/org/apache/uniffle/coordinator/metric/CoordinatorMetrics.java`
 #### Snippet
 ```java
 
-  private final long capacity;
-  private long size;
-  // blocks will be added to inFlushBlockMap as <eventId, blocks> pair
-  // it will be removed after flush to storage
+  private static MetricsManager metricsManager;
+  private static boolean isRegister = false;
+
+  public static synchronized void register(CollectorRegistry collectorRegistry) {
 ```
 
-## RuleId[ruleID=Convert2Lambda]
-### Convert2Lambda
-Anonymous new FilenameFilter() can be replaced with lambda
-in `storage/src/main/java/org/apache/uniffle/storage/handler/impl/LocalFileServerReadHandler.java`
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `metricsManager` is accessed in both synchronized and unsynchronized contexts
+in `coordinator/src/main/java/org/apache/uniffle/coordinator/metric/CoordinatorMetrics.java`
 #### Snippet
 ```java
-    try {
-      // get all index files
-      indexFiles = baseFolder.listFiles(new FilenameFilter() {
-        @Override
-        public boolean accept(File dir, String name) {
+  public static final Map<String, Gauge> GAUGE_USED_REMOTE_STORAGE = Maps.newConcurrentMap();
+
+  private static MetricsManager metricsManager;
+  private static boolean isRegister = false;
+
 ```
 
-### Convert2Lambda
-Anonymous new Comparator() can be replaced with lambda
-in `coordinator/src/main/java/org/apache/uniffle/coordinator/strategy/assignment/PartitionBalanceAssignmentStrategy.java`
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `conf` is accessed in both synchronized and unsynchronized contexts
+in `server/src/main/java/org/apache/uniffle/server/ShuffleTaskManager.java`
 #### Snippet
 ```java
-      int averagePartitions = totalPartitionNum * replica / clusterManager.getShuffleNodesMax();
-      int assignPartitions = Math.max(averagePartitions, 1);
-      nodes.sort(new Comparator<ServerNode>() {
-        @Override
-        public int compare(ServerNode o1, ServerNode o2) {
+  private final StorageManager storageManager;
+  private AtomicLong requireBufferId = new AtomicLong(0);
+  private ShuffleServerConf conf;
+  private long appExpiredWithoutHB;
+  private long preAllocationExpired;
 ```
 
 ## RuleId[ruleID=JavaReflectionInvocation]
@@ -2205,6 +2168,31 @@ in `server/src/main/java/org/apache/uniffle/server/storage/MultiStorageManager.j
       instance = (AbstractStorageManagerFallbackStrategy) constructor.newInstance(conf);
     } catch (NoSuchMethodException e) {
       constructor = klass.getConstructor(conf.getClass());
+```
+
+## RuleId[ruleID=Convert2Lambda]
+### Convert2Lambda
+Anonymous new Comparator() can be replaced with lambda
+in `coordinator/src/main/java/org/apache/uniffle/coordinator/strategy/assignment/PartitionBalanceAssignmentStrategy.java`
+#### Snippet
+```java
+      int averagePartitions = totalPartitionNum * replica / clusterManager.getShuffleNodesMax();
+      int assignPartitions = Math.max(averagePartitions, 1);
+      nodes.sort(new Comparator<ServerNode>() {
+        @Override
+        public int compare(ServerNode o1, ServerNode o2) {
+```
+
+### Convert2Lambda
+Anonymous new FilenameFilter() can be replaced with lambda
+in `storage/src/main/java/org/apache/uniffle/storage/handler/impl/LocalFileServerReadHandler.java`
+#### Snippet
+```java
+    try {
+      // get all index files
+      indexFiles = baseFolder.listFiles(new FilenameFilter() {
+        @Override
+        public boolean accept(File dir, String name) {
 ```
 
 ## RuleId[ruleID=EmptyMethod]
@@ -2247,90 +2235,6 @@ in `server/src/main/java/org/apache/uniffle/server/HealthCheck.java`
 
 ### RedundantFieldInitialization
 Field initialization to `false` is redundant
-in `server/src/main/java/org/apache/uniffle/server/ShuffleDataFlushEvent.java`
-#### Snippet
-```java
-  private final AtomicInteger retryTimes = new AtomicInteger();
-
-  private boolean isPended = false;
-  private Storage underStorage;
-  private final List<Runnable> cleanupCallbackChains;
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `server/src/main/java/org/apache/uniffle/server/ShuffleServerMetrics.java`
-#### Snippet
-```java
-
-  private static MetricsManager metricsManager;
-  private static boolean isRegister = false;
-
-  public static synchronized void register(CollectorRegistry collectorRegistry) {
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `common/src/main/java/org/apache/uniffle/common/metrics/JvmMetrics.java`
-#### Snippet
-```java
-public class JvmMetrics {
-  private static CollectorRegistry collectorRegistry;
-  private static boolean initialized = false;
-
-  public JvmMetrics() {
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `coordinator/src/main/java/org/apache/uniffle/coordinator/metric/CoordinatorMetrics.java`
-#### Snippet
-```java
-
-  private static MetricsManager metricsManager;
-  private static boolean isRegister = false;
-
-  public static synchronized void register(CollectorRegistry collectorRegistry) {
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `server/src/main/java/org/apache/uniffle/server/ShuffleFlushManager.java`
-#### Snippet
-```java
-  private final BlockingQueue<PendingShuffleFlushEvent> pendingEvents = Queues.newLinkedBlockingQueue();
-  private final long pendingEventTimeoutSec;
-  private int processPendingEventIndex = 0;
-  private final int maxConcurrencyOfSingleOnePartition;
-
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `storage/src/main/java/org/apache/uniffle/storage/handler/impl/DataSkippableReadHandler.java`
-#### Snippet
-```java
-
-  protected List<ShuffleDataSegment> shuffleDataSegments = Lists.newArrayList();
-  protected int segmentIndex = 0;
-
-  protected Roaring64NavigableMap expectBlockIds;
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `storage/src/main/java/org/apache/uniffle/storage/common/LocalStorage.java`
-#### Snippet
-```java
-  private final StorageMedia media;
-  private boolean isSpaceEnough = true;
-  private volatile boolean isCorrupted = false;
-
-
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
 in `coordinator/src/main/java/org/apache/uniffle/coordinator/ApplicationManager.java`
 #### Snippet
 ```java
@@ -2339,18 +2243,6 @@ in `coordinator/src/main/java/org/apache/uniffle/coordinator/ApplicationManager.
   private boolean hasErrorInStatusCheck = false;
 
   public ApplicationManager(CoordinatorConf conf) {
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `coordinator/src/main/java/org/apache/uniffle/coordinator/ClientConfManager.java`
-#### Snippet
-```java
-  private final AtomicLong lastCandidatesUpdateMS = new AtomicLong(0L);
-  private Path path;
-  private ScheduledExecutorService updateClientConfSES = null;
-  private FileSystem fileSystem;
-  private static final String WHITESPACE_REGEX = "\\s+";
 ```
 
 ### RedundantFieldInitialization
@@ -2378,51 +2270,27 @@ in `coordinator/src/main/java/org/apache/uniffle/coordinator/SimpleClusterManage
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `storage/src/main/java/org/apache/uniffle/storage/handler/impl/HdfsShuffleWriteHandler.java`
+Field initialization to `false` is redundant
+in `common/src/main/java/org/apache/uniffle/common/metrics/JvmMetrics.java`
 #### Snippet
 ```java
-  private String fileNamePrefix;
-  private Lock writeLock = new ReentrantLock();
-  private int failTimes = 0;
-  private String user;
-  private FileSystem fileSystem;
+public class JvmMetrics {
+  private static CollectorRegistry collectorRegistry;
+  private static boolean initialized = false;
+
+  public JvmMetrics() {
 ```
 
 ### RedundantFieldInitialization
 Field initialization to `false` is redundant
-in `common/src/main/java/org/apache/uniffle/common/util/ExitUtils.java`
+in `server/src/main/java/org/apache/uniffle/server/ShuffleServerMetrics.java`
 #### Snippet
 ```java
-public class ExitUtils {
 
-  private static boolean isSystemExitDisabled = false;
+  private static MetricsManager metricsManager;
+  private static boolean isRegister = false;
 
-  public static class ExitException extends RuntimeException {
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `common/src/main/java/org/apache/uniffle/common/metrics/GRPCMetrics.java`
-#### Snippet
-```java
-  private static final String GRPC_TOTAL = "grpc_total";
-
-  private boolean isRegistered = false;
-  protected Map<String, Counter> counterMap = Maps.newConcurrentMap();
-  protected Map<String, Gauge> gaugeMap = Maps.newConcurrentMap();
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `server/src/main/java/org/apache/uniffle/server/buffer/ShuffleBufferManager.java`
-#### Snippet
-```java
-  private long hugePartitionMemoryLimitSize;
-
-  protected long bufferSize = 0;
-  protected AtomicLong preAllocatedSize = new AtomicLong(0L);
-  protected AtomicLong inFlushSize = new AtomicLong(0L);
+  public static synchronized void register(CollectorRegistry collectorRegistry) {
 ```
 
 ### RedundantFieldInitialization
@@ -2438,15 +2306,39 @@ in `client/src/main/java/org/apache/uniffle/client/request/CreateShuffleReadClie
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `0L` is redundant
-in `storage/src/main/java/org/apache/uniffle/storage/handler/ClientReadHandlerMetric.java`
+Field initialization to `0` is redundant
+in `storage/src/main/java/org/apache/uniffle/storage/handler/impl/DataSkippableReadHandler.java`
 #### Snippet
 ```java
-  private long readUncompressLength = 0L;
 
-  private long skippedReadBlockNum = 0L;
-  private long skippedReadLength = 0L;
-  private long skippedReadUncompressLength = 0L;
+  protected List<ShuffleDataSegment> shuffleDataSegments = Lists.newArrayList();
+  protected int segmentIndex = 0;
+
+  protected Roaring64NavigableMap expectBlockIds;
+```
+
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `storage/src/main/java/org/apache/uniffle/storage/handler/impl/HdfsShuffleWriteHandler.java`
+#### Snippet
+```java
+  private String fileNamePrefix;
+  private Lock writeLock = new ReentrantLock();
+  private int failTimes = 0;
+  private String user;
+  private FileSystem fileSystem;
+```
+
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `server/src/main/java/org/apache/uniffle/server/ShuffleFlushManager.java`
+#### Snippet
+```java
+  private final BlockingQueue<PendingShuffleFlushEvent> pendingEvents = Queues.newLinkedBlockingQueue();
+  private final long pendingEventTimeoutSec;
+  private int processPendingEventIndex = 0;
+  private final int maxConcurrencyOfSingleOnePartition;
+
 ```
 
 ### RedundantFieldInitialization
@@ -2454,11 +2346,11 @@ Field initialization to `0L` is redundant
 in `storage/src/main/java/org/apache/uniffle/storage/handler/ClientReadHandlerMetric.java`
 #### Snippet
 ```java
-  private long readBlockNum = 0L;
-  private long readLength = 0L;
-  private long readUncompressLength = 0L;
 
   private long skippedReadBlockNum = 0L;
+  private long skippedReadLength = 0L;
+  private long skippedReadUncompressLength = 0L;
+
 ```
 
 ### RedundantFieldInitialization
@@ -2478,10 +2370,22 @@ Field initialization to `0L` is redundant
 in `storage/src/main/java/org/apache/uniffle/storage/handler/ClientReadHandlerMetric.java`
 #### Snippet
 ```java
+  private long readUncompressLength = 0L;
 
   private long skippedReadBlockNum = 0L;
   private long skippedReadLength = 0L;
   private long skippedReadUncompressLength = 0L;
+```
+
+### RedundantFieldInitialization
+Field initialization to `0L` is redundant
+in `storage/src/main/java/org/apache/uniffle/storage/handler/ClientReadHandlerMetric.java`
+#### Snippet
+```java
+public class ClientReadHandlerMetric {
+  private long readBlockNum = 0L;
+  private long readLength = 0L;
+  private long readUncompressLength = 0L;
 
 ```
 
@@ -2502,14 +2406,110 @@ Field initialization to `0L` is redundant
 in `storage/src/main/java/org/apache/uniffle/storage/handler/ClientReadHandlerMetric.java`
 #### Snippet
 ```java
-public class ClientReadHandlerMetric {
   private long readBlockNum = 0L;
   private long readLength = 0L;
   private long readUncompressLength = 0L;
 
+  private long skippedReadBlockNum = 0L;
+```
+
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `server/src/main/java/org/apache/uniffle/server/buffer/ShuffleBufferManager.java`
+#### Snippet
+```java
+  private long hugePartitionMemoryLimitSize;
+
+  protected long bufferSize = 0;
+  protected AtomicLong preAllocatedSize = new AtomicLong(0L);
+  protected AtomicLong inFlushSize = new AtomicLong(0L);
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `coordinator/src/main/java/org/apache/uniffle/coordinator/ClientConfManager.java`
+#### Snippet
+```java
+  private final AtomicLong lastCandidatesUpdateMS = new AtomicLong(0L);
+  private Path path;
+  private ScheduledExecutorService updateClientConfSES = null;
+  private FileSystem fileSystem;
+  private static final String WHITESPACE_REGEX = "\\s+";
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `storage/src/main/java/org/apache/uniffle/storage/common/LocalStorage.java`
+#### Snippet
+```java
+  private final StorageMedia media;
+  private boolean isSpaceEnough = true;
+  private volatile boolean isCorrupted = false;
+
+
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `common/src/main/java/org/apache/uniffle/common/util/ExitUtils.java`
+#### Snippet
+```java
+public class ExitUtils {
+
+  private static boolean isSystemExitDisabled = false;
+
+  public static class ExitException extends RuntimeException {
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `server/src/main/java/org/apache/uniffle/server/ShuffleDataFlushEvent.java`
+#### Snippet
+```java
+  private final AtomicInteger retryTimes = new AtomicInteger();
+
+  private boolean isPended = false;
+  private Storage underStorage;
+  private final List<Runnable> cleanupCallbackChains;
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `common/src/main/java/org/apache/uniffle/common/metrics/GRPCMetrics.java`
+#### Snippet
+```java
+  private static final String GRPC_TOTAL = "grpc_total";
+
+  private boolean isRegistered = false;
+  protected Map<String, Counter> counterMap = Maps.newConcurrentMap();
+  protected Map<String, Gauge> gaugeMap = Maps.newConcurrentMap();
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `coordinator/src/main/java/org/apache/uniffle/coordinator/metric/CoordinatorMetrics.java`
+#### Snippet
+```java
+
+  private static MetricsManager metricsManager;
+  private static boolean isRegister = false;
+
+  public static synchronized void register(CollectorRegistry collectorRegistry) {
 ```
 
 ## RuleId[ruleID=AssignmentToMethodParameter]
+### AssignmentToMethodParameter
+Assignment to method parameter `filename`
+in `common/src/main/java/org/apache/uniffle/common/util/RssUtils.java`
+#### Snippet
+```java
+
+      LOGGER.info("Conf file is null use {}'s server.conf", rssHome);
+      filename = rssHome + "/server.conf";
+    }
+
+```
+
 ### AssignmentToMethodParameter
 Assignment to method parameter `retryMax`
 in `client/src/main/java/org/apache/uniffle/client/factory/ShuffleClientFactory.java`
@@ -2523,15 +2523,15 @@ in `client/src/main/java/org/apache/uniffle/client/factory/ShuffleClientFactory.
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `filename`
-in `common/src/main/java/org/apache/uniffle/common/util/RssUtils.java`
+Assignment to method parameter `estimateTaskConcurrency`
+in `coordinator/src/main/java/org/apache/uniffle/coordinator/util/CoordinatorUtils.java`
 #### Snippet
 ```java
-
-      LOGGER.info("Conf file is null use {}'s server.conf", rssHome);
-      filename = rssHome + "/server.conf";
+      return res;
     }
-
+    estimateTaskConcurrency = Math.min(totalPartitionNum, estimateTaskConcurrency);
+    int rangePerGroup = estimateTaskConcurrency > serverNum * partitionNumPerRange
+                            ? Math.floorDiv(estimateTaskConcurrency, serverNum * partitionNumPerRange) : 1;
 ```
 
 ### AssignmentToMethodParameter
@@ -2558,18 +2558,6 @@ in `coordinator/src/main/java/org/apache/uniffle/coordinator/util/CoordinatorUti
     return idx;
 ```
 
-### AssignmentToMethodParameter
-Assignment to method parameter `estimateTaskConcurrency`
-in `coordinator/src/main/java/org/apache/uniffle/coordinator/util/CoordinatorUtils.java`
-#### Snippet
-```java
-      return res;
-    }
-    estimateTaskConcurrency = Math.min(totalPartitionNum, estimateTaskConcurrency);
-    int rangePerGroup = estimateTaskConcurrency > serverNum * partitionNumPerRange
-                            ? Math.floorDiv(estimateTaskConcurrency, serverNum * partitionNumPerRange) : 1;
-```
-
 ## RuleId[ruleID=SynchronizationOnLocalVariableOrMethodParameter]
 ### SynchronizationOnLocalVariableOrMethodParameter
 Synchronization on local variable `bitmap`
@@ -2585,14 +2573,38 @@ in `server/src/main/java/org/apache/uniffle/server/ShuffleFlushManager.java`
 
 ### SynchronizationOnLocalVariableOrMethodParameter
 Synchronization on local variable `bitmap`
-in `server/src/main/java/org/apache/uniffle/server/ShuffleTaskManager.java`
+in `storage/src/main/java/org/apache/uniffle/storage/common/LocalStorageMeta.java`
 #### Snippet
 ```java
-      Integer partitionId = entry.getKey();
-      Roaring64NavigableMap bitmap = blockIds[partitionId % bitmapNum];
+    if (shuffleMeta != null) {
+      RoaringBitmap bitmap = shuffleMeta.partitionBitmap;
       synchronized (bitmap) {
-        for (long blockId : entry.getValue()) {
-          bitmap.addLong(blockId);
+        partitions.forEach(bitmap::remove);
+      }
+```
+
+### SynchronizationOnLocalVariableOrMethodParameter
+Synchronization on local variable `bitmap`
+in `storage/src/main/java/org/apache/uniffle/storage/common/LocalStorageMeta.java`
+#### Snippet
+```java
+    if (shuffleMeta != null) {
+      RoaringBitmap bitmap = shuffleMeta.uploadedPartitionBitmap;
+      synchronized (bitmap) {
+        partitions.forEach(bitmap::add);
+      }
+```
+
+### SynchronizationOnLocalVariableOrMethodParameter
+Synchronization on local variable `bitmap`
+in `storage/src/main/java/org/apache/uniffle/storage/common/LocalStorageMeta.java`
+#### Snippet
+```java
+    if (shuffleMeta != null) {
+      RoaringBitmap bitmap = shuffleMeta.partitionBitmap;
+      synchronized (bitmap) {
+        partitions.forEach(bitmap::add);
+      }
 ```
 
 ### SynchronizationOnLocalVariableOrMethodParameter
@@ -2645,63 +2657,51 @@ in `server/src/main/java/org/apache/uniffle/server/ShuffleTaskManager.java`
 
 ### SynchronizationOnLocalVariableOrMethodParameter
 Synchronization on local variable `bitmap`
-in `storage/src/main/java/org/apache/uniffle/storage/common/LocalStorageMeta.java`
+in `server/src/main/java/org/apache/uniffle/server/ShuffleTaskManager.java`
 #### Snippet
 ```java
-    if (shuffleMeta != null) {
-      RoaringBitmap bitmap = shuffleMeta.partitionBitmap;
+      Integer partitionId = entry.getKey();
+      Roaring64NavigableMap bitmap = blockIds[partitionId % bitmapNum];
       synchronized (bitmap) {
-        partitions.forEach(bitmap::add);
-      }
-```
-
-### SynchronizationOnLocalVariableOrMethodParameter
-Synchronization on local variable `bitmap`
-in `storage/src/main/java/org/apache/uniffle/storage/common/LocalStorageMeta.java`
-#### Snippet
-```java
-    if (shuffleMeta != null) {
-      RoaringBitmap bitmap = shuffleMeta.partitionBitmap;
-      synchronized (bitmap) {
-        partitions.forEach(bitmap::remove);
-      }
-```
-
-### SynchronizationOnLocalVariableOrMethodParameter
-Synchronization on local variable `bitmap`
-in `storage/src/main/java/org/apache/uniffle/storage/common/LocalStorageMeta.java`
-#### Snippet
-```java
-    if (shuffleMeta != null) {
-      RoaringBitmap bitmap = shuffleMeta.uploadedPartitionBitmap;
-      synchronized (bitmap) {
-        partitions.forEach(bitmap::add);
-      }
+        for (long blockId : entry.getValue()) {
+          bitmap.addLong(blockId);
 ```
 
 ## RuleId[ruleID=ReturnNull]
 ### ReturnNull
 Return of `null`
-in `common/src/main/java/org/apache/uniffle/common/security/NoOpSecurityContext.java`
+in `common/src/main/java/org/apache/uniffle/common/util/RssUtils.java`
 #### Snippet
 ```java
-  @Override
-  public String getContextLoginUser() {
-    return null;
-  }
+      if (rssHome == null) {
+        LOGGER.error("Both conf file and RSS_HOME env is null");
+        return null;
+      }
 
 ```
 
 ### ReturnNull
 Return of `null`
-in `server/src/main/java/org/apache/uniffle/server/storage/HdfsStorageManager.java`
+in `common/src/main/java/org/apache/uniffle/common/util/RssUtils.java`
 #### Snippet
 ```java
-        // outside should deal with null situation
-        // todo: it's better to have a fake storage for null situation
-        return null;
-      }
+    if (!file.exists()) {
+      LOGGER.error("Properties file " + filename + " does not exist");
+      return null;
     }
+
+```
+
+### ReturnNull
+Return of `null`
+in `common/src/main/java/org/apache/uniffle/common/util/RssUtils.java`
+#### Snippet
+```java
+    if (!file.isFile()) {
+      LOGGER.error("Properties file " + filename + " is not a normal file");
+      return null;
+    }
+
 ```
 
 ### ReturnNull
@@ -2714,18 +2714,6 @@ in `common/src/main/java/org/apache/uniffle/common/metrics/MetricReporterFactory
       return null;
     }
     Class<?> klass = Class.forName(name);
-```
-
-### ReturnNull
-Return of `null`
-in `storage/src/main/java/org/apache/uniffle/storage/handler/impl/AbstractClientReadHandler.java`
-#### Snippet
-```java
-  @Override
-  public ShuffleDataResult readShuffleData() {
-    return null;
-  }
-
 ```
 
 ### ReturnNull
@@ -2766,6 +2754,18 @@ in `client/src/main/java/org/apache/uniffle/client/impl/ShuffleReadClientImpl.ja
 
 ### ReturnNull
 Return of `null`
+in `common/src/main/java/org/apache/uniffle/common/security/NoOpSecurityContext.java`
+#### Snippet
+```java
+  @Override
+  public String getContextLoginUser() {
+    return null;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
 in `storage/src/main/java/org/apache/uniffle/storage/handler/impl/DataSkippableReadHandler.java`
 #### Snippet
 ```java
@@ -2774,78 +2774,6 @@ in `storage/src/main/java/org/apache/uniffle/storage/handler/impl/DataSkippableR
         return null;
       }
 
-```
-
-### ReturnNull
-Return of `null`
-in `server/src/main/java/org/apache/uniffle/server/ShuffleTaskManager.java`
-#### Snippet
-```java
-    Map<Integer, Roaring64NavigableMap[]> shuffleIdToPartitions = partitionsToBlockIds.get(appId);
-    if (shuffleIdToPartitions == null) {
-      return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `common/src/main/java/org/apache/uniffle/common/util/RssUtils.java`
-#### Snippet
-```java
-      if (rssHome == null) {
-        LOGGER.error("Both conf file and RSS_HOME env is null");
-        return null;
-      }
-
-```
-
-### ReturnNull
-Return of `null`
-in `common/src/main/java/org/apache/uniffle/common/util/RssUtils.java`
-#### Snippet
-```java
-    if (!file.exists()) {
-      LOGGER.error("Properties file " + filename + " does not exist");
-      return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `common/src/main/java/org/apache/uniffle/common/util/RssUtils.java`
-#### Snippet
-```java
-    if (!file.isFile()) {
-      LOGGER.error("Properties file " + filename + " is not a normal file");
-      return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `storage/src/main/java/org/apache/uniffle/storage/handler/impl/ComposedClientReadHandler.java`
-#### Snippet
-```java
-  public ShuffleDataResult readShuffleData() {
-    ClientReadHandler handler = handlerMap.computeIfAbsent(currentTier,
-        key -> supplierMap.getOrDefault(key, () -> null).get());
-    if (handler == null) {
-      throw new RssException("Unexpected null when getting " + currentTier.name() + " handler");
-```
-
-### ReturnNull
-Return of `null`
-in `storage/src/main/java/org/apache/uniffle/storage/handler/impl/ComposedClientReadHandler.java`
-#### Snippet
-```java
-        currentTier = currentTier.next();
-      } else {
-        return null;
-      }
-      return readShuffleData();
 ```
 
 ### ReturnNull
@@ -2874,26 +2802,26 @@ in `storage/src/main/java/org/apache/uniffle/storage/handler/impl/ShuffleIndexHe
 
 ### ReturnNull
 Return of `null`
-in `server/src/main/java/org/apache/uniffle/server/buffer/ShuffleBufferManager.java`
+in `storage/src/main/java/org/apache/uniffle/storage/handler/impl/AbstractClientReadHandler.java`
 #### Snippet
 ```java
-        appId, shuffleId, partitionId);
-    if (entry == null) {
-      return null;
-    }
+  @Override
+  public ShuffleDataResult readShuffleData() {
+    return null;
+  }
 
 ```
 
 ### ReturnNull
 Return of `null`
-in `server/src/main/java/org/apache/uniffle/server/buffer/ShuffleBufferManager.java`
+in `server/src/main/java/org/apache/uniffle/server/storage/HdfsStorageManager.java`
 #### Snippet
 ```java
-    ShuffleBuffer buffer = entry.getValue();
-    if (buffer == null) {
-      return null;
+        // outside should deal with null situation
+        // todo: it's better to have a fake storage for null situation
+        return null;
+      }
     }
-    return buffer.getShuffleData(blockId, readBufferSize, expectedTaskIds);
 ```
 
 ### ReturnNull
@@ -2930,6 +2858,30 @@ in `server/src/main/java/org/apache/uniffle/server/buffer/ShuffleBufferManager.j
       return null;
     }
     return entry;
+```
+
+### ReturnNull
+Return of `null`
+in `server/src/main/java/org/apache/uniffle/server/buffer/ShuffleBufferManager.java`
+#### Snippet
+```java
+        appId, shuffleId, partitionId);
+    if (entry == null) {
+      return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `server/src/main/java/org/apache/uniffle/server/buffer/ShuffleBufferManager.java`
+#### Snippet
+```java
+    ShuffleBuffer buffer = entry.getValue();
+    if (buffer == null) {
+      return null;
+    }
+    return buffer.getShuffleData(blockId, readBufferSize, expectedTaskIds);
 ```
 
 ### ReturnNull
@@ -2982,6 +2934,30 @@ in `storage/src/main/java/org/apache/uniffle/storage/handler/impl/HdfsShuffleRea
 
 ### ReturnNull
 Return of `null`
+in `storage/src/main/java/org/apache/uniffle/storage/handler/impl/ComposedClientReadHandler.java`
+#### Snippet
+```java
+  public ShuffleDataResult readShuffleData() {
+    ClientReadHandler handler = handlerMap.computeIfAbsent(currentTier,
+        key -> supplierMap.getOrDefault(key, () -> null).get());
+    if (handler == null) {
+      throw new RssException("Unexpected null when getting " + currentTier.name() + " handler");
+```
+
+### ReturnNull
+Return of `null`
+in `storage/src/main/java/org/apache/uniffle/storage/handler/impl/ComposedClientReadHandler.java`
+#### Snippet
+```java
+        currentTier = currentTier.next();
+      } else {
+        return null;
+      }
+      return readShuffleData();
+```
+
+### ReturnNull
+Return of `null`
 in `server/src/main/java/org/apache/uniffle/server/buffer/ShuffleBuffer.java`
 #### Snippet
 ```java
@@ -2992,19 +2968,19 @@ in `server/src/main/java/org/apache/uniffle/server/buffer/ShuffleBuffer.java`
     // buffer will be cleared, and new list must be created for async flush
 ```
 
-## RuleId[ruleID=InstanceofCatchParameter]
-### InstanceofCatchParameter
-'instanceof' on 'catch' parameter `e`
-in `storage/src/main/java/org/apache/uniffle/storage/handler/impl/HdfsClientReadHandler.java`
+### ReturnNull
+Return of `null`
+in `server/src/main/java/org/apache/uniffle/server/ShuffleTaskManager.java`
 #### Snippet
 ```java
-              && (shuffleServerId == null || file.getName().startsWith(shuffleServerId)));
-    } catch (Exception e) {
-      if (e instanceof FileNotFoundException) {
-        LOG.info("Directory[" + baseFolder
-            + "] not found. The data may not be flushed to this directory. Nothing will be read.");
+    Map<Integer, Roaring64NavigableMap[]> shuffleIdToPartitions = partitionsToBlockIds.get(appId);
+    if (shuffleIdToPartitions == null) {
+      return null;
+    }
+
 ```
 
+## RuleId[ruleID=InstanceofCatchParameter]
 ### InstanceofCatchParameter
 'instanceof' on 'catch' parameter `t`
 in `common/src/main/java/org/apache/uniffle/common/util/RetryUtils.java`
@@ -3017,65 +2993,29 @@ in `common/src/main/java/org/apache/uniffle/common/util/RetryUtils.java`
         } else {
 ```
 
+### InstanceofCatchParameter
+'instanceof' on 'catch' parameter `e`
+in `storage/src/main/java/org/apache/uniffle/storage/handler/impl/HdfsClientReadHandler.java`
+#### Snippet
+```java
+              && (shuffleServerId == null || file.getName().startsWith(shuffleServerId)));
+    } catch (Exception e) {
+      if (e instanceof FileNotFoundException) {
+        LOG.info("Directory[" + baseFolder
+            + "] not found. The data may not be flushed to this directory. Nothing will be read.");
+```
+
 ## RuleId[ruleID=UnnecessaryLocalVariable]
 ### UnnecessaryLocalVariable
-Local variable `tt` is redundant
-in `internal-client/src/main/java/org/apache/uniffle/client/impl/grpc/CoordinatorGrpcClient.java`
+Local variable `pool` is redundant
+in `common/src/main/java/org/apache/uniffle/common/web/JettyServer.java`
 #### Snippet
 ```java
-          .stream()
-          .collect(Collectors.toMap(RemoteStorageConfItem::getKey, RemoteStorageConfItem::getValue));
-      RssFetchRemoteStorageResponse tt = new RssFetchRemoteStorageResponse(
-          StatusCode.SUCCESS,
-          new RemoteStorageInfo(rpcResponse.getRemoteStorage().getPath(), remoteStorageConf));
-```
-
-### UnnecessaryLocalVariable
-Local variable `storage` is redundant
-in `server/src/main/java/org/apache/uniffle/server/storage/LocalStorageManager.java`
-#### Snippet
-```java
-    int partitionId = event.getStartPartition();
-
-    LocalStorage storage = partitionsOfStorage.get(UnionKey.buildKey(appId, shuffleId, partitionId));
-    return storage;
-  }
-```
-
-### UnnecessaryLocalVariable
-Local variable `writer` is redundant
-in `storage/src/main/java/org/apache/uniffle/storage/handler/impl/HdfsShuffleWriteHandler.java`
-#### Snippet
-```java
-  public HdfsFileWriter createWriter(String fileName) throws IOException, IllegalStateException {
-    Path path = new Path(basePath, fileName);
-    HdfsFileWriter writer = new HdfsFileWriter(fileSystem, path, hadoopConf);
-    return writer;
-  }
-```
-
-### UnnecessaryLocalVariable
-Local variable `shufflePath` is redundant
-in `storage/src/main/java/org/apache/uniffle/storage/handler/impl/LocalFileDeleteHandler.java`
-#### Snippet
-```java
-  public void delete(String[] shuffleDataStoredPath, String appId, String user) {
-    for (String basePath : shuffleDataStoredPath) {
-      final String shufflePath = basePath;
-      long start = System.currentTimeMillis();
-      try {
-```
-
-### UnnecessaryLocalVariable
-Local variable `memoryClientReadHandler` is redundant
-in `storage/src/main/java/org/apache/uniffle/storage/factory/ShuffleHandlerFactory.java`
-#### Snippet
-```java
-      expectTaskIds = RssUtils.generateTaskIdBitMap(realExceptBlockIds, request.getIdHelper());
-    }
-    ClientReadHandler memoryClientReadHandler = new MemoryClientReadHandler(
-        request.getAppId(),
-        request.getShuffleId(),
+    int corePoolSize = conf.getInteger(RssBaseConf.JETTY_CORE_POOL_SIZE);
+    int maxPoolSize = conf.getInteger(RssBaseConf.JETTY_MAX_POOL_SIZE);
+    ExecutorThreadPool pool = new ExecutorThreadPool(
+        new ThreadPoolExecutor(corePoolSize, maxPoolSize, 60L, TimeUnit.SECONDS,
+            new LinkedBlockingQueue<>(), ThreadUtils.getThreadFactory("Jetty-%d")));
 ```
 
 ### UnnecessaryLocalVariable
@@ -3091,15 +3031,15 @@ in `common/src/main/java/org/apache/uniffle/common/config/ConfigOptions.java`
 ```
 
 ### UnnecessaryLocalVariable
-Local variable `pool` is redundant
-in `common/src/main/java/org/apache/uniffle/common/web/JettyServer.java`
+Local variable `writer` is redundant
+in `storage/src/main/java/org/apache/uniffle/storage/handler/impl/HdfsShuffleWriteHandler.java`
 #### Snippet
 ```java
-    int corePoolSize = conf.getInteger(RssBaseConf.JETTY_CORE_POOL_SIZE);
-    int maxPoolSize = conf.getInteger(RssBaseConf.JETTY_MAX_POOL_SIZE);
-    ExecutorThreadPool pool = new ExecutorThreadPool(
-        new ThreadPoolExecutor(corePoolSize, maxPoolSize, 60L, TimeUnit.SECONDS,
-            new LinkedBlockingQueue<>(), ThreadUtils.getThreadFactory("Jetty-%d")));
+  public HdfsFileWriter createWriter(String fileName) throws IOException, IllegalStateException {
+    Path path = new Path(basePath, fileName);
+    HdfsFileWriter writer = new HdfsFileWriter(fileSystem, path, hadoopConf);
+    return writer;
+  }
 ```
 
 ### UnnecessaryLocalVariable
@@ -3115,15 +3055,39 @@ in `common/src/main/java/org/apache/uniffle/common/config/RssConf.java`
 ```
 
 ### UnnecessaryLocalVariable
-Local variable `response` is redundant
-in `internal-client/src/main/java/org/apache/uniffle/client/impl/grpc/ShuffleServerGrpcClient.java`
+Local variable `memoryClientReadHandler` is redundant
+in `storage/src/main/java/org/apache/uniffle/storage/factory/ShuffleHandlerFactory.java`
 #### Snippet
 ```java
-    while (retryNum <= maxRetryAttempts) {
+      expectTaskIds = RssUtils.generateTaskIdBitMap(realExceptBlockIds, request.getIdHelper());
+    }
+    ClientReadHandler memoryClientReadHandler = new MemoryClientReadHandler(
+        request.getAppId(),
+        request.getShuffleId(),
+```
+
+### UnnecessaryLocalVariable
+Local variable `tt` is redundant
+in `internal-client/src/main/java/org/apache/uniffle/client/impl/grpc/CoordinatorGrpcClient.java`
+#### Snippet
+```java
+          .stream()
+          .collect(Collectors.toMap(RemoteStorageConfItem::getKey, RemoteStorageConfItem::getValue));
+      RssFetchRemoteStorageResponse tt = new RssFetchRemoteStorageResponse(
+          StatusCode.SUCCESS,
+          new RemoteStorageInfo(rpcResponse.getRemoteStorage().getPath(), remoteStorageConf));
+```
+
+### UnnecessaryLocalVariable
+Local variable `shufflePath` is redundant
+in `storage/src/main/java/org/apache/uniffle/storage/handler/impl/LocalFileDeleteHandler.java`
+#### Snippet
+```java
+  public void delete(String[] shuffleDataStoredPath, String appId, String user) {
+    for (String basePath : shuffleDataStoredPath) {
+      final String shufflePath = basePath;
+      long start = System.currentTimeMillis();
       try {
-        ShuffleCommitResponse response = getBlockingStub().commitShuffleTask(request);
-        return response;
-      } catch (Exception e) {
 ```
 
 ### UnnecessaryLocalVariable
@@ -3138,19 +3102,31 @@ in `internal-client/src/main/java/org/apache/uniffle/client/impl/grpc/ShuffleSer
       } catch (Exception e) {
 ```
 
-## RuleId[ruleID=FuseStreamOperations]
-### FuseStreamOperations
-Stream may be extended replacing 'toArray'
+### UnnecessaryLocalVariable
+Local variable `response` is redundant
+in `internal-client/src/main/java/org/apache/uniffle/client/impl/grpc/ShuffleServerGrpcClient.java`
+#### Snippet
+```java
+    while (retryNum <= maxRetryAttempts) {
+      try {
+        ShuffleCommitResponse response = getBlockingStub().commitShuffleTask(request);
+        return response;
+      } catch (Exception e) {
+```
+
+### UnnecessaryLocalVariable
+Local variable `storage` is redundant
 in `server/src/main/java/org/apache/uniffle/server/storage/LocalStorageManager.java`
 #### Snippet
 ```java
-        return Arrays.asList(basicPath).stream();
-      }
-    }).collect(Collectors.toList());
+    int partitionId = event.getStartPartition();
 
-    deleteHandler.delete(deletePaths.toArray(new String[deletePaths.size()]), appId, user);
+    LocalStorage storage = partitionsOfStorage.get(UnionKey.buildKey(appId, shuffleId, partitionId));
+    return storage;
+  }
 ```
 
+## RuleId[ruleID=FuseStreamOperations]
 ### FuseStreamOperations
 Stream may be extended replacing 'sort'
 in `storage/src/main/java/org/apache/uniffle/storage/common/LocalStorageMeta.java`
@@ -3163,29 +3139,29 @@ in `storage/src/main/java/org/apache/uniffle/storage/common/LocalStorageMeta.jav
     shuffleMetaList.sort((Entry<String, ShuffleMeta> o1, Entry<String, ShuffleMeta> o2) -> {
 ```
 
+### FuseStreamOperations
+Stream may be extended replacing 'toArray'
+in `server/src/main/java/org/apache/uniffle/server/storage/LocalStorageManager.java`
+#### Snippet
+```java
+        return Arrays.asList(basicPath).stream();
+      }
+    }).collect(Collectors.toList());
+
+    deleteHandler.delete(deletePaths.toArray(new String[deletePaths.size()]), appId, user);
+```
+
 ## RuleId[ruleID=SynchronizeOnThis]
 ### SynchronizeOnThis
 Lock operations on 'this' may have unforeseen side-effects
-in `server/src/main/java/org/apache/uniffle/server/storage/HdfsStorageManager.java`
+in `coordinator/src/main/java/org/apache/uniffle/coordinator/strategy/assignment/PartitionBalanceAssignmentStrategy.java`
 #### Snippet
 ```java
-  public HdfsStorage getStorageByAppId(String appId) {
-    if (!appIdToStorages.containsKey(appId)) {
-      synchronized (this) {
-        FileSystem fs;
-        try {
-```
 
-### SynchronizeOnThis
-Lock operations on 'this' may have unforeseen side-effects
-in `coordinator/src/main/java/org/apache/uniffle/coordinator/QuotaManager.java`
-#### Snippet
-```java
-    String uuidFromApp = appIdAndUuid[appIdAndUuid.length - 1];
-    // if appId created successfully, we need to remove the uuid
+    SortedMap<PartitionRange, List<ServerNode>> assignments;
     synchronized (this) {
-      appAndTime.remove(uuidFromApp);
-      appAndTime.put(appId, currentTimeMillis);
+      List<ServerNode> nodes = clusterManager.getServerList(requiredTags);
+      Map<ServerNode, PartitionAssignmentInfo> newPartitionInfos = Maps.newConcurrentMap();
 ```
 
 ### SynchronizeOnThis
@@ -3202,14 +3178,26 @@ in `coordinator/src/main/java/org/apache/uniffle/coordinator/QuotaManager.java`
 
 ### SynchronizeOnThis
 Lock operations on 'this' may have unforeseen side-effects
-in `coordinator/src/main/java/org/apache/uniffle/coordinator/strategy/assignment/PartitionBalanceAssignmentStrategy.java`
+in `coordinator/src/main/java/org/apache/uniffle/coordinator/QuotaManager.java`
 #### Snippet
 ```java
-
-    SortedMap<PartitionRange, List<ServerNode>> assignments;
+    String uuidFromApp = appIdAndUuid[appIdAndUuid.length - 1];
+    // if appId created successfully, we need to remove the uuid
     synchronized (this) {
-      List<ServerNode> nodes = clusterManager.getServerList(requiredTags);
-      Map<ServerNode, PartitionAssignmentInfo> newPartitionInfos = Maps.newConcurrentMap();
+      appAndTime.remove(uuidFromApp);
+      appAndTime.put(appId, currentTimeMillis);
+```
+
+### SynchronizeOnThis
+Lock operations on 'this' may have unforeseen side-effects
+in `server/src/main/java/org/apache/uniffle/server/storage/HdfsStorageManager.java`
+#### Snippet
+```java
+  public HdfsStorage getStorageByAppId(String appId) {
+    if (!appIdToStorages.containsKey(appId)) {
+      synchronized (this) {
+        FileSystem fs;
+        try {
 ```
 
 ### SynchronizeOnThis
@@ -3251,78 +3239,6 @@ in `server/src/main/java/org/apache/uniffle/server/buffer/ShuffleBuffer.java`
 ## RuleId[ruleID=ZeroLengthArrayInitialization]
 ### ZeroLengthArrayInitialization
 Allocation of zero length array
-in `server/src/main/java/org/apache/uniffle/server/storage/HdfsStorageManager.java`
-#### Snippet
-```java
-        }
-      }
-      deleteHandler.delete(deletePaths.toArray(new String[0]), appId, event.getUser());
-    } else {
-      LOG.warn("Storage gotten is null when removing resources for event: {}", event);
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `storage/src/main/java/org/apache/uniffle/storage/handler/impl/LocalFileReader.java`
-#### Snippet
-```java
-    } catch (IOException e) {
-      LOG.error("Fail to read all data from {}", path, e);
-      return new byte[0];
-    }
-  }
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `storage/src/main/java/org/apache/uniffle/storage/handler/impl/LocalFileReader.java`
-#### Snippet
-```java
-      LOG.warn("Can't read data for path:" + path + " with offset[" + offset + "], length[" + length + "]", e);
-    }
-    return new byte[0];
-  }
-
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `storage/src/main/java/org/apache/uniffle/storage/handler/impl/HdfsFileReader.java`
-#### Snippet
-```java
-    } catch (IOException e) {
-      LOG.error("Fail to read all data from {}", path, e);
-      return new byte[0];
-    }
-  }
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `storage/src/main/java/org/apache/uniffle/storage/handler/impl/HdfsFileReader.java`
-#### Snippet
-```java
-          + offset + "], length[" + length + "]", e);
-    }
-    return new byte[0];
-  }
-
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `server/src/main/java/org/apache/uniffle/server/ShuffleTaskManager.java`
-#### Snippet
-```java
-    Roaring64NavigableMap[] blockIds = shuffleIdToPartitions.get(shuffleId);
-    if (blockIds == null) {
-      return new byte[]{};
-    }
-    Map<Integer, Set<Integer>> bitmapIndexToPartitions = Maps.newHashMap();
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
 in `common/src/main/java/org/apache/uniffle/common/ShuffleIndexResult.java`
 #### Snippet
 ```java
@@ -3347,14 +3263,14 @@ in `common/src/main/java/org/apache/uniffle/common/ShuffleDataResult.java`
 
 ### ZeroLengthArrayInitialization
 Allocation of zero length array
-in `storage/src/main/java/org/apache/uniffle/storage/handler/impl/LocalFileServerReadHandler.java`
+in `client/src/main/java/org/apache/uniffle/client/util/ClientUtils.java`
 #### Snippet
 ```java
-  @Override
-  public ShuffleDataResult getShuffleData(long offset, int length) {
-    byte[] readBuffer = new byte[0];
+    int failed = 0;
 
-    try {
+    CompletableFuture allFutures = CompletableFuture.allOf(futures.toArray(new CompletableFuture[0]));
+
+    List<Future> finished = new ArrayList<>();
 ```
 
 ### ZeroLengthArrayInitialization
@@ -3371,14 +3287,62 @@ in `common/src/main/java/org/apache/uniffle/common/ShufflePartitionedData.java`
 
 ### ZeroLengthArrayInitialization
 Allocation of zero length array
-in `client/src/main/java/org/apache/uniffle/client/util/ClientUtils.java`
+in `storage/src/main/java/org/apache/uniffle/storage/handler/impl/HdfsFileReader.java`
 #### Snippet
 ```java
-    int failed = 0;
+          + offset + "], length[" + length + "]", e);
+    }
+    return new byte[0];
+  }
 
-    CompletableFuture allFutures = CompletableFuture.allOf(futures.toArray(new CompletableFuture[0]));
+```
 
-    List<Future> finished = new ArrayList<>();
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `storage/src/main/java/org/apache/uniffle/storage/handler/impl/HdfsFileReader.java`
+#### Snippet
+```java
+    } catch (IOException e) {
+      LOG.error("Fail to read all data from {}", path, e);
+      return new byte[0];
+    }
+  }
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `storage/src/main/java/org/apache/uniffle/storage/handler/impl/LocalFileReader.java`
+#### Snippet
+```java
+      LOG.warn("Can't read data for path:" + path + " with offset[" + offset + "], length[" + length + "]", e);
+    }
+    return new byte[0];
+  }
+
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `storage/src/main/java/org/apache/uniffle/storage/handler/impl/LocalFileReader.java`
+#### Snippet
+```java
+    } catch (IOException e) {
+      LOG.error("Fail to read all data from {}", path, e);
+      return new byte[0];
+    }
+  }
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `server/src/main/java/org/apache/uniffle/server/storage/HdfsStorageManager.java`
+#### Snippet
+```java
+        }
+      }
+      deleteHandler.delete(deletePaths.toArray(new String[0]), appId, event.getUser());
+    } else {
+      LOG.warn("Storage gotten is null when removing resources for event: {}", event);
 ```
 
 ### ZeroLengthArrayInitialization
@@ -3391,6 +3355,30 @@ in `storage/src/main/java/org/apache/uniffle/storage/handler/impl/HdfsShuffleRea
       return new byte[0];
     }
     return data;
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `storage/src/main/java/org/apache/uniffle/storage/handler/impl/LocalFileServerReadHandler.java`
+#### Snippet
+```java
+  @Override
+  public ShuffleDataResult getShuffleData(long offset, int length) {
+    byte[] readBuffer = new byte[0];
+
+    try {
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `server/src/main/java/org/apache/uniffle/server/ShuffleServerGrpcService.java`
+#### Snippet
+```java
+  private ShufflePartitionedBlock[] toPartitionedBlock(List<ShuffleBlock> blocks) {
+    if (blocks == null || blocks.size() == 0) {
+      return new ShufflePartitionedBlock[]{};
+    }
+    ShufflePartitionedBlock[] ret = new ShufflePartitionedBlock[blocks.size()];
 ```
 
 ### ZeroLengthArrayInitialization
@@ -3431,29 +3419,17 @@ in `server/src/main/java/org/apache/uniffle/server/ShuffleServerGrpcService.java
 
 ### ZeroLengthArrayInitialization
 Allocation of zero length array
-in `server/src/main/java/org/apache/uniffle/server/ShuffleServerGrpcService.java`
-#### Snippet
-```java
-  private ShufflePartitionedBlock[] toPartitionedBlock(List<ShuffleBlock> blocks) {
-    if (blocks == null || blocks.size() == 0) {
-      return new ShufflePartitionedBlock[]{};
-    }
-    ShufflePartitionedBlock[] ret = new ShufflePartitionedBlock[blocks.size()];
-```
-
-## RuleId[ruleID=BusyWait]
-### BusyWait
-Call to `Thread.sleep()` in a loop, probably busy-waiting
 in `server/src/main/java/org/apache/uniffle/server/ShuffleTaskManager.java`
 #### Snippet
 ```java
-          break;
-        }
-        Thread.sleep(checkInterval);
-        if (System.currentTimeMillis() - start > commitTimeout) {
-          throw new RuntimeException("Shuffle data commit timeout for " + commitTimeout + " ms");
+    Roaring64NavigableMap[] blockIds = shuffleIdToPartitions.get(shuffleId);
+    if (blockIds == null) {
+      return new byte[]{};
+    }
+    Map<Integer, Set<Integer>> bitmapIndexToPartitions = Maps.newHashMap();
 ```
 
+## RuleId[ruleID=BusyWait]
 ### BusyWait
 Call to `Thread.sleep()` in a loop, probably busy-waiting
 in `common/src/main/java/org/apache/uniffle/common/util/RetryUtils.java`
@@ -3464,6 +3440,18 @@ in `common/src/main/java/org/apache/uniffle/common/util/RetryUtils.java`
           Thread.sleep(intervalMs);
           if (callBack != null) {
             callBack.execute();
+```
+
+### BusyWait
+Call to `Thread.sleep()` in a loop, probably busy-waiting
+in `internal-client/src/main/java/org/apache/uniffle/client/impl/grpc/ShuffleServerGrpcClient.java`
+#### Snippet
+```java
+        long backoffTime =
+            Math.min(retryIntervalMax, backOffBase * (1L << Math.min(retry, 16)) + random.nextInt(backOffBase));
+        Thread.sleep(backoffTime);
+      } catch (Exception e) {
+        LOG.warn("Exception happened when require pre allocation from " + host + ":" + port, e);
 ```
 
 ### BusyWait
@@ -3480,14 +3468,14 @@ in `server/src/main/java/org/apache/uniffle/server/buffer/ShuffleBufferManager.j
 
 ### BusyWait
 Call to `Thread.sleep()` in a loop, probably busy-waiting
-in `internal-client/src/main/java/org/apache/uniffle/client/impl/grpc/ShuffleServerGrpcClient.java`
+in `server/src/main/java/org/apache/uniffle/server/ShuffleTaskManager.java`
 #### Snippet
 ```java
-        long backoffTime =
-            Math.min(retryIntervalMax, backOffBase * (1L << Math.min(retry, 16)) + random.nextInt(backOffBase));
-        Thread.sleep(backoffTime);
-      } catch (Exception e) {
-        LOG.warn("Exception happened when require pre allocation from " + host + ":" + port, e);
+          break;
+        }
+        Thread.sleep(checkInterval);
+        if (System.currentTimeMillis() - start > commitTimeout) {
+          throw new RuntimeException("Shuffle data commit timeout for " + commitTimeout + " ms");
 ```
 
 ## RuleId[ruleID=UnstableTypeUsedInSignature]
@@ -3542,15 +3530,15 @@ in `server/src/main/java/org/apache/uniffle/server/ShuffleTaskManager.java`
 
 ## RuleId[ruleID=UnusedAssignment]
 ### UnusedAssignment
-Variable `readBytes` initializer `-1` is redundant
-in `server/src/main/java/org/apache/uniffle/server/LocalStorageChecker.java`
+Variable `expectedTaskIdsBitmapFilterEnable` initializer `false` is redundant
+in `client/src/main/java/org/apache/uniffle/client/request/CreateShuffleReadClientRequest.java`
 #### Snippet
 ```java
-        }
-        byte[] readData = new byte[1024];
-        int readBytes = -1;
-        try (FileInputStream fis = new FileInputStream(writeFile)) {
-          int hasReadBytes = 0;
+  private IdHelper idHelper;
+  private ShuffleDataDistributionType shuffleDataDistributionType = ShuffleDataDistributionType.NORMAL;
+  private boolean expectedTaskIdsBitmapFilterEnable = false;
+
+  public CreateShuffleReadClientRequest(
 ```
 
 ### UnusedAssignment
@@ -3563,30 +3551,6 @@ in `client/src/main/java/org/apache/uniffle/client/impl/ShuffleReadClientImpl.ja
     BufferSegment bs = null;
 
     // blocks in bufferSegmentQueue may be from different partition in range partition mode,
-```
-
-### UnusedAssignment
-Variable `latestPosition` initializer `-1` is redundant
-in `storage/src/main/java/org/apache/uniffle/storage/util/ShuffleStorageUtils.java`
-#### Snippet
-```java
-        Collections.sort(segments);
-        long start = -1;
-        long latestPosition = -1;
-        long skipThreshold = readBufferSize / 2;
-        long lastPosition = Long.MAX_VALUE;
-```
-
-### UnusedAssignment
-Variable `indexFiles` initializer `null` is redundant
-in `storage/src/main/java/org/apache/uniffle/storage/handler/impl/HdfsClientReadHandler.java`
-#### Snippet
-```java
-    }
-
-    FileStatus[] indexFiles = null;
-    try {
-      // get all index files
 ```
 
 ### UnusedAssignment
@@ -3614,18 +3578,6 @@ in `storage/src/main/java/org/apache/uniffle/storage/handler/impl/LocalFileClien
 ```
 
 ### UnusedAssignment
-Variable `indexes` initializer `Lists.newArrayList()` is redundant
-in `storage/src/main/java/org/apache/uniffle/storage/handler/impl/ShuffleIndexHeader.java`
-#### Snippet
-```java
-
-  private int partitionNum;
-  private List<Entry> indexes = Lists.newArrayList();
-  private long crc;
-
-```
-
-### UnusedAssignment
 Variable `result` initializer `null` is redundant
 in `storage/src/main/java/org/apache/uniffle/storage/handler/impl/MemoryClientReadHandler.java`
 #### Snippet
@@ -3638,15 +3590,63 @@ in `storage/src/main/java/org/apache/uniffle/storage/handler/impl/MemoryClientRe
 ```
 
 ### UnusedAssignment
-Variable `expectedTaskIdsBitmapFilterEnable` initializer `false` is redundant
-in `client/src/main/java/org/apache/uniffle/client/request/CreateShuffleReadClientRequest.java`
+Variable `indexes` initializer `Lists.newArrayList()` is redundant
+in `storage/src/main/java/org/apache/uniffle/storage/handler/impl/ShuffleIndexHeader.java`
 #### Snippet
 ```java
-  private IdHelper idHelper;
-  private ShuffleDataDistributionType shuffleDataDistributionType = ShuffleDataDistributionType.NORMAL;
-  private boolean expectedTaskIdsBitmapFilterEnable = false;
 
-  public CreateShuffleReadClientRequest(
+  private int partitionNum;
+  private List<Entry> indexes = Lists.newArrayList();
+  private long crc;
+
+```
+
+### UnusedAssignment
+Variable `indexFiles` initializer `null` is redundant
+in `storage/src/main/java/org/apache/uniffle/storage/handler/impl/HdfsClientReadHandler.java`
+#### Snippet
+```java
+    }
+
+    FileStatus[] indexFiles = null;
+    try {
+      // get all index files
+```
+
+### UnusedAssignment
+Variable `latestPosition` initializer `-1` is redundant
+in `storage/src/main/java/org/apache/uniffle/storage/util/ShuffleStorageUtils.java`
+#### Snippet
+```java
+        Collections.sort(segments);
+        long start = -1;
+        long latestPosition = -1;
+        long skipThreshold = readBufferSize / 2;
+        long lastPosition = Long.MAX_VALUE;
+```
+
+### UnusedAssignment
+Variable `readBytes` initializer `-1` is redundant
+in `server/src/main/java/org/apache/uniffle/server/LocalStorageChecker.java`
+#### Snippet
+```java
+        }
+        byte[] readData = new byte[1024];
+        int readBytes = -1;
+        try (FileInputStream fis = new FileInputStream(writeFile)) {
+          int hasReadBytes = 0;
+```
+
+### UnusedAssignment
+Variable `reply` initializer `null` is redundant
+in `server/src/main/java/org/apache/uniffle/server/ShuffleServerGrpcService.java`
+#### Snippet
+```java
+    StatusCode status = StatusCode.SUCCESS;
+    String msg = "OK";
+    GetLocalShuffleDataResponse reply = null;
+    ShuffleDataResult sdr;
+    String requestInfo = "appId[" + appId + "], shuffleId[" + shuffleId + "], partitionId["
 ```
 
 ### UnusedAssignment
@@ -3671,18 +3671,6 @@ in `server/src/main/java/org/apache/uniffle/server/ShuffleServerGrpcService.java
     byte[] serializedBlockIds = null;
     String requestInfo = "appId[" + appId + "], shuffleId[" + shuffleId + "], partitionId[" + partitionId + "]";
     ByteString serializedBlockIdsBytes = ByteString.EMPTY;
-```
-
-### UnusedAssignment
-Variable `reply` initializer `null` is redundant
-in `server/src/main/java/org/apache/uniffle/server/ShuffleServerGrpcService.java`
-#### Snippet
-```java
-    StatusCode status = StatusCode.SUCCESS;
-    String msg = "OK";
-    GetLocalShuffleDataResponse reply = null;
-    ShuffleDataResult sdr;
-    String requestInfo = "appId[" + appId + "], shuffleId[" + shuffleId + "], partitionId["
 ```
 
 ### UnusedAssignment
@@ -3776,90 +3764,6 @@ in `server/src/main/java/org/apache/uniffle/server/buffer/ShuffleBufferManager.j
 in `server/src/main/java/org/apache/uniffle/server/buffer/ShuffleBufferManager.java`
 #### Snippet
 ```java
-  private AtomicLong readDataMemory = new AtomicLong(0L);
-  // appId -> shuffleId -> partitionId -> ShuffleBuffer to avoid too many appId
-  protected Map<String, Map<Integer, RangeMap<Integer, ShuffleBuffer>>> bufferPool;
-  // appId -> shuffleId -> shuffle size in buffer
-  protected Map<String, Map<Integer, AtomicLong>> shuffleSizeMap = Maps.newConcurrentMap();
-```
-
-### UnstableApiUsage
-'com.google.common.collect.RangeMap' is marked unstable with @Beta
-in `server/src/main/java/org/apache/uniffle/server/buffer/ShuffleBufferManager.java`
-#### Snippet
-```java
-
-  @VisibleForTesting
-  public Map<String, Map<Integer, RangeMap<Integer, ShuffleBuffer>>> getBufferPool() {
-    return bufferPool;
-  }
-```
-
-### UnstableApiUsage
-'com.google.common.collect.RangeMap' is marked unstable with @Beta
-in `server/src/main/java/org/apache/uniffle/server/buffer/ShuffleBufferManager.java`
-#### Snippet
-```java
-
-  public void removeBufferByShuffleId(String appId, Collection<Integer> shuffleIds) {
-    Map<Integer, RangeMap<Integer, ShuffleBuffer>> shuffleIdToBuffers = bufferPool.get(appId);
-    if (shuffleIdToBuffers == null) {
-      return;
-```
-
-### UnstableApiUsage
-'com.google.common.collect.RangeMap' is marked unstable with @Beta
-in `server/src/main/java/org/apache/uniffle/server/buffer/ShuffleBufferManager.java`
-#### Snippet
-```java
-      long size = 0;
-
-      RangeMap<Integer, ShuffleBuffer> bufferRangeMap = shuffleIdToBuffers.remove(shuffleId);
-      if (bufferRangeMap == null) {
-        continue;
-```
-
-### UnstableApiUsage
-'asMapOfRanges()' is declared in unstable interface 'com.google.common.collect.RangeMap' marked with @Beta
-in `server/src/main/java/org/apache/uniffle/server/buffer/ShuffleBufferManager.java`
-#### Snippet
-```java
-        continue;
-      }
-      Collection<ShuffleBuffer> buffers = bufferRangeMap.asMapOfRanges().values();
-      if (buffers != null) {
-        for (ShuffleBuffer buffer : buffers) {
-```
-
-### UnstableApiUsage
-'com.google.common.collect.RangeMap' is marked unstable with @Beta
-in `server/src/main/java/org/apache/uniffle/server/buffer/ShuffleBufferManager.java`
-#### Snippet
-```java
-
-  public synchronized void commitShuffleTask(String appId, int shuffleId) {
-    RangeMap<Integer, ShuffleBuffer> buffers = bufferPool.get(appId).get(shuffleId);
-    for (Map.Entry<Range<Integer>, ShuffleBuffer> entry : buffers.asMapOfRanges().entrySet()) {
-      ShuffleBuffer buffer = entry.getValue();
-```
-
-### UnstableApiUsage
-'asMapOfRanges()' is declared in unstable interface 'com.google.common.collect.RangeMap' marked with @Beta
-in `server/src/main/java/org/apache/uniffle/server/buffer/ShuffleBufferManager.java`
-#### Snippet
-```java
-  public synchronized void commitShuffleTask(String appId, int shuffleId) {
-    RangeMap<Integer, ShuffleBuffer> buffers = bufferPool.get(appId).get(shuffleId);
-    for (Map.Entry<Range<Integer>, ShuffleBuffer> entry : buffers.asMapOfRanges().entrySet()) {
-      ShuffleBuffer buffer = entry.getValue();
-      Range<Integer> range = entry.getKey();
-```
-
-### UnstableApiUsage
-'com.google.common.collect.RangeMap' is marked unstable with @Beta
-in `server/src/main/java/org/apache/uniffle/server/buffer/ShuffleBufferManager.java`
-#### Snippet
-```java
   public Entry<Range<Integer>, ShuffleBuffer> getShuffleBufferEntry(
       String appId, int shuffleId, int partitionId) {
     Map<Integer, RangeMap<Integer, ShuffleBuffer>> shuffleIdToBuffers = bufferPool.get(appId);
@@ -3889,6 +3793,42 @@ in `server/src/main/java/org/apache/uniffle/server/buffer/ShuffleBufferManager.j
     Entry<Range<Integer>, ShuffleBuffer> entry = rangeToBuffers.getEntry(partitionId);
     if (entry == null) {
       return null;
+```
+
+### UnstableApiUsage
+'com.google.common.collect.RangeMap' is marked unstable with @Beta
+in `server/src/main/java/org/apache/uniffle/server/buffer/ShuffleBufferManager.java`
+#### Snippet
+```java
+  // flush the buffer with required map which is <appId -> shuffleId>
+  public synchronized void flush(Map<String, Set<Integer>> requiredFlush) {
+    for (Map.Entry<String, Map<Integer, RangeMap<Integer, ShuffleBuffer>>>
+        appIdToBuffers : bufferPool.entrySet()) {
+      String appId = appIdToBuffers.getKey();
+```
+
+### UnstableApiUsage
+'com.google.common.collect.RangeMap' is marked unstable with @Beta
+in `server/src/main/java/org/apache/uniffle/server/buffer/ShuffleBufferManager.java`
+#### Snippet
+```java
+      String appId = appIdToBuffers.getKey();
+      if (requiredFlush.containsKey(appId)) {
+        for (Map.Entry<Integer, RangeMap<Integer, ShuffleBuffer>> shuffleIdToBuffers :
+            appIdToBuffers.getValue().entrySet()) {
+          int shuffleId = shuffleIdToBuffers.getKey();
+```
+
+### UnstableApiUsage
+'asMapOfRanges()' is declared in unstable interface 'com.google.common.collect.RangeMap' marked with @Beta
+in `server/src/main/java/org/apache/uniffle/server/buffer/ShuffleBufferManager.java`
+#### Snippet
+```java
+          if (requiredShuffleId != null && requiredShuffleId.contains(shuffleId)) {
+            for (Map.Entry<Range<Integer>, ShuffleBuffer> rangeEntry :
+                shuffleIdToBuffers.getValue().asMapOfRanges().entrySet()) {
+              Range<Integer> range = rangeEntry.getKey();
+              flushBuffer(rangeEntry.getValue(), appId, shuffleId,
 ```
 
 ### UnstableApiUsage
@@ -3968,11 +3908,11 @@ in `server/src/main/java/org/apache/uniffle/server/buffer/ShuffleBufferManager.j
 in `server/src/main/java/org/apache/uniffle/server/buffer/ShuffleBufferManager.java`
 #### Snippet
 ```java
-  // flush the buffer with required map which is <appId -> shuffleId>
-  public synchronized void flush(Map<String, Set<Integer>> requiredFlush) {
-    for (Map.Entry<String, Map<Integer, RangeMap<Integer, ShuffleBuffer>>>
-        appIdToBuffers : bufferPool.entrySet()) {
-      String appId = appIdToBuffers.getKey();
+  private AtomicLong readDataMemory = new AtomicLong(0L);
+  // appId -> shuffleId -> partitionId -> ShuffleBuffer to avoid too many appId
+  protected Map<String, Map<Integer, RangeMap<Integer, ShuffleBuffer>>> bufferPool;
+  // appId -> shuffleId -> shuffle size in buffer
+  protected Map<String, Map<Integer, AtomicLong>> shuffleSizeMap = Maps.newConcurrentMap();
 ```
 
 ### UnstableApiUsage
@@ -3980,11 +3920,23 @@ in `server/src/main/java/org/apache/uniffle/server/buffer/ShuffleBufferManager.j
 in `server/src/main/java/org/apache/uniffle/server/buffer/ShuffleBufferManager.java`
 #### Snippet
 ```java
-      String appId = appIdToBuffers.getKey();
-      if (requiredFlush.containsKey(appId)) {
-        for (Map.Entry<Integer, RangeMap<Integer, ShuffleBuffer>> shuffleIdToBuffers :
-            appIdToBuffers.getValue().entrySet()) {
-          int shuffleId = shuffleIdToBuffers.getKey();
+
+  public void removeBufferByShuffleId(String appId, Collection<Integer> shuffleIds) {
+    Map<Integer, RangeMap<Integer, ShuffleBuffer>> shuffleIdToBuffers = bufferPool.get(appId);
+    if (shuffleIdToBuffers == null) {
+      return;
+```
+
+### UnstableApiUsage
+'com.google.common.collect.RangeMap' is marked unstable with @Beta
+in `server/src/main/java/org/apache/uniffle/server/buffer/ShuffleBufferManager.java`
+#### Snippet
+```java
+      long size = 0;
+
+      RangeMap<Integer, ShuffleBuffer> bufferRangeMap = shuffleIdToBuffers.remove(shuffleId);
+      if (bufferRangeMap == null) {
+        continue;
 ```
 
 ### UnstableApiUsage
@@ -3992,11 +3944,47 @@ in `server/src/main/java/org/apache/uniffle/server/buffer/ShuffleBufferManager.j
 in `server/src/main/java/org/apache/uniffle/server/buffer/ShuffleBufferManager.java`
 #### Snippet
 ```java
-          if (requiredShuffleId != null && requiredShuffleId.contains(shuffleId)) {
-            for (Map.Entry<Range<Integer>, ShuffleBuffer> rangeEntry :
-                shuffleIdToBuffers.getValue().asMapOfRanges().entrySet()) {
-              Range<Integer> range = rangeEntry.getKey();
-              flushBuffer(rangeEntry.getValue(), appId, shuffleId,
+        continue;
+      }
+      Collection<ShuffleBuffer> buffers = bufferRangeMap.asMapOfRanges().values();
+      if (buffers != null) {
+        for (ShuffleBuffer buffer : buffers) {
+```
+
+### UnstableApiUsage
+'com.google.common.collect.RangeMap' is marked unstable with @Beta
+in `server/src/main/java/org/apache/uniffle/server/buffer/ShuffleBufferManager.java`
+#### Snippet
+```java
+
+  @VisibleForTesting
+  public Map<String, Map<Integer, RangeMap<Integer, ShuffleBuffer>>> getBufferPool() {
+    return bufferPool;
+  }
+```
+
+### UnstableApiUsage
+'com.google.common.collect.RangeMap' is marked unstable with @Beta
+in `server/src/main/java/org/apache/uniffle/server/buffer/ShuffleBufferManager.java`
+#### Snippet
+```java
+
+  public synchronized void commitShuffleTask(String appId, int shuffleId) {
+    RangeMap<Integer, ShuffleBuffer> buffers = bufferPool.get(appId).get(shuffleId);
+    for (Map.Entry<Range<Integer>, ShuffleBuffer> entry : buffers.asMapOfRanges().entrySet()) {
+      ShuffleBuffer buffer = entry.getValue();
+```
+
+### UnstableApiUsage
+'asMapOfRanges()' is declared in unstable interface 'com.google.common.collect.RangeMap' marked with @Beta
+in `server/src/main/java/org/apache/uniffle/server/buffer/ShuffleBufferManager.java`
+#### Snippet
+```java
+  public synchronized void commitShuffleTask(String appId, int shuffleId) {
+    RangeMap<Integer, ShuffleBuffer> buffers = bufferPool.get(appId).get(shuffleId);
+    for (Map.Entry<Range<Integer>, ShuffleBuffer> entry : buffers.asMapOfRanges().entrySet()) {
+      ShuffleBuffer buffer = entry.getValue();
+      Range<Integer> range = entry.getKey();
 ```
 
 ## RuleId[ruleID=StringConcatenationInsideStringBufferAppend]
