@@ -31,8 +31,8 @@ I found 242 bad smells with 10 repairable:
 | UtilityClassWithoutPrivateConstructor | 1 | true |
 | UnnecessarySemicolon | 1 | false |
 | StringOperationCanBeSimplified | 1 | false |
-| OptionalContainsCollection | 1 | false |
 | CommentedOutCode | 1 | false |
+| OptionalContainsCollection | 1 | false |
 | StaticPseudoFunctionalStyleMethod | 1 | false |
 | SizeReplaceableByIsEmpty | 1 | true |
 | AbstractClassNeverImplemented | 1 | false |
@@ -89,19 +89,20 @@ in `simulation/src/main/java/com/palantir/dialogue/core/SimulationServer.java`
             });
 ```
 
-## RuleId[ruleID=OptionalIsPresent]
-### OptionalIsPresent
-Can be replaced with single expression in functional style
-in `dialogue-serde/src/main/java/com/palantir/conjure/java/dialogue/serde/DefaultClients.java`
+## RuleId[ruleID=SuspiciousNameCombination]
+### SuspiciousNameCombination
+'Right' should probably not be passed as parameter 'yAxisLabelAlignment'
+in `simulation/src/main/java/com/palantir/dialogue/core/SimulationMetricsReporter.java`
 #### Snippet
 ```java
-            ListenableFuture<Response> responseFuture, Request request) {
-        Optional<RequestBody> requestBody = request.body();
-        if (requestBody.isPresent()) {
-            DialogueFutures.addDirectListener(responseFuture, requestBody.get()::close);
-        }
+        chart.getStyler().setDefaultSeriesRenderStyle(XYSeries.XYSeriesRenderStyle.Line);
+        chart.getStyler().setMarkerSize(3);
+        chart.getStyler().setYAxisLabelAlignment(Styler.TextAlignment.Right);
+        chart.getStyler().setPlotMargin(0);
+        chart.getStyler().setPlotContentSize(.95);
 ```
 
+## RuleId[ruleID=OptionalIsPresent]
 ### OptionalIsPresent
 Can be replaced with single expression in functional style
 in `dialogue-serde/src/main/java/com/palantir/conjure/java/dialogue/serde/DefaultClients.java`
@@ -119,24 +120,23 @@ Can be replaced with single expression in functional style
 in `dialogue-serde/src/main/java/com/palantir/conjure/java/dialogue/serde/DefaultClients.java`
 #### Snippet
 ```java
+            ListenableFuture<Response> responseFuture, Request request) {
+        Optional<RequestBody> requestBody = request.body();
+        if (requestBody.isPresent()) {
+            DialogueFutures.addDirectListener(responseFuture, requestBody.get()::close);
+        }
+```
+
+### OptionalIsPresent
+Can be replaced with single expression in functional style
+in `dialogue-serde/src/main/java/com/palantir/conjure/java/dialogue/serde/DefaultClients.java`
+#### Snippet
+```java
     public <T> ListenableFuture<T> call(EndpointChannel channel, Request request, Deserializer<T> deserializer) {
         Optional<String> accepts = deserializer.accepts();
         Request outgoingRequest = accepts.isPresent() ? accepting(request, accepts.get()) : request;
         ListenableFuture<Response> response =
                 closeRequestBodyOnCompletion(channel.execute(outgoingRequest), outgoingRequest);
-```
-
-## RuleId[ruleID=SuspiciousNameCombination]
-### SuspiciousNameCombination
-'Right' should probably not be passed as parameter 'yAxisLabelAlignment'
-in `simulation/src/main/java/com/palantir/dialogue/core/SimulationMetricsReporter.java`
-#### Snippet
-```java
-        chart.getStyler().setDefaultSeriesRenderStyle(XYSeries.XYSeriesRenderStyle.Line);
-        chart.getStyler().setMarkerSize(3);
-        chart.getStyler().setYAxisLabelAlignment(Styler.TextAlignment.Right);
-        chart.getStyler().setPlotMargin(0);
-        chart.getStyler().setPlotContentSize(.95);
 ```
 
 ## RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
@@ -192,18 +192,6 @@ in `dialogue-core/src/main/java/com/palantir/dialogue/core/CautiousIncreaseAggre
 
 ## RuleId[ruleID=SimplifyStreamApiCallChains]
 ### SimplifyStreamApiCallChains
-Can be replaced with 'collection.toArray()'
-in `simulation/src/main/java/com/palantir/dialogue/core/SimulationMetricsReporter.java`
-#### Snippet
-```java
-                    .toArray();
-            double[] eventYs = new double[eventXs.length];
-            String[] strings = simulation.events().getEvents().values().stream().toArray(String[]::new);
-            XYSeries what = chart.addSeries(" ", eventXs, eventYs);
-            what.setToolTips(strings);
-```
-
-### SimplifyStreamApiCallChains
 Can be replaced with 'count()'
 in `dialogue-annotations-processor/src/main/java/com/palantir/dialogue/annotations/processor/data/EndpointDefinitions.java`
 #### Snippet
@@ -227,6 +215,18 @@ in `dialogue-annotations-processor/src/main/java/com/palantir/dialogue/annotatio
                     "Failed validation");
 ```
 
+### SimplifyStreamApiCallChains
+Can be replaced with 'collection.toArray()'
+in `simulation/src/main/java/com/palantir/dialogue/core/SimulationMetricsReporter.java`
+#### Snippet
+```java
+                    .toArray();
+            double[] eventYs = new double[eventXs.length];
+            String[] strings = simulation.events().getEvents().values().stream().toArray(String[]::new);
+            XYSeries what = chart.addSeries(" ", eventXs, eventYs);
+            what.setToolTips(strings);
+```
+
 ## RuleId[ruleID=StringOperationCanBeSimplified]
 ### StringOperationCanBeSimplified
 Inefficient conversion from ByteArrayOutputStream
@@ -238,6 +238,19 @@ in `dialogue-core/src/main/java/com/palantir/dialogue/core/BaseUrl.java`
             return wasChanged ? new String(bos.toByteArray(), StandardCharsets.UTF_8) : source;
         }
 
+```
+
+## RuleId[ruleID=CommentedOutCode]
+### CommentedOutCode
+Commented out code (6 lines)
+in `dialogue-core/src/main/java/com/palantir/dialogue/core/RetryingChannel.java`
+#### Snippet
+```java
+            DetachedSpan backoffSpan = span.childDetachedSpan("retry-backoff");
+            // Code beyond this line implements the following without risking leaking responses:
+            // ListenableScheduledFuture<ListenableFuture<Response>> scheduled = scheduler.schedule(
+            //     () -> {
+            //         backoffSpan.complete(RetryingCallbackTranslator.INSTANCE, this);
 ```
 
 ## RuleId[ruleID=OptionalContainsCollection]
@@ -255,18 +268,6 @@ in `dialogue-clients/src/main/java/com/palantir/dialogue/clients/AugmentClientCo
 
 ## RuleId[ruleID=DeprecatedIsStillUsed]
 ### DeprecatedIsStillUsed
-Deprecated member 'ChannelFactory' is still used
-in `dialogue-core/src/main/java/com/palantir/dialogue/core/ChannelFactory.java`
-#### Snippet
-```java
- */
-@Deprecated
-public interface ChannelFactory {
-
-    Channel create(String uri);
-```
-
-### DeprecatedIsStillUsed
 Deprecated member 'getNonReloading' is still used
 in `dialogue-clients/src/main/java/com/palantir/dialogue/clients/DialogueClients.java`
 #### Snippet
@@ -279,6 +280,18 @@ in `dialogue-clients/src/main/java/com/palantir/dialogue/clients/DialogueClients
 ```
 
 ### DeprecatedIsStillUsed
+Deprecated member 'ChannelFactory' is still used
+in `dialogue-core/src/main/java/com/palantir/dialogue/core/ChannelFactory.java`
+#### Snippet
+```java
+ */
+@Deprecated
+public interface ChannelFactory {
+
+    Channel create(String uri);
+```
+
+### DeprecatedIsStillUsed
 Deprecated member 'RefreshingChannelFactory' is still used
 in `simulation/src/main/java/com/palantir/dialogue/core/RefreshingChannelFactory.java`
 #### Snippet
@@ -288,19 +301,6 @@ in `simulation/src/main/java/com/palantir/dialogue/core/RefreshingChannelFactory
 public final class RefreshingChannelFactory {
     private final Supplier<? extends ServicesConfigBlock> conf;
     private final ChannelFactory channelFactory;
-```
-
-## RuleId[ruleID=CommentedOutCode]
-### CommentedOutCode
-Commented out code (6 lines)
-in `dialogue-core/src/main/java/com/palantir/dialogue/core/RetryingChannel.java`
-#### Snippet
-```java
-            DetachedSpan backoffSpan = span.childDetachedSpan("retry-backoff");
-            // Code beyond this line implements the following without risking leaking responses:
-            // ListenableScheduledFuture<ListenableFuture<Response>> scheduled = scheduler.schedule(
-            //     () -> {
-            //         backoffSpan.complete(RetryingCallbackTranslator.INSTANCE, this);
 ```
 
 ## RuleId[ruleID=StaticPseudoFunctionalStyleMethod]
@@ -317,6 +317,18 @@ in `dialogue-core/src/main/java/com/palantir/dialogue/core/DialogueNodeSelection
 ```
 
 ## RuleId[ruleID=NonSynchronizedMethodOverridesSynchronizedMethod]
+### NonSynchronizedMethodOverridesSynchronizedMethod
+Unsynchronized method `fillInStackTrace()` overrides synchronized method
+in `dialogue-apache-hc5-client/src/main/java/com/palantir/dialogue/hc5/ApacheHttpClientBlockingChannel.java`
+#### Snippet
+```java
+        @Override
+        @SuppressWarnings("UnsynchronizedOverridesSynchronized") // nop
+        public Throwable fillInStackTrace() {
+            // no-op: stack trace generation is expensive, this type exists
+            // to simply associate diagnostic information with a failure.
+```
+
 ### NonSynchronizedMethodOverridesSynchronizedMethod
 Unsynchronized method `mark()` overrides synchronized method
 in `dialogue-core/src/main/java/com/palantir/dialogue/core/ContentDecodingChannel.java`
@@ -377,18 +389,6 @@ in `dialogue-test-common/src/main/java/com/palantir/dialogue/CloseRecordingInput
         delegate.mark(readlimit);
 ```
 
-### NonSynchronizedMethodOverridesSynchronizedMethod
-Unsynchronized method `fillInStackTrace()` overrides synchronized method
-in `dialogue-apache-hc5-client/src/main/java/com/palantir/dialogue/hc5/ApacheHttpClientBlockingChannel.java`
-#### Snippet
-```java
-        @Override
-        @SuppressWarnings("UnsynchronizedOverridesSynchronized") // nop
-        public Throwable fillInStackTrace() {
-            // no-op: stack trace generation is expensive, this type exists
-            // to simply associate diagnostic information with a failure.
-```
-
 ## RuleId[ruleID=SizeReplaceableByIsEmpty]
 ### SizeReplaceableByIsEmpty
 `encodings.size() > 0` can be replaced with '!encodings.isEmpty()'
@@ -417,15 +417,75 @@ public abstract class AbstractSampleServiceClientTest {
 
 ## RuleId[ruleID=BoundedWildcard]
 ### BoundedWildcard
-Can generalize to `? extends T`
-in `simulation/src/main/java/com/palantir/dialogue/core/NanosecondPrecisionDeterministicScheduler.java`
+Can generalize to `? extends TypeMirror`
+in `dialogue-annotations-processor/src/main/java/com/palantir/dialogue/annotations/processor/data/ReturnTypesResolver.java`
 #### Snippet
 ```java
-        private Exception failure = null;
+            Element element,
+            TypeMirror returnType,
+            Optional<TypeMirror> maybeListenableFutureInnerType) {
+        boolean isReturnResponseType = isResponseType(returnType);
+        if (isReturnResponseType
+```
 
-        ScheduledTask(Callable<T> command) {
-            this.repeatDelay = -1;
-            this.command = command;
+### BoundedWildcard
+Can generalize to `? super DefaultErrorContext`
+in `dialogue-annotations-processor/src/main/java/com/palantir/dialogue/annotations/processor/DialogueRequestAnnotationsProcessor.java`
+#### Snippet
+```java
+    }
+
+    private void validationStep(Consumer<DefaultErrorContext> validationFunction) {
+        processingStep(ctx -> {
+            validationFunction.accept(ctx);
+```
+
+### BoundedWildcard
+Can generalize to `? super DefaultErrorContext`
+in `dialogue-annotations-processor/src/main/java/com/palantir/dialogue/annotations/processor/DialogueRequestAnnotationsProcessor.java`
+#### Snippet
+```java
+    }
+
+    private <T> T processingStep(Function<DefaultErrorContext, T> stepFunction) {
+        try (DefaultErrorContext ctx = new DefaultErrorContext(messager)) {
+            return stepFunction.apply(ctx);
+```
+
+### BoundedWildcard
+Can generalize to `? extends ManagedHttpClientConnection`
+in `dialogue-apache-hc5-client/src/main/java/com/palantir/dialogue/hc5/InstrumentedManagedHttpConnectionFactory.java`
+#### Snippet
+```java
+
+    InstrumentedManagedHttpConnectionFactory(
+            HttpConnectionFactory<ManagedHttpClientConnection> delegate,
+            TaggedMetricRegistry metrics,
+            String clientName) {
+```
+
+### BoundedWildcard
+Can generalize to `? super Response`
+in `dialogue-blocking-channels/src/main/java/com/palantir/dialogue/blocking/BlockingChannelAdapter.java`
+#### Snippet
+```java
+
+            BlockingChannelAdapterTask(
+                    BlockingChannel delegate, Endpoint endpoint, Request request, SettableFuture<Response> result) {
+                this.result = result;
+                this.delegate = delegate;
+```
+
+### BoundedWildcard
+Can generalize to `? extends ParameterEncoderType`
+in `dialogue-annotations-processor/src/main/java/com/palantir/dialogue/annotations/processor/generate/ServiceImplementationGenerator.java`
+#### Snippet
+```java
+            CodeBlock argName,
+            ArgumentType type,
+            Optional<ParameterEncoderType> maybeParameterEncoderType) {
+        return type.match(new ArgumentType.Cases<>() {
+            @Override
 ```
 
 ### BoundedWildcard
@@ -438,78 +498,6 @@ in `dialogue-core/src/main/java/com/palantir/dialogue/core/SupplierChannel.java`
     SupplierChannel(Supplier<LimitedChannel> channelSupplier) {
         this.channelSupplier = channelSupplier;
     }
-```
-
-### BoundedWildcard
-Can generalize to `? super HandlerBuilder0`
-in `simulation/src/main/java/com/palantir/dialogue/core/SimulationServer.java`
-#### Snippet
-```java
-        }
-
-        Builder handler(Function<HandlerBuilder0, ServerHandler> configureFunc) {
-            handlers = ImmutableList.<ServerHandler>builder()
-                    .addAll(handlers)
-```
-
-### BoundedWildcard
-Can generalize to `? extends ServerHandler`
-in `simulation/src/main/java/com/palantir/dialogue/core/SimulationServer.java`
-#### Snippet
-```java
-        }
-
-        Builder handler(Function<HandlerBuilder0, ServerHandler> configureFunc) {
-            handlers = ImmutableList.<ServerHandler>builder()
-                    .addAll(handlers)
-```
-
-### BoundedWildcard
-Can generalize to `? super HandlerBuilder0`
-in `simulation/src/main/java/com/palantir/dialogue/core/SimulationServer.java`
-#### Snippet
-```java
-        }
-
-        Builder handler(Endpoint endpoint, Function<HandlerBuilder0, ServerHandler> configureFunc) {
-            return handler(h -> {
-                HandlerBuilder0 builder = h.endpoint(endpoint);
-```
-
-### BoundedWildcard
-Can generalize to `? extends ServerHandler`
-in `simulation/src/main/java/com/palantir/dialogue/core/SimulationServer.java`
-#### Snippet
-```java
-        }
-
-        Builder handler(Endpoint endpoint, Function<HandlerBuilder0, ServerHandler> configureFunc) {
-            return handler(h -> {
-                HandlerBuilder0 builder = h.endpoint(endpoint);
-```
-
-### BoundedWildcard
-Can generalize to `? super SimulationServer`
-in `simulation/src/main/java/com/palantir/dialogue/core/SimulationServer.java`
-#### Snippet
-```java
-
-        @Override
-        public HandlerBuilder1 response(Function<SimulationServer, Response> func) {
-            this.responseFunction = func;
-            return this;
-```
-
-### BoundedWildcard
-Can generalize to `? extends Response`
-in `simulation/src/main/java/com/palantir/dialogue/core/SimulationServer.java`
-#### Snippet
-```java
-
-        @Override
-        public HandlerBuilder1 response(Function<SimulationServer, Response> func) {
-            this.responseFunction = func;
-            return this;
 ```
 
 ### BoundedWildcard
@@ -549,51 +537,63 @@ in `dialogue-core/src/main/java/com/palantir/dialogue/core/MemoizingComposingSup
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends XYChart`
-in `simulation/src/main/java/com/palantir/dialogue/core/SimulationMetricsReporter.java`
+Can generalize to `? extends EndpointChannel`
+in `dialogue-clients/src/main/java/com/palantir/dialogue/clients/ReloadingClientFactory.java`
 #### Snippet
 ```java
-    }
+        private final Supplier<EndpointChannel> supplier;
 
-    private void addSeries(Pattern metricNameRegex, Supplier<XYChart> chartSupplier) {
-        Map<MetricName, List<Double>> map = measurements.asMap();
-        List<MetricName> columns = map.keySet().stream()
-```
-
-### BoundedWildcard
-Can generalize to `? extends XYChart`
-in `simulation/src/main/java/com/palantir/dialogue/core/SimulationMetricsReporter.java`
-#### Snippet
-```java
-    }
-
-    public static void png(String file, List<XYChart> charts) throws IOException {
-        int rows = charts.size();
-        int cols = 1;
-```
-
-### BoundedWildcard
-Can generalize to `? super MetricName`
-in `simulation/src/main/java/com/palantir/dialogue/core/SimulationMetricsReporter.java`
-#### Snippet
-```java
-    }
-
-    public void onlyRecordMetricsFor(Predicate<MetricName> predicate) {
-        this.prefilter = predicate;
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? extends PinChannel`
-in `dialogue-core/src/main/java/com/palantir/dialogue/core/PinUntilErrorNodeSelectionStrategyChannel.java`
-#### Snippet
-```java
-        private final List<PinChannel> channels;
-
-        ConstantNodeList(List<PinChannel> channels) {
-            this.channels = channels;
+        SupplierEndpointChannel(Supplier<EndpointChannel> supplier) {
+            this.supplier = supplier;
         }
+```
+
+### BoundedWildcard
+Can generalize to `? extends Channel`
+in `dialogue-core/src/main/java/com/palantir/dialogue/core/StickyEndpointChannels2.java`
+#### Snippet
+```java
+
+        StickyEndpointChannels2EndpointFactorySupplier(
+                Supplier<Channel> queueOverrideSupplier, EndpointChannelFactory delegate) {
+            this.queueOverrideSupplier = queueOverrideSupplier;
+            this.delegate = delegate;
+```
+
+### BoundedWildcard
+Can generalize to `? extends EndpointChannelFactory`
+in `dialogue-core/src/main/java/com/palantir/dialogue/core/StickyEndpointChannels2.java`
+#### Snippet
+```java
+    private final Supplier<EndpointChannelFactory> delegate;
+
+    StickyEndpointChannels2(Supplier<EndpointChannelFactory> endpointChannelFactory) {
+        this.delegate = endpointChannelFactory;
+    }
+```
+
+### BoundedWildcard
+Can generalize to `? super Request`
+in `dialogue-core/src/main/java/com/palantir/dialogue/core/StickyEndpointChannels2.java`
+#### Snippet
+```java
+
+        private static ListenableFuture<Response> executeWithStickyTarget(
+                Consumer<Request> stickyTarget, Request request, EndpointChannel endpointChannel) {
+            stickyTarget.accept(request);
+            return endpointChannel.execute(request);
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `dialogue-core/src/main/java/com/palantir/dialogue/core/RetryOtherValidatingChannel.java`
+#### Snippet
+```java
+
+    @VisibleForTesting
+    RetryOtherValidatingChannel(Channel delegate, Set<String> hosts, Consumer<String> failureReporter) {
+        this.delegate = delegate;
+        this.hosts = hosts;
 ```
 
 ### BoundedWildcard
@@ -606,6 +606,18 @@ in `dialogue-core/src/main/java/com/palantir/dialogue/core/PinUntilErrorNodeSele
     private static <T> ImmutableList<T> shuffleImmutableList(List<T> sourceList, Random random) {
         List<T> mutableList = new ArrayList<>(sourceList);
         Collections.shuffle(mutableList, random);
+```
+
+### BoundedWildcard
+Can generalize to `? extends PinChannel`
+in `dialogue-core/src/main/java/com/palantir/dialogue/core/PinUntilErrorNodeSelectionStrategyChannel.java`
+#### Snippet
+```java
+        private final List<PinChannel> channels;
+
+        ConstantNodeList(List<PinChannel> channels) {
+            this.channels = channels;
+        }
 ```
 
 ### BoundedWildcard
@@ -642,54 +654,6 @@ in `dialogue-core/src/main/java/com/palantir/dialogue/core/RetryingChannel.java`
                 Response response, BiFunction<Endpoint, Response, Throwable> failureSupplier, Meter meter) {
             if (++failures <= maxRetries) {
                 response.close();
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `dialogue-core/src/main/java/com/palantir/dialogue/core/RetryOtherValidatingChannel.java`
-#### Snippet
-```java
-
-    @VisibleForTesting
-    RetryOtherValidatingChannel(Channel delegate, Set<String> hosts, Consumer<String> failureReporter) {
-        this.delegate = delegate;
-        this.hosts = hosts;
-```
-
-### BoundedWildcard
-Can generalize to `? extends Channel`
-in `dialogue-core/src/main/java/com/palantir/dialogue/core/StickyEndpointChannels2.java`
-#### Snippet
-```java
-
-        StickyEndpointChannels2EndpointFactorySupplier(
-                Supplier<Channel> queueOverrideSupplier, EndpointChannelFactory delegate) {
-            this.queueOverrideSupplier = queueOverrideSupplier;
-            this.delegate = delegate;
-```
-
-### BoundedWildcard
-Can generalize to `? super Request`
-in `dialogue-core/src/main/java/com/palantir/dialogue/core/StickyEndpointChannels2.java`
-#### Snippet
-```java
-
-        private static ListenableFuture<Response> executeWithStickyTarget(
-                Consumer<Request> stickyTarget, Request request, EndpointChannel endpointChannel) {
-            stickyTarget.accept(request);
-            return endpointChannel.execute(request);
-```
-
-### BoundedWildcard
-Can generalize to `? extends EndpointChannelFactory`
-in `dialogue-core/src/main/java/com/palantir/dialogue/core/StickyEndpointChannels2.java`
-#### Snippet
-```java
-    private final Supplier<EndpointChannelFactory> delegate;
-
-    StickyEndpointChannels2(Supplier<EndpointChannelFactory> endpointChannelFactory) {
-        this.delegate = endpointChannelFactory;
-    }
 ```
 
 ### BoundedWildcard
@@ -738,6 +702,30 @@ in `dialogue-core/src/main/java/com/palantir/dialogue/core/QueuedChannel.java`
         ForwardAndSchedule(SettableFuture<Response> response) {
             this.response = response;
         }
+```
+
+### BoundedWildcard
+Can generalize to `? super Set`
+in `dialogue-core/src/main/java/com/palantir/dialogue/core/DialogueInternalWeakReducingGauge.java`
+#### Snippet
+```java
+
+    @VisibleForTesting
+    DialogueInternalWeakReducingGauge(Function<Set<T>, Number> function) {
+        this.function = function;
+    }
+```
+
+### BoundedWildcard
+Can generalize to `? extends Number`
+in `dialogue-core/src/main/java/com/palantir/dialogue/core/DialogueInternalWeakReducingGauge.java`
+#### Snippet
+```java
+
+    @VisibleForTesting
+    DialogueInternalWeakReducingGauge(Function<Set<T>, Number> function) {
+        this.function = function;
+    }
 ```
 
 ### BoundedWildcard
@@ -813,27 +801,39 @@ in `dialogue-core/src/main/java/com/palantir/dialogue/core/DialogueInternalWeakR
 ```
 
 ### BoundedWildcard
-Can generalize to `? super Set`
-in `dialogue-core/src/main/java/com/palantir/dialogue/core/DialogueInternalWeakReducingGauge.java`
+Can generalize to `? super Throwable`
+in `dialogue-futures/src/main/java/com/palantir/dialogue/futures/DialogueFutures.java`
 #### Snippet
 ```java
 
-    @VisibleForTesting
-    DialogueInternalWeakReducingGauge(Function<Set<T>, Number> function) {
-        this.function = function;
+    public static <T> ListenableFuture<T> catchingAllAsync(
+            ListenableFuture<T> input, AsyncFunction<Throwable, T> function) {
+        return new DialogueDirectAsyncCatchingFuture<T>(input, function);
     }
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends Number`
-in `dialogue-core/src/main/java/com/palantir/dialogue/core/DialogueInternalWeakReducingGauge.java`
+Can generalize to `? super T`
+in `dialogue-futures/src/main/java/com/palantir/dialogue/futures/DialogueFutures.java`
+#### Snippet
+```java
+    }
+
+    public static <T> FutureCallback<T> onSuccess(Consumer<T> onSuccess) {
+        return new FutureCallback<T>() {
+            @Override
+```
+
+### BoundedWildcard
+Can generalize to `? super T`
+in `dialogue-futures/src/main/java/com/palantir/dialogue/futures/DialogueFutures.java`
 #### Snippet
 ```java
 
-    @VisibleForTesting
-    DialogueInternalWeakReducingGauge(Function<Set<T>, Number> function) {
-        this.function = function;
-    }
+    @CanIgnoreReturnValue
+    public static <T> ListenableFuture<T> addDirectCallback(ListenableFuture<T> future, FutureCallback<T> callback) {
+        Futures.addCallback(future, callback, safeDirectExecutor());
+        return future;
 ```
 
 ### BoundedWildcard
@@ -849,15 +849,15 @@ final class MultimapAsMap {
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends T`
-in `dialogue-serde/src/main/java/com/palantir/conjure/java/dialogue/serde/DefaultClients.java`
+Can generalize to `? super Arg`
+in `dialogue-serde/src/main/java/com/palantir/conjure/java/dialogue/serde/ErrorDecoder.java`
 #### Snippet
 ```java
+    }
 
-    @Override
-    public <T> ListenableFuture<T> call(EndpointChannel channel, Request request, Deserializer<T> deserializer) {
-        Optional<String> accepts = deserializer.accepts();
-        Request outgoingRequest = accepts.isPresent() ? accepting(request, accepts.get()) : request;
+    private static void recordHeader(String header, Response response, ImmutableList.Builder<Arg<?>> args) {
+        response.getFirstHeader(header).ifPresent(server -> args.add(SafeArg.of(header, server)));
+    }
 ```
 
 ### BoundedWildcard
@@ -873,27 +873,15 @@ in `dialogue-target/src/main/java/com/palantir/dialogue/Attachments.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? super Arg`
-in `dialogue-serde/src/main/java/com/palantir/conjure/java/dialogue/serde/ErrorDecoder.java`
+Can generalize to `? extends T`
+in `dialogue-serde/src/main/java/com/palantir/conjure/java/dialogue/serde/DefaultClients.java`
 #### Snippet
 ```java
-    }
 
-    private static void recordHeader(String header, Response response, ImmutableList.Builder<Arg<?>> args) {
-        response.getFirstHeader(header).ifPresent(server -> args.add(SafeArg.of(header, server)));
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? super T`
-in `dialogue-serde/src/main/java/com/palantir/conjure/java/dialogue/serde/TracedEncoding.java`
-#### Snippet
-```java
-        private final ImmutableMap<String, String> tags;
-
-        TracedSerializer(Serializer<T> delegate, String operation, ImmutableMap<String, String> tags) {
-            this.delegate = delegate;
-            this.operation = operation;
+    @Override
+    public <T> ListenableFuture<T> call(EndpointChannel channel, Request request, Deserializer<T> deserializer) {
+        Optional<String> accepts = deserializer.accepts();
+        Request outgoingRequest = accepts.isPresent() ? accepting(request, accepts.get()) : request;
 ```
 
 ### BoundedWildcard
@@ -904,6 +892,18 @@ in `dialogue-serde/src/main/java/com/palantir/conjure/java/dialogue/serde/Traced
         private final ImmutableMap<String, String> tags;
 
         TracedDeserializer(Deserializer<T> delegate, String operation, ImmutableMap<String, String> tags) {
+            this.delegate = delegate;
+            this.operation = operation;
+```
+
+### BoundedWildcard
+Can generalize to `? super T`
+in `dialogue-serde/src/main/java/com/palantir/conjure/java/dialogue/serde/TracedEncoding.java`
+#### Snippet
+```java
+        private final ImmutableMap<String, String> tags;
+
+        TracedSerializer(Serializer<T> delegate, String operation, ImmutableMap<String, String> tags) {
             this.delegate = delegate;
             this.operation = operation;
 ```
@@ -921,87 +921,15 @@ in `dialogue-target/src/main/java/com/palantir/dialogue/PathTemplate.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? super Throwable`
-in `dialogue-futures/src/main/java/com/palantir/dialogue/futures/DialogueFutures.java`
+Can generalize to `? extends T`
+in `simulation/src/main/java/com/palantir/dialogue/core/NanosecondPrecisionDeterministicScheduler.java`
 #### Snippet
 ```java
+        private Exception failure = null;
 
-    public static <T> ListenableFuture<T> catchingAllAsync(
-            ListenableFuture<T> input, AsyncFunction<Throwable, T> function) {
-        return new DialogueDirectAsyncCatchingFuture<T>(input, function);
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? super T`
-in `dialogue-futures/src/main/java/com/palantir/dialogue/futures/DialogueFutures.java`
-#### Snippet
-```java
-
-    @CanIgnoreReturnValue
-    public static <T> ListenableFuture<T> addDirectCallback(ListenableFuture<T> future, FutureCallback<T> callback) {
-        Futures.addCallback(future, callback, safeDirectExecutor());
-        return future;
-```
-
-### BoundedWildcard
-Can generalize to `? super T`
-in `dialogue-futures/src/main/java/com/palantir/dialogue/futures/DialogueFutures.java`
-#### Snippet
-```java
-    }
-
-    public static <T> FutureCallback<T> onSuccess(Consumer<T> onSuccess) {
-        return new FutureCallback<T>() {
-            @Override
-```
-
-### BoundedWildcard
-Can generalize to `? extends EndpointChannel`
-in `dialogue-clients/src/main/java/com/palantir/dialogue/clients/ReloadingClientFactory.java`
-#### Snippet
-```java
-        private final Supplier<EndpointChannel> supplier;
-
-        SupplierEndpointChannel(Supplier<EndpointChannel> supplier) {
-            this.supplier = supplier;
-        }
-```
-
-### BoundedWildcard
-Can generalize to `? extends ManagedHttpClientConnection`
-in `dialogue-apache-hc5-client/src/main/java/com/palantir/dialogue/hc5/InstrumentedManagedHttpConnectionFactory.java`
-#### Snippet
-```java
-
-    InstrumentedManagedHttpConnectionFactory(
-            HttpConnectionFactory<ManagedHttpClientConnection> delegate,
-            TaggedMetricRegistry metrics,
-            String clientName) {
-```
-
-### BoundedWildcard
-Can generalize to `? super Response`
-in `dialogue-blocking-channels/src/main/java/com/palantir/dialogue/blocking/BlockingChannelAdapter.java`
-#### Snippet
-```java
-
-            BlockingChannelAdapterTask(
-                    BlockingChannel delegate, Endpoint endpoint, Request request, SettableFuture<Response> result) {
-                this.result = result;
-                this.delegate = delegate;
-```
-
-### BoundedWildcard
-Can generalize to `? extends TypeMirror`
-in `dialogue-annotations-processor/src/main/java/com/palantir/dialogue/annotations/processor/data/ReturnTypesResolver.java`
-#### Snippet
-```java
-            Element element,
-            TypeMirror returnType,
-            Optional<TypeMirror> maybeListenableFutureInnerType) {
-        boolean isReturnResponseType = isResponseType(returnType);
-        if (isReturnResponseType
+        ScheduledTask(Callable<T> command) {
+            this.repeatDelay = -1;
+            this.command = command;
 ```
 
 ### BoundedWildcard
@@ -1029,66 +957,114 @@ in `simulation/src/main/java/com/palantir/dialogue/core/RefreshingChannelFactory
 ```
 
 ### BoundedWildcard
-Can generalize to `? super DefaultErrorContext`
-in `dialogue-annotations-processor/src/main/java/com/palantir/dialogue/annotations/processor/DialogueRequestAnnotationsProcessor.java`
+Can generalize to `? super HandlerBuilder0`
+in `simulation/src/main/java/com/palantir/dialogue/core/SimulationServer.java`
+#### Snippet
+```java
+        }
+
+        Builder handler(Function<HandlerBuilder0, ServerHandler> configureFunc) {
+            handlers = ImmutableList.<ServerHandler>builder()
+                    .addAll(handlers)
+```
+
+### BoundedWildcard
+Can generalize to `? extends ServerHandler`
+in `simulation/src/main/java/com/palantir/dialogue/core/SimulationServer.java`
+#### Snippet
+```java
+        }
+
+        Builder handler(Function<HandlerBuilder0, ServerHandler> configureFunc) {
+            handlers = ImmutableList.<ServerHandler>builder()
+                    .addAll(handlers)
+```
+
+### BoundedWildcard
+Can generalize to `? super HandlerBuilder0`
+in `simulation/src/main/java/com/palantir/dialogue/core/SimulationServer.java`
+#### Snippet
+```java
+        }
+
+        Builder handler(Endpoint endpoint, Function<HandlerBuilder0, ServerHandler> configureFunc) {
+            return handler(h -> {
+                HandlerBuilder0 builder = h.endpoint(endpoint);
+```
+
+### BoundedWildcard
+Can generalize to `? extends ServerHandler`
+in `simulation/src/main/java/com/palantir/dialogue/core/SimulationServer.java`
+#### Snippet
+```java
+        }
+
+        Builder handler(Endpoint endpoint, Function<HandlerBuilder0, ServerHandler> configureFunc) {
+            return handler(h -> {
+                HandlerBuilder0 builder = h.endpoint(endpoint);
+```
+
+### BoundedWildcard
+Can generalize to `? super SimulationServer`
+in `simulation/src/main/java/com/palantir/dialogue/core/SimulationServer.java`
+#### Snippet
+```java
+
+        @Override
+        public HandlerBuilder1 response(Function<SimulationServer, Response> func) {
+            this.responseFunction = func;
+            return this;
+```
+
+### BoundedWildcard
+Can generalize to `? extends Response`
+in `simulation/src/main/java/com/palantir/dialogue/core/SimulationServer.java`
+#### Snippet
+```java
+
+        @Override
+        public HandlerBuilder1 response(Function<SimulationServer, Response> func) {
+            this.responseFunction = func;
+            return this;
+```
+
+### BoundedWildcard
+Can generalize to `? super MetricName`
+in `simulation/src/main/java/com/palantir/dialogue/core/SimulationMetricsReporter.java`
 #### Snippet
 ```java
     }
 
-    private <T> T processingStep(Function<DefaultErrorContext, T> stepFunction) {
-        try (DefaultErrorContext ctx = new DefaultErrorContext(messager)) {
-            return stepFunction.apply(ctx);
+    public void onlyRecordMetricsFor(Predicate<MetricName> predicate) {
+        this.prefilter = predicate;
+    }
 ```
 
 ### BoundedWildcard
-Can generalize to `? super DefaultErrorContext`
-in `dialogue-annotations-processor/src/main/java/com/palantir/dialogue/annotations/processor/DialogueRequestAnnotationsProcessor.java`
+Can generalize to `? extends XYChart`
+in `simulation/src/main/java/com/palantir/dialogue/core/SimulationMetricsReporter.java`
 #### Snippet
 ```java
     }
 
-    private void validationStep(Consumer<DefaultErrorContext> validationFunction) {
-        processingStep(ctx -> {
-            validationFunction.accept(ctx);
+    private void addSeries(Pattern metricNameRegex, Supplier<XYChart> chartSupplier) {
+        Map<MetricName, List<Double>> map = measurements.asMap();
+        List<MetricName> columns = map.keySet().stream()
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends ParameterEncoderType`
-in `dialogue-annotations-processor/src/main/java/com/palantir/dialogue/annotations/processor/generate/ServiceImplementationGenerator.java`
+Can generalize to `? extends XYChart`
+in `simulation/src/main/java/com/palantir/dialogue/core/SimulationMetricsReporter.java`
 #### Snippet
 ```java
-            CodeBlock argName,
-            ArgumentType type,
-            Optional<ParameterEncoderType> maybeParameterEncoderType) {
-        return type.match(new ArgumentType.Cases<>() {
-            @Override
+    }
+
+    public static void png(String file, List<XYChart> charts) throws IOException {
+        int rows = charts.size();
+        int cols = 1;
 ```
 
 ## RuleId[ruleID=NullableProblems]
-### NullableProblems
-Constructor parameter for @Nullable field might be annotated @Nullable itself
-in `dialogue-futures/src/main/java/com/palantir/dialogue/futures/DialogueDirectTransformationFuture.java`
-#### Snippet
-```java
-    private final SettableFuture<O> output;
-
-    DialogueDirectTransformationFuture(ListenableFuture<I> input, Function<? super I, ? extends O> function) {
-        this.input = input;
-        this.function = function;
-```
-
-### NullableProblems
-Constructor parameter for @Nullable field might be annotated @Nullable itself
-in `dialogue-futures/src/main/java/com/palantir/dialogue/futures/DialogueDirectTransformationFuture.java`
-#### Snippet
-```java
-    private final SettableFuture<O> output;
-
-    DialogueDirectTransformationFuture(ListenableFuture<I> input, Function<? super I, ? extends O> function) {
-        this.input = input;
-        this.function = function;
-```
-
 ### NullableProblems
 Constructor parameter for @Nullable field might be annotated @Nullable itself
 in `dialogue-apache-hc5-client/src/main/java/com/palantir/dialogue/hc5/ApacheHttpClientBlockingChannel.java`
@@ -1099,6 +1075,30 @@ in `dialogue-apache-hc5-client/src/main/java/com/palantir/dialogue/hc5/ApacheHtt
                 ApacheHttpClientChannels.CloseableClient client,
                 CloseableHttpResponse response,
                 HttpClientContext context) {
+```
+
+### NullableProblems
+Constructor parameter for @Nullable field might be annotated @Nullable itself
+in `dialogue-futures/src/main/java/com/palantir/dialogue/futures/DialogueDirectTransformationFuture.java`
+#### Snippet
+```java
+    private final SettableFuture<O> output;
+
+    DialogueDirectTransformationFuture(ListenableFuture<I> input, Function<? super I, ? extends O> function) {
+        this.input = input;
+        this.function = function;
+```
+
+### NullableProblems
+Constructor parameter for @Nullable field might be annotated @Nullable itself
+in `dialogue-futures/src/main/java/com/palantir/dialogue/futures/DialogueDirectTransformationFuture.java`
+#### Snippet
+```java
+    private final SettableFuture<O> output;
+
+    DialogueDirectTransformationFuture(ListenableFuture<I> input, Function<? super I, ? extends O> function) {
+        this.input = input;
+        this.function = function;
 ```
 
 ## RuleId[ruleID=RedundantSuppression]
@@ -1116,126 +1116,6 @@ in `dialogue-serde/src/main/java/com/palantir/conjure/java/dialogue/serde/Conjur
 
 ## RuleId[ruleID=OptionalUsedAsFieldOrParameterType]
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'time'
-in `simulation/src/main/java/com/palantir/dialogue/core/Simulation.java`
-#### Snippet
-```java
-    }
-
-    public void runClockTo(Optional<Duration> time) {
-        long currentTime = ticker.read();
-        long newNanos = time.orElseGet(() -> Duration.ofDays(1)).toNanos();
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'initialChannel'
-in `dialogue-core/src/main/java/com/palantir/dialogue/core/PinUntilErrorNodeSelectionStrategyChannel.java`
-#### Snippet
-```java
-
-    static PinUntilErrorNodeSelectionStrategyChannel of(
-            Optional<LimitedChannel> initialChannel,
-            DialogueNodeSelectionStrategy strategy,
-            List<LimitedChannel> channels,
-```
-
-### OptionalUsedAsFieldOrParameterType
-`OptionalInt` used as type for parameter 'next'
-in `dialogue-core/src/main/java/com/palantir/dialogue/core/PinUntilErrorNodeSelectionStrategyChannel.java`
-#### Snippet
-```java
-        }
-
-        private void receivedErrorStatus(int pin, PinChannel channel, Response response, OptionalInt next) {
-            if (next.isPresent()) {
-                nextNodeBecauseResponseCode.mark();
-```
-
-### OptionalUsedAsFieldOrParameterType
-`OptionalInt` used as type for parameter 'next'
-in `dialogue-core/src/main/java/com/palantir/dialogue/core/PinUntilErrorNodeSelectionStrategyChannel.java`
-#### Snippet
-```java
-        }
-
-        private void receivedThrowable(int pin, PinChannel channel, Throwable throwable, OptionalInt next) {
-            if (next.isPresent()) {
-                nextNodeBecauseThrowable.mark();
-```
-
-### OptionalUsedAsFieldOrParameterType
-`OptionalInt` used as type for parameter 'responseStatus'
-in `dialogue-core/src/main/java/com/palantir/dialogue/core/RetryingChannel.java`
-#### Snippet
-```java
-        }
-
-        private void infoLogRetry(long backoffNanoseconds, OptionalInt responseStatus, @Nullable Throwable throwable) {
-            if (log.isInfoEnabled()) {
-                log.info(
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'callsiteStacktrace'
-in `dialogue-core/src/main/java/com/palantir/dialogue/core/RetryingChannel.java`
-#### Snippet
-```java
-
-        private RetryingCallback(
-                Endpoint endpoint, Request request, Optional<SafeRuntimeException> callsiteStacktrace) {
-            this.endpoint = endpoint;
-            this.request = request;
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'callsiteStacktrace'
-in `dialogue-core/src/main/java/com/palantir/dialogue/core/RetryingChannel.java`
-#### Snippet
-```java
-        private final Endpoint endpoint;
-        private final Request request;
-        private final Optional<SafeRuntimeException> callsiteStacktrace;
-        private final DetachedSpan span = DetachedSpan.start("Dialogue-RetryingChannel");
-        private int failures = 0;
-```
-
-### OptionalUsedAsFieldOrParameterType
-`OptionalInt` used as type for parameter 'maybeUriIndex'
-in `dialogue-core/src/main/java/com/palantir/dialogue/core/DialogueChannel.java`
-#### Snippet
-```java
-         * Otherwise, metrics from all single-uri channels would be attributed to hostIndex 0, making them misleading.
-         */
-        public Builder overrideHostIndex(OptionalInt maybeUriIndex) {
-            builder.overrideSingleHostIndex(maybeUriIndex);
-            return this;
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'acceptValue'
-in `dialogue-serde/src/main/java/com/palantir/conjure/java/dialogue/serde/ConjureBodySerDe.java`
-#### Snippet
-```java
-        private final ImmutableList<EncodingDeserializerContainer<T>> encodings;
-        private final ErrorDecoder errorDecoder;
-        private final Optional<String> acceptValue;
-        private final Supplier<Optional<T>> emptyInstance;
-        private final TypeMarker<T> token;
-```
-
-### OptionalUsedAsFieldOrParameterType
-`OptionalInt` used as type for parameter 'overrideHostIndex'
-in `dialogue-clients/src/main/java/com/palantir/dialogue/clients/ChannelCache.java`
-#### Snippet
-```java
-            ServiceConfiguration serviceConf,
-            @Safe String channelName,
-            OptionalInt overrideHostIndex) {
-        if (log.isWarnEnabled() && channelCache.estimatedSize() >= MAX_CACHED_CHANNELS * 0.75) {
-            log.warn("channelCache nearing capacity - possible bug? {}", SafeArg.of("cache", this));
-```
-
-### OptionalUsedAsFieldOrParameterType
 `Optional` used as type for field 'accepts'
 in `dialogue-annotations/src/main/java/com/palantir/dialogue/annotations/StdDeserializer.java`
 #### Snippet
@@ -1245,42 +1125,6 @@ public abstract class StdDeserializer<T> implements DeserializerFactory<T>, Dese
     private final Optional<String> accepts;
 
     protected StdDeserializer(String accepts) {
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'body'
-in `dialogue-target/src/main/java/com/palantir/dialogue/Request.java`
-#### Snippet
-```java
-    private final ListMultimap<String, String> queryParams;
-    private final ListMultimap<String, String> pathParams;
-    private final Optional<RequestBody> body;
-    private final RequestAttachments attachments;
-
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'value'
-in `dialogue-target/src/main/java/com/palantir/dialogue/Request.java`
-#### Snippet
-```java
-
-        @SuppressWarnings("unchecked")
-        public Request.Builder body(Optional<? extends RequestBody> value) {
-            body = (Optional<RequestBody>) value;
-            return this;
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'body'
-in `dialogue-target/src/main/java/com/palantir/dialogue/Request.java`
-#### Snippet
-```java
-        private ListMultimap<String, String> pathParams = ImmutableListMultimap.of();
-
-        private Optional<RequestBody> body = Optional.empty();
-
-        @Nullable
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -1356,54 +1200,6 @@ in `dialogue-annotations-processor/src/main/java/com/palantir/dialogue/annotatio
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`OptionalLong` used as type for field 'contentLength'
-in `dialogue-apache-hc5-client/src/main/java/com/palantir/dialogue/hc5/ApacheHttpClientBlockingChannel.java`
-#### Snippet
-```java
-        private final RequestBody requestBody;
-        private final Header contentType;
-        private final OptionalLong contentLength;
-
-        RequestBodyEntity(RequestBody requestBody, OptionalLong contentLength) {
-```
-
-### OptionalUsedAsFieldOrParameterType
-`OptionalInt` used as type for parameter 'uriIndexForInstrumentation'
-in `dialogue-apache-hc5-client/src/main/java/com/palantir/dialogue/hc5/ApacheHttpClientBlockingChannel.java`
-#### Snippet
-```java
-            URL baseUrl,
-            ResponseLeakDetector responseLeakDetector,
-            OptionalInt uriIndexForInstrumentation) {
-        this.client = client;
-        this.baseUrl = BaseUrl.of(baseUrl);
-```
-
-### OptionalUsedAsFieldOrParameterType
-`OptionalLong` used as type for parameter 'contentLength'
-in `dialogue-apache-hc5-client/src/main/java/com/palantir/dialogue/hc5/ApacheHttpClientBlockingChannel.java`
-#### Snippet
-```java
-        private final OptionalLong contentLength;
-
-        RequestBodyEntity(RequestBody requestBody, OptionalLong contentLength) {
-            this.requestBody = requestBody;
-            this.contentType = new BasicHeader(HttpHeaders.CONTENT_TYPE, requestBody.contentType());
-```
-
-### OptionalUsedAsFieldOrParameterType
-`OptionalInt` used as type for field 'uriIndexForInstrumentation'
-in `dialogue-apache-hc5-client/src/main/java/com/palantir/dialogue/hc5/ApacheHttpClientBlockingChannel.java`
-#### Snippet
-```java
-    private final BaseUrl baseUrl;
-    private final ResponseLeakDetector responseLeakDetector;
-    private final OptionalInt uriIndexForInstrumentation;
-
-    ApacheHttpClientBlockingChannel(
-```
-
-### OptionalUsedAsFieldOrParameterType
 `Optional` used as type for parameter 'typeName'
 in `dialogue-annotations-processor/src/main/java/com/palantir/dialogue/annotations/processor/data/ParamTypesResolver.java`
 #### Snippet
@@ -1413,6 +1209,18 @@ in `dialogue-annotations-processor/src/main/java/com/palantir/dialogue/annotatio
             Optional<TypeName> typeName,
             EncoderTypeAndMethod encoderTypeAndMethod) {
         return typeName.map(encoderJavaType -> ImmutableParameterEncoderType.builder()
+```
+
+### OptionalUsedAsFieldOrParameterType
+`OptionalInt` used as type for parameter 'overrideHostIndex'
+in `dialogue-clients/src/main/java/com/palantir/dialogue/clients/ChannelCache.java`
+#### Snippet
+```java
+            ServiceConfiguration serviceConf,
+            @Safe String channelName,
+            OptionalInt overrideHostIndex) {
+        if (log.isWarnEnabled() && channelCache.estimatedSize() >= MAX_CACHED_CHANNELS * 0.75) {
+            log.warn("channelCache nearing capacity - possible bug? {}", SafeArg.of("cache", this));
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -1440,6 +1248,18 @@ in `dialogue-annotations-processor/src/main/java/com/palantir/dialogue/annotatio
 ```
 
 ### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'headerParamEncoder'
+in `dialogue-annotations-processor/src/main/java/com/palantir/dialogue/annotations/processor/generate/ServiceImplementationGenerator.java`
+#### Snippet
+```java
+
+    private CodeBlock generateHeaderParam(
+            ArgumentDefinition param, String headerName, Optional<ParameterEncoderType> headerParamEncoder) {
+        return generatePlainSerializer(
+                "putHeaderParams",
+```
+
+### OptionalUsedAsFieldOrParameterType
 `Optional` used as type for parameter 'maybeParameterEncoderType'
 in `dialogue-annotations-processor/src/main/java/com/palantir/dialogue/annotations/processor/generate/ServiceImplementationGenerator.java`
 #### Snippet
@@ -1452,28 +1272,195 @@ in `dialogue-annotations-processor/src/main/java/com/palantir/dialogue/annotatio
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'headerParamEncoder'
-in `dialogue-annotations-processor/src/main/java/com/palantir/dialogue/annotations/processor/generate/ServiceImplementationGenerator.java`
+`OptionalLong` used as type for parameter 'contentLength'
+in `dialogue-apache-hc5-client/src/main/java/com/palantir/dialogue/hc5/ApacheHttpClientBlockingChannel.java`
 #### Snippet
 ```java
+        private final OptionalLong contentLength;
 
-    private CodeBlock generateHeaderParam(
-            ArgumentDefinition param, String headerName, Optional<ParameterEncoderType> headerParamEncoder) {
-        return generatePlainSerializer(
-                "putHeaderParams",
+        RequestBodyEntity(RequestBody requestBody, OptionalLong contentLength) {
+            this.requestBody = requestBody;
+            this.contentType = new BasicHeader(HttpHeaders.CONTENT_TYPE, requestBody.contentType());
 ```
 
-## RuleId[ruleID=ClassNameSameAsAncestorName]
-### ClassNameSameAsAncestorName
-Class name `ReloadingClientFactory` is the same as one of its superclass' names
-in `dialogue-clients/src/main/java/com/palantir/dialogue/clients/ReloadingClientFactory.java`
+### OptionalUsedAsFieldOrParameterType
+`OptionalLong` used as type for field 'contentLength'
+in `dialogue-apache-hc5-client/src/main/java/com/palantir/dialogue/hc5/ApacheHttpClientBlockingChannel.java`
 #### Snippet
 ```java
-import org.immutables.value.Value;
+        private final RequestBody requestBody;
+        private final Header contentType;
+        private final OptionalLong contentLength;
 
-final class ReloadingClientFactory implements DialogueClients.ReloadingFactory {
-    private final ImmutableReloadingParams params;
-    private final ChannelCache cache;
+        RequestBodyEntity(RequestBody requestBody, OptionalLong contentLength) {
+```
+
+### OptionalUsedAsFieldOrParameterType
+`OptionalInt` used as type for parameter 'uriIndexForInstrumentation'
+in `dialogue-apache-hc5-client/src/main/java/com/palantir/dialogue/hc5/ApacheHttpClientBlockingChannel.java`
+#### Snippet
+```java
+            URL baseUrl,
+            ResponseLeakDetector responseLeakDetector,
+            OptionalInt uriIndexForInstrumentation) {
+        this.client = client;
+        this.baseUrl = BaseUrl.of(baseUrl);
+```
+
+### OptionalUsedAsFieldOrParameterType
+`OptionalInt` used as type for field 'uriIndexForInstrumentation'
+in `dialogue-apache-hc5-client/src/main/java/com/palantir/dialogue/hc5/ApacheHttpClientBlockingChannel.java`
+#### Snippet
+```java
+    private final BaseUrl baseUrl;
+    private final ResponseLeakDetector responseLeakDetector;
+    private final OptionalInt uriIndexForInstrumentation;
+
+    ApacheHttpClientBlockingChannel(
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'initialChannel'
+in `dialogue-core/src/main/java/com/palantir/dialogue/core/PinUntilErrorNodeSelectionStrategyChannel.java`
+#### Snippet
+```java
+
+    static PinUntilErrorNodeSelectionStrategyChannel of(
+            Optional<LimitedChannel> initialChannel,
+            DialogueNodeSelectionStrategy strategy,
+            List<LimitedChannel> channels,
+```
+
+### OptionalUsedAsFieldOrParameterType
+`OptionalInt` used as type for parameter 'next'
+in `dialogue-core/src/main/java/com/palantir/dialogue/core/PinUntilErrorNodeSelectionStrategyChannel.java`
+#### Snippet
+```java
+        }
+
+        private void receivedErrorStatus(int pin, PinChannel channel, Response response, OptionalInt next) {
+            if (next.isPresent()) {
+                nextNodeBecauseResponseCode.mark();
+```
+
+### OptionalUsedAsFieldOrParameterType
+`OptionalInt` used as type for parameter 'next'
+in `dialogue-core/src/main/java/com/palantir/dialogue/core/PinUntilErrorNodeSelectionStrategyChannel.java`
+#### Snippet
+```java
+        }
+
+        private void receivedThrowable(int pin, PinChannel channel, Throwable throwable, OptionalInt next) {
+            if (next.isPresent()) {
+                nextNodeBecauseThrowable.mark();
+```
+
+### OptionalUsedAsFieldOrParameterType
+`OptionalInt` used as type for parameter 'maybeUriIndex'
+in `dialogue-core/src/main/java/com/palantir/dialogue/core/DialogueChannel.java`
+#### Snippet
+```java
+         * Otherwise, metrics from all single-uri channels would be attributed to hostIndex 0, making them misleading.
+         */
+        public Builder overrideHostIndex(OptionalInt maybeUriIndex) {
+            builder.overrideSingleHostIndex(maybeUriIndex);
+            return this;
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'callsiteStacktrace'
+in `dialogue-core/src/main/java/com/palantir/dialogue/core/RetryingChannel.java`
+#### Snippet
+```java
+
+        private RetryingCallback(
+                Endpoint endpoint, Request request, Optional<SafeRuntimeException> callsiteStacktrace) {
+            this.endpoint = endpoint;
+            this.request = request;
+```
+
+### OptionalUsedAsFieldOrParameterType
+`OptionalInt` used as type for parameter 'responseStatus'
+in `dialogue-core/src/main/java/com/palantir/dialogue/core/RetryingChannel.java`
+#### Snippet
+```java
+        }
+
+        private void infoLogRetry(long backoffNanoseconds, OptionalInt responseStatus, @Nullable Throwable throwable) {
+            if (log.isInfoEnabled()) {
+                log.info(
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for field 'callsiteStacktrace'
+in `dialogue-core/src/main/java/com/palantir/dialogue/core/RetryingChannel.java`
+#### Snippet
+```java
+        private final Endpoint endpoint;
+        private final Request request;
+        private final Optional<SafeRuntimeException> callsiteStacktrace;
+        private final DetachedSpan span = DetachedSpan.start("Dialogue-RetryingChannel");
+        private int failures = 0;
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for field 'acceptValue'
+in `dialogue-serde/src/main/java/com/palantir/conjure/java/dialogue/serde/ConjureBodySerDe.java`
+#### Snippet
+```java
+        private final ImmutableList<EncodingDeserializerContainer<T>> encodings;
+        private final ErrorDecoder errorDecoder;
+        private final Optional<String> acceptValue;
+        private final Supplier<Optional<T>> emptyInstance;
+        private final TypeMarker<T> token;
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'time'
+in `simulation/src/main/java/com/palantir/dialogue/core/Simulation.java`
+#### Snippet
+```java
+    }
+
+    public void runClockTo(Optional<Duration> time) {
+        long currentTime = ticker.read();
+        long newNanos = time.orElseGet(() -> Duration.ofDays(1)).toNanos();
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for field 'body'
+in `dialogue-target/src/main/java/com/palantir/dialogue/Request.java`
+#### Snippet
+```java
+    private final ListMultimap<String, String> queryParams;
+    private final ListMultimap<String, String> pathParams;
+    private final Optional<RequestBody> body;
+    private final RequestAttachments attachments;
+
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for field 'body'
+in `dialogue-target/src/main/java/com/palantir/dialogue/Request.java`
+#### Snippet
+```java
+        private ListMultimap<String, String> pathParams = ImmutableListMultimap.of();
+
+        private Optional<RequestBody> body = Optional.empty();
+
+        @Nullable
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'value'
+in `dialogue-target/src/main/java/com/palantir/dialogue/Request.java`
+#### Snippet
+```java
+
+        @SuppressWarnings("unchecked")
+        public Request.Builder body(Optional<? extends RequestBody> value) {
+            body = (Optional<RequestBody>) value;
+            return this;
 ```
 
 ## RuleId[ruleID=RedundantMethodOverride]
@@ -1501,91 +1488,20 @@ in `dialogue-target/src/main/java/com/palantir/dialogue/BinaryRequestBody.java`
                 return false;
 ```
 
+## RuleId[ruleID=ClassNameSameAsAncestorName]
+### ClassNameSameAsAncestorName
+Class name `ReloadingClientFactory` is the same as one of its superclass' names
+in `dialogue-clients/src/main/java/com/palantir/dialogue/clients/ReloadingClientFactory.java`
+#### Snippet
+```java
+import org.immutables.value.Value;
+
+final class ReloadingClientFactory implements DialogueClients.ReloadingFactory {
+    private final ImmutableReloadingParams params;
+    private final ChannelCache cache;
+```
+
 ## RuleId[ruleID=SimplifyOptionalCallChains]
-### SimplifyOptionalCallChains
-Can be replaced with 'isEmpty()'
-in `dialogue-core/src/main/java/com/palantir/dialogue/core/DeprecationWarningChannel.java`
-#### Snippet
-```java
-
-            Optional<String> maybeHeader = response.getFirstHeader("deprecation");
-            if (!maybeHeader.isPresent()) {
-                return;
-            }
-```
-
-### SimplifyOptionalCallChains
-Can be replaced with 'isEmpty()'
-in `simulation/src/main/java/com/palantir/dialogue/core/SimulationServer.java`
-#### Snippet
-```java
-            long beforeNanos = simulation.clock().read();
-            Optional<ListenableFuture<Response>> maybeResp = handler.maybeExecute(this, endpoint, request);
-            if (!maybeResp.isPresent()) {
-                continue;
-            }
-```
-
-### SimplifyOptionalCallChains
-Can be replaced with 'isEmpty()'
-in `dialogue-core/src/main/java/com/palantir/dialogue/core/PinUntilErrorNodeSelectionStrategyChannel.java`
-#### Snippet
-```java
-        Optional<ListenableFuture<Response>> maybeResponse =
-                StickyAttachments.maybeAddStickyToken(channel, endpoint, request, limitEnforcement);
-        if (!maybeResponse.isPresent()) {
-            return Optional.empty();
-        }
-```
-
-### SimplifyOptionalCallChains
-Can be replaced with 'isEmpty()'
-in `dialogue-core/src/main/java/com/palantir/dialogue/core/HostMetricsChannel.java`
-#### Snippet
-```java
-    static Channel create(Config cf, Channel channel, String uri) {
-        Optional<HostEventsSink> hostEventsSink = cf.clientConf().hostEventsSink();
-        if (!hostEventsSink.isPresent()) {
-            return channel;
-        }
-```
-
-### SimplifyOptionalCallChains
-Can be replaced with 'isEmpty()'
-in `dialogue-core/src/main/java/com/palantir/dialogue/core/RetryingChannel.java`
-#### Snippet
-```java
-    private static boolean isRetryable(Request request) {
-        Optional<RequestBody> maybeBody = request.body();
-        return !maybeBody.isPresent() || maybeBody.get().repeatable();
-    }
-
-```
-
-### SimplifyOptionalCallChains
-Can be replaced with 'isEmpty()'
-in `dialogue-core/src/main/java/com/palantir/dialogue/core/NodeSelectionStrategyChannel.java`
-#### Snippet
-```java
-            Optional<DialogueNodeSelectionStrategy> maybeStrategy =
-                    strategySelector.updateAndGet(DialogueNodeSelectionStrategy.fromHeader(strategy));
-            if (!maybeStrategy.isPresent()) {
-                return;
-            }
-```
-
-### SimplifyOptionalCallChains
-Can be replaced with 'isEmpty()'
-in `dialogue-core/src/main/java/com/palantir/dialogue/core/NodeSelectionStrategyChannel.java`
-#### Snippet
-```java
-        Optional<ListenableFuture<Response>> maybe =
-                StickyChannelHandler.maybeExecute(delegate, endpoint, request, limitEnforcement);
-        if (!maybe.isPresent()) {
-            return Optional.empty();
-        }
-```
-
 ### SimplifyOptionalCallChains
 Can be replaced with 'isEmpty()'
 in `dialogue-clients/src/main/java/com/palantir/dialogue/clients/AugmentClientConfig.java`
@@ -1600,14 +1516,14 @@ in `dialogue-clients/src/main/java/com/palantir/dialogue/clients/AugmentClientCo
 
 ### SimplifyOptionalCallChains
 Can be replaced with 'isEmpty()'
-in `dialogue-serde/src/main/java/com/palantir/conjure/java/dialogue/serde/ConjureBodySerDe.java`
+in `dialogue-core/src/main/java/com/palantir/dialogue/core/DeprecationWarningChannel.java`
 #### Snippet
 ```java
 
-                Optional<String> contentType = response.getFirstHeader(HttpHeaders.CONTENT_TYPE);
-                if (!contentType.isPresent()) {
-                    throw new SafeIllegalArgumentException(
-                            "Response is missing Content-Type header",
+            Optional<String> maybeHeader = response.getFirstHeader("deprecation");
+            if (!maybeHeader.isPresent()) {
+                return;
+            }
 ```
 
 ### SimplifyOptionalCallChains
@@ -1634,31 +1550,91 @@ in `dialogue-apache-hc5-client/src/main/java/com/palantir/dialogue/hc5/ApacheHtt
             Timeout socketTimeout = getSocketTimeout(conf, name);
 ```
 
+### SimplifyOptionalCallChains
+Can be replaced with 'isEmpty()'
+in `dialogue-core/src/main/java/com/palantir/dialogue/core/HostMetricsChannel.java`
+#### Snippet
+```java
+    static Channel create(Config cf, Channel channel, String uri) {
+        Optional<HostEventsSink> hostEventsSink = cf.clientConf().hostEventsSink();
+        if (!hostEventsSink.isPresent()) {
+            return channel;
+        }
+```
+
+### SimplifyOptionalCallChains
+Can be replaced with 'isEmpty()'
+in `dialogue-core/src/main/java/com/palantir/dialogue/core/PinUntilErrorNodeSelectionStrategyChannel.java`
+#### Snippet
+```java
+        Optional<ListenableFuture<Response>> maybeResponse =
+                StickyAttachments.maybeAddStickyToken(channel, endpoint, request, limitEnforcement);
+        if (!maybeResponse.isPresent()) {
+            return Optional.empty();
+        }
+```
+
+### SimplifyOptionalCallChains
+Can be replaced with 'isEmpty()'
+in `dialogue-core/src/main/java/com/palantir/dialogue/core/RetryingChannel.java`
+#### Snippet
+```java
+    private static boolean isRetryable(Request request) {
+        Optional<RequestBody> maybeBody = request.body();
+        return !maybeBody.isPresent() || maybeBody.get().repeatable();
+    }
+
+```
+
+### SimplifyOptionalCallChains
+Can be replaced with 'isEmpty()'
+in `dialogue-core/src/main/java/com/palantir/dialogue/core/NodeSelectionStrategyChannel.java`
+#### Snippet
+```java
+        Optional<ListenableFuture<Response>> maybe =
+                StickyChannelHandler.maybeExecute(delegate, endpoint, request, limitEnforcement);
+        if (!maybe.isPresent()) {
+            return Optional.empty();
+        }
+```
+
+### SimplifyOptionalCallChains
+Can be replaced with 'isEmpty()'
+in `dialogue-core/src/main/java/com/palantir/dialogue/core/NodeSelectionStrategyChannel.java`
+#### Snippet
+```java
+            Optional<DialogueNodeSelectionStrategy> maybeStrategy =
+                    strategySelector.updateAndGet(DialogueNodeSelectionStrategy.fromHeader(strategy));
+            if (!maybeStrategy.isPresent()) {
+                return;
+            }
+```
+
+### SimplifyOptionalCallChains
+Can be replaced with 'isEmpty()'
+in `dialogue-serde/src/main/java/com/palantir/conjure/java/dialogue/serde/ConjureBodySerDe.java`
+#### Snippet
+```java
+
+                Optional<String> contentType = response.getFirstHeader(HttpHeaders.CONTENT_TYPE);
+                if (!contentType.isPresent()) {
+                    throw new SafeIllegalArgumentException(
+                            "Response is missing Content-Type header",
+```
+
+### SimplifyOptionalCallChains
+Can be replaced with 'isEmpty()'
+in `simulation/src/main/java/com/palantir/dialogue/core/SimulationServer.java`
+#### Snippet
+```java
+            long beforeNanos = simulation.clock().read();
+            Optional<ListenableFuture<Response>> maybeResp = handler.maybeExecute(this, endpoint, request);
+            if (!maybeResp.isPresent()) {
+                continue;
+            }
+```
+
 ## RuleId[ruleID=UnnecessaryFullyQualifiedName]
-### UnnecessaryFullyQualifiedName
-Qualifier `com.google.common.base` is unnecessary, and can be replaced with an import
-in `dialogue-core/src/main/java/com/palantir/dialogue/core/BaseUrl.java`
-#### Snippet
-```java
-
-        @SuppressWarnings("UnnecessaryLambda") // Avoid unnecessary allocation
-        private static final com.google.common.base.Supplier<List<String>> MAP_VALUE_FACTORY = () -> new ArrayList<>(1);
-
-        private final String protocol;
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `com.google.common.base` is unnecessary, and can be replaced with an import
-in `dialogue-target/src/main/java/com/palantir/dialogue/Request.java`
-#### Snippet
-```java
-
-        @SuppressWarnings("UnnecessaryLambda") // Avoid unnecessary allocation
-        private static final com.google.common.base.Supplier<List<String>> MAP_VALUE_FACTORY = () -> new ArrayList<>(1);
-
-        private static final int MUTABLE_HEADERS_MASK = 1;
-```
-
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.apache.hc.client5.http` is unnecessary, and can be replaced with an import
 in `dialogue-apache-hc5-client/src/main/java/com/palantir/dialogue/hc5/SafeConnectTimeoutException.java`
@@ -1683,6 +1659,30 @@ in `dialogue-apache-hc5-client/src/main/java/com/palantir/dialogue/hc5/SafeConne
         this.arguments = Collections.unmodifiableList(Arrays.asList(args));
 ```
 
+### UnnecessaryFullyQualifiedName
+Qualifier `com.google.common.base` is unnecessary, and can be replaced with an import
+in `dialogue-core/src/main/java/com/palantir/dialogue/core/BaseUrl.java`
+#### Snippet
+```java
+
+        @SuppressWarnings("UnnecessaryLambda") // Avoid unnecessary allocation
+        private static final com.google.common.base.Supplier<List<String>> MAP_VALUE_FACTORY = () -> new ArrayList<>(1);
+
+        private final String protocol;
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `com.google.common.base` is unnecessary, and can be replaced with an import
+in `dialogue-target/src/main/java/com/palantir/dialogue/Request.java`
+#### Snippet
+```java
+
+        @SuppressWarnings("UnnecessaryLambda") // Avoid unnecessary allocation
+        private static final com.google.common.base.Supplier<List<String>> MAP_VALUE_FACTORY = () -> new ArrayList<>(1);
+
+        private static final int MUTABLE_HEADERS_MASK = 1;
+```
+
 ## RuleId[ruleID=NestedAssignment]
 ### NestedAssignment
 Result of assignment expression used
@@ -1697,30 +1697,6 @@ in `dialogue-blocking-channels/src/main/java/com/palantir/dialogue/blocking/Defa
 ```
 
 ## RuleId[ruleID=SuspiciousToArrayCall]
-### SuspiciousToArrayCall
-Array of type 'java.lang.Object\[\]' expected, 'com.palantir.dialogue.core.Benchmark.NamedClientChannel\[\]' found
-in `simulation/src/main/java/com/palantir/dialogue/core/Benchmark.java`
-#### Snippet
-```java
-                        .channel(clientFunction.apply(clientNum))
-                        .build())
-                .toArray(NamedClientChannel[]::new);
-        return endpoints(DEFAULT_ENDPOINT);
-    }
-```
-
-### SuspiciousToArrayCall
-Array of type 'java.lang.Object\[\]' expected, 'java.lang.String\[\]' found
-in `simulation/src/main/java/com/palantir/dialogue/core/SimulationMetricsReporter.java`
-#### Snippet
-```java
-            double[] xAxis = reduceGranularity(
-                    granularity, map.get(X_AXIS).stream().mapToDouble(d -> d).toArray());
-            String[] nullToolTips = Collections.nCopies(xAxis.length, null).toArray(new String[] {});
-
-            double[] series = reduceGranularity(
-```
-
 ### SuspiciousToArrayCall
 Array of type 'java.lang.Object\[\]' expected, 'com.codahale.metrics.Meter\[\]' found
 in `dialogue-core/src/main/java/com/palantir/dialogue/core/PinUntilErrorNodeSelectionStrategyChannel.java`
@@ -1745,19 +1721,31 @@ in `dialogue-test-common/src/main/java/com/palantir/dialogue/AbstractSampleServi
     @BeforeEach
 ```
 
-## RuleId[ruleID=CodeBlock2Expr]
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
-in `simulation/src/main/java/com/palantir/dialogue/core/SimulationServer.java`
+### SuspiciousToArrayCall
+Array of type 'java.lang.Object\[\]' expected, 'com.palantir.dialogue.core.Benchmark.NamedClientChannel\[\]' found
+in `simulation/src/main/java/com/palantir/dialogue/core/Benchmark.java`
 #### Snippet
 ```java
-
-            if (log.isDebugEnabled()) {
-                DialogueFutures.addDirectCallback(resp, DialogueFutures.onSuccess(result -> {
-                    log.debug(
-                            "time={} server={} status={} id={}",
+                        .channel(clientFunction.apply(clientNum))
+                        .build())
+                .toArray(NamedClientChannel[]::new);
+        return endpoints(DEFAULT_ENDPOINT);
+    }
 ```
 
+### SuspiciousToArrayCall
+Array of type 'java.lang.Object\[\]' expected, 'java.lang.String\[\]' found
+in `simulation/src/main/java/com/palantir/dialogue/core/SimulationMetricsReporter.java`
+#### Snippet
+```java
+            double[] xAxis = reduceGranularity(
+                    granularity, map.get(X_AXIS).stream().mapToDouble(d -> d).toArray());
+            String[] nullToolTips = Collections.nCopies(xAxis.length, null).toArray(new String[] {});
+
+            double[] series = reduceGranularity(
+```
+
+## RuleId[ruleID=CodeBlock2Expr]
 ### CodeBlock2Expr
 Statement lambda can be replaced with expression lambda
 in `dialogue-annotations-processor/src/main/java/com/palantir/dialogue/annotations/processor/generate/EndpointsEnumGenerator.java`
@@ -1775,6 +1763,18 @@ Statement lambda can be replaced with expression lambda
 in `dialogue-annotations-processor/src/main/java/com/palantir/dialogue/annotations/processor/generate/ServiceImplementationGenerator.java`
 #### Snippet
 ```java
+            public CodeBlock primitive(TypeName _typeName, String parameterSerializerMethodName) {
+                return maybeParameterEncoderType.map(this::parameterEncoderType).orElseGet(() -> {
+                    return CodeBlock.of(
+                            "$L.$L($S, $L.$L($L));",
+                            REQUEST,
+```
+
+### CodeBlock2Expr
+Statement lambda can be replaced with expression lambda
+in `dialogue-annotations-processor/src/main/java/com/palantir/dialogue/annotations/processor/generate/ServiceImplementationGenerator.java`
+#### Snippet
+```java
             public CodeBlock alias(TypeName _typeName, String parameterSerializerMethodName) {
                 return maybeParameterEncoderType.map(this::parameterEncoderType).orElseGet(() -> {
                     return CodeBlock.of(
@@ -1784,29 +1784,17 @@ in `dialogue-annotations-processor/src/main/java/com/palantir/dialogue/annotatio
 
 ### CodeBlock2Expr
 Statement lambda can be replaced with expression lambda
-in `dialogue-annotations-processor/src/main/java/com/palantir/dialogue/annotations/processor/generate/ServiceImplementationGenerator.java`
+in `simulation/src/main/java/com/palantir/dialogue/core/SimulationServer.java`
 #### Snippet
 ```java
-            public CodeBlock primitive(TypeName _typeName, String parameterSerializerMethodName) {
-                return maybeParameterEncoderType.map(this::parameterEncoderType).orElseGet(() -> {
-                    return CodeBlock.of(
-                            "$L.$L($S, $L.$L($L));",
-                            REQUEST,
+
+            if (log.isDebugEnabled()) {
+                DialogueFutures.addDirectCallback(resp, DialogueFutures.onSuccess(result -> {
+                    log.debug(
+                            "time={} server={} status={} id={}",
 ```
 
 ## RuleId[ruleID=FieldAccessedSynchronizedAndUnsynchronized]
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `messager` is accessed in both synchronized and unsynchronized contexts
-in `dialogue-annotations-processor/src/main/java/com/palantir/dialogue/annotations/processor/DialogueRequestAnnotationsProcessor.java`
-#### Snippet
-```java
-public final class DialogueRequestAnnotationsProcessor extends AbstractProcessor {
-
-    private Messager messager;
-    private Filer filer;
-    private Elements elements;
-```
-
 ### FieldAccessedSynchronizedAndUnsynchronized
 Field `elements` is accessed in both synchronized and unsynchronized contexts
 in `dialogue-annotations-processor/src/main/java/com/palantir/dialogue/annotations/processor/DialogueRequestAnnotationsProcessor.java`
@@ -1832,6 +1820,18 @@ in `dialogue-annotations-processor/src/main/java/com/palantir/dialogue/annotatio
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
+Field `messager` is accessed in both synchronized and unsynchronized contexts
+in `dialogue-annotations-processor/src/main/java/com/palantir/dialogue/annotations/processor/DialogueRequestAnnotationsProcessor.java`
+#### Snippet
+```java
+public final class DialogueRequestAnnotationsProcessor extends AbstractProcessor {
+
+    private Messager messager;
+    private Filer filer;
+    private Elements elements;
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
 Field `types` is accessed in both synchronized and unsynchronized contexts
 in `dialogue-annotations-processor/src/main/java/com/palantir/dialogue/annotations/processor/DialogueRequestAnnotationsProcessor.java`
 #### Snippet
@@ -1843,78 +1843,29 @@ in `dialogue-annotations-processor/src/main/java/com/palantir/dialogue/annotatio
     @Override
 ```
 
-## RuleId[ruleID=GroovyUnusedAssignment]
-### GroovyUnusedAssignment
-Assignment is not used
-in `dialogue-jmh/build.gradle`
-#### Snippet
-```java
-}
-
-def benchmarkFile = "${buildDir}/benchmark_results.out"
-
-task jmh(type: JavaExec) {
-```
-
 ## RuleId[ruleID=RedundantFieldInitialization]
 ### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `simulation/src/main/java/com/palantir/dialogue/core/TestCaffeineTicker.java`
+Field initialization to `false` is redundant
+in `dialogue-annotations-processor/src/main/java/com/palantir/dialogue/annotations/processor/DialogueRequestAnnotationsProcessor.java`
 #### Snippet
 ```java
 
-final class TestCaffeineTicker implements Ticker {
-    private long nanos = 0;
+        private final Messager messager;
+        private volatile boolean errors = false;
 
-    @Override
+        private DefaultErrorContext(Messager messager) {
 ```
 
 ### RedundantFieldInitialization
 Field initialization to `false` is redundant
-in `simulation/src/main/java/com/palantir/dialogue/core/NanosecondPrecisionDeterministicScheduler.java`
-#### Snippet
-```java
-        private final Callable<T> command;
-        private boolean isCancelled = false;
-        private boolean isDone = false;
-        private T futureResult;
-        private Exception failure = null;
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `simulation/src/main/java/com/palantir/dialogue/core/NanosecondPrecisionDeterministicScheduler.java`
-#### Snippet
-```java
-        private boolean isDone = false;
-        private T futureResult;
-        private Exception failure = null;
-
-        ScheduledTask(Callable<T> command) {
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `simulation/src/main/java/com/palantir/dialogue/core/NanosecondPrecisionDeterministicScheduler.java`
-#### Snippet
-```java
-        private final long repeatDelay;
-        private final Callable<T> command;
-        private boolean isCancelled = false;
-        private boolean isDone = false;
-        private T futureResult;
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `dialogue-core/src/main/java/com/palantir/dialogue/core/MemoizingComposingSupplier.java`
+in `dialogue-blocking-channels/src/main/java/com/palantir/dialogue/blocking/DefaultCallingThreadExecutor.java`
 #### Snippet
 ```java
 
-    @Nullable
-    private volatile V result = null;
+    private static final class Queue {
+        private boolean poisoned = false;
+        private final BlockingQueue<Runnable> queue = new LinkedBlockingQueue<>();
 
-    MemoizingComposingSupplier(Supplier<T> delegate, Function<T, V> function) {
 ```
 
 ### RedundantFieldInitialization
@@ -1927,6 +1878,18 @@ in `dialogue-core/src/main/java/com/palantir/dialogue/core/MemoizingComposingSup
     private volatile T input = null;
 
     @Nullable
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `dialogue-core/src/main/java/com/palantir/dialogue/core/MemoizingComposingSupplier.java`
+#### Snippet
+```java
+
+    @Nullable
+    private volatile V result = null;
+
+    MemoizingComposingSupplier(Supplier<T> delegate, Function<T, V> function) {
 ```
 
 ### RedundantFieldInitialization
@@ -1954,30 +1917,6 @@ in `dialogue-test-common/src/main/java/com/palantir/dialogue/CloseRecordingInput
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `dialogue-target/src/main/java/com/palantir/dialogue/Request.java`
-#### Snippet
-```java
-        private RequestAttachments attachments;
-
-        private int mutableCollectionsBitSet = 0;
-
-        private Builder() {}
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `dialogue-test-common/src/main/java/com/palantir/dialogue/TestResponse.java`
-#### Snippet
-```java
-
-    private boolean closeCalled = false;
-    private int code = 0;
-    private ListMultimap<String, String> headers = ImmutableListMultimap.of();
-
-```
-
-### RedundantFieldInitialization
 Field initialization to `false` is redundant
 in `dialogue-test-common/src/main/java/com/palantir/dialogue/TestResponse.java`
 #### Snippet
@@ -1990,42 +1929,91 @@ in `dialogue-test-common/src/main/java/com/palantir/dialogue/TestResponse.java`
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `dialogue-blocking-channels/src/main/java/com/palantir/dialogue/blocking/DefaultCallingThreadExecutor.java`
+Field initialization to `0` is redundant
+in `dialogue-test-common/src/main/java/com/palantir/dialogue/TestResponse.java`
 #### Snippet
 ```java
 
-    private static final class Queue {
-        private boolean poisoned = false;
-        private final BlockingQueue<Runnable> queue = new LinkedBlockingQueue<>();
+    private boolean closeCalled = false;
+    private int code = 0;
+    private ListMultimap<String, String> headers = ImmutableListMultimap.of();
 
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `dialogue-annotations-processor/src/main/java/com/palantir/dialogue/annotations/processor/DialogueRequestAnnotationsProcessor.java`
+Field initialization to `0` is redundant
+in `simulation/src/main/java/com/palantir/dialogue/core/TestCaffeineTicker.java`
 #### Snippet
 ```java
 
-        private final Messager messager;
-        private volatile boolean errors = false;
+final class TestCaffeineTicker implements Ticker {
+    private long nanos = 0;
 
-        private DefaultErrorContext(Messager messager) {
+    @Override
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `simulation/src/main/java/com/palantir/dialogue/core/NanosecondPrecisionDeterministicScheduler.java`
+#### Snippet
+```java
+        private final long repeatDelay;
+        private final Callable<T> command;
+        private boolean isCancelled = false;
+        private boolean isDone = false;
+        private T futureResult;
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `simulation/src/main/java/com/palantir/dialogue/core/NanosecondPrecisionDeterministicScheduler.java`
+#### Snippet
+```java
+        private boolean isDone = false;
+        private T futureResult;
+        private Exception failure = null;
+
+        ScheduledTask(Callable<T> command) {
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `simulation/src/main/java/com/palantir/dialogue/core/NanosecondPrecisionDeterministicScheduler.java`
+#### Snippet
+```java
+        private final Callable<T> command;
+        private boolean isCancelled = false;
+        private boolean isDone = false;
+        private T futureResult;
+        private Exception failure = null;
+```
+
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `dialogue-target/src/main/java/com/palantir/dialogue/Request.java`
+#### Snippet
+```java
+        private RequestAttachments attachments;
+
+        private int mutableCollectionsBitSet = 0;
+
+        private Builder() {}
+```
+
+## RuleId[ruleID=GroovyUnusedAssignment]
+### GroovyUnusedAssignment
+Assignment is not used
+in `dialogue-jmh/build.gradle`
+#### Snippet
+```java
+}
+
+def benchmarkFile = "${buildDir}/benchmark_results.out"
+
+task jmh(type: JavaExec) {
 ```
 
 ## RuleId[ruleID=ExceptionNameDoesntEndWithException]
-### ExceptionNameDoesntEndWithException
-Exception class name `ResponseDiagnostic` does not end with 'Exception'
-in `dialogue-serde/src/main/java/com/palantir/conjure/java/dialogue/serde/ErrorDecoder.java`
-#### Snippet
-```java
-    }
-
-    private static final class ResponseDiagnostic extends RuntimeException implements SafeLoggable {
-
-        private static final String SAFE_MESSAGE = "Response Diagnostic Information";
-```
-
 ### ExceptionNameDoesntEndWithException
 Exception class name `Diagnostic` does not end with 'Exception'
 in `dialogue-apache-hc5-client/src/main/java/com/palantir/dialogue/hc5/ApacheHttpClientBlockingChannel.java`
@@ -2038,19 +2026,19 @@ in `dialogue-apache-hc5-client/src/main/java/com/palantir/dialogue/hc5/ApacheHtt
         private static final String SAFE_MESSAGE = "Client Failure Diagnostic Information";
 ```
 
-## RuleId[ruleID=ReturnNull]
-### ReturnNull
-Return of `null`
-in `simulation/src/main/java/com/palantir/dialogue/core/ExternalDeterministicScheduler.java`
+### ExceptionNameDoesntEndWithException
+Exception class name `ResponseDiagnostic` does not end with 'Exception'
+in `dialogue-serde/src/main/java/com/palantir/conjure/java/dialogue/serde/ErrorDecoder.java`
 #### Snippet
 ```java
-                () -> {
-                    command.run();
-                    return null;
-                },
-                delay,
+    }
+
+    private static final class ResponseDiagnostic extends RuntimeException implements SafeLoggable {
+
+        private static final String SAFE_MESSAGE = "Response Diagnostic Information";
 ```
 
+## RuleId[ruleID=ReturnNull]
 ### ReturnNull
 Return of `null`
 in `dialogue-annotations-processor/src/main/java/com/palantir/dialogue/annotations/processor/DialogueRequestAnnotationsProcessor.java`
@@ -2063,17 +2051,29 @@ in `dialogue-annotations-processor/src/main/java/com/palantir/dialogue/annotatio
     }
 ```
 
-## RuleId[ruleID=UnnecessaryLocalVariable]
-### UnnecessaryLocalVariable
-Local variable `localInFlight` is redundant
-in `dialogue-core/src/main/java/com/palantir/dialogue/core/CautiousIncreaseAggressiveDecreaseConcurrencyLimiter.java`
+### ReturnNull
+Return of `null`
+in `simulation/src/main/java/com/palantir/dialogue/core/ExternalDeterministicScheduler.java`
 #### Snippet
 ```java
-        // reliably optimize out references to final fields due to the potential for reflective
-        // modification.
-        AtomicInteger localInFlight = inFlight;
+                () -> {
+                    command.run();
+                    return null;
+                },
+                delay,
+```
 
-        // We don't want to hand out a permit if there are 4 inflight and a limit of 4.1, as this will immediately
+## RuleId[ruleID=UnnecessaryLocalVariable]
+### UnnecessaryLocalVariable
+Local variable `build` is redundant
+in `dialogue-annotations-processor/src/main/java/com/palantir/dialogue/annotations/processor/generate/EndpointsEnumGenerator.java`
+#### Snippet
+```java
+        }
+
+        CodeBlock build = pathTemplateBuilder.add(".build()").build();
+        return build;
+    }
 ```
 
 ### UnnecessaryLocalVariable
@@ -2089,6 +2089,18 @@ in `dialogue-apache-hc5-client/src/main/java/com/palantir/dialogue/hc5/ResponseL
 ```
 
 ### UnnecessaryLocalVariable
+Local variable `localInFlight` is redundant
+in `dialogue-core/src/main/java/com/palantir/dialogue/core/CautiousIncreaseAggressiveDecreaseConcurrencyLimiter.java`
+#### Snippet
+```java
+        // reliably optimize out references to final fields due to the potential for reflective
+        // modification.
+        AtomicInteger localInFlight = inFlight;
+
+        // We don't want to hand out a permit if there are 4 inflight and a limit of 4.1, as this will immediately
+```
+
+### UnnecessaryLocalVariable
 Local variable `channel` is redundant
 in `simulation/src/main/java/com/palantir/dialogue/core/RefreshingChannelFactory.java`
 #### Snippet
@@ -2098,91 +2110,6 @@ in `simulation/src/main/java/com/palantir/dialogue/core/RefreshingChannelFactory
             Channel channel = channelFactory.create(clientConfiguration);
             return channel;
         });
-```
-
-### UnnecessaryLocalVariable
-Local variable `build` is redundant
-in `dialogue-annotations-processor/src/main/java/com/palantir/dialogue/annotations/processor/generate/EndpointsEnumGenerator.java`
-#### Snippet
-```java
-        }
-
-        CodeBlock build = pathTemplateBuilder.add(".build()").build();
-        return build;
-    }
-```
-
-## RuleId[ruleID=ZeroLengthArrayInitialization]
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `simulation/src/main/java/com/palantir/dialogue/core/SimulationMetricsReporter.java`
-#### Snippet
-```java
-            double[] xAxis = reduceGranularity(
-                    granularity, map.get(X_AXIS).stream().mapToDouble(d -> d).toArray());
-            String[] nullToolTips = Collections.nCopies(xAxis.length, null).toArray(new String[] {});
-
-            double[] series = reduceGranularity(
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `dialogue-serde/src/main/java/com/palantir/conjure/java/dialogue/serde/ErrorDecoder.java`
-#### Snippet
-```java
-
-        ResponseDiagnostic(ImmutableList<Arg<?>> args) {
-            super(SafeExceptions.renderMessage(SAFE_MESSAGE, args.toArray(new Arg<?>[0])));
-            this.args = args;
-        }
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `dialogue-test-common/src/main/java/com/palantir/dialogue/TestResponse.java`
-#### Snippet
-```java
-
-    public static TestResponse withBody(@Nullable String body) {
-        return new TestResponse(body == null ? new byte[] {} : body.getBytes(StandardCharsets.UTF_8));
-    }
-
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `dialogue-test-common/src/main/java/com/palantir/dialogue/TestResponse.java`
-#### Snippet
-```java
-
-    public TestResponse() {
-        this(new byte[] {});
-    }
-
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `dialogue-apache-hc5-client/src/main/java/com/palantir/dialogue/hc5/ApacheHttpClientBlockingChannel.java`
-#### Snippet
-```java
-                }
-            }
-            return new ByteArrayInputStream(new byte[0]);
-        }
-
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `dialogue-apache-hc5-client/src/main/java/com/palantir/dialogue/hc5/ApacheHttpClientChannels.java`
-#### Snippet
-```java
-
-        Preconditions.checkState(!enabled.isEmpty(), "Zero supported cipher suites");
-        return enabled.toArray(new String[0]);
-    }
-
 ```
 
 ## RuleId[ruleID=SynchronizeOnThis]
@@ -2210,19 +2137,80 @@ in `dialogue-core/src/main/java/com/palantir/dialogue/core/StickyEndpointChannel
                     return executeWithStickyTarget(stickyTarget, request, endpointChannel);
 ```
 
-## RuleId[ruleID=OptionalGetWithoutIsPresent]
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `dialogue-core/src/main/java/com/palantir/dialogue/core/DialogueChannel.java`
+## RuleId[ruleID=ZeroLengthArrayInitialization]
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `dialogue-apache-hc5-client/src/main/java/com/palantir/dialogue/hc5/ApacheHttpClientBlockingChannel.java`
 #### Snippet
 ```java
-                channel = RetryingChannel.create(cf, channel, endpoint);
-                channel = UserAgentEndpointChannel.create(
-                        channel, endpoint, cf.clientConf().userAgent().get());
-                channel = DeprecationWarningChannel.create(cf, channel, endpoint);
-                channel = new ContentDecodingChannel(channel);
+                }
+            }
+            return new ByteArrayInputStream(new byte[0]);
+        }
+
 ```
 
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `dialogue-apache-hc5-client/src/main/java/com/palantir/dialogue/hc5/ApacheHttpClientChannels.java`
+#### Snippet
+```java
+
+        Preconditions.checkState(!enabled.isEmpty(), "Zero supported cipher suites");
+        return enabled.toArray(new String[0]);
+    }
+
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `dialogue-serde/src/main/java/com/palantir/conjure/java/dialogue/serde/ErrorDecoder.java`
+#### Snippet
+```java
+
+        ResponseDiagnostic(ImmutableList<Arg<?>> args) {
+            super(SafeExceptions.renderMessage(SAFE_MESSAGE, args.toArray(new Arg<?>[0])));
+            this.args = args;
+        }
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `dialogue-test-common/src/main/java/com/palantir/dialogue/TestResponse.java`
+#### Snippet
+```java
+
+    public TestResponse() {
+        this(new byte[] {});
+    }
+
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `dialogue-test-common/src/main/java/com/palantir/dialogue/TestResponse.java`
+#### Snippet
+```java
+
+    public static TestResponse withBody(@Nullable String body) {
+        return new TestResponse(body == null ? new byte[] {} : body.getBytes(StandardCharsets.UTF_8));
+    }
+
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `simulation/src/main/java/com/palantir/dialogue/core/SimulationMetricsReporter.java`
+#### Snippet
+```java
+            double[] xAxis = reduceGranularity(
+                    granularity, map.get(X_AXIS).stream().mapToDouble(d -> d).toArray());
+            String[] nullToolTips = Collections.nCopies(xAxis.length, null).toArray(new String[] {});
+
+            double[] series = reduceGranularity(
+```
+
+## RuleId[ruleID=OptionalGetWithoutIsPresent]
 ### OptionalGetWithoutIsPresent
 `Optional.get()` without 'isPresent()' check
 in `dialogue-annotations-processor/src/main/java/com/palantir/dialogue/annotations/processor/data/EndpointDefinitions.java`
@@ -2307,271 +2295,19 @@ in `dialogue-annotations-processor/src/main/java/com/palantir/dialogue/annotatio
         }
 ```
 
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `dialogue-core/src/main/java/com/palantir/dialogue/core/DialogueChannel.java`
+#### Snippet
+```java
+                channel = RetryingChannel.create(cf, channel, endpoint);
+                channel = UserAgentEndpointChannel.create(
+                        channel, endpoint, cf.clientConf().userAgent().get());
+                channel = DeprecationWarningChannel.create(cf, channel, endpoint);
+                channel = new ContentDecodingChannel(channel);
+```
+
 ## RuleId[ruleID=UnstableApiUsage]
-### UnstableApiUsage
-'com.google.common.util.concurrent.RateLimiter' is marked unstable with @Beta
-in `dialogue-core/src/main/java/com/palantir/dialogue/core/TimingEndpointChannel.java`
-#### Snippet
-```java
-
-    private static final SafeLogger log = SafeLoggerFactory.get(TimingEndpointChannel.class);
-    private static final RateLimiter unknownThrowableLoggingRateLimiter = RateLimiter.create(1);
-
-    private final EndpointChannel delegate;
-```
-
-### UnstableApiUsage
-'com.google.common.util.concurrent.RateLimiter' is marked unstable with @Beta
-in `dialogue-core/src/main/java/com/palantir/dialogue/core/TimingEndpointChannel.java`
-#### Snippet
-```java
-
-    private static final SafeLogger log = SafeLoggerFactory.get(TimingEndpointChannel.class);
-    private static final RateLimiter unknownThrowableLoggingRateLimiter = RateLimiter.create(1);
-
-    private final EndpointChannel delegate;
-```
-
-### UnstableApiUsage
-'create(double)' is declared in unstable class 'com.google.common.util.concurrent.RateLimiter' marked with @Beta
-in `dialogue-core/src/main/java/com/palantir/dialogue/core/TimingEndpointChannel.java`
-#### Snippet
-```java
-
-    private static final SafeLogger log = SafeLoggerFactory.get(TimingEndpointChannel.class);
-    private static final RateLimiter unknownThrowableLoggingRateLimiter = RateLimiter.create(1);
-
-    private final EndpointChannel delegate;
-```
-
-### UnstableApiUsage
-'tryAcquire()' is declared in unstable class 'com.google.common.util.concurrent.RateLimiter' marked with @Beta
-in `dialogue-core/src/main/java/com/palantir/dialogue/core/TimingEndpointChannel.java`
-#### Snippet
-```java
-                    updateTimer(failureTimer);
-                } else {
-                    if (unknownThrowableLoggingRateLimiter.tryAcquire()) {
-                        log.info(
-                                "Unknown failure",
-```
-
-### UnstableApiUsage
-'shutdownAndAwaitTermination(java.util.concurrent.ExecutorService, long, java.util.concurrent.TimeUnit)' is marked unstable with @Beta
-in `dialogue-jmh/src/main/java/com/palantir/dialogue/core/EndToEndBenchmark.java`
-#### Snippet
-```java
-    public void after() throws IOException {
-        undertow.stop();
-        MoreExecutors.shutdownAndAwaitTermination(RetryingChannel.sharedScheduler.get(), 1, TimeUnit.SECONDS);
-        MoreExecutors.shutdownAndAwaitTermination(blockingExecutor, 1, TimeUnit.SECONDS);
-        closeableApache.close();
-```
-
-### UnstableApiUsage
-'shutdownAndAwaitTermination(java.util.concurrent.ExecutorService, long, java.util.concurrent.TimeUnit)' is marked unstable with @Beta
-in `dialogue-jmh/src/main/java/com/palantir/dialogue/core/EndToEndBenchmark.java`
-#### Snippet
-```java
-        undertow.stop();
-        MoreExecutors.shutdownAndAwaitTermination(RetryingChannel.sharedScheduler.get(), 1, TimeUnit.SECONDS);
-        MoreExecutors.shutdownAndAwaitTermination(blockingExecutor, 1, TimeUnit.SECONDS);
-        closeableApache.close();
-    }
-```
-
-### UnstableApiUsage
-'saturatedMultiply(int, int)' is marked unstable with @Beta
-in `dialogue-core/src/main/java/com/palantir/dialogue/core/BalancedNodeSelectionStrategyChannel.java`
-#### Snippet
-```java
-            }
-            if (snapshot.getInflight() > INFLIGHT_COMPARISON_THRESHOLD) {
-                int newThreshold = IntMath.saturatedMultiply(snapshot.getScore(), UNHEALTHY_SCORE_MULTIPLIER);
-                if (log.isDebugEnabled()) {
-                    log.debug(
-```
-
-### UnstableApiUsage
-'stream(java.util.Iterator)' is marked unstable with @Beta
-in `simulation/src/main/java/com/palantir/dialogue/core/Benchmark.java`
-#### Snippet
-```java
-
-    public Benchmark mergeRequestStreams(Stream<ScheduledRequest>... newRequestStreams) {
-        this.requestStream = Streams.stream(Iterators.mergeSorted(
-                Arrays.stream(newRequestStreams).map(BaseStream::iterator).collect(Collectors.toList()),
-                Comparator.comparing(ScheduledRequest::sendTimeNanos)));
-```
-
-### UnstableApiUsage
-'mergeSorted(java.lang.Iterable\>, java.util.Comparator)' is marked unstable with @Beta
-in `simulation/src/main/java/com/palantir/dialogue/core/Benchmark.java`
-#### Snippet
-```java
-
-    public Benchmark mergeRequestStreams(Stream<ScheduledRequest>... newRequestStreams) {
-        this.requestStream = Streams.stream(Iterators.mergeSorted(
-                Arrays.stream(newRequestStreams).map(BaseStream::iterator).collect(Collectors.toList()),
-                Comparator.comparing(ScheduledRequest::sendTimeNanos)));
-```
-
-### UnstableApiUsage
-'transform(com.google.common.util.concurrent.ListenableFuture*, com.google.common.base.Function, java.util.concurrent.Executor)' is marked unstable with @Beta*
-in `simulation/src/main/java/com/palantir/dialogue/core/Benchmark.java`
-#### Snippet
-```java
-        log.warn("Fired off all requests ({} ms, {}req/sec)", ms, (1000 * requestsStarted[0]) / ms);
-
-        return Futures.transform(
-                benchmarkFinished.getFuture(),
-                _v -> {
-```
-
-### UnstableApiUsage
-'builderWithExpectedSize(int)' is marked unstable with @Beta
-in `dialogue-core/src/main/java/com/palantir/dialogue/core/TracedChannel.java`
-#### Snippet
-```java
-        ImmutableMap<String, String> endpointTags = DialogueTracing.tracingTags(endpoint);
-        ImmutableMap<String, String> configTags = DialogueTracing.tracingTags(cf);
-        return ImmutableMap.<String, String>builderWithExpectedSize(endpointTags.size() + configTags.size())
-                .putAll(endpointTags)
-                .putAll(configTags)
-```
-
-### UnstableApiUsage
-'appendTo(java.lang.StringBuilder, java.lang.Iterable\>)' is marked unstable with @Beta
-in `dialogue-core/src/main/java/com/palantir/dialogue/core/BaseUrl.java`
-#### Snippet
-```java
-                result.append('?');
-            }
-            QUERY_JOINER.appendTo(result, queryParams.entries());
-        }
-
-```
-
-### UnstableApiUsage
-'com.google.common.util.concurrent.RateLimiter' is marked unstable with @Beta
-in `dialogue-core/src/main/java/com/palantir/dialogue/core/RetryOtherValidatingChannel.java`
-#### Snippet
-```java
-
-    private static final SafeLogger log = SafeLoggerFactory.get(RetryOtherValidatingChannel.class);
-    private static final RateLimiter VALIDATION_FAILED_LOGGING_LIMITER = RateLimiter.create(1);
-
-    private final Channel delegate;
-```
-
-### UnstableApiUsage
-'com.google.common.util.concurrent.RateLimiter' is marked unstable with @Beta
-in `dialogue-core/src/main/java/com/palantir/dialogue/core/RetryOtherValidatingChannel.java`
-#### Snippet
-```java
-
-    private static final SafeLogger log = SafeLoggerFactory.get(RetryOtherValidatingChannel.class);
-    private static final RateLimiter VALIDATION_FAILED_LOGGING_LIMITER = RateLimiter.create(1);
-
-    private final Channel delegate;
-```
-
-### UnstableApiUsage
-'create(double)' is declared in unstable class 'com.google.common.util.concurrent.RateLimiter' marked with @Beta
-in `dialogue-core/src/main/java/com/palantir/dialogue/core/RetryOtherValidatingChannel.java`
-#### Snippet
-```java
-
-    private static final SafeLogger log = SafeLoggerFactory.get(RetryOtherValidatingChannel.class);
-    private static final RateLimiter VALIDATION_FAILED_LOGGING_LIMITER = RateLimiter.create(1);
-
-    private final Channel delegate;
-```
-
-### UnstableApiUsage
-'tryAcquire()' is declared in unstable class 'com.google.common.util.concurrent.RateLimiter' marked with @Beta
-in `dialogue-core/src/main/java/com/palantir/dialogue/core/RetryOtherValidatingChannel.java`
-#### Snippet
-```java
-        UnsafeArg<Set<String>> unsafeUris = UnsafeArg.of("uris", hosts);
-        return retryOtherUri -> {
-            if (VALIDATION_FAILED_LOGGING_LIMITER.tryAcquire()) {
-                log.info("Invalid Location header value {} {}", UnsafeArg.of("location", retryOtherUri), unsafeUris);
-            }
-```
-
-### UnstableApiUsage
-'tryParse(java.lang.String)' is marked unstable with @Beta
-in `dialogue-serde/src/main/java/com/palantir/conjure/java/dialogue/serde/ErrorDecoder.java`
-#### Snippet
-```java
-            case 429:
-                return response.getFirstHeader(HttpHeaders.RETRY_AFTER)
-                        .map(Longs::tryParse)
-                        .map(Duration::ofSeconds)
-                        .map(QosException::throttle)
-```
-
-### UnstableApiUsage
-'transformAsync(com.google.common.util.concurrent.ListenableFuture*, com.google.common.util.concurrent.AsyncFunction, java.util.concurrent.Executor)' is marked unstable with @Beta*
-in `dialogue-futures/src/main/java/com/palantir/dialogue/futures/DialogueDirectAsyncTransformationFuture.java`
-#### Snippet
-```java
-    DialogueDirectAsyncTransformationFuture(ListenableFuture<I> input, AsyncFunction<? super I, ? extends O> function) {
-        this.currentFuture = input;
-        this.output = Futures.transformAsync(
-                input,
-                result -> {
-```
-
-### UnstableApiUsage
-'transformAsync(com.google.common.util.concurrent.ListenableFuture*, com.google.common.util.concurrent.AsyncFunction, java.util.concurrent.Executor)' is marked unstable with @Beta*
-in `dialogue-futures/src/main/java/com/palantir/dialogue/futures/DialogueDirectAsyncTransformationFuture.java`
-#### Snippet
-```java
-/**
- * This {@link ListenableFuture} implementation differs from
- * {@link Futures#transformAsync(ListenableFuture, AsyncFunction, Executor)}
- * in two ways:
- * Firstly, it only allows transformations on the same thread. Second, calling cancel on this future
-```
-
-### UnstableApiUsage
-'transform(com.google.common.util.concurrent.ListenableFuture*, com.google.common.base.Function, java.util.concurrent.Executor)' is marked unstable with @Beta*
-in `dialogue-futures/src/main/java/com/palantir/dialogue/futures/DialogueDirectTransformationFuture.java`
-#### Snippet
-```java
-/**
- * This {@link ListenableFuture} implementation differs from
- * {@link Futures#transform(ListenableFuture, com.google.common.base.Function, Executor)}
- * in two ways:
- * Firstly, it only allows transformations on the same thread. Second, calling cancel on this future
-```
-
-### UnstableApiUsage
-'catchingAsync(com.google.common.util.concurrent.ListenableFuture, java.lang.Class, com.google.common.util.concurrent.AsyncFunction, java.util.concurrent.Executor)' is marked unstable with @Beta
-in `dialogue-futures/src/main/java/com/palantir/dialogue/futures/DialogueDirectAsyncCatchingFuture.java`
-#### Snippet
-```java
-    DialogueDirectAsyncCatchingFuture(ListenableFuture<T> input, AsyncFunction<? super Throwable, T> function) {
-        this.currentFuture = input;
-        this.output = Futures.catchingAsync(
-                input,
-                Throwable.class,
-```
-
-### UnstableApiUsage
-'catchingAsync(com.google.common.util.concurrent.ListenableFuture, java.lang.Class, com.google.common.util.concurrent.AsyncFunction, java.util.concurrent.Executor)' is marked unstable with @Beta
-in `dialogue-futures/src/main/java/com/palantir/dialogue/futures/DialogueDirectAsyncCatchingFuture.java`
-#### Snippet
-```java
-/**
- * This {@link ListenableFuture} implementation differs from
- * {@link Futures#catchingAsync(ListenableFuture, Class, AsyncFunction, Executor)}
- * in three ways:
- * Firstly, it only allows transformations on the same thread. Second, calling cancel on this future
-```
-
 ### UnstableApiUsage
 'copyOf(java.lang.Iterable\>)' is marked unstable with @Beta
 in `dialogue-annotations/src/main/java/com/palantir/dialogue/annotations/MapToMultimapParamEncoder.java`
@@ -2633,66 +2369,6 @@ in `dialogue-annotations/src/main/java/com/palantir/dialogue/annotations/Multipa
 ```
 
 ### UnstableApiUsage
-'com.google.common.util.concurrent.RateLimiter' is marked unstable with @Beta
-in `dialogue-apache-hc5-client/src/main/java/com/palantir/dialogue/hc5/InactivityValidationAwareConnectionKeepAliveStrategy.java`
-#### Snippet
-```java
-    private final String clientName;
-    private final TimeValue defaultValidateAfterInactivity;
-    private final RateLimiter loggingRateLimiter = RateLimiter.create(2);
-    /**
-     * This field is used for observability. It's possible, though unlikely, that the value can get out of sync
-```
-
-### UnstableApiUsage
-'com.google.common.util.concurrent.RateLimiter' is marked unstable with @Beta
-in `dialogue-apache-hc5-client/src/main/java/com/palantir/dialogue/hc5/InactivityValidationAwareConnectionKeepAliveStrategy.java`
-#### Snippet
-```java
-    private final String clientName;
-    private final TimeValue defaultValidateAfterInactivity;
-    private final RateLimiter loggingRateLimiter = RateLimiter.create(2);
-    /**
-     * This field is used for observability. It's possible, though unlikely, that the value can get out of sync
-```
-
-### UnstableApiUsage
-'create(double)' is declared in unstable class 'com.google.common.util.concurrent.RateLimiter' marked with @Beta
-in `dialogue-apache-hc5-client/src/main/java/com/palantir/dialogue/hc5/InactivityValidationAwareConnectionKeepAliveStrategy.java`
-#### Snippet
-```java
-    private final String clientName;
-    private final TimeValue defaultValidateAfterInactivity;
-    private final RateLimiter loggingRateLimiter = RateLimiter.create(2);
-    /**
-     * This field is used for observability. It's possible, though unlikely, that the value can get out of sync
-```
-
-### UnstableApiUsage
-'tryAcquire()' is declared in unstable class 'com.google.common.util.concurrent.RateLimiter' marked with @Beta
-in `dialogue-apache-hc5-client/src/main/java/com/palantir/dialogue/hc5/InactivityValidationAwareConnectionKeepAliveStrategy.java`
-#### Snippet
-```java
-                // Rate limit in case of a server roll which changes the keep-alive value. Each line is printed
-                // if the rate limiter isn't saturated, or if debug logging is enabled.
-                if (loggingRateLimiter.tryAcquire() || log.isDebugEnabled()) {
-                    log.info(
-                            "Updating the validation interval for {} from {} to {}",
-```
-
-### UnstableApiUsage
-'putAll(java.lang.Iterable\>)' is marked unstable with @Beta
-in `dialogue-target/src/main/java/com/palantir/dialogue/Endpoint.java`
-#### Snippet
-```java
-                        ? ImmutableListMultimap.of()
-                        : ImmutableListMultimap.<String, String>builder()
-                                .putAll(params.entrySet())
-                                .build(),
-                url);
-```
-
-### UnstableApiUsage
 'com.google.auto.common.MoreElements' is marked unstable with @Beta
 in `dialogue-annotations-processor/src/main/java/com/palantir/dialogue/annotations/processor/data/EndpointDefinitions.java`
 #### Snippet
@@ -2762,150 +2438,6 @@ in `dialogue-annotations-processor/src/main/java/com/palantir/dialogue/annotatio
                 MoreElements.getAnnotationMirror(element, MustBeClosed.class).isPresent();
 
         Optional<TypeMirror> maybeListenableFutureInnerType = getListenableFutureInnerType(returnType);
-```
-
-### UnstableApiUsage
-'exhaust(java.io.InputStream)' is marked unstable with @Beta
-in `dialogue-apache-hc5-client/src/main/java/com/palantir/dialogue/hc5/ApacheHttpClientBlockingChannel.java`
-#### Snippet
-```java
-            }
-            return REMAINING_CONTENT_CONNECTION_DISCARD_THRESHOLD
-                    == ByteStreams.exhaust(ByteStreams.limit(stream, REMAINING_CONTENT_CONNECTION_DISCARD_THRESHOLD));
-        } catch (Throwable ignored) {
-            return false;
-```
-
-### UnstableApiUsage
-'limit(java.io.InputStream, long)' is marked unstable with @Beta
-in `dialogue-apache-hc5-client/src/main/java/com/palantir/dialogue/hc5/ApacheHttpClientBlockingChannel.java`
-#### Snippet
-```java
-            }
-            return REMAINING_CONTENT_CONNECTION_DISCARD_THRESHOLD
-                    == ByteStreams.exhaust(ByteStreams.limit(stream, REMAINING_CONTENT_CONNECTION_DISCARD_THRESHOLD));
-        } catch (Throwable ignored) {
-            return false;
-```
-
-### UnstableApiUsage
-'com.google.auto.common.MoreElements' is marked unstable with @Beta
-in `dialogue-annotations-processor/src/main/java/com/palantir/dialogue/annotations/processor/data/ParamTypesResolver.java`
-#### Snippet
-```java
-        for (AnnotationMirror annotationMirror : variableElement.getAnnotationMirrors()) {
-            TypeElement annotationTypeElement =
-                    MoreElements.asType(annotationMirror.getAnnotationType().asElement());
-            if (PARAM_ANNOTATIONS.contains(
-                    annotationTypeElement.getQualifiedName().toString())) {
-```
-
-### UnstableApiUsage
-'asType(javax.lang.model.element.Element)' is declared in unstable class 'com.google.auto.common.MoreElements' marked with @Beta
-in `dialogue-annotations-processor/src/main/java/com/palantir/dialogue/annotations/processor/data/ParamTypesResolver.java`
-#### Snippet
-```java
-        for (AnnotationMirror annotationMirror : variableElement.getAnnotationMirrors()) {
-            TypeElement annotationTypeElement =
-                    MoreElements.asType(annotationMirror.getAnnotationType().asElement());
-            if (PARAM_ANNOTATIONS.contains(
-                    annotationTypeElement.getQualifiedName().toString())) {
-```
-
-### UnstableApiUsage
-'register(C)' is declared in unstable class 'com.google.common.io.Closer' marked with @Beta
-in `dialogue-apache-hc5-client/src/main/java/com/palantir/dialogue/hc5/ApacheHttpClientChannels.java`
-#### Snippet
-```java
-            this.executor = executor;
-            this.clientConfiguration = clientConfiguration;
-            closer.register(() -> connectionEvictorFuture.cancel(true));
-            closer.register(apacheClient);
-            closer.register(pool);
-```
-
-### UnstableApiUsage
-'register(C)' is declared in unstable class 'com.google.common.io.Closer' marked with @Beta
-in `dialogue-apache-hc5-client/src/main/java/com/palantir/dialogue/hc5/ApacheHttpClientChannels.java`
-#### Snippet
-```java
-            this.clientConfiguration = clientConfiguration;
-            closer.register(() -> connectionEvictorFuture.cancel(true));
-            closer.register(apacheClient);
-            closer.register(pool);
-            closer.register(DialogueClientMetrics.of(clientConfiguration.taggedMetricRegistry())
-```
-
-### UnstableApiUsage
-'register(C)' is declared in unstable class 'com.google.common.io.Closer' marked with @Beta
-in `dialogue-apache-hc5-client/src/main/java/com/palantir/dialogue/hc5/ApacheHttpClientChannels.java`
-#### Snippet
-```java
-            closer.register(() -> connectionEvictorFuture.cancel(true));
-            closer.register(apacheClient);
-            closer.register(pool);
-            closer.register(DialogueClientMetrics.of(clientConfiguration.taggedMetricRegistry())
-                    .close(clientName)::mark);
-```
-
-### UnstableApiUsage
-'register(C)' is declared in unstable class 'com.google.common.io.Closer' marked with @Beta
-in `dialogue-apache-hc5-client/src/main/java/com/palantir/dialogue/hc5/ApacheHttpClientChannels.java`
-#### Snippet
-```java
-            closer.register(apacheClient);
-            closer.register(pool);
-            closer.register(DialogueClientMetrics.of(clientConfiguration.taggedMetricRegistry())
-                    .close(clientName)::mark);
-        }
-```
-
-### UnstableApiUsage
-'com.google.common.io.Closer' is marked unstable with @Beta
-in `dialogue-apache-hc5-client/src/main/java/com/palantir/dialogue/hc5/ApacheHttpClientChannels.java`
-#### Snippet
-```java
-        private final ExecutorService executor;
-
-        private final Closer closer = Closer.create();
-
-        private CloseableClientImpl(
-```
-
-### UnstableApiUsage
-'com.google.common.io.Closer' is marked unstable with @Beta
-in `dialogue-apache-hc5-client/src/main/java/com/palantir/dialogue/hc5/ApacheHttpClientChannels.java`
-#### Snippet
-```java
-        private final ExecutorService executor;
-
-        private final Closer closer = Closer.create();
-
-        private CloseableClientImpl(
-```
-
-### UnstableApiUsage
-'create()' is declared in unstable class 'com.google.common.io.Closer' marked with @Beta
-in `dialogue-apache-hc5-client/src/main/java/com/palantir/dialogue/hc5/ApacheHttpClientChannels.java`
-#### Snippet
-```java
-        private final ExecutorService executor;
-
-        private final Closer closer = Closer.create();
-
-        private CloseableClientImpl(
-```
-
-### UnstableApiUsage
-'close()' is declared in unstable class 'com.google.common.io.Closer' marked with @Beta
-in `dialogue-apache-hc5-client/src/main/java/com/palantir/dialogue/hc5/ApacheHttpClientChannels.java`
-#### Snippet
-```java
-            // be additional closeable resources.
-            try {
-                closer.close();
-            } catch (IOException e) {
-                log.warn("Failed to close client", e);
 ```
 
 ### UnstableApiUsage
@@ -2978,5 +2510,473 @@ in `dialogue-annotations-processor/src/main/java/com/palantir/dialogue/annotatio
         MoreElements.getAnnotationMirror(annotatedInterface, DialogueService.class)
                 .toJavaUtil()
                 .map(mirror -> AnnotationMirrors.getAnnotationValue(mirror, "value"))
+```
+
+### UnstableApiUsage
+'com.google.auto.common.MoreElements' is marked unstable with @Beta
+in `dialogue-annotations-processor/src/main/java/com/palantir/dialogue/annotations/processor/data/ParamTypesResolver.java`
+#### Snippet
+```java
+        for (AnnotationMirror annotationMirror : variableElement.getAnnotationMirrors()) {
+            TypeElement annotationTypeElement =
+                    MoreElements.asType(annotationMirror.getAnnotationType().asElement());
+            if (PARAM_ANNOTATIONS.contains(
+                    annotationTypeElement.getQualifiedName().toString())) {
+```
+
+### UnstableApiUsage
+'asType(javax.lang.model.element.Element)' is declared in unstable class 'com.google.auto.common.MoreElements' marked with @Beta
+in `dialogue-annotations-processor/src/main/java/com/palantir/dialogue/annotations/processor/data/ParamTypesResolver.java`
+#### Snippet
+```java
+        for (AnnotationMirror annotationMirror : variableElement.getAnnotationMirrors()) {
+            TypeElement annotationTypeElement =
+                    MoreElements.asType(annotationMirror.getAnnotationType().asElement());
+            if (PARAM_ANNOTATIONS.contains(
+                    annotationTypeElement.getQualifiedName().toString())) {
+```
+
+### UnstableApiUsage
+'tryAcquire()' is declared in unstable class 'com.google.common.util.concurrent.RateLimiter' marked with @Beta
+in `dialogue-apache-hc5-client/src/main/java/com/palantir/dialogue/hc5/InactivityValidationAwareConnectionKeepAliveStrategy.java`
+#### Snippet
+```java
+                // Rate limit in case of a server roll which changes the keep-alive value. Each line is printed
+                // if the rate limiter isn't saturated, or if debug logging is enabled.
+                if (loggingRateLimiter.tryAcquire() || log.isDebugEnabled()) {
+                    log.info(
+                            "Updating the validation interval for {} from {} to {}",
+```
+
+### UnstableApiUsage
+'com.google.common.util.concurrent.RateLimiter' is marked unstable with @Beta
+in `dialogue-apache-hc5-client/src/main/java/com/palantir/dialogue/hc5/InactivityValidationAwareConnectionKeepAliveStrategy.java`
+#### Snippet
+```java
+    private final String clientName;
+    private final TimeValue defaultValidateAfterInactivity;
+    private final RateLimiter loggingRateLimiter = RateLimiter.create(2);
+    /**
+     * This field is used for observability. It's possible, though unlikely, that the value can get out of sync
+```
+
+### UnstableApiUsage
+'com.google.common.util.concurrent.RateLimiter' is marked unstable with @Beta
+in `dialogue-apache-hc5-client/src/main/java/com/palantir/dialogue/hc5/InactivityValidationAwareConnectionKeepAliveStrategy.java`
+#### Snippet
+```java
+    private final String clientName;
+    private final TimeValue defaultValidateAfterInactivity;
+    private final RateLimiter loggingRateLimiter = RateLimiter.create(2);
+    /**
+     * This field is used for observability. It's possible, though unlikely, that the value can get out of sync
+```
+
+### UnstableApiUsage
+'create(double)' is declared in unstable class 'com.google.common.util.concurrent.RateLimiter' marked with @Beta
+in `dialogue-apache-hc5-client/src/main/java/com/palantir/dialogue/hc5/InactivityValidationAwareConnectionKeepAliveStrategy.java`
+#### Snippet
+```java
+    private final String clientName;
+    private final TimeValue defaultValidateAfterInactivity;
+    private final RateLimiter loggingRateLimiter = RateLimiter.create(2);
+    /**
+     * This field is used for observability. It's possible, though unlikely, that the value can get out of sync
+```
+
+### UnstableApiUsage
+'com.google.common.util.concurrent.RateLimiter' is marked unstable with @Beta
+in `dialogue-core/src/main/java/com/palantir/dialogue/core/TimingEndpointChannel.java`
+#### Snippet
+```java
+
+    private static final SafeLogger log = SafeLoggerFactory.get(TimingEndpointChannel.class);
+    private static final RateLimiter unknownThrowableLoggingRateLimiter = RateLimiter.create(1);
+
+    private final EndpointChannel delegate;
+```
+
+### UnstableApiUsage
+'com.google.common.util.concurrent.RateLimiter' is marked unstable with @Beta
+in `dialogue-core/src/main/java/com/palantir/dialogue/core/TimingEndpointChannel.java`
+#### Snippet
+```java
+
+    private static final SafeLogger log = SafeLoggerFactory.get(TimingEndpointChannel.class);
+    private static final RateLimiter unknownThrowableLoggingRateLimiter = RateLimiter.create(1);
+
+    private final EndpointChannel delegate;
+```
+
+### UnstableApiUsage
+'create(double)' is declared in unstable class 'com.google.common.util.concurrent.RateLimiter' marked with @Beta
+in `dialogue-core/src/main/java/com/palantir/dialogue/core/TimingEndpointChannel.java`
+#### Snippet
+```java
+
+    private static final SafeLogger log = SafeLoggerFactory.get(TimingEndpointChannel.class);
+    private static final RateLimiter unknownThrowableLoggingRateLimiter = RateLimiter.create(1);
+
+    private final EndpointChannel delegate;
+```
+
+### UnstableApiUsage
+'tryAcquire()' is declared in unstable class 'com.google.common.util.concurrent.RateLimiter' marked with @Beta
+in `dialogue-core/src/main/java/com/palantir/dialogue/core/TimingEndpointChannel.java`
+#### Snippet
+```java
+                    updateTimer(failureTimer);
+                } else {
+                    if (unknownThrowableLoggingRateLimiter.tryAcquire()) {
+                        log.info(
+                                "Unknown failure",
+```
+
+### UnstableApiUsage
+'builderWithExpectedSize(int)' is marked unstable with @Beta
+in `dialogue-core/src/main/java/com/palantir/dialogue/core/TracedChannel.java`
+#### Snippet
+```java
+        ImmutableMap<String, String> endpointTags = DialogueTracing.tracingTags(endpoint);
+        ImmutableMap<String, String> configTags = DialogueTracing.tracingTags(cf);
+        return ImmutableMap.<String, String>builderWithExpectedSize(endpointTags.size() + configTags.size())
+                .putAll(endpointTags)
+                .putAll(configTags)
+```
+
+### UnstableApiUsage
+'exhaust(java.io.InputStream)' is marked unstable with @Beta
+in `dialogue-apache-hc5-client/src/main/java/com/palantir/dialogue/hc5/ApacheHttpClientBlockingChannel.java`
+#### Snippet
+```java
+            }
+            return REMAINING_CONTENT_CONNECTION_DISCARD_THRESHOLD
+                    == ByteStreams.exhaust(ByteStreams.limit(stream, REMAINING_CONTENT_CONNECTION_DISCARD_THRESHOLD));
+        } catch (Throwable ignored) {
+            return false;
+```
+
+### UnstableApiUsage
+'limit(java.io.InputStream, long)' is marked unstable with @Beta
+in `dialogue-apache-hc5-client/src/main/java/com/palantir/dialogue/hc5/ApacheHttpClientBlockingChannel.java`
+#### Snippet
+```java
+            }
+            return REMAINING_CONTENT_CONNECTION_DISCARD_THRESHOLD
+                    == ByteStreams.exhaust(ByteStreams.limit(stream, REMAINING_CONTENT_CONNECTION_DISCARD_THRESHOLD));
+        } catch (Throwable ignored) {
+            return false;
+```
+
+### UnstableApiUsage
+'appendTo(java.lang.StringBuilder, java.lang.Iterable\>)' is marked unstable with @Beta
+in `dialogue-core/src/main/java/com/palantir/dialogue/core/BaseUrl.java`
+#### Snippet
+```java
+                result.append('?');
+            }
+            QUERY_JOINER.appendTo(result, queryParams.entries());
+        }
+
+```
+
+### UnstableApiUsage
+'saturatedMultiply(int, int)' is marked unstable with @Beta
+in `dialogue-core/src/main/java/com/palantir/dialogue/core/BalancedNodeSelectionStrategyChannel.java`
+#### Snippet
+```java
+            }
+            if (snapshot.getInflight() > INFLIGHT_COMPARISON_THRESHOLD) {
+                int newThreshold = IntMath.saturatedMultiply(snapshot.getScore(), UNHEALTHY_SCORE_MULTIPLIER);
+                if (log.isDebugEnabled()) {
+                    log.debug(
+```
+
+### UnstableApiUsage
+'close()' is declared in unstable class 'com.google.common.io.Closer' marked with @Beta
+in `dialogue-apache-hc5-client/src/main/java/com/palantir/dialogue/hc5/ApacheHttpClientChannels.java`
+#### Snippet
+```java
+            // be additional closeable resources.
+            try {
+                closer.close();
+            } catch (IOException e) {
+                log.warn("Failed to close client", e);
+```
+
+### UnstableApiUsage
+'com.google.common.io.Closer' is marked unstable with @Beta
+in `dialogue-apache-hc5-client/src/main/java/com/palantir/dialogue/hc5/ApacheHttpClientChannels.java`
+#### Snippet
+```java
+        private final ExecutorService executor;
+
+        private final Closer closer = Closer.create();
+
+        private CloseableClientImpl(
+```
+
+### UnstableApiUsage
+'com.google.common.io.Closer' is marked unstable with @Beta
+in `dialogue-apache-hc5-client/src/main/java/com/palantir/dialogue/hc5/ApacheHttpClientChannels.java`
+#### Snippet
+```java
+        private final ExecutorService executor;
+
+        private final Closer closer = Closer.create();
+
+        private CloseableClientImpl(
+```
+
+### UnstableApiUsage
+'create()' is declared in unstable class 'com.google.common.io.Closer' marked with @Beta
+in `dialogue-apache-hc5-client/src/main/java/com/palantir/dialogue/hc5/ApacheHttpClientChannels.java`
+#### Snippet
+```java
+        private final ExecutorService executor;
+
+        private final Closer closer = Closer.create();
+
+        private CloseableClientImpl(
+```
+
+### UnstableApiUsage
+'register(C)' is declared in unstable class 'com.google.common.io.Closer' marked with @Beta
+in `dialogue-apache-hc5-client/src/main/java/com/palantir/dialogue/hc5/ApacheHttpClientChannels.java`
+#### Snippet
+```java
+            this.executor = executor;
+            this.clientConfiguration = clientConfiguration;
+            closer.register(() -> connectionEvictorFuture.cancel(true));
+            closer.register(apacheClient);
+            closer.register(pool);
+```
+
+### UnstableApiUsage
+'register(C)' is declared in unstable class 'com.google.common.io.Closer' marked with @Beta
+in `dialogue-apache-hc5-client/src/main/java/com/palantir/dialogue/hc5/ApacheHttpClientChannels.java`
+#### Snippet
+```java
+            this.clientConfiguration = clientConfiguration;
+            closer.register(() -> connectionEvictorFuture.cancel(true));
+            closer.register(apacheClient);
+            closer.register(pool);
+            closer.register(DialogueClientMetrics.of(clientConfiguration.taggedMetricRegistry())
+```
+
+### UnstableApiUsage
+'register(C)' is declared in unstable class 'com.google.common.io.Closer' marked with @Beta
+in `dialogue-apache-hc5-client/src/main/java/com/palantir/dialogue/hc5/ApacheHttpClientChannels.java`
+#### Snippet
+```java
+            closer.register(() -> connectionEvictorFuture.cancel(true));
+            closer.register(apacheClient);
+            closer.register(pool);
+            closer.register(DialogueClientMetrics.of(clientConfiguration.taggedMetricRegistry())
+                    .close(clientName)::mark);
+```
+
+### UnstableApiUsage
+'register(C)' is declared in unstable class 'com.google.common.io.Closer' marked with @Beta
+in `dialogue-apache-hc5-client/src/main/java/com/palantir/dialogue/hc5/ApacheHttpClientChannels.java`
+#### Snippet
+```java
+            closer.register(apacheClient);
+            closer.register(pool);
+            closer.register(DialogueClientMetrics.of(clientConfiguration.taggedMetricRegistry())
+                    .close(clientName)::mark);
+        }
+```
+
+### UnstableApiUsage
+'tryAcquire()' is declared in unstable class 'com.google.common.util.concurrent.RateLimiter' marked with @Beta
+in `dialogue-core/src/main/java/com/palantir/dialogue/core/RetryOtherValidatingChannel.java`
+#### Snippet
+```java
+        UnsafeArg<Set<String>> unsafeUris = UnsafeArg.of("uris", hosts);
+        return retryOtherUri -> {
+            if (VALIDATION_FAILED_LOGGING_LIMITER.tryAcquire()) {
+                log.info("Invalid Location header value {} {}", UnsafeArg.of("location", retryOtherUri), unsafeUris);
+            }
+```
+
+### UnstableApiUsage
+'com.google.common.util.concurrent.RateLimiter' is marked unstable with @Beta
+in `dialogue-core/src/main/java/com/palantir/dialogue/core/RetryOtherValidatingChannel.java`
+#### Snippet
+```java
+
+    private static final SafeLogger log = SafeLoggerFactory.get(RetryOtherValidatingChannel.class);
+    private static final RateLimiter VALIDATION_FAILED_LOGGING_LIMITER = RateLimiter.create(1);
+
+    private final Channel delegate;
+```
+
+### UnstableApiUsage
+'com.google.common.util.concurrent.RateLimiter' is marked unstable with @Beta
+in `dialogue-core/src/main/java/com/palantir/dialogue/core/RetryOtherValidatingChannel.java`
+#### Snippet
+```java
+
+    private static final SafeLogger log = SafeLoggerFactory.get(RetryOtherValidatingChannel.class);
+    private static final RateLimiter VALIDATION_FAILED_LOGGING_LIMITER = RateLimiter.create(1);
+
+    private final Channel delegate;
+```
+
+### UnstableApiUsage
+'create(double)' is declared in unstable class 'com.google.common.util.concurrent.RateLimiter' marked with @Beta
+in `dialogue-core/src/main/java/com/palantir/dialogue/core/RetryOtherValidatingChannel.java`
+#### Snippet
+```java
+
+    private static final SafeLogger log = SafeLoggerFactory.get(RetryOtherValidatingChannel.class);
+    private static final RateLimiter VALIDATION_FAILED_LOGGING_LIMITER = RateLimiter.create(1);
+
+    private final Channel delegate;
+```
+
+### UnstableApiUsage
+'transformAsync(com.google.common.util.concurrent.ListenableFuture*, com.google.common.util.concurrent.AsyncFunction, java.util.concurrent.Executor)' is marked unstable with @Beta*
+in `dialogue-futures/src/main/java/com/palantir/dialogue/futures/DialogueDirectAsyncTransformationFuture.java`
+#### Snippet
+```java
+    DialogueDirectAsyncTransformationFuture(ListenableFuture<I> input, AsyncFunction<? super I, ? extends O> function) {
+        this.currentFuture = input;
+        this.output = Futures.transformAsync(
+                input,
+                result -> {
+```
+
+### UnstableApiUsage
+'transformAsync(com.google.common.util.concurrent.ListenableFuture*, com.google.common.util.concurrent.AsyncFunction, java.util.concurrent.Executor)' is marked unstable with @Beta*
+in `dialogue-futures/src/main/java/com/palantir/dialogue/futures/DialogueDirectAsyncTransformationFuture.java`
+#### Snippet
+```java
+/**
+ * This {@link ListenableFuture} implementation differs from
+ * {@link Futures#transformAsync(ListenableFuture, AsyncFunction, Executor)}
+ * in two ways:
+ * Firstly, it only allows transformations on the same thread. Second, calling cancel on this future
+```
+
+### UnstableApiUsage
+'transform(com.google.common.util.concurrent.ListenableFuture*, com.google.common.base.Function, java.util.concurrent.Executor)' is marked unstable with @Beta*
+in `dialogue-futures/src/main/java/com/palantir/dialogue/futures/DialogueDirectTransformationFuture.java`
+#### Snippet
+```java
+/**
+ * This {@link ListenableFuture} implementation differs from
+ * {@link Futures#transform(ListenableFuture, com.google.common.base.Function, Executor)}
+ * in two ways:
+ * Firstly, it only allows transformations on the same thread. Second, calling cancel on this future
+```
+
+### UnstableApiUsage
+'catchingAsync(com.google.common.util.concurrent.ListenableFuture, java.lang.Class, com.google.common.util.concurrent.AsyncFunction, java.util.concurrent.Executor)' is marked unstable with @Beta
+in `dialogue-futures/src/main/java/com/palantir/dialogue/futures/DialogueDirectAsyncCatchingFuture.java`
+#### Snippet
+```java
+/**
+ * This {@link ListenableFuture} implementation differs from
+ * {@link Futures#catchingAsync(ListenableFuture, Class, AsyncFunction, Executor)}
+ * in three ways:
+ * Firstly, it only allows transformations on the same thread. Second, calling cancel on this future
+```
+
+### UnstableApiUsage
+'catchingAsync(com.google.common.util.concurrent.ListenableFuture, java.lang.Class, com.google.common.util.concurrent.AsyncFunction, java.util.concurrent.Executor)' is marked unstable with @Beta
+in `dialogue-futures/src/main/java/com/palantir/dialogue/futures/DialogueDirectAsyncCatchingFuture.java`
+#### Snippet
+```java
+    DialogueDirectAsyncCatchingFuture(ListenableFuture<T> input, AsyncFunction<? super Throwable, T> function) {
+        this.currentFuture = input;
+        this.output = Futures.catchingAsync(
+                input,
+                Throwable.class,
+```
+
+### UnstableApiUsage
+'shutdownAndAwaitTermination(java.util.concurrent.ExecutorService, long, java.util.concurrent.TimeUnit)' is marked unstable with @Beta
+in `dialogue-jmh/src/main/java/com/palantir/dialogue/core/EndToEndBenchmark.java`
+#### Snippet
+```java
+    public void after() throws IOException {
+        undertow.stop();
+        MoreExecutors.shutdownAndAwaitTermination(RetryingChannel.sharedScheduler.get(), 1, TimeUnit.SECONDS);
+        MoreExecutors.shutdownAndAwaitTermination(blockingExecutor, 1, TimeUnit.SECONDS);
+        closeableApache.close();
+```
+
+### UnstableApiUsage
+'shutdownAndAwaitTermination(java.util.concurrent.ExecutorService, long, java.util.concurrent.TimeUnit)' is marked unstable with @Beta
+in `dialogue-jmh/src/main/java/com/palantir/dialogue/core/EndToEndBenchmark.java`
+#### Snippet
+```java
+        undertow.stop();
+        MoreExecutors.shutdownAndAwaitTermination(RetryingChannel.sharedScheduler.get(), 1, TimeUnit.SECONDS);
+        MoreExecutors.shutdownAndAwaitTermination(blockingExecutor, 1, TimeUnit.SECONDS);
+        closeableApache.close();
+    }
+```
+
+### UnstableApiUsage
+'tryParse(java.lang.String)' is marked unstable with @Beta
+in `dialogue-serde/src/main/java/com/palantir/conjure/java/dialogue/serde/ErrorDecoder.java`
+#### Snippet
+```java
+            case 429:
+                return response.getFirstHeader(HttpHeaders.RETRY_AFTER)
+                        .map(Longs::tryParse)
+                        .map(Duration::ofSeconds)
+                        .map(QosException::throttle)
+```
+
+### UnstableApiUsage
+'transform(com.google.common.util.concurrent.ListenableFuture*, com.google.common.base.Function, java.util.concurrent.Executor)' is marked unstable with @Beta*
+in `simulation/src/main/java/com/palantir/dialogue/core/Benchmark.java`
+#### Snippet
+```java
+        log.warn("Fired off all requests ({} ms, {}req/sec)", ms, (1000 * requestsStarted[0]) / ms);
+
+        return Futures.transform(
+                benchmarkFinished.getFuture(),
+                _v -> {
+```
+
+### UnstableApiUsage
+'stream(java.util.Iterator)' is marked unstable with @Beta
+in `simulation/src/main/java/com/palantir/dialogue/core/Benchmark.java`
+#### Snippet
+```java
+
+    public Benchmark mergeRequestStreams(Stream<ScheduledRequest>... newRequestStreams) {
+        this.requestStream = Streams.stream(Iterators.mergeSorted(
+                Arrays.stream(newRequestStreams).map(BaseStream::iterator).collect(Collectors.toList()),
+                Comparator.comparing(ScheduledRequest::sendTimeNanos)));
+```
+
+### UnstableApiUsage
+'mergeSorted(java.lang.Iterable\>, java.util.Comparator)' is marked unstable with @Beta
+in `simulation/src/main/java/com/palantir/dialogue/core/Benchmark.java`
+#### Snippet
+```java
+
+    public Benchmark mergeRequestStreams(Stream<ScheduledRequest>... newRequestStreams) {
+        this.requestStream = Streams.stream(Iterators.mergeSorted(
+                Arrays.stream(newRequestStreams).map(BaseStream::iterator).collect(Collectors.toList()),
+                Comparator.comparing(ScheduledRequest::sendTimeNanos)));
+```
+
+### UnstableApiUsage
+'putAll(java.lang.Iterable\>)' is marked unstable with @Beta
+in `dialogue-target/src/main/java/com/palantir/dialogue/Endpoint.java`
+#### Snippet
+```java
+                        ? ImmutableListMultimap.of()
+                        : ImmutableListMultimap.<String, String>builder()
+                                .putAll(params.entrySet())
+                                .build(),
+                url);
 ```
 
