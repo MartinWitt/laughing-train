@@ -9,8 +9,8 @@ I found 7 bad smells with 2 repairable:
 | DataFlowIssue | 1 | false |
 | BoundedWildcard | 1 | false |
 | AssignmentToStaticFieldFromInstanceMethod | 1 | false |
-| MissortedModifiers | 1 | false |
 | NonProtectedConstructorInAbstractClass | 1 | true |
+| MissortedModifiers | 1 | false |
 ## RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
 ### UtilityClassWithoutPrivateConstructor
 Class `AwsSnsMessageDetailsHelper` has only 'static' members, and lacks a 'private' constructor
@@ -76,19 +76,6 @@ in `amazon-sns-trigger-server/src/main/java/jetbrains/buildServer/clouds/amazon/
 
 ```
 
-## RuleId[ruleID=MissortedModifiers]
-### MissortedModifiers
-Missorted modifiers `final static`
-in `amazon-sns-trigger-server/src/main/java/jetbrains/buildServer/clouds/amazon/sns/trigger/service/SnsMessageParameterDescriptionProvider.java`
-#### Snippet
-```java
-
-public class SnsMessageParameterDescriptionProvider extends AbstractParameterDescriptionProvider {
-    private final static String PARAM_DESCRIPTIONS_RES = "/param-descriptions.xml";
-
-    private final Map<Pattern, String> myDescriptions = new HashMap<>();
-```
-
 ## RuleId[ruleID=NonProtectedConstructorInAbstractClass]
 ### NonProtectedConstructorInAbstractClass
 Constructor `BaseAwsConnectionController()` of an abstract class should not be declared 'public'
@@ -100,5 +87,18 @@ in `amazon-sns-trigger-server/src/main/java/jetbrains/buildServer/clouds/amazon/
   public BaseAwsConnectionController(@NotNull final SBuildServer server) {
     super(server);
   }
+```
+
+## RuleId[ruleID=MissortedModifiers]
+### MissortedModifiers
+Missorted modifiers `final static`
+in `amazon-sns-trigger-server/src/main/java/jetbrains/buildServer/clouds/amazon/sns/trigger/service/SnsMessageParameterDescriptionProvider.java`
+#### Snippet
+```java
+
+public class SnsMessageParameterDescriptionProvider extends AbstractParameterDescriptionProvider {
+    private final static String PARAM_DESCRIPTIONS_RES = "/param-descriptions.xml";
+
+    private final Map<Pattern, String> myDescriptions = new HashMap<>();
 ```
 
