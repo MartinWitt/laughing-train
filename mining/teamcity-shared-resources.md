@@ -101,50 +101,14 @@ in `server/src/jetbrains/buildServer/sharedResources/model/LockType.java`
 
 ### ReturnNull
 Return of `null`
-in `server/src/jetbrains/buildServer/sharedResources/server/runtime/LocksStorageImpl.java`
+in `server/src/jetbrains/buildServer/sharedResources/pages/ResourceHelper.java`
 #### Snippet
 ```java
-                              myLocksCache.invalidate(build.getBuildPromotion());
-                              existsSet.remove(build.getBuildPromotion().getId());
-                              return null;
-                            });
-                   return null;
-```
-
-### ReturnNull
-Return of `null`
-in `server/src/jetbrains/buildServer/sharedResources/server/runtime/LocksStorageImpl.java`
-#### Snippet
-```java
-                              return null;
-                            });
-                   return null;
-                 });
-      }
-```
-
-### ReturnNull
-Return of `null`
-in `server/src/jetbrains/buildServer/sharedResources/server/runtime/LocksStorageImpl.java`
-#### Snippet
-```java
-              myLocksCache.put(buildPromotion, locksToStore);
-              existsSet.add(buildPromotion.getId());
-              return null;
-            });
-          } else {
-```
-
-### ReturnNull
-Return of `null`
-in `server/src/jetbrains/buildServer/sharedResources/server/runtime/LocksStorageImpl.java`
-#### Snippet
-```java
-          log.warn("Failed to store taken locks for build [" + buildPromotion + "]; Message is: " + e.getMessage());
-        }
-        return null;
-      });
+    Resource resource = null;
+    if (isEmptyOrSpaces(resourceId)) {
+      return null;
     }
+    if (ResourceType.QUOTED.equals(resourceType)) {
 ```
 
 ### ReturnNull
@@ -197,14 +161,50 @@ in `server/src/jetbrains/buildServer/sharedResources/pages/ResourceHelper.java`
 
 ### ReturnNull
 Return of `null`
-in `server/src/jetbrains/buildServer/sharedResources/pages/ResourceHelper.java`
+in `server/src/jetbrains/buildServer/sharedResources/server/runtime/LocksStorageImpl.java`
 #### Snippet
 ```java
-    Resource resource = null;
-    if (isEmptyOrSpaces(resourceId)) {
-      return null;
+              myLocksCache.put(buildPromotion, locksToStore);
+              existsSet.add(buildPromotion.getId());
+              return null;
+            });
+          } else {
+```
+
+### ReturnNull
+Return of `null`
+in `server/src/jetbrains/buildServer/sharedResources/server/runtime/LocksStorageImpl.java`
+#### Snippet
+```java
+          log.warn("Failed to store taken locks for build [" + buildPromotion + "]; Message is: " + e.getMessage());
+        }
+        return null;
+      });
     }
-    if (ResourceType.QUOTED.equals(resourceType)) {
+```
+
+### ReturnNull
+Return of `null`
+in `server/src/jetbrains/buildServer/sharedResources/server/runtime/LocksStorageImpl.java`
+#### Snippet
+```java
+                              myLocksCache.invalidate(build.getBuildPromotion());
+                              existsSet.remove(build.getBuildPromotion().getId());
+                              return null;
+                            });
+                   return null;
+```
+
+### ReturnNull
+Return of `null`
+in `server/src/jetbrains/buildServer/sharedResources/server/runtime/LocksStorageImpl.java`
+#### Snippet
+```java
+                              return null;
+                            });
+                   return null;
+                 });
+      }
 ```
 
 ### ReturnNull
@@ -357,6 +357,30 @@ in `server/src/jetbrains/buildServer/sharedResources/server/ConfigurationInspect
 ```
 
 ### BoundedWildcard
+Can generalize to `? extends SharedResourcesFeature`
+in `server/src/jetbrains/buildServer/sharedResources/server/feature/LocksImpl.java`
+#### Snippet
+```java
+  @NotNull
+  @Override
+  public Map<String, Lock> fromBuildFeaturesAsMap(@NotNull final Collection<SharedResourcesFeature> features) {
+    final Map<String, Lock> result = new LinkedHashMap<>();       // enforced -> my -> template
+    features.stream()
+```
+
+### BoundedWildcard
+Can generalize to `? extends Lock`
+in `server/src/jetbrains/buildServer/sharedResources/server/feature/LocksImpl.java`
+#### Snippet
+```java
+  @NotNull
+  @Override
+  public Map<String, String> asBuildParameters(@NotNull final Collection<Lock> locks) {
+    final Map<String, String> buildParams = new HashMap<>();
+    for (Lock lock: locks) {
+```
+
+### BoundedWildcard
 Can generalize to `? extends CustomResource`
 in `server/src/jetbrains/buildServer/sharedResources/server/SharedResourcesContextProcessor.java`
 #### Snippet
@@ -402,30 +426,6 @@ in `server/src/jetbrains/buildServer/sharedResources/server/SharedResourcesConte
                                                          @NotNull final Map<String, Map<String, CustomResource>> projectTreeCustomResources) {
     return projectTreeCustomResources.computeIfAbsent(projectId,
                                                       id -> projectResources.values().stream()
-```
-
-### BoundedWildcard
-Can generalize to `? extends SharedResourcesFeature`
-in `server/src/jetbrains/buildServer/sharedResources/server/feature/LocksImpl.java`
-#### Snippet
-```java
-  @NotNull
-  @Override
-  public Map<String, Lock> fromBuildFeaturesAsMap(@NotNull final Collection<SharedResourcesFeature> features) {
-    final Map<String, Lock> result = new LinkedHashMap<>();       // enforced -> my -> template
-    features.stream()
-```
-
-### BoundedWildcard
-Can generalize to `? extends Lock`
-in `server/src/jetbrains/buildServer/sharedResources/server/feature/LocksImpl.java`
-#### Snippet
-```java
-  @NotNull
-  @Override
-  public Map<String, String> asBuildParameters(@NotNull final Collection<Lock> locks) {
-    final Map<String, String> buildParams = new HashMap<>();
-    for (Lock lock: locks) {
 ```
 
 ### BoundedWildcard
@@ -553,18 +553,6 @@ in `server/src/jetbrains/buildServer/sharedResources/server/analysis/ResourceUsa
 ## RuleId[ruleID=StringEqualsEmptyString]
 ### StringEqualsEmptyString
 `equals("")` can be replaced with 'isEmpty()'
-in `server/src/jetbrains/buildServer/sharedResources/server/SharedResourcesContextProcessor.java`
-#### Snippet
-```java
-            String currentValue;
-            if (LockType.READ.equals(currentLock.getType())) {
-              if (currentLock.getValue().equals("")) { // ANY lock
-                currentValue = (String)((BuildPromotionEx)currentBuildPromotion).getAttribute(getReservedResourceAttributeKey(entry.getValue().getId()));
-                if (currentValue == null) {
-```
-
-### StringEqualsEmptyString
-`equals("")` can be replaced with 'isEmpty()'
 in `server/src/jetbrains/buildServer/sharedResources/server/feature/LocksImpl.java`
 #### Snippet
 ```java
@@ -573,6 +561,18 @@ in `server/src/jetbrains/buildServer/sharedResources/server/feature/LocksImpl.ja
     if (locksString != null && !"".equals(locksString)) {
       final List<String> serializedLocks = StringUtil.split(locksString, true, '\n');
       for (String str: serializedLocks) {
+```
+
+### StringEqualsEmptyString
+`equals("")` can be replaced with 'isEmpty()'
+in `server/src/jetbrains/buildServer/sharedResources/server/SharedResourcesContextProcessor.java`
+#### Snippet
+```java
+            String currentValue;
+            if (LockType.READ.equals(currentLock.getType())) {
+              if (currentLock.getValue().equals("")) { // ANY lock
+                currentValue = (String)((BuildPromotionEx)currentBuildPromotion).getAttribute(getReservedResourceAttributeKey(entry.getValue().getId()));
+                if (currentValue == null) {
 ```
 
 ### StringEqualsEmptyString
