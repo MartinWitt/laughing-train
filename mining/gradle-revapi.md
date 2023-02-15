@@ -59,18 +59,6 @@ in `src/main/java/com/palantir/gradle/revapi/GitVersionUtils.java`
 ## RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
 ### DynamicRegexReplaceableByCompiledPattern
 `replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/com/palantir/gradle/revapi/RevapiConfig.java`
-#### Snippet
-```java
-        String template = Utils.resourceToString(RevapiConfig.class, "revapi-configuration.json");
-
-        return fromString(template.replace(
-                "{{ARCHIVE_INCLUDE_REGEXES}}",
-                jarsToReportBreaks.getFiles().stream().map(File::getName).collect(Collectors.joining("\", \""))));
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
 in `src/main/java/com/palantir/gradle/revapi/ExceptionMessages.java`
 #### Snippet
 ```java
@@ -129,6 +117,18 @@ in `src/main/java/com/palantir/gradle/revapi/ExceptionMessages.java`
 
 ```
 
+### DynamicRegexReplaceableByCompiledPattern
+`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `src/main/java/com/palantir/gradle/revapi/RevapiConfig.java`
+#### Snippet
+```java
+        String template = Utils.resourceToString(RevapiConfig.class, "revapi-configuration.json");
+
+        return fromString(template.replace(
+                "{{ARCHIVE_INCLUDE_REGEXES}}",
+                jarsToReportBreaks.getFiles().stream().map(File::getName).collect(Collectors.joining("\", \""))));
+```
+
 ## RuleId[ruleID=SynchronizeOnThis]
 ### SynchronizeOnThis
 Lock operations on 'this' may have unforeseen side-effects
@@ -170,18 +170,6 @@ in `src/main/java/com/palantir/gradle/revapi/config/AcceptedBreak.java`
 
 ## RuleId[ruleID=BoundedWildcard]
 ### BoundedWildcard
-Can generalize to `? extends FileCollection`
-in `src/main/java/com/palantir/gradle/revapi/RevapiAnalyzeTask.java`
-#### Snippet
-```java
-    }
-
-    private static List<FileArchive> toFileArchives(Provider<FileCollection> property) {
-        return property.get().filter(File::isFile).getFiles().stream()
-                .map(FileArchive::new)
-```
-
-### BoundedWildcard
 Can generalize to `? extends T`
 in `src/main/java/com/palantir/gradle/revapi/GradleUtils.java`
 #### Snippet
@@ -191,6 +179,18 @@ in `src/main/java/com/palantir/gradle/revapi/GradleUtils.java`
         MemoizingSupplier(Supplier<T> delegate) {
             this.delegate = delegate;
         }
+```
+
+### BoundedWildcard
+Can generalize to `? extends FileCollection`
+in `src/main/java/com/palantir/gradle/revapi/RevapiAnalyzeTask.java`
+#### Snippet
+```java
+    }
+
+    private static List<FileArchive> toFileArchives(Provider<FileCollection> property) {
+        return property.get().filter(File::isFile).getFiles().stream()
+                .map(FileArchive::new)
 ```
 
 ### BoundedWildcard
@@ -243,18 +243,6 @@ public abstract class AnalysisResults {
 ```
 
 ### AbstractClassNeverImplemented
-Abstract class `RevapiConfig` has no concrete subclass
-in `src/main/java/com/palantir/gradle/revapi/RevapiConfig.java`
-#### Snippet
-```java
-@Value.Immutable
-@ImmutableStyle
-abstract class RevapiConfig {
-    private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper().registerModule(new Jdk8Module());
-
-```
-
-### AbstractClassNeverImplemented
 Abstract class `PerProjectAcceptedBreaks` has no concrete subclass
 in `src/main/java/com/palantir/gradle/revapi/config/PerProjectAcceptedBreaks.java`
 #### Snippet
@@ -264,6 +252,18 @@ in `src/main/java/com/palantir/gradle/revapi/config/PerProjectAcceptedBreaks.jav
 abstract class PerProjectAcceptedBreaks {
     @JsonValue
     @Value.NaturalOrder
+```
+
+### AbstractClassNeverImplemented
+Abstract class `RevapiConfig` has no concrete subclass
+in `src/main/java/com/palantir/gradle/revapi/RevapiConfig.java`
+#### Snippet
+```java
+@Value.Immutable
+@ImmutableStyle
+abstract class RevapiConfig {
+    private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper().registerModule(new Jdk8Module());
+
 ```
 
 ### AbstractClassNeverImplemented
