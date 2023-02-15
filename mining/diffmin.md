@@ -52,7 +52,7 @@ in `src/main/java/com/diffmin/Main.java`
 ## RuleId[ruleID=HtmlWrongAttributeValue]
 ### HtmlWrongAttributeValue
 Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-02-09-22-34-48.320.html`
+in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-02-15-15-49-51.700.html`
 #### Snippet
 ```java
               <td>0</td>
@@ -119,58 +119,34 @@ in `src/main/java/com/diffmin/patch/PatchApplication.java`
 #### Snippet
 ```java
 
+    /** Apply the update patch. */
+    private static void performUpdating(Pair<CtElement, CtElement> updatePatch) {
+        CtElement prevNode = updatePatch.getFirst();
+        CtElement newNode = updatePatch.getSecond();
+```
+
+### BoundedWildcard
+Can generalize to `? extends CtElement`
+in `src/main/java/com/diffmin/patch/PatchApplication.java`
+#### Snippet
+```java
+
+    /** Apply the update patch. */
+    private static void performUpdating(Pair<CtElement, CtElement> updatePatch) {
+        CtElement prevNode = updatePatch.getFirst();
+        CtElement newNode = updatePatch.getSecond();
+```
+
+### BoundedWildcard
+Can generalize to `? extends CtElement`
+in `src/main/java/com/diffmin/patch/PatchApplication.java`
+#### Snippet
+```java
+
     private static void performMovement(
             Pair<CtElement, ImmutableTriple<Integer, CtElement, CtElement>> movePatch) {
         CtElement toBeDeleted = movePatch.getFirst();
         ImmutableTriple<Integer, CtElement, CtElement> toBeInserted = movePatch.getSecond();
-```
-
-### BoundedWildcard
-Can generalize to `? extends CtElement`
-in `src/main/java/com/diffmin/patch/PatchApplication.java`
-#### Snippet
-```java
-    @SuppressWarnings("unchecked")
-    private static void performInsertion(
-            ImmutableTriple<Integer, CtElement, CtElement> insertPatch) {
-        int where = insertPatch.left;
-        CtElement toBeInserted = insertPatch.middle;
-```
-
-### BoundedWildcard
-Can generalize to `? extends CtElement`
-in `src/main/java/com/diffmin/patch/PatchApplication.java`
-#### Snippet
-```java
-    @SuppressWarnings("unchecked")
-    private static void performInsertion(
-            ImmutableTriple<Integer, CtElement, CtElement> insertPatch) {
-        int where = insertPatch.left;
-        CtElement toBeInserted = insertPatch.middle;
-```
-
-### BoundedWildcard
-Can generalize to `? extends CtElement`
-in `src/main/java/com/diffmin/patch/PatchApplication.java`
-#### Snippet
-```java
-
-    /** Apply the update patch. */
-    private static void performUpdating(Pair<CtElement, CtElement> updatePatch) {
-        CtElement prevNode = updatePatch.getFirst();
-        CtElement newNode = updatePatch.getSecond();
-```
-
-### BoundedWildcard
-Can generalize to `? extends CtElement`
-in `src/main/java/com/diffmin/patch/PatchApplication.java`
-#### Snippet
-```java
-
-    /** Apply the update patch. */
-    private static void performUpdating(Pair<CtElement, CtElement> updatePatch) {
-        CtElement prevNode = updatePatch.getFirst();
-        CtElement newNode = updatePatch.getSecond();
 ```
 
 ### BoundedWildcard
@@ -207,6 +183,30 @@ in `src/main/java/com/diffmin/patch/PatchApplication.java`
             List<Pair<CtElement, ImmutableTriple<Integer, CtElement, CtElement>>> movePatches) {
         deletePatches.forEach(PatchApplication::performDeletion);
         updatePatches.forEach(PatchApplication::performUpdating);
+```
+
+### BoundedWildcard
+Can generalize to `? extends CtElement`
+in `src/main/java/com/diffmin/patch/PatchApplication.java`
+#### Snippet
+```java
+    @SuppressWarnings("unchecked")
+    private static void performInsertion(
+            ImmutableTriple<Integer, CtElement, CtElement> insertPatch) {
+        int where = insertPatch.left;
+        CtElement toBeInserted = insertPatch.middle;
+```
+
+### BoundedWildcard
+Can generalize to `? extends CtElement`
+in `src/main/java/com/diffmin/patch/PatchApplication.java`
+#### Snippet
+```java
+    @SuppressWarnings("unchecked")
+    private static void performInsertion(
+            ImmutableTriple<Integer, CtElement, CtElement> insertPatch) {
+        int where = insertPatch.left;
+        CtElement toBeInserted = insertPatch.middle;
 ```
 
 ## RuleId[ruleID=OptionalGetWithoutIsPresent]
