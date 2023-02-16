@@ -96,18 +96,6 @@ public abstract class NonOrderableSlsVersion extends SlsVersion {
 ```
 
 ### AbstractClassNeverImplemented
-Abstract class `SlsVersion` has no concrete subclass
-in `sls-versions/src/main/java/com/palantir/sls/versions/SlsVersion.java`
-#### Snippet
-```java
-import org.immutables.value.Value;
-
-public abstract class SlsVersion implements Serializable {
-
-    @JsonCreator
-```
-
-### AbstractClassNeverImplemented
 Abstract class `OrderableSlsVersion` has no concrete subclass
 in `sls-versions/src/main/java/com/palantir/sls/versions/OrderableSlsVersion.java`
 #### Snippet
@@ -129,6 +117,18 @@ in `sls-versions/src/main/java/com/palantir/sls/versions/SlsVersionMatcher.java`
 public abstract class SlsVersionMatcher {
 
     private static final SafeLogger log = SafeLoggerFactory.get(SlsVersionMatcher.class);
+```
+
+### AbstractClassNeverImplemented
+Abstract class `SlsVersion` has no concrete subclass
+in `sls-versions/src/main/java/com/palantir/sls/versions/SlsVersion.java`
+#### Snippet
+```java
+import org.immutables.value.Value;
+
+public abstract class SlsVersion implements Serializable {
+
+    @JsonCreator
 ```
 
 ## RuleId[ruleID=MethodOverridesStaticMethod]
