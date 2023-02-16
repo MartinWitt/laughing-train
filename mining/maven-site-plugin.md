@@ -20,8 +20,8 @@ I found 56 bad smells with 6 repairable:
 | DeprecatedIsStillUsed | 1 | false |
 | GroovyUnusedAssignment | 1 | false |
 | HtmlWrongAttributeValue | 1 | false |
-| ConstantValue | 1 | false |
 | StringEqualsEmptyString | 1 | false |
+| ConstantValue | 1 | false |
 ## RuleId[ruleID=ToArrayCallWithZeroLengthArrayArgument]
 ### ToArrayCallWithZeroLengthArrayArgument
 Call to `toArray()` with pre-sized array argument 'new ReportPlugin\[reportingPlugins.size()\]'
@@ -288,7 +288,7 @@ in `src/it/projects/full-reporting/verify.groovy`
 ## RuleId[ruleID=HtmlWrongAttributeValue]
 ### HtmlWrongAttributeValue
 Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-02-14-22-36-50.220.html`
+in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-02-16-05-05-12.895.html`
 #### Snippet
 ```java
               <td>0</td>
@@ -400,18 +400,6 @@ Return of `null`
 in `src/main/java/org/apache/maven/plugins/site/render/ReportDocumentRenderer.java`
 #### Snippet
 ```java
-        public Sink createSink(File arg0, String arg1, String arg2) throws IOException {
-            // Not used
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/maven/plugins/site/render/ReportDocumentRenderer.java`
-#### Snippet
-```java
         public Sink createSink(OutputStream arg0) throws IOException {
             // Not used
             return null;
@@ -425,6 +413,18 @@ in `src/main/java/org/apache/maven/plugins/site/render/ReportDocumentRenderer.ja
 #### Snippet
 ```java
         public Sink createSink(OutputStream arg0, String arg1) throws IOException {
+            // Not used
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/maven/plugins/site/render/ReportDocumentRenderer.java`
+#### Snippet
+```java
+        public Sink createSink(File arg0, String arg1, String arg2) throws IOException {
             // Not used
             return null;
         }
@@ -558,11 +558,11 @@ Can generalize to `? extends MavenReport`
 in `src/main/java/org/apache/maven/plugins/site/render/AbstractSiteRenderingMojo.java`
 #### Snippet
 ```java
-     * @return A map keyed category having the report itself as value
-     */
-    protected Map<String, List<MavenReport>> categoriseReports(Collection<MavenReport> reports) {
-        Map<String, List<MavenReport>> categories = new LinkedHashMap<>();
-        for (MavenReport report : reports) {
+    }
+
+    private void populateItemRefs(List<MenuItem> items, Locale locale, Map<String, MavenReport> reportsByOutputName) {
+        for (Iterator<MenuItem> i = items.iterator(); i.hasNext(); ) {
+            MenuItem item = i.next();
 ```
 
 ### BoundedWildcard
@@ -570,11 +570,11 @@ Can generalize to `? extends MavenReport`
 in `src/main/java/org/apache/maven/plugins/site/render/AbstractSiteRenderingMojo.java`
 #### Snippet
 ```java
-    }
-
-    private void populateItemRefs(List<MenuItem> items, Locale locale, Map<String, MavenReport> reportsByOutputName) {
-        for (Iterator<MenuItem> i = items.iterator(); i.hasNext(); ) {
-            MenuItem item = i.next();
+     * @return A map keyed category having the report itself as value
+     */
+    protected Map<String, List<MavenReport>> categoriseReports(Collection<MavenReport> reports) {
+        Map<String, List<MavenReport>> categories = new LinkedHashMap<>();
+        for (MavenReport report : reports) {
 ```
 
 ### BoundedWildcard
@@ -613,19 +613,6 @@ in `src/main/java/org/apache/maven/plugins/site/render/AbstractSiteRenderingMojo
         for (MavenReportExecution mavenReportExecution : reports) {
 ```
 
-## RuleId[ruleID=ConstantValue]
-### ConstantValue
-Condition `proxyInfo == null` is always `true`
-in `src/main/java/org/apache/maven/plugins/site/deploy/AbstractDeployMojo.java`
-#### Snippet
-```java
-                getLog().debug("connect with proxyInfo");
-                wagon.connect(repository, authenticationInfo, proxyInfo);
-            } else if (proxyInfo == null && authenticationInfo != null) {
-                getLog().debug("connect with authenticationInfo and without proxyInfo");
-                wagon.connect(repository, authenticationInfo);
-```
-
 ## RuleId[ruleID=StringEqualsEmptyString]
 ### StringEqualsEmptyString
 `equals("")` can be replaced with 'isEmpty()'
@@ -639,6 +626,19 @@ in `src/main/java/org/apache/maven/plugins/site/deploy/AbstractDeployMojo.java`
 
 ```
 
+## RuleId[ruleID=ConstantValue]
+### ConstantValue
+Condition `proxyInfo == null` is always `true`
+in `src/main/java/org/apache/maven/plugins/site/deploy/AbstractDeployMojo.java`
+#### Snippet
+```java
+                getLog().debug("connect with proxyInfo");
+                wagon.connect(repository, authenticationInfo, proxyInfo);
+            } else if (proxyInfo == null && authenticationInfo != null) {
+                getLog().debug("connect with authenticationInfo and without proxyInfo");
+                wagon.connect(repository, authenticationInfo);
+```
+
 ## RuleId[ruleID=IgnoreResultOfCall]
 ### IgnoreResultOfCall
 Result of `File.mkdirs()` is ignored
@@ -650,18 +650,6 @@ in `src/main/java/org/apache/maven/plugins/site/deploy/SiteStageMojo.java`
             outputDirectory.mkdirs();
         }
 
-```
-
-### IgnoreResultOfCall
-Result of `File.mkdirs()` is ignored
-in `src/main/java/org/apache/maven/plugins/site/run/SiteRunMojo.java`
-#### Snippet
-```java
-    private WebAppContext createWebApplication() throws MojoExecutionException {
-        File webXml = new File(tempWebappDirectory, "WEB-INF/web.xml");
-        webXml.getParentFile().mkdirs();
-
-        try (InputStream inStream = getClass().getResourceAsStream("/run/web.xml"); //
 ```
 
 ### IgnoreResultOfCall
@@ -698,6 +686,18 @@ in `src/main/java/org/apache/maven/plugins/site/render/ReportDocumentRenderer.ja
                     mySink.getOutputDir().mkdirs();
                 }
 
+```
+
+### IgnoreResultOfCall
+Result of `File.mkdirs()` is ignored
+in `src/main/java/org/apache/maven/plugins/site/run/SiteRunMojo.java`
+#### Snippet
+```java
+    private WebAppContext createWebApplication() throws MojoExecutionException {
+        File webXml = new File(tempWebappDirectory, "WEB-INF/web.xml");
+        webXml.getParentFile().mkdirs();
+
+        try (InputStream inStream = getClass().getResourceAsStream("/run/web.xml"); //
 ```
 
 ### IgnoreResultOfCall
