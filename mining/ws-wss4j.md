@@ -1,7 +1,7 @@
 # ws-wss4j 
  
 # Bad smells
-I found 1494 bad smells with 151 repairable:
+I found 1493 bad smells with 151 repairable:
 | ruleID | number | fixable |
 | --- | --- | --- |
 | UnnecessaryFullyQualifiedName | 377 | false |
@@ -63,7 +63,6 @@ I found 1494 bad smells with 151 repairable:
 | ManualMinMaxCalculation | 1 | false |
 | ExplicitArrayFilling | 1 | false |
 | IgnoreResultOfCall | 1 | false |
-| HtmlWrongAttributeValue | 1 | false |
 | InstanceofCatchParameter | 1 | false |
 | NonFinalFieldOfException | 1 | false |
 | UtilityClassWithoutPrivateConstructor | 1 | true |
@@ -333,30 +332,6 @@ in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/processor/input/WS
 ```
 
 ### StaticCallOnSubclass
-Static method `getJCEKeyAlgorithmFromURI()` declared in class 'org.apache.xml.security.algorithms.JCEMapper' but referenced via subclass 'org.apache.xml.security.stax.config.JCEAlgorithmMapper'
-in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/processor/input/SAMLTokenInputHandler.java`
-#### Snippet
-```java
-                    Key key = super.getKey(algorithmURI, algorithmUsage, correlationID);
-                    if (key == null) {
-                        String algoFamily = JCEAlgorithmMapper.getJCEKeyAlgorithmFromURI(algorithmURI);
-                        key = new SecretKeySpec(XMLUtils.decode(stringBuilder.toString()), algoFamily);
-                        setSecretKey(algorithmURI, key);
-```
-
-### StaticCallOnSubclass
-Static method `getJaxbUnmarshaller()` declared in class 'org.apache.xml.security.stax.ext.XMLSecurityConstants' but referenced via subclass 'org.apache.wss4j.stax.ext.WSSConstants'
-in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/processor/input/SAMLTokenInputHandler.java`
-#### Snippet
-```java
-            Object object = null;
-            try {
-                Unmarshaller unmarshaller = WSSConstants.getJaxbUnmarshaller(securityProperties.isDisableSchemaValidation());
-                object = unmarshaller.unmarshal(new XMLSecurityEventReader(eventQueue, idx));
-            } catch (JAXBException e) {
-```
-
-### StaticCallOnSubclass
 Static method `dropReferenceMarker()` declared in class 'org.apache.xml.security.stax.ext.XMLSecurityUtils' but referenced via subclass 'org.apache.wss4j.stax.utils.WSSUtils'
 in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/processor/input/DecryptInputProcessor.java`
 #### Snippet
@@ -393,6 +368,30 @@ in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/processor/output/W
 ```
 
 ### StaticCallOnSubclass
+Static method `getJaxbUnmarshaller()` declared in class 'org.apache.xml.security.stax.ext.XMLSecurityConstants' but referenced via subclass 'org.apache.wss4j.stax.ext.WSSConstants'
+in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/processor/input/SAMLTokenInputHandler.java`
+#### Snippet
+```java
+            Object object = null;
+            try {
+                Unmarshaller unmarshaller = WSSConstants.getJaxbUnmarshaller(securityProperties.isDisableSchemaValidation());
+                object = unmarshaller.unmarshal(new XMLSecurityEventReader(eventQueue, idx));
+            } catch (JAXBException e) {
+```
+
+### StaticCallOnSubclass
+Static method `getJCEKeyAlgorithmFromURI()` declared in class 'org.apache.xml.security.algorithms.JCEMapper' but referenced via subclass 'org.apache.xml.security.stax.config.JCEAlgorithmMapper'
+in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/processor/input/SAMLTokenInputHandler.java`
+#### Snippet
+```java
+                    Key key = super.getKey(algorithmURI, algorithmUsage, correlationID);
+                    if (key == null) {
+                        String algoFamily = JCEAlgorithmMapper.getJCEKeyAlgorithmFromURI(algorithmURI);
+                        key = new SecretKeySpec(XMLUtils.decode(stringBuilder.toString()), algoFamily);
+                        setSecretKey(algorithmURI, key);
+```
+
+### StaticCallOnSubclass
 Static method `translateURItoJCEID()` declared in class 'org.apache.xml.security.algorithms.JCEMapper' but referenced via subclass 'org.apache.xml.security.stax.config.JCEAlgorithmMapper'
 in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/processor/output/EncryptOutputProcessor.java`
 #### Snippet
@@ -418,6 +417,18 @@ in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/processor/output/U
 
 ### StaticCallOnSubclass
 Static method `getJCEKeyAlgorithmFromURI()` declared in class 'org.apache.xml.security.algorithms.JCEMapper' but referenced via subclass 'org.apache.xml.security.stax.config.JCEAlgorithmMapper'
+in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/processor/output/SAMLTokenOutputProcessor.java`
+#### Snippet
+```java
+                        byte[] secretKey = getSecretKeyUsingCallback();
+                        if (secretKey != null && secretKey.length > 0) {
+                            String algoFamily = JCEAlgorithmMapper.getJCEKeyAlgorithmFromURI(algorithmURI);
+                            key = new SecretKeySpec(secretKey, algoFamily);
+                            setSecretKey(algorithmURI, key);
+```
+
+### StaticCallOnSubclass
+Static method `getJCEKeyAlgorithmFromURI()` declared in class 'org.apache.xml.security.algorithms.JCEMapper' but referenced via subclass 'org.apache.xml.security.stax.config.JCEAlgorithmMapper'
 in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/securityToken/OutboundUsernameSecurityToken.java`
 #### Snippet
 ```java
@@ -426,6 +437,30 @@ in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/securityToken/Outb
         String algoFamily = JCEAlgorithmMapper.getJCEKeyAlgorithmFromURI(algorithmURI);
         key = new SecretKeySpec(secretToken, algoFamily);
         setSecretKey(algorithmURI, key);
+```
+
+### StaticCallOnSubclass
+Static method `getJCEKeyAlgorithmFromURI()` declared in class 'org.apache.xml.security.algorithms.JCEMapper' but referenced via subclass 'org.apache.xml.security.stax.config.JCEAlgorithmMapper'
+in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/securityToken/UsernameSecurityTokenImpl.java`
+#### Snippet
+```java
+
+        byte[] secretToken = generateDerivedKey(wsInboundSecurityContext);
+        String algoFamily = JCEAlgorithmMapper.getJCEKeyAlgorithmFromURI(algorithmURI);
+        key = new SecretKeySpec(secretToken, algoFamily);
+        setSecretKey(algorithmURI, key);
+```
+
+### StaticCallOnSubclass
+Static method `getJCEKeyAlgorithmFromURI()` declared in class 'org.apache.xml.security.algorithms.JCEMapper' but referenced via subclass 'org.apache.xml.security.stax.config.JCEAlgorithmMapper'
+in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/processor/output/DerivedKeyTokenOutputProcessor.java`
+#### Snippet
+```java
+                        return key;
+                    }
+                    String algoFamily = JCEAlgorithmMapper.getJCEKeyAlgorithmFromURI(algorithmURI);
+                    key = new SecretKeySpec(derivedKeyBytes, algoFamily);
+                    setSecretKey(algorithmURI, key);
 ```
 
 ### StaticCallOnSubclass
@@ -465,18 +500,6 @@ in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/processor/output/D
 ```
 
 ### StaticCallOnSubclass
-Static method `getJCEKeyAlgorithmFromURI()` declared in class 'org.apache.xml.security.algorithms.JCEMapper' but referenced via subclass 'org.apache.xml.security.stax.config.JCEAlgorithmMapper'
-in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/processor/output/DerivedKeyTokenOutputProcessor.java`
-#### Snippet
-```java
-                        return key;
-                    }
-                    String algoFamily = JCEAlgorithmMapper.getJCEKeyAlgorithmFromURI(algorithmURI);
-                    key = new SecretKeySpec(derivedKeyBytes, algoFamily);
-                    setSecretKey(algorithmURI, key);
-```
-
-### StaticCallOnSubclass
 Static method `createX509IssuerSerialStructure()` declared in class 'org.apache.xml.security.stax.ext.XMLSecurityUtils' but referenced via subclass 'org.apache.wss4j.stax.utils.WSSUtils'
 in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/processor/output/DerivedKeyTokenOutputProcessor.java`
 #### Snippet
@@ -486,30 +509,6 @@ in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/processor/output/D
                 WSSUtils.createX509IssuerSerialStructure(this, outputProcessorChain, x509Certificates);
             } else if (WSSecurityTokenConstants.KeyIdentifier_SkiKeyIdentifier.equals(keyIdentifier)) {
                 WSSUtils.createX509SubjectKeyIdentifierStructure(this, outputProcessorChain, x509Certificates);
-```
-
-### StaticCallOnSubclass
-Static method `getJCEKeyAlgorithmFromURI()` declared in class 'org.apache.xml.security.algorithms.JCEMapper' but referenced via subclass 'org.apache.xml.security.stax.config.JCEAlgorithmMapper'
-in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/processor/output/SAMLTokenOutputProcessor.java`
-#### Snippet
-```java
-                        byte[] secretKey = getSecretKeyUsingCallback();
-                        if (secretKey != null && secretKey.length > 0) {
-                            String algoFamily = JCEAlgorithmMapper.getJCEKeyAlgorithmFromURI(algorithmURI);
-                            key = new SecretKeySpec(secretKey, algoFamily);
-                            setSecretKey(algorithmURI, key);
-```
-
-### StaticCallOnSubclass
-Static method `getJCEKeyAlgorithmFromURI()` declared in class 'org.apache.xml.security.algorithms.JCEMapper' but referenced via subclass 'org.apache.xml.security.stax.config.JCEAlgorithmMapper'
-in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/securityToken/UsernameSecurityTokenImpl.java`
-#### Snippet
-```java
-
-        byte[] secretToken = generateDerivedKey(wsInboundSecurityContext);
-        String algoFamily = JCEAlgorithmMapper.getJCEKeyAlgorithmFromURI(algorithmURI);
-        key = new SecretKeySpec(secretToken, algoFamily);
-        setSecretKey(algorithmURI, key);
 ```
 
 ### StaticCallOnSubclass
@@ -573,6 +572,18 @@ in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/processor/output/E
 ```
 
 ### StaticCallOnSubclass
+Static method `dropReferenceMarker()` declared in class 'org.apache.xml.security.stax.ext.XMLSecurityUtils' but referenced via subclass 'org.apache.wss4j.stax.utils.WSSUtils'
+in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/securityToken/SecurityTokenFactoryImpl.java`
+#### Snippet
+```java
+            ((WSInboundSecurityContext) inboundSecurityContext).handleBSPRule(BSPRule.R5204);
+        }
+        uri = WSSUtils.dropReferenceMarker(uri);
+        //referenced BST:*/
+        //we have to search BST somewhere in the doc. First we will check for a BST already processed and
+```
+
+### StaticCallOnSubclass
 Static method `setJaxbContext()` declared in class 'org.apache.xml.security.stax.ext.XMLSecurityConstants' but referenced via subclass 'org.apache.wss4j.stax.ext.WSSConstants'
 in `ws-security-stax/src/main/java/org/apache/wss4j/stax/setup/WSSec.java`
 #### Snippet
@@ -594,18 +605,6 @@ in `ws-security-stax/src/main/java/org/apache/wss4j/stax/setup/WSSec.java`
             WSSConstants.setJaxbSchemas(schema);
         } catch (XMLSecurityException | JAXBException
             | SAXException | URISyntaxException e) {
-```
-
-### StaticCallOnSubclass
-Static method `dropReferenceMarker()` declared in class 'org.apache.xml.security.stax.ext.XMLSecurityUtils' but referenced via subclass 'org.apache.wss4j.stax.utils.WSSUtils'
-in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/securityToken/SecurityTokenFactoryImpl.java`
-#### Snippet
-```java
-            ((WSInboundSecurityContext) inboundSecurityContext).handleBSPRule(BSPRule.R5204);
-        }
-        uri = WSSUtils.dropReferenceMarker(uri);
-        //referenced BST:*/
-        //we have to search BST somewhere in the doc. First we will check for a BST already processed and
 ```
 
 ### StaticCallOnSubclass
@@ -647,14 +646,50 @@ in `ws-security-stax/src/main/java/org/apache/wss4j/stax/setup/OutboundWSSec.jav
 ## RuleId[ruleID=WhileCanBeForeach]
 ### WhileCanBeForeach
 `while` loop can be replaced with enhanced 'for'
-in `ws-security-common/src/main/java/org/apache/wss4j/common/util/AttachmentUtils.java`
+in `policy/src/main/java/org/apache/wss4j/policy/model/RequiredElements.java`
 #### Snippet
 ```java
+            Iterator<Map.Entry<String, String>> namespaceIterator =
+                xPath.getPrefixNamespaceMap().entrySet().iterator();
+            while (namespaceIterator.hasNext()) {
+                Map.Entry<String, String> namespaceEntry = namespaceIterator.next();
+                writer.writeNamespace(namespaceEntry.getKey(), namespaceEntry.getValue());
+```
 
-        Iterator<Map.Entry<String, String>> iterator = paramMap.entrySet().iterator();
-        while (iterator.hasNext()) {
-            Map.Entry<String, String> next = iterator.next();
-            stringBuilder.append(SEMICOLON);
+### WhileCanBeForeach
+`while` loop can be replaced with enhanced 'for'
+in `ws-security-dom/src/main/java/org/apache/wss4j/dom/transform/STRTransform.java`
+#### Snippet
+```java
+                NodeSetData nodeSetData = (NodeSetData)data;
+                Iterator<?> iterator = nodeSetData.iterator();
+                while (iterator.hasNext()) {
+                    Node node = (Node)iterator.next();
+                    if (node instanceof Element && "SecurityTokenReference".equals(node.getLocalName())) {
+```
+
+### WhileCanBeForeach
+`while` loop can be replaced with enhanced 'for'
+in `ws-security-dom/src/main/java/org/apache/wss4j/dom/processor/SignatureProcessor.java`
+#### Snippet
+```java
+                        java.util.Iterator<?> iter = data.iterator();
+
+                        while (iter.hasNext()) {
+                            Node n = (Node)iter.next();
+                            if (n instanceof Element) {
+```
+
+### WhileCanBeForeach
+`while` loop can be replaced with enhanced 'for'
+in `ws-security-dom/src/main/java/org/apache/wss4j/dom/processor/SignatureProcessor.java`
+#### Snippet
+```java
+                java.util.Iterator<?> referenceIterator =
+                    xmlSignature.getSignedInfo().getReferences().iterator();
+                while (referenceIterator.hasNext()) {
+                    Reference reference = (Reference)referenceIterator.next();
+                    boolean referenceValidationCheck = reference.validate(context);
 ```
 
 ### WhileCanBeForeach
@@ -683,6 +718,18 @@ in `ws-security-common/src/main/java/org/apache/wss4j/common/util/AttachmentUtil
 
 ### WhileCanBeForeach
 `while` loop can be replaced with enhanced 'for'
+in `ws-security-common/src/main/java/org/apache/wss4j/common/util/AttachmentUtils.java`
+#### Snippet
+```java
+
+        Iterator<Map.Entry<String, String>> iterator = paramMap.entrySet().iterator();
+        while (iterator.hasNext()) {
+            Map.Entry<String, String> next = iterator.next();
+            stringBuilder.append(SEMICOLON);
+```
+
+### WhileCanBeForeach
+`while` loop can be replaced with enhanced 'for'
 in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/processor/input/WSSSignatureInputHandler.java`
 #### Snippet
 ```java
@@ -695,26 +742,14 @@ in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/processor/input/WS
 
 ### WhileCanBeForeach
 `while` loop can be replaced with enhanced 'for'
-in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/processor/output/EncryptEndingOutputProcessor.java`
+in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/processor/input/DecryptInputProcessor.java`
 #### Snippet
 ```java
-        int count = 0;
-        Iterator<EncryptionPartDef> encryptionPartDefIterator = encryptionPartDefs.iterator();
-        while (encryptionPartDefIterator.hasNext()) {
-            EncryptionPartDef encryptionPartDef = encryptionPartDefIterator.next();
-
-```
-
-### WhileCanBeForeach
-`while` loop can be replaced with enhanced 'for'
-in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/processor/input/SAMLTokenInputHandler.java`
-#### Snippet
-```java
-                            }
-                            Iterator<Map.Entry<String, Key>> iterator = keyMap.entrySet().iterator();
-                            while (iterator.hasNext()) {
-                                Map.Entry<String, Key> next = iterator.next();
-                                if (next.getValue().equals(subjectSecretKey)) {
+            List<JAXBElement<ReferenceType>> references = referenceList.getDataReferenceOrKeyReference();
+            Iterator<JAXBElement<ReferenceType>> referenceTypeIterator = references.iterator();
+            while (referenceTypeIterator.hasNext()) {
+                ReferenceType referenceType = referenceTypeIterator.next().getValue();
+                if (!referenceType.getURI().startsWith("#")) {
 ```
 
 ### WhileCanBeForeach
@@ -743,26 +778,26 @@ in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/processor/input/De
 
 ### WhileCanBeForeach
 `while` loop can be replaced with enhanced 'for'
-in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/processor/input/DecryptInputProcessor.java`
+in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/processor/output/EncryptEndingOutputProcessor.java`
 #### Snippet
 ```java
-            List<JAXBElement<ReferenceType>> references = referenceList.getDataReferenceOrKeyReference();
-            Iterator<JAXBElement<ReferenceType>> referenceTypeIterator = references.iterator();
-            while (referenceTypeIterator.hasNext()) {
-                ReferenceType referenceType = referenceTypeIterator.next().getValue();
-                if (!referenceType.getURI().startsWith("#")) {
+        int count = 0;
+        Iterator<EncryptionPartDef> encryptionPartDefIterator = encryptionPartDefs.iterator();
+        while (encryptionPartDefIterator.hasNext()) {
+            EncryptionPartDef encryptionPartDef = encryptionPartDefIterator.next();
+
 ```
 
 ### WhileCanBeForeach
 `while` loop can be replaced with enhanced 'for'
-in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/processor/output/SecurityHeaderReorderProcessor.java`
+in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/processor/input/SAMLTokenInputHandler.java`
 #### Snippet
 ```java
-                    Map.Entry<XMLSecurityConstants.Action, Map<SecurityHeaderOrder, Deque<XMLSecEvent>>> next = iterator.next();
-                    Iterator<Map.Entry<SecurityHeaderOrder, Deque<XMLSecEvent>>> entryIterator = next.getValue().entrySet().iterator();
-                    while (entryIterator.hasNext()) {
-                        Map.Entry<SecurityHeaderOrder, Deque<XMLSecEvent>> entry = entryIterator.next();
-                        Deque<XMLSecEvent> xmlSecEvents = entry.getValue();
+                            }
+                            Iterator<Map.Entry<String, Key>> iterator = keyMap.entrySet().iterator();
+                            while (iterator.hasNext()) {
+                                Map.Entry<String, Key> next = iterator.next();
+                                if (next.getValue().equals(subjectSecretKey)) {
 ```
 
 ### WhileCanBeForeach
@@ -779,14 +814,38 @@ in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/InboundWSSecurityC
 
 ### WhileCanBeForeach
 `while` loop can be replaced with enhanced 'for'
-in `ws-security-stax/src/main/java/org/apache/wss4j/stax/utils/WSSUtils.java`
+in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/processor/output/SecurityHeaderReorderProcessor.java`
 #### Snippet
 ```java
-        //output the references to the encrypted data:
-        Iterator<EncryptionPartDef> encryptionPartDefIterator = encryptionPartDefs.iterator();
-        while (encryptionPartDefIterator.hasNext()) {
-            EncryptionPartDef encryptionPartDef = encryptionPartDefIterator.next();
+                    Map.Entry<XMLSecurityConstants.Action, Map<SecurityHeaderOrder, Deque<XMLSecEvent>>> next = iterator.next();
+                    Iterator<Map.Entry<SecurityHeaderOrder, Deque<XMLSecEvent>>> entryIterator = next.getValue().entrySet().iterator();
+                    while (entryIterator.hasNext()) {
+                        Map.Entry<SecurityHeaderOrder, Deque<XMLSecEvent>> entry = entryIterator.next();
+                        Deque<XMLSecEvent> xmlSecEvents = entry.getValue();
+```
 
+### WhileCanBeForeach
+`while` loop can be replaced with enhanced 'for'
+in `ws-security-policy-stax/src/main/java/org/apache/wss4j/policy/stax/assertionStates/RequiredElementsAssertionState.java`
+#### Snippet
+```java
+
+        Iterator<Map.Entry<List<QName>, Boolean>> elementMapIterator = pathElements.entrySet().iterator();
+        while (elementMapIterator.hasNext()) {
+            Map.Entry<List<QName>, Boolean> next = elementMapIterator.next();
+            List<QName> qNameList = next.getKey();
+```
+
+### WhileCanBeForeach
+`while` loop can be replaced with enhanced 'for'
+in `ws-security-policy-stax/src/main/java/org/apache/wss4j/policy/stax/assertionStates/RequiredElementsAssertionState.java`
+#### Snippet
+```java
+        clearErrorMessage();
+        Iterator<Map.Entry<List<QName>, Boolean>> elementMapIterator = pathElements.entrySet().iterator();
+        while (elementMapIterator.hasNext()) {
+            Map.Entry<List<QName>, Boolean> next = elementMapIterator.next();
+            if (Boolean.FALSE.equals(next.getValue())) {
 ```
 
 ### WhileCanBeForeach
@@ -815,62 +874,38 @@ in `ws-security-stax/src/main/java/org/apache/wss4j/stax/utils/WSSUtils.java`
 
 ### WhileCanBeForeach
 `while` loop can be replaced with enhanced 'for'
-in `ws-security-stax/src/main/java/org/apache/wss4j/stax/setup/InboundWSSec.java`
+in `ws-security-stax/src/main/java/org/apache/wss4j/stax/utils/WSSUtils.java`
 #### Snippet
 ```java
-            try {
-                Iterator<SecurityEvent> securityEventIterator = requestSecurityEvents.iterator();
-                while (securityEventIterator.hasNext()) {
-                    SecurityEvent securityEvent = securityEventIterator.next();
-                    if (securityEvent instanceof TokenSecurityEvent) {
+        //output the references to the encrypted data:
+        Iterator<EncryptionPartDef> encryptionPartDefIterator = encryptionPartDefs.iterator();
+        while (encryptionPartDefIterator.hasNext()) {
+            EncryptionPartDef encryptionPartDef = encryptionPartDefIterator.next();
+
 ```
 
 ### WhileCanBeForeach
 `while` loop can be replaced with enhanced 'for'
-in `ws-security-stax/src/main/java/org/apache/wss4j/stax/setup/InboundWSSec.java`
+in `ws-security-policy-stax/src/main/java/org/apache/wss4j/policy/stax/enforcer/PolicyEnforcerFactory.java`
 #### Snippet
 ```java
-        if (!additionalInputProcessors.isEmpty()) {
-            Iterator<InputProcessor> inputProcessorIterator = additionalInputProcessors.iterator();
-            while (inputProcessorIterator.hasNext()) {
-                InputProcessor inputProcessor = inputProcessorIterator.next();
-                inputProcessorChain.addProcessor(inputProcessor);
+        @SuppressWarnings({"unchecked", "rawtypes"})
+        Iterator<Map.Entry> services = wsdlDefinition.getAllServices().entrySet().iterator();
+        while (services.hasNext()) {
+            @SuppressWarnings("unchecked")
+            Map.Entry<QName, Service> serviceEntry = services.next();
 ```
 
 ### WhileCanBeForeach
 `while` loop can be replaced with enhanced 'for'
-in `policy/src/main/java/org/apache/wss4j/policy/model/RequiredElements.java`
+in `ws-security-policy-stax/src/main/java/org/apache/wss4j/policy/stax/enforcer/PolicyEnforcerFactory.java`
 #### Snippet
 ```java
-            Iterator<Map.Entry<String, String>> namespaceIterator =
-                xPath.getPrefixNamespaceMap().entrySet().iterator();
-            while (namespaceIterator.hasNext()) {
-                Map.Entry<String, String> namespaceEntry = namespaceIterator.next();
-                writer.writeNamespace(namespaceEntry.getKey(), namespaceEntry.getValue());
-```
-
-### WhileCanBeForeach
-`while` loop can be replaced with enhanced 'for'
-in `ws-security-policy-stax/src/main/java/org/apache/wss4j/policy/stax/assertionStates/RequiredElementsAssertionState.java`
-#### Snippet
-```java
-        clearErrorMessage();
-        Iterator<Map.Entry<List<QName>, Boolean>> elementMapIterator = pathElements.entrySet().iterator();
-        while (elementMapIterator.hasNext()) {
-            Map.Entry<List<QName>, Boolean> next = elementMapIterator.next();
-            if (Boolean.FALSE.equals(next.getValue())) {
-```
-
-### WhileCanBeForeach
-`while` loop can be replaced with enhanced 'for'
-in `ws-security-policy-stax/src/main/java/org/apache/wss4j/policy/stax/assertionStates/RequiredElementsAssertionState.java`
-#### Snippet
-```java
-
-        Iterator<Map.Entry<List<QName>, Boolean>> elementMapIterator = pathElements.entrySet().iterator();
-        while (elementMapIterator.hasNext()) {
-            Map.Entry<List<QName>, Boolean> next = elementMapIterator.next();
-            List<QName> qNameList = next.getKey();
+            @SuppressWarnings({"unchecked", "rawtypes"})
+            Iterator<Map.Entry> ports = service.getPorts().entrySet().iterator();
+            while (ports.hasNext()) {
+                @SuppressWarnings("unchecked")
+                Map.Entry<QName, Port> portEntry = ports.next();
 ```
 
 ### WhileCanBeForeach
@@ -923,6 +958,30 @@ in `ws-security-policy-stax/src/main/java/org/apache/wss4j/policy/stax/assertion
 
 ### WhileCanBeForeach
 `while` loop can be replaced with enhanced 'for'
+in `ws-security-stax/src/main/java/org/apache/wss4j/stax/setup/InboundWSSec.java`
+#### Snippet
+```java
+            try {
+                Iterator<SecurityEvent> securityEventIterator = requestSecurityEvents.iterator();
+                while (securityEventIterator.hasNext()) {
+                    SecurityEvent securityEvent = securityEventIterator.next();
+                    if (securityEvent instanceof TokenSecurityEvent) {
+```
+
+### WhileCanBeForeach
+`while` loop can be replaced with enhanced 'for'
+in `ws-security-stax/src/main/java/org/apache/wss4j/stax/setup/InboundWSSec.java`
+#### Snippet
+```java
+        if (!additionalInputProcessors.isEmpty()) {
+            Iterator<InputProcessor> inputProcessorIterator = additionalInputProcessors.iterator();
+            while (inputProcessorIterator.hasNext()) {
+                InputProcessor inputProcessor = inputProcessorIterator.next();
+                inputProcessorChain.addProcessor(inputProcessor);
+```
+
+### WhileCanBeForeach
+`while` loop can be replaced with enhanced 'for'
 in `ws-security-policy-stax/src/main/java/org/apache/wss4j/policy/stax/assertionStates/ContentEncryptedElementsAssertionState.java`
 #### Snippet
 ```java
@@ -931,30 +990,6 @@ in `ws-security-policy-stax/src/main/java/org/apache/wss4j/policy/stax/assertion
         while (pathElementIterator.hasNext()) {
             List<QName> pathElements = pathElementIterator.next();
             if (WSSUtils.pathMatches(pathElements, contentEncryptedElementSecurityEvent.getElementPath())) {
-```
-
-### WhileCanBeForeach
-`while` loop can be replaced with enhanced 'for'
-in `ws-security-policy-stax/src/main/java/org/apache/wss4j/policy/stax/enforcer/PolicyEnforcerFactory.java`
-#### Snippet
-```java
-        @SuppressWarnings({"unchecked", "rawtypes"})
-        Iterator<Map.Entry> services = wsdlDefinition.getAllServices().entrySet().iterator();
-        while (services.hasNext()) {
-            @SuppressWarnings("unchecked")
-            Map.Entry<QName, Service> serviceEntry = services.next();
-```
-
-### WhileCanBeForeach
-`while` loop can be replaced with enhanced 'for'
-in `ws-security-policy-stax/src/main/java/org/apache/wss4j/policy/stax/enforcer/PolicyEnforcerFactory.java`
-#### Snippet
-```java
-            @SuppressWarnings({"unchecked", "rawtypes"})
-            Iterator<Map.Entry> ports = service.getPorts().entrySet().iterator();
-            while (ports.hasNext()) {
-                @SuppressWarnings("unchecked")
-                Map.Entry<QName, Port> portEntry = ports.next();
 ```
 
 ### WhileCanBeForeach
@@ -1010,126 +1045,6 @@ in `ws-security-policy-stax/src/main/java/org/apache/wss4j/policy/stax/enforcer/
 in `ws-security-policy-stax/src/main/java/org/apache/wss4j/policy/stax/enforcer/PolicyEnforcer.java`
 #### Snippet
 ```java
-                        Iterator<Map.Entry<Assertion, List<Assertable>>> assertionStateIterator =
-                            assertionListMap.entrySet().iterator();
-                        while (assertionStateIterator.hasNext()) {
-                            Map.Entry<Assertion, List<Assertable>> assertionStateEntry =
-                                assertionStateIterator.next();
-```
-
-### WhileCanBeForeach
-`while` loop can be replaced with enhanced 'for'
-in `ws-security-policy-stax/src/main/java/org/apache/wss4j/policy/stax/enforcer/PolicyEnforcer.java`
-#### Snippet
-```java
-                            List<Assertable> assertionStates = assertionStateEntry.getValue();
-                            Iterator<Assertable> assertableIterator = assertionStates.iterator();
-                            while (assertableIterator.hasNext()) {
-                                Assertable assertable = assertableIterator.next();
-                                boolean asserted = assertable.assertEvent(securityEvent);
-```
-
-### WhileCanBeForeach
-`while` loop can be replaced with enhanced 'for'
-in `ws-security-policy-stax/src/main/java/org/apache/wss4j/policy/stax/enforcer/PolicyEnforcer.java`
-#### Snippet
-```java
-                    Iterator<Map.Entry<Assertion, List<Assertable>>> assertionStateIterator =
-                        assertionListMap.entrySet().iterator();
-                    while (assertionStateIterator.hasNext()) {
-                        Map.Entry<Assertion, List<Assertable>> assertionStateEntry = assertionStateIterator.next();
-                        List<Assertable> assertionStates = assertionStateEntry.getValue();
-```
-
-### WhileCanBeForeach
-`while` loop can be replaced with enhanced 'for'
-in `ws-security-policy-stax/src/main/java/org/apache/wss4j/policy/stax/enforcer/PolicyEnforcer.java`
-#### Snippet
-```java
-                        List<Assertable> assertionStates = assertionStateEntry.getValue();
-                        Iterator<Assertable> assertableIterator = assertionStates.iterator();
-                        while (assertableIterator.hasNext()) {
-                            Assertable assertable = assertableIterator.next();
-                            boolean asserted = assertable.assertEvent(securityEvent);
-```
-
-### WhileCanBeForeach
-`while` loop can be replaced with enhanced 'for'
-in `ws-security-policy-stax/src/main/java/org/apache/wss4j/policy/stax/enforcer/PolicyEnforcer.java`
-#### Snippet
-```java
-            Iterator<Map.Entry<SecurityEventConstants.Event, Map<Assertion, List<Assertable>>>> iterator =
-                map.entrySet().iterator();
-            while (iterator.hasNext()) {
-                Map.Entry<SecurityEventConstants.Event, Map<Assertion, List<Assertable>>> mapEntry =
-                    iterator.next();
-```
-
-### WhileCanBeForeach
-`while` loop can be replaced with enhanced 'for'
-in `ws-security-policy-stax/src/main/java/org/apache/wss4j/policy/stax/enforcer/PolicyEnforcer.java`
-#### Snippet
-```java
-                Iterator<Map.Entry<Assertion, List<Assertable>>> assertionStateIterator =
-                    mapEntry.getValue().entrySet().iterator();
-                while (assertionStateIterator.hasNext()) {
-                    Map.Entry<Assertion, List<Assertable>> assertionListEntry = assertionStateIterator.next();
-                    List<Assertable> assertableList = assertionListEntry.getValue();
-```
-
-### WhileCanBeForeach
-`while` loop can be replaced with enhanced 'for'
-in `ws-security-policy-stax/src/main/java/org/apache/wss4j/policy/stax/enforcer/PolicyEnforcer.java`
-#### Snippet
-```java
-                    List<Assertable> assertableList = assertionListEntry.getValue();
-                    Iterator<Assertable> assertableIterator = assertableList.iterator();
-                    while (assertableIterator.hasNext()) {
-                        Assertable assertable = assertableIterator.next();
-                        if (!assertable.isAsserted()) {
-```
-
-### WhileCanBeForeach
-`while` loop can be replaced with enhanced 'for'
-in `ws-security-policy-stax/src/main/java/org/apache/wss4j/policy/stax/enforcer/PolicyEnforcer.java`
-#### Snippet
-```java
-            int alternative = 0;
-            Iterator<PolicyComponent> policyComponentIterator = policyComponents.iterator();
-            while (policyComponentIterator.hasNext()) {
-                PolicyComponent curPolicyComponent = policyComponentIterator.next();
-                if (policyOperator instanceof ExactlyOne) {
-```
-
-### WhileCanBeForeach
-`while` loop can be replaced with enhanced 'for'
-in `ws-security-policy-stax/src/main/java/org/apache/wss4j/policy/stax/enforcer/PolicyEnforcer.java`
-#### Snippet
-```java
-            List<PolicyComponent> policyComponents = policyOperator.getPolicyComponents();
-            Iterator<PolicyComponent> policyComponentIterator = policyComponents.iterator();
-            while (policyComponentIterator.hasNext()) {
-                PolicyComponent curPolicyComponent = policyComponentIterator.next();
-                buildAssertionStateMap(curPolicyComponent, assertionStateMap, alternative);
-```
-
-### WhileCanBeForeach
-`while` loop can be replaced with enhanced 'for'
-in `ws-security-policy-stax/src/main/java/org/apache/wss4j/policy/stax/enforcer/PolicyEnforcer.java`
-#### Snippet
-```java
-            List<Assertable> assertablesList = getAssertableForAssertion(abstractSecurityAssertion);
-            Iterator<Assertable> assertableIterator = assertablesList.iterator();
-            while (assertableIterator.hasNext()) {
-                Assertable assertable = assertableIterator.next();
-                final Map<SecurityEventConstants.Event, Map<Assertion, List<Assertable>>> map =
-```
-
-### WhileCanBeForeach
-`while` loop can be replaced with enhanced 'for'
-in `ws-security-policy-stax/src/main/java/org/apache/wss4j/policy/stax/enforcer/PolicyEnforcer.java`
-#### Snippet
-```java
         Iterator<Map<SecurityEventConstants.Event, Map<Assertion, List<Assertable>>>> assertionStateMapIterator =
             this.failedAssertionStateMap.iterator();
         while (assertionStateMapIterator.hasNext()) {
@@ -1178,47 +1093,131 @@ in `ws-security-policy-stax/src/main/java/org/apache/wss4j/policy/stax/enforcer/
 in `ws-security-policy-stax/src/main/java/org/apache/wss4j/policy/stax/enforcer/PolicyEnforcer.java`
 #### Snippet
 ```java
+            Iterator<Map.Entry<SecurityEventConstants.Event, Map<Assertion, List<Assertable>>>> iterator =
+                map.entrySet().iterator();
+            while (iterator.hasNext()) {
+                Map.Entry<SecurityEventConstants.Event, Map<Assertion, List<Assertable>>> mapEntry =
+                    iterator.next();
+```
+
+### WhileCanBeForeach
+`while` loop can be replaced with enhanced 'for'
+in `ws-security-policy-stax/src/main/java/org/apache/wss4j/policy/stax/enforcer/PolicyEnforcer.java`
+#### Snippet
+```java
+                Iterator<Map.Entry<Assertion, List<Assertable>>> assertionStateIterator =
+                    mapEntry.getValue().entrySet().iterator();
+                while (assertionStateIterator.hasNext()) {
+                    Map.Entry<Assertion, List<Assertable>> assertionListEntry = assertionStateIterator.next();
+                    List<Assertable> assertableList = assertionListEntry.getValue();
+```
+
+### WhileCanBeForeach
+`while` loop can be replaced with enhanced 'for'
+in `ws-security-policy-stax/src/main/java/org/apache/wss4j/policy/stax/enforcer/PolicyEnforcer.java`
+#### Snippet
+```java
+                    List<Assertable> assertableList = assertionListEntry.getValue();
+                    Iterator<Assertable> assertableIterator = assertableList.iterator();
+                    while (assertableIterator.hasNext()) {
+                        Assertable assertable = assertableIterator.next();
+                        if (!assertable.isAsserted()) {
+```
+
+### WhileCanBeForeach
+`while` loop can be replaced with enhanced 'for'
+in `ws-security-policy-stax/src/main/java/org/apache/wss4j/policy/stax/enforcer/PolicyEnforcer.java`
+#### Snippet
+```java
+                        Iterator<Map.Entry<Assertion, List<Assertable>>> assertionStateIterator =
+                            assertionListMap.entrySet().iterator();
+                        while (assertionStateIterator.hasNext()) {
+                            Map.Entry<Assertion, List<Assertable>> assertionStateEntry =
+                                assertionStateIterator.next();
+```
+
+### WhileCanBeForeach
+`while` loop can be replaced with enhanced 'for'
+in `ws-security-policy-stax/src/main/java/org/apache/wss4j/policy/stax/enforcer/PolicyEnforcer.java`
+#### Snippet
+```java
+                            List<Assertable> assertionStates = assertionStateEntry.getValue();
+                            Iterator<Assertable> assertableIterator = assertionStates.iterator();
+                            while (assertableIterator.hasNext()) {
+                                Assertable assertable = assertableIterator.next();
+                                boolean asserted = assertable.assertEvent(securityEvent);
+```
+
+### WhileCanBeForeach
+`while` loop can be replaced with enhanced 'for'
+in `ws-security-policy-stax/src/main/java/org/apache/wss4j/policy/stax/enforcer/PolicyEnforcer.java`
+#### Snippet
+```java
+                    Iterator<Map.Entry<Assertion, List<Assertable>>> assertionStateIterator =
+                        assertionListMap.entrySet().iterator();
+                    while (assertionStateIterator.hasNext()) {
+                        Map.Entry<Assertion, List<Assertable>> assertionStateEntry = assertionStateIterator.next();
+                        List<Assertable> assertionStates = assertionStateEntry.getValue();
+```
+
+### WhileCanBeForeach
+`while` loop can be replaced with enhanced 'for'
+in `ws-security-policy-stax/src/main/java/org/apache/wss4j/policy/stax/enforcer/PolicyEnforcer.java`
+#### Snippet
+```java
+                        List<Assertable> assertionStates = assertionStateEntry.getValue();
+                        Iterator<Assertable> assertableIterator = assertionStates.iterator();
+                        while (assertableIterator.hasNext()) {
+                            Assertable assertable = assertableIterator.next();
+                            boolean asserted = assertable.assertEvent(securityEvent);
+```
+
+### WhileCanBeForeach
+`while` loop can be replaced with enhanced 'for'
+in `ws-security-policy-stax/src/main/java/org/apache/wss4j/policy/stax/enforcer/PolicyEnforcer.java`
+#### Snippet
+```java
+            int alternative = 0;
+            Iterator<PolicyComponent> policyComponentIterator = policyComponents.iterator();
+            while (policyComponentIterator.hasNext()) {
+                PolicyComponent curPolicyComponent = policyComponentIterator.next();
+                if (policyOperator instanceof ExactlyOne) {
+```
+
+### WhileCanBeForeach
+`while` loop can be replaced with enhanced 'for'
+in `ws-security-policy-stax/src/main/java/org/apache/wss4j/policy/stax/enforcer/PolicyEnforcer.java`
+#### Snippet
+```java
+            List<PolicyComponent> policyComponents = policyOperator.getPolicyComponents();
+            Iterator<PolicyComponent> policyComponentIterator = policyComponents.iterator();
+            while (policyComponentIterator.hasNext()) {
+                PolicyComponent curPolicyComponent = policyComponentIterator.next();
+                buildAssertionStateMap(curPolicyComponent, assertionStateMap, alternative);
+```
+
+### WhileCanBeForeach
+`while` loop can be replaced with enhanced 'for'
+in `ws-security-policy-stax/src/main/java/org/apache/wss4j/policy/stax/enforcer/PolicyEnforcer.java`
+#### Snippet
+```java
+            List<Assertable> assertablesList = getAssertableForAssertion(abstractSecurityAssertion);
+            Iterator<Assertable> assertableIterator = assertablesList.iterator();
+            while (assertableIterator.hasNext()) {
+                Assertable assertable = assertableIterator.next();
+                final Map<SecurityEventConstants.Event, Map<Assertion, List<Assertable>>> map =
+```
+
+### WhileCanBeForeach
+`while` loop can be replaced with enhanced 'for'
+in `ws-security-policy-stax/src/main/java/org/apache/wss4j/policy/stax/enforcer/PolicyEnforcer.java`
+#### Snippet
+```java
     private OperationPolicy findPolicyBySOAPAction(List<OperationPolicy> operationPolicies, String soapAction) {
         Iterator<OperationPolicy> operationPolicyIterator = operationPolicies.iterator();
         while (operationPolicyIterator.hasNext()) {
             OperationPolicy operationPolicy = operationPolicyIterator.next();
             if (soapAction.equals(operationPolicy.getOperationAction())) {
-```
-
-### WhileCanBeForeach
-`while` loop can be replaced with enhanced 'for'
-in `ws-security-dom/src/main/java/org/apache/wss4j/dom/transform/STRTransform.java`
-#### Snippet
-```java
-                NodeSetData nodeSetData = (NodeSetData)data;
-                Iterator<?> iterator = nodeSetData.iterator();
-                while (iterator.hasNext()) {
-                    Node node = (Node)iterator.next();
-                    if (node instanceof Element && "SecurityTokenReference".equals(node.getLocalName())) {
-```
-
-### WhileCanBeForeach
-`while` loop can be replaced with enhanced 'for'
-in `ws-security-dom/src/main/java/org/apache/wss4j/dom/processor/SignatureProcessor.java`
-#### Snippet
-```java
-                java.util.Iterator<?> referenceIterator =
-                    xmlSignature.getSignedInfo().getReferences().iterator();
-                while (referenceIterator.hasNext()) {
-                    Reference reference = (Reference)referenceIterator.next();
-                    boolean referenceValidationCheck = reference.validate(context);
-```
-
-### WhileCanBeForeach
-`while` loop can be replaced with enhanced 'for'
-in `ws-security-dom/src/main/java/org/apache/wss4j/dom/processor/SignatureProcessor.java`
-#### Snippet
-```java
-                        java.util.Iterator<?> iter = data.iterator();
-
-                        while (iter.hasNext()) {
-                            Node n = (Node)iter.next();
-                            if (n instanceof Element) {
 ```
 
 ## RuleId[ruleID=CommentedOutCode]
@@ -1250,18 +1249,6 @@ in `ws-security-common/src/main/java/org/apache/wss4j/common/crypto/CryptoBase.j
 ## RuleId[ruleID=DuplicateBranchesInSwitch]
 ### DuplicateBranchesInSwitch
 Duplicate branch in 'switch'
-in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/transformer/AttachmentContentSignatureTransform.java`
-#### Snippet
-```java
-                return XMLSecurityConstants.TransformMethod.InputStream;
-            case InputStream:
-                return XMLSecurityConstants.TransformMethod.InputStream;
-            default:
-                throw new IllegalArgumentException("Unsupported class " + forInput.name());
-```
-
-### DuplicateBranchesInSwitch
-Duplicate branch in 'switch'
 in `ws-security-dom/src/main/java/org/apache/wss4j/dom/handler/WSHandler.java`
 #### Snippet
 ```java
@@ -1282,6 +1269,18 @@ in `ws-security-dom/src/main/java/org/apache/wss4j/dom/handler/WSHandler.java`
             reason = WSPasswordCallback.SECRET_KEY;
             break;
         default:
+```
+
+### DuplicateBranchesInSwitch
+Duplicate branch in 'switch'
+in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/transformer/AttachmentContentSignatureTransform.java`
+#### Snippet
+```java
+                return XMLSecurityConstants.TransformMethod.InputStream;
+            case InputStream:
+                return XMLSecurityConstants.TransformMethod.InputStream;
+            default:
+                throw new IllegalArgumentException("Unsupported class " + forInput.name());
 ```
 
 ## RuleId[ruleID=MisspelledEquals]
@@ -1375,495 +1374,15 @@ in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/securityToken/Secu
 
 ## RuleId[ruleID=SizeReplaceableByIsEmpty]
 ### SizeReplaceableByIsEmpty
-`id.length() == 0` can be replaced with 'id.isEmpty()'
-in `ws-security-common/src/main/java/org/apache/wss4j/common/saml/SamlAssertionWrapper.java`
+`value.length() == 0` can be replaced with 'value.isEmpty()'
+in `policy/src/main/java/org/apache/wss4j/policy/SP11Constants.java`
 #### Snippet
 ```java
-        if (samlVersion == SAMLVersion.VERSION_20) {
-            id = ((org.opensaml.saml.saml2.core.Assertion)samlObject).getID();
-            if (id == null || id.length() == 0) {
-                LOG.error("SamlAssertionWrapper: ID was null, seeting a new ID value");
-                id = IDGenerator.generateID("_");
-```
-
-### SizeReplaceableByIsEmpty
-`id.length() == 0` can be replaced with 'id.isEmpty()'
-in `ws-security-common/src/main/java/org/apache/wss4j/common/saml/SamlAssertionWrapper.java`
-#### Snippet
-```java
-        } else if (samlVersion == SAMLVersion.VERSION_11) {
-            id = ((org.opensaml.saml.saml1.core.Assertion)samlObject).getID();
-            if (id == null || id.length() == 0) {
-                LOG.error("SamlAssertionWrapper: ID was null, seeting a new ID value");
-                id = IDGenerator.generateID("_");
-```
-
-### SizeReplaceableByIsEmpty
-`possiblePrefix.length() == 0` can be replaced with 'possiblePrefix.isEmpty()'
-in `ws-security-common/src/main/java/org/apache/wss4j/common/util/NSStack.java`
-#### Snippet
-```java
-            if (map.getNamespaceHash() == hash && map.getNamespaceURI().equals(namespaceURI)) {
-                String possiblePrefix = map.getPrefix();
-                if (noDefault && possiblePrefix.length() == 0) {
-                    continue;
-                }
-```
-
-### SizeReplaceableByIsEmpty
-`prefix.length() == 0` can be replaced with 'prefix.isEmpty()'
-in `ws-security-common/src/main/java/org/apache/wss4j/common/util/NSStack.java`
-#### Snippet
-```java
-            // If this is the default namespace, note the new in-scope
-            // default is here.
-            if (prefix.length() == 0) {
-                currentDefaultNS = idx;
-            }
-```
-
-### SizeReplaceableByIsEmpty
-`stack[currentDefaultNS].getPrefix().length() == 0` can be replaced with 'stack\[currentDefaultNS\].getPrefix().isEmpty()'
-in `ws-security-common/src/main/java/org/apache/wss4j/common/util/NSStack.java`
-#### Snippet
-```java
-            while (currentDefaultNS > 0) {
-                if (stack[currentDefaultNS] != null
-                    && stack[currentDefaultNS].getPrefix().length() == 0) {
-                    break;
-                }
-```
-
-### SizeReplaceableByIsEmpty
-`identifier.length() != 0` can be replaced with '!identifier.isEmpty()'
-in `ws-security-common/src/main/java/org/apache/wss4j/common/cache/MemoryReplayCache.java`
-#### Snippet
-```java
-        processTokenExpiry();
-
-        if (identifier != null && identifier.length() != 0) {
-            return ids.contains(identifier);
-        }
-```
-
-### SizeReplaceableByIsEmpty
-`identifier.length() == 0` can be replaced with 'identifier.isEmpty()'
-in `ws-security-common/src/main/java/org/apache/wss4j/common/cache/MemoryReplayCache.java`
-#### Snippet
-```java
-     */
-    public void add(String identifier, Instant expiry) {
-        if (identifier == null || identifier.length() == 0) {
-            return;
-        }
-```
-
-### SizeReplaceableByIsEmpty
-`namespace.length() == 0` can be replaced with 'namespace.isEmpty()'
-in `ws-security-common/src/main/java/org/apache/wss4j/common/util/XMLUtils.java`
-#### Snippet
-```java
-                }
-
-                if ((namespace == null || namespace.length() == 0)
-                    && (ns == null || ns.length() == 0)) {
-                    return (Element)startNode;
-```
-
-### SizeReplaceableByIsEmpty
-`ns.length() == 0` can be replaced with 'ns.isEmpty()'
-in `ws-security-common/src/main/java/org/apache/wss4j/common/util/XMLUtils.java`
-#### Snippet
-```java
-
-                if ((namespace == null || namespace.length() == 0)
-                    && (ns == null || ns.length() == 0)) {
-                    return (Element)startNode;
-                }
-```
-
-### SizeReplaceableByIsEmpty
-`id.length() == 0` can be replaced with 'id.isEmpty()'
-in `ws-security-common/src/main/java/org/apache/wss4j/common/util/XMLUtils.java`
-#### Snippet
-```java
-        }
-        String id = ref.trim();
-        if (id.length() == 0) {
-            return null;
-        }
-```
-
-### SizeReplaceableByIsEmpty
-`namespace.length() == 0` can be replaced with 'namespace.isEmpty()'
-in `ws-security-common/src/main/java/org/apache/wss4j/common/util/XMLUtils.java`
-#### Snippet
-```java
-                }
-
-                if ((namespace == null || namespace.length() == 0)
-                    && (ns == null || ns.length() == 0)) {
-                    foundNodes.add((Element)startNode);
-```
-
-### SizeReplaceableByIsEmpty
-`ns.length() == 0` can be replaced with 'ns.isEmpty()'
-in `ws-security-common/src/main/java/org/apache/wss4j/common/util/XMLUtils.java`
-#### Snippet
-```java
-
-                if ((namespace == null || namespace.length() == 0)
-                    && (ns == null || ns.length() == 0)) {
-                    foundNodes.add((Element)startNode);
-                }
-```
-
-### SizeReplaceableByIsEmpty
-`attributeNS.length() == 0` can be replaced with 'attributeNS.isEmpty()'
-in `ws-security-common/src/main/java/org/apache/wss4j/common/util/XMLUtils.java`
-#### Snippet
-```java
-                // Try the wsu:Id first
-                String attributeNS = se.getAttributeNS(WSU_NS, "Id");
-                if (attributeNS.length() == 0 || !id.equals(attributeNS)) {
-                    attributeNS = se.getAttributeNS(null, "Id");
-                }
-```
-
-### SizeReplaceableByIsEmpty
-`attributeNS.length() != 0` can be replaced with '!attributeNS.isEmpty()'
-in `ws-security-common/src/main/java/org/apache/wss4j/common/util/XMLUtils.java`
-#### Snippet
-```java
-                    attributeNS = se.getAttributeNS(null, "Id");
-                }
-                if (attributeNS.length() != 0 && id.equals(attributeNS)) {
-                    if (!checkMultipleElements) {
-                        return se;
-```
-
-### SizeReplaceableByIsEmpty
-`keyAlgorithm.length() == 0` can be replaced with 'keyAlgorithm.isEmpty()'
-in `ws-security-common/src/main/java/org/apache/wss4j/common/util/KeyUtils.java`
-#### Snippet
-```java
-            //
-            String keyAlgorithm = JCEMapper.getJCEKeyAlgorithmFromURI(algorithm);
-            if (keyAlgorithm == null || keyAlgorithm.length() == 0) {
-                keyAlgorithm = JCEMapper.translateURItoJCEID(algorithm);
-            }
-```
-
-### SizeReplaceableByIsEmpty
-`sourceMethod.length() != 0` can be replaced with '!sourceMethod.isEmpty()'
-in `ws-security-common/src/main/java/org/apache/wss4j/common/saml/builder/SAML1ComponentBuilder.java`
-#### Snippet
-```java
-        if ("Password".equals(sourceMethod)) {
-            transformedMethod = SAML1Constants.AUTH_METHOD_PASSWORD;
-        } else if (sourceMethod != null && sourceMethod.length() != 0) {
-            return sourceMethod;
-        }
-```
-
-### SizeReplaceableByIsEmpty
-`uri.length() == 0` can be replaced with 'uri.isEmpty()'
-in `ws-security-common/src/main/java/org/apache/wss4j/common/token/Reference.java`
-#### Snippet
-```java
-        String uri = getURI();
-        // Reference URI cannot be null or empty
-        if (uri == null || uri.length() == 0) {
-            throw new WSSecurityException(
-                WSSecurityException.ErrorCode.INVALID_SECURITY, "badReferenceURI"
-```
-
-### SizeReplaceableByIsEmpty
-`elPrefix.length() > 0` can be replaced with '!elPrefix.isEmpty()'
-in `ws-security-common/src/main/java/org/apache/wss4j/common/util/DOM2Writer.java`
-#### Snippet
-```java
-                String elPrefix = node.getPrefix();
-                String elNamespaceURI = node.getNamespaceURI();
-                if (elPrefix != null && elNamespaceURI != null && elPrefix.length() > 0) {
-                    boolean prefixIsDeclared = false;
-                    try {
-```
-
-### SizeReplaceableByIsEmpty
-`data.length() > 0` can be replaced with '!data.isEmpty()'
-in `ws-security-common/src/main/java/org/apache/wss4j/common/util/DOM2Writer.java`
-#### Snippet
-```java
-                out.print(node.getNodeName());
-                String data = node.getNodeValue();
-                if (data != null && data.length() > 0) {
-                    out.print(' ');
-                    out.print(data);
-```
-
-### SizeReplaceableByIsEmpty
-`identifier.length() == 0` can be replaced with 'identifier.isEmpty()'
-in `ws-security-common/src/main/java/org/apache/wss4j/common/cache/EHCacheReplayCache.java`
-#### Snippet
-```java
-     */
-    public void add(String identifier, Instant expiry) {
-        if (identifier == null || identifier.length() == 0) {
-            return;
-        }
-```
-
-### SizeReplaceableByIsEmpty
-`encoding.length() == 0` can be replaced with 'encoding.isEmpty()'
-in `ws-security-common/src/main/java/org/apache/wss4j/common/token/BinarySecurity.java`
-#### Snippet
-```java
-        }
-        String encoding = getEncodingType();
-        if (encoding == null || encoding.length() == 0) {
-            bspEnforcer.handleBSPRule(BSPRule.R3029);
-        }
-```
-
-### SizeReplaceableByIsEmpty
-`valueType.length() == 0` can be replaced with 'valueType.isEmpty()'
-in `ws-security-common/src/main/java/org/apache/wss4j/common/token/BinarySecurity.java`
-#### Snippet
-```java
-
-        String valueType = getValueType();
-        if (valueType == null || valueType.length() == 0) {
-            bspEnforcer.handleBSPRule(BSPRule.R3031);
-        }
-```
-
-### SizeReplaceableByIsEmpty
-`sourceMethod.length() != 0` can be replaced with '!sourceMethod.isEmpty()'
-in `ws-security-common/src/main/java/org/apache/wss4j/common/saml/builder/SAML2ComponentBuilder.java`
-#### Snippet
-```java
-        if ("Password".equalsIgnoreCase(sourceMethod)) {
-            transformedMethod = SAML2Constants.AUTH_CONTEXT_CLASS_REF_PASSWORD;
-        } else if (sourceMethod != null && sourceMethod.length() != 0) {
-            return sourceMethod;
-        }
-```
-
-### SizeReplaceableByIsEmpty
-`valueType.length() == 0` can be replaced with 'valueType.isEmpty()'
-in `ws-security-common/src/main/java/org/apache/wss4j/common/token/SecurityTokenReference.java`
-#### Snippet
-```java
-            String valueType = getKeyIdentifierValueType();
-            // ValueType cannot be null
-            if (valueType == null || valueType.length() == 0) {
-                bspEnforcer.handleBSPRule(BSPRule.R3054);
-            }
-```
-
-### SizeReplaceableByIsEmpty
-`encodingType.length() != 0` can be replaced with '!encodingType.isEmpty()'
-in `ws-security-common/src/main/java/org/apache/wss4j/common/token/SecurityTokenReference.java`
-#### Snippet
-```java
-            String encodingType = getFirstElement().getAttributeNS(null, "EncodingType");
-            // Encoding Type must be equal to Base64Binary if it's specified
-            if (encodingType.length() != 0 && !WSS4JConstants.BASE64_ENCODING.equals(encodingType)) {
-                bspEnforcer.handleBSPRule(BSPRule.R3071);
-            }
-```
-
-### SizeReplaceableByIsEmpty
-`encodingType.length() == 0` can be replaced with 'encodingType.isEmpty()'
-in `ws-security-common/src/main/java/org/apache/wss4j/common/token/SecurityTokenReference.java`
-#### Snippet
-```java
-            if (!WSS4JConstants.WSS_SAML_KI_VALUE_TYPE.equals(valueType)
-                && !WSS4JConstants.WSS_SAML2_KI_VALUE_TYPE.equals(valueType)
-                && encodingType.length() == 0) {
-                bspEnforcer.handleBSPRule(BSPRule.R3070);
-            }
-```
-
-### SizeReplaceableByIsEmpty
-`provider.length() == 0` can be replaced with 'provider.isEmpty()'
-in `ws-security-common/src/main/java/org/apache/wss4j/common/crypto/MerlinDevice.java`
-#### Snippet
-```java
-                X509CRL crl = (X509CRL)cf.generateCRL(is);
-
-                if (provider == null || provider.length() == 0) {
-                    crlCertStore =
-                        CertStore.getInstance(
-```
-
-### SizeReplaceableByIsEmpty
-`provider.length() == 0` can be replaced with 'provider.isEmpty()'
-in `ws-security-common/src/main/java/org/apache/wss4j/common/crypto/CryptoBase.java`
-#### Snippet
-```java
-        try {
-            String provider = getCryptoProvider();
-            if (provider == null || provider.length() == 0) {
-                certificateFactory = CertificateFactory.getInstance("X.509");
-            } else {
-```
-
-### SizeReplaceableByIsEmpty
-`provider.length() == 0` can be replaced with 'provider.isEmpty()'
-in `ws-security-common/src/main/java/org/apache/wss4j/common/crypto/MerlinAKI.java`
-#### Snippet
-```java
-            String provider = getCryptoProvider();
-            CertPathValidator validator = null;
-            if (provider == null || provider.length() == 0) {
-                validator = CertPathValidator.getInstance("PKIX");
-            } else {
-```
-
-### SizeReplaceableByIsEmpty
-`label.length() == 0` can be replaced with 'label.isEmpty()'
-in `ws-security-common/src/main/java/org/apache/wss4j/common/derivedKey/DerivedKeyUtils.java`
-#### Snippet
-```java
-        DerivationAlgorithm algo = AlgoFactory.getInstance(algorithm);
-        byte[] labelBytes;
-        if (label == null || label.length() == 0) {
-            String defaultLabel = ConversationConstants.DEFAULT_LABEL + ConversationConstants.DEFAULT_LABEL;
-            labelBytes = defaultLabel.getBytes(StandardCharsets.UTF_8);
-```
-
-### SizeReplaceableByIsEmpty
-`provider.length() == 0` can be replaced with 'provider.isEmpty()'
-in `ws-security-common/src/main/java/org/apache/wss4j/common/crypto/CertificateStore.java`
-#### Snippet
-```java
-            String provider = getCryptoProvider();
-            CertPathValidator validator = null;
-            if (provider == null || provider.length() == 0) {
-                validator = CertPathValidator.getInstance("PKIX");
-            } else {
-```
-
-### SizeReplaceableByIsEmpty
-`provider.length() == 0` can be replaced with 'provider.isEmpty()'
-in `ws-security-common/src/main/java/org/apache/wss4j/common/crypto/Merlin.java`
-#### Snippet
-```java
-            String provider = getCryptoProvider();
-            CertPathValidator validator = null;
-            if (provider == null || provider.length() == 0) {
-                validator = CertPathValidator.getInstance("PKIX");
-            } else {
-```
-
-### SizeReplaceableByIsEmpty
-`provider.length() == 0` can be replaced with 'provider.isEmpty()'
-in `ws-security-common/src/main/java/org/apache/wss4j/common/crypto/Merlin.java`
-#### Snippet
-```java
-
-        try {
-            if (provider == null || provider.length() == 0) {
-                ks = KeyStore.getInstance(type);
-            } else {
-```
-
-### SizeReplaceableByIsEmpty
-`storepass.length() == 0` can be replaced with 'storepass.isEmpty()'
-in `ws-security-common/src/main/java/org/apache/wss4j/common/crypto/Merlin.java`
-#### Snippet
-```java
-            }
-
-            ks.load(input, storepass == null || storepass.length() == 0
-                ? new char[0] : storepass.toCharArray());
-        } catch (IOException | GeneralSecurityException e) {
-```
-
-### SizeReplaceableByIsEmpty
-`keystoreProvider.length() == 0` can be replaced with 'keystoreProvider.isEmpty()'
-in `ws-security-common/src/main/java/org/apache/wss4j/common/crypto/Merlin.java`
-#### Snippet
-```java
-            keystoreProvider = keystoreProvider.trim();
-
-            if (keystoreProvider.length() == 0) {
-                keystoreProvider = null;
-            }
-```
-
-### SizeReplaceableByIsEmpty
-`trustProvider.length() == 0` can be replaced with 'trustProvider.isEmpty()'
-in `ws-security-common/src/main/java/org/apache/wss4j/common/crypto/Merlin.java`
-#### Snippet
-```java
-            trustProvider = trustProvider.trim();
-
-            if (trustProvider.length() == 0) {
-                trustProvider = null;
-            } else {
-```
-
-### SizeReplaceableByIsEmpty
-`keystoreProvider.length() == 0` can be replaced with 'keystoreProvider.isEmpty()'
-in `ws-security-common/src/main/java/org/apache/wss4j/common/crypto/Merlin.java`
-#### Snippet
-```java
-            }
-            try {
-                if (keystoreProvider == null || keystoreProvider.length() == 0) {
-                    crlCertStore =
-                            CertStore.getInstance(
-```
-
-### SizeReplaceableByIsEmpty
-`provider.length() == 0` can be replaced with 'provider.isEmpty()'
-in `ws-security-common/src/main/java/org/apache/wss4j/common/crypto/Merlin.java`
-#### Snippet
-```java
-
-        try {
-            if (provider == null || provider.length() == 0) {
-                if (keyStoreProvider != null && keyStoreProvider.length() != 0) {
-                    try {
-```
-
-### SizeReplaceableByIsEmpty
-`keyStoreProvider.length() != 0` can be replaced with '!keyStoreProvider.isEmpty()'
-in `ws-security-common/src/main/java/org/apache/wss4j/common/crypto/Merlin.java`
-#### Snippet
-```java
-        try {
-            if (provider == null || provider.length() == 0) {
-                if (keyStoreProvider != null && keyStoreProvider.length() != 0) {
-                    try {
-                        certificateFactory =
-```
-
-### SizeReplaceableByIsEmpty
-`created.length() != 0` can be replaced with '!created.isEmpty()'
-in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/processor/output/UsernameTokenOutputProcessor.java`
-#### Snippet
-```java
-                }
-
-                if (created != null && created.length() != 0) {
-                    createStartElementAndOutputAsEvent(subOutputProcessorChain, WSSConstants.TAG_WSU_CREATED, false, null);
-                    createCharactersAndOutputAsEvent(subOutputProcessorChain, created);
-```
-
-### SizeReplaceableByIsEmpty
-`valueType.length() != 0` can be replaced with '!valueType.isEmpty()'
-in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/securityToken/SecurityTokenFactoryImpl.java`
-#### Snippet
-```java
-            if (WSSecurityTokenConstants.SAML_20_TOKEN.equals(samlTokenType)) {
-                String valueType = referenceType.getValueType();
-                if (valueType != null && valueType.length() != 0) {
-                    ((WSInboundSecurityContext) inboundSecurityContext).handleBSPRule(BSPRule.R6614);
-                }
+    @Override
+    public IncludeTokenType getInclusionFromAttributeValue(String value) throws IllegalArgumentException {
+        if (value == null || value.length() == 0) {
+            return IncludeTokenType.INCLUDE_TOKEN_ALWAYS;
+        } else if (INCLUDE_ALWAYS.equals(value)) {
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -1879,18 +1398,6 @@ in `policy/src/main/java/org/apache/wss4j/policy/SPUtils.java`
 ```
 
 ### SizeReplaceableByIsEmpty
-`actionToParse.length() == 0` can be replaced with 'actionToParse.isEmpty()'
-in `ws-security-stax/src/main/java/org/apache/wss4j/stax/setup/ConfigurationConverter.java`
-#### Snippet
-```java
-        }
-        actionToParse = actionToParse.trim();
-        if (actionToParse.length() == 0) {
-            return;
-        }
-```
-
-### SizeReplaceableByIsEmpty
 `value.length() == 0` can be replaced with 'value.isEmpty()'
 in `policy/src/main/java/org/apache/wss4j/policy/SP12Constants.java`
 #### Snippet
@@ -1903,15 +1410,15 @@ in `policy/src/main/java/org/apache/wss4j/policy/SP12Constants.java`
 ```
 
 ### SizeReplaceableByIsEmpty
-`value.length() == 0` can be replaced with 'value.isEmpty()'
-in `policy/src/main/java/org/apache/wss4j/policy/SP11Constants.java`
+`prefix.length() == 0` can be replaced with 'prefix.isEmpty()'
+in `policy/src/main/java/org/apache/wss4j/policy/model/NSStack.java`
 #### Snippet
 ```java
-    @Override
-    public IncludeTokenType getInclusionFromAttributeValue(String value) throws IllegalArgumentException {
-        if (value == null || value.length() == 0) {
-            return IncludeTokenType.INCLUDE_TOKEN_ALWAYS;
-        } else if (INCLUDE_ALWAYS.equals(value)) {
+            // If this is the default namespace, note the new in-scope
+            // default is here.
+            if (prefix.length() == 0) {
+                currentDefaultNS = idx;
+            }
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -1924,18 +1431,6 @@ in `policy/src/main/java/org/apache/wss4j/policy/model/NSStack.java`
                     && stack[currentDefaultNS].getPrefix().length() == 0) {
                     break;
                 }
-```
-
-### SizeReplaceableByIsEmpty
-`prefix.length() == 0` can be replaced with 'prefix.isEmpty()'
-in `policy/src/main/java/org/apache/wss4j/policy/model/NSStack.java`
-#### Snippet
-```java
-            // If this is the default namespace, note the new in-scope
-            // default is here.
-            if (prefix.length() == 0) {
-                currentDefaultNS = idx;
-            }
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -2023,30 +1518,6 @@ in `policy/src/main/java/org/apache/wss4j/policy/builders/SignedElementsBuilder.
 ```
 
 ### SizeReplaceableByIsEmpty
-`xPathElement.length() == 0` can be replaced with 'xPathElement.isEmpty()'
-in `ws-security-policy-stax/src/main/java/org/apache/wss4j/policy/stax/PolicyUtils.java`
-#### Snippet
-```java
-        for (int j = 0; j < xPathElements.length; j++) {
-            String xPathElement = xPathElements[j];
-            if (xPathElement == null || xPathElement.length() == 0) {
-                continue;
-            }
-```
-
-### SizeReplaceableByIsEmpty
-`claimTypeOptional.length() == 0` can be replaced with 'claimTypeOptional.isEmpty()'
-in `ws-security-policy-stax/src/main/java/org/apache/wss4j/policy/stax/assertionStates/IssuedTokenAssertionState.java`
-#### Snippet
-```java
-                String claimTypeOptional = claimType.getAttributeNS(null, "Optional");
-
-                if (claimTypeOptional.length() == 0 || !Boolean.parseBoolean(claimTypeOptional)) {
-                    String errorMsg = findClaimInAssertion(samlTokenSecurityEvent.getSamlAssertionWrapper(), URI.create(claimTypeUri));
-                    if (errorMsg != null) {
-```
-
-### SizeReplaceableByIsEmpty
 `uri.length() == 0` can be replaced with 'uri.isEmpty()'
 in `ws-security-dom/src/main/java/org/apache/wss4j/dom/WSDocInfo.java`
 #### Snippet
@@ -2056,6 +1527,18 @@ in `ws-security-dom/src/main/java/org/apache/wss4j/dom/WSDocInfo.java`
         if (id == null || uri == null || uri.length() == 0) {
             return false;
         }
+```
+
+### SizeReplaceableByIsEmpty
+`valueType.length() == 0` can be replaced with 'valueType.isEmpty()'
+in `ws-security-dom/src/main/java/org/apache/wss4j/dom/str/STRParserUtil.java`
+#### Snippet
+```java
+                || token instanceof PKIPathSecurity && !PKIPathSecurity.PKI_TYPE.equals(valueType)
+                || token instanceof KerberosSecurity
+                        && !(valueType == null || valueType.length() == 0)
+                        && !WSConstants.WSS_GSS_KRB_V5_AP_REQ.equals(valueType)) {
+                bspEnforcer.handleBSPRule(BSPRule.R3058);
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -2083,18 +1566,6 @@ in `ws-security-dom/src/main/java/org/apache/wss4j/dom/str/STRParserUtil.java`
 ```
 
 ### SizeReplaceableByIsEmpty
-`valueType.length() == 0` can be replaced with 'valueType.isEmpty()'
-in `ws-security-dom/src/main/java/org/apache/wss4j/dom/str/STRParserUtil.java`
-#### Snippet
-```java
-                || token instanceof PKIPathSecurity && !PKIPathSecurity.PKI_TYPE.equals(valueType)
-                || token instanceof KerberosSecurity
-                        && !(valueType == null || valueType.length() == 0)
-                        && !WSConstants.WSS_GSS_KRB_V5_AP_REQ.equals(valueType)) {
-                bspEnforcer.handleBSPRule(BSPRule.R3058);
-```
-
-### SizeReplaceableByIsEmpty
 `symEncAlgo.length() == 0` can be replaced with 'symEncAlgo.isEmpty()'
 in `ws-security-dom/src/main/java/org/apache/wss4j/dom/util/X509Util.java`
 #### Snippet
@@ -2107,15 +1578,15 @@ in `ws-security-dom/src/main/java/org/apache/wss4j/dom/util/X509Util.java`
 ```
 
 ### SizeReplaceableByIsEmpty
-`operationName.getNamespaceURI().length() == 0` can be replaced with 'operationName.getNamespaceURI().isEmpty()'
-in `ws-security-policy-stax/src/main/java/org/apache/wss4j/policy/stax/enforcer/PolicyEnforcer.java`
+`prefix.length() > 0` can be replaced with '!prefix.isEmpty()'
+in `ws-security-dom/src/main/java/org/apache/wss4j/dom/util/WSSecurityUtil.java`
 #### Snippet
 ```java
-                if (soapOperationName.equals(operationName)) {
-                    return operationPolicy;
-                } else if ((operationName.getNamespaceURI() == null || operationName.getNamespaceURI().length() == 0)
-                    && soapOperationName.getLocalPart().equals(operationName.getLocalPart())) {
-                    noNamespaceOperation = operationPolicy;
+        String qName = localName;
+        String prefix = parent.getPrefix();
+        if (prefix != null && prefix.length() > 0) {
+            qName = prefix + ":" + localName;
+        }
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -2151,18 +1622,6 @@ in `ws-security-dom/src/main/java/org/apache/wss4j/dom/util/WSSecurityUtil.java`
         if ((hActor == null || hActor.length() == 0)
             && (actor == null || actor.length() == 0)) {
             return true;
-        }
-```
-
-### SizeReplaceableByIsEmpty
-`prefix.length() > 0` can be replaced with '!prefix.isEmpty()'
-in `ws-security-dom/src/main/java/org/apache/wss4j/dom/util/WSSecurityUtil.java`
-#### Snippet
-```java
-        String qName = localName;
-        String prefix = parent.getPrefix();
-        if (prefix != null && prefix.length() > 0) {
-            qName = prefix + ":" + localName;
         }
 ```
 
@@ -2219,7 +1678,7 @@ in `ws-security-dom/src/main/java/org/apache/wss4j/dom/message/WSSecDerivedKeyBa
 in `ws-security-dom/src/main/java/org/apache/wss4j/dom/message/WSSecEncryptedKey.java`
 #### Snippet
 ```java
-    protected void createEncryptedKeyElement(X509Certificate remoteCert, Crypto crypto) throws WSSecurityException {
+    protected void createEncryptedKeyElement(Key key) throws WSSecurityException {
         encryptedKeyElement = createEncryptedKey(getDocument(), keyEncAlgo);
         if (encKeyId == null || encKeyId.length() == 0) {
             encKeyId = IDGenerator.generateID("EK-");
@@ -2231,7 +1690,7 @@ in `ws-security-dom/src/main/java/org/apache/wss4j/dom/message/WSSecEncryptedKey
 in `ws-security-dom/src/main/java/org/apache/wss4j/dom/message/WSSecEncryptedKey.java`
 #### Snippet
 ```java
-    protected void createEncryptedKeyElement(Key key) throws WSSecurityException {
+    protected void createEncryptedKeyElement(X509Certificate remoteCert, Crypto crypto) throws WSSecurityException {
         encryptedKeyElement = createEncryptedKey(getDocument(), keyEncAlgo);
         if (encKeyId == null || encKeyId.length() == 0) {
             encKeyId = IDGenerator.generateID("EK-");
@@ -2275,6 +1734,18 @@ in `ws-security-dom/src/main/java/org/apache/wss4j/dom/message/token/Timestamp.j
 ```
 
 ### SizeReplaceableByIsEmpty
+`valueType.length() == 0` can be replaced with 'valueType.isEmpty()'
+in `ws-security-dom/src/main/java/org/apache/wss4j/dom/callback/DOMCallbackLookup.java`
+#### Snippet
+```java
+        if (WSConstants.WSS_SAML_KI_VALUE_TYPE.equals(valueType)
+            || WSConstants.WSS_SAML2_KI_VALUE_TYPE.equals(valueType)
+            || valueType == null || valueType.length() == 0) {
+            foundElement =
+                XMLUtils.findSAMLAssertionElementById(
+```
+
+### SizeReplaceableByIsEmpty
 `getValueType().length() == 0` can be replaced with 'getValueType().isEmpty()'
 in `ws-security-dom/src/main/java/org/apache/wss4j/dom/message/token/KerberosSecurity.java`
 #### Snippet
@@ -2283,6 +1754,186 @@ in `ws-security-dom/src/main/java/org/apache/wss4j/dom/message/token/KerberosSec
 
         if (getValueType().length() == 0) {
             setValueType(WSConstants.WSS_GSS_KRB_V5_AP_REQ);
+        }
+```
+
+### SizeReplaceableByIsEmpty
+`type.length() == 0` can be replaced with 'type.isEmpty()'
+in `ws-security-dom/src/main/java/org/apache/wss4j/dom/message/token/UsernameToken.java`
+#### Snippet
+```java
+            Element passwordChild = passwordElements.get(0);
+            String type = passwordChild.getAttributeNS(null, WSConstants.PASSWORD_TYPE_ATTR);
+            if (type == null || type.length() == 0) {
+                LOG.debug("The Username Token password does not have a Type attribute");
+                bspEnforcer.handleBSPRule(BSPRule.R4201);
+```
+
+### SizeReplaceableByIsEmpty
+`encodingType.length() == 0` can be replaced with 'encodingType.isEmpty()'
+in `ws-security-dom/src/main/java/org/apache/wss4j/dom/message/token/UsernameToken.java`
+#### Snippet
+```java
+            String encodingType = nonce.getAttributeNS(null, "EncodingType");
+            // Encoding Type must be equal to Base64Binary
+            if (encodingType == null || encodingType.length() == 0) {
+                bspEnforcer.handleBSPRule(BSPRule.R4220);
+            } else if (!WSConstants.BASE64_ENCODING.equals(encodingType)) {
+```
+
+### SizeReplaceableByIsEmpty
+`createdString.length() != 0` can be replaced with '!createdString.isEmpty()'
+in `ws-security-dom/src/main/java/org/apache/wss4j/dom/message/token/UsernameToken.java`
+#### Snippet
+```java
+        if (elementCreated != null) {
+            String createdString = getCreated();
+            if (createdString != null && createdString.length() != 0) {
+                try {
+                    created = ZonedDateTime.parse(createdString).toInstant();
+```
+
+### SizeReplaceableByIsEmpty
+`pwType.trim().length() == 0` can be replaced with 'pwType.trim().isEmpty()'
+in `ws-security-dom/src/main/java/org/apache/wss4j/dom/validate/UsernameTokenValidator.java`
+#### Snippet
+```java
+            verifyDigestPassword(usernameToken, data);
+        } else if (WSConstants.PASSWORD_TEXT.equals(pwType)
+            || password != null && (pwType == null || pwType.trim().length() == 0)) {
+            verifyPlaintextPassword(usernameToken, data);
+        } else if (password != null) {
+```
+
+### SizeReplaceableByIsEmpty
+`user.length() > 0` can be replaced with '!user.isEmpty()'
+in `ws-security-dom/src/main/java/org/apache/wss4j/dom/validate/JAASUsernameTokenValidator.java`
+#### Snippet
+```java
+        }
+
+        if (!(user != null && user.length() > 0 && password != null && password.length() > 0)) {
+            LOG.warn("User or password empty");
+            throw new WSSecurityException(WSSecurityException.ErrorCode.FAILED_AUTHENTICATION);
+```
+
+### SizeReplaceableByIsEmpty
+`tokenId.length() != 0` can be replaced with '!tokenId.isEmpty()'
+in `ws-security-dom/src/main/java/org/apache/wss4j/dom/processor/SignatureConfirmationProcessor.java`
+#### Snippet
+```java
+            new WSSecurityEngineResult(WSConstants.SC, sigConf);
+        String tokenId = sigConf.getID();
+        if (tokenId.length() != 0) {
+            result.put(WSSecurityEngineResult.TAG_ID, tokenId);
+        }
+```
+
+### SizeReplaceableByIsEmpty
+`password.length() > 0` can be replaced with '!password.isEmpty()'
+in `ws-security-dom/src/main/java/org/apache/wss4j/dom/validate/JAASUsernameTokenValidator.java`
+#### Snippet
+```java
+        }
+
+        if (!(user != null && user.length() > 0 && password != null && password.length() > 0)) {
+            LOG.warn("User or password empty");
+            throw new WSSecurityException(WSSecurityException.ErrorCode.FAILED_AUTHENTICATION);
+```
+
+### SizeReplaceableByIsEmpty
+`id.length() != 0` can be replaced with '!id.isEmpty()'
+in `ws-security-dom/src/main/java/org/apache/wss4j/dom/processor/BinarySecurityTokenProcessor.java`
+#### Snippet
+```java
+        // See if the token has been previously processed
+        String id = elem.getAttributeNS(WSConstants.WSU_NS, "Id");
+        if (id.length() != 0) {
+            Element foundElement = data.getWsDocInfo().getTokenElement(id);
+            if (elem.equals(foundElement)) {
+```
+
+### SizeReplaceableByIsEmpty
+`id.length() != 0` can be replaced with '!id.isEmpty()'
+in `ws-security-dom/src/main/java/org/apache/wss4j/dom/processor/BinarySecurityTokenProcessor.java`
+#### Snippet
+```java
+            new WSSecurityEngineResult(WSConstants.BST, token, certs);
+        data.getWsDocInfo().addTokenElement(elem);
+        if (id.length() != 0) {
+            result.put(WSSecurityEngineResult.TAG_ID, id);
+        }
+```
+
+### SizeReplaceableByIsEmpty
+`tokenId.length() != 0` can be replaced with '!tokenId.isEmpty()'
+in `ws-security-dom/src/main/java/org/apache/wss4j/dom/processor/DerivedKeyTokenProcessor.java`
+#### Snippet
+```java
+        data.getWsDocInfo().addTokenElement(elem);
+        String tokenId = dkt.getID();
+        if (tokenId.length() != 0) {
+            result.put(WSSecurityEngineResult.TAG_ID, tokenId);
+        }
+```
+
+### SizeReplaceableByIsEmpty
+`algo.length() == 0` can be replaced with 'algo.isEmpty()'
+in `ws-security-dom/src/main/java/org/apache/wss4j/dom/message/token/DerivedKeyToken.java`
+#### Snippet
+```java
+    public String getAlgorithm() {
+        String algo = element.getAttributeNS(ns, "Algorithm");
+        if (algo.length() == 0) {
+            return ConversationConstants.DerivationAlgorithm.P_SHA_1;
+        } else {
+```
+
+### SizeReplaceableByIsEmpty
+`tokenId.length() != 0` can be replaced with '!tokenId.isEmpty()'
+in `ws-security-dom/src/main/java/org/apache/wss4j/dom/processor/TimestampProcessor.java`
+#### Snippet
+```java
+            new WSSecurityEngineResult(WSConstants.TS, timestamp);
+        String tokenId = timestamp.getID();
+        if (tokenId.length() != 0) {
+            result.put(WSSecurityEngineResult.TAG_ID, tokenId);
+        }
+```
+
+### SizeReplaceableByIsEmpty
+`tokenId.length() != 0` can be replaced with '!tokenId.isEmpty()'
+in `ws-security-dom/src/main/java/org/apache/wss4j/dom/processor/SecurityContextTokenProcessor.java`
+#### Snippet
+```java
+            result.put(WSSecurityEngineResult.TAG_VALIDATED_TOKEN, Boolean.TRUE);
+            String tokenId = sct.getID();
+            if (tokenId.length() != 0) {
+                result.put(WSSecurityEngineResult.TAG_ID, tokenId);
+            }
+```
+
+### SizeReplaceableByIsEmpty
+`reference.getURI().length() == 0` can be replaced with 'reference.getURI().isEmpty()'
+in `ws-security-dom/src/main/java/org/apache/wss4j/dom/processor/SAMLTokenProcessor.java`
+#### Snippet
+```java
+            Reference reference = (Reference)refObject;
+
+            if (reference.getURI() == null || reference.getURI().length() == 0
+                || reference.getURI().equals(samlAssertion.getId())
+                || reference.getURI().equals("#" + samlAssertion.getId())) {
+```
+
+### SizeReplaceableByIsEmpty
+`id.length() != 0` can be replaced with '!id.isEmpty()'
+in `ws-security-dom/src/main/java/org/apache/wss4j/dom/processor/SAMLTokenProcessor.java`
+#### Snippet
+```java
+        }
+
+        if (id.length() != 0) {
+            result.put(WSSecurityEngineResult.TAG_ID, id);
         }
 ```
 
@@ -2335,210 +1986,6 @@ in `ws-security-dom/src/main/java/org/apache/wss4j/dom/handler/WSHandler.java`
 ```
 
 ### SizeReplaceableByIsEmpty
-`createdString.length() != 0` can be replaced with '!createdString.isEmpty()'
-in `ws-security-dom/src/main/java/org/apache/wss4j/dom/message/token/UsernameToken.java`
-#### Snippet
-```java
-        if (elementCreated != null) {
-            String createdString = getCreated();
-            if (createdString != null && createdString.length() != 0) {
-                try {
-                    created = ZonedDateTime.parse(createdString).toInstant();
-```
-
-### SizeReplaceableByIsEmpty
-`type.length() == 0` can be replaced with 'type.isEmpty()'
-in `ws-security-dom/src/main/java/org/apache/wss4j/dom/message/token/UsernameToken.java`
-#### Snippet
-```java
-            Element passwordChild = passwordElements.get(0);
-            String type = passwordChild.getAttributeNS(null, WSConstants.PASSWORD_TYPE_ATTR);
-            if (type == null || type.length() == 0) {
-                LOG.debug("The Username Token password does not have a Type attribute");
-                bspEnforcer.handleBSPRule(BSPRule.R4201);
-```
-
-### SizeReplaceableByIsEmpty
-`encodingType.length() == 0` can be replaced with 'encodingType.isEmpty()'
-in `ws-security-dom/src/main/java/org/apache/wss4j/dom/message/token/UsernameToken.java`
-#### Snippet
-```java
-            String encodingType = nonce.getAttributeNS(null, "EncodingType");
-            // Encoding Type must be equal to Base64Binary
-            if (encodingType == null || encodingType.length() == 0) {
-                bspEnforcer.handleBSPRule(BSPRule.R4220);
-            } else if (!WSConstants.BASE64_ENCODING.equals(encodingType)) {
-```
-
-### SizeReplaceableByIsEmpty
-`valueType.length() == 0` can be replaced with 'valueType.isEmpty()'
-in `ws-security-dom/src/main/java/org/apache/wss4j/dom/callback/DOMCallbackLookup.java`
-#### Snippet
-```java
-        if (WSConstants.WSS_SAML_KI_VALUE_TYPE.equals(valueType)
-            || WSConstants.WSS_SAML2_KI_VALUE_TYPE.equals(valueType)
-            || valueType == null || valueType.length() == 0) {
-            foundElement =
-                XMLUtils.findSAMLAssertionElementById(
-```
-
-### SizeReplaceableByIsEmpty
-`pwType.trim().length() == 0` can be replaced with 'pwType.trim().isEmpty()'
-in `ws-security-dom/src/main/java/org/apache/wss4j/dom/validate/UsernameTokenValidator.java`
-#### Snippet
-```java
-            verifyDigestPassword(usernameToken, data);
-        } else if (WSConstants.PASSWORD_TEXT.equals(pwType)
-            || password != null && (pwType == null || pwType.trim().length() == 0)) {
-            verifyPlaintextPassword(usernameToken, data);
-        } else if (password != null) {
-```
-
-### SizeReplaceableByIsEmpty
-`user.length() > 0` can be replaced with '!user.isEmpty()'
-in `ws-security-dom/src/main/java/org/apache/wss4j/dom/validate/JAASUsernameTokenValidator.java`
-#### Snippet
-```java
-        }
-
-        if (!(user != null && user.length() > 0 && password != null && password.length() > 0)) {
-            LOG.warn("User or password empty");
-            throw new WSSecurityException(WSSecurityException.ErrorCode.FAILED_AUTHENTICATION);
-```
-
-### SizeReplaceableByIsEmpty
-`password.length() > 0` can be replaced with '!password.isEmpty()'
-in `ws-security-dom/src/main/java/org/apache/wss4j/dom/validate/JAASUsernameTokenValidator.java`
-#### Snippet
-```java
-        }
-
-        if (!(user != null && user.length() > 0 && password != null && password.length() > 0)) {
-            LOG.warn("User or password empty");
-            throw new WSSecurityException(WSSecurityException.ErrorCode.FAILED_AUTHENTICATION);
-```
-
-### SizeReplaceableByIsEmpty
-`tokenId.length() != 0` can be replaced with '!tokenId.isEmpty()'
-in `ws-security-dom/src/main/java/org/apache/wss4j/dom/processor/SignatureConfirmationProcessor.java`
-#### Snippet
-```java
-            new WSSecurityEngineResult(WSConstants.SC, sigConf);
-        String tokenId = sigConf.getID();
-        if (tokenId.length() != 0) {
-            result.put(WSSecurityEngineResult.TAG_ID, tokenId);
-        }
-```
-
-### SizeReplaceableByIsEmpty
-`tokenId.length() != 0` can be replaced with '!tokenId.isEmpty()'
-in `ws-security-dom/src/main/java/org/apache/wss4j/dom/processor/DerivedKeyTokenProcessor.java`
-#### Snippet
-```java
-        data.getWsDocInfo().addTokenElement(elem);
-        String tokenId = dkt.getID();
-        if (tokenId.length() != 0) {
-            result.put(WSSecurityEngineResult.TAG_ID, tokenId);
-        }
-```
-
-### SizeReplaceableByIsEmpty
-`algo.length() == 0` can be replaced with 'algo.isEmpty()'
-in `ws-security-dom/src/main/java/org/apache/wss4j/dom/message/token/DerivedKeyToken.java`
-#### Snippet
-```java
-    public String getAlgorithm() {
-        String algo = element.getAttributeNS(ns, "Algorithm");
-        if (algo.length() == 0) {
-            return ConversationConstants.DerivationAlgorithm.P_SHA_1;
-        } else {
-```
-
-### SizeReplaceableByIsEmpty
-`tokenId.length() != 0` can be replaced with '!tokenId.isEmpty()'
-in `ws-security-dom/src/main/java/org/apache/wss4j/dom/processor/SecurityContextTokenProcessor.java`
-#### Snippet
-```java
-            result.put(WSSecurityEngineResult.TAG_VALIDATED_TOKEN, Boolean.TRUE);
-            String tokenId = sct.getID();
-            if (tokenId.length() != 0) {
-                result.put(WSSecurityEngineResult.TAG_ID, tokenId);
-            }
-```
-
-### SizeReplaceableByIsEmpty
-`id.length() != 0` can be replaced with '!id.isEmpty()'
-in `ws-security-dom/src/main/java/org/apache/wss4j/dom/processor/BinarySecurityTokenProcessor.java`
-#### Snippet
-```java
-        // See if the token has been previously processed
-        String id = elem.getAttributeNS(WSConstants.WSU_NS, "Id");
-        if (id.length() != 0) {
-            Element foundElement = data.getWsDocInfo().getTokenElement(id);
-            if (elem.equals(foundElement)) {
-```
-
-### SizeReplaceableByIsEmpty
-`id.length() != 0` can be replaced with '!id.isEmpty()'
-in `ws-security-dom/src/main/java/org/apache/wss4j/dom/processor/BinarySecurityTokenProcessor.java`
-#### Snippet
-```java
-            new WSSecurityEngineResult(WSConstants.BST, token, certs);
-        data.getWsDocInfo().addTokenElement(elem);
-        if (id.length() != 0) {
-            result.put(WSSecurityEngineResult.TAG_ID, id);
-        }
-```
-
-### SizeReplaceableByIsEmpty
-`tokenId.length() != 0` can be replaced with '!tokenId.isEmpty()'
-in `ws-security-dom/src/main/java/org/apache/wss4j/dom/processor/TimestampProcessor.java`
-#### Snippet
-```java
-            new WSSecurityEngineResult(WSConstants.TS, timestamp);
-        String tokenId = timestamp.getID();
-        if (tokenId.length() != 0) {
-            result.put(WSSecurityEngineResult.TAG_ID, tokenId);
-        }
-```
-
-### SizeReplaceableByIsEmpty
-`tokenId.length() != 0` can be replaced with '!tokenId.isEmpty()'
-in `ws-security-dom/src/main/java/org/apache/wss4j/dom/processor/ReferenceListProcessor.java`
-#### Snippet
-```java
-            new WSSecurityEngineResult(WSConstants.ENCR, dataRefs);
-        String tokenId = elem.getAttributeNS(null, "Id");
-        if (tokenId.length() != 0) {
-            result.put(WSSecurityEngineResult.TAG_ID, tokenId);
-        }
-```
-
-### SizeReplaceableByIsEmpty
-`id.length() != 0` can be replaced with '!id.isEmpty()'
-in `ws-security-dom/src/main/java/org/apache/wss4j/dom/processor/SAMLTokenProcessor.java`
-#### Snippet
-```java
-        }
-
-        if (id.length() != 0) {
-            result.put(WSSecurityEngineResult.TAG_ID, id);
-        }
-```
-
-### SizeReplaceableByIsEmpty
-`reference.getURI().length() == 0` can be replaced with 'reference.getURI().isEmpty()'
-in `ws-security-dom/src/main/java/org/apache/wss4j/dom/processor/SAMLTokenProcessor.java`
-#### Snippet
-```java
-            Reference reference = (Reference)refObject;
-
-            if (reference.getURI() == null || reference.getURI().length() == 0
-                || reference.getURI().equals(samlAssertion.getId())
-                || reference.getURI().equals("#" + samlAssertion.getId())) {
-```
-
-### SizeReplaceableByIsEmpty
 `id.length() != 0` can be replaced with '!id.isEmpty()'
 in `ws-security-dom/src/main/java/org/apache/wss4j/dom/processor/UsernameTokenProcessor.java`
 #### Snippet
@@ -2571,6 +2018,42 @@ in `ws-security-dom/src/main/java/org/apache/wss4j/dom/processor/EncryptedDataPr
                 new WSSecurityEngineResult(WSConstants.ENCR, Collections.singletonList(dataRef));
         if (encryptedDataId.length() != 0) {
             result.put(WSSecurityEngineResult.TAG_ID, encryptedDataId);
+        }
+```
+
+### SizeReplaceableByIsEmpty
+`tokenId.length() != 0` can be replaced with '!tokenId.isEmpty()'
+in `ws-security-dom/src/main/java/org/apache/wss4j/dom/processor/ReferenceListProcessor.java`
+#### Snippet
+```java
+            new WSSecurityEngineResult(WSConstants.ENCR, dataRefs);
+        String tokenId = elem.getAttributeNS(null, "Id");
+        if (tokenId.length() != 0) {
+            result.put(WSSecurityEngineResult.TAG_ID, tokenId);
+        }
+```
+
+### SizeReplaceableByIsEmpty
+`id.length() != 0` can be replaced with '!id.isEmpty()'
+in `ws-security-dom/src/main/java/org/apache/wss4j/dom/processor/EncryptedKeyProcessor.java`
+#### Snippet
+```java
+        // See if this key has already been processed. If so then just return the result
+        String id = elem.getAttributeNS(null, "Id");
+        if (id.length() != 0) {
+             WSSecurityEngineResult result = data.getWsDocInfo().getResult(id);
+             if (result != null
+```
+
+### SizeReplaceableByIsEmpty
+`tokenId.length() != 0` can be replaced with '!tokenId.isEmpty()'
+in `ws-security-dom/src/main/java/org/apache/wss4j/dom/processor/EncryptedKeyProcessor.java`
+#### Snippet
+```java
+        result.put(WSSecurityEngineResult.TAG_TOKEN_ELEMENT, elem);
+        String tokenId = elem.getAttributeNS(null, "Id");
+        if (tokenId.length() != 0) {
+            result.put(WSSecurityEngineResult.TAG_ID, tokenId);
         }
 ```
 
@@ -2635,30 +2118,6 @@ in `ws-security-dom/src/main/java/org/apache/wss4j/dom/processor/EncryptedKeyPro
 ```
 
 ### SizeReplaceableByIsEmpty
-`id.length() != 0` can be replaced with '!id.isEmpty()'
-in `ws-security-dom/src/main/java/org/apache/wss4j/dom/processor/EncryptedKeyProcessor.java`
-#### Snippet
-```java
-        // See if this key has already been processed. If so then just return the result
-        String id = elem.getAttributeNS(null, "Id");
-        if (id.length() != 0) {
-             WSSecurityEngineResult result = data.getWsDocInfo().getResult(id);
-             if (result != null
-```
-
-### SizeReplaceableByIsEmpty
-`tokenId.length() != 0` can be replaced with '!tokenId.isEmpty()'
-in `ws-security-dom/src/main/java/org/apache/wss4j/dom/processor/EncryptedKeyProcessor.java`
-#### Snippet
-```java
-        result.put(WSSecurityEngineResult.TAG_TOKEN_ELEMENT, elem);
-        String tokenId = elem.getAttributeNS(null, "Id");
-        if (tokenId.length() != 0) {
-            result.put(WSSecurityEngineResult.TAG_ID, tokenId);
-        }
-```
-
-### SizeReplaceableByIsEmpty
 `uri.length() != 0` can be replaced with '!uri.isEmpty()'
 in `ws-security-dom/src/main/java/org/apache/wss4j/dom/processor/SignatureProcessor.java`
 #### Snippet
@@ -2682,6 +2141,546 @@ in `ws-security-dom/src/main/java/org/apache/wss4j/dom/processor/SignatureProces
         }
 ```
 
+### SizeReplaceableByIsEmpty
+`stack[currentDefaultNS].getPrefix().length() == 0` can be replaced with 'stack\[currentDefaultNS\].getPrefix().isEmpty()'
+in `ws-security-common/src/main/java/org/apache/wss4j/common/util/NSStack.java`
+#### Snippet
+```java
+            while (currentDefaultNS > 0) {
+                if (stack[currentDefaultNS] != null
+                    && stack[currentDefaultNS].getPrefix().length() == 0) {
+                    break;
+                }
+```
+
+### SizeReplaceableByIsEmpty
+`prefix.length() == 0` can be replaced with 'prefix.isEmpty()'
+in `ws-security-common/src/main/java/org/apache/wss4j/common/util/NSStack.java`
+#### Snippet
+```java
+            // If this is the default namespace, note the new in-scope
+            // default is here.
+            if (prefix.length() == 0) {
+                currentDefaultNS = idx;
+            }
+```
+
+### SizeReplaceableByIsEmpty
+`possiblePrefix.length() == 0` can be replaced with 'possiblePrefix.isEmpty()'
+in `ws-security-common/src/main/java/org/apache/wss4j/common/util/NSStack.java`
+#### Snippet
+```java
+            if (map.getNamespaceHash() == hash && map.getNamespaceURI().equals(namespaceURI)) {
+                String possiblePrefix = map.getPrefix();
+                if (noDefault && possiblePrefix.length() == 0) {
+                    continue;
+                }
+```
+
+### SizeReplaceableByIsEmpty
+`id.length() == 0` can be replaced with 'id.isEmpty()'
+in `ws-security-common/src/main/java/org/apache/wss4j/common/saml/SamlAssertionWrapper.java`
+#### Snippet
+```java
+        if (samlVersion == SAMLVersion.VERSION_20) {
+            id = ((org.opensaml.saml.saml2.core.Assertion)samlObject).getID();
+            if (id == null || id.length() == 0) {
+                LOG.error("SamlAssertionWrapper: ID was null, seeting a new ID value");
+                id = IDGenerator.generateID("_");
+```
+
+### SizeReplaceableByIsEmpty
+`id.length() == 0` can be replaced with 'id.isEmpty()'
+in `ws-security-common/src/main/java/org/apache/wss4j/common/saml/SamlAssertionWrapper.java`
+#### Snippet
+```java
+        } else if (samlVersion == SAMLVersion.VERSION_11) {
+            id = ((org.opensaml.saml.saml1.core.Assertion)samlObject).getID();
+            if (id == null || id.length() == 0) {
+                LOG.error("SamlAssertionWrapper: ID was null, seeting a new ID value");
+                id = IDGenerator.generateID("_");
+```
+
+### SizeReplaceableByIsEmpty
+`keyAlgorithm.length() == 0` can be replaced with 'keyAlgorithm.isEmpty()'
+in `ws-security-common/src/main/java/org/apache/wss4j/common/util/KeyUtils.java`
+#### Snippet
+```java
+            //
+            String keyAlgorithm = JCEMapper.getJCEKeyAlgorithmFromURI(algorithm);
+            if (keyAlgorithm == null || keyAlgorithm.length() == 0) {
+                keyAlgorithm = JCEMapper.translateURItoJCEID(algorithm);
+            }
+```
+
+### SizeReplaceableByIsEmpty
+`identifier.length() == 0` can be replaced with 'identifier.isEmpty()'
+in `ws-security-common/src/main/java/org/apache/wss4j/common/cache/MemoryReplayCache.java`
+#### Snippet
+```java
+     */
+    public void add(String identifier, Instant expiry) {
+        if (identifier == null || identifier.length() == 0) {
+            return;
+        }
+```
+
+### SizeReplaceableByIsEmpty
+`identifier.length() != 0` can be replaced with '!identifier.isEmpty()'
+in `ws-security-common/src/main/java/org/apache/wss4j/common/cache/MemoryReplayCache.java`
+#### Snippet
+```java
+        processTokenExpiry();
+
+        if (identifier != null && identifier.length() != 0) {
+            return ids.contains(identifier);
+        }
+```
+
+### SizeReplaceableByIsEmpty
+`namespace.length() == 0` can be replaced with 'namespace.isEmpty()'
+in `ws-security-common/src/main/java/org/apache/wss4j/common/util/XMLUtils.java`
+#### Snippet
+```java
+                }
+
+                if ((namespace == null || namespace.length() == 0)
+                    && (ns == null || ns.length() == 0)) {
+                    foundNodes.add((Element)startNode);
+```
+
+### SizeReplaceableByIsEmpty
+`ns.length() == 0` can be replaced with 'ns.isEmpty()'
+in `ws-security-common/src/main/java/org/apache/wss4j/common/util/XMLUtils.java`
+#### Snippet
+```java
+
+                if ((namespace == null || namespace.length() == 0)
+                    && (ns == null || ns.length() == 0)) {
+                    foundNodes.add((Element)startNode);
+                }
+```
+
+### SizeReplaceableByIsEmpty
+`namespace.length() == 0` can be replaced with 'namespace.isEmpty()'
+in `ws-security-common/src/main/java/org/apache/wss4j/common/util/XMLUtils.java`
+#### Snippet
+```java
+                }
+
+                if ((namespace == null || namespace.length() == 0)
+                    && (ns == null || ns.length() == 0)) {
+                    return (Element)startNode;
+```
+
+### SizeReplaceableByIsEmpty
+`ns.length() == 0` can be replaced with 'ns.isEmpty()'
+in `ws-security-common/src/main/java/org/apache/wss4j/common/util/XMLUtils.java`
+#### Snippet
+```java
+
+                if ((namespace == null || namespace.length() == 0)
+                    && (ns == null || ns.length() == 0)) {
+                    return (Element)startNode;
+                }
+```
+
+### SizeReplaceableByIsEmpty
+`attributeNS.length() == 0` can be replaced with 'attributeNS.isEmpty()'
+in `ws-security-common/src/main/java/org/apache/wss4j/common/util/XMLUtils.java`
+#### Snippet
+```java
+                // Try the wsu:Id first
+                String attributeNS = se.getAttributeNS(WSU_NS, "Id");
+                if (attributeNS.length() == 0 || !id.equals(attributeNS)) {
+                    attributeNS = se.getAttributeNS(null, "Id");
+                }
+```
+
+### SizeReplaceableByIsEmpty
+`attributeNS.length() != 0` can be replaced with '!attributeNS.isEmpty()'
+in `ws-security-common/src/main/java/org/apache/wss4j/common/util/XMLUtils.java`
+#### Snippet
+```java
+                    attributeNS = se.getAttributeNS(null, "Id");
+                }
+                if (attributeNS.length() != 0 && id.equals(attributeNS)) {
+                    if (!checkMultipleElements) {
+                        return se;
+```
+
+### SizeReplaceableByIsEmpty
+`id.length() == 0` can be replaced with 'id.isEmpty()'
+in `ws-security-common/src/main/java/org/apache/wss4j/common/util/XMLUtils.java`
+#### Snippet
+```java
+        }
+        String id = ref.trim();
+        if (id.length() == 0) {
+            return null;
+        }
+```
+
+### SizeReplaceableByIsEmpty
+`sourceMethod.length() != 0` can be replaced with '!sourceMethod.isEmpty()'
+in `ws-security-common/src/main/java/org/apache/wss4j/common/saml/builder/SAML1ComponentBuilder.java`
+#### Snippet
+```java
+        if ("Password".equals(sourceMethod)) {
+            transformedMethod = SAML1Constants.AUTH_METHOD_PASSWORD;
+        } else if (sourceMethod != null && sourceMethod.length() != 0) {
+            return sourceMethod;
+        }
+```
+
+### SizeReplaceableByIsEmpty
+`elPrefix.length() > 0` can be replaced with '!elPrefix.isEmpty()'
+in `ws-security-common/src/main/java/org/apache/wss4j/common/util/DOM2Writer.java`
+#### Snippet
+```java
+                String elPrefix = node.getPrefix();
+                String elNamespaceURI = node.getNamespaceURI();
+                if (elPrefix != null && elNamespaceURI != null && elPrefix.length() > 0) {
+                    boolean prefixIsDeclared = false;
+                    try {
+```
+
+### SizeReplaceableByIsEmpty
+`data.length() > 0` can be replaced with '!data.isEmpty()'
+in `ws-security-common/src/main/java/org/apache/wss4j/common/util/DOM2Writer.java`
+#### Snippet
+```java
+                out.print(node.getNodeName());
+                String data = node.getNodeValue();
+                if (data != null && data.length() > 0) {
+                    out.print(' ');
+                    out.print(data);
+```
+
+### SizeReplaceableByIsEmpty
+`encoding.length() == 0` can be replaced with 'encoding.isEmpty()'
+in `ws-security-common/src/main/java/org/apache/wss4j/common/token/BinarySecurity.java`
+#### Snippet
+```java
+        }
+        String encoding = getEncodingType();
+        if (encoding == null || encoding.length() == 0) {
+            bspEnforcer.handleBSPRule(BSPRule.R3029);
+        }
+```
+
+### SizeReplaceableByIsEmpty
+`valueType.length() == 0` can be replaced with 'valueType.isEmpty()'
+in `ws-security-common/src/main/java/org/apache/wss4j/common/token/BinarySecurity.java`
+#### Snippet
+```java
+
+        String valueType = getValueType();
+        if (valueType == null || valueType.length() == 0) {
+            bspEnforcer.handleBSPRule(BSPRule.R3031);
+        }
+```
+
+### SizeReplaceableByIsEmpty
+`identifier.length() == 0` can be replaced with 'identifier.isEmpty()'
+in `ws-security-common/src/main/java/org/apache/wss4j/common/cache/EHCacheReplayCache.java`
+#### Snippet
+```java
+     */
+    public void add(String identifier, Instant expiry) {
+        if (identifier == null || identifier.length() == 0) {
+            return;
+        }
+```
+
+### SizeReplaceableByIsEmpty
+`uri.length() == 0` can be replaced with 'uri.isEmpty()'
+in `ws-security-common/src/main/java/org/apache/wss4j/common/token/Reference.java`
+#### Snippet
+```java
+        String uri = getURI();
+        // Reference URI cannot be null or empty
+        if (uri == null || uri.length() == 0) {
+            throw new WSSecurityException(
+                WSSecurityException.ErrorCode.INVALID_SECURITY, "badReferenceURI"
+```
+
+### SizeReplaceableByIsEmpty
+`sourceMethod.length() != 0` can be replaced with '!sourceMethod.isEmpty()'
+in `ws-security-common/src/main/java/org/apache/wss4j/common/saml/builder/SAML2ComponentBuilder.java`
+#### Snippet
+```java
+        if ("Password".equalsIgnoreCase(sourceMethod)) {
+            transformedMethod = SAML2Constants.AUTH_CONTEXT_CLASS_REF_PASSWORD;
+        } else if (sourceMethod != null && sourceMethod.length() != 0) {
+            return sourceMethod;
+        }
+```
+
+### SizeReplaceableByIsEmpty
+`provider.length() == 0` can be replaced with 'provider.isEmpty()'
+in `ws-security-common/src/main/java/org/apache/wss4j/common/crypto/MerlinDevice.java`
+#### Snippet
+```java
+                X509CRL crl = (X509CRL)cf.generateCRL(is);
+
+                if (provider == null || provider.length() == 0) {
+                    crlCertStore =
+                        CertStore.getInstance(
+```
+
+### SizeReplaceableByIsEmpty
+`provider.length() == 0` can be replaced with 'provider.isEmpty()'
+in `ws-security-common/src/main/java/org/apache/wss4j/common/crypto/CryptoBase.java`
+#### Snippet
+```java
+        try {
+            String provider = getCryptoProvider();
+            if (provider == null || provider.length() == 0) {
+                certificateFactory = CertificateFactory.getInstance("X.509");
+            } else {
+```
+
+### SizeReplaceableByIsEmpty
+`valueType.length() == 0` can be replaced with 'valueType.isEmpty()'
+in `ws-security-common/src/main/java/org/apache/wss4j/common/token/SecurityTokenReference.java`
+#### Snippet
+```java
+            String valueType = getKeyIdentifierValueType();
+            // ValueType cannot be null
+            if (valueType == null || valueType.length() == 0) {
+                bspEnforcer.handleBSPRule(BSPRule.R3054);
+            }
+```
+
+### SizeReplaceableByIsEmpty
+`encodingType.length() != 0` can be replaced with '!encodingType.isEmpty()'
+in `ws-security-common/src/main/java/org/apache/wss4j/common/token/SecurityTokenReference.java`
+#### Snippet
+```java
+            String encodingType = getFirstElement().getAttributeNS(null, "EncodingType");
+            // Encoding Type must be equal to Base64Binary if it's specified
+            if (encodingType.length() != 0 && !WSS4JConstants.BASE64_ENCODING.equals(encodingType)) {
+                bspEnforcer.handleBSPRule(BSPRule.R3071);
+            }
+```
+
+### SizeReplaceableByIsEmpty
+`encodingType.length() == 0` can be replaced with 'encodingType.isEmpty()'
+in `ws-security-common/src/main/java/org/apache/wss4j/common/token/SecurityTokenReference.java`
+#### Snippet
+```java
+            if (!WSS4JConstants.WSS_SAML_KI_VALUE_TYPE.equals(valueType)
+                && !WSS4JConstants.WSS_SAML2_KI_VALUE_TYPE.equals(valueType)
+                && encodingType.length() == 0) {
+                bspEnforcer.handleBSPRule(BSPRule.R3070);
+            }
+```
+
+### SizeReplaceableByIsEmpty
+`provider.length() == 0` can be replaced with 'provider.isEmpty()'
+in `ws-security-common/src/main/java/org/apache/wss4j/common/crypto/MerlinAKI.java`
+#### Snippet
+```java
+            String provider = getCryptoProvider();
+            CertPathValidator validator = null;
+            if (provider == null || provider.length() == 0) {
+                validator = CertPathValidator.getInstance("PKIX");
+            } else {
+```
+
+### SizeReplaceableByIsEmpty
+`label.length() == 0` can be replaced with 'label.isEmpty()'
+in `ws-security-common/src/main/java/org/apache/wss4j/common/derivedKey/DerivedKeyUtils.java`
+#### Snippet
+```java
+        DerivationAlgorithm algo = AlgoFactory.getInstance(algorithm);
+        byte[] labelBytes;
+        if (label == null || label.length() == 0) {
+            String defaultLabel = ConversationConstants.DEFAULT_LABEL + ConversationConstants.DEFAULT_LABEL;
+            labelBytes = defaultLabel.getBytes(StandardCharsets.UTF_8);
+```
+
+### SizeReplaceableByIsEmpty
+`provider.length() == 0` can be replaced with 'provider.isEmpty()'
+in `ws-security-common/src/main/java/org/apache/wss4j/common/crypto/CertificateStore.java`
+#### Snippet
+```java
+            String provider = getCryptoProvider();
+            CertPathValidator validator = null;
+            if (provider == null || provider.length() == 0) {
+                validator = CertPathValidator.getInstance("PKIX");
+            } else {
+```
+
+### SizeReplaceableByIsEmpty
+`provider.length() == 0` can be replaced with 'provider.isEmpty()'
+in `ws-security-common/src/main/java/org/apache/wss4j/common/crypto/Merlin.java`
+#### Snippet
+```java
+            String provider = getCryptoProvider();
+            CertPathValidator validator = null;
+            if (provider == null || provider.length() == 0) {
+                validator = CertPathValidator.getInstance("PKIX");
+            } else {
+```
+
+### SizeReplaceableByIsEmpty
+`keystoreProvider.length() == 0` can be replaced with 'keystoreProvider.isEmpty()'
+in `ws-security-common/src/main/java/org/apache/wss4j/common/crypto/Merlin.java`
+#### Snippet
+```java
+            keystoreProvider = keystoreProvider.trim();
+
+            if (keystoreProvider.length() == 0) {
+                keystoreProvider = null;
+            }
+```
+
+### SizeReplaceableByIsEmpty
+`trustProvider.length() == 0` can be replaced with 'trustProvider.isEmpty()'
+in `ws-security-common/src/main/java/org/apache/wss4j/common/crypto/Merlin.java`
+#### Snippet
+```java
+            trustProvider = trustProvider.trim();
+
+            if (trustProvider.length() == 0) {
+                trustProvider = null;
+            } else {
+```
+
+### SizeReplaceableByIsEmpty
+`keystoreProvider.length() == 0` can be replaced with 'keystoreProvider.isEmpty()'
+in `ws-security-common/src/main/java/org/apache/wss4j/common/crypto/Merlin.java`
+#### Snippet
+```java
+            }
+            try {
+                if (keystoreProvider == null || keystoreProvider.length() == 0) {
+                    crlCertStore =
+                            CertStore.getInstance(
+```
+
+### SizeReplaceableByIsEmpty
+`provider.length() == 0` can be replaced with 'provider.isEmpty()'
+in `ws-security-common/src/main/java/org/apache/wss4j/common/crypto/Merlin.java`
+#### Snippet
+```java
+
+        try {
+            if (provider == null || provider.length() == 0) {
+                if (keyStoreProvider != null && keyStoreProvider.length() != 0) {
+                    try {
+```
+
+### SizeReplaceableByIsEmpty
+`keyStoreProvider.length() != 0` can be replaced with '!keyStoreProvider.isEmpty()'
+in `ws-security-common/src/main/java/org/apache/wss4j/common/crypto/Merlin.java`
+#### Snippet
+```java
+        try {
+            if (provider == null || provider.length() == 0) {
+                if (keyStoreProvider != null && keyStoreProvider.length() != 0) {
+                    try {
+                        certificateFactory =
+```
+
+### SizeReplaceableByIsEmpty
+`provider.length() == 0` can be replaced with 'provider.isEmpty()'
+in `ws-security-common/src/main/java/org/apache/wss4j/common/crypto/Merlin.java`
+#### Snippet
+```java
+
+        try {
+            if (provider == null || provider.length() == 0) {
+                ks = KeyStore.getInstance(type);
+            } else {
+```
+
+### SizeReplaceableByIsEmpty
+`storepass.length() == 0` can be replaced with 'storepass.isEmpty()'
+in `ws-security-common/src/main/java/org/apache/wss4j/common/crypto/Merlin.java`
+#### Snippet
+```java
+            }
+
+            ks.load(input, storepass == null || storepass.length() == 0
+                ? new char[0] : storepass.toCharArray());
+        } catch (IOException | GeneralSecurityException e) {
+```
+
+### SizeReplaceableByIsEmpty
+`created.length() != 0` can be replaced with '!created.isEmpty()'
+in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/processor/output/UsernameTokenOutputProcessor.java`
+#### Snippet
+```java
+                }
+
+                if (created != null && created.length() != 0) {
+                    createStartElementAndOutputAsEvent(subOutputProcessorChain, WSSConstants.TAG_WSU_CREATED, false, null);
+                    createCharactersAndOutputAsEvent(subOutputProcessorChain, created);
+```
+
+### SizeReplaceableByIsEmpty
+`valueType.length() != 0` can be replaced with '!valueType.isEmpty()'
+in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/securityToken/SecurityTokenFactoryImpl.java`
+#### Snippet
+```java
+            if (WSSecurityTokenConstants.SAML_20_TOKEN.equals(samlTokenType)) {
+                String valueType = referenceType.getValueType();
+                if (valueType != null && valueType.length() != 0) {
+                    ((WSInboundSecurityContext) inboundSecurityContext).handleBSPRule(BSPRule.R6614);
+                }
+```
+
+### SizeReplaceableByIsEmpty
+`xPathElement.length() == 0` can be replaced with 'xPathElement.isEmpty()'
+in `ws-security-policy-stax/src/main/java/org/apache/wss4j/policy/stax/PolicyUtils.java`
+#### Snippet
+```java
+        for (int j = 0; j < xPathElements.length; j++) {
+            String xPathElement = xPathElements[j];
+            if (xPathElement == null || xPathElement.length() == 0) {
+                continue;
+            }
+```
+
+### SizeReplaceableByIsEmpty
+`actionToParse.length() == 0` can be replaced with 'actionToParse.isEmpty()'
+in `ws-security-stax/src/main/java/org/apache/wss4j/stax/setup/ConfigurationConverter.java`
+#### Snippet
+```java
+        }
+        actionToParse = actionToParse.trim();
+        if (actionToParse.length() == 0) {
+            return;
+        }
+```
+
+### SizeReplaceableByIsEmpty
+`claimTypeOptional.length() == 0` can be replaced with 'claimTypeOptional.isEmpty()'
+in `ws-security-policy-stax/src/main/java/org/apache/wss4j/policy/stax/assertionStates/IssuedTokenAssertionState.java`
+#### Snippet
+```java
+                String claimTypeOptional = claimType.getAttributeNS(null, "Optional");
+
+                if (claimTypeOptional.length() == 0 || !Boolean.parseBoolean(claimTypeOptional)) {
+                    String errorMsg = findClaimInAssertion(samlTokenSecurityEvent.getSamlAssertionWrapper(), URI.create(claimTypeUri));
+                    if (errorMsg != null) {
+```
+
+### SizeReplaceableByIsEmpty
+`operationName.getNamespaceURI().length() == 0` can be replaced with 'operationName.getNamespaceURI().isEmpty()'
+in `ws-security-policy-stax/src/main/java/org/apache/wss4j/policy/stax/enforcer/PolicyEnforcer.java`
+#### Snippet
+```java
+                if (soapOperationName.equals(operationName)) {
+                    return operationPolicy;
+                } else if ((operationName.getNamespaceURI() == null || operationName.getNamespaceURI().length() == 0)
+                    && soapOperationName.getLocalPart().equals(operationName.getLocalPart())) {
+                    noNamespaceOperation = operationPolicy;
+```
+
 ## RuleId[ruleID=StringBufferReplaceableByString]
 ### StringBufferReplaceableByString
 `StringBuilder suffix` can be replaced with 'String'
@@ -2693,6 +2692,31 @@ in `ws-security-dom/src/main/java/org/apache/wss4j/dom/util/EncryptionUtils.java
         StringBuilder suffix = new StringBuilder(str.substring(insertionIndex, str.length()));
 
         // Don't add more than 20 prefixes
+```
+
+## RuleId[ruleID=UnnecessaryReturn]
+### UnnecessaryReturn
+`return` is unnecessary as the last statement in a 'void' method
+in `policy/src/main/java/org/apache/wss4j/policy/model/NSStack.java`
+#### Snippet
+```java
+        }
+        if (top == 0) {
+            return;
+        }
+    }
+```
+
+### UnnecessaryReturn
+`return` is unnecessary as the last statement in a 'void' method
+in `ws-security-policy-stax/src/main/java/org/apache/wss4j/policy/stax/enforcer/PolicyEnforcer.java`
+#### Snippet
+```java
+            securityEventQueue.clear();
+
+            return;
+        } else {
+            securityEventQueue.push(securityEvent);
 ```
 
 ## RuleId[ruleID=NonShortCircuitBoolean]
@@ -2744,32 +2768,56 @@ in `ws-security-policy-stax/src/main/java/org/apache/wss4j/policy/stax/assertion
             setAsserted(true);
 ```
 
-## RuleId[ruleID=UnnecessaryReturn]
-### UnnecessaryReturn
-`return` is unnecessary as the last statement in a 'void' method
-in `policy/src/main/java/org/apache/wss4j/policy/model/NSStack.java`
+## RuleId[ruleID=ManualMinMaxCalculation]
+### ManualMinMaxCalculation
+Can be replaced with 'Math.min()' call
+in `ws-security-common/src/main/java/org/apache/wss4j/common/util/KeyUtils.java`
 #### Snippet
 ```java
-        }
-        if (top == 0) {
-            return;
-        }
-    }
-```
-
-### UnnecessaryReturn
-`return` is unnecessary as the last statement in a 'void' method
-in `ws-security-policy-stax/src/main/java/org/apache/wss4j/policy/stax/enforcer/PolicyEnforcer.java`
-#### Snippet
-```java
-            securityEventQueue.clear();
-
-            return;
-        } else {
-            securityEventQueue.push(securityEvent);
+            keySpec =
+                new SecretKeySpec(
+                    rawKey, 0, rawKey.length > size ? size : rawKey.length, keyAlgorithm
+                );
+        } else if (rawKey.length > MAX_SYMMETRIC_KEY_SIZE) {
 ```
 
 ## RuleId[ruleID=TrivialStringConcatenation]
+### TrivialStringConcatenation
+Empty string used in concatenation
+in `ws-security-dom/src/main/java/org/apache/wss4j/dom/message/token/UsernameToken.java`
+#### Snippet
+```java
+     */
+    public void addIteration(Document doc, int iteration) {
+        String text = "" + iteration;
+        elementIteration =
+            doc.createElementNS(
+```
+
+### TrivialStringConcatenation
+Empty string used in concatenation
+in `ws-security-dom/src/main/java/org/apache/wss4j/dom/processor/SignatureProcessor.java`
+#### Snippet
+```java
+
+        // Test for replay attacks
+        String identifier = timeStamp.getCreatedString() + "" + Arrays.hashCode(signatureValue)
+            + "" + Arrays.hashCode(key.getEncoded());
+
+```
+
+### TrivialStringConcatenation
+Empty string used in concatenation
+in `ws-security-dom/src/main/java/org/apache/wss4j/dom/processor/SignatureProcessor.java`
+#### Snippet
+```java
+        // Test for replay attacks
+        String identifier = timeStamp.getCreatedString() + "" + Arrays.hashCode(signatureValue)
+            + "" + Arrays.hashCode(key.getEncoded());
+
+        if (replayCache.contains(identifier)) {
+```
+
 ### TrivialStringConcatenation
 Empty string used in concatenation
 in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/processor/input/WSSSignatureReferenceVerifyInputProcessor.java`
@@ -2823,18 +2871,6 @@ Empty string used in concatenation
 in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/securityToken/SecurityTokenFactoryImpl.java`
 #### Snippet
 ```java
-            throw new WSSecurityException(WSSecurityException.ErrorCode.INVALID_SECURITY, "noKeyinfo");
-        } finally {
-            inboundSecurityContext.remove("" + Thread.currentThread().hashCode());
-        }
-    }
-```
-
-### TrivialStringConcatenation
-Empty string used in concatenation
-in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/securityToken/SecurityTokenFactoryImpl.java`
-#### Snippet
-```java
 
         //prevent recursive key reference DOS:
         Integer invokeCount = inboundSecurityContext.<Integer>get("" + Thread.currentThread().hashCode());
@@ -2856,51 +2892,14 @@ in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/securityToken/Secu
 
 ### TrivialStringConcatenation
 Empty string used in concatenation
-in `ws-security-dom/src/main/java/org/apache/wss4j/dom/message/token/UsernameToken.java`
+in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/securityToken/SecurityTokenFactoryImpl.java`
 #### Snippet
 ```java
-     */
-    public void addIteration(Document doc, int iteration) {
-        String text = "" + iteration;
-        elementIteration =
-            doc.createElementNS(
-```
-
-### TrivialStringConcatenation
-Empty string used in concatenation
-in `ws-security-dom/src/main/java/org/apache/wss4j/dom/processor/SignatureProcessor.java`
-#### Snippet
-```java
-
-        // Test for replay attacks
-        String identifier = timeStamp.getCreatedString() + "" + Arrays.hashCode(signatureValue)
-            + "" + Arrays.hashCode(key.getEncoded());
-
-```
-
-### TrivialStringConcatenation
-Empty string used in concatenation
-in `ws-security-dom/src/main/java/org/apache/wss4j/dom/processor/SignatureProcessor.java`
-#### Snippet
-```java
-        // Test for replay attacks
-        String identifier = timeStamp.getCreatedString() + "" + Arrays.hashCode(signatureValue)
-            + "" + Arrays.hashCode(key.getEncoded());
-
-        if (replayCache.contains(identifier)) {
-```
-
-## RuleId[ruleID=ManualMinMaxCalculation]
-### ManualMinMaxCalculation
-Can be replaced with 'Math.min()' call
-in `ws-security-common/src/main/java/org/apache/wss4j/common/util/KeyUtils.java`
-#### Snippet
-```java
-            keySpec =
-                new SecretKeySpec(
-                    rawKey, 0, rawKey.length > size ? size : rawKey.length, keyAlgorithm
-                );
-        } else if (rawKey.length > MAX_SYMMETRIC_KEY_SIZE) {
+            throw new WSSecurityException(WSSecurityException.ErrorCode.INVALID_SECURITY, "noKeyinfo");
+        } finally {
+            inboundSecurityContext.remove("" + Thread.currentThread().hashCode());
+        }
+    }
 ```
 
 ## RuleId[ruleID=AbstractClassNeverImplemented]
@@ -2930,306 +2929,6 @@ public abstract class WSSecurityEventConstants extends SecurityEventConstants { 
 
 ## RuleId[ruleID=BoundedWildcard]
 ### BoundedWildcard
-Can generalize to `? extends T`
-in `ws-security-common/src/main/java/org/apache/wss4j/common/util/Loader.java`
-#### Snippet
-```java
-    public static <T> Class<? extends T> loadClass(ClassLoader loader,
-                                                   String clazz,
-                                                   Class<T> type) throws ClassNotFoundException {
-        try {
-            if (loader != null) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
-in `ws-security-common/src/main/java/org/apache/wss4j/common/util/Loader.java`
-#### Snippet
-```java
-    public static <T> Class<? extends T> loadClass(String clazz,
-                                                   boolean warn,
-                                                   Class<T> type) throws ClassNotFoundException {
-        return loadClass(clazz, warn).asSubclass(type);
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
-in `ws-security-common/src/main/java/org/apache/wss4j/common/util/Loader.java`
-#### Snippet
-```java
-     * @throws ClassNotFoundException
-     */
-    public static <T> Class<? extends T> loadClass(String clazz, Class<T> type)
-            throws ClassNotFoundException {
-        return loadClass(clazz, true, type);
-```
-
-### BoundedWildcard
-Can generalize to `? extends AuthenticationStatementBean`
-in `ws-security-common/src/main/java/org/apache/wss4j/common/saml/builder/SAML1ComponentBuilder.java`
-#### Snippet
-```java
-    @SuppressWarnings("unchecked")
-    public static List<AuthenticationStatement> createSamlv1AuthenticationStatement(
-        List<AuthenticationStatementBean> authBeans
-    ) throws org.opensaml.security.SecurityException, WSSecurityException {
-        List<AuthenticationStatement> authenticationStatements = new ArrayList<>();
-```
-
-### BoundedWildcard
-Can generalize to `? extends AuthDecisionStatementBean`
-in `ws-security-common/src/main/java/org/apache/wss4j/common/saml/builder/SAML1ComponentBuilder.java`
-#### Snippet
-```java
-    @SuppressWarnings("unchecked")
-    public static List<AuthorizationDecisionStatement> createSamlv1AuthorizationDecisionStatement(
-            List<AuthDecisionStatementBean> decisionData)
-        throws org.opensaml.security.SecurityException, WSSecurityException {
-        List<AuthorizationDecisionStatement> authDecisionStatements = new ArrayList<>();
-```
-
-### BoundedWildcard
-Can generalize to `? extends AttributeStatementBean`
-in `ws-security-common/src/main/java/org/apache/wss4j/common/saml/builder/SAML1ComponentBuilder.java`
-#### Snippet
-```java
-    @SuppressWarnings("unchecked")
-    public static List<AttributeStatement> createSamlv1AttributeStatement(
-        List<AttributeStatementBean> attributeData
-    ) throws org.opensaml.security.SecurityException, WSSecurityException {
-        if (attributeStatementV1Builder == null) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends AuthDecisionStatementBean`
-in `ws-security-common/src/main/java/org/apache/wss4j/common/saml/builder/SAML2ComponentBuilder.java`
-#### Snippet
-```java
-    @SuppressWarnings("unchecked")
-    public static List<AuthzDecisionStatement> createAuthorizationDecisionStatement(
-        List<AuthDecisionStatementBean> decisionData
-    ) {
-        List<AuthzDecisionStatement> authDecisionStatements = new ArrayList<>();
-```
-
-### BoundedWildcard
-Can generalize to `? extends DelegateBean`
-in `ws-security-common/src/main/java/org/apache/wss4j/common/saml/builder/SAML2ComponentBuilder.java`
-#### Snippet
-```java
-    @SuppressWarnings("unchecked")
-    public static DelegationRestrictionType createDelegationRestriction(
-        List<DelegateBean> delegates
-    ) {
-        if (delegationRestrictionBuilder == null) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends AttributeStatementBean`
-in `ws-security-common/src/main/java/org/apache/wss4j/common/saml/builder/SAML2ComponentBuilder.java`
-#### Snippet
-```java
-    @SuppressWarnings("unchecked")
-    public static List<AttributeStatement> createAttributeStatement(
-        List<AttributeStatementBean> attributeData
-    ) {
-        List<AttributeStatement> attributeStatements = new ArrayList<>();
-```
-
-### BoundedWildcard
-Can generalize to `? extends AuthenticationStatementBean`
-in `ws-security-common/src/main/java/org/apache/wss4j/common/saml/builder/SAML2ComponentBuilder.java`
-#### Snippet
-```java
-    @SuppressWarnings("unchecked")
-    public static List<AuthnStatement> createAuthnStatement(
-        List<AuthenticationStatementBean> authBeans
-    ) {
-        List<AuthnStatement> authnStatements = new ArrayList<>();
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `ws-security-common/src/main/java/org/apache/wss4j/common/util/AttachmentUtils.java`
-#### Snippet
-```java
-
-    public static void readAndReplaceEncryptedAttachmentHeaders(
-            Map<String, String> headers, InputStream attachmentInputStream) throws IOException, WSSecurityException {
-
-        //read and replace headers
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `ws-security-common/src/main/java/org/apache/wss4j/common/util/AttachmentUtils.java`
-#### Snippet
-```java
-
-    public static void readAndReplaceEncryptedAttachmentHeaders(
-            Map<String, String> headers, InputStream attachmentInputStream) throws IOException, WSSecurityException {
-
-        //read and replace headers
-```
-
-### BoundedWildcard
-Can generalize to `? extends XMLSecEvent`
-in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/processor/input/UsernameTokenInputHandler.java`
-#### Snippet
-```java
-
-    private void checkBSPCompliance(InputProcessorChain inputProcessorChain, UsernameTokenType usernameTokenType,
-                                    List<XMLSecEvent> xmlSecEvents) throws WSSecurityException {
-
-        final WSInboundSecurityContext securityContext = (WSInboundSecurityContext) inputProcessorChain.getSecurityContext();
-```
-
-### BoundedWildcard
-Can generalize to `? extends XMLSecEvent`
-in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/processor/input/SecurityHeaderInputProcessor.java`
-#### Snippet
-```java
-            InputProcessorChain subInputProcessorChain,
-            InternalSecurityHeaderBufferProcessor internalSecurityHeaderBufferProcessor,
-            Deque<XMLSecEvent> xmlSecEventList) {
-
-        subInputProcessorChain.removeProcessor(internalSecurityHeaderBufferProcessor);
-```
-
-### BoundedWildcard
-Can generalize to `? extends InboundSecurityToken`
-in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/processor/input/SecurityContextTokenInputHandler.java`
-#### Snippet
-```java
-
-    private SecurityContextTokenSecurityEvent createTokenSecurityEvent(AbstractSecurityContextTokenType securityContextTokenType,
-                                                                       SecurityTokenProvider<InboundSecurityToken> securityTokenProvider)
-            throws XMLSecurityException {
-        SecurityContextTokenSecurityEvent securityContextTokenSecurityEvent = new SecurityContextTokenSecurityEvent();
-```
-
-### BoundedWildcard
-Can generalize to `? super TrustAnchor`
-in `ws-security-common/src/main/java/org/apache/wss4j/common/crypto/Merlin.java`
-#### Snippet
-```java
-     * @throws KeyStoreException if a problem occurs accessing the keyStore
-     */
-    protected void addTrustAnchors(Set<TrustAnchor> set, KeyStore keyStore)
-            throws KeyStoreException, WSSecurityException {
-        Enumeration<String> aliases = keyStore.aliases();
-```
-
-### BoundedWildcard
-Can generalize to `? extends XMLSecEvent`
-in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/processor/input/TimestampInputHandler.java`
-#### Snippet
-```java
-
-    private void checkBSPCompliance(InputProcessorChain inputProcessorChain, TimestampType timestampType,
-                                    List<XMLSecEvent> xmlSecEvents) throws WSSecurityException {
-        final WSInboundSecurityContext securityContext = (WSInboundSecurityContext) inputProcessorChain.getSecurityContext();
-        if (timestampType.getCreated() == null) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends InboundSecurityToken`
-in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/processor/input/SAMLTokenInputHandler.java`
-#### Snippet
-```java
-        SAMLTokenVerifierInputProcessor(XMLSecurityProperties securityProperties,
-                                        SamlAssertionWrapper samlAssertionWrapper,
-                                        SecurityTokenProvider<InboundSecurityToken> securityTokenProvider,
-                                        InboundSecurityToken subjectSecurityToken,
-                                        boolean soap12) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends TokenSecurityEvent`
-in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/InboundWSSecurityContextImpl.java`
-#### Snippet
-```java
-
-    private void removeTokenSecurityEvent(TokenSecurityEvent<? extends InboundSecurityToken> tokenSecurityEvent,
-                                          List<TokenSecurityEvent<? extends InboundSecurityToken>> tokenSecurityEventList) {
-        for (int i = 0; i < tokenSecurityEventList.size(); i++) {
-            TokenSecurityEvent<? extends InboundSecurityToken> securityEvent = tokenSecurityEventList.get(i);
-```
-
-### BoundedWildcard
-Can generalize to `? extends TokenSecurityEvent`
-in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/InboundWSSecurityContextImpl.java`
-#### Snippet
-```java
-    }
-
-    private void setTokenUsage(List<TokenSecurityEvent<? extends InboundSecurityToken>> tokenSecurityEvents,
-                               WSSecurityTokenConstants.TokenUsage tokenUsage) throws XMLSecurityException {
-        for (int i = 0; i < tokenSecurityEvents.size(); i++) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends TokenSecurityEvent`
-in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/InboundWSSecurityContextImpl.java`
-#### Snippet
-```java
-    }
-
-    private boolean containsSecurityToken(List<TokenSecurityEvent<? extends InboundSecurityToken>> supportingTokens,
-                                          SecurityToken securityToken) {
-        if (securityToken != null) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends TokenSecurityEvent`
-in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/InboundWSSecurityContextImpl.java`
-#### Snippet
-```java
-    private TokenSecurityEvent<? extends InboundSecurityToken> getTokenSecurityEvent(
-            InboundSecurityToken securityToken,
-            List<TokenSecurityEvent<? extends InboundSecurityToken>> tokenSecurityEvents) throws XMLSecurityException {
-        if (securityToken != null) {
-            for (int i = 0; i < tokenSecurityEvents.size(); i++) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends XMLSecEvent`
-in `ws-security-stax/src/main/java/org/apache/wss4j/stax/validate/TokenContext.java`
-#### Snippet
-```java
-
-    public TokenContext(WSSSecurityProperties wssSecurityProperties, WSInboundSecurityContext wsInboundSecurityContext,
-                        List<XMLSecEvent> xmlSecEvents, List<QName> elementPath) {
-
-        this.wssSecurityProperties = wssSecurityProperties;
-```
-
-### BoundedWildcard
-Can generalize to `? super Class`
-in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/securityToken/SecurityTokenFactoryImpl.java`
-#### Snippet
-```java
-    }
-
-    private static void getImplementedInterfaces(Class<?> clazz, List<Class<?>> interfaceList) {
-        if (clazz == null) {
-            return;
-```
-
-### BoundedWildcard
-Can generalize to `? super SecurePart`
-in `ws-security-stax/src/main/java/org/apache/wss4j/stax/setup/ConfigurationConverter.java`
-#### Snippet
-```java
-    }
-
-    private static void splitEncParts(String tmpS, List<SecurePart> parts, String soapNS) {
-        SecurePart encPart = null;
-        String[] rawParts = tmpS.split(";");
-```
-
-### BoundedWildcard
 Can generalize to `? extends List`
 in `policy/src/main/java/org/apache/wss4j/policy/model/AbstractSecurityAssertion.java`
 #### Snippet
@@ -3239,54 +2938,6 @@ in `policy/src/main/java/org/apache/wss4j/policy/model/AbstractSecurityAssertion
     public boolean isAsserted(Map<QName, List<AssertionState>> assertionStatesMap) {
         List<AssertionState> assertionStateList = assertionStatesMap.get(getName());
         if (assertionStateList != null) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends QName`
-in `ws-security-stax/src/main/java/org/apache/wss4j/stax/utils/WSSUtils.java`
-#### Snippet
-```java
-    }
-
-    public static boolean isInSecurityHeader(XMLSecEvent xmlSecEvent, List<QName> elementPath, String actorOrRole) {
-        if (elementPath.size() > 2) {
-            final QName secondLevelElementName = elementPath.get(1);
-```
-
-### BoundedWildcard
-Can generalize to `? extends QName`
-in `ws-security-stax/src/main/java/org/apache/wss4j/stax/utils/WSSUtils.java`
-#### Snippet
-```java
-    }
-
-    public static boolean isInSOAPHeader(List<QName> elementPath) {
-        if (elementPath.size() > 1) {
-            final QName secondLevelElementName = elementPath.get(1);
-```
-
-### BoundedWildcard
-Can generalize to `? extends QName`
-in `ws-security-stax/src/main/java/org/apache/wss4j/stax/utils/WSSUtils.java`
-#### Snippet
-```java
-    }
-
-    public static boolean isInSOAPBody(List<QName> elementPath) {
-        if (elementPath.size() > 1) {
-            final QName secondLevelElementName = elementPath.get(1);
-```
-
-### BoundedWildcard
-Can generalize to `? extends SecurityEventListener`
-in `ws-security-stax/src/main/java/org/apache/wss4j/stax/setup/InboundWSSec.java`
-#### Snippet
-```java
-    public XMLStreamReader processInMessage(
-            XMLStreamReader xmlStreamReader, List<SecurityEvent> requestSecurityEvents,
-            List<SecurityEventListener> securityEventListeners) throws XMLStreamException, WSSecurityException {
-
-        if (requestSecurityEvents == null) {
 ```
 
 ### BoundedWildcard
@@ -3350,15 +3001,15 @@ in `ws-security-dom/src/main/java/org/apache/wss4j/dom/util/SignatureUtils.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends WSSecurityEngineResult`
-in `ws-security-dom/src/main/java/org/apache/wss4j/dom/saml/DOMSAMLUtil.java`
+Can generalize to `? extends javax.xml.crypto.dsig.Reference`
+in `ws-security-dom/src/main/java/org/apache/wss4j/dom/saml/WSSecSignatureSAML.java`
 #### Snippet
 ```java
-    public static boolean compareCredentials(
-        SAMLKeyInfo subjectKeyInfo,
-        List<WSSecurityEngineResult> signedResults,
-        Certificate[] tlsCerts
-    ) {
+     */
+    public void computeSignature(
+        List<javax.xml.crypto.dsig.Reference> referenceList,
+        Element siblingElement
+    ) throws WSSecurityException {
 ```
 
 ### BoundedWildcard
@@ -3374,40 +3025,15 @@ in `ws-security-dom/src/main/java/org/apache/wss4j/dom/saml/DOMSAMLUtil.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends javax.xml.crypto.dsig.Reference`
-in `ws-security-dom/src/main/java/org/apache/wss4j/dom/saml/WSSecSignatureSAML.java`
+Can generalize to `? extends WSSecurityEngineResult`
+in `ws-security-dom/src/main/java/org/apache/wss4j/dom/saml/DOMSAMLUtil.java`
 #### Snippet
 ```java
-     */
-    public void computeSignature(
-        List<javax.xml.crypto.dsig.Reference> referenceList,
-        Element siblingElement
-    ) throws WSSecurityException {
-```
-
-### BoundedWildcard
-Can generalize to `? super Assertion`
-in `ws-security-policy-stax/src/main/java/org/apache/wss4j/policy/stax/enforcer/PolicyEnforcer.java`
-#### Snippet
-```java
-    }
-
-    private void addAssertionState(Map<Assertion, List<Assertable>> assertables,
-                                   Assertion keyAssertion,
-                                   Assertable assertable) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends Map`>>
-in `ws-security-policy-stax/src/main/java/org/apache/wss4j/policy/stax/enforcer/PolicyEnforcer.java`
-#### Snippet
-```java
-    private void buildAssertionStateMap(
-            PolicyComponent policyComponent,
-            List<Map<SecurityEventConstants.Event,
-            Map<Assertion, List<Assertable>>>> assertionStateMap,
-            int alternative
-    ) throws WSSPolicyException {
+    public static boolean compareCredentials(
+        SAMLKeyInfo subjectKeyInfo,
+        List<WSSecurityEngineResult> signedResults,
+        Certificate[] tlsCerts
+    ) {
 ```
 
 ### BoundedWildcard
@@ -3447,51 +3073,15 @@ in `ws-security-dom/src/main/java/org/apache/wss4j/dom/message/WSSecDKSign.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends WSSecurityEngineResult`
-in `ws-security-dom/src/main/java/org/apache/wss4j/dom/handler/WSHandler.java`
+Can generalize to `? extends WSEncryptionPart`
+in `ws-security-dom/src/main/java/org/apache/wss4j/dom/message/Encryptor.java`
 #### Snippet
 ```java
-
-    protected boolean checkReceiverResults(
-        List<WSSecurityEngineResult> wsResult, List<Integer> actions
-    ) {
-        int size = actions.size();
-```
-
-### BoundedWildcard
-Can generalize to `? extends HandlerAction`
-in `ws-security-dom/src/main/java/org/apache/wss4j/dom/handler/WSHandler.java`
-#### Snippet
-```java
-
-    private HandlerAction getSignatureActionThatSignsATimestamp(
-        List<HandlerAction> actions, RequestData reqData
-    ) {
-        for (HandlerAction action : actions) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends WSSecurityEngineResult`
-in `ws-security-dom/src/main/java/org/apache/wss4j/dom/handler/WSHandler.java`
-#### Snippet
-```java
-
-    protected boolean checkReceiverResultsAnyOrder(
-        List<WSSecurityEngineResult> wsResult, List<Integer> actions
-    ) {
-        List<Integer> recordedActions = new ArrayList<>(actions.size());
-```
-
-### BoundedWildcard
-Can generalize to `? super WSEncryptionPart`
-in `ws-security-dom/src/main/java/org/apache/wss4j/dom/handler/WSHandler.java`
-#### Snippet
-```java
-
-    private void splitEncParts(boolean required, String tmpS,
-                               List<WSEncryptionPart> parts, RequestData reqData)
-        throws WSSecurityException {
-        WSEncryptionPart encPart = null;
+        SecretKey secretKey,
+        String encryptionAlgorithm,
+        List<WSEncryptionPart> references,
+        List<Element> attachmentEncryptedDataElements
+    ) throws WSSecurityException {
 ```
 
 ### BoundedWildcard
@@ -3519,18 +3109,6 @@ in `ws-security-dom/src/main/java/org/apache/wss4j/dom/message/Encryptor.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends WSEncryptionPart`
-in `ws-security-dom/src/main/java/org/apache/wss4j/dom/message/Encryptor.java`
-#### Snippet
-```java
-        SecretKey secretKey,
-        String encryptionAlgorithm,
-        List<WSEncryptionPart> references,
-        List<Element> attachmentEncryptedDataElements
-    ) throws WSSecurityException {
-```
-
-### BoundedWildcard
 Can generalize to `? extends javax.xml.crypto.dsig.Reference`
 in `ws-security-dom/src/main/java/org/apache/wss4j/dom/message/WSSecSignature.java`
 #### Snippet
@@ -3542,7 +3120,464 @@ in `ws-security-dom/src/main/java/org/apache/wss4j/dom/message/WSSecSignature.ja
         Element siblingElement
 ```
 
+### BoundedWildcard
+Can generalize to `? extends WSSecurityEngineResult`
+in `ws-security-dom/src/main/java/org/apache/wss4j/dom/handler/WSHandler.java`
+#### Snippet
+```java
+
+    protected boolean checkReceiverResultsAnyOrder(
+        List<WSSecurityEngineResult> wsResult, List<Integer> actions
+    ) {
+        List<Integer> recordedActions = new ArrayList<>(actions.size());
+```
+
+### BoundedWildcard
+Can generalize to `? extends HandlerAction`
+in `ws-security-dom/src/main/java/org/apache/wss4j/dom/handler/WSHandler.java`
+#### Snippet
+```java
+
+    private HandlerAction getSignatureActionThatSignsATimestamp(
+        List<HandlerAction> actions, RequestData reqData
+    ) {
+        for (HandlerAction action : actions) {
+```
+
+### BoundedWildcard
+Can generalize to `? super WSEncryptionPart`
+in `ws-security-dom/src/main/java/org/apache/wss4j/dom/handler/WSHandler.java`
+#### Snippet
+```java
+
+    private void splitEncParts(boolean required, String tmpS,
+                               List<WSEncryptionPart> parts, RequestData reqData)
+        throws WSSecurityException {
+        WSEncryptionPart encPart = null;
+```
+
+### BoundedWildcard
+Can generalize to `? extends WSSecurityEngineResult`
+in `ws-security-dom/src/main/java/org/apache/wss4j/dom/handler/WSHandler.java`
+#### Snippet
+```java
+
+    protected boolean checkReceiverResults(
+        List<WSSecurityEngineResult> wsResult, List<Integer> actions
+    ) {
+        int size = actions.size();
+```
+
+### BoundedWildcard
+Can generalize to `? extends AttributeStatementBean`
+in `ws-security-common/src/main/java/org/apache/wss4j/common/saml/builder/SAML1ComponentBuilder.java`
+#### Snippet
+```java
+    @SuppressWarnings("unchecked")
+    public static List<AttributeStatement> createSamlv1AttributeStatement(
+        List<AttributeStatementBean> attributeData
+    ) throws org.opensaml.security.SecurityException, WSSecurityException {
+        if (attributeStatementV1Builder == null) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends AuthenticationStatementBean`
+in `ws-security-common/src/main/java/org/apache/wss4j/common/saml/builder/SAML1ComponentBuilder.java`
+#### Snippet
+```java
+    @SuppressWarnings("unchecked")
+    public static List<AuthenticationStatement> createSamlv1AuthenticationStatement(
+        List<AuthenticationStatementBean> authBeans
+    ) throws org.opensaml.security.SecurityException, WSSecurityException {
+        List<AuthenticationStatement> authenticationStatements = new ArrayList<>();
+```
+
+### BoundedWildcard
+Can generalize to `? extends AuthDecisionStatementBean`
+in `ws-security-common/src/main/java/org/apache/wss4j/common/saml/builder/SAML1ComponentBuilder.java`
+#### Snippet
+```java
+    @SuppressWarnings("unchecked")
+    public static List<AuthorizationDecisionStatement> createSamlv1AuthorizationDecisionStatement(
+            List<AuthDecisionStatementBean> decisionData)
+        throws org.opensaml.security.SecurityException, WSSecurityException {
+        List<AuthorizationDecisionStatement> authDecisionStatements = new ArrayList<>();
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
+in `ws-security-common/src/main/java/org/apache/wss4j/common/util/Loader.java`
+#### Snippet
+```java
+     * @throws ClassNotFoundException
+     */
+    public static <T> Class<? extends T> loadClass(String clazz, Class<T> type)
+            throws ClassNotFoundException {
+        return loadClass(clazz, true, type);
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
+in `ws-security-common/src/main/java/org/apache/wss4j/common/util/Loader.java`
+#### Snippet
+```java
+    public static <T> Class<? extends T> loadClass(String clazz,
+                                                   boolean warn,
+                                                   Class<T> type) throws ClassNotFoundException {
+        return loadClass(clazz, warn).asSubclass(type);
+    }
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
+in `ws-security-common/src/main/java/org/apache/wss4j/common/util/Loader.java`
+#### Snippet
+```java
+    public static <T> Class<? extends T> loadClass(ClassLoader loader,
+                                                   String clazz,
+                                                   Class<T> type) throws ClassNotFoundException {
+        try {
+            if (loader != null) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends AuthenticationStatementBean`
+in `ws-security-common/src/main/java/org/apache/wss4j/common/saml/builder/SAML2ComponentBuilder.java`
+#### Snippet
+```java
+    @SuppressWarnings("unchecked")
+    public static List<AuthnStatement> createAuthnStatement(
+        List<AuthenticationStatementBean> authBeans
+    ) {
+        List<AuthnStatement> authnStatements = new ArrayList<>();
+```
+
+### BoundedWildcard
+Can generalize to `? extends AuthDecisionStatementBean`
+in `ws-security-common/src/main/java/org/apache/wss4j/common/saml/builder/SAML2ComponentBuilder.java`
+#### Snippet
+```java
+    @SuppressWarnings("unchecked")
+    public static List<AuthzDecisionStatement> createAuthorizationDecisionStatement(
+        List<AuthDecisionStatementBean> decisionData
+    ) {
+        List<AuthzDecisionStatement> authDecisionStatements = new ArrayList<>();
+```
+
+### BoundedWildcard
+Can generalize to `? extends AttributeStatementBean`
+in `ws-security-common/src/main/java/org/apache/wss4j/common/saml/builder/SAML2ComponentBuilder.java`
+#### Snippet
+```java
+    @SuppressWarnings("unchecked")
+    public static List<AttributeStatement> createAttributeStatement(
+        List<AttributeStatementBean> attributeData
+    ) {
+        List<AttributeStatement> attributeStatements = new ArrayList<>();
+```
+
+### BoundedWildcard
+Can generalize to `? extends DelegateBean`
+in `ws-security-common/src/main/java/org/apache/wss4j/common/saml/builder/SAML2ComponentBuilder.java`
+#### Snippet
+```java
+    @SuppressWarnings("unchecked")
+    public static DelegationRestrictionType createDelegationRestriction(
+        List<DelegateBean> delegates
+    ) {
+        if (delegationRestrictionBuilder == null) {
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `ws-security-common/src/main/java/org/apache/wss4j/common/util/AttachmentUtils.java`
+#### Snippet
+```java
+
+    public static void readAndReplaceEncryptedAttachmentHeaders(
+            Map<String, String> headers, InputStream attachmentInputStream) throws IOException, WSSecurityException {
+
+        //read and replace headers
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `ws-security-common/src/main/java/org/apache/wss4j/common/util/AttachmentUtils.java`
+#### Snippet
+```java
+
+    public static void readAndReplaceEncryptedAttachmentHeaders(
+            Map<String, String> headers, InputStream attachmentInputStream) throws IOException, WSSecurityException {
+
+        //read and replace headers
+```
+
+### BoundedWildcard
+Can generalize to `? extends XMLSecEvent`
+in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/processor/input/UsernameTokenInputHandler.java`
+#### Snippet
+```java
+
+    private void checkBSPCompliance(InputProcessorChain inputProcessorChain, UsernameTokenType usernameTokenType,
+                                    List<XMLSecEvent> xmlSecEvents) throws WSSecurityException {
+
+        final WSInboundSecurityContext securityContext = (WSInboundSecurityContext) inputProcessorChain.getSecurityContext();
+```
+
+### BoundedWildcard
+Can generalize to `? extends XMLSecEvent`
+in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/processor/input/SecurityHeaderInputProcessor.java`
+#### Snippet
+```java
+            InputProcessorChain subInputProcessorChain,
+            InternalSecurityHeaderBufferProcessor internalSecurityHeaderBufferProcessor,
+            Deque<XMLSecEvent> xmlSecEventList) {
+
+        subInputProcessorChain.removeProcessor(internalSecurityHeaderBufferProcessor);
+```
+
+### BoundedWildcard
+Can generalize to `? extends InboundSecurityToken`
+in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/processor/input/SecurityContextTokenInputHandler.java`
+#### Snippet
+```java
+
+    private SecurityContextTokenSecurityEvent createTokenSecurityEvent(AbstractSecurityContextTokenType securityContextTokenType,
+                                                                       SecurityTokenProvider<InboundSecurityToken> securityTokenProvider)
+            throws XMLSecurityException {
+        SecurityContextTokenSecurityEvent securityContextTokenSecurityEvent = new SecurityContextTokenSecurityEvent();
+```
+
+### BoundedWildcard
+Can generalize to `? extends XMLSecEvent`
+in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/processor/input/TimestampInputHandler.java`
+#### Snippet
+```java
+
+    private void checkBSPCompliance(InputProcessorChain inputProcessorChain, TimestampType timestampType,
+                                    List<XMLSecEvent> xmlSecEvents) throws WSSecurityException {
+        final WSInboundSecurityContext securityContext = (WSInboundSecurityContext) inputProcessorChain.getSecurityContext();
+        if (timestampType.getCreated() == null) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends InboundSecurityToken`
+in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/processor/input/SAMLTokenInputHandler.java`
+#### Snippet
+```java
+        SAMLTokenVerifierInputProcessor(XMLSecurityProperties securityProperties,
+                                        SamlAssertionWrapper samlAssertionWrapper,
+                                        SecurityTokenProvider<InboundSecurityToken> securityTokenProvider,
+                                        InboundSecurityToken subjectSecurityToken,
+                                        boolean soap12) {
+```
+
+### BoundedWildcard
+Can generalize to `? super TrustAnchor`
+in `ws-security-common/src/main/java/org/apache/wss4j/common/crypto/Merlin.java`
+#### Snippet
+```java
+     * @throws KeyStoreException if a problem occurs accessing the keyStore
+     */
+    protected void addTrustAnchors(Set<TrustAnchor> set, KeyStore keyStore)
+            throws KeyStoreException, WSSecurityException {
+        Enumeration<String> aliases = keyStore.aliases();
+```
+
+### BoundedWildcard
+Can generalize to `? extends TokenSecurityEvent`
+in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/InboundWSSecurityContextImpl.java`
+#### Snippet
+```java
+    }
+
+    private boolean containsSecurityToken(List<TokenSecurityEvent<? extends InboundSecurityToken>> supportingTokens,
+                                          SecurityToken securityToken) {
+        if (securityToken != null) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends TokenSecurityEvent`
+in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/InboundWSSecurityContextImpl.java`
+#### Snippet
+```java
+    }
+
+    private void setTokenUsage(List<TokenSecurityEvent<? extends InboundSecurityToken>> tokenSecurityEvents,
+                               WSSecurityTokenConstants.TokenUsage tokenUsage) throws XMLSecurityException {
+        for (int i = 0; i < tokenSecurityEvents.size(); i++) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends TokenSecurityEvent`
+in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/InboundWSSecurityContextImpl.java`
+#### Snippet
+```java
+
+    private void removeTokenSecurityEvent(TokenSecurityEvent<? extends InboundSecurityToken> tokenSecurityEvent,
+                                          List<TokenSecurityEvent<? extends InboundSecurityToken>> tokenSecurityEventList) {
+        for (int i = 0; i < tokenSecurityEventList.size(); i++) {
+            TokenSecurityEvent<? extends InboundSecurityToken> securityEvent = tokenSecurityEventList.get(i);
+```
+
+### BoundedWildcard
+Can generalize to `? extends TokenSecurityEvent`
+in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/InboundWSSecurityContextImpl.java`
+#### Snippet
+```java
+    private TokenSecurityEvent<? extends InboundSecurityToken> getTokenSecurityEvent(
+            InboundSecurityToken securityToken,
+            List<TokenSecurityEvent<? extends InboundSecurityToken>> tokenSecurityEvents) throws XMLSecurityException {
+        if (securityToken != null) {
+            for (int i = 0; i < tokenSecurityEvents.size(); i++) {
+```
+
+### BoundedWildcard
+Can generalize to `? super Class`
+in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/securityToken/SecurityTokenFactoryImpl.java`
+#### Snippet
+```java
+    }
+
+    private static void getImplementedInterfaces(Class<?> clazz, List<Class<?>> interfaceList) {
+        if (clazz == null) {
+            return;
+```
+
+### BoundedWildcard
+Can generalize to `? extends XMLSecEvent`
+in `ws-security-stax/src/main/java/org/apache/wss4j/stax/validate/TokenContext.java`
+#### Snippet
+```java
+
+    public TokenContext(WSSSecurityProperties wssSecurityProperties, WSInboundSecurityContext wsInboundSecurityContext,
+                        List<XMLSecEvent> xmlSecEvents, List<QName> elementPath) {
+
+        this.wssSecurityProperties = wssSecurityProperties;
+```
+
+### BoundedWildcard
+Can generalize to `? extends QName`
+in `ws-security-stax/src/main/java/org/apache/wss4j/stax/utils/WSSUtils.java`
+#### Snippet
+```java
+    }
+
+    public static boolean isInSOAPHeader(List<QName> elementPath) {
+        if (elementPath.size() > 1) {
+            final QName secondLevelElementName = elementPath.get(1);
+```
+
+### BoundedWildcard
+Can generalize to `? extends QName`
+in `ws-security-stax/src/main/java/org/apache/wss4j/stax/utils/WSSUtils.java`
+#### Snippet
+```java
+    }
+
+    public static boolean isInSecurityHeader(XMLSecEvent xmlSecEvent, List<QName> elementPath, String actorOrRole) {
+        if (elementPath.size() > 2) {
+            final QName secondLevelElementName = elementPath.get(1);
+```
+
+### BoundedWildcard
+Can generalize to `? extends QName`
+in `ws-security-stax/src/main/java/org/apache/wss4j/stax/utils/WSSUtils.java`
+#### Snippet
+```java
+    }
+
+    public static boolean isInSOAPBody(List<QName> elementPath) {
+        if (elementPath.size() > 1) {
+            final QName secondLevelElementName = elementPath.get(1);
+```
+
+### BoundedWildcard
+Can generalize to `? super SecurePart`
+in `ws-security-stax/src/main/java/org/apache/wss4j/stax/setup/ConfigurationConverter.java`
+#### Snippet
+```java
+    }
+
+    private static void splitEncParts(String tmpS, List<SecurePart> parts, String soapNS) {
+        SecurePart encPart = null;
+        String[] rawParts = tmpS.split(";");
+```
+
+### BoundedWildcard
+Can generalize to `? extends SecurityEventListener`
+in `ws-security-stax/src/main/java/org/apache/wss4j/stax/setup/InboundWSSec.java`
+#### Snippet
+```java
+    public XMLStreamReader processInMessage(
+            XMLStreamReader xmlStreamReader, List<SecurityEvent> requestSecurityEvents,
+            List<SecurityEventListener> securityEventListeners) throws XMLStreamException, WSSecurityException {
+
+        if (requestSecurityEvents == null) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends Map`>>
+in `ws-security-policy-stax/src/main/java/org/apache/wss4j/policy/stax/enforcer/PolicyEnforcer.java`
+#### Snippet
+```java
+    private void buildAssertionStateMap(
+            PolicyComponent policyComponent,
+            List<Map<SecurityEventConstants.Event,
+            Map<Assertion, List<Assertable>>>> assertionStateMap,
+            int alternative
+    ) throws WSSPolicyException {
+```
+
+### BoundedWildcard
+Can generalize to `? super Assertion`
+in `ws-security-policy-stax/src/main/java/org/apache/wss4j/policy/stax/enforcer/PolicyEnforcer.java`
+#### Snippet
+```java
+    }
+
+    private void addAssertionState(Map<Assertion, List<Assertable>> assertables,
+                                   Assertion keyAssertion,
+                                   Assertable assertable) {
+```
+
 ## RuleId[ruleID=MissortedModifiers]
+### MissortedModifiers
+Missorted modifiers `final static`
+in `bindings/src/main/java/org/apache/wss4j/binding/wss10/ObjectFactory.java`
+#### Snippet
+```java
+    private final static QName _Reference_QNAME = new QName("http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd", "Reference");
+    private final static QName _Embedded_QNAME = new QName("http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd", "Embedded");
+    private final static QName _KeyIdentifier_QNAME = new QName("http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd", "KeyIdentifier");
+    private final static QName _SecurityTokenReference_QNAME = new QName("http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd", "SecurityTokenReference");
+    private final static QName _Security_QNAME = new QName("http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd", "Security");
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `bindings/src/main/java/org/apache/wss4j/binding/wss10/ObjectFactory.java`
+#### Snippet
+```java
+    private final static QName _BinarySecurityToken_QNAME = new QName("http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd", "BinarySecurityToken");
+    private final static QName _Reference_QNAME = new QName("http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd", "Reference");
+    private final static QName _Embedded_QNAME = new QName("http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd", "Embedded");
+    private final static QName _KeyIdentifier_QNAME = new QName("http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd", "KeyIdentifier");
+    private final static QName _SecurityTokenReference_QNAME = new QName("http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd", "SecurityTokenReference");
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `bindings/src/main/java/org/apache/wss4j/binding/wss10/ObjectFactory.java`
+#### Snippet
+```java
+    private final static QName _Embedded_QNAME = new QName("http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd", "Embedded");
+    private final static QName _KeyIdentifier_QNAME = new QName("http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd", "KeyIdentifier");
+    private final static QName _SecurityTokenReference_QNAME = new QName("http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd", "SecurityTokenReference");
+    private final static QName _Security_QNAME = new QName("http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd", "Security");
+    private final static QName _TransformationParameters_QNAME = new QName("http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd", "TransformationParameters");
+```
+
 ### MissortedModifiers
 Missorted modifiers `final static`
 in `bindings/src/main/java/org/apache/wss4j/binding/wss10/ObjectFactory.java`
@@ -3560,11 +3595,11 @@ Missorted modifiers `final static`
 in `bindings/src/main/java/org/apache/wss4j/binding/wss10/ObjectFactory.java`
 #### Snippet
 ```java
-    private final static QName _BinarySecurityToken_QNAME = new QName("http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd", "BinarySecurityToken");
-    private final static QName _Reference_QNAME = new QName("http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd", "Reference");
-    private final static QName _Embedded_QNAME = new QName("http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd", "Embedded");
     private final static QName _KeyIdentifier_QNAME = new QName("http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd", "KeyIdentifier");
     private final static QName _SecurityTokenReference_QNAME = new QName("http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd", "SecurityTokenReference");
+    private final static QName _Security_QNAME = new QName("http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd", "Security");
+    private final static QName _TransformationParameters_QNAME = new QName("http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd", "TransformationParameters");
+    private final static QName _Password_QNAME = new QName("http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd", "Password");
 ```
 
 ### MissortedModifiers
@@ -3596,23 +3631,11 @@ Missorted modifiers `final static`
 in `bindings/src/main/java/org/apache/wss4j/binding/wss10/ObjectFactory.java`
 #### Snippet
 ```java
-    private final static QName _Embedded_QNAME = new QName("http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd", "Embedded");
-    private final static QName _KeyIdentifier_QNAME = new QName("http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd", "KeyIdentifier");
-    private final static QName _SecurityTokenReference_QNAME = new QName("http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd", "SecurityTokenReference");
-    private final static QName _Security_QNAME = new QName("http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd", "Security");
     private final static QName _TransformationParameters_QNAME = new QName("http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd", "TransformationParameters");
-```
+    private final static QName _Password_QNAME = new QName("http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd", "Password");
+    private final static QName _Nonce_QNAME = new QName("http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd", "Nonce");
 
-### MissortedModifiers
-Missorted modifiers `final static`
-in `bindings/src/main/java/org/apache/wss4j/binding/wss10/ObjectFactory.java`
-#### Snippet
-```java
-    private final static QName _Reference_QNAME = new QName("http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd", "Reference");
-    private final static QName _Embedded_QNAME = new QName("http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd", "Embedded");
-    private final static QName _KeyIdentifier_QNAME = new QName("http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd", "KeyIdentifier");
-    private final static QName _SecurityTokenReference_QNAME = new QName("http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd", "SecurityTokenReference");
-    private final static QName _Security_QNAME = new QName("http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd", "Security");
+    /**
 ```
 
 ### MissortedModifiers
@@ -3632,35 +3655,11 @@ Missorted modifiers `final static`
 in `bindings/src/main/java/org/apache/wss4j/binding/wss10/ObjectFactory.java`
 #### Snippet
 ```java
-    private final static QName _KeyIdentifier_QNAME = new QName("http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd", "KeyIdentifier");
-    private final static QName _SecurityTokenReference_QNAME = new QName("http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd", "SecurityTokenReference");
-    private final static QName _Security_QNAME = new QName("http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd", "Security");
-    private final static QName _TransformationParameters_QNAME = new QName("http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd", "TransformationParameters");
-    private final static QName _Password_QNAME = new QName("http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd", "Password");
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `bindings/src/main/java/org/apache/wss4j/binding/wss10/ObjectFactory.java`
-#### Snippet
-```java
     private final static QName _Security_QNAME = new QName("http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd", "Security");
     private final static QName _TransformationParameters_QNAME = new QName("http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd", "TransformationParameters");
     private final static QName _Password_QNAME = new QName("http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd", "Password");
     private final static QName _Nonce_QNAME = new QName("http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd", "Nonce");
 
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `bindings/src/main/java/org/apache/wss4j/binding/wss10/ObjectFactory.java`
-#### Snippet
-```java
-    private final static QName _TransformationParameters_QNAME = new QName("http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd", "TransformationParameters");
-    private final static QName _Password_QNAME = new QName("http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd", "Password");
-    private final static QName _Nonce_QNAME = new QName("http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd", "Nonce");
-
-    /**
 ```
 
 ## RuleId[ruleID=ExplicitArrayFilling]
@@ -4076,18 +4075,6 @@ in `policy/src/main/java/org/apache/wss4j/policy/model/SignedParts.java`
 ```
 
 ### RedundantMethodOverride
-Method `getSecurityEventType()` is identical to its super method
-in `ws-security-policy-stax/src/main/java/org/apache/wss4j/policy/stax/assertionStates/SecureConversationTokenAssertionState.java`
-#### Snippet
-```java
-
-    @Override
-    public SecurityEventConstants.Event[] getSecurityEventType() {
-        return new SecurityEventConstants.Event[]{
-                WSSecurityEventConstants.SECURITY_CONTEXT_TOKEN
-```
-
-### RedundantMethodOverride
 Method `isFeatureSupported()` is identical to its super method
 in `ws-security-dom/src/main/java/org/apache/wss4j/dom/transform/AttachmentCompleteSignatureTransform.java`
 #### Snippet
@@ -4099,111 +4086,27 @@ in `ws-security-dom/src/main/java/org/apache/wss4j/dom/transform/AttachmentCompl
             throw new NullPointerException();
 ```
 
+### RedundantMethodOverride
+Method `getSecurityEventType()` is identical to its super method
+in `ws-security-policy-stax/src/main/java/org/apache/wss4j/policy/stax/assertionStates/SecureConversationTokenAssertionState.java`
+#### Snippet
+```java
+
+    @Override
+    public SecurityEventConstants.Event[] getSecurityEventType() {
+        return new SecurityEventConstants.Event[]{
+                WSSecurityEventConstants.SECURITY_CONTEXT_TOKEN
+```
+
 ## RuleId[ruleID=UnnecessarySuperQualifier]
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `ws-security-common/src/main/java/org/apache/wss4j/common/util/AttachmentUtils.java`
-#### Snippet
-```java
-                byte[] ivBytes = new byte[ivLen];
-
-                int read = super.in.read(ivBytes, 0, ivLen);
-                while (read != ivLen) {
-                    read += super.in.read(ivBytes, read, ivLen - read);
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `ws-security-common/src/main/java/org/apache/wss4j/common/util/AttachmentUtils.java`
-#### Snippet
-```java
-                int read = super.in.read(ivBytes, 0, ivLen);
-                while (read != ivLen) {
-                    read += super.in.read(ivBytes, read, ivLen - read);
-                }
-
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/processor/output/EncryptOutputProcessor.java`
-#### Snippet
-```java
-            //WSS 1.1 EncryptedHeader Element:
-            if (elementPath.size() == 3 && WSSUtils.isInSOAPHeader(elementPath)
-                && Modifier.Content != super.getEncryptionPartDef().getModifier()) {
-                doEncryptedHeader = true;
-
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/securityToken/X509ThumbprintSHA1SecurityTokenImpl.java`
-#### Snippet
-```java
-                throw new WSSecurityException(WSSecurityException.ErrorCode.SECURITY_TOKEN_UNAVAILABLE);
-            }
-            super.setX509Certificates(new X509Certificate[]{certs[0]});
-            this.alias = getCrypto().getX509Identifier(certs[0]);
-        }
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/securityToken/X509IssuerSerialTokenImpl.java`
-#### Snippet
-```java
-                throw new WSSecurityException(WSSecurityException.ErrorCode.SECURITY_TOKEN_UNAVAILABLE);
-            }
-            super.setX509Certificates(new X509Certificate[]{certs[0]});
-            return this.alias = getCrypto().getX509Identifier(certs[0]);
-        }
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/securityToken/X509SKISecurityTokenImpl.java`
-#### Snippet
-```java
-                throw new WSSecurityException(WSSecurityException.ErrorCode.SECURITY_TOKEN_UNAVAILABLE);
-            }
-            super.setX509Certificates(new X509Certificate[]{certs[0]});
-            this.alias = getCrypto().getX509Identifier(certs[0]);
-        }
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/securityToken/SamlSecurityTokenImpl.java`
-#### Snippet
-```java
-            key = pwcb.getKeyObject();
-            if (this.key instanceof PrivateKey) {
-                super.setAsymmetric(true);
-            }
-
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/securityToken/SamlSecurityTokenImpl.java`
-#### Snippet
-```java
-        }
-        if (key != null) {
-            super.setSecretKey(algorithmURI, key);
-            return key;
-        }
-```
-
 ### UnnecessarySuperQualifier
 Qualifier `super` is unnecessary in this context
 in `policy/src/main/java/org/apache/wss4j/policy/model/BootstrapPolicy.java`
 #### Snippet
 ```java
 
-    public void serialize(XMLStreamWriter writer) throws XMLStreamException {
-        super.serialize(writer, nestedPolicy);
+    public QName getName() {
+        return super.getVersion().getSPConstants().getBootstrapPolicy();
     }
 
 ```
@@ -4214,8 +4117,8 @@ in `policy/src/main/java/org/apache/wss4j/policy/model/BootstrapPolicy.java`
 #### Snippet
 ```java
 
-    public QName getName() {
-        return super.getVersion().getSPConstants().getBootstrapPolicy();
+    public void serialize(XMLStreamWriter writer) throws XMLStreamException {
+        super.serialize(writer, nestedPolicy);
     }
 
 ```
@@ -4238,8 +4141,8 @@ in `policy/src/main/java/org/apache/wss4j/policy/model/AbstractTokenWrapper.java
 #### Snippet
 ```java
     @Override
-    public void serialize(XMLStreamWriter writer) throws XMLStreamException {
-        super.serialize(writer, getPolicy());
+    public PolicyComponent normalize() {
+        return super.normalize(getPolicy());
     }
 
 ```
@@ -4250,18 +4153,6 @@ in `policy/src/main/java/org/apache/wss4j/policy/model/AbstractTokenWrapper.java
 #### Snippet
 ```java
     @Override
-    public PolicyComponent normalize() {
-        return super.normalize(getPolicy());
-    }
-
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `policy/src/main/java/org/apache/wss4j/policy/model/Wss10.java`
-#### Snippet
-```java
-    @Override
     public void serialize(XMLStreamWriter writer) throws XMLStreamException {
         super.serialize(writer, getPolicy());
     }
@@ -4276,6 +4167,18 @@ in `policy/src/main/java/org/apache/wss4j/policy/model/Wss10.java`
     @Override
     public PolicyComponent normalize() {
         return super.normalize(getPolicy());
+    }
+
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `policy/src/main/java/org/apache/wss4j/policy/model/Wss10.java`
+#### Snippet
+```java
+    @Override
+    public void serialize(XMLStreamWriter writer) throws XMLStreamException {
+        super.serialize(writer, getPolicy());
     }
 
 ```
@@ -4298,8 +4201,8 @@ in `policy/src/main/java/org/apache/wss4j/policy/model/Layout.java`
 #### Snippet
 ```java
     @Override
-    public PolicyComponent normalize() {
-        return super.normalize(getPolicy());
+    public void serialize(XMLStreamWriter writer) throws XMLStreamException {
+        super.serialize(writer, getPolicy());
     }
 
 ```
@@ -4310,30 +4213,6 @@ in `policy/src/main/java/org/apache/wss4j/policy/model/Layout.java`
 #### Snippet
 ```java
     @Override
-    public void serialize(XMLStreamWriter writer) throws XMLStreamException {
-        super.serialize(writer, getPolicy());
-    }
-
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `policy/src/main/java/org/apache/wss4j/policy/model/SupportingTokens.java`
-#### Snippet
-```java
-    @Override
-    public void serialize(XMLStreamWriter writer) throws XMLStreamException {
-        super.serialize(writer, getPolicy());
-    }
-
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `policy/src/main/java/org/apache/wss4j/policy/model/SupportingTokens.java`
-#### Snippet
-```java
-    @Override
     public PolicyComponent normalize() {
         return super.normalize(getPolicy());
     }
@@ -4390,7 +4269,19 @@ in `policy/src/main/java/org/apache/wss4j/policy/model/Trust10.java`
 
 ### UnnecessarySuperQualifier
 Qualifier `super` is unnecessary in this context
-in `policy/src/main/java/org/apache/wss4j/policy/model/AlgorithmSuite.java`
+in `policy/src/main/java/org/apache/wss4j/policy/model/SupportingTokens.java`
+#### Snippet
+```java
+    @Override
+    public void serialize(XMLStreamWriter writer) throws XMLStreamException {
+        super.serialize(writer, getPolicy());
+    }
+
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `policy/src/main/java/org/apache/wss4j/policy/model/SupportingTokens.java`
 #### Snippet
 ```java
     @Override
@@ -4408,6 +4299,18 @@ in `policy/src/main/java/org/apache/wss4j/policy/model/AlgorithmSuite.java`
     @Override
     public void serialize(XMLStreamWriter writer) throws XMLStreamException {
         super.serialize(writer, getPolicy());
+    }
+
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `policy/src/main/java/org/apache/wss4j/policy/model/AlgorithmSuite.java`
+#### Snippet
+```java
+    @Override
+    public PolicyComponent normalize() {
+        return super.normalize(getPolicy());
     }
 
 ```
@@ -4448,7 +4351,127 @@ in `ws-security-dom/src/main/java/org/apache/wss4j/dom/message/WSSecSignature.ja
         wsDocInfo.setCrypto(cr);
 ```
 
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `ws-security-common/src/main/java/org/apache/wss4j/common/util/AttachmentUtils.java`
+#### Snippet
+```java
+                byte[] ivBytes = new byte[ivLen];
+
+                int read = super.in.read(ivBytes, 0, ivLen);
+                while (read != ivLen) {
+                    read += super.in.read(ivBytes, read, ivLen - read);
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `ws-security-common/src/main/java/org/apache/wss4j/common/util/AttachmentUtils.java`
+#### Snippet
+```java
+                int read = super.in.read(ivBytes, 0, ivLen);
+                while (read != ivLen) {
+                    read += super.in.read(ivBytes, read, ivLen - read);
+                }
+
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/processor/output/EncryptOutputProcessor.java`
+#### Snippet
+```java
+            //WSS 1.1 EncryptedHeader Element:
+            if (elementPath.size() == 3 && WSSUtils.isInSOAPHeader(elementPath)
+                && Modifier.Content != super.getEncryptionPartDef().getModifier()) {
+                doEncryptedHeader = true;
+
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/securityToken/X509IssuerSerialTokenImpl.java`
+#### Snippet
+```java
+                throw new WSSecurityException(WSSecurityException.ErrorCode.SECURITY_TOKEN_UNAVAILABLE);
+            }
+            super.setX509Certificates(new X509Certificate[]{certs[0]});
+            return this.alias = getCrypto().getX509Identifier(certs[0]);
+        }
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/securityToken/X509ThumbprintSHA1SecurityTokenImpl.java`
+#### Snippet
+```java
+                throw new WSSecurityException(WSSecurityException.ErrorCode.SECURITY_TOKEN_UNAVAILABLE);
+            }
+            super.setX509Certificates(new X509Certificate[]{certs[0]});
+            this.alias = getCrypto().getX509Identifier(certs[0]);
+        }
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/securityToken/X509SKISecurityTokenImpl.java`
+#### Snippet
+```java
+                throw new WSSecurityException(WSSecurityException.ErrorCode.SECURITY_TOKEN_UNAVAILABLE);
+            }
+            super.setX509Certificates(new X509Certificate[]{certs[0]});
+            this.alias = getCrypto().getX509Identifier(certs[0]);
+        }
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/securityToken/SamlSecurityTokenImpl.java`
+#### Snippet
+```java
+            key = pwcb.getKeyObject();
+            if (this.key instanceof PrivateKey) {
+                super.setAsymmetric(true);
+            }
+
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/securityToken/SamlSecurityTokenImpl.java`
+#### Snippet
+```java
+        }
+        if (key != null) {
+            super.setSecretKey(algorithmURI, key);
+            return key;
+        }
+```
+
 ## RuleId[ruleID=NestedAssignment]
+### NestedAssignment
+Result of assignment expression used
+in `ws-security-common/src/main/java/org/apache/wss4j/common/WSEncryptionPart.java`
+#### Snippet
+```java
+    public WSEncryptionPart(String id) {
+        this.id = id;
+        name = namespace = encModifier = null;
+    }
+
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `ws-security-common/src/main/java/org/apache/wss4j/common/WSEncryptionPart.java`
+#### Snippet
+```java
+    public WSEncryptionPart(String id) {
+        this.id = id;
+        name = namespace = encModifier = null;
+    }
+
+```
+
 ### NestedAssignment
 Result of assignment expression used
 in `ws-security-common/src/main/java/org/apache/wss4j/common/WSEncryptionPart.java`
@@ -4463,26 +4486,26 @@ in `ws-security-common/src/main/java/org/apache/wss4j/common/WSEncryptionPart.ja
 
 ### NestedAssignment
 Result of assignment expression used
-in `ws-security-common/src/main/java/org/apache/wss4j/common/WSEncryptionPart.java`
+in `ws-security-dom/src/main/java/org/apache/wss4j/dom/transform/AttachmentContentSignatureTransform.java`
 #### Snippet
 ```java
-    public WSEncryptionPart(String id) {
-        this.id = id;
-        name = namespace = encModifier = null;
-    }
-
+                int numBytes;
+                byte[] buf = new byte[8192];
+                while ((numBytes = inputStream.read(buf)) != -1) {
+                    crlfOutputStream.write(buf, 0, numBytes);
+                }
 ```
 
 ### NestedAssignment
 Result of assignment expression used
-in `ws-security-common/src/main/java/org/apache/wss4j/common/WSEncryptionPart.java`
+in `ws-security-dom/src/main/java/org/apache/wss4j/dom/transform/AttachmentContentSignatureTransform.java`
 #### Snippet
 ```java
-    public WSEncryptionPart(String id) {
-        this.id = id;
-        name = namespace = encModifier = null;
-    }
-
+                int numBytes;
+                byte[] buf = new byte[8192];
+                while ((numBytes = inputStream.read(buf)) != -1) {
+                    outputStream.write(buf, 0, numBytes);
+                }
 ```
 
 ### NestedAssignment
@@ -4562,41 +4585,41 @@ in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/securityToken/X509
                 throw new WSSecurityException(WSSecurityException.ErrorCode.INVALID_SECURITY_TOKEN, e);
 ```
 
-### NestedAssignment
-Result of assignment expression used
-in `ws-security-dom/src/main/java/org/apache/wss4j/dom/transform/AttachmentContentSignatureTransform.java`
-#### Snippet
-```java
-                int numBytes;
-                byte[] buf = new byte[8192];
-                while ((numBytes = inputStream.read(buf)) != -1) {
-                    crlfOutputStream.write(buf, 0, numBytes);
-                }
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `ws-security-dom/src/main/java/org/apache/wss4j/dom/transform/AttachmentContentSignatureTransform.java`
-#### Snippet
-```java
-                int numBytes;
-                byte[] buf = new byte[8192];
-                while ((numBytes = inputStream.read(buf)) != -1) {
-                    outputStream.write(buf, 0, numBytes);
-                }
-```
-
 ## RuleId[ruleID=FieldAccessedSynchronizedAndUnsynchronized]
 ### FieldAccessedSynchronizedAndUnsynchronized
-Field `providerRegistry` is accessed in both synchronized and unsynchronized contexts
-in `ws-security-common/src/main/java/org/apache/wss4j/common/saml/OpenSAMLUtil.java`
+Field `state` is accessed in both synchronized and unsynchronized contexts
+in `policy/src/main/java/org/apache/wss4j/policy/AssertionState.java`
 #### Snippet
 ```java
-        org.slf4j.LoggerFactory.getLogger(OpenSAMLUtil.class);
+    }
 
-    private static XMLObjectProviderRegistry providerRegistry;
-    private static XMLObjectBuilderFactory builderFactory;
-    private static MarshallerFactory marshallerFactory;
+    private State state = State.INIT;
+    private boolean asserted;
+    private boolean logged;
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `asserted` is accessed in both synchronized and unsynchronized contexts
+in `policy/src/main/java/org/apache/wss4j/policy/AssertionState.java`
+#### Snippet
+```java
+
+    private State state = State.INIT;
+    private boolean asserted;
+    private boolean logged;
+    private Assertion assertion;
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `addJceProviders` is accessed in both synchronized and unsynchronized contexts
+in `ws-security-dom/src/main/java/org/apache/wss4j/dom/engine/WSSConfig.java`
+#### Snippet
+```java
+     * with some JVMs (such as IBMs).
+     */
+    private static boolean addJceProviders = true;
+
+    /**
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
@@ -4612,15 +4635,15 @@ in `ws-security-common/src/main/java/org/apache/wss4j/common/saml/OpenSAMLUtil.j
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
-Field `marshallerFactory` is accessed in both synchronized and unsynchronized contexts
+Field `providerRegistry` is accessed in both synchronized and unsynchronized contexts
 in `ws-security-common/src/main/java/org/apache/wss4j/common/saml/OpenSAMLUtil.java`
 #### Snippet
 ```java
+        org.slf4j.LoggerFactory.getLogger(OpenSAMLUtil.class);
+
     private static XMLObjectProviderRegistry providerRegistry;
     private static XMLObjectBuilderFactory builderFactory;
     private static MarshallerFactory marshallerFactory;
-    private static UnmarshallerFactory unmarshallerFactory;
-    private static boolean samlEngineInitialized = false;
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
@@ -4633,6 +4656,18 @@ in `ws-security-common/src/main/java/org/apache/wss4j/common/saml/OpenSAMLUtil.j
     private static XMLObjectBuilderFactory builderFactory;
     private static MarshallerFactory marshallerFactory;
     private static UnmarshallerFactory unmarshallerFactory;
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `marshallerFactory` is accessed in both synchronized and unsynchronized contexts
+in `ws-security-common/src/main/java/org/apache/wss4j/common/saml/OpenSAMLUtil.java`
+#### Snippet
+```java
+    private static XMLObjectProviderRegistry providerRegistry;
+    private static XMLObjectBuilderFactory builderFactory;
+    private static MarshallerFactory marshallerFactory;
+    private static UnmarshallerFactory unmarshallerFactory;
+    private static boolean samlEngineInitialized = false;
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
@@ -4672,39 +4707,15 @@ in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/InboundWSSecurityC
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
-Field `asserted` is accessed in both synchronized and unsynchronized contexts
-in `policy/src/main/java/org/apache/wss4j/policy/AssertionState.java`
-#### Snippet
-```java
-
-    private State state = State.INIT;
-    private boolean asserted;
-    private boolean logged;
-    private Assertion assertion;
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `state` is accessed in both synchronized and unsynchronized contexts
-in `policy/src/main/java/org/apache/wss4j/policy/AssertionState.java`
-#### Snippet
-```java
-    }
-
-    private State state = State.INIT;
-    private boolean asserted;
-    private boolean logged;
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `faultOccurred` is accessed in both synchronized and unsynchronized contexts
+Field `initiator` is accessed in both synchronized and unsynchronized contexts
 in `ws-security-policy-stax/src/main/java/org/apache/wss4j/policy/stax/enforcer/PolicyEnforcer.java`
 #### Snippet
 ```java
+    private final Deque<SecurityEvent> securityEventQueue = new LinkedList<>();
+    private boolean operationSecurityEventOccured = false;
+    private boolean initiator;
+    private String actorOrRole;
     private int attachmentCount;
-    private boolean noSecurityHeader;
-    private boolean faultOccurred;
-    private final PolicyAsserter policyAsserter;
-    private boolean soap12;
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
@@ -4720,42 +4731,18 @@ in `ws-security-policy-stax/src/main/java/org/apache/wss4j/policy/stax/enforcer/
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
-Field `initiator` is accessed in both synchronized and unsynchronized contexts
+Field `faultOccurred` is accessed in both synchronized and unsynchronized contexts
 in `ws-security-policy-stax/src/main/java/org/apache/wss4j/policy/stax/enforcer/PolicyEnforcer.java`
 #### Snippet
 ```java
-    private final Deque<SecurityEvent> securityEventQueue = new LinkedList<>();
-    private boolean operationSecurityEventOccured = false;
-    private boolean initiator;
-    private String actorOrRole;
     private int attachmentCount;
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `addJceProviders` is accessed in both synchronized and unsynchronized contexts
-in `ws-security-dom/src/main/java/org/apache/wss4j/dom/engine/WSSConfig.java`
-#### Snippet
-```java
-     * with some JVMs (such as IBMs).
-     */
-    private static boolean addJceProviders = true;
-
-    /**
+    private boolean noSecurityHeader;
+    private boolean faultOccurred;
+    private final PolicyAsserter policyAsserter;
+    private boolean soap12;
 ```
 
 ## RuleId[ruleID=UseOfPropertiesAsHashtable]
-### UseOfPropertiesAsHashtable
-Call to `Hashtable.putAll()` on properties object
-in `ws-security-common/src/main/java/org/apache/wss4j/common/crypto/ThreadLocalSecurityProvider.java`
-#### Snippet
-```java
-        Provider p = getProvider();
-        if (p != null) {
-            p.putAll(t);
-        }
-    }
-```
-
 ### UseOfPropertiesAsHashtable
 Call to `Hashtable.get()` on properties object
 in `ws-security-common/src/main/java/org/apache/wss4j/common/crypto/ThreadLocalSecurityProvider.java`
@@ -4766,6 +4753,18 @@ in `ws-security-common/src/main/java/org/apache/wss4j/common/crypto/ThreadLocalS
             return p.get(key);
         } else {
             return null;
+```
+
+### UseOfPropertiesAsHashtable
+Call to `Hashtable.putAll()` on properties object
+in `ws-security-common/src/main/java/org/apache/wss4j/common/crypto/ThreadLocalSecurityProvider.java`
+#### Snippet
+```java
+        Provider p = getProvider();
+        if (p != null) {
+            p.putAll(t);
+        }
+    }
 ```
 
 ## RuleId[ruleID=EmptyMethod]
@@ -4868,6 +4867,78 @@ in `ws-security-stax/src/main/java/org/apache/wss4j/stax/setup/WSSec.java`
 ## RuleId[ruleID=RedundantFieldInitialization]
 ### RedundantFieldInitialization
 Field initialization to `false` is redundant
+in `policy/src/main/java/org/apache/wss4j/policy/model/AbstractSymmetricAsymmetricBinding.java`
+#### Snippet
+```java
+    private ProtectionOrder protectionOrder = ProtectionOrder.SignBeforeEncrypting;
+    private boolean encryptSignature = false;
+    private boolean protectTokens = false;
+    private boolean onlySignEntireHeadersAndBody = false;
+
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `policy/src/main/java/org/apache/wss4j/policy/model/AbstractSymmetricAsymmetricBinding.java`
+#### Snippet
+```java
+
+    private ProtectionOrder protectionOrder = ProtectionOrder.SignBeforeEncrypting;
+    private boolean encryptSignature = false;
+    private boolean protectTokens = false;
+    private boolean onlySignEntireHeadersAndBody = false;
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `policy/src/main/java/org/apache/wss4j/policy/model/AbstractSymmetricAsymmetricBinding.java`
+#### Snippet
+```java
+    private boolean encryptSignature = false;
+    private boolean protectTokens = false;
+    private boolean onlySignEntireHeadersAndBody = false;
+
+    protected AbstractSymmetricAsymmetricBinding(SPConstants.SPVersion version, Policy nestedPolicy) {
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `ws-security-dom/src/main/java/org/apache/wss4j/dom/util/WSSecurityUtil.java`
+#### Snippet
+```java
+public final class WSSecurityUtil {
+
+    private static boolean isSAAJ14 = false;
+
+    private static final org.slf4j.Logger LOG =
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `ws-security-dom/src/main/java/org/apache/wss4j/dom/engine/WSSConfig.java`
+#### Snippet
+```java
+     * to static initialization code at construction time.
+     */
+    private static boolean staticallyInitialized = false;
+
+    /**
+```
+
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `ws-security-dom/src/main/java/org/apache/wss4j/dom/message/token/DerivedKeyToken.java`
+#### Snippet
+```java
+    private Element elementNonce;
+    private int length = 32;
+    private int offset = 0;
+    private int generation = -1;
+
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
 in `ws-security-common/src/main/java/org/apache/wss4j/common/saml/OpenSAMLUtil.java`
 #### Snippet
 ```java
@@ -4943,11 +5014,11 @@ Field initialization to `false` is redundant
 in `ws-security-stax/src/main/java/org/apache/wss4j/stax/ext/WSSSecurityProperties.java`
 #### Snippet
 ```java
-    private WSSCrypto encryptionWSSCrypto;
-    private String encryptionUser;
     private boolean useReqSigCertForEncryption = false;
     private String encryptionCompressionAlgorithm;
     private boolean enableRevocation = false;
+    private ReplayCache timestampReplayCache;
+    private ReplayCache nonceReplayCache;
 ```
 
 ### RedundantFieldInitialization
@@ -4955,11 +5026,23 @@ Field initialization to `false` is redundant
 in `ws-security-stax/src/main/java/org/apache/wss4j/stax/ext/WSSSecurityProperties.java`
 #### Snippet
 ```java
-    private boolean useReqSigCertForEncryption = false;
-    private String encryptionCompressionAlgorithm;
-    private boolean enableRevocation = false;
-    private ReplayCache timestampReplayCache;
-    private ReplayCache nonceReplayCache;
+     * reject custom token types in the callback handler.
+     */
+    private boolean handleCustomPasswordTypes = false;
+    private boolean allowUsernameTokenNoPassword = false;
+    private boolean allowRSA15KeyTransportAlgorithm = false;
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `ws-security-stax/src/main/java/org/apache/wss4j/stax/ext/WSSSecurityProperties.java`
+#### Snippet
+```java
+    private boolean handleCustomPasswordTypes = false;
+    private boolean allowUsernameTokenNoPassword = false;
+    private boolean allowRSA15KeyTransportAlgorithm = false;
+    private boolean useDerivedKeyForMAC = true;
+    private WSSConstants.UsernameTokenPasswordType usernameTokenPasswordType;
 ```
 
 ### RedundantFieldInitialization
@@ -4991,35 +5074,11 @@ Field initialization to `false` is redundant
 in `ws-security-stax/src/main/java/org/apache/wss4j/stax/ext/WSSSecurityProperties.java`
 #### Snippet
 ```java
-     * reject custom token types in the callback handler.
-     */
-    private boolean handleCustomPasswordTypes = false;
-    private boolean allowUsernameTokenNoPassword = false;
-    private boolean allowRSA15KeyTransportAlgorithm = false;
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `ws-security-stax/src/main/java/org/apache/wss4j/stax/ext/WSSSecurityProperties.java`
-#### Snippet
-```java
-    private boolean handleCustomPasswordTypes = false;
-    private boolean allowUsernameTokenNoPassword = false;
-    private boolean allowRSA15KeyTransportAlgorithm = false;
-    private boolean useDerivedKeyForMAC = true;
-    private WSSConstants.UsernameTokenPasswordType usernameTokenPasswordType;
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `ws-security-common/src/main/java/org/apache/wss4j/common/crypto/Merlin.java`
-#### Snippet
-```java
-    protected PasswordEncryptor passwordEncryptor;
-
-    private boolean certProviderHandlesNameConstraints = false;
-    private boolean enablePrivateKeyCaching = true;
-    private Map<String, PrivateKey> privateKeyCache = new ConcurrentHashMap<>();
+    private WSSCrypto encryptionWSSCrypto;
+    private String encryptionUser;
+    private boolean useReqSigCertForEncryption = false;
+    private String encryptionCompressionAlgorithm;
+    private boolean enableRevocation = false;
 ```
 
 ### RedundantFieldInitialization
@@ -5036,14 +5095,26 @@ public class WSSSignatureReferenceVerifyInputProcessor extends AbstractSignature
 
 ### RedundantFieldInitialization
 Field initialization to `false` is redundant
-in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/processor/output/EncryptOutputProcessor.java`
+in `ws-security-common/src/main/java/org/apache/wss4j/common/crypto/Merlin.java`
 #### Snippet
 ```java
-    class InternalEncryptionOutputProcessor extends AbstractInternalEncryptionOutputProcessor {
+    protected PasswordEncryptor passwordEncryptor;
 
-        private boolean doEncryptedHeader = false;
-        private final OutboundSecurityToken securityToken;
+    private boolean certProviderHandlesNameConstraints = false;
+    private boolean enablePrivateKeyCaching = true;
+    private Map<String, PrivateKey> privateKeyCache = new ConcurrentHashMap<>();
+```
 
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/InboundWSSecurityContextImpl.java`
+#### Snippet
+```java
+    private final Deque<SecurityEvent> securityEventQueue = new ArrayDeque<>();
+    private boolean operationSecurityEventOccured = false;
+    private boolean messageEncryptionTokenOccured = false;
+    private boolean allowRSA15KeyTransportAlgorithm = false;
+    private boolean disableBSPEnforcement;
 ```
 
 ### RedundantFieldInitialization
@@ -5063,18 +5134,6 @@ Field initialization to `false` is redundant
 in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/InboundWSSecurityContextImpl.java`
 #### Snippet
 ```java
-    private final Deque<SecurityEvent> securityEventQueue = new ArrayDeque<>();
-    private boolean operationSecurityEventOccured = false;
-    private boolean messageEncryptionTokenOccured = false;
-    private boolean allowRSA15KeyTransportAlgorithm = false;
-    private boolean disableBSPEnforcement;
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/InboundWSSecurityContextImpl.java`
-#### Snippet
-```java
 
     private final Deque<SecurityEvent> securityEventQueue = new ArrayDeque<>();
     private boolean operationSecurityEventOccured = false;
@@ -5084,14 +5143,14 @@ in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/InboundWSSecurityC
 
 ### RedundantFieldInitialization
 Field initialization to `false` is redundant
-in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/processor/output/SAMLTokenOutputProcessor.java`
+in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/processor/output/EncryptOutputProcessor.java`
 #### Snippet
 ```java
-        private final String securityTokenReferenceId;
-        private boolean senderVouches = false;
-        private boolean includeSTR = false;
+    class InternalEncryptionOutputProcessor extends AbstractInternalEncryptionOutputProcessor {
 
-        FinalSAMLTokenOutputProcessor(OutboundSecurityToken securityToken, SamlAssertionWrapper samlAssertionWrapper,
+        private boolean doEncryptedHeader = false;
+        private final OutboundSecurityToken securityToken;
+
 ```
 
 ### RedundantFieldInitialization
@@ -5108,38 +5167,50 @@ in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/processor/output/S
 
 ### RedundantFieldInitialization
 Field initialization to `false` is redundant
-in `policy/src/main/java/org/apache/wss4j/policy/model/AbstractSymmetricAsymmetricBinding.java`
+in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/processor/output/SAMLTokenOutputProcessor.java`
 #### Snippet
 ```java
+        private final String securityTokenReferenceId;
+        private boolean senderVouches = false;
+        private boolean includeSTR = false;
 
-    private ProtectionOrder protectionOrder = ProtectionOrder.SignBeforeEncrypting;
-    private boolean encryptSignature = false;
-    private boolean protectTokens = false;
-    private boolean onlySignEntireHeadersAndBody = false;
+        FinalSAMLTokenOutputProcessor(OutboundSecurityToken securityToken, SamlAssertionWrapper samlAssertionWrapper,
 ```
 
 ### RedundantFieldInitialization
 Field initialization to `false` is redundant
-in `policy/src/main/java/org/apache/wss4j/policy/model/AbstractSymmetricAsymmetricBinding.java`
+in `ws-security-policy-stax/src/main/java/org/apache/wss4j/policy/stax/enforcer/PolicyInputProcessor.java`
 #### Snippet
 ```java
-    private ProtectionOrder protectionOrder = ProtectionOrder.SignBeforeEncrypting;
-    private boolean encryptSignature = false;
-    private boolean protectTokens = false;
-    private boolean onlySignEntireHeadersAndBody = false;
+
+    private final PolicyEnforcer policyEnforcer;
+    private boolean initDone = false;
+    private boolean transportSecurityActive = false;
 
 ```
 
 ### RedundantFieldInitialization
 Field initialization to `false` is redundant
-in `policy/src/main/java/org/apache/wss4j/policy/model/AbstractSymmetricAsymmetricBinding.java`
+in `ws-security-policy-stax/src/main/java/org/apache/wss4j/policy/stax/enforcer/PolicyInputProcessor.java`
 #### Snippet
 ```java
-    private boolean encryptSignature = false;
-    private boolean protectTokens = false;
-    private boolean onlySignEntireHeadersAndBody = false;
+    private final PolicyEnforcer policyEnforcer;
+    private boolean initDone = false;
+    private boolean transportSecurityActive = false;
 
-    protected AbstractSymmetricAsymmetricBinding(SPConstants.SPVersion version, Policy nestedPolicy) {
+    public PolicyInputProcessor(PolicyEnforcer policyEnforcer, XMLSecurityProperties securityProperties) {
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `ws-security-policy-stax/src/main/java/org/apache/wss4j/policy/stax/enforcer/PolicyEnforcer.java`
+#### Snippet
+```java
+
+    private final Deque<SecurityEvent> securityEventQueue = new LinkedList<>();
+    private boolean operationSecurityEventOccured = false;
+    private boolean initiator;
+    private String actorOrRole;
 ```
 
 ### RedundantFieldInitialization
@@ -5147,11 +5218,35 @@ Field initialization to `false` is redundant
 in `ws-security-stax/src/main/java/org/apache/wss4j/stax/setup/OutboundWSSec.java`
 #### Snippet
 ```java
-        boolean signatureAction = false;
         boolean encryptionAction = false;
         boolean signedSAML = false;
         boolean kerberos = false;
         boolean signatureKerberos = false;
+        boolean encryptionKerberos = false;
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `ws-security-stax/src/main/java/org/apache/wss4j/stax/setup/OutboundWSSec.java`
+#### Snippet
+```java
+    private static class ConfiguredAction {
+        boolean signatureAction = false;
+        boolean encryptionAction = false;
+        boolean signedSAML = false;
+        boolean kerberos = false;
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `ws-security-stax/src/main/java/org/apache/wss4j/stax/setup/OutboundWSSec.java`
+#### Snippet
+```java
+        boolean signatureKerberos = false;
+        boolean encryptionKerberos = false;
+        boolean derivedSignature = false;
+        boolean derivedEncryption = false;
+    }
 ```
 
 ### RedundantFieldInitialization
@@ -5171,47 +5266,11 @@ Field initialization to `false` is redundant
 in `ws-security-stax/src/main/java/org/apache/wss4j/stax/setup/OutboundWSSec.java`
 #### Snippet
 ```java
+        boolean signedSAML = false;
+        boolean kerberos = false;
         boolean signatureKerberos = false;
         boolean encryptionKerberos = false;
         boolean derivedSignature = false;
-        boolean derivedEncryption = false;
-    }
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `ws-security-stax/src/main/java/org/apache/wss4j/stax/setup/OutboundWSSec.java`
-#### Snippet
-```java
-        boolean encryptionAction = false;
-        boolean signedSAML = false;
-        boolean kerberos = false;
-        boolean signatureKerberos = false;
-        boolean encryptionKerberos = false;
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `ws-security-stax/src/main/java/org/apache/wss4j/stax/setup/OutboundWSSec.java`
-#### Snippet
-```java
-
-    private static class ConfiguredAction {
-        boolean signatureAction = false;
-        boolean encryptionAction = false;
-        boolean signedSAML = false;
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `ws-security-stax/src/main/java/org/apache/wss4j/stax/setup/OutboundWSSec.java`
-#### Snippet
-```java
-    private static class ConfiguredAction {
-        boolean signatureAction = false;
-        boolean encryptionAction = false;
-        boolean signedSAML = false;
-        boolean kerberos = false;
 ```
 
 ### RedundantFieldInitialization
@@ -5231,96 +5290,23 @@ Field initialization to `false` is redundant
 in `ws-security-stax/src/main/java/org/apache/wss4j/stax/setup/OutboundWSSec.java`
 #### Snippet
 ```java
+        boolean signatureAction = false;
+        boolean encryptionAction = false;
         boolean signedSAML = false;
         boolean kerberos = false;
         boolean signatureKerberos = false;
-        boolean encryptionKerberos = false;
-        boolean derivedSignature = false;
 ```
 
 ### RedundantFieldInitialization
 Field initialization to `false` is redundant
-in `ws-security-policy-stax/src/main/java/org/apache/wss4j/policy/stax/enforcer/PolicyInputProcessor.java`
-#### Snippet
-```java
-    private final PolicyEnforcer policyEnforcer;
-    private boolean initDone = false;
-    private boolean transportSecurityActive = false;
-
-    public PolicyInputProcessor(PolicyEnforcer policyEnforcer, XMLSecurityProperties securityProperties) {
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `ws-security-policy-stax/src/main/java/org/apache/wss4j/policy/stax/enforcer/PolicyInputProcessor.java`
+in `ws-security-stax/src/main/java/org/apache/wss4j/stax/setup/OutboundWSSec.java`
 #### Snippet
 ```java
 
-    private final PolicyEnforcer policyEnforcer;
-    private boolean initDone = false;
-    private boolean transportSecurityActive = false;
-
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `ws-security-policy-stax/src/main/java/org/apache/wss4j/policy/stax/enforcer/PolicyEnforcer.java`
-#### Snippet
-```java
-
-    private final Deque<SecurityEvent> securityEventQueue = new LinkedList<>();
-    private boolean operationSecurityEventOccured = false;
-    private boolean initiator;
-    private String actorOrRole;
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `ws-security-dom/src/main/java/org/apache/wss4j/dom/util/WSSecurityUtil.java`
-#### Snippet
-```java
-public final class WSSecurityUtil {
-
-    private static boolean isSAAJ14 = false;
-
-    private static final org.slf4j.Logger LOG =
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `ws-security-dom/src/main/java/org/apache/wss4j/dom/engine/WSSConfig.java`
-#### Snippet
-```java
-     * to static initialization code at construction time.
-     */
-    private static boolean staticallyInitialized = false;
-
-    /**
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `ws-security-dom/src/main/java/org/apache/wss4j/dom/message/token/DerivedKeyToken.java`
-#### Snippet
-```java
-    private Element elementNonce;
-    private int length = 32;
-    private int offset = 0;
-    private int generation = -1;
-
-```
-
-## RuleId[ruleID=HtmlWrongAttributeValue]
-### HtmlWrongAttributeValue
-Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-02-13-05-38-06.789.html`
-#### Snippet
-```java
-              <td>0</td>
-              <td>0</td>
-              <td><textarea rows="10" cols="75" readonly="true" placeholder="empty" style="white-space: pre; border: none">Not collected for refresh</textarea></td>
-            </tr>
-          </tbody>
+    private static class ConfiguredAction {
+        boolean signatureAction = false;
+        boolean encryptionAction = false;
+        boolean signedSAML = false;
 ```
 
 ## RuleId[ruleID=InstanceofCatchParameter]
@@ -5343,7 +5329,7 @@ in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/processor/output/S
 #### Snippet
 ```java
 
-        private PrivateKey getPrivateKeyUsingCallback()
+        private byte[] getSecretKeyUsingCallback()
             throws WSSConfigurationException, WSSecurityException {
 
             SubjectBean subjectBean = samlCallback.getSubject();
@@ -5355,7 +5341,7 @@ in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/processor/output/S
 #### Snippet
 ```java
 
-        private byte[] getSecretKeyUsingCallback()
+        private PrivateKey getPrivateKeyUsingCallback()
             throws WSSConfigurationException, WSSecurityException {
 
             SubjectBean subjectBean = samlCallback.getSubject();
@@ -5373,559 +5359,20 @@ in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/processor/output/S
             SubjectBean subjectBean = samlCallback.getSubject();
 ```
 
-## RuleId[ruleID=ZeroLengthArrayInitialization]
-### ZeroLengthArrayInitialization
-Allocation of zero length array
+## RuleId[ruleID=NonFinalFieldOfException]
+### NonFinalFieldOfException
+Non-final field `errorCode` of exception class
 in `ws-security-common/src/main/java/org/apache/wss4j/common/ext/WSSecurityException.java`
 #### Snippet
 ```java
-
-    public WSSecurityException(ErrorCode errorCode, String msgId) {
-        super(msgId, new Object[]{});
-        this.errorCode = errorCode;
-    }
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `ws-security-common/src/main/java/org/apache/wss4j/common/util/UsernameTokenUtil.java`
-#### Snippet
-```java
-    public static byte[] doRawPasswordDigest(byte[] nonce, String created, byte[] password) throws WSSecurityException {
-        try {
-            byte[] b1 = nonce != null ? nonce : new byte[0];
-            byte[] b2 = created != null ? created.getBytes(StandardCharsets.UTF_8) : new byte[0];
-            byte[] b3 = password;
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `ws-security-common/src/main/java/org/apache/wss4j/common/util/UsernameTokenUtil.java`
-#### Snippet
-```java
-        try {
-            byte[] b1 = nonce != null ? nonce : new byte[0];
-            byte[] b2 = created != null ? created.getBytes(StandardCharsets.UTF_8) : new byte[0];
-            byte[] b3 = password;
-            byte[] b4 = new byte[b1.length + b2.length + b3.length];
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `ws-security-common/src/main/java/org/apache/wss4j/common/util/UsernameTokenUtil.java`
-#### Snippet
-```java
-        } catch (WSSecurityException ex) {
-            LOG.debug(ex.getMessage(), ex);
-            return new byte[0];
-        }
-        if (useForMac) {
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `ws-security-common/src/main/java/org/apache/wss4j/common/saml/SamlAssertionWrapper.java`
-#### Snippet
-```java
-        }
-
-        return new byte[0];
     }
 
+    private ErrorCode errorCode;
+
+    public WSSecurityException(ErrorCode errorCode) {
 ```
 
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `ws-security-common/src/main/java/org/apache/wss4j/common/saml/SamlAssertionWrapper.java`
-#### Snippet
-```java
-            return getSignatureValue(sig);
-        }
-        return new byte[0];
-    }
-
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `ws-security-common/src/main/java/org/apache/wss4j/common/token/PKIPathSecurity.java`
-#### Snippet
-```java
-        byte[] data = getToken();
-        if (data == null) {
-            return new X509Certificate[0];
-        }
-        if (crypto == null) {
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `ws-security-common/src/main/java/org/apache/wss4j/common/token/BinarySecurity.java`
-#### Snippet
-```java
-        String text = XMLUtils.getElementText(element);
-        if (text == null) {
-            return new byte[0];
-        }
-
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `ws-security-common/src/main/java/org/apache/wss4j/common/crypto/BouncyCastleUtils.java`
-#### Snippet
-```java
-            return subjectKeyIdentifier.getKeyIdentifier();
-        }
-        return new byte[0];
-    }
-
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `ws-security-common/src/main/java/org/apache/wss4j/common/crypto/BouncyCastleUtils.java`
-#### Snippet
-```java
-            return authorityKeyIdentifier.getKeyIdentifier();
-        }
-        return new byte[0];
-    }
-
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `ws-security-common/src/main/java/org/apache/wss4j/common/token/SecurityTokenReference.java`
-#### Snippet
-```java
-    public X509Certificate[] getKeyIdentifier(Crypto crypto) throws WSSecurityException {
-        if (crypto == null) {
-            return new X509Certificate[0];
-        }
-
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `ws-security-common/src/main/java/org/apache/wss4j/common/token/SecurityTokenReference.java`
-#### Snippet
-```java
-        }
-
-        return new X509Certificate[0];
-    }
-
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `ws-security-common/src/main/java/org/apache/wss4j/common/token/SecurityTokenReference.java`
-#### Snippet
-```java
-    public X509Certificate[] getX509IssuerSerial(Crypto crypto) throws WSSecurityException {
-        if (crypto == null) {
-            return new X509Certificate[0];
-        }
-
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `ws-security-common/src/main/java/org/apache/wss4j/common/token/SecurityTokenReference.java`
-#### Snippet
-```java
-            issuerSerial = getIssuerSerial();
-            if (issuerSerial == null) {
-                return new X509Certificate[0];
-            }
-        }
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `ws-security-common/src/main/java/org/apache/wss4j/common/crypto/CryptoBase.java`
-#### Snippet
-```java
-        byte[] bytes = cert.getExtensionValue(NAME_CONSTRAINTS_OID);
-        if (bytes == null || bytes.length <= 0) {
-            return new byte[0];
-        }
-
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `ws-security-common/src/main/java/org/apache/wss4j/common/crypto/MerlinAKI.java`
-#### Snippet
-```java
-            );
-        }
-        return new Certificate[]{};
-    }
-
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `ws-security-common/src/main/java/org/apache/wss4j/common/crypto/MerlinAKI.java`
-#### Snippet
-```java
-    ) throws WSSecurityException, NoSuchAlgorithmException, CertificateEncodingException {
-        if (keyIdentifierBytes == null) {
-            return new X509Certificate[0];
-        }
-
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `ws-security-common/src/main/java/org/apache/wss4j/common/crypto/MerlinAKI.java`
-#### Snippet
-```java
-
-        if (certs == null || certs.length == 0) {
-            return new X509Certificate[0];
-        }
-
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `ws-security-common/src/main/java/org/apache/wss4j/common/spnego/DefaultSpnegoClientAction.java`
-#### Snippet
-```java
-            secContext.requestCredDeleg(Boolean.FALSE);
-
-            byte[] token = new byte[0];
-            return secContext.initSecContext(token, 0, token.length);
-        } catch (GSSException e) {
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `ws-security-common/src/main/java/org/apache/wss4j/common/spnego/DefaultSpnegoClientAction.java`
-#### Snippet
-```java
-        }
-
-        return new byte[0];
-    }
-
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `ws-security-common/src/main/java/org/apache/wss4j/common/spnego/DefaultSpnegoServiceAction.java`
-#### Snippet
-```java
-        }
-
-        return new byte[0];
-    }
-
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `ws-security-common/src/main/java/org/apache/wss4j/common/kerberos/KerberosClientExceptionAction.java`
-#### Snippet
-```java
-        secContext.requestCredDeleg(requestCredDeleg);
-
-        byte[] token = new byte[0];
-        byte[] returnedToken = secContext.initSecContext(token, 0, token.length);
-
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `ws-security-common/src/main/java/org/apache/wss4j/common/crypto/CertificateStore.java`
-#### Snippet
-```java
-    public X509Certificate[] getX509Certificates(CryptoType cryptoType) throws WSSecurityException {
-        if (cryptoType == null) {
-            return new X509Certificate[0];
-        }
-        CryptoType.TYPE type = cryptoType.getType();
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `ws-security-common/src/main/java/org/apache/wss4j/common/crypto/CertificateStore.java`
-#### Snippet
-```java
-        }
-        CryptoType.TYPE type = cryptoType.getType();
-        X509Certificate[] certs = new X509Certificate[0];
-        switch (type) {
-        case ISSUER_SERIAL:
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `ws-security-common/src/main/java/org/apache/wss4j/common/crypto/CertificateStore.java`
-#### Snippet
-```java
-        //
-        String issuerString = certs[0].getIssuerX500Principal().getName();
-        X509Certificate[] foundCerts = new X509Certificate[0];
-        if (certs.length == 1) {
-            CryptoType cryptoType = new CryptoType(CryptoType.TYPE.SUBJECT_DN);
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `ws-security-common/src/main/java/org/apache/wss4j/common/crypto/CertificateStore.java`
-#### Snippet
-```java
-        }
-
-        return new X509Certificate[0];
-    }
-
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `ws-security-common/src/main/java/org/apache/wss4j/common/crypto/CertificateStore.java`
-#### Snippet
-```java
-        }
-
-        return new X509Certificate[0];
-    }
-
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `ws-security-common/src/main/java/org/apache/wss4j/common/crypto/CertificateStore.java`
-#### Snippet
-```java
-    private X509Certificate[] getX509CertificatesSKI(byte[] skiBytes) throws WSSecurityException {
-        if (trustedCerts == null) {
-            return new X509Certificate[0];
-        }
-        for (X509Certificate trustedCert : trustedCerts) {
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `ws-security-common/src/main/java/org/apache/wss4j/common/crypto/CertificateStore.java`
-#### Snippet
-```java
-            }
-        }
-        return new X509Certificate[0];
-    }
-
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `ws-security-common/src/main/java/org/apache/wss4j/common/crypto/CertificateStore.java`
-#### Snippet
-```java
-
-        if (trustedCerts == null) {
-            return new X509Certificate[0];
-        }
-
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `ws-security-common/src/main/java/org/apache/wss4j/common/crypto/CertificateStore.java`
-#### Snippet
-```java
-            }
-        }
-        return new X509Certificate[0];
-    }
-
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `ws-security-common/src/main/java/org/apache/wss4j/common/crypto/Merlin.java`
-#### Snippet
-```java
-
-        LOG.debug("No thumbprint match found in {}", keystore);
-        return new Certificate[]{};
-    }
-
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `ws-security-common/src/main/java/org/apache/wss4j/common/crypto/Merlin.java`
-#### Snippet
-```java
-
-        LOG.debug("No issuer serial match found in {}", keystore);
-        return new Certificate[]{};
-    }
-
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `ws-security-common/src/main/java/org/apache/wss4j/common/crypto/Merlin.java`
-#### Snippet
-```java
-
-        if (certs == null || certs.length == 0) {
-            return new X509Certificate[0];
-        }
-
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `ws-security-common/src/main/java/org/apache/wss4j/common/crypto/Merlin.java`
-#### Snippet
-```java
-    public X509Certificate[] getX509Certificates(CryptoType cryptoType) throws WSSecurityException {
-        if (cryptoType == null) {
-            return new X509Certificate[0];
-        }
-        CryptoType.TYPE type = cryptoType.getType();
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `ws-security-common/src/main/java/org/apache/wss4j/common/crypto/Merlin.java`
-#### Snippet
-```java
-        }
-        CryptoType.TYPE type = cryptoType.getType();
-        X509Certificate[] certs = new X509Certificate[0];
-        switch (type) {
-        case ISSUER_SERIAL:
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `ws-security-common/src/main/java/org/apache/wss4j/common/crypto/Merlin.java`
-#### Snippet
-```java
-
-        LOG.debug("No SKI match found in {}", keystore);
-        return new Certificate[]{};
-    }
-
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `ws-security-common/src/main/java/org/apache/wss4j/common/crypto/Merlin.java`
-#### Snippet
-```java
-
-        if (certs == null || certs.isEmpty()) {
-            return new X509Certificate[0];
-        }
-
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `ws-security-common/src/main/java/org/apache/wss4j/common/crypto/Merlin.java`
-#### Snippet
-```java
-
-        if (certs == null || certs.length == 0) {
-            return new X509Certificate[0];
-        }
-
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `ws-security-common/src/main/java/org/apache/wss4j/common/crypto/Merlin.java`
-#### Snippet
-```java
-
-            ks.load(input, storepass == null || storepass.length() == 0
-                ? new char[0] : storepass.toCharArray());
-        } catch (IOException | GeneralSecurityException e) {
-            LOG.debug(e.getMessage(), e);
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `ws-security-common/src/main/java/org/apache/wss4j/common/crypto/Merlin.java`
-#### Snippet
-```java
-
-        if (certs == null || certs.length == 0) {
-            return new X509Certificate[0];
-        }
-
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `ws-security-common/src/main/java/org/apache/wss4j/common/crypto/Merlin.java`
-#### Snippet
-```java
-
-            Key keyTmp = keystore.getKey(identifier, pwd == null
-                                         ? new char[]{} : pwd.toCharArray());
-            if (!(keyTmp instanceof PrivateKey)) {
-                String msg = "Key is not a private key, alias: [" + identifier + "]";
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `ws-security-common/src/main/java/org/apache/wss4j/common/crypto/Merlin.java`
-#### Snippet
-```java
-    private X509Certificate[] getX509Certificates(String identifier) throws WSSecurityException {
-        if (identifier == null) {
-            return new X509Certificate[0];
-        }
-        Certificate[] certs = null;
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `ws-security-common/src/main/java/org/apache/wss4j/common/crypto/Merlin.java`
-#### Snippet
-```java
-
-            if (certs == null) {
-                return new X509Certificate[0];
-            }
-        } catch (KeyStoreException e) {
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/processor/output/SAMLTokenOutputProcessor.java`
-#### Snippet
-```java
-            }
-
-            return new byte[0];
-        }
-
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/processor/output/SAMLTokenOutputProcessor.java`
-#### Snippet
-```java
-            }
-
-            return new X509Certificate[0];
-        }
-
-```
-
+## RuleId[ruleID=ZeroLengthArrayInitialization]
 ### ZeroLengthArrayInitialization
 Allocation of zero length array
 in `ws-security-dom/src/main/java/org/apache/wss4j/dom/str/STRParserUtil.java`
@@ -6000,6 +5447,18 @@ in `ws-security-dom/src/main/java/org/apache/wss4j/dom/processor/BinarySecurityT
 
 ### ZeroLengthArrayInitialization
 Allocation of zero length array
+in `ws-security-common/src/main/java/org/apache/wss4j/common/ext/WSSecurityException.java`
+#### Snippet
+```java
+
+    public WSSecurityException(ErrorCode errorCode, String msgId) {
+        super(msgId, new Object[]{});
+        this.errorCode = errorCode;
+    }
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
 in `ws-security-dom/src/main/java/org/apache/wss4j/dom/processor/EncryptedKeyProcessor.java`
 #### Snippet
 ```java
@@ -6010,704 +5469,547 @@ in `ws-security-dom/src/main/java/org/apache/wss4j/dom/processor/EncryptedKeyPro
 
 ```
 
-## RuleId[ruleID=NonFinalFieldOfException]
-### NonFinalFieldOfException
-Non-final field `errorCode` of exception class
-in `ws-security-common/src/main/java/org/apache/wss4j/common/ext/WSSecurityException.java`
-#### Snippet
-```java
-    }
-
-    private ErrorCode errorCode;
-
-    public WSSecurityException(ErrorCode errorCode) {
-```
-
-## RuleId[ruleID=UnusedAssignment]
-### UnusedAssignment
-Variable `element` initializer `null` is redundant
-in `ws-security-common/src/main/java/org/apache/wss4j/common/saml/OpenSAMLUtil.java`
-#### Snippet
-```java
-    ) throws WSSecurityException {
-        Marshaller marshaller = marshallerFactory.getMarshaller(xmlObject);
-        Element element = null;
-        DocumentFragment frag = doc == null ? null : doc.createDocumentFragment();
-        try {
-```
-
-### UnusedAssignment
-Variable `keyInfoFactory` initializer `null` is redundant
-in `ws-security-common/src/main/java/org/apache/wss4j/common/saml/SAMLUtil.java`
-#### Snippet
-```java
-        // (public key) credential
-        //
-        KeyInfoFactory keyInfoFactory = null;
-        try {
-            keyInfoFactory = KeyInfoFactory.getInstance("DOM", "ApacheXMLDSig");
-```
-
-### UnusedAssignment
-Variable `samlSubject` initializer `null` is redundant
-in `ws-security-common/src/main/java/org/apache/wss4j/common/saml/SAMLUtil.java`
-#### Snippet
-```java
-    ) throws WSSecurityException {
-        for (org.opensaml.saml.saml1.core.Statement stmt : assertion.getStatements()) {
-            org.opensaml.saml.saml1.core.Subject samlSubject = null;
-            if (stmt instanceof org.opensaml.saml.saml1.core.AttributeStatement) {
-                org.opensaml.saml.saml1.core.AttributeStatement attrStmt =
-```
-
-### UnusedAssignment
-Variable `saltValue` initializer `null` is redundant
+### ZeroLengthArrayInitialization
+Allocation of zero length array
 in `ws-security-common/src/main/java/org/apache/wss4j/common/util/UsernameTokenUtil.java`
 #### Snippet
 ```java
-     */
-    public static byte[] generateSalt(boolean useForMac) {
-        byte[] saltValue = null;
-        try {
-            saltValue = generateNonce(16);
+        } catch (WSSecurityException ex) {
+            LOG.debug(ex.getMessage(), ex);
+            return new byte[0];
+        }
+        if (useForMac) {
 ```
 
-### UnusedAssignment
-Variable `sha` initializer `null` is redundant
+### ZeroLengthArrayInitialization
+Allocation of zero length array
 in `ws-security-common/src/main/java/org/apache/wss4j/common/util/UsernameTokenUtil.java`
 #### Snippet
 ```java
-        System.arraycopy(salt, 0, pwSalt, password.length, salt.length);
-
-        MessageDigest sha = null;
+    public static byte[] doRawPasswordDigest(byte[] nonce, String created, byte[] password) throws WSSecurityException {
         try {
-            sha = MessageDigest.getInstance("SHA1");
+            byte[] b1 = nonce != null ? nonce : new byte[0];
+            byte[] b2 = created != null ? created.getBytes(StandardCharsets.UTF_8) : new byte[0];
+            byte[] b3 = password;
 ```
 
-### UnusedAssignment
-Variable `credential` initializer `null` is redundant
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `ws-security-common/src/main/java/org/apache/wss4j/common/util/UsernameTokenUtil.java`
+#### Snippet
+```java
+        try {
+            byte[] b1 = nonce != null ? nonce : new byte[0];
+            byte[] b2 = created != null ? created.getBytes(StandardCharsets.UTF_8) : new byte[0];
+            byte[] b3 = password;
+            byte[] b4 = new byte[b1.length + b2.length + b3.length];
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
 in `ws-security-common/src/main/java/org/apache/wss4j/common/saml/SamlAssertionWrapper.java`
 #### Snippet
 ```java
-            }
-
-            BasicCredential credential = null;
-            if (samlKeyInfo.getCerts() != null) {
-                credential = new BasicX509Credential(samlKeyInfo.getCerts()[0]);
-```
-
-### UnusedAssignment
-Variable `url` initializer `null` is redundant
-in `ws-security-common/src/main/java/org/apache/wss4j/common/util/Loader.java`
-#### Snippet
-```java
-     */
-    public static URL getResource(String resource) {
-        URL url = null;
-        try {
-            ClassLoader classLoader = getTCL();
-```
-
-### UnusedAssignment
-Variable `url` initializer `null` is redundant
-in `ws-security-common/src/main/java/org/apache/wss4j/common/util/Loader.java`
-#### Snippet
-```java
-     */
-    public static URL getResource(ClassLoader loader, String resource) {
-        URL url = null;
-        try {
-            if (loader != null) {
-```
-
-### UnusedAssignment
-Variable `processedNode` initializer `null` is redundant
-in `ws-security-common/src/main/java/org/apache/wss4j/common/util/XMLUtils.java`
-#### Snippet
-```java
+            return getSignatureValue(sig);
         }
-        Node startParent = startNode.getParentNode();
-        Node processedNode = null;
-
-        while (startNode != null) {
-```
-
-### UnusedAssignment
-Variable `processedNode` initializer `null` is redundant
-in `ws-security-common/src/main/java/org/apache/wss4j/common/util/XMLUtils.java`
-#### Snippet
-```java
-        }
-        Node startParent = startNode.getParentNode();
-        Node processedNode = null;
-
-        while (startNode != null) {
-```
-
-### UnusedAssignment
-Variable `attr` initializer `null` is redundant
-in `ws-security-common/src/main/java/org/apache/wss4j/common/util/XMLUtils.java`
-#### Snippet
-```java
-    public static String getNamespace(String prefix, Node e) {
-        while (e != null && e.getNodeType() == Node.ELEMENT_NODE) {
-            Attr attr = null;
-            if (prefix == null) {
-                attr = ((Element) e).getAttributeNode("xmlns");
-```
-
-### UnusedAssignment
-Variable `processedNode` initializer `null` is redundant
-in `ws-security-common/src/main/java/org/apache/wss4j/common/util/XMLUtils.java`
-#### Snippet
-```java
-        }
-        Node startParent = startNode.getParentNode();
-        Node processedNode = null;
-
-        List<Element> foundNodes = new ArrayList<>();
-```
-
-### UnusedAssignment
-Variable `processedNode` initializer `null` is redundant
-in `ws-security-common/src/main/java/org/apache/wss4j/common/util/XMLUtils.java`
-#### Snippet
-```java
-        }
-        Node startParent = startNode.getParentNode();
-        Node processedNode = null;
-        Element foundElement = null;
-        String id = XMLUtils.getIDFromReference(value);
-```
-
-### UnusedAssignment
-The value `false` assigned to `hasChildren` is never used
-in `ws-security-common/src/main/java/org/apache/wss4j/common/util/DOM2Writer.java`
-#### Snippet
-```java
-                out.print(LS);
-            }
-            hasChildren = false;
-        }
+        return new byte[0];
     }
+
 ```
 
-### UnusedAssignment
-Variable `subjectConfirmationData` initializer `null` is redundant
-in `ws-security-common/src/main/java/org/apache/wss4j/common/saml/builder/SAML2ComponentBuilder.java`
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `ws-security-common/src/main/java/org/apache/wss4j/common/saml/SamlAssertionWrapper.java`
 #### Snippet
 ```java
-        KeyInfoBean keyInfoBean
-    ) throws org.opensaml.security.SecurityException, WSSecurityException {
-        SubjectConfirmationData subjectConfirmationData = null;
-        KeyInfo keyInfo = null;
-        if (keyInfoBean == null) {
+        }
+
+        return new byte[0];
+    }
+
 ```
 
-### UnusedAssignment
-Variable `keyInfo` initializer `null` is redundant
-in `ws-security-common/src/main/java/org/apache/wss4j/common/saml/builder/SAML2ComponentBuilder.java`
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `ws-security-common/src/main/java/org/apache/wss4j/common/token/BinarySecurity.java`
 #### Snippet
 ```java
-    ) throws org.opensaml.security.SecurityException, WSSecurityException {
-        SubjectConfirmationData subjectConfirmationData = null;
-        KeyInfo keyInfo = null;
-        if (keyInfoBean == null) {
-            if (subjectConfirmationDataBuilder == null) {
+        String text = XMLUtils.getElementText(element);
+        if (text == null) {
+            return new byte[0];
+        }
+
 ```
 
-### UnusedAssignment
-Variable `data` initializer `null` is redundant
-in `ws-security-common/src/main/java/org/apache/wss4j/common/token/SecurityTokenReference.java`
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `ws-security-common/src/main/java/org/apache/wss4j/common/token/PKIPathSecurity.java`
 #### Snippet
 ```java
-        throws WSSecurityException {
-        Document doc = element.getOwnerDocument();
-        byte[] data = null;
-        try {
-            data = cert.getEncoded();
+        byte[] data = getToken();
+        if (data == null) {
+            return new X509Certificate[0];
+        }
+        if (crypto == null) {
 ```
 
-### UnusedAssignment
-Variable `encodedCert` initializer `null` is redundant
-in `ws-security-common/src/main/java/org/apache/wss4j/common/token/SecurityTokenReference.java`
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `ws-security-common/src/main/java/org/apache/wss4j/common/crypto/BouncyCastleUtils.java`
 #### Snippet
 ```java
-    public void setKeyIdentifierThumb(X509Certificate cert) throws WSSecurityException {
-        Document doc = element.getOwnerDocument();
-        byte[] encodedCert = null;
-        try {
-            encodedCert = cert.getEncoded();
+            return subjectKeyIdentifier.getKeyIdentifier();
+        }
+        return new byte[0];
+    }
+
 ```
 
-### UnusedAssignment
-Variable `path` initializer `null` is redundant
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `ws-security-common/src/main/java/org/apache/wss4j/common/crypto/BouncyCastleUtils.java`
+#### Snippet
+```java
+            return authorityKeyIdentifier.getKeyIdentifier();
+        }
+        return new byte[0];
+    }
+
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
 in `ws-security-common/src/main/java/org/apache/wss4j/common/crypto/CryptoBase.java`
 #### Snippet
 ```java
-    public X509Certificate[] getCertificatesFromBytes(byte[] data)
-        throws WSSecurityException {
-        CertPath path = null;
-        try (InputStream in = new ByteArrayInputStream(data)) {
-            path = getCertificateFactory().generateCertPath(in);
+        byte[] bytes = cert.getExtensionValue(NAME_CONSTRAINTS_OID);
+        if (bytes == null || bytes.length <= 0) {
+            return new byte[0];
+        }
+
 ```
 
-### UnusedAssignment
-Variable `validator` initializer `null` is redundant
-in `ws-security-common/src/main/java/org/apache/wss4j/common/crypto/MerlinAKI.java`
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `ws-security-common/src/main/java/org/apache/wss4j/common/spnego/DefaultSpnegoClientAction.java`
 #### Snippet
 ```java
-            // Verify the trust path using the above settings
-            String provider = getCryptoProvider();
-            CertPathValidator validator = null;
-            if (provider == null || provider.length() == 0) {
-                validator = CertPathValidator.getInstance("PKIX");
+            secContext.requestCredDeleg(Boolean.FALSE);
+
+            byte[] token = new byte[0];
+            return secContext.initSecContext(token, 0, token.length);
+        } catch (GSSException e) {
 ```
 
-### UnusedAssignment
-Variable `secContext` initializer `null` is redundant
-in `ws-security-common/src/main/java/org/apache/wss4j/common/kerberos/KerberosServiceExceptionAction.java`
-#### Snippet
-```java
-        GSSManager gssManager = GSSManager.getInstance();
-
-        GSSContext secContext = null;
-        GSSName gssService = gssManager.createName(serviceName, isUsernameServiceNameForm
-                                                   ? GSSName.NT_USER_NAME : GSSName.NT_HOSTBASED_SERVICE);
-```
-
-### UnusedAssignment
-Variable `krbServiceCtx` initializer `null` is redundant
-in `ws-security-common/src/main/java/org/apache/wss4j/common/kerberos/KerberosServiceExceptionAction.java`
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `ws-security-common/src/main/java/org/apache/wss4j/common/spnego/DefaultSpnegoClientAction.java`
 #### Snippet
 ```java
         }
 
-        KerberosServiceContext krbServiceCtx = null;
+        return new byte[0];
+    }
 
-        try {
 ```
 
-### UnusedAssignment
-Variable `oid` initializer `null` is redundant
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `ws-security-common/src/main/java/org/apache/wss4j/common/token/SecurityTokenReference.java`
+#### Snippet
+```java
+    public X509Certificate[] getX509IssuerSerial(Crypto crypto) throws WSSecurityException {
+        if (crypto == null) {
+            return new X509Certificate[0];
+        }
+
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `ws-security-common/src/main/java/org/apache/wss4j/common/token/SecurityTokenReference.java`
+#### Snippet
+```java
+            issuerSerial = getIssuerSerial();
+            if (issuerSerial == null) {
+                return new X509Certificate[0];
+            }
+        }
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `ws-security-common/src/main/java/org/apache/wss4j/common/token/SecurityTokenReference.java`
+#### Snippet
+```java
+    public X509Certificate[] getKeyIdentifier(Crypto crypto) throws WSSecurityException {
+        if (crypto == null) {
+            return new X509Certificate[0];
+        }
+
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `ws-security-common/src/main/java/org/apache/wss4j/common/token/SecurityTokenReference.java`
+#### Snippet
+```java
+        }
+
+        return new X509Certificate[0];
+    }
+
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `ws-security-common/src/main/java/org/apache/wss4j/common/spnego/DefaultSpnegoServiceAction.java`
+#### Snippet
+```java
+        }
+
+        return new byte[0];
+    }
+
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
 in `ws-security-common/src/main/java/org/apache/wss4j/common/kerberos/KerberosClientExceptionAction.java`
 #### Snippet
 ```java
-        GSSName gssService = gssManager.createName(serviceName, isUsernameServiceNameForm
-                                                   ? GSSName.NT_USER_NAME : GSSName.NT_HOSTBASED_SERVICE);
-        Oid oid = null;
-        GSSCredential credentials = delegatedCredential;
-        if (spnego) {
+        secContext.requestCredDeleg(requestCredDeleg);
+
+        byte[] token = new byte[0];
+        byte[] returnedToken = secContext.initSecContext(token, 0, token.length);
+
 ```
 
-### UnusedAssignment
-Variable `loginContext` initializer `null` is redundant
-in `ws-security-common/src/main/java/org/apache/wss4j/common/spnego/SpnegoTokenContext.java`
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `ws-security-common/src/main/java/org/apache/wss4j/common/crypto/MerlinAKI.java`
+#### Snippet
+```java
+    ) throws WSSecurityException, NoSuchAlgorithmException, CertificateEncodingException {
+        if (keyIdentifierBytes == null) {
+            return new X509Certificate[0];
+        }
+
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `ws-security-common/src/main/java/org/apache/wss4j/common/crypto/MerlinAKI.java`
 #### Snippet
 ```java
 
-        // Get a TGT from the KDC using JAAS
-        LoginContext loginContext = null;
-        try {
-            if (callbackHandler == null) {
+        if (certs == null || certs.length == 0) {
+            return new X509Certificate[0];
+        }
+
 ```
 
-### UnusedAssignment
-Variable `krbCtx` initializer `null` is redundant
-in `ws-security-common/src/main/java/org/apache/wss4j/common/spnego/SpnegoTokenContext.java`
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `ws-security-common/src/main/java/org/apache/wss4j/common/crypto/MerlinAKI.java`
 #### Snippet
 ```java
-                                                  true,
-                                                  mutualAuth);
-            KerberosContext krbCtx = null;
-            try {
-                krbCtx = (KerberosContext) Subject.doAs(clientSubject, action);
+            );
+        }
+        return new Certificate[]{};
+    }
+
 ```
 
-### UnusedAssignment
-Variable `loginContext` initializer `null` is redundant
-in `ws-security-common/src/main/java/org/apache/wss4j/common/spnego/SpnegoTokenContext.java`
-#### Snippet
-```java
-    ) throws WSSecurityException {
-        // Get a TGT from the KDC using JAAS
-        LoginContext loginContext = null;
-        try {
-            if (callbackHandler == null) {
-```
-
-### UnusedAssignment
-Variable `krbCtx` initializer `null` is redundant
-in `ws-security-common/src/main/java/org/apache/wss4j/common/spnego/SpnegoTokenContext.java`
-#### Snippet
-```java
-                new KerberosServiceExceptionAction(ticket, service,
-                                                   isUsernameServiceNameForm, true);
-            KerberosServiceContext krbCtx = null;
-            try {
-                krbCtx = (KerberosServiceContext) Subject.doAs(subject, action);
-```
-
-### UnusedAssignment
-Variable `digest` initializer `false` is redundant
-in `ws-security-common/src/main/java/org/apache/wss4j/common/principal/WSUsernameTokenPrincipalImpl.java`
-#### Snippet
-```java
-    private String createdTime;
-    private String passwordType;
-    private boolean digest = false;
-
-    /**
-```
-
-### UnusedAssignment
-Variable `validator` initializer `null` is redundant
+### ZeroLengthArrayInitialization
+Allocation of zero length array
 in `ws-security-common/src/main/java/org/apache/wss4j/common/crypto/CertificateStore.java`
 #### Snippet
 ```java
-            // Verify the trust path using the above settings
-            String provider = getCryptoProvider();
-            CertPathValidator validator = null;
-            if (provider == null || provider.length() == 0) {
-                validator = CertPathValidator.getInstance("PKIX");
+        }
+
+        return new X509Certificate[0];
+    }
+
 ```
 
-### UnusedAssignment
-Variable `issuerName` initializer `null` is redundant
+### ZeroLengthArrayInitialization
+Allocation of zero length array
 in `ws-security-common/src/main/java/org/apache/wss4j/common/crypto/CertificateStore.java`
 #### Snippet
 ```java
-        // back on a direct conversion to a BC X509Name
         //
-        Object issuerName = null;
-        try {
-            X500Principal issuerRDN = new X500Principal(issuer);
+        String issuerString = certs[0].getIssuerX500Principal().getName();
+        X509Certificate[] foundCerts = new X509Certificate[0];
+        if (certs.length == 1) {
+            CryptoType cryptoType = new CryptoType(CryptoType.TYPE.SUBJECT_DN);
 ```
 
-### UnusedAssignment
-Variable `sha` initializer `null` is redundant
+### ZeroLengthArrayInitialization
+Allocation of zero length array
 in `ws-security-common/src/main/java/org/apache/wss4j/common/crypto/CertificateStore.java`
 #### Snippet
 ```java
-     */
-    private X509Certificate[] getX509Certificates(byte[] thumb) throws WSSecurityException {
-        MessageDigest sha = null;
 
         if (trustedCerts == null) {
-```
-
-### UnusedAssignment
-Variable `crypto` initializer `null` is redundant
-in `ws-security-stax/src/main/java/org/apache/wss4j/stax/ext/WSSCrypto.java`
-#### Snippet
-```java
+            return new X509Certificate[0];
         }
 
-        Merlin crypto = null;
-        if (cryptoProperties != null) {
-            try {
 ```
 
-### UnusedAssignment
-Variable `c` initializer `null` is redundant
-in `ws-security-common/src/main/java/org/apache/wss4j/common/crypto/CryptoFactory.java`
-#### Snippet
-```java
-        LOG.debug("Using Crypto Engine [{}]", cryptoClass);
-        try {
-            Constructor<? extends Crypto> c = null;
-            try {
-                Class<?>[] classes = new Class[]{Properties.class, ClassLoader.class};
-```
-
-### UnusedAssignment
-Variable `cryptoClass` initializer `null` is redundant
-in `ws-security-common/src/main/java/org/apache/wss4j/common/crypto/CryptoFactory.java`
-#### Snippet
-```java
-        }
-
-        Class<? extends Crypto> cryptoClass = null;
-        if (cryptoClassName == null
-            || cryptoClassName.equals("org.apache.wss4j.common.crypto.Merlin")
-```
-
-### UnusedAssignment
-Variable `c` initializer `null` is redundant
-in `ws-security-common/src/main/java/org/apache/wss4j/common/crypto/CryptoFactory.java`
-#### Snippet
-```java
-        LOG.debug("Using Crypto Engine [{}]", cryptoClass);
-        try {
-            Constructor<? extends Crypto> c = null;
-            try {
-                Class<?>[] classes = new Class[]{Map.class, ClassLoader.class};
-```
-
-### UnusedAssignment
-Variable `validator` initializer `null` is redundant
-in `ws-security-common/src/main/java/org/apache/wss4j/common/crypto/Merlin.java`
-#### Snippet
-```java
-            // Verify the trust path using the above settings
-            String provider = getCryptoProvider();
-            CertPathValidator validator = null;
-            if (provider == null || provider.length() == 0) {
-                validator = CertPathValidator.getInstance("PKIX");
-```
-
-### UnusedAssignment
-Variable `sha` initializer `null` is redundant
-in `ws-security-common/src/main/java/org/apache/wss4j/common/crypto/Merlin.java`
-#### Snippet
-```java
-     */
-    private X509Certificate[] getX509Certificates(byte[] thumbprint) throws WSSecurityException {
-        MessageDigest sha = null;
-
-        try {
-```
-
-### UnusedAssignment
-Variable `ks` initializer `null` is redundant
-in `ws-security-common/src/main/java/org/apache/wss4j/common/crypto/Merlin.java`
-#### Snippet
-```java
-    protected KeyStore load(InputStream input, String storepass, String provider, String type)
-        throws WSSecurityException {
-        KeyStore ks = null;
-
-        try {
-```
-
-### UnusedAssignment
-Variable `issuerName` initializer `null` is redundant
-in `ws-security-common/src/main/java/org/apache/wss4j/common/crypto/Merlin.java`
-#### Snippet
-```java
-        // back on a direct conversion to a BC X509Name
-        //
-        Object issuerName = null;
-        try {
-            X500Principal issuerRDN = new X500Principal(issuer);
-```
-
-### UnusedAssignment
-Variable `document` initializer `null` is redundant
-in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/processor/input/SAMLTokenInputHandler.java`
-#### Snippet
-```java
-    protected <T> T parseStructure(Deque<XMLSecEvent> eventDeque, int index, XMLSecurityProperties securityProperties)
-            throws XMLSecurityException {
-        Document document = null;
-        try {
-            document = ((WSSSecurityProperties) securityProperties).getDocumentCreator().newDocument();
-```
-
-### UnusedAssignment
-Variable `object` initializer `null` is redundant
-in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/processor/input/SAMLTokenInputHandler.java`
-#### Snippet
-```java
-            };
-        } else {
-            Object object = null;
-            try {
-                Unmarshaller unmarshaller = WSSConstants.getJaxbUnmarshaller(securityProperties.isDisableSchemaValidation());
-```
-
-### UnusedAssignment
-Variable `credential` initializer `null` is redundant
-in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/processor/input/SAMLTokenInputHandler.java`
-#### Snippet
-```java
-            samlTokenValidator.validate(sigSecurityToken, wssSecurityProperties);
-
-            BasicCredential credential = null;
-            if (sigSecurityToken.getX509Certificates() != null) {
-                credential = new BasicX509Credential(sigSecurityToken.getX509Certificates()[0]);
-```
-
-### UnusedAssignment
-Variable `cipher` initializer `null` is redundant
-in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/processor/output/EncryptOutputProcessor.java`
-#### Snippet
-```java
-                }
-                //initialize the cipher
-                Cipher cipher = null;
-                try {
-                    cipher = Cipher.getInstance(jceAlgorithm);
-```
-
-### UnusedAssignment
-Variable `tokenProvider` initializer `null` is redundant
-in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/processor/output/BinarySecurityTokenOutputProcessor.java`
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `ws-security-common/src/main/java/org/apache/wss4j/common/crypto/CertificateStore.java`
 #### Snippet
 ```java
             }
-
-            SecurityTokenProvider<OutboundSecurityToken> tokenProvider = null;
-            if (tokenId != null) {
-                tokenProvider =
-```
-
-### UnusedAssignment
-Variable `key` initializer `null` is redundant
-in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/processor/output/DerivedKeyTokenOutputProcessor.java`
-#### Snippet
-```java
-                public Key getSecretKey(String algorithmURI) throws WSSecurityException {
-
-                    Key key = null;
-                    try {
-                        key = super.getSecretKey(algorithmURI);
-```
-
-### UnusedAssignment
-Variable `includeSTR` initializer `false` is redundant
-in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/processor/output/SAMLTokenOutputProcessor.java`
-#### Snippet
-```java
-        private final String securityTokenReferenceId;
-        private boolean senderVouches = false;
-        private boolean includeSTR = false;
-
-        FinalSAMLTokenOutputProcessor(OutboundSecurityToken securityToken, SamlAssertionWrapper samlAssertionWrapper,
-```
-
-### UnusedAssignment
-Variable `senderVouches` initializer `false` is redundant
-in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/processor/output/SAMLTokenOutputProcessor.java`
-#### Snippet
-```java
-        private final SamlAssertionWrapper samlAssertionWrapper;
-        private final String securityTokenReferenceId;
-        private boolean senderVouches = false;
-        private boolean includeSTR = false;
-
-```
-
-### UnusedAssignment
-Variable `signatureTokenProvider` initializer `null` is redundant
-in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/processor/output/SAMLTokenOutputProcessor.java`
-#### Snippet
-```java
-            String sigTokenId =
-                outputProcessorChain.getSecurityContext().get(WSSConstants.PROP_USE_THIS_TOKEN_ID_FOR_SIGNATURE);
-            SecurityTokenProvider<OutboundSecurityToken> signatureTokenProvider = null;
-            if (sigTokenId != null) {
-                signatureTokenProvider =
-```
-
-### UnusedAssignment
-Variable `krbCtx` initializer `null` is redundant
-in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/securityToken/KerberosClientSecurityToken.java`
-#### Snippet
-```java
-                                                  contextAndServiceNameCallback.isUsernameServiceNameForm(),
-                                                  contextAndServiceNameCallback.isRequestCredDeleg());
-            KerberosContext krbCtx = null;
-            try {
-                krbCtx = Subject.doAs(clientSubject, action);
-```
-
-### UnusedAssignment
-Variable `krbServiceCtx` initializer `null` is redundant
-in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/securityToken/KerberosServiceSecurityTokenImpl.java`
-#### Snippet
-```java
-                                                   contextAndServiceNameCallback.isUsernameServiceNameForm(),
-                                                   false);
-            KerberosServiceContext krbServiceCtx = null;
-            try {
-                krbServiceCtx = Subject.doAs(subject, action);
-```
-
-### UnusedAssignment
-Variable `publicKey` initializer `null` is redundant
-in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/processor/output/EncryptedKeyOutputProcessor.java`
-#### Snippet
-```java
-                OutputProcessorChain subOutputProcessorChain = outputProcessorChain.createSubChain(this);
-
-                PublicKey publicKey = null;
-                if (securityToken.getKeyWrappingToken().getX509Certificates() != null
-                    && securityToken.getKeyWrappingToken().getX509Certificates().length > 0) {
-```
-
-### UnusedAssignment
-Variable `encryptedKeySecurityTokenProvider` initializer `null` is redundant
-in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/processor/output/EncryptedKeyOutputProcessor.java`
-#### Snippet
-```java
-            }
-
-            SecurityTokenProvider<OutboundSecurityToken> encryptedKeySecurityTokenProvider = null;
-            GenericOutboundSecurityToken encryptedKeySecurityToken = null;
-
-```
-
-### UnusedAssignment
-Variable `encryptedKeySecurityToken` initializer `null` is redundant
-in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/processor/output/EncryptedKeyOutputProcessor.java`
-#### Snippet
-```java
-
-            SecurityTokenProvider<OutboundSecurityToken> encryptedKeySecurityTokenProvider = null;
-            GenericOutboundSecurityToken encryptedKeySecurityToken = null;
-
-            String sigTokenId =
-```
-
-### UnusedAssignment
-Variable `cbClass` initializer `null` is redundant
-in `ws-security-stax/src/main/java/org/apache/wss4j/stax/setup/ConfigurationConverter.java`
-#### Snippet
-```java
-    ) throws WSSecurityException {
-
-        Class<? extends CallbackHandler> cbClass = null;
-        CallbackHandler cbHandler = null;
-        try {
-```
-
-### UnusedAssignment
-Variable `cbHandler` initializer `null` is redundant
-in `ws-security-stax/src/main/java/org/apache/wss4j/stax/setup/ConfigurationConverter.java`
-#### Snippet
-```java
-
-        Class<? extends CallbackHandler> cbClass = null;
-        CallbackHandler cbHandler = null;
-        try {
-            cbClass =
-```
-
-### UnusedAssignment
-Variable `crypto` initializer `null` is redundant
-in `ws-security-stax/src/main/java/org/apache/wss4j/stax/setup/ConfigurationConverter.java`
-#### Snippet
-```java
-    ) {
-        try {
-            Crypto crypto = null;
-            if (signature) {
-                crypto = properties.getSignatureCrypto();
-```
-
-### UnusedAssignment
-The value `false` assigned to `hasChildren` is never used
-in `policy/src/main/java/org/apache/wss4j/policy/model/DOM2Writer.java`
-#### Snippet
-```java
-                out.print(LS);
-            }
-            hasChildren = false;
         }
+        return new X509Certificate[0];
     }
+
 ```
 
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `ws-security-common/src/main/java/org/apache/wss4j/common/crypto/CertificateStore.java`
+#### Snippet
+```java
+    private X509Certificate[] getX509CertificatesSKI(byte[] skiBytes) throws WSSecurityException {
+        if (trustedCerts == null) {
+            return new X509Certificate[0];
+        }
+        for (X509Certificate trustedCert : trustedCerts) {
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `ws-security-common/src/main/java/org/apache/wss4j/common/crypto/CertificateStore.java`
+#### Snippet
+```java
+            }
+        }
+        return new X509Certificate[0];
+    }
+
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `ws-security-common/src/main/java/org/apache/wss4j/common/crypto/CertificateStore.java`
+#### Snippet
+```java
+        }
+
+        return new X509Certificate[0];
+    }
+
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `ws-security-common/src/main/java/org/apache/wss4j/common/crypto/CertificateStore.java`
+#### Snippet
+```java
+    public X509Certificate[] getX509Certificates(CryptoType cryptoType) throws WSSecurityException {
+        if (cryptoType == null) {
+            return new X509Certificate[0];
+        }
+        CryptoType.TYPE type = cryptoType.getType();
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `ws-security-common/src/main/java/org/apache/wss4j/common/crypto/CertificateStore.java`
+#### Snippet
+```java
+        }
+        CryptoType.TYPE type = cryptoType.getType();
+        X509Certificate[] certs = new X509Certificate[0];
+        switch (type) {
+        case ISSUER_SERIAL:
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `ws-security-common/src/main/java/org/apache/wss4j/common/crypto/Merlin.java`
+#### Snippet
+```java
+
+        if (certs == null || certs.length == 0) {
+            return new X509Certificate[0];
+        }
+
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `ws-security-common/src/main/java/org/apache/wss4j/common/crypto/Merlin.java`
+#### Snippet
+```java
+    public X509Certificate[] getX509Certificates(CryptoType cryptoType) throws WSSecurityException {
+        if (cryptoType == null) {
+            return new X509Certificate[0];
+        }
+        CryptoType.TYPE type = cryptoType.getType();
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `ws-security-common/src/main/java/org/apache/wss4j/common/crypto/Merlin.java`
+#### Snippet
+```java
+        }
+        CryptoType.TYPE type = cryptoType.getType();
+        X509Certificate[] certs = new X509Certificate[0];
+        switch (type) {
+        case ISSUER_SERIAL:
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `ws-security-common/src/main/java/org/apache/wss4j/common/crypto/Merlin.java`
+#### Snippet
+```java
+
+        LOG.debug("No thumbprint match found in {}", keystore);
+        return new Certificate[]{};
+    }
+
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `ws-security-common/src/main/java/org/apache/wss4j/common/crypto/Merlin.java`
+#### Snippet
+```java
+
+        LOG.debug("No SKI match found in {}", keystore);
+        return new Certificate[]{};
+    }
+
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `ws-security-common/src/main/java/org/apache/wss4j/common/crypto/Merlin.java`
+#### Snippet
+```java
+
+        if (certs == null || certs.length == 0) {
+            return new X509Certificate[0];
+        }
+
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `ws-security-common/src/main/java/org/apache/wss4j/common/crypto/Merlin.java`
+#### Snippet
+```java
+
+        LOG.debug("No issuer serial match found in {}", keystore);
+        return new Certificate[]{};
+    }
+
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `ws-security-common/src/main/java/org/apache/wss4j/common/crypto/Merlin.java`
+#### Snippet
+```java
+
+        if (certs == null || certs.length == 0) {
+            return new X509Certificate[0];
+        }
+
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `ws-security-common/src/main/java/org/apache/wss4j/common/crypto/Merlin.java`
+#### Snippet
+```java
+    private X509Certificate[] getX509Certificates(String identifier) throws WSSecurityException {
+        if (identifier == null) {
+            return new X509Certificate[0];
+        }
+        Certificate[] certs = null;
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `ws-security-common/src/main/java/org/apache/wss4j/common/crypto/Merlin.java`
+#### Snippet
+```java
+
+            if (certs == null) {
+                return new X509Certificate[0];
+            }
+        } catch (KeyStoreException e) {
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `ws-security-common/src/main/java/org/apache/wss4j/common/crypto/Merlin.java`
+#### Snippet
+```java
+
+            Key keyTmp = keystore.getKey(identifier, pwd == null
+                                         ? new char[]{} : pwd.toCharArray());
+            if (!(keyTmp instanceof PrivateKey)) {
+                String msg = "Key is not a private key, alias: [" + identifier + "]";
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `ws-security-common/src/main/java/org/apache/wss4j/common/crypto/Merlin.java`
+#### Snippet
+```java
+
+            ks.load(input, storepass == null || storepass.length() == 0
+                ? new char[0] : storepass.toCharArray());
+        } catch (IOException | GeneralSecurityException e) {
+            LOG.debug(e.getMessage(), e);
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `ws-security-common/src/main/java/org/apache/wss4j/common/crypto/Merlin.java`
+#### Snippet
+```java
+
+        if (certs == null || certs.isEmpty()) {
+            return new X509Certificate[0];
+        }
+
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/processor/output/SAMLTokenOutputProcessor.java`
+#### Snippet
+```java
+            }
+
+            return new byte[0];
+        }
+
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/processor/output/SAMLTokenOutputProcessor.java`
+#### Snippet
+```java
+            }
+
+            return new X509Certificate[0];
+        }
+
+```
+
+## RuleId[ruleID=UnusedAssignment]
 ### UnusedAssignment
 Variable `attr` initializer `null` is redundant
 in `policy/src/main/java/org/apache/wss4j/policy/model/DOM2Writer.java`
@@ -6718,6 +6020,18 @@ in `policy/src/main/java/org/apache/wss4j/policy/model/DOM2Writer.java`
             Attr attr = null;
             if (prefix == null) {
                 attr = ((Element) e).getAttributeNode("xmlns");
+```
+
+### UnusedAssignment
+The value `false` assigned to `hasChildren` is never used
+in `policy/src/main/java/org/apache/wss4j/policy/model/DOM2Writer.java`
+#### Snippet
+```java
+                out.print(LS);
+            }
+            hasChildren = false;
+        }
+    }
 ```
 
 ### UnusedAssignment
@@ -6733,51 +6047,27 @@ in `policy/src/main/java/org/apache/wss4j/policy/builders/SpnegoContextTokenBuil
 ```
 
 ### UnusedAssignment
-Variable `signatureTokenProvider` initializer `null` is redundant
-in `ws-security-stax/src/main/java/org/apache/wss4j/stax/setup/OutboundWSSec.java`
+Variable `nestedPolicy` initializer `null` is redundant
+in `policy/src/main/java/org/apache/wss4j/policy/builders/UsernameTokenBuilder.java`
 #### Snippet
 ```java
-        String tokenId =
-            outputProcessorChain.getSecurityContext().get(id);
-        SecurityTokenProvider<OutboundSecurityToken> signatureTokenProvider = null;
-        if (tokenId != null) {
-            signatureTokenProvider =
+        final Element nestedPolicyElement = SPUtils.getFirstPolicyChildElement(element);
+
+        Policy nestedPolicy = null;
+        if (nestedPolicyElement == null) {
+            nestedPolicy = new Policy();
 ```
 
 ### UnusedAssignment
-Variable `kerberosId` initializer `null` is redundant
-in `ws-security-stax/src/main/java/org/apache/wss4j/stax/setup/OutboundWSSec.java`
+Variable `nestedPolicy` initializer `null` is redundant
+in `policy/src/main/java/org/apache/wss4j/policy/builders/KerberosTokenBuilder.java`
 #### Snippet
 ```java
-        GenericOutboundSecurityToken securityToken =
-            getOutboundSecurityToken(outputProcessorChain, WSSConstants.PROP_USE_THIS_TOKEN_ID_FOR_KERBEROS);
-        String kerberosId = null;
-        // First off, see if we have a supplied token
-        if (securityToken == null) {
-```
+        final Element nestedPolicyElement = SPUtils.getFirstPolicyChildElement(element);
 
-### UnusedAssignment
-Variable `key` initializer `null` is redundant
-in `ws-security-stax/src/main/java/org/apache/wss4j/stax/setup/OutboundWSSec.java`
-#### Snippet
-```java
-        String password = pwCb.getPassword();
-        byte[] secretKey = pwCb.getKey();
-        Key key = null;
-        X509Certificate[] x509Certificates = null;
-        try {
-```
-
-### UnusedAssignment
-Variable `x509Certificates` initializer `null` is redundant
-in `ws-security-stax/src/main/java/org/apache/wss4j/stax/setup/OutboundWSSec.java`
-#### Snippet
-```java
-        byte[] secretKey = pwCb.getKey();
-        Key key = null;
-        X509Certificate[] x509Certificates = null;
-        try {
-            if (password != null && securityProperties.getSignatureCrypto() != null) {
+        Policy nestedPolicy = null;
+        if (nestedPolicyElement == null) {
+            nestedPolicy = new Policy();
 ```
 
 ### UnusedAssignment
@@ -6794,7 +6084,7 @@ in `policy/src/main/java/org/apache/wss4j/policy/builders/X509TokenBuilder.java`
 
 ### UnusedAssignment
 Variable `nestedPolicy` initializer `null` is redundant
-in `policy/src/main/java/org/apache/wss4j/policy/builders/KerberosTokenBuilder.java`
+in `policy/src/main/java/org/apache/wss4j/policy/builders/HttpsTokenBuilder.java`
 #### Snippet
 ```java
         final Element nestedPolicyElement = SPUtils.getFirstPolicyChildElement(element);
@@ -6830,31 +6120,7 @@ in `policy/src/main/java/org/apache/wss4j/policy/model/AlgorithmSuite.java`
 
 ### UnusedAssignment
 Variable `nestedPolicy` initializer `null` is redundant
-in `policy/src/main/java/org/apache/wss4j/policy/builders/UsernameTokenBuilder.java`
-#### Snippet
-```java
-        final Element nestedPolicyElement = SPUtils.getFirstPolicyChildElement(element);
-
-        Policy nestedPolicy = null;
-        if (nestedPolicyElement == null) {
-            nestedPolicy = new Policy();
-```
-
-### UnusedAssignment
-Variable `nestedPolicy` initializer `null` is redundant
-in `policy/src/main/java/org/apache/wss4j/policy/builders/HttpsTokenBuilder.java`
-#### Snippet
-```java
-        final Element nestedPolicyElement = SPUtils.getFirstPolicyChildElement(element);
-
-        Policy nestedPolicy = null;
-        if (nestedPolicyElement == null) {
-            nestedPolicy = new Policy();
-```
-
-### UnusedAssignment
-Variable `nestedPolicy` initializer `null` is redundant
-in `policy/src/main/java/org/apache/wss4j/policy/builders/SamlTokenBuilder.java`
+in `policy/src/main/java/org/apache/wss4j/policy/builders/SecurityContextTokenBuilder.java`
 #### Snippet
 ```java
         final Element nestedPolicyElement = SPUtils.getFirstPolicyChildElement(element);
@@ -6878,7 +6144,7 @@ in `policy/src/main/java/org/apache/wss4j/policy/builders/KeyValueTokenBuilder.j
 
 ### UnusedAssignment
 Variable `nestedPolicy` initializer `null` is redundant
-in `policy/src/main/java/org/apache/wss4j/policy/builders/SecureConversationTokenBuilder.java`
+in `policy/src/main/java/org/apache/wss4j/policy/builders/SamlTokenBuilder.java`
 #### Snippet
 ```java
         final Element nestedPolicyElement = SPUtils.getFirstPolicyChildElement(element);
@@ -6890,7 +6156,7 @@ in `policy/src/main/java/org/apache/wss4j/policy/builders/SecureConversationToke
 
 ### UnusedAssignment
 Variable `nestedPolicy` initializer `null` is redundant
-in `policy/src/main/java/org/apache/wss4j/policy/builders/SecurityContextTokenBuilder.java`
+in `policy/src/main/java/org/apache/wss4j/policy/builders/SecureConversationTokenBuilder.java`
 #### Snippet
 ```java
         final Element nestedPolicyElement = SPUtils.getFirstPolicyChildElement(element);
@@ -6901,15 +6167,15 @@ in `policy/src/main/java/org/apache/wss4j/policy/builders/SecurityContextTokenBu
 ```
 
 ### UnusedAssignment
-Variable `hasDerivedKeys` initializer `false` is redundant
-in `ws-security-policy-stax/src/main/java/org/apache/wss4j/policy/stax/assertionStates/TokenAssertionState.java`
+Variable `samlAssertion` initializer `null` is redundant
+in `ws-security-dom/src/main/java/org/apache/wss4j/dom/str/SignatureSTRParser.java`
 #### Snippet
 ```java
-
-        //WSP1.3, 5.3 Token Properties
-        boolean hasDerivedKeys = false;
-        hasDerivedKeys = hasDerivedKeys(tokenSecurityEvent.getSecurityToken());
-        String namespace = getAssertion().getName().getNamespaceURI();
+                            data.getCallbackHandler(), uri, secRef.getReference().getValueType()
+                        );
+                    SamlAssertionWrapper samlAssertion = null;
+                    if (processedToken == null) {
+                        List<WSSecurityEngineResult> samlResult = proc.handleToken(token, data);
 ```
 
 ### UnusedAssignment
@@ -6949,18 +6215,6 @@ in `ws-security-dom/src/main/java/org/apache/wss4j/dom/util/X509Util.java`
 ```
 
 ### UnusedAssignment
-Variable `samlAssertion` initializer `null` is redundant
-in `ws-security-dom/src/main/java/org/apache/wss4j/dom/str/SignatureSTRParser.java`
-#### Snippet
-```java
-                            data.getCallbackHandler(), uri, secRef.getReference().getValueType()
-                        );
-                    SamlAssertionWrapper samlAssertion = null;
-                    if (processedToken == null) {
-                        List<WSSecurityEngineResult> samlResult = proc.handleToken(token, data);
-```
-
-### UnusedAssignment
 Variable `parts` initializer `null` is redundant
 in `ws-security-dom/src/main/java/org/apache/wss4j/dom/action/UsernameTokenSignedAction.java`
 #### Snippet
@@ -6973,51 +6227,15 @@ in `ws-security-dom/src/main/java/org/apache/wss4j/dom/action/UsernameTokenSigne
 ```
 
 ### UnusedAssignment
-Variable `xmlCipher` initializer `null` is redundant
-in `ws-security-dom/src/main/java/org/apache/wss4j/dom/util/EncryptionUtils.java`
+Variable `symmetricKey` initializer `null` is redundant
+in `ws-security-dom/src/main/java/org/apache/wss4j/dom/action/EncryptionAction.java`
 #### Snippet
 ```java
         }
 
-        XMLCipher xmlCipher = null;
-        try {
-            if (encryptionSerializer != null) {
-```
-
-### UnusedAssignment
-Variable `result` initializer `""` is redundant
-in `ws-security-dom/src/main/java/org/apache/wss4j/dom/util/EncryptionUtils.java`
-#### Snippet
-```java
-        }
-
-        String result = "";
-        if (Node.ELEMENT_NODE == decryptedNode.getNodeType()) {
-            result = decryptedNode.getNodeName();
-```
-
-### UnusedAssignment
-Variable `document` initializer `null` is redundant
-in `ws-security-dom/src/main/java/org/apache/wss4j/dom/util/EncryptionUtils.java`
-#### Snippet
-```java
-        byte[] bytes = JavaUtils.getBytesFromStream(attachmentInputStream);
-
-        Document document = null;
-        try {
-            document = org.apache.xml.security.utils.XMLUtils.read(new ByteArrayInputStream(bytes), true);
-```
-
-### UnusedAssignment
-Variable `signContext` initializer `null` is redundant
-in `ws-security-dom/src/main/java/org/apache/wss4j/dom/saml/WSSecSignatureSAML.java`
-#### Snippet
-```java
-            // Prepend the signature element to the security header (after the assertion)
-            //
-            XMLSignContext signContext = null;
-            if (siblingElement != null && siblingElement.getNextSibling() != null) {
-                signContext =
+        SecretKey symmetricKey = null;
+        if (ephemeralKey != null) {
+            symmetricKey = KeyUtils.prepareSecretKey(wsEncrypt.getSymmetricEncAlgorithm(), ephemeralKey);
 ```
 
 ### UnusedAssignment
@@ -7033,15 +6251,51 @@ in `ws-security-dom/src/main/java/org/apache/wss4j/dom/saml/WSSecSignatureSAML.j
 ```
 
 ### UnusedAssignment
-Variable `symmetricKey` initializer `null` is redundant
-in `ws-security-dom/src/main/java/org/apache/wss4j/dom/action/EncryptionAction.java`
+Variable `signContext` initializer `null` is redundant
+in `ws-security-dom/src/main/java/org/apache/wss4j/dom/saml/WSSecSignatureSAML.java`
+#### Snippet
+```java
+            // Prepend the signature element to the security header (after the assertion)
+            //
+            XMLSignContext signContext = null;
+            if (siblingElement != null && siblingElement.getNextSibling() != null) {
+                signContext =
+```
+
+### UnusedAssignment
+Variable `document` initializer `null` is redundant
+in `ws-security-dom/src/main/java/org/apache/wss4j/dom/util/EncryptionUtils.java`
+#### Snippet
+```java
+        byte[] bytes = JavaUtils.getBytesFromStream(attachmentInputStream);
+
+        Document document = null;
+        try {
+            document = org.apache.xml.security.utils.XMLUtils.read(new ByteArrayInputStream(bytes), true);
+```
+
+### UnusedAssignment
+Variable `result` initializer `""` is redundant
+in `ws-security-dom/src/main/java/org/apache/wss4j/dom/util/EncryptionUtils.java`
 #### Snippet
 ```java
         }
 
-        SecretKey symmetricKey = null;
-        if (ephemeralKey != null) {
-            symmetricKey = KeyUtils.prepareSecretKey(wsEncrypt.getSymmetricEncAlgorithm(), ephemeralKey);
+        String result = "";
+        if (Node.ELEMENT_NODE == decryptedNode.getNodeType()) {
+            result = decryptedNode.getNodeName();
+```
+
+### UnusedAssignment
+Variable `xmlCipher` initializer `null` is redundant
+in `ws-security-dom/src/main/java/org/apache/wss4j/dom/util/EncryptionUtils.java`
+#### Snippet
+```java
+        }
+
+        XMLCipher xmlCipher = null;
+        try {
+            if (encryptionSerializer != null) {
 ```
 
 ### UnusedAssignment
@@ -7105,54 +6359,6 @@ in `ws-security-dom/src/main/java/org/apache/wss4j/dom/message/token/KerberosSec
 ```
 
 ### UnusedAssignment
-Variable `expandXOP` initializer `false` is redundant
-in `ws-security-dom/src/main/java/org/apache/wss4j/dom/handler/WSHandler.java`
-#### Snippet
-```java
-
-        String value = getString(WSHandlerConstants.EXPAND_XOP_INCLUDE_FOR_SIGNATURE, reqData.getMsgContext());
-        boolean expandXOP = false;
-        if (value != null) {
-            expandXOP =
-```
-
-### UnusedAssignment
-Variable `cbClass` initializer `null` is redundant
-in `ws-security-dom/src/main/java/org/apache/wss4j/dom/handler/WSHandler.java`
-#### Snippet
-```java
-    ) throws WSSecurityException {
-
-        Class<? extends CallbackHandler> cbClass = null;
-        CallbackHandler cbHandler = null;
-        try {
-```
-
-### UnusedAssignment
-Variable `cbHandler` initializer `null` is redundant
-in `ws-security-dom/src/main/java/org/apache/wss4j/dom/handler/WSHandler.java`
-#### Snippet
-```java
-
-        Class<? extends CallbackHandler> cbClass = null;
-        CallbackHandler cbHandler = null;
-        try {
-            cbClass =
-```
-
-### UnusedAssignment
-Variable `encPart` initializer `null` is redundant
-in `ws-security-dom/src/main/java/org/apache/wss4j/dom/handler/WSHandler.java`
-#### Snippet
-```java
-                               List<WSEncryptionPart> parts, RequestData reqData)
-        throws WSSecurityException {
-        WSEncryptionPart encPart = null;
-        String[] rawParts = tmpS.split(";");
-
-```
-
-### UnusedAssignment
 Variable `nonceValue` initializer `null` is redundant
 in `ws-security-dom/src/main/java/org/apache/wss4j/dom/message/token/UsernameToken.java`
 #### Snippet
@@ -7162,42 +6368,6 @@ in `ws-security-dom/src/main/java/org/apache/wss4j/dom/message/token/UsernameTok
         byte[] nonceValue = null;
         try {
             nonceValue = UsernameTokenUtil.generateNonce(16);
-```
-
-### UnusedAssignment
-Variable `serializedOctets` initializer `null` is redundant
-in `ws-security-dom/src/main/java/org/apache/wss4j/dom/message/Encryptor.java`
-#### Snippet
-```java
-        AbstractSerializer serializer = new TransformSerializer(true);
-
-        byte[] serializedOctets = null;
-        if (type.equals(EncryptionConstants.TYPE_CONTENT)) {
-            NodeList children = elementToEncrypt.getChildNodes();
-```
-
-### UnusedAssignment
-Variable `encryptedBytes` initializer `null` is redundant
-in `ws-security-dom/src/main/java/org/apache/wss4j/dom/message/Encryptor.java`
-#### Snippet
-```java
-        }
-
-        byte[] encryptedBytes = null;
-        try {
-            encryptedBytes = cipher.doFinal(serializedOctets);
-```
-
-### UnusedAssignment
-Variable `xmlCipher` initializer `null` is redundant
-in `ws-security-dom/src/main/java/org/apache/wss4j/dom/message/Encryptor.java`
-#### Snippet
-```java
-    ) throws WSSecurityException {
-
-        XMLCipher xmlCipher = null;
-        try {
-            if (encryptionSerializer != null) {
 ```
 
 ### UnusedAssignment
@@ -7249,6 +6419,66 @@ in `ws-security-dom/src/main/java/org/apache/wss4j/dom/validate/JAASUsernameToke
 ```
 
 ### UnusedAssignment
+Variable `xmlCipher` initializer `null` is redundant
+in `ws-security-dom/src/main/java/org/apache/wss4j/dom/message/Encryptor.java`
+#### Snippet
+```java
+    ) throws WSSecurityException {
+
+        XMLCipher xmlCipher = null;
+        try {
+            if (encryptionSerializer != null) {
+```
+
+### UnusedAssignment
+Variable `serializedOctets` initializer `null` is redundant
+in `ws-security-dom/src/main/java/org/apache/wss4j/dom/message/Encryptor.java`
+#### Snippet
+```java
+        AbstractSerializer serializer = new TransformSerializer(true);
+
+        byte[] serializedOctets = null;
+        if (type.equals(EncryptionConstants.TYPE_CONTENT)) {
+            NodeList children = elementToEncrypt.getChildNodes();
+```
+
+### UnusedAssignment
+Variable `encryptedBytes` initializer `null` is redundant
+in `ws-security-dom/src/main/java/org/apache/wss4j/dom/message/Encryptor.java`
+#### Snippet
+```java
+        }
+
+        byte[] encryptedBytes = null;
+        try {
+            encryptedBytes = cipher.doFinal(serializedOctets);
+```
+
+### UnusedAssignment
+Variable `token` initializer `null` is redundant
+in `ws-security-dom/src/main/java/org/apache/wss4j/dom/processor/BinarySecurityTokenProcessor.java`
+#### Snippet
+```java
+    ) throws WSSecurityException {
+        String type = element.getAttributeNS(null, "ValueType");
+        BinarySecurity token = null;
+        if (X509Security.X509_V3_TYPE.equals(type)) {
+            token = new X509Security(element, data.getBSPEnforcer());
+```
+
+### UnusedAssignment
+Variable `certs` initializer `null` is redundant
+in `ws-security-dom/src/main/java/org/apache/wss4j/dom/processor/BinarySecurityTokenProcessor.java`
+#### Snippet
+```java
+
+        BinarySecurity token = createSecurityToken(elem, data);
+        X509Certificate[] certs = null;
+        Validator validator = data.getValidator(new QName(elem.getNamespaceURI(),
+                                                          elem.getLocalName()));
+```
+
+### UnusedAssignment
 Variable `secret` initializer `null` is redundant
 in `ws-security-dom/src/main/java/org/apache/wss4j/dom/processor/DerivedKeyTokenProcessor.java`
 #### Snippet
@@ -7258,30 +6488,6 @@ in `ws-security-dom/src/main/java/org/apache/wss4j/dom/processor/DerivedKeyToken
         byte[] secret = null;
         Element secRefElement = dkt.getSecurityTokenReferenceElement();
         if (secRefElement != null) {
-```
-
-### UnusedAssignment
-Variable `certBytes` initializer `null` is redundant
-in `ws-security-dom/src/main/java/org/apache/wss4j/dom/message/WSSecSignature.java`
-#### Snippet
-```java
-            }
-
-            byte[] certBytes = null;
-            if (!useSingleCert) {
-                bstToken.setAttributeNS(null, "ValueType", PKIPathSecurity.PKI_TYPE);
-```
-
-### UnusedAssignment
-Variable `binarySecurity` initializer `null` is redundant
-in `ws-security-dom/src/main/java/org/apache/wss4j/dom/message/WSSecSignature.java`
-#### Snippet
-```java
-            getWsDocInfo().addTokenElement(bstToken, false);
-        } else {
-            BinarySecurity binarySecurity = null;
-            if (!useSingleCert) {
-                binarySecurity = new PKIPathSecurity(getDocument());
 ```
 
 ### UnusedAssignment
@@ -7309,6 +6515,30 @@ in `ws-security-dom/src/main/java/org/apache/wss4j/dom/message/WSSecSignature.ja
 ```
 
 ### UnusedAssignment
+Variable `certBytes` initializer `null` is redundant
+in `ws-security-dom/src/main/java/org/apache/wss4j/dom/message/WSSecSignature.java`
+#### Snippet
+```java
+            }
+
+            byte[] certBytes = null;
+            if (!useSingleCert) {
+                bstToken.setAttributeNS(null, "ValueType", PKIPathSecurity.PKI_TYPE);
+```
+
+### UnusedAssignment
+Variable `binarySecurity` initializer `null` is redundant
+in `ws-security-dom/src/main/java/org/apache/wss4j/dom/message/WSSecSignature.java`
+#### Snippet
+```java
+            getWsDocInfo().addTokenElement(bstToken, false);
+        } else {
+            BinarySecurity binarySecurity = null;
+            if (!useSingleCert) {
+                binarySecurity = new PKIPathSecurity(getDocument());
+```
+
+### UnusedAssignment
 Variable `secret` initializer `null` is redundant
 in `ws-security-dom/src/main/java/org/apache/wss4j/dom/processor/SecurityContextTokenProcessor.java`
 #### Snippet
@@ -7318,42 +6548,6 @@ in `ws-security-dom/src/main/java/org/apache/wss4j/dom/processor/SecurityContext
             byte[] secret = null;
             try {
                 secret = getSecret(data.getCallbackHandler(), sct.getIdentifier());
-```
-
-### UnusedAssignment
-Variable `certs` initializer `null` is redundant
-in `ws-security-dom/src/main/java/org/apache/wss4j/dom/processor/BinarySecurityTokenProcessor.java`
-#### Snippet
-```java
-
-        BinarySecurity token = createSecurityToken(elem, data);
-        X509Certificate[] certs = null;
-        Validator validator = data.getValidator(new QName(elem.getNamespaceURI(),
-                                                          elem.getLocalName()));
-```
-
-### UnusedAssignment
-Variable `token` initializer `null` is redundant
-in `ws-security-dom/src/main/java/org/apache/wss4j/dom/processor/BinarySecurityTokenProcessor.java`
-#### Snippet
-```java
-    ) throws WSSecurityException {
-        String type = element.getAttributeNS(null, "ValueType");
-        BinarySecurity token = null;
-        if (X509Security.X509_V3_TYPE.equals(type)) {
-            token = new X509Security(element, data.getBSPEnforcer());
-```
-
-### UnusedAssignment
-Variable `symmetricKey` initializer `null` is redundant
-in `ws-security-dom/src/main/java/org/apache/wss4j/dom/processor/ReferenceListProcessor.java`
-#### Snippet
-```java
-                keyInfoElement, "SecurityTokenReference", WSConstants.WSSE_NS
-            );
-        SecretKey symmetricKey = null;
-        Principal principal = null;
-        if (secRefToken == null) {
 ```
 
 ### UnusedAssignment
@@ -7381,6 +6575,66 @@ in `ws-security-dom/src/main/java/org/apache/wss4j/dom/processor/SAMLTokenProces
 ```
 
 ### UnusedAssignment
+Variable `encPart` initializer `null` is redundant
+in `ws-security-dom/src/main/java/org/apache/wss4j/dom/handler/WSHandler.java`
+#### Snippet
+```java
+                               List<WSEncryptionPart> parts, RequestData reqData)
+        throws WSSecurityException {
+        WSEncryptionPart encPart = null;
+        String[] rawParts = tmpS.split(";");
+
+```
+
+### UnusedAssignment
+Variable `cbClass` initializer `null` is redundant
+in `ws-security-dom/src/main/java/org/apache/wss4j/dom/handler/WSHandler.java`
+#### Snippet
+```java
+    ) throws WSSecurityException {
+
+        Class<? extends CallbackHandler> cbClass = null;
+        CallbackHandler cbHandler = null;
+        try {
+```
+
+### UnusedAssignment
+Variable `cbHandler` initializer `null` is redundant
+in `ws-security-dom/src/main/java/org/apache/wss4j/dom/handler/WSHandler.java`
+#### Snippet
+```java
+
+        Class<? extends CallbackHandler> cbClass = null;
+        CallbackHandler cbHandler = null;
+        try {
+            cbClass =
+```
+
+### UnusedAssignment
+Variable `expandXOP` initializer `false` is redundant
+in `ws-security-dom/src/main/java/org/apache/wss4j/dom/handler/WSHandler.java`
+#### Snippet
+```java
+
+        String value = getString(WSHandlerConstants.EXPAND_XOP_INCLUDE_FOR_SIGNATURE, reqData.getMsgContext());
+        boolean expandXOP = false;
+        if (value != null) {
+            expandXOP =
+```
+
+### UnusedAssignment
+Variable `symmetricKey` initializer `null` is redundant
+in `ws-security-dom/src/main/java/org/apache/wss4j/dom/processor/ReferenceListProcessor.java`
+#### Snippet
+```java
+                keyInfoElement, "SecurityTokenReference", WSConstants.WSSE_NS
+            );
+        SecretKey symmetricKey = null;
+        Principal principal = null;
+        if (secRefToken == null) {
+```
+
+### UnusedAssignment
 Variable `ownerDoc` initializer `null` is redundant
 in `ws-security-dom/src/main/java/org/apache/wss4j/dom/transform/STRTransform.java`
 #### Snippet
@@ -7402,18 +6656,6 @@ in `ws-security-dom/src/main/java/org/apache/wss4j/dom/transform/AttachmentConte
         String attachmentId = null;
         try {
             attachmentId = AttachmentUtils.getAttachmentId(attachmentUri);
-```
-
-### UnusedAssignment
-Variable `symmetricKey` initializer `null` is redundant
-in `ws-security-dom/src/main/java/org/apache/wss4j/dom/processor/EncryptedKeyProcessor.java`
-#### Snippet
-```java
-        }
-
-        SecretKey symmetricKey = null;
-        try {
-            symmetricKey = KeyUtils.prepareSecretKey(symEncAlgo, decryptedData);
 ```
 
 ### UnusedAssignment
@@ -7441,6 +6683,54 @@ in `ws-security-dom/src/main/java/org/apache/wss4j/dom/processor/EncryptedKeyPro
 ```
 
 ### UnusedAssignment
+Variable `symmetricKey` initializer `null` is redundant
+in `ws-security-dom/src/main/java/org/apache/wss4j/dom/processor/EncryptedKeyProcessor.java`
+#### Snippet
+```java
+        }
+
+        SecretKey symmetricKey = null;
+        try {
+            symmetricKey = KeyUtils.prepareSecretKey(symEncAlgo, decryptedData);
+```
+
+### UnusedAssignment
+Variable `element` initializer `null` is redundant
+in `ws-security-common/src/main/java/org/apache/wss4j/common/saml/OpenSAMLUtil.java`
+#### Snippet
+```java
+    ) throws WSSecurityException {
+        Marshaller marshaller = marshallerFactory.getMarshaller(xmlObject);
+        Element element = null;
+        DocumentFragment frag = doc == null ? null : doc.createDocumentFragment();
+        try {
+```
+
+### UnusedAssignment
+Variable `samlSubject` initializer `null` is redundant
+in `ws-security-common/src/main/java/org/apache/wss4j/common/saml/SAMLUtil.java`
+#### Snippet
+```java
+    ) throws WSSecurityException {
+        for (org.opensaml.saml.saml1.core.Statement stmt : assertion.getStatements()) {
+            org.opensaml.saml.saml1.core.Subject samlSubject = null;
+            if (stmt instanceof org.opensaml.saml.saml1.core.AttributeStatement) {
+                org.opensaml.saml.saml1.core.AttributeStatement attrStmt =
+```
+
+### UnusedAssignment
+Variable `keyInfoFactory` initializer `null` is redundant
+in `ws-security-common/src/main/java/org/apache/wss4j/common/saml/SAMLUtil.java`
+#### Snippet
+```java
+        // (public key) credential
+        //
+        KeyInfoFactory keyInfoFactory = null;
+        try {
+            keyInfoFactory = KeyInfoFactory.getInstance("DOM", "ApacheXMLDSig");
+```
+
+### UnusedAssignment
 Variable `key` initializer `null` is redundant
 in `ws-security-dom/src/main/java/org/apache/wss4j/dom/processor/SignatureProcessor.java`
 #### Snippet
@@ -7452,7 +6742,1051 @@ in `ws-security-dom/src/main/java/org/apache/wss4j/dom/processor/SignatureProces
             key = certs[0].getPublicKey();
 ```
 
+### UnusedAssignment
+Variable `saltValue` initializer `null` is redundant
+in `ws-security-common/src/main/java/org/apache/wss4j/common/util/UsernameTokenUtil.java`
+#### Snippet
+```java
+     */
+    public static byte[] generateSalt(boolean useForMac) {
+        byte[] saltValue = null;
+        try {
+            saltValue = generateNonce(16);
+```
+
+### UnusedAssignment
+Variable `sha` initializer `null` is redundant
+in `ws-security-common/src/main/java/org/apache/wss4j/common/util/UsernameTokenUtil.java`
+#### Snippet
+```java
+        System.arraycopy(salt, 0, pwSalt, password.length, salt.length);
+
+        MessageDigest sha = null;
+        try {
+            sha = MessageDigest.getInstance("SHA1");
+```
+
+### UnusedAssignment
+Variable `credential` initializer `null` is redundant
+in `ws-security-common/src/main/java/org/apache/wss4j/common/saml/SamlAssertionWrapper.java`
+#### Snippet
+```java
+            }
+
+            BasicCredential credential = null;
+            if (samlKeyInfo.getCerts() != null) {
+                credential = new BasicX509Credential(samlKeyInfo.getCerts()[0]);
+```
+
+### UnusedAssignment
+Variable `attr` initializer `null` is redundant
+in `ws-security-common/src/main/java/org/apache/wss4j/common/util/XMLUtils.java`
+#### Snippet
+```java
+    public static String getNamespace(String prefix, Node e) {
+        while (e != null && e.getNodeType() == Node.ELEMENT_NODE) {
+            Attr attr = null;
+            if (prefix == null) {
+                attr = ((Element) e).getAttributeNode("xmlns");
+```
+
+### UnusedAssignment
+Variable `processedNode` initializer `null` is redundant
+in `ws-security-common/src/main/java/org/apache/wss4j/common/util/XMLUtils.java`
+#### Snippet
+```java
+        }
+        Node startParent = startNode.getParentNode();
+        Node processedNode = null;
+
+        while (startNode != null) {
+```
+
+### UnusedAssignment
+Variable `processedNode` initializer `null` is redundant
+in `ws-security-common/src/main/java/org/apache/wss4j/common/util/XMLUtils.java`
+#### Snippet
+```java
+        }
+        Node startParent = startNode.getParentNode();
+        Node processedNode = null;
+
+        List<Element> foundNodes = new ArrayList<>();
+```
+
+### UnusedAssignment
+Variable `processedNode` initializer `null` is redundant
+in `ws-security-common/src/main/java/org/apache/wss4j/common/util/XMLUtils.java`
+#### Snippet
+```java
+        }
+        Node startParent = startNode.getParentNode();
+        Node processedNode = null;
+
+        while (startNode != null) {
+```
+
+### UnusedAssignment
+Variable `processedNode` initializer `null` is redundant
+in `ws-security-common/src/main/java/org/apache/wss4j/common/util/XMLUtils.java`
+#### Snippet
+```java
+        }
+        Node startParent = startNode.getParentNode();
+        Node processedNode = null;
+        Element foundElement = null;
+        String id = XMLUtils.getIDFromReference(value);
+```
+
+### UnusedAssignment
+The value `false` assigned to `hasChildren` is never used
+in `ws-security-common/src/main/java/org/apache/wss4j/common/util/DOM2Writer.java`
+#### Snippet
+```java
+                out.print(LS);
+            }
+            hasChildren = false;
+        }
+    }
+```
+
+### UnusedAssignment
+Variable `url` initializer `null` is redundant
+in `ws-security-common/src/main/java/org/apache/wss4j/common/util/Loader.java`
+#### Snippet
+```java
+     */
+    public static URL getResource(ClassLoader loader, String resource) {
+        URL url = null;
+        try {
+            if (loader != null) {
+```
+
+### UnusedAssignment
+Variable `url` initializer `null` is redundant
+in `ws-security-common/src/main/java/org/apache/wss4j/common/util/Loader.java`
+#### Snippet
+```java
+     */
+    public static URL getResource(String resource) {
+        URL url = null;
+        try {
+            ClassLoader classLoader = getTCL();
+```
+
+### UnusedAssignment
+Variable `subjectConfirmationData` initializer `null` is redundant
+in `ws-security-common/src/main/java/org/apache/wss4j/common/saml/builder/SAML2ComponentBuilder.java`
+#### Snippet
+```java
+        KeyInfoBean keyInfoBean
+    ) throws org.opensaml.security.SecurityException, WSSecurityException {
+        SubjectConfirmationData subjectConfirmationData = null;
+        KeyInfo keyInfo = null;
+        if (keyInfoBean == null) {
+```
+
+### UnusedAssignment
+Variable `keyInfo` initializer `null` is redundant
+in `ws-security-common/src/main/java/org/apache/wss4j/common/saml/builder/SAML2ComponentBuilder.java`
+#### Snippet
+```java
+    ) throws org.opensaml.security.SecurityException, WSSecurityException {
+        SubjectConfirmationData subjectConfirmationData = null;
+        KeyInfo keyInfo = null;
+        if (keyInfoBean == null) {
+            if (subjectConfirmationDataBuilder == null) {
+```
+
+### UnusedAssignment
+Variable `path` initializer `null` is redundant
+in `ws-security-common/src/main/java/org/apache/wss4j/common/crypto/CryptoBase.java`
+#### Snippet
+```java
+    public X509Certificate[] getCertificatesFromBytes(byte[] data)
+        throws WSSecurityException {
+        CertPath path = null;
+        try (InputStream in = new ByteArrayInputStream(data)) {
+            path = getCertificateFactory().generateCertPath(in);
+```
+
+### UnusedAssignment
+Variable `data` initializer `null` is redundant
+in `ws-security-common/src/main/java/org/apache/wss4j/common/token/SecurityTokenReference.java`
+#### Snippet
+```java
+        throws WSSecurityException {
+        Document doc = element.getOwnerDocument();
+        byte[] data = null;
+        try {
+            data = cert.getEncoded();
+```
+
+### UnusedAssignment
+Variable `encodedCert` initializer `null` is redundant
+in `ws-security-common/src/main/java/org/apache/wss4j/common/token/SecurityTokenReference.java`
+#### Snippet
+```java
+    public void setKeyIdentifierThumb(X509Certificate cert) throws WSSecurityException {
+        Document doc = element.getOwnerDocument();
+        byte[] encodedCert = null;
+        try {
+            encodedCert = cert.getEncoded();
+```
+
+### UnusedAssignment
+Variable `loginContext` initializer `null` is redundant
+in `ws-security-common/src/main/java/org/apache/wss4j/common/spnego/SpnegoTokenContext.java`
+#### Snippet
+```java
+
+        // Get a TGT from the KDC using JAAS
+        LoginContext loginContext = null;
+        try {
+            if (callbackHandler == null) {
+```
+
+### UnusedAssignment
+Variable `krbCtx` initializer `null` is redundant
+in `ws-security-common/src/main/java/org/apache/wss4j/common/spnego/SpnegoTokenContext.java`
+#### Snippet
+```java
+                                                  true,
+                                                  mutualAuth);
+            KerberosContext krbCtx = null;
+            try {
+                krbCtx = (KerberosContext) Subject.doAs(clientSubject, action);
+```
+
+### UnusedAssignment
+Variable `loginContext` initializer `null` is redundant
+in `ws-security-common/src/main/java/org/apache/wss4j/common/spnego/SpnegoTokenContext.java`
+#### Snippet
+```java
+    ) throws WSSecurityException {
+        // Get a TGT from the KDC using JAAS
+        LoginContext loginContext = null;
+        try {
+            if (callbackHandler == null) {
+```
+
+### UnusedAssignment
+Variable `krbCtx` initializer `null` is redundant
+in `ws-security-common/src/main/java/org/apache/wss4j/common/spnego/SpnegoTokenContext.java`
+#### Snippet
+```java
+                new KerberosServiceExceptionAction(ticket, service,
+                                                   isUsernameServiceNameForm, true);
+            KerberosServiceContext krbCtx = null;
+            try {
+                krbCtx = (KerberosServiceContext) Subject.doAs(subject, action);
+```
+
+### UnusedAssignment
+Variable `oid` initializer `null` is redundant
+in `ws-security-common/src/main/java/org/apache/wss4j/common/kerberos/KerberosClientExceptionAction.java`
+#### Snippet
+```java
+        GSSName gssService = gssManager.createName(serviceName, isUsernameServiceNameForm
+                                                   ? GSSName.NT_USER_NAME : GSSName.NT_HOSTBASED_SERVICE);
+        Oid oid = null;
+        GSSCredential credentials = delegatedCredential;
+        if (spnego) {
+```
+
+### UnusedAssignment
+Variable `validator` initializer `null` is redundant
+in `ws-security-common/src/main/java/org/apache/wss4j/common/crypto/MerlinAKI.java`
+#### Snippet
+```java
+            // Verify the trust path using the above settings
+            String provider = getCryptoProvider();
+            CertPathValidator validator = null;
+            if (provider == null || provider.length() == 0) {
+                validator = CertPathValidator.getInstance("PKIX");
+```
+
+### UnusedAssignment
+Variable `secContext` initializer `null` is redundant
+in `ws-security-common/src/main/java/org/apache/wss4j/common/kerberos/KerberosServiceExceptionAction.java`
+#### Snippet
+```java
+        GSSManager gssManager = GSSManager.getInstance();
+
+        GSSContext secContext = null;
+        GSSName gssService = gssManager.createName(serviceName, isUsernameServiceNameForm
+                                                   ? GSSName.NT_USER_NAME : GSSName.NT_HOSTBASED_SERVICE);
+```
+
+### UnusedAssignment
+Variable `krbServiceCtx` initializer `null` is redundant
+in `ws-security-common/src/main/java/org/apache/wss4j/common/kerberos/KerberosServiceExceptionAction.java`
+#### Snippet
+```java
+        }
+
+        KerberosServiceContext krbServiceCtx = null;
+
+        try {
+```
+
+### UnusedAssignment
+Variable `digest` initializer `false` is redundant
+in `ws-security-common/src/main/java/org/apache/wss4j/common/principal/WSUsernameTokenPrincipalImpl.java`
+#### Snippet
+```java
+    private String createdTime;
+    private String passwordType;
+    private boolean digest = false;
+
+    /**
+```
+
+### UnusedAssignment
+Variable `crypto` initializer `null` is redundant
+in `ws-security-stax/src/main/java/org/apache/wss4j/stax/ext/WSSCrypto.java`
+#### Snippet
+```java
+        }
+
+        Merlin crypto = null;
+        if (cryptoProperties != null) {
+            try {
+```
+
+### UnusedAssignment
+Variable `validator` initializer `null` is redundant
+in `ws-security-common/src/main/java/org/apache/wss4j/common/crypto/CertificateStore.java`
+#### Snippet
+```java
+            // Verify the trust path using the above settings
+            String provider = getCryptoProvider();
+            CertPathValidator validator = null;
+            if (provider == null || provider.length() == 0) {
+                validator = CertPathValidator.getInstance("PKIX");
+```
+
+### UnusedAssignment
+Variable `sha` initializer `null` is redundant
+in `ws-security-common/src/main/java/org/apache/wss4j/common/crypto/CertificateStore.java`
+#### Snippet
+```java
+     */
+    private X509Certificate[] getX509Certificates(byte[] thumb) throws WSSecurityException {
+        MessageDigest sha = null;
+
+        if (trustedCerts == null) {
+```
+
+### UnusedAssignment
+Variable `issuerName` initializer `null` is redundant
+in `ws-security-common/src/main/java/org/apache/wss4j/common/crypto/CertificateStore.java`
+#### Snippet
+```java
+        // back on a direct conversion to a BC X509Name
+        //
+        Object issuerName = null;
+        try {
+            X500Principal issuerRDN = new X500Principal(issuer);
+```
+
+### UnusedAssignment
+Variable `c` initializer `null` is redundant
+in `ws-security-common/src/main/java/org/apache/wss4j/common/crypto/CryptoFactory.java`
+#### Snippet
+```java
+        LOG.debug("Using Crypto Engine [{}]", cryptoClass);
+        try {
+            Constructor<? extends Crypto> c = null;
+            try {
+                Class<?>[] classes = new Class[]{Map.class, ClassLoader.class};
+```
+
+### UnusedAssignment
+Variable `cryptoClass` initializer `null` is redundant
+in `ws-security-common/src/main/java/org/apache/wss4j/common/crypto/CryptoFactory.java`
+#### Snippet
+```java
+        }
+
+        Class<? extends Crypto> cryptoClass = null;
+        if (cryptoClassName == null
+            || cryptoClassName.equals("org.apache.wss4j.common.crypto.Merlin")
+```
+
+### UnusedAssignment
+Variable `c` initializer `null` is redundant
+in `ws-security-common/src/main/java/org/apache/wss4j/common/crypto/CryptoFactory.java`
+#### Snippet
+```java
+        LOG.debug("Using Crypto Engine [{}]", cryptoClass);
+        try {
+            Constructor<? extends Crypto> c = null;
+            try {
+                Class<?>[] classes = new Class[]{Properties.class, ClassLoader.class};
+```
+
+### UnusedAssignment
+Variable `object` initializer `null` is redundant
+in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/processor/input/SAMLTokenInputHandler.java`
+#### Snippet
+```java
+            };
+        } else {
+            Object object = null;
+            try {
+                Unmarshaller unmarshaller = WSSConstants.getJaxbUnmarshaller(securityProperties.isDisableSchemaValidation());
+```
+
+### UnusedAssignment
+Variable `document` initializer `null` is redundant
+in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/processor/input/SAMLTokenInputHandler.java`
+#### Snippet
+```java
+    protected <T> T parseStructure(Deque<XMLSecEvent> eventDeque, int index, XMLSecurityProperties securityProperties)
+            throws XMLSecurityException {
+        Document document = null;
+        try {
+            document = ((WSSSecurityProperties) securityProperties).getDocumentCreator().newDocument();
+```
+
+### UnusedAssignment
+Variable `credential` initializer `null` is redundant
+in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/processor/input/SAMLTokenInputHandler.java`
+#### Snippet
+```java
+            samlTokenValidator.validate(sigSecurityToken, wssSecurityProperties);
+
+            BasicCredential credential = null;
+            if (sigSecurityToken.getX509Certificates() != null) {
+                credential = new BasicX509Credential(sigSecurityToken.getX509Certificates()[0]);
+```
+
+### UnusedAssignment
+Variable `validator` initializer `null` is redundant
+in `ws-security-common/src/main/java/org/apache/wss4j/common/crypto/Merlin.java`
+#### Snippet
+```java
+            // Verify the trust path using the above settings
+            String provider = getCryptoProvider();
+            CertPathValidator validator = null;
+            if (provider == null || provider.length() == 0) {
+                validator = CertPathValidator.getInstance("PKIX");
+```
+
+### UnusedAssignment
+Variable `sha` initializer `null` is redundant
+in `ws-security-common/src/main/java/org/apache/wss4j/common/crypto/Merlin.java`
+#### Snippet
+```java
+     */
+    private X509Certificate[] getX509Certificates(byte[] thumbprint) throws WSSecurityException {
+        MessageDigest sha = null;
+
+        try {
+```
+
+### UnusedAssignment
+Variable `issuerName` initializer `null` is redundant
+in `ws-security-common/src/main/java/org/apache/wss4j/common/crypto/Merlin.java`
+#### Snippet
+```java
+        // back on a direct conversion to a BC X509Name
+        //
+        Object issuerName = null;
+        try {
+            X500Principal issuerRDN = new X500Principal(issuer);
+```
+
+### UnusedAssignment
+Variable `ks` initializer `null` is redundant
+in `ws-security-common/src/main/java/org/apache/wss4j/common/crypto/Merlin.java`
+#### Snippet
+```java
+    protected KeyStore load(InputStream input, String storepass, String provider, String type)
+        throws WSSecurityException {
+        KeyStore ks = null;
+
+        try {
+```
+
+### UnusedAssignment
+Variable `cipher` initializer `null` is redundant
+in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/processor/output/EncryptOutputProcessor.java`
+#### Snippet
+```java
+                }
+                //initialize the cipher
+                Cipher cipher = null;
+                try {
+                    cipher = Cipher.getInstance(jceAlgorithm);
+```
+
+### UnusedAssignment
+Variable `tokenProvider` initializer `null` is redundant
+in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/processor/output/BinarySecurityTokenOutputProcessor.java`
+#### Snippet
+```java
+            }
+
+            SecurityTokenProvider<OutboundSecurityToken> tokenProvider = null;
+            if (tokenId != null) {
+                tokenProvider =
+```
+
+### UnusedAssignment
+Variable `senderVouches` initializer `false` is redundant
+in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/processor/output/SAMLTokenOutputProcessor.java`
+#### Snippet
+```java
+        private final SamlAssertionWrapper samlAssertionWrapper;
+        private final String securityTokenReferenceId;
+        private boolean senderVouches = false;
+        private boolean includeSTR = false;
+
+```
+
+### UnusedAssignment
+Variable `includeSTR` initializer `false` is redundant
+in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/processor/output/SAMLTokenOutputProcessor.java`
+#### Snippet
+```java
+        private final String securityTokenReferenceId;
+        private boolean senderVouches = false;
+        private boolean includeSTR = false;
+
+        FinalSAMLTokenOutputProcessor(OutboundSecurityToken securityToken, SamlAssertionWrapper samlAssertionWrapper,
+```
+
+### UnusedAssignment
+Variable `signatureTokenProvider` initializer `null` is redundant
+in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/processor/output/SAMLTokenOutputProcessor.java`
+#### Snippet
+```java
+            String sigTokenId =
+                outputProcessorChain.getSecurityContext().get(WSSConstants.PROP_USE_THIS_TOKEN_ID_FOR_SIGNATURE);
+            SecurityTokenProvider<OutboundSecurityToken> signatureTokenProvider = null;
+            if (sigTokenId != null) {
+                signatureTokenProvider =
+```
+
+### UnusedAssignment
+Variable `krbCtx` initializer `null` is redundant
+in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/securityToken/KerberosClientSecurityToken.java`
+#### Snippet
+```java
+                                                  contextAndServiceNameCallback.isUsernameServiceNameForm(),
+                                                  contextAndServiceNameCallback.isRequestCredDeleg());
+            KerberosContext krbCtx = null;
+            try {
+                krbCtx = Subject.doAs(clientSubject, action);
+```
+
+### UnusedAssignment
+Variable `key` initializer `null` is redundant
+in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/processor/output/DerivedKeyTokenOutputProcessor.java`
+#### Snippet
+```java
+                public Key getSecretKey(String algorithmURI) throws WSSecurityException {
+
+                    Key key = null;
+                    try {
+                        key = super.getSecretKey(algorithmURI);
+```
+
+### UnusedAssignment
+Variable `publicKey` initializer `null` is redundant
+in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/processor/output/EncryptedKeyOutputProcessor.java`
+#### Snippet
+```java
+                OutputProcessorChain subOutputProcessorChain = outputProcessorChain.createSubChain(this);
+
+                PublicKey publicKey = null;
+                if (securityToken.getKeyWrappingToken().getX509Certificates() != null
+                    && securityToken.getKeyWrappingToken().getX509Certificates().length > 0) {
+```
+
+### UnusedAssignment
+Variable `encryptedKeySecurityTokenProvider` initializer `null` is redundant
+in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/processor/output/EncryptedKeyOutputProcessor.java`
+#### Snippet
+```java
+            }
+
+            SecurityTokenProvider<OutboundSecurityToken> encryptedKeySecurityTokenProvider = null;
+            GenericOutboundSecurityToken encryptedKeySecurityToken = null;
+
+```
+
+### UnusedAssignment
+Variable `encryptedKeySecurityToken` initializer `null` is redundant
+in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/processor/output/EncryptedKeyOutputProcessor.java`
+#### Snippet
+```java
+
+            SecurityTokenProvider<OutboundSecurityToken> encryptedKeySecurityTokenProvider = null;
+            GenericOutboundSecurityToken encryptedKeySecurityToken = null;
+
+            String sigTokenId =
+```
+
+### UnusedAssignment
+Variable `krbServiceCtx` initializer `null` is redundant
+in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/securityToken/KerberosServiceSecurityTokenImpl.java`
+#### Snippet
+```java
+                                                   contextAndServiceNameCallback.isUsernameServiceNameForm(),
+                                                   false);
+            KerberosServiceContext krbServiceCtx = null;
+            try {
+                krbServiceCtx = Subject.doAs(subject, action);
+```
+
+### UnusedAssignment
+Variable `hasDerivedKeys` initializer `false` is redundant
+in `ws-security-policy-stax/src/main/java/org/apache/wss4j/policy/stax/assertionStates/TokenAssertionState.java`
+#### Snippet
+```java
+
+        //WSP1.3, 5.3 Token Properties
+        boolean hasDerivedKeys = false;
+        hasDerivedKeys = hasDerivedKeys(tokenSecurityEvent.getSecurityToken());
+        String namespace = getAssertion().getName().getNamespaceURI();
+```
+
+### UnusedAssignment
+Variable `cbClass` initializer `null` is redundant
+in `ws-security-stax/src/main/java/org/apache/wss4j/stax/setup/ConfigurationConverter.java`
+#### Snippet
+```java
+    ) throws WSSecurityException {
+
+        Class<? extends CallbackHandler> cbClass = null;
+        CallbackHandler cbHandler = null;
+        try {
+```
+
+### UnusedAssignment
+Variable `cbHandler` initializer `null` is redundant
+in `ws-security-stax/src/main/java/org/apache/wss4j/stax/setup/ConfigurationConverter.java`
+#### Snippet
+```java
+
+        Class<? extends CallbackHandler> cbClass = null;
+        CallbackHandler cbHandler = null;
+        try {
+            cbClass =
+```
+
+### UnusedAssignment
+Variable `crypto` initializer `null` is redundant
+in `ws-security-stax/src/main/java/org/apache/wss4j/stax/setup/ConfigurationConverter.java`
+#### Snippet
+```java
+    ) {
+        try {
+            Crypto crypto = null;
+            if (signature) {
+                crypto = properties.getSignatureCrypto();
+```
+
+### UnusedAssignment
+Variable `kerberosId` initializer `null` is redundant
+in `ws-security-stax/src/main/java/org/apache/wss4j/stax/setup/OutboundWSSec.java`
+#### Snippet
+```java
+        GenericOutboundSecurityToken securityToken =
+            getOutboundSecurityToken(outputProcessorChain, WSSConstants.PROP_USE_THIS_TOKEN_ID_FOR_KERBEROS);
+        String kerberosId = null;
+        // First off, see if we have a supplied token
+        if (securityToken == null) {
+```
+
+### UnusedAssignment
+Variable `key` initializer `null` is redundant
+in `ws-security-stax/src/main/java/org/apache/wss4j/stax/setup/OutboundWSSec.java`
+#### Snippet
+```java
+        String password = pwCb.getPassword();
+        byte[] secretKey = pwCb.getKey();
+        Key key = null;
+        X509Certificate[] x509Certificates = null;
+        try {
+```
+
+### UnusedAssignment
+Variable `x509Certificates` initializer `null` is redundant
+in `ws-security-stax/src/main/java/org/apache/wss4j/stax/setup/OutboundWSSec.java`
+#### Snippet
+```java
+        byte[] secretKey = pwCb.getKey();
+        Key key = null;
+        X509Certificate[] x509Certificates = null;
+        try {
+            if (password != null && securityProperties.getSignatureCrypto() != null) {
+```
+
+### UnusedAssignment
+Variable `signatureTokenProvider` initializer `null` is redundant
+in `ws-security-stax/src/main/java/org/apache/wss4j/stax/setup/OutboundWSSec.java`
+#### Snippet
+```java
+        String tokenId =
+            outputProcessorChain.getSecurityContext().get(id);
+        SecurityTokenProvider<OutboundSecurityToken> signatureTokenProvider = null;
+        if (tokenId != null) {
+            signatureTokenProvider =
+```
+
 ## RuleId[ruleID=ConstantValue]
+### ConstantValue
+Condition `headerNamespace == null` is always `false`
+in `policy/src/main/java/org/apache/wss4j/policy/builders/RequiredPartsBuilder.java`
+#### Snippet
+```java
+                }
+                String headerNamespace = child.getAttributeNS(null, SPConstants.NAMESPACE);
+                if (headerNamespace == null || headerNamespace.length() == 0) {
+                    throw new IllegalArgumentException(SPConstants.ERR_INVALID_POLICY);
+                }
+```
+
+### ConstantValue
+Condition `xPathVersion == null` is always `false`
+in `policy/src/main/java/org/apache/wss4j/policy/builders/SignedElementsBuilder.java`
+#### Snippet
+```java
+    protected String getXPathVersion(Element element) {
+        String xPathVersion = element.getAttributeNS(null, SPConstants.XPATH_VERSION);
+        if (xPathVersion == null || xPathVersion.length() == 0) {
+            xPathVersion = "1.0";
+        }
+```
+
+### ConstantValue
+Condition `filter == null` is always `false`
+in `policy/src/main/java/org/apache/wss4j/policy/builders/SignedElementsBuilder.java`
+#### Snippet
+```java
+                addDeclaredNamespaces(child, declaredNamespaces);
+                String filter = child.getAttributeNS(null, SPConstants.FILTER);
+                if (filter == null || filter.length() == 0) {
+                    throw new IllegalArgumentException(SPConstants.ERR_INVALID_POLICY);
+                }
+```
+
+### ConstantValue
+Condition `uri == null` is always `false`
+in `ws-security-dom/src/main/java/org/apache/wss4j/dom/WSDocInfo.java`
+#### Snippet
+```java
+    public boolean hasResult(Integer tag, String uri) {
+        String id = XMLUtils.getIDFromReference(uri);
+        if (id == null || uri == null || uri.length() == 0) {
+            return false;
+        }
+```
+
+### ConstantValue
+Condition `typeStr != null` is always `true`
+in `ws-security-dom/src/main/java/org/apache/wss4j/dom/util/X509Util.java`
+#### Snippet
+```java
+        if (encBodyData != null) {
+            String typeStr = ((Element)encBodyData).getAttributeNS(null, "Type");
+            if (typeStr != null) {
+                 return typeStr.equals(WSConstants.ENC_NS + "Content");
+            }
+```
+
+### ConstantValue
+Condition `symEncAlgo == null` is always `false`
+in `ws-security-dom/src/main/java/org/apache/wss4j/dom/util/X509Util.java`
+#### Snippet
+```java
+        if (tmpE != null) {
+            symEncAlgo = tmpE.getAttributeNS(null, "Algorithm");
+            if (symEncAlgo == null || symEncAlgo.length() == 0) {
+                throw new WSSecurityException(
+                    WSSecurityException.ErrorCode.UNSUPPORTED_ALGORITHM, "noEncAlgo"
+```
+
+### ConstantValue
+Value `enableRevocation` is always 'true'
+in `ws-security-dom/src/main/java/org/apache/wss4j/dom/action/EncryptionAction.java`
+#### Snippet
+```java
+            X509Certificate[] certs = crypto.getX509Certificates(cryptoType);
+            if (certs != null && certs.length > 0) {
+                crypto.verifyTrust(certs, enableRevocation, null, null);
+            }
+        }
+```
+
+### ConstantValue
+Condition `typeStr != null` is always `true`
+in `ws-security-dom/src/main/java/org/apache/wss4j/dom/util/EncryptionUtils.java`
+#### Snippet
+```java
+        String typeStr = encData.getAttributeNS(null, "Type");
+        String xopURI = getXOPURIFromEncryptedData(encData);
+        if (typeStr != null
+            && (WSConstants.SWA_ATTACHMENT_ENCRYPTED_DATA_TYPE_CONTENT_ONLY.equals(typeStr)
+                || WSConstants.SWA_ATTACHMENT_ENCRYPTED_DATA_TYPE_COMPLETE.equals(typeStr))) {
+```
+
+### ConstantValue
+Condition `xopURI != null` is always `true`
+in `ws-security-dom/src/main/java/org/apache/wss4j/dom/util/WSSecurityUtil.java`
+#### Snippet
+```java
+        for (Element includeElement : includeElements) {
+            String xopURI = includeElement.getAttributeNS(null, "href");
+            if (xopURI != null) {
+                // Retrieve the attachment bytes
+                byte[] attachmentBytes =
+```
+
+### ConstantValue
+Condition `id == null` is always `false`
+in `ws-security-dom/src/main/java/org/apache/wss4j/dom/message/WSSecBase.java`
+#### Snippet
+```java
+        String newAttrPrefix = WSConstants.WSU_PREFIX;
+
+        if (id == null || id.length() == 0) {
+            if (WSConstants.ENC_NS.equals(bodyElement.getNamespaceURI())
+                && (WSConstants.ENC_DATA_LN.equals(bodyElement.getLocalName())
+```
+
+### ConstantValue
+Condition `id == null` is always `false`
+in `ws-security-dom/src/main/java/org/apache/wss4j/dom/message/WSSecBase.java`
+#### Snippet
+```java
+        }
+
+        if (id == null || id.length() == 0) {
+            id = getIdAllocator().createId("id-", bodyElement);
+            String prefix = XMLUtils.setNamespace(bodyElement, newAttrNs, newAttrPrefix);
+```
+
+### ConstantValue
+Condition `sv != null` is always `true`
+in `ws-security-dom/src/main/java/org/apache/wss4j/dom/message/token/SignatureConfirmation.java`
+#### Snippet
+```java
+
+        String sv = element.getAttributeNS(null, SC_VALUE_ATTR);
+        if (sv != null) {
+            signatureValue = org.apache.xml.security.utils.XMLUtils.decode(sv);
+        }
+```
+
+### ConstantValue
+Condition `valueType != null` is always `true`
+in `ws-security-dom/src/main/java/org/apache/wss4j/dom/message/token/Timestamp.java`
+#### Snippet
+```java
+                    if (createdString == null) {
+                        String valueType = currentChildElement.getAttributeNS(null, "ValueType");
+                        if (valueType != null && valueType.length() != 0) {
+                            // We can't have a ValueType attribute as per the BSP spec
+                            bspEnforcer.handleBSPRule(BSPRule.R3225);
+```
+
+### ConstantValue
+Condition `valueType != null` is always `true`
+in `ws-security-dom/src/main/java/org/apache/wss4j/dom/message/token/Timestamp.java`
+#### Snippet
+```java
+                    } else {
+                        String valueType = currentChildElement.getAttributeNS(null, "ValueType");
+                        if (valueType != null && valueType.length() != 0) {
+                            // We can't have a ValueType attribute as per the BSP spec
+                            bspEnforcer.handleBSPRule(BSPRule.R3226);
+```
+
+### ConstantValue
+Condition `privateCredentials == null` is always `false`
+in `ws-security-dom/src/main/java/org/apache/wss4j/dom/message/token/KerberosSecurity.java`
+#### Snippet
+```java
+    private KerberosTicket getKerberosTicket(Subject clientSubject, KerberosTicket previousTicket) {
+        Set<KerberosTicket> privateCredentials = clientSubject.getPrivateCredentials(KerberosTicket.class);
+        if (privateCredentials == null || privateCredentials.isEmpty()) {
+            LOG.debug("Kerberos client subject private credentials are null");
+            return null;
+```
+
+### ConstantValue
+Condition `type == null` is always `false`
+in `ws-security-dom/src/main/java/org/apache/wss4j/dom/message/token/UsernameToken.java`
+#### Snippet
+```java
+            Element passwordChild = passwordElements.get(0);
+            String type = passwordChild.getAttributeNS(null, WSConstants.PASSWORD_TYPE_ATTR);
+            if (type == null || type.length() == 0) {
+                LOG.debug("The Username Token password does not have a Type attribute");
+                bspEnforcer.handleBSPRule(BSPRule.R4201);
+```
+
+### ConstantValue
+Condition `encodingType == null` is always `false`
+in `ws-security-dom/src/main/java/org/apache/wss4j/dom/message/token/UsernameToken.java`
+#### Snippet
+```java
+            String encodingType = nonce.getAttributeNS(null, "EncodingType");
+            // Encoding Type must be equal to Base64Binary
+            if (encodingType == null || encodingType.length() == 0) {
+                bspEnforcer.handleBSPRule(BSPRule.R4220);
+            } else if (!WSConstants.BASE64_ENCODING.equals(encodingType)) {
+```
+
+### ConstantValue
+Condition `xopURI != null` is always `true`
+in `ws-security-dom/src/main/java/org/apache/wss4j/dom/message/Encryptor.java`
+#### Snippet
+```java
+                            for (Element includeElement : includeElements) {
+                                String xopURI = includeElement.getAttributeNS(null, "href");
+                                if (xopURI != null) {
+                                    // Delete the attachment
+
+```
+
+### ConstantValue
+Condition `null != children` is always `true`
+in `ws-security-dom/src/main/java/org/apache/wss4j/dom/message/Encryptor.java`
+#### Snippet
+```java
+        if (type.equals(EncryptionConstants.TYPE_CONTENT)) {
+            NodeList children = elementToEncrypt.getChildNodes();
+            if (null != children) {
+                serializedOctets = serializer.serializeToByteArray(children);
+            } else {
+```
+
+### ConstantValue
+Condition `xopUri != null` is always `true`
+in `ws-security-dom/src/main/java/org/apache/wss4j/dom/processor/BinarySecurityTokenProcessor.java`
+#### Snippet
+```java
+        if (elementChild != null && elementChild.hasAttributeNS(null, "href")) {
+            String xopUri = elementChild.getAttributeNS(null, "href");
+            if (xopUri != null && xopUri.startsWith("cid:")) {
+                byte[] content = WSSecurityUtil.getBytesFromAttachment(xopUri, data);
+                token.setRawToken(content);
+```
+
+### ConstantValue
+Value `useDerivedKeyForMAC` is always 'true'
+in `ws-security-dom/src/main/java/org/apache/wss4j/dom/handler/WSHandler.java`
+#### Snippet
+```java
+        boolean useDerivedKeyForMAC = Boolean.parseBoolean(derivedMAC);
+        if (useDerivedKeyForMAC) {
+            reqData.setUseDerivedKeyForMAC(useDerivedKeyForMAC);
+        }
+
+```
+
+### ConstantValue
+Condition `certConstraintsList != null` is always `true`
+in `ws-security-dom/src/main/java/org/apache/wss4j/dom/handler/WSHandler.java`
+#### Snippet
+```java
+    private Collection<Pattern> getCertConstraints(String certConstraints, String separator) throws WSSecurityException {
+        String[] certConstraintsList = certConstraints.split(separator);
+        if (certConstraintsList != null && certConstraintsList.length > 0) {
+            Collection<Pattern> certConstraintsCollection =
+                new ArrayList<>(certConstraintsList.length);
+```
+
+### ConstantValue
+Condition `typeStr != null` is always `true`
+in `ws-security-dom/src/main/java/org/apache/wss4j/dom/processor/EncryptedAssertionProcessor.java`
+#### Snippet
+```java
+        // Type must be "Element" if specified
+        String typeStr = encryptedDataElement.getAttributeNS(null, "Type");
+        if (typeStr != null && !(WSConstants.ENC_NS + "Element").equals(typeStr)) {
+            throw new WSSecurityException(
+                WSSecurityException.ErrorCode.INVALID_SECURITY, "badElement",
+```
+
+### ConstantValue
+Condition `attribute != null` is always `true`
+in `ws-security-dom/src/main/java/org/apache/wss4j/dom/processor/EncryptedKeyProcessor.java`
+#### Snippet
+```java
+    ) throws WSSecurityException {
+        String attribute = elem.getAttributeNS(null, "Type");
+        if (attribute != null && attribute.length() != 0) {
+            bspEnforcer.handleBSPRule(BSPRule.R3209);
+        }
+```
+
+### ConstantValue
+Condition `attribute != null` is always `true`
+in `ws-security-dom/src/main/java/org/apache/wss4j/dom/processor/EncryptedKeyProcessor.java`
+#### Snippet
+```java
+        }
+        attribute = elem.getAttributeNS(null, "MimeType");
+        if (attribute != null && attribute.length() != 0) {
+            bspEnforcer.handleBSPRule(BSPRule.R5622);
+        }
+```
+
+### ConstantValue
+Condition `attribute != null` is always `true`
+in `ws-security-dom/src/main/java/org/apache/wss4j/dom/processor/EncryptedKeyProcessor.java`
+#### Snippet
+```java
+        }
+        attribute = elem.getAttributeNS(null, "Encoding");
+        if (attribute != null && attribute.length() != 0) {
+            bspEnforcer.handleBSPRule(BSPRule.R5623);
+        }
+```
+
+### ConstantValue
+Condition `attribute != null` is always `true`
+in `ws-security-dom/src/main/java/org/apache/wss4j/dom/processor/EncryptedKeyProcessor.java`
+#### Snippet
+```java
+        }
+        attribute = elem.getAttributeNS(null, "Recipient");
+        if (attribute != null && attribute.length() != 0) {
+            bspEnforcer.handleBSPRule(BSPRule.R5602);
+        }
+```
+
+### ConstantValue
+Condition `xopUri != null` is always `true`
+in `ws-security-dom/src/main/java/org/apache/wss4j/dom/processor/SignatureProcessor.java`
+#### Snippet
+```java
+        if (elementChild != null && elementChild.hasAttributeNS(null, "href")) {
+            String xopUri = elementChild.getAttributeNS(null, "href");
+            if (xopUri != null && xopUri.startsWith("cid:")) {
+                return true;
+            }
+```
+
+### ConstantValue
+Condition `secretKey != null` is always `true`
+in `ws-security-dom/src/main/java/org/apache/wss4j/dom/processor/SignatureProcessor.java`
+#### Snippet
+```java
+                } else if (publicKey != null) {
+                    algorithmSuiteValidator.checkAsymmetricKeyLength(publicKey);
+                } else if (secretKey != null) {
+                    algorithmSuiteValidator.checkSymmetricKeyLength(secretKey.length);
+                }
+```
+
 ### ConstantValue
 Condition `getSaml1().getAuthenticationStatements() != null` is always `true` when reached
 in `ws-security-common/src/main/java/org/apache/wss4j/common/saml/SamlAssertionWrapper.java`
@@ -7466,15 +7800,15 @@ in `ws-security-common/src/main/java/org/apache/wss4j/common/saml/SamlAssertionW
 ```
 
 ### ConstantValue
-Condition `startNode != null` is always `true`
-in `ws-security-common/src/main/java/org/apache/wss4j/common/util/XMLUtils.java`
+Condition `cacheManagerClass != null` is always `true`
+in `ws-security-common/src/main/java/org/apache/wss4j/common/cache/WSS4JCacheUtil.java`
 #### Snippet
 ```java
-        Node processedNode = null;
-
-        while (startNode != null) {
-            // start node processing at this point
-            if (startNode.getNodeType() == Node.ELEMENT_NODE
+        try {
+            Class<?> cacheManagerClass = Class.forName("org.ehcache.CacheManager");
+            if (cacheManagerClass != null) {
+                ehCacheInstalled = true;
+            }
 ```
 
 ### ConstantValue
@@ -7506,6 +7840,18 @@ Condition `startNode != null` is always `true`
 in `ws-security-common/src/main/java/org/apache/wss4j/common/util/XMLUtils.java`
 #### Snippet
 ```java
+        Node processedNode = null;
+
+        while (startNode != null) {
+            // start node processing at this point
+            if (startNode.getNodeType() == Node.ELEMENT_NODE
+```
+
+### ConstantValue
+Condition `startNode != null` is always `true`
+in `ws-security-common/src/main/java/org/apache/wss4j/common/util/XMLUtils.java`
+#### Snippet
+```java
         String id = XMLUtils.getIDFromReference(value);
 
         while (startNode != null && id != null) {
@@ -7526,18 +7872,6 @@ in `ws-security-common/src/main/java/org/apache/wss4j/common/util/XMLUtils.java`
 ```
 
 ### ConstantValue
-Condition `cacheManagerClass != null` is always `true`
-in `ws-security-common/src/main/java/org/apache/wss4j/common/cache/WSS4JCacheUtil.java`
-#### Snippet
-```java
-        try {
-            Class<?> cacheManagerClass = Class.forName("org.ehcache.CacheManager");
-            if (cacheManagerClass != null) {
-                ehCacheInstalled = true;
-            }
-```
-
-### ConstantValue
 Condition `foundCerts == null` is always `false`
 in `ws-security-common/src/main/java/org/apache/wss4j/common/crypto/MerlinAKI.java`
 #### Snippet
@@ -7547,30 +7881,6 @@ in `ws-security-common/src/main/java/org/apache/wss4j/common/crypto/MerlinAKI.ja
                 if (foundCerts == null || foundCerts.length < 1) {
                     String subjectString = certs[0].getSubjectX500Principal().getName();
                     LOG.debug(
-```
-
-### ConstantValue
-Condition `truststore == null` is always `true`
-in `ws-security-common/src/main/java/org/apache/wss4j/common/crypto/Merlin.java`
-#### Snippet
-```java
-        super();
-
-        if (truststore == null && loadCACerts) {
-            String cacertsPath = System.getProperty("java.home") + "/lib/security/cacerts";
-
-```
-
-### ConstantValue
-Condition `keystoreProvider.length() == 0` is always `false` when reached
-in `ws-security-common/src/main/java/org/apache/wss4j/common/crypto/Merlin.java`
-#### Snippet
-```java
-            }
-            try {
-                if (keystoreProvider == null || keystoreProvider.length() == 0) {
-                    crlCertStore =
-                            CertStore.getInstance(
 ```
 
 ### ConstantValue
@@ -7708,6 +8018,30 @@ in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/processor/input/WS
 ```
 
 ### ConstantValue
+Condition `keystoreProvider.length() == 0` is always `false` when reached
+in `ws-security-common/src/main/java/org/apache/wss4j/common/crypto/Merlin.java`
+#### Snippet
+```java
+            }
+            try {
+                if (keystoreProvider == null || keystoreProvider.length() == 0) {
+                    crlCertStore =
+                            CertStore.getInstance(
+```
+
+### ConstantValue
+Condition `truststore == null` is always `true`
+in `ws-security-common/src/main/java/org/apache/wss4j/common/crypto/Merlin.java`
+#### Snippet
+```java
+        super();
+
+        if (truststore == null && loadCACerts) {
+            String cacertsPath = System.getProperty("java.home") + "/lib/security/cacerts";
+
+```
+
+### ConstantValue
 Value `match` is always 'true'
 in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/InboundWSSecurityContextImpl.java`
 #### Snippet
@@ -7792,18 +8126,6 @@ in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/securityToken/Kerb
 ```
 
 ### ConstantValue
-Condition `passwordType != null` is always `true`
-in `ws-security-stax/src/main/java/org/apache/wss4j/stax/validate/JAASUsernameTokenValidatorImpl.java`
-#### Snippet
-```java
-        }
-        String password = null;
-        if (passwordType != null) {
-            password = passwordType.getValue();
-        }
-```
-
-### ConstantValue
 Condition `WSSConstants.NS_SAML10_TYPE.equals(valueType) || WSSConstants.NS_SAML20_TYPE.equals(valueType)` is always `true` when reached
 in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/securityToken/SecurityTokenFactoryImpl.java`
 #### Snippet
@@ -7828,6 +8150,30 @@ in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/securityToken/Secu
 ```
 
 ### ConstantValue
+Condition `passwordType != null` is always `true`
+in `ws-security-stax/src/main/java/org/apache/wss4j/stax/validate/JAASUsernameTokenValidatorImpl.java`
+#### Snippet
+```java
+        }
+        String password = null;
+        if (passwordType != null) {
+            password = passwordType.getValue();
+        }
+```
+
+### ConstantValue
+Condition `refUri != null` is always `true`
+in `ws-security-policy-stax/src/main/java/org/apache/wss4j/policy/stax/enforcer/PolicyEnforcerFactory.java`
+#### Snippet
+```java
+                        Element element = (Element) policyNodeList.item(j);
+                        String refUri = element.getAttributeNS(WSSConstants.NS_WSU10, "Id");
+                        if (refUri != null && refUri.equals(uri)) {
+                            found = true;
+                            Policy policy = parsePolicy(element);
+```
+
+### ConstantValue
 Condition `certConstraintsList != null` is always `true`
 in `ws-security-stax/src/main/java/org/apache/wss4j/stax/setup/ConfigurationConverter.java`
 #### Snippet
@@ -7837,42 +8183,6 @@ in `ws-security-stax/src/main/java/org/apache/wss4j/stax/setup/ConfigurationConv
         if (certConstraintsList != null && certConstraintsList.length > 0) {
             Collection<Pattern> certConstraintsCollection =
                 new ArrayList<>(certConstraintsList.length);
-```
-
-### ConstantValue
-Condition `headerNamespace == null` is always `false`
-in `policy/src/main/java/org/apache/wss4j/policy/builders/RequiredPartsBuilder.java`
-#### Snippet
-```java
-                }
-                String headerNamespace = child.getAttributeNS(null, SPConstants.NAMESPACE);
-                if (headerNamespace == null || headerNamespace.length() == 0) {
-                    throw new IllegalArgumentException(SPConstants.ERR_INVALID_POLICY);
-                }
-```
-
-### ConstantValue
-Condition `xPathVersion == null` is always `false`
-in `policy/src/main/java/org/apache/wss4j/policy/builders/SignedElementsBuilder.java`
-#### Snippet
-```java
-    protected String getXPathVersion(Element element) {
-        String xPathVersion = element.getAttributeNS(null, SPConstants.XPATH_VERSION);
-        if (xPathVersion == null || xPathVersion.length() == 0) {
-            xPathVersion = "1.0";
-        }
-```
-
-### ConstantValue
-Condition `filter == null` is always `false`
-in `policy/src/main/java/org/apache/wss4j/policy/builders/SignedElementsBuilder.java`
-#### Snippet
-```java
-                addDeclaredNamespaces(child, declaredNamespaces);
-                String filter = child.getAttributeNS(null, SPConstants.FILTER);
-                if (filter == null || filter.length() == 0) {
-                    throw new IllegalArgumentException(SPConstants.ERR_INVALID_POLICY);
-                }
 ```
 
 ### ConstantValue
@@ -7896,330 +8206,6 @@ in `ws-security-policy-stax/src/main/java/org/apache/wss4j/policy/stax/assertion
                 if (attribute.getAttributeName().equals(desiredRole)
                         && attribute.getAttributeValues() != null && !attribute.getAttributeValues().isEmpty()) {
                     return null;
-                }
-```
-
-### ConstantValue
-Condition `refUri != null` is always `true`
-in `ws-security-policy-stax/src/main/java/org/apache/wss4j/policy/stax/enforcer/PolicyEnforcerFactory.java`
-#### Snippet
-```java
-                        Element element = (Element) policyNodeList.item(j);
-                        String refUri = element.getAttributeNS(WSSConstants.NS_WSU10, "Id");
-                        if (refUri != null && refUri.equals(uri)) {
-                            found = true;
-                            Policy policy = parsePolicy(element);
-```
-
-### ConstantValue
-Condition `uri == null` is always `false`
-in `ws-security-dom/src/main/java/org/apache/wss4j/dom/WSDocInfo.java`
-#### Snippet
-```java
-    public boolean hasResult(Integer tag, String uri) {
-        String id = XMLUtils.getIDFromReference(uri);
-        if (id == null || uri == null || uri.length() == 0) {
-            return false;
-        }
-```
-
-### ConstantValue
-Condition `symEncAlgo == null` is always `false`
-in `ws-security-dom/src/main/java/org/apache/wss4j/dom/util/X509Util.java`
-#### Snippet
-```java
-        if (tmpE != null) {
-            symEncAlgo = tmpE.getAttributeNS(null, "Algorithm");
-            if (symEncAlgo == null || symEncAlgo.length() == 0) {
-                throw new WSSecurityException(
-                    WSSecurityException.ErrorCode.UNSUPPORTED_ALGORITHM, "noEncAlgo"
-```
-
-### ConstantValue
-Condition `typeStr != null` is always `true`
-in `ws-security-dom/src/main/java/org/apache/wss4j/dom/util/X509Util.java`
-#### Snippet
-```java
-        if (encBodyData != null) {
-            String typeStr = ((Element)encBodyData).getAttributeNS(null, "Type");
-            if (typeStr != null) {
-                 return typeStr.equals(WSConstants.ENC_NS + "Content");
-            }
-```
-
-### ConstantValue
-Condition `typeStr != null` is always `true`
-in `ws-security-dom/src/main/java/org/apache/wss4j/dom/util/EncryptionUtils.java`
-#### Snippet
-```java
-        String typeStr = encData.getAttributeNS(null, "Type");
-        String xopURI = getXOPURIFromEncryptedData(encData);
-        if (typeStr != null
-            && (WSConstants.SWA_ATTACHMENT_ENCRYPTED_DATA_TYPE_CONTENT_ONLY.equals(typeStr)
-                || WSConstants.SWA_ATTACHMENT_ENCRYPTED_DATA_TYPE_COMPLETE.equals(typeStr))) {
-```
-
-### ConstantValue
-Value `enableRevocation` is always 'true'
-in `ws-security-dom/src/main/java/org/apache/wss4j/dom/action/EncryptionAction.java`
-#### Snippet
-```java
-            X509Certificate[] certs = crypto.getX509Certificates(cryptoType);
-            if (certs != null && certs.length > 0) {
-                crypto.verifyTrust(certs, enableRevocation, null, null);
-            }
-        }
-```
-
-### ConstantValue
-Condition `xopURI != null` is always `true`
-in `ws-security-dom/src/main/java/org/apache/wss4j/dom/util/WSSecurityUtil.java`
-#### Snippet
-```java
-        for (Element includeElement : includeElements) {
-            String xopURI = includeElement.getAttributeNS(null, "href");
-            if (xopURI != null) {
-                // Retrieve the attachment bytes
-                byte[] attachmentBytes =
-```
-
-### ConstantValue
-Condition `id == null` is always `false`
-in `ws-security-dom/src/main/java/org/apache/wss4j/dom/message/WSSecBase.java`
-#### Snippet
-```java
-        String newAttrPrefix = WSConstants.WSU_PREFIX;
-
-        if (id == null || id.length() == 0) {
-            if (WSConstants.ENC_NS.equals(bodyElement.getNamespaceURI())
-                && (WSConstants.ENC_DATA_LN.equals(bodyElement.getLocalName())
-```
-
-### ConstantValue
-Condition `id == null` is always `false`
-in `ws-security-dom/src/main/java/org/apache/wss4j/dom/message/WSSecBase.java`
-#### Snippet
-```java
-        }
-
-        if (id == null || id.length() == 0) {
-            id = getIdAllocator().createId("id-", bodyElement);
-            String prefix = XMLUtils.setNamespace(bodyElement, newAttrNs, newAttrPrefix);
-```
-
-### ConstantValue
-Condition `sv != null` is always `true`
-in `ws-security-dom/src/main/java/org/apache/wss4j/dom/message/token/SignatureConfirmation.java`
-#### Snippet
-```java
-
-        String sv = element.getAttributeNS(null, SC_VALUE_ATTR);
-        if (sv != null) {
-            signatureValue = org.apache.xml.security.utils.XMLUtils.decode(sv);
-        }
-```
-
-### ConstantValue
-Condition `valueType != null` is always `true`
-in `ws-security-dom/src/main/java/org/apache/wss4j/dom/message/token/Timestamp.java`
-#### Snippet
-```java
-                    if (createdString == null) {
-                        String valueType = currentChildElement.getAttributeNS(null, "ValueType");
-                        if (valueType != null && valueType.length() != 0) {
-                            // We can't have a ValueType attribute as per the BSP spec
-                            bspEnforcer.handleBSPRule(BSPRule.R3225);
-```
-
-### ConstantValue
-Condition `valueType != null` is always `true`
-in `ws-security-dom/src/main/java/org/apache/wss4j/dom/message/token/Timestamp.java`
-#### Snippet
-```java
-                    } else {
-                        String valueType = currentChildElement.getAttributeNS(null, "ValueType");
-                        if (valueType != null && valueType.length() != 0) {
-                            // We can't have a ValueType attribute as per the BSP spec
-                            bspEnforcer.handleBSPRule(BSPRule.R3226);
-```
-
-### ConstantValue
-Condition `privateCredentials == null` is always `false`
-in `ws-security-dom/src/main/java/org/apache/wss4j/dom/message/token/KerberosSecurity.java`
-#### Snippet
-```java
-    private KerberosTicket getKerberosTicket(Subject clientSubject, KerberosTicket previousTicket) {
-        Set<KerberosTicket> privateCredentials = clientSubject.getPrivateCredentials(KerberosTicket.class);
-        if (privateCredentials == null || privateCredentials.isEmpty()) {
-            LOG.debug("Kerberos client subject private credentials are null");
-            return null;
-```
-
-### ConstantValue
-Condition `certConstraintsList != null` is always `true`
-in `ws-security-dom/src/main/java/org/apache/wss4j/dom/handler/WSHandler.java`
-#### Snippet
-```java
-    private Collection<Pattern> getCertConstraints(String certConstraints, String separator) throws WSSecurityException {
-        String[] certConstraintsList = certConstraints.split(separator);
-        if (certConstraintsList != null && certConstraintsList.length > 0) {
-            Collection<Pattern> certConstraintsCollection =
-                new ArrayList<>(certConstraintsList.length);
-```
-
-### ConstantValue
-Value `useDerivedKeyForMAC` is always 'true'
-in `ws-security-dom/src/main/java/org/apache/wss4j/dom/handler/WSHandler.java`
-#### Snippet
-```java
-        boolean useDerivedKeyForMAC = Boolean.parseBoolean(derivedMAC);
-        if (useDerivedKeyForMAC) {
-            reqData.setUseDerivedKeyForMAC(useDerivedKeyForMAC);
-        }
-
-```
-
-### ConstantValue
-Condition `type == null` is always `false`
-in `ws-security-dom/src/main/java/org/apache/wss4j/dom/message/token/UsernameToken.java`
-#### Snippet
-```java
-            Element passwordChild = passwordElements.get(0);
-            String type = passwordChild.getAttributeNS(null, WSConstants.PASSWORD_TYPE_ATTR);
-            if (type == null || type.length() == 0) {
-                LOG.debug("The Username Token password does not have a Type attribute");
-                bspEnforcer.handleBSPRule(BSPRule.R4201);
-```
-
-### ConstantValue
-Condition `encodingType == null` is always `false`
-in `ws-security-dom/src/main/java/org/apache/wss4j/dom/message/token/UsernameToken.java`
-#### Snippet
-```java
-            String encodingType = nonce.getAttributeNS(null, "EncodingType");
-            // Encoding Type must be equal to Base64Binary
-            if (encodingType == null || encodingType.length() == 0) {
-                bspEnforcer.handleBSPRule(BSPRule.R4220);
-            } else if (!WSConstants.BASE64_ENCODING.equals(encodingType)) {
-```
-
-### ConstantValue
-Condition `null != children` is always `true`
-in `ws-security-dom/src/main/java/org/apache/wss4j/dom/message/Encryptor.java`
-#### Snippet
-```java
-        if (type.equals(EncryptionConstants.TYPE_CONTENT)) {
-            NodeList children = elementToEncrypt.getChildNodes();
-            if (null != children) {
-                serializedOctets = serializer.serializeToByteArray(children);
-            } else {
-```
-
-### ConstantValue
-Condition `xopURI != null` is always `true`
-in `ws-security-dom/src/main/java/org/apache/wss4j/dom/message/Encryptor.java`
-#### Snippet
-```java
-                            for (Element includeElement : includeElements) {
-                                String xopURI = includeElement.getAttributeNS(null, "href");
-                                if (xopURI != null) {
-                                    // Delete the attachment
-
-```
-
-### ConstantValue
-Condition `xopUri != null` is always `true`
-in `ws-security-dom/src/main/java/org/apache/wss4j/dom/processor/BinarySecurityTokenProcessor.java`
-#### Snippet
-```java
-        if (elementChild != null && elementChild.hasAttributeNS(null, "href")) {
-            String xopUri = elementChild.getAttributeNS(null, "href");
-            if (xopUri != null && xopUri.startsWith("cid:")) {
-                byte[] content = WSSecurityUtil.getBytesFromAttachment(xopUri, data);
-                token.setRawToken(content);
-```
-
-### ConstantValue
-Condition `typeStr != null` is always `true`
-in `ws-security-dom/src/main/java/org/apache/wss4j/dom/processor/EncryptedAssertionProcessor.java`
-#### Snippet
-```java
-        // Type must be "Element" if specified
-        String typeStr = encryptedDataElement.getAttributeNS(null, "Type");
-        if (typeStr != null && !(WSConstants.ENC_NS + "Element").equals(typeStr)) {
-            throw new WSSecurityException(
-                WSSecurityException.ErrorCode.INVALID_SECURITY, "badElement",
-```
-
-### ConstantValue
-Condition `attribute != null` is always `true`
-in `ws-security-dom/src/main/java/org/apache/wss4j/dom/processor/EncryptedKeyProcessor.java`
-#### Snippet
-```java
-    ) throws WSSecurityException {
-        String attribute = elem.getAttributeNS(null, "Type");
-        if (attribute != null && attribute.length() != 0) {
-            bspEnforcer.handleBSPRule(BSPRule.R3209);
-        }
-```
-
-### ConstantValue
-Condition `attribute != null` is always `true`
-in `ws-security-dom/src/main/java/org/apache/wss4j/dom/processor/EncryptedKeyProcessor.java`
-#### Snippet
-```java
-        }
-        attribute = elem.getAttributeNS(null, "MimeType");
-        if (attribute != null && attribute.length() != 0) {
-            bspEnforcer.handleBSPRule(BSPRule.R5622);
-        }
-```
-
-### ConstantValue
-Condition `attribute != null` is always `true`
-in `ws-security-dom/src/main/java/org/apache/wss4j/dom/processor/EncryptedKeyProcessor.java`
-#### Snippet
-```java
-        }
-        attribute = elem.getAttributeNS(null, "Encoding");
-        if (attribute != null && attribute.length() != 0) {
-            bspEnforcer.handleBSPRule(BSPRule.R5623);
-        }
-```
-
-### ConstantValue
-Condition `attribute != null` is always `true`
-in `ws-security-dom/src/main/java/org/apache/wss4j/dom/processor/EncryptedKeyProcessor.java`
-#### Snippet
-```java
-        }
-        attribute = elem.getAttributeNS(null, "Recipient");
-        if (attribute != null && attribute.length() != 0) {
-            bspEnforcer.handleBSPRule(BSPRule.R5602);
-        }
-```
-
-### ConstantValue
-Condition `xopUri != null` is always `true`
-in `ws-security-dom/src/main/java/org/apache/wss4j/dom/processor/SignatureProcessor.java`
-#### Snippet
-```java
-        if (elementChild != null && elementChild.hasAttributeNS(null, "href")) {
-            String xopUri = elementChild.getAttributeNS(null, "href");
-            if (xopUri != null && xopUri.startsWith("cid:")) {
-                return true;
-            }
-```
-
-### ConstantValue
-Condition `secretKey != null` is always `true`
-in `ws-security-dom/src/main/java/org/apache/wss4j/dom/processor/SignatureProcessor.java`
-#### Snippet
-```java
-                } else if (publicKey != null) {
-                    algorithmSuiteValidator.checkAsymmetricKeyLength(publicKey);
-                } else if (secretKey != null) {
-                    algorithmSuiteValidator.checkSymmetricKeyLength(secretKey.length);
                 }
 ```
 
@@ -8262,6 +8248,18 @@ in `ws-security-stax/src/main/java/org/apache/wss4j/stax/utils/WSSUtils.java`
 
 ## RuleId[ruleID=IOResource]
 ### IOResource
+'CRLFOutputStream' should be opened in front of a 'try' block and closed in the corresponding 'finally' block
+in `ws-security-dom/src/main/java/org/apache/wss4j/dom/transform/AttachmentContentSignatureTransform.java`
+#### Snippet
+```java
+
+            } else if (mimeType != null && mimeType.matches("(?i)(text/).*")) {
+                CRLFOutputStream crlfOutputStream = new CRLFOutputStream(outputStream); //NOPMD
+                int numBytes;
+                byte[] buf = new byte[8192];
+```
+
+### IOResource
 'OutputStreamWriter' should be opened in front of a 'try' block and closed in the corresponding 'finally' block
 in `ws-security-common/src/main/java/org/apache/wss4j/common/util/AttachmentUtils.java`
 #### Snippet
@@ -8285,18 +8283,6 @@ in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/processor/input/De
                 } catch (InvocationTargetException | NoSuchMethodException
 ```
 
-### IOResource
-'CRLFOutputStream' should be opened in front of a 'try' block and closed in the corresponding 'finally' block
-in `ws-security-dom/src/main/java/org/apache/wss4j/dom/transform/AttachmentContentSignatureTransform.java`
-#### Snippet
-```java
-
-            } else if (mimeType != null && mimeType.matches("(?i)(text/).*")) {
-                CRLFOutputStream crlfOutputStream = new CRLFOutputStream(outputStream); //NOPMD
-                int numBytes;
-                byte[] buf = new byte[8192];
-```
-
 ## RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
 ### UtilityClassWithoutPrivateConstructor
 Class `WSSec` has only 'static' members, and lacks a 'private' constructor
@@ -8310,7 +8296,224 @@ public class WSSec {
     //todo outgoing client setup per policy
 ```
 
+## RuleId[ruleID=UnnecessarySemicolon]
+### UnnecessarySemicolon
+Unnecessary semicolon `;`
+in `ws-security-common/src/main/java/org/apache/wss4j/common/saml/bean/Version.java`
+#### Snippet
+```java
+public enum Version {
+
+    SAML_20, SAML_11, SAML_10;
+
+}
+```
+
 ## RuleId[ruleID=DataFlowIssue]
+### DataFlowIssue
+Variable is already assigned to this value
+in `policy/src/main/java/org/apache/wss4j/policy/model/DOM2Writer.java`
+#### Snippet
+```java
+                    }
+                } else {
+                    hasChildren = false;
+                    out.print("/>");
+                    if (pretty) {
+```
+
+### DataFlowIssue
+Method invocation `handleToken` may produce `NullPointerException`
+in `ws-security-dom/src/main/java/org/apache/wss4j/dom/str/SecurityTokenRefSTRParser.java`
+#### Snippet
+```java
+                if (el.equals(WSConstants.BINARY_TOKEN)) {
+                    Processor proc = data.getWssConfig().getProcessor(WSConstants.BINARY_TOKEN);
+                    List<WSSecurityEngineResult> bstResult = proc.handleToken(token, data);
+                    BinarySecurity bstToken =
+                            (BinarySecurity)bstResult.get(0).get(WSSecurityEngineResult.TAG_BINARY_SECURITY_TOKEN);
+```
+
+### DataFlowIssue
+Method invocation `handleToken` may produce `NullPointerException`
+in `ws-security-dom/src/main/java/org/apache/wss4j/dom/str/SignatureSTRParser.java`
+#### Snippet
+```java
+                if (el.equals(WSConstants.BINARY_TOKEN)) {
+                    Processor proc = data.getWssConfig().getProcessor(WSConstants.BINARY_TOKEN);
+                    List<WSSecurityEngineResult> bstResult = proc.handleToken(token, parameters.getData());
+                    BinarySecurity bstToken =
+                        (BinarySecurity)bstResult.get(0).get(WSSecurityEngineResult.TAG_BINARY_SECURITY_TOKEN);
+```
+
+### DataFlowIssue
+Method invocation `handleToken` may produce `NullPointerException`
+in `ws-security-dom/src/main/java/org/apache/wss4j/dom/str/SignatureSTRParser.java`
+#### Snippet
+```java
+                    SamlAssertionWrapper samlAssertion = null;
+                    if (processedToken == null) {
+                        List<WSSecurityEngineResult> samlResult = proc.handleToken(token, data);
+                        samlAssertion =
+                            (SamlAssertionWrapper)samlResult.get(0).get(
+```
+
+### DataFlowIssue
+Method invocation `handleToken` may produce `NullPointerException`
+in `ws-security-dom/src/main/java/org/apache/wss4j/dom/str/SignatureSTRParser.java`
+#### Snippet
+```java
+                    STRParserUtil.checkEncryptedKeyBSPCompliance(secRef, data.getBSPEnforcer());
+                    Processor proc = data.getWssConfig().getProcessor(WSConstants.ENCRYPTED_KEY);
+                    List<WSSecurityEngineResult> encrResult = proc.handleToken(token, data);
+                    secretKey =
+                        (byte[])encrResult.get(0).get(WSSecurityEngineResult.TAG_SECRET);
+```
+
+### DataFlowIssue
+Method invocation `handleToken` may produce `NullPointerException`
+in `ws-security-dom/src/main/java/org/apache/wss4j/dom/str/STRParserUtil.java`
+#### Snippet
+```java
+            }
+            Processor proc = request.getWssConfig().getProcessor(WSConstants.SAML_TOKEN);
+            List<WSSecurityEngineResult> samlResult = proc.handleToken(token, request);
+            return
+                (SamlAssertionWrapper)samlResult.get(0).get(
+```
+
+### DataFlowIssue
+Method invocation `setData` may produce `NullPointerException`
+in `ws-security-dom/src/main/java/org/apache/wss4j/dom/message/token/SecurityContextToken.java`
+#### Snippet
+```java
+    public void setIdentifier(String uuid) {
+        Text node = getFirstNode(elementIdentifier);
+        node.setData(uuid);
+    }
+
+```
+
+### DataFlowIssue
+Method invocation `setData` may produce `NullPointerException`
+in `ws-security-dom/src/main/java/org/apache/wss4j/dom/message/token/UsernameToken.java`
+#### Snippet
+```java
+                byte[] decodedNonce = org.apache.xml.security.utils.XMLUtils.decode(getNonce());
+                if (passwordsAreEncoded) {
+                    node.setData(UsernameTokenUtil.doPasswordDigest(decodedNonce, getCreated(),
+                                                  org.apache.xml.security.utils.XMLUtils.decode(pwd)));
+                } else {
+```
+
+### DataFlowIssue
+Method invocation `setData` may produce `NullPointerException`
+in `ws-security-dom/src/main/java/org/apache/wss4j/dom/message/token/UsernameToken.java`
+#### Snippet
+```java
+                                                  org.apache.xml.security.utils.XMLUtils.decode(pwd)));
+                } else {
+                    node.setData(UsernameTokenUtil.doPasswordDigest(decodedNonce, getCreated(), pwd));
+                }
+            } else {
+```
+
+### DataFlowIssue
+Method invocation `setData` may produce `NullPointerException`
+in `ws-security-dom/src/main/java/org/apache/wss4j/dom/message/token/UsernameToken.java`
+#### Snippet
+```java
+                }
+            } else {
+                node.setData(pwd);
+            }
+            if (passwordType != null) {
+```
+
+### DataFlowIssue
+Method invocation `setData` may produce `NullPointerException`
+in `ws-security-dom/src/main/java/org/apache/wss4j/dom/message/token/UsernameToken.java`
+#### Snippet
+```java
+    public void setName(String name) {
+        Text node = getFirstNode(elementUsername);
+        node.setData(name);
+    }
+
+```
+
+### DataFlowIssue
+Method invocation `getCerts` may produce `NullPointerException`
+in `ws-security-dom/src/main/java/org/apache/wss4j/dom/processor/SAMLTokenProcessor.java`
+#### Snippet
+```java
+
+            PublicKey key = null;
+            if (samlKeyInfo.getCerts() != null && samlKeyInfo.getCerts()[0] != null) {
+                key = samlKeyInfo.getCerts()[0].getPublicKey();
+            } else if (samlKeyInfo.getPublicKey() != null) {
+```
+
+### DataFlowIssue
+Argument `sig.getDOM()` might be null
+in `ws-security-dom/src/main/java/org/apache/wss4j/dom/processor/SAMLTokenProcessor.java`
+#### Snippet
+```java
+            // Not checking signature here, just marshalling into an XMLSignature
+            // structure for testing the transform/digest algorithms etc.
+            XMLValidateContext context = new DOMValidateContext(key, sig.getDOM());
+            context.setProperty("org.apache.jcp.xml.dsig.secureValidation", Boolean.TRUE);
+            context.setProperty("org.jcp.xml.dsig.secureValidation", Boolean.TRUE);
+```
+
+### DataFlowIssue
+Method invocation `execute` may produce `NullPointerException`
+in `ws-security-dom/src/main/java/org/apache/wss4j/dom/handler/WSHandler.java`
+#### Snippet
+```java
+                (String)getProperty(reqData.getMsgContext(), WSHandlerConstants.SIG_CONF_DONE);
+            if (done == null) {
+                wssConfig.getAction(WSConstants.SC).execute(this, null, reqData);
+            }
+        }
+```
+
+### DataFlowIssue
+Method invocation `execute` may produce `NullPointerException`
+in `ws-security-dom/src/main/java/org/apache/wss4j/dom/handler/WSHandler.java`
+#### Snippet
+```java
+
+            if (WSConstants.NO_SECURITY != actionToDo.getAction()) {
+                wssConfig.getAction(actionToDo.getAction()).execute(
+                    this, actionToDo.getActionToken(), reqData);
+            }
+```
+
+### DataFlowIssue
+Method invocation `handleToken` may produce `NullPointerException`
+in `ws-security-dom/src/main/java/org/apache/wss4j/dom/processor/EncryptedDataProcessor.java`
+#### Snippet
+```java
+            WSSConfig wssConfig = data.getWssConfig();
+            Processor encrKeyProc = wssConfig.getProcessor(WSConstants.ENCRYPTED_KEY);
+            encrKeyResults = encrKeyProc.handleToken(encryptedKeyElement, data);
+            byte[] symmKey =
+                (byte[])encrKeyResults.get(0).get(WSSecurityEngineResult.TAG_SECRET);
+```
+
+### DataFlowIssue
+Argument `encryptedDataElement` might be null
+in `ws-security-dom/src/main/java/org/apache/wss4j/dom/processor/EncryptedKeyProcessor.java`
+#### Snippet
+```java
+
+        return EncryptionUtils.decryptEncryptedData(
+            doc, dataRefURI, encryptedDataElement, symmetricKey, symEncAlgo, data.getAttachmentCallbackHandler(),
+            data.getEncryptionSerializer()
+        );
+```
+
 ### DataFlowIssue
 Method invocation `marshall` may produce `NullPointerException`
 in `ws-security-common/src/main/java/org/apache/wss4j/common/saml/OpenSAMLUtil.java`
@@ -8336,6 +8539,18 @@ in `ws-security-common/src/main/java/org/apache/wss4j/common/saml/OpenSAMLUtil.j
 ```
 
 ### DataFlowIssue
+Method invocation `getLocalName` may produce `NullPointerException`
+in `ws-security-dom/src/main/java/org/apache/wss4j/dom/processor/SignatureProcessor.java`
+#### Snippet
+```java
+            }
+
+            if (!(SecurityTokenReference.SECURITY_TOKEN_REFERENCE.equals(child.getLocalName())
+                && WSConstants.WSSE_NS.equals(child.getNamespaceURI()))) {
+                data.getBSPEnforcer().handleBSPRule(BSPRule.R5417);
+```
+
+### DataFlowIssue
 Method invocation `setCanonicalizationAlgorithm` may produce `NullPointerException`
 in `ws-security-common/src/main/java/org/apache/wss4j/common/saml/SamlAssertionWrapper.java`
 #### Snippet
@@ -8348,18 +8563,6 @@ in `ws-security-common/src/main/java/org/apache/wss4j/common/saml/SamlAssertionW
 ```
 
 ### DataFlowIssue
-Method invocation `getNotOnOrAfter` may produce `NullPointerException`
-in `ws-security-common/src/main/java/org/apache/wss4j/common/saml/SamlAssertionWrapper.java`
-#### Snippet
-```java
-            return getSaml2().getConditions().getNotOnOrAfter();
-        } else {
-            return getSaml1().getConditions().getNotOnOrAfter();
-        }
-    }
-```
-
-### DataFlowIssue
 Method invocation `getNotBefore` may produce `NullPointerException`
 in `ws-security-common/src/main/java/org/apache/wss4j/common/saml/SamlAssertionWrapper.java`
 #### Snippet
@@ -8367,6 +8570,18 @@ in `ws-security-common/src/main/java/org/apache/wss4j/common/saml/SamlAssertionW
             return getSaml2().getConditions().getNotBefore();
         } else {
             return getSaml1().getConditions().getNotBefore();
+        }
+    }
+```
+
+### DataFlowIssue
+Method invocation `getNotOnOrAfter` may produce `NullPointerException`
+in `ws-security-common/src/main/java/org/apache/wss4j/common/saml/SamlAssertionWrapper.java`
+#### Snippet
+```java
+            return getSaml2().getConditions().getNotOnOrAfter();
+        } else {
+            return getSaml1().getConditions().getNotOnOrAfter();
         }
     }
 ```
@@ -8396,18 +8611,6 @@ in `ws-security-common/src/main/java/org/apache/wss4j/common/saml/builder/SAML2C
 ```
 
 ### DataFlowIssue
-Method invocation `getSerialNumber` may produce `NullPointerException`
-in `ws-security-common/src/main/java/org/apache/wss4j/common/token/SecurityTokenReference.java`
-#### Snippet
-```java
-                    return false;
-                }
-                if (!compare(getIssuerSerial().getSerialNumber(), tokenReference.getIssuerSerial().getSerialNumber())) {
-                    return false;
-                }
-```
-
-### DataFlowIssue
 Method invocation `getLocalName` may produce `NullPointerException`
 in `ws-security-common/src/main/java/org/apache/wss4j/common/token/SecurityTokenReference.java`
 #### Snippet
@@ -8417,6 +8620,18 @@ in `ws-security-common/src/main/java/org/apache/wss4j/common/token/SecurityToken
         if ("KeyIdentifier".equals(child.getLocalName())
             && WSS4JConstants.WSSE_NS.equals(child.getNamespaceURI())) {
 
+```
+
+### DataFlowIssue
+Method invocation `getSerialNumber` may produce `NullPointerException`
+in `ws-security-common/src/main/java/org/apache/wss4j/common/token/SecurityTokenReference.java`
+#### Snippet
+```java
+                    return false;
+                }
+                if (!compare(getIssuerSerial().getSerialNumber(), tokenReference.getIssuerSerial().getSerialNumber())) {
+                    return false;
+                }
 ```
 
 ### DataFlowIssue
@@ -8528,42 +8743,6 @@ in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/processor/output/E
 ```
 
 ### DataFlowIssue
-Argument `certConstraints` might be null
-in `ws-security-stax/src/main/java/org/apache/wss4j/stax/setup/ConfigurationConverter.java`
-#### Snippet
-```java
-            }
-            Collection<Pattern> issuerCertConstraints =
-                getCertConstraints(certConstraints, certConstraintsSeparator);
-            properties.setIssuerDNConstraints(issuerCertConstraints);
-        }
-```
-
-### DataFlowIssue
-Variable is already assigned to this value
-in `policy/src/main/java/org/apache/wss4j/policy/model/DOM2Writer.java`
-#### Snippet
-```java
-                    }
-                } else {
-                    hasChildren = false;
-                    out.print("/>");
-                    if (pretty) {
-```
-
-### DataFlowIssue
-Variable is already assigned to this value
-in `ws-security-stax/src/main/java/org/apache/wss4j/stax/setup/OutboundWSSec.java`
-#### Snippet
-```java
-                }
-            } else if (secretKey != null) {
-                x509Certificates = null;
-                String algoFamily = JCEAlgorithmMapper.getJCEKeyAlgorithmFromURI(signatureAlgorithm);
-                key = new SecretKeySpec(secretKey, algoFamily);
-```
-
-### DataFlowIssue
 Method invocation `assertPolicy` may produce `NullPointerException`
 in `ws-security-policy-stax/src/main/java/org/apache/wss4j/policy/stax/assertionStates/OnlySignEntireHeadersAndBodyAssertionState.java`
 #### Snippet
@@ -8571,6 +8750,18 @@ in `ws-security-policy-stax/src/main/java/org/apache/wss4j/policy/stax/assertion
         if (asserted) {
             String namespace = getAssertion().getName().getNamespaceURI();
             policyAsserter.assertPolicy(new QName(namespace, SPConstants.ONLY_SIGN_ENTIRE_HEADERS_AND_BODY));
+        }
+    }
+```
+
+### DataFlowIssue
+Method invocation `assertPolicy` may produce `NullPointerException`
+in `ws-security-policy-stax/src/main/java/org/apache/wss4j/policy/stax/assertionStates/RequiredElementsAssertionState.java`
+#### Snippet
+```java
+
+        if (asserted) {
+            policyAsserter.assertPolicy(getAssertion());
         }
     }
 ```
@@ -8589,7 +8780,19 @@ in `ws-security-policy-stax/src/main/java/org/apache/wss4j/policy/stax/assertion
 
 ### DataFlowIssue
 Method invocation `assertPolicy` may produce `NullPointerException`
-in `ws-security-policy-stax/src/main/java/org/apache/wss4j/policy/stax/assertionStates/RequiredElementsAssertionState.java`
+in `ws-security-policy-stax/src/main/java/org/apache/wss4j/policy/stax/assertionStates/TokenProtectionAssertionState.java`
+#### Snippet
+```java
+        if (initialAssertionState) {
+            String namespace = getAssertion().getName().getNamespaceURI();
+            policyAsserter.assertPolicy(new QName(namespace, SPConstants.PROTECT_TOKENS));
+        }
+
+```
+
+### DataFlowIssue
+Method invocation `assertPolicy` may produce `NullPointerException`
+in `ws-security-policy-stax/src/main/java/org/apache/wss4j/policy/stax/assertionStates/EncryptedElementsAssertionState.java`
 #### Snippet
 ```java
 
@@ -8609,30 +8812,6 @@ in `ws-security-policy-stax/src/main/java/org/apache/wss4j/policy/stax/assertion
             policyAsserter.assertPolicy(getAssertion());
         }
     }
-```
-
-### DataFlowIssue
-Method invocation `assertPolicy` may produce `NullPointerException`
-in `ws-security-policy-stax/src/main/java/org/apache/wss4j/policy/stax/assertionStates/EncryptedElementsAssertionState.java`
-#### Snippet
-```java
-
-        if (asserted) {
-            policyAsserter.assertPolicy(getAssertion());
-        }
-    }
-```
-
-### DataFlowIssue
-Method invocation `assertPolicy` may produce `NullPointerException`
-in `ws-security-policy-stax/src/main/java/org/apache/wss4j/policy/stax/assertionStates/TokenProtectionAssertionState.java`
-#### Snippet
-```java
-        if (initialAssertionState) {
-            String namespace = getAssertion().getName().getNamespaceURI();
-            policyAsserter.assertPolicy(new QName(namespace, SPConstants.PROTECT_TOKENS));
-        }
-
 ```
 
 ### DataFlowIssue
@@ -8661,6 +8840,18 @@ in `ws-security-policy-stax/src/main/java/org/apache/wss4j/policy/stax/assertion
 
 ### DataFlowIssue
 Method invocation `assertPolicy` may produce `NullPointerException`
+in `ws-security-policy-stax/src/main/java/org/apache/wss4j/policy/stax/assertionStates/SignatureConfirmationAssertionState.java`
+#### Snippet
+```java
+        if (asserted) {
+            String namespace = getAssertion().getName().getNamespaceURI();
+            policyAsserter.assertPolicy(new QName(namespace, SPConstants.REQUIRE_SIGNATURE_CONFIRMATION));
+        }
+    }
+```
+
+### DataFlowIssue
+Method invocation `assertPolicy` may produce `NullPointerException`
 in `ws-security-policy-stax/src/main/java/org/apache/wss4j/policy/stax/assertionStates/RequiredPartsAssertionState.java`
 #### Snippet
 ```java
@@ -8672,15 +8863,15 @@ in `ws-security-policy-stax/src/main/java/org/apache/wss4j/policy/stax/assertion
 ```
 
 ### DataFlowIssue
-Method invocation `assertPolicy` may produce `NullPointerException`
-in `ws-security-policy-stax/src/main/java/org/apache/wss4j/policy/stax/assertionStates/SignatureConfirmationAssertionState.java`
+Argument `certConstraints` might be null
+in `ws-security-stax/src/main/java/org/apache/wss4j/stax/setup/ConfigurationConverter.java`
 #### Snippet
 ```java
-        if (asserted) {
-            String namespace = getAssertion().getName().getNamespaceURI();
-            policyAsserter.assertPolicy(new QName(namespace, SPConstants.REQUIRE_SIGNATURE_CONFIRMATION));
+            }
+            Collection<Pattern> issuerCertConstraints =
+                getCertConstraints(certConstraints, certConstraintsSeparator);
+            properties.setIssuerDNConstraints(issuerCertConstraints);
         }
-    }
 ```
 
 ### DataFlowIssue
@@ -8721,30 +8912,6 @@ in `ws-security-policy-stax/src/main/java/org/apache/wss4j/policy/stax/assertion
 
 ### DataFlowIssue
 Method invocation `assertPolicy` may produce `NullPointerException`
-in `ws-security-policy-stax/src/main/java/org/apache/wss4j/policy/stax/assertionStates/SignatureProtectionAssertionState.java`
-#### Snippet
-```java
-        if (asserted) {
-            String namespace = getAssertion().getName().getNamespaceURI();
-            policyAsserter.assertPolicy(new QName(namespace, SPConstants.ENCRYPT_SIGNATURE));
-        }
-    }
-```
-
-### DataFlowIssue
-Method invocation `assertPolicy` may produce `NullPointerException`
-in `ws-security-policy-stax/src/main/java/org/apache/wss4j/policy/stax/assertionStates/AlgorithmSuiteAssertionState.java`
-#### Snippet
-```java
-        if (asserted) {
-            AlgorithmSuite algorithmSuite = (AlgorithmSuite) getAssertion();
-            policyAsserter.assertPolicy(getAssertion());
-            String namespace = algorithmSuite.getAlgorithmSuiteType().getNamespace();
-            String name = algorithmSuite.getAlgorithmSuiteType().getName();
-```
-
-### DataFlowIssue
-Method invocation `assertPolicy` may produce `NullPointerException`
 in `ws-security-policy-stax/src/main/java/org/apache/wss4j/policy/stax/assertionStates/ProtectionOrderAssertionState.java`
 #### Snippet
 ```java
@@ -8768,235 +8935,42 @@ in `ws-security-policy-stax/src/main/java/org/apache/wss4j/policy/stax/assertion
 ```
 
 ### DataFlowIssue
-Method invocation `handleToken` may produce `NullPointerException`
-in `ws-security-dom/src/main/java/org/apache/wss4j/dom/str/STRParserUtil.java`
+Method invocation `assertPolicy` may produce `NullPointerException`
+in `ws-security-policy-stax/src/main/java/org/apache/wss4j/policy/stax/assertionStates/SignatureProtectionAssertionState.java`
 #### Snippet
 ```java
-            }
-            Processor proc = request.getWssConfig().getProcessor(WSConstants.SAML_TOKEN);
-            List<WSSecurityEngineResult> samlResult = proc.handleToken(token, request);
-            return
-                (SamlAssertionWrapper)samlResult.get(0).get(
-```
-
-### DataFlowIssue
-Method invocation `handleToken` may produce `NullPointerException`
-in `ws-security-dom/src/main/java/org/apache/wss4j/dom/str/SecurityTokenRefSTRParser.java`
-#### Snippet
-```java
-                if (el.equals(WSConstants.BINARY_TOKEN)) {
-                    Processor proc = data.getWssConfig().getProcessor(WSConstants.BINARY_TOKEN);
-                    List<WSSecurityEngineResult> bstResult = proc.handleToken(token, data);
-                    BinarySecurity bstToken =
-                            (BinarySecurity)bstResult.get(0).get(WSSecurityEngineResult.TAG_BINARY_SECURITY_TOKEN);
-```
-
-### DataFlowIssue
-Method invocation `handleToken` may produce `NullPointerException`
-in `ws-security-dom/src/main/java/org/apache/wss4j/dom/str/SignatureSTRParser.java`
-#### Snippet
-```java
-                if (el.equals(WSConstants.BINARY_TOKEN)) {
-                    Processor proc = data.getWssConfig().getProcessor(WSConstants.BINARY_TOKEN);
-                    List<WSSecurityEngineResult> bstResult = proc.handleToken(token, parameters.getData());
-                    BinarySecurity bstToken =
-                        (BinarySecurity)bstResult.get(0).get(WSSecurityEngineResult.TAG_BINARY_SECURITY_TOKEN);
-```
-
-### DataFlowIssue
-Method invocation `handleToken` may produce `NullPointerException`
-in `ws-security-dom/src/main/java/org/apache/wss4j/dom/str/SignatureSTRParser.java`
-#### Snippet
-```java
-                    SamlAssertionWrapper samlAssertion = null;
-                    if (processedToken == null) {
-                        List<WSSecurityEngineResult> samlResult = proc.handleToken(token, data);
-                        samlAssertion =
-                            (SamlAssertionWrapper)samlResult.get(0).get(
-```
-
-### DataFlowIssue
-Method invocation `handleToken` may produce `NullPointerException`
-in `ws-security-dom/src/main/java/org/apache/wss4j/dom/str/SignatureSTRParser.java`
-#### Snippet
-```java
-                    STRParserUtil.checkEncryptedKeyBSPCompliance(secRef, data.getBSPEnforcer());
-                    Processor proc = data.getWssConfig().getProcessor(WSConstants.ENCRYPTED_KEY);
-                    List<WSSecurityEngineResult> encrResult = proc.handleToken(token, data);
-                    secretKey =
-                        (byte[])encrResult.get(0).get(WSSecurityEngineResult.TAG_SECRET);
-```
-
-### DataFlowIssue
-Method invocation `setData` may produce `NullPointerException`
-in `ws-security-dom/src/main/java/org/apache/wss4j/dom/message/token/SecurityContextToken.java`
-#### Snippet
-```java
-    public void setIdentifier(String uuid) {
-        Text node = getFirstNode(elementIdentifier);
-        node.setData(uuid);
-    }
-
-```
-
-### DataFlowIssue
-Method invocation `execute` may produce `NullPointerException`
-in `ws-security-dom/src/main/java/org/apache/wss4j/dom/handler/WSHandler.java`
-#### Snippet
-```java
-                (String)getProperty(reqData.getMsgContext(), WSHandlerConstants.SIG_CONF_DONE);
-            if (done == null) {
-                wssConfig.getAction(WSConstants.SC).execute(this, null, reqData);
-            }
+        if (asserted) {
+            String namespace = getAssertion().getName().getNamespaceURI();
+            policyAsserter.assertPolicy(new QName(namespace, SPConstants.ENCRYPT_SIGNATURE));
         }
-```
-
-### DataFlowIssue
-Method invocation `execute` may produce `NullPointerException`
-in `ws-security-dom/src/main/java/org/apache/wss4j/dom/handler/WSHandler.java`
-#### Snippet
-```java
-
-            if (WSConstants.NO_SECURITY != actionToDo.getAction()) {
-                wssConfig.getAction(actionToDo.getAction()).execute(
-                    this, actionToDo.getActionToken(), reqData);
-            }
-```
-
-### DataFlowIssue
-Method invocation `setData` may produce `NullPointerException`
-in `ws-security-dom/src/main/java/org/apache/wss4j/dom/message/token/UsernameToken.java`
-#### Snippet
-```java
-    public void setName(String name) {
-        Text node = getFirstNode(elementUsername);
-        node.setData(name);
     }
-
 ```
 
 ### DataFlowIssue
-Method invocation `setData` may produce `NullPointerException`
-in `ws-security-dom/src/main/java/org/apache/wss4j/dom/message/token/UsernameToken.java`
+Method invocation `assertPolicy` may produce `NullPointerException`
+in `ws-security-policy-stax/src/main/java/org/apache/wss4j/policy/stax/assertionStates/AlgorithmSuiteAssertionState.java`
 #### Snippet
 ```java
-                byte[] decodedNonce = org.apache.xml.security.utils.XMLUtils.decode(getNonce());
-                if (passwordsAreEncoded) {
-                    node.setData(UsernameTokenUtil.doPasswordDigest(decodedNonce, getCreated(),
-                                                  org.apache.xml.security.utils.XMLUtils.decode(pwd)));
-                } else {
+        if (asserted) {
+            AlgorithmSuite algorithmSuite = (AlgorithmSuite) getAssertion();
+            policyAsserter.assertPolicy(getAssertion());
+            String namespace = algorithmSuite.getAlgorithmSuiteType().getNamespace();
+            String name = algorithmSuite.getAlgorithmSuiteType().getName();
 ```
 
 ### DataFlowIssue
-Method invocation `setData` may produce `NullPointerException`
-in `ws-security-dom/src/main/java/org/apache/wss4j/dom/message/token/UsernameToken.java`
-#### Snippet
-```java
-                                                  org.apache.xml.security.utils.XMLUtils.decode(pwd)));
-                } else {
-                    node.setData(UsernameTokenUtil.doPasswordDigest(decodedNonce, getCreated(), pwd));
-                }
-            } else {
-```
-
-### DataFlowIssue
-Method invocation `setData` may produce `NullPointerException`
-in `ws-security-dom/src/main/java/org/apache/wss4j/dom/message/token/UsernameToken.java`
+Variable is already assigned to this value
+in `ws-security-stax/src/main/java/org/apache/wss4j/stax/setup/OutboundWSSec.java`
 #### Snippet
 ```java
                 }
-            } else {
-                node.setData(pwd);
-            }
-            if (passwordType != null) {
-```
-
-### DataFlowIssue
-Method invocation `getCerts` may produce `NullPointerException`
-in `ws-security-dom/src/main/java/org/apache/wss4j/dom/processor/SAMLTokenProcessor.java`
-#### Snippet
-```java
-
-            PublicKey key = null;
-            if (samlKeyInfo.getCerts() != null && samlKeyInfo.getCerts()[0] != null) {
-                key = samlKeyInfo.getCerts()[0].getPublicKey();
-            } else if (samlKeyInfo.getPublicKey() != null) {
-```
-
-### DataFlowIssue
-Argument `sig.getDOM()` might be null
-in `ws-security-dom/src/main/java/org/apache/wss4j/dom/processor/SAMLTokenProcessor.java`
-#### Snippet
-```java
-            // Not checking signature here, just marshalling into an XMLSignature
-            // structure for testing the transform/digest algorithms etc.
-            XMLValidateContext context = new DOMValidateContext(key, sig.getDOM());
-            context.setProperty("org.apache.jcp.xml.dsig.secureValidation", Boolean.TRUE);
-            context.setProperty("org.jcp.xml.dsig.secureValidation", Boolean.TRUE);
-```
-
-### DataFlowIssue
-Method invocation `handleToken` may produce `NullPointerException`
-in `ws-security-dom/src/main/java/org/apache/wss4j/dom/processor/EncryptedDataProcessor.java`
-#### Snippet
-```java
-            WSSConfig wssConfig = data.getWssConfig();
-            Processor encrKeyProc = wssConfig.getProcessor(WSConstants.ENCRYPTED_KEY);
-            encrKeyResults = encrKeyProc.handleToken(encryptedKeyElement, data);
-            byte[] symmKey =
-                (byte[])encrKeyResults.get(0).get(WSSecurityEngineResult.TAG_SECRET);
-```
-
-### DataFlowIssue
-Argument `encryptedDataElement` might be null
-in `ws-security-dom/src/main/java/org/apache/wss4j/dom/processor/EncryptedKeyProcessor.java`
-#### Snippet
-```java
-
-        return EncryptionUtils.decryptEncryptedData(
-            doc, dataRefURI, encryptedDataElement, symmetricKey, symEncAlgo, data.getAttachmentCallbackHandler(),
-            data.getEncryptionSerializer()
-        );
-```
-
-### DataFlowIssue
-Method invocation `getLocalName` may produce `NullPointerException`
-in `ws-security-dom/src/main/java/org/apache/wss4j/dom/processor/SignatureProcessor.java`
-#### Snippet
-```java
-            }
-
-            if (!(SecurityTokenReference.SECURITY_TOKEN_REFERENCE.equals(child.getLocalName())
-                && WSConstants.WSSE_NS.equals(child.getNamespaceURI()))) {
-                data.getBSPEnforcer().handleBSPRule(BSPRule.R5417);
-```
-
-## RuleId[ruleID=UnnecessarySemicolon]
-### UnnecessarySemicolon
-Unnecessary semicolon `;`
-in `ws-security-common/src/main/java/org/apache/wss4j/common/saml/bean/Version.java`
-#### Snippet
-```java
-public enum Version {
-
-    SAML_20, SAML_11, SAML_10;
-
-}
+            } else if (secretKey != null) {
+                x509Certificates = null;
+                String algoFamily = JCEAlgorithmMapper.getJCEKeyAlgorithmFromURI(signatureAlgorithm);
+                key = new SecretKeySpec(secretKey, algoFamily);
 ```
 
 ## RuleId[ruleID=StringOperationCanBeSimplified]
-### StringOperationCanBeSimplified
-Inefficient conversion from ByteArrayOutputStream
-in `ws-security-common/src/main/java/org/apache/wss4j/common/util/XMLUtils.java`
-#### Snippet
-```java
-        try (ByteArrayOutputStream baos = new ByteArrayOutputStream()) {
-            elementToStream(doc.getDocumentElement(), baos);
-            return new String(baos.toByteArray(), StandardCharsets.UTF_8);
-        }
-    }
-```
-
 ### StringOperationCanBeSimplified
 Unnecessary string length argument
 in `ws-security-dom/src/main/java/org/apache/wss4j/dom/util/EncryptionUtils.java`
@@ -9009,15 +8983,27 @@ in `ws-security-dom/src/main/java/org/apache/wss4j/dom/util/EncryptionUtils.java
         // Don't add more than 20 prefixes
 ```
 
+### StringOperationCanBeSimplified
+Inefficient conversion from ByteArrayOutputStream
+in `ws-security-common/src/main/java/org/apache/wss4j/common/util/XMLUtils.java`
+#### Snippet
+```java
+        try (ByteArrayOutputStream baos = new ByteArrayOutputStream()) {
+            elementToStream(doc.getDocumentElement(), baos);
+            return new String(baos.toByteArray(), StandardCharsets.UTF_8);
+        }
+    }
+```
+
 ## RuleId[ruleID=DeprecatedIsStillUsed]
 ### DeprecatedIsStillUsed
-Deprecated member 'ENCRYPT_WITH_KERBEROS_TOKEN' is still used
+Deprecated member 'ENCRYPT_DERIVED' is still used
 in `ws-security-common/src/main/java/org/apache/wss4j/common/ConfigurationConstants.java`
 #### Snippet
 ```java
      */
     @Deprecated
-    public static final String ENCRYPT_WITH_KERBEROS_TOKEN = "EncryptWithKerberosToken";
+    public static final String ENCRYPT_DERIVED = "EncryptDerived";
 
     /**
 ```
@@ -9035,13 +9021,13 @@ in `ws-security-common/src/main/java/org/apache/wss4j/common/ConfigurationConsta
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'ENCRYPT_DERIVED' is still used
+Deprecated member 'ENCRYPT_WITH_KERBEROS_TOKEN' is still used
 in `ws-security-common/src/main/java/org/apache/wss4j/common/ConfigurationConstants.java`
 #### Snippet
 ```java
      */
     @Deprecated
-    public static final String ENCRYPT_DERIVED = "EncryptDerived";
+    public static final String ENCRYPT_WITH_KERBEROS_TOKEN = "EncryptWithKerberosToken";
 
     /**
 ```
@@ -9118,67 +9104,6 @@ in `ws-security-dom/src/main/java/org/apache/wss4j/dom/engine/WSSConfig.java`
     protected WsuIdAllocator idAllocator = DEFAULT_ID_ALLOCATOR;
 
     /**
-```
-
-## RuleId[ruleID=UnnecessaryToStringCall]
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `ws-security-common/src/main/java/org/apache/wss4j/common/token/BinarySecurity.java`
-#### Snippet
-```java
-        }
-        if (storeBytesInAttachment && attachmentCallbackHandler != null) {
-            final String attachmentId = "_" + UUID.randomUUID().toString();
-            AttachmentUtils.storeBytesInAttachment(element, element.getOwnerDocument(), attachmentId,
-                                                  data, attachmentCallbackHandler);
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `ws-security-common/src/main/java/org/apache/wss4j/common/crypto/Merlin.java`
-#### Snippet
-```java
-            + "] from provider [" + keystore.getProvider()
-            + "] with size [" + keystore.size() + "] and aliases: {"
-            + sb.toString() + "}";
-        return msg;
-    }
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `ws-security-stax/src/main/java/org/apache/wss4j/stax/validate/TimestampValidatorImpl.java`
-#### Snippet
-```java
-            if (expiresDate != null && tokenContext.getWssSecurityProperties().isStrictTimestampCheck()
-                && expiresDate.toInstant().isBefore(rightNow)) {
-                LOG.debug("Time now: {}", rightNow.toString());
-                throw new WSSecurityException(WSSecurityException.ErrorCode.MESSAGE_EXPIRED, "invalidTimestamp",
-                                              new Object[] {"The security semantics of the message have expired"});
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `ws-security-dom/src/main/java/org/apache/wss4j/dom/util/EncryptionUtils.java`
-#### Snippet
-```java
-        }
-
-        return prefix.toString() + suffix.toString();
-    }
-
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `ws-security-dom/src/main/java/org/apache/wss4j/dom/util/EncryptionUtils.java`
-#### Snippet
-```java
-        }
-
-        return prefix.toString() + suffix.toString();
-    }
-
 ```
 
 ## RuleId[ruleID=AssignmentToForLoopParameter]
@@ -9290,6 +9215,67 @@ in `ws-security-common/src/main/java/org/apache/wss4j/common/util/AttachmentUtil
                     }
 ```
 
+## RuleId[ruleID=UnnecessaryToStringCall]
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `ws-security-dom/src/main/java/org/apache/wss4j/dom/util/EncryptionUtils.java`
+#### Snippet
+```java
+        }
+
+        return prefix.toString() + suffix.toString();
+    }
+
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `ws-security-dom/src/main/java/org/apache/wss4j/dom/util/EncryptionUtils.java`
+#### Snippet
+```java
+        }
+
+        return prefix.toString() + suffix.toString();
+    }
+
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `ws-security-common/src/main/java/org/apache/wss4j/common/token/BinarySecurity.java`
+#### Snippet
+```java
+        }
+        if (storeBytesInAttachment && attachmentCallbackHandler != null) {
+            final String attachmentId = "_" + UUID.randomUUID().toString();
+            AttachmentUtils.storeBytesInAttachment(element, element.getOwnerDocument(), attachmentId,
+                                                  data, attachmentCallbackHandler);
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `ws-security-common/src/main/java/org/apache/wss4j/common/crypto/Merlin.java`
+#### Snippet
+```java
+            + "] from provider [" + keystore.getProvider()
+            + "] with size [" + keystore.size() + "] and aliases: {"
+            + sb.toString() + "}";
+        return msg;
+    }
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `ws-security-stax/src/main/java/org/apache/wss4j/stax/validate/TimestampValidatorImpl.java`
+#### Snippet
+```java
+            if (expiresDate != null && tokenContext.getWssSecurityProperties().isStrictTimestampCheck()
+                && expiresDate.toInstant().isBefore(rightNow)) {
+                LOG.debug("Time now: {}", rightNow.toString());
+                throw new WSSecurityException(WSSecurityException.ErrorCode.MESSAGE_EXPIRED, "invalidTimestamp",
+                                              new Object[] {"The security semantics of the message have expired"});
+```
+
 ## RuleId[ruleID=InnerClassMayBeStatic]
 ### InnerClassMayBeStatic
 Inner class `FinalEncryptedKeyOutputProcessor` may be 'static'
@@ -9304,6 +9290,18 @@ in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/processor/output/E
 ```
 
 ## RuleId[ruleID=SwitchStatementWithConfusingDeclaration]
+### SwitchStatementWithConfusingDeclaration
+Local variable `child` declared in one 'switch' branch and used in another
+in `policy/src/main/java/org/apache/wss4j/policy/model/DOM2Writer.java`
+#### Snippet
+```java
+        switch (type) {
+            case Node.DOCUMENT_NODE:
+                Node child = node.getFirstChild();
+                while (child != null) {
+                    print(child, namespaceStack, out, pretty, indent);
+```
+
 ### SwitchStatementWithConfusingDeclaration
 Local variable `child` declared in one 'switch' branch and used in another
 in `ws-security-common/src/main/java/org/apache/wss4j/common/util/DOM2Writer.java`
@@ -9326,18 +9324,6 @@ in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/processor/input/Se
                     int documentLevel = xmlSecStartElement.getDocumentLevel();
 
                     if (documentLevel == 1) {
-```
-
-### SwitchStatementWithConfusingDeclaration
-Local variable `child` declared in one 'switch' branch and used in another
-in `policy/src/main/java/org/apache/wss4j/policy/model/DOM2Writer.java`
-#### Snippet
-```java
-        switch (type) {
-            case Node.DOCUMENT_NODE:
-                Node child = node.getFirstChild();
-                while (child != null) {
-                    print(child, namespaceStack, out, pretty, indent);
 ```
 
 ## RuleId[ruleID=RedundantSuppression]
@@ -9464,6 +9450,18 @@ in `ws-security-stax/src/main/java/org/apache/wss4j/stax/setup/OutboundWSSec.jav
 ## RuleId[ruleID=UnnecessaryBoxing]
 ### UnnecessaryBoxing
 Redundant boxing, `Boolean.parseBoolean()` call can be used instead
+in `ws-security-dom/src/main/java/org/apache/wss4j/dom/action/EncryptionAction.java`
+#### Snippet
+```java
+        wsEncrypt.setUseThisCert(encryptionToken.getCertificate());
+        Crypto crypto = encryptionToken.getCrypto();
+        boolean enableRevocation = Boolean.valueOf(handler.getStringOption(WSHandlerConstants.ENABLE_REVOCATION));
+        if (enableRevocation && crypto != null) {
+            CryptoType cryptoType = new CryptoType(CryptoType.TYPE.ALIAS);
+```
+
+### UnnecessaryBoxing
+Redundant boxing, `Boolean.parseBoolean()` call can be used instead
 in `ws-security-common/src/main/java/org/apache/wss4j/common/crypto/MerlinDevice.java`
 #### Snippet
 ```java
@@ -9486,31 +9484,7 @@ in `ws-security-common/src/main/java/org/apache/wss4j/common/crypto/Merlin.java`
                 try (InputStream is = Files.newInputStream(Paths.get(cacertsPath))) {
 ```
 
-### UnnecessaryBoxing
-Redundant boxing, `Boolean.parseBoolean()` call can be used instead
-in `ws-security-dom/src/main/java/org/apache/wss4j/dom/action/EncryptionAction.java`
-#### Snippet
-```java
-        wsEncrypt.setUseThisCert(encryptionToken.getCertificate());
-        Crypto crypto = encryptionToken.getCrypto();
-        boolean enableRevocation = Boolean.valueOf(handler.getStringOption(WSHandlerConstants.ENABLE_REVOCATION));
-        if (enableRevocation && crypto != null) {
-            CryptoType cryptoType = new CryptoType(CryptoType.TYPE.ALIAS);
-```
-
 ## RuleId[ruleID=NonStrictComparisonCanBeEquality]
-### NonStrictComparisonCanBeEquality
-Can be replaced with equality
-in `ws-security-common/src/main/java/org/apache/wss4j/common/crypto/CryptoBase.java`
-#### Snippet
-```java
-    protected byte[] getNameConstraints(final X509Certificate cert) throws WSSecurityException {
-        byte[] bytes = cert.getExtensionValue(NAME_CONSTRAINTS_OID);
-        if (bytes == null || bytes.length <= 0) {
-            return new byte[0];
-        }
-```
-
 ### NonStrictComparisonCanBeEquality
 Can be replaced with equality
 in `ws-security-dom/src/main/java/org/apache/wss4j/dom/util/X509Util.java`
@@ -9559,19 +9533,19 @@ in `ws-security-dom/src/main/java/org/apache/wss4j/dom/message/WSSecSignature.ja
                         WSSecurityException.ErrorCode.FAILURE,
 ```
 
-## RuleId[ruleID=CharsetObjectCanBeUsed]
-### CharsetObjectCanBeUsed
-StandardCharsets.UTF_8 can be used instead
-in `ws-security-common/src/main/java/org/apache/wss4j/common/util/AttachmentUtils.java`
+### NonStrictComparisonCanBeEquality
+Can be replaced with equality
+in `ws-security-common/src/main/java/org/apache/wss4j/common/crypto/CryptoBase.java`
 #### Snippet
 ```java
-            doc.createElementNS(WSS4JConstants.XOP_NS, "xop:Include");
-        try {
-            xopInclude.setAttributeNS(null, "href", "cid:" + URLEncoder.encode(attachmentId, StandardCharsets.UTF_8.name()));
-        } catch (UnsupportedEncodingException e) {
-            throw new WSSecurityException(WSSecurityException.ErrorCode.FAILURE, e);
+    protected byte[] getNameConstraints(final X509Certificate cert) throws WSSecurityException {
+        byte[] bytes = cert.getExtensionValue(NAME_CONSTRAINTS_OID);
+        if (bytes == null || bytes.length <= 0) {
+            return new byte[0];
+        }
 ```
 
+## RuleId[ruleID=CharsetObjectCanBeUsed]
 ### CharsetObjectCanBeUsed
 StandardCharsets.UTF_8 can be used instead
 in `ws-security-common/src/main/java/org/apache/wss4j/common/util/AttachmentUtils.java`
@@ -9584,19 +9558,19 @@ in `ws-security-common/src/main/java/org/apache/wss4j/common/util/AttachmentUtil
             throw new WSSecurityException(
 ```
 
-## RuleId[ruleID=ConditionCoveredByFurtherCondition]
-### ConditionCoveredByFurtherCondition
-Condition 'typeStr != null' covered by subsequent condition 'WSSConstants.SWA_ATTACHMENT_ENCRYPTED_DATA_TYPE_CONTENT_ONLY.equals(...) \|\| WSSConstants.SWA_ATTACHM ...'
-in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/processor/input/DecryptInputProcessor.java`
+### CharsetObjectCanBeUsed
+StandardCharsets.UTF_8 can be used instead
+in `ws-security-common/src/main/java/org/apache/wss4j/common/util/AttachmentUtils.java`
 #### Snippet
 ```java
-
-        String typeStr = encryptedDataType.getType();
-        if (typeStr != null
-            && (WSSConstants.SWA_ATTACHMENT_ENCRYPTED_DATA_TYPE_CONTENT_ONLY.equals(typeStr)
-                || WSSConstants.SWA_ATTACHMENT_ENCRYPTED_DATA_TYPE_COMPLETE.equals(typeStr))) {
+            doc.createElementNS(WSS4JConstants.XOP_NS, "xop:Include");
+        try {
+            xopInclude.setAttributeNS(null, "href", "cid:" + URLEncoder.encode(attachmentId, StandardCharsets.UTF_8.name()));
+        } catch (UnsupportedEncodingException e) {
+            throw new WSSecurityException(WSSecurityException.ErrorCode.FAILURE, e);
 ```
 
+## RuleId[ruleID=ConditionCoveredByFurtherCondition]
 ### ConditionCoveredByFurtherCondition
 Condition 'prefix != null' covered by subsequent condition '"xmlns".equals(...)'
 in `policy/src/main/java/org/apache/wss4j/policy/SPUtils.java`
@@ -9609,67 +9583,19 @@ in `policy/src/main/java/org/apache/wss4j/policy/SPUtils.java`
                 } else if (prefix == null && "xmlns".equals(attr.getLocalName())) {
 ```
 
+### ConditionCoveredByFurtherCondition
+Condition 'typeStr != null' covered by subsequent condition 'WSSConstants.SWA_ATTACHMENT_ENCRYPTED_DATA_TYPE_CONTENT_ONLY.equals(...) \|\| WSSConstants.SWA_ATTACHM ...'
+in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/processor/input/DecryptInputProcessor.java`
+#### Snippet
+```java
+
+        String typeStr = encryptedDataType.getType();
+        if (typeStr != null
+            && (WSSConstants.SWA_ATTACHMENT_ENCRYPTED_DATA_TYPE_CONTENT_ONLY.equals(typeStr)
+                || WSSConstants.SWA_ATTACHMENT_ENCRYPTED_DATA_TYPE_COMPLETE.equals(typeStr))) {
+```
+
 ## RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
-### DynamicRegexReplaceableByCompiledPattern
-`matches()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/transformer/AttachmentContentSignatureTransform.java`
-#### Snippet
-```java
-
-        if (mimeType != null
-            && (mimeType.matches("(?i)(text/xml).*")
-                || mimeType.matches("(?i)(application/xml).*")
-                || mimeType.matches("(?i)(application|image)/.*\\+xml.*"))) {
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`matches()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/transformer/AttachmentContentSignatureTransform.java`
-#### Snippet
-```java
-        if (mimeType != null
-            && (mimeType.matches("(?i)(text/xml).*")
-                || mimeType.matches("(?i)(application/xml).*")
-                || mimeType.matches("(?i)(application|image)/.*\\+xml.*"))) {
-            /* 5.4.2:
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`matches()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/transformer/AttachmentContentSignatureTransform.java`
-#### Snippet
-```java
-            && (mimeType.matches("(?i)(text/xml).*")
-                || mimeType.matches("(?i)(application/xml).*")
-                || mimeType.matches("(?i)(application|image)/.*\\+xml.*"))) {
-            /* 5.4.2:
-             * Content of an XML Content-Type MUST be XML canonicalized using
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`matches()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/transformer/AttachmentContentSignatureTransform.java`
-#### Snippet
-```java
-            canon.transform(inputStream);
-
-        } else if (mimeType != null && mimeType.matches("(?i)(text/).*")) {
-            CRLFOutputStream crlfOutputStream = new CRLFOutputStream(getOutputStream());    //NOPMD
-            try {
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`split()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `ws-security-stax/src/main/java/org/apache/wss4j/stax/setup/ConfigurationConverter.java`
-#### Snippet
-```java
-            return;
-        }
-        String[] single = actionToParse.split("\\s");
-        List<Action> actions = new ArrayList<>();
-        for (int i = 0; i < single.length; i++) {
-```
-
 ### DynamicRegexReplaceableByCompiledPattern
 `split()` could be replaced with compiled 'java.util.regex.Pattern' construct
 in `ws-security-dom/src/main/java/org/apache/wss4j/dom/util/WSSecurityUtil.java`
@@ -9730,2285 +9656,77 @@ in `ws-security-dom/src/main/java/org/apache/wss4j/dom/transform/AttachmentConte
                 int numBytes;
 ```
 
-## RuleId[ruleID=UnnecessaryFullyQualifiedName]
-### UnnecessaryFullyQualifiedName
-Qualifier `org.opensaml.core.xml.schema.impl` is unnecessary, and can be replaced with an import
-in `ws-security-common/src/main/java/org/apache/wss4j/common/saml/WSS4JXSBase64BinaryUnmarshaller.java`
+### DynamicRegexReplaceableByCompiledPattern
+`matches()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/transformer/AttachmentContentSignatureTransform.java`
 #### Snippet
 ```java
- * https://issues.apache.org/jira/browse/WSS-695
- */
-public final class WSS4JXSBase64BinaryUnmarshaller extends org.opensaml.core.xml.schema.impl.XSBase64BinaryUnmarshaller {
 
-    /**
+        if (mimeType != null
+            && (mimeType.matches("(?i)(text/xml).*")
+                || mimeType.matches("(?i)(application/xml).*")
+                || mimeType.matches("(?i)(application|image)/.*\\+xml.*"))) {
 ```
 
-### UnnecessaryFullyQualifiedName
-Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
-in `ws-security-common/src/main/java/org/apache/wss4j/common/bsp/BSPEnforcer.java`
+### DynamicRegexReplaceableByCompiledPattern
+`matches()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/transformer/AttachmentContentSignatureTransform.java`
 #### Snippet
 ```java
-public class BSPEnforcer {
-
-    private static final org.slf4j.Logger LOG = org.slf4j.LoggerFactory.getLogger(BSPEnforcer.class);
-
-    private List<BSPRule> ignoredBSPRules = Collections.emptyList();
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
-in `ws-security-common/src/main/java/org/apache/wss4j/common/bsp/BSPEnforcer.java`
-#### Snippet
-```java
-public class BSPEnforcer {
-
-    private static final org.slf4j.Logger LOG = org.slf4j.LoggerFactory.getLogger(BSPEnforcer.class);
-
-    private List<BSPRule> ignoredBSPRules = Collections.emptyList();
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
-in `ws-security-common/src/main/java/org/apache/wss4j/common/NamePasswordCallbackHandler.java`
-#### Snippet
-```java
-public class NamePasswordCallbackHandler implements CallbackHandler {
-
-    private static final org.slf4j.Logger LOG =
-        org.slf4j.LoggerFactory.getLogger(NamePasswordCallbackHandler.class);
-
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
-in `ws-security-common/src/main/java/org/apache/wss4j/common/NamePasswordCallbackHandler.java`
-#### Snippet
-```java
-
-    private static final org.slf4j.Logger LOG =
-        org.slf4j.LoggerFactory.getLogger(NamePasswordCallbackHandler.class);
-
-    private static final String PASSWORD_CALLBACK_NAME = "setObject";
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
-in `ws-security-common/src/main/java/org/apache/wss4j/common/SignatureEncryptionActionToken.java`
-#### Snippet
-```java
-public abstract class SignatureEncryptionActionToken implements SecurityActionToken {
-
-    private static final org.slf4j.Logger LOG =
-        org.slf4j.LoggerFactory.getLogger(SignatureEncryptionActionToken.class);
-
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
-in `ws-security-common/src/main/java/org/apache/wss4j/common/SignatureEncryptionActionToken.java`
-#### Snippet
-```java
-
-    private static final org.slf4j.Logger LOG =
-        org.slf4j.LoggerFactory.getLogger(SignatureEncryptionActionToken.class);
-
-    private X509Certificate certificate;
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
-in `ws-security-common/src/main/java/org/apache/wss4j/common/saml/OpenSAMLUtil.java`
-#### Snippet
-```java
- */
-public final class OpenSAMLUtil {
-    private static final org.slf4j.Logger LOG =
-        org.slf4j.LoggerFactory.getLogger(OpenSAMLUtil.class);
-
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
-in `ws-security-common/src/main/java/org/apache/wss4j/common/saml/OpenSAMLUtil.java`
-#### Snippet
-```java
-public final class OpenSAMLUtil {
-    private static final org.slf4j.Logger LOG =
-        org.slf4j.LoggerFactory.getLogger(OpenSAMLUtil.class);
-
-    private static XMLObjectProviderRegistry providerRegistry;
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.opensaml.saml.saml1.core` is unnecessary, and can be replaced with an import
-in `ws-security-common/src/main/java/org/apache/wss4j/common/saml/OpenSAMLUtil.java`
-#### Snippet
-```java
-
-    private static void signXMLObject(XMLObject xmlObject) throws WSSecurityException {
-        if (xmlObject instanceof org.opensaml.saml.saml1.core.Response) {
-            org.opensaml.saml.saml1.core.Response response =
-                    (org.opensaml.saml.saml1.core.Response)xmlObject;
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.opensaml.saml.saml1.core` is unnecessary, and can be replaced with an import
-in `ws-security-common/src/main/java/org/apache/wss4j/common/saml/OpenSAMLUtil.java`
-#### Snippet
-```java
-    private static void signXMLObject(XMLObject xmlObject) throws WSSecurityException {
-        if (xmlObject instanceof org.opensaml.saml.saml1.core.Response) {
-            org.opensaml.saml.saml1.core.Response response =
-                    (org.opensaml.saml.saml1.core.Response)xmlObject;
-
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.opensaml.saml.saml1.core` is unnecessary, and can be replaced with an import
-in `ws-security-common/src/main/java/org/apache/wss4j/common/saml/OpenSAMLUtil.java`
-#### Snippet
-```java
-        if (xmlObject instanceof org.opensaml.saml.saml1.core.Response) {
-            org.opensaml.saml.saml1.core.Response response =
-                    (org.opensaml.saml.saml1.core.Response)xmlObject;
-
-            // Sign any Assertions
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.opensaml.saml.saml1.core` is unnecessary, and can be replaced with an import
-in `ws-security-common/src/main/java/org/apache/wss4j/common/saml/OpenSAMLUtil.java`
-#### Snippet
-```java
-            // Sign any Assertions
-            if (response.getAssertions() != null) {
-                for (org.opensaml.saml.saml1.core.Assertion assertion : response.getAssertions()) {
-                    signObject(assertion.getSignature());
-                }
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.opensaml.saml.saml2.core` is unnecessary, and can be replaced with an import
-in `ws-security-common/src/main/java/org/apache/wss4j/common/saml/OpenSAMLUtil.java`
-#### Snippet
-```java
-
-            signObject(response.getSignature());
-        } else if (xmlObject instanceof org.opensaml.saml.saml2.core.Response) {
-            org.opensaml.saml.saml2.core.Response response =
-                    (org.opensaml.saml.saml2.core.Response)xmlObject;
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.opensaml.saml.saml2.core` is unnecessary, and can be replaced with an import
-in `ws-security-common/src/main/java/org/apache/wss4j/common/saml/OpenSAMLUtil.java`
-#### Snippet
-```java
-            signObject(response.getSignature());
-        } else if (xmlObject instanceof org.opensaml.saml.saml2.core.Response) {
-            org.opensaml.saml.saml2.core.Response response =
-                    (org.opensaml.saml.saml2.core.Response)xmlObject;
-
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.opensaml.saml.saml2.core` is unnecessary, and can be replaced with an import
-in `ws-security-common/src/main/java/org/apache/wss4j/common/saml/OpenSAMLUtil.java`
-#### Snippet
-```java
-        } else if (xmlObject instanceof org.opensaml.saml.saml2.core.Response) {
-            org.opensaml.saml.saml2.core.Response response =
-                    (org.opensaml.saml.saml2.core.Response)xmlObject;
-
-            // Sign any Assertions
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.opensaml.saml.saml2.core` is unnecessary, and can be replaced with an import
-in `ws-security-common/src/main/java/org/apache/wss4j/common/saml/OpenSAMLUtil.java`
-#### Snippet
-```java
-            // Sign any Assertions
-            if (response.getAssertions() != null) {
-                for (org.opensaml.saml.saml2.core.Assertion assertion : response.getAssertions()) {
-                    signObject(assertion.getSignature());
-                }
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.xml.crypto.dsig.keyinfo` is unnecessary, and can be replaced with an import
-in `ws-security-common/src/main/java/org/apache/wss4j/common/saml/SAMLUtil.java`
-#### Snippet
-```java
-
-        try {
-            javax.xml.crypto.dsig.keyinfo.KeyInfo keyInfo =
-                keyInfoFactory.unmarshalKeyInfo(keyInfoStructure);
-            List<?> list = keyInfo.getContent();
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.opensaml.saml.saml2.core` is unnecessary, and can be replaced with an import
-in `ws-security-common/src/main/java/org/apache/wss4j/common/saml/SAMLUtil.java`
-#### Snippet
-```java
-     */
-    public static SAMLKeyInfo getCredentialFromSubject(
-        org.opensaml.saml.saml2.core.Assertion assertion,
-        SAMLKeyInfoProcessor keyInfoProcessor,
-        Crypto sigCrypto
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.opensaml.saml.saml2.core` is unnecessary, and can be replaced with an import
-in `ws-security-common/src/main/java/org/apache/wss4j/common/saml/SAMLUtil.java`
-#### Snippet
-```java
-        Crypto sigCrypto
-    ) throws WSSecurityException {
-        org.opensaml.saml.saml2.core.Subject samlSubject = assertion.getSubject();
-        if (samlSubject != null) {
-            List<org.opensaml.saml.saml2.core.SubjectConfirmation> subjectConfList =
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.opensaml.saml.saml2.core` is unnecessary, and can be replaced with an import
-in `ws-security-common/src/main/java/org/apache/wss4j/common/saml/SAMLUtil.java`
-#### Snippet
-```java
-        org.opensaml.saml.saml2.core.Subject samlSubject = assertion.getSubject();
-        if (samlSubject != null) {
-            List<org.opensaml.saml.saml2.core.SubjectConfirmation> subjectConfList =
-                samlSubject.getSubjectConfirmations();
-            for (org.opensaml.saml.saml2.core.SubjectConfirmation subjectConfirmation : subjectConfList) {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.opensaml.saml.saml2.core` is unnecessary, and can be replaced with an import
-in `ws-security-common/src/main/java/org/apache/wss4j/common/saml/SAMLUtil.java`
-#### Snippet
-```java
-            List<org.opensaml.saml.saml2.core.SubjectConfirmation> subjectConfList =
-                samlSubject.getSubjectConfirmations();
-            for (org.opensaml.saml.saml2.core.SubjectConfirmation subjectConfirmation : subjectConfList) {
-                SubjectConfirmationData subjConfData =
-                    subjectConfirmation.getSubjectConfirmationData();
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.opensaml.saml.saml1.core` is unnecessary, and can be replaced with an import
-in `ws-security-common/src/main/java/org/apache/wss4j/common/saml/SAMLUtil.java`
-#### Snippet
-```java
-     */
-    public static SAMLKeyInfo getCredentialFromSubject(
-        org.opensaml.saml.saml1.core.Assertion assertion,
-        SAMLKeyInfoProcessor keyInfoProcessor,
-        Crypto sigCrypto
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.opensaml.saml.saml1.core` is unnecessary, and can be replaced with an import
-in `ws-security-common/src/main/java/org/apache/wss4j/common/saml/SAMLUtil.java`
-#### Snippet
-```java
-        Crypto sigCrypto
-    ) throws WSSecurityException {
-        for (org.opensaml.saml.saml1.core.Statement stmt : assertion.getStatements()) {
-            org.opensaml.saml.saml1.core.Subject samlSubject = null;
-            if (stmt instanceof org.opensaml.saml.saml1.core.AttributeStatement) {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.opensaml.saml.saml1.core` is unnecessary, and can be replaced with an import
-in `ws-security-common/src/main/java/org/apache/wss4j/common/saml/SAMLUtil.java`
-#### Snippet
-```java
-    ) throws WSSecurityException {
-        for (org.opensaml.saml.saml1.core.Statement stmt : assertion.getStatements()) {
-            org.opensaml.saml.saml1.core.Subject samlSubject = null;
-            if (stmt instanceof org.opensaml.saml.saml1.core.AttributeStatement) {
-                org.opensaml.saml.saml1.core.AttributeStatement attrStmt =
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.opensaml.saml.saml1.core` is unnecessary, and can be replaced with an import
-in `ws-security-common/src/main/java/org/apache/wss4j/common/saml/SAMLUtil.java`
-#### Snippet
-```java
-        for (org.opensaml.saml.saml1.core.Statement stmt : assertion.getStatements()) {
-            org.opensaml.saml.saml1.core.Subject samlSubject = null;
-            if (stmt instanceof org.opensaml.saml.saml1.core.AttributeStatement) {
-                org.opensaml.saml.saml1.core.AttributeStatement attrStmt =
-                    (org.opensaml.saml.saml1.core.AttributeStatement) stmt;
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.opensaml.saml.saml1.core` is unnecessary, and can be replaced with an import
-in `ws-security-common/src/main/java/org/apache/wss4j/common/saml/SAMLUtil.java`
-#### Snippet
-```java
-            org.opensaml.saml.saml1.core.Subject samlSubject = null;
-            if (stmt instanceof org.opensaml.saml.saml1.core.AttributeStatement) {
-                org.opensaml.saml.saml1.core.AttributeStatement attrStmt =
-                    (org.opensaml.saml.saml1.core.AttributeStatement) stmt;
-                samlSubject = attrStmt.getSubject();
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.opensaml.saml.saml1.core` is unnecessary, and can be replaced with an import
-in `ws-security-common/src/main/java/org/apache/wss4j/common/saml/SAMLUtil.java`
-#### Snippet
-```java
-            if (stmt instanceof org.opensaml.saml.saml1.core.AttributeStatement) {
-                org.opensaml.saml.saml1.core.AttributeStatement attrStmt =
-                    (org.opensaml.saml.saml1.core.AttributeStatement) stmt;
-                samlSubject = attrStmt.getSubject();
-            } else if (stmt instanceof org.opensaml.saml.saml1.core.AuthenticationStatement) {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.opensaml.saml.saml1.core` is unnecessary, and can be replaced with an import
-in `ws-security-common/src/main/java/org/apache/wss4j/common/saml/SAMLUtil.java`
-#### Snippet
-```java
-                    (org.opensaml.saml.saml1.core.AttributeStatement) stmt;
-                samlSubject = attrStmt.getSubject();
-            } else if (stmt instanceof org.opensaml.saml.saml1.core.AuthenticationStatement) {
-                org.opensaml.saml.saml1.core.AuthenticationStatement authStmt =
-                    (org.opensaml.saml.saml1.core.AuthenticationStatement) stmt;
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.opensaml.saml.saml1.core` is unnecessary, and can be replaced with an import
-in `ws-security-common/src/main/java/org/apache/wss4j/common/saml/SAMLUtil.java`
-#### Snippet
-```java
-                samlSubject = attrStmt.getSubject();
-            } else if (stmt instanceof org.opensaml.saml.saml1.core.AuthenticationStatement) {
-                org.opensaml.saml.saml1.core.AuthenticationStatement authStmt =
-                    (org.opensaml.saml.saml1.core.AuthenticationStatement) stmt;
-                samlSubject = authStmt.getSubject();
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.opensaml.saml.saml1.core` is unnecessary, and can be replaced with an import
-in `ws-security-common/src/main/java/org/apache/wss4j/common/saml/SAMLUtil.java`
-#### Snippet
-```java
-            } else if (stmt instanceof org.opensaml.saml.saml1.core.AuthenticationStatement) {
-                org.opensaml.saml.saml1.core.AuthenticationStatement authStmt =
-                    (org.opensaml.saml.saml1.core.AuthenticationStatement) stmt;
-                samlSubject = authStmt.getSubject();
-            } else {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.opensaml.saml.saml1.core` is unnecessary, and can be replaced with an import
-in `ws-security-common/src/main/java/org/apache/wss4j/common/saml/SAMLUtil.java`
-#### Snippet
-```java
-                samlSubject = authStmt.getSubject();
-            } else {
-                org.opensaml.saml.saml1.core.AuthorizationDecisionStatement authzStmt =
-                    (org.opensaml.saml.saml1.core.AuthorizationDecisionStatement)stmt;
-                samlSubject = authzStmt.getSubject();
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.opensaml.saml.saml1.core` is unnecessary, and can be replaced with an import
-in `ws-security-common/src/main/java/org/apache/wss4j/common/saml/SAMLUtil.java`
-#### Snippet
-```java
-            } else {
-                org.opensaml.saml.saml1.core.AuthorizationDecisionStatement authzStmt =
-                    (org.opensaml.saml.saml1.core.AuthorizationDecisionStatement)stmt;
-                samlSubject = authzStmt.getSubject();
-            }
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
-in `ws-security-common/src/main/java/org/apache/wss4j/common/util/DateUtil.java`
-#### Snippet
-```java
-public final class DateUtil {
-
-    private static final org.slf4j.Logger LOG =
-            org.slf4j.LoggerFactory.getLogger(DateUtil.class);
-
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
-in `ws-security-common/src/main/java/org/apache/wss4j/common/util/DateUtil.java`
-#### Snippet
-```java
-
-    private static final org.slf4j.Logger LOG =
-            org.slf4j.LoggerFactory.getLogger(DateUtil.class);
-
-    private static final DateTimeFormatter MILLISECOND_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
-in `ws-security-common/src/main/java/org/apache/wss4j/common/util/UsernameTokenUtil.java`
-#### Snippet
-```java
-    public static final int DEFAULT_ITERATION = 1000;
-
-    private static final org.slf4j.Logger LOG =
-            org.slf4j.LoggerFactory.getLogger(UsernameTokenUtil.class);
-
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
-in `ws-security-common/src/main/java/org/apache/wss4j/common/util/UsernameTokenUtil.java`
-#### Snippet
-```java
-
-    private static final org.slf4j.Logger LOG =
-            org.slf4j.LoggerFactory.getLogger(UsernameTokenUtil.class);
-
-    private UsernameTokenUtil() {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
-in `ws-security-common/src/main/java/org/apache/wss4j/common/saml/SamlAssertionWrapper.java`
-#### Snippet
-```java
-     * Field LOG
-     */
-    private static final org.slf4j.Logger LOG =
-        org.slf4j.LoggerFactory.getLogger(SamlAssertionWrapper.class);
-
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
-in `ws-security-common/src/main/java/org/apache/wss4j/common/saml/SamlAssertionWrapper.java`
-#### Snippet
-```java
-     */
-    private static final org.slf4j.Logger LOG =
-        org.slf4j.LoggerFactory.getLogger(SamlAssertionWrapper.class);
-
-    /**
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.opensaml.saml.saml1.core` is unnecessary, and can be replaced with an import
-in `ws-security-common/src/main/java/org/apache/wss4j/common/saml/SamlAssertionWrapper.java`
-#### Snippet
-```java
-        if (samlVersion.equals(SAMLVersion.VERSION_11)) {
-            // Build a SAML v1.1 assertion
-            org.opensaml.saml.saml1.core.Assertion saml1 =
-                SAML1ComponentBuilder.createSamlv1Assertion(issuer);
-
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.opensaml.saml.saml1.core` is unnecessary, and can be replaced with an import
-in `ws-security-common/src/main/java/org/apache/wss4j/common/saml/SamlAssertionWrapper.java`
-#### Snippet
-```java
-
-                // Build the complete assertion
-                org.opensaml.saml.saml1.core.Conditions conditions =
-                    SAML1ComponentBuilder.createSamlv1Conditions(samlCallback.getConditions());
-                saml1.setConditions(conditions);
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.opensaml.saml.saml1.core` is unnecessary, and can be replaced with an import
-in `ws-security-common/src/main/java/org/apache/wss4j/common/saml/SamlAssertionWrapper.java`
-#### Snippet
-```java
-
-                if (samlCallback.getAdvice() != null) {
-                    org.opensaml.saml.saml1.core.Advice advice =
-                        SAML1ComponentBuilder.createAdvice(samlCallback.getAdvice());
-                    saml1.setAdvice(advice);
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.opensaml.saml.saml2.core` is unnecessary, and can be replaced with an import
-in `ws-security-common/src/main/java/org/apache/wss4j/common/saml/SamlAssertionWrapper.java`
-#### Snippet
-```java
-        } else if (samlVersion.equals(SAMLVersion.VERSION_20)) {
-            // Build a SAML v2.0 assertion
-            org.opensaml.saml.saml2.core.Assertion saml2 = SAML2ComponentBuilder.createAssertion();
-            Issuer samlIssuer = SAML2ComponentBuilder.createIssuer(issuer, issuerFormat, issuerQualifier);
-
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.opensaml.saml.saml2.core` is unnecessary, and can be replaced with an import
-in `ws-security-common/src/main/java/org/apache/wss4j/common/saml/SamlAssertionWrapper.java`
-#### Snippet
-```java
-            }
-
-            org.opensaml.saml.saml2.core.Conditions conditions =
-                SAML2ComponentBuilder.createConditions(samlCallback.getConditions());
-            saml2.setConditions(conditions);
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.opensaml.saml.saml2.core` is unnecessary, and can be replaced with an import
-in `ws-security-common/src/main/java/org/apache/wss4j/common/saml/SamlAssertionWrapper.java`
-#### Snippet
-```java
-
-            if (samlCallback.getAdvice() != null) {
-                org.opensaml.saml.saml2.core.Advice advice =
-                    SAML2ComponentBuilder.createAdvice(samlCallback.getAdvice());
-                saml2.setAdvice(advice);
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.opensaml.saml.saml1.core` is unnecessary, and can be replaced with an import
-in `ws-security-common/src/main/java/org/apache/wss4j/common/saml/SamlAssertionWrapper.java`
-#### Snippet
-```java
-    private void parseElement(Element element) throws WSSecurityException {
-        XMLObject xmlObject = OpenSAMLUtil.fromDom(element);
-        if (xmlObject instanceof org.opensaml.saml.saml1.core.Assertion) {
-            this.samlObject = (SAMLObject)xmlObject;
-            samlVersion = SAMLVersion.VERSION_11;
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.opensaml.saml.saml2.core` is unnecessary, and can be replaced with an import
-in `ws-security-common/src/main/java/org/apache/wss4j/common/saml/SamlAssertionWrapper.java`
-#### Snippet
-```java
-            this.samlObject = (SAMLObject)xmlObject;
-            samlVersion = SAMLVersion.VERSION_11;
-        } else if (xmlObject instanceof org.opensaml.saml.saml2.core.Assertion) {
-            this.samlObject = (SAMLObject)xmlObject;
-            samlVersion = SAMLVersion.VERSION_20;
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.opensaml.saml.saml2.core` is unnecessary, and can be replaced with an import
-in `ws-security-common/src/main/java/org/apache/wss4j/common/saml/SamlAssertionWrapper.java`
-#### Snippet
-```java
-        if (samlVersion == SAMLVersion.VERSION_20) {
-            org.opensaml.saml.saml2.core.Subject subject =
-                ((org.opensaml.saml.saml2.core.Assertion)samlObject).getSubject();
-            if (subject != null && subject.getNameID() != null) {
-                return subject.getNameID().getValue();
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.opensaml.saml.saml1.core` is unnecessary, and can be replaced with an import
-in `ws-security-common/src/main/java/org/apache/wss4j/common/saml/SamlAssertionWrapper.java`
-#### Snippet
-```java
-        } else if (samlVersion == SAMLVersion.VERSION_11) {
-            Subject samlSubject = null;
-            for (Statement stmt : ((org.opensaml.saml.saml1.core.Assertion)samlObject).getStatements()) {
-                if (stmt instanceof AttributeStatement) {
-                    AttributeStatement attrStmt = (AttributeStatement) stmt;
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.opensaml.saml.saml2.core` is unnecessary, and can be replaced with an import
-in `ws-security-common/src/main/java/org/apache/wss4j/common/saml/SamlAssertionWrapper.java`
-#### Snippet
-```java
-
-        if (getSamlVersion().equals(SAMLVersion.VERSION_20) && getSaml2().getConditions() != null) {
-            org.opensaml.saml.saml2.core.Conditions conditions = getSaml2().getConditions();
-            if (conditions != null && conditions.getAudienceRestrictions() != null
-                && !conditions.getAudienceRestrictions().isEmpty()) {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.opensaml.saml.saml2.core` is unnecessary, and can be replaced with an import
-in `ws-security-common/src/main/java/org/apache/wss4j/common/saml/SamlAssertionWrapper.java`
-#### Snippet
-```java
-                && !conditions.getAudienceRestrictions().isEmpty()) {
-                boolean foundAddress = false;
-                for (org.opensaml.saml.saml2.core.AudienceRestriction audienceRestriction
-                    : conditions.getAudienceRestrictions()) {
-                    if (audienceRestriction.getAudiences() != null) {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.opensaml.saml.saml2.core` is unnecessary, and can be replaced with an import
-in `ws-security-common/src/main/java/org/apache/wss4j/common/saml/SamlAssertionWrapper.java`
-#### Snippet
-```java
-                    : conditions.getAudienceRestrictions()) {
-                    if (audienceRestriction.getAudiences() != null) {
-                        List<org.opensaml.saml.saml2.core.Audience> audiences =
-                            audienceRestriction.getAudiences();
-                        for (org.opensaml.saml.saml2.core.Audience audience : audiences) {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.opensaml.saml.saml2.core` is unnecessary, and can be replaced with an import
-in `ws-security-common/src/main/java/org/apache/wss4j/common/saml/SamlAssertionWrapper.java`
-#### Snippet
-```java
-                        List<org.opensaml.saml.saml2.core.Audience> audiences =
-                            audienceRestriction.getAudiences();
-                        for (org.opensaml.saml.saml2.core.Audience audience : audiences) {
-                            String audienceURI = audience.getURI();
-                            if (audienceRestrictions.contains(audienceURI)) {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.opensaml.saml.saml1.core` is unnecessary, and can be replaced with an import
-in `ws-security-common/src/main/java/org/apache/wss4j/common/saml/SamlAssertionWrapper.java`
-#### Snippet
-```java
-            }
-        } else if (getSamlVersion().equals(SAMLVersion.VERSION_11) && getSaml1().getConditions() != null) {
-            org.opensaml.saml.saml1.core.Conditions conditions = getSaml1().getConditions();
-            if (conditions != null && conditions.getAudienceRestrictionConditions() != null
-                && !conditions.getAudienceRestrictionConditions().isEmpty()) {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.opensaml.saml.saml1.core` is unnecessary, and can be replaced with an import
-in `ws-security-common/src/main/java/org/apache/wss4j/common/saml/SamlAssertionWrapper.java`
-#### Snippet
-```java
-                && !conditions.getAudienceRestrictionConditions().isEmpty()) {
-                boolean foundAddress = false;
-                for (org.opensaml.saml.saml1.core.AudienceRestrictionCondition audienceRestriction
-                    : conditions.getAudienceRestrictionConditions()) {
-                    if (audienceRestriction.getAudiences() != null) {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.opensaml.saml.saml1.core` is unnecessary, and can be replaced with an import
-in `ws-security-common/src/main/java/org/apache/wss4j/common/saml/SamlAssertionWrapper.java`
-#### Snippet
-```java
-                    : conditions.getAudienceRestrictionConditions()) {
-                    if (audienceRestriction.getAudiences() != null) {
-                        List<org.opensaml.saml.saml1.core.Audience> audiences =
-                            audienceRestriction.getAudiences();
-                        for (org.opensaml.saml.saml1.core.Audience audience : audiences) {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.opensaml.saml.saml1.core` is unnecessary, and can be replaced with an import
-in `ws-security-common/src/main/java/org/apache/wss4j/common/saml/SamlAssertionWrapper.java`
-#### Snippet
-```java
-                        List<org.opensaml.saml.saml1.core.Audience> audiences =
-                            audienceRestriction.getAudiences();
-                        for (org.opensaml.saml.saml1.core.Audience audience : audiences) {
-                            String audienceURI = audience.getURI();
-                            if (audienceRestrictions.contains(audienceURI)) {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.opensaml.saml.saml2.core` is unnecessary, and can be replaced with an import
-in `ws-security-common/src/main/java/org/apache/wss4j/common/saml/SamlAssertionWrapper.java`
-#### Snippet
-```java
-        if (samlVersion == SAMLVersion.VERSION_20) {
-            org.opensaml.saml.saml2.core.Subject subject =
-                ((org.opensaml.saml.saml2.core.Assertion)samlObject).getSubject();
-            List<org.opensaml.saml.saml2.core.SubjectConfirmation> confirmations =
-                subject.getSubjectConfirmations();
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.opensaml.saml.saml1.core` is unnecessary, and can be replaced with an import
-in `ws-security-common/src/main/java/org/apache/wss4j/common/saml/SamlAssertionWrapper.java`
-#### Snippet
-```java
-        } else if (samlVersion == SAMLVersion.VERSION_11) {
-            List<SubjectStatement> subjectStatements = new ArrayList<>();
-            org.opensaml.saml.saml1.core.Assertion saml1 =
-                (org.opensaml.saml.saml1.core.Assertion)samlObject;
-            subjectStatements.addAll(saml1.getSubjectStatements());
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.opensaml.saml.saml1.core` is unnecessary, and can be replaced with an import
-in `ws-security-common/src/main/java/org/apache/wss4j/common/saml/SamlAssertionWrapper.java`
-#### Snippet
-```java
-            List<SubjectStatement> subjectStatements = new ArrayList<>();
-            org.opensaml.saml.saml1.core.Assertion saml1 =
-                (org.opensaml.saml.saml1.core.Assertion)samlObject;
-            subjectStatements.addAll(saml1.getSubjectStatements());
-            subjectStatements.addAll(saml1.getAuthenticationStatements());
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.opensaml.saml.saml1.core` is unnecessary, and can be replaced with an import
-in `ws-security-common/src/main/java/org/apache/wss4j/common/saml/SamlAssertionWrapper.java`
-#### Snippet
-```java
-
-        this.samlObject = samlObject;
-        if (samlObject instanceof org.opensaml.saml.saml1.core.Assertion) {
-            samlVersion = SAMLVersion.VERSION_11;
-        } else if (samlObject instanceof org.opensaml.saml.saml2.core.Assertion) {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.opensaml.saml.saml2.core` is unnecessary, and can be replaced with an import
-in `ws-security-common/src/main/java/org/apache/wss4j/common/saml/SamlAssertionWrapper.java`
-#### Snippet
-```java
-        if (samlObject instanceof org.opensaml.saml.saml1.core.Assertion) {
-            samlVersion = SAMLVersion.VERSION_11;
-        } else if (samlObject instanceof org.opensaml.saml.saml2.core.Assertion) {
-            samlVersion = SAMLVersion.VERSION_20;
-        } else {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.opensaml.saml.saml1.core` is unnecessary, and can be replaced with an import
-in `ws-security-common/src/main/java/org/apache/wss4j/common/saml/SamlAssertionWrapper.java`
-#### Snippet
-```java
-            subjectKeyInfo =
-                SAMLUtil.getCredentialFromSubject(
-                    (org.opensaml.saml.saml1.core.Assertion)samlObject, keyInfoProcessor, sigCrypto
-                );
-        } else if (samlVersion == SAMLVersion.VERSION_20) {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.opensaml.saml.saml2.core` is unnecessary, and can be replaced with an import
-in `ws-security-common/src/main/java/org/apache/wss4j/common/saml/SamlAssertionWrapper.java`
-#### Snippet
-```java
-            subjectKeyInfo =
-                SAMLUtil.getCredentialFromSubject(
-                    (org.opensaml.saml.saml2.core.Assertion)samlObject, keyInfoProcessor, sigCrypto
-                );
-        }
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.opensaml.saml.saml2.core` is unnecessary, and can be replaced with an import
-in `ws-security-common/src/main/java/org/apache/wss4j/common/saml/SamlAssertionWrapper.java`
-#### Snippet
-```java
-        String id = null;
-        if (samlVersion == SAMLVersion.VERSION_20) {
-            id = ((org.opensaml.saml.saml2.core.Assertion)samlObject).getID();
-            if (id == null || id.length() == 0) {
-                LOG.error("SamlAssertionWrapper: ID was null, seeting a new ID value");
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.opensaml.saml.saml2.core` is unnecessary, and can be replaced with an import
-in `ws-security-common/src/main/java/org/apache/wss4j/common/saml/SamlAssertionWrapper.java`
-#### Snippet
-```java
-                LOG.error("SamlAssertionWrapper: ID was null, seeting a new ID value");
-                id = IDGenerator.generateID("_");
-                ((org.opensaml.saml.saml2.core.Assertion)samlObject).setID(id);
-            }
-        } else if (samlVersion == SAMLVersion.VERSION_11) {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.opensaml.saml.saml1.core` is unnecessary, and can be replaced with an import
-in `ws-security-common/src/main/java/org/apache/wss4j/common/saml/SamlAssertionWrapper.java`
-#### Snippet
-```java
-            }
-        } else if (samlVersion == SAMLVersion.VERSION_11) {
-            id = ((org.opensaml.saml.saml1.core.Assertion)samlObject).getID();
-            if (id == null || id.length() == 0) {
-                LOG.error("SamlAssertionWrapper: ID was null, seeting a new ID value");
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.opensaml.saml.saml1.core` is unnecessary, and can be replaced with an import
-in `ws-security-common/src/main/java/org/apache/wss4j/common/saml/SamlAssertionWrapper.java`
-#### Snippet
-```java
-                LOG.error("SamlAssertionWrapper: ID was null, seeting a new ID value");
-                id = IDGenerator.generateID("_");
-                ((org.opensaml.saml.saml1.core.Assertion)samlObject).setID(id);
-            }
-        } else {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.opensaml.saml.saml1.core` is unnecessary, and can be replaced with an import
-in `ws-security-common/src/main/java/org/apache/wss4j/common/saml/SamlAssertionWrapper.java`
-#### Snippet
-```java
-     * @return the saml1 (type Assertion) of this SamlAssertionWrapper object.
-     */
-    public org.opensaml.saml.saml1.core.Assertion getSaml1() {
-        if (samlVersion == SAMLVersion.VERSION_11) {
-            return (org.opensaml.saml.saml1.core.Assertion)samlObject;
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.opensaml.saml.saml1.core` is unnecessary, and can be replaced with an import
-in `ws-security-common/src/main/java/org/apache/wss4j/common/saml/SamlAssertionWrapper.java`
-#### Snippet
-```java
-    public org.opensaml.saml.saml1.core.Assertion getSaml1() {
-        if (samlVersion == SAMLVersion.VERSION_11) {
-            return (org.opensaml.saml.saml1.core.Assertion)samlObject;
-        }
-        return null;
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.opensaml.saml.saml1.core` is unnecessary, and can be replaced with an import
-in `ws-security-common/src/main/java/org/apache/wss4j/common/saml/SamlAssertionWrapper.java`
-#### Snippet
-```java
-            LOG.debug(
-                "The SAML version was null in getSamlVersion(). Recomputing SAML version...");
-            if (samlObject instanceof org.opensaml.saml.saml1.core.Assertion) {
-                samlVersion = SAMLVersion.VERSION_11;
-            } else if (samlObject instanceof org.opensaml.saml.saml2.core.Assertion) {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.opensaml.saml.saml2.core` is unnecessary, and can be replaced with an import
-in `ws-security-common/src/main/java/org/apache/wss4j/common/saml/SamlAssertionWrapper.java`
-#### Snippet
-```java
-            if (samlObject instanceof org.opensaml.saml.saml1.core.Assertion) {
-                samlVersion = SAMLVersion.VERSION_11;
-            } else if (samlObject instanceof org.opensaml.saml.saml2.core.Assertion) {
-                samlVersion = SAMLVersion.VERSION_20;
-            } else {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.opensaml.saml.saml2.core` is unnecessary, and can be replaced with an import
-in `ws-security-common/src/main/java/org/apache/wss4j/common/saml/SamlAssertionWrapper.java`
-#### Snippet
-```java
-    public String getIssuerString() {
-        if (samlVersion == SAMLVersion.VERSION_20
-            && ((org.opensaml.saml.saml2.core.Assertion)samlObject).getIssuer() != null) {
-            return ((org.opensaml.saml.saml2.core.Assertion)samlObject).getIssuer().getValue();
-        } else if (samlVersion == SAMLVersion.VERSION_11
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.opensaml.saml.saml2.core` is unnecessary, and can be replaced with an import
-in `ws-security-common/src/main/java/org/apache/wss4j/common/saml/SamlAssertionWrapper.java`
-#### Snippet
-```java
-        if (samlVersion == SAMLVersion.VERSION_20
-            && ((org.opensaml.saml.saml2.core.Assertion)samlObject).getIssuer() != null) {
-            return ((org.opensaml.saml.saml2.core.Assertion)samlObject).getIssuer().getValue();
-        } else if (samlVersion == SAMLVersion.VERSION_11
-            && ((org.opensaml.saml.saml1.core.Assertion)samlObject).getIssuer() != null) {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.opensaml.saml.saml1.core` is unnecessary, and can be replaced with an import
-in `ws-security-common/src/main/java/org/apache/wss4j/common/saml/SamlAssertionWrapper.java`
-#### Snippet
-```java
-            return ((org.opensaml.saml.saml2.core.Assertion)samlObject).getIssuer().getValue();
-        } else if (samlVersion == SAMLVersion.VERSION_11
-            && ((org.opensaml.saml.saml1.core.Assertion)samlObject).getIssuer() != null) {
-            return ((org.opensaml.saml.saml1.core.Assertion)samlObject).getIssuer();
-        }
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.opensaml.saml.saml1.core` is unnecessary, and can be replaced with an import
-in `ws-security-common/src/main/java/org/apache/wss4j/common/saml/SamlAssertionWrapper.java`
-#### Snippet
-```java
-        } else if (samlVersion == SAMLVersion.VERSION_11
-            && ((org.opensaml.saml.saml1.core.Assertion)samlObject).getIssuer() != null) {
-            return ((org.opensaml.saml.saml1.core.Assertion)samlObject).getIssuer();
-        }
-        LOG.error(
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.opensaml.saml.saml2.core` is unnecessary, and can be replaced with an import
-in `ws-security-common/src/main/java/org/apache/wss4j/common/saml/SamlAssertionWrapper.java`
-#### Snippet
-```java
-     * @return the saml2 (type Assertion) of this SamlAssertionWrapper object.
-     */
-    public org.opensaml.saml.saml2.core.Assertion getSaml2() {
-        if (samlVersion == SAMLVersion.VERSION_20) {
-            return (org.opensaml.saml.saml2.core.Assertion)samlObject;
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.opensaml.saml.saml2.core` is unnecessary, and can be replaced with an import
-in `ws-security-common/src/main/java/org/apache/wss4j/common/saml/SamlAssertionWrapper.java`
-#### Snippet
-```java
-    public org.opensaml.saml.saml2.core.Assertion getSaml2() {
-        if (samlVersion == SAMLVersion.VERSION_20) {
-            return (org.opensaml.saml.saml2.core.Assertion)samlObject;
-        }
-        return null;
+        if (mimeType != null
+            && (mimeType.matches("(?i)(text/xml).*")
+                || mimeType.matches("(?i)(application/xml).*")
+                || mimeType.matches("(?i)(application|image)/.*\\+xml.*"))) {
+            /* 5.4.2:
 ```
 
-### UnnecessaryFullyQualifiedName
-Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
-in `ws-security-common/src/main/java/org/apache/wss4j/common/util/NSStack.java`
+### DynamicRegexReplaceableByCompiledPattern
+`matches()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/transformer/AttachmentContentSignatureTransform.java`
 #### Snippet
 ```java
- */
-public class NSStack {
-    private static final org.slf4j.Logger LOG =
-        org.slf4j.LoggerFactory.getLogger(NSStack.class);
-
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
-in `ws-security-common/src/main/java/org/apache/wss4j/common/util/NSStack.java`
-#### Snippet
-```java
-public class NSStack {
-    private static final org.slf4j.Logger LOG =
-        org.slf4j.LoggerFactory.getLogger(NSStack.class);
-
-    private Mapping[] stack;
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
-in `ws-security-common/src/main/java/org/apache/wss4j/common/util/Loader.java`
-#### Snippet
-```java
- */
-public final class Loader {
-    private static final org.slf4j.Logger LOG =
-            org.slf4j.LoggerFactory.getLogger(Loader.class);
-
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
-in `ws-security-common/src/main/java/org/apache/wss4j/common/util/Loader.java`
-#### Snippet
-```java
-public final class Loader {
-    private static final org.slf4j.Logger LOG =
-            org.slf4j.LoggerFactory.getLogger(Loader.class);
-
-    private Loader() {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
-in `ws-security-common/src/main/java/org/apache/wss4j/common/util/XMLUtils.java`
-#### Snippet
-```java
-        "http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd";
-
-    private static final org.slf4j.Logger LOG =
-        org.slf4j.LoggerFactory.getLogger(XMLUtils.class);
-
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
-in `ws-security-common/src/main/java/org/apache/wss4j/common/util/XMLUtils.java`
-#### Snippet
-```java
-
-    private static final org.slf4j.Logger LOG =
-        org.slf4j.LoggerFactory.getLogger(XMLUtils.class);
-
-    private XMLUtils() {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
-in `ws-security-common/src/main/java/org/apache/wss4j/common/util/KeyUtils.java`
-#### Snippet
-```java
-
-public final class KeyUtils {
-    private static final org.slf4j.Logger LOG =
-            org.slf4j.LoggerFactory.getLogger(KeyUtils.class);
-    private static final int MAX_SYMMETRIC_KEY_SIZE = 1024;
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
-in `ws-security-common/src/main/java/org/apache/wss4j/common/util/KeyUtils.java`
-#### Snippet
-```java
-public final class KeyUtils {
-    private static final org.slf4j.Logger LOG =
-            org.slf4j.LoggerFactory.getLogger(KeyUtils.class);
-    private static final int MAX_SYMMETRIC_KEY_SIZE = 1024;
-    private static final Map<String, Integer> DEFAULT_DERIVED_KEY_LENGTHS = new HashMap<>();
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
-in `ws-security-common/src/main/java/org/apache/wss4j/common/cache/WSS4JCacheUtil.java`
-#### Snippet
-```java
-public final class WSS4JCacheUtil {
-
-    private static final org.slf4j.Logger LOG =
-        org.slf4j.LoggerFactory.getLogger(WSS4JCacheUtil.class);
-    private static final boolean EH_CACHE_INSTALLED;
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
-in `ws-security-common/src/main/java/org/apache/wss4j/common/cache/WSS4JCacheUtil.java`
-#### Snippet
-```java
-
-    private static final org.slf4j.Logger LOG =
-        org.slf4j.LoggerFactory.getLogger(WSS4JCacheUtil.class);
-    private static final boolean EH_CACHE_INSTALLED;
-
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
-in `ws-security-common/src/main/java/org/apache/wss4j/common/cache/EHCacheReplayCache.java`
-#### Snippet
-```java
-public class EHCacheReplayCache implements ReplayCache {
-
-    private static final org.slf4j.Logger LOG =
-            org.slf4j.LoggerFactory.getLogger(EHCacheReplayCache.class);
-
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
-in `ws-security-common/src/main/java/org/apache/wss4j/common/cache/EHCacheReplayCache.java`
-#### Snippet
-```java
-
-    private static final org.slf4j.Logger LOG =
-            org.slf4j.LoggerFactory.getLogger(EHCacheReplayCache.class);
-
-    private final Cache<String, EHCacheValue> cache;
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
-in `ws-security-common/src/main/java/org/apache/wss4j/common/token/BinarySecurity.java`
-#### Snippet
-```java
-    public static final QName TOKEN_BST = new QName(WSS4JConstants.WSSE_NS, "BinarySecurityToken");
-    public static final QName TOKEN_KI = new QName(WSS4JConstants.WSSE_NS, "KeyIdentifier");
-    private static final org.slf4j.Logger LOG =
-        org.slf4j.LoggerFactory.getLogger(BinarySecurity.class);
-
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
-in `ws-security-common/src/main/java/org/apache/wss4j/common/token/BinarySecurity.java`
-#### Snippet
-```java
-    public static final QName TOKEN_KI = new QName(WSS4JConstants.WSSE_NS, "KeyIdentifier");
-    private static final org.slf4j.Logger LOG =
-        org.slf4j.LoggerFactory.getLogger(BinarySecurity.class);
-
-    private Element element;
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
-in `ws-security-common/src/main/java/org/apache/wss4j/common/crypto/JasyptPasswordEncryptor.java`
-#### Snippet
-```java
-    public static final String DEFAULT_ALGORITHM = "PBEWithMD5AndTripleDES";
-
-    private static final org.slf4j.Logger LOG =
-        org.slf4j.LoggerFactory.getLogger(JasyptPasswordEncryptor.class);
-
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
-in `ws-security-common/src/main/java/org/apache/wss4j/common/crypto/JasyptPasswordEncryptor.java`
-#### Snippet
-```java
-
-    private static final org.slf4j.Logger LOG =
-        org.slf4j.LoggerFactory.getLogger(JasyptPasswordEncryptor.class);
-
-    private final StandardPBEStringEncryptor passwordEncryptor;
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
-in `ws-security-common/src/main/java/org/apache/wss4j/common/saml/builder/SAML2ComponentBuilder.java`
-#### Snippet
-```java
-public final class SAML2ComponentBuilder {
-
-    private static final transient org.slf4j.Logger LOG =
-            org.slf4j.LoggerFactory.getLogger(SAML2ComponentBuilder.class);
-
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
-in `ws-security-common/src/main/java/org/apache/wss4j/common/saml/builder/SAML2ComponentBuilder.java`
-#### Snippet
-```java
-
-    private static final transient org.slf4j.Logger LOG =
-            org.slf4j.LoggerFactory.getLogger(SAML2ComponentBuilder.class);
-
-    private static volatile SAMLObjectBuilder<Assertion> assertionBuilder;
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
-in `ws-security-common/src/main/java/org/apache/wss4j/common/crypto/DERDecoder.java`
-#### Snippet
-```java
- */
-public class DERDecoder {
-    private static final org.slf4j.Logger LOG = org.slf4j.LoggerFactory.getLogger(DERDecoder.class);
-
-    /** DER type identifier for a bit string value */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
-in `ws-security-common/src/main/java/org/apache/wss4j/common/crypto/DERDecoder.java`
-#### Snippet
-```java
- */
-public class DERDecoder {
-    private static final org.slf4j.Logger LOG = org.slf4j.LoggerFactory.getLogger(DERDecoder.class);
-
-    /** DER type identifier for a bit string value */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
-in `ws-security-common/src/main/java/org/apache/wss4j/common/crypto/WSS4JResourceBundle.java`
-#### Snippet
-```java
-public class WSS4JResourceBundle extends ResourceBundle {
-
-    private static final org.slf4j.Logger LOG =
-        org.slf4j.LoggerFactory.getLogger(WSS4JResourceBundle.class);
-
+            && (mimeType.matches("(?i)(text/xml).*")
+                || mimeType.matches("(?i)(application/xml).*")
+                || mimeType.matches("(?i)(application|image)/.*\\+xml.*"))) {
+            /* 5.4.2:
+             * Content of an XML Content-Type MUST be XML canonicalized using
 ```
 
-### UnnecessaryFullyQualifiedName
-Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
-in `ws-security-common/src/main/java/org/apache/wss4j/common/crypto/WSS4JResourceBundle.java`
+### DynamicRegexReplaceableByCompiledPattern
+`matches()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/transformer/AttachmentContentSignatureTransform.java`
 #### Snippet
 ```java
-
-    private static final org.slf4j.Logger LOG =
-        org.slf4j.LoggerFactory.getLogger(WSS4JResourceBundle.class);
+            canon.transform(inputStream);
 
-    private final ResourceBundle wss4jSecResourceBundle;
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.xml.security` is unnecessary, and can be replaced with an import
-in `ws-security-common/src/main/java/org/apache/wss4j/common/crypto/WSProviderConfig.java`
-#### Snippet
-```java
-            //ignore
-        }
-        org.apache.xml.security.Init.init();
-        if (!wasSet) {
+        } else if (mimeType != null && mimeType.matches("(?i)(text/).*")) {
+            CRLFOutputStream crlfOutputStream = new CRLFOutputStream(getOutputStream());    //NOPMD
             try {
 ```
 
-### UnnecessaryFullyQualifiedName
-Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
-in `ws-security-common/src/main/java/org/apache/wss4j/common/crypto/WSProviderConfig.java`
+### DynamicRegexReplaceableByCompiledPattern
+`split()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `ws-security-stax/src/main/java/org/apache/wss4j/stax/setup/ConfigurationConverter.java`
 #### Snippet
 ```java
-public final class WSProviderConfig {
-
-    private static final org.slf4j.Logger LOG =
-        org.slf4j.LoggerFactory.getLogger(WSProviderConfig.class);
-
+            return;
+        }
+        String[] single = actionToParse.split("\\s");
+        List<Action> actions = new ArrayList<>();
+        for (int i = 0; i < single.length; i++) {
 ```
 
+## RuleId[ruleID=UnnecessaryFullyQualifiedName]
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
-in `ws-security-common/src/main/java/org/apache/wss4j/common/crypto/WSProviderConfig.java`
+Qualifier `org.apache.neethi` is unnecessary and can be removed
+in `policy/src/main/java/org/apache/wss4j/policy/model/AbstractSecurityAssertion.java`
 #### Snippet
 ```java
-
-    private static final org.slf4j.Logger LOG =
-        org.slf4j.LoggerFactory.getLogger(WSProviderConfig.class);
-
-    /**
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
-in `ws-security-common/src/main/java/org/apache/wss4j/common/token/SecurityTokenReference.java`
-#### Snippet
-```java
-    public static final String X509_V3_TYPE = WSS4JConstants.X509TOKEN_NS + "#X509v3";
-
-    private static final org.slf4j.Logger LOG =
-        org.slf4j.LoggerFactory.getLogger(SecurityTokenReference.class);
-
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
-in `ws-security-common/src/main/java/org/apache/wss4j/common/token/SecurityTokenReference.java`
-#### Snippet
-```java
-
-    private static final org.slf4j.Logger LOG =
-        org.slf4j.LoggerFactory.getLogger(SecurityTokenReference.class);
-
-    private Element element;
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.security.spec` is unnecessary, and can be replaced with an import
-in `ws-security-common/src/main/java/org/apache/wss4j/common/crypto/AlgorithmSuiteValidator.java`
-#### Snippet
-```java
-        } else if (publicKey instanceof ECPublicKey) {
-            final ECPublicKey ecpriv = (ECPublicKey) publicKey;
-            final java.security.spec.ECParameterSpec spec = ecpriv.getParams();
-            int length = spec.getOrder().bitLength();
-            if (length < algorithmSuite.getMinimumEllipticCurveKeyLength()
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
-in `ws-security-common/src/main/java/org/apache/wss4j/common/crypto/AlgorithmSuiteValidator.java`
-#### Snippet
-```java
-public class AlgorithmSuiteValidator {
-
-    private static final org.slf4j.Logger LOG =
-        org.slf4j.LoggerFactory.getLogger(AlgorithmSuiteValidator.class);
-
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
-in `ws-security-common/src/main/java/org/apache/wss4j/common/crypto/AlgorithmSuiteValidator.java`
-#### Snippet
-```java
-
-    private static final org.slf4j.Logger LOG =
-        org.slf4j.LoggerFactory.getLogger(AlgorithmSuiteValidator.class);
-
-    private final AlgorithmSuite algorithmSuite;
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
-in `ws-security-common/src/main/java/org/apache/wss4j/common/crypto/MerlinDevice.java`
-#### Snippet
-```java
-public class MerlinDevice extends Merlin {
-
-    private static final org.slf4j.Logger LOG =
-        org.slf4j.LoggerFactory.getLogger(MerlinDevice.class);
-
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
-in `ws-security-common/src/main/java/org/apache/wss4j/common/crypto/MerlinDevice.java`
-#### Snippet
-```java
-
-    private static final org.slf4j.Logger LOG =
-        org.slf4j.LoggerFactory.getLogger(MerlinDevice.class);
-
-    public MerlinDevice() {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
-in `ws-security-common/src/main/java/org/apache/wss4j/common/crypto/CryptoBase.java`
-#### Snippet
-```java
-    public static final String NAME_CONSTRAINTS_OID = "2.5.29.30";  //NOPMD - not an IP address
-
-    private static final org.slf4j.Logger LOG =
-        org.slf4j.LoggerFactory.getLogger(CryptoBase.class);
-
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
-in `ws-security-common/src/main/java/org/apache/wss4j/common/crypto/CryptoBase.java`
-#### Snippet
-```java
-
-    private static final org.slf4j.Logger LOG =
-        org.slf4j.LoggerFactory.getLogger(CryptoBase.class);
-
-    private static final Constructor<?> BC_509CLASS_CONS;
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
-in `ws-security-common/src/main/java/org/apache/wss4j/common/crypto/MerlinAKI.java`
-#### Snippet
-```java
-public class MerlinAKI extends Merlin {
-
-    private static final org.slf4j.Logger LOG =
-        org.slf4j.LoggerFactory.getLogger(MerlinAKI.class);
-
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
-in `ws-security-common/src/main/java/org/apache/wss4j/common/crypto/MerlinAKI.java`
-#### Snippet
-```java
-
-    private static final org.slf4j.Logger LOG =
-        org.slf4j.LoggerFactory.getLogger(MerlinAKI.class);
-
-    public MerlinAKI() {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.security.cert` is unnecessary, and can be replaced with an import
-in `ws-security-common/src/main/java/org/apache/wss4j/common/crypto/MerlinAKI.java`
-#### Snippet
-```java
-        } catch (NoSuchProviderException | NoSuchAlgorithmException
-            | CertificateException | InvalidAlgorithmParameterException
-            | java.security.cert.CertPathValidatorException
-            | KeyStoreException e) {
-                throw new WSSecurityException(
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
-in `ws-security-common/src/main/java/org/apache/wss4j/common/spnego/DefaultSpnegoClientAction.java`
-#### Snippet
-```java
- */
-public class DefaultSpnegoClientAction implements SpnegoClientAction {
-    private static final org.slf4j.Logger LOG =
-        org.slf4j.LoggerFactory.getLogger(DefaultSpnegoClientAction.class);
-
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
-in `ws-security-common/src/main/java/org/apache/wss4j/common/spnego/DefaultSpnegoClientAction.java`
-#### Snippet
-```java
-public class DefaultSpnegoClientAction implements SpnegoClientAction {
-    private static final org.slf4j.Logger LOG =
-        org.slf4j.LoggerFactory.getLogger(DefaultSpnegoClientAction.class);
-
-    private String serviceName;
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
-in `ws-security-common/src/main/java/org/apache/wss4j/common/spnego/DefaultSpnegoServiceAction.java`
-#### Snippet
-```java
- */
-public class DefaultSpnegoServiceAction implements SpnegoServiceAction {
-    private static final org.slf4j.Logger LOG =
-        org.slf4j.LoggerFactory.getLogger(DefaultSpnegoServiceAction.class);
-
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
-in `ws-security-common/src/main/java/org/apache/wss4j/common/spnego/DefaultSpnegoServiceAction.java`
-#### Snippet
-```java
-public class DefaultSpnegoServiceAction implements SpnegoServiceAction {
-    private static final org.slf4j.Logger LOG =
-        org.slf4j.LoggerFactory.getLogger(DefaultSpnegoServiceAction.class);
-
-    private byte[] ticket;
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
-in `ws-security-common/src/main/java/org/apache/wss4j/common/kerberos/KerberosContext.java`
-#### Snippet
-```java
- */
-public class KerberosContext {
-    private static final org.slf4j.Logger LOG =
-        org.slf4j.LoggerFactory.getLogger(KerberosContext.class);
-
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
-in `ws-security-common/src/main/java/org/apache/wss4j/common/kerberos/KerberosContext.java`
-#### Snippet
-```java
-public class KerberosContext {
-    private static final org.slf4j.Logger LOG =
-        org.slf4j.LoggerFactory.getLogger(KerberosContext.class);
-
-    private boolean disposed;
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.io` is unnecessary, and can be replaced with an import
-in `ws-security-common/src/main/java/org/apache/wss4j/common/principal/WSDerivedKeyTokenPrincipal.java`
-#### Snippet
-```java
- * <code>DerivedKeyToken</code>
- */
-public class WSDerivedKeyTokenPrincipal implements java.io.Serializable, Principal {
-
-    private static final long serialVersionUID = -8576876885462234466L;
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
-in `ws-security-common/src/main/java/org/apache/wss4j/common/spnego/SpnegoTokenContext.java`
-#### Snippet
-```java
-public class SpnegoTokenContext {
-
-    private static final org.slf4j.Logger LOG =
-        org.slf4j.LoggerFactory.getLogger(SpnegoTokenContext.class);
-
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
-in `ws-security-common/src/main/java/org/apache/wss4j/common/spnego/SpnegoTokenContext.java`
-#### Snippet
-```java
-
-    private static final org.slf4j.Logger LOG =
-        org.slf4j.LoggerFactory.getLogger(SpnegoTokenContext.class);
-
-    private GSSContext secContext;
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.io` is unnecessary, and can be replaced with an import
-in `ws-security-common/src/main/java/org/apache/wss4j/common/principal/WSUsernameTokenPrincipalImpl.java`
-#### Snippet
-```java
- * @see javax.security.auth.Subject
- */
-public class WSUsernameTokenPrincipalImpl implements java.io.Serializable, UsernameTokenPrincipal {
-
-    private static final long serialVersionUID = 5608648208455259722L;
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.security` is unnecessary, and can be replaced with an import
-in `ws-security-common/src/main/java/org/apache/wss4j/common/crypto/CertificateStore.java`
-#### Snippet
-```java
-                validator.validate(path, param);
-            }
-        } catch (java.security.NoSuchProviderException | NoSuchAlgorithmException
-            | java.security.cert.CertificateException
-            | java.security.InvalidAlgorithmParameterException
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.security.cert` is unnecessary, and can be replaced with an import
-in `ws-security-common/src/main/java/org/apache/wss4j/common/crypto/CertificateStore.java`
-#### Snippet
-```java
-            }
-        } catch (java.security.NoSuchProviderException | NoSuchAlgorithmException
-            | java.security.cert.CertificateException
-            | java.security.InvalidAlgorithmParameterException
-            | java.security.cert.CertPathValidatorException e) {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.security` is unnecessary, and can be replaced with an import
-in `ws-security-common/src/main/java/org/apache/wss4j/common/crypto/CertificateStore.java`
-#### Snippet
-```java
-        } catch (java.security.NoSuchProviderException | NoSuchAlgorithmException
-            | java.security.cert.CertificateException
-            | java.security.InvalidAlgorithmParameterException
-            | java.security.cert.CertPathValidatorException e) {
-                throw new WSSecurityException(
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.security.cert` is unnecessary, and can be replaced with an import
-in `ws-security-common/src/main/java/org/apache/wss4j/common/crypto/CertificateStore.java`
-#### Snippet
-```java
-            | java.security.cert.CertificateException
-            | java.security.InvalidAlgorithmParameterException
-            | java.security.cert.CertPathValidatorException e) {
-                throw new WSSecurityException(
-                    WSSecurityException.ErrorCode.FAILURE, e, "certpath",
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
-in `ws-security-common/src/main/java/org/apache/wss4j/common/crypto/CertificateStore.java`
-#### Snippet
-```java
-public class CertificateStore extends CryptoBase {
-
-    private static final org.slf4j.Logger LOG =
-        org.slf4j.LoggerFactory.getLogger(CertificateStore.class);
-
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
-in `ws-security-common/src/main/java/org/apache/wss4j/common/crypto/CertificateStore.java`
-#### Snippet
-```java
-
-    private static final org.slf4j.Logger LOG =
-        org.slf4j.LoggerFactory.getLogger(CertificateStore.class);
-
-    private X509Certificate[] trustedCerts;
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
-in `ws-security-common/src/main/java/org/apache/wss4j/common/derivedKey/P_SHA1.java`
-#### Snippet
-```java
-public class P_SHA1 implements DerivationAlgorithm {
-
-    private static final org.slf4j.Logger LOG =
-        org.slf4j.LoggerFactory.getLogger(P_SHA1.class);
-
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
-in `ws-security-common/src/main/java/org/apache/wss4j/common/derivedKey/P_SHA1.java`
-#### Snippet
-```java
-
-    private static final org.slf4j.Logger LOG =
-        org.slf4j.LoggerFactory.getLogger(P_SHA1.class);
-
     @Override
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
-in `ws-security-stax/src/main/java/org/apache/wss4j/stax/ext/WSSCrypto.java`
-#### Snippet
-```java
-class WSSCrypto {
-
-    protected static final transient org.slf4j.Logger LOG =
-        org.slf4j.LoggerFactory.getLogger(WSSCrypto.class);
-
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
-in `ws-security-stax/src/main/java/org/apache/wss4j/stax/ext/WSSCrypto.java`
-#### Snippet
-```java
-
-    protected static final transient org.slf4j.Logger LOG =
-        org.slf4j.LoggerFactory.getLogger(WSSCrypto.class);
-
-    private Class<? extends Merlin> cryptoClass = Merlin.class;
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
-in `ws-security-common/src/main/java/org/apache/wss4j/common/crypto/CryptoFactory.java`
-#### Snippet
-```java
- */
-public abstract class CryptoFactory {
-    private static final org.slf4j.Logger LOG =
-        org.slf4j.LoggerFactory.getLogger(CryptoFactory.class);
-
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
-in `ws-security-common/src/main/java/org/apache/wss4j/common/crypto/CryptoFactory.java`
-#### Snippet
-```java
-public abstract class CryptoFactory {
-    private static final org.slf4j.Logger LOG =
-        org.slf4j.LoggerFactory.getLogger(CryptoFactory.class);
-
-    /**
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
-in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/processor/input/WSSSignatureInputHandler.java`
-#### Snippet
-```java
-public class WSSSignatureInputHandler extends AbstractSignatureInputHandler {
-
-    private static final transient org.slf4j.Logger LOG =
-        org.slf4j.LoggerFactory.getLogger(WSSSignatureInputHandler.class);
-
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
-in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/processor/input/WSSSignatureInputHandler.java`
-#### Snippet
-```java
-
-    private static final transient org.slf4j.Logger LOG =
-        org.slf4j.LoggerFactory.getLogger(WSSSignatureInputHandler.class);
-
-    @Override
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
-in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/processor/input/SecurityHeaderInputProcessor.java`
-#### Snippet
-```java
-public class SecurityHeaderInputProcessor extends AbstractInputProcessor {
-
-    protected static final org.slf4j.Logger LOG =
-        org.slf4j.LoggerFactory.getLogger(SecurityHeaderInputProcessor.class);
-
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
-in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/processor/input/SecurityHeaderInputProcessor.java`
-#### Snippet
-```java
-
-    protected static final org.slf4j.Logger LOG =
-        org.slf4j.LoggerFactory.getLogger(SecurityHeaderInputProcessor.class);
-
-    private final ArrayDeque<XMLSecEvent> xmlSecEventList = new ArrayDeque<>();
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
-in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/processor/input/WSSEncryptedKeyInputHandler.java`
-#### Snippet
-```java
-public class WSSEncryptedKeyInputHandler extends XMLEncryptedKeyInputHandler {
-
-    private static final transient org.slf4j.Logger LOG =
-        org.slf4j.LoggerFactory.getLogger(WSSEncryptedKeyInputHandler.class);
-
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
-in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/processor/input/WSSEncryptedKeyInputHandler.java`
-#### Snippet
-```java
-
-    private static final transient org.slf4j.Logger LOG =
-        org.slf4j.LoggerFactory.getLogger(WSSEncryptedKeyInputHandler.class);
-
-    @Override
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.security.cert` is unnecessary, and can be replaced with an import
-in `ws-security-common/src/main/java/org/apache/wss4j/common/crypto/Merlin.java`
-#### Snippet
-```java
-            // Generate cert path
-            if (foundIssuingCertChains != null && !foundIssuingCertChains.isEmpty()) {
-                java.security.cert.CertPathValidatorException validatorException = null;
-                // Try each potential issuing cert path for a match
-                for (Certificate[] foundCertChain : foundIssuingCertChains) {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.security.cert` is unnecessary, and can be replaced with an import
-in `ws-security-common/src/main/java/org/apache/wss4j/common/crypto/Merlin.java`
-#### Snippet
-```java
-                        validatorException = null;
-                        break;
-                    } catch (java.security.cert.CertPathValidatorException e) {
-                        validatorException = e;
-                    }
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.security.cert` is unnecessary, and can be replaced with an import
-in `ws-security-common/src/main/java/org/apache/wss4j/common/crypto/Merlin.java`
-#### Snippet
-```java
-        } catch (NoSuchProviderException | NoSuchAlgorithmException
-            | CertificateException | InvalidAlgorithmParameterException
-            | java.security.cert.CertPathValidatorException
-            | KeyStoreException e) {
-                throw new WSSecurityException(
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
-in `ws-security-common/src/main/java/org/apache/wss4j/common/crypto/Merlin.java`
-#### Snippet
-```java
-    public static final String X509_CRL_FILE = "x509crl.file";
-
-    private static final org.slf4j.Logger LOG =
-        org.slf4j.LoggerFactory.getLogger(Merlin.class);
-    private static final String COMMA_SEPARATOR = ",";
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
-in `ws-security-common/src/main/java/org/apache/wss4j/common/crypto/Merlin.java`
-#### Snippet
-```java
-
-    private static final org.slf4j.Logger LOG =
-        org.slf4j.LoggerFactory.getLogger(Merlin.class);
-    private static final String COMMA_SEPARATOR = ",";
-
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
-in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/processor/input/DecryptInputProcessor.java`
-#### Snippet
-```java
-public class DecryptInputProcessor extends AbstractDecryptInputProcessor {
-
-    private static final transient org.slf4j.Logger LOG =
-        org.slf4j.LoggerFactory.getLogger(DecryptInputProcessor.class);
-
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
-in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/processor/input/DecryptInputProcessor.java`
-#### Snippet
-```java
-
-    private static final transient org.slf4j.Logger LOG =
-        org.slf4j.LoggerFactory.getLogger(DecryptInputProcessor.class);
-
-    private static final Long MAX_ALLOWED_DECOMPRESSED_BYTES =
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
-in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/processor/output/EncryptOutputProcessor.java`
-#### Snippet
-```java
-public class EncryptOutputProcessor extends AbstractEncryptOutputProcessor {
-
-    private static final org.slf4j.Logger LOG =
-        org.slf4j.LoggerFactory.getLogger(EncryptOutputProcessor.class);
-
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
-in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/processor/output/EncryptOutputProcessor.java`
-#### Snippet
-```java
-
-    private static final org.slf4j.Logger LOG =
-        org.slf4j.LoggerFactory.getLogger(EncryptOutputProcessor.class);
-
-    public EncryptOutputProcessor() throws XMLSecurityException {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
-in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/InboundWSSecurityContextImpl.java`
-#### Snippet
-```java
-public class InboundWSSecurityContextImpl extends InboundSecurityContextImpl implements WSInboundSecurityContext {
-
-    private static final org.slf4j.Logger LOG =
-            org.slf4j.LoggerFactory.getLogger(InboundWSSecurityContextImpl.class);
-
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
-in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/InboundWSSecurityContextImpl.java`
-#### Snippet
-```java
-
-    private static final org.slf4j.Logger LOG =
-            org.slf4j.LoggerFactory.getLogger(InboundWSSecurityContextImpl.class);
-
-    private final Deque<SecurityEvent> securityEventQueue = new ArrayDeque<>();
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
-in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/processor/output/WSSSignatureOutputProcessor.java`
-#### Snippet
-```java
-public class WSSSignatureOutputProcessor extends AbstractSignatureOutputProcessor {
-
-    private static final org.slf4j.Logger LOG =
-        org.slf4j.LoggerFactory.getLogger(WSSSignatureOutputProcessor.class);
-
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
-in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/processor/output/WSSSignatureOutputProcessor.java`
-#### Snippet
-```java
-
-    private static final org.slf4j.Logger LOG =
-        org.slf4j.LoggerFactory.getLogger(WSSSignatureOutputProcessor.class);
-
-    public WSSSignatureOutputProcessor() throws XMLSecurityException {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
-in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/processor/output/SAMLTokenOutputProcessor.java`
-#### Snippet
-```java
-public class SAMLTokenOutputProcessor extends AbstractOutputProcessor {
-
-    private static final org.slf4j.Logger LOG =
-        org.slf4j.LoggerFactory.getLogger(SAMLTokenOutputProcessor.class);
-
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
-in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/processor/output/SAMLTokenOutputProcessor.java`
-#### Snippet
-```java
-
-    private static final org.slf4j.Logger LOG =
-        org.slf4j.LoggerFactory.getLogger(SAMLTokenOutputProcessor.class);
-
-    public SAMLTokenOutputProcessor() throws XMLSecurityException {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.wss4j.common.ext` is unnecessary and can be removed
-in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/securityToken/UsernameSecurityTokenImpl.java`
-#### Snippet
-```java
-     *
-     * @return Returns the derived key a byte array
-     * @throws org.apache.wss4j.common.ext.WSSecurityException
-     *
-     */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
-in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/securityToken/X509SecurityTokenImpl.java`
-#### Snippet
-```java
-        extends org.apache.xml.security.stax.impl.securityToken.X509SecurityToken implements X509SecurityToken {
-
-    private static final transient org.slf4j.Logger LOG =
-        org.slf4j.LoggerFactory.getLogger(X509SecurityTokenImpl.class);
-
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
-in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/securityToken/X509SecurityTokenImpl.java`
-#### Snippet
-```java
-
-    private static final transient org.slf4j.Logger LOG =
-        org.slf4j.LoggerFactory.getLogger(X509SecurityTokenImpl.class);
-
-    private CallbackHandler callbackHandler;
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
-in `ws-security-stax/src/main/java/org/apache/wss4j/stax/validate/UsernameTokenValidatorImpl.java`
-#### Snippet
-```java
-public class UsernameTokenValidatorImpl implements UsernameTokenValidator {
-
-    private static final transient org.slf4j.Logger LOG = org.slf4j.LoggerFactory.getLogger(UsernameTokenValidatorImpl.class);
-
-    @Override
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
-in `ws-security-stax/src/main/java/org/apache/wss4j/stax/validate/UsernameTokenValidatorImpl.java`
-#### Snippet
-```java
-public class UsernameTokenValidatorImpl implements UsernameTokenValidator {
-
-    private static final transient org.slf4j.Logger LOG = org.slf4j.LoggerFactory.getLogger(UsernameTokenValidatorImpl.class);
-
-    @Override
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
-in `ws-security-stax/src/main/java/org/apache/wss4j/stax/validate/SamlTokenValidatorImpl.java`
-#### Snippet
-```java
-public class SamlTokenValidatorImpl extends SignatureTokenValidatorImpl implements SamlTokenValidator {
-
-    private static final transient org.slf4j.Logger LOG =
-        org.slf4j.LoggerFactory.getLogger(SamlTokenValidatorImpl.class);
-
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
-in `ws-security-stax/src/main/java/org/apache/wss4j/stax/validate/SamlTokenValidatorImpl.java`
-#### Snippet
-```java
-
-    private static final transient org.slf4j.Logger LOG =
-        org.slf4j.LoggerFactory.getLogger(SamlTokenValidatorImpl.class);
-
-    /**
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
-in `ws-security-stax/src/main/java/org/apache/wss4j/stax/validate/BinarySecurityTokenValidatorImpl.java`
-#### Snippet
-```java
-public class BinarySecurityTokenValidatorImpl implements BinarySecurityTokenValidator {
-
-    private static final transient org.slf4j.Logger LOG =
-        org.slf4j.LoggerFactory.getLogger(BinarySecurityTokenValidatorImpl.class);
-
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
-in `ws-security-stax/src/main/java/org/apache/wss4j/stax/validate/BinarySecurityTokenValidatorImpl.java`
-#### Snippet
-```java
-
-    private static final transient org.slf4j.Logger LOG =
-        org.slf4j.LoggerFactory.getLogger(BinarySecurityTokenValidatorImpl.class);
-
-    @Override
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
-in `ws-security-stax/src/main/java/org/apache/wss4j/stax/validate/TimestampValidatorImpl.java`
-#### Snippet
-```java
-public class TimestampValidatorImpl implements TimestampValidator {
-
-    private static final transient org.slf4j.Logger LOG = org.slf4j.LoggerFactory.getLogger(TimestampValidatorImpl.class);
-
-    @Override
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
-in `ws-security-stax/src/main/java/org/apache/wss4j/stax/validate/TimestampValidatorImpl.java`
-#### Snippet
-```java
-public class TimestampValidatorImpl implements TimestampValidator {
-
-    private static final transient org.slf4j.Logger LOG = org.slf4j.LoggerFactory.getLogger(TimestampValidatorImpl.class);
-
-    @Override
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
-in `ws-security-stax/src/main/java/org/apache/wss4j/stax/validate/JAASUsernameTokenValidatorImpl.java`
-#### Snippet
-```java
-public class JAASUsernameTokenValidatorImpl implements UsernameTokenValidator {
-
-    private static final transient org.slf4j.Logger LOG =
-            org.slf4j.LoggerFactory.getLogger(JAASUsernameTokenValidatorImpl.class);
-
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
-in `ws-security-stax/src/main/java/org/apache/wss4j/stax/validate/JAASUsernameTokenValidatorImpl.java`
-#### Snippet
-```java
-
-    private static final transient org.slf4j.Logger LOG =
-            org.slf4j.LoggerFactory.getLogger(JAASUsernameTokenValidatorImpl.class);
-
-    private String contextName;
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.wss4j.stax.ext` is unnecessary and can be removed
-in `ws-security-stax/src/main/java/org/apache/wss4j/stax/setup/WSSec.java`
-#### Snippet
-```java
-     * @throws WSSecurityException
-     *          if the initialisation failed
-     * @throws org.apache.wss4j.stax.ext.WSSConfigurationException
-     *          if the configuration is invalid
-     */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.wss4j.stax.ext` is unnecessary and can be removed
-in `ws-security-stax/src/main/java/org/apache/wss4j/stax/setup/WSSec.java`
-#### Snippet
-```java
-     * @param securityProperties The configuration to validate
-     * @return The validated configuration
-     * @throws org.apache.wss4j.stax.ext.WSSConfigurationException
-     *          if the configuration is invalid
-     */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.wss4j.binding.wss10` is unnecessary, and can be replaced with an import
-in `ws-security-stax/src/main/java/org/apache/wss4j/stax/setup/WSSec.java`
-#### Snippet
-```java
-            WSSConstants.setJaxbContext(
-                    JAXBContext.newInstance(
-                            org.apache.wss4j.binding.wss10.ObjectFactory.class,
-                            org.apache.wss4j.binding.wss11.ObjectFactory.class,
-                            org.apache.wss4j.binding.wsu10.ObjectFactory.class,
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.wss4j.binding.wss11` is unnecessary, and can be replaced with an import
-in `ws-security-stax/src/main/java/org/apache/wss4j/stax/setup/WSSec.java`
-#### Snippet
-```java
-                    JAXBContext.newInstance(
-                            org.apache.wss4j.binding.wss10.ObjectFactory.class,
-                            org.apache.wss4j.binding.wss11.ObjectFactory.class,
-                            org.apache.wss4j.binding.wsu10.ObjectFactory.class,
-                            org.apache.wss4j.binding.wssc13.ObjectFactory.class,
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.wss4j.binding.wsu10` is unnecessary, and can be replaced with an import
-in `ws-security-stax/src/main/java/org/apache/wss4j/stax/setup/WSSec.java`
-#### Snippet
-```java
-                            org.apache.wss4j.binding.wss10.ObjectFactory.class,
-                            org.apache.wss4j.binding.wss11.ObjectFactory.class,
-                            org.apache.wss4j.binding.wsu10.ObjectFactory.class,
-                            org.apache.wss4j.binding.wssc13.ObjectFactory.class,
-                            org.apache.wss4j.binding.wssc200502.ObjectFactory.class,
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.wss4j.binding.wssc13` is unnecessary, and can be replaced with an import
-in `ws-security-stax/src/main/java/org/apache/wss4j/stax/setup/WSSec.java`
-#### Snippet
-```java
-                            org.apache.wss4j.binding.wss11.ObjectFactory.class,
-                            org.apache.wss4j.binding.wsu10.ObjectFactory.class,
-                            org.apache.wss4j.binding.wssc13.ObjectFactory.class,
-                            org.apache.wss4j.binding.wssc200502.ObjectFactory.class,
-                            org.apache.xml.security.binding.xmlenc.ObjectFactory.class,
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.wss4j.binding.wssc200502` is unnecessary, and can be replaced with an import
-in `ws-security-stax/src/main/java/org/apache/wss4j/stax/setup/WSSec.java`
-#### Snippet
-```java
-                            org.apache.wss4j.binding.wsu10.ObjectFactory.class,
-                            org.apache.wss4j.binding.wssc13.ObjectFactory.class,
-                            org.apache.wss4j.binding.wssc200502.ObjectFactory.class,
-                            org.apache.xml.security.binding.xmlenc.ObjectFactory.class,
-                            org.apache.xml.security.binding.xmlenc11.ObjectFactory.class,
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.xml.security.binding.xmlenc` is unnecessary, and can be replaced with an import
-in `ws-security-stax/src/main/java/org/apache/wss4j/stax/setup/WSSec.java`
-#### Snippet
-```java
-                            org.apache.wss4j.binding.wssc13.ObjectFactory.class,
-                            org.apache.wss4j.binding.wssc200502.ObjectFactory.class,
-                            org.apache.xml.security.binding.xmlenc.ObjectFactory.class,
-                            org.apache.xml.security.binding.xmlenc11.ObjectFactory.class,
-                            org.apache.xml.security.binding.xmldsig.ObjectFactory.class,
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.xml.security.binding.xmlenc11` is unnecessary, and can be replaced with an import
-in `ws-security-stax/src/main/java/org/apache/wss4j/stax/setup/WSSec.java`
-#### Snippet
-```java
-                            org.apache.wss4j.binding.wssc200502.ObjectFactory.class,
-                            org.apache.xml.security.binding.xmlenc.ObjectFactory.class,
-                            org.apache.xml.security.binding.xmlenc11.ObjectFactory.class,
-                            org.apache.xml.security.binding.xmldsig.ObjectFactory.class,
-                            org.apache.xml.security.binding.xmldsig11.ObjectFactory.class,
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.xml.security.binding.xmldsig` is unnecessary, and can be replaced with an import
-in `ws-security-stax/src/main/java/org/apache/wss4j/stax/setup/WSSec.java`
-#### Snippet
-```java
-                            org.apache.xml.security.binding.xmlenc.ObjectFactory.class,
-                            org.apache.xml.security.binding.xmlenc11.ObjectFactory.class,
-                            org.apache.xml.security.binding.xmldsig.ObjectFactory.class,
-                            org.apache.xml.security.binding.xmldsig11.ObjectFactory.class,
-                            org.apache.xml.security.binding.excc14n.ObjectFactory.class,
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.xml.security.binding.xmldsig11` is unnecessary, and can be replaced with an import
-in `ws-security-stax/src/main/java/org/apache/wss4j/stax/setup/WSSec.java`
-#### Snippet
-```java
-                            org.apache.xml.security.binding.xmlenc11.ObjectFactory.class,
-                            org.apache.xml.security.binding.xmldsig.ObjectFactory.class,
-                            org.apache.xml.security.binding.xmldsig11.ObjectFactory.class,
-                            org.apache.xml.security.binding.excc14n.ObjectFactory.class,
-                            org.apache.xml.security.binding.xop.ObjectFactory.class
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.xml.security.binding.excc14n` is unnecessary, and can be replaced with an import
-in `ws-security-stax/src/main/java/org/apache/wss4j/stax/setup/WSSec.java`
-#### Snippet
-```java
-                            org.apache.xml.security.binding.xmldsig.ObjectFactory.class,
-                            org.apache.xml.security.binding.xmldsig11.ObjectFactory.class,
-                            org.apache.xml.security.binding.excc14n.ObjectFactory.class,
-                            org.apache.xml.security.binding.xop.ObjectFactory.class
-                    )
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.xml.security.binding.xop` is unnecessary, and can be replaced with an import
-in `ws-security-stax/src/main/java/org/apache/wss4j/stax/setup/WSSec.java`
-#### Snippet
-```java
-                            org.apache.xml.security.binding.xmldsig11.ObjectFactory.class,
-                            org.apache.xml.security.binding.excc14n.ObjectFactory.class,
-                            org.apache.xml.security.binding.xop.ObjectFactory.class
-                    )
-            );
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.wss4j.stax.ext` is unnecessary and can be removed
-in `ws-security-stax/src/main/java/org/apache/wss4j/stax/setup/WSSec.java`
-#### Snippet
-```java
-     * @throws WSSecurityException
-     *          if the initialisation failed
-     * @throws org.apache.wss4j.stax.ext.WSSConfigurationException
-     *          if the configuration is invalid
-     */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.wss4j.stax.ext` is unnecessary and can be removed
-in `ws-security-stax/src/main/java/org/apache/wss4j/stax/setup/WSSec.java`
-#### Snippet
-```java
-     * @throws WSSecurityException
-     *          if the initialisation failed
-     * @throws org.apache.wss4j.stax.ext.WSSConfigurationException
-     *          if the configuration is invalid
-     */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.wss4j.stax.ext` is unnecessary and can be removed
-in `ws-security-stax/src/main/java/org/apache/wss4j/stax/setup/WSSec.java`
-#### Snippet
-```java
-     * @throws WSSecurityException
-     *          if the initialisation failed
-     * @throws org.apache.wss4j.stax.ext.WSSConfigurationException
-     *          if the configuration is invalid
-     */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.wss4j.stax.ext` is unnecessary and can be removed
-in `ws-security-stax/src/main/java/org/apache/wss4j/stax/setup/WSSec.java`
-#### Snippet
-```java
-     * @param securityProperties The configuration to validate
-     * @return The validated configuration
-     * @throws org.apache.wss4j.stax.ext.WSSConfigurationException
-     *          if the configuration is invalid
-     */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.wss4j.binding.wss10` is unnecessary, and can be replaced with an import
-in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/securityToken/SecurityTokenFactoryImpl.java`
-#### Snippet
-```java
-            }
-
-            final org.apache.wss4j.binding.wss10.ReferenceType referenceType
-                    = XMLSecurityUtils.getQNameType(securityTokenReferenceType.getAny(), WSSConstants.TAG_WSSE_REFERENCE);
-            if (referenceType != null) {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.wss4j.binding.wss10` is unnecessary, and can be replaced with an import
-in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/securityToken/SecurityTokenFactoryImpl.java`
-#### Snippet
-```java
+    public short getType() {
+        return org.apache.neethi.Constants.TYPE_ASSERTION;
     }
 
-    private static InboundSecurityToken getSecurityToken(org.apache.wss4j.binding.wss10.ReferenceType referenceType,
-                                                         String tokenType,
-                                                         InboundSecurityContext inboundSecurityContext,
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -12028,18 +9746,6 @@ Qualifier `org.apache.neethi` is unnecessary, and can be replaced with an import
 in `policy/src/main/java/org/apache/wss4j/policy/SPUtils.java`
 #### Snippet
 ```java
-            Attr attr = (Attr) attributes.item(x);
-            QName qName = new QName(attr.getNamespaceURI(), attr.getLocalName());
-            if (org.apache.neethi.Constants.isIgnorableAttribute(qName)) {
-                return attr;
-            }
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.neethi` is unnecessary, and can be replaced with an import
-in `policy/src/main/java/org/apache/wss4j/policy/SPUtils.java`
-#### Snippet
-```java
     public static Element getFirstPolicyChildElement(Element element) {
         Element policy = getFirstChildElement(element, SPConstants.P_LOCALNAME);
         if (policy != null && org.apache.neethi.Constants.isPolicyNS(policy.getNamespaceURI())) {
@@ -12048,327 +9754,39 @@ in `policy/src/main/java/org/apache/wss4j/policy/SPUtils.java`
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
-in `ws-security-stax/src/main/java/org/apache/wss4j/stax/setup/ConfigurationConverter.java`
+Qualifier `org.apache.neethi` is unnecessary, and can be replaced with an import
+in `policy/src/main/java/org/apache/wss4j/policy/SPUtils.java`
 #### Snippet
 ```java
-public final class ConfigurationConverter {
+            Attr attr = (Attr) attributes.item(x);
+            QName qName = new QName(attr.getNamespaceURI(), attr.getLocalName());
+            if (org.apache.neethi.Constants.isIgnorableAttribute(qName)) {
+                return attr;
+            }
+```
 
+### UnnecessaryFullyQualifiedName
+Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
+in `ws-security-dom/src/main/java/org/apache/wss4j/dom/action/SignatureConfirmationAction.java`
+#### Snippet
+```java
+
+public class SignatureConfirmationAction implements Action {
     private static final org.slf4j.Logger LOG =
-        org.slf4j.LoggerFactory.getLogger(ConfigurationConverter.class);
+        org.slf4j.LoggerFactory.getLogger(SignatureConfirmationAction.class);
 
 ```
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
-in `ws-security-stax/src/main/java/org/apache/wss4j/stax/setup/ConfigurationConverter.java`
+in `ws-security-dom/src/main/java/org/apache/wss4j/dom/action/SignatureConfirmationAction.java`
 #### Snippet
 ```java
-
+public class SignatureConfirmationAction implements Action {
     private static final org.slf4j.Logger LOG =
-        org.slf4j.LoggerFactory.getLogger(ConfigurationConverter.class);
+        org.slf4j.LoggerFactory.getLogger(SignatureConfirmationAction.class);
 
-    private ConfigurationConverter() {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.neethi` is unnecessary and can be removed
-in `policy/src/main/java/org/apache/wss4j/policy/model/AbstractSecurityAssertion.java`
-#### Snippet
-```java
-    @Override
-    public short getType() {
-        return org.apache.neethi.Constants.TYPE_ASSERTION;
-    }
-
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
-in `ws-security-stax/src/main/java/org/apache/wss4j/stax/setup/InboundWSSec.java`
-#### Snippet
-```java
-public class InboundWSSec {
-
-    protected static final transient org.slf4j.Logger LOG =
-        org.slf4j.LoggerFactory.getLogger(InboundWSSec.class);
-
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
-in `ws-security-stax/src/main/java/org/apache/wss4j/stax/setup/InboundWSSec.java`
-#### Snippet
-```java
-
-    protected static final transient org.slf4j.Logger LOG =
-        org.slf4j.LoggerFactory.getLogger(InboundWSSec.class);
-
-    private static final XMLInputFactory XML_INPUT_FACTORY = XMLInputFactory.newInstance();
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `jakarta.xml.bind.annotation` is unnecessary, and can be replaced with an import
-in `bindings/src/main/java/org/apache/wss4j/binding/wss10/package-info.java`
-#### Snippet
-```java
-//
-
-@jakarta.xml.bind.annotation.XmlSchema(namespace = "http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd", elementFormDefault = jakarta.xml.bind.annotation.XmlNsForm.QUALIFIED)
-package org.apache.wss4j.binding.wss10;
-
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `jakarta.xml.bind.annotation` is unnecessary, and can be replaced with an import
-in `bindings/src/main/java/org/apache/wss4j/binding/wss10/package-info.java`
-#### Snippet
-```java
-//
-
-@jakarta.xml.bind.annotation.XmlSchema(namespace = "http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd", elementFormDefault = jakarta.xml.bind.annotation.XmlNsForm.QUALIFIED)
-package org.apache.wss4j.binding.wss10;
-
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `jakarta.xml.bind.annotation` is unnecessary, and can be replaced with an import
-in `bindings/src/main/java/org/apache/wss4j/binding/wss11/package-info.java`
-#### Snippet
-```java
-//
-
-@jakarta.xml.bind.annotation.XmlSchema(namespace = "http://docs.oasis-open.org/wss/oasis-wss-wssecurity-secext-1.1.xsd", elementFormDefault = jakarta.xml.bind.annotation.XmlNsForm.QUALIFIED)
-package org.apache.wss4j.binding.wss11;
-
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `jakarta.xml.bind.annotation` is unnecessary, and can be replaced with an import
-in `bindings/src/main/java/org/apache/wss4j/binding/wss11/package-info.java`
-#### Snippet
-```java
-//
-
-@jakarta.xml.bind.annotation.XmlSchema(namespace = "http://docs.oasis-open.org/wss/oasis-wss-wssecurity-secext-1.1.xsd", elementFormDefault = jakarta.xml.bind.annotation.XmlNsForm.QUALIFIED)
-package org.apache.wss4j.binding.wss11;
-
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `jakarta.xml.bind.annotation` is unnecessary, and can be replaced with an import
-in `bindings/src/main/java/org/apache/wss4j/binding/wsu10/package-info.java`
-#### Snippet
-```java
-//
-
-@jakarta.xml.bind.annotation.XmlSchema(namespace = "http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd", elementFormDefault = jakarta.xml.bind.annotation.XmlNsForm.QUALIFIED)
-package org.apache.wss4j.binding.wsu10;
-
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `jakarta.xml.bind.annotation` is unnecessary, and can be replaced with an import
-in `bindings/src/main/java/org/apache/wss4j/binding/wsu10/package-info.java`
-#### Snippet
-```java
-//
-
-@jakarta.xml.bind.annotation.XmlSchema(namespace = "http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd", elementFormDefault = jakarta.xml.bind.annotation.XmlNsForm.QUALIFIED)
-package org.apache.wss4j.binding.wsu10;
-
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `jakarta.xml.bind.annotation` is unnecessary, and can be replaced with an import
-in `bindings/src/main/java/org/apache/wss4j/binding/wssc13/package-info.java`
-#### Snippet
-```java
-//
-
-@jakarta.xml.bind.annotation.XmlSchema(namespace = "http://docs.oasis-open.org/ws-sx/ws-secureconversation/200512", elementFormDefault = jakarta.xml.bind.annotation.XmlNsForm.QUALIFIED)
-package org.apache.wss4j.binding.wssc13;
-
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `jakarta.xml.bind.annotation` is unnecessary, and can be replaced with an import
-in `bindings/src/main/java/org/apache/wss4j/binding/wssc13/package-info.java`
-#### Snippet
-```java
-//
-
-@jakarta.xml.bind.annotation.XmlSchema(namespace = "http://docs.oasis-open.org/ws-sx/ws-secureconversation/200512", elementFormDefault = jakarta.xml.bind.annotation.XmlNsForm.QUALIFIED)
-package org.apache.wss4j.binding.wssc13;
-
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `jakarta.xml.bind.annotation` is unnecessary, and can be replaced with an import
-in `bindings/src/main/java/org/apache/wss4j/binding/wssc200502/package-info.java`
-#### Snippet
-```java
-//
-
-@jakarta.xml.bind.annotation.XmlSchema(namespace = "http://schemas.xmlsoap.org/ws/2005/02/sc", elementFormDefault = jakarta.xml.bind.annotation.XmlNsForm.QUALIFIED)
-package org.apache.wss4j.binding.wssc200502;
-
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `jakarta.xml.bind.annotation` is unnecessary, and can be replaced with an import
-in `bindings/src/main/java/org/apache/wss4j/binding/wssc200502/package-info.java`
-#### Snippet
-```java
-//
-
-@jakarta.xml.bind.annotation.XmlSchema(namespace = "http://schemas.xmlsoap.org/ws/2005/02/sc", elementFormDefault = jakarta.xml.bind.annotation.XmlNsForm.QUALIFIED)
-package org.apache.wss4j.binding.wssc200502;
-
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.opensaml.saml.saml1.core` is unnecessary, and can be replaced with an import
-in `ws-security-policy-stax/src/main/java/org/apache/wss4j/policy/stax/assertionStates/IssuedTokenAssertionState.java`
-#### Snippet
-```java
-    }
-
-    protected String findClaimInAssertion(org.opensaml.saml.saml1.core.Assertion assertion, URI claimURI) {
-        List<org.opensaml.saml.saml1.core.AttributeStatement> attributeStatements =
-                assertion.getAttributeStatements();
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.opensaml.saml.saml1.core` is unnecessary, and can be replaced with an import
-in `ws-security-policy-stax/src/main/java/org/apache/wss4j/policy/stax/assertionStates/IssuedTokenAssertionState.java`
-#### Snippet
-```java
-
-    protected String findClaimInAssertion(org.opensaml.saml.saml1.core.Assertion assertion, URI claimURI) {
-        List<org.opensaml.saml.saml1.core.AttributeStatement> attributeStatements =
-                assertion.getAttributeStatements();
-        if (attributeStatements == null || attributeStatements.isEmpty()) {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.opensaml.saml.saml1.core` is unnecessary, and can be replaced with an import
-in `ws-security-policy-stax/src/main/java/org/apache/wss4j/policy/stax/assertionStates/IssuedTokenAssertionState.java`
-#### Snippet
-```java
-        }
-
-        for (org.opensaml.saml.saml1.core.AttributeStatement statement : attributeStatements) {
-
-            List<org.opensaml.saml.saml1.core.Attribute> attributes = statement.getAttributes();
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.opensaml.saml.saml1.core` is unnecessary, and can be replaced with an import
-in `ws-security-policy-stax/src/main/java/org/apache/wss4j/policy/stax/assertionStates/IssuedTokenAssertionState.java`
-#### Snippet
-```java
-        for (org.opensaml.saml.saml1.core.AttributeStatement statement : attributeStatements) {
-
-            List<org.opensaml.saml.saml1.core.Attribute> attributes = statement.getAttributes();
-            for (org.opensaml.saml.saml1.core.Attribute attribute : attributes) {
-
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.opensaml.saml.saml1.core` is unnecessary, and can be replaced with an import
-in `ws-security-policy-stax/src/main/java/org/apache/wss4j/policy/stax/assertionStates/IssuedTokenAssertionState.java`
-#### Snippet
-```java
-
-            List<org.opensaml.saml.saml1.core.Attribute> attributes = statement.getAttributes();
-            for (org.opensaml.saml.saml1.core.Attribute attribute : attributes) {
-
-                URI attributeNamespace = URI.create(attribute.getAttributeNamespace());
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.opensaml.saml.saml2.core` is unnecessary, and can be replaced with an import
-in `ws-security-policy-stax/src/main/java/org/apache/wss4j/policy/stax/assertionStates/IssuedTokenAssertionState.java`
-#### Snippet
-```java
-    }
-
-    protected String findClaimInAssertion(org.opensaml.saml.saml2.core.Assertion assertion, URI claimURI) {
-        List<org.opensaml.saml.saml2.core.AttributeStatement> attributeStatements =
-                assertion.getAttributeStatements();
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.opensaml.saml.saml2.core` is unnecessary, and can be replaced with an import
-in `ws-security-policy-stax/src/main/java/org/apache/wss4j/policy/stax/assertionStates/IssuedTokenAssertionState.java`
-#### Snippet
-```java
-
-    protected String findClaimInAssertion(org.opensaml.saml.saml2.core.Assertion assertion, URI claimURI) {
-        List<org.opensaml.saml.saml2.core.AttributeStatement> attributeStatements =
-                assertion.getAttributeStatements();
-        if (attributeStatements == null || attributeStatements.isEmpty()) {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.opensaml.saml.saml2.core` is unnecessary, and can be replaced with an import
-in `ws-security-policy-stax/src/main/java/org/apache/wss4j/policy/stax/assertionStates/IssuedTokenAssertionState.java`
-#### Snippet
-```java
-        }
-
-        for (org.opensaml.saml.saml2.core.AttributeStatement statement : attributeStatements) {
-            List<org.opensaml.saml.saml2.core.Attribute> attributes = statement.getAttributes();
-            for (org.opensaml.saml.saml2.core.Attribute attribute : attributes) {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.opensaml.saml.saml2.core` is unnecessary, and can be replaced with an import
-in `ws-security-policy-stax/src/main/java/org/apache/wss4j/policy/stax/assertionStates/IssuedTokenAssertionState.java`
-#### Snippet
-```java
-
-        for (org.opensaml.saml.saml2.core.AttributeStatement statement : attributeStatements) {
-            List<org.opensaml.saml.saml2.core.Attribute> attributes = statement.getAttributes();
-            for (org.opensaml.saml.saml2.core.Attribute attribute : attributes) {
-
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.opensaml.saml.saml2.core` is unnecessary, and can be replaced with an import
-in `ws-security-policy-stax/src/main/java/org/apache/wss4j/policy/stax/assertionStates/IssuedTokenAssertionState.java`
-#### Snippet
-```java
-        for (org.opensaml.saml.saml2.core.AttributeStatement statement : attributeStatements) {
-            List<org.opensaml.saml.saml2.core.Attribute> attributes = statement.getAttributes();
-            for (org.opensaml.saml.saml2.core.Attribute attribute : attributes) {
-
-                if (attribute.getName().equals(claimURI.toString())
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
-in `ws-security-policy-stax/src/main/java/org/apache/wss4j/policy/stax/enforcer/PolicyEnforcerFactory.java`
-#### Snippet
-```java
-public class PolicyEnforcerFactory {
-
-    protected static final org.slf4j.Logger LOG =
-        org.slf4j.LoggerFactory.getLogger(PolicyEnforcerFactory.class);
-
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
-in `ws-security-policy-stax/src/main/java/org/apache/wss4j/policy/stax/enforcer/PolicyEnforcerFactory.java`
-#### Snippet
-```java
-
-    protected static final org.slf4j.Logger LOG =
-        org.slf4j.LoggerFactory.getLogger(PolicyEnforcerFactory.class);
-
-    private final List<AssertionBuilder<Element>> assertionBuilders;
+    @SuppressWarnings("unchecked")
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -12432,51 +9850,15 @@ public final class X509Util {
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
-in `ws-security-dom/src/main/java/org/apache/wss4j/dom/action/SignatureConfirmationAction.java`
+Qualifier `javax.xml.crypto.dsig` is unnecessary, and can be replaced with an import
+in `ws-security-dom/src/main/java/org/apache/wss4j/dom/action/UsernameTokenSignedAction.java`
 #### Snippet
 ```java
+            parts.add(WSSecurityUtil.getDefaultEncryptionPart(doc));
+        }
+        List<javax.xml.crypto.dsig.Reference> referenceList = sign.addReferencesToSign(parts);
 
-public class SignatureConfirmationAction implements Action {
-    private static final org.slf4j.Logger LOG =
-        org.slf4j.LoggerFactory.getLogger(SignatureConfirmationAction.class);
-
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
-in `ws-security-dom/src/main/java/org/apache/wss4j/dom/action/SignatureConfirmationAction.java`
-#### Snippet
-```java
-public class SignatureConfirmationAction implements Action {
-    private static final org.slf4j.Logger LOG =
-        org.slf4j.LoggerFactory.getLogger(SignatureConfirmationAction.class);
-
-    @SuppressWarnings("unchecked")
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
-in `ws-security-dom/src/main/java/org/apache/wss4j/dom/saml/DOMSAMLUtil.java`
-#### Snippet
-```java
-public final class DOMSAMLUtil  {
-
-    private static final org.slf4j.Logger LOG =
-        org.slf4j.LoggerFactory.getLogger(DOMSAMLUtil.class);
-
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
-in `ws-security-dom/src/main/java/org/apache/wss4j/dom/saml/DOMSAMLUtil.java`
-#### Snippet
-```java
-
-    private static final org.slf4j.Logger LOG =
-        org.slf4j.LoggerFactory.getLogger(DOMSAMLUtil.class);
-
-    private DOMSAMLUtil() {
+        try {
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -12501,30 +9883,6 @@ in `ws-security-dom/src/main/java/org/apache/wss4j/dom/action/SAMLTokenSignedAct
         org.slf4j.LoggerFactory.getLogger(SAMLTokenSignedAction.class);
 
     public void execute(WSHandler handler, SecurityActionToken actionToken, RequestData reqData)
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.xml.crypto.dsig` is unnecessary, and can be replaced with an import
-in `ws-security-dom/src/main/java/org/apache/wss4j/dom/action/UsernameTokenSignedAction.java`
-#### Snippet
-```java
-            parts.add(WSSecurityUtil.getDefaultEncryptionPart(doc));
-        }
-        List<javax.xml.crypto.dsig.Reference> referenceList = sign.addReferencesToSign(parts);
-
-        try {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.xml.crypto.dsig` is unnecessary, and can be replaced with an import
-in `ws-security-dom/src/main/java/org/apache/wss4j/dom/action/SignatureDerivedAction.java`
-#### Snippet
-```java
-            wsSign.prepare(key);
-
-            List<javax.xml.crypto.dsig.Reference> referenceList = wsSign.addReferencesToSign(wsSign.getParts());
-
-            // Put the DerivedKeyToken Element in the right place in the security header
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -12577,50 +9935,38 @@ in `ws-security-dom/src/main/java/org/apache/wss4j/dom/saml/WSSecSignatureSAML.j
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
-in `ws-security-policy-stax/src/main/java/org/apache/wss4j/policy/stax/enforcer/PolicyEnforcer.java`
+in `ws-security-dom/src/main/java/org/apache/wss4j/dom/saml/DOMSAMLUtil.java`
 #### Snippet
 ```java
-    //unused tokens must be checked (algorithms etc)
+public final class DOMSAMLUtil  {
 
-    private static final transient org.slf4j.Logger LOG =
-        org.slf4j.LoggerFactory.getLogger(PolicyEnforcer.class);
-
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
-in `ws-security-policy-stax/src/main/java/org/apache/wss4j/policy/stax/enforcer/PolicyEnforcer.java`
-#### Snippet
-```java
-
-    private static final transient org.slf4j.Logger LOG =
-        org.slf4j.LoggerFactory.getLogger(PolicyEnforcer.class);
-
-    private static final QName SOAP11_FAULT = new QName(WSSConstants.NS_SOAP11, "Fault");
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
-in `ws-security-dom/src/main/java/org/apache/wss4j/dom/engine/WSSecurityEngine.java`
-#### Snippet
-```java
- */
-public class WSSecurityEngine {
     private static final org.slf4j.Logger LOG =
-        org.slf4j.LoggerFactory.getLogger(WSSecurityEngine.class);
+        org.slf4j.LoggerFactory.getLogger(DOMSAMLUtil.class);
 
 ```
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
-in `ws-security-dom/src/main/java/org/apache/wss4j/dom/engine/WSSecurityEngine.java`
+in `ws-security-dom/src/main/java/org/apache/wss4j/dom/saml/DOMSAMLUtil.java`
 #### Snippet
 ```java
-public class WSSecurityEngine {
-    private static final org.slf4j.Logger LOG =
-        org.slf4j.LoggerFactory.getLogger(WSSecurityEngine.class);
 
-    /**
+    private static final org.slf4j.Logger LOG =
+        org.slf4j.LoggerFactory.getLogger(DOMSAMLUtil.class);
+
+    private DOMSAMLUtil() {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `javax.xml.crypto.dsig` is unnecessary, and can be replaced with an import
+in `ws-security-dom/src/main/java/org/apache/wss4j/dom/action/SignatureDerivedAction.java`
+#### Snippet
+```java
+            wsSign.prepare(key);
+
+            List<javax.xml.crypto.dsig.Reference> referenceList = wsSign.addReferencesToSign(wsSign.getParts());
+
+            // Put the DerivedKeyToken Element in the right place in the security header
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -12633,18 +9979,6 @@ in `ws-security-dom/src/main/java/org/apache/wss4j/dom/action/SignatureAction.ja
             List<javax.xml.crypto.dsig.Reference> referenceList = wsSign.addReferencesToSign(parts);
 
             if (signBST
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary, and can be replaced with an import
-in `ws-security-dom/src/main/java/org/apache/wss4j/dom/engine/WSSecurityEngineResult.java`
-#### Snippet
-```java
-
-
-public class WSSecurityEngineResult extends java.util.HashMap<String, Object> {
-
-    //
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -12672,15 +10006,39 @@ in `ws-security-dom/src/main/java/org/apache/wss4j/dom/util/WSSecurityUtil.java`
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.xml.security.utils` is unnecessary, and can be replaced with an import
-in `ws-security-dom/src/main/java/org/apache/wss4j/dom/message/WSSecUsernameToken.java`
+Qualifier `java.util` is unnecessary, and can be replaced with an import
+in `ws-security-dom/src/main/java/org/apache/wss4j/dom/engine/WSSecurityEngineResult.java`
 #### Snippet
 ```java
-        }
-        if (passwordsAreEncoded) {
-            return UsernameTokenUtil.generateDerivedKey(org.apache.xml.security.utils.XMLUtils.decode(password),
-                                                        saltValue, iteration);
-        } else {
+
+
+public class WSSecurityEngineResult extends java.util.HashMap<String, Object> {
+
+    //
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
+in `ws-security-dom/src/main/java/org/apache/wss4j/dom/engine/WSSecurityEngine.java`
+#### Snippet
+```java
+ */
+public class WSSecurityEngine {
+    private static final org.slf4j.Logger LOG =
+        org.slf4j.LoggerFactory.getLogger(WSSecurityEngine.class);
+
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
+in `ws-security-dom/src/main/java/org/apache/wss4j/dom/engine/WSSecurityEngine.java`
+#### Snippet
+```java
+public class WSSecurityEngine {
+    private static final org.slf4j.Logger LOG =
+        org.slf4j.LoggerFactory.getLogger(WSSecurityEngine.class);
+
+    /**
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -12708,6 +10066,18 @@ public class WSSecUsernameToken extends WSSecBase {
 ```
 
 ### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.xml.security.utils` is unnecessary, and can be replaced with an import
+in `ws-security-dom/src/main/java/org/apache/wss4j/dom/message/WSSecUsernameToken.java`
+#### Snippet
+```java
+        }
+        if (passwordsAreEncoded) {
+            return UsernameTokenUtil.generateDerivedKey(org.apache.xml.security.utils.XMLUtils.decode(password),
+                                                        saltValue, iteration);
+        } else {
+```
+
+### UnnecessaryFullyQualifiedName
 Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
 in `ws-security-dom/src/main/java/org/apache/wss4j/dom/message/WSSecSAMLToken.java`
 #### Snippet
@@ -12716,6 +10086,18 @@ public class WSSecSAMLToken extends WSSecBase {
 
     private static final org.slf4j.Logger LOG =
         org.slf4j.LoggerFactory.getLogger(WSSecSAMLToken.class);
+
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
+in `ws-security-dom/src/main/java/org/apache/wss4j/dom/message/WSSecTimestamp.java`
+#### Snippet
+```java
+
+public class WSSecTimestamp extends WSSecBase {
+    private static final org.slf4j.Logger LOG =
+        org.slf4j.LoggerFactory.getLogger(WSSecTimestamp.class);
 
 ```
 
@@ -12732,15 +10114,39 @@ in `ws-security-dom/src/main/java/org/apache/wss4j/dom/message/WSSecSAMLToken.ja
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.wss4j.dom.transform` is unnecessary, and can be replaced with an import
-in `ws-security-dom/src/main/java/org/apache/wss4j/dom/engine/WSSConfig.java`
+Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
+in `ws-security-dom/src/main/java/org/apache/wss4j/dom/message/WSSecTimestamp.java`
 #### Snippet
 ```java
-                        WSProviderConfig.appendJceProvider(
-                            "STRTransform",
-                            new org.apache.wss4j.dom.transform.STRTransformProvider()
-                        );
+public class WSSecTimestamp extends WSSecBase {
+    private static final org.slf4j.Logger LOG =
+        org.slf4j.LoggerFactory.getLogger(WSSecTimestamp.class);
 
+    private Timestamp ts;
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
+in `ws-security-dom/src/main/java/org/apache/wss4j/dom/message/WSSecSignatureConfirmation.java`
+#### Snippet
+```java
+ */
+public class WSSecSignatureConfirmation extends WSSecBase {
+    private static final org.slf4j.Logger LOG =
+        org.slf4j.LoggerFactory.getLogger(WSSecSignatureConfirmation.class);
+
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
+in `ws-security-dom/src/main/java/org/apache/wss4j/dom/message/WSSecSignatureConfirmation.java`
+#### Snippet
+```java
+public class WSSecSignatureConfirmation extends WSSecBase {
+    private static final org.slf4j.Logger LOG =
+        org.slf4j.LoggerFactory.getLogger(WSSecSignatureConfirmation.class);
+
+    private SignatureConfirmation sc;
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -13140,6 +10546,18 @@ in `ws-security-dom/src/main/java/org/apache/wss4j/dom/engine/WSSConfig.java`
 ```
 
 ### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.wss4j.dom.transform` is unnecessary, and can be replaced with an import
+in `ws-security-dom/src/main/java/org/apache/wss4j/dom/engine/WSSConfig.java`
+#### Snippet
+```java
+                        WSProviderConfig.appendJceProvider(
+                            "STRTransform",
+                            new org.apache.wss4j.dom.transform.STRTransformProvider()
+                        );
+
+```
+
+### UnnecessaryFullyQualifiedName
 Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
 in `ws-security-dom/src/main/java/org/apache/wss4j/dom/engine/WSSConfig.java`
 #### Snippet
@@ -13164,75 +10582,39 @@ in `ws-security-dom/src/main/java/org/apache/wss4j/dom/engine/WSSConfig.java`
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
-in `ws-security-dom/src/main/java/org/apache/wss4j/dom/message/WSSecTimestamp.java`
+Qualifier `javax.xml.crypto.dsig` is unnecessary, and can be replaced with an import
+in `ws-security-dom/src/main/java/org/apache/wss4j/dom/message/WSSecSignatureBase.java`
 #### Snippet
 ```java
+    }
 
-public class WSSecTimestamp extends WSSecBase {
-    private static final org.slf4j.Logger LOG =
-        org.slf4j.LoggerFactory.getLogger(WSSecTimestamp.class);
-
+    private List<javax.xml.crypto.dsig.Reference> addAttachmentReferences(
+        WSEncryptionPart encPart,
+        DigestMethod digestMethod,
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
-in `ws-security-dom/src/main/java/org/apache/wss4j/dom/message/WSSecTimestamp.java`
+Qualifier `javax.xml.crypto.dsig` is unnecessary, and can be replaced with an import
+in `ws-security-dom/src/main/java/org/apache/wss4j/dom/message/WSSecSignatureBase.java`
 #### Snippet
 ```java
-public class WSSecTimestamp extends WSSecBase {
-    private static final org.slf4j.Logger LOG =
-        org.slf4j.LoggerFactory.getLogger(WSSecTimestamp.class);
+        }
 
-    private Timestamp ts;
+        List<javax.xml.crypto.dsig.Reference> attachmentReferenceList = new ArrayList<>();
+        if (attachmentRequestCallback.getAttachments() != null) {
+            for (Attachment attachment : attachmentRequestCallback.getAttachments()) {
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
-in `ws-security-dom/src/main/java/org/apache/wss4j/dom/message/WSSecSignatureConfirmation.java`
+Qualifier `javax.xml.crypto.dsig` is unnecessary, and can be replaced with an import
+in `ws-security-dom/src/main/java/org/apache/wss4j/dom/message/WSSecSignatureBase.java`
 #### Snippet
 ```java
- */
-public class WSSecSignatureConfirmation extends WSSecBase {
-    private static final org.slf4j.Logger LOG =
-        org.slf4j.LoggerFactory.getLogger(WSSecSignatureConfirmation.class);
+                        );
 
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
-in `ws-security-dom/src/main/java/org/apache/wss4j/dom/message/WSSecSignatureConfirmation.java`
-#### Snippet
-```java
-public class WSSecSignatureConfirmation extends WSSecBase {
-    private static final org.slf4j.Logger LOG =
-        org.slf4j.LoggerFactory.getLogger(WSSecSignatureConfirmation.class);
-
-    private SignatureConfirmation sc;
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
-in `ws-security-dom/src/main/java/org/apache/wss4j/dom/message/WSSecDerivedKeyBase.java`
-#### Snippet
-```java
-public abstract class WSSecDerivedKeyBase extends WSSecSignatureBase {
-
-    private static final org.slf4j.Logger LOG =
-        org.slf4j.LoggerFactory.getLogger(WSSecDerivedKeyBase.class);
-
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
-in `ws-security-dom/src/main/java/org/apache/wss4j/dom/message/WSSecDerivedKeyBase.java`
-#### Snippet
-```java
-
-    private static final org.slf4j.Logger LOG =
-        org.slf4j.LoggerFactory.getLogger(WSSecDerivedKeyBase.class);
-
-    /**
+                    javax.xml.crypto.dsig.Reference reference =
+                        signatureFactory.newReference(
+                            "cid:" + attachment.getId(), digestMethod, transforms, null, null
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -13320,39 +10702,27 @@ in `ws-security-dom/src/main/java/org/apache/wss4j/dom/message/WSSecSignatureBas
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `javax.xml.crypto.dsig` is unnecessary, and can be replaced with an import
-in `ws-security-dom/src/main/java/org/apache/wss4j/dom/message/WSSecSignatureBase.java`
+Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
+in `ws-security-dom/src/main/java/org/apache/wss4j/dom/message/WSSecDerivedKeyBase.java`
 #### Snippet
 ```java
-    }
+public abstract class WSSecDerivedKeyBase extends WSSecSignatureBase {
 
-    private List<javax.xml.crypto.dsig.Reference> addAttachmentReferences(
-        WSEncryptionPart encPart,
-        DigestMethod digestMethod,
+    private static final org.slf4j.Logger LOG =
+        org.slf4j.LoggerFactory.getLogger(WSSecDerivedKeyBase.class);
+
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `javax.xml.crypto.dsig` is unnecessary, and can be replaced with an import
-in `ws-security-dom/src/main/java/org/apache/wss4j/dom/message/WSSecSignatureBase.java`
+Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
+in `ws-security-dom/src/main/java/org/apache/wss4j/dom/message/WSSecDerivedKeyBase.java`
 #### Snippet
 ```java
-        }
 
-        List<javax.xml.crypto.dsig.Reference> attachmentReferenceList = new ArrayList<>();
-        if (attachmentRequestCallback.getAttachments() != null) {
-            for (Attachment attachment : attachmentRequestCallback.getAttachments()) {
-```
+    private static final org.slf4j.Logger LOG =
+        org.slf4j.LoggerFactory.getLogger(WSSecDerivedKeyBase.class);
 
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.xml.crypto.dsig` is unnecessary, and can be replaced with an import
-in `ws-security-dom/src/main/java/org/apache/wss4j/dom/message/WSSecSignatureBase.java`
-#### Snippet
-```java
-                        );
-
-                    javax.xml.crypto.dsig.Reference reference =
-                        signatureFactory.newReference(
-                            "cid:" + attachment.getId(), digestMethod, transforms, null, null
+    /**
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -13380,15 +10750,27 @@ public class WSSecEncrypt extends WSSecEncryptedKey {
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `java.math` is unnecessary, and can be replaced with an import
+Qualifier `java.util` is unnecessary, and can be replaced with an import
 in `ws-security-dom/src/main/java/org/apache/wss4j/dom/message/WSSecEncryptedKey.java`
 #### Snippet
 ```java
-            throws WSSecurityException {
-        String issuer = remoteCert.getIssuerX500Principal().getName();
-        java.math.BigInteger serialNumber = remoteCert.getSerialNumber();
-        DOMX509IssuerSerial domIssuerSerial =
-                new DOMX509IssuerSerial(getDocument(), issuer, serialNumber, isCommaDelimited);
+                        KeyInfo keyInfo =
+                            keyInfoFactory.newKeyInfo(
+                                java.util.Collections.singletonList(keyValue), keyInfoUri
+                            );
+
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.security` is unnecessary, and can be replaced with an import
+in `ws-security-dom/src/main/java/org/apache/wss4j/dom/message/WSSecEncryptedKey.java`
+#### Snippet
+```java
+
+                        keyInfo.marshal(new DOMStructure(encryptedKeyElement), null);
+                    } catch (java.security.KeyException | MarshalException ex) {
+                        LOG.error("", ex);
+                        throw new WSSecurityException(
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -13416,27 +10798,27 @@ in `ws-security-dom/src/main/java/org/apache/wss4j/dom/message/WSSecEncryptedKey
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary, and can be replaced with an import
+Qualifier `java.math` is unnecessary, and can be replaced with an import
 in `ws-security-dom/src/main/java/org/apache/wss4j/dom/message/WSSecEncryptedKey.java`
 #### Snippet
 ```java
-                        KeyInfo keyInfo =
-                            keyInfoFactory.newKeyInfo(
-                                java.util.Collections.singletonList(keyValue), keyInfoUri
-                            );
-
+            throws WSSecurityException {
+        String issuer = remoteCert.getIssuerX500Principal().getName();
+        java.math.BigInteger serialNumber = remoteCert.getSerialNumber();
+        DOMX509IssuerSerial domIssuerSerial =
+                new DOMX509IssuerSerial(getDocument(), issuer, serialNumber, isCommaDelimited);
 ```
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `java.security` is unnecessary, and can be replaced with an import
-in `ws-security-dom/src/main/java/org/apache/wss4j/dom/message/WSSecEncryptedKey.java`
+in `ws-security-dom/src/main/java/org/apache/wss4j/dom/message/WSSecDKSign.java`
 #### Snippet
 ```java
-
-                        keyInfo.marshal(new DOMStructure(encryptedKeyElement), null);
-                    } catch (java.security.KeyException | MarshalException ex) {
-                        LOG.error("", ex);
-                        throw new WSSecurityException(
+    ) throws WSSecurityException {
+        try {
+            java.security.Key key = getDerivedKey(sigAlgo);
+            SignatureMethod signatureMethod =
+                signatureFactory.newSignatureMethod(sigAlgo, null);
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -13476,18 +10858,6 @@ in `ws-security-dom/src/main/java/org/apache/wss4j/dom/message/WSSecDKSign.java`
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `java.security` is unnecessary, and can be replaced with an import
-in `ws-security-dom/src/main/java/org/apache/wss4j/dom/message/WSSecDKSign.java`
-#### Snippet
-```java
-    ) throws WSSecurityException {
-        try {
-            java.security.Key key = getDerivedKey(sigAlgo);
-            SignatureMethod signatureMethod =
-                signatureFactory.newSignatureMethod(sigAlgo, null);
-```
-
-### UnnecessaryFullyQualifiedName
 Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
 in `ws-security-dom/src/main/java/org/apache/wss4j/dom/message/token/KerberosSecurity.java`
 #### Snippet
@@ -13508,30 +10878,6 @@ in `ws-security-dom/src/main/java/org/apache/wss4j/dom/message/token/KerberosSec
     private static final org.slf4j.Logger LOG =
         org.slf4j.LoggerFactory.getLogger(KerberosSecurity.class);
     private SecretKey secretKey;
-
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
-in `ws-security-dom/src/main/java/org/apache/wss4j/dom/handler/WSHandler.java`
-#### Snippet
-```java
- */
-public abstract class WSHandler {
-    private static final org.slf4j.Logger LOG =
-        org.slf4j.LoggerFactory.getLogger(WSHandler.class);
-    protected Map<String, Crypto> cryptos = new ConcurrentHashMap<>();
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
-in `ws-security-dom/src/main/java/org/apache/wss4j/dom/handler/WSHandler.java`
-#### Snippet
-```java
-public abstract class WSHandler {
-    private static final org.slf4j.Logger LOG =
-        org.slf4j.LoggerFactory.getLogger(WSHandler.class);
-    protected Map<String, Crypto> cryptos = new ConcurrentHashMap<>();
 
 ```
 
@@ -13609,6 +10955,42 @@ in `ws-security-dom/src/main/java/org/apache/wss4j/dom/validate/KerberosTokenVal
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
+in `ws-security-dom/src/main/java/org/apache/wss4j/dom/validate/SignatureTrustValidator.java`
+#### Snippet
+```java
+public class SignatureTrustValidator implements Validator {
+
+    private static final org.slf4j.Logger LOG =
+        org.slf4j.LoggerFactory.getLogger(SignatureTrustValidator.class);
+
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
+in `ws-security-dom/src/main/java/org/apache/wss4j/dom/validate/SignatureTrustValidator.java`
+#### Snippet
+```java
+
+    private static final org.slf4j.Logger LOG =
+        org.slf4j.LoggerFactory.getLogger(SignatureTrustValidator.class);
+
+    /**
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
+in `ws-security-dom/src/main/java/org/apache/wss4j/dom/processor/SignatureConfirmationProcessor.java`
+#### Snippet
+```java
+
+public class SignatureConfirmationProcessor implements Processor {
+    private static final org.slf4j.Logger LOG =
+        org.slf4j.LoggerFactory.getLogger(SignatureConfirmationProcessor.class);
+
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
 in `ws-security-dom/src/main/java/org/apache/wss4j/dom/validate/JAASUsernameTokenValidator.java`
 #### Snippet
 ```java
@@ -13633,26 +11015,14 @@ in `ws-security-dom/src/main/java/org/apache/wss4j/dom/validate/JAASUsernameToke
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
-in `ws-security-dom/src/main/java/org/apache/wss4j/dom/validate/SignatureTrustValidator.java`
+in `ws-security-dom/src/main/java/org/apache/wss4j/dom/processor/SignatureConfirmationProcessor.java`
 #### Snippet
 ```java
-public class SignatureTrustValidator implements Validator {
-
+public class SignatureConfirmationProcessor implements Processor {
     private static final org.slf4j.Logger LOG =
-        org.slf4j.LoggerFactory.getLogger(SignatureTrustValidator.class);
+        org.slf4j.LoggerFactory.getLogger(SignatureConfirmationProcessor.class);
 
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
-in `ws-security-dom/src/main/java/org/apache/wss4j/dom/validate/SignatureTrustValidator.java`
-#### Snippet
-```java
-
-    private static final org.slf4j.Logger LOG =
-        org.slf4j.LoggerFactory.getLogger(SignatureTrustValidator.class);
-
-    /**
+    public List<WSSecurityEngineResult> handleToken(
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -13669,26 +11039,50 @@ in `ws-security-dom/src/main/java/org/apache/wss4j/dom/processor/SignatureConfir
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
-in `ws-security-dom/src/main/java/org/apache/wss4j/dom/processor/SignatureConfirmationProcessor.java`
+in `ws-security-dom/src/main/java/org/apache/wss4j/dom/validate/SamlAssertionValidator.java`
 #### Snippet
 ```java
+public class SamlAssertionValidator extends SignatureTrustValidator {
 
-public class SignatureConfirmationProcessor implements Processor {
     private static final org.slf4j.Logger LOG =
-        org.slf4j.LoggerFactory.getLogger(SignatureConfirmationProcessor.class);
+        org.slf4j.LoggerFactory.getLogger(SamlAssertionValidator.class);
 
 ```
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
-in `ws-security-dom/src/main/java/org/apache/wss4j/dom/processor/SignatureConfirmationProcessor.java`
+in `ws-security-dom/src/main/java/org/apache/wss4j/dom/validate/SamlAssertionValidator.java`
 #### Snippet
 ```java
-public class SignatureConfirmationProcessor implements Processor {
-    private static final org.slf4j.Logger LOG =
-        org.slf4j.LoggerFactory.getLogger(SignatureConfirmationProcessor.class);
 
-    public List<WSSecurityEngineResult> handleToken(
+    private static final org.slf4j.Logger LOG =
+        org.slf4j.LoggerFactory.getLogger(SamlAssertionValidator.class);
+
+    /**
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.util` is unnecessary, and can be replaced with an import
+in `ws-security-dom/src/main/java/org/apache/wss4j/dom/processor/BinarySecurityTokenProcessor.java`
+#### Snippet
+```java
+            if (elem.equals(foundElement)) {
+                WSSecurityEngineResult result = data.getWsDocInfo().getResult(id);
+                return java.util.Collections.singletonList(result);
+            } else if (foundElement != null) {
+                throw new WSSecurityException(
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.util` is unnecessary, and can be replaced with an import
+in `ws-security-dom/src/main/java/org/apache/wss4j/dom/processor/BinarySecurityTokenProcessor.java`
+#### Snippet
+```java
+
+        data.getWsDocInfo().addResult(result);
+        return java.util.Collections.singletonList(result);
+    }
+
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -13713,6 +11107,42 @@ in `ws-security-dom/src/main/java/org/apache/wss4j/dom/message/token/DerivedKeyT
         org.slf4j.LoggerFactory.getLogger(DerivedKeyToken.class);
 
     // These are the elements that are used to create the SecurityContextToken
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.security` is unnecessary, and can be replaced with an import
+in `ws-security-dom/src/main/java/org/apache/wss4j/dom/message/WSSecSignature.java`
+#### Snippet
+```java
+    ) throws WSSecurityException {
+        try {
+            java.security.Key key;
+            if (secretKey == null) {
+                key = crypto.getPrivateKey(user, password);
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.security` is unnecessary, and can be replaced with an import
+in `ws-security-dom/src/main/java/org/apache/wss4j/dom/message/WSSecSignature.java`
+#### Snippet
+```java
+
+            case WSConstants.KEY_VALUE:
+                java.security.PublicKey publicKey = certs[0].getPublicKey();
+
+                try {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.security` is unnecessary, and can be replaced with an import
+in `ws-security-dom/src/main/java/org/apache/wss4j/dom/message/WSSecSignature.java`
+#### Snippet
+```java
+                    keyInfo =
+                        keyInfoFactory.newKeyInfo(Collections.singletonList(keyValue), keyInfoUri);
+                } catch (java.security.KeyException ex) {
+                    LOG.error("", ex);
+                    throw new WSSecurityException(
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -13752,39 +11182,39 @@ in `ws-security-dom/src/main/java/org/apache/wss4j/dom/message/WSSecSignature.ja
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `java.security` is unnecessary, and can be replaced with an import
-in `ws-security-dom/src/main/java/org/apache/wss4j/dom/message/WSSecSignature.java`
+Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
+in `ws-security-dom/src/main/java/org/apache/wss4j/dom/processor/TimestampProcessor.java`
 #### Snippet
 ```java
 
-            case WSConstants.KEY_VALUE:
-                java.security.PublicKey publicKey = certs[0].getPublicKey();
+public class TimestampProcessor implements Processor {
+    private static final org.slf4j.Logger LOG =
+        org.slf4j.LoggerFactory.getLogger(TimestampProcessor.class);
 
-                try {
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `java.security` is unnecessary, and can be replaced with an import
-in `ws-security-dom/src/main/java/org/apache/wss4j/dom/message/WSSecSignature.java`
+Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
+in `ws-security-dom/src/main/java/org/apache/wss4j/dom/processor/TimestampProcessor.java`
 #### Snippet
 ```java
-                    keyInfo =
-                        keyInfoFactory.newKeyInfo(Collections.singletonList(keyValue), keyInfoUri);
-                } catch (java.security.KeyException ex) {
-                    LOG.error("", ex);
-                    throw new WSSecurityException(
+public class TimestampProcessor implements Processor {
+    private static final org.slf4j.Logger LOG =
+        org.slf4j.LoggerFactory.getLogger(TimestampProcessor.class);
+
+    public List<WSSecurityEngineResult> handleToken(
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `java.security` is unnecessary, and can be replaced with an import
-in `ws-security-dom/src/main/java/org/apache/wss4j/dom/message/WSSecSignature.java`
+Qualifier `java.util` is unnecessary, and can be replaced with an import
+in `ws-security-dom/src/main/java/org/apache/wss4j/dom/processor/TimestampProcessor.java`
 #### Snippet
 ```java
-    ) throws WSSecurityException {
-        try {
-            java.security.Key key;
-            if (secretKey == null) {
-                key = crypto.getPrivateKey(user, password);
+        data.getWsDocInfo().addTokenElement(elem);
+        data.getWsDocInfo().addResult(result);
+        return java.util.Collections.singletonList(result);
+    }
+
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -13800,111 +11230,27 @@ in `ws-security-dom/src/main/java/org/apache/wss4j/dom/processor/SecurityContext
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary, and can be replaced with an import
-in `ws-security-dom/src/main/java/org/apache/wss4j/dom/processor/BinarySecurityTokenProcessor.java`
-#### Snippet
-```java
-            if (elem.equals(foundElement)) {
-                WSSecurityEngineResult result = data.getWsDocInfo().getResult(id);
-                return java.util.Collections.singletonList(result);
-            } else if (foundElement != null) {
-                throw new WSSecurityException(
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary, and can be replaced with an import
-in `ws-security-dom/src/main/java/org/apache/wss4j/dom/processor/BinarySecurityTokenProcessor.java`
+Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
+in `ws-security-dom/src/main/java/org/apache/wss4j/dom/processor/SAMLTokenProcessor.java`
 #### Snippet
 ```java
 
-        data.getWsDocInfo().addResult(result);
-        return java.util.Collections.singletonList(result);
-    }
-
+public class SAMLTokenProcessor implements Processor {
+    private static final org.slf4j.Logger LOG =
+        org.slf4j.LoggerFactory.getLogger(SAMLTokenProcessor.class);
+    private XMLSignatureFactory signatureFactory;
 ```
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
-in `ws-security-dom/src/main/java/org/apache/wss4j/dom/validate/SamlAssertionValidator.java`
+in `ws-security-dom/src/main/java/org/apache/wss4j/dom/processor/SAMLTokenProcessor.java`
 #### Snippet
 ```java
-public class SamlAssertionValidator extends SignatureTrustValidator {
-
+public class SAMLTokenProcessor implements Processor {
     private static final org.slf4j.Logger LOG =
-        org.slf4j.LoggerFactory.getLogger(SamlAssertionValidator.class);
+        org.slf4j.LoggerFactory.getLogger(SAMLTokenProcessor.class);
+    private XMLSignatureFactory signatureFactory;
 
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
-in `ws-security-dom/src/main/java/org/apache/wss4j/dom/validate/SamlAssertionValidator.java`
-#### Snippet
-```java
-
-    private static final org.slf4j.Logger LOG =
-        org.slf4j.LoggerFactory.getLogger(SamlAssertionValidator.class);
-
-    /**
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary, and can be replaced with an import
-in `ws-security-dom/src/main/java/org/apache/wss4j/dom/processor/TimestampProcessor.java`
-#### Snippet
-```java
-        data.getWsDocInfo().addTokenElement(elem);
-        data.getWsDocInfo().addResult(result);
-        return java.util.Collections.singletonList(result);
-    }
-
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
-in `ws-security-dom/src/main/java/org/apache/wss4j/dom/processor/TimestampProcessor.java`
-#### Snippet
-```java
-
-public class TimestampProcessor implements Processor {
-    private static final org.slf4j.Logger LOG =
-        org.slf4j.LoggerFactory.getLogger(TimestampProcessor.class);
-
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
-in `ws-security-dom/src/main/java/org/apache/wss4j/dom/processor/TimestampProcessor.java`
-#### Snippet
-```java
-public class TimestampProcessor implements Processor {
-    private static final org.slf4j.Logger LOG =
-        org.slf4j.LoggerFactory.getLogger(TimestampProcessor.class);
-
-    public List<WSSecurityEngineResult> handleToken(
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
-in `ws-security-dom/src/main/java/org/apache/wss4j/dom/processor/ReferenceListProcessor.java`
-#### Snippet
-```java
-
-public class ReferenceListProcessor implements Processor {
-    private static final org.slf4j.Logger LOG =
-        org.slf4j.LoggerFactory.getLogger(ReferenceListProcessor.class);
-
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
-in `ws-security-dom/src/main/java/org/apache/wss4j/dom/processor/ReferenceListProcessor.java`
-#### Snippet
-```java
-public class ReferenceListProcessor implements Processor {
-    private static final org.slf4j.Logger LOG =
-        org.slf4j.LoggerFactory.getLogger(ReferenceListProcessor.class);
-
-    public List<WSSecurityEngineResult> handleToken(
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -13933,25 +11279,73 @@ in `ws-security-dom/src/main/java/org/apache/wss4j/dom/processor/SAMLTokenProces
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
-in `ws-security-dom/src/main/java/org/apache/wss4j/dom/processor/SAMLTokenProcessor.java`
+in `ws-security-dom/src/main/java/org/apache/wss4j/dom/handler/WSHandler.java`
 #### Snippet
 ```java
-
-public class SAMLTokenProcessor implements Processor {
+ */
+public abstract class WSHandler {
     private static final org.slf4j.Logger LOG =
-        org.slf4j.LoggerFactory.getLogger(SAMLTokenProcessor.class);
-    private XMLSignatureFactory signatureFactory;
+        org.slf4j.LoggerFactory.getLogger(WSHandler.class);
+    protected Map<String, Crypto> cryptos = new ConcurrentHashMap<>();
 ```
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
-in `ws-security-dom/src/main/java/org/apache/wss4j/dom/processor/SAMLTokenProcessor.java`
+in `ws-security-dom/src/main/java/org/apache/wss4j/dom/handler/WSHandler.java`
 #### Snippet
 ```java
-public class SAMLTokenProcessor implements Processor {
+public abstract class WSHandler {
     private static final org.slf4j.Logger LOG =
-        org.slf4j.LoggerFactory.getLogger(SAMLTokenProcessor.class);
-    private XMLSignatureFactory signatureFactory;
+        org.slf4j.LoggerFactory.getLogger(WSHandler.class);
+    protected Map<String, Crypto> cryptos = new ConcurrentHashMap<>();
+
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
+in `ws-security-dom/src/main/java/org/apache/wss4j/dom/processor/UsernameTokenProcessor.java`
+#### Snippet
+```java
+
+public class UsernameTokenProcessor implements Processor {
+    private static final org.slf4j.Logger LOG =
+        org.slf4j.LoggerFactory.getLogger(UsernameTokenProcessor.class);
+
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
+in `ws-security-dom/src/main/java/org/apache/wss4j/dom/processor/UsernameTokenProcessor.java`
+#### Snippet
+```java
+public class UsernameTokenProcessor implements Processor {
+    private static final org.slf4j.Logger LOG =
+        org.slf4j.LoggerFactory.getLogger(UsernameTokenProcessor.class);
+
+    public List<WSSecurityEngineResult> handleToken(
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.util` is unnecessary, and can be replaced with an import
+in `ws-security-dom/src/main/java/org/apache/wss4j/dom/processor/UsernameTokenProcessor.java`
+#### Snippet
+```java
+            if (elem.equals(foundElement)) {
+                WSSecurityEngineResult result = data.getWsDocInfo().getResult(id);
+                return java.util.Collections.singletonList(result);
+            } else if (foundElement != null) {
+                throw new WSSecurityException(
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.util` is unnecessary, and can be replaced with an import
+in `ws-security-dom/src/main/java/org/apache/wss4j/dom/processor/UsernameTokenProcessor.java`
+#### Snippet
+```java
+        data.getWsDocInfo().addTokenElement(elem);
+        data.getWsDocInfo().addResult(result);
+        return java.util.Collections.singletonList(result);
+    }
 
 ```
 
@@ -13981,50 +11375,26 @@ in `ws-security-dom/src/main/java/org/apache/wss4j/dom/processor/EncryptedAssert
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
-in `ws-security-dom/src/main/java/org/apache/wss4j/dom/processor/UsernameTokenProcessor.java`
+in `ws-security-dom/src/main/java/org/apache/wss4j/dom/processor/EncryptedDataProcessor.java`
 #### Snippet
 ```java
+public class EncryptedDataProcessor implements Processor {
 
-public class UsernameTokenProcessor implements Processor {
     private static final org.slf4j.Logger LOG =
-        org.slf4j.LoggerFactory.getLogger(UsernameTokenProcessor.class);
+        org.slf4j.LoggerFactory.getLogger(EncryptedDataProcessor.class);
 
 ```
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
-in `ws-security-dom/src/main/java/org/apache/wss4j/dom/processor/UsernameTokenProcessor.java`
+in `ws-security-dom/src/main/java/org/apache/wss4j/dom/processor/EncryptedDataProcessor.java`
 #### Snippet
 ```java
-public class UsernameTokenProcessor implements Processor {
+
     private static final org.slf4j.Logger LOG =
-        org.slf4j.LoggerFactory.getLogger(UsernameTokenProcessor.class);
+        org.slf4j.LoggerFactory.getLogger(EncryptedDataProcessor.class);
 
     public List<WSSecurityEngineResult> handleToken(
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary, and can be replaced with an import
-in `ws-security-dom/src/main/java/org/apache/wss4j/dom/processor/UsernameTokenProcessor.java`
-#### Snippet
-```java
-            if (elem.equals(foundElement)) {
-                WSSecurityEngineResult result = data.getWsDocInfo().getResult(id);
-                return java.util.Collections.singletonList(result);
-            } else if (foundElement != null) {
-                throw new WSSecurityException(
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary, and can be replaced with an import
-in `ws-security-dom/src/main/java/org/apache/wss4j/dom/processor/UsernameTokenProcessor.java`
-#### Snippet
-```java
-        data.getWsDocInfo().addTokenElement(elem);
-        data.getWsDocInfo().addResult(result);
-        return java.util.Collections.singletonList(result);
-    }
-
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -14053,26 +11423,50 @@ public final class STRTransformUtil {
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
-in `ws-security-dom/src/main/java/org/apache/wss4j/dom/processor/EncryptedDataProcessor.java`
+in `ws-security-dom/src/main/java/org/apache/wss4j/dom/processor/ReferenceListProcessor.java`
 #### Snippet
 ```java
-public class EncryptedDataProcessor implements Processor {
 
+public class ReferenceListProcessor implements Processor {
     private static final org.slf4j.Logger LOG =
-        org.slf4j.LoggerFactory.getLogger(EncryptedDataProcessor.class);
+        org.slf4j.LoggerFactory.getLogger(ReferenceListProcessor.class);
 
 ```
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
-in `ws-security-dom/src/main/java/org/apache/wss4j/dom/processor/EncryptedDataProcessor.java`
+in `ws-security-dom/src/main/java/org/apache/wss4j/dom/processor/ReferenceListProcessor.java`
+#### Snippet
+```java
+public class ReferenceListProcessor implements Processor {
+    private static final org.slf4j.Logger LOG =
+        org.slf4j.LoggerFactory.getLogger(ReferenceListProcessor.class);
+
+    public List<WSSecurityEngineResult> handleToken(
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
+in `ws-security-common/src/main/java/org/apache/wss4j/common/SignatureEncryptionActionToken.java`
+#### Snippet
+```java
+public abstract class SignatureEncryptionActionToken implements SecurityActionToken {
+
+    private static final org.slf4j.Logger LOG =
+        org.slf4j.LoggerFactory.getLogger(SignatureEncryptionActionToken.class);
+
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
+in `ws-security-common/src/main/java/org/apache/wss4j/common/SignatureEncryptionActionToken.java`
 #### Snippet
 ```java
 
     private static final org.slf4j.Logger LOG =
-        org.slf4j.LoggerFactory.getLogger(EncryptedDataProcessor.class);
+        org.slf4j.LoggerFactory.getLogger(SignatureEncryptionActionToken.class);
 
-    public List<WSSecurityEngineResult> handleToken(
+    private X509Certificate certificate;
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -14149,6 +11543,66 @@ in `ws-security-dom/src/main/java/org/apache/wss4j/dom/transform/STRTransform.ja
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
+in `ws-security-common/src/main/java/org/apache/wss4j/common/NamePasswordCallbackHandler.java`
+#### Snippet
+```java
+public class NamePasswordCallbackHandler implements CallbackHandler {
+
+    private static final org.slf4j.Logger LOG =
+        org.slf4j.LoggerFactory.getLogger(NamePasswordCallbackHandler.class);
+
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
+in `ws-security-common/src/main/java/org/apache/wss4j/common/NamePasswordCallbackHandler.java`
+#### Snippet
+```java
+
+    private static final org.slf4j.Logger LOG =
+        org.slf4j.LoggerFactory.getLogger(NamePasswordCallbackHandler.class);
+
+    private static final String PASSWORD_CALLBACK_NAME = "setObject";
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
+in `ws-security-common/src/main/java/org/apache/wss4j/common/bsp/BSPEnforcer.java`
+#### Snippet
+```java
+public class BSPEnforcer {
+
+    private static final org.slf4j.Logger LOG = org.slf4j.LoggerFactory.getLogger(BSPEnforcer.class);
+
+    private List<BSPRule> ignoredBSPRules = Collections.emptyList();
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
+in `ws-security-common/src/main/java/org/apache/wss4j/common/bsp/BSPEnforcer.java`
+#### Snippet
+```java
+public class BSPEnforcer {
+
+    private static final org.slf4j.Logger LOG = org.slf4j.LoggerFactory.getLogger(BSPEnforcer.class);
+
+    private List<BSPRule> ignoredBSPRules = Collections.emptyList();
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.opensaml.core.xml.schema.impl` is unnecessary, and can be replaced with an import
+in `ws-security-common/src/main/java/org/apache/wss4j/common/saml/WSS4JXSBase64BinaryUnmarshaller.java`
+#### Snippet
+```java
+ * https://issues.apache.org/jira/browse/WSS-695
+ */
+public final class WSS4JXSBase64BinaryUnmarshaller extends org.opensaml.core.xml.schema.impl.XSBase64BinaryUnmarshaller {
+
+    /**
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
 in `ws-security-dom/src/main/java/org/apache/wss4j/dom/processor/EncryptedKeyProcessor.java`
 #### Snippet
 ```java
@@ -14169,6 +11623,342 @@ public class EncryptedKeyProcessor implements Processor {
         org.slf4j.LoggerFactory.getLogger(EncryptedKeyProcessor.class);
 
     private final Provider provider;
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.opensaml.saml.saml1.core` is unnecessary, and can be replaced with an import
+in `ws-security-common/src/main/java/org/apache/wss4j/common/saml/OpenSAMLUtil.java`
+#### Snippet
+```java
+
+    private static void signXMLObject(XMLObject xmlObject) throws WSSecurityException {
+        if (xmlObject instanceof org.opensaml.saml.saml1.core.Response) {
+            org.opensaml.saml.saml1.core.Response response =
+                    (org.opensaml.saml.saml1.core.Response)xmlObject;
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.opensaml.saml.saml1.core` is unnecessary, and can be replaced with an import
+in `ws-security-common/src/main/java/org/apache/wss4j/common/saml/OpenSAMLUtil.java`
+#### Snippet
+```java
+    private static void signXMLObject(XMLObject xmlObject) throws WSSecurityException {
+        if (xmlObject instanceof org.opensaml.saml.saml1.core.Response) {
+            org.opensaml.saml.saml1.core.Response response =
+                    (org.opensaml.saml.saml1.core.Response)xmlObject;
+
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.opensaml.saml.saml1.core` is unnecessary, and can be replaced with an import
+in `ws-security-common/src/main/java/org/apache/wss4j/common/saml/OpenSAMLUtil.java`
+#### Snippet
+```java
+        if (xmlObject instanceof org.opensaml.saml.saml1.core.Response) {
+            org.opensaml.saml.saml1.core.Response response =
+                    (org.opensaml.saml.saml1.core.Response)xmlObject;
+
+            // Sign any Assertions
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.opensaml.saml.saml1.core` is unnecessary, and can be replaced with an import
+in `ws-security-common/src/main/java/org/apache/wss4j/common/saml/OpenSAMLUtil.java`
+#### Snippet
+```java
+            // Sign any Assertions
+            if (response.getAssertions() != null) {
+                for (org.opensaml.saml.saml1.core.Assertion assertion : response.getAssertions()) {
+                    signObject(assertion.getSignature());
+                }
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.opensaml.saml.saml2.core` is unnecessary, and can be replaced with an import
+in `ws-security-common/src/main/java/org/apache/wss4j/common/saml/OpenSAMLUtil.java`
+#### Snippet
+```java
+
+            signObject(response.getSignature());
+        } else if (xmlObject instanceof org.opensaml.saml.saml2.core.Response) {
+            org.opensaml.saml.saml2.core.Response response =
+                    (org.opensaml.saml.saml2.core.Response)xmlObject;
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.opensaml.saml.saml2.core` is unnecessary, and can be replaced with an import
+in `ws-security-common/src/main/java/org/apache/wss4j/common/saml/OpenSAMLUtil.java`
+#### Snippet
+```java
+            signObject(response.getSignature());
+        } else if (xmlObject instanceof org.opensaml.saml.saml2.core.Response) {
+            org.opensaml.saml.saml2.core.Response response =
+                    (org.opensaml.saml.saml2.core.Response)xmlObject;
+
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.opensaml.saml.saml2.core` is unnecessary, and can be replaced with an import
+in `ws-security-common/src/main/java/org/apache/wss4j/common/saml/OpenSAMLUtil.java`
+#### Snippet
+```java
+        } else if (xmlObject instanceof org.opensaml.saml.saml2.core.Response) {
+            org.opensaml.saml.saml2.core.Response response =
+                    (org.opensaml.saml.saml2.core.Response)xmlObject;
+
+            // Sign any Assertions
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.opensaml.saml.saml2.core` is unnecessary, and can be replaced with an import
+in `ws-security-common/src/main/java/org/apache/wss4j/common/saml/OpenSAMLUtil.java`
+#### Snippet
+```java
+            // Sign any Assertions
+            if (response.getAssertions() != null) {
+                for (org.opensaml.saml.saml2.core.Assertion assertion : response.getAssertions()) {
+                    signObject(assertion.getSignature());
+                }
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
+in `ws-security-common/src/main/java/org/apache/wss4j/common/saml/OpenSAMLUtil.java`
+#### Snippet
+```java
+ */
+public final class OpenSAMLUtil {
+    private static final org.slf4j.Logger LOG =
+        org.slf4j.LoggerFactory.getLogger(OpenSAMLUtil.class);
+
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
+in `ws-security-common/src/main/java/org/apache/wss4j/common/saml/OpenSAMLUtil.java`
+#### Snippet
+```java
+public final class OpenSAMLUtil {
+    private static final org.slf4j.Logger LOG =
+        org.slf4j.LoggerFactory.getLogger(OpenSAMLUtil.class);
+
+    private static XMLObjectProviderRegistry providerRegistry;
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.opensaml.saml.saml2.core` is unnecessary, and can be replaced with an import
+in `ws-security-common/src/main/java/org/apache/wss4j/common/saml/SAMLUtil.java`
+#### Snippet
+```java
+     */
+    public static SAMLKeyInfo getCredentialFromSubject(
+        org.opensaml.saml.saml2.core.Assertion assertion,
+        SAMLKeyInfoProcessor keyInfoProcessor,
+        Crypto sigCrypto
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.opensaml.saml.saml2.core` is unnecessary, and can be replaced with an import
+in `ws-security-common/src/main/java/org/apache/wss4j/common/saml/SAMLUtil.java`
+#### Snippet
+```java
+        Crypto sigCrypto
+    ) throws WSSecurityException {
+        org.opensaml.saml.saml2.core.Subject samlSubject = assertion.getSubject();
+        if (samlSubject != null) {
+            List<org.opensaml.saml.saml2.core.SubjectConfirmation> subjectConfList =
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.opensaml.saml.saml2.core` is unnecessary, and can be replaced with an import
+in `ws-security-common/src/main/java/org/apache/wss4j/common/saml/SAMLUtil.java`
+#### Snippet
+```java
+        org.opensaml.saml.saml2.core.Subject samlSubject = assertion.getSubject();
+        if (samlSubject != null) {
+            List<org.opensaml.saml.saml2.core.SubjectConfirmation> subjectConfList =
+                samlSubject.getSubjectConfirmations();
+            for (org.opensaml.saml.saml2.core.SubjectConfirmation subjectConfirmation : subjectConfList) {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.opensaml.saml.saml2.core` is unnecessary, and can be replaced with an import
+in `ws-security-common/src/main/java/org/apache/wss4j/common/saml/SAMLUtil.java`
+#### Snippet
+```java
+            List<org.opensaml.saml.saml2.core.SubjectConfirmation> subjectConfList =
+                samlSubject.getSubjectConfirmations();
+            for (org.opensaml.saml.saml2.core.SubjectConfirmation subjectConfirmation : subjectConfList) {
+                SubjectConfirmationData subjConfData =
+                    subjectConfirmation.getSubjectConfirmationData();
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.opensaml.saml.saml1.core` is unnecessary, and can be replaced with an import
+in `ws-security-common/src/main/java/org/apache/wss4j/common/saml/SAMLUtil.java`
+#### Snippet
+```java
+     */
+    public static SAMLKeyInfo getCredentialFromSubject(
+        org.opensaml.saml.saml1.core.Assertion assertion,
+        SAMLKeyInfoProcessor keyInfoProcessor,
+        Crypto sigCrypto
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.opensaml.saml.saml1.core` is unnecessary, and can be replaced with an import
+in `ws-security-common/src/main/java/org/apache/wss4j/common/saml/SAMLUtil.java`
+#### Snippet
+```java
+        Crypto sigCrypto
+    ) throws WSSecurityException {
+        for (org.opensaml.saml.saml1.core.Statement stmt : assertion.getStatements()) {
+            org.opensaml.saml.saml1.core.Subject samlSubject = null;
+            if (stmt instanceof org.opensaml.saml.saml1.core.AttributeStatement) {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.opensaml.saml.saml1.core` is unnecessary, and can be replaced with an import
+in `ws-security-common/src/main/java/org/apache/wss4j/common/saml/SAMLUtil.java`
+#### Snippet
+```java
+    ) throws WSSecurityException {
+        for (org.opensaml.saml.saml1.core.Statement stmt : assertion.getStatements()) {
+            org.opensaml.saml.saml1.core.Subject samlSubject = null;
+            if (stmt instanceof org.opensaml.saml.saml1.core.AttributeStatement) {
+                org.opensaml.saml.saml1.core.AttributeStatement attrStmt =
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.opensaml.saml.saml1.core` is unnecessary, and can be replaced with an import
+in `ws-security-common/src/main/java/org/apache/wss4j/common/saml/SAMLUtil.java`
+#### Snippet
+```java
+        for (org.opensaml.saml.saml1.core.Statement stmt : assertion.getStatements()) {
+            org.opensaml.saml.saml1.core.Subject samlSubject = null;
+            if (stmt instanceof org.opensaml.saml.saml1.core.AttributeStatement) {
+                org.opensaml.saml.saml1.core.AttributeStatement attrStmt =
+                    (org.opensaml.saml.saml1.core.AttributeStatement) stmt;
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.opensaml.saml.saml1.core` is unnecessary, and can be replaced with an import
+in `ws-security-common/src/main/java/org/apache/wss4j/common/saml/SAMLUtil.java`
+#### Snippet
+```java
+            org.opensaml.saml.saml1.core.Subject samlSubject = null;
+            if (stmt instanceof org.opensaml.saml.saml1.core.AttributeStatement) {
+                org.opensaml.saml.saml1.core.AttributeStatement attrStmt =
+                    (org.opensaml.saml.saml1.core.AttributeStatement) stmt;
+                samlSubject = attrStmt.getSubject();
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.opensaml.saml.saml1.core` is unnecessary, and can be replaced with an import
+in `ws-security-common/src/main/java/org/apache/wss4j/common/saml/SAMLUtil.java`
+#### Snippet
+```java
+            if (stmt instanceof org.opensaml.saml.saml1.core.AttributeStatement) {
+                org.opensaml.saml.saml1.core.AttributeStatement attrStmt =
+                    (org.opensaml.saml.saml1.core.AttributeStatement) stmt;
+                samlSubject = attrStmt.getSubject();
+            } else if (stmt instanceof org.opensaml.saml.saml1.core.AuthenticationStatement) {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.opensaml.saml.saml1.core` is unnecessary, and can be replaced with an import
+in `ws-security-common/src/main/java/org/apache/wss4j/common/saml/SAMLUtil.java`
+#### Snippet
+```java
+                    (org.opensaml.saml.saml1.core.AttributeStatement) stmt;
+                samlSubject = attrStmt.getSubject();
+            } else if (stmt instanceof org.opensaml.saml.saml1.core.AuthenticationStatement) {
+                org.opensaml.saml.saml1.core.AuthenticationStatement authStmt =
+                    (org.opensaml.saml.saml1.core.AuthenticationStatement) stmt;
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.opensaml.saml.saml1.core` is unnecessary, and can be replaced with an import
+in `ws-security-common/src/main/java/org/apache/wss4j/common/saml/SAMLUtil.java`
+#### Snippet
+```java
+                samlSubject = attrStmt.getSubject();
+            } else if (stmt instanceof org.opensaml.saml.saml1.core.AuthenticationStatement) {
+                org.opensaml.saml.saml1.core.AuthenticationStatement authStmt =
+                    (org.opensaml.saml.saml1.core.AuthenticationStatement) stmt;
+                samlSubject = authStmt.getSubject();
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.opensaml.saml.saml1.core` is unnecessary, and can be replaced with an import
+in `ws-security-common/src/main/java/org/apache/wss4j/common/saml/SAMLUtil.java`
+#### Snippet
+```java
+            } else if (stmt instanceof org.opensaml.saml.saml1.core.AuthenticationStatement) {
+                org.opensaml.saml.saml1.core.AuthenticationStatement authStmt =
+                    (org.opensaml.saml.saml1.core.AuthenticationStatement) stmt;
+                samlSubject = authStmt.getSubject();
+            } else {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.opensaml.saml.saml1.core` is unnecessary, and can be replaced with an import
+in `ws-security-common/src/main/java/org/apache/wss4j/common/saml/SAMLUtil.java`
+#### Snippet
+```java
+                samlSubject = authStmt.getSubject();
+            } else {
+                org.opensaml.saml.saml1.core.AuthorizationDecisionStatement authzStmt =
+                    (org.opensaml.saml.saml1.core.AuthorizationDecisionStatement)stmt;
+                samlSubject = authzStmt.getSubject();
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.opensaml.saml.saml1.core` is unnecessary, and can be replaced with an import
+in `ws-security-common/src/main/java/org/apache/wss4j/common/saml/SAMLUtil.java`
+#### Snippet
+```java
+            } else {
+                org.opensaml.saml.saml1.core.AuthorizationDecisionStatement authzStmt =
+                    (org.opensaml.saml.saml1.core.AuthorizationDecisionStatement)stmt;
+                samlSubject = authzStmt.getSubject();
+            }
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `javax.xml.crypto.dsig.keyinfo` is unnecessary, and can be replaced with an import
+in `ws-security-common/src/main/java/org/apache/wss4j/common/saml/SAMLUtil.java`
+#### Snippet
+```java
+
+        try {
+            javax.xml.crypto.dsig.keyinfo.KeyInfo keyInfo =
+                keyInfoFactory.unmarshalKeyInfo(keyInfoStructure);
+            List<?> list = keyInfo.getContent();
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.util` is unnecessary, and can be replaced with an import
+in `ws-security-dom/src/main/java/org/apache/wss4j/dom/processor/SignatureProcessor.java`
+#### Snippet
+```java
+                    if (dereferencedData instanceof NodeSetData) {
+                        NodeSetData data = (NodeSetData)dereferencedData;
+                        java.util.Iterator<?> iter = data.iterator();
+
+                        while (iter.hasNext()) {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.util` is unnecessary, and can be replaced with an import
+in `ws-security-dom/src/main/java/org/apache/wss4j/dom/processor/SignatureProcessor.java`
+#### Snippet
+```java
+        WSDocInfo wsDocInfo
+    ) throws WSSecurityException {
+        java.util.Iterator<?> referenceIterator =
+            xmlSignature.getSignedInfo().getReferences().iterator();
+        CallbackLookup callbackLookup = wsDocInfo.getCallbackLookup();
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -14200,11 +11990,11 @@ Qualifier `java.util` is unnecessary, and can be replaced with an import
 in `ws-security-dom/src/main/java/org/apache/wss4j/dom/processor/SignatureProcessor.java`
 #### Snippet
 ```java
-        WSDocInfo wsDocInfo
-    ) throws WSSecurityException {
-        java.util.Iterator<?> referenceIterator =
-            xmlSignature.getSignedInfo().getReferences().iterator();
-        CallbackLookup callbackLookup = wsDocInfo.getCallbackLookup();
+                NodeSetData data = (NodeSetData)siRef.getDereferencedData();
+                if (data != null) {
+                    java.util.Iterator<?> iter = data.iterator();
+
+                    Node securityTokenReference = null;
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -14224,34 +12014,2230 @@ Qualifier `java.util` is unnecessary, and can be replaced with an import
 in `ws-security-dom/src/main/java/org/apache/wss4j/dom/processor/SignatureProcessor.java`
 #### Snippet
 ```java
-                NodeSetData data = (NodeSetData)siRef.getDereferencedData();
-                if (data != null) {
-                    java.util.Iterator<?> iter = data.iterator();
-
-                    Node securityTokenReference = null;
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary, and can be replaced with an import
-in `ws-security-dom/src/main/java/org/apache/wss4j/dom/processor/SignatureProcessor.java`
-#### Snippet
-```java
-                    if (dereferencedData instanceof NodeSetData) {
-                        NodeSetData data = (NodeSetData)dereferencedData;
-                        java.util.Iterator<?> iter = data.iterator();
-
-                        while (iter.hasNext()) {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary, and can be replaced with an import
-in `ws-security-dom/src/main/java/org/apache/wss4j/dom/processor/SignatureProcessor.java`
-#### Snippet
-```java
         data.getWsDocInfo().addResult(result);
         data.getWsDocInfo().addTokenElement(elem);
         return java.util.Collections.singletonList(result);
     }
+
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
+in `ws-security-common/src/main/java/org/apache/wss4j/common/util/DateUtil.java`
+#### Snippet
+```java
+public final class DateUtil {
+
+    private static final org.slf4j.Logger LOG =
+            org.slf4j.LoggerFactory.getLogger(DateUtil.class);
+
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
+in `ws-security-common/src/main/java/org/apache/wss4j/common/util/DateUtil.java`
+#### Snippet
+```java
+
+    private static final org.slf4j.Logger LOG =
+            org.slf4j.LoggerFactory.getLogger(DateUtil.class);
+
+    private static final DateTimeFormatter MILLISECOND_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
+in `ws-security-common/src/main/java/org/apache/wss4j/common/util/UsernameTokenUtil.java`
+#### Snippet
+```java
+    public static final int DEFAULT_ITERATION = 1000;
+
+    private static final org.slf4j.Logger LOG =
+            org.slf4j.LoggerFactory.getLogger(UsernameTokenUtil.class);
+
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
+in `ws-security-common/src/main/java/org/apache/wss4j/common/util/UsernameTokenUtil.java`
+#### Snippet
+```java
+
+    private static final org.slf4j.Logger LOG =
+            org.slf4j.LoggerFactory.getLogger(UsernameTokenUtil.class);
+
+    private UsernameTokenUtil() {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.opensaml.saml.saml2.core` is unnecessary, and can be replaced with an import
+in `ws-security-common/src/main/java/org/apache/wss4j/common/saml/SamlAssertionWrapper.java`
+#### Snippet
+```java
+
+        if (getSamlVersion().equals(SAMLVersion.VERSION_20) && getSaml2().getConditions() != null) {
+            org.opensaml.saml.saml2.core.Conditions conditions = getSaml2().getConditions();
+            if (conditions != null && conditions.getAudienceRestrictions() != null
+                && !conditions.getAudienceRestrictions().isEmpty()) {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.opensaml.saml.saml2.core` is unnecessary, and can be replaced with an import
+in `ws-security-common/src/main/java/org/apache/wss4j/common/saml/SamlAssertionWrapper.java`
+#### Snippet
+```java
+                && !conditions.getAudienceRestrictions().isEmpty()) {
+                boolean foundAddress = false;
+                for (org.opensaml.saml.saml2.core.AudienceRestriction audienceRestriction
+                    : conditions.getAudienceRestrictions()) {
+                    if (audienceRestriction.getAudiences() != null) {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.opensaml.saml.saml2.core` is unnecessary, and can be replaced with an import
+in `ws-security-common/src/main/java/org/apache/wss4j/common/saml/SamlAssertionWrapper.java`
+#### Snippet
+```java
+                    : conditions.getAudienceRestrictions()) {
+                    if (audienceRestriction.getAudiences() != null) {
+                        List<org.opensaml.saml.saml2.core.Audience> audiences =
+                            audienceRestriction.getAudiences();
+                        for (org.opensaml.saml.saml2.core.Audience audience : audiences) {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.opensaml.saml.saml2.core` is unnecessary, and can be replaced with an import
+in `ws-security-common/src/main/java/org/apache/wss4j/common/saml/SamlAssertionWrapper.java`
+#### Snippet
+```java
+                        List<org.opensaml.saml.saml2.core.Audience> audiences =
+                            audienceRestriction.getAudiences();
+                        for (org.opensaml.saml.saml2.core.Audience audience : audiences) {
+                            String audienceURI = audience.getURI();
+                            if (audienceRestrictions.contains(audienceURI)) {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.opensaml.saml.saml1.core` is unnecessary, and can be replaced with an import
+in `ws-security-common/src/main/java/org/apache/wss4j/common/saml/SamlAssertionWrapper.java`
+#### Snippet
+```java
+            }
+        } else if (getSamlVersion().equals(SAMLVersion.VERSION_11) && getSaml1().getConditions() != null) {
+            org.opensaml.saml.saml1.core.Conditions conditions = getSaml1().getConditions();
+            if (conditions != null && conditions.getAudienceRestrictionConditions() != null
+                && !conditions.getAudienceRestrictionConditions().isEmpty()) {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.opensaml.saml.saml1.core` is unnecessary, and can be replaced with an import
+in `ws-security-common/src/main/java/org/apache/wss4j/common/saml/SamlAssertionWrapper.java`
+#### Snippet
+```java
+                && !conditions.getAudienceRestrictionConditions().isEmpty()) {
+                boolean foundAddress = false;
+                for (org.opensaml.saml.saml1.core.AudienceRestrictionCondition audienceRestriction
+                    : conditions.getAudienceRestrictionConditions()) {
+                    if (audienceRestriction.getAudiences() != null) {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.opensaml.saml.saml1.core` is unnecessary, and can be replaced with an import
+in `ws-security-common/src/main/java/org/apache/wss4j/common/saml/SamlAssertionWrapper.java`
+#### Snippet
+```java
+                    : conditions.getAudienceRestrictionConditions()) {
+                    if (audienceRestriction.getAudiences() != null) {
+                        List<org.opensaml.saml.saml1.core.Audience> audiences =
+                            audienceRestriction.getAudiences();
+                        for (org.opensaml.saml.saml1.core.Audience audience : audiences) {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.opensaml.saml.saml1.core` is unnecessary, and can be replaced with an import
+in `ws-security-common/src/main/java/org/apache/wss4j/common/saml/SamlAssertionWrapper.java`
+#### Snippet
+```java
+                        List<org.opensaml.saml.saml1.core.Audience> audiences =
+                            audienceRestriction.getAudiences();
+                        for (org.opensaml.saml.saml1.core.Audience audience : audiences) {
+                            String audienceURI = audience.getURI();
+                            if (audienceRestrictions.contains(audienceURI)) {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
+in `ws-security-common/src/main/java/org/apache/wss4j/common/util/NSStack.java`
+#### Snippet
+```java
+ */
+public class NSStack {
+    private static final org.slf4j.Logger LOG =
+        org.slf4j.LoggerFactory.getLogger(NSStack.class);
+
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
+in `ws-security-common/src/main/java/org/apache/wss4j/common/util/NSStack.java`
+#### Snippet
+```java
+public class NSStack {
+    private static final org.slf4j.Logger LOG =
+        org.slf4j.LoggerFactory.getLogger(NSStack.class);
+
+    private Mapping[] stack;
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.opensaml.saml.saml1.core` is unnecessary, and can be replaced with an import
+in `ws-security-common/src/main/java/org/apache/wss4j/common/saml/SamlAssertionWrapper.java`
+#### Snippet
+```java
+     * @return the saml1 (type Assertion) of this SamlAssertionWrapper object.
+     */
+    public org.opensaml.saml.saml1.core.Assertion getSaml1() {
+        if (samlVersion == SAMLVersion.VERSION_11) {
+            return (org.opensaml.saml.saml1.core.Assertion)samlObject;
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.opensaml.saml.saml1.core` is unnecessary, and can be replaced with an import
+in `ws-security-common/src/main/java/org/apache/wss4j/common/saml/SamlAssertionWrapper.java`
+#### Snippet
+```java
+    public org.opensaml.saml.saml1.core.Assertion getSaml1() {
+        if (samlVersion == SAMLVersion.VERSION_11) {
+            return (org.opensaml.saml.saml1.core.Assertion)samlObject;
+        }
+        return null;
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.opensaml.saml.saml1.core` is unnecessary, and can be replaced with an import
+in `ws-security-common/src/main/java/org/apache/wss4j/common/saml/SamlAssertionWrapper.java`
+#### Snippet
+```java
+    private void parseElement(Element element) throws WSSecurityException {
+        XMLObject xmlObject = OpenSAMLUtil.fromDom(element);
+        if (xmlObject instanceof org.opensaml.saml.saml1.core.Assertion) {
+            this.samlObject = (SAMLObject)xmlObject;
+            samlVersion = SAMLVersion.VERSION_11;
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.opensaml.saml.saml2.core` is unnecessary, and can be replaced with an import
+in `ws-security-common/src/main/java/org/apache/wss4j/common/saml/SamlAssertionWrapper.java`
+#### Snippet
+```java
+            this.samlObject = (SAMLObject)xmlObject;
+            samlVersion = SAMLVersion.VERSION_11;
+        } else if (xmlObject instanceof org.opensaml.saml.saml2.core.Assertion) {
+            this.samlObject = (SAMLObject)xmlObject;
+            samlVersion = SAMLVersion.VERSION_20;
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.opensaml.saml.saml2.core` is unnecessary, and can be replaced with an import
+in `ws-security-common/src/main/java/org/apache/wss4j/common/saml/SamlAssertionWrapper.java`
+#### Snippet
+```java
+     * @return the saml2 (type Assertion) of this SamlAssertionWrapper object.
+     */
+    public org.opensaml.saml.saml2.core.Assertion getSaml2() {
+        if (samlVersion == SAMLVersion.VERSION_20) {
+            return (org.opensaml.saml.saml2.core.Assertion)samlObject;
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.opensaml.saml.saml2.core` is unnecessary, and can be replaced with an import
+in `ws-security-common/src/main/java/org/apache/wss4j/common/saml/SamlAssertionWrapper.java`
+#### Snippet
+```java
+    public org.opensaml.saml.saml2.core.Assertion getSaml2() {
+        if (samlVersion == SAMLVersion.VERSION_20) {
+            return (org.opensaml.saml.saml2.core.Assertion)samlObject;
+        }
+        return null;
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.opensaml.saml.saml2.core` is unnecessary, and can be replaced with an import
+in `ws-security-common/src/main/java/org/apache/wss4j/common/saml/SamlAssertionWrapper.java`
+#### Snippet
+```java
+        if (samlVersion == SAMLVersion.VERSION_20) {
+            org.opensaml.saml.saml2.core.Subject subject =
+                ((org.opensaml.saml.saml2.core.Assertion)samlObject).getSubject();
+            if (subject != null && subject.getNameID() != null) {
+                return subject.getNameID().getValue();
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.opensaml.saml.saml1.core` is unnecessary, and can be replaced with an import
+in `ws-security-common/src/main/java/org/apache/wss4j/common/saml/SamlAssertionWrapper.java`
+#### Snippet
+```java
+        } else if (samlVersion == SAMLVersion.VERSION_11) {
+            Subject samlSubject = null;
+            for (Statement stmt : ((org.opensaml.saml.saml1.core.Assertion)samlObject).getStatements()) {
+                if (stmt instanceof AttributeStatement) {
+                    AttributeStatement attrStmt = (AttributeStatement) stmt;
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.opensaml.saml.saml1.core` is unnecessary, and can be replaced with an import
+in `ws-security-common/src/main/java/org/apache/wss4j/common/saml/SamlAssertionWrapper.java`
+#### Snippet
+```java
+            LOG.debug(
+                "The SAML version was null in getSamlVersion(). Recomputing SAML version...");
+            if (samlObject instanceof org.opensaml.saml.saml1.core.Assertion) {
+                samlVersion = SAMLVersion.VERSION_11;
+            } else if (samlObject instanceof org.opensaml.saml.saml2.core.Assertion) {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.opensaml.saml.saml2.core` is unnecessary, and can be replaced with an import
+in `ws-security-common/src/main/java/org/apache/wss4j/common/saml/SamlAssertionWrapper.java`
+#### Snippet
+```java
+            if (samlObject instanceof org.opensaml.saml.saml1.core.Assertion) {
+                samlVersion = SAMLVersion.VERSION_11;
+            } else if (samlObject instanceof org.opensaml.saml.saml2.core.Assertion) {
+                samlVersion = SAMLVersion.VERSION_20;
+            } else {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.opensaml.saml.saml1.core` is unnecessary, and can be replaced with an import
+in `ws-security-common/src/main/java/org/apache/wss4j/common/saml/SamlAssertionWrapper.java`
+#### Snippet
+```java
+            subjectKeyInfo =
+                SAMLUtil.getCredentialFromSubject(
+                    (org.opensaml.saml.saml1.core.Assertion)samlObject, keyInfoProcessor, sigCrypto
+                );
+        } else if (samlVersion == SAMLVersion.VERSION_20) {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.opensaml.saml.saml2.core` is unnecessary, and can be replaced with an import
+in `ws-security-common/src/main/java/org/apache/wss4j/common/saml/SamlAssertionWrapper.java`
+#### Snippet
+```java
+            subjectKeyInfo =
+                SAMLUtil.getCredentialFromSubject(
+                    (org.opensaml.saml.saml2.core.Assertion)samlObject, keyInfoProcessor, sigCrypto
+                );
+        }
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.opensaml.saml.saml1.core` is unnecessary, and can be replaced with an import
+in `ws-security-common/src/main/java/org/apache/wss4j/common/saml/SamlAssertionWrapper.java`
+#### Snippet
+```java
+
+        this.samlObject = samlObject;
+        if (samlObject instanceof org.opensaml.saml.saml1.core.Assertion) {
+            samlVersion = SAMLVersion.VERSION_11;
+        } else if (samlObject instanceof org.opensaml.saml.saml2.core.Assertion) {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.opensaml.saml.saml2.core` is unnecessary, and can be replaced with an import
+in `ws-security-common/src/main/java/org/apache/wss4j/common/saml/SamlAssertionWrapper.java`
+#### Snippet
+```java
+        if (samlObject instanceof org.opensaml.saml.saml1.core.Assertion) {
+            samlVersion = SAMLVersion.VERSION_11;
+        } else if (samlObject instanceof org.opensaml.saml.saml2.core.Assertion) {
+            samlVersion = SAMLVersion.VERSION_20;
+        } else {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.opensaml.saml.saml1.core` is unnecessary, and can be replaced with an import
+in `ws-security-common/src/main/java/org/apache/wss4j/common/saml/SamlAssertionWrapper.java`
+#### Snippet
+```java
+        if (samlVersion.equals(SAMLVersion.VERSION_11)) {
+            // Build a SAML v1.1 assertion
+            org.opensaml.saml.saml1.core.Assertion saml1 =
+                SAML1ComponentBuilder.createSamlv1Assertion(issuer);
+
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.opensaml.saml.saml1.core` is unnecessary, and can be replaced with an import
+in `ws-security-common/src/main/java/org/apache/wss4j/common/saml/SamlAssertionWrapper.java`
+#### Snippet
+```java
+
+                // Build the complete assertion
+                org.opensaml.saml.saml1.core.Conditions conditions =
+                    SAML1ComponentBuilder.createSamlv1Conditions(samlCallback.getConditions());
+                saml1.setConditions(conditions);
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.opensaml.saml.saml1.core` is unnecessary, and can be replaced with an import
+in `ws-security-common/src/main/java/org/apache/wss4j/common/saml/SamlAssertionWrapper.java`
+#### Snippet
+```java
+
+                if (samlCallback.getAdvice() != null) {
+                    org.opensaml.saml.saml1.core.Advice advice =
+                        SAML1ComponentBuilder.createAdvice(samlCallback.getAdvice());
+                    saml1.setAdvice(advice);
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.opensaml.saml.saml2.core` is unnecessary, and can be replaced with an import
+in `ws-security-common/src/main/java/org/apache/wss4j/common/saml/SamlAssertionWrapper.java`
+#### Snippet
+```java
+        } else if (samlVersion.equals(SAMLVersion.VERSION_20)) {
+            // Build a SAML v2.0 assertion
+            org.opensaml.saml.saml2.core.Assertion saml2 = SAML2ComponentBuilder.createAssertion();
+            Issuer samlIssuer = SAML2ComponentBuilder.createIssuer(issuer, issuerFormat, issuerQualifier);
+
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.opensaml.saml.saml2.core` is unnecessary, and can be replaced with an import
+in `ws-security-common/src/main/java/org/apache/wss4j/common/saml/SamlAssertionWrapper.java`
+#### Snippet
+```java
+            }
+
+            org.opensaml.saml.saml2.core.Conditions conditions =
+                SAML2ComponentBuilder.createConditions(samlCallback.getConditions());
+            saml2.setConditions(conditions);
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.opensaml.saml.saml2.core` is unnecessary, and can be replaced with an import
+in `ws-security-common/src/main/java/org/apache/wss4j/common/saml/SamlAssertionWrapper.java`
+#### Snippet
+```java
+
+            if (samlCallback.getAdvice() != null) {
+                org.opensaml.saml.saml2.core.Advice advice =
+                    SAML2ComponentBuilder.createAdvice(samlCallback.getAdvice());
+                saml2.setAdvice(advice);
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
+in `ws-security-common/src/main/java/org/apache/wss4j/common/saml/SamlAssertionWrapper.java`
+#### Snippet
+```java
+     * Field LOG
+     */
+    private static final org.slf4j.Logger LOG =
+        org.slf4j.LoggerFactory.getLogger(SamlAssertionWrapper.class);
+
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
+in `ws-security-common/src/main/java/org/apache/wss4j/common/saml/SamlAssertionWrapper.java`
+#### Snippet
+```java
+     */
+    private static final org.slf4j.Logger LOG =
+        org.slf4j.LoggerFactory.getLogger(SamlAssertionWrapper.class);
+
+    /**
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.opensaml.saml.saml2.core` is unnecessary, and can be replaced with an import
+in `ws-security-common/src/main/java/org/apache/wss4j/common/saml/SamlAssertionWrapper.java`
+#### Snippet
+```java
+        if (samlVersion == SAMLVersion.VERSION_20) {
+            org.opensaml.saml.saml2.core.Subject subject =
+                ((org.opensaml.saml.saml2.core.Assertion)samlObject).getSubject();
+            List<org.opensaml.saml.saml2.core.SubjectConfirmation> confirmations =
+                subject.getSubjectConfirmations();
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.opensaml.saml.saml1.core` is unnecessary, and can be replaced with an import
+in `ws-security-common/src/main/java/org/apache/wss4j/common/saml/SamlAssertionWrapper.java`
+#### Snippet
+```java
+        } else if (samlVersion == SAMLVersion.VERSION_11) {
+            List<SubjectStatement> subjectStatements = new ArrayList<>();
+            org.opensaml.saml.saml1.core.Assertion saml1 =
+                (org.opensaml.saml.saml1.core.Assertion)samlObject;
+            subjectStatements.addAll(saml1.getSubjectStatements());
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.opensaml.saml.saml1.core` is unnecessary, and can be replaced with an import
+in `ws-security-common/src/main/java/org/apache/wss4j/common/saml/SamlAssertionWrapper.java`
+#### Snippet
+```java
+            List<SubjectStatement> subjectStatements = new ArrayList<>();
+            org.opensaml.saml.saml1.core.Assertion saml1 =
+                (org.opensaml.saml.saml1.core.Assertion)samlObject;
+            subjectStatements.addAll(saml1.getSubjectStatements());
+            subjectStatements.addAll(saml1.getAuthenticationStatements());
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.opensaml.saml.saml2.core` is unnecessary, and can be replaced with an import
+in `ws-security-common/src/main/java/org/apache/wss4j/common/saml/SamlAssertionWrapper.java`
+#### Snippet
+```java
+    public String getIssuerString() {
+        if (samlVersion == SAMLVersion.VERSION_20
+            && ((org.opensaml.saml.saml2.core.Assertion)samlObject).getIssuer() != null) {
+            return ((org.opensaml.saml.saml2.core.Assertion)samlObject).getIssuer().getValue();
+        } else if (samlVersion == SAMLVersion.VERSION_11
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.opensaml.saml.saml2.core` is unnecessary, and can be replaced with an import
+in `ws-security-common/src/main/java/org/apache/wss4j/common/saml/SamlAssertionWrapper.java`
+#### Snippet
+```java
+        if (samlVersion == SAMLVersion.VERSION_20
+            && ((org.opensaml.saml.saml2.core.Assertion)samlObject).getIssuer() != null) {
+            return ((org.opensaml.saml.saml2.core.Assertion)samlObject).getIssuer().getValue();
+        } else if (samlVersion == SAMLVersion.VERSION_11
+            && ((org.opensaml.saml.saml1.core.Assertion)samlObject).getIssuer() != null) {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.opensaml.saml.saml1.core` is unnecessary, and can be replaced with an import
+in `ws-security-common/src/main/java/org/apache/wss4j/common/saml/SamlAssertionWrapper.java`
+#### Snippet
+```java
+            return ((org.opensaml.saml.saml2.core.Assertion)samlObject).getIssuer().getValue();
+        } else if (samlVersion == SAMLVersion.VERSION_11
+            && ((org.opensaml.saml.saml1.core.Assertion)samlObject).getIssuer() != null) {
+            return ((org.opensaml.saml.saml1.core.Assertion)samlObject).getIssuer();
+        }
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.opensaml.saml.saml1.core` is unnecessary, and can be replaced with an import
+in `ws-security-common/src/main/java/org/apache/wss4j/common/saml/SamlAssertionWrapper.java`
+#### Snippet
+```java
+        } else if (samlVersion == SAMLVersion.VERSION_11
+            && ((org.opensaml.saml.saml1.core.Assertion)samlObject).getIssuer() != null) {
+            return ((org.opensaml.saml.saml1.core.Assertion)samlObject).getIssuer();
+        }
+        LOG.error(
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.opensaml.saml.saml2.core` is unnecessary, and can be replaced with an import
+in `ws-security-common/src/main/java/org/apache/wss4j/common/saml/SamlAssertionWrapper.java`
+#### Snippet
+```java
+        String id = null;
+        if (samlVersion == SAMLVersion.VERSION_20) {
+            id = ((org.opensaml.saml.saml2.core.Assertion)samlObject).getID();
+            if (id == null || id.length() == 0) {
+                LOG.error("SamlAssertionWrapper: ID was null, seeting a new ID value");
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.opensaml.saml.saml2.core` is unnecessary, and can be replaced with an import
+in `ws-security-common/src/main/java/org/apache/wss4j/common/saml/SamlAssertionWrapper.java`
+#### Snippet
+```java
+                LOG.error("SamlAssertionWrapper: ID was null, seeting a new ID value");
+                id = IDGenerator.generateID("_");
+                ((org.opensaml.saml.saml2.core.Assertion)samlObject).setID(id);
+            }
+        } else if (samlVersion == SAMLVersion.VERSION_11) {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.opensaml.saml.saml1.core` is unnecessary, and can be replaced with an import
+in `ws-security-common/src/main/java/org/apache/wss4j/common/saml/SamlAssertionWrapper.java`
+#### Snippet
+```java
+            }
+        } else if (samlVersion == SAMLVersion.VERSION_11) {
+            id = ((org.opensaml.saml.saml1.core.Assertion)samlObject).getID();
+            if (id == null || id.length() == 0) {
+                LOG.error("SamlAssertionWrapper: ID was null, seeting a new ID value");
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.opensaml.saml.saml1.core` is unnecessary, and can be replaced with an import
+in `ws-security-common/src/main/java/org/apache/wss4j/common/saml/SamlAssertionWrapper.java`
+#### Snippet
+```java
+                LOG.error("SamlAssertionWrapper: ID was null, seeting a new ID value");
+                id = IDGenerator.generateID("_");
+                ((org.opensaml.saml.saml1.core.Assertion)samlObject).setID(id);
+            }
+        } else {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
+in `ws-security-common/src/main/java/org/apache/wss4j/common/util/KeyUtils.java`
+#### Snippet
+```java
+
+public final class KeyUtils {
+    private static final org.slf4j.Logger LOG =
+            org.slf4j.LoggerFactory.getLogger(KeyUtils.class);
+    private static final int MAX_SYMMETRIC_KEY_SIZE = 1024;
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
+in `ws-security-common/src/main/java/org/apache/wss4j/common/util/KeyUtils.java`
+#### Snippet
+```java
+public final class KeyUtils {
+    private static final org.slf4j.Logger LOG =
+            org.slf4j.LoggerFactory.getLogger(KeyUtils.class);
+    private static final int MAX_SYMMETRIC_KEY_SIZE = 1024;
+    private static final Map<String, Integer> DEFAULT_DERIVED_KEY_LENGTHS = new HashMap<>();
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
+in `ws-security-common/src/main/java/org/apache/wss4j/common/cache/WSS4JCacheUtil.java`
+#### Snippet
+```java
+public final class WSS4JCacheUtil {
+
+    private static final org.slf4j.Logger LOG =
+        org.slf4j.LoggerFactory.getLogger(WSS4JCacheUtil.class);
+    private static final boolean EH_CACHE_INSTALLED;
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
+in `ws-security-common/src/main/java/org/apache/wss4j/common/cache/WSS4JCacheUtil.java`
+#### Snippet
+```java
+
+    private static final org.slf4j.Logger LOG =
+        org.slf4j.LoggerFactory.getLogger(WSS4JCacheUtil.class);
+    private static final boolean EH_CACHE_INSTALLED;
+
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
+in `ws-security-common/src/main/java/org/apache/wss4j/common/util/XMLUtils.java`
+#### Snippet
+```java
+        "http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd";
+
+    private static final org.slf4j.Logger LOG =
+        org.slf4j.LoggerFactory.getLogger(XMLUtils.class);
+
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
+in `ws-security-common/src/main/java/org/apache/wss4j/common/util/XMLUtils.java`
+#### Snippet
+```java
+
+    private static final org.slf4j.Logger LOG =
+        org.slf4j.LoggerFactory.getLogger(XMLUtils.class);
+
+    private XMLUtils() {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
+in `ws-security-common/src/main/java/org/apache/wss4j/common/util/Loader.java`
+#### Snippet
+```java
+ */
+public final class Loader {
+    private static final org.slf4j.Logger LOG =
+            org.slf4j.LoggerFactory.getLogger(Loader.class);
+
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
+in `ws-security-common/src/main/java/org/apache/wss4j/common/util/Loader.java`
+#### Snippet
+```java
+public final class Loader {
+    private static final org.slf4j.Logger LOG =
+            org.slf4j.LoggerFactory.getLogger(Loader.class);
+
+    private Loader() {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
+in `ws-security-common/src/main/java/org/apache/wss4j/common/token/BinarySecurity.java`
+#### Snippet
+```java
+    public static final QName TOKEN_BST = new QName(WSS4JConstants.WSSE_NS, "BinarySecurityToken");
+    public static final QName TOKEN_KI = new QName(WSS4JConstants.WSSE_NS, "KeyIdentifier");
+    private static final org.slf4j.Logger LOG =
+        org.slf4j.LoggerFactory.getLogger(BinarySecurity.class);
+
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
+in `ws-security-common/src/main/java/org/apache/wss4j/common/token/BinarySecurity.java`
+#### Snippet
+```java
+    public static final QName TOKEN_KI = new QName(WSS4JConstants.WSSE_NS, "KeyIdentifier");
+    private static final org.slf4j.Logger LOG =
+        org.slf4j.LoggerFactory.getLogger(BinarySecurity.class);
+
+    private Element element;
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
+in `ws-security-common/src/main/java/org/apache/wss4j/common/cache/EHCacheReplayCache.java`
+#### Snippet
+```java
+public class EHCacheReplayCache implements ReplayCache {
+
+    private static final org.slf4j.Logger LOG =
+            org.slf4j.LoggerFactory.getLogger(EHCacheReplayCache.class);
+
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
+in `ws-security-common/src/main/java/org/apache/wss4j/common/cache/EHCacheReplayCache.java`
+#### Snippet
+```java
+
+    private static final org.slf4j.Logger LOG =
+            org.slf4j.LoggerFactory.getLogger(EHCacheReplayCache.class);
+
+    private final Cache<String, EHCacheValue> cache;
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
+in `ws-security-common/src/main/java/org/apache/wss4j/common/crypto/JasyptPasswordEncryptor.java`
+#### Snippet
+```java
+    public static final String DEFAULT_ALGORITHM = "PBEWithMD5AndTripleDES";
+
+    private static final org.slf4j.Logger LOG =
+        org.slf4j.LoggerFactory.getLogger(JasyptPasswordEncryptor.class);
+
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
+in `ws-security-common/src/main/java/org/apache/wss4j/common/crypto/JasyptPasswordEncryptor.java`
+#### Snippet
+```java
+
+    private static final org.slf4j.Logger LOG =
+        org.slf4j.LoggerFactory.getLogger(JasyptPasswordEncryptor.class);
+
+    private final StandardPBEStringEncryptor passwordEncryptor;
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
+in `ws-security-common/src/main/java/org/apache/wss4j/common/crypto/DERDecoder.java`
+#### Snippet
+```java
+ */
+public class DERDecoder {
+    private static final org.slf4j.Logger LOG = org.slf4j.LoggerFactory.getLogger(DERDecoder.class);
+
+    /** DER type identifier for a bit string value */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
+in `ws-security-common/src/main/java/org/apache/wss4j/common/crypto/DERDecoder.java`
+#### Snippet
+```java
+ */
+public class DERDecoder {
+    private static final org.slf4j.Logger LOG = org.slf4j.LoggerFactory.getLogger(DERDecoder.class);
+
+    /** DER type identifier for a bit string value */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
+in `ws-security-common/src/main/java/org/apache/wss4j/common/saml/builder/SAML2ComponentBuilder.java`
+#### Snippet
+```java
+public final class SAML2ComponentBuilder {
+
+    private static final transient org.slf4j.Logger LOG =
+            org.slf4j.LoggerFactory.getLogger(SAML2ComponentBuilder.class);
+
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
+in `ws-security-common/src/main/java/org/apache/wss4j/common/saml/builder/SAML2ComponentBuilder.java`
+#### Snippet
+```java
+
+    private static final transient org.slf4j.Logger LOG =
+            org.slf4j.LoggerFactory.getLogger(SAML2ComponentBuilder.class);
+
+    private static volatile SAMLObjectBuilder<Assertion> assertionBuilder;
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
+in `ws-security-common/src/main/java/org/apache/wss4j/common/crypto/WSS4JResourceBundle.java`
+#### Snippet
+```java
+public class WSS4JResourceBundle extends ResourceBundle {
+
+    private static final org.slf4j.Logger LOG =
+        org.slf4j.LoggerFactory.getLogger(WSS4JResourceBundle.class);
+
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
+in `ws-security-common/src/main/java/org/apache/wss4j/common/crypto/WSS4JResourceBundle.java`
+#### Snippet
+```java
+
+    private static final org.slf4j.Logger LOG =
+        org.slf4j.LoggerFactory.getLogger(WSS4JResourceBundle.class);
+
+    private final ResourceBundle wss4jSecResourceBundle;
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
+in `ws-security-common/src/main/java/org/apache/wss4j/common/crypto/WSProviderConfig.java`
+#### Snippet
+```java
+public final class WSProviderConfig {
+
+    private static final org.slf4j.Logger LOG =
+        org.slf4j.LoggerFactory.getLogger(WSProviderConfig.class);
+
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
+in `ws-security-common/src/main/java/org/apache/wss4j/common/crypto/WSProviderConfig.java`
+#### Snippet
+```java
+
+    private static final org.slf4j.Logger LOG =
+        org.slf4j.LoggerFactory.getLogger(WSProviderConfig.class);
+
+    /**
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.xml.security` is unnecessary, and can be replaced with an import
+in `ws-security-common/src/main/java/org/apache/wss4j/common/crypto/WSProviderConfig.java`
+#### Snippet
+```java
+            //ignore
+        }
+        org.apache.xml.security.Init.init();
+        if (!wasSet) {
+            try {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
+in `ws-security-common/src/main/java/org/apache/wss4j/common/crypto/MerlinDevice.java`
+#### Snippet
+```java
+public class MerlinDevice extends Merlin {
+
+    private static final org.slf4j.Logger LOG =
+        org.slf4j.LoggerFactory.getLogger(MerlinDevice.class);
+
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
+in `ws-security-common/src/main/java/org/apache/wss4j/common/crypto/MerlinDevice.java`
+#### Snippet
+```java
+
+    private static final org.slf4j.Logger LOG =
+        org.slf4j.LoggerFactory.getLogger(MerlinDevice.class);
+
+    public MerlinDevice() {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
+in `ws-security-common/src/main/java/org/apache/wss4j/common/crypto/CryptoBase.java`
+#### Snippet
+```java
+    public static final String NAME_CONSTRAINTS_OID = "2.5.29.30";  //NOPMD - not an IP address
+
+    private static final org.slf4j.Logger LOG =
+        org.slf4j.LoggerFactory.getLogger(CryptoBase.class);
+
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
+in `ws-security-common/src/main/java/org/apache/wss4j/common/crypto/CryptoBase.java`
+#### Snippet
+```java
+
+    private static final org.slf4j.Logger LOG =
+        org.slf4j.LoggerFactory.getLogger(CryptoBase.class);
+
+    private static final Constructor<?> BC_509CLASS_CONS;
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
+in `ws-security-common/src/main/java/org/apache/wss4j/common/spnego/DefaultSpnegoClientAction.java`
+#### Snippet
+```java
+ */
+public class DefaultSpnegoClientAction implements SpnegoClientAction {
+    private static final org.slf4j.Logger LOG =
+        org.slf4j.LoggerFactory.getLogger(DefaultSpnegoClientAction.class);
+
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
+in `ws-security-common/src/main/java/org/apache/wss4j/common/spnego/DefaultSpnegoClientAction.java`
+#### Snippet
+```java
+public class DefaultSpnegoClientAction implements SpnegoClientAction {
+    private static final org.slf4j.Logger LOG =
+        org.slf4j.LoggerFactory.getLogger(DefaultSpnegoClientAction.class);
+
+    private String serviceName;
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
+in `ws-security-common/src/main/java/org/apache/wss4j/common/token/SecurityTokenReference.java`
+#### Snippet
+```java
+    public static final String X509_V3_TYPE = WSS4JConstants.X509TOKEN_NS + "#X509v3";
+
+    private static final org.slf4j.Logger LOG =
+        org.slf4j.LoggerFactory.getLogger(SecurityTokenReference.class);
+
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
+in `ws-security-common/src/main/java/org/apache/wss4j/common/token/SecurityTokenReference.java`
+#### Snippet
+```java
+
+    private static final org.slf4j.Logger LOG =
+        org.slf4j.LoggerFactory.getLogger(SecurityTokenReference.class);
+
+    private Element element;
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
+in `ws-security-common/src/main/java/org/apache/wss4j/common/spnego/SpnegoTokenContext.java`
+#### Snippet
+```java
+public class SpnegoTokenContext {
+
+    private static final org.slf4j.Logger LOG =
+        org.slf4j.LoggerFactory.getLogger(SpnegoTokenContext.class);
+
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
+in `ws-security-common/src/main/java/org/apache/wss4j/common/spnego/SpnegoTokenContext.java`
+#### Snippet
+```java
+
+    private static final org.slf4j.Logger LOG =
+        org.slf4j.LoggerFactory.getLogger(SpnegoTokenContext.class);
+
+    private GSSContext secContext;
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.security.spec` is unnecessary, and can be replaced with an import
+in `ws-security-common/src/main/java/org/apache/wss4j/common/crypto/AlgorithmSuiteValidator.java`
+#### Snippet
+```java
+        } else if (publicKey instanceof ECPublicKey) {
+            final ECPublicKey ecpriv = (ECPublicKey) publicKey;
+            final java.security.spec.ECParameterSpec spec = ecpriv.getParams();
+            int length = spec.getOrder().bitLength();
+            if (length < algorithmSuite.getMinimumEllipticCurveKeyLength()
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
+in `ws-security-common/src/main/java/org/apache/wss4j/common/crypto/AlgorithmSuiteValidator.java`
+#### Snippet
+```java
+public class AlgorithmSuiteValidator {
+
+    private static final org.slf4j.Logger LOG =
+        org.slf4j.LoggerFactory.getLogger(AlgorithmSuiteValidator.class);
+
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
+in `ws-security-common/src/main/java/org/apache/wss4j/common/crypto/AlgorithmSuiteValidator.java`
+#### Snippet
+```java
+
+    private static final org.slf4j.Logger LOG =
+        org.slf4j.LoggerFactory.getLogger(AlgorithmSuiteValidator.class);
+
+    private final AlgorithmSuite algorithmSuite;
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
+in `ws-security-common/src/main/java/org/apache/wss4j/common/spnego/DefaultSpnegoServiceAction.java`
+#### Snippet
+```java
+ */
+public class DefaultSpnegoServiceAction implements SpnegoServiceAction {
+    private static final org.slf4j.Logger LOG =
+        org.slf4j.LoggerFactory.getLogger(DefaultSpnegoServiceAction.class);
+
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
+in `ws-security-common/src/main/java/org/apache/wss4j/common/spnego/DefaultSpnegoServiceAction.java`
+#### Snippet
+```java
+public class DefaultSpnegoServiceAction implements SpnegoServiceAction {
+    private static final org.slf4j.Logger LOG =
+        org.slf4j.LoggerFactory.getLogger(DefaultSpnegoServiceAction.class);
+
+    private byte[] ticket;
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
+in `ws-security-common/src/main/java/org/apache/wss4j/common/kerberos/KerberosContext.java`
+#### Snippet
+```java
+ */
+public class KerberosContext {
+    private static final org.slf4j.Logger LOG =
+        org.slf4j.LoggerFactory.getLogger(KerberosContext.class);
+
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
+in `ws-security-common/src/main/java/org/apache/wss4j/common/kerberos/KerberosContext.java`
+#### Snippet
+```java
+public class KerberosContext {
+    private static final org.slf4j.Logger LOG =
+        org.slf4j.LoggerFactory.getLogger(KerberosContext.class);
+
+    private boolean disposed;
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.io` is unnecessary, and can be replaced with an import
+in `ws-security-common/src/main/java/org/apache/wss4j/common/principal/WSDerivedKeyTokenPrincipal.java`
+#### Snippet
+```java
+ * <code>DerivedKeyToken</code>
+ */
+public class WSDerivedKeyTokenPrincipal implements java.io.Serializable, Principal {
+
+    private static final long serialVersionUID = -8576876885462234466L;
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.security.cert` is unnecessary, and can be replaced with an import
+in `ws-security-common/src/main/java/org/apache/wss4j/common/crypto/MerlinAKI.java`
+#### Snippet
+```java
+        } catch (NoSuchProviderException | NoSuchAlgorithmException
+            | CertificateException | InvalidAlgorithmParameterException
+            | java.security.cert.CertPathValidatorException
+            | KeyStoreException e) {
+                throw new WSSecurityException(
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
+in `ws-security-common/src/main/java/org/apache/wss4j/common/crypto/MerlinAKI.java`
+#### Snippet
+```java
+public class MerlinAKI extends Merlin {
+
+    private static final org.slf4j.Logger LOG =
+        org.slf4j.LoggerFactory.getLogger(MerlinAKI.class);
+
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
+in `ws-security-common/src/main/java/org/apache/wss4j/common/crypto/MerlinAKI.java`
+#### Snippet
+```java
+
+    private static final org.slf4j.Logger LOG =
+        org.slf4j.LoggerFactory.getLogger(MerlinAKI.class);
+
+    public MerlinAKI() {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.io` is unnecessary, and can be replaced with an import
+in `ws-security-common/src/main/java/org/apache/wss4j/common/principal/WSUsernameTokenPrincipalImpl.java`
+#### Snippet
+```java
+ * @see javax.security.auth.Subject
+ */
+public class WSUsernameTokenPrincipalImpl implements java.io.Serializable, UsernameTokenPrincipal {
+
+    private static final long serialVersionUID = 5608648208455259722L;
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
+in `ws-security-common/src/main/java/org/apache/wss4j/common/derivedKey/P_SHA1.java`
+#### Snippet
+```java
+public class P_SHA1 implements DerivationAlgorithm {
+
+    private static final org.slf4j.Logger LOG =
+        org.slf4j.LoggerFactory.getLogger(P_SHA1.class);
+
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
+in `ws-security-common/src/main/java/org/apache/wss4j/common/derivedKey/P_SHA1.java`
+#### Snippet
+```java
+
+    private static final org.slf4j.Logger LOG =
+        org.slf4j.LoggerFactory.getLogger(P_SHA1.class);
+
+    @Override
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
+in `ws-security-stax/src/main/java/org/apache/wss4j/stax/ext/WSSCrypto.java`
+#### Snippet
+```java
+class WSSCrypto {
+
+    protected static final transient org.slf4j.Logger LOG =
+        org.slf4j.LoggerFactory.getLogger(WSSCrypto.class);
+
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
+in `ws-security-stax/src/main/java/org/apache/wss4j/stax/ext/WSSCrypto.java`
+#### Snippet
+```java
+
+    protected static final transient org.slf4j.Logger LOG =
+        org.slf4j.LoggerFactory.getLogger(WSSCrypto.class);
+
+    private Class<? extends Merlin> cryptoClass = Merlin.class;
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.security` is unnecessary, and can be replaced with an import
+in `ws-security-common/src/main/java/org/apache/wss4j/common/crypto/CertificateStore.java`
+#### Snippet
+```java
+                validator.validate(path, param);
+            }
+        } catch (java.security.NoSuchProviderException | NoSuchAlgorithmException
+            | java.security.cert.CertificateException
+            | java.security.InvalidAlgorithmParameterException
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.security.cert` is unnecessary, and can be replaced with an import
+in `ws-security-common/src/main/java/org/apache/wss4j/common/crypto/CertificateStore.java`
+#### Snippet
+```java
+            }
+        } catch (java.security.NoSuchProviderException | NoSuchAlgorithmException
+            | java.security.cert.CertificateException
+            | java.security.InvalidAlgorithmParameterException
+            | java.security.cert.CertPathValidatorException e) {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.security` is unnecessary, and can be replaced with an import
+in `ws-security-common/src/main/java/org/apache/wss4j/common/crypto/CertificateStore.java`
+#### Snippet
+```java
+        } catch (java.security.NoSuchProviderException | NoSuchAlgorithmException
+            | java.security.cert.CertificateException
+            | java.security.InvalidAlgorithmParameterException
+            | java.security.cert.CertPathValidatorException e) {
+                throw new WSSecurityException(
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.security.cert` is unnecessary, and can be replaced with an import
+in `ws-security-common/src/main/java/org/apache/wss4j/common/crypto/CertificateStore.java`
+#### Snippet
+```java
+            | java.security.cert.CertificateException
+            | java.security.InvalidAlgorithmParameterException
+            | java.security.cert.CertPathValidatorException e) {
+                throw new WSSecurityException(
+                    WSSecurityException.ErrorCode.FAILURE, e, "certpath",
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
+in `ws-security-common/src/main/java/org/apache/wss4j/common/crypto/CertificateStore.java`
+#### Snippet
+```java
+public class CertificateStore extends CryptoBase {
+
+    private static final org.slf4j.Logger LOG =
+        org.slf4j.LoggerFactory.getLogger(CertificateStore.class);
+
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
+in `ws-security-common/src/main/java/org/apache/wss4j/common/crypto/CertificateStore.java`
+#### Snippet
+```java
+
+    private static final org.slf4j.Logger LOG =
+        org.slf4j.LoggerFactory.getLogger(CertificateStore.class);
+
+    private X509Certificate[] trustedCerts;
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
+in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/processor/input/WSSSignatureInputHandler.java`
+#### Snippet
+```java
+public class WSSSignatureInputHandler extends AbstractSignatureInputHandler {
+
+    private static final transient org.slf4j.Logger LOG =
+        org.slf4j.LoggerFactory.getLogger(WSSSignatureInputHandler.class);
+
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
+in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/processor/input/WSSSignatureInputHandler.java`
+#### Snippet
+```java
+
+    private static final transient org.slf4j.Logger LOG =
+        org.slf4j.LoggerFactory.getLogger(WSSSignatureInputHandler.class);
+
+    @Override
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
+in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/processor/input/SecurityHeaderInputProcessor.java`
+#### Snippet
+```java
+public class SecurityHeaderInputProcessor extends AbstractInputProcessor {
+
+    protected static final org.slf4j.Logger LOG =
+        org.slf4j.LoggerFactory.getLogger(SecurityHeaderInputProcessor.class);
+
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
+in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/processor/input/SecurityHeaderInputProcessor.java`
+#### Snippet
+```java
+
+    protected static final org.slf4j.Logger LOG =
+        org.slf4j.LoggerFactory.getLogger(SecurityHeaderInputProcessor.class);
+
+    private final ArrayDeque<XMLSecEvent> xmlSecEventList = new ArrayDeque<>();
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
+in `ws-security-common/src/main/java/org/apache/wss4j/common/crypto/CryptoFactory.java`
+#### Snippet
+```java
+ */
+public abstract class CryptoFactory {
+    private static final org.slf4j.Logger LOG =
+        org.slf4j.LoggerFactory.getLogger(CryptoFactory.class);
+
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
+in `ws-security-common/src/main/java/org/apache/wss4j/common/crypto/CryptoFactory.java`
+#### Snippet
+```java
+public abstract class CryptoFactory {
+    private static final org.slf4j.Logger LOG =
+        org.slf4j.LoggerFactory.getLogger(CryptoFactory.class);
+
+    /**
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
+in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/processor/input/WSSEncryptedKeyInputHandler.java`
+#### Snippet
+```java
+public class WSSEncryptedKeyInputHandler extends XMLEncryptedKeyInputHandler {
+
+    private static final transient org.slf4j.Logger LOG =
+        org.slf4j.LoggerFactory.getLogger(WSSEncryptedKeyInputHandler.class);
+
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
+in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/processor/input/WSSEncryptedKeyInputHandler.java`
+#### Snippet
+```java
+
+    private static final transient org.slf4j.Logger LOG =
+        org.slf4j.LoggerFactory.getLogger(WSSEncryptedKeyInputHandler.class);
+
+    @Override
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
+in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/processor/input/DecryptInputProcessor.java`
+#### Snippet
+```java
+public class DecryptInputProcessor extends AbstractDecryptInputProcessor {
+
+    private static final transient org.slf4j.Logger LOG =
+        org.slf4j.LoggerFactory.getLogger(DecryptInputProcessor.class);
+
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
+in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/processor/input/DecryptInputProcessor.java`
+#### Snippet
+```java
+
+    private static final transient org.slf4j.Logger LOG =
+        org.slf4j.LoggerFactory.getLogger(DecryptInputProcessor.class);
+
+    private static final Long MAX_ALLOWED_DECOMPRESSED_BYTES =
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.security.cert` is unnecessary, and can be replaced with an import
+in `ws-security-common/src/main/java/org/apache/wss4j/common/crypto/Merlin.java`
+#### Snippet
+```java
+            // Generate cert path
+            if (foundIssuingCertChains != null && !foundIssuingCertChains.isEmpty()) {
+                java.security.cert.CertPathValidatorException validatorException = null;
+                // Try each potential issuing cert path for a match
+                for (Certificate[] foundCertChain : foundIssuingCertChains) {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.security.cert` is unnecessary, and can be replaced with an import
+in `ws-security-common/src/main/java/org/apache/wss4j/common/crypto/Merlin.java`
+#### Snippet
+```java
+                        validatorException = null;
+                        break;
+                    } catch (java.security.cert.CertPathValidatorException e) {
+                        validatorException = e;
+                    }
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.security.cert` is unnecessary, and can be replaced with an import
+in `ws-security-common/src/main/java/org/apache/wss4j/common/crypto/Merlin.java`
+#### Snippet
+```java
+        } catch (NoSuchProviderException | NoSuchAlgorithmException
+            | CertificateException | InvalidAlgorithmParameterException
+            | java.security.cert.CertPathValidatorException
+            | KeyStoreException e) {
+                throw new WSSecurityException(
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
+in `ws-security-common/src/main/java/org/apache/wss4j/common/crypto/Merlin.java`
+#### Snippet
+```java
+    public static final String X509_CRL_FILE = "x509crl.file";
+
+    private static final org.slf4j.Logger LOG =
+        org.slf4j.LoggerFactory.getLogger(Merlin.class);
+    private static final String COMMA_SEPARATOR = ",";
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
+in `ws-security-common/src/main/java/org/apache/wss4j/common/crypto/Merlin.java`
+#### Snippet
+```java
+
+    private static final org.slf4j.Logger LOG =
+        org.slf4j.LoggerFactory.getLogger(Merlin.class);
+    private static final String COMMA_SEPARATOR = ",";
+
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
+in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/InboundWSSecurityContextImpl.java`
+#### Snippet
+```java
+public class InboundWSSecurityContextImpl extends InboundSecurityContextImpl implements WSInboundSecurityContext {
+
+    private static final org.slf4j.Logger LOG =
+            org.slf4j.LoggerFactory.getLogger(InboundWSSecurityContextImpl.class);
+
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
+in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/InboundWSSecurityContextImpl.java`
+#### Snippet
+```java
+
+    private static final org.slf4j.Logger LOG =
+            org.slf4j.LoggerFactory.getLogger(InboundWSSecurityContextImpl.class);
+
+    private final Deque<SecurityEvent> securityEventQueue = new ArrayDeque<>();
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
+in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/processor/output/EncryptOutputProcessor.java`
+#### Snippet
+```java
+public class EncryptOutputProcessor extends AbstractEncryptOutputProcessor {
+
+    private static final org.slf4j.Logger LOG =
+        org.slf4j.LoggerFactory.getLogger(EncryptOutputProcessor.class);
+
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
+in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/processor/output/EncryptOutputProcessor.java`
+#### Snippet
+```java
+
+    private static final org.slf4j.Logger LOG =
+        org.slf4j.LoggerFactory.getLogger(EncryptOutputProcessor.class);
+
+    public EncryptOutputProcessor() throws XMLSecurityException {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
+in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/processor/output/WSSSignatureOutputProcessor.java`
+#### Snippet
+```java
+public class WSSSignatureOutputProcessor extends AbstractSignatureOutputProcessor {
+
+    private static final org.slf4j.Logger LOG =
+        org.slf4j.LoggerFactory.getLogger(WSSSignatureOutputProcessor.class);
+
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
+in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/processor/output/WSSSignatureOutputProcessor.java`
+#### Snippet
+```java
+
+    private static final org.slf4j.Logger LOG =
+        org.slf4j.LoggerFactory.getLogger(WSSSignatureOutputProcessor.class);
+
+    public WSSSignatureOutputProcessor() throws XMLSecurityException {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
+in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/processor/output/SAMLTokenOutputProcessor.java`
+#### Snippet
+```java
+public class SAMLTokenOutputProcessor extends AbstractOutputProcessor {
+
+    private static final org.slf4j.Logger LOG =
+        org.slf4j.LoggerFactory.getLogger(SAMLTokenOutputProcessor.class);
+
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
+in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/processor/output/SAMLTokenOutputProcessor.java`
+#### Snippet
+```java
+
+    private static final org.slf4j.Logger LOG =
+        org.slf4j.LoggerFactory.getLogger(SAMLTokenOutputProcessor.class);
+
+    public SAMLTokenOutputProcessor() throws XMLSecurityException {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.wss4j.common.ext` is unnecessary and can be removed
+in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/securityToken/UsernameSecurityTokenImpl.java`
+#### Snippet
+```java
+     *
+     * @return Returns the derived key a byte array
+     * @throws org.apache.wss4j.common.ext.WSSecurityException
+     *
+     */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
+in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/securityToken/X509SecurityTokenImpl.java`
+#### Snippet
+```java
+        extends org.apache.xml.security.stax.impl.securityToken.X509SecurityToken implements X509SecurityToken {
+
+    private static final transient org.slf4j.Logger LOG =
+        org.slf4j.LoggerFactory.getLogger(X509SecurityTokenImpl.class);
+
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
+in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/securityToken/X509SecurityTokenImpl.java`
+#### Snippet
+```java
+
+    private static final transient org.slf4j.Logger LOG =
+        org.slf4j.LoggerFactory.getLogger(X509SecurityTokenImpl.class);
+
+    private CallbackHandler callbackHandler;
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
+in `ws-security-stax/src/main/java/org/apache/wss4j/stax/validate/UsernameTokenValidatorImpl.java`
+#### Snippet
+```java
+public class UsernameTokenValidatorImpl implements UsernameTokenValidator {
+
+    private static final transient org.slf4j.Logger LOG = org.slf4j.LoggerFactory.getLogger(UsernameTokenValidatorImpl.class);
+
+    @Override
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
+in `ws-security-stax/src/main/java/org/apache/wss4j/stax/validate/UsernameTokenValidatorImpl.java`
+#### Snippet
+```java
+public class UsernameTokenValidatorImpl implements UsernameTokenValidator {
+
+    private static final transient org.slf4j.Logger LOG = org.slf4j.LoggerFactory.getLogger(UsernameTokenValidatorImpl.class);
+
+    @Override
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
+in `ws-security-stax/src/main/java/org/apache/wss4j/stax/validate/SamlTokenValidatorImpl.java`
+#### Snippet
+```java
+public class SamlTokenValidatorImpl extends SignatureTokenValidatorImpl implements SamlTokenValidator {
+
+    private static final transient org.slf4j.Logger LOG =
+        org.slf4j.LoggerFactory.getLogger(SamlTokenValidatorImpl.class);
+
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
+in `ws-security-stax/src/main/java/org/apache/wss4j/stax/validate/SamlTokenValidatorImpl.java`
+#### Snippet
+```java
+
+    private static final transient org.slf4j.Logger LOG =
+        org.slf4j.LoggerFactory.getLogger(SamlTokenValidatorImpl.class);
+
+    /**
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
+in `ws-security-stax/src/main/java/org/apache/wss4j/stax/validate/BinarySecurityTokenValidatorImpl.java`
+#### Snippet
+```java
+public class BinarySecurityTokenValidatorImpl implements BinarySecurityTokenValidator {
+
+    private static final transient org.slf4j.Logger LOG =
+        org.slf4j.LoggerFactory.getLogger(BinarySecurityTokenValidatorImpl.class);
+
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
+in `ws-security-stax/src/main/java/org/apache/wss4j/stax/validate/BinarySecurityTokenValidatorImpl.java`
+#### Snippet
+```java
+
+    private static final transient org.slf4j.Logger LOG =
+        org.slf4j.LoggerFactory.getLogger(BinarySecurityTokenValidatorImpl.class);
+
+    @Override
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
+in `ws-security-stax/src/main/java/org/apache/wss4j/stax/validate/TimestampValidatorImpl.java`
+#### Snippet
+```java
+public class TimestampValidatorImpl implements TimestampValidator {
+
+    private static final transient org.slf4j.Logger LOG = org.slf4j.LoggerFactory.getLogger(TimestampValidatorImpl.class);
+
+    @Override
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
+in `ws-security-stax/src/main/java/org/apache/wss4j/stax/validate/TimestampValidatorImpl.java`
+#### Snippet
+```java
+public class TimestampValidatorImpl implements TimestampValidator {
+
+    private static final transient org.slf4j.Logger LOG = org.slf4j.LoggerFactory.getLogger(TimestampValidatorImpl.class);
+
+    @Override
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.wss4j.binding.wss10` is unnecessary, and can be replaced with an import
+in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/securityToken/SecurityTokenFactoryImpl.java`
+#### Snippet
+```java
+    }
+
+    private static InboundSecurityToken getSecurityToken(org.apache.wss4j.binding.wss10.ReferenceType referenceType,
+                                                         String tokenType,
+                                                         InboundSecurityContext inboundSecurityContext,
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.wss4j.binding.wss10` is unnecessary, and can be replaced with an import
+in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/securityToken/SecurityTokenFactoryImpl.java`
+#### Snippet
+```java
+            }
+
+            final org.apache.wss4j.binding.wss10.ReferenceType referenceType
+                    = XMLSecurityUtils.getQNameType(securityTokenReferenceType.getAny(), WSSConstants.TAG_WSSE_REFERENCE);
+            if (referenceType != null) {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.wss4j.stax.ext` is unnecessary and can be removed
+in `ws-security-stax/src/main/java/org/apache/wss4j/stax/setup/WSSec.java`
+#### Snippet
+```java
+     * @throws WSSecurityException
+     *          if the initialisation failed
+     * @throws org.apache.wss4j.stax.ext.WSSConfigurationException
+     *          if the configuration is invalid
+     */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.wss4j.stax.ext` is unnecessary and can be removed
+in `ws-security-stax/src/main/java/org/apache/wss4j/stax/setup/WSSec.java`
+#### Snippet
+```java
+     * @param securityProperties The configuration to validate
+     * @return The validated configuration
+     * @throws org.apache.wss4j.stax.ext.WSSConfigurationException
+     *          if the configuration is invalid
+     */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.wss4j.stax.ext` is unnecessary and can be removed
+in `ws-security-stax/src/main/java/org/apache/wss4j/stax/setup/WSSec.java`
+#### Snippet
+```java
+     * @throws WSSecurityException
+     *          if the initialisation failed
+     * @throws org.apache.wss4j.stax.ext.WSSConfigurationException
+     *          if the configuration is invalid
+     */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.wss4j.stax.ext` is unnecessary and can be removed
+in `ws-security-stax/src/main/java/org/apache/wss4j/stax/setup/WSSec.java`
+#### Snippet
+```java
+     * @throws WSSecurityException
+     *          if the initialisation failed
+     * @throws org.apache.wss4j.stax.ext.WSSConfigurationException
+     *          if the configuration is invalid
+     */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.wss4j.stax.ext` is unnecessary and can be removed
+in `ws-security-stax/src/main/java/org/apache/wss4j/stax/setup/WSSec.java`
+#### Snippet
+```java
+     * @throws WSSecurityException
+     *          if the initialisation failed
+     * @throws org.apache.wss4j.stax.ext.WSSConfigurationException
+     *          if the configuration is invalid
+     */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.wss4j.binding.wss10` is unnecessary, and can be replaced with an import
+in `ws-security-stax/src/main/java/org/apache/wss4j/stax/setup/WSSec.java`
+#### Snippet
+```java
+            WSSConstants.setJaxbContext(
+                    JAXBContext.newInstance(
+                            org.apache.wss4j.binding.wss10.ObjectFactory.class,
+                            org.apache.wss4j.binding.wss11.ObjectFactory.class,
+                            org.apache.wss4j.binding.wsu10.ObjectFactory.class,
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.wss4j.binding.wss11` is unnecessary, and can be replaced with an import
+in `ws-security-stax/src/main/java/org/apache/wss4j/stax/setup/WSSec.java`
+#### Snippet
+```java
+                    JAXBContext.newInstance(
+                            org.apache.wss4j.binding.wss10.ObjectFactory.class,
+                            org.apache.wss4j.binding.wss11.ObjectFactory.class,
+                            org.apache.wss4j.binding.wsu10.ObjectFactory.class,
+                            org.apache.wss4j.binding.wssc13.ObjectFactory.class,
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.wss4j.binding.wsu10` is unnecessary, and can be replaced with an import
+in `ws-security-stax/src/main/java/org/apache/wss4j/stax/setup/WSSec.java`
+#### Snippet
+```java
+                            org.apache.wss4j.binding.wss10.ObjectFactory.class,
+                            org.apache.wss4j.binding.wss11.ObjectFactory.class,
+                            org.apache.wss4j.binding.wsu10.ObjectFactory.class,
+                            org.apache.wss4j.binding.wssc13.ObjectFactory.class,
+                            org.apache.wss4j.binding.wssc200502.ObjectFactory.class,
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.wss4j.binding.wssc13` is unnecessary, and can be replaced with an import
+in `ws-security-stax/src/main/java/org/apache/wss4j/stax/setup/WSSec.java`
+#### Snippet
+```java
+                            org.apache.wss4j.binding.wss11.ObjectFactory.class,
+                            org.apache.wss4j.binding.wsu10.ObjectFactory.class,
+                            org.apache.wss4j.binding.wssc13.ObjectFactory.class,
+                            org.apache.wss4j.binding.wssc200502.ObjectFactory.class,
+                            org.apache.xml.security.binding.xmlenc.ObjectFactory.class,
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.wss4j.binding.wssc200502` is unnecessary, and can be replaced with an import
+in `ws-security-stax/src/main/java/org/apache/wss4j/stax/setup/WSSec.java`
+#### Snippet
+```java
+                            org.apache.wss4j.binding.wsu10.ObjectFactory.class,
+                            org.apache.wss4j.binding.wssc13.ObjectFactory.class,
+                            org.apache.wss4j.binding.wssc200502.ObjectFactory.class,
+                            org.apache.xml.security.binding.xmlenc.ObjectFactory.class,
+                            org.apache.xml.security.binding.xmlenc11.ObjectFactory.class,
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.xml.security.binding.xmlenc` is unnecessary, and can be replaced with an import
+in `ws-security-stax/src/main/java/org/apache/wss4j/stax/setup/WSSec.java`
+#### Snippet
+```java
+                            org.apache.wss4j.binding.wssc13.ObjectFactory.class,
+                            org.apache.wss4j.binding.wssc200502.ObjectFactory.class,
+                            org.apache.xml.security.binding.xmlenc.ObjectFactory.class,
+                            org.apache.xml.security.binding.xmlenc11.ObjectFactory.class,
+                            org.apache.xml.security.binding.xmldsig.ObjectFactory.class,
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.xml.security.binding.xmlenc11` is unnecessary, and can be replaced with an import
+in `ws-security-stax/src/main/java/org/apache/wss4j/stax/setup/WSSec.java`
+#### Snippet
+```java
+                            org.apache.wss4j.binding.wssc200502.ObjectFactory.class,
+                            org.apache.xml.security.binding.xmlenc.ObjectFactory.class,
+                            org.apache.xml.security.binding.xmlenc11.ObjectFactory.class,
+                            org.apache.xml.security.binding.xmldsig.ObjectFactory.class,
+                            org.apache.xml.security.binding.xmldsig11.ObjectFactory.class,
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.xml.security.binding.xmldsig` is unnecessary, and can be replaced with an import
+in `ws-security-stax/src/main/java/org/apache/wss4j/stax/setup/WSSec.java`
+#### Snippet
+```java
+                            org.apache.xml.security.binding.xmlenc.ObjectFactory.class,
+                            org.apache.xml.security.binding.xmlenc11.ObjectFactory.class,
+                            org.apache.xml.security.binding.xmldsig.ObjectFactory.class,
+                            org.apache.xml.security.binding.xmldsig11.ObjectFactory.class,
+                            org.apache.xml.security.binding.excc14n.ObjectFactory.class,
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.xml.security.binding.xmldsig11` is unnecessary, and can be replaced with an import
+in `ws-security-stax/src/main/java/org/apache/wss4j/stax/setup/WSSec.java`
+#### Snippet
+```java
+                            org.apache.xml.security.binding.xmlenc11.ObjectFactory.class,
+                            org.apache.xml.security.binding.xmldsig.ObjectFactory.class,
+                            org.apache.xml.security.binding.xmldsig11.ObjectFactory.class,
+                            org.apache.xml.security.binding.excc14n.ObjectFactory.class,
+                            org.apache.xml.security.binding.xop.ObjectFactory.class
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.xml.security.binding.excc14n` is unnecessary, and can be replaced with an import
+in `ws-security-stax/src/main/java/org/apache/wss4j/stax/setup/WSSec.java`
+#### Snippet
+```java
+                            org.apache.xml.security.binding.xmldsig.ObjectFactory.class,
+                            org.apache.xml.security.binding.xmldsig11.ObjectFactory.class,
+                            org.apache.xml.security.binding.excc14n.ObjectFactory.class,
+                            org.apache.xml.security.binding.xop.ObjectFactory.class
+                    )
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.xml.security.binding.xop` is unnecessary, and can be replaced with an import
+in `ws-security-stax/src/main/java/org/apache/wss4j/stax/setup/WSSec.java`
+#### Snippet
+```java
+                            org.apache.xml.security.binding.xmldsig11.ObjectFactory.class,
+                            org.apache.xml.security.binding.excc14n.ObjectFactory.class,
+                            org.apache.xml.security.binding.xop.ObjectFactory.class
+                    )
+            );
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.wss4j.stax.ext` is unnecessary and can be removed
+in `ws-security-stax/src/main/java/org/apache/wss4j/stax/setup/WSSec.java`
+#### Snippet
+```java
+     * @param securityProperties The configuration to validate
+     * @return The validated configuration
+     * @throws org.apache.wss4j.stax.ext.WSSConfigurationException
+     *          if the configuration is invalid
+     */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
+in `ws-security-stax/src/main/java/org/apache/wss4j/stax/validate/JAASUsernameTokenValidatorImpl.java`
+#### Snippet
+```java
+public class JAASUsernameTokenValidatorImpl implements UsernameTokenValidator {
+
+    private static final transient org.slf4j.Logger LOG =
+            org.slf4j.LoggerFactory.getLogger(JAASUsernameTokenValidatorImpl.class);
+
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
+in `ws-security-stax/src/main/java/org/apache/wss4j/stax/validate/JAASUsernameTokenValidatorImpl.java`
+#### Snippet
+```java
+
+    private static final transient org.slf4j.Logger LOG =
+            org.slf4j.LoggerFactory.getLogger(JAASUsernameTokenValidatorImpl.class);
+
+    private String contextName;
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
+in `ws-security-policy-stax/src/main/java/org/apache/wss4j/policy/stax/enforcer/PolicyEnforcerFactory.java`
+#### Snippet
+```java
+public class PolicyEnforcerFactory {
+
+    protected static final org.slf4j.Logger LOG =
+        org.slf4j.LoggerFactory.getLogger(PolicyEnforcerFactory.class);
+
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
+in `ws-security-policy-stax/src/main/java/org/apache/wss4j/policy/stax/enforcer/PolicyEnforcerFactory.java`
+#### Snippet
+```java
+
+    protected static final org.slf4j.Logger LOG =
+        org.slf4j.LoggerFactory.getLogger(PolicyEnforcerFactory.class);
+
+    private final List<AssertionBuilder<Element>> assertionBuilders;
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
+in `ws-security-stax/src/main/java/org/apache/wss4j/stax/setup/ConfigurationConverter.java`
+#### Snippet
+```java
+public final class ConfigurationConverter {
+
+    private static final org.slf4j.Logger LOG =
+        org.slf4j.LoggerFactory.getLogger(ConfigurationConverter.class);
+
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
+in `ws-security-stax/src/main/java/org/apache/wss4j/stax/setup/ConfigurationConverter.java`
+#### Snippet
+```java
+
+    private static final org.slf4j.Logger LOG =
+        org.slf4j.LoggerFactory.getLogger(ConfigurationConverter.class);
+
+    private ConfigurationConverter() {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
+in `ws-security-stax/src/main/java/org/apache/wss4j/stax/setup/InboundWSSec.java`
+#### Snippet
+```java
+public class InboundWSSec {
+
+    protected static final transient org.slf4j.Logger LOG =
+        org.slf4j.LoggerFactory.getLogger(InboundWSSec.class);
+
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
+in `ws-security-stax/src/main/java/org/apache/wss4j/stax/setup/InboundWSSec.java`
+#### Snippet
+```java
+
+    protected static final transient org.slf4j.Logger LOG =
+        org.slf4j.LoggerFactory.getLogger(InboundWSSec.class);
+
+    private static final XMLInputFactory XML_INPUT_FACTORY = XMLInputFactory.newInstance();
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.opensaml.saml.saml2.core` is unnecessary, and can be replaced with an import
+in `ws-security-policy-stax/src/main/java/org/apache/wss4j/policy/stax/assertionStates/IssuedTokenAssertionState.java`
+#### Snippet
+```java
+    }
+
+    protected String findClaimInAssertion(org.opensaml.saml.saml2.core.Assertion assertion, URI claimURI) {
+        List<org.opensaml.saml.saml2.core.AttributeStatement> attributeStatements =
+                assertion.getAttributeStatements();
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.opensaml.saml.saml2.core` is unnecessary, and can be replaced with an import
+in `ws-security-policy-stax/src/main/java/org/apache/wss4j/policy/stax/assertionStates/IssuedTokenAssertionState.java`
+#### Snippet
+```java
+
+    protected String findClaimInAssertion(org.opensaml.saml.saml2.core.Assertion assertion, URI claimURI) {
+        List<org.opensaml.saml.saml2.core.AttributeStatement> attributeStatements =
+                assertion.getAttributeStatements();
+        if (attributeStatements == null || attributeStatements.isEmpty()) {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.opensaml.saml.saml2.core` is unnecessary, and can be replaced with an import
+in `ws-security-policy-stax/src/main/java/org/apache/wss4j/policy/stax/assertionStates/IssuedTokenAssertionState.java`
+#### Snippet
+```java
+        }
+
+        for (org.opensaml.saml.saml2.core.AttributeStatement statement : attributeStatements) {
+            List<org.opensaml.saml.saml2.core.Attribute> attributes = statement.getAttributes();
+            for (org.opensaml.saml.saml2.core.Attribute attribute : attributes) {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.opensaml.saml.saml2.core` is unnecessary, and can be replaced with an import
+in `ws-security-policy-stax/src/main/java/org/apache/wss4j/policy/stax/assertionStates/IssuedTokenAssertionState.java`
+#### Snippet
+```java
+
+        for (org.opensaml.saml.saml2.core.AttributeStatement statement : attributeStatements) {
+            List<org.opensaml.saml.saml2.core.Attribute> attributes = statement.getAttributes();
+            for (org.opensaml.saml.saml2.core.Attribute attribute : attributes) {
+
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.opensaml.saml.saml2.core` is unnecessary, and can be replaced with an import
+in `ws-security-policy-stax/src/main/java/org/apache/wss4j/policy/stax/assertionStates/IssuedTokenAssertionState.java`
+#### Snippet
+```java
+        for (org.opensaml.saml.saml2.core.AttributeStatement statement : attributeStatements) {
+            List<org.opensaml.saml.saml2.core.Attribute> attributes = statement.getAttributes();
+            for (org.opensaml.saml.saml2.core.Attribute attribute : attributes) {
+
+                if (attribute.getName().equals(claimURI.toString())
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.opensaml.saml.saml1.core` is unnecessary, and can be replaced with an import
+in `ws-security-policy-stax/src/main/java/org/apache/wss4j/policy/stax/assertionStates/IssuedTokenAssertionState.java`
+#### Snippet
+```java
+    }
+
+    protected String findClaimInAssertion(org.opensaml.saml.saml1.core.Assertion assertion, URI claimURI) {
+        List<org.opensaml.saml.saml1.core.AttributeStatement> attributeStatements =
+                assertion.getAttributeStatements();
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.opensaml.saml.saml1.core` is unnecessary, and can be replaced with an import
+in `ws-security-policy-stax/src/main/java/org/apache/wss4j/policy/stax/assertionStates/IssuedTokenAssertionState.java`
+#### Snippet
+```java
+
+    protected String findClaimInAssertion(org.opensaml.saml.saml1.core.Assertion assertion, URI claimURI) {
+        List<org.opensaml.saml.saml1.core.AttributeStatement> attributeStatements =
+                assertion.getAttributeStatements();
+        if (attributeStatements == null || attributeStatements.isEmpty()) {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.opensaml.saml.saml1.core` is unnecessary, and can be replaced with an import
+in `ws-security-policy-stax/src/main/java/org/apache/wss4j/policy/stax/assertionStates/IssuedTokenAssertionState.java`
+#### Snippet
+```java
+        }
+
+        for (org.opensaml.saml.saml1.core.AttributeStatement statement : attributeStatements) {
+
+            List<org.opensaml.saml.saml1.core.Attribute> attributes = statement.getAttributes();
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.opensaml.saml.saml1.core` is unnecessary, and can be replaced with an import
+in `ws-security-policy-stax/src/main/java/org/apache/wss4j/policy/stax/assertionStates/IssuedTokenAssertionState.java`
+#### Snippet
+```java
+        for (org.opensaml.saml.saml1.core.AttributeStatement statement : attributeStatements) {
+
+            List<org.opensaml.saml.saml1.core.Attribute> attributes = statement.getAttributes();
+            for (org.opensaml.saml.saml1.core.Attribute attribute : attributes) {
+
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.opensaml.saml.saml1.core` is unnecessary, and can be replaced with an import
+in `ws-security-policy-stax/src/main/java/org/apache/wss4j/policy/stax/assertionStates/IssuedTokenAssertionState.java`
+#### Snippet
+```java
+
+            List<org.opensaml.saml.saml1.core.Attribute> attributes = statement.getAttributes();
+            for (org.opensaml.saml.saml1.core.Attribute attribute : attributes) {
+
+                URI attributeNamespace = URI.create(attribute.getAttributeNamespace());
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `jakarta.xml.bind.annotation` is unnecessary, and can be replaced with an import
+in `bindings/src/main/java/org/apache/wss4j/binding/wss10/package-info.java`
+#### Snippet
+```java
+//
+
+@jakarta.xml.bind.annotation.XmlSchema(namespace = "http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd", elementFormDefault = jakarta.xml.bind.annotation.XmlNsForm.QUALIFIED)
+package org.apache.wss4j.binding.wss10;
+
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `jakarta.xml.bind.annotation` is unnecessary, and can be replaced with an import
+in `bindings/src/main/java/org/apache/wss4j/binding/wss10/package-info.java`
+#### Snippet
+```java
+//
+
+@jakarta.xml.bind.annotation.XmlSchema(namespace = "http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd", elementFormDefault = jakarta.xml.bind.annotation.XmlNsForm.QUALIFIED)
+package org.apache.wss4j.binding.wss10;
+
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `jakarta.xml.bind.annotation` is unnecessary, and can be replaced with an import
+in `bindings/src/main/java/org/apache/wss4j/binding/wss11/package-info.java`
+#### Snippet
+```java
+//
+
+@jakarta.xml.bind.annotation.XmlSchema(namespace = "http://docs.oasis-open.org/wss/oasis-wss-wssecurity-secext-1.1.xsd", elementFormDefault = jakarta.xml.bind.annotation.XmlNsForm.QUALIFIED)
+package org.apache.wss4j.binding.wss11;
+
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `jakarta.xml.bind.annotation` is unnecessary, and can be replaced with an import
+in `bindings/src/main/java/org/apache/wss4j/binding/wss11/package-info.java`
+#### Snippet
+```java
+//
+
+@jakarta.xml.bind.annotation.XmlSchema(namespace = "http://docs.oasis-open.org/wss/oasis-wss-wssecurity-secext-1.1.xsd", elementFormDefault = jakarta.xml.bind.annotation.XmlNsForm.QUALIFIED)
+package org.apache.wss4j.binding.wss11;
+
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `jakarta.xml.bind.annotation` is unnecessary, and can be replaced with an import
+in `bindings/src/main/java/org/apache/wss4j/binding/wsu10/package-info.java`
+#### Snippet
+```java
+//
+
+@jakarta.xml.bind.annotation.XmlSchema(namespace = "http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd", elementFormDefault = jakarta.xml.bind.annotation.XmlNsForm.QUALIFIED)
+package org.apache.wss4j.binding.wsu10;
+
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `jakarta.xml.bind.annotation` is unnecessary, and can be replaced with an import
+in `bindings/src/main/java/org/apache/wss4j/binding/wsu10/package-info.java`
+#### Snippet
+```java
+//
+
+@jakarta.xml.bind.annotation.XmlSchema(namespace = "http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd", elementFormDefault = jakarta.xml.bind.annotation.XmlNsForm.QUALIFIED)
+package org.apache.wss4j.binding.wsu10;
+
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `jakarta.xml.bind.annotation` is unnecessary, and can be replaced with an import
+in `bindings/src/main/java/org/apache/wss4j/binding/wssc13/package-info.java`
+#### Snippet
+```java
+//
+
+@jakarta.xml.bind.annotation.XmlSchema(namespace = "http://docs.oasis-open.org/ws-sx/ws-secureconversation/200512", elementFormDefault = jakarta.xml.bind.annotation.XmlNsForm.QUALIFIED)
+package org.apache.wss4j.binding.wssc13;
+
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `jakarta.xml.bind.annotation` is unnecessary, and can be replaced with an import
+in `bindings/src/main/java/org/apache/wss4j/binding/wssc13/package-info.java`
+#### Snippet
+```java
+//
+
+@jakarta.xml.bind.annotation.XmlSchema(namespace = "http://docs.oasis-open.org/ws-sx/ws-secureconversation/200512", elementFormDefault = jakarta.xml.bind.annotation.XmlNsForm.QUALIFIED)
+package org.apache.wss4j.binding.wssc13;
+
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
+in `ws-security-policy-stax/src/main/java/org/apache/wss4j/policy/stax/enforcer/PolicyEnforcer.java`
+#### Snippet
+```java
+    //unused tokens must be checked (algorithms etc)
+
+    private static final transient org.slf4j.Logger LOG =
+        org.slf4j.LoggerFactory.getLogger(PolicyEnforcer.class);
+
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
+in `ws-security-policy-stax/src/main/java/org/apache/wss4j/policy/stax/enforcer/PolicyEnforcer.java`
+#### Snippet
+```java
+
+    private static final transient org.slf4j.Logger LOG =
+        org.slf4j.LoggerFactory.getLogger(PolicyEnforcer.class);
+
+    private static final QName SOAP11_FAULT = new QName(WSSConstants.NS_SOAP11, "Fault");
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `jakarta.xml.bind.annotation` is unnecessary, and can be replaced with an import
+in `bindings/src/main/java/org/apache/wss4j/binding/wssc200502/package-info.java`
+#### Snippet
+```java
+//
+
+@jakarta.xml.bind.annotation.XmlSchema(namespace = "http://schemas.xmlsoap.org/ws/2005/02/sc", elementFormDefault = jakarta.xml.bind.annotation.XmlNsForm.QUALIFIED)
+package org.apache.wss4j.binding.wssc200502;
+
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `jakarta.xml.bind.annotation` is unnecessary, and can be replaced with an import
+in `bindings/src/main/java/org/apache/wss4j/binding/wssc200502/package-info.java`
+#### Snippet
+```java
+//
+
+@jakarta.xml.bind.annotation.XmlSchema(namespace = "http://schemas.xmlsoap.org/ws/2005/02/sc", elementFormDefault = jakarta.xml.bind.annotation.XmlNsForm.QUALIFIED)
+package org.apache.wss4j.binding.wssc200502;
 
 ```
 
@@ -14284,54 +14270,6 @@ in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/processor/output/S
 ## RuleId[ruleID=ReplaceNullCheck]
 ### ReplaceNullCheck
 'if' statement can be replaced with call to 'Objects.requireNonNullElse()'
-in `ws-security-common/src/main/java/org/apache/wss4j/common/saml/builder/SAML2ComponentBuilder.java`
-#### Snippet
-```java
-        Attribute attribute = attributeBuilder.buildObject();
-        attribute.setFriendlyName(friendlyName);
-        if (nameFormat == null) {
-            attribute.setNameFormat(SAML2Constants.ATTRNAME_FORMAT_URI);
-        } else {
-```
-
-### ReplaceNullCheck
-'if' statement can be replaced with call to 'Objects.requireNonNullElse()'
-in `bindings/src/main/java/org/apache/wss4j/binding/wss11/EncryptedHeaderType.java`
-#### Snippet
-```java
-     */
-    public boolean isMustUnderstand12() {
-        if (mustUnderstand12 == null) {
-            return false;
-        } else {
-```
-
-### ReplaceNullCheck
-'if' statement can be replaced with call to 'Objects.requireNonNullElse()'
-in `bindings/src/main/java/org/apache/wss4j/binding/wss11/EncryptedHeaderType.java`
-#### Snippet
-```java
-     */
-    public boolean isRelay() {
-        if (relay == null) {
-            return false;
-        } else {
-```
-
-### ReplaceNullCheck
-'if' statement can be replaced with call to 'Objects.requireNonNullElseGet()'
-in `ws-security-policy-stax/src/main/java/org/apache/wss4j/policy/stax/enforcer/PolicyEnforcer.java`
-#### Snippet
-```java
-        failedAssertionStateMap = new LinkedList<>();
-
-        if (policyAsserter == null) {
-            this.policyAsserter = new DummyPolicyAsserter();
-        } else {
-```
-
-### ReplaceNullCheck
-'if' statement can be replaced with call to 'Objects.requireNonNullElse()'
 in `ws-security-dom/src/main/java/org/apache/wss4j/dom/engine/WSSConfig.java`
 #### Snippet
 ```java
@@ -14354,19 +14292,55 @@ in `ws-security-dom/src/main/java/org/apache/wss4j/dom/processor/SignatureProces
         } else {
 ```
 
-## RuleId[ruleID=NonProtectedConstructorInAbstractClass]
-### NonProtectedConstructorInAbstractClass
-Constructor `IssuedTokenSecurityEvent()` of an abstract class should not be declared 'public'
-in `ws-security-stax/src/main/java/org/apache/wss4j/stax/securityEvent/IssuedTokenSecurityEvent.java`
+### ReplaceNullCheck
+'if' statement can be replaced with call to 'Objects.requireNonNullElse()'
+in `ws-security-common/src/main/java/org/apache/wss4j/common/saml/builder/SAML2ComponentBuilder.java`
 #### Snippet
 ```java
-public abstract class IssuedTokenSecurityEvent<T extends SecurityToken> extends TokenSecurityEvent<T> {
-
-    public IssuedTokenSecurityEvent(WSSecurityEventConstants.Event securityEventType) {
-        super(securityEventType);
-    }
+        Attribute attribute = attributeBuilder.buildObject();
+        attribute.setFriendlyName(friendlyName);
+        if (nameFormat == null) {
+            attribute.setNameFormat(SAML2Constants.ATTRNAME_FORMAT_URI);
+        } else {
 ```
 
+### ReplaceNullCheck
+'if' statement can be replaced with call to 'Objects.requireNonNullElse()'
+in `bindings/src/main/java/org/apache/wss4j/binding/wss11/EncryptedHeaderType.java`
+#### Snippet
+```java
+     */
+    public boolean isRelay() {
+        if (relay == null) {
+            return false;
+        } else {
+```
+
+### ReplaceNullCheck
+'if' statement can be replaced with call to 'Objects.requireNonNullElse()'
+in `bindings/src/main/java/org/apache/wss4j/binding/wss11/EncryptedHeaderType.java`
+#### Snippet
+```java
+     */
+    public boolean isMustUnderstand12() {
+        if (mustUnderstand12 == null) {
+            return false;
+        } else {
+```
+
+### ReplaceNullCheck
+'if' statement can be replaced with call to 'Objects.requireNonNullElseGet()'
+in `ws-security-policy-stax/src/main/java/org/apache/wss4j/policy/stax/enforcer/PolicyEnforcer.java`
+#### Snippet
+```java
+        failedAssertionStateMap = new LinkedList<>();
+
+        if (policyAsserter == null) {
+            this.policyAsserter = new DummyPolicyAsserter();
+        } else {
+```
+
+## RuleId[ruleID=NonProtectedConstructorInAbstractClass]
 ### NonProtectedConstructorInAbstractClass
 Constructor `AbstractSecuredParts()` of an abstract class should not be declared 'public'
 in `policy/src/main/java/org/apache/wss4j/policy/model/AbstractSecuredParts.java`
@@ -14377,30 +14351,6 @@ in `policy/src/main/java/org/apache/wss4j/policy/model/AbstractSecuredParts.java
     public AbstractSecuredParts(SPConstants.SPVersion version, boolean body, Attachments attachments,
                        List<Header> headers) {
         super(version, headers);
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `TokenAssertionState()` of an abstract class should not be declared 'public'
-in `ws-security-policy-stax/src/main/java/org/apache/wss4j/policy/stax/assertionStates/TokenAssertionState.java`
-#### Snippet
-```java
-    }
-
-    public TokenAssertionState(AbstractSecurityAssertion assertion, boolean asserted,
-                               PolicyAsserter policyAsserter, boolean initiator) {
-        super(assertion, asserted);
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `TokenAssertionState()` of an abstract class should not be declared 'public'
-in `ws-security-policy-stax/src/main/java/org/apache/wss4j/policy/stax/assertionStates/TokenAssertionState.java`
-#### Snippet
-```java
-    private PolicyAsserter policyAsserter;
-
-    public TokenAssertionState(AbstractSecurityAssertion assertion, boolean asserted, boolean initiator) {
-        this(assertion, asserted, null, initiator);
-    }
 ```
 
 ### NonProtectedConstructorInAbstractClass
@@ -14425,6 +14375,42 @@ in `ws-security-dom/src/main/java/org/apache/wss4j/dom/message/WSSecDerivedKeyBa
     public WSSecDerivedKeyBase(Document doc) {
         super(doc);
         setKeyIdentifierType(0);
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `IssuedTokenSecurityEvent()` of an abstract class should not be declared 'public'
+in `ws-security-stax/src/main/java/org/apache/wss4j/stax/securityEvent/IssuedTokenSecurityEvent.java`
+#### Snippet
+```java
+public abstract class IssuedTokenSecurityEvent<T extends SecurityToken> extends TokenSecurityEvent<T> {
+
+    public IssuedTokenSecurityEvent(WSSecurityEventConstants.Event securityEventType) {
+        super(securityEventType);
+    }
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `TokenAssertionState()` of an abstract class should not be declared 'public'
+in `ws-security-policy-stax/src/main/java/org/apache/wss4j/policy/stax/assertionStates/TokenAssertionState.java`
+#### Snippet
+```java
+    private PolicyAsserter policyAsserter;
+
+    public TokenAssertionState(AbstractSecurityAssertion assertion, boolean asserted, boolean initiator) {
+        this(assertion, asserted, null, initiator);
+    }
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `TokenAssertionState()` of an abstract class should not be declared 'public'
+in `ws-security-policy-stax/src/main/java/org/apache/wss4j/policy/stax/assertionStates/TokenAssertionState.java`
+#### Snippet
+```java
+    }
+
+    public TokenAssertionState(AbstractSecurityAssertion assertion, boolean asserted,
+                               PolicyAsserter policyAsserter, boolean initiator) {
+        super(assertion, asserted);
 ```
 
 ## RuleId[ruleID=Anonymous2MethodRef]
@@ -14458,11 +14444,11 @@ Can be replaced with single 'Map.computeIfAbsent' method call
 in `ws-security-policy-stax/src/main/java/org/apache/wss4j/policy/stax/enforcer/PolicyEnforcer.java`
 #### Snippet
 ```java
-                                   Assertable assertable) {
-        List<Assertable> assertableList = assertables.get(keyAssertion);
-        if (assertableList == null) {
-            assertableList = new LinkedList<>();
-            assertables.put(keyAssertion, assertableList);
+                    SecurityEventConstants.Event event = securityEventType[j];
+                    Map<Assertion, List<Assertable>> assertables = map.get(event);
+                    if (assertables == null) {
+                        assertables = new HashMap<>();
+                        map.put(event, assertables);
 ```
 
 ### Java8MapApi
@@ -14470,11 +14456,11 @@ Can be replaced with single 'Map.computeIfAbsent' method call
 in `ws-security-policy-stax/src/main/java/org/apache/wss4j/policy/stax/enforcer/PolicyEnforcer.java`
 #### Snippet
 ```java
-                    SecurityEventConstants.Event event = securityEventType[j];
-                    Map<Assertion, List<Assertable>> assertables = map.get(event);
-                    if (assertables == null) {
-                        assertables = new HashMap<>();
-                        map.put(event, assertables);
+                                   Assertable assertable) {
+        List<Assertable> assertableList = assertables.get(keyAssertion);
+        if (assertableList == null) {
+            assertableList = new LinkedList<>();
+            assertables.put(keyAssertion, assertableList);
 ```
 
 ## RuleId[ruleID=Convert2Lambda]
@@ -14517,354 +14503,6 @@ in `ws-security-common/src/main/java/org/apache/wss4j/common/crypto/CryptoFactor
 
 ## RuleId[ruleID=AssignmentToMethodParameter]
 ### AssignmentToMethodParameter
-Assignment to method parameter `expiry`
-in `ws-security-common/src/main/java/org/apache/wss4j/common/cache/MemoryReplayCache.java`
-#### Snippet
-```java
-        Instant maxTTL = now.plusSeconds(MAX_TTL);
-        if (expiry == null || expiry.isBefore(now) || expiry.isAfter(maxTTL)) {
-            expiry = now.plusSeconds(DEFAULT_TTL);
-        }
-
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `startNode`
-in `ws-security-common/src/main/java/org/apache/wss4j/common/util/XMLUtils.java`
-#### Snippet
-```java
-            }
-            processedNode = startNode;
-            startNode = startNode.getFirstChild();
-
-            // no child, this node is done.
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `startNode`
-in `ws-security-common/src/main/java/org/apache/wss4j/common/util/XMLUtils.java`
-#### Snippet
-```java
-            if (startNode == null) {
-                // close node processing, get sibling
-                startNode = processedNode.getNextSibling();
-            }
-            // no more siblings, get parent, all children
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `startNode`
-in `ws-security-common/src/main/java/org/apache/wss4j/common/util/XMLUtils.java`
-#### Snippet
-```java
-                }
-                // close parent node processing (processed node now)
-                startNode = processedNode.getNextSibling();
-            }
-        }
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `e`
-in `ws-security-common/src/main/java/org/apache/wss4j/common/util/XMLUtils.java`
-#### Snippet
-```java
-                }
-            }
-            e = e.getParentNode();
-        }
-        return null;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `startNode`
-in `ws-security-common/src/main/java/org/apache/wss4j/common/util/XMLUtils.java`
-#### Snippet
-```java
-
-            processedNode = startNode;
-            startNode = startNode.getFirstChild();
-
-            // no child, this node is done.
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `startNode`
-in `ws-security-common/src/main/java/org/apache/wss4j/common/util/XMLUtils.java`
-#### Snippet
-```java
-            if (startNode == null) {
-                // close node processing, get sibling
-                startNode = processedNode.getNextSibling();
-            }
-            // no more siblings, get parent, all children
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `startNode`
-in `ws-security-common/src/main/java/org/apache/wss4j/common/util/XMLUtils.java`
-#### Snippet
-```java
-                }
-                // close parent node processing (processed node now)
-                startNode = processedNode.getNextSibling();
-            }
-        }
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `e`
-in `ws-security-common/src/main/java/org/apache/wss4j/common/util/XMLUtils.java`
-#### Snippet
-```java
-                return attr.getValue();
-            }
-            e = e.getParentNode();
-        }
-        return null;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `startNode`
-in `ws-security-common/src/main/java/org/apache/wss4j/common/util/XMLUtils.java`
-#### Snippet
-```java
-            }
-            processedNode = startNode;
-            startNode = startNode.getFirstChild();
-
-            // no child, this node is done.
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `startNode`
-in `ws-security-common/src/main/java/org/apache/wss4j/common/util/XMLUtils.java`
-#### Snippet
-```java
-            if (startNode == null) {
-                // close node processing, get sibling
-                startNode = processedNode.getNextSibling();
-            }
-            // no more siblings, get parent, all children
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `startNode`
-in `ws-security-common/src/main/java/org/apache/wss4j/common/util/XMLUtils.java`
-#### Snippet
-```java
-                }
-                // close parent node processing (processed node now)
-                startNode = processedNode.getNextSibling();
-            }
-        }
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `startNode`
-in `ws-security-common/src/main/java/org/apache/wss4j/common/util/XMLUtils.java`
-#### Snippet
-```java
-
-            processedNode = startNode;
-            startNode = startNode.getFirstChild();
-
-            // no child, this node is done.
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `startNode`
-in `ws-security-common/src/main/java/org/apache/wss4j/common/util/XMLUtils.java`
-#### Snippet
-```java
-            if (startNode == null) {
-                // close node processing, get sibling
-                startNode = processedNode.getNextSibling();
-            }
-            // no more siblings, get parent, all children
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `startNode`
-in `ws-security-common/src/main/java/org/apache/wss4j/common/util/XMLUtils.java`
-#### Snippet
-```java
-                }
-                // close parent node processing (processed node now)
-                startNode = processedNode.getNextSibling();
-            }
-        }
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `provider`
-in `ws-security-common/src/main/java/org/apache/wss4j/common/util/KeyUtils.java`
-#### Snippet
-```java
-
-        if (provider == null) {
-            provider = JCEMapper.getProviderId();
-        } else {
-            JavaUtils.checkRegisterPermission();
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `a`
-in `ws-security-common/src/main/java/org/apache/wss4j/common/util/AttachmentUtils.java`
-#### Snippet
-```java
-    public static String concatParamValues(String a, String b) {
-        if (DOUBLE_QUOTE == a.charAt(a.length() - 1)) {
-            a = a.substring(0, a.length() - 1);
-        }
-        if (DOUBLE_QUOTE == b.charAt(0)) {
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `b`
-in `ws-security-common/src/main/java/org/apache/wss4j/common/util/AttachmentUtils.java`
-#### Snippet
-```java
-        }
-        if (DOUBLE_QUOTE == b.charAt(0)) {
-            b = b.substring(1);
-        }
-        return a + b;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `currentNode`
-in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/processor/input/SAMLTokenInputHandler.java`
-#### Snippet
-```java
-                    element.setPrefix(xmlSecStartElement.getName().getPrefix());
-                }
-                currentNode = currentNode.appendChild(element);
-                @SuppressWarnings("unchecked")
-                Iterator<Namespace> namespaceIterator = xmlSecStartElement.getNamespaces();
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `currentNode`
-in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/processor/input/SAMLTokenInputHandler.java`
-#### Snippet
-```java
-            case XMLStreamConstants.END_ELEMENT:
-                if (currentNode.getParentNode() != null) {
-                    currentNode = currentNode.getParentNode();
-                }
-                break;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `inputStream`
-in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/processor/input/DecryptInputProcessor.java`
-#### Snippet
-```java
-                try {
-                    Constructor<InputStream> constructor = transformerClass.getConstructor(InputStream.class);
-                    inputStream = new LimitingInputStream(
-                            constructor.newInstance(inputStream), MAX_ALLOWED_DECOMPRESSED_BYTES);
-                } catch (InvocationTargetException | NoSuchMethodException
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `xmlSecStartElement`
-in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/processor/output/WSSSignatureEndingOutputProcessor.java`
-#### Snippet
-```java
-        //we have to search for the SecurityHeaderElement for InclusiveNamespaces (same behavior as in wss-dom):
-        while (!WSSConstants.TAG_WSSE_SECURITY.equals(xmlSecStartElement.getName())) {
-            xmlSecStartElement = xmlSecStartElement.getParentXMLSecStartElement();
-        }
-
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `outputStream`
-in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/processor/output/EncryptOutputProcessor.java`
-#### Snippet
-```java
-                try {
-                    Constructor<OutputStream> constructor = transformerClass.getConstructor(OutputStream.class);
-                    outputStream = constructor.newInstance(outputStream);
-                } catch (InvocationTargetException | NoSuchMethodException
-                    | InstantiationException | IllegalAccessException e) {
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `tokenSecurityEventList`
-in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/InboundWSSecurityContextImpl.java`
-#### Snippet
-```java
-            List<TokenSecurityEvent<? extends InboundSecurityToken>> tokenSecurityEventList) {
-        if (tokenSecurityEventList == Collections.<TokenSecurityEvent<? extends InboundSecurityToken>>emptyList()) {
-            tokenSecurityEventList = new ArrayList<>();
-        }
-        tokenSecurityEventList.add(tokenSecurityEvent);
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `securityEvent`
-in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/InboundWSSecurityContextImpl.java`
-#### Snippet
-```java
-                            WSSUtils.createTokenSecurityEvent(securityToken, tokenSecurityEvent.getCorrelationID());
-                    setTokenUsage(newTokenSecurityEvent, WSSecurityTokenConstants.TOKENUSAGE_MAIN_ENCRYPTION);
-                    securityEvent = newTokenSecurityEvent;
-                    this.messageEncryptionTokenOccured = true;
-                }
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `xmlSecEvent`
-in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/processor/output/WSSSignatureOutputProcessor.java`
-#### Snippet
-```java
-                            List<XMLSecAttribute> attributeList = new ArrayList<>(1);
-                            attributeList.add(createAttribute(WSSConstants.ATT_WSU_ID, signaturePartDef.getSigRefId()));
-                            xmlSecEvent = addAttributes(xmlSecStartElement, attributeList);
-                        }
-                    } else {
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `securityProperties`
-in `ws-security-stax/src/main/java/org/apache/wss4j/stax/setup/WSSec.java`
-#### Snippet
-```java
-        }
-
-        securityProperties = validateAndApplyDefaultsToOutboundSecurityProperties(securityProperties);
-        return new OutboundWSSec(securityProperties);
-    }
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `securityProperties`
-in `ws-security-stax/src/main/java/org/apache/wss4j/stax/setup/WSSec.java`
-#### Snippet
-```java
-        }
-
-        securityProperties = validateAndApplyDefaultsToInboundSecurityProperties(securityProperties);
-        return new InboundWSSec(securityProperties, initiator, returnSecurityError);
-    }
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `requestSecurityEvents`
-in `ws-security-stax/src/main/java/org/apache/wss4j/stax/setup/InboundWSSec.java`
-#### Snippet
-```java
-
-        if (requestSecurityEvents == null) {
-            requestSecurityEvents = Collections.emptyList();
-        }
-
-```
-
-### AssignmentToMethodParameter
 Assignment to method parameter `e`
 in `policy/src/main/java/org/apache/wss4j/policy/model/DOM2Writer.java`
 #### Snippet
@@ -14889,18 +14527,6 @@ in `ws-security-dom/src/main/java/org/apache/wss4j/dom/saml/DOMSAMLUtil.java`
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `encData`
-in `ws-security-dom/src/main/java/org/apache/wss4j/dom/util/EncryptionUtils.java`
-#### Snippet
-```java
-        Node previousSibling = encData.getPreviousSibling();
-        if (content) {
-            encData = (Element) encData.getParentNode();
-            parent = encData.getParentNode();
-        }
-```
-
-### AssignmentToMethodParameter
 Assignment to method parameter `xpath`
 in `ws-security-dom/src/main/java/org/apache/wss4j/dom/util/EncryptionUtils.java`
 #### Snippet
@@ -14913,15 +14539,15 @@ in `ws-security-dom/src/main/java/org/apache/wss4j/dom/util/EncryptionUtils.java
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `actor`
-in `ws-security-dom/src/main/java/org/apache/wss4j/dom/engine/WSSecurityEngine.java`
+Assignment to method parameter `encData`
+in `ws-security-dom/src/main/java/org/apache/wss4j/dom/util/EncryptionUtils.java`
 #### Snippet
 ```java
-
-        if (actor == null) {
-            actor = "";
+        Node previousSibling = encData.getPreviousSibling();
+        if (content) {
+            encData = (Element) encData.getParentNode();
+            parent = encData.getParentNode();
         }
-        WSHandlerResult wsResult = null;
 ```
 
 ### AssignmentToMethodParameter
@@ -14958,6 +14584,18 @@ in `ws-security-dom/src/main/java/org/apache/wss4j/dom/util/WSSecurityUtil.java`
             clonedElement = (Element)getDomElement(clonedElement);
         }
         return clonedElement;
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `actor`
+in `ws-security-dom/src/main/java/org/apache/wss4j/dom/engine/WSSecurityEngine.java`
+#### Snippet
+```java
+
+        if (actor == null) {
+            actor = "";
+        }
+        WSHandlerResult wsResult = null;
 ```
 
 ### AssignmentToMethodParameter
@@ -15020,43 +14658,355 @@ in `ws-security-dom/src/main/java/org/apache/wss4j/dom/message/WSSecSignature.ja
                 if (siblingElement == null) {
 ```
 
+### AssignmentToMethodParameter
+Assignment to method parameter `provider`
+in `ws-security-common/src/main/java/org/apache/wss4j/common/util/KeyUtils.java`
+#### Snippet
+```java
+
+        if (provider == null) {
+            provider = JCEMapper.getProviderId();
+        } else {
+            JavaUtils.checkRegisterPermission();
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `expiry`
+in `ws-security-common/src/main/java/org/apache/wss4j/common/cache/MemoryReplayCache.java`
+#### Snippet
+```java
+        Instant maxTTL = now.plusSeconds(MAX_TTL);
+        if (expiry == null || expiry.isBefore(now) || expiry.isAfter(maxTTL)) {
+            expiry = now.plusSeconds(DEFAULT_TTL);
+        }
+
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `e`
+in `ws-security-common/src/main/java/org/apache/wss4j/common/util/XMLUtils.java`
+#### Snippet
+```java
+                return attr.getValue();
+            }
+            e = e.getParentNode();
+        }
+        return null;
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `startNode`
+in `ws-security-common/src/main/java/org/apache/wss4j/common/util/XMLUtils.java`
+#### Snippet
+```java
+
+            processedNode = startNode;
+            startNode = startNode.getFirstChild();
+
+            // no child, this node is done.
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `startNode`
+in `ws-security-common/src/main/java/org/apache/wss4j/common/util/XMLUtils.java`
+#### Snippet
+```java
+            if (startNode == null) {
+                // close node processing, get sibling
+                startNode = processedNode.getNextSibling();
+            }
+            // no more siblings, get parent, all children
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `startNode`
+in `ws-security-common/src/main/java/org/apache/wss4j/common/util/XMLUtils.java`
+#### Snippet
+```java
+                }
+                // close parent node processing (processed node now)
+                startNode = processedNode.getNextSibling();
+            }
+        }
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `e`
+in `ws-security-common/src/main/java/org/apache/wss4j/common/util/XMLUtils.java`
+#### Snippet
+```java
+                }
+            }
+            e = e.getParentNode();
+        }
+        return null;
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `startNode`
+in `ws-security-common/src/main/java/org/apache/wss4j/common/util/XMLUtils.java`
+#### Snippet
+```java
+            }
+            processedNode = startNode;
+            startNode = startNode.getFirstChild();
+
+            // no child, this node is done.
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `startNode`
+in `ws-security-common/src/main/java/org/apache/wss4j/common/util/XMLUtils.java`
+#### Snippet
+```java
+            if (startNode == null) {
+                // close node processing, get sibling
+                startNode = processedNode.getNextSibling();
+            }
+            // no more siblings, get parent, all children
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `startNode`
+in `ws-security-common/src/main/java/org/apache/wss4j/common/util/XMLUtils.java`
+#### Snippet
+```java
+                }
+                // close parent node processing (processed node now)
+                startNode = processedNode.getNextSibling();
+            }
+        }
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `startNode`
+in `ws-security-common/src/main/java/org/apache/wss4j/common/util/XMLUtils.java`
+#### Snippet
+```java
+            }
+            processedNode = startNode;
+            startNode = startNode.getFirstChild();
+
+            // no child, this node is done.
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `startNode`
+in `ws-security-common/src/main/java/org/apache/wss4j/common/util/XMLUtils.java`
+#### Snippet
+```java
+            if (startNode == null) {
+                // close node processing, get sibling
+                startNode = processedNode.getNextSibling();
+            }
+            // no more siblings, get parent, all children
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `startNode`
+in `ws-security-common/src/main/java/org/apache/wss4j/common/util/XMLUtils.java`
+#### Snippet
+```java
+                }
+                // close parent node processing (processed node now)
+                startNode = processedNode.getNextSibling();
+            }
+        }
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `startNode`
+in `ws-security-common/src/main/java/org/apache/wss4j/common/util/XMLUtils.java`
+#### Snippet
+```java
+
+            processedNode = startNode;
+            startNode = startNode.getFirstChild();
+
+            // no child, this node is done.
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `startNode`
+in `ws-security-common/src/main/java/org/apache/wss4j/common/util/XMLUtils.java`
+#### Snippet
+```java
+            if (startNode == null) {
+                // close node processing, get sibling
+                startNode = processedNode.getNextSibling();
+            }
+            // no more siblings, get parent, all children
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `startNode`
+in `ws-security-common/src/main/java/org/apache/wss4j/common/util/XMLUtils.java`
+#### Snippet
+```java
+                }
+                // close parent node processing (processed node now)
+                startNode = processedNode.getNextSibling();
+            }
+        }
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `a`
+in `ws-security-common/src/main/java/org/apache/wss4j/common/util/AttachmentUtils.java`
+#### Snippet
+```java
+    public static String concatParamValues(String a, String b) {
+        if (DOUBLE_QUOTE == a.charAt(a.length() - 1)) {
+            a = a.substring(0, a.length() - 1);
+        }
+        if (DOUBLE_QUOTE == b.charAt(0)) {
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `b`
+in `ws-security-common/src/main/java/org/apache/wss4j/common/util/AttachmentUtils.java`
+#### Snippet
+```java
+        }
+        if (DOUBLE_QUOTE == b.charAt(0)) {
+            b = b.substring(1);
+        }
+        return a + b;
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `inputStream`
+in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/processor/input/DecryptInputProcessor.java`
+#### Snippet
+```java
+                try {
+                    Constructor<InputStream> constructor = transformerClass.getConstructor(InputStream.class);
+                    inputStream = new LimitingInputStream(
+                            constructor.newInstance(inputStream), MAX_ALLOWED_DECOMPRESSED_BYTES);
+                } catch (InvocationTargetException | NoSuchMethodException
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `xmlSecStartElement`
+in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/processor/output/WSSSignatureEndingOutputProcessor.java`
+#### Snippet
+```java
+        //we have to search for the SecurityHeaderElement for InclusiveNamespaces (same behavior as in wss-dom):
+        while (!WSSConstants.TAG_WSSE_SECURITY.equals(xmlSecStartElement.getName())) {
+            xmlSecStartElement = xmlSecStartElement.getParentXMLSecStartElement();
+        }
+
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `currentNode`
+in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/processor/input/SAMLTokenInputHandler.java`
+#### Snippet
+```java
+                    element.setPrefix(xmlSecStartElement.getName().getPrefix());
+                }
+                currentNode = currentNode.appendChild(element);
+                @SuppressWarnings("unchecked")
+                Iterator<Namespace> namespaceIterator = xmlSecStartElement.getNamespaces();
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `currentNode`
+in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/processor/input/SAMLTokenInputHandler.java`
+#### Snippet
+```java
+            case XMLStreamConstants.END_ELEMENT:
+                if (currentNode.getParentNode() != null) {
+                    currentNode = currentNode.getParentNode();
+                }
+                break;
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `securityEvent`
+in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/InboundWSSecurityContextImpl.java`
+#### Snippet
+```java
+                            WSSUtils.createTokenSecurityEvent(securityToken, tokenSecurityEvent.getCorrelationID());
+                    setTokenUsage(newTokenSecurityEvent, WSSecurityTokenConstants.TOKENUSAGE_MAIN_ENCRYPTION);
+                    securityEvent = newTokenSecurityEvent;
+                    this.messageEncryptionTokenOccured = true;
+                }
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `tokenSecurityEventList`
+in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/InboundWSSecurityContextImpl.java`
+#### Snippet
+```java
+            List<TokenSecurityEvent<? extends InboundSecurityToken>> tokenSecurityEventList) {
+        if (tokenSecurityEventList == Collections.<TokenSecurityEvent<? extends InboundSecurityToken>>emptyList()) {
+            tokenSecurityEventList = new ArrayList<>();
+        }
+        tokenSecurityEventList.add(tokenSecurityEvent);
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `outputStream`
+in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/processor/output/EncryptOutputProcessor.java`
+#### Snippet
+```java
+                try {
+                    Constructor<OutputStream> constructor = transformerClass.getConstructor(OutputStream.class);
+                    outputStream = constructor.newInstance(outputStream);
+                } catch (InvocationTargetException | NoSuchMethodException
+                    | InstantiationException | IllegalAccessException e) {
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `xmlSecEvent`
+in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/processor/output/WSSSignatureOutputProcessor.java`
+#### Snippet
+```java
+                            List<XMLSecAttribute> attributeList = new ArrayList<>(1);
+                            attributeList.add(createAttribute(WSSConstants.ATT_WSU_ID, signaturePartDef.getSigRefId()));
+                            xmlSecEvent = addAttributes(xmlSecStartElement, attributeList);
+                        }
+                    } else {
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `securityProperties`
+in `ws-security-stax/src/main/java/org/apache/wss4j/stax/setup/WSSec.java`
+#### Snippet
+```java
+        }
+
+        securityProperties = validateAndApplyDefaultsToInboundSecurityProperties(securityProperties);
+        return new InboundWSSec(securityProperties, initiator, returnSecurityError);
+    }
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `securityProperties`
+in `ws-security-stax/src/main/java/org/apache/wss4j/stax/setup/WSSec.java`
+#### Snippet
+```java
+        }
+
+        securityProperties = validateAndApplyDefaultsToOutboundSecurityProperties(securityProperties);
+        return new OutboundWSSec(securityProperties);
+    }
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `requestSecurityEvents`
+in `ws-security-stax/src/main/java/org/apache/wss4j/stax/setup/InboundWSSec.java`
+#### Snippet
+```java
+
+        if (requestSecurityEvents == null) {
+            requestSecurityEvents = Collections.emptyList();
+        }
+
+```
+
 ## RuleId[ruleID=UnnecessaryContinue]
-### UnnecessaryContinue
-`continue` is unnecessary as the last statement in a loop
-in `ws-security-common/src/main/java/org/apache/wss4j/common/NamePasswordCallbackHandler.java`
-#### Snippet
-```java
-        for (Callback callback : callbacks) {
-            if (handleCallback(callback)) {
-                continue;
-            } else if (callback instanceof NameCallback) {
-                ((NameCallback) callback).setName(username);
-```
-
-### UnnecessaryContinue
-`continue` is unnecessary as the last statement in a loop
-in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/processor/input/UsernameTokenInputHandler.java`
-#### Snippet
-```java
-            if (xmlSecEvent.getEventType() == XMLStreamConstants.START_ELEMENT) {
-                if (xmlSecEvent.asStartElement().getName().equals(WSSConstants.TAG_WSSE_USERNAME_TOKEN)) {
-                    continue;
-                } else if (xmlSecEvent.asStartElement().getName().equals(WSSConstants.TAG_WSSE_PASSWORD)) {
-                    if (passwordIndex != -1) {
-```
-
-### UnnecessaryContinue
-`continue` is unnecessary as the last statement in a loop
-in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/processor/input/TimestampInputHandler.java`
-#### Snippet
-```java
-
-                if (name.equals(WSSConstants.TAG_WSU_TIMESTAMP)) {
-                    continue;
-                } else if (name.equals(WSSConstants.TAG_WSU_CREATED)) {
-                    if (createdIndex != -1) {
-```
-
 ### UnnecessaryContinue
 `continue` is unnecessary as the last statement in a loop
 in `policy/src/main/java/org/apache/wss4j/policy/model/X509Token.java`
@@ -15119,11 +15069,11 @@ in `policy/src/main/java/org/apache/wss4j/policy/model/HttpsToken.java`
 
 ### UnnecessaryContinue
 `continue` is unnecessary as the last statement in a loop
-in `policy/src/main/java/org/apache/wss4j/policy/model/Wss11.java`
+in `policy/src/main/java/org/apache/wss4j/policy/model/TransportBinding.java`
 #### Snippet
 ```java
                     }
-                    wss11.setRequireSignatureConfirmation(true);
+                    transportBinding.setTransportToken((TransportToken) assertion);
                     continue;
                 }
             }
@@ -15131,11 +15081,11 @@ in `policy/src/main/java/org/apache/wss4j/policy/model/Wss11.java`
 
 ### UnnecessaryContinue
 `continue` is unnecessary as the last statement in a loop
-in `policy/src/main/java/org/apache/wss4j/policy/model/KerberosToken.java`
+in `policy/src/main/java/org/apache/wss4j/policy/model/Wss11.java`
 #### Snippet
 ```java
                     }
-                    kerberosToken.setApReqTokenType(apReqTokenType);
+                    wss11.setRequireSignatureConfirmation(true);
                     continue;
                 }
             }
@@ -15155,11 +15105,11 @@ in `policy/src/main/java/org/apache/wss4j/policy/model/IssuedToken.java`
 
 ### UnnecessaryContinue
 `continue` is unnecessary as the last statement in a loop
-in `policy/src/main/java/org/apache/wss4j/policy/model/TransportBinding.java`
+in `policy/src/main/java/org/apache/wss4j/policy/model/KerberosToken.java`
 #### Snippet
 ```java
                     }
-                    transportBinding.setTransportToken((TransportToken) assertion);
+                    kerberosToken.setApReqTokenType(apReqTokenType);
                     continue;
                 }
             }
@@ -15191,6 +15141,18 @@ in `policy/src/main/java/org/apache/wss4j/policy/model/SamlToken.java`
 
 ### UnnecessaryContinue
 `continue` is unnecessary as the last statement in a loop
+in `policy/src/main/java/org/apache/wss4j/policy/model/KeyValueToken.java`
+#### Snippet
+```java
+                    }
+                    keyValueToken.setRsaKeyValue(true);
+                    continue;
+                }
+            }
+```
+
+### UnnecessaryContinue
+`continue` is unnecessary as the last statement in a loop
 in `policy/src/main/java/org/apache/wss4j/policy/model/SpnegoContextToken.java`
 #### Snippet
 ```java
@@ -15208,18 +15170,6 @@ in `policy/src/main/java/org/apache/wss4j/policy/model/Wss10.java`
 ```java
                     }
                     wss10.setMustSupportRefEmbeddedToken(true);
-                    continue;
-                }
-            }
-```
-
-### UnnecessaryContinue
-`continue` is unnecessary as the last statement in a loop
-in `policy/src/main/java/org/apache/wss4j/policy/model/KeyValueToken.java`
-#### Snippet
-```java
-                    }
-                    keyValueToken.setRsaKeyValue(true);
                     continue;
                 }
             }
@@ -15251,11 +15201,11 @@ in `policy/src/main/java/org/apache/wss4j/policy/model/Layout.java`
 
 ### UnnecessaryContinue
 `continue` is unnecessary as the last statement in a loop
-in `policy/src/main/java/org/apache/wss4j/policy/model/AsymmetricBinding.java`
+in `policy/src/main/java/org/apache/wss4j/policy/model/AbstractSymmetricAsymmetricBinding.java`
 #### Snippet
 ```java
-                    asymmetricBinding.setRecipientEncryptionToken(recipientEncryptionToken1);
-                    recipientEncryptionToken1.setParentAssertion(asymmetricBinding);
+                    }
+                    asymmetricBindingBase.setOnlySignEntireHeadersAndBody(true);
                     continue;
                 }
             }
@@ -15275,47 +15225,11 @@ in `policy/src/main/java/org/apache/wss4j/policy/model/RelToken.java`
 
 ### UnnecessaryContinue
 `continue` is unnecessary as the last statement in a loop
-in `policy/src/main/java/org/apache/wss4j/policy/model/AbstractSymmetricAsymmetricBinding.java`
+in `policy/src/main/java/org/apache/wss4j/policy/model/AsymmetricBinding.java`
 #### Snippet
 ```java
-                    }
-                    asymmetricBindingBase.setOnlySignEntireHeadersAndBody(true);
-                    continue;
-                }
-            }
-```
-
-### UnnecessaryContinue
-`continue` is unnecessary as the last statement in a loop
-in `policy/src/main/java/org/apache/wss4j/policy/model/SupportingTokens.java`
-#### Snippet
-```java
-                    }
-                    supportingTokens.setEncryptedElements((EncryptedElements) assertion);
-                    continue;
-                }
-            }
-```
-
-### UnnecessaryContinue
-`continue` is unnecessary as the last statement in a loop
-in `policy/src/main/java/org/apache/wss4j/policy/model/Trust13.java`
-#### Snippet
-```java
-                    }
-                    trust13.setMustSupportInteractiveChallenge(true);
-                    continue;
-                }
-            }
-```
-
-### UnnecessaryContinue
-`continue` is unnecessary as the last statement in a loop
-in `policy/src/main/java/org/apache/wss4j/policy/model/AbstractBinding.java`
-#### Snippet
-```java
-                if (SPConstants.INCLUDE_TIMESTAMP.equals(assertionName)) {
-                    binding.setIncludeTimestamp(true);
+                    asymmetricBinding.setRecipientEncryptionToken(recipientEncryptionToken1);
+                    recipientEncryptionToken1.setParentAssertion(asymmetricBinding);
                     continue;
                 }
             }
@@ -15335,11 +15249,11 @@ in `policy/src/main/java/org/apache/wss4j/policy/model/SecurityContextToken.java
 
 ### UnnecessaryContinue
 `continue` is unnecessary as the last statement in a loop
-in `policy/src/main/java/org/apache/wss4j/policy/model/Trust10.java`
+in `policy/src/main/java/org/apache/wss4j/policy/model/UsernameToken.java`
 #### Snippet
 ```java
                     }
-                    trust10.setMustSupportIssuedTokens(true);
+                    usernameToken.setUsernameTokenType(usernameTokenType);
                     continue;
                 }
             }
@@ -15347,11 +15261,35 @@ in `policy/src/main/java/org/apache/wss4j/policy/model/Trust10.java`
 
 ### UnnecessaryContinue
 `continue` is unnecessary as the last statement in a loop
-in `policy/src/main/java/org/apache/wss4j/policy/model/UsernameToken.java`
+in `policy/src/main/java/org/apache/wss4j/policy/model/AbstractBinding.java`
+#### Snippet
+```java
+                if (SPConstants.INCLUDE_TIMESTAMP.equals(assertionName)) {
+                    binding.setIncludeTimestamp(true);
+                    continue;
+                }
+            }
+```
+
+### UnnecessaryContinue
+`continue` is unnecessary as the last statement in a loop
+in `policy/src/main/java/org/apache/wss4j/policy/model/Trust13.java`
 #### Snippet
 ```java
                     }
-                    usernameToken.setUsernameTokenType(usernameTokenType);
+                    trust13.setMustSupportInteractiveChallenge(true);
+                    continue;
+                }
+            }
+```
+
+### UnnecessaryContinue
+`continue` is unnecessary as the last statement in a loop
+in `policy/src/main/java/org/apache/wss4j/policy/model/Trust10.java`
+#### Snippet
+```java
+                    }
+                    trust10.setMustSupportIssuedTokens(true);
                     continue;
                 }
             }
@@ -15371,6 +15309,18 @@ in `policy/src/main/java/org/apache/wss4j/policy/model/SymmetricBinding.java`
 
 ### UnnecessaryContinue
 `continue` is unnecessary as the last statement in a loop
+in `policy/src/main/java/org/apache/wss4j/policy/model/SupportingTokens.java`
+#### Snippet
+```java
+                    }
+                    supportingTokens.setEncryptedElements((EncryptedElements) assertion);
+                    continue;
+                }
+            }
+```
+
+### UnnecessaryContinue
+`continue` is unnecessary as the last statement in a loop
 in `policy/src/main/java/org/apache/wss4j/policy/model/AlgorithmSuite.java`
 #### Snippet
 ```java
@@ -15379,6 +15329,42 @@ in `policy/src/main/java/org/apache/wss4j/policy/model/AlgorithmSuite.java`
                     continue;
                 }
             }
+```
+
+### UnnecessaryContinue
+`continue` is unnecessary as the last statement in a loop
+in `ws-security-common/src/main/java/org/apache/wss4j/common/NamePasswordCallbackHandler.java`
+#### Snippet
+```java
+        for (Callback callback : callbacks) {
+            if (handleCallback(callback)) {
+                continue;
+            } else if (callback instanceof NameCallback) {
+                ((NameCallback) callback).setName(username);
+```
+
+### UnnecessaryContinue
+`continue` is unnecessary as the last statement in a loop
+in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/processor/input/UsernameTokenInputHandler.java`
+#### Snippet
+```java
+            if (xmlSecEvent.getEventType() == XMLStreamConstants.START_ELEMENT) {
+                if (xmlSecEvent.asStartElement().getName().equals(WSSConstants.TAG_WSSE_USERNAME_TOKEN)) {
+                    continue;
+                } else if (xmlSecEvent.asStartElement().getName().equals(WSSConstants.TAG_WSSE_PASSWORD)) {
+                    if (passwordIndex != -1) {
+```
+
+### UnnecessaryContinue
+`continue` is unnecessary as the last statement in a loop
+in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/processor/input/TimestampInputHandler.java`
+#### Snippet
+```java
+
+                if (name.equals(WSSConstants.TAG_WSU_TIMESTAMP)) {
+                    continue;
+                } else if (name.equals(WSSConstants.TAG_WSU_CREATED)) {
+                    if (createdIndex != -1) {
 ```
 
 ### UnnecessaryContinue
@@ -15444,1158 +15430,6 @@ in `ws-security-policy-stax/src/main/java/org/apache/wss4j/policy/stax/assertion
 ## RuleId[ruleID=ReturnNull]
 ### ReturnNull
 Return of `null`
-in `ws-security-common/src/main/java/org/apache/wss4j/common/saml/SAMLCallback.java`
-#### Snippet
-```java
-        }
-
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `ws-security-common/src/main/java/org/apache/wss4j/common/saml/OpenSAMLUtil.java`
-#### Snippet
-```java
-                + qName
-            );
-            return null;
-        }
-        return
-```
-
-### ReturnNull
-Return of `null`
-in `ws-security-common/src/main/java/org/apache/wss4j/common/saml/SAMLUtil.java`
-#### Snippet
-```java
-            );
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `ws-security-common/src/main/java/org/apache/wss4j/common/saml/SAMLUtil.java`
-#### Snippet
-```java
-        }
-
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `ws-security-common/src/main/java/org/apache/wss4j/common/saml/SAMLUtil.java`
-#### Snippet
-```java
-        }
-
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `ws-security-common/src/main/java/org/apache/wss4j/common/saml/SamlAssertionWrapper.java`
-#### Snippet
-```java
-                        + "object or subject is null"
-        );
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `ws-security-common/src/main/java/org/apache/wss4j/common/saml/SamlAssertionWrapper.java`
-#### Snippet
-```java
-            return (org.opensaml.saml.saml1.core.Assertion)samlObject;
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `ws-security-common/src/main/java/org/apache/wss4j/common/saml/SamlAssertionWrapper.java`
-#### Snippet
-```java
-            return ((SignableSAMLObject)samlObject).getSignature();
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `ws-security-common/src/main/java/org/apache/wss4j/common/saml/SamlAssertionWrapper.java`
-#### Snippet
-```java
-            + "object or issuer is null"
-        );
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `ws-security-common/src/main/java/org/apache/wss4j/common/saml/SamlAssertionWrapper.java`
-#### Snippet
-```java
-            return (org.opensaml.saml.saml2.core.Assertion)samlObject;
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `ws-security-common/src/main/java/org/apache/wss4j/common/util/NSStack.java`
-#### Snippet
-```java
-    public String getPrefix(String namespaceURI, boolean noDefault) {
-        if (namespaceURI == null || namespaceURI.isEmpty()) {
-            return null;
-        }
-        int hash = namespaceURI.hashCode();
-```
-
-### ReturnNull
-Return of `null`
-in `ws-security-common/src/main/java/org/apache/wss4j/common/util/NSStack.java`
-#### Snippet
-```java
-            }
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `ws-security-common/src/main/java/org/apache/wss4j/common/util/NSStack.java`
-#### Snippet
-```java
-    public Mapping next() {
-        if (iterator > top) {
-            return null;
-        } else {
-            return stack[iterator++];
-```
-
-### ReturnNull
-Return of `null`
-in `ws-security-common/src/main/java/org/apache/wss4j/common/util/NSStack.java`
-#### Snippet
-```java
-            }
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `ws-security-common/src/main/java/org/apache/wss4j/common/util/Loader.java`
-#### Snippet
-```java
-
-        try {
-            return (url != null) ? url.openStream() : null;
-        } catch (IOException e) {
-            LOG.debug(e.getMessage(), e);
-```
-
-### ReturnNull
-Return of `null`
-in `ws-security-common/src/main/java/org/apache/wss4j/common/util/Loader.java`
-#### Snippet
-```java
-        } catch (IOException e) {
-            LOG.debug(e.getMessage(), e);
-            return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `ws-security-common/src/main/java/org/apache/wss4j/common/util/XMLUtils.java`
-#### Snippet
-```java
-
-            if (!found) {
-                return null;
-            }
-            return builder.toString();
-```
-
-### ReturnNull
-Return of `null`
-in `ws-security-common/src/main/java/org/apache/wss4j/common/util/XMLUtils.java`
-#### Snippet
-```java
-            return builder.toString();
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `ws-security-common/src/main/java/org/apache/wss4j/common/util/XMLUtils.java`
-#### Snippet
-```java
-        //
-        if (startNode == null) {
-            return null;
-        }
-        Node startParent = startNode.getParentNode();
-```
-
-### ReturnNull
-Return of `null`
-in `ws-security-common/src/main/java/org/apache/wss4j/common/util/XMLUtils.java`
-#### Snippet
-```java
-                processedNode = processedNode.getParentNode();
-                if (processedNode == startParent) {
-                    return null;
-                }
-                // close parent node processing (processed node now)
-```
-
-### ReturnNull
-Return of `null`
-in `ws-security-common/src/main/java/org/apache/wss4j/common/util/XMLUtils.java`
-#### Snippet
-```java
-            }
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `ws-security-common/src/main/java/org/apache/wss4j/common/util/XMLUtils.java`
-#### Snippet
-```java
-            e = e.getParentNode();
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `ws-security-common/src/main/java/org/apache/wss4j/common/util/XMLUtils.java`
-#### Snippet
-```java
-        //
-        if (startNode == null || value == null) {
-            return null;
-        }
-        Node startParent = startNode.getParentNode();
-```
-
-### ReturnNull
-Return of `null`
-in `ws-security-common/src/main/java/org/apache/wss4j/common/util/XMLUtils.java`
-#### Snippet
-```java
-                    } else {
-                        LOG.warn("Multiple elements with the same 'ID' attribute value!");
-                        return null;
-                    }
-                }
-```
-
-### ReturnNull
-Return of `null`
-in `ws-security-common/src/main/java/org/apache/wss4j/common/util/XMLUtils.java`
-#### Snippet
-```java
-    public static Element getDirectChildElement(Node parentNode, String localName, String namespace) {
-        if (parentNode == null) {
-            return null;
-        }
-        for (Node currentChild = parentNode.getFirstChild();
-```
-
-### ReturnNull
-Return of `null`
-in `ws-security-common/src/main/java/org/apache/wss4j/common/util/XMLUtils.java`
-#### Snippet
-```java
-            }
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `ws-security-common/src/main/java/org/apache/wss4j/common/util/XMLUtils.java`
-#### Snippet
-```java
-    public static String getIDFromReference(String ref) {
-        if (ref == null) {
-            return null;
-        }
-        String id = ref.trim();
-```
-
-### ReturnNull
-Return of `null`
-in `ws-security-common/src/main/java/org/apache/wss4j/common/util/XMLUtils.java`
-#### Snippet
-```java
-        String id = ref.trim();
-        if (id.length() == 0) {
-            return null;
-        }
-        if (id.charAt(0) == '#') {
-```
-
-### ReturnNull
-Return of `null`
-in `ws-security-common/src/main/java/org/apache/wss4j/common/util/XMLUtils.java`
-#### Snippet
-```java
-            e = e.getParentNode();
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `ws-security-common/src/main/java/org/apache/wss4j/common/util/XMLUtils.java`
-#### Snippet
-```java
-        //
-        if (startNode == null) {
-            return null;
-        }
-        Node startParent = startNode.getParentNode();
-```
-
-### ReturnNull
-Return of `null`
-in `ws-security-common/src/main/java/org/apache/wss4j/common/util/XMLUtils.java`
-#### Snippet
-```java
-                    } else {
-                        LOG.warn("Multiple elements with the same 'Id' attribute value!");
-                        return null;
-                    }
-                }
-```
-
-### ReturnNull
-Return of `null`
-in `ws-security-common/src/main/java/org/apache/wss4j/common/saml/builder/SAML1ComponentBuilder.java`
-#### Snippet
-```java
-        }
-
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `ws-security-common/src/main/java/org/apache/wss4j/common/cache/EHCacheExpiry.java`
-#### Snippet
-```java
-    @Override
-    public Duration getExpiryForUpdate(String s, Supplier<? extends EHCacheValue> supplier, EHCacheValue ehCacheValue) {
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `ws-security-common/src/main/java/org/apache/wss4j/common/cache/EHCacheExpiry.java`
-#### Snippet
-```java
-    @Override
-    public Duration getExpiryForAccess(String s, Supplier<? extends EHCacheValue> supplier) {
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `ws-security-common/src/main/java/org/apache/wss4j/common/crypto/ThreadLocalSecurityProvider.java`
-#### Snippet
-```java
-            return p.getService(type, algorithm);
-        } else {
-            return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `ws-security-common/src/main/java/org/apache/wss4j/common/crypto/ThreadLocalSecurityProvider.java`
-#### Snippet
-```java
-            return p.remove(key);
-        } else {
-            return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `ws-security-common/src/main/java/org/apache/wss4j/common/crypto/ThreadLocalSecurityProvider.java`
-#### Snippet
-```java
-            return p.get(key);
-        } else {
-            return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `ws-security-common/src/main/java/org/apache/wss4j/common/crypto/ThreadLocalSecurityProvider.java`
-#### Snippet
-```java
-            return p.getProperty(key);
-        } else {
-            return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `ws-security-common/src/main/java/org/apache/wss4j/common/crypto/ThreadLocalSecurityProvider.java`
-#### Snippet
-```java
-            return p.put(key, value);
-        } else {
-            return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `ws-security-common/src/main/java/org/apache/wss4j/common/token/SecurityTokenReference.java`
-#### Snippet
-```java
-            return elem.getAttributeNS(null, "ValueType");
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `ws-security-common/src/main/java/org/apache/wss4j/common/token/SecurityTokenReference.java`
-#### Snippet
-```java
-            }
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `ws-security-common/src/main/java/org/apache/wss4j/common/token/SecurityTokenReference.java`
-#### Snippet
-```java
-            return elem.getAttributeNS(null, "EncodingType");
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `ws-security-common/src/main/java/org/apache/wss4j/common/token/SecurityTokenReference.java`
-#### Snippet
-```java
-            return XMLUtils.getElementText(getFirstElement());
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `ws-security-common/src/main/java/org/apache/wss4j/common/crypto/WSProviderConfig.java`
-#### Snippet
-```java
-                    LOG.debug("The provider " + name + " could not be added: " + t.getMessage(), t);
-                }
-                return null;
-            }
-        }
-```
-
-### ReturnNull
-Return of `null`
-in `ws-security-common/src/main/java/org/apache/wss4j/common/token/SecurityTokenReference.java`
-#### Snippet
-```java
-        Element elem = getFirstElement();
-        if (elem == null) {
-            return null;
-        }
-        if (WSS4JConstants.X509_DATA_LN.equals(elem.getLocalName())) {
-```
-
-### ReturnNull
-Return of `null`
-in `ws-security-common/src/main/java/org/apache/wss4j/common/crypto/WSProviderConfig.java`
-#### Snippet
-```java
-                    LOG.debug("The provider " + name + " could not be added: " + t.getMessage(), t);
-                }
-                return null;
-            }
-        }
-```
-
-### ReturnNull
-Return of `null`
-in `ws-security-common/src/main/java/org/apache/wss4j/common/token/SecurityTokenReference.java`
-#### Snippet
-```java
-    public X509Certificate getX509SKIAlias(Crypto crypto) throws WSSecurityException {
-        if (crypto == null) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `ws-security-common/src/main/java/org/apache/wss4j/common/token/SecurityTokenReference.java`
-#### Snippet
-```java
-            skiBytes = getSKIBytes();
-            if (skiBytes == null) {
-                return null;
-            }
-        }
-```
-
-### ReturnNull
-Return of `null`
-in `ws-security-common/src/main/java/org/apache/wss4j/common/crypto/WSProviderConfig.java`
-#### Snippet
-```java
-                    LOG.debug("The provider " + name + " could not be added: " + t.getMessage(), t);
-                }
-                return null;
-            }
-        }
-```
-
-### ReturnNull
-Return of `null`
-in `ws-security-common/src/main/java/org/apache/wss4j/common/token/SecurityTokenReference.java`
-#### Snippet
-```java
-            return certs[0];
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `ws-security-common/src/main/java/org/apache/wss4j/common/crypto/WSProviderConfig.java`
-#### Snippet
-```java
-                    LOG.debug("The provider " + name + " could not be added: " + t.getMessage(), t);
-                }
-                return null;
-            }
-        }
-```
-
-### ReturnNull
-Return of `null`
-in `ws-security-common/src/main/java/org/apache/wss4j/common/principal/SAMLTokenPrincipalImpl.java`
-#### Snippet
-```java
-            return samlAssertion.getId();
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `ws-security-common/src/main/java/org/apache/wss4j/common/crypto/CertificateStore.java`
-#### Snippet
-```java
-        String password
-    ) throws WSSecurityException {
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `ws-security-common/src/main/java/org/apache/wss4j/common/crypto/CertificateStore.java`
-#### Snippet
-```java
-        X509Certificate certificate, CallbackHandler callbackHandler
-    ) throws WSSecurityException {
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `ws-security-common/src/main/java/org/apache/wss4j/common/crypto/CertificateStore.java`
-#### Snippet
-```java
-        CallbackHandler callbackHandler
-    ) throws WSSecurityException {
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/processor/input/UsernameTokenInputHandler.java`
-#### Snippet
-```java
-            return created.toInstant();
-        }
-        return null;
-    }
-}
-```
-
-### ReturnNull
-Return of `null`
-in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/processor/input/EncryptedDataInputHandler.java`
-#### Snippet
-```java
-                            return referenceType;
-                        }
-                        return null;
-                    }
-                };
-```
-
-### ReturnNull
-Return of `null`
-in `ws-security-stax/src/main/java/org/apache/wss4j/stax/ext/WSSSecurityProperties.java`
-#### Snippet
-```java
-            return signatureVerificationWSSCrypto.getCryptoProperties();
-        }
-        return null;    //NOPMD
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `ws-security-stax/src/main/java/org/apache/wss4j/stax/ext/WSSSecurityProperties.java`
-#### Snippet
-```java
-            return signatureWSSCrypto.getCryptoProperties();
-        }
-        return null;    //NOPMD
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `ws-security-stax/src/main/java/org/apache/wss4j/stax/ext/WSSSecurityProperties.java`
-#### Snippet
-```java
-            return decryptionWSSCrypto.getCryptoProperties();
-        }
-        return null;    //NOPMD
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `ws-security-stax/src/main/java/org/apache/wss4j/stax/ext/WSSSecurityProperties.java`
-#### Snippet
-```java
-
-        if (signatureVerificationWSSCrypto == null) {
-            return null;
-        }
-        signatureVerificationWSSCrypto.setCrlCertStore(crlCertStore);
-```
-
-### ReturnNull
-Return of `null`
-in `ws-security-stax/src/main/java/org/apache/wss4j/stax/ext/WSSSecurityProperties.java`
-#### Snippet
-```java
-
-        if (encryptionWSSCrypto == null) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `ws-security-stax/src/main/java/org/apache/wss4j/stax/ext/WSSSecurityProperties.java`
-#### Snippet
-```java
-            return signatureVerificationWSSCrypto.getKeyStore();
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `ws-security-stax/src/main/java/org/apache/wss4j/stax/ext/WSSSecurityProperties.java`
-#### Snippet
-```java
-            return signatureWSSCrypto.getKeyStore();
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `ws-security-stax/src/main/java/org/apache/wss4j/stax/ext/WSSSecurityProperties.java`
-#### Snippet
-```java
-
-        if (decryptionWSSCrypto == null) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `ws-security-stax/src/main/java/org/apache/wss4j/stax/ext/WSSSecurityProperties.java`
-#### Snippet
-```java
-            return decryptionWSSCrypto.getKeyStore();
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `ws-security-stax/src/main/java/org/apache/wss4j/stax/ext/WSSSecurityProperties.java`
-#### Snippet
-```java
-            return encryptionWSSCrypto.getCryptoProperties();
-        }
-        return null;    //NOPMD
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `ws-security-stax/src/main/java/org/apache/wss4j/stax/ext/WSSSecurityProperties.java`
-#### Snippet
-```java
-    public Crypto getSignatureCrypto() throws WSSConfigurationException {
-        if (signatureWSSCrypto == null) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `ws-security-stax/src/main/java/org/apache/wss4j/stax/ext/WSSSecurityProperties.java`
-#### Snippet
-```java
-            return encryptionWSSCrypto.getKeyStore();
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/processor/input/SecurityHeaderInputProcessor.java`
-#### Snippet
-```java
-        public XMLSecEvent processHeaderEvent(InputProcessorChain inputProcessorChain)
-                throws XMLStreamException, XMLSecurityException {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/processor/input/SecurityHeaderInputProcessor.java`
-#### Snippet
-```java
-                throws XMLStreamException, XMLSecurityException {
-            //should never be called because we remove this processor before
-            return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/processor/input/SecurityHeaderInputProcessor.java`
-#### Snippet
-```java
-    public XMLSecEvent processHeaderEvent(InputProcessorChain inputProcessorChain)
-            throws XMLStreamException, XMLSecurityException {
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/processor/input/SignatureConfirmationInputProcessor.java`
-#### Snippet
-```java
-            throws XMLStreamException, XMLSecurityException {
-        //should never be called
-        return null;
-    }
-}
-```
-
-### ReturnNull
-Return of `null`
-in `ws-security-common/src/main/java/org/apache/wss4j/common/crypto/Merlin.java`
-#### Snippet
-```java
-            throw new WSSecurityException(WSSecurityException.ErrorCode.FAILURE, e, "keystore");
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `ws-security-common/src/main/java/org/apache/wss4j/common/crypto/Merlin.java`
-#### Snippet
-```java
-            throw new WSSecurityException(WSSecurityException.ErrorCode.FAILURE, e, "keystore");
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `ws-security-common/src/main/java/org/apache/wss4j/common/crypto/Merlin.java`
-#### Snippet
-```java
-            }
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/processor/input/SAMLTokenInputHandler.java`
-#### Snippet
-```java
-                }
-            }
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/InboundWSSecurityContextImpl.java`
-#### Snippet
-```java
-            }
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/InboundWSSecurityContextImpl.java`
-#### Snippet
-```java
-            }
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/processor/output/SAMLTokenOutputProcessor.java`
-#### Snippet
-```java
-            }
-
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/processor/output/SAMLTokenOutputProcessor.java`
-#### Snippet
-```java
-                            LOG.debug(e.getMessage(), e);
-                        }
-                        return null;
-                    }
-                };
-```
-
-### ReturnNull
-Return of `null`
-in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/securityToken/KerberosClientSecurityToken.java`
-#### Snippet
-```java
-        Set<KerberosTicket> privateCredentials = clientSubject.getPrivateCredentials(KerberosTicket.class);
-        if (privateCredentials == null || privateCredentials.isEmpty()) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/securityToken/KerberosClientSecurityToken.java`
-#### Snippet
-```java
-            }
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/securityToken/ECKeyValueSecurityTokenImpl.java`
-#### Snippet
-```java
-    @Override
-    public Subject getSubject() throws WSSecurityException {
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/securityToken/ExternalSecurityTokenImpl.java`
-#### Snippet
-```java
-            return WSSecurityTokenConstants.SECURITY_CONTEXT_TOKEN;
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/securityToken/RsaKeyValueSecurityTokenImpl.java`
-#### Snippet
-```java
-    @Override
-    public Subject getSubject() throws WSSecurityException {
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/securityToken/DsaKeyValueSecurityTokenImpl.java`
-#### Snippet
-```java
-    @Override
-    public Subject getSubject() throws WSSecurityException {
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/securityToken/HttpsSecurityTokenImpl.java`
-#### Snippet
-```java
-    @Override
-    public Subject getSubject() throws WSSecurityException {
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/securityToken/SamlSecurityTokenImpl.java`
-#### Snippet
-```java
-    @Override
-    public Subject getSubject() throws WSSecurityException {
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/resourceResolvers/ResolverAttachment.java`
-#### Snippet
-```java
-    public ResourceResolverLookup canResolve(String uri, String baseURI) {
-        if (uri == null) {
-            return null;
-        }
-        if (uri.startsWith("cid:")) {
-```
-
-### ReturnNull
-Return of `null`
-in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/resourceResolvers/ResolverAttachment.java`
-#### Snippet
-```java
-            return this;
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/resourceResolvers/ResolverAttachment.java`
-#### Snippet
-```java
-    @Override
-    public InputStream getInputStreamFromExternalReference() throws XMLSecurityException {
-        return null;
-    }
-}
-```
-
-### ReturnNull
-Return of `null`
-in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/securityToken/X509SecurityTokenImpl.java`
-#### Snippet
-```java
-    @Override
-    public Subject getSubject() throws WSSecurityException {
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `ws-security-stax/src/main/java/org/apache/wss4j/stax/setup/WSSec.java`
-#### Snippet
-```java
-                    return concreteLSInput;
-                }
-                return null;
-            }
-        });
-```
-
-### ReturnNull
-Return of `null`
-in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/securityToken/SecurityTokenFactoryImpl.java`
-#### Snippet
-```java
-        }
-
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/securityToken/SecurityTokenFactoryImpl.java`
-#### Snippet
-```java
-        }
-
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
 in `policy/src/main/java/org/apache/wss4j/policy/SPUtils.java`
 #### Snippet
 ```java
@@ -16623,9 +15457,9 @@ Return of `null`
 in `policy/src/main/java/org/apache/wss4j/policy/SPUtils.java`
 #### Snippet
 ```java
-            }
+            attr = element.getAttributeNodeNS(attName.getNamespaceURI(), attName.getLocalPart());
         }
-        return null;
+        return attr == null ? null : attr.getValue().trim();
     }
 
 ```
@@ -16645,78 +15479,6 @@ in `policy/src/main/java/org/apache/wss4j/policy/SPUtils.java`
 ### ReturnNull
 Return of `null`
 in `policy/src/main/java/org/apache/wss4j/policy/SPUtils.java`
-#### Snippet
-```java
-            attr = element.getAttributeNodeNS(attName.getNamespaceURI(), attName.getLocalPart());
-        }
-        return attr == null ? null : attr.getValue().trim();
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `ws-security-stax/src/main/java/org/apache/wss4j/stax/setup/ConfigurationConverter.java`
-#### Snippet
-```java
-            return WSSConstants.DerivedKeyTokenReference.SecurityContextToken;
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `ws-security-stax/src/main/java/org/apache/wss4j/stax/setup/ConfigurationConverter.java`
-#### Snippet
-```java
-            return (String)value;
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `ws-security-stax/src/main/java/org/apache/wss4j/stax/setup/ConfigurationConverter.java`
-#### Snippet
-```java
-            LOG.debug(e.getMessage(), e);
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `ws-security-stax/src/main/java/org/apache/wss4j/stax/setup/ConfigurationConverter.java`
-#### Snippet
-```java
-            return WSSecurityTokenConstants.KEYIDENTIFIER_KERBEROS_SHA1_IDENTIFIER;
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `ws-security-stax/src/main/java/org/apache/wss4j/stax/setup/ConfigurationConverter.java`
-#### Snippet
-```java
-            return Loader.getTCL();
-        } catch (Exception ex) {
-            return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `ws-security-stax/src/main/java/org/apache/wss4j/stax/utils/WSSUtils.java`
 #### Snippet
 ```java
             }
@@ -16788,168 +15550,12 @@ in `policy/src/main/java/org/apache/wss4j/policy/model/DOM2Writer.java`
 
 ### ReturnNull
 Return of `null`
-in `ws-security-stax/src/main/java/org/apache/wss4j/stax/setup/OutboundWSSec.java`
-#### Snippet
-```java
-            }
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `ws-security-stax/src/main/java/org/apache/wss4j/stax/setup/OutboundWSSec.java`
-#### Snippet
-```java
-        }
-
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `ws-security-stax/src/main/java/org/apache/wss4j/stax/setup/OutboundWSSec.java`
-#### Snippet
-```java
-            }
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
 in `policy/src/main/java/org/apache/wss4j/policy/builders/SignedPartsBuilder.java`
 #### Snippet
 ```java
             child = SPUtils.getNextSiblingElement(child);
         }
         return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `ws-security-policy-stax/src/main/java/org/apache/wss4j/policy/stax/assertionStates/IssuedTokenAssertionState.java`
-#### Snippet
-```java
-                if (attribute.getAttributeName().equals(desiredRole)
-                        && attribute.getAttributeValues() != null && !attribute.getAttributeValues().isEmpty()) {
-                    return null;
-                }
-            }
-```
-
-### ReturnNull
-Return of `null`
-in `ws-security-policy-stax/src/main/java/org/apache/wss4j/policy/stax/assertionStates/IssuedTokenAssertionState.java`
-#### Snippet
-```java
-            child = child.getNextSibling();
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `ws-security-policy-stax/src/main/java/org/apache/wss4j/policy/stax/assertionStates/IssuedTokenAssertionState.java`
-#### Snippet
-```java
-        String dialect = claimsPolicy.getAttributeNS(null, "Dialect");
-        if (!DEFAULT_CLAIMS_NAMESPACE.equals(dialect)) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `ws-security-policy-stax/src/main/java/org/apache/wss4j/policy/stax/assertionStates/IssuedTokenAssertionState.java`
-#### Snippet
-```java
-            child = child.getNextSibling();
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `ws-security-policy-stax/src/main/java/org/apache/wss4j/policy/stax/assertionStates/IssuedTokenAssertionState.java`
-#### Snippet
-```java
-                if (attribute.getName().equals(claimURI.toString())
-                        && attribute.getAttributeValues() != null && !attribute.getAttributeValues().isEmpty()) {
-                    return null;
-                }
-            }
-```
-
-### ReturnNull
-Return of `null`
-in `ws-security-policy-stax/src/main/java/org/apache/wss4j/policy/stax/assertionStates/IssuedTokenAssertionState.java`
-#### Snippet
-```java
-            child = child.getNextSibling();
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `ws-security-policy-stax/src/main/java/org/apache/wss4j/policy/stax/enforcer/PolicyInputProcessor.java`
-#### Snippet
-```java
-            }
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `ws-security-policy-stax/src/main/java/org/apache/wss4j/policy/stax/assertionStates/SignatureProtectionAssertionState.java`
-#### Snippet
-```java
-            } catch (XMLSecurityException e) {
-                // Just return null here
-                return null;
-            }
-        }
-```
-
-### ReturnNull
-Return of `null`
-in `ws-security-policy-stax/src/main/java/org/apache/wss4j/policy/stax/assertionStates/SignatureProtectionAssertionState.java`
-#### Snippet
-```java
-            }
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `ws-security-dom/src/main/java/org/apache/wss4j/dom/WSDocInfo.java`
-#### Snippet
-```java
-            }
-        }
-        return null;    //NOPMD
     }
 
 ```
@@ -16980,6 +15586,30 @@ in `ws-security-dom/src/main/java/org/apache/wss4j/dom/WSDocInfo.java`
 
 ### ReturnNull
 Return of `null`
+in `ws-security-dom/src/main/java/org/apache/wss4j/dom/WSDocInfo.java`
+#### Snippet
+```java
+            }
+        }
+        return null;    //NOPMD
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `ws-security-dom/src/main/java/org/apache/wss4j/dom/str/EncryptedKeySTRParser.java`
+#### Snippet
+```java
+        }
+
+        return null;
+    }
+}
+```
+
+### ReturnNull
+Return of `null`
 in `ws-security-dom/src/main/java/org/apache/wss4j/dom/saml/WSSSAMLKeyInfoProcessor.java`
 #### Snippet
 ```java
@@ -17004,14 +15634,14 @@ in `ws-security-dom/src/main/java/org/apache/wss4j/dom/saml/WSSSAMLKeyInfoProces
 
 ### ReturnNull
 Return of `null`
-in `ws-security-dom/src/main/java/org/apache/wss4j/dom/str/EncryptedKeySTRParser.java`
+in `ws-security-dom/src/main/java/org/apache/wss4j/dom/str/SignatureSTRParser.java`
 #### Snippet
 ```java
         }
 
         return null;
     }
-}
+
 ```
 
 ### ReturnNull
@@ -17040,14 +15670,14 @@ in `ws-security-dom/src/main/java/org/apache/wss4j/dom/util/X509Util.java`
 
 ### ReturnNull
 Return of `null`
-in `ws-security-dom/src/main/java/org/apache/wss4j/dom/str/SignatureSTRParser.java`
+in `ws-security-dom/src/main/java/org/apache/wss4j/dom/action/EncryptionDerivedAction.java`
 #### Snippet
 ```java
-        }
-
-        return null;
-    }
-
+        if (symmetricKey == null) {
+            setupEKReference(wsEncrypt, reqData.getSignatureToken());
+            return null;
+        } else {
+            return setupEKReference(wsEncrypt, reqData.getSecHeader(), encryptionToken, null, null, symmetricKey);
 ```
 
 ### ReturnNull
@@ -17064,14 +15694,26 @@ in `ws-security-dom/src/main/java/org/apache/wss4j/dom/action/EncryptionDerivedA
 
 ### ReturnNull
 Return of `null`
-in `ws-security-dom/src/main/java/org/apache/wss4j/dom/action/EncryptionDerivedAction.java`
+in `ws-security-dom/src/main/java/org/apache/wss4j/dom/util/EncryptionUtils.java`
 #### Snippet
 ```java
-        if (symmetricKey == null) {
-            setupEKReference(wsEncrypt, reqData.getSignatureToken());
-            return null;
-        } else {
-            return setupEKReference(wsEncrypt, reqData.getSecHeader(), encryptionToken, null, null, symmetricKey);
+        }
+
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `ws-security-dom/src/main/java/org/apache/wss4j/dom/util/EncryptionUtils.java`
+#### Snippet
+```java
+            }
+        }
+        return null;
+    }
+
 ```
 
 ### ReturnNull
@@ -17084,6 +15726,18 @@ in `ws-security-dom/src/main/java/org/apache/wss4j/dom/util/EncryptionUtils.java
         return null;
     }
 
+```
+
+### ReturnNull
+Return of `null`
+in `ws-security-dom/src/main/java/org/apache/wss4j/dom/util/EncryptionUtils.java`
+#### Snippet
+```java
+        if (node == null) {
+            // probably a detached node... not really useful
+            return null;
+        } else if (Node.ELEMENT_NODE == node.getNodeType()) {
+            xpath = node.getNodeName() + "/" + xpath;
 ```
 
 ### ReturnNull
@@ -17115,30 +15769,6 @@ Return of `null`
 in `ws-security-dom/src/main/java/org/apache/wss4j/dom/util/EncryptionUtils.java`
 #### Snippet
 ```java
-        if (node == null) {
-            // probably a detached node... not really useful
-            return null;
-        } else if (Node.ELEMENT_NODE == node.getNodeType()) {
-            xpath = node.getNodeName() + "/" + xpath;
-```
-
-### ReturnNull
-Return of `null`
-in `ws-security-dom/src/main/java/org/apache/wss4j/dom/util/EncryptionUtils.java`
-#### Snippet
-```java
-            }
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `ws-security-dom/src/main/java/org/apache/wss4j/dom/util/EncryptionUtils.java`
-#### Snippet
-```java
         }
 
         return null;
@@ -17153,18 +15783,6 @@ in `ws-security-dom/src/main/java/org/apache/wss4j/dom/util/EncryptionUtils.java
 ```java
             }
         }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `ws-security-dom/src/main/java/org/apache/wss4j/dom/util/EncryptionUtils.java`
-#### Snippet
-```java
-        }
-
         return null;
     }
 
@@ -17199,18 +15817,6 @@ Return of `null`
 in `ws-security-dom/src/main/java/org/apache/wss4j/dom/action/SignatureDerivedAction.java`
 #### Snippet
 ```java
-            && reqData.getEncryptionToken().getKeyIdentifier() != null) {
-            setupSCTReference(wsSign, reqData.getEncryptionToken(), reqData.isUse200512Namespace());
-            return null;
-        } else {
-            return setupSCTReference(wsSign, passwordCallback, signatureToken, reqData.isUse200512Namespace(), doc);
-```
-
-### ReturnNull
-Return of `null`
-in `ws-security-dom/src/main/java/org/apache/wss4j/dom/action/SignatureDerivedAction.java`
-#### Snippet
-```java
         if (symmetricKey == null) {
             setupEKReference(wsSign, reqData.getEncryptionToken());
             return null;
@@ -17220,14 +15826,38 @@ in `ws-security-dom/src/main/java/org/apache/wss4j/dom/action/SignatureDerivedAc
 
 ### ReturnNull
 Return of `null`
-in `ws-security-policy-stax/src/main/java/org/apache/wss4j/policy/stax/enforcer/PolicyEnforcer.java`
+in `ws-security-dom/src/main/java/org/apache/wss4j/dom/action/SignatureDerivedAction.java`
 #### Snippet
 ```java
+            && reqData.getEncryptionToken().getKeyIdentifier() != null) {
+            setupSCTReference(wsSign, reqData.getEncryptionToken(), reqData.isUse200512Namespace());
+            return null;
+        } else {
+            return setupSCTReference(wsSign, passwordCallback, signatureToken, reqData.isUse200512Namespace(), doc);
+```
+
+### ReturnNull
+Return of `null`
+in `ws-security-dom/src/main/java/org/apache/wss4j/dom/util/WSSecurityUtil.java`
+#### Snippet
+```java
+            } catch (NoSuchMethodException e) {
+                //best effort to try, do nothing if NoSuchMethodException
+                return null;
             }
         }
-        return null;
-    }
+```
 
+### ReturnNull
+Return of `null`
+in `ws-security-dom/src/main/java/org/apache/wss4j/dom/util/WSSecurityUtil.java`
+#### Snippet
+```java
+            } catch (NoSuchMethodException e) {
+                //best effort to try, do nothing if NoSuchMethodException
+                return null;
+            }
+        }
 ```
 
 ### ReturnNull
@@ -17268,30 +15898,6 @@ in `ws-security-dom/src/main/java/org/apache/wss4j/dom/util/WSSecurityUtil.java`
 
 ### ReturnNull
 Return of `null`
-in `ws-security-dom/src/main/java/org/apache/wss4j/dom/util/WSSecurityUtil.java`
-#### Snippet
-```java
-            } catch (NoSuchMethodException e) {
-                //best effort to try, do nothing if NoSuchMethodException
-                return null;
-            }
-        }
-```
-
-### ReturnNull
-Return of `null`
-in `ws-security-dom/src/main/java/org/apache/wss4j/dom/util/WSSecurityUtil.java`
-#### Snippet
-```java
-            } catch (NoSuchMethodException e) {
-                //best effort to try, do nothing if NoSuchMethodException
-                return null;
-            }
-        }
-```
-
-### ReturnNull
-Return of `null`
 in `ws-security-dom/src/main/java/org/apache/wss4j/dom/message/WSSecUsernameToken.java`
 #### Snippet
 ```java
@@ -17300,18 +15906,6 @@ in `ws-security-dom/src/main/java/org/apache/wss4j/dom/message/WSSecUsernameToke
             return null;
         }
         return ut.getID();
-```
-
-### ReturnNull
-Return of `null`
-in `ws-security-dom/src/main/java/org/apache/wss4j/dom/message/WSSecSAMLToken.java`
-#### Snippet
-```java
-        }
-        if (saml == null) {
-            return null;
-        }
-        samlElement = saml.toDOM(getDocument());
 ```
 
 ### ReturnNull
@@ -17328,34 +15922,70 @@ in `ws-security-dom/src/main/java/org/apache/wss4j/dom/message/WSSecSAMLToken.ja
 
 ### ReturnNull
 Return of `null`
-in `ws-security-dom/src/main/java/org/apache/wss4j/dom/engine/WSSConfig.java`
+in `ws-security-dom/src/main/java/org/apache/wss4j/dom/message/WSSecSAMLToken.java`
 #### Snippet
 ```java
-            return result.getClass();
         }
-        return null;
+        if (saml == null) {
+            return null;
+        }
+        samlElement = saml.toDOM(getDocument());
+```
+
+### ReturnNull
+Return of `null`
+in `ws-security-dom/src/main/java/org/apache/wss4j/dom/message/WSSecTimestamp.java`
+#### Snippet
+```java
+    public String getId() {
+        if (ts == null) {
+            return null;
+        }
+        return ts.getID();
+```
+
+### ReturnNull
+Return of `null`
+in `ws-security-dom/src/main/java/org/apache/wss4j/dom/message/WSSecTimestamp.java`
+#### Snippet
+```java
+    public Element getElement() {
+        if (ts == null) {
+            return null;
+        }
+        return ts.getElement();
+```
+
+### ReturnNull
+Return of `null`
+in `ws-security-dom/src/main/java/org/apache/wss4j/dom/message/WSSecSignatureConfirmation.java`
+#### Snippet
+```java
+    public String getId() {
+        if (sc == null) {
+            return null;
+        }
+        return sc.getID();
+```
+
+### ReturnNull
+Return of `null`
+in `ws-security-dom/src/main/java/org/apache/wss4j/dom/message/WSSecSignatureConfirmation.java`
+#### Snippet
+```java
+     */
+    public Element getSignatureConfirmationElement() {
+        return (sc != null) ? sc.getElement() : null;
     }
 
 ```
 
 ### ReturnNull
 Return of `null`
-in `ws-security-dom/src/main/java/org/apache/wss4j/dom/engine/WSSConfig.java`
+in `ws-security-dom/src/main/java/org/apache/wss4j/dom/handler/RequestData.java`
 #### Snippet
 ```java
-            return result.getClass();
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `ws-security-dom/src/main/java/org/apache/wss4j/dom/engine/WSSConfig.java`
-#### Snippet
-```java
-            return result.getClass();
+            return wssConfig.getValidator(qName);
         }
         return null;
     }
@@ -17368,6 +15998,42 @@ in `ws-security-dom/src/main/java/org/apache/wss4j/dom/engine/WSSConfig.java`
 #### Snippet
 ```java
             return (Action)actionObject;
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `ws-security-dom/src/main/java/org/apache/wss4j/dom/engine/WSSConfig.java`
+#### Snippet
+```java
+            return result.getClass();
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `ws-security-dom/src/main/java/org/apache/wss4j/dom/engine/WSSConfig.java`
+#### Snippet
+```java
+            return result.getClass();
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `ws-security-dom/src/main/java/org/apache/wss4j/dom/engine/WSSConfig.java`
+#### Snippet
+```java
+            return result.getClass();
         }
         return null;
     }
@@ -17436,62 +16102,14 @@ in `ws-security-dom/src/main/java/org/apache/wss4j/dom/engine/WSSConfig.java`
 
 ### ReturnNull
 Return of `null`
-in `ws-security-dom/src/main/java/org/apache/wss4j/dom/handler/RequestData.java`
+in `ws-security-dom/src/main/java/org/apache/wss4j/dom/message/WSSecEncrypt.java`
 #### Snippet
 ```java
-            return wssConfig.getValidator(qName);
-        }
-        return null;
-    }
 
-```
-
-### ReturnNull
-Return of `null`
-in `ws-security-dom/src/main/java/org/apache/wss4j/dom/message/WSSecTimestamp.java`
-#### Snippet
-```java
-    public Element getElement() {
-        if (ts == null) {
+        if (encDataRefs.isEmpty()) {
             return null;
         }
-        return ts.getElement();
-```
 
-### ReturnNull
-Return of `null`
-in `ws-security-dom/src/main/java/org/apache/wss4j/dom/message/WSSecTimestamp.java`
-#### Snippet
-```java
-    public String getId() {
-        if (ts == null) {
-            return null;
-        }
-        return ts.getID();
-```
-
-### ReturnNull
-Return of `null`
-in `ws-security-dom/src/main/java/org/apache/wss4j/dom/message/WSSecSignatureConfirmation.java`
-#### Snippet
-```java
-     */
-    public Element getSignatureConfirmationElement() {
-        return (sc != null) ? sc.getElement() : null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `ws-security-dom/src/main/java/org/apache/wss4j/dom/message/WSSecSignatureConfirmation.java`
-#### Snippet
-```java
-    public String getId() {
-        if (sc == null) {
-            return null;
-        }
-        return sc.getID();
 ```
 
 ### ReturnNull
@@ -17527,18 +16145,6 @@ in `ws-security-dom/src/main/java/org/apache/wss4j/dom/message/token/SecurityCon
         Node node = e.getFirstChild();
         return node != null && Node.TEXT_NODE == node.getNodeType() ? (Text) node : null;
     }
-
-```
-
-### ReturnNull
-Return of `null`
-in `ws-security-dom/src/main/java/org/apache/wss4j/dom/message/WSSecEncrypt.java`
-#### Snippet
-```java
-
-        if (encDataRefs.isEmpty()) {
-            return null;
-        }
 
 ```
 
@@ -17580,6 +16186,18 @@ in `ws-security-dom/src/main/java/org/apache/wss4j/dom/message/WSSecDKSign.java`
 
 ### ReturnNull
 Return of `null`
+in `ws-security-dom/src/main/java/org/apache/wss4j/dom/callback/DOMCallbackLookup.java`
+#### Snippet
+```java
+        }
+
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
 in `ws-security-dom/src/main/java/org/apache/wss4j/dom/message/token/KerberosSecurity.java`
 #### Snippet
 ```java
@@ -17604,14 +16222,110 @@ in `ws-security-dom/src/main/java/org/apache/wss4j/dom/message/token/KerberosSec
 
 ### ReturnNull
 Return of `null`
-in `ws-security-dom/src/main/java/org/apache/wss4j/dom/handler/WSHandler.java`
+in `ws-security-dom/src/main/java/org/apache/wss4j/dom/message/token/UsernameToken.java`
 #### Snippet
 ```java
-            return (String) o;
-        } else {
+    private Text getFirstNode(Element e) {
+        Node node = e.getFirstChild();
+        return node != null && Node.TEXT_NODE == node.getNodeType() ? (Text) node : null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `ws-security-dom/src/main/java/org/apache/wss4j/dom/message/Encryptor.java`
+#### Snippet
+```java
+        }
+
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `ws-security-dom/src/main/java/org/apache/wss4j/dom/message/token/DerivedKeyToken.java`
+#### Snippet
+```java
+    private Text getFirstNode(Element e) {
+        Node node = e.getFirstChild();
+        return node != null && Node.TEXT_NODE == node.getNodeType() ? (Text) node : null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `ws-security-dom/src/main/java/org/apache/wss4j/dom/message/token/DerivedKeyToken.java`
+#### Snippet
+```java
+            }
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `ws-security-dom/src/main/java/org/apache/wss4j/dom/message/token/DerivedKeyToken.java`
+#### Snippet
+```java
+            }
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `ws-security-dom/src/main/java/org/apache/wss4j/dom/message/token/DerivedKeyToken.java`
+#### Snippet
+```java
+            return new SecurityTokenReference(elementSecurityTokenReference, bspEnforcer);
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `ws-security-dom/src/main/java/org/apache/wss4j/dom/message/WSSecSignature.java`
+#### Snippet
+```java
+    public String getId() {
+        if (sig == null) {
             return null;
         }
+        return sig.getId();
+```
+
+### ReturnNull
+Return of `null`
+in `ws-security-dom/src/main/java/org/apache/wss4j/dom/message/WSSecSignature.java`
+#### Snippet
+```java
+    public String getBSTTokenId() {
+        if (bstToken == null) {
+            return null;
+        }
+        return bstToken.getAttributeNS(WSS4JConstants.WSU_NS, "Id");
+```
+
+### ReturnNull
+Return of `null`
+in `ws-security-dom/src/main/java/org/apache/wss4j/dom/processor/SAMLTokenProcessor.java`
+#### Snippet
+```java
+        }
+
+        return null;
     }
+
 ```
 
 ### ReturnNull
@@ -17619,8 +16333,8 @@ Return of `null`
 in `ws-security-dom/src/main/java/org/apache/wss4j/dom/handler/WSHandler.java`
 #### Snippet
 ```java
-            return Loader.getTCL();
-        } catch (Exception ex) {
+            return (String) o;
+        } else {
             return null;
         }
     }
@@ -17655,128 +16369,20 @@ Return of `null`
 in `ws-security-dom/src/main/java/org/apache/wss4j/dom/handler/WSHandler.java`
 #### Snippet
 ```java
-            }
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `ws-security-dom/src/main/java/org/apache/wss4j/dom/message/token/UsernameToken.java`
-#### Snippet
-```java
-    private Text getFirstNode(Element e) {
-        Node node = e.getFirstChild();
-        return node != null && Node.TEXT_NODE == node.getNodeType() ? (Text) node : null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `ws-security-dom/src/main/java/org/apache/wss4j/dom/callback/DOMCallbackLookup.java`
-#### Snippet
-```java
-        }
-
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `ws-security-dom/src/main/java/org/apache/wss4j/dom/message/Encryptor.java`
-#### Snippet
-```java
-        }
-
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `ws-security-dom/src/main/java/org/apache/wss4j/dom/message/token/DerivedKeyToken.java`
-#### Snippet
-```java
-            }
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `ws-security-dom/src/main/java/org/apache/wss4j/dom/message/token/DerivedKeyToken.java`
-#### Snippet
-```java
-            }
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `ws-security-dom/src/main/java/org/apache/wss4j/dom/message/token/DerivedKeyToken.java`
-#### Snippet
-```java
-    private Text getFirstNode(Element e) {
-        Node node = e.getFirstChild();
-        return node != null && Node.TEXT_NODE == node.getNodeType() ? (Text) node : null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `ws-security-dom/src/main/java/org/apache/wss4j/dom/message/token/DerivedKeyToken.java`
-#### Snippet
-```java
-            return new SecurityTokenReference(elementSecurityTokenReference, bspEnforcer);
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `ws-security-dom/src/main/java/org/apache/wss4j/dom/message/WSSecSignature.java`
-#### Snippet
-```java
-    public String getBSTTokenId() {
-        if (bstToken == null) {
+            return Loader.getTCL();
+        } catch (Exception ex) {
             return null;
         }
-        return bstToken.getAttributeNS(WSS4JConstants.WSU_NS, "Id");
+    }
 ```
 
 ### ReturnNull
 Return of `null`
-in `ws-security-dom/src/main/java/org/apache/wss4j/dom/message/WSSecSignature.java`
+in `ws-security-dom/src/main/java/org/apache/wss4j/dom/handler/WSHandler.java`
 #### Snippet
 ```java
-    public String getId() {
-        if (sig == null) {
-            return null;
+            }
         }
-        return sig.getId();
-```
-
-### ReturnNull
-Return of `null`
-in `ws-security-dom/src/main/java/org/apache/wss4j/dom/processor/SAMLTokenProcessor.java`
-#### Snippet
-```java
-        }
-
         return null;
     }
 
@@ -17820,6 +16426,66 @@ in `ws-security-dom/src/main/java/org/apache/wss4j/dom/processor/EncryptedKeyPro
 
 ### ReturnNull
 Return of `null`
+in `ws-security-common/src/main/java/org/apache/wss4j/common/saml/OpenSAMLUtil.java`
+#### Snippet
+```java
+                + qName
+            );
+            return null;
+        }
+        return
+```
+
+### ReturnNull
+Return of `null`
+in `ws-security-common/src/main/java/org/apache/wss4j/common/saml/SAMLUtil.java`
+#### Snippet
+```java
+        }
+
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `ws-security-common/src/main/java/org/apache/wss4j/common/saml/SAMLUtil.java`
+#### Snippet
+```java
+        }
+
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `ws-security-common/src/main/java/org/apache/wss4j/common/saml/SAMLUtil.java`
+#### Snippet
+```java
+            );
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `ws-security-common/src/main/java/org/apache/wss4j/common/saml/SAMLCallback.java`
+#### Snippet
+```java
+        }
+
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
 in `ws-security-dom/src/main/java/org/apache/wss4j/dom/processor/SignatureProcessor.java`
 #### Snippet
 ```java
@@ -17833,6 +16499,1326 @@ in `ws-security-dom/src/main/java/org/apache/wss4j/dom/processor/SignatureProces
 ### ReturnNull
 Return of `null`
 in `ws-security-dom/src/main/java/org/apache/wss4j/dom/processor/SignatureProcessor.java`
+#### Snippet
+```java
+            }
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `ws-security-common/src/main/java/org/apache/wss4j/common/util/NSStack.java`
+#### Snippet
+```java
+    public Mapping next() {
+        if (iterator > top) {
+            return null;
+        } else {
+            return stack[iterator++];
+```
+
+### ReturnNull
+Return of `null`
+in `ws-security-common/src/main/java/org/apache/wss4j/common/util/NSStack.java`
+#### Snippet
+```java
+            }
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `ws-security-common/src/main/java/org/apache/wss4j/common/util/NSStack.java`
+#### Snippet
+```java
+    public String getPrefix(String namespaceURI, boolean noDefault) {
+        if (namespaceURI == null || namespaceURI.isEmpty()) {
+            return null;
+        }
+        int hash = namespaceURI.hashCode();
+```
+
+### ReturnNull
+Return of `null`
+in `ws-security-common/src/main/java/org/apache/wss4j/common/util/NSStack.java`
+#### Snippet
+```java
+            }
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `ws-security-common/src/main/java/org/apache/wss4j/common/saml/SamlAssertionWrapper.java`
+#### Snippet
+```java
+            return (org.opensaml.saml.saml2.core.Assertion)samlObject;
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `ws-security-common/src/main/java/org/apache/wss4j/common/saml/SamlAssertionWrapper.java`
+#### Snippet
+```java
+            return ((SignableSAMLObject)samlObject).getSignature();
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `ws-security-common/src/main/java/org/apache/wss4j/common/saml/SamlAssertionWrapper.java`
+#### Snippet
+```java
+                        + "object or subject is null"
+        );
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `ws-security-common/src/main/java/org/apache/wss4j/common/saml/SamlAssertionWrapper.java`
+#### Snippet
+```java
+            return (org.opensaml.saml.saml1.core.Assertion)samlObject;
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `ws-security-common/src/main/java/org/apache/wss4j/common/saml/SamlAssertionWrapper.java`
+#### Snippet
+```java
+            + "object or issuer is null"
+        );
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `ws-security-common/src/main/java/org/apache/wss4j/common/saml/builder/SAML1ComponentBuilder.java`
+#### Snippet
+```java
+        }
+
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `ws-security-common/src/main/java/org/apache/wss4j/common/util/XMLUtils.java`
+#### Snippet
+```java
+
+            if (!found) {
+                return null;
+            }
+            return builder.toString();
+```
+
+### ReturnNull
+Return of `null`
+in `ws-security-common/src/main/java/org/apache/wss4j/common/util/XMLUtils.java`
+#### Snippet
+```java
+            return builder.toString();
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `ws-security-common/src/main/java/org/apache/wss4j/common/util/XMLUtils.java`
+#### Snippet
+```java
+            e = e.getParentNode();
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `ws-security-common/src/main/java/org/apache/wss4j/common/util/XMLUtils.java`
+#### Snippet
+```java
+        //
+        if (startNode == null || value == null) {
+            return null;
+        }
+        Node startParent = startNode.getParentNode();
+```
+
+### ReturnNull
+Return of `null`
+in `ws-security-common/src/main/java/org/apache/wss4j/common/util/XMLUtils.java`
+#### Snippet
+```java
+                    } else {
+                        LOG.warn("Multiple elements with the same 'ID' attribute value!");
+                        return null;
+                    }
+                }
+```
+
+### ReturnNull
+Return of `null`
+in `ws-security-common/src/main/java/org/apache/wss4j/common/util/XMLUtils.java`
+#### Snippet
+```java
+            e = e.getParentNode();
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `ws-security-common/src/main/java/org/apache/wss4j/common/util/XMLUtils.java`
+#### Snippet
+```java
+        //
+        if (startNode == null) {
+            return null;
+        }
+        Node startParent = startNode.getParentNode();
+```
+
+### ReturnNull
+Return of `null`
+in `ws-security-common/src/main/java/org/apache/wss4j/common/cache/EHCacheExpiry.java`
+#### Snippet
+```java
+    @Override
+    public Duration getExpiryForAccess(String s, Supplier<? extends EHCacheValue> supplier) {
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `ws-security-common/src/main/java/org/apache/wss4j/common/cache/EHCacheExpiry.java`
+#### Snippet
+```java
+    @Override
+    public Duration getExpiryForUpdate(String s, Supplier<? extends EHCacheValue> supplier, EHCacheValue ehCacheValue) {
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `ws-security-common/src/main/java/org/apache/wss4j/common/util/XMLUtils.java`
+#### Snippet
+```java
+                processedNode = processedNode.getParentNode();
+                if (processedNode == startParent) {
+                    return null;
+                }
+                // close parent node processing (processed node now)
+```
+
+### ReturnNull
+Return of `null`
+in `ws-security-common/src/main/java/org/apache/wss4j/common/util/XMLUtils.java`
+#### Snippet
+```java
+            }
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `ws-security-common/src/main/java/org/apache/wss4j/common/util/XMLUtils.java`
+#### Snippet
+```java
+    public static Element getDirectChildElement(Node parentNode, String localName, String namespace) {
+        if (parentNode == null) {
+            return null;
+        }
+        for (Node currentChild = parentNode.getFirstChild();
+```
+
+### ReturnNull
+Return of `null`
+in `ws-security-common/src/main/java/org/apache/wss4j/common/util/XMLUtils.java`
+#### Snippet
+```java
+            }
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `ws-security-common/src/main/java/org/apache/wss4j/common/util/XMLUtils.java`
+#### Snippet
+```java
+        //
+        if (startNode == null) {
+            return null;
+        }
+        Node startParent = startNode.getParentNode();
+```
+
+### ReturnNull
+Return of `null`
+in `ws-security-common/src/main/java/org/apache/wss4j/common/util/XMLUtils.java`
+#### Snippet
+```java
+                    } else {
+                        LOG.warn("Multiple elements with the same 'Id' attribute value!");
+                        return null;
+                    }
+                }
+```
+
+### ReturnNull
+Return of `null`
+in `ws-security-common/src/main/java/org/apache/wss4j/common/util/XMLUtils.java`
+#### Snippet
+```java
+    public static String getIDFromReference(String ref) {
+        if (ref == null) {
+            return null;
+        }
+        String id = ref.trim();
+```
+
+### ReturnNull
+Return of `null`
+in `ws-security-common/src/main/java/org/apache/wss4j/common/util/XMLUtils.java`
+#### Snippet
+```java
+        String id = ref.trim();
+        if (id.length() == 0) {
+            return null;
+        }
+        if (id.charAt(0) == '#') {
+```
+
+### ReturnNull
+Return of `null`
+in `ws-security-common/src/main/java/org/apache/wss4j/common/util/Loader.java`
+#### Snippet
+```java
+
+        try {
+            return (url != null) ? url.openStream() : null;
+        } catch (IOException e) {
+            LOG.debug(e.getMessage(), e);
+```
+
+### ReturnNull
+Return of `null`
+in `ws-security-common/src/main/java/org/apache/wss4j/common/util/Loader.java`
+#### Snippet
+```java
+        } catch (IOException e) {
+            LOG.debug(e.getMessage(), e);
+            return null;
+        }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `ws-security-common/src/main/java/org/apache/wss4j/common/crypto/ThreadLocalSecurityProvider.java`
+#### Snippet
+```java
+            return p.getService(type, algorithm);
+        } else {
+            return null;
+        }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `ws-security-common/src/main/java/org/apache/wss4j/common/crypto/ThreadLocalSecurityProvider.java`
+#### Snippet
+```java
+            return p.get(key);
+        } else {
+            return null;
+        }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `ws-security-common/src/main/java/org/apache/wss4j/common/crypto/ThreadLocalSecurityProvider.java`
+#### Snippet
+```java
+            return p.getProperty(key);
+        } else {
+            return null;
+        }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `ws-security-common/src/main/java/org/apache/wss4j/common/crypto/ThreadLocalSecurityProvider.java`
+#### Snippet
+```java
+            return p.remove(key);
+        } else {
+            return null;
+        }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `ws-security-common/src/main/java/org/apache/wss4j/common/crypto/ThreadLocalSecurityProvider.java`
+#### Snippet
+```java
+            return p.put(key, value);
+        } else {
+            return null;
+        }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `ws-security-common/src/main/java/org/apache/wss4j/common/crypto/WSProviderConfig.java`
+#### Snippet
+```java
+                    LOG.debug("The provider " + name + " could not be added: " + t.getMessage(), t);
+                }
+                return null;
+            }
+        }
+```
+
+### ReturnNull
+Return of `null`
+in `ws-security-common/src/main/java/org/apache/wss4j/common/crypto/WSProviderConfig.java`
+#### Snippet
+```java
+                    LOG.debug("The provider " + name + " could not be added: " + t.getMessage(), t);
+                }
+                return null;
+            }
+        }
+```
+
+### ReturnNull
+Return of `null`
+in `ws-security-common/src/main/java/org/apache/wss4j/common/crypto/WSProviderConfig.java`
+#### Snippet
+```java
+                    LOG.debug("The provider " + name + " could not be added: " + t.getMessage(), t);
+                }
+                return null;
+            }
+        }
+```
+
+### ReturnNull
+Return of `null`
+in `ws-security-common/src/main/java/org/apache/wss4j/common/crypto/WSProviderConfig.java`
+#### Snippet
+```java
+                    LOG.debug("The provider " + name + " could not be added: " + t.getMessage(), t);
+                }
+                return null;
+            }
+        }
+```
+
+### ReturnNull
+Return of `null`
+in `ws-security-common/src/main/java/org/apache/wss4j/common/token/SecurityTokenReference.java`
+#### Snippet
+```java
+            }
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `ws-security-common/src/main/java/org/apache/wss4j/common/token/SecurityTokenReference.java`
+#### Snippet
+```java
+            return elem.getAttributeNS(null, "ValueType");
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `ws-security-common/src/main/java/org/apache/wss4j/common/token/SecurityTokenReference.java`
+#### Snippet
+```java
+            return XMLUtils.getElementText(getFirstElement());
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `ws-security-common/src/main/java/org/apache/wss4j/common/token/SecurityTokenReference.java`
+#### Snippet
+```java
+        Element elem = getFirstElement();
+        if (elem == null) {
+            return null;
+        }
+        if (WSS4JConstants.X509_DATA_LN.equals(elem.getLocalName())) {
+```
+
+### ReturnNull
+Return of `null`
+in `ws-security-common/src/main/java/org/apache/wss4j/common/token/SecurityTokenReference.java`
+#### Snippet
+```java
+            return elem.getAttributeNS(null, "EncodingType");
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `ws-security-common/src/main/java/org/apache/wss4j/common/token/SecurityTokenReference.java`
+#### Snippet
+```java
+    public X509Certificate getX509SKIAlias(Crypto crypto) throws WSSecurityException {
+        if (crypto == null) {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `ws-security-common/src/main/java/org/apache/wss4j/common/token/SecurityTokenReference.java`
+#### Snippet
+```java
+            skiBytes = getSKIBytes();
+            if (skiBytes == null) {
+                return null;
+            }
+        }
+```
+
+### ReturnNull
+Return of `null`
+in `ws-security-common/src/main/java/org/apache/wss4j/common/token/SecurityTokenReference.java`
+#### Snippet
+```java
+            return certs[0];
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `ws-security-common/src/main/java/org/apache/wss4j/common/principal/SAMLTokenPrincipalImpl.java`
+#### Snippet
+```java
+            return samlAssertion.getId();
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `ws-security-common/src/main/java/org/apache/wss4j/common/crypto/CertificateStore.java`
+#### Snippet
+```java
+        X509Certificate certificate, CallbackHandler callbackHandler
+    ) throws WSSecurityException {
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `ws-security-common/src/main/java/org/apache/wss4j/common/crypto/CertificateStore.java`
+#### Snippet
+```java
+        String password
+    ) throws WSSecurityException {
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `ws-security-common/src/main/java/org/apache/wss4j/common/crypto/CertificateStore.java`
+#### Snippet
+```java
+        CallbackHandler callbackHandler
+    ) throws WSSecurityException {
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/processor/input/UsernameTokenInputHandler.java`
+#### Snippet
+```java
+            return created.toInstant();
+        }
+        return null;
+    }
+}
+```
+
+### ReturnNull
+Return of `null`
+in `ws-security-stax/src/main/java/org/apache/wss4j/stax/ext/WSSSecurityProperties.java`
+#### Snippet
+```java
+            return signatureVerificationWSSCrypto.getKeyStore();
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `ws-security-stax/src/main/java/org/apache/wss4j/stax/ext/WSSSecurityProperties.java`
+#### Snippet
+```java
+            return signatureWSSCrypto.getCryptoProperties();
+        }
+        return null;    //NOPMD
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `ws-security-stax/src/main/java/org/apache/wss4j/stax/ext/WSSSecurityProperties.java`
+#### Snippet
+```java
+            return signatureVerificationWSSCrypto.getCryptoProperties();
+        }
+        return null;    //NOPMD
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `ws-security-stax/src/main/java/org/apache/wss4j/stax/ext/WSSSecurityProperties.java`
+#### Snippet
+```java
+            return encryptionWSSCrypto.getKeyStore();
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `ws-security-stax/src/main/java/org/apache/wss4j/stax/ext/WSSSecurityProperties.java`
+#### Snippet
+```java
+            return decryptionWSSCrypto.getCryptoProperties();
+        }
+        return null;    //NOPMD
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `ws-security-stax/src/main/java/org/apache/wss4j/stax/ext/WSSSecurityProperties.java`
+#### Snippet
+```java
+
+        if (encryptionWSSCrypto == null) {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `ws-security-stax/src/main/java/org/apache/wss4j/stax/ext/WSSSecurityProperties.java`
+#### Snippet
+```java
+            return decryptionWSSCrypto.getKeyStore();
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `ws-security-stax/src/main/java/org/apache/wss4j/stax/ext/WSSSecurityProperties.java`
+#### Snippet
+```java
+    public Crypto getSignatureCrypto() throws WSSConfigurationException {
+        if (signatureWSSCrypto == null) {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `ws-security-stax/src/main/java/org/apache/wss4j/stax/ext/WSSSecurityProperties.java`
+#### Snippet
+```java
+            return signatureWSSCrypto.getKeyStore();
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `ws-security-stax/src/main/java/org/apache/wss4j/stax/ext/WSSSecurityProperties.java`
+#### Snippet
+```java
+            return encryptionWSSCrypto.getCryptoProperties();
+        }
+        return null;    //NOPMD
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `ws-security-stax/src/main/java/org/apache/wss4j/stax/ext/WSSSecurityProperties.java`
+#### Snippet
+```java
+
+        if (signatureVerificationWSSCrypto == null) {
+            return null;
+        }
+        signatureVerificationWSSCrypto.setCrlCertStore(crlCertStore);
+```
+
+### ReturnNull
+Return of `null`
+in `ws-security-stax/src/main/java/org/apache/wss4j/stax/ext/WSSSecurityProperties.java`
+#### Snippet
+```java
+
+        if (decryptionWSSCrypto == null) {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/processor/input/SecurityHeaderInputProcessor.java`
+#### Snippet
+```java
+    public XMLSecEvent processHeaderEvent(InputProcessorChain inputProcessorChain)
+            throws XMLStreamException, XMLSecurityException {
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/processor/input/SecurityHeaderInputProcessor.java`
+#### Snippet
+```java
+                throws XMLStreamException, XMLSecurityException {
+            //should never be called because we remove this processor before
+            return null;
+        }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/processor/input/SecurityHeaderInputProcessor.java`
+#### Snippet
+```java
+        public XMLSecEvent processHeaderEvent(InputProcessorChain inputProcessorChain)
+                throws XMLStreamException, XMLSecurityException {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/processor/input/EncryptedDataInputHandler.java`
+#### Snippet
+```java
+                            return referenceType;
+                        }
+                        return null;
+                    }
+                };
+```
+
+### ReturnNull
+Return of `null`
+in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/processor/input/SignatureConfirmationInputProcessor.java`
+#### Snippet
+```java
+            throws XMLStreamException, XMLSecurityException {
+        //should never be called
+        return null;
+    }
+}
+```
+
+### ReturnNull
+Return of `null`
+in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/processor/input/SAMLTokenInputHandler.java`
+#### Snippet
+```java
+                }
+            }
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `ws-security-common/src/main/java/org/apache/wss4j/common/crypto/Merlin.java`
+#### Snippet
+```java
+            throw new WSSecurityException(WSSecurityException.ErrorCode.FAILURE, e, "keystore");
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `ws-security-common/src/main/java/org/apache/wss4j/common/crypto/Merlin.java`
+#### Snippet
+```java
+            throw new WSSecurityException(WSSecurityException.ErrorCode.FAILURE, e, "keystore");
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `ws-security-common/src/main/java/org/apache/wss4j/common/crypto/Merlin.java`
+#### Snippet
+```java
+            }
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/InboundWSSecurityContextImpl.java`
+#### Snippet
+```java
+            }
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/InboundWSSecurityContextImpl.java`
+#### Snippet
+```java
+            }
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/processor/output/SAMLTokenOutputProcessor.java`
+#### Snippet
+```java
+                            LOG.debug(e.getMessage(), e);
+                        }
+                        return null;
+                    }
+                };
+```
+
+### ReturnNull
+Return of `null`
+in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/processor/output/SAMLTokenOutputProcessor.java`
+#### Snippet
+```java
+            }
+
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/securityToken/ECKeyValueSecurityTokenImpl.java`
+#### Snippet
+```java
+    @Override
+    public Subject getSubject() throws WSSecurityException {
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/securityToken/KerberosClientSecurityToken.java`
+#### Snippet
+```java
+        Set<KerberosTicket> privateCredentials = clientSubject.getPrivateCredentials(KerberosTicket.class);
+        if (privateCredentials == null || privateCredentials.isEmpty()) {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/securityToken/KerberosClientSecurityToken.java`
+#### Snippet
+```java
+            }
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/securityToken/ExternalSecurityTokenImpl.java`
+#### Snippet
+```java
+            return WSSecurityTokenConstants.SECURITY_CONTEXT_TOKEN;
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/securityToken/RsaKeyValueSecurityTokenImpl.java`
+#### Snippet
+```java
+    @Override
+    public Subject getSubject() throws WSSecurityException {
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/securityToken/SamlSecurityTokenImpl.java`
+#### Snippet
+```java
+    @Override
+    public Subject getSubject() throws WSSecurityException {
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/securityToken/DsaKeyValueSecurityTokenImpl.java`
+#### Snippet
+```java
+    @Override
+    public Subject getSubject() throws WSSecurityException {
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/securityToken/HttpsSecurityTokenImpl.java`
+#### Snippet
+```java
+    @Override
+    public Subject getSubject() throws WSSecurityException {
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/resourceResolvers/ResolverAttachment.java`
+#### Snippet
+```java
+    @Override
+    public InputStream getInputStreamFromExternalReference() throws XMLSecurityException {
+        return null;
+    }
+}
+```
+
+### ReturnNull
+Return of `null`
+in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/resourceResolvers/ResolverAttachment.java`
+#### Snippet
+```java
+    public ResourceResolverLookup canResolve(String uri, String baseURI) {
+        if (uri == null) {
+            return null;
+        }
+        if (uri.startsWith("cid:")) {
+```
+
+### ReturnNull
+Return of `null`
+in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/resourceResolvers/ResolverAttachment.java`
+#### Snippet
+```java
+            return this;
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/securityToken/X509SecurityTokenImpl.java`
+#### Snippet
+```java
+    @Override
+    public Subject getSubject() throws WSSecurityException {
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/securityToken/SecurityTokenFactoryImpl.java`
+#### Snippet
+```java
+        }
+
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `ws-security-stax/src/main/java/org/apache/wss4j/stax/impl/securityToken/SecurityTokenFactoryImpl.java`
+#### Snippet
+```java
+        }
+
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `ws-security-stax/src/main/java/org/apache/wss4j/stax/setup/WSSec.java`
+#### Snippet
+```java
+                    return concreteLSInput;
+                }
+                return null;
+            }
+        });
+```
+
+### ReturnNull
+Return of `null`
+in `ws-security-policy-stax/src/main/java/org/apache/wss4j/policy/stax/enforcer/PolicyInputProcessor.java`
+#### Snippet
+```java
+            }
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `ws-security-stax/src/main/java/org/apache/wss4j/stax/utils/WSSUtils.java`
+#### Snippet
+```java
+            }
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `ws-security-stax/src/main/java/org/apache/wss4j/stax/setup/ConfigurationConverter.java`
+#### Snippet
+```java
+            return Loader.getTCL();
+        } catch (Exception ex) {
+            return null;
+        }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `ws-security-stax/src/main/java/org/apache/wss4j/stax/setup/ConfigurationConverter.java`
+#### Snippet
+```java
+            return WSSConstants.DerivedKeyTokenReference.SecurityContextToken;
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `ws-security-stax/src/main/java/org/apache/wss4j/stax/setup/ConfigurationConverter.java`
+#### Snippet
+```java
+            return WSSecurityTokenConstants.KEYIDENTIFIER_KERBEROS_SHA1_IDENTIFIER;
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `ws-security-stax/src/main/java/org/apache/wss4j/stax/setup/ConfigurationConverter.java`
+#### Snippet
+```java
+            LOG.debug(e.getMessage(), e);
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `ws-security-stax/src/main/java/org/apache/wss4j/stax/setup/ConfigurationConverter.java`
+#### Snippet
+```java
+            return (String)value;
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `ws-security-policy-stax/src/main/java/org/apache/wss4j/policy/stax/assertionStates/IssuedTokenAssertionState.java`
+#### Snippet
+```java
+                if (attribute.getName().equals(claimURI.toString())
+                        && attribute.getAttributeValues() != null && !attribute.getAttributeValues().isEmpty()) {
+                    return null;
+                }
+            }
+```
+
+### ReturnNull
+Return of `null`
+in `ws-security-policy-stax/src/main/java/org/apache/wss4j/policy/stax/assertionStates/IssuedTokenAssertionState.java`
+#### Snippet
+```java
+        String dialect = claimsPolicy.getAttributeNS(null, "Dialect");
+        if (!DEFAULT_CLAIMS_NAMESPACE.equals(dialect)) {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `ws-security-policy-stax/src/main/java/org/apache/wss4j/policy/stax/assertionStates/IssuedTokenAssertionState.java`
+#### Snippet
+```java
+            child = child.getNextSibling();
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `ws-security-policy-stax/src/main/java/org/apache/wss4j/policy/stax/assertionStates/IssuedTokenAssertionState.java`
+#### Snippet
+```java
+            child = child.getNextSibling();
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `ws-security-policy-stax/src/main/java/org/apache/wss4j/policy/stax/assertionStates/IssuedTokenAssertionState.java`
+#### Snippet
+```java
+                if (attribute.getAttributeName().equals(desiredRole)
+                        && attribute.getAttributeValues() != null && !attribute.getAttributeValues().isEmpty()) {
+                    return null;
+                }
+            }
+```
+
+### ReturnNull
+Return of `null`
+in `ws-security-policy-stax/src/main/java/org/apache/wss4j/policy/stax/assertionStates/IssuedTokenAssertionState.java`
+#### Snippet
+```java
+            child = child.getNextSibling();
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `ws-security-policy-stax/src/main/java/org/apache/wss4j/policy/stax/assertionStates/SignatureProtectionAssertionState.java`
+#### Snippet
+```java
+            } catch (XMLSecurityException e) {
+                // Just return null here
+                return null;
+            }
+        }
+```
+
+### ReturnNull
+Return of `null`
+in `ws-security-policy-stax/src/main/java/org/apache/wss4j/policy/stax/assertionStates/SignatureProtectionAssertionState.java`
+#### Snippet
+```java
+            }
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `ws-security-policy-stax/src/main/java/org/apache/wss4j/policy/stax/enforcer/PolicyEnforcer.java`
+#### Snippet
+```java
+            }
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `ws-security-stax/src/main/java/org/apache/wss4j/stax/setup/OutboundWSSec.java`
+#### Snippet
+```java
+        }
+
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `ws-security-stax/src/main/java/org/apache/wss4j/stax/setup/OutboundWSSec.java`
+#### Snippet
+```java
+            }
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `ws-security-stax/src/main/java/org/apache/wss4j/stax/setup/OutboundWSSec.java`
 #### Snippet
 ```java
             }
@@ -17932,18 +17918,6 @@ in `ws-security-common/src/main/java/org/apache/wss4j/common/NamePasswordCallbac
 ## RuleId[ruleID=UseBulkOperation]
 ### UseBulkOperation
 Iteration can be replaced with bulk 'Collection.addAll()' call
-in `ws-security-policy-stax/src/main/java/org/apache/wss4j/policy/stax/enforcer/PolicyEnforcerFactory.java`
-#### Snippet
-```java
-            for (int i = 0; i < customAssertionBuilders.size(); i++) {
-                AssertionBuilder<Element> customAssertionBuilder = customAssertionBuilders.get(i);
-                assertionBuilders.add(customAssertionBuilder);
-            }
-        }
-```
-
-### UseBulkOperation
-Iteration can be replaced with bulk 'Collection.addAll()' call
 in `ws-security-dom/src/main/java/org/apache/wss4j/dom/handler/WSHandler.java`
 #### Snippet
 ```java
@@ -17954,31 +17928,19 @@ in `ws-security-dom/src/main/java/org/apache/wss4j/dom/handler/WSHandler.java`
 
 ```
 
-## RuleId[ruleID=CastCanBeRemovedNarrowingVariableType]
-### CastCanBeRemovedNarrowingVariableType
-Cast may be removed by changing the type of 'refObject' to 'Reference'
-in `ws-security-common/src/main/java/org/apache/wss4j/common/crypto/AlgorithmSuiteValidator.java`
+### UseBulkOperation
+Iteration can be replaced with bulk 'Collection.addAll()' call
+in `ws-security-policy-stax/src/main/java/org/apache/wss4j/policy/stax/enforcer/PolicyEnforcerFactory.java`
 #### Snippet
 ```java
-
-        for (Object refObject : xmlSignature.getSignedInfo().getReferences()) {
-            Reference reference = (Reference)refObject;
-            // Digest Algorithm
-            String digestMethod = reference.getDigestMethod().getAlgorithm();
-```
-
-### CastCanBeRemovedNarrowingVariableType
-Cast may be removed by changing the type of 'privateKey' to 'PrivateKey'
-in `ws-security-common/src/main/java/org/apache/wss4j/common/crypto/Merlin.java`
-#### Snippet
-```java
-                Key privateKey = privateKeyCache.get(identifier);
-                if (privateKey != null) {
-                    return (PrivateKey) privateKey;
-                }
+            for (int i = 0; i < customAssertionBuilders.size(); i++) {
+                AssertionBuilder<Element> customAssertionBuilder = customAssertionBuilders.get(i);
+                assertionBuilders.add(customAssertionBuilder);
             }
+        }
 ```
 
+## RuleId[ruleID=CastCanBeRemovedNarrowingVariableType]
 ### CastCanBeRemovedNarrowingVariableType
 Cast may be removed by changing the type of 'binarySecurity' to 'X509Security'
 in `ws-security-dom/src/main/java/org/apache/wss4j/dom/saml/WSSecSignatureSAML.java`
@@ -18040,15 +18002,15 @@ in `ws-security-dom/src/main/java/org/apache/wss4j/dom/processor/SAMLTokenProces
 ```
 
 ### CastCanBeRemovedNarrowingVariableType
-Cast may be removed by changing the type of 'context' to 'DOMValidateContext'
+Cast may be removed by changing the type of 'reference' to 'Reference'
 in `ws-security-dom/src/main/java/org/apache/wss4j/dom/processor/SignatureProcessor.java`
 #### Snippet
 ```java
-            testMessageReplay(elem, xmlSignature.getSignatureValue().getValue(), key, data, wsDocInfo);
+        List<WSDataRef> protectedRefs = new ArrayList<>(signedInfo.getReferences().size());
+        for (Object reference : signedInfo.getReferences()) {
+            Reference siRef = (Reference)reference;
+            String uri = siRef.getURI();
 
-            setElementsOnContext(xmlSignature, (DOMValidateContext)context, data, wsDocInfo);
-
-            boolean signatureOk = xmlSignature.validate(context);
 ```
 
 ### CastCanBeRemovedNarrowingVariableType
@@ -18088,14 +18050,38 @@ in `ws-security-dom/src/main/java/org/apache/wss4j/dom/processor/SignatureProces
 ```
 
 ### CastCanBeRemovedNarrowingVariableType
-Cast may be removed by changing the type of 'reference' to 'Reference'
+Cast may be removed by changing the type of 'context' to 'DOMValidateContext'
 in `ws-security-dom/src/main/java/org/apache/wss4j/dom/processor/SignatureProcessor.java`
 #### Snippet
 ```java
-        List<WSDataRef> protectedRefs = new ArrayList<>(signedInfo.getReferences().size());
-        for (Object reference : signedInfo.getReferences()) {
-            Reference siRef = (Reference)reference;
-            String uri = siRef.getURI();
+            testMessageReplay(elem, xmlSignature.getSignatureValue().getValue(), key, data, wsDocInfo);
 
+            setElementsOnContext(xmlSignature, (DOMValidateContext)context, data, wsDocInfo);
+
+            boolean signatureOk = xmlSignature.validate(context);
+```
+
+### CastCanBeRemovedNarrowingVariableType
+Cast may be removed by changing the type of 'refObject' to 'Reference'
+in `ws-security-common/src/main/java/org/apache/wss4j/common/crypto/AlgorithmSuiteValidator.java`
+#### Snippet
+```java
+
+        for (Object refObject : xmlSignature.getSignedInfo().getReferences()) {
+            Reference reference = (Reference)refObject;
+            // Digest Algorithm
+            String digestMethod = reference.getDigestMethod().getAlgorithm();
+```
+
+### CastCanBeRemovedNarrowingVariableType
+Cast may be removed by changing the type of 'privateKey' to 'PrivateKey'
+in `ws-security-common/src/main/java/org/apache/wss4j/common/crypto/Merlin.java`
+#### Snippet
+```java
+                Key privateKey = privateKeyCache.get(identifier);
+                if (privateKey != null) {
+                    return (PrivateKey) privateKey;
+                }
+            }
 ```
 
