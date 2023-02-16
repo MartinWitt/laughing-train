@@ -36,12 +36,12 @@ in `rxdogtag/src/main/java/rxdogtag2/RxDogTag.java`
 ## RuleId[ruleID=BoundedWildcard]
 ### BoundedWildcard
 Can generalize to `? super T`
-in `rxdogtag/src/main/java/rxdogtag2/DogTagSingleObserver.java`
+in `rxdogtag/src/main/java/rxdogtag2/DogTagSubscriber.java`
 #### Snippet
 ```java
-  private final SingleObserver<T> delegate;
+  private final Subscriber<T> delegate;
 
-  DogTagSingleObserver(RxDogTag.Configuration config, SingleObserver<T> delegate) {
+  DogTagSubscriber(RxDogTag.Configuration config, Subscriber<T> delegate) {
     this.config = config;
     this.delegate = delegate;
 ```
@@ -60,12 +60,12 @@ in `rxdogtag/src/main/java/rxdogtag2/DogTagObserver.java`
 
 ### BoundedWildcard
 Can generalize to `? super T`
-in `rxdogtag/src/main/java/rxdogtag2/DogTagSubscriber.java`
+in `rxdogtag/src/main/java/rxdogtag2/DogTagSingleObserver.java`
 #### Snippet
 ```java
-  private final Subscriber<T> delegate;
+  private final SingleObserver<T> delegate;
 
-  DogTagSubscriber(RxDogTag.Configuration config, Subscriber<T> delegate) {
+  DogTagSingleObserver(RxDogTag.Configuration config, SingleObserver<T> delegate) {
     this.config = config;
     this.delegate = delegate;
 ```
@@ -83,15 +83,15 @@ in `rxdogtag/src/main/java/rxdogtag2/DogTagMaybeObserver.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? super Throwable`
+Can generalize to `? extends ObserverHandler`
 in `rxdogtag/src/main/java/rxdogtag2/RxDogTag.java`
 #### Snippet
 ```java
-   * @param runnable the runnable to execute the underlying action that may throw
-   */
-  static void guardedDelegateCall(NonCheckingConsumer<Throwable> errorConsumer, Runnable runnable) {
-    final Thread.UncaughtExceptionHandler h = Thread.currentThread().getUncaughtExceptionHandler();
-    try {
+     * @return this builder for fluent chaining.
+     */
+    public Builder addObserverHandlers(Collection<ObserverHandler> handlers) {
+      observerHandlers.addAll(handlers);
+      return this;
 ```
 
 ### BoundedWildcard
@@ -107,14 +107,14 @@ in `rxdogtag/src/main/java/rxdogtag2/RxDogTag.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends ObserverHandler`
+Can generalize to `? super Throwable`
 in `rxdogtag/src/main/java/rxdogtag2/RxDogTag.java`
 #### Snippet
 ```java
-     * @return this builder for fluent chaining.
-     */
-    public Builder addObserverHandlers(Collection<ObserverHandler> handlers) {
-      observerHandlers.addAll(handlers);
-      return this;
+   * @param runnable the runnable to execute the underlying action that may throw
+   */
+  static void guardedDelegateCall(NonCheckingConsumer<Throwable> errorConsumer, Runnable runnable) {
+    final Thread.UncaughtExceptionHandler h = Thread.currentThread().getUncaughtExceptionHandler();
+    try {
 ```
 
