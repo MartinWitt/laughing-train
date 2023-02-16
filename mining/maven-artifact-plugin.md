@@ -1,7 +1,7 @@
 # maven-artifact-plugin 
  
 # Bad smells
-I found 37 bad smells with 3 repairable:
+I found 36 bad smells with 3 repairable:
 | ruleID | number | fixable |
 | --- | --- | --- |
 | ReturnNull | 10 | false |
@@ -17,7 +17,6 @@ I found 37 bad smells with 3 repairable:
 | ReplaceAssignmentWithOperatorAssignment | 1 | false |
 | UnnecessaryCallToStringValueOf | 1 | false |
 | UseOfPropertiesAsHashtable | 1 | false |
-| HtmlWrongAttributeValue | 1 | false |
 | SizeReplaceableByIsEmpty | 1 | true |
 | UnnecessaryBoxing | 1 | false |
 ## RuleId[ruleID=DefaultAnnotationParam]
@@ -210,19 +209,6 @@ in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/BuildInfoWriter.ja
         int index = javaVersion.indexOf('.'); // for example 8.0_202
 ```
 
-## RuleId[ruleID=HtmlWrongAttributeValue]
-### HtmlWrongAttributeValue
-Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-02-05-10-46-14.011.html`
-#### Snippet
-```java
-              <td>0</td>
-              <td>0</td>
-              <td><textarea rows="10" cols="75" readonly="true" placeholder="empty" style="white-space: pre; border: none">Not collected for refresh</textarea></td>
-            </tr>
-          </tbody>
-```
-
 ## RuleId[ruleID=ReturnNull]
 ### ReturnNull
 Return of `null`
@@ -254,6 +240,18 @@ in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/AbstractBuildinfoM
 #### Snippet
 ```java
             }
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/ReferenceBuildinfoUtil.java`
+#### Snippet
+```java
+            log.warn("unable to open jar file " + file, e);
         }
         return null;
     }
@@ -303,18 +301,6 @@ in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/ReferenceBuildinfo
 ```java
         }
 
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/ReferenceBuildinfoUtil.java`
-#### Snippet
-```java
-            log.warn("unable to open jar file " + file, e);
-        }
         return null;
     }
 
@@ -442,6 +428,19 @@ in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/CompareMojo.java`
         return "diffoscope " + relative(reference) + " " + relative(actual);
 ```
 
+## RuleId[ruleID=UnnecessaryBoxing]
+### UnnecessaryBoxing
+Redundant boxing, `Boolean.parseBoolean()` call can be used instead
+in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/PluginUtil.java`
+#### Snippet
+```java
+            skip = project.getProperties().getProperty("maven." + id + ".skip");
+        }
+        return Boolean.valueOf(skip);
+    }
+
+```
+
 ## RuleId[ruleID=IgnoreResultOfCall]
 ### IgnoreResultOfCall
 Result of `File.mkdirs()` is ignored
@@ -465,18 +464,5 @@ in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/CompareMojo.java`
         referenceDir.mkdirs();
 
         // download or create reference buildinfo
-```
-
-## RuleId[ruleID=UnnecessaryBoxing]
-### UnnecessaryBoxing
-Redundant boxing, `Boolean.parseBoolean()` call can be used instead
-in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/PluginUtil.java`
-#### Snippet
-```java
-            skip = project.getProperties().getProperty("maven." + id + ".skip");
-        }
-        return Boolean.valueOf(skip);
-    }
-
 ```
 
