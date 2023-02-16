@@ -22,18 +22,6 @@ in `src/main/java/jetbrains/teamcity/aws/template/services/ecs/AwsTeamCityTempla
 
 ## RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
 ### UtilityClassWithoutPrivateConstructor
-Class `AwsTeamCityTemplateVpc` has only 'static' members, and lacks a 'private' constructor
-in `src/main/java/jetbrains/teamcity/aws/template/services/vpc/AwsTeamCityTemplateVpc.java`
-#### Snippet
-```java
-import java.util.List;
-
-public class AwsTeamCityTemplateVpc {
-
-    // VPC Configuration
-```
-
-### UtilityClassWithoutPrivateConstructor
 Class `SetupContainerTask` has only 'static' members, and lacks a 'private' constructor
 in `src/main/java/jetbrains/teamcity/aws/template/services/ecs/setup/SetupContainerTask.java`
 #### Snippet
@@ -43,6 +31,18 @@ import static jetbrains.teamcity.aws.template.services.ecs.setup.SetupContainerP
 public class SetupContainerTask {
 
     public static void addSetupContainer(@NotNull final Construct scope,
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `AwsTeamcityCfnTemplateCdkApp` has only 'static' members, and lacks a 'private' constructor
+in `src/main/java/jetbrains/teamcity/aws/template/AwsTeamcityCfnTemplateCdkApp.java`
+#### Snippet
+```java
+import software.amazon.awscdk.StackProps;
+
+public class AwsTeamcityCfnTemplateCdkApp {
+    public static void main(final String[] args) {
+        App app = new App();
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -58,15 +58,15 @@ public class SetupContainerParameters {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `AwsTeamcityCfnTemplateCdkApp` has only 'static' members, and lacks a 'private' constructor
-in `src/main/java/jetbrains/teamcity/aws/template/AwsTeamcityCfnTemplateCdkApp.java`
+Class `AwsTeamCityTemplateVpc` has only 'static' members, and lacks a 'private' constructor
+in `src/main/java/jetbrains/teamcity/aws/template/services/vpc/AwsTeamCityTemplateVpc.java`
 #### Snippet
 ```java
-import software.amazon.awscdk.StackProps;
+import java.util.List;
 
-public class AwsTeamcityCfnTemplateCdkApp {
-    public static void main(final String[] args) {
-        App app = new App();
+public class AwsTeamCityTemplateVpc {
+
+    // VPC Configuration
 ```
 
 ## RuleId[ruleID=MissortedModifiers]
