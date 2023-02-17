@@ -64,18 +64,6 @@ Qualifier `sun.misc` is unnecessary, and can be replaced with an import
 in `nylon-threads/src/main/java/com/palantir/nylon/threads/ThreadNames.java`
 #### Snippet
 ```java
-public final class ThreadNames {
-
-    private static final sun.misc.Unsafe unsafe = initUnsafe();
-
-    private static final long threadNameOffset;
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `sun.misc` is unnecessary, and can be replaced with an import
-in `nylon-threads/src/main/java/com/palantir/nylon/threads/ThreadNames.java`
-#### Snippet
-```java
     // prevent avoidable failures in spark/etc where security manager is used
     @SuppressWarnings("removal")
     private static sun.misc.Unsafe initUnsafe() {
@@ -129,6 +117,18 @@ in `nylon-threads/src/main/java/com/palantir/nylon/threads/ThreadNames.java`
                 return (sun.misc.Unsafe) field.get(null);
             } catch (ReflectiveOperationException e) {
                 throw new SafeIllegalStateException("Failed to load Unsafe", e);
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `sun.misc` is unnecessary, and can be replaced with an import
+in `nylon-threads/src/main/java/com/palantir/nylon/threads/ThreadNames.java`
+#### Snippet
+```java
+public final class ThreadNames {
+
+    private static final sun.misc.Unsafe unsafe = initUnsafe();
+
+    private static final long threadNameOffset;
 ```
 
 ## RuleId[ruleID=RedundantSuppression]
