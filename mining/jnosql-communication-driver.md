@@ -1,7 +1,7 @@
 # jnosql-communication-driver 
  
 # Bad smells
-I found 305 bad smells with 5 repairable:
+I found 306 bad smells with 5 repairable:
 | ruleID | number | fixable |
 | --- | --- | --- |
 | RedundantClassCall | 107 | false |
@@ -29,18 +29,19 @@ I found 305 bad smells with 5 repairable:
 | UnnecessaryLocalVariable | 2 | true |
 | UnusedAssignment | 2 | false |
 | UnnecessaryModifier | 1 | true |
-| OptionalContainsCollection | 1 | false |
 | DeprecatedIsStillUsed | 1 | false |
+| OptionalContainsCollection | 1 | false |
 | UnnecessaryReturn | 1 | true |
 | UnnecessaryToStringCall | 1 | true |
 | AbstractClassNeverImplemented | 1 | false |
 | SystemOutErr | 1 | false |
 | DynamicRegexReplaceableByCompiledPattern | 1 | false |
-| ThrowablePrintStackTrace | 1 | false |
 | NestedAssignment | 1 | false |
+| ThrowablePrintStackTrace | 1 | false |
 | FieldAccessedSynchronizedAndUnsynchronized | 1 | false |
-| IdempotentLoopBody | 1 | false |
 | UseOfPropertiesAsHashtable | 1 | false |
+| IdempotentLoopBody | 1 | false |
+| HtmlWrongAttributeValue | 1 | false |
 | ExceptionNameDoesntEndWithException | 1 | false |
 | SynchronizeOnThis | 1 | false |
 ## RuleId[ruleID=UnnecessaryModifier]
@@ -56,41 +57,210 @@ in `jnosql-cassandra-driver/src/main/java/org/eclipse/jnosql/communication/cassa
 
 ```
 
-## RuleId[ruleID=RedundantClassCall]
-### RedundantClassCall
-Redundant call to `isInstance()`
-in `jnosql-redis-driver/src/main/java/org/eclipse/jnosql/communication/redis/keyvalue/RedisCollection.java`
+## RuleId[ruleID=DataFlowIssue]
+### DataFlowIssue
+Passing a non-null argument to `Optional`
+in `jnosql-hazelcast-driver/src/main/java/org/eclipse/jnosql/communication/hazelcast/keyvalue/DefaultHazelcastBucketManager.java`
 #### Snippet
 ```java
-            return true;
+            return Optional.empty();
         }
-        if (RedisCollection.class.isInstance(obj)) {
-            RedisCollection otherRedis = RedisCollection.class.cast(obj);
-            return Objects.equals(otherRedis.keyWithNameSpace, keyWithNameSpace);
-```
-
-### RedundantClassCall
-Redundant call to `cast()`
-in `jnosql-redis-driver/src/main/java/org/eclipse/jnosql/communication/redis/keyvalue/RedisCollection.java`
-#### Snippet
-```java
-        }
-        if (RedisCollection.class.isInstance(obj)) {
-            RedisCollection otherRedis = RedisCollection.class.cast(obj);
-            return Objects.equals(otherRedis.keyWithNameSpace, keyWithNameSpace);
-        }
-```
-
-### RedundantClassCall
-Redundant call to `cast()`
-in `jnosql-mongodb-driver/src/main/java/org/eclipse/jnosql/communication/mongodb/document/MongoDBUtils.java`
-#### Snippet
-```java
-
-    private static org.eclipse.jnosql.communication.document.Document cast(Object document) {
-        return org.eclipse.jnosql.communication.document.Document.class.cast(document);
+        return Optional.ofNullable(Value.of(value));
     }
 
+```
+
+### DataFlowIssue
+Argument `password` might be null
+in `jnosql-memcached-driver/src/main/java/org/eclipse/jnosql/communication/memcached/keyvalue/MemcachedKeyValueConfiguration.java`
+#### Snippet
+```java
+                            , Configurations.PASSWORD)))
+                            .map(Object::toString).orElse(null);
+                    factoryBuilder.setAuthDescriptor(AuthDescriptor.typical(u, password));
+                });
+
+```
+
+### DataFlowIssue
+Method invocation `getLong` may produce `NullPointerException`
+in `jnosql-cassandra-driver/src/main/java/org/eclipse/jnosql/communication/cassandra/column/DefaultCassandraColumnManager.java`
+#### Snippet
+```java
+        requireNonNull(columnFamily, "columnFamily is required");
+        final ResultSet execute = session.execute(QueryBuilder.selectFrom(keyspace, columnFamily).countAll().build());
+        return execute.one().getLong(0);
+    }
+
+```
+
+### DataFlowIssue
+Argument `row.getUdtValue(name)` might be null
+in `jnosql-cassandra-driver/src/main/java/org/eclipse/jnosql/communication/cassandra/column/CassandraConverter.java`
+#### Snippet
+```java
+        final DataType type = definition.getType();
+        if (type instanceof UserDefinedType) {
+            return getUDT(definition, row.getUdtValue(name));
+        }
+        final TypeCodec<Object> codec = row.codecRegistry().codecFor(type);
+```
+
+### DataFlowIssue
+Passing a non-null argument to `Optional`
+in `jnosql-infinispan-driver/src/main/java/org/eclipse/jnosql/communication/infinispan/keyvalue/InfinispanBucketManager.java`
+#### Snippet
+```java
+            return Optional.empty();
+        }
+        return Optional.ofNullable(Value.of(value));
+    }
+
+```
+
+## RuleId[ruleID=RedundantClassCall]
+### RedundantClassCall
+Redundant call to `cast()`
+in `jnosql-cassandra-driver/src/main/java/org/eclipse/jnosql/communication/cassandra/column/QueryExecutorType.java`
+#### Snippet
+```java
+                                            DefaultCassandraColumnManager manager) {
+
+            CassandraQuery query = CassandraQuery.class.cast(q);
+
+            if (query.isExhausted()) {
+```
+
+### RedundantClassCall
+Redundant call to `cast()`
+in `jnosql-communication-driver-commons/src/main/java/org/eclipse/jnosql/communication/driver/ValueUtil.java`
+#### Snippet
+```java
+        if (val instanceof Iterable) {
+            List<Object> items = new ArrayList<>();
+            Iterable.class.cast(val).forEach(items::add);
+            if (items.size() == 1) {
+                Object item = items.get(0);
+```
+
+### RedundantClassCall
+Redundant call to `cast()`
+in `jnosql-communication-driver-commons/src/main/java/org/eclipse/jnosql/communication/driver/ValueUtil.java`
+#### Snippet
+```java
+                //check if it is dynamic params
+                if (PARAM_CLASS_NAME.equals(item.getClass().getName())) {
+                    Object params = Value.class.cast(item).get();
+                    if (params instanceof Iterable) {
+                        return getObjects(Iterable.class.cast(params));
+```
+
+### RedundantClassCall
+Redundant call to `cast()`
+in `jnosql-communication-driver-commons/src/main/java/org/eclipse/jnosql/communication/driver/ValueUtil.java`
+#### Snippet
+```java
+                    Object params = Value.class.cast(item).get();
+                    if (params instanceof Iterable) {
+                        return getObjects(Iterable.class.cast(params));
+                    } else {
+                        return Collections.singletonList(getObject(params));
+```
+
+### RedundantClassCall
+Redundant call to `cast()`
+in `jnosql-communication-driver-commons/src/main/java/org/eclipse/jnosql/communication/driver/ValueUtil.java`
+#### Snippet
+```java
+    private static final Function CONVERT = o -> {
+        if (o instanceof Value) {
+            return convert(Value.class.cast(o));
+        }
+        return getObject(o);
+```
+
+### RedundantClassCall
+Redundant call to `cast()`
+in `jnosql-communication-driver-commons/src/main/java/org/eclipse/jnosql/communication/driver/ValueUtil.java`
+#### Snippet
+```java
+
+    private static List<Object> getObjects(Object val) {
+        return (List<Object>) StreamSupport.stream(Iterable.class.cast(val).spliterator(), false)
+                .map(CONVERT).collect(toList());
+    }
+```
+
+### RedundantClassCall
+Redundant call to `cast()`
+in `jnosql-elasticsearch-driver/src/main/java/org/eclipse/jnosql/communication/elasticsearch/document/EntityConverter.java`
+#### Snippet
+```java
+    private static Map<String, Object> getMap(Object value) {
+        Map<String, Object> subDocument = new HashMap<>();
+        StreamSupport.stream(Iterable.class.cast(value).spliterator(),
+                false).forEach(feedJSON(subDocument));
+        return subDocument;
+```
+
+### RedundantClassCall
+Redundant call to `cast()`
+in `jnosql-elasticsearch-driver/src/main/java/org/eclipse/jnosql/communication/elasticsearch/document/EntityConverter.java`
+#### Snippet
+```java
+
+    private static boolean isSudDocumentList(Object value) {
+        return value instanceof Iterable && StreamSupport.stream(Iterable.class.cast(value).spliterator(), false).
+                allMatch(d -> d instanceof Iterable && isSudDocument(d));
+    }
+```
+
+### RedundantClassCall
+Redundant call to `cast()`
+in `jnosql-elasticsearch-driver/src/main/java/org/eclipse/jnosql/communication/elasticsearch/document/EntityConverter.java`
+#### Snippet
+```java
+
+    private static boolean isSudDocument(Object value) {
+        return value instanceof Iterable && StreamSupport.stream(Iterable.class.cast(value).spliterator(), false).
+                allMatch(org.eclipse.jnosql.communication.document.Document.class::isInstance);
+    }
+```
+
+### RedundantClassCall
+Redundant call to `cast()`
+in `jnosql-elasticsearch-driver/src/main/java/org/eclipse/jnosql/communication/elasticsearch/document/EntityConverter.java`
+#### Snippet
+```java
+            Object value = ValueUtil.convert(d.value());
+            if (value instanceof Document) {
+                Document subDocument = Document.class.cast(value);
+                jsonObject.put(d.name(), singletonMap(subDocument.name(), subDocument.get()));
+            } else if (isSudDocument(value)) {
+```
+
+### RedundantClassCall
+Redundant call to `cast()`
+in `jnosql-elasticsearch-driver/src/main/java/org/eclipse/jnosql/communication/elasticsearch/document/EntityConverter.java`
+#### Snippet
+```java
+                jsonObject.put(d.name(), subDocument);
+            } else if (isSudDocumentList(value)) {
+                jsonObject.put(d.name(), StreamSupport.stream(Iterable.class.cast(value).spliterator(), false)
+                        .map(EntityConverter::getMap).collect(toList()));
+            } else {
+```
+
+### RedundantClassCall
+Redundant call to `isInstance()`
+in `jnosql-cassandra-driver/src/main/java/org/eclipse/jnosql/communication/cassandra/column/QueryExecutor.java`
+#### Snippet
+```java
+
+    static QueryExecutor of(ColumnQuery query) {
+        if (CassandraQuery.class.isInstance(query)) {
+            return QueryExecutorType.PAGING_STATE;
+        }
 ```
 
 ### RedundantClassCall
@@ -111,9 +281,21 @@ in `jnosql-mongodb-driver/src/main/java/org/eclipse/jnosql/communication/mongodb
 #### Snippet
 ```java
 
-    private static boolean isSudDocument(Object value) {
-        return value instanceof Iterable && StreamSupport.stream(Iterable.class.cast(value).spliterator(), false).
-                allMatch(org.eclipse.jnosql.communication.document.Document.class::isInstance);
+    private static org.eclipse.jnosql.communication.document.Document cast(Object document) {
+        return org.eclipse.jnosql.communication.document.Document.class.cast(document);
+    }
+
+```
+
+### RedundantClassCall
+Redundant call to `cast()`
+in `jnosql-mongodb-driver/src/main/java/org/eclipse/jnosql/communication/mongodb/document/MongoDBUtils.java`
+#### Snippet
+```java
+    private static boolean isDocumentIterable(Object value) {
+        return value instanceof Iterable &&
+                stream(Iterable.class.cast(value).spliterator(), false)
+                        .allMatch(Document.class::isInstance);
     }
 ```
 
@@ -134,23 +316,11 @@ Redundant call to `cast()`
 in `jnosql-mongodb-driver/src/main/java/org/eclipse/jnosql/communication/mongodb/document/MongoDBUtils.java`
 #### Snippet
 ```java
-    private static boolean isDocumentIterable(Object value) {
-        return value instanceof Iterable &&
-                stream(Iterable.class.cast(value).spliterator(), false)
-                        .allMatch(Document.class::isInstance);
-    }
-```
 
-### RedundantClassCall
-Redundant call to `cast()`
-in `jnosql-mongodb-driver/src/main/java/org/eclipse/jnosql/communication/mongodb/document/MongoDBUtils.java`
-#### Snippet
-```java
-    private static Object convertValue(Object value) {
-        if (value instanceof Binary) {
-            return Binary.class.cast(value).getData();
-        }
-        return value;
+    private static boolean isSudDocument(Object value) {
+        return value instanceof Iterable && StreamSupport.stream(Iterable.class.cast(value).spliterator(), false).
+                allMatch(org.eclipse.jnosql.communication.document.Document.class::isInstance);
+    }
 ```
 
 ### RedundantClassCall
@@ -194,6 +364,18 @@ Redundant call to `cast()`
 in `jnosql-mongodb-driver/src/main/java/org/eclipse/jnosql/communication/mongodb/document/MongoDBUtils.java`
 #### Snippet
 ```java
+    private static Object convertValue(Object value) {
+        if (value instanceof Binary) {
+            return Binary.class.cast(value).getData();
+        }
+        return value;
+```
+
+### RedundantClassCall
+Redundant call to `cast()`
+in `jnosql-mongodb-driver/src/main/java/org/eclipse/jnosql/communication/mongodb/document/MongoDBUtils.java`
+#### Snippet
+```java
         }
         if (isSudDocumentList(val)) {
             return StreamSupport.stream(Iterable.class.cast(val).spliterator(), false)
@@ -202,18 +384,6 @@ in `jnosql-mongodb-driver/src/main/java/org/eclipse/jnosql/communication/mongodb
 ```
 
 ### RedundantClassCall
-Redundant call to `cast()`
-in `jnosql-couchbase-driver/src/main/java/org/eclipse/jnosql/communication/couchbase/document/EntityConverter.java`
-#### Snippet
-```java
-
-    private static boolean isSudDocument(Object value) {
-        return value instanceof Iterable && stream(Iterable.class.cast(value).spliterator(), false).
-                allMatch(org.eclipse.jnosql.communication.document.Document.class::isInstance);
-    }
-```
-
-### RedundantClassCall
 Redundant call to `isInstance()`
 in `jnosql-couchbase-driver/src/main/java/org/eclipse/jnosql/communication/couchbase/document/EntityConverter.java`
 #### Snippet
@@ -235,42 +405,6 @@ in `jnosql-couchbase-driver/src/main/java/org/eclipse/jnosql/communication/couch
                 stream(Iterable.class.cast(value).spliterator(), false)
                         .allMatch(Map.class::isInstance);
     }
-```
-
-### RedundantClassCall
-Redundant call to `cast()`
-in `jnosql-couchbase-driver/src/main/java/org/eclipse/jnosql/communication/couchbase/document/EntityConverter.java`
-#### Snippet
-```java
-
-    private static void convertDocument(JsonObject jsonObject, Document d, Object value) {
-        Document document = Document.class.cast(value);
-        jsonObject.put(d.name(), Collections.singletonMap(document.name(), document.get()));
-    }
-```
-
-### RedundantClassCall
-Redundant call to `isInstance()`
-in `jnosql-couchbase-driver/src/main/java/org/eclipse/jnosql/communication/couchbase/document/EntityConverter.java`
-#### Snippet
-```java
-        return d -> {
-            Object value = ValueUtil.convert(d.value());
-            if (Document.class.isInstance(value)) {
-                convertDocument(jsonObject, d, value);
-            } else if (Iterable.class.isInstance(value)) {
-```
-
-### RedundantClassCall
-Redundant call to `isInstance()`
-in `jnosql-couchbase-driver/src/main/java/org/eclipse/jnosql/communication/couchbase/document/EntityConverter.java`
-#### Snippet
-```java
-            if (Document.class.isInstance(value)) {
-                convertDocument(jsonObject, d, value);
-            } else if (Iterable.class.isInstance(value)) {
-                convertIterable(jsonObject, d, value);
-            } else {
 ```
 
 ### RedundantClassCall
@@ -371,230 +505,134 @@ in `jnosql-couchbase-driver/src/main/java/org/eclipse/jnosql/communication/couch
 
 ### RedundantClassCall
 Redundant call to `cast()`
-in `jnosql-cassandra-driver/src/main/java/org/eclipse/jnosql/communication/cassandra/column/QueryExecutorType.java`
-#### Snippet
-```java
-                                            DefaultCassandraColumnManager manager) {
-
-            CassandraQuery query = CassandraQuery.class.cast(q);
-
-            if (query.isExhausted()) {
-```
-
-### RedundantClassCall
-Redundant call to `cast()`
-in `jnosql-arangodb-driver/src/main/java/org/eclipse/jnosql/communication/arangodb/document/ArangoDBUtil.java`
+in `jnosql-couchbase-driver/src/main/java/org/eclipse/jnosql/communication/couchbase/document/EntityConverter.java`
 #### Snippet
 ```java
 
-    private static Object getMap(Object val) {
-        return StreamSupport.stream(Iterable.class.cast(val).spliterator(), false)
-                .collect(toMap(KEY_DOCUMENT, VALUE_DOCUMENT));
+    private static void convertDocument(JsonObject jsonObject, Document d, Object value) {
+        Document document = Document.class.cast(value);
+        jsonObject.put(d.name(), Collections.singletonMap(document.name(), document.get()));
     }
 ```
 
 ### RedundantClassCall
 Redundant call to `isInstance()`
-in `jnosql-arangodb-driver/src/main/java/org/eclipse/jnosql/communication/arangodb/document/ArangoDBUtil.java`
+in `jnosql-couchbase-driver/src/main/java/org/eclipse/jnosql/communication/couchbase/document/EntityConverter.java`
 #### Snippet
 ```java
-
-    private static boolean isADocumentIterable(Object value) {
-        return Iterable.class.isInstance(value) &&
-                stream(Iterable.class.cast(value).spliterator(), false)
-                        .allMatch(Map.class::isInstance);
-```
-
-### RedundantClassCall
-Redundant call to `cast()`
-in `jnosql-arangodb-driver/src/main/java/org/eclipse/jnosql/communication/arangodb/document/ArangoDBUtil.java`
-#### Snippet
-```java
-    private static boolean isADocumentIterable(Object value) {
-        return Iterable.class.isInstance(value) &&
-                stream(Iterable.class.cast(value).spliterator(), false)
-                        .allMatch(Map.class::isInstance);
-    }
-```
-
-### RedundantClassCall
-Redundant call to `cast()`
-in `jnosql-arangodb-driver/src/main/java/org/eclipse/jnosql/communication/arangodb/document/ArangoDBUtil.java`
-#### Snippet
-```java
-
-    private static org.eclipse.jnosql.communication.document.Document cast(Object document) {
-        return org.eclipse.jnosql.communication.document.Document.class.cast(document);
-    }
-
-```
-
-### RedundantClassCall
-Redundant call to `cast()`
-in `jnosql-arangodb-driver/src/main/java/org/eclipse/jnosql/communication/arangodb/document/ArangoDBUtil.java`
-#### Snippet
-```java
-
-    private static boolean isSudDocument(Object value) {
-        return value instanceof Iterable && StreamSupport.stream(Iterable.class.cast(value).spliterator(), false).
-                allMatch(org.eclipse.jnosql.communication.document.Document.class::isInstance);
-    }
-```
-
-### RedundantClassCall
-Redundant call to `cast()`
-in `jnosql-arangodb-driver/src/main/java/org/eclipse/jnosql/communication/arangodb/document/ArangoDBUtil.java`
-#### Snippet
-```java
-
-    private static boolean isSudDocumentList(Object value) {
-        return value instanceof Iterable && StreamSupport.stream(Iterable.class.cast(value).spliterator(), false).
-                allMatch(d -> d instanceof Iterable && isSudDocument(d));
-    }
-```
-
-### RedundantClassCall
-Redundant call to `isInstance()`
-in `jnosql-arangodb-driver/src/main/java/org/eclipse/jnosql/communication/arangodb/document/ArangoDBUtil.java`
-#### Snippet
-```java
-        Object val = ValueUtil.convert(value);
-
-        if (Document.class.isInstance(val)) {
-            Document document = Document.class.cast(val);
-            return singletonMap(document.name(), convert(document.value()));
-```
-
-### RedundantClassCall
-Redundant call to `cast()`
-in `jnosql-arangodb-driver/src/main/java/org/eclipse/jnosql/communication/arangodb/document/ArangoDBUtil.java`
-#### Snippet
-```java
-
-        if (Document.class.isInstance(val)) {
-            Document document = Document.class.cast(val);
-            return singletonMap(document.name(), convert(document.value()));
-        }
-```
-
-### RedundantClassCall
-Redundant call to `cast()`
-in `jnosql-arangodb-driver/src/main/java/org/eclipse/jnosql/communication/arangodb/document/ArangoDBUtil.java`
-#### Snippet
-```java
-        }
-        if (isSudDocumentList(val)) {
-            return StreamSupport.stream(Iterable.class.cast(val).spliterator(), false)
-                    .map(ArangoDBUtil::getMap).collect(toList());
-        }
-```
-
-### RedundantClassCall
-Redundant call to `isInstance()`
-in `jnosql-arangodb-driver/src/main/java/org/eclipse/jnosql/communication/arangodb/document/ArangoDBUtil.java`
-#### Snippet
-```java
-    private static Document toDocument(String key, Map<String, Object> properties) {
-        Object value = properties.get(key);
-        if (Map.class.isInstance(value)) {
-            Map map = Map.class.cast(value);
-            return Document.of(key, map.keySet()
-```
-
-### RedundantClassCall
-Redundant call to `cast()`
-in `jnosql-arangodb-driver/src/main/java/org/eclipse/jnosql/communication/arangodb/document/ArangoDBUtil.java`
-#### Snippet
-```java
-        Object value = properties.get(key);
-        if (Map.class.isInstance(value)) {
-            Map map = Map.class.cast(value);
-            return Document.of(key, map.keySet()
-                    .stream().map(k -> toDocument(k.toString(), map))
-```
-
-### RedundantClassCall
-Redundant call to `cast()`
-in `jnosql-arangodb-driver/src/main/java/org/eclipse/jnosql/communication/arangodb/document/ArangoDBUtil.java`
-#### Snippet
-```java
-        if (isADocumentIterable(value)) {
-            List<List<Document>> documents = new ArrayList<>();
-            for (Object object : Iterable.class.cast(value)) {
-                Map<?, ?> map = Map.class.cast(object);
-                documents.add(map.entrySet().stream().map(ENTRY_DOCUMENT).collect(toList()));
-```
-
-### RedundantClassCall
-Redundant call to `cast()`
-in `jnosql-arangodb-driver/src/main/java/org/eclipse/jnosql/communication/arangodb/document/ArangoDBUtil.java`
-#### Snippet
-```java
-            List<List<Document>> documents = new ArrayList<>();
-            for (Object object : Iterable.class.cast(value)) {
-                Map<?, ?> map = Map.class.cast(object);
-                documents.add(map.entrySet().stream().map(ENTRY_DOCUMENT).collect(toList()));
-            }
-```
-
-### RedundantClassCall
-Redundant call to `cast()`
-in `jnosql-elasticsearch-driver/src/main/java/org/eclipse/jnosql/communication/elasticsearch/document/EntityConverter.java`
-#### Snippet
-```java
-
-    private static boolean isSudDocumentList(Object value) {
-        return value instanceof Iterable && StreamSupport.stream(Iterable.class.cast(value).spliterator(), false).
-                allMatch(d -> d instanceof Iterable && isSudDocument(d));
-    }
-```
-
-### RedundantClassCall
-Redundant call to `cast()`
-in `jnosql-elasticsearch-driver/src/main/java/org/eclipse/jnosql/communication/elasticsearch/document/EntityConverter.java`
-#### Snippet
-```java
+        return d -> {
             Object value = ValueUtil.convert(d.value());
-            if (value instanceof Document) {
-                Document subDocument = Document.class.cast(value);
-                jsonObject.put(d.name(), singletonMap(subDocument.name(), subDocument.get()));
-            } else if (isSudDocument(value)) {
+            if (Document.class.isInstance(value)) {
+                convertDocument(jsonObject, d, value);
+            } else if (Iterable.class.isInstance(value)) {
 ```
 
 ### RedundantClassCall
-Redundant call to `cast()`
-in `jnosql-elasticsearch-driver/src/main/java/org/eclipse/jnosql/communication/elasticsearch/document/EntityConverter.java`
+Redundant call to `isInstance()`
+in `jnosql-couchbase-driver/src/main/java/org/eclipse/jnosql/communication/couchbase/document/EntityConverter.java`
 #### Snippet
 ```java
-                jsonObject.put(d.name(), subDocument);
-            } else if (isSudDocumentList(value)) {
-                jsonObject.put(d.name(), StreamSupport.stream(Iterable.class.cast(value).spliterator(), false)
-                        .map(EntityConverter::getMap).collect(toList()));
+            if (Document.class.isInstance(value)) {
+                convertDocument(jsonObject, d, value);
+            } else if (Iterable.class.isInstance(value)) {
+                convertIterable(jsonObject, d, value);
             } else {
 ```
 
 ### RedundantClassCall
 Redundant call to `cast()`
-in `jnosql-elasticsearch-driver/src/main/java/org/eclipse/jnosql/communication/elasticsearch/document/EntityConverter.java`
+in `jnosql-couchbase-driver/src/main/java/org/eclipse/jnosql/communication/couchbase/document/EntityConverter.java`
 #### Snippet
 ```java
 
     private static boolean isSudDocument(Object value) {
-        return value instanceof Iterable && StreamSupport.stream(Iterable.class.cast(value).spliterator(), false).
+        return value instanceof Iterable && stream(Iterable.class.cast(value).spliterator(), false).
                 allMatch(org.eclipse.jnosql.communication.document.Document.class::isInstance);
     }
 ```
 
 ### RedundantClassCall
 Redundant call to `cast()`
-in `jnosql-elasticsearch-driver/src/main/java/org/eclipse/jnosql/communication/elasticsearch/document/EntityConverter.java`
+in `jnosql-couchdb-driver/src/main/java/org/eclipse/jnosql/communication/couchdb/document/HttpExecute.java`
 #### Snippet
 ```java
-    private static Map<String, Object> getMap(Object value) {
-        Map<String, Object> subDocument = new HashMap<>();
-        StreamSupport.stream(Iterable.class.cast(value).spliterator(),
-                false).forEach(feedJSON(subDocument));
-        return subDocument;
+        Map<String, Object> json = execute(request, JSON, HttpStatus.SC_OK);
+        if (query instanceof CouchDBDocumentQuery) {
+            CouchDBDocumentQuery.class.cast(query).setBookmark(json);
+        }
+        return (List<Map<String, Object>>) json.getOrDefault(CouchDBConstant.DOCS_RESPONSE, emptyList());
+```
+
+### RedundantClassCall
+Redundant call to `isInstance()`
+in `jnosql-redis-driver/src/main/java/org/eclipse/jnosql/communication/redis/keyvalue/RedisMap.java`
+#### Snippet
+```java
+            return true;
+        }
+        if (RedisMap.class.isInstance(obj)) {
+            RedisMap otherRedis = RedisMap.class.cast(obj);
+            return Objects.equals(otherRedis.nameSpace, nameSpace);
+```
+
+### RedundantClassCall
+Redundant call to `cast()`
+in `jnosql-redis-driver/src/main/java/org/eclipse/jnosql/communication/redis/keyvalue/RedisMap.java`
+#### Snippet
+```java
+        }
+        if (RedisMap.class.isInstance(obj)) {
+            RedisMap otherRedis = RedisMap.class.cast(obj);
+            return Objects.equals(otherRedis.nameSpace, nameSpace);
+        }
+```
+
+### RedundantClassCall
+Redundant call to `cast()`
+in `jnosql-ravendb-driver/src/main/java/org/eclipse/jnosql/communication/ravendb/document/DocumentQueryConverter.java`
+#### Snippet
+```java
+        if (EntityConverter.ID_FIELD.equals(name)) {
+            if (value instanceof Iterable) {
+                final Iterable iterable = Iterable.class.cast(value);
+                iterable.forEach(i -> ids.add(i.toString()));
+            } else {
+```
+
+### RedundantClassCall
+Redundant call to `isInstance()`
+in `jnosql-orientdb-driver/src/main/java/org/eclipse/jnosql/communication/orientdb/document/OrientDBConverter.java`
+#### Snippet
+```java
+    private static void toDocument(Map<String, Object> entityValues, Document document) {
+        Object value = ValueUtil.convert(document.value());
+        if (Document.class.isInstance(value)) {
+            Document subDocument = Document.class.cast(value);
+            entityValues.put(document.name(), singletonMap(subDocument.name(), subDocument.get()));
+```
+
+### RedundantClassCall
+Redundant call to `cast()`
+in `jnosql-orientdb-driver/src/main/java/org/eclipse/jnosql/communication/orientdb/document/OrientDBConverter.java`
+#### Snippet
+```java
+        Object value = ValueUtil.convert(document.value());
+        if (Document.class.isInstance(value)) {
+            Document subDocument = Document.class.cast(value);
+            entityValues.put(document.name(), singletonMap(subDocument.name(), subDocument.get()));
+        } else if (isDocumentIterable(value)) {
+```
+
+### RedundantClassCall
+Redundant call to `cast()`
+in `jnosql-orientdb-driver/src/main/java/org/eclipse/jnosql/communication/orientdb/document/OrientDBConverter.java`
+#### Snippet
+```java
+            entityValues.put(document.name(), getMap(value));
+        } else if (isSudDocumentList(value)) {
+            entityValues.put(document.name(), StreamSupport.stream(Iterable.class.cast(value).spliterator(), false)
+                    .map(OrientDBConverter::getMap).collect(toList()));
+        } else {
 ```
 
 ### RedundantClassCall
@@ -607,6 +645,54 @@ in `jnosql-orientdb-driver/src/main/java/org/eclipse/jnosql/communication/orient
         return value instanceof Iterable && StreamSupport.stream(Iterable.class.cast(value).spliterator(), false).
                 allMatch(d -> d instanceof Iterable && isDocumentIterable(d));
     }
+```
+
+### RedundantClassCall
+Redundant call to `isInstance()`
+in `jnosql-orientdb-driver/src/main/java/org/eclipse/jnosql/communication/orientdb/document/OrientDBConverter.java`
+#### Snippet
+```java
+
+    private static Object convert(Object object) {
+        if (Map.class.isInstance(object)) {
+            Map map = Map.class.cast(object);
+            return map.keySet().stream()
+```
+
+### RedundantClassCall
+Redundant call to `cast()`
+in `jnosql-orientdb-driver/src/main/java/org/eclipse/jnosql/communication/orientdb/document/OrientDBConverter.java`
+#### Snippet
+```java
+    private static Object convert(Object object) {
+        if (Map.class.isInstance(object)) {
+            Map map = Map.class.cast(object);
+            return map.keySet().stream()
+                    .map(k -> Document.of(k.toString(), map.get(k)))
+```
+
+### RedundantClassCall
+Redundant call to `isInstance()`
+in `jnosql-orientdb-driver/src/main/java/org/eclipse/jnosql/communication/orientdb/document/OrientDBConverter.java`
+#### Snippet
+```java
+                    .map(k -> Document.of(k.toString(), map.get(k)))
+                    .collect(toList());
+        } else if (List.class.isInstance(object)) {
+            return StreamSupport.stream(List.class.cast(object).spliterator(), false)
+                    .map(OrientDBConverter::convert).collect(toList());
+```
+
+### RedundantClassCall
+Redundant call to `cast()`
+in `jnosql-orientdb-driver/src/main/java/org/eclipse/jnosql/communication/orientdb/document/OrientDBConverter.java`
+#### Snippet
+```java
+                    .collect(toList());
+        } else if (List.class.isInstance(object)) {
+            return StreamSupport.stream(List.class.cast(object).spliterator(), false)
+                    .map(OrientDBConverter::convert).collect(toList());
+        }
 ```
 
 ### RedundantClassCall
@@ -659,278 +745,266 @@ in `jnosql-orientdb-driver/src/main/java/org/eclipse/jnosql/communication/orient
 
 ### RedundantClassCall
 Redundant call to `isInstance()`
-in `jnosql-orientdb-driver/src/main/java/org/eclipse/jnosql/communication/orientdb/document/OrientDBConverter.java`
+in `jnosql-elasticsearch-driver/src/main/java/org/eclipse/jnosql/communication/elasticsearch/document/ElasticsearchEntry.java`
 #### Snippet
 ```java
-    private static void toDocument(Map<String, Object> entityValues, Document document) {
-        Object value = ValueUtil.convert(document.value());
-        if (Document.class.isInstance(value)) {
-            Document subDocument = Document.class.cast(value);
-            entityValues.put(document.name(), singletonMap(subDocument.name(), subDocument.get()));
+
+    private boolean isADocumentIterable(Object value) {
+        return Iterable.class.isInstance(value) &&
+                stream(Iterable.class.cast(value).spliterator(), false)
+                        .allMatch(Map.class::isInstance);
 ```
 
 ### RedundantClassCall
 Redundant call to `cast()`
-in `jnosql-orientdb-driver/src/main/java/org/eclipse/jnosql/communication/orientdb/document/OrientDBConverter.java`
+in `jnosql-elasticsearch-driver/src/main/java/org/eclipse/jnosql/communication/elasticsearch/document/ElasticsearchEntry.java`
 #### Snippet
 ```java
-        Object value = ValueUtil.convert(document.value());
-        if (Document.class.isInstance(value)) {
-            Document subDocument = Document.class.cast(value);
-            entityValues.put(document.name(), singletonMap(subDocument.name(), subDocument.get()));
-        } else if (isDocumentIterable(value)) {
-```
-
-### RedundantClassCall
-Redundant call to `cast()`
-in `jnosql-orientdb-driver/src/main/java/org/eclipse/jnosql/communication/orientdb/document/OrientDBConverter.java`
-#### Snippet
-```java
-            entityValues.put(document.name(), getMap(value));
-        } else if (isSudDocumentList(value)) {
-            entityValues.put(document.name(), StreamSupport.stream(Iterable.class.cast(value).spliterator(), false)
-                    .map(OrientDBConverter::getMap).collect(toList()));
-        } else {
+    private boolean isADocumentIterable(Object value) {
+        return Iterable.class.isInstance(value) &&
+                stream(Iterable.class.cast(value).spliterator(), false)
+                        .allMatch(Map.class::isInstance);
+    }
 ```
 
 ### RedundantClassCall
 Redundant call to `isInstance()`
-in `jnosql-orientdb-driver/src/main/java/org/eclipse/jnosql/communication/orientdb/document/OrientDBConverter.java`
+in `jnosql-elasticsearch-driver/src/main/java/org/eclipse/jnosql/communication/elasticsearch/document/ElasticsearchEntry.java`
 #### Snippet
 ```java
-
-    private static Object convert(Object object) {
-        if (Map.class.isInstance(object)) {
-            Map map = Map.class.cast(object);
-            return map.keySet().stream()
+    private Document toDocument(String key, Map<String, Object> properties) {
+        Object value = properties.get(key);
+        if (Map.class.isInstance(value)) {
+            Map map = Map.class.cast(value);
+            return Document.of(key, map.keySet()
 ```
 
 ### RedundantClassCall
 Redundant call to `cast()`
-in `jnosql-orientdb-driver/src/main/java/org/eclipse/jnosql/communication/orientdb/document/OrientDBConverter.java`
+in `jnosql-elasticsearch-driver/src/main/java/org/eclipse/jnosql/communication/elasticsearch/document/ElasticsearchEntry.java`
 #### Snippet
 ```java
-    private static Object convert(Object object) {
-        if (Map.class.isInstance(object)) {
-            Map map = Map.class.cast(object);
-            return map.keySet().stream()
-                    .map(k -> Document.of(k.toString(), map.get(k)))
+        Object value = properties.get(key);
+        if (Map.class.isInstance(value)) {
+            Map map = Map.class.cast(value);
+            return Document.of(key, map.keySet()
+                    .stream().map(k -> toDocument(k.toString(), map))
+```
+
+### RedundantClassCall
+Redundant call to `cast()`
+in `jnosql-elasticsearch-driver/src/main/java/org/eclipse/jnosql/communication/elasticsearch/document/ElasticsearchEntry.java`
+#### Snippet
+```java
+        if (isADocumentIterable(value)) {
+            List<List<Document>> documents = new ArrayList<>();
+            for (Object object : Iterable.class.cast(value)) {
+                Map<?, ?> map = Map.class.cast(object);
+                documents.add(map.entrySet().stream().map(ENTRY_DOCUMENT).collect(toList()));
+```
+
+### RedundantClassCall
+Redundant call to `cast()`
+in `jnosql-elasticsearch-driver/src/main/java/org/eclipse/jnosql/communication/elasticsearch/document/ElasticsearchEntry.java`
+#### Snippet
+```java
+            List<List<Document>> documents = new ArrayList<>();
+            for (Object object : Iterable.class.cast(value)) {
+                Map<?, ?> map = Map.class.cast(object);
+                documents.add(map.entrySet().stream().map(ENTRY_DOCUMENT).collect(toList()));
+            }
 ```
 
 ### RedundantClassCall
 Redundant call to `isInstance()`
-in `jnosql-orientdb-driver/src/main/java/org/eclipse/jnosql/communication/orientdb/document/OrientDBConverter.java`
+in `jnosql-redis-driver/src/main/java/org/eclipse/jnosql/communication/redis/keyvalue/RedisCollection.java`
 #### Snippet
 ```java
-                    .map(k -> Document.of(k.toString(), map.get(k)))
-                    .collect(toList());
-        } else if (List.class.isInstance(object)) {
-            return StreamSupport.stream(List.class.cast(object).spliterator(), false)
-                    .map(OrientDBConverter::convert).collect(toList());
+            return true;
+        }
+        if (RedisCollection.class.isInstance(obj)) {
+            RedisCollection otherRedis = RedisCollection.class.cast(obj);
+            return Objects.equals(otherRedis.keyWithNameSpace, keyWithNameSpace);
 ```
 
 ### RedundantClassCall
 Redundant call to `cast()`
-in `jnosql-orientdb-driver/src/main/java/org/eclipse/jnosql/communication/orientdb/document/OrientDBConverter.java`
+in `jnosql-redis-driver/src/main/java/org/eclipse/jnosql/communication/redis/keyvalue/RedisCollection.java`
 #### Snippet
 ```java
-                    .collect(toList());
-        } else if (List.class.isInstance(object)) {
-            return StreamSupport.stream(List.class.cast(object).spliterator(), false)
-                    .map(OrientDBConverter::convert).collect(toList());
+        }
+        if (RedisCollection.class.isInstance(obj)) {
+            RedisCollection otherRedis = RedisCollection.class.cast(obj);
+            return Objects.equals(otherRedis.keyWithNameSpace, keyWithNameSpace);
         }
 ```
 
 ### RedundantClassCall
 Redundant call to `cast()`
-in `jnosql-ravendb-driver/src/main/java/org/eclipse/jnosql/communication/ravendb/document/DocumentQueryConverter.java`
+in `jnosql-arangodb-driver/src/main/java/org/eclipse/jnosql/communication/arangodb/document/ArangoDBUtil.java`
 #### Snippet
 ```java
-        if (EntityConverter.ID_FIELD.equals(name)) {
-            if (value instanceof Iterable) {
-                final Iterable iterable = Iterable.class.cast(value);
-                iterable.forEach(i -> ids.add(i.toString()));
-            } else {
-```
 
-### RedundantClassCall
-Redundant call to `cast()`
-in `jnosql-couchdb-driver/src/main/java/org/eclipse/jnosql/communication/couchdb/document/MangoQueryConverter.java`
-#### Snippet
-```java
-    private void appendNot(JsonObjectBuilder selector, Object value) {
-        JsonObjectBuilder not = Json.createObjectBuilder();
-        appendCondition(DocumentCondition.class.cast(value), not);
-        selector.add("$not", not.build());
+    private static boolean isSudDocumentList(Object value) {
+        return value instanceof Iterable && StreamSupport.stream(Iterable.class.cast(value).spliterator(), false).
+                allMatch(d -> d instanceof Iterable && isSudDocument(d));
     }
 ```
 
 ### RedundantClassCall
 Redundant call to `cast()`
-in `jnosql-couchdb-driver/src/main/java/org/eclipse/jnosql/communication/couchdb/document/MangoQueryConverter.java`
+in `jnosql-arangodb-driver/src/main/java/org/eclipse/jnosql/communication/arangodb/document/ArangoDBUtil.java`
 #### Snippet
 ```java
 
-        if (documentQuery instanceof CouchDBDocumentQuery) {
-            Optional<String> bookmark = CouchDBDocumentQuery.class.cast(documentQuery).getBookmark();
-            bookmark.ifPresent(b -> bookmark(b, select));
-        }
-```
-
-### RedundantClassCall
-Redundant call to `cast()`
-in `jnosql-couchdb-driver/src/main/java/org/eclipse/jnosql/communication/couchdb/document/MangoQueryConverter.java`
-#### Snippet
-```java
-        }
-        if (value instanceof Boolean) {
-            condition.add(name, Boolean.class.cast(value));
-            return;
-        }
-```
-
-### RedundantClassCall
-Redundant call to `cast()`
-in `jnosql-couchdb-driver/src/main/java/org/eclipse/jnosql/communication/couchdb/document/MangoQueryConverter.java`
-#### Snippet
-```java
-        }
-        if (value instanceof Number) {
-            condition.add(name, Number.class.cast(value).doubleValue());
-            return;
-        }
-```
-
-### RedundantClassCall
-Redundant call to `cast()`
-in `jnosql-couchdb-driver/src/main/java/org/eclipse/jnosql/communication/couchdb/document/MangoQueryConverter.java`
-#### Snippet
-```java
-        }
-        if (value instanceof JsonArray) {
-            condition.add(name, JsonArray.class.cast(value));
-            return;
-        }
-```
-
-### RedundantClassCall
-Redundant call to `cast()`
-in `jnosql-couchdb-driver/src/main/java/org/eclipse/jnosql/communication/couchdb/document/MangoQueryConverter.java`
-#### Snippet
-```java
-
-    private void appendCombination(JsonObjectBuilder selector, Object value, String combination) {
-        List<DocumentCondition> conditions = List.class.cast(value);
-        JsonArrayBuilder arrayBuilder = Json.createArrayBuilder();
-        for (DocumentCondition documentCondition : conditions) {
-```
-
-### RedundantClassCall
-Redundant call to `cast()`
-in `jnosql-couchdb-driver/src/main/java/org/eclipse/jnosql/communication/couchdb/document/HttpExecute.java`
-#### Snippet
-```java
-        Map<String, Object> json = execute(request, JSON, HttpStatus.SC_OK);
-        if (query instanceof CouchDBDocumentQuery) {
-            CouchDBDocumentQuery.class.cast(query).setBookmark(json);
-        }
-        return (List<Map<String, Object>>) json.getOrDefault(CouchDBConstant.DOCS_RESPONSE, emptyList());
+    private static Object getMap(Object val) {
+        return StreamSupport.stream(Iterable.class.cast(val).spliterator(), false)
+                .collect(toMap(KEY_DOCUMENT, VALUE_DOCUMENT));
+    }
 ```
 
 ### RedundantClassCall
 Redundant call to `isInstance()`
-in `jnosql-cassandra-driver/src/main/java/org/eclipse/jnosql/communication/cassandra/column/QueryUtils.java`
+in `jnosql-arangodb-driver/src/main/java/org/eclipse/jnosql/communication/arangodb/document/ArangoDBUtil.java`
 #### Snippet
 ```java
-                .collect(Collectors.toList());
-        for (Object object : elements) {
-            if (Column.class.isInstance(object)) {
-                Column column = Column.class.cast(object);
-                Object convert = ValueUtil.convert(column.value());
+        Object val = ValueUtil.convert(value);
+
+        if (Document.class.isInstance(val)) {
+            Document document = Document.class.cast(val);
+            return singletonMap(document.name(), convert(document.value()));
 ```
 
 ### RedundantClassCall
 Redundant call to `cast()`
-in `jnosql-cassandra-driver/src/main/java/org/eclipse/jnosql/communication/cassandra/column/QueryUtils.java`
+in `jnosql-arangodb-driver/src/main/java/org/eclipse/jnosql/communication/arangodb/document/ArangoDBUtil.java`
 #### Snippet
 ```java
-        for (Object object : elements) {
-            if (Column.class.isInstance(object)) {
-                Column column = Column.class.cast(object);
-                Object convert = ValueUtil.convert(column.value());
 
+        if (Document.class.isInstance(val)) {
+            Document document = Document.class.cast(val);
+            return singletonMap(document.name(), convert(document.value()));
+        }
+```
+
+### RedundantClassCall
+Redundant call to `cast()`
+in `jnosql-arangodb-driver/src/main/java/org/eclipse/jnosql/communication/arangodb/document/ArangoDBUtil.java`
+#### Snippet
+```java
+        }
+        if (isSudDocumentList(val)) {
+            return StreamSupport.stream(Iterable.class.cast(val).spliterator(), false)
+                    .map(ArangoDBUtil::getMap).collect(toList());
+        }
+```
+
+### RedundantClassCall
+Redundant call to `cast()`
+in `jnosql-arangodb-driver/src/main/java/org/eclipse/jnosql/communication/arangodb/document/ArangoDBUtil.java`
+#### Snippet
+```java
+
+    private static boolean isSudDocument(Object value) {
+        return value instanceof Iterable && StreamSupport.stream(Iterable.class.cast(value).spliterator(), false).
+                allMatch(org.eclipse.jnosql.communication.document.Document.class::isInstance);
+    }
 ```
 
 ### RedundantClassCall
 Redundant call to `isInstance()`
-in `jnosql-cassandra-driver/src/main/java/org/eclipse/jnosql/communication/cassandra/column/QueryUtils.java`
+in `jnosql-arangodb-driver/src/main/java/org/eclipse/jnosql/communication/arangodb/document/ArangoDBUtil.java`
 #### Snippet
 ```java
-                }
+    private static Document toDocument(String key, Map<String, Object> properties) {
+        Object value = properties.get(key);
+        if (Map.class.isInstance(value)) {
+            Map map = Map.class.cast(value);
+            return Document.of(key, map.keySet()
+```
 
-            } else if (Iterable.class.isInstance(object)) {
-                udtValues.add(getUdtValue(userType, Iterable.class.cast(Iterable.class.cast(object)), type));
+### RedundantClassCall
+Redundant call to `cast()`
+in `jnosql-arangodb-driver/src/main/java/org/eclipse/jnosql/communication/arangodb/document/ArangoDBUtil.java`
+#### Snippet
+```java
+        Object value = properties.get(key);
+        if (Map.class.isInstance(value)) {
+            Map map = Map.class.cast(value);
+            return Document.of(key, map.keySet()
+                    .stream().map(k -> toDocument(k.toString(), map))
+```
+
+### RedundantClassCall
+Redundant call to `cast()`
+in `jnosql-arangodb-driver/src/main/java/org/eclipse/jnosql/communication/arangodb/document/ArangoDBUtil.java`
+#### Snippet
+```java
+        if (isADocumentIterable(value)) {
+            List<List<Document>> documents = new ArrayList<>();
+            for (Object object : Iterable.class.cast(value)) {
+                Map<?, ?> map = Map.class.cast(object);
+                documents.add(map.entrySet().stream().map(ENTRY_DOCUMENT).collect(toList()));
+```
+
+### RedundantClassCall
+Redundant call to `cast()`
+in `jnosql-arangodb-driver/src/main/java/org/eclipse/jnosql/communication/arangodb/document/ArangoDBUtil.java`
+#### Snippet
+```java
+            List<List<Document>> documents = new ArrayList<>();
+            for (Object object : Iterable.class.cast(value)) {
+                Map<?, ?> map = Map.class.cast(object);
+                documents.add(map.entrySet().stream().map(ENTRY_DOCUMENT).collect(toList()));
             }
 ```
 
 ### RedundantClassCall
 Redundant call to `cast()`
-in `jnosql-cassandra-driver/src/main/java/org/eclipse/jnosql/communication/cassandra/column/QueryUtils.java`
+in `jnosql-arangodb-driver/src/main/java/org/eclipse/jnosql/communication/arangodb/document/ArangoDBUtil.java`
 #### Snippet
 ```java
 
-            } else if (Iterable.class.isInstance(object)) {
-                udtValues.add(getUdtValue(userType, Iterable.class.cast(Iterable.class.cast(object)), type));
-            }
-        }
-```
+    private static org.eclipse.jnosql.communication.document.Document cast(Object document) {
+        return org.eclipse.jnosql.communication.document.Document.class.cast(document);
+    }
 
-### RedundantClassCall
-Redundant call to `cast()`
-in `jnosql-cassandra-driver/src/main/java/org/eclipse/jnosql/communication/cassandra/column/QueryUtils.java`
-#### Snippet
-```java
-
-            } else if (Iterable.class.isInstance(object)) {
-                udtValues.add(getUdtValue(userType, Iterable.class.cast(Iterable.class.cast(object)), type));
-            }
-        }
-```
-
-### RedundantClassCall
-Redundant call to `cast()`
-in `jnosql-cassandra-driver/src/main/java/org/eclipse/jnosql/communication/cassandra/column/QueryUtils.java`
-#### Snippet
-```java
-
-        final DataType type = columnMetadata.getType();
-        Iterable elements = Iterable.class.cast(udt.get());
-        Object udtValue = getUdtValue(userType, elements, type);
-        values.put(getName(udt), QueryBuilder.literal(udtValue));
 ```
 
 ### RedundantClassCall
 Redundant call to `isInstance()`
-in `jnosql-cassandra-driver/src/main/java/org/eclipse/jnosql/communication/cassandra/column/QueryUtils.java`
+in `jnosql-arangodb-driver/src/main/java/org/eclipse/jnosql/communication/arangodb/document/ArangoDBUtil.java`
 #### Snippet
 ```java
-        entity.columns().stream()
-                .forEach(c -> {
-                    if (UDT.class.isInstance(c)) {
-                        insertUDT(UDT.class.cast(c), keyspace, entity.name(), session, values);
-                    } else {
+
+    private static boolean isADocumentIterable(Object value) {
+        return Iterable.class.isInstance(value) &&
+                stream(Iterable.class.cast(value).spliterator(), false)
+                        .allMatch(Map.class::isInstance);
 ```
 
 ### RedundantClassCall
 Redundant call to `cast()`
-in `jnosql-cassandra-driver/src/main/java/org/eclipse/jnosql/communication/cassandra/column/QueryUtils.java`
+in `jnosql-arangodb-driver/src/main/java/org/eclipse/jnosql/communication/arangodb/document/ArangoDBUtil.java`
 #### Snippet
 ```java
-                .forEach(c -> {
-                    if (UDT.class.isInstance(c)) {
-                        insertUDT(UDT.class.cast(c), keyspace, entity.name(), session, values);
-                    } else {
-                        insertSingleField(c, values);
+    private static boolean isADocumentIterable(Object value) {
+        return Iterable.class.isInstance(value) &&
+                stream(Iterable.class.cast(value).spliterator(), false)
+                        .allMatch(Map.class::isInstance);
+    }
+```
+
+### RedundantClassCall
+Redundant call to `cast()`
+in `jnosql-cassandra-driver/src/main/java/org/eclipse/jnosql/communication/cassandra/column/CassandraConverter.java`
+#### Snippet
+```java
+
+    private static boolean isUDTIterable(Object result) {
+        final Iterable<?> iterable = Iterable.class.cast(result);
+        if (!iterable.iterator().hasNext()) {
+            return false;
 ```
 
 ### RedundantClassCall
@@ -995,25 +1069,73 @@ in `jnosql-cassandra-driver/src/main/java/org/eclipse/jnosql/communication/cassa
 
 ### RedundantClassCall
 Redundant call to `cast()`
-in `jnosql-cassandra-driver/src/main/java/org/eclipse/jnosql/communication/cassandra/column/CassandraConverter.java`
+in `jnosql-couchdb-driver/src/main/java/org/eclipse/jnosql/communication/couchdb/document/MangoQueryConverter.java`
 #### Snippet
 ```java
 
-    private static boolean isUDTIterable(Object result) {
-        final Iterable<?> iterable = Iterable.class.cast(result);
-        if (!iterable.iterator().hasNext()) {
-            return false;
+        if (documentQuery instanceof CouchDBDocumentQuery) {
+            Optional<String> bookmark = CouchDBDocumentQuery.class.cast(documentQuery).getBookmark();
+            bookmark.ifPresent(b -> bookmark(b, select));
+        }
 ```
 
 ### RedundantClassCall
 Redundant call to `cast()`
-in `jnosql-orientdb-driver/src/main/java/org/eclipse/jnosql/communication/orientdb/document/DefaultOrientDBDocumentManager.java`
+in `jnosql-couchdb-driver/src/main/java/org/eclipse/jnosql/communication/couchdb/document/MangoQueryConverter.java`
 #### Snippet
 ```java
-            OResult next = command.next();
-            Object count = next.getProperty("count(*)");
-            return Number.class.cast(count).longValue();
+    private void appendNot(JsonObjectBuilder selector, Object value) {
+        JsonObjectBuilder not = Json.createObjectBuilder();
+        appendCondition(DocumentCondition.class.cast(value), not);
+        selector.add("$not", not.build());
+    }
+```
 
+### RedundantClassCall
+Redundant call to `cast()`
+in `jnosql-couchdb-driver/src/main/java/org/eclipse/jnosql/communication/couchdb/document/MangoQueryConverter.java`
+#### Snippet
+```java
+
+    private void appendCombination(JsonObjectBuilder selector, Object value, String combination) {
+        List<DocumentCondition> conditions = List.class.cast(value);
+        JsonArrayBuilder arrayBuilder = Json.createArrayBuilder();
+        for (DocumentCondition documentCondition : conditions) {
+```
+
+### RedundantClassCall
+Redundant call to `cast()`
+in `jnosql-couchdb-driver/src/main/java/org/eclipse/jnosql/communication/couchdb/document/MangoQueryConverter.java`
+#### Snippet
+```java
+        }
+        if (value instanceof Boolean) {
+            condition.add(name, Boolean.class.cast(value));
+            return;
+        }
+```
+
+### RedundantClassCall
+Redundant call to `cast()`
+in `jnosql-couchdb-driver/src/main/java/org/eclipse/jnosql/communication/couchdb/document/MangoQueryConverter.java`
+#### Snippet
+```java
+        }
+        if (value instanceof Number) {
+            condition.add(name, Number.class.cast(value).doubleValue());
+            return;
+        }
+```
+
+### RedundantClassCall
+Redundant call to `cast()`
+in `jnosql-couchdb-driver/src/main/java/org/eclipse/jnosql/communication/couchdb/document/MangoQueryConverter.java`
+#### Snippet
+```java
+        }
+        if (value instanceof JsonArray) {
+            condition.add(name, JsonArray.class.cast(value));
+            return;
         }
 ```
 
@@ -1091,62 +1213,14 @@ in `jnosql-ravendb-driver/src/main/java/org/eclipse/jnosql/communication/ravendb
 
 ### RedundantClassCall
 Redundant call to `cast()`
-in `jnosql-communication-driver-commons/src/main/java/org/eclipse/jnosql/communication/driver/ValueUtil.java`
-#### Snippet
-```java
-        if (val instanceof Iterable) {
-            List<Object> items = new ArrayList<>();
-            Iterable.class.cast(val).forEach(items::add);
-            if (items.size() == 1) {
-                Object item = items.get(0);
-```
-
-### RedundantClassCall
-Redundant call to `cast()`
-in `jnosql-communication-driver-commons/src/main/java/org/eclipse/jnosql/communication/driver/ValueUtil.java`
-#### Snippet
-```java
-                //check if it is dynamic params
-                if (PARAM_CLASS_NAME.equals(item.getClass().getName())) {
-                    Object params = Value.class.cast(item).get();
-                    if (params instanceof Iterable) {
-                        return getObjects(Iterable.class.cast(params));
-```
-
-### RedundantClassCall
-Redundant call to `cast()`
-in `jnosql-communication-driver-commons/src/main/java/org/eclipse/jnosql/communication/driver/ValueUtil.java`
-#### Snippet
-```java
-                    Object params = Value.class.cast(item).get();
-                    if (params instanceof Iterable) {
-                        return getObjects(Iterable.class.cast(params));
-                    } else {
-                        return Collections.singletonList(getObject(params));
-```
-
-### RedundantClassCall
-Redundant call to `cast()`
-in `jnosql-communication-driver-commons/src/main/java/org/eclipse/jnosql/communication/driver/ValueUtil.java`
+in `jnosql-solr-driver/src/main/java/org/eclipse/jnosql/communication/solr/document/SolrUtils.java`
 #### Snippet
 ```java
 
-    private static List<Object> getObjects(Object val) {
-        return (List<Object>) StreamSupport.stream(Iterable.class.cast(val).spliterator(), false)
-                .map(CONVERT).collect(toList());
+    private static boolean isSudDocument(Object value) {
+        return value instanceof Iterable && StreamSupport.stream(Iterable.class.cast(value).spliterator(), false).
+                allMatch(org.eclipse.jnosql.communication.document.Document.class::isInstance);
     }
-```
-
-### RedundantClassCall
-Redundant call to `cast()`
-in `jnosql-communication-driver-commons/src/main/java/org/eclipse/jnosql/communication/driver/ValueUtil.java`
-#### Snippet
-```java
-    private static final Function CONVERT = o -> {
-        if (o instanceof Value) {
-            return convert(Value.class.cast(o));
-        }
-        return getObject(o);
 ```
 
 ### RedundantClassCall
@@ -1163,18 +1237,6 @@ in `jnosql-solr-driver/src/main/java/org/eclipse/jnosql/communication/solr/docum
 
 ### RedundantClassCall
 Redundant call to `cast()`
-in `jnosql-solr-driver/src/main/java/org/eclipse/jnosql/communication/solr/document/SolrUtils.java`
-#### Snippet
-```java
-
-    private static boolean isSudDocument(Object value) {
-        return value instanceof Iterable && StreamSupport.stream(Iterable.class.cast(value).spliterator(), false).
-                allMatch(org.eclipse.jnosql.communication.document.Document.class::isInstance);
-    }
-```
-
-### RedundantClassCall
-Redundant call to `cast()`
 in `jnosql-ravendb-driver/src/main/java/org/eclipse/jnosql/communication/ravendb/document/EntityConverter.java`
 #### Snippet
 ```java
@@ -1183,18 +1245,6 @@ in `jnosql-ravendb-driver/src/main/java/org/eclipse/jnosql/communication/ravendb
         StreamSupport.stream(Iterable.class.cast(value).spliterator(),
                 false).forEach(feedJSON(subDocument));
         return subDocument;
-```
-
-### RedundantClassCall
-Redundant call to `cast()`
-in `jnosql-ravendb-driver/src/main/java/org/eclipse/jnosql/communication/ravendb/document/EntityConverter.java`
-#### Snippet
-```java
-
-    private static boolean isSudDocument(Object value) {
-        return value instanceof Iterable && StreamSupport.stream(Iterable.class.cast(value).spliterator(), false).
-                allMatch(org.eclipse.jnosql.communication.document.Document.class::isInstance);
-    }
 ```
 
 ### RedundantClassCall
@@ -1227,6 +1277,18 @@ in `jnosql-ravendb-driver/src/main/java/org/eclipse/jnosql/communication/ravendb
 #### Snippet
 ```java
 
+    private static boolean isSudDocument(Object value) {
+        return value instanceof Iterable && StreamSupport.stream(Iterable.class.cast(value).spliterator(), false).
+                allMatch(org.eclipse.jnosql.communication.document.Document.class::isInstance);
+    }
+```
+
+### RedundantClassCall
+Redundant call to `cast()`
+in `jnosql-ravendb-driver/src/main/java/org/eclipse/jnosql/communication/ravendb/document/EntityConverter.java`
+#### Snippet
+```java
+
     private static boolean isSudDocumentList(Object value) {
         return value instanceof Iterable && StreamSupport.stream(Iterable.class.cast(value).spliterator(), false).
                 allMatch(d -> d instanceof Iterable && isSudDocument(d));
@@ -1234,175 +1296,126 @@ in `jnosql-ravendb-driver/src/main/java/org/eclipse/jnosql/communication/ravendb
 ```
 
 ### RedundantClassCall
+Redundant call to `cast()`
+in `jnosql-cassandra-driver/src/main/java/org/eclipse/jnosql/communication/cassandra/column/QueryUtils.java`
+#### Snippet
+```java
+
+        final DataType type = columnMetadata.getType();
+        Iterable elements = Iterable.class.cast(udt.get());
+        Object udtValue = getUdtValue(userType, elements, type);
+        values.put(getName(udt), QueryBuilder.literal(udtValue));
+```
+
+### RedundantClassCall
 Redundant call to `isInstance()`
-in `jnosql-elasticsearch-driver/src/main/java/org/eclipse/jnosql/communication/elasticsearch/document/ElasticsearchEntry.java`
+in `jnosql-cassandra-driver/src/main/java/org/eclipse/jnosql/communication/cassandra/column/QueryUtils.java`
 #### Snippet
 ```java
-    private Document toDocument(String key, Map<String, Object> properties) {
-        Object value = properties.get(key);
-        if (Map.class.isInstance(value)) {
-            Map map = Map.class.cast(value);
-            return Document.of(key, map.keySet()
+                .collect(Collectors.toList());
+        for (Object object : elements) {
+            if (Column.class.isInstance(object)) {
+                Column column = Column.class.cast(object);
+                Object convert = ValueUtil.convert(column.value());
 ```
 
 ### RedundantClassCall
 Redundant call to `cast()`
-in `jnosql-elasticsearch-driver/src/main/java/org/eclipse/jnosql/communication/elasticsearch/document/ElasticsearchEntry.java`
+in `jnosql-cassandra-driver/src/main/java/org/eclipse/jnosql/communication/cassandra/column/QueryUtils.java`
 #### Snippet
 ```java
-        Object value = properties.get(key);
-        if (Map.class.isInstance(value)) {
-            Map map = Map.class.cast(value);
-            return Document.of(key, map.keySet()
-                    .stream().map(k -> toDocument(k.toString(), map))
+        for (Object object : elements) {
+            if (Column.class.isInstance(object)) {
+                Column column = Column.class.cast(object);
+                Object convert = ValueUtil.convert(column.value());
+
 ```
 
 ### RedundantClassCall
-Redundant call to `cast()`
-in `jnosql-elasticsearch-driver/src/main/java/org/eclipse/jnosql/communication/elasticsearch/document/ElasticsearchEntry.java`
+Redundant call to `isInstance()`
+in `jnosql-cassandra-driver/src/main/java/org/eclipse/jnosql/communication/cassandra/column/QueryUtils.java`
 #### Snippet
 ```java
-        if (isADocumentIterable(value)) {
-            List<List<Document>> documents = new ArrayList<>();
-            for (Object object : Iterable.class.cast(value)) {
-                Map<?, ?> map = Map.class.cast(object);
-                documents.add(map.entrySet().stream().map(ENTRY_DOCUMENT).collect(toList()));
-```
+                }
 
-### RedundantClassCall
-Redundant call to `cast()`
-in `jnosql-elasticsearch-driver/src/main/java/org/eclipse/jnosql/communication/elasticsearch/document/ElasticsearchEntry.java`
-#### Snippet
-```java
-            List<List<Document>> documents = new ArrayList<>();
-            for (Object object : Iterable.class.cast(value)) {
-                Map<?, ?> map = Map.class.cast(object);
-                documents.add(map.entrySet().stream().map(ENTRY_DOCUMENT).collect(toList()));
+            } else if (Iterable.class.isInstance(object)) {
+                udtValues.add(getUdtValue(userType, Iterable.class.cast(Iterable.class.cast(object)), type));
             }
 ```
 
 ### RedundantClassCall
-Redundant call to `isInstance()`
-in `jnosql-elasticsearch-driver/src/main/java/org/eclipse/jnosql/communication/elasticsearch/document/ElasticsearchEntry.java`
+Redundant call to `cast()`
+in `jnosql-cassandra-driver/src/main/java/org/eclipse/jnosql/communication/cassandra/column/QueryUtils.java`
 #### Snippet
 ```java
 
-    private boolean isADocumentIterable(Object value) {
-        return Iterable.class.isInstance(value) &&
-                stream(Iterable.class.cast(value).spliterator(), false)
-                        .allMatch(Map.class::isInstance);
+            } else if (Iterable.class.isInstance(object)) {
+                udtValues.add(getUdtValue(userType, Iterable.class.cast(Iterable.class.cast(object)), type));
+            }
+        }
 ```
 
 ### RedundantClassCall
 Redundant call to `cast()`
-in `jnosql-elasticsearch-driver/src/main/java/org/eclipse/jnosql/communication/elasticsearch/document/ElasticsearchEntry.java`
-#### Snippet
-```java
-    private boolean isADocumentIterable(Object value) {
-        return Iterable.class.isInstance(value) &&
-                stream(Iterable.class.cast(value).spliterator(), false)
-                        .allMatch(Map.class::isInstance);
-    }
-```
-
-### RedundantClassCall
-Redundant call to `isInstance()`
-in `jnosql-cassandra-driver/src/main/java/org/eclipse/jnosql/communication/cassandra/column/QueryExecutor.java`
+in `jnosql-cassandra-driver/src/main/java/org/eclipse/jnosql/communication/cassandra/column/QueryUtils.java`
 #### Snippet
 ```java
 
-    static QueryExecutor of(ColumnQuery query) {
-        if (CassandraQuery.class.isInstance(query)) {
-            return QueryExecutorType.PAGING_STATE;
+            } else if (Iterable.class.isInstance(object)) {
+                udtValues.add(getUdtValue(userType, Iterable.class.cast(Iterable.class.cast(object)), type));
+            }
         }
 ```
 
 ### RedundantClassCall
 Redundant call to `isInstance()`
-in `jnosql-redis-driver/src/main/java/org/eclipse/jnosql/communication/redis/keyvalue/RedisMap.java`
+in `jnosql-cassandra-driver/src/main/java/org/eclipse/jnosql/communication/cassandra/column/QueryUtils.java`
 #### Snippet
 ```java
-            return true;
-        }
-        if (RedisMap.class.isInstance(obj)) {
-            RedisMap otherRedis = RedisMap.class.cast(obj);
-            return Objects.equals(otherRedis.nameSpace, nameSpace);
+        entity.columns().stream()
+                .forEach(c -> {
+                    if (UDT.class.isInstance(c)) {
+                        insertUDT(UDT.class.cast(c), keyspace, entity.name(), session, values);
+                    } else {
 ```
 
 ### RedundantClassCall
 Redundant call to `cast()`
-in `jnosql-redis-driver/src/main/java/org/eclipse/jnosql/communication/redis/keyvalue/RedisMap.java`
+in `jnosql-cassandra-driver/src/main/java/org/eclipse/jnosql/communication/cassandra/column/QueryUtils.java`
 #### Snippet
 ```java
-        }
-        if (RedisMap.class.isInstance(obj)) {
-            RedisMap otherRedis = RedisMap.class.cast(obj);
-            return Objects.equals(otherRedis.nameSpace, nameSpace);
-        }
+                .forEach(c -> {
+                    if (UDT.class.isInstance(c)) {
+                        insertUDT(UDT.class.cast(c), keyspace, entity.name(), session, values);
+                    } else {
+                        insertSingleField(c, values);
 ```
 
-## RuleId[ruleID=DataFlowIssue]
-### DataFlowIssue
-Passing a non-null argument to `Optional`
-in `jnosql-infinispan-driver/src/main/java/org/eclipse/jnosql/communication/infinispan/keyvalue/InfinispanBucketManager.java`
+### RedundantClassCall
+Redundant call to `cast()`
+in `jnosql-orientdb-driver/src/main/java/org/eclipse/jnosql/communication/orientdb/document/DefaultOrientDBDocumentManager.java`
 #### Snippet
 ```java
-            return Optional.empty();
+            OResult next = command.next();
+            Object count = next.getProperty("count(*)");
+            return Number.class.cast(count).longValue();
+
         }
-        return Optional.ofNullable(Value.of(value));
-    }
-
-```
-
-### DataFlowIssue
-Passing a non-null argument to `Optional`
-in `jnosql-hazelcast-driver/src/main/java/org/eclipse/jnosql/communication/hazelcast/keyvalue/DefaultHazelcastBucketManager.java`
-#### Snippet
-```java
-            return Optional.empty();
-        }
-        return Optional.ofNullable(Value.of(value));
-    }
-
-```
-
-### DataFlowIssue
-Argument `row.getUdtValue(name)` might be null
-in `jnosql-cassandra-driver/src/main/java/org/eclipse/jnosql/communication/cassandra/column/CassandraConverter.java`
-#### Snippet
-```java
-        final DataType type = definition.getType();
-        if (type instanceof UserDefinedType) {
-            return getUDT(definition, row.getUdtValue(name));
-        }
-        final TypeCodec<Object> codec = row.codecRegistry().codecFor(type);
-```
-
-### DataFlowIssue
-Method invocation `getLong` may produce `NullPointerException`
-in `jnosql-cassandra-driver/src/main/java/org/eclipse/jnosql/communication/cassandra/column/DefaultCassandraColumnManager.java`
-#### Snippet
-```java
-        requireNonNull(columnFamily, "columnFamily is required");
-        final ResultSet execute = session.execute(QueryBuilder.selectFrom(keyspace, columnFamily).countAll().build());
-        return execute.one().getLong(0);
-    }
-
-```
-
-### DataFlowIssue
-Argument `password` might be null
-in `jnosql-memcached-driver/src/main/java/org/eclipse/jnosql/communication/memcached/keyvalue/MemcachedKeyValueConfiguration.java`
-#### Snippet
-```java
-                            , Configurations.PASSWORD)))
-                            .map(Object::toString).orElse(null);
-                    factoryBuilder.setAuthDescriptor(AuthDescriptor.typical(u, password));
-                });
-
 ```
 
 ## RuleId[ruleID=SimplifyStreamApiCallChains]
+### SimplifyStreamApiCallChains
+''stream().forEach()'' can be replaced with 'forEach()'' (may change semantics)
+in `jnosql-hbase-driver/src/main/java/org/eclipse/jnosql/communication/hbase/column/HBaseColumnManagerFactory.java`
+#### Snippet
+```java
+    private void createTable(Admin admin, TableName tableName) throws IOException {
+        final TableDescriptorBuilder builder = TableDescriptorBuilder.newBuilder(tableName);
+        families.stream().forEach(s -> builder.setColumnFamily(ColumnFamilyDescriptorBuilder.newBuilder(s.getBytes())
+                .build()));
+        final TableDescriptor descriptor = builder.build();
+```
+
 ### SimplifyStreamApiCallChains
 Can be replaced with 'collection.toArray()'
 in `jnosql-elasticsearch-driver/src/main/java/org/eclipse/jnosql/communication/elasticsearch/document/ElasticsearchDocumentConfiguration.java`
@@ -1440,15 +1453,15 @@ in `jnosql-orientdb-driver/src/main/java/org/eclipse/jnosql/communication/orient
 ```
 
 ### SimplifyStreamApiCallChains
-''stream().forEach()'' can be replaced with 'forEach()'' (may change semantics)
-in `jnosql-cassandra-driver/src/main/java/org/eclipse/jnosql/communication/cassandra/column/QueryUtils.java`
+Can be replaced with 'String.join'
+in `jnosql-couchbase-driver/src/main/java/org/eclipse/jnosql/communication/couchbase/document/N1QLBuilder.java`
 #### Snippet
 ```java
-        InsertInto insert = QueryBuilder.insertInto(keyspace, entity.name());
-        entity.columns().stream()
-                .forEach(c -> {
-                    if (UDT.class.isInstance(c)) {
-                        insertUDT(UDT.class.cast(c), keyspace, entity.name(), session, values);
+    private String select() {
+        String documents = query.documents().stream()
+                .collect(Collectors.joining(", "));
+        if (documents.isBlank()) {
+            return "*";
 ```
 
 ### SimplifyStreamApiCallChains
@@ -1465,26 +1478,14 @@ in `jnosql-solr-driver/src/main/java/org/eclipse/jnosql/communication/solr/docum
 
 ### SimplifyStreamApiCallChains
 ''stream().forEach()'' can be replaced with 'forEach()'' (may change semantics)
-in `jnosql-hbase-driver/src/main/java/org/eclipse/jnosql/communication/hbase/column/HBaseColumnManagerFactory.java`
+in `jnosql-cassandra-driver/src/main/java/org/eclipse/jnosql/communication/cassandra/column/QueryUtils.java`
 #### Snippet
 ```java
-    private void createTable(Admin admin, TableName tableName) throws IOException {
-        final TableDescriptorBuilder builder = TableDescriptorBuilder.newBuilder(tableName);
-        families.stream().forEach(s -> builder.setColumnFamily(ColumnFamilyDescriptorBuilder.newBuilder(s.getBytes())
-                .build()));
-        final TableDescriptor descriptor = builder.build();
-```
-
-### SimplifyStreamApiCallChains
-Can be replaced with 'String.join'
-in `jnosql-couchbase-driver/src/main/java/org/eclipse/jnosql/communication/couchbase/document/N1QLBuilder.java`
-#### Snippet
-```java
-    private String select() {
-        String documents = query.documents().stream()
-                .collect(Collectors.joining(", "));
-        if (documents.isBlank()) {
-            return "*";
+        InsertInto insert = QueryBuilder.insertInto(keyspace, entity.name());
+        entity.columns().stream()
+                .forEach(c -> {
+                    if (UDT.class.isInstance(c)) {
+                        insertUDT(UDT.class.cast(c), keyspace, entity.name(), session, values);
 ```
 
 ## RuleId[ruleID=StringOperationCanBeSimplified]
@@ -1512,19 +1513,6 @@ in `jnosql-couchdb-driver/src/main/java/org/eclipse/jnosql/communication/couchdb
             throw ex;
 ```
 
-## RuleId[ruleID=OptionalContainsCollection]
-### OptionalContainsCollection
-'Optional' contains array `char[]`
-in `jnosql-mongodb-driver/src/main/java/org/eclipse/jnosql/communication/mongodb/document/MongoAuthentication.java`
-#### Snippet
-```java
-                .map(Object::toString);
-
-        Optional<char[]> password = settings.getSupplier(Arrays.asList(MongoDBDocumentConfigurations.PASSWORD,
-                Configurations.PASSWORD))
-                .map(Object::toString).map(String::toCharArray);
-```
-
 ## RuleId[ruleID=DeprecatedIsStillUsed]
 ### DeprecatedIsStillUsed
 Deprecated member 'delete' is still used
@@ -1536,6 +1524,19 @@ in `jnosql-redis-driver/src/main/java/org/eclipse/jnosql/communication/redis/key
     void delete();
 
     /**
+```
+
+## RuleId[ruleID=OptionalContainsCollection]
+### OptionalContainsCollection
+'Optional' contains array `char[]`
+in `jnosql-mongodb-driver/src/main/java/org/eclipse/jnosql/communication/mongodb/document/MongoAuthentication.java`
+#### Snippet
+```java
+                .map(Object::toString);
+
+        Optional<char[]> password = settings.getSupplier(Arrays.asList(MongoDBDocumentConfigurations.PASSWORD,
+                Configurations.PASSWORD))
+                .map(Object::toString).map(String::toCharArray);
 ```
 
 ## RuleId[ruleID=KeySetIterationMayUseEntrySet]
@@ -1566,110 +1567,14 @@ in `jnosql-redis-driver/src/main/java/org/eclipse/jnosql/communication/redis/key
 ## RuleId[ruleID=StringBufferReplaceableByString]
 ### StringBufferReplaceableByString
 `StringBuilder sb` can be replaced with 'String'
-in `jnosql-redis-driver/src/main/java/org/eclipse/jnosql/communication/redis/keyvalue/DefaultCounter.java`
+in `jnosql-elasticsearch-driver/src/main/java/org/eclipse/jnosql/communication/elasticsearch/document/ElasticsearchAddress.java`
 #### Snippet
 ```java
     @Override
     public String toString() {
-        final StringBuilder sb = new StringBuilder("Counter{");
-        sb.append("key='").append(key).append('\'');
-        sb.append('}');
-```
-
-### StringBufferReplaceableByString
-`StringBuilder sb` can be replaced with 'String'
-in `jnosql-redis-driver/src/main/java/org/eclipse/jnosql/communication/redis/keyvalue/DefaultRedisBucketManagerFactory.java`
-#### Snippet
-```java
-    @Override
-    public String toString() {
-        final StringBuilder sb = new StringBuilder("RedisBucketManagerFactory{");
-        sb.append("jedisPool=").append(jedisPool);
-        sb.append('}');
-```
-
-### StringBufferReplaceableByString
-`StringBuilder sb` can be replaced with 'String'
-in `jnosql-redis-driver/src/main/java/org/eclipse/jnosql/communication/redis/keyvalue/DefaultSortedSet.java`
-#### Snippet
-```java
-    @Override
-    public String toString() {
-        final StringBuilder sb = new StringBuilder("SortedSet{");
-        sb.append("key='").append(key).append('\'');
-        sb.append('}');
-```
-
-### StringBufferReplaceableByString
-`StringBuilder sb` can be replaced with 'String'
-in `jnosql-cassandra-driver/src/main/java/org/eclipse/jnosql/communication/cassandra/column/CassandraQuery.java`
-#### Snippet
-```java
-    @Override
-    public String toString() {
-        final StringBuilder sb = new StringBuilder("CouchDBDocumentQuery{");
-        sb.append("query=").append(query);
-        sb.append(", pagingState='").append(pagingState).append('\'');
-```
-
-### StringBufferReplaceableByString
-`StringBuilder sb` can be replaced with 'String'
-in `jnosql-redis-driver/src/main/java/org/eclipse/jnosql/communication/redis/keyvalue/DefaultRanking.java`
-#### Snippet
-```java
-    @Override
-    public String toString() {
-        final StringBuilder sb = new StringBuilder("DefaultRanking{");
-        sb.append("point=").append(point);
-        sb.append(", member='").append(member).append('\'');
-```
-
-### StringBufferReplaceableByString
-`StringBuilder sb` can be replaced with 'String'
-in `jnosql-cassandra-driver/src/main/java/org/eclipse/jnosql/communication/cassandra/column/IterableUDT.java`
-#### Snippet
-```java
-    @Override
-    public String toString() {
-        final StringBuilder sb = new StringBuilder("UDT{");
-        sb.append("name='").append(name).append('\'');
-        sb.append(", userType='").append(userType).append('\'');
-```
-
-### StringBufferReplaceableByString
-`StringBuilder sb` can be replaced with 'String'
-in `jnosql-ravendb-driver/src/main/java/org/eclipse/jnosql/communication/ravendb/document/RavenDBDocumentManagerFactory.java`
-#### Snippet
-```java
-    @Override
-    public String toString() {
-        final StringBuilder sb = new StringBuilder("RavenDBDocumentManagerFactory{");
-        sb.append("hosts=").append(Arrays.toString(hosts));
-        sb.append('}');
-```
-
-### StringBufferReplaceableByString
-`StringBuilder sb` can be replaced with 'String'
-in `jnosql-couchdb-driver/src/main/java/org/eclipse/jnosql/communication/couchdb/document/DeleteElement.java`
-#### Snippet
-```java
-    @Override
-    public String toString() {
-        final StringBuilder sb = new StringBuilder("DeleteElement{");
-        sb.append("id='").append(id).append('\'');
-        sb.append(", rev='").append(rev).append('\'');
-```
-
-### StringBufferReplaceableByString
-`StringBuilder sb` can be replaced with 'String'
-in `jnosql-couchdb-driver/src/main/java/org/eclipse/jnosql/communication/couchdb/document/CouchDBDocumentQuery.java`
-#### Snippet
-```java
-    @Override
-    public String toString() {
-        final StringBuilder sb = new StringBuilder("CouchDBDocumentQuery{");
-        sb.append("query=").append(query);
-        sb.append(", bookmark='").append(bookmark).append('\'');
+        final StringBuilder sb = new StringBuilder("ElasticsearchAddress{");
+        sb.append("host='").append(host.getHostName()).append('\'');
+        sb.append(", port=").append(host.getPort());
 ```
 
 ### StringBufferReplaceableByString
@@ -1698,38 +1603,26 @@ in `jnosql-hbase-driver/src/main/java/org/eclipse/jnosql/communication/hbase/col
 
 ### StringBufferReplaceableByString
 `StringBuilder sb` can be replaced with 'String'
-in `jnosql-cassandra-driver/src/main/java/org/eclipse/jnosql/communication/cassandra/column/DefaultUDT.java`
+in `jnosql-ravendb-driver/src/main/java/org/eclipse/jnosql/communication/ravendb/document/RavenDBDocumentManagerFactory.java`
 #### Snippet
 ```java
     @Override
     public String toString() {
-        final StringBuilder sb = new StringBuilder("UDT{");
-        sb.append("name='").append(name).append('\'');
-        sb.append(", userType='").append(userType).append('\'');
+        final StringBuilder sb = new StringBuilder("RavenDBDocumentManagerFactory{");
+        sb.append("hosts=").append(Arrays.toString(hosts));
+        sb.append('}');
 ```
 
 ### StringBufferReplaceableByString
 `StringBuilder sb` can be replaced with 'String'
-in `jnosql-cassandra-driver/src/main/java/org/eclipse/jnosql/communication/cassandra/column/CassandraColumnManagerFactory.java`
+in `jnosql-couchdb-driver/src/main/java/org/eclipse/jnosql/communication/couchdb/document/CouchDBDocumentQuery.java`
 #### Snippet
 ```java
     @Override
     public String toString() {
-        final StringBuilder sb = new StringBuilder("CassandraColumnManagerFactory{");
-        sb.append("cluster=").append(sessionBuilder);
-        sb.append(", executor=").append(executor);
-```
-
-### StringBufferReplaceableByString
-`StringBuilder sb` can be replaced with 'String'
-in `jnosql-elasticsearch-driver/src/main/java/org/eclipse/jnosql/communication/elasticsearch/document/ElasticsearchAddress.java`
-#### Snippet
-```java
-    @Override
-    public String toString() {
-        final StringBuilder sb = new StringBuilder("ElasticsearchAddress{");
-        sb.append("host='").append(host.getHostName()).append('\'');
-        sb.append(", port=").append(host.getPort());
+        final StringBuilder sb = new StringBuilder("CouchDBDocumentQuery{");
+        sb.append("query=").append(query);
+        sb.append(", bookmark='").append(bookmark).append('\'');
 ```
 
 ### StringBufferReplaceableByString
@@ -1742,6 +1635,114 @@ in `jnosql-redis-driver/src/main/java/org/eclipse/jnosql/communication/redis/key
         final StringBuilder sb = new StringBuilder("RedisMap{");
         sb.append("keyClass=").append(keyClass);
         sb.append(", valueClass=").append(valueClass);
+```
+
+### StringBufferReplaceableByString
+`StringBuilder sb` can be replaced with 'String'
+in `jnosql-cassandra-driver/src/main/java/org/eclipse/jnosql/communication/cassandra/column/DefaultUDT.java`
+#### Snippet
+```java
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder("UDT{");
+        sb.append("name='").append(name).append('\'');
+        sb.append(", userType='").append(userType).append('\'');
+```
+
+### StringBufferReplaceableByString
+`StringBuilder sb` can be replaced with 'String'
+in `jnosql-redis-driver/src/main/java/org/eclipse/jnosql/communication/redis/keyvalue/DefaultRedisBucketManagerFactory.java`
+#### Snippet
+```java
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder("RedisBucketManagerFactory{");
+        sb.append("jedisPool=").append(jedisPool);
+        sb.append('}');
+```
+
+### StringBufferReplaceableByString
+`StringBuilder sb` can be replaced with 'String'
+in `jnosql-redis-driver/src/main/java/org/eclipse/jnosql/communication/redis/keyvalue/DefaultCounter.java`
+#### Snippet
+```java
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder("Counter{");
+        sb.append("key='").append(key).append('\'');
+        sb.append('}');
+```
+
+### StringBufferReplaceableByString
+`StringBuilder sb` can be replaced with 'String'
+in `jnosql-redis-driver/src/main/java/org/eclipse/jnosql/communication/redis/keyvalue/DefaultSortedSet.java`
+#### Snippet
+```java
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder("SortedSet{");
+        sb.append("key='").append(key).append('\'');
+        sb.append('}');
+```
+
+### StringBufferReplaceableByString
+`StringBuilder sb` can be replaced with 'String'
+in `jnosql-couchdb-driver/src/main/java/org/eclipse/jnosql/communication/couchdb/document/DeleteElement.java`
+#### Snippet
+```java
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder("DeleteElement{");
+        sb.append("id='").append(id).append('\'');
+        sb.append(", rev='").append(rev).append('\'');
+```
+
+### StringBufferReplaceableByString
+`StringBuilder sb` can be replaced with 'String'
+in `jnosql-cassandra-driver/src/main/java/org/eclipse/jnosql/communication/cassandra/column/CassandraQuery.java`
+#### Snippet
+```java
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder("CouchDBDocumentQuery{");
+        sb.append("query=").append(query);
+        sb.append(", pagingState='").append(pagingState).append('\'');
+```
+
+### StringBufferReplaceableByString
+`StringBuilder sb` can be replaced with 'String'
+in `jnosql-cassandra-driver/src/main/java/org/eclipse/jnosql/communication/cassandra/column/IterableUDT.java`
+#### Snippet
+```java
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder("UDT{");
+        sb.append("name='").append(name).append('\'');
+        sb.append(", userType='").append(userType).append('\'');
+```
+
+### StringBufferReplaceableByString
+`StringBuilder sb` can be replaced with 'String'
+in `jnosql-redis-driver/src/main/java/org/eclipse/jnosql/communication/redis/keyvalue/DefaultRanking.java`
+#### Snippet
+```java
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder("DefaultRanking{");
+        sb.append("point=").append(point);
+        sb.append(", member='").append(member).append('\'');
+```
+
+### StringBufferReplaceableByString
+`StringBuilder sb` can be replaced with 'String'
+in `jnosql-cassandra-driver/src/main/java/org/eclipse/jnosql/communication/cassandra/column/CassandraColumnManagerFactory.java`
+#### Snippet
+```java
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder("CassandraColumnManagerFactory{");
+        sb.append("cluster=").append(sessionBuilder);
+        sb.append(", executor=").append(executor);
 ```
 
 ## RuleId[ruleID=UnnecessaryReturn]
@@ -1770,17 +1771,42 @@ in `jnosql-couchdb-driver/src/main/java/org/eclipse/jnosql/communication/couchdb
     }
 ```
 
+## RuleId[ruleID=AbstractClassNeverImplemented]
+### AbstractClassNeverImplemented
+Abstract class `RedisUtils` has no concrete subclass
+in `jnosql-redis-driver/src/main/java/org/eclipse/jnosql/communication/redis/keyvalue/RedisUtils.java`
+#### Snippet
+```java
+package org.eclipse.jnosql.communication.redis.keyvalue;
+
+abstract class RedisUtils {
+
+
+```
+
 ## RuleId[ruleID=BoundedWildcard]
 ### BoundedWildcard
-Can generalize to `? extends JsonObject`
-in `jnosql-couchbase-driver/src/main/java/org/eclipse/jnosql/communication/couchbase/document/EntityConverter.java`
+Can generalize to `? extends Column`
+in `jnosql-cassandra-driver/src/main/java/org/eclipse/jnosql/communication/cassandra/column/UDTBuilder.java`
+#### Snippet
+```java
+
+    @Override
+    public UDTBuilder addUDT(Iterable<Column> udt) throws NullPointerException {
+        Objects.requireNonNull(udt, "udt is required");
+        StreamSupport.stream(udt.spliterator(), false).forEach(this.columns::add);
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `jnosql-hbase-driver/src/main/java/org/eclipse/jnosql/communication/hbase/column/HBaseColumnManager.java`
 #### Snippet
 ```java
 
 
-    static Stream<DocumentEntity> convert(List<JsonObject> result, String database) {
-        return
-                result.stream()
+    private void convert(ColumnCondition columnCondition, List<String> values) {
+        Condition condition = columnCondition.condition();
+
 ```
 
 ### BoundedWildcard
@@ -1808,27 +1834,15 @@ in `jnosql-elasticsearch-driver/src/main/java/org/eclipse/jnosql/communication/e
 ```
 
 ### BoundedWildcard
-Can generalize to `? super String`
-in `jnosql-orientdb-driver/src/main/java/org/eclipse/jnosql/communication/orientdb/document/OrientDBConverter.java`
-#### Snippet
-```java
-    }
-
-    private static void toDocument(Map<String, Object> entityValues, Document document) {
-        Object value = ValueUtil.convert(document.value());
-        if (Document.class.isInstance(value)) {
-```
-
-### BoundedWildcard
-Can generalize to `? super ORecordId`
-in `jnosql-orientdb-driver/src/main/java/org/eclipse/jnosql/communication/orientdb/document/QueryOSQLConverter.java`
+Can generalize to `? extends JsonObject`
+in `jnosql-couchbase-driver/src/main/java/org/eclipse/jnosql/communication/couchbase/document/EntityConverter.java`
 #### Snippet
 ```java
 
-    private static void appendCondition(StringBuilder query, List<Object> params,
-                                        Document document, String condition, List<ORecordId> ids) {
 
-        if(OrientDBConverter.RID_FIELD.equals(document.name())) {
+    static Stream<DocumentEntity> convert(List<JsonObject> result, String database) {
+        return
+                result.stream()
 ```
 
 ### BoundedWildcard
@@ -1844,18 +1858,6 @@ in `jnosql-couchdb-driver/src/main/java/org/eclipse/jnosql/communication/couchdb
 ```
 
 ### BoundedWildcard
-Can generalize to `? super String`
-in `jnosql-ravendb-driver/src/main/java/org/eclipse/jnosql/communication/ravendb/document/DocumentQueryConverter.java`
-#### Snippet
-```java
-    }
-
-    private static void feedQuery(IDocumentQuery<HashMap> ravenQuery, DocumentCondition condition, List<String> ids) {
-        Document document = condition.document();
-        Object value = document.get();
-```
-
-### BoundedWildcard
 Can generalize to `? extends Bson`
 in `jnosql-mongodb-driver/src/main/java/org/eclipse/jnosql/communication/mongodb/document/MongoDBDocumentManager.java`
 #### Snippet
@@ -1868,147 +1870,27 @@ in `jnosql-mongodb-driver/src/main/java/org/eclipse/jnosql/communication/mongodb
 ```
 
 ### BoundedWildcard
-Can generalize to `? super Relation`
-in `jnosql-cassandra-driver/src/main/java/org/eclipse/jnosql/communication/cassandra/column/Relations.java`
+Can generalize to `? extends V`
+in `jnosql-redis-driver/src/main/java/org/eclipse/jnosql/communication/redis/keyvalue/RedisMap.java`
 #### Snippet
 ```java
-    }
 
-    private static void load(ColumnCondition columnCondition, List<Relation> relations) {
 
-        Column column = columnCondition.column();
+    RedisMap(Jedis jedis, Class<K> keyValue, Class<V> valueClass, String keyWithNameSpace) {
+        this.keyClass = keyValue;
+        this.valueClass = valueClass;
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends Column`
-in `jnosql-cassandra-driver/src/main/java/org/eclipse/jnosql/communication/cassandra/column/UDTBuilder.java`
+Can generalize to `? super ORecordId`
+in `jnosql-orientdb-driver/src/main/java/org/eclipse/jnosql/communication/orientdb/document/QueryOSQLConverter.java`
 #### Snippet
 ```java
 
-    @Override
-    public UDTBuilder addUDT(Iterable<Column> udt) throws NullPointerException {
-        Objects.requireNonNull(udt, "udt is required");
-        StreamSupport.stream(udt.spliterator(), false).forEach(this.columns::add);
-```
+    private static void appendCondition(StringBuilder query, List<Object> params,
+                                        Document document, String condition, List<ORecordId> ids) {
 
-### BoundedWildcard
-Can generalize to `? extends Map`
-in `jnosql-dynamodb-driver/src/main/java/org/eclipse/jnosql/communication/dynamodb/DynamoDBUtils.java`
-#### Snippet
-```java
-    }
-
-    private static Map<String, List<WriteRequest>> createMapWriteRequest(Collection<Map<String, AttributeValue>> map, String tableName) {
-
-        PutRequest.Builder putRequestBuilder = PutRequest.builder();
-```
-
-### BoundedWildcard
-Can generalize to `? extends KeyValueEntity`
-in `jnosql-dynamodb-driver/src/main/java/org/eclipse/jnosql/communication/dynamodb/DynamoDBUtils.java`
-#### Snippet
-```java
-    }
-
-    public static <K> Collection<Map<String, AttributeValue>> createAttributeValues(Iterable<KeyValueEntity> entities) {
-
-        return StreamSupport.stream(entities.spliterator(), false)
-```
-
-### BoundedWildcard
-Can generalize to `? super List`
-in `jnosql-orientdb-driver/src/main/java/org/eclipse/jnosql/communication/orientdb/document/QueryOSQLFactory.java`
-#### Snippet
-```java
-    }
-
-    static QueryResultAsync toAsync(String query, Consumer<List<ODocument>> callBack, Object... params) {
-        return new QueryResultAsync(new OSQLAsynchQuery<>(query, new OCommandResultListener() {
-            private List<ODocument> documents = new ArrayList<>();
-```
-
-### BoundedWildcard
-Can generalize to `? super Stream`
-in `jnosql-orientdb-driver/src/main/java/org/eclipse/jnosql/communication/orientdb/document/QueryOSQLFactory.java`
-#### Snippet
-```java
-    }
-
-    static QueryResultAsync toAsync(DocumentQuery documentQuery, Consumer<Stream<ODocument>> callBack) {
-        QueryOSQLConverter.Query query = QueryOSQLConverter.select(documentQuery);
-
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `jnosql-cassandra-driver/src/main/java/org/eclipse/jnosql/communication/cassandra/column/QueryUtils.java`
-#### Snippet
-```java
-
-    private static void insertUDT(UDT udt, String keyspace, String columnFamily, CqlSession session,
-                                  Map<String, Term> values) {
-
-        final Optional<KeyspaceMetadata> keyspaceMetadata = session.getMetadata().getKeyspace(keyspace);
-```
-
-### BoundedWildcard
-Can generalize to `? super Term`
-in `jnosql-cassandra-driver/src/main/java/org/eclipse/jnosql/communication/cassandra/column/QueryUtils.java`
-#### Snippet
-```java
-
-    private static void insertUDT(UDT udt, String keyspace, String columnFamily, CqlSession session,
-                                  Map<String, Term> values) {
-
-        final Optional<KeyspaceMetadata> keyspaceMetadata = session.getMetadata().getKeyspace(keyspace);
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `jnosql-cassandra-driver/src/main/java/org/eclipse/jnosql/communication/cassandra/column/QueryUtils.java`
-#### Snippet
-```java
-    }
-
-    private static void insertSingleField(Column column, Map<String, Term> values) {
-        Object value = column.get();
-        try {
-```
-
-### BoundedWildcard
-Can generalize to `? super Term`
-in `jnosql-cassandra-driver/src/main/java/org/eclipse/jnosql/communication/cassandra/column/QueryUtils.java`
-#### Snippet
-```java
-    }
-
-    private static void insertSingleField(Column column, Map<String, Term> values) {
-        Object value = column.get();
-        try {
-```
-
-### BoundedWildcard
-Can generalize to `? super DocumentEntity`
-in `jnosql-orientdb-driver/src/main/java/org/eclipse/jnosql/communication/orientdb/document/LiveQueryListener.java`
-#### Snippet
-```java
-    private final ODatabaseSession tx;
-
-    LiveQueryListener(OrientDBLiveCallback<DocumentEntity> callbacks, ODatabaseSession tx) {
-        this.callbacks = callbacks;
-        this.tx = tx;
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `jnosql-elasticsearch-driver/src/main/java/org/eclipse/jnosql/communication/elasticsearch/document/QueryConverter.java`
-#### Snippet
-```java
-
-
-    private static Query.Builder getCondition(DocumentCondition condition, List<String> ids) {
-        Document document = condition.document();
-
+        if(OrientDBConverter.RID_FIELD.equals(document.name())) {
 ```
 
 ### BoundedWildcard
@@ -2037,6 +1919,78 @@ in `jnosql-cassandra-driver/src/main/java/org/eclipse/jnosql/communication/cassa
 
 ### BoundedWildcard
 Can generalize to `? super String`
+in `jnosql-ravendb-driver/src/main/java/org/eclipse/jnosql/communication/ravendb/document/DocumentQueryConverter.java`
+#### Snippet
+```java
+    }
+
+    private static void feedQuery(IDocumentQuery<HashMap> ravenQuery, DocumentCondition condition, List<String> ids) {
+        Document document = condition.document();
+        Object value = document.get();
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `jnosql-orientdb-driver/src/main/java/org/eclipse/jnosql/communication/orientdb/document/OrientDBConverter.java`
+#### Snippet
+```java
+    }
+
+    private static void toDocument(Map<String, Object> entityValues, Document document) {
+        Object value = ValueUtil.convert(document.value());
+        if (Document.class.isInstance(value)) {
+```
+
+### BoundedWildcard
+Can generalize to `? super DocumentEntity`
+in `jnosql-orientdb-driver/src/main/java/org/eclipse/jnosql/communication/orientdb/document/LiveQueryListener.java`
+#### Snippet
+```java
+    private final ODatabaseSession tx;
+
+    LiveQueryListener(OrientDBLiveCallback<DocumentEntity> callbacks, ODatabaseSession tx) {
+        this.callbacks = callbacks;
+        this.tx = tx;
+```
+
+### BoundedWildcard
+Can generalize to `? super Stream`
+in `jnosql-orientdb-driver/src/main/java/org/eclipse/jnosql/communication/orientdb/document/QueryOSQLFactory.java`
+#### Snippet
+```java
+    }
+
+    static QueryResultAsync toAsync(DocumentQuery documentQuery, Consumer<Stream<ODocument>> callBack) {
+        QueryOSQLConverter.Query query = QueryOSQLConverter.select(documentQuery);
+
+```
+
+### BoundedWildcard
+Can generalize to `? super List`
+in `jnosql-orientdb-driver/src/main/java/org/eclipse/jnosql/communication/orientdb/document/QueryOSQLFactory.java`
+#### Snippet
+```java
+    }
+
+    static QueryResultAsync toAsync(String query, Consumer<List<ODocument>> callBack, Object... params) {
+        return new QueryResultAsync(new OSQLAsynchQuery<>(query, new OCommandResultListener() {
+            private List<ODocument> documents = new ArrayList<>();
+```
+
+### BoundedWildcard
+Can generalize to `? super Relation`
+in `jnosql-cassandra-driver/src/main/java/org/eclipse/jnosql/communication/cassandra/column/Relations.java`
+#### Snippet
+```java
+    }
+
+    private static void load(ColumnCondition columnCondition, List<Relation> relations) {
+
+        Column column = columnCondition.column();
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
 in `jnosql-ravendb-driver/src/main/java/org/eclipse/jnosql/communication/ravendb/document/EntityConverter.java`
 #### Snippet
 ```java
@@ -2048,67 +2002,90 @@ in `jnosql-ravendb-driver/src/main/java/org/eclipse/jnosql/communication/ravendb
 ```
 
 ### BoundedWildcard
-Can generalize to `? super String`
-in `jnosql-hbase-driver/src/main/java/org/eclipse/jnosql/communication/hbase/column/HBaseColumnManager.java`
+Can generalize to `? extends Map`
+in `jnosql-dynamodb-driver/src/main/java/org/eclipse/jnosql/communication/dynamodb/DynamoDBUtils.java`
 #### Snippet
 ```java
+    }
 
+    private static Map<String, List<WriteRequest>> createMapWriteRequest(Collection<Map<String, AttributeValue>> map, String tableName) {
 
-    private void convert(ColumnCondition columnCondition, List<String> values) {
-        Condition condition = columnCondition.condition();
-
+        PutRequest.Builder putRequestBuilder = PutRequest.builder();
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends V`
-in `jnosql-redis-driver/src/main/java/org/eclipse/jnosql/communication/redis/keyvalue/RedisMap.java`
+Can generalize to `? extends KeyValueEntity`
+in `jnosql-dynamodb-driver/src/main/java/org/eclipse/jnosql/communication/dynamodb/DynamoDBUtils.java`
 #### Snippet
 ```java
+    }
 
+    public static <K> Collection<Map<String, AttributeValue>> createAttributeValues(Iterable<KeyValueEntity> entities) {
 
-    RedisMap(Jedis jedis, Class<K> keyValue, Class<V> valueClass, String keyWithNameSpace) {
-        this.keyClass = keyValue;
-        this.valueClass = valueClass;
+        return StreamSupport.stream(entities.spliterator(), false)
 ```
 
-## RuleId[ruleID=AbstractClassNeverImplemented]
-### AbstractClassNeverImplemented
-Abstract class `RedisUtils` has no concrete subclass
-in `jnosql-redis-driver/src/main/java/org/eclipse/jnosql/communication/redis/keyvalue/RedisUtils.java`
+### BoundedWildcard
+Can generalize to `? super String`
+in `jnosql-cassandra-driver/src/main/java/org/eclipse/jnosql/communication/cassandra/column/QueryUtils.java`
 #### Snippet
 ```java
-package org.eclipse.jnosql.communication.redis.keyvalue;
 
-abstract class RedisUtils {
+    private static void insertUDT(UDT udt, String keyspace, String columnFamily, CqlSession session,
+                                  Map<String, Term> values) {
 
+        final Optional<KeyspaceMetadata> keyspaceMetadata = session.getMetadata().getKeyspace(keyspace);
+```
+
+### BoundedWildcard
+Can generalize to `? super Term`
+in `jnosql-cassandra-driver/src/main/java/org/eclipse/jnosql/communication/cassandra/column/QueryUtils.java`
+#### Snippet
+```java
+
+    private static void insertUDT(UDT udt, String keyspace, String columnFamily, CqlSession session,
+                                  Map<String, Term> values) {
+
+        final Optional<KeyspaceMetadata> keyspaceMetadata = session.getMetadata().getKeyspace(keyspace);
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `jnosql-cassandra-driver/src/main/java/org/eclipse/jnosql/communication/cassandra/column/QueryUtils.java`
+#### Snippet
+```java
+    }
+
+    private static void insertSingleField(Column column, Map<String, Term> values) {
+        Object value = column.get();
+        try {
+```
+
+### BoundedWildcard
+Can generalize to `? super Term`
+in `jnosql-cassandra-driver/src/main/java/org/eclipse/jnosql/communication/cassandra/column/QueryUtils.java`
+#### Snippet
+```java
+    }
+
+    private static void insertSingleField(Column column, Map<String, Term> values) {
+        Object value = column.get();
+        try {
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `jnosql-elasticsearch-driver/src/main/java/org/eclipse/jnosql/communication/elasticsearch/document/QueryConverter.java`
+#### Snippet
+```java
+
+
+    private static Query.Builder getCondition(DocumentCondition condition, List<String> ids) {
+        Document document = condition.document();
 
 ```
 
 ## RuleId[ruleID=StringEqualsEmptyString]
-### StringEqualsEmptyString
-`equals("")` can be replaced with 'isEmpty()'
-in `jnosql-dynamodb-driver/src/main/java/org/eclipse/jnosql/communication/dynamodb/DynamoDBBuilderSync.java`
-#### Snippet
-```java
-    public DynamoDbClient build() {
-
-        boolean accessKey = awsAccessKey != null && !awsAccessKey.equals("");
-        boolean secretAccess = awsSecretAccess != null && !awsSecretAccess.equals("");
-
-```
-
-### StringEqualsEmptyString
-`equals("")` can be replaced with 'isEmpty()'
-in `jnosql-dynamodb-driver/src/main/java/org/eclipse/jnosql/communication/dynamodb/DynamoDBBuilderSync.java`
-#### Snippet
-```java
-
-        boolean accessKey = awsAccessKey != null && !awsAccessKey.equals("");
-        boolean secretAccess = awsSecretAccess != null && !awsSecretAccess.equals("");
-
-
-```
-
 ### StringEqualsEmptyString
 `equals("")` can be replaced with 'isEmpty()'
 in `jnosql-dynamodb-driver/src/main/java/org/eclipse/jnosql/communication/dynamodb/DynamoDBBuilderASync.java`
@@ -2131,6 +2108,30 @@ in `jnosql-dynamodb-driver/src/main/java/org/eclipse/jnosql/communication/dynamo
         boolean secretAccess = awsSecretAccess != null && !awsSecretAccess.equals("");
 
         if (accessKey && secretAccess) {
+```
+
+### StringEqualsEmptyString
+`equals("")` can be replaced with 'isEmpty()'
+in `jnosql-dynamodb-driver/src/main/java/org/eclipse/jnosql/communication/dynamodb/DynamoDBBuilderSync.java`
+#### Snippet
+```java
+    public DynamoDbClient build() {
+
+        boolean accessKey = awsAccessKey != null && !awsAccessKey.equals("");
+        boolean secretAccess = awsSecretAccess != null && !awsSecretAccess.equals("");
+
+```
+
+### StringEqualsEmptyString
+`equals("")` can be replaced with 'isEmpty()'
+in `jnosql-dynamodb-driver/src/main/java/org/eclipse/jnosql/communication/dynamodb/DynamoDBBuilderSync.java`
+#### Snippet
+```java
+
+        boolean accessKey = awsAccessKey != null && !awsAccessKey.equals("");
+        boolean secretAccess = awsSecretAccess != null && !awsSecretAccess.equals("");
+
+
 ```
 
 ## RuleId[ruleID=IgnoreResultOfCall]
@@ -2184,18 +2185,6 @@ in `jnosql-cassandra-driver/src/main/java/org/eclipse/jnosql/communication/cassa
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'password'
-in `jnosql-cassandra-driver/src/main/java/org/eclipse/jnosql/communication/cassandra/column/CassandraProperties.java`
-#### Snippet
-```java
-    private Optional<String> user;
-
-    private Optional<String> password;
-
-    private int port;
-```
-
-### OptionalUsedAsFieldOrParameterType
 `Optional` used as type for field 'name'
 in `jnosql-cassandra-driver/src/main/java/org/eclipse/jnosql/communication/cassandra/column/CassandraProperties.java`
 #### Snippet
@@ -2205,6 +2194,18 @@ in `jnosql-cassandra-driver/src/main/java/org/eclipse/jnosql/communication/cassa
     private Optional<String> name;
 
     private Optional<String> user;
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for field 'password'
+in `jnosql-cassandra-driver/src/main/java/org/eclipse/jnosql/communication/cassandra/column/CassandraProperties.java`
+#### Snippet
+```java
+    private Optional<String> user;
+
+    private Optional<String> password;
+
+    private int port;
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -2246,18 +2247,6 @@ in `jnosql-orientdb-driver/src/main/java/org/eclipse/jnosql/communication/orient
 
 ## RuleId[ruleID=RedundantMethodOverride]
 ### RedundantMethodOverride
-Method `size()` is identical to its super method
-in `jnosql-redis-driver/src/main/java/org/eclipse/jnosql/communication/redis/keyvalue/RedisList.java`
-#### Snippet
-```java
-
-    @Override
-    public int size() {
-        return (int) jedis.llen(keyWithNameSpace);
-    }
-```
-
-### RedundantMethodOverride
 Method `iterator()` is identical to its super method
 in `jnosql-redis-driver/src/main/java/org/eclipse/jnosql/communication/redis/keyvalue/RedisList.java`
 #### Snippet
@@ -2269,19 +2258,32 @@ in `jnosql-redis-driver/src/main/java/org/eclipse/jnosql/communication/redis/key
     }
 ```
 
-## RuleId[ruleID=SimplifyOptionalCallChains]
-### SimplifyOptionalCallChains
-Optional chain can be simplified
-in `jnosql-ravendb-driver/src/main/java/org/eclipse/jnosql/communication/ravendb/document/RavenDBDocumentManager.java`
+### RedundantMethodOverride
+Method `size()` is identical to its super method
+in `jnosql-redis-driver/src/main/java/org/eclipse/jnosql/communication/redis/keyvalue/RedisList.java`
 #### Snippet
 ```java
-        final Stream<HashMap> queryStream = queryResult.getRavenQuery()
-                .map(IEnumerableQuery::toList)
-                .map(List::stream).orElseGet(Stream::empty);
-        return Stream.concat(idQueryStream, queryStream);
+
+    @Override
+    public int size() {
+        return (int) jedis.llen(keyWithNameSpace);
     }
 ```
 
+## RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
+### DynamicRegexReplaceableByCompiledPattern
+`split()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `jnosql-couchbase-driver/src/main/java/org/eclipse/jnosql/communication/couchbase/CouchbaseConfiguration.java`
+#### Snippet
+```java
+        settings.get(CouchbaseConfigurations.COLLECTIONS)
+                .map(Object::toString).stream()
+                .flatMap(s -> Stream.of(s.split(",\\s*")))
+                .forEach(collections::add);
+        return collections;
+```
+
+## RuleId[ruleID=SimplifyOptionalCallChains]
 ### SimplifyOptionalCallChains
 Can be replaced with 'isEmpty()'
 in `jnosql-mongodb-driver/src/main/java/org/eclipse/jnosql/communication/mongodb/document/MongoAuthentication.java`
@@ -2307,6 +2309,18 @@ in `jnosql-mongodb-driver/src/main/java/org/eclipse/jnosql/communication/mongodb
 ```
 
 ### SimplifyOptionalCallChains
+Optional chain can be simplified
+in `jnosql-ravendb-driver/src/main/java/org/eclipse/jnosql/communication/ravendb/document/RavenDBDocumentManager.java`
+#### Snippet
+```java
+        final Stream<HashMap> queryStream = queryResult.getRavenQuery()
+                .map(IEnumerableQuery::toList)
+                .map(List::stream).orElseGet(Stream::empty);
+        return Stream.concat(idQueryStream, queryStream);
+    }
+```
+
+### SimplifyOptionalCallChains
 Can be replaced with 'isEmpty()'
 in `jnosql-arangodb-driver/src/main/java/org/eclipse/jnosql/communication/arangodb/document/DefaultArangoDBDocumentManager.java`
 #### Snippet
@@ -2318,125 +2332,40 @@ in `jnosql-arangodb-driver/src/main/java/org/eclipse/jnosql/communication/arango
 
 ```
 
-## RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
-### DynamicRegexReplaceableByCompiledPattern
-`split()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `jnosql-couchbase-driver/src/main/java/org/eclipse/jnosql/communication/couchbase/CouchbaseConfiguration.java`
-#### Snippet
-```java
-        settings.get(CouchbaseConfigurations.COLLECTIONS)
-                .map(Object::toString).stream()
-                .flatMap(s -> Stream.of(s.split(",\\s*")))
-                .forEach(collections::add);
-        return collections;
-```
-
 ## RuleId[ruleID=UnnecessaryFullyQualifiedName]
 ### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary and can be removed
-in `jnosql-couchbase-driver/src/main/java/org/eclipse/jnosql/communication/couchbase/CouchbaseConfiguration.java`
+Qualifier `org.infinispan.client.hotrod.configuration` is unnecessary, and can be replaced with an import
+in `jnosql-infinispan-driver/src/main/java/org/eclipse/jnosql/communication/infinispan/keyvalue/InfinispanKeyValueConfiguration.java`
 #### Snippet
 ```java
+                .map(Object::toString);
+        if (!servers.isEmpty()) {
+            org.infinispan.client.hotrod.configuration.ConfigurationBuilder builder = new org.infinispan.client.hotrod.configuration.ConfigurationBuilder();
+            for(String server : servers) {
+                builder.addServer().host(server);
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.infinispan.client.hotrod.configuration` is unnecessary, and can be replaced with an import
+in `jnosql-infinispan-driver/src/main/java/org/eclipse/jnosql/communication/infinispan/keyvalue/InfinispanKeyValueConfiguration.java`
+#### Snippet
+```java
+                .map(Object::toString);
+        if (!servers.isEmpty()) {
+            org.infinispan.client.hotrod.configuration.ConfigurationBuilder builder = new org.infinispan.client.hotrod.configuration.ConfigurationBuilder();
+            for(String server : servers) {
+                builder.addServer().host(server);
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.infinispan.configuration.cache` is unnecessary, and can be replaced with an import
+in `jnosql-infinispan-driver/src/main/java/org/eclipse/jnosql/communication/infinispan/keyvalue/InfinispanKeyValueConfiguration.java`
+#### Snippet
+```java
+     * @throws NullPointerException when config is null
      */
-    public void addCollection(String collection) {
-        java.util.Objects.requireNonNull(collection, "collection is required");
-        this.collections.add(collection);
-    }
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.jnosql.communication.document` is unnecessary and can be removed
-in `jnosql-couchbase-driver/src/main/java/org/eclipse/jnosql/communication/couchbase/document/EntityConverter.java`
-#### Snippet
-```java
-    private static boolean isSudDocument(Object value) {
-        return value instanceof Iterable && stream(Iterable.class.cast(value).spliterator(), false).
-                allMatch(org.eclipse.jnosql.communication.document.Document.class::isInstance);
-    }
-
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `com.couchbase.client.java.datastructures` is unnecessary, and can be replaced with an import
-in `jnosql-couchbase-driver/src/main/java/org/eclipse/jnosql/communication/couchbase/keyvalue/DefaultCouchbaseBucketManagerFactory.java`
-#### Snippet
-```java
-
-        return (Map<K, V>)
-                new com.couchbase.client.java.datastructures.
-                        CouchbaseMap<>(key, collection, valueType,
-                        MapOptions.mapOptions());
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `com.couchbase.client.java.datastructures` is unnecessary, and can be replaced with an import
-in `jnosql-couchbase-driver/src/main/java/org/eclipse/jnosql/communication/couchbase/keyvalue/DefaultCouchbaseBucketManagerFactory.java`
-#### Snippet
-```java
-        Collection collection = bucket.collection(bucketName);
-
-        return new com.couchbase.client.java.datastructures.CouchbaseQueue<>(key + QUEUE, collection, type,
-                QueueOptions.queueOptions());
-
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `com.couchbase.client.java.datastructures` is unnecessary, and can be replaced with an import
-in `jnosql-couchbase-driver/src/main/java/org/eclipse/jnosql/communication/couchbase/keyvalue/DefaultCouchbaseBucketManagerFactory.java`
-#### Snippet
-```java
-        Collection collection = bucket.collection(bucketName);
-
-        return new com.couchbase.client.java.datastructures.CouchbaseQueue<>(bucketName + QUEUE, collection, type,
-                QueueOptions.queueOptions());
-
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `com.couchbase.client.java.datastructures` is unnecessary, and can be replaced with an import
-in `jnosql-couchbase-driver/src/main/java/org/eclipse/jnosql/communication/couchbase/keyvalue/DefaultCouchbaseBucketManagerFactory.java`
-#### Snippet
-```java
-        Collection collection = bucket.collection(bucketName);
-        return (Map<K, V>)
-                new com.couchbase.client.java.datastructures.CouchbaseMap<>(bucketName + ":map",
-                        collection, valueValue,
-                        MapOptions.mapOptions());
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.jnosql.communication.document` is unnecessary and can be removed
-in `jnosql-arangodb-driver/src/main/java/org/eclipse/jnosql/communication/arangodb/document/ArangoDBUtil.java`
-#### Snippet
-```java
-    }
-
-    private static org.eclipse.jnosql.communication.document.Document cast(Object document) {
-        return org.eclipse.jnosql.communication.document.Document.class.cast(document);
-    }
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.jnosql.communication.document` is unnecessary and can be removed
-in `jnosql-arangodb-driver/src/main/java/org/eclipse/jnosql/communication/arangodb/document/ArangoDBUtil.java`
-#### Snippet
-```java
-
-    private static org.eclipse.jnosql.communication.document.Document cast(Object document) {
-        return org.eclipse.jnosql.communication.document.Document.class.cast(document);
-    }
-
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.jnosql.communication.document` is unnecessary and can be removed
-in `jnosql-arangodb-driver/src/main/java/org/eclipse/jnosql/communication/arangodb/document/ArangoDBUtil.java`
-#### Snippet
-```java
-    private static boolean isSudDocument(Object value) {
-        return value instanceof Iterable && StreamSupport.stream(Iterable.class.cast(value).spliterator(), false).
-                allMatch(org.eclipse.jnosql.communication.document.Document.class::isInstance);
-    }
+    public InfinispanBucketManagerFactory get(org.infinispan.configuration.cache.Configuration config)throws NullPointerException {
+        requireNonNull(config, "config is required");
 
 ```
 
@@ -2477,50 +2406,74 @@ in `jnosql-cassandra-driver/src/main/java/org/eclipse/jnosql/communication/cassa
 ```
 
 ### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.jnosql.communication.document` is unnecessary and can be removed
+in `jnosql-couchbase-driver/src/main/java/org/eclipse/jnosql/communication/couchbase/document/EntityConverter.java`
+#### Snippet
+```java
+    private static boolean isSudDocument(Object value) {
+        return value instanceof Iterable && stream(Iterable.class.cast(value).spliterator(), false).
+                allMatch(org.eclipse.jnosql.communication.document.Document.class::isInstance);
+    }
+
+```
+
+### UnnecessaryFullyQualifiedName
 Qualifier `java.util` is unnecessary and can be removed
-in `jnosql-orientdb-driver/src/main/java/org/eclipse/jnosql/communication/orientdb/document/OrientDBConverter.java`
+in `jnosql-couchbase-driver/src/main/java/org/eclipse/jnosql/communication/couchbase/CouchbaseConfiguration.java`
 #### Snippet
 ```java
-
-    private static Map<String, Object> getMap(Object valueAsObject) {
-        Map<String, Object> map = new java.util.HashMap<>();
-        stream(Iterable.class.cast(valueAsObject).spliterator(), false)
-                .forEach(d -> toDocument(map, Document.class.cast(d)));
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.infinispan.client.hotrod.configuration` is unnecessary, and can be replaced with an import
-in `jnosql-infinispan-driver/src/main/java/org/eclipse/jnosql/communication/infinispan/keyvalue/InfinispanKeyValueConfiguration.java`
-#### Snippet
-```java
-                .map(Object::toString);
-        if (!servers.isEmpty()) {
-            org.infinispan.client.hotrod.configuration.ConfigurationBuilder builder = new org.infinispan.client.hotrod.configuration.ConfigurationBuilder();
-            for(String server : servers) {
-                builder.addServer().host(server);
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.infinispan.client.hotrod.configuration` is unnecessary, and can be replaced with an import
-in `jnosql-infinispan-driver/src/main/java/org/eclipse/jnosql/communication/infinispan/keyvalue/InfinispanKeyValueConfiguration.java`
-#### Snippet
-```java
-                .map(Object::toString);
-        if (!servers.isEmpty()) {
-            org.infinispan.client.hotrod.configuration.ConfigurationBuilder builder = new org.infinispan.client.hotrod.configuration.ConfigurationBuilder();
-            for(String server : servers) {
-                builder.addServer().host(server);
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.infinispan.configuration.cache` is unnecessary, and can be replaced with an import
-in `jnosql-infinispan-driver/src/main/java/org/eclipse/jnosql/communication/infinispan/keyvalue/InfinispanKeyValueConfiguration.java`
-#### Snippet
-```java
-     * @throws NullPointerException when config is null
      */
-    public InfinispanBucketManagerFactory get(org.infinispan.configuration.cache.Configuration config)throws NullPointerException {
-        requireNonNull(config, "config is required");
+    public void addCollection(String collection) {
+        java.util.Objects.requireNonNull(collection, "collection is required");
+        this.collections.add(collection);
+    }
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `com.couchbase.client.java.datastructures` is unnecessary, and can be replaced with an import
+in `jnosql-couchbase-driver/src/main/java/org/eclipse/jnosql/communication/couchbase/keyvalue/DefaultCouchbaseBucketManagerFactory.java`
+#### Snippet
+```java
+        Collection collection = bucket.collection(bucketName);
+        return (Map<K, V>)
+                new com.couchbase.client.java.datastructures.CouchbaseMap<>(bucketName + ":map",
+                        collection, valueValue,
+                        MapOptions.mapOptions());
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `com.couchbase.client.java.datastructures` is unnecessary, and can be replaced with an import
+in `jnosql-couchbase-driver/src/main/java/org/eclipse/jnosql/communication/couchbase/keyvalue/DefaultCouchbaseBucketManagerFactory.java`
+#### Snippet
+```java
+        Collection collection = bucket.collection(bucketName);
+
+        return new com.couchbase.client.java.datastructures.CouchbaseQueue<>(key + QUEUE, collection, type,
+                QueueOptions.queueOptions());
+
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `com.couchbase.client.java.datastructures` is unnecessary, and can be replaced with an import
+in `jnosql-couchbase-driver/src/main/java/org/eclipse/jnosql/communication/couchbase/keyvalue/DefaultCouchbaseBucketManagerFactory.java`
+#### Snippet
+```java
+
+        return (Map<K, V>)
+                new com.couchbase.client.java.datastructures.
+                        CouchbaseMap<>(key, collection, valueType,
+                        MapOptions.mapOptions());
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `com.couchbase.client.java.datastructures` is unnecessary, and can be replaced with an import
+in `jnosql-couchbase-driver/src/main/java/org/eclipse/jnosql/communication/couchbase/keyvalue/DefaultCouchbaseBucketManagerFactory.java`
+#### Snippet
+```java
+        Collection collection = bucket.collection(bucketName);
+
+        return new com.couchbase.client.java.datastructures.CouchbaseQueue<>(bucketName + QUEUE, collection, type,
+                QueueOptions.queueOptions());
 
 ```
 
@@ -2534,6 +2487,54 @@ in `jnosql-orientdb-driver/src/main/java/org/eclipse/jnosql/communication/orient
         List<Object> params = new java.util.ArrayList<>();
         List<ORecordId> ids = new ArrayList<>();
         query.append("SELECT FROM ");
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.util` is unnecessary and can be removed
+in `jnosql-orientdb-driver/src/main/java/org/eclipse/jnosql/communication/orientdb/document/OrientDBConverter.java`
+#### Snippet
+```java
+
+    private static Map<String, Object> getMap(Object valueAsObject) {
+        Map<String, Object> map = new java.util.HashMap<>();
+        stream(Iterable.class.cast(valueAsObject).spliterator(), false)
+                .forEach(d -> toDocument(map, Document.class.cast(d)));
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.jnosql.communication.document` is unnecessary and can be removed
+in `jnosql-arangodb-driver/src/main/java/org/eclipse/jnosql/communication/arangodb/document/ArangoDBUtil.java`
+#### Snippet
+```java
+    private static boolean isSudDocument(Object value) {
+        return value instanceof Iterable && StreamSupport.stream(Iterable.class.cast(value).spliterator(), false).
+                allMatch(org.eclipse.jnosql.communication.document.Document.class::isInstance);
+    }
+
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.jnosql.communication.document` is unnecessary and can be removed
+in `jnosql-arangodb-driver/src/main/java/org/eclipse/jnosql/communication/arangodb/document/ArangoDBUtil.java`
+#### Snippet
+```java
+    }
+
+    private static org.eclipse.jnosql.communication.document.Document cast(Object document) {
+        return org.eclipse.jnosql.communication.document.Document.class.cast(document);
+    }
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.jnosql.communication.document` is unnecessary and can be removed
+in `jnosql-arangodb-driver/src/main/java/org/eclipse/jnosql/communication/arangodb/document/ArangoDBUtil.java`
+#### Snippet
+```java
+
+    private static org.eclipse.jnosql.communication.document.Document cast(Object document) {
+        return org.eclipse.jnosql.communication.document.Document.class.cast(document);
+    }
+
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -2560,19 +2561,6 @@ in `jnosql-ravendb-driver/src/main/java/org/eclipse/jnosql/communication/ravendb
 
 ```
 
-## RuleId[ruleID=ThrowablePrintStackTrace]
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `jnosql-hbase-driver/src/main/java/org/eclipse/jnosql/communication/hbase/column/HBaseColumnManager.java`
-#### Snippet
-```java
-            table.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-```
-
 ## RuleId[ruleID=NestedAssignment]
 ### NestedAssignment
 Result of assignment expression used
@@ -2586,19 +2574,20 @@ in `jnosql-couchdb-driver/src/main/java/org/eclipse/jnosql/communication/couchdb
 
 ```
 
-## RuleId[ruleID=MismatchedCollectionQueryUpdate]
-### MismatchedCollectionQueryUpdate
-Contents of collection `families` are updated, but never queried
-in `jnosql-hbase-driver/src/main/java/org/eclipse/jnosql/communication/hbase/column/HBaseColumnConfiguration.java`
+## RuleId[ruleID=ThrowablePrintStackTrace]
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `jnosql-hbase-driver/src/main/java/org/eclipse/jnosql/communication/hbase/column/HBaseColumnManager.java`
 #### Snippet
 ```java
-    private final Configuration configuration;
-
-    private final List<String> families = new ArrayList<>();
-
-    /**
+            table.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 ```
 
+## RuleId[ruleID=MismatchedCollectionQueryUpdate]
 ### MismatchedCollectionQueryUpdate
 Contents of collection `nodes` are updated, but never queried
 in `jnosql-riak-driver/src/main/java/org/eclipse/jnosql/communication/riak/keyvalue/RiakKeyValueConfiguration.java`
@@ -2609,6 +2598,18 @@ in `jnosql-riak-driver/src/main/java/org/eclipse/jnosql/communication/riak/keyva
     private final List<RiakNode> nodes = new ArrayList<>();
 
 
+```
+
+### MismatchedCollectionQueryUpdate
+Contents of collection `families` are updated, but never queried
+in `jnosql-hbase-driver/src/main/java/org/eclipse/jnosql/communication/hbase/column/HBaseColumnConfiguration.java`
+#### Snippet
+```java
+    private final Configuration configuration;
+
+    private final List<String> families = new ArrayList<>();
+
+    /**
 ```
 
 ## RuleId[ruleID=FieldAccessedSynchronizedAndUnsynchronized]
@@ -2624,19 +2625,6 @@ in `jnosql-cassandra-driver/src/main/java/org/eclipse/jnosql/communication/cassa
 
 ```
 
-## RuleId[ruleID=IdempotentLoopBody]
-### IdempotentLoopBody
-Idempotent loop body
-in `jnosql-arangodb-driver/src/main/java/org/eclipse/jnosql/communication/arangodb/document/QueryAQLConverter.java`
-#### Snippet
-```java
-        String paramName = parameter;
-        int counter = 1;
-        while (params.containsKey(paramName)) {
-            paramName = parameter + '_' + counter;
-        }
-```
-
 ## RuleId[ruleID=UseOfPropertiesAsHashtable]
 ### UseOfPropertiesAsHashtable
 Call to `Hashtable.get()` on properties object
@@ -2648,6 +2636,19 @@ in `jnosql-communication-driver-commons/src/main/java/org/eclipse/jnosql/communi
                         .toMap(Object::toString, s -> properties.get(s).toString()));
             } else {
                 LOGGER.info("The file " + resource + " as resource, returning an empty configuration");
+```
+
+## RuleId[ruleID=IdempotentLoopBody]
+### IdempotentLoopBody
+Idempotent loop body
+in `jnosql-arangodb-driver/src/main/java/org/eclipse/jnosql/communication/arangodb/document/QueryAQLConverter.java`
+#### Snippet
+```java
+        String paramName = parameter;
+        int counter = 1;
+        while (params.containsKey(paramName)) {
+            paramName = parameter + '_' + counter;
+        }
 ```
 
 ## RuleId[ruleID=RedundantFieldInitialization]
@@ -2676,18 +2677,6 @@ in `jnosql-couchdb-driver/src/main/java/org/eclipse/jnosql/communication/couchdb
 ```
 
 ## RuleId[ruleID=AssignmentToMethodParameter]
-### AssignmentToMethodParameter
-Assignment to method parameter `index`
-in `jnosql-redis-driver/src/main/java/org/eclipse/jnosql/communication/redis/keyvalue/RedisList.java`
-#### Snippet
-```java
-        Objects.requireNonNull(elements);
-        for (T element : elements) {
-            add(index++, element);
-        }
-        return true;
-```
-
 ### AssignmentToMethodParameter
 Assignment to method parameter `counter`
 in `jnosql-orientdb-driver/src/main/java/org/eclipse/jnosql/communication/orientdb/document/QueryOSQLConverter.java`
@@ -2722,6 +2711,18 @@ in `jnosql-orientdb-driver/src/main/java/org/eclipse/jnosql/communication/orient
                 definesCondition(documentCondition, query, params, ++counter, ids);
                 query.append(")");
                 return;
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `index`
+in `jnosql-redis-driver/src/main/java/org/eclipse/jnosql/communication/redis/keyvalue/RedisList.java`
+#### Snippet
+```java
+        Objects.requireNonNull(elements);
+        for (T element : elements) {
+            add(index++, element);
+        }
+        return true;
 ```
 
 ### AssignmentToMethodParameter
@@ -2760,7 +2761,81 @@ in `jnosql-arangodb-driver/src/main/java/org/eclipse/jnosql/communication/arango
             default:
 ```
 
+## RuleId[ruleID=HtmlWrongAttributeValue]
+### HtmlWrongAttributeValue
+Wrong attribute value
+in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-02-17-01-08-07.406.html`
+#### Snippet
+```java
+              <td>0</td>
+              <td>0</td>
+              <td><textarea rows="10" cols="75" readonly="true" placeholder="empty" style="white-space: pre; border: none">Not collected for refresh</textarea></td>
+            </tr>
+          </tbody>
+```
+
+## RuleId[ruleID=ExceptionNameDoesntEndWithException]
+### ExceptionNameDoesntEndWithException
+Exception class name `IrregularKeyValue` does not end with 'Exception'
+in `jnosql-redis-driver/src/main/java/org/eclipse/jnosql/communication/redis/keyvalue/IrregularKeyValue.java`
+#### Snippet
+```java
+ * An exception when has irregular key value problem
+ */
+public class IrregularKeyValue extends RuntimeException {
+
+    private static final long serialVersionUID = 6161854579438859925L;
+```
+
 ## RuleId[ruleID=CallToStringConcatCanBeReplacedByOperator]
+### CallToStringConcatCanBeReplacedByOperator
+Call to `concat()` can be replaced with '+' expression
+in `jnosql-couchdb-driver/src/main/java/org/eclipse/jnosql/communication/couchdb/document/HttpExecute.java`
+#### Snippet
+```java
+
+    private Map<String, Object> findById(String database, String id) {
+        HttpGet request = new HttpGet(configuration.getUrl().concat(database).concat("/").concat(id));
+        return execute(request, JSON, HttpStatus.SC_OK);
+    }
+```
+
+### CallToStringConcatCanBeReplacedByOperator
+Call to `concat()` can be replaced with '+' expression
+in `jnosql-couchdb-driver/src/main/java/org/eclipse/jnosql/communication/couchdb/document/HttpExecute.java`
+#### Snippet
+```java
+
+    private Map<String, Object> findById(String database, String id) {
+        HttpGet request = new HttpGet(configuration.getUrl().concat(database).concat("/").concat(id));
+        return execute(request, JSON, HttpStatus.SC_OK);
+    }
+```
+
+### CallToStringConcatCanBeReplacedByOperator
+Call to `concat()` can be replaced with '+' expression
+in `jnosql-couchdb-driver/src/main/java/org/eclipse/jnosql/communication/couchdb/document/HttpExecute.java`
+#### Snippet
+```java
+
+    private Map<String, Object> findById(String database, String id) {
+        HttpGet request = new HttpGet(configuration.getUrl().concat(database).concat("/").concat(id));
+        return execute(request, JSON, HttpStatus.SC_OK);
+    }
+```
+
+### CallToStringConcatCanBeReplacedByOperator
+Call to `concat()` can be replaced with '+' expression
+in `jnosql-couchdb-driver/src/main/java/org/eclipse/jnosql/communication/couchdb/document/HttpExecute.java`
+#### Snippet
+```java
+
+    public List<String> getDatabases() {
+        HttpGet httpget = new HttpGet(configuration.getUrl().concat(CouchDBConstant.ALL_DBS));
+        return execute(httpget, LIST_STRING, HttpStatus.SC_OK);
+    }
+```
+
 ### CallToStringConcatCanBeReplacedByOperator
 Call to `concat()` can be replaced with '+' expression
 in `jnosql-couchdb-driver/src/main/java/org/eclipse/jnosql/communication/couchdb/document/HttpExecute.java`
@@ -2803,10 +2878,10 @@ in `jnosql-couchdb-driver/src/main/java/org/eclipse/jnosql/communication/couchdb
 #### Snippet
 ```java
 
-    public List<String> getDatabases() {
-        HttpGet httpget = new HttpGet(configuration.getUrl().concat(CouchDBConstant.ALL_DBS));
-        return execute(httpget, LIST_STRING, HttpStatus.SC_OK);
-    }
+    private void delete(String database, DeleteElement id) {
+        HttpDelete request = new HttpDelete(configuration.getUrl().concat(database).concat("/").concat(id.getId()));
+        request.addHeader(CouchDBConstant.REV_HEADER, id.getRev());
+        execute(request, null, HttpStatus.SC_OK, true);
 ```
 
 ### CallToStringConcatCanBeReplacedByOperator
@@ -2815,10 +2890,10 @@ in `jnosql-couchdb-driver/src/main/java/org/eclipse/jnosql/communication/couchdb
 #### Snippet
 ```java
 
-    private Map<String, Object> findById(String database, String id) {
-        HttpGet request = new HttpGet(configuration.getUrl().concat(database).concat("/").concat(id));
-        return execute(request, JSON, HttpStatus.SC_OK);
-    }
+    private void delete(String database, DeleteElement id) {
+        HttpDelete request = new HttpDelete(configuration.getUrl().concat(database).concat("/").concat(id.getId()));
+        request.addHeader(CouchDBConstant.REV_HEADER, id.getRev());
+        execute(request, null, HttpStatus.SC_OK, true);
 ```
 
 ### CallToStringConcatCanBeReplacedByOperator
@@ -2827,22 +2902,10 @@ in `jnosql-couchdb-driver/src/main/java/org/eclipse/jnosql/communication/couchdb
 #### Snippet
 ```java
 
-    private Map<String, Object> findById(String database, String id) {
-        HttpGet request = new HttpGet(configuration.getUrl().concat(database).concat("/").concat(id));
-        return execute(request, JSON, HttpStatus.SC_OK);
-    }
-```
-
-### CallToStringConcatCanBeReplacedByOperator
-Call to `concat()` can be replaced with '+' expression
-in `jnosql-couchdb-driver/src/main/java/org/eclipse/jnosql/communication/couchdb/document/HttpExecute.java`
-#### Snippet
-```java
-
-    private Map<String, Object> findById(String database, String id) {
-        HttpGet request = new HttpGet(configuration.getUrl().concat(database).concat("/").concat(id));
-        return execute(request, JSON, HttpStatus.SC_OK);
-    }
+    private void delete(String database, DeleteElement id) {
+        HttpDelete request = new HttpDelete(configuration.getUrl().concat(database).concat("/").concat(id.getId()));
+        request.addHeader(CouchDBConstant.REV_HEADER, id.getRev());
+        execute(request, null, HttpStatus.SC_OK, true);
 ```
 
 ### CallToStringConcatCanBeReplacedByOperator
@@ -2867,42 +2930,6 @@ in `jnosql-couchdb-driver/src/main/java/org/eclipse/jnosql/communication/couchdb
         HttpPost request = new HttpPost(configuration.getUrl().concat(database).concat(CouchDBConstant.FIND));
         setHeader(request);
         JsonObject mangoQuery = converter.apply(query);
-```
-
-### CallToStringConcatCanBeReplacedByOperator
-Call to `concat()` can be replaced with '+' expression
-in `jnosql-couchdb-driver/src/main/java/org/eclipse/jnosql/communication/couchdb/document/HttpExecute.java`
-#### Snippet
-```java
-
-    private void delete(String database, DeleteElement id) {
-        HttpDelete request = new HttpDelete(configuration.getUrl().concat(database).concat("/").concat(id.getId()));
-        request.addHeader(CouchDBConstant.REV_HEADER, id.getRev());
-        execute(request, null, HttpStatus.SC_OK, true);
-```
-
-### CallToStringConcatCanBeReplacedByOperator
-Call to `concat()` can be replaced with '+' expression
-in `jnosql-couchdb-driver/src/main/java/org/eclipse/jnosql/communication/couchdb/document/HttpExecute.java`
-#### Snippet
-```java
-
-    private void delete(String database, DeleteElement id) {
-        HttpDelete request = new HttpDelete(configuration.getUrl().concat(database).concat("/").concat(id.getId()));
-        request.addHeader(CouchDBConstant.REV_HEADER, id.getRev());
-        execute(request, null, HttpStatus.SC_OK, true);
-```
-
-### CallToStringConcatCanBeReplacedByOperator
-Call to `concat()` can be replaced with '+' expression
-in `jnosql-couchdb-driver/src/main/java/org/eclipse/jnosql/communication/couchdb/document/HttpExecute.java`
-#### Snippet
-```java
-
-    private void delete(String database, DeleteElement id) {
-        HttpDelete request = new HttpDelete(configuration.getUrl().concat(database).concat("/").concat(id.getId()));
-        request.addHeader(CouchDBConstant.REV_HEADER, id.getRev());
-        execute(request, null, HttpStatus.SC_OK, true);
 ```
 
 ### CallToStringConcatCanBeReplacedByOperator
@@ -2963,6 +2990,114 @@ in `jnosql-couchdb-driver/src/main/java/org/eclipse/jnosql/communication/couchdb
                 request = new HttpPut(configuration.getUrl().concat(database).concat("/").concat(id));
             }
 
+```
+
+### CallToStringConcatCanBeReplacedByOperator
+Call to `concat()` can be replaced with '+' expression
+in `jnosql-couchbase-driver/src/main/java/org/eclipse/jnosql/communication/couchbase/document/N1QLBuilder.java`
+#### Snippet
+```java
+        String name = '\'' + document.name() + '\'';
+        Object value = document.get();
+        String param = "$".concat(document.name()).concat("_").concat(Integer.toString(random.nextInt(0, 100)));
+        n1ql.append(name).append(condition).append(param);
+        params.put(param, value);
+```
+
+### CallToStringConcatCanBeReplacedByOperator
+Call to `concat()` can be replaced with '+' expression
+in `jnosql-couchbase-driver/src/main/java/org/eclipse/jnosql/communication/couchbase/document/N1QLBuilder.java`
+#### Snippet
+```java
+        String name = '\'' + document.name() + '\'';
+        Object value = document.get();
+        String param = "$".concat(document.name()).concat("_").concat(Integer.toString(random.nextInt(0, 100)));
+        n1ql.append(name).append(condition).append(param);
+        params.put(param, value);
+```
+
+### CallToStringConcatCanBeReplacedByOperator
+Call to `concat()` can be replaced with '+' expression
+in `jnosql-couchbase-driver/src/main/java/org/eclipse/jnosql/communication/couchbase/document/N1QLBuilder.java`
+#### Snippet
+```java
+        String name = '\'' + document.name() + '\'';
+        Object value = document.get();
+        String param = "$".concat(document.name()).concat("_").concat(Integer.toString(random.nextInt(0, 100)));
+        n1ql.append(name).append(condition).append(param);
+        params.put(param, value);
+```
+
+### CallToStringConcatCanBeReplacedByOperator
+Call to `concat()` can be replaced with '+' expression
+in `jnosql-couchbase-driver/src/main/java/org/eclipse/jnosql/communication/couchbase/document/N1QLBuilder.java`
+#### Snippet
+```java
+        ((Iterable<?>) document.get()).forEach(values::add);
+
+        String param = "$".concat(document.name()).concat("_").concat(Integer.toString(random.nextInt(0, 100)));
+        String param2 = "$".concat(document.name()).concat("_").concat(Integer.toString(random.nextInt(0, 100)));
+        n1ql.append(name).append(" ").append(param).append(" AND ").append(param2);
+```
+
+### CallToStringConcatCanBeReplacedByOperator
+Call to `concat()` can be replaced with '+' expression
+in `jnosql-couchbase-driver/src/main/java/org/eclipse/jnosql/communication/couchbase/document/N1QLBuilder.java`
+#### Snippet
+```java
+        ((Iterable<?>) document.get()).forEach(values::add);
+
+        String param = "$".concat(document.name()).concat("_").concat(Integer.toString(random.nextInt(0, 100)));
+        String param2 = "$".concat(document.name()).concat("_").concat(Integer.toString(random.nextInt(0, 100)));
+        n1ql.append(name).append(" ").append(param).append(" AND ").append(param2);
+```
+
+### CallToStringConcatCanBeReplacedByOperator
+Call to `concat()` can be replaced with '+' expression
+in `jnosql-couchbase-driver/src/main/java/org/eclipse/jnosql/communication/couchbase/document/N1QLBuilder.java`
+#### Snippet
+```java
+        ((Iterable<?>) document.get()).forEach(values::add);
+
+        String param = "$".concat(document.name()).concat("_").concat(Integer.toString(random.nextInt(0, 100)));
+        String param2 = "$".concat(document.name()).concat("_").concat(Integer.toString(random.nextInt(0, 100)));
+        n1ql.append(name).append(" ").append(param).append(" AND ").append(param2);
+```
+
+### CallToStringConcatCanBeReplacedByOperator
+Call to `concat()` can be replaced with '+' expression
+in `jnosql-couchbase-driver/src/main/java/org/eclipse/jnosql/communication/couchbase/document/N1QLBuilder.java`
+#### Snippet
+```java
+
+        String param = "$".concat(document.name()).concat("_").concat(Integer.toString(random.nextInt(0, 100)));
+        String param2 = "$".concat(document.name()).concat("_").concat(Integer.toString(random.nextInt(0, 100)));
+        n1ql.append(name).append(" ").append(param).append(" AND ").append(param2);
+        params.put(param, values.get(0));
+```
+
+### CallToStringConcatCanBeReplacedByOperator
+Call to `concat()` can be replaced with '+' expression
+in `jnosql-couchbase-driver/src/main/java/org/eclipse/jnosql/communication/couchbase/document/N1QLBuilder.java`
+#### Snippet
+```java
+
+        String param = "$".concat(document.name()).concat("_").concat(Integer.toString(random.nextInt(0, 100)));
+        String param2 = "$".concat(document.name()).concat("_").concat(Integer.toString(random.nextInt(0, 100)));
+        n1ql.append(name).append(" ").append(param).append(" AND ").append(param2);
+        params.put(param, values.get(0));
+```
+
+### CallToStringConcatCanBeReplacedByOperator
+Call to `concat()` can be replaced with '+' expression
+in `jnosql-couchbase-driver/src/main/java/org/eclipse/jnosql/communication/couchbase/document/N1QLBuilder.java`
+#### Snippet
+```java
+
+        String param = "$".concat(document.name()).concat("_").concat(Integer.toString(random.nextInt(0, 100)));
+        String param2 = "$".concat(document.name()).concat("_").concat(Integer.toString(random.nextInt(0, 100)));
+        n1ql.append(name).append(" ").append(param).append(" AND ").append(param2);
+        params.put(param, values.get(0));
 ```
 
 ### CallToStringConcatCanBeReplacedByOperator
@@ -2977,139 +3112,7 @@ in `jnosql-orientdb-driver/src/main/java/org/eclipse/jnosql/communication/orient
             OResult next = command.next();
 ```
 
-### CallToStringConcatCanBeReplacedByOperator
-Call to `concat()` can be replaced with '+' expression
-in `jnosql-couchbase-driver/src/main/java/org/eclipse/jnosql/communication/couchbase/document/N1QLBuilder.java`
-#### Snippet
-```java
-        ((Iterable<?>) document.get()).forEach(values::add);
-
-        String param = "$".concat(document.name()).concat("_").concat(Integer.toString(random.nextInt(0, 100)));
-        String param2 = "$".concat(document.name()).concat("_").concat(Integer.toString(random.nextInt(0, 100)));
-        n1ql.append(name).append(" ").append(param).append(" AND ").append(param2);
-```
-
-### CallToStringConcatCanBeReplacedByOperator
-Call to `concat()` can be replaced with '+' expression
-in `jnosql-couchbase-driver/src/main/java/org/eclipse/jnosql/communication/couchbase/document/N1QLBuilder.java`
-#### Snippet
-```java
-        ((Iterable<?>) document.get()).forEach(values::add);
-
-        String param = "$".concat(document.name()).concat("_").concat(Integer.toString(random.nextInt(0, 100)));
-        String param2 = "$".concat(document.name()).concat("_").concat(Integer.toString(random.nextInt(0, 100)));
-        n1ql.append(name).append(" ").append(param).append(" AND ").append(param2);
-```
-
-### CallToStringConcatCanBeReplacedByOperator
-Call to `concat()` can be replaced with '+' expression
-in `jnosql-couchbase-driver/src/main/java/org/eclipse/jnosql/communication/couchbase/document/N1QLBuilder.java`
-#### Snippet
-```java
-        ((Iterable<?>) document.get()).forEach(values::add);
-
-        String param = "$".concat(document.name()).concat("_").concat(Integer.toString(random.nextInt(0, 100)));
-        String param2 = "$".concat(document.name()).concat("_").concat(Integer.toString(random.nextInt(0, 100)));
-        n1ql.append(name).append(" ").append(param).append(" AND ").append(param2);
-```
-
-### CallToStringConcatCanBeReplacedByOperator
-Call to `concat()` can be replaced with '+' expression
-in `jnosql-couchbase-driver/src/main/java/org/eclipse/jnosql/communication/couchbase/document/N1QLBuilder.java`
-#### Snippet
-```java
-
-        String param = "$".concat(document.name()).concat("_").concat(Integer.toString(random.nextInt(0, 100)));
-        String param2 = "$".concat(document.name()).concat("_").concat(Integer.toString(random.nextInt(0, 100)));
-        n1ql.append(name).append(" ").append(param).append(" AND ").append(param2);
-        params.put(param, values.get(0));
-```
-
-### CallToStringConcatCanBeReplacedByOperator
-Call to `concat()` can be replaced with '+' expression
-in `jnosql-couchbase-driver/src/main/java/org/eclipse/jnosql/communication/couchbase/document/N1QLBuilder.java`
-#### Snippet
-```java
-
-        String param = "$".concat(document.name()).concat("_").concat(Integer.toString(random.nextInt(0, 100)));
-        String param2 = "$".concat(document.name()).concat("_").concat(Integer.toString(random.nextInt(0, 100)));
-        n1ql.append(name).append(" ").append(param).append(" AND ").append(param2);
-        params.put(param, values.get(0));
-```
-
-### CallToStringConcatCanBeReplacedByOperator
-Call to `concat()` can be replaced with '+' expression
-in `jnosql-couchbase-driver/src/main/java/org/eclipse/jnosql/communication/couchbase/document/N1QLBuilder.java`
-#### Snippet
-```java
-
-        String param = "$".concat(document.name()).concat("_").concat(Integer.toString(random.nextInt(0, 100)));
-        String param2 = "$".concat(document.name()).concat("_").concat(Integer.toString(random.nextInt(0, 100)));
-        n1ql.append(name).append(" ").append(param).append(" AND ").append(param2);
-        params.put(param, values.get(0));
-```
-
-### CallToStringConcatCanBeReplacedByOperator
-Call to `concat()` can be replaced with '+' expression
-in `jnosql-couchbase-driver/src/main/java/org/eclipse/jnosql/communication/couchbase/document/N1QLBuilder.java`
-#### Snippet
-```java
-        String name = '\'' + document.name() + '\'';
-        Object value = document.get();
-        String param = "$".concat(document.name()).concat("_").concat(Integer.toString(random.nextInt(0, 100)));
-        n1ql.append(name).append(condition).append(param);
-        params.put(param, value);
-```
-
-### CallToStringConcatCanBeReplacedByOperator
-Call to `concat()` can be replaced with '+' expression
-in `jnosql-couchbase-driver/src/main/java/org/eclipse/jnosql/communication/couchbase/document/N1QLBuilder.java`
-#### Snippet
-```java
-        String name = '\'' + document.name() + '\'';
-        Object value = document.get();
-        String param = "$".concat(document.name()).concat("_").concat(Integer.toString(random.nextInt(0, 100)));
-        n1ql.append(name).append(condition).append(param);
-        params.put(param, value);
-```
-
-### CallToStringConcatCanBeReplacedByOperator
-Call to `concat()` can be replaced with '+' expression
-in `jnosql-couchbase-driver/src/main/java/org/eclipse/jnosql/communication/couchbase/document/N1QLBuilder.java`
-#### Snippet
-```java
-        String name = '\'' + document.name() + '\'';
-        Object value = document.get();
-        String param = "$".concat(document.name()).concat("_").concat(Integer.toString(random.nextInt(0, 100)));
-        n1ql.append(name).append(condition).append(param);
-        params.put(param, value);
-```
-
 ## RuleId[ruleID=ReturnNull]
-### ReturnNull
-Return of `null`
-in `jnosql-redis-driver/src/main/java/org/eclipse/jnosql/communication/redis/keyvalue/RedisCollection.java`
-#### Snippet
-```java
-        String value = jedis.lindex(keyWithNameSpace, index);
-        if (value == null || value.isEmpty()) {
-            return null;
-        }
-        return serialize(value);
-```
-
-### ReturnNull
-Return of `null`
-in `jnosql-redis-driver/src/main/java/org/eclipse/jnosql/communication/redis/keyvalue/RedisCollection.java`
-#### Snippet
-```java
-            return serialize(value);
-        }
-        return null;
-    }
-
-```
-
 ### ReturnNull
 Return of `null`
 in `jnosql-mongodb-driver/src/main/java/org/eclipse/jnosql/communication/mongodb/document/BinaryValueReader.java`
@@ -3124,10 +3127,34 @@ in `jnosql-mongodb-driver/src/main/java/org/eclipse/jnosql/communication/mongodb
 
 ### ReturnNull
 Return of `null`
-in `jnosql-redis-driver/src/main/java/org/eclipse/jnosql/communication/redis/keyvalue/RedisQueue.java`
+in `jnosql-couchdb-driver/src/main/java/org/eclipse/jnosql/communication/couchdb/document/HttpExecute.java`
+#### Snippet
+```java
+            }
+            if (Objects.isNull(type)) {
+                return null;
+            }
+            HttpEntity entity = result.getEntity();
+```
+
+### ReturnNull
+Return of `null`
+in `jnosql-redis-driver/src/main/java/org/eclipse/jnosql/communication/redis/keyvalue/RedisMap.java`
 #### Snippet
 ```java
 
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `jnosql-redis-driver/src/main/java/org/eclipse/jnosql/communication/redis/keyvalue/RedisMap.java`
+#### Snippet
+```java
+            return value;
         }
         return null;
     }
@@ -3148,26 +3175,38 @@ in `jnosql-redis-driver/src/main/java/org/eclipse/jnosql/communication/redis/key
 
 ### ReturnNull
 Return of `null`
-in `jnosql-couchdb-driver/src/main/java/org/eclipse/jnosql/communication/couchdb/document/HttpExecute.java`
+in `jnosql-redis-driver/src/main/java/org/eclipse/jnosql/communication/redis/keyvalue/RedisQueue.java`
 #### Snippet
 ```java
-            }
-            if (Objects.isNull(type)) {
-                return null;
-            }
-            HttpEntity entity = result.getEntity();
+
+        }
+        return null;
+    }
+
 ```
 
 ### ReturnNull
 Return of `null`
-in `jnosql-orientdb-driver/src/main/java/org/eclipse/jnosql/communication/orientdb/document/QueryOSQLFactory.java`
+in `jnosql-redis-driver/src/main/java/org/eclipse/jnosql/communication/redis/keyvalue/RedisCollection.java`
 #### Snippet
 ```java
-            @Override
-            public Object getResult() {
-                return null;
-            }
-        }), asList(params));
+            return serialize(value);
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `jnosql-redis-driver/src/main/java/org/eclipse/jnosql/communication/redis/keyvalue/RedisCollection.java`
+#### Snippet
+```java
+        String value = jedis.lindex(keyWithNameSpace, index);
+        if (value == null || value.isEmpty()) {
+            return null;
+        }
+        return serialize(value);
 ```
 
 ### ReturnNull
@@ -3184,6 +3223,18 @@ in `jnosql-orientdb-driver/src/main/java/org/eclipse/jnosql/communication/orient
 
 ### ReturnNull
 Return of `null`
+in `jnosql-orientdb-driver/src/main/java/org/eclipse/jnosql/communication/orientdb/document/QueryOSQLFactory.java`
+#### Snippet
+```java
+            @Override
+            public Object getResult() {
+                return null;
+            }
+        }), asList(params));
+```
+
+### ReturnNull
+Return of `null`
 in `jnosql-elasticsearch-driver/src/main/java/org/eclipse/jnosql/communication/elasticsearch/document/QueryConverter.java`
 #### Snippet
 ```java
@@ -3192,43 +3243,6 @@ in `jnosql-elasticsearch-driver/src/main/java/org/eclipse/jnosql/communication/e
             return null;
         }
 
-```
-
-### ReturnNull
-Return of `null`
-in `jnosql-redis-driver/src/main/java/org/eclipse/jnosql/communication/redis/keyvalue/RedisMap.java`
-#### Snippet
-```java
-            return value;
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `jnosql-redis-driver/src/main/java/org/eclipse/jnosql/communication/redis/keyvalue/RedisMap.java`
-#### Snippet
-```java
-
-        }
-        return null;
-    }
-
-```
-
-## RuleId[ruleID=ExceptionNameDoesntEndWithException]
-### ExceptionNameDoesntEndWithException
-Exception class name `IrregularKeyValue` does not end with 'Exception'
-in `jnosql-redis-driver/src/main/java/org/eclipse/jnosql/communication/redis/keyvalue/IrregularKeyValue.java`
-#### Snippet
-```java
- * An exception when has irregular key value problem
- */
-public class IrregularKeyValue extends RuntimeException {
-
-    private static final long serialVersionUID = 6161854579438859925L;
 ```
 
 ## RuleId[ruleID=UnnecessaryLocalVariable]
@@ -3306,6 +3320,31 @@ in `jnosql-orientdb-driver/src/main/java/org/eclipse/jnosql/communication/orient
 
 ```
 
+## RuleId[ruleID=UnusedAssignment]
+### UnusedAssignment
+Variable `value` initializer `jedis.hget(nameSpace, JSONB.toJson(key))` is redundant
+in `jnosql-redis-driver/src/main/java/org/eclipse/jnosql/communication/redis/keyvalue/RedisMap.java`
+#### Snippet
+```java
+        requireNonNull(key, "Key is required");
+
+        String value = jedis.hget(nameSpace, JSONB.toJson(key));
+        if (isKeyString) {
+            value = jedis.hget(nameSpace, key.toString());
+```
+
+### UnusedAssignment
+Variable `select` initializer `null` is redundant
+in `jnosql-cassandra-driver/src/main/java/org/eclipse/jnosql/communication/cassandra/column/QueryUtils.java`
+#### Snippet
+```java
+        final List<String> columns = query.columns();
+
+        Select select = null;
+        if (columns.isEmpty()) {
+            select = QueryBuilder.selectFrom(keyspace, columnFamily).all();
+```
+
 ## RuleId[ruleID=TypeParameterExtendsObject]
 ### TypeParameterExtendsObject
 Wildcard type argument `?` explicitly extends 'java.lang.Object'
@@ -3343,42 +3382,17 @@ in `jnosql-solr-driver/src/main/java/org/eclipse/jnosql/communication/solr/docum
         }
 ```
 
-## RuleId[ruleID=UnusedAssignment]
-### UnusedAssignment
-Variable `select` initializer `null` is redundant
-in `jnosql-cassandra-driver/src/main/java/org/eclipse/jnosql/communication/cassandra/column/QueryUtils.java`
-#### Snippet
-```java
-        final List<String> columns = query.columns();
-
-        Select select = null;
-        if (columns.isEmpty()) {
-            select = QueryBuilder.selectFrom(keyspace, columnFamily).all();
-```
-
-### UnusedAssignment
-Variable `value` initializer `jedis.hget(nameSpace, JSONB.toJson(key))` is redundant
-in `jnosql-redis-driver/src/main/java/org/eclipse/jnosql/communication/redis/keyvalue/RedisMap.java`
-#### Snippet
-```java
-        requireNonNull(key, "Key is required");
-
-        String value = jedis.hget(nameSpace, JSONB.toJson(key));
-        if (isKeyString) {
-            value = jedis.hget(nameSpace, key.toString());
-```
-
 ## RuleId[ruleID=OptionalGetWithoutIsPresent]
 ### OptionalGetWithoutIsPresent
 `Optional.get()` without 'isPresent()' check
-in `jnosql-couchbase-driver/src/main/java/org/eclipse/jnosql/communication/couchbase/CouchbaseSettings.java`
+in `jnosql-dynamodb-driver/src/main/java/org/eclipse/jnosql/communication/dynamodb/DynamoTableUtils.java`
 #### Snippet
 ```java
-            String finalScope = getScope().orElseGet(() -> bucket.defaultScope().name());
-            ScopeSpec spec = scopes.stream().filter(s -> finalScope.equals(s.name()))
-                    .findFirst().get();
-            for (String collection : collections) {
-                if (spec.collections().stream().noneMatch(c -> collection.equals(c.name()))) {
+                    }
+                    Collections.reverse(tableNames);
+                    lastName = tableNames.stream().findFirst().get();
+                }
+            } catch (DynamoDbException e) {
 ```
 
 ### OptionalGetWithoutIsPresent
@@ -3395,20 +3409,20 @@ in `jnosql-cassandra-driver/src/main/java/org/eclipse/jnosql/communication/cassa
 
 ### OptionalGetWithoutIsPresent
 `Optional.get()` without 'isPresent()' check
-in `jnosql-dynamodb-driver/src/main/java/org/eclipse/jnosql/communication/dynamodb/DynamoTableUtils.java`
+in `jnosql-couchbase-driver/src/main/java/org/eclipse/jnosql/communication/couchbase/CouchbaseSettings.java`
 #### Snippet
 ```java
-                    }
-                    Collections.reverse(tableNames);
-                    lastName = tableNames.stream().findFirst().get();
-                }
-            } catch (DynamoDbException e) {
+            String finalScope = getScope().orElseGet(() -> bucket.defaultScope().name());
+            ScopeSpec spec = scopes.stream().filter(s -> finalScope.equals(s.name()))
+                    .findFirst().get();
+            for (String collection : collections) {
+                if (spec.collections().stream().noneMatch(c -> collection.equals(c.name()))) {
 ```
 
 ## RuleId[ruleID=ConstantValue]
 ### ConstantValue
 Condition `StreamSupport.stream(Iterable.class.cast(value).spliterator(), false). allMatch(org....` is always `true` when reached
-in `jnosql-mongodb-driver/src/main/java/org/eclipse/jnosql/communication/mongodb/document/MongoDBUtils.java`
+in `jnosql-elasticsearch-driver/src/main/java/org/eclipse/jnosql/communication/elasticsearch/document/EntityConverter.java`
 #### Snippet
 ```java
 
@@ -3421,7 +3435,7 @@ in `jnosql-mongodb-driver/src/main/java/org/eclipse/jnosql/communication/mongodb
 
 ### ConstantValue
 Method reference result is always 'true'
-in `jnosql-mongodb-driver/src/main/java/org/eclipse/jnosql/communication/mongodb/document/MongoDBUtils.java`
+in `jnosql-elasticsearch-driver/src/main/java/org/eclipse/jnosql/communication/elasticsearch/document/EntityConverter.java`
 #### Snippet
 ```java
     private static boolean isSudDocument(Object value) {
@@ -3452,6 +3466,56 @@ in `jnosql-mongodb-driver/src/main/java/org/eclipse/jnosql/communication/mongodb
         return value instanceof Iterable &&
                 stream(Iterable.class.cast(value).spliterator(), false)
                         .allMatch(Document.class::isInstance);
+    }
+
+```
+
+### ConstantValue
+Condition `StreamSupport.stream(Iterable.class.cast(value).spliterator(), false). allMatch(org....` is always `true` when reached
+in `jnosql-mongodb-driver/src/main/java/org/eclipse/jnosql/communication/mongodb/document/MongoDBUtils.java`
+#### Snippet
+```java
+
+    private static boolean isSudDocument(Object value) {
+        return value instanceof Iterable && StreamSupport.stream(Iterable.class.cast(value).spliterator(), false).
+                allMatch(org.eclipse.jnosql.communication.document.Document.class::isInstance);
+    }
+
+```
+
+### ConstantValue
+Method reference result is always 'true'
+in `jnosql-mongodb-driver/src/main/java/org/eclipse/jnosql/communication/mongodb/document/MongoDBUtils.java`
+#### Snippet
+```java
+    private static boolean isSudDocument(Object value) {
+        return value instanceof Iterable && StreamSupport.stream(Iterable.class.cast(value).spliterator(), false).
+                allMatch(org.eclipse.jnosql.communication.document.Document.class::isInstance);
+    }
+
+```
+
+### ConstantValue
+Condition `stream(Iterable.class.cast(value).spliterator(), false) .allMatch(Map.class:...` is always `true` when reached
+in `jnosql-couchbase-driver/src/main/java/org/eclipse/jnosql/communication/couchbase/document/EntityConverter.java`
+#### Snippet
+```java
+    private static boolean isADocumentIterable(Object value) {
+        return Iterable.class.isInstance(value) &&
+                stream(Iterable.class.cast(value).spliterator(), false)
+                        .allMatch(Map.class::isInstance);
+    }
+
+```
+
+### ConstantValue
+Method reference result is always 'true'
+in `jnosql-couchbase-driver/src/main/java/org/eclipse/jnosql/communication/couchbase/document/EntityConverter.java`
+#### Snippet
+```java
+        return Iterable.class.isInstance(value) &&
+                stream(Iterable.class.cast(value).spliterator(), false)
+                        .allMatch(Map.class::isInstance);
     }
 
 ```
@@ -3482,106 +3546,6 @@ in `jnosql-couchbase-driver/src/main/java/org/eclipse/jnosql/communication/couch
 ```
 
 ### ConstantValue
-Condition `stream(Iterable.class.cast(value).spliterator(), false) .allMatch(Map.class:...` is always `true` when reached
-in `jnosql-couchbase-driver/src/main/java/org/eclipse/jnosql/communication/couchbase/document/EntityConverter.java`
-#### Snippet
-```java
-    private static boolean isADocumentIterable(Object value) {
-        return Iterable.class.isInstance(value) &&
-                stream(Iterable.class.cast(value).spliterator(), false)
-                        .allMatch(Map.class::isInstance);
-    }
-
-```
-
-### ConstantValue
-Method reference result is always 'true'
-in `jnosql-couchbase-driver/src/main/java/org/eclipse/jnosql/communication/couchbase/document/EntityConverter.java`
-#### Snippet
-```java
-        return Iterable.class.isInstance(value) &&
-                stream(Iterable.class.cast(value).spliterator(), false)
-                        .allMatch(Map.class::isInstance);
-    }
-
-```
-
-### ConstantValue
-Condition `stream(Iterable.class.cast(value).spliterator(), false) .allMatch(Map.class:...` is always `true` when reached
-in `jnosql-arangodb-driver/src/main/java/org/eclipse/jnosql/communication/arangodb/document/ArangoDBUtil.java`
-#### Snippet
-```java
-    private static boolean isADocumentIterable(Object value) {
-        return Iterable.class.isInstance(value) &&
-                stream(Iterable.class.cast(value).spliterator(), false)
-                        .allMatch(Map.class::isInstance);
-    }
-
-```
-
-### ConstantValue
-Method reference result is always 'true'
-in `jnosql-arangodb-driver/src/main/java/org/eclipse/jnosql/communication/arangodb/document/ArangoDBUtil.java`
-#### Snippet
-```java
-        return Iterable.class.isInstance(value) &&
-                stream(Iterable.class.cast(value).spliterator(), false)
-                        .allMatch(Map.class::isInstance);
-    }
-
-```
-
-### ConstantValue
-Condition `StreamSupport.stream(Iterable.class.cast(value).spliterator(), false). allMatch(org....` is always `true` when reached
-in `jnosql-arangodb-driver/src/main/java/org/eclipse/jnosql/communication/arangodb/document/ArangoDBUtil.java`
-#### Snippet
-```java
-
-    private static boolean isSudDocument(Object value) {
-        return value instanceof Iterable && StreamSupport.stream(Iterable.class.cast(value).spliterator(), false).
-                allMatch(org.eclipse.jnosql.communication.document.Document.class::isInstance);
-    }
-
-```
-
-### ConstantValue
-Method reference result is always 'true'
-in `jnosql-arangodb-driver/src/main/java/org/eclipse/jnosql/communication/arangodb/document/ArangoDBUtil.java`
-#### Snippet
-```java
-    private static boolean isSudDocument(Object value) {
-        return value instanceof Iterable && StreamSupport.stream(Iterable.class.cast(value).spliterator(), false).
-                allMatch(org.eclipse.jnosql.communication.document.Document.class::isInstance);
-    }
-
-```
-
-### ConstantValue
-Condition `StreamSupport.stream(Iterable.class.cast(value).spliterator(), false). allMatch(org....` is always `true` when reached
-in `jnosql-elasticsearch-driver/src/main/java/org/eclipse/jnosql/communication/elasticsearch/document/EntityConverter.java`
-#### Snippet
-```java
-
-    private static boolean isSudDocument(Object value) {
-        return value instanceof Iterable && StreamSupport.stream(Iterable.class.cast(value).spliterator(), false).
-                allMatch(org.eclipse.jnosql.communication.document.Document.class::isInstance);
-    }
-
-```
-
-### ConstantValue
-Method reference result is always 'true'
-in `jnosql-elasticsearch-driver/src/main/java/org/eclipse/jnosql/communication/elasticsearch/document/EntityConverter.java`
-#### Snippet
-```java
-    private static boolean isSudDocument(Object value) {
-        return value instanceof Iterable && StreamSupport.stream(Iterable.class.cast(value).spliterator(), false).
-                allMatch(org.eclipse.jnosql.communication.document.Document.class::isInstance);
-    }
-
-```
-
-### ConstantValue
 Condition `stream(Iterable.class.cast(value).spliterator(), false) .allMatch(Document.c...` is always `true` when reached
 in `jnosql-orientdb-driver/src/main/java/org/eclipse/jnosql/communication/orientdb/document/OrientDBConverter.java`
 #### Snippet
@@ -3604,6 +3568,105 @@ in `jnosql-orientdb-driver/src/main/java/org/eclipse/jnosql/communication/orient
                         .allMatch(Document.class::isInstance);
     }
 
+```
+
+### ConstantValue
+Condition `stream(Iterable.class.cast(value).spliterator(), false) .allMatch(Map.class:...` is always `true` when reached
+in `jnosql-elasticsearch-driver/src/main/java/org/eclipse/jnosql/communication/elasticsearch/document/ElasticsearchEntry.java`
+#### Snippet
+```java
+    private boolean isADocumentIterable(Object value) {
+        return Iterable.class.isInstance(value) &&
+                stream(Iterable.class.cast(value).spliterator(), false)
+                        .allMatch(Map.class::isInstance);
+    }
+
+```
+
+### ConstantValue
+Method reference result is always 'true'
+in `jnosql-elasticsearch-driver/src/main/java/org/eclipse/jnosql/communication/elasticsearch/document/ElasticsearchEntry.java`
+#### Snippet
+```java
+        return Iterable.class.isInstance(value) &&
+                stream(Iterable.class.cast(value).spliterator(), false)
+                        .allMatch(Map.class::isInstance);
+    }
+
+```
+
+### ConstantValue
+Condition `StreamSupport.stream(Iterable.class.cast(value).spliterator(), false). allMatch(org....` is always `true` when reached
+in `jnosql-arangodb-driver/src/main/java/org/eclipse/jnosql/communication/arangodb/document/ArangoDBUtil.java`
+#### Snippet
+```java
+
+    private static boolean isSudDocument(Object value) {
+        return value instanceof Iterable && StreamSupport.stream(Iterable.class.cast(value).spliterator(), false).
+                allMatch(org.eclipse.jnosql.communication.document.Document.class::isInstance);
+    }
+
+```
+
+### ConstantValue
+Method reference result is always 'true'
+in `jnosql-arangodb-driver/src/main/java/org/eclipse/jnosql/communication/arangodb/document/ArangoDBUtil.java`
+#### Snippet
+```java
+    private static boolean isSudDocument(Object value) {
+        return value instanceof Iterable && StreamSupport.stream(Iterable.class.cast(value).spliterator(), false).
+                allMatch(org.eclipse.jnosql.communication.document.Document.class::isInstance);
+    }
+
+```
+
+### ConstantValue
+Condition `stream(Iterable.class.cast(value).spliterator(), false) .allMatch(Map.class:...` is always `true` when reached
+in `jnosql-arangodb-driver/src/main/java/org/eclipse/jnosql/communication/arangodb/document/ArangoDBUtil.java`
+#### Snippet
+```java
+    private static boolean isADocumentIterable(Object value) {
+        return Iterable.class.isInstance(value) &&
+                stream(Iterable.class.cast(value).spliterator(), false)
+                        .allMatch(Map.class::isInstance);
+    }
+
+```
+
+### ConstantValue
+Method reference result is always 'true'
+in `jnosql-arangodb-driver/src/main/java/org/eclipse/jnosql/communication/arangodb/document/ArangoDBUtil.java`
+#### Snippet
+```java
+        return Iterable.class.isInstance(value) &&
+                stream(Iterable.class.cast(value).spliterator(), false)
+                        .allMatch(Map.class::isInstance);
+    }
+
+```
+
+### ConstantValue
+Condition `!hasTable` is always `true`
+in `jnosql-dynamodb-driver/src/main/java/org/eclipse/jnosql/communication/dynamodb/DynamoTableUtils.java`
+#### Snippet
+```java
+        String lastName = null;
+
+        while (!hasTable) {
+            try {
+                ListTablesRequest.Builder builder = ListTablesRequest.builder();
+```
+
+### ConstantValue
+Value `hasTable` is always 'false'
+in `jnosql-dynamodb-driver/src/main/java/org/eclipse/jnosql/communication/dynamodb/DynamoTableUtils.java`
+#### Snippet
+```java
+        String lastName = null;
+
+        while (!hasTable) {
+            try {
+                ListTablesRequest.Builder builder = ListTablesRequest.builder();
 ```
 
 ### ConstantValue
@@ -3701,55 +3764,6 @@ in `jnosql-ravendb-driver/src/main/java/org/eclipse/jnosql/communication/ravendb
     private static boolean isSudDocument(Object value) {
         return value instanceof Iterable && StreamSupport.stream(Iterable.class.cast(value).spliterator(), false).
                 allMatch(org.eclipse.jnosql.communication.document.Document.class::isInstance);
-    }
-
-```
-
-### ConstantValue
-Condition `!hasTable` is always `true`
-in `jnosql-dynamodb-driver/src/main/java/org/eclipse/jnosql/communication/dynamodb/DynamoTableUtils.java`
-#### Snippet
-```java
-        String lastName = null;
-
-        while (!hasTable) {
-            try {
-                ListTablesRequest.Builder builder = ListTablesRequest.builder();
-```
-
-### ConstantValue
-Value `hasTable` is always 'false'
-in `jnosql-dynamodb-driver/src/main/java/org/eclipse/jnosql/communication/dynamodb/DynamoTableUtils.java`
-#### Snippet
-```java
-        String lastName = null;
-
-        while (!hasTable) {
-            try {
-                ListTablesRequest.Builder builder = ListTablesRequest.builder();
-```
-
-### ConstantValue
-Condition `stream(Iterable.class.cast(value).spliterator(), false) .allMatch(Map.class:...` is always `true` when reached
-in `jnosql-elasticsearch-driver/src/main/java/org/eclipse/jnosql/communication/elasticsearch/document/ElasticsearchEntry.java`
-#### Snippet
-```java
-    private boolean isADocumentIterable(Object value) {
-        return Iterable.class.isInstance(value) &&
-                stream(Iterable.class.cast(value).spliterator(), false)
-                        .allMatch(Map.class::isInstance);
-    }
-
-```
-
-### ConstantValue
-Method reference result is always 'true'
-in `jnosql-elasticsearch-driver/src/main/java/org/eclipse/jnosql/communication/elasticsearch/document/ElasticsearchEntry.java`
-#### Snippet
-```java
-        return Iterable.class.isInstance(value) &&
-                stream(Iterable.class.cast(value).spliterator(), false)
-                        .allMatch(Map.class::isInstance);
     }
 
 ```
