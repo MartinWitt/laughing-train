@@ -12,7 +12,7 @@ I found 15 bad smells with 0 repairable:
 ## RuleId[ruleID=OptionalUsedAsFieldOrParameterType]
 ### OptionalUsedAsFieldOrParameterType
 `Optional` used as type for parameter 'parsedJwt'
-in `auth-tokens-filter-jakarta/src/main/java/com/palantir/tokens/auth/http/Utilities.java`
+in `auth-tokens-filter/src/main/java/com/palantir/tokens/auth/http/Utilities.java`
 #### Snippet
 ```java
     /** Writes to both the MDC and ContainerRequestContext. */
@@ -20,6 +20,18 @@ in `auth-tokens-filter-jakarta/src/main/java/com/palantir/tokens/auth/http/Utili
             ContainerRequestContext requestContext, Optional<UnverifiedJsonWebToken> parsedJwt) {
         if (parsedJwt.isPresent()) {
             UnverifiedJsonWebToken jwt = parsedJwt.get();
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'value'
+in `auth-tokens-filter/src/main/java/com/palantir/tokens/auth/http/Utilities.java`
+#### Snippet
+```java
+    }
+
+    private static void setUnverifiedContext(ContainerRequestContext requestContext, Key key, Optional<String> value) {
+        if (value.isPresent()) {
+            setUnverifiedContext(requestContext, key, value.get());
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -36,7 +48,7 @@ in `auth-tokens-filter-jakarta/src/main/java/com/palantir/tokens/auth/http/Utili
 
 ### OptionalUsedAsFieldOrParameterType
 `Optional` used as type for parameter 'parsedJwt'
-in `auth-tokens-filter/src/main/java/com/palantir/tokens/auth/http/Utilities.java`
+in `auth-tokens-filter-jakarta/src/main/java/com/palantir/tokens/auth/http/Utilities.java`
 #### Snippet
 ```java
     /** Writes to both the MDC and ContainerRequestContext. */
@@ -46,22 +58,10 @@ in `auth-tokens-filter/src/main/java/com/palantir/tokens/auth/http/Utilities.jav
             UnverifiedJsonWebToken jwt = parsedJwt.get();
 ```
 
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'value'
-in `auth-tokens-filter/src/main/java/com/palantir/tokens/auth/http/Utilities.java`
-#### Snippet
-```java
-    }
-
-    private static void setUnverifiedContext(ContainerRequestContext requestContext, Key key, Optional<String> value) {
-        if (value.isPresent()) {
-            setUnverifiedContext(requestContext, key, value.get());
-```
-
 ## RuleId[ruleID=OptionalIsPresent]
 ### OptionalIsPresent
 Can be replaced with single expression in functional style
-in `auth-tokens-filter-jakarta/src/main/java/com/palantir/tokens/auth/http/Utilities.java`
+in `auth-tokens-filter/src/main/java/com/palantir/tokens/auth/http/Utilities.java`
 #### Snippet
 ```java
 
@@ -73,7 +73,7 @@ in `auth-tokens-filter-jakarta/src/main/java/com/palantir/tokens/auth/http/Utili
 
 ### OptionalIsPresent
 Can be replaced with single expression in functional style
-in `auth-tokens-filter/src/main/java/com/palantir/tokens/auth/http/Utilities.java`
+in `auth-tokens-filter-jakarta/src/main/java/com/palantir/tokens/auth/http/Utilities.java`
 #### Snippet
 ```java
 
@@ -86,7 +86,7 @@ in `auth-tokens-filter/src/main/java/com/palantir/tokens/auth/http/Utilities.jav
 ## RuleId[ruleID=BoundedWildcard]
 ### BoundedWildcard
 Can generalize to `? extends UnverifiedJsonWebToken`
-in `auth-tokens-filter-jakarta/src/main/java/com/palantir/tokens/auth/http/Utilities.java`
+in `auth-tokens-filter/src/main/java/com/palantir/tokens/auth/http/Utilities.java`
 #### Snippet
 ```java
     /** Writes to both the MDC and ContainerRequestContext. */
@@ -98,7 +98,7 @@ in `auth-tokens-filter-jakarta/src/main/java/com/palantir/tokens/auth/http/Utili
 
 ### BoundedWildcard
 Can generalize to `? extends UnverifiedJsonWebToken`
-in `auth-tokens-filter/src/main/java/com/palantir/tokens/auth/http/Utilities.java`
+in `auth-tokens-filter-jakarta/src/main/java/com/palantir/tokens/auth/http/Utilities.java`
 #### Snippet
 ```java
     /** Writes to both the MDC and ContainerRequestContext. */
