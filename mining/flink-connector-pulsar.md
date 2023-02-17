@@ -1,17 +1,18 @@
 # flink-connector-pulsar 
  
 # Bad smells
-I found 74 bad smells with 1 repairable:
+I found 76 bad smells with 1 repairable:
 | ruleID | number | fixable |
 | --- | --- | --- |
 | BoundedWildcard | 45 | false |
 | NullableProblems | 14 | false |
 | UnnecessarySuperQualifier | 4 | false |
 | ReturnNull | 3 | false |
+| AssignmentToMethodParameter | 2 | false |
 | DynamicRegexReplaceableByCompiledPattern | 2 | false |
 | RedundantFieldInitialization | 1 | false |
-| AssignmentToMethodParameter | 1 | false |
 | UnnecessaryModifier | 1 | true |
+| SynchronizeOnThis | 1 | false |
 | UnusedAssignment | 1 | false |
 | UseOfPropertiesAsHashtable | 1 | false |
 | RefusedBequest | 1 | false |
@@ -41,6 +42,18 @@ in `flink-connector-pulsar/src/main/java/org/apache/flink/connector/pulsar/sink/
         ProducerBase<?> producer = (ProducerBase<?>) getOrCreateProducer(topic, schema);
 ```
 
+### AssignmentToMethodParameter
+Assignment to method parameter `remainingTimes`
+in `flink-connector-pulsar/src/main/java/org/apache/flink/connector/pulsar/common/handler/PulsarAdminInvocationHandler.java`
+#### Snippet
+```java
+                        throw throwable;
+                    } else if (throwable instanceof PulsarAdminException) {
+                        remainingTimes--;
+                        LOG.warn("Request error in Admin API, remain times: {}", remainingTimes, e);
+                        if (remainingTimes == 0) {
+```
+
 ## RuleId[ruleID=UnnecessaryModifier]
 ### UnnecessaryModifier
 Modifier `public` is redundant for interface members
@@ -55,6 +68,18 @@ in `flink-connector-pulsar/src/main/java/org/apache/flink/connector/pulsar/sourc
 ```
 
 ## RuleId[ruleID=ReturnNull]
+### ReturnNull
+Return of `null`
+in `flink-connector-pulsar/src/main/java/org/apache/flink/connector/pulsar/common/crypto/DefaultPulsarCrypto.java`
+#### Snippet
+```java
+        private final Set<String> encryptKeys = new HashSet<>();
+        private SerializableSupplier<MessageCrypto<MessageMetadata, MessageMetadata>>
+                messageCryptoSupplier = () -> null;
+
+        DefaultPulsarCryptoBuilder() {}
+```
+
 ### ReturnNull
 Return of `null`
 in `flink-connector-pulsar/src/main/java/org/apache/flink/connector/pulsar/source/enumerator/subscriber/impl/BasePulsarSubscriber.java`
@@ -77,18 +102,6 @@ in `flink-connector-pulsar/src/main/java/org/apache/flink/connector/pulsar/commo
             return null;
         }
     }
-```
-
-### ReturnNull
-Return of `null`
-in `flink-connector-pulsar/src/main/java/org/apache/flink/connector/pulsar/common/crypto/DefaultPulsarCrypto.java`
-#### Snippet
-```java
-        private final Set<String> encryptKeys = new HashSet<>();
-        private SerializableSupplier<MessageCrypto<MessageMetadata, MessageMetadata>>
-                messageCryptoSupplier = () -> null;
-
-        DefaultPulsarCryptoBuilder() {}
 ```
 
 ## RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
@@ -165,6 +178,19 @@ in `flink-connector-pulsar/src/main/java/org/apache/flink/connector/pulsar/sourc
         // Override the default subscribeAsync for skipping the subscription validation.
 ```
 
+## RuleId[ruleID=SynchronizeOnThis]
+### SynchronizeOnThis
+Lock operations on a class may have unforeseen side-effects
+in `flink-connector-pulsar/src/main/java/org/apache/flink/connector/pulsar/common/handler/PulsarAdminInvocationHandler.java`
+#### Snippet
+```java
+    private static void requestRateLimit(int requestRates) {
+        if (rateLimiter == null) {
+            synchronized (PulsarAdminInvocationHandler.class) {
+                if (rateLimiter == null) {
+                    rateLimiter = RateLimiter.create(requestRates);
+```
+
 ## RuleId[ruleID=BoundedWildcard]
 ### BoundedWildcard
 Can generalize to `? extends TopicPartition`
@@ -180,14 +206,26 @@ in `flink-connector-pulsar/src/main/java/org/apache/flink/connector/pulsar/sink/
 
 ### BoundedWildcard
 Can generalize to `? super T`
-in `flink-connector-pulsar/src/main/java/org/apache/flink/connector/pulsar/source/reader/deserializer/PulsarTypeInformationWrapper.java`
+in `flink-connector-pulsar/src/main/java/org/apache/flink/connector/pulsar/source/reader/PulsarRecordEmitter.java`
 #### Snippet
 ```java
+        }
 
-    @Override
-    public void deserialize(Message<byte[]> message, Collector<T> out) throws Exception {
-        DataInputDeserializer dis = DESERIALIZER.get();
-        dis.setBuffer(message.getData());
+        private void setSourceOutput(SourceOutput<T> sourceOutput) {
+            this.sourceOutput = sourceOutput;
+        }
+```
+
+### BoundedWildcard
+Can generalize to `? super Configuration`
+in `flink-connector-pulsar/src/main/java/org/apache/flink/connector/pulsar/common/config/PulsarConfigBuilder.java`
+#### Snippet
+```java
+    /** Validate the current config instance and return a unmodifiable configuration. */
+    public <T extends PulsarConfiguration> T build(
+            PulsarConfigValidator validator, Function<Configuration, T> constructor) {
+        validator.validate(configuration);
+        return constructor.apply(configuration);
 ```
 
 ### BoundedWildcard
@@ -215,30 +253,6 @@ in `flink-connector-pulsar/src/main/java/org/apache/flink/connector/pulsar/commo
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends Set`>
-in `flink-connector-pulsar/src/main/java/org/apache/flink/connector/pulsar/common/config/PulsarConfigValidator.java`
-#### Snippet
-```java
-
-    private PulsarConfigValidator(
-            List<Set<ConfigOption<?>>> conflictOptions, Set<ConfigOption<?>> requiredOptions) {
-        this.conflictOptions = conflictOptions;
-        this.requiredOptions = requiredOptions;
-```
-
-### BoundedWildcard
-Can generalize to `? extends ConfigOption`
-in `flink-connector-pulsar/src/main/java/org/apache/flink/connector/pulsar/common/config/PulsarConfigValidator.java`
-#### Snippet
-```java
-
-    private PulsarConfigValidator(
-            List<Set<ConfigOption<?>>> conflictOptions, Set<ConfigOption<?>> requiredOptions) {
-        this.conflictOptions = conflictOptions;
-        this.requiredOptions = requiredOptions;
-```
-
-### BoundedWildcard
 Can generalize to `? extends TopicPartition`
 in `flink-connector-pulsar/src/main/java/org/apache/flink/connector/pulsar/sink/writer/router/KeyHashTopicRouter.java`
 #### Snippet
@@ -263,15 +277,15 @@ in `flink-connector-pulsar/src/main/java/org/apache/flink/connector/pulsar/sourc
 ```
 
 ### BoundedWildcard
-Can generalize to `? super IN`
-in `flink-connector-pulsar/src/main/java/org/apache/flink/connector/pulsar/sink/writer/serializer/PulsarSerializationSchemaWrapper.java`
+Can generalize to `? extends T`
+in `flink-connector-pulsar/src/main/java/org/apache/flink/connector/pulsar/common/utils/PulsarSerdeUtils.java`
 #### Snippet
 ```java
-    private final SerializationSchema<IN> serializationSchema;
-
-    public PulsarSerializationSchemaWrapper(SerializationSchema<IN> serializationSchema) {
-        this.serializationSchema = serializationSchema;
-    }
+    public static <T> void serializeSet(
+            DataOutputStream out,
+            Set<T> set,
+            BiConsumerWithException<DataOutputStream, T, IOException> serializer)
+            throws IOException {
 ```
 
 ### BoundedWildcard
@@ -280,22 +294,22 @@ in `flink-connector-pulsar/src/main/java/org/apache/flink/connector/pulsar/commo
 #### Snippet
 ```java
             DataOutputStream out,
-            Map<K, V> map,
-            BiConsumerWithException<DataOutputStream, K, IOException> keySerializer,
-            BiConsumerWithException<DataOutputStream, V, IOException> valueSerializer)
+            Set<T> set,
+            BiConsumerWithException<DataOutputStream, T, IOException> serializer)
             throws IOException {
+        out.writeInt(set.size());
 ```
 
 ### BoundedWildcard
-Can generalize to `? super K`
+Can generalize to `? super T`
 in `flink-connector-pulsar/src/main/java/org/apache/flink/connector/pulsar/common/utils/PulsarSerdeUtils.java`
 #### Snippet
 ```java
             DataOutputStream out,
-            Map<K, V> map,
-            BiConsumerWithException<DataOutputStream, K, IOException> keySerializer,
-            BiConsumerWithException<DataOutputStream, V, IOException> valueSerializer)
+            Set<T> set,
+            BiConsumerWithException<DataOutputStream, T, IOException> serializer)
             throws IOException {
+        out.writeInt(set.size());
 ```
 
 ### BoundedWildcard
@@ -304,46 +318,10 @@ in `flink-connector-pulsar/src/main/java/org/apache/flink/connector/pulsar/commo
 #### Snippet
 ```java
             DataOutputStream out,
-            Map<K, V> map,
-            BiConsumerWithException<DataOutputStream, K, IOException> keySerializer,
-            BiConsumerWithException<DataOutputStream, V, IOException> valueSerializer)
+            Set<T> set,
+            BiConsumerWithException<DataOutputStream, T, IOException> serializer)
             throws IOException {
-```
-
-### BoundedWildcard
-Can generalize to `? super DataOutputStream`
-in `flink-connector-pulsar/src/main/java/org/apache/flink/connector/pulsar/common/utils/PulsarSerdeUtils.java`
-#### Snippet
-```java
-            Map<K, V> map,
-            BiConsumerWithException<DataOutputStream, K, IOException> keySerializer,
-            BiConsumerWithException<DataOutputStream, V, IOException> valueSerializer)
-            throws IOException {
-        out.writeInt(map.size());
-```
-
-### BoundedWildcard
-Can generalize to `? super V`
-in `flink-connector-pulsar/src/main/java/org/apache/flink/connector/pulsar/common/utils/PulsarSerdeUtils.java`
-#### Snippet
-```java
-            Map<K, V> map,
-            BiConsumerWithException<DataOutputStream, K, IOException> keySerializer,
-            BiConsumerWithException<DataOutputStream, V, IOException> valueSerializer)
-            throws IOException {
-        out.writeInt(map.size());
-```
-
-### BoundedWildcard
-Can generalize to `? extends IOException`
-in `flink-connector-pulsar/src/main/java/org/apache/flink/connector/pulsar/common/utils/PulsarSerdeUtils.java`
-#### Snippet
-```java
-            Map<K, V> map,
-            BiConsumerWithException<DataOutputStream, K, IOException> keySerializer,
-            BiConsumerWithException<DataOutputStream, V, IOException> valueSerializer)
-            throws IOException {
-        out.writeInt(map.size());
+        out.writeInt(set.size());
 ```
 
 ### BoundedWildcard
@@ -539,39 +517,27 @@ in `flink-connector-pulsar/src/main/java/org/apache/flink/connector/pulsar/commo
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends T`
-in `flink-connector-pulsar/src/main/java/org/apache/flink/connector/pulsar/common/utils/PulsarSerdeUtils.java`
-#### Snippet
-```java
-    public static <T> void serializeSet(
-            DataOutputStream out,
-            Set<T> set,
-            BiConsumerWithException<DataOutputStream, T, IOException> serializer)
-            throws IOException {
-```
-
-### BoundedWildcard
 Can generalize to `? super DataOutputStream`
 in `flink-connector-pulsar/src/main/java/org/apache/flink/connector/pulsar/common/utils/PulsarSerdeUtils.java`
 #### Snippet
 ```java
             DataOutputStream out,
-            Set<T> set,
-            BiConsumerWithException<DataOutputStream, T, IOException> serializer)
+            Map<K, V> map,
+            BiConsumerWithException<DataOutputStream, K, IOException> keySerializer,
+            BiConsumerWithException<DataOutputStream, V, IOException> valueSerializer)
             throws IOException {
-        out.writeInt(set.size());
 ```
 
 ### BoundedWildcard
-Can generalize to `? super T`
+Can generalize to `? super K`
 in `flink-connector-pulsar/src/main/java/org/apache/flink/connector/pulsar/common/utils/PulsarSerdeUtils.java`
 #### Snippet
 ```java
             DataOutputStream out,
-            Set<T> set,
-            BiConsumerWithException<DataOutputStream, T, IOException> serializer)
+            Map<K, V> map,
+            BiConsumerWithException<DataOutputStream, K, IOException> keySerializer,
+            BiConsumerWithException<DataOutputStream, V, IOException> valueSerializer)
             throws IOException {
-        out.writeInt(set.size());
 ```
 
 ### BoundedWildcard
@@ -580,10 +546,106 @@ in `flink-connector-pulsar/src/main/java/org/apache/flink/connector/pulsar/commo
 #### Snippet
 ```java
             DataOutputStream out,
-            Set<T> set,
-            BiConsumerWithException<DataOutputStream, T, IOException> serializer)
+            Map<K, V> map,
+            BiConsumerWithException<DataOutputStream, K, IOException> keySerializer,
+            BiConsumerWithException<DataOutputStream, V, IOException> valueSerializer)
             throws IOException {
-        out.writeInt(set.size());
+```
+
+### BoundedWildcard
+Can generalize to `? super DataOutputStream`
+in `flink-connector-pulsar/src/main/java/org/apache/flink/connector/pulsar/common/utils/PulsarSerdeUtils.java`
+#### Snippet
+```java
+            Map<K, V> map,
+            BiConsumerWithException<DataOutputStream, K, IOException> keySerializer,
+            BiConsumerWithException<DataOutputStream, V, IOException> valueSerializer)
+            throws IOException {
+        out.writeInt(map.size());
+```
+
+### BoundedWildcard
+Can generalize to `? super V`
+in `flink-connector-pulsar/src/main/java/org/apache/flink/connector/pulsar/common/utils/PulsarSerdeUtils.java`
+#### Snippet
+```java
+            Map<K, V> map,
+            BiConsumerWithException<DataOutputStream, K, IOException> keySerializer,
+            BiConsumerWithException<DataOutputStream, V, IOException> valueSerializer)
+            throws IOException {
+        out.writeInt(map.size());
+```
+
+### BoundedWildcard
+Can generalize to `? extends IOException`
+in `flink-connector-pulsar/src/main/java/org/apache/flink/connector/pulsar/common/utils/PulsarSerdeUtils.java`
+#### Snippet
+```java
+            Map<K, V> map,
+            BiConsumerWithException<DataOutputStream, K, IOException> keySerializer,
+            BiConsumerWithException<DataOutputStream, V, IOException> valueSerializer)
+            throws IOException {
+        out.writeInt(map.size());
+```
+
+### BoundedWildcard
+Can generalize to `? super IN`
+in `flink-connector-pulsar/src/main/java/org/apache/flink/connector/pulsar/sink/writer/serializer/PulsarSerializationSchemaWrapper.java`
+#### Snippet
+```java
+    private final SerializationSchema<IN> serializationSchema;
+
+    public PulsarSerializationSchemaWrapper(SerializationSchema<IN> serializationSchema) {
+        this.serializationSchema = serializationSchema;
+    }
+```
+
+### BoundedWildcard
+Can generalize to `? extends MessageCrypto`
+in `flink-connector-pulsar/src/main/java/org/apache/flink/connector/pulsar/common/crypto/DefaultPulsarCrypto.java`
+#### Snippet
+```java
+            CryptoKeyReader cryptoKeyReader,
+            Set<String> encryptKeys,
+            SerializableSupplier<MessageCrypto<MessageMetadata, MessageMetadata>>
+                    messageCryptoSupplier) {
+        this.cryptoKeyReader = cryptoKeyReader;
+```
+
+### BoundedWildcard
+Can generalize to `? extends Set`>
+in `flink-connector-pulsar/src/main/java/org/apache/flink/connector/pulsar/common/config/PulsarConfigValidator.java`
+#### Snippet
+```java
+
+    private PulsarConfigValidator(
+            List<Set<ConfigOption<?>>> conflictOptions, Set<ConfigOption<?>> requiredOptions) {
+        this.conflictOptions = conflictOptions;
+        this.requiredOptions = requiredOptions;
+```
+
+### BoundedWildcard
+Can generalize to `? extends ConfigOption`
+in `flink-connector-pulsar/src/main/java/org/apache/flink/connector/pulsar/common/config/PulsarConfigValidator.java`
+#### Snippet
+```java
+
+    private PulsarConfigValidator(
+            List<Set<ConfigOption<?>>> conflictOptions, Set<ConfigOption<?>> requiredOptions) {
+        this.conflictOptions = conflictOptions;
+        this.requiredOptions = requiredOptions;
+```
+
+### BoundedWildcard
+Can generalize to `? extends TopicPartition`
+in `flink-connector-pulsar/src/main/java/org/apache/flink/connector/pulsar/source/enumerator/assigner/SplitAssignerImpl.java`
+#### Snippet
+```java
+
+    @Override
+    public List<TopicPartition> registerTopicPartitions(Set<TopicPartition> fetchedPartitions) {
+        List<TopicPartition> newPartitions = new ArrayList<>();
+
 ```
 
 ### BoundedWildcard
@@ -599,15 +661,39 @@ in `flink-connector-pulsar/src/main/java/org/apache/flink/connector/pulsar/sourc
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends TopicPartition`
-in `flink-connector-pulsar/src/main/java/org/apache/flink/connector/pulsar/source/enumerator/assigner/SplitAssignerImpl.java`
+Can generalize to `? extends TopicRange`
+in `flink-connector-pulsar/src/main/java/org/apache/flink/connector/pulsar/source/enumerator/topic/range/TopicRangeUtils.java`
+#### Snippet
+```java
+
+    /** Check if the given topic ranges are full Pulsar range. */
+    public static boolean isFullTopicRanges(List<TopicRange> ranges) {
+        List<TopicRange> sorted =
+                ranges.stream().sorted(comparingLong(TopicRange::getStart)).collect(toList());
+```
+
+### BoundedWildcard
+Can generalize to `? super T`
+in `flink-connector-pulsar/src/main/java/org/apache/flink/connector/pulsar/source/reader/deserializer/PulsarTypeInformationWrapper.java`
 #### Snippet
 ```java
 
     @Override
-    public List<TopicPartition> registerTopicPartitions(Set<TopicPartition> fetchedPartitions) {
-        List<TopicPartition> newPartitions = new ArrayList<>();
+    public void deserialize(Message<byte[]> message, Collector<T> out) throws Exception {
+        DataInputDeserializer dis = DESERIALIZER.get();
+        dis.setBuffer(message.getData());
+```
 
+### BoundedWildcard
+Can generalize to `? extends Map`
+in `flink-connector-pulsar/src/main/java/org/apache/flink/connector/pulsar/common/config/PulsarConfiguration.java`
+#### Snippet
+```java
+     * Get the option value by a prefix. We would return an empty map if the option doesn't exist.
+     */
+    public Map<String, String> getProperties(ConfigOption<Map<String, String>> option) {
+        Map<String, String> properties = new HashMap<>();
+        if (contains(option)) {
 ```
 
 ### BoundedWildcard
@@ -632,66 +718,6 @@ in `flink-connector-pulsar/src/main/java/org/apache/flink/connector/pulsar/commo
             ConfigOption<T> option, Function<T, V> convertor, Consumer<V> setter) {
         if (contains(option) || option.hasDefaultValue()) {
             V value = get(option, convertor);
-```
-
-### BoundedWildcard
-Can generalize to `? extends Map`
-in `flink-connector-pulsar/src/main/java/org/apache/flink/connector/pulsar/common/config/PulsarConfiguration.java`
-#### Snippet
-```java
-     * Get the option value by a prefix. We would return an empty map if the option doesn't exist.
-     */
-    public Map<String, String> getProperties(ConfigOption<Map<String, String>> option) {
-        Map<String, String> properties = new HashMap<>();
-        if (contains(option)) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends TopicRange`
-in `flink-connector-pulsar/src/main/java/org/apache/flink/connector/pulsar/source/enumerator/topic/range/TopicRangeUtils.java`
-#### Snippet
-```java
-
-    /** Check if the given topic ranges are full Pulsar range. */
-    public static boolean isFullTopicRanges(List<TopicRange> ranges) {
-        List<TopicRange> sorted =
-                ranges.stream().sorted(comparingLong(TopicRange::getStart)).collect(toList());
-```
-
-### BoundedWildcard
-Can generalize to `? super Configuration`
-in `flink-connector-pulsar/src/main/java/org/apache/flink/connector/pulsar/common/config/PulsarConfigBuilder.java`
-#### Snippet
-```java
-    /** Validate the current config instance and return a unmodifiable configuration. */
-    public <T extends PulsarConfiguration> T build(
-            PulsarConfigValidator validator, Function<Configuration, T> constructor) {
-        validator.validate(configuration);
-        return constructor.apply(configuration);
-```
-
-### BoundedWildcard
-Can generalize to `? extends MessageCrypto`
-in `flink-connector-pulsar/src/main/java/org/apache/flink/connector/pulsar/common/crypto/DefaultPulsarCrypto.java`
-#### Snippet
-```java
-            CryptoKeyReader cryptoKeyReader,
-            Set<String> encryptKeys,
-            SerializableSupplier<MessageCrypto<MessageMetadata, MessageMetadata>>
-                    messageCryptoSupplier) {
-        this.cryptoKeyReader = cryptoKeyReader;
-```
-
-### BoundedWildcard
-Can generalize to `? super T`
-in `flink-connector-pulsar/src/main/java/org/apache/flink/connector/pulsar/source/reader/PulsarRecordEmitter.java`
-#### Snippet
-```java
-        }
-
-        private void setSourceOutput(SourceOutput<T> sourceOutput) {
-            this.sourceOutput = sourceOutput;
-        }
 ```
 
 ### BoundedWildcard
@@ -720,6 +746,30 @@ in `flink-connector-pulsar/src/main/java/org/apache/flink/connector/pulsar/sourc
 ```
 
 ## RuleId[ruleID=NullableProblems]
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
+in `flink-connector-pulsar/src/main/java/org/apache/flink/connector/pulsar/source/split/PulsarPartitionSplitState.java`
+#### Snippet
+```java
+    private final PulsarPartitionSplit split;
+
+    @Nullable private TxnID uncommittedTransactionId;
+
+    @Nullable private MessageId latestConsumedId;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
+in `flink-connector-pulsar/src/main/java/org/apache/flink/connector/pulsar/source/split/PulsarPartitionSplitState.java`
+#### Snippet
+```java
+    @Nullable private TxnID uncommittedTransactionId;
+
+    @Nullable private MessageId latestConsumedId;
+
+    public PulsarPartitionSplitState(PulsarPartitionSplit split) {
+```
+
 ### NullableProblems
 The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
 in `flink-connector-pulsar/src/main/java/org/apache/flink/connector/pulsar/sink/writer/topic/ProducerRegister.java`
@@ -782,38 +832,14 @@ in `flink-connector-pulsar/src/main/java/org/apache/flink/connector/pulsar/sink/
 
 ### NullableProblems
 The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
-in `flink-connector-pulsar/src/main/java/org/apache/flink/connector/pulsar/source/split/PulsarPartitionSplitState.java`
-#### Snippet
-```java
-    private final PulsarPartitionSplit split;
-
-    @Nullable private TxnID uncommittedTransactionId;
-
-    @Nullable private MessageId latestConsumedId;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
-in `flink-connector-pulsar/src/main/java/org/apache/flink/connector/pulsar/source/split/PulsarPartitionSplitState.java`
-#### Snippet
-```java
-    @Nullable private TxnID uncommittedTransactionId;
-
-    @Nullable private MessageId latestConsumedId;
-
-    public PulsarPartitionSplitState(PulsarPartitionSplit split) {
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
 in `flink-connector-pulsar/src/main/java/org/apache/flink/connector/pulsar/sink/writer/message/PulsarMessage.java`
 #### Snippet
 ```java
-
-    @Nullable private final byte[] orderingKey;
-    @Nullable private final String key;
     private final long eventTime;
     @Nullable private final Schema<T> schema;
+    @Nullable private final T value;
+    @Nullable private final Map<String, String> properties;
+    @Nullable private final Long sequenceId;
 ```
 
 ### NullableProblems
@@ -833,11 +859,23 @@ The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@j
 in `flink-connector-pulsar/src/main/java/org/apache/flink/connector/pulsar/sink/writer/message/PulsarMessage.java`
 #### Snippet
 ```java
+    @Nullable private final Map<String, String> properties;
+    @Nullable private final Long sequenceId;
+    @Nullable private final List<String> replicationClusters;
+    private final boolean disableReplication;
+
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
+in `flink-connector-pulsar/src/main/java/org/apache/flink/connector/pulsar/sink/writer/message/PulsarMessage.java`
+#### Snippet
+```java
+    @Nullable private final Schema<T> schema;
     @Nullable private final T value;
     @Nullable private final Map<String, String> properties;
     @Nullable private final Long sequenceId;
     @Nullable private final List<String> replicationClusters;
-    private final boolean disableReplication;
 ```
 
 ### NullableProblems
@@ -845,23 +883,11 @@ The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@j
 in `flink-connector-pulsar/src/main/java/org/apache/flink/connector/pulsar/sink/writer/message/PulsarMessage.java`
 #### Snippet
 ```java
-    @Nullable private final Map<String, String> properties;
-    @Nullable private final Long sequenceId;
-    @Nullable private final List<String> replicationClusters;
-    private final boolean disableReplication;
 
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
-in `flink-connector-pulsar/src/main/java/org/apache/flink/connector/pulsar/sink/writer/message/PulsarMessage.java`
-#### Snippet
-```java
+    @Nullable private final byte[] orderingKey;
+    @Nullable private final String key;
     private final long eventTime;
     @Nullable private final Schema<T> schema;
-    @Nullable private final T value;
-    @Nullable private final Map<String, String> properties;
-    @Nullable private final Long sequenceId;
 ```
 
 ### NullableProblems
@@ -869,11 +895,11 @@ The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@j
 in `flink-connector-pulsar/src/main/java/org/apache/flink/connector/pulsar/sink/writer/message/PulsarMessage.java`
 #### Snippet
 ```java
-    @Nullable private final Schema<T> schema;
     @Nullable private final T value;
     @Nullable private final Map<String, String> properties;
     @Nullable private final Long sequenceId;
     @Nullable private final List<String> replicationClusters;
+    private final boolean disableReplication;
 ```
 
 ### NullableProblems
