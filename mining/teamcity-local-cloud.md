@@ -9,8 +9,8 @@ I found 26 bad smells with 3 repairable:
 | UNUSED_IMPORT | 2 | false |
 | DoubleBraceInitialization | 2 | false |
 | WrapperTypeMayBePrimitive | 1 | false |
-| SizeReplaceableByIsEmpty | 1 | true |
 | ProtectedMemberInFinalClass | 1 | true |
+| SizeReplaceableByIsEmpty | 1 | true |
 | UnnecessaryFullyQualifiedName | 1 | false |
 | NonProtectedConstructorInAbstractClass | 1 | true |
 | MismatchedCollectionQueryUpdate | 1 | false |
@@ -39,6 +39,30 @@ in `src/jetbrains/buildServer/clouds/local/LocalCloudClient.java`
     return null;
   }
 
+```
+
+### ReturnNull
+Return of `null`
+in `src/jetbrains/buildServer/clouds/local/LocalCloudClient.java`
+#### Snippet
+```java
+  public LocalCloudInstance findInstanceByAgent(@NotNull final AgentDescription agentDescription) {
+    final LocalCloudImage image = findImage(agentDescription);
+    if (image == null) return null;
+
+    final String instanceId = findInstanceId(agentDescription);
+```
+
+### ReturnNull
+Return of `null`
+in `src/jetbrains/buildServer/clouds/local/LocalCloudClient.java`
+#### Snippet
+```java
+
+    final String instanceId = findInstanceId(agentDescription);
+    if (instanceId == null) return null;
+
+    return image.findInstanceById(instanceId);
 ```
 
 ### ReturnNull
@@ -77,28 +101,17 @@ in `src/jetbrains/buildServer/clouds/local/LocalCloudClient.java`
 
 ```
 
-### ReturnNull
-Return of `null`
-in `src/jetbrains/buildServer/clouds/local/LocalCloudClient.java`
+## RuleId[ruleID=ProtectedMemberInFinalClass]
+### ProtectedMemberInFinalClass
+Class member declared `protected` in 'final' class
+in `src/jetbrains/buildServer/clouds/local/LocalCloudInstance.java`
 #### Snippet
 ```java
-  public LocalCloudInstance findInstanceByAgent(@NotNull final AgentDescription agentDescription) {
-    final LocalCloudImage image = findImage(agentDescription);
-    if (image == null) return null;
-
-    final String instanceId = findInstanceId(agentDescription);
-```
-
-### ReturnNull
-Return of `null`
-in `src/jetbrains/buildServer/clouds/local/LocalCloudClient.java`
-#### Snippet
-```java
-
-    final String instanceId = findInstanceId(agentDescription);
-    if (instanceId == null) return null;
-
-    return image.findInstanceById(instanceId);
+    new WaitFor(STATUS_WAITING_TIMEOUT) {
+      @Override
+      protected boolean condition() {
+        return myStatus == status;
+      }
 ```
 
 ## RuleId[ruleID=SizeReplaceableByIsEmpty]
@@ -112,19 +125,6 @@ in `src/jetbrains/buildServer/clouds/local/LocalCloudClient.java`
     if (images == null || images.trim().length() == 0) {
       myErrorInfo = new CloudErrorInfo("No images specified");
       return;
-```
-
-## RuleId[ruleID=ProtectedMemberInFinalClass]
-### ProtectedMemberInFinalClass
-Class member declared `protected` in 'final' class
-in `src/jetbrains/buildServer/clouds/local/LocalCloudInstance.java`
-#### Snippet
-```java
-    new WaitFor(STATUS_WAITING_TIMEOUT) {
-      @Override
-      protected boolean condition() {
-        return myStatus == status;
-      }
 ```
 
 ## RuleId[ruleID=UnnecessaryFullyQualifiedName]
@@ -171,8 +171,8 @@ Double brace initialization
 in `src/jetbrains/buildServer/clouds/local/LocalCloudInstance.java`
 #### Snippet
 ```java
-        ZipUtil.extract(agentHomeDir, myBaseDir, new FilenameFilter() {
-
+      if (agentHomeDir.isDirectory()) {
+        FileUtil.copyDir(agentHomeDir, myBaseDir, new FileFilter() {
           private final Set<String> ourDirsToNotToCopy = new HashSet<String>() {{
             Collections.addAll(this, "work", "temp", "system", "contrib");
           }};
@@ -183,8 +183,8 @@ Double brace initialization
 in `src/jetbrains/buildServer/clouds/local/LocalCloudInstance.java`
 #### Snippet
 ```java
-      if (agentHomeDir.isDirectory()) {
-        FileUtil.copyDir(agentHomeDir, myBaseDir, new FileFilter() {
+        ZipUtil.extract(agentHomeDir, myBaseDir, new FilenameFilter() {
+
           private final Set<String> ourDirsToNotToCopy = new HashSet<String>() {{
             Collections.addAll(this, "work", "temp", "system", "contrib");
           }};
