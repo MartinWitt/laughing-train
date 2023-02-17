@@ -14,8 +14,8 @@ I found 43 bad smells with 9 repairable:
 | NestedAssignment | 2 | false |
 | ThrowablePrintStackTrace | 2 | false |
 | DoubleBraceInitialization | 2 | false |
-| UnnecessaryFullyQualifiedName | 1 | false |
 | DataFlowIssue | 1 | false |
+| UnnecessaryFullyQualifiedName | 1 | false |
 | UNUSED_IMPORT | 1 | false |
 | NonProtectedConstructorInAbstractClass | 1 | true |
 | DuplicateBranchesInSwitch | 1 | false |
@@ -57,8 +57,8 @@ in `report-builder/src/jetbrains/coverage/report/impl/html/SortOption.java`
 ```java
   }
 
-  private static interface Func<T> {
-    CoverageStatistics compute(T t);
+  private static interface Selector {
+    StatEntry compute(@NotNull CoverageStatistics stat);
   }
 ```
 
@@ -69,8 +69,8 @@ in `report-builder/src/jetbrains/coverage/report/impl/html/SortOption.java`
 ```java
   }
 
-  private static interface Selector {
-    StatEntry compute(@NotNull CoverageStatistics stat);
+  private static interface Func<T> {
+    CoverageStatistics compute(T t);
   }
 ```
 
@@ -88,18 +88,6 @@ public class IOUtil {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `ReportBuilderFactory` has only 'static' members, and lacks a 'private' constructor
-in `report-builder/src/jetbrains/coverage/report/ReportBuilderFactory.java`
-#### Snippet
-```java
- * Factory for report builder classes
- */
-public class ReportBuilderFactory {
-  /**
-   * Creates new HTML report builder
-```
-
-### UtilityClassWithoutPrivateConstructor
 Class `StringUtil` has only 'static' members, and lacks a 'private' constructor
 in `report-builder/src/jetbrains/coverage/report/impl/StringUtil.java`
 #### Snippet
@@ -111,17 +99,16 @@ public class StringUtil {
 
 ```
 
-## RuleId[ruleID=UnnecessaryFullyQualifiedName]
-### UnnecessaryFullyQualifiedName
-Qualifier `jetbrains.coverage.report.impl` is unnecessary, and can be replaced with an import
-in `report-builder/src/jetbrains/coverage/report/idea/IDEACoverageData.java`
+### UtilityClassWithoutPrivateConstructor
+Class `ReportBuilderFactory` has only 'static' members, and lacks a 'private' constructor
+in `report-builder/src/jetbrains/coverage/report/ReportBuilderFactory.java`
 #### Snippet
 ```java
-
-    int lineNum = 0;
-    for (CharSequence line : jetbrains.coverage.report.impl.StringUtil.getLines(source)) {
-      lineNum++;
-
+ * Factory for report builder classes
+ */
+public class ReportBuilderFactory {
+  /**
+   * Creates new HTML report builder
 ```
 
 ## RuleId[ruleID=DataFlowIssue]
@@ -135,6 +122,19 @@ in `report-builder/src/jetbrains/coverage/report/idea/IDEACoverageClassInfo.java
       Integer status = myClassData.getStatus((String) m);
       if (isCovered(status)) {
         covered++;
+```
+
+## RuleId[ruleID=UnnecessaryFullyQualifiedName]
+### UnnecessaryFullyQualifiedName
+Qualifier `jetbrains.coverage.report.impl` is unnecessary, and can be replaced with an import
+in `report-builder/src/jetbrains/coverage/report/idea/IDEACoverageData.java`
+#### Snippet
+```java
+
+    int lineNum = 0;
+    for (CharSequence line : jetbrains.coverage.report.impl.StringUtil.getLines(source)) {
+      lineNum++;
+
 ```
 
 ## RuleId[ruleID=UNUSED_IMPORT]
@@ -233,7 +233,7 @@ in `report-builder/src/jetbrains/coverage/report/impl/CoverageStatisticsBean.jav
 #### Snippet
 ```java
 
-    public StatEntry getBlockStats() {
+    public StatEntry getMethodStats() {
       return null;
     }
 
@@ -245,7 +245,7 @@ in `report-builder/src/jetbrains/coverage/report/impl/CoverageStatisticsBean.jav
 #### Snippet
 ```java
 
-    public StatEntry getMethodStats() {
+    public StatEntry getBlockStats() {
       return null;
     }
 
@@ -268,8 +268,8 @@ Return of `null`
 in `report-builder/src/jetbrains/coverage/report/impl/CoverageStatisticsBean.java`
 #### Snippet
 ```java
-  private static final CoverageStatistics NULL_STATS = new CoverageStatistics() {
-    public StatEntry getClassStats() {
+
+    public StatEntry getLineStats() {
       return null;
     }
 
@@ -280,8 +280,8 @@ Return of `null`
 in `report-builder/src/jetbrains/coverage/report/impl/CoverageStatisticsBean.java`
 #### Snippet
 ```java
-
-    public StatEntry getLineStats() {
+  private static final CoverageStatistics NULL_STATS = new CoverageStatistics() {
+    public StatEntry getClassStats() {
       return null;
     }
 
@@ -313,6 +313,18 @@ in `report-builder/src/jetbrains/coverage/report/impl/html/ModuleInfo.java`
 ```
 
 ### SizeReplaceableByIsEmpty
+`className.length() == 0` can be replaced with 'className.isEmpty()'
+in `report-builder/src/jetbrains/coverage/report/idea/IDEACoverageData.java`
+#### Snippet
+```java
+    for (Map.Entry<String, Collection<String>> classEntry: classAndRelatedClassesMap.entrySet()) {
+      String className = classEntry.getKey();
+      if (className == null || className.length() == 0) continue;
+      if (className.startsWith("com.intellij.rt.coverage")) continue; // ignore coverage implementation classes
+      if (isInnerClass(className)) continue;
+```
+
+### SizeReplaceableByIsEmpty
 `myLines.size() > 0` can be replaced with '!myLines.isEmpty()'
 in `report-builder/src/jetbrains/coverage/report/impl/ClassDataBean.java`
 #### Snippet
@@ -324,16 +336,29 @@ in `report-builder/src/jetbrains/coverage/report/impl/ClassDataBean.java`
         }
 ```
 
-### SizeReplaceableByIsEmpty
-`className.length() == 0` can be replaced with 'className.isEmpty()'
-in `report-builder/src/jetbrains/coverage/report/idea/IDEACoverageData.java`
+## RuleId[ruleID=DoubleBraceInitialization]
+### DoubleBraceInitialization
+Double brace initialization
+in `report-builder/src/jetbrains/coverage/report/ReportBuilderFactory.java`
 #### Snippet
 ```java
-    for (Map.Entry<String, Collection<String>> classEntry: classAndRelatedClassesMap.entrySet()) {
-      String className = classEntry.getKey();
-      if (className == null || className.length() == 0) continue;
-      if (className.startsWith("com.intellij.rt.coverage")) continue; // ignore coverage implementation classes
-      if (isInnerClass(className)) continue;
+   */
+  public static HTMLReportBuilder createHTMLReportBuilderForKover() {
+    return new HTMLReportBuilderImpl() {{setResourceBundleName("koverCoverage");}};
+  }
+
+```
+
+### DoubleBraceInitialization
+Double brace initialization
+in `report-builder/src/jetbrains/coverage/report/ReportBuilderFactory.java`
+#### Snippet
+```java
+   */
+  public static HTMLReportBuilder createHTMLReportBuilderForDotNet() {
+    return new HTMLReportBuilderImpl() {{setResourceBundleName("dotNetCoverage");}};
+  }
+
 ```
 
 ## RuleId[ruleID=AssignmentToForLoopParameter]
@@ -347,31 +372,6 @@ in `report-builder/src/jetbrains/coverage/report/impl/StringUtil.java`
           if (next != null && next == '\n') i++;
           break;
         case '\n':
-```
-
-## RuleId[ruleID=DoubleBraceInitialization]
-### DoubleBraceInitialization
-Double brace initialization
-in `report-builder/src/jetbrains/coverage/report/ReportBuilderFactory.java`
-#### Snippet
-```java
-   */
-  public static HTMLReportBuilder createHTMLReportBuilderForDotNet() {
-    return new HTMLReportBuilderImpl() {{setResourceBundleName("dotNetCoverage");}};
-  }
-
-```
-
-### DoubleBraceInitialization
-Double brace initialization
-in `report-builder/src/jetbrains/coverage/report/ReportBuilderFactory.java`
-#### Snippet
-```java
-   */
-  public static HTMLReportBuilder createHTMLReportBuilderForKover() {
-    return new HTMLReportBuilderImpl() {{setResourceBundleName("koverCoverage");}};
-  }
-
 ```
 
 ## RuleId[ruleID=ManualMinMaxCalculation]
@@ -413,6 +413,18 @@ in `report-builder/src/jetbrains/coverage/report/impl/html/BaseGenerator.java`
 ```
 
 ### BoundedWildcard
+Can generalize to `? extends ClassInfo`
+in `report-builder/src/jetbrains/coverage/report/impl/html/HTMLReportBuilderImpl.java`
+#### Snippet
+```java
+  }
+
+  private MapToSet<ModuleInfo, ClassInfo> groupByModules(final Collection<ClassInfo> coverageData) {
+    MapToSet<ModuleInfo, ClassInfo> set = new MapToSet<ModuleInfo, ClassInfo>();
+    for (ClassInfo info : coverageData) {
+```
+
+### BoundedWildcard
 Can generalize to `? super ModuleInfo`
 in `report-builder/src/jetbrains/coverage/report/impl/html/HTMLReportBuilderImpl.java`
 #### Snippet
@@ -431,33 +443,9 @@ in `report-builder/src/jetbrains/coverage/report/impl/html/HTMLReportBuilderImpl
 ```java
   }
 
-  private MapToSet<ModuleInfo, ClassInfo> groupByModules(final Collection<ClassInfo> coverageData) {
-    MapToSet<ModuleInfo, ClassInfo> set = new MapToSet<ModuleInfo, ClassInfo>();
-    for (ClassInfo info : coverageData) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends ClassInfo`
-in `report-builder/src/jetbrains/coverage/report/impl/html/HTMLReportBuilderImpl.java`
-#### Snippet
-```java
-  }
-
   private MapToSet<String, ClassInfo> groupByNamespace(final Collection<ClassInfo> coverageData) {
     MapToSet<String, ClassInfo> set = new MapToSet<String, ClassInfo>();
     for (ClassInfo cd: coverageData) {
-```
-
-### BoundedWildcard
-Can generalize to `? super ClassDataBean`
-in `report-builder/src/jetbrains/coverage/report/impl/ClassDataBean.java`
-#### Snippet
-```java
-  }
-
-  private void collectInnerClasses(final ClassInfo classInfo, final List<ClassDataBean> result) {
-    final Collection<ClassInfo> innerClasses = classInfo.getInnerClasses();
-    if (innerClasses != null) {
 ```
 
 ### BoundedWildcard
@@ -470,6 +458,18 @@ in `report-builder/src/jetbrains/coverage/report/idea/IDEACoverageClassInfo.java
                                @NotNull final Collection<ClassData> innerClasses) {
     super(className);
     myProjectData = projectData;
+```
+
+### BoundedWildcard
+Can generalize to `? super ClassDataBean`
+in `report-builder/src/jetbrains/coverage/report/impl/ClassDataBean.java`
+#### Snippet
+```java
+  }
+
+  private void collectInnerClasses(final ClassInfo classInfo, final List<ClassDataBean> result) {
+    final Collection<ClassInfo> innerClasses = classInfo.getInnerClasses();
+    if (innerClasses != null) {
 ```
 
 ### BoundedWildcard
