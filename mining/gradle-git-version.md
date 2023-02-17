@@ -1,16 +1,19 @@
 # gradle-git-version 
  
 # Bad smells
-I found 18 bad smells with 1 repairable:
+I found 23 bad smells with 3 repairable:
 | ruleID | number | fixable |
 | --- | --- | --- |
-| ReturnNull | 9 | false |
+| ReturnNull | 10 | false |
+| UnnecessaryLocalVariable | 2 | true |
 | ConstantValue | 2 | false |
 | RedundantFieldInitialization | 1 | false |
 | SystemOutErr | 1 | false |
 | DynamicRegexReplaceableByCompiledPattern | 1 | false |
+| DataFlowIssue | 1 | false |
 | NestedAssignment | 1 | false |
 | BoundedWildcard | 1 | false |
+| AbstractClassNeverImplemented | 1 | false |
 | UnusedAssignment | 1 | false |
 | CodeBlock2Expr | 1 | true |
 ## RuleId[ruleID=RedundantFieldInitialization]
@@ -23,7 +26,7 @@ in `src/main/java/com/palantir/gradle/gitversion/VersionDetailsImpl.java`
     private final GitVersionArgs args;
     private volatile String maybeCachedDescription = null;
 
-    VersionDetailsImpl(Git git, GitVersionArgs args) {
+    VersionDetailsImpl(File gitDir, GitVersionArgs args) throws IOException {
 ```
 
 ## RuleId[ruleID=SystemOutErr]
@@ -54,14 +57,26 @@ in `src/main/java/com/palantir/gradle/gitversion/RefWithTagNameComparator.java`
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/com/palantir/gradle/gitversion/VersionDetailsImpl.java`
+in `src/main/java/com/palantir/gradle/gitversion/NativeGitDescribe.java`
 #### Snippet
 ```java
-        String gitHashFull = getGitHashFull();
-        if (gitHashFull == null) {
+    public String describe(String prefix) {
+        if (!gitCommandExists()) {
             return null;
         }
 
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/com/palantir/gradle/gitversion/NativeGitDescribe.java`
+#### Snippet
+```java
+        } catch (IOException | InterruptedException | RuntimeException e) {
+            log.debug("Native git describe failed", e);
+            return null;
+        }
+    }
 ```
 
 ### ReturnNull
@@ -81,8 +96,8 @@ Return of `null`
 in `src/main/java/com/palantir/gradle/gitversion/VersionDetailsImpl.java`
 #### Snippet
 ```java
-        if (isRepoEmpty()) {
-            log.debug("Repository is empty");
+        String gitHashFull = getGitHashFull();
+        if (gitHashFull == null) {
             return null;
         }
 
@@ -114,11 +129,11 @@ in `src/main/java/com/palantir/gradle/gitversion/VersionDetailsImpl.java`
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/com/palantir/gradle/gitversion/NativeGitDescribe.java`
+in `src/main/java/com/palantir/gradle/gitversion/VersionDetailsImpl.java`
 #### Snippet
 ```java
-    public String describe(String prefix) {
-        if (!gitCommandExists()) {
+        if (isRepoEmpty()) {
+            log.debug("Repository is empty");
             return null;
         }
 
@@ -126,11 +141,11 @@ in `src/main/java/com/palantir/gradle/gitversion/NativeGitDescribe.java`
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/com/palantir/gradle/gitversion/NativeGitDescribe.java`
+in `src/main/java/com/palantir/gradle/gitversion/GitVersionCacheService.java`
 #### Snippet
 ```java
-        } catch (IOException | InterruptedException | RuntimeException e) {
-            log.debug("Native git describe failed", e);
+        } catch (IOException e) {
+            log.debug("Cannot compute version details", e);
             return null;
         }
     }
@@ -148,6 +163,31 @@ in `src/main/java/com/palantir/gradle/gitversion/JGitDescribe.java`
     }
 ```
 
+## RuleId[ruleID=UnnecessaryLocalVariable]
+### UnnecessaryLocalVariable
+Local variable `gitVersion` is redundant
+in `src/main/java/com/palantir/gradle/gitversion/GitVersionCacheService.java`
+#### Snippet
+```java
+        GitVersionArgs gitVersionArgs = GitVersionArgs.fromGroovyClosure(args);
+        String key = gitDir.toPath() + "|" + gitVersionArgs.getPrefix();
+        String gitVersion = versionDetailsMap
+                .computeIfAbsent(key, _k -> createVersionDetails(gitDir, gitVersionArgs))
+                .getVersion();
+```
+
+### UnnecessaryLocalVariable
+Local variable `versionDetails` is redundant
+in `src/main/java/com/palantir/gradle/gitversion/GitVersionCacheService.java`
+#### Snippet
+```java
+        GitVersionArgs gitVersionArgs = GitVersionArgs.fromGroovyClosure(args);
+        String key = gitDir.toPath() + "|" + gitVersionArgs.getPrefix();
+        VersionDetails versionDetails =
+                versionDetailsMap.computeIfAbsent(key, _k -> createVersionDetails(gitDir, gitVersionArgs));
+        return versionDetails;
+```
+
 ## RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
 ### DynamicRegexReplaceableByCompiledPattern
 `matches()` could be replaced with compiled 'java.util.regex.Pattern' construct
@@ -159,6 +199,19 @@ in `src/main/java/com/palantir/gradle/gitversion/GitVersionArgs.java`
                 prefix.matches(PREFIX_REGEX),
                 "Specified prefix `%s` does not match the allowed format regex `%s`.",
                 prefix,
+```
+
+## RuleId[ruleID=DataFlowIssue]
+### DataFlowIssue
+Method invocation `getVersion` may produce `NullPointerException`
+in `src/main/java/com/palantir/gradle/gitversion/GitVersionCacheService.java`
+#### Snippet
+```java
+        String gitVersion = versionDetailsMap
+                .computeIfAbsent(key, _k -> createVersionDetails(gitDir, gitVersionArgs))
+                .getVersion();
+        return gitVersion;
+    }
 ```
 
 ## RuleId[ruleID=NestedAssignment]
@@ -185,6 +238,19 @@ in `src/main/java/com/palantir/gradle/gitversion/JGitDescribe.java`
             Map<String, RefWithTagName> map,
             RefWithTagNameComparator comparator,
             ObjectId objectId,
+```
+
+## RuleId[ruleID=AbstractClassNeverImplemented]
+### AbstractClassNeverImplemented
+Abstract class `GitVersionCacheService` has no concrete subclass
+in `src/main/java/com/palantir/gradle/gitversion/GitVersionCacheService.java`
+#### Snippet
+```java
+import org.slf4j.LoggerFactory;
+
+public abstract class GitVersionCacheService implements BuildService<BuildServiceParameters.None> {
+
+    private static final Logger log = LoggerFactory.getLogger(GitVersionCacheService.class);
 ```
 
 ## RuleId[ruleID=UnusedAssignment]
