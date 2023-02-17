@@ -81,35 +81,23 @@ in `src/main/java/com/palantir/gradle/gitversion/NativeGitDescribe.java`
 
 ### ReturnNull
 Return of `null`
+in `src/main/java/com/palantir/gradle/gitversion/GitVersionCacheService.java`
+#### Snippet
+```java
+        } catch (IOException e) {
+            log.debug("Cannot compute version details", e);
+            return null;
+        }
+    }
+```
+
+### ReturnNull
+Return of `null`
 in `src/main/java/com/palantir/gradle/gitversion/VersionDetailsImpl.java`
 #### Snippet
 ```java
         Ref ref = git.getRepository().findRef(git.getRepository().getBranch());
         if (ref == null) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/com/palantir/gradle/gitversion/VersionDetailsImpl.java`
-#### Snippet
-```java
-        String gitHashFull = getGitHashFull();
-        if (gitHashFull == null) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/com/palantir/gradle/gitversion/VersionDetailsImpl.java`
-#### Snippet
-```java
-        ObjectId objectId = git.getRepository().findRef(Constants.HEAD).getObjectId();
-        if (objectId == null) {
             return null;
         }
 
@@ -132,8 +120,8 @@ Return of `null`
 in `src/main/java/com/palantir/gradle/gitversion/VersionDetailsImpl.java`
 #### Snippet
 ```java
-        if (isRepoEmpty()) {
-            log.debug("Repository is empty");
+        ObjectId objectId = git.getRepository().findRef(Constants.HEAD).getObjectId();
+        if (objectId == null) {
             return null;
         }
 
@@ -141,14 +129,26 @@ in `src/main/java/com/palantir/gradle/gitversion/VersionDetailsImpl.java`
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/com/palantir/gradle/gitversion/GitVersionCacheService.java`
+in `src/main/java/com/palantir/gradle/gitversion/VersionDetailsImpl.java`
 #### Snippet
 ```java
-        } catch (IOException e) {
-            log.debug("Cannot compute version details", e);
+        String gitHashFull = getGitHashFull();
+        if (gitHashFull == null) {
             return null;
         }
-    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/com/palantir/gradle/gitversion/VersionDetailsImpl.java`
+#### Snippet
+```java
+        if (isRepoEmpty()) {
+            log.debug("Repository is empty");
+            return null;
+        }
+
 ```
 
 ### ReturnNull
@@ -165,18 +165,6 @@ in `src/main/java/com/palantir/gradle/gitversion/JGitDescribe.java`
 
 ## RuleId[ruleID=UnnecessaryLocalVariable]
 ### UnnecessaryLocalVariable
-Local variable `gitVersion` is redundant
-in `src/main/java/com/palantir/gradle/gitversion/GitVersionCacheService.java`
-#### Snippet
-```java
-        GitVersionArgs gitVersionArgs = GitVersionArgs.fromGroovyClosure(args);
-        String key = gitDir.toPath() + "|" + gitVersionArgs.getPrefix();
-        String gitVersion = versionDetailsMap
-                .computeIfAbsent(key, _k -> createVersionDetails(gitDir, gitVersionArgs))
-                .getVersion();
-```
-
-### UnnecessaryLocalVariable
 Local variable `versionDetails` is redundant
 in `src/main/java/com/palantir/gradle/gitversion/GitVersionCacheService.java`
 #### Snippet
@@ -186,6 +174,18 @@ in `src/main/java/com/palantir/gradle/gitversion/GitVersionCacheService.java`
         VersionDetails versionDetails =
                 versionDetailsMap.computeIfAbsent(key, _k -> createVersionDetails(gitDir, gitVersionArgs));
         return versionDetails;
+```
+
+### UnnecessaryLocalVariable
+Local variable `gitVersion` is redundant
+in `src/main/java/com/palantir/gradle/gitversion/GitVersionCacheService.java`
+#### Snippet
+```java
+        GitVersionArgs gitVersionArgs = GitVersionArgs.fromGroovyClosure(args);
+        String key = gitDir.toPath() + "|" + gitVersionArgs.getPrefix();
+        String gitVersion = versionDetailsMap
+                .computeIfAbsent(key, _k -> createVersionDetails(gitDir, gitVersionArgs))
+                .getVersion();
 ```
 
 ## RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
