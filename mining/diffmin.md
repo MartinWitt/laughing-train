@@ -52,7 +52,7 @@ in `src/main/java/com/diffmin/Main.java`
 ## RuleId[ruleID=HtmlWrongAttributeValue]
 ### HtmlWrongAttributeValue
 Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-02-16-15-53-38.087.html`
+in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-02-17-21-58-23.681.html`
 #### Snippet
 ```java
               <td>0</td>
@@ -154,30 +154,6 @@ Can generalize to `? extends CtElement`
 in `src/main/java/com/diffmin/patch/PatchApplication.java`
 #### Snippet
 ```java
-    @SuppressWarnings("unchecked")
-    private static void performInsertion(
-            ImmutableTriple<Integer, CtElement, CtElement> insertPatch) {
-        int where = insertPatch.left;
-        CtElement toBeInserted = insertPatch.middle;
-```
-
-### BoundedWildcard
-Can generalize to `? extends CtElement`
-in `src/main/java/com/diffmin/patch/PatchApplication.java`
-#### Snippet
-```java
-    @SuppressWarnings("unchecked")
-    private static void performInsertion(
-            ImmutableTriple<Integer, CtElement, CtElement> insertPatch) {
-        int where = insertPatch.left;
-        CtElement toBeInserted = insertPatch.middle;
-```
-
-### BoundedWildcard
-Can generalize to `? extends CtElement`
-in `src/main/java/com/diffmin/patch/PatchApplication.java`
-#### Snippet
-```java
 
     private static void performMovement(
             Pair<CtElement, ImmutableTriple<Integer, CtElement, CtElement>> movePatch) {
@@ -207,6 +183,30 @@ in `src/main/java/com/diffmin/patch/PatchApplication.java`
     private static void performUpdating(Pair<CtElement, CtElement> updatePatch) {
         CtElement prevNode = updatePatch.getFirst();
         CtElement newNode = updatePatch.getSecond();
+```
+
+### BoundedWildcard
+Can generalize to `? extends CtElement`
+in `src/main/java/com/diffmin/patch/PatchApplication.java`
+#### Snippet
+```java
+    @SuppressWarnings("unchecked")
+    private static void performInsertion(
+            ImmutableTriple<Integer, CtElement, CtElement> insertPatch) {
+        int where = insertPatch.left;
+        CtElement toBeInserted = insertPatch.middle;
+```
+
+### BoundedWildcard
+Can generalize to `? extends CtElement`
+in `src/main/java/com/diffmin/patch/PatchApplication.java`
+#### Snippet
+```java
+    @SuppressWarnings("unchecked")
+    private static void performInsertion(
+            ImmutableTriple<Integer, CtElement, CtElement> insertPatch) {
+        int where = insertPatch.left;
+        CtElement toBeInserted = insertPatch.middle;
 ```
 
 ## RuleId[ruleID=OptionalGetWithoutIsPresent]
