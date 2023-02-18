@@ -1,22 +1,21 @@
 # incubator-eventmesh 
  
 # Bad smells
-I found 1021 bad smells with 144 repairable:
+I found 1000 bad smells with 139 repairable:
 | ruleID | number | fixable |
 | --- | --- | --- |
-| ReturnNull | 118 | false |
-| PublicFieldAccessedInSynchronizedContext | 106 | false |
-| UtilityClassWithoutPrivateConstructor | 89 | true |
+| ReturnNull | 113 | false |
+| PublicFieldAccessedInSynchronizedContext | 99 | false |
+| UtilityClassWithoutPrivateConstructor | 87 | true |
 | BoundedWildcard | 76 | false |
-| DataFlowIssue | 61 | false |
-| FieldAccessedSynchronizedAndUnsynchronized | 60 | false |
+| DataFlowIssue | 73 | false |
 | StringBufferReplaceableByString | 58 | false |
+| FieldAccessedSynchronizedAndUnsynchronized | 57 | false |
 | UnstableApiUsage | 52 | false |
 | RedundantFieldInitialization | 37 | false |
 | UnusedAssignment | 22 | false |
 | UnnecessarySuperQualifier | 17 | false |
-| SizeReplaceableByIsEmpty | 16 | true |
-| ConstantValue | 15 | false |
+| SizeReplaceableByIsEmpty | 15 | true |
 | DynamicRegexReplaceableByCompiledPattern | 15 | false |
 | UnnecessaryFullyQualifiedName | 15 | false |
 | EmptyMethod | 14 | false |
@@ -24,39 +23,39 @@ I found 1021 bad smells with 144 repairable:
 | ExcessiveLambdaUsage | 11 | false |
 | NonProtectedConstructorInAbstractClass | 11 | true |
 | AssignmentToMethodParameter | 11 | false |
-| CodeBlock2Expr | 9 | true |
 | UnstableTypeUsedInSignature | 9 | false |
-| Convert2Lambda | 9 | false |
-| DefaultAnnotationParam | 8 | false |
-| SynchronizeOnNonFinalField | 8 | false |
+| CodeBlock2Expr | 8 | true |
+| ConstantValue | 8 | false |
 | UnnecessaryModifier | 7 | true |
+| UnnecessaryQualifierForThis | 7 | false |
+| DefaultAnnotationParam | 7 | false |
 | NestedAssignment | 7 | false |
+| SynchronizeOnNonFinalField | 7 | false |
+| UNUSED_IMPORT | 6 | false |
 | ReplaceAssignmentWithOperatorAssignment | 6 | false |
 | SynchronizeOnThis | 6 | false |
-| ZeroLengthArrayInitialization | 6 | false |
+| Convert2Lambda | 6 | false |
 | AssignmentToLambdaParameter | 6 | false |
-| UnnecessaryQualifierForThis | 5 | false |
 | UnnecessaryReturn | 5 | true |
+| ZeroLengthArrayInitialization | 5 | false |
 | RegExpSingleCharAlternation | 5 | false |
-| AssignmentToStaticFieldFromInstanceMethod | 4 | false |
 | AbstractClassNeverImplemented | 4 | false |
 | RedundantMethodOverride | 4 | false |
 | Lombok | 4 | false |
 | MismatchedCollectionQueryUpdate | 4 | false |
 | UseOfPropertiesAsHashtable | 4 | false |
 | UnnecessarySemicolon | 4 | false |
+| Convert2MethodRef | 4 | false |
 | NonSynchronizedMethodOverridesSynchronizedMethod | 4 | false |
 | WrapperTypeMayBePrimitive | 3 | false |
 | RegExpRedundantEscape | 3 | false |
 | MissortedModifiers | 3 | false |
 | IgnoreResultOfCall | 3 | false |
-| MalformedFormatString | 3 | false |
-| UNUSED_IMPORT | 3 | false |
 | UnnecessaryToStringCall | 3 | true |
 | RedundantSuppression | 3 | false |
 | Java8MapApi | 3 | false |
-| UseCompareMethod | 3 | false |
 | EmptyTryBlock | 2 | false |
+| MalformedFormatString | 2 | false |
 | InstanceofCatchParameter | 2 | false |
 | StringConcatenationInsideStringBufferAppend | 2 | false |
 | OptionalContainsCollection | 2 | false |
@@ -65,11 +64,10 @@ I found 1021 bad smells with 144 repairable:
 | StringEqualsEmptyString | 2 | false |
 | ConditionCoveredByFurtherCondition | 2 | false |
 | SynchronizationOnLocalVariableOrMethodParameter | 2 | false |
-| UnnecessaryLocalVariable | 2 | true |
-| BusyWait | 2 | false |
+| UseCompareMethod | 2 | false |
 | UseBulkOperation | 2 | false |
 | PointlessArithmeticExpression | 1 | false |
-| CommentedOutCode | 1 | false |
+| AssignmentToStaticFieldFromInstanceMethod | 1 | false |
 | CastToIncompatibleInterface | 1 | false |
 | KeySetIterationMayUseEntrySet | 1 | false |
 | WhileLoopSpinsOnField | 1 | false |
@@ -80,13 +78,13 @@ I found 1021 bad smells with 144 repairable:
 | OptionalGetWithoutIsPresent | 1 | false |
 | Java8MapForEach | 1 | false |
 | RedundantLengthCheck | 1 | false |
-| Convert2MethodRef | 1 | false |
 | NonSerializableFieldInSerializableClass | 1 | false |
 | SuspiciousMethodCalls | 1 | false |
 | InnerClassMayBeStatic | 1 | true |
 | CharsetObjectCanBeUsed | 1 | false |
 | ThrowablePrintStackTrace | 1 | false |
 | UnnecessaryContinue | 1 | false |
+| UnnecessaryLocalVariable | 1 | true |
 | RegExpUnnecessaryNonCapturingGroup | 1 | false |
 | PointlessBooleanExpression | 1 | true |
 ## RuleId[ruleID=WrapperTypeMayBePrimitive]
@@ -159,7 +157,7 @@ in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/protocol/h
     private transient EventMeshConsumer eventMeshConsumer;
 
     private static final transient ScheduledExecutorService SCHEDULER =
-            ThreadPoolFactory.createSingleScheduledExecutor("eventMesh-pushMsgTimeout-");
+            ThreadPoolFactory.createSingleScheduledExecutor("eventMesh-pushMsgTimeout");
 
 ```
 
@@ -249,66 +247,17 @@ in `eventmesh-registry-plugin/eventmesh-registry-zookeeper/src/main/java/org/apa
         } catch (Exception e) {
 ```
 
-## RuleId[ruleID=CommentedOutCode]
-### CommentedOutCode
-Commented out code (10 lines)
-in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/admin/response/GetConfigurationResponse.java`
-#### Snippet
-```java
-    public boolean eventMeshGrpcServerUseTls;
-
-    //    public String eventMeshConnectorPluginType;
-    //    public String eventMeshSecurityPluginType;
-    //    public String eventMeshRegistryPluginType;
-```
-
 ## RuleId[ruleID=AssignmentToStaticFieldFromInstanceMethod]
 ### AssignmentToStaticFieldFromInstanceMethod
-Assignment to static field `aclService` from instance context
-in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/acl/Acl.java`
-#### Snippet
-```java
-
-    public void init(String aclPluginType) throws AclException {
-        aclService = EventMeshExtensionFactory.getExtension(AclService.class, aclPluginType);
-        if (aclService == null) {
-            logger.error("can't load the aclService plugin, please check.");
-```
-
-### AssignmentToStaticFieldFromInstanceMethod
 Assignment to static field `trace` from instance context
 in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/boot/EventMeshServer.java`
 #### Snippet
 ```java
-        this.acl = new Acl();
         this.registry = new Registry();
-        trace = new Trace(configuration.isEventMeshServerTraceEnable());
-        this.connectorResource = new ConnectorResource();
-        trace = new Trace(configuration.isEventMeshServerTraceEnable());
-```
 
-### AssignmentToStaticFieldFromInstanceMethod
-Assignment to static field `trace` from instance context
-in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/boot/EventMeshServer.java`
-#### Snippet
-```java
-        trace = new Trace(configuration.isEventMeshServerTraceEnable());
-        this.connectorResource = new ConnectorResource();
-        trace = new Trace(configuration.isEventMeshServerTraceEnable());
+        trace = new Trace(this.configuration.isEventMeshServerTraceEnable());
+        this.connectorResource = ConnectorResource.getInstance(this.configuration.getEventMeshConnectorPluginType());
 
-        final List<String> provideServerProtocols = configuration.getEventMeshProvideServerProtocols();
-```
-
-### AssignmentToStaticFieldFromInstanceMethod
-Assignment to static field `connectorResourceService` from instance context
-in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/connector/ConnectorResource.java`
-#### Snippet
-```java
-
-    public void init(String connectorResourcePluginType) throws Exception {
-        connectorResourceService = EventMeshExtensionFactory.getExtension(ConnectorResourceService.class, connectorResourcePluginType);
-        if (connectorResourceService == null) {
-            logger.error("can't load the connectorResourceService plugin, please check.");
 ```
 
 ## RuleId[ruleID=RegExpRedundantEscape]
@@ -428,6 +377,30 @@ Qualifier `ConsumeMessageConcurrentlyService` on 'this' is unnecessary in this c
 in `eventmesh-connector-plugin/eventmesh-connector-rocketmq/src/main/java/org/apache/rocketmq/client/impl/consumer/ConsumeMessageConcurrentlyService.java`
 #### Snippet
 ```java
+                try {
+                    ThreadUtils.sleep(1, TimeUnit.SECONDS);
+                    ConsumeMessageConcurrentlyService.this.consumeExecutor.submit(consumeRequest);
+                    success = true;
+                    break;
+```
+
+### UnnecessaryQualifierForThis
+Qualifier `ConsumeMessageConcurrentlyService` on 'this' is unnecessary in this context
+in `eventmesh-connector-plugin/eventmesh-connector-rocketmq/src/main/java/org/apache/rocketmq/client/impl/consumer/ConsumeMessageConcurrentlyService.java`
+#### Snippet
+```java
+
+        this.scheduledExecutorService.schedule(
+            () -> ConsumeMessageConcurrentlyService.this.submitConsumeRequest(msgs, processQueue, messageQueue, true), 5000, TimeUnit.MILLISECONDS);
+    }
+
+```
+
+### UnnecessaryQualifierForThis
+Qualifier `ConsumeMessageConcurrentlyService` on 'this' is unnecessary in this context
+in `eventmesh-connector-plugin/eventmesh-connector-rocketmq/src/main/java/org/apache/rocketmq/client/impl/consumer/ConsumeMessageConcurrentlyService.java`
+#### Snippet
+```java
             log.warn(String.format("consumeMessageDirectly exception: %s Group: %s Msgs: %s MQ: %s",
                 RemotingHelper.exceptionSimpleDesc(e),
                 ConsumeMessageConcurrentlyService.this.consumerGroup,
@@ -485,18 +458,6 @@ in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/protocol/t
 ```
 
 ### SizeReplaceableByIsEmpty
-`0 == localEventMeshDistributeData.size()` can be replaced with 'localEventMeshDistributeData.isEmpty()'
-in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/protocol/tcp/client/rebalance/EventmeshRebalanceImpl.java`
-#### Snippet
-```java
-            }
-
-            if (0 == localEventMeshDistributeData.size()) {
-                logger.warn("doRebalance failed,found no distribute data of localIDC in regitry,cluster:{},group:{}, purpose:{},localIDC:{}",
-                        cluster, group, purpose, localIdc);
-```
-
-### SizeReplaceableByIsEmpty
 `0 == localEventMeshMap.size()` can be replaced with 'localEventMeshMap.isEmpty()'
 in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/protocol/tcp/client/rebalance/EventmeshRebalanceImpl.java`
 #### Snippet
@@ -504,8 +465,20 @@ in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/protocol/t
             }
 
             if (0 == localEventMeshMap.size()) {
-                logger.warn("doRebalance failed,query eventmesh instances of localIDC is null from registry,localIDC:{},cluster:{}",
+                log.warn("doRebalance failed,query eventmesh instances of localIDC is null from registry,localIDC:{},cluster:{}",
                         localIdc, cluster);
+```
+
+### SizeReplaceableByIsEmpty
+`0 == localEventMeshDistributeData.size()` can be replaced with 'localEventMeshDistributeData.isEmpty()'
+in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/protocol/tcp/client/rebalance/EventmeshRebalanceImpl.java`
+#### Snippet
+```java
+            }
+
+            if (0 == localEventMeshDistributeData.size()) {
+                log.warn("doRebalance failed,found no distribute data of localIDC in regitry,cluster:{},group:{}, purpose:{},localIDC:{}",
+                        cluster, group, purpose, localIdc);
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -530,18 +503,6 @@ in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/util/RemotingHe
         if (addr.length() > 0) {
             final int index = addr.lastIndexOf('/');
             if (index >= 0) {
-```
-
-### SizeReplaceableByIsEmpty
-`json.length() == 0` can be replaced with 'json.isEmpty()'
-in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/admin/utils/JsonUtils.java`
-#### Snippet
-```java
-
-    public static <T> T deserialize(Class<T> clazz, String json) throws IOException {
-        if (json == null || json.length() == 0) {
-            return null;
-        }
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -679,18 +640,6 @@ in `eventmesh-common/src/main/java/org/apache/eventmesh/common/protocol/http/bod
 
 ### StringBufferReplaceableByString
 `StringBuilder sb` can be replaced with 'String'
-in `eventmesh-common/src/main/java/org/apache/eventmesh/common/protocol/http/body/client/UnSubscribeResponseBody.java`
-#### Snippet
-```java
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("regResponseBody={")
-                .append("retCode=").append(retCode).append(",")
-```
-
-### StringBufferReplaceableByString
-`StringBuilder sb` can be replaced with 'String'
 in `eventmesh-common/src/main/java/org/apache/eventmesh/common/protocol/http/body/client/HeartbeatResponseBody.java`
 #### Snippet
 ```java
@@ -698,54 +647,6 @@ in `eventmesh-common/src/main/java/org/apache/eventmesh/common/protocol/http/bod
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("heartbeatResponseBody={")
-                .append("retCode=").append(retCode).append(",")
-```
-
-### StringBufferReplaceableByString
-`StringBuilder sb` can be replaced with 'String'
-in `eventmesh-common/src/main/java/org/apache/eventmesh/common/protocol/http/body/client/RegResponseBody.java`
-#### Snippet
-```java
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("regResponseBody={")
-                .append("retCode=").append(retCode).append(",")
-```
-
-### StringBufferReplaceableByString
-`StringBuilder sb` can be replaced with 'String'
-in `eventmesh-common/src/main/java/org/apache/eventmesh/common/protocol/http/body/message/PushMessageResponseBody.java`
-#### Snippet
-```java
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("pushMessageResponseBody={")
-                .append("retCode=").append(retCode).append(",")
-```
-
-### StringBufferReplaceableByString
-`StringBuilder sb` can be replaced with 'String'
-in `eventmesh-common/src/main/java/org/apache/eventmesh/common/protocol/http/body/message/SendMessageBatchV2ResponseBody.java`
-#### Snippet
-```java
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("sendMessageBatchV2ResponseBody={")
-                .append("retCode=").append(retCode).append(",")
-```
-
-### StringBufferReplaceableByString
-`StringBuilder sb` can be replaced with 'String'
-in `eventmesh-common/src/main/java/org/apache/eventmesh/common/protocol/http/body/message/SendMessageResponseBody.java`
-#### Snippet
-```java
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("sendMessageResponseBody={")
                 .append("retCode=").append(retCode).append(",")
 ```
 
@@ -775,6 +676,66 @@ in `eventmesh-common/src/main/java/org/apache/eventmesh/common/protocol/http/bod
 
 ### StringBufferReplaceableByString
 `StringBuilder sb` can be replaced with 'String'
+in `eventmesh-common/src/main/java/org/apache/eventmesh/common/protocol/http/body/client/RegResponseBody.java`
+#### Snippet
+```java
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("regResponseBody={")
+                .append("retCode=").append(retCode).append(",")
+```
+
+### StringBufferReplaceableByString
+`StringBuilder sb` can be replaced with 'String'
+in `eventmesh-common/src/main/java/org/apache/eventmesh/common/protocol/http/body/client/UnSubscribeResponseBody.java`
+#### Snippet
+```java
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("regResponseBody={")
+                .append("retCode=").append(retCode).append(",")
+```
+
+### StringBufferReplaceableByString
+`StringBuilder sb` can be replaced with 'String'
+in `eventmesh-common/src/main/java/org/apache/eventmesh/common/protocol/http/body/message/PushMessageResponseBody.java`
+#### Snippet
+```java
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("pushMessageResponseBody={")
+                .append("retCode=").append(retCode).append(",")
+```
+
+### StringBufferReplaceableByString
+`StringBuilder sb` can be replaced with 'String'
+in `eventmesh-common/src/main/java/org/apache/eventmesh/common/protocol/http/body/message/SendMessageResponseBody.java`
+#### Snippet
+```java
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("sendMessageResponseBody={")
+                .append("retCode=").append(retCode).append(",")
+```
+
+### StringBufferReplaceableByString
+`StringBuilder sb` can be replaced with 'String'
+in `eventmesh-common/src/main/java/org/apache/eventmesh/common/protocol/http/body/message/SendMessageBatchV2ResponseBody.java`
+#### Snippet
+```java
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("sendMessageBatchV2ResponseBody={")
+                .append("retCode=").append(retCode).append(",")
+```
+
+### StringBufferReplaceableByString
+`StringBuilder sb` can be replaced with 'String'
 in `eventmesh-common/src/main/java/org/apache/eventmesh/common/protocol/http/body/message/SendMessageBatchV2RequestBody.java`
 #### Snippet
 ```java
@@ -783,18 +744,6 @@ in `eventmesh-common/src/main/java/org/apache/eventmesh/common/protocol/http/bod
         StringBuilder sb = new StringBuilder();
         sb.append("SendMessageBatchV2RequestBody={")
                 .append("bizSeqNo=").append(bizSeqNo).append(",")
-```
-
-### StringBufferReplaceableByString
-`StringBuilder sb` can be replaced with 'String'
-in `eventmesh-common/src/main/java/org/apache/eventmesh/common/protocol/http/body/message/ReplyMessageResponseBody.java`
-#### Snippet
-```java
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("replyMessageResponseBody={")
-                .append("retCode=").append(retCode).append(",")
 ```
 
 ### StringBufferReplaceableByString
@@ -811,26 +760,26 @@ in `eventmesh-common/src/main/java/org/apache/eventmesh/common/protocol/http/bod
 
 ### StringBufferReplaceableByString
 `StringBuilder sb` can be replaced with 'String'
-in `eventmesh-common/src/main/java/org/apache/eventmesh/common/protocol/http/body/message/SendMessageRequestBody.java`
+in `eventmesh-common/src/main/java/org/apache/eventmesh/common/protocol/http/body/message/ReplyMessageResponseBody.java`
 #### Snippet
 ```java
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("sendMessageRequestBody={")
-                .append("topic=").append(topic).append(",")
+        sb.append("replyMessageResponseBody={")
+                .append("retCode=").append(retCode).append(",")
 ```
 
 ### StringBufferReplaceableByString
 `StringBuilder sb` can be replaced with 'String'
-in `eventmesh-common/src/main/java/org/apache/eventmesh/common/protocol/http/header/BaseRequestHeader.java`
+in `eventmesh-common/src/main/java/org/apache/eventmesh/common/protocol/http/body/message/SendMessageBatchRequestBody.java`
 #### Snippet
 ```java
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("baseRequestHeader={code=")
-                .append(code).append("}");
+        @Override
+        public String toString() {
+            StringBuilder sb = new StringBuilder();
+            sb.append("batchMessageEntity={")
+                    .append("bizSeqNo=").append(bizSeqNo).append(",")
 ```
 
 ### StringBufferReplaceableByString
@@ -847,14 +796,26 @@ in `eventmesh-common/src/main/java/org/apache/eventmesh/common/protocol/http/bod
 
 ### StringBufferReplaceableByString
 `StringBuilder sb` can be replaced with 'String'
-in `eventmesh-common/src/main/java/org/apache/eventmesh/common/protocol/http/body/message/SendMessageBatchRequestBody.java`
+in `eventmesh-common/src/main/java/org/apache/eventmesh/common/protocol/http/header/BaseRequestHeader.java`
 #### Snippet
 ```java
-        @Override
-        public String toString() {
-            StringBuilder sb = new StringBuilder();
-            sb.append("batchMessageEntity={")
-                    .append("bizSeqNo=").append(bizSeqNo).append(",")
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("baseRequestHeader={code=")
+                .append(code).append("}");
+```
+
+### StringBufferReplaceableByString
+`StringBuilder sb` can be replaced with 'String'
+in `eventmesh-common/src/main/java/org/apache/eventmesh/common/protocol/http/body/message/ReplyMessageRequestBody.java`
+#### Snippet
+```java
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("replyMessageRequestBody={")
+                .append("bizSeqNo=").append(bizSeqNo).append(",")
 ```
 
 ### StringBufferReplaceableByString
@@ -883,37 +844,13 @@ in `eventmesh-common/src/main/java/org/apache/eventmesh/common/protocol/http/bod
 
 ### StringBufferReplaceableByString
 `StringBuilder sb` can be replaced with 'String'
-in `eventmesh-common/src/main/java/org/apache/eventmesh/common/protocol/http/body/message/ReplyMessageRequestBody.java`
+in `eventmesh-common/src/main/java/org/apache/eventmesh/common/protocol/http/header/client/UnRegRequestHeader.java`
 #### Snippet
 ```java
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("replyMessageRequestBody={")
-                .append("bizSeqNo=").append(bizSeqNo).append(",")
-```
-
-### StringBufferReplaceableByString
-`StringBuilder sb` can be replaced with 'String'
-in `eventmesh-common/src/main/java/org/apache/eventmesh/common/protocol/http/header/client/UnSubscribeResponseHeader.java`
-#### Snippet
-```java
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("unSubscribeResponseHeader={")
-                .append("code=").append(code).append(",")
-```
-
-### StringBufferReplaceableByString
-`StringBuilder sb` can be replaced with 'String'
-in `eventmesh-common/src/main/java/org/apache/eventmesh/common/protocol/http/header/client/UnRegResponseHeader.java`
-#### Snippet
-```java
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("nnRegResponseHeader={")
+        sb.append("unRegRequestHeader={")
                 .append("code=").append(code).append(",")
 ```
 
@@ -931,25 +868,13 @@ in `eventmesh-common/src/main/java/org/apache/eventmesh/common/protocol/http/hea
 
 ### StringBufferReplaceableByString
 `StringBuilder sb` can be replaced with 'String'
-in `eventmesh-common/src/main/java/org/apache/eventmesh/common/protocol/http/header/client/RegRequestHeader.java`
+in `eventmesh-common/src/main/java/org/apache/eventmesh/common/protocol/http/header/client/UnSubscribeResponseHeader.java`
 #### Snippet
 ```java
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("regRequestHeader={")
-                .append("code=").append(code).append(",")
-```
-
-### StringBufferReplaceableByString
-`StringBuilder sb` can be replaced with 'String'
-in `eventmesh-common/src/main/java/org/apache/eventmesh/common/protocol/http/header/client/UnSubscribeRequestHeader.java`
-#### Snippet
-```java
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("subscribeRequestHeader={")
+        sb.append("unSubscribeResponseHeader={")
                 .append("code=").append(code).append(",")
 ```
 
@@ -967,7 +892,7 @@ in `eventmesh-common/src/main/java/org/apache/eventmesh/common/protocol/http/hea
 
 ### StringBufferReplaceableByString
 `StringBuilder sb` can be replaced with 'String'
-in `eventmesh-common/src/main/java/org/apache/eventmesh/common/protocol/http/header/client/SubscribeRequestHeader.java`
+in `eventmesh-common/src/main/java/org/apache/eventmesh/common/protocol/http/header/client/UnSubscribeRequestHeader.java`
 #### Snippet
 ```java
     @Override
@@ -979,13 +904,13 @@ in `eventmesh-common/src/main/java/org/apache/eventmesh/common/protocol/http/hea
 
 ### StringBufferReplaceableByString
 `StringBuilder sb` can be replaced with 'String'
-in `eventmesh-common/src/main/java/org/apache/eventmesh/common/protocol/http/header/client/UnRegRequestHeader.java`
+in `eventmesh-common/src/main/java/org/apache/eventmesh/common/protocol/http/header/client/UnRegResponseHeader.java`
 #### Snippet
 ```java
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("unRegRequestHeader={")
+        sb.append("nnRegResponseHeader={")
                 .append("code=").append(code).append(",")
 ```
 
@@ -998,6 +923,30 @@ in `eventmesh-common/src/main/java/org/apache/eventmesh/common/protocol/http/hea
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("replyMessageResponseHeader={")
+                .append("code=").append(code).append(",")
+```
+
+### StringBufferReplaceableByString
+`StringBuilder sb` can be replaced with 'String'
+in `eventmesh-common/src/main/java/org/apache/eventmesh/common/protocol/http/body/message/SendMessageRequestBody.java`
+#### Snippet
+```java
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("sendMessageRequestBody={")
+                .append("topic=").append(topic).append(",")
+```
+
+### StringBufferReplaceableByString
+`StringBuilder sb` can be replaced with 'String'
+in `eventmesh-common/src/main/java/org/apache/eventmesh/common/protocol/http/header/client/SubscribeRequestHeader.java`
+#### Snippet
+```java
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("subscribeRequestHeader={")
                 .append("code=").append(code).append(",")
 ```
 
@@ -1027,13 +976,25 @@ in `eventmesh-common/src/main/java/org/apache/eventmesh/common/protocol/http/hea
 
 ### StringBufferReplaceableByString
 `StringBuilder sb` can be replaced with 'String'
-in `eventmesh-common/src/main/java/org/apache/eventmesh/common/protocol/http/header/client/HeartbeatRequestHeader.java`
+in `eventmesh-common/src/main/java/org/apache/eventmesh/common/protocol/http/header/client/RegRequestHeader.java`
 #### Snippet
 ```java
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("heartbeatRequestHeader={")
+        sb.append("regRequestHeader={")
+                .append("code=").append(code).append(",")
+```
+
+### StringBufferReplaceableByString
+`StringBuilder sb` can be replaced with 'String'
+in `eventmesh-common/src/main/java/org/apache/eventmesh/common/protocol/http/header/message/PushMessageRequestHeader.java`
+#### Snippet
+```java
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("pushMessageRequestHeader={")
                 .append("code=").append(code).append(",")
 ```
 
@@ -1046,6 +1007,18 @@ in `eventmesh-common/src/main/java/org/apache/eventmesh/common/protocol/http/hea
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("sendMessageBatchResponseHeader={")
+                .append("code=").append(code).append(",")
+```
+
+### StringBufferReplaceableByString
+`StringBuilder sb` can be replaced with 'String'
+in `eventmesh-common/src/main/java/org/apache/eventmesh/common/protocol/http/header/client/HeartbeatRequestHeader.java`
+#### Snippet
+```java
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("heartbeatRequestHeader={")
                 .append("code=").append(code).append(",")
 ```
 
@@ -1075,13 +1048,13 @@ in `eventmesh-common/src/main/java/org/apache/eventmesh/common/protocol/http/hea
 
 ### StringBufferReplaceableByString
 `StringBuilder sb` can be replaced with 'String'
-in `eventmesh-common/src/main/java/org/apache/eventmesh/common/protocol/http/header/message/SendMessageBatchV2RequestHeader.java`
+in `eventmesh-common/src/main/java/org/apache/eventmesh/common/protocol/http/header/message/SendMessageRequestHeader.java`
 #### Snippet
 ```java
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("sendMessageBatchV2RequestHeader={")
+        sb.append("sendMessageRequestHeader={")
                 .append("code=").append(code).append(",")
 ```
 
@@ -1099,25 +1072,13 @@ in `eventmesh-common/src/main/java/org/apache/eventmesh/common/protocol/http/hea
 
 ### StringBufferReplaceableByString
 `StringBuilder sb` can be replaced with 'String'
-in `eventmesh-common/src/main/java/org/apache/eventmesh/common/protocol/http/header/message/SendMessageRequestHeader.java`
+in `eventmesh-common/src/main/java/org/apache/eventmesh/common/protocol/http/header/message/SendMessageBatchV2RequestHeader.java`
 #### Snippet
 ```java
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("sendMessageRequestHeader={")
-                .append("code=").append(code).append(",")
-```
-
-### StringBufferReplaceableByString
-`StringBuilder sb` can be replaced with 'String'
-in `eventmesh-common/src/main/java/org/apache/eventmesh/common/protocol/http/header/message/PushMessageRequestHeader.java`
-#### Snippet
-```java
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("pushMessageRequestHeader={")
+        sb.append("sendMessageBatchV2RequestHeader={")
                 .append("code=").append(code).append(",")
 ```
 
@@ -1194,15 +1155,15 @@ in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/protocol/h
 ```
 
 ### StringBufferReplaceableByString
-`StringBuilder` can be replaced with 'String'
-in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/protocol/http/processor/SendAsyncRemoteEventProcessor.java`
+`StringBuilder sb` can be replaced with 'String'
+in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/protocol/http/processor/inf/Client.java`
 #### Snippet
 ```java
-
-        final String env = eventMeshHTTPServer.getEventMeshHttpConfiguration().getEventMeshEnv();
-        final String meshGroup = new StringBuilder()
-                .append(env)
-                .append('-')
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("endPoint={env=").append(env)
+                .append(",idc=").append(idc)
 ```
 
 ### StringBufferReplaceableByString
@@ -1219,18 +1180,6 @@ in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/consumergr
 
 ### StringBufferReplaceableByString
 `StringBuilder sb` can be replaced with 'String'
-in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/protocol/http/processor/inf/Client.java`
-#### Snippet
-```java
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("endPoint={env=").append(env)
-                .append(",idc=").append(idc)
-```
-
-### StringBufferReplaceableByString
-`StringBuilder sb` can be replaced with 'String'
 in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/consumergroup/ProducerGroupConf.java`
 #### Snippet
 ```java
@@ -1239,6 +1188,18 @@ in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/consumergr
         StringBuilder sb = new StringBuilder();
         sb.append("producerGroupConfig={")
                 .append("groupName=").append(groupName).append("}");
+```
+
+### StringBufferReplaceableByString
+`StringBuilder` can be replaced with 'String'
+in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/protocol/http/processor/SendAsyncRemoteEventProcessor.java`
+#### Snippet
+```java
+
+        final String env = eventMeshHTTPServer.getEventMeshHttpConfiguration().getEventMeshEnv();
+        final String meshGroup = new StringBuilder()
+                .append(env)
+                .append('-')
 ```
 
 ### StringBufferReplaceableByString
@@ -1282,30 +1243,6 @@ in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/consumergr
 in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/util/EventMeshUtil.java`
 #### Snippet
 ```java
-    public static String buildMeshTcpClientID(final String clientSysId, final String purpose,
-                                              final String meshCluster) {
-        return new StringBuilder().append(StringUtils.trim(clientSysId))
-                .append('-')
-                .append(StringUtils.trim(purpose))
-```
-
-### StringBufferReplaceableByString
-`StringBuilder` can be replaced with 'String'
-in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/util/EventMeshUtil.java`
-#### Snippet
-```java
-
-    public static String buildPushMsgSeqNo() {
-        return new StringBuilder()
-                .append(StringUtils.rightPad(String.valueOf(System.currentTimeMillis()), 6))
-                .append(RandomStringUtils.generateNum(4))
-```
-
-### StringBufferReplaceableByString
-`StringBuilder` can be replaced with 'String'
-in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/util/EventMeshUtil.java`
-#### Snippet
-```java
 
     public static String buildMeshClientID(final String clientGroup, final String meshCluster) {
         return new StringBuilder()
@@ -1323,6 +1260,30 @@ in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/util/EventMeshU
         return new StringBuilder()
                 .append(client.getSubsystem())
                 .append('-')
+```
+
+### StringBufferReplaceableByString
+`StringBuilder` can be replaced with 'String'
+in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/util/EventMeshUtil.java`
+#### Snippet
+```java
+    public static String buildMeshTcpClientID(final String clientSysId, final String purpose,
+                                              final String meshCluster) {
+        return new StringBuilder().append(StringUtils.trim(clientSysId))
+                .append('-')
+                .append(StringUtils.trim(purpose))
+```
+
+### StringBufferReplaceableByString
+`StringBuilder` can be replaced with 'String'
+in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/util/EventMeshUtil.java`
+#### Snippet
+```java
+
+    public static String buildPushMsgSeqNo() {
+        return new StringBuilder()
+                .append(StringUtils.rightPad(String.valueOf(System.currentTimeMillis()), 6))
+                .append(RandomStringUtils.generateNum(4))
 ```
 
 ## RuleId[ruleID=UnnecessaryReturn]
@@ -1522,18 +1483,6 @@ in `eventmesh-common/src/main/java/org/apache/eventmesh/common/protocol/http/bod
 
 ### BoundedWildcard
 Can generalize to `? super String`
-in `eventmesh-common/src/main/java/org/apache/eventmesh/common/protocol/http/body/client/SubscribeRequestBody.java`
-#### Snippet
-```java
-    }
-
-    public static SubscribeRequestBody buildBody(Map<String, Object> bodyParam) {
-        SubscribeRequestBody body = new SubscribeRequestBody();
-        body.setUrl(MapUtils.getString(bodyParam, URL));
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
 in `eventmesh-common/src/main/java/org/apache/eventmesh/common/protocol/http/body/client/HeartbeatRequestBody.java`
 #### Snippet
 ```java
@@ -1546,13 +1495,13 @@ in `eventmesh-common/src/main/java/org/apache/eventmesh/common/protocol/http/bod
 
 ### BoundedWildcard
 Can generalize to `? super String`
-in `eventmesh-common/src/main/java/org/apache/eventmesh/common/protocol/http/body/client/UnSubscribeRequestBody.java`
+in `eventmesh-common/src/main/java/org/apache/eventmesh/common/protocol/http/body/client/SubscribeRequestBody.java`
 #### Snippet
 ```java
     }
 
-    public static UnSubscribeRequestBody buildBody(Map<String, Object> bodyParam) {
-        UnSubscribeRequestBody body = new UnSubscribeRequestBody();
+    public static SubscribeRequestBody buildBody(Map<String, Object> bodyParam) {
+        SubscribeRequestBody body = new SubscribeRequestBody();
         body.setUrl(MapUtils.getString(bodyParam, URL));
 ```
 
@@ -1570,6 +1519,18 @@ in `eventmesh-common/src/main/java/org/apache/eventmesh/common/protocol/http/bod
 
 ### BoundedWildcard
 Can generalize to `? super String`
+in `eventmesh-common/src/main/java/org/apache/eventmesh/common/protocol/http/body/client/UnSubscribeRequestBody.java`
+#### Snippet
+```java
+    }
+
+    public static UnSubscribeRequestBody buildBody(Map<String, Object> bodyParam) {
+        UnSubscribeRequestBody body = new UnSubscribeRequestBody();
+        body.setUrl(MapUtils.getString(bodyParam, URL));
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
 in `eventmesh-common/src/main/java/org/apache/eventmesh/common/protocol/http/body/message/SendMessageBatchV2RequestBody.java`
 #### Snippet
 ```java
@@ -1578,30 +1539,6 @@ in `eventmesh-common/src/main/java/org/apache/eventmesh/common/protocol/http/bod
     public static SendMessageBatchV2RequestBody buildBody(final Map<String, Object> bodyParam) {
         String bizSeqno = MapUtils.getString(bodyParam,
                 BIZSEQNO);
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `eventmesh-common/src/main/java/org/apache/eventmesh/common/protocol/http/body/message/SendMessageRequestBody.java`
-#### Snippet
-```java
-    }
-
-    public static SendMessageRequestBody buildBody(Map<String, Object> bodyParam) {
-        SendMessageRequestBody body = new SendMessageRequestBody();
-        body.setTopic(MapUtils.getString(bodyParam, TOPIC));
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `eventmesh-common/src/main/java/org/apache/eventmesh/common/protocol/http/header/BaseRequestHeader.java`
-#### Snippet
-```java
-    }
-
-    public static BaseRequestHeader buildHeader(Map<String, Object> headerParam) {
-        BaseRequestHeader header = new BaseRequestHeader();
-        header.setCode(MapUtils.getString(headerParam, ProtocolKey.REQUEST_CODE));
 ```
 
 ### BoundedWildcard
@@ -1618,14 +1555,14 @@ in `eventmesh-common/src/main/java/org/apache/eventmesh/common/protocol/http/bod
 
 ### BoundedWildcard
 Can generalize to `? super String`
-in `eventmesh-common/src/main/java/org/apache/eventmesh/common/protocol/http/body/message/PushMessageRequestBody.java`
+in `eventmesh-common/src/main/java/org/apache/eventmesh/common/protocol/http/header/BaseRequestHeader.java`
 #### Snippet
 ```java
     }
 
-    public static PushMessageRequestBody buildBody(final Map<String, Object> bodyParam) {
-        PushMessageRequestBody pushMessageRequestBody = new PushMessageRequestBody();
-        pushMessageRequestBody.setContent(MapUtils.getString(bodyParam, CONTENT));
+    public static BaseRequestHeader buildHeader(Map<String, Object> headerParam) {
+        BaseRequestHeader header = new BaseRequestHeader();
+        header.setCode(MapUtils.getString(headerParam, ProtocolKey.REQUEST_CODE));
 ```
 
 ### BoundedWildcard
@@ -1642,13 +1579,25 @@ in `eventmesh-common/src/main/java/org/apache/eventmesh/common/protocol/http/bod
 
 ### BoundedWildcard
 Can generalize to `? super String`
-in `eventmesh-common/src/main/java/org/apache/eventmesh/common/protocol/http/header/client/RegRequestHeader.java`
+in `eventmesh-common/src/main/java/org/apache/eventmesh/common/protocol/http/body/message/PushMessageRequestBody.java`
 #### Snippet
 ```java
-    private String passwd;
+    }
 
-    public static RegRequestHeader buildHeader(Map<String, Object> headerParam) {
-        RegRequestHeader header = new RegRequestHeader();
+    public static PushMessageRequestBody buildBody(final Map<String, Object> bodyParam) {
+        PushMessageRequestBody pushMessageRequestBody = new PushMessageRequestBody();
+        pushMessageRequestBody.setContent(MapUtils.getString(bodyParam, CONTENT));
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `eventmesh-common/src/main/java/org/apache/eventmesh/common/protocol/http/header/client/UnRegRequestHeader.java`
+#### Snippet
+```java
+    private String passwd = "user@123";
+
+    public static UnRegRequestHeader buildHeader(Map<String, Object> headerParam) {
+        UnRegRequestHeader header = new UnRegRequestHeader();
         header.setCode(MapUtils.getString(headerParam, ProtocolKey.REQUEST_CODE));
 ```
 
@@ -1666,6 +1615,18 @@ in `eventmesh-common/src/main/java/org/apache/eventmesh/common/protocol/http/hea
 
 ### BoundedWildcard
 Can generalize to `? super String`
+in `eventmesh-common/src/main/java/org/apache/eventmesh/common/protocol/http/body/message/SendMessageRequestBody.java`
+#### Snippet
+```java
+    }
+
+    public static SendMessageRequestBody buildBody(Map<String, Object> bodyParam) {
+        SendMessageRequestBody body = new SendMessageRequestBody();
+        body.setTopic(MapUtils.getString(bodyParam, TOPIC));
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
 in `eventmesh-common/src/main/java/org/apache/eventmesh/common/protocol/http/header/client/SubscribeRequestHeader.java`
 #### Snippet
 ```java
@@ -1678,13 +1639,37 @@ in `eventmesh-common/src/main/java/org/apache/eventmesh/common/protocol/http/hea
 
 ### BoundedWildcard
 Can generalize to `? super String`
-in `eventmesh-common/src/main/java/org/apache/eventmesh/common/protocol/http/header/client/UnRegRequestHeader.java`
+in `eventmesh-common/src/main/java/org/apache/eventmesh/common/protocol/http/header/client/RegRequestHeader.java`
 #### Snippet
 ```java
-    private String passwd = "user@123";
+    private String passwd;
 
-    public static UnRegRequestHeader buildHeader(Map<String, Object> headerParam) {
-        UnRegRequestHeader header = new UnRegRequestHeader();
+    public static RegRequestHeader buildHeader(Map<String, Object> headerParam) {
+        RegRequestHeader header = new RegRequestHeader();
+        header.setCode(MapUtils.getString(headerParam, ProtocolKey.REQUEST_CODE));
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `eventmesh-common/src/main/java/org/apache/eventmesh/common/protocol/http/header/message/PushMessageRequestHeader.java`
+#### Snippet
+```java
+    }
+
+    public static PushMessageRequestHeader buildHeader(final Map<String, Object> headerParam) {
+        PushMessageRequestHeader pushMessageRequestHeader = new PushMessageRequestHeader();
+        pushMessageRequestHeader.setCode(MapUtils.getIntValue(headerParam, ProtocolKey.REQUEST_CODE));
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `eventmesh-common/src/main/java/org/apache/eventmesh/common/protocol/http/header/message/SendMessageBatchRequestHeader.java`
+#### Snippet
+```java
+    }
+
+    public static SendMessageBatchRequestHeader buildHeader(final Map<String, Object> headerParam) {
+        SendMessageBatchRequestHeader header = new SendMessageBatchRequestHeader();
         header.setCode(MapUtils.getString(headerParam, ProtocolKey.REQUEST_CODE));
 ```
 
@@ -1702,13 +1687,13 @@ in `eventmesh-common/src/main/java/org/apache/eventmesh/common/protocol/http/hea
 
 ### BoundedWildcard
 Can generalize to `? super String`
-in `eventmesh-common/src/main/java/org/apache/eventmesh/common/protocol/http/header/message/SendMessageBatchRequestHeader.java`
+in `eventmesh-common/src/main/java/org/apache/eventmesh/common/protocol/http/header/message/SendMessageRequestHeader.java`
 #### Snippet
 ```java
     }
 
-    public static SendMessageBatchRequestHeader buildHeader(final Map<String, Object> headerParam) {
-        SendMessageBatchRequestHeader header = new SendMessageBatchRequestHeader();
+    public static SendMessageRequestHeader buildHeader(Map<String, Object> headerParam) {
+        SendMessageRequestHeader header = new SendMessageRequestHeader();
         header.setCode(MapUtils.getString(headerParam, ProtocolKey.REQUEST_CODE));
 ```
 
@@ -1734,30 +1719,6 @@ in `eventmesh-common/src/main/java/org/apache/eventmesh/common/protocol/http/hea
     public static ReplyMessageRequestHeader buildHeader(Map<String, Object> headerParam) {
         ReplyMessageRequestHeader header = new ReplyMessageRequestHeader();
         header.setCode(MapUtils.getString(headerParam, ProtocolKey.REQUEST_CODE));
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `eventmesh-common/src/main/java/org/apache/eventmesh/common/protocol/http/header/message/SendMessageRequestHeader.java`
-#### Snippet
-```java
-    }
-
-    public static SendMessageRequestHeader buildHeader(Map<String, Object> headerParam) {
-        SendMessageRequestHeader header = new SendMessageRequestHeader();
-        header.setCode(MapUtils.getString(headerParam, ProtocolKey.REQUEST_CODE));
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `eventmesh-common/src/main/java/org/apache/eventmesh/common/protocol/http/header/message/PushMessageRequestHeader.java`
-#### Snippet
-```java
-    }
-
-    public static PushMessageRequestHeader buildHeader(final Map<String, Object> headerParam) {
-        PushMessageRequestHeader pushMessageRequestHeader = new PushMessageRequestHeader();
-        pushMessageRequestHeader.setCode(MapUtils.getIntValue(headerParam, ProtocolKey.REQUEST_CODE));
 ```
 
 ### BoundedWildcard
@@ -1857,15 +1818,27 @@ in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/protocol/t
 ```
 
 ### BoundedWildcard
-Can generalize to `? super SimpleMessage`
-in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/protocol/grpc/service/ServiceUtils.java`
+Can generalize to `? extends Map`>
+in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/protocol/grpc/consumer/consumergroup/StreamTopicConfig.java`
 #### Snippet
 ```java
 
-    public static void sendStreamResp(RequestHeader header, StatusCode code, String message,
-                                      EventEmitter<SimpleMessage> emitter) {
-        Map<String, String> resp = new HashMap<>();
-        resp.put(EventMeshConstants.RESP_CODE, code.getRetCode());
+    private static Map<String, List<EventEmitter<SimpleMessage>>> buildIdcEmitter(
+            final Map<String, Map<String, EventEmitter<SimpleMessage>>> idcEmitterMap) {
+        final Map<String, List<EventEmitter<SimpleMessage>>> result = new HashMap<>();
+        idcEmitterMap.forEach((k, v) -> {
+```
+
+### BoundedWildcard
+Can generalize to `? extends List`>
+in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/protocol/grpc/consumer/consumergroup/StreamTopicConfig.java`
+#### Snippet
+```java
+
+    private static List<EventEmitter<SimpleMessage>> buildTotalEmitter(
+            final Map<String, List<EventEmitter<SimpleMessage>>> idcEmitters) {
+        final List<EventEmitter<SimpleMessage>> emitterList = new LinkedList<>();
+        idcEmitters.values().forEach(emitterList::addAll);
 ```
 
 ### BoundedWildcard
@@ -1875,7 +1848,7 @@ in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/protocol/g
 ```java
     }
 
-    public static void sendRespAndDone(StatusCode code, String message, EventEmitter<Response> emitter) {
+    public static void sendRespAndDone(StatusCode code, EventEmitter<Response> emitter) {
         Response response = Response.newBuilder()
                 .setRespCode(code.getRetCode())
 ```
@@ -1899,33 +1872,21 @@ in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/protocol/g
 ```java
     }
 
-    public static void sendRespAndDone(StatusCode code, EventEmitter<Response> emitter) {
+    public static void sendRespAndDone(StatusCode code, String message, EventEmitter<Response> emitter) {
         Response response = Response.newBuilder()
                 .setRespCode(code.getRetCode())
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends List`>
-in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/protocol/grpc/consumer/consumergroup/StreamTopicConfig.java`
+Can generalize to `? super SimpleMessage`
+in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/protocol/grpc/service/ServiceUtils.java`
 #### Snippet
 ```java
 
-    private static List<EventEmitter<SimpleMessage>> buildTotalEmitter(
-            final Map<String, List<EventEmitter<SimpleMessage>>> idcEmitters) {
-        final List<EventEmitter<SimpleMessage>> emitterList = new LinkedList<>();
-        idcEmitters.values().forEach(emitterList::addAll);
-```
-
-### BoundedWildcard
-Can generalize to `? extends Map`>
-in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/protocol/grpc/consumer/consumergroup/StreamTopicConfig.java`
-#### Snippet
-```java
-
-    private static Map<String, List<EventEmitter<SimpleMessage>>> buildIdcEmitter(
-            final Map<String, Map<String, EventEmitter<SimpleMessage>>> idcEmitterMap) {
-        final Map<String, List<EventEmitter<SimpleMessage>>> result = new HashMap<>();
-        idcEmitterMap.forEach((k, v) -> {
+    public static void sendStreamResp(RequestHeader header, StatusCode code, String message,
+                                      EventEmitter<SimpleMessage> emitter) {
+        Map<String, String> resp = new HashMap<>();
+        resp.put(EventMeshConstants.RESP_CODE, code.getRetCode());
 ```
 
 ### BoundedWildcard
@@ -1938,6 +1899,18 @@ in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/protocol/h
     public void onComplete(final T response, CompleteHandler<T> handler) {
         Preconditions.checkState(Objects.nonNull(response), "response cant be null");
         Preconditions.checkState(Objects.nonNull(handler), "handler cant be null");
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/protocol/http/push/AsyncHTTPPushRequest.java`
+#### Snippet
+```java
+
+    public AsyncHTTPPushRequest(HandleMsgContext handleMsgContext,
+        Map<String, Set<AbstractHTTPPushRequest>> waitingRequests) {
+        super(handleMsgContext);
+        this.waitingRequests = waitingRequests;
 ```
 
 ### BoundedWildcard
@@ -1962,18 +1935,6 @@ in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/protocol/h
                                    final List<SubscriptionItem> subscriptionList) {
         Objects.requireNonNull(url, "url can not be null");
         Objects.requireNonNull(consumerGroup, "consumerGroup can not be null");
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/protocol/http/push/AsyncHTTPPushRequest.java`
-#### Snippet
-```java
-
-    public AsyncHTTPPushRequest(HandleMsgContext handleMsgContext,
-                                Map<String, Set<AbstractHTTPPushRequest>> waitingRequests) {
-        super(handleMsgContext);
-        this.waitingRequests = waitingRequests;
 ```
 
 ### BoundedWildcard
@@ -2065,6 +2026,18 @@ Can generalize to `? super String`
 in `eventmesh-webhook/eventmesh-webhook-receive/src/main/java/org/apache/eventmesh/webhook/receive/storage/WebhookFileListener.java`
 #### Snippet
 ```java
+     * @param pathSet folder's path set
+     */
+    private void loopDirInsertToSet(final File parent, final Set<String> pathSet) {
+        if (!parent.isDirectory()) {
+            return;
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `eventmesh-webhook/eventmesh-webhook-receive/src/main/java/org/apache/eventmesh/webhook/receive/storage/WebhookFileListener.java`
+#### Snippet
+```java
     private transient Map<String, WebHookConfig> cacheWebHookConfig;
 
     public WebhookFileListener(final String filePath, final Map<String, WebHookConfig> cacheWebHookConfig) {
@@ -2082,18 +2055,6 @@ in `eventmesh-webhook/eventmesh-webhook-receive/src/main/java/org/apache/eventme
     public WebhookFileListener(final String filePath, final Map<String, WebHookConfig> cacheWebHookConfig) {
         this.filePath = WebHookOperationConstant.getFilePath(filePath);
         this.cacheWebHookConfig = cacheWebHookConfig;
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `eventmesh-webhook/eventmesh-webhook-receive/src/main/java/org/apache/eventmesh/webhook/receive/storage/WebhookFileListener.java`
-#### Snippet
-```java
-     * @param pathSet folder's path set
-     */
-    private void loopDirInsertToSet(final File parent, final Set<String> pathSet) {
-        if (!parent.isDirectory()) {
-            return;
 ```
 
 ### BoundedWildcard
@@ -2206,18 +2167,6 @@ in `eventmesh-sdk-java/src/main/java/org/apache/eventmesh/client/http/consumer/E
 
 ### BoundedWildcard
 Can generalize to `? super String`
-in `eventmesh-trace-plugin/eventmesh-trace-jaeger/src/main/java/org/apache/eventmesh/trace/jaeger/JaegerTraceService.java`
-#### Snippet
-```java
-
-    @Override
-    public void inject(final Context context, final Map<String, Object> carrier) {
-        textMapPropagator.inject(context, carrier, (cr, key, value) -> {
-            if (cr != null) {
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
 in `eventmesh-trace-plugin/eventmesh-trace-pinpoint/src/main/java/org/apache/eventmesh/trace/pinpoint/PinpointTraceService.java`
 #### Snippet
 ```java
@@ -2229,15 +2178,15 @@ in `eventmesh-trace-plugin/eventmesh-trace-pinpoint/src/main/java/org/apache/eve
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends SubscriptionItem`
-in `eventmesh-sdk-java/src/main/java/org/apache/eventmesh/client/grpc/consumer/EventMeshGrpcConsumer.java`
+Can generalize to `? super String`
+in `eventmesh-trace-plugin/eventmesh-trace-jaeger/src/main/java/org/apache/eventmesh/trace/jaeger/JaegerTraceService.java`
 #### Snippet
 ```java
-    }
 
-    public Subscription buildSubscription(final List<SubscriptionItem> subscriptionItems, final String url) {
-        Objects.requireNonNull(subscriptionItems, "subscriptionItems can not be null");
-
+    @Override
+    public void inject(final Context context, final Map<String, Object> carrier) {
+        textMapPropagator.inject(context, carrier, (cr, key, value) -> {
+            if (cr != null) {
 ```
 
 ### BoundedWildcard
@@ -2265,6 +2214,18 @@ in `eventmesh-sdk-java/src/main/java/org/apache/eventmesh/client/grpc/consumer/E
 ```
 
 ### BoundedWildcard
+Can generalize to `? extends SubscriptionItem`
+in `eventmesh-sdk-java/src/main/java/org/apache/eventmesh/client/grpc/consumer/EventMeshGrpcConsumer.java`
+#### Snippet
+```java
+    }
+
+    public Subscription buildSubscription(final List<SubscriptionItem> subscriptionItems, final String url) {
+        Objects.requireNonNull(subscriptionItems, "subscriptionItems can not be null");
+
+```
+
+### BoundedWildcard
 Can generalize to `? extends CloudEvent`
 in `eventmesh-connector-plugin/eventmesh-connector-kafka/src/main/java/org/apache/eventmesh/connector/kafka/consumer/ConsumerImpl.java`
 #### Snippet
@@ -2289,18 +2250,6 @@ in `eventmesh-connector-plugin/eventmesh-connector-knative/src/main/java/org/apa
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends CloudEvent`
-in `eventmesh-connector-plugin/eventmesh-connector-rocketmq/src/main/java/org/apache/eventmesh/connector/rocketmq/consumer/PushConsumerImpl.java`
-#### Snippet
-```java
-    }
-
-    public void updateOffset(List<CloudEvent> cloudEvents, AbstractContext context) {
-        ConsumeMessageService consumeMessageService = rocketmqPushConsumer
-            .getDefaultMQPushConsumerImpl().getConsumeMessageService();
-```
-
-### BoundedWildcard
 Can generalize to `? super String`
 in `eventmesh-connector-plugin/eventmesh-connector-rocketmq/src/main/java/org/apache/eventmesh/connector/rocketmq/utils/CloudEventUtils.java`
 #### Snippet
@@ -2313,15 +2262,15 @@ in `eventmesh-connector-plugin/eventmesh-connector-rocketmq/src/main/java/org/ap
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends MessageQueue`
-in `eventmesh-connector-plugin/eventmesh-connector-standalone/src/main/java/org/apache/eventmesh/connector/standalone/broker/task/HistoryMessageClearTask.java`
+Can generalize to `? extends CloudEvent`
+in `eventmesh-connector-plugin/eventmesh-connector-rocketmq/src/main/java/org/apache/eventmesh/connector/rocketmq/consumer/PushConsumerImpl.java`
 #### Snippet
 ```java
-    private static final long MESSAGE_STORE_WINDOW = 60 * 60 * 1000;
-
-    public HistoryMessageClearTask(ConcurrentHashMap<TopicMetadata, MessageQueue> messageContainer) {
-        this.messageContainer = messageContainer;
     }
+
+    public void updateOffset(List<CloudEvent> cloudEvents, AbstractContext context) {
+        ConsumeMessageService consumeMessageService = rocketmqPushConsumer
+            .getDefaultMQPushConsumerImpl().getConsumeMessageService();
 ```
 
 ### BoundedWildcard
@@ -2334,6 +2283,18 @@ in `eventmesh-connector-plugin/eventmesh-connector-standalone/src/main/java/org/
     public void updateOffset(List<CloudEvent> cloudEvents, AbstractContext context) {
         cloudEvents.forEach(cloudEvent -> standaloneBroker.updateOffset(
                 new TopicMetadata(cloudEvent.getSubject()), Objects.requireNonNull((Long) cloudEvent.getExtension("offset")))
+```
+
+### BoundedWildcard
+Can generalize to `? extends MessageQueue`
+in `eventmesh-connector-plugin/eventmesh-connector-standalone/src/main/java/org/apache/eventmesh/connector/standalone/broker/task/HistoryMessageClearTask.java`
+#### Snippet
+```java
+    private static final long MESSAGE_STORE_WINDOW = 60 * 60 * 1000;
+
+    public HistoryMessageClearTask(ConcurrentHashMap<TopicMetadata, MessageQueue> messageContainer) {
+        this.messageContainer = messageContainer;
+    }
 ```
 
 ### BoundedWildcard
@@ -2350,14 +2311,14 @@ in `eventmesh-connector-plugin/eventmesh-connector-rocketmq/src/main/java/org/ap
 
 ## RuleId[ruleID=MissortedModifiers]
 ### MissortedModifiers
-Missorted modifiers `final @Nullable`
-in `eventmesh-trace-plugin/eventmesh-trace-jaeger/src/main/java/org/apache/eventmesh/trace/jaeger/JaegerTraceService.java`
+Missorted modifiers `final @Nonnull`
+in `eventmesh-trace-plugin/eventmesh-trace-pinpoint/src/main/java/org/apache/eventmesh/trace/pinpoint/PinpointTraceService.java`
 #### Snippet
 ```java
-            @Nullable
+        textMapPropagator.extract(context, carrier, new TextMapGetter<Map<String, Object>>() {
             @Override
-            public String get(final @Nullable Map<String, Object> carrier, final String key) {
-                return Optional.ofNullable(carrier.get(key)).map(Objects::toString).orElse(null);
+            public Iterable<String> keys(final @Nonnull Map<String, Object> carrier) {
+                return carrier.keySet();
             }
 ```
 
@@ -2374,14 +2335,14 @@ in `eventmesh-trace-plugin/eventmesh-trace-pinpoint/src/main/java/org/apache/eve
 ```
 
 ### MissortedModifiers
-Missorted modifiers `final @Nonnull`
-in `eventmesh-trace-plugin/eventmesh-trace-pinpoint/src/main/java/org/apache/eventmesh/trace/pinpoint/PinpointTraceService.java`
+Missorted modifiers `final @Nullable`
+in `eventmesh-trace-plugin/eventmesh-trace-jaeger/src/main/java/org/apache/eventmesh/trace/jaeger/JaegerTraceService.java`
 #### Snippet
 ```java
-        textMapPropagator.extract(context, carrier, new TextMapGetter<Map<String, Object>>() {
+            @Nullable
             @Override
-            public Iterable<String> keys(final @Nonnull Map<String, Object> carrier) {
-                return carrier.keySet();
+            public String get(final @Nullable Map<String, Object> carrier, final String key) {
+                return Optional.ofNullable(carrier.get(key)).map(Objects::toString).orElse(null);
             }
 ```
 
@@ -2460,18 +2421,6 @@ in `eventmesh-connector-plugin/eventmesh-connector-knative/src/main/java/org/apa
 
 ```
 
-### MalformedFormatString
-Format string `"Failed to connect pulsar with exception: %"` is malformed
-in `eventmesh-connector-plugin/eventmesh-connector-pulsar/src/main/java/org/apache/eventmesh/connector/pulsar/consumer/PulsarConsumerImpl.java`
-#### Snippet
-```java
-        } catch (Exception ex) {
-            throw new ConnectorRuntimeException(
-              String.format("Failed to connect pulsar with exception: %", ex.getMessage()));
-        }
-    }
-```
-
 ## RuleId[ruleID=DefaultAnnotationParam]
 ### DefaultAnnotationParam
 Redundant default parameter value assignment
@@ -2482,30 +2431,6 @@ in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/protocol/h
 @Slf4j
 @EventMeshTrace(isEnable = false)
 public class LocalUnSubscribeEventProcessor extends AbstractEventProcessor {
-
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/configuration/EventMeshTCPConfiguration.java`
-#### Snippet
-```java
-    public boolean eventMeshTcpSendBackEnabled = Boolean.TRUE;
-
-    @ConfigFiled(field = "")
-    public int eventMeshTcpSendBackMaxTimes = 3;
-
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `eventmesh-webhook/eventmesh-webhook-admin/src/main/java/org/apache/eventmesh/webhook/config/AdminConfiguration.java`
-#### Snippet
-```java
-    private String operationMode;
-
-    @ConfigFiled(field = "", reload = true)
-    private Properties operationProperties;
 
 ```
 
@@ -2523,25 +2448,13 @@ in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/configuration/E
 
 ### DefaultAnnotationParam
 Redundant default parameter value assignment
-in `eventmesh-webhook/eventmesh-webhook-receive/src/main/java/org/apache/eventmesh/webhook/receive/config/ReceiveConfiguration.java`
+in `eventmesh-webhook/eventmesh-webhook-admin/src/main/java/org/apache/eventmesh/webhook/config/AdminConfiguration.java`
 #### Snippet
 ```java
-    private String filePath;
+    private String operationMode;
 
     @ConfigFiled(field = "", reload = true)
     private Properties operationProperties;
-
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/configuration/EventMeshHTTPConfiguration.java`
-#### Snippet
-```java
-    private int eventMeshServerSendMsgBlockQSize = 1000;
-
-    @ConfigFiled(field = "")
-    private int eventMeshServerRemoteMsgBlockQSize = 1000;
 
 ```
 
@@ -2559,6 +2472,30 @@ in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/configuration/E
 
 ### DefaultAnnotationParam
 Redundant default parameter value assignment
+in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/configuration/EventMeshHTTPConfiguration.java`
+#### Snippet
+```java
+    private int eventMeshServerSendMsgBlockQSize = 1000;
+
+    @ConfigFiled(field = "")
+    private int eventMeshServerRemoteMsgBlockQSize = 1000;
+
+```
+
+### DefaultAnnotationParam
+Redundant default parameter value assignment
+in `eventmesh-webhook/eventmesh-webhook-receive/src/main/java/org/apache/eventmesh/webhook/receive/config/ReceiveConfiguration.java`
+#### Snippet
+```java
+    private String filePath;
+
+    @ConfigFiled(field = "", reload = true)
+    private Properties operationProperties;
+
+```
+
+### DefaultAnnotationParam
+Redundant default parameter value assignment
 in `eventmesh-trace-plugin/eventmesh-trace-pinpoint/src/main/java/org/apache/eventmesh/trace/pinpoint/config/PinpointConfiguration.java`
 #### Snippet
 ```java
@@ -2570,6 +2507,18 @@ in `eventmesh-trace-plugin/eventmesh-trace-pinpoint/src/main/java/org/apache/eve
 ```
 
 ## RuleId[ruleID=RedundantMethodOverride]
+### RedundantMethodOverride
+Method `getGrpcType()` is identical to its super method
+in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/protocol/grpc/consumer/consumergroup/WebhookTopicConfig.java`
+#### Snippet
+```java
+    }
+
+    public GrpcType getGrpcType() {
+        return grpcType;
+    }
+```
+
 ### RedundantMethodOverride
 Method `getSubscriptionMode()` is identical to its super method
 in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/protocol/grpc/consumer/consumergroup/WebhookTopicConfig.java`
@@ -2591,18 +2540,6 @@ in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/protocol/g
 
     public String getTopic() {
         return topic;
-    }
-```
-
-### RedundantMethodOverride
-Method `getGrpcType()` is identical to its super method
-in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/protocol/grpc/consumer/consumergroup/WebhookTopicConfig.java`
-#### Snippet
-```java
-    }
-
-    public GrpcType getGrpcType() {
-        return grpcType;
     }
 ```
 
@@ -2649,7 +2586,7 @@ Qualifier `super` is unnecessary in this context
 in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/boot/EventMeshHTTPServer.java`
 #### Snippet
 ```java
-            LOGGER.info("==================EventMeshHTTPServer Initialing==================");
+            log.info("==================EventMeshHTTPServer Initialing==================");
         }
         super.init("eventMesh-http");
 
@@ -2665,7 +2602,19 @@ in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/boot/EventMeshT
     private void initThreadPool() throws Exception {
         super.init("eventMesh-tcp");
 
-        scheduler = ThreadPoolFactory.createScheduledExecutor(eventMeshTCPConfiguration.eventMeshTcpGlobalScheduler,
+        scheduler = ThreadPoolFactory.createScheduledExecutor(eventMeshTCPConfiguration.getEventMeshTcpGlobalScheduler(),
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `eventmesh-sdk-java/src/main/java/org/apache/eventmesh/client/tcp/impl/cloudevent/CloudEventTCPPubClient.java`
+#### Snippet
+```java
+        try {
+            Package msg = MessageUtils.buildPackage(event, Command.REQUEST_TO_SERVER);
+            super.send(msg);
+            this.callbackConcurrentHashMap.put((String) RequestContext.key(msg), callback);
+        } catch (Exception ex) {
 ```
 
 ### UnnecessarySuperQualifier
@@ -2709,18 +2658,6 @@ Qualifier `super` is unnecessary in this context
 in `eventmesh-sdk-java/src/main/java/org/apache/eventmesh/client/tcp/impl/cloudevent/CloudEventTCPPubClient.java`
 #### Snippet
 ```java
-        try {
-            super.reconnect();
-            super.hello();
-        } catch (Exception ex) {
-            throw new EventMeshException("reconnect error", ex);
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `eventmesh-sdk-java/src/main/java/org/apache/eventmesh/client/tcp/impl/cloudevent/CloudEventTCPPubClient.java`
-#### Snippet
-```java
             log.info("{}|publish|send|type={}|protocol={}|msg={}", CLIENTNO, msg.getHeader().getCmd(),
                     msg.getHeader().getProperty(Constants.PROTOCOL_TYPE), msg);
             super.send(msg);
@@ -2734,10 +2671,10 @@ in `eventmesh-sdk-java/src/main/java/org/apache/eventmesh/client/tcp/impl/cloude
 #### Snippet
 ```java
         try {
-            Package msg = MessageUtils.buildPackage(event, Command.REQUEST_TO_SERVER);
-            super.send(msg);
-            this.callbackConcurrentHashMap.put((String) RequestContext.key(msg), callback);
+            super.reconnect();
+            super.hello();
         } catch (Exception ex) {
+            throw new EventMeshException("reconnect error", ex);
 ```
 
 ### UnnecessarySuperQualifier
@@ -2838,39 +2775,75 @@ in `eventmesh-connector-plugin/eventmesh-connector-rocketmq/src/main/java/org/ap
 
 ## RuleId[ruleID=UNUSED_IMPORT]
 ### UNUSED_IMPORT
-Unused import `import org.apache.http.Consts;`
-in `eventmesh-common/src/main/java/org/apache/eventmesh/common/utils/NetUtils.java`
+Unused import `import java.util.Objects;`
+in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/admin/handler/MetricsHandler.java`
 #### Snippet
 ```java
+import java.io.PrintWriter;
+import java.io.StringWriter;
+import java.util.Objects;
 
-import org.apache.commons.lang3.StringUtils;
-import org.apache.http.Consts;
 
-import java.io.BufferedReader;
 ```
 
 ### UNUSED_IMPORT
-Unused import `import java.io.BufferedReader;`
-in `eventmesh-common/src/main/java/org/apache/eventmesh/common/utils/NetUtils.java`
+Unused import `import org.apache.eventmesh.runtime.registry.Registry;`
+in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/boot/EventMeshGrpcBootstrap.java`
 #### Snippet
 ```java
-import org.apache.http.Consts;
+import org.apache.eventmesh.common.utils.ConfigurationContextUtil;
+import org.apache.eventmesh.runtime.configuration.EventMeshGrpcConfiguration;
+import org.apache.eventmesh.runtime.registry.Registry;
 
-import java.io.BufferedReader;
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
+public class EventMeshGrpcBootstrap implements EventMeshBootstrap {
 ```
 
 ### UNUSED_IMPORT
-Unused import `import java.io.ByteArrayInputStream;`
-in `eventmesh-common/src/main/java/org/apache/eventmesh/common/utils/NetUtils.java`
+Unused import `import org.apache.eventmesh.runtime.registry.Registry;`
+in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/boot/EventMeshHttpBootstrap.java`
 #### Snippet
 ```java
+import org.apache.eventmesh.common.utils.ConfigurationContextUtil;
+import org.apache.eventmesh.runtime.configuration.EventMeshHTTPConfiguration;
+import org.apache.eventmesh.runtime.registry.Registry;
 
-import java.io.BufferedReader;
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
+public class EventMeshHttpBootstrap implements EventMeshBootstrap {
+```
+
+### UNUSED_IMPORT
+Unused import `import org.apache.eventmesh.runtime.registry.Registry;`
+in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/boot/EventMeshTcpBootstrap.java`
+#### Snippet
+```java
+import org.apache.eventmesh.common.utils.ConfigurationContextUtil;
+import org.apache.eventmesh.runtime.configuration.EventMeshTCPConfiguration;
+import org.apache.eventmesh.runtime.registry.Registry;
+
+public class EventMeshTcpBootstrap implements EventMeshBootstrap {
+```
+
+### UNUSED_IMPORT
+Unused import `import lombok.RequiredArgsConstructor;`
+in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/protocol/http/processor/SendAsyncEventProcessor.java`
+#### Snippet
+```java
+import io.netty.handler.codec.http.HttpRequest;
+
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+
+```
+
+### UNUSED_IMPORT
+Unused import `import lombok.RequiredArgsConstructor;`
+in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/protocol/http/processor/SendAsyncMessageProcessor.java`
+#### Snippet
+```java
+import io.opentelemetry.api.trace.Span;
+
+import lombok.RequiredArgsConstructor;
+
+
 ```
 
 ## RuleId[ruleID=InfiniteLoopStatement]
@@ -2887,6 +2860,30 @@ in `eventmesh-connector-plugin/eventmesh-connector-standalone/src/main/java/org/
 ```
 
 ## RuleId[ruleID=ReplaceAssignmentWithOperatorAssignment]
+### ReplaceAssignmentWithOperatorAssignment
+`reply2MQWholeCost = reply2MQWholeCost + cost` could be simplified to 'reply2MQWholeCost += cost'
+in `eventmesh-metrics-plugin/eventmesh-metrics-api/src/main/java/org/apache/eventmesh/metrics/api/model/HttpSummaryMetrics.java`
+#### Snippet
+```java
+    public void recordReplyMsgCost(long cost) {
+        reply2MQNum.incrementAndGet();
+        reply2MQWholeCost = reply2MQWholeCost + cost;
+    }
+
+```
+
+### ReplaceAssignmentWithOperatorAssignment
+`batchSend2MQWholeCost = batchSend2MQWholeCost + cost` could be simplified to 'batchSend2MQWholeCost += cost'
+in `eventmesh-metrics-plugin/eventmesh-metrics-api/src/main/java/org/apache/eventmesh/metrics/api/model/HttpSummaryMetrics.java`
+#### Snippet
+```java
+    public void recordBatchSendMsgCost(long cost) {
+        batchSend2MQNum.incrementAndGet();
+        batchSend2MQWholeCost = batchSend2MQWholeCost + cost;
+    }
+
+```
+
 ### ReplaceAssignmentWithOperatorAssignment
 `wholePushCost = wholePushCost + cost` could be simplified to 'wholePushCost += cost'
 in `eventmesh-metrics-plugin/eventmesh-metrics-api/src/main/java/org/apache/eventmesh/metrics/api/model/HttpSummaryMetrics.java`
@@ -2912,13 +2909,13 @@ in `eventmesh-metrics-plugin/eventmesh-metrics-api/src/main/java/org/apache/even
 ```
 
 ### ReplaceAssignmentWithOperatorAssignment
-`batchSend2MQWholeCost = batchSend2MQWholeCost + cost` could be simplified to 'batchSend2MQWholeCost += cost'
+`send2MQWholeCost = send2MQWholeCost + cost` could be simplified to 'send2MQWholeCost += cost'
 in `eventmesh-metrics-plugin/eventmesh-metrics-api/src/main/java/org/apache/eventmesh/metrics/api/model/HttpSummaryMetrics.java`
 #### Snippet
 ```java
-    public void recordBatchSendMsgCost(long cost) {
-        batchSend2MQNum.incrementAndGet();
-        batchSend2MQWholeCost = batchSend2MQWholeCost + cost;
+    public void recordSendMsgCost(long cost) {
+        send2MQNum.incrementAndGet();
+        send2MQWholeCost = send2MQWholeCost + cost;
     }
 
 ```
@@ -2933,30 +2930,6 @@ in `eventmesh-metrics-plugin/eventmesh-metrics-api/src/main/java/org/apache/even
         wholeCost = wholeCost + cost;
         if (cost > maxCost.longValue()) {
             maxCost.set(cost);
-```
-
-### ReplaceAssignmentWithOperatorAssignment
-`reply2MQWholeCost = reply2MQWholeCost + cost` could be simplified to 'reply2MQWholeCost += cost'
-in `eventmesh-metrics-plugin/eventmesh-metrics-api/src/main/java/org/apache/eventmesh/metrics/api/model/HttpSummaryMetrics.java`
-#### Snippet
-```java
-    public void recordReplyMsgCost(long cost) {
-        reply2MQNum.incrementAndGet();
-        reply2MQWholeCost = reply2MQWholeCost + cost;
-    }
-
-```
-
-### ReplaceAssignmentWithOperatorAssignment
-`send2MQWholeCost = send2MQWholeCost + cost` could be simplified to 'send2MQWholeCost += cost'
-in `eventmesh-metrics-plugin/eventmesh-metrics-api/src/main/java/org/apache/eventmesh/metrics/api/model/HttpSummaryMetrics.java`
-#### Snippet
-```java
-    public void recordSendMsgCost(long cost) {
-        send2MQNum.incrementAndGet();
-        send2MQWholeCost = send2MQWholeCost + cost;
-    }
-
 ```
 
 ## RuleId[ruleID=NestedAssignment]
@@ -3180,7 +3153,7 @@ in `eventmesh-sdk-java/src/main/java/org/apache/eventmesh/client/grpc/util/Event
 ## RuleId[ruleID=Lombok]
 ### Lombok
 Generating equals/hashCode implementation but without a call to superclass, even though this class does not extend java.lang.Object. If this is intentional, add '(callSuper=false)' to your type.
-in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/configuration/EventMeshTCPConfiguration.java`
+in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/configuration/EventMeshGrpcConfiguration.java`
 #### Snippet
 ```java
 import lombok.NoArgsConstructor;
@@ -3192,7 +3165,7 @@ import lombok.NoArgsConstructor;
 
 ### Lombok
 Generating equals/hashCode implementation but without a call to superclass, even though this class does not extend java.lang.Object. If this is intentional, add '(callSuper=false)' to your type.
-in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/configuration/EventMeshGrpcConfiguration.java`
+in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/configuration/EventMeshTCPConfiguration.java`
 #### Snippet
 ```java
 import lombok.NoArgsConstructor;
@@ -3272,18 +3245,6 @@ in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/metrics/grpc/Ev
     public void start() throws Exception {
         metricsRegistries.forEach(metricsRegistry -> {
             metricsRegistry.register(grpcSummaryMetrics);
-        });
-```
-
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
-in `eventmesh-sdk-java/src/main/java/org/apache/eventmesh/client/tcp/common/MessageUtils.java`
-#### Snippet
-```java
-    private static String generateRandomString(int length) {
-        final StringBuilder builder = new StringBuilder(length);
-        IntStream.range(0, length).forEach(i -> {
-            builder.append((char) ThreadLocalRandom.current().nextInt(48, 57));
         });
 ```
 
@@ -3390,7 +3351,7 @@ Field `meshMQProducer` is accessed in both synchronized and unsynchronized conte
 in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/plugin/MQProducerWrapper.java`
 #### Snippet
 ```java
-    public Logger logger = LoggerFactory.getLogger(this.getClass());
+public class MQProducerWrapper extends MQWrapper {
 
     protected Producer meshMQProducer;
 
@@ -3402,7 +3363,7 @@ Field `meshMQAdmin` is accessed in both synchronized and unsynchronized contexts
 in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/plugin/MQAdminWrapper.java`
 #### Snippet
 ```java
-    public Logger logger = LoggerFactory.getLogger(this.getClass());
+public class MQAdminWrapper extends MQWrapper {
 
     protected Admin meshMQAdmin;
 
@@ -3414,7 +3375,7 @@ Field `meshMQPushConsumer` is accessed in both synchronized and unsynchronized c
 in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/plugin/MQConsumerWrapper.java`
 #### Snippet
 ```java
-    public final Logger logger = LoggerFactory.getLogger(this.getClass());
+public class MQConsumerWrapper extends MQWrapper {
 
     protected Consumer meshMQPushConsumer;
 
@@ -3434,27 +3395,15 @@ in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/protocol/t
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
-Field `eventMeshTcpMonitor` is accessed in both synchronized and unsynchronized contexts
+Field `persistentMsgConsumer` is accessed in both synchronized and unsynchronized contexts
 in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/protocol/tcp/client/group/ClientGroupWrapper.java`
 #### Snippet
 ```java
-    private EventMeshTcpRetryer eventMeshTcpRetryer;
+    public AtomicBoolean inited4Broadcast = new AtomicBoolean(Boolean.FALSE);
 
-    private EventMeshTcpMonitor eventMeshTcpMonitor;
+    private MQConsumerWrapper persistentMsgConsumer;
 
-    private DownstreamDispatchStrategy downstreamDispatchStrategy;
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `group` is accessed in both synchronized and unsynchronized contexts
-in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/protocol/tcp/client/group/ClientGroupWrapper.java`
-#### Snippet
-```java
-    private final String sysId;
-
-    private String group;
-
-    private EventMeshTCPConfiguration eventMeshTCPConfiguration;
+    private MQConsumerWrapper broadCastMsgConsumer;
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
@@ -3470,6 +3419,30 @@ in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/protocol/t
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
+Field `group` is accessed in both synchronized and unsynchronized contexts
+in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/protocol/tcp/client/group/ClientGroupWrapper.java`
+#### Snippet
+```java
+    private final String sysId;
+
+    private String group;
+
+    private EventMeshTCPConfiguration eventMeshTCPConfiguration;
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `eventMeshTcpMonitor` is accessed in both synchronized and unsynchronized contexts
+in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/protocol/tcp/client/group/ClientGroupWrapper.java`
+#### Snippet
+```java
+    private EventMeshTcpRetryer eventMeshTcpRetryer;
+
+    private EventMeshTcpMonitor eventMeshTcpMonitor;
+
+    private DownstreamDispatchStrategy downstreamDispatchStrategy;
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
 Field `broadCastMsgConsumer` is accessed in both synchronized and unsynchronized contexts
 in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/protocol/tcp/client/group/ClientGroupWrapper.java`
 #### Snippet
@@ -3482,18 +3455,6 @@ in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/protocol/t
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
-Field `persistentMsgConsumer` is accessed in both synchronized and unsynchronized contexts
-in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/protocol/tcp/client/group/ClientGroupWrapper.java`
-#### Snippet
-```java
-    public AtomicBoolean inited4Broadcast = new AtomicBoolean(Boolean.FALSE);
-
-    private MQConsumerWrapper persistentMsgConsumer;
-
-    private MQConsumerWrapper broadCastMsgConsumer;
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
 Field `totalUrls` is accessed in both synchronized and unsynchronized contexts
 in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/protocol/grpc/consumer/consumergroup/WebhookTopicConfig.java`
 #### Snippet
@@ -3503,66 +3464,6 @@ in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/protocol/g
     private List<String> totalUrls = new LinkedList<>();
 
     public WebhookTopicConfig(String consumerGroup, String topic, SubscriptionMode subscriptionMode) {
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `producerTable` is accessed in both synchronized and unsynchronized contexts
-in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/protocol/grpc/producer/ProducerManager.java`
-#### Snippet
-```java
-    private EventMeshGrpcServer eventMeshGrpcServer;
-
-    private ConcurrentHashMap<String, EventMeshProducer> producerTable = new ConcurrentHashMap<>();
-
-    public ProducerManager(EventMeshGrpcServer eventMeshGrpcServer) {
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `serviceState` is accessed in both synchronized and unsynchronized contexts
-in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/protocol/grpc/producer/EventMeshProducer.java`
-#### Snippet
-```java
-    private MQProducerWrapper mqProducerWrapper;
-
-    private ServiceState serviceState;
-
-    public void send(SendMessageContext sendMsgContext, SendCallback sendCallback)
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `mqProducerWrapper` is accessed in both synchronized and unsynchronized contexts
-in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/protocol/grpc/producer/EventMeshProducer.java`
-#### Snippet
-```java
-    private ProducerGroupConf producerGroupConfig;
-
-    private MQProducerWrapper mqProducerWrapper;
-
-    private ServiceState serviceState;
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `producerGroupConfig` is accessed in both synchronized and unsynchronized contexts
-in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/protocol/grpc/producer/EventMeshProducer.java`
-#### Snippet
-```java
-    private final Logger logger = LoggerFactory.getLogger(this.getClass());
-
-    private ProducerGroupConf producerGroupConfig;
-
-    private MQProducerWrapper mqProducerWrapper;
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `serviceState` is accessed in both synchronized and unsynchronized contexts
-in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/protocol/grpc/consumer/EventMeshConsumer.java`
-#### Snippet
-```java
-    private final transient MessageHandler messageHandler;
-
-    private transient ServiceState serviceState;
-
-    /**
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
@@ -3590,6 +3491,78 @@ in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/protocol/g
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
+Field `serviceState` is accessed in both synchronized and unsynchronized contexts
+in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/protocol/grpc/producer/EventMeshProducer.java`
+#### Snippet
+```java
+    private MQProducerWrapper mqProducerWrapper;
+
+    private ServiceState serviceState;
+
+    public void send(SendMessageContext sendMsgContext, SendCallback sendCallback)
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `producerGroupConfig` is accessed in both synchronized and unsynchronized contexts
+in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/protocol/grpc/producer/EventMeshProducer.java`
+#### Snippet
+```java
+public class EventMeshProducer {
+
+    private ProducerGroupConf producerGroupConfig;
+
+    private MQProducerWrapper mqProducerWrapper;
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `mqProducerWrapper` is accessed in both synchronized and unsynchronized contexts
+in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/protocol/grpc/producer/EventMeshProducer.java`
+#### Snippet
+```java
+    private ProducerGroupConf producerGroupConfig;
+
+    private MQProducerWrapper mqProducerWrapper;
+
+    private ServiceState serviceState;
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `serviceState` is accessed in both synchronized and unsynchronized contexts
+in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/protocol/grpc/consumer/EventMeshConsumer.java`
+#### Snippet
+```java
+    private final transient MessageHandler messageHandler;
+
+    private transient ServiceState serviceState;
+
+    /**
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `eventMeshHTTPServer` is accessed in both synchronized and unsynchronized contexts
+in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/protocol/http/consumer/ConsumerManager.java`
+#### Snippet
+```java
+public class ConsumerManager {
+
+    private EventMeshHTTPServer eventMeshHTTPServer;
+
+    /**
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `consumerTable` is accessed in both synchronized and unsynchronized contexts
+in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/protocol/http/consumer/ConsumerManager.java`
+#### Snippet
+```java
+     * consumerGroup to ConsumerGroupManager.
+     */
+    private ConcurrentHashMap<String, ConsumerGroupManager> consumerTable =
+            new ConcurrentHashMap<>();
+
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
 Field `eventMeshConsumer` is accessed in both synchronized and unsynchronized contexts
 in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/protocol/http/consumer/ConsumerGroupManager.java`
 #### Snippet
@@ -3614,6 +3587,18 @@ in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/protocol/h
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
+Field `eventMeshHTTPServer` is accessed in both synchronized and unsynchronized contexts
+in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/protocol/http/producer/ProducerManager.java`
+#### Snippet
+```java
+public class ProducerManager {
+
+    private EventMeshHTTPServer eventMeshHTTPServer;
+
+    private ConcurrentHashMap<String /** groupName*/, EventMeshProducer> producerTable = new ConcurrentHashMap<String, EventMeshProducer>();
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
 Field `producerTable` is accessed in both synchronized and unsynchronized contexts
 in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/protocol/http/producer/ProducerManager.java`
 #### Snippet
@@ -3623,30 +3608,6 @@ in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/protocol/h
     private ConcurrentHashMap<String /** groupName*/, EventMeshProducer> producerTable = new ConcurrentHashMap<String, EventMeshProducer>();
 
     public ProducerManager(EventMeshHTTPServer eventMeshHTTPServer) {
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `eventMeshHTTPServer` is accessed in both synchronized and unsynchronized contexts
-in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/protocol/http/producer/ProducerManager.java`
-#### Snippet
-```java
-    public Logger logger = LoggerFactory.getLogger(this.getClass());
-
-    private EventMeshHTTPServer eventMeshHTTPServer;
-
-    private ConcurrentHashMap<String /** groupName*/, EventMeshProducer> producerTable = new ConcurrentHashMap<String, EventMeshProducer>();
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `producerGroupConfig` is accessed in both synchronized and unsynchronized contexts
-in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/protocol/http/producer/EventMeshProducer.java`
-#### Snippet
-```java
-    }
-
-    protected ProducerGroupConf producerGroupConfig;
-
-    protected EventMeshHTTPConfiguration eventMeshHttpConfiguration;
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
@@ -3662,18 +3623,6 @@ in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/protocol/h
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
-Field `inited` is accessed in both synchronized and unsynchronized contexts
-in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/protocol/http/producer/EventMeshProducer.java`
-#### Snippet
-```java
-    protected AtomicBoolean started = new AtomicBoolean(Boolean.FALSE);
-
-    protected AtomicBoolean inited = new AtomicBoolean(Boolean.FALSE);
-
-    public Logger logger = LoggerFactory.getLogger(this.getClass());
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
 Field `started` is accessed in both synchronized and unsynchronized contexts
 in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/protocol/http/producer/EventMeshProducer.java`
 #### Snippet
@@ -3686,51 +3635,27 @@ public class EventMeshProducer {
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
-Field `eventMeshHTTPServer` is accessed in both synchronized and unsynchronized contexts
-in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/protocol/http/consumer/ConsumerManager.java`
+Field `inited` is accessed in both synchronized and unsynchronized contexts
+in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/protocol/http/producer/EventMeshProducer.java`
 #### Snippet
 ```java
-public class ConsumerManager {
+    protected AtomicBoolean started = new AtomicBoolean(Boolean.FALSE);
 
-    private EventMeshHTTPServer eventMeshHTTPServer;
+    protected AtomicBoolean inited = new AtomicBoolean(Boolean.FALSE);
 
-    /**
+    public AtomicBoolean getInited() {
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
-Field `logger` is accessed in both synchronized and unsynchronized contexts
-in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/protocol/http/consumer/ConsumerManager.java`
+Field `producerGroupConfig` is accessed in both synchronized and unsynchronized contexts
+in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/protocol/http/producer/EventMeshProducer.java`
 #### Snippet
 ```java
-    private static final int DEFAULT_UPDATE_TIME = 3 * 30 * 1000;
+    }
 
-    public Logger logger = LoggerFactory.getLogger(this.getClass());
+    protected ProducerGroupConf producerGroupConfig;
 
-    private ScheduledExecutorService scheduledExecutorService =
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `consumerTable` is accessed in both synchronized and unsynchronized contexts
-in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/protocol/http/consumer/ConsumerManager.java`
-#### Snippet
-```java
-     * consumerGroup to ConsumerGroupManager.
-     */
-    private ConcurrentHashMap<String, ConsumerGroupManager> consumerTable =
-            new ConcurrentHashMap<>();
-
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `logger` is accessed in both synchronized and unsynchronized contexts
-in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/protocol/http/consumer/EventMeshConsumer.java`
-#### Snippet
-```java
-    private final AtomicBoolean inited4Broadcast = new AtomicBoolean(Boolean.FALSE);
-
-    public Logger logger = LoggerFactory.getLogger(this.getClass());
-
-    public Logger messageLogger = LoggerFactory.getLogger("message");
+    protected EventMeshHTTPConfiguration eventMeshHttpConfiguration;
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
@@ -3818,18 +3743,6 @@ in `eventmesh-metrics-plugin/eventmesh-metrics-prometheus/src/main/java/org/apac
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
-Field `subStreamHandler` is accessed in both synchronized and unsynchronized contexts
-in `eventmesh-sdk-java/src/main/java/org/apache/eventmesh/client/grpc/consumer/EventMeshGrpcConsumer.java`
-#### Snippet
-```java
-
-    private transient ReceiveMsgHook<?> listener;
-    private transient SubStreamHandler<?> subStreamHandler;
-
-    public EventMeshGrpcConsumer(final EventMeshGrpcClientConfig clientConfig) {
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
 Field `listener` is accessed in both synchronized and unsynchronized contexts
 in `eventmesh-sdk-java/src/main/java/org/apache/eventmesh/client/grpc/consumer/EventMeshGrpcConsumer.java`
 #### Snippet
@@ -3854,15 +3767,15 @@ in `eventmesh-sdk-java/src/main/java/org/apache/eventmesh/client/grpc/consumer/E
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
-Field `producer` is accessed in both synchronized and unsynchronized contexts
-in `eventmesh-connector-plugin/eventmesh-connector-kafka/src/main/java/org/apache/eventmesh/connector/kafka/producer/KafkaProducerImpl.java`
+Field `subStreamHandler` is accessed in both synchronized and unsynchronized contexts
+in `eventmesh-sdk-java/src/main/java/org/apache/eventmesh/client/grpc/consumer/EventMeshGrpcConsumer.java`
 #### Snippet
 ```java
-public class KafkaProducerImpl implements Producer {
 
-    private ProducerImpl producer;
+    private transient ReceiveMsgHook<?> listener;
+    private transient SubStreamHandler<?> subStreamHandler;
 
-    /**
+    public EventMeshGrpcConsumer(final EventMeshGrpcClientConfig clientConfig) {
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
@@ -3875,6 +3788,18 @@ in `eventmesh-connector-plugin/eventmesh-connector-kafka/src/main/java/org/apach
     private ClientConfiguration clientConfiguration;
 
     @Override
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `producer` is accessed in both synchronized and unsynchronized contexts
+in `eventmesh-connector-plugin/eventmesh-connector-kafka/src/main/java/org/apache/eventmesh/connector/kafka/producer/KafkaProducerImpl.java`
+#### Snippet
+```java
+public class KafkaProducerImpl implements Producer {
+
+    private ProducerImpl producer;
+
+    /**
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
@@ -3926,18 +3851,6 @@ public class RedisProducer implements Producer {
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
-Field `redisson` is accessed in both synchronized and unsynchronized contexts
-in `eventmesh-connector-plugin/eventmesh-connector-redis/src/main/java/org/apache/eventmesh/connector/redis/consumer/RedisConsumer.java`
-#### Snippet
-```java
-    private static final Logger logger = LoggerFactory.getLogger(RedisConsumer.class);
-
-    private Redisson redisson;
-
-    private EventMeshMessageListener messageListener;
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
 Field `messageListener` is accessed in both synchronized and unsynchronized contexts
 in `eventmesh-connector-plugin/eventmesh-connector-redis/src/main/java/org/apache/eventmesh/connector/redis/consumer/RedisConsumer.java`
 #### Snippet
@@ -3947,6 +3860,18 @@ in `eventmesh-connector-plugin/eventmesh-connector-redis/src/main/java/org/apach
     private EventMeshMessageListener messageListener;
 
     private volatile boolean started = false;
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `redisson` is accessed in both synchronized and unsynchronized contexts
+in `eventmesh-connector-plugin/eventmesh-connector-redis/src/main/java/org/apache/eventmesh/connector/redis/consumer/RedisConsumer.java`
+#### Snippet
+```java
+
+
+    private Redisson redisson;
+
+    private EventMeshMessageListener messageListener;
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
@@ -3962,18 +3887,6 @@ in `eventmesh-connector-plugin/eventmesh-connector-kafka/src/main/java/org/apach
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
-Field `producer` is accessed in both synchronized and unsynchronized contexts
-in `eventmesh-connector-plugin/eventmesh-connector-pulsar/src/main/java/org/apache/eventmesh/connector/pulsar/producer/PulsarProducerImpl.java`
-#### Snippet
-```java
-public class PulsarProducerImpl implements Producer {
-
-    private ProducerImpl producer;
-
-    /**
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
 Field `clientConfiguration` is accessed in both synchronized and unsynchronized contexts
 in `eventmesh-connector-plugin/eventmesh-connector-pulsar/src/main/java/org/apache/eventmesh/connector/pulsar/producer/PulsarProducerImpl.java`
 #### Snippet
@@ -3983,6 +3896,18 @@ in `eventmesh-connector-plugin/eventmesh-connector-pulsar/src/main/java/org/apac
     private ClientConfiguration clientConfiguration;
 
     @Override
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `producer` is accessed in both synchronized and unsynchronized contexts
+in `eventmesh-connector-plugin/eventmesh-connector-pulsar/src/main/java/org/apache/eventmesh/connector/pulsar/producer/PulsarProducerImpl.java`
+#### Snippet
+```java
+public class PulsarProducerImpl implements Producer {
+
+    private ProducerImpl producer;
+
+    /**
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
@@ -4014,7 +3939,7 @@ Field `pullConsumer` is accessed in both synchronized and unsynchronized context
 in `eventmesh-connector-plugin/eventmesh-connector-knative/src/main/java/org/apache/eventmesh/connector/knative/consumer/KnativeConsumerImpl.java`
 #### Snippet
 ```java
-    private static final Logger LOG = LoggerFactory.getLogger(KnativeConsumerImpl.class);
+public class KnativeConsumerImpl implements Consumer {
 
     private transient PullConsumerImpl pullConsumer;
 
@@ -4028,30 +3953,6 @@ in `eventmesh-connector-plugin/eventmesh-connector-knative/src/main/java/org/apa
 ```java
      * Unified configuration class corresponding to knative-client.properties
      */
-    private ClientConfiguration clientConfiguration;
-
-    private static final Logger logger = LoggerFactory.getLogger(KnativeConsumerImpl.class);
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `pushConsumer` is accessed in both synchronized and unsynchronized contexts
-in `eventmesh-connector-plugin/eventmesh-connector-rocketmq/src/main/java/org/apache/eventmesh/connector/rocketmq/consumer/RocketMQConsumerImpl.java`
-#### Snippet
-```java
-    public Logger messageLogger = LoggerFactory.getLogger("message");
-
-    private PushConsumerImpl pushConsumer;
-
-    private ClientConfiguration clientConfiguration;
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `clientConfiguration` is accessed in both synchronized and unsynchronized contexts
-in `eventmesh-connector-plugin/eventmesh-connector-rocketmq/src/main/java/org/apache/eventmesh/connector/rocketmq/consumer/RocketMQConsumerImpl.java`
-#### Snippet
-```java
-    private PushConsumerImpl pushConsumer;
-
     private ClientConfiguration clientConfiguration;
 
     @Override
@@ -4079,6 +3980,30 @@ in `eventmesh-connector-plugin/eventmesh-connector-rocketmq/src/main/java/org/ap
     private ClientConfiguration clientConfiguration;
 
     @Override
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `clientConfiguration` is accessed in both synchronized and unsynchronized contexts
+in `eventmesh-connector-plugin/eventmesh-connector-rocketmq/src/main/java/org/apache/eventmesh/connector/rocketmq/consumer/RocketMQConsumerImpl.java`
+#### Snippet
+```java
+    private PushConsumerImpl pushConsumer;
+
+    private ClientConfiguration clientConfiguration;
+
+    @Override
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `pushConsumer` is accessed in both synchronized and unsynchronized contexts
+in `eventmesh-connector-plugin/eventmesh-connector-rocketmq/src/main/java/org/apache/eventmesh/connector/rocketmq/consumer/RocketMQConsumerImpl.java`
+#### Snippet
+```java
+public class RocketMQConsumerImpl implements Consumer {
+
+    private PushConsumerImpl pushConsumer;
+
+    private ClientConfiguration clientConfiguration;
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
@@ -4330,10 +4255,10 @@ in `eventmesh-common/src/main/java/org/apache/eventmesh/common/config/CommonConf
 #### Snippet
 ```java
 
-    @ConfigFiled(field = "server.security.enabled")
-    private boolean eventMeshServerSecurityEnable = false;
+    @ConfigFiled(field = "server.trace.enabled")
+    private boolean eventMeshServerTraceEnable = false;
 
-    @ConfigFiled(field = "server.registry.enabled")
+    @ConfigFiled(field = "server.security.enabled")
 ```
 
 ### RedundantFieldInitialization
@@ -4354,10 +4279,10 @@ in `eventmesh-common/src/main/java/org/apache/eventmesh/common/config/CommonConf
 #### Snippet
 ```java
 
+    @ConfigFiled(field = "server.security.enabled")
+    private boolean eventMeshServerSecurityEnable = false;
+
     @ConfigFiled(field = "server.registry.enabled")
-    private boolean eventMeshServerRegistryEnable = false;
-
-
 ```
 
 ### RedundantFieldInitialization
@@ -4366,10 +4291,10 @@ in `eventmesh-common/src/main/java/org/apache/eventmesh/common/config/CommonConf
 #### Snippet
 ```java
 
-    @ConfigFiled(field = "server.trace.enabled")
-    private boolean eventMeshServerTraceEnable = false;
+    @ConfigFiled(field = "server.registry.enabled")
+    private boolean eventMeshServerRegistryEnable = false;
 
-    @ConfigFiled(field = "server.security.enabled")
+
 ```
 
 ### RedundantFieldInitialization
@@ -4385,15 +4310,15 @@ in `eventmesh-common/src/main/java/org/apache/eventmesh/common/protocol/tcp/User
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/protocol/tcp/client/session/retry/RetryContext.java`
+Field initialization to `null` is redundant
+in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/protocol/tcp/client/session/Session.java`
 #### Snippet
 ```java
-    public String seq;
+    private ReentrantLock listenRspLock = new ReentrantLock();
 
-    public int retryTimes = 0;
+    private String listenRequestSeq = null;
 
-    public long executeTime = System.currentTimeMillis();
+    protected SessionState sessionState = SessionState.CREATED;
 ```
 
 ### RedundantFieldInitialization
@@ -4409,18 +4334,6 @@ in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/protocol/t
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/protocol/tcp/client/session/Session.java`
-#### Snippet
-```java
-    private ReentrantLock listenRspLock = new ReentrantLock();
-
-    private String listenRequestSeq = null;
-
-    protected SessionState sessionState = SessionState.CREATED;
-```
-
-### RedundantFieldInitialization
 Field initialization to `0` is redundant
 in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/protocol/tcp/client/session/Session.java`
 #### Snippet
@@ -4430,6 +4343,18 @@ in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/protocol/t
     private long isolateTime = 0;
 
     private SessionContext sessionContext = new SessionContext(this);
+```
+
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/protocol/tcp/client/session/retry/RetryContext.java`
+#### Snippet
+```java
+    public String seq;
+
+    public int retryTimes = 0;
+
+    public long executeTime = System.currentTimeMillis();
 ```
 
 ### RedundantFieldInitialization
@@ -4473,11 +4398,11 @@ Field initialization to `false` is redundant
 in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/registry/Registry.java`
 #### Snippet
 ```java
+public class Registry {
+
     private volatile boolean inited = false;
 
     private volatile boolean started = false;
-
-    private RegistryService registryService;
 ```
 
 ### RedundantFieldInitialization
@@ -4485,35 +4410,11 @@ Field initialization to `false` is redundant
 in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/registry/Registry.java`
 #### Snippet
 ```java
-    private static final Logger logger = LoggerFactory.getLogger(Registry.class);
-
     private volatile boolean inited = false;
 
     private volatile boolean started = false;
-```
 
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/configuration/EventMeshTCPConfiguration.java`
-#### Snippet
-```java
-    @AllArgsConstructor
-    public static class TrafficShapingConfig {
-        long writeLimit = 0;
-        long readLimit = 1000;
-        long checkInterval = 1000;
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `eventmesh-webhook/eventmesh-webhook-admin/src/main/java/org/apache/eventmesh/webhook/config/AdminConfiguration.java`
-#### Snippet
-```java
-
-    @ConfigFiled(field = "admin.start")
-    private boolean adminStart = false;
-
-    @ConfigFiled(field = "operationMode")
+    private RegistryService registryService;
 ```
 
 ### RedundantFieldInitialization
@@ -4541,15 +4442,27 @@ in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/configuration/E
 ```
 
 ### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/configuration/EventMeshTCPConfiguration.java`
+#### Snippet
+```java
+    @AllArgsConstructor
+    public static class TrafficShapingConfig {
+        private long writeLimit = 0;
+        private long readLimit = 1000;
+        private long checkInterval = 1000;
+```
+
+### RedundantFieldInitialization
 Field initialization to `false` is redundant
-in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/configuration/EventMeshHTTPConfiguration.java`
+in `eventmesh-webhook/eventmesh-webhook-admin/src/main/java/org/apache/eventmesh/webhook/config/AdminConfiguration.java`
 #### Snippet
 ```java
 
-    @ConfigFiled(field = "consumer.enabled")
-    private boolean eventMeshServerConsumerEnabled = false;
+    @ConfigFiled(field = "admin.start")
+    private boolean adminStart = false;
 
-    @ConfigFiled(field = "useTls.enabled")
+    @ConfigFiled(field = "operationMode")
 ```
 
 ### RedundantFieldInitialization
@@ -4566,6 +4479,18 @@ in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/configuration/E
 
 ### RedundantFieldInitialization
 Field initialization to `false` is redundant
+in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/configuration/EventMeshHTTPConfiguration.java`
+#### Snippet
+```java
+
+    @ConfigFiled(field = "consumer.enabled")
+    private boolean eventMeshServerConsumerEnabled = false;
+
+    @ConfigFiled(field = "useTls.enabled")
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
 in `eventmesh-sdk-java/src/main/java/org/apache/eventmesh/client/http/conf/EventMeshHttpClientConfig.java`
 #### Snippet
 ```java
@@ -4574,18 +4499,6 @@ in `eventmesh-sdk-java/src/main/java/org/apache/eventmesh/client/http/conf/Event
     private transient boolean useTls = false;
 
     @Builder.Default
-```
-
-### RedundantFieldInitialization
-Field initialization to `0f` is redundant
-in `eventmesh-metrics-plugin/eventmesh-metrics-api/src/main/java/org/apache/eventmesh/metrics/api/model/HttpSummaryMetrics.java`
-#### Snippet
-```java
-    private AtomicLong batchSend2MQNum = new AtomicLong(0);
-
-    private float send2MQWholeCost = 0f;
-
-    private AtomicLong send2MQNum = new AtomicLong(0);
 ```
 
 ### RedundantFieldInitialization
@@ -4607,21 +4520,9 @@ in `eventmesh-metrics-plugin/eventmesh-metrics-api/src/main/java/org/apache/even
 ```java
     }
 
-    private float httpDecodeTimeCost = 0f;
+    private float wholeCost = 0f;
 
-    private AtomicLong httpDecodeNum = new AtomicLong(0);
-```
-
-### RedundantFieldInitialization
-Field initialization to `0f` is redundant
-in `eventmesh-metrics-plugin/eventmesh-metrics-api/src/main/java/org/apache/eventmesh/metrics/api/model/HttpSummaryMetrics.java`
-#### Snippet
-```java
-    }
-    
-    private float batchSend2MQWholeCost = 0f;
-
-    private AtomicLong batchSend2MQNum = new AtomicLong(0);
+    private AtomicLong wholeRequestNum = new AtomicLong(0);
 ```
 
 ### RedundantFieldInitialization
@@ -4641,11 +4542,35 @@ Field initialization to `0f` is redundant
 in `eventmesh-metrics-plugin/eventmesh-metrics-api/src/main/java/org/apache/eventmesh/metrics/api/model/HttpSummaryMetrics.java`
 #### Snippet
 ```java
+    private AtomicLong batchSend2MQNum = new AtomicLong(0);
+
+    private float send2MQWholeCost = 0f;
+
+    private AtomicLong send2MQNum = new AtomicLong(0);
+```
+
+### RedundantFieldInitialization
+Field initialization to `0f` is redundant
+in `eventmesh-metrics-plugin/eventmesh-metrics-api/src/main/java/org/apache/eventmesh/metrics/api/model/HttpSummaryMetrics.java`
+#### Snippet
+```java
+    }
+    
+    private float batchSend2MQWholeCost = 0f;
+
+    private AtomicLong batchSend2MQNum = new AtomicLong(0);
+```
+
+### RedundantFieldInitialization
+Field initialization to `0f` is redundant
+in `eventmesh-metrics-plugin/eventmesh-metrics-api/src/main/java/org/apache/eventmesh/metrics/api/model/HttpSummaryMetrics.java`
+#### Snippet
+```java
     }
 
-    private float wholeCost = 0f;
+    private float httpDecodeTimeCost = 0f;
 
-    private AtomicLong wholeRequestNum = new AtomicLong(0);
+    private AtomicLong httpDecodeNum = new AtomicLong(0);
 ```
 
 ### RedundantFieldInitialization
@@ -4673,6 +4598,18 @@ in `eventmesh-connector-plugin/eventmesh-connector-redis/src/main/java/org/apach
 ```
 
 ### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `eventmesh-registry-plugin/eventmesh-registry-zookeeper/src/main/java/org/apache/eventmesh/registry/zookeeper/service/ZookeeperRegistryService.java`
+#### Snippet
+```java
+    private String serverAddr;
+
+    public CuratorFramework zkClient = null;
+
+    private Map<String, EventMeshRegisterInfo> eventMeshRegisterInfoMap;
+```
+
+### RedundantFieldInitialization
 Field initialization to `false` is redundant
 in `eventmesh-connector-plugin/eventmesh-connector-redis/src/main/java/org/apache/eventmesh/connector/redis/consumer/RedisConsumer.java`
 #### Snippet
@@ -4697,15 +4634,15 @@ in `eventmesh-connector-plugin/eventmesh-connector-knative/src/main/java/org/apa
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `eventmesh-registry-plugin/eventmesh-registry-zookeeper/src/main/java/org/apache/eventmesh/registry/zookeeper/service/ZookeeperRegistryService.java`
+Field initialization to `false` is redundant
+in `eventmesh-connector-plugin/eventmesh-connector-pravega/src/main/java/org/apache/eventmesh/connector/pravega/config/PravegaConnectorConfig.java`
 #### Snippet
 ```java
-    private String serverAddr;
 
-    public CuratorFramework zkClient = null;
+    @ConfigFiled(field = "authEnabled", reload = true)
+    private boolean authEnabled = false;
 
-    private Map<String, EventMeshRegisterInfo> eventMeshRegisterInfoMap;
+    @ConfigFiled(field = "username")
 ```
 
 ### RedundantFieldInitialization
@@ -4718,18 +4655,6 @@ in `eventmesh-connector-plugin/eventmesh-connector-pravega/src/main/java/org/apa
     private boolean tlsEnable = false;
 
     @ConfigFiled(field = "truststore")
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `eventmesh-connector-plugin/eventmesh-connector-pravega/src/main/java/org/apache/eventmesh/connector/pravega/config/PravegaConnectorConfig.java`
-#### Snippet
-```java
-
-    @ConfigFiled(field = "authEnabled", reload = true)
-    private boolean authEnabled = false;
-
-    @ConfigFiled(field = "username")
 ```
 
 ### RedundantFieldInitialization
@@ -4800,6 +4725,66 @@ Call to `concat()` can be replaced with '+' expression
 in `eventmesh-registry-plugin/eventmesh-registry-zookeeper/src/main/java/org/apache/eventmesh/registry/zookeeper/service/ZookeeperRegistryService.java`
 #### Snippet
 ```java
+
+    private String formatServicePath(String clusterName, String serviceName) {
+        return ZookeeperConstant.PATH_SEPARATOR.concat(clusterName)
+            .concat(ZookeeperConstant.PATH_SEPARATOR).concat(serviceName);
+    }
+```
+
+### CallToStringConcatCanBeReplacedByOperator
+Call to `concat()` can be replaced with '+' expression
+in `eventmesh-registry-plugin/eventmesh-registry-zookeeper/src/main/java/org/apache/eventmesh/registry/zookeeper/service/ZookeeperRegistryService.java`
+#### Snippet
+```java
+    private String formatServicePath(String clusterName, String serviceName) {
+        return ZookeeperConstant.PATH_SEPARATOR.concat(clusterName)
+            .concat(ZookeeperConstant.PATH_SEPARATOR).concat(serviceName);
+    }
+
+```
+
+### CallToStringConcatCanBeReplacedByOperator
+Call to `concat()` can be replaced with '+' expression
+in `eventmesh-registry-plugin/eventmesh-registry-zookeeper/src/main/java/org/apache/eventmesh/registry/zookeeper/service/ZookeeperRegistryService.java`
+#### Snippet
+```java
+    private String formatServicePath(String clusterName, String serviceName) {
+        return ZookeeperConstant.PATH_SEPARATOR.concat(clusterName)
+            .concat(ZookeeperConstant.PATH_SEPARATOR).concat(serviceName);
+    }
+
+```
+
+### CallToStringConcatCanBeReplacedByOperator
+Call to `concat()` can be replaced with '+' expression
+in `eventmesh-registry-plugin/eventmesh-registry-zookeeper/src/main/java/org/apache/eventmesh/registry/zookeeper/service/ZookeeperRegistryService.java`
+#### Snippet
+```java
+
+                for (String endpoint : instances) {
+                    String instancePath = servicePath.concat(ZookeeperConstant.PATH_SEPARATOR).concat(endpoint);
+
+                    Stat stat = new Stat();
+```
+
+### CallToStringConcatCanBeReplacedByOperator
+Call to `concat()` can be replaced with '+' expression
+in `eventmesh-registry-plugin/eventmesh-registry-zookeeper/src/main/java/org/apache/eventmesh/registry/zookeeper/service/ZookeeperRegistryService.java`
+#### Snippet
+```java
+
+                for (String endpoint : instances) {
+                    String instancePath = servicePath.concat(ZookeeperConstant.PATH_SEPARATOR).concat(endpoint);
+
+                    Stat stat = new Stat();
+```
+
+### CallToStringConcatCanBeReplacedByOperator
+Call to `concat()` can be replaced with '+' expression
+in `eventmesh-registry-plugin/eventmesh-registry-zookeeper/src/main/java/org/apache/eventmesh/registry/zookeeper/service/ZookeeperRegistryService.java`
+#### Snippet
+```java
             String eventMeshName = configuration.getEventMeshName();
             try {
                 String serviceName = eventMeshName.concat("-").concat(key);
@@ -4849,30 +4834,6 @@ in `eventmesh-registry-plugin/eventmesh-registry-zookeeper/src/main/java/org/apa
 #### Snippet
 ```java
 
-                for (String endpoint : instances) {
-                    String instancePath = servicePath.concat(ZookeeperConstant.PATH_SEPARATOR).concat(endpoint);
-
-                    Stat stat = new Stat();
-```
-
-### CallToStringConcatCanBeReplacedByOperator
-Call to `concat()` can be replaced with '+' expression
-in `eventmesh-registry-plugin/eventmesh-registry-zookeeper/src/main/java/org/apache/eventmesh/registry/zookeeper/service/ZookeeperRegistryService.java`
-#### Snippet
-```java
-
-                for (String endpoint : instances) {
-                    String instancePath = servicePath.concat(ZookeeperConstant.PATH_SEPARATOR).concat(endpoint);
-
-                    Stat stat = new Stat();
-```
-
-### CallToStringConcatCanBeReplacedByOperator
-Call to `concat()` can be replaced with '+' expression
-in `eventmesh-registry-plugin/eventmesh-registry-zookeeper/src/main/java/org/apache/eventmesh/registry/zookeeper/service/ZookeeperRegistryService.java`
-#### Snippet
-```java
-
     private String formatInstancePath(String clusterName, String serviceName, String endPoint) {
         return ZookeeperConstant.PATH_SEPARATOR.concat(clusterName)
             .concat(ZookeeperConstant.PATH_SEPARATOR).concat(serviceName)
@@ -4923,42 +4884,6 @@ in `eventmesh-registry-plugin/eventmesh-registry-zookeeper/src/main/java/org/apa
         return ZookeeperConstant.PATH_SEPARATOR.concat(clusterName)
             .concat(ZookeeperConstant.PATH_SEPARATOR).concat(serviceName)
             .concat(ZookeeperConstant.PATH_SEPARATOR).concat(endPoint);
-    }
-
-```
-
-### CallToStringConcatCanBeReplacedByOperator
-Call to `concat()` can be replaced with '+' expression
-in `eventmesh-registry-plugin/eventmesh-registry-zookeeper/src/main/java/org/apache/eventmesh/registry/zookeeper/service/ZookeeperRegistryService.java`
-#### Snippet
-```java
-
-    private String formatServicePath(String clusterName, String serviceName) {
-        return ZookeeperConstant.PATH_SEPARATOR.concat(clusterName)
-            .concat(ZookeeperConstant.PATH_SEPARATOR).concat(serviceName);
-    }
-```
-
-### CallToStringConcatCanBeReplacedByOperator
-Call to `concat()` can be replaced with '+' expression
-in `eventmesh-registry-plugin/eventmesh-registry-zookeeper/src/main/java/org/apache/eventmesh/registry/zookeeper/service/ZookeeperRegistryService.java`
-#### Snippet
-```java
-    private String formatServicePath(String clusterName, String serviceName) {
-        return ZookeeperConstant.PATH_SEPARATOR.concat(clusterName)
-            .concat(ZookeeperConstant.PATH_SEPARATOR).concat(serviceName);
-    }
-
-```
-
-### CallToStringConcatCanBeReplacedByOperator
-Call to `concat()` can be replaced with '+' expression
-in `eventmesh-registry-plugin/eventmesh-registry-zookeeper/src/main/java/org/apache/eventmesh/registry/zookeeper/service/ZookeeperRegistryService.java`
-#### Snippet
-```java
-    private String formatServicePath(String clusterName, String serviceName) {
-        return ZookeeperConstant.PATH_SEPARATOR.concat(clusterName)
-            .concat(ZookeeperConstant.PATH_SEPARATOR).concat(serviceName);
     }
 
 ```
@@ -4970,7 +4895,7 @@ in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/protocol/t
 #### Snippet
 ```java
         } catch (Exception e) {
-            LOGGER.warn("SessionSender send failed", e);
+            log.warn("SessionSender send failed", e);
             if (!(e instanceof InterruptedException)) {
                 upstreamBuff.release();
             }
@@ -4986,6 +4911,67 @@ in `eventmesh-sdk-java/src/main/java/org/apache/eventmesh/client/tcp/impl/eventm
                 if (e instanceof RuntimeException) {
                     throw (RuntimeException) e;
                 } else {
+```
+
+## RuleId[ruleID=ZeroLengthArrayInitialization]
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `eventmesh-common/src/main/java/org/apache/eventmesh/common/protocol/tcp/codec/Codec.java`
+#### Snippet
+```java
+    private static byte[] serializeBytes(String str) {
+        if (str == null) {
+            return new byte[0];
+        }
+        return str.getBytes(Constants.DEFAULT_CHARSET);
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/boot/SSLContextFactory.java`
+#### Snippet
+```java
+            password = eventMeshHttpConfiguration.getEventMeshServerSSLPass();
+
+            char[] filePass = StringUtils.isNotBlank(password) ? password.toCharArray() : new char[0];
+            final KeyStore keyStore = KeyStore.getInstance("JKS");
+            keyStore.load(inputStream, filePass);
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/protocol/http/processor/HandlerService.java`
+#### Snippet
+```java
+        byte[] requestBody = Optional.ofNullable(JsonUtils.toJSONString(bodyMap))
+            .map(s -> s.getBytes(StandardCharsets.UTF_8))
+            .orElse(new byte[0]);
+
+        httpEventWrapper.setBody(requestBody);
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `eventmesh-sdk-java/src/main/java/org/apache/eventmesh/client/http/ssl/MyX509TrustManager.java`
+#### Snippet
+```java
+        final String fileName = System.getProperty("ssl.client.cer", "");
+        final String pass = System.getProperty("ssl.client.pass", "");
+        final char[] filePass = StringUtils.isNotBlank(pass) ? pass.toCharArray() : new char[0];
+
+        try (InputStream in = Files.newInputStream(
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `eventmesh-connector-plugin/eventmesh-connector-rabbitmq/src/main/java/org/apache/eventmesh/connector/rabbitmq/cloudevent/RabbitmqCloudEvent.java`
+#### Snippet
+```java
+    public static byte[] toByteArray(RabbitmqCloudEvent rabbitmqCloudEvent) throws Exception {
+        Optional<byte[]> optionalBytes = ByteArrayUtils.objectToBytes(rabbitmqCloudEvent);
+        return optionalBytes.orElseGet(() -> new byte[]{});
+    }
+
 ```
 
 ## RuleId[ruleID=SynchronizeOnThis]
@@ -5061,116 +5047,7 @@ in `eventmesh-sdk-java/src/main/java/org/apache/eventmesh/client/grpc/consumer/E
                 subStreamHandler = new SubStreamHandler<>(consumerAsyncClient, clientConfig, listener);
 ```
 
-## RuleId[ruleID=ZeroLengthArrayInitialization]
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `eventmesh-spi/src/main/java/org/apache/eventmesh/spi/loader/EventMeshUrlClassLoader.java`
-#### Snippet
-```java
-
-    private static class EventMeshUrlClassLoaderHolder {
-        private static EventMeshUrlClassLoader instance = new EventMeshUrlClassLoader(new URL[0], Thread.currentThread().getContextClassLoader());
-    }
-}
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `eventmesh-common/src/main/java/org/apache/eventmesh/common/protocol/tcp/codec/Codec.java`
-#### Snippet
-```java
-    private static byte[] serializeBytes(String str) {
-        if (str == null) {
-            return new byte[0];
-        }
-        return str.getBytes(Constants.DEFAULT_CHARSET);
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/boot/SSLContextFactory.java`
-#### Snippet
-```java
-            password = eventMeshHttpConfiguration.getEventMeshServerSSLPass();
-
-            char[] filePass = StringUtils.isNotBlank(password) ? password.toCharArray() : new char[0];
-            final KeyStore keyStore = KeyStore.getInstance("JKS");
-            keyStore.load(inputStream, filePass);
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/protocol/http/processor/HandlerService.java`
-#### Snippet
-```java
-        byte[] requestBody = Optional.ofNullable(JsonUtils.serialize(bodyMap))
-            .map(s -> s.getBytes(StandardCharsets.UTF_8))
-            .orElse(new byte[0]);
-
-        httpEventWrapper.setBody(requestBody);
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `eventmesh-sdk-java/src/main/java/org/apache/eventmesh/client/http/ssl/MyX509TrustManager.java`
-#### Snippet
-```java
-        final String fileName = System.getProperty("ssl.client.cer", "");
-        final String pass = System.getProperty("ssl.client.pass", "");
-        final char[] filePass = StringUtils.isNotBlank(pass) ? pass.toCharArray() : new char[0];
-
-        try (InputStream in = Files.newInputStream(
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `eventmesh-connector-plugin/eventmesh-connector-rabbitmq/src/main/java/org/apache/eventmesh/connector/rabbitmq/cloudevent/RabbitmqCloudEvent.java`
-#### Snippet
-```java
-    public static byte[] toByteArray(RabbitmqCloudEvent rabbitmqCloudEvent) throws Exception {
-        Optional<byte[]> optionalBytes = ByteArrayUtils.objectToBytes(rabbitmqCloudEvent);
-        return optionalBytes.orElseGet(() -> new byte[]{});
-    }
-
-```
-
 ## RuleId[ruleID=UnstableTypeUsedInSignature]
-### UnstableTypeUsedInSignature
-Method must be marked with '@com.google.common.annotations.Beta' annotation because its signature references unstable type 'com.google.common.util.concurrent.RateLimiter'
-in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/boot/EventMeshGrpcServer.java`
-#### Snippet
-```java
-    }
-
-    public RateLimiter getMsgRateLimiter() {
-        return msgRateLimiter;
-    }
-```
-
-### UnstableTypeUsedInSignature
-Field must be marked with '@com.google.common.annotations.Beta' annotation because its type references unstable type 'com.google.common.util.concurrent.RateLimiter'
-in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/boot/EventMeshGrpcServer.java`
-#### Snippet
-```java
-    private List<CloseableHttpClient> httpClientPool;
-
-    private RateLimiter msgRateLimiter;
-
-    private Registry registry;
-```
-
-### UnstableTypeUsedInSignature
-Method must be marked with '@com.google.common.annotations.Beta' annotation because its signature references unstable type 'com.google.common.util.concurrent.RateLimiter'
-in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/boot/EventMeshHTTPServer.java`
-#### Snippet
-```java
-    }
-
-    public RateLimiter getMsgRateLimiter() {
-        return msgRateLimiter;
-    }
-```
-
 ### UnstableTypeUsedInSignature
 Field must be marked with '@com.google.common.annotations.Beta' annotation because its type references unstable type 'com.google.common.util.concurrent.RateLimiter'
 in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/boot/EventMeshHTTPServer.java`
@@ -5181,6 +5058,30 @@ in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/boot/EventMeshH
     private transient RateLimiter msgRateLimiter;
 
     private transient RateLimiter batchRateLimiter;
+```
+
+### UnstableTypeUsedInSignature
+Method must be marked with '@com.google.common.annotations.Beta' annotation because its signature references unstable type 'com.google.common.util.concurrent.RateLimiter'
+in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/boot/EventMeshHTTPServer.java`
+#### Snippet
+```java
+    }
+
+    public RateLimiter getMsgRateLimiter() {
+        return msgRateLimiter;
+    }
+```
+
+### UnstableTypeUsedInSignature
+Method must be marked with '@com.google.common.annotations.Beta' annotation because its signature references unstable type 'com.google.common.util.concurrent.RateLimiter'
+in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/boot/EventMeshHTTPServer.java`
+#### Snippet
+```java
+    }
+
+    public RateLimiter getBatchRateLimiter() {
+        return batchRateLimiter;
+    }
 ```
 
 ### UnstableTypeUsedInSignature
@@ -5196,14 +5097,38 @@ in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/boot/EventMeshH
 ```
 
 ### UnstableTypeUsedInSignature
+Field must be marked with '@com.google.common.annotations.Beta' annotation because its type references unstable type 'com.google.common.util.concurrent.RateLimiter'
+in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/boot/EventMeshGrpcServer.java`
+#### Snippet
+```java
+    private List<CloseableHttpClient> httpClientPool;
+
+    private RateLimiter msgRateLimiter;
+
+    private final Registry registry;
+```
+
+### UnstableTypeUsedInSignature
 Method must be marked with '@com.google.common.annotations.Beta' annotation because its signature references unstable type 'com.google.common.util.concurrent.RateLimiter'
-in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/boot/EventMeshHTTPServer.java`
+in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/boot/EventMeshGrpcServer.java`
 #### Snippet
 ```java
     }
 
-    public RateLimiter getBatchRateLimiter() {
-        return batchRateLimiter;
+    public RateLimiter getMsgRateLimiter() {
+        return msgRateLimiter;
+    }
+```
+
+### UnstableTypeUsedInSignature
+Method must be marked with '@com.google.common.annotations.Beta' annotation because its signature references unstable type 'com.google.common.util.concurrent.RateLimiter'
+in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/boot/EventMeshTCPServer.java`
+#### Snippet
+```java
+    }
+
+    public void setRateLimiter(final RateLimiter rateLimiter) {
+        this.rateLimiter = rateLimiter;
     }
 ```
 
@@ -5228,18 +5153,6 @@ in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/boot/EventMeshT
 
     public RateLimiter getRateLimiter() {
         return rateLimiter;
-    }
-```
-
-### UnstableTypeUsedInSignature
-Method must be marked with '@com.google.common.annotations.Beta' annotation because its signature references unstable type 'com.google.common.util.concurrent.RateLimiter'
-in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/boot/EventMeshTCPServer.java`
-#### Snippet
-```java
-    }
-
-    public void setRateLimiter(final RateLimiter rateLimiter) {
-        this.rateLimiter = rateLimiter;
     }
 ```
 
@@ -5305,78 +5218,6 @@ in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/protocol/g
 ```
 
 ### UnusedAssignment
-Variable `localEventMeshDistributeData` initializer `null` is redundant
-in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/protocol/tcp/client/rebalance/EventmeshRebalanceImpl.java`
-#### Snippet
-```java
-    private Map<String, Integer> queryLocalEventMeshDistributeData(String cluster, String group, String purpose,
-                                                                   Map<String, String> eventMeshMap) {
-        Map<String, Integer> localEventMeshDistributeData = null;
-        Map<String, Map<String, Integer>> eventMeshClientDistributionDataMap = null;
-        try {
-```
-
-### UnusedAssignment
-Variable `eventMeshClientDistributionDataMap` initializer `null` is redundant
-in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/protocol/tcp/client/rebalance/EventmeshRebalanceImpl.java`
-#### Snippet
-```java
-                                                                   Map<String, String> eventMeshMap) {
-        Map<String, Integer> localEventMeshDistributeData = null;
-        Map<String, Map<String, Integer>> eventMeshClientDistributionDataMap = null;
-        try {
-            eventMeshClientDistributionDataMap = eventMeshTCPServer.getRegistry().findEventMeshClientDistributionData(
-```
-
-### UnusedAssignment
-Variable `sessionSet` initializer `null` is redundant
-in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/protocol/tcp/client/rebalance/EventmeshRebalanceImpl.java`
-#### Snippet
-```java
-    private void doRedirect(String group, String purpose, int judge, List<String> eventMeshRecommendResult) throws Exception {
-        logger.info("doRebalance redirect start---------------------group:{},judge:{}", group, judge);
-        Set<Session> sessionSet = null;
-        if (EventMeshConstants.PURPOSE_SUB.equals(purpose)) {
-            sessionSet = eventMeshTCPServer.getClientSessionGroupMapping().getClientGroupMap().get(group).getGroupConsumerSessions();
-```
-
-### UnusedAssignment
-Variable `rebalanceResult` initializer `0` is redundant
-in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/protocol/tcp/client/rebalance/EventmeshRebalanceImpl.java`
-#### Snippet
-```java
-            }
-        }
-        int rebalanceResult = 0;
-        if (avgNum == 0) {
-            rebalanceResult = 1;
-```
-
-### UnusedAssignment
-Variable `localEventMeshMap` initializer `null` is redundant
-in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/protocol/tcp/client/rebalance/EventmeshRebalanceImpl.java`
-#### Snippet
-```java
-
-    private Map<String, String> queryLocalEventMeshMap(String cluster) {
-        Map<String, String> localEventMeshMap = null;
-        List<EventMeshDataInfo> eventMeshDataInfoList = null;
-        try {
-```
-
-### UnusedAssignment
-Variable `eventMeshDataInfoList` initializer `null` is redundant
-in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/protocol/tcp/client/rebalance/EventmeshRebalanceImpl.java`
-#### Snippet
-```java
-    private Map<String, String> queryLocalEventMeshMap(String cluster) {
-        Map<String, String> localEventMeshMap = null;
-        List<EventMeshDataInfo> eventMeshDataInfoList = null;
-        try {
-            eventMeshDataInfoList = eventMeshTCPServer.getRegistry().findEventMeshInfoByCluster(cluster);
-```
-
-### UnusedAssignment
 Variable `eventMeshProducer` initializer `null` is redundant
 in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/protocol/http/producer/ProducerManager.java`
 #### Snippet
@@ -5422,6 +5263,78 @@ in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/protocol/h
                         String res = "";
                         try {
                             res = EntityUtils.toString(response.getEntity(),
+```
+
+### UnusedAssignment
+Variable `rebalanceResult` initializer `0` is redundant
+in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/protocol/tcp/client/rebalance/EventmeshRebalanceImpl.java`
+#### Snippet
+```java
+            }
+        }
+        int rebalanceResult = 0;
+        if (avgNum == 0) {
+            rebalanceResult = 1;
+```
+
+### UnusedAssignment
+Variable `localEventMeshMap` initializer `null` is redundant
+in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/protocol/tcp/client/rebalance/EventmeshRebalanceImpl.java`
+#### Snippet
+```java
+
+    private Map<String, String> queryLocalEventMeshMap(String cluster) {
+        Map<String, String> localEventMeshMap = null;
+        List<EventMeshDataInfo> eventMeshDataInfoList = null;
+        try {
+```
+
+### UnusedAssignment
+Variable `eventMeshDataInfoList` initializer `null` is redundant
+in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/protocol/tcp/client/rebalance/EventmeshRebalanceImpl.java`
+#### Snippet
+```java
+    private Map<String, String> queryLocalEventMeshMap(String cluster) {
+        Map<String, String> localEventMeshMap = null;
+        List<EventMeshDataInfo> eventMeshDataInfoList = null;
+        try {
+            eventMeshDataInfoList = eventMeshTCPServer.getRegistry().findEventMeshInfoByCluster(cluster);
+```
+
+### UnusedAssignment
+Variable `sessionSet` initializer `null` is redundant
+in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/protocol/tcp/client/rebalance/EventmeshRebalanceImpl.java`
+#### Snippet
+```java
+    private void doRedirect(String group, String purpose, int judge, List<String> eventMeshRecommendResult) throws Exception {
+        log.info("doRebalance redirect start---------------------group:{},judge:{}", group, judge);
+        Set<Session> sessionSet = null;
+        if (EventMeshConstants.PURPOSE_SUB.equals(purpose)) {
+            sessionSet = eventMeshTCPServer.getClientSessionGroupMapping().getClientGroupMap().get(group).getGroupConsumerSessions();
+```
+
+### UnusedAssignment
+Variable `localEventMeshDistributeData` initializer `null` is redundant
+in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/protocol/tcp/client/rebalance/EventmeshRebalanceImpl.java`
+#### Snippet
+```java
+    private Map<String, Integer> queryLocalEventMeshDistributeData(String cluster, String group, String purpose,
+                                                                   Map<String, String> eventMeshMap) {
+        Map<String, Integer> localEventMeshDistributeData = null;
+        Map<String, Map<String, Integer>> eventMeshClientDistributionDataMap = null;
+        try {
+```
+
+### UnusedAssignment
+Variable `eventMeshClientDistributionDataMap` initializer `null` is redundant
+in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/protocol/tcp/client/rebalance/EventmeshRebalanceImpl.java`
+#### Snippet
+```java
+                                                                   Map<String, String> eventMeshMap) {
+        Map<String, Integer> localEventMeshDistributeData = null;
+        Map<String, Map<String, Integer>> eventMeshClientDistributionDataMap = null;
+        try {
+            eventMeshClientDistributionDataMap = eventMeshTCPServer.getRegistry().findEventMeshClientDistributionData(
 ```
 
 ### UnusedAssignment
@@ -5530,20 +5443,8 @@ in `eventmesh-admin/eventmesh-admin-rocketmq/src/main/java/org/apache/eventmesh/
             //TBD: A new rocketmq service will be implemented for creating topics
             TopicResponse topicResponse = null;
             if (topicResponse != null) {
-                logger.info("create a new topic: {}", topic);
+                log.info("create a new topic: {}", topic);
                 httpExchange.getResponseHeaders().add(CONTENT_TYPE, APPLICATION_JSON);
-```
-
-### ConstantValue
-Condition `headerData != null` is always `true`
-in `eventmesh-common/src/main/java/org/apache/eventmesh/common/protocol/tcp/codec/Codec.java`
-#### Snippet
-```java
-            out.writeInt(length);
-            out.writeInt(headerLength);
-            if (headerData != null) {
-                out.writeBytes(headerData);
-            }
 ```
 
 ### ConstantValue
@@ -5556,6 +5457,18 @@ in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/boot/EventMeshH
             this.setUseTrace(eventMeshHttpConfiguration.isEventMeshServerTraceEnable());
         }
 
+```
+
+### ConstantValue
+Value `responseCommand` is always 'null'
+in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/boot/AbstractHTTPServer.java`
+#### Snippet
+```java
+
+                    final AsyncContext<HttpCommand> asyncContext =
+                            new AsyncContext<>(requestCommand, responseCommand, asyncContextCompleteHandler);
+                    processEventMeshRequest(ctx, asyncContext);
+                }
 ```
 
 ### ConstantValue
@@ -5583,18 +5496,6 @@ in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/protocol/g
 ```
 
 ### ConstantValue
-Value `responseCommand` is always 'null'
-in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/boot/AbstractHTTPServer.java`
-#### Snippet
-```java
-
-                    final AsyncContext<HttpCommand> asyncContext =
-                            new AsyncContext<>(requestCommand, responseCommand, asyncContextCompleteHandler);
-                    processEventMeshRequest(ctx, asyncContext);
-                }
-```
-
-### ConstantValue
 Condition `(retryObj = failed.take()) != null` is always `true` when reached
 in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/protocol/http/retry/HttpRetryer.java`
 #### Snippet
@@ -5616,78 +5517,6 @@ in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/protocol/h
                 final SendMessageContext sendMessageContext = new SendMessageContext(batchId, event, batchEventMeshProducer,
                         eventMeshHTTPServer);
                 sendMessageContext.setEventList(eventlist);
-```
-
-### ConstantValue
-Condition `this.cloudEventTCPPubClient != null` is always `true`
-in `eventmesh-sdk-java/src/main/java/org/apache/eventmesh/client/tcp/impl/cloudevent/CloudEventTCPClient.java`
-#### Snippet
-```java
-    @Override
-    public void close() throws EventMeshException {
-        if (this.cloudEventTCPPubClient != null) {
-            this.cloudEventTCPPubClient.close();
-        }
-```
-
-### ConstantValue
-Condition `this.cloudEventTCPSubClient != null` is always `true`
-in `eventmesh-sdk-java/src/main/java/org/apache/eventmesh/client/tcp/impl/cloudevent/CloudEventTCPClient.java`
-#### Snippet
-```java
-        }
-
-        if (this.cloudEventTCPSubClient != null) {
-            this.cloudEventTCPSubClient.close();
-        }
-```
-
-### ConstantValue
-Condition `this.eventMeshTCPPubClient != null` is always `true`
-in `eventmesh-sdk-java/src/main/java/org/apache/eventmesh/client/tcp/impl/openmessage/OpenMessageTCPClient.java`
-#### Snippet
-```java
-    public void close() throws EventMeshException {
-
-        if (this.eventMeshTCPPubClient != null) {
-            try {
-                this.eventMeshTCPPubClient.close();
-```
-
-### ConstantValue
-Condition `this.eventMeshTCPSubClient != null` is always `true`
-in `eventmesh-sdk-java/src/main/java/org/apache/eventmesh/client/tcp/impl/openmessage/OpenMessageTCPClient.java`
-#### Snippet
-```java
-        }
-
-        if (this.eventMeshTCPSubClient != null) {
-            try {
-                this.eventMeshTCPSubClient.close();
-```
-
-### ConstantValue
-Condition `this.eventMeshMessageTCPPubClient != null` is always `true`
-in `eventmesh-sdk-java/src/main/java/org/apache/eventmesh/client/tcp/impl/eventmeshmessage/EventMeshMessageTCPClient.java`
-#### Snippet
-```java
-    @Override
-    public void close() throws EventMeshException {
-        if (this.eventMeshMessageTCPPubClient != null) {
-            try {
-                this.eventMeshMessageTCPPubClient.close();
-```
-
-### ConstantValue
-Condition `this.eventMeshMessageTCPSubClient != null` is always `true`
-in `eventmesh-sdk-java/src/main/java/org/apache/eventmesh/client/tcp/impl/eventmeshmessage/EventMeshMessageTCPClient.java`
-#### Snippet
-```java
-        }
-
-        if (this.eventMeshMessageTCPSubClient != null) {
-            try {
-                this.eventMeshMessageTCPSubClient.close();
 ```
 
 ### ConstantValue
@@ -5791,6 +5620,18 @@ public class RequestMapping {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
+Class `WatchFileManager` has only 'static' members, and lacks a 'private' constructor
+in `eventmesh-common/src/main/java/org/apache/eventmesh/common/file/WatchFileManager.java`
+#### Snippet
+```java
+
+@Slf4j
+public class WatchFileManager {
+
+    private static final AtomicBoolean CLOSED = new AtomicBoolean(false);
+```
+
+### UtilityClassWithoutPrivateConstructor
 Class `RandomStringUtils` has only 'static' members, and lacks a 'private' constructor
 in `eventmesh-common/src/main/java/org/apache/eventmesh/common/utils/RandomStringUtils.java`
 #### Snippet
@@ -5815,18 +5656,6 @@ public class Constants {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `WatchFileManager` has only 'static' members, and lacks a 'private' constructor
-in `eventmesh-common/src/main/java/org/apache/eventmesh/common/file/WatchFileManager.java`
-#### Snippet
-```java
-import org.slf4j.LoggerFactory;
-
-public class WatchFileManager {
-
-    private static final Logger LOGGER = LoggerFactory.getLogger(WatchFileManager.class);
-```
-
-### UtilityClassWithoutPrivateConstructor
 Class `AssertUtils` has only 'static' members, and lacks a 'private' constructor
 in `eventmesh-common/src/main/java/org/apache/eventmesh/common/utils/AssertUtils.java`
 #### Snippet
@@ -5839,18 +5668,6 @@ public final class AssertUtils {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `ThreadUtils` has only 'static' members, and lacks a 'private' constructor
-in `eventmesh-common/src/main/java/org/apache/eventmesh/common/utils/ThreadUtils.java`
-#### Snippet
-```java
-import java.util.concurrent.TimeUnit;
-
-public class ThreadUtils {
-
-    private static volatile long currentPID = -1;
-```
-
-### UtilityClassWithoutPrivateConstructor
 Class `ConfigurationContextUtil` has only 'static' members, and lacks a 'private' constructor
 in `eventmesh-common/src/main/java/org/apache/eventmesh/common/utils/ConfigurationContextUtil.java`
 #### Snippet
@@ -5860,6 +5677,18 @@ in `eventmesh-common/src/main/java/org/apache/eventmesh/common/utils/Configurati
 public class ConfigurationContextUtil {
 
     private static final ConcurrentHashMap<String, CommonConfiguration> CONFIGURATION_MAP = new ConcurrentHashMap<>();
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `ThreadUtils` has only 'static' members, and lacks a 'private' constructor
+in `eventmesh-common/src/main/java/org/apache/eventmesh/common/utils/ThreadUtils.java`
+#### Snippet
+```java
+import java.util.concurrent.TimeUnit;
+
+public class ThreadUtils {
+
+    private static volatile long currentPID = -1;
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -5887,6 +5716,18 @@ public class PropertiesUtils {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
+Class `ConverterMap` has only 'static' members, and lacks a 'private' constructor
+in `eventmesh-common/src/main/java/org/apache/eventmesh/common/config/convert/ConverterMap.java`
+#### Snippet
+```java
+ */
+@Slf4j
+public class ConverterMap {
+
+    private static final ObjectConverter objectConverter = new ObjectConverter();
+```
+
+### UtilityClassWithoutPrivateConstructor
 Class `JsonUtils` has only 'static' members, and lacks a 'private' constructor
 in `eventmesh-common/src/main/java/org/apache/eventmesh/common/utils/JsonUtils.java`
 #### Snippet
@@ -5899,27 +5740,15 @@ public class JsonUtils {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `ConverterMap` has only 'static' members, and lacks a 'private' constructor
-in `eventmesh-common/src/main/java/org/apache/eventmesh/common/config/convert/ConverterMap.java`
-#### Snippet
-```java
- * Use to map the field clazz and the converter for the field clazz
- */
-public class ConverterMap {
-
-    public static final Logger LOGGER = LoggerFactory.getLogger(ConverterMap.class);
-```
-
-### UtilityClassWithoutPrivateConstructor
 Class `IPUtils` has only 'static' members, and lacks a 'private' constructor
 in `eventmesh-common/src/main/java/org/apache/eventmesh/common/utils/IPUtils.java`
 #### Snippet
 ```java
-import inet.ipaddr.IPAddressString;
 
+@Slf4j
 public class IPUtils {
 
-    private static final Logger LOG = LoggerFactory.getLogger(IPUtils.class);
+    public static String getLocalAddress() {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -5935,18 +5764,6 @@ public class ProtocolKey {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `Codec` has only 'static' members, and lacks a 'private' constructor
-in `eventmesh-common/src/main/java/org/apache/eventmesh/common/protocol/tcp/codec/Codec.java`
-#### Snippet
-```java
-import com.google.common.base.Preconditions;
-
-public class Codec {
-    private static final Logger LOG = LoggerFactory.getLogger(Codec.class);
-
-```
-
-### UtilityClassWithoutPrivateConstructor
 Class `ProtocolKey` has only 'static' members, and lacks a 'private' constructor
 in `eventmesh-common/src/main/java/org/apache/eventmesh/common/protocol/http/common/ProtocolKey.java`
 #### Snippet
@@ -5956,30 +5773,6 @@ package org.apache.eventmesh.common.protocol.http.common;
 public class ProtocolKey {
 
     public static final String REQUEST_CODE = "code";
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `CloudEventsKey` has only 'static' members, and lacks a 'private' constructor
-in `eventmesh-common/src/main/java/org/apache/eventmesh/common/protocol/http/common/ProtocolKey.java`
-#### Snippet
-```java
-    }
-
-    public static class CloudEventsKey {
-        public static final String ID = "id";
-        public static final String SOURCE = "source";
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `ClientInstanceKey` has only 'static' members, and lacks a 'private' constructor
-in `eventmesh-common/src/main/java/org/apache/eventmesh/common/protocol/http/common/ProtocolKey.java`
-#### Snippet
-```java
-    public static final String CONTENT_TYPE = "contenttype";
-
-    public static class ClientInstanceKey {
-        ////////////////////////////////////Protocol layer requester description///////////
-        public static final String ENV = "env";
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -5995,15 +5788,39 @@ in `eventmesh-common/src/main/java/org/apache/eventmesh/common/protocol/http/com
 ```
 
 ### UtilityClassWithoutPrivateConstructor
+Class `ClientInstanceKey` has only 'static' members, and lacks a 'private' constructor
+in `eventmesh-common/src/main/java/org/apache/eventmesh/common/protocol/http/common/ProtocolKey.java`
+#### Snippet
+```java
+    public static final String CONTENT_TYPE = "contenttype";
+
+    public static class ClientInstanceKey {
+        ////////////////////////////////////Protocol layer requester description///////////
+        public static final String ENV = "env";
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `CloudEventsKey` has only 'static' members, and lacks a 'private' constructor
+in `eventmesh-common/src/main/java/org/apache/eventmesh/common/protocol/http/common/ProtocolKey.java`
+#### Snippet
+```java
+    }
+
+    public static class CloudEventsKey {
+        public static final String ID = "id";
+        public static final String SOURCE = "source";
+```
+
+### UtilityClassWithoutPrivateConstructor
 Class `EventMeshStartup` has only 'static' members, and lacks a 'private' constructor
 in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/boot/EventMeshStartup.java`
 #### Snippet
 ```java
-import org.slf4j.LoggerFactory;
 
+@Slf4j
 public class EventMeshStartup {
 
-    public static final Logger LOGGER = LoggerFactory.getLogger(EventMeshStartup.class);
+    public static void main(String[] args) throws Exception {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -6023,11 +5840,11 @@ Class `EventMeshTcp2Client` has only 'static' members, and lacks a 'private' con
 in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/protocol/tcp/client/EventMeshTcp2Client.java`
 #### Snippet
 ```java
-import io.netty.channel.ChannelHandlerContext;
 
+@Slf4j
 public class EventMeshTcp2Client {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(EventMeshTcp2Client.class);
+    public static InetSocketAddress serverGoodby2Client(EventMeshTCPServer eventMeshTCPServer,
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -6047,10 +5864,10 @@ Class `Utils` has only 'static' members, and lacks a 'private' constructor
 in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/util/Utils.java`
 #### Snippet
 ```java
-import io.netty.handler.codec.http.HttpRequest;
 
+@Slf4j
 public class Utils {
-    private static final Logger LOGGER = LoggerFactory.getLogger(Utils.class);
+
     private static final Logger MESSAGE_LOGGER = LoggerFactory.getLogger("message");
 ```
 
@@ -6091,30 +5908,6 @@ public class HttpExchangeUtils {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `JsonUtils` has only 'static' members, and lacks a 'private' constructor
-in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/admin/utils/JsonUtils.java`
-#### Snippet
-```java
-import com.fasterxml.jackson.databind.SerializationFeature;
-
-public class JsonUtils {
-    private static final ObjectMapper objectMapper;
-
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `EventMeshUtil` has only 'static' members, and lacks a 'private' constructor
-in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/util/EventMeshUtil.java`
-#### Snippet
-```java
-
-
-public class EventMeshUtil {
-
-    private static final Logger LOGGER = LoggerFactory.getLogger(EventMeshUtil.class);
-```
-
-### UtilityClassWithoutPrivateConstructor
 Class `HttpTinyClient` has only 'static' members, and lacks a 'private' constructor
 in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/util/HttpTinyClient.java`
 #### Snippet
@@ -6127,15 +5920,15 @@ public class HttpTinyClient {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `MonitorMetricConstants` has only 'static' members, and lacks a 'private' constructor
-in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/metrics/MonitorMetricConstants.java`
+Class `EventMeshUtil` has only 'static' members, and lacks a 'private' constructor
+in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/util/EventMeshUtil.java`
 #### Snippet
 ```java
-package org.apache.eventmesh.runtime.metrics;
 
-public class MonitorMetricConstants {
-    public static final String EVENTMESH_MONITOR_FORMAT_COMMON = "{\"protocol\":\"%s\",\"s\":\"%s\",\"t\":\"%s\"}";
+@Slf4j
+public class EventMeshUtil {
 
+    public static String buildPushMsgSeqNo() {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -6148,6 +5941,18 @@ in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/trace/SpanKey.j
 public final class SpanKey {
     // server span key
     public static final ContextKey<Span> SERVER_KEY =
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `MonitorMetricConstants` has only 'static' members, and lacks a 'private' constructor
+in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/metrics/MonitorMetricConstants.java`
+#### Snippet
+```java
+package org.apache.eventmesh.runtime.metrics;
+
+public class MonitorMetricConstants {
+    public static final String EVENTMESH_MONITOR_FORMAT_COMMON = "{\"protocol\":\"%s\",\"s\":\"%s\",\"t\":\"%s\"}";
+
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -6211,32 +6016,8 @@ public class ClassUtils {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `SyncRequest` has only 'static' members, and lacks a 'private' constructor
-in `eventmesh-examples/src/main/java/org/apache/eventmesh/tcp/demo/pub/cloudevents/SyncRequest.java`
-#### Snippet
-```java
-
-@Slf4j
-public class SyncRequest {
-
-    public static void main(String[] args) throws Exception {
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `AsyncPublishBroadcast` has only 'static' members, and lacks a 'private' constructor
-in `eventmesh-examples/src/main/java/org/apache/eventmesh/tcp/demo/pub/eventmeshmessage/AsyncPublishBroadcast.java`
-#### Snippet
-```java
-
-@Slf4j
-public class AsyncPublishBroadcast {
-
-    public static void main(String[] args) throws Exception {
-```
-
-### UtilityClassWithoutPrivateConstructor
 Class `AsyncPublish` has only 'static' members, and lacks a 'private' constructor
-in `eventmesh-examples/src/main/java/org/apache/eventmesh/tcp/demo/pub/eventmeshmessage/AsyncPublish.java`
+in `eventmesh-examples/src/main/java/org/apache/eventmesh/tcp/demo/pub/cloudevents/AsyncPublish.java`
 #### Snippet
 ```java
 
@@ -6259,8 +6040,32 @@ public class SyncRequest {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
+Class `AsyncPublishBroadcast` has only 'static' members, and lacks a 'private' constructor
+in `eventmesh-examples/src/main/java/org/apache/eventmesh/tcp/demo/pub/eventmeshmessage/AsyncPublishBroadcast.java`
+#### Snippet
+```java
+
+@Slf4j
+public class AsyncPublishBroadcast {
+
+    public static void main(String[] args) throws Exception {
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `SyncRequest` has only 'static' members, and lacks a 'private' constructor
+in `eventmesh-examples/src/main/java/org/apache/eventmesh/tcp/demo/pub/cloudevents/SyncRequest.java`
+#### Snippet
+```java
+
+@Slf4j
+public class SyncRequest {
+
+    public static void main(String[] args) throws Exception {
+```
+
+### UtilityClassWithoutPrivateConstructor
 Class `AsyncPublish` has only 'static' members, and lacks a 'private' constructor
-in `eventmesh-examples/src/main/java/org/apache/eventmesh/tcp/demo/pub/cloudevents/AsyncPublish.java`
+in `eventmesh-examples/src/main/java/org/apache/eventmesh/tcp/demo/pub/eventmeshmessage/AsyncPublish.java`
 #### Snippet
 ```java
 
@@ -6287,11 +6092,11 @@ Class `TraceUtils` has only 'static' members, and lacks a 'private' constructor
 in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/trace/TraceUtils.java`
 #### Snippet
 ```java
-import io.opentelemetry.context.Context;
 
+@Slf4j
 public class TraceUtils {
-    private static Logger logger = LoggerFactory.getLogger(TraceUtils.class);
 
+    public static Span prepareClientSpan(Map<String, Object> map, String spanName,
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -6379,18 +6184,6 @@ public final class ProtocolConstant {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `HttpLoadBalanceUtils` has only 'static' members, and lacks a 'private' constructor
-in `eventmesh-sdk-java/src/main/java/org/apache/eventmesh/client/http/util/HttpLoadBalanceUtils.java`
-#### Snippet
-```java
-import com.google.common.base.Splitter;
-
-public class HttpLoadBalanceUtils {
-
-    private static final Pattern IP_PORT_PATTERN = Pattern.compile("\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}:\\d{4,5}");
-```
-
-### UtilityClassWithoutPrivateConstructor
 Class `EventMeshClientUtil` has only 'static' members, and lacks a 'private' constructor
 in `eventmesh-sdk-java/src/main/java/org/apache/eventmesh/client/grpc/util/EventMeshClientUtil.java`
 #### Snippet
@@ -6403,6 +6196,18 @@ public class EventMeshClientUtil {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
+Class `HttpLoadBalanceUtils` has only 'static' members, and lacks a 'private' constructor
+in `eventmesh-sdk-java/src/main/java/org/apache/eventmesh/client/http/util/HttpLoadBalanceUtils.java`
+#### Snippet
+```java
+import com.google.common.base.Splitter;
+
+public class HttpLoadBalanceUtils {
+
+    private static final Pattern IP_PORT_PATTERN = Pattern.compile("\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}:\\d{4,5}");
+```
+
+### UtilityClassWithoutPrivateConstructor
 Class `SelectorFactory` has only 'static' members, and lacks a 'private' constructor
 in `eventmesh-sdk-java/src/main/java/org/apache/eventmesh/client/selector/SelectorFactory.java`
 #### Snippet
@@ -6412,6 +6217,18 @@ import java.util.Map;
 public class SelectorFactory {
     private static final Map<String, Selector> SELECTOR_MAP = new HashMap<>();
 
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `HttpUtils` has only 'static' members, and lacks a 'private' constructor
+in `eventmesh-sdk-java/src/main/java/org/apache/eventmesh/client/http/util/HttpUtils.java`
+#### Snippet
+```java
+
+@Slf4j
+public final class HttpUtils {
+
+    public static String post(final CloseableHttpClient client,
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -6460,18 +6277,6 @@ package org.apache.eventmesh.trace.pinpoint.common;
 public class PinpointConstants {
 
     public static final String SERVICE_NAME = "eventmesh_trace";
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `HttpUtils` has only 'static' members, and lacks a 'private' constructor
-in `eventmesh-sdk-java/src/main/java/org/apache/eventmesh/client/http/util/HttpUtils.java`
-#### Snippet
-```java
-
-@Slf4j
-public final class HttpUtils {
-
-    public static String post(final CloseableHttpClient client,
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -6535,18 +6340,6 @@ public class SendMessageBatchV2ProtocolResolver {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `SendMessageBatchProtocolResolver` has only 'static' members, and lacks a 'private' constructor
-in `eventmesh-protocol-plugin/eventmesh-protocol-meshmessage/src/main/java/org/apache/eventmesh/protocol/meshmessage/resolver/http/SendMessageBatchProtocolResolver.java`
-#### Snippet
-```java
-import io.cloudevents.CloudEvent;
-
-public class SendMessageBatchProtocolResolver {
-    public static CloudEvent buildEvent(Header header, Body body) {
-        return null;
-```
-
-### UtilityClassWithoutPrivateConstructor
 Class `TcpMessageProtocolResolver` has only 'static' members, and lacks a 'private' constructor
 in `eventmesh-protocol-plugin/eventmesh-protocol-meshmessage/src/main/java/org/apache/eventmesh/protocol/meshmessage/resolver/tcp/TcpMessageProtocolResolver.java`
 #### Snippet
@@ -6559,39 +6352,15 @@ public class TcpMessageProtocolResolver {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `SendMessageRequestProtocolResolver` has only 'static' members, and lacks a 'private' constructor
-in `eventmesh-protocol-plugin/eventmesh-protocol-meshmessage/src/main/java/org/apache/eventmesh/protocol/meshmessage/resolver/http/SendMessageRequestProtocolResolver.java`
+Class `SendMessageBatchProtocolResolver` has only 'static' members, and lacks a 'private' constructor
+in `eventmesh-protocol-plugin/eventmesh-protocol-meshmessage/src/main/java/org/apache/eventmesh/protocol/meshmessage/resolver/http/SendMessageBatchProtocolResolver.java`
 #### Snippet
 ```java
-import io.cloudevents.core.builder.CloudEventBuilder;
+import io.cloudevents.CloudEvent;
 
-public class SendMessageRequestProtocolResolver {
-
-    public static CloudEvent buildEvent(Header header, Body body) throws ProtocolHandleException {
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `EtcdConstant` has only 'static' members, and lacks a 'private' constructor
-in `eventmesh-registry-plugin/eventmesh-registry-etcd/src/main/java/org/apache/eventmesh/registry/etcd/constant/EtcdConstant.java`
-#### Snippet
-```java
- * EtcdConstant.
- */
-public class EtcdConstant {
-
-    public static final String SERVER_ADDR = "serverAddr";
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `NacosConstant` has only 'static' members, and lacks a 'private' constructor
-in `eventmesh-registry-plugin/eventmesh-registry-nacos/src/main/java/org/apache/eventmesh/registry/nacos/constant/NacosConstant.java`
-#### Snippet
-```java
- * NacosConstant.
- */
-public class NacosConstant {
-
-    public static final String SERVER_ADDR = "serverAddr";
+public class SendMessageBatchProtocolResolver {
+    public static CloudEvent buildEvent(Header header, Body body) {
+        return null;
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -6619,6 +6388,54 @@ public class SendMessageBatchV2ProtocolResolver {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
+Class `EtcdConstant` has only 'static' members, and lacks a 'private' constructor
+in `eventmesh-registry-plugin/eventmesh-registry-etcd/src/main/java/org/apache/eventmesh/registry/etcd/constant/EtcdConstant.java`
+#### Snippet
+```java
+ * EtcdConstant.
+ */
+public class EtcdConstant {
+
+    public static final String SERVER_ADDR = "serverAddr";
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `NacosConstant` has only 'static' members, and lacks a 'private' constructor
+in `eventmesh-registry-plugin/eventmesh-registry-nacos/src/main/java/org/apache/eventmesh/registry/nacos/constant/NacosConstant.java`
+#### Snippet
+```java
+ * NacosConstant.
+ */
+public class NacosConstant {
+
+    public static final String SERVER_ADDR = "serverAddr";
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `EtcdClientFactory` has only 'static' members, and lacks a 'private' constructor
+in `eventmesh-registry-plugin/eventmesh-registry-etcd/src/main/java/org/apache/eventmesh/registry/etcd/factory/EtcdClientFactory.java`
+#### Snippet
+```java
+
+@Slf4j
+public class EtcdClientFactory {
+
+    private static final Map<String, EtcdLeaseId> etcdLeaseIdMap = new ConcurrentHashMap<>();
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `SendMessageRequestProtocolResolver` has only 'static' members, and lacks a 'private' constructor
+in `eventmesh-protocol-plugin/eventmesh-protocol-meshmessage/src/main/java/org/apache/eventmesh/protocol/meshmessage/resolver/http/SendMessageRequestProtocolResolver.java`
+#### Snippet
+```java
+import io.cloudevents.core.builder.CloudEventBuilder;
+
+public class SendMessageRequestProtocolResolver {
+
+    public static CloudEvent buildEvent(Header header, Body body) throws ProtocolHandleException {
+```
+
+### UtilityClassWithoutPrivateConstructor
 Class `ZookeeperConstant` has only 'static' members, and lacks a 'private' constructor
 in `eventmesh-registry-plugin/eventmesh-registry-zookeeper/src/main/java/org/apache/eventmesh/registry/zookeeper/constant/ZookeeperConstant.java`
 #### Snippet
@@ -6628,18 +6445,6 @@ in `eventmesh-registry-plugin/eventmesh-registry-zookeeper/src/main/java/org/apa
 public class ZookeeperConstant {
 
     public static final String NAMESPACE = "eventmesh";
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `AclPropertyKeys` has only 'static' members, and lacks a 'private' constructor
-in `eventmesh-security-plugin/eventmesh-security-api/src/main/java/org/apache/eventmesh/api/acl/AclPropertyKeys.java`
-#### Snippet
-```java
-package org.apache.eventmesh.api.acl;
-
-public class AclPropertyKeys {
-    public static final String CLIENT_IP = "clientIp";
-    public static final String USER = "user";
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -6655,15 +6460,15 @@ public class GrpcMessageProtocolResolver {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `EtcdClientFactory` has only 'static' members, and lacks a 'private' constructor
-in `eventmesh-registry-plugin/eventmesh-registry-etcd/src/main/java/org/apache/eventmesh/registry/etcd/factory/EtcdClientFactory.java`
+Class `AclPropertyKeys` has only 'static' members, and lacks a 'private' constructor
+in `eventmesh-security-plugin/eventmesh-security-api/src/main/java/org/apache/eventmesh/api/acl/AclPropertyKeys.java`
 #### Snippet
 ```java
+package org.apache.eventmesh.api.acl;
 
-
-public class EtcdClientFactory {
-
-    private static final Logger logger = LoggerFactory.getLogger(EtcdClientFactory.class);
+public class AclPropertyKeys {
+    public static final String CLIENT_IP = "clientIp";
+    public static final String USER = "user";
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -6679,18 +6484,6 @@ public class Constants {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `ConnectorPluginFactory` has only 'static' members, and lacks a 'private' constructor
-in `eventmesh-connector-plugin/eventmesh-connector-api/src/main/java/org/apache/eventmesh/api/factory/ConnectorPluginFactory.java`
-#### Snippet
-```java
- * The factory to get connector {@link Admin}, {@link Producer} and {@link Consumer}
- */
-public class ConnectorPluginFactory {
-    /**
-     * Get MeshMQAdmin instance by plugin name
-```
-
-### UtilityClassWithoutPrivateConstructor
 Class `EventMeshConstants` has only 'static' members, and lacks a 'private' constructor
 in `eventmesh-connector-plugin/eventmesh-connector-kafka/src/main/java/org/apache/eventmesh/connector/kafka/common/EventMeshConstants.java`
 #### Snippet
@@ -6703,15 +6496,15 @@ public class EventMeshConstants {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `CloudEventUtils` has only 'static' members, and lacks a 'private' constructor
-in `eventmesh-connector-plugin/eventmesh-connector-pulsar/src/main/java/org/apache/eventmesh/connector/pulsar/utils/CloudEventUtils.java`
+Class `ConnectorPluginFactory` has only 'static' members, and lacks a 'private' constructor
+in `eventmesh-connector-plugin/eventmesh-connector-api/src/main/java/org/apache/eventmesh/api/factory/ConnectorPluginFactory.java`
 #### Snippet
 ```java
-import io.cloudevents.CloudEvent;
-
-public class CloudEventUtils {
-    public static SendResult convertSendResult(CloudEvent cloudEvent) {
-        SendResult sendResult = new SendResult();
+ * The factory to get connector {@link Admin}, {@link Producer} and {@link Consumer}
+ */
+public class ConnectorPluginFactory {
+    /**
+     * Get MeshMQAdmin instance by plugin name
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -6728,14 +6521,14 @@ public final class RedissonClient {
 
 ### UtilityClassWithoutPrivateConstructor
 Class `CloudEventUtils` has only 'static' members, and lacks a 'private' constructor
-in `eventmesh-connector-plugin/eventmesh-connector-knative/src/main/java/org/apache/eventmesh/connector/knative/utils/CloudEventUtils.java`
+in `eventmesh-connector-plugin/eventmesh-connector-pulsar/src/main/java/org/apache/eventmesh/connector/pulsar/utils/CloudEventUtils.java`
 #### Snippet
 ```java
 import io.cloudevents.CloudEvent;
 
 public class CloudEventUtils {
-
     public static SendResult convertSendResult(CloudEvent cloudEvent) {
+        SendResult sendResult = new SendResult();
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -6751,6 +6544,18 @@ public class NonStandardKeys {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
+Class `CloudEventUtils` has only 'static' members, and lacks a 'private' constructor
+in `eventmesh-connector-plugin/eventmesh-connector-knative/src/main/java/org/apache/eventmesh/connector/knative/utils/CloudEventUtils.java`
+#### Snippet
+```java
+import io.cloudevents.CloudEvent;
+
+public class CloudEventUtils {
+
+    public static SendResult convertSendResult(CloudEvent cloudEvent) {
+```
+
+### UtilityClassWithoutPrivateConstructor
 Class `KnativeHeaders` has only 'static' members, and lacks a 'private' constructor
 in `eventmesh-connector-plugin/eventmesh-connector-knative/src/main/java/org/apache/eventmesh/connector/knative/cloudevent/impl/KnativeHeaders.java`
 #### Snippet
@@ -6763,18 +6568,6 @@ public class KnativeHeaders {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `OMSUtil` has only 'static' members, and lacks a 'private' constructor
-in `eventmesh-connector-plugin/eventmesh-connector-rocketmq/src/main/java/org/apache/eventmesh/connector/rocketmq/utils/OMSUtil.java`
-#### Snippet
-```java
-import org.apache.rocketmq.common.UtilAll;
-
-public class OMSUtil {
-
-    /**
-```
-
-### UtilityClassWithoutPrivateConstructor
 Class `EventMeshConstants` has only 'static' members, and lacks a 'private' constructor
 in `eventmesh-connector-plugin/eventmesh-connector-rocketmq/src/main/java/org/apache/eventmesh/connector/rocketmq/common/EventMeshConstants.java`
 #### Snippet
@@ -6784,6 +6577,18 @@ package org.apache.eventmesh.connector.rocketmq.common;
 public class EventMeshConstants {
 
     public static final String EVENTMESH_CONF_FILE = "rocketmq-client.properties";
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `OMSUtil` has only 'static' members, and lacks a 'private' constructor
+in `eventmesh-connector-plugin/eventmesh-connector-rocketmq/src/main/java/org/apache/eventmesh/connector/rocketmq/utils/OMSUtil.java`
+#### Snippet
+```java
+import org.apache.rocketmq.common.UtilAll;
+
+public class OMSUtil {
+
+    /**
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -6803,11 +6608,11 @@ Class `CloudEventUtils` has only 'static' members, and lacks a 'private' constru
 in `eventmesh-connector-plugin/eventmesh-connector-rocketmq/src/main/java/org/apache/eventmesh/connector/rocketmq/utils/CloudEventUtils.java`
 #### Snippet
 ```java
-import org.slf4j.LoggerFactory;
 
+@Slf4j
 public class CloudEventUtils {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(CloudEventUtils.class);
+
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -6878,7 +6683,7 @@ in `eventmesh-admin/eventmesh-admin-rocketmq/src/main/java/org/apache/eventmesh/
 #### Snippet
 ```java
             TopicCreateRequest topicCreateRequest =
-                JsonUtils.deserialize(params, TopicCreateRequest.class);
+                JsonUtils.parseObject(params, TopicCreateRequest.class);
             String topic = topicCreateRequest.getName();
 
             if (StringUtils.isBlank(topic)) {
@@ -6909,30 +6714,6 @@ in `eventmesh-common/src/main/java/org/apache/eventmesh/common/config/ConfigServ
 ```
 
 ### DataFlowIssue
-Method invocation `getBytes` may produce `NullPointerException`
-in `eventmesh-common/src/main/java/org/apache/eventmesh/common/protocol/http/HttpEventWrapper.java`
-#### Snippet
-```java
-        responseBodyMap.put("retCode", eventMeshRetCode.getRetCode());
-        responseBodyMap.put("retMessage", eventMeshRetCode.getErrMsg());
-        response.setBody(JsonUtils.serialize(responseBodyMap).getBytes(StandardCharsets.UTF_8));
-        response.setResTime(System.currentTimeMillis());
-        return response;
-```
-
-### DataFlowIssue
-Method invocation `getBytes` may produce `NullPointerException`
-in `eventmesh-common/src/main/java/org/apache/eventmesh/common/protocol/http/HttpEventWrapper.java`
-#### Snippet
-```java
-        response.setReqTime(this.reqTime);
-        response.setHeaderMap(responseHeaderMap);
-        response.setBody(JsonUtils.serialize(responseBodyMap).getBytes(StandardCharsets.UTF_8));
-        response.setResTime(System.currentTimeMillis());
-        return response;
-```
-
-### DataFlowIssue
 Method invocation `getMessage` may produce `NullPointerException`
 in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/boot/HTTPTrace.java`
 #### Snippet
@@ -6942,6 +6723,18 @@ in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/boot/HTTPTrace.
                 TraceUtils.finishSpanWithException(span, map, ex.getMessage(), ex);
             }
         }
+```
+
+### DataFlowIssue
+Method invocation `setAttribute` will produce `NullPointerException`
+in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/boot/AbstractHTTPServer.java`
+#### Snippet
+```java
+                if (useRequestURI) {
+                    if (useTrace) {
+                        span.setAttribute(SemanticAttributes.HTTP_METHOD,
+                                httpRequest.method() == null ? "" : httpRequest.method().name());
+                        span.setAttribute(SemanticAttributes.HTTP_FLAVOR,
 ```
 
 ### DataFlowIssue
@@ -6969,23 +6762,11 @@ in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/protocol/t
 ```
 
 ### DataFlowIssue
-Method invocation `setAttribute` will produce `NullPointerException`
-in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/boot/AbstractHTTPServer.java`
-#### Snippet
-```java
-                if (useRequestURI) {
-                    if (useTrace) {
-                        span.setAttribute(SemanticAttributes.HTTP_METHOD,
-                                httpRequest.method() == null ? "" : httpRequest.method().name());
-                        span.setAttribute(SemanticAttributes.HTTP_FLAVOR,
-```
-
-### DataFlowIssue
 Method invocation `get` may produce `NullPointerException`
 in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/protocol/grpc/push/WebhookPushRequest.java`
 #### Snippet
 ```java
-                    JsonUtils.deserialize(content, new TypeReference<Map<String, Object>>() {
+                    JsonUtils.parseTypeReferenceObject(content, new TypeReference<Map<String, Object>>() {
                     });
             Integer retCode = (Integer) ret.get("retCode");
             if (retCode != null && ClientRetCode.contains(retCode)) {
@@ -7021,11 +6802,71 @@ Method invocation `get` may produce `NullPointerException`
 in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/protocol/http/push/AsyncHTTPPushRequest.java`
 #### Snippet
 ```java
-                JsonUtils.deserialize(content, new TypeReference<Map<String, Object>>() {
+                JsonUtils.parseTypeReferenceObject(content, new TypeReference<Map<String, Object>>() {
                 });
             Integer retCode = (Integer) ret.get("retCode");
             if (retCode != null && ClientRetCode.contains(retCode)) {
                 return ClientRetCode.get(retCode);
+```
+
+### DataFlowIssue
+Method invocation `getBytes` may produce `NullPointerException`
+in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/admin/handler/MetricsHandler.java`
+#### Snippet
+```java
+            );
+            String result = JsonUtils.toJSONString(getMetricsResponse);
+            byte[] bytes = result.getBytes(Constants.DEFAULT_CHARSET);
+            httpExchange.sendResponseHeaders(200, bytes.length);
+            out.write(bytes);
+```
+
+### DataFlowIssue
+Method invocation `getBytes` may produce `NullPointerException`
+in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/admin/handler/MetricsHandler.java`
+#### Snippet
+```java
+            Error error = new Error(e.toString(), stackTrace);
+            String result = JsonUtils.toJSONString(error);
+            byte[] bytes = result.getBytes(Constants.DEFAULT_CHARSET);
+            httpExchange.sendResponseHeaders(500, bytes.length);
+            out.write(bytes);
+```
+
+### DataFlowIssue
+Method invocation `getBytes` may produce `NullPointerException`
+in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/admin/handler/RegistryHandler.java`
+#### Snippet
+```java
+
+            String result = JsonUtils.toJSONString(getRegistryResponseList);
+            httpExchange.sendResponseHeaders(200, result.getBytes().length);
+            out.write(result.getBytes());
+        } catch (NullPointerException e) {
+```
+
+### DataFlowIssue
+Method invocation `getBytes` may produce `NullPointerException`
+in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/admin/handler/RegistryHandler.java`
+#### Snippet
+```java
+            //registry not initialized, return empty list
+            String result = JsonUtils.toJSONString(new ArrayList<>());
+            httpExchange.sendResponseHeaders(200, result.getBytes().length);
+            out.write(result.getBytes());
+        } catch (Exception e) {
+```
+
+### DataFlowIssue
+Method invocation `getBytes` may produce `NullPointerException`
+in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/admin/handler/RegistryHandler.java`
+#### Snippet
+```java
+            Error error = new Error(e.toString(), stackTrace);
+            String result = JsonUtils.toJSONString(error);
+            httpExchange.sendResponseHeaders(500, result.getBytes().length);
+            out.write(result.getBytes());
+        } finally {
 ```
 
 ### DataFlowIssue
@@ -7041,39 +6882,135 @@ in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/util/EventMeshU
 ```
 
 ### DataFlowIssue
+Method invocation `getUrl` may produce `NullPointerException`
+in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/admin/handler/GrpcClientHandler.java`
+#### Snippet
+```java
+            String request = HttpExchangeUtils.streamToString(httpExchange.getRequestBody());
+            DeleteGrpcClientRequest deleteGrpcClientRequest = JsonUtils.parseObject(request, DeleteGrpcClientRequest.class);
+            String url = deleteGrpcClientRequest.getUrl();
+
+            ConsumerManager consumerManager = eventMeshGrpcServer.getConsumerManager();
+```
+
+### DataFlowIssue
+Method invocation `getBytes` may produce `NullPointerException`
+in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/admin/handler/GrpcClientHandler.java`
+#### Snippet
+```java
+            Error error = new Error(e.toString(), stackTrace);
+            String result = JsonUtils.toJSONString(error);
+            httpExchange.sendResponseHeaders(500, result.getBytes().length);
+            out.write(result.getBytes());
+        } finally {
+```
+
+### DataFlowIssue
+Method invocation `getBytes` may produce `NullPointerException`
+in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/admin/handler/GrpcClientHandler.java`
+#### Snippet
+```java
+
+            String result = JsonUtils.toJSONString(getClientResponseList);
+            httpExchange.sendResponseHeaders(200, result.getBytes().length);
+            out.write(result.getBytes());
+        } catch (Exception e) {
+```
+
+### DataFlowIssue
+Method invocation `getBytes` may produce `NullPointerException`
+in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/admin/handler/GrpcClientHandler.java`
+#### Snippet
+```java
+            Error error = new Error(e.toString(), stackTrace);
+            String result = JsonUtils.toJSONString(error);
+            httpExchange.sendResponseHeaders(500, result.getBytes().length);
+            out.write(result.getBytes());
+        } finally {
+```
+
+### DataFlowIssue
 Method invocation `getBytes` may produce `NullPointerException`
 in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/admin/handler/QueryWebHookConfigByManufacturerHandler.java`
 #### Snippet
 ```java
         try (OutputStream out = httpExchange.getResponseBody()) {
             List<WebHookConfig> result = operation.queryWebHookConfigByManufacturer(webHookConfig, pageNum, pageSize); // operating result
-            out.write(JsonUtils.serialize(result).getBytes(Constants.DEFAULT_CHARSET));
+            out.write(JsonUtils.toJSONString(result).getBytes(Constants.DEFAULT_CHARSET));
         } catch (Exception e) {
-            LOGGER.error("get WebHookConfigOperation implementation Failed.", e);
+            log.error("get WebHookConfigOperation implementation Failed.", e);
 ```
 
 ### DataFlowIssue
-Method invocation `deserialize` may produce `NullPointerException`
-in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/admin/handler/EventHandler.java`
+Method invocation `getName` may produce `NullPointerException`
+in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/admin/handler/TopicHandler.java`
 #### Snippet
 ```java
-            CloudEvent event = EventFormatProvider
-                .getInstance()
-                .resolveFormat(JsonFormat.CONTENT_TYPE).deserialize(rawRequest);
-            admin.publish(event);
+            String request = HttpExchangeUtils.streamToString(httpExchange.getRequestBody());
+            CreateTopicRequest createTopicRequest = JsonUtils.parseObject(request, CreateTopicRequest.class);
+            String topicName = createTopicRequest.getName();
+            admin.createTopic(topicName);
             httpExchange.sendResponseHeaders(200, 0);
 ```
 
 ### DataFlowIssue
-Method invocation `serialize` may produce `NullPointerException`
-in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/admin/handler/EventHandler.java`
+Method invocation `getBytes` may produce `NullPointerException`
+in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/admin/handler/TopicHandler.java`
 #### Snippet
 ```java
-                    .getInstance()
-                    .resolveFormat(JsonFormat.CONTENT_TYPE)
-                    .serialize(event);
-                eventJsonList.add(new String(serializedEvent, StandardCharsets.UTF_8));
-            }
+            Error error = new Error(e.toString(), stackTrace);
+            String result = JsonUtils.toJSONString(error);
+            httpExchange.sendResponseHeaders(500, result.getBytes(Constants.DEFAULT_CHARSET).length);
+            out.write(result.getBytes(Constants.DEFAULT_CHARSET));
+        } finally {
+```
+
+### DataFlowIssue
+Method invocation `getBytes` may produce `NullPointerException`
+in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/admin/handler/TopicHandler.java`
+#### Snippet
+```java
+            List<TopicProperties> topicList = admin.getTopic();
+            String result = JsonUtils.toJSONString(topicList);
+            httpExchange.sendResponseHeaders(200, result.getBytes(Constants.DEFAULT_CHARSET).length);
+            out.write(result.getBytes(Constants.DEFAULT_CHARSET));
+        } catch (Exception e) {
+```
+
+### DataFlowIssue
+Method invocation `getBytes` may produce `NullPointerException`
+in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/admin/handler/TopicHandler.java`
+#### Snippet
+```java
+            Error error = new Error(e.toString(), stackTrace);
+            String result = JsonUtils.toJSONString(error);
+            httpExchange.sendResponseHeaders(500, result.getBytes(Constants.DEFAULT_CHARSET).length);
+            out.write(result.getBytes(Constants.DEFAULT_CHARSET));
+        } finally {
+```
+
+### DataFlowIssue
+Method invocation `getName` may produce `NullPointerException`
+in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/admin/handler/TopicHandler.java`
+#### Snippet
+```java
+            String request = HttpExchangeUtils.streamToString(httpExchange.getRequestBody());
+            DeleteTopicRequest deleteTopicRequest = JsonUtils.parseObject(request, DeleteTopicRequest.class);
+            String topicName = deleteTopicRequest.getName();
+            admin.deleteTopic(topicName);
+            httpExchange.sendResponseHeaders(200, 0);
+```
+
+### DataFlowIssue
+Method invocation `getBytes` may produce `NullPointerException`
+in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/admin/handler/TopicHandler.java`
+#### Snippet
+```java
+            Error error = new Error(e.toString(), stackTrace);
+            String result = JsonUtils.toJSONString(error);
+            httpExchange.sendResponseHeaders(500, result.getBytes(Constants.DEFAULT_CHARSET).length);
+            out.write(result.getBytes(Constants.DEFAULT_CHARSET));
+        } finally {
 ```
 
 ### DataFlowIssue
@@ -7083,9 +7020,129 @@ in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/admin/handler/Q
 ```java
         try (OutputStream out = httpExchange.getResponseBody()) {
             WebHookConfig result = operation.queryWebHookConfigById(webHookConfig); // operating result
-            out.write(JsonUtils.serialize(result).getBytes(Constants.DEFAULT_CHARSET));
+            out.write(JsonUtils.toJSONString(result).getBytes(Constants.DEFAULT_CHARSET));
         } catch (Exception e) {
-            logger.error("get WebHookConfigOperation implementation Failed.", e);
+            log.error("get WebHookConfigOperation implementation Failed.", e);
+```
+
+### DataFlowIssue
+Method invocation `getBytes` may produce `NullPointerException`
+in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/admin/handler/HTTPClientHandler.java`
+#### Snippet
+```java
+
+            String result = JsonUtils.toJSONString(getClientResponseList);
+            httpExchange.sendResponseHeaders(200, result.getBytes().length);
+            out.write(result.getBytes());
+        } catch (Exception e) {
+```
+
+### DataFlowIssue
+Method invocation `getBytes` may produce `NullPointerException`
+in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/admin/handler/HTTPClientHandler.java`
+#### Snippet
+```java
+            Error error = new Error(e.toString(), stackTrace);
+            String result = JsonUtils.toJSONString(error);
+            httpExchange.sendResponseHeaders(500, result.getBytes().length);
+            out.write(result.getBytes());
+        } finally {
+```
+
+### DataFlowIssue
+Method invocation `getBytes` may produce `NullPointerException`
+in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/admin/handler/ConfigurationHandler.java`
+#### Snippet
+```java
+
+                String result = JsonUtils.toJSONString(getConfigurationResponse);
+                httpExchange.sendResponseHeaders(200, result.getBytes().length);
+                out.write(result.getBytes());
+            } catch (Exception e) {
+```
+
+### DataFlowIssue
+Method invocation `getUrl` may produce `NullPointerException`
+in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/admin/handler/HTTPClientHandler.java`
+#### Snippet
+```java
+            String request = HttpExchangeUtils.streamToString(httpExchange.getRequestBody());
+            DeleteHTTPClientRequest deleteHTTPClientRequest = JsonUtils.parseObject(request, DeleteHTTPClientRequest.class);
+            String url = deleteHTTPClientRequest.getUrl();
+
+            for (List<Client> clientList : eventMeshHTTPServer.getSubscriptionManager().getLocalClientInfoMapping().values()) {
+```
+
+### DataFlowIssue
+Method invocation `getBytes` may produce `NullPointerException`
+in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/admin/handler/HTTPClientHandler.java`
+#### Snippet
+```java
+            Error error = new Error(e.toString(), stackTrace);
+            String result = JsonUtils.toJSONString(error);
+            httpExchange.sendResponseHeaders(500, result.getBytes().length);
+            out.write(result.getBytes());
+        } finally {
+```
+
+### DataFlowIssue
+Method invocation `getBytes` may produce `NullPointerException`
+in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/admin/handler/ConfigurationHandler.java`
+#### Snippet
+```java
+                Error error = new Error(e.toString(), stackTrace);
+                String result = JsonUtils.toJSONString(error);
+                httpExchange.sendResponseHeaders(500, result.getBytes().length);
+                out.write(result.getBytes());
+            }
+```
+
+### DataFlowIssue
+Method invocation `getBytes` may produce `NullPointerException`
+in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/admin/handler/TCPClientHandler.java`
+#### Snippet
+```java
+
+            String result = JsonUtils.toJSONString(getClientResponseList);
+            httpExchange.sendResponseHeaders(200, result.getBytes().length);
+            out.write(result.getBytes());
+        } catch (Exception e) {
+```
+
+### DataFlowIssue
+Method invocation `getBytes` may produce `NullPointerException`
+in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/admin/handler/TCPClientHandler.java`
+#### Snippet
+```java
+            Error error = new Error(e.toString(), stackTrace);
+            String result = JsonUtils.toJSONString(error);
+            httpExchange.sendResponseHeaders(500, result.getBytes().length);
+            out.write(result.getBytes());
+        } finally {
+```
+
+### DataFlowIssue
+Method invocation `getHost` may produce `NullPointerException`
+in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/admin/handler/TCPClientHandler.java`
+#### Snippet
+```java
+            String request = HttpExchangeUtils.streamToString(httpExchange.getRequestBody());
+            DeleteTCPClientRequest deleteTCPClientRequest = JsonUtils.parseObject(request, DeleteTCPClientRequest.class);
+            String host = deleteTCPClientRequest.getHost();
+            int port = deleteTCPClientRequest.getPort();
+
+```
+
+### DataFlowIssue
+Method invocation `getBytes` may produce `NullPointerException`
+in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/admin/handler/TCPClientHandler.java`
+#### Snippet
+```java
+            Error error = new Error(e.toString(), stackTrace);
+            String result = JsonUtils.toJSONString(error);
+            httpExchange.sendResponseHeaders(500, result.getBytes().length);
+            out.write(result.getBytes());
+        } finally {
 ```
 
 ### DataFlowIssue
@@ -7093,7 +7150,7 @@ Method invocation `toString` may produce `NullPointerException`
 in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/trace/Trace.java`
 #### Snippet
 ```java
-
+        //add trace info
         for (String entry : cloudEvent.getExtensionNames()) {
             span.setAttribute(entry, cloudEvent.getExtension(entry) == null ? "" : cloudEvent.getExtension(entry).toString());
         }
@@ -7105,7 +7162,7 @@ Method invocation `toString` may produce `NullPointerException`
 in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/trace/Trace.java`
 #### Snippet
 ```java
-        //add trace info
+
         for (String entry : cloudEvent.getExtensionNames()) {
             span.setAttribute(entry, cloudEvent.getExtension(entry) == null ? "" : cloudEvent.getExtension(entry).toString());
         }
@@ -7131,7 +7188,7 @@ in `eventmesh-examples/src/main/java/org/apache/eventmesh/tcp/common/EventMeshTe
 ```java
                 .withDataContentType(ExampleConstants.CLOUDEVENT_CONTENT_TYPE)
                 .withType(EventMeshCommon.CLOUD_EVENTS_PROTOCOL_NAME)
-                .withData(JsonUtils.serialize(content).getBytes(StandardCharsets.UTF_8))
+                .withData(JsonUtils.toJSONString(content).getBytes(StandardCharsets.UTF_8))
                 .withExtension(UtilsConstants.TTL, DEFAULT_TTL_MS)
                 .build();
 ```
@@ -7143,7 +7200,7 @@ in `eventmesh-examples/src/main/java/org/apache/eventmesh/tcp/common/EventMeshTe
 ```java
                 .withDataContentType(ExampleConstants.CLOUDEVENT_CONTENT_TYPE)
                 .withType(EventMeshCommon.CLOUD_EVENTS_PROTOCOL_NAME)
-                .withData(JsonUtils.serialize(content).getBytes(StandardCharsets.UTF_8))
+                .withData(JsonUtils.toJSONString(content).getBytes(StandardCharsets.UTF_8))
                 .withExtension(UtilsConstants.TTL, DEFAULT_TTL_MS)
                 .withExtension(UtilsConstants.MSG_TYPE, "persistent")
 ```
@@ -7155,7 +7212,7 @@ in `eventmesh-examples/src/main/java/org/apache/eventmesh/grpc/GrpcAbstractDemo.
 ```java
                 .withDataContentType(ExampleConstants.CLOUDEVENT_CONTENT_TYPE)
                 .withType(EventMeshCommon.CLOUD_EVENTS_PROTOCOL_NAME)
-                .withData(JsonUtils.serialize(content).getBytes(StandardCharsets.UTF_8))
+                .withData(JsonUtils.toJSONString(content).getBytes(StandardCharsets.UTF_8))
                 .withExtension(Constants.EVENTMESH_MESSAGE_CONST_TTL, String.valueOf(4 * 1000))
                 .build();
 ```
@@ -7167,7 +7224,7 @@ in `eventmesh-examples/src/main/java/org/apache/eventmesh/http/demo/HttpAbstract
 ```java
                 .withDataContentType(ExampleConstants.CLOUDEVENT_CONTENT_TYPE)
                 .withType(EventMeshCommon.CLOUD_EVENTS_PROTOCOL_NAME)
-                .withData(JsonUtils.serialize(content).getBytes(StandardCharsets.UTF_8))
+                .withData(JsonUtils.toJSONString(content).getBytes(StandardCharsets.UTF_8))
                 .withExtension(Constants.EVENTMESH_MESSAGE_CONST_TTL, String.valueOf(4_000))
                 .build();
 ```
@@ -7178,7 +7235,7 @@ in `eventmesh-examples/src/main/java/org/apache/eventmesh/http/demo/sub/controll
 #### Snippet
 ```java
         @SuppressWarnings("unchecked")
-        final Map<String, String> contentMap = JsonUtils.deserialize(content, HashMap.class);
+        final Map<String, String> contentMap = JsonUtils.parseObject(content, HashMap.class);
         if (StringUtils.equals(EventMeshCommon.CLOUD_EVENTS_PROTOCOL_NAME, contentMap.get(ProtocolKey.PROTOCOL_TYPE))) {
             final EventFormat eventFormat = EventFormatProvider.getInstance().resolveFormat(JsonFormat.CONTENT_TYPE);
             if (eventFormat != null) {
@@ -7201,7 +7258,7 @@ Method invocation `serialize` may produce `NullPointerException`
 in `eventmesh-sdk-java/src/main/java/org/apache/eventmesh/client/tcp/common/MessageUtils.java`
 #### Snippet
 ```java
-            msg.getHeader().putProperty(Constants.PROTOCOL_DESC, "tcp");
+
             final byte[] bodyByte = EventFormatProvider.getInstance().resolveFormat(cloudEvent.getDataContentType())
                     .serialize((CloudEvent) message);
             msg.setBody(bodyByte);
@@ -7218,6 +7275,18 @@ in `eventmesh-sdk-java/src/main/java/org/apache/eventmesh/client/grpc/producer/C
                 .withExtension(ProtocolKey.IP, IPUtils.getLocalAddress())
                 .withExtension(ProtocolKey.PID, Long.toString(ThreadUtils.getPID()))
                 .withExtension(ProtocolKey.SYS, clientConfig.getSys())
+```
+
+### DataFlowIssue
+Dereference of `replyMessage` may produce `NullPointerException`
+in `eventmesh-sdk-java/src/main/java/org/apache/eventmesh/client/http/producer/EventMeshMessageProducer.java`
+#### Snippet
+```java
+            SendMessageResponseBody.ReplyMessage.class);
+        return EventMeshMessage.builder()
+            .content(replyMessage.body)
+            .prop(replyMessage.properties)
+            .topic(replyMessage.topic).build();
 ```
 
 ### DataFlowIssue
@@ -7245,18 +7314,6 @@ in `eventmesh-sdk-java/src/main/java/org/apache/eventmesh/client/http/producer/C
 ```
 
 ### DataFlowIssue
-Dereference of `replyMessage` may produce `NullPointerException`
-in `eventmesh-sdk-java/src/main/java/org/apache/eventmesh/client/http/producer/EventMeshMessageProducer.java`
-#### Snippet
-```java
-            SendMessageResponseBody.ReplyMessage.class);
-        return EventMeshMessage.builder()
-            .content(replyMessage.body)
-            .prop(replyMessage.properties)
-            .topic(replyMessage.topic).build();
-```
-
-### DataFlowIssue
 Casting `Arrays.asList(...).toArray()` to `String[]` will produce `ClassCastException` for any non-null value
 in `eventmesh-sdk-java/src/main/java/org/apache/eventmesh/client/http/model/RequestParam.java`
 #### Snippet
@@ -7273,19 +7330,7 @@ Method invocation `getRetCode` may produce `NullPointerException`
 in `eventmesh-sdk-java/src/main/java/org/apache/eventmesh/client/http/consumer/EventMeshHttpConsumer.java`
 #### Snippet
 ```java
-                final String res = HttpUtils.post(httpClient, target, requestParam);
-                final EventMeshRetObj ret = JsonUtils.deserialize(res, EventMeshRetObj.class);
-                if (EventMeshRetCode.SUCCESS.getRetCode() != ret.getRetCode()) {
-                    throw new EventMeshException(ret.getRetCode(), ret.getRetMsg());
-                }
-```
-
-### DataFlowIssue
-Method invocation `getRetCode` may produce `NullPointerException`
-in `eventmesh-sdk-java/src/main/java/org/apache/eventmesh/client/http/consumer/EventMeshHttpConsumer.java`
-#### Snippet
-```java
-            final EventMeshRetObj ret = JsonUtils.deserialize(unSubRes, EventMeshRetObj.class);
+            final EventMeshRetObj ret = JsonUtils.parseObject(unSubRes, EventMeshRetObj.class);
 
             if (EventMeshRetCode.SUCCESS.getRetCode() != ret.getRetCode()) {
                 throw new EventMeshException(ret.getRetCode(), ret.getRetMsg());
@@ -7297,35 +7342,23 @@ Method invocation `getRetCode` may produce `NullPointerException`
 in `eventmesh-sdk-java/src/main/java/org/apache/eventmesh/client/http/consumer/EventMeshHttpConsumer.java`
 #### Snippet
 ```java
+                final String res = HttpUtils.post(httpClient, target, requestParam);
+                final EventMeshRetObj ret = JsonUtils.parseObject(res, EventMeshRetObj.class);
+                if (EventMeshRetCode.SUCCESS.getRetCode() != ret.getRetCode()) {
+                    throw new EventMeshException(ret.getRetCode(), ret.getRetMsg());
+                }
+```
+
+### DataFlowIssue
+Method invocation `getRetCode` may produce `NullPointerException`
+in `eventmesh-sdk-java/src/main/java/org/apache/eventmesh/client/http/consumer/EventMeshHttpConsumer.java`
+#### Snippet
+```java
             final String subRes = HttpUtils.post(httpClient, target, subscribeParam);
-            final EventMeshRetObj ret = JsonUtils.deserialize(subRes, EventMeshRetObj.class);
+            final EventMeshRetObj ret = JsonUtils.parseObject(subRes, EventMeshRetObj.class);
             if (ret.getRetCode() != EventMeshRetCode.SUCCESS.getRetCode()) {
                 throw new EventMeshException(ret.getRetCode(), ret.getRetMsg());
             }
-```
-
-### DataFlowIssue
-Method invocation `get` may produce `NullPointerException`
-in `eventmesh-protocol-plugin/eventmesh-protocol-http/src/main/java/org/apache/eventmesh/protocol/http/HttpProtocolAdaptor.java`
-#### Snippet
-```java
-                new TypeReference<Map<String, Object>>() {
-                });
-            String requestHeader = JsonUtils.serialize(dataContentMap.get(CONSTANTS_KEY_HEADERS));
-            byte[] requestBody = JsonUtils.serialize(dataContentMap.get(CONSTANTS_KEY_BODY)).getBytes(StandardCharsets.UTF_8);
-            Map<String, Object> requestHeaderMap = JsonUtils.deserialize(requestHeader, new TypeReference<Map<String, Object>>() {
-```
-
-### DataFlowIssue
-Method invocation `getBytes` may produce `NullPointerException`
-in `eventmesh-protocol-plugin/eventmesh-protocol-http/src/main/java/org/apache/eventmesh/protocol/http/HttpProtocolAdaptor.java`
-#### Snippet
-```java
-                });
-            String requestHeader = JsonUtils.serialize(dataContentMap.get(CONSTANTS_KEY_HEADERS));
-            byte[] requestBody = JsonUtils.serialize(dataContentMap.get(CONSTANTS_KEY_BODY)).getBytes(StandardCharsets.UTF_8);
-            Map<String, Object> requestHeaderMap = JsonUtils.deserialize(requestHeader, new TypeReference<Map<String, Object>>() {
-            });
 ```
 
 ### DataFlowIssue
@@ -7335,33 +7368,9 @@ in `eventmesh-protocol-plugin/eventmesh-protocol-http/src/main/java/org/apache/e
 ```java
             data.put(HttpProtocolConstant.CONSTANTS_KEY_METHOD, httpEventWrapper.getHttpMethod());
             // with data
-            return builder.withData(JsonUtils.serialize(data).getBytes(StandardCharsets.UTF_8)).build();
+            return builder.withData(JsonUtils.toJSONString(data).getBytes(StandardCharsets.UTF_8)).build();
         } catch (Exception e) {
             throw new ProtocolHandleException(e.getMessage(), e);
-```
-
-### DataFlowIssue
-Method invocation `deserialize` may produce `NullPointerException`
-in `eventmesh-protocol-plugin/eventmesh-protocol-cloudevents/src/main/java/org/apache/eventmesh/protocol/cloudevents/resolver/tcp/TcpMessageProtocolResolver.java`
-#### Snippet
-```java
-            // todo:resolve different format
-            CloudEvent event = EventFormatProvider.getInstance().resolveFormat(JsonFormat.CONTENT_TYPE)
-                    .deserialize(cloudEventJson.getBytes(StandardCharsets.UTF_8));
-            cloudEventBuilder = CloudEventBuilder.v03(event);
-
-```
-
-### DataFlowIssue
-Method invocation `serialize` may produce `NullPointerException`
-in `eventmesh-protocol-plugin/eventmesh-protocol-cloudevents/src/main/java/org/apache/eventmesh/protocol/cloudevents/CloudEventsProtocolAdaptor.java`
-#### Snippet
-```java
-                public Map<String, Object> toMap() {
-                    byte[] eventByte =
-                        EventFormatProvider.getInstance().resolveFormat(JsonFormat.CONTENT_TYPE).serialize(cloudEvent);
-                    map.put("content", new String(eventByte, StandardCharsets.UTF_8));
-                    return map;
 ```
 
 ### DataFlowIssue
@@ -7377,15 +7386,27 @@ in `eventmesh-protocol-plugin/eventmesh-protocol-cloudevents/src/main/java/org/a
 ```
 
 ### DataFlowIssue
-Method invocation `toString` may produce `NullPointerException`
-in `eventmesh-protocol-plugin/eventmesh-protocol-meshmessage/src/main/java/org/apache/eventmesh/protocol/meshmessage/MeshMessageProtocolAdaptor.java`
+Method invocation `serialize` may produce `NullPointerException`
+in `eventmesh-protocol-plugin/eventmesh-protocol-cloudevents/src/main/java/org/apache/eventmesh/protocol/cloudevents/CloudEventsProtocolAdaptor.java`
 #### Snippet
 ```java
-        String protocolDesc =
-            cloudEvent.getExtension(Constants.PROTOCOL_DESC) == null ? null :
-                cloudEvent.getExtension(Constants.PROTOCOL_DESC).toString();
+                public Map<String, Object> toMap() {
+                    byte[] eventByte =
+                        EventFormatProvider.getInstance().resolveFormat(JsonFormat.CONTENT_TYPE).serialize(cloudEvent);
+                    map.put("content", new String(eventByte, StandardCharsets.UTF_8));
+                    return map;
+```
 
-        if (StringUtils.equals(MeshMessageProtocolConstant.PROTOCOL_DESC_HTTP, protocolDesc)) {
+### DataFlowIssue
+Method invocation `deserialize` may produce `NullPointerException`
+in `eventmesh-protocol-plugin/eventmesh-protocol-cloudevents/src/main/java/org/apache/eventmesh/protocol/cloudevents/resolver/tcp/TcpMessageProtocolResolver.java`
+#### Snippet
+```java
+            // todo:resolve different format
+            CloudEvent event = EventFormatProvider.getInstance().resolveFormat(JsonFormat.CONTENT_TYPE)
+                    .deserialize(cloudEventJson.getBytes(StandardCharsets.UTF_8));
+            cloudEventBuilder = CloudEventBuilder.v03(event);
+
 ```
 
 ### DataFlowIssue
@@ -7413,6 +7434,18 @@ in `eventmesh-protocol-plugin/eventmesh-protocol-cloudevents/src/main/java/org/a
 ```
 
 ### DataFlowIssue
+Method invocation `toString` may produce `NullPointerException`
+in `eventmesh-protocol-plugin/eventmesh-protocol-meshmessage/src/main/java/org/apache/eventmesh/protocol/meshmessage/MeshMessageProtocolAdaptor.java`
+#### Snippet
+```java
+        String protocolDesc =
+            cloudEvent.getExtension(Constants.PROTOCOL_DESC) == null ? null :
+                cloudEvent.getExtension(Constants.PROTOCOL_DESC).toString();
+
+        if (StringUtils.equals(MeshMessageProtocolConstant.PROTOCOL_DESC_HTTP, protocolDesc)) {
+```
+
+### DataFlowIssue
 Method invocation `get` may produce `NullPointerException`
 in `eventmesh-trace-plugin/eventmesh-trace-jaeger/src/main/java/org/apache/eventmesh/trace/jaeger/JaegerTraceService.java`
 #### Snippet
@@ -7431,21 +7464,21 @@ in `eventmesh-registry-plugin/eventmesh-registry-etcd/src/main/java/org/apache/e
 ```java
                     new EventMeshDataInfo(eventMeshClusterName, eventMeshName,
                             endPoint, System.currentTimeMillis(), eventMeshRegisterInfo.getMetadata());
-            ByteSequence etcdValue = ByteSequence.from(JsonUtils.serialize(eventMeshDataInfo).getBytes(Constants.DEFAULT_CHARSET));
+            ByteSequence etcdValue = ByteSequence.from(JsonUtils.toJSONString(eventMeshDataInfo).getBytes(Constants.DEFAULT_CHARSET));
             etcdClient.getKVClient().put(etcdKey, etcdValue, PutOption.newBuilder().withLeaseId(getLeaseId()).build());
             eventMeshRegisterInfoMap.put(eventMeshName, eventMeshRegisterInfo);
 ```
 
 ### DataFlowIssue
-Argument `cloudEvent.getSubject()` might be null
-in `eventmesh-connector-plugin/eventmesh-connector-kafka/src/main/java/org/apache/eventmesh/connector/kafka/producer/ProducerImpl.java`
+Method invocation `serialize` may produce `NullPointerException`
+in `eventmesh-connector-plugin/eventmesh-connector-pulsar/src/main/java/org/apache/eventmesh/connector/pulsar/client/PulsarClientWrapper.java`
 #### Snippet
 ```java
-    public void sendAsync(CloudEvent cloudEvent, SendCallback sendCallback) {
-        try {
-            this.producer.send(new ProducerRecord<>(cloudEvent.getSubject(), cloudEvent), (metadata, exception) -> {
-                if (exception != null) {
-                    ConnectorRuntimeException onsEx = new ConnectorRuntimeException(exception.getMessage(), exception);
+                .getInstance()
+                .resolveFormat(JsonFormat.CONTENT_TYPE)
+                .serialize(cloudEvent);
+            producer.sendAsync(serializedCloudEvent).thenAccept(messageId -> {
+                sendCallback.onSuccess(CloudEventUtils.convertSendResult(cloudEvent));
 ```
 
 ### DataFlowIssue
@@ -7461,15 +7494,15 @@ in `eventmesh-connector-plugin/eventmesh-connector-kafka/src/main/java/org/apach
 ```
 
 ### DataFlowIssue
-Method invocation `serialize` may produce `NullPointerException`
-in `eventmesh-connector-plugin/eventmesh-connector-pulsar/src/main/java/org/apache/eventmesh/connector/pulsar/client/PulsarClientWrapper.java`
+Argument `cloudEvent.getSubject()` might be null
+in `eventmesh-connector-plugin/eventmesh-connector-kafka/src/main/java/org/apache/eventmesh/connector/kafka/producer/ProducerImpl.java`
 #### Snippet
 ```java
-                .getInstance()
-                .resolveFormat(JsonFormat.CONTENT_TYPE)
-                .serialize(cloudEvent);
-            producer.sendAsync(serializedCloudEvent).thenAccept(messageId -> {
-                sendCallback.onSuccess(CloudEventUtils.convertSendResult(cloudEvent));
+    public void sendAsync(CloudEvent cloudEvent, SendCallback sendCallback) {
+        try {
+            this.producer.send(new ProducerRecord<>(cloudEvent.getSubject(), cloudEvent), (metadata, exception) -> {
+                if (exception != null) {
+                    ConnectorRuntimeException onsEx = new ConnectorRuntimeException(exception.getMessage(), exception);
 ```
 
 ### DataFlowIssue
@@ -7486,48 +7519,12 @@ in `eventmesh-connector-plugin/eventmesh-connector-pulsar/src/main/java/org/apac
 
 ### DataFlowIssue
 Method invocation `getBytes` may produce `NullPointerException`
-in `eventmesh-registry-plugin/eventmesh-registry-zookeeper/src/main/java/org/apache/eventmesh/registry/zookeeper/service/ZookeeperRegistryService.java`
-#### Snippet
-```java
-                .creatingParentsIfNeeded()
-                .withMode(CreateMode.EPHEMERAL)
-                .forPath(path, JsonUtils.serialize(eventMeshInstance).getBytes(StandardCharsets.UTF_8));
-
-            eventMeshRegisterInfoMap.put(eventMeshName, eventMeshRegisterInfo);
-```
-
-### DataFlowIssue
-Method invocation `getMetaData` may produce `NullPointerException`
-in `eventmesh-registry-plugin/eventmesh-registry-zookeeper/src/main/java/org/apache/eventmesh/registry/zookeeper/service/ZookeeperRegistryService.java`
-#### Snippet
-```java
-
-                    EventMeshDataInfo eventMeshDataInfo =
-                        new EventMeshDataInfo(clusterName, serviceName, endpoint, stat.getMtime(), eventMeshInstance.getMetaData());
-
-                    eventMeshDataInfoList.add(eventMeshDataInfo);
-```
-
-### DataFlowIssue
-Method invocation `getMetaData` may produce `NullPointerException`
-in `eventmesh-registry-plugin/eventmesh-registry-zookeeper/src/main/java/org/apache/eventmesh/registry/zookeeper/service/ZookeeperRegistryService.java`
-#### Snippet
-```java
-
-                    EventMeshDataInfo eventMeshDataInfo =
-                        new EventMeshDataInfo(clusterName, serviceName, endpoint, stat.getMtime(), eventMeshInstance.getMetaData());
-
-                    eventMeshDataInfoList.add(eventMeshDataInfo);
-```
-
-### DataFlowIssue
-Method invocation `getBytes` may produce `NullPointerException`
 in `eventmesh-connector-plugin/eventmesh-connector-pravega/src/main/java/org/apache/eventmesh/connector/pravega/client/PravegaEvent.java`
 #### Snippet
 ```java
 
     public static byte[] toByteArray(PravegaEvent pravegaEvent) {
-        return JsonUtils.serialize(pravegaEvent).getBytes(StandardCharsets.UTF_8);
+        return JsonUtils.toJSONString(pravegaEvent).getBytes(StandardCharsets.UTF_8);
     }
 
 ```
@@ -7554,54 +7551,6 @@ in `eventmesh-connector-plugin/eventmesh-connector-rocketmq/src/main/java/org/ap
         msg = supplySysProp(msg, cloudEvent);
         try {
             this.rocketmqProducer.send(msg, this.sendCallbackConvert(msg, sendCallback));
-```
-
-### DataFlowIssue
-Method invocation `toString` may produce `NullPointerException`
-in `eventmesh-connector-plugin/eventmesh-connector-rocketmq/src/main/java/org/apache/eventmesh/connector/rocketmq/producer/ProducerImpl.java`
-#### Snippet
-```java
-        for (String sysPropKey : MessageConst.STRING_HASH_SET) {
-            String ceKey = sysPropKey.toLowerCase().replaceAll("_", Constants.MESSAGE_PROP_SEPARATOR);
-            if (cloudEvent.getExtension(ceKey) != null && StringUtils.isNotEmpty(cloudEvent.getExtension(ceKey).toString())) {
-                MessageAccessor.putProperty(msg, sysPropKey, Objects.requireNonNull(cloudEvent.getExtension(ceKey)).toString());
-                msg.getProperties().remove(ceKey);
-```
-
-### DataFlowIssue
-Variable is already assigned to this value
-in `eventmesh-connector-plugin/eventmesh-connector-rocketmq/src/main/java/org/apache/rocketmq/client/impl/consumer/ConsumeMessageConcurrentlyService.java`
-#### Snippet
-```java
-                returnType = ConsumeReturnType.FAILED;
-            } else if (ConsumeConcurrentlyStatus.CONSUME_SUCCESS == status) {
-                returnType = ConsumeReturnType.SUCCESS;
-            }
-
-```
-
-### DataFlowIssue
-Method invocation `getProps` may produce `NullPointerException`
-in `eventmesh-connector-plugin/eventmesh-connector-rocketmq/src/main/java/org/apache/rocketmq/client/impl/consumer/ConsumeMessageConcurrentlyService.java`
-#### Snippet
-```java
-
-            if (ConsumeMessageConcurrentlyService.this.defaultMQPushConsumerImpl.hasHook()) {
-                consumeMessageContext.getProps().put(MixAll.CONSUME_CONTEXT_TYPE, returnType.name());
-            }
-
-```
-
-### DataFlowIssue
-Method invocation `setStatus` may produce `NullPointerException`
-in `eventmesh-connector-plugin/eventmesh-connector-rocketmq/src/main/java/org/apache/rocketmq/client/impl/consumer/ConsumeMessageConcurrentlyService.java`
-#### Snippet
-```java
-
-            if (ConsumeMessageConcurrentlyService.this.defaultMQPushConsumerImpl.hasHook()) {
-                consumeMessageContext.setStatus(status.toString());
-                consumeMessageContext.setSuccess(ConsumeConcurrentlyStatus.CONSUME_SUCCESS == status);
-                ConsumeMessageConcurrentlyService.this.defaultMQPushConsumerImpl.executeHookAfter(consumeMessageContext);
 ```
 
 ## RuleId[ruleID=OptionalContainsCollection]
@@ -7632,6 +7581,18 @@ in `eventmesh-connector-plugin/eventmesh-connector-rabbitmq/src/main/java/org/ap
 ## RuleId[ruleID=Convert2MethodRef]
 ### Convert2MethodRef
 Lambda can be replaced with method reference
+in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/acl/Acl.java`
+#### Snippet
+```java
+
+    public static Acl getInstance(String aclPluginType) {
+        return ACL_CACHE.computeIfAbsent(aclPluginType, key -> aclBuilder(key));
+    }
+
+```
+
+### Convert2MethodRef
+Lambda can be replaced with method reference
 in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/protocol/grpc/consumer/ConsumerManager.java`
 #### Snippet
 ```java
@@ -7639,6 +7600,30 @@ in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/protocol/g
                 clientTable.values().forEach(clients -> {
                     clientList.addAll(clients);
                 });
+
+```
+
+### Convert2MethodRef
+Lambda can be replaced with method reference
+in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/admin/handler/RegistryHandler.java`
+#### Snippet
+```java
+                getRegistryResponseList.add(getRegistryResponse);
+            }
+            getRegistryResponseList.sort(Comparator.comparing(lhs -> lhs.getEventMeshClusterName()));
+
+            String result = JsonUtils.toJSONString(getRegistryResponseList);
+```
+
+### Convert2MethodRef
+Lambda can be replaced with method reference
+in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/connector/ConnectorResource.java`
+#### Snippet
+```java
+
+    public static ConnectorResource getInstance(String connectorResourcePluginType) {
+        return CONNECTOR_RESOURCE_CACHE.computeIfAbsent(connectorResourcePluginType, key -> connectorResourceBuilder(key));
+    }
 
 ```
 
@@ -7711,7 +7696,7 @@ in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/protocol/g
 #### Snippet
 ```java
         if (client.getGrpcType() != grpcType) {
-            logger.warn("Invalid grpc type: {}, expecting grpc type: {}, can not register client {}",
+            log.warn("Invalid grpc type: {}, expecting grpc type: {}, can not register client {}",
                 client.getGrpcType(), grpcType, client.toString());
             return;
         }
@@ -7776,7 +7761,7 @@ in `eventmesh-connector-plugin/eventmesh-connector-knative/src/main/java/org/apa
             // Unsubscribe topic:
             topicList.remove(topic);
         } catch (Exception e) {
-            LOG.error("unsubscribe topic error", e);
+            log.error("unsubscribe topic error", e);
 ```
 
 ## RuleId[ruleID=InnerClassMayBeStatic]
@@ -7795,18 +7780,6 @@ in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/boot/AbstractHT
 ## RuleId[ruleID=NestedSynchronizedStatement]
 ### NestedSynchronizedStatement
 Nested `synchronized` statement
-in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/protocol/http/processor/LocalUnSubscribeEventProcessor.java`
-#### Snippet
-```java
-                    }
-
-                    synchronized (eventMeshHTTPServer.getSubscriptionManager().getLocalConsumerGroupMapping()) {
-                        final ConsumerGroupConf consumerGroupConf =
-                                eventMeshHTTPServer.getSubscriptionManager().getLocalConsumerGroupMapping().get(consumerGroup);
-```
-
-### NestedSynchronizedStatement
-Nested `synchronized` statement
 in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/protocol/http/processor/UnSubscribeProcessor.java`
 #### Snippet
 ```java
@@ -7817,8 +7790,56 @@ in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/protocol/h
                                 eventMeshHTTPServer.getSubscriptionManager().getLocalConsumerGroupMapping().get(consumerGroup);
 ```
 
+### NestedSynchronizedStatement
+Nested `synchronized` statement
+in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/protocol/http/processor/LocalUnSubscribeEventProcessor.java`
+#### Snippet
+```java
+                    }
+
+                    synchronized (eventMeshHTTPServer.getSubscriptionManager().getLocalConsumerGroupMapping()) {
+                        final ConsumerGroupConf consumerGroupConf =
+                                eventMeshHTTPServer.getSubscriptionManager().getLocalConsumerGroupMapping().get(consumerGroup);
+```
+
 ## RuleId[ruleID=PublicFieldAccessedInSynchronizedContext]
 ### PublicFieldAccessedInSynchronizedContext
+Non-private field `inited` accessed in synchronized context
+in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/plugin/MQProducerWrapper.java`
+#### Snippet
+```java
+
+    public synchronized void init(Properties keyValue) throws Exception {
+        if (inited.get()) {
+            return;
+        }
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `meshMQProducer` accessed in synchronized context
+in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/plugin/MQProducerWrapper.java`
+#### Snippet
+```java
+        }
+
+        meshMQProducer.init(keyValue);
+        inited.compareAndSet(false, true);
+    }
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `inited` accessed in synchronized context
+in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/plugin/MQProducerWrapper.java`
+#### Snippet
+```java
+
+        meshMQProducer.init(keyValue);
+        inited.compareAndSet(false, true);
+    }
+
+```
+
+### PublicFieldAccessedInSynchronizedContext
 Non-private field `started` accessed in synchronized context
 in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/plugin/MQProducerWrapper.java`
 #### Snippet
@@ -7860,42 +7881,6 @@ in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/plugin/MQP
 #### Snippet
 ```java
 
-    public synchronized void init(Properties keyValue) throws Exception {
-        if (inited.get()) {
-            return;
-        }
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `meshMQProducer` accessed in synchronized context
-in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/plugin/MQProducerWrapper.java`
-#### Snippet
-```java
-        }
-
-        meshMQProducer.init(keyValue);
-        inited.compareAndSet(false, true);
-    }
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `inited` accessed in synchronized context
-in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/plugin/MQProducerWrapper.java`
-#### Snippet
-```java
-
-        meshMQProducer.init(keyValue);
-        inited.compareAndSet(false, true);
-    }
-
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `inited` accessed in synchronized context
-in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/plugin/MQProducerWrapper.java`
-#### Snippet
-```java
-
     public synchronized void shutdown() throws Exception {
         if (!inited.get()) {
             return;
@@ -7941,66 +7926,6 @@ in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/plugin/MQP
 ### PublicFieldAccessedInSynchronizedContext
 Non-private field `started` accessed in synchronized context
 in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/plugin/MQProducerWrapper.java`
-#### Snippet
-```java
-
-        inited.compareAndSet(true, false);
-        started.compareAndSet(true, false);
-    }
-
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `inited` accessed in synchronized context
-in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/plugin/MQAdminWrapper.java`
-#### Snippet
-```java
-
-    public synchronized void shutdown() throws Exception {
-        if (!inited.get()) {
-            return;
-        }
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `started` accessed in synchronized context
-in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/plugin/MQAdminWrapper.java`
-#### Snippet
-```java
-        }
-
-        if (!started.get()) {
-            return;
-        }
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `meshMQAdmin` accessed in synchronized context
-in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/plugin/MQAdminWrapper.java`
-#### Snippet
-```java
-        }
-
-        meshMQAdmin.shutdown();
-
-        inited.compareAndSet(true, false);
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `inited` accessed in synchronized context
-in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/plugin/MQAdminWrapper.java`
-#### Snippet
-```java
-        meshMQAdmin.shutdown();
-
-        inited.compareAndSet(true, false);
-        started.compareAndSet(true, false);
-    }
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `started` accessed in synchronized context
-in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/plugin/MQAdminWrapper.java`
 #### Snippet
 ```java
 
@@ -8083,6 +8008,126 @@ in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/plugin/MQA
 ```
 
 ### PublicFieldAccessedInSynchronizedContext
+Non-private field `inited` accessed in synchronized context
+in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/plugin/MQAdminWrapper.java`
+#### Snippet
+```java
+
+    public synchronized void shutdown() throws Exception {
+        if (!inited.get()) {
+            return;
+        }
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `started` accessed in synchronized context
+in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/plugin/MQAdminWrapper.java`
+#### Snippet
+```java
+        }
+
+        if (!started.get()) {
+            return;
+        }
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `meshMQAdmin` accessed in synchronized context
+in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/plugin/MQAdminWrapper.java`
+#### Snippet
+```java
+        }
+
+        meshMQAdmin.shutdown();
+
+        inited.compareAndSet(true, false);
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `inited` accessed in synchronized context
+in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/plugin/MQAdminWrapper.java`
+#### Snippet
+```java
+        meshMQAdmin.shutdown();
+
+        inited.compareAndSet(true, false);
+        started.compareAndSet(true, false);
+    }
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `started` accessed in synchronized context
+in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/plugin/MQAdminWrapper.java`
+#### Snippet
+```java
+
+        inited.compareAndSet(true, false);
+        started.compareAndSet(true, false);
+    }
+
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `meshMQPushConsumer` accessed in synchronized context
+in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/plugin/MQConsumerWrapper.java`
+#### Snippet
+```java
+
+    public synchronized void start() throws Exception {
+        meshMQPushConsumer.start();
+        started.compareAndSet(false, true);
+    }
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `started` accessed in synchronized context
+in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/plugin/MQConsumerWrapper.java`
+#### Snippet
+```java
+    public synchronized void start() throws Exception {
+        meshMQPushConsumer.start();
+        started.compareAndSet(false, true);
+    }
+
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `meshMQPushConsumer` accessed in synchronized context
+in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/plugin/MQConsumerWrapper.java`
+#### Snippet
+```java
+
+    public synchronized void shutdown() throws Exception {
+        meshMQPushConsumer.shutdown();
+        inited.compareAndSet(false, true);
+        started.compareAndSet(false, true);
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `inited` accessed in synchronized context
+in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/plugin/MQConsumerWrapper.java`
+#### Snippet
+```java
+    public synchronized void shutdown() throws Exception {
+        meshMQPushConsumer.shutdown();
+        inited.compareAndSet(false, true);
+        started.compareAndSet(false, true);
+    }
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `started` accessed in synchronized context
+in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/plugin/MQConsumerWrapper.java`
+#### Snippet
+```java
+        meshMQPushConsumer.shutdown();
+        inited.compareAndSet(false, true);
+        started.compareAndSet(false, true);
+    }
+
+```
+
+### PublicFieldAccessedInSynchronizedContext
 Non-private field `meshMQPushConsumer` accessed in synchronized context
 in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/plugin/MQConsumerWrapper.java`
 #### Snippet
@@ -8102,66 +8147,6 @@ in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/plugin/MQC
 
         meshMQPushConsumer.init(keyValue);
         inited.compareAndSet(false, true);
-    }
-
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `meshMQPushConsumer` accessed in synchronized context
-in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/plugin/MQConsumerWrapper.java`
-#### Snippet
-```java
-
-    public synchronized void start() throws Exception {
-        meshMQPushConsumer.start();
-        started.compareAndSet(false, true);
-    }
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `started` accessed in synchronized context
-in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/plugin/MQConsumerWrapper.java`
-#### Snippet
-```java
-    public synchronized void start() throws Exception {
-        meshMQPushConsumer.start();
-        started.compareAndSet(false, true);
-    }
-
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `meshMQPushConsumer` accessed in synchronized context
-in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/plugin/MQConsumerWrapper.java`
-#### Snippet
-```java
-
-    public synchronized void shutdown() throws Exception {
-        meshMQPushConsumer.shutdown();
-        inited.compareAndSet(false, true);
-        started.compareAndSet(false, true);
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `inited` accessed in synchronized context
-in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/plugin/MQConsumerWrapper.java`
-#### Snippet
-```java
-    public synchronized void shutdown() throws Exception {
-        meshMQPushConsumer.shutdown();
-        inited.compareAndSet(false, true);
-        started.compareAndSet(false, true);
-    }
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `started` accessed in synchronized context
-in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/plugin/MQConsumerWrapper.java`
-#### Snippet
-```java
-        meshMQPushConsumer.shutdown();
-        inited.compareAndSet(false, true);
-        started.compareAndSet(false, true);
     }
 
 ```
@@ -8271,7 +8256,7 @@ in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/protocol/t
 
             synchronized (session) {
                 session.subscribe(subscriptionItems);
-                if (LOGGER.isInfoEnabled()) {
+                if (log.isInfoEnabled()) {
 ```
 
 ### PublicFieldAccessedInSynchronizedContext
@@ -8282,8 +8267,8 @@ in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/protocol/t
 
             synchronized (session) {
                 session.subscribe(subscriptionItems);
-                if (LOGGER.isInfoEnabled()) {
-                    LOGGER.info("SubscribeTask succeed|user={}|topics={}", session.getClient(), subscriptionItems);
+                if (log.isInfoEnabled()) {
+                    log.info("SubscribeTask succeed|user={}|topics={}", session.getClient(), subscriptionItems);
 ```
 
 ### PublicFieldAccessedInSynchronizedContext
@@ -8292,8 +8277,8 @@ in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/protocol/t
 #### Snippet
 ```java
                 session.subscribe(subscriptionItems);
-                if (LOGGER.isInfoEnabled()) {
-                    LOGGER.info("SubscribeTask succeed|user={}|topics={}", session.getClient(), subscriptionItems);
+                if (log.isInfoEnabled()) {
+                    log.info("SubscribeTask succeed|user={}|topics={}", session.getClient(), subscriptionItems);
                 }
             }
 ```
@@ -8318,8 +8303,8 @@ in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/protocol/t
                 event = addTimestamp(event, cmd, sendTime);
 
                 sendStatus = session
-                        .upstreamMsg(pkg.getHeader(), event,
-                                createSendCallback(replyCmd, taskExecuteTime, event),
+                    .upstreamMsg(pkg.getHeader(), event,
+                        createSendCallback(replyCmd, taskExecuteTime, event),
 ```
 
 ### PublicFieldAccessedInSynchronizedContext
@@ -8329,9 +8314,9 @@ in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/protocol/t
 ```java
 
                 sendStatus = session
-                        .upstreamMsg(pkg.getHeader(), event,
-                                createSendCallback(replyCmd, taskExecuteTime, event),
-                                startTime, taskExecuteTime);
+                    .upstreamMsg(pkg.getHeader(), event,
+                        createSendCallback(replyCmd, taskExecuteTime, event),
+                        startTime, taskExecuteTime);
 ```
 
 ### PublicFieldAccessedInSynchronizedContext
@@ -8339,9 +8324,9 @@ Non-private field `startTime` accessed in synchronized context
 in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/protocol/tcp/client/task/MessageTransferTask.java`
 #### Snippet
 ```java
-                        .upstreamMsg(pkg.getHeader(), event,
-                                createSendCallback(replyCmd, taskExecuteTime, event),
-                                startTime, taskExecuteTime);
+                    .upstreamMsg(pkg.getHeader(), event,
+                        createSendCallback(replyCmd, taskExecuteTime, event),
+                        startTime, taskExecuteTime);
 
                 if (StringUtils.equals(EventMeshTcpSendStatus.SUCCESS.name(),
 ```
@@ -8352,8 +8337,8 @@ in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/protocol/t
 #### Snippet
 ```java
                     MESSAGE_LOGGER.info("pkg|eventMesh2mq|cmd={}|Msg={}|user={}|wait={}ms|cost={}ms",
-                            cmd, event,
-                            session.getClient(), taskExecuteTime - startTime, sendTime - startTime);
+                        cmd, event,
+                        session.getClient(), taskExecuteTime - startTime, sendTime - startTime);
                 } else {
                     throw new Exception(sendStatus.getDetail());
 ```
@@ -8364,8 +8349,8 @@ in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/protocol/t
 #### Snippet
 ```java
                     MESSAGE_LOGGER.info("pkg|eventMesh2mq|cmd={}|Msg={}|user={}|wait={}ms|cost={}ms",
-                            cmd, event,
-                            session.getClient(), taskExecuteTime - startTime, sendTime - startTime);
+                        cmd, event,
+                        session.getClient(), taskExecuteTime - startTime, sendTime - startTime);
                 } else {
                     throw new Exception(sendStatus.getDetail());
 ```
@@ -8376,8 +8361,8 @@ in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/protocol/t
 #### Snippet
 ```java
                     MESSAGE_LOGGER.info("pkg|eventMesh2mq|cmd={}|Msg={}|user={}|wait={}ms|cost={}ms",
-                            cmd, event,
-                            session.getClient(), taskExecuteTime - startTime, sendTime - startTime);
+                        cmd, event,
+                        session.getClient(), taskExecuteTime - startTime, sendTime - startTime);
                 } else {
                     throw new Exception(sendStatus.getDetail());
 ```
@@ -8431,54 +8416,6 @@ in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/protocol/t
 ```
 
 ### PublicFieldAccessedInSynchronizedContext
-Non-private field `producerStarted` accessed in synchronized context
-in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/protocol/tcp/client/group/ClientGroupWrapper.java`
-#### Snippet
-```java
-
-    public synchronized void startClientGroupProducer() throws Exception {
-        if (producerStarted.get()) {
-            return;
-        }
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `producerStarted` accessed in synchronized context
-in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/protocol/tcp/client/group/ClientGroupWrapper.java`
-#### Snippet
-```java
-        mqProducerWrapper.init(keyValue);
-        mqProducerWrapper.start();
-        producerStarted.compareAndSet(false, true);
-        log.info("starting producer success, group:{}", group);
-    }
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `inited4Broadcast` accessed in synchronized context
-in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/protocol/tcp/client/group/ClientGroupWrapper.java`
-#### Snippet
-```java
-
-    public synchronized void initClientGroupBroadcastConsumer() throws Exception {
-        if (inited4Broadcast.get()) {
-            return;
-        }
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `inited4Broadcast` accessed in synchronized context
-in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/protocol/tcp/client/group/ClientGroupWrapper.java`
-#### Snippet
-```java
-        broadCastMsgConsumer.registerEventListener(listener);
-
-        inited4Broadcast.compareAndSet(false, true);
-        if (log.isInfoEnabled()) {
-            log.info("init broadCastMsgConsumer success, group:{}", group);
-```
-
-### PublicFieldAccessedInSynchronizedContext
 Non-private field `started4Broadcast` accessed in synchronized context
 in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/protocol/tcp/client/group/ClientGroupWrapper.java`
 #### Snippet
@@ -8515,30 +8452,6 @@ in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/protocol/t
 ```
 
 ### PublicFieldAccessedInSynchronizedContext
-Non-private field `producerStarted` accessed in synchronized context
-in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/protocol/tcp/client/group/ClientGroupWrapper.java`
-#### Snippet
-```java
-
-    public synchronized void shutdownProducer() throws Exception {
-        if (!producerStarted.get()) {
-            return;
-        }
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `producerStarted` accessed in synchronized context
-in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/protocol/tcp/client/group/ClientGroupWrapper.java`
-#### Snippet
-```java
-        }
-        mqProducerWrapper.shutdown();
-        producerStarted.compareAndSet(true, false);
-        log.info("shutdown producer success for group:{}", group);
-    }
-```
-
-### PublicFieldAccessedInSynchronizedContext
 Non-private field `inited4Persistent` accessed in synchronized context
 in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/protocol/tcp/client/group/ClientGroupWrapper.java`
 #### Snippet
@@ -8560,30 +8473,6 @@ in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/protocol/t
         inited4Persistent.compareAndSet(false, true);
         if (log.isInfoEnabled()) {
             log.info("init persistentMsgConsumer success, group:{}", group);
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `started4Persistent` accessed in synchronized context
-in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/protocol/tcp/client/group/ClientGroupWrapper.java`
-#### Snippet
-```java
-
-    public synchronized void startClientGroupPersistentConsumer() throws Exception {
-        if (started4Persistent.get()) {
-            return;
-        }
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `started4Persistent` accessed in synchronized context
-in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/protocol/tcp/client/group/ClientGroupWrapper.java`
-#### Snippet
-```java
-        }
-        persistentMsgConsumer.start();
-        started4Persistent.compareAndSet(false, true);
-        if (log.isInfoEnabled()) {
-            log.info("starting persistentMsgConsumer success, group:{}", group);
 ```
 
 ### PublicFieldAccessedInSynchronizedContext
@@ -8611,6 +8500,102 @@ in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/protocol/t
 ```
 
 ### PublicFieldAccessedInSynchronizedContext
+Non-private field `started4Persistent` accessed in synchronized context
+in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/protocol/tcp/client/group/ClientGroupWrapper.java`
+#### Snippet
+```java
+
+    public synchronized void startClientGroupPersistentConsumer() throws Exception {
+        if (started4Persistent.get()) {
+            return;
+        }
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `started4Persistent` accessed in synchronized context
+in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/protocol/tcp/client/group/ClientGroupWrapper.java`
+#### Snippet
+```java
+        }
+        persistentMsgConsumer.start();
+        started4Persistent.compareAndSet(false, true);
+        if (log.isInfoEnabled()) {
+            log.info("starting persistentMsgConsumer success, group:{}", group);
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `producerStarted` accessed in synchronized context
+in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/protocol/tcp/client/group/ClientGroupWrapper.java`
+#### Snippet
+```java
+
+    public synchronized void startClientGroupProducer() throws Exception {
+        if (producerStarted.get()) {
+            return;
+        }
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `producerStarted` accessed in synchronized context
+in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/protocol/tcp/client/group/ClientGroupWrapper.java`
+#### Snippet
+```java
+        mqProducerWrapper.init(keyValue);
+        mqProducerWrapper.start();
+        producerStarted.compareAndSet(false, true);
+        log.info("starting producer success, group:{}", group);
+    }
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `producerStarted` accessed in synchronized context
+in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/protocol/tcp/client/group/ClientGroupWrapper.java`
+#### Snippet
+```java
+
+    public synchronized void shutdownProducer() throws Exception {
+        if (!producerStarted.get()) {
+            return;
+        }
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `producerStarted` accessed in synchronized context
+in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/protocol/tcp/client/group/ClientGroupWrapper.java`
+#### Snippet
+```java
+        }
+        mqProducerWrapper.shutdown();
+        producerStarted.compareAndSet(true, false);
+        log.info("shutdown producer success for group:{}", group);
+    }
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `inited4Broadcast` accessed in synchronized context
+in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/protocol/tcp/client/group/ClientGroupWrapper.java`
+#### Snippet
+```java
+
+    public synchronized void initClientGroupBroadcastConsumer() throws Exception {
+        if (inited4Broadcast.get()) {
+            return;
+        }
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `inited4Broadcast` accessed in synchronized context
+in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/protocol/tcp/client/group/ClientGroupWrapper.java`
+#### Snippet
+```java
+        broadCastMsgConsumer.registerEventListener(listener);
+
+        inited4Broadcast.compareAndSet(false, true);
+        if (log.isInfoEnabled()) {
+            log.info("init broadCastMsgConsumer success, group:{}", group);
+```
+
+### PublicFieldAccessedInSynchronizedContext
 Non-private field `started` accessed in synchronized context
 in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/protocol/http/consumer/ConsumerGroupManager.java`
 #### Snippet
@@ -8620,18 +8605,6 @@ in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/protocol/h
         if (started.get()) {
             shutdown();
         }
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `inited` accessed in synchronized context
-in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/protocol/http/consumer/ConsumerGroupManager.java`
-#### Snippet
-```java
-    public synchronized void init() throws Exception {
-        eventMeshConsumer.init();
-        inited.compareAndSet(false, true);
-    }
-
 ```
 
 ### PublicFieldAccessedInSynchronizedContext
@@ -8654,6 +8627,18 @@ in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/protocol/h
     public synchronized void shutdown() throws Exception {
         eventMeshConsumer.shutdown();
         started.compareAndSet(true, false);
+    }
+
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `inited` accessed in synchronized context
+in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/protocol/http/consumer/ConsumerGroupManager.java`
+#### Snippet
+```java
+    public synchronized void init() throws Exception {
+        eventMeshConsumer.init();
+        inited.compareAndSet(false, true);
     }
 
 ```
@@ -8703,7 +8688,7 @@ in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/protocol/h
         mqProducerWrapper.shutdown();
         inited.compareAndSet(true, false);
         started.compareAndSet(true, false);
-        logger.info("EventMeshProducer [{}] shutdown.............", producerGroupConfig.getGroupName());
+        log.info("EventMeshProducer [{}] shutdown.............", producerGroupConfig.getGroupName());
 ```
 
 ### PublicFieldAccessedInSynchronizedContext
@@ -8714,20 +8699,8 @@ in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/protocol/h
         mqProducerWrapper.shutdown();
         inited.compareAndSet(true, false);
         started.compareAndSet(true, false);
-        logger.info("EventMeshProducer [{}] shutdown.............", producerGroupConfig.getGroupName());
+        log.info("EventMeshProducer [{}] shutdown.............", producerGroupConfig.getGroupName());
     }
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `logger` accessed in synchronized context
-in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/protocol/http/producer/EventMeshProducer.java`
-#### Snippet
-```java
-        inited.compareAndSet(true, false);
-        started.compareAndSet(true, false);
-        logger.info("EventMeshProducer [{}] shutdown.............", producerGroupConfig.getGroupName());
-    }
-
 ```
 
 ### PublicFieldAccessedInSynchronizedContext
@@ -8737,67 +8710,7 @@ in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/protocol/h
 ```java
         inited.compareAndSet(true, false);
         started.compareAndSet(true, false);
-        logger.info("EventMeshProducer [{}] shutdown.............", producerGroupConfig.getGroupName());
-    }
-
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `started` accessed in synchronized context
-in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/protocol/http/producer/EventMeshProducer.java`
-#### Snippet
-```java
-
-    public synchronized void start() throws Exception {
-        if (started.get()) {
-            return;
-        }
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `mqProducerWrapper` accessed in synchronized context
-in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/protocol/http/producer/EventMeshProducer.java`
-#### Snippet
-```java
-        }
-
-        mqProducerWrapper.start();
-        started.compareAndSet(false, true);
-        logger.info("EventMeshProducer [{}] started.............", producerGroupConfig.getGroupName());
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `started` accessed in synchronized context
-in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/protocol/http/producer/EventMeshProducer.java`
-#### Snippet
-```java
-
-        mqProducerWrapper.start();
-        started.compareAndSet(false, true);
-        logger.info("EventMeshProducer [{}] started.............", producerGroupConfig.getGroupName());
-    }
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `logger` accessed in synchronized context
-in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/protocol/http/producer/EventMeshProducer.java`
-#### Snippet
-```java
-        mqProducerWrapper.start();
-        started.compareAndSet(false, true);
-        logger.info("EventMeshProducer [{}] started.............", producerGroupConfig.getGroupName());
-    }
-
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `producerGroupConfig` accessed in synchronized context
-in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/protocol/http/producer/EventMeshProducer.java`
-#### Snippet
-```java
-        mqProducerWrapper.start();
-        started.compareAndSet(false, true);
-        logger.info("EventMeshProducer [{}] started.............", producerGroupConfig.getGroupName());
+        log.info("EventMeshProducer [{}] shutdown.............", producerGroupConfig.getGroupName());
     }
 
 ```
@@ -8847,7 +8760,7 @@ in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/protocol/h
         mqProducerWrapper = new MQProducerWrapper(eventMeshHttpConfiguration.getEventMeshConnectorPluginType());
         mqProducerWrapper.init(keyValue);
         inited.compareAndSet(false, true);
-        logger.info("EventMeshProducer [{}] inited.............", producerGroupConfig.getGroupName());
+        log.info("EventMeshProducer [{}] inited.............", producerGroupConfig.getGroupName());
 ```
 
 ### PublicFieldAccessedInSynchronizedContext
@@ -8858,66 +8771,54 @@ in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/protocol/h
         mqProducerWrapper = new MQProducerWrapper(eventMeshHttpConfiguration.getEventMeshConnectorPluginType());
         mqProducerWrapper.init(keyValue);
         inited.compareAndSet(false, true);
-        logger.info("EventMeshProducer [{}] inited.............", producerGroupConfig.getGroupName());
+        log.info("EventMeshProducer [{}] inited.............", producerGroupConfig.getGroupName());
     }
 ```
 
 ### PublicFieldAccessedInSynchronizedContext
-Non-private field `logger` accessed in synchronized context
+Non-private field `started` accessed in synchronized context
 in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/protocol/http/producer/EventMeshProducer.java`
 #### Snippet
 ```java
-        mqProducerWrapper.init(keyValue);
-        inited.compareAndSet(false, true);
-        logger.info("EventMeshProducer [{}] inited.............", producerGroupConfig.getGroupName());
-    }
 
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `logger` accessed in synchronized context
-in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/protocol/http/consumer/ConsumerManager.java`
-#### Snippet
-```java
-     */
-    public synchronized void delConsumer(String consumerGroup) throws Exception {
-        logger.info("start delConsumer with consumerGroup {}", consumerGroup);
-        if (consumerTable.containsKey(consumerGroup)) {
-            ConsumerGroupManager cgm = consumerTable.remove(consumerGroup);
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `logger` accessed in synchronized context
-in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/protocol/http/consumer/ConsumerManager.java`
-#### Snippet
-```java
-        if (consumerTable.containsKey(consumerGroup)) {
-            ConsumerGroupManager cgm = consumerTable.remove(consumerGroup);
-            logger.info("start unsubscribe topic with consumer group manager {}",
-                    JsonUtils.serialize(cgm));
-            cgm.unsubscribe(consumerGroup);
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `logger` accessed in synchronized context
-in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/protocol/http/consumer/ConsumerManager.java`
-#### Snippet
-```java
-            cgm.shutdown();
+    public synchronized void start() throws Exception {
+        if (started.get()) {
+            return;
         }
-        logger.info("end delConsumer with consumerGroup {}", consumerGroup);
-    }
-
 ```
 
 ### PublicFieldAccessedInSynchronizedContext
-Non-private field `logger` accessed in synchronized context
-in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/protocol/http/consumer/EventMeshConsumer.java`
+Non-private field `mqProducerWrapper` accessed in synchronized context
+in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/protocol/http/producer/EventMeshProducer.java`
 #### Snippet
 ```java
-        inited4Persistent.compareAndSet(false, true);
-        inited4Broadcast.compareAndSet(false, true);
-        logger.info("EventMeshConsumer [{}] inited.............", consumerGroupConf.getConsumerGroup());
+        }
+
+        mqProducerWrapper.start();
+        started.compareAndSet(false, true);
+        log.info("EventMeshProducer [{}] started.............", producerGroupConfig.getGroupName());
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `started` accessed in synchronized context
+in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/protocol/http/producer/EventMeshProducer.java`
+#### Snippet
+```java
+
+        mqProducerWrapper.start();
+        started.compareAndSet(false, true);
+        log.info("EventMeshProducer [{}] started.............", producerGroupConfig.getGroupName());
+    }
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `producerGroupConfig` accessed in synchronized context
+in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/protocol/http/producer/EventMeshProducer.java`
+#### Snippet
+```java
+        mqProducerWrapper.start();
+        started.compareAndSet(false, true);
+        log.info("EventMeshProducer [{}] started.............", producerGroupConfig.getGroupName());
     }
 
 ```
@@ -9108,7 +9009,7 @@ in `eventmesh-common/src/main/java/org/apache/eventmesh/common/utils/IPUtils.jav
 in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/admin/handler/EventHandler.java`
 #### Snippet
 ```java
-        try {
+        try (OutputStream out = httpExchange.getResponseBody()) {
             String queryString = httpExchange.getRequestURI().getQuery();
             if (queryString == null || queryString.equals("")) {
                 httpExchange.sendResponseHeaders(401, 0);
@@ -9125,7 +9026,7 @@ in `eventmesh-common/src/main/java/org/apache/eventmesh/common/loadbalance/Weigh
     @SuppressWarnings("ConstantConditions")
     public T select() {
         if (CollectionUtils.isEmpty(clusterGroup)) {
-            LOG.warn("No servers available");
+            log.warn("No servers available");
 ```
 
 ### RedundantSuppression
@@ -9186,7 +9087,7 @@ in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/protocol/t
 
             synchronized (session) {
                 session.subscribe(subscriptionItems);
-                if (LOGGER.isInfoEnabled()) {
+                if (log.isInfoEnabled()) {
 ```
 
 ### SynchronizeOnNonFinalField
@@ -9199,18 +9100,6 @@ in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/protocol/t
             synchronized (session) {
                 long sendTime = System.currentTimeMillis();
                 event = addTimestamp(event, cmd, sendTime);
-```
-
-### SynchronizeOnNonFinalField
-Synchronization on a non-final field `producerTable`
-in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/protocol/grpc/producer/ProducerManager.java`
-#### Snippet
-```java
-        EventMeshProducer eventMeshProducer = null;
-        if (!producerTable.containsKey(producerGroup)) {
-            synchronized (producerTable) {
-                if (!producerTable.containsKey(producerGroup)) {
-                    ProducerGroupConf producerGroupConfig = new ProducerGroupConf(producerGroup);
 ```
 
 ### SynchronizeOnNonFinalField
@@ -9284,22 +9173,10 @@ in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/protocol/t
         } else {
             rebalanceResult = (modNum != 0 && index < modNum && index >= 0) ? avgNum + 1 : avgNum;
         }
-        logger.info("rebalance caculateRedirectNum,group:{}, purpose:{},sum:{},avgNum:{},"
+        log.info("rebalance caculateRedirectNum,group:{}, purpose:{},sum:{},avgNum:{},"
 ```
 
 ## RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
-### DynamicRegexReplaceableByCompiledPattern
-`replaceFirst()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `eventmesh-admin/eventmesh-admin-rocketmq/src/main/java/org/apache/eventmesh/admin/rocketmq/util/UrlMappingPattern.java`
-#### Snippet
-```java
-
-    public String getMappingPattern() {
-        return getUrlMappingPattern().replaceFirst(URL_FORMAT_REGEX, "");
-    }
-
-```
-
 ### DynamicRegexReplaceableByCompiledPattern
 `replaceFirst()` could be replaced with compiled 'java.util.regex.Pattern' construct
 in `eventmesh-admin/eventmesh-admin-rocketmq/src/main/java/org/apache/eventmesh/admin/rocketmq/util/UrlMappingPattern.java`
@@ -9322,6 +9199,18 @@ in `eventmesh-admin/eventmesh-admin-rocketmq/src/main/java/org/apache/eventmesh/
         parsedPattern = parsedPattern.replaceAll(URL_PARAMETER_REGEX, URL_PARAMETER_MATCH_REGEX);
         this.compiledUrlMappingPattern = Pattern.compile(parsedPattern + URL_QUERY_STRING_REGEX);
     }
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replaceFirst()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `eventmesh-admin/eventmesh-admin-rocketmq/src/main/java/org/apache/eventmesh/admin/rocketmq/util/UrlMappingPattern.java`
+#### Snippet
+```java
+
+    public String getMappingPattern() {
+        return getUrlMappingPattern().replaceFirst(URL_FORMAT_REGEX, "");
+    }
+
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
@@ -9386,30 +9275,6 @@ in `eventmesh-connector-plugin/eventmesh-connector-rocketmq/src/main/java/org/ap
 
 ### DynamicRegexReplaceableByCompiledPattern
 `replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `eventmesh-connector-plugin/eventmesh-connector-rocketmq/src/main/java/org/apache/eventmesh/connector/rocketmq/consumer/PushConsumerImpl.java`
-#### Snippet
-```java
-                if (StringUtils.isNotEmpty(msg.getProperty(sysPropKey))) {
-                    String prop = msg.getProperty(sysPropKey);
-                    sysPropKey = sysPropKey.toLowerCase().replaceAll("_", Constants.MESSAGE_PROP_SEPARATOR);
-                    cloudEventBuilder = CloudEventBuilder.from(cloudEvent).withExtension(sysPropKey, prop);
-                }
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `eventmesh-connector-plugin/eventmesh-connector-rocketmq/src/main/java/org/apache/eventmesh/connector/rocketmq/consumer/PushConsumerImpl.java`
-#### Snippet
-```java
-                if (StringUtils.isNotEmpty(msg.getProperty(sysPropKey))) {
-                    String prop = msg.getProperty(sysPropKey);
-                    sysPropKey = sysPropKey.toLowerCase().replaceAll("_", Constants.MESSAGE_PROP_SEPARATOR);
-                    cloudEventBuilder = CloudEventBuilder.from(cloudEvent).withExtension(sysPropKey, prop);
-                }
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
 in `eventmesh-connector-plugin/eventmesh-connector-rocketmq/src/main/java/org/apache/eventmesh/connector/rocketmq/utils/CloudEventUtils.java`
 #### Snippet
 ```java
@@ -9422,14 +9287,26 @@ in `eventmesh-connector-plugin/eventmesh-connector-rocketmq/src/main/java/org/ap
 
 ### DynamicRegexReplaceableByCompiledPattern
 `replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `eventmesh-connector-plugin/eventmesh-connector-pravega/src/main/java/org/apache/eventmesh/connector/pravega/client/PravegaClient.java`
+in `eventmesh-connector-plugin/eventmesh-connector-rocketmq/src/main/java/org/apache/eventmesh/connector/rocketmq/consumer/PushConsumerImpl.java`
 #### Snippet
 ```java
+                if (StringUtils.isNotEmpty(msg.getProperty(sysPropKey))) {
+                    String prop = msg.getProperty(sysPropKey);
+                    sysPropKey = sysPropKey.toLowerCase().replaceAll("_", Constants.MESSAGE_PROP_SEPARATOR);
+                    cloudEventBuilder = CloudEventBuilder.from(cloudEvent).withExtension(sysPropKey, prop);
+                }
+```
 
-    private String buildReaderId(String instanceName) {
-        return String.format("%s-reader", instanceName).replaceAll("\\(", "-").replaceAll("\\)", "-");
-    }
-
+### DynamicRegexReplaceableByCompiledPattern
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `eventmesh-connector-plugin/eventmesh-connector-rocketmq/src/main/java/org/apache/eventmesh/connector/rocketmq/consumer/PushConsumerImpl.java`
+#### Snippet
+```java
+                if (StringUtils.isNotEmpty(msg.getProperty(sysPropKey))) {
+                    String prop = msg.getProperty(sysPropKey);
+                    sysPropKey = sysPropKey.toLowerCase().replaceAll("_", Constants.MESSAGE_PROP_SEPARATOR);
+                    cloudEventBuilder = CloudEventBuilder.from(cloudEvent).withExtension(sysPropKey, prop);
+                }
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
@@ -9446,14 +9323,14 @@ in `eventmesh-connector-plugin/eventmesh-connector-pravega/src/main/java/org/apa
 
 ### DynamicRegexReplaceableByCompiledPattern
 `replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `eventmesh-connector-plugin/eventmesh-connector-rocketmq/src/main/java/org/apache/eventmesh/connector/rocketmq/producer/ProducerImpl.java`
+in `eventmesh-connector-plugin/eventmesh-connector-pravega/src/main/java/org/apache/eventmesh/connector/pravega/client/PravegaClient.java`
 #### Snippet
 ```java
-    private Message supplySysProp(Message msg, CloudEvent cloudEvent) {
-        for (String sysPropKey : MessageConst.STRING_HASH_SET) {
-            String ceKey = sysPropKey.toLowerCase().replaceAll("_", Constants.MESSAGE_PROP_SEPARATOR);
-            if (cloudEvent.getExtension(ceKey) != null && StringUtils.isNotEmpty(cloudEvent.getExtension(ceKey).toString())) {
-                MessageAccessor.putProperty(msg, sysPropKey, Objects.requireNonNull(cloudEvent.getExtension(ceKey)).toString());
+
+    private String buildReaderId(String instanceName) {
+        return String.format("%s-reader", instanceName).replaceAll("\\(", "-").replaceAll("\\)", "-");
+    }
+
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
@@ -9466,6 +9343,18 @@ in `eventmesh-connector-plugin/eventmesh-connector-rocketmq/src/main/java/org/ap
                         String tmpPropKey = sysPropKey.toLowerCase().replaceAll("_", Constants.MESSAGE_PROP_SEPARATOR);
                         MessageAccessor.putProperty(message, tmpPropKey, prop);
                         message.getProperties().remove(sysPropKey);
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `eventmesh-connector-plugin/eventmesh-connector-rocketmq/src/main/java/org/apache/eventmesh/connector/rocketmq/producer/ProducerImpl.java`
+#### Snippet
+```java
+    private Message supplySysProp(Message msg, CloudEvent cloudEvent) {
+        for (String sysPropKey : MessageConst.STRING_HASH_SET) {
+            String ceKey = sysPropKey.toLowerCase().replaceAll("_", Constants.MESSAGE_PROP_SEPARATOR);
+            if (cloudEvent.getExtension(ceKey) != null && StringUtils.isNotEmpty(Objects.requireNonNull(cloudEvent.getExtension(ceKey)).toString())) {
+                MessageAccessor.putProperty(msg, sysPropKey, Objects.requireNonNull(cloudEvent.getExtension(ceKey)).toString());
 ```
 
 ## RuleId[ruleID=UnnecessaryFullyQualifiedName]
@@ -9582,6 +9471,30 @@ Qualifier `org.apache.rocketmq.common.message` is unnecessary and can be removed
 in `eventmesh-connector-plugin/eventmesh-connector-rocketmq/src/main/java/org/apache/eventmesh/connector/rocketmq/producer/ProducerImpl.java`
 #### Snippet
 ```java
+
+        this.checkProducerServiceState(this.rocketmqProducer.getDefaultMQProducerImpl());
+        org.apache.rocketmq.common.message.Message msg =
+                RocketMQMessageFactory.createWriter(Objects.requireNonNull(cloudEvent.getSubject())).writeBinary(cloudEvent);
+
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.rocketmq.common.message` is unnecessary and can be removed
+in `eventmesh-connector-plugin/eventmesh-connector-rocketmq/src/main/java/org/apache/eventmesh/connector/rocketmq/producer/ProducerImpl.java`
+#### Snippet
+```java
+    public void reply(final CloudEvent cloudEvent, final SendCallback sendCallback) {
+        this.checkProducerServiceState(this.rocketmqProducer.getDefaultMQProducerImpl());
+        org.apache.rocketmq.common.message.Message msg =
+                RocketMQMessageFactory.createWriter(Objects.requireNonNull(cloudEvent.getSubject())).writeBinary(cloudEvent);
+        MessageAccessor.putProperty(msg, MessageConst.PROPERTY_MESSAGE_TYPE, MixAll.REPLY_MESSAGE_FLAG);
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.rocketmq.common.message` is unnecessary and can be removed
+in `eventmesh-connector-plugin/eventmesh-connector-rocketmq/src/main/java/org/apache/eventmesh/connector/rocketmq/producer/ProducerImpl.java`
+#### Snippet
+```java
     public void sendAsync(CloudEvent cloudEvent, SendCallback sendCallback) {
         this.checkProducerServiceState(this.rocketmqProducer.getDefaultMQProducerImpl());
         org.apache.rocketmq.common.message.Message msg =
@@ -9594,20 +9507,8 @@ Qualifier `org.apache.rocketmq.common.message` is unnecessary and can be removed
 in `eventmesh-connector-plugin/eventmesh-connector-rocketmq/src/main/java/org/apache/eventmesh/connector/rocketmq/producer/ProducerImpl.java`
 #### Snippet
 ```java
-
+    public void sendOneway(CloudEvent cloudEvent) {
         this.checkProducerServiceState(this.rocketmqProducer.getDefaultMQProducerImpl());
-        org.apache.rocketmq.common.message.Message msg =
-                RocketMQMessageFactory.createWriter(Objects.requireNonNull(cloudEvent.getSubject())).writeBinary(cloudEvent);
-
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.rocketmq.common.message` is unnecessary and can be removed
-in `eventmesh-connector-plugin/eventmesh-connector-rocketmq/src/main/java/org/apache/eventmesh/connector/rocketmq/producer/ProducerImpl.java`
-#### Snippet
-```java
-    public SendResult send(CloudEvent cloudEvent) {
-        this.checkProducerServiceState(rocketmqProducer.getDefaultMQProducerImpl());
         org.apache.rocketmq.common.message.Message msg =
                 RocketMQMessageFactory.createWriter(Objects.requireNonNull(cloudEvent.getSubject())).writeBinary(cloudEvent);
         supplySysProp(msg, cloudEvent);
@@ -9630,20 +9531,8 @@ Qualifier `org.apache.rocketmq.common.message` is unnecessary and can be removed
 in `eventmesh-connector-plugin/eventmesh-connector-rocketmq/src/main/java/org/apache/eventmesh/connector/rocketmq/producer/ProducerImpl.java`
 #### Snippet
 ```java
-    public void reply(final CloudEvent cloudEvent, final SendCallback sendCallback) {
-        this.checkProducerServiceState(this.rocketmqProducer.getDefaultMQProducerImpl());
-        org.apache.rocketmq.common.message.Message msg =
-                RocketMQMessageFactory.createWriter(Objects.requireNonNull(cloudEvent.getSubject())).writeBinary(cloudEvent);
-        MessageAccessor.putProperty(msg, MessageConst.PROPERTY_MESSAGE_TYPE, MixAll.REPLY_MESSAGE_FLAG);
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.rocketmq.common.message` is unnecessary and can be removed
-in `eventmesh-connector-plugin/eventmesh-connector-rocketmq/src/main/java/org/apache/eventmesh/connector/rocketmq/producer/ProducerImpl.java`
-#### Snippet
-```java
-    public void sendOneway(CloudEvent cloudEvent) {
-        this.checkProducerServiceState(this.rocketmqProducer.getDefaultMQProducerImpl());
+    public SendResult send(CloudEvent cloudEvent) {
+        this.checkProducerServiceState(rocketmqProducer.getDefaultMQProducerImpl());
         org.apache.rocketmq.common.message.Message msg =
                 RocketMQMessageFactory.createWriter(Objects.requireNonNull(cloudEvent.getSubject())).writeBinary(cloudEvent);
         supplySysProp(msg, cloudEvent);
@@ -9656,7 +9545,7 @@ in `eventmesh-connector-plugin/eventmesh-connector-rocketmq/src/main/java/org/ap
 #### Snippet
 ```java
         } catch (Exception e) {
-            LOGGER.error("Error with msgConvertExt", e);
+            log.error("Error with msgConvertExt", e);
             e.printStackTrace();
         }
         return rmqMessageExt;
@@ -9737,18 +9626,6 @@ in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/protocol/t
 ```
 
 ### NonProtectedConstructorInAbstractClass
-Constructor `AbstractPushRequest()` of an abstract class should not be declared 'public'
-in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/protocol/grpc/push/AbstractPushRequest.java`
-#### Snippet
-```java
-    private final AtomicBoolean complete = new AtomicBoolean(Boolean.FALSE);
-
-    public AbstractPushRequest(HandleMsgContext handleMsgContext, Map<String, Set<AbstractPushRequest>> waitingRequests) {
-        this.eventMeshGrpcServer = handleMsgContext.getEventMeshGrpcServer();
-        this.handleMsgContext = handleMsgContext;
-```
-
-### NonProtectedConstructorInAbstractClass
 Constructor `AbstractHTTPServer()` of an abstract class should not be declared 'public'
 in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/boot/AbstractHTTPServer.java`
 #### Snippet
@@ -9758,6 +9635,18 @@ in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/boot/AbstractHT
     public AbstractHTTPServer(final int port, final boolean useTLS,
                               final EventMeshHTTPConfiguration eventMeshHttpConfiguration) {
         super();
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `AbstractPushRequest()` of an abstract class should not be declared 'public'
+in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/protocol/grpc/push/AbstractPushRequest.java`
+#### Snippet
+```java
+    private final AtomicBoolean complete = new AtomicBoolean(Boolean.FALSE);
+
+    public AbstractPushRequest(HandleMsgContext handleMsgContext, Map<String, Set<AbstractPushRequest>> waitingRequests) {
+        this.eventMeshGrpcServer = handleMsgContext.getEventMeshGrpcServer();
+        this.handleMsgContext = handleMsgContext;
 ```
 
 ### NonProtectedConstructorInAbstractClass
@@ -9773,18 +9662,6 @@ in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/protocol/h
 ```
 
 ### NonProtectedConstructorInAbstractClass
-Constructor `AbstractEventProcessor()` of an abstract class should not be declared 'public'
-in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/protocol/http/processor/inf/AbstractEventProcessor.java`
-#### Snippet
-```java
-    protected transient EventMeshHTTPServer eventMeshHTTPServer;
-
-    public AbstractEventProcessor(EventMeshHTTPServer eventMeshHTTPServer) {
-        this.eventMeshHTTPServer = eventMeshHTTPServer;
-    }
-```
-
-### NonProtectedConstructorInAbstractClass
 Constructor `AbstractHttpHandler()` of an abstract class should not be declared 'public'
 in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/admin/handler/AbstractHttpHandler.java`
 #### Snippet
@@ -9797,14 +9674,14 @@ in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/admin/handler/A
 ```
 
 ### NonProtectedConstructorInAbstractClass
-Constructor `AbstractEventMeshTCPPubHandler()` of an abstract class should not be declared 'public'
-in `eventmesh-sdk-java/src/main/java/org/apache/eventmesh/client/tcp/impl/AbstractEventMeshTCPPubHandler.java`
+Constructor `AbstractEventProcessor()` of an abstract class should not be declared 'public'
+in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/protocol/http/processor/inf/AbstractEventProcessor.java`
 #### Snippet
 ```java
-    private final ConcurrentHashMap<Object, RequestContext> contexts;
+    protected transient EventMeshHTTPServer eventMeshHTTPServer;
 
-    public AbstractEventMeshTCPPubHandler(ConcurrentHashMap<Object, RequestContext> contexts) {
-        this.contexts = contexts;
+    public AbstractEventProcessor(EventMeshHTTPServer eventMeshHTTPServer) {
+        this.eventMeshHTTPServer = eventMeshHTTPServer;
     }
 ```
 
@@ -9816,6 +9693,18 @@ in `eventmesh-sdk-java/src/main/java/org/apache/eventmesh/client/tcp/impl/Abstra
     protected final ConcurrentHashMap<Object, RequestContext> contexts;
 
     public AbstractEventMeshTCPSubHandler(ConcurrentHashMap<Object, RequestContext> contexts) {
+        this.contexts = contexts;
+    }
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `AbstractEventMeshTCPPubHandler()` of an abstract class should not be declared 'public'
+in `eventmesh-sdk-java/src/main/java/org/apache/eventmesh/client/tcp/impl/AbstractEventMeshTCPPubHandler.java`
+#### Snippet
+```java
+    private final ConcurrentHashMap<Object, RequestContext> contexts;
+
+    public AbstractEventMeshTCPPubHandler(ConcurrentHashMap<Object, RequestContext> contexts) {
         this.contexts = contexts;
     }
 ```
@@ -9833,18 +9722,6 @@ in `eventmesh-sdk-java/src/main/java/org/apache/eventmesh/client/tcp/common/TcpC
 ```
 
 ### NonProtectedConstructorInAbstractClass
-Constructor `AbstractProducerHttpClient()` of an abstract class should not be declared 'public'
-in `eventmesh-sdk-java/src/main/java/org/apache/eventmesh/client/http/AbstractProducerHttpClient.java`
-#### Snippet
-```java
-public abstract class AbstractProducerHttpClient<T> extends AbstractHttpClient implements EventMeshProtocolProducer<T> {
-
-    public AbstractProducerHttpClient(final EventMeshHttpClientConfig eventMeshHttpClientConfig)
-            throws EventMeshException {
-        super(eventMeshHttpClientConfig);
-```
-
-### NonProtectedConstructorInAbstractClass
 Constructor `AbstractHttpClient()` of an abstract class should not be declared 'public'
 in `eventmesh-sdk-java/src/main/java/org/apache/eventmesh/client/http/AbstractHttpClient.java`
 #### Snippet
@@ -9856,7 +9733,31 @@ in `eventmesh-sdk-java/src/main/java/org/apache/eventmesh/client/http/AbstractHt
         Objects.requireNonNull(eventMeshHttpClientConfig.getLiteEventMeshAddr(), "liteServerAddr can't be null");
 ```
 
+### NonProtectedConstructorInAbstractClass
+Constructor `AbstractProducerHttpClient()` of an abstract class should not be declared 'public'
+in `eventmesh-sdk-java/src/main/java/org/apache/eventmesh/client/http/AbstractProducerHttpClient.java`
+#### Snippet
+```java
+public abstract class AbstractProducerHttpClient<T> extends AbstractHttpClient implements EventMeshProtocolProducer<T> {
+
+    public AbstractProducerHttpClient(final EventMeshHttpClientConfig eventMeshHttpClientConfig)
+            throws EventMeshException {
+        super(eventMeshHttpClientConfig);
+```
+
 ## RuleId[ruleID=Java8MapApi]
+### Java8MapApi
+Can be replaced with single 'Map.computeIfAbsent' method call
+in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/protocol/http/processor/UnSubscribeProcessor.java`
+#### Snippet
+```java
+
+                            List<String> urls = idcUrls.get(client.getIdc());
+                            if (urls == null) {
+                                urls = new ArrayList<String>();
+                                idcUrls.put(client.getIdc(), urls);
+```
+
 ### Java8MapApi
 Can be replaced with single 'Map.computeIfAbsent' method call
 in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/protocol/http/processor/LocalUnSubscribeEventProcessor.java`
@@ -9881,26 +9782,14 @@ in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/protocol/h
                                 idcUrls.put(client.getIdc(), urls);
 ```
 
-### Java8MapApi
-Can be replaced with single 'Map.computeIfAbsent' method call
-in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/protocol/http/processor/UnSubscribeProcessor.java`
-#### Snippet
-```java
-
-                            List<String> urls = idcUrls.get(client.getIdc());
-                            if (urls == null) {
-                                urls = new ArrayList<String>();
-                                idcUrls.put(client.getIdc(), urls);
-```
-
 ## RuleId[ruleID=Convert2Lambda]
 ### Convert2Lambda
 Anonymous new Runnable() can be replaced with lambda
 in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/protocol/tcp/client/EventMeshTcp2Client.java`
 #### Snippet
 ```java
-            pkg.setHeader(new Header(REDIRECT_TO_CLIENT, OPStatus.SUCCESS.getCode(), null, null));
-            pkg.setBody(new RedirectInfo(newEventMeshIp, port));
+            Package msg = new Package();
+            msg.setHeader(new Header(SERVER_GOODBYE_REQUEST, eventMeshStatus, errMsg, null));
             eventMeshTCPServer.getScheduler().schedule(new Runnable() {
                 @Override
                 public void run() {
@@ -9911,9 +9800,9 @@ Anonymous new Runnable() can be replaced with lambda
 in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/protocol/tcp/client/EventMeshTcp2Client.java`
 #### Snippet
 ```java
-            Package msg = new Package();
-            msg.setHeader(new Header(SERVER_GOODBYE_REQUEST, eventMeshStatus, errMsg, null));
-            eventMeshTCPServer.getScheduler().schedule(new Runnable() {
+                    "graceful normal quit from eventmesh", null));
+
+            eventMeshTCPServer.getScheduler().submit(new Runnable() {
                 @Override
                 public void run() {
 ```
@@ -9935,9 +9824,9 @@ Anonymous new Runnable() can be replaced with lambda
 in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/protocol/tcp/client/EventMeshTcp2Client.java`
 #### Snippet
 ```java
-                    "graceful normal quit from eventmesh", null));
-
-            eventMeshTCPServer.getScheduler().submit(new Runnable() {
+            pkg.setHeader(new Header(REDIRECT_TO_CLIENT, OPStatus.SUCCESS.getCode(), null, null));
+            pkg.setBody(new RedirectInfo(newEventMeshIp, port));
+            eventMeshTCPServer.getScheduler().schedule(new Runnable() {
                 @Override
                 public void run() {
 ```
@@ -9966,42 +9855,6 @@ in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/protocol/t
                                 public void run() {
 ```
 
-### Convert2Lambda
-Anonymous new Runnable() can be replaced with lambda
-in `eventmesh-connector-plugin/eventmesh-connector-rocketmq/src/main/java/org/apache/rocketmq/client/impl/consumer/ConsumeMessageConcurrentlyService.java`
-#### Snippet
-```java
-    ) {
-
-        this.scheduledExecutorService.schedule(new Runnable() {
-
-            @Override
-```
-
-### Convert2Lambda
-Anonymous new Runnable() can be replaced with lambda
-in `eventmesh-connector-plugin/eventmesh-connector-rocketmq/src/main/java/org/apache/rocketmq/client/impl/consumer/ConsumeMessageConcurrentlyService.java`
-#### Snippet
-```java
-        log.warn("rejected by thread pool, try resubmit {} times, consumerGroup:{}", times,
-            defaultMQPushConsumerImpl.getDefaultMQPushConsumer().getConsumerGroup());
-        this.scheduledExecutorService.schedule(new Runnable() {
-
-            @Override
-```
-
-### Convert2Lambda
-Anonymous new Runnable() can be replaced with lambda
-in `eventmesh-connector-plugin/eventmesh-connector-rocketmq/src/main/java/org/apache/rocketmq/client/impl/consumer/ConsumeMessageConcurrentlyService.java`
-#### Snippet
-```java
-    public void start() {
-        if (this.defaultMQPushConsumer.getConsumeTimeout() > 0) {
-            this.cleanExpireMsgExecutors.scheduleAtFixedRate(new Runnable() {
-
-                @Override
-```
-
 ## RuleId[ruleID=AssignmentToMethodParameter]
 ### AssignmentToMethodParameter
 Assignment to method parameter `needReload`
@@ -10023,8 +9876,8 @@ in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/protocol/t
     private CloudEvent addTimestamp(CloudEvent event, Command cmd, long sendTime) {
         if (cmd == RESPONSE_TO_SERVER) {
             event = CloudEventBuilder.from(event)
-                    .withExtension(EventMeshConstants.RSP_C2EVENTMESH_TIMESTAMP,
-                            String.valueOf(startTime))
+                .withExtension(EventMeshConstants.RSP_C2EVENTMESH_TIMESTAMP,
+                    String.valueOf(startTime))
 ```
 
 ### AssignmentToMethodParameter
@@ -10032,11 +9885,11 @@ Assignment to method parameter `event`
 in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/protocol/tcp/client/task/MessageTransferTask.java`
 #### Snippet
 ```java
-                    .build();
+                .build();
         } else {
             event = CloudEventBuilder.from(event)
-                    .withExtension(EventMeshConstants.REQ_C2EVENTMESH_TIMESTAMP,
-                            String.valueOf(startTime))
+                .withExtension(EventMeshConstants.REQ_C2EVENTMESH_TIMESTAMP,
+                    String.valueOf(startTime))
 ```
 
 ### AssignmentToMethodParameter
@@ -10049,6 +9902,18 @@ in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/protocol/t
                         header = new Header(LISTEN_RESPONSE, OPStatus.SUCCESS.getCode(), "succeed", null);
                     }
                     Package msg = new Package();
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `event`
+in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/protocol/tcp/client/session/send/SessionSender.java`
+#### Snippet
+```java
+                        String replyTopic = EventMeshConstants.RR_REPLY_TOPIC;
+                        replyTopic = cluster + "-" + replyTopic;
+                        event = CloudEventBuilder.from(event).withSubject(replyTopic).build();
+                    }
+
 ```
 
 ### AssignmentToMethodParameter
@@ -10073,18 +9938,6 @@ in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/protocol/t
                 event = CloudEventBuilder.from(event)
                         .withExtension(EventMeshConstants.RSP_EVENTMESH2C_TIMESTAMP, String.valueOf(System.currentTimeMillis()))
                         .build();
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `event`
-in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/protocol/tcp/client/session/send/SessionSender.java`
-#### Snippet
-```java
-                        String replyTopic = EventMeshConstants.RR_REPLY_TOPIC;
-                        replyTopic = cluster + "-" + replyTopic;
-                        event = CloudEventBuilder.from(event).withSubject(replyTopic).build();
-                    }
-
 ```
 
 ### AssignmentToMethodParameter
@@ -10203,11 +10056,11 @@ Return of `null`
 in `eventmesh-spi/src/main/java/org/apache/eventmesh/spi/EventMeshExtensionFactory.java`
 #### Snippet
 ```java
+        Class<T> extensionInstanceClass = getExtensionInstanceClass(extensionType, extensionInstanceName);
+        if (extensionInstanceClass == null) {
+            return null;
+        }
         try {
-            if (extensionInstanceClass == null) {
-                return null;
-            }
-            T extensionInstance = extensionInstanceClass.getDeclaredConstructor().newInstance();
 ```
 
 ### ReturnNull
@@ -10263,8 +10116,8 @@ Return of `null`
 in `eventmesh-common/src/main/java/org/apache/eventmesh/common/utils/JsonUtils.java`
 #### Snippet
 ```java
-    public static <T> T deserialize(String str, TypeReference<T> typeReference) {
-        if (StringUtils.isEmpty(str)) {
+    public static <T> T parseObject(byte[] bytes, Class<T> clazz) {
+        if (bytes == null || bytes.length == 0) {
             return null;
         }
         try {
@@ -10275,8 +10128,8 @@ Return of `null`
 in `eventmesh-common/src/main/java/org/apache/eventmesh/common/utils/JsonUtils.java`
 #### Snippet
 ```java
-    public static <T> byte[] serialize(String topic, Class<T> data) throws JsonProcessingException {
-        if (Objects.isNull(data)) {
+    public static <T> T parseObject(String text, Class<T> clazz) {
+        if (StringUtils.isEmpty(text)) {
             return null;
         }
         try {
@@ -10287,7 +10140,19 @@ Return of `null`
 in `eventmesh-common/src/main/java/org/apache/eventmesh/common/utils/JsonUtils.java`
 #### Snippet
 ```java
-    public static String serialize(Object obj) {
+    public static <T> T parseTypeReferenceObject(String text, TypeReference<T> typeReference) {
+        if (StringUtils.isEmpty(text)) {
+            return null;
+        }
+        try {
+```
+
+### ReturnNull
+Return of `null`
+in `eventmesh-common/src/main/java/org/apache/eventmesh/common/utils/JsonUtils.java`
+#### Snippet
+```java
+    public static String toJSONString(Object obj) {
         if (Objects.isNull(obj)) {
             return null;
         }
@@ -10299,8 +10164,8 @@ Return of `null`
 in `eventmesh-common/src/main/java/org/apache/eventmesh/common/utils/JsonUtils.java`
 #### Snippet
 ```java
-    public static JsonNode getJsonNode(String json) {
-        if (StringUtils.isEmpty(json)) {
+    public static byte[] toJSONBytes(Object obj) {
+        if (Objects.isNull(obj)) {
             return null;
         }
         try {
@@ -10311,8 +10176,8 @@ Return of `null`
 in `eventmesh-common/src/main/java/org/apache/eventmesh/common/utils/JsonUtils.java`
 #### Snippet
 ```java
-    public static <T> T deserialize(String json, Class<T> clz) {
-        if (StringUtils.isEmpty(json)) {
+    public static JsonNode getJsonNode(String text) {
+        if (StringUtils.isEmpty(text)) {
             return null;
         }
         try {
@@ -10320,14 +10185,14 @@ in `eventmesh-common/src/main/java/org/apache/eventmesh/common/utils/JsonUtils.j
 
 ### ReturnNull
 Return of `null`
-in `eventmesh-common/src/main/java/org/apache/eventmesh/common/utils/JsonUtils.java`
+in `eventmesh-common/src/main/java/org/apache/eventmesh/common/utils/IPUtils.java`
 #### Snippet
 ```java
-    public static <T> T deserialize(Class<T> clazz, byte[] bytes) {
-        if (bytes == null || bytes.length == 0) {
-            return null;
+            log.error("socket or unknown host exception:", e);
         }
-        try {
+        return null;
+    }
+
 ```
 
 ### ReturnNull
@@ -10336,22 +10201,10 @@ in `eventmesh-common/src/main/java/org/apache/eventmesh/common/utils/IPUtils.jav
 #### Snippet
 ```java
         } catch (MalformedURLException e) {
-            LOG.error("Invalid URL format url={}", url, e);
+            log.error("Invalid URL format url={}", url, e);
             return null;
         }
     }
-```
-
-### ReturnNull
-Return of `null`
-in `eventmesh-common/src/main/java/org/apache/eventmesh/common/utils/IPUtils.java`
-#### Snippet
-```java
-            LOG.error("socket or unknown host exception:", e);
-        }
-        return null;
-    }
-
 ```
 
 ### ReturnNull
@@ -10383,7 +10236,7 @@ Return of `null`
 in `eventmesh-common/src/main/java/org/apache/eventmesh/common/protocol/tcp/codec/Codec.java`
 #### Snippet
 ```java
-                    LOG.warn("Invalidate TCP command: {}", command);
+                    log.warn("Invalidate TCP command: {}", command);
                 }
                 return null;
         }
@@ -10504,7 +10357,7 @@ in `eventmesh-common/src/main/java/org/apache/eventmesh/common/loadbalance/Weigh
 #### Snippet
 ```java
         if (CollectionUtils.isEmpty(clusterGroup)) {
-            LOG.warn("No servers available");
+            log.warn("No servers available");
             return null;
         }
         Weight<T> targetWeight = null;
@@ -10516,7 +10369,7 @@ in `eventmesh-common/src/main/java/org/apache/eventmesh/common/loadbalance/Rando
 #### Snippet
 ```java
         if (CollectionUtils.isEmpty(clusterGroup)) {
-            LOG.warn("No servers available");
+            log.warn("No servers available");
             return null;
         }
         return clusterGroup.get(ThreadLocalRandom.current().nextInt(clusterGroup.size()));
@@ -10524,23 +10377,11 @@ in `eventmesh-common/src/main/java/org/apache/eventmesh/common/loadbalance/Rando
 
 ### ReturnNull
 Return of `null`
-in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/acl/Acl.java`
-#### Snippet
-```java
-            return serviceLoader.iterator().next();
-        }
-        return null;
-    }
-}
-```
-
-### ReturnNull
-Return of `null`
 in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/protocol/tcp/client/EventMeshTcp2Client.java`
 #### Snippet
 ```java
         } catch (Exception e) {
-            LOGGER.error("exception occur while redirectClient2NewEventMesh", e);
+            log.error("exception occur while goodbye2client", e);
             return null;
         }
     }
@@ -10552,7 +10393,7 @@ in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/protocol/t
 #### Snippet
 ```java
         } catch (Exception e) {
-            LOGGER.error("exception occur while goodbye2client", e);
+            log.error("exception occur while serverGoodby2Client", e);
             return null;
         }
     }
@@ -10564,7 +10405,7 @@ in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/protocol/t
 #### Snippet
 ```java
         } catch (Exception e) {
-            LOGGER.error("exception occur while serverGoodby2Client", e);
+            log.error("exception occur while redirectClient2NewEventMesh", e);
             return null;
         }
     }
@@ -10599,35 +10440,11 @@ Return of `null`
 in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/protocol/tcp/client/group/dispatch/FreePriorityDispatchStrategy.java`
 #### Snippet
 ```java
-                    LOGGER.warn("all sessions can't downstream msg");
+                    log.warn("all sessions can't downstream msg");
                 }
                 return null;
             } else {
-                if (LOGGER.isWarnEnabled()) {
-```
-
-### ReturnNull
-Return of `null`
-in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/protocol/grpc/push/AbstractPushRequest.java`
-#### Snippet
-```java
-        } catch (Exception e) {
-            LOGGER.error("Error in getting EventMeshMessage from CloudEvent", e);
-            return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/protocol/grpc/push/AbstractPushRequest.java`
-#### Snippet
-```java
-        } catch (Exception e) {
-            LOGGER.error("Error in getting CloudEvent from EventMeshMessage", e);
-            return null;
-        }
-    }
+                if (log.isWarnEnabled()) {
 ```
 
 ### ReturnNull
@@ -10644,6 +10461,30 @@ in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/boot/AbstractHT
 
 ### ReturnNull
 Return of `null`
+in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/protocol/grpc/push/AbstractPushRequest.java`
+#### Snippet
+```java
+        } catch (Exception e) {
+            log.error("Error in getting EventMeshMessage from CloudEvent", e);
+            return null;
+        }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/protocol/grpc/push/AbstractPushRequest.java`
+#### Snippet
+```java
+        } catch (Exception e) {
+            log.error("Error in getting CloudEvent from EventMeshMessage", e);
+            return null;
+        }
+    }
+```
+
+### ReturnNull
+Return of `null`
 in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/protocol/http/push/AbstractHTTPPushRequest.java`
 #### Snippet
 ```java
@@ -10651,90 +10492,6 @@ in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/protocol/h
 
         return null;
     }
-
-```
-
-### ReturnNull
-Return of `null`
-in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/protocol/tcp/client/rebalance/EventmeshRebalanceImpl.java`
-#### Snippet
-```java
-                logger.warn("doRebalance failed,found no distribute data in regitry, cluster:{}, group:{}, purpose:{}",
-                        cluster, group, purpose);
-                return null;
-            }
-
-```
-
-### ReturnNull
-Return of `null`
-in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/protocol/tcp/client/rebalance/EventmeshRebalanceImpl.java`
-#### Snippet
-```java
-                logger.warn("doRebalance failed,found no distribute data of localIDC in regitry,cluster:{},group:{}, purpose:{},localIDC:{}",
-                        cluster, group, purpose, localIdc);
-                return null;
-            }
-
-```
-
-### ReturnNull
-Return of `null`
-in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/protocol/tcp/client/rebalance/EventmeshRebalanceImpl.java`
-#### Snippet
-```java
-                                    + "distributionMap,cluster:{},grpup:{},purpose:{},eventMeshName:{}",
-                            cluster, group, purpose, eventMeshName);
-                    return null;
-                }
-            }
-```
-
-### ReturnNull
-Return of `null`
-in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/protocol/tcp/client/rebalance/EventmeshRebalanceImpl.java`
-#### Snippet
-```java
-            logger.warn("doRebalance failed,cluster:{},group:{},purpose:{},findProxyClientDistributionData failed, errMsg:{}",
-                    cluster, group, purpose, e);
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/protocol/tcp/client/rebalance/EventmeshRebalanceImpl.java`
-#### Snippet
-```java
-            if (eventMeshDataInfoList == null || CollectionUtils.isEmpty(eventMeshDataInfoList)) {
-                logger.warn("doRebalance failed,query eventmesh instances is null from registry,cluster:{}", cluster);
-                return null;
-            }
-            localEventMeshMap = new HashMap<>();
-```
-
-### ReturnNull
-Return of `null`
-in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/protocol/tcp/client/rebalance/EventmeshRebalanceImpl.java`
-#### Snippet
-```java
-                logger.warn("doRebalance failed,query eventmesh instances of localIDC is null from registry,localIDC:{},cluster:{}",
-                        localIdc, cluster);
-                return null;
-            }
-        } catch (Exception e) {
-```
-
-### ReturnNull
-Return of `null`
-in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/protocol/tcp/client/rebalance/EventmeshRebalanceImpl.java`
-#### Snippet
-```java
-        } catch (Exception e) {
-            logger.warn("doRebalance failed,findEventMeshInfoByCluster failed,cluster:{},errMsg:{}", cluster, e);
-            return null;
-        }
 
 ```
 
@@ -10824,6 +10581,90 @@ in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/protocol/t
 
 ### ReturnNull
 Return of `null`
+in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/protocol/tcp/client/rebalance/EventmeshRebalanceImpl.java`
+#### Snippet
+```java
+            if (eventMeshDataInfoList == null || CollectionUtils.isEmpty(eventMeshDataInfoList)) {
+                log.warn("doRebalance failed,query eventmesh instances is null from registry,cluster:{}", cluster);
+                return null;
+            }
+            localEventMeshMap = new HashMap<>();
+```
+
+### ReturnNull
+Return of `null`
+in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/protocol/tcp/client/rebalance/EventmeshRebalanceImpl.java`
+#### Snippet
+```java
+                log.warn("doRebalance failed,query eventmesh instances of localIDC is null from registry,localIDC:{},cluster:{}",
+                        localIdc, cluster);
+                return null;
+            }
+        } catch (Exception e) {
+```
+
+### ReturnNull
+Return of `null`
+in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/protocol/tcp/client/rebalance/EventmeshRebalanceImpl.java`
+#### Snippet
+```java
+        } catch (Exception e) {
+            log.warn("doRebalance failed,findEventMeshInfoByCluster failed,cluster:{},errMsg:{}", cluster, e);
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/protocol/tcp/client/rebalance/EventmeshRebalanceImpl.java`
+#### Snippet
+```java
+                log.warn("doRebalance failed,found no distribute data in regitry, cluster:{}, group:{}, purpose:{}",
+                        cluster, group, purpose);
+                return null;
+            }
+
+```
+
+### ReturnNull
+Return of `null`
+in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/protocol/tcp/client/rebalance/EventmeshRebalanceImpl.java`
+#### Snippet
+```java
+                log.warn("doRebalance failed,found no distribute data of localIDC in regitry,cluster:{},group:{}, purpose:{},localIDC:{}",
+                        cluster, group, purpose, localIdc);
+                return null;
+            }
+
+```
+
+### ReturnNull
+Return of `null`
+in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/protocol/tcp/client/rebalance/EventmeshRebalanceImpl.java`
+#### Snippet
+```java
+                                    + "distributionMap,cluster:{},grpup:{},purpose:{},eventMeshName:{}",
+                            cluster, group, purpose, eventMeshName);
+                    return null;
+                }
+            }
+```
+
+### ReturnNull
+Return of `null`
+in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/protocol/tcp/client/rebalance/EventmeshRebalanceImpl.java`
+#### Snippet
+```java
+            log.warn("doRebalance failed,cluster:{},group:{},purpose:{},findProxyClientDistributionData failed, errMsg:{}",
+                    cluster, group, purpose, e);
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
 in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/protocol/http/processor/AsyncHttpProcessor.java`
 #### Snippet
 ```java
@@ -10860,61 +10701,13 @@ in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/util/WebhookUti
 
 ### ReturnNull
 Return of `null`
-in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/admin/utils/JsonUtils.java`
+in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/util/HttpTinyClient.java`
 #### Snippet
 ```java
-    public static String toJson(Object obj) throws JsonProcessingException {
-        if (obj == null) {
+        StringBuilder sb = new StringBuilder();
+        if (null == paramValues) {
             return null;
         }
-        return objectMapper.writeValueAsString(obj);
-```
-
-### ReturnNull
-Return of `null`
-in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/admin/utils/JsonUtils.java`
-#### Snippet
-```java
-    public static <T> T deserialize(Class<T> clazz, byte[] bytes) throws IOException {
-        if (bytes == null || bytes.length == 0) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/admin/utils/JsonUtils.java`
-#### Snippet
-```java
-    public static <T> byte[] serialize(String topic, Class<T> data) throws JsonProcessingException {
-        if (data == null) {
-            return null;
-        }
-        return objectMapper.writeValueAsBytes(data);
-```
-
-### ReturnNull
-Return of `null`
-in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/admin/utils/JsonUtils.java`
-#### Snippet
-```java
-    public static <T> T deserialize(Class<T> clazz, String json) throws IOException {
-        if (json == null || json.length() == 0) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/util/EventMeshUtil.java`
-#### Snippet
-```java
-        }
-
-        return null;
-    }
 
 ```
 
@@ -10944,13 +10737,25 @@ in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/util/EventMeshU
 
 ### ReturnNull
 Return of `null`
-in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/util/HttpTinyClient.java`
+in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/util/EventMeshUtil.java`
 #### Snippet
 ```java
-        StringBuilder sb = new StringBuilder();
-        if (null == paramValues) {
-            return null;
         }
+
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/protocol/http/processor/HandlerService.java`
+#### Snippet
+```java
+            }
+        }
+        return null;
+    }
 
 ```
 
@@ -10968,13 +10773,109 @@ in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/admin/handler/E
 
 ### ReturnNull
 Return of `null`
-in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/protocol/http/processor/HandlerService.java`
+in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/trace/Trace.java`
 #### Snippet
 ```java
-            }
+    public Span addTraceInfoToSpan(ChannelHandlerContext ctx, CloudEvent cloudEvent) {
+        if (!useTrace) {
+            return null;
         }
-        return null;
-    }
+        Context context = ctx.channel().attr(AttributeKeys.SERVER_CONTEXT).get();
+```
+
+### ReturnNull
+Return of `null`
+in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/trace/Trace.java`
+#### Snippet
+```java
+        if (span == null) {
+            log.warn("span is null when finishSpan");
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/trace/Trace.java`
+#### Snippet
+```java
+    public Span addTraceInfoToSpan(Span span, CloudEvent cloudEvent) {
+        if (!useTrace) {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/trace/Trace.java`
+#### Snippet
+```java
+        if (span == null) {
+            log.warn("span is null when finishSpan");
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/trace/Trace.java`
+#### Snippet
+```java
+    public Span addTraceInfoToSpan(Span span, Map<String, Object> map) {
+        if (!useTrace) {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/trace/Trace.java`
+#### Snippet
+```java
+        if (span == null) {
+            log.warn("span is null when finishSpan");
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/trace/Trace.java`
+#### Snippet
+```java
+    public Context extractFrom(Context context, Map<String, Object> map) {
+        if (!useTrace) {
+            return null;
+        }
+        if (map == null) {
+```
+
+### ReturnNull
+Return of `null`
+in `eventmesh-webhook/eventmesh-webhook-admin/src/main/java/org/apache/eventmesh/webhook/admin/FileWebHookConfigOperation.java`
+#### Snippet
+```java
+                log.error("get webhook from file {} error", webhookConfigFile.getPath(), e);
+            }
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `eventmesh-webhook/eventmesh-webhook-admin/src/main/java/org/apache/eventmesh/webhook/admin/FileWebHookConfigOperation.java`
+#### Snippet
+```java
+                log.error("webhookConfig {} is not existed", webHookConfig.getCallbackPath());
+            }
+            return null;
+        }
 
 ```
 
@@ -10999,114 +10900,6 @@ in `eventmesh-webhook/eventmesh-webhook-receive/src/main/java/org/apache/eventme
         }
         return null;
     }
-
-```
-
-### ReturnNull
-Return of `null`
-in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/trace/Trace.java`
-#### Snippet
-```java
-    public Span addTraceInfoToSpan(Span span, CloudEvent cloudEvent) {
-        if (!useTrace) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/trace/Trace.java`
-#### Snippet
-```java
-        if (span == null) {
-            logger.warn("span is null when finishSpan");
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/trace/Trace.java`
-#### Snippet
-```java
-    public Context extractFrom(Context context, Map<String, Object> map) {
-        if (!useTrace) {
-            return null;
-        }
-        if (map == null) {
-```
-
-### ReturnNull
-Return of `null`
-in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/trace/Trace.java`
-#### Snippet
-```java
-    public Span addTraceInfoToSpan(Span span, Map<String, Object> map) {
-        if (!useTrace) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/trace/Trace.java`
-#### Snippet
-```java
-        if (span == null) {
-            logger.warn("span is null when finishSpan");
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/trace/Trace.java`
-#### Snippet
-```java
-    public Span addTraceInfoToSpan(ChannelHandlerContext ctx, CloudEvent cloudEvent) {
-        if (!useTrace) {
-            return null;
-        }
-        Context context = ctx.channel().attr(AttributeKeys.SERVER_CONTEXT).get();
-```
-
-### ReturnNull
-Return of `null`
-in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/trace/Trace.java`
-#### Snippet
-```java
-        if (span == null) {
-            logger.warn("span is null when finishSpan");
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `eventmesh-webhook/eventmesh-webhook-admin/src/main/java/org/apache/eventmesh/webhook/admin/FileWebHookConfigOperation.java`
-#### Snippet
-```java
-                log.error("webhookConfig {} is not existed", webHookConfig.getCallbackPath());
-            }
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `eventmesh-webhook/eventmesh-webhook-admin/src/main/java/org/apache/eventmesh/webhook/admin/FileWebHookConfigOperation.java`
-#### Snippet
-```java
-                log.error("get webhook from file {} error", webhookConfigFile.getPath(), e);
-            }
-            return null;
-        }
 
 ```
 
@@ -11151,6 +10944,18 @@ Return of `null`
 in `eventmesh-sdk-java/src/main/java/org/apache/eventmesh/client/grpc/producer/EventMeshGrpcProducer.java`
 #### Snippet
 ```java
+
+        if (CollectionUtils.isEmpty(messageList)) {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `eventmesh-sdk-java/src/main/java/org/apache/eventmesh/client/grpc/producer/EventMeshGrpcProducer.java`
+#### Snippet
+```java
             }
         }
         return null;
@@ -11185,42 +10990,6 @@ in `eventmesh-sdk-java/src/main/java/org/apache/eventmesh/client/grpc/producer/E
 ### ReturnNull
 Return of `null`
 in `eventmesh-sdk-java/src/main/java/org/apache/eventmesh/client/grpc/producer/EventMeshGrpcProducer.java`
-#### Snippet
-```java
-
-        if (CollectionUtils.isEmpty(messageList)) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `eventmesh-sdk-java/src/main/java/org/apache/eventmesh/client/grpc/producer/EventMeshGrpcProducer.java`
-#### Snippet
-```java
-            }
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `eventmesh-sdk-java/src/main/java/org/apache/eventmesh/client/grpc/producer/CloudEventProducer.java`
-#### Snippet
-```java
-                return (CloudEvent) msg;
-            } else {
-                return null;
-            }
-        } catch (Exception e) {
-```
-
-### ReturnNull
-Return of `null`
-in `eventmesh-sdk-java/src/main/java/org/apache/eventmesh/client/grpc/producer/CloudEventProducer.java`
 #### Snippet
 ```java
             }
@@ -11268,14 +11037,26 @@ in `eventmesh-sdk-java/src/main/java/org/apache/eventmesh/client/grpc/producer/C
 
 ### ReturnNull
 Return of `null`
-in `eventmesh-sdk-java/src/main/java/org/apache/eventmesh/client/http/producer/CloudEventProducer.java`
+in `eventmesh-sdk-java/src/main/java/org/apache/eventmesh/client/grpc/producer/CloudEventProducer.java`
 #### Snippet
 ```java
-            SendMessageResponseBody.ReplyMessage.class);
-        // todo: deserialize message
+                return (CloudEvent) msg;
+            } else {
+                return null;
+            }
+        } catch (Exception e) {
+```
+
+### ReturnNull
+Return of `null`
+in `eventmesh-sdk-java/src/main/java/org/apache/eventmesh/client/grpc/producer/CloudEventProducer.java`
+#### Snippet
+```java
+            }
+        }
         return null;
     }
-}
+
 ```
 
 ### ReturnNull
@@ -11292,14 +11073,14 @@ in `eventmesh-sdk-java/src/main/java/org/apache/eventmesh/client/http/producer/O
 
 ### ReturnNull
 Return of `null`
-in `eventmesh-trace-plugin/eventmesh-trace-pinpoint/src/main/java/org/apache/eventmesh/trace/pinpoint/exporter/PinpointSpanExporter.java`
+in `eventmesh-sdk-java/src/main/java/org/apache/eventmesh/client/http/producer/CloudEventProducer.java`
 #### Snippet
 ```java
-    private static String getEndpoint(final Resource resource) {
-        if (resource == null) {
-            return null;
-        }
-
+            SendMessageResponseBody.ReplyMessage.class);
+        // todo: deserialize message
+        return null;
+    }
+}
 ```
 
 ### ReturnNull
@@ -11311,6 +11092,18 @@ in `eventmesh-protocol-plugin/eventmesh-protocol-http/src/main/java/org/apache/e
         throws ProtocolHandleException {
         return null;
     }
+
+```
+
+### ReturnNull
+Return of `null`
+in `eventmesh-trace-plugin/eventmesh-trace-pinpoint/src/main/java/org/apache/eventmesh/trace/pinpoint/exporter/PinpointSpanExporter.java`
+#### Snippet
+```java
+    private static String getEndpoint(final Resource resource) {
+        if (resource == null) {
+            return null;
+        }
 
 ```
 
@@ -11379,31 +11172,31 @@ Return of `null`
 in `eventmesh-sdk-java/src/main/java/org/apache/eventmesh/client/grpc/consumer/EventMeshGrpcConsumer.java`
 #### Snippet
 ```java
+            log.error("Error in unsubscribe.", e);
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `eventmesh-sdk-java/src/main/java/org/apache/eventmesh/client/grpc/consumer/EventMeshGrpcConsumer.java`
+#### Snippet
+```java
+            log.error("Error in unsubscribe.", e);
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `eventmesh-sdk-java/src/main/java/org/apache/eventmesh/client/grpc/consumer/EventMeshGrpcConsumer.java`
+#### Snippet
+```java
             log.error("Error in subscribe.", e);
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `eventmesh-sdk-java/src/main/java/org/apache/eventmesh/client/grpc/consumer/EventMeshGrpcConsumer.java`
-#### Snippet
-```java
-            log.error("Error in unsubscribe.", e);
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `eventmesh-sdk-java/src/main/java/org/apache/eventmesh/client/grpc/consumer/EventMeshGrpcConsumer.java`
-#### Snippet
-```java
-            log.error("Error in unsubscribe.", e);
         }
         return null;
     }
@@ -11428,6 +11221,18 @@ in `eventmesh-registry-plugin/eventmesh-registry-etcd/src/main/java/org/apache/e
 #### Snippet
 ```java
             throws RegistryException {
+        // todo find metadata
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `eventmesh-registry-plugin/eventmesh-registry-zookeeper/src/main/java/org/apache/eventmesh/registry/zookeeper/service/ZookeeperRegistryService.java`
+#### Snippet
+```java
+        throws RegistryException {
         // todo find metadata
         return null;
     }
@@ -11472,18 +11277,6 @@ in `eventmesh-connector-plugin/eventmesh-connector-knative/src/main/java/org/apa
 
 ### ReturnNull
 Return of `null`
-in `eventmesh-registry-plugin/eventmesh-registry-zookeeper/src/main/java/org/apache/eventmesh/registry/zookeeper/service/ZookeeperRegistryService.java`
-#### Snippet
-```java
-        throws RegistryException {
-        // todo find metadata
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
 in `eventmesh-connector-plugin/eventmesh-connector-rocketmq/src/main/java/org/apache/eventmesh/connector/rocketmq/admin/RocketMQAdmin.java`
 #### Snippet
 ```java
@@ -11508,26 +11301,14 @@ in `eventmesh-connector-plugin/eventmesh-connector-rocketmq/src/main/java/org/ap
 
 ### ReturnNull
 Return of `null`
-in `eventmesh-connector-plugin/eventmesh-connector-rocketmq/src/main/java/org/apache/eventmesh/connector/rocketmq/cloudevent/RocketMQMessageFactory.java`
+in `eventmesh-connector-plugin/eventmesh-connector-standalone/src/main/java/org/apache/eventmesh/connector/standalone/broker/MessageQueue.java`
 #### Snippet
 ```java
-
-        return MessageUtils.parseStructuredOrBinaryMessage(
-            () -> null,
-            format -> null,
-            () -> props.get(RocketMQHeaders.SPEC_VERSION),
-```
-
-### ReturnNull
-Return of `null`
-in `eventmesh-connector-plugin/eventmesh-connector-rocketmq/src/main/java/org/apache/eventmesh/connector/rocketmq/cloudevent/RocketMQMessageFactory.java`
-#### Snippet
-```java
-        return MessageUtils.parseStructuredOrBinaryMessage(
-            () -> null,
-            format -> null,
-            () -> props.get(RocketMQHeaders.SPEC_VERSION),
-            sv -> new RocketMQBinaryMessageReader(sv, props, body)
+        try {
+            if (count == 0) {
+                return null;
+            }
+            int tailIndex = putIndex - 1;
 ```
 
 ### ReturnNull
@@ -11556,18 +11337,6 @@ in `eventmesh-connector-plugin/eventmesh-connector-standalone/src/main/java/org/
 
 ### ReturnNull
 Return of `null`
-in `eventmesh-connector-plugin/eventmesh-connector-standalone/src/main/java/org/apache/eventmesh/connector/standalone/broker/MessageQueue.java`
-#### Snippet
-```java
-        try {
-            if (count == 0) {
-                return null;
-            }
-            int tailIndex = putIndex - 1;
-```
-
-### ReturnNull
-Return of `null`
 in `eventmesh-connector-plugin/eventmesh-connector-standalone/src/main/java/org/apache/eventmesh/connector/standalone/broker/StandaloneBroker.java`
 #### Snippet
 ```java
@@ -11590,19 +11359,31 @@ in `eventmesh-connector-plugin/eventmesh-connector-standalone/src/main/java/org/
         return head.getMessage();
 ```
 
-## RuleId[ruleID=AssignmentToLambdaParameter]
-### AssignmentToLambdaParameter
-Assignment to lambda parameter `event`
-in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/protocol/tcp/client/group/ClientGroupWrapper.java`
+### ReturnNull
+Return of `null`
+in `eventmesh-connector-plugin/eventmesh-connector-rocketmq/src/main/java/org/apache/eventmesh/connector/rocketmq/cloudevent/RocketMQMessageFactory.java`
 #### Snippet
 ```java
-                eventMeshTcpMonitor.getTcpSummaryMetrics().getMq2eventMeshMsgNum()
-                        .incrementAndGet();
-                event = CloudEventBuilder.from(event)
-                        .withExtension(EventMeshConstants.REQ_MQ2EVENTMESH_TIMESTAMP,
-                                String.valueOf(System.currentTimeMillis()))
+
+        return MessageUtils.parseStructuredOrBinaryMessage(
+            () -> null,
+            format -> null,
+            () -> props.get(RocketMQHeaders.SPEC_VERSION),
 ```
 
+### ReturnNull
+Return of `null`
+in `eventmesh-connector-plugin/eventmesh-connector-rocketmq/src/main/java/org/apache/eventmesh/connector/rocketmq/cloudevent/RocketMQMessageFactory.java`
+#### Snippet
+```java
+        return MessageUtils.parseStructuredOrBinaryMessage(
+            () -> null,
+            format -> null,
+            () -> props.get(RocketMQHeaders.SPEC_VERSION),
+            sv -> new RocketMQBinaryMessageReader(sv, props, body)
+```
+
+## RuleId[ruleID=AssignmentToLambdaParameter]
 ### AssignmentToLambdaParameter
 Assignment to lambda parameter `event`
 in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/protocol/tcp/client/group/ClientGroupWrapper.java`
@@ -11625,6 +11406,18 @@ in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/protocol/t
                             event = CloudEventBuilder.from(event)
                                     .withExtension(EventMeshConstants.EVENTMESH_SEND_BACK_TIMES,
                                             sendBackTimes.toString())
+```
+
+### AssignmentToLambdaParameter
+Assignment to lambda parameter `event`
+in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/protocol/tcp/client/group/ClientGroupWrapper.java`
+#### Snippet
+```java
+                eventMeshTcpMonitor.getTcpSummaryMetrics().getMq2eventMeshMsgNum()
+                        .incrementAndGet();
+                event = CloudEventBuilder.from(event)
+                        .withExtension(EventMeshConstants.REQ_MQ2EVENTMESH_TIMESTAMP,
+                                String.valueOf(System.currentTimeMillis()))
 ```
 
 ### AssignmentToLambdaParameter
@@ -11676,56 +11469,7 @@ in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/protocol/t
                     new SendCallback() {
 ```
 
-### UnnecessaryLocalVariable
-Local variable `listener` is redundant
-in `eventmesh-connector-plugin/eventmesh-connector-rocketmq/src/main/java/org/apache/rocketmq/client/impl/consumer/ConsumeMessageConcurrentlyService.java`
-#### Snippet
-```java
-            }
-
-            MessageListenerConcurrently listener = ConsumeMessageConcurrentlyService.this.messageListener;
-            EventMeshConsumeConcurrentlyContext context = new EventMeshConsumeConcurrentlyContext(messageQueue, processQueue);
-            ConsumeConcurrentlyStatus status = null;
-```
-
-## RuleId[ruleID=BusyWait]
-### BusyWait
-Call to `Thread.sleep()` in a loop, probably busy-waiting
-in `eventmesh-connector-plugin/eventmesh-connector-standalone/src/main/java/org/apache/eventmesh/connector/standalone/broker/task/HistoryMessageClearTask.java`
-#### Snippet
-```java
-            });
-            try {
-                Thread.sleep(TimeUnit.SECONDS.toMillis(1));
-            } catch (InterruptedException e) {
-                logger.error("Thread is interrupted, thread name: {}", Thread.currentThread().getName(), e);
-```
-
-### BusyWait
-Call to `Thread.sleep()` in a loop, probably busy-waiting
-in `eventmesh-connector-plugin/eventmesh-connector-standalone/src/main/java/org/apache/eventmesh/connector/standalone/broker/task/SubScribeTask.java`
-#### Snippet
-```java
-            }
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException e) {
-                logger.error("Thread is interrupted, topic: {}, offset: {} thread name: {}",
-```
-
 ## RuleId[ruleID=UseCompareMethod]
-### UseCompareMethod
-Expression can be replaced with 'Long.compare'
-in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/protocol/tcp/client/session/retry/RetryContext.java`
-#### Snippet
-```java
-    public int compareTo(Delayed delayed) {
-        RetryContext obj = (RetryContext) delayed;
-        if (this.executeTime > obj.executeTime) {
-            return 1;
-        } else if (this.executeTime == obj.executeTime) {
-```
-
 ### UseCompareMethod
 Expression can be replaced with 'Long.compare'
 in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/protocol/grpc/retry/RetryContext.java`
@@ -11804,7 +11548,19 @@ in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/util/EventMeshU
 ## RuleId[ruleID=UnstableApiUsage]
 ### UnstableApiUsage
 'com.google.common.util.concurrent.RateLimiter' is marked unstable with @Beta
-in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/boot/EventMeshGrpcServer.java`
+in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/boot/EventMeshHTTPServer.java`
+#### Snippet
+```java
+    public ThreadPoolExecutor webhookExecutor;
+
+    private transient RateLimiter msgRateLimiter;
+
+    private transient RateLimiter batchRateLimiter;
+```
+
+### UnstableApiUsage
+'com.google.common.util.concurrent.RateLimiter' is marked unstable with @Beta
+in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/boot/EventMeshHTTPServer.java`
 #### Snippet
 ```java
     }
@@ -11812,6 +11568,78 @@ in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/boot/EventMeshG
     public RateLimiter getMsgRateLimiter() {
         return msgRateLimiter;
     }
+```
+
+### UnstableApiUsage
+'com.google.common.util.concurrent.RateLimiter' is marked unstable with @Beta
+in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/boot/EventMeshHTTPServer.java`
+#### Snippet
+```java
+        initThreadPool();
+
+        msgRateLimiter = RateLimiter.create(eventMeshHttpConfiguration.getEventMeshHttpMsgReqNumPerSecond());
+        batchRateLimiter = RateLimiter.create(eventMeshHttpConfiguration.getEventMeshBatchMsgRequestNumPerSecond());
+
+```
+
+### UnstableApiUsage
+'create(double)' is declared in unstable class 'com.google.common.util.concurrent.RateLimiter' marked with @Beta
+in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/boot/EventMeshHTTPServer.java`
+#### Snippet
+```java
+        initThreadPool();
+
+        msgRateLimiter = RateLimiter.create(eventMeshHttpConfiguration.getEventMeshHttpMsgReqNumPerSecond());
+        batchRateLimiter = RateLimiter.create(eventMeshHttpConfiguration.getEventMeshBatchMsgRequestNumPerSecond());
+
+```
+
+### UnstableApiUsage
+'com.google.common.util.concurrent.RateLimiter' is marked unstable with @Beta
+in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/boot/EventMeshHTTPServer.java`
+#### Snippet
+```java
+
+        msgRateLimiter = RateLimiter.create(eventMeshHttpConfiguration.getEventMeshHttpMsgReqNumPerSecond());
+        batchRateLimiter = RateLimiter.create(eventMeshHttpConfiguration.getEventMeshBatchMsgRequestNumPerSecond());
+
+        // The MetricsRegistry is singleton, so we can use factory method to get.
+```
+
+### UnstableApiUsage
+'create(double)' is declared in unstable class 'com.google.common.util.concurrent.RateLimiter' marked with @Beta
+in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/boot/EventMeshHTTPServer.java`
+#### Snippet
+```java
+
+        msgRateLimiter = RateLimiter.create(eventMeshHttpConfiguration.getEventMeshHttpMsgReqNumPerSecond());
+        batchRateLimiter = RateLimiter.create(eventMeshHttpConfiguration.getEventMeshBatchMsgRequestNumPerSecond());
+
+        // The MetricsRegistry is singleton, so we can use factory method to get.
+```
+
+### UnstableApiUsage
+'com.google.common.util.concurrent.RateLimiter' is marked unstable with @Beta
+in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/boot/EventMeshHTTPServer.java`
+#### Snippet
+```java
+    }
+
+    public RateLimiter getBatchRateLimiter() {
+        return batchRateLimiter;
+    }
+```
+
+### UnstableApiUsage
+'com.google.common.util.concurrent.RateLimiter' is marked unstable with @Beta
+in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/boot/EventMeshHTTPServer.java`
+#### Snippet
+```java
+    private transient RateLimiter msgRateLimiter;
+
+    private transient RateLimiter batchRateLimiter;
+
+    public transient HTTPClientPool httpClientPool = new HTTPClientPool(10);
 ```
 
 ### UnstableApiUsage
@@ -11847,12 +11675,12 @@ in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/boot/EventMeshG
 
     private RateLimiter msgRateLimiter;
 
-    private Registry registry;
+    private final Registry registry;
 ```
 
 ### UnstableApiUsage
 'com.google.common.util.concurrent.RateLimiter' is marked unstable with @Beta
-in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/boot/EventMeshHTTPServer.java`
+in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/boot/EventMeshGrpcServer.java`
 #### Snippet
 ```java
     }
@@ -11864,85 +11692,13 @@ in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/boot/EventMeshH
 
 ### UnstableApiUsage
 'com.google.common.util.concurrent.RateLimiter' is marked unstable with @Beta
-in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/boot/EventMeshHTTPServer.java`
-#### Snippet
-```java
-    public ThreadPoolExecutor webhookExecutor;
-
-    private transient RateLimiter msgRateLimiter;
-
-    private transient RateLimiter batchRateLimiter;
-```
-
-### UnstableApiUsage
-'com.google.common.util.concurrent.RateLimiter' is marked unstable with @Beta
-in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/boot/EventMeshHTTPServer.java`
-#### Snippet
-```java
-        initThreadPool();
-
-        msgRateLimiter = RateLimiter.create(eventMeshHttpConfiguration.getEventMeshHttpMsgReqNumPerSecond());
-        batchRateLimiter = RateLimiter.create(eventMeshHttpConfiguration.getEventMeshBatchMsgRequestNumPerSecond());
-
-```
-
-### UnstableApiUsage
-'create(double)' is declared in unstable class 'com.google.common.util.concurrent.RateLimiter' marked with @Beta
-in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/boot/EventMeshHTTPServer.java`
-#### Snippet
-```java
-        initThreadPool();
-
-        msgRateLimiter = RateLimiter.create(eventMeshHttpConfiguration.getEventMeshHttpMsgReqNumPerSecond());
-        batchRateLimiter = RateLimiter.create(eventMeshHttpConfiguration.getEventMeshBatchMsgRequestNumPerSecond());
-
-```
-
-### UnstableApiUsage
-'com.google.common.util.concurrent.RateLimiter' is marked unstable with @Beta
-in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/boot/EventMeshHTTPServer.java`
-#### Snippet
-```java
-
-        msgRateLimiter = RateLimiter.create(eventMeshHttpConfiguration.getEventMeshHttpMsgReqNumPerSecond());
-        batchRateLimiter = RateLimiter.create(eventMeshHttpConfiguration.getEventMeshBatchMsgRequestNumPerSecond());
-
-        // The MetricsRegistry is singleton, so we can use factory method to get.
-```
-
-### UnstableApiUsage
-'create(double)' is declared in unstable class 'com.google.common.util.concurrent.RateLimiter' marked with @Beta
-in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/boot/EventMeshHTTPServer.java`
-#### Snippet
-```java
-
-        msgRateLimiter = RateLimiter.create(eventMeshHttpConfiguration.getEventMeshHttpMsgReqNumPerSecond());
-        batchRateLimiter = RateLimiter.create(eventMeshHttpConfiguration.getEventMeshBatchMsgRequestNumPerSecond());
-
-        // The MetricsRegistry is singleton, so we can use factory method to get.
-```
-
-### UnstableApiUsage
-'com.google.common.util.concurrent.RateLimiter' is marked unstable with @Beta
-in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/boot/EventMeshHTTPServer.java`
-#### Snippet
-```java
-    private transient RateLimiter msgRateLimiter;
-
-    private transient RateLimiter batchRateLimiter;
-
-    public transient HTTPClientPool httpClientPool = new HTTPClientPool(10);
-```
-
-### UnstableApiUsage
-'com.google.common.util.concurrent.RateLimiter' is marked unstable with @Beta
-in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/boot/EventMeshHTTPServer.java`
+in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/boot/EventMeshTCPServer.java`
 #### Snippet
 ```java
     }
 
-    public RateLimiter getBatchRateLimiter() {
-        return batchRateLimiter;
+    public void setRateLimiter(final RateLimiter rateLimiter) {
+        this.rateLimiter = rateLimiter;
     }
 ```
 
@@ -11965,7 +11721,7 @@ in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/boot/EventMeshT
 ```java
         initThreadPool();
 
-        rateLimiter = RateLimiter.create(eventMeshTCPConfiguration.eventMeshTcpMsgReqnumPerSecond);
+        rateLimiter = RateLimiter.create(eventMeshTCPConfiguration.getEventMeshTcpMsgReqnumPerSecond());
 
         globalTrafficShapingHandler = newGTSHandler(scheduler, eventMeshTCPConfiguration.getGtc().getReadLimit());
 ```
@@ -11977,7 +11733,7 @@ in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/boot/EventMeshT
 ```java
         initThreadPool();
 
-        rateLimiter = RateLimiter.create(eventMeshTCPConfiguration.eventMeshTcpMsgReqnumPerSecond);
+        rateLimiter = RateLimiter.create(eventMeshTCPConfiguration.getEventMeshTcpMsgReqnumPerSecond());
 
         globalTrafficShapingHandler = newGTSHandler(scheduler, eventMeshTCPConfiguration.getGtc().getReadLimit());
 ```
@@ -11995,27 +11751,15 @@ in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/boot/EventMeshT
 ```
 
 ### UnstableApiUsage
-'com.google.common.util.concurrent.RateLimiter' is marked unstable with @Beta
-in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/boot/EventMeshTCPServer.java`
-#### Snippet
-```java
-    }
-
-    public void setRateLimiter(final RateLimiter rateLimiter) {
-        this.rateLimiter = rateLimiter;
-    }
-```
-
-### UnstableApiUsage
 'tryAcquire(long, java.util.concurrent.TimeUnit)' is declared in unstable class 'com.google.common.util.concurrent.RateLimiter' marked with @Beta
 in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/protocol/tcp/client/task/MessageTransferTask.java`
 #### Snippet
 ```java
 
             if (!eventMeshTCPServer.getRateLimiter()
-                    .tryAcquire(TRY_PERMIT_TIME_OUT, TimeUnit.MILLISECONDS)) {
+                .tryAcquire(TRY_PERMIT_TIME_OUT, TimeUnit.MILLISECONDS)) {
 
-                msg.setHeader(new Header(replyCmd, OPStatus.FAIL.getCode(),
+                msg.setHeader(new Header(replyCmd, OPStatus.FAIL.getCode(), "Tps overload, global flow control", pkg.getHeader().getSeq()));
 ```
 
 ### UnstableApiUsage
@@ -12023,23 +11767,11 @@ in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/protocol/t
 in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/protocol/tcp/client/task/MessageTransferTask.java`
 #### Snippet
 ```java
-                LOGGER.warn(
-                        "======Tps overload, global flow control, rate:{}! PLEASE CHECK!========",
-                        eventMeshTCPServer.getRateLimiter().getRate());
+                TraceUtils.finishSpanWithException(ctx, event, "Tps overload, global flow control", null);
+
+                log.warn("======Tps overload, global flow control, rate:{}! PLEASE CHECK!========", eventMeshTCPServer.getRateLimiter().getRate());
                 return;
             }
-```
-
-### UnstableApiUsage
-'tryAcquire(long, java.util.concurrent.TimeUnit)' is declared in unstable class 'com.google.common.util.concurrent.RateLimiter' marked with @Beta
-in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/protocol/grpc/processor/ReplyMessageProcessor.java`
-#### Snippet
-```java
-        // control flow rate limit
-        if (!eventMeshGrpcServer.getMsgRateLimiter()
-            .tryAcquire(EventMeshConstants.DEFAULT_FASTFAIL_TIMEOUT_IN_MILLISECONDS, TimeUnit.MILLISECONDS)) {
-            logger.error("Send message speed over limit.");
-            ServiceUtils.sendStreamRespAndDone(requestHeader, StatusCode.EVENTMESH_SEND_MESSAGE_SPEED_OVER_LIMIT_ERR, emitter);
 ```
 
 ### UnstableApiUsage
@@ -12050,7 +11782,7 @@ in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/protocol/g
         // control flow rate limit
         if (!eventMeshGrpcServer.getMsgRateLimiter()
             .tryAcquire(EventMeshConstants.DEFAULT_FASTFAIL_TIMEOUT_IN_MILLISECONDS, TimeUnit.MILLISECONDS)) {
-            logger.error("Send message speed over limit.");
+            log.error("Send message speed over limit.");
             ServiceUtils.sendRespAndDone(StatusCode.EVENTMESH_BATCH_SPEED_OVER_LIMIT_ERR, emitter);
 ```
 
@@ -12062,8 +11794,20 @@ in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/protocol/g
         // control flow rate limit
         if (!eventMeshGrpcServer.getMsgRateLimiter()
             .tryAcquire(EventMeshConstants.DEFAULT_FASTFAIL_TIMEOUT_IN_MILLISECONDS, TimeUnit.MILLISECONDS)) {
-            logger.error("Send message speed over limit.");
+            log.error("Send message speed over limit.");
             ServiceUtils.sendRespAndDone(StatusCode.EVENTMESH_BATCH_SPEED_OVER_LIMIT_ERR, emitter);
+```
+
+### UnstableApiUsage
+'tryAcquire(long, java.util.concurrent.TimeUnit)' is declared in unstable class 'com.google.common.util.concurrent.RateLimiter' marked with @Beta
+in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/protocol/grpc/processor/ReplyMessageProcessor.java`
+#### Snippet
+```java
+        // control flow rate limit
+        if (!eventMeshGrpcServer.getMsgRateLimiter()
+            .tryAcquire(EventMeshConstants.DEFAULT_FASTFAIL_TIMEOUT_IN_MILLISECONDS, TimeUnit.MILLISECONDS)) {
+            log.error("Send message speed over limit.");
+            ServiceUtils.sendStreamRespAndDone(requestHeader, StatusCode.EVENTMESH_SEND_MESSAGE_SPEED_OVER_LIMIT_ERR, emitter);
 ```
 
 ### UnstableApiUsage
@@ -12074,7 +11818,7 @@ in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/protocol/g
         // control flow rate limit
         if (!eventMeshGrpcServer.getMsgRateLimiter()
             .tryAcquire(EventMeshConstants.DEFAULT_FASTFAIL_TIMEOUT_IN_MILLISECONDS, TimeUnit.MILLISECONDS)) {
-            logger.error("Send message speed over limit.");
+            log.error("Send message speed over limit.");
             ServiceUtils.sendStreamRespAndDone(message.getHeader(), StatusCode.EVENTMESH_SEND_MESSAGE_SPEED_OVER_LIMIT_ERR, emitter);
 ```
 
@@ -12104,18 +11848,6 @@ in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/protocol/h
 
 ### UnstableApiUsage
 'tryAcquire(long, java.util.concurrent.TimeUnit)' is declared in unstable class 'com.google.common.util.concurrent.RateLimiter' marked with @Beta
-in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/protocol/http/processor/SendAsyncRemoteEventProcessor.java`
-#### Snippet
-```java
-        // control flow rate limit
-        if (!eventMeshHTTPServer.getMsgRateLimiter()
-                .tryAcquire(EventMeshConstants.DEFAULT_FASTFAIL_TIMEOUT_IN_MILLISECONDS, TimeUnit.MILLISECONDS)) {
-            handlerSpecific.sendErrorResponse(EventMeshRetCode.EVENTMESH_HTTP_MES_SEND_OVER_LIMIT_ERR, responseHeaderMap,
-                    responseBodyMap, EventMeshUtil.getCloudEventExtensionMap(SpecVersion.V1.toString(), event));
-```
-
-### UnstableApiUsage
-'tryAcquire(long, java.util.concurrent.TimeUnit)' is declared in unstable class 'com.google.common.util.concurrent.RateLimiter' marked with @Beta
 in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/protocol/http/processor/SendSyncMessageProcessor.java`
 #### Snippet
 ```java
@@ -12124,6 +11856,18 @@ in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/protocol/h
                 .tryAcquire(EventMeshConstants.DEFAULT_FASTFAIL_TIMEOUT_IN_MILLISECONDS,
                         TimeUnit.MILLISECONDS)) {
             responseEventMeshCommand = asyncContext.getRequest().createHttpCommandResponse(
+```
+
+### UnstableApiUsage
+'tryAcquire(long, java.util.concurrent.TimeUnit)' is declared in unstable class 'com.google.common.util.concurrent.RateLimiter' marked with @Beta
+in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/protocol/http/processor/SendAsyncRemoteEventProcessor.java`
+#### Snippet
+```java
+        // control flow rate limit
+        if (!eventMeshHTTPServer.getMsgRateLimiter()
+                .tryAcquire(EventMeshConstants.DEFAULT_FASTFAIL_TIMEOUT_IN_MILLISECONDS, TimeUnit.MILLISECONDS)) {
+            handlerSpecific.sendErrorResponse(EventMeshRetCode.EVENTMESH_HTTP_MES_SEND_OVER_LIMIT_ERR, responseHeaderMap,
+                    responseBodyMap, EventMeshUtil.getCloudEventExtensionMap(SpecVersion.V1.toString(), event));
 ```
 
 ### UnstableApiUsage
@@ -12139,18 +11883,6 @@ in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/protocol/h
 ```
 
 ### UnstableApiUsage
-'tryAcquire(long, java.util.concurrent.TimeUnit)' is declared in unstable class 'com.google.common.util.concurrent.RateLimiter' marked with @Beta
-in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/protocol/http/processor/BatchSendMessageV2Processor.java`
-#### Snippet
-```java
-
-        if (!eventMeshHTTPServer.getBatchRateLimiter()
-            .tryAcquire(EventMeshConstants.DEFAULT_FASTFAIL_TIMEOUT_IN_MILLISECONDS,
-                TimeUnit.MILLISECONDS)) {
-            responseEventMeshCommand = request.createHttpCommandResponse(
-```
-
-### UnstableApiUsage
 'tryAcquire(int, long, java.util.concurrent.TimeUnit)' is declared in unstable class 'com.google.common.util.concurrent.RateLimiter' marked with @Beta
 in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/protocol/http/processor/BatchSendMessageProcessor.java`
 #### Snippet
@@ -12160,6 +11892,18 @@ in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/protocol/h
                 .tryAcquire(eventSize, EventMeshConstants.DEFAULT_FASTFAIL_TIMEOUT_IN_MILLISECONDS, TimeUnit.MILLISECONDS)) {
             responseEventMeshCommand = asyncContext.getRequest().createHttpCommandResponse(
                 sendMessageBatchResponseHeader,
+```
+
+### UnstableApiUsage
+'tryAcquire(long, java.util.concurrent.TimeUnit)' is declared in unstable class 'com.google.common.util.concurrent.RateLimiter' marked with @Beta
+in `eventmesh-runtime/src/main/java/org/apache/eventmesh/runtime/core/protocol/http/processor/BatchSendMessageV2Processor.java`
+#### Snippet
+```java
+
+        if (!eventMeshHTTPServer.getBatchRateLimiter()
+            .tryAcquire(EventMeshConstants.DEFAULT_FASTFAIL_TIMEOUT_IN_MILLISECONDS,
+                TimeUnit.MILLISECONDS)) {
+            responseEventMeshCommand = request.createHttpCommandResponse(
 ```
 
 ### UnstableApiUsage
@@ -12183,54 +11927,6 @@ in `eventmesh-registry-plugin/eventmesh-registry-etcd/src/main/java/org/apache/e
     public KV getKVClient() {
         return client.getKVClient();
     }
-
-```
-
-### UnstableApiUsage
-'getKVClient()' is unstable because its signature references unstable interface 'io.etcd.jetcd.KV' marked with @Beta
-in `eventmesh-registry-plugin/eventmesh-registry-etcd/src/main/java/org/apache/eventmesh/registry/etcd/service/EtcdRegistryService.java`
-#### Snippet
-```java
-            ByteSequence etcdKey = getEtcdKey(eventMeshClusterName, eventMeshName,
-                    eventMeshUnRegisterInfo.getEndPoint());
-            etcdClient.getKVClient().delete(etcdKey);
-            eventMeshRegisterInfoMap.remove(eventMeshName);
-            logger.info("EventMesh successfully logout to etcd, eventMeshClusterName: {}, eventMeshName: {}",
-```
-
-### UnstableApiUsage
-'delete(io.etcd.jetcd.ByteSequence)' is declared in unstable interface 'io.etcd.jetcd.KV' marked with @Beta
-in `eventmesh-registry-plugin/eventmesh-registry-etcd/src/main/java/org/apache/eventmesh/registry/etcd/service/EtcdRegistryService.java`
-#### Snippet
-```java
-            ByteSequence etcdKey = getEtcdKey(eventMeshClusterName, eventMeshName,
-                    eventMeshUnRegisterInfo.getEndPoint());
-            etcdClient.getKVClient().delete(etcdKey);
-            eventMeshRegisterInfoMap.remove(eventMeshName);
-            logger.info("EventMesh successfully logout to etcd, eventMeshClusterName: {}, eventMeshName: {}",
-```
-
-### UnstableApiUsage
-'getKVClient()' is unstable because its signature references unstable interface 'io.etcd.jetcd.KV' marked with @Beta
-in `eventmesh-registry-plugin/eventmesh-registry-etcd/src/main/java/org/apache/eventmesh/registry/etcd/service/EtcdRegistryService.java`
-#### Snippet
-```java
-                            endPoint, System.currentTimeMillis(), eventMeshRegisterInfo.getMetadata());
-            ByteSequence etcdValue = ByteSequence.from(JsonUtils.serialize(eventMeshDataInfo).getBytes(Constants.DEFAULT_CHARSET));
-            etcdClient.getKVClient().put(etcdKey, etcdValue, PutOption.newBuilder().withLeaseId(getLeaseId()).build());
-            eventMeshRegisterInfoMap.put(eventMeshName, eventMeshRegisterInfo);
-
-```
-
-### UnstableApiUsage
-'put(io.etcd.jetcd.ByteSequence, io.etcd.jetcd.ByteSequence, io.etcd.jetcd.options.PutOption)' is declared in unstable interface 'io.etcd.jetcd.KV' marked with @Beta
-in `eventmesh-registry-plugin/eventmesh-registry-etcd/src/main/java/org/apache/eventmesh/registry/etcd/service/EtcdRegistryService.java`
-#### Snippet
-```java
-                            endPoint, System.currentTimeMillis(), eventMeshRegisterInfo.getMetadata());
-            ByteSequence etcdValue = ByteSequence.from(JsonUtils.serialize(eventMeshDataInfo).getBytes(Constants.DEFAULT_CHARSET));
-            etcdClient.getKVClient().put(etcdKey, etcdValue, PutOption.newBuilder().withLeaseId(getLeaseId()).build());
-            eventMeshRegisterInfoMap.put(eventMeshName, eventMeshRegisterInfo);
 
 ```
 
@@ -12263,11 +11959,35 @@ in `eventmesh-registry-plugin/eventmesh-registry-etcd/src/main/java/org/apache/e
 in `eventmesh-registry-plugin/eventmesh-registry-etcd/src/main/java/org/apache/eventmesh/registry/etcd/service/EtcdRegistryService.java`
 #### Snippet
 ```java
+                            endPoint, System.currentTimeMillis(), eventMeshRegisterInfo.getMetadata());
+            ByteSequence etcdValue = ByteSequence.from(JsonUtils.toJSONString(eventMeshDataInfo).getBytes(Constants.DEFAULT_CHARSET));
+            etcdClient.getKVClient().put(etcdKey, etcdValue, PutOption.newBuilder().withLeaseId(getLeaseId()).build());
+            eventMeshRegisterInfoMap.put(eventMeshName, eventMeshRegisterInfo);
+
+```
+
+### UnstableApiUsage
+'put(io.etcd.jetcd.ByteSequence, io.etcd.jetcd.ByteSequence, io.etcd.jetcd.options.PutOption)' is declared in unstable interface 'io.etcd.jetcd.KV' marked with @Beta
+in `eventmesh-registry-plugin/eventmesh-registry-etcd/src/main/java/org/apache/eventmesh/registry/etcd/service/EtcdRegistryService.java`
+#### Snippet
+```java
+                            endPoint, System.currentTimeMillis(), eventMeshRegisterInfo.getMetadata());
+            ByteSequence etcdValue = ByteSequence.from(JsonUtils.toJSONString(eventMeshDataInfo).getBytes(Constants.DEFAULT_CHARSET));
+            etcdClient.getKVClient().put(etcdKey, etcdValue, PutOption.newBuilder().withLeaseId(getLeaseId()).build());
+            eventMeshRegisterInfoMap.put(eventMeshName, eventMeshRegisterInfo);
+
+```
+
+### UnstableApiUsage
+'getKVClient()' is unstable because its signature references unstable interface 'io.etcd.jetcd.KV' marked with @Beta
+in `eventmesh-registry-plugin/eventmesh-registry-etcd/src/main/java/org/apache/eventmesh/registry/etcd/service/EtcdRegistryService.java`
+#### Snippet
+```java
                     List<KeyValue> keyValues = null;
                     try {
                         keyValues = etcdClient.getKVClient().get(etcdKey).get().getKvs();
                     } catch (InterruptedException | ExecutionException e) {
-                        logger.error("get etcdKey[{}] failed", etcdKey, e);
+                        log.error("get etcdKey[{}] failed", etcdKey, e);
 ```
 
 ### UnstableApiUsage
@@ -12279,7 +11999,31 @@ in `eventmesh-registry-plugin/eventmesh-registry-etcd/src/main/java/org/apache/e
                     try {
                         keyValues = etcdClient.getKVClient().get(etcdKey).get().getKvs();
                     } catch (InterruptedException | ExecutionException e) {
-                        logger.error("get etcdKey[{}] failed", etcdKey, e);
+                        log.error("get etcdKey[{}] failed", etcdKey, e);
+```
+
+### UnstableApiUsage
+'getKVClient()' is unstable because its signature references unstable interface 'io.etcd.jetcd.KV' marked with @Beta
+in `eventmesh-registry-plugin/eventmesh-registry-etcd/src/main/java/org/apache/eventmesh/registry/etcd/service/EtcdRegistryService.java`
+#### Snippet
+```java
+            ByteSequence etcdKey = getEtcdKey(eventMeshClusterName, eventMeshName,
+                    eventMeshUnRegisterInfo.getEndPoint());
+            etcdClient.getKVClient().delete(etcdKey);
+            eventMeshRegisterInfoMap.remove(eventMeshName);
+            log.info("EventMesh successfully logout to etcd, eventMeshClusterName: {}, eventMeshName: {}",
+```
+
+### UnstableApiUsage
+'delete(io.etcd.jetcd.ByteSequence)' is declared in unstable interface 'io.etcd.jetcd.KV' marked with @Beta
+in `eventmesh-registry-plugin/eventmesh-registry-etcd/src/main/java/org/apache/eventmesh/registry/etcd/service/EtcdRegistryService.java`
+#### Snippet
+```java
+            ByteSequence etcdKey = getEtcdKey(eventMeshClusterName, eventMeshName,
+                    eventMeshUnRegisterInfo.getEndPoint());
+            etcdClient.getKVClient().delete(etcdKey);
+            eventMeshRegisterInfoMap.remove(eventMeshName);
+            log.info("EventMesh successfully logout to etcd, eventMeshClusterName: {}, eventMeshName: {}",
 ```
 
 ### UnstableApiUsage
