@@ -10,23 +10,11 @@ I found 31 bad smells with 2 repairable:
 | ReturnNull | 3 | false |
 | ConstantValue | 3 | false |
 | UnnecessaryBoxing | 2 | false |
-| DataFlowIssue | 1 | false |
 | UnnecessaryFullyQualifiedName | 1 | false |
+| DataFlowIssue | 1 | false |
 | UnnecessaryToStringCall | 1 | true |
 | NonProtectedConstructorInAbstractClass | 1 | true |
 ## RuleId[ruleID=ReturnNull]
-### ReturnNull
-Return of `null`
-in `src/main/java/com/palantir/gradle/graal/GraalExtension.java`
-#### Snippet
-```java
-    private String getBiggestWindowsVsEditionInstalled(String version) {
-        if (version == null) {
-            return null;
-        }
-
-```
-
 ### ReturnNull
 Return of `null`
 in `src/main/java/com/palantir/gradle/graal/FileUtil.java`
@@ -48,6 +36,18 @@ in `src/main/java/com/palantir/gradle/graal/FileUtil.java`
         }
         return null;
     }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/com/palantir/gradle/graal/GraalExtension.java`
+#### Snippet
+```java
+    private String getBiggestWindowsVsEditionInstalled(String version) {
+        if (version == null) {
+            return null;
+        }
 
 ```
 
@@ -160,19 +160,6 @@ in `src/main/java/com/palantir/gradle/graal/DownloadGraalTask.java`
 
 ```
 
-## RuleId[ruleID=DataFlowIssue]
-### DataFlowIssue
-Dereference of `subDirectories` may produce `NullPointerException`
-in `src/main/java/com/palantir/gradle/graal/FileUtil.java`
-#### Snippet
-```java
-        AbstractSet<String> subDirectoriesNames = new HashSet<String>();
-        File[] subDirectories = directory.listFiles(File::isDirectory);
-        for (File subDirectory : subDirectories) {
-            subDirectoriesNames.add(subDirectory.getName());
-        }
-```
-
 ## RuleId[ruleID=UnnecessaryFullyQualifiedName]
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.gradle.api.provider` is unnecessary and can be removed
@@ -184,6 +171,19 @@ in `src/main/java/com/palantir/gradle/graal/GraalExtension.java`
      * <p>Check {@link org.gradle.api.provider.Provider#isPresent()} to determine if an override has been set.</p>
      */
     public final Provider<String> getOutputName() {
+```
+
+## RuleId[ruleID=DataFlowIssue]
+### DataFlowIssue
+Dereference of `subDirectories` may produce `NullPointerException`
+in `src/main/java/com/palantir/gradle/graal/FileUtil.java`
+#### Snippet
+```java
+        AbstractSet<String> subDirectoriesNames = new HashSet<String>();
+        File[] subDirectories = directory.listFiles(File::isDirectory);
+        for (File subDirectory : subDirectories) {
+            subDirectoriesNames.add(subDirectory.getName());
+        }
 ```
 
 ## RuleId[ruleID=UnnecessaryToStringCall]
