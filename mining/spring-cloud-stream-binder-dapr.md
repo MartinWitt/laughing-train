@@ -9,8 +9,8 @@ I found 15 bad smells with 2 repairable:
 | RedundantFieldInitialization | 2 | false |
 | HtmlWrongAttributeValue | 1 | false |
 | UnnecessaryLocalVariable | 1 | true |
-| DataFlowIssue | 1 | false |
 | UnnecessaryFullyQualifiedName | 1 | false |
+| DataFlowIssue | 1 | false |
 | UNUSED_IMPORT | 1 | false |
 | CodeBlock2Expr | 1 | true |
 ## RuleId[ruleID=RedundantFieldInitialization]
@@ -41,7 +41,7 @@ in `samples/azure-container-app-dapr/src/main/java/com/azure/spring/cloud/stream
 ## RuleId[ruleID=HtmlWrongAttributeValue]
 ### HtmlWrongAttributeValue
 Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-02-06-00-54-04.709.html`
+in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-02-18-07-40-40.514.html`
 #### Snippet
 ```java
               <td>0</td>
@@ -64,19 +64,6 @@ in `spring-cloud-stream-binder-dapr/src/main/java/com/azure/spring/cloud/stream/
 	}
 ```
 
-## RuleId[ruleID=DataFlowIssue]
-### DataFlowIssue
-Method invocation `setTopic` may produce `NullPointerException`
-in `spring-cloud-stream-binder-dapr/src/main/java/com/azure/spring/cloud/stream/binder/dapr/impl/DaprMessageHandler.java`
-#### Snippet
-```java
-	private void publishEvent(Message<?> message) {
-		DaprProtos.PublishEventRequest.Builder builder = daprMessageConverter.fromMessage(message);
-		builder.setTopic(topic);
-		builder.setPubsubName(pubsubName);
-		daprStub.publishEvent(builder.build(), createDaprStreamObserver());
-```
-
 ## RuleId[ruleID=UnnecessaryFullyQualifiedName]
 ### UnnecessaryFullyQualifiedName
 Qualifier `io.grpc` is unnecessary and can be removed
@@ -88,6 +75,19 @@ in `spring-cloud-stream-binder-dapr/src/main/java/com/azure/spring/cloud/stream/
 		 *  on the {@link io.grpc.ManagedChannelBuilder}.
 		 */
 		private String compression;
+```
+
+## RuleId[ruleID=DataFlowIssue]
+### DataFlowIssue
+Method invocation `setTopic` may produce `NullPointerException`
+in `spring-cloud-stream-binder-dapr/src/main/java/com/azure/spring/cloud/stream/binder/dapr/impl/DaprMessageHandler.java`
+#### Snippet
+```java
+	private void publishEvent(Message<?> message) {
+		DaprProtos.PublishEventRequest.Builder builder = daprMessageConverter.fromMessage(message);
+		builder.setTopic(topic);
+		builder.setPubsubName(pubsubName);
+		daprStub.publishEvent(builder.build(), createDaprStreamObserver());
 ```
 
 ## RuleId[ruleID=UNUSED_IMPORT]
