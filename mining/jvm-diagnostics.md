@@ -47,66 +47,6 @@ in `jvm-diagnostics/src/main/java/com/palantir/jvm/diagnostics/JvmDiagnostics.ja
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `com.sun.management` is unnecessary, and can be replaced with an import
-in `jvm-diagnostics/src/main/java/com/palantir/jvm/diagnostics/JvmDiagnostics.java`
-#### Snippet
-```java
-        }
-
-        private static com.sun.management.ThreadMXBean loadThreadManagementBean() {
-            java.lang.management.ThreadMXBean threadBean = java.lang.management.ManagementFactory.getThreadMXBean();
-            return threadBean instanceof com.sun.management.ThreadMXBean
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.lang.management` is unnecessary, and can be replaced with an import
-in `jvm-diagnostics/src/main/java/com/palantir/jvm/diagnostics/JvmDiagnostics.java`
-#### Snippet
-```java
-
-        private static com.sun.management.ThreadMXBean loadThreadManagementBean() {
-            java.lang.management.ThreadMXBean threadBean = java.lang.management.ManagementFactory.getThreadMXBean();
-            return threadBean instanceof com.sun.management.ThreadMXBean
-                    ? (com.sun.management.ThreadMXBean) threadBean
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.lang.management` is unnecessary, and can be replaced with an import
-in `jvm-diagnostics/src/main/java/com/palantir/jvm/diagnostics/JvmDiagnostics.java`
-#### Snippet
-```java
-
-        private static com.sun.management.ThreadMXBean loadThreadManagementBean() {
-            java.lang.management.ThreadMXBean threadBean = java.lang.management.ManagementFactory.getThreadMXBean();
-            return threadBean instanceof com.sun.management.ThreadMXBean
-                    ? (com.sun.management.ThreadMXBean) threadBean
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `com.sun.management` is unnecessary, and can be replaced with an import
-in `jvm-diagnostics/src/main/java/com/palantir/jvm/diagnostics/JvmDiagnostics.java`
-#### Snippet
-```java
-        private static com.sun.management.ThreadMXBean loadThreadManagementBean() {
-            java.lang.management.ThreadMXBean threadBean = java.lang.management.ManagementFactory.getThreadMXBean();
-            return threadBean instanceof com.sun.management.ThreadMXBean
-                    ? (com.sun.management.ThreadMXBean) threadBean
-                    : null;
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `com.sun.management` is unnecessary, and can be replaced with an import
-in `jvm-diagnostics/src/main/java/com/palantir/jvm/diagnostics/JvmDiagnostics.java`
-#### Snippet
-```java
-            java.lang.management.ThreadMXBean threadBean = java.lang.management.ManagementFactory.getThreadMXBean();
-            return threadBean instanceof com.sun.management.ThreadMXBean
-                    ? (com.sun.management.ThreadMXBean) threadBean
-                    : null;
-        }
-```
-
-### UnnecessaryFullyQualifiedName
 Qualifier `java.lang.management` is unnecessary, and can be replaced with an import
 in `jvm-diagnostics/src/main/java/com/palantir/jvm/diagnostics/JvmDiagnostics.java`
 #### Snippet
@@ -128,6 +68,66 @@ in `jvm-diagnostics/src/main/java/com/palantir/jvm/diagnostics/JvmDiagnostics.ja
                 java.lang.management.ManagementFactory.getThreadMXBean();
 
         boolean isEnabled() {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `com.sun.management` is unnecessary, and can be replaced with an import
+in `jvm-diagnostics/src/main/java/com/palantir/jvm/diagnostics/JvmDiagnostics.java`
+#### Snippet
+```java
+        }
+
+        private static com.sun.management.ThreadMXBean loadThreadManagementBean() {
+            java.lang.management.ThreadMXBean threadBean = java.lang.management.ManagementFactory.getThreadMXBean();
+            return threadBean instanceof com.sun.management.ThreadMXBean
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.lang.management` is unnecessary, and can be replaced with an import
+in `jvm-diagnostics/src/main/java/com/palantir/jvm/diagnostics/JvmDiagnostics.java`
+#### Snippet
+```java
+
+        private static com.sun.management.ThreadMXBean loadThreadManagementBean() {
+            java.lang.management.ThreadMXBean threadBean = java.lang.management.ManagementFactory.getThreadMXBean();
+            return threadBean instanceof com.sun.management.ThreadMXBean
+                    ? (com.sun.management.ThreadMXBean) threadBean
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.lang.management` is unnecessary, and can be replaced with an import
+in `jvm-diagnostics/src/main/java/com/palantir/jvm/diagnostics/JvmDiagnostics.java`
+#### Snippet
+```java
+
+        private static com.sun.management.ThreadMXBean loadThreadManagementBean() {
+            java.lang.management.ThreadMXBean threadBean = java.lang.management.ManagementFactory.getThreadMXBean();
+            return threadBean instanceof com.sun.management.ThreadMXBean
+                    ? (com.sun.management.ThreadMXBean) threadBean
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `com.sun.management` is unnecessary, and can be replaced with an import
+in `jvm-diagnostics/src/main/java/com/palantir/jvm/diagnostics/JvmDiagnostics.java`
+#### Snippet
+```java
+        private static com.sun.management.ThreadMXBean loadThreadManagementBean() {
+            java.lang.management.ThreadMXBean threadBean = java.lang.management.ManagementFactory.getThreadMXBean();
+            return threadBean instanceof com.sun.management.ThreadMXBean
+                    ? (com.sun.management.ThreadMXBean) threadBean
+                    : null;
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `com.sun.management` is unnecessary, and can be replaced with an import
+in `jvm-diagnostics/src/main/java/com/palantir/jvm/diagnostics/JvmDiagnostics.java`
+#### Snippet
+```java
+            java.lang.management.ThreadMXBean threadBean = java.lang.management.ManagementFactory.getThreadMXBean();
+            return threadBean instanceof com.sun.management.ThreadMXBean
+                    ? (com.sun.management.ThreadMXBean) threadBean
+                    : null;
+        }
 ```
 
 ### UnnecessaryFullyQualifiedName
