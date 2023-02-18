@@ -1,7 +1,7 @@
 # struts-examples 
  
 # Bad smells
-I found 172 bad smells with 21 repairable:
+I found 171 bad smells with 21 repairable:
 | ruleID | number | fixable |
 | --- | --- | --- |
 | RedundantFieldInitialization | 45 | false |
@@ -21,8 +21,8 @@ I found 172 bad smells with 21 repairable:
 | NestedSynchronizedStatement | 2 | false |
 | FieldAccessedSynchronizedAndUnsynchronized | 2 | false |
 | EmptyMethod | 2 | false |
-| StringBufferReplaceableByStringBuilder | 2 | false |
 | UnnecessaryLocalVariable | 2 | true |
+| StringBufferReplaceableByStringBuilder | 2 | false |
 | ToArrayCallWithZeroLengthArrayArgument | 1 | true |
 | UnnecessaryModifier | 1 | true |
 | MismatchedJavadocCode | 1 | false |
@@ -33,9 +33,8 @@ I found 172 bad smells with 21 repairable:
 | RedundantMethodOverride | 1 | false |
 | ConditionCoveredByFurtherCondition | 1 | false |
 | NonProtectedConstructorInAbstractClass | 1 | true |
-| AssignmentToMethodParameter | 1 | false |
 | EqualsAndHashcode | 1 | false |
-| HtmlWrongAttributeValue | 1 | false |
+| AssignmentToMethodParameter | 1 | false |
 | InstanceofCatchParameter | 1 | false |
 | ConstantValue | 1 | false |
 ## RuleId[ruleID=ToArrayCallWithZeroLengthArrayArgument]
@@ -101,44 +100,7 @@ public class JettyPlutoLauncher {
         System.setProperty("org.apache.pluto.embedded.portletIds", "StrutsPortlet");
 ```
 
-## RuleId[ruleID=CStyleArrayDeclaration]
-### CStyleArrayDeclaration
-C-style array declaration of local variable `buffer`
-in `mailreader2/src/main/java/org/apache/struts/examples/mailreader2/ApplicationListener.java`
-#### Snippet
-```java
-                new FileOutputStream(file);
-        BufferedOutputStream bos = new BufferedOutputStream(os, 1024);
-        byte buffer[] = new byte[1024];
-        while (true) {
-            int n = bis.read(buffer);
-```
-
-### CStyleArrayDeclaration
-C-style array declaration of local variable `results`
-in `mailreader2/src/main/java/org/apache/struts/examples/mailreader2/dao/impl/AbstractUser.java`
-#### Snippet
-```java
-
-        synchronized (subscriptions) {
-            Subscription results[] = new Subscription[subscriptions.size()];
-            return ((Subscription[]) subscriptions.values().toArray(results));
-        }
-```
-
 ## RuleId[ruleID=AssignmentToStaticFieldFromInstanceMethod]
-### AssignmentToStaticFieldFromInstanceMethod
-Assignment to static field `helloCount` from instance context
-in `coding-actions/src/main/java/org/apache/struts/helloworld/action/HelloWorldAction.java`
-#### Snippet
-```java
-        }
-        
-        helloCount++;
-        
-        return SUCCESS;
-```
-
 ### AssignmentToStaticFieldFromInstanceMethod
 Assignment to static field `HelloWorldAction.helloCount` from instance context
 in `message-resource/src/main/java/org/apache/struts/helloworld/action/HelloWorldAction.java`
@@ -188,78 +150,6 @@ in `debugging-struts/src/main/java/org/apache/struts/helloworld/action/HelloWorl
 ```
 
 ### AssignmentToStaticFieldFromInstanceMethod
-Assignment to static field `helloCount` from instance context
-in `exception-handling/src/main/java/org/apache/struts/helloworld/action/HelloWorldAction.java`
-#### Snippet
-```java
-		}
-		
-		helloCount++;
-		
-		return SUCCESS;
-```
-
-### AssignmentToStaticFieldFromInstanceMethod
-Assignment to static field `HelloWorldAction.helloCount` from instance context
-in `exception-handling/src/main/java/org/apache/struts/helloworld/action/HelloWorldAction.java`
-#### Snippet
-```java
-
-	public void setHelloCount(int helloCount) {
-		HelloWorldAction.helloCount = helloCount;
-	}
-	
-```
-
-### AssignmentToStaticFieldFromInstanceMethod
-Assignment to static field `nextId` from instance context
-in `rest-angular/src/main/java/org/apache/examples/struts/services/OrdersService.java`
-#### Snippet
-```java
-    public void save(Order order) {
-        if (order.getId() == null) {
-            order.setId(String.valueOf(nextId++));
-        }
-
-```
-
-### AssignmentToStaticFieldFromInstanceMethod
-Assignment to static field `helloCount` from instance context
-in `using-tags/src/main/java/org/apache/struts/using_tags/helloworld/action/HelloWorldAction.java`
-#### Snippet
-```java
-        messageStore = new MessageStore() ;
-        
-        helloCount++;
-        
-        return SUCCESS;
-```
-
-### AssignmentToStaticFieldFromInstanceMethod
-Assignment to static field `HelloWorldAction.helloCount` from instance context
-in `form-validation/src/main/java/org/apache/struts/helloworld/action/HelloWorldAction.java`
-#### Snippet
-```java
-
-	public void setHelloCount(int helloCount) {
-		HelloWorldAction.helloCount = helloCount;
-	}
-	
-```
-
-### AssignmentToStaticFieldFromInstanceMethod
-Assignment to static field `helloCount` from instance context
-in `form-validation/src/main/java/org/apache/struts/helloworld/action/HelloWorldAction.java`
-#### Snippet
-```java
-		}
-		
-		helloCount++;
-		
-		return SUCCESS;
-```
-
-### AssignmentToStaticFieldFromInstanceMethod
 Assignment to static field `HelloWorldAction.helloCount` from instance context
 in `form-processing/src/main/java/org/apache/struts/helloworld/action/HelloWorldAction.java`
 #### Snippet
@@ -281,6 +171,115 @@ in `form-processing/src/main/java/org/apache/struts/helloworld/action/HelloWorld
         helloCount++;
         
         return SUCCESS;
+```
+
+### AssignmentToStaticFieldFromInstanceMethod
+Assignment to static field `helloCount` from instance context
+in `using-tags/src/main/java/org/apache/struts/using_tags/helloworld/action/HelloWorldAction.java`
+#### Snippet
+```java
+        messageStore = new MessageStore() ;
+        
+        helloCount++;
+        
+        return SUCCESS;
+```
+
+### AssignmentToStaticFieldFromInstanceMethod
+Assignment to static field `nextId` from instance context
+in `rest-angular/src/main/java/org/apache/examples/struts/services/OrdersService.java`
+#### Snippet
+```java
+    public void save(Order order) {
+        if (order.getId() == null) {
+            order.setId(String.valueOf(nextId++));
+        }
+
+```
+
+### AssignmentToStaticFieldFromInstanceMethod
+Assignment to static field `helloCount` from instance context
+in `exception-handling/src/main/java/org/apache/struts/helloworld/action/HelloWorldAction.java`
+#### Snippet
+```java
+		}
+		
+		helloCount++;
+		
+		return SUCCESS;
+```
+
+### AssignmentToStaticFieldFromInstanceMethod
+Assignment to static field `HelloWorldAction.helloCount` from instance context
+in `exception-handling/src/main/java/org/apache/struts/helloworld/action/HelloWorldAction.java`
+#### Snippet
+```java
+
+	public void setHelloCount(int helloCount) {
+		HelloWorldAction.helloCount = helloCount;
+	}
+	
+```
+
+### AssignmentToStaticFieldFromInstanceMethod
+Assignment to static field `HelloWorldAction.helloCount` from instance context
+in `form-validation/src/main/java/org/apache/struts/helloworld/action/HelloWorldAction.java`
+#### Snippet
+```java
+
+	public void setHelloCount(int helloCount) {
+		HelloWorldAction.helloCount = helloCount;
+	}
+	
+```
+
+### AssignmentToStaticFieldFromInstanceMethod
+Assignment to static field `helloCount` from instance context
+in `form-validation/src/main/java/org/apache/struts/helloworld/action/HelloWorldAction.java`
+#### Snippet
+```java
+		}
+		
+		helloCount++;
+		
+		return SUCCESS;
+```
+
+### AssignmentToStaticFieldFromInstanceMethod
+Assignment to static field `helloCount` from instance context
+in `coding-actions/src/main/java/org/apache/struts/helloworld/action/HelloWorldAction.java`
+#### Snippet
+```java
+        }
+        
+        helloCount++;
+        
+        return SUCCESS;
+```
+
+## RuleId[ruleID=CStyleArrayDeclaration]
+### CStyleArrayDeclaration
+C-style array declaration of local variable `buffer`
+in `mailreader2/src/main/java/org/apache/struts/examples/mailreader2/ApplicationListener.java`
+#### Snippet
+```java
+                new FileOutputStream(file);
+        BufferedOutputStream bos = new BufferedOutputStream(os, 1024);
+        byte buffer[] = new byte[1024];
+        while (true) {
+            int n = bis.read(buffer);
+```
+
+### CStyleArrayDeclaration
+C-style array declaration of local variable `results`
+in `mailreader2/src/main/java/org/apache/struts/examples/mailreader2/dao/impl/AbstractUser.java`
+#### Snippet
+```java
+
+        synchronized (subscriptions) {
+            Subscription results[] = new Subscription[subscriptions.size()];
+            return ((Subscription[]) subscriptions.values().toArray(results));
+        }
 ```
 
 ## RuleId[ruleID=KeySetIterationMayUseEntrySet]
@@ -310,27 +309,39 @@ in `wildcard-method-selection/src/main/java/org/apache/struts/tutorials/wildcard
 
 ## RuleId[ruleID=NonSerializableFieldInSerializableClass]
 ### NonSerializableFieldInSerializableClass
-Non-serializable field 'messageStore' in a Serializable class
-in `coding-actions/src/main/java/org/apache/struts/helloworld/action/HelloWorldAction.java`
+Non-serializable field 'personBean' in a Serializable class
+in `themes/src/main/java/org/apache/struts/edit/action/EditAction.java`
 #### Snippet
 ```java
-     * to display in the view.
-     */
-    private MessageStore messageStore;
-    
-    private static int helloCount = 0;
+	private EditService editService = new EditServiceInMemory();
+	
+	private Person personBean;
+	
+	private String [] sports = {"football", "baseball", "basketball" };
 ```
 
 ### NonSerializableFieldInSerializableClass
 Non-serializable field 'personBean' in a Serializable class
-in `control-tags/src/main/java/org/apache/struts/edit/action/EditAction.java`
+in `unit-testing/src/main/java/org/apache/struts/register/action/Register.java`
 #### Snippet
 ```java
-	private EditService editService = new EditServiceInMemory();
-
+	private static final long serialVersionUID = 1L;
+	
 	private Person personBean;
-	private String [] sports = {"football", "baseball", "basketball" };
-	private String [] genders = {"male", "female", "not sure" };
+
+	
+```
+
+### NonSerializableFieldInSerializableClass
+Non-serializable field 'personBean' in a Serializable class
+in `message-resource/src/main/java/org/apache/struts/register/action/Register.java`
+#### Snippet
+```java
+	private static final long serialVersionUID = 1L;
+	
+	private Person personBean;
+
+	
 ```
 
 ### NonSerializableFieldInSerializableClass
@@ -346,51 +357,15 @@ in `spring-struts/src/main/java/org/apache/struts/edit/action/EditAction.java`
 ```
 
 ### NonSerializableFieldInSerializableClass
-Non-serializable field 'personBean' in a Serializable class
-in `interceptors/src/main/java/org/apache/struts/register/action/Register.java`
+Non-serializable field 'messageStore' in a Serializable class
+in `message-resource/src/main/java/org/apache/struts/helloworld/action/HelloWorldAction.java`
 #### Snippet
 ```java
-	private static final long serialVersionUID = 1L;
+	 * to display in the view.
+	 */
+	private MessageStore messageStore;
 	
-	private Person personBean;
-
-	
-```
-
-### NonSerializableFieldInSerializableClass
-Non-serializable field 'name' in a Serializable class
-in `portlet/src/main/java/org/apache/struts2/portlet/example/FormExampleModelDriven.java`
-#### Snippet
-```java
-public class FormExampleModelDriven extends ActionSupport implements ModelDriven<Name> {
-    
-	private Name name = new Name();
-
-	public Name getModel() {
-```
-
-### NonSerializableFieldInSerializableClass
-Non-serializable field 'user' in a Serializable class
-in `json-customize/src/main/java/org/demo/ProduceAction.java`
-#### Snippet
-```java
-public class ProduceAction extends ActionSupport {
-
-    private User user;
-
-    public String execute() throws Exception {
-```
-
-### NonSerializableFieldInSerializableClass
-Non-serializable field 'thingManager' in a Serializable class
-in `portlet/src/main/java/org/apache/struts2/portlet/example/spring/SpringAction.java`
-#### Snippet
-```java
-public class SpringAction extends ActionSupport {
-
-    private ThingManager thingManager = null;
-    private String thing = null;
-
+	private static int helloCount = 0;
 ```
 
 ### NonSerializableFieldInSerializableClass
@@ -407,62 +382,14 @@ in `helloworld/src/main/java/org/apache/struts/helloworld/action/HelloWorldActio
 
 ### NonSerializableFieldInSerializableClass
 Non-serializable field 'personBean' in a Serializable class
-in `annotations/src/main/java/example/actions/RegisterAction.java`
+in `form-xml-validation/src/main/java/org/apache/struts/edit/action/EditAction.java`
 #### Snippet
 ```java
-    private static final Logger log = LogManager.getLogger(RegisterAction.class);
+    private EditService editService = new EditServiceInMemory();
 
     private Person personBean;
 
-    @Action("register-input")
-```
-
-### NonSerializableFieldInSerializableClass
-Non-serializable field 'personBean' in a Serializable class
-in `message-resource/src/main/java/org/apache/struts/register/action/Register.java`
-#### Snippet
-```java
-	private static final long serialVersionUID = 1L;
-	
-	private Person personBean;
-
-	
-```
-
-### NonSerializableFieldInSerializableClass
-Non-serializable field 'selectedTheme' in a Serializable class
-in `type-conversion/src/main/java/org/apache/struts/example/ThemeAction.java`
-#### Snippet
-```java
-
-    private Map<String, ThemeDescriptor> themes = Themes.list();
-    private ThemeDescriptor selectedTheme = Themes.get("simple");
-
-    public String execute() throws Exception {
-```
-
-### NonSerializableFieldInSerializableClass
-Non-serializable field 'messageStore' in a Serializable class
-in `message-resource/src/main/java/org/apache/struts/helloworld/action/HelloWorldAction.java`
-#### Snippet
-```java
-	 * to display in the view.
-	 */
-	private MessageStore messageStore;
-	
-	private static int helloCount = 0;
-```
-
-### NonSerializableFieldInSerializableClass
-Non-serializable field 'personBean' in a Serializable class
-in `themes/src/main/java/org/apache/struts/edit/action/EditAction.java`
-#### Snippet
-```java
-	private EditService editService = new EditServiceInMemory();
-	
-	private Person personBean;
-	
-	private String [] sports = {"football", "baseball", "basketball" };
+    private String[] sports = {"football", "baseball", "basketball"};
 ```
 
 ### NonSerializableFieldInSerializableClass
@@ -478,6 +405,18 @@ in `debugging-struts/src/main/java/org/apache/struts/register/action/Register.ja
 ```
 
 ### NonSerializableFieldInSerializableClass
+Non-serializable field 'name' in a Serializable class
+in `portlet/src/main/java/org/apache/struts2/portlet/example/FormExampleModelDriven.java`
+#### Snippet
+```java
+public class FormExampleModelDriven extends ActionSupport implements ModelDriven<Name> {
+    
+	private Name name = new Name();
+
+	public Name getModel() {
+```
+
+### NonSerializableFieldInSerializableClass
 Non-serializable field 'messageStore' in a Serializable class
 in `debugging-struts/src/main/java/org/apache/struts/helloworld/action/HelloWorldAction.java`
 #### Snippet
@@ -487,6 +426,90 @@ in `debugging-struts/src/main/java/org/apache/struts/helloworld/action/HelloWorl
 	private MessageStore messageStore;
 	
 	private static int helloCount = 0;
+```
+
+### NonSerializableFieldInSerializableClass
+Non-serializable field 'thingManager' in a Serializable class
+in `portlet/src/main/java/org/apache/struts2/portlet/example/spring/SpringAction.java`
+#### Snippet
+```java
+public class SpringAction extends ActionSupport {
+
+    private ThingManager thingManager = null;
+    private String thing = null;
+
+```
+
+### NonSerializableFieldInSerializableClass
+Non-serializable field 'bean' in a Serializable class
+in `json/src/main/java/org/demo/ProduceAction.java`
+#### Snippet
+```java
+public class ProduceAction extends ActionSupport {
+
+    private MyBean bean;
+
+    public String execute() throws Exception {
+```
+
+### NonSerializableFieldInSerializableClass
+Non-serializable field 'bean' in a Serializable class
+in `json/src/main/java/org/demo/ConsumeAction.java`
+#### Snippet
+```java
+public class ConsumeAction extends ActionSupport implements ServletRequestAware {
+
+    private MyBean bean = new MyBean();
+    private boolean responseAsJson = true;
+
+```
+
+### NonSerializableFieldInSerializableClass
+Non-serializable field 'messageStore' in a Serializable class
+in `http-session/src/main/java/org/apache/struts/helloworld/action/HelloWorldAction.java`
+#### Snippet
+```java
+	 * to display in the view.
+	 */
+	private MessageStore messageStore;
+	
+	private Map<String, Object> userSession ;
+```
+
+### NonSerializableFieldInSerializableClass
+Non-serializable field 'selectedTheme' in a Serializable class
+in `type-conversion/src/main/java/org/apache/struts/example/ThemeAction.java`
+#### Snippet
+```java
+
+    private Map<String, ThemeDescriptor> themes = Themes.list();
+    private ThemeDescriptor selectedTheme = Themes.get("simple");
+
+    public String execute() throws Exception {
+```
+
+### NonSerializableFieldInSerializableClass
+Non-serializable field 'personBean' in a Serializable class
+in `exclude-parameters/src/main/java/org/apache/struts/edit/action/EditAction.java`
+#### Snippet
+```java
+	private CarModelsService carModelsService = new CarModelsServiceHardCoded() ;
+	
+	private Person personBean;
+	private String [] sports = {"football", "baseball", "basketball" };
+	private String [] genders = {"male", "female", "not sure" };
+```
+
+### NonSerializableFieldInSerializableClass
+Non-serializable field 'personBean' in a Serializable class
+in `preparable-interface/src/main/java/org/apache/struts/edit/action/EditAction.java`
+#### Snippet
+```java
+    private CarModelsService carModelsService = new CarModelsServiceHardCoded();
+
+    private Person personBean;
+    private String[] sports = {"football", "baseball", "basketball"};
+    private String[] genders = {"male", "female", "not sure"};
 ```
 
 ### NonSerializableFieldInSerializableClass
@@ -550,6 +573,78 @@ in `wildcard-method-selection/src/main/java/org/apache/struts/tutorials/wildcard
 ```
 
 ### NonSerializableFieldInSerializableClass
+Non-serializable field 'messageStore' in a Serializable class
+in `form-processing/src/main/java/org/apache/struts/helloworld/action/HelloWorldAction.java`
+#### Snippet
+```java
+     * to display in the view.
+     */
+    private MessageStore messageStore;
+    
+    private static int helloCount = 0;
+```
+
+### NonSerializableFieldInSerializableClass
+Non-serializable field 'personBean' in a Serializable class
+in `form-processing/src/main/java/org/apache/struts/register/action/Register.java`
+#### Snippet
+```java
+public class Register extends ActionSupport {
+
+    private Person personBean;
+    private List<Integer> options;
+
+```
+
+### NonSerializableFieldInSerializableClass
+Non-serializable field 'messageStore' in a Serializable class
+in `using-tags/src/main/java/org/apache/struts/using_tags/helloworld/action/HelloWorldAction.java`
+#### Snippet
+```java
+     * to display in the view.
+     */
+    private MessageStore messageStore;
+    
+    private static int helloCount = 0;
+```
+
+### NonSerializableFieldInSerializableClass
+Non-serializable field 'personBean' in a Serializable class
+in `bean-validation/src/main/java/org/apache/struts/edit/action/EditAction.java`
+#### Snippet
+```java
+
+	@Valid
+	private Person personBean;
+	private String[] sports = {"football", "baseball", "basketball"};
+	private String[] genders = {"male", "female", "not sure"};
+```
+
+### NonSerializableFieldInSerializableClass
+Non-serializable field 'ordersService' in a Serializable class
+in `rest-angular/src/main/java/org/apache/examples/struts/actions/data/OrderController.java`
+#### Snippet
+```java
+    private String id;
+    private Collection<Order> list = null;
+    private OrdersService ordersService = new OrdersService();
+
+    // GET /data/order/1
+```
+
+### NonSerializableFieldInSerializableClass
+Non-serializable field 'model' in a Serializable class
+in `rest-angular/src/main/java/org/apache/examples/struts/actions/data/OrderController.java`
+#### Snippet
+```java
+    private static final Logger log = LogManager.getLogger(OrderController.class);
+
+    private Order model = new Order();
+    private String id;
+    private Collection<Order> list = null;
+```
+
+### NonSerializableFieldInSerializableClass
 Non-serializable field 'personBean' in a Serializable class
 in `themes-override/src/main/java/org/apache/struts/edit/action/EditAction.java`
 #### Snippet
@@ -563,26 +658,50 @@ in `themes-override/src/main/java/org/apache/struts/edit/action/EditAction.java`
 
 ### NonSerializableFieldInSerializableClass
 Non-serializable field 'personBean' in a Serializable class
-in `exclude-parameters/src/main/java/org/apache/struts/edit/action/EditAction.java`
+in `annotations/src/main/java/example/actions/RegisterAction.java`
 #### Snippet
 ```java
-	private CarModelsService carModelsService = new CarModelsServiceHardCoded() ;
-	
-	private Person personBean;
-	private String [] sports = {"football", "baseball", "basketball" };
-	private String [] genders = {"male", "female", "not sure" };
+    private static final Logger log = LogManager.getLogger(RegisterAction.class);
+
+    private Person personBean;
+
+    @Action("register-input")
 ```
 
 ### NonSerializableFieldInSerializableClass
 Non-serializable field 'personBean' in a Serializable class
-in `bean-validation/src/main/java/org/apache/struts/edit/action/EditAction.java`
+in `form-tags/src/main/java/org/apache/struts/edit/action/EditAction.java`
 #### Snippet
 ```java
+    private final EditService editService = new EditServiceInMemory();
 
-	@Valid
+    private Person personBean;
+
+    private final String[] sports = {"football", "baseball", "basketball"};
+```
+
+### NonSerializableFieldInSerializableClass
+Non-serializable field 'user' in a Serializable class
+in `json-customize/src/main/java/org/demo/ProduceAction.java`
+#### Snippet
+```java
+public class ProduceAction extends ActionSupport {
+
+    private User user;
+
+    public String execute() throws Exception {
+```
+
+### NonSerializableFieldInSerializableClass
+Non-serializable field 'personBean' in a Serializable class
+in `form-validation/src/main/java/org/apache/struts/register/action/Register.java`
+#### Snippet
+```java
+	private static final long serialVersionUID = 1L;
+	
 	private Person personBean;
-	private String[] sports = {"football", "baseball", "basketball"};
-	private String[] genders = {"male", "female", "not sure"};
+
+	
 ```
 
 ### NonSerializableFieldInSerializableClass
@@ -611,79 +730,7 @@ in `exception-handling/src/main/java/org/apache/struts/helloworld/action/HelloWo
 
 ### NonSerializableFieldInSerializableClass
 Non-serializable field 'personBean' in a Serializable class
-in `form-tags/src/main/java/org/apache/struts/edit/action/EditAction.java`
-#### Snippet
-```java
-    private final EditService editService = new EditServiceInMemory();
-
-    private Person personBean;
-
-    private final String[] sports = {"football", "baseball", "basketball"};
-```
-
-### NonSerializableFieldInSerializableClass
-Non-serializable field 'model' in a Serializable class
-in `rest-angular/src/main/java/org/apache/examples/struts/actions/data/OrderController.java`
-#### Snippet
-```java
-    private static final Logger log = LogManager.getLogger(OrderController.class);
-
-    private Order model = new Order();
-    private String id;
-    private Collection<Order> list = null;
-```
-
-### NonSerializableFieldInSerializableClass
-Non-serializable field 'ordersService' in a Serializable class
-in `rest-angular/src/main/java/org/apache/examples/struts/actions/data/OrderController.java`
-#### Snippet
-```java
-    private String id;
-    private Collection<Order> list = null;
-    private OrdersService ordersService = new OrdersService();
-
-    // GET /data/order/1
-```
-
-### NonSerializableFieldInSerializableClass
-Non-serializable field 'messageStore' in a Serializable class
-in `using-tags/src/main/java/org/apache/struts/using_tags/helloworld/action/HelloWorldAction.java`
-#### Snippet
-```java
-     * to display in the view.
-     */
-    private MessageStore messageStore;
-    
-    private static int helloCount = 0;
-```
-
-### NonSerializableFieldInSerializableClass
-Non-serializable field 'personBean' in a Serializable class
-in `preparable-interface/src/main/java/org/apache/struts/edit/action/EditAction.java`
-#### Snippet
-```java
-    private CarModelsService carModelsService = new CarModelsServiceHardCoded();
-
-    private Person personBean;
-    private String[] sports = {"football", "baseball", "basketball"};
-    private String[] genders = {"male", "female", "not sure"};
-```
-
-### NonSerializableFieldInSerializableClass
-Non-serializable field 'personBean' in a Serializable class
-in `form-xml-validation/src/main/java/org/apache/struts/edit/action/EditAction.java`
-#### Snippet
-```java
-    private EditService editService = new EditServiceInMemory();
-
-    private Person personBean;
-
-    private String[] sports = {"football", "baseball", "basketball"};
-```
-
-### NonSerializableFieldInSerializableClass
-Non-serializable field 'personBean' in a Serializable class
-in `form-validation/src/main/java/org/apache/struts/register/action/Register.java`
+in `interceptors/src/main/java/org/apache/struts/register/action/Register.java`
 #### Snippet
 ```java
 	private static final long serialVersionUID = 1L;
@@ -691,18 +738,6 @@ in `form-validation/src/main/java/org/apache/struts/register/action/Register.jav
 	private Person personBean;
 
 	
-```
-
-### NonSerializableFieldInSerializableClass
-Non-serializable field 'bean' in a Serializable class
-in `json/src/main/java/org/demo/ConsumeAction.java`
-#### Snippet
-```java
-public class ConsumeAction extends ActionSupport implements ServletRequestAware {
-
-    private MyBean bean = new MyBean();
-    private boolean responseAsJson = true;
-
 ```
 
 ### NonSerializableFieldInSerializableClass
@@ -718,32 +753,20 @@ in `form-validation/src/main/java/org/apache/struts/helloworld/action/HelloWorld
 ```
 
 ### NonSerializableFieldInSerializableClass
-Non-serializable field 'bean' in a Serializable class
-in `json/src/main/java/org/demo/ProduceAction.java`
-#### Snippet
-```java
-public class ProduceAction extends ActionSupport {
-
-    private MyBean bean;
-
-    public String execute() throws Exception {
-```
-
-### NonSerializableFieldInSerializableClass
 Non-serializable field 'personBean' in a Serializable class
-in `unit-testing/src/main/java/org/apache/struts/register/action/Register.java`
+in `control-tags/src/main/java/org/apache/struts/edit/action/EditAction.java`
 #### Snippet
 ```java
-	private static final long serialVersionUID = 1L;
-	
-	private Person personBean;
+	private EditService editService = new EditServiceInMemory();
 
-	
+	private Person personBean;
+	private String [] sports = {"football", "baseball", "basketball" };
+	private String [] genders = {"male", "female", "not sure" };
 ```
 
 ### NonSerializableFieldInSerializableClass
 Non-serializable field 'messageStore' in a Serializable class
-in `form-processing/src/main/java/org/apache/struts/helloworld/action/HelloWorldAction.java`
+in `coding-actions/src/main/java/org/apache/struts/helloworld/action/HelloWorldAction.java`
 #### Snippet
 ```java
      * to display in the view.
@@ -751,30 +774,6 @@ in `form-processing/src/main/java/org/apache/struts/helloworld/action/HelloWorld
     private MessageStore messageStore;
     
     private static int helloCount = 0;
-```
-
-### NonSerializableFieldInSerializableClass
-Non-serializable field 'personBean' in a Serializable class
-in `form-processing/src/main/java/org/apache/struts/register/action/Register.java`
-#### Snippet
-```java
-public class Register extends ActionSupport {
-
-    private Person personBean;
-    private List<Integer> options;
-
-```
-
-### NonSerializableFieldInSerializableClass
-Non-serializable field 'messageStore' in a Serializable class
-in `http-session/src/main/java/org/apache/struts/helloworld/action/HelloWorldAction.java`
-#### Snippet
-```java
-	 * to display in the view.
-	 */
-	private MessageStore messageStore;
-	
-	private Map<String, Object> userSession ;
 ```
 
 ## RuleId[ruleID=MismatchedJavadocCode]
@@ -791,90 +790,6 @@ in `mailreader2/src/main/java/org/apache/struts/examples/mailreader2/Subscriptio
 ```
 
 ## RuleId[ruleID=SizeReplaceableByIsEmpty]
-### SizeReplaceableByIsEmpty
-`value.length() == 0` can be replaced with 'value.isEmpty()'
-in `tiles/src/main/java/org/demo/example/Login.java`
-#### Snippet
-```java
-
-    private boolean isInvalid(String value) {
-        return (value == null || value.length() == 0);
-    }
-
-```
-
-### SizeReplaceableByIsEmpty
-`personBean.getFirstName().length() == 0` can be replaced with 'personBean.getFirstName().isEmpty()'
-in `interceptors/src/main/java/org/apache/struts/register/action/Register.java`
-#### Snippet
-```java
-	public void validate(){
-		
-		if ( personBean.getFirstName().length() == 0 ){	
-
-			addFieldError( "personBean.firstName", "First name is required." );
-```
-
-### SizeReplaceableByIsEmpty
-`personBean.getEmail().length() == 0` can be replaced with 'personBean.getEmail().isEmpty()'
-in `interceptors/src/main/java/org/apache/struts/register/action/Register.java`
-#### Snippet
-```java
-		
-				
-		if ( personBean.getEmail().length() == 0 ){	
-
-			addFieldError( "personBean.email", "Email is required." );
-```
-
-### SizeReplaceableByIsEmpty
-`personBean.getFirstName().length() == 0` can be replaced with 'personBean.getFirstName().isEmpty()'
-in `message-resource/src/main/java/org/apache/struts/register/action/Register.java`
-#### Snippet
-```java
-	public void validate(){
-		
-		if ( personBean.getFirstName().length() == 0 ){	
-
-			addFieldError( "personBean.firstName", "First name is required." );
-```
-
-### SizeReplaceableByIsEmpty
-`personBean.getEmail().length() == 0` can be replaced with 'personBean.getEmail().isEmpty()'
-in `message-resource/src/main/java/org/apache/struts/register/action/Register.java`
-#### Snippet
-```java
-		
-				
-		if ( personBean.getEmail().length() == 0 ){	
-
-			addFieldError( "personBean.email", "Email is required." );
-```
-
-### SizeReplaceableByIsEmpty
-`personBean.getFirstName().length() == 0` can be replaced with 'personBean.getFirstName().isEmpty()'
-in `form-validation/src/main/java/org/apache/struts/register/action/Register.java`
-#### Snippet
-```java
-	public void validate(){
-		
-		if ( personBean.getFirstName().length() == 0 ){	
-
-			addFieldError( "personBean.firstName", "First name is required." );
-```
-
-### SizeReplaceableByIsEmpty
-`personBean.getEmail().length() == 0` can be replaced with 'personBean.getEmail().isEmpty()'
-in `form-validation/src/main/java/org/apache/struts/register/action/Register.java`
-#### Snippet
-```java
-		
-				
-		if ( personBean.getEmail().length() == 0 ){	
-
-			addFieldError( "personBean.email", "Email is required." );
-```
-
 ### SizeReplaceableByIsEmpty
 `personBean.getFirstName().length() == 0` can be replaced with 'personBean.getFirstName().isEmpty()'
 in `unit-testing/src/main/java/org/apache/struts/register/action/Register.java`
@@ -900,6 +815,42 @@ in `unit-testing/src/main/java/org/apache/struts/register/action/Register.java`
 ```
 
 ### SizeReplaceableByIsEmpty
+`personBean.getFirstName().length() == 0` can be replaced with 'personBean.getFirstName().isEmpty()'
+in `message-resource/src/main/java/org/apache/struts/register/action/Register.java`
+#### Snippet
+```java
+	public void validate(){
+		
+		if ( personBean.getFirstName().length() == 0 ){	
+
+			addFieldError( "personBean.firstName", "First name is required." );
+```
+
+### SizeReplaceableByIsEmpty
+`personBean.getEmail().length() == 0` can be replaced with 'personBean.getEmail().isEmpty()'
+in `message-resource/src/main/java/org/apache/struts/register/action/Register.java`
+#### Snippet
+```java
+		
+				
+		if ( personBean.getEmail().length() == 0 ){	
+
+			addFieldError( "personBean.email", "Email is required." );
+```
+
+### SizeReplaceableByIsEmpty
+`value.length() == 0` can be replaced with 'value.isEmpty()'
+in `tiles/src/main/java/org/demo/example/Login.java`
+#### Snippet
+```java
+
+    private boolean isInvalid(String value) {
+        return (value == null || value.length() == 0);
+    }
+
+```
+
+### SizeReplaceableByIsEmpty
 `value.length() == 0` can be replaced with 'value.isEmpty()'
 in `validation-messages/src/main/java/org/apache/struts/validation_messages/Login.java`
 #### Snippet
@@ -909,6 +860,54 @@ in `validation-messages/src/main/java/org/apache/struts/validation_messages/Logi
         return (value == null || value.length() == 0);
     }
 
+```
+
+### SizeReplaceableByIsEmpty
+`personBean.getFirstName().length() == 0` can be replaced with 'personBean.getFirstName().isEmpty()'
+in `form-validation/src/main/java/org/apache/struts/register/action/Register.java`
+#### Snippet
+```java
+	public void validate(){
+		
+		if ( personBean.getFirstName().length() == 0 ){	
+
+			addFieldError( "personBean.firstName", "First name is required." );
+```
+
+### SizeReplaceableByIsEmpty
+`personBean.getEmail().length() == 0` can be replaced with 'personBean.getEmail().isEmpty()'
+in `form-validation/src/main/java/org/apache/struts/register/action/Register.java`
+#### Snippet
+```java
+		
+				
+		if ( personBean.getEmail().length() == 0 ){	
+
+			addFieldError( "personBean.email", "Email is required." );
+```
+
+### SizeReplaceableByIsEmpty
+`personBean.getFirstName().length() == 0` can be replaced with 'personBean.getFirstName().isEmpty()'
+in `interceptors/src/main/java/org/apache/struts/register/action/Register.java`
+#### Snippet
+```java
+	public void validate(){
+		
+		if ( personBean.getFirstName().length() == 0 ){	
+
+			addFieldError( "personBean.firstName", "First name is required." );
+```
+
+### SizeReplaceableByIsEmpty
+`personBean.getEmail().length() == 0` can be replaced with 'personBean.getEmail().isEmpty()'
+in `interceptors/src/main/java/org/apache/struts/register/action/Register.java`
+#### Snippet
+```java
+		
+				
+		if ( personBean.getEmail().length() == 0 ){	
+
+			addFieldError( "personBean.email", "Email is required." );
 ```
 
 ## RuleId[ruleID=UnnecessaryReturn]
@@ -1067,6 +1066,18 @@ Synchronization on a non-final field `subscriptions`
 in `mailreader2/src/main/java/org/apache/struts/examples/mailreader2/dao/impl/AbstractUser.java`
 #### Snippet
 ```java
+                    ("Subscription not associated with this user");
+        }
+        synchronized (subscriptions) {
+            subscriptions.remove(subscription.getHost());
+        }
+```
+
+### SynchronizeOnNonFinalField
+Synchronization on a non-final field `subscriptions`
+in `mailreader2/src/main/java/org/apache/struts/examples/mailreader2/dao/impl/AbstractUser.java`
+#### Snippet
+```java
     public Subscription findSubscription(String host) {
 
         synchronized (subscriptions) {
@@ -1079,11 +1090,11 @@ Synchronization on a non-final field `subscriptions`
 in `mailreader2/src/main/java/org/apache/struts/examples/mailreader2/dao/impl/AbstractUser.java`
 #### Snippet
 ```java
-                    ("Subscription not associated with this user");
-        }
+    public Subscription[] getSubscriptions() {
+
         synchronized (subscriptions) {
-            subscriptions.remove(subscription.getHost());
-        }
+            Subscription results[] = new Subscription[subscriptions.size()];
+            return ((Subscription[]) subscriptions.values().toArray(results));
 ```
 
 ### SynchronizeOnNonFinalField
@@ -1108,18 +1119,6 @@ in `mailreader2/src/main/java/org/apache/struts/examples/mailreader2/dao/impl/Ab
             synchronized (subscriptions) {
                 subscriptions.put(host, subscription);
             }
-```
-
-### SynchronizeOnNonFinalField
-Synchronization on a non-final field `subscriptions`
-in `mailreader2/src/main/java/org/apache/struts/examples/mailreader2/dao/impl/AbstractUser.java`
-#### Snippet
-```java
-    public Subscription[] getSubscriptions() {
-
-        synchronized (subscriptions) {
-            Subscription results[] = new Subscription[subscriptions.size()];
-            return ((Subscription[]) subscriptions.values().toArray(results));
 ```
 
 ## RuleId[ruleID=SystemOutErr]
@@ -1175,18 +1174,6 @@ in `shiro-basic/src/main/java/org/apache/struts2/shiro/example/interceptor/Shiro
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `mailreader2/src/main/java/org/apache/struts/examples/mailreader2/MailreaderSupport.java`
-#### Snippet
-```java
-     * </p>
-     *
-     * @throws java.lang.Exception on database error
-     */
-    public void saveUser() throws Exception {
-```
-
-### UnnecessaryFullyQualifiedName
 Qualifier `java.awt` is unnecessary, and can be replaced with an import
 in `jfreechart/src/main/java/org/apache/struts/example/Chart.java`
 #### Snippet
@@ -1196,6 +1183,18 @@ in `jfreechart/src/main/java/org/apache/struts/example/Chart.java`
         chart.setBackgroundPaint(java.awt.Color.white);
 
         return SUCCESS;
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.lang` is unnecessary and can be removed
+in `mailreader2/src/main/java/org/apache/struts/examples/mailreader2/MailreaderSupport.java`
+#### Snippet
+```java
+     * </p>
+     *
+     * @throws java.lang.Exception on database error
+     */
+    public void saveUser() throws Exception {
 ```
 
 ## RuleId[ruleID=UNUSED_IMPORT]
@@ -1301,14 +1300,14 @@ in `text-provider/src/main/java/org/apache/struts_example/MyTextTextProvider.jav
 ## RuleId[ruleID=RedundantFieldInitialization]
 ### RedundantFieldInitialization
 Field initialization to `0` is redundant
-in `coding-actions/src/main/java/org/apache/struts/helloworld/action/HelloWorldAction.java`
+in `message-resource/src/main/java/org/apache/struts/helloworld/action/HelloWorldAction.java`
 #### Snippet
 ```java
-    private MessageStore messageStore;
-    
-    private static int helloCount = 0;
-    
-    public int getHelloCount() {
+	private MessageStore messageStore;
+	
+	private static int helloCount = 0;
+	
+	public int getHelloCount() {
 ```
 
 ### RedundantFieldInitialization
@@ -1336,27 +1335,15 @@ public class FormExampleWithValidation extends ActionSupport {
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `portlet/src/main/java/org/apache/struts2/portlet/example/FormResultAction.java`
+Field initialization to `0` is redundant
+in `debugging-struts/src/main/java/org/apache/struts/helloworld/action/HelloWorldAction.java`
 #### Snippet
 ```java
-public class FormResultAction extends ActionSupport {
-
-    private String result = null;
-
-    public String getResult() {
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `portlet/src/main/java/org/apache/struts2/portlet/example/SavePrefsAction.java`
-#### Snippet
-```java
- */
-public class SavePrefsAction extends ActionSupport {
-    private String preferenceOne = null;
-    private String preferenceTwo = null;
-    public String getPreferenceOne() {
+	private MessageStore messageStore;
+	
+	private static int helloCount = 0;
+	
+	public int getHelloCount() {
 ```
 
 ### RedundantFieldInitialization
@@ -1385,18 +1372,6 @@ in `portlet/src/main/java/org/apache/struts2/portlet/example/FormExample.java`
 
 ### RedundantFieldInitialization
 Field initialization to `null` is redundant
-in `portlet/src/main/java/org/apache/struts2/portlet/example/SavePrefsAction.java`
-#### Snippet
-```java
-public class SavePrefsAction extends ActionSupport {
-    private String preferenceOne = null;
-    private String preferenceTwo = null;
-    public String getPreferenceOne() {
-        return preferenceOne;
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
 in `portlet/src/main/java/org/apache/struts2/portlet/example/FormTestAction.java`
 #### Snippet
 ```java
@@ -1405,6 +1380,42 @@ public class FormTestAction extends ActionSupport {
     private String name = null;
     public String getName() {
         return name;
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `portlet/src/main/java/org/apache/struts2/portlet/example/FormResultAction.java`
+#### Snippet
+```java
+public class FormResultAction extends ActionSupport {
+
+    private String result = null;
+
+    public String getResult() {
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `portlet/src/main/java/org/apache/struts2/portlet/example/SavePrefsAction.java`
+#### Snippet
+```java
+ */
+public class SavePrefsAction extends ActionSupport {
+    private String preferenceOne = null;
+    private String preferenceTwo = null;
+    public String getPreferenceOne() {
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `portlet/src/main/java/org/apache/struts2/portlet/example/SavePrefsAction.java`
+#### Snippet
+```java
+public class SavePrefsAction extends ActionSupport {
+    private String preferenceOne = null;
+    private String preferenceTwo = null;
+    public String getPreferenceOne() {
+        return preferenceOne;
 ```
 
 ### RedundantFieldInitialization
@@ -1432,42 +1443,6 @@ public class SpringAction extends ActionSupport {
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `message-resource/src/main/java/org/apache/struts/helloworld/action/HelloWorldAction.java`
-#### Snippet
-```java
-	private MessageStore messageStore;
-	
-	private static int helloCount = 0;
-	
-	public int getHelloCount() {
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `debugging-struts/src/main/java/org/apache/struts/helloworld/action/HelloWorldAction.java`
-#### Snippet
-```java
-	private MessageStore messageStore;
-	
-	private static int helloCount = 0;
-	
-	public int getHelloCount() {
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `exception-handling/src/main/java/org/apache/struts/helloworld/action/HelloWorldAction.java`
-#### Snippet
-```java
-	private MessageStore messageStore;
-	
-	private static int helloCount = 0;
-	
-	public int getHelloCount() {
-```
-
-### RedundantFieldInitialization
 Field initialization to `null` is redundant
 in `mailreader2/src/main/java/org/apache/struts/examples/mailreader2/SubscriptionAction.java`
 #### Snippet
@@ -1484,23 +1459,11 @@ Field initialization to `null` is redundant
 in `mailreader2/src/main/java/org/apache/struts/examples/mailreader2/dao/impl/AbstractSubscription.java`
 #### Snippet
 ```java
-     * The username for this subscription.
+     * The {@link User} with which we are associated.
      */
-    private String username = null;
+    private User user = null;
 
-    public String getUsername() {
-```
 
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `mailreader2/src/main/java/org/apache/struts/examples/mailreader2/dao/impl/AbstractSubscription.java`
-#### Snippet
-```java
-     * The password (in clear text) for this subscription.
-     */
-    private String password = null;
-
-    public String getPassword() {
 ```
 
 ### RedundantFieldInitialization
@@ -1520,11 +1483,23 @@ Field initialization to `null` is redundant
 in `mailreader2/src/main/java/org/apache/struts/examples/mailreader2/dao/impl/AbstractSubscription.java`
 #### Snippet
 ```java
-     * The {@link User} with which we are associated.
+     * The password (in clear text) for this subscription.
      */
-    private User user = null;
+    private String password = null;
 
+    public String getPassword() {
+```
 
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `mailreader2/src/main/java/org/apache/struts/examples/mailreader2/dao/impl/AbstractSubscription.java`
+#### Snippet
+```java
+     * The username for this subscription.
+     */
+    private String username = null;
+
+    public String getUsername() {
 ```
 
 ### RedundantFieldInitialization
@@ -1565,38 +1540,14 @@ in `mailreader2/src/main/java/org/apache/struts/examples/mailreader2/Application
 
 ### RedundantFieldInitialization
 Field initialization to `null` is redundant
-in `mailreader2/src/main/java/org/apache/struts/examples/mailreader2/MailreaderSupport.java`
+in `mailreader2/src/main/java/org/apache/struts/examples/mailreader2/dao/impl/AbstractUser.java`
 #### Snippet
 ```java
-     * locally until we are ready to create the object.</p>
+     * The EMAIL address to which replies should be sent.
      */
-    private String username = null;
+    private String replyToAddress = null;
 
-
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `mailreader2/src/main/java/org/apache/struts/examples/mailreader2/MailreaderSupport.java`
-#### Snippet
-```java
-     * correctly.</p>
-     */
-    private String password2 = null;
-
-
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `mailreader2/src/main/java/org/apache/struts/examples/mailreader2/MailreaderSupport.java`
-#### Snippet
-```java
-     * needed.</p>
-     */
-    private String task = null;
-
-
+    public String getReplyToAddress() {
 ```
 
 ### RedundantFieldInitialization
@@ -1604,21 +1555,9 @@ Field initialization to `null` is redundant
 in `mailreader2/src/main/java/org/apache/struts/examples/mailreader2/dao/impl/AbstractUser.java`
 #### Snippet
 ```java
-     * The full name of this user, included in from addresses.
+     * The username for this user.
      */
-    private String fullName = null;
-
-    public String getFullName() {
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `mailreader2/src/main/java/org/apache/struts/examples/mailreader2/MailreaderSupport.java`
-#### Snippet
-```java
-     * locally until we are ready to create the object.</p>
-     */
-    private String password = null;
+    private String username = null;
 
 
 ```
@@ -1649,38 +1588,14 @@ in `mailreader2/src/main/java/org/apache/struts/examples/mailreader2/dao/impl/Ab
 
 ### RedundantFieldInitialization
 Field initialization to `null` is redundant
-in `mailreader2/src/main/java/org/apache/struts/examples/mailreader2/MailreaderSupport.java`
-#### Snippet
-```java
-     * <p>Field to store double-submit guard.</p>
-     */
-    private String token = null;
-
-
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
 in `mailreader2/src/main/java/org/apache/struts/examples/mailreader2/dao/impl/AbstractUser.java`
 #### Snippet
 ```java
-     * The username for this user.
+     * The full name of this user, included in from addresses.
      */
-    private String username = null;
+    private String fullName = null;
 
-
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `mailreader2/src/main/java/org/apache/struts/examples/mailreader2/dao/impl/AbstractUser.java`
-#### Snippet
-```java
-     * The EMAIL address to which replies should be sent.
-     */
-    private String replyToAddress = null;
-
-    public String getReplyToAddress() {
+    public String getFullName() {
 ```
 
 ### RedundantFieldInitialization
@@ -1696,27 +1611,75 @@ in `mailreader2/src/main/java/org/apache/struts/examples/mailreader2/dao/impl/Ab
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `rest-angular/src/main/java/org/apache/examples/struts/actions/IndexController.java`
+Field initialization to `null` is redundant
+in `mailreader2/src/main/java/org/apache/struts/examples/mailreader2/MailreaderSupport.java`
 #### Snippet
 ```java
-    private static final long serialVersionUID = 6153177836211979662L;
+     * <p>Field to store double-submit guard.</p>
+     */
+    private String token = null;
 
-    private boolean useMinifiedResources = false;
 
-    public HttpHeaders index() {
 ```
 
 ### RedundantFieldInitialization
 Field initialization to `null` is redundant
-in `rest-angular/src/main/java/org/apache/examples/struts/actions/data/OrderController.java`
+in `mailreader2/src/main/java/org/apache/struts/examples/mailreader2/MailreaderSupport.java`
 #### Snippet
 ```java
-    private Order model = new Order();
-    private String id;
-    private Collection<Order> list = null;
-    private OrdersService ordersService = new OrdersService();
+     * correctly.</p>
+     */
+    private String password2 = null;
 
+
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `mailreader2/src/main/java/org/apache/struts/examples/mailreader2/MailreaderSupport.java`
+#### Snippet
+```java
+     * needed.</p>
+     */
+    private String task = null;
+
+
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `mailreader2/src/main/java/org/apache/struts/examples/mailreader2/MailreaderSupport.java`
+#### Snippet
+```java
+     * locally until we are ready to create the object.</p>
+     */
+    private String password = null;
+
+
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `mailreader2/src/main/java/org/apache/struts/examples/mailreader2/MailreaderSupport.java`
+#### Snippet
+```java
+     * locally until we are ready to create the object.</p>
+     */
+    private String username = null;
+
+
+```
+
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `form-processing/src/main/java/org/apache/struts/helloworld/action/HelloWorldAction.java`
+#### Snippet
+```java
+    private MessageStore messageStore;
+    
+    private static int helloCount = 0;
+    
+    public int getHelloCount() {
 ```
 
 ### RedundantFieldInitialization
@@ -1736,35 +1699,11 @@ Field initialization to `null` is redundant
 in `mailreader2/src/main/java/org/apache/struts/examples/mailreader2/dao/impl/memory/MemoryUserDatabase.java`
 #### Snippet
 ```java
-class MemorySubscriptionCreationFactory implements ObjectCreationFactory {
-
-    private Digester digester = null;
-
-    public Digester getDigester() {
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `mailreader2/src/main/java/org/apache/struts/examples/mailreader2/dao/impl/memory/MemoryUserDatabase.java`
-#### Snippet
-```java
-    private final HashMap<String, User> users = new HashMap<>();
-
-    private boolean open = false;
-
-    /**
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `mailreader2/src/main/java/org/apache/struts/examples/mailreader2/dao/impl/memory/MemoryUserDatabase.java`
-#### Snippet
-```java
-     * persistent data.
-     */
     private String pathname = null;
 
     private String pathnameOld = null;
+
+    private String pathnameNew = null;
 ```
 
 ### RedundantFieldInitialization
@@ -1796,11 +1735,23 @@ Field initialization to `null` is redundant
 in `mailreader2/src/main/java/org/apache/struts/examples/mailreader2/dao/impl/memory/MemoryUserDatabase.java`
 #### Snippet
 ```java
+     * persistent data.
+     */
     private String pathname = null;
 
     private String pathnameOld = null;
+```
 
-    private String pathnameNew = null;
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `mailreader2/src/main/java/org/apache/struts/examples/mailreader2/dao/impl/memory/MemoryUserDatabase.java`
+#### Snippet
+```java
+class MemorySubscriptionCreationFactory implements ObjectCreationFactory {
+
+    private Digester digester = null;
+
+    public Digester getDigester() {
 ```
 
 ### RedundantFieldInitialization
@@ -1813,6 +1764,54 @@ in `mailreader2/src/main/java/org/apache/struts/examples/mailreader2/dao/impl/me
     private MemoryUserDatabase database = null;
 
     private Digester digester = null;
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `mailreader2/src/main/java/org/apache/struts/examples/mailreader2/dao/impl/memory/MemoryUserDatabase.java`
+#### Snippet
+```java
+    private final HashMap<String, User> users = new HashMap<>();
+
+    private boolean open = false;
+
+    /**
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `rest-angular/src/main/java/org/apache/examples/struts/actions/IndexController.java`
+#### Snippet
+```java
+    private static final long serialVersionUID = 6153177836211979662L;
+
+    private boolean useMinifiedResources = false;
+
+    public HttpHeaders index() {
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `rest-angular/src/main/java/org/apache/examples/struts/actions/data/OrderController.java`
+#### Snippet
+```java
+    private Order model = new Order();
+    private String id;
+    private Collection<Order> list = null;
+    private OrdersService ordersService = new OrdersService();
+
+```
+
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `exception-handling/src/main/java/org/apache/struts/helloworld/action/HelloWorldAction.java`
+#### Snippet
+```java
+	private MessageStore messageStore;
+	
+	private static int helloCount = 0;
+	
+	public int getHelloCount() {
 ```
 
 ### RedundantFieldInitialization
@@ -1829,7 +1828,7 @@ in `form-validation/src/main/java/org/apache/struts/helloworld/action/HelloWorld
 
 ### RedundantFieldInitialization
 Field initialization to `0` is redundant
-in `form-processing/src/main/java/org/apache/struts/helloworld/action/HelloWorldAction.java`
+in `coding-actions/src/main/java/org/apache/struts/helloworld/action/HelloWorldAction.java`
 #### Snippet
 ```java
     private MessageStore messageStore;
@@ -1837,19 +1836,6 @@ in `form-processing/src/main/java/org/apache/struts/helloworld/action/HelloWorld
     private static int helloCount = 0;
     
     public int getHelloCount() {
-```
-
-## RuleId[ruleID=AssignmentToMethodParameter]
-### AssignmentToMethodParameter
-Assignment to method parameter `namespace`
-in `unknown-handler/src/main/java/org/apache/strutsexamples/web/TilesUnknownHandler.java`
-#### Snippet
-```java
-
-        if (namespace.startsWith("/")) {
-            namespace = namespace.substring(1);
-        }
-
 ```
 
 ## RuleId[ruleID=EqualsAndHashcode]
@@ -1865,17 +1851,17 @@ public class Country {
     private String countryName;
 ```
 
-## RuleId[ruleID=HtmlWrongAttributeValue]
-### HtmlWrongAttributeValue
-Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-02-08-03-19-35.409.html`
+## RuleId[ruleID=AssignmentToMethodParameter]
+### AssignmentToMethodParameter
+Assignment to method parameter `namespace`
+in `unknown-handler/src/main/java/org/apache/strutsexamples/web/TilesUnknownHandler.java`
 #### Snippet
 ```java
-              <td>0</td>
-              <td>0</td>
-              <td><textarea rows="10" cols="75" readonly="true" placeholder="empty" style="white-space: pre; border: none">Not collected for refresh</textarea></td>
-            </tr>
-          </tbody>
+
+        if (namespace.startsWith("/")) {
+            namespace = namespace.substring(1);
+        }
+
 ```
 
 ## RuleId[ruleID=InstanceofCatchParameter]
@@ -1894,11 +1880,35 @@ in `rest-angular/src/main/java/org/apache/examples/struts/interceptors/Exception
 ## RuleId[ruleID=ReturnNull]
 ### ReturnNull
 Return of `null`
-in `type-conversion/src/main/java/org/apache/struts/example/ThemeDescriptorConverter.java`
+in `unknown-handler/src/main/java/org/apache/strutsexamples/web/TilesUnknownHandler.java`
 #### Snippet
 ```java
-            }
-        }
+
+    public Object handleUnknownActionMethod(Object action, String methodName) {
+        return null;
+    }
+}
+```
+
+### ReturnNull
+Return of `null`
+in `unknown-handler/src/main/java/org/apache/strutsexamples/web/TilesUnknownHandler.java`
+#### Snippet
+```java
+
+    public ActionConfig handleUnknownAction(String namespace, String actionName) throws StrutsException {
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `unknown-handler/src/main/java/org/apache/strutsexamples/web/TilesUnknownHandler.java`
+#### Snippet
+```java
+
+        LOG.warn("Couldn't find tiles definition for namespace {}, action name {} and result code {}", namespace, actionName, resultCode);
         return null;
     }
 
@@ -1918,7 +1928,7 @@ in `type-conversion/src/main/java/org/apache/struts/example/ThemeDescriptorConve
 
 ### ReturnNull
 Return of `null`
-in `crud/src/main/java/org/apache/struts/crud/dao/MemoryPersonDao.java`
+in `type-conversion/src/main/java/org/apache/struts/example/ThemeDescriptorConverter.java`
 #### Snippet
 ```java
             }
@@ -1945,8 +1955,8 @@ Return of `null`
 in `mailreader2/src/main/java/org/apache/struts/examples/mailreader2/MailreaderSupport.java`
 #### Snippet
 ```java
-        if (user != null) {
-            this.addFieldError("username", "error.username.unique");
+            // FIXME - localization - "error.host.unique")
+            addFieldError(Constants.HOST,"That hostname is already defined");
             return null;
         }
 
@@ -1957,8 +1967,8 @@ Return of `null`
 in `mailreader2/src/main/java/org/apache/struts/examples/mailreader2/MailreaderSupport.java`
 #### Snippet
 ```java
-            // FIXME - localization - "error.host.unique")
-            addFieldError(Constants.HOST,"That hostname is already defined");
+        if (user != null) {
+            this.addFieldError("username", "error.username.unique");
             return null;
         }
 
@@ -1966,63 +1976,14 @@ in `mailreader2/src/main/java/org/apache/struts/examples/mailreader2/MailreaderS
 
 ### ReturnNull
 Return of `null`
-in `unknown-handler/src/main/java/org/apache/strutsexamples/web/TilesUnknownHandler.java`
+in `crud/src/main/java/org/apache/struts/crud/dao/MemoryPersonDao.java`
 #### Snippet
 ```java
-
-        LOG.warn("Couldn't find tiles definition for namespace {}, action name {} and result code {}", namespace, actionName, resultCode);
+            }
+        }
         return null;
     }
 
-```
-
-### ReturnNull
-Return of `null`
-in `unknown-handler/src/main/java/org/apache/strutsexamples/web/TilesUnknownHandler.java`
-#### Snippet
-```java
-
-    public Object handleUnknownActionMethod(Object action, String methodName) {
-        return null;
-    }
-}
-```
-
-### ReturnNull
-Return of `null`
-in `unknown-handler/src/main/java/org/apache/strutsexamples/web/TilesUnknownHandler.java`
-#### Snippet
-```java
-
-    public ActionConfig handleUnknownAction(String namespace, String actionName) throws StrutsException {
-        return null;
-    }
-
-```
-
-## RuleId[ruleID=StringBufferReplaceableByStringBuilder]
-### StringBufferReplaceableByStringBuilder
-`StringBuffer sb` may be declared as 'StringBuilder'
-in `mailreader2/src/main/java/org/apache/struts/examples/mailreader2/dao/impl/memory/MemoryUser.java`
-#### Snippet
-```java
-    public String toString() {
-
-        StringBuffer sb = new StringBuffer("<user username=\"");
-        sb.append(getUsername());
-        sb.append("\"");
-```
-
-### StringBufferReplaceableByStringBuilder
-`StringBuffer sb` may be declared as 'StringBuilder'
-in `mailreader2/src/main/java/org/apache/struts/examples/mailreader2/dao/impl/AbstractSubscription.java`
-#### Snippet
-```java
-    public String toString() {
-
-        StringBuffer sb = new StringBuffer("<subscription host=\"");
-        sb.append(host);
-        sb.append("\" autoConnect=\"");
 ```
 
 ## RuleId[ruleID=UnnecessaryLocalVariable]
@@ -2050,19 +2011,32 @@ in `preparable-interface/src/main/java/org/apache/struts/edit/service/CarModelsS
 		return carModelsAvailable ;
 ```
 
-## RuleId[ruleID=UnusedAssignment]
-### UnusedAssignment
-Variable `host` initializer `null` is redundant
+## RuleId[ruleID=StringBufferReplaceableByStringBuilder]
+### StringBufferReplaceableByStringBuilder
+`StringBuffer sb` may be declared as 'StringBuilder'
 in `mailreader2/src/main/java/org/apache/struts/examples/mailreader2/dao/impl/AbstractSubscription.java`
 #### Snippet
 ```java
-     * The mail host for this subscription.
-     */
-    private String host = null;
+    public String toString() {
 
-
+        StringBuffer sb = new StringBuffer("<subscription host=\"");
+        sb.append(host);
+        sb.append("\" autoConnect=\"");
 ```
 
+### StringBufferReplaceableByStringBuilder
+`StringBuffer sb` may be declared as 'StringBuilder'
+in `mailreader2/src/main/java/org/apache/struts/examples/mailreader2/dao/impl/memory/MemoryUser.java`
+#### Snippet
+```java
+    public String toString() {
+
+        StringBuffer sb = new StringBuffer("<user username=\"");
+        sb.append(getUsername());
+        sb.append("\"");
+```
+
+## RuleId[ruleID=UnusedAssignment]
 ### UnusedAssignment
 Variable `user` initializer `null` is redundant
 in `mailreader2/src/main/java/org/apache/struts/examples/mailreader2/dao/impl/AbstractSubscription.java`
@@ -2076,13 +2050,13 @@ in `mailreader2/src/main/java/org/apache/struts/examples/mailreader2/dao/impl/Ab
 ```
 
 ### UnusedAssignment
-Variable `database` initializer `null` is redundant
-in `mailreader2/src/main/java/org/apache/struts/examples/mailreader2/dao/impl/AbstractUser.java`
+Variable `host` initializer `null` is redundant
+in `mailreader2/src/main/java/org/apache/struts/examples/mailreader2/dao/impl/AbstractSubscription.java`
 #### Snippet
 ```java
-     * The {@link UserDatabase} with which we are associated.
+     * The mail host for this subscription.
      */
-    private UserDatabase database = null;
+    private String host = null;
 
 
 ```
@@ -2095,6 +2069,18 @@ in `mailreader2/src/main/java/org/apache/struts/examples/mailreader2/dao/impl/Ab
      * The username for this user.
      */
     private String username = null;
+
+
+```
+
+### UnusedAssignment
+Variable `database` initializer `null` is redundant
+in `mailreader2/src/main/java/org/apache/struts/examples/mailreader2/dao/impl/AbstractUser.java`
+#### Snippet
+```java
+     * The {@link UserDatabase} with which we are associated.
+     */
+    private UserDatabase database = null;
 
 
 ```
